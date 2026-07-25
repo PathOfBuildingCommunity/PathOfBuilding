@@ -2927,11 +2927,6 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_254155233",
-				["text"] = "# to # Spell Lightning Damage per 10 Intelligence",
-				["type"] = "explicit",
-			},
-			{
 				["id"] = "explicit.stat_3938603844",
 				["text"] = "# to # added Cold Damage Players and their Minions have # to # added Cold Damage",
 				["type"] = "explicit",
@@ -3302,6 +3297,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_129730173",
+				["text"] = "#% chance in Heists for Orbs of Fusing to drop as Chromatic Orbs instead",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_559827707",
 				["text"] = "#% chance in Heists for Orbs of Regret to drop as Orbs of Annulment instead",
 				["type"] = "explicit",
@@ -3407,11 +3407,6 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_407415930",
-				["text"] = "#% chance to Avoid All Damage from Hits",
-				["type"] = "explicit",
-			},
-			{
 				["id"] = "explicit.stat_1618589784",
 				["text"] = "#% chance to Avoid Bleeding",
 				["type"] = "explicit",
@@ -3419,6 +3414,21 @@ return {
 			{
 				["id"] = "explicit.stat_3743375737",
 				["text"] = "#% chance to Avoid Cold Damage from Hits",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_720398262",
+				["text"] = "#% chance to Avoid Damage of each Element from Hits during Soul Gain Prevention",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1649883131",
+				["text"] = "#% chance to Avoid Damage of each Element from Hits per Frenzy Charge",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_407415930",
+				["text"] = "#% chance to Avoid Damage of each Type from Hits",
 				["type"] = "explicit",
 			},
 			{
@@ -3439,16 +3449,6 @@ return {
 			{
 				["id"] = "explicit.stat_2662268382",
 				["text"] = "#% chance to Avoid Elemental Ailments while you have Elusive",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_720398262",
-				["text"] = "#% chance to Avoid Elemental Damage from Hits during Soul Gain Prevention",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_1649883131",
-				["text"] = "#% chance to Avoid Elemental Damage from Hits per Frenzy Charge",
 				["type"] = "explicit",
 			},
 			{
@@ -4487,6 +4487,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_3682839745",
+				["text"] = "#% chance to gain a [BrineCharges|Brine Charge] instead of an Endurance Charge",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_2542650946",
 				["text"] = "#% chance to gain an Endurance Charge on Critical Strike",
 				["type"] = "explicit",
@@ -4984,6 +4989,11 @@ return {
 			{
 				["id"] = "explicit.stat_3094501804",
 				["text"] = "#% increased Area of Effect per Power Charge",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_940978994",
+				["text"] = "#% increased Area of Effect per Red Socket",
 				["type"] = "explicit",
 			},
 			{
@@ -6422,6 +6432,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_1605192338",
+				["text"] = "#% increased Dead Man's Sulphur found in this Area",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_2678065384",
 				["text"] = "#% increased Deception Experience gained",
 				["type"] = "explicit",
@@ -6922,6 +6937,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_2636298851",
+				["text"] = "#% increased Enchantment Modifier magnitudes",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_1170174456",
 				["text"] = "#% increased Endurance Charge Duration",
 				["type"] = "explicit",
@@ -7074,6 +7094,11 @@ return {
 			{
 				["id"] = "explicit.stat_57434274",
 				["text"] = "#% increased Experience gain (Maps)",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1581907402",
+				["text"] = "#% increased Explicit Modifier magnitudes",
 				["type"] = "explicit",
 			},
 			{
@@ -7237,6 +7262,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_3285215387",
+				["text"] = "#% increased Global Critical Strike Chance per Blue Socket",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_3081076859",
 				["text"] = "#% increased Global Critical Strike Chance per Level",
 				["type"] = "explicit",
@@ -7262,6 +7292,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_1422003590",
+				["text"] = "#% increased Global Defences per Empty Socket",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_967108924",
 				["text"] = "#% increased Global Defences per White Socket",
 				["type"] = "explicit",
@@ -7282,13 +7317,13 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2614654450",
-				["text"] = "#% increased Global Physical Damage while Frozen",
+				["id"] = "explicit.stat_2112615899",
+				["text"] = "#% increased Global Physical Damage per Red Socket",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2112615899",
-				["text"] = "#% increased Global Physical Damage with Weapons per Red Socket",
+				["id"] = "explicit.stat_2614654450",
+				["text"] = "#% increased Global Physical Damage while Frozen",
 				["type"] = "explicit",
 			},
 			{
@@ -7557,13 +7592,33 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3873704640",
+				["id"] = "explicit.stat_1821565133",
 				["text"] = "#% increased Magic Monsters",
 				["type"] = "explicit",
 			},
 			{
 				["id"] = "explicit.stat_3454830051",
 				["text"] = "#% increased Main Hand Critical Strike Chance per Murderous Eye Jewel affecting you, up to a maximum of 200%",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4101445926",
+				["text"] = "#% increased Mana Cost Efficiency",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2407942498",
+				["text"] = "#% increased Mana Cost Efficiency of Minion Skills",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1355915086",
+				["text"] = "#% increased Mana Cost Efficiency per 10 Devotion",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2934991482",
+				["text"] = "#% increased Mana Cost Efficiency per Endurance Charge",
 				["type"] = "explicit",
 			},
 			{
@@ -8097,7 +8152,7 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2017682521",
+				["id"] = "explicit.stat_2379532196",
 				["text"] = "#% increased Pack Size in your Maps",
 				["type"] = "explicit",
 			},
@@ -8382,7 +8437,7 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2390685262",
+				["id"] = "explicit.stat_2998191728",
 				["text"] = "#% increased Quantity of Items found in your Maps",
 				["type"] = "explicit",
 			},
@@ -8438,7 +8493,7 @@ return {
 			},
 			{
 				["id"] = "explicit.stat_2786105132",
-				["text"] = "#% increased Rarity of Items Dropped by Abyssal Troves and Stygian Spires in your Maps",
+				["text"] = "#% increased Rarity of Items Dropped by Abyssal Troves in your Maps",
 				["type"] = "explicit",
 			},
 			{
@@ -8517,7 +8572,7 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2306002879",
+				["id"] = "explicit.stat_918884277",
 				["text"] = "#% increased Rarity of Items found in your Maps",
 				["type"] = "explicit",
 			},
@@ -8947,6 +9002,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_113049735",
+				["text"] = "#% increased chance for Legion Encounters in your Maps to include a General",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_874254965",
 				["text"] = "#% increased chance for Maps found in your Maps to have Memory Influence",
 				["type"] = "explicit",
@@ -9162,23 +9222,28 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3873704640",
+				["id"] = "explicit.stat_1821565133",
 				["text"] = "#% increased number of Magic Monsters in your Maps",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3793155082",
+				["id"] = "explicit.stat_3126771445",
 				["text"] = "#% increased number of Rare Monsters",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3793155082",
+				["id"] = "explicit.stat_3126771445",
 				["text"] = "#% increased number of Rare Monsters in your Maps",
 				["type"] = "explicit",
 			},
 			{
 				["id"] = "explicit.stat_1240390128",
 				["text"] = "#% increased number of Unique Crucible Monsters",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1553039081",
+				["text"] = "#% increased quantity of Abyss Jewels found in your Maps",
 				["type"] = "explicit",
 			},
 			{
@@ -9557,11 +9622,6 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1865744989",
-				["text"] = "#% of Chaos Damage taken does not bypass Energy Shield",
-				["type"] = "explicit",
-			},
-			{
 				["id"] = "explicit.stat_723832351",
 				["text"] = "#% of Cold Damage Converted to Fire Damage",
 				["type"] = "explicit",
@@ -9717,11 +9777,6 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_603134774",
-				["text"] = "#% of Damage from your Hits cannot be Reflected during Effect",
-				["type"] = "explicit",
-			},
-			{
 				["id"] = "explicit.stat_458438597",
 				["text"] = "#% of Damage is taken from Mana before Life",
 				["type"] = "explicit",
@@ -9807,18 +9862,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1574578643",
-				["text"] = "#% of Elemental Damage from your Hits cannot be Reflected while affected by Purity of Elements",
-				["type"] = "explicit",
-			},
-			{
 				["id"] = "explicit.stat_2251969898",
 				["text"] = "#% of Elemental Damage taken as Chaos Damage if 4 Hunter Items are Equipped",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_3408683611",
-				["text"] = "#% of Elemental Hit Damage from you and your Minions cannot be Reflected",
 				["type"] = "explicit",
 			},
 			{
@@ -9894,11 +9939,6 @@ return {
 			{
 				["id"] = "explicit.stat_2189467271",
 				["text"] = "#% of Fire and Lightning Damage taken as Cold Damage while affected by Purity of Ice",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_1567747544",
-				["text"] = "#% of Hit Damage from you and your Minions cannot be Reflected",
 				["type"] = "explicit",
 			},
 			{
@@ -10207,11 +10247,6 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2255585376",
-				["text"] = "#% of Physical Damage from your Hits cannot be Reflected while affected by Determination",
-				["type"] = "explicit",
-			},
-			{
 				["id"] = "explicit.stat_3743438423",
 				["text"] = "#% of Physical Damage is taken from Mana before Life",
 				["type"] = "explicit",
@@ -10234,11 +10269,6 @@ return {
 			{
 				["id"] = "explicit.stat_2006105838",
 				["text"] = "#% of Physical Damage taken as Lightning Damage if 4 Crusader Items are Equipped",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_1818622832",
-				["text"] = "#% of Physical Hit Damage from you and your Minions cannot be Reflected",
 				["type"] = "explicit",
 			},
 			{
@@ -11368,7 +11398,7 @@ return {
 			},
 			{
 				["id"] = "explicit.indexable_skill_159",
-				["text"] = "+# to Level of all Dark Pact Gems",
+				["text"] = "+# to Level of all Dark Bargain Gems",
 				["type"] = "explicit",
 			},
 			{
@@ -13217,11 +13247,6 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1818900806",
-				["text"] = "+#% Critical Strike Chance per Power Charge",
-				["type"] = "explicit",
-			},
-			{
 				["id"] = "explicit.stat_1166971727",
 				["text"] = "+#% Critical Strike Chance while at maximum Power Charges",
 				["type"] = "explicit",
@@ -13298,7 +13323,7 @@ return {
 			},
 			{
 				["id"] = "explicit.stat_143510471",
-				["text"] = "+#% chance to Avoid Elemental Damage from Hits while Phasing",
+				["text"] = "+#% chance to Avoid Damage of each Element from Hits while Phasing",
 				["type"] = "explicit",
 			},
 			{
@@ -13432,6 +13457,21 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_2142084156",
+				["text"] = "+#% to Chaos Resistance per 1% Cold Resistance",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3795935347",
+				["text"] = "+#% to Chaos Resistance per 1% Fire Resistance",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3789103652",
+				["text"] = "+#% to Chaos Resistance per 1% Lightning Resistance",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_4210011075",
 				["text"] = "+#% to Chaos Resistance per Endurance Charge",
 				["type"] = "explicit",
@@ -13504,6 +13544,11 @@ return {
 			{
 				["id"] = "explicit.stat_1535051459",
 				["text"] = "+#% to Critical Strike Chance against Enemies on Consecrated Ground during Effect",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1818900806",
+				["text"] = "+#% to Critical Strike Chance per Power Charge",
 				["type"] = "explicit",
 			},
 			{
@@ -13684,6 +13729,11 @@ return {
 			{
 				["id"] = "explicit.stat_2583415204",
 				["text"] = "+#% to Damage over Time Multiplier for Bleeding per Frenzy Charge",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3867887711",
+				["text"] = "+#% to Damage over Time Multiplier for Ignite from Critical Strikes",
 				["type"] = "explicit",
 			},
 			{
@@ -15707,18 +15757,13 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_440232197",
-				["text"] = "Abyss Cracks in your Maps have #% chance to spawn all Monsters as Magic for each prior Pit in that Abyss",
-				["type"] = "explicit",
-			},
-			{
 				["id"] = "explicit.stat_1388221282",
 				["text"] = "Abyss Cracks in your Maps have #% chance to spawn all Monsters as at least Magic",
 				["type"] = "explicit",
 			},
 			{
 				["id"] = "explicit.stat_286869897",
-				["text"] = "Abyss Jewels dropped by Abyssal Troves or Stygian Spires in your Maps have a #% Chance to be Rare and Corrupted",
+				["text"] = "Abyss Jewels dropped by Abyssal Troves have a #% chance to be Rare and Corrupted",
 				["type"] = "explicit",
 			},
 			{
@@ -15728,7 +15773,7 @@ return {
 			},
 			{
 				["id"] = "explicit.stat_4842372",
-				["text"] = "Abyss Jewels found in Abyssal Troves or dropped by Stygian Spires in your Maps have #% chance to be Corrupted and have 5 or 6 random Modifiers",
+				["text"] = "Abyss Jewels found in your Maps have #% chance to be Corrupted and have 5 or 6 random Modifiers",
 				["type"] = "explicit",
 			},
 			{
@@ -15752,8 +15797,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2609011894",
-				["text"] = "Abyssal Troves and Stygian Spires in your Maps have #% chance to drop a Rare Item with an Abyssal Socket",
+				["id"] = "explicit.stat_440232197",
+				["text"] = "Abyss Pits in your Maps have #% chance to spawn all Monsters as at least Magic for each prior Pit closed",
 				["type"] = "explicit",
 			},
 			{
@@ -15762,8 +15807,8 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1553039081",
-				["text"] = "Abyssal Troves and Stygian Spires in your Maps have #% increased chance to contain or drop an Abyss Jewel",
+				["id"] = "explicit.stat_2609011894",
+				["text"] = "Abyssal Troves in your Maps have #% chance to drop a Rare Item with an Abyssal Socket",
 				["type"] = "explicit",
 			},
 			{
@@ -15784,11 +15829,6 @@ return {
 			{
 				["id"] = "explicit.stat_944630113",
 				["text"] = "Abysses in your Maps spawn #% increased Monsters",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_1927544133",
-				["text"] = "Abysses in your Maps spawn #% increased Monsters for each prior Pit in that Abyss",
 				["type"] = "explicit",
 			},
 			{
@@ -16392,6 +16432,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_254155233",
+				["text"] = "Adds # to # Lightning Damage to Spells per 10 Intelligence",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_4085417083",
 				["text"] = "Adds # to # Lightning Damage to Spells per Power Charge",
 				["type"] = "explicit",
@@ -16712,1333 +16757,1643 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2460506030",
-				["option"] = {
-					["options"] = {
-						{
-							["id"] = 32947,
-							["text"] = "Swift Killer",
-						},
-						{
-							["id"] = 55867,
-							["text"] = "Polymath",
-						},
-						{
-							["id"] = 28884,
-							["text"] = "Heartstopper",
-						},
-						{
-							["id"] = 29825,
-							["text"] = "Escape Artist",
-						},
-						{
-							["id"] = 41891,
-							["text"] = "Spellbreaker",
-						},
-						{
-							["id"] = 23225,
-							["text"] = "One Step Ahead",
-						},
-						{
-							["id"] = 57331,
-							["text"] = "Harness the Void",
-						},
-						{
-							["id"] = 3184,
-							["text"] = "Headsman",
-						},
-						{
-							["id"] = 17315,
-							["text"] = "Overwhelm",
-						},
-						{
-							["id"] = 62817,
-							["text"] = "Bane of Legends",
-						},
-						{
-							["id"] = 34484,
-							["text"] = "Endless Hunger",
-						},
-						{
-							["id"] = 10143,
-							["text"] = "Brutal Fervour",
-						},
-						{
-							["id"] = 38180,
-							["text"] = "Impact",
-						},
-						{
-							["id"] = 16306,
-							["text"] = "Masterful Form",
-						},
-						{
-							["id"] = 16940,
-							["text"] = "Pyromaniac",
-						},
-						{
-							["id"] = 5087,
-							["text"] = "Born in the Shadows",
-						},
-						{
-							["id"] = 14103,
-							["text"] = "Calculated Risk",
-						},
-						{
-							["id"] = 51462,
-							["text"] = "Like Clockwork",
-						},
-						{
-							["id"] = 28535,
-							["text"] = "Perfect Crime",
-						},
-						{
-							["id"] = 39834,
-							["text"] = "Demolitions Specialist",
-						},
-						{
-							["id"] = 38918,
-							["text"] = "Chain Reaction",
-						},
-						{
-							["id"] = 47778,
-							["text"] = "Bomb Specialist",
-						},
-						{
-							["id"] = 57175,
-							["text"] = "Shrapnel Specialist",
-						},
-						{
-							["id"] = 31364,
-							["text"] = "Oath of Spring",
-						},
-						{
-							["id"] = 16848,
-							["text"] = "Oath of Winter",
-						},
-						{
-							["id"] = 4849,
-							["text"] = "Mother's Teachings",
-						},
-						{
-							["id"] = 11597,
-							["text"] = "Lesson of the Seasons",
-						},
-						{
-							["id"] = 33645,
-							["text"] = "Oath of Summer",
-						},
-						{
-							["id"] = 55509,
-							["text"] = "Avatar of the Wilds",
-						},
-						{
-							["id"] = 29662,
-							["text"] = "Experienced Herbalist",
-						},
-						{
-							["id"] = 40104,
-							["text"] = "Enduring Suffusion",
-						},
-						{
-							["id"] = 51101,
-							["text"] = "Nature's Adrenaline",
-						},
-						{
-							["id"] = 63293,
-							["text"] = "Master Surgeon",
-						},
-						{
-							["id"] = 65296,
-							["text"] = "Nature's Boon",
-						},
-						{
-							["id"] = 61805,
-							["text"] = "Master Alchemist",
-						},
-						{
-							["id"] = 6038,
-							["text"] = "Master Distiller",
-						},
-						{
-							["id"] = 40813,
-							["text"] = "Nature's Reprisal",
-						},
-						{
-							["id"] = 1697,
-							["text"] = "Master Toxicist",
-						},
-						{
-							["id"] = 37127,
-							["text"] = "Profane Bloom",
-						},
-						{
-							["id"] = 31344,
-							["text"] = "Unholy Authority",
-						},
-						{
-							["id"] = 37492,
-							["text"] = "Vile Bastion",
-						},
-						{
-							["id"] = 27096,
-							["text"] = "Void Beacon",
-						},
-						{
-							["id"] = 62504,
-							["text"] = "Forbidden Power",
-						},
-						{
-							["id"] = 25309,
-							["text"] = "Withering Presence",
-						},
-						{
-							["id"] = 47630,
-							["text"] = "Frigid Wake",
-						},
-						{
-							["id"] = 54159,
-							["text"] = "Mindless Aggression",
-						},
-						{
-							["id"] = 65153,
-							["text"] = "Unnatural Strength",
-						},
-						{
-							["id"] = 14603,
-							["text"] = "Bone Barrier",
-						},
-						{
-							["id"] = 48719,
-							["text"] = "Mistress of Sacrifice",
-						},
-						{
-							["id"] = 3554,
-							["text"] = "Essence Glutton",
-						},
-						{
-							["id"] = 36017,
-							["text"] = "Commander of Darkness",
-						},
-						{
-							["id"] = 11490,
-							["text"] = "Plaguebringer",
-						},
-						{
-							["id"] = 23572,
-							["text"] = "Corpse Pact",
-						},
-						{
-							["id"] = 5819,
-							["text"] = "Unstoppable",
-						},
-						{
-							["id"] = 53816,
-							["text"] = "Unbreakable",
-						},
-						{
-							["id"] = 62595,
-							["text"] = "Unyielding",
-						},
-						{
-							["id"] = 44297,
-							["text"] = "Undeniable",
-						},
-						{
-							["id"] = 1734,
-							["text"] = "Unflinching",
-						},
-						{
-							["id"] = 56789,
-							["text"] = "Unrelenting",
-						},
-						{
-							["id"] = 17988,
-							["text"] = "Untiring",
-						},
-						{
-							["id"] = 53884,
-							["text"] = "Righteous Providence",
-						},
-						{
-							["id"] = 48214,
-							["text"] = "Inevitable Judgement",
-						},
-						{
-							["id"] = 40059,
-							["text"] = "Augury of Penitence",
-						},
-						{
-							["id"] = 39790,
-							["text"] = "Sanctuary",
-						},
-						{
-							["id"] = 32816,
-							["text"] = "Pious Path",
-						},
-						{
-							["id"] = 13851,
-							["text"] = "Instruments of Zeal",
-						},
-						{
-							["id"] = 19417,
-							["text"] = "Instruments of Virtue",
-						},
-						{
-							["id"] = 922,
-							["text"] = "Divine Guidance",
-						},
-						{
-							["id"] = 29026,
-							["text"] = "Sanctuary of Thought",
-						},
-						{
-							["id"] = 1105,
-							["text"] = "Pursuit of Faith",
-						},
-						{
-							["id"] = 34434,
-							["text"] = "Ritual of Awakening",
-						},
-						{
-							["id"] = 25651,
-							["text"] = "Conviction of Power",
-						},
-						{
-							["id"] = 60462,
-							["text"] = "Illuminated Devotion",
-						},
-						{
-							["id"] = 40510,
-							["text"] = "Arcane Blessing",
-						},
-						{
-							["id"] = 51492,
-							["text"] = "Sign of Purpose",
-						},
-						{
-							["id"] = 55146,
-							["text"] = "Time of Need",
-						},
-						{
-							["id"] = 42264,
-							["text"] = "Radiant Faith",
-						},
-						{
-							["id"] = 39728,
-							["text"] = "Bastion of Hope",
-						},
-						{
-							["id"] = 61372,
-							["text"] = "Harmony of Purpose",
-						},
-						{
-							["id"] = 64768,
-							["text"] = "Unwavering Faith",
-						},
-						{
-							["id"] = 4494,
-							["text"] = "Radiant Crusade",
-						},
-						{
-							["id"] = 19641,
-							["text"] = "Unwavering Crusade",
-						},
-						{
-							["id"] = 3458,
-							["text"] = "Marshal of Divinity",
-						},
-						{
-							["id"] = 27864,
-							["text"] = "Gratuitous Violence",
-						},
-						{
-							["id"] = 15616,
-							["text"] = "Jagged Technique",
-						},
-						{
-							["id"] = 52575,
-							["text"] = "Weapon Master",
-						},
-						{
-							["id"] = 8419,
-							["text"] = "Determined Survivor",
-						},
-						{
-							["id"] = 63490,
-							["text"] = "Measured Retaliation",
-						},
-						{
-							["id"] = 2598,
-							["text"] = "More Than Skill",
-						},
-						{
-							["id"] = 758,
-							["text"] = "War of Attrition",
-						},
-						{
-							["id"] = 56461,
-							["text"] = "Liege of the Primordial",
-						},
-						{
-							["id"] = 61259,
-							["text"] = "Mastermind of Discord",
-						},
-						{
-							["id"] = 57197,
-							["text"] = "Heart of Destruction",
-						},
-						{
-							["id"] = 4917,
-							["text"] = "Bastion of Elements",
-						},
-						{
-							["id"] = 258,
-							["text"] = "Bringer of Ruin",
-						},
-						{
-							["id"] = 53123,
-							["text"] = "Shaper of Flames",
-						},
-						{
-							["id"] = 27038,
-							["text"] = "Shaper of Storms",
-						},
-						{
-							["id"] = 40810,
-							["text"] = "Shaper of Winter",
-						},
-						{
-							["id"] = 5443,
-							["text"] = "Focal Point",
-						},
-						{
-							["id"] = 61627,
-							["text"] = "Ricochet",
-						},
-						{
-							["id"] = 26067,
-							["text"] = "Endless Munitions",
-						},
-						{
-							["id"] = 45313,
-							["text"] = "Far Shot",
-						},
-						{
-							["id"] = 44482,
-							["text"] = "Avidity",
-						},
-						{
-							["id"] = 24848,
-							["text"] = "Gathering Winds",
-						},
-						{
-							["id"] = 2872,
-							["text"] = "Occupying Force",
-						},
-						{
-							["id"] = 23169,
-							["text"] = "Wind Ward",
-						},
-						{
-							["id"] = 31667,
-							["text"] = "Sione, Sun's Roar",
-						},
-						{
-							["id"] = 50692,
-							["text"] = "Ngamahu, Flame's Advance",
-						},
-						{
-							["id"] = 1731,
-							["text"] = "Hinekora, Death's Fury",
-						},
-						{
-							["id"] = 48480,
-							["text"] = "Tasalio, Cleansing Water",
-						},
-						{
-							["id"] = 53095,
-							["text"] = "Tukohama, War's Herald",
-						},
-						{
-							["id"] = 5029,
-							["text"] = "Tawhoa, Forest's Strength",
-						},
-						{
-							["id"] = 61355,
-							["text"] = "Ramako, Sun's Light",
-						},
-						{
-							["id"] = 32249,
-							["text"] = "Valako, Storm's Embrace",
-						},
-						{
-							["id"] = 31700,
-							["text"] = "Fortitude",
-						},
-						{
-							["id"] = 33940,
-							["text"] = "Unstoppable Hero",
-						},
-						{
-							["id"] = 35750,
-							["text"] = "Worthy Causes",
-						},
-						{
-							["id"] = 56967,
-							["text"] = "Worthy Foe",
-						},
-						{
-							["id"] = 11412,
-							["text"] = "Inspirational",
-						},
-						{
-							["id"] = 27604,
-							["text"] = "First to Strike, Last to Fall",
-						},
-						{
-							["id"] = 13374,
-							["text"] = "Master of Metal",
-						},
-						{
-							["id"] = 32251,
-							["text"] = "War Bringer",
-						},
-						{
-							["id"] = 57560,
-							["text"] = "Rite of Ruin",
-						},
-						{
-							["id"] = 9271,
-							["text"] = "Defy Pain",
-						},
-						{
-							["id"] = 38999,
-							["text"] = "Ancestral Fury",
-						},
-						{
-							["id"] = 24528,
-							["text"] = "Crave the Slaughter",
-						},
-						{
-							["id"] = 59920,
-							["text"] = "Aspect of Carnage",
-						},
-						{
-							["id"] = 29630,
-							["text"] = "Gore Dancer",
-						},
-						{
-							["id"] = 4242,
-							["text"] = "Unstable Infusion",
-						},
-						{
-							["id"] = 48239,
-							["text"] = "Deathmarked",
-						},
-						{
-							["id"] = 21264,
-							["text"] = "Knife in the Back",
-						},
-						{
-							["id"] = 19083,
-							["text"] = "Opportunistic",
-						},
-						{
-							["id"] = 19598,
-							["text"] = "Toxic Delivery",
-						},
-						{
-							["id"] = 1945,
-							["text"] = "Mystical Infusion",
-						},
-						{
-							["id"] = 28782,
-							["text"] = "Mistwalker",
-						},
-						{
-							["id"] = 61072,
-							["text"] = "Juggernaut",
-						},
-						{
-							["id"] = 4194,
-							["text"] = "Berserker",
-						},
-						{
-							["id"] = 57052,
-							["text"] = "Chieftain",
-						},
-						{
-							["id"] = 8656,
-							["text"] = "Warden",
-						},
-						{
-							["id"] = 34567,
-							["text"] = "Deadeye",
-						},
-						{
-							["id"] = 9327,
-							["text"] = "Pathfinder",
-						},
-						{
-							["id"] = 12597,
-							["text"] = "Occultist",
-						},
-						{
-							["id"] = 8281,
-							["text"] = "Elementalist",
-						},
-						{
-							["id"] = 10099,
-							["text"] = "Necromancer",
-						},
-						{
-							["id"] = 43195,
-							["text"] = "Slayer",
-						},
-						{
-							["id"] = 34774,
-							["text"] = "Gladiator",
-						},
-						{
-							["id"] = 39598,
-							["text"] = "Champion",
-						},
-						{
-							["id"] = 43962,
-							["text"] = "Inquisitor",
-						},
-						{
-							["id"] = 42144,
-							["text"] = "Hierophant",
-						},
-						{
-							["id"] = 30919,
-							["text"] = "Guardian",
-						},
-						{
-							["id"] = 43122,
-							["text"] = "Assassin",
-						},
-						{
-							["id"] = 6778,
-							["text"] = "Trickster",
-						},
-						{
-							["id"] = 58827,
-							["text"] = "Saboteur",
-						},
-						{
-							["id"] = 27602,
-							["text"] = "Nine Lives",
-						},
-						{
-							["id"] = 57568,
-							["text"] = "Searing Purity",
-						},
-						{
-							["id"] = 52435,
-							["text"] = "Indomitable Resolve",
-						},
-						{
-							["id"] = 42469,
-							["text"] = "Fatal Flourish",
-						},
-						{
-							["id"] = 18054,
-							["text"] = "Fury of Nature",
-						},
-						{
-							["id"] = 48999,
-							["text"] = "Soul Drinker",
-						},
-						{
-							["id"] = 19355,
-							["text"] = "Unleashed Potential",
-						},
-						{
-							["id"] = 36958,
-							["text"] = "Seasoned Hunter",
-						},
-						{
-							["id"] = 29844,
-							["text"] = "Shadowed Blood",
-						},
-						{
-							["id"] = 18335,
-							["text"] = "For the Jugular",
-						},
-						{
-							["id"] = 21192,
-							["text"] = "Infused Toxins",
-						},
-					},
-				},
-				["text"] = "Allocates # if you have matching modifier on Forbidden Flame",
+				["id"] = "explicit.stat_2460506030|38999",
+				["text"] = "Allocates Ancestral Fury if you have the matching modifier on Forbidden Flame",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1190333629",
-				["option"] = {
-					["options"] = {
-						{
-							["id"] = 32947,
-							["text"] = "Swift Killer",
-						},
-						{
-							["id"] = 55867,
-							["text"] = "Polymath",
-						},
-						{
-							["id"] = 28884,
-							["text"] = "Heartstopper",
-						},
-						{
-							["id"] = 29825,
-							["text"] = "Escape Artist",
-						},
-						{
-							["id"] = 41891,
-							["text"] = "Spellbreaker",
-						},
-						{
-							["id"] = 23225,
-							["text"] = "One Step Ahead",
-						},
-						{
-							["id"] = 57331,
-							["text"] = "Harness the Void",
-						},
-						{
-							["id"] = 3184,
-							["text"] = "Headsman",
-						},
-						{
-							["id"] = 17315,
-							["text"] = "Overwhelm",
-						},
-						{
-							["id"] = 62817,
-							["text"] = "Bane of Legends",
-						},
-						{
-							["id"] = 34484,
-							["text"] = "Endless Hunger",
-						},
-						{
-							["id"] = 10143,
-							["text"] = "Brutal Fervour",
-						},
-						{
-							["id"] = 38180,
-							["text"] = "Impact",
-						},
-						{
-							["id"] = 16306,
-							["text"] = "Masterful Form",
-						},
-						{
-							["id"] = 16940,
-							["text"] = "Pyromaniac",
-						},
-						{
-							["id"] = 5087,
-							["text"] = "Born in the Shadows",
-						},
-						{
-							["id"] = 14103,
-							["text"] = "Calculated Risk",
-						},
-						{
-							["id"] = 51462,
-							["text"] = "Like Clockwork",
-						},
-						{
-							["id"] = 28535,
-							["text"] = "Perfect Crime",
-						},
-						{
-							["id"] = 39834,
-							["text"] = "Demolitions Specialist",
-						},
-						{
-							["id"] = 38918,
-							["text"] = "Chain Reaction",
-						},
-						{
-							["id"] = 47778,
-							["text"] = "Bomb Specialist",
-						},
-						{
-							["id"] = 57175,
-							["text"] = "Shrapnel Specialist",
-						},
-						{
-							["id"] = 31364,
-							["text"] = "Oath of Spring",
-						},
-						{
-							["id"] = 16848,
-							["text"] = "Oath of Winter",
-						},
-						{
-							["id"] = 4849,
-							["text"] = "Mother's Teachings",
-						},
-						{
-							["id"] = 11597,
-							["text"] = "Lesson of the Seasons",
-						},
-						{
-							["id"] = 33645,
-							["text"] = "Oath of Summer",
-						},
-						{
-							["id"] = 55509,
-							["text"] = "Avatar of the Wilds",
-						},
-						{
-							["id"] = 29662,
-							["text"] = "Experienced Herbalist",
-						},
-						{
-							["id"] = 40104,
-							["text"] = "Enduring Suffusion",
-						},
-						{
-							["id"] = 51101,
-							["text"] = "Nature's Adrenaline",
-						},
-						{
-							["id"] = 63293,
-							["text"] = "Master Surgeon",
-						},
-						{
-							["id"] = 65296,
-							["text"] = "Nature's Boon",
-						},
-						{
-							["id"] = 61805,
-							["text"] = "Master Alchemist",
-						},
-						{
-							["id"] = 6038,
-							["text"] = "Master Distiller",
-						},
-						{
-							["id"] = 40813,
-							["text"] = "Nature's Reprisal",
-						},
-						{
-							["id"] = 1697,
-							["text"] = "Master Toxicist",
-						},
-						{
-							["id"] = 37127,
-							["text"] = "Profane Bloom",
-						},
-						{
-							["id"] = 31344,
-							["text"] = "Unholy Authority",
-						},
-						{
-							["id"] = 37492,
-							["text"] = "Vile Bastion",
-						},
-						{
-							["id"] = 27096,
-							["text"] = "Void Beacon",
-						},
-						{
-							["id"] = 62504,
-							["text"] = "Forbidden Power",
-						},
-						{
-							["id"] = 25309,
-							["text"] = "Withering Presence",
-						},
-						{
-							["id"] = 47630,
-							["text"] = "Frigid Wake",
-						},
-						{
-							["id"] = 54159,
-							["text"] = "Mindless Aggression",
-						},
-						{
-							["id"] = 65153,
-							["text"] = "Unnatural Strength",
-						},
-						{
-							["id"] = 14603,
-							["text"] = "Bone Barrier",
-						},
-						{
-							["id"] = 48719,
-							["text"] = "Mistress of Sacrifice",
-						},
-						{
-							["id"] = 3554,
-							["text"] = "Essence Glutton",
-						},
-						{
-							["id"] = 36017,
-							["text"] = "Commander of Darkness",
-						},
-						{
-							["id"] = 11490,
-							["text"] = "Plaguebringer",
-						},
-						{
-							["id"] = 23572,
-							["text"] = "Corpse Pact",
-						},
-						{
-							["id"] = 5819,
-							["text"] = "Unstoppable",
-						},
-						{
-							["id"] = 53816,
-							["text"] = "Unbreakable",
-						},
-						{
-							["id"] = 62595,
-							["text"] = "Unyielding",
-						},
-						{
-							["id"] = 44297,
-							["text"] = "Undeniable",
-						},
-						{
-							["id"] = 1734,
-							["text"] = "Unflinching",
-						},
-						{
-							["id"] = 56789,
-							["text"] = "Unrelenting",
-						},
-						{
-							["id"] = 17988,
-							["text"] = "Untiring",
-						},
-						{
-							["id"] = 53884,
-							["text"] = "Righteous Providence",
-						},
-						{
-							["id"] = 48214,
-							["text"] = "Inevitable Judgement",
-						},
-						{
-							["id"] = 40059,
-							["text"] = "Augury of Penitence",
-						},
-						{
-							["id"] = 39790,
-							["text"] = "Sanctuary",
-						},
-						{
-							["id"] = 32816,
-							["text"] = "Pious Path",
-						},
-						{
-							["id"] = 13851,
-							["text"] = "Instruments of Zeal",
-						},
-						{
-							["id"] = 19417,
-							["text"] = "Instruments of Virtue",
-						},
-						{
-							["id"] = 922,
-							["text"] = "Divine Guidance",
-						},
-						{
-							["id"] = 29026,
-							["text"] = "Sanctuary of Thought",
-						},
-						{
-							["id"] = 1105,
-							["text"] = "Pursuit of Faith",
-						},
-						{
-							["id"] = 34434,
-							["text"] = "Ritual of Awakening",
-						},
-						{
-							["id"] = 25651,
-							["text"] = "Conviction of Power",
-						},
-						{
-							["id"] = 60462,
-							["text"] = "Illuminated Devotion",
-						},
-						{
-							["id"] = 40510,
-							["text"] = "Arcane Blessing",
-						},
-						{
-							["id"] = 51492,
-							["text"] = "Sign of Purpose",
-						},
-						{
-							["id"] = 55146,
-							["text"] = "Time of Need",
-						},
-						{
-							["id"] = 42264,
-							["text"] = "Radiant Faith",
-						},
-						{
-							["id"] = 39728,
-							["text"] = "Bastion of Hope",
-						},
-						{
-							["id"] = 61372,
-							["text"] = "Harmony of Purpose",
-						},
-						{
-							["id"] = 64768,
-							["text"] = "Unwavering Faith",
-						},
-						{
-							["id"] = 4494,
-							["text"] = "Radiant Crusade",
-						},
-						{
-							["id"] = 19641,
-							["text"] = "Unwavering Crusade",
-						},
-						{
-							["id"] = 3458,
-							["text"] = "Marshal of Divinity",
-						},
-						{
-							["id"] = 27864,
-							["text"] = "Gratuitous Violence",
-						},
-						{
-							["id"] = 15616,
-							["text"] = "Jagged Technique",
-						},
-						{
-							["id"] = 52575,
-							["text"] = "Weapon Master",
-						},
-						{
-							["id"] = 8419,
-							["text"] = "Determined Survivor",
-						},
-						{
-							["id"] = 63490,
-							["text"] = "Measured Retaliation",
-						},
-						{
-							["id"] = 2598,
-							["text"] = "More Than Skill",
-						},
-						{
-							["id"] = 758,
-							["text"] = "War of Attrition",
-						},
-						{
-							["id"] = 56461,
-							["text"] = "Liege of the Primordial",
-						},
-						{
-							["id"] = 61259,
-							["text"] = "Mastermind of Discord",
-						},
-						{
-							["id"] = 57197,
-							["text"] = "Heart of Destruction",
-						},
-						{
-							["id"] = 4917,
-							["text"] = "Bastion of Elements",
-						},
-						{
-							["id"] = 258,
-							["text"] = "Bringer of Ruin",
-						},
-						{
-							["id"] = 53123,
-							["text"] = "Shaper of Flames",
-						},
-						{
-							["id"] = 27038,
-							["text"] = "Shaper of Storms",
-						},
-						{
-							["id"] = 40810,
-							["text"] = "Shaper of Winter",
-						},
-						{
-							["id"] = 5443,
-							["text"] = "Focal Point",
-						},
-						{
-							["id"] = 61627,
-							["text"] = "Ricochet",
-						},
-						{
-							["id"] = 26067,
-							["text"] = "Endless Munitions",
-						},
-						{
-							["id"] = 45313,
-							["text"] = "Far Shot",
-						},
-						{
-							["id"] = 44482,
-							["text"] = "Avidity",
-						},
-						{
-							["id"] = 24848,
-							["text"] = "Gathering Winds",
-						},
-						{
-							["id"] = 2872,
-							["text"] = "Occupying Force",
-						},
-						{
-							["id"] = 23169,
-							["text"] = "Wind Ward",
-						},
-						{
-							["id"] = 31667,
-							["text"] = "Sione, Sun's Roar",
-						},
-						{
-							["id"] = 50692,
-							["text"] = "Ngamahu, Flame's Advance",
-						},
-						{
-							["id"] = 1731,
-							["text"] = "Hinekora, Death's Fury",
-						},
-						{
-							["id"] = 48480,
-							["text"] = "Tasalio, Cleansing Water",
-						},
-						{
-							["id"] = 53095,
-							["text"] = "Tukohama, War's Herald",
-						},
-						{
-							["id"] = 5029,
-							["text"] = "Tawhoa, Forest's Strength",
-						},
-						{
-							["id"] = 61355,
-							["text"] = "Ramako, Sun's Light",
-						},
-						{
-							["id"] = 32249,
-							["text"] = "Valako, Storm's Embrace",
-						},
-						{
-							["id"] = 31700,
-							["text"] = "Fortitude",
-						},
-						{
-							["id"] = 33940,
-							["text"] = "Unstoppable Hero",
-						},
-						{
-							["id"] = 35750,
-							["text"] = "Worthy Causes",
-						},
-						{
-							["id"] = 56967,
-							["text"] = "Worthy Foe",
-						},
-						{
-							["id"] = 11412,
-							["text"] = "Inspirational",
-						},
-						{
-							["id"] = 27604,
-							["text"] = "First to Strike, Last to Fall",
-						},
-						{
-							["id"] = 13374,
-							["text"] = "Master of Metal",
-						},
-						{
-							["id"] = 32251,
-							["text"] = "War Bringer",
-						},
-						{
-							["id"] = 57560,
-							["text"] = "Rite of Ruin",
-						},
-						{
-							["id"] = 9271,
-							["text"] = "Defy Pain",
-						},
-						{
-							["id"] = 38999,
-							["text"] = "Ancestral Fury",
-						},
-						{
-							["id"] = 24528,
-							["text"] = "Crave the Slaughter",
-						},
-						{
-							["id"] = 59920,
-							["text"] = "Aspect of Carnage",
-						},
-						{
-							["id"] = 29630,
-							["text"] = "Gore Dancer",
-						},
-						{
-							["id"] = 4242,
-							["text"] = "Unstable Infusion",
-						},
-						{
-							["id"] = 48239,
-							["text"] = "Deathmarked",
-						},
-						{
-							["id"] = 21264,
-							["text"] = "Knife in the Back",
-						},
-						{
-							["id"] = 19083,
-							["text"] = "Opportunistic",
-						},
-						{
-							["id"] = 19598,
-							["text"] = "Toxic Delivery",
-						},
-						{
-							["id"] = 1945,
-							["text"] = "Mystical Infusion",
-						},
-						{
-							["id"] = 28782,
-							["text"] = "Mistwalker",
-						},
-						{
-							["id"] = 61072,
-							["text"] = "Juggernaut",
-						},
-						{
-							["id"] = 4194,
-							["text"] = "Berserker",
-						},
-						{
-							["id"] = 57052,
-							["text"] = "Chieftain",
-						},
-						{
-							["id"] = 8656,
-							["text"] = "Warden",
-						},
-						{
-							["id"] = 34567,
-							["text"] = "Deadeye",
-						},
-						{
-							["id"] = 9327,
-							["text"] = "Pathfinder",
-						},
-						{
-							["id"] = 12597,
-							["text"] = "Occultist",
-						},
-						{
-							["id"] = 8281,
-							["text"] = "Elementalist",
-						},
-						{
-							["id"] = 10099,
-							["text"] = "Necromancer",
-						},
-						{
-							["id"] = 43195,
-							["text"] = "Slayer",
-						},
-						{
-							["id"] = 34774,
-							["text"] = "Gladiator",
-						},
-						{
-							["id"] = 39598,
-							["text"] = "Champion",
-						},
-						{
-							["id"] = 43962,
-							["text"] = "Inquisitor",
-						},
-						{
-							["id"] = 42144,
-							["text"] = "Hierophant",
-						},
-						{
-							["id"] = 30919,
-							["text"] = "Guardian",
-						},
-						{
-							["id"] = 43122,
-							["text"] = "Assassin",
-						},
-						{
-							["id"] = 6778,
-							["text"] = "Trickster",
-						},
-						{
-							["id"] = 58827,
-							["text"] = "Saboteur",
-						},
-						{
-							["id"] = 27602,
-							["text"] = "Nine Lives",
-						},
-						{
-							["id"] = 57568,
-							["text"] = "Searing Purity",
-						},
-						{
-							["id"] = 52435,
-							["text"] = "Indomitable Resolve",
-						},
-						{
-							["id"] = 42469,
-							["text"] = "Fatal Flourish",
-						},
-						{
-							["id"] = 18054,
-							["text"] = "Fury of Nature",
-						},
-						{
-							["id"] = 48999,
-							["text"] = "Soul Drinker",
-						},
-						{
-							["id"] = 19355,
-							["text"] = "Unleashed Potential",
-						},
-						{
-							["id"] = 36958,
-							["text"] = "Seasoned Hunter",
-						},
-						{
-							["id"] = 29844,
-							["text"] = "Shadowed Blood",
-						},
-						{
-							["id"] = 18335,
-							["text"] = "For the Jugular",
-						},
-						{
-							["id"] = 21192,
-							["text"] = "Infused Toxins",
-						},
-					},
-				},
-				["text"] = "Allocates # if you have matching modifier on Forbidden Flesh",
+				["id"] = "explicit.stat_1190333629|38999",
+				["text"] = "Allocates Ancestral Fury if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|40510",
+				["text"] = "Allocates Arcane Blessing if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|40510",
+				["text"] = "Allocates Arcane Blessing if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|59920",
+				["text"] = "Allocates Aspect of Carnage if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|59920",
+				["text"] = "Allocates Aspect of Carnage if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|43122",
+				["text"] = "Allocates Assassin if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|43122",
+				["text"] = "Allocates Assassin if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|40059",
+				["text"] = "Allocates Augury of Penitence if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|40059",
+				["text"] = "Allocates Augury of Penitence if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|55509",
+				["text"] = "Allocates Avatar of the Wilds if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|55509",
+				["text"] = "Allocates Avatar of the Wilds if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|44482",
+				["text"] = "Allocates Avidity if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|44482",
+				["text"] = "Allocates Avidity if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|62817",
+				["text"] = "Allocates Bane of Legends if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|62817",
+				["text"] = "Allocates Bane of Legends if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|4917",
+				["text"] = "Allocates Bastion of Elements if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|4917",
+				["text"] = "Allocates Bastion of Elements if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|39728",
+				["text"] = "Allocates Bastion of Hope if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|39728",
+				["text"] = "Allocates Bastion of Hope if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|4194",
+				["text"] = "Allocates Berserker if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|4194",
+				["text"] = "Allocates Berserker if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|47778",
+				["text"] = "Allocates Bomb Specialist if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|47778",
+				["text"] = "Allocates Bomb Specialist if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|14603",
+				["text"] = "Allocates Bone Barrier if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|14603",
+				["text"] = "Allocates Bone Barrier if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|5087",
+				["text"] = "Allocates Born in the Shadows if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|5087",
+				["text"] = "Allocates Born in the Shadows if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|258",
+				["text"] = "Allocates Bringer of Ruin if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|258",
+				["text"] = "Allocates Bringer of Ruin if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|10143",
+				["text"] = "Allocates Brutal Fervour if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|10143",
+				["text"] = "Allocates Brutal Fervour if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|14103",
+				["text"] = "Allocates Calculated Risk if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|14103",
+				["text"] = "Allocates Calculated Risk if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|38918",
+				["text"] = "Allocates Chain Reaction if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|38918",
+				["text"] = "Allocates Chain Reaction if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|39598",
+				["text"] = "Allocates Champion if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|39598",
+				["text"] = "Allocates Champion if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|57052",
+				["text"] = "Allocates Chieftain if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|57052",
+				["text"] = "Allocates Chieftain if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|36017",
+				["text"] = "Allocates Commander of Darkness if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|36017",
+				["text"] = "Allocates Commander of Darkness if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|25651",
+				["text"] = "Allocates Conviction of Power if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|25651",
+				["text"] = "Allocates Conviction of Power if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|23572",
+				["text"] = "Allocates Corpse Pact if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|23572",
+				["text"] = "Allocates Corpse Pact if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|24528",
+				["text"] = "Allocates Crave the Slaughter if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|24528",
+				["text"] = "Allocates Crave the Slaughter if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|34567",
+				["text"] = "Allocates Deadeye if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|34567",
+				["text"] = "Allocates Deadeye if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|48239",
+				["text"] = "Allocates Deathmarked if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|48239",
+				["text"] = "Allocates Deathmarked if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|9271",
+				["text"] = "Allocates Defy Pain if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|9271",
+				["text"] = "Allocates Defy Pain if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|39834",
+				["text"] = "Allocates Demolitions Specialist if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|39834",
+				["text"] = "Allocates Demolitions Specialist if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|8419",
+				["text"] = "Allocates Determined Survivor if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|8419",
+				["text"] = "Allocates Determined Survivor if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|922",
+				["text"] = "Allocates Divine Guidance if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|922",
+				["text"] = "Allocates Divine Guidance if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|8281",
+				["text"] = "Allocates Elementalist if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|8281",
+				["text"] = "Allocates Elementalist if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|34484",
+				["text"] = "Allocates Endless Hunger if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|34484",
+				["text"] = "Allocates Endless Hunger if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|26067",
+				["text"] = "Allocates Endless Munitions if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|26067",
+				["text"] = "Allocates Endless Munitions if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|40104",
+				["text"] = "Allocates Enduring Suffusion if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|40104",
+				["text"] = "Allocates Enduring Suffusion if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|29825",
+				["text"] = "Allocates Escape Artist if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|29825",
+				["text"] = "Allocates Escape Artist if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|3554",
+				["text"] = "Allocates Essence Glutton if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|3554",
+				["text"] = "Allocates Essence Glutton if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|29662",
+				["text"] = "Allocates Experienced Herbalist if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|29662",
+				["text"] = "Allocates Experienced Herbalist if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|45313",
+				["text"] = "Allocates Far Shot if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|45313",
+				["text"] = "Allocates Far Shot if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|42469",
+				["text"] = "Allocates Fatal Flourish if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|42469",
+				["text"] = "Allocates Fatal Flourish if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|27604",
+				["text"] = "Allocates First to Strike, Last to Fall if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|27604",
+				["text"] = "Allocates First to Strike, Last to Fall if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|5443",
+				["text"] = "Allocates Focal Point if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|5443",
+				["text"] = "Allocates Focal Point if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|18335",
+				["text"] = "Allocates For the Jugular if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|18335",
+				["text"] = "Allocates For the Jugular if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|62504",
+				["text"] = "Allocates Forbidden Power if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|62504",
+				["text"] = "Allocates Forbidden Power if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|31700",
+				["text"] = "Allocates Fortitude if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|31700",
+				["text"] = "Allocates Fortitude if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|47630",
+				["text"] = "Allocates Frigid Wake if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|47630",
+				["text"] = "Allocates Frigid Wake if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|18054",
+				["text"] = "Allocates Fury of Nature if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|18054",
+				["text"] = "Allocates Fury of Nature if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|24848",
+				["text"] = "Allocates Gathering Winds if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|24848",
+				["text"] = "Allocates Gathering Winds if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|34774",
+				["text"] = "Allocates Gladiator if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|34774",
+				["text"] = "Allocates Gladiator if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|29630",
+				["text"] = "Allocates Gore Dancer if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|29630",
+				["text"] = "Allocates Gore Dancer if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|27864",
+				["text"] = "Allocates Gratuitous Violence if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|27864",
+				["text"] = "Allocates Gratuitous Violence if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|30919",
+				["text"] = "Allocates Guardian if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|30919",
+				["text"] = "Allocates Guardian if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|61372",
+				["text"] = "Allocates Harmony of Purpose if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|61372",
+				["text"] = "Allocates Harmony of Purpose if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|57331",
+				["text"] = "Allocates Harness the Void if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|57331",
+				["text"] = "Allocates Harness the Void if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|3184",
+				["text"] = "Allocates Headsman if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|3184",
+				["text"] = "Allocates Headsman if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|57197",
+				["text"] = "Allocates Heart of Destruction if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|57197",
+				["text"] = "Allocates Heart of Destruction if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|28884",
+				["text"] = "Allocates Heartstopper if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|28884",
+				["text"] = "Allocates Heartstopper if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|42144",
+				["text"] = "Allocates Hierophant if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|42144",
+				["text"] = "Allocates Hierophant if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|1731",
+				["text"] = "Allocates Hinekora, Death's Fury if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|1731",
+				["text"] = "Allocates Hinekora, Death's Fury if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|60462",
+				["text"] = "Allocates Illuminated Devotion if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|60462",
+				["text"] = "Allocates Illuminated Devotion if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|38180",
+				["text"] = "Allocates Impact if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|38180",
+				["text"] = "Allocates Impact if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|52435",
+				["text"] = "Allocates Indomitable Resolve if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|52435",
+				["text"] = "Allocates Indomitable Resolve if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|48214",
+				["text"] = "Allocates Inevitable Judgement if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|48214",
+				["text"] = "Allocates Inevitable Judgement if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|21192",
+				["text"] = "Allocates Infused Toxins if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|21192",
+				["text"] = "Allocates Infused Toxins if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|43962",
+				["text"] = "Allocates Inquisitor if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|43962",
+				["text"] = "Allocates Inquisitor if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|11412",
+				["text"] = "Allocates Inspirational if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|11412",
+				["text"] = "Allocates Inspirational if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|19417",
+				["text"] = "Allocates Instruments of Virtue if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|19417",
+				["text"] = "Allocates Instruments of Virtue if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|13851",
+				["text"] = "Allocates Instruments of Zeal if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|13851",
+				["text"] = "Allocates Instruments of Zeal if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|15616",
+				["text"] = "Allocates Jagged Technique if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|15616",
+				["text"] = "Allocates Jagged Technique if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|61072",
+				["text"] = "Allocates Juggernaut if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|61072",
+				["text"] = "Allocates Juggernaut if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|21264",
+				["text"] = "Allocates Knife in the Back if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|21264",
+				["text"] = "Allocates Knife in the Back if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|11597",
+				["text"] = "Allocates Lesson of the Seasons if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|11597",
+				["text"] = "Allocates Lesson of the Seasons if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|56461",
+				["text"] = "Allocates Liege of the Primordial if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|56461",
+				["text"] = "Allocates Liege of the Primordial if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|51462",
+				["text"] = "Allocates Like Clockwork if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|51462",
+				["text"] = "Allocates Like Clockwork if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|3458",
+				["text"] = "Allocates Marshal of Divinity if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|3458",
+				["text"] = "Allocates Marshal of Divinity if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|61805",
+				["text"] = "Allocates Master Alchemist if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|61805",
+				["text"] = "Allocates Master Alchemist if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|6038",
+				["text"] = "Allocates Master Distiller if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|6038",
+				["text"] = "Allocates Master Distiller if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|63293",
+				["text"] = "Allocates Master Surgeon if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|63293",
+				["text"] = "Allocates Master Surgeon if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|1697",
+				["text"] = "Allocates Master Toxicist if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|1697",
+				["text"] = "Allocates Master Toxicist if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|13374",
+				["text"] = "Allocates Master of Metal if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|13374",
+				["text"] = "Allocates Master of Metal if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|16306",
+				["text"] = "Allocates Masterful Form if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|16306",
+				["text"] = "Allocates Masterful Form if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|61259",
+				["text"] = "Allocates Mastermind of Discord if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|61259",
+				["text"] = "Allocates Mastermind of Discord if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|63490",
+				["text"] = "Allocates Measured Retaliation if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|63490",
+				["text"] = "Allocates Measured Retaliation if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|54159",
+				["text"] = "Allocates Mindless Aggression if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|54159",
+				["text"] = "Allocates Mindless Aggression if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|48719",
+				["text"] = "Allocates Mistress of Sacrifice if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|48719",
+				["text"] = "Allocates Mistress of Sacrifice if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|28782",
+				["text"] = "Allocates Mistwalker if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|28782",
+				["text"] = "Allocates Mistwalker if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|2598",
+				["text"] = "Allocates More Than Skill if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|2598",
+				["text"] = "Allocates More Than Skill if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|4849",
+				["text"] = "Allocates Mother's Teachings if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|4849",
+				["text"] = "Allocates Mother's Teachings if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|1945",
+				["text"] = "Allocates Mystical Infusion if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|1945",
+				["text"] = "Allocates Mystical Infusion if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|51101",
+				["text"] = "Allocates Nature's Adrenaline if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|51101",
+				["text"] = "Allocates Nature's Adrenaline if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|65296",
+				["text"] = "Allocates Nature's Boon if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|65296",
+				["text"] = "Allocates Nature's Boon if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|40813",
+				["text"] = "Allocates Nature's Reprisal if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|40813",
+				["text"] = "Allocates Nature's Reprisal if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|10099",
+				["text"] = "Allocates Necromancer if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|10099",
+				["text"] = "Allocates Necromancer if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|50692",
+				["text"] = "Allocates Ngamahu, Flame's Advance if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|50692",
+				["text"] = "Allocates Ngamahu, Flame's Advance if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|27602",
+				["text"] = "Allocates Nine Lives if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|27602",
+				["text"] = "Allocates Nine Lives if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|31364",
+				["text"] = "Allocates Oath of Spring if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|31364",
+				["text"] = "Allocates Oath of Spring if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|33645",
+				["text"] = "Allocates Oath of Summer if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|33645",
+				["text"] = "Allocates Oath of Summer if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|16848",
+				["text"] = "Allocates Oath of Winter if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|16848",
+				["text"] = "Allocates Oath of Winter if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|12597",
+				["text"] = "Allocates Occultist if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|12597",
+				["text"] = "Allocates Occultist if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|2872",
+				["text"] = "Allocates Occupying Force if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|2872",
+				["text"] = "Allocates Occupying Force if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|23225",
+				["text"] = "Allocates One Step Ahead if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|23225",
+				["text"] = "Allocates One Step Ahead if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|19083",
+				["text"] = "Allocates Opportunistic if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|19083",
+				["text"] = "Allocates Opportunistic if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|17315",
+				["text"] = "Allocates Overwhelm if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|17315",
+				["text"] = "Allocates Overwhelm if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|9327",
+				["text"] = "Allocates Pathfinder if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|9327",
+				["text"] = "Allocates Pathfinder if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|28535",
+				["text"] = "Allocates Perfect Crime if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|28535",
+				["text"] = "Allocates Perfect Crime if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|32816",
+				["text"] = "Allocates Pious Path if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|32816",
+				["text"] = "Allocates Pious Path if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|11490",
+				["text"] = "Allocates Plaguebringer if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|11490",
+				["text"] = "Allocates Plaguebringer if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|55867",
+				["text"] = "Allocates Polymath if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|55867",
+				["text"] = "Allocates Polymath if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|37127",
+				["text"] = "Allocates Profane Bloom if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|37127",
+				["text"] = "Allocates Profane Bloom if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|1105",
+				["text"] = "Allocates Pursuit of Faith if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|1105",
+				["text"] = "Allocates Pursuit of Faith if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|16940",
+				["text"] = "Allocates Pyromaniac if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|16940",
+				["text"] = "Allocates Pyromaniac if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|4494",
+				["text"] = "Allocates Radiant Crusade if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|4494",
+				["text"] = "Allocates Radiant Crusade if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|42264",
+				["text"] = "Allocates Radiant Faith if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|42264",
+				["text"] = "Allocates Radiant Faith if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|61355",
+				["text"] = "Allocates Ramako, Sun's Light if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|61355",
+				["text"] = "Allocates Ramako, Sun's Light if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|61627",
+				["text"] = "Allocates Ricochet if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|61627",
+				["text"] = "Allocates Ricochet if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|53884",
+				["text"] = "Allocates Righteous Providence if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|53884",
+				["text"] = "Allocates Righteous Providence if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|57560",
+				["text"] = "Allocates Rite of Ruin if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|57560",
+				["text"] = "Allocates Rite of Ruin if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|34434",
+				["text"] = "Allocates Ritual of Awakening if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|34434",
+				["text"] = "Allocates Ritual of Awakening if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|58827",
+				["text"] = "Allocates Saboteur if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|58827",
+				["text"] = "Allocates Saboteur if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|39790",
+				["text"] = "Allocates Sanctuary if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|39790",
+				["text"] = "Allocates Sanctuary if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|29026",
+				["text"] = "Allocates Sanctuary of Thought if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|29026",
+				["text"] = "Allocates Sanctuary of Thought if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|57568",
+				["text"] = "Allocates Searing Purity if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|57568",
+				["text"] = "Allocates Searing Purity if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|36958",
+				["text"] = "Allocates Seasoned Hunter if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|36958",
+				["text"] = "Allocates Seasoned Hunter if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|29844",
+				["text"] = "Allocates Shadowed Blood if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|29844",
+				["text"] = "Allocates Shadowed Blood if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|53123",
+				["text"] = "Allocates Shaper of Flames if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|53123",
+				["text"] = "Allocates Shaper of Flames if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|27038",
+				["text"] = "Allocates Shaper of Storms if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|27038",
+				["text"] = "Allocates Shaper of Storms if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|40810",
+				["text"] = "Allocates Shaper of Winter if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|40810",
+				["text"] = "Allocates Shaper of Winter if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|57175",
+				["text"] = "Allocates Shrapnel Specialist if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|57175",
+				["text"] = "Allocates Shrapnel Specialist if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|51492",
+				["text"] = "Allocates Sign of Purpose if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|51492",
+				["text"] = "Allocates Sign of Purpose if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|31667",
+				["text"] = "Allocates Sione, Sun's Roar if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|31667",
+				["text"] = "Allocates Sione, Sun's Roar if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|43195",
+				["text"] = "Allocates Slayer if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|43195",
+				["text"] = "Allocates Slayer if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|48999",
+				["text"] = "Allocates Soul Drinker if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|48999",
+				["text"] = "Allocates Soul Drinker if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|41891",
+				["text"] = "Allocates Spellbreaker if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|41891",
+				["text"] = "Allocates Spellbreaker if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|32947",
+				["text"] = "Allocates Swift Killer if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|32947",
+				["text"] = "Allocates Swift Killer if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|48480",
+				["text"] = "Allocates Tasalio, Cleansing Water if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|48480",
+				["text"] = "Allocates Tasalio, Cleansing Water if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|5029",
+				["text"] = "Allocates Tawhoa, Forest's Strength if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|5029",
+				["text"] = "Allocates Tawhoa, Forest's Strength if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|55146",
+				["text"] = "Allocates Time of Need if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|55146",
+				["text"] = "Allocates Time of Need if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|19598",
+				["text"] = "Allocates Toxic Delivery if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|19598",
+				["text"] = "Allocates Toxic Delivery if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|6778",
+				["text"] = "Allocates Trickster if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|6778",
+				["text"] = "Allocates Trickster if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|53095",
+				["text"] = "Allocates Tukohama, War's Herald if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|53095",
+				["text"] = "Allocates Tukohama, War's Herald if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|53816",
+				["text"] = "Allocates Unbreakable if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|53816",
+				["text"] = "Allocates Unbreakable if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|44297",
+				["text"] = "Allocates Undeniable if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|44297",
+				["text"] = "Allocates Undeniable if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|1734",
+				["text"] = "Allocates Unflinching if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|1734",
+				["text"] = "Allocates Unflinching if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|31344",
+				["text"] = "Allocates Unholy Authority if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|31344",
+				["text"] = "Allocates Unholy Authority if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|19355",
+				["text"] = "Allocates Unleashed Potential if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|19355",
+				["text"] = "Allocates Unleashed Potential if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|65153",
+				["text"] = "Allocates Unnatural Strength if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|65153",
+				["text"] = "Allocates Unnatural Strength if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|56789",
+				["text"] = "Allocates Unrelenting if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|56789",
+				["text"] = "Allocates Unrelenting if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|4242",
+				["text"] = "Allocates Unstable Infusion if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|4242",
+				["text"] = "Allocates Unstable Infusion if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|33940",
+				["text"] = "Allocates Unstoppable Hero if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|33940",
+				["text"] = "Allocates Unstoppable Hero if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|5819",
+				["text"] = "Allocates Unstoppable if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|5819",
+				["text"] = "Allocates Unstoppable if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|17988",
+				["text"] = "Allocates Untiring if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|17988",
+				["text"] = "Allocates Untiring if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|19641",
+				["text"] = "Allocates Unwavering Crusade if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|19641",
+				["text"] = "Allocates Unwavering Crusade if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|64768",
+				["text"] = "Allocates Unwavering Faith if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|64768",
+				["text"] = "Allocates Unwavering Faith if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|62595",
+				["text"] = "Allocates Unyielding if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|62595",
+				["text"] = "Allocates Unyielding if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|32249",
+				["text"] = "Allocates Valako, Storm's Embrace if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|32249",
+				["text"] = "Allocates Valako, Storm's Embrace if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|37492",
+				["text"] = "Allocates Vile Bastion if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|37492",
+				["text"] = "Allocates Vile Bastion if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|27096",
+				["text"] = "Allocates Void Beacon if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|27096",
+				["text"] = "Allocates Void Beacon if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|32251",
+				["text"] = "Allocates War Bringer if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|32251",
+				["text"] = "Allocates War Bringer if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|758",
+				["text"] = "Allocates War of Attrition if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|758",
+				["text"] = "Allocates War of Attrition if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|8656",
+				["text"] = "Allocates Warden if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|8656",
+				["text"] = "Allocates Warden if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|52575",
+				["text"] = "Allocates Weapon Master if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|52575",
+				["text"] = "Allocates Weapon Master if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|23169",
+				["text"] = "Allocates Wind Ward if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|23169",
+				["text"] = "Allocates Wind Ward if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|25309",
+				["text"] = "Allocates Withering Presence if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|25309",
+				["text"] = "Allocates Withering Presence if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|35750",
+				["text"] = "Allocates Worthy Causes if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|35750",
+				["text"] = "Allocates Worthy Causes if you have the matching modifier on Forbidden Flesh",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2460506030|56967",
+				["text"] = "Allocates Worthy Foe if you have the matching modifier on Forbidden Flame",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1190333629|56967",
+				["text"] = "Allocates Worthy Foe if you have the matching modifier on Forbidden Flesh",
 				["type"] = "explicit",
 			},
 			{
@@ -18452,11 +18807,6 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1070816711",
-				["text"] = "Area contains an additional Abyss",
-				["type"] = "explicit",
-			},
-			{
 				["id"] = "explicit.stat_2270693644",
 				["text"] = "Area contains an additional Clutching Talisman",
 				["type"] = "explicit",
@@ -18559,6 +18909,11 @@ return {
 			{
 				["id"] = "explicit.stat_204196526",
 				["text"] = "Area contains an additional Wild Harvest Boss",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1070816711",
+				["text"] = "Area contains an additional [ContainsAbyss|Abyss]",
 				["type"] = "explicit",
 			},
 			{
@@ -19134,6 +19489,16 @@ return {
 			{
 				["id"] = "explicit.stat_1481800004",
 				["text"] = "Attacks have +#% to Critical Strike Chance if 4 Elder Items are Equipped",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3811649872",
+				["text"] = "Attacks have 100% Arcane Might",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_185598681",
+				["text"] = "Attacks have 150% Arcane Might",
 				["type"] = "explicit",
 			},
 			{
@@ -20182,6 +20547,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_847997388",
+				["text"] = "Cannot have non-Abyssal sockets",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_612223930",
 				["text"] = "Cannot inflict Freeze or Chill",
 				["type"] = "explicit",
@@ -20313,6 +20683,11 @@ return {
 			},
 			{
 				["id"] = "explicit.stat_1119465199",
+				["text"] = "Chaos Damage taken does not bypass Energy Shield",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1865744989",
 				["text"] = "Chaos Damage taken does not bypass Energy Shield",
 				["type"] = "explicit",
 			},
@@ -21587,6 +21962,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_1025863792",
+				["text"] = "Elemental Resistances cannot be Penetrated",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_3416664215",
 				["text"] = "Elemental Weakness has no Reservation if Cast as an Aura",
 				["type"] = "explicit",
@@ -22572,6 +22952,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_3955762759",
+				["text"] = "Gain #% of Cold Damage as Extra Fire Damage",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_1383929411",
 				["text"] = "Gain #% of Cold Damage as Extra Fire Damage against Frozen Enemies",
 				["type"] = "explicit",
@@ -22614,6 +22999,11 @@ return {
 			{
 				["id"] = "explicit.stat_3115319277",
 				["text"] = "Gain #% of Lightning Damage as Extra Chaos Damage per Power Charge",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3291347617",
+				["text"] = "Gain #% of Lightning Damage as Extra Cold Damage",
 				["type"] = "explicit",
 			},
 			{
@@ -23187,6 +23577,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_899329924",
+				["text"] = "Gems Socketed always have the Quality bonus from Socket Colour",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_2236460050",
 				["text"] = "Gems Socketed in Blue Sockets gain #% increased Experience",
 				["type"] = "explicit",
@@ -23199,11 +23594,6 @@ return {
 			{
 				["id"] = "explicit.stat_2886998024",
 				["text"] = "Gems Socketed in Red Sockets have +# to Level",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_899329924",
-				["text"] = "Gems can be Socketed in this Item ignoring Socket Colour",
 				["type"] = "explicit",
 			},
 			{
@@ -23812,27 +24202,6 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2878779644",
-				["option"] = {
-					["options"] = {
-						{
-							["id"] = 1,
-							["text"] = "Rhoa",
-						},
-						{
-							["id"] = 2,
-							["text"] = "Ursa",
-						},
-						{
-							["id"] = 3,
-							["text"] = "Snake",
-						},
-					},
-				},
-				["text"] = "Grants Level 20 Summon Bestial # Skill",
-				["type"] = "explicit",
-			},
-			{
 				["id"] = "explicit.stat_367775264",
 				["text"] = "Grants Level 20 Summon Shaper Memory Grants Level 20 Shaper's Devastation, which will be used by Shaper Memory",
 				["type"] = "explicit",
@@ -23845,63 +24214,6 @@ return {
 			{
 				["id"] = "explicit.stat_3741365813",
 				["text"] = "Grants Perfect Agony during effect",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_3872739249",
-				["option"] = {
-					["options"] = {
-						{
-							["id"] = 1,
-							["text"] = "Harbinger of the Arcane",
-						},
-						{
-							["id"] = 2,
-							["text"] = "Harbinger of Time",
-						},
-						{
-							["id"] = 3,
-							["text"] = "Harbinger of Focus",
-						},
-						{
-							["id"] = 4,
-							["text"] = "Harbinger of Directions",
-						},
-						{
-							["id"] = 5,
-							["text"] = "Harbinger of Storms",
-						},
-						{
-							["id"] = 6,
-							["text"] = "Harbinger of Brutality",
-						},
-						{
-							["id"] = 7,
-							["text"] = "Greater Harbinger of the Arcane",
-						},
-						{
-							["id"] = 8,
-							["text"] = "Greater Harbinger of Time",
-						},
-						{
-							["id"] = 9,
-							["text"] = "Greater Harbinger of Focus",
-						},
-						{
-							["id"] = 10,
-							["text"] = "Greater Harbinger of Directions",
-						},
-						{
-							["id"] = 11,
-							["text"] = "Greater Harbinger of Storms",
-						},
-						{
-							["id"] = 12,
-							["text"] = "Greater Harbinger of Brutality",
-						},
-					},
-				},
-				["text"] = "Grants Summon Harbinger Skill",
 				["type"] = "explicit",
 			},
 			{
@@ -25025,21 +25337,6 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_4171078509",
-				["text"] = "Increases and Reductions to Spell Damage also apply to Attack Damage with Retaliation Skills",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_3811649872",
-				["text"] = "Increases and Reductions to Spell Damage also apply to Attacks",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_185598681",
-				["text"] = "Increases and Reductions to Spell Damage also apply to Attacks at 150% of their value",
-				["type"] = "explicit",
-			},
-			{
 				["id"] = "explicit.stat_3446950357",
 				["text"] = "Increases and Reductions to other Damage Types in Radius are Transformed to apply to Fire Damage",
 				["type"] = "explicit",
@@ -25465,11 +25762,6 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3991837781",
-				["text"] = "Left ring slot: #% of Elemental Hit Damage from you and your Minions cannot be Reflected",
-				["type"] = "explicit",
-			},
-			{
 				["id"] = "explicit.stat_674502195",
 				["text"] = "Left ring slot: +# to Evasion Rating",
 				["type"] = "explicit",
@@ -25505,6 +25797,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_3991837781",
+				["text"] = "Left ring slot: you and your Minions prevent +#% of Reflected Elemental Damage",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_2388347909",
 				["text"] = "Leftmost # Magic Utility Flask constantly applies its Flask Effect to you",
 				["type"] = "explicit",
@@ -25522,11 +25819,6 @@ return {
 			{
 				["id"] = "explicit.stat_480028751",
 				["text"] = "Legion Encounters contain # additional Sergeant",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_113049735",
-				["text"] = "Legion Encounters in your Maps are #% more likely to include a General",
 				["type"] = "explicit",
 			},
 			{
@@ -26490,6 +26782,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_3913835403",
+				["text"] = "Minions convert #% of Physical Damage to Chaos Damage per Empty Socket",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_199362230",
 				["text"] = "Minions convert #% of Physical Damage to Chaos Damage per White Socket",
 				["type"] = "explicit",
@@ -26505,13 +26802,28 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_421707701",
+				["text"] = "Minions convert #% of Physical Damage to Cold Damage per Socketed Green Gem",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_2139569643",
 				["text"] = "Minions convert #% of Physical Damage to Fire Damage per Red Socket",
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_3011514440",
+				["text"] = "Minions convert #% of Physical Damage to Fire Damage per Socketed Red Gem",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_3366426512",
 				["text"] = "Minions convert #% of Physical Damage to Lightning Damage per Blue Socket",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3681649269",
+				["text"] = "Minions convert #% of Physical Damage to Lightning Damage per Socketed Blue Gem",
 				["type"] = "explicit",
 			},
 			{
@@ -27905,6 +28217,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_3305441882",
+				["text"] = "Non-Spectre Minions' Base Attack time is equal to the Attack time of your Main Hand Weapon",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_449526948",
 				["text"] = "Non-Unique Equipment found in Area drops as Currency instead",
 				["type"] = "explicit",
@@ -28002,35 +28319,6 @@ return {
 			{
 				["id"] = "explicit.stat_3418377329",
 				["text"] = "Only # Portal is opened to each of your Maps",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_3642528642",
-				["option"] = {
-					["options"] = {
-						{
-							["id"] = 1,
-							["text"] = "Small",
-						},
-						{
-							["id"] = 2,
-							["text"] = "Medium",
-						},
-						{
-							["id"] = 3,
-							["text"] = "Large",
-						},
-						{
-							["id"] = 4,
-							["text"] = "Very Large",
-						},
-						{
-							["id"] = 5,
-							["text"] = "Massive",
-						},
-					},
-				},
-				["text"] = "Only affects Passives in # Ring",
 				["type"] = "explicit",
 			},
 			{
@@ -28189,192 +28477,228 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2422708892",
-				["option"] = {
-					["options"] = {
-						{
-							["id"] = 18663,
-							["text"] = "Minion Instability",
-						},
-						{
-							["id"] = 23540,
-							["text"] = "Conduit",
-						},
-						{
-							["id"] = 54307,
-							["text"] = "Acrobatics",
-						},
-						{
-							["id"] = 10661,
-							["text"] = "Iron Reflexes",
-						},
-						{
-							["id"] = 31961,
-							["text"] = "Resolute Technique",
-						},
-						{
-							["id"] = 40907,
-							["text"] = "Unwavering Stance",
-						},
-						{
-							["id"] = 11455,
-							["text"] = "Chaos Inoculation",
-						},
-						{
-							["id"] = 56075,
-							["text"] = "Eldritch Battery",
-						},
-						{
-							["id"] = 57279,
-							["text"] = "Blood Magic",
-						},
-						{
-							["id"] = 45175,
-							["text"] = "Necromantic Aegis",
-						},
-						{
-							["id"] = 31703,
-							["text"] = "Pain Attunement",
-						},
-						{
-							["id"] = 39085,
-							["text"] = "Elemental Equilibrium",
-						},
-						{
-							["id"] = 12926,
-							["text"] = "Iron Grip",
-						},
-						{
-							["id"] = 42178,
-							["text"] = "Point Blank",
-						},
-						{
-							["id"] = 54922,
-							["text"] = "Arrow Dancing",
-						},
-						{
-							["id"] = 41970,
-							["text"] = "Ancestral Bond",
-						},
-						{
-							["id"] = 24426,
-							["text"] = "Ghost Reaver",
-						},
-						{
-							["id"] = 10808,
-							["text"] = "Vaal Pact",
-						},
-						{
-							["id"] = 63425,
-							["text"] = "Zealot's Oath",
-						},
-						{
-							["id"] = 44941,
-							["text"] = "Avatar of Fire",
-						},
-						{
-							["id"] = 34098,
-							["text"] = "Mind Over Matter",
-						},
-						{
-							["id"] = 22088,
-							["text"] = "Elemental Overload",
-						},
-						{
-							["id"] = 23407,
-							["text"] = "Perfect Agony",
-						},
-						{
-							["id"] = 17818,
-							["text"] = "Crimson Dance",
-						},
-						{
-							["id"] = 42343,
-							["text"] = "Runebinder",
-						},
-						{
-							["id"] = 23950,
-							["text"] = "Wicked Ward",
-						},
-						{
-							["id"] = 23090,
-							["text"] = "Call to Arms",
-						},
-						{
-							["id"] = 21650,
-							["text"] = "Eternal Youth",
-						},
-						{
-							["id"] = 39713,
-							["text"] = "Glancing Blows",
-						},
-						{
-							["id"] = 11239,
-							["text"] = "Wind Dancer",
-						},
-						{
-							["id"] = 19732,
-							["text"] = "The Agnostic",
-						},
-						{
-							["id"] = 49639,
-							["text"] = "Supreme Ego",
-						},
-						{
-							["id"] = 24720,
-							["text"] = "Imbalanced Guard",
-						},
-						{
-							["id"] = 57257,
-							["text"] = "The Impaler",
-						},
-						{
-							["id"] = 43988,
-							["text"] = "Hex Master",
-						},
-						{
-							["id"] = 56116,
-							["text"] = "Magebane",
-						},
-						{
-							["id"] = 50288,
-							["text"] = "Iron Will",
-						},
-						{
-							["id"] = 60247,
-							["text"] = "Solipsism",
-						},
-						{
-							["id"] = 35255,
-							["text"] = "Ghost Dance",
-						},
-						{
-							["id"] = 58556,
-							["text"] = "Divine Shield",
-						},
-						{
-							["id"] = 50679,
-							["text"] = "Versatile Combatant",
-						},
-						{
-							["id"] = 62791,
-							["text"] = "Lethe Shade",
-						},
-						{
-							["id"] = 63620,
-							["text"] = "Precise Technique",
-						},
-						{
-							["id"] = 21210,
-							["text"] = "Arsenal of Vengeance",
-						},
-						{
-							["id"] = 13019,
-							["text"] = "Bloodsoaked Blade",
-						},
-					},
-				},
-				["text"] = "Passive Skills in Radius of # can be Allocated without being connected to your tree Passage",
+				["id"] = "explicit.stat_2422708892|54307",
+				["text"] = "Passive Skills in Radius of Acrobatics can be Allocated without being connected to your tree Passage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2422708892|41970",
+				["text"] = "Passive Skills in Radius of Ancestral Bond can be Allocated without being connected to your tree Passage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2422708892|54922",
+				["text"] = "Passive Skills in Radius of Arrow Dancing can be Allocated without being connected to your tree Passage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2422708892|21210",
+				["text"] = "Passive Skills in Radius of Arsenal of Vengeance can be Allocated without being connected to your tree Passage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2422708892|44941",
+				["text"] = "Passive Skills in Radius of Avatar of Fire can be Allocated without being connected to your tree Passage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2422708892|57279",
+				["text"] = "Passive Skills in Radius of Blood Magic can be Allocated without being connected to your tree Passage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2422708892|13019",
+				["text"] = "Passive Skills in Radius of Bloodsoaked Blade can be Allocated without being connected to your tree Passage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2422708892|23090",
+				["text"] = "Passive Skills in Radius of Call to Arms can be Allocated without being connected to your tree Passage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2422708892|11455",
+				["text"] = "Passive Skills in Radius of Chaos Inoculation can be Allocated without being connected to your tree Passage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2422708892|23540",
+				["text"] = "Passive Skills in Radius of Conduit can be Allocated without being connected to your tree Passage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2422708892|17818",
+				["text"] = "Passive Skills in Radius of Crimson Dance can be Allocated without being connected to your tree Passage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2422708892|58556",
+				["text"] = "Passive Skills in Radius of Divine Shield can be Allocated without being connected to your tree Passage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2422708892|56075",
+				["text"] = "Passive Skills in Radius of Eldritch Battery can be Allocated without being connected to your tree Passage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2422708892|39085",
+				["text"] = "Passive Skills in Radius of Elemental Equilibrium can be Allocated without being connected to your tree Passage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2422708892|22088",
+				["text"] = "Passive Skills in Radius of Elemental Overload can be Allocated without being connected to your tree Passage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2422708892|21650",
+				["text"] = "Passive Skills in Radius of Eternal Youth can be Allocated without being connected to your tree Passage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2422708892|35255",
+				["text"] = "Passive Skills in Radius of Ghost Dance can be Allocated without being connected to your tree Passage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2422708892|24426",
+				["text"] = "Passive Skills in Radius of Ghost Reaver can be Allocated without being connected to your tree Passage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2422708892|39713",
+				["text"] = "Passive Skills in Radius of Glancing Blows can be Allocated without being connected to your tree Passage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2422708892|43988",
+				["text"] = "Passive Skills in Radius of Hex Master can be Allocated without being connected to your tree Passage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2422708892|24720",
+				["text"] = "Passive Skills in Radius of Imbalanced Guard can be Allocated without being connected to your tree Passage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2422708892|12926",
+				["text"] = "Passive Skills in Radius of Iron Grip can be Allocated without being connected to your tree Passage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2422708892|10661",
+				["text"] = "Passive Skills in Radius of Iron Reflexes can be Allocated without being connected to your tree Passage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2422708892|50288",
+				["text"] = "Passive Skills in Radius of Iron Will can be Allocated without being connected to your tree Passage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2422708892|62791",
+				["text"] = "Passive Skills in Radius of Lethe Shade can be Allocated without being connected to your tree Passage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2422708892|56116",
+				["text"] = "Passive Skills in Radius of Magebane can be Allocated without being connected to your tree Passage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2422708892|34098",
+				["text"] = "Passive Skills in Radius of Mind Over Matter can be Allocated without being connected to your tree Passage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2422708892|18663",
+				["text"] = "Passive Skills in Radius of Minion Instability can be Allocated without being connected to your tree Passage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2422708892|45175",
+				["text"] = "Passive Skills in Radius of Necromantic Aegis can be Allocated without being connected to your tree Passage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2422708892|31703",
+				["text"] = "Passive Skills in Radius of Pain Attunement can be Allocated without being connected to your tree Passage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2422708892|23407",
+				["text"] = "Passive Skills in Radius of Perfect Agony can be Allocated without being connected to your tree Passage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2422708892|42178",
+				["text"] = "Passive Skills in Radius of Point Blank can be Allocated without being connected to your tree Passage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2422708892|63620",
+				["text"] = "Passive Skills in Radius of Precise Technique can be Allocated without being connected to your tree Passage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2422708892|31961",
+				["text"] = "Passive Skills in Radius of Resolute Technique can be Allocated without being connected to your tree Passage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2422708892|42343",
+				["text"] = "Passive Skills in Radius of Runebinder can be Allocated without being connected to your tree Passage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2422708892|60247",
+				["text"] = "Passive Skills in Radius of Solipsism can be Allocated without being connected to your tree Passage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2422708892|49639",
+				["text"] = "Passive Skills in Radius of Supreme Ego can be Allocated without being connected to your tree Passage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2422708892|19732",
+				["text"] = "Passive Skills in Radius of The Agnostic can be Allocated without being connected to your tree Passage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2422708892|57257",
+				["text"] = "Passive Skills in Radius of The Impaler can be Allocated without being connected to your tree Passage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2422708892|40907",
+				["text"] = "Passive Skills in Radius of Unwavering Stance can be Allocated without being connected to your tree Passage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2422708892|10808",
+				["text"] = "Passive Skills in Radius of Vaal Pact can be Allocated without being connected to your tree Passage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2422708892|50679",
+				["text"] = "Passive Skills in Radius of Versatile Combatant can be Allocated without being connected to your tree Passage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2422708892|23950",
+				["text"] = "Passive Skills in Radius of Wicked Ward can be Allocated without being connected to your tree Passage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2422708892|11239",
+				["text"] = "Passive Skills in Radius of Wind Dancer can be Allocated without being connected to your tree Passage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2422708892|63425",
+				["text"] = "Passive Skills in Radius of Zealot's Oath can be Allocated without being connected to your tree Passage",
 				["type"] = "explicit",
 			},
 			{
@@ -29168,6 +29492,21 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_603134774",
+				["text"] = "Prevent +#% of Reflected Damage during Effect",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1574578643",
+				["text"] = "Prevent +#% of Reflected Elemental Damage you would take while affected by Purity of Elements",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2255585376",
+				["text"] = "Prevent +#% of Reflected Physical Damage you would take while affected by Determination",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_4116705863",
 				["text"] = "Prevent +#% of Suppressed Spell Damage",
 				["type"] = "explicit",
@@ -29595,6 +29934,16 @@ return {
 			{
 				["id"] = "explicit.stat_2220602676",
 				["text"] = "Rare Monsters have Essence effects",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3938822425",
+				["text"] = "Rare Monsters have [ElementalThorns|Elemental Thorns] reflecting # Elemental Damage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3278889477",
+				["text"] = "Rare Monsters have [PhysicalThorns|Physical Thorns] reflecting # Physical Damage",
 				["type"] = "explicit",
 			},
 			{
@@ -30189,7 +30538,7 @@ return {
 			},
 			{
 				["id"] = "explicit.stat_1960833438",
-				["text"] = "Regenerate #% of Life per second per 500 Maximum Energy Shield",
+				["text"] = "Regenerate #% of Life per second per 500 Player Maximum Energy Shield",
 				["type"] = "explicit",
 			},
 			{
@@ -30398,6 +30747,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_4171078509",
+				["text"] = "Retaliation Skills have #% Arcane Might",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_1173860008",
 				["text"] = "Retaliation Skills have #% increased Cooldown Recovery Rate",
 				["type"] = "explicit",
@@ -30433,11 +30787,6 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3829555156",
-				["text"] = "Right ring slot: #% of Physical Hit Damage from you and your Minions cannot be Reflected",
-				["type"] = "explicit",
-			},
-			{
 				["id"] = "explicit.stat_1223912433",
 				["text"] = "Right ring slot: +# to Armour",
 				["type"] = "explicit",
@@ -30470,6 +30819,11 @@ return {
 			{
 				["id"] = "explicit.stat_783864527",
 				["text"] = "Right ring slot: You cannot Regenerate Mana",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3829555156",
+				["text"] = "Right ring slot: you and your Minions prevent +#% of Reflected Physical Damage",
 				["type"] = "explicit",
 			},
 			{
@@ -31958,6 +32312,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_991044906",
+				["text"] = "Socketed Gems are Supported by Level # Communion",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_2020568221",
 				["text"] = "Socketed Gems are Supported by Level # Companionship",
 				["type"] = "explicit",
@@ -32828,11 +33187,6 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_991044906",
-				["text"] = "Socketed Gems are Supported by Level # Minion Pact",
-				["type"] = "explicit",
-			},
-			{
 				["id"] = "explicit.indexable_support_62",
 				["text"] = "Socketed Gems are Supported by Level # Minion Speed",
 				["type"] = "explicit",
@@ -33344,7 +33698,7 @@ return {
 			},
 			{
 				["id"] = "explicit.indexable_support_166",
-				["text"] = "Socketed Gems are Supported by Level # Windburst",
+				["text"] = "Socketed Gems are Supported by Level # Windbursts",
 				["type"] = "explicit",
 			},
 			{
@@ -33508,13 +33862,13 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_346351023",
-				["text"] = "Socketed Gems have #% more Attack and Cast Speed",
+				["id"] = "explicit.stat_2816901897",
+				["text"] = "Socketed Gems have #% less Mana Cost",
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2816901897",
-				["text"] = "Socketed Gems have #% reduced Mana Cost",
+				["id"] = "explicit.stat_346351023",
+				["text"] = "Socketed Gems have #% more Attack and Cast Speed",
 				["type"] = "explicit",
 			},
 			{
@@ -33600,6 +33954,11 @@ return {
 			{
 				["id"] = "explicit.stat_470459031",
 				["text"] = "Socketed Projectile Spells have +# seconds to Cooldown",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1515509665",
+				["text"] = "Socketed Rare Abyssal Jewels will be Consumed One modifier from Consumed Jewels will be retained",
 				["type"] = "explicit",
 			},
 			{
@@ -33749,7 +34108,7 @@ return {
 			},
 			{
 				["id"] = "explicit.stat_1357409216",
-				["text"] = "Spells cause you to gain Energy Shield equal to their Upfront Cost every fifth time you Pay it",
+				["text"] = "Spells cause you to gain Energy Shield equal to their Upfront Cost every third time you Pay it",
 				["type"] = "explicit",
 			},
 			{
@@ -33790,21 +34149,6 @@ return {
 			{
 				["id"] = "explicit.stat_2122561670",
 				["text"] = "Spells which have gained Intensity Recently lose 1 Intensity every # Seconds",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_1794950665",
-				["text"] = "Splinters contained in Legion Chests in your Maps have #% chance to be Duplicated",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_3473008748",
-				["text"] = "Splinters dropped by Legion Monsters in your Maps have #% chance to be Duplicated",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_3374667389",
-				["text"] = "Splinters dropped by Legion Monsters or contained in Legion Chests in your Maps have #% chance to be Duplicated",
 				["type"] = "explicit",
 			},
 			{
@@ -34453,6 +34797,21 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_1794950665",
+				["text"] = "Timeless Splinters contained in Legion Chests in your Maps have #% chance to be Duplicated",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3473008748",
+				["text"] = "Timeless Splinters dropped by Legion Monsters in your Maps have #% chance to be Duplicated",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3374667389",
+				["text"] = "Timeless Splinters dropped by Legion Monsters or contained in Legion Chests in your Maps have #% chance to be Duplicated",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_3249943883",
 				["text"] = "Tormented Spirits can Possess Players for 20 seconds Tormented Spirits cannot Possess Monsters",
 				["type"] = "explicit",
@@ -34924,7 +35283,7 @@ return {
 			},
 			{
 				["id"] = "explicit.stat_236047788",
-				["text"] = "Ultimatum Boss drops a full stack of a random Catalyst",
+				["text"] = "Ultimatum Boss drops 10 of a random Catalyst",
 				["type"] = "explicit",
 			},
 			{
@@ -36363,6 +36722,21 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_1567747544",
+				["text"] = "You and your Minions prevent +#% of Reflected Damage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3408683611",
+				["text"] = "You and your Minions prevent +#% of Reflected Elemental Damage",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1818622832",
+				["text"] = "You and your Minions prevent +#% of Reflected Physical Damage",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_3577248251",
 				["text"] = "You and your Minions take #% reduced Reflected Damage",
 				["type"] = "explicit",
@@ -36720,27 +37094,6 @@ return {
 			{
 				["id"] = "explicit.stat_2105456174",
 				["text"] = "You grant # Frenzy Charges to allies on Death",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_1190121450",
-				["option"] = {
-					["options"] = {
-						{
-							["id"] = 1,
-							["text"] = "Chilling",
-						},
-						{
-							["id"] = 2,
-							["text"] = "Shocking",
-						},
-						{
-							["id"] = 3,
-							["text"] = "Igniting",
-						},
-					},
-				},
-				["text"] = "You have # Conflux for 3 seconds every 8 seconds",
 				["type"] = "explicit",
 			},
 			{
@@ -37304,31 +37657,6 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_3187151138",
-				["option"] = {
-					["options"] = {
-						{
-							["id"] = 2,
-							["text"] = "Einhar",
-						},
-						{
-							["id"] = 3,
-							["text"] = "Alva",
-						},
-						{
-							["id"] = 5,
-							["text"] = "Niko",
-						},
-						{
-							["id"] = 6,
-							["text"] = "Jun",
-						},
-					},
-				},
-				["text"] = "Your Maps contain # (Master)",
-				["type"] = "explicit",
-			},
-			{
 				["id"] = "explicit.stat_2343561786",
 				["text"] = "Your Maps contain # additional Clusters of Mysterious Barrels",
 				["type"] = "explicit",
@@ -37374,11 +37702,6 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_1070816711",
-				["text"] = "Your Maps contain an additional Abyss",
-				["type"] = "explicit",
-			},
-			{
 				["id"] = "explicit.stat_504850499",
 				["text"] = "Your Maps contain an additional Harbinger",
 				["type"] = "explicit",
@@ -37401,6 +37724,11 @@ return {
 			{
 				["id"] = "explicit.stat_1468737867",
 				["text"] = "Your Maps contain an additional Shrine",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1070816711",
+				["text"] = "Your Maps contain an additional [ContainsAbyss|Abyss]",
 				["type"] = "explicit",
 			},
 			{
@@ -37499,11 +37827,6 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_4111037980",
-				["text"] = "Your Maps have #% increased chance to contain an Abyss",
-				["type"] = "explicit",
-			},
-			{
 				["id"] = "explicit.stat_1561678231",
 				["text"] = "Your Maps have #% increased chance to contain an Expedition Encounter",
 				["type"] = "explicit",
@@ -37511,6 +37834,11 @@ return {
 			{
 				["id"] = "explicit.stat_880963174",
 				["text"] = "Your Maps have #% increased chance to contain an Ultimatum Encounter",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4111037980",
+				["text"] = "Your Maps have #% increased chance to contain an [ContainsAbyss|Abyss]",
 				["type"] = "explicit",
 			},
 			{
@@ -37604,16 +37932,6 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_4278144676",
-				["text"] = "Your Maps have +#% chance to contain an Abyss",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_827686764",
-				["text"] = "Your Maps have +#% chance to contain an Abyss per 2% increased Pack Size",
-				["type"] = "explicit",
-			},
-			{
 				["id"] = "explicit.stat_4154778375",
 				["text"] = "Your Maps have +#% chance to contain an Expedition Encounter",
 				["type"] = "explicit",
@@ -37626,6 +37944,16 @@ return {
 			{
 				["id"] = "explicit.stat_1365687125",
 				["text"] = "Your Maps have +#% chance to contain an Ultimatum Encounter",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_4278144676",
+				["text"] = "Your Maps have +#% chance to contain an [ContainsAbyss|Abyss]",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_827686764",
+				["text"] = "Your Maps have +#% chance to contain an [ContainsAbyss|Abyss] per 2% increased Pack Size",
 				["type"] = "explicit",
 			},
 			{
@@ -37674,11 +38002,6 @@ return {
 				["type"] = "explicit",
 			},
 			{
-				["id"] = "explicit.stat_2399560930",
-				["text"] = "Your Maps have no chance to contain Abysses",
-				["type"] = "explicit",
-			},
-			{
 				["id"] = "explicit.stat_1981776737",
 				["text"] = "Your Maps have no chance to contain Blight Encounters",
 				["type"] = "explicit",
@@ -37716,6 +38039,11 @@ return {
 			{
 				["id"] = "explicit.stat_3819443367",
 				["text"] = "Your Maps have no chance to contain Ultimatum Encounters",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2399560930",
+				["text"] = "Your Maps have no chance to contain [ContainsAbyss|Abysses]",
 				["type"] = "explicit",
 			},
 			{
@@ -37973,6 +38301,21 @@ return {
 				["text"] = "Zealotry has no Reservation",
 				["type"] = "explicit",
 			},
+			{
+				["id"] = "explicit.stat_1927544133",
+				["text"] = "[ContainsAbyss|Abyss] Pits in your Maps spawn #% increased Monsters for each prior Pit closed",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3898949460",
+				["text"] = "[KeystoneColdPurist|Bitter Frost]",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3458351769",
+				["text"] = "[KeystoneFirePurist|Voracious Flame]",
+				["type"] = "explicit",
+			},
 		},
 		["id"] = "explicit",
 		["label"] = "Explicit",
@@ -38137,6 +38480,11 @@ return {
 			{
 				["id"] = "implicit.stat_3181974858",
 				["text"] = "#% chance to Cause Monsters to Flee",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2950697759",
+				["text"] = "#% chance to Curse Enemies with Punishment on Hit",
 				["type"] = "implicit",
 			},
 			{
@@ -38625,6 +38973,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2481353198",
+				["text"] = "#% increased Chance to Block",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_736967255",
 				["text"] = "#% increased Chaos Damage",
 				["type"] = "implicit",
@@ -39070,6 +39423,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_506942497",
+				["text"] = "#% increased Energy Shield per 10 Strength",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_3293830776",
 				["text"] = "#% increased Enfeeble Curse Effect",
 				["type"] = "implicit",
@@ -39092,6 +39450,11 @@ return {
 			{
 				["id"] = "implicit.stat_623823763",
 				["text"] = "#% increased Evasion Rating from Equipped Helmet and Boots",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_810772344",
+				["text"] = "#% increased Evasion Rating per 10 Intelligence",
 				["type"] = "implicit",
 			},
 			{
@@ -39265,6 +39628,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_4101445926",
+				["text"] = "#% increased Mana Cost Efficiency",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_3513180117",
 				["text"] = "#% increased Mana Recovery rate",
 				["type"] = "implicit",
@@ -39327,6 +39695,11 @@ return {
 			{
 				["id"] = "implicit.stat_2645167381",
 				["text"] = "#% increased Melee Damage per 20 Intelligence",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2355151849",
+				["text"] = "#% increased Melee Physical Damage per 10 Dexterity",
 				["type"] = "implicit",
 			},
 			{
@@ -39485,7 +39858,7 @@ return {
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_2390685262",
+				["id"] = "implicit.stat_2998191728",
 				["text"] = "#% increased Quantity of Items found in your Maps",
 				["type"] = "implicit",
 			},
@@ -39810,16 +40183,6 @@ return {
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_1571797746",
-				["text"] = "#% of Damage from your Hits cannot be Reflected",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_2510655429",
-				["text"] = "#% of Damage from your Hits cannot be Reflected",
-				["type"] = "implicit",
-			},
-			{
 				["id"] = "implicit.stat_458438597",
 				["text"] = "#% of Damage is taken from Mana before Life",
 				["type"] = "implicit",
@@ -39862,11 +40225,6 @@ return {
 			{
 				["id"] = "implicit.stat_1742651309",
 				["text"] = "#% of Fire Damage taken Recouped as Life",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_2467518140",
-				["text"] = "#% of Hit Damage from your Minions cannot be Reflected",
 				["type"] = "implicit",
 			},
 			{
@@ -39977,6 +40335,11 @@ return {
 			{
 				["id"] = "implicit.stat_4021566756",
 				["text"] = "#% of Physical Damage taken Recouped as Life",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1004468512",
+				["text"] = "#% of Physical Damage taken as Fire Damage",
 				["type"] = "implicit",
 			},
 			{
@@ -40280,6 +40643,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_516565950",
+				["text"] = "+# to Level of Socketed Physical Gems",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2176571093",
 				["text"] = "+# to Level of Socketed Projectile Gems",
 				["type"] = "implicit",
@@ -40312,6 +40680,36 @@ return {
 			{
 				["id"] = "implicit.stat_1672793731",
 				["text"] = "+# to Level of Socketed Warcry Gems",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_4226189338",
+				["text"] = "+# to Level of all Chaos Spell Skill Gems",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2254480358",
+				["text"] = "+# to Level of all Cold Spell Skill Gems",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_591105508",
+				["text"] = "+# to Level of all Fire Spell Skill Gems",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1545858329",
+				["text"] = "+# to Level of all Lightning Spell Skill Gems",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2162097452",
+				["text"] = "+# to Level of all Minion Skill Gems",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1600707273",
+				["text"] = "+# to Level of all Physical Spell Skill Gems",
 				["type"] = "implicit",
 			},
 			{
@@ -40437,6 +40835,11 @@ return {
 			{
 				["id"] = "implicit.stat_1001829678",
 				["text"] = "+#% Chance to Block Attack Damage while wielding a Staff (Staves)",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_19803471",
+				["text"] = "+#% Chance to Block Spell Damage",
 				["type"] = "implicit",
 			},
 			{
@@ -40632,6 +41035,11 @@ return {
 			{
 				["id"] = "implicit.stat_2039822488",
 				["text"] = "+#% to Maximum Quality",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_4237442815",
+				["text"] = "+#% to Melee Critical Strike Multiplier",
 				["type"] = "implicit",
 			},
 			{
@@ -40915,6 +41323,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2549369799",
+				["text"] = "Anger has #% increased Mana Reservation Efficiency",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2351239732",
 				["text"] = "Arctic Armour has #% increased Mana Reservation Efficiency",
 				["type"] = "implicit",
@@ -40995,31 +41408,6 @@ return {
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_3159649981",
-				["option"] = {
-					["options"] = {
-						{
-							["id"] = 1,
-							["text"] = "Medved, Feller of Heroes",
-						},
-						{
-							["id"] = 2,
-							["text"] = "Vorana, Last to Fall",
-						},
-						{
-							["id"] = 3,
-							["text"] = "Uhtred, Covetous Traitor",
-						},
-						{
-							["id"] = 4,
-							["text"] = "Olroth, Origin of the Fall",
-						},
-					},
-				},
-				["text"] = "Area contains an Expedition Boss (#)",
-				["type"] = "implicit",
-			},
-			{
 				["id"] = "implicit.stat_3557750122",
 				["text"] = "Area contains an Expedition Encounter",
 				["type"] = "implicit",
@@ -41027,11 +41415,6 @@ return {
 			{
 				["id"] = "implicit.stat_3849207804",
 				["text"] = "Area contains an Invasion Boss",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_1070816711",
-				["text"] = "Area contains an additional Abyss",
 				["type"] = "implicit",
 			},
 			{
@@ -41072,6 +41455,11 @@ return {
 			{
 				["id"] = "implicit.stat_1160596338",
 				["text"] = "Area contains an additional Underground Area",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1070816711",
+				["text"] = "Area contains an additional [ContainsAbyss|Abyss]",
 				["type"] = "implicit",
 			},
 			{
@@ -41132,23 +41520,6 @@ return {
 			{
 				["id"] = "implicit.stat_299373046",
 				["text"] = "Area is infested with Fungal Growths Map's Item Quantity Modifiers also affect Blight Chest count at 25% value Can be Anointed up to 3 times",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_1792283443",
-				["option"] = {
-					["options"] = {
-						{
-							["id"] = 1,
-							["text"] = "The Shaper",
-						},
-						{
-							["id"] = 2,
-							["text"] = "The Elder",
-						},
-					},
-				},
-				["text"] = "Area is influenced by #",
 				["type"] = "implicit",
 			},
 			{
@@ -41219,6 +41590,11 @@ return {
 			{
 				["id"] = "implicit.stat_2572042788",
 				["text"] = "Attacks have +#% to Critical Strike Chance",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3811649872",
+				["text"] = "Attacks have 100% Arcane Might",
 				["type"] = "implicit",
 			},
 			{
@@ -41367,6 +41743,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_4084476257",
+				["text"] = "Critical Strikes with Spells have #% chance to inflict Impale",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2524254339",
 				["text"] = "Culling Strike",
 				["type"] = "implicit",
@@ -41492,6 +41873,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2321346567",
+				["text"] = "Divine Flesh",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_984148407",
 				["text"] = "Drops Brittle Ground while moving, lasting # seconds",
 				["type"] = "implicit",
@@ -41504,6 +41890,11 @@ return {
 			{
 				["id"] = "implicit.stat_396238230",
 				["text"] = "Drops Scorched Ground while moving, lasting # seconds",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2103621252",
+				["text"] = "Eat a Soul when you Hit a Rare or Unique Enemy, no more than once every second",
 				["type"] = "implicit",
 			},
 			{
@@ -41647,6 +42038,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2663376056",
+				["text"] = "Gain #% of Maximum Mana as Extra Maximum Energy Shield",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_3319896421",
 				["text"] = "Gain #% of Physical Damage as Extra Chaos Damage",
 				["type"] = "implicit",
@@ -41677,6 +42073,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_581055101",
+				["text"] = "Gain Maximum Life instead of Maximum Energy Shield from Equipped Armour Items at #% of the value",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_3868549606",
 				["text"] = "Gain a Frenzy Charge after Spending a total of 200 Mana",
 				["type"] = "implicit",
@@ -41702,8 +42103,18 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_4080206249",
+				["text"] = "Gain up to maximum Endurance Charges when you take a Critical Strike",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_3637727672",
 				["text"] = "General's Cry has #% increased Cooldown Recovery Rate",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_4266776872",
+				["text"] = "Glancing Blows",
 				["type"] = "implicit",
 			},
 			{
@@ -41892,6 +42303,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2156140483",
+				["text"] = "Hatred has #% increased Mana Reservation Efficiency",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2572910724",
 				["text"] = "Herald of Agony has #% increased Buff Effect",
 				["type"] = "implicit",
@@ -41959,6 +42375,11 @@ return {
 			{
 				["id"] = "implicit.stat_411986876",
 				["text"] = "Increases and Reductions to Light Radius also apply to Accuracy",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_4100175081",
+				["text"] = "Increases and Reductions to Maximum Energy Shield instead apply to Ward",
 				["type"] = "implicit",
 			},
 			{
@@ -42037,58 +42458,13 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3383226338",
+				["text"] = "Malevolence has #% increased Mana Reservation Efficiency",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_4149961555",
 				["text"] = "Map Crafting options for this Map have no cost",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_2563183002",
-				["option"] = {
-					["options"] = {
-						{
-							["id"] = 1,
-							["text"] = "Baran",
-						},
-						{
-							["id"] = 2,
-							["text"] = "Veritania",
-						},
-						{
-							["id"] = 3,
-							["text"] = "Al-Hezmin",
-						},
-						{
-							["id"] = 4,
-							["text"] = "Drox",
-						},
-					},
-				},
-				["text"] = "Map contains #'s Citadel",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_3624393862",
-				["option"] = {
-					["options"] = {
-						{
-							["id"] = 1,
-							["text"] = "The Enslaver",
-						},
-						{
-							["id"] = 2,
-							["text"] = "The Eradicator",
-						},
-						{
-							["id"] = 3,
-							["text"] = "The Constrictor",
-						},
-						{
-							["id"] = 4,
-							["text"] = "The Purifier",
-						},
-					},
-				},
-				["text"] = "Map is occupied by #",
 				["type"] = "implicit",
 			},
 			{
@@ -42137,6 +42513,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2467518140",
+				["text"] = "Minions prevent +#% of Reflected Damage they would take",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_3056045252",
 				["text"] = "Minions take #% reduced Reflected Damage",
 				["type"] = "implicit",
@@ -42164,6 +42545,11 @@ return {
 			{
 				["id"] = "implicit.stat_2656027173",
 				["text"] = "Natural inhabitants of this area have been removed",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2307982579",
+				["text"] = "Nearby Enemies Killed by anyone count as being Killed by you instead",
 				["type"] = "implicit",
 			},
 			{
@@ -42212,6 +42598,16 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_1571797746",
+				["text"] = "Prevent +#% of Reflected Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2510655429",
+				["text"] = "Prevent +#% of Reflected Damage",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_4116705863",
 				["text"] = "Prevent +#% of Suppressed Spell Damage",
 				["type"] = "implicit",
@@ -42219,6 +42615,11 @@ return {
 			{
 				["id"] = "implicit.stat_4247488219",
 				["text"] = "Pride has #% increased Aura Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3993865658",
+				["text"] = "Pride has #% increased Mana Reservation Efficiency",
 				["type"] = "implicit",
 			},
 			{
@@ -42249,6 +42650,11 @@ return {
 			{
 				["id"] = "implicit.stat_3541970927",
 				["text"] = "Purity of Elements has #% increased Aura Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3303293173",
+				["text"] = "Purity of Elements has #% increased Mana Reservation Efficiency",
 				["type"] = "implicit",
 			},
 			{
@@ -42512,6 +42918,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_411460446",
+				["text"] = "Socketed Gems are Supported by Level # Added Chaos Damage",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2572192375",
 				["text"] = "Socketed Gems are Supported by Level # Added Fire Damage",
 				["type"] = "implicit",
@@ -42519,6 +42930,21 @@ return {
 			{
 				["id"] = "implicit.stat_3922006600",
 				["text"] = "Socketed Gems are Supported by Level # Arrogance",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2643665787",
+				["text"] = "Socketed Gems are Supported by Level # Chain",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1679136",
+				["text"] = "Socketed Gems are Supported by Level # Cruelty",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1994143317",
+				["text"] = "Socketed Gems are Supported by Level # Elemental Penetration",
 				["type"] = "implicit",
 			},
 			{
@@ -42534,6 +42960,11 @@ return {
 			{
 				["id"] = "implicit.stat_107118693",
 				["text"] = "Socketed Gems are Supported by Level # Fortify",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1900098804",
+				["text"] = "Socketed Gems are Supported by Level # Impale",
 				["type"] = "implicit",
 			},
 			{
@@ -42559,6 +42990,16 @@ return {
 			{
 				["id"] = "implicit.stat_3237923082",
 				["text"] = "Socketed Gems are Supported by Level # Momentum",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_584144941",
+				["text"] = "Socketed Gems are Supported by Level # Multiple Projectiles",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_369650395",
+				["text"] = "Socketed Gems are Supported by Level # Rage",
 				["type"] = "implicit",
 			},
 			{
@@ -42682,6 +43123,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3924520095",
+				["text"] = "Trigger Level # Assassin's Mark when you Hit a Rare or Unique Enemy and have no Mark",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_1523888729",
 				["text"] = "Trigger Level # Fiery Impact on Melee Hit with this Weapon",
 				["type"] = "implicit",
@@ -42692,13 +43138,33 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2935409762",
+				["text"] = "Trigger Level # Rain of Arrows when you Attack with a Bow",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_1774370437",
 				["text"] = "Trigger Level # Summon Taunting Contraption when you use a Flask",
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3591112611",
+				["text"] = "Trigger a Socketed Elemental Spell on Block, with a # second Cooldown",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_3067892458",
 				["text"] = "Triggered Spells deal #% increased Spell Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_779168081",
+				["text"] = "Triggers Level # Corpse Walk when Equipped",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1892084828",
+				["text"] = "Triggers Level # Physical Aegis when Equipped",
 				["type"] = "implicit",
 			},
 			{
@@ -42709,6 +43175,11 @@ return {
 			{
 				["id"] = "implicit.stat_3653191834",
 				["text"] = "Unaffected by Chilled Ground",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_4004298002",
+				["text"] = "Unaffected by Desecrated Ground",
 				["type"] = "implicit",
 			},
 			{
@@ -42807,8 +43278,18 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2257118425",
+				["text"] = "Vaal Pact",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_547412107",
 				["text"] = "Vaal Skills have #% increased Skill Effect Duration",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_593845252",
+				["text"] = "Versatile Combatant",
 				["type"] = "implicit",
 			},
 			{
@@ -42824,6 +43305,11 @@ return {
 			{
 				["id"] = "implicit.stat_1122074043",
 				["text"] = "Vitality has #% reduced Reservation",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3582759801",
+				["text"] = "Voyage Modifier will be revealed once Charted",
 				["type"] = "implicit",
 			},
 			{
@@ -42847,7 +43333,7 @@ return {
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_466064970",
+				["id"] = "implicit.stat_3683150361",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% chance to Aggravate Bleeding on targets you Hit with Attacks",
 				["type"] = "implicit",
 			},
@@ -42862,37 +43348,12 @@ return {
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_2661498709",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% chance to Avoid being Frozen",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_911929910",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% chance to Avoid being Ignited",
-				["type"] = "implicit",
-			},
-			{
 				["id"] = "implicit.stat_2714750784",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% chance to Avoid being Poisoned",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_3823702653",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% chance to Avoid being Shocked",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_990874979",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% chance to Avoid being Stunned",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_3854721949",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% chance to Extinguish Enemies on Hit",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_4146719724",
+				["id"] = "implicit.stat_2856493531",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% chance to Freeze",
 				["type"] = "implicit",
 			},
@@ -42912,11 +43373,6 @@ return {
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_3004272949",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% chance to Intimidate Enemies for 4 seconds on Hit",
-				["type"] = "implicit",
-			},
-			{
 				["id"] = "implicit.stat_532792006",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% chance to Poison on Hit",
 				["type"] = "implicit",
@@ -42927,43 +43383,18 @@ return {
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_4018420421",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% chance to Unnerve Enemies for 4 seconds on Hit",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_2251857767",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Action Speed",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_3744585764",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Arctic Armour Buff Effect",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_568930056",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Area of Effect",
-				["type"] = "implicit",
-			},
-			{
 				["id"] = "implicit.stat_1371764251",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Armour",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_3330140563",
+				["id"] = "implicit.stat_3648115427",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Armour from Equipped Helmet and Gloves",
 				["type"] = "implicit",
 			},
 			{
 				["id"] = "implicit.stat_3133935886",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Attack Damage",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_2446980928",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Attack Speed",
 				["type"] = "implicit",
 			},
 			{
@@ -42977,31 +43408,6 @@ return {
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_2391109128",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Brand Attachment range",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_4098747485",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Cast Speed",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_2070979181",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Chaos Damage",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_1576689223",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Cold Damage",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_2095999895",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Conductivity Curse Effect",
-				["type"] = "implicit",
-			},
-			{
 				["id"] = "implicit.stat_668321613",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Cooldown Recovery Rate",
 				["type"] = "implicit",
@@ -43012,43 +43418,18 @@ return {
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_1840069423",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Critical Strike Chance for Attacks",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_1870591253",
+				["id"] = "implicit.stat_3323844803",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Damage per 100 Dexterity",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_2532279515",
+				["id"] = "implicit.stat_4240840114",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Damage per 100 Intelligence",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_3183308031",
+				["id"] = "implicit.stat_3963657800",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Damage per 100 Strength",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_740797388",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Damage per Endurance Charge",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_1855179125",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Damage per Frenzy Charge",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_2809284200",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Damage per Power Charge",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_2775855429",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Despair Curse Effect",
 				["type"] = "implicit",
 			},
 			{
@@ -43062,63 +43443,13 @@ return {
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_4128294206",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Effect of Buffs granted by your Golems",
-				["type"] = "implicit",
-			},
-			{
 				["id"] = "implicit.stat_1016769968",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Effect of Non-Damaging Ailments",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_3209267362",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Effect of Onslaught on you",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_1080711147",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Effect of the Buff granted by your Carrion Golems",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_510803146",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Effect of the Buff granted by your Chaos Golems",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_783010498",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Effect of the Buff granted by your Flame Golems",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_168204696",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Effect of the Buff granted by your Ice Golems",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_2527345629",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Effect of the Buff granted by your Lightning Golems",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_438468314",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Effect of the Buff granted by your Stone Golems",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_1350472585",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Effect of your Curses",
-				["type"] = "implicit",
-			},
-			{
 				["id"] = "implicit.stat_1138753695",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Effect of your Marks",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_2029969019",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Elemental Weakness Curse Effect",
 				["type"] = "implicit",
 			},
 			{
@@ -43137,43 +43468,18 @@ return {
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_38083709",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Enfeeble Curse Effect",
-				["type"] = "implicit",
-			},
-			{
 				["id"] = "implicit.stat_2386062386",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Evasion Rating",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_2980409921",
+				["id"] = "implicit.stat_2644597389",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Evasion Rating from Equipped Helmet and Boots",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_2782184338",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Fire Damage",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_323292443",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Flammability Curse Effect",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_2068042138",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Frostbite Curse Effect",
 				["type"] = "implicit",
 			},
 			{
 				["id"] = "implicit.stat_2086047206",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Global Accuracy Rating",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_2545907302",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Global Physical Damage",
 				["type"] = "implicit",
 			},
 			{
@@ -43184,11 +43490,6 @@ return {
 			{
 				["id"] = "implicit.stat_498250787",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Life Regeneration rate",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_1328859059",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Lightning Damage",
 				["type"] = "implicit",
 			},
 			{
@@ -43212,23 +43513,8 @@ return {
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_1388739249",
+				["id"] = "implicit.stat_1615194441",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Maximum Energy Shield from Equipped Gloves and Boots",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_3827973062",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Mine Throwing Speed",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_1702124724",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Movement Speed",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_40584863",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Punishment Curse Effect",
 				["type"] = "implicit",
 			},
 			{
@@ -43242,11 +43528,6 @@ return {
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_1412947753",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Spell Critical Strike Chance",
-				["type"] = "implicit",
-			},
-			{
 				["id"] = "implicit.stat_817495383",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Spell Damage",
 				["type"] = "implicit",
@@ -43257,43 +43538,8 @@ return {
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_3695602451",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Temporal Chains Curse Effect",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_100371300",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Totem Placement speed",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_547463927",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Trap Throwing Speed",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_1668340466",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Vulnerability Curse Effect",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_794753348",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Warcry Buff Effect",
-				["type"] = "implicit",
-			},
-			{
 				["id"] = "implicit.stat_2117066923",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Warcry Speed",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_3788782813",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased effect of Non-Curse Auras from your Skills",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_2526554500",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased effect of Offerings",
 				["type"] = "implicit",
 			},
 			{
@@ -43302,58 +43548,23 @@ return {
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_10259064",
+				["id"] = "implicit.stat_3983941937",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% of Chaos Damage Leeched as Life",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_339123312",
+				["id"] = "implicit.stat_2481954483",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% of Cold Damage Leeched as Life",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_2181576428",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% of Cold Damage taken Recouped as Life",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_2173565521",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% of Damage from your Hits cannot be Reflected",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_699673918",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% of Damage is taken from Mana before Life",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_2525287976",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% of Damage taken Recouped as Life",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_1954944666",
+				["id"] = "implicit.stat_3480255365",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% of Fire Damage Leeched as Life",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_1613190388",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% of Fire Damage taken Recouped as Life",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_648344494",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% of Hit Damage from your Minions cannot be Reflected",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_1896842319",
+				["id"] = "implicit.stat_373606913",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% of Lightning Damage Leeched as Life",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_3870554516",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% of Lightning Damage taken Recouped as Life",
 				["type"] = "implicit",
 			},
 			{
@@ -43377,7 +43588,7 @@ return {
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_2500914030",
+				["id"] = "implicit.stat_190207599",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% of Physical Damage Leeched as Life",
 				["type"] = "implicit",
 			},
@@ -43402,18 +43613,8 @@ return {
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_1300694383",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% of Physical Damage taken Recouped as Life",
-				["type"] = "implicit",
-			},
-			{
 				["id"] = "implicit.stat_433740375",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% reduced Effect of Shock on you",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_2169620689",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% reduced Enemy Stun Threshold",
 				["type"] = "implicit",
 			},
 			{
@@ -43427,12 +43628,7 @@ return {
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_3671920033",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% reduced Mana Cost of Attacks",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_490830332",
+				["id"] = "implicit.stat_771112337",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, +# to Accuracy Rating per Frenzy Charge",
 				["type"] = "implicit",
 			},
@@ -43442,148 +43638,23 @@ return {
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_2163155983",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, +#% to Chaos Damage over Time Multiplier",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_74135418",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, +#% to Chaos Resistance",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_2619970520",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, +#% to Cold Damage over Time Multiplier",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_3864103630",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, +#% to Cold Resistance",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_2825010848",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, +#% to Critical Strike Multiplier for Attack Damage",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_2955927568",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, +#% to Critical Strike Multiplier for Spell Damage",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_1870961528",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, +#% to Fire Damage over Time Multiplier",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_1299790658",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, +#% to Fire Resistance",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_3980173235",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, +#% to Lightning Resistance",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_4084536353",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, +#% to Physical Damage over Time Multiplier",
-				["type"] = "implicit",
-			},
-			{
 				["id"] = "implicit.stat_2251516251",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, +#% to all Elemental Resistances",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_673499528",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, +#% to all maximum Resistances",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_944522962",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, +#% to maximum Chaos Resistance",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_3415855998",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, +#% to maximum Cold Resistance",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_1133929401",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, +#% to maximum Fire Resistance",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_4136085904",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, +#% to maximum Lightning Resistance",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_2216092051",
+				["id"] = "implicit.stat_3749526289",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, 1% less Damage Taken per # Dexterity",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_3801851872",
+				["id"] = "implicit.stat_3032935515",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, 1% less Damage Taken per # Intelligence",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_125264229",
+				["id"] = "implicit.stat_514187658",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, 1% less Damage Taken per # Strength",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_3953801646",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Adds # to # Chaos Damage to Attacks",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_3206883665",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Adds # to # Chaos Damage to Spells",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_1016130575",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Adds # to # Cold Damage to Attacks",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_3349767748",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Adds # to # Cold Damage to Spells",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_3972399670",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Adds # to # Fire Damage to Attacks",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_3954869480",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Adds # to # Fire Damage to Spells",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_2925105924",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Adds # to # Lightning Damage to Attacks",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_3874289",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Adds # to # Lightning Damage to Spells",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_3477311591",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Adds # to # Physical Damage to Attacks",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_485268361",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Adds # to # Physical Damage to Spells",
 				["type"] = "implicit",
 			},
 			{
@@ -43607,18 +43678,13 @@ return {
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_4014428128",
+				["id"] = "implicit.stat_2960338345",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Attacks have #% chance to cause Bleeding",
 				["type"] = "implicit",
 			},
 			{
 				["id"] = "implicit.stat_4106235309",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Bleeding you inflict deals Damage #% faster",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_3774100463",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Bone Offering has #% increased Effect",
 				["type"] = "implicit",
 			},
 			{
@@ -43647,63 +43713,18 @@ return {
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_235328972",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Drops Brittle Ground while moving, lasting # seconds",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_1296291315",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Drops Sapped Ground while moving, lasting # seconds",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_4054012096",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Drops Scorched Ground while moving, lasting # seconds",
-				["type"] = "implicit",
-			},
-			{
 				["id"] = "implicit.stat_906749304",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Enduring Cry has #% increased Cooldown Recovery Rate",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_3407071583",
+				["id"] = "implicit.stat_1448864020",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Enemies you've Hit Recently have #% reduced Life Regeneration rate",
 				["type"] = "implicit",
 			},
 			{
 				["id"] = "implicit.stat_376260015",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Exerted Attacks deal #% increased Damage",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_4155771029",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Flasks applied to you have #% increased Effect",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_1519845279",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Flasks gain # Charges every 3 seconds",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_862077496",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Flesh Offering has #% increased Effect",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_3393490212",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Flesh and Stone has #% increased Area of Effect",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_1436051850",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Freezes you inflict spread to other Enemies within # metre",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_3509416536",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Gain # Rage on Attack Hit",
 				["type"] = "implicit",
 			},
 			{
@@ -43727,26 +43748,6 @@ return {
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_1270539481",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Gain 1 Rage on Hit with Attacks",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_560848642",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Gain a Frenzy Charge every # seconds",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_2703923310",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Gain a Power Charge every # seconds",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_951862199",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Gain an Endurance Charge every # seconds",
-				["type"] = "implicit",
-			},
-			{
 				["id"] = "implicit.stat_133006298",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, General's Cry has #% increased Cooldown Recovery Rate",
 				["type"] = "implicit",
@@ -43757,7 +43758,7 @@ return {
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_1065477979",
+				["id"] = "implicit.stat_448247701",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Haste has #% increased Aura Effect",
 				["type"] = "implicit",
 			},
@@ -43767,32 +43768,7 @@ return {
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_3001066983",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Herald of Agony has #% increased Buff Effect",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_3045509476",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Herald of Ash has #% increased Buff Effect",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_1609260458",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Herald of Ice has #% increased Buff Effect",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_3005679448",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Herald of Purity has #% increased Buff Effect",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_1553385903",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Herald of Thunder has #% increased Buff Effect",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_4022700734",
+				["id"] = "implicit.stat_3990398819",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Hits have #% chance to ignore Enemy Physical Damage Reduction",
 				["type"] = "implicit",
 			},
@@ -43802,27 +43778,22 @@ return {
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_3343791355",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Ignites you inflict spread to other Enemies within # metre",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_1774377226",
+				["id"] = "implicit.stat_2260273147",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Infernal Cry has #% increased Area of Effect",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_3658662726",
+				["id"] = "implicit.stat_2634089322",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Inflict Cold Exposure on Hit, applying #% to Cold Resistance",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_1629531681",
+				["id"] = "implicit.stat_3244240567",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Inflict Fire Exposure on Hit, applying #% to Fire Resistance",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_1762412317",
+				["id"] = "implicit.stat_3095691631",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Inflict Lightning Exposure on Hit, applying #% to Lightning Resistance",
 				["type"] = "implicit",
 			},
@@ -43842,28 +43813,18 @@ return {
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_3141084961",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Minions deal #% increased Damage",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_2809900883",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Minions have #% increased Movement Speed",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_4057257145",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Minions have #% increased maximum Life",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_1884100040",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Non-Vaal Strike Skills target # additional nearby Enemy",
+				["id"] = "implicit.stat_1973340656",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Minions prevent +#% of Reflected Damage they would take",
 				["type"] = "implicit",
 			},
 			{
 				["id"] = "implicit.stat_995369618",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Poisons you inflict deal Damage #% faster",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2173565521",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Prevent +#% of Reflected Damage",
 				["type"] = "implicit",
 			},
 			{
@@ -43902,21 +43863,6 @@ return {
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_2218095219",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Shocks you inflict spread to other Enemies within # metre",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_2399066987",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Spirit Offering has #% increased Effect",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_2601015548",
-				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Tempest Shield has #% increased Buff Effect",
-				["type"] = "implicit",
-			},
-			{
 				["id"] = "implicit.stat_3457821036",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Withered you Inflict expires #% faster",
 				["type"] = "implicit",
@@ -43932,31 +43878,6 @@ return {
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_725501141",
-				["text"] = "While a Unique Enemy is in your Presence, #% Chance to Block Attack Damage",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_1358320252",
-				["text"] = "While a Unique Enemy is in your Presence, #% Chance to Block Spell Damage",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_2543125349",
-				["text"] = "While a Unique Enemy is in your Presence, #% chance to Aggravate Bleeding on targets you Hit with Attacks",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_2651293339",
-				["text"] = "While a Unique Enemy is in your Presence, #% chance to Avoid Bleeding",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_3264420229",
-				["text"] = "While a Unique Enemy is in your Presence, #% chance to Avoid Elemental Ailments",
-				["type"] = "implicit",
-			},
-			{
 				["id"] = "implicit.stat_3887072924",
 				["text"] = "While a Unique Enemy is in your Presence, #% chance to Avoid being Frozen",
 				["type"] = "implicit",
@@ -43964,11 +43885,6 @@ return {
 			{
 				["id"] = "implicit.stat_2796083262",
 				["text"] = "While a Unique Enemy is in your Presence, #% chance to Avoid being Ignited",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_3553907672",
-				["text"] = "While a Unique Enemy is in your Presence, #% chance to Avoid being Poisoned",
 				["type"] = "implicit",
 			},
 			{
@@ -43982,43 +43898,13 @@ return {
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_4163073767",
+				["id"] = "implicit.stat_1328787425",
 				["text"] = "While a Unique Enemy is in your Presence, #% chance to Extinguish Enemies on Hit",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_1096728982",
-				["text"] = "While a Unique Enemy is in your Presence, #% chance to Freeze",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_3423886807",
-				["text"] = "While a Unique Enemy is in your Presence, #% chance to Hinder Enemies on Hit with Spells",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_874990741",
-				["text"] = "While a Unique Enemy is in your Presence, #% chance to Ignite",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_2391907787",
-				["text"] = "While a Unique Enemy is in your Presence, #% chance to Impale Enemies on Hit with Attacks",
 				["type"] = "implicit",
 			},
 			{
 				["id"] = "implicit.stat_144453866",
 				["text"] = "While a Unique Enemy is in your Presence, #% chance to Intimidate Enemies for 4 seconds on Hit",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_2433754249",
-				["text"] = "While a Unique Enemy is in your Presence, #% chance to Poison on Hit",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_2621869142",
-				["text"] = "While a Unique Enemy is in your Presence, #% chance to Shock",
 				["type"] = "implicit",
 			},
 			{
@@ -44042,33 +43928,8 @@ return {
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_1980216452",
-				["text"] = "While a Unique Enemy is in your Presence, #% increased Armour",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_1586470077",
-				["text"] = "While a Unique Enemy is in your Presence, #% increased Armour from Equipped Helmet and Gloves",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_4061200499",
-				["text"] = "While a Unique Enemy is in your Presence, #% increased Attack Damage",
-				["type"] = "implicit",
-			},
-			{
 				["id"] = "implicit.stat_3401410854",
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Attack Speed",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_3173180145",
-				["text"] = "While a Unique Enemy is in your Presence, #% increased Battlemage's Cry Buff Effect",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_886650454",
-				["text"] = "While a Unique Enemy is in your Presence, #% increased Blind Effect",
 				["type"] = "implicit",
 			},
 			{
@@ -44097,33 +43958,8 @@ return {
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_2491353340",
-				["text"] = "While a Unique Enemy is in your Presence, #% increased Cooldown Recovery Rate",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_2986495340",
-				["text"] = "While a Unique Enemy is in your Presence, #% increased Cooldown Recovery Rate of Travel Skills",
-				["type"] = "implicit",
-			},
-			{
 				["id"] = "implicit.stat_3710240762",
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Critical Strike Chance for Attacks",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_535580777",
-				["text"] = "While a Unique Enemy is in your Presence, #% increased Damage per 100 Dexterity",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_1894390763",
-				["text"] = "While a Unique Enemy is in your Presence, #% increased Damage per 100 Intelligence",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_4224921626",
-				["text"] = "While a Unique Enemy is in your Presence, #% increased Damage per 100 Strength",
 				["type"] = "implicit",
 			},
 			{
@@ -44147,23 +43983,8 @@ return {
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_3341892633",
-				["text"] = "While a Unique Enemy is in your Presence, #% increased Duration of Ailments on Enemies",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_3163099942",
-				["text"] = "While a Unique Enemy is in your Presence, #% increased Effect of Arcane Surge on you",
-				["type"] = "implicit",
-			},
-			{
 				["id"] = "implicit.stat_2159248495",
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Effect of Buffs granted by your Golems",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_2950684886",
-				["text"] = "While a Unique Enemy is in your Presence, #% increased Effect of Non-Damaging Ailments",
 				["type"] = "implicit",
 			},
 			{
@@ -44207,43 +44028,13 @@ return {
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_505694848",
-				["text"] = "While a Unique Enemy is in your Presence, #% increased Effect of your Marks",
-				["type"] = "implicit",
-			},
-			{
 				["id"] = "implicit.stat_771845579",
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Elemental Weakness Curse Effect",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_2413932980",
-				["text"] = "While a Unique Enemy is in your Presence, #% increased Elusive Effect",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_3806837783",
-				["text"] = "While a Unique Enemy is in your Presence, #% increased Energy Shield Recharge Rate",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_587322642",
-				["text"] = "While a Unique Enemy is in your Presence, #% increased Energy Shield Recovery rate",
-				["type"] = "implicit",
-			},
-			{
 				["id"] = "implicit.stat_937462392",
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Enfeeble Curse Effect",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_3394288644",
-				["text"] = "While a Unique Enemy is in your Presence, #% increased Evasion Rating",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_2408490382",
-				["text"] = "While a Unique Enemy is in your Presence, #% increased Evasion Rating from Equipped Helmet and Boots",
 				["type"] = "implicit",
 			},
 			{
@@ -44262,53 +44053,13 @@ return {
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_2423625781",
-				["text"] = "While a Unique Enemy is in your Presence, #% increased Global Accuracy Rating",
-				["type"] = "implicit",
-			},
-			{
 				["id"] = "implicit.stat_604852150",
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Global Physical Damage",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_1481249164",
-				["text"] = "While a Unique Enemy is in your Presence, #% increased Life Recovery rate",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_1916766878",
-				["text"] = "While a Unique Enemy is in your Presence, #% increased Life Regeneration rate",
-				["type"] = "implicit",
-			},
-			{
 				["id"] = "implicit.stat_2668120423",
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Lightning Damage",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_1217759839",
-				["text"] = "While a Unique Enemy is in your Presence, #% increased Mana Recovery rate",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_760444887",
-				["text"] = "While a Unique Enemy is in your Presence, #% increased Mana Regeneration Rate",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_1918872160",
-				["text"] = "While a Unique Enemy is in your Presence, #% increased Mana Regeneration Rate per Power Charge",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_2358903592",
-				["text"] = "While a Unique Enemy is in your Presence, #% increased Mana Reservation Efficiency of Skills",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_4288334466",
-				["text"] = "While a Unique Enemy is in your Presence, #% increased Maximum Energy Shield from Equipped Gloves and Boots",
 				["type"] = "implicit",
 			},
 			{
@@ -44327,28 +44078,8 @@ return {
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_1381761351",
-				["text"] = "While a Unique Enemy is in your Presence, #% increased Rallying Cry Buff Effect",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_614709726",
-				["text"] = "While a Unique Enemy is in your Presence, #% increased Skill Effect Duration",
-				["type"] = "implicit",
-			},
-			{
 				["id"] = "implicit.stat_4191234472",
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Spell Critical Strike Chance",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_4136821316",
-				["text"] = "While a Unique Enemy is in your Presence, #% increased Spell Damage",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_266654028",
-				["text"] = "While a Unique Enemy is in your Presence, #% increased Stun Threshold",
 				["type"] = "implicit",
 			},
 			{
@@ -44377,11 +44108,6 @@ return {
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_2255001736",
-				["text"] = "While a Unique Enemy is in your Presence, #% increased Warcry Speed",
-				["type"] = "implicit",
-			},
-			{
 				["id"] = "implicit.stat_2558323947",
 				["text"] = "While a Unique Enemy is in your Presence, #% increased effect of Non-Curse Auras from your Skills",
 				["type"] = "implicit",
@@ -44392,28 +44118,8 @@ return {
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_1114962813",
-				["text"] = "While a Unique Enemy is in your Presence, #% increased maximum Energy Shield",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_1172401338",
-				["text"] = "While a Unique Enemy is in your Presence, #% of Chaos Damage Leeched as Life",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_3357881628",
-				["text"] = "While a Unique Enemy is in your Presence, #% of Cold Damage Leeched as Life",
-				["type"] = "implicit",
-			},
-			{
 				["id"] = "implicit.stat_1739741837",
 				["text"] = "While a Unique Enemy is in your Presence, #% of Cold Damage taken Recouped as Life",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_2195698019",
-				["text"] = "While a Unique Enemy is in your Presence, #% of Damage from your Hits cannot be Reflected",
 				["type"] = "implicit",
 			},
 			{
@@ -44427,23 +44133,8 @@ return {
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_3430693940",
-				["text"] = "While a Unique Enemy is in your Presence, #% of Fire Damage Leeched as Life",
-				["type"] = "implicit",
-			},
-			{
 				["id"] = "implicit.stat_2143647966",
 				["text"] = "While a Unique Enemy is in your Presence, #% of Fire Damage taken Recouped as Life",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_4260371388",
-				["text"] = "While a Unique Enemy is in your Presence, #% of Hit Damage from your Minions cannot be Reflected",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_2824722288",
-				["text"] = "While a Unique Enemy is in your Presence, #% of Lightning Damage Leeched as Life",
 				["type"] = "implicit",
 			},
 			{
@@ -44452,58 +44143,8 @@ return {
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_1623369100",
-				["text"] = "While a Unique Enemy is in your Presence, #% of Physical Damage Converted to Chaos Damage",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_1153825002",
-				["text"] = "While a Unique Enemy is in your Presence, #% of Physical Damage Converted to Cold Damage",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_380027104",
-				["text"] = "While a Unique Enemy is in your Presence, #% of Physical Damage Converted to Fire Damage",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_1516273114",
-				["text"] = "While a Unique Enemy is in your Presence, #% of Physical Damage Converted to Lightning Damage",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_2443166200",
-				["text"] = "While a Unique Enemy is in your Presence, #% of Physical Damage Leeched as Life",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_2393004388",
-				["text"] = "While a Unique Enemy is in your Presence, #% of Physical Damage from Hits taken as Chaos Damage",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_848890513",
-				["text"] = "While a Unique Enemy is in your Presence, #% of Physical Damage from Hits taken as Cold Damage",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_1283684786",
-				["text"] = "While a Unique Enemy is in your Presence, #% of Physical Damage from Hits taken as Fire Damage",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_196824923",
-				["text"] = "While a Unique Enemy is in your Presence, #% of Physical Damage from Hits taken as Lightning Damage",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_3796902731",
+				["id"] = "implicit.stat_428533194",
 				["text"] = "While a Unique Enemy is in your Presence, #% of Physical Damage taken Recouped as Life",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_1343931641",
-				["text"] = "While a Unique Enemy is in your Presence, #% reduced Effect of Shock on you",
 				["type"] = "implicit",
 			},
 			{
@@ -44512,28 +44153,8 @@ return {
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_3985862221",
-				["text"] = "While a Unique Enemy is in your Presence, #% reduced Freeze Duration on you",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_2520245478",
-				["text"] = "While a Unique Enemy is in your Presence, #% reduced Ignite Duration on you",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_1116269888",
+				["id"] = "implicit.stat_2879204033",
 				["text"] = "While a Unique Enemy is in your Presence, #% reduced Mana Cost of Attacks",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_475859964",
-				["text"] = "While a Unique Enemy is in your Presence, +# to Accuracy Rating per Frenzy Charge",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_3998961962",
-				["text"] = "While a Unique Enemy is in your Presence, +#% chance to Suppress Spell Damage",
 				["type"] = "implicit",
 			},
 			{
@@ -44557,7 +44178,7 @@ return {
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_26879978",
+				["id"] = "implicit.stat_2374340020",
 				["text"] = "While a Unique Enemy is in your Presence, +#% to Critical Strike Multiplier for Attack Damage",
 				["type"] = "implicit",
 			},
@@ -44587,11 +44208,6 @@ return {
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_2358153166",
-				["text"] = "While a Unique Enemy is in your Presence, +#% to all Elemental Resistances",
-				["type"] = "implicit",
-			},
-			{
 				["id"] = "implicit.stat_3062531896",
 				["text"] = "While a Unique Enemy is in your Presence, +#% to all maximum Resistances",
 				["type"] = "implicit",
@@ -44614,21 +44230,6 @@ return {
 			{
 				["id"] = "implicit.stat_789714862",
 				["text"] = "While a Unique Enemy is in your Presence, +#% to maximum Lightning Resistance",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_1682072497",
-				["text"] = "While a Unique Enemy is in your Presence, 1% less Damage Taken per # Dexterity",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_553122931",
-				["text"] = "While a Unique Enemy is in your Presence, 1% less Damage Taken per # Intelligence",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_3389591826",
-				["text"] = "While a Unique Enemy is in your Presence, 1% less Damage Taken per # Strength",
 				["type"] = "implicit",
 			},
 			{
@@ -44682,93 +44283,23 @@ return {
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_778803098",
-				["text"] = "While a Unique Enemy is in your Presence, Anger has #% increased Aura Effect",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_3598887112",
-				["text"] = "While a Unique Enemy is in your Presence, Attacks Exerted by Ancestral Cry deal #% increased Damage",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_1505297139",
-				["text"] = "While a Unique Enemy is in your Presence, Attacks Exerted by Seismic Cry deal #% increased Damage",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_720015764",
-				["text"] = "While a Unique Enemy is in your Presence, Attacks have #% chance to Maim on Hit",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_64193828",
-				["text"] = "While a Unique Enemy is in your Presence, Attacks have #% chance to cause Bleeding",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_738837643",
-				["text"] = "While a Unique Enemy is in your Presence, Bleeding you inflict deals Damage #% faster",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_2290911895",
+				["id"] = "implicit.stat_666003799",
 				["text"] = "While a Unique Enemy is in your Presence, Bone Offering has #% increased Effect",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_1477049675",
-				["text"] = "While a Unique Enemy is in your Presence, Damage Penetrates #% Cold Resistance",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_3425675761",
-				["text"] = "While a Unique Enemy is in your Presence, Damage Penetrates #% Fire Resistance",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_1598254831",
-				["text"] = "While a Unique Enemy is in your Presence, Damage Penetrates #% Lightning Resistance",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_2366356855",
-				["text"] = "While a Unique Enemy is in your Presence, Determination has #% increased Aura Effect",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_334238649",
-				["text"] = "While a Unique Enemy is in your Presence, Discipline has #% increased Aura Effect",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_1771822543",
+				["id"] = "implicit.stat_2067176775",
 				["text"] = "While a Unique Enemy is in your Presence, Drops Brittle Ground while moving, lasting # seconds",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_2220831041",
+				["id"] = "implicit.stat_1914444573",
 				["text"] = "While a Unique Enemy is in your Presence, Drops Sapped Ground while moving, lasting # seconds",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_493814995",
+				["id"] = "implicit.stat_3096936188",
 				["text"] = "While a Unique Enemy is in your Presence, Drops Scorched Ground while moving, lasting # seconds",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_2792560229",
-				["text"] = "While a Unique Enemy is in your Presence, Enduring Cry has #% increased Cooldown Recovery Rate",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_2570471069",
-				["text"] = "While a Unique Enemy is in your Presence, Enemies you've Hit Recently have #% reduced Life Regeneration rate",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_3291139981",
-				["text"] = "While a Unique Enemy is in your Presence, Exerted Attacks deal #% increased Damage",
 				["type"] = "implicit",
 			},
 			{
@@ -44782,83 +44313,43 @@ return {
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_3599488608",
+				["id"] = "implicit.stat_3609221005",
 				["text"] = "While a Unique Enemy is in your Presence, Flesh Offering has #% increased Effect",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_1472965536",
+				["id"] = "implicit.stat_820932852",
 				["text"] = "While a Unique Enemy is in your Presence, Flesh and Stone has #% increased Area of Effect",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_2543269407",
+				["id"] = "implicit.stat_4154614323",
 				["text"] = "While a Unique Enemy is in your Presence, Freezes you inflict spread to other Enemies within # metre",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_3134649750",
+				["id"] = "implicit.stat_2206516141",
 				["text"] = "While a Unique Enemy is in your Presence, Gain # Rage on Attack Hit",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_620552892",
-				["text"] = "While a Unique Enemy is in your Presence, Gain #% of Physical Damage as Extra Chaos Damage",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_3171354842",
-				["text"] = "While a Unique Enemy is in your Presence, Gain #% of Physical Damage as Extra Cold Damage",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_3549954477",
-				["text"] = "While a Unique Enemy is in your Presence, Gain #% of Physical Damage as Extra Fire Damage",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_1918094957",
-				["text"] = "While a Unique Enemy is in your Presence, Gain #% of Physical Damage as Extra Lightning Damage",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_2076129434",
+				["id"] = "implicit.stat_996960575",
 				["text"] = "While a Unique Enemy is in your Presence, Gain 1 Rage on Hit with Attacks",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_2847070982",
+				["id"] = "implicit.stat_3449851385",
 				["text"] = "While a Unique Enemy is in your Presence, Gain a Frenzy Charge every # seconds",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_46472075",
+				["id"] = "implicit.stat_575525582",
 				["text"] = "While a Unique Enemy is in your Presence, Gain a Power Charge every # seconds",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_2441896589",
+				["id"] = "implicit.stat_290895331",
 				["text"] = "While a Unique Enemy is in your Presence, Gain an Endurance Charge every # seconds",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_942266300",
-				["text"] = "While a Unique Enemy is in your Presence, General's Cry has #% increased Cooldown Recovery Rate",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_3303144948",
-				["text"] = "While a Unique Enemy is in your Presence, Grace has #% increased Aura Effect",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_1060820709",
-				["text"] = "While a Unique Enemy is in your Presence, Haste has #% increased Aura Effect",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_4218330172",
-				["text"] = "While a Unique Enemy is in your Presence, Hatred has #% increased Aura Effect",
 				["type"] = "implicit",
 			},
 			{
@@ -44887,53 +44378,8 @@ return {
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_71573030",
-				["text"] = "While a Unique Enemy is in your Presence, Hits have #% chance to ignore Enemy Physical Damage Reduction",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_2349328837",
-				["text"] = "While a Unique Enemy is in your Presence, Ignites you inflict deal Damage #% faster",
-				["type"] = "implicit",
-			},
-			{
 				["id"] = "implicit.stat_1698847655",
 				["text"] = "While a Unique Enemy is in your Presence, Ignites you inflict spread to other Enemies within # metre",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_3199255605",
-				["text"] = "While a Unique Enemy is in your Presence, Infernal Cry has #% increased Area of Effect",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_1699220089",
-				["text"] = "While a Unique Enemy is in your Presence, Inflict Cold Exposure on Hit, applying #% to Cold Resistance",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_732411542",
-				["text"] = "While a Unique Enemy is in your Presence, Inflict Fire Exposure on Hit, applying #% to Fire Resistance",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_2876365933",
-				["text"] = "While a Unique Enemy is in your Presence, Inflict Lightning Exposure on Hit, applying #% to Lightning Resistance",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_3381588096",
-				["text"] = "While a Unique Enemy is in your Presence, Intimidating Cry has #% increased Cooldown Recovery Rate",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_1327020319",
-				["text"] = "While a Unique Enemy is in your Presence, Malevolence has #% increased Aura Effect",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_993223747",
-				["text"] = "While a Unique Enemy is in your Presence, Melee Hits Fortify",
 				["type"] = "implicit",
 			},
 			{
@@ -44957,73 +44403,18 @@ return {
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_3828039449",
-				["text"] = "While a Unique Enemy is in your Presence, Poisons you inflict deal Damage #% faster",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_4039774101",
-				["text"] = "While a Unique Enemy is in your Presence, Pride has #% increased Aura Effect",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_3924473787",
-				["text"] = "While a Unique Enemy is in your Presence, Projectiles Pierce # additional Targets",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_348693938",
-				["text"] = "While a Unique Enemy is in your Presence, Purity of Elements has #% increased Aura Effect",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_1926772156",
-				["text"] = "While a Unique Enemy is in your Presence, Purity of Fire has #% increased Aura Effect",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_3499126604",
-				["text"] = "While a Unique Enemy is in your Presence, Purity of Ice has #% increased Aura Effect",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_908556575",
-				["text"] = "While a Unique Enemy is in your Presence, Purity of Lightning has #% increased Aura Effect",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_1123587207",
-				["text"] = "While a Unique Enemy is in your Presence, Regenerate #% of Life per second per Endurance Charge",
-				["type"] = "implicit",
-			},
-			{
 				["id"] = "implicit.stat_2868404935",
 				["text"] = "While a Unique Enemy is in your Presence, Shocks you inflict spread to other Enemies within # metre",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_2814835155",
+				["id"] = "implicit.stat_3025221882",
 				["text"] = "While a Unique Enemy is in your Presence, Spirit Offering has #% increased Effect",
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_942478380",
+				["id"] = "implicit.stat_1186828634",
 				["text"] = "While a Unique Enemy is in your Presence, Tempest Shield has #% increased Buff Effect",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_3262721796",
-				["text"] = "While a Unique Enemy is in your Presence, Withered you Inflict expires #% faster",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_399528178",
-				["text"] = "While a Unique Enemy is in your Presence, Wrath has #% increased Aura Effect",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_3550578554",
-				["text"] = "While a Unique Enemy is in your Presence, Zealotry has #% increased Aura Effect",
 				["type"] = "implicit",
 			},
 			{
@@ -45034,6 +44425,11 @@ return {
 			{
 				["id"] = "implicit.stat_2181791238",
 				["text"] = "Wrath has #% increased Aura Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3444518809",
+				["text"] = "Wrath has #% increased Mana Reservation Efficiency",
 				["type"] = "implicit",
 			},
 			{
@@ -45079,6 +44475,11 @@ return {
 			{
 				["id"] = "implicit.stat_2514424018",
 				["text"] = "You gain Onslaught for # seconds on Hit",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1032751668",
+				["text"] = "You have Vaal Pact if you've dealt a Critical Strike Recently",
 				["type"] = "implicit",
 			},
 			{
@@ -45132,11 +44533,6 @@ return {
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_1070816711",
-				["text"] = "Your Maps contain an additional Abyss",
-				["type"] = "implicit",
-			},
-			{
 				["id"] = "implicit.stat_504850499",
 				["text"] = "Your Maps contain an additional Harbinger",
 				["type"] = "implicit",
@@ -45159,6 +44555,11 @@ return {
 			{
 				["id"] = "implicit.stat_1468737867",
 				["text"] = "Your Maps contain an additional Shrine",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1070816711",
+				["text"] = "Your Maps contain an additional [ContainsAbyss|Abyss]",
 				["type"] = "implicit",
 			},
 			{
@@ -45187,8 +44588,18 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3945685369",
+				["text"] = "Your Movement Speed is #% of its base value",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_4096052153",
 				["text"] = "Zealotry has #% increased Aura Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_168308685",
+				["text"] = "Zealotry has #% increased Mana Reservation Efficiency",
 				["type"] = "implicit",
 			},
 		},
@@ -46424,6 +45835,11 @@ return {
 				["type"] = "fractured",
 			},
 			{
+				["id"] = "fractured.stat_720398262",
+				["text"] = "#% chance to Avoid Damage of each Element from Hits during Soul Gain Prevention",
+				["type"] = "fractured",
+			},
+			{
 				["id"] = "fractured.stat_3005472710",
 				["text"] = "#% chance to Avoid Elemental Ailments",
 				["type"] = "fractured",
@@ -46431,11 +45847,6 @@ return {
 			{
 				["id"] = "fractured.stat_2662268382",
 				["text"] = "#% chance to Avoid Elemental Ailments while you have Elusive",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_720398262",
-				["text"] = "#% chance to Avoid Elemental Damage from Hits during Soul Gain Prevention",
 				["type"] = "fractured",
 			},
 			{
@@ -48029,8 +47440,13 @@ return {
 				["type"] = "fractured",
 			},
 			{
-				["id"] = "fractured.stat_3873704640",
+				["id"] = "fractured.stat_1821565133",
 				["text"] = "#% increased Magic Monsters",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_4101445926",
+				["text"] = "#% increased Mana Cost Efficiency",
 				["type"] = "fractured",
 			},
 			{
@@ -48589,17 +48005,17 @@ return {
 				["type"] = "fractured",
 			},
 			{
-				["id"] = "fractured.stat_3873704640",
+				["id"] = "fractured.stat_1821565133",
 				["text"] = "#% increased number of Magic Monsters in your Maps",
 				["type"] = "fractured",
 			},
 			{
-				["id"] = "fractured.stat_3793155082",
+				["id"] = "fractured.stat_3126771445",
 				["text"] = "#% increased number of Rare Monsters",
 				["type"] = "fractured",
 			},
 			{
-				["id"] = "fractured.stat_3793155082",
+				["id"] = "fractured.stat_3126771445",
 				["text"] = "#% increased number of Rare Monsters in your Maps",
 				["type"] = "fractured",
 			},
@@ -48741,11 +48157,6 @@ return {
 			{
 				["id"] = "fractured.stat_3848282610",
 				["text"] = "#% of Fire Damage Leeched as Life",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_1567747544",
-				["text"] = "#% of Hit Damage from you and your Minions cannot be Reflected",
 				["type"] = "fractured",
 			},
 			{
@@ -49431,6 +48842,11 @@ return {
 			{
 				["id"] = "fractured.stat_1001829678",
 				["text"] = "+#% Chance to Block Attack Damage while wielding a Staff (Staves)",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_19803471",
+				["text"] = "+#% Chance to Block Spell Damage",
 				["type"] = "fractured",
 			},
 			{
@@ -52565,7 +51981,7 @@ return {
 			},
 			{
 				["id"] = "fractured.stat_899329924",
-				["text"] = "Gems can be Socketed in this Item ignoring Socket Colour",
+				["text"] = "Gems Socketed always have the Quality bonus from Socket Colour",
 				["type"] = "fractured",
 			},
 			{
@@ -53979,6 +53395,16 @@ return {
 				["type"] = "fractured",
 			},
 			{
+				["id"] = "fractured.stat_3938822425",
+				["text"] = "Rare Monsters have [ElementalThorns|Elemental Thorns] reflecting # Elemental Damage",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_3278889477",
+				["text"] = "Rare Monsters have [PhysicalThorns|Physical Thorns] reflecting # Physical Damage",
+				["type"] = "fractured",
+			},
+			{
 				["id"] = "fractured.stat_2550456553",
 				["text"] = "Rare Monsters in your Maps have # additional Modifier",
 				["type"] = "fractured",
@@ -54904,6 +54330,11 @@ return {
 				["type"] = "fractured",
 			},
 			{
+				["id"] = "fractured.stat_1567747544",
+				["text"] = "You and your Minions prevent +#% of Reflected Damage",
+				["type"] = "fractured",
+			},
+			{
 				["id"] = "fractured.stat_3577248251",
 				["text"] = "You and your Minions take #% reduced Reflected Damage",
 				["type"] = "fractured",
@@ -54936,27 +54367,6 @@ return {
 			{
 				["id"] = "fractured.stat_2764164760",
 				["text"] = "You gain Onslaught for # seconds when Hit",
-				["type"] = "fractured",
-			},
-			{
-				["id"] = "fractured.stat_1190121450",
-				["option"] = {
-					["options"] = {
-						{
-							["id"] = 1,
-							["text"] = "Chilling",
-						},
-						{
-							["id"] = 2,
-							["text"] = "Shocking",
-						},
-						{
-							["id"] = 3,
-							["text"] = "Igniting",
-						},
-					},
-				},
-				["text"] = "You have # Conflux for 3 seconds every 8 seconds",
 				["type"] = "fractured",
 			},
 			{
@@ -55661,6 +55071,11 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_2878959938",
+				["text"] = "#% increased Action Speed",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_3583185303",
 				["text"] = "#% increased Alchemist's Mark Curse Effect",
 				["type"] = "enchant",
@@ -55711,6 +55126,11 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_280731498",
+				["text"] = "#% increased Area of Effect",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_895264825",
 				["text"] = "#% increased Area of Effect of Aura Skills",
 				["type"] = "enchant",
@@ -55718,6 +55138,11 @@ return {
 			{
 				["id"] = "enchant.stat_1406617410",
 				["text"] = "#% increased Area of Effect while you have Arcane Surge",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_4065740293",
+				["text"] = "#% increased Aspect of the Cat Buff Effect",
 				["type"] = "enchant",
 			},
 			{
@@ -55753,6 +55178,11 @@ return {
 			{
 				["id"] = "enchant.stat_3639275092",
 				["text"] = "#% increased Attribute Requirements",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3143208761",
+				["text"] = "#% increased Attributes",
 				["type"] = "enchant",
 			},
 			{
@@ -55971,6 +55401,11 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_1004011302",
+				["text"] = "#% increased Cooldown Recovery Rate",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_3529090048",
 				["text"] = "#% increased Corrupting Fever Duration",
 				["type"] = "enchant",
@@ -56032,17 +55467,17 @@ return {
 			},
 			{
 				["id"] = "enchant.stat_957864706",
-				["text"] = "#% increased Dark Pact Area of Effect",
+				["text"] = "#% increased Dark Bargain Area of Effect",
 				["type"] = "enchant",
 			},
 			{
 				["id"] = "enchant.stat_1549594869",
-				["text"] = "#% increased Dark Pact Cast Speed",
+				["text"] = "#% increased Dark Bargain Cast Speed",
 				["type"] = "enchant",
 			},
 			{
 				["id"] = "enchant.stat_1573799461",
-				["text"] = "#% increased Dark Pact Damage",
+				["text"] = "#% increased Dark Bargain Damage",
 				["type"] = "enchant",
 			},
 			{
@@ -56171,6 +55606,11 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_2545584555",
+				["text"] = "#% increased Effect of Withered",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_2420972973",
 				["text"] = "#% increased Effect of the Buff granted by your Carrion Golems",
 				["type"] = "enchant",
@@ -56198,6 +55638,11 @@ return {
 			{
 				["id"] = "enchant.stat_2284801675",
 				["text"] = "#% increased Effect of the Buff granted by your Stone Golems",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_803185500",
+				["text"] = "#% increased Effect of your Marks",
 				["type"] = "enchant",
 			},
 			{
@@ -56611,6 +56056,11 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_1389153006",
+				["text"] = "#% increased Global Defences",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_3061969105",
 				["text"] = "#% increased Ground Slam Area of Effect",
 				["type"] = "enchant",
@@ -56988,6 +56438,11 @@ return {
 			{
 				["id"] = "enchant.stat_78767457",
 				["text"] = "#% increased Power Siphon Damage",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3759663284",
+				["text"] = "#% increased Projectile Speed",
 				["type"] = "enchant",
 			},
 			{
@@ -57501,6 +56956,16 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_983749596",
+				["text"] = "#% increased maximum Life",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2748665614",
+				["text"] = "#% increased maximum Mana",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_429193272",
 				["text"] = "#% increased time before Lockdown",
 				["type"] = "enchant",
@@ -57548,6 +57013,11 @@ return {
 			{
 				["id"] = "enchant.stat_2379258771",
 				["text"] = "#% of Cold Damage Converted to Chaos Damage",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3554587210",
+				["text"] = "#% of Cold and Lightning Damage from Hits taken as Fire Damage",
 				["type"] = "enchant",
 			},
 			{
@@ -57706,6 +57176,11 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_776287420",
+				["text"] = "+# to Level of all Herald Skill Gems",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_1545858329",
 				["text"] = "+# to Level of all Lightning Spell Skill Gems",
 				["type"] = "enchant",
@@ -57736,8 +57211,28 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_1515657623",
+				["text"] = "+# to Maximum Endurance Charges",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_4078695",
+				["text"] = "+# to Maximum Frenzy Charges",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_227523295",
+				["text"] = "+# to Maximum Power Charges",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_1662993931",
 				["text"] = "+# to Maximum number of Bladestorms at a time",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_66303477",
+				["text"] = "+# to Minimum Endurance, Frenzy and Power Charges",
 				["type"] = "enchant",
 			},
 			{
@@ -57758,6 +57253,11 @@ return {
 			{
 				["id"] = "enchant.stat_2836937264",
 				["text"] = "+# to maximum number of Sentinels of Purity",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_125218179",
+				["text"] = "+# to maximum number of Spectres",
 				["type"] = "enchant",
 			},
 			{
@@ -57806,8 +57306,18 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_3988349707",
+				["text"] = "+#% to Damage over Time Multiplier",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_1781630546",
 				["text"] = "+#% to Damage over Time Multiplier for Ailments from Critical Strikes",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3556824919",
+				["text"] = "+#% to Global Critical Strike Multiplier",
 				["type"] = "enchant",
 			},
 			{
@@ -57826,6 +57336,11 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_3655769732",
+				["text"] = "+#% to Quality of all Skill Gems",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_27640220",
 				["text"] = "+#% to Raised Spectre Elemental Resistances",
 				["type"] = "enchant",
@@ -57833,6 +57348,21 @@ return {
 			{
 				["id"] = "enchant.stat_1601558321",
 				["text"] = "+#% to Stone Golem Elemental Resistances",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3676141501",
+				["text"] = "+#% to maximum Cold Resistance",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_4095671657",
+				["text"] = "+#% to maximum Fire Resistance",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_1011760251",
+				["text"] = "+#% to maximum Lightning Resistance",
 				["type"] = "enchant",
 			},
 			{
@@ -57846,232 +57376,263 @@ return {
 				["type"] = "enchant",
 			},
 			{
-				["id"] = "enchant.stat_3948993189",
-				["option"] = {
-					["options"] = {
-						{
-							["id"] = 1,
-							["text"] = "Axe Attacks deal 12% increased Damage with Hits and Ailments Sword Attacks deal 12% increased Damage with Hits and Ailments",
-						},
-						{
-							["id"] = 2,
-							["text"] = "Staff Attacks deal 12% increased Damage with Hits and Ailments Mace or Sceptre Attacks deal 12% increased Damage with Hits and Ailments",
-						},
-						{
-							["id"] = 3,
-							["text"] = "Claw Attacks deal 12% increased Damage with Hits and Ailments Dagger Attacks deal 12% increased Damage with Hits and Ailments",
-						},
-						{
-							["id"] = 4,
-							["text"] = "12% increased Damage with Bows 12% increased Damage Over Time with Bow Skills",
-						},
-						{
-							["id"] = 5,
-							["text"] = "Wand Attacks deal 12% increased Damage with Hits and Ailments",
-						},
-						{
-							["id"] = 6,
-							["text"] = "12% increased Damage with Two Handed Weapons",
-						},
-						{
-							["id"] = 7,
-							["text"] = "12% increased Attack Damage while Dual Wielding",
-						},
-						{
-							["id"] = 8,
-							["text"] = "12% increased Attack Damage while holding a Shield",
-						},
-						{
-							["id"] = 9,
-							["text"] = "10% increased Attack Damage",
-						},
-						{
-							["id"] = 10,
-							["text"] = "10% increased Spell Damage",
-						},
-						{
-							["id"] = 11,
-							["text"] = "10% increased Elemental Damage",
-						},
-						{
-							["id"] = 12,
-							["text"] = "12% increased Physical Damage",
-						},
-						{
-							["id"] = 13,
-							["text"] = "12% increased Fire Damage",
-						},
-						{
-							["id"] = 14,
-							["text"] = "12% increased Lightning Damage",
-						},
-						{
-							["id"] = 15,
-							["text"] = "12% increased Cold Damage",
-						},
-						{
-							["id"] = 16,
-							["text"] = "12% increased Chaos Damage",
-						},
-						{
-							["id"] = 17,
-							["text"] = "Minions deal 10% increased Damage",
-						},
-						{
-							["id"] = 18,
-							["text"] = "12% increased Burning Damage",
-						},
-						{
-							["id"] = 19,
-							["text"] = "12% increased Chaos Damage over Time",
-						},
-						{
-							["id"] = 20,
-							["text"] = "12% increased Physical Damage over Time",
-						},
-						{
-							["id"] = 21,
-							["text"] = "12% increased Cold Damage over Time",
-						},
-						{
-							["id"] = 22,
-							["text"] = "10% increased Damage over Time",
-						},
-						{
-							["id"] = 23,
-							["text"] = "10% increased Effect of Non-Damaging Ailments",
-						},
-						{
-							["id"] = 24,
-							["text"] = "3% increased effect of Non-Curse Auras from your Skills (Legacy)",
-						},
-						{
-							["id"] = 25,
-							["text"] = "2% increased Effect of your Curses (Legacy)",
-						},
-						{
-							["id"] = 26,
-							["text"] = "10% increased Damage while affected by a Herald",
-						},
-						{
-							["id"] = 27,
-							["text"] = "Minions deal 10% increased Damage while you are affected by a Herald",
-						},
-						{
-							["id"] = 28,
-							["text"] = "Exerted Attacks deal 20% increased Damage",
-						},
-						{
-							["id"] = 29,
-							["text"] = "15% increased Critical Strike Chance",
-						},
-						{
-							["id"] = 30,
-							["text"] = "Minions have 12% increased maximum Life",
-						},
-						{
-							["id"] = 31,
-							["text"] = "10% increased Area Damage",
-						},
-						{
-							["id"] = 32,
-							["text"] = "10% increased Projectile Damage",
-						},
-						{
-							["id"] = 33,
-							["text"] = "12% increased Trap Damage 12% increased Mine Damage",
-						},
-						{
-							["id"] = 34,
-							["text"] = "12% increased Totem Damage",
-						},
-						{
-							["id"] = 35,
-							["text"] = "12% increased Brand Damage",
-						},
-						{
-							["id"] = 36,
-							["text"] = "Channelling Skills deal 12% increased Damage",
-						},
-						{
-							["id"] = 37,
-							["text"] = "6% increased Flask Effect Duration",
-						},
-						{
-							["id"] = 38,
-							["text"] = "10% increased Life Recovery from Flasks 10% increased Mana Recovery from Flasks",
-						},
-						{
-							["id"] = 39,
-							["text"] = "4% increased maximum Life",
-						},
-						{
-							["id"] = 40,
-							["text"] = "6% increased maximum Energy Shield",
-						},
-						{
-							["id"] = 41,
-							["text"] = "6% increased maximum Mana",
-						},
-						{
-							["id"] = 42,
-							["text"] = "15% increased Armour",
-						},
-						{
-							["id"] = 43,
-							["text"] = "15% increased Evasion Rating",
-						},
-						{
-							["id"] = 44,
-							["text"] = "+2% Chance to Block Attack Damage",
-						},
-						{
-							["id"] = 45,
-							["text"] = "2% Chance to Block Spell Damage",
-						},
-						{
-							["id"] = 46,
-							["text"] = "+15% to Fire Resistance",
-						},
-						{
-							["id"] = 47,
-							["text"] = "+15% to Cold Resistance",
-						},
-						{
-							["id"] = 48,
-							["text"] = "+15% to Lightning Resistance",
-						},
-						{
-							["id"] = 49,
-							["text"] = "+12% to Chaos Resistance",
-						},
-						{
-							["id"] = 50,
-							["text"] = "+4% chance to Suppress Spell Damage",
-						},
-						{
-							["id"] = 51,
-							["text"] = "+10 to Strength",
-						},
-						{
-							["id"] = 52,
-							["text"] = "+10 to Dexterity",
-						},
-						{
-							["id"] = 53,
-							["text"] = "+10 to Intelligence",
-						},
-						{
-							["id"] = 54,
-							["text"] = "6% increased Mana Reservation Efficiency of Skills",
-						},
-						{
-							["id"] = 55,
-							["text"] = "2% increased Effect of your Curses",
-						},
-					},
-				},
-				["text"] = "Added Small Passive Skills grant: #",
+				["id"] = "enchant.stat_3948993189|49",
+				["text"] = "Added Small Passive Skills grant: +12% to Chaos Resistance",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3948993189|47",
+				["text"] = "Added Small Passive Skills grant: +15% to Cold Resistance",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3948993189|46",
+				["text"] = "Added Small Passive Skills grant: +15% to Fire Resistance",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3948993189|48",
+				["text"] = "Added Small Passive Skills grant: +15% to Lightning Resistance",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3948993189|44",
+				["text"] = "Added Small Passive Skills grant: +2% Chance to Block Attack Damage",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3948993189|50",
+				["text"] = "Added Small Passive Skills grant: +4% chance to Suppress Spell Damage",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3948993189|31",
+				["text"] = "Added Small Passive Skills grant: 10% increased Area Damage",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3948993189|9",
+				["text"] = "Added Small Passive Skills grant: 10% increased Attack Damage",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3948993189|22",
+				["text"] = "Added Small Passive Skills grant: 10% increased Damage over Time",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3948993189|26",
+				["text"] = "Added Small Passive Skills grant: 10% increased Damage while affected by a Herald",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3948993189|23",
+				["text"] = "Added Small Passive Skills grant: 10% increased Effect of Non-Damaging Ailments",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3948993189|11",
+				["text"] = "Added Small Passive Skills grant: 10% increased Elemental Damage",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3948993189|38",
+				["text"] = "Added Small Passive Skills grant: 10% increased Life Recovery from Flasks Added Small Passive Skills grant: 10% increased Mana Recovery from Flasks",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3948993189|32",
+				["text"] = "Added Small Passive Skills grant: 10% increased Projectile Damage",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3948993189|10",
+				["text"] = "Added Small Passive Skills grant: 10% increased Spell Damage",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3948993189|7",
+				["text"] = "Added Small Passive Skills grant: 12% increased Attack Damage while Dual Wielding",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3948993189|8",
+				["text"] = "Added Small Passive Skills grant: 12% increased Attack Damage while holding a Shield",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3948993189|35",
+				["text"] = "Added Small Passive Skills grant: 12% increased Brand Damage",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3948993189|18",
+				["text"] = "Added Small Passive Skills grant: 12% increased Burning Damage",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3948993189|16",
+				["text"] = "Added Small Passive Skills grant: 12% increased Chaos Damage",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3948993189|19",
+				["text"] = "Added Small Passive Skills grant: 12% increased Chaos Damage over Time",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3948993189|15",
+				["text"] = "Added Small Passive Skills grant: 12% increased Cold Damage",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3948993189|21",
+				["text"] = "Added Small Passive Skills grant: 12% increased Cold Damage over Time",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3948993189|4",
+				["text"] = "Added Small Passive Skills grant: 12% increased Damage with Bows Added Small Passive Skills grant: 12% increased Damage Over Time with Bow Skills",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3948993189|6",
+				["text"] = "Added Small Passive Skills grant: 12% increased Damage with Two Handed Weapons",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3948993189|13",
+				["text"] = "Added Small Passive Skills grant: 12% increased Fire Damage",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3948993189|14",
+				["text"] = "Added Small Passive Skills grant: 12% increased Lightning Damage",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3948993189|12",
+				["text"] = "Added Small Passive Skills grant: 12% increased Physical Damage",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3948993189|20",
+				["text"] = "Added Small Passive Skills grant: 12% increased Physical Damage over Time",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3948993189|34",
+				["text"] = "Added Small Passive Skills grant: 12% increased Totem Damage",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3948993189|33",
+				["text"] = "Added Small Passive Skills grant: 12% increased Trap Damage Added Small Passive Skills grant: 12% increased Mine Damage",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3948993189|42",
+				["text"] = "Added Small Passive Skills grant: 15% increased Armour",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3948993189|29",
+				["text"] = "Added Small Passive Skills grant: 15% increased Critical Strike Chance",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3948993189|43",
+				["text"] = "Added Small Passive Skills grant: 15% increased Evasion Rating",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3948993189|45",
+				["text"] = "Added Small Passive Skills grant: 2% Chance to Block Spell Damage",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3948993189|25",
+				["text"] = "Added Small Passive Skills grant: 2% increased Effect of your Curses",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3948993189|55",
+				["text"] = "Added Small Passive Skills grant: 2% increased Effect of your Curses",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3948993189|24",
+				["text"] = "Added Small Passive Skills grant: 3% increased effect of Non-Curse Auras from your Skills",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3948993189|39",
+				["text"] = "Added Small Passive Skills grant: 4% increased maximum Life",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3948993189|37",
+				["text"] = "Added Small Passive Skills grant: 6% increased Flask Effect Duration",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3948993189|54",
+				["text"] = "Added Small Passive Skills grant: 6% increased Mana Reservation Efficiency of Skills",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3948993189|40",
+				["text"] = "Added Small Passive Skills grant: 6% increased maximum Energy Shield",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3948993189|41",
+				["text"] = "Added Small Passive Skills grant: 6% increased maximum Mana",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3948993189|1",
+				["text"] = "Added Small Passive Skills grant: Axe Attacks deal 12% increased Damage with Hits and Ailments Added Small Passive Skills grant: Sword Attacks deal 12% increased Damage with Hits and Ailments",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3948993189|36",
+				["text"] = "Added Small Passive Skills grant: Channelling Skills deal 12% increased Damage",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3948993189|3",
+				["text"] = "Added Small Passive Skills grant: Claw Attacks deal 12% increased Damage with Hits and Ailments Added Small Passive Skills grant: Dagger Attacks deal 12% increased Damage with Hits and Ailments",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3948993189|28",
+				["text"] = "Added Small Passive Skills grant: Exerted Attacks deal 20% increased Damage",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3948993189|17",
+				["text"] = "Added Small Passive Skills grant: Minions deal 10% increased Damage",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3948993189|27",
+				["text"] = "Added Small Passive Skills grant: Minions deal 10% increased Damage while you are affected by a Herald",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3948993189|30",
+				["text"] = "Added Small Passive Skills grant: Minions have 12% increased maximum Life",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3948993189|2",
+				["text"] = "Added Small Passive Skills grant: Staff Attacks deal 12% increased Damage with Hits and Ailments Added Small Passive Skills grant: Mace or Sceptre Attacks deal 12% increased Damage with Hits and Ailments",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3948993189|5",
+				["text"] = "Added Small Passive Skills grant: Wand Attacks deal 12% increased Damage with Hits and Ailments",
 				["type"] = "enchant",
 			},
 			{
@@ -58155,7564 +57716,2353 @@ return {
 				["type"] = "enchant",
 			},
 			{
-				["id"] = "enchant.stat_2954116742",
-				["option"] = {
-					["options"] = {
-						{
-							["id"] = 4918,
-							["text"] = "Indiscriminate Revenge",
-						},
-						{
-							["id"] = 15226,
-							["text"] = "Cruel Retort",
-						},
-						{
-							["id"] = 2599,
-							["text"] = "Prepared Response",
-						},
-						{
-							["id"] = 59976,
-							["text"] = "Careful Counterattack",
-						},
-						{
-							["id"] = 37425,
-							["text"] = "Practised Reapplication",
-						},
-						{
-							["id"] = 41305,
-							["text"] = "Crushing Reply",
-						},
-						{
-							["id"] = 34978,
-							["text"] = "Colloidal Mixture",
-						},
-						{
-							["id"] = 56330,
-							["text"] = "Flow of Battle",
-						},
-						{
-							["id"] = 64226,
-							["text"] = "Roaring Challenge",
-						},
-						{
-							["id"] = 52030,
-							["text"] = "Burst of Energy",
-						},
-						{
-							["id"] = 30160,
-							["text"] = "Fending",
-						},
-						{
-							["id"] = 24716,
-							["text"] = "Battle Trance",
-						},
-						{
-							["id"] = 18357,
-							["text"] = "Feline Swiftness",
-						},
-						{
-							["id"] = 23690,
-							["text"] = "Essence Infusion",
-						},
-						{
-							["id"] = 10542,
-							["text"] = "Spiked Bulwark",
-						},
-						{
-							["id"] = 37078,
-							["text"] = "Path of the Savant",
-						},
-						{
-							["id"] = 12702,
-							["text"] = "Path of the Warrior",
-						},
-						{
-							["id"] = 19506,
-							["text"] = "Path of the Hunter",
-						},
-						{
-							["id"] = 38516,
-							["text"] = "Righteous Decree",
-						},
-						{
-							["id"] = 63150,
-							["text"] = "Ironwood",
-						},
-						{
-							["id"] = 16243,
-							["text"] = "Fusillade",
-						},
-						{
-							["id"] = 2715,
-							["text"] = "Quickstep",
-						},
-						{
-							["id"] = 52230,
-							["text"] = "Weathered Hunter",
-						},
-						{
-							["id"] = 21435,
-							["text"] = "Cloth and Chain",
-						},
-						{
-							["id"] = 31033,
-							["text"] = "Robust",
-						},
-						{
-							["id"] = 65224,
-							["text"] = "Aspect of the Eagle",
-						},
-						{
-							["id"] = 24256,
-							["text"] = "Dynamo",
-						},
-						{
-							["id"] = 21973,
-							["text"] = "Decay Ward",
-						},
-						{
-							["id"] = 45067,
-							["text"] = "Thrill Killer",
-						},
-						{
-							["id"] = 24067,
-							["text"] = "Instinct",
-						},
-						{
-							["id"] = 1382,
-							["text"] = "Spirit Void",
-						},
-						{
-							["id"] = 529,
-							["text"] = "Poisonous Fangs",
-						},
-						{
-							["id"] = 46965,
-							["text"] = "Saboteur",
-						},
-						{
-							["id"] = 47484,
-							["text"] = "Depth Perception",
-						},
-						{
-							["id"] = 42686,
-							["text"] = "Elemental Focus",
-						},
-						{
-							["id"] = 27929,
-							["text"] = "Deep Wisdom",
-						},
-						{
-							["id"] = 27806,
-							["text"] = "As The Thunder",
-						},
-						{
-							["id"] = 27301,
-							["text"] = "Martial Experience",
-						},
-						{
-							["id"] = 60002,
-							["text"] = "Fury Bolts",
-						},
-						{
-							["id"] = 6783,
-							["text"] = "Savage Skewering",
-						},
-						{
-							["id"] = 5289,
-							["text"] = "Battle Rouse",
-						},
-						{
-							["id"] = 27190,
-							["text"] = "Overprepared",
-						},
-						{
-							["id"] = 20832,
-							["text"] = "Sanctuary",
-						},
-						{
-							["id"] = 49645,
-							["text"] = "Cauterisation",
-						},
-						{
-							["id"] = 7440,
-							["text"] = "Harvester of Foes",
-						},
-						{
-							["id"] = 8135,
-							["text"] = "Practical Application",
-						},
-						{
-							["id"] = 46408,
-							["text"] = "Fangs of the Viper",
-						},
-						{
-							["id"] = 10016,
-							["text"] = "Executioner",
-						},
-						{
-							["id"] = 42804,
-							["text"] = "Mind Drinker",
-						},
-						{
-							["id"] = 50690,
-							["text"] = "Replenishing Remedies",
-						},
-						{
-							["id"] = 15344,
-							["text"] = "Freedom of Movement",
-						},
-						{
-							["id"] = 10835,
-							["text"] = "Dreamer",
-						},
-						{
-							["id"] = 8001,
-							["text"] = "Clever Thief",
-						},
-						{
-							["id"] = 44788,
-							["text"] = "Potent Connections",
-						},
-						{
-							["id"] = 2550,
-							["text"] = "Arsonist",
-						},
-						{
-							["id"] = 28878,
-							["text"] = "Relentless",
-						},
-						{
-							["id"] = 45283,
-							["text"] = "Cornered Prey",
-						},
-						{
-							["id"] = 7085,
-							["text"] = "Weapon Artistry",
-						},
-						{
-							["id"] = 35233,
-							["text"] = "Discord Artisan",
-						},
-						{
-							["id"] = 18174,
-							["text"] = "Mystic Bulwark",
-						},
-						{
-							["id"] = 53757,
-							["text"] = "Shamanistic Fury",
-						},
-						{
-							["id"] = 22133,
-							["text"] = "Invigorating Blaze",
-						},
-						{
-							["id"] = 12033,
-							["text"] = "Wicked Blade",
-						},
-						{
-							["id"] = 24362,
-							["text"] = "Deep Thoughts",
-						},
-						{
-							["id"] = 10115,
-							["text"] = "Prodigal Perfection",
-						},
-						{
-							["id"] = 19144,
-							["text"] = "Sentinel",
-						},
-						{
-							["id"] = 65107,
-							["text"] = "Bastion Breaker",
-						},
-						{
-							["id"] = 42720,
-							["text"] = "Heavy Draw",
-						},
-						{
-							["id"] = 54791,
-							["text"] = "Claws of the Magpie",
-						},
-						{
-							["id"] = 52157,
-							["text"] = "Soul Siphon",
-						},
-						{
-							["id"] = 59423,
-							["text"] = "Escalation",
-						},
-						{
-							["id"] = 60781,
-							["text"] = "Inspiring Bond",
-						},
-						{
-							["id"] = 31473,
-							["text"] = "Master of Wounds",
-						},
-						{
-							["id"] = 17608,
-							["text"] = "Silent Steps",
-						},
-						{
-							["id"] = 29861,
-							["text"] = "Explosive Runes",
-						},
-						{
-							["id"] = 36859,
-							["text"] = "Steelwood Stance",
-						},
-						{
-							["id"] = 44102,
-							["text"] = "Efficient Explosives",
-						},
-						{
-							["id"] = 30693,
-							["text"] = "Divine Fervour",
-						},
-						{
-							["id"] = 63933,
-							["text"] = "Totemic Zeal",
-						},
-						{
-							["id"] = 40645,
-							["text"] = "Bone Breaker",
-						},
-						{
-							["id"] = 11784,
-							["text"] = "Vampirism",
-						},
-						{
-							["id"] = 2275,
-							["text"] = "Nature's Concoction",
-						},
-						{
-							["id"] = 59556,
-							["text"] = "Expeditious Munitions",
-						},
-						{
-							["id"] = 33082,
-							["text"] = "Razor's Edge",
-						},
-						{
-							["id"] = 56359,
-							["text"] = "Cannibalistic Rite",
-						},
-						{
-							["id"] = 28034,
-							["text"] = "Empowered Bond",
-						},
-						{
-							["id"] = 59866,
-							["text"] = "Entrench",
-						},
-						{
-							["id"] = 45657,
-							["text"] = "Trial of the Faith",
-						},
-						{
-							["id"] = 35436,
-							["text"] = "Kinetic Impacts",
-						},
-						{
-							["id"] = 41476,
-							["text"] = "Elder Power",
-						},
-						{
-							["id"] = 58168,
-							["text"] = "High Voltage",
-						},
-						{
-							["id"] = 45608,
-							["text"] = "Successive Detonations",
-						},
-						{
-							["id"] = 33582,
-							["text"] = "Forceful Skewering",
-						},
-						{
-							["id"] = 23038,
-							["text"] = "Slaughter",
-						},
-						{
-							["id"] = 55002,
-							["text"] = "Righteous Fury",
-						},
-						{
-							["id"] = 52789,
-							["text"] = "Circle of Life",
-						},
-						{
-							["id"] = 60619,
-							["text"] = "Galvanic Hammer",
-						},
-						{
-							["id"] = 63453,
-							["text"] = "Excess Sustenance",
-						},
-						{
-							["id"] = 28449,
-							["text"] = "Surge of Vigour",
-						},
-						{
-							["id"] = 62802,
-							["text"] = "Brink of Death",
-						},
-						{
-							["id"] = 6237,
-							["text"] = "Precision",
-						},
-						{
-							["id"] = 16236,
-							["text"] = "Toxic Strikes",
-						},
-						{
-							["id"] = 39657,
-							["text"] = "Pain Forger",
-						},
-						{
-							["id"] = 36915,
-							["text"] = "Sacrifice",
-						},
-						{
-							["id"] = 51212,
-							["text"] = "Entropy",
-						},
-						{
-							["id"] = 61982,
-							["text"] = "Grave Intentions",
-						},
-						{
-							["id"] = 6233,
-							["text"] = "Blast Waves",
-						},
-						{
-							["id"] = 48823,
-							["text"] = "Deadly Draw",
-						},
-						{
-							["id"] = 65093,
-							["text"] = "Bladedancer",
-						},
-						{
-							["id"] = 37504,
-							["text"] = "Intuition",
-						},
-						{
-							["id"] = 36736,
-							["text"] = "Burning Brutality",
-						},
-						{
-							["id"] = 64077,
-							["text"] = "Warrior Training",
-						},
-						{
-							["id"] = 63635,
-							["text"] = "Primal Manifestation",
-						},
-						{
-							["id"] = 5126,
-							["text"] = "Spinecruncher",
-						},
-						{
-							["id"] = 51559,
-							["text"] = "Smashing Strikes",
-						},
-						{
-							["id"] = 63921,
-							["text"] = "Utmost Swiftness",
-						},
-						{
-							["id"] = 47743,
-							["text"] = "Farsight",
-						},
-						{
-							["id"] = 42917,
-							["text"] = "Whirling Barrier",
-						},
-						{
-							["id"] = 59605,
-							["text"] = "Unstable Munitions",
-						},
-						{
-							["id"] = 46471,
-							["text"] = "Powerful Bond",
-						},
-						{
-							["id"] = 1405,
-							["text"] = "From the Shadows",
-						},
-						{
-							["id"] = 26096,
-							["text"] = "Hatchet Master",
-						},
-						{
-							["id"] = 55380,
-							["text"] = "Clever Construction",
-						},
-						{
-							["id"] = 49772,
-							["text"] = "Utmost Might",
-						},
-						{
-							["id"] = 22972,
-							["text"] = "Wandslinger",
-						},
-						{
-							["id"] = 49969,
-							["text"] = "Courage",
-						},
-						{
-							["id"] = 26763,
-							["text"] = "Perfected Formula",
-						},
-						{
-							["id"] = 41870,
-							["text"] = "Winter's Embrace",
-						},
-						{
-							["id"] = 25738,
-							["text"] = "Relentless Pursuit",
-						},
-						{
-							["id"] = 17171,
-							["text"] = "Flash Freeze",
-						},
-						{
-							["id"] = 36490,
-							["text"] = "Flaying",
-						},
-						{
-							["id"] = 35685,
-							["text"] = "Fearsome Force",
-						},
-						{
-							["id"] = 62849,
-							["text"] = "Glacial Cage",
-						},
-						{
-							["id"] = 24858,
-							["text"] = "Harpooner",
-						},
-						{
-							["id"] = 15046,
-							["text"] = "Redemption",
-						},
-						{
-							["id"] = 55114,
-							["text"] = "Utmost Intellect",
-						},
-						{
-							["id"] = 7918,
-							["text"] = "Enigmatic Defence",
-						},
-						{
-							["id"] = 14606,
-							["text"] = "Butchery",
-						},
-						{
-							["id"] = 33435,
-							["text"] = "Holy Dominion",
-						},
-						{
-							["id"] = 26557,
-							["text"] = "Static Blows",
-						},
-						{
-							["id"] = 14001,
-							["text"] = "Unfaltering",
-						},
-						{
-							["id"] = 9567,
-							["text"] = "Light Eater",
-						},
-						{
-							["id"] = 63033,
-							["text"] = "Bannerman",
-						},
-						{
-							["id"] = 63976,
-							["text"] = "Shaper",
-						},
-						{
-							["id"] = 53493,
-							["text"] = "Annihilation",
-						},
-						{
-							["id"] = 45317,
-							["text"] = "Ash, Frost and Storm",
-						},
-						{
-							["id"] = 44207,
-							["text"] = "Testudo",
-						},
-						{
-							["id"] = 30225,
-							["text"] = "Lightning Walker",
-						},
-						{
-							["id"] = 9788,
-							["text"] = "Nimbleness",
-						},
-						{
-							["id"] = 31508,
-							["text"] = "Aspect of the Lynx",
-						},
-						{
-							["id"] = 53042,
-							["text"] = "Exceptional Performance",
-						},
-						{
-							["id"] = 4940,
-							["text"] = "Cleaving",
-						},
-						{
-							["id"] = 42795,
-							["text"] = "Arcane Focus",
-						},
-						{
-							["id"] = 21413,
-							["text"] = "Combat Stamina",
-						},
-						{
-							["id"] = 33903,
-							["text"] = "Will of Blades",
-						},
-						{
-							["id"] = 44347,
-							["text"] = "Divine Fury",
-						},
-						{
-							["id"] = 65502,
-							["text"] = "Heartseeker",
-						},
-						{
-							["id"] = 6770,
-							["text"] = "Arcane Guarding",
-						},
-						{
-							["id"] = 1340,
-							["text"] = "Rampart",
-						},
-						{
-							["id"] = 13164,
-							["text"] = "Divine Judgement",
-						},
-						{
-							["id"] = 35894,
-							["text"] = "Trickery",
-						},
-						{
-							["id"] = 49538,
-							["text"] = "Defiance",
-						},
-						{
-							["id"] = 33545,
-							["text"] = "Harrier",
-						},
-						{
-							["id"] = 6,
-							["text"] = "Twin Terrors",
-						},
-						{
-							["id"] = 65273,
-							["text"] = "Enigmatic Reach",
-						},
-						{
-							["id"] = 25178,
-							["text"] = "Primal Spirit",
-						},
-						{
-							["id"] = 29522,
-							["text"] = "Dance of Blades",
-						},
-						{
-							["id"] = 19730,
-							["text"] = "Assured Strike",
-						},
-						{
-							["id"] = 15085,
-							["text"] = "Ambidexterity",
-						},
-						{
-							["id"] = 24383,
-							["text"] = "Warrior's Blood",
-						},
-						{
-							["id"] = 32681,
-							["text"] = "Mark the Prey",
-						},
-						{
-							["id"] = 6967,
-							["text"] = "Safeguard",
-						},
-						{
-							["id"] = 37403,
-							["text"] = "Infused Flesh",
-						},
-						{
-							["id"] = 54694,
-							["text"] = "Light of Divinity",
-						},
-						{
-							["id"] = 45945,
-							["text"] = "Conjured Barrier",
-						},
-						{
-							["id"] = 49621,
-							["text"] = "Acuity",
-						},
-						{
-							["id"] = 54142,
-							["text"] = "Finesse",
-						},
-						{
-							["id"] = 9432,
-							["text"] = "Mental Rapidity",
-						},
-						{
-							["id"] = 26960,
-							["text"] = "Forethought",
-						},
-						{
-							["id"] = 14813,
-							["text"] = "Revelry",
-						},
-						{
-							["id"] = 861,
-							["text"] = "Aggressive Bastion",
-						},
-						{
-							["id"] = 26866,
-							["text"] = "Sanctity",
-						},
-						{
-							["id"] = 65053,
-							["text"] = "Essence Sap",
-						},
-						{
-							["id"] = 25439,
-							["text"] = "Undertaker",
-						},
-						{
-							["id"] = 49416,
-							["text"] = "Adamant",
-						},
-						{
-							["id"] = 64355,
-							["text"] = "Brand Equity",
-						},
-						{
-							["id"] = 24050,
-							["text"] = "Coldhearted Calculation",
-						},
-						{
-							["id"] = 11420,
-							["text"] = "Arcanist's Dominion",
-						},
-						{
-							["id"] = 2225,
-							["text"] = "Eagle Eye",
-						},
-						{
-							["id"] = 32455,
-							["text"] = "Storm Weaver",
-						},
-						{
-							["id"] = 12809,
-							["text"] = "Berserking",
-						},
-						{
-							["id"] = 1006,
-							["text"] = "Potency of Will",
-						},
-						{
-							["id"] = 5823,
-							["text"] = "Coordination",
-						},
-						{
-							["id"] = 18703,
-							["text"] = "Graceful Assault",
-						},
-						{
-							["id"] = 20835,
-							["text"] = "Brinkmanship",
-						},
-						{
-							["id"] = 3309,
-							["text"] = "Fleetfoot",
-						},
-						{
-							["id"] = 15842,
-							["text"] = "One With Nature",
-						},
-						{
-							["id"] = 15711,
-							["text"] = "Blast Radius",
-						},
-						{
-							["id"] = 34666,
-							["text"] = "Destroyer",
-						},
-						{
-							["id"] = 14665,
-							["text"] = "Divine Wrath",
-						},
-						{
-							["id"] = 30471,
-							["text"] = "True Strike",
-						},
-						{
-							["id"] = 49318,
-							["text"] = "Wrecking Ball",
-						},
-						{
-							["id"] = 32059,
-							["text"] = "Titanic Impacts",
-						},
-						{
-							["id"] = 65308,
-							["text"] = "Diamond Skin",
-						},
-						{
-							["id"] = 12795,
-							["text"] = "Versatility",
-						},
-						{
-							["id"] = 33287,
-							["text"] = "Juggernaut",
-						},
-						{
-							["id"] = 25456,
-							["text"] = "Dervish",
-						},
-						{
-							["id"] = 35663,
-							["text"] = "Strong Arm",
-						},
-						{
-							["id"] = 60737,
-							["text"] = "Sleight of Hand",
-						},
-						{
-							["id"] = 41137,
-							["text"] = "Field Medicine",
-						},
-						{
-							["id"] = 50858,
-							["text"] = "Admonisher",
-						},
-						{
-							["id"] = 7069,
-							["text"] = "Split Shot",
-						},
-						{
-							["id"] = 544,
-							["text"] = "Surveillance",
-						},
-						{
-							["id"] = 61308,
-							["text"] = "Amplify",
-						},
-						{
-							["id"] = 570,
-							["text"] = "Dazzling Strikes",
-						},
-						{
-							["id"] = 34284,
-							["text"] = "Seasoned Swordplay",
-						},
-						{
-							["id"] = 24324,
-							["text"] = "Explosive Impact",
-						},
-						{
-							["id"] = 32738,
-							["text"] = "Wall of Steel",
-						},
-						{
-							["id"] = 34661,
-							["text"] = "Fire Walker",
-						},
-						{
-							["id"] = 54268,
-							["text"] = "Blade Barrier",
-						},
-						{
-							["id"] = 44824,
-							["text"] = "Mysticism",
-						},
-						{
-							["id"] = 18865,
-							["text"] = "Melding",
-						},
-						{
-							["id"] = 49445,
-							["text"] = "Deep Breaths",
-						},
-						{
-							["id"] = 47306,
-							["text"] = "Throatseeker",
-						},
-						{
-							["id"] = 44955,
-							["text"] = "Frost Walker",
-						},
-						{
-							["id"] = 22706,
-							["text"] = "Savage Intensity",
-						},
-						{
-							["id"] = 39743,
-							["text"] = "Dark Arts",
-						},
-						{
-							["id"] = 40619,
-							["text"] = "Awe and Terror",
-						},
-						{
-							["id"] = 50338,
-							["text"] = "Ballistics",
-						},
-						{
-							["id"] = 58032,
-							["text"] = "Serpentine Spellslinger",
-						},
-						{
-							["id"] = 53802,
-							["text"] = "Essence Extraction",
-						},
-						{
-							["id"] = 49254,
-							["text"] = "Retribution",
-						},
-						{
-							["id"] = 25970,
-							["text"] = "Acrimony",
-						},
-						{
-							["id"] = 32176,
-							["text"] = "Soul Thief",
-						},
-						{
-							["id"] = 51748,
-							["text"] = "Last Rites",
-						},
-						{
-							["id"] = 57900,
-							["text"] = "Command of Steel",
-						},
-						{
-							["id"] = 5430,
-							["text"] = "Magmatic Strikes",
-						},
-						{
-							["id"] = 49379,
-							["text"] = "Hired Killer",
-						},
-						{
-							["id"] = 12878,
-							["text"] = "Retaliation",
-						},
-						{
-							["id"] = 19103,
-							["text"] = "Righteous Army",
-						},
-						{
-							["id"] = 8458,
-							["text"] = "Longshot",
-						},
-						{
-							["id"] = 24721,
-							["text"] = "Ribcage Crusher",
-						},
-						{
-							["id"] = 9015,
-							["text"] = "Dire Torment",
-						},
-						{
-							["id"] = 27308,
-							["text"] = "Gravepact",
-						},
-						{
-							["id"] = 31513,
-							["text"] = "Adjacent Animosity",
-						},
-						{
-							["id"] = 30974,
-							["text"] = "Expert Hunter",
-						},
-						{
-							["id"] = 6615,
-							["text"] = "Arcing Blows",
-						},
-						{
-							["id"] = 64882,
-							["text"] = "Disciple of the Unyielding",
-						},
-						{
-							["id"] = 52031,
-							["text"] = "Disintegration",
-						},
-						{
-							["id"] = 25367,
-							["text"] = "Blade Master",
-						},
-						{
-							["id"] = 57199,
-							["text"] = "Fangs of Frost",
-						},
-						{
-							["id"] = 39761,
-							["text"] = "Counterweight",
-						},
-						{
-							["id"] = 21602,
-							["text"] = "Destructive Apparatus",
-						},
-						{
-							["id"] = 9535,
-							["text"] = "Hunter's Gambit",
-						},
-						{
-							["id"] = 28503,
-							["text"] = "Life Raker",
-						},
-						{
-							["id"] = 27163,
-							["text"] = "Arcane Will",
-						},
-						{
-							["id"] = 8920,
-							["text"] = "Backstabbing",
-						},
-						{
-							["id"] = 63207,
-							["text"] = "Tempest Blast",
-						},
-						{
-							["id"] = 43385,
-							["text"] = "Winter Spirit",
-						},
-						{
-							["id"] = 21297,
-							["text"] = "High Explosives",
-						},
-						{
-							["id"] = 29049,
-							["text"] = "Holy Fire",
-						},
-						{
-							["id"] = 54713,
-							["text"] = "Force Shaper",
-						},
-						{
-							["id"] = 44562,
-							["text"] = "Shaman's Dominion",
-						},
-						{
-							["id"] = 18707,
-							["text"] = "Perfectionist",
-						},
-						{
-							["id"] = 41595,
-							["text"] = "Marked for Death",
-						},
-						{
-							["id"] = 57839,
-							["text"] = "Blade of Cunning",
-						},
-						{
-							["id"] = 15437,
-							["text"] = "Deflection",
-						},
-						{
-							["id"] = 38849,
-							["text"] = "Searing Heat",
-						},
-						{
-							["id"] = 33777,
-							["text"] = "Devastating Devices",
-						},
-						{
-							["id"] = 26564,
-							["text"] = "Vanquisher",
-						},
-						{
-							["id"] = 4481,
-							["text"] = "Forces of Nature",
-						},
-						{
-							["id"] = 10511,
-							["text"] = "Tolerance",
-						},
-						{
-							["id"] = 26620,
-							["text"] = "Corruption",
-						},
-						{
-							["id"] = 16703,
-							["text"] = "Skull Cracking",
-						},
-						{
-							["id"] = 32227,
-							["text"] = "Adder's Touch",
-						},
-						{
-							["id"] = 19794,
-							["text"] = "Concussive Force",
-						},
-						{
-							["id"] = 31359,
-							["text"] = "Fatal Toxins",
-						},
-						{
-							["id"] = 63727,
-							["text"] = "Gladiator's Perseverance",
-						},
-						{
-							["id"] = 41119,
-							["text"] = "Lethality",
-						},
-						{
-							["id"] = 52090,
-							["text"] = "Feller of Foes",
-						},
-						{
-							["id"] = 62094,
-							["text"] = "Taste for Blood",
-						},
-						{
-							["id"] = 55772,
-							["text"] = "Blacksmith's Clout",
-						},
-						{
-							["id"] = 49459,
-							["text"] = "King of the Hill",
-						},
-						{
-							["id"] = 26294,
-							["text"] = "Bloodletting",
-						},
-						{
-							["id"] = 7136,
-							["text"] = "Master Sapper",
-						},
-						{
-							["id"] = 33725,
-							["text"] = "Swagger",
-						},
-						{
-							["id"] = 34591,
-							["text"] = "Malicious Intent",
-						},
-						{
-							["id"] = 31585,
-							["text"] = "Careful Conservationist",
-						},
-						{
-							["id"] = 22702,
-							["text"] = "Serpent Stance",
-						},
-						{
-							["id"] = 4854,
-							["text"] = "Asylum",
-						},
-						{
-							["id"] = 36281,
-							["text"] = "Primeval Force",
-						},
-						{
-							["id"] = 19897,
-							["text"] = "Death Attunement",
-						},
-						{
-							["id"] = 51881,
-							["text"] = "Master Fletcher",
-						},
-						{
-							["id"] = 15614,
-							["text"] = "Claws of the Hawk",
-						},
-						{
-							["id"] = 61689,
-							["text"] = "Explosive Elements",
-						},
-						{
-							["id"] = 9194,
-							["text"] = "Merciless Skewering",
-						},
-						{
-							["id"] = 27611,
-							["text"] = "Lord of the Dead",
-						},
-						{
-							["id"] = 64395,
-							["text"] = "Blunt Trauma",
-						},
-						{
-							["id"] = 55381,
-							["text"] = "Arcane Retaliation",
-						},
-						{
-							["id"] = 21389,
-							["text"] = "Runesmith",
-						},
-						{
-							["id"] = 39986,
-							["text"] = "Defiled Forces",
-						},
-						{
-							["id"] = 9261,
-							["text"] = "Disciple of the Forbidden",
-						},
-						{
-							["id"] = 36687,
-							["text"] = "Avatar of the Hunt",
-						},
-						{
-							["id"] = 63944,
-							["text"] = "Prism Weave",
-						},
-						{
-							["id"] = 25409,
-							["text"] = "Indomitable Army",
-						},
-						{
-							["id"] = 1568,
-							["text"] = "Fatal Blade",
-						},
-						{
-							["id"] = 30439,
-							["text"] = "Lava Lash",
-						},
-						{
-							["id"] = 53013,
-							["text"] = "Atrophy",
-						},
-						{
-							["id"] = 41989,
-							["text"] = "Resourcefulness",
-						},
-						{
-							["id"] = 43689,
-							["text"] = "Spiritual Command",
-						},
-						{
-							["id"] = 7263,
-							["text"] = "Swift Venoms",
-						},
-						{
-							["id"] = 38922,
-							["text"] = "Goliath",
-						},
-						{
-							["id"] = 56094,
-							["text"] = "One with the River",
-						},
-						{
-							["id"] = 7688,
-							["text"] = "Enduring Bond",
-						},
-						{
-							["id"] = 59151,
-							["text"] = "Brutal Blade",
-						},
-						{
-							["id"] = 56648,
-							["text"] = "Claws of the Falcon",
-						},
-						{
-							["id"] = 4207,
-							["text"] = "Window of Opportunity",
-						},
-						{
-							["id"] = 9864,
-							["text"] = "Growth and Decay",
-						},
-						{
-							["id"] = 58921,
-							["text"] = "Disciple of the Slaughter",
-						},
-						{
-							["id"] = 56276,
-							["text"] = "Nightstalker",
-						},
-						{
-							["id"] = 9055,
-							["text"] = "Volatile Mines",
-						},
-						{
-							["id"] = 48298,
-							["text"] = "Insightfulness",
-						},
-						{
-							["id"] = 55194,
-							["text"] = "Settling Ash",
-						},
-						{
-							["id"] = 42649,
-							["text"] = "Snowforged",
-						},
-						{
-							["id"] = 53652,
-							["text"] = "Steeped in the Profane",
-						},
-						{
-							["id"] = 61190,
-							["text"] = "Rallying Icon",
-						},
-						{
-							["id"] = 12143,
-							["text"] = "Influence",
-						},
-						{
-							["id"] = 38246,
-							["text"] = "Presage",
-						},
-						{
-							["id"] = 56716,
-							["text"] = "Heart of Thunder",
-						},
-						{
-							["id"] = 36949,
-							["text"] = "Devotion",
-						},
-						{
-							["id"] = 45350,
-							["text"] = "Glory of Command",
-						},
-						{
-							["id"] = 58218,
-							["text"] = "Purity of Flesh",
-						},
-						{
-							["id"] = 61981,
-							["text"] = "Doom Cast",
-						},
-						{
-							["id"] = 21330,
-							["text"] = "Quick Recovery",
-						},
-						{
-							["id"] = 40743,
-							["text"] = "Crystal Skin",
-						},
-						{
-							["id"] = 48438,
-							["text"] = "Bravery",
-						},
-						{
-							["id"] = 11924,
-							["text"] = "Breath of Flames",
-						},
-						{
-							["id"] = 45803,
-							["text"] = "Veteran Soldier",
-						},
-						{
-							["id"] = 48614,
-							["text"] = "Fervour",
-						},
-						{
-							["id"] = 27422,
-							["text"] = "Spirit of War",
-						},
-						{
-							["id"] = 42041,
-							["text"] = "Profane Chemistry",
-						},
-						{
-							["id"] = 60501,
-							["text"] = "Heart of Flame",
-						},
-						{
-							["id"] = 18769,
-							["text"] = "Written in Blood",
-						},
-						{
-							["id"] = 45329,
-							["text"] = "Trick Shot",
-						},
-						{
-							["id"] = 21958,
-							["text"] = "Cruel Preparation",
-						},
-						{
-							["id"] = 58831,
-							["text"] = "Disemboweling",
-						},
-						{
-							["id"] = 27137,
-							["text"] = "Sanctum of Thought",
-						},
-						{
-							["id"] = 13375,
-							["text"] = "Multishot",
-						},
-						{
-							["id"] = 55027,
-							["text"] = "Shining Justice",
-						},
-						{
-							["id"] = 55485,
-							["text"] = "Constitution",
-						},
-						{
-							["id"] = 46842,
-							["text"] = "Arcane Potency",
-						},
-						{
-							["id"] = 52742,
-							["text"] = "Hasty Demise",
-						},
-						{
-							["id"] = 11645,
-							["text"] = "Breath of Lightning",
-						},
-						{
-							["id"] = 4833,
-							["text"] = "Vigour",
-						},
-						{
-							["id"] = 44191,
-							["text"] = "As The Mountain",
-						},
-						{
-							["id"] = 22356,
-							["text"] = "Hematophagy",
-						},
-						{
-							["id"] = 51440,
-							["text"] = "Druidic Rite",
-						},
-						{
-							["id"] = 27203,
-							["text"] = "Heart and Soul",
-						},
-						{
-							["id"] = 6289,
-							["text"] = "Bloodless",
-						},
-						{
-							["id"] = 58449,
-							["text"] = "Born to Fight",
-						},
-						{
-							["id"] = 65210,
-							["text"] = "Heart of Oak",
-						},
-						{
-							["id"] = 33718,
-							["text"] = "Champion of the Cause",
-						},
-						{
-							["id"] = 27623,
-							["text"] = "Harsh Lessons",
-						},
-						{
-							["id"] = 24133,
-							["text"] = "Survivalist",
-						},
-						{
-							["id"] = 34173,
-							["text"] = "Overcharge",
-						},
-						{
-							["id"] = 47471,
-							["text"] = "Overcharged",
-						},
-						{
-							["id"] = 34009,
-							["text"] = "Master of the Arena",
-						},
-						{
-							["id"] = 53840,
-							["text"] = "Vengeance",
-						},
-						{
-							["id"] = 58198,
-							["text"] = "Fingers of Frost",
-						},
-						{
-							["id"] = 30302,
-							["text"] = "Hearty",
-						},
-						{
-							["id"] = 19858,
-							["text"] = "Herbalism",
-						},
-						{
-							["id"] = 41420,
-							["text"] = "Natural Remedies",
-						},
-						{
-							["id"] = 25058,
-							["text"] = "Blood Siphon",
-						},
-						{
-							["id"] = 7555,
-							["text"] = "Crackling Speed",
-						},
-						{
-							["id"] = 65097,
-							["text"] = "Leadership",
-						},
-						{
-							["id"] = 53573,
-							["text"] = "Arcane Expanse",
-						},
-						{
-							["id"] = 11730,
-							["text"] = "Endurance",
-						},
-						{
-							["id"] = 35958,
-							["text"] = "Faith and Steel",
-						},
-						{
-							["id"] = 34973,
-							["text"] = "Measured Fury",
-						},
-						{
-							["id"] = 13703,
-							["text"] = "Defiant Stand",
-						},
-						{
-							["id"] = 26023,
-							["text"] = "Savage Wounds",
-						},
-						{
-							["id"] = 2959,
-							["text"] = "Season of Ice",
-						},
-						{
-							["id"] = 44103,
-							["text"] = "Reflexes",
-						},
-						{
-							["id"] = 54629,
-							["text"] = "Inexorable",
-						},
-						{
-							["id"] = 37326,
-							["text"] = "Stamina",
-						},
-						{
-							["id"] = 51108,
-							["text"] = "Arcane Capacitor",
-						},
-						{
-							["id"] = 65108,
-							["text"] = "Tireless",
-						},
-						{
-							["id"] = 46904,
-							["text"] = "Arcane Sanctuary",
-						},
-						{
-							["id"] = 44988,
-							["text"] = "Wasting",
-						},
-						{
-							["id"] = 23066,
-							["text"] = "Savagery",
-						},
-						{
-							["id"] = 54776,
-							["text"] = "Mana Flows",
-						},
-						{
-							["id"] = 21634,
-							["text"] = "Arcane Chemistry",
-						},
-						{
-							["id"] = 48807,
-							["text"] = "Art of the Gladiator",
-						},
-						{
-							["id"] = 20528,
-							["text"] = "Instability",
-						},
-						{
-							["id"] = 59766,
-							["text"] = "Dirty Techniques",
-						},
-						{
-							["id"] = 15290,
-							["text"] = "Watchtowers",
-						},
-						{
-							["id"] = 3452,
-							["text"] = "Foresight",
-						},
-						{
-							["id"] = 21460,
-							["text"] = "Breath of Rime",
-						},
-						{
-							["id"] = 58382,
-							["text"] = "Renowned Deeds",
-						},
-						{
-							["id"] = 63422,
-							["text"] = "Lust for Carnage",
-						},
-						{
-							["id"] = 42443,
-							["text"] = "Frenetic",
-						},
-						{
-							["id"] = 47065,
-							["text"] = "Master of Blades",
-						},
-						{
-							["id"] = 21228,
-							["text"] = "Piercing Shots",
-						},
-						{
-							["id"] = 19069,
-							["text"] = "Thick Skin",
-						},
-						{
-							["id"] = 37647,
-							["text"] = "Dismembering",
-						},
-						{
-							["id"] = 25411,
-							["text"] = "Infused",
-						},
-						{
-							["id"] = 8833,
-							["text"] = "Heart of Ice",
-						},
-						{
-							["id"] = 63251,
-							["text"] = "Inveterate",
-						},
-						{
-							["id"] = 27788,
-							["text"] = "Blood Drinker",
-						},
-						{
-							["id"] = 39530,
-							["text"] = "Vitality Void",
-						},
-						{
-							["id"] = 31257,
-							["text"] = "Natural Authority",
-						},
-						{
-							["id"] = 15852,
-							["text"] = "Ethereal Feast",
-						},
-						{
-							["id"] = 29381,
-							["text"] = "Ravenous Horde",
-						},
-						{
-							["id"] = 13935,
-							["text"] = "Thrill of Battle",
-						},
-						{
-							["id"] = 62577,
-							["text"] = "Essence Surge",
-						},
-						{
-							["id"] = 34506,
-							["text"] = "Golem Commander",
-						},
-						{
-							["id"] = 41472,
-							["text"] = "Discipline and Training",
-						},
-						{
-							["id"] = 28754,
-							["text"] = "Assassination",
-						},
-						{
-							["id"] = 61198,
-							["text"] = "Heart of the Warrior",
-						},
-						{
-							["id"] = 48698,
-							["text"] = "Void Barrier",
-						},
-						{
-							["id"] = 15400,
-							["text"] = "Skittering Runes",
-						},
-						{
-							["id"] = 53118,
-							["text"] = "Barbarism",
-						},
-						{
-							["id"] = 42009,
-							["text"] = "Soul of Steel",
-						},
-						{
-							["id"] = 13922,
-							["text"] = "Steadfast",
-						},
-						{
-							["id"] = 61039,
-							["text"] = "Wild Hunger",
-						},
-						{
-							["id"] = 11820,
-							["text"] = "Anointed Flesh",
-						},
-						{
-							["id"] = 50029,
-							["text"] = "Unnatural Calm",
-						},
-						{
-							["id"] = 1325,
-							["text"] = "Golem's Blood",
-						},
-						{
-							["id"] = 39904,
-							["text"] = "Brutal Skewering",
-						},
-						{
-							["id"] = 53114,
-							["text"] = "Revenge of the Hunted",
-						},
-						{
-							["id"] = 50842,
-							["text"] = "Veteran's Wrath",
-						},
-						{
-							["id"] = 58851,
-							["text"] = "Leader of the Pack",
-						},
-						{
-							["id"] = 32932,
-							["text"] = "Sovereignty",
-						},
-						{
-							["id"] = 27119,
-							["text"] = "Tribal Fury",
-						},
-						{
-							["id"] = 25989,
-							["text"] = "Nomadic Teachings",
-						},
-						{
-							["id"] = 4177,
-							["text"] = "Spiritual Aid",
-						},
-						{
-							["id"] = 6799,
-							["text"] = "Charisma",
-						},
-						{
-							["id"] = 60031,
-							["text"] = "Prismatic Skin",
-						},
-						{
-							["id"] = 22535,
-							["text"] = "Whispers of Doom",
-						},
-						{
-							["id"] = 203,
-							["text"] = "Vinespike Cordial",
-						},
-						{
-							["id"] = 24358,
-							["text"] = "Selective Precision",
-						},
-						{
-							["id"] = 3195,
-							["text"] = "Legacy of the Wilds",
-						},
-						{
-							["id"] = 33722,
-							["text"] = "Hollow Effigy",
-						},
-						{
-							["id"] = 5574,
-							["text"] = "Force of Darkness",
-						},
-						{
-							["id"] = 56274,
-							["text"] = "Lasting Tempest",
-						},
-						{
-							["id"] = 14587,
-							["text"] = "Adaptive Steel",
-						},
-						{
-							["id"] = 13739,
-							["text"] = "Always Angry",
-						},
-						{
-							["id"] = 32853,
-							["text"] = "Sione's Ambition",
-						},
-						{
-							["id"] = 37512,
-							["text"] = "Bastion of Faith",
-						},
-						{
-							["id"] = 4354,
-							["text"] = "Beacon of Hope",
-						},
-						{
-							["id"] = 14079,
-							["text"] = "Wood, Stone, and Spell",
-						},
-						{
-							["id"] = 41169,
-							["text"] = "Jagged Wounds",
-						},
-						{
-							["id"] = 20605,
-							["text"] = "No Forgiveness",
-						},
-						{
-							["id"] = 56146,
-							["text"] = "Deliberate Brutality",
-						},
-						{
-							["id"] = 1365,
-							["text"] = "Knowledge Barrier",
-						},
-						{
-							["id"] = 23549,
-							["text"] = "Incorporeal",
-						},
-						{
-							["id"] = 51360,
-							["text"] = "Mixed Munitions",
-						},
-						{
-							["id"] = 56207,
-							["text"] = "Hardened Scars",
-						},
-						{
-							["id"] = 57006,
-							["text"] = "Vengeant Cascade",
-						},
-						{
-							["id"] = 48556,
-							["text"] = "Heart of Darkness",
-						},
-						{
-							["id"] = 53759,
-							["text"] = "Cleansed Thoughts",
-						},
-						{
-							["id"] = 40849,
-							["text"] = "Persistence",
-						},
-						{
-							["id"] = 38706,
-							["text"] = "Way of the Warrior",
-						},
-						{
-							["id"] = 62596,
-							["text"] = "Mystic Talents",
-						},
-						{
-							["id"] = 41307,
-							["text"] = "Deadly Inclinations",
-						},
-						{
-							["id"] = 16246,
-							["text"] = "Tranquility",
-						},
-						{
-							["id"] = 64217,
-							["text"] = "Aspect of Stone",
-						},
-						{
-							["id"] = 52282,
-							["text"] = "Tenacity",
-						},
-						{
-							["id"] = 5624,
-							["text"] = "Crusader",
-						},
-						{
-							["id"] = 27781,
-							["text"] = "Worship the Blightheart",
-						},
-					},
-				},
-				["text"] = "Allocates #",
+				["id"] = "enchant.stat_2954116742|25970",
+				["text"] = "Allocates Acrimony",
 				["type"] = "enchant",
 			},
 			{
-				["id"] = "enchant.stat_3199660333",
-				["text"] = "Allocates #",
+				["id"] = "enchant.stat_2954116742|49621",
+				["text"] = "Allocates Acuity",
 				["type"] = "enchant",
 			},
 			{
-				["id"] = "enchant.stat_1422267548",
-				["option"] = {
-					["options"] = {
-						{
-							["id"] = 4918,
-							["text"] = "Indiscriminate Revenge",
-						},
-						{
-							["id"] = 15226,
-							["text"] = "Cruel Retort",
-						},
-						{
-							["id"] = 2599,
-							["text"] = "Prepared Response",
-						},
-						{
-							["id"] = 59976,
-							["text"] = "Careful Counterattack",
-						},
-						{
-							["id"] = 37425,
-							["text"] = "Practised Reapplication",
-						},
-						{
-							["id"] = 41305,
-							["text"] = "Crushing Reply",
-						},
-						{
-							["id"] = 34978,
-							["text"] = "Colloidal Mixture",
-						},
-						{
-							["id"] = 56330,
-							["text"] = "Flow of Battle",
-						},
-						{
-							["id"] = 64226,
-							["text"] = "Roaring Challenge",
-						},
-						{
-							["id"] = 52030,
-							["text"] = "Burst of Energy",
-						},
-						{
-							["id"] = 30160,
-							["text"] = "Fending",
-						},
-						{
-							["id"] = 24716,
-							["text"] = "Battle Trance",
-						},
-						{
-							["id"] = 18357,
-							["text"] = "Feline Swiftness",
-						},
-						{
-							["id"] = 23690,
-							["text"] = "Essence Infusion",
-						},
-						{
-							["id"] = 10542,
-							["text"] = "Spiked Bulwark",
-						},
-						{
-							["id"] = 37078,
-							["text"] = "Path of the Savant",
-						},
-						{
-							["id"] = 12702,
-							["text"] = "Path of the Warrior",
-						},
-						{
-							["id"] = 19506,
-							["text"] = "Path of the Hunter",
-						},
-						{
-							["id"] = 38516,
-							["text"] = "Righteous Decree",
-						},
-						{
-							["id"] = 63150,
-							["text"] = "Ironwood",
-						},
-						{
-							["id"] = 16243,
-							["text"] = "Fusillade",
-						},
-						{
-							["id"] = 2715,
-							["text"] = "Quickstep",
-						},
-						{
-							["id"] = 52230,
-							["text"] = "Weathered Hunter",
-						},
-						{
-							["id"] = 21435,
-							["text"] = "Cloth and Chain",
-						},
-						{
-							["id"] = 31033,
-							["text"] = "Robust",
-						},
-						{
-							["id"] = 65224,
-							["text"] = "Aspect of the Eagle",
-						},
-						{
-							["id"] = 24256,
-							["text"] = "Dynamo",
-						},
-						{
-							["id"] = 21973,
-							["text"] = "Decay Ward",
-						},
-						{
-							["id"] = 45067,
-							["text"] = "Thrill Killer",
-						},
-						{
-							["id"] = 24067,
-							["text"] = "Instinct",
-						},
-						{
-							["id"] = 1382,
-							["text"] = "Spirit Void",
-						},
-						{
-							["id"] = 529,
-							["text"] = "Poisonous Fangs",
-						},
-						{
-							["id"] = 46965,
-							["text"] = "Saboteur",
-						},
-						{
-							["id"] = 47484,
-							["text"] = "Depth Perception",
-						},
-						{
-							["id"] = 42686,
-							["text"] = "Elemental Focus",
-						},
-						{
-							["id"] = 27929,
-							["text"] = "Deep Wisdom",
-						},
-						{
-							["id"] = 27806,
-							["text"] = "As The Thunder",
-						},
-						{
-							["id"] = 27301,
-							["text"] = "Martial Experience",
-						},
-						{
-							["id"] = 60002,
-							["text"] = "Fury Bolts",
-						},
-						{
-							["id"] = 6783,
-							["text"] = "Savage Skewering",
-						},
-						{
-							["id"] = 5289,
-							["text"] = "Battle Rouse",
-						},
-						{
-							["id"] = 27190,
-							["text"] = "Overprepared",
-						},
-						{
-							["id"] = 20832,
-							["text"] = "Sanctuary",
-						},
-						{
-							["id"] = 49645,
-							["text"] = "Cauterisation",
-						},
-						{
-							["id"] = 7440,
-							["text"] = "Harvester of Foes",
-						},
-						{
-							["id"] = 8135,
-							["text"] = "Practical Application",
-						},
-						{
-							["id"] = 46408,
-							["text"] = "Fangs of the Viper",
-						},
-						{
-							["id"] = 10016,
-							["text"] = "Executioner",
-						},
-						{
-							["id"] = 42804,
-							["text"] = "Mind Drinker",
-						},
-						{
-							["id"] = 50690,
-							["text"] = "Replenishing Remedies",
-						},
-						{
-							["id"] = 15344,
-							["text"] = "Freedom of Movement",
-						},
-						{
-							["id"] = 10835,
-							["text"] = "Dreamer",
-						},
-						{
-							["id"] = 8001,
-							["text"] = "Clever Thief",
-						},
-						{
-							["id"] = 44788,
-							["text"] = "Potent Connections",
-						},
-						{
-							["id"] = 2550,
-							["text"] = "Arsonist",
-						},
-						{
-							["id"] = 28878,
-							["text"] = "Relentless",
-						},
-						{
-							["id"] = 45283,
-							["text"] = "Cornered Prey",
-						},
-						{
-							["id"] = 7085,
-							["text"] = "Weapon Artistry",
-						},
-						{
-							["id"] = 35233,
-							["text"] = "Discord Artisan",
-						},
-						{
-							["id"] = 18174,
-							["text"] = "Mystic Bulwark",
-						},
-						{
-							["id"] = 53757,
-							["text"] = "Shamanistic Fury",
-						},
-						{
-							["id"] = 22133,
-							["text"] = "Invigorating Blaze",
-						},
-						{
-							["id"] = 12033,
-							["text"] = "Wicked Blade",
-						},
-						{
-							["id"] = 24362,
-							["text"] = "Deep Thoughts",
-						},
-						{
-							["id"] = 10115,
-							["text"] = "Prodigal Perfection",
-						},
-						{
-							["id"] = 19144,
-							["text"] = "Sentinel",
-						},
-						{
-							["id"] = 65107,
-							["text"] = "Bastion Breaker",
-						},
-						{
-							["id"] = 42720,
-							["text"] = "Heavy Draw",
-						},
-						{
-							["id"] = 54791,
-							["text"] = "Claws of the Magpie",
-						},
-						{
-							["id"] = 52157,
-							["text"] = "Soul Siphon",
-						},
-						{
-							["id"] = 59423,
-							["text"] = "Escalation",
-						},
-						{
-							["id"] = 60781,
-							["text"] = "Inspiring Bond",
-						},
-						{
-							["id"] = 31473,
-							["text"] = "Master of Wounds",
-						},
-						{
-							["id"] = 17608,
-							["text"] = "Silent Steps",
-						},
-						{
-							["id"] = 29861,
-							["text"] = "Explosive Runes",
-						},
-						{
-							["id"] = 36859,
-							["text"] = "Steelwood Stance",
-						},
-						{
-							["id"] = 44102,
-							["text"] = "Efficient Explosives",
-						},
-						{
-							["id"] = 30693,
-							["text"] = "Divine Fervour",
-						},
-						{
-							["id"] = 63933,
-							["text"] = "Totemic Zeal",
-						},
-						{
-							["id"] = 40645,
-							["text"] = "Bone Breaker",
-						},
-						{
-							["id"] = 11784,
-							["text"] = "Vampirism",
-						},
-						{
-							["id"] = 2275,
-							["text"] = "Nature's Concoction",
-						},
-						{
-							["id"] = 59556,
-							["text"] = "Expeditious Munitions",
-						},
-						{
-							["id"] = 33082,
-							["text"] = "Razor's Edge",
-						},
-						{
-							["id"] = 56359,
-							["text"] = "Cannibalistic Rite",
-						},
-						{
-							["id"] = 28034,
-							["text"] = "Empowered Bond",
-						},
-						{
-							["id"] = 59866,
-							["text"] = "Entrench",
-						},
-						{
-							["id"] = 45657,
-							["text"] = "Trial of the Faith",
-						},
-						{
-							["id"] = 35436,
-							["text"] = "Kinetic Impacts",
-						},
-						{
-							["id"] = 41476,
-							["text"] = "Elder Power",
-						},
-						{
-							["id"] = 58168,
-							["text"] = "High Voltage",
-						},
-						{
-							["id"] = 45608,
-							["text"] = "Successive Detonations",
-						},
-						{
-							["id"] = 33582,
-							["text"] = "Forceful Skewering",
-						},
-						{
-							["id"] = 23038,
-							["text"] = "Slaughter",
-						},
-						{
-							["id"] = 55002,
-							["text"] = "Righteous Fury",
-						},
-						{
-							["id"] = 52789,
-							["text"] = "Circle of Life",
-						},
-						{
-							["id"] = 60619,
-							["text"] = "Galvanic Hammer",
-						},
-						{
-							["id"] = 63453,
-							["text"] = "Excess Sustenance",
-						},
-						{
-							["id"] = 28449,
-							["text"] = "Surge of Vigour",
-						},
-						{
-							["id"] = 62802,
-							["text"] = "Brink of Death",
-						},
-						{
-							["id"] = 6237,
-							["text"] = "Precision",
-						},
-						{
-							["id"] = 16236,
-							["text"] = "Toxic Strikes",
-						},
-						{
-							["id"] = 39657,
-							["text"] = "Pain Forger",
-						},
-						{
-							["id"] = 36915,
-							["text"] = "Sacrifice",
-						},
-						{
-							["id"] = 51212,
-							["text"] = "Entropy",
-						},
-						{
-							["id"] = 61982,
-							["text"] = "Grave Intentions",
-						},
-						{
-							["id"] = 6233,
-							["text"] = "Blast Waves",
-						},
-						{
-							["id"] = 48823,
-							["text"] = "Deadly Draw",
-						},
-						{
-							["id"] = 65093,
-							["text"] = "Bladedancer",
-						},
-						{
-							["id"] = 37504,
-							["text"] = "Intuition",
-						},
-						{
-							["id"] = 36736,
-							["text"] = "Burning Brutality",
-						},
-						{
-							["id"] = 64077,
-							["text"] = "Warrior Training",
-						},
-						{
-							["id"] = 63635,
-							["text"] = "Primal Manifestation",
-						},
-						{
-							["id"] = 5126,
-							["text"] = "Spinecruncher",
-						},
-						{
-							["id"] = 51559,
-							["text"] = "Smashing Strikes",
-						},
-						{
-							["id"] = 63921,
-							["text"] = "Utmost Swiftness",
-						},
-						{
-							["id"] = 47743,
-							["text"] = "Farsight",
-						},
-						{
-							["id"] = 42917,
-							["text"] = "Whirling Barrier",
-						},
-						{
-							["id"] = 59605,
-							["text"] = "Unstable Munitions",
-						},
-						{
-							["id"] = 46471,
-							["text"] = "Powerful Bond",
-						},
-						{
-							["id"] = 1405,
-							["text"] = "From the Shadows",
-						},
-						{
-							["id"] = 26096,
-							["text"] = "Hatchet Master",
-						},
-						{
-							["id"] = 55380,
-							["text"] = "Clever Construction",
-						},
-						{
-							["id"] = 49772,
-							["text"] = "Utmost Might",
-						},
-						{
-							["id"] = 22972,
-							["text"] = "Wandslinger",
-						},
-						{
-							["id"] = 49969,
-							["text"] = "Courage",
-						},
-						{
-							["id"] = 26763,
-							["text"] = "Perfected Formula",
-						},
-						{
-							["id"] = 41870,
-							["text"] = "Winter's Embrace",
-						},
-						{
-							["id"] = 25738,
-							["text"] = "Relentless Pursuit",
-						},
-						{
-							["id"] = 17171,
-							["text"] = "Flash Freeze",
-						},
-						{
-							["id"] = 36490,
-							["text"] = "Flaying",
-						},
-						{
-							["id"] = 35685,
-							["text"] = "Fearsome Force",
-						},
-						{
-							["id"] = 62849,
-							["text"] = "Glacial Cage",
-						},
-						{
-							["id"] = 24858,
-							["text"] = "Harpooner",
-						},
-						{
-							["id"] = 15046,
-							["text"] = "Redemption",
-						},
-						{
-							["id"] = 55114,
-							["text"] = "Utmost Intellect",
-						},
-						{
-							["id"] = 7918,
-							["text"] = "Enigmatic Defence",
-						},
-						{
-							["id"] = 14606,
-							["text"] = "Butchery",
-						},
-						{
-							["id"] = 33435,
-							["text"] = "Holy Dominion",
-						},
-						{
-							["id"] = 26557,
-							["text"] = "Static Blows",
-						},
-						{
-							["id"] = 14001,
-							["text"] = "Unfaltering",
-						},
-						{
-							["id"] = 9567,
-							["text"] = "Light Eater",
-						},
-						{
-							["id"] = 63033,
-							["text"] = "Bannerman",
-						},
-						{
-							["id"] = 63976,
-							["text"] = "Shaper",
-						},
-						{
-							["id"] = 53493,
-							["text"] = "Annihilation",
-						},
-						{
-							["id"] = 45317,
-							["text"] = "Ash, Frost and Storm",
-						},
-						{
-							["id"] = 44207,
-							["text"] = "Testudo",
-						},
-						{
-							["id"] = 30225,
-							["text"] = "Lightning Walker",
-						},
-						{
-							["id"] = 9788,
-							["text"] = "Nimbleness",
-						},
-						{
-							["id"] = 31508,
-							["text"] = "Aspect of the Lynx",
-						},
-						{
-							["id"] = 53042,
-							["text"] = "Exceptional Performance",
-						},
-						{
-							["id"] = 4940,
-							["text"] = "Cleaving",
-						},
-						{
-							["id"] = 42795,
-							["text"] = "Arcane Focus",
-						},
-						{
-							["id"] = 21413,
-							["text"] = "Combat Stamina",
-						},
-						{
-							["id"] = 33903,
-							["text"] = "Will of Blades",
-						},
-						{
-							["id"] = 44347,
-							["text"] = "Divine Fury",
-						},
-						{
-							["id"] = 65502,
-							["text"] = "Heartseeker",
-						},
-						{
-							["id"] = 6770,
-							["text"] = "Arcane Guarding",
-						},
-						{
-							["id"] = 1340,
-							["text"] = "Rampart",
-						},
-						{
-							["id"] = 13164,
-							["text"] = "Divine Judgement",
-						},
-						{
-							["id"] = 35894,
-							["text"] = "Trickery",
-						},
-						{
-							["id"] = 49538,
-							["text"] = "Defiance",
-						},
-						{
-							["id"] = 33545,
-							["text"] = "Harrier",
-						},
-						{
-							["id"] = 6,
-							["text"] = "Twin Terrors",
-						},
-						{
-							["id"] = 65273,
-							["text"] = "Enigmatic Reach",
-						},
-						{
-							["id"] = 25178,
-							["text"] = "Primal Spirit",
-						},
-						{
-							["id"] = 29522,
-							["text"] = "Dance of Blades",
-						},
-						{
-							["id"] = 19730,
-							["text"] = "Assured Strike",
-						},
-						{
-							["id"] = 15085,
-							["text"] = "Ambidexterity",
-						},
-						{
-							["id"] = 24383,
-							["text"] = "Warrior's Blood",
-						},
-						{
-							["id"] = 32681,
-							["text"] = "Mark the Prey",
-						},
-						{
-							["id"] = 6967,
-							["text"] = "Safeguard",
-						},
-						{
-							["id"] = 37403,
-							["text"] = "Infused Flesh",
-						},
-						{
-							["id"] = 54694,
-							["text"] = "Light of Divinity",
-						},
-						{
-							["id"] = 45945,
-							["text"] = "Conjured Barrier",
-						},
-						{
-							["id"] = 49621,
-							["text"] = "Acuity",
-						},
-						{
-							["id"] = 54142,
-							["text"] = "Finesse",
-						},
-						{
-							["id"] = 9432,
-							["text"] = "Mental Rapidity",
-						},
-						{
-							["id"] = 26960,
-							["text"] = "Forethought",
-						},
-						{
-							["id"] = 14813,
-							["text"] = "Revelry",
-						},
-						{
-							["id"] = 861,
-							["text"] = "Aggressive Bastion",
-						},
-						{
-							["id"] = 26866,
-							["text"] = "Sanctity",
-						},
-						{
-							["id"] = 65053,
-							["text"] = "Essence Sap",
-						},
-						{
-							["id"] = 25439,
-							["text"] = "Undertaker",
-						},
-						{
-							["id"] = 49416,
-							["text"] = "Adamant",
-						},
-						{
-							["id"] = 64355,
-							["text"] = "Brand Equity",
-						},
-						{
-							["id"] = 24050,
-							["text"] = "Coldhearted Calculation",
-						},
-						{
-							["id"] = 11420,
-							["text"] = "Arcanist's Dominion",
-						},
-						{
-							["id"] = 2225,
-							["text"] = "Eagle Eye",
-						},
-						{
-							["id"] = 32455,
-							["text"] = "Storm Weaver",
-						},
-						{
-							["id"] = 12809,
-							["text"] = "Berserking",
-						},
-						{
-							["id"] = 1006,
-							["text"] = "Potency of Will",
-						},
-						{
-							["id"] = 5823,
-							["text"] = "Coordination",
-						},
-						{
-							["id"] = 18703,
-							["text"] = "Graceful Assault",
-						},
-						{
-							["id"] = 20835,
-							["text"] = "Brinkmanship",
-						},
-						{
-							["id"] = 3309,
-							["text"] = "Fleetfoot",
-						},
-						{
-							["id"] = 15842,
-							["text"] = "One With Nature",
-						},
-						{
-							["id"] = 15711,
-							["text"] = "Blast Radius",
-						},
-						{
-							["id"] = 34666,
-							["text"] = "Destroyer",
-						},
-						{
-							["id"] = 14665,
-							["text"] = "Divine Wrath",
-						},
-						{
-							["id"] = 30471,
-							["text"] = "True Strike",
-						},
-						{
-							["id"] = 49318,
-							["text"] = "Wrecking Ball",
-						},
-						{
-							["id"] = 32059,
-							["text"] = "Titanic Impacts",
-						},
-						{
-							["id"] = 65308,
-							["text"] = "Diamond Skin",
-						},
-						{
-							["id"] = 12795,
-							["text"] = "Versatility",
-						},
-						{
-							["id"] = 33287,
-							["text"] = "Juggernaut",
-						},
-						{
-							["id"] = 25456,
-							["text"] = "Dervish",
-						},
-						{
-							["id"] = 35663,
-							["text"] = "Strong Arm",
-						},
-						{
-							["id"] = 60737,
-							["text"] = "Sleight of Hand",
-						},
-						{
-							["id"] = 41137,
-							["text"] = "Field Medicine",
-						},
-						{
-							["id"] = 50858,
-							["text"] = "Admonisher",
-						},
-						{
-							["id"] = 7069,
-							["text"] = "Split Shot",
-						},
-						{
-							["id"] = 544,
-							["text"] = "Surveillance",
-						},
-						{
-							["id"] = 61308,
-							["text"] = "Amplify",
-						},
-						{
-							["id"] = 570,
-							["text"] = "Dazzling Strikes",
-						},
-						{
-							["id"] = 34284,
-							["text"] = "Seasoned Swordplay",
-						},
-						{
-							["id"] = 24324,
-							["text"] = "Explosive Impact",
-						},
-						{
-							["id"] = 32738,
-							["text"] = "Wall of Steel",
-						},
-						{
-							["id"] = 34661,
-							["text"] = "Fire Walker",
-						},
-						{
-							["id"] = 54268,
-							["text"] = "Blade Barrier",
-						},
-						{
-							["id"] = 44824,
-							["text"] = "Mysticism",
-						},
-						{
-							["id"] = 18865,
-							["text"] = "Melding",
-						},
-						{
-							["id"] = 49445,
-							["text"] = "Deep Breaths",
-						},
-						{
-							["id"] = 47306,
-							["text"] = "Throatseeker",
-						},
-						{
-							["id"] = 44955,
-							["text"] = "Frost Walker",
-						},
-						{
-							["id"] = 22706,
-							["text"] = "Savage Intensity",
-						},
-						{
-							["id"] = 39743,
-							["text"] = "Dark Arts",
-						},
-						{
-							["id"] = 40619,
-							["text"] = "Awe and Terror",
-						},
-						{
-							["id"] = 50338,
-							["text"] = "Ballistics",
-						},
-						{
-							["id"] = 58032,
-							["text"] = "Serpentine Spellslinger",
-						},
-						{
-							["id"] = 53802,
-							["text"] = "Essence Extraction",
-						},
-						{
-							["id"] = 49254,
-							["text"] = "Retribution",
-						},
-						{
-							["id"] = 25970,
-							["text"] = "Acrimony",
-						},
-						{
-							["id"] = 32176,
-							["text"] = "Soul Thief",
-						},
-						{
-							["id"] = 51748,
-							["text"] = "Last Rites",
-						},
-						{
-							["id"] = 57900,
-							["text"] = "Command of Steel",
-						},
-						{
-							["id"] = 5430,
-							["text"] = "Magmatic Strikes",
-						},
-						{
-							["id"] = 49379,
-							["text"] = "Hired Killer",
-						},
-						{
-							["id"] = 12878,
-							["text"] = "Retaliation",
-						},
-						{
-							["id"] = 19103,
-							["text"] = "Righteous Army",
-						},
-						{
-							["id"] = 8458,
-							["text"] = "Longshot",
-						},
-						{
-							["id"] = 24721,
-							["text"] = "Ribcage Crusher",
-						},
-						{
-							["id"] = 9015,
-							["text"] = "Dire Torment",
-						},
-						{
-							["id"] = 27308,
-							["text"] = "Gravepact",
-						},
-						{
-							["id"] = 31513,
-							["text"] = "Adjacent Animosity",
-						},
-						{
-							["id"] = 30974,
-							["text"] = "Expert Hunter",
-						},
-						{
-							["id"] = 6615,
-							["text"] = "Arcing Blows",
-						},
-						{
-							["id"] = 64882,
-							["text"] = "Disciple of the Unyielding",
-						},
-						{
-							["id"] = 52031,
-							["text"] = "Disintegration",
-						},
-						{
-							["id"] = 25367,
-							["text"] = "Blade Master",
-						},
-						{
-							["id"] = 57199,
-							["text"] = "Fangs of Frost",
-						},
-						{
-							["id"] = 39761,
-							["text"] = "Counterweight",
-						},
-						{
-							["id"] = 21602,
-							["text"] = "Destructive Apparatus",
-						},
-						{
-							["id"] = 9535,
-							["text"] = "Hunter's Gambit",
-						},
-						{
-							["id"] = 28503,
-							["text"] = "Life Raker",
-						},
-						{
-							["id"] = 27163,
-							["text"] = "Arcane Will",
-						},
-						{
-							["id"] = 8920,
-							["text"] = "Backstabbing",
-						},
-						{
-							["id"] = 63207,
-							["text"] = "Tempest Blast",
-						},
-						{
-							["id"] = 43385,
-							["text"] = "Winter Spirit",
-						},
-						{
-							["id"] = 21297,
-							["text"] = "High Explosives",
-						},
-						{
-							["id"] = 29049,
-							["text"] = "Holy Fire",
-						},
-						{
-							["id"] = 54713,
-							["text"] = "Force Shaper",
-						},
-						{
-							["id"] = 44562,
-							["text"] = "Shaman's Dominion",
-						},
-						{
-							["id"] = 18707,
-							["text"] = "Perfectionist",
-						},
-						{
-							["id"] = 41595,
-							["text"] = "Marked for Death",
-						},
-						{
-							["id"] = 57839,
-							["text"] = "Blade of Cunning",
-						},
-						{
-							["id"] = 15437,
-							["text"] = "Deflection",
-						},
-						{
-							["id"] = 38849,
-							["text"] = "Searing Heat",
-						},
-						{
-							["id"] = 33777,
-							["text"] = "Devastating Devices",
-						},
-						{
-							["id"] = 26564,
-							["text"] = "Vanquisher",
-						},
-						{
-							["id"] = 4481,
-							["text"] = "Forces of Nature",
-						},
-						{
-							["id"] = 10511,
-							["text"] = "Tolerance",
-						},
-						{
-							["id"] = 26620,
-							["text"] = "Corruption",
-						},
-						{
-							["id"] = 16703,
-							["text"] = "Skull Cracking",
-						},
-						{
-							["id"] = 32227,
-							["text"] = "Adder's Touch",
-						},
-						{
-							["id"] = 19794,
-							["text"] = "Concussive Force",
-						},
-						{
-							["id"] = 31359,
-							["text"] = "Fatal Toxins",
-						},
-						{
-							["id"] = 63727,
-							["text"] = "Gladiator's Perseverance",
-						},
-						{
-							["id"] = 41119,
-							["text"] = "Lethality",
-						},
-						{
-							["id"] = 52090,
-							["text"] = "Feller of Foes",
-						},
-						{
-							["id"] = 62094,
-							["text"] = "Taste for Blood",
-						},
-						{
-							["id"] = 55772,
-							["text"] = "Blacksmith's Clout",
-						},
-						{
-							["id"] = 49459,
-							["text"] = "King of the Hill",
-						},
-						{
-							["id"] = 26294,
-							["text"] = "Bloodletting",
-						},
-						{
-							["id"] = 7136,
-							["text"] = "Master Sapper",
-						},
-						{
-							["id"] = 33725,
-							["text"] = "Swagger",
-						},
-						{
-							["id"] = 34591,
-							["text"] = "Malicious Intent",
-						},
-						{
-							["id"] = 31585,
-							["text"] = "Careful Conservationist",
-						},
-						{
-							["id"] = 22702,
-							["text"] = "Serpent Stance",
-						},
-						{
-							["id"] = 4854,
-							["text"] = "Asylum",
-						},
-						{
-							["id"] = 36281,
-							["text"] = "Primeval Force",
-						},
-						{
-							["id"] = 19897,
-							["text"] = "Death Attunement",
-						},
-						{
-							["id"] = 51881,
-							["text"] = "Master Fletcher",
-						},
-						{
-							["id"] = 15614,
-							["text"] = "Claws of the Hawk",
-						},
-						{
-							["id"] = 61689,
-							["text"] = "Explosive Elements",
-						},
-						{
-							["id"] = 9194,
-							["text"] = "Merciless Skewering",
-						},
-						{
-							["id"] = 27611,
-							["text"] = "Lord of the Dead",
-						},
-						{
-							["id"] = 64395,
-							["text"] = "Blunt Trauma",
-						},
-						{
-							["id"] = 55381,
-							["text"] = "Arcane Retaliation",
-						},
-						{
-							["id"] = 21389,
-							["text"] = "Runesmith",
-						},
-						{
-							["id"] = 39986,
-							["text"] = "Defiled Forces",
-						},
-						{
-							["id"] = 9261,
-							["text"] = "Disciple of the Forbidden",
-						},
-						{
-							["id"] = 36687,
-							["text"] = "Avatar of the Hunt",
-						},
-						{
-							["id"] = 63944,
-							["text"] = "Prism Weave",
-						},
-						{
-							["id"] = 25409,
-							["text"] = "Indomitable Army",
-						},
-						{
-							["id"] = 1568,
-							["text"] = "Fatal Blade",
-						},
-						{
-							["id"] = 30439,
-							["text"] = "Lava Lash",
-						},
-						{
-							["id"] = 53013,
-							["text"] = "Atrophy",
-						},
-						{
-							["id"] = 41989,
-							["text"] = "Resourcefulness",
-						},
-						{
-							["id"] = 43689,
-							["text"] = "Spiritual Command",
-						},
-						{
-							["id"] = 7263,
-							["text"] = "Swift Venoms",
-						},
-						{
-							["id"] = 38922,
-							["text"] = "Goliath",
-						},
-						{
-							["id"] = 56094,
-							["text"] = "One with the River",
-						},
-						{
-							["id"] = 7688,
-							["text"] = "Enduring Bond",
-						},
-						{
-							["id"] = 59151,
-							["text"] = "Brutal Blade",
-						},
-						{
-							["id"] = 56648,
-							["text"] = "Claws of the Falcon",
-						},
-						{
-							["id"] = 4207,
-							["text"] = "Window of Opportunity",
-						},
-						{
-							["id"] = 9864,
-							["text"] = "Growth and Decay",
-						},
-						{
-							["id"] = 58921,
-							["text"] = "Disciple of the Slaughter",
-						},
-						{
-							["id"] = 56276,
-							["text"] = "Nightstalker",
-						},
-						{
-							["id"] = 9055,
-							["text"] = "Volatile Mines",
-						},
-						{
-							["id"] = 48298,
-							["text"] = "Insightfulness",
-						},
-						{
-							["id"] = 55194,
-							["text"] = "Settling Ash",
-						},
-						{
-							["id"] = 42649,
-							["text"] = "Snowforged",
-						},
-						{
-							["id"] = 53652,
-							["text"] = "Steeped in the Profane",
-						},
-						{
-							["id"] = 61190,
-							["text"] = "Rallying Icon",
-						},
-						{
-							["id"] = 12143,
-							["text"] = "Influence",
-						},
-						{
-							["id"] = 38246,
-							["text"] = "Presage",
-						},
-						{
-							["id"] = 56716,
-							["text"] = "Heart of Thunder",
-						},
-						{
-							["id"] = 36949,
-							["text"] = "Devotion",
-						},
-						{
-							["id"] = 45350,
-							["text"] = "Glory of Command",
-						},
-						{
-							["id"] = 58218,
-							["text"] = "Purity of Flesh",
-						},
-						{
-							["id"] = 61981,
-							["text"] = "Doom Cast",
-						},
-						{
-							["id"] = 21330,
-							["text"] = "Quick Recovery",
-						},
-						{
-							["id"] = 40743,
-							["text"] = "Crystal Skin",
-						},
-						{
-							["id"] = 48438,
-							["text"] = "Bravery",
-						},
-						{
-							["id"] = 11924,
-							["text"] = "Breath of Flames",
-						},
-						{
-							["id"] = 45803,
-							["text"] = "Veteran Soldier",
-						},
-						{
-							["id"] = 48614,
-							["text"] = "Fervour",
-						},
-						{
-							["id"] = 27422,
-							["text"] = "Spirit of War",
-						},
-						{
-							["id"] = 42041,
-							["text"] = "Profane Chemistry",
-						},
-						{
-							["id"] = 60501,
-							["text"] = "Heart of Flame",
-						},
-						{
-							["id"] = 18769,
-							["text"] = "Written in Blood",
-						},
-						{
-							["id"] = 45329,
-							["text"] = "Trick Shot",
-						},
-						{
-							["id"] = 21958,
-							["text"] = "Cruel Preparation",
-						},
-						{
-							["id"] = 58831,
-							["text"] = "Disemboweling",
-						},
-						{
-							["id"] = 27137,
-							["text"] = "Sanctum of Thought",
-						},
-						{
-							["id"] = 13375,
-							["text"] = "Multishot",
-						},
-						{
-							["id"] = 55027,
-							["text"] = "Shining Justice",
-						},
-						{
-							["id"] = 55485,
-							["text"] = "Constitution",
-						},
-						{
-							["id"] = 46842,
-							["text"] = "Arcane Potency",
-						},
-						{
-							["id"] = 52742,
-							["text"] = "Hasty Demise",
-						},
-						{
-							["id"] = 11645,
-							["text"] = "Breath of Lightning",
-						},
-						{
-							["id"] = 4833,
-							["text"] = "Vigour",
-						},
-						{
-							["id"] = 44191,
-							["text"] = "As The Mountain",
-						},
-						{
-							["id"] = 22356,
-							["text"] = "Hematophagy",
-						},
-						{
-							["id"] = 51440,
-							["text"] = "Druidic Rite",
-						},
-						{
-							["id"] = 27203,
-							["text"] = "Heart and Soul",
-						},
-						{
-							["id"] = 6289,
-							["text"] = "Bloodless",
-						},
-						{
-							["id"] = 58449,
-							["text"] = "Born to Fight",
-						},
-						{
-							["id"] = 65210,
-							["text"] = "Heart of Oak",
-						},
-						{
-							["id"] = 33718,
-							["text"] = "Champion of the Cause",
-						},
-						{
-							["id"] = 27623,
-							["text"] = "Harsh Lessons",
-						},
-						{
-							["id"] = 24133,
-							["text"] = "Survivalist",
-						},
-						{
-							["id"] = 34173,
-							["text"] = "Overcharge",
-						},
-						{
-							["id"] = 47471,
-							["text"] = "Overcharged",
-						},
-						{
-							["id"] = 34009,
-							["text"] = "Master of the Arena",
-						},
-						{
-							["id"] = 53840,
-							["text"] = "Vengeance",
-						},
-						{
-							["id"] = 58198,
-							["text"] = "Fingers of Frost",
-						},
-						{
-							["id"] = 30302,
-							["text"] = "Hearty",
-						},
-						{
-							["id"] = 19858,
-							["text"] = "Herbalism",
-						},
-						{
-							["id"] = 41420,
-							["text"] = "Natural Remedies",
-						},
-						{
-							["id"] = 25058,
-							["text"] = "Blood Siphon",
-						},
-						{
-							["id"] = 7555,
-							["text"] = "Crackling Speed",
-						},
-						{
-							["id"] = 65097,
-							["text"] = "Leadership",
-						},
-						{
-							["id"] = 53573,
-							["text"] = "Arcane Expanse",
-						},
-						{
-							["id"] = 11730,
-							["text"] = "Endurance",
-						},
-						{
-							["id"] = 35958,
-							["text"] = "Faith and Steel",
-						},
-						{
-							["id"] = 34973,
-							["text"] = "Measured Fury",
-						},
-						{
-							["id"] = 13703,
-							["text"] = "Defiant Stand",
-						},
-						{
-							["id"] = 26023,
-							["text"] = "Savage Wounds",
-						},
-						{
-							["id"] = 2959,
-							["text"] = "Season of Ice",
-						},
-						{
-							["id"] = 44103,
-							["text"] = "Reflexes",
-						},
-						{
-							["id"] = 54629,
-							["text"] = "Inexorable",
-						},
-						{
-							["id"] = 37326,
-							["text"] = "Stamina",
-						},
-						{
-							["id"] = 51108,
-							["text"] = "Arcane Capacitor",
-						},
-						{
-							["id"] = 65108,
-							["text"] = "Tireless",
-						},
-						{
-							["id"] = 46904,
-							["text"] = "Arcane Sanctuary",
-						},
-						{
-							["id"] = 44988,
-							["text"] = "Wasting",
-						},
-						{
-							["id"] = 23066,
-							["text"] = "Savagery",
-						},
-						{
-							["id"] = 54776,
-							["text"] = "Mana Flows",
-						},
-						{
-							["id"] = 21634,
-							["text"] = "Arcane Chemistry",
-						},
-						{
-							["id"] = 48807,
-							["text"] = "Art of the Gladiator",
-						},
-						{
-							["id"] = 20528,
-							["text"] = "Instability",
-						},
-						{
-							["id"] = 59766,
-							["text"] = "Dirty Techniques",
-						},
-						{
-							["id"] = 15290,
-							["text"] = "Watchtowers",
-						},
-						{
-							["id"] = 3452,
-							["text"] = "Foresight",
-						},
-						{
-							["id"] = 21460,
-							["text"] = "Breath of Rime",
-						},
-						{
-							["id"] = 58382,
-							["text"] = "Renowned Deeds",
-						},
-						{
-							["id"] = 63422,
-							["text"] = "Lust for Carnage",
-						},
-						{
-							["id"] = 42443,
-							["text"] = "Frenetic",
-						},
-						{
-							["id"] = 47065,
-							["text"] = "Master of Blades",
-						},
-						{
-							["id"] = 21228,
-							["text"] = "Piercing Shots",
-						},
-						{
-							["id"] = 19069,
-							["text"] = "Thick Skin",
-						},
-						{
-							["id"] = 37647,
-							["text"] = "Dismembering",
-						},
-						{
-							["id"] = 25411,
-							["text"] = "Infused",
-						},
-						{
-							["id"] = 8833,
-							["text"] = "Heart of Ice",
-						},
-						{
-							["id"] = 63251,
-							["text"] = "Inveterate",
-						},
-						{
-							["id"] = 27788,
-							["text"] = "Blood Drinker",
-						},
-						{
-							["id"] = 39530,
-							["text"] = "Vitality Void",
-						},
-						{
-							["id"] = 31257,
-							["text"] = "Natural Authority",
-						},
-						{
-							["id"] = 15852,
-							["text"] = "Ethereal Feast",
-						},
-						{
-							["id"] = 29381,
-							["text"] = "Ravenous Horde",
-						},
-						{
-							["id"] = 13935,
-							["text"] = "Thrill of Battle",
-						},
-						{
-							["id"] = 62577,
-							["text"] = "Essence Surge",
-						},
-						{
-							["id"] = 34506,
-							["text"] = "Golem Commander",
-						},
-						{
-							["id"] = 41472,
-							["text"] = "Discipline and Training",
-						},
-						{
-							["id"] = 28754,
-							["text"] = "Assassination",
-						},
-						{
-							["id"] = 61198,
-							["text"] = "Heart of the Warrior",
-						},
-						{
-							["id"] = 48698,
-							["text"] = "Void Barrier",
-						},
-						{
-							["id"] = 15400,
-							["text"] = "Skittering Runes",
-						},
-						{
-							["id"] = 53118,
-							["text"] = "Barbarism",
-						},
-						{
-							["id"] = 42009,
-							["text"] = "Soul of Steel",
-						},
-						{
-							["id"] = 13922,
-							["text"] = "Steadfast",
-						},
-						{
-							["id"] = 61039,
-							["text"] = "Wild Hunger",
-						},
-						{
-							["id"] = 11820,
-							["text"] = "Anointed Flesh",
-						},
-						{
-							["id"] = 50029,
-							["text"] = "Unnatural Calm",
-						},
-						{
-							["id"] = 1325,
-							["text"] = "Golem's Blood",
-						},
-						{
-							["id"] = 39904,
-							["text"] = "Brutal Skewering",
-						},
-						{
-							["id"] = 53114,
-							["text"] = "Revenge of the Hunted",
-						},
-						{
-							["id"] = 50842,
-							["text"] = "Veteran's Wrath",
-						},
-						{
-							["id"] = 58851,
-							["text"] = "Leader of the Pack",
-						},
-						{
-							["id"] = 32932,
-							["text"] = "Sovereignty",
-						},
-						{
-							["id"] = 27119,
-							["text"] = "Tribal Fury",
-						},
-						{
-							["id"] = 25989,
-							["text"] = "Nomadic Teachings",
-						},
-						{
-							["id"] = 4177,
-							["text"] = "Spiritual Aid",
-						},
-						{
-							["id"] = 6799,
-							["text"] = "Charisma",
-						},
-						{
-							["id"] = 60031,
-							["text"] = "Prismatic Skin",
-						},
-						{
-							["id"] = 22535,
-							["text"] = "Whispers of Doom",
-						},
-						{
-							["id"] = 203,
-							["text"] = "Vinespike Cordial",
-						},
-						{
-							["id"] = 24358,
-							["text"] = "Selective Precision",
-						},
-						{
-							["id"] = 3195,
-							["text"] = "Legacy of the Wilds",
-						},
-						{
-							["id"] = 33722,
-							["text"] = "Hollow Effigy",
-						},
-						{
-							["id"] = 5574,
-							["text"] = "Force of Darkness",
-						},
-						{
-							["id"] = 56274,
-							["text"] = "Lasting Tempest",
-						},
-						{
-							["id"] = 14587,
-							["text"] = "Adaptive Steel",
-						},
-						{
-							["id"] = 13739,
-							["text"] = "Always Angry",
-						},
-						{
-							["id"] = 32853,
-							["text"] = "Sione's Ambition",
-						},
-						{
-							["id"] = 37512,
-							["text"] = "Bastion of Faith",
-						},
-						{
-							["id"] = 4354,
-							["text"] = "Beacon of Hope",
-						},
-						{
-							["id"] = 14079,
-							["text"] = "Wood, Stone, and Spell",
-						},
-						{
-							["id"] = 41169,
-							["text"] = "Jagged Wounds",
-						},
-						{
-							["id"] = 20605,
-							["text"] = "No Forgiveness",
-						},
-						{
-							["id"] = 56146,
-							["text"] = "Deliberate Brutality",
-						},
-						{
-							["id"] = 1365,
-							["text"] = "Knowledge Barrier",
-						},
-						{
-							["id"] = 23549,
-							["text"] = "Incorporeal",
-						},
-						{
-							["id"] = 51360,
-							["text"] = "Mixed Munitions",
-						},
-						{
-							["id"] = 56207,
-							["text"] = "Hardened Scars",
-						},
-						{
-							["id"] = 57006,
-							["text"] = "Vengeant Cascade",
-						},
-						{
-							["id"] = 48556,
-							["text"] = "Heart of Darkness",
-						},
-						{
-							["id"] = 53759,
-							["text"] = "Cleansed Thoughts",
-						},
-						{
-							["id"] = 40849,
-							["text"] = "Persistence",
-						},
-						{
-							["id"] = 38706,
-							["text"] = "Way of the Warrior",
-						},
-						{
-							["id"] = 62596,
-							["text"] = "Mystic Talents",
-						},
-						{
-							["id"] = 41307,
-							["text"] = "Deadly Inclinations",
-						},
-						{
-							["id"] = 16246,
-							["text"] = "Tranquility",
-						},
-						{
-							["id"] = 64217,
-							["text"] = "Aspect of Stone",
-						},
-						{
-							["id"] = 52282,
-							["text"] = "Tenacity",
-						},
-						{
-							["id"] = 5624,
-							["text"] = "Crusader",
-						},
-						{
-							["id"] = 27781,
-							["text"] = "Worship the Blightheart",
-						},
-					},
-				},
-				["text"] = "Allocates # (Fourth)",
+				["id"] = "enchant.stat_2954116742|49416",
+				["text"] = "Allocates Adamant",
 				["type"] = "enchant",
 			},
 			{
-				["id"] = "enchant.stat_3459808765",
-				["option"] = {
-					["options"] = {
-						{
-							["id"] = 4918,
-							["text"] = "Indiscriminate Revenge",
-						},
-						{
-							["id"] = 15226,
-							["text"] = "Cruel Retort",
-						},
-						{
-							["id"] = 2599,
-							["text"] = "Prepared Response",
-						},
-						{
-							["id"] = 59976,
-							["text"] = "Careful Counterattack",
-						},
-						{
-							["id"] = 37425,
-							["text"] = "Practised Reapplication",
-						},
-						{
-							["id"] = 41305,
-							["text"] = "Crushing Reply",
-						},
-						{
-							["id"] = 34978,
-							["text"] = "Colloidal Mixture",
-						},
-						{
-							["id"] = 56330,
-							["text"] = "Flow of Battle",
-						},
-						{
-							["id"] = 64226,
-							["text"] = "Roaring Challenge",
-						},
-						{
-							["id"] = 52030,
-							["text"] = "Burst of Energy",
-						},
-						{
-							["id"] = 30160,
-							["text"] = "Fending",
-						},
-						{
-							["id"] = 24716,
-							["text"] = "Battle Trance",
-						},
-						{
-							["id"] = 18357,
-							["text"] = "Feline Swiftness",
-						},
-						{
-							["id"] = 23690,
-							["text"] = "Essence Infusion",
-						},
-						{
-							["id"] = 10542,
-							["text"] = "Spiked Bulwark",
-						},
-						{
-							["id"] = 37078,
-							["text"] = "Path of the Savant",
-						},
-						{
-							["id"] = 12702,
-							["text"] = "Path of the Warrior",
-						},
-						{
-							["id"] = 19506,
-							["text"] = "Path of the Hunter",
-						},
-						{
-							["id"] = 38516,
-							["text"] = "Righteous Decree",
-						},
-						{
-							["id"] = 63150,
-							["text"] = "Ironwood",
-						},
-						{
-							["id"] = 16243,
-							["text"] = "Fusillade",
-						},
-						{
-							["id"] = 2715,
-							["text"] = "Quickstep",
-						},
-						{
-							["id"] = 52230,
-							["text"] = "Weathered Hunter",
-						},
-						{
-							["id"] = 21435,
-							["text"] = "Cloth and Chain",
-						},
-						{
-							["id"] = 31033,
-							["text"] = "Robust",
-						},
-						{
-							["id"] = 65224,
-							["text"] = "Aspect of the Eagle",
-						},
-						{
-							["id"] = 24256,
-							["text"] = "Dynamo",
-						},
-						{
-							["id"] = 21973,
-							["text"] = "Decay Ward",
-						},
-						{
-							["id"] = 45067,
-							["text"] = "Thrill Killer",
-						},
-						{
-							["id"] = 24067,
-							["text"] = "Instinct",
-						},
-						{
-							["id"] = 1382,
-							["text"] = "Spirit Void",
-						},
-						{
-							["id"] = 529,
-							["text"] = "Poisonous Fangs",
-						},
-						{
-							["id"] = 46965,
-							["text"] = "Saboteur",
-						},
-						{
-							["id"] = 47484,
-							["text"] = "Depth Perception",
-						},
-						{
-							["id"] = 42686,
-							["text"] = "Elemental Focus",
-						},
-						{
-							["id"] = 27929,
-							["text"] = "Deep Wisdom",
-						},
-						{
-							["id"] = 27806,
-							["text"] = "As The Thunder",
-						},
-						{
-							["id"] = 27301,
-							["text"] = "Martial Experience",
-						},
-						{
-							["id"] = 60002,
-							["text"] = "Fury Bolts",
-						},
-						{
-							["id"] = 6783,
-							["text"] = "Savage Skewering",
-						},
-						{
-							["id"] = 5289,
-							["text"] = "Battle Rouse",
-						},
-						{
-							["id"] = 27190,
-							["text"] = "Overprepared",
-						},
-						{
-							["id"] = 20832,
-							["text"] = "Sanctuary",
-						},
-						{
-							["id"] = 49645,
-							["text"] = "Cauterisation",
-						},
-						{
-							["id"] = 7440,
-							["text"] = "Harvester of Foes",
-						},
-						{
-							["id"] = 8135,
-							["text"] = "Practical Application",
-						},
-						{
-							["id"] = 46408,
-							["text"] = "Fangs of the Viper",
-						},
-						{
-							["id"] = 10016,
-							["text"] = "Executioner",
-						},
-						{
-							["id"] = 42804,
-							["text"] = "Mind Drinker",
-						},
-						{
-							["id"] = 50690,
-							["text"] = "Replenishing Remedies",
-						},
-						{
-							["id"] = 15344,
-							["text"] = "Freedom of Movement",
-						},
-						{
-							["id"] = 10835,
-							["text"] = "Dreamer",
-						},
-						{
-							["id"] = 8001,
-							["text"] = "Clever Thief",
-						},
-						{
-							["id"] = 44788,
-							["text"] = "Potent Connections",
-						},
-						{
-							["id"] = 2550,
-							["text"] = "Arsonist",
-						},
-						{
-							["id"] = 28878,
-							["text"] = "Relentless",
-						},
-						{
-							["id"] = 45283,
-							["text"] = "Cornered Prey",
-						},
-						{
-							["id"] = 7085,
-							["text"] = "Weapon Artistry",
-						},
-						{
-							["id"] = 35233,
-							["text"] = "Discord Artisan",
-						},
-						{
-							["id"] = 18174,
-							["text"] = "Mystic Bulwark",
-						},
-						{
-							["id"] = 53757,
-							["text"] = "Shamanistic Fury",
-						},
-						{
-							["id"] = 22133,
-							["text"] = "Invigorating Blaze",
-						},
-						{
-							["id"] = 12033,
-							["text"] = "Wicked Blade",
-						},
-						{
-							["id"] = 24362,
-							["text"] = "Deep Thoughts",
-						},
-						{
-							["id"] = 10115,
-							["text"] = "Prodigal Perfection",
-						},
-						{
-							["id"] = 19144,
-							["text"] = "Sentinel",
-						},
-						{
-							["id"] = 65107,
-							["text"] = "Bastion Breaker",
-						},
-						{
-							["id"] = 42720,
-							["text"] = "Heavy Draw",
-						},
-						{
-							["id"] = 54791,
-							["text"] = "Claws of the Magpie",
-						},
-						{
-							["id"] = 52157,
-							["text"] = "Soul Siphon",
-						},
-						{
-							["id"] = 59423,
-							["text"] = "Escalation",
-						},
-						{
-							["id"] = 60781,
-							["text"] = "Inspiring Bond",
-						},
-						{
-							["id"] = 31473,
-							["text"] = "Master of Wounds",
-						},
-						{
-							["id"] = 17608,
-							["text"] = "Silent Steps",
-						},
-						{
-							["id"] = 29861,
-							["text"] = "Explosive Runes",
-						},
-						{
-							["id"] = 36859,
-							["text"] = "Steelwood Stance",
-						},
-						{
-							["id"] = 44102,
-							["text"] = "Efficient Explosives",
-						},
-						{
-							["id"] = 30693,
-							["text"] = "Divine Fervour",
-						},
-						{
-							["id"] = 63933,
-							["text"] = "Totemic Zeal",
-						},
-						{
-							["id"] = 40645,
-							["text"] = "Bone Breaker",
-						},
-						{
-							["id"] = 11784,
-							["text"] = "Vampirism",
-						},
-						{
-							["id"] = 2275,
-							["text"] = "Nature's Concoction",
-						},
-						{
-							["id"] = 59556,
-							["text"] = "Expeditious Munitions",
-						},
-						{
-							["id"] = 33082,
-							["text"] = "Razor's Edge",
-						},
-						{
-							["id"] = 56359,
-							["text"] = "Cannibalistic Rite",
-						},
-						{
-							["id"] = 28034,
-							["text"] = "Empowered Bond",
-						},
-						{
-							["id"] = 59866,
-							["text"] = "Entrench",
-						},
-						{
-							["id"] = 45657,
-							["text"] = "Trial of the Faith",
-						},
-						{
-							["id"] = 35436,
-							["text"] = "Kinetic Impacts",
-						},
-						{
-							["id"] = 41476,
-							["text"] = "Elder Power",
-						},
-						{
-							["id"] = 58168,
-							["text"] = "High Voltage",
-						},
-						{
-							["id"] = 45608,
-							["text"] = "Successive Detonations",
-						},
-						{
-							["id"] = 33582,
-							["text"] = "Forceful Skewering",
-						},
-						{
-							["id"] = 23038,
-							["text"] = "Slaughter",
-						},
-						{
-							["id"] = 55002,
-							["text"] = "Righteous Fury",
-						},
-						{
-							["id"] = 52789,
-							["text"] = "Circle of Life",
-						},
-						{
-							["id"] = 60619,
-							["text"] = "Galvanic Hammer",
-						},
-						{
-							["id"] = 63453,
-							["text"] = "Excess Sustenance",
-						},
-						{
-							["id"] = 28449,
-							["text"] = "Surge of Vigour",
-						},
-						{
-							["id"] = 62802,
-							["text"] = "Brink of Death",
-						},
-						{
-							["id"] = 6237,
-							["text"] = "Precision",
-						},
-						{
-							["id"] = 16236,
-							["text"] = "Toxic Strikes",
-						},
-						{
-							["id"] = 39657,
-							["text"] = "Pain Forger",
-						},
-						{
-							["id"] = 36915,
-							["text"] = "Sacrifice",
-						},
-						{
-							["id"] = 51212,
-							["text"] = "Entropy",
-						},
-						{
-							["id"] = 61982,
-							["text"] = "Grave Intentions",
-						},
-						{
-							["id"] = 6233,
-							["text"] = "Blast Waves",
-						},
-						{
-							["id"] = 48823,
-							["text"] = "Deadly Draw",
-						},
-						{
-							["id"] = 65093,
-							["text"] = "Bladedancer",
-						},
-						{
-							["id"] = 37504,
-							["text"] = "Intuition",
-						},
-						{
-							["id"] = 36736,
-							["text"] = "Burning Brutality",
-						},
-						{
-							["id"] = 64077,
-							["text"] = "Warrior Training",
-						},
-						{
-							["id"] = 63635,
-							["text"] = "Primal Manifestation",
-						},
-						{
-							["id"] = 5126,
-							["text"] = "Spinecruncher",
-						},
-						{
-							["id"] = 51559,
-							["text"] = "Smashing Strikes",
-						},
-						{
-							["id"] = 63921,
-							["text"] = "Utmost Swiftness",
-						},
-						{
-							["id"] = 47743,
-							["text"] = "Farsight",
-						},
-						{
-							["id"] = 42917,
-							["text"] = "Whirling Barrier",
-						},
-						{
-							["id"] = 59605,
-							["text"] = "Unstable Munitions",
-						},
-						{
-							["id"] = 46471,
-							["text"] = "Powerful Bond",
-						},
-						{
-							["id"] = 1405,
-							["text"] = "From the Shadows",
-						},
-						{
-							["id"] = 26096,
-							["text"] = "Hatchet Master",
-						},
-						{
-							["id"] = 55380,
-							["text"] = "Clever Construction",
-						},
-						{
-							["id"] = 49772,
-							["text"] = "Utmost Might",
-						},
-						{
-							["id"] = 22972,
-							["text"] = "Wandslinger",
-						},
-						{
-							["id"] = 49969,
-							["text"] = "Courage",
-						},
-						{
-							["id"] = 26763,
-							["text"] = "Perfected Formula",
-						},
-						{
-							["id"] = 41870,
-							["text"] = "Winter's Embrace",
-						},
-						{
-							["id"] = 25738,
-							["text"] = "Relentless Pursuit",
-						},
-						{
-							["id"] = 17171,
-							["text"] = "Flash Freeze",
-						},
-						{
-							["id"] = 36490,
-							["text"] = "Flaying",
-						},
-						{
-							["id"] = 35685,
-							["text"] = "Fearsome Force",
-						},
-						{
-							["id"] = 62849,
-							["text"] = "Glacial Cage",
-						},
-						{
-							["id"] = 24858,
-							["text"] = "Harpooner",
-						},
-						{
-							["id"] = 15046,
-							["text"] = "Redemption",
-						},
-						{
-							["id"] = 55114,
-							["text"] = "Utmost Intellect",
-						},
-						{
-							["id"] = 7918,
-							["text"] = "Enigmatic Defence",
-						},
-						{
-							["id"] = 14606,
-							["text"] = "Butchery",
-						},
-						{
-							["id"] = 33435,
-							["text"] = "Holy Dominion",
-						},
-						{
-							["id"] = 26557,
-							["text"] = "Static Blows",
-						},
-						{
-							["id"] = 14001,
-							["text"] = "Unfaltering",
-						},
-						{
-							["id"] = 9567,
-							["text"] = "Light Eater",
-						},
-						{
-							["id"] = 63033,
-							["text"] = "Bannerman",
-						},
-						{
-							["id"] = 63976,
-							["text"] = "Shaper",
-						},
-						{
-							["id"] = 53493,
-							["text"] = "Annihilation",
-						},
-						{
-							["id"] = 45317,
-							["text"] = "Ash, Frost and Storm",
-						},
-						{
-							["id"] = 44207,
-							["text"] = "Testudo",
-						},
-						{
-							["id"] = 30225,
-							["text"] = "Lightning Walker",
-						},
-						{
-							["id"] = 9788,
-							["text"] = "Nimbleness",
-						},
-						{
-							["id"] = 31508,
-							["text"] = "Aspect of the Lynx",
-						},
-						{
-							["id"] = 53042,
-							["text"] = "Exceptional Performance",
-						},
-						{
-							["id"] = 4940,
-							["text"] = "Cleaving",
-						},
-						{
-							["id"] = 42795,
-							["text"] = "Arcane Focus",
-						},
-						{
-							["id"] = 21413,
-							["text"] = "Combat Stamina",
-						},
-						{
-							["id"] = 33903,
-							["text"] = "Will of Blades",
-						},
-						{
-							["id"] = 44347,
-							["text"] = "Divine Fury",
-						},
-						{
-							["id"] = 65502,
-							["text"] = "Heartseeker",
-						},
-						{
-							["id"] = 6770,
-							["text"] = "Arcane Guarding",
-						},
-						{
-							["id"] = 1340,
-							["text"] = "Rampart",
-						},
-						{
-							["id"] = 13164,
-							["text"] = "Divine Judgement",
-						},
-						{
-							["id"] = 35894,
-							["text"] = "Trickery",
-						},
-						{
-							["id"] = 49538,
-							["text"] = "Defiance",
-						},
-						{
-							["id"] = 33545,
-							["text"] = "Harrier",
-						},
-						{
-							["id"] = 6,
-							["text"] = "Twin Terrors",
-						},
-						{
-							["id"] = 65273,
-							["text"] = "Enigmatic Reach",
-						},
-						{
-							["id"] = 25178,
-							["text"] = "Primal Spirit",
-						},
-						{
-							["id"] = 29522,
-							["text"] = "Dance of Blades",
-						},
-						{
-							["id"] = 19730,
-							["text"] = "Assured Strike",
-						},
-						{
-							["id"] = 15085,
-							["text"] = "Ambidexterity",
-						},
-						{
-							["id"] = 24383,
-							["text"] = "Warrior's Blood",
-						},
-						{
-							["id"] = 32681,
-							["text"] = "Mark the Prey",
-						},
-						{
-							["id"] = 6967,
-							["text"] = "Safeguard",
-						},
-						{
-							["id"] = 37403,
-							["text"] = "Infused Flesh",
-						},
-						{
-							["id"] = 54694,
-							["text"] = "Light of Divinity",
-						},
-						{
-							["id"] = 45945,
-							["text"] = "Conjured Barrier",
-						},
-						{
-							["id"] = 49621,
-							["text"] = "Acuity",
-						},
-						{
-							["id"] = 54142,
-							["text"] = "Finesse",
-						},
-						{
-							["id"] = 9432,
-							["text"] = "Mental Rapidity",
-						},
-						{
-							["id"] = 26960,
-							["text"] = "Forethought",
-						},
-						{
-							["id"] = 14813,
-							["text"] = "Revelry",
-						},
-						{
-							["id"] = 861,
-							["text"] = "Aggressive Bastion",
-						},
-						{
-							["id"] = 26866,
-							["text"] = "Sanctity",
-						},
-						{
-							["id"] = 65053,
-							["text"] = "Essence Sap",
-						},
-						{
-							["id"] = 25439,
-							["text"] = "Undertaker",
-						},
-						{
-							["id"] = 49416,
-							["text"] = "Adamant",
-						},
-						{
-							["id"] = 64355,
-							["text"] = "Brand Equity",
-						},
-						{
-							["id"] = 24050,
-							["text"] = "Coldhearted Calculation",
-						},
-						{
-							["id"] = 11420,
-							["text"] = "Arcanist's Dominion",
-						},
-						{
-							["id"] = 2225,
-							["text"] = "Eagle Eye",
-						},
-						{
-							["id"] = 32455,
-							["text"] = "Storm Weaver",
-						},
-						{
-							["id"] = 12809,
-							["text"] = "Berserking",
-						},
-						{
-							["id"] = 1006,
-							["text"] = "Potency of Will",
-						},
-						{
-							["id"] = 5823,
-							["text"] = "Coordination",
-						},
-						{
-							["id"] = 18703,
-							["text"] = "Graceful Assault",
-						},
-						{
-							["id"] = 20835,
-							["text"] = "Brinkmanship",
-						},
-						{
-							["id"] = 3309,
-							["text"] = "Fleetfoot",
-						},
-						{
-							["id"] = 15842,
-							["text"] = "One With Nature",
-						},
-						{
-							["id"] = 15711,
-							["text"] = "Blast Radius",
-						},
-						{
-							["id"] = 34666,
-							["text"] = "Destroyer",
-						},
-						{
-							["id"] = 14665,
-							["text"] = "Divine Wrath",
-						},
-						{
-							["id"] = 30471,
-							["text"] = "True Strike",
-						},
-						{
-							["id"] = 49318,
-							["text"] = "Wrecking Ball",
-						},
-						{
-							["id"] = 32059,
-							["text"] = "Titanic Impacts",
-						},
-						{
-							["id"] = 65308,
-							["text"] = "Diamond Skin",
-						},
-						{
-							["id"] = 12795,
-							["text"] = "Versatility",
-						},
-						{
-							["id"] = 33287,
-							["text"] = "Juggernaut",
-						},
-						{
-							["id"] = 25456,
-							["text"] = "Dervish",
-						},
-						{
-							["id"] = 35663,
-							["text"] = "Strong Arm",
-						},
-						{
-							["id"] = 60737,
-							["text"] = "Sleight of Hand",
-						},
-						{
-							["id"] = 41137,
-							["text"] = "Field Medicine",
-						},
-						{
-							["id"] = 50858,
-							["text"] = "Admonisher",
-						},
-						{
-							["id"] = 7069,
-							["text"] = "Split Shot",
-						},
-						{
-							["id"] = 544,
-							["text"] = "Surveillance",
-						},
-						{
-							["id"] = 61308,
-							["text"] = "Amplify",
-						},
-						{
-							["id"] = 570,
-							["text"] = "Dazzling Strikes",
-						},
-						{
-							["id"] = 34284,
-							["text"] = "Seasoned Swordplay",
-						},
-						{
-							["id"] = 24324,
-							["text"] = "Explosive Impact",
-						},
-						{
-							["id"] = 32738,
-							["text"] = "Wall of Steel",
-						},
-						{
-							["id"] = 34661,
-							["text"] = "Fire Walker",
-						},
-						{
-							["id"] = 54268,
-							["text"] = "Blade Barrier",
-						},
-						{
-							["id"] = 44824,
-							["text"] = "Mysticism",
-						},
-						{
-							["id"] = 18865,
-							["text"] = "Melding",
-						},
-						{
-							["id"] = 49445,
-							["text"] = "Deep Breaths",
-						},
-						{
-							["id"] = 47306,
-							["text"] = "Throatseeker",
-						},
-						{
-							["id"] = 44955,
-							["text"] = "Frost Walker",
-						},
-						{
-							["id"] = 22706,
-							["text"] = "Savage Intensity",
-						},
-						{
-							["id"] = 39743,
-							["text"] = "Dark Arts",
-						},
-						{
-							["id"] = 40619,
-							["text"] = "Awe and Terror",
-						},
-						{
-							["id"] = 50338,
-							["text"] = "Ballistics",
-						},
-						{
-							["id"] = 58032,
-							["text"] = "Serpentine Spellslinger",
-						},
-						{
-							["id"] = 53802,
-							["text"] = "Essence Extraction",
-						},
-						{
-							["id"] = 49254,
-							["text"] = "Retribution",
-						},
-						{
-							["id"] = 25970,
-							["text"] = "Acrimony",
-						},
-						{
-							["id"] = 32176,
-							["text"] = "Soul Thief",
-						},
-						{
-							["id"] = 51748,
-							["text"] = "Last Rites",
-						},
-						{
-							["id"] = 57900,
-							["text"] = "Command of Steel",
-						},
-						{
-							["id"] = 5430,
-							["text"] = "Magmatic Strikes",
-						},
-						{
-							["id"] = 49379,
-							["text"] = "Hired Killer",
-						},
-						{
-							["id"] = 12878,
-							["text"] = "Retaliation",
-						},
-						{
-							["id"] = 19103,
-							["text"] = "Righteous Army",
-						},
-						{
-							["id"] = 8458,
-							["text"] = "Longshot",
-						},
-						{
-							["id"] = 24721,
-							["text"] = "Ribcage Crusher",
-						},
-						{
-							["id"] = 9015,
-							["text"] = "Dire Torment",
-						},
-						{
-							["id"] = 27308,
-							["text"] = "Gravepact",
-						},
-						{
-							["id"] = 31513,
-							["text"] = "Adjacent Animosity",
-						},
-						{
-							["id"] = 30974,
-							["text"] = "Expert Hunter",
-						},
-						{
-							["id"] = 6615,
-							["text"] = "Arcing Blows",
-						},
-						{
-							["id"] = 64882,
-							["text"] = "Disciple of the Unyielding",
-						},
-						{
-							["id"] = 52031,
-							["text"] = "Disintegration",
-						},
-						{
-							["id"] = 25367,
-							["text"] = "Blade Master",
-						},
-						{
-							["id"] = 57199,
-							["text"] = "Fangs of Frost",
-						},
-						{
-							["id"] = 39761,
-							["text"] = "Counterweight",
-						},
-						{
-							["id"] = 21602,
-							["text"] = "Destructive Apparatus",
-						},
-						{
-							["id"] = 9535,
-							["text"] = "Hunter's Gambit",
-						},
-						{
-							["id"] = 28503,
-							["text"] = "Life Raker",
-						},
-						{
-							["id"] = 27163,
-							["text"] = "Arcane Will",
-						},
-						{
-							["id"] = 8920,
-							["text"] = "Backstabbing",
-						},
-						{
-							["id"] = 63207,
-							["text"] = "Tempest Blast",
-						},
-						{
-							["id"] = 43385,
-							["text"] = "Winter Spirit",
-						},
-						{
-							["id"] = 21297,
-							["text"] = "High Explosives",
-						},
-						{
-							["id"] = 29049,
-							["text"] = "Holy Fire",
-						},
-						{
-							["id"] = 54713,
-							["text"] = "Force Shaper",
-						},
-						{
-							["id"] = 44562,
-							["text"] = "Shaman's Dominion",
-						},
-						{
-							["id"] = 18707,
-							["text"] = "Perfectionist",
-						},
-						{
-							["id"] = 41595,
-							["text"] = "Marked for Death",
-						},
-						{
-							["id"] = 57839,
-							["text"] = "Blade of Cunning",
-						},
-						{
-							["id"] = 15437,
-							["text"] = "Deflection",
-						},
-						{
-							["id"] = 38849,
-							["text"] = "Searing Heat",
-						},
-						{
-							["id"] = 33777,
-							["text"] = "Devastating Devices",
-						},
-						{
-							["id"] = 26564,
-							["text"] = "Vanquisher",
-						},
-						{
-							["id"] = 4481,
-							["text"] = "Forces of Nature",
-						},
-						{
-							["id"] = 10511,
-							["text"] = "Tolerance",
-						},
-						{
-							["id"] = 26620,
-							["text"] = "Corruption",
-						},
-						{
-							["id"] = 16703,
-							["text"] = "Skull Cracking",
-						},
-						{
-							["id"] = 32227,
-							["text"] = "Adder's Touch",
-						},
-						{
-							["id"] = 19794,
-							["text"] = "Concussive Force",
-						},
-						{
-							["id"] = 31359,
-							["text"] = "Fatal Toxins",
-						},
-						{
-							["id"] = 63727,
-							["text"] = "Gladiator's Perseverance",
-						},
-						{
-							["id"] = 41119,
-							["text"] = "Lethality",
-						},
-						{
-							["id"] = 52090,
-							["text"] = "Feller of Foes",
-						},
-						{
-							["id"] = 62094,
-							["text"] = "Taste for Blood",
-						},
-						{
-							["id"] = 55772,
-							["text"] = "Blacksmith's Clout",
-						},
-						{
-							["id"] = 49459,
-							["text"] = "King of the Hill",
-						},
-						{
-							["id"] = 26294,
-							["text"] = "Bloodletting",
-						},
-						{
-							["id"] = 7136,
-							["text"] = "Master Sapper",
-						},
-						{
-							["id"] = 33725,
-							["text"] = "Swagger",
-						},
-						{
-							["id"] = 34591,
-							["text"] = "Malicious Intent",
-						},
-						{
-							["id"] = 31585,
-							["text"] = "Careful Conservationist",
-						},
-						{
-							["id"] = 22702,
-							["text"] = "Serpent Stance",
-						},
-						{
-							["id"] = 4854,
-							["text"] = "Asylum",
-						},
-						{
-							["id"] = 36281,
-							["text"] = "Primeval Force",
-						},
-						{
-							["id"] = 19897,
-							["text"] = "Death Attunement",
-						},
-						{
-							["id"] = 51881,
-							["text"] = "Master Fletcher",
-						},
-						{
-							["id"] = 15614,
-							["text"] = "Claws of the Hawk",
-						},
-						{
-							["id"] = 61689,
-							["text"] = "Explosive Elements",
-						},
-						{
-							["id"] = 9194,
-							["text"] = "Merciless Skewering",
-						},
-						{
-							["id"] = 27611,
-							["text"] = "Lord of the Dead",
-						},
-						{
-							["id"] = 64395,
-							["text"] = "Blunt Trauma",
-						},
-						{
-							["id"] = 55381,
-							["text"] = "Arcane Retaliation",
-						},
-						{
-							["id"] = 21389,
-							["text"] = "Runesmith",
-						},
-						{
-							["id"] = 39986,
-							["text"] = "Defiled Forces",
-						},
-						{
-							["id"] = 9261,
-							["text"] = "Disciple of the Forbidden",
-						},
-						{
-							["id"] = 36687,
-							["text"] = "Avatar of the Hunt",
-						},
-						{
-							["id"] = 63944,
-							["text"] = "Prism Weave",
-						},
-						{
-							["id"] = 25409,
-							["text"] = "Indomitable Army",
-						},
-						{
-							["id"] = 1568,
-							["text"] = "Fatal Blade",
-						},
-						{
-							["id"] = 30439,
-							["text"] = "Lava Lash",
-						},
-						{
-							["id"] = 53013,
-							["text"] = "Atrophy",
-						},
-						{
-							["id"] = 41989,
-							["text"] = "Resourcefulness",
-						},
-						{
-							["id"] = 43689,
-							["text"] = "Spiritual Command",
-						},
-						{
-							["id"] = 7263,
-							["text"] = "Swift Venoms",
-						},
-						{
-							["id"] = 38922,
-							["text"] = "Goliath",
-						},
-						{
-							["id"] = 56094,
-							["text"] = "One with the River",
-						},
-						{
-							["id"] = 7688,
-							["text"] = "Enduring Bond",
-						},
-						{
-							["id"] = 59151,
-							["text"] = "Brutal Blade",
-						},
-						{
-							["id"] = 56648,
-							["text"] = "Claws of the Falcon",
-						},
-						{
-							["id"] = 4207,
-							["text"] = "Window of Opportunity",
-						},
-						{
-							["id"] = 9864,
-							["text"] = "Growth and Decay",
-						},
-						{
-							["id"] = 58921,
-							["text"] = "Disciple of the Slaughter",
-						},
-						{
-							["id"] = 56276,
-							["text"] = "Nightstalker",
-						},
-						{
-							["id"] = 9055,
-							["text"] = "Volatile Mines",
-						},
-						{
-							["id"] = 48298,
-							["text"] = "Insightfulness",
-						},
-						{
-							["id"] = 55194,
-							["text"] = "Settling Ash",
-						},
-						{
-							["id"] = 42649,
-							["text"] = "Snowforged",
-						},
-						{
-							["id"] = 53652,
-							["text"] = "Steeped in the Profane",
-						},
-						{
-							["id"] = 61190,
-							["text"] = "Rallying Icon",
-						},
-						{
-							["id"] = 12143,
-							["text"] = "Influence",
-						},
-						{
-							["id"] = 38246,
-							["text"] = "Presage",
-						},
-						{
-							["id"] = 56716,
-							["text"] = "Heart of Thunder",
-						},
-						{
-							["id"] = 36949,
-							["text"] = "Devotion",
-						},
-						{
-							["id"] = 45350,
-							["text"] = "Glory of Command",
-						},
-						{
-							["id"] = 58218,
-							["text"] = "Purity of Flesh",
-						},
-						{
-							["id"] = 61981,
-							["text"] = "Doom Cast",
-						},
-						{
-							["id"] = 21330,
-							["text"] = "Quick Recovery",
-						},
-						{
-							["id"] = 40743,
-							["text"] = "Crystal Skin",
-						},
-						{
-							["id"] = 48438,
-							["text"] = "Bravery",
-						},
-						{
-							["id"] = 11924,
-							["text"] = "Breath of Flames",
-						},
-						{
-							["id"] = 45803,
-							["text"] = "Veteran Soldier",
-						},
-						{
-							["id"] = 48614,
-							["text"] = "Fervour",
-						},
-						{
-							["id"] = 27422,
-							["text"] = "Spirit of War",
-						},
-						{
-							["id"] = 42041,
-							["text"] = "Profane Chemistry",
-						},
-						{
-							["id"] = 60501,
-							["text"] = "Heart of Flame",
-						},
-						{
-							["id"] = 18769,
-							["text"] = "Written in Blood",
-						},
-						{
-							["id"] = 45329,
-							["text"] = "Trick Shot",
-						},
-						{
-							["id"] = 21958,
-							["text"] = "Cruel Preparation",
-						},
-						{
-							["id"] = 58831,
-							["text"] = "Disemboweling",
-						},
-						{
-							["id"] = 27137,
-							["text"] = "Sanctum of Thought",
-						},
-						{
-							["id"] = 13375,
-							["text"] = "Multishot",
-						},
-						{
-							["id"] = 55027,
-							["text"] = "Shining Justice",
-						},
-						{
-							["id"] = 55485,
-							["text"] = "Constitution",
-						},
-						{
-							["id"] = 46842,
-							["text"] = "Arcane Potency",
-						},
-						{
-							["id"] = 52742,
-							["text"] = "Hasty Demise",
-						},
-						{
-							["id"] = 11645,
-							["text"] = "Breath of Lightning",
-						},
-						{
-							["id"] = 4833,
-							["text"] = "Vigour",
-						},
-						{
-							["id"] = 44191,
-							["text"] = "As The Mountain",
-						},
-						{
-							["id"] = 22356,
-							["text"] = "Hematophagy",
-						},
-						{
-							["id"] = 51440,
-							["text"] = "Druidic Rite",
-						},
-						{
-							["id"] = 27203,
-							["text"] = "Heart and Soul",
-						},
-						{
-							["id"] = 6289,
-							["text"] = "Bloodless",
-						},
-						{
-							["id"] = 58449,
-							["text"] = "Born to Fight",
-						},
-						{
-							["id"] = 65210,
-							["text"] = "Heart of Oak",
-						},
-						{
-							["id"] = 33718,
-							["text"] = "Champion of the Cause",
-						},
-						{
-							["id"] = 27623,
-							["text"] = "Harsh Lessons",
-						},
-						{
-							["id"] = 24133,
-							["text"] = "Survivalist",
-						},
-						{
-							["id"] = 34173,
-							["text"] = "Overcharge",
-						},
-						{
-							["id"] = 47471,
-							["text"] = "Overcharged",
-						},
-						{
-							["id"] = 34009,
-							["text"] = "Master of the Arena",
-						},
-						{
-							["id"] = 53840,
-							["text"] = "Vengeance",
-						},
-						{
-							["id"] = 58198,
-							["text"] = "Fingers of Frost",
-						},
-						{
-							["id"] = 30302,
-							["text"] = "Hearty",
-						},
-						{
-							["id"] = 19858,
-							["text"] = "Herbalism",
-						},
-						{
-							["id"] = 41420,
-							["text"] = "Natural Remedies",
-						},
-						{
-							["id"] = 25058,
-							["text"] = "Blood Siphon",
-						},
-						{
-							["id"] = 7555,
-							["text"] = "Crackling Speed",
-						},
-						{
-							["id"] = 65097,
-							["text"] = "Leadership",
-						},
-						{
-							["id"] = 53573,
-							["text"] = "Arcane Expanse",
-						},
-						{
-							["id"] = 11730,
-							["text"] = "Endurance",
-						},
-						{
-							["id"] = 35958,
-							["text"] = "Faith and Steel",
-						},
-						{
-							["id"] = 34973,
-							["text"] = "Measured Fury",
-						},
-						{
-							["id"] = 13703,
-							["text"] = "Defiant Stand",
-						},
-						{
-							["id"] = 26023,
-							["text"] = "Savage Wounds",
-						},
-						{
-							["id"] = 2959,
-							["text"] = "Season of Ice",
-						},
-						{
-							["id"] = 44103,
-							["text"] = "Reflexes",
-						},
-						{
-							["id"] = 54629,
-							["text"] = "Inexorable",
-						},
-						{
-							["id"] = 37326,
-							["text"] = "Stamina",
-						},
-						{
-							["id"] = 51108,
-							["text"] = "Arcane Capacitor",
-						},
-						{
-							["id"] = 65108,
-							["text"] = "Tireless",
-						},
-						{
-							["id"] = 46904,
-							["text"] = "Arcane Sanctuary",
-						},
-						{
-							["id"] = 44988,
-							["text"] = "Wasting",
-						},
-						{
-							["id"] = 23066,
-							["text"] = "Savagery",
-						},
-						{
-							["id"] = 54776,
-							["text"] = "Mana Flows",
-						},
-						{
-							["id"] = 21634,
-							["text"] = "Arcane Chemistry",
-						},
-						{
-							["id"] = 48807,
-							["text"] = "Art of the Gladiator",
-						},
-						{
-							["id"] = 20528,
-							["text"] = "Instability",
-						},
-						{
-							["id"] = 59766,
-							["text"] = "Dirty Techniques",
-						},
-						{
-							["id"] = 15290,
-							["text"] = "Watchtowers",
-						},
-						{
-							["id"] = 3452,
-							["text"] = "Foresight",
-						},
-						{
-							["id"] = 21460,
-							["text"] = "Breath of Rime",
-						},
-						{
-							["id"] = 58382,
-							["text"] = "Renowned Deeds",
-						},
-						{
-							["id"] = 63422,
-							["text"] = "Lust for Carnage",
-						},
-						{
-							["id"] = 42443,
-							["text"] = "Frenetic",
-						},
-						{
-							["id"] = 47065,
-							["text"] = "Master of Blades",
-						},
-						{
-							["id"] = 21228,
-							["text"] = "Piercing Shots",
-						},
-						{
-							["id"] = 19069,
-							["text"] = "Thick Skin",
-						},
-						{
-							["id"] = 37647,
-							["text"] = "Dismembering",
-						},
-						{
-							["id"] = 25411,
-							["text"] = "Infused",
-						},
-						{
-							["id"] = 8833,
-							["text"] = "Heart of Ice",
-						},
-						{
-							["id"] = 63251,
-							["text"] = "Inveterate",
-						},
-						{
-							["id"] = 27788,
-							["text"] = "Blood Drinker",
-						},
-						{
-							["id"] = 39530,
-							["text"] = "Vitality Void",
-						},
-						{
-							["id"] = 31257,
-							["text"] = "Natural Authority",
-						},
-						{
-							["id"] = 15852,
-							["text"] = "Ethereal Feast",
-						},
-						{
-							["id"] = 29381,
-							["text"] = "Ravenous Horde",
-						},
-						{
-							["id"] = 13935,
-							["text"] = "Thrill of Battle",
-						},
-						{
-							["id"] = 62577,
-							["text"] = "Essence Surge",
-						},
-						{
-							["id"] = 34506,
-							["text"] = "Golem Commander",
-						},
-						{
-							["id"] = 41472,
-							["text"] = "Discipline and Training",
-						},
-						{
-							["id"] = 28754,
-							["text"] = "Assassination",
-						},
-						{
-							["id"] = 61198,
-							["text"] = "Heart of the Warrior",
-						},
-						{
-							["id"] = 48698,
-							["text"] = "Void Barrier",
-						},
-						{
-							["id"] = 15400,
-							["text"] = "Skittering Runes",
-						},
-						{
-							["id"] = 53118,
-							["text"] = "Barbarism",
-						},
-						{
-							["id"] = 42009,
-							["text"] = "Soul of Steel",
-						},
-						{
-							["id"] = 13922,
-							["text"] = "Steadfast",
-						},
-						{
-							["id"] = 61039,
-							["text"] = "Wild Hunger",
-						},
-						{
-							["id"] = 11820,
-							["text"] = "Anointed Flesh",
-						},
-						{
-							["id"] = 50029,
-							["text"] = "Unnatural Calm",
-						},
-						{
-							["id"] = 1325,
-							["text"] = "Golem's Blood",
-						},
-						{
-							["id"] = 39904,
-							["text"] = "Brutal Skewering",
-						},
-						{
-							["id"] = 53114,
-							["text"] = "Revenge of the Hunted",
-						},
-						{
-							["id"] = 50842,
-							["text"] = "Veteran's Wrath",
-						},
-						{
-							["id"] = 58851,
-							["text"] = "Leader of the Pack",
-						},
-						{
-							["id"] = 32932,
-							["text"] = "Sovereignty",
-						},
-						{
-							["id"] = 27119,
-							["text"] = "Tribal Fury",
-						},
-						{
-							["id"] = 25989,
-							["text"] = "Nomadic Teachings",
-						},
-						{
-							["id"] = 4177,
-							["text"] = "Spiritual Aid",
-						},
-						{
-							["id"] = 6799,
-							["text"] = "Charisma",
-						},
-						{
-							["id"] = 60031,
-							["text"] = "Prismatic Skin",
-						},
-						{
-							["id"] = 22535,
-							["text"] = "Whispers of Doom",
-						},
-						{
-							["id"] = 203,
-							["text"] = "Vinespike Cordial",
-						},
-						{
-							["id"] = 24358,
-							["text"] = "Selective Precision",
-						},
-						{
-							["id"] = 3195,
-							["text"] = "Legacy of the Wilds",
-						},
-						{
-							["id"] = 33722,
-							["text"] = "Hollow Effigy",
-						},
-						{
-							["id"] = 5574,
-							["text"] = "Force of Darkness",
-						},
-						{
-							["id"] = 56274,
-							["text"] = "Lasting Tempest",
-						},
-						{
-							["id"] = 14587,
-							["text"] = "Adaptive Steel",
-						},
-						{
-							["id"] = 13739,
-							["text"] = "Always Angry",
-						},
-						{
-							["id"] = 32853,
-							["text"] = "Sione's Ambition",
-						},
-						{
-							["id"] = 37512,
-							["text"] = "Bastion of Faith",
-						},
-						{
-							["id"] = 4354,
-							["text"] = "Beacon of Hope",
-						},
-						{
-							["id"] = 14079,
-							["text"] = "Wood, Stone, and Spell",
-						},
-						{
-							["id"] = 41169,
-							["text"] = "Jagged Wounds",
-						},
-						{
-							["id"] = 20605,
-							["text"] = "No Forgiveness",
-						},
-						{
-							["id"] = 56146,
-							["text"] = "Deliberate Brutality",
-						},
-						{
-							["id"] = 1365,
-							["text"] = "Knowledge Barrier",
-						},
-						{
-							["id"] = 23549,
-							["text"] = "Incorporeal",
-						},
-						{
-							["id"] = 51360,
-							["text"] = "Mixed Munitions",
-						},
-						{
-							["id"] = 56207,
-							["text"] = "Hardened Scars",
-						},
-						{
-							["id"] = 57006,
-							["text"] = "Vengeant Cascade",
-						},
-						{
-							["id"] = 48556,
-							["text"] = "Heart of Darkness",
-						},
-						{
-							["id"] = 53759,
-							["text"] = "Cleansed Thoughts",
-						},
-						{
-							["id"] = 40849,
-							["text"] = "Persistence",
-						},
-						{
-							["id"] = 38706,
-							["text"] = "Way of the Warrior",
-						},
-						{
-							["id"] = 62596,
-							["text"] = "Mystic Talents",
-						},
-						{
-							["id"] = 41307,
-							["text"] = "Deadly Inclinations",
-						},
-						{
-							["id"] = 16246,
-							["text"] = "Tranquility",
-						},
-						{
-							["id"] = 64217,
-							["text"] = "Aspect of Stone",
-						},
-						{
-							["id"] = 52282,
-							["text"] = "Tenacity",
-						},
-						{
-							["id"] = 5624,
-							["text"] = "Crusader",
-						},
-						{
-							["id"] = 27781,
-							["text"] = "Worship the Blightheart",
-						},
-					},
-				},
-				["text"] = "Allocates # (Second)",
+				["id"] = "enchant.stat_2954116742|14587",
+				["text"] = "Allocates Adaptive Steel",
 				["type"] = "enchant",
 			},
 			{
-				["id"] = "enchant.stat_1898784841",
-				["option"] = {
-					["options"] = {
-						{
-							["id"] = 4918,
-							["text"] = "Indiscriminate Revenge",
-						},
-						{
-							["id"] = 15226,
-							["text"] = "Cruel Retort",
-						},
-						{
-							["id"] = 2599,
-							["text"] = "Prepared Response",
-						},
-						{
-							["id"] = 59976,
-							["text"] = "Careful Counterattack",
-						},
-						{
-							["id"] = 37425,
-							["text"] = "Practised Reapplication",
-						},
-						{
-							["id"] = 41305,
-							["text"] = "Crushing Reply",
-						},
-						{
-							["id"] = 34978,
-							["text"] = "Colloidal Mixture",
-						},
-						{
-							["id"] = 56330,
-							["text"] = "Flow of Battle",
-						},
-						{
-							["id"] = 64226,
-							["text"] = "Roaring Challenge",
-						},
-						{
-							["id"] = 52030,
-							["text"] = "Burst of Energy",
-						},
-						{
-							["id"] = 30160,
-							["text"] = "Fending",
-						},
-						{
-							["id"] = 24716,
-							["text"] = "Battle Trance",
-						},
-						{
-							["id"] = 18357,
-							["text"] = "Feline Swiftness",
-						},
-						{
-							["id"] = 23690,
-							["text"] = "Essence Infusion",
-						},
-						{
-							["id"] = 10542,
-							["text"] = "Spiked Bulwark",
-						},
-						{
-							["id"] = 37078,
-							["text"] = "Path of the Savant",
-						},
-						{
-							["id"] = 12702,
-							["text"] = "Path of the Warrior",
-						},
-						{
-							["id"] = 19506,
-							["text"] = "Path of the Hunter",
-						},
-						{
-							["id"] = 38516,
-							["text"] = "Righteous Decree",
-						},
-						{
-							["id"] = 63150,
-							["text"] = "Ironwood",
-						},
-						{
-							["id"] = 16243,
-							["text"] = "Fusillade",
-						},
-						{
-							["id"] = 2715,
-							["text"] = "Quickstep",
-						},
-						{
-							["id"] = 52230,
-							["text"] = "Weathered Hunter",
-						},
-						{
-							["id"] = 21435,
-							["text"] = "Cloth and Chain",
-						},
-						{
-							["id"] = 31033,
-							["text"] = "Robust",
-						},
-						{
-							["id"] = 65224,
-							["text"] = "Aspect of the Eagle",
-						},
-						{
-							["id"] = 24256,
-							["text"] = "Dynamo",
-						},
-						{
-							["id"] = 21973,
-							["text"] = "Decay Ward",
-						},
-						{
-							["id"] = 45067,
-							["text"] = "Thrill Killer",
-						},
-						{
-							["id"] = 24067,
-							["text"] = "Instinct",
-						},
-						{
-							["id"] = 1382,
-							["text"] = "Spirit Void",
-						},
-						{
-							["id"] = 529,
-							["text"] = "Poisonous Fangs",
-						},
-						{
-							["id"] = 46965,
-							["text"] = "Saboteur",
-						},
-						{
-							["id"] = 47484,
-							["text"] = "Depth Perception",
-						},
-						{
-							["id"] = 42686,
-							["text"] = "Elemental Focus",
-						},
-						{
-							["id"] = 27929,
-							["text"] = "Deep Wisdom",
-						},
-						{
-							["id"] = 27806,
-							["text"] = "As The Thunder",
-						},
-						{
-							["id"] = 27301,
-							["text"] = "Martial Experience",
-						},
-						{
-							["id"] = 60002,
-							["text"] = "Fury Bolts",
-						},
-						{
-							["id"] = 6783,
-							["text"] = "Savage Skewering",
-						},
-						{
-							["id"] = 5289,
-							["text"] = "Battle Rouse",
-						},
-						{
-							["id"] = 27190,
-							["text"] = "Overprepared",
-						},
-						{
-							["id"] = 20832,
-							["text"] = "Sanctuary",
-						},
-						{
-							["id"] = 49645,
-							["text"] = "Cauterisation",
-						},
-						{
-							["id"] = 7440,
-							["text"] = "Harvester of Foes",
-						},
-						{
-							["id"] = 8135,
-							["text"] = "Practical Application",
-						},
-						{
-							["id"] = 46408,
-							["text"] = "Fangs of the Viper",
-						},
-						{
-							["id"] = 10016,
-							["text"] = "Executioner",
-						},
-						{
-							["id"] = 42804,
-							["text"] = "Mind Drinker",
-						},
-						{
-							["id"] = 50690,
-							["text"] = "Replenishing Remedies",
-						},
-						{
-							["id"] = 15344,
-							["text"] = "Freedom of Movement",
-						},
-						{
-							["id"] = 10835,
-							["text"] = "Dreamer",
-						},
-						{
-							["id"] = 8001,
-							["text"] = "Clever Thief",
-						},
-						{
-							["id"] = 44788,
-							["text"] = "Potent Connections",
-						},
-						{
-							["id"] = 2550,
-							["text"] = "Arsonist",
-						},
-						{
-							["id"] = 28878,
-							["text"] = "Relentless",
-						},
-						{
-							["id"] = 45283,
-							["text"] = "Cornered Prey",
-						},
-						{
-							["id"] = 7085,
-							["text"] = "Weapon Artistry",
-						},
-						{
-							["id"] = 35233,
-							["text"] = "Discord Artisan",
-						},
-						{
-							["id"] = 18174,
-							["text"] = "Mystic Bulwark",
-						},
-						{
-							["id"] = 53757,
-							["text"] = "Shamanistic Fury",
-						},
-						{
-							["id"] = 22133,
-							["text"] = "Invigorating Blaze",
-						},
-						{
-							["id"] = 12033,
-							["text"] = "Wicked Blade",
-						},
-						{
-							["id"] = 24362,
-							["text"] = "Deep Thoughts",
-						},
-						{
-							["id"] = 10115,
-							["text"] = "Prodigal Perfection",
-						},
-						{
-							["id"] = 19144,
-							["text"] = "Sentinel",
-						},
-						{
-							["id"] = 65107,
-							["text"] = "Bastion Breaker",
-						},
-						{
-							["id"] = 42720,
-							["text"] = "Heavy Draw",
-						},
-						{
-							["id"] = 54791,
-							["text"] = "Claws of the Magpie",
-						},
-						{
-							["id"] = 52157,
-							["text"] = "Soul Siphon",
-						},
-						{
-							["id"] = 59423,
-							["text"] = "Escalation",
-						},
-						{
-							["id"] = 60781,
-							["text"] = "Inspiring Bond",
-						},
-						{
-							["id"] = 31473,
-							["text"] = "Master of Wounds",
-						},
-						{
-							["id"] = 17608,
-							["text"] = "Silent Steps",
-						},
-						{
-							["id"] = 29861,
-							["text"] = "Explosive Runes",
-						},
-						{
-							["id"] = 36859,
-							["text"] = "Steelwood Stance",
-						},
-						{
-							["id"] = 44102,
-							["text"] = "Efficient Explosives",
-						},
-						{
-							["id"] = 30693,
-							["text"] = "Divine Fervour",
-						},
-						{
-							["id"] = 63933,
-							["text"] = "Totemic Zeal",
-						},
-						{
-							["id"] = 40645,
-							["text"] = "Bone Breaker",
-						},
-						{
-							["id"] = 11784,
-							["text"] = "Vampirism",
-						},
-						{
-							["id"] = 2275,
-							["text"] = "Nature's Concoction",
-						},
-						{
-							["id"] = 59556,
-							["text"] = "Expeditious Munitions",
-						},
-						{
-							["id"] = 33082,
-							["text"] = "Razor's Edge",
-						},
-						{
-							["id"] = 56359,
-							["text"] = "Cannibalistic Rite",
-						},
-						{
-							["id"] = 28034,
-							["text"] = "Empowered Bond",
-						},
-						{
-							["id"] = 59866,
-							["text"] = "Entrench",
-						},
-						{
-							["id"] = 45657,
-							["text"] = "Trial of the Faith",
-						},
-						{
-							["id"] = 35436,
-							["text"] = "Kinetic Impacts",
-						},
-						{
-							["id"] = 41476,
-							["text"] = "Elder Power",
-						},
-						{
-							["id"] = 58168,
-							["text"] = "High Voltage",
-						},
-						{
-							["id"] = 45608,
-							["text"] = "Successive Detonations",
-						},
-						{
-							["id"] = 33582,
-							["text"] = "Forceful Skewering",
-						},
-						{
-							["id"] = 23038,
-							["text"] = "Slaughter",
-						},
-						{
-							["id"] = 55002,
-							["text"] = "Righteous Fury",
-						},
-						{
-							["id"] = 52789,
-							["text"] = "Circle of Life",
-						},
-						{
-							["id"] = 60619,
-							["text"] = "Galvanic Hammer",
-						},
-						{
-							["id"] = 63453,
-							["text"] = "Excess Sustenance",
-						},
-						{
-							["id"] = 28449,
-							["text"] = "Surge of Vigour",
-						},
-						{
-							["id"] = 62802,
-							["text"] = "Brink of Death",
-						},
-						{
-							["id"] = 6237,
-							["text"] = "Precision",
-						},
-						{
-							["id"] = 16236,
-							["text"] = "Toxic Strikes",
-						},
-						{
-							["id"] = 39657,
-							["text"] = "Pain Forger",
-						},
-						{
-							["id"] = 36915,
-							["text"] = "Sacrifice",
-						},
-						{
-							["id"] = 51212,
-							["text"] = "Entropy",
-						},
-						{
-							["id"] = 61982,
-							["text"] = "Grave Intentions",
-						},
-						{
-							["id"] = 6233,
-							["text"] = "Blast Waves",
-						},
-						{
-							["id"] = 48823,
-							["text"] = "Deadly Draw",
-						},
-						{
-							["id"] = 65093,
-							["text"] = "Bladedancer",
-						},
-						{
-							["id"] = 37504,
-							["text"] = "Intuition",
-						},
-						{
-							["id"] = 36736,
-							["text"] = "Burning Brutality",
-						},
-						{
-							["id"] = 64077,
-							["text"] = "Warrior Training",
-						},
-						{
-							["id"] = 63635,
-							["text"] = "Primal Manifestation",
-						},
-						{
-							["id"] = 5126,
-							["text"] = "Spinecruncher",
-						},
-						{
-							["id"] = 51559,
-							["text"] = "Smashing Strikes",
-						},
-						{
-							["id"] = 63921,
-							["text"] = "Utmost Swiftness",
-						},
-						{
-							["id"] = 47743,
-							["text"] = "Farsight",
-						},
-						{
-							["id"] = 42917,
-							["text"] = "Whirling Barrier",
-						},
-						{
-							["id"] = 59605,
-							["text"] = "Unstable Munitions",
-						},
-						{
-							["id"] = 46471,
-							["text"] = "Powerful Bond",
-						},
-						{
-							["id"] = 1405,
-							["text"] = "From the Shadows",
-						},
-						{
-							["id"] = 26096,
-							["text"] = "Hatchet Master",
-						},
-						{
-							["id"] = 55380,
-							["text"] = "Clever Construction",
-						},
-						{
-							["id"] = 49772,
-							["text"] = "Utmost Might",
-						},
-						{
-							["id"] = 22972,
-							["text"] = "Wandslinger",
-						},
-						{
-							["id"] = 49969,
-							["text"] = "Courage",
-						},
-						{
-							["id"] = 26763,
-							["text"] = "Perfected Formula",
-						},
-						{
-							["id"] = 41870,
-							["text"] = "Winter's Embrace",
-						},
-						{
-							["id"] = 25738,
-							["text"] = "Relentless Pursuit",
-						},
-						{
-							["id"] = 17171,
-							["text"] = "Flash Freeze",
-						},
-						{
-							["id"] = 36490,
-							["text"] = "Flaying",
-						},
-						{
-							["id"] = 35685,
-							["text"] = "Fearsome Force",
-						},
-						{
-							["id"] = 62849,
-							["text"] = "Glacial Cage",
-						},
-						{
-							["id"] = 24858,
-							["text"] = "Harpooner",
-						},
-						{
-							["id"] = 15046,
-							["text"] = "Redemption",
-						},
-						{
-							["id"] = 55114,
-							["text"] = "Utmost Intellect",
-						},
-						{
-							["id"] = 7918,
-							["text"] = "Enigmatic Defence",
-						},
-						{
-							["id"] = 14606,
-							["text"] = "Butchery",
-						},
-						{
-							["id"] = 33435,
-							["text"] = "Holy Dominion",
-						},
-						{
-							["id"] = 26557,
-							["text"] = "Static Blows",
-						},
-						{
-							["id"] = 14001,
-							["text"] = "Unfaltering",
-						},
-						{
-							["id"] = 9567,
-							["text"] = "Light Eater",
-						},
-						{
-							["id"] = 63033,
-							["text"] = "Bannerman",
-						},
-						{
-							["id"] = 63976,
-							["text"] = "Shaper",
-						},
-						{
-							["id"] = 53493,
-							["text"] = "Annihilation",
-						},
-						{
-							["id"] = 45317,
-							["text"] = "Ash, Frost and Storm",
-						},
-						{
-							["id"] = 44207,
-							["text"] = "Testudo",
-						},
-						{
-							["id"] = 30225,
-							["text"] = "Lightning Walker",
-						},
-						{
-							["id"] = 9788,
-							["text"] = "Nimbleness",
-						},
-						{
-							["id"] = 31508,
-							["text"] = "Aspect of the Lynx",
-						},
-						{
-							["id"] = 53042,
-							["text"] = "Exceptional Performance",
-						},
-						{
-							["id"] = 4940,
-							["text"] = "Cleaving",
-						},
-						{
-							["id"] = 42795,
-							["text"] = "Arcane Focus",
-						},
-						{
-							["id"] = 21413,
-							["text"] = "Combat Stamina",
-						},
-						{
-							["id"] = 33903,
-							["text"] = "Will of Blades",
-						},
-						{
-							["id"] = 44347,
-							["text"] = "Divine Fury",
-						},
-						{
-							["id"] = 65502,
-							["text"] = "Heartseeker",
-						},
-						{
-							["id"] = 6770,
-							["text"] = "Arcane Guarding",
-						},
-						{
-							["id"] = 1340,
-							["text"] = "Rampart",
-						},
-						{
-							["id"] = 13164,
-							["text"] = "Divine Judgement",
-						},
-						{
-							["id"] = 35894,
-							["text"] = "Trickery",
-						},
-						{
-							["id"] = 49538,
-							["text"] = "Defiance",
-						},
-						{
-							["id"] = 33545,
-							["text"] = "Harrier",
-						},
-						{
-							["id"] = 6,
-							["text"] = "Twin Terrors",
-						},
-						{
-							["id"] = 65273,
-							["text"] = "Enigmatic Reach",
-						},
-						{
-							["id"] = 25178,
-							["text"] = "Primal Spirit",
-						},
-						{
-							["id"] = 29522,
-							["text"] = "Dance of Blades",
-						},
-						{
-							["id"] = 19730,
-							["text"] = "Assured Strike",
-						},
-						{
-							["id"] = 15085,
-							["text"] = "Ambidexterity",
-						},
-						{
-							["id"] = 24383,
-							["text"] = "Warrior's Blood",
-						},
-						{
-							["id"] = 32681,
-							["text"] = "Mark the Prey",
-						},
-						{
-							["id"] = 6967,
-							["text"] = "Safeguard",
-						},
-						{
-							["id"] = 37403,
-							["text"] = "Infused Flesh",
-						},
-						{
-							["id"] = 54694,
-							["text"] = "Light of Divinity",
-						},
-						{
-							["id"] = 45945,
-							["text"] = "Conjured Barrier",
-						},
-						{
-							["id"] = 49621,
-							["text"] = "Acuity",
-						},
-						{
-							["id"] = 54142,
-							["text"] = "Finesse",
-						},
-						{
-							["id"] = 9432,
-							["text"] = "Mental Rapidity",
-						},
-						{
-							["id"] = 26960,
-							["text"] = "Forethought",
-						},
-						{
-							["id"] = 14813,
-							["text"] = "Revelry",
-						},
-						{
-							["id"] = 861,
-							["text"] = "Aggressive Bastion",
-						},
-						{
-							["id"] = 26866,
-							["text"] = "Sanctity",
-						},
-						{
-							["id"] = 65053,
-							["text"] = "Essence Sap",
-						},
-						{
-							["id"] = 25439,
-							["text"] = "Undertaker",
-						},
-						{
-							["id"] = 49416,
-							["text"] = "Adamant",
-						},
-						{
-							["id"] = 64355,
-							["text"] = "Brand Equity",
-						},
-						{
-							["id"] = 24050,
-							["text"] = "Coldhearted Calculation",
-						},
-						{
-							["id"] = 11420,
-							["text"] = "Arcanist's Dominion",
-						},
-						{
-							["id"] = 2225,
-							["text"] = "Eagle Eye",
-						},
-						{
-							["id"] = 32455,
-							["text"] = "Storm Weaver",
-						},
-						{
-							["id"] = 12809,
-							["text"] = "Berserking",
-						},
-						{
-							["id"] = 1006,
-							["text"] = "Potency of Will",
-						},
-						{
-							["id"] = 5823,
-							["text"] = "Coordination",
-						},
-						{
-							["id"] = 18703,
-							["text"] = "Graceful Assault",
-						},
-						{
-							["id"] = 20835,
-							["text"] = "Brinkmanship",
-						},
-						{
-							["id"] = 3309,
-							["text"] = "Fleetfoot",
-						},
-						{
-							["id"] = 15842,
-							["text"] = "One With Nature",
-						},
-						{
-							["id"] = 15711,
-							["text"] = "Blast Radius",
-						},
-						{
-							["id"] = 34666,
-							["text"] = "Destroyer",
-						},
-						{
-							["id"] = 14665,
-							["text"] = "Divine Wrath",
-						},
-						{
-							["id"] = 30471,
-							["text"] = "True Strike",
-						},
-						{
-							["id"] = 49318,
-							["text"] = "Wrecking Ball",
-						},
-						{
-							["id"] = 32059,
-							["text"] = "Titanic Impacts",
-						},
-						{
-							["id"] = 65308,
-							["text"] = "Diamond Skin",
-						},
-						{
-							["id"] = 12795,
-							["text"] = "Versatility",
-						},
-						{
-							["id"] = 33287,
-							["text"] = "Juggernaut",
-						},
-						{
-							["id"] = 25456,
-							["text"] = "Dervish",
-						},
-						{
-							["id"] = 35663,
-							["text"] = "Strong Arm",
-						},
-						{
-							["id"] = 60737,
-							["text"] = "Sleight of Hand",
-						},
-						{
-							["id"] = 41137,
-							["text"] = "Field Medicine",
-						},
-						{
-							["id"] = 50858,
-							["text"] = "Admonisher",
-						},
-						{
-							["id"] = 7069,
-							["text"] = "Split Shot",
-						},
-						{
-							["id"] = 544,
-							["text"] = "Surveillance",
-						},
-						{
-							["id"] = 61308,
-							["text"] = "Amplify",
-						},
-						{
-							["id"] = 570,
-							["text"] = "Dazzling Strikes",
-						},
-						{
-							["id"] = 34284,
-							["text"] = "Seasoned Swordplay",
-						},
-						{
-							["id"] = 24324,
-							["text"] = "Explosive Impact",
-						},
-						{
-							["id"] = 32738,
-							["text"] = "Wall of Steel",
-						},
-						{
-							["id"] = 34661,
-							["text"] = "Fire Walker",
-						},
-						{
-							["id"] = 54268,
-							["text"] = "Blade Barrier",
-						},
-						{
-							["id"] = 44824,
-							["text"] = "Mysticism",
-						},
-						{
-							["id"] = 18865,
-							["text"] = "Melding",
-						},
-						{
-							["id"] = 49445,
-							["text"] = "Deep Breaths",
-						},
-						{
-							["id"] = 47306,
-							["text"] = "Throatseeker",
-						},
-						{
-							["id"] = 44955,
-							["text"] = "Frost Walker",
-						},
-						{
-							["id"] = 22706,
-							["text"] = "Savage Intensity",
-						},
-						{
-							["id"] = 39743,
-							["text"] = "Dark Arts",
-						},
-						{
-							["id"] = 40619,
-							["text"] = "Awe and Terror",
-						},
-						{
-							["id"] = 50338,
-							["text"] = "Ballistics",
-						},
-						{
-							["id"] = 58032,
-							["text"] = "Serpentine Spellslinger",
-						},
-						{
-							["id"] = 53802,
-							["text"] = "Essence Extraction",
-						},
-						{
-							["id"] = 49254,
-							["text"] = "Retribution",
-						},
-						{
-							["id"] = 25970,
-							["text"] = "Acrimony",
-						},
-						{
-							["id"] = 32176,
-							["text"] = "Soul Thief",
-						},
-						{
-							["id"] = 51748,
-							["text"] = "Last Rites",
-						},
-						{
-							["id"] = 57900,
-							["text"] = "Command of Steel",
-						},
-						{
-							["id"] = 5430,
-							["text"] = "Magmatic Strikes",
-						},
-						{
-							["id"] = 49379,
-							["text"] = "Hired Killer",
-						},
-						{
-							["id"] = 12878,
-							["text"] = "Retaliation",
-						},
-						{
-							["id"] = 19103,
-							["text"] = "Righteous Army",
-						},
-						{
-							["id"] = 8458,
-							["text"] = "Longshot",
-						},
-						{
-							["id"] = 24721,
-							["text"] = "Ribcage Crusher",
-						},
-						{
-							["id"] = 9015,
-							["text"] = "Dire Torment",
-						},
-						{
-							["id"] = 27308,
-							["text"] = "Gravepact",
-						},
-						{
-							["id"] = 31513,
-							["text"] = "Adjacent Animosity",
-						},
-						{
-							["id"] = 30974,
-							["text"] = "Expert Hunter",
-						},
-						{
-							["id"] = 6615,
-							["text"] = "Arcing Blows",
-						},
-						{
-							["id"] = 64882,
-							["text"] = "Disciple of the Unyielding",
-						},
-						{
-							["id"] = 52031,
-							["text"] = "Disintegration",
-						},
-						{
-							["id"] = 25367,
-							["text"] = "Blade Master",
-						},
-						{
-							["id"] = 57199,
-							["text"] = "Fangs of Frost",
-						},
-						{
-							["id"] = 39761,
-							["text"] = "Counterweight",
-						},
-						{
-							["id"] = 21602,
-							["text"] = "Destructive Apparatus",
-						},
-						{
-							["id"] = 9535,
-							["text"] = "Hunter's Gambit",
-						},
-						{
-							["id"] = 28503,
-							["text"] = "Life Raker",
-						},
-						{
-							["id"] = 27163,
-							["text"] = "Arcane Will",
-						},
-						{
-							["id"] = 8920,
-							["text"] = "Backstabbing",
-						},
-						{
-							["id"] = 63207,
-							["text"] = "Tempest Blast",
-						},
-						{
-							["id"] = 43385,
-							["text"] = "Winter Spirit",
-						},
-						{
-							["id"] = 21297,
-							["text"] = "High Explosives",
-						},
-						{
-							["id"] = 29049,
-							["text"] = "Holy Fire",
-						},
-						{
-							["id"] = 54713,
-							["text"] = "Force Shaper",
-						},
-						{
-							["id"] = 44562,
-							["text"] = "Shaman's Dominion",
-						},
-						{
-							["id"] = 18707,
-							["text"] = "Perfectionist",
-						},
-						{
-							["id"] = 41595,
-							["text"] = "Marked for Death",
-						},
-						{
-							["id"] = 57839,
-							["text"] = "Blade of Cunning",
-						},
-						{
-							["id"] = 15437,
-							["text"] = "Deflection",
-						},
-						{
-							["id"] = 38849,
-							["text"] = "Searing Heat",
-						},
-						{
-							["id"] = 33777,
-							["text"] = "Devastating Devices",
-						},
-						{
-							["id"] = 26564,
-							["text"] = "Vanquisher",
-						},
-						{
-							["id"] = 4481,
-							["text"] = "Forces of Nature",
-						},
-						{
-							["id"] = 10511,
-							["text"] = "Tolerance",
-						},
-						{
-							["id"] = 26620,
-							["text"] = "Corruption",
-						},
-						{
-							["id"] = 16703,
-							["text"] = "Skull Cracking",
-						},
-						{
-							["id"] = 32227,
-							["text"] = "Adder's Touch",
-						},
-						{
-							["id"] = 19794,
-							["text"] = "Concussive Force",
-						},
-						{
-							["id"] = 31359,
-							["text"] = "Fatal Toxins",
-						},
-						{
-							["id"] = 63727,
-							["text"] = "Gladiator's Perseverance",
-						},
-						{
-							["id"] = 41119,
-							["text"] = "Lethality",
-						},
-						{
-							["id"] = 52090,
-							["text"] = "Feller of Foes",
-						},
-						{
-							["id"] = 62094,
-							["text"] = "Taste for Blood",
-						},
-						{
-							["id"] = 55772,
-							["text"] = "Blacksmith's Clout",
-						},
-						{
-							["id"] = 49459,
-							["text"] = "King of the Hill",
-						},
-						{
-							["id"] = 26294,
-							["text"] = "Bloodletting",
-						},
-						{
-							["id"] = 7136,
-							["text"] = "Master Sapper",
-						},
-						{
-							["id"] = 33725,
-							["text"] = "Swagger",
-						},
-						{
-							["id"] = 34591,
-							["text"] = "Malicious Intent",
-						},
-						{
-							["id"] = 31585,
-							["text"] = "Careful Conservationist",
-						},
-						{
-							["id"] = 22702,
-							["text"] = "Serpent Stance",
-						},
-						{
-							["id"] = 4854,
-							["text"] = "Asylum",
-						},
-						{
-							["id"] = 36281,
-							["text"] = "Primeval Force",
-						},
-						{
-							["id"] = 19897,
-							["text"] = "Death Attunement",
-						},
-						{
-							["id"] = 51881,
-							["text"] = "Master Fletcher",
-						},
-						{
-							["id"] = 15614,
-							["text"] = "Claws of the Hawk",
-						},
-						{
-							["id"] = 61689,
-							["text"] = "Explosive Elements",
-						},
-						{
-							["id"] = 9194,
-							["text"] = "Merciless Skewering",
-						},
-						{
-							["id"] = 27611,
-							["text"] = "Lord of the Dead",
-						},
-						{
-							["id"] = 64395,
-							["text"] = "Blunt Trauma",
-						},
-						{
-							["id"] = 55381,
-							["text"] = "Arcane Retaliation",
-						},
-						{
-							["id"] = 21389,
-							["text"] = "Runesmith",
-						},
-						{
-							["id"] = 39986,
-							["text"] = "Defiled Forces",
-						},
-						{
-							["id"] = 9261,
-							["text"] = "Disciple of the Forbidden",
-						},
-						{
-							["id"] = 36687,
-							["text"] = "Avatar of the Hunt",
-						},
-						{
-							["id"] = 63944,
-							["text"] = "Prism Weave",
-						},
-						{
-							["id"] = 25409,
-							["text"] = "Indomitable Army",
-						},
-						{
-							["id"] = 1568,
-							["text"] = "Fatal Blade",
-						},
-						{
-							["id"] = 30439,
-							["text"] = "Lava Lash",
-						},
-						{
-							["id"] = 53013,
-							["text"] = "Atrophy",
-						},
-						{
-							["id"] = 41989,
-							["text"] = "Resourcefulness",
-						},
-						{
-							["id"] = 43689,
-							["text"] = "Spiritual Command",
-						},
-						{
-							["id"] = 7263,
-							["text"] = "Swift Venoms",
-						},
-						{
-							["id"] = 38922,
-							["text"] = "Goliath",
-						},
-						{
-							["id"] = 56094,
-							["text"] = "One with the River",
-						},
-						{
-							["id"] = 7688,
-							["text"] = "Enduring Bond",
-						},
-						{
-							["id"] = 59151,
-							["text"] = "Brutal Blade",
-						},
-						{
-							["id"] = 56648,
-							["text"] = "Claws of the Falcon",
-						},
-						{
-							["id"] = 4207,
-							["text"] = "Window of Opportunity",
-						},
-						{
-							["id"] = 9864,
-							["text"] = "Growth and Decay",
-						},
-						{
-							["id"] = 58921,
-							["text"] = "Disciple of the Slaughter",
-						},
-						{
-							["id"] = 56276,
-							["text"] = "Nightstalker",
-						},
-						{
-							["id"] = 9055,
-							["text"] = "Volatile Mines",
-						},
-						{
-							["id"] = 48298,
-							["text"] = "Insightfulness",
-						},
-						{
-							["id"] = 55194,
-							["text"] = "Settling Ash",
-						},
-						{
-							["id"] = 42649,
-							["text"] = "Snowforged",
-						},
-						{
-							["id"] = 53652,
-							["text"] = "Steeped in the Profane",
-						},
-						{
-							["id"] = 61190,
-							["text"] = "Rallying Icon",
-						},
-						{
-							["id"] = 12143,
-							["text"] = "Influence",
-						},
-						{
-							["id"] = 38246,
-							["text"] = "Presage",
-						},
-						{
-							["id"] = 56716,
-							["text"] = "Heart of Thunder",
-						},
-						{
-							["id"] = 36949,
-							["text"] = "Devotion",
-						},
-						{
-							["id"] = 45350,
-							["text"] = "Glory of Command",
-						},
-						{
-							["id"] = 58218,
-							["text"] = "Purity of Flesh",
-						},
-						{
-							["id"] = 61981,
-							["text"] = "Doom Cast",
-						},
-						{
-							["id"] = 21330,
-							["text"] = "Quick Recovery",
-						},
-						{
-							["id"] = 40743,
-							["text"] = "Crystal Skin",
-						},
-						{
-							["id"] = 48438,
-							["text"] = "Bravery",
-						},
-						{
-							["id"] = 11924,
-							["text"] = "Breath of Flames",
-						},
-						{
-							["id"] = 45803,
-							["text"] = "Veteran Soldier",
-						},
-						{
-							["id"] = 48614,
-							["text"] = "Fervour",
-						},
-						{
-							["id"] = 27422,
-							["text"] = "Spirit of War",
-						},
-						{
-							["id"] = 42041,
-							["text"] = "Profane Chemistry",
-						},
-						{
-							["id"] = 60501,
-							["text"] = "Heart of Flame",
-						},
-						{
-							["id"] = 18769,
-							["text"] = "Written in Blood",
-						},
-						{
-							["id"] = 45329,
-							["text"] = "Trick Shot",
-						},
-						{
-							["id"] = 21958,
-							["text"] = "Cruel Preparation",
-						},
-						{
-							["id"] = 58831,
-							["text"] = "Disemboweling",
-						},
-						{
-							["id"] = 27137,
-							["text"] = "Sanctum of Thought",
-						},
-						{
-							["id"] = 13375,
-							["text"] = "Multishot",
-						},
-						{
-							["id"] = 55027,
-							["text"] = "Shining Justice",
-						},
-						{
-							["id"] = 55485,
-							["text"] = "Constitution",
-						},
-						{
-							["id"] = 46842,
-							["text"] = "Arcane Potency",
-						},
-						{
-							["id"] = 52742,
-							["text"] = "Hasty Demise",
-						},
-						{
-							["id"] = 11645,
-							["text"] = "Breath of Lightning",
-						},
-						{
-							["id"] = 4833,
-							["text"] = "Vigour",
-						},
-						{
-							["id"] = 44191,
-							["text"] = "As The Mountain",
-						},
-						{
-							["id"] = 22356,
-							["text"] = "Hematophagy",
-						},
-						{
-							["id"] = 51440,
-							["text"] = "Druidic Rite",
-						},
-						{
-							["id"] = 27203,
-							["text"] = "Heart and Soul",
-						},
-						{
-							["id"] = 6289,
-							["text"] = "Bloodless",
-						},
-						{
-							["id"] = 58449,
-							["text"] = "Born to Fight",
-						},
-						{
-							["id"] = 65210,
-							["text"] = "Heart of Oak",
-						},
-						{
-							["id"] = 33718,
-							["text"] = "Champion of the Cause",
-						},
-						{
-							["id"] = 27623,
-							["text"] = "Harsh Lessons",
-						},
-						{
-							["id"] = 24133,
-							["text"] = "Survivalist",
-						},
-						{
-							["id"] = 34173,
-							["text"] = "Overcharge",
-						},
-						{
-							["id"] = 47471,
-							["text"] = "Overcharged",
-						},
-						{
-							["id"] = 34009,
-							["text"] = "Master of the Arena",
-						},
-						{
-							["id"] = 53840,
-							["text"] = "Vengeance",
-						},
-						{
-							["id"] = 58198,
-							["text"] = "Fingers of Frost",
-						},
-						{
-							["id"] = 30302,
-							["text"] = "Hearty",
-						},
-						{
-							["id"] = 19858,
-							["text"] = "Herbalism",
-						},
-						{
-							["id"] = 41420,
-							["text"] = "Natural Remedies",
-						},
-						{
-							["id"] = 25058,
-							["text"] = "Blood Siphon",
-						},
-						{
-							["id"] = 7555,
-							["text"] = "Crackling Speed",
-						},
-						{
-							["id"] = 65097,
-							["text"] = "Leadership",
-						},
-						{
-							["id"] = 53573,
-							["text"] = "Arcane Expanse",
-						},
-						{
-							["id"] = 11730,
-							["text"] = "Endurance",
-						},
-						{
-							["id"] = 35958,
-							["text"] = "Faith and Steel",
-						},
-						{
-							["id"] = 34973,
-							["text"] = "Measured Fury",
-						},
-						{
-							["id"] = 13703,
-							["text"] = "Defiant Stand",
-						},
-						{
-							["id"] = 26023,
-							["text"] = "Savage Wounds",
-						},
-						{
-							["id"] = 2959,
-							["text"] = "Season of Ice",
-						},
-						{
-							["id"] = 44103,
-							["text"] = "Reflexes",
-						},
-						{
-							["id"] = 54629,
-							["text"] = "Inexorable",
-						},
-						{
-							["id"] = 37326,
-							["text"] = "Stamina",
-						},
-						{
-							["id"] = 51108,
-							["text"] = "Arcane Capacitor",
-						},
-						{
-							["id"] = 65108,
-							["text"] = "Tireless",
-						},
-						{
-							["id"] = 46904,
-							["text"] = "Arcane Sanctuary",
-						},
-						{
-							["id"] = 44988,
-							["text"] = "Wasting",
-						},
-						{
-							["id"] = 23066,
-							["text"] = "Savagery",
-						},
-						{
-							["id"] = 54776,
-							["text"] = "Mana Flows",
-						},
-						{
-							["id"] = 21634,
-							["text"] = "Arcane Chemistry",
-						},
-						{
-							["id"] = 48807,
-							["text"] = "Art of the Gladiator",
-						},
-						{
-							["id"] = 20528,
-							["text"] = "Instability",
-						},
-						{
-							["id"] = 59766,
-							["text"] = "Dirty Techniques",
-						},
-						{
-							["id"] = 15290,
-							["text"] = "Watchtowers",
-						},
-						{
-							["id"] = 3452,
-							["text"] = "Foresight",
-						},
-						{
-							["id"] = 21460,
-							["text"] = "Breath of Rime",
-						},
-						{
-							["id"] = 58382,
-							["text"] = "Renowned Deeds",
-						},
-						{
-							["id"] = 63422,
-							["text"] = "Lust for Carnage",
-						},
-						{
-							["id"] = 42443,
-							["text"] = "Frenetic",
-						},
-						{
-							["id"] = 47065,
-							["text"] = "Master of Blades",
-						},
-						{
-							["id"] = 21228,
-							["text"] = "Piercing Shots",
-						},
-						{
-							["id"] = 19069,
-							["text"] = "Thick Skin",
-						},
-						{
-							["id"] = 37647,
-							["text"] = "Dismembering",
-						},
-						{
-							["id"] = 25411,
-							["text"] = "Infused",
-						},
-						{
-							["id"] = 8833,
-							["text"] = "Heart of Ice",
-						},
-						{
-							["id"] = 63251,
-							["text"] = "Inveterate",
-						},
-						{
-							["id"] = 27788,
-							["text"] = "Blood Drinker",
-						},
-						{
-							["id"] = 39530,
-							["text"] = "Vitality Void",
-						},
-						{
-							["id"] = 31257,
-							["text"] = "Natural Authority",
-						},
-						{
-							["id"] = 15852,
-							["text"] = "Ethereal Feast",
-						},
-						{
-							["id"] = 29381,
-							["text"] = "Ravenous Horde",
-						},
-						{
-							["id"] = 13935,
-							["text"] = "Thrill of Battle",
-						},
-						{
-							["id"] = 62577,
-							["text"] = "Essence Surge",
-						},
-						{
-							["id"] = 34506,
-							["text"] = "Golem Commander",
-						},
-						{
-							["id"] = 41472,
-							["text"] = "Discipline and Training",
-						},
-						{
-							["id"] = 28754,
-							["text"] = "Assassination",
-						},
-						{
-							["id"] = 61198,
-							["text"] = "Heart of the Warrior",
-						},
-						{
-							["id"] = 48698,
-							["text"] = "Void Barrier",
-						},
-						{
-							["id"] = 15400,
-							["text"] = "Skittering Runes",
-						},
-						{
-							["id"] = 53118,
-							["text"] = "Barbarism",
-						},
-						{
-							["id"] = 42009,
-							["text"] = "Soul of Steel",
-						},
-						{
-							["id"] = 13922,
-							["text"] = "Steadfast",
-						},
-						{
-							["id"] = 61039,
-							["text"] = "Wild Hunger",
-						},
-						{
-							["id"] = 11820,
-							["text"] = "Anointed Flesh",
-						},
-						{
-							["id"] = 50029,
-							["text"] = "Unnatural Calm",
-						},
-						{
-							["id"] = 1325,
-							["text"] = "Golem's Blood",
-						},
-						{
-							["id"] = 39904,
-							["text"] = "Brutal Skewering",
-						},
-						{
-							["id"] = 53114,
-							["text"] = "Revenge of the Hunted",
-						},
-						{
-							["id"] = 50842,
-							["text"] = "Veteran's Wrath",
-						},
-						{
-							["id"] = 58851,
-							["text"] = "Leader of the Pack",
-						},
-						{
-							["id"] = 32932,
-							["text"] = "Sovereignty",
-						},
-						{
-							["id"] = 27119,
-							["text"] = "Tribal Fury",
-						},
-						{
-							["id"] = 25989,
-							["text"] = "Nomadic Teachings",
-						},
-						{
-							["id"] = 4177,
-							["text"] = "Spiritual Aid",
-						},
-						{
-							["id"] = 6799,
-							["text"] = "Charisma",
-						},
-						{
-							["id"] = 60031,
-							["text"] = "Prismatic Skin",
-						},
-						{
-							["id"] = 22535,
-							["text"] = "Whispers of Doom",
-						},
-						{
-							["id"] = 203,
-							["text"] = "Vinespike Cordial",
-						},
-						{
-							["id"] = 24358,
-							["text"] = "Selective Precision",
-						},
-						{
-							["id"] = 3195,
-							["text"] = "Legacy of the Wilds",
-						},
-						{
-							["id"] = 33722,
-							["text"] = "Hollow Effigy",
-						},
-						{
-							["id"] = 5574,
-							["text"] = "Force of Darkness",
-						},
-						{
-							["id"] = 56274,
-							["text"] = "Lasting Tempest",
-						},
-						{
-							["id"] = 14587,
-							["text"] = "Adaptive Steel",
-						},
-						{
-							["id"] = 13739,
-							["text"] = "Always Angry",
-						},
-						{
-							["id"] = 32853,
-							["text"] = "Sione's Ambition",
-						},
-						{
-							["id"] = 37512,
-							["text"] = "Bastion of Faith",
-						},
-						{
-							["id"] = 4354,
-							["text"] = "Beacon of Hope",
-						},
-						{
-							["id"] = 14079,
-							["text"] = "Wood, Stone, and Spell",
-						},
-						{
-							["id"] = 41169,
-							["text"] = "Jagged Wounds",
-						},
-						{
-							["id"] = 20605,
-							["text"] = "No Forgiveness",
-						},
-						{
-							["id"] = 56146,
-							["text"] = "Deliberate Brutality",
-						},
-						{
-							["id"] = 1365,
-							["text"] = "Knowledge Barrier",
-						},
-						{
-							["id"] = 23549,
-							["text"] = "Incorporeal",
-						},
-						{
-							["id"] = 51360,
-							["text"] = "Mixed Munitions",
-						},
-						{
-							["id"] = 56207,
-							["text"] = "Hardened Scars",
-						},
-						{
-							["id"] = 57006,
-							["text"] = "Vengeant Cascade",
-						},
-						{
-							["id"] = 48556,
-							["text"] = "Heart of Darkness",
-						},
-						{
-							["id"] = 53759,
-							["text"] = "Cleansed Thoughts",
-						},
-						{
-							["id"] = 40849,
-							["text"] = "Persistence",
-						},
-						{
-							["id"] = 38706,
-							["text"] = "Way of the Warrior",
-						},
-						{
-							["id"] = 62596,
-							["text"] = "Mystic Talents",
-						},
-						{
-							["id"] = 41307,
-							["text"] = "Deadly Inclinations",
-						},
-						{
-							["id"] = 16246,
-							["text"] = "Tranquility",
-						},
-						{
-							["id"] = 64217,
-							["text"] = "Aspect of Stone",
-						},
-						{
-							["id"] = 52282,
-							["text"] = "Tenacity",
-						},
-						{
-							["id"] = 5624,
-							["text"] = "Crusader",
-						},
-						{
-							["id"] = 27781,
-							["text"] = "Worship the Blightheart",
-						},
-					},
-				},
-				["text"] = "Allocates # (Third)",
+				["id"] = "enchant.stat_2954116742|32227",
+				["text"] = "Allocates Adder's Touch",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|31513",
+				["text"] = "Allocates Adjacent Animosity",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|50858",
+				["text"] = "Allocates Admonisher",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|861",
+				["text"] = "Allocates Aggressive Bastion",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|13739",
+				["text"] = "Allocates Always Angry",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|15085",
+				["text"] = "Allocates Ambidexterity",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|61308",
+				["text"] = "Allocates Amplify",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|53493",
+				["text"] = "Allocates Annihilation",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|11820",
+				["text"] = "Allocates Anointed Flesh",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|51108",
+				["text"] = "Allocates Arcane Capacitor",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|21634",
+				["text"] = "Allocates Arcane Chemistry",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|53573",
+				["text"] = "Allocates Arcane Expanse",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|42795",
+				["text"] = "Allocates Arcane Focus",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|6770",
+				["text"] = "Allocates Arcane Guarding",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|46842",
+				["text"] = "Allocates Arcane Potency",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|55381",
+				["text"] = "Allocates Arcane Retaliation",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|46904",
+				["text"] = "Allocates Arcane Sanctuary",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|27163",
+				["text"] = "Allocates Arcane Will",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|11420",
+				["text"] = "Allocates Arcanist's Dominion",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|6615",
+				["text"] = "Allocates Arcing Blows",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|2550",
+				["text"] = "Allocates Arsonist",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|48807",
+				["text"] = "Allocates Art of the Gladiator",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|44191",
+				["text"] = "Allocates As The Mountain",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|27806",
+				["text"] = "Allocates As The Thunder",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|45317",
+				["text"] = "Allocates Ash, Frost and Storm",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|64217",
+				["text"] = "Allocates Aspect of Stone",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|65224",
+				["text"] = "Allocates Aspect of the Eagle",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|31508",
+				["text"] = "Allocates Aspect of the Lynx",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|28754",
+				["text"] = "Allocates Assassination",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|19730",
+				["text"] = "Allocates Assured Strike",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|4854",
+				["text"] = "Allocates Asylum",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|53013",
+				["text"] = "Allocates Atrophy",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|36687",
+				["text"] = "Allocates Avatar of the Hunt",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|40619",
+				["text"] = "Allocates Awe and Terror",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|8920",
+				["text"] = "Allocates Backstabbing",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|50338",
+				["text"] = "Allocates Ballistics",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|63033",
+				["text"] = "Allocates Bannerman",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|53118",
+				["text"] = "Allocates Barbarism",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|65107",
+				["text"] = "Allocates Bastion Breaker",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|37512",
+				["text"] = "Allocates Bastion of Faith",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|5289",
+				["text"] = "Allocates Battle Rouse",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|24716",
+				["text"] = "Allocates Battle Trance",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|4354",
+				["text"] = "Allocates Beacon of Hope",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|12809",
+				["text"] = "Allocates Berserking",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|55772",
+				["text"] = "Allocates Blacksmith's Clout",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|54268",
+				["text"] = "Allocates Blade Barrier",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|25367",
+				["text"] = "Allocates Blade Master",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|57839",
+				["text"] = "Allocates Blade of Cunning",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|65093",
+				["text"] = "Allocates Bladedancer",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|15711",
+				["text"] = "Allocates Blast Radius",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|6233",
+				["text"] = "Allocates Blast Waves",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|27788",
+				["text"] = "Allocates Blood Drinker",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|25058",
+				["text"] = "Allocates Blood Siphon",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|6289",
+				["text"] = "Allocates Bloodless",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|26294",
+				["text"] = "Allocates Bloodletting",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|64395",
+				["text"] = "Allocates Blunt Trauma",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|40645",
+				["text"] = "Allocates Bone Breaker",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|58449",
+				["text"] = "Allocates Born to Fight",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|64355",
+				["text"] = "Allocates Brand Equity",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|48438",
+				["text"] = "Allocates Bravery",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|11924",
+				["text"] = "Allocates Breath of Flames",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|11645",
+				["text"] = "Allocates Breath of Lightning",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|21460",
+				["text"] = "Allocates Breath of Rime",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|62802",
+				["text"] = "Allocates Brink of Death",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|20835",
+				["text"] = "Allocates Brinkmanship",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|59151",
+				["text"] = "Allocates Brutal Blade",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|39904",
+				["text"] = "Allocates Brutal Skewering",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|36736",
+				["text"] = "Allocates Burning Brutality",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|52030",
+				["text"] = "Allocates Burst of Energy",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|14606",
+				["text"] = "Allocates Butchery",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|56359",
+				["text"] = "Allocates Cannibalistic Rite",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|31585",
+				["text"] = "Allocates Careful Conservationist",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|59976",
+				["text"] = "Allocates Careful Counterattack",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|49645",
+				["text"] = "Allocates Cauterisation",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|33718",
+				["text"] = "Allocates Champion of the Cause",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|6799",
+				["text"] = "Allocates Charisma",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|52789",
+				["text"] = "Allocates Circle of Life",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|56648",
+				["text"] = "Allocates Claws of the Falcon",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|15614",
+				["text"] = "Allocates Claws of the Hawk",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|54791",
+				["text"] = "Allocates Claws of the Magpie",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|53759",
+				["text"] = "Allocates Cleansed Thoughts",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|4940",
+				["text"] = "Allocates Cleaving",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|55380",
+				["text"] = "Allocates Clever Construction",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|8001",
+				["text"] = "Allocates Clever Thief",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|21435",
+				["text"] = "Allocates Cloth and Chain",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|24050",
+				["text"] = "Allocates Coldhearted Calculation",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|34978",
+				["text"] = "Allocates Colloidal Mixture",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|21413",
+				["text"] = "Allocates Combat Stamina",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|57900",
+				["text"] = "Allocates Command of Steel",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|19794",
+				["text"] = "Allocates Concussive Force",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|45945",
+				["text"] = "Allocates Conjured Barrier",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|55485",
+				["text"] = "Allocates Constitution",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|5823",
+				["text"] = "Allocates Coordination",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|45283",
+				["text"] = "Allocates Cornered Prey",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|26620",
+				["text"] = "Allocates Corruption",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|39761",
+				["text"] = "Allocates Counterweight",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|49969",
+				["text"] = "Allocates Courage",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|7555",
+				["text"] = "Allocates Crackling Speed",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|21958",
+				["text"] = "Allocates Cruel Preparation",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|15226",
+				["text"] = "Allocates Cruel Retort",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|5624",
+				["text"] = "Allocates Crusader",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|41305",
+				["text"] = "Allocates Crushing Reply",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|40743",
+				["text"] = "Allocates Crystal Skin",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|29522",
+				["text"] = "Allocates Dance of Blades",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|39743",
+				["text"] = "Allocates Dark Arts",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|570",
+				["text"] = "Allocates Dazzling Strikes",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|48823",
+				["text"] = "Allocates Deadly Draw",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|41307",
+				["text"] = "Allocates Deadly Inclinations",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|19897",
+				["text"] = "Allocates Death Attunement",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|21973",
+				["text"] = "Allocates Decay Ward",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|49445",
+				["text"] = "Allocates Deep Breaths",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|24362",
+				["text"] = "Allocates Deep Thoughts",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|27929",
+				["text"] = "Allocates Deep Wisdom",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|49538",
+				["text"] = "Allocates Defiance",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|13703",
+				["text"] = "Allocates Defiant Stand",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|39986",
+				["text"] = "Allocates Defiled Forces",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|15437",
+				["text"] = "Allocates Deflection",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|56146",
+				["text"] = "Allocates Deliberate Brutality",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|47484",
+				["text"] = "Allocates Depth Perception",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|25456",
+				["text"] = "Allocates Dervish",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|34666",
+				["text"] = "Allocates Destroyer",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|21602",
+				["text"] = "Allocates Destructive Apparatus",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|33777",
+				["text"] = "Allocates Devastating Devices",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|36949",
+				["text"] = "Allocates Devotion",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|65308",
+				["text"] = "Allocates Diamond Skin",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|9015",
+				["text"] = "Allocates Dire Torment",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|59766",
+				["text"] = "Allocates Dirty Techniques",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|9261",
+				["text"] = "Allocates Disciple of the Forbidden",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|58921",
+				["text"] = "Allocates Disciple of the Slaughter",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|64882",
+				["text"] = "Allocates Disciple of the Unyielding",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|41472",
+				["text"] = "Allocates Discipline and Training",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|35233",
+				["text"] = "Allocates Discord Artisan",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|58831",
+				["text"] = "Allocates Disemboweling",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|52031",
+				["text"] = "Allocates Disintegration",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|37647",
+				["text"] = "Allocates Dismembering",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|30693",
+				["text"] = "Allocates Divine Fervour",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|44347",
+				["text"] = "Allocates Divine Fury",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|13164",
+				["text"] = "Allocates Divine Judgement",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|14665",
+				["text"] = "Allocates Divine Wrath",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|61981",
+				["text"] = "Allocates Doom Cast",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|10835",
+				["text"] = "Allocates Dreamer",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|51440",
+				["text"] = "Allocates Druidic Rite",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|24256",
+				["text"] = "Allocates Dynamo",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|2225",
+				["text"] = "Allocates Eagle Eye",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|44102",
+				["text"] = "Allocates Efficient Explosives",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|41476",
+				["text"] = "Allocates Elder Power",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|42686",
+				["text"] = "Allocates Elemental Focus",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|28034",
+				["text"] = "Allocates Empowered Bond",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|11730",
+				["text"] = "Allocates Endurance",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|7688",
+				["text"] = "Allocates Enduring Bond",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|7918",
+				["text"] = "Allocates Enigmatic Defence",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|65273",
+				["text"] = "Allocates Enigmatic Reach",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|59866",
+				["text"] = "Allocates Entrench",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|51212",
+				["text"] = "Allocates Entropy",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|59423",
+				["text"] = "Allocates Escalation",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|53802",
+				["text"] = "Allocates Essence Extraction",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|23690",
+				["text"] = "Allocates Essence Infusion",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|65053",
+				["text"] = "Allocates Essence Sap",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|62577",
+				["text"] = "Allocates Essence Surge",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|15852",
+				["text"] = "Allocates Ethereal Feast",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|53042",
+				["text"] = "Allocates Exceptional Performance",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|63453",
+				["text"] = "Allocates Excess Sustenance",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|10016",
+				["text"] = "Allocates Executioner",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|59556",
+				["text"] = "Allocates Expeditious Munitions",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|30974",
+				["text"] = "Allocates Expert Hunter",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|61689",
+				["text"] = "Allocates Explosive Elements",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|24324",
+				["text"] = "Allocates Explosive Impact",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|29861",
+				["text"] = "Allocates Explosive Runes",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|35958",
+				["text"] = "Allocates Faith and Steel",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|57199",
+				["text"] = "Allocates Fangs of Frost",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|46408",
+				["text"] = "Allocates Fangs of the Viper",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|47743",
+				["text"] = "Allocates Farsight",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|1568",
+				["text"] = "Allocates Fatal Blade",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|31359",
+				["text"] = "Allocates Fatal Toxins",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|35685",
+				["text"] = "Allocates Fearsome Force",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|18357",
+				["text"] = "Allocates Feline Swiftness",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|52090",
+				["text"] = "Allocates Feller of Foes",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|30160",
+				["text"] = "Allocates Fending",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|48614",
+				["text"] = "Allocates Fervour",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|41137",
+				["text"] = "Allocates Field Medicine",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|54142",
+				["text"] = "Allocates Finesse",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|58198",
+				["text"] = "Allocates Fingers of Frost",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|34661",
+				["text"] = "Allocates Fire Walker",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|17171",
+				["text"] = "Allocates Flash Freeze",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|36490",
+				["text"] = "Allocates Flaying",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|3309",
+				["text"] = "Allocates Fleetfoot",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|56330",
+				["text"] = "Allocates Flow of Battle",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|54713",
+				["text"] = "Allocates Force Shaper",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|5574",
+				["text"] = "Allocates Force of Darkness",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|33582",
+				["text"] = "Allocates Forceful Skewering",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|4481",
+				["text"] = "Allocates Forces of Nature",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|3452",
+				["text"] = "Allocates Foresight",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|26960",
+				["text"] = "Allocates Forethought",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|15344",
+				["text"] = "Allocates Freedom of Movement",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|42443",
+				["text"] = "Allocates Frenetic",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|1405",
+				["text"] = "Allocates From the Shadows",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|44955",
+				["text"] = "Allocates Frost Walker",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|60002",
+				["text"] = "Allocates Fury Bolts",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|16243",
+				["text"] = "Allocates Fusillade",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|60619",
+				["text"] = "Allocates Galvanic Hammer",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|62849",
+				["text"] = "Allocates Glacial Cage",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|63727",
+				["text"] = "Allocates Gladiator's Perseverance",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|45350",
+				["text"] = "Allocates Glory of Command",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|34506",
+				["text"] = "Allocates Golem Commander",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|1325",
+				["text"] = "Allocates Golem's Blood",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|38922",
+				["text"] = "Allocates Goliath",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|18703",
+				["text"] = "Allocates Graceful Assault",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|61982",
+				["text"] = "Allocates Grave Intentions",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|27308",
+				["text"] = "Allocates Gravepact",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|9864",
+				["text"] = "Allocates Growth and Decay",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|56207",
+				["text"] = "Allocates Hardened Scars",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|24858",
+				["text"] = "Allocates Harpooner",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|33545",
+				["text"] = "Allocates Harrier",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|27623",
+				["text"] = "Allocates Harsh Lessons",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|7440",
+				["text"] = "Allocates Harvester of Foes",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|52742",
+				["text"] = "Allocates Hasty Demise",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|26096",
+				["text"] = "Allocates Hatchet Master",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|27203",
+				["text"] = "Allocates Heart and Soul",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|48556",
+				["text"] = "Allocates Heart of Darkness",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|60501",
+				["text"] = "Allocates Heart of Flame",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|8833",
+				["text"] = "Allocates Heart of Ice",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|65210",
+				["text"] = "Allocates Heart of Oak",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|56716",
+				["text"] = "Allocates Heart of Thunder",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|61198",
+				["text"] = "Allocates Heart of the Warrior",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|65502",
+				["text"] = "Allocates Heartseeker",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|30302",
+				["text"] = "Allocates Hearty",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|42720",
+				["text"] = "Allocates Heavy Draw",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|22356",
+				["text"] = "Allocates Hematophagy",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|19858",
+				["text"] = "Allocates Herbalism",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|21297",
+				["text"] = "Allocates High Explosives",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|58168",
+				["text"] = "Allocates High Voltage",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|49379",
+				["text"] = "Allocates Hired Killer",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|33722",
+				["text"] = "Allocates Hollow Effigy",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|33435",
+				["text"] = "Allocates Holy Dominion",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|29049",
+				["text"] = "Allocates Holy Fire",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|9535",
+				["text"] = "Allocates Hunter's Gambit",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|23549",
+				["text"] = "Allocates Incorporeal",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|4918",
+				["text"] = "Allocates Indiscriminate Revenge",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|25409",
+				["text"] = "Allocates Indomitable Army",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|54629",
+				["text"] = "Allocates Inexorable",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|12143",
+				["text"] = "Allocates Influence",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|25411",
+				["text"] = "Allocates Infused",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|37403",
+				["text"] = "Allocates Infused Flesh",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|48298",
+				["text"] = "Allocates Insightfulness",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|60781",
+				["text"] = "Allocates Inspiring Bond",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|20528",
+				["text"] = "Allocates Instability",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|24067",
+				["text"] = "Allocates Instinct",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|37504",
+				["text"] = "Allocates Intuition",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|63251",
+				["text"] = "Allocates Inveterate",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|22133",
+				["text"] = "Allocates Invigorating Blaze",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|63150",
+				["text"] = "Allocates Ironwood",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|41169",
+				["text"] = "Allocates Jagged Wounds",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|33287",
+				["text"] = "Allocates Juggernaut",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|35436",
+				["text"] = "Allocates Kinetic Impacts",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|49459",
+				["text"] = "Allocates King of the Hill",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|1365",
+				["text"] = "Allocates Knowledge Barrier",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|51748",
+				["text"] = "Allocates Last Rites",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|56274",
+				["text"] = "Allocates Lasting Tempest",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|30439",
+				["text"] = "Allocates Lava Lash",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|58851",
+				["text"] = "Allocates Leader of the Pack",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|65097",
+				["text"] = "Allocates Leadership",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|3195",
+				["text"] = "Allocates Legacy of the Wilds",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|41119",
+				["text"] = "Allocates Lethality",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|28503",
+				["text"] = "Allocates Life Raker",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|9567",
+				["text"] = "Allocates Light Eater",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|54694",
+				["text"] = "Allocates Light of Divinity",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|30225",
+				["text"] = "Allocates Lightning Walker",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|8458",
+				["text"] = "Allocates Longshot",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|27611",
+				["text"] = "Allocates Lord of the Dead",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|63422",
+				["text"] = "Allocates Lust for Carnage",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|5430",
+				["text"] = "Allocates Magmatic Strikes",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|34591",
+				["text"] = "Allocates Malicious Intent",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|54776",
+				["text"] = "Allocates Mana Flows",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|32681",
+				["text"] = "Allocates Mark the Prey",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|41595",
+				["text"] = "Allocates Marked for Death",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|27301",
+				["text"] = "Allocates Martial Experience",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|51881",
+				["text"] = "Allocates Master Fletcher",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|7136",
+				["text"] = "Allocates Master Sapper",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|47065",
+				["text"] = "Allocates Master of Blades",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|31473",
+				["text"] = "Allocates Master of Wounds",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|34009",
+				["text"] = "Allocates Master of the Arena",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|34973",
+				["text"] = "Allocates Measured Fury",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|18865",
+				["text"] = "Allocates Melding",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|9432",
+				["text"] = "Allocates Mental Rapidity",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|9194",
+				["text"] = "Allocates Merciless Skewering",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|42804",
+				["text"] = "Allocates Mind Drinker",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|51360",
+				["text"] = "Allocates Mixed Munitions",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|13375",
+				["text"] = "Allocates Multishot",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|18174",
+				["text"] = "Allocates Mystic Bulwark",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|62596",
+				["text"] = "Allocates Mystic Talents",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|44824",
+				["text"] = "Allocates Mysticism",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|31257",
+				["text"] = "Allocates Natural Authority",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|41420",
+				["text"] = "Allocates Natural Remedies",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|2275",
+				["text"] = "Allocates Nature's Concoction",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|56276",
+				["text"] = "Allocates Nightstalker",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|9788",
+				["text"] = "Allocates Nimbleness",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|20605",
+				["text"] = "Allocates No Forgiveness",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|25989",
+				["text"] = "Allocates Nomadic Teachings",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|15842",
+				["text"] = "Allocates One With Nature",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|56094",
+				["text"] = "Allocates One with the River",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|34173",
+				["text"] = "Allocates Overcharge",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|47471",
+				["text"] = "Allocates Overcharged",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|27190",
+				["text"] = "Allocates Overprepared",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|39657",
+				["text"] = "Allocates Pain Forger",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|19506",
+				["text"] = "Allocates Path of the Hunter",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|37078",
+				["text"] = "Allocates Path of the Savant",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|12702",
+				["text"] = "Allocates Path of the Warrior",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|26763",
+				["text"] = "Allocates Perfected Formula",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|18707",
+				["text"] = "Allocates Perfectionist",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|40849",
+				["text"] = "Allocates Persistence",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|21228",
+				["text"] = "Allocates Piercing Shots",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|529",
+				["text"] = "Allocates Poisonous Fangs",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|1006",
+				["text"] = "Allocates Potency of Will",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|44788",
+				["text"] = "Allocates Potent Connections",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|46471",
+				["text"] = "Allocates Powerful Bond",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|8135",
+				["text"] = "Allocates Practical Application",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|37425",
+				["text"] = "Allocates Practised Reapplication",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|6237",
+				["text"] = "Allocates Precision",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|2599",
+				["text"] = "Allocates Prepared Response",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|38246",
+				["text"] = "Allocates Presage",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|63635",
+				["text"] = "Allocates Primal Manifestation",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|25178",
+				["text"] = "Allocates Primal Spirit",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|36281",
+				["text"] = "Allocates Primeval Force",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|63944",
+				["text"] = "Allocates Prism Weave",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|60031",
+				["text"] = "Allocates Prismatic Skin",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|10115",
+				["text"] = "Allocates Prodigal Perfection",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|42041",
+				["text"] = "Allocates Profane Chemistry",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|58218",
+				["text"] = "Allocates Purity of Flesh",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|21330",
+				["text"] = "Allocates Quick Recovery",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|2715",
+				["text"] = "Allocates Quickstep",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|61190",
+				["text"] = "Allocates Rallying Icon",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|1340",
+				["text"] = "Allocates Rampart",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|29381",
+				["text"] = "Allocates Ravenous Horde",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|33082",
+				["text"] = "Allocates Razor's Edge",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|15046",
+				["text"] = "Allocates Redemption",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|44103",
+				["text"] = "Allocates Reflexes",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|28878",
+				["text"] = "Allocates Relentless",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|25738",
+				["text"] = "Allocates Relentless Pursuit",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|58382",
+				["text"] = "Allocates Renowned Deeds",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|50690",
+				["text"] = "Allocates Replenishing Remedies",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|41989",
+				["text"] = "Allocates Resourcefulness",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|12878",
+				["text"] = "Allocates Retaliation",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|49254",
+				["text"] = "Allocates Retribution",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|14813",
+				["text"] = "Allocates Revelry",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|53114",
+				["text"] = "Allocates Revenge of the Hunted",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|24721",
+				["text"] = "Allocates Ribcage Crusher",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|19103",
+				["text"] = "Allocates Righteous Army",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|38516",
+				["text"] = "Allocates Righteous Decree",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|55002",
+				["text"] = "Allocates Righteous Fury",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|64226",
+				["text"] = "Allocates Roaring Challenge",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|31033",
+				["text"] = "Allocates Robust",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|21389",
+				["text"] = "Allocates Runesmith",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|46965",
+				["text"] = "Allocates Saboteur",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|36915",
+				["text"] = "Allocates Sacrifice",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|6967",
+				["text"] = "Allocates Safeguard",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|26866",
+				["text"] = "Allocates Sanctity",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|20832",
+				["text"] = "Allocates Sanctuary",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|27137",
+				["text"] = "Allocates Sanctum of Thought",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|22706",
+				["text"] = "Allocates Savage Intensity",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|6783",
+				["text"] = "Allocates Savage Skewering",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|26023",
+				["text"] = "Allocates Savage Wounds",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|23066",
+				["text"] = "Allocates Savagery",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|38849",
+				["text"] = "Allocates Searing Heat",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|2959",
+				["text"] = "Allocates Season of Ice",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|34284",
+				["text"] = "Allocates Seasoned Swordplay",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|24358",
+				["text"] = "Allocates Selective Precision",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|19144",
+				["text"] = "Allocates Sentinel",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|22702",
+				["text"] = "Allocates Serpent Stance",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|58032",
+				["text"] = "Allocates Serpentine Spellslinger",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|55194",
+				["text"] = "Allocates Settling Ash",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|44562",
+				["text"] = "Allocates Shaman's Dominion",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|53757",
+				["text"] = "Allocates Shamanistic Fury",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|63976",
+				["text"] = "Allocates Shaper",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|55027",
+				["text"] = "Allocates Shining Justice",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|17608",
+				["text"] = "Allocates Silent Steps",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|32853",
+				["text"] = "Allocates Sione's Ambition",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|15400",
+				["text"] = "Allocates Skittering Runes",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|16703",
+				["text"] = "Allocates Skull Cracking",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|23038",
+				["text"] = "Allocates Slaughter",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|60737",
+				["text"] = "Allocates Sleight of Hand",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|51559",
+				["text"] = "Allocates Smashing Strikes",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|42649",
+				["text"] = "Allocates Snowforged",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|52157",
+				["text"] = "Allocates Soul Siphon",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|32176",
+				["text"] = "Allocates Soul Thief",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|42009",
+				["text"] = "Allocates Soul of Steel",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|32932",
+				["text"] = "Allocates Sovereignty",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|10542",
+				["text"] = "Allocates Spiked Bulwark",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|5126",
+				["text"] = "Allocates Spinecruncher",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|1382",
+				["text"] = "Allocates Spirit Void",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|27422",
+				["text"] = "Allocates Spirit of War",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|4177",
+				["text"] = "Allocates Spiritual Aid",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|43689",
+				["text"] = "Allocates Spiritual Command",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|7069",
+				["text"] = "Allocates Split Shot",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|37326",
+				["text"] = "Allocates Stamina",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|26557",
+				["text"] = "Allocates Static Blows",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|13922",
+				["text"] = "Allocates Steadfast",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|36859",
+				["text"] = "Allocates Steelwood Stance",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|53652",
+				["text"] = "Allocates Steeped in the Profane",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|32455",
+				["text"] = "Allocates Storm Weaver",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|35663",
+				["text"] = "Allocates Strong Arm",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|45608",
+				["text"] = "Allocates Successive Detonations",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|28449",
+				["text"] = "Allocates Surge of Vigour",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|544",
+				["text"] = "Allocates Surveillance",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|24133",
+				["text"] = "Allocates Survivalist",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|33725",
+				["text"] = "Allocates Swagger",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|7263",
+				["text"] = "Allocates Swift Venoms",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|62094",
+				["text"] = "Allocates Taste for Blood",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|63207",
+				["text"] = "Allocates Tempest Blast",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|52282",
+				["text"] = "Allocates Tenacity",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|44207",
+				["text"] = "Allocates Testudo",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|19069",
+				["text"] = "Allocates Thick Skin",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|45067",
+				["text"] = "Allocates Thrill Killer",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|13935",
+				["text"] = "Allocates Thrill of Battle",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|47306",
+				["text"] = "Allocates Throatseeker",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|65108",
+				["text"] = "Allocates Tireless",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|32059",
+				["text"] = "Allocates Titanic Impacts",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|10511",
+				["text"] = "Allocates Tolerance",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|63933",
+				["text"] = "Allocates Totemic Zeal",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|16236",
+				["text"] = "Allocates Toxic Strikes",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|16246",
+				["text"] = "Allocates Tranquility",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|45657",
+				["text"] = "Allocates Trial of the Faith",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|27119",
+				["text"] = "Allocates Tribal Fury",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|45329",
+				["text"] = "Allocates Trick Shot",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|35894",
+				["text"] = "Allocates Trickery",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|30471",
+				["text"] = "Allocates True Strike",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|6",
+				["text"] = "Allocates Twin Terrors",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|25439",
+				["text"] = "Allocates Undertaker",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|14001",
+				["text"] = "Allocates Unfaltering",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|50029",
+				["text"] = "Allocates Unnatural Calm",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|59605",
+				["text"] = "Allocates Unstable Munitions",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|55114",
+				["text"] = "Allocates Utmost Intellect",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|49772",
+				["text"] = "Allocates Utmost Might",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|63921",
+				["text"] = "Allocates Utmost Swiftness",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|11784",
+				["text"] = "Allocates Vampirism",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|26564",
+				["text"] = "Allocates Vanquisher",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|53840",
+				["text"] = "Allocates Vengeance",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|57006",
+				["text"] = "Allocates Vengeant Cascade",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|12795",
+				["text"] = "Allocates Versatility",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|45803",
+				["text"] = "Allocates Veteran Soldier",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|50842",
+				["text"] = "Allocates Veteran's Wrath",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|4833",
+				["text"] = "Allocates Vigour",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|203",
+				["text"] = "Allocates Vinespike Cordial",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|39530",
+				["text"] = "Allocates Vitality Void",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|48698",
+				["text"] = "Allocates Void Barrier",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|9055",
+				["text"] = "Allocates Volatile Mines",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|32738",
+				["text"] = "Allocates Wall of Steel",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|22972",
+				["text"] = "Allocates Wandslinger",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|64077",
+				["text"] = "Allocates Warrior Training",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|24383",
+				["text"] = "Allocates Warrior's Blood",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|44988",
+				["text"] = "Allocates Wasting",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|15290",
+				["text"] = "Allocates Watchtowers",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|38706",
+				["text"] = "Allocates Way of the Warrior",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|7085",
+				["text"] = "Allocates Weapon Artistry",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|52230",
+				["text"] = "Allocates Weathered Hunter",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|42917",
+				["text"] = "Allocates Whirling Barrier",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|22535",
+				["text"] = "Allocates Whispers of Doom",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|12033",
+				["text"] = "Allocates Wicked Blade",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|61039",
+				["text"] = "Allocates Wild Hunger",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|33903",
+				["text"] = "Allocates Will of Blades",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|4207",
+				["text"] = "Allocates Window of Opportunity",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|43385",
+				["text"] = "Allocates Winter Spirit",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|41870",
+				["text"] = "Allocates Winter's Embrace",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|14079",
+				["text"] = "Allocates Wood, Stone, and Spell",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|27781",
+				["text"] = "Allocates Worship the Blightheart",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|49318",
+				["text"] = "Allocates Wrecking Ball",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2954116742|18769",
+				["text"] = "Allocates Written in Blood",
 				["type"] = "enchant",
 			},
 			{
@@ -65951,11 +60301,6 @@ return {
 				["type"] = "enchant",
 			},
 			{
-				["id"] = "enchant.stat_1070816711",
-				["text"] = "Area contains an additional Abyss",
-				["type"] = "enchant",
-			},
-			{
 				["id"] = "enchant.stat_1992047981",
 				["text"] = "Area contains an additional Gloom Shrine",
 				["type"] = "enchant",
@@ -65983,6 +60328,11 @@ return {
 			{
 				["id"] = "enchant.stat_3240183538",
 				["text"] = "Area contains an additional Strongbox",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_1070816711",
+				["text"] = "Area contains an additional [ContainsAbyss|Abyss]",
 				["type"] = "enchant",
 			},
 			{
@@ -66031,13 +60381,13 @@ return {
 				["type"] = "enchant",
 			},
 			{
-				["id"] = "enchant.stat_3564826949",
-				["text"] = "Areas can contain Abysses",
+				["id"] = "enchant.stat_1671749203",
+				["text"] = "Areas contain Ritual Altars",
 				["type"] = "enchant",
 			},
 			{
-				["id"] = "enchant.stat_1671749203",
-				["text"] = "Areas contain Ritual Altars",
+				["id"] = "enchant.stat_3564826949",
+				["text"] = "Areas contain [ContainsAbyss|Abysses]",
 				["type"] = "enchant",
 			},
 			{
@@ -66311,35 +60661,6 @@ return {
 				["type"] = "enchant",
 			},
 			{
-				["id"] = "enchant.stat_1542416476",
-				["option"] = {
-					["options"] = {
-						{
-							["id"] = 1,
-							["text"] = "Uul-Netol",
-						},
-						{
-							["id"] = 2,
-							["text"] = "Xoph",
-						},
-						{
-							["id"] = 3,
-							["text"] = "Tul",
-						},
-						{
-							["id"] = 4,
-							["text"] = "Esh",
-						},
-						{
-							["id"] = 5,
-							["text"] = "Chayula",
-						},
-					},
-				},
-				["text"] = "Breaches in Areas belong to #",
-				["type"] = "enchant",
-			},
-			{
 				["id"] = "enchant.stat_2224050171",
 				["text"] = "Breaches in your Maps contain # additional Clasped Hand",
 				["type"] = "enchant",
@@ -66570,6 +60891,21 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_3417711605",
+				["text"] = "Damage Penetrates #% Cold Resistance",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2653955271",
+				["text"] = "Damage Penetrates #% Fire Resistance",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_818778753",
+				["text"] = "Damage Penetrates #% Lightning Resistance",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_281254371",
 				["text"] = "Damage Penetrates #% of Enemy Elemental Resistances if you haven't Killed Recently",
 				["type"] = "enchant",
@@ -66605,113 +60941,108 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.delirium_reward_incubators",
+				["text"] = "Delirium Reward Type: Delirium Reward Type: <invalid-AfflictionRewardTypeVisuals-index> (×#)",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.delirium_reward_abyss",
-				["text"] = "Delirium Reward Type: Abyss Items (×#)",
+				["text"] = "Delirium Reward Type: Delirium Reward Type: Abyss Items (×#)",
 				["type"] = "enchant",
 			},
 			{
 				["id"] = "enchant.delirium_reward_armour",
-				["text"] = "Delirium Reward Type: Armour (×#)",
-				["type"] = "enchant",
-			},
-			{
-				["id"] = "enchant.delirium_reward_blight",
-				["text"] = "Delirium Reward Type: Blight Items (×#)",
-				["type"] = "enchant",
-			},
-			{
-				["id"] = "enchant.delirium_reward_breach",
-				["text"] = "Delirium Reward Type: Breach Items (×#)",
+				["text"] = "Delirium Reward Type: Delirium Reward Type: Armour (×#)",
 				["type"] = "enchant",
 			},
 			{
 				["id"] = "enchant.delirium_reward_metamorphosis",
-				["text"] = "Delirium Reward Type: Catalysts (×#)",
+				["text"] = "Delirium Reward Type: Delirium Reward Type: Blight Items (×#)",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.delirium_reward_breach",
+				["text"] = "Delirium Reward Type: Delirium Reward Type: Breach Items (×#)",
 				["type"] = "enchant",
 			},
 			{
 				["id"] = "enchant.delirium_reward_currency",
-				["text"] = "Delirium Reward Type: Currency (×#)",
-				["type"] = "enchant",
-			},
-			{
-				["id"] = "enchant.delirium_reward_harbinger",
-				["text"] = "Delirium Reward Type: Currency (×#)",
-				["type"] = "enchant",
-			},
-			{
-				["id"] = "enchant.delirium_reward_generic",
-				["text"] = "Delirium Reward Type: Delirium (×#)",
+				["text"] = "Delirium Reward Type: Delirium Reward Type: Currency (×#)",
 				["type"] = "enchant",
 			},
 			{
 				["id"] = "enchant.delirium_reward_divinationcards",
-				["text"] = "Delirium Reward Type: Divination Cards (×#)",
+				["text"] = "Delirium Reward Type: Delirium Reward Type: Divination Cards (×#)",
 				["type"] = "enchant",
 			},
 			{
 				["id"] = "enchant.delirium_reward_essences",
-				["text"] = "Delirium Reward Type: Essences (×#)",
+				["text"] = "Delirium Reward Type: Delirium Reward Type: Essences (×#)",
 				["type"] = "enchant",
 			},
 			{
 				["id"] = "enchant.delirium_reward_perandus",
-				["text"] = "Delirium Reward Type: Expedition Items (×#)",
+				["text"] = "Delirium Reward Type: Delirium Reward Type: Expedition Items (×#)",
 				["type"] = "enchant",
 			},
 			{
 				["id"] = "enchant.delirium_reward_fossils",
-				["text"] = "Delirium Reward Type: Fossils (×#)",
+				["text"] = "Delirium Reward Type: Delirium Reward Type: Fossils (×#)",
 				["type"] = "enchant",
 			},
 			{
 				["id"] = "enchant.delirium_reward_fragments",
-				["text"] = "Delirium Reward Type: Fragments (×#)",
+				["text"] = "Delirium Reward Type: Delirium Reward Type: Fragments (×#)",
 				["type"] = "enchant",
 			},
 			{
 				["id"] = "enchant.delirium_reward_gems",
-				["text"] = "Delirium Reward Type: Gems (×#)",
-				["type"] = "enchant",
-			},
-			{
-				["id"] = "enchant.delirium_reward_incubators",
-				["text"] = "Delirium Reward Type: Incubators (×#)",
+				["text"] = "Delirium Reward Type: Delirium Reward Type: Gems (×#)",
 				["type"] = "enchant",
 			},
 			{
 				["id"] = "enchant.delirium_reward_trinkets",
-				["text"] = "Delirium Reward Type: Jewellery (×#)",
+				["text"] = "Delirium Reward Type: Delirium Reward Type: Jewellery (×#)",
 				["type"] = "enchant",
 			},
 			{
 				["id"] = "enchant.delirium_reward_labyrinth",
-				["text"] = "Delirium Reward Type: Labyrinth Items (×#)",
+				["text"] = "Delirium Reward Type: Delirium Reward Type: Labyrinth Items (×#)",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.delirium_reward_blight",
+				["text"] = "Delirium Reward Type: Delirium Reward Type: Legion Items (×#)",
 				["type"] = "enchant",
 			},
 			{
 				["id"] = "enchant.delirium_reward_maps",
-				["text"] = "Delirium Reward Type: Map Items (×#)",
+				["text"] = "Delirium Reward Type: Delirium Reward Type: Map Items (×#)",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.delirium_reward_generic",
+				["text"] = "Delirium Reward Type: Delirium Reward Type: Miscellaneous Items (×#)",
 				["type"] = "enchant",
 			},
 			{
 				["id"] = "enchant.delirium_reward_scarabs",
-				["text"] = "Delirium Reward Type: Scarabs (×#)",
+				["text"] = "Delirium Reward Type: Delirium Reward Type: Scarabs (×#)",
 				["type"] = "enchant",
 			},
 			{
 				["id"] = "enchant.delirium_reward_talismans",
-				["text"] = "Delirium Reward Type: Talismans (×#)",
+				["text"] = "Delirium Reward Type: Delirium Reward Type: Talismans (×#)",
 				["type"] = "enchant",
 			},
 			{
 				["id"] = "enchant.delirium_reward_uniques",
-				["text"] = "Delirium Reward Type: Unique Items (×#)",
+				["text"] = "Delirium Reward Type: Delirium Reward Type: Unique Items (×#)",
 				["type"] = "enchant",
 			},
 			{
 				["id"] = "enchant.delirium_reward_weapon",
-				["text"] = "Delirium Reward Type: Weapons (×#)",
+				["text"] = "Delirium Reward Type: Delirium Reward Type: Weapons (×#)",
 				["type"] = "enchant",
 			},
 			{
@@ -67185,6 +61516,11 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_4118694562",
+				["text"] = "Gain #% of Maximum Life as Extra Armour",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_3913265126",
 				["text"] = "Gain #% of Weapon Physical Damage as Extra Damage of each Element",
 				["type"] = "enchant",
@@ -67357,27 +61693,6 @@ return {
 			{
 				["id"] = "enchant.stat_2067409550",
 				["text"] = "Harvest Monsters in your Maps have #% more Life",
-				["type"] = "enchant",
-			},
-			{
-				["id"] = "enchant.stat_832377952",
-				["option"] = {
-					["options"] = {
-						{
-							["id"] = 1,
-							["text"] = "Purple",
-						},
-						{
-							["id"] = 2,
-							["text"] = "Yellow",
-						},
-						{
-							["id"] = 3,
-							["text"] = "Blue",
-						},
-					},
-				},
-				["text"] = "Harvests in Areas contain at least one Crop of # Plants",
 				["type"] = "enchant",
 			},
 			{
@@ -67578,6 +61893,11 @@ return {
 			{
 				["id"] = "enchant.stat_611022108",
 				["text"] = "Hits at Close Range with Shattering Steel Fortify",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_942531362",
+				["text"] = "Hits ignore Enemy Physical Damage Reduction",
 				["type"] = "enchant",
 			},
 			{
@@ -68016,6 +62336,11 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_2759003954",
+				["text"] = "Minions have +#% to Damage over Time Multiplier",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_3473724367",
 				["text"] = "Minions summoned by Your Scout Towers have #% increased Damage",
 				["type"] = "enchant",
@@ -68331,6 +62656,11 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_2067062068",
+				["text"] = "Projectiles Pierce # additional Targets",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_4159765624",
 				["text"] = "Projectiles are fired in random directions",
 				["type"] = "enchant",
@@ -68582,7 +62912,7 @@ return {
 			},
 			{
 				["id"] = "enchant.stat_1296244953",
-				["text"] = "Rune Blast teleports you to the detonated Rune if you have not detonated Runes in the past 1 second",
+				["text"] = "Rune Blast teleports you to the detonated Rune if you have not detonated Runes in the past 0.5 seconds",
 				["type"] = "enchant",
 			},
 			{
@@ -68971,27 +63301,6 @@ return {
 				["type"] = "enchant",
 			},
 			{
-				["id"] = "enchant.stat_3522828354",
-				["option"] = {
-					["options"] = {
-						{
-							["id"] = 1,
-							["text"] = "Magic",
-						},
-						{
-							["id"] = 2,
-							["text"] = "Rare",
-						},
-						{
-							["id"] = 3,
-							["text"] = "Unique",
-						},
-					},
-				},
-				["text"] = "Strongboxes in Area are at least #",
-				["type"] = "enchant",
-			},
-			{
 				["id"] = "enchant.stat_2681419531",
 				["text"] = "Strongboxes in your Maps are Corrupted",
 				["type"] = "enchant",
@@ -69237,6 +63546,11 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_2635869389",
+				["text"] = "Unaffected by Ignite",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_586167247",
 				["text"] = "Unearth Spawns corpses with +# Level",
 				["type"] = "enchant",
@@ -69357,6 +63671,11 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_2567919918",
+				["text"] = "Utility Flasks gain # Charge every 3 seconds",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_1730598557",
 				["text"] = "Varieties of Items contained in # Blight Chests are Lucky",
 				["type"] = "enchant",
@@ -69459,6 +63778,11 @@ return {
 			{
 				["id"] = "enchant.stat_2592211591",
 				["text"] = "War Banner has #% increased Aura Effect",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_1434716233",
+				["text"] = "Warcries Exert # additional Attack",
 				["type"] = "enchant",
 			},
 			{
@@ -69827,38 +64151,8 @@ return {
 				["type"] = "enchant",
 			},
 			{
-				["id"] = "enchant.stat_3564826949",
-				["text"] = "Your Maps can contain Abysses",
-				["type"] = "enchant",
-			},
-			{
 				["id"] = "enchant.stat_2180286756",
 				["text"] = "Your Maps can contain Breaches",
-				["type"] = "enchant",
-			},
-			{
-				["id"] = "enchant.stat_3187151138",
-				["option"] = {
-					["options"] = {
-						{
-							["id"] = 2,
-							["text"] = "Einhar",
-						},
-						{
-							["id"] = 3,
-							["text"] = "Alva",
-						},
-						{
-							["id"] = 5,
-							["text"] = "Niko",
-						},
-						{
-							["id"] = 6,
-							["text"] = "Jun",
-						},
-					},
-				},
-				["text"] = "Your Maps contain # (Master)",
 				["type"] = "enchant",
 			},
 			{
@@ -69947,6 +64241,11 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_3564826949",
+				["text"] = "Your Maps contain [ContainsAbyss|Abysses]",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_2459443694",
 				["text"] = "Your Maps contain a Blight Encounter",
 				["type"] = "enchant",
@@ -69959,11 +64258,6 @@ return {
 			{
 				["id"] = "enchant.stat_2055257822",
 				["text"] = "Your Maps contain an Ultimatum Encounter",
-				["type"] = "enchant",
-			},
-			{
-				["id"] = "enchant.stat_1070816711",
-				["text"] = "Your Maps contain an additional Abyss",
 				["type"] = "enchant",
 			},
 			{
@@ -69989,6 +64283,11 @@ return {
 			{
 				["id"] = "enchant.stat_1468737867",
 				["text"] = "Your Maps contain an additional Shrine",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_1070816711",
+				["text"] = "Your Maps contain an additional [ContainsAbyss|Abyss]",
 				["type"] = "enchant",
 			},
 			{
@@ -72329,13 +66628,13 @@ return {
 				["type"] = "crafted",
 			},
 			{
-				["id"] = "crafted.stat_3005472710",
-				["text"] = "#% chance to Avoid Elemental Ailments",
+				["id"] = "crafted.stat_720398262",
+				["text"] = "#% chance to Avoid Damage of each Element from Hits during Soul Gain Prevention",
 				["type"] = "crafted",
 			},
 			{
-				["id"] = "crafted.stat_720398262",
-				["text"] = "#% chance to Avoid Elemental Damage from Hits during Soul Gain Prevention",
+				["id"] = "crafted.stat_3005472710",
+				["text"] = "#% chance to Avoid Elemental Ailments",
 				["type"] = "crafted",
 			},
 			{
@@ -72729,6 +67028,11 @@ return {
 				["type"] = "crafted",
 			},
 			{
+				["id"] = "crafted.stat_4101445926",
+				["text"] = "#% increased Mana Cost Efficiency",
+				["type"] = "crafted",
+			},
+			{
 				["id"] = "crafted.stat_683273571",
 				["text"] = "#% increased Mana Cost of Skills during Effect",
 				["type"] = "crafted",
@@ -72876,11 +67180,6 @@ return {
 			{
 				["id"] = "crafted.stat_3824033729",
 				["text"] = "#% of Damage Taken from Hits is Leeched as Life during Effect",
-				["type"] = "crafted",
-			},
-			{
-				["id"] = "crafted.stat_603134774",
-				["text"] = "#% of Damage from your Hits cannot be Reflected during Effect",
 				["type"] = "crafted",
 			},
 			{
@@ -73604,6 +67903,11 @@ return {
 				["type"] = "crafted",
 			},
 			{
+				["id"] = "crafted.stat_603134774",
+				["text"] = "Prevent +#% of Reflected Damage during Effect",
+				["type"] = "crafted",
+			},
+			{
 				["id"] = "crafted.stat_2067062068",
 				["text"] = "Projectiles Pierce # additional Targets",
 				["type"] = "crafted",
@@ -73720,30 +68024,4725 @@ return {
 	{
 		["entries"] = {
 			{
-				["id"] = "crucible.mod_59759",
-				["text"] = "(13-17)% increased Spell Damage (Tier 3)",
-				["type"] = "crucible",
+				["id"] = "mercenary.skill_15611",
+				["text"] = "Absolution",
+				["type"] = "mercenary",
 			},
 			{
-				["id"] = "crucible.mod_1035",
-				["text"] = "(18-22)% increased Spell Damage (Tier 4)",
-				["type"] = "crucible",
+				["id"] = "mercenary.skill_14992",
+				["text"] = "Abyssal Cry",
+				["type"] = "mercenary",
 			},
 			{
-				["id"] = "crucible.mod_50290",
-				["text"] = "(23-26)% increased Spell Damage (Tier 5)",
-				["type"] = "crucible",
+				["id"] = "mercenary.support_31430",
+				["text"] = "Added Chaos (Tier 2)",
+				["type"] = "mercenary",
 			},
 			{
-				["id"] = "crucible.mod_55287",
-				["text"] = "(3-7)% increased Spell Damage (Tier 1)",
-				["type"] = "crucible",
+				["id"] = "mercenary.support_52758",
+				["text"] = "Added Cold (Tier 2)",
+				["type"] = "mercenary",
 			},
 			{
-				["id"] = "crucible.mod_56135",
-				["text"] = "(8-12)% increased Spell Damage (Tier 2)",
-				["type"] = "crucible",
+				["id"] = "mercenary.support_45439",
+				["text"] = "Added Fire (Tier 2)",
+				["type"] = "mercenary",
 			},
+			{
+				["id"] = "mercenary.support_64283",
+				["text"] = "Added Lightning (Tier 2)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_9607",
+				["text"] = "Ailment Damage (Tier 2)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_61972",
+				["text"] = "Ailment Effect (Tier 2)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_24179",
+				["text"] = "Alchemist's Mark",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_50670",
+				["text"] = "Altar of Chaos",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_13235",
+				["text"] = "Anger",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_59005",
+				["text"] = "Arc",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_14557",
+				["text"] = "Arcane Traps (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_55367",
+				["text"] = "Arctic Armour",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_58429",
+				["text"] = "Arrow Nova (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_35610",
+				["text"] = "Artillery Ballista",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_42361",
+				["text"] = "Ashen Fissure",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_19417",
+				["text"] = "Aspect of the Spider",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_47406",
+				["text"] = "Assassin's Mark",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_37561",
+				["text"] = "Ball Lightning of Orbiting Trap",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_30663",
+				["text"] = "Ball Lightning of Static",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_63468",
+				["text"] = "Bane",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_1356",
+				["text"] = "Barrage",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_12260",
+				["text"] = "Barrage of Volley Fire",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_37344",
+				["text"] = "Battlemage's Cry",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_50866",
+				["text"] = "Beacons of Faith",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_13711",
+				["text"] = "Bear Trap",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_11054",
+				["text"] = "Blade Trap",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_25718",
+				["text"] = "Blade Vortex",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_37202",
+				["text"] = "Bladefall",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_59477",
+				["text"] = "Bladefall of Trarthus",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_12357",
+				["text"] = "Bladestorm",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_26391",
+				["text"] = "Blasphemy Enfeeble",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_39298",
+				["text"] = "Blasphemy Flammability",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_18004",
+				["text"] = "Blast Rain of Trarthus",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_8450",
+				["text"] = "Blight",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_10722",
+				["text"] = "Blink Arrow",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_26931",
+				["text"] = "Blood Mortar",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_60880",
+				["text"] = "Bloodthirst",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_22724",
+				["text"] = "Bloody Warp",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_4927",
+				["text"] = "Bodyswap",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_44422",
+				["text"] = "Boiling Blood",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_44467",
+				["text"] = "Bone Offering",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_22696",
+				["text"] = "Boneshatter",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_54837",
+				["text"] = "Brittle Chance (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_27763",
+				["text"] = "Brutal Teachings",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_64271",
+				["text"] = "Brutality (Tier 2)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_34665",
+				["text"] = "Burning Arrow",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_31440",
+				["text"] = "Burrow",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_46131",
+				["text"] = "Call of Steel",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_58174",
+				["text"] = "Caustic Arrow",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_31052",
+				["text"] = "Chain (Tier 2)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_7182",
+				["text"] = "Chain Hook of Trarthus",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_38948",
+				["text"] = "Chance to Bleed (Tier 2)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_58384",
+				["text"] = "Chance to Poison (Tier 2)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_33975",
+				["text"] = "Chaos Penetration (Tier 2)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_26913",
+				["text"] = "Chaotic Burst",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_18986",
+				["text"] = "Chaotic Shot",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_5673",
+				["text"] = "Charged Dash of the Arcane",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_5081",
+				["text"] = "Charged Traps (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_28785",
+				["text"] = "Clarity",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_8445",
+				["text"] = "Cleave",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_26057",
+				["text"] = "Clutches of the Damned",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_16896",
+				["text"] = "Cobra Lash",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_54628",
+				["text"] = "Cold Penetration (Tier 2)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_58581",
+				["text"] = "Combustion (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_21489",
+				["text"] = "Concentrated Effect (Tier 2)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_41484",
+				["text"] = "Conductivity",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_21962",
+				["text"] = "Conflagration",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_3093",
+				["text"] = "Consecrated Path",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_48875",
+				["text"] = "Cooldown Recovery (Tier 2)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_8958",
+				["text"] = "Corrupted Blade Vortex of the Scythe",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_9321",
+				["text"] = "Creeping Frost Trap",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_61471",
+				["text"] = "Critical Chance (Tier 2)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_32189",
+				["text"] = "Critical Damage (Tier 2)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_46739",
+				["text"] = "Cyclone of the Empire",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_35371",
+				["text"] = "Dark Bargain",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_60723",
+				["text"] = "Dash",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_38104",
+				["text"] = "Decoy Totem",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_21523",
+				["text"] = "Desecrate",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_56742",
+				["text"] = "Despair",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_52845",
+				["text"] = "Determination",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_21708",
+				["text"] = "Discipline",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_45226",
+				["text"] = "Divine Ire",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_24685",
+				["text"] = "Divine Retribution",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_6927",
+				["text"] = "DoT Multiplier (Tier 2)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_43742",
+				["text"] = "Dominating Blow",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_10235",
+				["text"] = "Dual Strike",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_41346",
+				["text"] = "Earthquake of Amplification",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_14816",
+				["text"] = "Earthquake of Winter",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_44886",
+				["text"] = "Elemental Damage with Attacks (Tier 2)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_37388",
+				["text"] = "Elemental Focus (Tier 2)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_8708",
+				["text"] = "Elemental Hit of Ice",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_5689",
+				["text"] = "Elemental Weakness",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_57171",
+				["text"] = "Endure",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_20973",
+				["text"] = "Enduring Cry",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_62530",
+				["text"] = "Enrage",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_12667",
+				["text"] = "Ensnaring Arrow",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_17515",
+				["text"] = "Envy",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_39669",
+				["text"] = "Essence Drain of Wickedness",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_50999",
+				["text"] = "Ethereal Knives",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_45433",
+				["text"] = "Excommunicate (Tier 2)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_36298",
+				["text"] = "Explosive Arrow",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_40439",
+				["text"] = "Exsanguinate",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_57063",
+				["text"] = "Eye of Winter",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_987",
+				["text"] = "Faster Attacks (Tier 2)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_38851",
+				["text"] = "Faster Casting (Tier 2)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_57644",
+				["text"] = "Faster Projectiles (Tier 2)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_62885",
+				["text"] = "Fire Penetration (Tier 2)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_324",
+				["text"] = "Fireball",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_37821",
+				["text"] = "Fireball of Impact",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_12347",
+				["text"] = "Fist of War (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_50414",
+				["text"] = "Flame Aegis",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_56180",
+				["text"] = "Flame Dash",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_47364",
+				["text"] = "Flame Link",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_8801",
+				["text"] = "Flame Surge",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_57450",
+				["text"] = "Flame Wall",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_6446",
+				["text"] = "Flameblast",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_19178",
+				["text"] = "Flamebolt Strike",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_40521",
+				["text"] = "Flammability",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_61730",
+				["text"] = "Flesh Offering",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_61669",
+				["text"] = "Flicker Strike",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_29071",
+				["text"] = "Forbidden Rite Totem",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_27458",
+				["text"] = "Freeze Chance (Tier 2)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_58592",
+				["text"] = "Frenzy",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_18232",
+				["text"] = "Frigid Forkshot",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_22105",
+				["text"] = "Frost Blades",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_10557",
+				["text"] = "Frost Bomb",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_57491",
+				["text"] = "Frost Shield",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_50009",
+				["text"] = "Frost Wall",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_6479",
+				["text"] = "Frostbite",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_40470",
+				["text"] = "Frostblink",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_33663",
+				["text"] = "Frostbolt",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_27165",
+				["text"] = "Galvanic Arrow",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_35435",
+				["text"] = "Generosity (Tier 2)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_55998",
+				["text"] = "Gilded Additional Duration (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_3609",
+				["text"] = "Gilded Additional Fissures (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_56511",
+				["text"] = "Gilded Additional Leech (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_20568",
+				["text"] = "Gilded Additional Pods (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_30722",
+				["text"] = "Gilded Additional Pulses (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_52378",
+				["text"] = "Gilded Archers (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_28387",
+				["text"] = "Gilded Area per Projectile (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_37275",
+				["text"] = "Gilded Ash (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_41118",
+				["text"] = "Gilded Astral Totem (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_13568",
+				["text"] = "Gilded Beam Width (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_51944",
+				["text"] = "Gilded Bitterwound (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_49189",
+				["text"] = "Gilded Blasting (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_32431",
+				["text"] = "Gilded Cascade Count (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_39101",
+				["text"] = "Gilded Caustic Conversion (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_31571",
+				["text"] = "Gilded Chain Distance (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_56315",
+				["text"] = "Gilded Clone Speed (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_59468",
+				["text"] = "Gilded Conflagrant (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_10782",
+				["text"] = "Gilded Consecration (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_39307",
+				["text"] = "Gilded Crush (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_42140",
+				["text"] = "Gilded Cull (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_9300",
+				["text"] = "Gilded Damage from Life (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_40676",
+				["text"] = "Gilded Devotion (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_4032",
+				["text"] = "Gilded Divine Shield (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_26713",
+				["text"] = "Gilded Electrocuting (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_3756",
+				["text"] = "Gilded Elemental Weakness on Hit (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_36350",
+				["text"] = "Gilded Empowered Link (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_25565",
+				["text"] = "Gilded Ensnare Effect (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_50741",
+				["text"] = "Gilded Exposure on Hit (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_8720",
+				["text"] = "Gilded Extra Armaments (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_37259",
+				["text"] = "Gilded Extra Targets (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_58471",
+				["text"] = "Gilded Extra Targets (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_17178",
+				["text"] = "Gilded Faster Cyclone (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_60910",
+				["text"] = "Gilded Fortification (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_17213",
+				["text"] = "Gilded Freezer Burn (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_48738",
+				["text"] = "Gilded Frenzy (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_32361",
+				["text"] = "Gilded Grasp (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_3194",
+				["text"] = "Gilded Heft (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_3180",
+				["text"] = "Gilded Hinder Duration (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_38317",
+				["text"] = "Gilded Hopelessness (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_29166",
+				["text"] = "Gilded Icecrash Radius (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_52383",
+				["text"] = "Gilded Impale Extraction (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_39050",
+				["text"] = "Gilded Increased Angle (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_21678",
+				["text"] = "Gilded Inhibitor (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_62171",
+				["text"] = "Gilded Inversion (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_40212",
+				["text"] = "Gilded Jolt (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_29562",
+				["text"] = "Gilded Lumbering Dead (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_48949",
+				["text"] = "Gilded Malediction (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_42966",
+				["text"] = "Gilded Maximum Explosions (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_9460",
+				["text"] = "Gilded Maximum Spikes (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_48614",
+				["text"] = "Gilded Maximum Stages (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_10682",
+				["text"] = "Gilded Maximum Storms (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_2205",
+				["text"] = "Gilded Molten Eruption (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_42155",
+				["text"] = "Gilded Nova (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_52432",
+				["text"] = "Gilded Onslaught on Cry (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_26792",
+				["text"] = "Gilded Physical Damage Reduction (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_10482",
+				["text"] = "Gilded Pierce (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_6109",
+				["text"] = "Gilded Power Charge on Critical Strike (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_56144",
+				["text"] = "Gilded Purified Ground (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_25885",
+				["text"] = "Gilded Reactor (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_44238",
+				["text"] = "Gilded Relic Recovery (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_60983",
+				["text"] = "Gilded Scattershot (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_19004",
+				["text"] = "Gilded Scorch Chance (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_50273",
+				["text"] = "Gilded Searing Agony (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_18499",
+				["text"] = "Gilded Secondary Shots (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_30406",
+				["text"] = "Gilded Shield Damage (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_4006",
+				["text"] = "Gilded Snaking (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_12569",
+				["text"] = "Gilded Sphere Frequency (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_26618",
+				["text"] = "Gilded Stun Duration (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_25001",
+				["text"] = "Gilded Totemic Onslaught (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_21276",
+				["text"] = "Gilded Trauma Duration (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_11052",
+				["text"] = "Gilded Uncertainty (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_1075",
+				["text"] = "Gilded Volleys (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_22587",
+				["text"] = "Gilded Voltage (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_17946",
+				["text"] = "Gilded Voltaxic Conversion (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_55952",
+				["text"] = "Gilded Wither Stacks (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_53217",
+				["text"] = "Glacial Hammer",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_2792",
+				["text"] = "Grace",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_11914",
+				["text"] = "Greater Added Chaos (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_60094",
+				["text"] = "Greater Added Cold (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_6121",
+				["text"] = "Greater Added Fire (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_40533",
+				["text"] = "Greater Added Lightning (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_65362",
+				["text"] = "Greater Ailment Damage (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_33272",
+				["text"] = "Greater Ailment Effect (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_19113",
+				["text"] = "Greater Area of Effect (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_59345",
+				["text"] = "Greater Brutality (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_31439",
+				["text"] = "Greater Chance to Bleed (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_9585",
+				["text"] = "Greater Chance to Poison (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_39984",
+				["text"] = "Greater Chaos Penetration (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_26094",
+				["text"] = "Greater Cold Penetration (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_51806",
+				["text"] = "Greater Concentrated Effect (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_10608",
+				["text"] = "Greater Cooldown Recovery (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_62220",
+				["text"] = "Greater Critical Chance (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_55659",
+				["text"] = "Greater Critical Damage (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_3263",
+				["text"] = "Greater Curse Effect (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_37460",
+				["text"] = "Greater DoT Multiplier (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_28416",
+				["text"] = "Greater Elemental Damage with Attacks (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_31600",
+				["text"] = "Greater Elemental Focus (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_8617",
+				["text"] = "Greater Excommunicate (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_50485",
+				["text"] = "Greater Faster Attacks (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_8607",
+				["text"] = "Greater Faster Casting (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_14517",
+				["text"] = "Greater Faster Projectiles (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_54494",
+				["text"] = "Greater Fire Penetration (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_24099",
+				["text"] = "Greater Flame Dash",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_32052",
+				["text"] = "Greater Fork (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_31664",
+				["text"] = "Greater Fortify (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_12387",
+				["text"] = "Greater Freeze Chance (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_53367",
+				["text"] = "Greater Generosity (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_53145",
+				["text"] = "Greater Hypothermia (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_10997",
+				["text"] = "Greater Ignite Chance (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_29720",
+				["text"] = "Greater Impale Chance (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_63104",
+				["text"] = "Greater Infused Channelling (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_1227",
+				["text"] = "Greater Ironwood (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_44258",
+				["text"] = "Greater Kinetic Blast",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_41756",
+				["text"] = "Greater Leech (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_61947",
+				["text"] = "Greater Less Duration (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_38993",
+				["text"] = "Greater Lightning Arrow",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_26815",
+				["text"] = "Greater Lightning Penetration (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_24343",
+				["text"] = "Greater Lucky Lightning Damage (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_63342",
+				["text"] = "Greater Melee Physical Damage (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_52472",
+				["text"] = "Greater Minion Damage (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_31863",
+				["text"] = "Greater Minion Life (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_33557",
+				["text"] = "Greater Mitigation Ignore (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_26568",
+				["text"] = "Greater More Duration (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_49419",
+				["text"] = "Greater Multiple Projectiles (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_25973",
+				["text"] = "Greater Multistrike (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_45050",
+				["text"] = "Greater Physical as Extra (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_58214",
+				["text"] = "Greater Physical as Extra Chaos (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_27970",
+				["text"] = "Greater Pierce (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_64416",
+				["text"] = "Greater Pulverise (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_57658",
+				["text"] = "Greater Rage on Hit (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_13784",
+				["text"] = "Greater Raging Cry (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_45969",
+				["text"] = "Greater Sacred Wisps (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_38046",
+				["text"] = "Greater Shock Chance (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_50290",
+				["text"] = "Greater Shock Nova",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_44952",
+				["text"] = "Greater Slower Projectiles (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_11671",
+				["text"] = "Greater Soulrend",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_8546",
+				["text"] = "Greater Split Arrow",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_3148",
+				["text"] = "Greater Stormcall",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_812",
+				["text"] = "Greater Strike Distance (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_65240",
+				["text"] = "Greater Swift Affliction (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_58938",
+				["text"] = "Greater Throwing Speed (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_59079",
+				["text"] = "Greater Trap and Mine Damage (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_54156",
+				["text"] = "Greater Trigger Radius (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_3493",
+				["text"] = "Greater Vortex Trap",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_52142",
+				["text"] = "Greater Warcry Speed (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_61510",
+				["text"] = "Greater Wither on Hit (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_53728",
+				["text"] = "Ground Slam",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_56233",
+				["text"] = "Hallow (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_52155",
+				["text"] = "Haste",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_24482",
+				["text"] = "Hatred",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_38103",
+				["text"] = "Heavy Strike of Trarthus",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_64565",
+				["text"] = "Heavy Strike of Vulnerability",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_44334",
+				["text"] = "Herald of Ash",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_32807",
+				["text"] = "Herald of Ice",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_34212",
+				["text"] = "Herald of Purity",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_47949",
+				["text"] = "Holy Flame Totem",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_28506",
+				["text"] = "Holy Hammers",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_1577",
+				["text"] = "Holy Mortar",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_40812",
+				["text"] = "Holy Relic",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_38655",
+				["text"] = "Holy Strike",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_7395",
+				["text"] = "Holy Sweep",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_38571",
+				["text"] = "Hypothermia (Tier 2)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_11018",
+				["text"] = "Ice Crash",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_61497",
+				["text"] = "Ice Nova",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_61471",
+				["text"] = "Ice Nova of Projection",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_11495",
+				["text"] = "Ice Shot",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_62997",
+				["text"] = "Ice Trap",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_28637",
+				["text"] = "Icestorm",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_24409",
+				["text"] = "Icicle Rain",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_50303",
+				["text"] = "Ignite Chance (Tier 2)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_11497",
+				["text"] = "Impale Chance (Tier 2)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_45615",
+				["text"] = "Impenetrable Bastion",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_59409",
+				["text"] = "Incite",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_53342",
+				["text"] = "Increased Area of Effect (Tier 2)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_17147",
+				["text"] = "Infernal Blow of Immolation",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_59259",
+				["text"] = "Infernal Cry",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_8295",
+				["text"] = "Inflame",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_34697",
+				["text"] = "Infused Channelling (Tier 2)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_65473",
+				["text"] = "Inspiring Cry",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_38311",
+				["text"] = "Intimidating Cry",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_6667",
+				["text"] = "Ironwood (Tier 2)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_16356",
+				["text"] = "Kinetic Blast of Clustering",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_12583",
+				["text"] = "Kinetic Bolt",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_32089",
+				["text"] = "Kinetic Rain of Impact",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_65002",
+				["text"] = "Knockback (Tier 1)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_8136",
+				["text"] = "Lacerate",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_43812",
+				["text"] = "Lancing Steel",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_2135",
+				["text"] = "Leap Slam",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_41915",
+				["text"] = "Leap Slam of Groundbreaking",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_3240",
+				["text"] = "Leech (Tier 2)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_65114",
+				["text"] = "Less Duration (Tier 2)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_45284",
+				["text"] = "Lesser Added Chaos (Tier 1)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_13069",
+				["text"] = "Lesser Added Cold (Tier 1)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_42977",
+				["text"] = "Lesser Added Fire (Tier 1)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_36665",
+				["text"] = "Lesser Added Lightning (Tier 1)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_44527",
+				["text"] = "Lesser Ailment Damage (Tier 1)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_12388",
+				["text"] = "Lesser Ailment Effect (Tier 1)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_55807",
+				["text"] = "Lesser Brutality (Tier 1)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_14317",
+				["text"] = "Lesser Chain (Tier 1)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_42600",
+				["text"] = "Lesser Chance to Bleed (Tier 1)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_1864",
+				["text"] = "Lesser Chance to Poison (Tier 1)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_25880",
+				["text"] = "Lesser Chaos Penetration (Tier 1)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_40565",
+				["text"] = "Lesser Cold Penetration (Tier 1)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_42698",
+				["text"] = "Lesser Concentrated Effect (Tier 1)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_30881",
+				["text"] = "Lesser Cooldown Recovery (Tier 1)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_23209",
+				["text"] = "Lesser Critical Chance (Tier 1)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_30688",
+				["text"] = "Lesser Critical Damage (Tier 1)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_22977",
+				["text"] = "Lesser DoT Multiplier (Tier 1)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_59712",
+				["text"] = "Lesser Elemental Damage with Attacks (Tier 1)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_30359",
+				["text"] = "Lesser Elemental Focus (Tier 1)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_29922",
+				["text"] = "Lesser Excommunicate (Tier 1)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_52447",
+				["text"] = "Lesser Faster Attacks (Tier 1)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_43469",
+				["text"] = "Lesser Faster Casting (Tier 1)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_25199",
+				["text"] = "Lesser Faster Projectiles (Tier 1)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_46010",
+				["text"] = "Lesser Fire Penetration (Tier 1)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_34226",
+				["text"] = "Lesser Freeze Chance (Tier 1)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_59349",
+				["text"] = "Lesser Generosity (Tier 1)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_26146",
+				["text"] = "Lesser Hypothermia (Tier 1)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_52335",
+				["text"] = "Lesser Ignite Chance (Tier 1)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_54252",
+				["text"] = "Lesser Impale Chance (Tier 1)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_22670",
+				["text"] = "Lesser Increased Area of Effect (Tier 1)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_59986",
+				["text"] = "Lesser Infused Channelling (Tier 1)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_230",
+				["text"] = "Lesser Ironwood (Tier 1)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_32130",
+				["text"] = "Lesser Leech (Tier 1)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_54768",
+				["text"] = "Lesser Less Duration (Tier 1)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_37739",
+				["text"] = "Lesser Lightning Penetration (Tier 1)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_64940",
+				["text"] = "Lesser Melee Physical Damage (Tier 1)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_8821",
+				["text"] = "Lesser Minion Damage (Tier 1)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_23582",
+				["text"] = "Lesser Minion Life (Tier 1)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_16261",
+				["text"] = "Lesser Mitigation Ignore (Tier 1)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_2602",
+				["text"] = "Lesser More Duration (Tier 1)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_28037",
+				["text"] = "Lesser Physical as Extra (Tier 1)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_6040",
+				["text"] = "Lesser Pierce (Tier 1)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_35729",
+				["text"] = "Lesser Pulverise (Tier 1)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_55249",
+				["text"] = "Lesser Rage on Hit (Tier 1)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_49237",
+				["text"] = "Lesser Raging Cry (Tier 1)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_9710",
+				["text"] = "Lesser Shock Chance (Tier 1)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_15866",
+				["text"] = "Lesser Slower Projectiles (Tier 1)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_65120",
+				["text"] = "Lesser Spell Cascade (Tier 1)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_30389",
+				["text"] = "Lesser Strike Distance (Tier 1)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_834",
+				["text"] = "Lesser Swift Affliction (Tier 1)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_32260",
+				["text"] = "Lesser Throwing Speed (Tier 1)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_49954",
+				["text"] = "Lesser Trap and Mine Damage (Tier 1)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_40446",
+				["text"] = "Lesser Trigger Radius (Tier 1)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_55470",
+				["text"] = "Lesser Warcry Speed (Tier 1)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_53673",
+				["text"] = "Lesser Wither on Hit (Tier 1)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_41051",
+				["text"] = "Lightning Arrow",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_41256",
+				["text"] = "Lightning Penetration (Tier 2)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_8075",
+				["text"] = "Lightning Spire Trap",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_17037",
+				["text"] = "Lightning Trap",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_28757",
+				["text"] = "Lightning Warp",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_5247",
+				["text"] = "Lightning Warp Trap",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_56389",
+				["text"] = "Maim (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_1516",
+				["text"] = "Malevolence",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_64801",
+				["text"] = "Maximum Shock Effect (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_53516",
+				["text"] = "Melee Physical Damage (Tier 2)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_40660",
+				["text"] = "Melee Splash (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_40723",
+				["text"] = "Meteor",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_13016",
+				["text"] = "Minion Caustic Death (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_28579",
+				["text"] = "Minion Damage (Tier 2)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_20579",
+				["text"] = "Minion Life (Tier 2)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_37727",
+				["text"] = "Mirage Archer (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_65447",
+				["text"] = "Mirror Arrow",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_4351",
+				["text"] = "Mitigation Ignore (Tier 2)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_21036",
+				["text"] = "Molten Shell",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_899",
+				["text"] = "Molten Strike",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_59200",
+				["text"] = "Molten Well",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_50222",
+				["text"] = "More Duration (Tier 2)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_12054",
+				["text"] = "Multiple Projectiles (Tier 1)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_17097",
+				["text"] = "Multiple Totems (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_2555",
+				["text"] = "Multiple Traps (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_62638",
+				["text"] = "Multistrike (Tier 2)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_19268",
+				["text"] = "Oil Slick",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_11879",
+				["text"] = "Orb of Storms",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_54006",
+				["text"] = "Perforate",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_12262",
+				["text"] = "Pestilent Strike",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_17015",
+				["text"] = "Physical Aegis",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_39342",
+				["text"] = "Physical as Extra (Tier 2)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_51009",
+				["text"] = "Physical as Extra Chaos (Tier 2)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_56267",
+				["text"] = "Pierce (Tier 2)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_27805",
+				["text"] = "Poacher's Mark",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_26705",
+				["text"] = "Power Siphon",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_36279",
+				["text"] = "Precision",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_18793",
+				["text"] = "Pride",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_52494",
+				["text"] = "Prismplate",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_51539",
+				["text"] = "Profane Cascade",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_36446",
+				["text"] = "Profane Strike",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_16018",
+				["text"] = "Proximity Shield",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_64717",
+				["text"] = "Pulverise (Tier 2)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_30431",
+				["text"] = "Puncture",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_32391",
+				["text"] = "Punishment",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_17763",
+				["text"] = "Purifying Flame",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_33728",
+				["text"] = "Purity of Fire",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_13693",
+				["text"] = "Purity of Ice",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_63233",
+				["text"] = "Purity of Lightning",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_64986",
+				["text"] = "Rage on Hit (Tier 2)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_36496",
+				["text"] = "Raging Cry (Tier 2)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_40759",
+				["text"] = "Rain of Arrows of Saturation",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_50349",
+				["text"] = "Raise Spectre of Transience",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_47078",
+				["text"] = "Raise Spectre: Holy Flame Elementals",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_57377",
+				["text"] = "Raise Zombie of Falling",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_52491",
+				["text"] = "Raise Zombie of Gigantism",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_39265",
+				["text"] = "Rallying Cry",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_14064",
+				["text"] = "Reap",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_4383",
+				["text"] = "Reinforce: Fallen Bishop",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_61523",
+				["text"] = "Reinforce: Fallen Emperor",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_53527",
+				["text"] = "Reinforce: Fallen Osseotitan",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_62758",
+				["text"] = "Relic of Binding",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_5293",
+				["text"] = "Return (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_30130",
+				["text"] = "Rolling Magma",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_53518",
+				["text"] = "Sanctified Strike",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_47293",
+				["text"] = "Scorching Ray Totem",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_28502",
+				["text"] = "Scourge Arrow of Menace",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_13441",
+				["text"] = "Scourstorm",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_50475",
+				["text"] = "Second Wind (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_17198",
+				["text"] = "Seismic Crush",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_12729",
+				["text"] = "Shattering Steel",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_22850",
+				["text"] = "Shield Charge",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_21201",
+				["text"] = "Shield Crush",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_64846",
+				["text"] = "Shock Chance (Tier 2)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_6651",
+				["text"] = "Shockwave Totem of Shocking",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_61903",
+				["text"] = "Shrapnel Ballista",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_44144",
+				["text"] = "Siege Ballista of Trarthus",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_33661",
+				["text"] = "Sigil of Power",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_19808",
+				["text"] = "Slicing Wind",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_2210",
+				["text"] = "Slower Projectiles (Tier 2)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_55917",
+				["text"] = "Smite",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_64528",
+				["text"] = "Smoke Mine",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_10742",
+				["text"] = "Soulrend of Reaping",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_5893",
+				["text"] = "Spark",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_37916",
+				["text"] = "Spectral Helix",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_28988",
+				["text"] = "Spectral Helix of Trarthus",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_41834",
+				["text"] = "Spectral Shield Throw of Trarthus",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_62393",
+				["text"] = "Spectral Throw of Trarthus",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_1751",
+				["text"] = "Spell Cascade (Tier 3)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_43202",
+				["text"] = "Split Arrow",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_28511",
+				["text"] = "Splitting Steel",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_24931",
+				["text"] = "Static Strike",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_17105",
+				["text"] = "Steelskin Ally",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_2187",
+				["text"] = "Storm Call of Trarthus",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_17216",
+				["text"] = "Storm Rain",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_7549",
+				["text"] = "Stormcall",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_59784",
+				["text"] = "Strike Distance (Tier 2)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_19108",
+				["text"] = "Summon Raging Spirit",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_54144",
+				["text"] = "Summon Seeking Void",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_17409",
+				["text"] = "Summon Skeletons",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_44296",
+				["text"] = "Summon Skitterbots",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_17654",
+				["text"] = "Sunder of Trarthus",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_64281",
+				["text"] = "Swift Affliction (Tier 2)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_40527",
+				["text"] = "Tectonic Cascade",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_6228",
+				["text"] = "Tectonic Slam",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_58855",
+				["text"] = "Tempest Shield",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_7383",
+				["text"] = "Temporal Chains",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_3465",
+				["text"] = "Throwing Speed (Tier 2)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_8030",
+				["text"] = "Tornado Shot",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_23225",
+				["text"] = "Tornado of Elemental Turbulence",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_39732",
+				["text"] = "Touch of God",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_38628",
+				["text"] = "Toxic Rain",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_31171",
+				["text"] = "Trap and Mine Damage (Tier 2)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_38072",
+				["text"] = "Trarthan Agility",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_819",
+				["text"] = "Trigger Radius (Tier 2)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_28026",
+				["text"] = "Triggerblades",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_18149",
+				["text"] = "Triggerslam",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_52105",
+				["text"] = "Tunnelslam",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_19034",
+				["text"] = "Unnerving Blast",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_38521",
+				["text"] = "Vaal Ancestral Warchief",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_44455",
+				["text"] = "Vaal Arctic Armour",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_23512",
+				["text"] = "Vaal Burning Arrow",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_36274",
+				["text"] = "Vaal Caustic Arrow",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_12723",
+				["text"] = "Vaal Cleave",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_37132",
+				["text"] = "Vaal Double Strike",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_29426",
+				["text"] = "Vaal Flameblast",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_47031",
+				["text"] = "Vaal Glacial Hammer",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_58425",
+				["text"] = "Vaal Grace",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_10712",
+				["text"] = "Vaal Ground Slam",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_16381",
+				["text"] = "Vaal Ice Shot",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_22000",
+				["text"] = "Vaal Lightning Arrow",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_25149",
+				["text"] = "Vaal Lightning Trap",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_42219",
+				["text"] = "Vaal Molten Strike",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_1185",
+				["text"] = "Vaal Reap",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_14889",
+				["text"] = "Vaal Vitality",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_59831",
+				["text"] = "Venom Gyre",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_4988",
+				["text"] = "Vigilant Strike",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_22227",
+				["text"] = "Viper Strike",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_40419",
+				["text"] = "Vitality",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_52783",
+				["text"] = "Void Sphere",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_53235",
+				["text"] = "Volcanic Fissure of Snaking",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_52144",
+				["text"] = "Voltaxic Burst",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_31928",
+				["text"] = "Vortex",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_47477",
+				["text"] = "Warcry Speed (Tier 2)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_14732",
+				["text"] = "Wave of Conviction",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_4286",
+				["text"] = "Wave of Conviction of Trarthus",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_10823",
+				["text"] = "Whirling Blades",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_40957",
+				["text"] = "Wild Strike",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_1911",
+				["text"] = "Wither Totem",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.support_15235",
+				["text"] = "Wither on Hit (Tier 2)",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_10320",
+				["text"] = "Withering Step",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_38326",
+				["text"] = "Wrath",
+				["type"] = "mercenary",
+			},
+			{
+				["id"] = "mercenary.skill_14498",
+				["text"] = "Zealotry",
+				["type"] = "mercenary",
+			},
+		},
+		["id"] = "mercenary",
+		["label"] = "Mercenary",
+	},
+	{
+		["entries"] = {
+			{
+				["id"] = "veiled.mod_63772",
+				["text"] = "Catarina's Veiled",
+				["type"] = "veiled",
+			},
+			{
+				["id"] = "veiled.mod_5769",
+				["text"] = "Elreon's Veiled",
+				["type"] = "veiled",
+			},
+			{
+				["id"] = "veiled.mod_38872",
+				["text"] = "Gravicius' Veiled",
+				["type"] = "veiled",
+			},
+			{
+				["id"] = "veiled.mod_6779",
+				["text"] = "Guff's Veiled",
+				["type"] = "veiled",
+			},
+			{
+				["id"] = "veiled.mod_39023",
+				["text"] = "Haku's Veiled",
+				["type"] = "veiled",
+			},
+			{
+				["id"] = "veiled.mod_55787",
+				["text"] = "It That Fled's Veiled",
+				["type"] = "veiled",
+			},
+			{
+				["id"] = "veiled.mod_44855",
+				["text"] = "Korell's Veiled",
+				["type"] = "veiled",
+			},
+			{
+				["id"] = "veiled.mod_3258",
+				["text"] = "Leo's Veiled",
+				["type"] = "veiled",
+			},
+			{
+				["id"] = "veiled.mod_6131",
+				["text"] = "Rin's Veiled",
+				["type"] = "veiled",
+			},
+			{
+				["id"] = "veiled.mod_8541",
+				["text"] = "Tora's Veiled",
+				["type"] = "veiled",
+			},
+			{
+				["id"] = "veiled.mod_14269",
+				["text"] = "Vagan's Veiled",
+				["type"] = "veiled",
+			},
+			{
+				["id"] = "veiled.mod_65000",
+				["text"] = "Veiled",
+				["type"] = "veiled",
+			},
+			{
+				["id"] = "veiled.mod_47933",
+				["text"] = "Vorici's Veiled",
+				["type"] = "veiled",
+			},
+			{
+				["id"] = "veiled.mod_48007",
+				["text"] = "of Aisling's Veil",
+				["type"] = "veiled",
+			},
+			{
+				["id"] = "veiled.mod_65163",
+				["text"] = "of Cameria's Veil",
+				["type"] = "veiled",
+			},
+			{
+				["id"] = "veiled.mod_3975",
+				["text"] = "of Hillock's Veil",
+				["type"] = "veiled",
+			},
+			{
+				["id"] = "veiled.mod_11536",
+				["text"] = "of Janus' Veil",
+				["type"] = "veiled",
+			},
+			{
+				["id"] = "veiled.mod_62955",
+				["text"] = "of Jorgin's Veil",
+				["type"] = "veiled",
+			},
+			{
+				["id"] = "veiled.mod_48408",
+				["text"] = "of Riker's Veil",
+				["type"] = "veiled",
+			},
+			{
+				["id"] = "veiled.mod_63099",
+				["text"] = "of the Veil",
+				["type"] = "veiled",
+			},
+		},
+		["id"] = "veiled",
+		["label"] = "Veiled",
+	},
+	{
+		["entries"] = {
+			{
+				["id"] = "delve.delve_corrupted_implicit",
+				["text"] = "Corrupted Has a Corrupted implicit modifier",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_duplicate",
+				["text"] = "Creates a split copy",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_less_attack",
+				["text"] = "Fewer Attack modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_less_caster",
+				["text"] = "Fewer Caster modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_fracture",
+				["text"] = "Fracture a random modifier",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_greatly_more_ailment",
+				["text"] = "Greatly more Ailment modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_greatly_more_attack",
+				["text"] = "Greatly more Attack modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_greatly_more_attribute",
+				["text"] = "Greatly more Attribute modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_greatly_more_aura",
+				["text"] = "Greatly more Aura modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_greatly_more_caster",
+				["text"] = "Greatly more Caster modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_greatly_more_chaos",
+				["text"] = "Greatly more Chaos modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_greatly_more_cold",
+				["text"] = "Greatly more Cold modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_greatly_more_critical",
+				["text"] = "Greatly more Critical modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_greatly_more_curse",
+				["text"] = "Greatly more Curse modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_greatly_more_damage",
+				["text"] = "Greatly more Damage modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_greatly_more_defences",
+				["text"] = "Greatly more Defences modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_greatly_more_elemental",
+				["text"] = "Greatly more Elemental modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_greatly_more_fire",
+				["text"] = "Greatly more Fire modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_greatly_more_gem",
+				["text"] = "Greatly more Gem modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_greatly_more_life",
+				["text"] = "Greatly more Life modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_greatly_more_lightning",
+				["text"] = "Greatly more Lightning modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_greatly_more_mana",
+				["text"] = "Greatly more Mana modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_greatly_more_minion",
+				["text"] = "Greatly more Minion modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_greatly_more_physical",
+				["text"] = "Greatly more Physical modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_greatly_more_resistance",
+				["text"] = "Greatly more Resistance modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_greatly_more_speed",
+				["text"] = "Greatly more Speed modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_corrupt_essence",
+				["text"] = "Has a Corrupt Essence modifier",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_labryinth_enchant",
+				["text"] = "Has a Labyrinth Enchantment",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_abyss_socket",
+				["text"] = "Has an Abyssal socket",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_quality",
+				["text"] = "Improved Quality",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_better_sell_price",
+				["text"] = "Item is overvalued by vendors",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_more_ailment",
+				["text"] = "More Ailment modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_more_attack",
+				["text"] = "More Attack modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_more_attribute",
+				["text"] = "More Attribute modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_more_aura",
+				["text"] = "More Aura modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_more_caster",
+				["text"] = "More Caster modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_more_chaos",
+				["text"] = "More Chaos modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_more_cold",
+				["text"] = "More Cold modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_more_critical",
+				["text"] = "More Critical modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_more_curse",
+				["text"] = "More Curse modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_more_damage",
+				["text"] = "More Damage modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_more_defences",
+				["text"] = "More Defence modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_more_drop",
+				["text"] = "More Drop modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_more_elemental",
+				["text"] = "More Elemental modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_more_fire",
+				["text"] = "More Fire modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_more_gem",
+				["text"] = "More Gem modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_more_gem_level",
+				["text"] = "More Gem modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_more_life",
+				["text"] = "More Life modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_more_lightning",
+				["text"] = "More Lightning modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_more_mana",
+				["text"] = "More Mana modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_more_minion",
+				["text"] = "More Minion modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_more_minion_aura",
+				["text"] = "More Minion, Aura or Curse modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_more_bleed_poison",
+				["text"] = "More Physical Ailment or Chaos Ailment modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_more_physical",
+				["text"] = "More Physical modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_more_resistance",
+				["text"] = "More Resistance modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_more_speed",
+				["text"] = "More Speed modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_no_ailment",
+				["text"] = "No Ailment modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_no_attack",
+				["text"] = "No Attack modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_no_attribute",
+				["text"] = "No Attribute modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_no_aura",
+				["text"] = "No Aura modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_no_caster",
+				["text"] = "No Caster modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_no_chaos",
+				["text"] = "No Chaos modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_no_cold",
+				["text"] = "No Cold modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_no_critical",
+				["text"] = "No Critical modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_no_curse",
+				["text"] = "No Curse modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_no_damage",
+				["text"] = "No Damage modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_no_defences",
+				["text"] = "No Defence modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_no_elemental",
+				["text"] = "No Elemental modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_no_fire",
+				["text"] = "No Fire modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_no_gem",
+				["text"] = "No Gem modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_no_life",
+				["text"] = "No Life modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_no_lightning",
+				["text"] = "No Lightning modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_no_mana",
+				["text"] = "No Mana modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_no_minion",
+				["text"] = "No Minion modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_no_bleed_poison",
+				["text"] = "No Physical Ailment or Chaos Ailment Modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_no_physical",
+				["text"] = "No Physical modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_no_resistance",
+				["text"] = "No Resistance modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_no_speed",
+				["text"] = "No Speed modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_no_tagless",
+				["text"] = "No Tagless modifiers",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_lucky_mods",
+				["text"] = "Numeric modifier values are lucky High Level modifiers are more common",
+				["type"] = "delve",
+			},
+			{
+				["id"] = "delve.delve_random_modifier",
+				["text"] = "Random effects revealed when resonator is fully socketed",
+				["type"] = "delve",
+			},
+		},
+		["id"] = "delve",
+		["label"] = "Delve",
+	},
+	{
+		["entries"] = {
+			{
+				["id"] = "ultimatum.umod_11872",
+				["text"] = "Ailment and Curse Reflection",
+				["type"] = "ultimatum",
+			},
+			{
+				["id"] = "ultimatum.umod_13648",
+				["text"] = "Blistering Cold",
+				["type"] = "ultimatum",
+			},
+			{
+				["id"] = "ultimatum.umod_62444",
+				["text"] = "Blistering Cold II",
+				["type"] = "ultimatum",
+			},
+			{
+				["id"] = "ultimatum.umod_28497",
+				["text"] = "Blistering Cold III",
+				["type"] = "ultimatum",
+			},
+			{
+				["id"] = "ultimatum.umod_3273",
+				["text"] = "Blistering Cold IV",
+				["type"] = "ultimatum",
+			},
+			{
+				["id"] = "ultimatum.umod_29421",
+				["text"] = "Buffs Expire Faster",
+				["type"] = "ultimatum",
+			},
+			{
+				["id"] = "ultimatum.umod_40225",
+				["text"] = "Choking Miasma",
+				["type"] = "ultimatum",
+			},
+			{
+				["id"] = "ultimatum.umod_54213",
+				["text"] = "Choking Miasma II",
+				["type"] = "ultimatum",
+			},
+			{
+				["id"] = "ultimatum.umod_12812",
+				["text"] = "Choking Miasma III",
+				["type"] = "ultimatum",
+			},
+			{
+				["id"] = "ultimatum.umod_38838",
+				["text"] = "Deadly Monsters",
+				["type"] = "ultimatum",
+			},
+			{
+				["id"] = "ultimatum.umod_10506",
+				["text"] = "Dexterous Monsters",
+				["type"] = "ultimatum",
+			},
+			{
+				["id"] = "ultimatum.umod_15668",
+				["text"] = "Drought",
+				["type"] = "ultimatum",
+			},
+			{
+				["id"] = "ultimatum.umod_57621",
+				["text"] = "Escalating Damage Taken",
+				["type"] = "ultimatum",
+			},
+			{
+				["id"] = "ultimatum.umod_7961",
+				["text"] = "Escalating Monster Speed",
+				["type"] = "ultimatum",
+			},
+			{
+				["id"] = "ultimatum.umod_27491",
+				["text"] = "Hindering Flasks",
+				["type"] = "ultimatum",
+			},
+			{
+				["id"] = "ultimatum.umod_39295",
+				["text"] = "Less Cooldown Recovery",
+				["type"] = "ultimatum",
+			},
+			{
+				["id"] = "ultimatum.umod_50320",
+				["text"] = "Lessened Reach",
+				["type"] = "ultimatum",
+			},
+			{
+				["id"] = "ultimatum.umod_47347",
+				["text"] = "Lethal Rare Monsters",
+				["type"] = "ultimatum",
+			},
+			{
+				["id"] = "ultimatum.umod_58901",
+				["text"] = "Lightning Damage from Mana Costs",
+				["type"] = "ultimatum",
+			},
+			{
+				["id"] = "ultimatum.umod_65051",
+				["text"] = "Occasional Impotence",
+				["type"] = "ultimatum",
+			},
+			{
+				["id"] = "ultimatum.umod_59748",
+				["text"] = "Overwhelming Monsters",
+				["type"] = "ultimatum",
+			},
+			{
+				["id"] = "ultimatum.umod_33891",
+				["text"] = "Precise Monsters",
+				["type"] = "ultimatum",
+			},
+			{
+				["id"] = "ultimatum.umod_39785",
+				["text"] = "Prismatic Monsters",
+				["type"] = "ultimatum",
+			},
+			{
+				["id"] = "ultimatum.umod_18354",
+				["text"] = "Profane Monsters",
+				["type"] = "ultimatum",
+			},
+			{
+				["id"] = "ultimatum.umod_28673",
+				["text"] = "Raging Dead",
+				["type"] = "ultimatum",
+			},
+			{
+				["id"] = "ultimatum.umod_62391",
+				["text"] = "Raging Dead",
+				["type"] = "ultimatum",
+			},
+			{
+				["id"] = "ultimatum.umod_26465",
+				["text"] = "Raging Dead II",
+				["type"] = "ultimatum",
+			},
+			{
+				["id"] = "ultimatum.umod_38306",
+				["text"] = "Raging Dead II",
+				["type"] = "ultimatum",
+			},
+			{
+				["id"] = "ultimatum.umod_49977",
+				["text"] = "Raging Dead III",
+				["type"] = "ultimatum",
+			},
+			{
+				["id"] = "ultimatum.umod_6748",
+				["text"] = "Raging Dead III",
+				["type"] = "ultimatum",
+			},
+			{
+				["id"] = "ultimatum.umod_24954",
+				["text"] = "Raging Dead IV",
+				["type"] = "ultimatum",
+			},
+			{
+				["id"] = "ultimatum.umod_39655",
+				["text"] = "Raging Dead IV",
+				["type"] = "ultimatum",
+			},
+			{
+				["id"] = "ultimatum.umod_7052",
+				["text"] = "Razor Dance",
+				["type"] = "ultimatum",
+			},
+			{
+				["id"] = "ultimatum.umod_45148",
+				["text"] = "Razor Dance II",
+				["type"] = "ultimatum",
+			},
+			{
+				["id"] = "ultimatum.umod_22941",
+				["text"] = "Razor Dance III",
+				["type"] = "ultimatum",
+			},
+			{
+				["id"] = "ultimatum.umod_15044",
+				["text"] = "Razor Dance IV",
+				["type"] = "ultimatum",
+			},
+			{
+				["id"] = "ultimatum.umod_5772",
+				["text"] = "Reduced Recovery",
+				["type"] = "ultimatum",
+			},
+			{
+				["id"] = "ultimatum.umod_37639",
+				["text"] = "Reduced Recovery II",
+				["type"] = "ultimatum",
+			},
+			{
+				["id"] = "ultimatum.umod_25457",
+				["text"] = "Resistant Monsters",
+				["type"] = "ultimatum",
+			},
+			{
+				["id"] = "ultimatum.umod_27548",
+				["text"] = "Restless Ground",
+				["type"] = "ultimatum",
+			},
+			{
+				["id"] = "ultimatum.umod_63601",
+				["text"] = "Restless Ground II",
+				["type"] = "ultimatum",
+			},
+			{
+				["id"] = "ultimatum.umod_24728",
+				["text"] = "Ruin II",
+				["type"] = "ultimatum",
+			},
+			{
+				["id"] = "ultimatum.umod_35694",
+				["text"] = "Ruin III",
+				["type"] = "ultimatum",
+			},
+			{
+				["id"] = "ultimatum.umod_60794",
+				["text"] = "Ruin IV",
+				["type"] = "ultimatum",
+			},
+			{
+				["id"] = "ultimatum.umod_43095",
+				["text"] = "Shattered Shield",
+				["type"] = "ultimatum",
+			},
+			{
+				["id"] = "ultimatum.umod_36548",
+				["text"] = "Shielding Monsters",
+				["type"] = "ultimatum",
+			},
+			{
+				["id"] = "ultimatum.umod_21966",
+				["text"] = "Siphoned Charges",
+				["type"] = "ultimatum",
+			},
+			{
+				["id"] = "ultimatum.umod_45921",
+				["text"] = "Siphoning Monsters",
+				["type"] = "ultimatum",
+			},
+			{
+				["id"] = "ultimatum.umod_7958",
+				["text"] = "Stalking Ruin",
+				["type"] = "ultimatum",
+			},
+			{
+				["id"] = "ultimatum.umod_32061",
+				["text"] = "Stalking Ruin II",
+				["type"] = "ultimatum",
+			},
+			{
+				["id"] = "ultimatum.umod_47172",
+				["text"] = "Stalking Ruin III",
+				["type"] = "ultimatum",
+			},
+			{
+				["id"] = "ultimatum.umod_49847",
+				["text"] = "Stalking Ruin IV",
+				["type"] = "ultimatum",
+			},
+			{
+				["id"] = "ultimatum.umod_11866",
+				["text"] = "Stormcaller Runes",
+				["type"] = "ultimatum",
+			},
+			{
+				["id"] = "ultimatum.umod_19821",
+				["text"] = "Stormcaller Runes",
+				["type"] = "ultimatum",
+			},
+			{
+				["id"] = "ultimatum.umod_13955",
+				["text"] = "Stormcaller Runes II",
+				["type"] = "ultimatum",
+			},
+			{
+				["id"] = "ultimatum.umod_40295",
+				["text"] = "Stormcaller Runes II",
+				["type"] = "ultimatum",
+			},
+			{
+				["id"] = "ultimatum.umod_43498",
+				["text"] = "Stormcaller Runes III",
+				["type"] = "ultimatum",
+			},
+			{
+				["id"] = "ultimatum.umod_53101",
+				["text"] = "Stormcaller Runes IV",
+				["type"] = "ultimatum",
+			},
+			{
+				["id"] = "ultimatum.umod_8887",
+				["text"] = "Totem of Costly Might",
+				["type"] = "ultimatum",
+			},
+			{
+				["id"] = "ultimatum.umod_58910",
+				["text"] = "Totem of Costly Potency",
+				["type"] = "ultimatum",
+			},
+			{
+				["id"] = "ultimatum.umod_12730",
+				["text"] = "Treacherous Auras",
+				["type"] = "ultimatum",
+			},
+			{
+				["id"] = "ultimatum.umod_40124",
+				["text"] = "Unlucky Criticals",
+				["type"] = "ultimatum",
+			},
+			{
+				["id"] = "ultimatum.umod_11559",
+				["text"] = "Unstoppable Monsters",
+				["type"] = "ultimatum",
+			},
+		},
+		["id"] = "ultimatum",
+		["label"] = "Ultimatum",
+	},
+	{
+		["entries"] = {
+			{
+				["id"] = "sanctum.stat_2410906123",
+				["text"] = "# Resolve Aegis",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.stat_142859883",
+				["text"] = "#% Resolve Mitigation from Enemy Hits",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.stat_774484840",
+				["text"] = "#% chance for Resolve Mitigation to be doubled when Hit by an Enemy",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.stat_2878762585",
+				["text"] = "#% chance to Avoid Resolve loss from Enemy Hits",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.stat_2284543592",
+				["text"] = "#% chance to Avoid Resolve loss from Enemy Hits if you've been Hit recently",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.stat_1960517795",
+				["text"] = "#% chance to Avoid gaining an Affliction",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.stat_3866860190",
+				["text"] = "#% increased Maximum Resolve",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.stat_3096446459",
+				["text"] = "#% increased Merchant Prices",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.stat_1680962389",
+				["text"] = "#% increased Quantity of Relics Dropped by Monsters",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.stat_1388771661",
+				["text"] = "#% increased Resolve Aegis",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.stat_1306482168",
+				["text"] = "#% increased Resolve Recovered",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.stat_3134588943",
+				["text"] = "#% increased chance to Avoid Resolve Loss from Enemy Melee Hits",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.stat_1798691236",
+				["text"] = "#% increased chance to Avoid Resolve Loss from Enemy Projectile Hits",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.stat_1054634989",
+				["text"] = "+# to Maximum Resolve",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.stat_386901949",
+				["text"] = "An additional Room is revealed on the Sanctum Map",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.stat_1307773596",
+				["text"] = "Aureus Coins are converted to Experience upon defeating the Herald of the Scourge",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.stat_315260783",
+				["text"] = "Aureus Coins are converted to Relics upon defeating the Herald of the Scourge",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.stat_1019656601",
+				["text"] = "Aureus Coins are converted to Tainted Currency upon defeating the Herald of the Scourge",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.stat_2207905451",
+				["text"] = "Bosses impact #% increased Resolve",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.stat_3226329527",
+				["text"] = "Bosses take #% increased Damage",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.stat_1512067281",
+				["text"] = "Cannot be used with Forbidden Tomes below level #",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.stat_2283325632",
+				["text"] = "Cannot have Boons",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.stat_3381591146",
+				["text"] = "Cannot have Inspiration",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.stat_624917333",
+				["text"] = "Cannot recover Resolve",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.stat_3926246735",
+				["text"] = "Chests have #% chance to drop Double Aureus Coins",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.stat_502549687",
+				["text"] = "Duplicates up to # random Offer Reward upon defeating the Herald of the Scourge",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.stat_2393318075",
+				["text"] = "Gain # Aureus Coins at the start of the Sanctum",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.stat_4057192895",
+				["text"] = "Gain # Aureus Coins when you complete a Room",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.stat_2942028778",
+				["text"] = "Gain # Inspiration at the start of each Floor",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.stat_3102760194",
+				["text"] = "Gain # Inspiration at the start of the Sanctum",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.stat_1518851624",
+				["text"] = "Gain # Inspiration when you receive an Affliction",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.stat_3817232752",
+				["text"] = "Gain # Maximum Resolve when you kill a Boss",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.stat_3722564733",
+				["text"] = "Gain # Maximum Resolve when you use a Fountain",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.stat_889527415",
+				["text"] = "Gain # Resolve when you kill a Boss",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.stat_2607697594",
+				["text"] = "Gain # Resolve when you use a Fountain",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.stat_199414195",
+				["text"] = "Guards impact #% increased Resolve",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.stat_408585189",
+				["text"] = "Guards take #% increased Damage",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_19751",
+				["text"] = "Has Accursed Prism",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_59406",
+				["text"] = "Has Adrenaline Vial",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_9121",
+				["text"] = "Has All-Seeing Eye",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_51626",
+				["text"] = "Has Anomaly Attractor",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_41950",
+				["text"] = "Has Apex Pact",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_44006",
+				["text"] = "Has Arcane Aegis",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_6090",
+				["text"] = "Has Assassin's Blade",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_36376",
+				["text"] = "Has Austerity Pact",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_41498",
+				["text"] = "Has Black Pearl",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_34448",
+				["text"] = "Has Black Smoke",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_40008",
+				["text"] = "Has Blunt Sword",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_42759",
+				["text"] = "Has Bronze Coin",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_17929",
+				["text"] = "Has Bronze Descry",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_25062",
+				["text"] = "Has Chains of Binding",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_22125",
+				["text"] = "Has Charred Coin",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_60796",
+				["text"] = "Has Chipped Dice",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_6958",
+				["text"] = "Has Chiselled Stone",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_18271",
+				["text"] = "Has Concealed Anomaly",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_55502",
+				["text"] = "Has Corrosive Concoction",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_21215",
+				["text"] = "Has Corrupted Lockpick",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_52811",
+				["text"] = "Has Crystal Chalice",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_30042",
+				["text"] = "Has Crystal Shard",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_44526",
+				["text"] = "Has Cutpurse",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_62584",
+				["text"] = "Has Dark Pit",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_41768",
+				["text"] = "Has Dauntless Pact",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_41921",
+				["text"] = "Has Deadly Snare",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_59642",
+				["text"] = "Has Death Toll",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_14131",
+				["text"] = "Has Deceptive Mirror",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_16345",
+				["text"] = "Has Demonic Skull",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_6743",
+				["text"] = "Has Divinia's Gift ",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_33903",
+				["text"] = "Has Door Tax",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_42282",
+				["text"] = "Has Doubling Pact",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_7865",
+				["text"] = "Has Empty Trove",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_38167",
+				["text"] = "Has Enchanted Urn",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_64207",
+				["text"] = "Has Engraved Orb",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_28313",
+				["text"] = "Has Fiendish Wings",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_38121",
+				["text"] = "Has Floor Tax",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_40142",
+				["text"] = "Has Fountain of Youth",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_15442",
+				["text"] = "Has Fright Mask",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_24579",
+				["text"] = "Has Gargoyle Totem",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_32300",
+				["text"] = "Has Ghastly Scythe",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_40522",
+				["text"] = "Has Gilded Lyre",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_45600",
+				["text"] = "Has Glass Shard",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_3157",
+				["text"] = "Has Glowing Orb",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_12732",
+				["text"] = "Has Gold Coin",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_278",
+				["text"] = "Has Gold Magnet",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_50425",
+				["text"] = "Has Gold Mine",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_704",
+				["text"] = "Has Gold Trophy",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_17551",
+				["text"] = "Has Golden Descry",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_1198",
+				["text"] = "Has Golden Smoke",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_34171",
+				["text"] = "Has Haemorrhage",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_13820",
+				["text"] = "Has Hare Foot",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_39513",
+				["text"] = "Has Holy Descry",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_28826",
+				["text"] = "Has Holy Water",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_62326",
+				["text"] = "Has Honed Claws",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_359",
+				["text"] = "Has Hungry Fangs",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_44836",
+				["text"] = "Has Imperial Seal",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_44096",
+				["text"] = "Has Indomitable Pact",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_35578",
+				["text"] = "Has Iron Manacles",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_35508",
+				["text"] = "Has Lilting Melody",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_45177",
+				["text"] = "Has Liquid Cowardice",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_379",
+				["text"] = "Has Lustrous Lacquer",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_51140",
+				["text"] = "Has Lustrous Pearl",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_37967",
+				["text"] = "Has Mark of Terror",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_57101",
+				["text"] = "Has Mellifluous Chorus",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_45428",
+				["text"] = "Has Mirror of Fortune",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_64286",
+				["text"] = "Has Musty Wine",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_43834",
+				["text"] = "Has Orb of Negation",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_29924",
+				["text"] = "Has Ornate Dagger",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_9205",
+				["text"] = "Has Phantom Illusion",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_26160",
+				["text"] = "Has Poisoned Water",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_26808",
+				["text"] = "Has Prayer Beads",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_5686",
+				["text"] = "Has Priest's Descry",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_28906",
+				["text"] = "Has Purple Smoke",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_47662",
+				["text"] = "Has Pyrrhic Pact",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_56047",
+				["text"] = "Has Rapid Quicksand",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_17084",
+				["text"] = "Has Red Smoke",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_37341",
+				["text"] = "Has Rusted Chimes",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_45792",
+				["text"] = "Has Rusted Coin",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_45794",
+				["text"] = "Has Rusted Descry",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_30450",
+				["text"] = "Has Rusted Mallet",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_27130",
+				["text"] = "Has Sacred Mirror",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_41741",
+				["text"] = "Has Sanguine Vial",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_44243",
+				["text"] = "Has Scrying Crystal",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_48487",
+				["text"] = "Has Sharpened Arrowhead",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_16335",
+				["text"] = "Has Shattered Shield",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_51458",
+				["text"] = "Has Silver Chalice",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_16400",
+				["text"] = "Has Silver Coin",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_8698",
+				["text"] = "Has Silver Descry",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_24536",
+				["text"] = "Has Silver Tongue",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_53929",
+				["text"] = "Has Spiked Exit",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_13875",
+				["text"] = "Has Spiked Shell",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_4558",
+				["text"] = "Has Spilt Purse",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_37919",
+				["text"] = "Has Tarnished Coin",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_27017",
+				["text"] = "Has Tarnished Descry",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_48875",
+				["text"] = "Has Tattered Blindfold",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_61518",
+				["text"] = "Has Tight Choker",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_50613",
+				["text"] = "Has Unassuming Brick",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_12494",
+				["text"] = "Has Unhallowed Amulet",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_11449",
+				["text"] = "Has Unhallowed Ring",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_61947",
+				["text"] = "Has Unholy Urn",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_38381",
+				["text"] = "Has Unquenched Thirst",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_16490",
+				["text"] = "Has Untuned Lute",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_43384",
+				["text"] = "Has Veiled Sight",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_57507",
+				["text"] = "Has Viscous Ichor",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_18740",
+				["text"] = "Has Voodoo Doll",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_24131",
+				["text"] = "Has Weakened Flesh",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_46977",
+				["text"] = "Has Wooden Effigy",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_effect_30473",
+				["text"] = "Has Worn Sandals",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.stat_1471840332",
+				["text"] = "Maximum Resolve is 1",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.stat_231205265",
+				["text"] = "Monsters have #% chance to drop Double Aureus Coins",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.stat_3554249693",
+				["text"] = "Monsters impact #% increased Resolve",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.stat_2549512259",
+				["text"] = "Monsters take #% increased Damage",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.stat_1278905604",
+				["text"] = "No Resolve Mitigation, chance to Avoid Resolve loss or Resolve Aegis",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_floor_reward_ancient_orb",
+				["text"] = "Receive #x Ancient Orbs at the end of the Floor",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_final_reward_ancient_orb",
+				["text"] = "Receive #x Ancient Orbs on completing the Sanctum",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_floor_reward_scrap",
+				["text"] = "Receive #x Armourer's Scraps at the end of the Floor",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_final_reward_scrap",
+				["text"] = "Receive #x Armourer's Scraps on completing the Sanctum",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_floor_reward_awakened_sextant",
+				["text"] = "Receive #x Awakened Sextants at the end of the Floor",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_final_reward_awakened_sextant",
+				["text"] = "Receive #x Awakened Sextants on completing the Sanctum",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_floor_reward_whetstone",
+				["text"] = "Receive #x Blacksmith's Whetstones at the end of the Floor",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_final_reward_whetstone",
+				["text"] = "Receive #x Blacksmith's Whetstones on completing the Sanctum",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_floor_reward_blessed",
+				["text"] = "Receive #x Blessed Orbs at the end of the Floor",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_final_reward_blessed",
+				["text"] = "Receive #x Blessed Orbs on completing the Sanctum",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_floor_reward_chisel",
+				["text"] = "Receive #x Cartographer's Chisels at the end of the Floor",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_final_reward_chisel",
+				["text"] = "Receive #x Cartographer's Chisels on completing the Sanctum",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_floor_reward_chaos",
+				["text"] = "Receive #x Chaos Orbs at the end of the Floor",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_final_reward_chaos",
+				["text"] = "Receive #x Chaos Orbs on completing the Sanctum",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_floor_reward_chrome",
+				["text"] = "Receive #x Chromatic Orbs at the end of the Floor",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_final_reward_chrome",
+				["text"] = "Receive #x Chromatic Orbs on completing the Sanctum",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_floor_reward_divine",
+				["text"] = "Receive #x Divine Orbs at the end of the Floor",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_final_reward_divine",
+				["text"] = "Receive #x Divine Orbs on completing the Sanctum",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_floor_reward_divine_vessel",
+				["text"] = "Receive #x Divine Vessels at the end of the Floor",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_final_reward_divine_vessel",
+				["text"] = "Receive #x Divine Vessels on completing the Sanctum",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_floor_reward_enkindling_orb",
+				["text"] = "Receive #x Enkindling Orbs at the end of the Floor",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_final_reward_enkindling_orb",
+				["text"] = "Receive #x Enkindling Orbs on completing the Sanctum",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_floor_reward_exalted",
+				["text"] = "Receive #x Exalted Orbs at the end of the Floor",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_final_reward_exalted",
+				["text"] = "Receive #x Exalted Orbs on completing the Sanctum",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_floor_reward_fracturing_orb",
+				["text"] = "Receive #x Fracturing Orbs at the end of the Floor",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_final_reward_fracturing_orb",
+				["text"] = "Receive #x Fracturing Orbs on completing the Sanctum",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_floor_reward_gcp",
+				["text"] = "Receive #x Gemcutter's Prisms at the end of the Floor",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_final_reward_gcp",
+				["text"] = "Receive #x Gemcutter's Prisms on completing the Sanctum",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_floor_reward_bauble",
+				["text"] = "Receive #x Glassblower's Baubles at the end of the Floor",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_final_reward_bauble",
+				["text"] = "Receive #x Glassblower's Baubles on completing the Sanctum",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_floor_reward_instilling_orb",
+				["text"] = "Receive #x Instilling Orbs at the end of the Floor",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_final_reward_instilling_orb",
+				["text"] = "Receive #x Instilling Orbs on completing the Sanctum",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_floor_reward_jewellers",
+				["text"] = "Receive #x Jeweller's Orbs at the end of the Floor",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_final_reward_jewellers",
+				["text"] = "Receive #x Jeweller's Orbs on completing the Sanctum",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_floor_reward_mirror",
+				["text"] = "Receive #x Mirrors of Kalandra at the end of the Floor",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_final_reward_mirror",
+				["text"] = "Receive #x Mirrors of Kalandra on completing the Sanctum",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_floor_reward_alch",
+				["text"] = "Receive #x Orbs of Alchemy at the end of the Floor",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_final_reward_alch",
+				["text"] = "Receive #x Orbs of Alchemy on completing the Sanctum",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_floor_reward_alt",
+				["text"] = "Receive #x Orbs of Alteration at the end of the Floor",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_final_reward_alt",
+				["text"] = "Receive #x Orbs of Alteration on completing the Sanctum",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_floor_reward_annul",
+				["text"] = "Receive #x Orbs of Annulment at the end of the Floor",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_final_reward_annul",
+				["text"] = "Receive #x Orbs of Annulment on completing the Sanctum",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_floor_reward_aug",
+				["text"] = "Receive #x Orbs of Augmentation at the end of the Floor",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_final_reward_aug",
+				["text"] = "Receive #x Orbs of Augmentation on completing the Sanctum",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_floor_reward_orb_of_binding",
+				["text"] = "Receive #x Orbs of Binding at the end of the Floor",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_final_reward_orb_of_binding",
+				["text"] = "Receive #x Orbs of Binding on completing the Sanctum",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_floor_reward_chance",
+				["text"] = "Receive #x Orbs of Chance at the end of the Floor",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_final_reward_chance",
+				["text"] = "Receive #x Orbs of Chance on completing the Sanctum",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_floor_reward_fusing",
+				["text"] = "Receive #x Orbs of Fusing at the end of the Floor",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_final_reward_fusing",
+				["text"] = "Receive #x Orbs of Fusing on completing the Sanctum",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_floor_reward_orb_of_horizons",
+				["text"] = "Receive #x Orbs of Horizon at the end of the Floor",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_final_reward_orb_of_horizons",
+				["text"] = "Receive #x Orbs of Horizon on completing the Sanctum",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_floor_reward_regret",
+				["text"] = "Receive #x Orbs of Regret at the end of the Floor",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_final_reward_regret",
+				["text"] = "Receive #x Orbs of Regret on completing the Sanctum",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_floor_reward_scour",
+				["text"] = "Receive #x Orbs of Scouring at the end of the Floor",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_final_reward_scour",
+				["text"] = "Receive #x Orbs of Scouring on completing the Sanctum",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_floor_reward_transmute",
+				["text"] = "Receive #x Orbs of Transmutation at the end of the Floor",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_final_reward_transmute",
+				["text"] = "Receive #x Orbs of Transmutation on completing the Sanctum",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_floor_reward_orb_of_unmaking",
+				["text"] = "Receive #x Orbs of Unmaking at the end of the Floor",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_final_reward_orb_of_unmaking",
+				["text"] = "Receive #x Orbs of Unmaking on completing the Sanctum",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_floor_reward_regal",
+				["text"] = "Receive #x Regal Orbs at the end of the Floor",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_final_reward_regal",
+				["text"] = "Receive #x Regal Orbs on completing the Sanctum",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_floor_reward_sacred_orb",
+				["text"] = "Receive #x Sacred Orbs at the end of the Floor",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_final_reward_sacred_orb",
+				["text"] = "Receive #x Sacred Orbs on completing the Sanctum",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_floor_reward_stacked_deck",
+				["text"] = "Receive #x Stacked Decks at the end of the Floor",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_final_reward_stacked_deck",
+				["text"] = "Receive #x Stacked Decks on completing the Sanctum",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_floor_reward_vaal",
+				["text"] = "Receive #x Vaal Orbs at the end of the Floor",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_final_reward_vaal",
+				["text"] = "Receive #x Vaal Orbs on completing the Sanctum",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_floor_reward_veiled_exalted_orb",
+				["text"] = "Receive #x Veiled Orbs at the end of the Floor",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_final_reward_veiled_exalted_orb",
+				["text"] = "Receive #x Veiled Orbs on completing the Sanctum",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_floor_reward_veiled_scarab",
+				["text"] = "Receive #x Veiled Scarabs at the end of the Floor",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_final_reward_veiled_scarab",
+				["text"] = "Receive #x Veiled Scarabs on completing the Sanctum",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_floor_reward_tainted_divine_orb",
+				["text"] = "Receive #x Volatile Vaal Orbs at the end of the Floor",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.sanctum_final_reward_tainted_divine_orb",
+				["text"] = "Receive #x Volatile Vaal Orbs on completing the Sanctum",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.stat_3002663227",
+				["text"] = "Recover # Resolve when you complete a Room",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.stat_3889616543",
+				["text"] = "Resolve Aegis Recovers #% faster while not losing Resolve",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.stat_3621177126",
+				["text"] = "Resolve Mitigation from Enemy Hits is based on +#% of Armour",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.stat_3237367570",
+				["text"] = "Rooms are unknown on the Sanctum Map",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.stat_2149490821",
+				["text"] = "The Herald of the Scourge deals #% more Damage",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.stat_1059486105",
+				["text"] = "The Herald of the Scourge drops Eternal Damnation",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.stat_2995848279",
+				["text"] = "The Herald of the Scourge drops Sandstorm Visage",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.stat_3878191575",
+				["text"] = "The Herald of the Scourge drops an additional Forbidden Tome",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.stat_1175354969",
+				["text"] = "The Herald of the Scourge drops an additional Invocation",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.stat_85125881",
+				["text"] = "The Herald of the Scourge drops the Balance of Terror",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.stat_1133899331",
+				["text"] = "The Herald of the Scourge drops the Original Sin",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.stat_4204412707",
+				["text"] = "The Herald of the Scourge drops the Winds of Fate",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.stat_2226900052",
+				["text"] = "The Herald of the Scourge takes #% more Damage",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.stat_290775436",
+				["text"] = "The Merchant has an additional Choice",
+				["type"] = "sanctum",
+			},
+			{
+				["id"] = "sanctum.stat_3182333322",
+				["text"] = "This item is destroyed when applied to a Sanctum",
+				["type"] = "sanctum",
+			},
+		},
+		["id"] = "sanctum",
+		["label"] = "Sanctum",
+	},
+	{
+		["entries"] = {
 			{
 				["id"] = "crucible.mod_62540",
 				["text"] = "+0.2 metres to Weapon Range (Tier 1)",
@@ -75700,6 +74699,11 @@ return {
 				["type"] = "crucible",
 			},
 			{
+				["id"] = "crucible.mod_59759",
+				["text"] = "13% increased Spell Damage (Tier 3)",
+				["type"] = "crucible",
+			},
+			{
 				["id"] = "crucible.mod_37005",
 				["text"] = "14% increased Area of Effect if Intelligence is below 100 (Tier 1)",
 				["type"] = "crucible",
@@ -76212,6 +75216,11 @@ return {
 			{
 				["id"] = "crucible.mod_22538",
 				["text"] = "18% increased Poison Duration 30% increased Poison Duration on you (Tier 1)",
+				["type"] = "crucible",
+			},
+			{
+				["id"] = "crucible.mod_1035",
+				["text"] = "18% increased Spell Damage (Tier 4)",
 				["type"] = "crucible",
 			},
 			{
@@ -76775,6 +75784,11 @@ return {
 				["type"] = "crucible",
 			},
 			{
+				["id"] = "crucible.mod_50290",
+				["text"] = "23% increased Spell Damage (Tier 5)",
+				["type"] = "crucible",
+			},
+			{
 				["id"] = "crucible.mod_15859",
 				["text"] = "24% Chance to Block Spell Damage No Chance to Block (Tier 3)",
 				["type"] = "crucible",
@@ -77257,6 +76271,11 @@ return {
 			{
 				["id"] = "crucible.mod_16269",
 				["text"] = "3% increased Attack Speed 6% chance to gain a Frenzy Charge on Kill (Tier 1)",
+				["type"] = "crucible",
+			},
+			{
+				["id"] = "crucible.mod_55287",
+				["text"] = "3% increased Spell Damage (Tier 1)",
 				["type"] = "crucible",
 			},
 			{
@@ -77907,21 +76926,6 @@ return {
 			{
 				["id"] = "crucible.mod_4198",
 				["text"] = "40% of Damage Dealt by Ancestor Totems Leeched to you as Energy Shield (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_17105",
-				["text"] = "40% of Damage from your Hits cannot be Reflected 15% increased Armour, Evasion and Energy Shield (Tier 1)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_7426",
-				["text"] = "40% of Damage from your Hits cannot be Reflected 20% increased Armour, Evasion and Energy Shield (Tier 2)",
-				["type"] = "crucible",
-			},
-			{
-				["id"] = "crucible.mod_1499",
-				["text"] = "40% of Damage from your Hits cannot be Reflected 25% increased Armour, Evasion and Energy Shield (Tier 3)",
 				["type"] = "crucible",
 			},
 			{
@@ -78712,6 +77716,11 @@ return {
 			{
 				["id"] = "crucible.mod_15586",
 				["text"] = "8% increased Movement Speed if Dexterity is below 100 (Tier 1)",
+				["type"] = "crucible",
+			},
+			{
+				["id"] = "crucible.mod_56135",
+				["text"] = "8% increased Spell Damage (Tier 2)",
 				["type"] = "crucible",
 			},
 			{
@@ -81966,12 +80975,12 @@ return {
 			},
 			{
 				["id"] = "crucible.mod_58877",
-				["text"] = "Forbidden Rite and Dark Pact gains Added Chaos Damage equal to 12% of Mana Cost, if Mana Cost is not higher than the maximum you could spend (Tier 1)",
+				["text"] = "Forbidden Rite and Dark Bargain gains Added Chaos Damage equal to 12% of Mana Cost, if Mana Cost is not higher than the maximum you could spend (Tier 1)",
 				["type"] = "crucible",
 			},
 			{
 				["id"] = "crucible.mod_48442",
-				["text"] = "Forbidden Rite and Dark Pact gains Added Chaos Damage equal to 20% of Mana Cost, if Mana Cost is not higher than the maximum you could spend (Tier 1)",
+				["text"] = "Forbidden Rite and Dark Bargain gains Added Chaos Damage equal to 20% of Mana Cost, if Mana Cost is not higher than the maximum you could spend (Tier 1)",
 				["type"] = "crucible",
 			},
 			{
@@ -84475,6 +83484,21 @@ return {
 				["type"] = "crucible",
 			},
 			{
+				["id"] = "crucible.mod_17105",
+				["text"] = "Prevent +40% of Reflected Damage 15% increased Armour, Evasion and Energy Shield (Tier 1)",
+				["type"] = "crucible",
+			},
+			{
+				["id"] = "crucible.mod_7426",
+				["text"] = "Prevent +40% of Reflected Damage 20% increased Armour, Evasion and Energy Shield (Tier 2)",
+				["type"] = "crucible",
+			},
+			{
+				["id"] = "crucible.mod_1499",
+				["text"] = "Prevent +40% of Reflected Damage 25% increased Armour, Evasion and Energy Shield (Tier 3)",
+				["type"] = "crucible",
+			},
+			{
 				["id"] = "crucible.mod_21373",
 				["text"] = "Pride has 20% increased Aura Effect Pride has 25% increased Reservation (Tier 1)",
 				["type"] = "crucible",
@@ -86182,2034 +85206,5 @@ return {
 		},
 		["id"] = "crucible",
 		["label"] = "Crucible",
-	},
-	{
-		["entries"] = {
-			{
-				["id"] = "veiled.mod_63772",
-				["text"] = "Catarina's Veiled",
-				["type"] = "veiled",
-			},
-			{
-				["id"] = "veiled.mod_5769",
-				["text"] = "Elreon's Veiled",
-				["type"] = "veiled",
-			},
-			{
-				["id"] = "veiled.mod_38872",
-				["text"] = "Gravicius' Veiled",
-				["type"] = "veiled",
-			},
-			{
-				["id"] = "veiled.mod_6779",
-				["text"] = "Guff's Veiled",
-				["type"] = "veiled",
-			},
-			{
-				["id"] = "veiled.mod_39023",
-				["text"] = "Haku's Veiled",
-				["type"] = "veiled",
-			},
-			{
-				["id"] = "veiled.mod_55787",
-				["text"] = "It That Fled's Veiled",
-				["type"] = "veiled",
-			},
-			{
-				["id"] = "veiled.mod_44855",
-				["text"] = "Korell's Veiled",
-				["type"] = "veiled",
-			},
-			{
-				["id"] = "veiled.mod_3258",
-				["text"] = "Leo's Veiled",
-				["type"] = "veiled",
-			},
-			{
-				["id"] = "veiled.mod_6131",
-				["text"] = "Rin's Veiled",
-				["type"] = "veiled",
-			},
-			{
-				["id"] = "veiled.mod_8541",
-				["text"] = "Tora's Veiled",
-				["type"] = "veiled",
-			},
-			{
-				["id"] = "veiled.mod_14269",
-				["text"] = "Vagan's Veiled",
-				["type"] = "veiled",
-			},
-			{
-				["id"] = "veiled.mod_65000",
-				["text"] = "Veiled",
-				["type"] = "veiled",
-			},
-			{
-				["id"] = "veiled.mod_47933",
-				["text"] = "Vorici's Veiled",
-				["type"] = "veiled",
-			},
-			{
-				["id"] = "veiled.mod_48007",
-				["text"] = "of Aisling's Veil",
-				["type"] = "veiled",
-			},
-			{
-				["id"] = "veiled.mod_65163",
-				["text"] = "of Cameria's Veil",
-				["type"] = "veiled",
-			},
-			{
-				["id"] = "veiled.mod_3975",
-				["text"] = "of Hillock's Veil",
-				["type"] = "veiled",
-			},
-			{
-				["id"] = "veiled.mod_11536",
-				["text"] = "of Janus' Veil",
-				["type"] = "veiled",
-			},
-			{
-				["id"] = "veiled.mod_62955",
-				["text"] = "of Jorgin's Veil",
-				["type"] = "veiled",
-			},
-			{
-				["id"] = "veiled.mod_48408",
-				["text"] = "of Riker's Veil",
-				["type"] = "veiled",
-			},
-			{
-				["id"] = "veiled.mod_63099",
-				["text"] = "of the Veil",
-				["type"] = "veiled",
-			},
-		},
-		["id"] = "veiled",
-		["label"] = "Veiled",
-	},
-	{
-		["entries"] = {
-			{
-				["id"] = "delve.delve_corrupted_implicit",
-				["text"] = "Corrupted Has a Corrupted implicit modifier",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_duplicate",
-				["text"] = "Creates a split copy",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_less_attack",
-				["text"] = "Fewer Attack modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_less_caster",
-				["text"] = "Fewer Caster modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_greatly_more_ailment",
-				["text"] = "Greatly more Ailment modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_greatly_more_attack",
-				["text"] = "Greatly more Attack modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_greatly_more_attribute",
-				["text"] = "Greatly more Attribute modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_greatly_more_aura",
-				["text"] = "Greatly more Aura modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_greatly_more_caster",
-				["text"] = "Greatly more Caster modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_greatly_more_chaos",
-				["text"] = "Greatly more Chaos modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_greatly_more_cold",
-				["text"] = "Greatly more Cold modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_greatly_more_critical",
-				["text"] = "Greatly more Critical modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_greatly_more_curse",
-				["text"] = "Greatly more Curse modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_greatly_more_damage",
-				["text"] = "Greatly more Damage modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_greatly_more_defences",
-				["text"] = "Greatly more Defences modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_greatly_more_elemental",
-				["text"] = "Greatly more Elemental modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_greatly_more_fire",
-				["text"] = "Greatly more Fire modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_greatly_more_gem",
-				["text"] = "Greatly more Gem modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_greatly_more_life",
-				["text"] = "Greatly more Life modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_greatly_more_lightning",
-				["text"] = "Greatly more Lightning modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_greatly_more_mana",
-				["text"] = "Greatly more Mana modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_greatly_more_minion",
-				["text"] = "Greatly more Minion modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_greatly_more_physical",
-				["text"] = "Greatly more Physical modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_greatly_more_resistance",
-				["text"] = "Greatly more Resistance modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_greatly_more_speed",
-				["text"] = "Greatly more Speed modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_corrupt_essence",
-				["text"] = "Has a Corrupt Essence modifier",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_labryinth_enchant",
-				["text"] = "Has a Labyrinth Enchantment",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_abyss_socket",
-				["text"] = "Has an Abyssal socket",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_quality",
-				["text"] = "Improved Quality",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_better_sell_price",
-				["text"] = "Item is overvalued by vendors",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_more_ailment",
-				["text"] = "More Ailment modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_more_attack",
-				["text"] = "More Attack modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_more_attribute",
-				["text"] = "More Attribute modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_more_aura",
-				["text"] = "More Aura modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_more_caster",
-				["text"] = "More Caster modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_more_chaos",
-				["text"] = "More Chaos modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_more_cold",
-				["text"] = "More Cold modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_more_critical",
-				["text"] = "More Critical modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_more_curse",
-				["text"] = "More Curse modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_more_damage",
-				["text"] = "More Damage modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_more_defences",
-				["text"] = "More Defence modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_more_drop",
-				["text"] = "More Drop modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_more_elemental",
-				["text"] = "More Elemental modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_more_fire",
-				["text"] = "More Fire modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_more_gem",
-				["text"] = "More Gem modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_more_gem_level",
-				["text"] = "More Gem modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_more_life",
-				["text"] = "More Life modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_more_lightning",
-				["text"] = "More Lightning modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_more_mana",
-				["text"] = "More Mana modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_more_minion",
-				["text"] = "More Minion modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_more_minion_aura",
-				["text"] = "More Minion, Aura or Curse modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_more_bleed_poison",
-				["text"] = "More Physical Ailment or Chaos Ailment modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_more_physical",
-				["text"] = "More Physical modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_more_resistance",
-				["text"] = "More Resistance modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_more_speed",
-				["text"] = "More Speed modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_no_ailment",
-				["text"] = "No Ailment modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_no_attack",
-				["text"] = "No Attack modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_no_attribute",
-				["text"] = "No Attribute modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_no_aura",
-				["text"] = "No Aura modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_no_caster",
-				["text"] = "No Caster modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_no_chaos",
-				["text"] = "No Chaos modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_no_cold",
-				["text"] = "No Cold modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_no_critical",
-				["text"] = "No Critical modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_no_curse",
-				["text"] = "No Curse modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_no_damage",
-				["text"] = "No Damage modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_no_defences",
-				["text"] = "No Defence modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_no_elemental",
-				["text"] = "No Elemental modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_no_fire",
-				["text"] = "No Fire modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_no_gem",
-				["text"] = "No Gem modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_no_life",
-				["text"] = "No Life modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_no_lightning",
-				["text"] = "No Lightning modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_no_mana",
-				["text"] = "No Mana modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_no_minion",
-				["text"] = "No Minion modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_no_bleed_poison",
-				["text"] = "No Physical Ailment or Chaos Ailment Modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_no_physical",
-				["text"] = "No Physical modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_no_resistance",
-				["text"] = "No Resistance modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_no_speed",
-				["text"] = "No Speed modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_no_tagless",
-				["text"] = "No Tagless modifiers",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_lucky_mods",
-				["text"] = "Numeric modifier values are lucky High Level modifiers are more common",
-				["type"] = "delve",
-			},
-			{
-				["id"] = "delve.delve_random_modifier",
-				["text"] = "Random effects revealed when resonator is fully socketed",
-				["type"] = "delve",
-			},
-		},
-		["id"] = "delve",
-		["label"] = "Delve",
-	},
-	{
-		["entries"] = {
-			{
-				["id"] = "ultimatum.umod_11872",
-				["text"] = "Ailment and Curse Reflection",
-				["type"] = "ultimatum",
-			},
-			{
-				["id"] = "ultimatum.umod_13648",
-				["text"] = "Blistering Cold",
-				["type"] = "ultimatum",
-			},
-			{
-				["id"] = "ultimatum.umod_62444",
-				["text"] = "Blistering Cold II",
-				["type"] = "ultimatum",
-			},
-			{
-				["id"] = "ultimatum.umod_28497",
-				["text"] = "Blistering Cold III",
-				["type"] = "ultimatum",
-			},
-			{
-				["id"] = "ultimatum.umod_3273",
-				["text"] = "Blistering Cold IV",
-				["type"] = "ultimatum",
-			},
-			{
-				["id"] = "ultimatum.umod_29421",
-				["text"] = "Buffs Expire Faster",
-				["type"] = "ultimatum",
-			},
-			{
-				["id"] = "ultimatum.umod_40225",
-				["text"] = "Choking Miasma",
-				["type"] = "ultimatum",
-			},
-			{
-				["id"] = "ultimatum.umod_54213",
-				["text"] = "Choking Miasma II",
-				["type"] = "ultimatum",
-			},
-			{
-				["id"] = "ultimatum.umod_12812",
-				["text"] = "Choking Miasma III",
-				["type"] = "ultimatum",
-			},
-			{
-				["id"] = "ultimatum.umod_38838",
-				["text"] = "Deadly Monsters",
-				["type"] = "ultimatum",
-			},
-			{
-				["id"] = "ultimatum.umod_10506",
-				["text"] = "Dexterous Monsters",
-				["type"] = "ultimatum",
-			},
-			{
-				["id"] = "ultimatum.umod_15668",
-				["text"] = "Drought",
-				["type"] = "ultimatum",
-			},
-			{
-				["id"] = "ultimatum.umod_57621",
-				["text"] = "Escalating Damage Taken",
-				["type"] = "ultimatum",
-			},
-			{
-				["id"] = "ultimatum.umod_7961",
-				["text"] = "Escalating Monster Speed",
-				["type"] = "ultimatum",
-			},
-			{
-				["id"] = "ultimatum.umod_27491",
-				["text"] = "Hindering Flasks",
-				["type"] = "ultimatum",
-			},
-			{
-				["id"] = "ultimatum.umod_39295",
-				["text"] = "Less Cooldown Recovery",
-				["type"] = "ultimatum",
-			},
-			{
-				["id"] = "ultimatum.umod_50320",
-				["text"] = "Lessened Reach",
-				["type"] = "ultimatum",
-			},
-			{
-				["id"] = "ultimatum.umod_47347",
-				["text"] = "Lethal Rare Monsters",
-				["type"] = "ultimatum",
-			},
-			{
-				["id"] = "ultimatum.umod_58901",
-				["text"] = "Lightning Damage from Mana Costs",
-				["type"] = "ultimatum",
-			},
-			{
-				["id"] = "ultimatum.umod_65051",
-				["text"] = "Occasional Impotence",
-				["type"] = "ultimatum",
-			},
-			{
-				["id"] = "ultimatum.umod_59748",
-				["text"] = "Overwhelming Monsters",
-				["type"] = "ultimatum",
-			},
-			{
-				["id"] = "ultimatum.umod_33891",
-				["text"] = "Precise Monsters",
-				["type"] = "ultimatum",
-			},
-			{
-				["id"] = "ultimatum.umod_39785",
-				["text"] = "Prismatic Monsters",
-				["type"] = "ultimatum",
-			},
-			{
-				["id"] = "ultimatum.umod_18354",
-				["text"] = "Profane Monsters",
-				["type"] = "ultimatum",
-			},
-			{
-				["id"] = "ultimatum.umod_28673",
-				["text"] = "Raging Dead",
-				["type"] = "ultimatum",
-			},
-			{
-				["id"] = "ultimatum.umod_62391",
-				["text"] = "Raging Dead",
-				["type"] = "ultimatum",
-			},
-			{
-				["id"] = "ultimatum.umod_26465",
-				["text"] = "Raging Dead II",
-				["type"] = "ultimatum",
-			},
-			{
-				["id"] = "ultimatum.umod_38306",
-				["text"] = "Raging Dead II",
-				["type"] = "ultimatum",
-			},
-			{
-				["id"] = "ultimatum.umod_49977",
-				["text"] = "Raging Dead III",
-				["type"] = "ultimatum",
-			},
-			{
-				["id"] = "ultimatum.umod_6748",
-				["text"] = "Raging Dead III",
-				["type"] = "ultimatum",
-			},
-			{
-				["id"] = "ultimatum.umod_24954",
-				["text"] = "Raging Dead IV",
-				["type"] = "ultimatum",
-			},
-			{
-				["id"] = "ultimatum.umod_39655",
-				["text"] = "Raging Dead IV",
-				["type"] = "ultimatum",
-			},
-			{
-				["id"] = "ultimatum.umod_7052",
-				["text"] = "Razor Dance",
-				["type"] = "ultimatum",
-			},
-			{
-				["id"] = "ultimatum.umod_45148",
-				["text"] = "Razor Dance II",
-				["type"] = "ultimatum",
-			},
-			{
-				["id"] = "ultimatum.umod_22941",
-				["text"] = "Razor Dance III",
-				["type"] = "ultimatum",
-			},
-			{
-				["id"] = "ultimatum.umod_15044",
-				["text"] = "Razor Dance IV",
-				["type"] = "ultimatum",
-			},
-			{
-				["id"] = "ultimatum.umod_5772",
-				["text"] = "Reduced Recovery",
-				["type"] = "ultimatum",
-			},
-			{
-				["id"] = "ultimatum.umod_37639",
-				["text"] = "Reduced Recovery II",
-				["type"] = "ultimatum",
-			},
-			{
-				["id"] = "ultimatum.umod_25457",
-				["text"] = "Resistant Monsters",
-				["type"] = "ultimatum",
-			},
-			{
-				["id"] = "ultimatum.umod_27548",
-				["text"] = "Restless Ground",
-				["type"] = "ultimatum",
-			},
-			{
-				["id"] = "ultimatum.umod_63601",
-				["text"] = "Restless Ground II",
-				["type"] = "ultimatum",
-			},
-			{
-				["id"] = "ultimatum.umod_24728",
-				["text"] = "Ruin II",
-				["type"] = "ultimatum",
-			},
-			{
-				["id"] = "ultimatum.umod_35694",
-				["text"] = "Ruin III",
-				["type"] = "ultimatum",
-			},
-			{
-				["id"] = "ultimatum.umod_60794",
-				["text"] = "Ruin IV",
-				["type"] = "ultimatum",
-			},
-			{
-				["id"] = "ultimatum.umod_43095",
-				["text"] = "Shattered Shield",
-				["type"] = "ultimatum",
-			},
-			{
-				["id"] = "ultimatum.umod_36548",
-				["text"] = "Shielding Monsters",
-				["type"] = "ultimatum",
-			},
-			{
-				["id"] = "ultimatum.umod_21966",
-				["text"] = "Siphoned Charges",
-				["type"] = "ultimatum",
-			},
-			{
-				["id"] = "ultimatum.umod_45921",
-				["text"] = "Siphoning Monsters",
-				["type"] = "ultimatum",
-			},
-			{
-				["id"] = "ultimatum.umod_7958",
-				["text"] = "Stalking Ruin",
-				["type"] = "ultimatum",
-			},
-			{
-				["id"] = "ultimatum.umod_32061",
-				["text"] = "Stalking Ruin II",
-				["type"] = "ultimatum",
-			},
-			{
-				["id"] = "ultimatum.umod_47172",
-				["text"] = "Stalking Ruin III",
-				["type"] = "ultimatum",
-			},
-			{
-				["id"] = "ultimatum.umod_49847",
-				["text"] = "Stalking Ruin IV",
-				["type"] = "ultimatum",
-			},
-			{
-				["id"] = "ultimatum.umod_11866",
-				["text"] = "Stormcaller Runes",
-				["type"] = "ultimatum",
-			},
-			{
-				["id"] = "ultimatum.umod_19821",
-				["text"] = "Stormcaller Runes",
-				["type"] = "ultimatum",
-			},
-			{
-				["id"] = "ultimatum.umod_13955",
-				["text"] = "Stormcaller Runes II",
-				["type"] = "ultimatum",
-			},
-			{
-				["id"] = "ultimatum.umod_40295",
-				["text"] = "Stormcaller Runes II",
-				["type"] = "ultimatum",
-			},
-			{
-				["id"] = "ultimatum.umod_43498",
-				["text"] = "Stormcaller Runes III",
-				["type"] = "ultimatum",
-			},
-			{
-				["id"] = "ultimatum.umod_53101",
-				["text"] = "Stormcaller Runes IV",
-				["type"] = "ultimatum",
-			},
-			{
-				["id"] = "ultimatum.umod_8887",
-				["text"] = "Totem of Costly Might",
-				["type"] = "ultimatum",
-			},
-			{
-				["id"] = "ultimatum.umod_58910",
-				["text"] = "Totem of Costly Potency",
-				["type"] = "ultimatum",
-			},
-			{
-				["id"] = "ultimatum.umod_12730",
-				["text"] = "Treacherous Auras",
-				["type"] = "ultimatum",
-			},
-			{
-				["id"] = "ultimatum.umod_40124",
-				["text"] = "Unlucky Criticals",
-				["type"] = "ultimatum",
-			},
-			{
-				["id"] = "ultimatum.umod_11559",
-				["text"] = "Unstoppable Monsters",
-				["type"] = "ultimatum",
-			},
-		},
-		["id"] = "ultimatum",
-		["label"] = "Ultimatum",
-	},
-	{
-		["entries"] = {
-			{
-				["id"] = "sanctum.stat_2410906123",
-				["text"] = "# Resolve Aegis",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.stat_142859883",
-				["text"] = "#% Resolve Mitigation from Enemy Hits",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.stat_774484840",
-				["text"] = "#% chance for Resolve Mitigation to be doubled when Hit by an Enemy",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.stat_2878762585",
-				["text"] = "#% chance to Avoid Resolve loss from Enemy Hits",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.stat_2284543592",
-				["text"] = "#% chance to Avoid Resolve loss from Enemy Hits if you've been Hit recently",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.stat_1960517795",
-				["text"] = "#% chance to Avoid gaining an Affliction",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.stat_3866860190",
-				["text"] = "#% increased Maximum Resolve",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.stat_3096446459",
-				["text"] = "#% increased Merchant Prices",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.stat_1680962389",
-				["text"] = "#% increased Quantity of Relics Dropped by Monsters",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.stat_1388771661",
-				["text"] = "#% increased Resolve Aegis",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.stat_1306482168",
-				["text"] = "#% increased Resolve Recovered",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.stat_3134588943",
-				["text"] = "#% increased chance to Avoid Resolve Loss from Enemy Melee Hits",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.stat_1798691236",
-				["text"] = "#% increased chance to Avoid Resolve Loss from Enemy Projectile Hits",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.stat_1054634989",
-				["text"] = "+# to Maximum Resolve",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.stat_386901949",
-				["text"] = "An additional Room is revealed on the Sanctum Map",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.stat_1307773596",
-				["text"] = "Aureus Coins are converted to Experience upon defeating the Herald of the Scourge",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.stat_315260783",
-				["text"] = "Aureus Coins are converted to Relics upon defeating the Herald of the Scourge",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.stat_1019656601",
-				["text"] = "Aureus Coins are converted to Tainted Currency upon defeating the Herald of the Scourge",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.stat_2207905451",
-				["text"] = "Bosses impact #% increased Resolve",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.stat_3226329527",
-				["text"] = "Bosses take #% increased Damage",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.stat_1512067281",
-				["text"] = "Cannot be used with Forbidden Tomes below level #",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.stat_2283325632",
-				["text"] = "Cannot have Boons",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.stat_3381591146",
-				["text"] = "Cannot have Inspiration",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.stat_624917333",
-				["text"] = "Cannot recover Resolve",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.stat_3926246735",
-				["text"] = "Chests have #% chance to drop Double Aureus Coins",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.stat_502549687",
-				["text"] = "Duplicates up to # random Offer Reward upon defeating the Herald of the Scourge",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.stat_2393318075",
-				["text"] = "Gain # Aureus Coins at the start of the Sanctum",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.stat_4057192895",
-				["text"] = "Gain # Aureus Coins when you complete a Room",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.stat_2942028778",
-				["text"] = "Gain # Inspiration at the start of each Floor",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.stat_3102760194",
-				["text"] = "Gain # Inspiration at the start of the Sanctum",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.stat_1518851624",
-				["text"] = "Gain # Inspiration when you receive an Affliction",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.stat_3817232752",
-				["text"] = "Gain # Maximum Resolve when you kill a Boss",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.stat_3722564733",
-				["text"] = "Gain # Maximum Resolve when you use a Fountain",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.stat_889527415",
-				["text"] = "Gain # Resolve when you kill a Boss",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.stat_2607697594",
-				["text"] = "Gain # Resolve when you use a Fountain",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.stat_199414195",
-				["text"] = "Guards impact #% increased Resolve",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.stat_408585189",
-				["text"] = "Guards take #% increased Damage",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_19751",
-				["text"] = "Has Accursed Prism",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_59406",
-				["text"] = "Has Adrenaline Vial",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_9121",
-				["text"] = "Has All-Seeing Eye",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_51626",
-				["text"] = "Has Anomaly Attractor",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_41950",
-				["text"] = "Has Apex Pact",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_44006",
-				["text"] = "Has Arcane Aegis",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_6090",
-				["text"] = "Has Assassin's Blade",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_36376",
-				["text"] = "Has Austerity Pact",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_41498",
-				["text"] = "Has Black Pearl",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_34448",
-				["text"] = "Has Black Smoke",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_40008",
-				["text"] = "Has Blunt Sword",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_42759",
-				["text"] = "Has Bronze Coin",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_17929",
-				["text"] = "Has Bronze Descry",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_25062",
-				["text"] = "Has Chains of Binding",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_22125",
-				["text"] = "Has Charred Coin",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_60796",
-				["text"] = "Has Chipped Dice",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_6958",
-				["text"] = "Has Chiselled Stone",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_18271",
-				["text"] = "Has Concealed Anomaly",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_55502",
-				["text"] = "Has Corrosive Concoction",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_21215",
-				["text"] = "Has Corrupted Lockpick",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_52811",
-				["text"] = "Has Crystal Chalice",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_30042",
-				["text"] = "Has Crystal Shard",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_44526",
-				["text"] = "Has Cutpurse",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_62584",
-				["text"] = "Has Dark Pit",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_41768",
-				["text"] = "Has Dauntless Pact",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_41921",
-				["text"] = "Has Deadly Snare",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_59642",
-				["text"] = "Has Death Toll",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_14131",
-				["text"] = "Has Deceptive Mirror",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_16345",
-				["text"] = "Has Demonic Skull",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_6743",
-				["text"] = "Has Divinia's Gift ",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_33903",
-				["text"] = "Has Door Tax",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_42282",
-				["text"] = "Has Doubling Pact",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_7865",
-				["text"] = "Has Empty Trove",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_38167",
-				["text"] = "Has Enchanted Urn",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_64207",
-				["text"] = "Has Engraved Orb",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_28313",
-				["text"] = "Has Fiendish Wings",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_38121",
-				["text"] = "Has Floor Tax",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_40142",
-				["text"] = "Has Fountain of Youth",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_15442",
-				["text"] = "Has Fright Mask",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_24579",
-				["text"] = "Has Gargoyle Totem",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_32300",
-				["text"] = "Has Ghastly Scythe",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_40522",
-				["text"] = "Has Gilded Lyre",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_45600",
-				["text"] = "Has Glass Shard",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_3157",
-				["text"] = "Has Glowing Orb",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_12732",
-				["text"] = "Has Gold Coin",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_278",
-				["text"] = "Has Gold Magnet",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_50425",
-				["text"] = "Has Gold Mine",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_704",
-				["text"] = "Has Gold Trophy",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_17551",
-				["text"] = "Has Golden Descry",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_1198",
-				["text"] = "Has Golden Smoke",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_34171",
-				["text"] = "Has Haemorrhage",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_13820",
-				["text"] = "Has Hare Foot",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_39513",
-				["text"] = "Has Holy Descry",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_28826",
-				["text"] = "Has Holy Water",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_62326",
-				["text"] = "Has Honed Claws",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_359",
-				["text"] = "Has Hungry Fangs",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_44836",
-				["text"] = "Has Imperial Seal",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_44096",
-				["text"] = "Has Indomitable Pact",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_35578",
-				["text"] = "Has Iron Manacles",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_35508",
-				["text"] = "Has Lilting Melody",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_45177",
-				["text"] = "Has Liquid Cowardice",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_379",
-				["text"] = "Has Lustrous Lacquer",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_51140",
-				["text"] = "Has Lustrous Pearl",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_37967",
-				["text"] = "Has Mark of Terror",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_57101",
-				["text"] = "Has Mellifluous Chorus",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_45428",
-				["text"] = "Has Mirror of Fortune",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_64286",
-				["text"] = "Has Musty Wine",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_43834",
-				["text"] = "Has Orb of Negation",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_29924",
-				["text"] = "Has Ornate Dagger",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_9205",
-				["text"] = "Has Phantom Illusion",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_26160",
-				["text"] = "Has Poisoned Water",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_26808",
-				["text"] = "Has Prayer Beads",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_5686",
-				["text"] = "Has Priest's Descry",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_28906",
-				["text"] = "Has Purple Smoke",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_47662",
-				["text"] = "Has Pyrrhic Pact",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_56047",
-				["text"] = "Has Rapid Quicksand",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_17084",
-				["text"] = "Has Red Smoke",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_37341",
-				["text"] = "Has Rusted Chimes",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_45792",
-				["text"] = "Has Rusted Coin",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_45794",
-				["text"] = "Has Rusted Descry",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_30450",
-				["text"] = "Has Rusted Mallet",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_27130",
-				["text"] = "Has Sacred Mirror",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_41741",
-				["text"] = "Has Sanguine Vial",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_44243",
-				["text"] = "Has Scrying Crystal",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_48487",
-				["text"] = "Has Sharpened Arrowhead",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_16335",
-				["text"] = "Has Shattered Shield",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_51458",
-				["text"] = "Has Silver Chalice",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_16400",
-				["text"] = "Has Silver Coin",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_8698",
-				["text"] = "Has Silver Descry",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_24536",
-				["text"] = "Has Silver Tongue",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_53929",
-				["text"] = "Has Spiked Exit",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_13875",
-				["text"] = "Has Spiked Shell",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_4558",
-				["text"] = "Has Spilt Purse",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_37919",
-				["text"] = "Has Tarnished Coin",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_27017",
-				["text"] = "Has Tarnished Descry",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_48875",
-				["text"] = "Has Tattered Blindfold",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_61518",
-				["text"] = "Has Tight Choker",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_50613",
-				["text"] = "Has Unassuming Brick",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_12494",
-				["text"] = "Has Unhallowed Amulet",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_11449",
-				["text"] = "Has Unhallowed Ring",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_61947",
-				["text"] = "Has Unholy Urn",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_38381",
-				["text"] = "Has Unquenched Thirst",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_16490",
-				["text"] = "Has Untuned Lute",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_43384",
-				["text"] = "Has Veiled Sight",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_57507",
-				["text"] = "Has Viscous Ichor",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_18740",
-				["text"] = "Has Voodoo Doll",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_24131",
-				["text"] = "Has Weakened Flesh",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_46977",
-				["text"] = "Has Wooden Effigy",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_effect_30473",
-				["text"] = "Has Worn Sandals",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.stat_1471840332",
-				["text"] = "Maximum Resolve is 1",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.stat_231205265",
-				["text"] = "Monsters have #% chance to drop Double Aureus Coins",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.stat_3554249693",
-				["text"] = "Monsters impact #% increased Resolve",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.stat_2549512259",
-				["text"] = "Monsters take #% increased Damage",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.stat_1278905604",
-				["text"] = "No Resolve Mitigation, chance to Avoid Resolve loss or Resolve Aegis",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_floor_reward_ancient_orb",
-				["text"] = "Receive #x Ancient Orbs at the end of the Floor",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_final_reward_ancient_orb",
-				["text"] = "Receive #x Ancient Orbs on completing the Sanctum",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_floor_reward_scrap",
-				["text"] = "Receive #x Armourer's Scraps at the end of the Floor",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_final_reward_scrap",
-				["text"] = "Receive #x Armourer's Scraps on completing the Sanctum",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_floor_reward_awakened_sextant",
-				["text"] = "Receive #x Awakened Sextants at the end of the Floor",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_final_reward_awakened_sextant",
-				["text"] = "Receive #x Awakened Sextants on completing the Sanctum",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_floor_reward_whetstone",
-				["text"] = "Receive #x Blacksmith's Whetstones at the end of the Floor",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_final_reward_whetstone",
-				["text"] = "Receive #x Blacksmith's Whetstones on completing the Sanctum",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_floor_reward_blessed",
-				["text"] = "Receive #x Blessed Orbs at the end of the Floor",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_final_reward_blessed",
-				["text"] = "Receive #x Blessed Orbs on completing the Sanctum",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_floor_reward_chisel",
-				["text"] = "Receive #x Cartographer's Chisels at the end of the Floor",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_final_reward_chisel",
-				["text"] = "Receive #x Cartographer's Chisels on completing the Sanctum",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_floor_reward_chaos",
-				["text"] = "Receive #x Chaos Orbs at the end of the Floor",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_final_reward_chaos",
-				["text"] = "Receive #x Chaos Orbs on completing the Sanctum",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_floor_reward_chrome",
-				["text"] = "Receive #x Chromatic Orbs at the end of the Floor",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_final_reward_chrome",
-				["text"] = "Receive #x Chromatic Orbs on completing the Sanctum",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_floor_reward_divine",
-				["text"] = "Receive #x Divine Orbs at the end of the Floor",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_final_reward_divine",
-				["text"] = "Receive #x Divine Orbs on completing the Sanctum",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_floor_reward_divine_vessel",
-				["text"] = "Receive #x Divine Vessels at the end of the Floor",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_final_reward_divine_vessel",
-				["text"] = "Receive #x Divine Vessels on completing the Sanctum",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_floor_reward_enkindling_orb",
-				["text"] = "Receive #x Enkindling Orbs at the end of the Floor",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_final_reward_enkindling_orb",
-				["text"] = "Receive #x Enkindling Orbs on completing the Sanctum",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_floor_reward_exalted",
-				["text"] = "Receive #x Exalted Orbs at the end of the Floor",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_final_reward_exalted",
-				["text"] = "Receive #x Exalted Orbs on completing the Sanctum",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_floor_reward_fracturing_orb",
-				["text"] = "Receive #x Fracturing Orbs at the end of the Floor",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_final_reward_fracturing_orb",
-				["text"] = "Receive #x Fracturing Orbs on completing the Sanctum",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_floor_reward_gcp",
-				["text"] = "Receive #x Gemcutter's Prisms at the end of the Floor",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_final_reward_gcp",
-				["text"] = "Receive #x Gemcutter's Prisms on completing the Sanctum",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_floor_reward_bauble",
-				["text"] = "Receive #x Glassblower's Baubles at the end of the Floor",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_final_reward_bauble",
-				["text"] = "Receive #x Glassblower's Baubles on completing the Sanctum",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_floor_reward_instilling_orb",
-				["text"] = "Receive #x Instilling Orbs at the end of the Floor",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_final_reward_instilling_orb",
-				["text"] = "Receive #x Instilling Orbs on completing the Sanctum",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_floor_reward_jewellers",
-				["text"] = "Receive #x Jeweller's Orbs at the end of the Floor",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_final_reward_jewellers",
-				["text"] = "Receive #x Jeweller's Orbs on completing the Sanctum",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_floor_reward_mirror",
-				["text"] = "Receive #x Mirrors of Kalandra at the end of the Floor",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_final_reward_mirror",
-				["text"] = "Receive #x Mirrors of Kalandra on completing the Sanctum",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_floor_reward_alch",
-				["text"] = "Receive #x Orbs of Alchemy at the end of the Floor",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_final_reward_alch",
-				["text"] = "Receive #x Orbs of Alchemy on completing the Sanctum",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_floor_reward_alt",
-				["text"] = "Receive #x Orbs of Alteration at the end of the Floor",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_final_reward_alt",
-				["text"] = "Receive #x Orbs of Alteration on completing the Sanctum",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_floor_reward_annul",
-				["text"] = "Receive #x Orbs of Annulment at the end of the Floor",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_final_reward_annul",
-				["text"] = "Receive #x Orbs of Annulment on completing the Sanctum",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_floor_reward_aug",
-				["text"] = "Receive #x Orbs of Augmentation at the end of the Floor",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_final_reward_aug",
-				["text"] = "Receive #x Orbs of Augmentation on completing the Sanctum",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_floor_reward_orb_of_binding",
-				["text"] = "Receive #x Orbs of Binding at the end of the Floor",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_final_reward_orb_of_binding",
-				["text"] = "Receive #x Orbs of Binding on completing the Sanctum",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_floor_reward_chance",
-				["text"] = "Receive #x Orbs of Chance at the end of the Floor",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_final_reward_chance",
-				["text"] = "Receive #x Orbs of Chance on completing the Sanctum",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_floor_reward_fusing",
-				["text"] = "Receive #x Orbs of Fusing at the end of the Floor",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_final_reward_fusing",
-				["text"] = "Receive #x Orbs of Fusing on completing the Sanctum",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_floor_reward_orb_of_horizons",
-				["text"] = "Receive #x Orbs of Horizon at the end of the Floor",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_final_reward_orb_of_horizons",
-				["text"] = "Receive #x Orbs of Horizon on completing the Sanctum",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_floor_reward_regret",
-				["text"] = "Receive #x Orbs of Regret at the end of the Floor",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_final_reward_regret",
-				["text"] = "Receive #x Orbs of Regret on completing the Sanctum",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_floor_reward_scour",
-				["text"] = "Receive #x Orbs of Scouring at the end of the Floor",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_final_reward_scour",
-				["text"] = "Receive #x Orbs of Scouring on completing the Sanctum",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_floor_reward_transmute",
-				["text"] = "Receive #x Orbs of Transmutation at the end of the Floor",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_final_reward_transmute",
-				["text"] = "Receive #x Orbs of Transmutation on completing the Sanctum",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_floor_reward_orb_of_unmaking",
-				["text"] = "Receive #x Orbs of Unmaking at the end of the Floor",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_final_reward_orb_of_unmaking",
-				["text"] = "Receive #x Orbs of Unmaking on completing the Sanctum",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_floor_reward_regal",
-				["text"] = "Receive #x Regal Orbs at the end of the Floor",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_final_reward_regal",
-				["text"] = "Receive #x Regal Orbs on completing the Sanctum",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_floor_reward_sacred_orb",
-				["text"] = "Receive #x Sacred Orbs at the end of the Floor",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_final_reward_sacred_orb",
-				["text"] = "Receive #x Sacred Orbs on completing the Sanctum",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_floor_reward_stacked_deck",
-				["text"] = "Receive #x Stacked Decks at the end of the Floor",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_final_reward_stacked_deck",
-				["text"] = "Receive #x Stacked Decks on completing the Sanctum",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_floor_reward_vaal",
-				["text"] = "Receive #x Vaal Orbs at the end of the Floor",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_final_reward_vaal",
-				["text"] = "Receive #x Vaal Orbs on completing the Sanctum",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_floor_reward_veiled_exalted_orb",
-				["text"] = "Receive #x Veiled Orbs at the end of the Floor",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_final_reward_veiled_exalted_orb",
-				["text"] = "Receive #x Veiled Orbs on completing the Sanctum",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_floor_reward_veiled_scarab",
-				["text"] = "Receive #x Veiled Scarabs at the end of the Floor",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.sanctum_final_reward_veiled_scarab",
-				["text"] = "Receive #x Veiled Scarabs on completing the Sanctum",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.stat_3002663227",
-				["text"] = "Recover # Resolve when you complete a Room",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.stat_3889616543",
-				["text"] = "Resolve Aegis Recovers #% faster while not losing Resolve",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.stat_3621177126",
-				["text"] = "Resolve Mitigation from Enemy Hits is based on +#% of Armour",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.stat_3237367570",
-				["text"] = "Rooms are unknown on the Sanctum Map",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.stat_2149490821",
-				["text"] = "The Herald of the Scourge deals #% more Damage",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.stat_1059486105",
-				["text"] = "The Herald of the Scourge drops Eternal Damnation",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.stat_2995848279",
-				["text"] = "The Herald of the Scourge drops Sandstorm Visage",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.stat_3878191575",
-				["text"] = "The Herald of the Scourge drops an additional Forbidden Tome",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.stat_1175354969",
-				["text"] = "The Herald of the Scourge drops an additional Invocation",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.stat_85125881",
-				["text"] = "The Herald of the Scourge drops the Balance of Terror",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.stat_1133899331",
-				["text"] = "The Herald of the Scourge drops the Original Sin",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.stat_4204412707",
-				["text"] = "The Herald of the Scourge drops the Winds of Fate",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.stat_2226900052",
-				["text"] = "The Herald of the Scourge takes #% more Damage",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.stat_290775436",
-				["text"] = "The Merchant has an additional Choice",
-				["type"] = "sanctum",
-			},
-			{
-				["id"] = "sanctum.stat_3182333322",
-				["text"] = "This item is destroyed when applied to a Sanctum",
-				["type"] = "sanctum",
-			},
-		},
-		["id"] = "sanctum",
-		["label"] = "Sanctum",
 	},
 }
