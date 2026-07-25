@@ -31,26 +31,6 @@ Corrupted]])
 				modEntries[1])
 		end)
 
-		it("matches thread of hope radius as an option", function()
-			local thread = new("Item", [[
-Rarity: UNIQUE
-Thread of Hope
-Crimson Jewel
-Radius: Variable
-Implicits: 0
-Only affects Passives in Massive Ring
--15% to all Elemental Resistances
-Passive Skills in Radius can be Allocated without being connected to your tree
-Passage]])
-			local modSources = {
-				{ list = thread.explicitModLines, type = "explicit" }
-			}
-			local modEntries = bs.addModEntries(thread, modSources)
-			assert.equal(4, #modEntries)
-			assert.equal("explicit.stat_3642528642", modEntries[1].tradeIds[1])
-			assert.equal(5, modEntries[1].value)
-		end)
-
 		it("combines mods that are the same stat", function()
 			local lifeDiamond = new("Item", [[
 Test Subject

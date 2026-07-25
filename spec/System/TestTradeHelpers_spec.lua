@@ -21,11 +21,12 @@ describe("TradeHelpers trade hash matching", function()
 	end)
 
 	describe("findTradeIdOption", function()
-		it("matches a '#'-valued option and returns its value", function()
-			local tradeId, value = tradeHelpers.findTradeIdOption("Grants Level 20 Summon Bestial Snake Skill",
+		it("matches a flattened option stat and returns its value", function()
+			local tradeId, value = tradeHelpers.findTradeIdOption(
+				"Passive skills in radius of Elemental Overload can be Allocated without being connected to your tree",
 				"explicit")
-			assert.equal("explicit.stat_2878779644", tradeId)
-			assert.equal(3, value)
+			assert.equal("explicit.stat_2422708892", tradeId)
+			assert.equal(22088, value)
 		end)
 
 		it("matches an exact-text option and returns no value", function()
