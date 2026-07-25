@@ -79,15 +79,54 @@ end
 
 local _optionTradeStatMap
 
+-- These option stats are still needed for legacy items, but are no longer
+-- included in the trade API's 3.29 stats response.
+local legacyOptionTradeStats = {
+	{
+		type = "explicit",
+		id = "explicit.stat_2878779644",
+		text = "Grants Level 20 Summon Bestial # Skill",
+		options = {
+			{ id = 1, text = "rhoa" },
+			{ id = 2, text = "ursa" },
+			{ id = 3, text = "snake" },
+		},
+	},
+	{
+		type = "explicit",
+		id = "explicit.stat_3642528642",
+		text = "Only affects Passives in # Ring",
+		options = {
+			{ id = 1, text = "small" },
+			{ id = 2, text = "medium" },
+			{ id = 3, text = "large" },
+			{ id = 4, text = "very large" },
+			{ id = 5, text = "massive" },
+		},
+	},
+}
+
 ---@param tradeStats table table of data from https://www.pathofexile.com/api/trade2/data/stats
 ---@return table optionTradeStatMap table containing helper data for matching trade option filters
 local function getOptionTradeStatMap(tradeStats)
 	if _optionTradeStatMap then return _optionTradeStatMap end
-	local optionTradeStatMap = {}
+	local optionTradeStatMap = {
+		exact = {},
+		patterns = {},
+	}
 	for _, cat in ipairs(tradeStats) do
 		if cat.id == "enchant" or cat.id == "explicit" or cat.id == "implicit" then
 			for _, entry in ipairs(cat.entries) do
-				if entry.option and entry.text:match("#") then
+				local tradeId, optionId = entry.id:match("^(.-)|(.+)$")
+				if tradeId and optionId then
+					-- The 3.29 trade API expands option stats into one entry per option,
+					-- with the option value appended to the stat ID.
+					local matchKey = entry.text:gsub(" Passage", ""):lower()
+					optionTradeStatMap.exact[cat.id .. "\0" .. matchKey] = {
+						tradeId = tradeId,
+						value = tonumber(optionId) or optionId,
+					}
+				elseif entry.option and entry.text:match("#") then
 					-- pob parses the passage part as a separate mod line, which
 					-- causes trouble
 					local matchKey = entry.text:gsub("#", "(.*)"):gsub(" Passage", ""):lower()
@@ -95,10 +134,18 @@ local function getOptionTradeStatMap(tradeStats)
 					for _, option in ipairs(entry.option.options) do
 						option.text = option.text and option.text:lower()
 					end
-					optionTradeStatMap[matchKey] = { type = cat.id, options = entry.option.options, tradeId = entry.id }
+					optionTradeStatMap.patterns[matchKey] = { type = cat.id, options = entry.option.options, tradeId = entry.id }
 				end
 			end
 		end
+	end
+	for _, entry in ipairs(legacyOptionTradeStats) do
+		local matchKey = entry.text:gsub("#", "(.*)"):lower()
+		optionTradeStatMap.patterns[matchKey] = optionTradeStatMap.patterns[matchKey] or {
+			type = entry.type,
+			options = entry.options,
+			tradeId = entry.id,
+		}
 	end
 
 	_optionTradeStatMap = optionTradeStatMap
@@ -165,7 +212,11 @@ function M.findTradeIdOption(modLine, modType)
 
 	-- reformat double-line cluster enchants
 	modLine = modLine:gsub(".added small passive skills grant: ", " ")
-	for pat, entry in pairs(optionTradeStatMap) do
+	local exactEntry = optionTradeStatMap.exact[modType .. "\0" .. modLine]
+	if exactEntry then
+		return exactEntry.tradeId, exactEntry.value
+	end
+	for pat, entry in pairs(optionTradeStatMap.patterns) do
 		local match = modLine:match(pat)
 		if entry.type == modType and match then
 			for _, option in ipairs(entry.options) do
