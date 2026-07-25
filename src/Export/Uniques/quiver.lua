@@ -348,7 +348,7 @@ Implicits: 2
 {variant:1,2}AdditionalArrowPierceImplicitQuiver12_
 {variant:3}WeaponElementalDamageImplicitQuiver13New
 {variant:4}QuiverHasOneSocket
-{variant:4}Has 2 Sockets
+{variant:4}HasTwoSocketsUnique__2
 VoidShotOnSkillUseUnique__1_
 AddedColdDamageUnique__7
 IncreasedEnergyShieldUnique__7

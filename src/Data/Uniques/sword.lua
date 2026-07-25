@@ -445,10 +445,10 @@ Adds (75-92) to (125-154) Physical Damage
 {variant:3}(8-12)% increased Area of Effect per Red Socket
 {variant:1,2}+10% to Global Critical Strike Multiplier per Green Socket
 {variant:3}+(10-15)% to Global Critical Strike Multiplier per Green Socket
-{variant:1,2}0.3% of Physical Attack Damage Leeched as Mana per Blue Socket
 {variant:3}(20-30)% increased Global Critical Strike Chance per Blue Socket
-{variant:1,2}8% increased Global Defences per White Socket
+{variant:1,2}0.3% of Physical Attack Damage Leeched as Mana per Blue Socket
 {variant:3}(6-8)% increased Global Defences per Empty Socket
+{variant:1,2}8% increased Global Defences per White Socket
 {variant:1,2}(60-80)% increased Global Critical Strike Chance when in Main Hand
 {variant:1,2}+8% Chance to Block Attack Damage when in Off Hand
 {variant:3}+(10-15)% Chance to Block Attack Damage when in Off Hand

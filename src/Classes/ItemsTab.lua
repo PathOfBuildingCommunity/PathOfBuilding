@@ -61,7 +61,8 @@ for _, entry in pairs(data.flavourText) do
 end
 
 local function isAnointable(item)
-	return (item.canBeAnointed or item.base.type == "Amulet")
+	return item and item.base and not item.base.cannotBeAnointed
+		and (item.canBeAnointed or item.base.type == "Amulet")
 end
 
 local function buildModSortList()
@@ -2627,7 +2628,7 @@ end
 ---@param item table @The item to inspect
 ---@return number @How many additional anoints can still be applied
 function ItemsTabClass:getMissingAnointCount(item)
-	if not item or not item.base or not (item.canBeAnointed or item.base.type == "Amulet") then
+	if not isAnointable(item) then
 		return 0
 	end
 	local maxAnoints = item.canHaveFourEnchants and 4 or item.canHaveThreeEnchants and 3 or item.canHaveTwoEnchants and 2 or 1

@@ -40,7 +40,7 @@ local function parseStatFile(target, order, fileName)
 			elseif not line:match('table_only') then
 				local statLimits, quality, text, special = line:match('([%d%-#| !]+)%s*([%w_]*)%s*"(.-)"%s*(.*)')
 				if statLimits then
-					local desc = { text = text, limit = { } }
+					local desc = { text = escapeGGGString(text), limit = { } }
 					for statLimit in statLimits:gmatch("[!%d%-#|]+") do
 						local limit = { }
 						
@@ -265,6 +265,16 @@ function describeStats(stats)
 				elseif spec.k == "divide_by_two_0dp" then
 					val[spec.v].min = val[spec.v].min / 2
 					val[spec.v].max = val[spec.v].max / 2
+				elseif spec.k == "divide_by_ten_0dp" then
+					val[spec.v].min = val[spec.v].min / 10
+					val[spec.v].max = val[spec.v].max / 10
+				elseif spec.k == "divide_by_fifteen_0dp" then
+					val[spec.v].min = val[spec.v].min / 15
+					val[spec.v].max = val[spec.v].max / 15
+				elseif spec.k == "divide_by_four" then
+					val[spec.v].min = val[spec.v].min / 4
+					val[spec.v].max = val[spec.v].max / 4
+					val[spec.v].fmt = "g"
 				elseif spec.k == "divide_by_five" then
 					val[spec.v].min = val[spec.v].min / 5
 					val[spec.v].max = val[spec.v].max / 5
@@ -371,7 +381,7 @@ function describeStats(stats)
 				elseif spec.k == "plus_two_hundred" then
 					val[spec.v].min = val[spec.v].min + 200
 					val[spec.v].max = val[spec.v].max + 200
-				elseif spec.k == "reminderstring" or spec.k == "canonical_line" or spec.k == "_stat" then
+				elseif spec.k == "reminderstring" or spec.k == "canonical_line" or spec.k == "canonical_stat" or spec.k == "_stat" then
 				elseif spec.k then
 					ConPrintf("Unknown description function: %s", spec.k)
 				end

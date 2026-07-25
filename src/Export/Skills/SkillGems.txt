@@ -22,6 +22,7 @@ Boneshatter of Carnage                       		----		BoneshatterAltY
 Boneshatter of Complex Trauma                		----		BoneshatterAltX
 Call the Pyre                                		----		GraftSkillXophFlamePillars
 Chain Hook                                   		----		ChainHook
+Chain Hook of Angling                        		----		ChainHookAltX
 Chain Hook of Trarthus                       		----		ChainHookAltY
 Cleave                                       		----		Cleave
 Cleave of Rage                               		----		CleaveAltX
@@ -34,6 +35,7 @@ Defiance Banner                              		----		DefianceBanner
 Determination                                		----		Determination
 Devouring Totem                              		----		DevouringTotem
 Divine Blast                                 		----		DivineBlast
+Divine Blast of Radiance                     		----		DivineBlastAltX
 Dominating Blow                              		----		DominatingBlow
 Dominating Blow of Inspiring                 		----		DominatingBlowAltX
 Doryani's Touch                              		----		DoryanisTouch
@@ -65,8 +67,10 @@ His Burning Message                          		----		GraftSkillXophGeyserExplosi
 Holy Flame Totem                             		----		HolyFlameTotem
 Holy Flame Totem of Ire                      		----		HolyFlameTotemAltX
 Holy Hammers                                 		----		HolyHammers
+Holy Hammers of Spirals                      		----		HolyHammersAltX
 Holy Strike                                  		----		HolyStrike
 Holy Sweep                                   		----		Sweep
+Holy Sweep of Hammerfalls                    		----		SweepAltX
 Ice Crash                                    		----		IceCrash
 Ice Crash of Cadence                         		----		IceCrashAltX
 Immortal Call                                		----		ImmortalCall
@@ -93,6 +97,7 @@ Rage Vortex                                  		----		RageVortex
 Rage Vortex of Berserking                    		----		RageVortexAltX
 Rallying Cry                                 		----		RallyingCry
 Reap                                         		----		Reap
+Reap of Butchery                             		----		ReapAltX
 Rejuvenation Totem                           		----		RejuvenationTotem
 Return to Dust                               		----		GraftSkillUulNetolHandSlam
 Searing Bond                                 		----		SearingBond
@@ -183,6 +188,7 @@ Cold to Fire Support                         		----		SupportColdToFire
 Controlled Blaze Support                     		----		SupportControlledBlaze
 Corrupting Cry Support                       		----		SupportCorruptingCry
 Cruelty Support                              		----		SupportCruelty
+Crystalfall Support                          		----		SupportCrystalfall	TriggeredSupportCrystalfall
 Damage on Full Life Support                  		----		SupportDamageOnFullLife
 Divine Blessing Support                      		----		SupportDivineBlessing
 Divine Sentinel Support                      		----		SupportDivineSentinel
@@ -563,8 +569,8 @@ Crackling Lance of Disintegration            		----		CracklingLanceAltY
 Creeping Frost                               		----		CreepingFrost
 Creeping Frost of Floes                      		----		CreepingFrostAltX
 Damage Infusion                              		----		DamageInfusion
-Dark Pact                                    		----		DarkPact
-Dark Pact of Trarthus                        		----		DarkPactAltX
+Dark Bargain                                 		----		DarkPact
+Dark Bargain of Trarthus                     		----		DarkPactAltX
 Despair                                      		----		Despair
 Destructive Link                             		----		DestructiveLink
 Discharge                                    		----		Discharge
@@ -659,6 +665,7 @@ Lightning Trap                               		----		LightningTrap
 Lightning Trap of Sparking                   		----		LightningTrapAltX
 Lightning Warp                               		----		LightningWarp
 Malevolence                                  		----		Malevolence
+Mana-Infused Staff                           		----		ManaInfusedStaff
 Manabond                                     		----		Manabond
 Orb of Storms                                		----		OrbOfStorms
 Orb of Storms of Squalls                     		----		OrbOfStormsAltX
@@ -794,10 +801,12 @@ Cast when Stunned Support                    		----		SupportCastWhenStunned
 Cast while Channelling Support               		----		SupportCastWhileChannelling	SupportCastWhileChannellingTriggered
 Charged Mines Support                        		----		SupportChargedMines
 Combustion Support                           		----		SupportCombustion
+Communion Support                            		----		SupportMinionPact
 Concentrated Effect Support                  		----		SupportConcentratedEffect
 Congregation Support                         		----		SupportCongregation
 Controlled Destruction Support               		----		SupportControlledDestruction
 Cooldown Recovery Support                    		----		SupportCooldownRecovery
+Coursing Current Support                     		----		SupportCrustaceousGrasp
 Cursed Ground Support                        		----		SupportCursedGround
 Decay Support                                		----		SupportDecay
 Devour Support                               		----		SupportDevour
@@ -848,7 +857,6 @@ Meat Shield Support                          		----		SupportMeatShield
 Minefield Support                            		----		SupportMinefield
 Minion Damage Support                        		----		SupportMinionDamage
 Minion Life Support                          		----		SupportMinionLife
-Minion Pact Support                          		----		SupportMinionPact
 Minion Speed Support                         		----		SupportMinionSpeed
 Overcharge Support                           		----		SupportOvercharge
 Overloaded Intensity Support                 		----		SupportOverloadedIntensity
@@ -879,6 +887,10 @@ Death Aura                                   		----		DeathAura
 Detonate Mines                               		----		GemDetonateMines
 Gluttony of Elements                         		----		GluttonyOfElements
 Order: To me!                                		----		CallMercenary
+Pact of Beidat                               		----		PactOfBeidat
+Pact of Ghorr                                		----		PactOfGhorr	TriggeredBloodrend
+Pact of K'Tash                               		----		PactOfKtash
+Pact of Lycia                                		----		PactOfLycia	TriggeredHeavensScourge
 Portal                                       		----		Portal
 Static Tether                                		----		StaticTether
 Vaal Breach                                  		----		VaalBreach

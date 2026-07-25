@@ -96,4 +96,24 @@ Can be Anointed
 		assert.are.equals("Belt", overrides[1].repSlotName)
 		assert.are.equals("Belt", overrides[2].repSlotName)
 	end)
+
+	it("does not report missing anoints for non-anointable talisman bases", function()
+		if not common.classes.ItemsTab then
+			LoadModule("Classes/ItemsTab")
+		end
+		local fakeItemsTab = setmetatable({ }, common.classes.ItemsTab)
+		local item = {
+			base = {
+				type = "Amulet",
+				cannotBeAnointed = true,
+			},
+			enchantModLines = { },
+			scourgeModLines = { },
+			implicitModLines = { },
+			explicitModLines = { },
+			crucibleModLines = { },
+		}
+
+		assert.are.equals(0, fakeItemsTab:getMissingAnointCount(item))
+	end)
 end)

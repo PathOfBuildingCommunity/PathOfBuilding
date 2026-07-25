@@ -26,6 +26,34 @@ describe("TestItemParse", function()
 		assert.are.equals("Plate Vest", item.baseName)
 	end)
 
+	it("adds talisman base mods as enchants", function()
+		local baseName = "Test Talisman"
+		data.itemBases[baseName] = {
+			type = "Amulet",
+			subType = "Talisman",
+			tags = { amulet = true, talisman = true },
+			req = { },
+			enchant = "+10 to Strength",
+			enchantModTypes = { { "attribute" } },
+			cannotBeAnointed = true,
+		}
+
+		local item = new("Item", "Rarity: Normal\n" .. baseName)
+
+		assert.are.equals(1, #item.enchantModLines)
+		assert.are.equals("+10 to Strength", item.enchantModLines[1].line)
+		assert.truthy(item.enchantModLines[1].crafted)
+		assert.truthy(item.enchantModLines[1].implicit)
+		assert.are.same({ "attribute" }, item.enchantModLines[1].modTags)
+		assert.truthy(item.base.cannotBeAnointed)
+
+		item:BuildAndParseRaw()
+		assert.are.equals(1, #item.enchantModLines)
+		assert.truthy(item.enchantModLines[1].crafted)
+		assert.truthy(item.enchantModLines[1].implicit)
+		data.itemBases[baseName] = nil
+	end)
+
 	it("Two-Toned Boots", function()
 		local item = new("Item", raw("", "Two-Toned Boots"))
 		assert.are.equals("Two-Toned Boots (Armour/Energy Shield)", item.baseName)

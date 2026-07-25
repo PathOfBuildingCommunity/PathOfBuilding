@@ -289,7 +289,7 @@ Variant: Pre 3.5.0
 Variant: Current
 Requires Level 68, 76 Dex, 149 Int
 Implicits: 1
-40% increased Global Critical Strike Chance
+(50-55)% increased Global Critical Strike Chance
 Adds (85-110) to (135-150) Physical Damage
 Adds (130-160) to (220-240) Fire Damage
 {variant:2}50% chance to cause Bleeding on Hit
@@ -312,7 +312,7 @@ Variant: Pre 3.16.0
 Variant: Current
 Requires Level 66, 95 Dex, 131 Int
 Implicits: 1
-30% increased Global Critical Strike Chance
+(40-45)% increased Global Critical Strike Chance
 Adds (160-190) to (280-320) Cold Damage
 (10-15)% increased Attack Speed
 {variant:1}+(300-400) to Evasion Rating

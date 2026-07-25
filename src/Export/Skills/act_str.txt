@@ -494,6 +494,18 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill DivineBlastAltX
+#flags attack area shieldAttack
+	parts = {
+		{
+			name = "Beam Implosion",
+		},
+		{
+			name = "Explosion",
+		},
+	},
+#mods
+
 #skill DominatingBlow
 #flags attack melee duration minion
 	minionList = {
@@ -1051,6 +1063,15 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill HolyHammersAltX
+#flags attack area melee
+	statMap = {
+		["holy_hammers_damage_+%_final_per_power_charge_consumed"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "RemovablePowerCharge" }),
+		},
+	},
+#mods
+
 #skill HolyStrike
 #flags attack melee minion duration
 	minionList = {
@@ -1068,6 +1089,25 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill Sweep
+#flags attack melee area
+	parts = {
+		{
+			name = "Melee Hit",
+		},
+		{
+			name = "Holy Hammer",
+		},
+	},
+	statMap = {
+		["holy_sweep_hammerfall_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		},
+	},
+#baseMod skill("radius", 24)
+#baseMod flag("CannotBeEvaded", { type = "SkillPart", skillPart = 2 })
+#mods
+
+#skill SweepAltX
 #flags attack melee area
 	parts = {
 		{
@@ -2090,6 +2130,28 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill Reap
+#flags spell area duration
+	statMap = {
+		["blood_scythe_damage_+%_final_per_charge"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "BloodCharge" }),
+		},
+		["blood_scythe_cost_+%_final_per_charge"] = {
+			mod("LifeCost", "MORE", nil, 0, 0, { type = "Multiplier", var = "BloodCharge" }),
+		},
+		["base_physical_damage_to_deal_per_minute"] = {
+			skill("PhysicalDot", nil, { type = "Condition", var = "ReapDebuffIsFireDamage", neg = true }),
+			skill("FireDot", nil, { type = "Condition", var = "ReapDebuffIsFireDamage"}),
+			div = 60,
+		},
+		["quality_display_reap_is_gem"] = {
+			-- Display only
+		},
+	},
+#baseMod skill("radius", 25)
+#baseMod skill("debuff", true)
+#mods
+
+#skill ReapAltX
 #flags spell area duration
 	statMap = {
 		["blood_scythe_damage_+%_final_per_charge"] = {

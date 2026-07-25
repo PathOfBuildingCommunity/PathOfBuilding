@@ -168,10 +168,10 @@ describe("TestAttacks", function()
 	end)
 	it("Test cost efficiency modifiers", function()
 		-- Test Mana Cost Efficiency
-		build.skillsTab:PasteSocketGroup("Ball Lightning 1/0  1\n")
+		build.skillsTab:PasteSocketGroup("Hydrosphere 1/0  1\n")
 		runCallback("OnFrame")
 
-		-- Get base mana cost (Ball Lightning level 1 has 12 mana cost)
+		-- Get base mana cost (Hydrosphere level 1 has 12 mana cost)
 		local baseCost = build.calcsTab.mainOutput.ManaCost
 		assert.are.equals(12, baseCost)
 
@@ -185,7 +185,7 @@ describe("TestAttacks", function()
 
 		-- Test generic cost efficiency (should also affect mana)
 		newBuild()
-		build.skillsTab:PasteSocketGroup("Ball Lightning 1/0  1\n")
+		build.skillsTab:PasteSocketGroup("Hydrosphere 1/0  1\n")
 		build.configTab.input.customMods = "25% increased Cost Efficiency"
 		build.configTab:BuildModList()
 		runCallback("OnFrame")
@@ -205,7 +205,7 @@ describe("TestAttacks", function()
 
 	it("Test cost efficiency with cost modifiers", function()
 		-- Test interaction between cost efficiency and cost multipliers
-		build.skillsTab:PasteSocketGroup("Ball Lightning 1/0  1\n")
+		build.skillsTab:PasteSocketGroup("Hydrosphere 1/0  1\n")
 
 		-- Add cost multiplier and efficiency
 		build.configTab.input.customMods = "50% increased Mana Cost\n50% increased Mana Cost Efficiency"

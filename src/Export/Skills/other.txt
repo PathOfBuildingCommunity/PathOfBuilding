@@ -709,6 +709,24 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
+#skill PactOfBeidat
+#mods
+
+#skill PactOfGhorr
+#mods
+
+#skill TriggeredBloodrend
+#mods
+
+#skill PactOfKtash
+#mods
+
+#skill PactOfLycia
+#mods
+
+#skill TriggeredHeavensScourge
+#mods
+
 #skill Portal
 #flags spell
 #mods

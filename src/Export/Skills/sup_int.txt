@@ -193,6 +193,9 @@ local skills, mod, flag, skill = ...
 #skill SupportCooldownRecovery
 #mods
 
+#skill SupportCrustaceousGrasp
+#mods
+
 #skill SupportCursedGround
 #mods
 
@@ -664,10 +667,11 @@ local skills, mod, flag, skill = ...
 
 #skill SupportMinionPact
 	statMap = {
-		["support_minion_pact_sacrifice_nearby_damageable_minion_to_gain_permillage_of_max_life_as_physical_damage"] = {
-			mod("PhysicalMin", "BASE", nil, 0, 0, { type = "Multiplier", var = "MinionLife" }),
-			mod("PhysicalMax", "BASE", nil, 0, 0, { type = "Multiplier", var = "MinionLife" }),
-			div = 1000,
+		["spell_minimum_added_physical_damage_per_active_permanent_minion"] = {
+			mod("PhysicalMin", "BASE", nil, 0, 0, { type = "Multiplier", var = "SummonedMinion" }),
+		},
+		["spell_maximum_added_physical_damage_per_active_permanent_minion"] = {
+			mod("PhysicalMax", "BASE", nil, 0, 0, { type = "Multiplier", var = "SummonedMinion" }),
 		},
 	},
 #mods

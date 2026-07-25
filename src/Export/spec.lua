@@ -2005,6 +2005,34 @@ return {
 			refTo="ShopTag",
 			type="Key",
 			width=150
+		},
+		[33]={
+			list=true,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[34]={
+			list=true,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[35]={
+			list=true,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[36]={
+			list=true,
+			name="EnchantMods",
+			refTo="Mods",
+			type="Key",
+			width=300
 		}
 	},
 	battlepasses={

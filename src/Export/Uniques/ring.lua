@@ -498,7 +498,7 @@ CanInflictMultipleIgnitesUniqueRing38
 {variant:1}EmberwakeLessBurningDamageUniqueRing38[80,80]
 {variant:2}EmberwakeLessBurningDamageUniqueRing38[65,65]
 {variant:3}EmberwakeLessBurningDamageUniqueRing38[65,50]
-{variant:4}EmberwakeLessBurningDamageUnique__1[40,40]
+{variant:4}EmberwakeLessBurningDamageUnique__1[-40,-40]
 {variant:5}EmberwakeLessBurningDamageUnique__1
 ]],[[
 Replica Emberwake
@@ -563,7 +563,7 @@ Requires Level 64
 Implicits: 1
 CriticalStrikeChanceImplicitRing1
 IncreasedAttackSpeedUniqueRing37
-IncreasedCastSpeedUniqueRing38
+IncreasedCastSpeedUnique__15_
 IncreasedEnergyShieldUnique__13
 IncreasedLifeUnique__15
 AttackCriticalStrikesUnnerveUnique__1
@@ -895,7 +895,7 @@ StrengthUniqueRing31__
 {variant:1}AddedFireDamageUniqueRing31[8,10][12,14]
 {variant:2}AddedFireDamageUniqueRing31[8,10][12,14]
 {variant:3,4}AddedFireDamageUniqueRing31
-{variant:4}{tags:defences}+(400-600) to Armour
+{variant:4}IncreasedPhysicalDamageReductionRatingUnique__12
 {variant:1}LifeGainOnHitVsIgnitedEnemiesUniqueRing31
 BurnDurationUniqueRing31
 {variant:1}IncreasedChanceToIgniteUniqueRing31[5,5]
@@ -970,7 +970,7 @@ IncreasedManaUnique__8
 AddedManaRegenerationUnique__1
 ReduceGlobalFlatManaCostUnique__1
 PercentDamageGoesToManaUnique__1
-{variant:2}{tags:resource}(20-30)% increased Mana Cost Efficiency
+{variant:2}ManaCostEfficiencyUnique__1
 ]],[[
 Profane Proxy
 Unset Ring
@@ -1177,7 +1177,7 @@ Implicits: 1
 ColdResistImplicitRing1
 {variant:1}ColdDamagePercentUnique__9
 {variant:2}SpellDamageUnique__11
-IncreasedCastSpeedUniqueRing38
+IncreasedCastSpeedUnique__15_
 {variant:1}AdditionalSpellProjectilesUnique__1
 {variant:2}LeftRingSpellProjectilesCannotChainUnique__1
 {variant:2}LeftRingSpellProjectilesForkUnique__1_
@@ -1286,7 +1286,7 @@ Implicits: 1
 IncreasedEnergyShieldImplicitRing1
 SpellDamageUnique__16
 IncreasedManaUnique__27
-{variant:2}{tags:defences}+(60-80) to maximum Energy Shield
+{variant:2}IncreasedEnergyShieldUnique__14
 ChanceToFreezeShockIgniteUnique__3
 GainSpellCostAsESUnique__1
 ]],[[

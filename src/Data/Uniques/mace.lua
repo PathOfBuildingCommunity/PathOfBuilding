@@ -575,10 +575,10 @@ Implicits: 2
 {variant:3,4}Adds (1-10) to (150-200) Lightning Damage to Spells
 (14-18)% increased Cast Speed
 {variant:1,2,3}(6-8)% reduced Mana Cost of Skills
-{variant:4}(10-20)% increased Mana Cost Efficiency
 Nearby Enemies are Hindered, with 25% reduced Movement Speed
 {variant:1,2}(60-80)% increased Damage with Hits and Ailments against Hindered Enemies
 {variant:3,4}100% increased Damage with Hits and Ailments against Hindered Enemies
+{variant:4}(10-20)% increased Mana Cost Efficiency
 ]],[[
 Spine of the First Claimant
 Iron Sceptre
@@ -629,8 +629,8 @@ Implicits: 1
 (80-120)% increased Damage with Vaal Skills
 (6-8)% reduced Soul Gain Prevention Duration
 Gain an Endurance Charge, Frenzy Charge, and Power Charge when you use a Vaal Skill
-Shepherd of Souls
 {variant:2}+(1-2) to Level of all Vaal Skill Gems
+Shepherd of Souls
 ]],[[
 Cadigan's Authority
 Platinum Sceptre
@@ -912,11 +912,8 @@ Socketed Gems are Supported by Level 20 Endurance Charge on Melee Stun
 {variant:1}Adds (60-70) to (300-350) Physical Damage
 {variant:2,3,4}Adds (70-80) to (340-375) Physical Damage
 {variant:1,2,3}10% increased Physical Damage per Endurance Charge
-{variant:4}50% chance to gain a Brine Charge instead of an Endurance Charge
-{variant:4}Gain 4% of Physical Damage as Extra Cold Damage per Brine Charge
-{variant:4}Gain 4% of Physical Damage as Extra Lightning Damage per Brine Charge
-{variant:4}Maximum Brine Charges is equal to Maximum Endurance Charges
 (20-30)% reduced Enemy Stun Threshold with this Weapon
+{variant:4}50% chance to gain a Brine Charge instead of an Endurance Charge
 ]],[[
 Trypanon
 Great Mallet

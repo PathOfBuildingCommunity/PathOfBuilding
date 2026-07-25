@@ -13,11 +13,11 @@ Implicits: 3
 {variant:1}(9-12)% increased Spell Damage
 {variant:2}(10-14)% increased Spell Damage
 {variant:3,4}Adds (1-2) to (3-4) Fire Damage to Spells and Attacks
+{variant:4}+(30-50)% to Damage over Time Multiplier for Ignite from Critical Strikes
 {variant:1,2,3}(20-30)% increased Fire Damage
 Adds (4-6) to (8-12) Fire Damage to Spells
 {variant:1,2,3}(40-60)% increased Global Critical Strike Chance
 {variant:4}(80-120)% increased Global Critical Strike Chance
-{variant:4}+(30-50)% to Damage over Time Multiplier for Ignite from Critical Strikes
 Gain 10 Life per Ignited Enemy Killed
 25% reduced Ignite Duration on Enemies
 ]],[[
@@ -102,7 +102,7 @@ Variant: Pre 3.10.0
 Variant: Current
 LevelReq: 63
 Implicits: 1
-(29-33)% increased Spell Damage
+(30-34)% increased Spell Damage
 Triggers Level 20 Blinding Aura when Equipped
 {variant:1}Adds (18-22) to (36-44) Physical Damage
 {variant:2}Adds (30-45) to (60-80) Fire Damage
@@ -343,7 +343,7 @@ Implicits: 2
 {variant:1,2,3}Adds (26-35) to (95-105) Lightning Damage to Spells
 {variant:4}+1 to Maximum Power Charges
 +(6-10)% to Critical Strike Multiplier per Power Charge
-+0.3% Critical Strike Chance per Power Charge
++0.3% to Critical Strike Chance per Power Charge
 +2% Chance to Block Spell Damage per Power Charge
 {variant:1,2,3}Adds 3 to 9 Lightning Damage to Spells per Power Charge
 {variant:4}Adds 3 to (15-25) Lightning Damage to Spells per Power Charge
