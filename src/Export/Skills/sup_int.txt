@@ -193,6 +193,9 @@ local skills, mod, flag, skill = ...
 #skill SupportCooldownRecovery
 #mods
 
+#skill SupportCrustaceousGrasp
+#mods
+
 #skill SupportCursedGround
 #mods
 
