@@ -401,7 +401,7 @@ SpellDamageUnique__5
 LocalIncreasedPhysicalDamagePercentUnique__27
 LocalAddedLightningDamageUnique__5
 SpellAddedLightningDamageUnique__4
-AreaOfEffectUnique__2_
+AreaOfEffectUnique__3
 ]],[[
 The Surging Thoughts
 Legion Sword
@@ -438,16 +438,16 @@ Implicits: 2
 {variant:1}AccuracyPercentImplicitSword1[18,18]
 {variant:2,3}AccuracyPercentImplicitSword1
 LocalAddedPhysicalDamageUnique__7_
-{variant:1,2}LocalCriticalStrikeChanceUnique14[15,25]
-{variant:3}LocalCriticalStrikeChanceUnique14
+{variant:1,2}LocalCriticalStrikeChanceUnique__5[15,25]
+{variant:3}LocalCriticalStrikeChanceUnique__5
 {variant:1,2}LifeLeechFromPhysicalAttackDamagePerRedSocket_Unique_1
-{variant:3}(8-12)% increased Area of Effect per Red Socket
+{variant:3}AreaOfEffectPerRedSocketUnique__1
 {variant:1,2}CriticalStrikeMultiplierPerGreenSocketUnique_1[10,10]
 {variant:3}CriticalStrikeMultiplierPerGreenSocketUnique_1
 {variant:1,2}ManaLeechPermyriadFromPhysicalDamagePerBlueSocketUnique
-{variant:3}(20-30)% increased Global Critical Strike Chance per Blue Socket
+{variant:3}CriticalStrikeChancePerBlueSocketUnique__1
 {variant:1,2}GlobalDefensesPerWhiteSocketUnique__1
-{variant:3}(6-8)% increased Global Defences per Empty Socket
+{variant:3}GlobalDefensesPerEmptySocketUnique__1
 {variant:1,2}CriticalStrikeChanceInMainHandUnique_1
 {variant:1,2}AdditionalChanceToBlockInOffHandUnique_1[8,8]
 {variant:3}AdditionalChanceToBlockInOffHandUnique_1

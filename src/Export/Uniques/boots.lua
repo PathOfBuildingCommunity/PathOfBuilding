@@ -46,11 +46,11 @@ Requires Level 68, 120 Str
 {variant:2,5,8,11,14,17}AddedColdDamageUnique__4
 {variant:3,6,9,12,15,18}AddedLightningDamageUnique__2_
 {variant:1,2,3,4,5,6,7,8,9}LocalIncreasedPhysicalDamageReductionRatingPercentUnique__10[100,120]
-{variant:10,11,12,13,14,15,16,17,18}LocalIncreasedPhysicalDamageReductionRatingPercentUnique__10
+{variant:10,11,12,13,14,15,16,17,18}LocalIncreasedPhysicalDamageReductionRatingPercentUnique__13
 {variant:1,2,3,4,5,6,7,8,9}IncreasedLifeUnique__60[60,70]
 {variant:10,11,12,13,14,15,16,17,18}IncreasedLifeUnique__60
-{variant:1,2,3,4,5,6,7,8,9}MovementVelocityUniqueBootsA1[30,30]
-{variant:10,11,12,13,14,15,16,17,18}MovementVelocityUniqueBootsA1
+{variant:1,2,3,4,5,6,7,8,9}MovementVelocityUniqueBootsA1
+{variant:10,11,12,13,14,15,16,17,18}MovementVelocityUnique__22
 {variant:10,11,12,13,14,15,16,17,18}Corrupted
 ]],[[
 The Infinite Pursuit
@@ -319,10 +319,10 @@ Requires Level 69, 120 Dex
 {variant:3,6,9,12,15,18}AddedLightningDamageUnique__2_
 {variant:1,2,3,4,5,6,7,8,9}LocalIncreasedEvasionRatingPercentUnique__10[100,120]
 {variant:10,11,12,13,14,15,16,17,18}LocalIncreasedEvasionRatingPercentUnique__10
-{variant:1,2,3,4,5,6,7,8,9}IncreasedLifeUnique__57[60,70]
-{variant:10,11,12,13,14,15,16,17,18}IncreasedLifeUnique__57
-{variant:1,2,3,4,5,6,7,8,9}MovementVelocityUniqueBootsA1[30,30]
-{variant:10,11,12,13,14,15,16,17,18}MovementVelocityUniqueBootsA1
+{variant:1,2,3,4,5,6,7,8,9}IncreasedLifeUnique__60[60,70]
+{variant:10,11,12,13,14,15,16,17,18}IncreasedLifeUnique__60
+{variant:1,2,3,4,5,6,7,8,9}MovementVelocityUniqueBootsA1
+{variant:10,11,12,13,14,15,16,17,18}MovementVelocityUnique__22
 {variant:10,11,12,13,14,15,16,17,18}Corrupted
 ]],[[
 Farrul's Chase
@@ -506,13 +506,12 @@ Requires Level 67, 120 Int
 {variant:2,5,8,11,14,17,20,23,26}AddedColdDamageUnique__4
 {variant:3,6,9,12,15,18,21,24,27}AddedLightningDamageUnique__2_
 {variant:1,2,3,4,5,6,7,8,9}LocalIncreasedEnergyShieldPercentUnique__10[180,220]
-{variant:10,11,12,13,14,15,16,17,18}LocalIncreasedEnergyShieldPercentUnique__10[150,180]
-{variant:19,20,21,22,23,24,25,26,27}LocalIncreasedEnergyShieldPercentUnique__10
-IncreasedLifeUnique__55
-{variant:1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18}IncreasedLifeUnique__55[60,70]
-{variant:19,20,21,22,23,24,25,26,27}IncreasedLifeUnique__55
-{variant:1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18}MovementVelocityUniqueBootsA1[30,30]
-{variant:19,20,21,22,23,24,25,26,27}MovementVelocityUniqueBootsA1
+{variant:10,11,12,13,14,15,16,17,18}LocalIncreasedEnergyShieldPercentUnique__10
+{variant:19,20,21,22,23,24,25,26,27}LocalIncreasedEnergyShieldPercentUnique__13
+{variant:1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18}IncreasedLifeUnique__60[60,70]
+{variant:19,20,21,22,23,24,25,26,27}IncreasedLifeUnique__60
+{variant:1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18}MovementVelocityUniqueBootsA1
+{variant:19,20,21,22,23,24,25,26,27}MovementVelocityUnique__22
 {variant:19,20,21,22,23,24,25,26,27}Corrupted
 ]],[[
 Inya's Epiphany
@@ -688,7 +687,7 @@ MovementVelocityUniqueBootsA1
 {variant:3}EnemiesExplodeOnDeathChaosGloriousMadnessUnique1
 {variant:2}ElementalConfluxesGloriousMadnessUnique1
 {variant:2}ElementalAilmentImmunityGloriousMadnessUnique1
-{variant:1}FortifyEffectSelfGloriousMadnessUnique1[15,15]
+{variant:1}FortifyEffectSelfGloriousMadnessUnique1
 ]],[[
 Darkray Vectors
 Dragonscale Boots

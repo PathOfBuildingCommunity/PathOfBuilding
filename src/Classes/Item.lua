@@ -327,6 +327,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 	self.rawLines = { }
 	-- Find non-blank lines and trim whitespace
 	for line in raw:gmatch("%s*([^\n]*%S)") do
+		line = escapeGGGString(line)
 		t_insert(self.rawLines, line)
 	end
 	local mode = rarity and "GAME" or "WIKI"
@@ -1088,6 +1089,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					if gameModeStage == "IMPLICIT" or gameModeStage == "EXPLICIT" or (gameModeStage == "FINDIMPLICIT" and (not data.itemBases[line]) and not (self.name == line) and not line:find("Two%-Toned") and not (self.base and (line == self.base.type or self.base.subType and line == self.base.subType .. " " .. self.base.type))) then
 						modLine.modList = { }
 						modLine.extra = line
+						modLine.range = main.defaultItemAffixQuality
 						t_insert(modLines, modLine)
 					elseif gameModeStage == "FINDEXPLICIT" then
 						gameModeStage = "DONE"
@@ -1314,6 +1316,22 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 			self:NormaliseQuality()
 		end
 	end
+	if self.base and self.base.enchant and #self.enchantModLines == 0 then
+		local enchantIndex = 1
+		for line in self.base.enchant:gmatch("[^\n]+") do
+			local modList, extra = modLib.parseMod(line)
+			t_insert(self.enchantModLines, {
+				line = line,
+				crafted = true,
+				implicit = true,
+				enchant = true,
+				extra = extra,
+				modList = modList or { },
+				modTags = self.base.enchantModTypes and self.base.enchantModTypes[enchantIndex] or { },
+			})
+			enchantIndex = enchantIndex + 1
+		end
+	end
 	self:BuildModList()
 	if deferJewelRadiusIndexAssignment then
 		self.jewelRadiusIndex = self.jewelData.radiusIndex
@@ -1514,6 +1532,9 @@ function ItemClass:BuildRaw()
 		end
 		if modLine.crafted then
 			line = "{crafted}" .. line
+		end
+		if modLine.enchant then
+			line = "{enchant}" .. line
 		end
 		if modLine.custom then
 			line = "{custom}" .. line

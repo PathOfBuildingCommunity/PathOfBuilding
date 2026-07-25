@@ -661,7 +661,7 @@ describe("TestDefence", function()
 			local minionLife = build.calcsTab.mainEnv.player.allyLifeList.TotalMinionLife[1].life
 			assert.are.equals(15, output.MinionAllyDamageMitigation)
 			assert.are.equals(minionLife, output.TotalMinionLife)
-			assert.are.near(unsupportedLife * 1.6, minionLife, 20)
+			assert.are.near(unsupportedLife, minionLife, 20)
 		end)
 
 		it("requires exactly one summoned minion for Companionship", function()

@@ -1860,7 +1860,7 @@ Implicits: 0
 {variant:15}MinionAccuracyRatingPerDevotion_
 {variant:16}AddedManaRegenerationPerDevotion
 {variant:17}ReducedManaCostPerDevotion
-{variant:20}3% increased Mana Cost Efficiency per 10 Devotion
+{variant:20}ManaCostEfficiencyPerDevotion
 {variant:18}AuraEffectPerDevotion
 {variant:19}ShieldDefencesPerDevotion
 Passives in radius are Conquered by the Templars

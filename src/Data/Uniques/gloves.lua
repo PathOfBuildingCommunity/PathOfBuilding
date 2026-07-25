@@ -117,8 +117,8 @@ Requires Level 47, 68 Str
 Socketed Gems are Supported by Level 30 Rage
 (120-150)% increased Armour
 {variant:1}(10-25)% reduced Rage Cost of Skills
-{variant:2}(20-40)% increased Rage Cost Efficiency
 Vaal Attack Skills you Use yourself Cost Rage instead of requiring Souls
+{variant:2}(20-40)% increased Rage Cost Efficiency
 You cannot gain Rage during Soul Gain Prevention
 ]],[[
 Empire's Grasp
@@ -669,9 +669,9 @@ Socketed Gems are Supported by Level 5 Concentrated Effect
 (120-160)% increased Armour and Evasion
 +(50-70) to maximum Life
 {variant:1}4% reduced Mana Cost per Endurance Charge
-{variant:2}10% increased Mana Cost Efficiency per Endurance Charge
 Gain Rampage while at Maximum Endurance Charges
 Lose all Endurance Charges when Rampage ends
+{variant:2}10% increased Mana Cost Efficiency per Endurance Charge
 ]],[[
 Tanu Ahi
 Wyrmscale Gauntlets
@@ -840,14 +840,14 @@ Variant: Pre 3.29.0
 Variant: Current
 Requires Level 32, 26 Str, 26 Int
 (80-120)% increased Armour and Energy Shield
-{variant:1}Minions convert 25% of Physical Damage to Fire Damage per Red Socket
-{variant:1}Minions convert 25% of Physical Damage to Cold Damage per Green Socket
-{variant:1}Minions convert 25% of Physical Damage to Lightning Damage per Blue Socket
-{variant:1}Minions convert 25% of Physical Damage to Chaos Damage per White Socket
 {variant:2}Minions convert 25% of Physical Damage to Fire Damage per Socketed Red Gem
+{variant:1}Minions convert 25% of Physical Damage to Fire Damage per Red Socket
 {variant:2}Minions convert 25% of Physical Damage to Cold Damage per Socketed Green Gem
+{variant:1}Minions convert 25% of Physical Damage to Cold Damage per Green Socket
 {variant:2}Minions convert 25% of Physical Damage to Lightning Damage per Socketed Blue Gem
+{variant:1}Minions convert 25% of Physical Damage to Lightning Damage per Blue Socket
 {variant:2}Minions convert 25% of Physical Damage to Chaos Damage per Empty Socket
+{variant:1}Minions convert 25% of Physical Damage to Chaos Damage per White Socket
 Minions have (5-10)% chance to Freeze, Shock and Ignite
 ]],[[
 Volkuur's Guidance
@@ -1083,8 +1083,7 @@ Requires Level 31, 25 Dex, 25 Int
 {variant:2}+(25-45)% to Global Critical Strike Multiplier
 {variant:3}+(20-30)% to Global Critical Strike Multiplier
 (100-130)% increased Evasion and Energy Shield
-{variant:1}0.2% of Physical Attack Damage Leeched as Mana
-{variant:2}0.2% of Physical Attack Damage Leeched as Mana
+{variant:1,2}0.2% of Physical Attack Damage Leeched as Mana
 {variant:3}0.2% of Attack Damage Leeched as Mana
 Creates a Smoke Cloud on Rampage
 Gain Unholy Might for 3 seconds on Rampage

@@ -17,7 +17,7 @@ Implicits: 3
 SpellAddedFireDamageUniqueWand10
 {variant:1,2,3}CriticalStrikeChanceUniqueWand10[40,60]
 {variant:4}CriticalStrikeChanceUniqueWand10
-{variant:4}+(30-50)% to Damage over Time Multiplier for Ignite from Critical Strikes
+{variant:4}CriticalIgniteDotMultiplierUnique__1
 LifeGainedOnKillingIgnitedEnemiesUniqueWand10_
 BurnDurationUniqueWand10
 ]],[[
@@ -336,11 +336,11 @@ Implicits: 2
 {variant:3,4}AddedLightningDamageSpellsAndAttacksImplicit3
 {variant:1,2,3}SpellDamageUniqueWand1
 {variant:1,2,3}SpellAddedLightningDamageUnique__5
-{variant:4}+1 to Maximum Power Charges
+{variant:4}IncreasedMaximumPowerChargesUnique__5
 CriticalMultiplierPerPowerChargeUnique__1
 AdditionalCriticalStrikeChancePerPowerChargeUnique__1
 ChanceToBlockSpellsPerPowerChargeUnique__1
-{variant:1,2,3}AddedLightningDamagePerPowerChargeUnique__1[3,3,][9,9]
+{variant:1,2,3}AddedLightningDamagePerPowerChargeUnique__1[3,3][9,9]
 {variant:4}AddedLightningDamagePerPowerChargeUnique__1
 {variant:1}DamageTakenPerPowerChargeOnCritUnique__1[24000,24000]
 {variant:2,3}DamageTakenPerPowerChargeOnCritUnique__1[12000,12000]
@@ -401,8 +401,8 @@ Implicits: 2
 {variant:3}AddedColdDamagePerPowerChargeUnique__2
 LosePowerChargesOnMaxPowerChargesUnique__2
 WhenReachingMaxPowerChargesGainAFrenzyChargeUnique__1
-{variant:1}IncreasedColdDamagePerFrenzyChargeUnique__2[10,15]
-{variant:2}IncreasedColdDamagePerFrenzyChargeUnique__2
+{variant:1}IncreasedColdDamagePerFrenzyChargeUnique__1[10,15]
+{variant:2}IncreasedColdDamagePerFrenzyChargeUnique__1
 ]],[[
 Replica Tulfall
 {variant:1}Tornado Wand
@@ -418,8 +418,8 @@ Implicits: 2
 IncreasedCastSpeedUnique__22
 LosePowerChargesOnMaxPowerChargesUnique__1
 WhenReachingMaxPowerChargesGainAFrenzyChargeUnique__1
-{variant:1,2}IncreasedColdDamagePerFrenzyChargeUnique__1[15,20]
-{variant:3}IncreasedColdDamagePerFrenzyChargeUnique__1
+{variant:1,2}IncreasedColdDamagePerFrenzyChargeUnique__2[15,20]
+{variant:3}IncreasedColdDamagePerFrenzyChargeUnique__2
 PowerChargeOnHittingFrozenEnemyUnique__1
 TakeColdDamageOnMaximumPowerChargesUnique__1____
 ]],[[

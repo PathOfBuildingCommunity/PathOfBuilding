@@ -311,6 +311,15 @@ itemBases["Anarchic Spiritblade"] = {
 	weapon = { PhysicalMin = 34, PhysicalMax = 63, CritChanceBase = 6.5, AttackRateBase = 1.6, Range = 11, },
 	req = { level = 70, str = 121, dex = 121, },
 }
+itemBases["Ghostflame Blade"] = {
+	type = "One Handed Sword",
+	socketLimit = 3,
+	tags = { default = true, not_for_sale = true, one_hand_weapon = true, onehand = true, sword = true, weapon = true, },
+	influenceTags = { shaper = "sword_shaper", elder = "sword_elder", adjudicator = "sword_adjudicator", basilisk = "sword_basilisk", crusader = "sword_crusader", eyrie = "sword_eyrie", cleansing = "sword_cleansing", tangle = "sword_tangle" },
+	implicitModTypes = { },
+	weapon = { PhysicalMin = 21, PhysicalMax = 82, CritChanceBase = 6.5, AttackRateBase = 1.55, Range = 11, },
+	req = { level = 68, str = 113, dex = 113, },
+}
 itemBases["Random One Hand Sword"] = {
 	type = "One Handed Sword",
 	socketLimit = 3,

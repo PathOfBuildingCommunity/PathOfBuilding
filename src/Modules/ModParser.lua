@@ -386,6 +386,7 @@ local modNameList = {
 	["to avoid lightning damage from hits"] = "AvoidLightningDamageChance",
 	["to avoid elemental damage when hit"] = { "AvoidFireDamageChance", "AvoidColdDamageChance", "AvoidLightningDamageChance" },
 	["to avoid elemental damage from hits"] = { "AvoidFireDamageChance", "AvoidColdDamageChance", "AvoidLightningDamageChance" },
+	["to avoid damage of each element from hits"] = { "AvoidFireDamageChance", "AvoidColdDamageChance", "AvoidLightningDamageChance" },
 	["to avoid projectiles"] = "AvoidProjectilesChance",
 	["to avoid being stunned"] = "AvoidStun",
 	["to avoid interruption from stuns while casting"] = "AvoidInterruptStun",
@@ -3342,6 +3343,7 @@ local specialModList = {
 	["increases and reductions to spell damage also apply to attacks"] = { flag("SpellDamageAppliesToAttacks") },
 	["arcane might"] = { flag("SpellDamageAppliesToAttacks") },
 	["(%d+)%% arcane might"] = function(num) return { flag("SpellDamageAppliesToAttacks"), mod("ImprovedSpellDamageAppliesToAttacks", "MAX", num) } end,
+	["attacks have (%d+)%% arcane might"] = function(num) return { flag("SpellDamageAppliesToAttacks"), mod("ImprovedSpellDamageAppliesToAttacks", "MAX", num) } end,
 	["attacks have (%d+)%% arcane might while wielding a wand"] = function(num) return { flag("SpellDamageAppliesToAttacks", { type = "Condition", var = "UsingWand" }), mod("ImprovedSpellDamageAppliesToAttacks", "MAX", num, { type = "Condition", var = "UsingWand" }), } end,
 	["retaliation skills have (%d+)%% arcane might"] = function(num) return {
 		flag("SpellDamageAppliesToAttacks", { type = "SkillType", skillType = SkillType.Retaliation }),
@@ -4203,7 +4205,6 @@ local specialModList = {
 	["maximum brutal charges is equal to maximum endurance charges"] = { flag("MaximumEnduranceChargesEqualsMaximumBrutalCharges") },
 	["maximum affliction charges is equal to maximum frenzy charges"] = { flag("MaximumFrenzyChargesEqualsMaximumAfflictionCharges") },
 	["maximum absorption charges is equal to maximum power charges"] = { flag("MaximumPowerChargesEqualsMaximumAbsorptionCharges") },
-	["maximum brine charges is equal to maximum endurance charges"] = { flag("MaximumEnduranceChargesEqualsMaximumBrineCharges") },
 	["(%d+)%% chance to gain a brine charge instead of an endurance charge"] = function(num) return { flag("CanGainBrineCharges"), mod("BrineChargeGainChance", "BASE", num) } end,
 	["gain brutal charges instead of endurance charges"] = { flag("EnduranceChargesConvertToBrutalCharges") },
 	["gain affliction charges instead of frenzy charges"] = { flag("FrenzyChargesConvertToAfflictionCharges") },
@@ -5510,8 +5511,8 @@ local specialModList = {
 		mod("ColdMax", "BASE", 1, { type = "PercentStat", stat = "ManaCost", percent = num }, { type = "SkillName", skillNameList = { "Arc", "Crackling Lance" }, includeTransfigured = true }),
 	} end,
 	["forbidden rite and dark pact gains added chaos damage equal to (%d+)%% of mana cost, if mana cost is not higher than the maximum you could spend"] = function(num) return {
-		mod("ChaosMin", "BASE", 1, { type = "PercentStat", stat = "ManaCost", percent = num }, { type = "SkillName", skillNameList = { "Forbidden Rite", "Dark Pact" }, includeTransfigured = true }),
-		mod("ChaosMax", "BASE", 1, { type = "PercentStat", stat = "ManaCost", percent = num }, { type = "SkillName", skillNameList = { "Forbidden Rite", "Dark Pact" }, includeTransfigured = true }),
+		mod("ChaosMin", "BASE", 1, { type = "PercentStat", stat = "ManaCost", percent = num }, { type = "SkillName", skillNameList = { "Forbidden Rite", "Dark Bargain" }, includeTransfigured = true }),
+		mod("ChaosMax", "BASE", 1, { type = "PercentStat", stat = "ManaCost", percent = num }, { type = "SkillName", skillNameList = { "Forbidden Rite", "Dark Bargain" }, includeTransfigured = true }),
 	} end,
 	["skills gain added chaos damage equal to (%d+)%% of mana cost, if mana cost is not higher than the maximum you could spend"] = function(num) return {
 		mod("ChaosMin", "BASE", 1, { type = "PercentStat", stat = "ManaCost", percent = num }),

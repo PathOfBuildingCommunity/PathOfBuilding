@@ -1353,6 +1353,9 @@ local configTable = {
 	["void shockwave"] = function(env)
 		return {triggerSkillCond = function(env, skill)	return skill.skillTypes[SkillType.Melee] and slotMatch(env, skill) end}
 	end,
+	["falling crystal"] = function(env)
+		return {triggerSkillCond = function(env, skill)	return skill.skillTypes[SkillType.Melee] and slotMatch(env, skill) end}
+	end,
 	["call the pyre"] = function(env)
 		if env.enemy.modDB:Flag(nil, "Condition:Ignited") then
 			return {triggerChance =  50, -- too much of a pain to pull this from the triggering skill

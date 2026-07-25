@@ -79,9 +79,9 @@ itemBases["Moonstone Ring"] = {
 	type = "Ring",
 	tags = { default = true, ring = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
-	implicit = "+(15-25) to maximum Energy Shield",
-	implicitModTypes = { { "defences", "energy_shield" }, },
-	implicitIds = { "IncreasedEnergyShieldImplicitRing1", },
+	implicit = "(7-10)% increased Cast Speed",
+	implicitModTypes = { { "caster", "speed" }, },
+	implicitIds = { "IncreasedCastSpeedImplicitRing1", },
 	req = { level = 20, },
 }
 itemBases["Amethyst Ring"] = {

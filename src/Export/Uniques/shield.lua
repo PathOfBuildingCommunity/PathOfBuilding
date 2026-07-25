@@ -1158,7 +1158,7 @@ Implicits: 2
 {variant:1}AttackerTakesDamageShieldImplicit3
 {variant:2}ChanceToDodgeImplicitShield2
 LocalIncreasedEvasionAndEnergyShieldUnique__1
-IncreasedEnergyShieldUnique___1
+LocalIncreasedEnergyShieldUnique__6
 IncreasedLifeUniqueShieldStr2
 ItemFoundRarityIncreaseUnique__1
 ChanceToAvoidFireDamageUnique__1

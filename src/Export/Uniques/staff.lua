@@ -102,7 +102,7 @@ UniqueStaffTriggerAtziriStormFlameblast__1
 UniqueStaffTriggerAtziriStormCall__1____
 CannotBeStunned
 DamageCannotBeReflectedUnique__1
-{variant:3}(100-300)% increased Spell Critical Strike Chance
+{variant:3}SpellCriticalStrikeChanceUnique__6
 ]],[[
 The Winds of Fate
 Foul Staff
@@ -596,7 +596,7 @@ Implicits: 3
 {variant:4,5,6,7}FireDamagePercentUniqueStaff1_
 {variant:1,2,3,4,5,6}IncreasedCastSpeedUniqueStaff1[10,10]
 {variant:7}IncreasedCastSpeedUniqueStaff1
-{variant:7}Voracious Flame
+{variant:7}KeystoneFirePuristUnique__1
 LocalIncreaseSocketedFireGemLevelUniqueStaff1
 {variant:1,2,3,4}BurnDamageUniqueStaff1
 ]],[[
