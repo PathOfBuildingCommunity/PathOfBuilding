@@ -67,6 +67,18 @@ describe("TetsItemMods", function()
 		assert.are_not.equals(lightningResBefore, build.calcsTab.mainOutput.LightningResist)
 	end)
 
+	it("caps socketed gem multipliers in gem order", function()
+		build.itemsTab:CreateDisplayItemFromRaw("Test Gloves\nIron Gauntlets\nSockets: R-R-R-R")
+		build.itemsTab:AddDisplayItem()
+		build.skillsTab:PasteSocketGroup("Slot: Gloves\nHeavy Strike 20/0  1\nHeavy Strike 20/0  1\nHeavy Strike 20/0  1\nHeavy Strike 20/0  1\nArc 20/0  1\n")
+		runCallback("OnFrame")
+
+		local multipliers = build.calcsTab.mainEnv.itemModDB.multipliers
+		assert.are.equals(4, multipliers.SocketedGemsInGloves)
+		assert.are.equals(4, multipliers.SocketedRedGemsInGloves)
+		assert.are.equals(0, multipliers.SocketedBlueGemsInGloves)
+	end)
+
 	it("Doomsower vaal pact and extra phys as fire", function()
 		build.itemsTab:CreateDisplayItemFromRaw([[Doomsower
 		Lion Sword
