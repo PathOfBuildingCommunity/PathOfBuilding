@@ -29,6 +29,13 @@ describe("TradeHelpers trade hash matching", function()
 			assert.equal(22088, value)
 		end)
 
+		it("matches a legacy '#'-valued option and returns its value", function()
+			local tradeId, value = tradeHelpers.findTradeIdOption("Grants Level 20 Summon Bestial Snake Skill",
+				"explicit")
+			assert.equal("explicit.stat_2878779644", tradeId)
+			assert.equal(3, value)
+		end)
+
 		it("matches an exact-text option and returns no value", function()
 			local tradeId, value = tradeHelpers.findTradeIdOption("Allocates Tranquility", "enchant")
 			assert.equal("enchant.stat_2954116742", tradeId)
