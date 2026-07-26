@@ -1030,27 +1030,21 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 					local itemsSafe = self:FilterToSafeItems(items, selectedSlot and selectedSlot.slotName)
 					-- replace eldritch mods or enchants if the user requested
 					-- so in TradeQueryGenerator
-					if self.tradeQueryGenerator.lastIncludeEldritch == "Copy Current" or
-						self.tradeQueryGenerator.lastCopyEnchantMode == "Copy Current" then
-						for i, _ in ipairs(itemsSafe) do
-							local item = new("Item", itemsSafe[i].item_string)
+					for i, _ in ipairs(itemsSafe) do
+						local item = new("Item", itemsSafe[i].item_string)
+						-- assume the user will add quality if they buy the item
+						item:NormaliseQuality()
+						if self.tradeQueryGenerator.lastIncludeEldritch == "Copy Current" or
+							self.tradeQueryGenerator.lastCopyEnchantMode == "Copy Current" then
 							self.itemsTab:CopyAnointsAndEldritchImplicits(item, true, true, context.slotTbl.slotName)
-							itemsSafe[i].item_string = item:BuildRaw()
-						end
-					elseif self.tradeQueryGenerator.lastIncludeEldritch == "Remove" then
-						for i, _ in ipairs(itemsSafe) do
-							local item = new("Item", itemsSafe[i].item_string)
+						elseif self.tradeQueryGenerator.lastIncludeEldritch == "Remove" then
 							if item.tangle or item.cleansing then
 								item.implicitModLines = {}
-								itemsSafe[i].item_string = item:BuildRaw()
 							end
-						end
-					elseif self.tradeQueryGenerator.lastCopyEnchantMode == "Remove" then
-						for i, _ in ipairs(itemsSafe) do
-							local item = new("Item", itemsSafe[i].item_string)
+						elseif self.tradeQueryGenerator.lastCopyEnchantMode == "Remove" then
 							item.enchantModLines = {}
-							itemsSafe[i].item_string = item:BuildRaw()
 						end
+						itemsSafe[i].item_string = item:BuildRaw()
 					end
 
 					self.resultTbl[context.row_idx] = itemsSafe
@@ -1215,9 +1209,6 @@ you can add them, copy the link here, and press "Price Item" to evaluate the ite
 		local selected_result_index = self.itemIndexTbl[row_idx]
 		local item_string = self.resultTbl[row_idx][selected_result_index].item_string
 		if selected_result_index and item_string then
-			-- TODO: item parsing bug caught here.
-			-- item.baseName is nil and throws error in the following AddItemTooltip func
-			-- if the item is unidentified
 			local item = new("Item", item_string)
 			local tooltipSlot = slotTbl.selectedJewelNodeId and self.itemsTab.sockets[slotTbl.selectedJewelNodeId] or activeSlot
 			self.itemsTab:AddItemTooltip(tooltip, item, tooltipSlot, true)
