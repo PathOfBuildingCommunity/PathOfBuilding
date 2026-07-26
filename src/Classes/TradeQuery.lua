@@ -751,6 +751,7 @@ function TradeQueryClass:SetStatWeights(previousSelectionList, onSave)
 		if (#statSortSelectionList) > 0 then
 			--THIS SHOULD REALLY GIVE A WARNING NOT JUST USE PREVIOUS
 			self.statSortSelectionList = statSortSelectionList
+			self.itemsTab.modFlag = true
 		end
 		for row_idx in pairs(self.resultTbl) do
 			self:UpdateControlsWithItems(row_idx)

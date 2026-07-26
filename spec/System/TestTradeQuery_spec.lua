@@ -114,4 +114,35 @@ describe("TradeQuery", function()
 			assert.are.equals(1.2, result)
 		end)
 	end)
+
+	describe("SetStatWeights", function()
+		it("marks the build modified after saving changed weights", function()
+			local capturedControls
+			local originalOpenPopup = main.OpenPopup
+			local originalClosePopup = main.ClosePopup
+			main.OpenPopup = function(_, _, _, _, controls)
+				capturedControls = controls
+			end
+			main.ClosePopup = function() end
+
+			local itemsTab = {}
+			local tradeQuery = new("TradeQuery", itemsTab)
+			local ok, errMsg = pcall(function()
+				tradeQuery:SetStatWeights()
+				for _, entry in ipairs(capturedControls.ListControl.list) do
+					if entry.stat.stat == "FullDPS" then
+						entry.stat.weightMult = 0.75
+						break
+					end
+				end
+				capturedControls.finalise.onClick()
+			end)
+			main.OpenPopup = originalOpenPopup
+			main.ClosePopup = originalClosePopup
+
+			assert.is_true(ok, errMsg)
+			assert.is_true(itemsTab.modFlag)
+			assert.are.equal(0.75, tradeQuery.statSortSelectionList[1].weightMult)
+		end)
+	end)
 end)
