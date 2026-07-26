@@ -20,7 +20,28 @@ local CustomModBlockClass = newClass("CustomModBlockControl", "Control", "Contro
 	self.blockIndex = blockIndex
 	self.blockData = blockData
 
-	self.controls.enableCheck = new("CheckBoxControl", {"TOPLEFT", self, "TOPLEFT"}, {0, 0, 18}, "", function(state)
+	self.controls.deleteBtn = new("ButtonControl", {"TOPLEFT", self, "TOPLEFT"}, {0, 0, 20, 18}, "^1X", function()
+		local customModsList = configTab.configSets[configTab.activeConfigSetId].customModsList
+		table.remove(customModsList, blockIndex)
+		if #customModsList == 0 then
+			table.insert(customModsList, { title = "Default", enabled = true, text = "" })
+		end
+		configTab:UpdateCustomModsControls()
+		configTab:AddUndoState()
+		configTab:BuildModList()
+		configTab.build.buildFlag = true
+	end)
+
+	self.controls.titleEdit = new("EditControl", {"LEFT", self.controls.deleteBtn, "RIGHT"}, {6, 0, 232, 18}, blockData.title or "", nil, nil, nil, function(buf)
+		blockData.title = buf
+		configTab:AddUndoState()
+	end)
+
+	self.controls.addModBtn = new("ButtonControl", {"LEFT", self.controls.titleEdit, "RIGHT"}, {6, 0, 48, 18}, "^7+ Mod", function()
+		configTab:OpenAddModPopup(blockData)
+	end)
+
+	self.controls.enableCheck = new("CheckBoxControl", {"TOPRIGHT", self, "TOPRIGHT"}, {0, 0, 18}, "", function(state)
 		blockData.enabled = state
 		configTab:AddUndoState()
 		configTab:BuildModList()
@@ -43,27 +64,6 @@ local CustomModBlockClass = newClass("CustomModBlockControl", "Control", "Contro
 			end
 		end
 	end
-
-	self.controls.titleEdit = new("EditControl", {"LEFT", self.controls.enableCheck, "RIGHT"}, {6, 0, 232, 18}, blockData.title or "", nil, nil, nil, function(buf)
-		blockData.title = buf
-		configTab:AddUndoState()
-	end)
-
-	self.controls.addModBtn = new("ButtonControl", {"LEFT", self.controls.titleEdit, "RIGHT"}, {6, 0, 48, 18}, "^7+ Mod", function()
-		configTab:OpenAddModPopup(blockData)
-	end)
-
-	self.controls.deleteBtn = new("ButtonControl", {"TOPRIGHT", self, "TOPRIGHT"}, {0, 0, 24, 18}, "^1X", function()
-		local customModsList = configTab.configSets[configTab.activeConfigSetId].customModsList
-		table.remove(customModsList, blockIndex)
-		if #customModsList == 0 then
-			table.insert(customModsList, { title = "Default", enabled = true, text = "" })
-		end
-		configTab:UpdateCustomModsControls()
-		configTab:AddUndoState()
-		configTab:BuildModList()
-		configTab.build.buildFlag = true
-	end)
 
 	self.controls.textEdit = new("ResizableEditControl", {"TOPLEFT", self, "TOPLEFT"}, {0, 22, 344, 80, 344, 40, 344, 600}, blockData.text or "", nil, "^%C\t\n", nil, function(buf)
 		blockData.text = buf
