@@ -146,13 +146,15 @@ function NotableDBClass:ListBuilder()
 		local start = GetTime()
 		local calcFunc = self.itemsTab.build.calcsTab:GetMiscCalculator()
 		local itemType = self.itemsTab.displayItem.base.type
-		local calcBase = calcFunc({ repSlotName = itemType, repItem = self.itemsTab:anointItem(nil) })
 		local weights = self.sortDetail.isWeightedScore and WeightedScore.getWeights(self.itemsTab.build)
+		local useFullDPS = self.sortDetail.stat == "FullDPS"
+			or (self.sortDetail.isWeightedScore and WeightedScore.weightsNeedFullDPS(weights))
+		local calcBase = calcFunc({ repSlotName = itemType, repItem = self.itemsTab:anointItem(nil) }, useFullDPS)
 		self.sortMaxPower = 0
 		for nodeIndex, node in ipairs(list) do
 			node.measuredPower = 0
 			if node.modKey ~= "" then
-				local output = calcFunc({ repSlotName = itemType, repItem = self.itemsTab:anointItem(node) })
+				local output = calcFunc({ repSlotName = itemType, repItem = self.itemsTab:anointItem(node) }, useFullDPS)
 				if self.sortDetail.isWeightedScore then
 					node.measuredPower = WeightedScore.computeRatioScore(calcBase, output, weights)
 				else
