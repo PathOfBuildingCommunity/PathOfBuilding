@@ -100,6 +100,7 @@ local lineFlags = {
 	-- in poe2. this is currently only added as a hack for cane of kulemak and
 	-- should be added based on mod tags after matching a mod in the future
 	["unveiled"] = true,
+	["vestigial"] = true,
 }
 
 -- Special function to store unique instances of modifier on specific item slots
@@ -690,6 +691,8 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					end
 				elseif specName == "CatalystQuality" then
 					self.catalystQuality = specToNumber(specVal)
+				elseif specName == "Intangibility" then
+					self.intangibility = specToNumber(specVal)
 				elseif specName == "Note" then
 					self.note = specVal
 				elseif specName == "Str" or specName == "Strength" or specName == "Dex" or specName == "Dexterity" or
@@ -791,7 +794,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					self.name = self.name:gsub(" %(.+%)","")
 				end
 				if not baseName then
-					baseName = line:gsub("^Superior ", ""):gsub("^Synthesised ","")
+					baseName = line:gsub("^Superior ", ""):gsub("^Synthesised ", ""):gsub("^Vestigial ", "")
 				end
 				if baseName == "Two-Toned Boots" then
 					baseName = "Two-Toned Boots (Armour/Energy Shield)"
@@ -1479,6 +1482,9 @@ function ItemClass:BuildRaw()
 			end
 		end
 	end
+	if self.intangibility then
+		t_insert(rawLines, string.format("Intangibility: %d%%", self.intangibility))
+	end
 	if self.uniqueID then
 		t_insert(rawLines, "Unique ID: " .. self.uniqueID)
 	end
@@ -1573,6 +1579,9 @@ function ItemClass:BuildRaw()
 		end
 		if modLine.unscalable then
 			line = "{unscalable}" .. line
+		end
+		if modLine.vestigial then
+			line = "{vestigial}" .. line
 		end
 		if modLine.variantList then
 			local varSpec
