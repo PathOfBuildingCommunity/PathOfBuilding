@@ -70,7 +70,7 @@ local function buildModSortList()
 	local sortList = { { label = "Default", stat = nil } }
 	local sortStats = { }
 	for _, entry in ipairs(data.powerStatList) do
-		if entry.stat and not entry.ignoreForNodes then
+		if entry.stat and not entry.ignoreForNodes and not entry.isWeightedScore then
 			t_insert(sortList, { label = entry.label, stat = entry.stat })
 			sortStats[entry.stat] = entry
 		end

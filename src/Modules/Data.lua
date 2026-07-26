@@ -233,7 +233,7 @@ local minionNonApplicableStats = {
 }
 for i = 1, #data.powerStatList do
 	local statEntry = data.powerStatList[i]
-	if (not statEntry.stat) or statEntry.stat:match("DPS") or minionNonApplicableStats[statEntry.stat] then
+	if (not statEntry.stat) or statEntry.isWeightedScore or statEntry.stat:match("DPS") or minionNonApplicableStats[statEntry.stat] then
 		goto statContinue
 	end
 	local minionStat = copyTable(statEntry)
