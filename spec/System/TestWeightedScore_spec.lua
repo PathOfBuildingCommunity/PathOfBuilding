@@ -246,6 +246,10 @@ describe("WeightedScore — tree integration", function()
 		assert.is_true(stat.isWeightedScore)
 	end)
 
+	it("does not create a Minion WeightedScore entry", function()
+		assert.is_nil(findStat("MinionWeightedScore"))
+	end)
+
 	-- Pass: power builder runs to completion without Lua error
 	-- Fail: a crash in CalculatePowerStat's isWeightedScore branch
 	it("power builder completes without error using WeightedScore stat", function()
