@@ -1104,9 +1104,6 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 		::continue::
 		l = l + 1
 	end
-	if self.baseName and self.title then
-		self.name = self.title .. ", " .. self.baseName:gsub(" %(.+%)","")
-	end
 	if self.base and not self.requirements.level then
 		if importedLevelReq and #self.sockets == 0 then
 			-- Requirements on imported items can only be trusted for items with no sockets
@@ -1307,6 +1304,9 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 		self.title = "Foulborn " .. self.title
 	elseif not self.foulborn and hasFoulbornPrefix then
 		self.title = self.title:gsub("[Ff]oulborn ", "")
+	end
+	if self.baseName and self.title then
+		self.name = self.title .. ", " .. self.baseName:gsub(" %(.+%)", "")
 	end
 	if not self.quality then
 		self:NormaliseQuality()
