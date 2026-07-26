@@ -256,11 +256,12 @@ function ItemDBClass:ListBuilder()
 		local start = GetTime()
 		local calcFunc, calcBase = self.itemsTab.build.calcsTab:GetMiscCalculator(self.build)
 		local weights = WeightedScore.getWeights(self.itemsTab.build)
+		local useFullDPS = WeightedScore.weightsNeedFullDPS(weights)
 		for itemIndex, item in ipairs(list) do
-			item.measuredPower = 0
+			item.measuredPower = -math.huge
 			for slotName, slot in pairs(self.itemsTab.slots) do
 				if self.itemsTab:IsItemValidForSlot(item, slotName) and not slot.inactive and (not slot.weaponSet or slot.weaponSet == (self.itemsTab.activeItemSet.useSecondWeaponSet and 2 or 1)) then
-					local output = calcFunc(item.base.flask and { toggleFlask = item } or item.base.tincture and { toggleTincture = item } or { repSlotName = slotName, repItem = item })
+					local output = calcFunc(item.base.flask and { toggleFlask = item } or item.base.tincture and { toggleTincture = item } or { repSlotName = slotName, repItem = item }, useFullDPS)
 					local score = WeightedScore.computeRatioScore(calcBase, output, weights)
 					item.measuredPower = m_max(item.measuredPower, score)
 				end
