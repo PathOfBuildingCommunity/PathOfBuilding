@@ -1024,9 +1024,11 @@ function ConfigTabClass:BuildModList()
 
 	-- Apply Custom Modifier Blocks
 	local customModsList = self.configSets[self.activeConfigSetId].customModsList
-	if customModsList and #customModsList > 0 then
+	local hasBlockText = false
+	if customModsList then
 		for _, block in ipairs(customModsList) do
 			if block.enabled ~= false and block.text and #block.text > 0 then
+				hasBlockText = true
 				for line in block.text:gmatch("([^\n]*)\n?") do
 					local strippedLine = StripEscapes(line):gsub("^[%s?]+", ""):gsub("[%s?]+$", "")
 					local mods, extra = modLib.parseMod(strippedLine)
@@ -1043,8 +1045,9 @@ function ConfigTabClass:BuildModList()
 				end
 			end
 		end
+	end
 	-- Fallback for tests/headless
-	elseif input.customMods and #input.customMods > 0 then
+	if not hasBlockText and input.customMods and #input.customMods > 0 then
 		for line in input.customMods:gmatch("([^\n]*)\n?") do
 			local strippedLine = StripEscapes(line):gsub("^[%s?]+", ""):gsub("[%s?]+$", "")
 			local mods, extra = modLib.parseMod(strippedLine)
