@@ -1282,14 +1282,75 @@ function ConfigTabClass:OpenAddModPopup(blockData)
 	local displayList = { }
 	local controls = { }
 
-	local function updateDisplayList()
-		wipeTable(displayList)
-		local searchStr = controls.search and controls.search.buf:lower():gsub("[%-%+%.%[%]%$%^%%%?%*]", "%%%0") or ""
-		for _, modText in ipairs(allModsList) do
-			if #searchStr == 0 or modText:lower():match(searchStr) then
-				t_insert(displayList, modText)
+	local function fuzzyScore(modText, searchStr, words)
+		local modLower = modText:lower()
+		if modLower:find(searchStr, 1, true) then
+			return 1
+		end
+		if #words > 1 then
+			local allFound = true
+			for i = 1, #words do
+				if not modLower:find(words[i], 1, true) then
+					allFound = false
+					break
+				end
+			end
+			if allFound then
+				return 2
 			end
 		end
+		if #words == 1 and #searchStr >= 3 then
+			local textWords = {}
+			for word in modLower:gmatch("%w+") do
+				t_insert(textWords, word)
+			end
+			for i = 1, #textWords do
+				for len1 = 2, #searchStr - 1 do
+					local part1 = searchStr:sub(1, len1)
+					local part2 = searchStr:sub(len1 + 1)
+					if textWords[i]:sub(1, #part1) == part1 and textWords[i + 1] and textWords[i + 1]:sub(1, #part2) == part2 then
+						return 3
+					end
+				end
+			end
+		end
+		return nil
+	end
+
+	local function updateDisplayList()
+		wipeTable(displayList)
+		local searchStr = controls.search.buf:lower():gsub("^[%s]+", ""):gsub("[%s]+$", "")
+
+		if #searchStr == 0 then
+			for _, modText in ipairs(allModsList) do
+				t_insert(displayList, modText)
+			end
+		else
+			local words = {}
+			for word in searchStr:gmatch("%S+") do
+				t_insert(words, word)
+			end
+
+			local matches = {}
+			for _, modText in ipairs(allModsList) do
+				local rank = fuzzyScore(modText, searchStr, words)
+				if rank then
+					t_insert(matches, { text = modText, rank = rank })
+				end
+			end
+
+			table.sort(matches, function(a, b)
+				if a.rank ~= b.rank then
+					return a.rank < b.rank
+				end
+				return a.text < b.text
+			end)
+
+			for _, match in ipairs(matches) do
+				t_insert(displayList, match.text)
+			end
+		end
+
 		if #displayList == 0 then
 			t_insert(displayList, "No matching modifiers found")
 		end
