@@ -589,6 +589,56 @@ describe("TestAdvancedItemParse #item", function()
 		assert.are.equals(19, item.catalystQuality)
 	end)
 
+	it("scales suffix (Dextral) catalyst", function()
+		local item = new("Item", raw([[
+			Quality (Suffix Modifiers): +20% (augmented)
+			{ Suffix Modifier — Attribute }
+			+90(80-100) to all Attributes
+			(Attributes are Strength, Dexterity, and Intelligence)
+		]], "Onyx Amulet"))
+		assert.are.equals(3, item.catalyst)
+		assert.are.equals(20, item.catalystQuality)
+		assert.are.equals(108, item.baseModList[1].value)
+	end)
+
+	it("scales prefix (Sinistral) catalyst when crafted on simplex", function()
+		build.itemsTab:CreateDisplayItemFromRaw(main.rareDB.list["Amulet, Simplex Amulet"].raw)
+		local item = build.itemsTab.displayItem
+		-- 26% spell damage
+		item.prefixes[1] = { modId = "SpellDamage5", range = 1 }
+		item:Craft()
+		assert.are.equals(52, item.baseModList[1].value)
+		build.itemsTab:UpdateAffixControls()
+		-- dextral is id 9, but selector has a "None" in position 1
+		build.itemsTab.controls.displayItemCatalyst:SetSel(10)
+		assert.are.equals(57, item.baseModList[1].value)
+		assert.are.equals(9, item.catalyst)
+		assert.are.equals(20, item.catalystQuality)
+	end)
+
+	it("scales prefix (Sinistral) catalyst", function()
+		local item = new("Item", raw([[
+			Quality (Prefix Modifiers): +20% (augmented)
+			{ Prefix Modifier — Attribute }
+			+90(80-100) to all Attributes
+			(Attributes are Strength, Dexterity, and Intelligence)
+		]], "Onyx Amulet"))
+		assert.are.equals(9, item.catalyst)
+		assert.are.equals(20, item.catalystQuality)
+		assert.are.equals(108, item.baseModList[1].value)
+	end)
+
+	it("suffix catalyst does not scale prefix mods", function()
+		local item = new("Item", raw([[
+			Quality (Suffix Modifiers): +20% (augmented)
+			{ Prefix Modifier — Attribute }
+			+90(80-100) to all Attributes
+			(Attributes are Strength, Dexterity, and Intelligence)
+		]], "Onyx Amulet"))
+		assert.are.equals(3, item.catalyst)
+		assert.are.equals(20, item.catalystQuality)
+		assert.are.equals(90, item.baseModList[1].value)
+	end)
 	it("doesn't scale unscalable", function()
 		local item = new("Item", raw([[
 			Quality (Life and Mana Modifiers): +20% (augmented)

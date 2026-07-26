@@ -1711,13 +1711,13 @@ function ItemClass:Craft()
 			if mod then
 				if mod.type == "Prefix" then
 					self.namePrefix = mod.affix .. " " .. self.namePrefix
+					mod.prefix = true
 				elseif mod.type == "Suffix" then
 					self.nameSuffix = self.nameSuffix .. " " .. mod.affix
+					mod.suffix = true
 				end
 				self.requirements.level = m_max(self.requirements.level or 0, m_floor(mod.level * 0.8))
-				local rangeScalar = getCatalystScalar(self.catalyst, mod, self.catalystQuality)
 				for i, line in ipairs(mod) do
-					line = itemLib.applyRange(line, affix.range or 0.5, rangeScalar)
 					local order = mod.statOrder[i]
 					if statOrder[order] then
 						-- Combine stats
@@ -1728,12 +1728,7 @@ function ItemClass:Craft()
 							return tonumber(num) + tonumber(other)
 						end)
 					else
-						local modLine = { line = line, order = order, type = mod.type }
-						if mod.type == "Prefix" then
-							modLine.prefix = true
-						elseif mod.type == "Suffix" then
-							modLine.suffix = true
-						end
+						local modLine = { line = line, order = order, type = mod.type, prefix = mod.prefix, suffix = mod.suffix, modTags = mod.modTags, range = affix.range }
 						for l = 1, #self.explicitModLines + 1 do
 							if not self.explicitModLines[l] or self.explicitModLines[l].order > order then
 								t_insert(self.explicitModLines, l, modLine)
@@ -2147,7 +2142,7 @@ function ItemClass:BuildModList()
 			end
 		end
 	end
-	local function processModLine(modLine)
+	local function processModLine(modLine, isExplicitMod)
 		if self:CheckModLineVariant(modLine) then
 			-- special section for variant over-ride of pre-modifier item parameters
 			if modLine.line:find("Requires Class") then
@@ -2155,10 +2150,15 @@ function ItemClass:BuildModList()
 			end
 			-- handle understood modifier variable properties
 			local rangedModList = not modLine.extra and getRangedModList(self, modLine)
+			local isRare = (self.rarity ~= "UNIQUE") and (self.rarity ~= "RELIC")
 			if rangedModList then
 				modLine.modList = rangedModList
-				modLine.showSlider = true
-				t_insert(self.rangeLineList, modLine)
+				-- rare explicit mods are supposed to be controlled via the crafting
+				-- affix selectors, and are skipped here
+				if not (isRare and isExplicitMod) then
+					modLine.showSlider = true
+					t_insert(self.rangeLineList, modLine)
+				end
 			elseif modLine.modId and modLine.newModId then
 				-- mutated mod transformation available
 				t_insert(self.rangeLineList, modLine)
@@ -2187,7 +2187,7 @@ function ItemClass:BuildModList()
 		processModLine(modLine)
 	end
 	for _, modLine in ipairs(self.explicitModLines) do
-		processModLine(modLine)
+		processModLine(modLine, true)
 	end
 	for _, modLine in ipairs(self.crucibleModLines) do
 		processModLine(modLine)

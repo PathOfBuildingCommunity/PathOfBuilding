@@ -959,6 +959,11 @@ holding Shift will put it in the second.]])
 	end})
 	local foulbornIcon = NewImageHandle()
 	foulbornIcon:Load("Assets/breachicon.png")
+	-- single affix selector. this is intended for editing a single unique affix
+	-- and for controlling the implicit modifiers of rares.
+	-- TODO: remove this. it doesn't make much sense to keep it as it duplicates a
+	-- lot of code from the "show all item affixes sliders" UI, which is enabled
+	-- by default. this also provides no advantages whatsoever over that UI
 	self.controls.displayItemRangeLine = new("DropDownControl", {"TOPLEFT",self.controls.displayItemSectionRange,"TOPLEFT"}, {0, 0, 350, 18}, nil, function(index, value)
 		self.controls.displayItemRangeSlider.val = self.displayItem.rangeLineList[index].range
 	end)
