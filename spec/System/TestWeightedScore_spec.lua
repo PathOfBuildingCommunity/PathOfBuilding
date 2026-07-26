@@ -78,6 +78,18 @@ describe("WeightedScore module", function()
 		assert.are.equal(0.5, score)
 	end)
 
+	it("combines multiple stats with their individual weight multipliers", function()
+		local base = { TotalDPS = 100, TotalEHP = 200 }
+		local candidate = { TotalDPS = 150, TotalEHP = 250 }
+		local weights = {
+			{ stat = "TotalDPS", weightMult = 1.5 },
+			{ stat = "TotalEHP", weightMult = 0.25 },
+		}
+
+		-- (150 / 100) * 1.5 + (250 / 200) * 0.25 = 2.5625
+		assert.are.equal(2.5625, WeightedScore.computeRatioScore(base, candidate, weights))
+	end)
+
 	it("empty weights always scores 0", function()
 		local base = { TotalDPS = 1000 }
 		local new  = { TotalDPS = 5000 }
