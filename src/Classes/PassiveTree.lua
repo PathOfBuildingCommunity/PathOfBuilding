@@ -106,33 +106,6 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	self.internalAscendNameMap = {}
 	self.classNotables = {}
 
-	for classId, class in pairs(self.classes) do
-		if versionNum >= 3.10 then
-			-- Migrate to old format
-			class.classes = class.ascendancies
-		end
-		class.classes[0] = { name = "None" }
-		self.classNameMap[class.name] = classId
-		for ascendClassId, ascendClass in pairs(class.classes) do
-			self.ascendNameMap[ascendClass.id or ascendClass.name] = {
-				classId = classId,
-				class = class,
-				ascendClassId = ascendClassId,
-				ascendClass = ascendClass,
-				flavourText = ascendClass.flavourText,
-				flavourTextRect = ascendClass.flavourTextRect,
-			}
-			if ascendClass.internalId then
-				self.internalAscendNameMap[ascendClass.internalId] = {
-					classId = classId,
-					class = class,
-					ascendClassId = ascendClassId,
-					ascendClass = ascendClass
-				}
-			end
-		end
-	end
-	
 	-- hide legacy alternate ascendancies that are no longer obtainable
 	if self.alternate_ascendancies then
 		local legacyAlternateAscendancyIds = {
@@ -178,7 +151,37 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			self.alternate_ascendancies = nil
 		end
 	end
-	
+
+	for classId, class in pairs(self.classes) do
+		if versionNum >= 3.10 then
+			-- Migrate to old format
+			class.classes = class.ascendancies
+		end
+		class.classes[0] = { name = "None" }
+		self.classNameMap[class.name] = classId
+		for ascendClassId, ascendClass in pairs(class.classes) do
+			local entry = {
+				classId = classId,
+				class = class,
+				ascendClassId = ascendClassId,
+				ascendClass = ascendClass,
+				flavourText = ascendClass.flavourText,
+				flavourTextRect = ascendClass.flavourTextRect,
+			}
+			if ascendClass.id then
+				self.ascendNameMap[ascendClass.id] = entry
+			end
+			self.ascendNameMap[ascendClass.name] = entry
+			if ascendClass.internalId then
+				self.internalAscendNameMap[ascendClass.internalId] = {
+					classId = classId,
+					class = class,
+					ascendClassId = ascendClassId,
+					ascendClass = ascendClass
+				}
+			end
+		end
+	end
 	if self.alternate_ascendancies then
 		self.secondaryAscendNameMap = { }
 		local alternate_ascendancies_class = { 
