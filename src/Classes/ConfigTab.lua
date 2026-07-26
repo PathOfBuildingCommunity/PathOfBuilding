@@ -27,6 +27,22 @@ local CustomModBlockClass = newClass("CustomModBlockControl", "Control", "Contro
 		configTab.build.buildFlag = true
 	end)
 	self.controls.enableCheck.state = blockData.enabled ~= false
+	self.controls.enableCheck.tooltipFunc = function(tooltip)
+		if tooltip:CheckForUpdate(configTab.build.outputRevision, blockData) then
+			if configTab.build.calcsTab then
+				local calcFunc, calcBase = configTab.build.calcsTab:GetMiscCalculator(configTab.build)
+				if calcFunc then
+					local curState = blockData.enabled ~= false
+					blockData.enabled = not curState
+					configTab:BuildModList()
+					local output = calcFunc()
+					blockData.enabled = curState
+					configTab:BuildModList()
+					configTab.build:AddStatComparesToTooltip(tooltip, calcBase, output, curState and "^7Disabling this block will give you:" or "^7Enabling this block will give you:")
+				end
+			end
+		end
+	end
 
 	self.controls.titleEdit = new("EditControl", {"LEFT", self.controls.enableCheck, "RIGHT"}, {6, 0, 232, 18}, blockData.title or "", nil, nil, nil, function(buf)
 		blockData.title = buf
