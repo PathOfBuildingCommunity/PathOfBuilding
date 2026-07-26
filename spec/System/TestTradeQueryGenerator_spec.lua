@@ -99,6 +99,26 @@ describe("TradeQueryGenerator", function()
 
 			assert.are.equal(result, 1.2)
 		end)
+
+		it("supports light radius as a player stat weight", function()
+			local lightRadiusStat
+			local minionLightRadiusStat
+			for _, stat in ipairs(data.powerStatList) do
+				if stat.stat == "LightRadiusMod" then
+					lightRadiusStat = stat
+				elseif stat.stat == "MinionLightRadiusMod" then
+					minionLightRadiusStat = stat
+				end
+			end
+
+			assert.is_not_nil(lightRadiusStat)
+			assert.is_nil(minionLightRadiusStat)
+			local result = mock_queryGen.WeightedRatioOutputs(
+				{ LightRadiusMod = 1 },
+				{ LightRadiusMod = 1.25 },
+				{ { stat = lightRadiusStat.stat, weightMult = 1 } })
+			assert.are.equal(result, 1.25)
+		end)
 	end)
 
 	describe("Filter prioritization", function()
