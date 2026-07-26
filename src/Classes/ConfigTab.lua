@@ -28,9 +28,13 @@ local CustomModBlockClass = newClass("CustomModBlockControl", "Control", "Contro
 	end)
 	self.controls.enableCheck.state = blockData.enabled ~= false
 
-	self.controls.titleEdit = new("EditControl", {"LEFT", self.controls.enableCheck, "RIGHT"}, {6, 0, 290, 18}, blockData.title or "", nil, nil, nil, function(buf)
+	self.controls.titleEdit = new("EditControl", {"LEFT", self.controls.enableCheck, "RIGHT"}, {6, 0, 232, 18}, blockData.title or "", nil, nil, nil, function(buf)
 		blockData.title = buf
 		configTab:AddUndoState()
+	end)
+
+	self.controls.addModBtn = new("ButtonControl", {"LEFT", self.controls.titleEdit, "RIGHT"}, {6, 0, 48, 18}, "^7+ Mod", function()
+		configTab:OpenAddModPopup(blockData)
 	end)
 
 	self.controls.deleteBtn = new("ButtonControl", {"TOPRIGHT", self, "TOPRIGHT"}, {0, 0, 24, 18}, "^1X", function()
@@ -696,7 +700,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 	end
 	self.controls.scrollBar = new("ScrollBarControl", {"TOPRIGHT",self,"TOPRIGHT"}, {0, 0, 18, 0}, 50, "VERTICAL", true)
 	if self.customSection then
-		self.controls.customModsAddBlock = new("ButtonControl", {"TOPLEFT", self.customSection, "TOPLEFT"}, {8, 0, 100, 20}, "^7+ Add Block", function()
+		self.controls.customModsAddBlock = new("ButtonControl", {"TOPLEFT", self.customSection, "TOPLEFT"}, {8, 0, 75, 20}, "^7+ Block", function()
 			local customModsList = self.configSets[self.activeConfigSetId].customModsList
 			t_insert(customModsList, { title = "Block " .. (#customModsList + 1), enabled = true, text = "" })
 			self:UpdateCustomModsControls()
@@ -1219,4 +1223,140 @@ function ConfigTabClass:SetActiveConfigSet(configSetId, init)
 	end
 	self.build.buildFlag = true
 	self.build:SyncLoadouts()
+end
+
+function ConfigTabClass:OpenAddModPopup(blockData)
+	local bData = (self.build and self.build.data) or data
+	local allModsList = { }
+	local seen = { }
+
+	local function addModEntry(mod)
+		if type(mod) == "string" then
+			local stripped = StripEscapes(mod):gsub("^[%s?]+", ""):gsub("[%s?]+$", "")
+			if #stripped > 0 and not seen[stripped] then
+				seen[stripped] = true
+				t_insert(allModsList, stripped)
+			end
+		elseif type(mod) == "table" then
+			for i = 1, #mod do
+				if type(mod[i]) == "string" then
+					local stripped = StripEscapes(mod[i]):gsub("^[%s?]+", ""):gsub("[%s?]+$", "")
+					if #stripped > 0 and not seen[stripped] then
+						seen[stripped] = true
+						t_insert(allModsList, stripped)
+					end
+				end
+			end
+		end
+	end
+
+	if bData then
+		if bData.masterMods then
+			for _, mod in pairs(bData.masterMods) do
+				addModEntry(mod)
+			end
+		end
+		if bData.itemMods then
+			for catName, catMods in pairs(bData.itemMods) do
+				if catName ~= "Item" and type(catMods) == "table" then
+					for _, mod in pairs(catMods) do
+						addModEntry(mod)
+					end
+				end
+			end
+		end
+		if bData.veiledMods then
+			for _, mod in pairs(bData.veiledMods) do
+				addModEntry(mod)
+			end
+		end
+		if bData.beastCraft then
+			for _, mod in pairs(bData.beastCraft) do
+				addModEntry(mod)
+			end
+		end
+	end
+
+	table.sort(allModsList)
+
+	local displayList = { }
+	local controls = { }
+
+	local function updateDisplayList()
+		wipeTable(displayList)
+		local searchStr = controls.search and controls.search.buf:lower():gsub("[%-%+%.%[%]%$%^%%%?%*]", "%%%0") or ""
+		for _, modText in ipairs(allModsList) do
+			if #searchStr == 0 or modText:lower():match(searchStr) then
+				t_insert(displayList, modText)
+			end
+		end
+		if #displayList == 0 then
+			t_insert(displayList, "No matching modifiers found")
+		end
+		if controls.listControl then
+			controls.listControl.selIndex = 1
+			controls.listControl.selValue = displayList[1]
+			controls.listControl.controls.scrollBarV.offset = 0
+		end
+	end
+
+	controls.listControl = new("ListControl", {"TOPLEFT", nil, "TOPLEFT"}, {10, 20, 580, 184}, 16, "VERTICAL", false, displayList)
+	controls.listControl.font = "VAR"
+	controls.listControl.hasFocus = true
+	controls.listControl.GetRowValue = function(self, column, index, value)
+		return value or ""
+	end
+	controls.listControl.OnSelClick = function(self, index, value)
+		if main.SelectControl then
+			main:SelectControl(self)
+		end
+		self:SelectIndex(index)
+	end
+	controls.listControl.OnSelDoubleClick = function(index, value)
+		if value and value ~= "No matching modifiers found" then
+			if blockData.text and #blockData.text > 0 and not blockData.text:match("\n$") then
+				blockData.text = blockData.text .. "\n"
+			end
+			blockData.text = (blockData.text or "") .. value
+			self:UpdateCustomModsControls()
+			self:AddUndoState()
+			self:BuildModList()
+			self.build.buildFlag = true
+			main:ClosePopup()
+		end
+	end
+
+	controls.searchLabel = new("LabelControl", {"TOPRIGHT", nil, "TOPLEFT"}, {65, 212, 0, 16}, "^7Search:")
+	controls.search = new("EditControl", {"TOPLEFT", nil, "TOPLEFT"}, {70, 212, 520, 18}, "", nil, "%c", 100, function()
+		updateDisplayList()
+	end)
+
+	updateDisplayList()
+
+	controls.save = new("ButtonControl", nil, {-45, 242, 80, 20}, "Add", function()
+		local selIndex = controls.listControl.selIndex or 1
+		local selected = displayList[selIndex]
+		if selected and selected ~= "No matching modifiers found" then
+			if blockData.text and #blockData.text > 0 and not blockData.text:match("\n$") then
+				blockData.text = blockData.text .. "\n"
+			end
+			blockData.text = (blockData.text or "") .. selected
+			self:UpdateCustomModsControls()
+			self:AddUndoState()
+			self:BuildModList()
+			self.build.buildFlag = true
+		end
+		main:ClosePopup()
+	end)
+	controls.save.enabled = function()
+		local selIndex = controls.listControl and controls.listControl.selIndex or 1
+		local selected = displayList[selIndex]
+		return selected ~= nil and selected ~= "No matching modifiers found"
+	end
+
+	controls.close = new("ButtonControl", nil, {45, 242, 80, 20}, "Cancel", function()
+		main:ClosePopup()
+	end)
+
+	main:OpenPopup(600, 270, "Mod Browser", controls, "save", nil, "close")
 end
