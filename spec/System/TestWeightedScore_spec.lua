@@ -311,13 +311,10 @@ describe("WeightedScore — tree integration", function()
 		local stat = findStat("WeightedScore")
 		assert.is_not_nil(stat)
 		assert.is_function(stat.getValue)
-		local calcFunc = build.calcsTab:GetMiscCalculator(build)
-		local baseOutput = calcFunc()
-		-- Synthesize a "better" output by doubling FullDPS relative to base
-		local betterOutput = setmetatable({}, { __index = baseOutput })
-		betterOutput.FullDPS = (baseOutput.FullDPS or 0) * 2 + 1
-		local baseScore   = stat.getValue(baseOutput, build)
-		local betterScore = stat.getValue(betterOutput, build)
+		local baseOutput = { FullDPS = 100, TotalEHP = 100 }
+		local betterOutput = { FullDPS = 201, TotalEHP = 100 }
+		local baseScore = stat.getValue(baseOutput, build, baseOutput)
+		local betterScore = stat.getValue(betterOutput, build, baseOutput)
 		assert.is_true(betterScore > baseScore)
 	end)
 
