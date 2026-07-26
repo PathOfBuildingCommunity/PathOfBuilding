@@ -12,6 +12,88 @@ local s_upper = string.upper
 local varList = LoadModule("Modules/ConfigOptions")
 local configVisibility = LoadModule("Modules/ConfigVisibility")
 
+local CustomModBlockClass = newClass("CustomModBlockControl", "Control", "ControlHost", function(self, anchor, rect, configTab, blockIndex, blockData)
+	self.Control(anchor, rect)
+	self.ControlHost()
+
+	self.configTab = configTab
+	self.blockIndex = blockIndex
+	self.blockData = blockData
+
+	self.controls.enableCheck = new("CheckBoxControl", {"TOPLEFT", self, "TOPLEFT"}, {0, 0, 18}, "", function(state)
+		blockData.enabled = state
+		configTab:AddUndoState()
+		configTab:BuildModList()
+		configTab.build.buildFlag = true
+	end)
+	self.controls.enableCheck.state = blockData.enabled ~= false
+
+	self.controls.titleEdit = new("EditControl", {"LEFT", self.controls.enableCheck, "RIGHT"}, {6, 0, 290, 18}, blockData.title or "", nil, nil, nil, function(buf)
+		blockData.title = buf
+		configTab:AddUndoState()
+	end)
+
+	self.controls.deleteBtn = new("ButtonControl", {"TOPRIGHT", self, "TOPRIGHT"}, {0, 0, 24, 18}, "^1X", function()
+		local customModsList = configTab.configSets[configTab.activeConfigSetId].customModsList
+		table.remove(customModsList, blockIndex)
+		if #customModsList == 0 then
+			table.insert(customModsList, { title = "Default", enabled = true, text = "" })
+		end
+		configTab:UpdateCustomModsControls()
+		configTab:AddUndoState()
+		configTab:BuildModList()
+		configTab.build.buildFlag = true
+	end)
+
+	self.controls.textEdit = new("ResizableEditControl", {"TOPLEFT", self, "TOPLEFT"}, {0, 22, 344, 80, 344, 40, 344, 600}, blockData.text or "", nil, "^%C\t\n", nil, function(buf)
+		blockData.text = buf
+		configTab:AddUndoState()
+		configTab:BuildModList()
+		configTab.build.buildFlag = true
+	end, 16)
+
+	self.controls.textEdit.inactiveText = function(val)
+		local inactiveText = ""
+		for line in val:gmatch("([^\n]*)\n?") do
+			local strippedLine = StripEscapes(line):gsub("^[%s?]+", ""):gsub("[%s?]+$", "")
+			local mods, extra = modLib.parseMod(strippedLine)
+			inactiveText = inactiveText .. ((mods and not extra) and colorCodes.MAGIC or colorCodes.UNSUPPORTED) .. (IsKeyDown("ALT") and strippedLine or line) .. "\n"
+		end
+		return inactiveText
+	end
+end)
+
+function CustomModBlockClass:GetSize()
+	local textHeight = self.controls.textEdit and self.controls.textEdit.height or 80
+	self.height = 22 + textHeight + 4
+	return 344, self.height
+end
+
+function CustomModBlockClass:IsMouseOver()
+	if not self:IsShown() then
+		return
+	end
+	return self:IsMouseInBounds() or self:GetMouseOverControl()
+end
+
+function CustomModBlockClass:OnKeyDown(key, doubleClick)
+	if not self:IsShown() or not self:IsEnabled() then
+		return
+	end
+	local mOverControl = self:GetMouseOverControl()
+	if mOverControl and mOverControl.OnKeyDown then
+		return mOverControl:OnKeyDown(key, doubleClick)
+	end
+end
+
+function CustomModBlockClass:Draw(viewPort)
+	if not self:IsShown() then
+		return
+	end
+	self:GetSize()
+	self:DrawControls(viewPort)
+end
+
 local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Control", function(self, build)
 	self.UndoHandler()
 	self.ControlHost()
@@ -139,13 +221,17 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 				local height = 20
 				for _, varControl in pairs(self.varControlList) do
 					if varControl:IsShown() then
-						height = height + m_max(varControl.height, 16) + 4
+						local _, ctrlHeight = varControl:GetSize()
+						height = height + m_max(ctrlHeight or varControl.height, 16) + 4
 					end
 				end
 				return m_max(height, 32)
 			end
 			t_insert(self.sectionList, lastSection)
 			t_insert(self.controls, lastSection)
+			if varData.section == "Custom Modifiers" then
+				self.customSection = lastSection
+			end
 		else
 			local control
 			if varData.type == "check" then
@@ -609,6 +695,18 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 		end
 	end
 	self.controls.scrollBar = new("ScrollBarControl", {"TOPRIGHT",self,"TOPRIGHT"}, {0, 0, 18, 0}, 50, "VERTICAL", true)
+	if self.customSection then
+		self.controls.customModsAddBlock = new("ButtonControl", {"TOPLEFT", self.customSection, "TOPLEFT"}, {8, 0, 100, 20}, "^7+ Add Block", function()
+			local customModsList = self.configSets[self.activeConfigSetId].customModsList
+			t_insert(customModsList, { title = "Block " .. (#customModsList + 1), enabled = true, text = "" })
+			self:UpdateCustomModsControls()
+			self:AddUndoState()
+			self:BuildModList()
+			self.build.buildFlag = true
+		end)
+		self.customModsBlockControls = { }
+		self:UpdateCustomModsControls()
+	end
 end)
 
 function ConfigTabClass:Load(xml, fileName)
@@ -665,14 +763,42 @@ function ConfigTabClass:Load(xml, fileName)
 			if not self.configSets[1] then
 				self:NewConfigSet(1, "Default")
 			end
-			setInputAndPlaceholder(node, 1)
+			if node.elem == "CustomModifierBlock" then
+				local block = {
+					title = node.attrib.title or "Default",
+					enabled = (node.attrib.enabled == "true" or node.attrib.enabled == nil),
+					text = node[1] or ""
+				}
+				t_insert(self.configSets[1].customModsList, block)
+			else
+				setInputAndPlaceholder(node, 1)
+			end
 		else
 			local configSetId = tonumber(node.attrib.id)
 			self:NewConfigSet(configSetId, node.attrib.title or "Default")
 			self.configSetOrderList[index] = configSetId
+			self.configSets[configSetId].customModsList = { }
 			for _, child in ipairs(node) do
-				setInputAndPlaceholder(child, configSetId)
+				if child.elem == "CustomModifierBlock" then
+					local block = {
+						title = child.attrib.title or "Default",
+						enabled = (child.attrib.enabled == "true" or child.attrib.enabled == nil),
+						text = child[1] or ""
+					}
+					t_insert(self.configSets[configSetId].customModsList, block)
+				else
+					setInputAndPlaceholder(child, configSetId)
+				end
 			end
+		end
+	end
+
+	-- Migration check for legacy builds
+	for _, configSetId in ipairs(self.configSetOrderList) do
+		local configSet = self.configSets[configSetId]
+		if not configSet.customModsList or #configSet.customModsList == 0 then
+			local legacyText = configSet.input and configSet.input.customMods or ""
+			configSet.customModsList = { { title = "Default", enabled = true, text = legacyText } }
 		end
 	end
 
@@ -731,6 +857,19 @@ function ConfigTabClass:Save(xml)
 			end
 			t_insert(child, node)
 		end
+		if configSet.customModsList then
+			for _, block in ipairs(configSet.customModsList) do
+				local blockNode = {
+					elem = "CustomModifierBlock",
+					attrib = {
+						title = block.title or "Default",
+						enabled = tostring(block.enabled ~= false)
+					},
+					[1] = block.text or ""
+				}
+				t_insert(child, blockNode)
+			end
+		end
 	end
 end
 
@@ -747,6 +886,7 @@ function ConfigTabClass:UpdateControls()
 			control:SelByValue(self.configSets[self.activeConfigSetId].input[var] or self:GetDefaultState(var), "val")
 		end
 	end
+	self:UpdateCustomModsControls()
 end
 
 function ConfigTabClass:Draw(viewPort, inputEvents)
@@ -881,6 +1021,45 @@ function ConfigTabClass:BuildModList()
 			end
 		end
 	end
+
+	-- Apply Custom Modifier Blocks
+	local customModsList = self.configSets[self.activeConfigSetId].customModsList
+	if customModsList and #customModsList > 0 then
+		for _, block in ipairs(customModsList) do
+			if block.enabled ~= false and block.text and #block.text > 0 then
+				for line in block.text:gmatch("([^\n]*)\n?") do
+					local strippedLine = StripEscapes(line):gsub("^[%s?]+", ""):gsub("[%s?]+$", "")
+					local mods, extra = modLib.parseMod(strippedLine)
+					if mods and not extra then
+						local source = "Custom"
+						for i = 1, #mods do
+							local mod = mods[i]
+							if mod then
+								mod = modLib.setSource(mod, source)
+								modList:AddMod(mod)
+							end
+						end
+					end
+				end
+			end
+		end
+	-- Fallback for tests/headless
+	elseif input.customMods and #input.customMods > 0 then
+		for line in input.customMods:gmatch("([^\n]*)\n?") do
+			local strippedLine = StripEscapes(line):gsub("^[%s?]+", ""):gsub("[%s?]+$", "")
+			local mods, extra = modLib.parseMod(strippedLine)
+			if mods and not extra then
+				local source = "Custom"
+				for i = 1, #mods do
+					local mod = mods[i]
+					if mod then
+						mod = modLib.setSource(mod, source)
+						modList:AddMod(mod)
+					end
+				end
+			end
+		end
+	end
 end
 
 function ConfigTabClass:ImportCalcSettings()
@@ -921,13 +1100,28 @@ function ConfigTabClass:ImportCalcSettings()
 end
 
 function ConfigTabClass:CreateUndoState()
-	return copyTable(self.configSets[self.activeConfigSetId].input)
+	local configSet = self.configSets[self.activeConfigSetId]
+	return {
+		input = copyTable(configSet.input),
+		customModsList = copyTable(configSet.customModsList)
+	}
 end
 
 function ConfigTabClass:RestoreUndoState(state)
-	wipeTable(self.configSets[self.activeConfigSetId].input)
-	for k, v in pairs(state) do
-		self.configSets[self.activeConfigSetId].input[k] = v
+	local configSet = self.configSets[self.activeConfigSetId]
+	if type(state) == "table" and state.input then
+		wipeTable(configSet.input)
+		for k, v in pairs(state.input) do
+			configSet.input[k] = v
+		end
+		if state.customModsList then
+			configSet.customModsList = copyTable(state.customModsList)
+		end
+	else
+		wipeTable(configSet.input)
+		for k, v in pairs(state) do
+			configSet.input[k] = v
+		end
 	end
 	self:UpdateControls()
 	self:BuildModList()
@@ -944,7 +1138,7 @@ end
 
 -- Creates a new config set
 function ConfigTabClass:NewConfigSet(configSetId, title)
-	local configSet = { id = configSetId, title = title, input = { }, placeholder = { } }
+	local configSet = { id = configSetId, title = title, input = { }, placeholder = { }, customModsList = { { title = "Default", enabled = true, text = "" } } }
 	if not configSetId then
 		configSet.id = 1
 		while self.configSets[configSet.id] do
@@ -963,6 +1157,37 @@ function ConfigTabClass:NewConfigSet(configSetId, title)
 	end
 	self.configSets[configSet.id] = configSet
 	return configSet
+end
+
+function ConfigTabClass:UpdateCustomModsControls()
+	if not self.customSection then
+		return
+	end
+	local configSet = self.configSets[self.activeConfigSetId]
+	if not configSet then
+		return
+	end
+	if not configSet.customModsList then
+		configSet.customModsList = { }
+	end
+	if #configSet.customModsList == 0 then
+		t_insert(configSet.customModsList, { title = "Default", enabled = true, text = configSet.input and configSet.input.customMods or "" })
+	end
+
+	if self.customModsBlockControls then
+		for _, ctrl in ipairs(self.customModsBlockControls) do
+			ctrl.shown = false
+		end
+	end
+	self.customModsBlockControls = { }
+	self.customSection.varControlList = { self.controls.customModsAddBlock }
+
+	for index, block in ipairs(configSet.customModsList) do
+		local blockControl = new("CustomModBlockControl", {"TOPLEFT", self.customSection, "TOPLEFT"}, {8, 0, 344, 120}, self, index, block)
+		t_insert(self.customModsBlockControls, blockControl)
+		t_insert(self.controls, blockControl)
+		t_insert(self.customSection.varControlList, blockControl)
+	end
 end
 
 -- Changes the active config set
