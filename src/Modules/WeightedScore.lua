@@ -40,7 +40,8 @@ function WeightedScore.weightsNeedFullDPS(weights)
 end
 
 -- Compute a weighted ratio score comparing newOutput to baseOutput.
--- Each stat contributes: weight * (newOutput[stat] / baseOutput[stat]).
+-- Each stat contributes: weight * (new output / base output), using the
+-- shared power-stat accessor so minion and transformed stats match Trade Query.
 -- A neutral candidate (same as base) scores approximately sum(weights).
 -- Higher score means the candidate is better.
 -- Missing or zero stats are handled safely (no crash, no infinite values).
@@ -49,9 +50,9 @@ function WeightedScore.computeRatioScore(baseOutput, newOutput, weights)
 	local function ratioModSums(...)
 		local baseModSum = 0
 		local newModSum = 0
-		for _, mod in ipairs({ ... }) do
-			baseModSum = baseModSum + (baseOutput[mod] or 0)
-			newModSum = newModSum + (newOutput[mod] or 0)
+		for _, statTable in ipairs({ ... }) do
+			baseModSum = baseModSum + data.powerStatList.GetFromOutput(baseOutput, statTable, true)
+			newModSum = newModSum + data.powerStatList.GetFromOutput(newOutput, statTable, true)
 		end
 		if baseModSum == math.huge then
 			return 0
@@ -62,11 +63,17 @@ function WeightedScore.computeRatioScore(baseOutput, newOutput, weights)
 		end
 	end
 	for _, statTable in ipairs(weights) do
+		local modSumRatio
 		if statTable.stat == "FullDPS" and not (baseOutput["FullDPS"] and newOutput["FullDPS"]) then
 			-- FullDPS fallback: use combined DPS components when FullDPS is not directly available
-			meanStatDiff = meanStatDiff + (ratioModSums("TotalDPS", "TotalDotDPS", "CombinedDPS") or 0) * statTable.weightMult
+			modSumRatio = ratioModSums({ stat = "TotalDPS" }, { stat = "TotalDotDPS" }, { stat = "CombinedDPS" })
+		else
+			modSumRatio = ratioModSums(statTable)
 		end
-		meanStatDiff = meanStatDiff + (ratioModSums(statTable.stat) or 0) * statTable.weightMult
+		if statTable.transform then
+			modSumRatio = statTable.transform(modSumRatio)
+		end
+		meanStatDiff = meanStatDiff + modSumRatio * statTable.weightMult
 	end
 	return meanStatDiff
 end
