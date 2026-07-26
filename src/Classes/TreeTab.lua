@@ -1947,10 +1947,15 @@ function TreeTabClass:FindTimelessJewel()
 
 	local function generateFallbackWeights(nodes, powerStat)
 		local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator(self.build)
+		local useFullDPS = powerStat.stat == "FullDPS"
+			or (powerStat.isWeightedScore and WeightedScore.weightsNeedFullDPS(WeightedScore.getWeights(self.build)))
+		if useFullDPS then
+			calcBase = calcFunc(nil, true)
+		end
 		local newList = { }
 		local function getStatValue(output)
 			if powerStat.getValue then
-				return powerStat.getValue(output, self.build)
+				return powerStat.getValue(output, self.build, calcBase)
 			end
 			return data.powerStatList.GetFromOutput(output, powerStat)
 		end
@@ -1961,7 +1966,7 @@ function TreeTabClass:FindTimelessJewel()
 			local nodeLines = newNode.node or { newNode }
 			for i = 1, #nodeLines do
 				local node = nodeLines[i]
-				local nodeOutput = calcFunc({ addNodes = { [node] = true } })
+				local nodeOutput = calcFunc({ addNodes = { [node] = true } }, useFullDPS)
 				local nodePower = getStatValue(nodeOutput)
 				-- avoid infinity
 				if basePower == 0 then
