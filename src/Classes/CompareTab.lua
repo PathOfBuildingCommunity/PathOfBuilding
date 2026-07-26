@@ -15,6 +15,7 @@ local calcsHelpers = require("Classes.CompareCalcsHelpers")
 local buildListHelpers = require("Modules.BuildListHelpers")
 local itemSlotHelper = require("Modules.ItemSlotHelper")
 local configVisibility = require("Modules.ConfigVisibility")
+local WeightedScore = require("Modules.WeightedScore")
 
 -- Node IDs below this value are normal passive tree nodes; IDs at or above are cluster jewel nodes
 local CLUSTER_NODE_OFFSET = 65536
@@ -2515,10 +2516,15 @@ end
 -- Coroutine: calculate power of compared build elements against primary build
 function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories)
 	local results = {}
+	local weightedScoreWeights = powerStat.isWeightedScore and WeightedScore.getWeights(self.primaryBuild)
 	local useFullDPS = powerStat.stat == "FullDPS"
+		or (powerStat.isWeightedScore and WeightedScore.weightsNeedFullDPS(weightedScoreWeights))
 
 	-- Get calculator for primary build
 	local calcFunc, calcBase = self.calcs.getMiscCalculator(self.primaryBuild)
+	if useFullDPS then
+		calcBase = calcFunc(nil, true)
+	end
 
 	-- Find display stat for formatting
 	local displayStat = nil
@@ -2621,7 +2627,8 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 	end
 
 	-- Get baseline stat value for percentage calculation
-	local baseStatValue = data.powerStatList.GetFromOutput(calcBase, powerStat)
+	local baseStatValue = powerStat.getValue and powerStat.getValue(calcBase, self.primaryBuild, calcBase)
+		or data.powerStatList.GetFromOutput(calcBase, powerStat)
 
 	-- Helper to format an impact value and compute percentage
 	local function formatImpact(impact)
@@ -2918,7 +2925,8 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 
 				-- Get a fresh calculator with the added group (pcall to guarantee cleanup)
 				local ok, gemCalcFunc, gemCalcBase = pcall(function()
-					return self.calcs.getMiscCalculator(self.primaryBuild)
+					local calcFunc, calcBase = self.calcs.getMiscCalculator(self.primaryBuild)
+					return calcFunc, useFullDPS and calcFunc(nil, true) or calcBase
 				end)
 
 				-- Always remove the temporarily added group
@@ -3001,7 +3009,8 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 						self.primaryBuild.buildFlag = true
 
 						local ok, sgCalcFunc, sgCalcBase = pcall(function()
-							return self.calcs.getMiscCalculator(self.primaryBuild)
+							local calcFunc, calcBase = self.calcs.getMiscCalculator(self.primaryBuild)
+							return calcFunc, useFullDPS and calcFunc(nil, true) or calcBase
 						end)
 
 						-- Always remove the temporarily added gem
@@ -3070,7 +3079,8 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 					local ok, cfgCalcFunc, cfgCalcBase = pcall(function()
 						self.primaryBuild.configTab:BuildModList()
 						self.primaryBuild.buildFlag = true
-						return self.calcs.getMiscCalculator(self.primaryBuild)
+						local calcFunc, calcBase = self.calcs.getMiscCalculator(self.primaryBuild)
+						return calcFunc, useFullDPS and calcFunc(nil, true) or calcBase
 					end)
 
 					-- Always restore original value
