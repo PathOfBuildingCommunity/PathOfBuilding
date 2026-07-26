@@ -7,6 +7,7 @@
 
 local dkjson = require "dkjson"
 local itemSlotHelper = LoadModule("Modules/ItemSlotHelper")
+local WeightedScore = LoadModule("Modules/WeightedScore")
 
 local get_time = os.time
 local t_insert = table.insert
@@ -254,23 +255,24 @@ function TradeQueryClass:PullCXData()
 end
 
 local function initStatSortSelectionList(list)
-	t_insert(list,  {
-		label = "Full DPS",
-		stat = "FullDPS",
-		weightMult = 1.0,
-	})
-	t_insert(list,  {
-		label = "Effective Hit Pool",
-		stat = "TotalEHP",
-		weightMult = 0.5,
-	})
+	for _, weight in ipairs(WeightedScore.defaultWeights()) do
+		t_insert(list, weight)
+	end
 end
 
 -- we do not want to overwrite previous list if the new list is the default, e.g. hitting reset multiple times in a row
 local function isSameAsDefaultList(list)
-	return list and #list == 2
-		and list[1].stat == "FullDPS" and list[1].weightMult == 1.0
-		and list[2].stat == "TotalEHP" and list[2].weightMult == 0.5
+	local defaultWeights = WeightedScore.defaultWeights()
+	if not list or #list ~= #defaultWeights then
+		return false
+	end
+	for index, weight in ipairs(defaultWeights) do
+		local selectedWeight = list[index]
+		if selectedWeight.stat ~= weight.stat or selectedWeight.weightMult ~= weight.weightMult then
+			return false
+		end
+	end
+	return true
 end
 
 -- Opens the item pricing popup
