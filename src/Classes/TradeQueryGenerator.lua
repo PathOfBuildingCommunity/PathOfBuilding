@@ -1391,8 +1391,23 @@ Remove: %s will be removed from the search results.]], term, term, term)
 			end
 		end
 		local pseudoStats = getStatEntries("pseudo")
+		-- map stats and such which are clearly not relevant here
+		local ignoredStats = {
+			"^pseudo.lake",
+			"^pseudo.pseudo_lake",
+			"^pseudo.pseudo_logbook",
+			"^pseudo.pseudo_temple",
+			"^pseudo.pseudo_map",
+			"^pseudo.pseudo_ritual",
+		}
 		for _, entry in ipairs(pseudoStats or {}) do
+			for _, ignored in ipairs(ignoredStats) do
+				if entry.id:find(ignored) then
+					goto pseudoContinue
+				end
+			end
 			t_insert(mods, { label = s_format("^7%s (Pseudo)", entry.text), tradeId = entry.id })
+			::pseudoContinue::
 		end
 		return mods
 	end
