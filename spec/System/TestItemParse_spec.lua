@@ -694,6 +694,106 @@ describe("TestAdvancedItemParse #item", function()
 			Note: ~b/o 2 chaos
 		]])
 	end)
+
+	it("parses allocated Crucible passive skills from advanced copy", function()
+		local item = new("Item", [[
+			Item Class: Bows
+			Rarity: Rare
+			Brimstone Arch
+			Synthesised Citadel Bow
+			--------
+			Item Level: 83
+			--------
+			{ Allocated Crucible Passive Skill (Tier: 1) }
+			+1 to Level of Socketed Dexterity Gems
+			{ Allocated Crucible Passive Skill (Tier: 3) }
+			-3% to Critical Strike Chance
+			+100% to Global Critical Strike Multiplier
+			{ Allocated Crucible Passive Skill (Tier: 2) }
+			20% reduced Flask Charges gained
+			Flasks applied to you have 15% increased Effect
+			{ Allocated Crucible Passive Skill (Tier: 1) }
+			Rampage
+			(You gain Rampage bonuses for Killing multiple Enemies in quick succession)
+			--------
+			Synthesised Item
+		]])
+
+		assert.are.equals(6, #item.crucibleModLines)
+		assert.are.equals(0, #item.explicitModLines)
+		local actualLines = { }
+		for _, modLine in ipairs(item.crucibleModLines) do
+			assert.is_true(modLine.crucible)
+			table.insert(actualLines, modLine.line)
+		end
+		assert.are.same({
+			"+1 to Level of Socketed Dexterity Gems",
+			"-3% to Critical Strike Chance",
+			"+100% to Global Critical Strike Multiplier",
+			"20% reduced Flask Charges gained",
+			"Flasks applied to you have 15% increased Effect",
+			"Rampage",
+		}, actualLines)
+	end)
+
+	it("normalises socketed gem requirements and crafted mod order on import", function()
+		local item = new("Item", [[
+			Item Class: Bows
+			Rarity: Rare
+			Brimstone Arch
+			Synthesised Citadel Bow
+			--------
+			Requirements:
+			Level: 82
+			Str: 126 (unmet)
+			Dex: 185 (unmet)
+			Int: 129 (unmet)
+			--------
+			Sockets: W-W-W-W-W-W
+			--------
+			Item Level: 83
+			--------
+			{ Prefix Modifier "Paragon's" (Tier: 1) — Gem }
+			+1 to Level of Socketed Gems
+			{ Master Crafted Prefix Modifier "Upgraded" — Gem }
+			+2 to Level of Socketed Support Gems
+			{ Master Crafted Prefix Modifier "Upgraded" — Damage, Elemental, Cold, Chaos }
+			Gain 16(14-16)% of Cold Damage as Extra Chaos Damage
+			{ Suffix Modifier "of the Underground" (Tier: 1) }
+			Non-Aura Vaal Skills require 40% reduced Souls Per Use
+			{ Suffix Modifier "of the Order" (Tier: 1) — Damage }
+			14(12-14)% chance to deal Double Damage
+			{ Suffix Modifier "of Destruction" (Tier: 1) — Damage, Critical }
+			+38(35-38)% to Global Critical Strike Multiplier
+		]])
+
+		assert.are.same({ str = 0, dex = 185, int = 0 }, {
+			str = item.requirements.strMod,
+			dex = item.requirements.dexMod,
+			int = item.requirements.intMod,
+		})
+		local expectedLines = {
+			"+1 to Level of Socketed Gems",
+			"+38% to Global Critical Strike Multiplier",
+			"Non-Aura Vaal Skills require 40% reduced Souls Per Use",
+			"+2 to Level of Socketed Support Gems",
+			"Gain (14-16)% of Cold Damage as Extra Chaos Damage",
+			"(12-14)% chance to deal Double Damage",
+		}
+		local importedLines = { }
+		for _, modLine in ipairs(item.explicitModLines) do
+			table.insert(importedLines, modLine.line)
+		end
+		assert.are.same(expectedLines, importedLines)
+
+		item:Craft()
+		local rebuiltLines = { }
+		for _, modLine in ipairs(item.explicitModLines) do
+			table.insert(rebuiltLines, modLine.line)
+		end
+		assert.are.same(expectedLines, rebuiltLines)
+	end)
+
 	describe("mod magnitude scaling", function()
 		before_each(function()
 			newBuild()
@@ -754,12 +854,30 @@ describe("TestAdvancedItemParse #item", function()
 
 			build.itemsTab:CreateDisplayItemFromRaw(rawItem, true)
 			local firstItem = build.itemsTab.displayItem
-			assert.are.equals("Gain 13% of Non-Chaos Damage as extra Chaos Damage", firstItem.explicitModLines[1].line)
-			assert.are.equals(2, firstItem.explicitModLines[1].valueScalar)
-			assert.are.equals("+70% to Global Critical Strike Multiplier", firstItem.explicitModLines[2].line)
-			assert.are.equals(2.2, firstItem.explicitModLines[2].valueScalar)
-			assert.are.equals("20% increased Quantity of Items found", firstItem.explicitModLines[3].line)
-			assert.are.equals(2, firstItem.explicitModLines[3].valueScalar)
+			local scalarsByLine = { }
+			for _, modLine in ipairs(firstItem.explicitModLines) do
+				scalarsByLine[modLine.line] = modLine.valueScalar
+			end
+			assert.are.equals(2, scalarsByLine["Gain 13% of Non-Chaos Damage as extra Chaos Damage"])
+			assert.are.equals(2.2, scalarsByLine["+70% to Global Critical Strike Multiplier"])
+			assert.are.equals(2, scalarsByLine["20% increased Quantity of Items found"])
+
+			firstItem.prefixes[1].range = 1
+			firstItem:Craft()
+			local rebuiltScalars = { }
+			for _, modLine in ipairs(firstItem.explicitModLines) do
+				if modLine.line:find("Non%-Chaos Damage") then
+					rebuiltScalars.chaos = modLine.valueScalar
+				elseif modLine.line:find("Global Critical Strike Multiplier") then
+					rebuiltScalars.critical = modLine.valueScalar
+				elseif modLine.line:find("Quantity of Items found") then
+					rebuiltScalars.quantity = modLine.valueScalar
+				end
+			end
+			assert.are.equals(2, rebuiltScalars.chaos)
+			-- Craft() bakes the catalyst into the rebuilt line before Simplex scaling.
+			assert.are.equals(2, rebuiltScalars.critical)
+			assert.are.equals(2, rebuiltScalars.quantity)
 		end)
 
 		it("scales matching implicit mods by modifier magnitude", function()

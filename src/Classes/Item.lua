@@ -61,6 +61,28 @@ local function getCatalystScalar(catalystId, mod, quality)
 	return 1
 end
 
+local function sortCraftedModLines(modLines)
+	local sourceOrder = { }
+	for index, modLine in ipairs(modLines) do
+		sourceOrder[modLine] = index
+	end
+	table.sort(modLines, function(a, b)
+		local aSaved = a.crafted or a.custom
+		local bSaved = b.crafted or b.custom
+		if aSaved ~= bSaved then
+			return not aSaved
+		elseif not aSaved and a.order ~= b.order then
+			if not a.order then
+				return false
+			elseif not b.order then
+				return true
+			end
+			return a.order < b.order
+		end
+		return sourceOrder[a] < sourceOrder[b]
+	end)
+end
+
 local influenceInfo = itemLib.influenceInfo.all
 
 local ItemClass = newClass("Item", function(self, raw, rarity, highQuality)
@@ -501,6 +523,9 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					end
 				end
 			end
+			if fullModName:match("^Allocated Crucible Passive Skill") then
+				linePrefix = linePrefix .. "{crucible}"
+			end
 			if modTags and modTags ~= "" then
 				linePrefix = linePrefix .. "{tags:" .. modTags:lower():gsub("%s+", "") .. "}"
 			end
@@ -890,6 +915,8 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					-- Use rolling Delta/Range in case one range is 1-3 and another is 1-100 so we get the finest precision possible
 					local bestPrecisionDelta = -1
 					local bestPrecisionRange = -1
+					local affixMod = self.affixes[self.pendingAffixList[1].modId]
+					modLine.order = affixMod and affixMod.statOrder[1]
 					for value, range in line:gmatch("(%-?%d+%.?%d*)%((%-?%d+%.?%d*%-%-?%d+%.?%d*)%)") do
 						-- Find advanced copy paste format: 45(40-50)
 						local min, max = range:match("(%-?%d+%.?%d*)%-(%-?%d+%.?%d*)")
@@ -1107,6 +1134,13 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 	if self.baseName and self.title then
 		self.name = self.title .. ", " .. self.baseName:gsub(" %(.+%)","")
 	end
+	if self.base and #self.sockets > 0 then
+		-- In-game requirement totals include requirements from socketed gems.
+		-- Derive the item's attribute requirements from its base and local mods instead.
+		self.requirements.str = self.base.req.str or 0
+		self.requirements.dex = self.base.req.dex or 0
+		self.requirements.int = self.base.req.int or 0
+	end
 	if self.base and not self.requirements.level then
 		if importedLevelReq and #self.sockets == 0 then
 			-- Requirements on imported items can only be trusted for items with no sockets
@@ -1123,7 +1157,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 			end
 		end
 	end
-	if self.advancedCopy then
+	if self.advancedCopy or self.crafted then
 		-- apply mod magnitude boost to matching mods
 		if #self.modMagnitudeMods > 0 then
 			for _, modMagnitudeMod in ipairs(self.modMagnitudeMods) do
@@ -1173,6 +1207,9 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 				end
 			end
 		end
+	end
+	if self.advancedCopy and #self.explicitModLines > 1 then
+		sortCraftedModLines(self.explicitModLines)
 	end
 	self.affixLimit = 0
 	if self.crafted then
@@ -1734,12 +1771,7 @@ function ItemClass:Craft()
 						elseif mod.type == "Suffix" then
 							modLine.suffix = true
 						end
-						for l = 1, #self.explicitModLines + 1 do
-							if not self.explicitModLines[l] or self.explicitModLines[l].order > order then
-								t_insert(self.explicitModLines, l, modLine)
-								break
-							end
-						end
+						t_insert(self.explicitModLines, modLine)
 						statOrder[order] = modLine
 					end	
 				end
@@ -1751,6 +1783,7 @@ function ItemClass:Craft()
 	for _, mod in ipairs(savedMods) do
 		t_insert(self.explicitModLines, mod)
 	end
+	sortCraftedModLines(self.explicitModLines)
 
 	self:BuildAndParseRaw()
 end
