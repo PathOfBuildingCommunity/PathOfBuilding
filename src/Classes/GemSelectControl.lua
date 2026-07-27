@@ -381,6 +381,14 @@ function GemSelectClass:SortGemList(gemList)
 			return sortCache.canSupport[a]
 		end
 	end)
+	if self.buf and #self.buf > 0 then
+		for index, gemId in ipairs(gemList) do
+			if gems[gemId] and gems[gemId].name:lower() == self.buf:lower() then
+				self.selIndex = index
+				break
+			end
+		end
+	end
 end
 
 function GemSelectClass:DPSBuilder()
@@ -686,12 +694,12 @@ function GemSelectClass:OnFocusGained()
 	self.EditControl:OnFocusGained()
 	self.dropped = true
 	self.selIndex = 0
+	self.controls.scrollBar.offset = 0
 	self:UpdateSortCache()
 	self:BuildList("")
 	for index, gemId in pairs(self.list) do
 		if self.gems[gemId] and self.gems[gemId].name == self.buf then
 			self.selIndex = index
-			self:ScrollSelIntoView()
 			break
 		end
 	end
@@ -764,8 +772,16 @@ function GemSelectClass:OnKeyDown(key, doubleClick)
 			self.dropped = false
 			self:BuildList("")
 			self.buf = self.initialBuf
-			self.selIndex = self.initialIndex
-			self:UpdateGem(false,true, true)
+			self.selIndex = 0
+			if self.buf and #self.buf > 0 then
+				for index, gemId in ipairs(self.list) do
+					if self.gems[gemId] and self.gems[gemId].name:lower() == self.buf:lower() then
+						self.selIndex = index
+						break
+					end
+				end
+			end
+			self:UpdateGem(true, false, true)
 			return
 		elseif self.controls.scrollBar:IsScrollUpKey(key) then
 			self.controls.scrollBar:Scroll(-1)
