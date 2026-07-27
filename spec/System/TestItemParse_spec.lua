@@ -715,6 +715,53 @@ describe("TestAdvancedItemParse #item", function()
 			return build.calcsTab.mainEnv.modDB:Sum("INC", { flags = ModFlag.Spell }, "Damage")
 		end
 
+		it("scales advanced-copy Simplex Amulet explicit mods on the first parse", function()
+			local rawItem = [[
+				Item Class: Amulets
+				Rarity: Rare
+				Grim Collar
+				Simplex Amulet
+				--------
+				Quality (Critical Modifiers): +20% (augmented)
+				--------
+				Requirements:
+				Level: 64
+				--------
+				Item Level: 87
+				--------
+				Allocates Force of Darkness (enchant)
+				--------
+				{ Implicit Modifier }
+				-2 Prefix Modifiers allowed
+				-1 Suffix Modifier allowed
+				Implicit Modifiers Cannot Be Changed
+				100% increased Explicit Modifier magnitudes
+				--------
+				{ Prefix Modifier "The Elder's" (Tier: 1) — Damage, Chaos  — 100% Increased }
+				Gain 13(3-5)% of Non-Chaos Damage as extra Chaos Damage
+				{ Suffix Modifier "of Destruction" (Tier: 1) — Damage, Critical  — 120% Increased }
+				+70(35-38)% to Global Critical Strike Multiplier
+				{ Suffix Modifier "of Amassment" — Drop  — 100% Increased }
+				20(17-20)% increased Quantity of Items found
+				--------
+				Mirrored
+				--------
+				Split
+				--------
+				Shaper Item
+				Elder Item
+			]]
+
+			build.itemsTab:CreateDisplayItemFromRaw(rawItem, true)
+			local firstItem = build.itemsTab.displayItem
+			assert.are.equals("Gain 13% of Non-Chaos Damage as extra Chaos Damage", firstItem.explicitModLines[1].line)
+			assert.are.equals(2, firstItem.explicitModLines[1].valueScalar)
+			assert.are.equals("+70% to Global Critical Strike Multiplier", firstItem.explicitModLines[2].line)
+			assert.are.equals(2.2, firstItem.explicitModLines[2].valueScalar)
+			assert.are.equals("20% increased Quantity of Items found", firstItem.explicitModLines[3].line)
+			assert.are.equals(2, firstItem.explicitModLines[3].valueScalar)
+		end)
+
 		it("scales matching implicit mods by modifier magnitude", function()
 			-- 130% * 1.7 = 221
 			build.itemsTab:CreateDisplayItemFromRaw([[

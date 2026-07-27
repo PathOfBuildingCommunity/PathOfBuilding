@@ -1844,10 +1844,13 @@ function ItemsTabClass:SetDisplayItem(item)
 				end
 			end
 		end
-		self.controls.displayItemInfluence:SetSel(influence1, true) -- Don't call the selection function for the first influence dropdown as the second dropdown isn't properly set yet.
-		self.controls.displayItemInfluence2:SetSel(influence2) -- The selection function for the second dropdown properly handles everything for both dropdowns
+		-- The item already has its parsed influences, so initialising these controls must not
+		-- run their selection functions. Doing so re-crafts advanced-copy rare items and loses
+		-- their imported rolls and modifier-magnitude scaling.
+		self.controls.displayItemInfluence:SetSel(influence1, true)
+		self.controls.displayItemInfluence2:SetSel(influence2, true)
 		self.controls.displayItemQualityEdit:SetText(item.quality)
-		self.controls.displayItemCatalyst:SetSel((item.catalyst or 0) + 1)
+		self.controls.displayItemCatalyst:SetSel((item.catalyst or 0) + 1, true)
 		if item.catalystQuality then
 			self.controls.displayItemCatalystQualityEdit:SetText(m_max(item.catalystQuality, 0))
 		else
