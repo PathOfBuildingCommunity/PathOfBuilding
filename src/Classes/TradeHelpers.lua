@@ -79,33 +79,6 @@ end
 
 local _optionTradeStatMap
 
--- These option stats are still needed for legacy items, but are no longer
--- included in the trade API's 3.29 stats response.
-local legacyOptionTradeStats = {
-	{
-		type = "explicit",
-		id = "explicit.stat_2878779644",
-		text = "Grants Level 20 Summon Bestial # Skill",
-		options = {
-			{ id = 1, text = "rhoa" },
-			{ id = 2, text = "ursa" },
-			{ id = 3, text = "snake" },
-		},
-	},
-	{
-		type = "explicit",
-		id = "explicit.stat_3642528642",
-		text = "Only affects Passives in # Ring",
-		options = {
-			{ id = 1, text = "small" },
-			{ id = 2, text = "medium" },
-			{ id = 3, text = "large" },
-			{ id = 4, text = "very large" },
-			{ id = 5, text = "massive" },
-		},
-	},
-}
-
 ---@param tradeStats table table of data from https://www.pathofexile.com/api/trade2/data/stats
 ---@return table optionTradeStatMap table containing helper data for matching trade option filters
 local function getOptionTradeStatMap(tradeStats)
@@ -138,14 +111,6 @@ local function getOptionTradeStatMap(tradeStats)
 				end
 			end
 		end
-	end
-	for _, entry in ipairs(legacyOptionTradeStats) do
-		local matchKey = entry.text:gsub("#", "(.*)"):lower()
-		optionTradeStatMap.patterns[matchKey] = optionTradeStatMap.patterns[matchKey] or {
-			type = entry.type,
-			options = entry.options,
-			tradeId = entry.id,
-		}
 	end
 
 	_optionTradeStatMap = optionTradeStatMap
