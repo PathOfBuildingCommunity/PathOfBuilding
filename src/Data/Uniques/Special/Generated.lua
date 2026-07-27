@@ -18,17 +18,22 @@ local parseVeiledModName = function(string)
 	gsub("(%d)", " %1 "))
 end
 
-local veiledModIsActive = function(mod, baseType, specificType1, specificType2)
+local veiledModIsActive = function(mod, baseType, specificType1, specificType2, poolKey)
 	local baseIndex = isValueInTable(mod.weightKey, baseType)
 	local typeIndex1 = isValueInTable(mod.weightKey, specificType1)
 	local typeIndex2 = isValueInTable(mod.weightKey, specificType2)
+	-- Master signature mods (e.g. Catarina's) carry their weight on a pool key such as "catarina_veiled_prefix"
+	-- and only list the slots they are excluded from, so the pool key only applies when no slot key matched
+	local poolIndex = poolKey and isValueInTable(mod.weightKey, poolKey)
 	return (typeIndex1 and mod.weightVal[typeIndex1] > 0) or (typeIndex2 and mod.weightVal[typeIndex2] > 0) or (not typeIndex1 and not typeIndex2 and baseIndex and mod.weightVal[baseIndex] > 0)
+		or (not typeIndex1 and not typeIndex2 and not baseIndex and poolIndex and mod.weightVal[poolIndex] > 0)
 end
 
 local getVeiledMods = function (veiledPool, baseType, specificType1, specificType2)
 	local veiledMods = { }
+	local poolKey = veiledPool == "catarina" and "catarina_veiled_prefix" or nil
 	for veiledModIndex, veiledMod in pairs(data.veiledMods) do
-		if veiledModIsActive(veiledMod, baseType, specificType1, specificType2) then
+		if veiledModIsActive(veiledMod, baseType, specificType1, specificType2, poolKey) then
 			local veiledName = parseVeiledModName(veiledModIndex)
 
 			veiledName = "("..veiledMod.type..") "..veiledName
@@ -112,9 +117,9 @@ local caneOfKulemak = {
 	"Has Alt Variant Two: true",
 	"Has Alt Variant Three: true",
 	"Selected Variant: 1",
-	"Selected Alt Variant: 2",
-	"Selected Alt Variant Two: 20",
-	"Selected Alt Variant Three: 21",
+	"Selected Alt Variant: 3",
+	"Selected Alt Variant Two: 25",
+	"Selected Alt Variant Three: 26",
 }
 
 for _, mod in pairs(caneOfKulemakMods) do
