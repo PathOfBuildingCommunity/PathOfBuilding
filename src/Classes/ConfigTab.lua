@@ -75,7 +75,7 @@ local CustomModBlockClass = newClass("CustomModBlockControl", "Control", "Contro
 	self.controls.textEdit.inactiveText = function(val)
 		local inactiveText = ""
 		for line in val:gmatch("([^\n]*)\n?") do
-			local strippedLine = StripEscapes(line):gsub("^[%s?]+", ""):gsub("[%s?]+$", "")
+			local strippedLine = StripEscapes(line):match("^%s*(.-)%s*$")
 			local mods, extra = modLib.parseMod(strippedLine)
 			inactiveText = inactiveText .. ((mods and not extra) and colorCodes.MAGIC or colorCodes.UNSUPPORTED) .. (IsKeyDown("ALT") and strippedLine or line) .. "\n"
 		end
@@ -1050,7 +1050,7 @@ function ConfigTabClass:BuildModList()
 			if block.enabled ~= false and block.text and #block.text > 0 then
 				hasBlockText = true
 				for line in block.text:gmatch("([^\n]*)\n?") do
-					local strippedLine = StripEscapes(line):gsub("^[%s?]+", ""):gsub("[%s?]+$", "")
+					local strippedLine = StripEscapes(line):match("^%s*(.-)%s*$")
 					local mods, extra = modLib.parseMod(strippedLine)
 					if mods and not extra then
 						local source = "Custom"
@@ -1069,7 +1069,7 @@ function ConfigTabClass:BuildModList()
 	-- Fallback for tests/headless
 	if not hasBlockText and input.customMods and #input.customMods > 0 then
 		for line in input.customMods:gmatch("([^\n]*)\n?") do
-			local strippedLine = StripEscapes(line):gsub("^[%s?]+", ""):gsub("[%s?]+$", "")
+			local strippedLine = StripEscapes(line):match("^%s*(.-)%s*$")
 			local mods, extra = modLib.parseMod(strippedLine)
 			if mods and not extra then
 				local source = "Custom"
@@ -1247,20 +1247,20 @@ function ConfigTabClass:OpenAddModPopup(blockData)
 	local seen = { }
 
 	local function addModEntry(mod)
-		if type(mod) == "string" then
-			local stripped = StripEscapes(mod):gsub("^[%s?]+", ""):gsub("[%s?]+$", "")
+		local function registerMod(str)
+			local stripped = StripEscapes(str):match("^%s*(.-)%s*$")
 			if #stripped > 0 and not seen[stripped] then
 				seen[stripped] = true
 				t_insert(allModsList, stripped)
 			end
+		end
+
+		if type(mod) == "string" then
+			registerMod(mod)
 		elseif type(mod) == "table" then
 			for i = 1, #mod do
 				if type(mod[i]) == "string" then
-					local stripped = StripEscapes(mod[i]):gsub("^[%s?]+", ""):gsub("[%s?]+$", "")
-					if #stripped > 0 and not seen[stripped] then
-						seen[stripped] = true
-						t_insert(allModsList, stripped)
-					end
+					registerMod(mod[i])
 				end
 			end
 		end
@@ -1346,7 +1346,6 @@ function ConfigTabClass:OpenAddModPopup(blockData)
 			for word in searchStr:gmatch("%S+") do
 				t_insert(words, word)
 			end
-
 			local matches = {}
 			for _, modText in ipairs(allModsList) do
 				local rank = fuzzyScore(modText, searchStr, words)
@@ -1354,14 +1353,12 @@ function ConfigTabClass:OpenAddModPopup(blockData)
 					t_insert(matches, { text = modText, rank = rank })
 				end
 			end
-
 			table.sort(matches, function(a, b)
 				if a.rank ~= b.rank then
 					return a.rank < b.rank
 				end
 				return a.text < b.text
 			end)
-
 			for _, match in ipairs(matches) do
 				t_insert(displayList, match.text)
 			end
@@ -1383,6 +1380,18 @@ function ConfigTabClass:OpenAddModPopup(blockData)
 	controls.listControl.GetRowValue = function(self, column, index, value)
 		return value or ""
 	end
+	controls.listControl.AddValueTooltip = function(self, tooltip, index, value)
+		tooltip:Clear(true)
+		if value and #value > 0 and value ~= "No matching modifiers found" then
+			local cleanText = itemLib.applyRange(value, 0.5)
+			local mods, extra = modLib.parseMod(cleanText)
+			if mods and not extra then
+				tooltip:AddLine(14, "^7Supported: ^2Yes")
+			else
+				tooltip:AddLine(14, "^7Supported: ^1No")
+			end
+		end
+	end
 	controls.listControl.OnSelClick = function(self, index, value)
 		if main.SelectControl then
 			main:SelectControl(self)
@@ -1391,10 +1400,11 @@ function ConfigTabClass:OpenAddModPopup(blockData)
 	end
 	controls.listControl.OnSelDoubleClick = function(index, value)
 		if value and value ~= "No matching modifiers found" then
+			local textToAdd = itemLib.applyRange(value, 0.5)
 			if blockData.text and #blockData.text > 0 and not blockData.text:match("\n$") then
 				blockData.text = blockData.text .. "\n"
 			end
-			blockData.text = (blockData.text or "") .. value
+			blockData.text = (blockData.text or "") .. textToAdd
 			self:UpdateCustomModsControls()
 			self:AddUndoState()
 			self:BuildModList()
@@ -1414,10 +1424,11 @@ function ConfigTabClass:OpenAddModPopup(blockData)
 		local selIndex = controls.listControl.selIndex or 1
 		local selected = displayList[selIndex]
 		if selected and selected ~= "No matching modifiers found" then
+			local textToAdd = itemLib.applyRange(selected, 0.5)
 			if blockData.text and #blockData.text > 0 and not blockData.text:match("\n$") then
 				blockData.text = blockData.text .. "\n"
 			end
-			blockData.text = (blockData.text or "") .. selected
+			blockData.text = (blockData.text or "") .. textToAdd
 			self:UpdateCustomModsControls()
 			self:AddUndoState()
 			self:BuildModList()
