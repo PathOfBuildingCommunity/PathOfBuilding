@@ -9838,6 +9838,19 @@ return {
 				["type"] = "implicit",
 			},
 		},
+		["2245_ShockProliferation"] = {
+			["Gloves"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.stat_1640259660",
+				["text"] = "Shocks you inflict spread to other Enemies within 1.5 metres",
+				["type"] = "implicit",
+			},
+		},
 		["2604_SummonTotemCastSpeed"] = {
 			["Boots"] = {
 				["max"] = 15,
@@ -10642,6 +10655,20 @@ return {
 			["tradeMod"] = {
 				["id"] = "implicit.stat_4101445926",
 				["text"] = "#% increased Mana Cost Efficiency",
+				["type"] = "implicit",
+			},
+		},
+		["5086_ManaCostEfficiencyUniquePresence"] = {
+			["Helmet"] = {
+				["max"] = 46,
+				["min"] = 37,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.stat_4094153038",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Mana Cost Efficiency",
 				["type"] = "implicit",
 			},
 		},
@@ -22768,6 +22795,16 @@ return {
 				["type"] = "explicit",
 			},
 		},
+		["1498_MineCritChanceForJewel"] = {
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.stat_214031493",
+				["text"] = "#% increased Critical Strike Chance with Mines",
+				["type"] = "explicit",
+			},
+		},
 		["1499_TwoHandedCritChanceForJewel"] = {
 			["AnyJewel"] = {
 				["max"] = 18,
@@ -23209,6 +23246,26 @@ return {
 			["tradeMod"] = {
 				["id"] = "explicit.stat_4237442815",
 				["text"] = "+#% to Melee Critical Strike Multiplier",
+				["type"] = "explicit",
+			},
+		},
+		["1528_TrapCritMultiplierForJewel"] = {
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.stat_1780168381",
+				["text"] = "+#% to Critical Strike Multiplier with Traps",
+				["type"] = "explicit",
+			},
+		},
+		["1529_MineCritMultiplierForJewel"] = {
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.stat_2529112796",
+				["text"] = "+#% to Critical Strike Multiplier with Mines",
 				["type"] = "explicit",
 			},
 		},
@@ -26047,7 +26104,7 @@ return {
 			["specialCaseData"] = {
 			},
 			["tradeMod"] = {
-				["id"] = "explicit.stat_771127912",
+				["id"] = "explicit.stat_1559341337",
 				["text"] = "Lose # Life per second",
 				["type"] = "explicit",
 			},
@@ -26057,7 +26114,7 @@ return {
 			["specialCaseData"] = {
 			},
 			["tradeMod"] = {
-				["id"] = "explicit.stat_771127912",
+				["id"] = "explicit.stat_1559341337",
 				["text"] = "Lose # Life per second",
 				["type"] = "explicit",
 			},
@@ -26067,7 +26124,7 @@ return {
 			["specialCaseData"] = {
 			},
 			["tradeMod"] = {
-				["id"] = "explicit.stat_771127912",
+				["id"] = "explicit.stat_1559341337",
 				["text"] = "Lose # Life per second",
 				["type"] = "explicit",
 			},
@@ -49230,6 +49287,15 @@ return {
 				["type"] = "explicit",
 			},
 		},
+		["6083_DeepwaterSwordFlammability"] = {
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.stat_3814785829",
+				["text"] = "Melee Strikes Curse Enemies with Flammability on Hit, ignoring Curse Limit",
+				["type"] = "explicit",
+			},
+		},
 		["6084_CurseDuration"] = {
 			["sign"] = "",
 			["specialCaseData"] = {
@@ -50056,6 +50122,16 @@ return {
 				["type"] = "explicit",
 			},
 		},
+		["652_DeepwaterSwordGrantedSkillGhostCannons"] = {
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.stat_1273709603",
+				["text"] = "Trigger level # Ghostly Artillery when you Attack with this Weapon",
+				["type"] = "explicit",
+			},
+		},
 		["6538_MaximumEnergyShieldOnKillPercentMaven"] = {
 			["Chest"] = {
 				["max"] = 10,
@@ -50849,6 +50925,58 @@ return {
 				["type"] = "explicit",
 			},
 		},
+		["6914_ChillingConfluxMaven"] = {
+			["Helmet"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.stat_1190121450|1",
+				["text"] = "You have Chilling Conflux for 3 seconds every 8 seconds",
+				["type"] = "explicit",
+			},
+		},
+		["6914_IgnitingConfluxMaven"] = {
+			["Helmet"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.stat_1190121450|3",
+				["text"] = "You have Igniting Conflux for 3 seconds every 8 seconds",
+				["type"] = "explicit",
+			},
+		},
+		["6914_ShockingConfluxMaven"] = {
+			["Helmet"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.stat_1190121450|2",
+				["text"] = "You have Shocking Conflux for 3 seconds every 8 seconds",
+				["type"] = "explicit",
+			},
+		},
+		["6914_SingleConflux"] = {
+			["Helmet"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.stat_1190121450|1",
+				["text"] = "You have Chilling Conflux for 3 seconds every 8 seconds",
+				["type"] = "explicit",
+			},
+		},
 		["6922_EnemyLifeLeechPermyriadWhileFocusedAndVaalPact"] = {
 			["specialCaseData"] = {
 			},
@@ -51516,6 +51644,15 @@ return {
 			["tradeMod"] = {
 				["id"] = "explicit.stat_2021420128",
 				["text"] = "Trigger Level # Warlords's Mark when you Hit a Rare or Unique Enemy and have no Mark",
+				["type"] = "explicit",
+			},
+		},
+		["7960_DeepwaterSwordAlwaysHit"] = {
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.stat_270993809",
+				["text"] = "Always Hits Burning Enemies",
 				["type"] = "explicit",
 			},
 		},
@@ -53419,6 +53556,16 @@ return {
 			["tradeMod"] = {
 				["id"] = "explicit.stat_648019518",
 				["text"] = "Removes #% of Life Recovered from Mana when used",
+				["type"] = "explicit",
+			},
+		},
+		["919_DeepwaterSwordMeleeDamageWhileBurning"] = {
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.stat_1353128245",
+				["text"] = "#% more Melee Damage while Burning",
 				["type"] = "explicit",
 			},
 		},
