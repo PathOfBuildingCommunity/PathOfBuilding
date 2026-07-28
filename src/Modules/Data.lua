@@ -177,15 +177,6 @@ data.powerStatList = {
 	{ stat="BlockChance", label="Block Chance" },
 	{ stat="SpellBlockChance", label="Spell Block Chance" },
 	{ stat="SpellSuppressionChance", label="Spell Suppression Chance" },
-	{ stat="WeightedScore", label="Weighted Score", isWeightedScore=true, getValue=function(output, build, calcBase)
-		local weights = WeightedScore.getWeights(build)
-		local buildBase = calcBase
-		if not buildBase then
-			local _, cachedBuildBase = build.calcsTab:GetMiscCalculator()
-			buildBase = cachedBuildBase
-		end
-		return WeightedScore.computeRatioScore(buildBase, output, weights) * 1000
-	end },
 }
 
 ---@param output any Calc output
@@ -242,6 +233,20 @@ for i = 1, #data.powerStatList do
 	t_insert(data.powerStatList, minionStat)
 	::statContinue::
 end
+t_insert(data.powerStatList, {
+	stat="WeightedScore",
+	label="Weighted Score",
+	isWeightedScore=true,
+	getValue=function(output, build, calcBase)
+		local weights = WeightedScore.getWeights(build)
+		local buildBase = calcBase
+		if not buildBase then
+			local _, cachedBuildBase = build.calcsTab:GetMiscCalculator()
+			buildBase = cachedBuildBase
+		end
+		return WeightedScore.computeRatioScore(buildBase, output, weights) * 1000
+	end,
+})
 data.misc = { -- magic numbers
 	ServerTickTime = 0.033,
 	ServerTickRate = 1 / 0.033,
