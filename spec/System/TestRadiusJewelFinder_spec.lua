@@ -445,7 +445,21 @@ describe("RadiusJewelFinder #radius-jewel", function()
 			assert.is_true(#typeTooltipTexts > 0, "expected jewel type tooltip content")
 			assert.is_true(typeTooltipTexts[1]:find("Intuitive Leap", 1, true) ~= nil,
 				"expected type tooltip to describe Intuitive Leap")
-			assert.is_true(popup.controls.findButton:IsShown(), "Find should be shown for a single jewel type")
+			assert.is_true(popup.controls.jewelVariantSelect.shown, "expected Foulborn variant selector for Intuitive Leap")
+			assert.are.equal("All variants", popup.controls.jewelVariantSelect.list[1])
+			assert.is_false(popup.controls.findButton:IsShown(),
+				"Find should stay hidden while all Intuitive Leap variants are selected")
+			local intuitiveVariantLabels = listLabels(popup.controls.jewelVariantSelect.list)
+			local foulbornIntuitiveIdx
+			for i, label in ipairs(intuitiveVariantLabels) do
+				if label:find("Foulborn:", 1, true) then
+					foulbornIntuitiveIdx = i
+					break
+				end
+			end
+			assert.is_not_nil(foulbornIntuitiveIdx, "expected Foulborn Intuitive Leap variant")
+			popup.controls.jewelVariantSelect.selFunc(foulbornIntuitiveIdx)
+			assert.is_true(popup.controls.findButton:IsShown(), "Find should be shown for the selected Intuitive Leap variant")
 			local findTooltipTexts = buttonTooltipTexts(popup.controls.findButton)
 			assert.is_true(#findTooltipTexts > 0, "expected Find tooltip content")
 			assert.is_true(findTooltipTexts[1]:find("matching passives", 1, true) ~= nil,
@@ -490,6 +504,26 @@ describe("RadiusJewelFinder #radius-jewel", function()
 			popup.controls.jewelVariantSelect.selFunc(redNightmareIdx)
 			assert.is_true(popup.controls.findButton:IsShown(),
 				"Find should be shown after selecting a specific variant")
+			local foulbornRedNightmareIdx
+			for i, label in ipairs(listLabels(popup.controls.jewelVariantSelect.list)) do
+				if label:find("The Red Nightmare (Foulborn:", 1, true) then
+					foulbornRedNightmareIdx = i
+					break
+				end
+			end
+			assert.is_not_nil(foulbornRedNightmareIdx, "expected Foulborn Red Nightmare variant")
+			popup.controls.jewelVariantSelect.selFunc(foulbornRedNightmareIdx)
+			assert.is_true(popup.controls.findButton:IsShown(),
+				"Find should stay shown for the selected Foulborn variant")
+			popup.controls.findButton:Click()
+			local hasFoulbornResultLabel = false
+			for _, row in ipairs(popup.controls.resultsList.list) do
+				if row.variantLabel and row.variantLabel:find("Foulborn:", 1, true) then
+					hasFoulbornResultLabel = true
+					break
+				end
+			end
+			assert.is_true(hasFoulbornResultLabel, "expected Find results to name the selected Foulborn variant")
 
 			-- Tempered & Transcendent: type tooltip generic, variant tooltip specific
 			local temperedIdx = findIndex(popup.controls.jewelTypeSelect.list, "Tempered & Transcendent")
@@ -671,36 +705,268 @@ describe("RadiusJewelFinder #radius-jewel", function()
 			assert.is_true(checkedVariants > 0, "expected at least one raw-backed jewel variant")
 		end)
 
-	end)
+		it("keeps Foulborn Dream and Nightmare variants in their jewel family", function()
+			local jewelTypes = RadiusJewelData.buildJewelTypes()
+			local dreamsAndNightmares
+			for _, jewelType in ipairs(jewelTypes) do
+				if jewelType.name == "Dreams & Nightmares" then
+					dreamsAndNightmares = jewelType
+					break
+				end
+			end
+			assert.is_not_nil(dreamsAndNightmares)
 
-	-- ── discoverFoulbornVariants ─────────────────────────────────────────────
-
-	describe("discoverFoulbornVariants", function()
-
-		it("returns empty table when no Foulborn data exists", function()
-			local variants = makeFinder():discoverFoulbornVariants("Might of the Meek")
-			assert.is_table(variants)
-			-- Some data sets include Foulborn items and some do not.
-			local hasFoulborn = false
-			if data.uniques.generated then
-				for _, rawText in ipairs(data.uniques.generated) do
-					if type(rawText) == "string" and rawText:match("^Foulborn ") then
-						hasFoulborn = true
-						break
+			local expectedFamilies = {
+				"The Red Dream", "The Red Nightmare", "The Green Dream",
+				"The Green Nightmare", "The Blue Dream", "The Blue Nightmare",
+			}
+			for _, family in ipairs(expectedFamilies) do
+				local familyVariants = { }
+				for _, variant in ipairs(dreamsAndNightmares.variants) do
+					if variant.variantGroup == family then
+						familyVariants[#familyVariants + 1] = variant
 					end
 				end
+				assert.are.equal(4, #familyVariants, "expected normal plus three Foulborn subsets for " .. family)
+				local foulbornCount = 0
+				for _, variant in ipairs(familyVariants) do
+					if variant.isFoulborn then
+						foulbornCount = foulbornCount + 1
+						local item = new("Item", "Rarity: Unique\n" .. variant.rawText)
+						assert.is_true(item.foulborn, "expected Foulborn item data for " .. variant.name)
+					end
+				end
+				assert.are.equal(3, foulbornCount, "expected three Foulborn subsets for " .. family)
 			end
-			if not hasFoulborn then
-				assert.are.equal(0, #variants, "expected no Foulborn variants when no Foulborn data exists")
-			else
-				assert.is_true(#variants > 0, "expected Foulborn variants when Foulborn data exists")
-				for _, v in ipairs(variants) do
-					assert.is_string(v.name)
-					assert.is_string(v.rawText)
-					assert.is_true(v.isFoulborn)
-					assert.is_number(v.comboIndex)
+		end)
+
+	end)
+
+	-- ── Foulborn radius-jewel variants ───────────────────────────────────────
+
+	describe("buildFoulbornVariants", function()
+
+		local function countEntries(tbl)
+			local count = 0
+			for _ in pairs(tbl) do
+				count = count + 1
+			end
+			return count
+		end
+
+		local function hasMutation(variant, modId)
+			for _, newModId in ipairs(variant.newModIds) do
+				if newModId == modId then
+					return true
 				end
 			end
+			return false
+		end
+
+		local function hasMutatedMod(item, modId)
+			for _, modLine in ipairs(item.explicitModLines) do
+				if modLine.modId == modId and modLine.mutated then
+					return true
+				end
+			end
+			return false
+		end
+
+		it("uses the current Foulborn map instead of generated unique data", function()
+			local map = data.foulbornMap
+			assert.are.equal(1, countEntries(map["Might of the Meek"]))
+			assert.are.equal(2, countEntries(map["Unnatural Instinct"]))
+			assert.are.equal(1, countEntries(map["Inspired Learning"]))
+			assert.are.equal(1, countEntries(map["Lioneye's Fall"]))
+			assert.are.equal(1, countEntries(map["Intuitive Leap"]))
+			assert.are.equal(
+				"MutatedUniqueJewel3GainRandomRareMonsterModOnKillWhileXSmallPassivesAllocatedInRadius",
+				map["Inspired Learning"]["StealRareModUniqueJewel3"])
+			assert.are.equal(
+				"MutatedUniqueJewel125AllocatedNotablePassiveSkillsInRadiusDoNothing",
+				map["Unnatural Instinct"]["AllocatedNonNotablesGrantNothingUnique__1_"])
+			assert.are.equal(
+				"MutatedUniqueJewel125GrantsAllBonusesOfUnallocatedNotablesInRadius",
+				map["Unnatural Instinct"]["GrantsStatsFromNonNotablesInRadiusUnique__1"])
+			assert.are.equal(
+				"MutatedUniqueJewel6KeystoneCanBeAllocatedInMassiveRadiusWithoutBeingConnected",
+				map["Intuitive Leap"]["JewelUniqueAllocateDisconnectedPassives"])
+		end)
+
+		it("accepts an injected map fixture and round-trips the mutation", function()
+			local originalModId, newModId = next(data.foulbornMap["Unnatural Instinct"])
+			local variants = makeFinder():buildFoulbornVariants("Unnatural Instinct", nil, {
+				["Unnatural Instinct"] = { [originalModId] = newModId },
+			})
+			assert.are.equal(1, #variants)
+			assert.are.same({ newModId }, variants[1].newModIds)
+
+			local imported = new("Item", "Rarity: Unique\n" .. variants[1].rawText)
+			assert.is_true(imported.foulborn)
+			assert.is_true(hasMutatedMod(imported, newModId))
+		end)
+
+		it("returns no variants when a unique has no Foulborn mapping", function()
+			assert.are.equal(0, #makeFinder():buildFoulbornVariants("Anatomical Knowledge"))
+		end)
+
+		it("builds every non-empty Unnatural Instinct mutation subset", function()
+			local variants = makeFinder():buildFoulbornVariants("Unnatural Instinct")
+			assert.are.equal(3, #variants)
+
+			for _, variant in ipairs(variants) do
+				assert.is_true(variant.isFoulborn)
+				assert.is_true(#variant.newModIds >= 1)
+				assert.is_true(#variant.newModIds <= 2)
+				assert.is_string(variant.name)
+				assert.is_string(variant.rawText)
+
+				local imported = new("Item", "Rarity: Unique\n" .. variant.rawText)
+				assert.is_true(imported.foulborn)
+				for _, newModId in ipairs(variant.newModIds) do
+					assert.is_true(hasMutatedMod(imported, newModId))
+				end
+			end
+		end)
+
+		it("scores each Unnatural Instinct Foulborn combination from its mutations", function()
+			local gainNotable = "MutatedUniqueJewel125GrantsAllBonusesOfUnallocatedNotablesInRadius"
+			local loseNotable = "MutatedUniqueJewel125AllocatedNotablePassiveSkillsInRadiusDoNothing"
+			local nodes = {
+				allocatedNormalA = { type = "Normal" },
+				allocatedNormalB = { type = "Normal" },
+				allocatedNotableA = { type = "Notable" },
+				allocatedNotableB = { type = "Notable" },
+				allocatedNotableC = { type = "Notable" },
+				allocatedNotableD = { type = "Notable" },
+				unallocatedNormalA = { type = "Normal" },
+				unallocatedNormalB = { type = "Normal" },
+				unallocatedNormalC = { type = "Normal" },
+				unallocatedNotableA = { type = "Notable" },
+				unallocatedNotableB = { type = "Notable" },
+				unallocatedNotableC = { type = "Notable" },
+				unallocatedNotableD = { type = "Notable" },
+				unallocatedNotableE = { type = "Notable" },
+			}
+			local allocNodes = {
+				allocatedNormalA = true,
+				allocatedNormalB = true,
+				allocatedNotableA = true,
+				allocatedNotableB = true,
+				allocatedNotableC = true,
+				allocatedNotableD = true,
+			}
+
+			for _, variant in ipairs(makeFinder():buildFoulbornVariants("Unnatural Instinct")) do
+				local expectedScore
+				if hasMutation(variant, gainNotable) and hasMutation(variant, loseNotable) then
+					expectedScore = 1 -- 5 unallocated notables - 4 allocated notables
+				elseif hasMutation(variant, gainNotable) then
+					expectedScore = 3 -- 5 unallocated notables - 2 allocated small passives
+				else
+					expectedScore = -1 -- 3 unallocated small passives - 4 allocated notables
+				end
+				assert.are.equal(expectedScore, variant.score(nodes, allocNodes))
+			end
+		end)
+
+		it("uses the mapped Inspired Learning mutation and excludes Foulborn Might of the Meek", function()
+			local inspired = makeFinder():buildFoulbornVariants("Inspired Learning")
+			assert.are.equal(1, #inspired)
+			assert.are.equal("alloc small passives", inspired[1].scoreLabel)
+			assert.are.equal(2, inspired[1].score({
+				allocatedNormalA = { type = "Normal" },
+				allocatedNormalB = { type = "Normal" },
+				unallocatedNotable = { type = "Notable" },
+			}, {
+				allocatedNormalA = true,
+				allocatedNormalB = true,
+			}))
+
+			assert.is_not_nil(data.foulbornMap["Might of the Meek"])
+			assert.are.equal(0, #makeFinder():buildFoulbornVariants("Might of the Meek"))
+		end)
+
+		it("marks Foulborn Intuitive Leap as Massive Radius keystone-only in preview and compute", function()
+			local variants = makeFinder():buildFoulbornVariants("Intuitive Leap")
+			assert.are.equal(1, #variants)
+			local variant = variants[1]
+			assert.is_true(variant.isMassiveRadius)
+			assert.is_true(variant.keystoneOnly)
+			assert.are.same({ "Massive Radius", "Keystone Passive Skills only" }, variant.previewMeta)
+
+			local preview = RadiusJewelData.jewelPreviewFn["Intuitive Leap"](variant)
+			local previewText = { }
+			for _, line in ipairs(preview) do
+				if line[1] then
+					previewText[#previewText + 1] = line[1]
+				end
+			end
+			assert.is_true(table.concat(previewText, "\n"):find("Massive Radius", 1, true) ~= nil)
+			assert.is_true(table.concat(previewText, "\n"):find("Keystone Passive Skills only", 1, true) ~= nil)
+
+			local finder = makeFinder()
+			local capturedOptions
+			local originalCollect = finder.collectDisconnectedPassiveCandidates
+			function finder:collectDisconnectedPassiveCandidates(socketNode, options)
+				capturedOptions = options
+				return { }
+			end
+			local sockets = finder:buildJewelSockets(getSmallRadiusIndex())
+			finder:computeIntuitiveLeapSocketImpact({ sockets[1] }, "Life", variant, "fast", { }, nil, nil, { id = "all" })
+			finder.collectDisconnectedPassiveCandidates = originalCollect
+
+			assert.is_not_nil(capturedOptions)
+			assert.is_true(capturedOptions.keystoneOnly)
+			assert.is_function(capturedOptions.collectNodes)
+
+			local massiveRadiusIndex
+			for index, radius in ipairs(data.jewelRadius) do
+				if radius.outer > data.jewelRadius[getSmallRadiusIndex()].outer and radius.outer <= 2400 then
+					massiveRadiusIndex = index
+					break
+				end
+			end
+			assert.is_not_nil(massiveRadiusIndex, "expected a radius beyond Small and within Massive Radius")
+			local massiveKeystone = { id = "foulbornMassiveKeystone", type = "Keystone" }
+			local syntheticSocket = {
+				nodesInRadius = {
+					[getSmallRadiusIndex()] = { normalPassive = { id = "normalPassive", type = "Normal" } },
+					[massiveRadiusIndex] = { foulbornMassiveKeystone = massiveKeystone },
+				},
+			}
+			local candidates = finder:collectDisconnectedPassiveCandidates(syntheticSocket, capturedOptions)
+			assert.are.same({ massiveKeystone }, candidates)
+		end)
+
+		it("compares Intuitive Leap normal and Foulborn variants while retaining the winner", function()
+			local intuitiveVariants
+			for _, jewelType in ipairs(RadiusJewelData.buildJewelTypes()) do
+				if jewelType.name == "Intuitive Leap" then
+					intuitiveVariants = jewelType.variants
+					break
+				end
+			end
+			assert.are.equal(2, #intuitiveVariants)
+
+			local finder = makeFinder()
+			local computedVariants = { }
+			function finder:computeIntuitiveLeapSocketImpact(sockets, impactStat, variant)
+				computedVariants[#computedVariants + 1] = variant
+				return {
+					{
+						socket = sockets[1],
+						delta = variant.isFoulborn and 2 or 1,
+						addedNodeCount = 0,
+					},
+				}, 100
+			end
+			local results, baseline = finder:computeBestIntuitiveLeapSocketImpact({ { id = "testSocket" } }, "Life", intuitiveVariants, "fast", { })
+			assert.are.equal(2, #computedVariants)
+			assert.are.equal(100, baseline)
+			assert.are.equal(1, #results)
+			assert.is_true(results[1].variant.isFoulborn)
+			assert.is_true(results[1].variant.rawText:find("{mutated}", 1, true) ~= nil)
 		end)
 
 	end)
@@ -1429,6 +1695,14 @@ describe("RadiusJewelFinder #radius-jewel", function()
 				assert.are.equal(1, #result)
 				assert.are.equal(ALLOC_SOCKET_IDS[1], result[1].socketId)
 				assert.are.equal("Thread of Hope", result[1].item.title)
+				assert.is_true(result.atLimit)
+			end)
+
+			it("matches an equipped Foulborn jewel against its base unique name", function()
+				equipFakeJewel(ALLOC_SOCKET_IDS[1], "Foulborn Intuitive Leap", 1)
+				local result = makeFinder():findEquippedJewelSockets({ name = "Intuitive Leap" })
+				assert.are.equal(1, #result)
+				assert.are.equal("Foulborn Intuitive Leap", result[1].item.title)
 				assert.is_true(result.atLimit)
 			end)
 

@@ -166,29 +166,6 @@ end
 
 M.buildVariantsFromUniqueItem = buildVariantsFromUniqueItem
 
-local function discoverFoulbornVariants(uniqueName)
-	local variants = { }
-	local generated = data.uniques.generated
-	if not generated then return variants end
-	local escapedName = uniqueName:gsub("([%(%)%.%%%+%-%*%?%[%]%^%$])", "%%%1")
-	for _, rawText in ipairs(generated) do
-		local comboIndex = rawText:match("^Foulborn " .. escapedName .. " (%d+)\n")
-		if comboIndex then
-			t_insert(variants, {
-				name = "Foulborn " .. comboIndex,
-				rawText = rawText,
-				radiusIndex = getRadiusIndexFromRawText(rawText),
-				isFoulborn = true,
-				comboIndex = tonumber(comboIndex),
-			})
-		end
-	end
-	t_sort(variants, function(a, b) return a.comboIndex < b.comboIndex end)
-	return variants
-end
-
-M.discoverFoulbornVariants = discoverFoulbornVariants
-
 -- ─────────────────────────────────────────────────────────────────────────────
 -- Scoring functions
 -- ─────────────────────────────────────────────────────────────────────────────
@@ -283,75 +260,146 @@ local function makeRadiusAttributeDetail(attributeLabel, includeAllocated, inclu
 end
 
 -- ─────────────────────────────────────────────────────────────────────────────
--- Foulborn finder fields
+-- Foulborn finder variants
 -- ─────────────────────────────────────────────────────────────────────────────
--- Foulborn variants are discovered first, then the finder adds local fields
--- such as scoreLabel, score, and keystoneOnly.
+-- PoB now models Foulborn by toggling individual modifier lines. The finder
+-- supports only radius-jewel families whose radius remains represented by Item.
+local FOULBORN_EXCLUDED_UNIQUES = {
+	["Might of the Meek"] = true,
+}
+
+local FOULBORN_UNNATURAL_GAIN_NOTABLE = "MutatedUniqueJewel125GrantsAllBonusesOfUnallocatedNotablesInRadius"
+local FOULBORN_UNNATURAL_LOSE_NOTABLE = "MutatedUniqueJewel125AllocatedNotablePassiveSkillsInRadiusDoNothing"
+local FOULBORN_INSPIRED_SMALL_PASSIVES = "MutatedUniqueJewel3GainRandomRareMonsterModOnKillWhileXSmallPassivesAllocatedInRadius"
+local FOULBORN_INTUITIVE_KEYSTONES = "MutatedUniqueJewel6KeystoneCanBeAllocatedInMassiveRadiusWithoutBeingConnected"
+
+local function hasFoulbornMutation(variant, modId)
+	for _, newModId in ipairs(variant.newModIds or { }) do
+		if newModId == modId then
+			return true
+		end
+	end
+	return false
+end
 
 local function addUnnaturalInstinctFoulbornFields(variant)
-	local typeMap = { Notable = "Notable", Small = "Normal" }
-	local rawText = variant.rawText
-	local gainLabel = rawText:match("Unallocated (%w+) Passive Skills")
-	local loseLabel = rawText:match("Allocated (%w+) Passive Skills.-grant nothing")
-	local gainType = gainLabel and typeMap[gainLabel]
-	local loseType = loseLabel and typeMap[loseLabel]
-	if gainType and loseType then
-		local gainShort = gainType == "Notable" and "notable" or "small"
-		local loseShort = loseType == "Notable" and "notable" or "small"
-		variant.scoreLabel = "unalloc " .. gainShort .. " - alloc " .. loseShort
-		variant.score = function(nodes, allocNodes)
-			return scoreGainLoss(nodes, allocNodes, gainType, loseType)
-		end
+	local gainType = hasFoulbornMutation(variant, FOULBORN_UNNATURAL_GAIN_NOTABLE) and "Notable" or "Normal"
+	local loseType = hasFoulbornMutation(variant, FOULBORN_UNNATURAL_LOSE_NOTABLE) and "Notable" or "Normal"
+	local gainShort = gainType == "Notable" and "notable" or "small"
+	local loseShort = loseType == "Notable" and "notable" or "small"
+	variant.scoreLabel = "unalloc " .. gainShort .. " - alloc " .. loseShort
+	variant.score = function(nodes, allocNodes)
+		return scoreGainLoss(nodes, allocNodes, gainType, loseType)
 	end
 end
 
 local function addInspiredLearningFoulbornFields(variant)
-	local rawText = variant.rawText
-	if rawText:match("If no Notables Allocated") then
-		variant.scoreLabel = "no alloc notables"
-		variant.score = function(nodes, allocNodes)
-			for nodeId, node in pairs(nodes) do
-				if allocNodes[nodeId] and node.type == "Notable" then
-					return 0
-				end
+	if not hasFoulbornMutation(variant, FOULBORN_INSPIRED_SMALL_PASSIVES) then
+		return
+	end
+	variant.scoreLabel = "alloc small passives"
+	variant.score = function(nodes, allocNodes)
+		local s = 0
+		for nodeId, node in pairs(nodes) do
+			if allocNodes[nodeId] and node.type == "Normal" then
+				s = s + 1
 			end
-			return 1
 		end
-	elseif rawText:match("Small Passives Allocated") then
-		variant.scoreLabel = "alloc small passives"
-		variant.score = function(nodes, allocNodes)
-			local s = 0
-			for nodeId, node in pairs(nodes) do
-				if allocNodes[nodeId] and node.type == "Normal" then
-					s = s + 1
-				end
-			end
-			return s
-		end
+		return s
 	end
 end
 
 local function addIntuitiveLeapFoulbornFields(variant)
-	local rawText = variant.rawText
-	if rawText:match("Massive Radius") then
-		variant.isMassiveRadius = true
+	if not hasFoulbornMutation(variant, FOULBORN_INTUITIVE_KEYSTONES) then
+		return
 	end
-	if rawText:match("Keystone Passive Skills") then
-		variant.keystoneOnly = true
-		variant.scoreLabel = "unalloc keystones"
-		variant.score = function(nodes, allocNodes)
-			local s = 0
-			for nodeId, node in pairs(nodes) do
-				if not allocNodes[nodeId] and node.type == "Keystone" then
-					s = s + 1
-				end
+	-- Massive radius is part of the Foulborn effect, not a parsed item mod line.
+	variant.isMassiveRadius = true
+	variant.keystoneOnly = true
+	variant.previewMeta = { "Massive Radius", "Keystone Passive Skills only" }
+	variant.scoreLabel = "unalloc keystones"
+	variant.score = function(nodes, allocNodes)
+		local s = 0
+		for nodeId, node in pairs(nodes) do
+			if not allocNodes[nodeId] and node.type == "Keystone" then
+				s = s + 1
 			end
-			return s
 		end
+		return s
 	end
 end
 
-local function appendFoulbornVariants(jewelType, foulbornVariants)
+local function addFoulbornFields(uniqueName, variant)
+	if uniqueName == "Unnatural Instinct" then
+		addUnnaturalInstinctFoulbornFields(variant)
+	elseif uniqueName == "Inspired Learning" then
+		addInspiredLearningFoulbornFields(variant)
+	elseif uniqueName == "Intuitive Leap" then
+		addIntuitiveLeapFoulbornFields(variant)
+	end
+end
+
+local function getFoulbornMutationPairs(uniqueName, foulbornMap)
+	local mutationMap = foulbornMap[uniqueName]
+	local mutationPairs = { }
+	if not mutationMap then
+		return mutationPairs
+	end
+	for originalModId, newModId in pairs(mutationMap) do
+		t_insert(mutationPairs, { originalModId = originalModId, newModId = newModId })
+	end
+	t_sort(mutationPairs, function(a, b) return a.newModId < b.newModId end)
+	return mutationPairs
+end
+
+local function getFoulbornVariantLabel(newModIds)
+	local labels = { }
+	for _, newModId in ipairs(newModIds) do
+		local mod = data.itemMods.Foulborn[newModId]
+		t_insert(labels, mod and mod[1] or newModId)
+	end
+	return "Foulborn: " .. table.concat(labels, " + ")
+end
+
+local function buildFoulbornVariants(uniqueName, baseName, foulbornMap)
+	if FOULBORN_EXCLUDED_UNIQUES[uniqueName] then
+		return { }
+	end
+	foulbornMap = foulbornMap or data.foulbornMap or { }
+	local mutationPairs = getFoulbornMutationPairs(uniqueName, foulbornMap)
+	local variants = { }
+	if #mutationPairs == 0 then
+		return variants
+	end
+	local combinationCount = 2 ^ #mutationPairs - 1
+	local baseRawText = mustGetCurrentUniqueRawText(uniqueName, baseName)
+	for combination = 1, combinationCount do
+		local item = new("Item", "Rarity: Unique\n" .. baseRawText)
+		local newModIds = { }
+		for index, mutationPair in ipairs(mutationPairs) do
+			if math.floor(combination / 2 ^ (index - 1)) % 2 == 1 then
+				item:MutateMod(mutationPair.originalModId, mutationPair.newModId, true)
+				t_insert(newModIds, mutationPair.newModId)
+			end
+		end
+		local rawText = item:BuildRaw():gsub("^Rarity: %w+\n", "")
+		local variant = {
+			name = getFoulbornVariantLabel(newModIds),
+			rawText = rawText,
+			radiusIndex = item.jewelRadiusIndex,
+			isFoulborn = true,
+			newModIds = newModIds,
+		}
+		addFoulbornFields(uniqueName, variant)
+		t_insert(variants, variant)
+	end
+	return variants
+end
+
+M.buildFoulbornVariants = buildFoulbornVariants
+
+local function appendFoulbornVariants(jewelType, uniqueName)
+	local foulbornVariants = buildFoulbornVariants(uniqueName)
 	if #foulbornVariants == 0 then return end
 	jewelType.variants = {
 		{ name = "Normal", rawText = jewelType.rawText, radiusIndex = jewelType.radiusIndex },
@@ -574,7 +622,7 @@ end
 
 local function previewVariant(variant, displayName)
 	if variant and variant.rawText then
-		return previewFromRawText(variant.rawText, displayName or variant.name)
+		return previewFromRawText(variant.rawText, displayName or variant.name, variant.previewMeta)
 	end
 	return nil
 end
@@ -703,7 +751,6 @@ function M.buildJewelTypes()
 			return s
 		end,
 	}
-	appendFoulbornVariants(mightOfTheMeek, discoverFoulbornVariants("Might of the Meek"))
 
 	local inspiredLearning = {
 		name = "Inspired Learning",
@@ -721,11 +768,7 @@ function M.buildJewelTypes()
 			return s
 		end,
 	}
-	do
-		local foulbornVariants = discoverFoulbornVariants("Inspired Learning")
-		for _, variant in ipairs(foulbornVariants) do addInspiredLearningFoulbornFields(variant) end
-		appendFoulbornVariants(inspiredLearning, foulbornVariants)
-	end
+	appendFoulbornVariants(inspiredLearning, "Inspired Learning")
 
 	local unnaturalInstinct = {
 		name = "Unnatural Instinct",
@@ -744,11 +787,7 @@ function M.buildJewelTypes()
 			return gained - lost
 		end,
 	}
-	do
-		local foulbornVariants = discoverFoulbornVariants("Unnatural Instinct")
-		for _, variant in ipairs(foulbornVariants) do addUnnaturalInstinctFoulbornFields(variant) end
-		appendFoulbornVariants(unnaturalInstinct, foulbornVariants)
-	end
+	appendFoulbornVariants(unnaturalInstinct, "Unnatural Instinct")
 
 	local lioneyesFall = {
 		name = "Lioneye's Fall",
@@ -758,7 +797,7 @@ function M.buildJewelTypes()
 		rawText = mustGetUniqueRawText("Lioneye's Fall"),
 		score = scoreAllocPassives,
 	}
-	appendFoulbornVariants(lioneyesFall, discoverFoulbornVariants("Lioneye's Fall"))
+	appendFoulbornVariants(lioneyesFall, "Lioneye's Fall")
 
 	local intuitiveLeap = {
 		name = "Intuitive Leap",
@@ -771,11 +810,7 @@ function M.buildJewelTypes()
 			return scoreUnallocPassives(nodes, allocNodes)
 		end,
 	}
-	do
-		local foulbornVariants = discoverFoulbornVariants("Intuitive Leap")
-		for _, variant in ipairs(foulbornVariants) do addIntuitiveLeapFoulbornFields(variant) end
-		appendFoulbornVariants(intuitiveLeap, foulbornVariants)
-	end
+	appendFoulbornVariants(intuitiveLeap, "Intuitive Leap")
 
 	local dreamsNightmaresJewels = {
 		{ name = "The Red Dream" },
@@ -794,7 +829,7 @@ function M.buildJewelTypes()
 			rawText = rawText,
 			radiusIndex = getRadiusIndexFromRawText(rawText),
 		})
-		local foulbornVariants = discoverFoulbornVariants(jewelInfo.name)
+		local foulbornVariants = buildFoulbornVariants(jewelInfo.name)
 		for _, variant in ipairs(foulbornVariants) do
 			variant.variantGroup = jewelInfo.name
 			variant.name = jewelInfo.name .. " (" .. variant.name .. ")"
