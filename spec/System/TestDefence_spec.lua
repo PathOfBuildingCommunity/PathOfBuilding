@@ -702,6 +702,27 @@ describe("TestDefence", function()
 			assert.is_true(build.calcsTab.calcsOutput.TotalMinionLife > 0)
 		end)
 
+		it("keeps invulnerable minion limits available to limitStat", function()
+			build.itemsTab:CreateDisplayItemFromRaw([[
+			Test Item
+			Fiend Dagger
+			100% chance to Trigger Level 1 Raise Spiders on Kill
+			]])
+			build.itemsTab:AddDisplayItem()
+			build.skillsTab:PasteSocketGroup("Reave 20/0  1")
+			runCallback("OnFrame")
+
+			build.configTab.input.raiseSpidersSpiderCount = 5
+			build.configTab:BuildModList()
+			runCallback("OnFrame")
+
+			local env = build.calcsTab.calcsEnv
+			local mainSkill = env.player.mainSkill
+			assert.are.equals(20, build.calcsTab.calcsOutput.ActiveSpiderLimit)
+			assert.are.equals(5, env.player.modDB:Sum("BASE", nil, "Multiplier:RaisedSpider"))
+			assert.are.equals(10, mainSkill.skillModList:Sum("INC", mainSkill.skillCfg, "Speed"))
+		end)
+
 		it("counts the same Minion type from different skills separately", function()
 			build.itemsTab:CreateDisplayItemFromRaw("Test Bow\nShort Bow")
 			build.itemsTab:AddDisplayItem()
