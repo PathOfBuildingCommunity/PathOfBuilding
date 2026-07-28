@@ -809,6 +809,21 @@ describe("TestAdvancedItemParse #item", function()
 		assert.are.equals("Commissioned 150720 coins to commemorate Chitus", seedLine)
 	end)
 
+	it("preserves independently rolled values on the same modifier line", function()
+		local item = new("Item", [[
+			Rarity: Unique
+			Prismweave
+			Rustic Sash
+			{ Unique Modifier — Damage, Elemental, Fire, Attack }
+			Adds 16(14-16) to 32(30-32) Fire Damage to Attacks
+			{ Unique Modifier — Damage, Elemental, Cold, Attack }
+			Adds 10(10-12) to 27(24-28) Cold Damage to Attacks
+		]])
+
+		assert.are.equals("Adds (14-16) to (30-32) Fire Damage to Attacks", item.explicitModLines[1].line)
+		assert.are.equals("Adds 10 to 27 Cold Damage to Attacks", item.explicitModLines[2].line)
+	end)
+
 	describe("mod magnitude scaling", function()
 		before_each(function()
 			newBuild()

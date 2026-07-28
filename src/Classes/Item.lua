@@ -942,15 +942,23 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					-- Use rolling Delta/Range in case one range is 1-3 and another is 1-100 so we get the finest precision possible
 					local bestPrecisionDelta = -1
 					local bestPrecisionRange = -1
+					local firstRollRange
+					local hasIndependentRolls
 					
 					-- Replace non-number ranges as unsupported
 					line = line:gsub("(%a+)%([%a%s]+%-[%a%s]+%)", "%1")
+					local advancedCopyLine = line
 
 					for value, range in line:gmatch("(%-?%d+%.?%d*)%((%-?%d+%.?%d*%-%-?%d+%.?%d*)%)") do
 						local min, max = range:match("(%-?%d+%.?%d*)%-(%-?%d+%.?%d*)")
 						local delta = tonumber(max) - min
+						local rollRange = delta > 0 and round((value - min) / delta, 6) or 0.5
+						if firstRollRange and firstRollRange ~= rollRange then
+							hasIndependentRolls = true
+						end
+						firstRollRange = firstRollRange or rollRange
 						if delta > bestPrecisionDelta then
-							bestPrecisionRange = round((value - min) / delta, 6)
+							bestPrecisionRange = rollRange
 							bestPrecisionDelta = delta
 						end
 						if bestPrecisionRange > 1 or bestPrecisionRange < 0 then
@@ -959,7 +967,9 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 							line = line:gsub(value .. "%(" .. range:gsub("%-", "%%-") .. "%)", (tonumber(value) < 0 and "+" or "") .. "(" .. range .. ")")
 						end
 					end
-					if bestPrecisionRange <= 1 and bestPrecisionRange >= 0 then
+					if hasIndependentRolls then
+						line = advancedCopyLine:gsub("(%-?%d+%.?%d*)%(%-?%d+%.?%d*%-%-?%d+%.?%d*%)", "%1")
+					elseif bestPrecisionRange <= 1 and bestPrecisionRange >= 0 then
 						modLine.range = bestPrecisionRange
 					end
 				end
