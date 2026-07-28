@@ -692,14 +692,14 @@ describe("TestDefence", function()
 			assert.is_true(build.calcsTab.calcsOutput.TotalMinionLife > 0)
 		end)
 
-		it("does not count invulnerable Minions for Companionship", function()
+		it("counts invulnerable Minions for Companionship's condition", function()
 			build.skillsTab:PasteSocketGroup("Animate Guardian 20/0  1\nCompanionship 3/0  1")
 			build.skillsTab:PasteSocketGroup("Summon Skitterbots 20/0  1")
 			runCallback("OnFrame")
 
-			assert.are.equals(1, build.calcsTab.calcsEnv.player.modDB:Sum("BASE", nil, "Multiplier:SummonedMinion"))
-			assert.are.equals(15, build.calcsTab.calcsOutput.MinionAllyDamageMitigation)
-			assert.is_true(build.calcsTab.calcsOutput.TotalMinionLife > 0)
+			assert.is_true(build.calcsTab.calcsEnv.player.modDB:Sum("BASE", nil, "Multiplier:SummonedMinion") > 1)
+			assert.are.equals(0, build.calcsTab.calcsOutput.MinionAllyDamageMitigation)
+			assert.is_nil(build.calcsTab.calcsOutput.TotalMinionLife)
 		end)
 
 		it("keeps invulnerable minion limits available to limitStat", function()
