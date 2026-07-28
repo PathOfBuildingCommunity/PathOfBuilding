@@ -11151,7 +11151,6 @@ skills["ReapAltX"] = {
 		duration = true,
 	},
 	baseMods = {
-		skill("radius", 25),
 		skill("debuff", true),
 	},
 	qualityStats = {
