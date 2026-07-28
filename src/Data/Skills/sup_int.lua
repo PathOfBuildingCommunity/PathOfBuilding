@@ -4995,10 +4995,10 @@ skills["SupportMinionPact"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["spell_minimum_added_physical_damage_per_active_permanent_minion"] = {
-			mod("PhysicalMin", "BASE", nil, 0, 0, { type = "Multiplier", var = "SummonedMinion" }),
+			mod("PhysicalMin", "BASE", nil, 0, 0, { type = "Multiplier", var = "PermanentMinion" }),
 		},
 		["spell_maximum_added_physical_damage_per_active_permanent_minion"] = {
-			mod("PhysicalMax", "BASE", nil, 0, 0, { type = "Multiplier", var = "SummonedMinion" }),
+			mod("PhysicalMax", "BASE", nil, 0, 0, { type = "Multiplier", var = "PermanentMinion" }),
 		},
 	},
 	qualityStats = {

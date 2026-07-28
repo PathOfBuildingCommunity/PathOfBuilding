@@ -1181,7 +1181,7 @@ local preFlagList = {
 	["^attacks [hd][ae][va][el] "] = { flags = ModFlag.Attack },
 	["^attack skills [hd][ae][va][el] "] = { keywordFlags = KeywordFlag.Attack },
 	["^spells [hd][ae][va][el] a? ?"] = { flags = ModFlag.Spell },
-	["^spell skills [hd][ae][va][el] "] = { keywordFlags = KeywordFlag.Spell },
+	["^spell skills [hd][ae][va][el] "] = { tag = { type = "SkillType", skillType = SkillType.Spell } },
 	["^projectile attack skills [hd][ae][va][el] "] = { tag = { type = "SkillType", skillType = SkillType.RangedAttack } },
 	["^projectiles from attacks [hd][ae][va][el] "] = { tag = { type = "SkillType", skillType = SkillType.RangedAttack } },
 	["^arrows [hd][ae][va][el] "] = { tag = { type = "KeywordFlagAnd", keywordFlags = KeywordFlag.Arrow } },
@@ -2117,7 +2117,9 @@ local specialModList = {
 	["enemies you kill while affected by glorious madness have a (%d+)%% chance to explode, dealing a (.+) of their life as (.+) damage"] = function(chance, _, amount, type)	-- Beacon of Madness
 		return explodeFunc(chance, amount, type, { type = "Condition", var = "AffectedByGloriousMadness" })
 	end,
-	["enemies killed with attack hits have a (%d+)%% chance to explode, dealing a (.+) of their life as (.+) damage"] = explodeFunc,	-- Devastator (attack clusters)
+	["enemies killed with attack hits have a (%d+)%% chance to explode, dealing a (.+) of their life as (.+) damage"] = function(chance, _, amount, type)	-- Devastator (attack clusters)
+		return explodeFunc(chance, amount, type)
+	end,
 	["enemies killed with wand hits have a (%d+)%% chance to explode, dealing a (.+) of their life as (.+) damage"] = function(chance, _, amount, type)	-- Explosive Force (wand clusters)
 		return explodeFunc(chance, amount, type, { type = "Condition", var = "UsingWand" })
 	end,
@@ -2853,7 +2855,7 @@ local specialModList = {
 	["consecrated ground you create applies (%d+)%% increased damage taken to enemies"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("DamageTakenConsecratedGround", "INC", num, { type = "Condition", var = "OnConsecratedGround" }) }) } end,
 	["you have consecrated ground around you while stationary"] = { flag("Condition:OnConsecratedGround", { type = "Condition", var = "Stationary" }) },
 	["consecrated ground you create grants immun[ei]t?y? to elemental ailments to you and allies"] = { mod("ExtraAura", "LIST", { mod = flag("ElementalAilmentImmune", { type = "Condition", var = "OnConsecratedGround" }) }), },
-	["gain fanaticism for 4 seconds on reaching maximum fanatic charges"] = {
+	["gain fanaticism for (%d+) seconds on reaching maximum fanatic charges"] = {
 		flag("Condition:CanGainFanaticism"),
 	},
 	["(%d+)%% increased critical strike chance per point of strength or intelligence, whichever is lower"] = function(num) return {
