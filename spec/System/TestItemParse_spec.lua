@@ -881,6 +881,29 @@ describe("TestAdvancedItemParse #item", function()
 		assert.is_true(#item.explicitModLines[1].modList > 0)
 	end)
 
+	it("parses punctuated enum and descending numeric ranges", function()
+		local gemItem = new("Item", [[
+			Rarity: Unique
+			Replica Dragonfang's Flight
+			Onyx Amulet
+			{ Unique Modifier }
+			+3 to Level of all Lightning Tendrils(Fireball-Mana-Infused Staff) Gems
+		]])
+		assert.are.equals("+3 to Level of all Lightning Tendrils Gems", gemItem.explicitModLines[1].line)
+		assert.is_true(#gemItem.explicitModLines[1].modList > 0)
+
+		local requirementItem = new("Item", [[
+			Rarity: Unique
+			Replica Dragonfang's Flight
+			Onyx Amulet
+			{ Unique Modifier }
+			Items and Gems have 8(10-5)% reduced Attribute Requirements
+		]])
+		assert.are.equals("Items and Gems have (5-10)% reduced Attribute Requirements", requirementItem.explicitModLines[1].line)
+		assert.are.equals("Items and Gems have 8% reduced Attribute Requirements",
+			itemLib.applyRange(requirementItem.explicitModLines[1].line, requirementItem.explicitModLines[1].range))
+	end)
+
 	it("parses Memory Strands as an item property", function()
 		local item = new("Item", [[
 			Rarity: Magic

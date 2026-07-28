@@ -940,6 +940,9 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					for value, range in line:gmatch("(%-?%d+%.?%d*)%((%-?%d+%.?%d*%-%-?%d+%.?%d*)%)") do
 						-- Find advanced copy paste format: 45(40-50)
 						local min, max = range:match("(%-?%d+%.?%d*)%-(%-?%d+%.?%d*)")
+						if tonumber(min) > tonumber(max) then
+							min, max = max, min
+						end
 						local delta = tonumber(max) - min
 						line = line:gsub(value .. "%(" .. range:gsub("%-", "%%-") .. "%)", value)
 						if delta > bestPrecisionDelta then
@@ -962,12 +965,20 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					local firstRollRange
 					local hasIndependentRolls
 					
-					-- Replace non-number ranges as unsupported
-					line = line:gsub("(%a+)%s*%([%a%s]+%-[%a%s]+%)", "%1")
+					-- Advanced copy only provides the endpoints for enum ranges; keep the selected value.
+					line = line:gsub("(%s*)(%b())", function(space, range)
+						if range:find("-", 1, true) and not range:find("%d") then
+							return ""
+						end
+						return space .. range
+					end)
 					local advancedCopyLine = line
 
 					for value, range in line:gmatch("(%-?%d+%.?%d*)%((%-?%d+%.?%d*%-%-?%d+%.?%d*)%)") do
 						local min, max = range:match("(%-?%d+%.?%d*)%-(%-?%d+%.?%d*)")
+						if tonumber(min) > tonumber(max) then
+							min, max = max, min
+						end
 						local delta = tonumber(max) - min
 						local rollRange = delta > 0 and round((value - min) / delta, 6) or 0.5
 						if firstRollRange and firstRollRange ~= rollRange then
@@ -981,7 +992,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 						if bestPrecisionRange > 1 or bestPrecisionRange < 0 then
 							line = line:gsub(value .. "%(" .. range:gsub("%-", "%%-") .. "%)", value)
 						else
-							line = line:gsub(value .. "%(" .. range:gsub("%-", "%%-") .. "%)", (tonumber(value) < 0 and "+" or "") .. "(" .. range .. ")")
+							line = line:gsub(value .. "%(" .. range:gsub("%-", "%%-") .. "%)", (tonumber(value) < 0 and "+" or "") .. "(" .. min .. "-" .. max .. ")")
 						end
 					end
 					if hasIndependentRolls then
