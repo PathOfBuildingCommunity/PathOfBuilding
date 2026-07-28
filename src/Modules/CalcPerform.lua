@@ -1396,9 +1396,9 @@ function calcs.perform(env, skipEHP)
 				hasGuaranteedBonechill = true
 			end
 		end
-		-- Count active, damageable minions. Skills without a limit contribute one minion.
+		-- Count active minions. Skills without a limit contribute one minion.
 		local minionList = activeSkill.minionList
-		if not activeSkill.skillFlags.disable and not activeSkill.skillTypes[SkillType.MinionsAreUndamagable] and minionList and minionList[1] then
+		if not activeSkill.skillFlags.disable and minionList and minionList[1] then
 			local grantedEffect = activeSkill.activeEffect.grantedEffect
 			for _, minionType in ipairs(minionList) do
 				local minionData = env.data.minions[minionType]
