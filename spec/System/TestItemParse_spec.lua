@@ -794,6 +794,37 @@ describe("TestAdvancedItemParse #item", function()
 		assert.are.same(expectedLines, rebuiltLines)
 	end)
 
+	it("preserves rolls from large advanced-copy ranges", function()
+		local item = new("Item", [[
+			Item Class: Jewels
+			Rarity: Unique
+			Elegant Hubris
+			Timeless Jewel
+			--------
+			Limited to: 1 Historic
+			Radius: Large
+			--------
+			Item Level: 86
+			--------
+			{ Unique Modifier }
+			Commissioned 150720(2000-160000) coins to commemorate Chitus(Cadiro-Victario)
+			Passives in radius are Conquered by the Eternal Empire
+			(Conquered Passive Skills cannot be modified by other Jewels)
+			Historic
+			--------
+			They believed themselves better than the past, but that confidence brought about nightmare.
+			--------
+			Place into an allocated Jewel Socket on the Passive Skill Tree. Right click to remove from the Socket.
+		]])
+
+		local seedLine = itemLib.applyRange(item.explicitModLines[1].line, item.explicitModLines[1].range)
+		assert.are.equals("Commissioned 150720 coins to commemorate Chitus", seedLine)
+
+		item:BuildAndParseRaw()
+		seedLine = itemLib.applyRange(item.explicitModLines[1].line, item.explicitModLines[1].range)
+		assert.are.equals("Commissioned 150720 coins to commemorate Chitus", seedLine)
+	end)
+
 	describe("mod magnitude scaling", function()
 		before_each(function()
 			newBuild()
@@ -861,23 +892,30 @@ describe("TestAdvancedItemParse #item", function()
 			assert.are.equals(2, scalarsByLine["Gain 13% of Non-Chaos Damage as extra Chaos Damage"])
 			assert.are.equals(2.2, scalarsByLine["+70% to Global Critical Strike Multiplier"])
 			assert.are.equals(2, scalarsByLine["20% increased Quantity of Items found"])
+			assert.are.equals(5, firstItem.prefixes[1].range)
+			assert.are.equals(11.667, firstItem.suffixes[1].range)
+			assert.are.equals(1, firstItem.suffixes[2].range)
 
-			firstItem.prefixes[1].range = 1
+			-- Changing a different affix must not normalise either legacy roll.
+			firstItem.suffixes[2].range = 0
 			firstItem:Craft()
-			local rebuiltScalars = { }
+			local rebuiltScalarsByLine = { }
 			for _, modLine in ipairs(firstItem.explicitModLines) do
-				if modLine.line:find("Non%-Chaos Damage") then
-					rebuiltScalars.chaos = modLine.valueScalar
-				elseif modLine.line:find("Global Critical Strike Multiplier") then
-					rebuiltScalars.critical = modLine.valueScalar
-				elseif modLine.line:find("Quantity of Items found") then
-					rebuiltScalars.quantity = modLine.valueScalar
-				end
+				rebuiltScalarsByLine[modLine.line] = modLine.valueScalar
 			end
-			assert.are.equals(2, rebuiltScalars.chaos)
-			-- Craft() bakes the catalyst into the rebuilt line before Simplex scaling.
-			assert.are.equals(2, rebuiltScalars.critical)
-			assert.are.equals(2, rebuiltScalars.quantity)
+			assert.are.equals(2, rebuiltScalarsByLine["Gain 13% of Non-Chaos Damage as extra Chaos Damage"])
+			assert.are.equals(2.2, rebuiltScalarsByLine["+70% to Global Critical Strike Multiplier"])
+			assert.are.equals(2, rebuiltScalarsByLine["17% increased Quantity of Items found"])
+
+			-- Editing the legacy affix itself deliberately returns it to the current range.
+			firstItem.suffixes[1].range = 1
+			firstItem:Craft()
+			local editedScalarsByLine = { }
+			for _, modLine in ipairs(firstItem.explicitModLines) do
+				editedScalarsByLine[modLine.line] = modLine.valueScalar
+			end
+			assert.are.equals(2, editedScalarsByLine["Gain 13% of Non-Chaos Damage as extra Chaos Damage"])
+			assert.are.equals(2.2, editedScalarsByLine["+38% to Global Critical Strike Multiplier"])
 		end)
 
 		it("scales matching implicit mods by modifier magnitude", function()

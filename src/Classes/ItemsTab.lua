@@ -2056,7 +2056,9 @@ function ItemsTabClass:UpdateAffixControl(control, item, type, outputTable, outp
 	if control.list[control.selIndex].haveRange then
 		control.slider.divCount = #control.list[control.selIndex].modList
 		local index = isValueInArray(control.list[control.selIndex].modList, selAffix)
-		local range = item[outputTable][outputIndex].range or 0.5
+		-- Imported legacy rolls can sit outside the current 0-1 affix range.
+		-- Keep that value on the affix, but show the nearest slider endpoint.
+		local range = m_min(1, m_max(0, item[outputTable][outputIndex].range or 0.5))
 		-- Avoid exact integer boundary that slider:GetDivVal's ceil would assign to the previous segment
 		if range == 0 and index > 1 then
 			range = 1e-4

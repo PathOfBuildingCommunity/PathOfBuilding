@@ -83,6 +83,20 @@ local function sortCraftedModLines(modLines)
 	end)
 end
 
+local function getAdvancedCopyRange(value, min, max)
+	value = tonumber(value)
+	min = tonumber(min)
+	max = tonumber(max)
+	local delta = max - min
+	if delta <= 0 then
+		return delta
+	end
+	-- Preserve enough decimal places to reconstruct any discrete value in the
+	-- interval. Three places is insufficient for large Timeless Jewel ranges.
+	local precision = m_max(3, m_floor(math.log(delta, 10)) + 1)
+	return delta, round((value - min) / delta, precision)
+end
+
 local influenceInfo = itemLib.influenceInfo.all
 
 local ItemClass = newClass("Item", function(self, raw, rarity, highQuality)
@@ -675,14 +689,14 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 				elseif specName == "Implicit" then
 					self.implicit = true
 				elseif specName == "Prefix" then
-					local range, affix = specVal:match("{range:([%d.]+)}(.+)")
+					local range, affix = specVal:match("{range:([^}]+)}(.+)")
 					range = range or ((affix or specVal) ~= "None" and main.defaultItemAffixQuality)
 					t_insert(self.prefixes, {
 						modId = affix or specVal,
 						range = tonumber(range),
 					})
 				elseif specName == "Suffix" then
-					local range, affix = specVal:match("{range:([%d.]+)}(.+)")
+					local range, affix = specVal:match("{range:([^}]+)}(.+)")
 					range = range or ((affix or specVal) ~= "None" and main.defaultItemAffixQuality)
 					t_insert(self.suffixes, {
 						modId = affix or specVal,
@@ -892,6 +906,9 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 				else
 					catalystScalar = getCatalystScalar(self.catalyst, modLine, self.catalystQuality)
 				end
+				-- Advanced copy uses current(base) for fixed-value modifiers,
+				-- in addition to the current(min-max) form handled below.
+				line = line:gsub("(%-?%d+%.?%d*)%((%-?%d+%.?%d*)%)", "%1")
 				if self.pendingAffixList and #self.pendingAffixList > 0 then
 					if #self.pendingAffixList > 1 then
 						-- Probably a conqueror or essence mod since the mod name is the same for all of them
@@ -920,16 +937,18 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					for value, range in line:gmatch("(%-?%d+%.?%d*)%((%-?%d+%.?%d*%-%-?%d+%.?%d*)%)") do
 						-- Find advanced copy paste format: 45(40-50)
 						local min, max = range:match("(%-?%d+%.?%d*)%-(%-?%d+%.?%d*)")
-						local delta = tonumber(max) - min
+						local delta, precisionRange = getAdvancedCopyRange(value, min, max)
 						line = line:gsub(value .. "%(" .. range:gsub("%-", "%%-") .. "%)", value)
-						if delta > bestPrecisionDelta then
-							bestPrecisionRange = round((value - min) / delta, 3)
+						if precisionRange and delta > bestPrecisionDelta then
+							bestPrecisionRange = precisionRange
 							bestPrecisionDelta = delta
 						end
 					end
 					t_insert(self.pendingAffixList[1].table, {
 						modId = self.pendingAffixList[1].modId,
-						range = bestPrecisionRange >= 0 and bestPrecisionRange <= 1 and bestPrecisionRange or 0.5,
+						-- Legacy modifiers can roll outside the current data range. Keep the
+						-- extrapolated range so crafting a different affix doesn't normalise it.
+						range = bestPrecisionDelta > 0 and bestPrecisionRange or 0.5,
 					})
 					self.pendingAffixList = {}
 				else
@@ -942,12 +961,12 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 
 					for value, range in line:gmatch("(%-?%d+%.?%d*)%((%-?%d+%.?%d*%-%-?%d+%.?%d*)%)") do
 						local min, max = range:match("(%-?%d+%.?%d*)%-(%-?%d+%.?%d*)")
-						local delta = tonumber(max) - min
-						if delta > bestPrecisionDelta then
-							bestPrecisionRange = round((value - min) / delta, 3)
+						local delta, precisionRange = getAdvancedCopyRange(value, min, max)
+						if precisionRange and delta > bestPrecisionDelta then
+							bestPrecisionRange = precisionRange
 							bestPrecisionDelta = delta
 						end
-						if bestPrecisionRange > 1 or bestPrecisionRange < 0 then
+						if precisionRange and (precisionRange > 1 or precisionRange < 0) then
 							line = line:gsub(value .. "%(" .. range:gsub("%-", "%%-") .. "%)", value)
 						else
 							line = line:gsub(value .. "%(" .. range:gsub("%-", "%%-") .. "%)", (tonumber(value) < 0 and "+" or "") .. "(" .. range .. ")")
@@ -1533,10 +1552,10 @@ function ItemClass:BuildRaw()
 	if self.crafted then
 		t_insert(rawLines, "Crafted: true")
 		for i, affix in ipairs(self.prefixes or { }) do
-			t_insert(rawLines, "Prefix: " .. (affix.range and ("{range:" .. round(affix.range,3) .. "}") or "") .. affix.modId)
+			t_insert(rawLines, "Prefix: " .. (affix.range and ("{range:" .. round(affix.range,6) .. "}") or "") .. affix.modId)
 		end
 		for i, affix in ipairs(self.suffixes or { }) do
-			t_insert(rawLines, "Suffix: " .. (affix.range and ("{range:" .. round(affix.range,3) .. "}") or "") .. affix.modId)
+			t_insert(rawLines, "Suffix: " .. (affix.range and ("{range:" .. round(affix.range,6) .. "}") or "") .. affix.modId)
 		end
 	end
 	if self.catalyst and self.catalyst > 0 then
@@ -1562,7 +1581,7 @@ function ItemClass:BuildRaw()
 	local function writeModLine(modLine)
 		local line = modLine.line
 		if modLine.range and line:match("%(%-?[%d%.]+%-%-?[%d%.]+%)") then
-			line = "{range:" .. round(modLine.range, 3) .. "}" .. line
+			line = "{range:" .. round(modLine.range, 6) .. "}" .. line
 		end
 		if modLine.corruptedRange then
 			line = "{corruptedRange:" .. round(modLine.corruptedRange, 2) .. "}" .. line
@@ -1752,9 +1771,8 @@ function ItemClass:Craft()
 					self.nameSuffix = self.nameSuffix .. " " .. mod.affix
 				end
 				self.requirements.level = m_max(self.requirements.level or 0, m_floor(mod.level * 0.8))
-				local rangeScalar = getCatalystScalar(self.catalyst, mod, self.catalystQuality)
 				for i, line in ipairs(mod) do
-					line = itemLib.applyRange(line, affix.range or 0.5, rangeScalar)
+					line = itemLib.applyRange(line, affix.range or 0.5)
 					local order = mod.statOrder[i]
 					if statOrder[order] then
 						-- Combine stats
@@ -1765,7 +1783,12 @@ function ItemClass:Craft()
 							return tonumber(num) + tonumber(other)
 						end)
 					else
-						local modLine = { line = line, order = order, type = mod.type }
+						local modLine = {
+							line = line,
+							order = order,
+							type = mod.type,
+							modTags = mod.modTags or { },
+						}
 						if mod.type == "Prefix" then
 							modLine.prefix = true
 						elseif mod.type == "Suffix" then
