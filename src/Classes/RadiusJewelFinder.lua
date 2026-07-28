@@ -607,8 +607,8 @@ function RadiusJewelFinderClass:buildVariantsFromUniqueItem(uniqueName, baseName
 	return RadiusJewelData.buildVariantsFromUniqueItem(uniqueName, baseName)
 end
 
-function RadiusJewelFinderClass:discoverFoulbornVariants(uniqueName)
-	return RadiusJewelData.discoverFoulbornVariants(uniqueName)
+function RadiusJewelFinderClass:buildFoulbornVariants(uniqueName, baseName, foulbornMap)
+	return RadiusJewelData.buildFoulbornVariants(uniqueName, baseName, foulbornMap)
 end
 
 -- ─────────────────────────────────────────────────────────────────────────────
@@ -722,7 +722,8 @@ function RadiusJewelFinderClass:findEquippedJewelSockets(jewelType)
 	for socketId, slot in pairs(self.build.itemsTab.sockets) do
 		if allocNodes[socketId] and slot.selItemId and slot.selItemId ~= 0 then
 			local item = self.build.itemsTab.items[slot.selItemId]
-			if item and item.title == jewelType.name then
+			local itemName = item and item.title and item.title:gsub("^[Ff]oulborn ", "")
+			if itemName == jewelType.name then
 				limit = limit or item.limit
 				t_insert(equipped, {
 					socketId = socketId,
@@ -1988,6 +1989,7 @@ end
 			local itemTooltipLines = buildPreviewLinesForJewelType(jewelType, r.variant)
 			local applyRawText = r.variant and r.variant.rawText or jewelType.rawText
 			local jewelLimitKey = applyRawText and applyRawText:match("^([^\n]+)") or jewelType.name
+			jewelLimitKey = jewelLimitKey:gsub("^[Ff]oulborn ", "")
 			local jewelLimit = jewelType.limit or (applyRawText and tonumber(applyRawText:match("Limited to: (%d+)"))) or nil
 			local displayedPlans = (jewelType.name == "Intuitive Leap" or jewelType.isThread or jewelType.isImpossibleEscape)
 				and buildDisplayedDisconnectedPassivePlans(r, points, baseline)
@@ -2125,7 +2127,7 @@ end
 
 					if jt.name == "Intuitive Leap" then
 						socketResults, baseline =
-							self:computeIntuitiveLeapSocketImpact(jewelSockets, selectedImpactStat, nil,
+							self:computeBestIntuitiveLeapSocketImpact(jewelSockets, selectedImpactStat, jt.variants,
 								computeMethod.id, finderState.disconnectedPassivePlanCache, typeProgress, selectedMaxPoints, selectedOccupiedMode, true)
 					elseif jt.isThread then
 						socketResults, baseline =
@@ -2193,7 +2195,8 @@ end
 					local socketResults, baseline
 					if selectedJewelType.name == "Intuitive Leap" then
 						socketResults, baseline =
-							self:computeIntuitiveLeapSocketImpact(jewelSockets, selectedImpactStat, selectedJewelVariant, computeMethod.id, finderState.disconnectedPassivePlanCache, progress, selectedMaxPoints, selectedOccupiedMode)
+							self:computeBestIntuitiveLeapSocketImpact(jewelSockets, selectedImpactStat, displayedVariants, computeMethod.id,
+								finderState.disconnectedPassivePlanCache, progress, selectedMaxPoints, selectedOccupiedMode)
 					elseif selectedJewelType.isThread then
 						socketResults, baseline =
 							self:computeThreadOfHopeSocketImpact(jewelSockets, selectedImpactStat, threadVariants, computeMethod.id, finderState.disconnectedPassivePlanCache, progress, selectedMaxPoints, selectedOccupiedMode)
@@ -2442,6 +2445,7 @@ end
 									socket = socket,
 									score = score or 0,
 									topNodes = topNodes,
+									variant = selectedJewelVariant,
 									detailText = detailBuilder and detailBuilder(nodes, allocNodes) or nil,
 									replacedItemLabel = occupancy and occupancy.replacedItemLabel or nil,
 									storedUnallocatedItemLabel = occupancy and occupancy.storedUnallocatedItemLabel or nil,
@@ -2507,7 +2511,8 @@ end
 							score = r.score or 0,
 							scorePerPoint = scorePerPoint,
 							scorePerPointSort = scorePerPointSort,
-							variantLabel = r.variant and (r.variant.name .. " Ring") or "",
+							variantLabel = r.variant and (isThreadBestVariantSearch and (r.variant.name .. " Ring")
+								or r.variant.dropdownLabel or r.variant.name) or "",
 							detailText = detailText,
 							detailNodeId = detailNodeId,
 							topNodes = copyTableSafe(r.topNodes, false, true),

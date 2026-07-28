@@ -601,6 +601,7 @@ function Class:computeIntuitiveLeapSocketImpact(sockets, impactStat, variant, me
 					result = self:computeDisconnectedPassiveSimulatedPlan(calcFunc, replacementContext.baselineOutput, socketBaseline, socketNode, slotName, item, impactStat, candidates, nil, socket.label, socketProgress, maxAdditionalNodes)
 				end
 				result.socket = socket
+				result.variant = variant
 				result.replacedItemLabel = occupancy and occupancy.replacedItemLabel or nil
 				result.storedUnallocatedItemLabel = occupancy and occupancy.storedUnallocatedItemLabel or nil
 				t_insert(results, result)
@@ -609,6 +610,37 @@ function Class:computeIntuitiveLeapSocketImpact(sockets, impactStat, variant, me
 		end
 	end
 
+	t_sort(results, function(a, b) return a.delta > b.delta end)
+	return results, realBaseline
+end
+
+function Class:computeBestIntuitiveLeapSocketImpact(sockets, impactStat, variants, methodId, planCache, progress, maxTotalPoints, occupiedMode, skipPlanSteps)
+	if not variants or #variants == 0 then
+		return self:computeIntuitiveLeapSocketImpact(sockets, impactStat, nil, methodId, planCache, progress, maxTotalPoints, occupiedMode, skipPlanSteps)
+	end
+	local bestBySocket = { }
+	local realBaseline
+	local variantCount = #variants
+	for variantIndex, variant in ipairs(variants) do
+		local variantProgress = progressChild(progress, (variantIndex - 1) / variantCount, 1 / variantCount)
+		local results, baseline = self:computeIntuitiveLeapSocketImpact(sockets, impactStat, variant, methodId, planCache,
+			variantProgress, maxTotalPoints, occupiedMode, skipPlanSteps)
+		realBaseline = realBaseline or baseline
+		for _, result in ipairs(results) do
+			result.variant = variant
+			local previous = bestBySocket[result.socket.id]
+			if not previous
+			or result.delta > previous.delta
+			or (result.delta == previous.delta and result.addedNodeCount < previous.addedNodeCount)
+			or (result.delta == previous.delta and result.addedNodeCount == previous.addedNodeCount and variant.name < previous.variant.name) then
+				bestBySocket[result.socket.id] = result
+			end
+		end
+	end
+	local results = { }
+	for _, result in pairs(bestBySocket) do
+		t_insert(results, result)
+	end
 	t_sort(results, function(a, b) return a.delta > b.delta end)
 	return results, realBaseline
 end
