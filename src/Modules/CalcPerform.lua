@@ -1414,6 +1414,9 @@ function calcs.perform(env, skipEHP)
 					if not activeSkill.skillTypes[SkillType.Vaal] then
 						counts.nonVaal = m_max(count, counts.nonVaal or 0)
 					end
+					if activeSkill.skillFlags.permanentMinion then
+						counts.permanent = m_max(count, counts.permanent or 0)
+					end
 					minionCounts[key] = counts
 				end
 			end
@@ -1454,6 +1457,9 @@ function calcs.perform(env, skipEHP)
 		modDB:NewMod("Multiplier:SummonedMinion", "BASE", counts.total, "Config", { type = "Condition", var = "Combat" })
 		if counts.nonVaal then
 			modDB:NewMod("Multiplier:NonVaalSummonedMinion", "BASE", counts.nonVaal, "Config", { type = "Condition", var = "Combat" })
+		end
+		if counts.permanent then
+			modDB:NewMod("Multiplier:PermanentMinion", "BASE", counts.permanent, "Config", { type = "Condition", var = "Combat" })
 		end
 	end
 

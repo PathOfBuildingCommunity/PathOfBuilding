@@ -1126,6 +1126,9 @@ Huge sets the radius to 11.
 	{ var = "multiplierNonVaalSummonedMinion", type = "count", label = "# of non-vaal skill Summoned Minions:", ifMult = "NonVaalSummonedMinion", tooltip = "Use this to override the count if you do not have all your minions summoned", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:NonVaalSummonedMinion", "OVERRIDE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
+	{ var = "multiplierPermanentMinion", type = "count", label = "# of Permanent Minions (if not maximum):", ifMult = "PermanentMinion", tooltip = "Use this to override the count if you do not have all your permanent minions summoned", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:PermanentMinion", "OVERRIDE", val, "Config", { type = "Condition", var = "Combat" })
+	end },
 	{ var = "conditionOnConsecratedGround", type = "check", label = "Are you on Consecrated Ground?", tooltip = "In addition to allowing any 'while on Consecrated Ground' modifiers to apply,\nConsecrated Ground grants 5% ^xE05030Life ^7Regeneration to players and allies.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:OnConsecratedGround", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Condition:OnConsecratedGround", "FLAG", true, "Config", { type = "Condition", var = "Combat" }) })
