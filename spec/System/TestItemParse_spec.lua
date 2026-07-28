@@ -866,6 +866,21 @@ describe("TestAdvancedItemParse #item", function()
 		})
 	end)
 
+	it("keeps the selected value from advanced-copy enum ranges", function()
+		local item = new("Item", [[
+			Rarity: Unique
+			The Dark Monarch
+			Lich's Circlet
+			{ Unique Modifier }
+			Maximum number of Raised Zombies (Animated Weapons-Holy Armaments) is Doubled
+			Cannot have Minions other than Raised Zombies (Animated Weapons-Holy Armaments)
+		]])
+
+		assert.are.equals("Maximum number of Raised Zombies is Doubled", item.explicitModLines[1].line)
+		assert.are.equals("Cannot have Minions other than Raised Zombies", item.explicitModLines[2].line)
+		assert.is_true(#item.explicitModLines[1].modList > 0)
+	end)
+
 	describe("mod magnitude scaling", function()
 		before_each(function()
 			newBuild()

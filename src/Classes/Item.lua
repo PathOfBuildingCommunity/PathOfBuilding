@@ -961,7 +961,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					local hasIndependentRolls
 					
 					-- Replace non-number ranges as unsupported
-					line = line:gsub("(%a+)%([%a%s]+%-[%a%s]+%)", "%1")
+					line = line:gsub("(%a+)%s*%([%a%s]+%-[%a%s]+%)", "%1")
 					local advancedCopyLine = line
 
 					for value, range in line:gmatch("(%-?%d+%.?%d*)%((%-?%d+%.?%d*%-%-?%d+%.?%d*)%)") do
