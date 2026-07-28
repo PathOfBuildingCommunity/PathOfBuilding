@@ -129,7 +129,7 @@ end
 data.powerStatList = {
 	{ stat=nil, label="Offence/Defence", combinedOffDef=true, ignoreForItems=true },
 	{ stat=nil, label="Name", itemField="Name", ignoreForNodes=true, reverseSort=true, transform=function(value) return value:gsub("^The ","") end},
-	{ stat="FullDPS", label="Full DPS" },
+	{ stat="FullDPS", label="Full DPS", requiresFullDPS=true },
 	{ stat="CombinedDPS", label="Combined DPS" },
 	{ stat="TotalDPS", label="Hit DPS" },
 	{ stat="WithImpaleDPS", label="Impale + Hit DPS" },
@@ -211,6 +211,28 @@ function data.powerStatList.GetFromOutput(output, statTable, skipTransform)
 	return getEntry()
 end
 
+---@param output any Calc output
+---@param statTable StatTable Table with stats as in data.powerStatList
+---@param build? table Build that owns the candidate calculation
+---@param calcBase? table Output of the baseline calculation
+---@return number
+function data.powerStatList.GetValue(output, statTable, build, calcBase)
+	if statTable.getValue then
+		return statTable.getValue(output, build, calcBase)
+	end
+	return data.powerStatList.GetFromOutput(output, statTable)
+end
+
+---@param statTable StatTable Table with stats as in data.powerStatList
+---@param build? table Build that owns the candidate calculation
+---@return boolean
+function data.powerStatList.RequiresFullDPS(statTable, build)
+	if type(statTable.requiresFullDPS) == "function" then
+		return statTable.requiresFullDPS(build)
+	end
+	return statTable.requiresFullDPS == true
+end
+
 -- these stats don't exist on minions or generally don't exist on both player and minion
 local minionNonApplicableStats = {
 	AverageDamage = true,
@@ -237,6 +259,9 @@ t_insert(data.powerStatList, {
 	stat="WeightedScore",
 	label="Weighted Score",
 	isWeightedScore=true,
+	requiresFullDPS=function(build)
+		return WeightedScore.weightsNeedFullDPS(WeightedScore.getWeights(build))
+	end,
 	getValue=function(output, build, calcBase)
 		local weights = WeightedScore.getWeights(build)
 		local buildBase = calcBase

@@ -335,6 +335,23 @@ describe("WeightedScore — tree integration", function()
 		assert.is_true(betterScore > baseScore)
 	end)
 
+	it("power stat helpers evaluate WeightedScore with its baseline and Full DPS requirement", function()
+		local weightedScore = findStat("WeightedScore")
+		local fullDPS = findStat("FullDPS")
+		local life = findStat("Life")
+		local baseOutput = { FullDPS = 100, TotalEHP = 100, TotalDPS = 0, TotalDotDPS = 0, CombinedDPS = 0 }
+		local betterOutput = { FullDPS = 120, TotalEHP = 100, TotalDPS = 0, TotalDotDPS = 0, CombinedDPS = 0 }
+
+		assert.is_true(data.powerStatList.RequiresFullDPS(weightedScore, build))
+		assert.is_true(data.powerStatList.RequiresFullDPS(fullDPS, build))
+		assert.is_false(data.powerStatList.RequiresFullDPS(life, build))
+		assert.is_true(
+			data.powerStatList.GetValue(betterOutput, weightedScore, build, baseOutput)
+				> data.powerStatList.GetValue(baseOutput, weightedScore, build, baseOutput)
+		)
+		assert.are.equal(123, data.powerStatList.GetValue({ Life = 123 }, life, build, baseOutput))
+	end)
+
 	it("getValue on WeightedScore entry reuses provided calcBase", function()
 		local stat = findStat("WeightedScore")
 		assert.is_not_nil(stat)
@@ -401,5 +418,48 @@ describe("WeightedScore — tree integration", function()
 		assert.is_true(list[2].isWeightedScore)
 		entry.action()
 		assert.is_true(opened, "calling entry.action must invoke the openEditor callback")
+	end)
+
+	it("createSortHandler restores the metric and invalidates cached candidate scores after editing weights", function()
+		local list = {
+			{ label = "Default", stat = nil },
+			{ label = "Weighted Score", stat = "WeightedScore", isWeightedScore = true },
+		}
+		local candidates = {
+			{ label = "Damage", scores = { damage = 2, defence = 1 } },
+			{ label = "Defence", scores = { damage = 1, defence = 2 } },
+		}
+		local weight = "damage"
+		local selectedStat
+		local controls = {
+			sort = {
+				SelByValue = function(_, value)
+					selectedStat = value
+				end,
+			},
+		}
+		local function applySort(stat)
+			for _, candidate in ipairs(candidates) do
+				candidate.sortValues = candidate.sortValues or { }
+				candidate.sortValue = candidate.sortValues[stat] or candidate.scores[weight]
+				candidate.sortValues[stat] = candidate.sortValue
+			end
+			table.sort(candidates, function(a, b) return a.sortValue > b.sortValue end)
+		end
+		local function clearSortValues()
+			for _, candidate in ipairs(candidates) do
+				candidate.sortValues = nil
+			end
+		end
+		local handler = WeightedScore.createSortHandler(list, controls, function(onSave)
+			weight = "defence"
+			onSave()
+		end, applySort, clearSortValues)
+
+		handler(2, list[2])
+		assert.are.equal("Damage", candidates[1].label)
+		handler(3, list[3])
+		assert.are.equal("WeightedScore", selectedStat)
+		assert.are.equal("Defence", candidates[1].label)
 	end)
 end)
