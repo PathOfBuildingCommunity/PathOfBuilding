@@ -67,11 +67,11 @@ local function sortCraftedModLines(modLines)
 		sourceOrder[modLine] = index
 	end
 	table.sort(modLines, function(a, b)
-		local aGroup = (a.crafted or a.custom) and 2 or 1
-		local bGroup = (b.crafted or b.custom) and 2 or 1
+		local aGroup = (a.crafted or a.custom) and 3 or a.fractured and 1 or 2
+		local bGroup = (b.crafted or b.custom) and 3 or b.fractured and 1 or 2
 		if aGroup ~= bGroup then
 			return aGroup < bGroup
-		elseif aGroup == 1 and a.order ~= b.order then
+		elseif aGroup < 3 and a.order ~= b.order then
 			return (a.order or math.huge) < (b.order or math.huge)
 		end
 		return sourceOrder[a] < sourceOrder[b]
@@ -676,18 +676,24 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 				elseif specName == "Implicit" then
 					self.implicit = true
 				elseif specName == "Prefix" then
+					local fractured = specVal:match("^{fractured}") and true
+					specVal = specVal:gsub("^{fractured}", "")
 					local range, affix = specVal:match("{range:([^}]+)}(.+)")
 					range = range or ((affix or specVal) ~= "None" and main.defaultItemAffixQuality)
 					t_insert(self.prefixes, {
 						modId = affix or specVal,
 						range = tonumber(range),
+						fractured = fractured,
 					})
 				elseif specName == "Suffix" then
+					local fractured = specVal:match("^{fractured}") and true
+					specVal = specVal:gsub("^{fractured}", "")
 					local range, affix = specVal:match("{range:([^}]+)}(.+)")
 					range = range or ((affix or specVal) ~= "None" and main.defaultItemAffixQuality)
 					t_insert(self.suffixes, {
 						modId = affix or specVal,
 						range = tonumber(range),
+						fractured = fractured,
 					})
 				elseif specName == "Implicits" then
 					implicitLines = specToNumber(specVal) or 0
@@ -936,6 +942,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 						-- Legacy modifiers can roll outside the current data range. Keep the
 						-- extrapolated range so crafting a different affix doesn't normalise it.
 						range = bestPrecisionDelta > 0 and bestPrecisionRange or 0.5,
+						fractured = modLine.fractured,
 					})
 					self.pendingAffixList = {}
 				else
@@ -1549,10 +1556,10 @@ function ItemClass:BuildRaw()
 	if self.crafted then
 		t_insert(rawLines, "Crafted: true")
 		for i, affix in ipairs(self.prefixes or { }) do
-			t_insert(rawLines, "Prefix: " .. (affix.range and ("{range:" .. round(affix.range,3) .. "}") or "") .. affix.modId)
+			t_insert(rawLines, "Prefix: " .. (affix.fractured and "{fractured}" or "") .. (affix.range and ("{range:" .. round(affix.range,3) .. "}") or "") .. affix.modId)
 		end
 		for i, affix in ipairs(self.suffixes or { }) do
-			t_insert(rawLines, "Suffix: " .. (affix.range and ("{range:" .. round(affix.range,3) .. "}") or "") .. affix.modId)
+			t_insert(rawLines, "Suffix: " .. (affix.fractured and "{fractured}" or "") .. (affix.range and ("{range:" .. round(affix.range,3) .. "}") or "") .. affix.modId)
 		end
 	end
 	if self.catalyst and self.catalyst > 0 then
@@ -1780,7 +1787,7 @@ function ItemClass:Craft()
 							return tonumber(num) + tonumber(other)
 						end)
 					else
-						local modLine = { line = line, order = order, type = mod.type, modTags = mod.modTags or { } }
+						local modLine = { line = line, order = order, type = mod.type, modTags = mod.modTags or { }, fractured = affix.fractured }
 						if mod.type == "Prefix" then
 							modLine.prefix = true
 						elseif mod.type == "Suffix" then

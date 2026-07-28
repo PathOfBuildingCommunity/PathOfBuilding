@@ -737,32 +737,38 @@ describe("TestAdvancedItemParse #item", function()
 		})
 	end)
 
-	it("uses crafted mod order for advanced-copy imports", function()
+	it("orders fractured mods first and crafted mods last", function()
 		local item = new("Item", raw([[
 			Item Level: 83
-			{ Prefix Modifier "Paragon's" (Tier: 1) — Gem }
-			+1 to Level of Socketed Gems
-			{ Master Crafted Prefix Modifier "Upgraded" — Gem }
-			+2 to Level of Socketed Support Gems
-			{ Suffix Modifier "of Destruction" (Tier: 1) — Damage, Critical }
-			+38(35-38)% to Global Critical Strike Multiplier
-		]], "Citadel Bow"))
+			{ Fractured Prefix Modifier "Cheetah's" (Tier: 2) — Speed }
+			30% increased Movement Speed
+			{ Prefix Modifier "Athlete's" (Tier: 1) — Life }
+			+128(115-129) to maximum Life
+			{ Master Crafted Prefix Modifier "Upgraded" (Rank: 2) — Mana }
+			+43(35-44) to maximum Mana
+			{ Suffix Modifier "of the Jaguar" (Tier: 3) — Attribute }
+			+41(38-42) to Dexterity
+		]], "Dragonscale Boots"))
 		local expectedLines = {
-			"+1 to Level of Socketed Gems",
-			"+38% to Global Critical Strike Multiplier",
-			"+2 to Level of Socketed Support Gems",
+			"30% increased Movement Speed",
+			"+41 to Dexterity",
+			"+128 to maximum Life",
+			"+(35-44) to maximum Mana",
 		}
 		assert.are.same(expectedLines, {
 			item.explicitModLines[1].line,
 			item.explicitModLines[2].line,
 			item.explicitModLines[3].line,
+			item.explicitModLines[4].line,
 		})
 
+		item:Craft()
 		item:Craft()
 		assert.are.same(expectedLines, {
 			item.explicitModLines[1].line,
 			item.explicitModLines[2].line,
 			item.explicitModLines[3].line,
+			item.explicitModLines[4].line,
 		})
 	end)
 
