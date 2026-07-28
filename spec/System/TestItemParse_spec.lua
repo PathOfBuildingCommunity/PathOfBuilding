@@ -794,6 +794,70 @@ describe("TestAdvancedItemParse #item", function()
 		assert.are.same(expectedLines, rebuiltLines)
 	end)
 
+	it("filters flask base properties and parses fixed-value advanced rolls", function()
+		local item = new("Item", [[
+			Item Class: Utility Flasks
+			Rarity: Unique
+			Soul Catcher
+			Quartz Flask
+			--------
+			Quality: +20% (augmented)
+			Lasts 7.20 (augmented) Seconds
+			Consumes 30 of 60 Charges on use
+			Currently has 59 Charges
+			+10% chance to Suppress Spell Damage
+			(40% of Damage from Suppressed Hits and Ailments they inflict is prevented)
+			Phasing
+			(While you have Phasing, your movement is not blocked by Enemies)
+			--------
+			Requirements:
+			Level: 27
+			--------
+			Item Level: 79
+			--------
+			Used when Charges reach full (enchant)
+			--------
+			{ Unique Modifier — Mana }
+			Cannot gain Mana during effect
+			{ Unique Modifier }
+			93(60-80)% increased Damage with Vaal Skills during effect
+			{ Unique Modifier }
+			Non-Aura Vaal Skills require 25% reduced Souls Per Use during Effect
+			{ Unique Modifier }
+			Vaal Skills used during effect have 40(10)% reduced Soul Gain Prevention Duration
+			--------
+			Freedom is for the privileged, even in death.
+
+			This item can be transformed on the Altar of Sacrifice along with Vial of the Ghost
+			--------
+			Right click to drink. Can only hold charges while in belt. Refills as you kill monsters.
+		]])
+
+		assert.are.equals(2, #item.buffModLines)
+		assert.are.same({
+			"+10% chance to Suppress Spell Damage",
+			"Phasing",
+		}, {
+			item.buffModLines[1].line,
+			item.buffModLines[2].line,
+		})
+		assert.are.equals(1, #item.enchantModLines)
+		assert.are.equals("Used when Charges reach full", item.enchantModLines[1].line)
+		assert.are.equals(0, #item.implicitModLines)
+		assert.are.equals(4, #item.explicitModLines)
+		assert.are.same({
+			"Cannot gain Mana during effect",
+			"93% increased Damage with Vaal Skills during effect",
+			"Non-Aura Vaal Skills require 25% reduced Souls Per Use during Effect",
+			"Vaal Skills used during effect have 40% reduced Soul Gain Prevention Duration",
+		}, {
+			item.explicitModLines[1].line,
+			item.explicitModLines[2].line,
+			item.explicitModLines[3].line,
+			item.explicitModLines[4].line,
+		})
+	end)
+
 	it("preserves rolls from large advanced-copy ranges", function()
 		local item = new("Item", [[
 			Item Class: Jewels

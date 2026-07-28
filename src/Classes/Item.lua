@@ -478,11 +478,17 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 			self[influenceItemMap[line]] = true
 		elseif line == "Requirements:" then
 			-- nothing to do
-		elseif line:match("^%(%a+") then
+		elseif line:match("^%(%a+") or line:match("^%(%d+%%? of ") then
 			-- Reminder text, nothing to parse
 			while self.rawLines[l] and not self.rawLines[l]:match("%)$") do
 				l = l + 1
 			end
+		elseif self.base and self.base.flask and (
+			line:match("^Lasts .+ Seconds$")
+			or line:match("^Consumes [%d.]+ of [%d.]+ Charges on use$")
+			or line:match("^Currently has [%d.]+ Charges$")
+		) then
+			-- In-game flask state and base properties aren't modifier lines.
 		elseif line:match("^{ ") then
 			-- We're parsing advanced copy/paste format
 			self.advancedCopy = true
