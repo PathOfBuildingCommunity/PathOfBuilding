@@ -93,4 +93,23 @@ function WeightedScore.appendEditWeightsAction(sortDropList, openEditor)
 	end
 end
 
+function WeightedScore.createSortHandler(sortDropList, controls, openEditor, applySort, clearSortValues)
+	local activeSort = sortDropList[1]
+	WeightedScore.appendEditWeightsAction(sortDropList, function()
+		controls.sort:SelByValue(activeSort.stat, "stat")
+		openEditor(function()
+			clearSortValues()
+			applySort(activeSort.stat, true)
+		end)
+	end)
+	return function(index, value)
+		if value.isAction then
+			value.action()
+		else
+			activeSort = value
+			applySort(value.stat, true)
+		end
+	end
+end
+
 return WeightedScore

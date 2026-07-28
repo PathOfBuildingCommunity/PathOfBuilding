@@ -14,10 +14,10 @@ local m_min = math.min
 local m_ceil = math.ceil
 local m_floor = math.floor
 local m_modf = math.modf
-
 local buySimilar = require("Classes.CompareBuySimilar")
 local addImplicit = require("Modules.AddImplicitPopup")
 local gemTooltip = require("Classes.GemTooltip")
+local WeightedScore = require("Modules.WeightedScore")
 
 local rarityDropList = {
 	{ label = colorCodes.NORMAL.."Normal", rarity = "NORMAL" },
@@ -77,12 +77,20 @@ local function buildModSortList()
 	local sortList = { { label = "Default", stat = nil } }
 	local sortStats = { }
 	for _, entry in ipairs(data.powerStatList) do
-		if entry.stat and not entry.ignoreForNodes and not entry.isWeightedScore then
-			t_insert(sortList, { label = entry.label, stat = entry.stat })
+		if entry.stat and not entry.ignoreForNodes then
+			t_insert(sortList, { label = entry.label, stat = entry.stat, isWeightedScore = entry.isWeightedScore })
 			sortStats[entry.stat] = entry
 		end
 	end
 	return sortList, sortStats
+end
+
+local function getCandidateSortContext(itemsTab, statEntry)
+	local slotName = itemsTab.displayItem:GetPrimarySlot()
+	local useFullDPS = data.powerStatList.RequiresFullDPS(statEntry, itemsTab.build)
+	local calcFunc = itemsTab.build.calcsTab:GetMiscCalculator()
+	local calcBase = calcFunc({ repSlotName = slotName, repItem = itemsTab.displayItem }, useFullDPS)
+	return calcFunc, calcBase, slotName, useFullDPS
 end
 
 ---@class ItemsTab: UndoHandler, ControlHost, Control
@@ -2854,7 +2862,7 @@ function ItemsTabClass:EnchantDisplayItem(enchantSlot)
 		item:BuildAndParseRaw()
 		return item
 	end
-	local function getSortValue(entry, stat, calcFunc, slotName, useFullDPS)
+	local function getSortValue(entry, stat, statEntry, calcFunc, calcBase, slotName, useFullDPS)
 		entry.sortValues = entry.sortValues or { }
 		if entry.sortValues[stat] ~= nil then
 			return entry.sortValues[stat]
@@ -2876,7 +2884,7 @@ function ItemsTabClass:EnchantDisplayItem(enchantSlot)
 		end
 		item:BuildAndParseRaw()
 		local output = calcFunc({ repSlotName = slotName, repItem = item }, useFullDPS)
-		local value = data.powerStatList.GetFromOutput(output, sortStats[stat])
+		local value = data.powerStatList.GetValue(output, statEntry, self.build, calcBase)
 		entry.sortValues[stat] = value
 		return value
 	end
@@ -2886,11 +2894,10 @@ function ItemsTabClass:EnchantDisplayItem(enchantSlot)
 		end
 		local selected = not selectFirst and enchantmentList[controls.enchantment.selIndex] or nil
 		if stat then
-			local slotName = self.displayItem:GetPrimarySlot()
-			local calcFunc = self.build.calcsTab:GetMiscCalculator()
-			local useFullDPS = stat == "FullDPS"
+			local statEntry = sortStats[stat]
+			local calcFunc, calcBase, slotName, useFullDPS = getCandidateSortContext(self, statEntry)
 			for _, entry in ipairs(enchantmentList) do
-				entry.sortValue = getSortValue(entry, stat, calcFunc, slotName, useFullDPS)
+				entry.sortValue = getSortValue(entry, stat, statEntry, calcFunc, calcBase, slotName, useFullDPS)
 			end
 			table.sort(enchantmentList, function(a, b)
 				if a.sortValue ~= b.sortValue then
@@ -2913,6 +2920,12 @@ function ItemsTabClass:EnchantDisplayItem(enchantSlot)
 			end
 		else
 			controls.enchantment:SetSel(1, true)
+		end
+	end
+	local function clearSortValues()
+		for _, entry in ipairs(enchantmentList) do
+			entry.sortValue = nil
+			entry.sortValues = nil
 		end
 	end
 	if haveSkills then
@@ -2949,9 +2962,12 @@ function ItemsTabClass:EnchantDisplayItem(enchantSlot)
 		end
 	end)
 	controls.sortLabel = new("LabelControl"):LabelControl({"TOPRIGHT",nil,"TOPLEFT"}, {350, 45, 0, 16}, "^7Sort by:")
-	controls.sort = new("DropDownControl"):DropDownControl({"TOPLEFT",nil,"TOPLEFT"}, {355, 45, 240, 18}, sortList, function(index, value)
-		applySort(value.stat, true)
-	end)
+	controls.sort = new("DropDownControl"):DropDownControl({"TOPLEFT",nil,"TOPLEFT"}, {355, 45, 240, 18}, sortList,
+		WeightedScore.createSortHandler(sortList, controls, function(onSave)
+			if self.tradeQuery then
+				self.tradeQuery:SetStatWeights(nil, onSave)
+			end
+		end, applySort, clearSortValues))
 	controls.enchantmentLabel = new("LabelControl"):LabelControl({"TOPRIGHT",nil,"TOPLEFT"}, {95, 70, 0, 16}, "^7Enchantment:")
 	controls.enchantment = new("DropDownControl"):DropDownControl({"TOPLEFT",nil,"TOPLEFT"}, {100, 70, 495, 18}, enchantmentList)
 	controls.enchantment.tooltipFunc = function(tooltip, mode, index)
@@ -3216,7 +3232,7 @@ function ItemsTabClass:CorruptDisplayItem()
 			control:SelByValue(entry.val, "mod")
 		end
 	end
-	local function getSortValue(entry, modType, stat, calcFunc, slotName, useFullDPS)
+	local function getSortValue(entry, modType, stat, statEntry, calcFunc, calcBase, slotName, useFullDPS)
 		entry.sortValues = entry.sortValues or { }
 		if entry.sortValues[stat] ~= nil then
 			return entry.sortValues[stat]
@@ -3237,17 +3253,17 @@ function ItemsTabClass:CorruptDisplayItem()
 		end
 		item:BuildAndParseRaw()
 		local output = calcFunc({ repSlotName = slotName, repItem = item }, useFullDPS)
-		local value = data.powerStatList.GetFromOutput(output, sortStats[stat])
+		local value = data.powerStatList.GetValue(output, statEntry, self.build, calcBase)
 		entry.sortValues[stat] = value
 		return value
 	end
-	local function sortModType(modType, stat, calcFunc, slotName, useFullDPS)
+	local function sortModType(modType, stat, statEntry, calcFunc, calcBase, slotName, useFullDPS)
 		if not implicitList[modType] then
 			return
 		end
 		if stat then
 			for _, entry in ipairs(implicitList[modType]) do
-				entry.sortValue = getSortValue(entry, modType, stat, calcFunc, slotName, useFullDPS)
+				entry.sortValue = getSortValue(entry, modType, stat, statEntry, calcFunc, calcBase, slotName, useFullDPS)
 			end
 			table.sort(implicitList[modType], function(a, b)
 				if a.sortValue ~= b.sortValue then
@@ -3265,14 +3281,17 @@ function ItemsTabClass:CorruptDisplayItem()
 		if not controls.implicit1 then
 			return
 		end
-		local slotName = self.displayItem:GetPrimarySlot()
-		local calcFunc = stat and self.build.calcsTab:GetMiscCalculator() or nil
-		local useFullDPS = stat == "FullDPS"
+		local statEntry
+		local calcFunc, calcBase, slotName, useFullDPS
+		if stat then
+			statEntry = sortStats[stat]
+			calcFunc, calcBase, slotName, useFullDPS = getCandidateSortContext(self, statEntry)
+		end
 		if currentModType ~= "ScourgeUpside" then
-			sortModType(currentModType, stat, calcFunc, slotName, useFullDPS)
+			sortModType(currentModType, stat, statEntry, calcFunc, calcBase, slotName, useFullDPS)
 		else
-			sortModType("ScourgeUpside", stat, calcFunc, slotName, useFullDPS)
-			sortModType("ScourgeDownside", stat, calcFunc, slotName, useFullDPS)
+			sortModType("ScourgeUpside", stat, statEntry, calcFunc, calcBase, slotName, useFullDPS)
+			sortModType("ScourgeDownside", stat, statEntry, calcFunc, calcBase, slotName, useFullDPS)
 		end
 		if currentModType ~= "ScourgeUpside" then
 			buildCorruptLists(currentModType)
@@ -3285,6 +3304,14 @@ function ItemsTabClass:CorruptDisplayItem()
 		for i = 1, maxImplicitNum do
 			local control = controls[string.format("implicit%d", i)]
 			control:UpdateSearch()
+		end
+	end
+	local function clearSortValues()
+		for _, entries in pairs(implicitList) do
+			for _, entry in ipairs(entries) do
+				entry.sortValue = nil
+				entry.sortValues = nil
+			end
 		end
 	end
 	local function corruptItem(addingImplicits)
@@ -3451,9 +3478,12 @@ function ItemsTabClass:CorruptDisplayItem()
 		end)
 	controls.source.enabled = #sourceList > 1
 	controls.sortLabel = new("LabelControl"):LabelControl({"TOPRIGHT",nil,"TOPLEFT"}, {350, 20, 0, 16}, "^7Sort by:")
-	controls.sort = new("DropDownControl"):DropDownControl({"TOPLEFT",nil,"TOPLEFT"}, {355, 20, 240, 18}, sortList, function(index, value)
-		applySort(value.stat)
-	end)
+	controls.sort = new("DropDownControl"):DropDownControl({"TOPLEFT",nil,"TOPLEFT"}, {355, 20, 240, 18}, sortList,
+		WeightedScore.createSortHandler(sortList, controls, function(onSave)
+			if self.tradeQuery then
+				self.tradeQuery:SetStatWeights(nil, onSave)
+			end
+		end, applySort, clearSortValues))
 	local implicitRowSize = 20
 	local implicitYPos = 35
 	controls.implicitCannotBeChangedLabel = new("LabelControl"):LabelControl({ "TOPLEFT", nil, "TOPLEFT" }, { 20, implicitYPos + implicitRowSize, 0, 20 }, "^7This Items Implicits Cannot Be Changed")
@@ -3525,7 +3555,7 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 			listMod.sortValues = nil
 		end
 	end
-	local function getSortValue(listMod, stat, calcFunc, slotName, useFullDPS)
+	local function getSortValue(listMod, stat, statEntry, calcFunc, calcBase, slotName, useFullDPS)
 		listMod.sortValues = listMod.sortValues or { }
 		if listMod.sortValues[stat] ~= nil then
 			return listMod.sortValues[stat]
@@ -3537,7 +3567,7 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 		end
 		item:BuildAndParseRaw()
 		local output = calcFunc({ repSlotName = slotName, repItem = item }, useFullDPS)
-		local value = data.powerStatList.GetFromOutput(output, sortStats[stat])
+		local value = data.powerStatList.GetValue(output, statEntry, self.build, calcBase)
 		listMod.sortValues[stat] = value
 		return value
 	end
@@ -3547,11 +3577,10 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 		end
 		local selected = not selectFirst and modList[controls.modSelect.selIndex] or nil
 		if stat then
-			local slotName = self.displayItem:GetPrimarySlot()
-			local calcFunc = self.build.calcsTab:GetMiscCalculator()
-			local useFullDPS = stat == "FullDPS"
+			local statEntry = sortStats[stat]
+			local calcFunc, calcBase, slotName, useFullDPS = getCandidateSortContext(self, statEntry)
 			for _, listMod in ipairs(modList) do
-				listMod.sortValue = getSortValue(listMod, stat, calcFunc, slotName, useFullDPS)
+				listMod.sortValue = getSortValue(listMod, stat, statEntry, calcFunc, calcBase, slotName, useFullDPS)
 			end
 			table.sort(modList, function(a, b)
 				if a.sortValue ~= b.sortValue then
@@ -3574,6 +3603,12 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 			end
 		else
 			controls.modSelect:SetSel(1, true)
+		end
+	end
+	local function clearSortValues()
+		for _, listMod in ipairs(modList) do
+			listMod.sortValue = nil
+			listMod.sortValues = nil
 		end
 	end
 	local function buildDropRestricted(baseCategories, modDb)
@@ -3828,9 +3863,12 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 	controls.sortLabel.shown = function()
 		return sourceList[controls.source.selIndex].sourceId ~= "CUSTOM"
 	end
-	controls.sort = new("DropDownControl"):DropDownControl({"TOPLEFT",nil,"TOPLEFT"}, {355, 20, 240, 18}, sortList, function(index, value)
-		applySort(value.stat, true)
-	end)
+	controls.sort = new("DropDownControl"):DropDownControl({"TOPLEFT",nil,"TOPLEFT"}, {355, 20, 240, 18}, sortList,
+		WeightedScore.createSortHandler(sortList, controls, function(onSave)
+			if self.tradeQuery then
+				self.tradeQuery:SetStatWeights(nil, onSave)
+			end
+		end, applySort, clearSortValues))
 	controls.sort.shown = function()
 		return sourceList[controls.source.selIndex].sourceId ~= "CUSTOM"
 	end
