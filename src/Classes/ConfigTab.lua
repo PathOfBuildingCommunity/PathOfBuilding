@@ -617,8 +617,12 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 							self.calcFunc, self.calcBase = self.build.calcsTab:GetMiscCalculator(self.build)
 						end
 						if (varData.type == "check") or (varData.type == "list") then
-							local valueMapped = (varData.type == "check") and (not cur) or
-								(type(value) == "table") and (value.val) or value
+							local valueMapped
+							if varData.type == "check" then
+								valueMapped = not cur
+							else
+								valueMapped = type(value) == "table" and value.val or value
+							end
 							if (valueMapped ~= cur) then
 								local buildFlag = self.build.buildFlag
 								tooltip:AddSeparator(10)
@@ -627,15 +631,16 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 									outputCache = {}
 									outputCacheRevision = self.build.outputRevision
 								end
-								inputs[varData.var] = valueMapped
-								self:BuildModList()
-
 								local key = string.format("%s:%s", tostring(valueMapped), tostring(cur))
-								outputCache[key] = outputCache[key] or self.calcFunc()
+								if not outputCache[key] then
+									inputs[varData.var] = valueMapped
+									self:BuildModList()
 
-								inputs[varData.var] = cur
-								self:BuildModList()
+									outputCache[key] = self.calcFunc()
 
+									inputs[varData.var] = cur
+									self:BuildModList()
+								end
 								-- building the mod lists flags the build for a
 								-- rebuild, but we don't actually want that as
 								-- we restore the previous state if the user
