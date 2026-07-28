@@ -67,34 +67,15 @@ local function sortCraftedModLines(modLines)
 		sourceOrder[modLine] = index
 	end
 	table.sort(modLines, function(a, b)
-		local aSaved = a.crafted or a.custom
-		local bSaved = b.crafted or b.custom
-		if aSaved ~= bSaved then
-			return not aSaved
-		elseif not aSaved and a.order ~= b.order then
-			if not a.order then
-				return false
-			elseif not b.order then
-				return true
-			end
-			return a.order < b.order
+		local aGroup = (a.crafted or a.custom) and 2 or 1
+		local bGroup = (b.crafted or b.custom) and 2 or 1
+		if aGroup ~= bGroup then
+			return aGroup < bGroup
+		elseif aGroup == 1 and a.order ~= b.order then
+			return (a.order or math.huge) < (b.order or math.huge)
 		end
 		return sourceOrder[a] < sourceOrder[b]
 	end)
-end
-
-local function getAdvancedCopyRange(value, min, max)
-	value = tonumber(value)
-	min = tonumber(min)
-	max = tonumber(max)
-	local delta = max - min
-	if delta <= 0 then
-		return delta
-	end
-	-- Preserve enough decimal places to reconstruct any discrete value in the
-	-- interval. Three places is insufficient for large Timeless Jewel ranges.
-	local precision = m_max(3, m_floor(math.log(delta, 10)) + 1)
-	return delta, round((value - min) / delta, precision)
 end
 
 local influenceInfo = itemLib.influenceInfo.all
@@ -485,8 +466,8 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 			end
 		elseif self.base and self.base.flask and (
 			line:match("^Lasts .+ Seconds$")
-			or line:match("^Consumes [%d.]+ of [%d.]+ Charges on use$")
-			or line:match("^Currently has [%d.]+ Charges$")
+			or line:match("^Consumes %d+ of %d+ Charges on use$")
+			or line:match("^Currently has %d+ Charges$")
 		) then
 			-- In-game flask state and base properties aren't modifier lines.
 		elseif line:match("^{ ") then
@@ -943,10 +924,10 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					for value, range in line:gmatch("(%-?%d+%.?%d*)%((%-?%d+%.?%d*%-%-?%d+%.?%d*)%)") do
 						-- Find advanced copy paste format: 45(40-50)
 						local min, max = range:match("(%-?%d+%.?%d*)%-(%-?%d+%.?%d*)")
-						local delta, precisionRange = getAdvancedCopyRange(value, min, max)
+						local delta = tonumber(max) - min
 						line = line:gsub(value .. "%(" .. range:gsub("%-", "%%-") .. "%)", value)
-						if precisionRange and delta > bestPrecisionDelta then
-							bestPrecisionRange = precisionRange
+						if delta > bestPrecisionDelta then
+							bestPrecisionRange = round((value - min) / delta, 3)
 							bestPrecisionDelta = delta
 						end
 					end
@@ -967,12 +948,12 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 
 					for value, range in line:gmatch("(%-?%d+%.?%d*)%((%-?%d+%.?%d*%-%-?%d+%.?%d*)%)") do
 						local min, max = range:match("(%-?%d+%.?%d*)%-(%-?%d+%.?%d*)")
-						local delta, precisionRange = getAdvancedCopyRange(value, min, max)
-						if precisionRange and delta > bestPrecisionDelta then
-							bestPrecisionRange = precisionRange
+						local delta = tonumber(max) - min
+						if delta > bestPrecisionDelta then
+							bestPrecisionRange = round((value - min) / delta, 6)
 							bestPrecisionDelta = delta
 						end
-						if precisionRange and (precisionRange > 1 or precisionRange < 0) then
+						if bestPrecisionRange > 1 or bestPrecisionRange < 0 then
 							line = line:gsub(value .. "%(" .. range:gsub("%-", "%%-") .. "%)", value)
 						else
 							line = line:gsub(value .. "%(" .. range:gsub("%-", "%%-") .. "%)", (tonumber(value) < 0 and "+" or "") .. "(" .. range .. ")")
@@ -1233,7 +1214,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 			end
 		end
 	end
-	if self.advancedCopy and #self.explicitModLines > 1 then
+	if self.advancedCopy and (#self.prefixes > 0 or #self.suffixes > 0) and #self.explicitModLines > 1 then
 		sortCraftedModLines(self.explicitModLines)
 	end
 	self.affixLimit = 0
@@ -1558,10 +1539,10 @@ function ItemClass:BuildRaw()
 	if self.crafted then
 		t_insert(rawLines, "Crafted: true")
 		for i, affix in ipairs(self.prefixes or { }) do
-			t_insert(rawLines, "Prefix: " .. (affix.range and ("{range:" .. round(affix.range,6) .. "}") or "") .. affix.modId)
+			t_insert(rawLines, "Prefix: " .. (affix.range and ("{range:" .. round(affix.range,3) .. "}") or "") .. affix.modId)
 		end
 		for i, affix in ipairs(self.suffixes or { }) do
-			t_insert(rawLines, "Suffix: " .. (affix.range and ("{range:" .. round(affix.range,6) .. "}") or "") .. affix.modId)
+			t_insert(rawLines, "Suffix: " .. (affix.range and ("{range:" .. round(affix.range,3) .. "}") or "") .. affix.modId)
 		end
 	end
 	if self.catalyst and self.catalyst > 0 then
@@ -1789,12 +1770,7 @@ function ItemClass:Craft()
 							return tonumber(num) + tonumber(other)
 						end)
 					else
-						local modLine = {
-							line = line,
-							order = order,
-							type = mod.type,
-							modTags = mod.modTags or { },
-						}
+						local modLine = { line = line, order = order, type = mod.type, modTags = mod.modTags or { } }
 						if mod.type == "Prefix" then
 							modLine.prefix = true
 						elseif mod.type == "Suffix" then
@@ -1812,7 +1788,9 @@ function ItemClass:Craft()
 	for _, mod in ipairs(savedMods) do
 		t_insert(self.explicitModLines, mod)
 	end
-	sortCraftedModLines(self.explicitModLines)
+	if #self.explicitModLines > 1 then
+		sortCraftedModLines(self.explicitModLines)
+	end
 
 	self:BuildAndParseRaw()
 end

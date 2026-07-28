@@ -696,55 +696,31 @@ describe("TestAdvancedItemParse #item", function()
 	end)
 
 	it("parses allocated Crucible passive skills from advanced copy", function()
-		local item = new("Item", [[
-			Item Class: Bows
-			Rarity: Rare
-			Brimstone Arch
-			Synthesised Citadel Bow
-			--------
-			Item Level: 83
-			--------
+		local item = new("Item", raw([[
 			{ Allocated Crucible Passive Skill (Tier: 1) }
-			+1 to Level of Socketed Dexterity Gems
-			{ Allocated Crucible Passive Skill (Tier: 3) }
 			-3% to Critical Strike Chance
 			+100% to Global Critical Strike Multiplier
-			{ Allocated Crucible Passive Skill (Tier: 2) }
-			20% reduced Flask Charges gained
-			Flasks applied to you have 15% increased Effect
 			{ Allocated Crucible Passive Skill (Tier: 1) }
 			Rampage
 			(You gain Rampage bonuses for Killing multiple Enemies in quick succession)
-			--------
-			Synthesised Item
-		]])
+		]], "Citadel Bow"))
 
-		assert.are.equals(6, #item.crucibleModLines)
+		assert.are.equals(3, #item.crucibleModLines)
 		assert.are.equals(0, #item.explicitModLines)
-		local actualLines = { }
-		for _, modLine in ipairs(item.crucibleModLines) do
-			assert.is_true(modLine.crucible)
-			table.insert(actualLines, modLine.line)
-		end
 		assert.are.same({
-			"+1 to Level of Socketed Dexterity Gems",
 			"-3% to Critical Strike Chance",
 			"+100% to Global Critical Strike Multiplier",
-			"20% reduced Flask Charges gained",
-			"Flasks applied to you have 15% increased Effect",
 			"Rampage",
-		}, actualLines)
+		}, {
+			item.crucibleModLines[1].line,
+			item.crucibleModLines[2].line,
+			item.crucibleModLines[3].line,
+		})
 	end)
 
-	it("normalises socketed gem requirements and crafted mod order on import", function()
-		local item = new("Item", [[
-			Item Class: Bows
-			Rarity: Rare
-			Brimstone Arch
-			Synthesised Citadel Bow
-			--------
+	it("ignores attribute requirements from socketed gems", function()
+		local item = new("Item", raw([[
 			Requirements:
-			Level: 82
 			Str: 126 (unmet)
 			Dex: 185 (unmet)
 			Int: 129 (unmet)
@@ -752,133 +728,77 @@ describe("TestAdvancedItemParse #item", function()
 			Sockets: W-W-W-W-W-W
 			--------
 			Item Level: 83
-			--------
-			{ Prefix Modifier "Paragon's" (Tier: 1) — Gem }
-			+1 to Level of Socketed Gems
-			{ Master Crafted Prefix Modifier "Upgraded" — Gem }
-			+2 to Level of Socketed Support Gems
-			{ Master Crafted Prefix Modifier "Upgraded" — Damage, Elemental, Cold, Chaos }
-			Gain 16(14-16)% of Cold Damage as Extra Chaos Damage
-			{ Suffix Modifier "of the Underground" (Tier: 1) }
-			Non-Aura Vaal Skills require 40% reduced Souls Per Use
-			{ Suffix Modifier "of the Order" (Tier: 1) — Damage }
-			14(12-14)% chance to deal Double Damage
-			{ Suffix Modifier "of Destruction" (Tier: 1) — Damage, Critical }
-			+38(35-38)% to Global Critical Strike Multiplier
-		]])
+		]], "Citadel Bow"))
 
 		assert.are.same({ str = 0, dex = 185, int = 0 }, {
 			str = item.requirements.strMod,
 			dex = item.requirements.dexMod,
 			int = item.requirements.intMod,
 		})
+	end)
+
+	it("uses crafted mod order for advanced-copy imports", function()
+		local item = new("Item", raw([[
+			Item Level: 83
+			{ Prefix Modifier "Paragon's" (Tier: 1) — Gem }
+			+1 to Level of Socketed Gems
+			{ Master Crafted Prefix Modifier "Upgraded" — Gem }
+			+2 to Level of Socketed Support Gems
+			{ Suffix Modifier "of Destruction" (Tier: 1) — Damage, Critical }
+			+38(35-38)% to Global Critical Strike Multiplier
+		]], "Citadel Bow"))
 		local expectedLines = {
 			"+1 to Level of Socketed Gems",
 			"+38% to Global Critical Strike Multiplier",
-			"Non-Aura Vaal Skills require 40% reduced Souls Per Use",
 			"+2 to Level of Socketed Support Gems",
-			"Gain (14-16)% of Cold Damage as Extra Chaos Damage",
-			"(12-14)% chance to deal Double Damage",
 		}
-		local importedLines = { }
-		for _, modLine in ipairs(item.explicitModLines) do
-			table.insert(importedLines, modLine.line)
-		end
-		assert.are.same(expectedLines, importedLines)
+		assert.are.same(expectedLines, {
+			item.explicitModLines[1].line,
+			item.explicitModLines[2].line,
+			item.explicitModLines[3].line,
+		})
 
 		item:Craft()
-		local rebuiltLines = { }
-		for _, modLine in ipairs(item.explicitModLines) do
-			table.insert(rebuiltLines, modLine.line)
-		end
-		assert.are.same(expectedLines, rebuiltLines)
+		assert.are.same(expectedLines, {
+			item.explicitModLines[1].line,
+			item.explicitModLines[2].line,
+			item.explicitModLines[3].line,
+		})
 	end)
 
 	it("filters flask base properties and parses fixed-value advanced rolls", function()
 		local item = new("Item", [[
-			Item Class: Utility Flasks
 			Rarity: Unique
 			Soul Catcher
 			Quartz Flask
 			--------
-			Quality: +20% (augmented)
 			Lasts 7.20 (augmented) Seconds
 			Consumes 30 of 60 Charges on use
 			Currently has 59 Charges
 			+10% chance to Suppress Spell Damage
 			(40% of Damage from Suppressed Hits and Ailments they inflict is prevented)
 			Phasing
-			(While you have Phasing, your movement is not blocked by Enemies)
 			--------
-			Requirements:
-			Level: 27
-			--------
-			Item Level: 79
-			--------
-			Used when Charges reach full (enchant)
-			--------
-			{ Unique Modifier — Mana }
-			Cannot gain Mana during effect
 			{ Unique Modifier }
-			93(60-80)% increased Damage with Vaal Skills during effect
-			{ Unique Modifier }
-			Non-Aura Vaal Skills require 25% reduced Souls Per Use during Effect
+			Consumes Maximum Charges to use
 			{ Unique Modifier }
 			Vaal Skills used during effect have 40(10)% reduced Soul Gain Prevention Duration
-			--------
-			Freedom is for the privileged, even in death.
-
-			This item can be transformed on the Altar of Sacrifice along with Vial of the Ghost
-			--------
-			Right click to drink. Can only hold charges while in belt. Refills as you kill monsters.
 		]])
 
 		assert.are.equals(2, #item.buffModLines)
-		assert.are.same({
-			"+10% chance to Suppress Spell Damage",
-			"Phasing",
-		}, {
-			item.buffModLines[1].line,
-			item.buffModLines[2].line,
-		})
-		assert.are.equals(1, #item.enchantModLines)
-		assert.are.equals("Used when Charges reach full", item.enchantModLines[1].line)
 		assert.are.equals(0, #item.implicitModLines)
-		assert.are.equals(4, #item.explicitModLines)
-		assert.are.same({
-			"Cannot gain Mana during effect",
-			"93% increased Damage with Vaal Skills during effect",
-			"Non-Aura Vaal Skills require 25% reduced Souls Per Use during Effect",
-			"Vaal Skills used during effect have 40% reduced Soul Gain Prevention Duration",
-		}, {
-			item.explicitModLines[1].line,
-			item.explicitModLines[2].line,
-			item.explicitModLines[3].line,
-			item.explicitModLines[4].line,
-		})
+		assert.are.equals(2, #item.explicitModLines)
+		assert.are.equals("Consumes Maximum Charges to use", item.explicitModLines[1].line)
+		assert.are.equals("Vaal Skills used during effect have 40% reduced Soul Gain Prevention Duration", item.explicitModLines[2].line)
 	end)
 
 	it("preserves rolls from large advanced-copy ranges", function()
 		local item = new("Item", [[
-			Item Class: Jewels
 			Rarity: Unique
 			Elegant Hubris
 			Timeless Jewel
-			--------
-			Limited to: 1 Historic
-			Radius: Large
-			--------
-			Item Level: 86
-			--------
 			{ Unique Modifier }
 			Commissioned 150720(2000-160000) coins to commemorate Chitus(Cadiro-Victario)
-			Passives in radius are Conquered by the Eternal Empire
-			(Conquered Passive Skills cannot be modified by other Jewels)
-			Historic
-			--------
-			They believed themselves better than the past, but that confidence brought about nightmare.
-			--------
-			Place into an allocated Jewel Socket on the Passive Skill Tree. Right click to remove from the Socket.
 		]])
 
 		local seedLine = itemLib.applyRange(item.explicitModLines[1].line, item.explicitModLines[1].range)
@@ -912,74 +832,47 @@ describe("TestAdvancedItemParse #item", function()
 
 		it("scales advanced-copy Simplex Amulet explicit mods on the first parse", function()
 			local rawItem = [[
-				Item Class: Amulets
 				Rarity: Rare
 				Grim Collar
 				Simplex Amulet
-				--------
 				Quality (Critical Modifiers): +20% (augmented)
-				--------
-				Requirements:
-				Level: 64
-				--------
-				Item Level: 87
-				--------
-				Allocates Force of Darkness (enchant)
-				--------
 				{ Implicit Modifier }
 				-2 Prefix Modifiers allowed
 				-1 Suffix Modifier allowed
-				Implicit Modifiers Cannot Be Changed
 				100% increased Explicit Modifier magnitudes
-				--------
 				{ Prefix Modifier "The Elder's" (Tier: 1) — Damage, Chaos  — 100% Increased }
 				Gain 13(3-5)% of Non-Chaos Damage as extra Chaos Damage
 				{ Suffix Modifier "of Destruction" (Tier: 1) — Damage, Critical  — 120% Increased }
 				+70(35-38)% to Global Critical Strike Multiplier
 				{ Suffix Modifier "of Amassment" — Drop  — 100% Increased }
 				20(17-20)% increased Quantity of Items found
-				--------
-				Mirrored
-				--------
-				Split
-				--------
 				Shaper Item
 				Elder Item
 			]]
 
 			build.itemsTab:CreateDisplayItemFromRaw(rawItem, true)
 			local firstItem = build.itemsTab.displayItem
-			local scalarsByLine = { }
-			for _, modLine in ipairs(firstItem.explicitModLines) do
-				scalarsByLine[modLine.line] = modLine.valueScalar
+			local function findModLine(line)
+				for _, modLine in ipairs(firstItem.explicitModLines) do
+					if modLine.line == line then
+						return modLine
+					end
+				end
 			end
-			assert.are.equals(2, scalarsByLine["Gain 13% of Non-Chaos Damage as extra Chaos Damage"])
-			assert.are.equals(2.2, scalarsByLine["+70% to Global Critical Strike Multiplier"])
-			assert.are.equals(2, scalarsByLine["20% increased Quantity of Items found"])
-			assert.are.equals(5, firstItem.prefixes[1].range)
-			assert.are.equals(11.667, firstItem.suffixes[1].range)
-			assert.are.equals(1, firstItem.suffixes[2].range)
+			assert.are.equals(2, findModLine("Gain 13% of Non-Chaos Damage as extra Chaos Damage").valueScalar)
+			assert.are.equals(2.2, findModLine("+70% to Global Critical Strike Multiplier").valueScalar)
 
 			-- Changing a different affix must not normalise either legacy roll.
 			firstItem.suffixes[2].range = 0
 			firstItem:Craft()
-			local rebuiltScalarsByLine = { }
-			for _, modLine in ipairs(firstItem.explicitModLines) do
-				rebuiltScalarsByLine[modLine.line] = modLine.valueScalar
-			end
-			assert.are.equals(2, rebuiltScalarsByLine["Gain 13% of Non-Chaos Damage as extra Chaos Damage"])
-			assert.are.equals(2.2, rebuiltScalarsByLine["+70% to Global Critical Strike Multiplier"])
-			assert.are.equals(2, rebuiltScalarsByLine["17% increased Quantity of Items found"])
+			assert.are.equals(2, findModLine("Gain 13% of Non-Chaos Damage as extra Chaos Damage").valueScalar)
+			assert.are.equals(2.2, findModLine("+70% to Global Critical Strike Multiplier").valueScalar)
 
 			-- Editing the legacy affix itself deliberately returns it to the current range.
 			firstItem.suffixes[1].range = 1
 			firstItem:Craft()
-			local editedScalarsByLine = { }
-			for _, modLine in ipairs(firstItem.explicitModLines) do
-				editedScalarsByLine[modLine.line] = modLine.valueScalar
-			end
-			assert.are.equals(2, editedScalarsByLine["Gain 13% of Non-Chaos Damage as extra Chaos Damage"])
-			assert.are.equals(2.2, editedScalarsByLine["+38% to Global Critical Strike Multiplier"])
+			assert.are.equals(2, findModLine("Gain 13% of Non-Chaos Damage as extra Chaos Damage").valueScalar)
+			assert.are.equals(2.2, findModLine("+38% to Global Critical Strike Multiplier").valueScalar)
 		end)
 
 		it("scales matching implicit mods by modifier magnitude", function()

@@ -1844,9 +1844,7 @@ function ItemsTabClass:SetDisplayItem(item)
 				end
 			end
 		end
-		-- The item already has its parsed influences, so initialising these controls must not
-		-- run their selection functions. Doing so re-crafts advanced-copy rare items and loses
-		-- their imported rolls and modifier-magnitude scaling.
+		-- Initialising these controls must not re-craft the parsed item.
 		self.controls.displayItemInfluence:SetSel(influence1, true)
 		self.controls.displayItemInfluence2:SetSel(influence2, true)
 		self.controls.displayItemQualityEdit:SetText(item.quality)
