@@ -830,6 +830,42 @@ describe("TestAdvancedItemParse #item", function()
 		assert.are.equals("Adds 10 to 27 Cold Damage to Attacks", item.explicitModLines[2].line)
 	end)
 
+	it("orders advanced-copy unique modifiers by their database stat order", function()
+		local item = new("Item", [[
+			Rarity: Unique
+			Geofri's Sanctuary
+			Elegant Ringmail
+			{ Unique Modifier — Life }
+			+66(60-70) to maximum Life
+			{ Unique Modifier — Defences, Energy Shield }
+			+31(30-40) to maximum Energy Shield
+			{ Unique Modifier — Defences, Armour, Energy Shield }
+			63(50-75)% increased Armour and Energy Shield
+			{ Unique Modifier — Life, Defences, Energy Shield }
+			Zealot's Oath
+			{ Unique Modifier — Defences, Energy Shield }
+			+2 maximum Energy Shield per 5 Strength
+			{ Unique Modifier — Elemental, Resistance }
+			+18(14-18)% to all Elemental Resistances
+		]])
+
+		assert.are.same({
+			"(50-75)% increased Armour and Energy Shield",
+			"+(30-40) to maximum Energy Shield",
+			"+(60-70) to maximum Life",
+			"+(14-18)% to all Elemental Resistances",
+			"+2 maximum Energy Shield per 5 Strength",
+			"Zealot's Oath",
+		}, {
+			item.explicitModLines[1].line,
+			item.explicitModLines[2].line,
+			item.explicitModLines[3].line,
+			item.explicitModLines[4].line,
+			item.explicitModLines[5].line,
+			item.explicitModLines[6].line,
+		})
+	end)
+
 	describe("mod magnitude scaling", function()
 		before_each(function()
 			newBuild()

@@ -61,6 +61,14 @@ local function getCatalystScalar(catalystId, mod, quality)
 	return 1
 end
 
+local function normaliseModLine(line)
+	return line:gsub("%d+%.?%d*", "#")
+		:gsub("%(%-?#%-#%)", "#"):lower()
+		:gsub("\n", " ")
+end
+
+local uniqueModStatOrder
+
 local function sortCraftedModLines(modLines)
 	local sourceOrder = { }
 	for index, modLine in ipairs(modLines) do
@@ -1157,6 +1165,24 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 	if self.baseName and self.title then
 		self.name = self.title .. ", " .. self.baseName:gsub(" %(.+%)","")
 	end
+	if self.advancedCopy and (self.rarity == "UNIQUE" or self.rarity == "RELIC") then
+		if not uniqueModStatOrder then
+			uniqueModStatOrder = { exact = { }, normalised = { } }
+			for _, mod in pairs(data.itemMods.ItemExclusive) do
+				for index, line in ipairs(mod) do
+					local exactLine = line:lower():gsub("\n", " ")
+					local statLine = normaliseModLine(line)
+					uniqueModStatOrder.exact[exactLine] = m_min(uniqueModStatOrder.exact[exactLine] or math.huge, mod.statOrder[index])
+					uniqueModStatOrder.normalised[statLine] = m_min(uniqueModStatOrder.normalised[statLine] or math.huge, mod.statOrder[index])
+				end
+			end
+		end
+		for _, modLine in ipairs(self.explicitModLines) do
+			local exactLine = modLine.line:lower():gsub("\n", " ")
+			modLine.order = uniqueModStatOrder.exact[exactLine]
+				or uniqueModStatOrder.normalised[normaliseModLine(modLine.line)]
+		end
+	end
 	if self.base and #self.sockets > 0 then
 		-- In-game requirement totals include requirements from socketed gems.
 		-- Derive the item's attribute requirements from its base and local mods instead.
@@ -1231,7 +1257,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 			end
 		end
 	end
-	if self.advancedCopy and (#self.prefixes > 0 or #self.suffixes > 0) and #self.explicitModLines > 1 then
+	if self.advancedCopy and #self.explicitModLines > 1 then
 		sortCraftedModLines(self.explicitModLines)
 	end
 	self.affixLimit = 0
@@ -1306,11 +1332,6 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 		end
 	end
 	if self.mutatedLines then
-		local function normalise(line)
-			return line:gsub("%d+%.?%d*", "#")
-				:gsub("%(%-?#%-#%)", "#"):lower()
-				:gsub("\n", " ")
-		end
 		-- Match both sides so the same checkbox can apply or revert the transformation.
 		for origModId, foulModId in pairs(self.mutatedLines) do
 			local function checkMod(modId, newModId, mutated)
@@ -1323,10 +1344,10 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					local matchingLines = {}
 					local matchedLines = {}
 					for _, line in ipairs(lines) do
-						local statLine = normalise(line)
+						local statLine = normaliseModLine(line)
 						for _, modLine in ipairs(self.explicitModLines) do
 							if not matchedLines[modLine]
-								and normalise(modLine.line:gsub("\n", " ")) == statLine
+								and normaliseModLine(modLine.line) == statLine
 								and self:CheckModLineVariant(modLine) then
 								matchedLines[modLine] = true
 								t_insert(matchingLines, modLine)
