@@ -13447,8 +13447,8 @@ skills["ManaInfusedStaff"] = {
 			mod("SpellBlockChance", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["skill_has_added_lightning_damage_equal_to_%_of_maximum_mana"] = {
-			mod("LightningMin", "BASE", nil, 0, 0, { type = "PercentStat", stat = "Mana", percent = 1 }),
-			mod("LightningMax", "BASE", nil, 0, 0, { type = "PercentStat", stat = "Mana", percent = 1 }),
+			skill("LightningMin", nil, { type = "PercentStat", stat = "Mana", percent = 1 }),
+			skill("LightningMax", nil, { type = "PercentStat", stat = "Mana", percent = 1 }),
 		},
 	},
 	baseFlags = {
