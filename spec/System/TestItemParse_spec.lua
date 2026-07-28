@@ -881,6 +881,25 @@ describe("TestAdvancedItemParse #item", function()
 		assert.is_true(#item.explicitModLines[1].modList > 0)
 	end)
 
+	it("parses Memory Strands as an item property", function()
+		local item = new("Item", [[
+			Rarity: Magic
+			Imperial Maul of Revitalization
+			Weapon Range: 1.3 metres
+			Memory Strands: 70
+			Item Level: 85
+			{ Suffix Modifier "of Revitalization" (Tier: 1) — Life, Attack }
+			Grants 28(27-30) Life per Enemy Hit
+		]])
+
+		assert.are.equals(70, item.memoryStrands)
+		assert.are.equals(1, #item.explicitModLines)
+
+		item:BuildAndParseRaw()
+		assert.are.equals(70, item.memoryStrands)
+		assert.are.equals(1, #item.explicitModLines)
+	end)
+
 	describe("mod magnitude scaling", function()
 		before_each(function()
 			newBuild()

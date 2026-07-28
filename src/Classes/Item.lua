@@ -571,6 +571,8 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					self.uniqueID = specVal
 				elseif specName == "Item Level" then
 					self.itemLevel = specToNumber(specVal)
+				elseif specName == "Memory Strands" then
+					self.memoryStrands = specToNumber(specVal)
 				elseif specName == "Requires Class" then
 					self.classRestriction = specVal
 				elseif specName:match("Quality %([%a%s]+ Modifiers%)") then
@@ -1602,6 +1604,9 @@ function ItemClass:BuildRaw()
 	end
 	if self.itemLevel then
 		t_insert(rawLines, "Item Level: " .. self.itemLevel)
+	end
+	if self.memoryStrands then
+		t_insert(rawLines, "Memory Strands: " .. self.memoryStrands)
 	end
 	local function writeModLine(modLine)
 		local line = modLine.line
