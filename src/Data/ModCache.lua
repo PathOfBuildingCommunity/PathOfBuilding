@@ -12122,10 +12122,10 @@ c["Spell Critical Strike Chance Bifurcates"]={{[1]={flags=2,keywordFlags=0,name=
 c["Spell Skills always deal Critical Strikes on final Repeat"]={{[1]={flags=2,keywordFlags=0,name="SpellSkillsAlwaysDealCriticalStrikesOnFinalRepeat",type="FLAG",value=true}},nil}
 c["Spell Skills cannot deal Critical Strikes except on final Repeat"]={{[1]={flags=2,keywordFlags=0,name="SpellSkillsCannotDealCriticalStrikesExceptOnFinalRepeat",type="FLAG",value=true},[2]={[1]={type="Condition",var="alwaysFinalRepeat"},flags=0,keywordFlags=0,name="",type="FLAG",value=true}},nil}
 c["Spell Skills deal no Damage"]={{[1]={[1]={skillType=2,type="SkillType"},flags=0,keywordFlags=0,name="DealNoDamage",type="FLAG",value=true}},nil}
-c["Spell Skills have +12% to Damage over Time Multiplier for Poison"]={{[1]={flags=0,keywordFlags=1075970048,name="DotMultiplier",type="BASE",value=12}},nil}
-c["Spell Skills have +5% to Damage over Time Multiplier for Poison"]={{[1]={flags=0,keywordFlags=1075970048,name="DotMultiplier",type="BASE",value=5}},nil}
-c["Spell Skills have 10% increased Area of Effect"]={{[1]={flags=0,keywordFlags=131072,name="AreaOfEffect",type="INC",value=10}},nil}
-c["Spell Skills have 20% increased Area of Effect"]={{[1]={flags=0,keywordFlags=131072,name="AreaOfEffect",type="INC",value=20}},nil}
+c["Spell Skills have +12% to Damage over Time Multiplier for Poison"]={{[1]={[1]={skillType=2,type="SkillType"},flags=0,keywordFlags=1075838976,name="DotMultiplier",type="BASE",value=12}},nil}
+c["Spell Skills have +5% to Damage over Time Multiplier for Poison"]={{[1]={[1]={skillType=2,type="SkillType"},flags=0,keywordFlags=1075838976,name="DotMultiplier",type="BASE",value=5}},nil}
+c["Spell Skills have 10% increased Area of Effect"]={{[1]={[1]={skillType=2,type="SkillType"},flags=0,keywordFlags=0,name="AreaOfEffect",type="INC",value=10}},nil}
+c["Spell Skills have 20% increased Area of Effect"]={{[1]={[1]={skillType=2,type="SkillType"},flags=0,keywordFlags=0,name="AreaOfEffect",type="INC",value=20}},nil}
 c["Spells Cast by Totems have 4% increased Cast Speed"]={{[1]={flags=18,keywordFlags=16384,name="Speed",type="INC",value=4}},nil}
 c["Spells Cast by Totems have 5% increased Cast Speed"]={{[1]={flags=18,keywordFlags=16384,name="Speed",type="INC",value=5}},nil}
 c["Spells Cast by Totems have 8% increased Cast Speed"]={{[1]={flags=18,keywordFlags=16384,name="Speed",type="INC",value=8}},nil}
