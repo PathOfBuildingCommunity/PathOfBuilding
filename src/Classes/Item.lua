@@ -685,24 +685,26 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					self.crucible = true
 				elseif specName == "Implicit" then
 					self.implicit = true
-				elseif specName == "Prefix" then
+				elseif specName == "Prefix" or specName == "Suffix" then
+					local affixes = specName == "Prefix" and self.prefixes or self.suffixes
 					local fractured = specVal:match("^{fractured}") and true
 					specVal = specVal:gsub("^{fractured}", "")
 					local range, affix = specVal:match("{range:([^}]+)}(.+)")
-					range = range or ((affix or specVal) ~= "None" and main.defaultItemAffixQuality)
-					t_insert(self.prefixes, {
+					if range and range:find(",", 1, true) then
+						local ranges = { }
+						for value in range:gmatch("[^,]+") do
+							t_insert(ranges, tonumber(value))
+						end
+						range = ranges
+					else
+						range = tonumber(range)
+					end
+					if not range and (affix or specVal) ~= "None" then
+						range = main.defaultItemAffixQuality
+					end
+					t_insert(affixes, {
 						modId = affix or specVal,
-						range = tonumber(range),
-						fractured = fractured,
-					})
-				elseif specName == "Suffix" then
-					local fractured = specVal:match("^{fractured}") and true
-					specVal = specVal:gsub("^{fractured}", "")
-					local range, affix = specVal:match("{range:([^}]+)}(.+)")
-					range = range or ((affix or specVal) ~= "None" and main.defaultItemAffixQuality)
-					t_insert(self.suffixes, {
-						modId = affix or specVal,
-						range = tonumber(range),
+						range = range,
 						fractured = fractured,
 					})
 				elseif specName == "Implicits" then
@@ -916,34 +918,40 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					if #self.pendingAffixList > 1 then
 						-- Probably a conqueror or essence mod since the mod name is the same for all of them
 						-- Try to match the line against one of the mods there
-						local valueStrippedLine = line:gsub("%-?%d+%.?%d*%(", "("):gsub("%-?%d+%.?%d*", "#")
+						local rangeLine = line:gsub("%-?%d+%.?%d*%(", "(")
+						local valueStrippedLine = rangeLine:gsub("%-?%d+%.?%d*", "#")
+						local exactAffix
+						local fallbackAffix
 						for _, pendingAffix in ipairs(self.pendingAffixList) do
 							local modData = self.affixes[pendingAffix.modId]
 							for _, modDataLine in ipairs(modData) do
-								-- Prefer the exact match
-								if line == modDataLine then
-									self.pendingAffixList = { pendingAffix }
+								if line == modDataLine or rangeLine == modDataLine then
+									exactAffix = pendingAffix
 									break
 								end
-								if valueStrippedLine == modDataLine:gsub("%-?%d+%.?%d*", "#") then
-									self.pendingAffixList = { pendingAffix }
-									break
+								if not fallbackAffix and valueStrippedLine == modDataLine:gsub("%-?%d+%.?%d*", "#") then
+									fallbackAffix = pendingAffix
 								end
-							end	
+							end
+							if exactAffix then
+								break
+							end
 						end
+						self.pendingAffixList = { exactAffix or fallbackAffix or self.pendingAffixList[1] }
 					end
 					-- Use rolling Delta/Range in case one range is 1-3 and another is 1-100 so we get the finest precision possible
 					local bestPrecisionDelta = -1
 					local bestPrecisionRange = -1
+					local rollRanges = { }
 					local affixMod = self.affixes[self.pendingAffixList[1].modId]
 					modLine.order = affixMod and affixMod.statOrder[1]
 					for value, range in line:gmatch("(%-?%d+%.?%d*)%((%-?%d+%.?%d*%-%-?%d+%.?%d*)%)") do
-						-- Find advanced copy paste format: 45(40-50)
 						local min, max = range:match("(%-?%d+%.?%d*)%-(%-?%d+%.?%d*)")
 						if tonumber(min) > tonumber(max) then
 							min, max = max, min
 						end
 						local delta = tonumber(max) - min
+						t_insert(rollRanges, delta > 0 and round((value - min) / delta, 6) or 0.5)
 						line = line:gsub(value .. "%(" .. range:gsub("%-", "%%-") .. "%)", value)
 						if delta > bestPrecisionDelta then
 							bestPrecisionRange = round((value - min) / delta, 3)
@@ -954,17 +962,16 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 						modId = self.pendingAffixList[1].modId,
 						-- Legacy modifiers can roll outside the current data range. Keep the
 						-- extrapolated range so crafting a different affix doesn't normalise it.
-						range = bestPrecisionDelta > 0 and bestPrecisionRange or 0.5,
+						range = #rollRanges > 1 and rollRanges or bestPrecisionDelta > 0 and bestPrecisionRange or 0.5,
 						fractured = modLine.fractured,
 					})
 					self.pendingAffixList = {}
 				else
-					-- Use rolling Delta/Range in case one range is 1-3 and another is 1-100 so we get the finest precision possible
 					local bestPrecisionDelta = -1
 					local bestPrecisionRange = -1
 					local firstRollRange
 					local hasIndependentRolls
-					
+
 					-- Advanced copy only provides the endpoints for enum ranges; keep the selected value.
 					line = line:gsub("(%s*)(%b())", function(space, range)
 						if range:find("-", 1, true) and not range:find("%d") then
@@ -1589,11 +1596,13 @@ function ItemClass:BuildRaw()
 	end
 	if self.crafted then
 		t_insert(rawLines, "Crafted: true")
-		for i, affix in ipairs(self.prefixes or { }) do
-			t_insert(rawLines, "Prefix: " .. (affix.fractured and "{fractured}" or "") .. (affix.range and ("{range:" .. round(affix.range,3) .. "}") or "") .. affix.modId)
+		for _, affix in ipairs(self.prefixes or { }) do
+			local range = affix.range and "{range:" .. (type(affix.range) == "table" and table.concat(affix.range, ",") or round(affix.range, 3)) .. "}" or ""
+			t_insert(rawLines, "Prefix: " .. (affix.fractured and "{fractured}" or "") .. range .. affix.modId)
 		end
-		for i, affix in ipairs(self.suffixes or { }) do
-			t_insert(rawLines, "Suffix: " .. (affix.fractured and "{fractured}" or "") .. (affix.range and ("{range:" .. round(affix.range,3) .. "}") or "") .. affix.modId)
+		for _, affix in ipairs(self.suffixes or { }) do
+			local range = affix.range and "{range:" .. (type(affix.range) == "table" and table.concat(affix.range, ",") or round(affix.range, 3)) .. "}" or ""
+			t_insert(rawLines, "Suffix: " .. (affix.fractured and "{fractured}" or "") .. range .. affix.modId)
 		end
 	end
 	if self.catalyst and self.catalyst > 0 then

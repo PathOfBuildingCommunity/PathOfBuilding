@@ -506,6 +506,13 @@ describe("TestAdvancedItemParse #item", function()
 		base = base or "Plate Vest"
 		return "Rarity: Rare\nName\n"..base.."\n"..s
 	end
+	local function lines(modLines)
+		local out = { }
+		for index, modLine in ipairs(modLines) do
+			out[index] = modLine.line
+		end
+		return out
+	end
 
 	it("parses to craft", function()
 		local item = new("Item", raw([[
@@ -711,11 +718,7 @@ describe("TestAdvancedItemParse #item", function()
 			"-3% to Critical Strike Chance",
 			"+100% to Global Critical Strike Multiplier",
 			"Rampage",
-		}, {
-			item.crucibleModLines[1].line,
-			item.crucibleModLines[2].line,
-			item.crucibleModLines[3].line,
-		})
+		}, lines(item.crucibleModLines))
 	end)
 
 	it("ignores attribute requirements from socketed gems", function()
@@ -755,21 +758,29 @@ describe("TestAdvancedItemParse #item", function()
 			"+128 to maximum Life",
 			"+(35-44) to maximum Mana",
 		}
-		assert.are.same(expectedLines, {
-			item.explicitModLines[1].line,
-			item.explicitModLines[2].line,
-			item.explicitModLines[3].line,
-			item.explicitModLines[4].line,
-		})
+		assert.are.same(expectedLines, lines(item.explicitModLines))
 
 		item:Craft()
 		item:Craft()
-		assert.are.same(expectedLines, {
-			item.explicitModLines[1].line,
-			item.explicitModLines[2].line,
-			item.explicitModLines[3].line,
-			item.explicitModLines[4].line,
-		})
+		assert.are.same(expectedLines, lines(item.explicitModLines))
+	end)
+
+	it("matches same-name affixes using their advanced-copy ranges", function()
+		local item = new("Item", raw([[
+			Item Level: 85
+			{ Fractured Prefix Modifier "Essences" — Damage, Elemental, Fire, Attack }
+			Adds 100(80-109) to 179(162-189) Fire Damage
+			{ Prefix Modifier "Essences" — Damage, Elemental, Lightning, Attack }
+			Adds 14(13-19) to 285(266-310) Lightning Damage
+		]], "Kinetic Wand"))
+
+		assert.are.equals("LocalAddedFireDamageEssence7", item.prefixes[1].modId)
+		assert.are.equals("LocalAddedLightningDamageEssence7_", item.prefixes[2].modId)
+
+		item:Craft()
+		item:Craft()
+		assert.are.equals("Adds 100 to 179 Fire Damage", item.explicitModLines[1].line)
+		assert.are.equals("Adds 14 to 285 Lightning Damage", item.explicitModLines[2].line)
 	end)
 
 	it("filters flask base properties and parses fixed-value advanced rolls", function()
@@ -856,14 +867,7 @@ describe("TestAdvancedItemParse #item", function()
 			"+(14-18)% to all Elemental Resistances",
 			"+2 maximum Energy Shield per 5 Strength",
 			"Zealot's Oath",
-		}, {
-			item.explicitModLines[1].line,
-			item.explicitModLines[2].line,
-			item.explicitModLines[3].line,
-			item.explicitModLines[4].line,
-			item.explicitModLines[5].line,
-			item.explicitModLines[6].line,
-		})
+		}, lines(item.explicitModLines))
 	end)
 
 	it("keeps the selected value from advanced-copy enum ranges", function()
