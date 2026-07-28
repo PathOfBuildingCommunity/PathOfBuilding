@@ -13,6 +13,23 @@ describe("TestOffence", function()
 			string.format("%s: expected ~%.2f (within %.1f%%), got %.2f", msg, expected, tolerance * 100, actual))
 	end
 
+	it("does not apply arrow damage modifiers to Fireball", function()
+		build.skillsTab:PasteSocketGroup("Fireball 20/0  1")
+		build.configTab.input.customMods = "Projectiles Pierce an additional Target"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+		local damageWithoutArrowMod = build.calcsTab.mainOutput.AverageDamage
+
+		build.configTab.input.customMods = [[
+		Projectiles Pierce an additional Target
+		Arrows deal 50% increased Damage with Hits and Ailments to Targets they Pierce
+		]]
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.equals(damageWithoutArrowMod, build.calcsTab.mainOutput.AverageDamage)
+	end)
+
 	it("parses more/less/increased/reduced minimum and maximum damage of every type", function()
 		build.itemsTab:CreateDisplayItemFromRaw([[
 		New Item
