@@ -78,23 +78,19 @@ function WeightedScore.computeRatioScore(baseOutput, newOutput, weights)
 	return meanStatDiff
 end
 
--- Append a contextual "Edit Weights..." action to a sort dropdown list when the
--- list contains the WeightedScore entry. Lets every WS-aware sort surface share
--- the same affordance without each one adding its own button.
+-- Insert a contextual "Edit Weights..." action immediately before WeightedScore
+-- so the score remains the final metric in every compatible sort dropdown.
 function WeightedScore.appendEditWeightsAction(sortDropList, openEditor)
-	local hasWeightedScore = false
-	for _, entry in ipairs(sortDropList) do
+	for index, entry in ipairs(sortDropList) do
 		if entry.isWeightedScore then
-			hasWeightedScore = true
-			break
+			table.insert(sortDropList, index, {
+				label = colorCodes.TIP .. "Edit Weights...",
+				isAction = true,
+				action = openEditor,
+			})
+			return
 		end
 	end
-	if not hasWeightedScore then return end
-	table.insert(sortDropList, {
-		label = colorCodes.TIP .. "Edit Weights...",
-		isAction = true,
-		action = openEditor,
-	})
 end
 
 return WeightedScore
