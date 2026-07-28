@@ -78,12 +78,12 @@ function WeightedScore.computeRatioScore(baseOutput, newOutput, weights)
 	return meanStatDiff
 end
 
--- Insert a contextual "Edit Weights..." action immediately before WeightedScore
--- so the score remains the final metric in every compatible sort dropdown.
+-- Append a contextual "Edit Weights..." action after WeightedScore so the
+-- score remains the final metric while its configuration stays adjacent.
 function WeightedScore.appendEditWeightsAction(sortDropList, openEditor)
-	for index, entry in ipairs(sortDropList) do
+	for _, entry in ipairs(sortDropList) do
 		if entry.isWeightedScore then
-			table.insert(sortDropList, index, {
+			table.insert(sortDropList, {
 				label = colorCodes.TIP .. "Edit Weights...",
 				isAction = true,
 				action = openEditor,

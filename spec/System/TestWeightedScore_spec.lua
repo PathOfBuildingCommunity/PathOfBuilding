@@ -386,7 +386,7 @@ describe("WeightedScore — tree integration", function()
 		assert.is_false(called)
 	end)
 
-	it("appendEditWeightsAction inserts an action before WeightedScore", function()
+	it("appendEditWeightsAction appends an action after WeightedScore", function()
 		local list = {
 			{ label = "Sort by Name", sortMode = "name" },
 			{ label = "Sort by Weighted Score", sortMode = "WeightedScore", isWeightedScore = true },
@@ -394,11 +394,11 @@ describe("WeightedScore — tree integration", function()
 		local opened = false
 		WeightedScore.appendEditWeightsAction(list, function() opened = true end)
 		assert.are.equal(3, #list)
-		local entry = list[2]
+		local entry = list[3]
 		assert.is_true(entry.isAction)
 		assert.is_function(entry.action)
 		assert.is_string(entry.label)
-		assert.is_true(list[3].isWeightedScore)
+		assert.is_true(list[2].isWeightedScore)
 		entry.action()
 		assert.is_true(opened, "calling entry.action must invoke the openEditor callback")
 	end)
