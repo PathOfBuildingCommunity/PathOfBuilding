@@ -10,6 +10,7 @@ local m_floor = math.floor
 local s_upper = string.upper
 
 local varList = LoadModule("Modules/ConfigOptions")
+local configVisibility = LoadModule("Modules/ConfigVisibility")
 
 local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Control", function(self, build)
 	self.UndoHandler()
@@ -64,7 +65,8 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 	local function searchMatch(varData)
 		local searchStr = self.controls.search.buf:lower():gsub("[%-%.%+%[%]%$%^%%%?%*]", "%%%0")
 		if searchStr and searchStr:match("%S") then
-			local err, match = PCall(string.matchOrPattern, (varData.label or ""):lower(), searchStr)
+			local label = StripEscapes(varData.label or ""):lower()
+			local err, match = PCall(string.matchOrPattern, label, searchStr)
 			if not err and match then
 				return true
 			end
@@ -73,23 +75,9 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 		return true
 	end
 
-	-- blacklist for Show All Configurations
+	-- Override for Show All Configurations: when the toggle is on, show options that aren't on the shared exclusion list.
 	local function isShowAllConfig(varData)
-		local labelMatch = varData.label:lower()
-		local excludeKeywords = { "recently", "in the last", "in the past", "in last", "in past", "pvp" }
-
-		if not self.toggleConfigs then
-			return false
-		end
-		if varData.ifOption or varData.ifSkill or varData.ifSkillData or varData.ifSkillFlag or varData.legacy then
-			return false
-		end
-		for _, keyword in pairs(excludeKeywords) do
-			if labelMatch:find(keyword) then
-				return false
-			end
-		end
-		return true
+		return self.toggleConfigs and not configVisibility.isShowAllExcluded(varData)
 	end
 
 	local function implyCond(varData)
@@ -768,7 +756,7 @@ function ConfigTabClass:Draw(viewPort, inputEvents)
 	self.height = viewPort.height
 
 	for _, event in ipairs(inputEvents) do
-		if event.type == "KeyDown" then	
+		if event.type == "KeyDown" then
 			if event.key == "z" and IsKeyDown("CTRL") then
 				self:Undo()
 				self.build.buildFlag = true
@@ -830,7 +818,7 @@ function ConfigTabClass:Draw(viewPort, inputEvents)
 			maxColY = m_max(maxColY, colY[col])
 		end
 	end
-	
+
 	local newSetList = { }
 	for index, configSetId in ipairs(self.configSetOrderList) do
 		local configSet = self.configSets[configSetId]

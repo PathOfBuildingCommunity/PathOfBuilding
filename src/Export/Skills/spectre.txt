@@ -832,6 +832,13 @@ skills["HarvestRhexScreechDebuff"] = {
 	},
 }
 
+#skill GAHarvestMinerHammerSlam Hammer Slam
+#flags attack area triggerable
+#mods
+#skill EDSHarvestMinerHammerSmoke Hammer Smoke
+#flags spell hit area triggerable
+#mods
+
 #skill LegionTemplarJudgeBallLightning Ball Lightning
 #flags spell hit triggerable area projectile
 #mods
@@ -876,6 +883,22 @@ skills["HarvestRhexScreechDebuff"] = {
 #baseMod skill("showAverage", true)
 #baseMod mod("Damage", "MORE", 100, 0, 0, { type = "Multiplier", var = "ExplosiveArrowFuse", base = -100 })
 #baseMod mod("Multiplier:ExplosiveArrowFuse", "BASE", 20)
+#mods
+
+#skill HeistCultistUnarmedLeap Whirling Blades
+#flags attack melee movement
+#mods
+
+#skill HeistProjectUnarmedMelee1 Default Attack
+#flags attack melee projectile
+#mods
+
+#skill GAHeistCultistUnarmedLeapImpact Whirling Blades Impact
+#flags attack area triggerable
+#mods
+
+#skill EDSHeistScienceUnarmedGas Gas
+#flags spell hit area triggerable
 #mods
 
 #skill EmptyActionAttackSecretPoliceDaggers Dagger Trigger Attack
@@ -2240,4 +2263,40 @@ skills["LegionKaruiMeleeCombo2"] = {
 
 #skill CrucibleVendigoFlickerStrike Flicker Strike
 #flags attack melee movement
+#mods
+
+#skill MPSFaridunWarlockBloodSpray Blood Spray
+#flags spell projectile
+#mods
+
+#skill CGEFaridunWarlockSwarmGround Caustic Ground
+#flags area spell duration
+#mods
+
+#skill FaridunCasterUndeadDamageOverTimeAura Malevolence
+#flags spell area aura
+	statMap = {
+		["delirium_aura_damage_over_time_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Dot, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["delirium_skill_effect_duration_+%"] = {
+			mod("Duration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+	},
+#mods
+
+#skill MPSHellscapeFleshEliteBasicProj Projectile
+#flags spell projectile triggerable
+#mods
+
+#skill GPSHellscapeFleshEliteSpikeBarrage Spike Barrage
+#flags spell hit projectile triggerable
+#mods
+
+#skill GSHellscapeFleshEliteBloodOrbExplosion Blood Orb Explosion
+#flags spell hit area triggerable
+#mods
+
+#skill VaalOverseerHeavyStrike Heavy Strike
+#flags attack melee
 #mods

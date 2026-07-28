@@ -108,20 +108,25 @@ function breakdown.area(base, areaMod, total, incBreakpoint, moreBreakpoint, red
 	return out
 end
 
-function breakdown.effMult(damageType, resist, pen, taken, mult, takenMore, sourceRes, useRes, invertChance)
+function breakdown.effMult(damageType, resist, pen, taken, mult, takenMore, sourceRes, useRes, invertChance, effectiveResist)
 	local out = { }
 	local resistForm = (damageType == "Physical") and "physical damage reduction" or "resistance"
 	local resistLabel = resistForm
+	effectiveResist = effectiveResist or resist - pen
 
-	if invertChance and invertChance ~= 0 then
-		resistLabel = "average inverted "..resistForm
-	end
 	if sourceRes and sourceRes ~= damageType then
 		t_insert(out, s_format("Enemy %s: %d%% ^8(%s)", resistLabel, resist, sourceRes))
 	elseif resist ~= 0 then
 		t_insert(out, s_format("Enemy %s: %d%%", resistLabel, resist))
 	end
-	if pen ~= 0 or not useRes then
+	if invertChance and invertChance ~= 0 and useRes then
+		local normalResist = resist - pen
+		local invertedResist = -resist - pen
+		t_insert(out, "Effective resistance:")
+		t_insert(out, s_format("%g%% ^8(non-inverted hit after penetration)", normalResist))
+		t_insert(out, s_format("%g%% ^8(inverted hit after penetration)", invertedResist))
+		t_insert(out, s_format("= %g%% ^8(weighted average from %.0f%% inversion chance)", effectiveResist, invertChance * 100))
+	elseif pen ~= 0 or not useRes then
 		t_insert(out, "Effective resistance:")
 		t_insert(out, s_format("%d%% ^8(resistance)", resist))
 		if pen < 0 then
@@ -139,7 +144,7 @@ function breakdown.effMult(damageType, resist, pen, taken, mult, takenMore, sour
 	if useRes then
 		breakdown.multiChain(out, {
 			label = "Effective DPS modifier:",
-			{ "%.2f ^8(%s)", 1 - (resist - pen) / 100, resistForm },
+			{ "%.2f ^8(%s)", 1 - effectiveResist / 100, resistForm },
 			{ "%.2f ^8(increased/reduced damage taken)", 1 + taken / 100 },
 			{ "%.2f ^8(more/less damage taken)", takenMore },
 			total = s_format("= %.3f", mult),

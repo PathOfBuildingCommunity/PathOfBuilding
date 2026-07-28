@@ -37,6 +37,9 @@ function calcs.initModDB(env, modDB)
 	modDB:NewMod("InspirationChargesMax", "BASE", data.characterConstants["maximum_righteous_charges"], "Base")
 	modDB:NewMod("CrabBarriersMax", "BASE", 0, "Base")
 	modDB:NewMod("BrutalChargesMax", "BASE", 0, "Base")
+	modDB:NewMod("BrineChargesMax", "BASE", 0, "Base")
+	modDB:NewMod("PhysicalDamageGainAsCold", "BASE", data.characterConstants["physical_damage_%_to_add_as_cold_per_brine_charge"], "Base", { type = "Multiplier", var = "BrineCharge" })
+	modDB:NewMod("PhysicalDamageGainAsLightning", "BASE", data.characterConstants["physical_damage_%_to_add_as_lightning_per_brine_charge"], "Base", { type = "Multiplier", var = "BrineCharge" })
 	modDB:NewMod("AbsorptionChargesMax", "BASE", 0, "Base")
 	modDB:NewMod("AfflictionChargesMax", "BASE", 0, "Base")
 	modDB:NewMod("BloodChargesMax", "BASE", data.characterConstants["maximum_blood_scythe_charges"], "Base")
@@ -687,6 +690,10 @@ function calcs.initEnv(build, mode, override, specEnv)
 					goto continue
 				end
 			end
+			-- ignore item in Ring 3 if The Unseen Hand is not allocated
+			if slotName == "Ring 3" and not env.initialNodeModDB:Flag(nil, "AdditionalRingSlot") then
+				goto continue
+			end
 			local item
 			if slotName == override.repSlotName then
 				item = override.repItem
@@ -808,6 +815,10 @@ function calcs.initEnv(build, mode, override, specEnv)
 					end
 				end
 			end
+			if item and item.type == "Flask" and item.base.subType == "Life" and item.flaskData then
+				-- Keep highest life flask recovery even if this slot is later disabled (e.g. Poisonous Concoction).
+				env.itemModDB.multipliers["LifeFlaskRecovery"] = m_max(env.itemModDB.multipliers["LifeFlaskRecovery"] or 0, item.flaskData.lifeTotal or 0)
+			end
 			items[slotName] = item
 			::continue::
 		end
@@ -878,6 +889,19 @@ function calcs.initEnv(build, mode, override, specEnv)
 			end
 		end
 
+		for _, slot in ipairs(build.itemsTab.orderedSlots) do
+			local item = items[slot.slotName]
+			local missingAnoints = build.itemsTab:getMissingAnointCount(item)
+			if missingAnoints > 0 then
+				local slotLabel = slot.label
+				if missingAnoints > 1 then
+					slotLabel = slotLabel .. " (" .. missingAnoints .. " missing)"
+				end
+				env.itemWarnings.missingAnointWarning = env.itemWarnings.missingAnointWarning or { }
+				t_insert(env.itemWarnings.missingAnointWarning, slotLabel)
+			end
+		end
+
 		-- Track which flask slot (1-5) each flask is in, for adjacency checks
 		env.flaskSlotMap = { }
 		env.flaskSlotOccupied = { }
@@ -895,11 +919,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 					env.flaskSlotOccupied[flaskNum] = true
 				end
 				if item.base.subType == "Life" then
-					local highestLifeRecovery = env.itemModDB.multipliers["LifeFlaskRecovery"] or 0
 					local highestCharges = env.itemModDB.multipliers["LifeFlaskCharges"] or 0
-					if item.flaskData.lifeTotal > highestLifeRecovery then
-						env.itemModDB.multipliers["LifeFlaskRecovery"] = item.flaskData.lifeTotal
-					end
 					if item.flaskData.chargesMax > highestCharges then
 						env.itemModDB.multipliers["LifeFlaskCharges"] = item.flaskData.chargesMax
 					end
@@ -1169,13 +1189,13 @@ function calcs.initEnv(build, mode, override, specEnv)
 					-- Calculate socket counts
 					local slotEmptySocketsCount = { R = 0, G = 0, B = 0, W = 0}	
 					local slotGemSocketsCount = 0
-					local socketedGems = 0
+					local socketedGems = { }
 					-- Loop through socket groups to calculate number of socketed gems
-					for _, socketGroup in pairs(env.build.skillsTab.socketGroupList) do
+					for _, socketGroup in ipairs(env.build.skillsTab.socketGroupList) do
 						if (not socketGroup.source and socketGroup.enabled and socketGroup.slot and socketGroup.slot == slotName and socketGroup.gemList) then
-							for _, gem in pairs(socketGroup.gemList) do
+							for _, gem in ipairs(socketGroup.gemList) do
 								if (gem.gemData and gem.enabled) then
-									socketedGems = socketedGems + 1
+									t_insert(socketedGems, gem)
 								end
 							end
 						end
@@ -1185,18 +1205,36 @@ function calcs.initEnv(build, mode, override, specEnv)
 						if socket.color == 'R' or socket.color == 'B' or socket.color == 'G' or socket.color == 'W' then
 							slotGemSocketsCount = slotGemSocketsCount + 1
 							-- loop through sockets indexes that are greater than number of socketed gems
-							if i > socketedGems then
+							if i > #socketedGems then
 								slotEmptySocketsCount[socket.color] = slotEmptySocketsCount[socket.color] + 1
 							end
 						end
 					end
-					env.itemModDB.multipliers["SocketedGemsIn"..slotName] = (env.itemModDB.multipliers["SocketedGemsIn"..slotName] or 0) + math.min(slotGemSocketsCount, socketedGems)
+					local socketedColours = { R = 0, G = 0, B = 0 }
+					-- Only gems that fit in the item's sockets contribute to multipliers
+					for i = 1, math.min(slotGemSocketsCount, #socketedGems) do
+						local tags = socketedGems[i].gemData.tags
+						if tags and tags.strength then
+							socketedColours.R = socketedColours.R + 1
+						end
+						if tags and tags.dexterity then
+							socketedColours.G = socketedColours.G + 1
+						end
+						if tags and tags.intelligence then
+							socketedColours.B = socketedColours.B + 1
+						end
+					end
+					env.itemModDB.multipliers["SocketedGemsIn" .. slotName] = math.min(slotGemSocketsCount, #socketedGems)
+					env.itemModDB.multipliers["SocketedRedGemsIn" .. slotName] = socketedColours.R
+					env.itemModDB.multipliers["SocketedGreenGemsIn" .. slotName] = socketedColours.G
+					env.itemModDB.multipliers["SocketedBlueGemsIn" .. slotName] = socketedColours.B
+					env.itemModDB.multipliers["EmptySocketIn" .. slotName] = math.min(slotGemSocketsCount, slotEmptySocketsCount.R + slotEmptySocketsCount.G + slotEmptySocketsCount.B + slotEmptySocketsCount.W)
 					env.itemModDB.multipliers.EmptyRedSocketsInAnySlot = (env.itemModDB.multipliers.EmptyRedSocketsInAnySlot or 0) + slotEmptySocketsCount.R
 					env.itemModDB.multipliers.EmptyGreenSocketsInAnySlot = (env.itemModDB.multipliers.EmptyGreenSocketsInAnySlot or 0) + slotEmptySocketsCount.G
 					env.itemModDB.multipliers.EmptyBlueSocketsInAnySlot = (env.itemModDB.multipliers.EmptyBlueSocketsInAnySlot or 0) + slotEmptySocketsCount.B
 					env.itemModDB.multipliers.EmptyWhiteSocketsInAnySlot = (env.itemModDB.multipliers.EmptyWhiteSocketsInAnySlot or 0) + slotEmptySocketsCount.W
 					-- Warn if socketed gems over socket limit
-					if socketedGems > slotGemSocketsCount then
+					if #socketedGems > slotGemSocketsCount then
 						env.itemWarnings.socketLimitWarning = env.itemWarnings.socketLimitWarning or { }
 						t_insert(env.itemWarnings.socketLimitWarning, slotName)
 					end
@@ -1230,9 +1268,11 @@ function calcs.initEnv(build, mode, override, specEnv)
 	-- Add granted passives (e.g., amulet anoints)
 	if not accelerate.nodeAlloc then
 		for _, passive in pairs(env.modDB:List(nil, "GrantedPassive")) do
-			local node = env.spec.tree.notableMap[passive]
+			local node = env.spec.tree.notableMap[passive] or env.spec.tree.ascendancyMap[passive]
+			local specNode = node and env.spec.nodes[node.id] -- use the conquered node data, if available
+			node = node or build.latestTree.ascendancyMap[passive]
 			if node and (not override.removeNodes or not override.removeNodes[node.id]) then
-				env.allocNodes[node.id] = env.spec.nodes[node.id] or node -- use the conquered node data, if available
+				env.allocNodes[node.id] = specNode or node
 				env.grantedPassives[node.id] = true
 				env.extraRadiusNodeList[node.id] = nil
 			end
@@ -1465,29 +1505,45 @@ function calcs.initEnv(build, mode, override, specEnv)
 					t_insert(targetListList, supportLists[group])
 				end
 
+				local function addExtraSupports(value, grantedEffect, level)
+					local grantedEffect = grantedEffect or env.data.skills[value.skillId]
+					if value and grantedEffect then -- Only item ExtraSupport gems should be flagged as fromItem. Imbued gems do not pass this check
+						grantedEffect.fromItem = true
+					end
+					-- Some skill gems share the same name as support gems, e.g. Barrage.
+					-- Since a support gem is expected here, if the first lookup returns a skill, then
+					-- prepending "Support" to the skillId will find the support version of the gem.
+					if value and grantedEffect and not grantedEffect.support then
+						grantedEffect = env.data.skills["Support"..value.skillId]
+						grantedEffect.fromItem = true
+					end
+					if grantedEffect then
+						for _, targetList in ipairs(targetListList) do
+							t_insert(targetList, {
+								grantedEffect = grantedEffect,
+								gemData = env.data.gems[env.data.gemForBaseName[grantedEffect.name:lower()] or env.data.gemForBaseName[(grantedEffect.name .. " Support"):lower()]],
+								level = level or value.level,
+								quality = 0,
+								enabled = true,
+							})
+						end
+					end
+				end
+
 				-- if not unique item that provides skills
 				if not group.source then
 					-- Add extra supports from the item this group is socketed in
 					for _, value in ipairs(env.modDB:List(groupCfg, "ExtraSupport")) do
-						local grantedEffect = env.data.skills[value.skillId]
-						-- Some skill gems share the same name as support gems, e.g. Barrage.
-						-- Since a support gem is expected here, if the first lookup returns a skill, then
-						-- prepending "Support" to the skillId will find the support version of the gem.
-						if grantedEffect and not grantedEffect.support then
-							grantedEffect = env.data.skills["Support"..value.skillId]
-						end
-						grantedEffect.fromItem = true
-						if grantedEffect then
-							for _, targetList in ipairs(targetListList) do
-								t_insert(targetList, {
-									grantedEffect = grantedEffect,
-									gemData = env.data.gems[env.data.gemForBaseName[grantedEffect.name:lower()] or env.data.gemForBaseName[(grantedEffect.name .. " Support"):lower()]],
-									level = value.level,
-									quality = 0,
-									enabled = true,
-								})
-							end
-						end
+						addExtraSupports(value)
+					end
+				end
+				-- if the slot has an imbued support, add it as an ExtraSupport
+				if build.skillsTab.imbuedSupportBySlot and build.skillsTab.imbuedSupportBySlot[slotName] and group.imbuedSupport then
+					local imbuedSupport = build.skillsTab.imbuedSupportBySlot[slotName]
+					addExtraSupports(nil, imbuedSupport, 1)
+					local imbuedGemData = env.data.gems[env.data.gemForSkill[imbuedSupport]]
+					if imbuedGemData and imbuedGemData.secondaryGrantedEffect and imbuedGemData.secondaryGrantedEffect.support then
+						addExtraSupports(nil, imbuedGemData.secondaryGrantedEffect, 1)
 					end
 				end
 
@@ -1506,7 +1562,6 @@ function calcs.initEnv(build, mode, override, specEnv)
 								grantedEffect = grantedEffect,
 								level = gemInstance.level,
 								quality = gemInstance.quality,
-								qualityId = gemInstance.qualityId,
 								srcInstance = gemInstance,
 								gemData = gemInstance.gemData,
 								superseded = false,
@@ -1578,7 +1633,6 @@ function calcs.initEnv(build, mode, override, specEnv)
 									grantedEffect = grantedEffect,
 									level = gemInstance.level,
 									quality = gemInstance.quality,
-									qualityId = gemInstance.qualityId,
 									srcInstance = gemInstance,
 									gemData = gemInstance.gemData,
 								}
@@ -1778,6 +1832,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 			activeSkill.skillData.soulPreventionDuration = activeSkill.soulPreventionDuration
 			activeSkill.skillData.totemLevel = skillData.totemLevel
 			activeSkill.skillData.damageEffectiveness = skillData.damageEffectiveness
+			activeSkill.skillData.stagesMax = skillData.stagesMax
 			activeSkill.skillData.manaReservationPercent = skillData.manaReservationPercent
 		end
 	end

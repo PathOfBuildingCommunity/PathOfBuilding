@@ -25,7 +25,7 @@ end
 function TradeStatWeightMultiplierListControlClass:AddValueTooltip(tooltip, index, data)
 	tooltip:Clear()
 	if not self.noTooltip then
-		tooltip:AddLine(16, "^7Double click to modify this stats weight multiplier.")
+		tooltip:AddLine(16, "^7Click to modify this stats weight multiplier.")
 	end
 end
 

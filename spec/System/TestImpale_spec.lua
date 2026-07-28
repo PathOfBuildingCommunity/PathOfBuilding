@@ -58,6 +58,20 @@ describe("TestAttacks", function()
 		assert.are.equals(150*1.3, build.calcsTab.mainOutput.ImpaleDPS) -- 5 impales * 10% stored damage * 1.3 attacks per second
 	end)
 
+	it("impale with zero duration has zero dps", function()
+		build.configTab.input.customMods = "\z
+		never deal critical strikes\n\z
+		Impale Damage dealt to Enemies Impaled by you Overwhelms 100% Physical Damage Reduction\n\z
+		Overwhelm 100% physical damage reduction\n\z
+		100% less Impale Duration\n\z
+		"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.equals(0, build.calcsTab.mainOutput.ImpaleDuration)
+		assert.are.equals(0, build.calcsTab.mainOutput.ImpaleDPS)
+	end)
+
 	it("impale with inc damage taken", function()
 		-- 0% crit
 		build.configTab.input.customMods = "\z
@@ -286,7 +300,7 @@ describe("TestAttacks", function()
 
 	it("impale dual wield simultaneous attack", function()
 		newBuild()
-		build.skillsTab:PasteSocketGroup("Cleave 20/0 Default  1\n")
+		build.skillsTab:PasteSocketGroup("Cleave 20/0  1\n")
 		-- exactly 100
 		build.itemsTab:CreateDisplayItemFromRaw("New Item\nVaal Blade\nQuality: 0\nAdds 54 to 14 physical damage\n50% chance to Impale Enemies on Hit with Attacks")
 		build.itemsTab:AddDisplayItem()

@@ -777,7 +777,7 @@ skills["SummonedSpiderViperStrike"] = {
 	baseEffectiveness = 0.64999997615814,
 	incrementalEffectiveness = 0.025499999523163,
 	description = "Hits enemies, converting some of your physical damage to chaos damage and inflicting poison which will be affected by modifiers to skill duration. If dual wielding, will strike with both weapons. Requires a claw, dagger or sword.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Duration] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.DamageOverTime] = true, [SkillType.Chaos] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Duration] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Chaos] = true, },
 	weaponTypes = {
 		["Claw"] = true,
 		["Dagger"] = true,
@@ -1430,7 +1430,7 @@ skills["DropBearSummonedRallyingCry"] = {
 	name = "[DNT] Old Rallying Cry",
 	hidden = true,
 	color = 1,
-	description = "[DNT] Unused (replaced)",
+	description = "DNT Unused (replaced)",
 	skillTypes = { [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Warcry] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.25,
@@ -1778,7 +1778,6 @@ skills["SummonedReaperMelee"] = {
 	},
 	stats = {
 		"active_skill_damage_+%_final",
-		"action_attack_or_cast_time_uses_animation_length",
 	},
 	notMinionStat = {
 		"active_skill_damage_+%_final",
@@ -2170,7 +2169,7 @@ skills["HolyStrikeMinionAttack"] = {
 		[1] = { levelRequirement = 1, },
 	},
 }
-skills["MeleeAtAnimationSpeedComboCold"] = {
+skills["MeleeComboCold"] = {
 	name = "Default Attack",
 	hidden = true,
 	color = 4,
@@ -2189,11 +2188,39 @@ skills["MeleeAtAnimationSpeedComboCold"] = {
 	stats = {
 		"skill_can_fire_arrows",
 		"skill_can_fire_wand_projectiles",
-		"action_attack_or_cast_time_uses_animation_length",
 		"projectile_uses_contact_position",
 		"use_scaled_contact_offset",
 	},
 	levels = {
 		[1] = { levelRequirement = 1, },
+	},
+}
+skills["MeleePartialChaos"] = {
+	name = "Default Attack",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 0,
+	description = "Strike your foes down with a powerful blow.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Projectile] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.ProjectilesFromUser] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		melee = true,
+	},
+	constantStats = {
+		{ "skill_physical_damage_%_to_convert_to_chaos", 25 },
+	},
+	stats = {
+		"active_skill_damage_+%_final",
+		"skill_can_fire_arrows",
+		"skill_can_fire_wand_projectiles",
+		"visual_hit_effect_chaos_is_green",
+	},
+	notMinionStat = {
+		"active_skill_damage_+%_final",
+	},
+	levels = {
+		[1] = { 0, baseMultiplier = 0.75, levelRequirement = 1, statInterpolation = { 2, }, },
 	},
 }

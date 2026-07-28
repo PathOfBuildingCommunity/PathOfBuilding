@@ -103,27 +103,9 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	-- Build maps of class name -> class table
 	self.classNameMap = { }
 	self.ascendNameMap = { }
-	self.classNotables = { }
+	self.internalAscendNameMap = {}
+	self.classNotables = {}
 
-	for classId, class in pairs(self.classes) do
-		if versionNum >= 3.10 then
-			-- Migrate to old format
-			class.classes = class.ascendancies
-		end
-		class.classes[0] = { name = "None" }
-		self.classNameMap[class.name] = classId
-		for ascendClassId, ascendClass in pairs(class.classes) do
-			self.ascendNameMap[ascendClass.id or ascendClass.name] = {
-				classId = classId,
-				class = class,
-				ascendClassId = ascendClassId,
-				ascendClass = ascendClass,
-				flavourText = ascendClass.flavourText,
-				flavourTextRect = ascendClass.flavourTextRect,
-			}
-		end
-	end
-	
 	-- hide legacy alternate ascendancies that are no longer obtainable
 	if self.alternate_ascendancies then
 		local legacyAlternateAscendancyIds = {
@@ -169,7 +151,37 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			self.alternate_ascendancies = nil
 		end
 	end
-	
+
+	for classId, class in pairs(self.classes) do
+		if versionNum >= 3.10 then
+			-- Migrate to old format
+			class.classes = class.ascendancies
+		end
+		class.classes[0] = { name = "None" }
+		self.classNameMap[class.name] = classId
+		for ascendClassId, ascendClass in pairs(class.classes) do
+			local entry = {
+				classId = classId,
+				class = class,
+				ascendClassId = ascendClassId,
+				ascendClass = ascendClass,
+				flavourText = ascendClass.flavourText,
+				flavourTextRect = ascendClass.flavourTextRect,
+			}
+			if ascendClass.id then
+				self.ascendNameMap[ascendClass.id] = entry
+			end
+			self.ascendNameMap[ascendClass.name] = entry
+			if ascendClass.internalId then
+				self.internalAscendNameMap[ascendClass.internalId] = {
+					classId = classId,
+					class = class,
+					ascendClassId = ascendClassId,
+					ascendClass = ascendClass
+				}
+			end
+		end
+	end
 	if self.alternate_ascendancies then
 		self.secondaryAscendNameMap = { }
 		local alternate_ascendancies_class = { 
@@ -258,7 +270,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		end
 		self.skillSprites = self.sprites
 	end
-	for type, data in pairs(self.skillSprites) do
+	for spriteType, data in pairs(self.skillSprites) do
 		local maxZoom
 		if not self.imageZoomLevels then
 			maxZoom = data
@@ -277,14 +289,18 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			if not self.spriteMap[name] then
 				self.spriteMap[name] = { }
 			end
-			self.spriteMap[name][type] = {
+			local x = type(coords.x) == "table" and coords.x[#coords.x] or coords.x
+			local y = type(coords.y) == "table" and coords.y[#coords.y] or coords.y
+			local w = type(coords.w) == "table" and coords.w[#coords.w] or coords.w
+			local h = type(coords.h) == "table" and coords.h[#coords.h] or coords.h
+			self.spriteMap[name][spriteType] = {
 				handle = sheet.handle,
-				width = coords.w,
-				height = coords.h,
-				[1] = coords.x / sheet.width,
-				[2] = coords.y / sheet.height,
-				[3] = (coords.x + coords.w) / sheet.width,
-				[4] = (coords.y + coords.h) / sheet.height
+				width = w,
+				height = h,
+				[1] = x / sheet.width,
+				[2] = y / sheet.height,
+				[3] = (x + w) / sheet.width,
+				[4] = (y + h) / sheet.height
 			}
 		end
 	end
@@ -537,7 +553,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			node.type = "Normal"
 			if ((node.ascendancyName == "Ascendant" and not node.isMultipleChoiceOption and not node.dn:find("Dexterity")
 				and not node.dn:find("Intelligence") and not node.dn:find("Strength") and not node.dn:find("Passive"))
-				or (node.isMultipleChoiceOption and node.ascendancyName)) and node.ascendancyName ~= "Reliquarian" then
+				or (node.isMultipleChoiceOption and node.ascendancyName)) and node.ascendancyName ~= "Reliquarian" and node.ascendancyName ~= "Luminary" then
 				local className = self.ascendNameMap[node.ascendancyName].class.name
 				self.ascendancyMap[node.dn:lower()] = node
 				if not self.classNotables[className] then

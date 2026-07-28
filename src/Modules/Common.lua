@@ -273,6 +273,16 @@ function sanitiseText(text)
 		or text
 end
 
+-- Convert int to 4 bytes string
+function intToBytes(int)
+	return string.char(
+		bit.band(int, 0xFF),
+		bit.band(bit.rshift(int, 8), 0xFF),
+		bit.band(bit.rshift(int, 16), 0xFF),
+		bit.band(bit.rshift(int, 24), 0xFF)
+	)
+end
+
 do
 	local function toUnsigned(val)
 		return val < 0 and val + 0x100000000 or val
@@ -632,6 +642,8 @@ function naturalSortCompare(a, b)
 end
 
 -- Rounds a number to the nearest <dec> decimal places
+---@param val number
+---@param dec? number
 function round(val, dec)
 	if dec then
 		return m_floor(val * 10 ^ dec + 0.5) / 10 ^ dec
@@ -642,7 +654,7 @@ end
 
 --- Rounds down a number to the nearest <dec> decimal places
 ---@param val number
----@param dec number
+---@param dec? number
 ---@return number
 function floor(val, dec)
 	if dec then
@@ -653,6 +665,70 @@ function floor(val, dec)
 	end
 end
 
+---@param val number
+---@param dec? integer decimal places
+-- Symmetric round with precision: Rounds towards zero to <dec> decimal places.
+function roundSymmetric(val, dec)
+	if dec then
+		local factor = 10 ^ dec
+		if val >= 0 then
+			return m_floor(val * factor + 0.5) / factor
+		else
+			return m_ceil(val * factor - 0.5) / factor
+		end
+	else
+		if val >= 0 then
+			return m_floor(val + 0.5)
+		else
+			return m_ceil(val - 0.5)
+		end
+	end
+end
+
+---@param val number
+---@param dec? integer decimal places
+-- Use rounding formula for positive numbers always used in corrupted unique roll ranges this is an incorrect way to round numbers.
+function alwaysPositiveRound(val, dec)
+	if dec then
+		local factor = 10 ^ dec
+		return floorSymmetric(val * factor + 0.5) / factor
+	else
+		return floorSymmetric(val + 0.5)
+	end
+end
+
+---@param val number
+---@param dec? integer decimal places
+---@return number
+-- Symmetric floor with precision: Rounds down towards zero to <dec> decimal places.
+function floorSymmetric(val, dec)
+	if dec then
+		local factor = 10 ^ dec
+		return select(1, math.modf(val * factor)) / factor
+	else
+		return select(1, math.modf(val))
+	end
+end
+
+---@param val number
+---@param dec? integer decimal places
+-- Symmetric ceil with precision: Rounds up away from zero to <dec> decimal places.
+function ceilSymmetric(val, dec)
+	if dec then
+		local factor = 10 ^ dec
+		if val >= 0 then
+			return m_ceil(val * factor) / factor
+		else
+			return m_floor(val * factor) / factor
+		end
+	else
+		if val >= 0 then
+			return m_ceil(val)
+		else
+			return m_floor(val)
+		end
+	end
+end
 ---@param n number
 ---@return number
 function triangular(n)
@@ -819,38 +895,40 @@ function supportEnabled(skillName, activeSkill)
 	return true
 end
 
+-- will remove newlines from strings so that they are valid lua
+---@param thing string | table | number
+---@return string
 function stringify(thing)
 	if type(thing) == 'string' then
-		return thing
+		local s = thing:gsub("\n", " ")
+		return s
 	elseif type(thing) == 'number' then
-		return ""..thing;
+		return "" .. thing;
 	elseif type(thing) == 'table' then
 		local s = "{";
-		local keys = { }
-		for key in pairs(thing) do table.insert(keys, key) end
+		local keys = {}
+		for key in pairs(thing) do t_insert(keys, key) end
 		table.sort(keys)
 		for _, k in ipairs(keys) do
 			local v = thing[k]
-			s = s.."\n\t"
-			if type(k) == 'number' then
-				s = s.."["..k.."] = "
-			else
-				s = s.."[\""..k.."\"] = "
+			s = s .. "\n\t"
+			if type(k) ~= 'number' then
+				s = s .. "[\"" .. k .. "\"] = "
 			end
 			if type(v) == 'string' then
-				s = s.."\""..stringify(v).."\", "
+				s = s .. "\"" .. stringify(v) .. "\","
 			else
 				if type(v) == "boolean" then
 					v = v and "true" or "false"
 				end
-				val = stringify(v)..", "
+				val = stringify(v) .. ","
 				if type(v) == "table" then
 					val = string.gsub(val, "\n", "\n\t")
 				end
-				s = s..val;
+				s = s .. val;
 			end
 		end
-		return s.."\n}"
+		return s .. "\n}"
 	end
 end
 
@@ -964,6 +1042,16 @@ function ImportBuild(importLink, callback)
 	end
 end
 
+---@param text string
+---@return string line
+-- Removes GGG string tags used for keyword popups. E.g. "[Critical|Critical Hit]" -> "Critical Hit"
+function escapeGGGString(text)
+	local line = text
+		:gsub("<[^>]+>{([^}]+)}", "%1")
+		:gsub("%[([^|%]]+)%]", "%1")
+		:gsub("%[[^|]+|([^|]+)%]", "%1")
+	return line
+end
 -- Returns virtual screen size
 function GetVirtualScreenSize()
 	local width, height = GetScreenSize()
@@ -973,4 +1061,24 @@ function GetVirtualScreenSize()
 		height = math.floor(height / scale)
 	end
 	return width, height
+end
+
+-- used for calculating the hash field of a stat
+local GGG_STAT_HASH32_SEED = 0xC58F1A7B
+-- used for calculating the trade hash from stat hash fields
+local GGG_TRADE_SEED = 0x02312233
+---@param stats string[]
+---@param extraStat string extra stat for time-lost jewels
+---@return integer
+function HashStats(stats, extraStat)
+	if extraStat then
+		stats = copyTable(stats)
+		table.insert(stats, extraStat)
+	end
+	local statHashes = ""
+	for _, statName in ipairs(stats) do
+		local newHash = intToBytes(murmurHash2(statName, GGG_STAT_HASH32_SEED))
+		statHashes = statHashes .. newHash
+	end
+	return murmurHash2(statHashes, GGG_TRADE_SEED)
 end

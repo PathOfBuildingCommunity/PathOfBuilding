@@ -264,6 +264,9 @@ return {
 ["cast_on_stunned_%"] = {
 	skill("chanceToTriggerOnStun", nil, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
 },
+["trigger_on_ward_break_%_chance"] = {
+	skill("chanceToTriggerOnWardBreak", nil, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
+},
 ["trigger_on_attack_hit_against_rare_or_unique"] = {
 	skill("triggerMarkOnRareOrUnique", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Mark }),
 },
@@ -294,6 +297,9 @@ return {
 },
 ["skill_repeat_count"] = {
 	mod("RepeatCount", "BASE", nil, 0, 0, { type = "SkillType", skillType = SkillType.Multicastable }),
+},
+["disable_skill_repeats"] = {
+	flag("CannotRepeat"),
 },
 ["display_skill_minions_level_is_corpse_level"] = {
 	skill("minionLevelIsEnemyLevel", true),
@@ -529,7 +535,7 @@ return {
 	mod("CooldownRecovery", "INC", nil),
 },
 ["cooldown_recovery_rate_+%_per_100_ward"] = {
-	mod("CooldownRecovery", "INC", nil, 0, 0, { type = "PerStat", stat = "Ward", div = 100 }),
+	mod("CooldownRecovery", "INC", nil, 0, 0, { type = "PerStat", stat = "Ward", div = 100, limit = 400, limitTotal = true }),
 },
 ["base_cooldown_modifier_ms"] = {
 	mod("CooldownRecovery", "BASE", nil),
@@ -1971,6 +1977,12 @@ return {
 ["base_number_of_skeletons_allowed"] = {
 	mod("ActiveSkeletonLimit", "BASE", nil),
 },
+["base_number_of_animated_weapons_allowed"] = {
+	mod("ActiveAnimatedWeaponLimit", "BASE", nil),
+},
+["base_number_of_support_ghosts_allowed"] = {
+	mod("ActivePhantasmLimit", "BASE", nil),
+},
 ["base_number_of_raging_spirits_allowed"] = {
 	mod("ActiveRagingSpiritLimit", "BASE", nil),
 },
@@ -2069,6 +2081,9 @@ return {
 	value = 100,
 },
 --Golem
+["stone_golem_grants_melee_damage_removed_from_stone_golem_before_life_or_es_%"] = {
+	mod("takenFromStoneGolemBeforeYou", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+},
 ["golem_buff_effect_+%"] = {
 	mod("BuffEffect", "INC", nil, 0, 0)
 },
