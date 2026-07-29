@@ -21105,9 +21105,9 @@ skills["WintertideBrand"] = {
 	statDescriptionScope = "brand_skill_stat_descriptions",
 	castTime = 0.7,
 	preDamageFunc = function(activeSkill, output)
-		activeSkill.skillData.countsAttachedBrandsInDamage = activeSkill.skillPart == 2
+		activeSkill.skillData.countsAttachedBrandsInDamage = activeSkill.skillPart == 1
 		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100) / activeSkill.skillModList:More(activeSkill.skillCfg, "BrandActivationFrequency")
-		if activeSkill.skillPart == 2 then
+		if activeSkill.skillPart == 1 then
 			local skillMaxStages = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:WintertideBrandMaxStages")
 			local debuffDurationMult = 1 / math.max(data.misc.BuffExpirationSlowCap, calcLib.mod(activeSkill.actor.enemy.modDB, activeSkill.skillCfg, "BuffExpireFaster"))
 			local duration = calcSkillDuration(activeSkill.skillModList, activeSkill.skillCfg, activeSkill.skillData, {}) * debuffDurationMult
@@ -21131,11 +21131,11 @@ skills["WintertideBrand"] = {
 	end,
 	parts = {
 		{
-			name = "Manual Stages",
-			stages = true
+			name = "Average Damage",
 		},
 		{
-			name = "Average Damage",
+			name = "Manual Stages",
+			stages = true
 		}
 	},
 	statMap = {
@@ -21143,7 +21143,7 @@ skills["WintertideBrand"] = {
 		},
 		["immolation_brand_burn_damage_+%_final_per_stage"] = {
 			-- Only apply to Manual Stages part
-			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "WintertideBrandStage", limitVar = "WintertideBrandMaxStages" }, { type = "SkillPart", skillPart = 1 }),
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "WintertideBrandStage", limitVar = "WintertideBrandMaxStages" }, { type = "SkillPart", skillPart = 2 }),
 			mod("Multiplier:WintertideBrandDamagePerStage", "BASE", nil),
 		},
 		["winter_brand_max_number_of_stages"] = {

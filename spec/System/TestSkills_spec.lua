@@ -164,7 +164,7 @@ describe("TestAttacks", function()
 		runCallback("OnFrame")
 		local mainSocketGroup = build.skillsTab.socketGroupList[build.mainSocketGroup]
 		local srcInstance = mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeEffect.srcInstance
-		srcInstance.skillPart = 2
+		srcInstance.skillPart = 1
 		build.modFlag = true
 		build.buildFlag = true
 		runCallback("OnFrame")
