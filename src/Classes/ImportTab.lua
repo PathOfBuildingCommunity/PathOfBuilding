@@ -1460,7 +1460,7 @@ function ImportTabClass:ImportItem(itemData, slotName, ignoreWeaponSwap)
 	item.rarity = rarityMap[itemData.frameType]
 	if #itemData.name > 0 then
 		item.title = sanitiseText(itemData.name)
-		item.baseName = sanitiseText(itemData.typeLine):gsub("Synthesised ","")
+		item.baseName = sanitiseText(itemData.typeLine):gsub("Synthesised ", ""):gsub("^Vestigial ", "")
 		item.name = item.title .. ", " .. item.baseName
 		if item.baseName == "Two-Toned Boots" then
 			-- Hack for Two-Toned Boots
