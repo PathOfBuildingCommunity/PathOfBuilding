@@ -58949,4 +58949,37 @@ minions["Metadata/Monsters/AbyssTwoLeague/PrimordialMonster02"] = {
 		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -50]
 	},
 }
-MetadataMonsters/AbyssTwoLeague/PrimordialMonster03
+minions["Metadata/Monsters/AbyssTwoLeague/PrimordialMonster03"] = {
+	name = "Primordium of the Pit",
+	monsterTags = { "abyss_blood", "abyssal", "demon", "fast_movement", "medium_height", "not_dex", "not_str", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 0.98,
+	energyShield = 0.5,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 0.78,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 8,
+	accuracy = 1,
+	baseMovementSpeed = 40,
+	monsterCategory = "Demon",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"GSPrimordialBatCrystalExplosion",
+		"DTTPrimordialBatLeap",
+		"GAPrimordialBatLeapSlash",
+		"EASAbyssPrimordialBatCrystalBreath1",
+		"EASAbyssPrimordialBatCrystalBreath2",
+		"EASAbyssPrimordialBatCrystalBreath3",
+	},
+	modList = {
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 24]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -40]
+		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -50]
+	},
+}

@@ -4019,4 +4019,5 @@ local minions, mod, flag = ...
 #emit
 #spectre Metadata/Monsters/AbyssTwoLeague/PrimordialMonster02
 #emit
-MetadataMonsters/AbyssTwoLeague/PrimordialMonster03
+#spectre Metadata/Monsters/AbyssTwoLeague/PrimordialMonster03
+#emit
