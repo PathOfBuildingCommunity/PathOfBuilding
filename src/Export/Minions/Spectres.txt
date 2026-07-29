@@ -2647,6 +2647,9 @@ local minions, mod, flag = ...
 -- Primal Rhex Matriarch
 #spectre Metadata/Monsters/LeagueHarvest/Blue/HarvestRhexT3Spectre # HarvestRhexScreechDebuff
 #emit
+-- Wild Homunculus
+#spectre Metadata/Monsters/LeagueHarvest/Red/HarvestMinerHammerT2Spectre
+#emit
 -- Templar Tactician
 #spectre Metadata/Monsters/LegionLeague/LegionTemplarCaster1Spectre
 #emit
@@ -2664,6 +2667,9 @@ local minions, mod, flag = ...
 #emit
 -- Ashblessed Warden
 #spectre Metadata/Monsters/LeagueHeist/Robot/RobotPyreKnightEliteSpectre
+#emit
+-- Violator
+#spectre Metadata/Monsters/LeagueHeist/Science/ProjectUnarmedEliteGuardSpectre
 #emit
 -- Snow Rhex
 #spectre Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieArmouredBirdSpectre__
@@ -2806,8 +2812,11 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/LeagueHellscape/PaleFaction/HellscapePaleElite2Spectre
 #flags recommendedSpectre
 #emit
--- Ravenous Mishapen
+-- Ravenous Misshapen
 #spectre Metadata/Monsters/LeagueHellscape/FleshFaction/HellscapeFleshFodder4Spectre
+#emit
+-- Ravenous Bloodshaper
+#spectre Metadata/Monsters/LeagueHellscape/FleshFaction/HellscapeFleshElite1Spectre
 #emit
 -- Aurid Synthete
 #spectre Metadata/Monsters/LeagueSynthesis/SynthesisSoulstealer4Spectre
@@ -3917,6 +3926,9 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/FaridunLeague/FaridunWarlock/FaridunWarlockMid_
 #emit
 #spectre Metadata/Monsters/FaridunLeague/FaridunWarlock/FaridunWarlockHigh
+#emit
+-- Undead Vaal Commander
+#spectre Metadata/Monsters/VaalMonsters/VaalOverseer
 #flags recommendedSpectre
 #emit
 -- Astral Lich

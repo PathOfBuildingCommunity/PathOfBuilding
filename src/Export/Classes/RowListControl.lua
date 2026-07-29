@@ -47,10 +47,10 @@ function RowListClass:BuildColumns()
 	wipeTable(self.colList)
 	self.colList[1] = { width = 50, label = "#", font = "FIXED", sortable = true }
 	for _, specCol in ipairs(main.curDatFile.spec) do
-		t_insert(self.colList, { 
-			width = specCol.width, 
+		t_insert(self.colList, {
+			width = specCol.width,
 			specColRef = specCol,  -- Link to the original data
-			label = specCol.name, 
+			label = specCol.name,
 			font = function() return IsKeyDown("ALT") and "FIXED" or "VAR" end,
 			sortable = true
 		})
@@ -108,7 +108,7 @@ function RowListClass:Draw(viewPort)
 
 	local cursorX, cursorY = GetCursorPos()
 
-	local label = self:GetProperty("label") 
+	local label = self:GetProperty("label")
 	if label then
 		DrawString(x + self.labelPositionOffset[1], y - 20 + self.labelPositionOffset[2], "LEFT", 16, self.font, label)
 	end
@@ -359,4 +359,16 @@ function RowListClass:OnKeyUp(key, doubleClick)
 		return self
 	end
 	return self
+end
+
+function RowListClass:OnKeyDown(key, doubleClick)
+	if key == "PAGEUP" then
+		self.controls.scrollBarV:Scroll(-math.floor(self:GetRowRegion().height / self.rowHeight))
+		return self
+	elseif key == "PAGEDOWN" then
+		self.controls.scrollBarV:Scroll(math.floor(self:GetRowRegion().height / self.rowHeight))
+		return self
+	end
+
+	return self.ListControl.OnKeyDown(self, key, doubleClick)
 end

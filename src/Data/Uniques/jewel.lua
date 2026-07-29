@@ -622,10 +622,10 @@ Cobalt Jewel
 Variant: Pre 3.25.0
 Variant: Current
 League: Heist
-{variant:1}+(2-4)% Chance to Block Spell Damage
-{variant:2}+(2-6)% Chance to Block Spell Damage
 {variant:1}+(2-4)% Chance to Block Attack Damage
 {variant:2}+(2-6)% Chance to Block Attack Damage
+{variant:1}+(2-4)% Chance to Block Spell Damage
+{variant:2}+(2-6)% Chance to Block Spell Damage
 +10% chance to be Frozen, Shocked and Ignited
 ]],[[
 The Red Dream
@@ -1585,10 +1585,10 @@ Variant: Pre 3.20.0
 Variant: Pre 3.25.0
 Variant: Current
 {variant:1,2,3}(2-4)% Chance to Block Attack Damage
+{variant:4}+(2-6)% Chance to Block Attack Damage
 {variant:1}+6% Chance to Block Spell Damage
 {variant:2,3}+(2-4)% Chance to Block Spell Damage
 {variant:4}+(2-6)% Chance to Block Spell Damage
-{variant:4}+(2-6)% Chance to Block Attack Damage
 Hits have (140-200)% increased Critical Strike Chance against you
 {variant:3}Corrupted
 ]],[[
@@ -1835,6 +1835,7 @@ Implicits: 0
 {variant:1}Denoted service of (500-8000) dekhara in the akhara of Asenath
 {variant:2}Denoted service of (500-8000) dekhara in the akhara of Deshret
 {variant:3}Denoted service of (500-8000) dekhara in the akhara of Nasima
+{variant:4}Denoted service of (500-8000) dekhara in the akhara of Balbala
 Passives in radius are Conquered by the Maraketh
 Historic
 ]],[[
@@ -1932,9 +1933,10 @@ Variant: Duration of Curses
 Variant: Minion Attack and Cast Speed
 Variant: Minions Accuracy Rating
 Variant: Mana Regen
-Variant: Skill Cost
+Variant: Skill Cost (Pre 3.29.0)
 Variant: Non-Curse Aura Effect
 Variant: Defences from Shield
+Variant: Skill Cost
 Radius: Large
 Implicits: 0
 {variant:1}Carved to glorify (2000-10000) new faithful converted by High Templar Avarius
@@ -1942,6 +1944,7 @@ Implicits: 0
 {variant:3}Carved to glorify (2000-10000) new faithful converted by High Templar Venarius
 {variant:4}Carved to glorify (2000-10000) new faithful converted by High Templar Maxarius
 {variant:8}4% increased Area Damage per 10 Devotion
+{variant:20}3% increased Mana Cost Efficiency per 10 Devotion
 {variant:7}Channelling Skills deal 4% increased Damage per 10 Devotion
 {variant:9}4% increased Elemental Damage per 10 Devotion
 {variant:10}+2% to all Elemental Resistances per 10 Devotion

@@ -8,6 +8,7 @@ itemBases["Rustic Sash"] = {
 	influenceTags = { shaper = "belt_shaper", elder = "belt_elder", adjudicator = "belt_adjudicator", basilisk = "belt_basilisk", crusader = "belt_crusader", eyrie = "belt_eyrie", cleansing = "belt_cleansing", tangle = "belt_tangle" },
 	implicit = "(12-24)% increased Global Physical Damage",
 	implicitModTypes = { { "physical_damage", "damage", "physical" }, },
+	implicitIds = { "IncreasedPhysicalDamagePercentImplicitBelt1", },
 	req = { },
 }
 itemBases["Chain Belt"] = {
@@ -16,6 +17,7 @@ itemBases["Chain Belt"] = {
 	influenceTags = { shaper = "belt_shaper", elder = "belt_elder", adjudicator = "belt_adjudicator", basilisk = "belt_basilisk", crusader = "belt_crusader", eyrie = "belt_eyrie", cleansing = "belt_cleansing", tangle = "belt_tangle" },
 	implicit = "+(9-20) to maximum Energy Shield",
 	implicitModTypes = { { "defences", "energy_shield" }, },
+	implicitIds = { "IncreasedEnergyShieldImplicitBelt1", },
 	req = { },
 }
 itemBases["Leather Belt"] = {
@@ -24,6 +26,7 @@ itemBases["Leather Belt"] = {
 	influenceTags = { shaper = "belt_shaper", elder = "belt_elder", adjudicator = "belt_adjudicator", basilisk = "belt_basilisk", crusader = "belt_crusader", eyrie = "belt_eyrie", cleansing = "belt_cleansing", tangle = "belt_tangle" },
 	implicit = "+(25-40) to maximum Life",
 	implicitModTypes = { { "resource", "life" }, },
+	implicitIds = { "IncreasedLifeImplicitBelt1", },
 	req = { level = 8, },
 }
 itemBases["Heavy Belt"] = {
@@ -32,6 +35,7 @@ itemBases["Heavy Belt"] = {
 	influenceTags = { shaper = "belt_shaper", elder = "belt_elder", adjudicator = "belt_adjudicator", basilisk = "belt_basilisk", crusader = "belt_crusader", eyrie = "belt_eyrie", cleansing = "belt_cleansing", tangle = "belt_tangle" },
 	implicit = "+(25-35) to Strength",
 	implicitModTypes = { { "attribute" }, },
+	implicitIds = { "StrengthImplicitBelt1", },
 	req = { level = 8, },
 }
 itemBases["Cloth Belt"] = {
@@ -40,6 +44,7 @@ itemBases["Cloth Belt"] = {
 	influenceTags = { shaper = "belt_shaper", elder = "belt_elder", adjudicator = "belt_adjudicator", basilisk = "belt_basilisk", crusader = "belt_crusader", eyrie = "belt_eyrie", cleansing = "belt_cleansing", tangle = "belt_tangle" },
 	implicit = "(15-25)% increased Stun and Block Recovery",
 	implicitModTypes = { {  }, },
+	implicitIds = { "StunRecoveryImplicitBelt1", },
 	req = { level = 16, },
 }
 itemBases["Studded Belt"] = {
@@ -48,6 +53,7 @@ itemBases["Studded Belt"] = {
 	influenceTags = { shaper = "belt_shaper", elder = "belt_elder", adjudicator = "belt_adjudicator", basilisk = "belt_basilisk", crusader = "belt_crusader", eyrie = "belt_eyrie", cleansing = "belt_cleansing", tangle = "belt_tangle" },
 	implicit = "(20-30)% increased Stun Duration on Enemies",
 	implicitModTypes = { {  }, },
+	implicitIds = { "StunDurationImplicitBelt1", },
 	req = { level = 16, },
 }
 itemBases["Micro-Distillery Belt"] = {
@@ -56,6 +62,7 @@ itemBases["Micro-Distillery Belt"] = {
 	influenceTags = { shaper = "belt_shaper", elder = "belt_elder", adjudicator = "belt_adjudicator", basilisk = "belt_basilisk", crusader = "belt_crusader", eyrie = "belt_eyrie", cleansing = "belt_cleansing", tangle = "belt_tangle" },
 	implicit = "Flasks applied to you have 30% increased Effect\nCan't use Flask in Fifth Slot",
 	implicitModTypes = { {  }, {  }, },
+	implicitIds = { "CannotUseFlaskInFifthSlotImplicitE1_", },
 	req = { level = 24, },
 }
 itemBases["Mechalarm Belt"] = {
@@ -64,6 +71,7 @@ itemBases["Mechalarm Belt"] = {
 	influenceTags = { shaper = "belt_shaper", elder = "belt_elder", adjudicator = "belt_adjudicator", basilisk = "belt_basilisk", crusader = "belt_crusader", eyrie = "belt_eyrie", cleansing = "belt_cleansing", tangle = "belt_tangle" },
 	implicit = "Trigger Level 20 Summon Taunting Contraption when you use a Flask",
 	implicitModTypes = { {  }, },
+	implicitIds = { "SummonTauntingContraptionOnFlaskUseImplicitE1", },
 	req = { level = 56, },
 }
 itemBases["Mechanical Belt"] = {
@@ -72,6 +80,7 @@ itemBases["Mechanical Belt"] = {
 	influenceTags = { shaper = "belt_shaper", elder = "belt_elder", adjudicator = "belt_adjudicator", basilisk = "belt_basilisk", crusader = "belt_crusader", eyrie = "belt_eyrie", cleansing = "belt_cleansing", tangle = "belt_tangle" },
 	implicit = "Has 1 Socket",
 	implicitModTypes = { {  }, },
+	implicitIds = { "BeltHasOneSocket", },
 	req = { level = 56, },
 }
 itemBases["Vanguard Belt"] = {
@@ -80,6 +89,7 @@ itemBases["Vanguard Belt"] = {
 	influenceTags = { shaper = "belt_shaper", elder = "belt_elder", adjudicator = "belt_adjudicator", basilisk = "belt_basilisk", crusader = "belt_crusader", eyrie = "belt_eyrie", cleansing = "belt_cleansing", tangle = "belt_tangle" },
 	implicit = "+(260-320) to Armour and Evasion Rating",
 	implicitModTypes = { { "defences", "armour", "evasion" }, },
+	implicitIds = { "ArmourAndEvasionImplicitBelt1", },
 	req = { level = 78, },
 }
 itemBases["Crystal Belt"] = {
@@ -88,6 +98,7 @@ itemBases["Crystal Belt"] = {
 	influenceTags = { shaper = "belt_shaper", elder = "belt_elder", adjudicator = "belt_adjudicator", basilisk = "belt_basilisk", crusader = "belt_crusader", eyrie = "belt_eyrie", cleansing = "belt_cleansing", tangle = "belt_tangle" },
 	implicit = "+(60-80) to maximum Energy Shield",
 	implicitModTypes = { { "defences", "energy_shield" }, },
+	implicitIds = { "IncreasedEnergyShieldImplicitBelt2", },
 	req = { level = 79, },
 }
 itemBases["Stygian Vise"] = {
@@ -96,6 +107,7 @@ itemBases["Stygian Vise"] = {
 	influenceTags = { shaper = "belt_shaper", elder = "belt_elder", adjudicator = "belt_adjudicator", basilisk = "belt_basilisk", crusader = "belt_crusader", eyrie = "belt_eyrie", cleansing = "belt_cleansing", tangle = "belt_tangle" },
 	implicit = "Has 1 Abyssal Socket",
 	implicitModTypes = { {  }, },
+	implicitIds = { "AbyssJewelSocketImplicit", },
 	req = { },
 }
 itemBases["Cord Belt"] = {
@@ -104,6 +116,7 @@ itemBases["Cord Belt"] = {
 	influenceTags = { shaper = "belt_shaper", elder = "belt_elder", adjudicator = "belt_adjudicator", basilisk = "belt_basilisk", crusader = "belt_crusader", eyrie = "belt_eyrie", cleansing = "belt_cleansing", tangle = "belt_tangle" },
 	implicit = "Can be Anointed",
 	implicitModTypes = { {  }, },
+	implicitIds = { "BeltEnchantImplicit", },
 	req = { },
 }
 
@@ -113,5 +126,6 @@ itemBases["Golden Obi"] = {
 	influenceTags = { shaper = "belt_shaper", elder = "belt_elder", adjudicator = "belt_adjudicator", basilisk = "belt_basilisk", crusader = "belt_crusader", eyrie = "belt_eyrie", cleansing = "belt_cleansing", tangle = "belt_tangle" },
 	implicit = "(20-30)% increased Rarity of Items found",
 	implicitModTypes = { { "drop" }, },
+	implicitIds = { "ItemFoundRarityIncreaseImplicitDemigodsBelt1", },
 	req = { },
 }

@@ -958,6 +958,13 @@ skills["HarvestRhexScreechDebuff"] = {
 	},
 }
 
+#skill GAHarvestMinerHammerSlam Hammer Slam
+#flags attack area triggerable
+#mods
+#skill EDSHarvestMinerHammerSmoke Hammer Smoke
+#flags spell hit area triggerable
+#mods
+
 #skill LegionTemplarJudgeBallLightning Ball Lightning
 #flags spell hit triggerable area projectile
 #mods
@@ -1010,6 +1017,22 @@ skills["HarvestRhexScreechDebuff"] = {
 #baseMod skill("showAverage", true)
 #baseMod mod("Damage", "MORE", 100, 0, 0, { type = "Multiplier", var = "ExplosiveArrowFuse", base = -100 })
 #baseMod mod("Multiplier:ExplosiveArrowFuse", "BASE", 20)
+#mods
+
+#skill HeistCultistUnarmedLeap Whirling Blades
+#flags attack melee movement
+#mods
+
+#skill HeistProjectUnarmedMelee1 Default Attack
+#flags attack melee projectile
+#mods
+
+#skill GAHeistCultistUnarmedLeapImpact Whirling Blades Impact
+#flags attack area triggerable
+#mods
+
+#skill EDSHeistScienceUnarmedGas Gas
+#flags spell hit area triggerable
 #mods
 
 #skill EmptyActionAttackSecretPoliceDaggers Dagger Trigger Attack

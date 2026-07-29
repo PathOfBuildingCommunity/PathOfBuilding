@@ -11,19 +11,19 @@ return {
 					[1] = { line = "You cannot be Stunned if you've been Stunned or Blocked a Stunning Hit in the past 2 seconds", value = { 1 }, },
 				},
 			},
-			[2] = { name = "Puruna, the Challenger",
+			[2] = { name = "Nassar, Lion of the Seas",
 				mods = {
 					-- base_stun_recovery_+%
 					[1] = { line = "30% increased Stun and Block Recovery", value = { 30 }, },
 				},
 			},
-			[3] = { name = "Merveil, the Returned",
+			[3] = { name = "Captain Tanner Lightfoot",
 				mods = {
 					-- base_avoid_freeze_%
 					[1] = { line = "100% chance to Avoid being Frozen", value = { 100 }, },
 				},
 			},
-			[4] = { name = "Nassar, Lion of the Seas",
+			[4] = { name = "Shock and Horror",
 				mods = {
 					-- chill_effectiveness_on_self_+%
 					[1] = { line = "50% reduced Effect of Chill on you", value = { -50 }, },
@@ -40,13 +40,13 @@ return {
 					[1] = { line = "10% reduced Damage taken from Damage Over Time", value = { -10 }, },
 				},
 			},
-			[2] = { name = "Hybrid Widow",
+			[2] = { name = "Maligaro the Mutilator",
 				mods = {
 					-- life_and_energy_shield_recovery_rate_+%_if_stopped_taking_damage_over_time_recently
 					[1] = { line = "20% increased Recovery rate of Life and Energy Shield if you've stopped taking Damage Over Time Recently", value = { 20 }, },
 				},
 			},
-			[3] = { name = "Maligaro the Mutilator",
+			[3] = { name = "Armala, the Widow",
 				mods = {
 					-- debuff_time_passed_+%
 					[1] = { line = "Debuffs on you expire 20% faster", value = { 20 }, },
@@ -71,7 +71,7 @@ return {
 					[2] = { line = "20% chance to take 50% less Area Damage from Hits", value = { 20 }, },
 				},
 			},
-			[2] = { name = "Fire and Fury",
+			[2] = { name = "Oak the Mighty",
 				mods = {
 					-- elemental_damage_taken_+%_if_not_hit_recently
 					[1] = { line = "8% reduced Elemental Damage taken if you haven't been Hit Recently", value = { -8 }, },
@@ -83,7 +83,7 @@ return {
 					[1] = { line = "Take no Extra Damage from Critical Strikes if you have taken a Critical Strike Recently", value = { 1 }, },
 				},
 			},
-			[4] = { name = "Lord of the Ashen Arrow",
+			[4] = { name = "Forest of Flames",
 				mods = {
 					-- avoid_ailments_%_from_crit
 					[1] = { line = "50% chance to avoid Ailments from Critical Strikes", value = { 50 }, },
@@ -102,19 +102,19 @@ return {
 					[2] = { line = "1% increased Movement Speed for each nearby Enemy, up to 8%", value = { 1 }, },
 				},
 			},
-			[2] = { name = "Fragment of Winter",
+			[2] = { name = "Captain Clayborne, The Accursed",
 				mods = {
 					-- base_avoid_projectiles_%_chance
 					[1] = { line = "10% chance to avoid Projectiles", value = { 10 }, },
 				},
 			},
-			[3] = { name = "Glace",
+			[3] = { name = "Fragment of Winter",
 				mods = {
 					-- elemental_damage_taken_+%_if_been_hit_recently
 					[1] = { line = "6% reduced Elemental Damage taken if you have been Hit Recently", value = { -6 }, },
 				},
 			},
-			[4] = { name = "Sebbert, Crescent's Point",
+			[4] = { name = "Glace",
 				mods = {
 					-- avoid_chained_projectile_%_chance
 					[1] = { line = "Avoid Projectiles that have Chained", value = { 100 }, },
@@ -164,7 +164,7 @@ return {
 			[1] = { name = "Soul of Yugul",
 				mods = {
 					-- %_of_your_and_your_minions_damage_cannot_be_reflected
-					[1] = { line = "50% of Hit Damage from you and your Minions cannot be Reflected", value = { 50 }, },
+					[1] = { line = "You and your Minions prevent +50% of Reflected Damage", value = { 50 }, },
 					-- reflect_hexes_chance_%
 					[2] = { line = "50% chance to Reflect Hexes", value = { 50 }, },
 				},
@@ -188,7 +188,7 @@ return {
 					[2] = { line = "You cannot be Poisoned while there are at least 3 Poisons on you", value = { 3 }, },
 				},
 			},
-			[2] = { name = "The Blacksmith",
+			[2] = { name = "Terror of the Infinite Drifts",
 				mods = {
 					-- chaos_damage_taken_+%
 					[1] = { line = "5% reduced Chaos Damage taken", value = { -5 }, },
@@ -243,7 +243,7 @@ return {
 					[1] = { line = "60% reduced Effect of Shock on you", value = { -60 }, },
 				},
 			},
-			[2] = { name = "Stalker of the Endless Dunes",
+			[2] = { name = "The Blacksmith",
 				mods = {
 					-- cannot_be_blinded
 					[1] = { line = "Cannot be Blinded", value = { 1 }, },
@@ -264,7 +264,7 @@ return {
 					[2] = { line = "60% increased Life Recovery from Flasks used when on Low Life", value = { 60 }, },
 				},
 			},
-			[2] = { name = "Tunneltrap",
+			[2] = { name = "Gorulis, Will-Thief",
 				mods = {
 					-- enemy_life_regeneration_rate_+%_for_4_seconds_on_hit
 					[1] = { line = "Enemies you've Hit Recently have 50% reduced Life Regeneration rate", value = { -50 }, },

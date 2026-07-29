@@ -2299,7 +2299,7 @@ local skills, mod, flag, skill = ...
 				-- Average multiplier: sum of (0, X, 2X, 3X, ..., (n-1)X) / n
 				-- This equals: X * (0 + 1 + 2 + ... + (n-1)) / n = X * n(n-1)/2 / n = X * (n-1)/2
 				local avgMoreMult = moreDamagePerProj * (output.ProjectileCount - 1) / 2
-				activeSkill.skillModList:NewMod("Damage", "MORE", avgMoreMult, "Skill:KineticFusillade", ModFlag.Hit)
+				activeSkill.skillModList:NewMod("Damage", "MORE", avgMoreMult, "Skill:KineticFusillade")
 
 				-- Store the average multiplier for display
 				output.KineticFusilladeAvgMoreMult = avgMoreMult
@@ -2441,7 +2441,7 @@ local skills, mod, flag, skill = ...
 				-- Average multiplier: sum of (0, X, 2X, 3X, ..., (n-1)X) / n
 				-- This equals: X * (0 + 1 + 2 + ... + (n-1)) / n = X * n(n-1)/2 / n = X * (n-1)/2
 				local avgMoreMult = moreDamagePerProj * (output.ProjectileCount - 1) / 2
-				activeSkill.skillModList:NewMod("Damage", "MORE", avgMoreMult, "Skill:KineticFusilladeAltX", ModFlag.Hit)
+				activeSkill.skillModList:NewMod("Damage", "MORE", avgMoreMult, "Skill:KineticFusilladeAltX")
 
 				-- Store the average multiplier for display
 				output.KineticFusilladeAvgMoreMult = avgMoreMult
@@ -3194,6 +3194,30 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("radius", 40)
+#mods
+
+#skill ManaInfusedStaff
+#flags spell area duration
+	statMap = {
+		["mana_infused_staff_base_trigger_interval_ms"] = {
+			skill("hitTimeOverride", nil),
+			div = 1000,
+		},
+		["active_skill_always_reserves_unmodifiable_X%_of_mana"] = {
+			skill("ManaReservationPercentForced", nil),
+		},
+		["active_skill_buff_mana_cost_+%_final_to_grant"] = {
+			mod("ManaCost", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["active_skill_buff_block_chance_+%_final_to_grant"] = {
+			mod("BlockChance", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("SpellBlockChance", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["skill_has_added_lightning_damage_equal_to_%_of_maximum_mana"] = {
+			skill("LightningMin", "BASE", nil, 0, 0, { type = "PercentStat", stat = "Mana", percent = 1 }),
+			skill("LightningMax", "BASE", nil, 0, 0, { type = "PercentStat", stat = "Mana", percent = 1 }),
+		},
+	},
 #mods
 
 #skill Manabond

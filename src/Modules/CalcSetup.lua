@@ -37,6 +37,9 @@ function calcs.initModDB(env, modDB)
 	modDB:NewMod("InspirationChargesMax", "BASE", data.characterConstants["maximum_righteous_charges"], "Base")
 	modDB:NewMod("CrabBarriersMax", "BASE", 0, "Base")
 	modDB:NewMod("BrutalChargesMax", "BASE", 0, "Base")
+	modDB:NewMod("BrineChargesMax", "BASE", 0, "Base")
+	modDB:NewMod("PhysicalDamageGainAsCold", "BASE", data.characterConstants["physical_damage_%_to_add_as_cold_per_brine_charge"], "Base", { type = "Multiplier", var = "BrineCharge" })
+	modDB:NewMod("PhysicalDamageGainAsLightning", "BASE", data.characterConstants["physical_damage_%_to_add_as_lightning_per_brine_charge"], "Base", { type = "Multiplier", var = "BrineCharge" })
 	modDB:NewMod("AbsorptionChargesMax", "BASE", 0, "Base")
 	modDB:NewMod("AfflictionChargesMax", "BASE", 0, "Base")
 	modDB:NewMod("BloodChargesMax", "BASE", data.characterConstants["maximum_blood_scythe_charges"], "Base")
@@ -1186,13 +1189,13 @@ function calcs.initEnv(build, mode, override, specEnv)
 					-- Calculate socket counts
 					local slotEmptySocketsCount = { R = 0, G = 0, B = 0, W = 0}	
 					local slotGemSocketsCount = 0
-					local socketedGems = 0
+					local socketedGems = { }
 					-- Loop through socket groups to calculate number of socketed gems
-					for _, socketGroup in pairs(env.build.skillsTab.socketGroupList) do
+					for _, socketGroup in ipairs(env.build.skillsTab.socketGroupList) do
 						if (not socketGroup.source and socketGroup.enabled and socketGroup.slot and socketGroup.slot == slotName and socketGroup.gemList) then
-							for _, gem in pairs(socketGroup.gemList) do
+							for _, gem in ipairs(socketGroup.gemList) do
 								if (gem.gemData and gem.enabled) then
-									socketedGems = socketedGems + 1
+									t_insert(socketedGems, gem)
 								end
 							end
 						end
@@ -1202,18 +1205,36 @@ function calcs.initEnv(build, mode, override, specEnv)
 						if socket.color == 'R' or socket.color == 'B' or socket.color == 'G' or socket.color == 'W' then
 							slotGemSocketsCount = slotGemSocketsCount + 1
 							-- loop through sockets indexes that are greater than number of socketed gems
-							if i > socketedGems then
+							if i > #socketedGems then
 								slotEmptySocketsCount[socket.color] = slotEmptySocketsCount[socket.color] + 1
 							end
 						end
 					end
-					env.itemModDB.multipliers["SocketedGemsIn"..slotName] = (env.itemModDB.multipliers["SocketedGemsIn"..slotName] or 0) + math.min(slotGemSocketsCount, socketedGems)
+					local socketedColours = { R = 0, G = 0, B = 0 }
+					-- Only gems that fit in the item's sockets contribute to multipliers
+					for i = 1, math.min(slotGemSocketsCount, #socketedGems) do
+						local tags = socketedGems[i].gemData.tags
+						if tags and tags.strength then
+							socketedColours.R = socketedColours.R + 1
+						end
+						if tags and tags.dexterity then
+							socketedColours.G = socketedColours.G + 1
+						end
+						if tags and tags.intelligence then
+							socketedColours.B = socketedColours.B + 1
+						end
+					end
+					env.itemModDB.multipliers["SocketedGemsIn" .. slotName] = math.min(slotGemSocketsCount, #socketedGems)
+					env.itemModDB.multipliers["SocketedRedGemsIn" .. slotName] = socketedColours.R
+					env.itemModDB.multipliers["SocketedGreenGemsIn" .. slotName] = socketedColours.G
+					env.itemModDB.multipliers["SocketedBlueGemsIn" .. slotName] = socketedColours.B
+					env.itemModDB.multipliers["EmptySocketIn" .. slotName] = math.min(slotGemSocketsCount, slotEmptySocketsCount.R + slotEmptySocketsCount.G + slotEmptySocketsCount.B + slotEmptySocketsCount.W)
 					env.itemModDB.multipliers.EmptyRedSocketsInAnySlot = (env.itemModDB.multipliers.EmptyRedSocketsInAnySlot or 0) + slotEmptySocketsCount.R
 					env.itemModDB.multipliers.EmptyGreenSocketsInAnySlot = (env.itemModDB.multipliers.EmptyGreenSocketsInAnySlot or 0) + slotEmptySocketsCount.G
 					env.itemModDB.multipliers.EmptyBlueSocketsInAnySlot = (env.itemModDB.multipliers.EmptyBlueSocketsInAnySlot or 0) + slotEmptySocketsCount.B
 					env.itemModDB.multipliers.EmptyWhiteSocketsInAnySlot = (env.itemModDB.multipliers.EmptyWhiteSocketsInAnySlot or 0) + slotEmptySocketsCount.W
 					-- Warn if socketed gems over socket limit
-					if socketedGems > slotGemSocketsCount then
+					if #socketedGems > slotGemSocketsCount then
 						env.itemWarnings.socketLimitWarning = env.itemWarnings.socketLimitWarning or { }
 						t_insert(env.itemWarnings.socketLimitWarning, slotName)
 					end
@@ -1247,9 +1268,11 @@ function calcs.initEnv(build, mode, override, specEnv)
 	-- Add granted passives (e.g., amulet anoints)
 	if not accelerate.nodeAlloc then
 		for _, passive in pairs(env.modDB:List(nil, "GrantedPassive")) do
-			local node = env.spec.tree.notableMap[passive]
+			local node = env.spec.tree.notableMap[passive] or env.spec.tree.ascendancyMap[passive]
+			local specNode = node and env.spec.nodes[node.id] -- use the conquered node data, if available
+			node = node or build.latestTree.ascendancyMap[passive]
 			if node and (not override.removeNodes or not override.removeNodes[node.id]) then
-				env.allocNodes[node.id] = env.spec.nodes[node.id] or node -- use the conquered node data, if available
+				env.allocNodes[node.id] = specNode or node
 				env.grantedPassives[node.id] = true
 				env.extraRadiusNodeList[node.id] = nil
 			end

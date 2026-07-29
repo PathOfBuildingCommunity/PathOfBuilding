@@ -104,35 +104,31 @@ table.insert(paradoxica, "Attacks with this Weapon deal Double Damage")
 table.insert(data.uniques.generated, table.concat(paradoxica, "\n"))
 
 local caneOfKulemakMods = getVeiledMods("catarina", "weapon", "staff", "two_hand_weapon")
-local caneOfKulemakMinUnveiledModifierMagnitudes, caneOfKulemakMaxUnveiledModifierMagnitudes = 60, 90
 local caneOfKulemak = {
 	"Cane of Kulemak",
 	"Serpentine Staff",
 	"Source: Drops from unique{Catarina, Master of Undeath}",
 	"Has Alt Variant: true",
 	"Has Alt Variant Two: true",
+	"Has Alt Variant Three: true",
 	"Selected Variant: 1",
-	"Selected Alt Variant: 20"
+	"Selected Alt Variant: 2",
+	"Selected Alt Variant Two: 20",
+	"Selected Alt Variant Three: 21",
 }
 
-for index, mod in pairs(caneOfKulemakMods) do
+for _, mod in pairs(caneOfKulemakMods) do
 	table.insert(caneOfKulemak, "Variant: "..mod.veiledName)
 end
 
 table.insert(caneOfKulemak, "Requires Level 68, 85 Str, 85 Int")
 table.insert(caneOfKulemak, "Implicits: 1")
-table.insert(caneOfKulemak, "+22% Chance to Block Attack Damage while wielding a Staff")
-table.insert(caneOfKulemak, "("..caneOfKulemakMinUnveiledModifierMagnitudes.."-"..caneOfKulemakMaxUnveiledModifierMagnitudes..")% increased Unveiled Modifier magnitudes")
+table.insert(caneOfKulemak, table.concat(data.itemMods.ItemExclusive.StaffBlockPercentImplicitStaff2))
+table.insert(caneOfKulemak, table.concat(data.itemMods.ItemExclusive.LocalVeiledModEffectUnique__1))
 
 for index, mod in pairs(caneOfKulemakMods) do
 	for _, value in pairs(mod.veiledLines) do
-		local minValue, maxValue = value:match("%((%d+)%-(%d+)%)")
-		if minValue then
-			value = value:gsub("%(%d+%-%d+%)", "%("..tostring(math.floor(minValue*(100 + caneOfKulemakMinUnveiledModifierMagnitudes) / 100)).."%-"..tostring(math.floor(maxValue*(100 + caneOfKulemakMaxUnveiledModifierMagnitudes) / 100)).."%)")
-		elseif value == "+2 to Level of Socketed Support Gems" then
-			value = "+3 to Level of Socketed Support Gems"
-		end
-		table.insert(caneOfKulemak, "{variant:"..index.."}"..value.."")
+		table.insert(caneOfKulemak, "{variant:" .. index .. "}" .. value .. "")
 	end
 end
 

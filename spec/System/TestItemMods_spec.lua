@@ -67,6 +67,18 @@ describe("TetsItemMods", function()
 		assert.are_not.equals(lightningResBefore, build.calcsTab.mainOutput.LightningResist)
 	end)
 
+	it("caps socketed gem multipliers in gem order", function()
+		build.itemsTab:CreateDisplayItemFromRaw("Test Gloves\nIron Gauntlets\nSockets: R-R-R-R")
+		build.itemsTab:AddDisplayItem()
+		build.skillsTab:PasteSocketGroup("Slot: Gloves\nHeavy Strike 20/0  1\nHeavy Strike 20/0  1\nHeavy Strike 20/0  1\nHeavy Strike 20/0  1\nArc 20/0  1\n")
+		runCallback("OnFrame")
+
+		local multipliers = build.calcsTab.mainEnv.itemModDB.multipliers
+		assert.are.equals(4, multipliers.SocketedGemsInGloves)
+		assert.are.equals(4, multipliers.SocketedRedGemsInGloves)
+		assert.are.equals(0, multipliers.SocketedBlueGemsInGloves)
+	end)
+
 	it("Doomsower vaal pact and extra phys as fire", function()
 		build.itemsTab:CreateDisplayItemFromRaw([[Doomsower
 		Lion Sword
@@ -133,6 +145,47 @@ describe("TetsItemMods", function()
 		runCallback("OnFrame")
 
 		assert.are_not.equals(nonElusiveCritMult, build.calcsTab.mainOutput.CritMultiplier)
+	end)
+
+	it("Runegraft of the Agile affects average Elusive effect", function()
+		build.skillsTab:PasteSocketGroup("Smite 20/0  1\n")
+		build.configTab.input.customMods = "Gain Elusive on Critical Strike"
+		build.configTab.input.buffElusive = true
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.equals(50, build.calcsTab.mainOutput.ElusiveEffectMod)
+
+		build.configTab.input.customMods = [[Gain Elusive on Critical Strike
+		Elusive's Effect on you is increased instead for the first 2 seconds]]
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.near(730 / 9, build.calcsTab.mainOutput.ElusiveEffectMod, 10 ^ -9)
+
+		build.configTab.input.customMods = [[Gain Elusive on Critical Strike
+		Elusive's Effect on you is increased instead for the first 2 seconds
+		Elusive on you reduces in effect 50% slower
+		Elusive is removed from you at 20% Effect]]
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.near(244 / 3, build.calcsTab.mainOutput.ElusiveEffectMod, 10 ^ -9)
+
+		build.configTab.input.customMods = [[Gain Elusive on Critical Strike
+		Elusive's Effect on you is increased instead for the first 2 seconds
+		100% increased Elusive Effect
+		Elusive is removed from you at 100% Effect]]
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.near(1630 / 9, build.calcsTab.mainOutput.ElusiveEffectMod, 10 ^ -9)
+
+		build.configTab.input.overrideBuffElusive = 220
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.equals(220, build.calcsTab.mainOutput.ElusiveEffectMod)
 	end)
 
 	it("Varunastra works with close combat support", function()
@@ -612,4 +665,34 @@ describe("TetsItemMods", function()
 		assert.are.equals(baseFrenzyChargesMax + 1, build.calcsTab.calcsOutput.FrenzyChargesMax)
 		assert.are.equals(baseEnduranceChargesMax + 1, build.calcsTab.calcsOutput.EnduranceChargesMax)
 	end)
+
+	it("adds life recoup to energy shield recoup", function()
+		build.configTab.input.customMods = [[
+			20% of Damage taken Recouped as Life
+			10% of Physical Damage taken Recouped as Life
+			Damage taken Recouped as Life is also Recouped as Energy Shield
+		]]
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.equals(20, build.calcsTab.calcsOutput.LifeRecoup)
+		assert.are.equals(20, build.calcsTab.calcsOutput.EnergyShieldRecoup)
+		assert.are.equals(10, build.calcsTab.calcsOutput.PhysicalLifeRecoup)
+		assert.are.equals(10, build.calcsTab.calcsOutput.PhysicalEnergyShieldRecoup)
+	end)
+	
+	it("shows a fallback tooltip when an item's base is no longer supported", function()
+		local item = new("Item", [[
+			Rarity: Unique
+			Legacy Item
+			Removed Base
+		]])
+		local tooltip = new("Tooltip")
+
+		assert.has_no.errors(function()
+			build.itemsTab:AddItemTooltip(tooltip, item)
+		end)
+		assert.is_truthy(tooltip.lines[#tooltip.lines].text:find("Item base is not supported", 1, true))
+	end)
+
 end)

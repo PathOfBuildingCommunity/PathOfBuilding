@@ -2332,6 +2332,34 @@ return {
 			refTo="ShopTag",
 			type="Key",
 			width=150
+		},
+		[33]={
+			list=true,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[34]={
+			list=true,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[35]={
+			list=true,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[36]={
+			list=true,
+			name="EnchantMods",
+			refTo="Mods",
+			type="Key",
+			width=300
 		}
 	},
 	battlepasses={
@@ -9083,10 +9111,10 @@ return {
 		},
 		[3]={
 			list=false,
-			name="",
+			name="ApplyToExplicit",
 			refTo="",
 			type="Bool",
-			width=80
+			width=90
 		},
 		[4]={
 			list=false,
@@ -9097,31 +9125,31 @@ return {
 		},
 		[5]={
 			list=false,
-			name="",
+			name="ApplyToImplicit",
 			refTo="",
 			type="Bool",
-			width=80
+			width=90
 		},
 		[6]={
 			list=false,
-			name="",
+			name="ApplyToPrefix",
 			refTo="",
 			type="Bool",
-			width=80
+			width=90
 		},
 		[7]={
 			list=false,
-			name="",
+			name="ApplyToSuffix",
 			refTo="",
 			type="Bool",
-			width=80
+			width=90
 		},
 		[8]={
 			list=false,
-			name="",
+			name="Multiplier",
 			refTo="",
 			type="Int",
-			width=50
+			width=60
 		}
 	},
 	modequivalencies={
@@ -11940,6 +11968,13 @@ return {
 			refTo="PassiveSkills",
 			type="Key",
 			width=150
+		},
+		[14]={
+			list=true,
+			name="BlockingPassive",
+			refTo="PassiveSkills",
+			type="Key",
+			width=280
 		}
 	},
 	passiveskilloverridetypes={

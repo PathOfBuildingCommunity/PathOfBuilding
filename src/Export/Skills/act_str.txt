@@ -358,7 +358,7 @@ local skills, mod, flag, skill = ...
 #flags attack melee area
 	statMap = {
 		["cleave_+1_base_radius_per_nearby_enemy_up_to_10"] = {
-			skill("radiusExtra", nil, { type = "Multiplier", var = "NearbyEnemies", limit = 10, limitTotal = true })
+			mod("AreaOfEffect", "BASE", nil, 0, 0, { type = "Multiplier", var = "NearbyEnemies", limit = 10, limitTotal = true })
 		},
 	},
 #baseMod skill("radius", 20)
@@ -382,7 +382,7 @@ local skills, mod, flag, skill = ...
 #flags attack area duration melee
 	statMap = {
 		["cleave_+1_base_radius_per_nearby_enemy_up_to_10"] = {
-			skill("radiusExtra", nil, { type = "Multiplier", var = "NearbyEnemies", limit = 10, limitTotal = true })
+			mod("AreaOfEffect", "BASE", nil, 0, 0, { type = "Multiplier", var = "NearbyEnemies", limit = 10, limitTotal = true })
 		},
 		["vaal_cleave_executioner_damage_against_enemies_on_low_life_+%"] = {
 			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "ActorCondition", actor = "enemy", var = "LowLife" }, { type = "SkillName", skillName = "Cleave", includeTransfigured = true }, { type = "GlobalEffect", effectType = "Buff", effectName = "Vaal Cleave", unscalable = true } ),
@@ -490,6 +490,18 @@ local skills, mod, flag, skill = ...
 	statMap = {
 		["discus_slam_damage_+%_final_for_shockwave"] = {
 			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 2 }),
+		},
+	},
+#mods
+
+#skill DivineBlastAltX
+#flags attack area shieldAttack
+	parts = {
+		{
+			name = "Beam Implosion",
+		},
+		{
+			name = "Explosion",
 		},
 	},
 #mods
@@ -1051,6 +1063,15 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill HolyHammersAltX
+#flags attack area melee
+	statMap = {
+		["holy_hammers_damage_+%_final_per_power_charge_consumed"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "RemovablePowerCharge" }),
+		},
+	},
+#mods
+
 #skill HolyStrike
 #flags attack melee minion duration
 	minionList = {
@@ -1068,6 +1089,25 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill Sweep
+#flags attack melee area
+	parts = {
+		{
+			name = "Melee Hit",
+		},
+		{
+			name = "Holy Hammer",
+		},
+	},
+	statMap = {
+		["holy_sweep_hammerfall_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		},
+	},
+#baseMod skill("radius", 24)
+#baseMod flag("CannotBeEvaded", { type = "SkillPart", skillPart = 2 })
+#mods
+
+#skill SweepAltX
 #flags attack melee area
 	parts = {
 		{
@@ -2108,6 +2148,27 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("radius", 25)
+#baseMod skill("debuff", true)
+#mods
+
+#skill ReapAltX
+#flags spell area duration
+	statMap = {
+		["blood_scythe_damage_+%_final_per_charge"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "BloodCharge" }),
+		},
+		["blood_scythe_cost_+%_final_per_charge"] = {
+			mod("LifeCost", "MORE", nil, 0, 0, { type = "Multiplier", var = "BloodCharge" }),
+		},
+		["base_physical_damage_to_deal_per_minute"] = {
+			skill("PhysicalDot", nil, { type = "Condition", var = "ReapDebuffIsFireDamage", neg = true }),
+			skill("FireDot", nil, { type = "Condition", var = "ReapDebuffIsFireDamage"}),
+			div = 60,
+		},
+		["quality_display_reap_is_gem"] = {
+			-- Display only
+		},
+	},
 #baseMod skill("debuff", true)
 #mods
 

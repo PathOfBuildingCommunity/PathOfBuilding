@@ -224,9 +224,15 @@ More tests can be added to this folder to test specific functionality, or new te
 Please try to include tests for your new features in your pull request. Additionally, if your pr breaks a test that should be passing please update it accordingly.
 
 ### Debugging tests
-When running tests with a docker container it is possible to use EmmyLua for debugging. Follow the instructions for inserting the debugger snippet as shown above in [Visual Studio Code](#Visual-Studio-Code), then uncomment the `dbg.waitIDE()` line.  
-
-After running `docker-compose up` the code will wait at that line until a debugger is attached. This will allow stepping through any code that is internal to POB but will not work for busted related code. Note that this only works for unit tests described above.
+When running tests with a docker container it is possible to use EmmyLua for debugging. Paste in the following right under `function launch:OnInit()` in `./src/Launch.lua`:
+```lua
+	package.cpath = package.cpath .. ";/usr/local/bin/?.so"
+	local dbg = require("emmy_core")
+	-- This port must match the IDE Code configuration. Default is 9966.
+	dbg.tcpListen("localhost", 9966)
+	dbg.waitIDE()
+```
+After running `docker-compose up` the code will wait at the `dbg.waitIDE()` line until a debugger is attached. This will allow stepping through any code that is internal to POB but will not work for busted related code. Note that this only works for unit tests described above.
 
 ## Path of Building development tutorials
 

@@ -323,6 +323,7 @@ itemBases["Basalt Flask"] = {
 	tags = { default = true, flask = true, utility_flask = true, },
 	implicit = "Taunts nearby Enemies on use",
 	implicitModTypes = { { "flask" }, },
+	implicitIds = { "UtilityFlaskTaunt_", },
 	flask = { duration = 8, chargesUsed = 40, chargesMax = 60, buff = { "20% more Armour" }, },
 	req = { level = 27, },
 }
@@ -332,6 +333,7 @@ itemBases["Aquamarine Flask"] = {
 	tags = { default = true, flask = true, utility_flask = true, },
 	implicit = "Creates Chilled Ground on Use",
 	implicitModTypes = { { "flask" }, },
+	implicitIds = { "UtilityFlaskChilledGround", },
 	flask = { duration = 8, chargesUsed = 20, chargesMax = 50, buff = { "60% reduced Effect of Freeze on you" }, },
 	req = { level = 27, },
 }
@@ -341,6 +343,7 @@ itemBases["Stibnite Flask"] = {
 	tags = { default = true, flask = true, utility_flask = true, },
 	implicit = "Creates a Smoke Cloud on Use",
 	implicitModTypes = { { "flask" }, },
+	implicitIds = { "UtilityFlaskSmokeCloud", },
 	flask = { duration = 8, chargesUsed = 40, chargesMax = 60, buff = { "20% more Evasion Rating" }, },
 	req = { level = 27, },
 }
@@ -350,6 +353,7 @@ itemBases["Sulphur Flask"] = {
 	tags = { default = true, flask = true, utility_flask = true, },
 	implicit = "Creates Consecrated Ground on Use",
 	implicitModTypes = { { "flask" }, },
+	implicitIds = { "UtilityFlaskConsecrate", },
 	flask = { duration = 8, chargesUsed = 40, chargesMax = 60, buff = { "40% increased Damage" }, },
 	req = { level = 27, },
 }
@@ -391,6 +395,7 @@ itemBases["Iron Flask"] = {
 	tags = { default = true, expedition_flask = true, flask = true, not_for_sale = true, utility_flask = true, },
 	implicit = "Restores Ward on use",
 	implicitModTypes = { { "flask" }, },
+	implicitIds = { "UtilityFlaskWard", },
 	flask = { duration = 4, chargesUsed = 40, chargesMax = 60, buff = { "+200 to Ward" }, },
 	req = { level = 27, },
 }

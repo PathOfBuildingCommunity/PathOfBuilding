@@ -301,7 +301,7 @@ Variant: Current
 Requires Level 70, 150 Dex
 {variant:1}IncreasedAccuracyUnique__4[300,500]
 {variant:2}IncreasedAccuracyUnique__4
-LocalIncreasedEvasionRatingPercentUnique__10
+LocalIncreasedEvasionRatingPercentUnique__3
 IncreasedLifeUnique__23
 IncreaseProjectileAttackDamagePerAccuracyUnique__1
 ]],[[
@@ -1147,18 +1147,20 @@ Soldier Helmet
 League: Legion
 Variant: Pre 3.7.0
 Variant: Pre 3.19.0
+Variant: Pre 3.29.0
 Variant: Current
 Requires Level 12, 16 Str, 16 Int
 {variant:2}LocalIncreaseSocketedGemLevelUnique__10
-{variant:3}LocalIncreaseSocketedGemLevelUnique__11_
+{variant:3,4}LocalIncreaseSocketedGemLevelUnique__11_
 {variant:1,2}AddedLightningDamageUniqueHelmetStrInt1[1,1][13,13]
-{variant:3}AddedLightningDamageUniqueHelmetStrInt1
+{variant:3,4}AddedLightningDamageUniqueHelmetStrInt1
 {variant:1}LocalIncreasedArmourAndEnergyShieldUniqueHelmetStrInt1[40,50]
-{variant:2,3}LocalIncreasedArmourAndEnergyShieldUniqueHelmetStrInt1
-{variant:2,3}ItemFoundRarityIncreaseUnique__4_
+{variant:2,3,4}LocalIncreasedArmourAndEnergyShieldUniqueHelmetStrInt1
+{variant:2,3,4}ItemFoundRarityIncreaseUnique__4_
 {variant:1}AllResistancesUniqueHelmetStrInt1
 {variant:1}ElementalResistsOnLowLifeUniqueHelmetStrInt1
 {variant:2,3}ManaCostReductionUnique__2_
+{variant:4}ManaCostEffiencyUnique__2
 {variant:1}ReducedManaCostOnLowLifeUniqueHelmetStrInt1
 ]],[[
 Kitava's Thirst
@@ -1246,26 +1248,31 @@ Magistrate Crown
 League: Synthesis
 Source: Drops from unique{Altered/Augmented/Rewritten/Twisted Synthete}
 Variant: Pre 3.16.0
+Variant: Pre 3.29.0
 Variant: Current
 Requires Level 58, 64 Str, 64 Int
 AllAttributesUnique__15
 LocalIncreasedArmourAndEnergyShieldUniqueHelmetStrInt_1
-{variant:2}BlockPer100StrengthAuraUnique__1___
+{variant:2,3}BlockPer100StrengthAuraUnique__1___
 {variant:1}DefencesPer100StrengthAuraUnique__1
 CriticalMultiplierPer100DexterityAuraUnique__1
 CastSpeedPer100IntelligenceAuraUnique__1
-ManaReservationEfficiencyPerAttributeUnique__1
+{variant:1,2}ManaReservationEfficiencyPerAttributeUnique__1[2,2]
+{variant:3}ManaReservationEfficiencyPerAttributeUnique__1
 ]],[[
 Maw of Mischief
 Bone Helmet
 League: Heist
 Source: Obtained from divination card normal{Cursed Words}
+Variant: Pre 3.29.0
+Variant: Current
 Requires Level 73, 76 Str, 76 Int
 Implicits: 1
 MinionDamageImplicitHelmet1
 GrantsDeathWishUnique__1__
 IncreasedLifeUnique__109_
-MinionSkillManaCostUnique__2
+{variant:1}MinionSkillManaCostUnique__2
+{variant:2}MinionSkillManaCostEfficiencyUnique__1
 MinionLargerAggroRadiusUnique__1
 ]],[[
 Memory Vault
@@ -1468,19 +1475,22 @@ Raven Mask
 League: Domination
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
+Variant: Pre 3.29.0
 Variant: Current
 Requires Level 38, 44 Dex, 44 Int
-{variant:2,3}TriggeredSummonLesserShrineUnique__1
+{variant:2,3,4}TriggeredSummonLesserShrineUnique__1
 LocalIncreasedEvasionAndEnergyShieldUniqueHelmetDexInt3
 {variant:2}LocalIncreasedEnergyShieldUnique__11[40,65]
-{variant:3}LocalIncreasedEnergyShieldUnique__11
-{variant:2,3}IncreasedLifeUnique__120
+{variant:3,4}LocalIncreasedEnergyShieldUnique__11
+{variant:2,3,4}IncreasedLifeUnique__120
 {variant:1}IncreasedManaUniqueHelmetDexInt3
-{variant:2,3}ColdResistUnique__16
+{variant:2,3,4}ColdResistUnique__16
 {variant:1}LifeGainedFromEnemyDeathUniqueHelmetDexInt3
 {variant:1}EnergyShieldGainedFromEnemyDeathUniqueHelmetDexInt3
-ShrineBuffEffectUniqueHelmetDexInt3
-ShrineEffectDurationUniqueHelmetDexInt3
+{variant:1,2,3}ShrineBuffEffectUniqueHelmetDexInt3[75,75]
+{variant:4}ShrineBuffEffectUniqueHelmetDexInt3
+{variant:1,2,3}ShrineEffectDurationUniqueHelmetDexInt3[50,50]
+{variant:4}ShrineEffectDurationUniqueHelmetDexInt3
 ]],[[
 Heretic's Veil
 Deicide Mask

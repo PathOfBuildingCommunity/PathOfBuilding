@@ -1091,7 +1091,7 @@ function TreeTabClass:BuildPowerReportList(currentStat)
 		if isAlloc then
 			return #(node.depends or { }) == 0 and 1 or #node.depends
 		end
-		return #(node.path or { }) == 0 and 1 or #node.path
+		return node.power.distance or #(node.path or {}) == 0 and 1 or #node.path
 	end
 	local function addReportEntry(node, name, nodePower, pathPower, pathDist, isAlloc, pathPowerStr)
 		t_insert(report, {
@@ -1825,54 +1825,29 @@ function TreeTabClass:FindTimelessJewel()
 		end
 	end
 
-	local function generateFallbackWeights(nodes, selection)
+	local function generateFallbackWeights(nodes, powerStat)
 		local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator(self.build)
 		local newList = { }
-		local baseOutput = calcFunc()
-		if baseOutput.Minion then
-			baseOutput = baseOutput.Minion
-		end
-		local baseValue = baseOutput[selection.stat] or 1
-		if selection.transform then
-			baseValue = selection.transform(baseValue)
-		end
+		local basePower = data.powerStatList.GetFromOutput(calcBase, powerStat)
 		for _, newNode in ipairs(nodes) do
-			local output = nil
-			if newNode.calcMultiple then
-				output = calcFunc({ addNodes = { [newNode.node[1]] = true } })
-			else
-				output = calcFunc({ addNodes = { [newNode] = true } })
-			end
-			if output.Minion then
-				output = output.Minion
-			end
-			local outputValue = output[selection.stat] or 0
-			if selection.transform then
-				outputValue = selection.transform(outputValue)
-			end
-			outputValue = outputValue / baseValue
-			if outputValue ~= outputValue then
-				outputValue = 1
-			end
-			t_insert(newList, {
-				id = newNode.id,
-				weight1 = (outputValue - 1) / (newNode.divisor or 1)
-			})
-			if newNode.calcMultiple then
-				output = calcFunc({ addNodes = { [newNode.node[2]] = true } })
-				if output.Minion then
-					output = output.Minion
+			local powerEntry = { id = newNode.id }
+			-- nodes that have multiple lines are represented as a list in newNode.node
+			local nodeLines = newNode.node or { newNode }
+			for i = 1, #nodeLines do
+				local node = nodeLines[i]
+				local nodeOutput = calcFunc({ addNodes = { [node] = true } })
+				local nodePower = data.powerStatList.GetFromOutput(nodeOutput, powerStat)
+				-- avoid infinity
+				if basePower == 0 then
+					powerEntry["weight" .. i] = 0
+				else
+					local powerGain = (nodePower - basePower) /
+						-- normalize with absolute base power so that the result isn't negative
+						math.abs(basePower)
+					powerEntry["weight" .. i] = powerGain / (newNode.divisor or 1)
 				end
-				outputValue = output[selection.stat] or 0
-				if selection.transform then
-					outputValue = selection.transform(outputValue)
-				end
-				outputValue = outputValue / baseValue
-				if outputValue ~= outputValue then
-					outputValue = 1
-				end
-				newList[#newList].weight2 = (outputValue - 1) / (newNode.divisor or 1)
 			end
+			t_insert(newList, powerEntry)
 		end
 		return newList
 	end
@@ -1991,7 +1966,7 @@ function TreeTabClass:FindTimelessJewel()
 	end
 
 	local fallbackWeightsList = { }
-	for id, stat in pairs(data.powerStatList) do
+	for _, stat in ipairs(data.powerStatList) do
 		if not stat.ignoreForItems and stat.label ~= "Name" then
 			t_insert(fallbackWeightsList, {
 				label = "Sort by " .. stat.label,

@@ -1200,6 +1200,23 @@ return {
 	[56]={
 		[1]={
 			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Damage you Deal Penetrates {0}% Cold Resistance against Chilled Enemies"
+			}
+		},
+		name="cold_pen_vs_chilled",
+		stats={
+			[1]="cold_penetration_%_vs_chilled_enemies"
+		}
+	},
+	[57]={
+		[1]={
+			[1]={
 				[1]={
 					k="reminderstring",
 					v="ReminderTextConsecratedGround"
@@ -1218,7 +1235,7 @@ return {
 			[1]="create_consecrated_ground_on_hit_%_vs_rare_or_unique_enemy"
 		}
 	},
-	[57]={
+	[58]={
 		[1]={
 			[1]={
 				limit={
@@ -1248,7 +1265,7 @@ return {
 			[1]="damage_+%_if_changed_stances_recently"
 		}
 	},
-	[58]={
+	[59]={
 		[1]={
 			[1]={
 				limit={
@@ -1278,7 +1295,7 @@ return {
 			[1]="damage_+%_on_full_mana"
 		}
 	},
-	[59]={
+	[60]={
 		[1]={
 			[1]={
 				limit={
@@ -1308,7 +1325,7 @@ return {
 			[1]="damage_+%_on_full_energy_shield"
 		}
 	},
-	[60]={
+	[61]={
 		[1]={
 			[1]={
 				limit={
@@ -1325,7 +1342,7 @@ return {
 			[1]="damage_+%_when_on_full_life"
 		}
 	},
-	[61]={
+	[62]={
 		[1]={
 			[1]={
 				[1]={
@@ -1346,7 +1363,7 @@ return {
 			[1]="damage_taken_from_suppressed_hits_is_unlucky"
 		}
 	},
-	[62]={
+	[63]={
 		[1]={
 			[1]={
 				limit={
@@ -1376,7 +1393,7 @@ return {
 			[1]="delirium_aura_damage_over_time_+%_final"
 		}
 	},
-	[63]={
+	[64]={
 		[1]={
 			[1]={
 				limit={
@@ -1406,7 +1423,7 @@ return {
 			[1]="delirium_skill_effect_duration_+%"
 		}
 	},
-	[64]={
+	[65]={
 		[1]={
 			[1]={
 				limit={
@@ -1436,7 +1453,7 @@ return {
 			[1]="energy_shield_delay_-%"
 		}
 	},
-	[65]={
+	[66]={
 		[1]={
 			[1]={
 				limit={
@@ -1466,7 +1483,7 @@ return {
 			[1]="energy_shield_recharge_rate_+%"
 		}
 	},
-	[66]={
+	[67]={
 		[1]={
 			[1]={
 				limit={
@@ -1483,7 +1500,7 @@ return {
 			[1]="evasion_rating_%_to_add_as_armour"
 		}
 	},
-	[67]={
+	[68]={
 		[1]={
 			[1]={
 				limit={
@@ -1513,7 +1530,7 @@ return {
 			[1]="fire_damage_taken_+%"
 		}
 	},
-	[68]={
+	[69]={
 		[1]={
 			[1]={
 				limit={
@@ -1530,7 +1547,7 @@ return {
 			[1]="flask_mana_to_recover_+%"
 		}
 	},
-	[69]={
+	[70]={
 		[1]={
 			[1]={
 				limit={
@@ -1560,7 +1577,7 @@ return {
 			[1]="hatred_aura_cold_damage_+%_final"
 		}
 	},
-	[70]={
+	[71]={
 		[1]={
 			[1]={
 				limit={
@@ -1577,7 +1594,7 @@ return {
 			[1]="hits_ignore_my_cold_resistance"
 		}
 	},
-	[71]={
+	[72]={
 		[1]={
 			[1]={
 				limit={
@@ -1594,7 +1611,7 @@ return {
 			[1]="hits_ignore_my_fire_resistance"
 		}
 	},
-	[72]={
+	[73]={
 		[1]={
 			[1]={
 				limit={
@@ -1611,7 +1628,7 @@ return {
 			[1]="hits_ignore_my_lightning_resistance"
 		}
 	},
-	[73]={
+	[74]={
 		[1]={
 			[1]={
 				limit={
@@ -1628,7 +1645,7 @@ return {
 			[1]="immune_to_curses"
 		}
 	},
-	[74]={
+	[75]={
 		[1]={
 			[1]={
 				[1]={
@@ -1649,7 +1666,7 @@ return {
 			[1]="immune_to_status_ailments"
 		}
 	},
-	[75]={
+	[76]={
 		[1]={
 			[1]={
 				limit={
@@ -1679,7 +1696,7 @@ return {
 			[1]="impale_debuff_effect_+%"
 		}
 	},
-	[76]={
+	[77]={
 		[1]={
 			[1]={
 				[1]={
@@ -1704,7 +1721,7 @@ return {
 			[1]="life_leech_from_physical_attack_damage_permyriad"
 		}
 	},
-	[77]={
+	[78]={
 		[1]={
 			[1]={
 				limit={
@@ -1734,7 +1751,7 @@ return {
 			[1]="lightning_damage_taken_+%"
 		}
 	},
-	[78]={
+	[79]={
 		[1]={
 			[1]={
 				limit={
@@ -1764,7 +1781,7 @@ return {
 			[1]="movement_velocity_+%_on_chilled_ground"
 		}
 	},
-	[79]={
+	[80]={
 		[1]={
 			[1]={
 				limit={
@@ -1786,7 +1803,7 @@ return {
 			[2]="physical_damage_aura_nearby_enemies_physical_damage_taken_+%_max"
 		}
 	},
-	[80]={
+	[81]={
 		[1]={
 			[1]={
 				limit={
@@ -1803,7 +1820,7 @@ return {
 			[1]="physical_damage_taken_+%"
 		}
 	},
-	[81]={
+	[82]={
 		[1]={
 			[1]={
 				limit={
@@ -1833,7 +1850,7 @@ return {
 			[1]="precision_grants_area_of_effect_+%_final"
 		}
 	},
-	[82]={
+	[83]={
 		[1]={
 			[1]={
 				limit={
@@ -1850,7 +1867,7 @@ return {
 			[1]="receive_bleeding_chance_%_when_hit_by_attack"
 		}
 	},
-	[83]={
+	[84]={
 		[1]={
 			[1]={
 				limit={
@@ -1867,7 +1884,7 @@ return {
 			[1]="reduce_enemy_chaos_resistance_%"
 		}
 	},
-	[84]={
+	[85]={
 		[1]={
 			[1]={
 				limit={
@@ -1884,7 +1901,7 @@ return {
 			[1]="reduce_enemy_elemental_resistance_%"
 		}
 	},
-	[85]={
+	[86]={
 		[1]={
 			[1]={
 				limit={
@@ -1901,7 +1918,7 @@ return {
 			[1]="skill_aura_also_disables_non_blessing_mana_reservation_skills"
 		}
 	},
-	[86]={
+	[87]={
 		[1]={
 			[1]={
 				limit={
@@ -1918,7 +1935,7 @@ return {
 			[1]="skill_buff_grant_critical_strike_multiplier_+"
 		}
 	},
-	[87]={
+	[88]={
 		[1]={
 			[1]={
 				limit={
@@ -1948,7 +1965,7 @@ return {
 			[1]="spell_critical_strike_chance_+%"
 		}
 	},
-	[88]={
+	[89]={
 		[1]={
 			[1]={
 				limit={
@@ -1978,7 +1995,7 @@ return {
 			[1]="spell_damage_aura_spell_damage_+%_final"
 		}
 	},
-	[89]={
+	[90]={
 		[1]={
 			[1]={
 				limit={
@@ -2000,7 +2017,7 @@ return {
 			[2]="spell_maximum_added_chaos_damage"
 		}
 	},
-	[90]={
+	[91]={
 		[1]={
 			[1]={
 				limit={
@@ -2030,7 +2047,7 @@ return {
 			[1]="summon_totem_cast_speed_+%"
 		}
 	},
-	[91]={
+	[92]={
 		[1]={
 			[1]={
 				limit={
@@ -2095,54 +2112,55 @@ return {
 	["chance_to_evade_attacks_%"]=27,
 	["chill_and_freeze_duration_+%"]=54,
 	["cold_damage_taken_+%"]=55,
-	["create_consecrated_ground_on_hit_%_vs_rare_or_unique_enemy"]=56,
-	["damage_+%_if_changed_stances_recently"]=57,
-	["damage_+%_on_full_energy_shield"]=59,
-	["damage_+%_on_full_mana"]=58,
-	["damage_+%_when_on_full_life"]=60,
-	["damage_taken_from_suppressed_hits_is_unlucky"]=61,
-	["delirium_aura_damage_over_time_+%_final"]=62,
-	["delirium_skill_effect_duration_+%"]=63,
+	["cold_penetration_%_vs_chilled_enemies"]=56,
+	["create_consecrated_ground_on_hit_%_vs_rare_or_unique_enemy"]=57,
+	["damage_+%_if_changed_stances_recently"]=58,
+	["damage_+%_on_full_energy_shield"]=60,
+	["damage_+%_on_full_mana"]=59,
+	["damage_+%_when_on_full_life"]=61,
+	["damage_taken_from_suppressed_hits_is_unlucky"]=62,
+	["delirium_aura_damage_over_time_+%_final"]=63,
+	["delirium_skill_effect_duration_+%"]=64,
 	["determination_aura_armour_+%_final"]=13,
-	["energy_shield_delay_-%"]=64,
+	["energy_shield_delay_-%"]=65,
 	["energy_shield_recharge_not_delayed_by_damage"]=25,
-	["energy_shield_recharge_rate_+%"]=65,
-	["evasion_rating_%_to_add_as_armour"]=66,
-	["fire_damage_taken_+%"]=67,
-	["flask_mana_to_recover_+%"]=68,
+	["energy_shield_recharge_rate_+%"]=66,
+	["evasion_rating_%_to_add_as_armour"]=67,
+	["fire_damage_taken_+%"]=68,
+	["flask_mana_to_recover_+%"]=69,
 	["grace_aura_evasion_rating_+%_final"]=11,
-	["hatred_aura_cold_damage_+%_final"]=69,
-	["hits_ignore_my_cold_resistance"]=70,
-	["hits_ignore_my_fire_resistance"]=71,
-	["hits_ignore_my_lightning_resistance"]=72,
-	["immune_to_curses"]=73,
-	["immune_to_status_ailments"]=74,
-	["impale_debuff_effect_+%"]=75,
-	["life_leech_from_physical_attack_damage_permyriad"]=76,
+	["hatred_aura_cold_damage_+%_final"]=70,
+	["hits_ignore_my_cold_resistance"]=71,
+	["hits_ignore_my_fire_resistance"]=72,
+	["hits_ignore_my_lightning_resistance"]=73,
+	["immune_to_curses"]=74,
+	["immune_to_status_ailments"]=75,
+	["impale_debuff_effect_+%"]=76,
+	["life_leech_from_physical_attack_damage_permyriad"]=77,
 	["life_regeneration_rate_per_minute_%"]=6,
-	["lightning_damage_taken_+%"]=77,
-	["movement_velocity_+%_on_chilled_ground"]=78,
+	["lightning_damage_taken_+%"]=78,
+	["movement_velocity_+%_on_chilled_ground"]=79,
 	["no_mana_cost"]=26,
 	parent="skill_stat_descriptions",
 	["physical_damage_%_to_add_as_cold"]=23,
 	["physical_damage_+%"]=1,
-	["physical_damage_aura_nearby_enemies_physical_damage_taken_+%"]=79,
-	["physical_damage_aura_nearby_enemies_physical_damage_taken_+%_max"]=79,
-	["physical_damage_taken_+%"]=80,
-	["precision_grants_area_of_effect_+%_final"]=81,
-	["receive_bleeding_chance_%_when_hit_by_attack"]=82,
-	["reduce_enemy_chaos_resistance_%"]=83,
-	["reduce_enemy_elemental_resistance_%"]=84,
-	["skill_aura_also_disables_non_blessing_mana_reservation_skills"]=85,
-	["skill_buff_grant_critical_strike_multiplier_+"]=86,
+	["physical_damage_aura_nearby_enemies_physical_damage_taken_+%"]=80,
+	["physical_damage_aura_nearby_enemies_physical_damage_taken_+%_max"]=80,
+	["physical_damage_taken_+%"]=81,
+	["precision_grants_area_of_effect_+%_final"]=82,
+	["receive_bleeding_chance_%_when_hit_by_attack"]=83,
+	["reduce_enemy_chaos_resistance_%"]=84,
+	["reduce_enemy_elemental_resistance_%"]=85,
+	["skill_aura_also_disables_non_blessing_mana_reservation_skills"]=86,
+	["skill_buff_grant_critical_strike_multiplier_+"]=87,
 	["skill_buff_grants_critical_strike_chance_+%"]=9,
-	["spell_critical_strike_chance_+%"]=87,
-	["spell_damage_aura_spell_damage_+%_final"]=88,
-	["spell_maximum_added_chaos_damage"]=89,
+	["spell_critical_strike_chance_+%"]=88,
+	["spell_damage_aura_spell_damage_+%_final"]=89,
+	["spell_maximum_added_chaos_damage"]=90,
 	["spell_maximum_added_fire_damage"]=29,
-	["spell_minimum_added_chaos_damage"]=89,
+	["spell_minimum_added_chaos_damage"]=90,
 	["spell_minimum_added_fire_damage"]=29,
-	["summon_totem_cast_speed_+%"]=90,
-	["support_guardians_blessing_aura_only_enabled_while_support_minion_is_summoned"]=91,
+	["summon_totem_cast_speed_+%"]=91,
+	["support_guardians_blessing_aura_only_enabled_while_support_minion_is_summoned"]=92,
 	["wrath_aura_spell_lightning_damage_+%_final"]=30
 }

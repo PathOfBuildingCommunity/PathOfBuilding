@@ -16,9 +16,19 @@ Cannot be Stunned if you have at least 10 Crab Barriers
 You only lose (5-7) Crab Barriers when you take Physical Damage from a Hit
 ]],[[
 Doryani's Delusion
-Titan Greaves
+{variant:1,2,3,4,5,6,7,8,9}Titan Greaves
+{variant:10,11,12,13,14,15,16,17,18}Leviathan Greaves
 League: Delve
 Source: Drops from unique{The Apex Assembly} in unique{Doryani's Machinarium}
+Variant: Purity of Fire: Fire Pre 3.29.0
+Variant: Purity of Fire: Cold Pre 3.29.0
+Variant: Purity of Fire: Lightning Pre 3.29.0
+Variant: Purity of Ice: Fire Pre 3.29.0
+Variant: Purity of Ice: Cold Pre 3.29.0
+Variant: Purity of Ice: Lightning Pre 3.29.0
+Variant: Purity of Lightning: Fire Pre 3.29.0
+Variant: Purity of Lightning: Cold Pre 3.29.0
+Variant: Purity of Lightning: Lightning Pre 3.29.0
 Variant: Purity of Fire: Fire
 Variant: Purity of Fire: Cold
 Variant: Purity of Fire: Lightning
@@ -29,15 +39,19 @@ Variant: Purity of Lightning: Fire
 Variant: Purity of Lightning: Cold
 Variant: Purity of Lightning: Lightning
 Requires Level 68, 120 Str
-{variant:1,2,3}Grants Level 25 Purity of Fire Skill
-{variant:4,5,6}Grants Level 25 Purity of Ice Skill
-{variant:7,8,9}Grants Level 25 Purity of Lightning Skill
-{variant:1,4,7}Adds (25-30) to (40-45) Fire Damage to Spells and Attacks
-{variant:2,5,8}Adds (25-30) to (40-45) Cold Damage to Spells and Attacks
-{variant:3,6,9}Adds (1-3) to (68-72) Lightning Damage to Spells and Attacks
-(100-120)% increased Armour
-+(60-70) to maximum Life
-30% increased Movement Speed
+{variant:1,2,3,10,11,12}Grants Level 30 Purity of Fire Skill
+{variant:4,5,6,13,14,15}Grants Level 30 Purity of Ice Skill
+{variant:7,8,9,16,17,18}Grants Level 30 Purity of Lightning Skill
+{variant:1,4,7,10,13,16}Adds (25-30) to (40-45) Fire Damage to Spells and Attacks
+{variant:2,5,8,11,14,17}Adds (25-30) to (40-45) Cold Damage to Spells and Attacks
+{variant:3,6,9,12,15,18}Adds (1-3) to (68-72) Lightning Damage to Spells and Attacks
+{variant:1,2,3,4,5,6,7,8,9}(100-120)% increased Armour
+{variant:10,11,12,13,14,15,16,17,18}(0-200)% increased Armour
+{variant:1,2,3,4,5,6,7,8,9}+(60-70) to maximum Life
+{variant:10,11,12,13,14,15,16,17,18}+(0-100) to maximum Life
+{variant:1,2,3,4,5,6,7,8,9}30% increased Movement Speed
+{variant:10,11,12,13,14,15,16,17,18}(0-40)% increased Movement Speed
+{variant:10,11,12,13,14,15,16,17,18}Corrupted
 ]],[[
 The Infinite Pursuit
 {variant:1}Goliath Greaves
@@ -110,9 +124,9 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 68, 120 Str
 Has no Sockets
-Cannot be Knocked Back
 {variant:1}+(120-150) to maximum Life
 {variant:2}+(150-200) to maximum Life
+Cannot be Knocked Back
 {variant:2}Action Speed cannot be modified to below Base Value
 Unwavering Stance
 ]],[[
@@ -274,9 +288,19 @@ Cannot be Stunned by Suppressed Spell Damage
 Debilitate Enemies for 4 Seconds when you Suppress their Spell Damage
 ]],[[
 Doryani's Delusion
-Slink Boots
+{variant:1,2,3,4,5,6,7,8,9}Slink Boots
+{variant:10,11,12,13,14,15,16,17,18}Velour Boots
 League: Delve
 Source: Drops from unique{The Apex Assembly} in unique{Doryani's Machinarium}
+Variant: Purity of Fire: Fire Pre 3.29.0
+Variant: Purity of Fire: Cold Pre 3.29.0
+Variant: Purity of Fire: Lightning Pre 3.29.0
+Variant: Purity of Ice: Fire Pre 3.29.0
+Variant: Purity of Ice: Cold Pre 3.29.0
+Variant: Purity of Ice: Lightning Pre 3.29.0
+Variant: Purity of Lightning: Fire Pre 3.29.0
+Variant: Purity of Lightning: Cold Pre 3.29.0
+Variant: Purity of Lightning: Lightning Pre 3.29.0
 Variant: Purity of Fire: Fire
 Variant: Purity of Fire: Cold
 Variant: Purity of Fire: Lightning
@@ -287,15 +311,19 @@ Variant: Purity of Lightning: Fire
 Variant: Purity of Lightning: Cold
 Variant: Purity of Lightning: Lightning
 Requires Level 69, 120 Dex
-{variant:1,2,3}Grants Level 25 Purity of Fire Skill
-{variant:4,5,6}Grants Level 25 Purity of Ice Skill
-{variant:7,8,9}Grants Level 25 Purity of Lightning Skill
-{variant:1,4,7}Adds (25-30) to (40-45) Fire Damage to Spells and Attacks
-{variant:2,5,8}Adds (25-30) to (40-45) Cold Damage to Spells and Attacks
-{variant:3,6,9}Adds (1-3) to (68-72) Lightning Damage to Spells and Attacks
-(100-120)% increased Evasion Rating
-+(60-70) to maximum Life
-30% increased Movement Speed
+{variant:1,2,3,10,11,12}Grants Level 30 Purity of Fire Skill
+{variant:4,5,6,13,14,15}Grants Level 30 Purity of Ice Skill
+{variant:7,8,9,16,17,18}Grants Level 30 Purity of Lightning Skill
+{variant:1,4,7,10,13,16}Adds (25-30) to (40-45) Fire Damage to Spells and Attacks
+{variant:2,5,8,11,14,17}Adds (25-30) to (40-45) Cold Damage to Spells and Attacks
+{variant:3,6,9,12,15,18}Adds (1-3) to (68-72) Lightning Damage to Spells and Attacks
+{variant:1,2,3,4,5,6,7,8,9}(100-120)% increased Evasion Rating
+{variant:10,11,12,13,14,15,16,17,18}(0-200)% increased Evasion Rating
+{variant:1,2,3,4,5,6,7,8,9}+(60-70) to maximum Life
+{variant:10,11,12,13,14,15,16,17,18}+(0-100) to maximum Life
+{variant:1,2,3,4,5,6,7,8,9}30% increased Movement Speed
+{variant:10,11,12,13,14,15,16,17,18}(0-40)% increased Movement Speed
+{variant:10,11,12,13,14,15,16,17,18}Corrupted
 ]],[[
 Farrul's Chase
 Slink Boots
@@ -442,7 +470,8 @@ Summoned Phantasms have 10% chance to refresh their Duration when they Hit a Rar
 Summoned Raging Spirits have 10% chance to refresh their Duration when they Hit a Rare or Unique Enemy
 ]],[[
 Doryani's Delusion
-Sorcerer Boots
+{variant:1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18}Sorcerer Boots
+{variant:19,20,21,22,23,24,25,26,27}Warlock Boots
 League: Delve
 Source: Drops from unique{The Apex Assembly} in unique{Doryani's Machinarium}
 Variant: Purity of Fire: Fire Pre 3.16.0
@@ -454,6 +483,15 @@ Variant: Purity of Ice: Lightning Pre 3.16.0
 Variant: Purity of Lightning: Fire Pre 3.16.0
 Variant: Purity of Lightning: Cold Pre 3.16.0
 Variant: Purity of Lightning: Lightning Pre 3.16.0
+Variant: Purity of Fire: Fire Pre 3.29.0
+Variant: Purity of Fire: Cold Pre 3.29.0
+Variant: Purity of Fire: Lightning Pre 3.29.0
+Variant: Purity of Ice: Fire Pre 3.29.0
+Variant: Purity of Ice: Cold Pre 3.29.0
+Variant: Purity of Ice: Lightning Pre 3.29.0
+Variant: Purity of Lightning: Fire Pre 3.29.0
+Variant: Purity of Lightning: Cold Pre 3.29.0
+Variant: Purity of Lightning: Lightning Pre 3.29.0
 Variant: Purity of Fire: Fire
 Variant: Purity of Fire: Cold
 Variant: Purity of Fire: Lightning
@@ -464,16 +502,20 @@ Variant: Purity of Lightning: Fire
 Variant: Purity of Lightning: Cold
 Variant: Purity of Lightning: Lightning
 Requires Level 67, 120 Int
-{variant:1,2,3,10,11,12}Grants Level 25 Purity of Fire Skill
-{variant:4,5,6,13,14,15}Grants Level 25 Purity of Ice Skill
-{variant:7,8,9,16,17,18}Grants Level 25 Purity of Lightning Skill
-{variant:1,4,7,10,13,16}Adds (25-30) to (40-45) Fire Damage to Spells and Attacks
-{variant:2,5,8,11,14,17}Adds (25-30) to (40-45) Cold Damage to Spells and Attacks
-{variant:3,6,9,12,15,18}Adds (1-3) to (68-72) Lightning Damage to Spells and Attacks
+{variant:1,2,3,10,11,12,19,20,21}Grants Level 30 Purity of Fire Skill
+{variant:4,5,6,13,14,15,22,23,24}Grants Level 30 Purity of Ice Skill
+{variant:7,8,9,16,17,18,25,26,27}Grants Level 30 Purity of Lightning Skill
+{variant:1,4,7,10,13,16,19,22,25}Adds (25-30) to (40-45) Fire Damage to Spells and Attacks
+{variant:2,5,8,11,14,17,20,23,26}Adds (25-30) to (40-45) Cold Damage to Spells and Attacks
+{variant:3,6,9,12,15,18,21,24,27}Adds (1-3) to (68-72) Lightning Damage to Spells and Attacks
 {variant:1,2,3,4,5,6,7,8,9}(180-220)% increased Energy Shield
 {variant:10,11,12,13,14,15,16,17,18}(150-180)% increased Energy Shield
-+(60-70) to maximum Life
-30% increased Movement Speed
+{variant:19,20,21,22,23,24,25,26,27}(0-200)% increased Energy Shield
+{variant:1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18}+(60-70) to maximum Life
+{variant:19,20,21,22,23,24,25,26,27}+(0-100) to maximum Life
+{variant:1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18}30% increased Movement Speed
+{variant:19,20,21,22,23,24,25,26,27}(0-40)% increased Movement Speed
+{variant:19,20,21,22,23,24,25,26,27}Corrupted
 ]],[[
 Inya's Epiphany
 Arcanist Slippers

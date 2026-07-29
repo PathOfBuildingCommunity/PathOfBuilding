@@ -21,6 +21,9 @@ return {
 	skill("durationTertiary", nil),
 	div = 1000,
 },
+["infinite_minion_duration"] = {
+	skillFlag = "permanentMinion",
+},
 ["spell_minimum_base_physical_damage"] = {
 	skill("PhysicalMin", nil),
 },
@@ -535,7 +538,7 @@ return {
 	mod("CooldownRecovery", "INC", nil),
 },
 ["cooldown_recovery_rate_+%_per_100_ward"] = {
-	mod("CooldownRecovery", "INC", nil, 0, 0, { type = "PerStat", stat = "Ward", div = 100 }),
+	mod("CooldownRecovery", "INC", nil, 0, 0, { type = "PerStat", stat = "Ward", div = 100, limit = 400, limitTotal = true }),
 },
 ["base_cooldown_modifier_ms"] = {
 	mod("CooldownRecovery", "BASE", nil),
@@ -2081,6 +2084,9 @@ return {
 	value = 100,
 },
 --Golem
+["stone_golem_grants_melee_damage_removed_from_stone_golem_before_life_or_es_%"] = {
+	mod("takenFromStoneGolemBeforeYou", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+},
 ["golem_buff_effect_+%"] = {
 	mod("BuffEffect", "INC", nil, 0, 0)
 },

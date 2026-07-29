@@ -7,6 +7,7 @@ itemBases["Battering Uulgraft"] = {
 	tags = { default = true, graft = true, graft_damaging_skill = true, graft_uulnetol = true, graft_uulnetol_hand_slam = true, },
 	implicit = "(4-12)% reduced Enemy Stun Threshold",
 	implicitModTypes = { {  }, },
+	implicitIds = { "GraftImplicitUulNetol1", },
 	req = { },
 }
 itemBases["Spiking Uulgraft"] = {
@@ -14,6 +15,7 @@ itemBases["Spiking Uulgraft"] = {
 	tags = { default = true, graft = true, graft_damaging_skill = true, graft_uulnetol = true, graft_uulnetol_bone_spires = true, },
 	implicit = "Attacks have (4-12)% chance to cause Bleeding",
 	implicitModTypes = { { "bleed", "physical", "attack", "ailment" }, },
+	implicitIds = { "GraftImplicitUulNetol2", },
 	req = { },
 }
 itemBases["Impaling Uulgraft"] = {
@@ -21,6 +23,7 @@ itemBases["Impaling Uulgraft"] = {
 	tags = { default = true, graft = true, graft_uulnetol = true, graft_uulnetol_impale_buff = true, },
 	implicit = "(4-12)% chance to Impale Enemies on Hit with Attacks",
 	implicitModTypes = { { "physical", "attack" }, },
+	implicitIds = { "GraftImplicitUulNetol3", },
 	req = { },
 }
 itemBases["Hardening Uulgraft"] = {
@@ -28,6 +31,7 @@ itemBases["Hardening Uulgraft"] = {
 	tags = { default = true, graft = true, graft_uulnetol = true, graft_uulnetol_low_life_buff = true, },
 	implicit = "(1-3)% additional Physical Damage Reduction",
 	implicitModTypes = { { "physical" }, },
+	implicitIds = { "GraftImplicitUulNetol4", },
 	req = { },
 }
 itemBases["Molten Xophgraft"] = {
@@ -35,6 +39,7 @@ itemBases["Molten Xophgraft"] = {
 	tags = { default = true, graft = true, graft_damaging_skill = true, graft_xoph = true, graft_xoph_molten_shell = true, },
 	implicit = "(10-20)% increased Armour",
 	implicitModTypes = { { "defences", "armour" }, },
+	implicitIds = { "GraftImplicitXoph1", },
 	req = { },
 }
 itemBases["Erupting Xophgraft"] = {
@@ -42,6 +47,7 @@ itemBases["Erupting Xophgraft"] = {
 	tags = { default = true, graft = true, graft_damaging_skill = true, graft_xoph = true, graft_xoph_cremations = true, },
 	implicit = "(8-16)% increased Area Damage",
 	implicitModTypes = { { "damage" }, },
+	implicitIds = { "GraftImplicitXoph2", },
 	req = { },
 }
 itemBases["Flamecaller Xophgraft"] = {
@@ -49,6 +55,7 @@ itemBases["Flamecaller Xophgraft"] = {
 	tags = { default = true, graft = true, graft_damaging_skill = true, graft_xoph = true, graft_xoph_flame_pillars = true, },
 	implicit = "(8-16)% increased Elemental Damage with Attack Skills",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "attack" }, },
+	implicitIds = { "GraftImplicitXoph3", },
 	req = { },
 }
 itemBases["Stoking Xophgraft"] = {
@@ -56,6 +63,7 @@ itemBases["Stoking Xophgraft"] = {
 	tags = { default = true, graft = true, graft_xoph = true, graft_xoph_ailment_buff = true, },
 	implicit = "(5-10)% increased Duration of Elemental Ailments on Enemies",
 	implicitModTypes = { { "elemental", "fire", "cold", "lightning", "ailment" }, },
+	implicitIds = { "GraftImplicitXoph4", },
 	req = { },
 }
 itemBases["Storming Eshgraft"] = {
@@ -63,6 +71,7 @@ itemBases["Storming Eshgraft"] = {
 	tags = { default = true, graft = true, graft_damaging_skill = true, graft_esh = true, graft_esh_bolt_ring = true, },
 	implicit = "Adds (1-4) to (18-20) Lightning Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "lightning" }, },
+	implicitIds = { "GraftImplicitEsh1", },
 	req = { },
 }
 itemBases["Replicating Eshgraft"] = {
@@ -70,6 +79,7 @@ itemBases["Replicating Eshgraft"] = {
 	tags = { default = true, graft = true, graft_damaging_skill = true, graft_esh = true, graft_esh_lightning_clones = true, },
 	implicit = "(3-5)% increased Movement Speed",
 	implicitModTypes = { { "speed" }, },
+	implicitIds = { "GraftImplicitEsh2", },
 	req = { },
 }
 itemBases["Draining Eshgraft"] = {
@@ -77,6 +87,7 @@ itemBases["Draining Eshgraft"] = {
 	tags = { default = true, graft = true, graft_damaging_skill = true, graft_esh = true, graft_esh_lightning_hands = true, },
 	implicit = "Spell Skills have (5-10)% increased Area of Effect",
 	implicitModTypes = { { "caster" }, },
+	implicitIds = { "GraftImplicitEsh3", },
 	req = { },
 }
 itemBases["Jolting Eshgraft"] = {
@@ -84,6 +95,7 @@ itemBases["Jolting Eshgraft"] = {
 	tags = { default = true, graft = true, graft_esh = true, graft_esh_jolt_buff = true, },
 	implicit = "(4-12)% increased Global Critical Strike Chance",
 	implicitModTypes = { { "critical" }, },
+	implicitIds = { "GraftImplicitEsh4", },
 	req = { },
 }
 itemBases["Squalling Tulgraft"] = {
@@ -91,6 +103,7 @@ itemBases["Squalling Tulgraft"] = {
 	tags = { default = true, graft = true, graft_damaging_skill = true, graft_tul = true, graft_tul_tornado = true, },
 	implicit = "(8-16)% increased Projectile Damage",
 	implicitModTypes = { { "damage" }, },
+	implicitIds = { "GraftImplicitTul1", },
 	req = { },
 }
 itemBases["Freezing Tulgraft"] = {
@@ -98,6 +111,7 @@ itemBases["Freezing Tulgraft"] = {
 	tags = { default = true, graft = true, graft_damaging_skill = true, graft_tul = true, graft_tul_ice_mortars = true, },
 	implicit = "(8-12)% chance to Freeze",
 	implicitModTypes = { { "elemental", "cold", "ailment" }, },
+	implicitIds = { "GraftImplicitTul2", },
 	req = { },
 }
 itemBases["Summoning Tulgraft"] = {
@@ -105,6 +119,7 @@ itemBases["Summoning Tulgraft"] = {
 	tags = { default = true, graft = true, graft_tul = true, graft_tul_summon = true, },
 	implicit = "Minions have (4-8)% increased Attack and Cast Speed",
 	implicitModTypes = { { "attack", "caster", "speed", "minion" }, },
+	implicitIds = { "GraftImplicitTul3", },
 	req = { },
 }
 itemBases["Aegis Tulgraft"] = {
@@ -112,5 +127,6 @@ itemBases["Aegis Tulgraft"] = {
 	tags = { default = true, graft = true, graft_tul = true, graft_tul_aegis = true, },
 	implicit = "+(3-6)% to all Elemental Resistances",
 	implicitModTypes = { { "elemental", "resistance" }, },
+	implicitIds = { "GraftImplicitTul4", },
 	req = { },
 }

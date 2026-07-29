@@ -312,7 +312,7 @@ minions["SummonedSpectralWolf"] = {
 	spawnLocation = {
 	},
 	skillList = {
-		"MeleeAtAnimationSpeed",
+		"Melee",
 	},
 	modList = {
 		mod("PhysicalDamageLifeLeech", "BASE", 100, 1, 0), -- SummonedWolfLifeLeech [life_leech_from_physical_attack_damage_permyriad = 10000]
@@ -329,7 +329,7 @@ minions["SummonedSpectralTiger"] = {
 	chaosResist = 20,
 	damage = 26.25,
 	damageSpread = 0.2,
-	attackTime = 1.5,
+	attackTime = 0.8,
 	attackRange = 11,
 	accuracy = 3.4,
 	weaponType1 = "Dagger",
@@ -339,11 +339,10 @@ minions["SummonedSpectralTiger"] = {
 	spawnLocation = {
 	},
 	skillList = {
-		"MeleeAtAnimationSpeed",
+		"Melee",
 	},
 	modList = {
 		mod("PhysicalDamageLifeLeech", "BASE", 100, 1, 0), -- SummonedWolfLifeLeech [life_leech_from_physical_attack_damage_permyriad = 10000]
-		mod("Speed", "INC", 20, 1, 0), -- MonsterImplicitFastAttack4 [attack_speed_+% = 20]
 	},
 }
 
@@ -1063,8 +1062,8 @@ minions["RhoaUniqueSummoned"] = {
 	spawnLocation = {
 	},
 	skillList = {
-		"MeleeAtAnimationSpeedUnique",
 		"SummonedRhoaShieldCharge",
+		"Melee",
 	},
 	modList = {
 		-- MonsterNearbyEnemiesAreIntimidated [is_intimidated = 1]
@@ -1130,7 +1129,7 @@ minions["DropBearUniqueSummoned"] = {
 	spawnLocation = {
 	},
 	skillList = {
-		"MeleeAtAnimationSpeedUnique",
+		"Melee",
 		"DropBearSummonedGroundSlam",
 		"DropBearSummonedRallyingCry",
 	},
@@ -1327,7 +1326,7 @@ minions["SummonedReaper"] = {
 	chaosResist = 20,
 	damage = 2.4,
 	damageSpread = 0.2,
-	attackTime = 1.5,
+	attackTime = 1.67,
 	attackRange = 13,
 	accuracy = 3.4,
 	weaponType1 = "One Handed Sword",
@@ -2063,7 +2062,7 @@ minions["Hiveborn"] = {
 	chaosResist = 20,
 	damage = 3,
 	damageSpread = 0.2,
-	attackTime = 1,
+	attackTime = 1.07,
 	attackRange = 11,
 	accuracy = 1,
 	limit = "ActiveHivebornLimit",
@@ -2074,7 +2073,7 @@ minions["Hiveborn"] = {
 		"Hive Fortress",
 	},
 	skillList = {
-		"MeleeAtAnimationSpeedComboCold",
+		"MeleeComboCold",
 	},
 	modList = {
 		-- MonsterNoDropsOrExperience [monster_no_drops_or_experience = 1]
@@ -2091,7 +2090,7 @@ minions["ShamblingUndead"] = {
 	chaosResist = 20,
 	damage = 2.1,
 	damageSpread = 0.4,
-	attackTime = 1.17,
+	attackTime = 1.25,
 	attackRange = 11,
 	accuracy = 3.4,
 	limit = "ShamblingUndeadLimit",
@@ -2100,9 +2099,7 @@ minions["ShamblingUndead"] = {
 	spawnLocation = {
 	},
 	skillList = {
-		"MeleeAtAnimationSpeedChaos",
-		"ZombieSlam",
-		"GAZombieCorpseGroundImpact",
+		"MeleePartialChaos",
 	},
 	modList = {
 		mod("Armour", "INC", 40, 0, 0), -- MonsterImplicitDamageReduction1 [physical_damage_reduction_rating_+% = 40]

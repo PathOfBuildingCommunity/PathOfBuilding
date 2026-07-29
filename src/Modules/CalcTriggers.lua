@@ -1353,6 +1353,9 @@ local configTable = {
 	["void shockwave"] = function(env)
 		return {triggerSkillCond = function(env, skill)	return skill.skillTypes[SkillType.Melee] and slotMatch(env, skill) end}
 	end,
+	["falling crystal"] = function(env)
+		return {triggerSkillCond = function(env, skill)	return skill.skillTypes[SkillType.Melee] and slotMatch(env, skill) end}
+	end,
 	["call the pyre"] = function(env)
 		if env.enemy.modDB:Flag(nil, "Condition:Ignited") then
 			return {triggerChance =  50, -- too much of a pain to pull this from the triggering skill
@@ -1540,6 +1543,12 @@ local configTable = {
 			return {source = env.player.mainSkill}
 		end
 	end,
+	["TriggeredMoltenStrike"] = function(env)
+		return {triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Melee] or skill.skillTypes[SkillType.Attack]) end}
+	end,
+	["FieryImpactHeistMaceImplicit"] = function(env)
+		return {triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Melee] or skill.skillTypes[SkillType.Attack]) end}
+	end,
 }
 
 -- Find unique item trigger name
@@ -1569,7 +1578,9 @@ function calcs.triggers(env, actor)
 		local triggerNameLower = triggerName and triggerName:lower()
 		local awakenedTriggerNameLower = triggerNameLower and triggerNameLower:gsub("^awakened ", "")
 		local uniqueNameLower = uniqueName and uniqueName:lower()
-		local config = skillNameLower and configTable[skillNameLower] and configTable[skillNameLower](env)
+		local skillId = actor.mainSkill.activeEffect.grantedEffect.id
+		local config = skillId and configTable[skillId] and configTable[skillId](env)
+		config = config or skillNameLower and configTable[skillNameLower] and configTable[skillNameLower](env)
         config = config or triggerNameLower and configTable[triggerNameLower] and configTable[triggerNameLower](env)
         config = config or awakenedTriggerNameLower and configTable[awakenedTriggerNameLower] and configTable[awakenedTriggerNameLower](env)
         config = config or uniqueNameLower and configTable[uniqueNameLower] and configTable[uniqueNameLower](env)
