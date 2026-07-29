@@ -5770,6 +5770,48 @@ skills["SupportTriggerFireSpellOnHit"] = {
 		[1] = { cooldown = 0.25, levelRequirement = 1, storedUses = 1, },
 	},
 }
+skills["SupportCrabTotem"] = {
+	name = "Crab Totem",
+	hidden = true,
+	color = 1,
+	support = true,
+	requireSkillTypes = { SkillType.Spell, SkillType.Totemable, SkillType.AND, },
+	addSkillTypes = { SkillType.Trappable, SkillType.Mineable, SkillType.SummonsTotem, SkillType.ReservationBecomesCost, SkillType.SupportedByCrabTotem, },
+	excludeSkillTypes = { SkillType.InbuiltTrigger, SkillType.Channel, SkillType.SupportedBySpellTotem, },
+	ignoreMinionTypes = true,
+	statDescriptionScope = "gem_stat_descriptions",
+	fromItem = true,
+	addFlags = {
+		totem = true,
+	},
+	statMap = {
+		["support_crab_totem_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+		["support_crab_totem_cast_speed_+%_final"] = {
+			mod("Speed", "MORE", nil, ModFlag.Cast),
+		},
+	},
+	constantStats = {
+		{ "base_totem_duration", 8000 },
+		{ "base_totem_range", 60 },
+		{ "support_crab_totem_cast_speed_+%_final", -40 },
+		{ "totem_art_variation", 12 },
+		{ "totem_placement_range_+%", -75 },
+	},
+	stats = {
+		"support_crab_totem_damage_+%_final",
+		"totem_support_gem_level",
+		"base_skill_is_totemified",
+		"is_totem",
+	},
+	notMinionStat = {
+		"totem_support_gem_level",
+	},
+	levels = {
+		[20] = { -50, 70, levelRequirement = 0, manaMultiplier = 100, statInterpolation = { 1, 1, }, },
+	},
+}
 skills["EnemyExplode"] = {
 	name = "On Kill Monster Explosion",
 	hidden = true,

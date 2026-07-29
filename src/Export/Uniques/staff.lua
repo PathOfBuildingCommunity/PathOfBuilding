@@ -780,5 +780,17 @@ LocalIncreaseSocketedGemLevelUnique___3
 AttackerTakesLightningDamageUnique___1
 {variant:1,2}EnergyShieldRechargeOnBlockUnique__1[20,20]
 {variant:3}EnergyShieldRechargeOnBlockUnique__1
-]],
+]], [[
+The Crustacean's Call
+Primordial Staff
+Source: Drops from Velka, the Tide Witch.
+Requires Level 58, 99 Str, 99 Int
+Implicits: 1
+StaffSpellBlockPercent3
+SupportedByCrabTotemSupportUnique__1
+TotemMovementVelocityUnique__1
+SpellDamageOnWeaponUniqueStaff38
+TotemDurationUniqueStaff38
+AdditionalTotemsUniqueStaff38
+]]
 }

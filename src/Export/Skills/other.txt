@@ -1476,6 +1476,21 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill SupportCrabTotem Crab Totem
+	fromItem = true,
+	addFlags = {
+		totem = true,
+	},
+	statMap = {
+		["support_crab_totem_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+		["support_crab_totem_cast_speed_+%_final"] = {
+			mod("Speed", "MORE", nil, ModFlag.Cast),
+		},
+	},
+#mods
+
 skills["EnemyExplode"] = {
 	name = "On Kill Monster Explosion",
 	hidden = true,

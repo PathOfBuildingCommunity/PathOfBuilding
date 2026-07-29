@@ -785,5 +785,17 @@ Implicits: 2
 Reflects 1 to 150 Lightning Damage to Melee Attackers
 {variant:1,2}20% chance for Energy Shield Recharge to start when you Block
 {variant:3}(25-35)% chance for Energy Shield Recharge to start when you Block
-]],
+]], [[
+The Crustacean's Call
+Primordial Staff
+Source: Drops from Velka, the Tide Witch.
+Requires Level 58, 99 Str, 99 Int
+Implicits: 1
++25% Chance to Block Spell Damage
+Socketed Spells are Supported by level 20 Crab Totem
+Totems have 100% increased Movement Speed
+(150-200)% increased Spell Damage
+(50-75)% increased Totem Duration
++2 to maximum number of Summoned Totems
+]]
 }
