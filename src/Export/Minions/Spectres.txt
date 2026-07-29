@@ -3926,9 +3926,6 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/FaridunLeague/FaridunWarlock/FaridunWarlockMid_
 #emit
 #spectre Metadata/Monsters/FaridunLeague/FaridunWarlock/FaridunWarlockHigh
-#emit
--- Undead Vaal Commander
-#spectre Metadata/Monsters/VaalMonsters/VaalOverseer
 #flags recommendedSpectre
 #emit
 -- Astral Lich

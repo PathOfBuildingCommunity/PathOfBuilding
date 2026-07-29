@@ -7349,6 +7349,7 @@ minions["Metadata/Monsters/CrabMonsters/CrabCoconut"] = {
 	baseMovementSpeed = 28,
 	monsterCategory = "Beast",
 	spawnLocation = {
+		"Sandy Seabed (Act 1)",
 		"The Cavern of Wrath (Act 1)",
 		"The Coast (Act 1)",
 		"The Flooded Depths (Act 1)",
@@ -7801,6 +7802,7 @@ minions["Metadata/Monsters/CrabMonsters/CrabCoconutCoast"] = {
 	baseMovementSpeed = 29,
 	monsterCategory = "Beast",
 	spawnLocation = {
+		"Sandy Seabed (Act 1)",
 		"The Cavern of Wrath (Act 1)",
 		"The Coast (Act 1)",
 		"The Flooded Depths (Act 1)",
@@ -7857,6 +7859,7 @@ minions["Metadata/Monsters/CrabMonsters/CrabCoconutEmerge"] = {
 	baseMovementSpeed = 0,
 	monsterCategory = "Beast",
 	spawnLocation = {
+		"Sandy Seabed (Act 1)",
 		"The Cavern of Wrath (Act 1)",
 		"The Coast (Act 1)",
 		"The Flooded Depths (Act 1)",
@@ -30195,6 +30198,9 @@ minions["Metadata/Monsters/Skeletons/SkeletonMeleeFairgravesCrewTreasureHunter"]
 	baseMovementSpeed = 11,
 	monsterCategory = "Undead",
 	spawnLocation = {
+		"Coral Forest (Act 1)",
+		"Coral Reef (Act 1)",
+		"Sandy Seabed (Act 1)",
 	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
@@ -38554,7 +38560,7 @@ minions["Metadata/Monsters/Undying/UndyingOutcastPunctureLabyrinth"] = {
 minions["Metadata/Monsters/SpiderPlated/SpiderPlatedUnholyEmerge"] = {
 	name = "Unholy Aberration",
 	monsterTags = { "animal_claw_weapon", "beast", "flesh_armour", "insect_blood", "is_unarmed", "medium_height", "medium_movement", "melee", "physical_affinity", "spider", },
-	life = 14,
+	life = 3.6,
 	fireResist = 0,
 	coldResist = 0,
 	lightningResist = 0,
@@ -38584,7 +38590,7 @@ minions["Metadata/Monsters/SpiderPlated/SpiderPlatedUnholyEmerge"] = {
 minions["Metadata/Monsters/SpiderPlated/SpiderPlatedUnholySentinel_"] = {
 	name = "Unholy Aberration",
 	monsterTags = { "animal_claw_weapon", "beast", "flesh_armour", "insect_blood", "is_unarmed", "medium_height", "medium_movement", "melee", "physical_affinity", "spider", },
-	life = 14,
+	life = 3.6,
 	fireResist = 0,
 	coldResist = 0,
 	lightningResist = 0,
@@ -38600,7 +38606,6 @@ minions["Metadata/Monsters/SpiderPlated/SpiderPlatedUnholySentinel_"] = {
 	},
 	skillList = {
 		"Melee",
-		"SentinelSpiderSoulrend",
 	},
 	modList = {
 		-- MonsterNoDropsOrExperience [monster_no_drops_or_experience = 1]
@@ -39615,6 +39620,10 @@ minions["Metadata/Monsters/LeagueHarvest/Red/HarvestMinerHammerT2Spectre"] = {
 	attackTime = 0.93,
 	attackRange = 9,
 	accuracy = 1,
+	baseMovementSpeed = 12,
+	monsterCategory = "Undead",
+	spawnLocation = {
+	},
 	skillList = {
 		"MeleeAtAnimationSpeed",
 		"HarvestMinerMelee",
@@ -39843,6 +39852,10 @@ minions["Metadata/Monsters/LeagueHeist/Science/ProjectUnarmedEliteGuardSpectre"]
 	attackRange = 10,
 	accuracy = 1,
 	weaponType1 = "Claw",
+	baseMovementSpeed = 43,
+	monsterCategory = "Humanoid",
+	spawnLocation = {
+	},
 	skillList = {
 		"HeistProjectUnarmedMelee1",
 		"HeistProjectUnarmedMelee2",
@@ -41872,7 +41885,7 @@ minions["Metadata/Monsters/LeagueHellscape/FleshFaction/HellscapeFleshElite1Spec
 	monsterTags = { "animal_claw_weapon", "beyond_demon", "caster", "demon", "flesh_armour", "is_unarmed", "not_dex", "physical_affinity", "ranged", "red_blood", "very_fast_movement", },
 	baseDamageIgnoresAttackSpeed = true,
 	life = 2.7,
-	energyShield = 0.2,
+	energyShield = 0.5,
 	armour = 0.5,
 	fireResist = 75,
 	coldResist = 0,
@@ -41884,6 +41897,10 @@ minions["Metadata/Monsters/LeagueHellscape/FleshFaction/HellscapeFleshElite1Spec
 	attackRange = 12,
 	accuracy = 1,
 	weaponType1 = "None",
+	baseMovementSpeed = 55,
+	monsterCategory = "Demon",
+	spawnLocation = {
+	},
 	skillList = {
 		"MPSHellscapeFleshEliteBasicProj",
 		"GPSHellscapeFleshEliteSpikeBarrage",
@@ -46871,7 +46888,7 @@ minions["Metadata/Monsters/AtlasMemories/ZanaInfluenceMonsters/ZanaRibbonLargeSp
 	name = "Despair Remnant",
 	monsterTags = { "construct", "large_model", "not_dex", "not_str", "slow_movement", },
 	baseDamageIgnoresAttackSpeed = true,
-	life = 7.5,
+	life = 3.75,
 	energyShield = 1,
 	fireResist = 0,
 	coldResist = 0,
@@ -46898,7 +46915,7 @@ minions["Metadata/Monsters/AtlasMemories/ZanaInfluenceMonsters/ZanaRibbonSmallSp
 	name = "Pain Remnant",
 	monsterTags = { "construct", "medium_movement", "not_str", },
 	baseDamageIgnoresAttackSpeed = true,
-	life = 4.5,
+	life = 2.25,
 	energyShield = 0.33,
 	evasion = 0.66,
 	fireResist = 0,
@@ -46924,7 +46941,7 @@ minions["Metadata/Monsters/AtlasMemories/ZanaInfluenceMonsters/ZanaWalker1Spectr
 	name = "Twisted Recollection",
 	monsterTags = { "construct", "fast_movement", "humanoid", "mud_blood", "not_dex", "not_int", },
 	baseDamageIgnoresAttackSpeed = true,
-	life = 4.5,
+	life = 2.25,
 	armour = 0.66,
 	fireResist = 0,
 	coldResist = 0,
@@ -46950,7 +46967,7 @@ minions["Metadata/Monsters/AtlasMemories/ZanaInfluenceMonsters/ZanaHumanoidElite
 	name = "Eternal Regret",
 	monsterTags = { "construct", "fast_movement", "humanoid", "mud_blood", "not_dex", },
 	baseDamageIgnoresAttackSpeed = true,
-	life = 9,
+	life = 3.9,
 	energyShield = 0.66,
 	armour = 0.66,
 	fireResist = 0,
@@ -46983,7 +47000,7 @@ minions["Metadata/Monsters/AtlasMemories/ZanaInfluenceMonsters/ZanaHoundSpectre"
 	name = "Feral Memory",
 	monsterTags = { "beast", "canine_beast", "construct", "medium_movement", "mud_blood", "not_int", },
 	baseDamageIgnoresAttackSpeed = true,
-	life = 6.75,
+	life = 3.38,
 	armour = 0.66,
 	evasion = 0.33,
 	fireResist = 0,
@@ -47014,7 +47031,7 @@ minions["Metadata/Monsters/AtlasMemories/ZanaInfluenceMonsters/ZanaWyvernSpectre
 	name = "Screaming Loneliness",
 	monsterTags = { "construct", "fast_movement", "large_model", "mud_blood", "not_str", },
 	baseDamageIgnoresAttackSpeed = true,
-	life = 6.75,
+	life = 3.38,
 	energyShield = 0.33,
 	evasion = 1,
 	fireResist = 0,
@@ -47044,7 +47061,7 @@ minions["Metadata/Monsters/AtlasMemories/ZanaInfluenceMonsters/ZanaSpikerSpectre
 	name = "Vicious Memory",
 	monsterTags = { "beast", "large_model", "mammal_beast", "medium_movement", "mud_blood", "not_int", "rodent_beast", },
 	baseDamageIgnoresAttackSpeed = true,
-	life = 6,
+	life = 3,
 	armour = 0.33,
 	evasion = 0.33,
 	fireResist = 0,
@@ -47072,7 +47089,7 @@ minions["Metadata/Monsters/AtlasMemories/ZanaInfluenceMonsters/ZanaWalkerRangedS
 	name = "Twisted Recollection",
 	monsterTags = { "construct", "humanoid", "mud_blood", "not_dex", "not_int", "very_slow_movement", },
 	baseDamageIgnoresAttackSpeed = true,
-	life = 4.5,
+	life = 2.25,
 	armour = 0.66,
 	fireResist = 0,
 	coldResist = 0,
@@ -57576,30 +57593,6 @@ minions["Metadata/Monsters/FaridunLeague/FaridunWarlock/FaridunWarlockHigh"] = {
 	modList = {
 		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 25]
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
-	},
-}
--- Undead Vaal Commander
-minions["Metadata/Monsters/VaalMonsters/VaalOverseer"] = {
-	name = "Undead Vaal Commander",
-	monsterTags = { "fire_affinity", "has_one_hand_sword", "has_one_handed_melee", "human", "humanoid", "medium_movement", "melee", "not_dex", "not_int", "physical_affinity", "plate_armour", "red_blood", "slashing_weapon", },
-	baseDamageIgnoresAttackSpeed = true,
-	life = 2.59,
-	armour = 0.75,
-	fireResist = 40,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 2.59,
-	damageSpread = 0.2,
-	attackTime = 1.335,
-	attackRange = 17,
-	accuracy = 1,
-	weaponType1 = "One Handed Sword",
-	skillList = {
-		"MeleeAtAnimationSpeed",
-		"VaalOverseerHeavyStrike",
-	},
-	modList = {
 	},
 }
 -- Astral Lich
