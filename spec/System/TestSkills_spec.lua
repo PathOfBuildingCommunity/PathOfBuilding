@@ -216,7 +216,7 @@ describe("TestAttacks", function()
 		assert.True(math.abs(finalCost - 12) < 0.1) -- floor(12 * 1.5) / 1.5
 	end)
 
-	it("Test flat cost is added before cost efficiency", function()
+	it("Test flat cost is added after cost efficiency", function()
 		-- In-game order is ((base cost * multipliers) + flat cost) / (1 + cost efficiency)
 		build.skillsTab:PasteSocketGroup("Hydrosphere 1/0  1\n")
 
@@ -226,10 +226,10 @@ describe("TestAttacks", function()
 		runCallback("OnFrame")
 
 		local finalCost = build.calcsTab.mainOutput.ManaCost
-		-- (12 + 10) / 1.5 = 14.667
-		assert.True(math.abs(finalCost - 22 / 1.5) < 0.001)
+		-- 12 / 1.5 + 10 = 18
+		assert.equals(18, finalCost)
 	end)
-	it("Test flat cost is added before cost efficiency for life costs", function()
+	it("Test flat cost is added after cost efficiency for life costs", function()
 		build.skillsTab:PasteSocketGroup("Hydrosphere 1/0  1\n")
 
 		-- Convert Hydrosphere's 12 base cost to life, then add +10 flat and 50% efficiency
@@ -237,11 +237,11 @@ describe("TestAttacks", function()
 		build.configTab:BuildModList()
 		runCallback("OnFrame")
 
-		-- (12 + 10) / 1.5 = 14.667
-		assert.True(math.abs(build.calcsTab.mainOutput.LifeCost - 22 / 1.5) < 0.001)
+		-- 12 / 1.5 + 10 = 18
+		assert.equals(18, build.calcsTab.mainOutput.LifeCost)
 	end)
 
-	it("Test flat cost is added before cost efficiency for energy shield costs (#10003)", function()
+	it("Test flat cost is added after cost efficiency for energy shield costs", function()
 		build.skillsTab:PasteSocketGroup("Hydrosphere 1/0  1\n")
 
 		-- Convert Hydrosphere's 12 base cost to ES, then add +10 flat and 50% efficiency
@@ -249,8 +249,8 @@ describe("TestAttacks", function()
 		build.configTab:BuildModList()
 		runCallback("OnFrame")
 
-		-- (12 + 10) / 1.5 = 14.667
-		assert.True(math.abs(build.calcsTab.mainOutput.ESCost - 22 / 1.5) < 0.001)
+		-- 12 / 1.5 + 10 = 18
+		assert.equals(18, build.calcsTab.mainOutput.ESCost)
 	end)
 	it("Test mana cost efficiency with support gems", function()
 		-- Test interaction between cost efficiency and cost multipliers
