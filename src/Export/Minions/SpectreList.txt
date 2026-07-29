@@ -1056,8 +1056,7 @@ Metadata/Monsters/SpiderPlated/SpiderPlated                                     
 Metadata/Monsters/SpiderPlated/SpiderPlatedAtlasUber                                      		----		Plated Arachnid
 Metadata/Monsters/SpiderPlated/SpiderPlatedTailExplosion                                  		----		Scalding Arachnid
 Metadata/Monsters/SpiderPlated/SpiderPlatedTailExplosionAtlasUber                         		----		Scalding Scorpion
-Metadata/Monsters/SpiderPlated/SpiderPlatedUnholyEmerge                                   		----		Unholy Aberration
-Metadata/Monsters/SpiderPlated/SpiderPlatedUnholySentinel_                                		----		Unholy Aberration
+Metadata/Monsters/SpiderPlated/SpiderPlatedUnholySpectre                                  		----		Unholy Aberration
 Metadata/Monsters/BlacksmithGolem/BlacksmithGolemMapStandaloneAtlasUber                   		----		Molten Soul
 Metadata/Monsters/KaruiSlave/KaruiSlave1                                                  		----		Karui Rebel
 Metadata/Monsters/KaomWarrior/KaruiElder1StandaloneAtlasUber                              		----		Tribal Queen
@@ -1771,6 +1770,7 @@ Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GeofriMid_                        
 Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GeofriHigh                                  		----		Perfect Blasphemer
 Metadata/Monsters/LeagueNecropolis/TankyZombieSpectre                                     		----		Meatsack
 Metadata/Monsters/LeagueNecropolis/TankyZombieTorment__                                   		----		Rotting Meatsack
+Metadata/Monsters/LeagueNecropolis/TankyZombieSpectre                                     		----		Bloated Meatsack
 Metadata/Monsters/GoldenOnes/GoldenOnesFodderMace                                         		----		Gilded Soldier
 Metadata/Monsters/VaalForgeMan/VaalForgeMan                                               		----		Gilded Smith
 Metadata/Monsters/AtlasMemories/ZanaInfluenceMonsters/ZanaRibbonLargeSpectre              		----		Despair Remnant
@@ -1818,6 +1818,45 @@ Metadata/Monsters/FaridunLeague/FaridunFleshWormSpectre                         
 Metadata/Monsters/FaridunLeague/FaridunAstralAcolyteSpectre                               		----		Adherent of Zarokh
 Metadata/Monsters/FaridunLeague/FaridunAstralAcolyteLow                                   		----		Imperfect Adherent of Zarokh
 Metadata/Monsters/FaridunLeague/FaridunAstralAcolyteHigh                                  		----		Perfect Adherent of Zarokh
+Metadata/Monsters/DeepwaterLeague/DrownedSkeletonEliteSpectre_                            		----		Reefclaimed Skeleton
+Metadata/Monsters/DeepwaterLeague/DrownedSkeletonMeleeSpectre                             		----		Reefclaimed Skeleton
+Metadata/Monsters/DeepwaterLeague/MantaRayParasiteSpectre                                 		----		Infested Horror
+Metadata/Monsters/DeepwaterLeague/JellyfishParasiteSpectre                                		----		Flesh Louse
+Metadata/Monsters/DeepwaterLeague/PaleFishmanSpectre_                                     		----		Angler Maw
+Metadata/Monsters/DeepwaterLeague/KelpDregHelmetSpectre_                                  		----		Seaclaimed Skeleton
+Metadata/Monsters/DeepwaterLeague/KelpDregSpectre                                         		----		Seaclaimed Sniper
+Metadata/Monsters/DeepwaterLeague/CoconutCrabSpectre                                      		----		Coconut Crab
+Metadata/Monsters/DeepwaterLeague/NimbleCrabSpectre                                       		----		Scuttler
+Metadata/Monsters/DeepwaterLeague/QuillCrabSpectre                                        		----		Quillshell
+Metadata/Monsters/DeepwaterLeague/DrownedCrawlerSpectre                                   		----		Drowned Crawler
+Metadata/Monsters/DeepwaterLeague/SeaHagSpectre                                           		----		Sea Hag
+Metadata/Monsters/DeepwaterLeague/SeaOtterSpectre                                         		----		Ferocious Otter
+Metadata/Monsters/DeepwaterLeague/OctopusParasiteSpectre___                               		----		Wriggling Horror
+Metadata/Monsters/DeepwaterLeague/GiantStarfishSpectre                                    		----		Hungry Maw
+Metadata/Monsters/DeepwaterLeague/DrownedCrewUnarmedSpectre                               		----		Lost Crewman
+Metadata/Monsters/DeepwaterLeague/DrownedCrewUnarmedBarrelEncounter                       		----		Drowned Crewman
+Metadata/Monsters/DeepwaterLeague/DrownedCrewUnarmedGraveEncounter                        		----		Bloated Crewman
+Metadata/Monsters/DeepwaterLeague/DrownedCrewAxeSpectre                                   		----		Lost Crewman
+Metadata/Monsters/DeepwaterLeague/DrownedCrewAxeBarrelEncounter                           		----		Drowned Crewman
+Metadata/Monsters/DeepwaterLeague/DrownedCrewSlamSpectre                                  		----		Lost Boatswain
+Metadata/Monsters/DeepwaterLeague/CoralGolemSpectre                                       		----		Living Coral
+Metadata/Monsters/DeepwaterLeague/BrinerotSpearmanSpectre                                 		----		Brinerot Whaler
+Metadata/Monsters/DeepwaterLeague/BrinerotJavelineerSpectre                               		----		Brinerot Harpooner
+Metadata/Monsters/DeepwaterLeague/BrinerotSwordsmanSpectre                                		----		Brinerot Corsair
+Metadata/Monsters/AbyssTwoLeague/Cretin                                                   		----		Blackblooded Cretin
+Metadata/Monsters/AbyssTwoLeague/Cocoon                                                   		----		Lightless Abomination
+Metadata/Monsters/AbyssTwoLeague/HuHuGrubLarvae                                           		----		Flesh Larva
+Metadata/Monsters/AbyssTwoLeague/HuHuGrubLarvaeLarge                                      		----		Flesh Larva
+Metadata/Monsters/AbyssTwoLeague/PaleWalker01                                             		----		Abyssal Walker
+Metadata/Monsters/AbyssTwoLeague/PaleWalker03                                             		----		Abyssal Strangler
+Metadata/Monsters/AbyssTwoLeague/Collector                                                		----		Blackblooded Proboscite
+Metadata/Monsters/AbyssTwoLeague/SerpentClanCaster                                        		----		Lightless Serpent
+Metadata/Monsters/AbyssTwoLeague/FungalArtillery_                                         		----		Fungoid of the Pit
+Metadata/Monsters/AbyssTwoLeague/CorpseStrider                                            		----		Strider of the Pit
+Metadata/Monsters/AbyssTwoLeague/AbyssTwoRumCarrier                                       		----		Blackblooded Blisterboil
+Metadata/Monsters/AbyssTwoLeague/Tarhulk                                                  		----		Blackblooded Tarhulk
+Metadata/Monsters/AbyssTwoLeague/PrimordialMonster02                                      		----		Hound of the Pit
+Metadata/Monsters/AbyssTwoLeague/PrimordialMonster03                                      		----		Primordium of the Pit
 
 -- Spectres Not Yet Imported --
 -- These spectres are not in PoB yet. Could be false spectres or disabled server-side. --
@@ -1837,6 +1876,7 @@ Metadata/Monsters/MavenBoss/TheMavenMapChillOrb                                 
 Metadata/Monsters/MavenBoss/TheMavenMapDegenOrb                                           		----		Maven's Orb
 Metadata/Monsters/MavenBoss/TheMavenMapVolatileOrb                                        		----		Maven's Orb
 Metadata/Monsters/MavenBoss/TheMavenMapBeamOrb                                            		----		Maven's Orb
+Metadata/Monsters/AbyssTwoLeague/PrimordialMonster03                                      		----		Primordium of the Pit
 
 -- Duplicate Spectre Names --
 -- Same name but different skill sets (should likely be separate imports). --
@@ -2084,6 +2124,7 @@ Metadata/Monsters/Skeletons/SkeletonMeleeFireShieldVaal                         
 Metadata/Monsters/Skeletons/SkeletonMeleeFireShieldVaalHellscape_                         		----		Flame Champion
 Metadata/Monsters/Skeletons/SkeletonMeleeFire2_                                           		----		Flame Guardian
 Metadata/Monsters/Skeletons/SkeletonMeleeFire2_Hellscape                                  		----		Flame Guardian
+Metadata/Monsters/Skeletons/SkeletonMeleeFairgravesCrewStandardFastDeepwater              		----		Fairgraves' Crewman
 Metadata/Monsters/Skeletons/SkeletonMeleeLightning2Hellscape                              		----		Sparking Bones
 Metadata/Monsters/Skeletons/SkeletonMeleeLightning5                                       		----		Thunder Guardian
 Metadata/Monsters/Skeletons/SkeletonMeleeLightning5Hellscape                              		----		Thunder Guardian
@@ -2517,13 +2558,13 @@ Metadata/Monsters/Statue/LabyrinthStatueLargeFemaleSpearSpectre                 
 Metadata/Monsters/Statue/LabyrinthStatueLargeFemaleSwordSpectre                           		----		Overgrown Colossus
 Metadata/Monsters/Statue/LabyrinthStatueLargeFemaleUnarmedSpectre                         		----		Overgrown Colossus
 Metadata/Monsters/Statue/GoldStatueLargeFemaleSpearSpectre                                		----		Auric Champion
-Metadata/Monsters/Statue/GoldStatueLargeFemaleSpearGauntlet_                              		----		Auric Champion
+Metadata/Monsters/Statue/GoldStatueLargeFemaleSpearSpectre                                		----		Auric Champion
 Metadata/Monsters/Statue/GoldStatueLargeFemaleSpearSpectre                                		----		Auric Champion
 Metadata/Monsters/Statue/GoldStatueLargeFemaleSwordSpectre                                		----		Auric Colossus
-Metadata/Monsters/Statue/GoldStatueLargeFemaleSwordGauntlet                               		----		Auric Colossus
+Metadata/Monsters/Statue/GoldStatueLargeFemaleSwordSpectre                                		----		Auric Colossus
 Metadata/Monsters/Statue/GoldStatueLargeFemaleSwordSpectre                                		----		Auric Colossus
 Metadata/Monsters/Statue/GoldStatueLargeFemaleUnarmedSpectre                              		----		Auric Colossus
-Metadata/Monsters/Statue/GoldStatueLargeFemaleUnarmedGauntlet                             		----		Auric Colossus
+Metadata/Monsters/Statue/GoldStatueLargeFemaleUnarmedSpectre                              		----		Auric Colossus
 Metadata/Monsters/Statue/GoldStatueLargeFemaleUnarmedSpectre                              		----		Auric Colossus
 Metadata/Monsters/Statue/GardenStatueMaleSword                                            		----		Fencer Statue
 Metadata/Monsters/Statue/GardenStatueMaleMaul                                             		----		Maul Statue
@@ -3009,6 +3050,8 @@ Metadata/Monsters/OriathBlackguard/OriathBlackguardKitava2Hellscape             
 Metadata/Monsters/SpiderPlague/SpiderPlague2Spectre_                                      		----		Diseased Arachnid
 Metadata/Monsters/SpiderPlague/SpiderPlague3                                              		----		Plagued Arachnid
 Metadata/Monsters/SpiderPlague/SpiderPlague3AtlasUber                                     		----		Plagued Arachnid
+Metadata/Monsters/SpiderPlated/SpiderPlatedUnholySpectre                                  		----		Unholy Aberration
+Metadata/Monsters/SpiderPlated/SpiderPlatedUnholySpectre                                  		----		Unholy Aberration
 Metadata/Monsters/KaruiSlave/KaruiSlave2                                                  		----		Karui Rebel
 Metadata/Monsters/KaruiSlave/KaruiSlave3                                                  		----		Karui Rebel
 Metadata/Monsters/KaruiSlave/KaruiSlave4                                                  		----		Karui Rebel
@@ -3689,23 +3732,23 @@ Metadata/Monsters/LeagueHeist/Thug/ThugRanged1EliteSpectre                      
 Metadata/Monsters/LeagueHeist/Thug/ThugTorch1EliteSpectre                                 		----		Twisted Firestarter
 Metadata/Monsters/LeagueHeist/Robot/RobotClockworkGolemSpectre_                           		----		Ember Auto-Scout
 Metadata/Monsters/LeagueHeist/Robot/RobotClockworkGolemAtlasUber                          		----		Ember Auto-Scout
-Metadata/Monsters/LeagueHeist/Robot/RobotClockworkGolemRefinery                           		----		Ember Auto-Scout
+Metadata/Monsters/LeagueHeist/Robot/RobotClockworkGolemSpectre_                           		----		Ember Auto-Scout
 Metadata/Monsters/LeagueHeist/Robot/RobotClockworkGolemColdSpectre                        		----		Frost Auto-Scout
-Metadata/Monsters/LeagueHeist/Robot/RobotClockworkGolemColdRefinery__                     		----		Frost Auto-Scout
+Metadata/Monsters/LeagueHeist/Robot/RobotClockworkGolemColdSpectre                        		----		Frost Auto-Scout
 Metadata/Monsters/LeagueHeist/Robot/RobotDroneSpectre                                     		----		Firebuzz
 Metadata/Monsters/LeagueHeist/Robot/RobotSpiderSpectre                                    		----		Clockwork Crawler
 Metadata/Monsters/LeagueHeist/Robot/RobotPyreKnightEliteSpectre                           		----		Ashblessed Warden
 Metadata/Monsters/LeagueHeist/Robot/RobotPyreKnightEliteAtlasUber                         		----		Ashblessed Warden
-Metadata/Monsters/LeagueHeist/Robot/RobotPyreKnightEliteRefinery                          		----		Ashblessed Warden
+Metadata/Monsters/LeagueHeist/Robot/RobotPyreKnightEliteSpectre                           		----		Ashblessed Warden
 Metadata/Monsters/LeagueHeist/Robot/RobotAutomatonEliteSpectre                            		----		Auto-Enforcer
 Metadata/Monsters/LeagueHeist/Robot/RobotAutomatonEliteAtlasUber                          		----		Auto-Enforcer
-Metadata/Monsters/LeagueHeist/Robot/RobotAutomatonEliteRefinery                           		----		Auto-Enforcer
+Metadata/Monsters/LeagueHeist/Robot/RobotAutomatonEliteSpectre                            		----		Auto-Enforcer
 Metadata/Monsters/LeagueHeist/Robot/RobotStormcallerGolemEliteSpectre                     		----		Rusty Crusher
 Metadata/Monsters/LeagueHeist/Robot/RobotStormcallerGolemEliteAtlasUber                   		----		Rusty Crusher
-Metadata/Monsters/LeagueHeist/Robot/RobotStormcallerGolemEliteRefinery                    		----		Rusty Crusher
+Metadata/Monsters/LeagueHeist/Robot/RobotStormcallerGolemEliteSpectre                     		----		Rusty Crusher
 Metadata/Monsters/LeagueHeist/Robot/RobotForgeHoundEliteSpectre                           		----		GDB0-Y
 Metadata/Monsters/LeagueHeist/Robot/RobotForgeHoundEliteAtlasUber___                      		----		GDB0-Y
-Metadata/Monsters/LeagueHeist/Robot/RobotForgeHoundEliteRefinery                          		----		GDB0-Y
+Metadata/Monsters/LeagueHeist/Robot/RobotForgeHoundEliteSpectre                           		----		GDB0-Y
 Metadata/Monsters/LeagueUltimatum/Guard/GuardSpearSpectre                                 		----		Trial Guard
 Metadata/Monsters/LeagueUltimatum/Guard/GuardSpearSpectre                                 		----		Trial Guard
 Metadata/Monsters/LeagueUltimatum/Guard/GuardSpearWeakSpectre                             		----		Trial Grunt
@@ -4033,3 +4076,49 @@ Metadata/Monsters/FaridunLeague/FaridunFleshWormSpectre                         
 Metadata/Monsters/FaridunLeague/FaridunAstralAcolyteSpectre                               		----		Adherent of Zarokh
 Metadata/Monsters/FaridunLeague/FaridunAstralAcolyteMid                                   		----		Adherent of Zarokh
 Metadata/Monsters/FaridunLeague/FaridunAstralAcolyteSpectre                               		----		Adherent of Zarokh
+Metadata/Monsters/DeepwaterLeague/DrownedSkeletonEliteSpectre_                            		----		Reefclaimed Skeleton
+Metadata/Monsters/DeepwaterLeague/DrownedSkeletonMeleeSpectre                             		----		Reefclaimed Skeleton
+Metadata/Monsters/DeepwaterLeague/MantaRayParasiteSpectre                                 		----		Infested Horror
+Metadata/Monsters/DeepwaterLeague/JellyfishParasiteSpectre                                		----		Flesh Louse
+Metadata/Monsters/DeepwaterLeague/PaleFishmanSpectre_                                     		----		Angler Maw
+Metadata/Monsters/DeepwaterLeague/KelpDregHelmetSpectre_                                  		----		Seaclaimed Skeleton
+Metadata/Monsters/DeepwaterLeague/KelpDregSpectre                                         		----		Seaclaimed Sniper
+Metadata/Monsters/DeepwaterLeague/CoconutCrabSpectre                                      		----		Coconut Crab
+Metadata/Monsters/DeepwaterLeague/CoconutCrabEncounter                                    		----		Coconut Crab
+Metadata/Monsters/DeepwaterLeague/NimbleCrabSpectre                                       		----		Scuttler
+Metadata/Monsters/DeepwaterLeague/NimbleCrabEncounter                                     		----		Scuttler
+Metadata/Monsters/DeepwaterLeague/QuillCrabSpectre                                        		----		Quillshell
+Metadata/Monsters/DeepwaterLeague/QuillCrabEncounter                                      		----		Quillshell
+Metadata/Monsters/DeepwaterLeague/DrownedCrawlerSpectre                                   		----		Drowned Crawler
+Metadata/Monsters/DeepwaterLeague/DrownedCrawlerEncounter                                 		----		Drowned Crawler
+Metadata/Monsters/DeepwaterLeague/SeaHagSpectre                                           		----		Sea Hag
+Metadata/Monsters/DeepwaterLeague/SeaOtterSpectre                                         		----		Ferocious Otter
+Metadata/Monsters/DeepwaterLeague/OctopusParasiteSpectre___                               		----		Wriggling Horror
+Metadata/Monsters/DeepwaterLeague/OctopusParasiteSpectre___                               		----		Wriggling Horror
+Metadata/Monsters/DeepwaterLeague/GiantStarfishSpectre                                    		----		Hungry Maw
+Metadata/Monsters/DeepwaterLeague/GiantStarfishSpectre                                    		----		Hungry Maw
+Metadata/Monsters/DeepwaterLeague/DrownedCrewHarpoonSpectre                               		----		Lost Crewman
+Metadata/Monsters/DeepwaterLeague/DrownedCrewHarpoonBarrelEncounter                       		----		Drowned Crewman
+Metadata/Monsters/DeepwaterLeague/DrownedCrewUnarmedSpectre                               		----		Lost Crewman
+Metadata/Monsters/DeepwaterLeague/DrownedCrewAxeSpectre                                   		----		Lost Crewman
+Metadata/Monsters/DeepwaterLeague/DrownedCrewHarpoonSpectre                               		----		Lost Crewman
+Metadata/Monsters/DeepwaterLeague/DrownedCrewSlamSpectre                                  		----		Lost Boatswain
+Metadata/Monsters/DeepwaterLeague/CoralGolemSpectre                                       		----		Living Coral
+Metadata/Monsters/DeepwaterLeague/BrinerotSpearmanSpectre                                 		----		Brinerot Whaler
+Metadata/Monsters/DeepwaterLeague/BrinerotSpearmanSpectre                                 		----		Brinerot Whaler
+Metadata/Monsters/DeepwaterLeague/BrinerotSpearmanSpectre                                 		----		Brinerot Whaler
+Metadata/Monsters/DeepwaterLeague/BrinerotJavelineerSpectre                               		----		Brinerot Harpooner
+Metadata/Monsters/DeepwaterLeague/BrinerotJavelineerSpectre                               		----		Brinerot Harpooner
+Metadata/Monsters/DeepwaterLeague/BrinerotJavelineerSpectre                               		----		Brinerot Harpooner
+Metadata/Monsters/DeepwaterLeague/BrinerotSwordsmanSpectre                                		----		Brinerot Corsair
+Metadata/Monsters/DeepwaterLeague/BrinerotSwordsmanSpectre                                		----		Brinerot Corsair
+Metadata/Monsters/DeepwaterLeague/BrinerotSwordsmanSpectre                                		----		Brinerot Corsair
+Metadata/Monsters/AbyssTwoLeague/Cocoon                                                   		----		Lightless Abomination
+Metadata/Monsters/AbyssTwoLeague/HuHuGrubLarvaeDeepwater                                  		----		Flesh Larva
+Metadata/Monsters/AbyssTwoLeague/HuHuGrubLarvaeLarge                                      		----		Flesh Larva
+Metadata/Monsters/AbyssTwoLeague/PaleWalker01                                             		----		Abyssal Walker
+Metadata/Monsters/AbyssTwoLeague/PaleWalker03                                             		----		Abyssal Strangler
+Metadata/Monsters/AbyssTwoLeague/SerpentClanCaster                                        		----		Lightless Serpent
+Metadata/Monsters/AbyssTwoLeague/FungalArtillery_                                         		----		Fungoid of the Pit
+Metadata/Monsters/AbyssTwoLeague/CorpseStrider                                            		----		Strider of the Pit
+Metadata/Monsters/AbyssTwoLeague/Tarhulk                                                  		----		Blackblooded Tarhulk

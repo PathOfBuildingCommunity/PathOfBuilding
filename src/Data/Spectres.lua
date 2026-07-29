@@ -38557,37 +38557,7 @@ minions["Metadata/Monsters/Undying/UndyingOutcastPunctureLabyrinth"] = {
 	},
 }
 -- Unholy Aberration
-minions["Metadata/Monsters/SpiderPlated/SpiderPlatedUnholyEmerge"] = {
-	name = "Unholy Aberration",
-	monsterTags = { "animal_claw_weapon", "beast", "flesh_armour", "insect_blood", "is_unarmed", "medium_height", "medium_movement", "melee", "physical_affinity", "spider", },
-	life = 3.6,
-	fireResist = 0,
-	coldResist = 0,
-	lightningResist = 0,
-	chaosResist = 0,
-	damage = 1.6,
-	damageSpread = 0.2,
-	attackTime = 1.95,
-	attackRange = 18,
-	accuracy = 1,
-	baseMovementSpeed = 37,
-	monsterCategory = "Beast",
-	spawnLocation = {
-	},
-	skillList = {
-		"Melee",
-	},
-	modList = {
-		-- MonsterNoDropsOrExperience [monster_no_drops_or_experience = 1]
-		-- CannotBeAugmented [cannot_have_azmeri_dust = 1]
-		-- CannotBeAugmented [cant_possess_this = 1]
-		-- CannotBeAugmented [cant_touch_this = 1]
-		-- CannotBeAugmented [cannot_be_tagged_by_sentinel = 1]
-		-- CannotBeAugmented [cannot_be_afflicted = 1]
-		-- CannotBeAugmented [cannot_have_affliction_mods = 1]
-	},
-}
-minions["Metadata/Monsters/SpiderPlated/SpiderPlatedUnholySentinel_"] = {
+minions["Metadata/Monsters/SpiderPlated/SpiderPlatedUnholySpectre"] = {
 	name = "Unholy Aberration",
 	monsterTags = { "animal_claw_weapon", "beast", "flesh_armour", "insect_blood", "is_unarmed", "medium_height", "medium_movement", "melee", "physical_affinity", "spider", },
 	life = 3.6,
@@ -57807,3 +57777,1176 @@ minions["Metadata/Monsters/FaridunLeague/FaridunAstralAcolyteHigh"] = {
 		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
 	},
 }
+-- Allflame League
+minions["Metadata/Monsters/DeepwaterLeague/DrownedSkeletonEliteSpectre_"] = {
+	name = "Reefclaimed Skeleton",
+	monsterTags = { "humanoid", "melee", "not_dex", "not_int", "red_blood", "undead", "very_slow_movement", "zombie", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.95,
+	armour = 0.2,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.3,
+	damageSpread = 0,
+	attackTime = 1.5,
+	attackRange = 10,
+	accuracy = 1,
+	weaponType1 = "One Handed Sword",
+	baseMovementSpeed = 11,
+	monsterCategory = "Undead",
+	spawnLocation = {
+		"Coral Forest (Act 1)",
+		"Coral Reef (Act 1)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"MPWDeepwaterDrownedSkeletonPocketSand",
+		"MeleeAtAnimationSpeedDrownedStab",
+	},
+	modList = {
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 26]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
+	},
+}
+minions["Metadata/Monsters/DeepwaterLeague/DrownedSkeletonMeleeSpectre"] = {
+	name = "Reefclaimed Skeleton",
+	monsterTags = { "humanoid", "melee", "red_blood", "undead", "very_slow_movement", "zombie", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1,
+	damageSpread = 0,
+	attackTime = 1.5,
+	attackRange = 10,
+	accuracy = 1,
+	baseMovementSpeed = 11,
+	monsterCategory = "Undead",
+	spawnLocation = {
+		"Coral Forest (Act 1)",
+		"Coral Reef (Act 1)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+	},
+	modList = {
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 26]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
+	},
+}
+minions["Metadata/Monsters/DeepwaterLeague/MantaRayParasiteSpectre"] = {
+	name = "Infested Horror",
+	monsterTags = { "beast", "medium_movement", "melee", "not_dex", "not_int", "red_blood", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 3,
+	armour = 0.2,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.2,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 25,
+	accuracy = 1,
+	baseMovementSpeed = 29,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"Coral Forest (Act 1)",
+		"Coral Reef (Act 1)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"DoLiterallyNothing",
+	},
+	modList = {
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 26]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
+	},
+}
+minions["Metadata/Monsters/DeepwaterLeague/JellyfishParasiteSpectre"] = {
+	name = "Flesh Louse",
+	monsterTags = { "beast", "crustacean_beast", "medium_movement", "melee", "not_dex", "not_int", "red_blood", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.15,
+	armour = 0.2,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 8,
+	accuracy = 1,
+	baseMovementSpeed = 37,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"Coral Forest (Act 1)",
+		"Coral Reef (Act 1)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"DoLiterallyNothing",
+		"MPWDeepwaterJellyfishParasiteSpit",
+	},
+	modList = {
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 26]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
+	},
+}
+minions["Metadata/Monsters/DeepwaterLeague/PaleFishmanSpectre_"] = {
+	name = "Angler Maw",
+	monsterTags = { "humanoid", "melee", "not_dex", "not_int", "red_blood", "undead", "very_slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 2.52,
+	armour = 0.2,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.4,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 12,
+	accuracy = 1,
+	baseMovementSpeed = 11,
+	monsterCategory = "Undead",
+	spawnLocation = {
+		"Coral Forest (Act 1)",
+		"Coral Reef (Act 1)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"DoLiterallyNothing",
+	},
+	modList = {
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 26]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
+	},
+}
+minions["Metadata/Monsters/DeepwaterLeague/KelpDregHelmetSpectre_"] = {
+	name = "Seaclaimed Skeleton",
+	monsterTags = { "humanoid", "melee", "undead", "very_slow_movement", "water", "zombie", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.95,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.3,
+	damageSpread = 0,
+	attackTime = 1.5,
+	attackRange = 11,
+	accuracy = 1,
+	baseMovementSpeed = 11,
+	monsterCategory = "Undead",
+	spawnLocation = {
+		"Sandy Seabed (Act 1)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"DoLiterallyNothing",
+	},
+	modList = {
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 26]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
+	},
+}
+minions["Metadata/Monsters/DeepwaterLeague/KelpDregSpectre"] = {
+	name = "Seaclaimed Sniper",
+	monsterTags = { "humanoid", "ranged", "undead", "very_slow_movement", "water", "zombie", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.3,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.3,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 40,
+	accuracy = 1,
+	baseMovementSpeed = 11,
+	monsterCategory = "Undead",
+	spawnLocation = {
+		"Sandy Seabed (Act 1)",
+	},
+	skillList = {
+		"MPWKelpDregSnipe",
+		"MPWKelpDregAttack",
+		"DoLiterallyNothing",
+	},
+	modList = {
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 26]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
+	},
+}
+minions["Metadata/Monsters/DeepwaterLeague/CoconutCrabSpectre"] = {
+	name = "Coconut Crab",
+	monsterTags = { "beast", "crustacean_beast", "extra_extra_small_height", "hard_armour", "is_unarmed", "melee", "not_dex", "not_int", "physical_affinity", "puncturing_weapon", "red_blood", "slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1,
+	armour = 0.5,
+	fireResist = 0,
+	coldResist = 40,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 7,
+	accuracy = 1,
+	baseMovementSpeed = 28,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"Sandy Seabed (Act 1)",
+		"The Cavern of Wrath (Act 1)",
+		"The Coast (Act 1)",
+		"The Flooded Depths (Act 1)",
+		"The Tidal Island (Act 1)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"DoLiterallyNothing",
+	},
+	modList = {
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 26]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
+	},
+}
+minions["Metadata/Monsters/DeepwaterLeague/NimbleCrabSpectre"] = {
+	name = "Scuttler",
+	monsterTags = { "beast", "crustacean_beast", "extra_extra_small_height", "hard_armour", "is_unarmed", "melee", "not_dex", "not_int", "physical_affinity", "puncturing_weapon", "red_blood", "slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1,
+	armour = 0.3,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 7,
+	accuracy = 1,
+	baseMovementSpeed = 28,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"Sandy Seabed (Act 1)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"DoLiterallyNothing",
+	},
+	modList = {
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 26]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
+	},
+}
+minions["Metadata/Monsters/DeepwaterLeague/QuillCrabSpectre"] = {
+	name = "Quillshell",
+	monsterTags = { "beast", "crustacean_beast", "extra_extra_small_height", "hard_armour", "is_unarmed", "not_dex", "not_int", "physical_affinity", "puncturing_weapon", "red_blood", "slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 0.7,
+	armour = 0.2,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.2,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 8,
+	accuracy = 1,
+	baseMovementSpeed = 28,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"MPWQuillCrabIceProjectile",
+		"GAQuillCrabSpikeExplosion",
+		"SODeepwaterQuillCrabStuckQuill",
+		"MeleeAtAnimationSpeed",
+		"DoLiterallyNothing",
+	},
+	modList = {
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 26]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
+	},
+}
+minions["Metadata/Monsters/DeepwaterLeague/DrownedCrawlerSpectre"] = {
+	name = "Drowned Crawler",
+	monsterTags = { "humanoid", "is_unarmed", "melee", "not_int", "red_blood", "undead", "very_slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.2,
+	armour = 0.2,
+	evasion = 0.4,
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1.2,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 9,
+	accuracy = 1,
+	baseMovementSpeed = 10,
+	monsterCategory = "Undead",
+	spawnLocation = {
+		"Coral Forest (Act 1)",
+		"Coral Reef (Act 1)",
+		"Sandy Seabed (Act 1)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"EASDeepwaterCrawlerBuff",
+		"DTTDeepwaterCrawlerLeap",
+		"GADeepwaterCrawlerLeapSwipe",
+		"DoLiterallyNothing",
+	},
+	modList = {
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 26]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
+	},
+}
+minions["Metadata/Monsters/DeepwaterLeague/SeaHagSpectre"] = {
+	name = "Sea Hag",
+	monsterTags = { "caster", "cold_affinity", "humanoid", "is_unarmed", "not_dex", "not_str", "undead", "very_slow_movement", "water", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.8,
+	energyShield = 0.4,
+	fireResist = 0,
+	coldResist = 75,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.8,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 13,
+	accuracy = 1,
+	baseMovementSpeed = 9,
+	monsterCategory = "Undead",
+	spawnLocation = {
+		"Coral Forest (Act 1)",
+		"Coral Reef (Act 1)",
+		"Sandy Seabed (Act 1)",
+	},
+	skillList = {
+		"MMSDeepwaterSeaHagRollingMortar",
+		"SSMDeepwaterHagDrowned",
+		"ABTTDeepwaterSeaHagVolatileBuff",
+		"GSDeepwaterHagVolatileExplode",
+		"DoLiterallyNothing",
+	},
+	modList = {
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 26]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
+	},
+}
+minions["Metadata/Monsters/DeepwaterLeague/SeaOtterSpectre"] = {
+	name = "Ferocious Otter",
+	monsterTags = { "beast", "cold_affinity", "extra_small_height", "fast_movement", "is_unarmed", "not_int", "not_str", "red_blood", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.61,
+	evasion = 0.4,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.15,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 10,
+	accuracy = 1,
+	baseMovementSpeed = 38,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"Sandy Seabed (Act 1)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed2",
+		"MeleeAtAnimationSpeed",
+		"DoLiterallyNothing",
+	},
+	modList = {
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 26]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
+	},
+}
+minions["Metadata/Monsters/DeepwaterLeague/OctopusParasiteSpectre___"] = {
+	name = "Wriggling Horror",
+	monsterTags = { "beast", "is_unarmed", "lightning_affinity", "medium_movement", "not_str", "red_blood", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.04,
+	energyShield = 0.2,
+	evasion = 0.2,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 1.3,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 14,
+	accuracy = 1,
+	baseMovementSpeed = 35,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"Coral Forest (Act 1)",
+		"Coral Reef (Act 1)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"GTDeepwaterParasiteZap",
+		"MMSDeepwaterParasiteZapBurst",
+		"GADeepwaterParasiteSlam",
+	},
+	modList = {
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 26]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
+	},
+}
+minions["Metadata/Monsters/DeepwaterLeague/GiantStarfishSpectre"] = {
+	name = "Hungry Maw",
+	monsterTags = { "beast", "not_dex", "not_int", "red_blood", "very_slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 2.5,
+	armour = 0.6,
+	fireResist = 0,
+	coldResist = 40,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 2.5,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 24,
+	accuracy = 1,
+	baseMovementSpeed = 3,
+	monsterCategory = "Beast",
+	spawnLocation = {
+		"Sandy Seabed (Act 1)",
+	},
+	skillList = {
+		"MeleeGiantStarfishTentacle1",
+		"MeleeGiantStarfishTentacle2",
+		"MeleeGiantStarfishTentacle3",
+		"MeleeGiantStarfishTentacle4",
+		"MeleeGiantStarfishTentacle5",
+		"MeleeGiantStarfishTentacleSlam1",
+		"MeleeGiantStarfishTentacleSlam2",
+		"MeleeGiantStarfishTentacleSlam3",
+		"MeleeGiantStarfishTentacleSlam4",
+		"MeleeGiantStarfishTentacleSlam5",
+		"DoLiterallyNothing",
+		"CGEDeepwaterStarfishPoisonCloud",
+		"GSDeepwaterStarfishPoisonCloud",
+		"MMSDeepwaterGiantStarfishMortar1",
+		"MMSDeepwaterGiantStarfishMortar2",
+		"MMSDeepwaterGiantStarfishMortar3",
+		"MMSDeepwaterGiantStarfishMortar4",
+		"MMSDeepwaterGiantStarfishMortar5",
+	},
+	modList = {
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 26]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
+	},
+}
+minions["Metadata/Monsters/DeepwaterLeague/DrownedCrewUnarmedSpectre"] = {
+	name = "Lost Crewman",
+	monsterTags = { "humanoid", "is_unarmed", "medium_height", "red_blood", "undead", "very_slow_movement", "zombie", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 9,
+	accuracy = 1,
+	baseMovementSpeed = 8,
+	monsterCategory = "Undead",
+	spawnLocation = {
+		"Coral Forest (Act 1)",
+		"Coral Reef (Act 1)",
+		"Sandy Seabed (Act 1)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"EASDeepwaterDrownedVolatile",
+		"DoLiterallyNothing",
+	},
+	modList = {
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 26]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
+	},
+}
+minions["Metadata/Monsters/DeepwaterLeague/DrownedCrewUnarmedBarrelEncounter"] = {
+	name = "Drowned Crewman",
+	monsterTags = { "humanoid", "is_unarmed", "medium_height", "red_blood", "undead", "very_slow_movement", "zombie", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 9,
+	accuracy = 1,
+	baseMovementSpeed = 8,
+	monsterCategory = "Undead",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"EASDeepwaterDrownedVolatile",
+		"DoLiterallyNothing",
+	},
+	modList = {
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 26]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
+	},
+}
+minions["Metadata/Monsters/DeepwaterLeague/DrownedCrewUnarmedGraveEncounter"] = {
+	name = "Bloated Crewman",
+	monsterTags = { "humanoid", "is_unarmed", "medium_height", "red_blood", "undead", "very_slow_movement", "zombie", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 2.4,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 2.4,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 9,
+	accuracy = 1,
+	baseMovementSpeed = 8,
+	monsterCategory = "Undead",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"EASDeepwaterDrownedVolatile",
+		"DoLiterallyNothing",
+	},
+	modList = {
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 26]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
+	},
+}
+minions["Metadata/Monsters/DeepwaterLeague/DrownedCrewAxeSpectre"] = {
+	name = "Lost Crewman",
+	monsterTags = { "humanoid", "medium_height", "red_blood", "undead", "very_slow_movement", "zombie", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 9,
+	accuracy = 1,
+	weaponType1 = "One Handed Axe",
+	baseMovementSpeed = 8,
+	monsterCategory = "Undead",
+	spawnLocation = {
+		"Coral Forest (Act 1)",
+		"Coral Reef (Act 1)",
+		"Sandy Seabed (Act 1)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"DoLiterallyNothing",
+	},
+	modList = {
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 26]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
+	},
+}
+minions["Metadata/Monsters/DeepwaterLeague/DrownedCrewAxeBarrelEncounter"] = {
+	name = "Drowned Crewman",
+	monsterTags = { "humanoid", "medium_height", "red_blood", "undead", "very_slow_movement", "zombie", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 9,
+	accuracy = 1,
+	weaponType1 = "One Handed Axe",
+	baseMovementSpeed = 8,
+	monsterCategory = "Undead",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"DoLiterallyNothing",
+	},
+	modList = {
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 26]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
+	},
+}
+minions["Metadata/Monsters/DeepwaterLeague/DrownedCrewSlamSpectre"] = {
+	name = "Lost Boatswain",
+	monsterTags = { "humanoid", "medium_height", "not_dex", "not_int", "red_blood", "undead", "very_slow_movement", "zombie", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 2.7,
+	armour = 0.2,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.8,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 35,
+	accuracy = 1,
+	baseMovementSpeed = 7,
+	monsterCategory = "Undead",
+	spawnLocation = {
+		"Coral Forest (Act 1)",
+		"Coral Reef (Act 1)",
+		"Sandy Seabed (Act 1)",
+	},
+	skillList = {
+		"EAADeepwaterDrownedSlam",
+		"GADeepwaterDrownedSlamImpact",
+		"GADeepwaterDrownedSlamAftershock",
+		"DoLiterallyNothing",
+	},
+	modList = {
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 26]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
+	},
+}
+minions["Metadata/Monsters/DeepwaterLeague/CoralGolemSpectre"] = {
+	name = "Living Coral",
+	monsterTags = { "construct", "golem", "melee", "mud_blood", "not_dex", "not_int", "very_slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.8,
+	armour = 0.75,
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1.2,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 12,
+	accuracy = 1,
+	baseMovementSpeed = 17,
+	monsterCategory = "Construct",
+	spawnLocation = {
+		"Coral Forest (Act 1)",
+		"Coral Reef (Act 1)",
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"GADeepwaterCoralGolemRollDamage",
+		"SODeepwaterCoralGolemSlamGround",
+		"GADeepwaterCoralGolemGroundSlam",
+		"GADeepwaterCoralGolemSlamShock",
+		"EAADeepwaterCoralGolemRoll",
+		"DoLiterallyNothing",
+		"MPWDeepwaterCoralGolemRollProj",
+		"GADeepwaterGolemProjImpact",
+	},
+	modList = {
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 26]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
+	},
+}
+minions["Metadata/Monsters/DeepwaterLeague/BrinerotSpearmanSpectre"] = {
+	name = "Brinerot Whaler",
+	monsterTags = { "has_one_handed_melee", "human", "humanoid", "medium_height", "melee", "not_int", "not_str", "red_blood", "slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.4,
+	evasion = 0.2,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.61,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 20,
+	accuracy = 1,
+	baseMovementSpeed = 28,
+	monsterCategory = "Humanoid",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"MeleeAtAnimationSpeed2",
+	},
+	modList = {
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 26]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
+	},
+}
+minions["Metadata/Monsters/DeepwaterLeague/BrinerotJavelineerSpectre"] = {
+	name = "Brinerot Harpooner",
+	monsterTags = { "human", "humanoid", "medium_height", "not_int", "not_str", "ranged", "red_blood", "slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.1,
+	evasion = 0.4,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.38,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 15,
+	accuracy = 1,
+	baseMovementSpeed = 28,
+	monsterCategory = "Humanoid",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"MPWDeepwaterJavelineerNetThrow",
+		"SODeepwaterJavelineerNet",
+		"MPWDeepwaterJavelineerJavelinThrow",
+		"GADeepwaterJavelineerNetZap",
+	},
+	modList = {
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 26]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
+	},
+}
+minions["Metadata/Monsters/DeepwaterLeague/BrinerotSwordsmanSpectre"] = {
+	name = "Brinerot Corsair",
+	monsterTags = { "has_one_handed_melee", "human", "humanoid", "medium_height", "melee", "not_dex", "not_int", "red_blood", "slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.2,
+	armour = 0.2,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.38,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 12,
+	accuracy = 1,
+	baseMovementSpeed = 28,
+	monsterCategory = "Humanoid",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+	},
+	modList = {
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 26]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -50]
+	},
+}
+minions["Metadata/Monsters/AbyssTwoLeague/Cretin"] = {
+	name = "Blackblooded Cretin",
+	monsterTags = { "abyss_blood", "abyssal", "demon", "medium_height", "medium_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 0.8,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 0.8,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 7,
+	accuracy = 1,
+	baseMovementSpeed = 37,
+	monsterCategory = "Demon",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+	},
+	modList = {
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 24]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -40]
+		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -50]
+	},
+}
+minions["Metadata/Monsters/AbyssTwoLeague/Cocoon"] = {
+	name = "Lightless Abomination",
+	monsterTags = { "abyss_blood", "abyssal", "demon", "large_height", "not_dex", "not_int", "slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 2.28,
+	armour = 0.4,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.33,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 18,
+	accuracy = 1,
+	baseMovementSpeed = 23,
+	monsterCategory = "Demon",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed2",
+		"MeleeAtAnimationSpeedCombo",
+		"MPSCocoonCrystalMortar",
+		"SOCocoonCrystalSpawn",
+		"GSCocoonAbyssCrystalZap",
+	},
+	modList = {
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 24]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -40]
+		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -50]
+	},
+}
+minions["Metadata/Monsters/AbyssTwoLeague/HuHuGrubLarvae"] = {
+	name = "Flesh Larva",
+	monsterTags = { "abyss_blood", "abyssal", "beast", "insect", "medium_height", "melee", "slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 0.7,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 0.7,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 6,
+	accuracy = 1,
+	baseMovementSpeed = 28,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+	},
+	modList = {
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 24]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -40]
+		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -50]
+	},
+}
+minions["Metadata/Monsters/AbyssTwoLeague/HuHuGrubLarvaeLarge"] = {
+	name = "Flesh Larva",
+	monsterTags = { "abyss_blood", "abyssal", "beast", "insect", "medium_height", "melee", "not_dex", "not_int", "ranged", "slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.1,
+	armour = 0.2,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.1,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 10,
+	accuracy = 1,
+	baseMovementSpeed = 28,
+	monsterCategory = "Beast",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"MPWAbyssGrubProjectile",
+	},
+	modList = {
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 24]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -40]
+		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -50]
+	},
+}
+minions["Metadata/Monsters/AbyssTwoLeague/PaleWalker01"] = {
+	name = "Abyssal Walker",
+	monsterTags = { "abyss_blood", "abyssal", "demon", "medium_height", "very_slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 11,
+	accuracy = 1,
+	baseMovementSpeed = 16,
+	monsterCategory = "Demon",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"MPSAbyssPaleWalkerOnDeathProj",
+		"GSAbyssPaleWalkerProjImpact",
+	},
+	modList = {
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 24]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -40]
+		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -50]
+	},
+}
+minions["Metadata/Monsters/AbyssTwoLeague/PaleWalker03"] = {
+	name = "Abyssal Strangler",
+	monsterTags = { "abyss_blood", "abyssal", "demon", "medium_height", "very_slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1,
+	damageSpread = 0,
+	attackTime = 1.5,
+	attackRange = 11,
+	accuracy = 1,
+	baseMovementSpeed = 16,
+	monsterCategory = "Demon",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"MPSAbyssPaleWalkerBasicProj",
+	},
+	modList = {
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 24]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -40]
+		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -50]
+	},
+}
+minions["Metadata/Monsters/AbyssTwoLeague/Collector"] = {
+	name = "Blackblooded Proboscite",
+	monsterTags = { "abyss_blood", "abyssal", "demon", "medium_height", "medium_movement", "undead", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.15,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.15,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 8,
+	accuracy = 1,
+	baseMovementSpeed = 32,
+	monsterCategory = "Demon",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"MeleeAtAnimationSpeed2",
+		"CGECollectorAbyssGround",
+		"GSCollectorAbyssExplodeOnDeath",
+	},
+	modList = {
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 24]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -40]
+		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -50]
+	},
+}
+minions["Metadata/Monsters/AbyssTwoLeague/SerpentClanCaster"] = {
+	name = "Lightless Serpent",
+	monsterTags = { "abyss_blood", "abyssal", "demon", "fast_movement", "medium_height", "not_dex", "not_str", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.4,
+	energyShield = 0.4,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.4,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 14,
+	accuracy = 1,
+	baseMovementSpeed = 44,
+	monsterCategory = "Demon",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"GASerpentClanTailSweep",
+		"GSSerpentClanCrystalExplode",
+		"GTSerpentClanSummonCrystals",
+		"SOSerpentClanCasterCrystal",
+		"EAASerpentClanDive",
+		"MAASSerpentClanUnburrow",
+		"GSSerpentClanUnburrowDetonate",
+	},
+	modList = {
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 24]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -40]
+		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -50]
+	},
+}
+minions["Metadata/Monsters/AbyssTwoLeague/FungalArtillery_"] = {
+	name = "Fungoid of the Pit",
+	monsterTags = { "abyss_blood", "abyssal", "demon", "not_int", "not_str", "small_height", "very_slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 0.85,
+	evasion = 0.2,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 0.85,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 9,
+	accuracy = 1,
+	baseMovementSpeed = 8,
+	monsterCategory = "Demon",
+	spawnLocation = {
+	},
+	skillList = {
+		"MPSFungalArtilleryProjectile",
+		"GSFungalArtilleryImpact",
+	},
+	modList = {
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 24]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -40]
+		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -50]
+	},
+}
+minions["Metadata/Monsters/AbyssTwoLeague/CorpseStrider"] = {
+	name = "Strider of the Pit",
+	monsterTags = { "abyss_blood", "abyssal", "demon", "lightning_affinity", "medium_movement", "not_dex", "not_int", "ranged", "undead", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.9,
+	armour = 0.4,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.9,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 14,
+	accuracy = 1,
+	baseMovementSpeed = 32,
+	monsterCategory = "Demon",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed60",
+		"MeleeAtAnimationSpeed2",
+		"EAACorpseStriderLightningToss",
+		"GSCorpseStriderBolt",
+		"EAACorpseStriderCrystalStab",
+		"SOCorpseStriderCrystalBlade",
+		"MPWCorpseStriderSpearThrow",
+		"GSCorpseWalkerCrystalDetonator",
+		"GSCorpseWalkerCrystalExplosion",
+		"GACorpseStriderBladeHit",
+		"GACorpseStriderKnockbackDash",
+	},
+	modList = {
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 24]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -40]
+		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -50]
+	},
+}
+minions["Metadata/Monsters/AbyssTwoLeague/AbyssTwoRumCarrier"] = {
+	name = "Blackblooded Blisterboil",
+	monsterTags = { "abyss_blood", "abyssal", "demon", "fast_movement", "medium_height", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.1,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.1,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 7,
+	accuracy = 1,
+	baseMovementSpeed = 40,
+	monsterCategory = "Demon",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"GSAbyssRumCarrierExplosion",
+	},
+	modList = {
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 24]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -40]
+		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -50]
+	},
+}
+minions["Metadata/Monsters/AbyssTwoLeague/Tarhulk"] = {
+	name = "Blackblooded Tarhulk",
+	monsterTags = { "abyss_blood", "abyssal", "demon", "large_height", "large_model", "not_dex", "not_int", "very_slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 2.85,
+	armour = 0.4,
+	fireResist = 0,
+	coldResist = 40,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.9,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 16,
+	accuracy = 1,
+	baseMovementSpeed = 11,
+	monsterCategory = "Demon",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"EASTarhulkCrystalSpikes",
+		"GSTarhulkSpikeStab",
+		"GATarhulkSlam",
+	},
+	modList = {
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 24]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -40]
+		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -50]
+	},
+}
+minions["Metadata/Monsters/AbyssTwoLeague/PrimordialMonster02"] = {
+	name = "Hound of the Pit",
+	monsterTags = { "abyss_blood", "abyssal", "demon", "medium_height", "medium_movement", "not_int", "not_str", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 0.6,
+	evasion = 0.2,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 0.6,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 7,
+	accuracy = 1,
+	baseMovementSpeed = 35,
+	monsterCategory = "Demon",
+	spawnLocation = {
+	},
+	skillList = {
+		"MeleeAtAnimationSpeed",
+	},
+	modList = {
+		-- set_additional_life_scaling_index [set_additional_life_scaling_index = 24]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -40]
+		-- monster_beyond_portal_chance_+%_final [monster_beyond_portal_chance_+%_final = -50]
+	},
+}
+MetadataMonsters/AbyssTwoLeague/PrimordialMonster03

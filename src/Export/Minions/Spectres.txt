@@ -2565,9 +2565,7 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/Undying/UndyingOutcastPunctureLabyrinth
 #emit
 -- Unholy Aberration
-#spectre Metadata/Monsters/SpiderPlated/SpiderPlatedUnholyEmerge
-#emit
-#spectre Metadata/Monsters/SpiderPlated/SpiderPlatedUnholySentinel_
+#spectre Metadata/Monsters/SpiderPlated/SpiderPlatedUnholySpectre
 #emit
 -- Worm
 #spectre Metadata/Monsters/BloodWorm/BloodWorm
@@ -3944,3 +3942,81 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/FaridunLeague/FaridunAstralAcolyteHigh
 #flags recommendedSpectre
 #emit
+-- Allflame League
+#spectre Metadata/Monsters/DeepwaterLeague/DrownedSkeletonEliteSpectre_
+#emit
+#spectre Metadata/Monsters/DeepwaterLeague/DrownedSkeletonMeleeSpectre
+#emit
+#spectre Metadata/Monsters/DeepwaterLeague/MantaRayParasiteSpectre
+#emit
+#spectre Metadata/Monsters/DeepwaterLeague/JellyfishParasiteSpectre
+#emit
+#spectre Metadata/Monsters/DeepwaterLeague/PaleFishmanSpectre_
+#emit
+#spectre Metadata/Monsters/DeepwaterLeague/KelpDregHelmetSpectre_
+#emit
+#spectre Metadata/Monsters/DeepwaterLeague/KelpDregSpectre
+#emit
+#spectre Metadata/Monsters/DeepwaterLeague/CoconutCrabSpectre
+#emit
+#spectre Metadata/Monsters/DeepwaterLeague/NimbleCrabSpectre
+#emit
+#spectre Metadata/Monsters/DeepwaterLeague/QuillCrabSpectre
+#emit
+#spectre Metadata/Monsters/DeepwaterLeague/DrownedCrawlerSpectre
+#emit
+#spectre Metadata/Monsters/DeepwaterLeague/SeaHagSpectre
+#emit
+#spectre Metadata/Monsters/DeepwaterLeague/SeaOtterSpectre
+#emit
+#spectre Metadata/Monsters/DeepwaterLeague/OctopusParasiteSpectre___
+#emit
+#spectre Metadata/Monsters/DeepwaterLeague/GiantStarfishSpectre
+#emit
+#spectre Metadata/Monsters/DeepwaterLeague/DrownedCrewUnarmedSpectre
+#emit
+#spectre Metadata/Monsters/DeepwaterLeague/DrownedCrewUnarmedBarrelEncounter
+#emit
+#spectre Metadata/Monsters/DeepwaterLeague/DrownedCrewUnarmedGraveEncounter
+#emit
+#spectre Metadata/Monsters/DeepwaterLeague/DrownedCrewAxeSpectre
+#emit
+#spectre Metadata/Monsters/DeepwaterLeague/DrownedCrewAxeBarrelEncounter
+#emit
+#spectre Metadata/Monsters/DeepwaterLeague/DrownedCrewSlamSpectre
+#emit
+#spectre Metadata/Monsters/DeepwaterLeague/CoralGolemSpectre
+#emit
+#spectre Metadata/Monsters/DeepwaterLeague/BrinerotSpearmanSpectre
+#emit
+#spectre Metadata/Monsters/DeepwaterLeague/BrinerotJavelineerSpectre
+#emit
+#spectre Metadata/Monsters/DeepwaterLeague/BrinerotSwordsmanSpectre
+#emit
+#spectre Metadata/Monsters/AbyssTwoLeague/Cretin
+#emit
+#spectre Metadata/Monsters/AbyssTwoLeague/Cocoon
+#emit
+#spectre Metadata/Monsters/AbyssTwoLeague/HuHuGrubLarvae
+#emit
+#spectre Metadata/Monsters/AbyssTwoLeague/HuHuGrubLarvaeLarge
+#emit
+#spectre Metadata/Monsters/AbyssTwoLeague/PaleWalker01
+#emit
+#spectre Metadata/Monsters/AbyssTwoLeague/PaleWalker03
+#emit
+#spectre Metadata/Monsters/AbyssTwoLeague/Collector
+#emit
+#spectre Metadata/Monsters/AbyssTwoLeague/SerpentClanCaster
+#emit
+#spectre Metadata/Monsters/AbyssTwoLeague/FungalArtillery_
+#emit
+#spectre Metadata/Monsters/AbyssTwoLeague/CorpseStrider
+#emit
+#spectre Metadata/Monsters/AbyssTwoLeague/AbyssTwoRumCarrier
+#emit
+#spectre Metadata/Monsters/AbyssTwoLeague/Tarhulk
+#emit
+#spectre Metadata/Monsters/AbyssTwoLeague/PrimordialMonster02
+#emit
+MetadataMonsters/AbyssTwoLeague/PrimordialMonster03
