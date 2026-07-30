@@ -43,6 +43,8 @@ local SkillListClass = newClass("SkillListControl", "ListControl", function(self
 			skillsTab:SetDisplayGroup()
 			skillsTab:AddUndoState()
 			skillsTab.build.buildFlag = true
+			skillsTab.proxyGroupsDirty = true
+			skillsTab:UpdateProxyGroups()
 			self.selIndex = nil
 			self.selValue = nil
 		end)
@@ -62,6 +64,8 @@ local SkillListClass = newClass("SkillListControl", "ListControl", function(self
 		skillsTab:SetDisplayGroup(newGroup)
 		skillsTab:AddUndoState()
 		skillsTab.build.buildFlag = true
+		skillsTab.proxyGroupsDirty = true
+		skillsTab:UpdateProxyGroups()
 		return skillsTab.gemSlots[1].nameSpec
 	end)
 	for k, x in pairs(slot_map) do
@@ -173,6 +177,8 @@ function SkillListClass:OnSelDelete(index, socketGroup)
 		updateActiveSocketGroupIndex()
 		self.skillsTab:AddUndoState()
 		self.skillsTab.build.buildFlag = true
+		self.skillsTab.proxyGroupsDirty = true
+		self.skillsTab:UpdateProxyGroups()
 		self.selValue = nil
 	else
 		main:OpenConfirmPopup("Delete Socket Group", "Are you sure you want to delete '"..socketGroup.displayLabel.."'?", "Delete", function()
@@ -184,6 +190,8 @@ function SkillListClass:OnSelDelete(index, socketGroup)
 			updateActiveSocketGroupIndex()
 			self.skillsTab:AddUndoState()
 			self.skillsTab.build.buildFlag = true
+			self.skillsTab.proxyGroupsDirty = true
+			self.skillsTab:UpdateProxyGroups()
 			self.selValue = nil
 		end)
 	end
