@@ -1104,7 +1104,10 @@ function ImportTabClass:ImportToLoadout(loadoutName)
 		end
 		if not targetConfigSetId then
 			local targetConfigSet = self.build.configTab:NewConfigSet(nil, loadoutName)
+			t_insert(self.build.configTab.configSetOrderList, targetConfigSet.id)
 			targetConfigSetId = targetConfigSet.id
+		elseif not isValueInArray(self.build.configTab.configSetOrderList, targetConfigSetId) then
+			t_insert(self.build.configTab.configSetOrderList, targetConfigSetId)
 		end
 		self.build.configTab:SetActiveConfigSet(targetConfigSetId)
 	end
