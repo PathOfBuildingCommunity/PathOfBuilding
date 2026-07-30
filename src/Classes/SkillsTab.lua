@@ -1470,14 +1470,6 @@ function SkillsTabClass:UpdateProxyGroups(force)
 			end,
 		},
 		{
-			id = "Vaal",
-			label = "Vaal",
-			items = {},
-			match = function(ge)
-				return hasSkillType(ge, SkillType.Vaal)
-			end,
-		},
-		{
 			id = "Curse",
 			label = "Curse",
 			items = {},
