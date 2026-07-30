@@ -612,7 +612,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					else
 						-- avoid adding comparisons for number inputs as the
 						-- input gets applied as soon as the user types, which
-						-- means comparisons dont make sense here
+						-- means comparisons don't make sense here
 						if not self.calcFunc then
 							self.calcFunc, self.calcBase = self.build.calcsTab:GetMiscCalculator(self.build)
 						end
