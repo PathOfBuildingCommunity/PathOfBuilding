@@ -700,6 +700,23 @@ function ModStoreClass:EvalMod(mod, cfg, globalLimits)
 					t_insert(matches, item.name and item.name:lower() == tag.nameCond:lower())
 				end
 			end
+			if tag.socketCond then
+				for _, item in pairs(items) do
+					local matchSockets = tag.socketCond
+					for _, socket in ipairs(item.sockets) do
+						local i = 1
+						
+						while socket.color ~= matchSockets:sub(i, i) and i < #matchSockets do
+							i = i + 1
+						end
+						-- Removed matched socket until there are no more
+						if socket.color == matchSockets:sub(i, i) then
+							matchSockets = (i > 1 and matchSockets:sub(1, i - 1) or "") .. matchSockets:sub(i + 1)
+						end
+					end
+					t_insert(matches, #matchSockets == 0)
+				end
+			end
 			local hasItems = false
 			for _, item in pairs(items) do
 				hasItems = true
