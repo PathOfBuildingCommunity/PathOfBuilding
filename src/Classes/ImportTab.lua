@@ -868,6 +868,7 @@ function ImportTabClass:DownloadItems(realm)
 			-- modify response to be like the oauth API response
 			local charData = copyTable(charListData)
 			charData.equipment = responseLua.items
+			charData.guardian = responseLua.guardian
 			local clearItems = self.controls.siteCharImportItemsClearItems.state
 			local clearSkills = self.controls.siteCharImportItemsClearSkills.state
 			local ignoreWeaponSwap = self.controls.siteCharImportItemsIgnoreWeaponSwap.state
@@ -1327,6 +1328,40 @@ local function applySocketGroupReimportState(socketGroup, state)
 	end
 end
 
+local GUARD_ITEM_SET = "Animate Guardian"
+-- Locates AG's item set from the import
+function ImportTabClass:GetOrCreateGuardianItemSet()
+	local itemsTab = self.build.itemsTab
+	for _, itemSetId in ipairs(itemsTab.itemSetOrderList) do
+		local itemSet = itemsTab.itemSets[itemSetId]
+		if itemSet.title == GUARD_ITEM_SET then
+			return itemSet
+		end
+	end
+	local itemSet = itemsTab:NewItemSet()
+	itemSet.title = GUARD_ITEM_SET
+	t_insert(itemsTab.itemSetOrderList, itemSet.id)
+	return itemSet
+end
+
+-- Allocates AG's item set for the AG skill gem.
+function ImportTabClass:AssignGuardianItemSet(itemSetId)
+	local itemsTab = self.build.itemsTab
+	for _, socketGroup in ipairs(self.build.skillsTab.socketGroupList) do
+		for _, gem in ipairs(socketGroup.gemList) do
+			if gem.grantedEffect and gem.grantedEffect.name == "Animate Guardian" then
+				for _, suffix in ipairs({ "", "Calcs" }) do
+					local current = gem["skillMinionItemSet"..suffix]
+					local currentSet = current and itemsTab.itemSets[current]
+					if not current or (currentSet and currentSet.title == GUARD_ITEM_SET) then
+						gem["skillMinionItemSet"..suffix] = itemSetId
+					end
+				end
+			end
+		end
+	end
+end
+
 --- @class CharacterItemsData : CharacterBasicData
 --- @field equipment Item[]
 --- @param charData CharacterItemsData
@@ -1367,6 +1402,13 @@ function ImportTabClass:ImportItemsAndSkills(charData, clearItems, clearSkills, 
 	end
 	for _, itemData in ipairs(charData.equipment) do
 		self:ImportItem(itemData, nil, ignoreWeaponSwap)
+	end
+	if charData.guardian and charData.guardian[1] then
+		local guardianSet = self:GetOrCreateGuardianItemSet()
+		for _, itemData in ipairs(charData.guardian) do
+			self:ImportItem(itemData, nil, ignoreWeaponSwap, guardianSet.id)
+		end
+		self:AssignGuardianItemSet(guardianSet.id)
 	end
 	if skillOrder then
 		local groupOrder = { }
@@ -1439,7 +1481,7 @@ local rarityMap = { [0] = "NORMAL", "MAGIC", "RARE", "UNIQUE", [9] = "RELIC", [1
 local slotMap = { ["Weapon"] = "Weapon 1", ["Offhand"] = "Weapon 2", ["Weapon2"] = "Weapon 1 Swap", ["Offhand2"] = "Weapon 2 Swap", ["Helm"] = "Helmet", ["BodyArmour"] = "Body Armour", ["Gloves"] = "Gloves", ["Boots"] = "Boots", 
 				  ["Amulet"] = "Amulet", ["Ring"] = "Ring 1", ["Ring2"] = "Ring 2", ["Ring3"] = "Ring 3", ["Belt"] = "Belt",  ["BrequelGrafts"] = "Graft 1", ["BrequelGrafts2"] = "Graft 2", }
 
-function ImportTabClass:ImportItem(itemData, slotName, ignoreWeaponSwap)
+function ImportTabClass:ImportItem(itemData, slotName, ignoreWeaponSwap, itemSetId)
 	if not slotName then
 		if itemData.inventoryId == "PassiveJewels" then
 			slotName = "Jewel "..self.build.latestTree.jewelSlots[itemData.x + 1]
@@ -1750,7 +1792,11 @@ function ImportTabClass:ImportItem(itemData, slotName, ignoreWeaponSwap)
 		else
 			self.build.itemsTab:AddItem(item, true)
 		end
-		self.build.itemsTab.slots[slotName]:SetSelItemId(item.id)
+		if itemSetId and itemSetId ~= self.build.itemsTab.activeItemSetId then
+			self.build.itemsTab.itemSets[itemSetId][slotName].selItemId = item.id
+		else
+			self.build.itemsTab.slots[slotName]:SetSelItemId(item.id)
+		end
 	end
 end
 
