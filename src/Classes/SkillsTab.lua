@@ -1421,6 +1421,16 @@ local function getGrantedEffect(build, gem)
 	return nil
 end
 
+local function hasSkillType(ge, ...)
+	if not ge or not ge.skillTypes then return false end
+	for i = 1, select("#", ...) do
+		if ge.skillTypes[select(i, ...)] then
+			return true
+		end
+	end
+	return false
+end
+
 function SkillsTabClass:UpdateProxyGroups(force)
 	if not force and not self.proxyGroupsDirty then
 		return
@@ -1437,11 +1447,54 @@ function SkillsTabClass:UpdateProxyGroups(force)
 	self.proxyControlKeys = {}
 
 	local categories = {
-		{ id = "Aura", label = "Aura / Herald", items = {}, match = function(ge) return ge.skillTypes and (ge.skillTypes[SkillType.Aura] or ge.skillTypes[SkillType.AuraAffectsEnemies] or ge.skillTypes[SkillType.Herald]) end },
-		{ id = "Guard", label = "Guard", items = {}, match = function(ge) return ge.skillTypes and ge.skillTypes[SkillType.Guard] end },
-		{ id = "Vaal", label = "Vaal", items = {}, match = function(ge) return ge.skillTypes and ge.skillTypes[SkillType.Vaal] end },
-		{ id = "Curse", label = "Curse", items = {}, match = function(ge) return ge.skillTypes and (ge.skillTypes[SkillType.Hex] or ge.skillTypes[SkillType.Mark] or ge.skillTypes[SkillType.AppliesCurse]) end },
-		{ id = "Warcry", label = "Warcry", items = {}, match = function(ge) return ge.skillTypes and ge.skillTypes[SkillType.Warcry] end },
+		{
+			id = "Aura",
+			label = "Reservation Skills",
+			items = {},
+			match = function(ge, gem)
+				if hasSkillType(ge, SkillType.Aura, SkillType.AuraAffectsEnemies, SkillType.Herald, SkillType.Stance, SkillType.Banner) then
+					return true
+				end
+				local lvl = ge.levels and ge.levels[gem.level or 1]
+				return hasSkillType(ge, SkillType.HasReservation) and lvl and (lvl.manaReservationPercent or lvl.manaReservationFlat or lvl.lifeReservationPercent or lvl.lifeReservationFlat) ~= nil
+			end,
+		},
+		{
+			id = "Guard",
+			label = "Guard",
+			items = {},
+			match = function(ge)
+				return hasSkillType(ge, SkillType.Guard)
+			end,
+		},
+		{
+			id = "Vaal",
+			label = "Vaal",
+			items = {},
+			match = function(ge)
+				return hasSkillType(ge, SkillType.Vaal)
+			end,
+		},
+		{
+			id = "Curse",
+			label = "Curse",
+			items = {},
+			match = function(ge)
+				return hasSkillType(ge,
+					SkillType.Hex,
+					SkillType.Mark,
+					SkillType.AppliesCurse
+				)
+			end,
+		},
+		{
+			id = "Warcry",
+			label = "Warcry",
+			items = {},
+			match = function(ge)
+				return hasSkillType(ge, SkillType.Warcry)
+			end,
+		},
 	}
 
 	if self.socketGroupList then
@@ -1450,7 +1503,7 @@ function SkillsTabClass:UpdateProxyGroups(force)
 				local ge = getGrantedEffect(self.build, gem)
 				if ge and not ge.support then
 					for _, cat in ipairs(categories) do
-						if cat.match(ge) then
+						if cat.match(ge, gem) then
 							local skillName = ge.name or gem.nameSpec or "Skill"
 							local slotIcon = self.controls.groupList:GetRowIcon(1, nil, socketGroup)
 							t_insert(cat.items, {
