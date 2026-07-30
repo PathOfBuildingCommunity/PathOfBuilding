@@ -395,6 +395,8 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 		Synthesis = "Assets/synthesisicon.png",
 		Experimented = "Assets/experimentedicon.png",
 		Foulborn = "Assets/breachicon.png",
+		Memory = "Assets/memoryicon.png",
+		Vestigial = "Assets/vestigialicon.png",
 	}
 	local headerConfigs = {
 		RELIC = {left="Assets/itemsheaderfoilleft.png",middle="Assets/itemsheaderfoilmiddle.png",right="Assets/itemsheaderfoilright.png",height=54,sideWidth=47,middleWidth=52,textYOffset=1,allowInfluenceIcon=true},

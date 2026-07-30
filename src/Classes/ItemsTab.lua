@@ -3932,8 +3932,14 @@ function ItemsTabClass:SetTooltipHeaderInfluence(tooltip, item)
 		if item.adjudicator then
 			addInfluence("Warlord")
 		end
+		if item.vestigial then
+			addInfluence("Vestigial")
+		end
 		if item.synthesised and not tooltip.influenceHeader1 then
 			addInfluence("Synthesis")
+		end
+		if item.memoryStrands and not tooltip.influenceHeader1 then
+			addInfluence("Memory")
 		end
 	end
 
@@ -4313,7 +4319,10 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode, maxWidth)
 		tooltip:AddLine(fontSizeBig, "^x7F7F7FTalisman Tier ^xFFFFFF"..item.talismanTier, "FONTIN SC")
 		tooltip:AddSeparator(10)
 	end
-
+	if item.memoryStrands then
+		tooltip:AddLine(fontSizeBig, colorCodes.MEMORY .. s_format("Memory Strands: ^7%d%%", item.memoryStrands), "FONTIN SC")
+		tooltip:AddSeparator(10)
+	end
 	if item.intangibility then
 		tooltip:AddLine(fontSizeBig, colorCodes.INTANGIBILITY .. s_format("Intangibility: ^7%d%%", item.intangibility), "FONTIN SC")
 		tooltip:AddSeparator(10)

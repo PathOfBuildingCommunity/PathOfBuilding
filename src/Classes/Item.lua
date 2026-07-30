@@ -403,6 +403,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 	self.requirements.int = 0
 	self.baseLines = { }
 	self.foulborn = false
+	self.vestigial = false
 	self.mutatedLines = nil
 	local importedLevelReq
 	local flaskBuffLines
@@ -693,6 +694,8 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					self.catalystQuality = specToNumber(specVal)
 				elseif specName == "Intangibility" then
 					self.intangibility = specToNumber(specVal)
+				elseif specName == "Memory Strands" then
+					self.memoryStrands = specToNumber(specVal)
 				elseif specName == "Note" then
 					self.note = specVal
 				elseif specName == "Str" or specName == "Strength" or specName == "Dex" or specName == "Dexterity" or
@@ -750,6 +753,9 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 				if modLine.enchant then
 					modLine.crafted = true
 					modLine.implicit = true
+				end
+				if modLine.vestigial then
+					self.vestigial = true
 				end
 
 				local baseName
@@ -1484,6 +1490,9 @@ function ItemClass:BuildRaw()
 	end
 	if self.intangibility then
 		t_insert(rawLines, string.format("Intangibility: %d%%", self.intangibility))
+	end
+	if self.memoryStrands then
+		t_insert(rawLines, string.format("Memory Strands: %d%%", self.memoryStrands))
 	end
 	if self.uniqueID then
 		t_insert(rawLines, "Unique ID: " .. self.uniqueID)
