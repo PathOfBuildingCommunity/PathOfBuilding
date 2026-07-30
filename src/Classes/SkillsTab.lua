@@ -540,7 +540,7 @@ function SkillsTabClass:Save(xml)
 end
 
 function SkillsTabClass:Draw(viewPort, inputEvents)
-	if self.proxyGroupsDirty or self.build.buildFlag then
+	if self.proxyGroupsDirty then
 		self:UpdateProxyGroups()
 	end
 	self.x = viewPort.x
@@ -1422,7 +1422,7 @@ local function getGrantedEffect(build, gem)
 end
 
 function SkillsTabClass:UpdateProxyGroups(force)
-	if not force and not self.proxyGroupsDirty and not (self.build and self.build.buildFlag) then
+	if not force and not self.proxyGroupsDirty then
 		return
 	end
 	if self.isUpdatingProxyGroups then return end
@@ -1444,7 +1444,6 @@ function SkillsTabClass:UpdateProxyGroups(force)
 		{ id = "Warcry", label = "Warcry", items = {}, match = function(ge) return ge.skillTypes and ge.skillTypes[SkillType.Warcry] end },
 	}
 
-	local totalItems = 0
 	if self.socketGroupList then
 		for _, socketGroup in ipairs(self.socketGroupList) do
 			for _, gem in ipairs(socketGroup.gemList) do
@@ -1461,7 +1460,6 @@ function SkillsTabClass:UpdateProxyGroups(force)
 								slotIcon = slotIcon,
 								enabled = socketGroup.enabled and gem.enabled,
 							})
-							totalItems = totalItems + 1
 						end
 					end
 				end
