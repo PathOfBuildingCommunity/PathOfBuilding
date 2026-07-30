@@ -737,6 +737,8 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					self.catalystQuality = specToNumber(specVal)
 				elseif specName == "Intangibility" then
 					self.intangibility = specToNumber(specVal)
+				elseif specName == "Memory Strands" then
+					-- ignored
 				elseif specName == "Note" then
 					self.note = specVal
 				elseif specName == "Str" or specName == "Strength" or specName == "Dex" or specName == "Dexterity" or
