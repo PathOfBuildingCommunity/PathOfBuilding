@@ -479,6 +479,8 @@ function SkillsTabClass:Load(xml, fileName)
 	end
 	self:SetActiveSkillSet(tonumber(xml.attrib.activeSkillSet) or 1)
 	self:ResetUndo()
+	self.proxyGroupsDirty = true
+	self:UpdateProxyGroups(true)
 end
 
 function SkillsTabClass:Save(xml)
@@ -540,7 +542,7 @@ function SkillsTabClass:Save(xml)
 end
 
 function SkillsTabClass:Draw(viewPort, inputEvents)
-	if self.proxyGroupsDirty then
+	if self.proxyGroupsDirty or not self.proxyControlKeys then
 		self:UpdateProxyGroups()
 	end
 	self.x = viewPort.x
