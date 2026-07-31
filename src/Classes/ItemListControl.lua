@@ -4,43 +4,23 @@
 -- Build item list control.
 --
 local pairs = pairs
+local ipairs = ipairs
 local t_insert = table.insert
 
 local ItemListClass = newClass("ItemListControl", "ListControl", function(self, anchor, rect, itemsTab, forceTooltip)
 	self.ListControl(anchor, rect, 16, "VERTICAL", true, itemsTab.itemOrderList, forceTooltip)
 	self.itemsTab = itemsTab
-	self.label = "^7All items:"
 	self.defaultText = "^x7F7F7FThis is the list of items that have been added to this build.\nYou can add items to this list by dragging them from\none of the other lists, or by clicking 'Add to build' when\nviewing an item."
 	self.dragTargetList = { }
-	self.controls.delete = new("ButtonControl", {"BOTTOMRIGHT",self,"TOPRIGHT"}, {0, -2, 60, 18}, "Delete", function()
-		self:OnSelDelete(self.selIndex, self.selValue)
+	self.controls.loadoutFilter = new("DropDownControl", {"BOTTOMLEFT",self,"TOPLEFT"}, {0, -2, 110, 18}, nil, function()
+		self:UpdateList()
 	end)
-	self.controls.delete.enabled = function()
-		return self.selValue ~= nil
-	end
-	self.controls.deleteAll = new("ButtonControl", {"RIGHT",self.controls.delete,"LEFT"}, {-4, 0, 70, 18}, "Delete All", function()
-		main:OpenConfirmPopup("Delete All", "Are you sure you want to delete all items in this build?", "Delete", function()
-			for _, slot in pairs(itemsTab.slots) do
-				slot:SetSelItemId(0)
-			end
-			for _, spec in pairs(itemsTab.build.treeTab.specList) do
-				for nodeId, itemId in pairs(spec.jewels) do
-					spec.jewels[nodeId] = 0
-				end
-			end
-			wipeTable(self.list)
-			wipeTable(self.itemsTab.items)
-			itemsTab:PopulateSlots()
-			itemsTab:AddUndoState()
-			itemsTab.build.buildFlag = true
-			self.selIndex = nil
-			self.selValue = nil
-		end)
+	self.controls.loadoutFilter.enableDroppedWidth = true
+	self.controls.sort = new("ButtonControl", {"LEFT",self.controls.loadoutFilter,"RIGHT"}, {4, 0, 42, 18}, "Sort", function()
+		itemsTab:SortItemList()
+		self:UpdateList()
 	end)
-	self.controls.deleteAll.enabled = function()
-		return #self.list > 0
-	end
-	self.controls.deleteUnused = new("ButtonControl", {"RIGHT",self.controls.deleteAll,"LEFT"}, {-4, 0, 100, 18}, "Delete Unused", function()
+	self.controls.deleteUnused = new("ButtonControl", {"LEFT",self.controls.sort,"RIGHT"}, {4, 0, 84, 18}, "Del Unused", function()
 		local delList = {}
 		for _, itemId in pairs(self.list) do
 			if not itemsTab:GetEquippedSlotForItem(itemsTab.items[itemId]) and not self:FindEquippedAbyssJewel(itemId, false) and not self:FindSocketedJewel(itemId, false) then
@@ -58,14 +38,149 @@ local ItemListClass = newClass("ItemListControl", "ListControl", function(self, 
 		itemsTab:PopulateSlots()
 		itemsTab:AddUndoState()
 		itemsTab.build.buildFlag = true
+		self:UpdateList()
 	end)
 	self.controls.deleteUnused.enabled = function()
 		return #self.list > 0
 	end
-	self.controls.sort = new("ButtonControl", {"RIGHT",self.controls.deleteUnused,"LEFT"}, {-4, 0, 60, 18}, "Sort", function()
-		itemsTab:SortItemList()
+	self.controls.deleteAll = new("ButtonControl", {"LEFT",self.controls.deleteUnused,"RIGHT"}, {4, 0, 58, 18}, "Del All", function()
+		main:OpenConfirmPopup("Delete All", "Are you sure you want to delete all items in this build?", "Delete", function()
+			for _, slot in pairs(itemsTab.slots) do
+				slot:SetSelItemId(0)
+			end
+			for _, spec in pairs(itemsTab.build.treeTab.specList) do
+				for nodeId, itemId in pairs(spec.jewels) do
+					spec.jewels[nodeId] = 0
+				end
+			end
+			wipeTable(self.list)
+			wipeTable(self.itemsTab.items)
+			itemsTab:PopulateSlots()
+			itemsTab:AddUndoState()
+			itemsTab.build.buildFlag = true
+			self.selIndex = nil
+			self.selValue = nil
+			self:UpdateList()
+		end)
 	end)
+	self.controls.deleteAll.enabled = function()
+		return #self.list > 0
+	end
+	self.controls.delete = new("ButtonControl", {"LEFT",self.controls.deleteAll,"RIGHT"}, {4, 0, 50, 18}, "Delete", function()
+		self:OnSelDelete(self.selIndex, self.selValue)
+	end)
+	self.controls.delete.enabled = function()
+		return self.selValue ~= nil
+	end
 end)
+
+function ItemListClass:UpdateLoadoutList()
+	local list = { "Any Loadout", "Current Loadout", "Unused Items" }
+	local build = self.itemsTab.build
+	if build and build.controls and build.controls.buildLoadouts then
+		for _, val in ipairs(build.controls.buildLoadouts.list) do
+			if val ~= "^7^7Loadouts:" and val ~= "^7^7-----" and val ~= "^7^7New Loadout" and val ~= "^7^7Sync" and val ~= "^7^7Help >>" then
+				if not isValueInArray(list, val) then
+					t_insert(list, val)
+				end
+			end
+		end
+	end
+	if self.itemsTab.itemSetOrderList then
+		for _, itemSetId in ipairs(self.itemsTab.itemSetOrderList) do
+			local itemSet = self.itemsTab.itemSets[itemSetId]
+			local title = itemSet and (itemSet.title or "Default")
+			if title and not isValueInArray(list, title) then
+				t_insert(list, title)
+			end
+		end
+	end
+	local selIndex = self.controls.loadoutFilter.selIndex or 1
+	self.controls.loadoutFilter:SetList(list)
+	self.controls.loadoutFilter.selIndex = math.min(selIndex, #list)
+end
+
+function ItemListClass:IsItemInLoadout(itemId, filterVal)
+	local item = self.itemsTab.items[itemId]
+	if not item then
+		return false
+	end
+
+	-- Check item sets
+	if self.itemsTab.itemSetOrderList then
+		for _, itemSetId in ipairs(self.itemsTab.itemSetOrderList) do
+			local itemSet = self.itemsTab.itemSets[itemSetId]
+			if itemSet then
+				local title = itemSet.title or "Default"
+				if title == filterVal or title:find(filterVal, 1, true) or filterVal:find(title, 1, true) or #self.itemsTab.itemSetOrderList == 1 then
+					local slot, equipSet = self.itemsTab:GetEquippedSlotForItem(item)
+					if (slot and (not equipSet or equipSet == itemSet)) or self:FindEquippedAbyssJewel(itemId, false) == title then
+						return true
+					end
+				end
+			end
+		end
+	end
+
+	-- Check passive tree specs
+	local treeTab = self.itemsTab.build.treeTab
+	if treeTab and treeTab.specList then
+		for _, spec in ipairs(treeTab.specList) do
+			local title = spec.title or "Default"
+			if title == filterVal or title:find(filterVal, 1, true) or filterVal:find(title, 1, true) or #treeTab.specList == 1 then
+				if self:FindSocketedJewel(itemId, false) == title then
+					return true
+				end
+			end
+		end
+	end
+
+	return false
+end
+
+function ItemListClass:UpdateList()
+	self:UpdateLoadoutList()
+	local selFilter = self.controls.loadoutFilter.selIndex or 1
+	local filterVal = self.controls.loadoutFilter.list[selFilter] or "Any Loadout"
+
+	if selFilter == 1 or filterVal == "Any Loadout" then
+		self.list = self.itemsTab.itemOrderList
+		return
+	end
+
+	local newList = {}
+	for _, itemId in ipairs(self.itemsTab.itemOrderList) do
+		local item = self.itemsTab.items[itemId]
+		if item then
+			if selFilter == 2 or filterVal == "Current Loadout" then
+				if self.itemsTab:GetEquippedSlotForItem(item) or self:FindEquippedAbyssJewel(itemId, false) or self:FindSocketedJewel(itemId, false) then
+					t_insert(newList, itemId)
+				end
+			elseif selFilter == 3 or filterVal == "Unused Items" then
+				if not self.itemsTab:GetEquippedSlotForItem(item) and not self:FindEquippedAbyssJewel(itemId, false) and not self:FindSocketedJewel(itemId, false) then
+					t_insert(newList, itemId)
+				end
+			else
+				if self:IsItemInLoadout(itemId, filterVal) then
+					t_insert(newList, itemId)
+				end
+			end
+		end
+	end
+	self.list = newList
+	if self.selIndex and self.selIndex > #self.list then
+		self.selIndex = #self.list > 0 and #self.list or nil
+		self.selValue = self.selIndex and self.list[self.selIndex] or nil
+	end
+end
+
+function ItemListClass:Draw(viewPort)
+	if self.itemsTab.build and self.itemsTab.build.outputRevision ~= self.lastOutputRevision then
+		self.lastOutputRevision = self.itemsTab.build.outputRevision
+		self:UpdateList()
+	end
+	self.ListControl.Draw(self, viewPort)
+end
 
 function ItemListClass:FindSocketedJewel(jewelId, excludeActiveSpec)
 	if not self.itemsTab.items[jewelId] or self.itemsTab.items[jewelId].type ~= "Jewel" then
@@ -151,6 +266,7 @@ function ItemListClass:ReceiveDrag(type, value, source)
 		self.itemsTab:AddItem(newItem, true, self.selDragIndex)
 		self.itemsTab:PopulateSlots()
 		self.itemsTab:AddUndoState()
+		self:UpdateList()
 	end
 end
 
@@ -204,6 +320,7 @@ function ItemListClass:OnSelDelete(index, itemId)
 			self.itemsTab:DeleteItem(item)
 			self.selIndex = nil
 			self.selValue = nil
+			self:UpdateList()
 		end)
 	else
 		local equipSet = self:FindEquippedAbyssJewel(itemId, true)
@@ -213,6 +330,7 @@ function ItemListClass:OnSelDelete(index, itemId)
 				self.itemsTab:DeleteItem(item)
 				self.selIndex = nil
 				self.selValue = nil
+				self:UpdateList()
 			end)
 		else
 			local equipTree = self:FindSocketedJewel(itemId, true)
@@ -221,11 +339,13 @@ function ItemListClass:OnSelDelete(index, itemId)
 					self.itemsTab:DeleteItem(item)
 					self.selIndex = nil
 					self.selValue = nil
+					self:UpdateList()
 				end)
 			else
 				self.itemsTab:DeleteItem(item)
 				self.selIndex = nil
 				self.selValue = nil
+				self:UpdateList()
 			end
 		end
 	end
