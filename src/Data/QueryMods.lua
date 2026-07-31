@@ -8213,6 +8213,578 @@ return {
 			},
 		},
 	},
+	["Enchant"] = {
+		["10630_UnaffectedByIgnite"] = {
+			["Amulet"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "enchant.stat_2635869389",
+				["text"] = "Unaffected by Ignite",
+				["type"] = "enchant",
+			},
+		},
+		["10727_WarcriesExertAnAdditionalAttack"] = {
+			["Amulet"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "enchant.stat_1434716233",
+				["text"] = "Warcries Exert # additional Attack",
+				["type"] = "enchant",
+			},
+		},
+		["10782_WitheredEffect"] = {
+			["Amulet"] = {
+				["max"] = 35,
+				["min"] = 35,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "enchant.stat_2545584555",
+				["text"] = "#% increased Effect of Withered",
+				["type"] = "enchant",
+			},
+		},
+		["1206_PercentageAllAttributes"] = {
+			["Amulet"] = {
+				["max"] = 15,
+				["min"] = 15,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "enchant.stat_3143208761",
+				["text"] = "#% increased Attributes",
+				["type"] = "enchant",
+			},
+		},
+		["1265_GlobalDamageOverTimeMultiplier"] = {
+			["Amulet"] = {
+				["max"] = 20,
+				["min"] = 20,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "enchant.stat_3988349707",
+				["text"] = "+#% to Damage over Time Multiplier",
+				["type"] = "enchant",
+			},
+		},
+		["1266_MinionDotMultiplier"] = {
+			["Amulet"] = {
+				["max"] = 30,
+				["min"] = 30,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "enchant.stat_2759003954",
+				["text"] = "Minions have +#% to Damage over Time Multiplier",
+				["type"] = "enchant",
+			},
+		},
+		["1511_CriticalStrikeMultiplier"] = {
+			["Amulet"] = {
+				["max"] = 40,
+				["min"] = 40,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "enchant.stat_3556824919",
+				["text"] = "+#% to Global Critical Strike Multiplier",
+				["type"] = "enchant",
+			},
+		},
+		["1593_MaximumLifeIncreasePercent"] = {
+			["Amulet"] = {
+				["max"] = 15,
+				["min"] = 15,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "enchant.stat_983749596",
+				["text"] = "#% increased maximum Life",
+				["type"] = "enchant",
+			},
+		},
+		["1603_MaximumManaIncreasePercent"] = {
+			["Amulet"] = {
+				["max"] = 30,
+				["min"] = 30,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "enchant.stat_2748665614",
+				["text"] = "#% increased maximum Mana",
+				["type"] = "enchant",
+			},
+		},
+		["1646_MaximumFireResist"] = {
+			["Amulet"] = {
+				["max"] = 4,
+				["min"] = 4,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "enchant.stat_4095671657",
+				["text"] = "+#% to maximum Fire Resistance",
+				["type"] = "enchant",
+			},
+		},
+		["1652_MaximumColdResist"] = {
+			["Amulet"] = {
+				["max"] = 4,
+				["min"] = 4,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "enchant.stat_3676141501",
+				["text"] = "+#% to maximum Cold Resistance",
+				["type"] = "enchant",
+			},
+		},
+		["1657_MaximumLightningResistance"] = {
+			["Amulet"] = {
+				["max"] = 4,
+				["min"] = 4,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "enchant.stat_1011760251",
+				["text"] = "+#% to maximum Lightning Resistance",
+				["type"] = "enchant",
+			},
+		},
+		["1813_AdditionalPierce"] = {
+			["Amulet"] = {
+				["max"] = 3,
+				["min"] = 3,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "enchant.stat_2067062068",
+				["text"] = "Projectiles Pierce # additional Targets",
+				["type"] = "enchant",
+			},
+		},
+		["1815_AdditionalProjectiles"] = {
+			["Amulet"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "enchant.stat_74338099",
+				["text"] = "Skills fire an additional Projectile",
+				["type"] = "enchant",
+			},
+		},
+		["1819_ProjectileSpeed"] = {
+			["Amulet"] = {
+				["max"] = 30,
+				["min"] = 30,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "enchant.stat_3759663284",
+				["text"] = "#% increased Projectile Speed",
+				["type"] = "enchant",
+			},
+		},
+		["1821_MovementVelocity"] = {
+			["Amulet"] = {
+				["max"] = 12,
+				["min"] = 12,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "enchant.stat_2250533757",
+				["text"] = "#% increased Movement Speed",
+				["type"] = "enchant",
+			},
+		},
+		["1827_MaximumEnduranceCharges"] = {
+			["Amulet"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "enchant.stat_1515657623",
+				["text"] = "+# to Maximum Endurance Charges",
+				["type"] = "enchant",
+			},
+		},
+		["1832_MaximumFrenzyCharges"] = {
+			["Amulet"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "enchant.stat_4078695",
+				["text"] = "+# to Maximum Frenzy Charges",
+				["type"] = "enchant",
+			},
+		},
+		["1837_IncreasedMaximumPowerCharges"] = {
+			["Amulet"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "enchant.stat_227523295",
+				["text"] = "+# to Maximum Power Charges",
+				["type"] = "enchant",
+			},
+		},
+		["1903_AreaOfEffect"] = {
+			["Amulet"] = {
+				["max"] = 16,
+				["min"] = 16,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "enchant.stat_280731498",
+				["text"] = "#% increased Area of Effect",
+				["type"] = "enchant",
+			},
+		},
+		["2184_MaximumSpectreCount"] = {
+			["Amulet"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "enchant.stat_125218179",
+				["text"] = "+# to maximum number of Spectres",
+				["type"] = "enchant",
+			},
+		},
+		["2624_MarkEffect"] = {
+			["Amulet"] = {
+				["max"] = 30,
+				["min"] = 30,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "enchant.stat_803185500",
+				["text"] = "#% increased Effect of your Marks",
+				["type"] = "enchant",
+			},
+		},
+		["2867_AllDefences"] = {
+			["Amulet"] = {
+				["max"] = 30,
+				["min"] = 30,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "enchant.stat_1389153006",
+				["text"] = "#% increased Global Defences",
+				["type"] = "enchant",
+			},
+		},
+		["3015_FireResistancePenetration"] = {
+			["Amulet"] = {
+				["max"] = 15,
+				["min"] = 15,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "enchant.stat_2653955271",
+				["text"] = "Damage Penetrates #% Fire Resistance",
+				["type"] = "enchant",
+			},
+		},
+		["3017_ColdResistancePenetration"] = {
+			["Amulet"] = {
+				["max"] = 15,
+				["min"] = 15,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "enchant.stat_3417711605",
+				["text"] = "Damage Penetrates #% Cold Resistance",
+				["type"] = "enchant",
+			},
+		},
+		["3018_LightningResistancePenetration"] = {
+			["Amulet"] = {
+				["max"] = 15,
+				["min"] = 15,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "enchant.stat_818778753",
+				["text"] = "Damage Penetrates #% Lightning Resistance",
+				["type"] = "enchant",
+			},
+		},
+		["3215_ColdAndLightningDamageTakenAsFire"] = {
+			["Amulet"] = {
+				["max"] = 100,
+				["min"] = 100,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "enchant.stat_3554587210",
+				["text"] = "#% of Cold and Lightning Damage from Hits taken as Fire Damage",
+				["type"] = "enchant",
+			},
+		},
+		["4571_ActionSpeedReduction"] = {
+			["Amulet"] = {
+				["max"] = 8,
+				["min"] = 8,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "enchant.stat_2878959938",
+				["text"] = "#% increased Action Speed",
+				["type"] = "enchant",
+			},
+		},
+		["4678_GlobalSkillGemLevel"] = {
+			["Amulet"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "enchant.stat_4283407333",
+				["text"] = "+# to Level of all Skill Gems",
+				["type"] = "enchant",
+			},
+		},
+		["4679_GlobalSkillGemQuality"] = {
+			["Amulet"] = {
+				["max"] = 15,
+				["min"] = 15,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "enchant.stat_3655769732",
+				["text"] = "+#% to Quality of all Skill Gems",
+				["type"] = "enchant",
+			},
+		},
+		["4835_AvianAspectBuffEffect"] = {
+			["Amulet"] = {
+				["max"] = 100,
+				["min"] = 100,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "enchant.stat_1746347097",
+				["text"] = "#% increased Aspect of the Avian Buff Effect",
+				["type"] = "enchant",
+			},
+		},
+		["4838_CatAspectBuffEffect"] = {
+			["Amulet"] = {
+				["max"] = 100,
+				["min"] = 100,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "enchant.stat_4065740293",
+				["text"] = "#% increased Aspect of the Cat Buff Effect",
+				["type"] = "enchant",
+			},
+		},
+		["4839_CrabAspectBuffEffect"] = {
+			["Amulet"] = {
+				["max"] = 100,
+				["min"] = 100,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "enchant.stat_1883691564",
+				["text"] = "#% increased Aspect of the Crab Buff Effect",
+				["type"] = "enchant",
+			},
+		},
+		["4840_SpiderAspectDebuffEffect"] = {
+			["Amulet"] = {
+				["max"] = 100,
+				["min"] = 100,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "enchant.stat_2030415947",
+				["text"] = "#% increased Aspect of the Spider Debuff Effect",
+				["type"] = "enchant",
+			},
+		},
+		["5058_GlobalCooldownRecovery"] = {
+			["Amulet"] = {
+				["max"] = 20,
+				["min"] = 20,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "enchant.stat_1004011302",
+				["text"] = "#% increased Cooldown Recovery Rate",
+				["type"] = "enchant",
+			},
+		},
+		["5757_FreezeEnemiesWhenHitChance"] = {
+			["Amulet"] = {
+				["max"] = 20,
+				["min"] = 20,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "enchant.stat_2168861013",
+				["text"] = "#% chance to Freeze Enemies for 1 second when they Hit you",
+				["type"] = "enchant",
+			},
+		},
+		["70_HasXSockets"] = {
+			["Amulet"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "enchant.stat_4077843608",
+				["text"] = "Has 1 Socket",
+				["type"] = "enchant",
+			},
+		},
+		["7229_GlobalHeraldGemlevel"] = {
+			["Amulet"] = {
+				["max"] = 2,
+				["min"] = 2,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "enchant.stat_776287420",
+				["text"] = "+# to Level of all Herald Skill Gems",
+				["type"] = "enchant",
+			},
+		},
+		["7269_IgnoreEnemyArmour"] = {
+			["Amulet"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "enchant.stat_942531362",
+				["text"] = "Hits ignore Enemy Physical Damage Reduction",
+				["type"] = "enchant",
+			},
+		},
+		["9284_MaximumLifeAddedAsArmour"] = {
+			["Amulet"] = {
+				["max"] = 15,
+				["min"] = 15,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "enchant.stat_4118694562",
+				["text"] = "Gain #% of Maximum Life as Extra Armour",
+				["type"] = "enchant",
+			},
+		},
+		["9390_MinimumEndurancePowerFrenzyCharges"] = {
+			["Amulet"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "enchant.stat_66303477",
+				["text"] = "+# to Minimum Endurance, Frenzy and Power Charges",
+				["type"] = "enchant",
+			},
+		},
+	},
 	["Exarch"] = {
 		["10189_BrandAttachmentRange"] = {
 			["Boots"] = {
@@ -9838,6 +10410,19 @@ return {
 				["type"] = "implicit",
 			},
 		},
+		["2245_ShockProliferation"] = {
+			["Gloves"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.stat_1640259660",
+				["text"] = "Shocks you inflict spread to other Enemies within 1.5 metres",
+				["type"] = "implicit",
+			},
+		},
 		["2604_SummonTotemCastSpeed"] = {
 			["Boots"] = {
 				["max"] = 15,
@@ -10642,6 +11227,20 @@ return {
 			["tradeMod"] = {
 				["id"] = "implicit.stat_4101445926",
 				["text"] = "#% increased Mana Cost Efficiency",
+				["type"] = "implicit",
+			},
+		},
+		["5086_ManaCostEfficiencyUniquePresence"] = {
+			["Helmet"] = {
+				["max"] = 46,
+				["min"] = 37,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.stat_4094153038",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Mana Cost Efficiency",
 				["type"] = "implicit",
 			},
 		},
@@ -22768,6 +23367,16 @@ return {
 				["type"] = "explicit",
 			},
 		},
+		["1498_MineCritChanceForJewel"] = {
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.stat_214031493",
+				["text"] = "#% increased Critical Strike Chance with Mines",
+				["type"] = "explicit",
+			},
+		},
 		["1499_TwoHandedCritChanceForJewel"] = {
 			["AnyJewel"] = {
 				["max"] = 18,
@@ -23209,6 +23818,26 @@ return {
 			["tradeMod"] = {
 				["id"] = "explicit.stat_4237442815",
 				["text"] = "+#% to Melee Critical Strike Multiplier",
+				["type"] = "explicit",
+			},
+		},
+		["1528_TrapCritMultiplierForJewel"] = {
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.stat_1780168381",
+				["text"] = "+#% to Critical Strike Multiplier with Traps",
+				["type"] = "explicit",
+			},
+		},
+		["1529_MineCritMultiplierForJewel"] = {
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.stat_2529112796",
+				["text"] = "+#% to Critical Strike Multiplier with Mines",
 				["type"] = "explicit",
 			},
 		},
@@ -26047,7 +26676,7 @@ return {
 			["specialCaseData"] = {
 			},
 			["tradeMod"] = {
-				["id"] = "explicit.stat_771127912",
+				["id"] = "explicit.stat_1559341337",
 				["text"] = "Lose # Life per second",
 				["type"] = "explicit",
 			},
@@ -26057,7 +26686,7 @@ return {
 			["specialCaseData"] = {
 			},
 			["tradeMod"] = {
-				["id"] = "explicit.stat_771127912",
+				["id"] = "explicit.stat_1559341337",
 				["text"] = "Lose # Life per second",
 				["type"] = "explicit",
 			},
@@ -26067,7 +26696,7 @@ return {
 			["specialCaseData"] = {
 			},
 			["tradeMod"] = {
-				["id"] = "explicit.stat_771127912",
+				["id"] = "explicit.stat_1559341337",
 				["text"] = "Lose # Life per second",
 				["type"] = "explicit",
 			},
@@ -49230,6 +49859,15 @@ return {
 				["type"] = "explicit",
 			},
 		},
+		["6083_DeepwaterSwordFlammability"] = {
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.stat_3814785829",
+				["text"] = "Melee Strikes Curse Enemies with Flammability on Hit, ignoring Curse Limit",
+				["type"] = "explicit",
+			},
+		},
 		["6084_CurseDuration"] = {
 			["sign"] = "",
 			["specialCaseData"] = {
@@ -50056,6 +50694,16 @@ return {
 				["type"] = "explicit",
 			},
 		},
+		["652_DeepwaterSwordGrantedSkillGhostCannons"] = {
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.stat_1273709603",
+				["text"] = "Trigger level # Ghostly Artillery when you Attack with this Weapon",
+				["type"] = "explicit",
+			},
+		},
 		["6538_MaximumEnergyShieldOnKillPercentMaven"] = {
 			["Chest"] = {
 				["max"] = 10,
@@ -50849,6 +51497,58 @@ return {
 				["type"] = "explicit",
 			},
 		},
+		["6914_ChillingConfluxMaven"] = {
+			["Helmet"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.stat_1190121450|1",
+				["text"] = "You have Chilling Conflux for 3 seconds every 8 seconds",
+				["type"] = "explicit",
+			},
+		},
+		["6914_IgnitingConfluxMaven"] = {
+			["Helmet"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.stat_1190121450|3",
+				["text"] = "You have Igniting Conflux for 3 seconds every 8 seconds",
+				["type"] = "explicit",
+			},
+		},
+		["6914_ShockingConfluxMaven"] = {
+			["Helmet"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.stat_1190121450|2",
+				["text"] = "You have Shocking Conflux for 3 seconds every 8 seconds",
+				["type"] = "explicit",
+			},
+		},
+		["6914_SingleConflux"] = {
+			["Helmet"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.stat_1190121450|1",
+				["text"] = "You have Chilling Conflux for 3 seconds every 8 seconds",
+				["type"] = "explicit",
+			},
+		},
 		["6922_EnemyLifeLeechPermyriadWhileFocusedAndVaalPact"] = {
 			["specialCaseData"] = {
 			},
@@ -51516,6 +52216,15 @@ return {
 			["tradeMod"] = {
 				["id"] = "explicit.stat_2021420128",
 				["text"] = "Trigger Level # Warlords's Mark when you Hit a Rare or Unique Enemy and have no Mark",
+				["type"] = "explicit",
+			},
+		},
+		["7960_DeepwaterSwordAlwaysHit"] = {
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.stat_270993809",
+				["text"] = "Always Hits Burning Enemies",
 				["type"] = "explicit",
 			},
 		},
@@ -53419,6 +54128,16 @@ return {
 			["tradeMod"] = {
 				["id"] = "explicit.stat_648019518",
 				["text"] = "Removes #% of Life Recovered from Mana when used",
+				["type"] = "explicit",
+			},
+		},
+		["919_DeepwaterSwordMeleeDamageWhileBurning"] = {
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.stat_1353128245",
+				["text"] = "#% more Melee Damage while Burning",
 				["type"] = "explicit",
 			},
 		},
@@ -55410,6 +56129,20 @@ return {
 				["type"] = "implicit",
 			},
 		},
+		["1206_PercentageAllAttributes"] = {
+			["Amulet"] = {
+				["max"] = 16,
+				["min"] = 12,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.stat_3143208761",
+				["text"] = "#% increased Attributes",
+				["type"] = "implicit",
+			},
+		},
 		["1207_PercentageStrength"] = {
 			["2HMace"] = {
 				["max"] = 10,
@@ -55425,6 +56158,34 @@ return {
 			["tradeMod"] = {
 				["id"] = "implicit.stat_734614379",
 				["text"] = "#% increased Strength",
+				["type"] = "implicit",
+			},
+		},
+		["1214_AllDamage"] = {
+			["Amulet"] = {
+				["max"] = 35,
+				["min"] = 25,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.stat_2154246560",
+				["text"] = "#% increased Damage",
+				["type"] = "implicit",
+			},
+		},
+		["1221_AttackDamage"] = {
+			["Amulet"] = {
+				["max"] = 30,
+				["min"] = 20,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.stat_2843214518",
+				["text"] = "#% increased Attack Damage",
 				["type"] = "implicit",
 			},
 		},
@@ -55446,6 +56207,10 @@ return {
 			["1HWeapon"] = {
 				["max"] = 40,
 				["min"] = 8,
+			},
+			["Amulet"] = {
+				["max"] = 30,
+				["min"] = 20,
 			},
 			["Chest"] = {
 				["max"] = 10,
@@ -55481,6 +56246,10 @@ return {
 				["max"] = 12,
 				["min"] = 8,
 			},
+			["Amulet"] = {
+				["max"] = 30,
+				["min"] = 20,
+			},
 			["Belt"] = {
 				["max"] = 24,
 				["min"] = 12,
@@ -55505,6 +56274,20 @@ return {
 			["tradeMod"] = {
 				["id"] = "implicit.stat_1002362373",
 				["text"] = "#% increased Melee Damage",
+				["type"] = "implicit",
+			},
+		},
+		["1265_GlobalDamageOverTimeMultiplier"] = {
+			["Amulet"] = {
+				["max"] = 18,
+				["min"] = 12,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.stat_3988349707",
+				["text"] = "+#% to Damage over Time Multiplier",
 				["type"] = "implicit",
 			},
 		},
@@ -55544,6 +56327,20 @@ return {
 				["type"] = "implicit",
 			},
 		},
+		["1381_FireDamagePercentage"] = {
+			["Amulet"] = {
+				["max"] = 30,
+				["min"] = 20,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.stat_3962278098",
+				["text"] = "#% increased Fire Damage",
+				["type"] = "implicit",
+			},
+		},
 		["1384_FireDamage"] = {
 			["Quiver"] = {
 				["max"] = 21,
@@ -55574,6 +56371,20 @@ return {
 			["tradeMod"] = {
 				["id"] = "implicit.stat_709508406",
 				["text"] = "Adds # to # Fire Damage (Local)",
+				["type"] = "implicit",
+			},
+		},
+		["1390_ColdDamagePercentage"] = {
+			["Amulet"] = {
+				["max"] = 30,
+				["min"] = 20,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.stat_3291658075",
+				["text"] = "#% increased Cold Damage",
 				["type"] = "implicit",
 			},
 		},
@@ -55641,6 +56452,20 @@ return {
 				["type"] = "implicit",
 			},
 		},
+		["1401_LightningDamagePercentage"] = {
+			["Amulet"] = {
+				["max"] = 30,
+				["min"] = 20,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.stat_2231156303",
+				["text"] = "#% increased Lightning Damage",
+				["type"] = "implicit",
+			},
+		},
 		["1404_LightningDamage"] = {
 			["Quiver"] = {
 				["max"] = 3,
@@ -55656,6 +56481,10 @@ return {
 			},
 		},
 		["1409_IncreasedChaosDamage"] = {
+			["Amulet"] = {
+				["max"] = 31,
+				["min"] = 19,
+			},
 			["Ring"] = {
 				["max"] = 23,
 				["min"] = 17,
@@ -55810,6 +56639,10 @@ return {
 				["max"] = 100,
 				["min"] = 80,
 			},
+			["Amulet"] = {
+				["max"] = 50,
+				["min"] = 40,
+			},
 			["Dagger"] = {
 				["max"] = 45,
 				["min"] = 40,
@@ -55883,6 +56716,10 @@ return {
 			["2HWeapon"] = {
 				["max"] = 50,
 				["min"] = 15,
+			},
+			["Amulet"] = {
+				["max"] = 36,
+				["min"] = 24,
 			},
 			["Bow"] = {
 				["max"] = 25,
@@ -55993,6 +56830,10 @@ return {
 			},
 		},
 		["1593_MaximumLifeIncreasePercent"] = {
+			["Amulet"] = {
+				["max"] = 12,
+				["min"] = 8,
+			},
 			["Ring"] = {
 				["max"] = 7,
 				["min"] = 5,
@@ -56081,6 +56922,10 @@ return {
 			},
 		},
 		["1603_MaximumManaIncreasePercent"] = {
+			["Amulet"] = {
+				["max"] = 30,
+				["min"] = 20,
+			},
 			["Ring"] = {
 				["max"] = 10,
 				["min"] = 8,
@@ -56413,6 +57258,20 @@ return {
 				["type"] = "implicit",
 			},
 		},
+		["1813_AdditionalPierce"] = {
+			["Amulet"] = {
+				["max"] = 2,
+				["min"] = 2,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.stat_2067062068",
+				["text"] = "Projectiles Pierce # additional Targets",
+				["type"] = "implicit",
+			},
+		},
 		["1814_AdditionalArrowPierce"] = {
 			["Quiver"] = {
 				["max"] = 1,
@@ -56525,6 +57384,10 @@ return {
 				["max"] = 20,
 				["min"] = 15,
 			},
+			["Amulet"] = {
+				["max"] = 8,
+				["min"] = 5,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -56592,7 +57455,7 @@ return {
 		},
 		["1967_LifeRegenerationRatePercentage"] = {
 			["Amulet"] = {
-				["max"] = 1.6,
+				["max"] = 2,
 				["min"] = 1.2,
 			},
 			["sign"] = "",
@@ -56725,6 +57588,34 @@ return {
 				["type"] = "implicit",
 			},
 		},
+		["2069_AttackAndCastSpeed"] = {
+			["Amulet"] = {
+				["max"] = 10,
+				["min"] = 6,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.stat_2672805335",
+				["text"] = "#% increased Attack and Cast Speed",
+				["type"] = "implicit",
+			},
+		},
+		["2183_MaximumMinionCount"] = {
+			["Amulet"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.stat_966747987",
+				["text"] = "+# to maximum number of Raised Zombies",
+				["type"] = "implicit",
+			},
+		},
 		["2193_CurseEffectElementalAilmentDurationOnSelf"] = {
 			["Ring"] = {
 				["max"] = 50,
@@ -56775,6 +57666,20 @@ return {
 			["tradeMod"] = {
 				["id"] = "implicit.stat_532463031",
 				["text"] = "Implicit Modifiers Cannot Be Changed",
+				["type"] = "implicit",
+			},
+		},
+		["2296_ReducedPhysicalDamageTaken"] = {
+			["Amulet"] = {
+				["max"] = 6,
+				["min"] = 4,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.stat_3771516363",
+				["text"] = "#% additional Physical Damage Reduction",
 				["type"] = "implicit",
 			},
 		},
@@ -56888,6 +57793,48 @@ return {
 			["tradeMod"] = {
 				["id"] = "implicit.stat_3374165039",
 				["text"] = "#% increased Totem Placement speed",
+				["type"] = "implicit",
+			},
+		},
+		["2655_EnduranceChargeOnKillChance"] = {
+			["Amulet"] = {
+				["max"] = 10,
+				["min"] = 10,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.stat_1054322244",
+				["text"] = "#% chance to gain an Endurance Charge on Kill",
+				["type"] = "implicit",
+			},
+		},
+		["2657_FrenzyChargeOnKillChance"] = {
+			["Amulet"] = {
+				["max"] = 10,
+				["min"] = 10,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.stat_1826802197",
+				["text"] = "#% chance to gain a Frenzy Charge on Kill",
+				["type"] = "implicit",
+			},
+		},
+		["2659_PowerChargeOnKillChance"] = {
+			["Amulet"] = {
+				["max"] = 10,
+				["min"] = 10,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.stat_2483795307",
+				["text"] = "#% chance to gain a Power Charge on Kill",
 				["type"] = "implicit",
 			},
 		},
@@ -57099,7 +58046,25 @@ return {
 				["type"] = "implicit",
 			},
 		},
+		["2835_ChanceToFreezeShockIgnite"] = {
+			["Amulet"] = {
+				["max"] = 6,
+				["min"] = 4,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.stat_800141891",
+				["text"] = "#% chance to Freeze, Shock and Ignite",
+				["type"] = "implicit",
+			},
+		},
 		["2867_AllDefences"] = {
+			["Amulet"] = {
+				["max"] = 25,
+				["min"] = 15,
+			},
 			["Ring"] = {
 				["max"] = 10,
 				["min"] = 5,
@@ -57141,6 +58106,20 @@ return {
 				["type"] = "implicit",
 			},
 		},
+		["2970_PhysicalDamageAddedAsRandomElement"] = {
+			["Amulet"] = {
+				["max"] = 12,
+				["min"] = 6,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.stat_3753703249",
+				["text"] = "Gain #% of Physical Damage as Extra Damage of a random Element",
+				["type"] = "implicit",
+			},
+		},
 		["3014_ElementalPenetration"] = {
 			["1HWeapon"] = {
 				["max"] = 6,
@@ -57156,6 +58135,90 @@ return {
 			["tradeMod"] = {
 				["id"] = "implicit.stat_2101383955",
 				["text"] = "Damage Penetrates #% Elemental Resistances",
+				["type"] = "implicit",
+			},
+		},
+		["3211_FireDamageTakenAsCold"] = {
+			["Amulet"] = {
+				["max"] = 50,
+				["min"] = 50,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.stat_2522672898",
+				["text"] = "#% of Fire Damage from Hits taken as Cold Damage",
+				["type"] = "implicit",
+			},
+		},
+		["3212_FireDamageTakenAsLightning"] = {
+			["Amulet"] = {
+				["max"] = 50,
+				["min"] = 50,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.stat_1504091975",
+				["text"] = "#% of Fire Damage from Hits taken as Lightning Damage",
+				["type"] = "implicit",
+			},
+		},
+		["3213_ColdDamageTakenAsFire"] = {
+			["Amulet"] = {
+				["max"] = 50,
+				["min"] = 50,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.stat_1189760108",
+				["text"] = "#% of Cold Damage from Hits taken as Fire Damage",
+				["type"] = "implicit",
+			},
+		},
+		["3214_ColdDamageTakenAsLightning"] = {
+			["Amulet"] = {
+				["max"] = 50,
+				["min"] = 50,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.stat_1313503107",
+				["text"] = "#% of Cold Damage from Hits taken as Lightning Damage",
+				["type"] = "implicit",
+			},
+		},
+		["3216_LightningDamageTakenAsFire"] = {
+			["Amulet"] = {
+				["max"] = 50,
+				["min"] = 50,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.stat_3375859421",
+				["text"] = "#% of Lightning Damage from Hits taken as Fire Damage",
+				["type"] = "implicit",
+			},
+		},
+		["3218_LightningDamageTakenAsCold"] = {
+			["Amulet"] = {
+				["max"] = 50,
+				["min"] = 50,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.stat_1017730114",
+				["text"] = "#% of Lightning Damage from Hits taken as Cold Damage",
 				["type"] = "implicit",
 			},
 		},
@@ -57202,6 +58265,20 @@ return {
 			["tradeMod"] = {
 				["id"] = "implicit.stat_2622251413",
 				["text"] = "#% chance to double Stun Duration",
+				["type"] = "implicit",
+			},
+		},
+		["3619_FishingBiteSensitivity"] = {
+			["Amulet"] = {
+				["max"] = 40,
+				["min"] = 30,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.stat_1296614065",
+				["text"] = "#% increased Fish Bite Sensitivity",
 				["type"] = "implicit",
 			},
 		},
