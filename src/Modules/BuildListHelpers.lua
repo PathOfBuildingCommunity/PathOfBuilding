@@ -54,6 +54,10 @@ local function MatchEntry(entry, terms)
 	return true
 end
 
+-- Scan main.buildPath..subPath for .xml builds and sub-folders.
+-- filterText is an optional space-separated filter with class: prefix support.
+-- Recursively searches subfolders when filterText is non-empty.
+-- Returns a list of build and folder entries for BuildListControl.
 local function ScanFolder(subPath, filterText)
 	subPath = subPath or ""
 	filterText = filterText or ""
