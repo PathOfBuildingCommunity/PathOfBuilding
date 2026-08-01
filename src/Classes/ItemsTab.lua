@@ -734,7 +734,7 @@ holding Shift will put it in the second.]])
 			return range
 		end
 		drop = new("DropDownControl", {"TOPLEFT",prev,"TOPLEFT"}, {i==1 and 40 or 0, 0, 418, 20}, nil, function(index, value)
-			local affix = { modId = "None" }
+			local affix = { modId = "None", fractured = self.displayItem[drop.outputTable][drop.outputIndex].fractured }
 			if value.modId then
 				affix.modId = value.modId
 				affix.range = slider.val
@@ -1844,10 +1844,11 @@ function ItemsTabClass:SetDisplayItem(item)
 				end
 			end
 		end
-		self.controls.displayItemInfluence:SetSel(influence1, true) -- Don't call the selection function for the first influence dropdown as the second dropdown isn't properly set yet.
-		self.controls.displayItemInfluence2:SetSel(influence2) -- The selection function for the second dropdown properly handles everything for both dropdowns
+		-- Initialising these controls must not re-craft the parsed item.
+		self.controls.displayItemInfluence:SetSel(influence1, true)
+		self.controls.displayItemInfluence2:SetSel(influence2, true)
 		self.controls.displayItemQualityEdit:SetText(item.quality)
-		self.controls.displayItemCatalyst:SetSel((item.catalyst or 0) + 1)
+		self.controls.displayItemCatalyst:SetSel((item.catalyst or 0) + 1, true)
 		if item.catalystQuality then
 			self.controls.displayItemCatalystQualityEdit:SetText(m_max(item.catalystQuality, 0))
 		else
@@ -1943,7 +1944,7 @@ function ItemsTabClass:UpdateAffixControls()
 	self:UpdateCustomControls()
 end
 
-function ItemsTabClass:UpdateAffixControl(control, item, type, outputTable, outputIndex)
+function ItemsTabClass:UpdateAffixControl(control, item, affixType, outputTable, outputIndex)
 	local extraTags = { }
 	local excludeGroups = { }
 	for _, table in ipairs({"prefixes","suffixes"}) do
@@ -1973,7 +1974,7 @@ function ItemsTabClass:UpdateAffixControl(control, item, type, outputTable, outp
 	local affixList = { }
 	local retainedAffixes = { }
 	for modId, mod in pairs(item.affixes) do
-		if mod.type == type and not excludeGroups[mod.group] and not item:CheckIfModIsDelve(mod) then
+		if mod.type == affixType and not excludeGroups[mod.group] and not item:CheckIfModIsDelve(mod) then
 			if item:GetModSpawnWeight(mod, extraTags) > 0 then
 				t_insert(affixList, modId)
 			elseif modId == selAffix then
@@ -2053,7 +2054,10 @@ function ItemsTabClass:UpdateAffixControl(control, item, type, outputTable, outp
 	if control.list[control.selIndex].haveRange then
 		control.slider.divCount = #control.list[control.selIndex].modList
 		local index = isValueInArray(control.list[control.selIndex].modList, selAffix)
-		local range = item[outputTable][outputIndex].range or 0.5
+		-- Imported legacy rolls can sit outside the current 0-1 affix range.
+		-- Keep that value on the affix, but show the nearest slider endpoint.
+		local affixRange = item[outputTable][outputIndex].range
+		local range = m_min(1, m_max(0, type(affixRange) == "table" and affixRange[1] or affixRange or 0.5))
 		-- Avoid exact integer boundary that slider:GetDivVal's ceil would assign to the previous segment
 		if range == 0 and index > 1 then
 			range = 1e-4
@@ -4272,7 +4276,6 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode, maxWidth)
 			end
 		end
 	end
-	
 	if item.catalyst and item.catalyst > 0 and item.catalyst <= #catalystQualityFormat and item.catalystQuality and item.catalystQuality > 0 then
 		tooltip:AddLine(fontSizeBig, s_format(catalystQualityFormat[item.catalyst], item.catalystQuality), "FONTIN SC")
 		tooltip:AddSeparator(10)
@@ -4308,6 +4311,11 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode, maxWidth)
 		tooltip:AddLine(fontSizeBig, "^x7F7F7FSockets: "..line, "FONTIN SC")
 	end
 	tooltip:AddSeparator(10)
+
+	if item.memoryStrands then
+		tooltip:AddLine(fontSizeBig, colorCodes.CRAFTED.."Memory Strands: ^7"..item.memoryStrands, "FONTIN SC")
+		tooltip:AddSeparator(10)
+	end
 
 	if item.talismanTier then
 		tooltip:AddLine(fontSizeBig, "^x7F7F7FTalisman Tier ^xFFFFFF"..item.talismanTier, "FONTIN SC")
