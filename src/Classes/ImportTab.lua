@@ -301,7 +301,7 @@ local function addOAuthControls(self)
 						self.oauthErrCode = "Could not import character"
 					end
 				end
-				
+
 			end)
 		end)
 	self.controls.charImportItems.enabled = function()
@@ -501,7 +501,7 @@ local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(
 	end)
 	self.controls.enablePartyExportBuffs = new("CheckBoxControl", {"LEFT",self.controls.generateCode,"RIGHT"}, {100, 0, 18}, "Export Support", function(state)
 		self.build.partyTab.enableExportBuffs = state
-		self.build.buildFlag = true 
+		self.build.buildFlag = true
 	end, "This is for party play, to export support character, it enables the exporting of auras, curses and modifiers to the enemy", false)
 	self.controls.generateCodeOut = new("EditControl", {"TOPLEFT",self.controls.generateCodeLabel,"BOTTOMLEFT"}, {0, 8, 250, 20}, "", "Code", "%Z")
 	self.controls.generateCodeOut.enabled = function()
@@ -722,7 +722,7 @@ local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(
 			end
 		end)
 	end
-	
+
 end)
 
 -- attempt to fetch the last realm's character list once per instance, if there
@@ -765,7 +765,7 @@ function ImportTabClass:Save(xml)
 		xml.attrib.importLink = self.build.importLink
 	end
 	-- Gets rid of erroneous, potentially infinitely nested full base64 XML stored as an import link
-	xml.attrib.importLink = (xml.attrib.importLink and xml.attrib.importLink:len() < 100) and xml.attrib.importLink or nil 
+	xml.attrib.importLink = (xml.attrib.importLink and xml.attrib.importLink:len() < 100) and xml.attrib.importLink or nil
 end
 
 function ImportTabClass:Draw(viewPort, inputEvents)
@@ -1189,8 +1189,8 @@ function ImportTabClass:ImportPassiveTreeAndJewels(charData, deleteJewels)
 	local ruthlessSuffix = charData.league:match("Ruthless") and "_ruthless" or ""
 	local phreciaSuffix = isAscendancyInTree(charData.class, latestTreeVersion) and "" or "_alternate"
 	self.build.spec:ImportFromNodeList(charData.class,
-		nil, 
-		nil, 
+		nil,
+		nil,
 		alternateAscendancyId,
 		charPassives.hashes,
 		skillOverrides,
@@ -1208,14 +1208,14 @@ function ImportTabClass:ImportPassiveTreeAndJewels(charData, deleteJewels)
 	local resistancePenaltyIndex = 3
 	if self.build.Act then -- Estimate resistance penalty setting based on act progression estimate
 		if type(self.build.Act) == "string" and self.build.Act == "Endgame" then resistancePenaltyIndex = 3
-		elseif type(self.build.Act) == "number" then 
+		elseif type(self.build.Act) == "number" then
 			if self.build.Act < 5 then resistancePenaltyIndex = 1
 			elseif self.build.Act > 5 and self.build.Act < 11 then resistancePenaltyIndex = 2
 			elseif self.build.Act > 10 then resistancePenaltyIndex = 3 end
 		end
 	end
 	self.build.configTab.varControls["resistancePenalty"]:SetSel(resistancePenaltyIndex)
-	
+
 	local function setSelByVal(dropdown, val)
 		for i, v in ipairs(dropdown.list) do
 			if v.val == val then
@@ -1436,7 +1436,7 @@ function ImportTabClass:ImportItemsAndSkills(charData, clearItems, clearSkills, 
 end
 
 local rarityMap = { [0] = "NORMAL", "MAGIC", "RARE", "UNIQUE", [9] = "RELIC", [10] = "RELIC" }
-local slotMap = { ["Weapon"] = "Weapon 1", ["Offhand"] = "Weapon 2", ["Weapon2"] = "Weapon 1 Swap", ["Offhand2"] = "Weapon 2 Swap", ["Helm"] = "Helmet", ["BodyArmour"] = "Body Armour", ["Gloves"] = "Gloves", ["Boots"] = "Boots", 
+local slotMap = { ["Weapon"] = "Weapon 1", ["Offhand"] = "Weapon 2", ["Weapon2"] = "Weapon 1 Swap", ["Offhand2"] = "Weapon 2 Swap", ["Helm"] = "Helmet", ["BodyArmour"] = "Body Armour", ["Gloves"] = "Gloves", ["Boots"] = "Boots",
 				  ["Amulet"] = "Amulet", ["Ring"] = "Ring 1", ["Ring2"] = "Ring 2", ["Ring3"] = "Ring 3", ["Belt"] = "Belt",  ["BrequelGrafts"] = "Graft 1", ["BrequelGrafts2"] = "Graft 2", }
 
 function ImportTabClass:ImportItem(itemData, slotName, ignoreWeaponSwap)
@@ -1569,6 +1569,10 @@ function ImportTabClass:ImportItem(itemData, slotName, ignoreWeaponSwap)
 					item.baseName = "Two-Toned Boots (Evasion/Energy Shield)"
 					item.base = self.build.data.itemBases[item.baseName]
 				end
+			elseif property.name:find("Intangibility") then
+				item.intangibility = tonumber(property.values[1][1]:match("%d+"))
+			elseif property.name == "Memory Strands" then
+				item.memoryStrands = tonumber(property.values[1][1])
 			end
 			if property.name == "Energy Shield" or property.name == "Ward" or property.name == "Armour" or property.name == "Evasion Rating" then
 				item.armourData = item.armourData or { }
@@ -1766,7 +1770,7 @@ function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 			local normalizedBasename = sanitiseText(socketedItem.typeLine)
 			local gemId = self.build.data.gemForBaseName[normalizedBasename:lower()]
 			if socketedItem.hybrid then
-				-- Used by transfigured gems and dual-skill gems (currently just Stormbind) 
+				-- Used by transfigured gems and dual-skill gems (currently just Stormbind)
 				normalizedBasename = sanitiseText(socketedItem.hybrid.baseTypeName)
 				gemId = self.build.data.gemForBaseName[normalizedBasename:lower()]
 				if gemId and socketedItem.hybrid.isVaalGem then

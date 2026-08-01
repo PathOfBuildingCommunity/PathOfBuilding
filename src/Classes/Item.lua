@@ -66,7 +66,7 @@ local influenceInfo = itemLib.influenceInfo.all
 local ItemClass = newClass("Item", function(self, raw, rarity, highQuality)
 	if raw then
 		self:ParseRaw(sanitiseText(raw), rarity, highQuality)
-	end	
+	end
 end)
 
 -- Reset all influence keys to false
@@ -414,7 +414,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 	local linePrefix = ""
 	local linePostfix = ""
 
-	while self.rawLines[l] do	
+	while self.rawLines[l] do
 		local line = self.rawLines[l]
 		if line == "Veiled Prefix" or line == "Veiled Suffix" then
 			self.veiled = true
@@ -893,7 +893,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 									self.pendingAffixList = { pendingAffix }
 									break
 								end
-							end	
+							end
 						end
 					end
 					-- Use rolling Delta/Range in case one range is 1-3 and another is 1-100 so we get the finest precision possible
@@ -918,7 +918,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					-- Use rolling Delta/Range in case one range is 1-3 and another is 1-100 so we get the finest precision possible
 					local bestPrecisionDelta = -1
 					local bestPrecisionRange = -1
-					
+
 					-- Replace non-number ranges as unsupported
 					line = line:gsub("(%a+)%([%a%s]+%-[%a%s]+%)", "%1")
 
@@ -1185,7 +1185,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 	end
 	self.affixLimit = 0
 	if self.crafted then
-		if not self.affixes then 
+		if not self.affixes then
 			self.crafted = false
 		elseif self.rarity == "MAGIC" then
 			if self.prefixes.limit or self.suffixes.limit then
@@ -1388,7 +1388,7 @@ function ItemClass:NormaliseQuality()
 		elseif not self.uniqueID and not self.corrupted and not self.split and not self.mirrored and self.quality < 20 then
 			self.quality = 20
 		end
-	end	
+	end
 end
 
 function ItemClass:GetModSpawnWeight(mod, includeTags, excludeTags)
@@ -1492,7 +1492,7 @@ function ItemClass:BuildRaw()
 		t_insert(rawLines, string.format("Intangibility: %d%%", self.intangibility))
 	end
 	if self.memoryStrands then
-		t_insert(rawLines, string.format("Memory Strands: %d%%", self.memoryStrands))
+		t_insert(rawLines, string.format("Memory Strands: %d", self.memoryStrands))
 	end
 	if self.uniqueID then
 		t_insert(rawLines, "Unique ID: " .. self.uniqueID)
@@ -1615,7 +1615,7 @@ function ItemClass:BuildRaw()
 			if baseLine.variantList then
 				writeModLine(baseLine)
 			end
-		end	
+		end
 		if self.hasAltVariant then
 			t_insert(rawLines, "Has Alt Variant: true")
 			t_insert(rawLines, "Selected Alt Variant: " .. self.variantAlt)
@@ -1759,7 +1759,7 @@ function ItemClass:Craft()
 							end
 						end
 						statOrder[order] = modLine
-					end	
+					end
 				end
 			end
 		end
@@ -2116,11 +2116,11 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 			if jewelData.clusterJewelSkill and not self.clusterJewel.skills[jewelData.clusterJewelSkill] then
 				jewelData.clusterJewelSkill = nil
 			end
-			jewelData.clusterJewelValid = jewelData.clusterJewelKeystone 
-				or ((jewelData.clusterJewelSkill or jewelData.clusterJewelSmallsAreNothingness) and jewelData.clusterJewelNodeCount) 
+			jewelData.clusterJewelValid = jewelData.clusterJewelKeystone
+				or ((jewelData.clusterJewelSkill or jewelData.clusterJewelSmallsAreNothingness) and jewelData.clusterJewelNodeCount)
 				or (jewelData.clusterJewelSocketCountOverride and jewelData.clusterJewelNothingnessCount)
 		end
-	end	
+	end
 	return { unpack(modList) }
 end
 
@@ -2248,7 +2248,7 @@ function ItemClass:BuildModList()
 		-- Force the socket count to be equal to the stated number
 		self.selectableSocketCount = socketCount
 		local group = 0
-		for i = 1, m_max(socketCount, #self.sockets) do 
+		for i = 1, m_max(socketCount, #self.sockets) do
 			if i > socketCount then
 				self.sockets[i] = nil
 			elseif not self.sockets[i] then

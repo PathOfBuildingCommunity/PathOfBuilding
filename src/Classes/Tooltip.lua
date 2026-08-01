@@ -84,7 +84,7 @@ function TooltipClass:CheckForUpdate(...)
 	end
 end
 
-function TooltipClass:AddLine(size, text, font)
+function TooltipClass:AddLine(size, text, font, background)
 	if text then
 		local fontToUse
 		if main.showFlavourText then
@@ -92,7 +92,7 @@ function TooltipClass:AddLine(size, text, font)
 		else
 			fontToUse = "VAR"
 		end
-		for line in s_gmatch(text .. "\n", "([^\n]*)\n") do 
+		for line in s_gmatch(text .. "\n", "([^\n]*)\n") do
 			if line:match("^.*(Equipping)") == "Equipping" or line:match("^.*(Removing)") == "Removing" then
 				t_insert(self.blocks, { height = size + 2})
 			else
@@ -100,10 +100,10 @@ function TooltipClass:AddLine(size, text, font)
 			end
 			if self.maxWidth then
 				for _, wrappedLine in ipairs(main:WrapString(line, size, self.maxWidth - H_PAD)) do
-					t_insert(self.lines, { size = size, text = wrappedLine, block = #self.blocks, font = fontToUse, center = self.center })
+					t_insert(self.lines, { size = size, text = wrappedLine, block = #self.blocks, font = fontToUse, center = self.center, background = background })
 				end
 			else
-				t_insert(self.lines, { size = size, text = line, block = #self.blocks, font = fontToUse, center = self.center })
+				t_insert(self.lines, { size = size, text = line, block = #self.blocks, font = fontToUse, center = self.center, background = background })
 			end
 		end
 	end
@@ -190,7 +190,7 @@ end
 function TooltipClass:GetDynamicSize(viewPort)
 	local staticttW, staticttH = self:GetSize()
 	local columns, ttH, _, extraColumnWidth = self:CalculateColumns(0, 0, staticttH, staticttW, viewPort)
-	
+
 	-- ensure extra column width has sensible value
 	extraColumnWidth = (columns > 1 and extraColumnWidth > 0) and extraColumnWidth or staticttW
 	local ttW = staticttW + (m_max(columns - 1, 0) * extraColumnWidth)
@@ -294,7 +294,7 @@ function TooltipClass:CalculateColumns(ttY, ttX, ttH, ttW, viewPort)
 			local lineX = lineCentered and (x + ttW / 2) or (x + (H_PAD / 2))
 			local lineAlign = lineCentered and "CENTER_X" or "LEFT"
 
-			t_insert(drawStack, {lineX, y, lineAlign, data.size, font, data.text})
+			t_insert(drawStack, {lineX, y, lineAlign, data.size, font, data.text, background = data.background})
 			y = y + data.size + 2
 
 			-- track max width for extra columns
@@ -331,7 +331,7 @@ function TooltipClass:CalculateColumns(ttY, ttX, ttH, ttW, viewPort)
 
 			-- calculate column index (origX is at least x * original widths from start)
 			local colIndex = m_floor((origX - ttX) / ttW) + 1
-			
+
 			if colIndex > 1 then
 				local oldBaseX = ttX + ttW * (colIndex - 1)
 				local newBaseX = ttX + ttW + extraColumnWidth * (colIndex - 2) -- `- 2` because first column is unchanged
@@ -447,7 +447,7 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 		local newX = m_max(viewPort.x, viewPort.x + viewPort.width - totalDrawWidth)
 		local offsetX = newX - ttX
 		ttX = newX
-		
+
 		for _, line in ipairs(drawStack) do
 			if #line < 6 then
 				-- Text element entries have 6 entries and `x` at `[2]`
@@ -565,13 +565,13 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 
 	-- Draw lines and images
 	local firstSeparatorSkipped = false
-	for _, line in ipairs(drawStack) do 
+	for _, line in ipairs(drawStack) do
 		if #line < 6 then
 			local skip = false
 			if line[1] and type(line[1]) == "table" and line[1].isSeparator then
 				-- Only skip first separator for items and skill gems
 				local tooltipType = self.tooltipHeader and tostring(self.tooltipHeader):upper() or ""
-				if main.showFlavourText and not firstSeparatorSkipped and 
+				if main.showFlavourText and not firstSeparatorSkipped and
 				(tooltipType == "RELIC" or tooltipType == "UNIQUE" or tooltipType == "RARE" or tooltipType == "MAGIC" or tooltipType == "GEM") then
 					firstSeparatorSkipped = true
 					skip = true
@@ -596,13 +596,43 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 				end
 			end
 		else
+			-- Draw background if specified, used for gem mod lines and desecrated mods on items.
+			local bg = line.background
+			if bg then
+				-- Save current draw color BEFORE drawing background image, otherwise wrapped strings print white text for later lines.
+				local prevR, prevG, prevB, prevA = GetDrawColor()
+
+				if type(bg) == "string" then
+					if not self._bgHandles then
+						self._bgHandles = {}
+					end
+					if not self._bgHandles[bg] then
+						local h = NewImageHandle()
+						h:Load("Assets/" .. bg .. ".png")
+						self._bgHandles[bg] = h
+					end
+					bg = self._bgHandles[bg]
+				end
+
+				local x = ttX
+				local y = line[2] - 5
+				local width = ttW - 8
+				local height = line[4] + 10
+				SetDrawColor(1,1,1,1)
+				DrawImage(bg, x + 4, y, width, height)
+
+				-- Restore color BEFORE DrawString
+				SetDrawColor(prevR, prevG, prevB, prevA)
+			end
+
+			-- Draw text line
 			DrawString(unpack(line))
 		end
 	end
 
 	-- Draw borders
 	if type(self.color) == "string" then
-		SetDrawColor(self.color) 
+		SetDrawColor(self.color)
 	else
 		SetDrawColor(unpack(self.color))
 	end
