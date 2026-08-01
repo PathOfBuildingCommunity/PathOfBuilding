@@ -93,11 +93,11 @@ function listMode:Init(selBuildName, subPath)
 		self.controls.ExtBuildList = self:getPublicBuilds()
 	end
 
-	self.controls.searchText = new("EditControl", {"TOP",self.anchor,"TOP"}, {0, 25, 640, 20}, self.filterBuildList, nil, "%c%(%)", 100, function(buf)
+	self.controls.searchText = new("EditControl", {"TOP",self.anchor,"TOP"}, {0, 25, 640, 20}, self.filterBuildList, "Search", "%c%(%)", 100, function(buf)
 		main.filterBuildList = buf
 		self:BuildList()
 	end, nil, nil, true)
-	self.controls.searchText:SetPlaceholder("Search (e.g. class:assassin myfilename)")
+	self.controls.searchText:SetPlaceholder("(e.g. class:assassin myfilename)")
 	self.controls.searchText.width = buildListWidth
 	self.controls.searchText.x = buildListOffset
 
