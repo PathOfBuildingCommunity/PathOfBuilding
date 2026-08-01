@@ -1570,10 +1570,11 @@ function CompareTabClass:OpenImportFolderPopup()
 	end
 
 	-- Search box and sort dropdown sit above the build list.
-	controls.searchText = new("EditControl", {"TOPLEFT", nil, "TOPLEFT"}, {15, 25, 450, 20}, "", "Search", "%c%(%)", 100, function(buf)
+	controls.searchText = new("EditControl", {"TOPLEFT", nil, "TOPLEFT"}, {15, 25, 450, 20}, "", nil, "%c%(%)", 100, function(buf)
 		searchText = buf
 		listHost:BuildList()
 	end, nil, nil, true)
+	controls.searchText:SetPlaceholder("Search (e.g. class:assassin myfilename)")
 	controls.sort = new("DropDownControl", {"TOPLEFT", nil, "TOPLEFT"}, {475, 25, 210, 20}, buildListHelpers.buildSortDropList, function(index, value)
 		sortMode = value.sortMode
 		main.buildSortMode = value.sortMode
@@ -1590,7 +1591,7 @@ function CompareTabClass:OpenImportFolderPopup()
 	-- navigate folders, import builds, and suppress rename/delete/drag behaviors.
 	function controls.buildList:LoadBuild(build)
 		if build.folderName then
-			self.controls.path:SetSubPath(self.listMode.subPath .. build.folderName .. "/")
+			self.controls.path:SetSubPath(build.subPath .. build.folderName .. "/")
 		else
 			importBuildEntry(build)
 		end

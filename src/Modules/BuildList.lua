@@ -93,10 +93,11 @@ function listMode:Init(selBuildName, subPath)
 		self.controls.ExtBuildList = self:getPublicBuilds()
 	end
 
-	self.controls.searchText = new("EditControl", {"TOP",self.anchor,"TOP"}, {0, 25, 640, 20}, self.filterBuildList, "Search", "%c%(%)", 100, function(buf)
+	self.controls.searchText = new("EditControl", {"TOP",self.anchor,"TOP"}, {0, 25, 640, 20}, self.filterBuildList, nil, "%c%(%)", 100, function(buf)
 		main.filterBuildList = buf
 		self:BuildList()
 	end, nil, nil, true)
+	self.controls.searchText:SetPlaceholder("Search (e.g. class:assassin myfilename)")
 	self.controls.searchText.width = buildListWidth
 	self.controls.searchText.x = buildListOffset
 
@@ -180,9 +181,11 @@ function listMode:GetDestName(subPath, fileName)
 	local i = 2
 	local destName = fileName
 	while true do
-		local test = io.open(destName, "r")
+		local test = io.open(main.buildPath..subPath..destName, "r")
 		if test then
-			destName = fileName .. "[" .. i .. "]"
+			test:close()
+			local baseName = fileName:gsub("%.xml$", "")
+			destName = baseName .. "[" .. i .. "].xml"
 			i = i + 1
 		else
 			break

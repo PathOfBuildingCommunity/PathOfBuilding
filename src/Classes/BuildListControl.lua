@@ -29,13 +29,21 @@ local BuildListClass = newClass("BuildListControl", "ListControl", function(self
 	function self.controls.path:ReceiveDrag(type, build, source)
 		if type == "Build" then
 			for index, folder in ipairs(self.folderList) do
-				if index < #self.folderList and folder.button:IsMouseOver() then
-					if build.folderName then
-						main:MoveFolder(build.folderName, main.buildPath..build.subPath, main.buildPath..folder.path)
-					else
-						os.rename(build.fullFileName, listMode:GetDestName(folder.path, build.fileName))
+				if folder.button:IsMouseOver() then
+					if build.subPath ~= folder.path then
+						if build.folderName then
+							main:MoveFolder(build.folderName, main.buildPath..build.subPath, main.buildPath..folder.path)
+						else
+							local destPath = listMode:GetDestName(folder.path, build.fileName)
+							local res, msg = os.rename(build.fullFileName, destPath)
+							if not res then
+								main:OpenMessagePopup("Error", "Couldn't move '"..build.fullFileName.."' to '"..destPath.."': "..(msg or ""))
+								return
+							end
+						end
+						listMode:BuildList()
 					end
-					listMode:BuildList()
+					break
 				end
 			end
 		end
@@ -57,7 +65,7 @@ end
 
 function BuildListClass:LoadBuild(build)
 	if build.folderName then
-		self.controls.path:SetSubPath(self.listMode.subPath .. build.folderName  .. "/")
+		self.controls.path:SetSubPath(build.subPath .. build.folderName  .. "/")
 	else
 		main:SetMode("BUILD", build.fullFileName, build.buildName)
 	end
@@ -171,10 +179,19 @@ end
 function BuildListClass:GetRowValue(column, index, build)
 	if column == 1 then
 		local label
+		local subPathPrefix = ""
+		if build.subPath and self.listMode and self.listMode.subPath and build.subPath ~= self.listMode.subPath then
+			local baseSub = self.listMode.subPath
+			if build.subPath:sub(1, #baseSub) == baseSub then
+				subPathPrefix = build.subPath:sub(#baseSub + 1)
+			else
+				subPathPrefix = build.subPath
+			end
+		end
 		if build.folderName then
-			label = ">> " .. build.folderName
+			label = ">> " .. subPathPrefix .. build.folderName
 		else
-			label = build.buildName or "?"
+			label = subPathPrefix .. (build.buildName or "?")
 		end
 		if self.cutBuild and self.cutBuild.buildName == build.buildName and self.cutBuild.folderName == build.folderName then
 			return "^xC0B0B0"..label
@@ -205,12 +222,20 @@ end
 function BuildListClass:ReceiveDrag(type, build, source)
 	if type == "Build" then
 		if self.hoverValue and self.hoverValue.folderName then
-			if build.folderName then
-				main:MoveFolder(build.folderName, main.buildPath..build.subPath, main.buildPath..self.hoverValue.subPath..self.hoverValue.folderName.."/")
-			else
-				os.rename(build.fullFileName, self.listMode:GetDestName(self.listMode.subPath..self.hoverValue.folderName.."/", build.fileName))
+			local targetSubPath = self.hoverValue.subPath .. self.hoverValue.folderName .. "/"
+			if build.subPath ~= targetSubPath then
+				if build.folderName then
+					main:MoveFolder(build.folderName, main.buildPath..build.subPath, main.buildPath..targetSubPath)
+				else
+					local destPath = self.listMode:GetDestName(targetSubPath, build.fileName)
+					local res, msg = os.rename(build.fullFileName, destPath)
+					if not res then
+						main:OpenMessagePopup("Error", "Couldn't move '"..build.fullFileName.."' to '"..destPath.."': "..(msg or ""))
+						return
+					end
+				end
+				self.listMode:BuildList()
 			end
-			self.listMode:BuildList()
 		end
 	end
 end

@@ -14,65 +14,137 @@ local buildSortDropList = {
 	{ label = "Sort by Level", sortMode = "LEVEL"},
 }
 
--- Scan main.buildPath..subPath for .xml builds and sub-folders.
--- filterText is an optional substring filter applied to build filenames.
--- Returns a freshly allocated list of entries in the shape used by BuildListControl.
--- On cloud-read failure opens main:OpenCloudErrorPopup and returns whatever has been
--- collected so far (matching the prior in-module behavior in Modules/BuildList).
+local function ReadBuildHeader(fullFileName)
+	local fileHnd = io.open(fullFileName, "r")
+	if not fileHnd then return nil, nil, nil end
+	local headerText = fileHnd:read(2048)
+	fileHnd:close()
+	if not headerText then return nil, nil, nil end
+
+	local buildTag = headerText:match("<Build%s+[^>]->")
+	if not buildTag then return nil, nil, nil end
+
+	local level = tonumber(buildTag:match('level="([^"]+)"'))
+	local className = buildTag:match('className="([^"]+)"')
+	local ascendClassName = buildTag:match('ascendClassName="([^"]+)"')
+	return level, className, ascendClassName
+end
+
+local function MatchEntry(entry, terms)
+	for _, term in ipairs(terms) do
+		local val = term:match("^class:(.*)$")
+		if val then
+			val = val:lower()
+			if val ~= "" then
+				local match = (entry.className and entry.className:lower():find(val, 1, true)) or
+				              (entry.ascendClassName and entry.ascendClassName:lower():find(val, 1, true)) or
+				              (entry.folderName and entry.folderName:lower():find(val, 1, true))
+				if not match then return false end
+			end
+		else
+			local termLower = term:lower()
+			local match = (entry.buildName and entry.buildName:lower():find(termLower, 1, true)) or
+			              (entry.folderName and entry.folderName:lower():find(termLower, 1, true)) or
+			              (entry.className and entry.className:lower():find(termLower, 1, true)) or
+			              (entry.ascendClassName and entry.ascendClassName:lower():find(termLower, 1, true)) or
+			              (entry.subPath and entry.subPath:lower():find(termLower, 1, true))
+			if not match then return false end
+		end
+	end
+	return true
+end
+
 local function ScanFolder(subPath, filterText)
 	subPath = subPath or ""
 	filterText = filterText or ""
 	local list = { }
-	local handle
-	if filterText ~= "" then
-		handle = NewFileSearch(main.buildPath..subPath.."*"..filterText.."*.xml")
-	else
-		handle = NewFileSearch(main.buildPath..subPath.."*.xml")
+
+	local terms = { }
+	if filterText:match("%S") then
+		for term in filterText:gmatch("%S+") do
+			t_insert(terms, term)
+		end
 	end
-	while handle do
-		local fileName = handle:GetFileName()
-		local build = { }
-		build.fileName = fileName
-		build.subPath = subPath
-		build.fullFileName = main.buildPath..subPath..fileName
-		build.modified = handle:GetFileModifiedTime()
-		build.buildName = fileName:gsub("%.xml$","")
-		local fileHnd = io.open(build.fullFileName, "r")
-		if fileHnd then
-			local fileText = fileHnd:read("*a")
-			fileHnd:close()
-			if not fileText then
-				main:OpenCloudErrorPopup(build.fullFileName)
-				return list
-			end
-			fileText = fileText:match("(<Build.->)")
-			if fileText then
-				local xml = common.xml.ParseXML(fileText.."</Build>")
-				if xml and xml[1] then
-					build.level = tonumber(xml[1].attrib.level)
-					build.className = xml[1].attrib.className
-					build.ascendClassName = xml[1].attrib.ascendClassName
+
+	local function scanDir(currentSubPath)
+		local handle = NewFileSearch(main.buildPath..currentSubPath.."*.xml")
+		while handle do
+			local fileName = handle:GetFileName()
+			local buildName = fileName:gsub("%.xml$","")
+			local fullFileName = main.buildPath..currentSubPath..fileName
+
+			if #terms == 0 then
+				if currentSubPath == subPath then
+					local level, className, ascendClassName = ReadBuildHeader(fullFileName)
+					t_insert(list, {
+						fileName = fileName,
+						subPath = currentSubPath,
+						fullFileName = fullFileName,
+						modified = handle:GetFileModifiedTime(),
+						buildName = buildName,
+						level = level,
+						className = className,
+						ascendClassName = ascendClassName,
+					})
+				end
+			else
+				local level, className, ascendClassName = ReadBuildHeader(fullFileName)
+				local entry = {
+					fileName = fileName,
+					subPath = currentSubPath,
+					fullFileName = fullFileName,
+					modified = handle:GetFileModifiedTime(),
+					buildName = buildName,
+					level = level,
+					className = className,
+					ascendClassName = ascendClassName,
+				}
+				if MatchEntry(entry, terms) then
+					t_insert(list, entry)
 				end
 			end
+
+			if not handle:NextFile() then break end
 		end
-		t_insert(list, build)
-		if not handle:NextFile() then
-			break
+
+		handle = NewFileSearch(main.buildPath..currentSubPath.."*", true)
+		local subFolders = { }
+		while handle do
+			local folderName = handle:GetFileName()
+			local modified = handle:GetFileModifiedTime()
+			t_insert(subFolders, { name = folderName, modified = modified })
+			if not handle:NextFile() then break end
+		end
+
+		for _, folder in ipairs(subFolders) do
+			local folderName = folder.name
+			local nextSubPath = currentSubPath .. folderName .. "/"
+
+			if #terms == 0 then
+				if currentSubPath == subPath then
+					t_insert(list, {
+						folderName = folderName,
+						subPath = currentSubPath,
+						fullFileName = main.buildPath..currentSubPath..folderName,
+						modified = folder.modified
+					})
+				end
+			else
+				local folderEntry = {
+					folderName = folderName,
+					subPath = currentSubPath,
+					fullFileName = main.buildPath..currentSubPath..folderName,
+					modified = folder.modified
+				}
+				if MatchEntry(folderEntry, terms) then
+					t_insert(list, folderEntry)
+				end
+				scanDir(nextSubPath)
+			end
 		end
 	end
-	handle = NewFileSearch(main.buildPath..subPath.."*", true)
-	while handle do
-		local folderName = handle:GetFileName()
-		t_insert(list, {
-			folderName = folderName,
-			subPath = subPath,
-			fullFileName = main.buildPath..subPath..folderName,
-			modified = handle:GetFileModifiedTime()
-		})
-		if not handle:NextFile() then
-			break
-		end
-	end
+
+	scanDir(subPath)
 	return list
 end
 
