@@ -105,7 +105,7 @@ function PoEAPIClass:FetchAuthToken(callback)
 	)
 
 	local server = io.open("LaunchServer.lua", "r")
-	local id = LaunchSubScript(server:read("*a"), "", "ConPrintf,OpenURL", authUrl)
+	local id = LaunchSubScript(server:read("*a"), "", "ConPrintf,OpenURL,Copy", authUrl)
 	server:close()
 	if id then
 		launch.subScripts[id] = {
