@@ -179,7 +179,7 @@ for i=1, passiveSkillOverridesDat.rowCount do
 	if tattooPassiveNode.dn and tattooPassiveNode.dn ~= "" and tattooPassiveNode.ks == false then
 		local baseItemType = baseItemTypes:GetRow("Name", datFileRow.Name)
 		if baseItemType then
-			tattooPassiveNode.legacy = currencyExchange:GetRow("BaseItemType", baseItemType) and currencyExchange:GetRow("BaseItemType", baseItemType).EnabledInLeague
+			tattooPassiveNode.legacy = currencyExchange:GetRow("BaseItemType", baseItemType) and (not currencyExchange:GetRow("BaseItemType", baseItemType).EnabledInLeague) or true
 		end
 	end
 
