@@ -12501,7 +12501,7 @@ c["Triggers Level 20 Physical Aegis when Equipped"]={{[1]={flags=0,keywordFlags=
 c["Triggers Level 20 Primal Aegis when Allocated"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="PrimalAegis",triggered=true}}},nil}
 c["Triggers Level 20 Reflection when Equipped"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="UniqueMirageWarriors",triggered=true}}},nil}
 c["Triggers Level 20 Summon Arbalists when Equipped"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="SummonArbalists",triggered=true}}},nil}
-c["Triggers Level 20 Summon Bone Feeders when Allocated"]={{},nil}
+c["Triggers Level 20 Summon Bone Feeders when Allocated"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="SummonAbyssalConstructs",triggered=true}}},nil}
 c["Triggers Level 20 Summon Triggerbots when Allocated"]={{[1]={flags=0,keywordFlags=0,name="HaveTriggerBots",type="FLAG",value=true}},nil}
 c["Triggers Level 7 Abberath's Fury when Equipped"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=7,skillId="RepeatingShockwave",triggered=true}}},nil}
 c["Unaffected by Bleeding"]={{[1]={flags=0,keywordFlags=0,name="SelfBleedEffect",type="MORE",value=-100}},nil}
