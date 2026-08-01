@@ -598,7 +598,7 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 		else
 			-- Draw background if specified, used for gem mod lines and desecrated mods on items.
 			local bg = line.background
-			if bg then
+			if bg and main.showFlavourText then
 				-- Save current draw color BEFORE drawing background image, otherwise wrapped strings print white text for later lines.
 				local prevR, prevG, prevB, prevA = GetDrawColor()
 
