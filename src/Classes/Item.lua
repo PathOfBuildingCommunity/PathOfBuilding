@@ -85,6 +85,7 @@ local lineFlags = {
 	["crafted"] = true,
 	["crucible"] = true,
 	["custom"] = true,
+	["disabled"] = true,
 	["eater"] = true,
 	["enchant"] = true,
 	["exarch"] = true,
@@ -730,8 +731,6 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 						modLine.range = tonumber(val)
 					elseif k == "corruptedRange" then
 						modLine.corruptedRange = tonumber(val)
-					elseif k == "disabled" then
-						modLine.disabled = true
 					elseif lineFlags[k] then
 						modLine[k] = true
 					end
