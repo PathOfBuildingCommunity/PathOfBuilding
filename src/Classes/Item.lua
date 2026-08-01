@@ -730,6 +730,8 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 						modLine.range = tonumber(val)
 					elseif k == "corruptedRange" then
 						modLine.corruptedRange = tonumber(val)
+					elseif k == "disabled" then
+						modLine.disabled = true
 					elseif lineFlags[k] then
 						modLine[k] = true
 					end
@@ -1530,6 +1532,9 @@ function ItemClass:BuildRaw()
 		if modLine.corruptedRange then
 			line = "{corruptedRange:" .. round(modLine.corruptedRange, 2) .. "}" .. line
 		end
+		if modLine.disabled then
+			line = "{disabled}" .. line
+		end
 		if modLine.crafted then
 			line = "{crafted}" .. line
 		end
@@ -2148,6 +2153,9 @@ function ItemClass:BuildModList()
 		end
 	end
 	local function processModLine(modLine)
+		if modLine.disabled then
+			return
+		end
 		if self:CheckModLineVariant(modLine) then
 			-- special section for variant over-ride of pre-modifier item parameters
 			if modLine.line:find("Requires Class") then
