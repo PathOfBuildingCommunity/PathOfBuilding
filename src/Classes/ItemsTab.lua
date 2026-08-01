@@ -4322,6 +4322,11 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode, maxWidth)
 		tooltip:AddSeparator(10)
 	end
 
+	if item.intangibility then
+		tooltip:AddLine(fontSizeBig, colorCodes.INTANGIBILITY .. s_format("Intangibility: ^7%d%%", item.intangibility), "FONTIN SC")
+		tooltip:AddSeparator(10)
+	end
+
 	-- Requirements
 	self.build:AddRequirementsToTooltip(tooltip, item.requirements.level, 
 		item.requirements.strMod, item.requirements.dexMod, item.requirements.intMod, 
