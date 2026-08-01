@@ -304,6 +304,36 @@ table.insert(replicaForbiddenShako, "+(25-30) to all Attributes")
 table.insert(data.uniques.generated, table.concat(forbiddenShako, "\n"))
 table.insert(data.uniques.generated, table.concat(replicaForbiddenShako, "\n"))
 
+local pearlOfTsoatha = {
+	"Pearl of Tsoatha",
+	"Prismatic Ring",
+	"League: Allflame",
+	"Source: Drops from unique{Velka, the Tide Witch}",
+	"Requires Level 30",
+	"Has Alt Variant: true",
+}
+local pearlSlots = { "Helmet", "Gloves", "Boots", "Passive Tree" }
+for _, slot in ipairs(pearlSlots) do
+	for _, name in ipairs(gems) do
+		table.insert(pearlOfTsoatha, "Variant: "..slot..": "..name)
+	end
+end
+table.insert(pearlOfTsoatha, "Implicits: 1")
+table.insert(pearlOfTsoatha, "{tags:resistance}+(8-10)% to all Elemental Resistances")
+table.insert(pearlOfTsoatha, "{tags:resistance}+(27-34)% to all Elemental Resistances")
+table.insert(pearlOfTsoatha, "{tags:elemental_damage}(30-60)% increased Elemental Damage")
+for slotIndex, slot in ipairs(pearlSlots) do
+	for gemIndex, name in ipairs(gems) do
+		local variantIndex = (slotIndex - 1) * #gems + gemIndex
+		if slot == "Passive Tree" then
+			table.insert(pearlOfTsoatha, "{variant:"..variantIndex.."}Skills granted by your Passive Tree are Supported by level 20 "..name)
+		else
+			table.insert(pearlOfTsoatha, "{variant:"..variantIndex.."}Skills Socketed in your "..slot.." are Supported by level 20 "..name)
+		end
+	end
+end
+table.insert(data.uniques.generated, table.concat(pearlOfTsoatha, "\n"))
+
 local enduranceChargeMods = {
 	[3] = {
 		["Up to Max."] = "15% chance that if you would gain Endurance Charges, you instead gain up to your maximum number of Endurance Charges",

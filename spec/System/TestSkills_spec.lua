@@ -285,4 +285,45 @@ describe("TestAttacks", function()
 		assert.are.equals(0, nonDurationSkill.skillModList:Sum("BASE", nonDurationSkill.skillCfg, "BaseFlagTest"))
 		assert.are.equals(1, nonDurationSkill.skillModList:Sum("BASE", nonDurationSkill.skillCfg, "NegatedBaseFlagTest"))
 	end)
+
+	it("applies Skills Socketed in your Helmet are Supported by to helmet gems only", function()
+		build.skillsTab:PasteSocketGroup("Slot: Helmet\nFireball 20/0  1\n")
+		runCallback("OnFrame")
+
+		local function hasSupport(name)
+			for _, effect in ipairs(build.calcsTab.mainEnv.player.mainSkill.supportList or { }) do
+				if effect.grantedEffect and effect.grantedEffect.name == name then
+					return true
+				end
+			end
+			return false
+		end
+
+		local baseDamage = build.calcsTab.mainOutput.AverageDamage
+		assert.is_false(hasSupport("Controlled Destruction"))
+
+		build.itemsTab:CreateDisplayItemFromRaw([[
+		New Item
+		Prismatic Ring
+		Skills Socketed in your Helmet are Supported by level 20 Controlled Destruction
+		]])
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
+
+		assert.is_true(hasSupport("Controlled Destruction"))
+		assert.is_true(build.calcsTab.mainOutput.AverageDamage > baseDamage)
+
+		-- Gems socketed in other slots are not supported
+		newBuild()
+		build.skillsTab:PasteSocketGroup("Slot: Body Armour\nFireball 20/0  1\n")
+		build.itemsTab:CreateDisplayItemFromRaw([[
+		New Item
+		Prismatic Ring
+		Skills Socketed in your Helmet are Supported by level 20 Controlled Destruction
+		]])
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
+
+		assert.is_false(hasSupport("Controlled Destruction"))
+	end)
 end)
