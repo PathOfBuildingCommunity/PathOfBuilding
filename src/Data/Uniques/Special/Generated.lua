@@ -311,10 +311,55 @@ local pearlOfTsoatha = {
 	"Source: Drops from unique{Velka, the Tide Witch}",
 	"Requires Level 30",
 	"Has Alt Variant: true",
+	"Selected Variant: 2",
+	"Selected Alt Variant: 1",
 }
+local pearlEligibleSupports = {
+	"Greater Multiple Projectiles", "Void Manipulation", "Vile Toxins", "Unleash", "Unbound Ailments",
+	"Advanced Traps", "Trap and Mine Damage", "Trap", "Swift Assembly", "Summon Phantasm",
+	"Elemental Army", "Stun", "Infused Channelling", "Ancestral Call", "Spell Totem",
+	"Intensify", "Spell Cascade", "Slower Projectiles", "Second Wind", "Ruthless",
+	"High-Impact Mine", "Blastchain Mine", "Inspiration", "Less Duration", "Swift Affliction",
+	"Ballista Totem", "Rage", "Pulverise", "Power Charge On Critical", "Critical Strike Affliction",
+	"Point Blank", "Pierce", "Physical to Lightning", "Vicious Projectiles", "Volley",
+	"Momentum", "Nightblade", "Multiple Traps", "Multiple Totems", "Multistrike",
+	"Spell Echo", "Mirage Archer", "Minefield", "Melee Splash", "Melee Physical Damage",
+	"Damage on Full Life", "Meat Shield", "Mana Leech", "Maim", "Lightning Penetration",
+	"Life Leech", "Life Gain on Hit", "Chance to Poison", "Multiple Projectiles", "Knockback",
+	"Item Rarity", "Iron Will", "Iron Grip", "Innervate", "Infernal Legion",
+	"Minion Speed", "Minion Life", "Minion Damage", "More Duration", "Increased Critical Strikes",
+	"Increased Critical Damage", "Burning Damage", "Increased Area of Effect", "Impale", "Immolate",
+	"Ignite Proliferation", "Ice Bite", "Hypothermia", "Greater Volley", "Elemental Damage with Attacks",
+	"Generosity", "Charged Traps", "Fortify", "Fork", "Chance to Flee",
+	"Fire Penetration", "Feeding Frenzy", "Faster Projectiles", "Faster Casting", "Faster Attacks",
+	"Energy Leech", "Endurance Charge on Melee Stun", "Elemental Proliferation", "Elemental Focus", "Efficacy",
+	"Decay", "Deadly Ailments", "Hextouch", "Culling Strike", "Controlled Destruction",
+	"Concentrated Effect", "Cold to Fire", "Cold Penetration", "Cluster Traps", "Close Combat",
+	"Charged Mines", "Withering Touch", "Combustion", "Chance to Bleed", "Chain",
+	"Cast while Channelling", "Cast when Stunned", "Cast on Melee Kill", "Cast on Death", "Cast when Damage Taken",
+	"Cast On Critical Strike", "Brutality", "Bonechill", "Arrogance", "Bloodlust",
+	"Blind", "Blasphemy", "Barrage", "Arrow Nova", "Archmage",
+	"Arcane Surge", "Additional Accuracy", "Added Lightning Damage", "Added Fire Damage", "Added Cold Damage",
+	"Added Chaos Damage", "Fist of War", "Swiftbrand", "Urgent Orders", "Pinpoint",
+	"Trinity", "Bloodthirst", "Cruelty", "Lifetap", "Focused Ballista",
+	"Overexertion", "Behead", "Mark On Hit", "Rupture", "Eternal Blessing",
+	"Overcharge", "Cursed Ground", "Hex Bloom", "Manaforged Arrows", "Returning Projectiles",
+	"Trauma", "Spellblade", "Devour", "Fresh Meat", "Flamewood",
+	"Corrupting Cry", "Volatility", "Guardian's Blessing", "Sacrifice", "Frigid Bond",
+	"Locus Mine", "Sadism", "Controlled Blaze", "Expert Retaliation", "Focused Channelling",
+	"Excommunicate", "Blessed Call", "Exemplar", "Hallow",
+}
+local pearlGems = { }
+for _, name in ipairs(pearlEligibleSupports) do
+	if data.gemForBaseName[(name.." Support"):lower()] or data.gemForBaseName[name:lower()] then
+		table.insert(pearlGems, name)
+	end
+end
+table.sort(pearlGems)
 local pearlSlots = { "Helmet", "Gloves", "Boots", "Passive Tree" }
+table.insert(pearlOfTsoatha, "Variant: None")
 for _, slot in ipairs(pearlSlots) do
-	for _, name in ipairs(gems) do
+	for _, name in ipairs(pearlGems) do
 		table.insert(pearlOfTsoatha, "Variant: "..slot..": "..name)
 	end
 end
@@ -323,8 +368,8 @@ table.insert(pearlOfTsoatha, "{tags:resistance}+(8-10)% to all Elemental Resista
 table.insert(pearlOfTsoatha, "{tags:resistance}+(27-34)% to all Elemental Resistances")
 table.insert(pearlOfTsoatha, "{tags:elemental_damage}(30-60)% increased Elemental Damage")
 for slotIndex, slot in ipairs(pearlSlots) do
-	for gemIndex, name in ipairs(gems) do
-		local variantIndex = (slotIndex - 1) * #gems + gemIndex
+	for gemIndex, name in ipairs(pearlGems) do
+		local variantIndex = (slotIndex - 1) * #pearlGems + gemIndex + 1
 		if slot == "Passive Tree" then
 			table.insert(pearlOfTsoatha, "{variant:"..variantIndex.."}Skills granted by your Passive Tree are Supported by level 20 "..name)
 		else
