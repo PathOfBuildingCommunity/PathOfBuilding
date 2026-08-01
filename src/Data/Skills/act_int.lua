@@ -8944,7 +8944,7 @@ skills["Hydrosphere"] = {
 	incrementalEffectiveness = 0.057799998670816,
 	description = "Create a sphere of water, or move an existing sphere and reset its duration. The sphere continually applies a drenched debuff with a short duration to enemies in its area or those it moves through. You can hit the sphere with other skills to inflict Cold and Lightning Ailments (other than Chill). The sphere pulses when created, at regular intervals while afflicted by an Ailment, and after moving, damaging all drenched enemies in a large area.",
 	skillTypes = { [SkillType.Damage] = true, [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, [SkillType.Cold] = true, [SkillType.Totemable] = true, [SkillType.Orb] = true, [SkillType.Multicastable] = true, [SkillType.CanRapidFire] = true, [SkillType.Lightning] = true, [SkillType.Physical] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0.6,
 	parts = {
 			{

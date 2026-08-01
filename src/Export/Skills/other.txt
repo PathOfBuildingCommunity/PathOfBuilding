@@ -897,6 +897,15 @@ local skills, mod, flag, skill = ...
 #baseMod skill("triggerSource", "Queen's Demand")
 #mods
 
+#skill SummonAbyssalConstructs
+#flags minion
+	fromTree = true,
+	minionList = {
+		"AbyssCurseBot",
+		"AbyssDebuffBot"
+	},
+#mods
+
 #skill SummonArbalists
 #flags spell minion
 	fromItem = true,

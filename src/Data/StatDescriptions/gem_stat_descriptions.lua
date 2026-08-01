@@ -11494,13 +11494,17 @@ return {
 	[423]={
 		[1]={
 			[1]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextChill"
+				},
 				limit={
 					[1]={
 						[1]="#",
 						[2]="#"
 					}
 				},
-				text="Chill enemies when they are Shocked by your Hits, reducing Action Speed by Shock Effect"
+				text="Chill enemies when they are Shocked by Hits from Supported Skills, reducing Action Speed by Shock Effect"
 			}
 		},
 		stats={
@@ -11510,13 +11514,17 @@ return {
 	[424]={
 		[1]={
 			[1]={
+				[1]={
+					k="reminderstring",
+					v="ReminderTextShock"
+				},
 				limit={
 					[1]={
 						[1]="#",
 						[2]="#"
 					}
 				},
-				text="Shock enemies when they are Chilled by your Hits, increasing Damage taken by Chill Effect"
+				text="Shock enemies when they are Chilled by Hits from Supported Skills, increasing Damage taken by Chill Effect"
 			}
 		},
 		stats={

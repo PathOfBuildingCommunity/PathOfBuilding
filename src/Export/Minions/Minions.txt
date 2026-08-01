@@ -162,6 +162,12 @@ local minions, mod = ...
 #monster Metadata/Monsters/Skitterbot/SkitterbotFire SkitterbotFire
 #emit
 
+#monster Metadata/Monsters/Skitterbot/AbyssCurseBot AbyssCurseBot
+#emit
+
+#monster Metadata/Monsters/Skitterbot/AbyssDebuffBot AbyssDebuffBot
+#emit
+
 #monster Metadata/Monsters/SummonedReaper/SummonedReaper SummonedReaper
 #limit ActiveReaperLimit
 #emit
