@@ -833,6 +833,19 @@ LocalIncreasedArmourAndEvasionUniqueShieldStrDex1
 AdditionalBlockChanceUnique__8_
 BaseBlockDamageTakenUnique__1___
 ]],[[
+Seablister
+Spiny Round Shield
+League: Allflame
+Source: Drops from unique{Velka, the Tide Witch}
+Requires Level 62, 85 Str, 85 Dex
+Implicits: 1
+BlockRecoveryImplicitShield1
+GrantsCreateBarnacleSkillUnique
+LocalBaseArmourAndEvasionRatingUnique__1
+LocalIncreasedArmourAndEvasionUnique__29
+MaximumColdResistUnique__3
+ColdResistUnique__44
+]],[[
 Shattershard
 Crimson Round Shield
 League: Heist

@@ -391,6 +391,24 @@ Variant: Current
 {variant:1}Vaal Skills used during effect do not apply Soul Gain Prevention
 {variant:1}Gains no Charges during Effect of any Soul Ripper Flask
 ]],[[
+Stormblood
+Sapphire Flask
+League: Allflame
+Source: Drops from unique{Velka, the Tide Witch}
+Requires Level 36
+(20-40)% chance to gain a Flask Charge when you deal a Critical Strike
+All Damage from Critical Strikes can apply Cold Ailments during effect
+50% reduced Duration
+]],[[
+Stormblood
+Topaz Flask
+League: Allflame
+Source: Drops from unique{Velka, the Tide Witch}
+Requires Level 36
+(20-40)% chance to gain a Flask Charge when you deal a Critical Strike
+All Damage from Critical Strikes can apply Lightning Ailments during effect
+50% reduced Duration
+]],[[
 Taste of Hate
 Sapphire Flask
 Variant: Pre 2.2.0

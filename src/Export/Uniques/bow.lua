@@ -31,6 +31,19 @@ Implicits: 1
 {variant:1,2,3}AttackCastMovementSpeedWhileYouDoNotHaveIronReflexesUnique__1
 {variant:1,2,3}FarShotWhileYouDoNotHaveIronReflexesUnique__1_
 ]],[[
+The Bane of Hope
+Maraketh Bow
+League: Mirage
+Source: No longer obtainable
+Requires Level 71
+Implicits: 1
+MovementVelocityMarakethBowImplicit2
+LocalIncreasedPhysicalDamagePercentUnique__58
+PhysicalDamageOverTimeMultiplierUnique__1
+LocalAddedPhyiscalDamageUnique__44
+AttackImpaleChanceUnique__3
+AnimosityPhysDegenSkillUnique__1
+]],[[
 Chin Sol
 Assassin Bow
 Variant: Pre 1.0.0
@@ -249,6 +262,19 @@ LocalIncreasedAttackSpeedUniqueBow11
 ManaRegenerationUniqueBow11
 {variant:1,2,3}LocalPhysicalDamageAddedAsEachElementTransformed[110,110]
 {variant:4}LocalPhysicalDamageAddedAsEachElementTransformed
+]],[[
+The Flame of Hope
+Maraketh Bow
+League: Mirage
+Source: No longer obtainable
+Requires Level 71
+Implicits: 1
+MovementVelocityMarakethBowImplicit2
+FireDamagePercentUnique__15
+LocalAddedFireDamageUnique__8
+LocalIncreasedAttackSpeedUnique__45
+FireExposureOnHitVsMaxResentmentStacksUnique__1
+ResentmentFireDegenSkillUnique__1
 ]],[[
 The Gluttonous Tide
 Citadel Bow

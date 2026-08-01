@@ -382,6 +382,24 @@ Variant: Current
 {variant:2}FlaskVaalConsumeMaximumChargesUnique__1
 {variant:2}FlaskVaalGainSoulsAsChargesUnique__1_
 ]],[[
+Stormblood
+Sapphire Flask
+League: Allflame
+Source: Drops from unique{Velka, the Tide Witch}
+Requires Level 36
+FlaskChanceRechargeOnCritUnique__2
+FlaskCriticalStrikesContributeToColdAilmentsDuringEffectUnique__1
+FlaskEffectDurationUnique__8
+]],[[
+Stormblood
+Topaz Flask
+League: Allflame
+Source: Drops from unique{Velka, the Tide Witch}
+Requires Level 36
+FlaskChanceRechargeOnCritUnique__2
+FlaskCriticalStrikesContributeToLightningAilmentsDuringEffectUnique__1
+FlaskEffectDurationUnique__8
+]],[[
 Taste of Hate
 Sapphire Flask
 Variant: Pre 2.2.0

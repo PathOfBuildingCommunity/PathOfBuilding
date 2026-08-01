@@ -774,6 +774,35 @@ Implicits: 1
 {tags:speed}10% increased Movement Speed
 {variant:2}30% increased Projectile Damage
 ]],[[
+Khatal's Geyser
+Lapis Amulet
+League: Mirage
+Source: No longer obtainable
+LevelReq: 56
+Implicits: 1
+{tags:attribute}+(20-30) to Intelligence
+Can't use Life Flasks
+{tags:resource}+(55-70) to maximum Mana
+Increases and Reductions to Effect of Flasks applied to you
+also applies to Effect of Arcane Surge on you at (200-250)% of their value
+You have Arcane Surge during Effect of any Mana Flask
+{tags:resource}Mana Flask Effects are not removed when Unreserved Mana is Filled
+{tags:resource}Mana Flask Effects do not Queue
+]],
+[[
+Khatal's Weeping
+Lapis Amulet
+League: Mirage
+Source: No longer obtainable
+LevelReq: 56
+Implicits: 1
+{tags:attribute}+(20-30) to Intelligence
+{tags:resource}+(80-100) to maximum Life
+{tags:resource}Can't use Mana Flasks
+{tags:resource}On non-channelling Attack, set a Life Flask with greater than 50% of maximum Charges remaining to 50%
+{tags:resource}For each Charge removed this way, that Attack gains +2% to Damage over time Multiplier
+{tags:resource}While on Low Life, Life Flasks gain (3-6) Charges every 3 seconds
+]],[[
 Leadership's Price
 Onyx Amulet
 League: Heist
@@ -947,6 +976,22 @@ Implicits: 2
 {tags:attack,speed}Modifiers to Claw Attack Speed also apply to Unarmed Attack Speed with Melee Skills
 {tags:attack,critical}Modifiers to Claw Critical Strike Chance also apply to Unarmed Critical Strike Chance with Melee Skills
 {variant:1,2}Corrupted
+]],[[
+Rotmother's Mutiny
+Pearlescent Amulet
+Variant: Fire
+Variant: Cold
+Variant: Lightning
+League: Allflame
+Source: Drops from Treasure Clam chests in normal{The Fathomless Depths}
+Requires Level 28
+{tags:resistance}+(8-10)% to all Elemental Resistances
+{tags:resistance}+(20-25)% to all Elemental Resistances
+{tags:resistance}+(1-3)% to all maximum Resistances
+(25-75)% increased Light Radius
+{variant:2}+1% to Chaos Resistance per 1% Cold Resistance
+{variant:1}+1% to Chaos Resistance per 1% Fire Resistance
+{variant:3}+1% to Chaos Resistance per 1% Lightning Resistance
 ]],[[
 Sacrificial Heart
 Paua Amulet

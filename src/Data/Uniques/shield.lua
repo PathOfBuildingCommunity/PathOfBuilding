@@ -837,6 +837,20 @@ Implicits: 1
 +(9-13)% Chance to Block
 You take 20% of Damage from Blocked Hits
 ]],[[
+Seablister
+Spiny Round Shield
+League: Allflame
+Source: Drops from unique{Velka, the Tide Witch}
+Requires Level 62, 85 Str, 85 Dex
+Implicits: 1
+60% increased Block Recovery
+Grants Level 20 Savage Barnacle
++(50-100) to Armour
++(50-100) to Evasion Rating
+(100-200)% increased Armour and Evasion
++3% to maximum Cold Resistance
++(30-40)% to Cold Resistance
+]],[[
 Shattershard
 Crimson Round Shield
 League: Heist
