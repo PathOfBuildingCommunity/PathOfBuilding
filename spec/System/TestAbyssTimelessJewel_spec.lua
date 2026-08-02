@@ -40,6 +40,7 @@ local function zorathExampleData()
 		{ id = 34171, modification = abyssModification({ { type = 1, id = 116, rolls = { 19 } } }) },
 		{ id = 36949, modification = abyssModification({ { type = 2, id = 4, rolls = { 2 } } }) },
 		{ id = 41472, modification = abyssModification({ { type = 2, id = 41, rolls = { 12 } } }) },
+		{ id = 50692, modification = abyssModification({ { type = 1, id = 77, rolls = { 1 } } }) },
 		{ id = 53884, modification = abyssModification({ { type = 1, id = 78, rolls = { 1 } } }) },
 		{ id = 60472, modification = abyssModification({ { type = 1, id = 102, rolls = { 4 } } }) },
 	}
@@ -50,7 +51,9 @@ local function zorathExampleData()
 	for _, affectedNode in ipairs(affectedNodes) do
 		encoded[#encoded + 1] = affectedNode.modification
 	end
-	encoded[#encoded + 1] = "ASCS" .. uint16(1) .. string.char(#"Inquisitor") .. "Inquisitor" .. string.char(1) .. uint16(53884)
+	encoded[#encoded + 1] = "ASCS" .. uint16(2)
+		.. string.char(#"Inquisitor") .. "Inquisitor" .. string.char(1) .. uint16(53884)
+		.. string.char(#"Chieftain") .. "Chieftain" .. string.char(1) .. uint16(50692)
 	return table.concat(encoded)
 end
 
@@ -266,6 +269,10 @@ describe("Abyss timeless jewels", function()
 		for nodeId, component in pairs(expected) do
 			assert.are.same(component, affectedNodes[nodeId][1])
 		end
+		assert.is_nil(affectedNodes[50692])
+		local allAscendancies = data.readAbyssJewelLUT(6564, nil, 11, path)
+		assert.are.same({ type = 1, id = 525, rolls = { 1 } }, allAscendancies[50692][1])
+		assert.are.same(expected[53884], allAscendancies[53884][1])
 	end)
 
 	it("applies the Zorath path and selected Inquisitor ascendancy example", function()
@@ -303,6 +310,7 @@ describe("Abyss timeless jewels", function()
 			table.concat(spec.nodes[41472].sd, "\n"))
 		assert.are.equal("Spiteful Allies", spec.nodes[53884].dn)
 		assert.are.equal("Minions Impale on Hit", table.concat(spec.nodes[53884].sd, "\n"))
+		assert.are.equal("From Below", spec.nodes[50692].dn)
 	end)
 
 	it("can protect an allocated ascendancy notable from Zorath", function()
@@ -336,6 +344,15 @@ describe("Abyss timeless jewels", function()
 			assert.is_nil(option.id and option.id:match("^abyss_special_ascendancy_notable_"))
 		end
 		for index, option in ipairs(controls.abyssAscendancySelect.list) do
+			if option.id == "abyss_special_ascendancy_notable_3" then
+				controls.abyssAscendancySelect.selIndex = index
+				controls.abyssAscendancySelect.selFunc(index, option)
+				break
+			end
+		end
+		controls.searchButton.onClick()
+		assert.are.equal(0, #build.timelessData.searchResults)
+		for index, option in ipairs(controls.abyssAscendancySelect.list) do
 			if option.id == "abyss_special_ascendancy_notable_4" then
 				controls.abyssAscendancySelect.selIndex = index
 				controls.abyssAscendancySelect.selFunc(index, option)
@@ -347,13 +364,19 @@ describe("Abyss timeless jewels", function()
 		controls.searchButton.onClick()
 		assert.are.equal(1, #build.timelessData.searchResults)
 
-		for index, name in ipairs(controls.protectAllocatedSelect.list) do
-			if name == baseNodeName then
+		local protectedOption
+		for index, option in ipairs(controls.protectAllocatedSelect.list) do
+			if option.label == baseNodeName then
 				controls.protectAllocatedSelect.selIndex = index
+				protectedOption = option
 				break
 			end
 		end
-		assert.are.equal(baseNodeName, controls.protectAllocatedSelect:GetSelValue())
+		assert.are.equal(baseNodeName, controls.protectAllocatedSelect:GetSelValue().label)
+		local tooltip = new("Tooltip")
+		controls.protectAllocatedSelect.tooltipFunc(tooltip, "DROP", controls.protectAllocatedSelect.selIndex, protectedOption)
+		assert.is_true(#tooltip.lines > 0)
+		assert.are.same(spec.tree.nodes[53884].sd, protectedOption.descriptions)
 		controls.protectAllocatedButtonAdd.onClick()
 		local _, requiredAscendancyYAfterAdd = controls.abyssAscendancySelect:GetPos()
 		assert.are.equal(requiredAscendancyY, requiredAscendancyYAfterAdd)

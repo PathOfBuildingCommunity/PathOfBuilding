@@ -1560,14 +1560,14 @@ function TreeTabClass:FindTimelessJewel()
 			return
 		end
 		wipeTable(allocatedNodes)
-		local nodeNames = { }
+		local nodeOptions = { }
 		if timelessData.jewelType.id == 11 then
 			-- Reclaimed Malevolence can replace an allocated notable in the selected ascendancy.
 			for nodeId in pairs(self.build.spec.allocNodes) do
 				local baseNode = treeData.nodes[nodeId]
 				if baseNode and baseNode.ascendancyName == self.build.spec.curAscendClassName and baseNode.type == "Notable" then
 					allocatedNodes[nodeId] = true
-					t_insert(nodeNames, baseNode.dn)
+					t_insert(nodeOptions, { label = baseNode.dn, descriptions = copyTable(baseNode.sd) })
 				end
 			end
 		else
@@ -1576,14 +1576,15 @@ function TreeTabClass:FindTimelessJewel()
 				if self.build.calcsTab.mainEnv.grantedPassives[nodeId] ~= nil or self.build.spec.allocNodes[nodeId] ~= nil then
 					allocatedNodes[nodeId] = true
 					if treeData.nodes[nodeId] and treeData.nodes[nodeId].isNotable then
-						t_insert(nodeNames, treeData.nodes[nodeId].dn)
+						local baseNode = treeData.nodes[nodeId]
+						t_insert(nodeOptions, { label = baseNode.dn, descriptions = copyTable(baseNode.sd) })
 					end
 				end
 			end
 		end
-		t_sort(nodeNames)
-		controls.protectAllocatedSelect:SetList(nodeNames)
-		self.allocatedNodesInRadiusCount = #nodeNames
+		t_sort(nodeOptions, function(a, b) return a.label < b.label end)
+		controls.protectAllocatedSelect:SetList(nodeOptions)
+		self.allocatedNodesInRadiusCount = #nodeOptions
 	end
 
 	
@@ -1645,10 +1646,11 @@ function TreeTabClass:FindTimelessJewel()
 	controls.protectAllocatedSelect = new("DropDownControl", { "TOPLEFT", controls.protectAllocatedLabel, "BOTTOMLEFT" }, { 0, 8, 200, 18 }, nil, nil)
 	controls.protectAllocatedButtonAdd = new("ButtonControl", { "LEFT", controls.protectAllocatedSelect, "RIGHT" }, { 5, 0, 44, 18 }, "Add", function()
 		local selValue = controls.protectAllocatedSelect:GetSelValue()
-		if selValue and not controls["protected:"..selValue] then
+		local nodeName = selValue and selValue.label
+		if nodeName and not controls["protected:"..nodeName] then
 			protectedNodesCount = protectedNodesCount + 1
-			t_insert(protectedNodes, selValue)
-			controls["protected:"..selValue] = new("LabelControl", { "TOPLEFT", controls.protectAllocatedSelect, "BOTTOMLEFT" }, { 0, 16 * protectedNodesCount - 10, 0, 16 }, "^7"..selValue)
+			t_insert(protectedNodes, nodeName)
+			controls["protected:"..nodeName] = new("LabelControl", { "TOPLEFT", controls.protectAllocatedSelect, "BOTTOMLEFT" }, { 0, 16 * protectedNodesCount - 10, 0, 16 }, "^7"..nodeName)
 		end
 	end)
 	controls.protectAllocatedButtonClear = new("ButtonControl", { "LEFT", controls.protectAllocatedButtonAdd, "RIGHT" }, { 5, 0, 44, 18 }, "Clear", function()
@@ -1688,6 +1690,14 @@ function TreeTabClass:FindTimelessJewel()
 	controls.abyssAscendancySelect.tooltipFunc = function(tooltip, mode, index, value)
 		tooltip:Clear()
 		if mode ~= "OUT" and value.descriptions then
+			for _, line in ipairs(value.descriptions) do
+				tooltip:AddLine(16, "^7" .. line)
+			end
+		end
+	end
+	controls.protectAllocatedSelect.tooltipFunc = function(tooltip, mode, index, value)
+		tooltip:Clear()
+		if mode ~= "OUT" and value and value.descriptions then
 			for _, line in ipairs(value.descriptions) do
 				tooltip:AddLine(16, "^7" .. line)
 			end

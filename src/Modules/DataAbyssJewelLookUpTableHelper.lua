@@ -245,19 +245,27 @@ local function readAbyssJewelLUT(seed, socketId, jewelType, path, ascendancyName
 			affectedNodes[nodeId] = modification
 		end
 	end
-	local jewelLUT = ascendancyName and loadAbyssJewel(jewelType)
+	local jewelLUT = loadAbyssJewel(jewelType)
 	local seedIndex = jewelLUT and getSeedIndex(jewelLUT, seed)
 	if seedIndex and jewelLUT.format == "ABYN" then
-		local blockKey = "ascendancy:" .. ascendancyName
-		local offsets = getRecordOffsets(jewelLUT, blockKey, jewelLUT.ascendancyOffsets[ascendancyName], skipAscendancyRecord)
-		if offsets then
-			local offset = offsets[seedIndex]
-			local selectedCount = s_byte(jewelLUT.data, offset)
-			offset = offset + 1
-			for _ = 1, selectedCount do
-				local nodeId
-				nodeId, offset = readUInt16(jewelLUT.data, offset)
-				affectedNodes[nodeId] = readNode(seed, nodeId, jewelType)
+		-- A Zorath seed selects one node in every ascendancy. A name limits the
+		-- result to one ascendancy when a caller only needs that section.
+		local ascendancyOffsets = jewelLUT.ascendancyOffsets
+		if ascendancyName then
+			ascendancyOffsets = { [ascendancyName] = ascendancyOffsets[ascendancyName] }
+		end
+		for name, blockOffset in pairs(ascendancyOffsets) do
+			local blockKey = "ascendancy:" .. name
+			local offsets = getRecordOffsets(jewelLUT, blockKey, blockOffset, skipAscendancyRecord)
+			if offsets then
+				local offset = offsets[seedIndex]
+				local selectedCount = s_byte(jewelLUT.data, offset)
+				offset = offset + 1
+				for _ = 1, selectedCount do
+					local nodeId
+					nodeId, offset = readUInt16(jewelLUT.data, offset)
+					affectedNodes[nodeId] = readNode(seed, nodeId, jewelType)
+				end
 			end
 		end
 	end

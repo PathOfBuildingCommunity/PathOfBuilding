@@ -1121,7 +1121,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 		local jewelType = conqueredBy and timelessJewelTypeByConqueror[conqueredBy.conqueror.type]
 		if jewelType and jewelType >= 7 and self.allocNodes[socketId] and not item.jewelData.limitDisabled then
 			local path = jewelType == 11 and self:GetShortestPathToClassStart(socketId)
-			for nodeId, modification in pairs(data.readAbyssJewelLUT(conqueredBy.id, socketId, jewelType, path, self.curAscendClassName)) do
+			for nodeId, modification in pairs(data.readAbyssJewelLUT(conqueredBy.id, socketId, jewelType, path)) do
 				abyssConquests[nodeId] = {
 					id = conqueredBy.id,
 					conqueror = conqueredBy.conqueror,
