@@ -304,6 +304,21 @@ local function applyGemMods(effect, modList)
 			match = false
 		end
 		if match then
+			-- save quality increases for use in tooltips
+			if value.key == "quality" then
+				local isSocketed = false
+				for _, tag in ipairs(mod.mod) do
+					if tag.type == "SocketedIn" then
+						isSocketed = true
+						break
+					end
+				end
+				if isSocketed then
+					effect.itemQuality = (effect.itemQuality or 0) + value.value
+				else
+					effect.globalQuality = (effect.globalQuality or 0) + value.value
+				end
+			end
 			effect[value.key] = (effect[value.key] or 0) + value.value
 			effect.gemPropertyInfo = effect.gemPropertyInfo or {}
 			t_insert(effect.gemPropertyInfo, mod)
@@ -1563,6 +1578,10 @@ function calcs.initEnv(build, mode, override, specEnv)
 								grantedEffect = grantedEffect,
 								level = gemInstance.level,
 								quality = actualQuality,
+								globalQuality = 0,
+								itemQuality = 0,
+								supportQuality = 0,
+								socketQuality = gemInstance.matchesSocket and data.misc.MatchingSocketQualityBonus or 0,
 								srcInstance = gemInstance,
 								gemData = gemInstance.gemData,
 								superseded = false,
@@ -1635,7 +1654,10 @@ function calcs.initEnv(build, mode, override, specEnv)
 									grantedEffect = grantedEffect,
 									level = gemInstance.level,
 									quality = actualQuality,
-									matchesSocket = gemInstance.matchesSocket,
+									globalQuality = 0,
+									itemQuality = 0,
+									supportQuality = 0,
+									socketQuality = gemInstance.matchesSocket and data.misc.MatchingSocketQualityBonus or 0,
 									srcInstance = gemInstance,
 									gemData = gemInstance.gemData,
 								}
