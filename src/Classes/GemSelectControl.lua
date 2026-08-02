@@ -383,6 +383,24 @@ function GemSelectClass:SortGemList(gemList)
 	end)
 end
 
+function GemSelectClass:SyncSelection()
+	self.selIndex = 0
+	for index, gemId in ipairs(self.list) do
+		if self.gems[gemId] and self.gems[gemId].name:lower() == self.buf:lower() then
+			self.selIndex = index
+			self:ScrollSelIntoView()
+			break
+		end
+	end
+end
+
+function GemSelectClass:SortCurrentList()
+	if #self.searchStr == 0 then
+		self:SortGemList(self.list)
+		self:SyncSelection()
+	end
+end
+
 function GemSelectClass:DPSBuilder()
 	local sortCache = self.sortCache
 	if not sortCache or not sortCache.pendingGems then return end
@@ -409,9 +427,7 @@ function GemSelectClass:DPSBuilder()
 		end
 		local now = GetTime()
 		if now - start > 50 then
-			if #self.searchStr == 0 then
-				self:SortGemList(self.list)
-			end
+			self:SortCurrentList()
 			if self.dpsBuilderCallback then
 				self.dpsBuilderCallback(m_floor(index/#pending*100))
 			end
@@ -420,9 +436,7 @@ function GemSelectClass:DPSBuilder()
 		end
 	end
 
-	if #self.searchStr == 0 then
-		self:SortGemList(self.list)
-	end
+	self:SortCurrentList()
 	sortCache.pendingGems = nil
 end
 
@@ -685,27 +699,23 @@ end
 function GemSelectClass:OnFocusGained()
 	self.EditControl:OnFocusGained()
 	self.dropped = true
-	self.selIndex = 0
 	self:UpdateSortCache()
 	self:BuildList("")
-	for index, gemId in pairs(self.list) do
-		if self.gems[gemId] and self.gems[gemId].name == self.buf then
-			self.selIndex = index
-			self:ScrollSelIntoView()
-			break
-		end
-	end
+	self:SyncSelection()
 	self.initialBuf = self.buf
-	self.initialIndex = self.selIndex
+end
+
+function GemSelectClass:CancelSelection()
+	self.dropped = false
+	self.buf = self.initialBuf
+	self:BuildList("")
+	self:SyncSelection()
+	self:UpdateGem(false, true, true)
 end
 
 function GemSelectClass:OnFocusLost()
 	if self.dropped then
-		self.dropped = false
-		if self.noMatches then
-			self:SetText("")
-		end
-		self:UpdateGem(true,true, true)
+		self:CancelSelection()
 	end
 end
 
@@ -739,6 +749,7 @@ function GemSelectClass:OnKeyDown(key, doubleClick)
 	end
 	if self.dropped then
 		if key:match("BUTTON") and not self:IsMouseOver() then
+			self:CancelSelection()
 			return
 		end
 		if key == "LEFTBUTTON" then
@@ -761,11 +772,7 @@ function GemSelectClass:OnKeyDown(key, doubleClick)
 			self:UpdateGem(true, true, true)
 			return
 		elseif key == "ESCAPE" then
-			self.dropped = false
-			self:BuildList("")
-			self.buf = self.initialBuf
-			self.selIndex = self.initialIndex
-			self:UpdateGem(false,true, true)
+			self:CancelSelection()
 			return
 		elseif self.controls.scrollBar:IsScrollUpKey(key) then
 			self.controls.scrollBar:Scroll(-1)
@@ -793,7 +800,6 @@ function GemSelectClass:OnKeyDown(key, doubleClick)
 	elseif key == "RETURN" or key == "RIGHTBUTTON" then
 		self.dropped = true
 		self:UpdateSortCache()
-		self.initialIndex = self.selIndex
 		self.initialBuf = self.buf
 		return self
 	end
