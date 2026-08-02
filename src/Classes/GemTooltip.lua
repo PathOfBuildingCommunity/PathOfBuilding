@@ -139,7 +139,7 @@ local function addCommonGemInfo(tooltip, build, gemInstance, grantedEffect, addL
 	end
 	if addReq then
 		if gemInstance.quality > 0 then
-			tooltip:AddLine(fontSizeBig, colorCodes.MAGIC .. string.format("^x7F7F7FQuality: +%s%d%%", colorCodes.MAGIC, gemInstance.quality), "FONTIN SC")
+			tooltip:AddLine(fontSizeBig, string.format("^x7F7F7FQuality: +%s%d%%", colorCodes.MAGIC, gemInstance.quality), "FONTIN SC")
 		end
 		local function formatQuality(number, suffix)
 			return colorCodes.MAGIC .. string.format("+%d%% Quality from %s", number, suffix)

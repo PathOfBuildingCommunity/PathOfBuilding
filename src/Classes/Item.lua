@@ -2380,7 +2380,7 @@ function ItemClass:BuildModList()
 		end
 		self.sockets = newSockets
 	end
-	if calcLocal(baseList, "SocketAlwaysMatches", "FLAG", 0) then
+	if self.sockets and calcLocal(baseList, "SocketAlwaysMatches", "FLAG", 0) then
 		self.sockets.colourAlwaysMatches = true
 	end
 	self.socketedJewelEffectModifier = 1 + calcLocal(baseList, "SocketedJewelEffect", "INC", 0) / 100

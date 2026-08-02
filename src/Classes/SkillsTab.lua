@@ -214,7 +214,7 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 	local function getSelectedItem()
 		local item
 		local groupSlot = self.controls.groupSlot:GetSelValue()
-		if groupSlot.slotName then
+		if groupSlot and groupSlot.slotName then
 			local slot = self.build.itemsTab.slots[groupSlot.slotName]
 			if slot then
 				item = self.build.itemsTab.items[slot.selItemId]
@@ -245,7 +245,6 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 			return
 		end
 
-
 		-- save count of abyssal sockets
 		local abyssalSocketCount = 0
 		for _, socket in ipairs(item.sockets) do
@@ -259,12 +258,14 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 		local maxSockets = (item.base.socketLimit or 0) - abyssalSocketCount
 		for _, group in ipairs(self.socketGroupList) do
 			local colours = { "R", "G", "B" }
-			if maxSockets > 0 and group.slot == groupSlot.slotName then
+			if group.slot == groupSlot.slotName then
 				for _, gem in ipairs(group.gemList) do
-					local grantedEffect = gem.grantedEffect or gem.gemData.grantedEffect
-					local gemColour = grantedEffect.color and colours[grantedEffect.color] or "W"
-					table.insert(item.sockets, { color = gemColour, group = groupCount })
-					maxSockets = maxSockets - 1
+					local grantedEffect = gem.grantedEffect or (gem.gemData and gem.gemData.grantedEffect)
+					if grantedEffect and maxSockets > 0 then
+						local gemColour = grantedEffect.color and colours[grantedEffect.color] or "W"
+						table.insert(item.sockets, { color = gemColour, group = groupCount })
+						maxSockets = maxSockets - 1
+					end
 				end
 				groupCount = groupCount + 1
 			end
@@ -279,7 +280,7 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 	end)
 	self.controls.optimiseSockets.shown = function()
 		local item = getSelectedItem()
-		return item and item.base.socketLimit
+		return item and (item.base.socketLimit ~= nil)
 	end
 	self.controls.optimiseSockets.tooltipText = "Rebuild the item's sockets to match the groups assigned to it."
 	-- self.imbuedSupportBySlot is used by CalcSetup to add an ExtraSupport mod of the selected gem
@@ -1126,7 +1127,7 @@ function SkillsTabClass:ProcessGemLevel(gemData, imbued)
 end
 
 -- Processes the given socket group, filling in information that will be used for display or calculations
----@param socketGroup table[]
+---@param socketGroup table
 function SkillsTabClass:ProcessSocketGroup(socketGroup)
 	-- Loop through the skill gem list
 	local data = self.build.data
@@ -1205,7 +1206,7 @@ end
 -- reprocess socket groups on rebuild
 function SkillsTabClass:UpdateSocketGroups()
 	local slotSocketedCounts = {}
-	for _, socketGroup in ipairs(self.skillSets[self.activeSkillSetId].socketGroupList) do
+	for _, socketGroup in ipairs(self.socketGroupList) do
 		if socketGroup.slot then
 			local gemOffset = (slotSocketedCounts[socketGroup.slot] or 0)
 			for i, gemInstance in ipairs(socketGroup.gemList) do
