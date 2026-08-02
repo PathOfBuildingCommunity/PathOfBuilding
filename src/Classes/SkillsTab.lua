@@ -1065,39 +1065,9 @@ function SkillsTabClass:ProcessGemLevel(gemData, imbued)
 	end
 end
 
----@param socketGroup table[]
----@param item table?
-function SkillsTabClass:CheckSocketGroupSockets(socketGroup, item)
-	for i, gemInstance in ipairs(socketGroup.gemList) do
-		gemInstance.matchesSocket = false
-		-- add quality for matching sockets by looking up linked item
-		if socketGroup.slot and (gemInstance.grantedEffect or gemInstance.gemData) then
-			local grantedEffect = gemInstance.grantedEffect or gemInstance.gemData.grantedEffect
-			local slot = self.build.itemsTab.slots[socketGroup.slot]
-			local colours = { "R", "G", "B" }
-			if slot then
-				-- during import the item this socket group is imported from is
-				-- provided, but otherwise it will be equipped in the build
-				if not item then
-					item = self.build.itemsTab.items[slot.selItemId]
-				end
-				if item and item.sockets then
-					-- e.g. dialla's malefaction
-					if item.sockets.colourAlwaysMatches then
-						gemInstance.matchesSocket = true
-					else
-						local gemColour = grantedEffect.color and colours[grantedEffect.color]
-						gemInstance.matchesSocket = item.sockets[i] and (item.sockets[i].color == gemColour)
-					end
-				end
-			end
-		end
-	end
-end
 -- Processes the given socket group, filling in information that will be used for display or calculations
 ---@param socketGroup table[]
----@param item table?
-function SkillsTabClass:ProcessSocketGroup(socketGroup, item)
+function SkillsTabClass:ProcessSocketGroup(socketGroup)
 	-- Loop through the skill gem list
 	local data = self.build.data
 	for _, gemInstance in ipairs(socketGroup.gemList) do
@@ -1170,13 +1140,40 @@ function SkillsTabClass:ProcessSocketGroup(socketGroup, item)
 			end
 		end
 	end
-	self:CheckSocketGroupSockets(socketGroup, item)
 end
 
 -- reprocess socket groups on rebuild
 function SkillsTabClass:UpdateSocketGroups()
+	local slotSocketedCounts = {}
 	for _, socketGroup in ipairs(self.skillSets[self.activeSkillSetId].socketGroupList) do
-		self:CheckSocketGroupSockets(socketGroup)
+		for i, gemInstance in ipairs(socketGroup.gemList) do
+			gemInstance.matchesSocket = false
+			-- add quality for matching sockets by looking up linked item
+			if socketGroup.slot and (gemInstance.grantedEffect or gemInstance.gemData) then
+				local grantedEffect = gemInstance.grantedEffect or gemInstance.gemData.grantedEffect
+				local slot = self.build.itemsTab.slots[socketGroup.slot]
+				-- since PoB processes split links on an item as separate
+				-- groups, we can assume that we continue from where the last
+				-- socket group with the slot ended at
+				local gemIdx = i + (slotSocketedCounts[socketGroup.slot] or 0)
+				local colours = { "R", "G", "B" }
+				if slot then
+					-- during import the item this socket group is imported from is
+					-- provided, but otherwise it will be equipped in the build
+					local item = self.build.itemsTab.items[slot.selItemId]
+					if item and item.sockets then
+						-- e.g. dialla's malefaction
+						if item.sockets.colourAlwaysMatches then
+							gemInstance.matchesSocket = true
+						else
+							local gemColour = grantedEffect.color and colours[grantedEffect.color]
+							gemInstance.matchesSocket = item.sockets[gemIdx] and (item.sockets[gemIdx].color == gemColour)
+						end
+					end
+				end
+				slotSocketedCounts[socketGroup.slot] = (slotSocketedCounts[socketGroup.slot] or 0) + 1
+			end
+		end
 	end
 end
 -- Set the skill to be displayed/edited

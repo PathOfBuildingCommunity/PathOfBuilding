@@ -1472,6 +1472,7 @@ function ImportTabClass:ImportItemsAndSkills(charData, clearItems, clearSkills, 
 	end
 	self.build.itemsTab:PopulateSlots()
 	self.build.itemsTab:AddUndoState()
+	self.build.skillsTab:UpdateSocketGroups()
 	self.build.skillsTab:AddUndoState()
 	self.build.characterLevel = charData.level
 	self.build.configTab:UpdateLevel()
@@ -1877,7 +1878,7 @@ function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 		else
 			t_insert(self.build.skillsTab.socketGroupList, itemSocketGroup)
 		end
-		self.build.skillsTab:ProcessSocketGroup(itemSocketGroup, item)
+		self.build.skillsTab:ProcessSocketGroup(itemSocketGroup)
 	end
 end
 
