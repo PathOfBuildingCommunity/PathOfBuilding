@@ -535,7 +535,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 	-- matching socket bonus
 	local socketMatches = activeSkill.activeEffect.srcInstance and activeSkill.activeEffect.srcInstance.matchesSocket or activeSkill.activeEffect.matchesSocket
 	if socketMatches then
-		skillModList:NewMod("GemQuality", "BASE", data.misc.MatchingSocketQualityBonus, "Socket Quality")
+		skillModList:NewMod("GemSocketQuality", "BASE", data.misc.MatchingSocketQualityBonus, "Socket Quality")
 	end
 	for _, supportProperty in ipairs(skillModList:Tabulate("LIST", activeSkill.skillCfg, "SupportedGemProperty")) do
 		local value = supportProperty.value

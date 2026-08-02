@@ -1242,9 +1242,9 @@ function buildMode:OnFrame(inputEvents)
 		-- Rebuild calculation output tables
 		self.outputRevision = self.outputRevision + 1
 		self.buildFlag = false
+		self.skillsTab:UpdateSocketGroups()
 		self.calcsTab:BuildOutput()
 		self:RefreshStatList()
-		self.skillsTab:UpdateSocketGroups()
 		self.configTab.calcFunc, self.configTab.calcBase = self.calcsTab:GetMiscCalculator(self)
 	end
 	if main.showThousandsSeparators ~= self.lastShowThousandsSeparators then
