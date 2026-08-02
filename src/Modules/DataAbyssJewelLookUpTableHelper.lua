@@ -8,8 +8,7 @@ local s_sub = string.sub
 local loadJewelFile = LoadModule("Modules/DataJewelFileLoader")
 
 local function readUInt16(jewelData, offset)
-	local low, high = s_byte(jewelData, offset, offset + 1)
-	return low + high * 256, offset + 2
+	return bytesToUShort(jewelData, offset), offset + 2
 end
 
 -- A modification starts with its number of parts. Each part then stores whether

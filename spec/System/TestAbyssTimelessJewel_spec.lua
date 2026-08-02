@@ -24,6 +24,7 @@ local function kurgalExampleData()
 		{ id = 4367, modification = abyssModification({ { type = 1, id = 24, rolls = { 6 } } }) },
 		{ id = 15117, modification = abyssModification({ { type = 1, id = 19, rolls = { 8 } } }) },
 		{ id = 20528, modification = abyssModification({ { type = 2, id = 207, rolls = { -15 } } }) },
+		{ id = 21958, modification = abyssModification({ { type = 2, id = 211, rolls = { 12, 18 } } }) },
 	}
 	local encoded = { abyssHeader("ABYS", 9, 533), string.char(1, 60), uint16(61419), string.char(#affectedNodes) }
 	for _, affectedNode in ipairs(affectedNodes) do
@@ -136,6 +137,11 @@ describe("Abyss timeless jewels", function()
 		assert.are.same({ type = 1, id = 622, rolls = { 8 } }, affectedNodes[15117][1])
 		assert.are.same({ type = 1, id = 627, rolls = { 6 } }, affectedNodes[4367][1])
 		assert.are.same({ type = 2, id = 207, rolls = { -15 } }, affectedNodes[20528][1])
+		assert.are.same({ type = 2, id = 211, rolls = { 12, 18 } }, affectedNodes[21958][1])
+		local changedNode = data.resolveAbyssJewelComponent(affectedNodes[21958][1], build.spec.tree.legion)
+		local _, _, minimumRoll = data.getAbyssJewelComponentRoll(affectedNodes[21958][1], changedNode, 1)
+		local _, _, maximumRoll = data.getAbyssJewelComponentRoll(affectedNodes[21958][1], changedNode, 2)
+		assert.are.same({ 12, 18 }, { minimumRoll, maximumRoll })
 		assert.is_nil(affectedNodes[53279])
 	end)
 
@@ -173,6 +179,10 @@ describe("Abyss timeless jewels", function()
 		assert.are.equal("+6% to Cold and Lightning Resistances", table.concat(spec.nodes[4367].sd, "\n"))
 		assert.matches("15%% reduced Effect of Curses on you while on Consecrated Ground",
 			table.concat(spec.nodes[20528].sd, "\n"))
+		local addedDamageStats = table.concat(spec.nodes[21958].sd, "\n")
+		assert.matches("12 to 18 Added Spell Cold Damage while Dual Wielding", addedDamageStats, nil, true)
+		local _, addedDamageLineCount = addedDamageStats:gsub("Added Spell Cold Damage while Dual Wielding", "")
+		assert.are.equal(1, addedDamageLineCount)
 		assert.are.equal(unchangedName, spec.nodes[53279].dn)
 		assert.are.equal(unchangedStats, table.concat(spec.nodes[53279].sd, "\n"))
 	end)
