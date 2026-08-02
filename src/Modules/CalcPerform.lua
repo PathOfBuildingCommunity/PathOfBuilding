@@ -3903,6 +3903,9 @@ function calcs.perform(env, skipEHP)
 					if totalItemQuality > 0 then
 						t_insert(env.player.breakdown.GemQuality, s_format("+ %d ^8(quality from items)", totalItemQuality))
 					end
+					if mainSkill.activeEffect.matchesSocket then
+						t_insert(env.player.breakdown.GemQuality, s_format("+ %d ^8(quality from socket)", data.misc.MatchingSocketQualityBonus))
+					end
 					t_insert(env.player.breakdown.GemQuality, s_format("= %d", output.GemQuality))
 				end
 			end

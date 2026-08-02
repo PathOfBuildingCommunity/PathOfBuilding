@@ -1839,12 +1839,7 @@ function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 					itemSocketGroupList[groupID] = { label = "", enabled = true, gemList = { }, slot = slotName }
 				end
 				local socketGroup = itemSocketGroupList[groupID]
-				if not socketedItem.support and socketGroup.gemList[1] and socketGroup.gemList[1].support and not (item.title and item.title:match("Dialla's Malefaction")) then
-					-- If the first gemInstance is a support gemInstance, put the first active gemInstance before it
-					t_insert(socketGroup.gemList, 1, gemInstance)
-				else
-					t_insert(socketGroup.gemList, gemInstance)
-				end
+				t_insert(socketGroup.gemList, gemInstance)
 				if socketedItem.builtInSupport then
 					socketGroup.imbuedSupport = socketedItem.builtInSupport:gsub("Supported by Level 1 ", "")
 					self.build.skillsTab.controls.imbuedSupport.gemChangeFunc(data.gems[data.gemForBaseName[socketGroup.imbuedSupport:lower().." support"]], nil, nil, true, slotName)
@@ -1882,7 +1877,7 @@ function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 		else
 			t_insert(self.build.skillsTab.socketGroupList, itemSocketGroup)
 		end
-		self.build.skillsTab:ProcessSocketGroup(itemSocketGroup)
+		self.build.skillsTab:ProcessSocketGroup(itemSocketGroup, item)
 	end
 end
 

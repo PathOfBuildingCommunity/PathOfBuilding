@@ -1558,10 +1558,11 @@ function calcs.initEnv(build, mode, override, specEnv)
 							if not grantedEffect or not grantedEffect.support then
 								return
 							end
+							local actualQuality = gemInstance.quality + (gemInstance.matchesSocket and data.misc.MatchingSocketQualityBonus or 0)
 							local supportEffect = {
 								grantedEffect = grantedEffect,
 								level = gemInstance.level,
-								quality = gemInstance.quality,
+								quality = actualQuality,
 								srcInstance = gemInstance,
 								gemData = gemInstance.gemData,
 								superseded = false,
@@ -1629,10 +1630,12 @@ function calcs.initEnv(build, mode, override, specEnv)
 						for index, grantedEffect in ipairs(grantedEffectList) do
 							if not grantedEffect.support and not grantedEffect.unsupported and (not grantedEffect.hasGlobalEffect or gemInstance["enableGlobal"..index]) then
 								slotHasActiveSkill = true
+								local actualQuality = gemInstance.quality + (gemInstance.matchesSocket and data.misc.MatchingSocketQualityBonus or 0)
 								local activeEffect = {
 									grantedEffect = grantedEffect,
 									level = gemInstance.level,
-									quality = gemInstance.quality,
+									quality = actualQuality,
+									matchesSocket = gemInstance.matchesSocket,
 									srcInstance = gemInstance,
 									gemData = gemInstance.gemData,
 								}
