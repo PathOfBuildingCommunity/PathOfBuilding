@@ -1068,8 +1068,14 @@ function SkillsTabClass:CheckSocketGroupSockets(socketGroup, item)
 				if not item then
 					item = self.build.itemsTab.items[slot.selItemId]
 				end
-				if item and item.sockets and item.sockets[i].color == (grantedEffect.color and colours[grantedEffect.color]) then
-					gemInstance.matchesSocket = true
+				if item and item.sockets then
+					-- e.g. dialla's malefaction
+					if item.sockets.colourAlwaysMatches then
+						gemInstance.matchesSocket = true
+					else
+						local gemColour = grantedEffect.color and colours[grantedEffect.color]
+						gemInstance.matchesSocket = item.sockets[i] and (item.sockets[i].color == gemColour)
+					end
 				end
 			end
 		end
