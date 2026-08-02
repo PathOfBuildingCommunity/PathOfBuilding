@@ -10,7 +10,7 @@ local m_max = math.max
 local PassiveSpecListClass = newClass("PassiveSpecListControl", "ListControl", function(self, anchor, rect, treeTab)
 	self.ListControl(anchor, rect, 16, "VERTICAL", true, treeTab.specList)
 	self.treeTab = treeTab
-	self.controls.copy = new("ButtonControl", {"BOTTOMLEFT",self,"TOP"}, {2, -4, 60, 18}, "Copy", function()
+	self.controls.copy = new("ButtonControl", { "BOTTOMLEFT", self, "TOP" }, { 2, -4, 60, 18 }, "Copy", function()
 		local newSpec = new("PassiveSpec", treeTab.build, self.selValue.treeVersion)
 		newSpec.title = self.selValue.title
 		newSpec.jewels = copyTable(self.selValue.jewels)
@@ -35,6 +35,7 @@ local PassiveSpecListClass = newClass("PassiveSpecListControl", "ListControl", f
 	end
 	self.controls.new = new("ButtonControl", {"RIGHT",self.controls.rename,"LEFT"}, {-4, 0, 60, 18}, "New", function()
 		local newSpec = new("PassiveSpec", treeTab.build, latestTreeVersion)
+		newSpec.title = "New Tree"
 		newSpec:SelectClass(treeTab.build.spec.curClassId)
 		newSpec:SelectAscendClass(treeTab.build.spec.curAscendClassId)
 		newSpec:SelectSecondaryAscendClass(treeTab.build.spec.curSecondaryAscendClassId)
@@ -43,10 +44,10 @@ local PassiveSpecListClass = newClass("PassiveSpecListControl", "ListControl", f
 	self:UpdateItemsTabPassiveTreeDropdown()
 end)
 
-function PassiveSpecListClass:RenameSpec(spec, title, addOnName)
+function PassiveSpecListClass:RenameSpec(spec, popupTitle, addOnName)
 	local controls = { }
 	controls.label = new("LabelControl", nil, {0, 20, 0, 16}, "^7Enter name for this passive tree:")
-	controls.edit = new("EditControl", nil, {0, 40, 350, 20}, spec.title, nil, nil, 100, function(buf)
+	controls.edit = new("EditControl", nil, {0, 40, 350, 20}, spec.title or "Default", nil, nil, 100, function(buf)
 		controls.save.enabled = buf:match("%S")
 	end)
 	controls.save = new("ButtonControl", nil, {-45, 70, 80, 20}, "Save", function()
@@ -66,7 +67,7 @@ function PassiveSpecListClass:RenameSpec(spec, title, addOnName)
 		main:ClosePopup()
 	end)
 	-- main:OpenPopup(370, 100, spec.title and "Rename" or "Set Name", controls, "save", "edit")
-	main:OpenPopup(370, 100, title, controls, "save", "edit")
+	main:OpenPopup(370, 100, popupTitle, controls, "save", "edit")
 end
 
 function PassiveSpecListClass:GetRowValue(column, index, spec)
