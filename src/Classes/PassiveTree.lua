@@ -676,6 +676,14 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		end
 	end
 
+	-- The game only gives these notables numbered names. Use the manual name for
+	-- their first stat, or show the full stat description when no name exists yet.
+	for _, addition in pairs(self.legion.additions) do
+		if addition.id:match("^abyss_.+_notable_%d+$") and addition.dn:match("^Notable %d+$") then
+			addition.dn = data.abyssNotableNames[addition.sortedStats[1]] or addition.sd[1]
+		end
+	end
+
 	-- Build ModList for legion jewels
 	for _, node in pairs(self.legion.nodes) do
 		-- Determine node type
