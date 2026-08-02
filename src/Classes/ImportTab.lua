@@ -40,6 +40,10 @@ local function addOAuthControls(self)
 	--- @type table<string, table[]>
 	self.characterList = {}
 
+	local function fetchButtonEnabled()
+		local realm = self.controls.accountRealm:GetSelValue()
+		return not (realm and self.characterList[realm.realmCode])
+	end
 	local function charImportStatus()
 		if not self.isAuthorized() and not self.oauthTimer then
 			return colorCodes.WARNING .. "Not authenticated"
@@ -59,7 +63,7 @@ local function addOAuthControls(self)
 			end
 			return colorCodes.WARNING .. string.format("You're doing that too fast. Please wait (%d)", timeLeft)
 		elseif self.isAuthorized() and self.oauthLoading then
-			return "Fetching..."
+			return fetchButtonEnabled() and "Fetching..." or "Importing..."
 		elseif self.isAuthorized() then
 			return "Authenticated"
 		end
@@ -204,10 +208,6 @@ local function addOAuthControls(self)
 		end
 		return "Fetch Characters"
 	end
-	local function fetchButtonEnabled()
-		local realm = self.controls.accountRealm:GetSelValue()
-		return not (realm and self.characterList[realm.realmCode])
-	end
 	self.controls.accountRealmFetchButton = new("ButtonControl", { "LEFT", self.controls.accountRealm, "RIGHT" },
 		{ labelSpacing, 0, 130, 20 }, fetchTextFunc, fetchCharacters)
 	self.controls.accountRealmFetchButton.enabled = fetchButtonEnabled
@@ -264,13 +264,16 @@ local function addOAuthControls(self)
 						self.oauthErrCode = "Could not import character"
 					end
 				end
+				self.oauthLoading = false
 			end
 			if self.build.spec:CountAllocNodes() > 0 then
 				main:OpenConfirmPopup("Character Import", "Importing the passive tree will overwrite your current tree.",
 					"Import", function()
+						self.oauthLoading = true
 						main.api:DownloadCharacter(realm.realmCode, selectedName, importHandler)
 					end)
 			else
+				self.oauthLoading = true
 				main.api:DownloadCharacter(realm.realmCode, selectedName, importHandler)
 			end
 		end)
@@ -287,6 +290,7 @@ local function addOAuthControls(self)
 
 			saveDetails(realm.id, league, selectedName)
 
+			self.oauthLoading = true
 			main.api:DownloadCharacter(realm.realmCode, selectedName, function(data, errMsg)
 				local clearItems = self.controls.charImportItemsClearItems.state
 				local clearSkills = self.controls.charImportItemsClearSkills.state
@@ -301,7 +305,7 @@ local function addOAuthControls(self)
 						self.oauthErrCode = "Could not import character"
 					end
 				end
-				
+				self.oauthLoading = false
 			end)
 		end)
 	self.controls.charImportItems.enabled = function()
