@@ -10,7 +10,7 @@ describe("TestGemSocketQuality", function()
 		build.itemsTab:AddDisplayItem()
 	end
 
-	-- get specific socketgroup linked to a slot
+	-- get specific socket group linked to a slot
 	local function groupForSlot(slotName, index)
 		local seen = 0
 		for _, group in ipairs(build.skillsTab.socketGroupList) do
