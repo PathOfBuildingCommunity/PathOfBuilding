@@ -1252,3 +1252,5 @@ local mapFile = io.open("Data/ModFoulbornMap.jsonc", "r")
 data.foulbornMap = dkjson.decode(mapFile:read("*a"))
 mapFile:close()
 data.flavourText = LoadModule("Data/FlavourText")
+data.worldAreas = {}
+LoadModule("Data/WorldAreas", data.worldAreas)
