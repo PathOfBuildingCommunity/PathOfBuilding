@@ -714,8 +714,8 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		end
 		SetDrawColor(unpack(connectorColor))
 		local assetName = connector.type .. state
-		-- Ascendancy connections keep their normal art when an Abyss jewel replaces a node.
-		if not connector.ascendancyName and (isAbyssConquered(node1) or isAbyssConquered(node2)) then
+		-- The game uses Abyss connector art only when both connected nodes are conquered.
+		if isAbyssConquered(node1) and isAbyssConquered(node2) then
 			assetName = "Abyss" .. assetName
 		end
 		local asset = tree.assets[assetName] or tree.assets[connector.type..state]
