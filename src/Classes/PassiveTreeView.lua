@@ -713,7 +713,11 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			setConnectorColor(0.75, 0.75, 0.75)
 		end
 		SetDrawColor(unpack(connectorColor))
-		local assetName = (isAbyssConquered(node1) or isAbyssConquered(node2)) and "Abyss" .. connector.type .. state or connector.type .. state
+		local assetName = connector.type .. state
+		-- Ascendancy connections keep their normal art when an Abyss jewel replaces a node.
+		if not connector.ascendancyName and (isAbyssConquered(node1) or isAbyssConquered(node2)) then
+			assetName = "Abyss" .. assetName
+		end
 		local asset = tree.assets[assetName] or tree.assets[connector.type..state]
 		-- Atlas assets provide bounds that map the usual connector coordinates into one sprite.
 		local left, top = asset[1] or 0, asset[2] or 0
