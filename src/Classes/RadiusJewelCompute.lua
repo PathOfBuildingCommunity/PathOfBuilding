@@ -214,6 +214,16 @@ function Class:socketReplacementChangesPassiveTree(replacementContext, item)
 	return itemChangesPassiveTreeRadius(replacedItem) or itemChangesPassiveTreeRadius(item)
 end
 
+function Class:getImpossibleEscapePlanCacheKey(statField, variantName, replacementContext)
+	local cacheKey = s_format("IE|%s|%s", statField, variantName)
+	local occupancy = replacementContext.occupancy
+	if occupancy and occupancy.isOccupied and itemChangesPassiveTreeRadius(occupancy.item) then
+		-- Removing a structural jewel changes the comparison spec for this socket.
+		return s_format("%s|%s", cacheKey, replacementContext.socketNode.id)
+	end
+	return cacheKey
+end
+
 function Class:buildSocketReplacementOverride(replacementContext, item, addNodes)
 	local override = {
 		addNodes = addNodes,
@@ -978,7 +988,7 @@ function Class:computeImpossibleEscapeSocketImpact(sockets, impactStat, variants
 				local earlyPruneThreshold = bestResult and bestResult.delta or nil
 				local result
 				if methodId == "fast" then
-					local cacheKey = s_format("IE|%s|%s|%s", statField, variant.name, representativeSocket.id)
+					local cacheKey = self:getImpossibleEscapePlanCacheKey(statField, variant.name, replacementContext)
 					planCache[cacheKey] = planCache[cacheKey] or { }
 					result = self:computeDisconnectedPassiveFastPlan(
 						calcFunc,
@@ -1065,7 +1075,7 @@ function Class:computeImpossibleEscapeSocketImpact(sockets, impactStat, variants
 					local replacementContext = self:buildSocketReplacementContext(calcFunc, groupEntry.representativeSocket.id)
 					local socketBaseline = self:getImpactValue(impactStat, replacementContext.baselineOutput)
 					local maxAdditionalNodes = groupEntry.remainingPoints >= 0 and groupEntry.remainingPoints or nil
-					local cacheKey = s_format("IE|%s|%s|%s", statField, topResult.variant.name, groupEntry.representativeSocket.id)
+					local cacheKey = self:getImpossibleEscapePlanCacheKey(statField, topResult.variant.name, replacementContext)
 					local fullResult = self:computeDisconnectedPassiveFastPlan(
 						calcFunc,
 						replacementContext,

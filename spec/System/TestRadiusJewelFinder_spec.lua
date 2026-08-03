@@ -1420,6 +1420,96 @@ describe("RadiusJewelFinder #radius-jewel", function()
 			return makeFinder():buildJewelSockets(getLargeRadiusIndex())
 		end
 
+		it("shares fast cache keys except for structural jewel replacements", function()
+			local finder = makeFinder()
+			local sharedKey = finder:getImpossibleEscapePlanCacheKey("Life", "Acrobatics", {
+				socketNode = { id = 36634 },
+				occupancy = { isOccupied = false },
+			})
+			local structuralItem = {
+				type = "Jewel",
+				jewelData = { conqueredBy = true },
+				jewelRadiusIndex = getLargeRadiusIndex(),
+			}
+			local firstStructuralKey = finder:getImpossibleEscapePlanCacheKey("Life", "Acrobatics", {
+				socketNode = { id = 36634 },
+				occupancy = { isOccupied = true, item = structuralItem },
+			})
+			local secondStructuralKey = finder:getImpossibleEscapePlanCacheKey("Life", "Acrobatics", {
+				socketNode = { id = 61419 },
+				occupancy = { isOccupied = true, item = structuralItem },
+			})
+
+			assert.are.equal("IE|Life|Acrobatics", sharedKey)
+			assert.are.equal("IE|Life|Acrobatics|36634", firstStructuralKey)
+			assert.are.equal("IE|Life|Acrobatics|61419", secondStructuralKey)
+		end)
+
+		it("reuses fast calculations across ordinary socket groups", function()
+			local finder = makeFinder()
+			local variant = makeImpossibleEscapeTestVariant()
+			assert.is_not_nil(variant, "expected an Impossible Escape variant")
+			local sockets = { }
+			for _, socket in ipairs(getSockets()) do
+				if not build.spec.allocNodes[socket.id] then
+					table.insert(sockets, {
+						id = socket.id,
+						label = socket.label,
+						pathDist = #sockets,
+					})
+					if #sockets == 2 then
+						break
+					end
+				end
+			end
+			assert.are.equal(2, #sockets, "expected two free jewel sockets")
+
+			local originalGetMiscCalculator = build.calcsTab.GetMiscCalculator
+			local originalCollectCandidates = finder.collectDisconnectedPassiveCandidates
+			local originalBuildOverride = finder.buildSocketReplacementOverride
+			local originalCacheKey = finder.getImpossibleEscapePlanCacheKey
+			local calculationCount = 0
+			build.calcsTab.GetMiscCalculator = function()
+				return function(override)
+					calculationCount = calculationCount + 1
+					local allocatedCount = 0
+					for _ in pairs(override.addNodes) do
+						allocatedCount = allocatedCount + 1
+					end
+					return { Life = allocatedCount }
+				end, { Life = 0 }
+			end
+			finder.collectDisconnectedPassiveCandidates = function()
+				return {
+					{ id = -101, name = "First" },
+					{ id = -102, name = "Second" },
+					{ id = -103, name = "Third" },
+				}
+			end
+			finder.buildSocketReplacementOverride = function(_, _, _, addNodes)
+				return { addNodes = addNodes }
+			end
+
+			local function countCalculations(cacheKeyFunc)
+				finder.getImpossibleEscapePlanCacheKey = cacheKeyFunc
+				calculationCount = 0
+				finder:computeImpossibleEscapeSocketImpact(sockets, "Life", { variant }, "fast", { }, nil, 2, nil, true)
+				return calculationCount
+			end
+
+			local sharedCount = countCalculations(originalCacheKey)
+			local socketScopedCount = countCalculations(function(_, statField, variantName, replacementContext)
+				return string.format("IE|%s|%s|%s", statField, variantName, replacementContext.socketNode.id)
+			end)
+			build.calcsTab.GetMiscCalculator = originalGetMiscCalculator
+			finder.collectDisconnectedPassiveCandidates = originalCollectCandidates
+			finder.buildSocketReplacementOverride = originalBuildOverride
+			finder.getImpossibleEscapePlanCacheKey = originalCacheKey
+
+			assert.is_true(sharedCount < socketScopedCount,
+				"expected shared cache to avoid repeated Impossible Escape calculations")
+		end)
+
 		it("returns results for both methods without changing finder state", function()
 			local variant = makeImpossibleEscapeTestVariant()
 			assert.is_not_nil(variant, "expected at least one keystone-based Impossible Escape variant")
