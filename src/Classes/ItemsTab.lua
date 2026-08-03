@@ -4097,7 +4097,7 @@ local sharedSpecKeysForJewelComparison = {
 	curSecondaryAscendClassName = true,
 }
 
-local function cloneSpecForJewelComparison(spec)
+local function cloneSpecForJewelComparison(spec, includeClusterSubgraphs)
 	local specCopy = setmetatable({ }, getmetatable(spec))
 	-- Share only immutable/scalar spec state. Tables that BuildAllDependsAndPaths
 	-- may mutate must be owned by the comparison spec.
@@ -4146,6 +4146,22 @@ local function cloneSpecForJewelComparison(spec)
 	specCopy.allocSubgraphNodes = { }
 	specCopy.allocExtendedNodes = { }
 	specCopy.subGraphs = { }
+	if includeClusterSubgraphs then
+		for id, subGraph in pairs(spec.subGraphs) do
+			local subGraphCopy = {
+				nodes = { },
+				parentSocket = specCopy.nodes[subGraph.parentSocket.id],
+				entranceNode = specCopy.nodes[subGraph.entranceNode.id],
+			}
+			for _, node in ipairs(subGraph.nodes) do
+				local nodeCopy = specCopy.nodes[node.id]
+				if nodeCopy then
+					t_insert(subGraphCopy.nodes, nodeCopy)
+				end
+			end
+			specCopy.subGraphs[id] = subGraphCopy
+		end
+	end
 
 	return specCopy
 end
@@ -4153,9 +4169,10 @@ end
 ---@param compareSlot ItemSlotControl
 ---@param replacementItem Item
 ---@param allocateSocket? boolean
-function ItemsTabClass:BuildSpecForJewelComparison(compareSlot, replacementItem, allocateSocket)
+---@param rebuildClusterJewelGraphs? boolean
+function ItemsTabClass:BuildSpecForJewelComparison(compareSlot, replacementItem, allocateSocket, rebuildClusterJewelGraphs)
 	local tempItemId
-	local spec = cloneSpecForJewelComparison(self.build.spec)
+	local spec = cloneSpecForJewelComparison(self.build.spec, rebuildClusterJewelGraphs)
 	if replacementItem then
 		if replacementItem.id and self.items[replacementItem.id] == replacementItem then
 			spec.jewels[compareSlot.nodeId] = replacementItem.id
@@ -4179,7 +4196,11 @@ function ItemsTabClass:BuildSpecForJewelComparison(compareSlot, replacementItem,
 	end
 
 	local ok, err = xpcall(function()
-		spec:BuildAllDependsAndPaths()
+		if rebuildClusterJewelGraphs then
+			spec:BuildClusterJewelGraphs()
+		else
+			spec:BuildAllDependsAndPaths()
+		end
 	end, debug.traceback)
 	if tempItemId then
 		self.items[tempItemId] = nil
