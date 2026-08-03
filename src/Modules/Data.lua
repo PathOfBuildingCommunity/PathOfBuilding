@@ -170,6 +170,22 @@ data.powerStatList = {
 	{ stat="BlockChance", label="Block Chance" },
 	{ stat="SpellBlockChance", label="Spell Block Chance" },
 	{ stat="SpellSuppressionChance", label="Spell Suppression Chance" },
+	{ stat="AreaOfEffectMod", label="Area of Effect" },
+	{ stat="DurationMod", label="Skill Effect Duration" },
+	{ stat="CritExtraDamageReduction", label="Reduced Critical Strike Damage Taken" },
+	{ stat="CurseEffectOnSelf", label="Curse Effect on You", transform=function(value) return -value end },
+	{ stat="CurseEffectMod", label="Curse Effect" },
+	{ stat="AuraEffectMod", label="Aura Effect" },
+	{ stat="StunDuration", label="Stun Duration", transform=function(value) return -value end },
+	{ stat="StunThreshold", label="Stun Threshold" },
+	{ stat="EnemyStunThresholdMod", label="Enemy Stun Threshold", transform=function(value) return -value end },
+	{ stat="ElusiveEffectMod", label="Elusive Effect" },
+	{ stat="LifeRecoupRecoveryAvg", label="Life Recoup" },
+	{ stat="ManaRecoupRecoveryAvg", label="Mana Recoup" },
+	{ stat="EnergyShieldRecoupRecoveryAvg", label="Energy Shield Recoup" },
+	{ stat="ImpaleChance", label="Impale Chance" },
+	{ stat="ImpaleStoredDamage", label="Impale Effect" },
+	{ stat="MaximumRage", label="Maximum Rage" },
 }
 
 ---@param output any Calc output
