@@ -212,10 +212,15 @@ describe("TestAttacks", function()
 		assert.are.equals("DPS for 2 attached Brands", build.calcsTab.mainEnv.player.mainSkill.infoMessage)
 	end)
 
-	it("multiplies non-stacking Brand damage over time by the attached Brand count", function()
+	it("multiplies manually staged Brand damage over time by the attached Brand count", function()
 		build.skillsTab:PasteSocketGroup("Wintertide Brand 20/0  1\n")
+		runCallback("OnFrame")
+		local mainSocketGroup = build.skillsTab.socketGroupList[build.mainSocketGroup]
+		mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeEffect.srcInstance.skillPart = 2
 		build.configTab.input.BrandsAttachedToEnemy = 1
 		build.configTab:BuildModList()
+		build.modFlag = true
+		build.buildFlag = true
 		runCallback("OnFrame")
 
 		local singleBrandDPS = build.calcsTab.mainOutput.TotalDot
