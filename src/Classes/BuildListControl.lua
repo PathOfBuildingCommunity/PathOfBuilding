@@ -5,6 +5,7 @@
 --
 local ipairs = ipairs
 local s_format = string.format
+local buildListHelpers = LoadModule("Modules/BuildListHelpers")
 
 local BuildListClass = newClass("BuildListControl", "ListControl", function(self, anchor, rect, listMode)
 	self.ListControl(anchor, rect, 20, "VERTICAL", false, listMode.list)
@@ -30,7 +31,7 @@ local BuildListClass = newClass("BuildListControl", "ListControl", function(self
 		if type == "Build" then
 			for index, folder in ipairs(self.folderList) do
 				if folder.button:IsMouseOver() then
-					if build.subPath ~= folder.path then
+					if buildListHelpers.CanMoveToSubPath(build, folder.path) then
 						if build.folderName then
 							main:MoveFolder(build.folderName, main.buildPath..build.subPath, main.buildPath..folder.path)
 						else
@@ -54,13 +55,17 @@ local BuildListClass = newClass("BuildListControl", "ListControl", function(self
 	end
 end)
 
-function BuildListClass:SelByFileName(selFileName)
-	for index, build in ipairs(self.list) do
-		if build.fileName == selFileName then
-			self:SelectIndex(index)
-			break
+function BuildListClass:SelByFullFileName(fullFileName)
+	if fullFileName then
+		for index, build in ipairs(self.list) do
+			if build.fullFileName == fullFileName then
+				self:SelectIndex(index)
+				return
+			end
 		end
 	end
+	self.selIndex = nil
+	self.selValue = nil
 end
 
 function BuildListClass:LoadBuild(build)
@@ -134,7 +139,7 @@ function BuildListClass:RenameBuild(build, copyOnName)
 				end
 			end
 			self.listMode:BuildList()
-			self:SelByFileName(newFileName)
+			self:SelByFullFileName(main.buildPath..build.subPath..newFileName)
 		end
 		main:ClosePopup()
 		self.listMode:SelectControl(self)
@@ -193,7 +198,7 @@ function BuildListClass:GetRowValue(column, index, build)
 		else
 			label = subPathPrefix .. (build.buildName or "?")
 		end
-		if self.cutBuild and self.cutBuild.buildName == build.buildName and self.cutBuild.folderName == build.folderName then
+		if self.cutBuild and self.cutBuild.buildName == build.buildName and self.cutBuild.folderName == build.folderName and self.cutBuild.subPath == build.subPath then
 			return "^xC0B0B0"..label
 		else
 			return label
@@ -223,7 +228,7 @@ function BuildListClass:ReceiveDrag(type, build, source)
 	if type == "Build" then
 		if self.hoverValue and self.hoverValue.folderName then
 			local targetSubPath = self.hoverValue.subPath .. self.hoverValue.folderName .. "/"
-			if build.subPath ~= targetSubPath then
+			if buildListHelpers.CanMoveToSubPath(build, targetSubPath) then
 				if build.folderName then
 					main:MoveFolder(build.folderName, main.buildPath..build.subPath, main.buildPath..targetSubPath)
 				else
@@ -241,7 +246,7 @@ function BuildListClass:ReceiveDrag(type, build, source)
 end
 
 function BuildListClass:CanDragToValue(index, build, source)
-	return build.folderName and source.selValue ~= build
+	return build.folderName and source.selValue ~= build and buildListHelpers.CanMoveToSubPath(source.selValue, build.subPath .. build.folderName .. "/")
 end
 
 function BuildListClass:OnSelClick(index, build, doubleClick)

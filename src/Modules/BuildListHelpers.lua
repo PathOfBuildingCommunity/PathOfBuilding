@@ -16,25 +16,29 @@ local buildSortDropList = {
 
 local function ReadBuildHeader(fullFileName)
 	local fileHnd = io.open(fullFileName, "r")
-	if not fileHnd then return nil, nil, nil end
+	if not fileHnd then return { } end
 	local headerText = fileHnd:read(2048)
 	fileHnd:close()
-	if not headerText then return nil, nil, nil end
+	if not headerText then
+		main:OpenCloudErrorPopup(fullFileName)
+		return
+	end
 
 	local buildTag = headerText:match("<Build%s+[^>]->")
-	if not buildTag then return nil, nil, nil end
+	if not buildTag then return { } end
 
-	local level = tonumber(buildTag:match('level="([^"]+)"'))
-	local className = buildTag:match('className="([^"]+)"')
-	local ascendClassName = buildTag:match('ascendClassName="([^"]+)"')
-	return level, className, ascendClassName
+	return {
+		level = tonumber(buildTag:match('level="([^"]+)"')),
+		className = buildTag:match('className="([^"]+)"'),
+		ascendClassName = buildTag:match('ascendClassName="([^"]+)"'),
+	}
 end
 
 local function MatchEntry(entry, terms)
 	for _, term in ipairs(terms) do
-		local val = term:match("^class:(.*)$")
+		local termLower = term:lower()
+		local val = termLower:match("^class:(.*)$")
 		if val then
-			val = val:lower()
 			if val ~= "" then
 				local match = (entry.className and entry.className:lower():find(val, 1, true)) or
 				              (entry.ascendClassName and entry.ascendClassName:lower():find(val, 1, true)) or
@@ -42,7 +46,6 @@ local function MatchEntry(entry, terms)
 				if not match then return false end
 			end
 		else
-			local termLower = term:lower()
 			local match = (entry.buildName and entry.buildName:lower():find(termLower, 1, true)) or
 			              (entry.folderName and entry.folderName:lower():find(termLower, 1, true)) or
 			              (entry.className and entry.className:lower():find(termLower, 1, true)) or
@@ -54,59 +57,28 @@ local function MatchEntry(entry, terms)
 	return true
 end
 
--- Scan main.buildPath..subPath for .xml builds and sub-folders.
--- filterText is an optional space-separated filter with class: prefix support.
--- Recursively searches subfolders when filterText is non-empty.
--- Returns a list of build and folder entries for BuildListControl.
-local function ScanFolder(subPath, filterText)
+-- Recursively index builds and folders below main.buildPath..subPath.
+local function ScanFolder(subPath)
 	subPath = subPath or ""
-	filterText = filterText or ""
 	local list = { }
-
-	local terms = { }
-	if filterText:match("%S") then
-		for term in filterText:gmatch("%S+") do
-			t_insert(terms, term)
-		end
-	end
 
 	local function scanDir(currentSubPath)
 		local handle = NewFileSearch(main.buildPath..currentSubPath.."*.xml")
 		while handle do
 			local fileName = handle:GetFileName()
-			local buildName = fileName:gsub("%.xml$","")
 			local fullFileName = main.buildPath..currentSubPath..fileName
-
-			if #terms == 0 then
-				if currentSubPath == subPath then
-					local level, className, ascendClassName = ReadBuildHeader(fullFileName)
-					t_insert(list, {
-						fileName = fileName,
-						subPath = currentSubPath,
-						fullFileName = fullFileName,
-						modified = handle:GetFileModifiedTime(),
-						buildName = buildName,
-						level = level,
-						className = className,
-						ascendClassName = ascendClassName,
-					})
-				end
-			else
-				local level, className, ascendClassName = ReadBuildHeader(fullFileName)
-				local entry = {
-					fileName = fileName,
-					subPath = currentSubPath,
-					fullFileName = fullFileName,
-					modified = handle:GetFileModifiedTime(),
-					buildName = buildName,
-					level = level,
-					className = className,
-					ascendClassName = ascendClassName,
-				}
-				if MatchEntry(entry, terms) then
-					t_insert(list, entry)
-				end
-			end
+			local header = ReadBuildHeader(fullFileName)
+			if not header then return false end
+			t_insert(list, {
+				fileName = fileName,
+				subPath = currentSubPath,
+				fullFileName = fullFileName,
+				modified = handle:GetFileModifiedTime(),
+				buildName = fileName:gsub("%.xml$",""),
+				level = header.level,
+				className = header.className,
+				ascendClassName = header.ascendClassName,
+			})
 
 			if not handle:NextFile() then break end
 		end
@@ -123,33 +95,45 @@ local function ScanFolder(subPath, filterText)
 		for _, folder in ipairs(subFolders) do
 			local folderName = folder.name
 			local nextSubPath = currentSubPath .. folderName .. "/"
-
-			if #terms == 0 then
-				if currentSubPath == subPath then
-					t_insert(list, {
-						folderName = folderName,
-						subPath = currentSubPath,
-						fullFileName = main.buildPath..currentSubPath..folderName,
-						modified = folder.modified
-					})
-				end
-			else
-				local folderEntry = {
-					folderName = folderName,
-					subPath = currentSubPath,
-					fullFileName = main.buildPath..currentSubPath..folderName,
-					modified = folder.modified
-				}
-				if MatchEntry(folderEntry, terms) then
-					t_insert(list, folderEntry)
-				end
-				scanDir(nextSubPath)
-			end
+			t_insert(list, {
+				folderName = folderName,
+				subPath = currentSubPath,
+				fullFileName = main.buildPath..currentSubPath..folderName,
+				modified = folder.modified
+			})
+			if not scanDir(nextSubPath) then return false end
 		end
+		return true
 	end
 
 	scanDir(subPath)
 	return list
+end
+
+-- Filtering the cached index avoids filesystem work on every keystroke.
+local function FilterList(index, subPath, filterText)
+	local terms = { }
+	for term in (filterText or ""):gmatch("%S+") do
+		t_insert(terms, term)
+	end
+
+	local list = { }
+	for _, entry in ipairs(index or { }) do
+		if (#terms == 0 and entry.subPath == subPath) or (#terms > 0 and MatchEntry(entry, terms)) then
+			t_insert(list, entry)
+		end
+	end
+	return list
+end
+
+local function CanMoveToSubPath(build, targetSubPath)
+	if build.subPath == targetSubPath then return false end
+	if build.folderName then
+		-- MoveFolder and CopyFolder recurse, so their destination cannot be inside the source.
+		local sourceSubPath = build.subPath .. build.folderName .. "/"
+		if targetSubPath:sub(1, #sourceSubPath) == sourceSubPath then return false end
+	end
+	return true
 end
 
 -- Sort the given list in place using the same rules as the startup build list.
@@ -211,6 +195,8 @@ end
 
 return {
 	buildSortDropList = buildSortDropList,
+	CanMoveToSubPath = CanMoveToSubPath,
+	FilterList = FilterList,
 	ScanFolder = ScanFolder,
 	SortList = SortList,
 }
