@@ -1396,9 +1396,9 @@ function calcs.perform(env, skipEHP)
 				hasGuaranteedBonechill = true
 			end
 		end
-		-- Count active, damageable minions. Skills without a limit contribute one minion.
+		-- Count active minions. Skills without a limit contribute one minion.
 		local minionList = activeSkill.minionList
-		if not activeSkill.skillFlags.disable and not activeSkill.skillTypes[SkillType.MinionsAreUndamagable] and minionList and minionList[1] then
+		if not activeSkill.skillFlags.disable and minionList and minionList[1] then
 			local grantedEffect = activeSkill.activeEffect.grantedEffect
 			for _, minionType in ipairs(minionList) do
 				local minionData = env.data.minions[minionType]
@@ -1413,6 +1413,9 @@ function calcs.perform(env, skipEHP)
 					counts.total = m_max(count, counts.total or 0)
 					if not activeSkill.skillTypes[SkillType.Vaal] then
 						counts.nonVaal = m_max(count, counts.nonVaal or 0)
+					end
+					if activeSkill.skillFlags.permanentMinion then
+						counts.permanent = m_max(count, counts.permanent or 0)
 					end
 					minionCounts[key] = counts
 				end
@@ -1454,6 +1457,9 @@ function calcs.perform(env, skipEHP)
 		modDB:NewMod("Multiplier:SummonedMinion", "BASE", counts.total, "Config", { type = "Condition", var = "Combat" })
 		if counts.nonVaal then
 			modDB:NewMod("Multiplier:NonVaalSummonedMinion", "BASE", counts.nonVaal, "Config", { type = "Condition", var = "Combat" })
+		end
+		if counts.permanent then
+			modDB:NewMod("Multiplier:PermanentMinion", "BASE", counts.permanent, "Config", { type = "Condition", var = "Combat" })
 		end
 	end
 

@@ -7697,8 +7697,8 @@ c["Arrows Pierce all Targets after Chaining"]={nil,"Arrows Pierce all Targets af
 c["Arrows Pierce all Targets after Chaining Arrows Pierce all Targets after Forking"]={nil,"Arrows Pierce all Targets after Chaining Arrows Pierce all Targets after Forking "}
 c["Arrows Pierce all Targets after Forking"]={{[1]={[1]={stat="ForkedCount",threshold=1,type="StatThreshold"},flags=0,keywordFlags=2048,name="PierceAllTargets",type="FLAG",value=true}},nil}
 c["Arrows Pierce an additional Target"]={{[1]={flags=0,keywordFlags=2048,name="PierceCount",type="BASE",value=1}},nil}
-c["Arrows deal 30 to 50 Added Fire Damage for each time they've Pierced"]={{[1]={[1]={stat="PiercedCount",type="PerStat"},flags=0,keywordFlags=2048,name="FireMin",type="BASE",value=30},[2]={[1]={stat="PiercedCount",type="PerStat"},flags=0,keywordFlags=2048,name="FireMax",type="BASE",value=50}},nil}
-c["Arrows deal 50% increased Damage with Hits and Ailments to Targets they Pierce"]={{[1]={[1]={stat="PierceCount",threshold=1,type="StatThreshold"},flags=0,keywordFlags=788480,name="Damage",type="INC",value=50}},nil}
+c["Arrows deal 30 to 50 Added Fire Damage for each time they've Pierced"]={{[1]={[1]={keywordFlags=2048,type="KeywordFlagAnd"},[2]={stat="PiercedCount",type="PerStat"},flags=0,keywordFlags=0,name="FireMin",type="BASE",value=30},[2]={[1]={keywordFlags=2048,type="KeywordFlagAnd"},[2]={stat="PiercedCount",type="PerStat"},flags=0,keywordFlags=0,name="FireMax",type="BASE",value=50}},nil}
+c["Arrows deal 50% increased Damage with Hits and Ailments to Targets they Pierce"]={{[1]={[1]={keywordFlags=2048,type="KeywordFlagAnd"},[2]={stat="PierceCount",threshold=1,type="StatThreshold"},flags=0,keywordFlags=786432,name="Damage",type="INC",value=50}},nil}
 c["Arrows fired from the first firing points always Pierce"]={nil,"Arrows fired from the first firing points always Pierce "}
 c["Arrows fired from the first firing points always Pierce Arrows fired from the second firing points Fork"]={nil,"Arrows fired from the first firing points always Pierce Arrows fired from the second firing points Fork "}
 c["Arrows fired from the fourth firing points Chain +2 times"]={nil,"Arrows fired from the fourth firing points Chain +2 times "}
@@ -8568,7 +8568,7 @@ c["Enemies Killed near corpses affected by your Curses explode, dealing"]={nil,"
 c["Enemies Killed near corpses affected by your Curses explode, dealing 3% of their Life as Physical Damage"]={{[1]={[1]={threshold=1,type="MultiplierThreshold",var="NearbyCorpse"},[2]={actor="enemy",type="ActorCondition",var="Cursed"},flags=0,keywordFlags=0,name="ExplodeMod",type="LIST",value={amount=3,chance=1,keyOfScaledMod="chance",type="Physical"}},[2]={flags=0,keywordFlags=0,name="CanExplode",type="FLAG",value=true}},nil}
 c["Enemies Killed near your Banner have 20% chance to Explode, dealing a tenth of their Life as Physical Damage"]={nil,"Enemies Killed near your Banner have 20% chance to Explode, dealing a tenth of their Life as Physical Damage "}
 c["Enemies Killed near your Banner have 20% chance to Explode, dealing a tenth of their Life as Physical Damage Banner Skills have 20% increased Area of Effect"]={nil,"Enemies Killed near your Banner have 20% chance to Explode, dealing a tenth of their Life as Physical Damage Banner Skills have 20% increased Area of Effect "}
-c["Enemies Killed with Attack Hits have a 15% chance to Explode, dealing a tenth of their Life as Physical Damage"]={{[1]={flags=0,keywordFlags=0,name="ExplodeMod",source="physical",type="LIST",value={amount=15,chance=0.15,keyOfScaledMod="chance",type="Tenth"}},[2]={flags=0,keywordFlags=0,name="CanExplode",type="FLAG",value=true}},nil}
+c["Enemies Killed with Attack Hits have a 15% chance to Explode, dealing a tenth of their Life as Physical Damage"]={{[1]={flags=0,keywordFlags=0,name="ExplodeMod",type="LIST",value={amount=10,chance=0.15,keyOfScaledMod="chance",type="Physical"}},[2]={flags=0,keywordFlags=0,name="CanExplode",type="FLAG",value=true}},nil}
 c["Enemies Killed with Wand Hits have a 10% chance to Explode, dealing a quarter of their Life as Chaos Damage"]={{[1]={[1]={type="Condition",var="UsingWand"},flags=0,keywordFlags=0,name="ExplodeMod",type="LIST",value={amount=25,chance=0.1,keyOfScaledMod="chance",type="Chaos"}},[2]={flags=0,keywordFlags=0,name="CanExplode",type="FLAG",value=true}},nil}
 c["Enemies Poisoned by you cannot Regenerate Life"]={nil,"you cannot Regenerate Life "}
 c["Enemies Poisoned by you cannot Regenerate Life +6% to Damage over Time Multiplier for Poison while wielding a Claw or Dagger"]={nil,"you cannot Regenerate Life +6% to Damage over Time Multiplier for Poison while wielding a Claw or Dagger "}
@@ -9107,10 +9107,7 @@ c["Gain Defiance for 10 seconds on losing Life to an Enemy Hit, no more than onc
 c["Gain Defiance for 10 seconds on losing Life to an Enemy Hit, no more than once every 0.3 seconds Lose all Defiance when you reach 10 Defiance Gain 3% of Missing Unreserved Life before being Hit by an Enemy Per Defiance"]={nil,"Defiance  on losing Life to an Enemy Hit, no more than once every 0.3 seconds Lose all Defiance when you reach 10 Defiance Gain 3% of Missing Unreserved Life before being Hit by an Enemy  "}
 c["Gain Elusive on Critical Strike"]={{[1]={flags=0,keywordFlags=0,name="Condition:CanBeElusive",type="FLAG",value=true}},nil}
 c["Gain Elusive on reaching Low Life"]={{[1]={[1]={type="Condition",var="LowLife"},flags=0,keywordFlags=0,name="Condition:CanBeElusive",type="FLAG",value=true}},nil}
-c["Gain Fanaticism for 5 seconds on reaching Maximum Fanatic Charges"]={nil,"Fanaticism  on reaching Maximum Fanatic Charges "}
-c["Gain Fanaticism for 5 seconds on reaching Maximum Fanatic Charges Gain 1 Fanatic Charge every second if you've Attacked in the past second"]={nil,"Fanaticism  on reaching Maximum Fanatic Charges Gain 1 Fanatic Charge every second if you've Attacked in the past second "}
-c["Gain Fanaticism for 5 seconds on reaching Maximum Fanatic Charges Gain 1 Fanatic Charge every second if you've Attacked in the past second Lose all Fanatic Charges on reaching Maximum Fanatic Charges"]={nil,"Fanaticism  on reaching Maximum Fanatic Charges Gain 1 Fanatic Charge every second if you've Attacked in the past second Lose all Fanatic Charges on reaching Maximum Fanatic Charges "}
-c["Gain Fanaticism for 5 seconds on reaching Maximum Fanatic Charges Gain 1 Fanatic Charge every second if you've Attacked in the past second Lose all Fanatic Charges on reaching Maximum Fanatic Charges +3 to Maximum Fanatic Charges"]={nil,"Fanaticism  on reaching Maximum Fanatic Charges Gain 1 Fanatic Charge every second if you've Attacked in the past second Lose all Fanatic Charges on reaching Maximum Fanatic Charges +3 to Maximum Fanatic Charges "}
+c["Gain Fanaticism for 5 seconds on reaching Maximum Fanatic Charges"]={{[1]={flags=0,keywordFlags=0,name="Condition:CanGainFanaticism",type="FLAG",value=true}},nil}
 c["Gain Her Blessing for 3 seconds when you Ignite an Enemy"]={nil,"Her Blessing  when you Ignite an Enemy "}
 c["Gain Her Blessing for 3 seconds when you Ignite an Enemy 33% chance to Blind nearby Enemies when gaining Her Blessing"]={nil,"Her Blessing  when you Ignite an Enemy 33% chance to Blind nearby Enemies when gaining Her Blessing "}
 c["Gain Her Embrace for 3 seconds when you Ignite an Enemy"]={{[1]={flags=0,keywordFlags=0,name="Condition:CanGainHerEmbrace",type="FLAG",value=true}},nil}
@@ -12122,10 +12119,10 @@ c["Spell Critical Strike Chance Bifurcates"]={{[1]={flags=2,keywordFlags=0,name=
 c["Spell Skills always deal Critical Strikes on final Repeat"]={{[1]={flags=2,keywordFlags=0,name="SpellSkillsAlwaysDealCriticalStrikesOnFinalRepeat",type="FLAG",value=true}},nil}
 c["Spell Skills cannot deal Critical Strikes except on final Repeat"]={{[1]={flags=2,keywordFlags=0,name="SpellSkillsCannotDealCriticalStrikesExceptOnFinalRepeat",type="FLAG",value=true},[2]={[1]={type="Condition",var="alwaysFinalRepeat"},flags=0,keywordFlags=0,name="",type="FLAG",value=true}},nil}
 c["Spell Skills deal no Damage"]={{[1]={[1]={skillType=2,type="SkillType"},flags=0,keywordFlags=0,name="DealNoDamage",type="FLAG",value=true}},nil}
-c["Spell Skills have +12% to Damage over Time Multiplier for Poison"]={{[1]={flags=0,keywordFlags=1075970048,name="DotMultiplier",type="BASE",value=12}},nil}
-c["Spell Skills have +5% to Damage over Time Multiplier for Poison"]={{[1]={flags=0,keywordFlags=1075970048,name="DotMultiplier",type="BASE",value=5}},nil}
-c["Spell Skills have 10% increased Area of Effect"]={{[1]={flags=0,keywordFlags=131072,name="AreaOfEffect",type="INC",value=10}},nil}
-c["Spell Skills have 20% increased Area of Effect"]={{[1]={flags=0,keywordFlags=131072,name="AreaOfEffect",type="INC",value=20}},nil}
+c["Spell Skills have +12% to Damage over Time Multiplier for Poison"]={{[1]={[1]={skillType=2,type="SkillType"},flags=0,keywordFlags=1075838976,name="DotMultiplier",type="BASE",value=12}},nil}
+c["Spell Skills have +5% to Damage over Time Multiplier for Poison"]={{[1]={[1]={skillType=2,type="SkillType"},flags=0,keywordFlags=1075838976,name="DotMultiplier",type="BASE",value=5}},nil}
+c["Spell Skills have 10% increased Area of Effect"]={{[1]={[1]={skillType=2,type="SkillType"},flags=0,keywordFlags=0,name="AreaOfEffect",type="INC",value=10}},nil}
+c["Spell Skills have 20% increased Area of Effect"]={{[1]={[1]={skillType=2,type="SkillType"},flags=0,keywordFlags=0,name="AreaOfEffect",type="INC",value=20}},nil}
 c["Spells Cast by Totems have 4% increased Cast Speed"]={{[1]={flags=18,keywordFlags=16384,name="Speed",type="INC",value=4}},nil}
 c["Spells Cast by Totems have 5% increased Cast Speed"]={{[1]={flags=18,keywordFlags=16384,name="Speed",type="INC",value=5}},nil}
 c["Spells Cast by Totems have 8% increased Cast Speed"]={{[1]={flags=18,keywordFlags=16384,name="Speed",type="INC",value=8}},nil}
@@ -12582,7 +12579,7 @@ c["Wand Attacks deal 12% increased Damage with Ailments"]={{[1]={flags=8390656,k
 c["Wand Attacks deal 12% increased Damage with Hits and Ailments"]={{[1]={flags=8388608,keywordFlags=786432,name="Damage",type="INC",value=12}},nil}
 c["Wand Attacks deal 16% increased Damage with Hits and Ailments"]={{[1]={flags=8388608,keywordFlags=786432,name="Damage",type="INC",value=16}},nil}
 c["Wand Attacks fire an additional Projectile"]={{[1]={flags=8388608,keywordFlags=0,name="ProjectileCount",type="BASE",value=1}},nil}
-c["Warcries Cost +15% of Life"]={{[1]={[1]={floor=true,percent=15,stat="Life",type="PercentStat"},flags=0,keywordFlags=0,name="LifeCostBase",type="BASE",value=1}},nil}
+c["Warcries Cost +15% of Life"]={{[1]={[1]={floor=true,percent=15,stat="Life",type="PercentStat"},flags=0,keywordFlags=4,name="LifeCostBase",type="BASE",value=1}},nil}
 c["Warcries Debilitate Enemies for 1 second"]={{[1]={flags=0,keywordFlags=0,name="DebilitateChance",type="BASE",value=100}},nil}
 c["Warcries Exert 1 additional Attack"]={{[1]={flags=0,keywordFlags=0,name="ExtraExertedAttacks",type="BASE",value=1}},nil}
 c["Warcries Exert 2 additional Attacks"]={{[1]={flags=0,keywordFlags=0,name="ExtraExertedAttacks",type="BASE",value=2}},nil}
