@@ -22,7 +22,7 @@ local ItemListClass = newClass("ItemListControl", "ListControl", function(self, 
 	end)
 	self.controls.deleteUnused = new("ButtonControl", {"LEFT",self.controls.sort,"RIGHT"}, {4, 0, 84, 18}, "Del Unused", function()
 		local delList = {}
-		for _, itemId in pairs(self.list) do
+		for _, itemId in pairs(itemsTab.itemOrderList) do
 			if not itemsTab:GetEquippedSlotForItem(itemsTab.items[itemId]) and not self:FindEquippedAbyssJewel(itemId, false) and not self:FindSocketedJewel(itemId, false) then
 				t_insert(delList, itemId)
 			end
@@ -53,7 +53,7 @@ local ItemListClass = newClass("ItemListControl", "ListControl", function(self, 
 					spec.jewels[nodeId] = 0
 				end
 			end
-			wipeTable(self.list)
+			wipeTable(itemsTab.itemOrderList)
 			wipeTable(self.itemsTab.items)
 			itemsTab:PopulateSlots()
 			itemsTab:AddUndoState()
@@ -76,12 +76,14 @@ end)
 
 function ItemListClass:UpdateLoadoutList()
 	local list = { "Any Loadout", "Current Loadout", "Unused Items" }
+	local listValues = { ["Any Loadout"] = true, ["Current Loadout"] = true, ["Unused Items"] = true }
 	local build = self.itemsTab.build
 	if build and build.controls and build.controls.buildLoadouts then
 		for _, val in ipairs(build.controls.buildLoadouts.list) do
 			if val ~= "^7^7Loadouts:" and val ~= "^7^7-----" and val ~= "^7^7New Loadout" and val ~= "^7^7Sync" and val ~= "^7^7Help >>" then
-				if not isValueInArray(list, val) then
+				if not listValues[val] then
 					t_insert(list, val)
+					listValues[val] = true
 				end
 			end
 		end
@@ -90,93 +92,104 @@ function ItemListClass:UpdateLoadoutList()
 		for _, itemSetId in ipairs(self.itemsTab.itemSetOrderList) do
 			local itemSet = self.itemsTab.itemSets[itemSetId]
 			local title = itemSet and (itemSet.title or "Default")
-			if title and not isValueInArray(list, title) then
+			if title and not listValues[title] then
 				t_insert(list, title)
+				listValues[title] = true
 			end
 		end
 	end
-	local selIndex = self.controls.loadoutFilter.selIndex or 1
-	self.controls.loadoutFilter:SetList(list)
-	self.controls.loadoutFilter.selIndex = math.min(selIndex, #list)
-end
-
-function ItemListClass:IsItemInLoadout(itemId, filterVal)
-	local item = self.itemsTab.items[itemId]
-	if not item then
+	local listKey = table.concat(list, "\0")
+	if self.loadoutListKey == listKey then
 		return false
 	end
-
-	-- Check item sets
-	if self.itemsTab.itemSetOrderList then
-		for _, itemSetId in ipairs(self.itemsTab.itemSetOrderList) do
-			local itemSet = self.itemsTab.itemSets[itemSetId]
-			if itemSet then
-				local title = itemSet.title or "Default"
-				if title == filterVal or title:find(filterVal, 1, true) or filterVal:find(title, 1, true) or #self.itemsTab.itemSetOrderList == 1 then
-					local slot, equipSet = self.itemsTab:GetEquippedSlotForItem(item)
-					if (slot and (not equipSet or equipSet == itemSet)) or self:FindEquippedAbyssJewel(itemId, false) == title then
-						return true
-					end
-				end
-			end
-		end
-	end
-
-	-- Check passive tree specs
-	local treeTab = self.itemsTab.build.treeTab
-	if treeTab and treeTab.specList then
-		for _, spec in ipairs(treeTab.specList) do
-			local title = spec.title or "Default"
-			if title == filterVal or title:find(filterVal, 1, true) or filterVal:find(title, 1, true) or #treeTab.specList == 1 then
-				if self:FindSocketedJewel(itemId, false) == title then
-					return true
-				end
-			end
-		end
-	end
-
-	return false
+	self.loadoutListKey = listKey
+	local selIndex = self.controls.loadoutFilter.selIndex or 1
+	local selValue = self.controls.loadoutFilter.list and self.controls.loadoutFilter.list[selIndex] or "Any Loadout"
+	self.controls.loadoutFilter:SetList(list)
+	self.controls.loadoutFilter.selIndex = isValueInArray(list, selValue) or 1
+	return true
 end
 
 function ItemListClass:UpdateList()
 	self:UpdateLoadoutList()
 	local selFilter = self.controls.loadoutFilter.selIndex or 1
 	local filterVal = self.controls.loadoutFilter.list[selFilter] or "Any Loadout"
+	local selectedItemId = self.selValue
 
 	if selFilter == 1 or filterVal == "Any Loadout" then
 		self.list = self.itemsTab.itemOrderList
-		return
-	end
-
-	local newList = {}
-	for _, itemId in ipairs(self.itemsTab.itemOrderList) do
-		local item = self.itemsTab.items[itemId]
-		if item then
-			if selFilter == 2 or filterVal == "Current Loadout" then
-				if self.itemsTab:GetEquippedSlotForItem(item) or self:FindEquippedAbyssJewel(itemId, false) or self:FindSocketedJewel(itemId, false) then
-					t_insert(newList, itemId)
+		self.isMutable = true
+	else
+		self.isMutable = false
+		local filterItemSet
+		local filterSpec
+		if selFilter == 2 or filterVal == "Current Loadout" then
+			filterItemSet = self.itemsTab.activeItemSet
+			filterSpec = self.itemsTab.build.treeTab.specList[self.itemsTab.build.treeTab.activeSpec]
+		elseif selFilter ~= 3 and filterVal ~= "Unused Items" then
+			local filterTitle = filterVal:gsub("^%[[^%]]+%]%s*", "")
+			for _, itemSetId in ipairs(self.itemsTab.itemSetOrderList) do
+				local itemSet = self.itemsTab.itemSets[itemSetId]
+				if (itemSet.title or "Default") == filterTitle then
+					filterItemSet = itemSet
+					break
 				end
-			elseif selFilter == 3 or filterVal == "Unused Items" then
-				if not self.itemsTab:GetEquippedSlotForItem(item) and not self:FindEquippedAbyssJewel(itemId, false) and not self:FindSocketedJewel(itemId, false) then
-					t_insert(newList, itemId)
+			end
+			local treeTab = self.itemsTab.build.treeTab
+			for _, spec in ipairs(treeTab.specList) do
+				if (spec.title or "Default") == filterTitle then
+					filterSpec = spec
+					break
 				end
-			else
-				if self:IsItemInLoadout(itemId, filterVal) then
-					t_insert(newList, itemId)
+			end
+			local linkId = filterVal:match("%{(%w+)%}")
+			local itemLink = linkId and self.itemsTab.build.itemListSpecialLinks and self.itemsTab.build.itemListSpecialLinks[linkId]
+			local treeLink = linkId and self.itemsTab.build.treeListSpecialLinks and self.itemsTab.build.treeListSpecialLinks[linkId]
+			filterItemSet = filterItemSet or #self.itemsTab.itemSetOrderList == 1 and self.itemsTab.itemSets[self.itemsTab.itemSetOrderList[1]] or itemLink and self.itemsTab.itemSets[itemLink.setId]
+			filterSpec = filterSpec or #treeTab.specList == 1 and treeTab.specList[1] or treeLink and treeTab.specList[treeLink.setId]
+		end
+		filterItemSet = filterItemSet or { }
+		local newList = {}
+		for _, itemId in ipairs(self.itemsTab.itemOrderList) do
+			local item = self.itemsTab.items[itemId]
+			if item then
+				if selFilter == 3 or filterVal == "Unused Items" then
+					if not self.itemsTab:GetEquippedSlotForItem(item) and not self:FindEquippedAbyssJewel(itemId, false) and not self:FindSocketedJewel(itemId, false) then
+						t_insert(newList, itemId)
+					end
+				else
+					local inLoadout = false
+					for _, slot in pairs(filterItemSet) do
+						if type(slot) == "table" and slot.selItemId == itemId then
+							inLoadout = true
+							break
+						end
+					end
+					if not inLoadout and filterSpec then
+						for nodeId, jewelId in pairs(filterSpec.jewels) do
+							if jewelId == itemId and filterSpec.nodes[nodeId] and filterSpec.nodes[nodeId].alloc then
+								inLoadout = true
+								break
+							end
+						end
+					end
+					if inLoadout then
+						t_insert(newList, itemId)
+					end
 				end
 			end
 		end
+		self.list = newList
 	end
-	self.list = newList
-	if self.selIndex and self.selIndex > #self.list then
-		self.selIndex = #self.list > 0 and #self.list or nil
-		self.selValue = self.selIndex and self.list[self.selIndex] or nil
-	end
+	self.selIndex = selectedItemId and isValueInArray(self.list, selectedItemId) or nil
+	self.selValue = self.selIndex and self.list[self.selIndex] or nil
 end
 
 function ItemListClass:Draw(viewPort)
-	if self.itemsTab.build and self.itemsTab.build.outputRevision ~= self.lastOutputRevision then
-		self.lastOutputRevision = self.itemsTab.build.outputRevision
+	local loadoutListChanged = self:UpdateLoadoutList()
+	local outputRevision = self.itemsTab.build and self.itemsTab.build.outputRevision
+	if loadoutListChanged or outputRevision ~= self.lastOutputRevision then
+		self.lastOutputRevision = outputRevision
 		self:UpdateList()
 	end
 	self.ListControl.Draw(self, viewPort)
