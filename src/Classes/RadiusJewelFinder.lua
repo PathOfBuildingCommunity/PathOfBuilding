@@ -174,6 +174,7 @@ function RadiusJewelDetailListClass:RadiusJewelDetailListControl(anchor, rect, c
 	self.build = build
 	self.socketViewer = socketViewer
 	self.nodeTooltip = new("Tooltip"):Tooltip()
+	self.itemTooltip = new("Tooltip"):Tooltip()
 	return self
 end
 
@@ -200,11 +201,7 @@ end
 function RadiusJewelDetailListClass:Draw(viewPort)
 	self.TextListControl.Draw(self, viewPort)
 	local hoverLine = self:GetHoverLine()
-	if not hoverLine or not hoverLine.nodeId or main.popups[2] then
-		return
-	end
-	local node = self.build.spec.nodes[hoverLine.nodeId] or self.build.spec.tree.nodes[hoverLine.nodeId]
-	if not node then
+	if not hoverLine or main.popups[2] then
 		return
 	end
 
@@ -240,6 +237,23 @@ function RadiusJewelDetailListClass:Draw(viewPort)
 	end
 
 	local cursorX, cursorY = GetCursorPos()
+	if hoverLine.item then
+		SetDrawLayer(nil, 100)
+		self.itemTooltip:Clear(true)
+		self.build.itemsTab:AddItemTooltip(self.itemTooltip, hoverLine.item)
+		local ttW, ttH = self.itemTooltip:GetSize()
+		local ttX, ttY = placeTooltip(ttW, ttH, cursorX, cursorY)
+		self.itemTooltip:Draw(ttX, ttY, nil, nil, viewPort)
+		SetDrawLayer(nil, 0)
+		return
+	end
+	if not hoverLine.nodeId then
+		return
+	end
+	local node = self.build.spec.nodes[hoverLine.nodeId] or self.build.spec.tree.nodes[hoverLine.nodeId]
+	if not node then
+		return
+	end
 	local viewerRect
 	SetDrawLayer(nil, 15)
 	local viewerX = cursorX + 20
@@ -1443,20 +1457,25 @@ end
 		if row.variantLabel and row.variantLabel ~= "" then
 			t_insert(resultDetailListData, { height = 16, [1] = "^7Variant: " .. row.variantLabel })
 		end
+		local replacementItem
+		if row.replacedItemLabel or row.storedUnallocatedItemLabel then
+			local occupancy = self:getSocketOccupancyInfo(row.socketId)
+			replacementItem = occupancy and occupancy.item
+		end
 		if row.action == "keep" then
 			t_insert(resultDetailListData, { height = 16, [1] = "^8Already equipped" })
 		elseif row.action == "moveReplace" then
 			t_insert(resultDetailListData, { height = 16, [1] = "^xBB88FFMove equipped jewel" })
-			t_insert(resultDetailListData, { height = 16, [1] = "^xFFAA33Will replace: ^7" .. (row.replacedItemLabel or "?") })
+			t_insert(resultDetailListData, { height = 16, [1] = "^xFFAA33Will replace: ^7" .. (row.replacedItemLabel or "?"), item = replacementItem })
 		elseif row.action == "move" then
 			t_insert(resultDetailListData, { height = 16, [1] = "^x33AAFFMove equipped jewel" })
 		elseif row.replacedItemLabel then
 			t_insert(resultDetailListData, { height = 16, [1] = "^xFFAA33Use occupied socket" })
-			t_insert(resultDetailListData, { height = 16, [1] = "^xFFAA33Will replace: ^7" .. row.replacedItemLabel })
+			t_insert(resultDetailListData, { height = 16, [1] = "^xFFAA33Will replace: ^7" .. row.replacedItemLabel, item = replacementItem })
 		elseif row.storedUnallocatedItemLabel then
 			t_insert(resultDetailListData, { height = 16, [1] = "^2Use unallocated socket" })
 			t_insert(resultDetailListData, { height = 16, [1] = "^8Stored jewel ignored until this socket is allocated." })
-			t_insert(resultDetailListData, { height = 16, [1] = "^xFFAA33Apply will replace the stored jewel: ^7" .. row.storedUnallocatedItemLabel })
+			t_insert(resultDetailListData, { height = 16, [1] = "^xFFAA33Apply will replace the stored jewel: ^7" .. row.storedUnallocatedItemLabel, item = replacementItem })
 		else
 			t_insert(resultDetailListData, { height = 16, [1] = "^2Use free socket" })
 		end
@@ -2588,10 +2607,8 @@ end
 			tooltip:Clear(true)
 			tooltip:AddLine(16, "^7Equip ^x33FF77" .. (row.jewelName or "jewel") .. " ^7in ^x33FF77" .. (row.socketLabel or "socket"))
 			tooltip:AddLine(16, "^8Adds the jewel to this build.")
-			if row.replacedItemLabel then
-				tooltip:AddLine(16, "^xFFAA33Replaces equipped jewel: ^7" .. row.replacedItemLabel)
-			elseif row.storedUnallocatedItemLabel then
-				tooltip:AddLine(16, "^xFFAA33Replaces stored jewel: ^7" .. row.storedUnallocatedItemLabel)
+			if row.storedUnallocatedItemLabel then
+				tooltip:AddLine(16, "^xFFAA33Replaces the stored jewel ignored by the current tree.")
 			end
 			tooltip:AddLine(16, "^8Double-click a result to apply it.")
 		end
