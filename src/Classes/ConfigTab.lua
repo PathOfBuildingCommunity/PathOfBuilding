@@ -816,9 +816,14 @@ function ConfigTabClass:Load(xml, fileName)
 	-- Migration check for legacy builds
 	for _, configSetId in ipairs(self.configSetOrderList) do
 		local configSet = self.configSets[configSetId]
-		if not configSet.customModsList or #configSet.customModsList == 0 then
-			local legacyText = configSet.input and configSet.input.customMods or ""
+		local legacyText = configSet.input and configSet.input.customMods or ""
+		if legacyText ~= "" and (not configSet.customModsList or #configSet.customModsList == 0 or (#configSet.customModsList == 1 and (configSet.customModsList[1].text or "") == "")) then
 			configSet.customModsList = { { title = "Default", enabled = true, text = legacyText } }
+		elseif not configSet.customModsList or #configSet.customModsList == 0 then
+			configSet.customModsList = { { title = "Default", enabled = true, text = "" } }
+		end
+		if configSet.input then
+			configSet.input.customMods = nil
 		end
 	end
 
@@ -1392,24 +1397,13 @@ function ConfigTabClass:OpenAddModPopup(blockData)
 			end
 		end
 	end
-	controls.listControl.OnSelClick = function(self, index, value)
+	controls.listControl.OnSelClick = function(self, index, value, doubleClick)
 		if main.SelectControl then
 			main:SelectControl(self)
 		end
 		self:SelectIndex(index)
-	end
-	controls.listControl.OnSelDoubleClick = function(index, value)
-		if value and value ~= "No matching modifiers found" then
-			local textToAdd = itemLib.applyRange(value, 0.5)
-			if blockData.text and #blockData.text > 0 and not blockData.text:match("\n$") then
-				blockData.text = blockData.text .. "\n"
-			end
-			blockData.text = (blockData.text or "") .. textToAdd
-			self:UpdateCustomModsControls()
-			self:AddUndoState()
-			self:BuildModList()
-			self.build.buildFlag = true
-			main:ClosePopup()
+		if doubleClick and controls.save:IsEnabled() then
+			controls.save.onClick()
 		end
 	end
 

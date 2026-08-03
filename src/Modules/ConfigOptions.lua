@@ -2344,4 +2344,3 @@ Huge sets the radius to 11.
 	-- Section: Custom mods
 	{ section = "Custom Modifiers", col = 1 },
 }
-
