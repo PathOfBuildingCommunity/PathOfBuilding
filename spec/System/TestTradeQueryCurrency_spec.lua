@@ -58,6 +58,7 @@ describe("TradeQuery Currency Conversion", function()
 		local CHAOS  = "Metadata/Items/Currency/CurrencyRerollRare"
 		local EXALT  = "Metadata/Items/Currency/CurrencyAddModToRare"
 		local ALCH   = "Metadata/Items/Currency/CurrencyUpgradeToRare"
+		local STACKED_DECK = "Metadata/Items/DivinationCards/DivinationCardDeck"
 
 		-- static trade data: maps display name -> short trade id
 		local static = {
@@ -68,35 +69,96 @@ describe("TradeQuery Currency Conversion", function()
 					{ id = "chaos", text = "Chaos Orb" },
 					{ id = "exalt", text = "Exalted Orb" },
 					{ id = "alch", text = "Orb of Alchemy" },
+					{ id = "stacked-deck", text = "Stacked Deck" },
 				}
 			} }
 		}
 
-		local origDownloadPage, origApi
+		local origDownloadPage, cxResponse
 
 		before_each(function()
 			mock_tradeQuery.pbRealm = "pc"
 			mock_tradeQuery.controls.pbNotice = {}
 			origDownloadPage = launch.DownloadPage
-			origApi = main.api
-			-- static trade data is fetched first via launch:DownloadPage
-			launch.DownloadPage = function(_, _url, callback)
-				callback({ body = dkjson.encode(static) })
+			cxResponse = nil
+			launch.DownloadPage = function(_, url, callback)
+				if url == "https://www.pathofexile.com/api/trade/data/static" then
+					callback({ body = dkjson.encode(static) })
+				elseif cxResponse then
+					callback({ body = dkjson.encode(cxResponse) })
+				end
 			end
 		end)
 
 		after_each(function()
 			launch.DownloadPage = origDownloadPage
-			main.api = origApi
 		end)
 
-		-- helper: make main.api:FetchCurrencyExchange feed the given markets back
-		local function mockCX(markets)
-			main.api = {
-				FetchCurrencyExchange = function(_, _realm, callback)
-					callback({ body = dkjson.encode({ markets = markets }) })
+		it("fetches currency exchange data without authentication", function()
+			local requestedUrl
+			local requestedParams
+			launch.DownloadPage = function(_, url, callback, params)
+				if url == "https://www.pathofexile.com/api/trade/data/static" then
+					callback({ body = dkjson.encode(static) })
+				else
+					requestedUrl = url
+					requestedParams = params
+					callback({ body = dkjson.encode({ markets = {} }) })
 				end
-			}
+			end
+
+			mock_tradeQuery.pbRealm = "xbox"
+			mock_tradeQuery:PullCXData()
+
+			assert.is_truthy(requestedUrl:match("^https://web%.poecdn%.com/api/currency%-exchange/xbox/%d+$"))
+			assert.is_nil(requestedParams)
+		end)
+
+		it("waits until a realm is selected", function()
+			local fetched = false
+			mock_tradeQuery.pbRealm = ""
+			launch.DownloadPage = function()
+				fetched = true
+			end
+
+			mock_tradeQuery:PullCXData()
+
+			assert.is_false(fetched)
+		end)
+
+		it("stores responses under the requested realm", function()
+			local callbacks = {}
+			launch.DownloadPage = function(_, url, callback)
+				if url == "https://www.pathofexile.com/api/trade/data/static" then
+					callback({ body = dkjson.encode(static) })
+				elseif url:find("/xbox/", 1, true) then
+					callbacks.xbox = callback
+				else
+					callbacks.pc = callback
+				end
+			end
+
+			mock_tradeQuery.pbRealm = "pc"
+			mock_tradeQuery:PullCXData()
+			mock_tradeQuery.pbRealm = "xbox"
+			mock_tradeQuery:PullCXData()
+
+			for _, response in ipairs({ { "xbox", 5 }, { "pc", 10 } }) do
+				callbacks[response[1]]({ body = dkjson.encode({ markets = { {
+					league = "Standard",
+					market_pair = { EXALT, DIVINE },
+					lowest_ratio = { [EXALT] = response[2], [DIVINE] = 1 },
+					highest_stock = { [EXALT] = 100, [DIVINE] = 100 },
+				} } }) })
+			end
+
+			assert.are.equal(0.1, mock_tradeQuery.pbCurrencyConversion.pc.Standard.exalt)
+			assert.are.equal(0.2, mock_tradeQuery.pbCurrencyConversion.xbox.Standard.exalt)
+		end)
+
+		-- Provide the currency exchange response returned by the download mock.
+		local function mockCX(markets)
+			cxResponse = { markets = markets }
 		end
 
 		it("converts a chained market to divine values", function()
@@ -122,6 +184,12 @@ describe("TradeQuery Currency Conversion", function()
 					lowest_ratio = { [ALCH] = 5, [CHAOS] = 1 },
 					highest_stock = { [ALCH] = 1000, [CHAOS] = 1000 },
 				},
+				{
+					league = "Standard",
+					market_pair = { STACKED_DECK, DIVINE },
+					lowest_ratio = { [STACKED_DECK] = 50, [DIVINE] = 1 },
+					highest_stock = { [STACKED_DECK] = 1000, [DIVINE] = 100 },
+				},
 			})
 
 			mock_tradeQuery:PullCXData()
@@ -133,6 +201,7 @@ describe("TradeQuery Currency Conversion", function()
 			assert.are.equal(0.005, rates.chaos)
 			-- 0.2 chaos * 0.005 div/chaos = 0.001 div
 			assert.are.equal(0.001, rates.alch)
+			assert.are.equal(0.02, rates["stacked-deck"])
 		end)
 
 		it("keeps the highest-stock listing for a currency", function()
@@ -173,11 +242,7 @@ describe("TradeQuery Currency Conversion", function()
 		end)
 
 		it("shows a notice on an API error response", function()
-			main.api = {
-				FetchCurrencyExchange = function(_, _realm, callback)
-					callback({ body = dkjson.encode({ error = { message = "kaput" } }) })
-				end
-			}
+			cxResponse = { error = { message = "kaput" } }
 
 			mock_tradeQuery:PullCXData()
 
@@ -188,9 +253,7 @@ describe("TradeQuery Currency Conversion", function()
 		it("does not refetch within the rate-limit window", function()
 			mock_tradeQuery.pbCurrencyConversion.pc = { timestamp = os.time() }
 			local fetched = false
-			main.api = {
-				FetchCurrencyExchange = function() fetched = true end
-			}
+			launch.DownloadPage = function() fetched = true end
 
 			mock_tradeQuery:PullCXData()
 

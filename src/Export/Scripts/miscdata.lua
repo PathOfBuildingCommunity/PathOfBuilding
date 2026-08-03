@@ -145,7 +145,7 @@ out:close()
 
 local currencies = {}
 for row in dat("BaseItemTypes"):Rows() do
-	if row.Id:find("^Metadata/Items/Currency/") and row.Name ~= "" then
+	if row.ItemClass.Id == "Currency" and row.Name ~= "" then
 		currencies[row.Id] = row.Name
 	end
 end

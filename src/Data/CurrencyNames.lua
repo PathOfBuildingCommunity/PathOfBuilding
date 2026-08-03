@@ -6,6 +6,11 @@
 
 -- spell-checker: disable
 return {
+	["Metadata/Items/AtlasExiles/AddModToRareCrusader"] = "Crusader's Exalted Orb",
+	["Metadata/Items/AtlasExiles/AddModToRareHunter"] = "Hunter's Exalted Orb",
+	["Metadata/Items/AtlasExiles/AddModToRareRedeemer"] = "Redeemer's Exalted Orb",
+	["Metadata/Items/AtlasExiles/AddModToRareWarlord"] = "Warlord's Exalted Orb",
+	["Metadata/Items/AtlasExiles/ApplyInfluence"] = "Awakener's Orb",
 	["Metadata/Items/Currency/AncestralOmenOnChanceMakeUnique"] = "Omen of Fortune",
 	["Metadata/Items/Currency/AncestralOmenOnChromaticAddWhiteSockets"] = "Omen of Trichromatism",
 	["Metadata/Items/Currency/AncestralOmenOnCriticalLifeAvoidDamage"] = "Omen of Death-dancing",
@@ -692,4 +697,6 @@ return {
 	["Metadata/Items/Currency/SentinelCurrencyMutate"] = "Transforming Power Core",
 	["Metadata/Items/Currency/SentinelCurrencyUpgradeMod"] = "Amplifying Power Core",
 	["Metadata/Items/Currency/SentinelCurrencyWeapon"] = "Weapon Recombinator",
+	["Metadata/Items/DivinationCards/DivinationCardDeck"] = "Stacked Deck",
+	["Metadata/Items/Heist/HeistCoin"] = "Rogue's Marker",
 }

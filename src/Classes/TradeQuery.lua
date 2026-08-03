@@ -5,8 +5,7 @@
 --
 
 
-local dkjson = require("dkjson")
-local curl = require("lcurl.safe")
+local dkjson = require "dkjson"
 local itemSlotHelper = LoadModule("Modules/ItemSlotHelper")
 
 local get_time = os.time
@@ -37,7 +36,7 @@ local TradeQueryClass = newClass("TradeQuery", function(self, itemsTab)
 	self.slotTables = { }
 	self.pbItemSortSelectionIndex = 1
 	-- for each realm and league, a table of values of each currency in div
-	--- @type table<string, table<string, table<string, integer>>>
+	--- @type table<string, table<string, table<string, number>>>
 	self.pbCurrencyConversion = {}
 	self.lastCurrencyFileTime = { }
 	self.pbFileTimestampDiff = { }
@@ -116,103 +115,15 @@ local generalCurrencies = {
 	["Metadata/Items/Currency/CurrencyRerollRare"] = true
 }
 
----@return table<string, table<string, number>> exchangeData For each league, a map from currency name to value in divines.
-local function processCXResponse(static, CXData)
-	-- short currency names for each base item type id
-	local currencyNames = {}
-	-- long currency names for each base item type id
-	local currencyIdMapData = require("Data.CurrencyNames")
-	-- make map bidirectional
-	local currencyIdMap = {}
-	for k, v in pairs(currencyIdMapData) do
-		currencyIdMap[v] = k
-		currencyIdMap[k] = v
-	end
-	-- build currencyNames
-	for _, entry in ipairs(static.result[1].entries) do
-		if entry.id ~= "sep" then
-			local itemID = currencyIdMap[entry.text]
-			-- it's possible for there to be no match as only the "currency"
-			-- category is exported. the static data is used for the bulk
-			-- trading function which means not every item is actually used as a
-			-- trade site currency
-			if itemID then
-				currencyNames[itemID] = entry.id
-			end
-		end
-	end
-	local out = {}
-	for _, entry in ipairs(CXData.markets) do
-		local league = entry.league
-		if not out[league] then
-			out[league] = {}
-		end
-		local leagueOut = out[league]
-
-		-- base type ids in the form of e.g. Metadata/Items/.../CurrencyModValues
-		local fromID = entry.market_pair[1]
-		local toID = entry.market_pair[2]
-
-		-- entry is from chaos/div to something else -> flip
-		if generalCurrencies[fromID] and not (toID == "Metadata/Items/Currency/CurrencyModValues") then
-			fromID, toID = toID, fromID
-		end
-
-		-- short name such as "divine" which the trade site actually uses
-		local fromShort = currencyNames[fromID]
-		local toShort = currencyNames[toID]
-		local price
-
-		if (not fromShort) or (not generalCurrencies[toID]) or (entry.lowest_ratio[fromID] == 0) then
-			goto CXContinue
-		end
-
-		price = entry.lowest_ratio[toID] / entry.lowest_ratio[fromID]
-		local newEntry = {
-			currency = toShort,
-			price = price,
-			stock = entry.highest_stock[fromID]
-		}
-		-- only keep the most popular option
-		if (not leagueOut[fromShort]) or (leagueOut[fromShort].stock < newEntry.stock) then
-			leagueOut[fromShort] = newEntry
-		end
-		::CXContinue::
-	end
-
-	-- convert any non-divine prices to divine equivalent prices
-	for leagueName, leagueEntries in pairs(out) do
-		for from, to in pairs(leagueEntries) do
-			if to.currency ~= "divine" then
-				local divEntry = leagueEntries[to.currency]
-				if not divEntry then
-					leagueEntries[from] = nil
-				else
-					leagueEntries[from] = divEntry.price * to.price
-				end
-			end
-		end
-		-- iterate again to convert prices that were already divine to just the price number
-		for from, to in pairs(leagueEntries) do
-			if type(to) == "table" then
-				leagueEntries[from] = to.price
-			end
-		end
-		-- delete empty league entries
-		if not next(leagueEntries) then
-			out[leagueName] = nil
-		else
-			leagueEntries.divine = 1
-		end
-	end
-
-	return out
-end
 -- Method to pull down and interpret the Currency Exchange JSON endpoint data
 function TradeQueryClass:PullCXData()
+	local realm = self.pbRealm
+	if realm == "" then
+		return
+	end
 	local now = get_time()
 	-- Limit Currency Conversion request to 1 per hour
-	if self.pbCurrencyConversion[self.pbRealm] and ((now - self.pbCurrencyConversion[self.pbRealm].timestamp) < 61 * 60) then
+	if self.pbCurrencyConversion[realm] and ((now - self.pbCurrencyConversion[realm].timestamp) < 61 * 60) then
 		return
 	end
 
@@ -228,7 +139,13 @@ function TradeQueryClass:PullCXData()
 			self:SetNotice(self.controls.pbNotice, "Could not decode static trade data")
 			return
 		end
-		main.api:FetchCurrencyExchange(self.pbRealm, function(response, errMsg)
+		local url = "https://web.poecdn.com/api/currency-exchange"
+		if realm ~= "pc" then
+			url = url .. "/" .. realm
+		end
+		local hourSeconds = 60 * 60
+		url = url .. "/" .. ((math.floor(now / hourSeconds) - 1) * hourSeconds)
+		launch:DownloadPage(url, function(response, errMsg)
 			if errMsg then
 				self:SetNotice(self.controls.pbNotice, "Error: " .. tostring(errMsg))
 				return
@@ -243,15 +160,91 @@ function TradeQueryClass:PullCXData()
 				self:SetNotice(self.controls.pbNotice, "CX error: " .. json.error.message)
 				return
 			end
-			local success, result = pcall(processCXResponse, static, json)
+			local success, result = pcall(function()
+				-- short currency names for each base item type id
+				local currencyNames = {}
+				local currencyIdMap = {}
+				for id, name in pairs(require("Data.CurrencyNames")) do
+					currencyIdMap[name] = id
+				end
+				for _, entry in ipairs(static.result[1].entries) do
+					if entry.id ~= "sep" then
+						local itemID = currencyIdMap[entry.text]
+						-- Not every bulk trade item is exported as currency.
+						if itemID then
+							currencyNames[itemID] = entry.id
+						end
+					end
+				end
+
+				local out = {}
+				for _, entry in ipairs(json.markets) do
+					local league = entry.league
+					if not out[league] then
+						out[league] = {}
+					end
+					local leagueOut = out[league]
+
+					-- Base type IDs are in the form Metadata/Items/.../CurrencyModValues.
+					local fromID = entry.market_pair[1]
+					local toID = entry.market_pair[2]
+
+					-- Normalize entries to price each currency in chaos or divines.
+					if generalCurrencies[fromID] and toID ~= "Metadata/Items/Currency/CurrencyModValues" then
+						fromID, toID = toID, fromID
+					end
+
+					local fromShort = currencyNames[fromID]
+					local toShort = currencyNames[toID]
+					if not fromShort or not generalCurrencies[toID] or entry.lowest_ratio[fromID] == 0 then
+						goto CXContinue
+					end
+
+					local newEntry = {
+						currency = toShort,
+						price = entry.lowest_ratio[toID] / entry.lowest_ratio[fromID],
+						stock = entry.highest_stock[fromID]
+					}
+					-- Only keep the most popular option.
+					if not leagueOut[fromShort] or leagueOut[fromShort].stock < newEntry.stock then
+						leagueOut[fromShort] = newEntry
+					end
+					::CXContinue::
+				end
+
+				-- Convert any chaos prices to divine equivalent prices.
+				for leagueName, leagueEntries in pairs(out) do
+					for from, to in pairs(leagueEntries) do
+						if to.currency ~= "divine" then
+							local divEntry = leagueEntries[to.currency]
+							if not divEntry then
+								leagueEntries[from] = nil
+							else
+								leagueEntries[from] = divEntry.price * to.price
+							end
+						end
+					end
+					for from, to in pairs(leagueEntries) do
+						if type(to) == "table" then
+							leagueEntries[from] = to.price
+						end
+					end
+					if not next(leagueEntries) then
+						out[leagueName] = nil
+					else
+						leagueEntries.divine = 1
+					end
+				end
+
+				return out
+			end)
 			if not success then
 				self:SetNotice(self.controls.pbNotice, "Failed to process CX response")
 				ConPrintf("CX error: %s", result)
 				return
-			else
-				result.timestamp = now
-				self.pbCurrencyConversion[self.pbRealm] = result
 			end
+			result.timestamp = now
+			self.pbCurrencyConversion[realm] = result
 		end)
 	end)
 end
@@ -464,8 +457,10 @@ Highest Weight - Displays the order retrieved from trade]]
 	self.controls.realmLabel = new("LabelControl", {"LEFT", self.controls.setSelect, "RIGHT"}, {18, 0, 20, row_height - 4}, "^7Realm:")
 	self.controls.realm = new("DropDownControl", {"LEFT", self.controls.realmLabel, "RIGHT"}, {6, 0, 150, row_height}, self.realmDropList, function(index, value)
 		self.pbRealmIndex = index
-		self.pbRealm = self.realmIds[value]
-		self:PullCXData()
+		if self.pbRealm ~= self.realmIds[value] then
+			self.pbRealm = self.realmIds[value]
+			self:PullCXData()
+		end
 		local function setLeagueDropList()
 			self.itemsTab.leagueDropList = copyTable(self.allLeagues[self.pbRealm])
 			self.controls.league:SetList(self.itemsTab.leagueDropList)
@@ -628,7 +623,7 @@ Highest Weight - Displays the order retrieved from trade]]
 		main:ClosePopup()
 	end)
 
-	self.controls.pbNotice = new("LabelControl", { "BOTTOMRIGHT", nil, "BOTTOMRIGHT" }, { -row_height - pane_margins_vertical - row_vertical_padding, -pane_margins_vertical, 300, row_height }, "")
+	self.controls.pbNotice = new("LabelControl",  {"BOTTOMRIGHT", nil, "BOTTOMRIGHT"}, {-row_height - pane_margins_vertical - row_vertical_padding, -pane_margins_vertical, 300, row_height}, "")
 
 	-- used in PopupDialog:Draw()
 	local function scrollBarFunc()

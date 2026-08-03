@@ -17,7 +17,6 @@ local PoEAPIClass = newClass("PoEAPI", function(self, authToken, refreshToken, t
 	self.refreshToken = refreshToken
 	self.tokenExpiry = tokenExpiry or 0
 	self.baseUrl = "https://api.pathofexile.com"
-	self.CDNBaseUrl = "https://web.poecdn.com/api"
 	self.rateLimiter = new("TradeQueryRateLimiter")
 	self.tokenHasBeenValidated = false
 
@@ -152,8 +151,7 @@ end
 
 --- @param endpoint string
 --- @param callback fun(response: table?, errorMsg: string)
-function PoEAPIClass:DownloadWithRefresh(endpoint, callback, useCDN)
-	local baseUrl = useCDN and self.CDNBaseUrl or self.baseUrl
+function PoEAPIClass:DownloadWithRefresh(endpoint, callback)
 	self:ValidateAuth(function(valid, validationErrMsg)
 		if not valid then
 			-- Clean info about token and refresh token
@@ -162,7 +160,7 @@ function PoEAPIClass:DownloadWithRefresh(endpoint, callback, useCDN)
 			return
 		end
 
-		launch:DownloadPage(baseUrl .. endpoint, function(response, errMsg)
+		launch:DownloadPage(self.baseUrl .. endpoint, function(response, errMsg)
 			if errMsg and errMsg:match("401") and self.retries < 1 then
 				-- try once again with refresh token
 				self.retries = 1
@@ -233,17 +231,4 @@ end
 function PoEAPIClass:DownloadCharacter(realm, name, callback)
 	self:DownloadWithRateLimit("character-request-limit",
 		"/character" .. (realm == "pc" and "" or "/" .. realm) .. "/" .. name, callback)
-end
-
----@param realm string
----@param callback DownloadCallback
-function PoEAPIClass:FetchCurrencyExchange(realm, callback)
-	local url = "/currency-exchange"
-	if realm ~= "pc" then
-		url = url .. "/" .. realm
-	end
-	local hourSeconds = 60 * 60
-	local unixTimeLastHour = (math.floor(os.time() / hourSeconds) - 1) * hourSeconds
-	url = url .. "/" .. unixTimeLastHour
-	self:DownloadWithRefresh(url, callback, true)
 end
