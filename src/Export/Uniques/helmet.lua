@@ -1328,6 +1328,7 @@ Faithful Helmet
 League: Allflame
 Source: Drops from unique{Zorath}
 Requires Level 73, 101 Str, 101 Int
+Crafted: true
 LocalExplicitModEffectUnique__1
 ConsumeAbyssJewelUnique__1
 LocalCannotHaveNonAbyssSocketsUnique__1

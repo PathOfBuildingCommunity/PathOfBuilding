@@ -494,6 +494,8 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 	self.baseLines = { }
 	self.foulborn = false
 	self.mutatedLines = nil
+	---@type RareLikeUniqueDescription?
+	self.rareLikeUnique = nil
 	local importedLevelReq
 	local flaskBuffLines
 	local tinctureBuffLines
@@ -563,15 +565,16 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 				local backupAffixList = { }
 				for modId, modData in pairs(self.affixes) do
 					if modData.affix == modName then
+						local ignoreModType = self.rareLikeUnique and self.rareLikeUnique.ignorePrefixSuffix
 						if self:CanHaveMod(modData) then
-							if modData.type == "Prefix" then
+							if modData.type == "Prefix" or ignoreModType then
 								t_insert(self.pendingAffixList, { modId = modId, table = self.prefixes })
 							elseif modData.type == "Suffix" then
 								t_insert(self.pendingAffixList, { modId = modId, table = self.suffixes })
 							end
 						else
 							-- Conqueror mods can't natively spawn on items, so we'll use those if we don't find a match otherwise
-							if modData.type == "Prefix" then
+							if modData.type == "Prefix" or ignoreModType then
 								t_insert(backupAffixList, { modId = modId, table = self.prefixes })
 							elseif modData.type == "Suffix" then
 								t_insert(backupAffixList, { modId = modId, table = self.suffixes })
@@ -752,6 +755,8 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					self.variantAlt4 = specToNumber(specVal)
 				elseif specName == "Selected Alt Variant Five" then
 					self.variantAlt5 = specToNumber(specVal)
+				elseif specName == "Allow Duplicate Variants" then
+					self.allowDuplicateVariants = specVal == "true"
 				elseif specName == "Has Variants" or specName == "Selected Variants" then
 					-- Need to skip this line for backwards compatibility
 					-- with builds that used an old Watcher's Eye implementation
@@ -1000,6 +1005,10 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 						self.affixes = (self.base.subType and data.itemMods[self.base.type..self.base.subType])
 								or data.itemMods[self.base.type]
 								or data.itemMods.Item
+						if self.title and data.rareLikeUniques[self.title:lower()] then
+							self.rareLikeUnique = data.rareLikeUniques[self.title:lower()]
+							self.affixes = self.rareLikeUnique.affixes
+						end
 						if self.base.flask then
 							if self.base.utility_flask then
 								self.enchantments = data.enchantments["UtilityFlask"]
@@ -1372,6 +1381,10 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 				end
 				for _, mods in ipairs(modLists) do
 					for _, mod in ipairs(mods or {}) do
+						-- avoid scaling variant lines which are not active
+						if mod.variantList and (self:GetModLineVariantCount(mod) == 0) then
+							goto modMagnitudeContinue
+						end
 						-- Create a fast lookup table for all provided tags
 						local tagLookup = {}
 						for _, curTag in ipairs(mod.modTags) do
@@ -1400,12 +1413,13 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 							end
 						end
 						if mod.valueScalar and mod.valueScalar ~= 1 then
-							local rangedLine = itemLib.applyRange(mod.line, mod.range, mod.valueScalar, 1)
+							local rangedLine = itemLib.applyRange(mod.line, mod.range or 1, mod.valueScalar, 1)
 							local modList, extra = modLib.parseMod(rangedLine)
 							mod.displayValueScalar = 1
 							mod.modList = modList
 							mod.extra = extra
 						end
+						::modMagnitudeContinue::
 					end
 				end
 			end
@@ -1433,6 +1447,9 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 				self.suffixes.limit = m_max(m_min((self.suffixes.limit or 0) + self.affixLimit / 2, self.affixLimit), 0)
 				self.affixLimit = self.prefixes.limit + self.suffixes.limit
 			end
+		elseif self.rareLikeUnique then
+			self.affixLimit = self.rareLikeUnique.affixLimits.affixLimit
+			self.prefixes.limit = self.rareLikeUnique.affixLimits.prefixLimit
 		else
 			self.crafted = false
 		end
@@ -1910,6 +1927,9 @@ function ItemClass:BuildRaw()
 			t_insert(rawLines, "Has Alt Variant Five: true")
 			t_insert(rawLines, "Selected Alt Variant Five: " .. self.variantAlt5)
 		end
+		if self.allowDuplicateVariants then
+			t_insert(rawLines, "Allow Duplicate Variants: true")
+		end
 	end
 	if not self.variantList then
 		for _, baseLine in pairs(self.baseLines or { }) do
@@ -1990,7 +2010,7 @@ function ItemClass:Craft()
 	-- Save off any crafted or custom mods so they can be re-added at the end
 	local savedMods = {}
 	for _, mod in ipairs(self.explicitModLines) do
-		if mod.crafted or mod.custom then
+		if mod.crafted or mod.custom or (self.rareLikeUnique and not (mod.prefix or mod.suffix)) then
 			t_insert(savedMods, mod)
 		end
 	end
@@ -2000,7 +2020,8 @@ function ItemClass:Craft()
 	self.nameSuffix = ""
 	self.requirements.level = self.base.req.level
 	local statOrder = { }
-	for _, list in ipairs({self.prefixes,self.suffixes}) do
+	local modLists = { self.prefixes, self.suffixes }
+	for _, list in ipairs(modLists) do
 		for i = 1, (list.limit or (self.affixLimit / 2)) do
 			local affix = list[i]
 			if not affix then
@@ -2079,6 +2100,23 @@ function ItemClass:CheckModLineVariant(modLine)
 		or (self.hasAltVariant5 and modLine.variantList[self.variantAlt5])
 end
 
+function ItemClass:GetModLineVariantCount(modLine)
+	if not self.allowDuplicateVariants or not modLine.variantList then
+		return self:CheckModLineVariant(modLine) and 1 or 0
+	end
+
+	-- Mageblood can intentionally select the same variant more than once.
+	local variantList = modLine.variantList
+	local count = variantList[self.variant] and 1 or 0
+	for i = 1, 5 do
+		local suffix = i == 1 and "" or i
+		local variant = self["variantAlt" .. suffix]
+		if self["hasAltVariant" .. suffix] and variant and variantList[variant] then
+			count = count + 1
+		end
+	end
+	return count
+end
 -- Return the name of the slot this item is equipped in
 function ItemClass:GetPrimarySlot()
 	if self.base.weapon then
@@ -2468,7 +2506,8 @@ function ItemClass:BuildModList()
 		if modLine.disabled then
 			return
 		end
-		if self:CheckModLineVariant(modLine) then
+		local variantCount = self:GetModLineVariantCount(modLine)
+		if variantCount > 0 then
 			-- special section for variant over-ride of pre-modifier item parameters
 			if modLine.line:find("Requires Class") then
 				self.classRestriction = modLine.line:gsub("{variant:([%d,]+)}", ""):match("Requires Class (.+)")
@@ -2485,8 +2524,9 @@ function ItemClass:BuildModList()
 			end
 			if not modLine.extra then
 				for _, mod in ipairs(modLine.modList) do
-					mod = modLib.setSource(mod, self.modSource)
-					baseList:AddMod(mod)
+					for _ = 1, variantCount do
+						baseList:AddMod(modLib.setSource(mod, self.modSource))
+					end
 				end
 				if modLine.modTags and #modLine.modTags > 0 then
 					self.hasModTags = true
@@ -2546,6 +2586,7 @@ function ItemClass:BuildModList()
 		-- Remove all sockets
 		wipeTable(self.sockets)
 		self.selectableSocketCount = 0
+		self.abyssalSocketCount = 0
 	elseif socketCount > 0 then
 		-- Force the socket count to be equal to the stated number
 		self.selectableSocketCount = socketCount
@@ -2612,6 +2653,13 @@ function ItemClass:CanHaveMod(mod)
 	end
 	if data.minionTagCrucibleUniques[self.title] then
 		includeTags["minion_unique_weapon"] = true
+	end
+	if self.rareLikeUnique then
+		for _, base in ipairs(self.rareLikeUnique.validBases) do
+			if self:GetModSpawnWeight(mod, base.base.tags) > 0 then
+				return true
+			end
+		end
 	end
 	if self.canHaveOnlySupportSkillsCrucibleTree then
 			return keyMap["crucible_unique_staff"] and mod.weightVal[keyMap["crucible_unique_staff"]] ~= 0
