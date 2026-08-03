@@ -553,6 +553,17 @@ Implicits: 2
 {variant:4}Warcries grant Arcane Surge to you and Allies, with 10% increased effect per 5 power, up to 50%
 {variant:2,3}Gain 2 Power Charges when you Warcry
 ]],[[
+The Draugur's Lantern
+Ancient Spirit Shield
+League: Allflame
+Source: Drops from unique{Filthscrabble} in normal{The Fathomless Depths}
+Requires Level 45, 110 Int
+(15-20)% Chance to Block Spell Damage
+(5-10)% increased Spell Damage
++(66-99) to maximum Life
+Ignites you inflict deal Damage (15-20)% faster
+Draugurflames burn enemies around you for 8 seconds after you Ignite a target
+]],[[
 Esh's Mirror
 {variant:1}Thorium Spirit Shield
 {variant:2}Vaal Spirit Shield

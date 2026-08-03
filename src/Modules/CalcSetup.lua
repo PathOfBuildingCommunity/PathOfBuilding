@@ -964,12 +964,14 @@ function calcs.initEnv(build, mode, override, specEnv)
 				if item.type == "Jewel" and item.base.subType == "Abyss" then
 					-- Update Abyss Jewel conditions/multipliers
 					local cond = "Have"..item.baseName:gsub(" ","")
+					local mult = item.baseName:gsub(" ","")
 					if not env.itemModDB.conditions[cond] then
 						env.itemModDB.conditions[cond] = true
 						env.itemModDB.multipliers["AbyssJewelType"] = (env.itemModDB.multipliers["AbyssJewelType"] or 0) + 1
 					end
 					if slot.parentSlot then
 						env.itemModDB.conditions[cond.."In"..slot.parentSlot.slotName] = true
+						env.itemModDB.multipliers[mult.."In"..slot.parentSlot.slotName] = (env.itemModDB.multipliers[mult.."In"..slot.parentSlot.slotName] or 0) + 1
 					end
 					env.itemModDB.multipliers["AbyssJewel"] = (env.itemModDB.multipliers["AbyssJewel"] or 0) + 1
 					if item.rarity == "NORMAL" then env.itemModDB.multipliers["NormalAbyssJewels"] = (env.itemModDB.multipliers["NormalAbyssJewels"] or 0) + 1 end

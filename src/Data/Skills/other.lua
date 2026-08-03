@@ -382,6 +382,54 @@ skills["AspectOfTheSpider"] = {
 		[30] = { 4, cooldown = 0.5, levelRequirement = 1, manaReservationPercent = 25, storedUses = 1, statInterpolation = { 1, }, },
 	},
 }
+skills["BarnacleSnap"] = {
+	name = "Savage Barnacle",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 1.3899999856949,
+	incrementalEffectiveness = 0.032999999821186,
+	description = "Creates a giant barnacle that continually snaps at enemies, dealing off-hand area damage augmented by the defences of the shield. Increases and reductions to attack speed affect the rate at which damage occurs.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Damage] = true, [SkillType.Cooldown] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	fromItem = true,
+	statMap = {
+		["barnacle_snap_base_activate_rate_ms"] = {
+			skill("hitTimeOverride", nil),
+			div = 1000,
+		},
+	},
+	baseFlags = {
+		attack = true,
+		area = true,
+		shieldAttack = true,
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 5000 },
+		{ "active_skill_base_area_of_effect_radius", 18 },
+		{ "maximum_barnacle_count_allowed", 3 },
+		{ "create_barnacle_on_killing_blow_with_offhand_%_chance", 25 },
+		{ "create_barnacle_on_offhand_hit_vs_rare_unique_%_chance", 25 },
+		{ "active_skill_area_of_effect_description_mode", 10 },
+		{ "barnacle_snap_base_activate_rate_ms", 800 },
+	},
+	stats = {
+		"off_hand_local_minimum_added_physical_damage",
+		"off_hand_local_maximum_added_physical_damage",
+		"off_hand_minimum_added_physical_damage_per_15_shield_armour_and_evasion_rating",
+		"off_hand_maximum_added_physical_damage_per_15_shield_armour_and_evasion_rating",
+		"is_area_damage",
+		"this_skill_cannot_create_barnacles",
+		"skill_can_add_multiple_charges_per_action",
+	},
+	notMinionStat = {
+		"off_hand_local_minimum_added_physical_damage",
+		"off_hand_local_maximum_added_physical_damage",
+	},
+	levels = {
+		[20] = { 0.80000001192093, 1.2000000476837, 8, 12, attackTime = 1000, cooldown = 1, critChance = 5, levelRequirement = 0, storedUses = 1, statInterpolation = { 3, 3, 1, 1, }, },
+	},
+}
 skills["SolartwineBlindingNova"] = {
 	name = "Blazing Glare",
 	hidden = true,
@@ -943,6 +991,48 @@ skills["SupportUniqueCosprisMaliceColdSpellsCastOnMeleeCriticalStrike"] = {
 	},
 	levels = {
 		[1] = { cooldown = 0.25, levelRequirement = 1, storedUses = 1, },
+	},
+}
+skills["SupportCrabTotem"] = {
+	name = "Crab Totem",
+	hidden = true,
+	color = 1,
+	support = true,
+	requireSkillTypes = { SkillType.Spell, SkillType.Totemable, SkillType.AND, },
+	addSkillTypes = { SkillType.Trappable, SkillType.Mineable, SkillType.SummonsTotem, SkillType.ReservationBecomesCost, SkillType.SupportedByCrabTotem, },
+	excludeSkillTypes = { SkillType.InbuiltTrigger, SkillType.Channel, SkillType.SupportedBySpellTotem, },
+	ignoreMinionTypes = true,
+	statDescriptionScope = "gem_stat_descriptions",
+	fromItem = true,
+	addFlags = {
+		totem = true,
+	},
+	statMap = {
+		["support_crab_totem_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+		["support_crab_totem_cast_speed_+%_final"] = {
+			mod("Speed", "MORE", nil, ModFlag.Cast),
+		},
+	},
+	constantStats = {
+		{ "base_totem_duration", 8000 },
+		{ "base_totem_range", 60 },
+		{ "support_crab_totem_cast_speed_+%_final", -40 },
+		{ "totem_art_variation", 12 },
+		{ "totem_placement_range_+%", -75 },
+	},
+	stats = {
+		"support_crab_totem_damage_+%_final",
+		"totem_support_gem_level",
+		"base_skill_is_totemified",
+		"is_totem",
+	},
+	notMinionStat = {
+		"totem_support_gem_level",
+	},
+	levels = {
+		[20] = { -50, 70, levelRequirement = 0, manaMultiplier = 100, statInterpolation = { 1, 1, }, },
 	},
 }
 skills["TriggeredSummonLesserShrine"] = {
@@ -1685,6 +1775,33 @@ skills["Envy"] = {
 		[1] = { 0.5, 0.69999998807907, 0.44999998807907, 0.60000002384186, 14, cooldown = 1.2, levelRequirement = 60, manaReservationPercent = 50, storedUses = 1, statInterpolation = { 3, 3, 3, 3, 1, }, },
 		[15] = { 0.5, 0.69999998807907, 0.44999998807907, 0.60000002384186, 14, cooldown = 1.2, levelRequirement = 60, manaReservationPercent = 50, storedUses = 1, statInterpolation = { 3, 3, 3, 3, 1, }, },
 		[25] = { 0.5, 0.69999998807907, 0.44999998807907, 0.60000002384186, 24, cooldown = 1.2, levelRequirement = 80, manaReservationPercent = 50, storedUses = 1, statInterpolation = { 3, 3, 3, 3, 1, }, },
+	},
+}
+skills["BloodShrineUniqueTriggeredExplodingToad"] = {
+	name = "Explosive Toad",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 3.5999999046326,
+	incrementalEffectiveness = 0.045499999076128,
+	description = "A toad spawns from the corpse of the slain enemy, leaps towards enemies and explodes, dealing forty percent of the slain enemy's Life as Chaos Damage. This skill's damage is not affected by modifiers to spell damage and cannot be reflected.",
+	skillTypes = { [SkillType.Area] = true, [SkillType.Damage] = true, [SkillType.Chaos] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	cannotBeSupported = true,
+	fromItem = true,
+	baseFlags = {
+		hit = true,
+		area = true,
+	},
+	constantStats = {
+		{ "active_skill_base_area_of_effect_radius", 15 },
+	},
+	stats = {
+		"is_area_damage",
+		"triggered_hextoad",
+	},
+	levels = {
+		[1] = { cooldown = 0.15, damageEffectiveness = 4, levelRequirement = 72, storedUses = 3, },
 	},
 }
 skills["FireAegis"] = {

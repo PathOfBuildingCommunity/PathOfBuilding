@@ -551,6 +551,17 @@ ManaRegenerationUniqueShieldInt5
 {variant:2,3}GainPowerChargesOnUsingWarcryUnique__1
 {variant:4}WarcryGrantsArcaneSurgeUnique__1
 ]],[[
+The Draugur's Lantern
+Ancient Spirit Shield
+League: Allflame
+Source: Drops from unique{Filthscrabble} in normal{The Fathomless Depths}
+Requires Level 45, 110 Int
+SpellDamageImplicitShield1
+SpellBlockPercentageUniqueShieldInt18
+IncreasedLifeUnique__128
+FasterIgniteDamageUnique__2
+GhostFurnaceUnique__1
+]],[[
 Esh's Mirror
 {variant:1}Thorium Spirit Shield
 {variant:2}Vaal Spirit Shield

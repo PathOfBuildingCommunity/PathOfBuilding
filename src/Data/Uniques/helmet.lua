@@ -1666,6 +1666,8 @@ Your Lightning Damage can Freeze but not Shock
 ]],[[
 The Unblinking Eye
 Harlequin Mask
+Shaper Item
+Source: Drops from unique{The Shaper} (Uber)
 Requires Level 57, 64 Dex, 64 Int
 +(15-20)% chance to Suppress Spell Damage
 +(50-100) to Dexterity

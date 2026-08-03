@@ -1628,6 +1628,8 @@ LightningFreezesUniqueHelmetDexInt4
 ]],[[
 The Unblinking Eye
 Harlequin Mask
+Shaper Item
+Source: Drops from unique{The Shaper} (Uber)
 Requires Level 57, 64 Dex, 64 Int
 ChanceToSuppressSpellsUnique__5
 DexterityUnique__35
