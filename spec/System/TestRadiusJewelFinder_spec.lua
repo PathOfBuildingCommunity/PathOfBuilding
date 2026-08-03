@@ -2029,10 +2029,16 @@ describe("RadiusJewelFinder #radius-jewel", function()
 
 			it("allows ordinary jewels in Safe occupied and labels their base type", function()
 				local socketId = ALLOC_SOCKET_IDS[1]
-				equipFakeJewel(socketId, "Chimeric Creed", nil, { baseName = "Crimson Jewel" })
+				local itemId = 999000 + socketId
+				local item = new("Item", "Rarity: RARE\nChimeric Creed\nCrimson Jewel\n")
+				item.id = itemId
+				build.itemsTab.items[itemId] = item
+				build.itemsTab.sockets[socketId].selItemId = itemId
+				build.spec.jewels[socketId] = itemId
 				local finder = makeFinder()
 				local isAllowed, occupancy = finder:socketMatchesOccupiedMode(socketId, { id = "safe" })
 
+				assert.is_nil(next(item.jewelData.impossibleEscapeKeystones))
 				assert.is_true(isAllowed)
 				assert.are.equal("Chimeric Creed (Crimson Jewel)", occupancy.replacedItemLabel)
 			end)
