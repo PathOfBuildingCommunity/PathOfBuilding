@@ -80,6 +80,13 @@ local ACTION_COLORS = {
 	replace     = "^xFFAA33",
 	keep        = "^8",
 }
+-- These sockets have no nearby Keystone. Keep the labels used by the Timeless Jewel finder.
+local SOCKET_ZONE_NAMES = {
+	[26725] = "Marauder",
+	[54127] = "Duelist",
+	[7960] = "Templar/Witch",
+}
+
 local function colorSocketLabel(row)
 	return (row.action and ACTION_COLORS[row.action] or "") .. row.socketLabel
 end
@@ -635,10 +642,10 @@ function RadiusJewelFinderClass:buildJewelSockets(largeRadiusIndex)
 	local sockets = { }
 	for socketId, socketData in pairs(self.build.spec.nodes) do
 		if socketData.isJewelSocket and socketData.name ~= "Charm Socket" then
-			local keystone = "Unknown"
+			local keystone = SOCKET_ZONE_NAMES[socketId] or "Unknown"
 			local minDist = m_huge
 			local socketNode = treeData.nodes[socketId]
-			if socketNode and socketNode.nodesInRadius and socketNode.nodesInRadius[largeRadiusIndex] then
+			if not SOCKET_ZONE_NAMES[socketId] and socketNode and socketNode.nodesInRadius and socketNode.nodesInRadius[largeRadiusIndex] then
 				for _, n in pairs(socketNode.nodesInRadius[largeRadiusIndex]) do
 					if n.isKeystone then
 						local dx = n.x - socketData.x

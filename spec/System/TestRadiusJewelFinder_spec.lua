@@ -187,6 +187,16 @@ describe("RadiusJewelFinder #radius-jewel", function()
 			end
 		end)
 
+		it("uses the standard zone labels for sockets without nearby Keystones", function()
+			local socketsById = { }
+			for _, socket in ipairs(makeFinder():buildJewelSockets(getLargeRadiusIndex())) do
+				socketsById[socket.id] = socket
+			end
+			for socketId, expectedLabel in pairs({ [26725] = "Marauder", [54127] = "Duelist", [7960] = "Templar/Witch" }) do
+				assert.matches("^" .. expectedLabel .. " %(" .. socketId .. "%)", socketsById[socketId].label)
+			end
+		end)
+
 		it("marks the 3 allocated sockets with # prefix", function()
 			local sockets = makeFinder():buildJewelSockets(getLargeRadiusIndex())
 			local allocIds = { [36634] = true, [61419] = true, [41263] = true }
