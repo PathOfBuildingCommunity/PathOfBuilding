@@ -3833,6 +3833,33 @@ skills["AtziriUniqueStaffStormCall"] = {
 		[20] = { 0.69999998807907, 1.2999999523163, PvPDamageMultiplier = -50, cooldown = 1.5, critChance = 6, damageEffectiveness = 3.2, levelRequirement = 70, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
+skills["SummonAbyssalConstructs"] = {
+	name = "Summon Bone Feeders",
+	hidden = true,
+	color = 3,
+	description = "Summon two Bone Feeders which follow you around. Bone Feeders consume corpses they walk over, creating a temporary Aura after consuming 10 corpses. One Bone Feeder creates a Curse Aura of either Temporal Chains, Enfeeble or Punishment that ignores Curse Limits. The other Bone Feeder creates an Aura that causes Enemy Damage with Hits to be Unlucky.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Minion] = true, [SkillType.CreatesMinion] = true, [SkillType.MinionsAreUndamagable] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.InbuiltTrigger] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0,
+	fromTree = true,
+	minionList = {
+		"AbyssCurseBot",
+		"AbyssDebuffBot"
+	},
+	baseFlags = {
+		minion = true,
+	},
+	constantStats = {
+		{ "active_skill_base_area_of_effect_radius", 44 },
+		{ "base_skill_effect_duration", 8000 },
+	},
+	stats = {
+		"cast_on_gain_skill",
+	},
+	levels = {
+		[20] = { cooldown = 1, levelRequirement = 1, storedUses = 1, },
+	},
+}
 skills["SummonArbalists"] = {
 	name = "Summon Arbalists",
 	hidden = true,
@@ -4445,6 +4472,14 @@ skills["TriggeredSummonGhostOnKill"] = {
 	fromItem = true,
 	minionList = {
 		"SummonedPhantasm",
+	},
+	statMap = {
+		["phantasm_minimum_added_physical_damage_to_grant"] = {
+			mod("PhysicalMin", "BASE", nil, ModFlag.Spell, 0, { type = "PerStat", stat = "ActivePhantasmLimit" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Phantasmal Might", effectCond = "PhantasmalMight", allowTotemBuff = true })
+		},
+		["phantasm_maximum_added_physical_damage_to_grant"] = {
+			mod("PhysicalMax", "BASE", nil, ModFlag.Spell, 0, { type = "PerStat", stat = "ActivePhantasmLimit" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Phantasmal Might", effectCond = "PhantasmalMight", allowTotemBuff = true  })
+		},
 	},
 	baseFlags = {
 		spell = true,

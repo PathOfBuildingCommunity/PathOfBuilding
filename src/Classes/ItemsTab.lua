@@ -62,6 +62,7 @@ end
 
 local function isAnointable(item)
 	return item and item.base and not item.base.cannotBeAnointed
+	    and item.base.subType ~= "Talisman"
 		and (item.canBeAnointed or item.base.type == "Amulet")
 end
 
@@ -476,13 +477,13 @@ holding Shift will put it in the second.]])
 	self.controls.displayItemSectionEnchant = new("Control", {"TOPLEFT",self.controls.displayItemSectionSockets,"BOTTOMLEFT"}, {0, 0, 0, function()
 		return (self.controls.displayItemEnchant:IsShown() or self.controls.displayItemEnchant2:IsShown() or self.controls.displayItemAnoint:IsShown() or self.controls.displayItemAnoint2:IsShown() or self.controls.displayItemCorrupt:IsShown() ) and 28 or 0
 	end})
-	self.controls.displayItemEnchant = new("ButtonControl", {"TOPLEFT",self.controls.displayItemSectionEnchant,"TOPLEFT"}, {0, 0, 160, 20}, "Apply Enchantment...", function()
+	self.controls.displayItemEnchant = new("ButtonControl", { "TOPLEFT", self.controls.displayItemSectionEnchant, "TOPLEFT" }, { 0, 0, 160, 20 }, "Change Enchantment...", function()
 		self:EnchantDisplayItem(1)
 	end)
 	self.controls.displayItemEnchant.shown = function()
 		return self.displayItem and self.displayItem.enchantments
 	end
-	self.controls.displayItemEnchant2 = new("ButtonControl", {"TOPLEFT",self.controls.displayItemEnchant,"TOPRIGHT",true}, {8, 0, 160, 20}, "Apply Enchantment 2...", function()
+	self.controls.displayItemEnchant2 = new("ButtonControl", { "TOPLEFT", self.controls.displayItemEnchant, "TOPRIGHT", true }, { 8, 0, 160, 20 }, "Change Enchantment 2...", function()
 		self:EnchantDisplayItem(2)
 	end)
 	self.controls.displayItemEnchant2.shown = function()
@@ -734,7 +735,7 @@ holding Shift will put it in the second.]])
 			return range
 		end
 		drop = new("DropDownControl", {"TOPLEFT",prev,"TOPLEFT"}, {i==1 and 40 or 0, 0, 418, 20}, nil, function(index, value)
-			local affix = { modId = "None" }
+			local affix = { modId = "None", fractured = self.displayItem[drop.outputTable][drop.outputIndex].fractured }
 			if value.modId then
 				affix.modId = value.modId
 				affix.range = slider.val
@@ -1775,8 +1776,8 @@ end
 function ItemsTabClass:CreateDisplayItemFromRaw(itemRaw, normalise)
 	local newItem = new("Item", itemRaw)
 	if newItem.base then
-		self:CopyAnointsAndEldritchImplicits(newItem, main.migrateEldritchImplicits, false)
 		if normalise then
+			self:CopyAnointsAndEldritchImplicits(newItem, main.migrateEldritchImplicits, false)
 			newItem:NormaliseQuality()
 			newItem:BuildModList()
 		end
@@ -1844,10 +1845,11 @@ function ItemsTabClass:SetDisplayItem(item)
 				end
 			end
 		end
-		self.controls.displayItemInfluence:SetSel(influence1, true) -- Don't call the selection function for the first influence dropdown as the second dropdown isn't properly set yet.
-		self.controls.displayItemInfluence2:SetSel(influence2) -- The selection function for the second dropdown properly handles everything for both dropdowns
+		-- Initialising these controls must not re-craft the parsed item.
+		self.controls.displayItemInfluence:SetSel(influence1, true)
+		self.controls.displayItemInfluence2:SetSel(influence2, true)
 		self.controls.displayItemQualityEdit:SetText(item.quality)
-		self.controls.displayItemCatalyst:SetSel((item.catalyst or 0) + 1)
+		self.controls.displayItemCatalyst:SetSel((item.catalyst or 0) + 1, true)
 		if item.catalystQuality then
 			self.controls.displayItemCatalystQualityEdit:SetText(m_max(item.catalystQuality, 0))
 		else
@@ -1943,7 +1945,7 @@ function ItemsTabClass:UpdateAffixControls()
 	self:UpdateCustomControls()
 end
 
-function ItemsTabClass:UpdateAffixControl(control, item, type, outputTable, outputIndex)
+function ItemsTabClass:UpdateAffixControl(control, item, affixType, outputTable, outputIndex)
 	local extraTags = { }
 	local excludeGroups = { }
 	for _, table in ipairs({"prefixes","suffixes"}) do
@@ -1973,7 +1975,7 @@ function ItemsTabClass:UpdateAffixControl(control, item, type, outputTable, outp
 	local affixList = { }
 	local retainedAffixes = { }
 	for modId, mod in pairs(item.affixes) do
-		if mod.type == type and not excludeGroups[mod.group] and not item:CheckIfModIsDelve(mod) then
+		if mod.type == affixType and not excludeGroups[mod.group] and not item:CheckIfModIsDelve(mod) then
 			if item:GetModSpawnWeight(mod, extraTags) > 0 then
 				t_insert(affixList, modId)
 			elseif modId == selAffix then
@@ -2053,7 +2055,10 @@ function ItemsTabClass:UpdateAffixControl(control, item, type, outputTable, outp
 	if control.list[control.selIndex].haveRange then
 		control.slider.divCount = #control.list[control.selIndex].modList
 		local index = isValueInArray(control.list[control.selIndex].modList, selAffix)
-		local range = item[outputTable][outputIndex].range or 0.5
+		-- Imported legacy rolls can sit outside the current 0-1 affix range.
+		-- Keep that value on the affix, but show the nearest slider endpoint.
+		local affixRange = item[outputTable][outputIndex].range
+		local range = m_min(1, m_max(0, type(affixRange) == "table" and affixRange[1] or affixRange or 0.5))
 		-- Avoid exact integer boundary that slider:GetDivVal's ceil would assign to the previous segment
 		if range == 0 and index > 1 then
 			range = 1e-4
@@ -3616,7 +3621,7 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 			end)
 		elseif sourceId == "DelveImplicit" then
 			for i, mod in pairs(self.displayItem.affixes) do
-				if self.displayItem:GetModSpawnWeight(mod) > 0 and sourceId:lower() == mod.type:lower() then
+				if self.displayItem:GetModSpawnWeight(mod) > 0 and mod.type and sourceId:lower() == mod.type:lower() then
 					local modLabel = table.concat(mod, "/")
 					if not groupIndexes[mod.group] then
 						t_insert(modList, {})
@@ -4272,7 +4277,6 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode, maxWidth)
 			end
 		end
 	end
-	
 	if item.catalyst and item.catalyst > 0 and item.catalyst <= #catalystQualityFormat and item.catalystQuality and item.catalystQuality > 0 then
 		tooltip:AddLine(fontSizeBig, s_format(catalystQualityFormat[item.catalyst], item.catalystQuality), "FONTIN SC")
 		tooltip:AddSeparator(10)
@@ -4309,8 +4313,18 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode, maxWidth)
 	end
 	tooltip:AddSeparator(10)
 
+	if item.memoryStrands then
+		tooltip:AddLine(fontSizeBig, colorCodes.CRAFTED.."Memory Strands: ^7"..item.memoryStrands, "FONTIN SC")
+		tooltip:AddSeparator(10)
+	end
+
 	if item.talismanTier then
 		tooltip:AddLine(fontSizeBig, "^x7F7F7FTalisman Tier ^xFFFFFF"..item.talismanTier, "FONTIN SC")
+		tooltip:AddSeparator(10)
+	end
+
+	if item.intangibility then
+		tooltip:AddLine(fontSizeBig, colorCodes.INTANGIBILITY .. s_format("Intangibility: ^7%d%%", item.intangibility), "FONTIN SC")
 		tooltip:AddSeparator(10)
 	end
 
@@ -4485,9 +4499,10 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode, maxWidth)
 		end
 	end
 	-- Stat differences
+	local itemTabHint = self.build.viewMode == "ITEMS" and "" or " in the Items tab"
 	if not self.showStatDifferences then
 		tooltip:AddSeparator(14)
-		tooltip:AddLine(14, colorCodes.TIP.."Tip: Press Ctrl+D to enable the display of stat differences.")
+		tooltip:AddLine(14, colorCodes.TIP.."Tip: Press Ctrl+D"..itemTabHint.." to enable the display of stat differences.")
 		return
 	end
 	local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator()
@@ -4745,7 +4760,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode, maxWidth)
 			end
 		end
 
-		tooltip:AddLine(14, colorCodes.TIP .. "Tip: Press Ctrl+D to disable the display of stat differences.")
+		tooltip:AddLine(14, colorCodes.TIP .. "Tip: Press Ctrl+D"..itemTabHint.." to disable the display of stat differences.")
 
 		local function getReplacedItemAndOutput(compareSlot)
 			local selItem = self.items[compareSlot.selItemId]

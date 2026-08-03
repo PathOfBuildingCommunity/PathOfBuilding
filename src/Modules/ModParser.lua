@@ -170,6 +170,8 @@ local modNameList = {
 	["maximum life"] = "Life",
 	["life regeneration rate"] = "LifeRegen",
 	["life regeneration also applies to energy shield"] = "LifeRegenAppliesToEnergyShield",
+	["life and mana"] = { "Life", "Mana" },
+	["maximum life and mana"] = { "Life", "Mana" },
 	["mana"] = "Mana",
 	["maximum mana"] = "Mana",
 	["mana regeneration"] = "ManaRegen",
@@ -1116,7 +1118,6 @@ local preFlagList = {
 	["^hits deal "] = { keywordFlags = KeywordFlag.Hit },
 	["^melee weapon damage"] = { flags = ModFlag.WeaponMelee },
 	["^deal "] = { },
-	["^arrows deal "] = { keywordFlags = KeywordFlag.Arrow },
 	["^critical strikes deal "] = { tag = { type = "Condition", var = "CriticalStrike" } },
 	["^poisons you inflict with critical strikes have "] = { keywordFlags = bor(KeywordFlag.Poison, KeywordFlag.MatchAll), tag = { type = "Condition", var = "CriticalStrike" } },
 	-- Add to minion
@@ -1167,6 +1168,8 @@ local preFlagList = {
 	["^raised spectres, raised zombies, and summoned skeletons have "] = { addToMinion = true, addToMinionTag = { type = "SkillName", skillNameList = { "Raise Spectre", "Raise Zombie", "Summon Skeletons" }, includeTransfigured = true } },
 	-- Totem/trap/mine
 	["^attacks used by totems have "] = { flags = ModFlag.Attack, keywordFlags = KeywordFlag.Totem },
+	["^totems have "] = { keywordFlags = KeywordFlag.Totem },
+	["^skills used by totems [hd][ae][va][el] "] = { keywordFlags = KeywordFlag.Totem },
 	["^spells cast by totems [hd][ae][va][el] "] = { flags = ModFlag.Spell, keywordFlags = KeywordFlag.Totem },
 	["^trap and mine damage "] = { keywordFlags = bor(KeywordFlag.Trap, KeywordFlag.Mine) },
 	["^skills used by traps [hgd][ae][via][enl] "] = { keywordFlags = KeywordFlag.Trap },
@@ -1182,10 +1185,10 @@ local preFlagList = {
 	["^attacks [hd][ae][va][el] "] = { flags = ModFlag.Attack },
 	["^attack skills [hd][ae][va][el] "] = { keywordFlags = KeywordFlag.Attack },
 	["^spells [hd][ae][va][el] a? ?"] = { flags = ModFlag.Spell },
-	["^spell skills [hd][ae][va][el] "] = { keywordFlags = KeywordFlag.Spell },
+	["^spell skills [hd][ae][va][el] "] = { tag = { type = "SkillType", skillType = SkillType.Spell } },
 	["^projectile attack skills [hd][ae][va][el] "] = { tag = { type = "SkillType", skillType = SkillType.RangedAttack } },
 	["^projectiles from attacks [hd][ae][va][el] "] = { tag = { type = "SkillType", skillType = SkillType.RangedAttack } },
-	["^arrows [hd][ae][va][el] "] = { keywordFlags = KeywordFlag.Arrow },
+	["^arrows [hd][ae][va][el] "] = { tag = { type = "KeywordFlagAnd", keywordFlags = KeywordFlag.Arrow } },
 	["^bow skills [hdf][aei][var][el] "] = { keywordFlags = KeywordFlag.Bow },
 	["^projectiles [hdf][aei][var][el] "] = { flags = ModFlag.Projectile },
 	["^projectiles "] = { flags = ModFlag.Projectile },
@@ -1519,6 +1522,7 @@ local modTagList = {
 	["per totem"] = { tag = { type = "PerStat", stat = "TotemsSummoned" } },
 	["per summoned totem"] = { tag = { type = "PerStat", stat = "TotemsSummoned" } },
 	["for each summoned totem"] =  { tag = { type = "PerStat", stat = "TotemsSummoned" } },
+	["per maximum number of summoned totems"] = { tag = { type = "PerStat", stat = "ActiveTotemLimit" } },
 	["for each time they have chained"] = { tag = { type = "PerStat", stat = "Chain" } },
 	["for each time it has chained"] = { tag = { type = "PerStat", stat = "Chain" } },
 	["for each summoned golem"] = { tag = { type = "PerStat", stat = "ActiveGolemLimit" } },
@@ -1612,6 +1616,7 @@ local modTagList = {
 	["if equipped ([%a%s]+) has an ([%a%s]+) modifier"] = function (_, itemSlotName, conditionSubstring) return { tag = { type = "ItemCondition", searchCond = conditionSubstring, itemSlot = itemSlotName } } end,
 	["if both equipped ([%a%s]+) have a?n? ?([%a%s]+) modifiers?"] = function (_, itemSlotName, conditionSubstring) return { tag = { type = "ItemCondition", searchCond = conditionSubstring, itemSlot = itemSlotName:sub(1, #itemSlotName - 1), bothSlots = true } } end,
 	["if both equipped left and right ([%a%s]+) have a?n? ?([%a%s]+) modifiers?"] = function (_, itemSlotName, conditionSubstring) return { tag = { type = "ItemCondition", searchCond = conditionSubstring, itemSlot = itemSlotName:sub(1, #itemSlotName - 1), bothSlots = true } } end,
+	["if your equipped staff has a red and blue socket"] = { tagList = { { type = "MultiplierThreshold", var = "RedSocketInWeapon 1", threshold = 1 }, { type = "MultiplierThreshold", var = "BlueSocketInWeapon 1", threshold = 1 }, { type = "Condition", var = "UsingStaff" } } },
 	["if there are no ([%a%s]+) modifiers on equipped ([%a%s]+)"] = function (_, conditionSubstring, itemSlotName) return { tag = { type = "ItemCondition", searchCond = conditionSubstring, itemSlot = itemSlotName, neg = true } } end,
 	["if there are no (%a+) modifiers on other equipped items"] = function(_, conditionSubstring) return {tag = { type = "ItemCondition", searchCond = conditionSubstring, itemSlot = "{SlotName}", allSlots = true, excludeSelf = true, neg = true }} end,
 	["if corrupted"] = {tag = { type = "ItemCondition", itemSlot = "{SlotName}", corruptedCond = true}},
@@ -2118,7 +2123,9 @@ local specialModList = {
 	["enemies you kill while affected by glorious madness have a (%d+)%% chance to explode, dealing a (.+) of their life as (.+) damage"] = function(chance, _, amount, type)	-- Beacon of Madness
 		return explodeFunc(chance, amount, type, { type = "Condition", var = "AffectedByGloriousMadness" })
 	end,
-	["enemies killed with attack hits have a (%d+)%% chance to explode, dealing a (.+) of their life as (.+) damage"] = explodeFunc,	-- Devastator (attack clusters)
+	["enemies killed with attack hits have a (%d+)%% chance to explode, dealing a (.+) of their life as (.+) damage"] = function(chance, _, amount, type)	-- Devastator (attack clusters)
+		return explodeFunc(chance, amount, type)
+	end,
 	["enemies killed with wand hits have a (%d+)%% chance to explode, dealing a (.+) of their life as (.+) damage"] = function(chance, _, amount, type)	-- Explosive Force (wand clusters)
 		return explodeFunc(chance, amount, type, { type = "Condition", var = "UsingWand" })
 	end,
@@ -2253,7 +2260,7 @@ local specialModList = {
 	},
 	["spend life instead of mana for effects of skills"] = { },
 	["skills cost %+(%d+) rage"] = function(num) return { mod("RageCostBase", "BASE", num) } end,
-	["warcries cost %+(%d+)%% of life"] = function(num) return { mod("LifeCostBase", "BASE", 1, { type = "PercentStat", stat = "Life", percent = num, floor = true }) } end,
+	["warcries cost %+(%d+)%% of life"] = function(num) return { mod("LifeCostBase", "BASE", 1, nil, 0, KeywordFlag.Warcry, { type = "PercentStat", stat = "Life", percent = num, floor = true }) } end,
 	["vaal skills used during effect have (%d+)%% reduced soul gain prevention duration"] = function(num) return { mod("SoulGainPreventionDuration", "INC", -num, { type = "Condition", var = "UsingFlask" }, { type = "SkillType", skillType = SkillType.Vaal }) } end,
 	["vaal volcanic fissure and vaal molten strike have (%d+)%% reduced soul gain prevention duration"] = function(num) return { mod("SoulGainPreventionDuration", "INC", -num, { type = "SkillName", skillNameList = { "Volcanic Fissure", "Molten Strike" }, includeTransfigured = true }, { type = "SkillType", skillType = SkillType.Vaal }) } end,
 	["vaal skills can store %+(%d+) uses?"] = function(num) return { mod("AdditionalUses", "BASE", num, { type = "SkillType", skillType = SkillType.Vaal }) } end,
@@ -2854,7 +2861,7 @@ local specialModList = {
 	["consecrated ground you create applies (%d+)%% increased damage taken to enemies"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("DamageTakenConsecratedGround", "INC", num, { type = "Condition", var = "OnConsecratedGround" }) }) } end,
 	["you have consecrated ground around you while stationary"] = { flag("Condition:OnConsecratedGround", { type = "Condition", var = "Stationary" }) },
 	["consecrated ground you create grants immun[ei]t?y? to elemental ailments to you and allies"] = { mod("ExtraAura", "LIST", { mod = flag("ElementalAilmentImmune", { type = "Condition", var = "OnConsecratedGround" }) }), },
-	["gain fanaticism for 4 seconds on reaching maximum fanatic charges"] = {
+	["gain fanaticism for (%d+) seconds on reaching maximum fanatic charges"] = {
 		flag("Condition:CanGainFanaticism"),
 	},
 	["(%d+)%% increased critical strike chance per point of strength or intelligence, whichever is lower"] = function(num) return {

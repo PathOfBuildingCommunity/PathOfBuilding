@@ -1318,14 +1318,13 @@ skills["SupportCooldownRecovery"] = {
 }
 skills["SupportCrustaceousGrasp"] = {
 	name = "Coursing Current",
-	description = "Supports skills that hit enemies.",
+	description = "Supports any skill that hits enemies.",
 	flavourText = {"Velka reached out her hand. One touch and she", "folded, screaming, clawing desperately at her back", "as the crustaceous gift burst itself from her spine.", },
 	color = 3,
 	support = true,
-	requireSkillTypes = { SkillType.Damage, },
+	requireSkillTypes = { SkillType.Attack, SkillType.Damage, },
 	addSkillTypes = { },
 	excludeSkillTypes = { },
-	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
 		{ "base_all_ailment_duration_+%", 0.5 },
@@ -4995,10 +4994,10 @@ skills["SupportMinionPact"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["spell_minimum_added_physical_damage_per_active_permanent_minion"] = {
-			mod("PhysicalMin", "BASE", nil, 0, 0, { type = "Multiplier", var = "SummonedMinion" }),
+			mod("PhysicalMin", "BASE", nil, 0, 0, { type = "Multiplier", var = "PermanentMinion" }),
 		},
 		["spell_maximum_added_physical_damage_per_active_permanent_minion"] = {
-			mod("PhysicalMax", "BASE", nil, 0, 0, { type = "Multiplier", var = "SummonedMinion" }),
+			mod("PhysicalMax", "BASE", nil, 0, 0, { type = "Multiplier", var = "PermanentMinion" }),
 		},
 	},
 	qualityStats = {
