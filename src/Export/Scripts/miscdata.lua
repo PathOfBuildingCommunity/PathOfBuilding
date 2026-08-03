@@ -144,9 +144,9 @@ out:write('}\n')
 out:close()
 
 local currencies = {}
-for row in dat("BaseItemTypes"):Rows() do
-	if row.ItemClass.Id == "Currency" and row.Name ~= "" then
-		currencies[row.Id] = row.Name
+for row in dat("CurrencyExchange"):Rows() do
+	if row.BaseItemType.ItemClass.Id == "StackableCurrency" and row.BaseItemType.Name ~= "" and not row.BaseItemType.Name:match("DNT") then
+		currencies[row.BaseItemType.Id] = row.BaseItemType.Name
 	end
 end
 utils.saveTableToFile("../Data/CurrencyNames.lua", currencies, "This file contains mapping item names for every currency base item type ID.\nUsed for working with the currency exchange which uses item type IDs.")
