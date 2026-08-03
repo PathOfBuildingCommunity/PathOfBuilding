@@ -28,14 +28,20 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 	self.configSetOrderList = { 1 }
 	self:NewConfigSet(1)
 	self:SetActiveConfigSet(1, true)
-	
+
 	self.enemyLevel = 1
 
 	self.sectionList = { }
 	self.varControls = { }
-	
+
 	self.toggleConfigs = false
 
+	-- A misc calculator function which is updated by the build when it is rebuilt
+	---@type fun(): table
+	self.calcFunc = nil
+	-- A calculator base output matching the calcFunc which is updated by the build when it is rebuilt
+	---@type table
+	self.calcBase = nil
 	self.controls.sectionAnchor = new("LabelControl", { "TOPLEFT", self, "TOPLEFT" }, { 0, 20, 0, 0 }, "")
 
 	-- Set selector
@@ -582,12 +588,14 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					end
 					return innerLabel
 				end
+				local outputCache = {}
+				local outputCacheRevision = nil
 				local innerTooltipFunc = control.tooltipFunc
-				control.tooltipFunc = function (tooltip, ...)
+				control.tooltipFunc = function(tooltip, mode, index, value)
 					tooltip:Clear()
 
 					if innerTooltipFunc then
-						innerTooltipFunc(tooltip, ...)
+						innerTooltipFunc(tooltip, mode, index, value)
 					else
 						local tooltipText = control:GetProperty("tooltipText")
 						if tooltipText and tooltipText ~= '' then
@@ -596,10 +604,56 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					end
 
 					local shown = type(innerShown) == "boolean" and innerShown or innerShown()
-					local cur = self.configSets[self.activeConfigSetId].input[varData.var]
+					local inputs = self.configSets[self.activeConfigSetId].input
+					local cur = inputs[varData.var]
 					local def = self:GetDefaultState(varData.var, type(cur))
 					if not shown and cur ~= nil and cur ~= def then
 						tooltip:AddLine(14, colorCodes.NEGATIVE.."This config option is conditional with missing source and is invalid.")
+					else
+						-- avoid adding comparisons for number inputs as the
+						-- input gets applied as soon as the user types, which
+						-- means comparisons don't make sense here
+						if not self.calcFunc then
+							self.calcFunc, self.calcBase = self.build.calcsTab:GetMiscCalculator(self.build)
+						end
+						if (varData.type == "check") or (varData.type == "list") then
+							local valueMapped
+							if varData.type == "check" then
+								valueMapped = not cur
+							else
+								valueMapped = type(value) == "table" and value.val or value
+							end
+							if (valueMapped ~= cur) then
+								local buildFlag = self.build.buildFlag
+								tooltip:AddSeparator(10)
+								-- clear cache if build has been edited
+								if outputCacheRevision ~= self.build.outputRevision then
+									outputCache = {}
+									outputCacheRevision = self.build.outputRevision
+								end
+								local key = string.format("%s:%s", tostring(valueMapped), tostring(cur))
+								if not outputCache[key] then
+									inputs[varData.var] = valueMapped
+									self:BuildModList()
+
+									outputCache[key] = self.calcFunc()
+
+									inputs[varData.var] = cur
+									self:BuildModList()
+								end
+								-- building the mod lists flags the build for a
+								-- rebuild, but we don't actually want that as
+								-- we restore the previous state if the user
+								-- hasn't actually clicked
+								self.build.buildFlag = buildFlag
+								local prefix = (varData.type == "check") and "^7Toggling this" or "^7Selecting this"
+								self.build:AddStatComparesToTooltip(tooltip, self.calcBase, outputCache[key], prefix .. " option will give you:")
+								-- clear tooltip if it only has our separator
+								if #tooltip.lines == 1 then
+									tooltip:Clear()
+								end
+							end
+						end
 					end
 				end
 			end

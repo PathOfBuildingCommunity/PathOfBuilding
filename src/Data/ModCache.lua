@@ -1341,6 +1341,7 @@ c["+33% to Cold Resistance"]={{[1]={flags=0,keywordFlags=0,name="ColdResist",typ
 c["+33% to Critical Strike Multiplier if Dexterity is higher than Intelligence"]={{[1]={[1]={type="Condition",var="DexHigherThanInt"},flags=0,keywordFlags=0,name="CritMultiplier",type="BASE",value=33}},nil}
 c["+33% to Fire Resistance"]={{[1]={flags=0,keywordFlags=0,name="FireResist",type="BASE",value=33}},nil}
 c["+33% to Global Critical Strike Multiplier"]={{[1]={[1]={type="Global"},flags=0,keywordFlags=0,name="CritMultiplier",type="BASE",value=33}},nil}
+c["+33% to Lightning Resistance"]={{[1]={flags=0,keywordFlags=0,name="LightningResist",type="BASE",value=33}},nil}
 c["+33% to all Elemental Resistances"]={{[1]={flags=0,keywordFlags=0,name="ElementalResist",type="BASE",value=33}},nil}
 c["+330 to Accuracy Rating"]={{[1]={flags=0,keywordFlags=0,name="Accuracy",type="BASE",value=330}},nil}
 c["+333 to Accuracy Rating"]={{[1]={flags=0,keywordFlags=0,name="Accuracy",type="BASE",value=333}},nil}

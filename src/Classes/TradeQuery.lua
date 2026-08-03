@@ -232,12 +232,12 @@ function TradeQueryClass:PriceItem()
 			self.clickTime = nil
 			return "Authenticated"
 		elseif self.clickTime then
-			local left = m_max(0,(self.clickTime + 30) - os.time())
+			local left = m_max(0,(self.clickTime + 60) - os.time())
 			if left == 0 then
 				self.clickTime = nil
 				return "Not authenticated"
 			else
-				return "Logging in... (" .. left .. ")"
+				return "Logging in... (" .. left .. ") - URL copied to clipboard"
 			end
 		else
 			return colorCodes.WARNING.."Not authenticated"

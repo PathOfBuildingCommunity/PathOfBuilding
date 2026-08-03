@@ -290,13 +290,86 @@ function TradeQueryRequestsClass:FetchResultBlock(url, callback)
 			end
 			local items = {}
 			for _, trade_entry in pairs(response.result) do
+				local item = trade_entry.item
+				local t_insert = table.insert
+
+				local rawLines = {}
+				t_insert(rawLines, "Rarity: " .. item.rarity)
+				-- item.name is empty when magic and full magic name is in typeLine but typeLine == baseType when rare.
+				if item.name ~= "" then
+					t_insert(rawLines, item.name)
+				end
+				t_insert(rawLines, item.typeLine)
+				-- note that PoB MUST parse these properties, or otherwise item
+				-- parsing will consider anything after a non-matching property
+				-- an explicit mod line
+				if item.properties then
+					for _, property in ipairs(item.properties) do
+						local name = escapeGGGString(property.name)
+						if property.values[1] then
+							t_insert(rawLines, string.format("%s: %s", name, property.values[1][1]))
+						else
+							t_insert(rawLines, name)
+						end
+					end
+				end
+
+				if item.ilvl then
+					t_insert(rawLines, "Item Level: " .. item.ilvl)
+				end
+				if item.sockets then
+					local socketString = ""
+					local colours = {}
+					for _, socket in ipairs(item.sockets) do
+						table.insert(colours, socket.sColour)
+					end
+					socketString = table.concat(colours, "-")
+					t_insert(rawLines, "Sockets: " .. socketString)
+				end
+
+
+				-- TODO: crucible mods
+				for _, field in ipairs({ "enchantMods", "implicitMods", "scourgeMods", "explicitMods" }) do
+					if not item[field] then
+						item[field] = {}
+					end
+				end
+
+				local function processLine(modLine)
+					local s = ""
+					for flagName, flag in pairs(modLine.flags or {}) do
+						if flag then
+							s = s .. string.format("{%s}", flagName)
+						end
+					end
+					return s .. escapeGGGString(modLine.description)
+				end
+				t_insert(rawLines, "Implicits: " .. (#item.enchantMods + #item.scourgeMods + #item.implicitMods))
+				for _, modLine in ipairs(item.enchantMods) do
+					t_insert(rawLines, "{enchant}" .. processLine(modLine))
+				end
+				for _, modLine in ipairs(item.scourgeMods) do
+					t_insert(rawLines, "{scourge}" .. processLine(modLine))
+				end
+				for _, modLine in ipairs(item.implicitMods) do
+					t_insert(rawLines, processLine(modLine))
+				end
+				for _, modLine in ipairs(item.explicitMods) do
+					t_insert(rawLines, processLine(modLine))
+				end
+				if item.duplicated then
+					t_insert(rawLines, "Mirrored")
+				end
+				if item.corrupted then
+					t_insert(rawLines, "Corrupted")
+				end
 				local pseudoMod = trade_entry.item.pseudoMods and trade_entry.item.pseudoMods[1]
 				local pseudoModLine = pseudoMod and (pseudoMod.description or pseudoMod)
 				table.insert(items, {
 					amount = trade_entry.listing.price.amount,
 					currency = trade_entry.listing.price.currency,
 					priceType = trade_entry.listing.price.type,
-					item_string = escapeGGGString(common.base64.decode(trade_entry.item.extended.text)),
+					item_string = table.concat(rawLines, "\n"),
 					whisper = trade_entry.listing.whisper,
 					trader = trade_entry.listing.account.name,
 					weight = pseudoModLine and pseudoModLine:match("Sum: (.+)") or "0",

@@ -204,8 +204,10 @@ Strict-Transport-Security: max-age=63115200; includeSubDomains; preload]]
 						account = { name = "seller" },
 					},
 					item = {
-						extended = { text = "VGVzdCBJdGVt" },
 						pseudoMods = pseudoMods,
+						rarity = "Rare",
+						name = "Test Subject",
+						typeLine = "Astral Plate",
 					},
 				}
 			end

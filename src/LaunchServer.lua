@@ -107,7 +107,8 @@ local commonResponseEnd = [[
 </html>
 ]]
 
-ConPrintf("Opening URL: %s", url)
+ConPrintf("Authorization URL copied to clipboard: %s", url)
+Copy(url)
 OpenURL(url)
 
 --- Handle an incoming socket connection, to complete an OAuth redirect.
@@ -174,29 +175,21 @@ function handleConnection(client, attempt)
 	return shouldRetry, code, state
 end
 
--- Misbehaving software (think VPNs, anything network-related, even OS services) will occasionally attempt to connect
--- to newly-opened sockets for one reason or another. Previously, PoB only waited for one connection, and gave up
--- immediately if something went wrong.
+-- Some software (think VPNs, anything network-related, or even OS services) will occasionally attempt to connect to
+-- newly-opened sockets. The OAuth callback server therefore keeps listening for another connection when a request
+-- cannot be handled, instead of giving up immediately.
 --
--- This would result in a sequence of events roughly like this:
---   1. PoB opens a socket
---   2. A misbehaving piece of software connects to the socket, sends nothing, then terminates the connection
---   3. PoB tries to read from the socket, receives an error since the connection is terminated, and closes the server
---   4. OAuth authorization succeeds, but by the time the user is redirected back to PoB, the server is already closed
---   5. PoB never receives the OAuth redirect, and doesn't have any of the information necessary to use the API
+-- The server waits for up to 60 seconds, or until it receives a valid OAuth response. The authorization URL is copied
+-- to the clipboard before it is opened, so the user can paste it into another browser if needed.
 --
--- To avoid this, we instead allow for any number of incoming connections, and simply stop listening for them once
--- either a) 30 seconds have elapsed or b) we've received a legitimate HTTP request and responded to it.
---
--- Unfortunately, this still isn't perfect: in theory, two applications (such as a browser, and something else) could
--- attempt to establish a connection at the same time. In the future, this could be refactored to perform non-blocking
--- IO, so that it can operate concurrently, but hopefully that isn't necessary.
+-- Connections are still handled one at a time. That is sufficient here because the server only needs one valid
+-- callback, while the retry behavior protects it from unrelated connections.
 local attempt = 1
 local stopAt = os.time() + 60
 local errMsg
 local shouldRetry, code, state = true, nil, nil
 while (os.time() < stopAt) and shouldRetry do
-	-- `settimeout`` applies only to individual operations, but we're more concerned with not spending more than 30
+	-- `settimeout` applies only to individual operations, but we're more concerned with not spending more than 60
 	-- seconds *total* waiting, so we adjust with each iteration as necessary.
 	local remainingTime = math.max(0, stopAt - os.time())
 	server:settimeout(remainingTime)
