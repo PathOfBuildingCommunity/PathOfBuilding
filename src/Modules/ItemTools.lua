@@ -355,7 +355,7 @@ function itemLib.formatModLine(modLine, dbMode)
 		return
 	end
 	if modLine.disabled then
-		return "^x7F7F7F" .. line
+		return colorCodes.DISABLED .. line
 	end
 	local colorCode
 	if modLine.extra then

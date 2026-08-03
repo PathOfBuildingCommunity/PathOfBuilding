@@ -284,7 +284,7 @@ function ItemClass:FindModifierSubstring(substring, itemSlotName)
 		else
 			currentVariant = true
 		end
-		if currentVariant then
+		if not v.disabled and currentVariant then
 			if v.line:lower():find(substring) and not v.line:lower():find(substring .. " modifier") then
 				local excluded = false
 				if data.itemTagSpecialExclusionPattern[substring] and data.itemTagSpecialExclusionPattern[substring][itemSlotName] then
@@ -950,7 +950,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 						modList, extra = modLib.parseMod(rangedLine)
 					end
 				end
-				local lineLower = line:lower()
+				local lineLower = modLine.disabled and "" or line:lower()
 				-- \d+% increased/reduced explicit/implicit/ *tags* modifier magnitudes
 				local modMagnitudePattern = { "(%d+)%% ([ir][ne][cd][ru][ec][ae][sd]e?d?) ?([%a%s]*) modifier magnitudes",
 					-- \d+% increased/reduced effect of suffixes/prefixes
@@ -1019,7 +1019,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					enchantment = "enchant",
 				}
 				for _, pattern in ipairs(modMagnitudePattern) do
-					if rangedLine:lower():find(pattern) then
+					if not modLine.disabled and rangedLine:lower():find(pattern) then
 						local rangedLine = itemLib.applyRange(line, modLine.range or main.defaultItemAffixQuality or 1, catalystScalar, modLine.corruptedRange)
 						local amount, increaseOrDecrease, modTagsString = rangedLine:lower():match(pattern)
 						local multiplier

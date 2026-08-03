@@ -17,6 +17,7 @@ colorCodes = {
 	CUSTOM = "^x5CF0BB",
 	SOURCE = "^x88FFFF",
 	UNSUPPORTED = "^xF05050",
+	DISABLED = "^x7F7F7F",
 	WARNING = "^xFF9922",
 	TIP = "^x80A080",
 	FIRE = "^xB97123",
