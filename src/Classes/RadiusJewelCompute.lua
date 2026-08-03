@@ -138,8 +138,11 @@ local function buildReplacementItem(slot)
 end
 
 local function itemChangesPassiveTreeRadius(item)
-	return not not (item and item.type == "Jewel" and item.jewelData and item.jewelRadiusIndex
-		and (item.jewelData.conqueredBy or item.jewelData.intuitiveLeapLike or item.jewelData.impossibleEscapeKeystone))
+	return not not (item and item.type == "Jewel" and (
+		item.clusterJewel
+		or (item.jewelData and item.jewelRadiusIndex
+			and (item.jewelData.conqueredBy or item.jewelData.intuitiveLeapLike or item.jewelData.impossibleEscapeKeystone))
+	))
 end
 
 local function buildDisconnectedPassivePlanStep(baseOutput, baseValue, value, compareOutput, chosenNodes, variantLabel)
@@ -231,13 +234,15 @@ function Class:buildSocketReplacementOverride(replacementContext, item, addNodes
 		repItem = item,
 	}
 	if self:socketReplacementChangesPassiveTree(replacementContext, item) then
-		-- repItem changes only the evaluated item. Radius jewels can also change
-		-- node ownership and dependencies, so rebuild a comparison spec first.
+		-- repItem changes only the evaluated item. Structural jewels can also
+		-- change node ownership and dependencies, so rebuild a comparison spec first.
 		local socketNode = replacementContext.socketNode
 		replacementContext.comparisonSpecs = replacementContext.comparisonSpecs or { }
 		local spec = replacementContext.comparisonSpecs[item]
 		if not spec then
-			spec = self.build.itemsTab:BuildSpecForJewelComparison({ nodeId = socketNode.id }, item, not socketNode.alloc)
+			local replacedItem = replacementContext.occupancy and replacementContext.occupancy.item
+			local rebuildClusterJewelGraphs = (replacedItem and replacedItem.clusterJewel) or item.clusterJewel
+			spec = self.build.itemsTab:BuildSpecForJewelComparison({ nodeId = socketNode.id }, item, not socketNode.alloc, rebuildClusterJewelGraphs)
 			replacementContext.comparisonSpecs[item] = spec
 		end
 		override.spec = spec

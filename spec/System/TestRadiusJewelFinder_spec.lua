@@ -5,6 +5,7 @@
 -- All other sockets are unallocated and empty.
 
 local occVortex = LoadModule("../spec/TestBuilds/3.13/OccVortex.lua")
+local mirageArcherToxicRain = LoadModule("../spec/TestBuilds/3.13/Mirage Archer Toxic Rain.lua")
 local RadiusJewelData = LoadModule("Classes/RadiusJewelData")
 
 local MIGHT_OF_MEEK_RAW_TEXT = [[Might of the Meek
@@ -1448,6 +1449,64 @@ describe("RadiusJewelFinder #radius-jewel", function()
 				assert.is_true(totalPoints <= maxPoints,
 					"socket " .. result.socket.id .. " plan used too many points")
 			end
+		end)
+
+	end)
+
+	describe("cluster jewel replacements", function()
+
+		it("rebuilds the comparison tree without the replaced cluster subgraph", function()
+			loadBuildFromXML(mirageArcherToxicRain.xml, "Mirage Archer Toxic Rain")
+
+			local clusterSubgraph, allocatedClusterNodeIds
+			for _, candidateSubgraph in pairs(build.spec.subGraphs) do
+				local allocatedNodeIds = { }
+				for _, node in ipairs(candidateSubgraph.nodes) do
+					if node.alloc then
+						table.insert(allocatedNodeIds, node.id)
+					end
+				end
+				if #allocatedNodeIds > 0 then
+					clusterSubgraph = candidateSubgraph
+					allocatedClusterNodeIds = allocatedNodeIds
+					break
+				end
+			end
+			assert.is_not_nil(clusterSubgraph, "expected a cluster subgraph for the equipped cluster")
+			local socketId = clusterSubgraph.parentSocket.id
+			local clusterItem = build.spec:GetSocketedJewel(socketId)
+			assert.is_not_nil(clusterItem, "expected an allocated cluster jewel socket")
+			assert.is_not_nil(clusterItem.clusterJewel, "expected a cluster jewel in the allocated socket")
+
+			local comparisonSpec
+			local originalGetMiscCalculator = build.calcsTab.GetMiscCalculator
+			build.calcsTab.GetMiscCalculator = function()
+				return function(override)
+					comparisonSpec = comparisonSpec or override.spec
+					return { Life = 0 }
+				end, { Life = 0 }
+			end
+
+			makeFinder():computeBestVariantSocketImpact({ {
+				id = socketId,
+				label = "Cluster socket",
+				pathDist = 0,
+			} }, { {
+				name = "Candidate",
+				rawText = MIGHT_OF_MEEK_RAW_TEXT,
+			} }, "Life", nil, nil, { id = "all" })
+			build.calcsTab.GetMiscCalculator = originalGetMiscCalculator
+
+			assert.is_not_nil(comparisonSpec, "expected a comparison spec for the cluster replacement")
+			for _, subGraph in pairs(comparisonSpec.subGraphs) do
+				assert.are_not.equals(socketId, subGraph.parentSocket.id,
+					"replaced cluster should not remain as a comparison subgraph")
+			end
+			for _, nodeId in ipairs(allocatedClusterNodeIds) do
+				assert.is_nil(comparisonSpec.allocNodes[nodeId], "replaced cluster node should not remain allocated")
+			end
+			assert.is_true(comparisonSpec.jewels[socketId] ~= clusterItem.id,
+				"comparison spec should no longer equip the replaced cluster")
 		end)
 
 	end)
