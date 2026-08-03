@@ -5730,6 +5730,7 @@ local specialModList = {
 for _, name in ipairs(data.keystones) do
 	specialModList[name:lower()] = { mod("Keystone", "LIST", name) }
 end
+t_insert(specialModList["avatar of fire"], flag("Condition:HaveAvatarOfFire"))
 for _, name in ipairs(data.clusterJewels.keystones) do
 	specialModList[name:lower()] = { mod("Keystone", "LIST", name) }
 end
