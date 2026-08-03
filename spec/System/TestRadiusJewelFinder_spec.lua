@@ -1190,41 +1190,40 @@ describe("RadiusJewelFinder #radius-jewel", function()
 
 	end)
 
-	describe("Apply tooltip", function()
+	describe("replacement item tooltip", function()
 
-		it("names a jewel that Apply will replace", function()
+		it("attaches the replaced jewel to its detail line", function()
 			while main.popups[1] do
 				main:ClosePopup()
 			end
 			local popup = makeFinder():Open()
-			local function assertReplacementTooltip(row, jewelName)
-				popup.controls.resultsList.list = { row }
-				popup.controls.resultsList.selIndex = 1
+			local socketId = 36634
+			local replacedItem = build.itemsTab.items[build.itemsTab.sockets[socketId].selItemId]
+			popup.controls.resultsList:SetMode("computeSocket", {
+				{
+					socketId = socketId,
+					socketLabel = "Test socket",
+					points = 0,
+					delta = 0,
+					pct = 0,
+					pctPerPoint = 0,
+					sortPctPerPoint = 0,
+					detailText = "",
+					action = "replace",
+					replacedItemLabel = "Existing jewel",
+				},
+			}, "")
 
-				local tooltip = new("Tooltip")
-				popup.controls.applyButton.tooltipFunc(tooltip)
-				local lines = { }
-				for _, line in ipairs(tooltip.lines) do
-					if line.text and line.text ~= "" then
-						table.insert(lines, line.text)
-					end
+			local replacementLine
+			for _, line in ipairs(popup.controls.resultDetailList.list) do
+				if line[1] and line[1]:find("Will replace", 1, true) then
+					replacementLine = line
+					break
 				end
-				assert.is_true(table.concat(lines, "\n"):find(jewelName, 1, true) ~= nil,
-					"expected Apply tooltip to identify the jewel it replaces")
 			end
 
-			assertReplacementTooltip({
-				applyRawText = MIGHT_OF_MEEK_RAW_TEXT,
-				jewelName = "Might of the Meek",
-				socketLabel = "Test socket",
-				replacedItemLabel = "Unnatural Instinct",
-			}, "Unnatural Instinct")
-			assertReplacementTooltip({
-				applyRawText = MIGHT_OF_MEEK_RAW_TEXT,
-				jewelName = "Might of the Meek",
-				socketLabel = "Test socket",
-				storedUnallocatedItemLabel = "Thread of Hope",
-			}, "Thread of Hope")
+			assert.is_not_nil(replacementLine, "expected a replacement detail line")
+			assert.are.equal(replacedItem, replacementLine.item)
 		end)
 
 	end)
