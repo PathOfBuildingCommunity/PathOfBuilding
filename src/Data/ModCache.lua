@@ -10035,8 +10035,8 @@ c["Mines have 20% increased Detonation Speed Mines have a 10% chance to be Deton
 c["Mines have 30% increased Detonation Speed"]={nil,"Mines have 30% increased Detonation Speed "}
 c["Mines have 50% increased Detonation Speed"]={nil,"Mines have 50% increased Detonation Speed "}
 c["Mines have 50% increased Detonation Speed Skills which throw Mines throw up to 1 additional Mine if you have at least 800 Dexterity"]={nil,"Mines have 50% increased Detonation Speed Skills which throw Mines throw up to 1 additional Mine if you have at least 800 Dexterity "}
-c["Mines have a 10% chance to be Detonated an Additional Time"]={nil,"Mines have a 10% chance to be Detonated an Additional Time "}
-c["Mines have a 15% chance to be Detonated an Additional Time"]={nil,"Mines have a 15% chance to be Detonated an Additional Time "}
+c["Mines have a 10% chance to be Detonated an Additional Time"]={{[1]={flags=0,keywordFlags=0,name="MineAdditionalDetonationChance",type="BASE",value=10}},nil}
+c["Mines have a 15% chance to be Detonated an Additional Time"]={{[1]={flags=0,keywordFlags=0,name="MineAdditionalDetonationChance",type="BASE",value=15}},nil}
 c["Minion Instability"]={{[1]={flags=0,keywordFlags=0,name="Keystone",type="LIST",value="Minion Instability"}},nil}
 c["Minion Life is increased by their Overcapped Fire Resistance"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={[1]={div=1,stat="FireResistOverCap",type="PerStat"},flags=0,keywordFlags=0,name="Life",type="INC",value=1}}}},nil}
 c["Minion Spells Triggered by this Item have a 0.25 second Cooldown with 5 Uses"]={nil,"Minion Spells Triggered by this Item have a 0.25 second Cooldown with 5 Uses "}

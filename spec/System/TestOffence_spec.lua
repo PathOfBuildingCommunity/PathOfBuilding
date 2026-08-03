@@ -279,4 +279,43 @@ describe("TestOffence", function()
 			assert.are.equals(1, build.calcsTab.mainOutput[outputName])
 		end)
 	end
+
+	it("applies chance for Mines to be Detonated an Additional Time as an average DPS multiplier", function()
+		build.skillsTab:PasteSocketGroup("Slot: Body Armour\nStormblast Mine 20/0  1\n")
+		runCallback("OnFrame")
+
+		local baseDPS = build.calcsTab.mainOutput.TotalDPS
+		assert.is_true(baseDPS > 0)
+
+		build.configTab.input.customMods = "Mines have a 10% chance to be Detonated an Additional Time"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.equals(10, build.calcsTab.mainOutput.MineAdditionalDetonationChance)
+		assertNearRelative(baseDPS * 1.10, build.calcsTab.mainOutput.TotalDPS, 0.001, "10% chance to be detonated an additional time")
+
+		-- Multiple sources stack additively, and the chance is capped at 100% (at most one extra detonation)
+		build.configTab.input.customMods = [[
+		Mines have a 15% chance to be Detonated an Additional Time
+		Mines have a 100% chance to be Detonated an Additional Time
+		]]
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.equals(100, build.calcsTab.mainOutput.MineAdditionalDetonationChance)
+		assertNearRelative(baseDPS * 2, build.calcsTab.mainOutput.TotalDPS, 0.001, "capped at 100% chance")
+
+		-- Does not apply to skills that are not mines
+		newBuild()
+		build.skillsTab:PasteSocketGroup("Slot: Body Armour\nFireball 20/0  1\n")
+		runCallback("OnFrame")
+		local fireballDPS = build.calcsTab.mainOutput.TotalDPS
+		assert.is_true(fireballDPS > 0)
+
+		build.configTab.input.customMods = "Mines have a 10% chance to be Detonated an Additional Time"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.equals(fireballDPS, build.calcsTab.mainOutput.TotalDPS)
+	end)
 end)

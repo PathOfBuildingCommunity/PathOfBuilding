@@ -4282,6 +4282,7 @@ local specialModList = {
 	["can have up to (%d+) additional traps? placed at a time"] = function(num) return { mod("ActiveTrapLimit", "BASE", num) } end,
 	["can have (%d+) fewer traps placed at a time"] = function(num) return { mod("ActiveTrapLimit", "BASE", -num) } end,
 	["can have up to (%d+) additional remote mines? placed at a time"] = function(num) return { mod("ActiveMineLimit", "BASE", num) } end,
+	["mines have a (%d+)%% chance to be detonated an additional time"] = function(num) return { mod("MineAdditionalDetonationChance", "BASE", num) } end,
 	-- Additional trap & mine throw
 	["throw an additional trap"] = { mod("TrapThrowCount", "BASE", 1) },
 	["(%d+)%% chance to throw up to (%d+) additional traps?"] = function(chance, _, num) return { mod("TrapThrowCount", "BASE", tonumber(num) * tonumber(chance) / 100.0) } end,

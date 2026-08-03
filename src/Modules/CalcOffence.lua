@@ -1351,6 +1351,18 @@ function calcs.offence(env, actor, activeSkill)
 			})
 		end
 
+		-- Calculate chance for mines to be detonated an additional time
+		output.MineAdditionalDetonationChance = m_min(skillModList:Sum("BASE", skillCfg, "MineAdditionalDetonationChance"), 100)
+		if output.MineAdditionalDetonationChance > 0 then
+			skillData.dpsMultiplier = (skillData.dpsMultiplier or 1) * (1 + output.MineAdditionalDetonationChance / 100)
+			if breakdown then
+				breakdown.MineAdditionalDetonationChance = {
+					s_format("%g%% ^8(chance to be detonated an additional time)", output.MineAdditionalDetonationChance),
+					s_format("= x %.2f ^8(average number of detonations)", 1 + output.MineAdditionalDetonationChance / 100),
+				}
+			end
+		end
+
 		local incArea, moreArea = calcLib.mods(skillModList, skillCfg, "MineDetonationAreaOfEffect")
 		local areaMod = round(round(incArea * moreArea, 10), 2)
 		output.MineDetonationRadius = calcRadius(data.misc.MineDetonationRadiusBase, areaMod)
