@@ -1363,6 +1363,7 @@ Faithful Helmet
 League: Allflame
 Source: Drops from unique{Zorath}
 Requires Level 73, 101 Str, 101 Int
+Crafted: true
 (120-240)% increased Explicit Modifier magnitudes
 Has 4 Abyssal Sockets
 Socketed Rare Abyssal Jewels will be Consumed

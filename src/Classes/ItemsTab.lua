@@ -939,7 +939,10 @@ holding Shift will put it in the second.]])
 		drop.slider = slider
 		self.controls["displayItemAffix"..i] = drop
 		self.controls["displayItemAffixLabel"..i] = new("LabelControl", {"RIGHT",drop,"LEFT"}, {-4, 0, 0, 14}, function()
-			return drop.outputTable == "prefixes" and "^7Prefix:" or "^7Suffix:"
+			local ignoreModType = self.displayItem.rareLikeUnique and self.displayItem.rareLikeUnique.ignorePrefixSuffix
+			return ignoreModType and "Explicit:"
+				or drop.outputTable == "prefixes" and "^7Prefix:"
+				or "^7Suffix:"
 		end)
 		self.controls["displayItemAffixRange"..i] = slider
 		self.controls["displayItemAffixRangeLabel"..i] = new("LabelControl", {"RIGHT",slider,"LEFT"}, {-4, 0, 0, 14}, function()
@@ -956,7 +959,7 @@ holding Shift will put it in the second.]])
 		self:AddCustomModifierToDisplayItem()
 	end)
 	self.controls.displayItemAddCustom.shown = function()
-		return self.displayItem and (self.displayItem.rarity == "MAGIC" or self.displayItem.rarity == "RARE")
+		return self.displayItem and (self.displayItem.rarity == "MAGIC" or self.displayItem.rarity == "RARE" or self.rareLikeUnique)
 	end
 
 	-- Section: Crucible modifiers
@@ -2075,9 +2078,14 @@ end
 function ItemsTabClass:UpdateAffixControls()
 	local item = self.displayItem
 	local prefixLimit = item.prefixes.limit or (item.affixLimit / 2)
+	local ignoreModType = item.rareLikeUnique and item.rareLikeUnique.ignorePrefixSuffix
 	for i = 1, item.affixLimit do
 		if i <= prefixLimit then
-			self:UpdateAffixControl(self.controls["displayItemAffix"..i], item, "Prefix", "prefixes", i)
+			local modType = "Prefix"
+			if ignoreModType then
+				modType = nil
+			end
+			self:UpdateAffixControl(self.controls["displayItemAffix" .. i], item, modType, "prefixes", i)
 		else
 			self:UpdateAffixControl(self.controls["displayItemAffix"..i], item, "Suffix", "suffixes", i - prefixLimit)
 		end
@@ -2117,8 +2125,8 @@ function ItemsTabClass:UpdateAffixControl(control, item, affixType, outputTable,
 	local affixList = { }
 	local retainedAffixes = { }
 	for modId, mod in pairs(item.affixes) do
-		if mod.type == affixType and not excludeGroups[mod.group] and not item:CheckIfModIsDelve(mod) then
-			if item:GetModSpawnWeight(mod, extraTags) > 0 then
+		if (not affixType or (mod.type == affixType)) and not excludeGroups[mod.group] and not item:CheckIfModIsDelve(mod) then
+			if (item.rareLikeUnique and item:CanHaveMod(mod)) or item:GetModSpawnWeight(mod, extraTags) > 0 then
 				t_insert(affixList, modId)
 			elseif modId == selAffix then
 				t_insert(affixList, modId)
@@ -2223,7 +2231,7 @@ function ItemsTabClass:UpdateCustomControls()
 			t_insert(modLines, line)
 		end
 	end
-	if item.rarity == "MAGIC" or item.rarity == "RARE" or (item.crucibleModLines and #item.crucibleModLines > 0) then
+	if item.rareLikeUnique or item.rarity == "MAGIC" or item.rarity == "RARE" or (item.crucibleModLines and #item.crucibleModLines > 0) then
 		for index, modLine in ipairs(modLines) do
 			if modLine.custom or modLine.crafted or modLine.crucible then
 				local line = itemLib.formatModLine(modLine)
@@ -4484,10 +4492,11 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode, maxWidth)
 	for _, modList in ipairs{item.enchantModLines, item.scourgeModLines, item.implicitModLines, item.explicitModLines, item.crucibleModLines} do
 		if modList[1] then
 			for _, modLine in ipairs(modList) do
-				if item:CheckModLineVariant(modLine) then
-					local formatted = itemLib.formatModLine(modLine, dbMode)
-					if formatted then
-						tooltip:AddLine(fontSizeBig, formatted, "FONTIN SC", modLine)
+				local variantCount = item:GetModLineVariantCount(modLine)
+				if variantCount > 0 then
+					local formattedModLine = itemLib.formatModLine(modLine, dbMode)
+					for _ = 1, variantCount do
+						tooltip:AddLine(fontSizeBig, formattedModLine, "FONTIN SC")
 					end
 				end
 			end
