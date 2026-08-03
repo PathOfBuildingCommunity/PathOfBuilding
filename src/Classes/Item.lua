@@ -1450,6 +1450,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 		elseif self.rareLikeUnique then
 			self.affixLimit = self.rareLikeUnique.affixLimits.affixLimit
 			self.prefixes.limit = self.rareLikeUnique.affixLimits.prefixLimit
+			self.suffixes.limit = self.prefixes.limit and (self.affixLimit - self.prefixes.limit) or nil
 		else
 			self.crafted = false
 		end
