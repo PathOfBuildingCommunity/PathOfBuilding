@@ -732,7 +732,7 @@ describe("RadiusJewelFinder #radius-jewel", function()
 				for _, variant in ipairs(familyVariants) do
 					if variant.isFoulborn then
 						foulbornCount = foulbornCount + 1
-						local item = new("Item", "Rarity: Unique\n" .. variant.rawText)
+						local item = new("Item"):Item("Rarity: Unique\n" .. variant.rawText)
 						assert.is_true(item.foulborn, "expected Foulborn item data for " .. variant.name)
 					end
 				end
@@ -801,7 +801,7 @@ describe("RadiusJewelFinder #radius-jewel", function()
 			assert.are.equal(1, #variants)
 			assert.are.same({ newModId }, variants[1].newModIds)
 
-			local imported = new("Item", "Rarity: Unique\n" .. variants[1].rawText)
+			local imported = new("Item"):Item("Rarity: Unique\n" .. variants[1].rawText)
 			assert.is_true(imported.foulborn)
 			assert.is_true(hasMutatedMod(imported, newModId))
 		end)
@@ -821,7 +821,7 @@ describe("RadiusJewelFinder #radius-jewel", function()
 				assert.is_string(variant.name)
 				assert.is_string(variant.rawText)
 
-				local imported = new("Item", "Rarity: Unique\n" .. variant.rawText)
+				local imported = new("Item"):Item("Rarity: Unique\n" .. variant.rawText)
 				assert.is_true(imported.foulborn)
 				for _, newModId in ipairs(variant.newModIds) do
 					assert.is_true(hasMutatedMod(imported, newModId))
@@ -1035,6 +1035,157 @@ describe("RadiusJewelFinder #radius-jewel", function()
 			local sockets = getSockets()
 			local results, _ = makeFinder():computeBestVariantSocketImpact(sockets, getLightOfMeaningVariants(), "Life", nil, nil, { id = "all" })
 			assert.is_true(#results > 0, "expected results with occupied mode 'all'")
+		end)
+
+	end)
+
+	describe("historic jewel replacements", function()
+
+		local function newHistoricJewel()
+			return new("Item"):Item("Rarity: UNIQUE\n"
+				.. "Lethal Pride\nTimeless Jewel\nRadius: Large\nImplicits: 0\n"
+				.. "Commanded leadership over 10000 warriors under Kaom\n")
+		end
+
+		it("rebuilds the passive spec when replacing a Historic jewel", function()
+			local socketId = 36634
+			local historic = newHistoricJewel()
+			build.itemsTab:AddItem(historic, true)
+			build.itemsTab.sockets[socketId].selItemId = historic.id
+			build.spec.jewels[socketId] = historic.id
+
+			local originalGetMiscCalculator = build.calcsTab.GetMiscCalculator
+			local usedComparisonSpec = false
+			build.calcsTab.GetMiscCalculator = function()
+				return function(override)
+					if override.spec then
+						usedComparisonSpec = true
+					end
+					return { Life = override.spec and 1 or 0 }
+				end, { Life = 0 }
+			end
+
+			local results = makeFinder():computeBestVariantSocketImpact({ {
+				id = socketId,
+				label = "Historic socket",
+				pathDist = 0,
+			} }, { {
+				name = "Candidate",
+				rawText = MIGHT_OF_MEEK_RAW_TEXT,
+			} }, "Life", nil, nil, { id = "all" })
+			build.calcsTab.GetMiscCalculator = originalGetMiscCalculator
+
+			assert.is_true(usedComparisonSpec)
+			assert.are.equal(1, results[1].value)
+		end)
+
+		it("rebuilds the passive spec for Intuitive Leap plans", function()
+			local finder = makeFinder()
+			local radiusIndex = getSmallRadiusIndex()
+			local testSocket
+			for _, socket in ipairs(finder:buildJewelSockets(radiusIndex)) do
+				local socketNode = build.spec.nodes[socket.id]
+				local candidates = finder:collectDisconnectedPassiveCandidates(socketNode, {
+					radiusIndex = radiusIndex,
+				})
+				if build.spec.allocNodes[socket.id] and #candidates > 0 then
+					testSocket = socket
+					break
+				end
+			end
+			assert.is_not_nil(testSocket, "expected an allocated socket with an Intuitive Leap candidate")
+
+			local historic = newHistoricJewel()
+			build.itemsTab:AddItem(historic, true)
+			build.itemsTab.sockets[testSocket.id].selItemId = historic.id
+			build.spec.jewels[testSocket.id] = historic.id
+
+			local originalGetMiscCalculator = build.calcsTab.GetMiscCalculator
+			local usedComparisonSpec = false
+			build.calcsTab.GetMiscCalculator = function()
+				return function(override)
+					if override.spec then
+						usedComparisonSpec = true
+					end
+					return { Life = override.spec and 1 or 0 }
+				end, { Life = 0 }
+			end
+
+			local results = finder:computeIntuitiveLeapSocketImpact(
+				{ testSocket }, "Life", nil, "fast", { }, nil, 0, { id = "all" }, true)
+			build.calcsTab.GetMiscCalculator = originalGetMiscCalculator
+
+			assert.is_true(usedComparisonSpec)
+			assert.are.equal(1, results[1].value)
+		end)
+
+		it("keeps Split Personality's preview distance after rebuilding the spec", function()
+			local socketId = 36634
+			local splitDistance = 42
+			local historic = newHistoricJewel()
+			build.itemsTab:AddItem(historic, true)
+			build.itemsTab.sockets[socketId].selItemId = historic.id
+			build.spec.jewels[socketId] = historic.id
+
+			local originalGetMiscCalculator = build.calcsTab.GetMiscCalculator
+			build.calcsTab.GetMiscCalculator = function()
+				return function(override)
+					local socketNode = override.spec and override.spec.nodes[socketId] or build.spec.nodes[socketId]
+					return { Life = socketNode.distanceToClassStart }
+				end, { Life = 0 }
+			end
+
+			local results = makeFinder():computeSplitPersonalitySocketImpact({ {
+				id = socketId,
+				label = "Historic socket",
+				classStartDist = splitDistance,
+				pathDist = 0,
+			} }, "Life", { {
+				name = "Dexterity",
+				rawText = buildSplitPersonalityRawText("+5 to Dexterity"),
+			} }, nil, nil, { id = "all" })
+			build.calcsTab.GetMiscCalculator = originalGetMiscCalculator
+
+			assert.are.equal(splitDistance, results[1].value)
+		end)
+
+		it("does not rebuild for a Historic jewel stored in an unallocated socket", function()
+			local finder = makeFinder()
+			local testSocket
+			for _, socket in ipairs(finder:buildJewelSockets(getLargeRadiusIndex())) do
+				if not build.spec.allocNodes[socket.id] then
+					testSocket = socket
+					break
+				end
+			end
+			assert.is_not_nil(testSocket, "expected an unallocated jewel socket")
+
+			local historic = newHistoricJewel()
+			build.itemsTab:AddItem(historic, true)
+			build.itemsTab.sockets[testSocket.id].selItemId = historic.id
+			build.spec.jewels[testSocket.id] = historic.id
+
+			local originalGetMiscCalculator = build.calcsTab.GetMiscCalculator
+			local usedComparisonSpec = false
+			build.calcsTab.GetMiscCalculator = function()
+				return function(override)
+					usedComparisonSpec = usedComparisonSpec or override.spec ~= nil
+					return { Life = 0 }
+				end, { Life = 0 }
+			end
+
+			makeFinder():computeSplitPersonalitySocketImpact({ {
+				id = testSocket.id,
+				label = "Stored Historic socket",
+				classStartDist = 42,
+				pathDist = 1,
+			} }, "Life", { {
+				name = "Dexterity",
+				rawText = buildSplitPersonalityRawText("+5 to Dexterity"),
+			} }, nil, nil, { id = "all" })
+			build.calcsTab.GetMiscCalculator = originalGetMiscCalculator
+
+			assert.is_false(usedComparisonSpec)
 		end)
 
 	end)

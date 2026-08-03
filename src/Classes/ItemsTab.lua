@@ -4150,31 +4150,39 @@ local function cloneSpecForJewelComparison(spec)
 	return specCopy
 end
 
----@param itemsTab ItemsTab
 ---@param compareSlot ItemSlotControl
 ---@param replacementItem Item
-local function buildSpecForJewelComparison(itemsTab, compareSlot, replacementItem)
+---@param allocateSocket? boolean
+function ItemsTabClass:BuildSpecForJewelComparison(compareSlot, replacementItem, allocateSocket)
 	local tempItemId
-	local spec = cloneSpecForJewelComparison(itemsTab.build.spec)
+	local spec = cloneSpecForJewelComparison(self.build.spec)
 	if replacementItem then
-		if replacementItem.id and itemsTab.items[replacementItem.id] == replacementItem then
+		if replacementItem.id and self.items[replacementItem.id] == replacementItem then
 			spec.jewels[compareSlot.nodeId] = replacementItem.id
 		else
 			tempItemId = -1
-			while itemsTab.items[tempItemId] do
+			while self.items[tempItemId] do
 				tempItemId = tempItemId - 1
 			end
-			itemsTab.items[tempItemId] = replacementItem
+			self.items[tempItemId] = replacementItem
 			spec.jewels[compareSlot.nodeId] = tempItemId
 		end
 	else
 		spec.jewels[compareSlot.nodeId] = nil
 	end
+	if allocateSocket then
+		local socketNode = spec.nodes[compareSlot.nodeId]
+		if socketNode then
+			socketNode.alloc = true
+			spec.allocNodes[compareSlot.nodeId] = socketNode
+		end
+	end
+
 	local ok, err = xpcall(function()
 		spec:BuildAllDependsAndPaths()
 	end, debug.traceback)
 	if tempItemId then
-		itemsTab.items[tempItemId] = nil
+		self.items[tempItemId] = nil
 	end
 	if not ok then
 		error(err, 0)
@@ -4921,7 +4929,7 @@ function ItemsTabClass:AddItemStatDifferences(tooltip, item, base, slot)
 			local selItem = self.items[compareSlot.selItemId]
 			local override = { repSlotName = compareSlot.slotName, repItem = item ~= selItem and item or nil }
 			if compareSlot.nodeId and (itemChangesPassiveTree(selItem) or itemChangesPassiveTree(item)) then
-				override.spec = buildSpecForJewelComparison(self, compareSlot, override.repItem)
+				override.spec = self:BuildSpecForJewelComparison(compareSlot, override.repItem)
 			end
 			local output = calcFunc(override)
 			return selItem, output

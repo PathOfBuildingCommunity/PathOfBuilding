@@ -137,6 +137,11 @@ local function buildReplacementItem(slot)
 	return item
 end
 
+local function itemChangesPassiveTreeRadius(item)
+	return not not (item and item.type == "Jewel" and item.jewelData and item.jewelRadiusIndex
+		and (item.jewelData.conqueredBy or item.jewelData.intuitiveLeapLike or item.jewelData.impossibleEscapeKeystone))
+end
+
 local function buildDisconnectedPassivePlanStep(baseOutput, baseValue, value, compareOutput, chosenNodes, variantLabel)
 	local snapshotNodes = copyNodeList(chosenNodes)
 	return {
@@ -202,6 +207,39 @@ function Class:buildSocketReplacementContext(calcFunc, socketId)
 		replacedItemLabel = occupancy.replacedItemLabel,
 		storedUnallocatedItemLabel = occupancy.storedUnallocatedItemLabel,
 	}
+end
+
+function Class:socketReplacementChangesPassiveTree(replacementContext, item)
+	local replacedItem = replacementContext.occupancy and replacementContext.occupancy.isOccupied and replacementContext.occupancy.item
+	return itemChangesPassiveTreeRadius(replacedItem) or itemChangesPassiveTreeRadius(item)
+end
+
+function Class:buildSocketReplacementOverride(replacementContext, item, addNodes)
+	local override = {
+		addNodes = addNodes,
+		repSlotName = replacementContext.slotName,
+		repItem = item,
+	}
+	if self:socketReplacementChangesPassiveTree(replacementContext, item) then
+		-- repItem changes only the evaluated item. Radius jewels can also change
+		-- node ownership and dependencies, so rebuild a comparison spec first.
+		local socketNode = replacementContext.socketNode
+		replacementContext.comparisonSpecs = replacementContext.comparisonSpecs or { }
+		local spec = replacementContext.comparisonSpecs[item]
+		if not spec then
+			spec = self.build.itemsTab:BuildSpecForJewelComparison({ nodeId = socketNode.id }, item, not socketNode.alloc)
+			replacementContext.comparisonSpecs[item] = spec
+		end
+		override.spec = spec
+		if addNodes then
+			local comparisonNodes = { }
+			for node in pairs(addNodes) do
+				comparisonNodes[spec.nodes[node.id] or node] = true
+			end
+			override.addNodes = comparisonNodes
+		end
+	end
+	return override
 end
 
 function Class:getSocketDistanceToClassStart(socketId)
@@ -281,7 +319,7 @@ function Class:collectDisconnectedPassiveCandidates(socketNode, options)
 	return candidates
 end
 
-function Class:computeDisconnectedPassiveSimulatedPlan(calcFunc, baseOutput, baseValue, socketNode, slotName, item, impactStat, candidates, variantLabel, progressLabel, progress, maxAdditionalNodes)
+function Class:computeDisconnectedPassiveSimulatedPlan(calcFunc, replacementContext, baseOutput, baseValue, socketNode, item, impactStat, candidates, variantLabel, progressLabel, progress, maxAdditionalNodes)
 	impactStat = normalizeImpactStat(impactStat)
 	local addNodes = { [socketNode] = true }
 	local function calculate(extraNode)
@@ -289,11 +327,7 @@ function Class:computeDisconnectedPassiveSimulatedPlan(calcFunc, baseOutput, bas
 		if extraNode then
 			nextNodes[extraNode] = true
 		end
-		local output = calcFunc({
-			addNodes = nextNodes,
-			repSlotName = slotName,
-			repItem = item,
-		})
+		local output = calcFunc(self:buildSocketReplacementOverride(replacementContext, item, nextNodes))
 		return output, self:getImpactValue(impactStat, output)
 	end
 
@@ -344,16 +378,14 @@ function Class:computeDisconnectedPassiveSimulatedPlan(calcFunc, baseOutput, bas
 	return result
 end
 
-function Class:computeDisconnectedPassiveFastPlan(calcFunc, baseOutput, baseValue, socketNode, slotName, item, impactStat, candidates, variantLabel, deltaCache, progressLabel, progress, maxAdditionalNodes, skipPlanSteps, earlyPruneThreshold)
+function Class:computeDisconnectedPassiveFastPlan(calcFunc, replacementContext, baseOutput, baseValue, socketNode, item, impactStat, candidates, variantLabel, deltaCache, progressLabel, progress, maxAdditionalNodes, skipPlanSteps, earlyPruneThreshold)
 	impactStat = normalizeImpactStat(impactStat)
 	local jewelOnlyOutput, jewelOnlyValue
 	local function ensureJewelOnly()
 		if not jewelOnlyOutput then
-			jewelOnlyOutput = calcFunc({
-				addNodes = { [socketNode] = true },
-				repSlotName = slotName,
-				repItem = item,
-			})
+			jewelOnlyOutput = calcFunc(self:buildSocketReplacementOverride(replacementContext, item, {
+				[socketNode] = true,
+			}))
 			jewelOnlyValue = self:getImpactValue(impactStat, jewelOnlyOutput)
 		end
 	end
@@ -368,11 +400,10 @@ function Class:computeDisconnectedPassiveFastPlan(calcFunc, baseOutput, baseValu
 		local delta = deltaCache[node.id]
 		if delta == nil then
 			ensureJewelOnly()
-			local output = calcFunc({
-				addNodes = { [socketNode] = true, [node] = true },
-				repSlotName = slotName,
-				repItem = item,
-			})
+			local output = calcFunc(self:buildSocketReplacementOverride(replacementContext, item, {
+				[socketNode] = true,
+				[node] = true,
+			}))
 			delta = self:getImpactValue(impactStat, output) - jewelOnlyValue
 			deltaCache[node.id] = delta
 		end
@@ -411,11 +442,7 @@ function Class:computeDisconnectedPassiveFastPlan(calcFunc, baseOutput, baseValu
 	end
 
 	if skipPlanSteps then
-		local finalOutput = calcFunc({
-			addNodes = addNodes,
-			repSlotName = slotName,
-			repItem = item,
-		})
+		local finalOutput = calcFunc(self:buildSocketReplacementOverride(replacementContext, item, addNodes))
 		local finalValue = self:getImpactValue(impactStat, finalOutput)
 		return buildDisconnectedPassivePlanStep(baseOutput, baseValue, finalValue, finalOutput, chosenNodes, variantLabel)
 	end
@@ -427,11 +454,7 @@ function Class:computeDisconnectedPassiveFastPlan(calcFunc, baseOutput, baseValu
 	for _, node in ipairs(chosenNodes) do
 		t_insert(prefixNodes, node)
 		prefixAddNodes[node] = true
-		lastOutput = calcFunc({
-			addNodes = prefixAddNodes,
-			repSlotName = slotName,
-			repItem = item,
-		})
+		lastOutput = calcFunc(self:buildSocketReplacementOverride(replacementContext, item, prefixAddNodes))
 		lastValue = self:getImpactValue(impactStat, lastOutput)
 		t_insert(planSteps, buildDisconnectedPassivePlanStep(baseOutput, baseValue, lastValue, lastOutput, prefixNodes, variantLabel))
 	end
@@ -458,14 +481,11 @@ function Class:computeSocketImpact(sockets, rawText, impactStat, progress, maxTo
 		local socketBasePoints = self:getSocketBasePoints(socket, occupancy)
 		if socketAllowed and (not maxTotalPoints or socketBasePoints <= maxTotalPoints) then
 			local replacementContext = self:buildSocketReplacementContext(calcFunc, socket.id)
-			local slotName = replacementContext.slotName
 			local item = new("Item"):Item("Rarity: Unique\n" .. rawText)
 			item:BuildModList()
-			local output = calcFunc({
-				addNodes = { [replacementContext.socketNode] = true },
-				repSlotName = slotName,
-				repItem = item,
-			})
+			local output = calcFunc(self:buildSocketReplacementOverride(replacementContext, item, {
+				[replacementContext.socketNode] = true,
+			}))
 			local value = self:getImpactValue(impactStat, output)
 			local delta = self:calculateImpactDelta(impactStat, replacementContext.baselineOutput, output)
 			t_insert(results, {
@@ -497,18 +517,15 @@ function Class:computeBestVariantSocketImpact(sockets, variants, impactStat, pro
 		local socketBasePoints = self:getSocketBasePoints(socket, occupancy)
 		if socketAllowed and (not maxTotalPoints or socketBasePoints <= maxTotalPoints) then
 			local replacementContext = self:buildSocketReplacementContext(calcFunc, socket.id)
-			local slotName = replacementContext.slotName
 			local socketNode = replacementContext.socketNode
 			local bestResult
 			for variantIndex, variant in ipairs(variants) do
 				progressTick(socketProgress, variantIndex, #variants, socket.label .. " | " .. variant.name)
 				local item = new("Item"):Item("Rarity: Unique\n" .. variant.rawText)
 				item:BuildModList()
-				local output = calcFunc({
-					addNodes = { [socketNode] = true },
-					repSlotName = slotName,
-					repItem = item,
-				})
+				local output = calcFunc(self:buildSocketReplacementOverride(replacementContext, item, {
+					[socketNode] = true,
+				}))
 				local value = self:getImpactValue(impactStat, output)
 				local delta = self:calculateImpactDelta(impactStat, replacementContext.baselineOutput, output)
 				if not bestResult or delta > bestResult.delta then
@@ -585,7 +602,6 @@ function Class:computeIntuitiveLeapSocketImpact(sockets, impactStat, variant, me
 		if socketAllowed and (not maxTotalPoints or socketBasePoints <= maxTotalPoints) then
 			local replacementContext = self:buildSocketReplacementContext(calcFunc, socket.id)
 			local socketNode = replacementContext.socketNode
-			local slotName = replacementContext.slotName
 			local item = new("Item"):Item("Rarity: Unique\n" .. rawText)
 			item:BuildModList()
 			local candidates = self:collectDisconnectedPassiveCandidates(socketNode, candidateOptions)
@@ -594,11 +610,11 @@ function Class:computeIntuitiveLeapSocketImpact(sockets, impactStat, variant, me
 				local socketBaseline = self:getImpactValue(impactStat, replacementContext.baselineOutput)
 				local result
 				if methodId == "fast" then
-					local cacheKey = s_format("IL|%s|%s", statField, variantKey)
+					local cacheKey = s_format("IL|%s|%s|%s", statField, variantKey, socket.id)
 					planCache[cacheKey] = planCache[cacheKey] or { }
-					result = self:computeDisconnectedPassiveFastPlan(calcFunc, replacementContext.baselineOutput, socketBaseline, socketNode, slotName, item, impactStat, candidates, nil, planCache[cacheKey], socket.label, socketProgress, maxAdditionalNodes, skipPlanSteps)
+					result = self:computeDisconnectedPassiveFastPlan(calcFunc, replacementContext, replacementContext.baselineOutput, socketBaseline, socketNode, item, impactStat, candidates, nil, planCache[cacheKey], socket.label, socketProgress, maxAdditionalNodes, skipPlanSteps)
 				else
-					result = self:computeDisconnectedPassiveSimulatedPlan(calcFunc, replacementContext.baselineOutput, socketBaseline, socketNode, slotName, item, impactStat, candidates, nil, socket.label, socketProgress, maxAdditionalNodes)
+					result = self:computeDisconnectedPassiveSimulatedPlan(calcFunc, replacementContext, replacementContext.baselineOutput, socketBaseline, socketNode, item, impactStat, candidates, nil, socket.label, socketProgress, maxAdditionalNodes)
 				end
 				result.socket = socket
 				result.variant = variant
@@ -672,7 +688,6 @@ function Class:computeThreadOfHopeSocketImpact(sockets, impactStat, threadVarian
 		if socketAllowed and (not maxTotalPoints or socketBasePoints <= maxTotalPoints) then
 			local replacementContext = self:buildSocketReplacementContext(calcFunc, socket.id)
 			local socketNode = replacementContext.socketNode
-			local slotName = replacementContext.slotName
 			local socketBaseline = self:getImpactValue(impactStat, replacementContext.baselineOutput)
 			local bestResult
 			local bestVariantIndex, bestCandidates
@@ -688,11 +703,11 @@ function Class:computeThreadOfHopeSocketImpact(sockets, impactStat, threadVarian
 					local earlyPruneThreshold = bestResult and bestResult.delta or nil
 					local result
 					if methodId == "fast" then
-						local cacheKey = s_format("ThreadOfHope|%s", statField)
+						local cacheKey = s_format("ThreadOfHope|%s|%s", statField, socket.id)
 						planCache[cacheKey] = planCache[cacheKey] or { }
-						result = self:computeDisconnectedPassiveFastPlan(calcFunc, replacementContext.baselineOutput, socketBaseline, socketNode, slotName, item, impactStat, candidates, threadVariant.name .. " Ring", planCache[cacheKey], socket.label .. " | " .. threadVariant.name .. " Ring", variantProgress, maxAdditionalNodes, true, earlyPruneThreshold)
+						result = self:computeDisconnectedPassiveFastPlan(calcFunc, replacementContext, replacementContext.baselineOutput, socketBaseline, socketNode, item, impactStat, candidates, threadVariant.name .. " Ring", planCache[cacheKey], socket.label .. " | " .. threadVariant.name .. " Ring", variantProgress, maxAdditionalNodes, true, earlyPruneThreshold)
 					else
-						result = self:computeDisconnectedPassiveSimulatedPlan(calcFunc, replacementContext.baselineOutput, socketBaseline, socketNode, slotName, item, impactStat, candidates, threadVariant.name .. " Ring", socket.label .. " | " .. threadVariant.name .. " Ring", variantProgress, maxAdditionalNodes)
+						result = self:computeDisconnectedPassiveSimulatedPlan(calcFunc, replacementContext, replacementContext.baselineOutput, socketBaseline, socketNode, item, impactStat, candidates, threadVariant.name .. " Ring", socket.label .. " | " .. threadVariant.name .. " Ring", variantProgress, maxAdditionalNodes)
 					end
 					if not result.pruned then
 						result.variant = threadVariant
@@ -719,6 +734,7 @@ function Class:computeThreadOfHopeSocketImpact(sockets, impactStat, threadVarian
 						bestVariantIndex = bestVariantIndex,
 						bestCandidates = bestCandidates,
 						socketBasePoints = socketBasePoints,
+						cacheKey = s_format("ThreadOfHope|%s|%s", statField, socket.id),
 						resultIndex = #results,
 					})
 				end
@@ -749,18 +765,17 @@ function Class:computeThreadOfHopeSocketImpact(sockets, impactStat, threadVarian
 			end
 			local replacementContext = pending.replacementContext
 			local maxAdditionalNodes = maxTotalPoints and math.max(maxTotalPoints - pending.socketBasePoints, 0) or nil
-			local cacheKey = s_format("ThreadOfHope|%s", statField)
 			local fullResult = self:computeDisconnectedPassiveFastPlan(
 				calcFunc,
+				replacementContext,
 				replacementContext.baselineOutput,
 				pending.socketBaseline,
 				replacementContext.socketNode,
-				replacementContext.slotName,
 				threadItems[pending.bestVariantIndex],
 				impactStat,
 				pending.bestCandidates,
 				threadVariants[pending.bestVariantIndex].name .. " Ring",
-				planCache[cacheKey],
+				planCache[pending.cacheKey],
 				nil,
 				nil,
 				maxAdditionalNodes,
@@ -815,11 +830,13 @@ function Class:computeSplitPersonalitySocketImpact(sockets, impactStat, variants
 				progressTick(socketProgress, variantIdx, #variants, socket.label .. " | " .. variant.name)
 				local item = new("Item"):Item("Rarity: Unique\n" .. variant.rawText)
 				item:BuildModList()
-				local output = calcFunc({
-					addNodes = { [socketNode] = true },
-					repSlotName = slotName,
-					repItem = item,
+				local override = self:buildSocketReplacementOverride(replacementContext, item, {
+					[socketNode] = true,
 				})
+				if override.spec then
+					override.spec.nodes[socketNode.id].distanceToClassStart = splitDistance
+				end
+				local output = calcFunc(override)
 				local value = self:getImpactValue(impactStat, output)
 				local delta = self:calculateImpactDelta(impactStat, baselineOutput, output)
 				if not bestResult or delta > bestResult.delta then
@@ -950,7 +967,6 @@ function Class:computeImpossibleEscapeSocketImpact(sockets, impactStat, variants
 		local representativeSocket = groupEntry.representativeSocket
 		local replacementContext = self:buildSocketReplacementContext(calcFunc, representativeSocket.id)
 		local representativeSocketNode = replacementContext.socketNode
-		local representativeSlotName = replacementContext.slotName
 		local socketBaseline = self:getImpactValue(impactStat, replacementContext.baselineOutput)
 		local bestResult
 		for _, variant in ipairs(variants) do
@@ -962,14 +978,14 @@ function Class:computeImpossibleEscapeSocketImpact(sockets, impactStat, variants
 				local earlyPruneThreshold = bestResult and bestResult.delta or nil
 				local result
 				if methodId == "fast" then
-					local cacheKey = s_format("IE|%s|%s", statField, variant.name)
+					local cacheKey = s_format("IE|%s|%s|%s", statField, variant.name, representativeSocket.id)
 					planCache[cacheKey] = planCache[cacheKey] or { }
 					result = self:computeDisconnectedPassiveFastPlan(
 						calcFunc,
+						replacementContext,
 						replacementContext.baselineOutput,
 						socketBaseline,
 						representativeSocketNode,
-						representativeSlotName,
 						variantData.item,
 						impactStat,
 						variantData.candidates,
@@ -984,10 +1000,10 @@ function Class:computeImpossibleEscapeSocketImpact(sockets, impactStat, variants
 				else
 					result = self:computeDisconnectedPassiveSimulatedPlan(
 						calcFunc,
+						replacementContext,
 						replacementContext.baselineOutput,
 						socketBaseline,
 						representativeSocketNode,
-						representativeSlotName,
 						variantData.item,
 						impactStat,
 						variantData.candidates,
@@ -1049,13 +1065,13 @@ function Class:computeImpossibleEscapeSocketImpact(sockets, impactStat, variants
 					local replacementContext = self:buildSocketReplacementContext(calcFunc, groupEntry.representativeSocket.id)
 					local socketBaseline = self:getImpactValue(impactStat, replacementContext.baselineOutput)
 					local maxAdditionalNodes = groupEntry.remainingPoints >= 0 and groupEntry.remainingPoints or nil
-					local cacheKey = s_format("IE|%s|%s", statField, topResult.variant.name)
+					local cacheKey = s_format("IE|%s|%s|%s", statField, topResult.variant.name, groupEntry.representativeSocket.id)
 					local fullResult = self:computeDisconnectedPassiveFastPlan(
 						calcFunc,
+						replacementContext,
 						replacementContext.baselineOutput,
 						socketBaseline,
 						replacementContext.socketNode,
-						replacementContext.slotName,
 						variantData.item,
 						impactStat,
 						variantData.candidates,
