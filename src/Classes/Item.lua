@@ -2212,6 +2212,9 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 			if jewelData.clusterJewelSkill and not self.clusterJewel.skills[jewelData.clusterJewelSkill] then
 				jewelData.clusterJewelSkill = nil
 			end
+			-- Set missing crafting fields when using advanced copy
+			self.clusterJewelSkill = self.clusterJewelSkill or jewelData.clusterJewelSkill
+			self.clusterJewelNodeCount = self.clusterJewelNodeCount or jewelData.clusterJewelNodeCount
 			jewelData.clusterJewelValid = jewelData.clusterJewelKeystone 
 				or ((jewelData.clusterJewelSkill or jewelData.clusterJewelSmallsAreNothingness) and jewelData.clusterJewelNodeCount) 
 				or (jewelData.clusterJewelSocketCountOverride and jewelData.clusterJewelNothingnessCount)
