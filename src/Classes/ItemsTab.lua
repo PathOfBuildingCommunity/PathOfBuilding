@@ -62,6 +62,7 @@ end
 
 local function isAnointable(item)
 	return item and item.base and not item.base.cannotBeAnointed
+	    and item.base.subType ~= "Talisman"
 		and (item.canBeAnointed or item.base.type == "Amulet")
 end
 
