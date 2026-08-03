@@ -16,7 +16,9 @@ describe("TestImport", function()
 		build.importTab:ImportPassiveTreeAndJewels(sampleData, true)
 		runCallback("OnFrame")
 
-		assert.equals(build.bandit, "None")
+		assert.equals(build.configTab.input.bandit, "None")
+		assert.equals(build.configTab.input.pantheonMajorGod, "TheBrineKing")
+		assert.equals(build.configTab.input.pantheonMinorGod, "Yugul")
 		assert.equals(build.characterLevel, 99)
 		-- iron will and CI
 		assert.equals(build.spec.allocatedKeystoneCount, 2)
@@ -39,6 +41,41 @@ describe("TestImport", function()
 
 		assert.equals(build.spec.allocatedNotableCount, 29)
 	end)
+
+	it("preserves bandit and pantheon choices when the import omits them", function()
+		build.configTab.varControls.bandit:SetSel(2)
+		build.configTab.varControls.pantheonMajorGod:SetSel(4)
+		build.configTab.varControls.pantheonMinorGod:SetSel(9)
+
+		local importData = copyTable(sampleData)
+		importData.passives.bandit_choice = nil
+		importData.passives.pantheon_major = nil
+		importData.passives.pantheon_minor = nil
+		build.importTab:ImportPassiveTreeAndJewels(importData, true)
+		runCallback("OnFrame")
+
+		assert.equals(build.configTab.input.bandit, "Oak")
+		assert.equals(build.configTab.input.pantheonMajorGod, "Solaris")
+		assert.equals(build.configTab.input.pantheonMinorGod, "Shakari")
+	end)
+
+	it("imports bandit and pantheon choices when they are present", function()
+		build.configTab.varControls.bandit:SetSel(2)
+		build.configTab.varControls.pantheonMajorGod:SetSel(4)
+		build.configTab.varControls.pantheonMinorGod:SetSel(9)
+
+		local importData = copyTable(sampleData)
+		importData.passives.bandit_choice = "Alira"
+		importData.passives.pantheon_major = "Lunaris"
+		importData.passives.pantheon_minor = "Abberath"
+		build.importTab:ImportPassiveTreeAndJewels(importData, true)
+		runCallback("OnFrame")
+
+		assert.equals(build.configTab.input.bandit, "Alira")
+		assert.equals(build.configTab.input.pantheonMajorGod, "Lunaris")
+		assert.equals(build.configTab.input.pantheonMinorGod, "Abberath")
+	end)
+
 	it("imports with correct jewels", function()
 		build.importTab:ImportPassiveTreeAndJewels(sampleData, true)
 		runCallback("OnFrame")

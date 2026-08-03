@@ -1229,18 +1229,18 @@ function ImportTabClass:ImportPassiveTreeAndJewels(charData, deleteJewels)
 		end
 	end
 
-	local bandit = (charPassives.bandit_choice == "Eramir" or not charPassives.bandit_choice) and "None" or
-		charPassives.bandit_choice
-	setSelByVal(self.build.configTab.varControls["bandit"],
-		bandit)
-
-	local majorGod = charPassives.pantheon_major or "None"
-	setSelByVal(self.build.configTab.varControls["pantheonMajorGod"],
-		majorGod)
-
-	local minorGod = charPassives.pantheon_minor or "None"
-	setSelByVal(self.build.configTab.varControls["pantheonMinorGod"],
-		minorGod)
+	-- Unauthenticated character imports omit these fields. In that case, preserve
+	-- the build's existing choices instead of replacing them with "None".
+	if charPassives.bandit_choice then
+		local bandit = charPassives.bandit_choice == "Eramir" and "None" or charPassives.bandit_choice
+		setSelByVal(self.build.configTab.varControls["bandit"], bandit)
+	end
+	if charPassives.pantheon_major then
+		setSelByVal(self.build.configTab.varControls["pantheonMajorGod"], charPassives.pantheon_major)
+	end
+	if charPassives.pantheon_minor then
+		setSelByVal(self.build.configTab.varControls["pantheonMinorGod"], charPassives.pantheon_minor)
+	end
 
 	main:SetWindowTitleSubtext(string.format("%s (%s, %s, %s)", self.build.buildName, charData.name, charData.class,
 		charData.league))
