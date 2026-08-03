@@ -16,7 +16,6 @@ function listMode:Init(selBuildName, subPath)
 	if self.initialised then
 		self.subPath = subPath or self.subPath
 		self.controls.buildList.controls.path:SetSubPath(self.subPath)
-		self.controls.buildList:SelByFileName(selBuildName and selBuildName..".xml")
 		--if main.showPublicBuilds then
 		if false then
 			self.controls.ExtBuildList = self:getPublicBuilds()
@@ -24,6 +23,7 @@ function listMode:Init(selBuildName, subPath)
 			self.controls.ExtBuildList = nil
 		end
 		self:BuildList()
+		self.controls.buildList:SelByFullFileName(selBuildName and main.buildPath..self.subPath..selBuildName..".xml")
 		self:SelectControl(self.controls.buildList)
 		return
 	end
@@ -95,13 +95,14 @@ function listMode:Init(selBuildName, subPath)
 
 	self.controls.searchText = new("EditControl", {"TOP",self.anchor,"TOP"}, {0, 25, 640, 20}, self.filterBuildList, "Search", "%c%(%)", 100, function(buf)
 		main.filterBuildList = buf
-		self:BuildList()
+		self:FilterBuildList()
 	end, nil, nil, true)
+	self.controls.searchText:SetPlaceholder("(e.g. class:assassin myfilename)")
 	self.controls.searchText.width = buildListWidth
 	self.controls.searchText.x = buildListOffset
 
 	self:BuildList()
-	self.controls.buildList:SelByFileName(selBuildName and selBuildName..".xml")
+	self.controls.buildList:SelByFullFileName(selBuildName and main.buildPath..self.subPath..selBuildName..".xml")
 	self:SelectControl(self.controls.buildList)
 
 	self.initialised = true
@@ -138,8 +139,10 @@ function listMode:OnFrame(inputEvents)
 				if self.controls.buildList.copyBuild then
 					local build = self.controls.buildList.copyBuild
 					if build.subPath ~= self.subPath then
-						if build.folderName then
-							main:CopyFolder(build.folderName, main.buildPath..build.subPath, main.buildPath..self.subPath)
+						if not buildListHelpers.CanMoveToSubPath(build, self.subPath) then
+							main:OpenMessagePopup("Error", "A folder cannot be copied into itself.")
+						elseif build.folderName then
+							main:CopyFolder(build.fullFileName, main.buildPath..self.subPath..build.folderName)
 						else
 							copyFile(build.fullFileName, self:GetDestName(self.subPath, build.fileName))
 						end
@@ -151,7 +154,9 @@ function listMode:OnFrame(inputEvents)
 				elseif self.controls.buildList.cutBuild then
 					local build = self.controls.buildList.cutBuild
 					if build.subPath ~= self.subPath then
-						if build.folderName then
+						if not buildListHelpers.CanMoveToSubPath(build, self.subPath) then
+							main:OpenMessagePopup("Error", "A folder cannot be moved into itself.")
+						elseif build.folderName then
 							main:MoveFolder(build.folderName, main.buildPath..build.subPath, main.buildPath..self.subPath)
 						else
 							os.rename(build.fullFileName, self:GetDestName(self.subPath, build.fileName))
@@ -180,9 +185,11 @@ function listMode:GetDestName(subPath, fileName)
 	local i = 2
 	local destName = fileName
 	while true do
-		local test = io.open(destName, "r")
+		local test = io.open(main.buildPath..subPath..destName, "r")
 		if test then
-			destName = fileName .. "[" .. i .. "]"
+			test:close()
+			local baseName = fileName:gsub("%.xml$", "")
+			destName = baseName .. "[" .. i .. "].xml"
 			i = i + 1
 		else
 			break
@@ -192,20 +199,22 @@ function listMode:GetDestName(subPath, fileName)
 end
 
 function listMode:BuildList()
+	self.buildIndex = buildListHelpers.ScanFolder(self.subPath)
+	self:FilterBuildList()
+end
+
+function listMode:FilterBuildList()
 	wipeTable(self.list)
-	local scanned = buildListHelpers.ScanFolder(self.subPath, main.filterBuildList or "")
-	for _, entry in ipairs(scanned) do
+	for _, entry in ipairs(buildListHelpers.FilterList(self.buildIndex, self.subPath, main.filterBuildList)) do
 		t_insert(self.list, entry)
 	end
 	self:SortList()
 end
 
 function listMode:SortList()
-	local oldSelFileName = self.controls.buildList.selValue and self.controls.buildList.selValue.fileName
+	local oldSelFullFileName = self.controls.buildList.selValue and self.controls.buildList.selValue.fullFileName
 	buildListHelpers.SortList(self.list, main.buildSortMode)
-	if oldSelFileName then
-		self.controls.buildList:SelByFileName(oldSelFileName)
-	end
+	self.controls.buildList:SelByFullFileName(oldSelFullFileName)
 end
 
 return listMode
