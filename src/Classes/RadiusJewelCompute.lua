@@ -140,8 +140,9 @@ end
 local function itemChangesPassiveTreeRadius(item)
 	return not not (item and item.type == "Jewel" and (
 		item.clusterJewel
-		or (item.jewelData and item.jewelRadiusIndex
-			and (item.jewelData.conqueredBy or item.jewelData.intuitiveLeapLike or item.jewelData.impossibleEscapeKeystone))
+		or (item.jewelData and (item.jewelData.conqueredBy
+			or item.jewelRadiusIndex
+				and (item.jewelData.intuitiveLeapLike or item.jewelData.impossibleEscapeKeystone)))
 	))
 end
 
