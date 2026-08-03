@@ -5804,9 +5804,8 @@ local specialModList = {
 	["[%a%s]* modifier magnitudes are doubled"] = {},
 }
 for _, name in ipairs(data.keystones) do
-	specialModList[name:lower()] = { mod("Keystone", "LIST", name) }
+	specialModList[name:lower()] = { mod("Keystone", "LIST", name), flag("Condition:Have"..firstToUpper(name):gsub(" %l", string.upper):gsub(" ", "")) }
 end
-t_insert(specialModList["avatar of fire"], flag("Condition:HaveAvatarOfFire"))
 for _, name in ipairs(data.clusterJewels.keystones) do
 	specialModList[name:lower()] = { mod("Keystone", "LIST", name) }
 end
