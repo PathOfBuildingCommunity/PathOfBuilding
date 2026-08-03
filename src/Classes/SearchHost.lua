@@ -63,10 +63,12 @@ local function matchWords(searchWords, entry, valueAccessor, ignoreOrder)
 			local this = searchInfo.ranges[i]
 			local next = searchInfo.ranges[i + 1]
 			if next and next.from <= this.to then
-				this.to = next.to
+				this.to = math.max(this.to, next.to)
 				table.remove(searchInfo.ranges, i + 1)
+				-- Check this range again because another range may overlap it.
+			else
+				i = i + 1
 			end
-			i = i + 1
 		end
 	end
 	return searchInfo

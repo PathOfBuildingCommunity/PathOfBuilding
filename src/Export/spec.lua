@@ -4403,6 +4403,64 @@ return {
 			width=150
 		}
 	},
+	currencyexchange={
+		[1]={
+			list=false,
+			name="BaseItemType",
+			refTo="BaseItemTypes",
+			type="Key",
+			width=410
+		},
+		[2]={
+			list=false,
+			name="Category",
+			refTo="CurrencyExchangeCategories",
+			type="Key",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="SubCategory",
+			refTo="CurrencyExchangeCategories",
+			type="Key",
+			width=150
+		},
+		[4]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=150
+		},
+		[5]={
+			list=false,
+			name="EnabledInLeague",
+			refTo="",
+			type="Bool",
+			width=150
+		},
+		[6]={
+			list=false,
+			name="GoldFee",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[7]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=150
+		},
+		[8]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=150
+		}
+	},
 	currencyitems={
 	},
 	currencystashtablayout={
