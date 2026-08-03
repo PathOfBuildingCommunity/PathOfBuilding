@@ -15918,10 +15918,12 @@ return {
 		tags = {
 			low_max_level = true,
 			exceptional = true,
+			cold = true,
+			lightning = true,
 			intelligence = true,
 			support = true,
 		},
-		tagString = "Exceptional, Support",
+		tagString = "Exceptional, Cold, Lightning, Support",
 		reqStr = 0,
 		reqDex = 0,
 		reqInt = 100,

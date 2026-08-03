@@ -8944,7 +8944,7 @@ skills["Hydrosphere"] = {
 	incrementalEffectiveness = 0.057799998670816,
 	description = "Create a sphere of water, or move an existing sphere and reset its duration. The sphere continually applies a drenched debuff with a short duration to enemies in its area or those it moves through. You can hit the sphere with other skills to inflict Cold and Lightning Ailments (other than Chill). The sphere pulses when created, at regular intervals while afflicted by an Ailment, and after moving, damaging all drenched enemies in a large area.",
 	skillTypes = { [SkillType.Damage] = true, [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, [SkillType.Cold] = true, [SkillType.Totemable] = true, [SkillType.Orb] = true, [SkillType.Multicastable] = true, [SkillType.CanRapidFire] = true, [SkillType.Lightning] = true, [SkillType.Physical] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0.6,
 	parts = {
 			{
@@ -21105,27 +21105,37 @@ skills["WintertideBrand"] = {
 	statDescriptionScope = "brand_skill_stat_descriptions",
 	castTime = 0.7,
 	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.countsAttachedBrandsInDamage = activeSkill.skillPart == 1
 		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100) / activeSkill.skillModList:More(activeSkill.skillCfg, "BrandActivationFrequency")
-		if activeSkill.skillPart == 2 then
+		if activeSkill.skillPart == 1 then
 			local skillMaxStages = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:WintertideBrandMaxStages")
 			local debuffDurationMult = 1 / math.max(data.misc.BuffExpirationSlowCap, calcLib.mod(activeSkill.actor.enemy.modDB, activeSkill.skillCfg, "BuffExpireFaster"))
 			local duration = calcSkillDuration(activeSkill.skillModList, activeSkill.skillCfg, activeSkill.skillData, {}) * debuffDurationMult
-			local maxStages = math.min(duration / activeSkill.skillData.hitTimeOverride + 1, skillMaxStages)
-			local timeToReachMaxStages = (maxStages - 1) * activeSkill.skillData.hitTimeOverride
-			local timeAtMaxStages = duration - timeToReachMaxStages
+			local maxStages = math.min(math.floor(duration / activeSkill.skillData.hitTimeOverride), skillMaxStages)
+			local timeToReachMaxStages = maxStages * activeSkill.skillData.hitTimeOverride
+			local timeAtMaxStages = math.max(duration - timeToReachMaxStages, 0)
 			local damagePerStage = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:WintertideBrandDamagePerStage")
-			-- Get the average damage before reaching max stages and then damage at max stages
-			local dpsMultiplier = ((2 + damagePerStage + maxStages * damagePerStage) / 2 * timeToReachMaxStages + timeAtMaxStages * (1 + maxStages * damagePerStage)) / duration
+			-- Each activation adds one stage; average the completed stages over the attached duration
+			local averageStages = (maxStages * (maxStages - 1) / 2 * activeSkill.skillData.hitTimeOverride + maxStages * timeAtMaxStages) / duration
+			local averageDamageMultiplier = averageStages * damagePerStage
+			local endDurationBase = (activeSkill.skillData.durationTertiary or 0) + activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Duration", "TertiaryDuration")
+			local endDurationMod = math.max(calcLib.mod(activeSkill.skillModList, activeSkill.skillCfg, "Duration", "TertiaryDuration"), 0)
+			local endDuration = math.ceil(endDurationBase * endDurationMod * debuffDurationMult * data.misc.ServerTickRate) / data.misc.ServerTickRate
+			local endUptime = math.min(endDuration / duration, 1)
+			local attachedBrandCount = activeSkill.skillData.attachedBrandCount
+			-- Attached Wintertide debuffs stack, but only the strongest maximum-stage Wintertide's End debuff deals damage
+			local endDamageMultiplier = maxStages * damagePerStage
+			local dpsMultiplier = attachedBrandCount * (100 + averageDamageMultiplier) + endUptime * (100 + endDamageMultiplier) - 100
 			activeSkill.skillModList:NewMod("Damage", "MORE", dpsMultiplier, "Wintertide Brand Average Multiplier")
 		end
 	end,
 	parts = {
 		{
-			name = "Manual Stages",
-			stages = true
+			name = "Average Damage",
 		},
 		{
-			name = "Average Damage",
+			name = "Manual Stages",
+			stages = true
 		}
 	},
 	statMap = {
@@ -21133,7 +21143,7 @@ skills["WintertideBrand"] = {
 		},
 		["immolation_brand_burn_damage_+%_final_per_stage"] = {
 			-- Only apply to Manual Stages part
-			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "WintertideBrandStage", limitVar = "WintertideBrandMaxStages" }, { type = "SkillPart", skillPart = 1 }),
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "WintertideBrandStage", limitVar = "WintertideBrandMaxStages" }, { type = "SkillPart", skillPart = 2 }),
 			mod("Multiplier:WintertideBrandDamagePerStage", "BASE", nil),
 		},
 		["winter_brand_max_number_of_stages"] = {

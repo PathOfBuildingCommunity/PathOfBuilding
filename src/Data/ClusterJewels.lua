@@ -879,8 +879,8 @@ return {
 		["Doedre's Apathy"] = 12417,
 		["Master of the Maelstrom"] = 12418,
 		["Aggressive Defence"] = 15606,
-		["Holy Word"] = 22726,
-		["Fiery Aegis"] = 22727,
+		["Holy Word"] = 22727,
+		["Fiery Aegis"] = 22728,
 	},
 	keystones = {
 		"Disciple of Kitava",

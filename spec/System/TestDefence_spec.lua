@@ -1623,6 +1623,31 @@ describe("TestDefence", function()
 		assert.are.equals(0, floor(poolsRemaining.OverkillDamage))
 	end)
 
+	it("applies permanent Avatar of Fire to conditional modifiers (issue #3062)", function()
+		build.itemsTab:CreateDisplayItemFromRaw([[
+		Vulconus
+		Demon Dagger
+		Variant: Pre 3.5.0
+		Variant: Current
+		Selected Variant: 2
+		Implicits: 1
+		40% increased Global Critical Strike Chance
+		50% chance to cause Bleeding on Hit
+		Every 8 seconds, gain Avatar of Fire for 4 seconds
+		160% increased Critical Strike Chance while you have Avatar of Fire
+		50% of Physical Damage Converted to Fire while you have Avatar of Fire
+		+2000 Armour while you do not have Avatar of Fire]])
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
+
+		local armourWithoutAvatarOfFire = build.calcsTab.mainOutput.Armour
+		build.itemsTab:CreateDisplayItemFromRaw("New Item\nAmber Amulet\nAvatar of Fire")
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
+
+		assert.are.equals(armourWithoutAvatarOfFire - 2000, build.calcsTab.mainOutput.Armour)
+	end)
+
 	it("limits EHP speedup when hit damage is delayed", function()
 		local function assertClose(actual, expected)
 			assert.is_true(math.abs(actual - expected) < 0.01,

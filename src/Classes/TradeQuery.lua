@@ -35,10 +35,9 @@ local TradeQueryClass = newClass("TradeQuery", function(self, itemsTab)
 	-- default set of trade item sort selection
 	self.slotTables = { }
 	self.pbItemSortSelectionIndex = 1
-	-- for each league, a table of values of each currency in div
-	--- @type table<string, table<string, integer>>
-	self.pbCurrencyConversion = { }
-	self.lastCurrencyConversionRequest = 0
+	-- for each realm and league, a table of values of each currency in div
+	--- @type table<string, table<string, table<string, number>>>
+	self.pbCurrencyConversion = {}
 	self.lastCurrencyFileTime = { }
 	self.pbFileTimestampDiff = { }
 	self.pbRealm = ""
@@ -97,7 +96,6 @@ function TradeQueryClass:PullLeagueList()
 				self.controls.league:SetList(self.itemsTab.leagueDropList)
 				self.controls.league.selIndex = 1
 				self.pbLeague = self.itemsTab.leagueDropList[self.controls.league.selIndex]
-				self:SetCurrencyConversionButton()
 			end
 		end)
 end
@@ -106,77 +104,149 @@ end
 --- @param amount integer
 --- @return number?
 function TradeQueryClass:ConvertCurrencyToDivs(currencyId, amount)
-	local map = self.pbCurrencyConversion[self.pbLeague]
+	local map = self.pbCurrencyConversion[self.pbRealm] and self.pbCurrencyConversion[self.pbRealm][self.pbLeague]
 	if map and map[currencyId] then
 		return amount * map[currencyId]
 	end
 end
 
--- Method to pull down and interpret the PoE.Ninja JSON endpoint data
----@param league string
-function TradeQueryClass:PullPoENinjaCurrencyConversion(league)
+local generalCurrencies = {
+	["Metadata/Items/Currency/CurrencyModValues"] = true,
+	["Metadata/Items/Currency/CurrencyRerollRare"] = true
+}
+
+-- Method to pull down and interpret the Currency Exchange JSON endpoint data
+function TradeQueryClass:PullCXData()
+	local realm = self.pbRealm
+	if realm == "" then
+		return
+	end
 	local now = get_time()
-	-- Limit PoE Ninja Currency Conversion request to 1 per hour
-	if (now - self.lastCurrencyConversionRequest) < 3600 then
-		self:SetNotice(self.controls.pbNotice, "PoE Ninja Rate Limit Exceeded: " .. tostring(3600 - (now - self.lastCurrencyConversionRequest)))
+	-- Limit Currency Conversion request to 1 per hour
+	if self.pbCurrencyConversion[realm] and ((now - self.pbCurrencyConversion[realm].timestamp) < 61 * 60) then
 		return
 	end
 
-	self.pbCurrencyConversion[league] = { }
-	self.lastCurrencyConversionRequest = now
-	launch:DownloadPage(
-		"https://poe.ninja/poe1/api/economy/exchange/current/overview?type=Currency&league=" .. urlEncode(league),
-		function(response, errMsg)
+	-- download json containing short names for each item id
+	launch:DownloadPage("https://www.pathofexile.com/api/trade/data/static", function(response, errMsg)
+		if errMsg then
+			self:SetNotice(self.controls.pbNotice, "Error: " .. tostring(errMsg))
+			return
+		end
+
+		local static = dkjson.decode(response.body)
+		if not static then
+			self:SetNotice(self.controls.pbNotice, "Could not decode static trade data")
+			return
+		end
+		local url = "https://web.poecdn.com/api/currency-exchange"
+		if realm ~= "pc" then
+			url = url .. "/" .. realm
+		end
+		local hourSeconds = 60 * 60
+		url = url .. "/" .. ((math.floor(now / hourSeconds) - 1) * hourSeconds)
+		launch:DownloadPage(url, function(response, errMsg)
 			if errMsg then
 				self:SetNotice(self.controls.pbNotice, "Error: " .. tostring(errMsg))
 				return
 			end
-			local json_data = dkjson.decode(response.body)
-			if not json_data or not json_data.lines then
-				self:SetNotice(self.controls.pbNotice, "Failed to Get PoE Ninja response")
+			local json = dkjson.decode(response.body)
+			if not json then
+				self:SetNotice(self.controls.pbNotice, "Malformed CX API response")
 				return
 			end
-			if not self:PriceBuilderProcessPoENinjaResponse(json_data.lines) then
-				-- don't edit json on failure
+
+			if json.error then
+				self:SetNotice(self.controls.pbNotice, "CX error: " .. json.error.message)
 				return
 			end
-			local print_str = ""
-			for key, value in pairs(self.pbCurrencyConversion[self.pbLeague]) do
-				print_str = print_str .. '"'..key..'": '..tostring(value)..','
+			local success, result = pcall(function()
+				-- short currency names for each base item type id
+				local currencyNames = {}
+				local currencyIdMap = {}
+				for id, name in pairs(require("Data.CurrencyNames")) do
+					currencyIdMap[name] = id
+				end
+				for _, entry in ipairs(static.result[1].entries) do
+					if entry.id ~= "sep" then
+						local itemID = currencyIdMap[entry.text]
+						-- Not every bulk trade item is exported as currency.
+						if itemID then
+							currencyNames[itemID] = entry.id
+						end
+					end
+				end
+
+				local out = {}
+				for _, entry in ipairs(json.markets) do
+					local league = entry.league
+					if not out[league] then
+						out[league] = {}
+					end
+					local leagueOut = out[league]
+
+					-- Base type IDs are in the form Metadata/Items/.../CurrencyModValues.
+					local fromID = entry.market_pair[1]
+					local toID = entry.market_pair[2]
+
+					-- Normalize entries to price each currency in chaos or divines.
+					if generalCurrencies[fromID] and toID ~= "Metadata/Items/Currency/CurrencyModValues" then
+						fromID, toID = toID, fromID
+					end
+
+					local fromShort = currencyNames[fromID]
+					local toShort = currencyNames[toID]
+					if not fromShort or not generalCurrencies[toID] or entry.lowest_ratio[fromID] == 0 then
+						goto CXContinue
+					end
+
+					local newEntry = {
+						currency = toShort,
+						price = entry.lowest_ratio[toID] / entry.lowest_ratio[fromID],
+						stock = entry.highest_stock[fromID]
+					}
+					-- Only keep the most popular option.
+					if not leagueOut[fromShort] or leagueOut[fromShort].stock < newEntry.stock then
+						leagueOut[fromShort] = newEntry
+					end
+					::CXContinue::
+				end
+
+				-- Convert any chaos prices to divine equivalent prices.
+				for leagueName, leagueEntries in pairs(out) do
+					for from, to in pairs(leagueEntries) do
+						if to.currency ~= "divine" then
+							local divEntry = leagueEntries[to.currency]
+							if not divEntry then
+								leagueEntries[from] = nil
+							else
+								leagueEntries[from] = divEntry.price * to.price
+							end
+						end
+					end
+					for from, to in pairs(leagueEntries) do
+						if type(to) == "table" then
+							leagueEntries[from] = to.price
+						end
+					end
+					if not next(leagueEntries) then
+						out[leagueName] = nil
+					else
+						leagueEntries.divine = 1
+					end
+				end
+
+				return out
+			end)
+			if not success then
+				self:SetNotice(self.controls.pbNotice, "Failed to process CX response")
+				ConPrintf("CX error: %s", result)
+				return
 			end
-			local foo = io.open("../"..self.pbLeague.."_currency_values.json", "w")
-			foo:write("{" .. print_str .. '"updateTime": ' .. tostring(get_time()) .. "}")
-			foo:close()
-			self:SetCurrencyConversionButton()
+			result.timestamp = now
+			self.pbCurrencyConversion[realm] = result
 		end)
-
-end
-
--- Method to process the PoE.Ninja response
---- @param responseLines table[]
---- @return bool
-function TradeQueryClass:PriceBuilderProcessPoENinjaResponse(responseLines)
-	-- Populate the divine-converted values for each tradeId
-	for _, currencyDetails in ipairs(responseLines) do
-		-- these use the same ids as the trade site, which are also short
-		-- readable names, like "transmute" or "aug", which means there's no
-		-- need for conversion.
-		local id = currencyDetails.id
-		-- poe.ninja uses divs as the primary currency, and as far as I know,
-		-- this figure is equivalent to the best ratio in equivalent divs
-		local divs = currencyDetails.primaryValue
-		if not id or not divs then
-			self:SetNotice(self.controls.pbNotice, "Currencies not updated: malformed PoE Ninja response")
-			return false
-		end
-		self.pbCurrencyConversion[self.pbLeague][id] = divs
-	end
-	-- if nothing was actually found, we should add a notice
-	if next(self.pbCurrencyConversion[self.pbLeague]) == nil then
-		self:SetNotice(self.controls.pbNotice, "No currencies received from PoE Ninja")
-		return false
-	end
-	return true
+	end)
 end
 
 local function initStatSortSelectionList(list)
@@ -387,14 +457,16 @@ Highest Weight - Displays the order retrieved from trade]]
 	self.controls.realmLabel = new("LabelControl", {"LEFT", self.controls.setSelect, "RIGHT"}, {18, 0, 20, row_height - 4}, "^7Realm:")
 	self.controls.realm = new("DropDownControl", {"LEFT", self.controls.realmLabel, "RIGHT"}, {6, 0, 150, row_height}, self.realmDropList, function(index, value)
 		self.pbRealmIndex = index
-		self.pbRealm = self.realmIds[value]
+		if self.pbRealm ~= self.realmIds[value] then
+			self.pbRealm = self.realmIds[value]
+			self:PullCXData()
+		end
 		local function setLeagueDropList()
 			self.itemsTab.leagueDropList = copyTable(self.allLeagues[self.pbRealm])
 			self.controls.league:SetList(self.itemsTab.leagueDropList)
 			-- invalidate selIndex to trigger select function call in the SetSel
 			self.controls.league.selIndex = nil
 			self.controls.league:SetSel(self.pbLeagueIndex)
-			self:SetCurrencyConversionButton()
 		end
 		if self.allLeagues[self.pbRealm] then
 			setLeagueDropList()
@@ -429,7 +501,6 @@ Highest Weight - Displays the order retrieved from trade]]
 	self.controls.league = new("DropDownControl", {"LEFT", self.controls.leagueLabel, "RIGHT"}, {6, 0, 150, row_height}, self.itemsTab.leagueDropList, function(index, value)
 		self.pbLeagueIndex = index
 		self.pbLeague = value
-		self:SetCurrencyConversionButton()
 	end)
 	self.controls.league:SetSel(self.pbLeagueIndex)
 	self.controls.league.enabled = function()
@@ -537,7 +608,7 @@ Highest Weight - Displays the order retrieved from trade]]
 		end
 	end
 
-	row_count = row_count + 1
+	row_count = row_count + 2
 
 	local effective_row_count = row_count - ((scrollBarShown and #slotTables >= 19) and #slotTables-19 or 0) + 2 + 2 -- Two top menu rows, two bottom rows, slots after #19 overlap the other controls at the bottom of the pane
 	self.effective_rows_height = row_height * (effective_row_count - #slotTables + (18 - (#slotTables > 37 and 3 or 0))) -- scrollBar height, "18 - slotTables > 37" logic is fine tuning whitespace after last row
@@ -552,11 +623,7 @@ Highest Weight - Displays the order retrieved from trade]]
 		main:ClosePopup()
 	end)
 
-	self.controls.updateCurrencyConversion = new("ButtonControl", {"BOTTOMLEFT", nil, "BOTTOMLEFT"}, {pane_margins_horizontal, -pane_margins_vertical, 240, row_height}, "Get Currency Conversion Rates", function()
-		self:PullPoENinjaCurrencyConversion(self.pbLeague)
-	end)
 	self.controls.pbNotice = new("LabelControl",  {"BOTTOMRIGHT", nil, "BOTTOMRIGHT"}, {-row_height - pane_margins_vertical - row_vertical_padding, -pane_margins_vertical, 300, row_height}, "")
-	self:SetCurrencyConversionButton()
 
 	-- used in PopupDialog:Draw()
 	local function scrollBarFunc()
@@ -590,6 +657,7 @@ Highest Weight - Displays the order retrieved from trade]]
 			end
 		end
 	end
+	self:PullCXData()
 	main:OpenPopup(pane_width, self.pane_height, "Trader", self.controls, nil, nil, "close", (scrollBarShown and scrollBarFunc or nil))
 end
 
@@ -699,58 +767,6 @@ function TradeQueryClass:SetStatWeights(previousSelectionList)
 	main:OpenPopup(420, popupHeight, "Stat Weight Multipliers", controls)
 end
 
--- Method to update the Currency Conversion button label
-function TradeQueryClass:SetCurrencyConversionButton()
-	local currencyLabel = "Update Currency Conversion Rates"
-	self.pbFileTimestampDiff[self.controls.league.selIndex] = nil
-	if self.pbLeague == nil then
-		return
-	end
-	if self.pbRealm ~= "pc" then
-		self.controls.updateCurrencyConversion.label = "Currency Rates are not available"
-		self.controls.updateCurrencyConversion.enabled = false
-		self.controls.updateCurrencyConversion.tooltipFunc = function(tooltip)
-			tooltip:Clear()
-			tooltip:AddLine(16, "Currency Conversion rates are pulled from PoE Ninja")
-			tooltip:AddLine(16, "The data is only available for the PC realm.")
-		end
-		return
-	end
-	local values_file = io.open("../"..self.pbLeague.."_currency_values.json", "r")
-	if values_file then
-		local lines = values_file:read "*a"
-		values_file:close()
-		self.pbCurrencyConversion[self.pbLeague] = dkjson.decode(lines)
-		self.lastCurrencyFileTime[self.controls.league.selIndex]  = self.pbCurrencyConversion[self.pbLeague]["updateTime"]
-		self.pbFileTimestampDiff[self.controls.league.selIndex] = get_time() - self.lastCurrencyFileTime[self.controls.league.selIndex]
-		if self.pbFileTimestampDiff[self.controls.league.selIndex] < 3600 then
-			-- Less than 1 hour (60 * 60 = 3600)
-			currencyLabel = "Currency Rates are very recent"
-		elseif self.pbFileTimestampDiff[self.controls.league.selIndex] < (24 * 3600) then
-			-- Less than 1 day
-			currencyLabel = "Currency Rates are recent"
-		end
-	else
-		currencyLabel = "Get Currency Conversion Rates"
-	end
-	self.controls.updateCurrencyConversion.label = currencyLabel
-	self.controls.updateCurrencyConversion.enabled = function()
-		return self.pbFileTimestampDiff[self.controls.league.selIndex] == nil or self.pbFileTimestampDiff[self.controls.league.selIndex] >= 3600
-	end
-	self.controls.updateCurrencyConversion.tooltipFunc = function(tooltip)
-		tooltip:Clear()
-		if self.lastCurrencyFileTime[self.controls.league.selIndex] ~= nil then
-			self.pbFileTimestampDiff[self.controls.league.selIndex] = get_time() - self.lastCurrencyFileTime[self.controls.league.selIndex]
-		end
-		if self.pbFileTimestampDiff[self.controls.league.selIndex] == nil or self.pbFileTimestampDiff[self.controls.league.selIndex] >= 3600 then
-			tooltip:AddLine(16, "Currency Conversion rates are pulled from PoE Ninja")
-			tooltip:AddLine(16, "Updates are limited to once per hour and not necessary more than once per day")
-		elseif self.pbFileTimestampDiff[self.controls.league.selIndex] ~= nil and self.pbFileTimestampDiff[self.controls.league.selIndex] < 3600 then
-			tooltip:AddLine(16, "Conversion Rates are less than an hour old (" .. tostring(self.pbFileTimestampDiff[self.controls.league.selIndex]) .. " seconds old)")
-		end
-	end
-end
-
 -- Method to set the notice message in upper right of PoB Trader pane
 function TradeQueryClass:SetNotice(notice_control, msg)
 	if msg:find("No Matching Results") then
@@ -857,7 +873,7 @@ function TradeQueryClass:UpdateControlsWithItems(row_idx)
 	local sortMode = self.itemSortSelectionList[self.pbItemSortSelectionIndex]
 	local sortedItems, errMsg = self:SortFetchResults(row_idx, sortMode)
 	if errMsg == "MissingConversionRates" then
-		self:SetNotice(self.controls.pbNotice, "^4Please update currency rates to sort by price. Falling back to Stat Value sort.")
+		self:SetNotice(self.controls.pbNotice, "^4Currency rates unavailable. Falling back to Stat Value sort.")
 		sortedItems, errMsg = self:SortFetchResults(row_idx, self.sortModes.StatValue)
 	elseif errMsg then
 		self:SetNotice(self.controls.pbNotice, "Error: " .. errMsg)
@@ -1030,27 +1046,21 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 					local itemsSafe = self:FilterToSafeItems(items, selectedSlot and selectedSlot.slotName)
 					-- replace eldritch mods or enchants if the user requested
 					-- so in TradeQueryGenerator
-					if self.tradeQueryGenerator.lastIncludeEldritch == "Copy Current" or
-						self.tradeQueryGenerator.lastCopyEnchantMode == "Copy Current" then
-						for i, _ in ipairs(itemsSafe) do
-							local item = new("Item", itemsSafe[i].item_string)
+					for i, _ in ipairs(itemsSafe) do
+						local item = new("Item", itemsSafe[i].item_string)
+						-- assume the user will add quality if they buy the item
+						item:NormaliseQuality()
+						if self.tradeQueryGenerator.lastIncludeEldritch == "Copy Current" or
+							self.tradeQueryGenerator.lastCopyEnchantMode == "Copy Current" then
 							self.itemsTab:CopyAnointsAndEldritchImplicits(item, true, true, context.slotTbl.slotName)
-							itemsSafe[i].item_string = item:BuildRaw()
-						end
-					elseif self.tradeQueryGenerator.lastIncludeEldritch == "Remove" then
-						for i, _ in ipairs(itemsSafe) do
-							local item = new("Item", itemsSafe[i].item_string)
+						elseif self.tradeQueryGenerator.lastIncludeEldritch == "Remove" then
 							if item.tangle or item.cleansing then
 								item.implicitModLines = {}
-								itemsSafe[i].item_string = item:BuildRaw()
 							end
-						end
-					elseif self.tradeQueryGenerator.lastCopyEnchantMode == "Remove" then
-						for i, _ in ipairs(itemsSafe) do
-							local item = new("Item", itemsSafe[i].item_string)
+						elseif self.tradeQueryGenerator.lastCopyEnchantMode == "Remove" then
 							item.enchantModLines = {}
-							itemsSafe[i].item_string = item:BuildRaw()
 						end
+						itemsSafe[i].item_string = item:BuildRaw()
 					end
 
 					self.resultTbl[context.row_idx] = itemsSafe
@@ -1215,9 +1225,6 @@ you can add them, copy the link here, and press "Price Item" to evaluate the ite
 		local selected_result_index = self.itemIndexTbl[row_idx]
 		local item_string = self.resultTbl[row_idx][selected_result_index].item_string
 		if selected_result_index and item_string then
-			-- TODO: item parsing bug caught here.
-			-- item.baseName is nil and throws error in the following AddItemTooltip func
-			-- if the item is unidentified
 			local item = new("Item", item_string)
 			local tooltipSlot = slotTbl.selectedJewelNodeId and self.itemsTab.sockets[slotTbl.selectedJewelNodeId] or activeSlot
 			self.itemsTab:AddItemTooltip(tooltip, item, tooltipSlot, true)
@@ -1300,7 +1307,9 @@ function TradeQueryClass:GetTotalPriceString()
 	for currency, _ in pairs(prices) do
 		table.insert(currencies, currency)
 	end
-	local currencyMap = self.pbCurrencyConversion[self.pbLeague] or {}
+	local currencyMap = self.pbCurrencyConversion[self.pbRealm] and
+		self.pbCurrencyConversion[self.pbRealm][self.pbLeague]
+		or {}
 	table.sort(currencies, function(a, b)
 		if currencyMap[a] and currencyMap[b] then
 			return currencyMap[a] > currencyMap[b]

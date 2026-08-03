@@ -110,6 +110,7 @@ local lineFlags = {
 	["crafted"] = true,
 	["crucible"] = true,
 	["custom"] = true,
+	["disabled"] = true,
 	["eater"] = true,
 	["enchant"] = true,
 	["exarch"] = true,
@@ -309,7 +310,7 @@ function ItemClass:FindModifierSubstring(substring, itemSlotName)
 		else
 			currentVariant = true
 		end
-		if currentVariant then
+		if not v.disabled and currentVariant then
 			if v.line:lower():find(substring) and not v.line:lower():find(substring .. " modifier") then
 				local excluded = false
 				if data.itemTagSpecialExclusionPattern[substring] and data.itemTagSpecialExclusionPattern[substring][itemSlotName] then
@@ -1032,7 +1033,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 						modList, extra = modLib.parseMod(rangedLine)
 					end
 				end
-				local lineLower = line:lower()
+				local lineLower = modLine.disabled and "" or line:lower()
 				-- \d+% increased/reduced explicit/implicit/ *tags* modifier magnitudes
 				local modMagnitudePattern = { "(%d+)%% ([ir][ne][cd][ru][ec][ae][sd]e?d?) ?([%a%s]*) modifier magnitudes",
 					-- \d+% increased/reduced effect of suffixes/prefixes
@@ -1101,7 +1102,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					enchantment = "enchant",
 				}
 				for _, pattern in ipairs(modMagnitudePattern) do
-					if rangedLine:lower():find(pattern) then
+					if not modLine.disabled and rangedLine:lower():find(pattern) then
 						local rangedLine = itemLib.applyRange(line, modLine.range or main.defaultItemAffixQuality or 1, catalystScalar, modLine.corruptedRange)
 						local amount, increaseOrDecrease, modTagsString = rangedLine:lower():match(pattern)
 						local multiplier
@@ -1186,9 +1187,6 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 		end
 		::continue::
 		l = l + 1
-	end
-	if self.baseName and self.title then
-		self.name = self.title .. ", " .. self.baseName:gsub(" %(.+%)","")
 	end
 	if self.advancedCopy and (self.rarity == "UNIQUE" or self.rarity == "RELIC") then
 		if not uniqueModStatOrder then
@@ -1413,6 +1411,9 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 		self.title = "Foulborn " .. self.title
 	elseif not self.foulborn and hasFoulbornPrefix then
 		self.title = self.title:gsub("[Ff]oulborn ", "")
+	end
+	if self.baseName and self.title then
+		self.name = self.title .. ", " .. self.baseName:gsub(" %(.+%)", "")
 	end
 	if not self.quality then
 		self:NormaliseQuality()
@@ -1643,6 +1644,9 @@ function ItemClass:BuildRaw()
 		end
 		if modLine.corruptedRange then
 			line = "{corruptedRange:" .. round(modLine.corruptedRange, 2) .. "}" .. line
+		end
+		if modLine.disabled then
+			line = "{disabled}" .. line
 		end
 		if modLine.crafted then
 			line = "{crafted}" .. line
@@ -2112,7 +2116,7 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 		end
 
 		if self.base.armour.BlockChance then
-			armourData.BlockChance = m_floor((self.base.armour.BlockChance * (1 + calcLocal(modList, "BlockChance", "INC", 0) / 100) + calcLocal(modList, "BlockChance", "BASE", 0)))
+			armourData.BlockChance = m_floor((self.base.armour.BlockChance + calcLocal(modList, "BlockChance", "BASE", 0)) * (1 + calcLocal(modList, "BlockChance", "INC", 0) / 100))
 		end
 		if self.base.armour.MovementPenalty then
 			modList:NewMod("MovementSpeed", "INC", -self.base.armour.MovementPenalty, self.modSource, { type = "Condition", var = "IgnoreMovementPenalties", neg = true })
@@ -2212,6 +2216,9 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 			if jewelData.clusterJewelSkill and not self.clusterJewel.skills[jewelData.clusterJewelSkill] then
 				jewelData.clusterJewelSkill = nil
 			end
+			-- Set missing crafting fields when using advanced copy
+			self.clusterJewelSkill = self.clusterJewelSkill or jewelData.clusterJewelSkill
+			self.clusterJewelNodeCount = self.clusterJewelNodeCount or jewelData.clusterJewelNodeCount
 			jewelData.clusterJewelValid = jewelData.clusterJewelKeystone 
 				or ((jewelData.clusterJewelSkill or jewelData.clusterJewelSmallsAreNothingness) and jewelData.clusterJewelNodeCount) 
 				or (jewelData.clusterJewelSocketCountOverride and jewelData.clusterJewelNothingnessCount)
@@ -2262,6 +2269,9 @@ function ItemClass:BuildModList()
 		end
 	end
 	local function processModLine(modLine)
+		if modLine.disabled then
+			return
+		end
 		if self:CheckModLineVariant(modLine) then
 			-- special section for variant over-ride of pre-modifier item parameters
 			if modLine.line:find("Requires Class") then

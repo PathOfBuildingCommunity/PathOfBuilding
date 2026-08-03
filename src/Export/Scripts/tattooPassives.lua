@@ -11,6 +11,7 @@ local passiveSkillOverridesDat = dat("PassiveSkillOverrides")
 local passiveSkillTattoosDat = dat("PassiveSkillTattoos")
 local clientStrings = dat("ClientStrings")
 local baseItemTypes= dat("BaseItemTypes")
+local currencyExchange = dat("CurrencyExchange")
 
 local tattoo_PASSIVE_GROUP = 1e9
 
@@ -175,8 +176,11 @@ for i=1, passiveSkillOverridesDat.rowCount do
 	-- node name
 	tattooPassiveNode.dn = datFileRow.Name
 	-- legacy tattoo
-	if tattooPassiveNode.dn and tattooPassiveNode.ks == false then
-		--tattooPassiveNode.legacy = baseItemTypes:GetRow("Name", datFileRow.Name) and baseItemTypes:GetRow("Name", datFileRow.Name).Hidden == 2 and true or false
+	if tattooPassiveNode.dn and tattooPassiveNode.dn ~= "" and tattooPassiveNode.ks == false then
+		local baseItemType = baseItemTypes:GetRow("Name", datFileRow.Name)
+		if baseItemType and currencyExchange:GetRow("BaseItemType", baseItemType) ~= nil then
+			tattooPassiveNode.legacy = not currencyExchange:GetRow("BaseItemType", baseItemType).EnabledInLeague
+		end
 	end
 
 	-- icon

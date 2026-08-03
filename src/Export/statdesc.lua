@@ -18,7 +18,7 @@ local function parseStatFile(target, order, fileName)
 		local noDesc = line:match("no_description ([%w_%+%-%%]+)")
 		if noDesc then
 			target[noDesc] = { order = 0 }
-		elseif line:match("handed_description") or (line:match("description") and not line:match("_description")) then	
+		elseif line:match("handed_description") or (line:match("description") and not line:match("_description")) then
 			local name = line:match("description ([%w_]+)")
 			curLang = { }
 			curDescriptor = { curLang, order = order, name = name }
@@ -43,7 +43,7 @@ local function parseStatFile(target, order, fileName)
 					local desc = { text = escapeGGGString(text), limit = { } }
 					for statLimit in statLimits:gmatch("[!%d%-#|]+") do
 						local limit = { }
-						
+
 						if statLimit == "#" then
 							limit[1] = "#"
 							limit[2] = "#"
@@ -163,7 +163,7 @@ function loadStatFile(fileName, ...)
 		return
 	end
 	statDescriptor = { }
-	statDescriptors[fileName] = statDescriptor 
+	statDescriptors[fileName] = statDescriptor
 	local finalOrder = parseStatFile(statDescriptor, 1, fileName)
 	print(fileName.. " loaded. ("..finalOrder.." stats)")
 end
@@ -344,7 +344,7 @@ function describeStats(stats)
 				elseif spec.k == "milliseconds_to_seconds_2dp_if_required" or spec.k == "milliseconds_to_seconds_2dp" then
 					val[spec.v].min = round(val[spec.v].min / 1000, 2)
 					val[spec.v].max = round(val[spec.v].max / 1000, 2)
-					val[spec.v].fmt = "g"	
+					val[spec.v].fmt = "g"
 				elseif spec.k == "deciseconds_to_seconds" then
 					val[spec.v].min = val[spec.v].min / 10
 					val[spec.v].max = val[spec.v].max / 10
@@ -386,14 +386,14 @@ function describeStats(stats)
 					ConPrintf("Unknown description function: %s", spec.k)
 				end
 			end
-			local statDesc = desc.text:gsub("{(%d)}", function(n) 
+			local statDesc = desc.text:gsub("{(%d)}", function(n)
 				local v = val[tonumber(n)+1]
 				if v.min == v.max then
 					return string.format("%"..v.fmt, v.min)
 				else
 					return string.format("(%"..v.fmt.."-%"..v.fmt..")", v.min, v.max)
 				end
-			end):gsub("{}", function() 
+			end):gsub("{}", function()
 				local v = val[1]
 				if v.min == v.max then
 					return string.format("%"..v.fmt, v.min)
@@ -487,14 +487,16 @@ function describeScalability(fileName)
 						{ isScalable = scalability[statNum], formats = wordingFormats[statNum] })
 					return "#"
 				end)
-				if out[strippedLine] then -- we want to use the format with the least oddities in it. If their are less formats then that will be used instead.
-					for j, priorScalability in ipairs(out[strippedLine]) do
-						if (priorScalability.formats and #priorScalability.formats or 0) > (wordingFormats[j] and #wordingFormats[j] or 0) then
-							out[strippedLine][j] = inOrderScalability[j]
+				if not strippedLine:match("^DNT") then
+					if out[strippedLine] then -- we want to use the format with the least oddities in it. If their are less formats then that will be used instead.
+						for j, priorScalability in ipairs(out[strippedLine]) do
+							if (priorScalability.formats and #priorScalability.formats or 0) > (wordingFormats[j] and #wordingFormats[j] or 0) then
+								out[strippedLine][j] = inOrderScalability[j]
+							end
 						end
+					else -- no present
+						out[strippedLine] = inOrderScalability
 					end
-				else -- no present
-					out[strippedLine] = inOrderScalability
 				end
 			end
 		end

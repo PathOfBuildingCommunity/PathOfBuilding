@@ -1418,6 +1418,7 @@ function calcs.offence(env, actor, activeSkill)
 		output.BrandAttachmentRange = data.misc.BrandAttachmentRangeBase * calcLib.mod(skillModList, skillCfg, "BrandAttachmentRange")
 		output.BrandAttachmentRangeMetre = output.BrandAttachmentRange / 10
 		output.ActiveBrandLimit = skillModList:Sum("BASE", skillCfg, "ActiveBrandLimit")
+		output.AttachedBrandCount = skillData.attachedBrandCount
 		if breakdown then
 			breakdown.BrandAttachmentRange = { radius = output.BrandAttachmentRange }
 		end
@@ -1756,7 +1757,7 @@ function calcs.offence(env, actor, activeSkill)
 				moreType = skillModList:More(skillCfg, val.type.."Cost")
 				moreCost = skillModList:More(skillCfg, "Cost")
 				inc = skillModList:Sum("INC", skillCfg, val.type.."Cost", "Cost")
-				output[costNameRaw] = val.baseCostRaw and m_max(0, m_max(0, (1 + inc / 100) * val.baseCostRaw * moreType * moreCost) + val.totalCost) / costEfficiency
+				output[costNameRaw] = val.baseCostRaw and m_max(0, m_max(0, (1 + inc / 100) * val.baseCostRaw * moreType * moreCost / costEfficiency) + val.totalCost)
 				if inc < 0 then
 					output[costName] = m_max(0, m_ceil((1 + inc / 100) * output[costName]))
 				else
@@ -1772,9 +1773,9 @@ function calcs.offence(env, actor, activeSkill)
 				else
 					output[costName] = m_max(0, m_floor(moreCost * output[costName]))
 				end
-				output[costName] = m_max(0, output[costName] + val.totalCost)
 				-- Apply cost efficiency (similar to reservation efficiency)
 				output[costName] = m_max(0, output[costName] / costEfficiency)
+				output[costName] = m_max(0, output[costName] + val.totalCost)
 				if val.type == "Mana" and hybridLifeCost > 0 then -- Life/Mana Mastery
 					output[costName] = m_max(0, m_floor((1 - hybridLifeCost) * output[costName]))
 					output[costNameRaw] = output[costNameRaw] and m_max(0, (1 - hybridLifeCost) * output[costNameRaw])
@@ -1785,10 +1786,10 @@ function calcs.offence(env, actor, activeSkill)
 				output[costName] = m_floor(val.baseCost + val.baseCostNoMult)
 				output[costName] = m_max(0, (1 + inc / 100) * output[costName])
 				output[costName] = m_max(0, moreType * output[costName])
-				output[costName] = m_max(0, output[costName] + val.totalCost)
 				-- Apply cost efficiency for unaffected costs too
 				output[costName] = m_max(0, output[costName] / costEfficiency)
-				output[costNameRaw] = val.baseCostRaw and m_max(0, m_max(0, (1 + inc / 100) * (val.baseCostRaw + val.baseCostNoMult) * moreType) + val.totalCost) / costEfficiency
+				output[costName] = m_max(0, output[costName] + val.totalCost)
+				output[costNameRaw] = val.baseCostRaw and m_max(0, m_max(0, (1 + inc / 100) * (val.baseCostRaw + val.baseCostNoMult) * moreType / costEfficiency) + val.totalCost)
 			end
 			if breakdown and hasCost then
 				breakdown[costName] = {
@@ -1815,16 +1816,16 @@ function calcs.offence(env, actor, activeSkill)
 				if moreType ~= 1 then
 					t_insert(breakdown[costName], s_format("x %.2f ^8(more/less "..val.text.." cost)", moreType))
 				end
-				if val.totalCost ~= 0 then
-					t_insert(breakdown[costName], s_format("%+d ^8(total " .. val.text .. " cost)", val.totalCost))
-				end
 				if costEfficiency ~= 1 then
 					t_insert(breakdown[costName], s_format("/ %.2f ^8(" .. val.text .. " cost efficiency)", costEfficiency))
+				end
+				if val.totalCost ~= 0 then
+					t_insert(breakdown[costName], s_format("%+d ^8(total "..val.text.." cost)", val.totalCost))
 				end
 				if val.type == "Mana" and hybridLifeCost > 0 then
 					t_insert(breakdown[costName], s_format("x %.2f ^8(%d%% paid for with life)", (1-hybridLifeCost), hybridLifeCost*100))
 				end
-				t_insert(breakdown[costName], s_format("= %" .. (val.upfront and "d" or ".2f") .. (val.percent and "%%" or ""), m_ceil(output[costName])))
+				t_insert(breakdown[costName], s_format("= %"..(val.upfront and "d" or ".2f")..(val.percent and "%%" or ""), output[costName]))
 			end
 		end
 	end
@@ -1838,6 +1839,11 @@ function calcs.offence(env, actor, activeSkill)
 	end
 
 	runSkillFunc("preDamageFunc")
+
+	if activeSkill.skillTypes[SkillType.Brand] then
+		local damageLabel = skillData.countsAttachedBrandsInDamage and "Average Damage" or "DPS"
+		activeSkill.infoMessage = s_format("%s for %d attached Brand%s", damageLabel, output.AttachedBrandCount, output.AttachedBrandCount == 1 and "" or "s")
+	end
 
 	-- Handle corpse and enemy explosions
 	local monsterLife = skillData.corpseLife or (env.enemyLevel and data.monsterLifeTable[env.enemyLevel] or 100)
@@ -2407,6 +2413,10 @@ function calcs.offence(env, actor, activeSkill)
 	end
 	-- Other Misc DPS multipliers (like custom source)
 	skillData.dpsMultiplier = ( skillData.dpsMultiplier or 1 ) * ( 1 + skillModList:Sum("INC", skillCfg, "DPS") / 100 ) * skillModList:More(skillCfg, "DPS")
+	if activeSkill.skillTypes[SkillType.Brand] and not skillData.countsAttachedBrandsInDamage then
+		skillData.dpsMultiplier = skillData.dpsMultiplier * output.AttachedBrandCount
+		output.SkillDPSMultiplier = (output.SkillDPSMultiplier or 1) * output.AttachedBrandCount
+	end
 	if env.configInput.repeatMode == "FINAL" or skillModList:Flag(nil, "OnlyFinalRepeat") then
 		skillData.dpsMultiplier = skillData.dpsMultiplier / (output.Repeats or 1)
 	end
@@ -5683,8 +5693,9 @@ function calcs.offence(env, actor, activeSkill)
 		if skillModList:Flag(nil, "DotCanStackAsTotems") and skillFlags.totem then
 			skillFlags.DotCanStack = true
 		end
-		output.TotalDot = output.TotalDotInstance
-		output.TotalDotCalcSection = output.TotalDotInstance
+		local attachedBrandCount = activeSkill.skillTypes[SkillType.Brand] and not skillData.countsAttachedBrandsInDamage and output.AttachedBrandCount or 1
+		output.TotalDot = attachedBrandCount > 1 and m_min(output.TotalDotInstance * attachedBrandCount, data.misc.DotDpsCap) or output.TotalDotInstance
+		output.TotalDotCalcSection = output.TotalDot
 	end
 
 	--Calculates and displays cost per second for skills that don't already have one (link skills)

@@ -341,6 +341,11 @@ describe("TestItemParse", function()
 		assert.are.same({ "life", "physical_damage" }, item.explicitModLines[1].modTags)
 	end)
 
+	it("ignores disabled modifiers in item conditions", function()
+		local item = new("Item", raw("{disabled}+100 to maximum Life"))
+		assert.is_false(item:FindModifierSubstring("life", "body armour"))
+	end)
+
 	it("variant", function()
 		local item = new("Item", raw([[
 			Selected Variant: 2
@@ -927,6 +932,42 @@ describe("TestAdvancedItemParse #item", function()
 		assert.are.equals(1, #item.explicitModLines)
 	end)
 
+	it("preserves cluster jewel enchants from advanced copy", function()
+		newBuild()
+		runCallback("onFrame")
+		build.itemsTab:CreateDisplayItemFromRaw([[
+			Item Class: Jewels
+			Rarity: Rare
+			Fulgent Scar
+			Medium Cluster Jewel
+			--------
+			Intangibility: 5%
+			--------
+			Requirements:
+			Level: 54 (unmet)
+			--------
+			Item Level: 74
+			--------
+			Adds 4 Passive Skills (enchant)
+			1 Added Passive Skill is a Jewel Socket (enchant)
+			Added Small Passive Skills grant: 10% increased Damage while affected by a Herald (enchant)
+			--------
+			{ Prefix Modifier "Notable" (Tier: 1) — Damage }
+			1 Added Passive Skill is Endbringer
+			{ Prefix Modifier "Notable" (Tier: 1) — Damage }
+			1 Added Passive Skill is Empowered Envoy
+			{ Suffix Modifier "of the Newt" (Tier: 3) — Life }
+			Added Small Passive Skills also grant: Regenerate 0.1% of Life per Second
+			{ Suffix Modifier "of Joy" (Tier: 2) — Mana }
+			Added Small Passive Skills also grant: 5% increased Mana Regeneration Rate
+		]], true)
+
+		local item = build.itemsTab.displayItem
+		assert.are.equals("affliction_damage_while_you_have_a_herald", item.clusterJewelSkill)
+		assert.are.equals("affliction_damage_while_you_have_a_herald", item.jewelData.clusterJewelSkill)
+		assert.are.equals(4, item.clusterJewelNodeCount)
+	end)
+
 	describe("mod magnitude scaling", function()
 		before_each(function()
 			newBuild()
@@ -1009,6 +1050,18 @@ describe("TestAdvancedItemParse #item", function()
 			build.itemsTab:AddDisplayItem()
 			runCallback("OnFrame")
 			assert.are.equals(221, chaosDamageInc())
+		end)
+
+		it("does not apply disabled modifier magnitude", function()
+			local item = new("Item", [[
+			Rarity: UNIQUE
+			Magnitude Test
+			Plate Vest
+			Implicits: 1
+			{range:0.5}+(10-20) to maximum Life
+			{disabled}100% increased Implicit Modifier magnitudes
+		]])
+			assert.are.equals(1, item.implicitModLines[1].valueScalar)
 		end)
 
 		it("scales properly using old Eyes of the Greatwolf line", function()
