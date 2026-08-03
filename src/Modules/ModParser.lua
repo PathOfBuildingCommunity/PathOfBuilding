@@ -62,6 +62,11 @@ local conquerorList = {
 	["vorana"]		=	{ id = 1, type = "kalguur" },
 	["uhtred"]		=	{ id = 2, type = "kalguur" },
 	["medved"]		=	{ id = 3, type = "kalguur" },
+	["tecrod"]		=	{ id = 1, type = "abyss_murderous" },
+	["ulaman"]		=	{ id = 1, type = "abyss_searching" },
+	["kurgal"]		=	{ id = 1, type = "abyss_hypnotic" },
+	["amanamu"]		=	{ id = 1, type = "abyss_ghastly" },
+	["zorath"]		=	{ id = 1, type = "abyss_special" },
 }
 -- List of modifier forms
 local formList = {
@@ -5723,7 +5728,14 @@ local specialModList = {
 	["remembrancing (%d+) songworthy deeds by the line of (.+)"] =  function(num, _, name)
 		return { mod("JewelData", "LIST",
 				{ key = "conqueredBy", value = { id = num, conqueror = conquerorList[name:lower()] } }) } end,
+	["subjugating (%d+) souls in the thrall of (.+)"] = function(num, _, name)
+		return { mod("JewelData", "LIST",
+				{ key = "conqueredBy", value = { id = num, conqueror = conquerorList[name:lower()] } }) } end,
+	["binding (%d+) souls to phylacteries to sustain (.+)"] = function(num, _, name)
+		return { mod("JewelData", "LIST",
+				{ key = "conqueredBy", value = { id = num, conqueror = conquerorList[name:lower()] } }) } end,
 	["passives in radius are conquered by the (%D+)"] = { },
+	["passives affected are conquered by the abyssal"] = { },
 	["historic"] = { },
 	-- Tattoos
 	["+(%d+) to maximum life per allocated journey tattoo of the body"] = function(num) return {

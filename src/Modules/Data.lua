@@ -890,6 +890,11 @@ data.timelessJewelTypes = {
 	[4] = "Militant Faith",
 	[5] = "Elegant Hubris",
 	[6] = "Heroic Tragedy",
+	[7] = "Abyss Tecrod",
+	[8] = "Abyss Ulaman",
+	[9] = "Abyss Kurgal",
+	[10] = "Abyss Amanamu",
+	[11] = "Abyss Zorath",
 }
 data.timelessJewelSeedMin = {
 	[1] = 100,
@@ -920,8 +925,10 @@ data.timelessJewelSeedMax = {
 data.timelessJewelTradeIDs = LoadModule("Data/TimelessJewelData/LegionTradeIds")
 data.timelessJewelAdditions = 337 -- #legionAdditions
 data.nodeIDList = LoadModule("Data/TimelessJewelData/NodeIndexMapping")
+data.abyssNotableNames = LoadModule("Data/TimelessJewelData/AbyssNotableNames")
 data.timelessJewelLUTs = { }
 data.readLUT, data.repairLUTs = LoadModule("Modules/DataLegionLookUpTableHelper")
+data.readAbyssJewelLUT, data.resolveAbyssJewelComponent, data.getAbyssJewelComponentRoll = LoadModule("Modules/DataAbyssJewelLookUpTableHelper")
 
 -- this runs if the "size" key is missing from nodeIDList and attempts to rebuild all jewel LUTs and the nodeIDList
 -- note this should only run in dev mode

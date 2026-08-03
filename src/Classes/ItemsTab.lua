@@ -3990,13 +3990,14 @@ function ItemsTabClass:FormatItemSource(text)
 			   :gsub("prophecy{([^}]+)}",colorCodes.PROPHECY.."%1"..colorCodes.SOURCE)
 end
 
-local function itemChangesPassiveTreeRadius(item)
-	return not not (item and item.type == "Jewel" and item.jewelData and item.jewelRadiusIndex
-		and (item.jewelData.conqueredBy or item.jewelData.intuitiveLeapLike or item.jewelData.impossibleEscapeKeystone))
+local function itemChangesPassiveTree(item)
+	return not not (item and item.type == "Jewel" and item.jewelData
+		and (item.jewelData.conqueredBy or item.jewelRadiusIndex
+			and (item.jewelData.intuitiveLeapLike or item.jewelData.impossibleEscapeKeystone)))
 end
 
--- Radius jewels can change conquered nodes and orphaned allocations, so compare
--- against a rebuilt spec instead of approximating the diff with removeNodes.
+-- These jewels can replace passive nodes or disconnect allocated passives, so
+-- rebuild the passive tree before comparing their stats.
 -- Keep this list in sync with PassiveSpec's constructor, Init, and Select*
 -- methods; omitted fields fail safe as nil on the comparison spec.
 local sharedSpecKeysForJewelComparison = {
@@ -4804,7 +4805,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode, maxWidth)
 		local function getReplacedItemAndOutput(compareSlot)
 			local selItem = self.items[compareSlot.selItemId]
 			local override = { repSlotName = compareSlot.slotName, repItem = item ~= selItem and item or nil }
-			if compareSlot.nodeId and (itemChangesPassiveTreeRadius(selItem) or itemChangesPassiveTreeRadius(item)) then
+			if compareSlot.nodeId and (itemChangesPassiveTree(selItem) or itemChangesPassiveTree(item)) then
 				override.spec = buildSpecForJewelComparison(self, compareSlot, override.repItem)
 			end
 			local output = calcFunc(override)

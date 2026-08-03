@@ -1961,5 +1961,55 @@ Implicits: 0
 {variant:5}4% increased Totem Damage per 10 Devotion
 Passives in radius are Conquered by the Templars
 Historic
+]],[[
+Festering Vengeance
+Murderous Eye Jewel
+League: Abyss
+Source: Drops from unique{Zorath, Vile Assembled}
+Limited to: 1 Historic
+Implicits: 0
+Subjugating (100-8000) souls in the thrall of Tecrod
+Passives affected are Conquered by the Abyssal
+Historic
+]],[[
+Extinguishing Grasp
+Searching Eye Jewel
+League: Abyss
+Source: Drops from unique{Zorath, Vile Assembled}
+Limited to: 1 Historic
+Implicits: 0
+Subjugating (100-8000) souls in the thrall of Ulaman
+Passives affected are Conquered by the Abyssal
+Historic
+]],[[
+Baleful Dominion
+Hypnotic Eye Jewel
+League: Abyss
+Source: Drops from unique{Zorath, Vile Assembled}
+Limited to: 1 Historic
+Implicits: 0
+Subjugating (100-8000) souls in the thrall of Kurgal
+Passives affected are Conquered by the Abyssal
+Historic
+]],[[
+Destructive Aspiration
+Ghastly Eye Jewel
+League: Abyss
+Source: Drops from unique{Zorath, Vile Assembled}
+Limited to: 1 Historic
+Implicits: 0
+Subjugating (100-8000) souls in the thrall of Amanamu
+Passives affected are Conquered by the Abyssal
+Historic
+]],[[
+Reclaimed Malevolence
+Assembled Eye Jewel
+League: Abyss
+Source: Vendor Recipe
+Limited to: 1 Historic
+Implicits: 0
+Binding (100-8000) souls to phylacteries to sustain Zorath
+Passives affected are Conquered by the Abyssal
+Historic
 ]],
 }
