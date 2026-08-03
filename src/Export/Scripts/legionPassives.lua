@@ -117,8 +117,8 @@ function parseStats(datFileRow, legionPassive)
 			["max"] = range[2],
 			["index"] = idx
 		}
-		-- Describing stats here to get the orders
-		local _, orders = describeStats({ [statId] = stat })
+		-- describeStats changes values while formatting them, so use a copy when only finding the order.
+		local _, orders = describeStats({ [statId] = { min = stat.min, max = stat.max } })
 		stat.statOrder = orders[1]
 		legionPassive.stats[statId] = stat
 	end
@@ -132,7 +132,8 @@ function parseStats(datFileRow, legionPassive)
 	-- Finally get what we want, sorted stats by order
 	table.sort(sortedStats, function(a, b)
 		local statA, statB = legionPassive.stats[a], legionPassive.stats[b]
-		return statA.statOrder < statB.statOrder or statA.statOrder == statB.statOrder and statA.index < statB.index
+		local orderA, orderB = statA.statOrder or math.huge, statB.statOrder or math.huge
+		return orderA < orderB or orderA == orderB and statA.index < statB.index
 	end)
 	legionPassive.sortedStats = sortedStats
 end

@@ -1852,6 +1852,15 @@ function TreeTabClass:FindTimelessJewel()
 	end
 
 	buildMods()
+	local function getLegionStatLabels(legionPassive)
+		local statCount = timelessData.jewelType.id >= 7 and #legionPassive.sortedStats or #legionPassive.sd
+		if statCount > #legionPassive.sd then
+			return statCount, "Minimum value: " .. legionPassive.sd[1], "Maximum value: " .. legionPassive.sd[1]
+		end
+		return statCount,
+			statCount == 1 and t_concat(legionPassive.sd, " + ") or legionPassive.sd[1] or "None",
+			legionPassive.sd[2] or "None"
+	end
 	controls.nodeSelect = new("DropDownControl", {"TOPLEFT", controls.nodeSlider3, "BOTTOMLEFT"}, {0, rowSpacing, 200, rowHeight}, modData, function(index, value)
 		nodeSliderStatLabel = "None"
 		nodeSlider2StatLabel = "None"
@@ -1859,18 +1868,14 @@ function TreeTabClass:FindTimelessJewel()
 			local statCount = 0
 			for _, legionNode in ipairs(legionNodes) do
 				if legionNode.id == value.id then
-					statCount = timelessData.jewelType.id >= 7 and #legionNode.sortedStats or #legionNode.sd
-					nodeSliderStatLabel = statCount == 1 and t_concat(legionNode.sd, " + ") or legionNode.sd[1] or "None"
-					nodeSlider2StatLabel = legionNode.sd[2] or "None"
+					statCount, nodeSliderStatLabel, nodeSlider2StatLabel = getLegionStatLabels(legionNode)
 					break
 				end
 			end
 			if statCount == 0 then
 				for _, legionAddition in ipairs(legionAdditions) do
 					if legionAddition.id == value.id then
-						statCount = timelessData.jewelType.id >= 7 and #legionAddition.sortedStats or #legionAddition.sd
-						nodeSliderStatLabel = statCount == 1 and t_concat(legionAddition.sd, " + ") or legionAddition.sd[1] or "None"
-						nodeSlider2StatLabel = legionAddition.sd[2] or "None"
+						statCount, nodeSliderStatLabel, nodeSlider2StatLabel = getLegionStatLabels(legionAddition)
 						break
 					end
 				end
@@ -1968,6 +1973,19 @@ function TreeTabClass:FindTimelessJewel()
 			end
 			return statToFix -- if it doesn't need to be changed
 		end
+		local function buildStatModLists(legionPassive)
+			-- Give each stat its own mod list even when several stats share one display line.
+			local modLists = { }
+			for statIndex, statKey in ipairs(legionPassive.sortedStats) do
+				local statValues = { }
+				for key in pairs(legionPassive.stats) do
+					statValues[key] = key == statKey and 100 or 0
+				end
+				local line = data.describeStats(statValues, "stat_descriptions")[1]
+				modLists[statIndex] = { modList = modLib.parseMod(line), divisor = 100 }
+			end
+			return modLists
+		end
 
 		local nodes = { }
 		local usesVariableRolls = timelessData.jewelType.id == 1 or timelessData.jewelType.id >= 7
@@ -1984,12 +2002,7 @@ function TreeTabClass:FindTimelessJewel()
 									if legionNode.modListGenerated then
 										newNode.node = copyTable(legionNode.modListGenerated)
 									else
-										local modLists = { }
-										for statIndex, statKey in ipairs(legionNode.sortedStats) do
-											local originalLine = legionNode.sd[statIndex]
-											local line = replaceHelperFunc(originalLine, statKey, legionNode.stats[statKey], 100)
-											modLists[statIndex] = { modList = modLib.parseMod(line), divisor = line ~= originalLine and 100 or 1 }
-										end
+										local modLists = buildStatModLists(legionNode)
 										legionNode.modListGenerated = copyTable(modLists)
 										newNode.node = copyTable(modLists)
 									end
@@ -2030,12 +2043,7 @@ function TreeTabClass:FindTimelessJewel()
 								if legionAddition.modListGenerated then
 									newNode.node = copyTable(legionAddition.modListGenerated)
 								else
-									local modLists = { }
-									for statIndex, statKey in ipairs(legionAddition.sortedStats) do
-										local originalLine = legionAddition.sd[statIndex]
-										local line = replaceHelperFunc(originalLine, statKey, legionAddition.stats[statKey], 100)
-										modLists[statIndex] = { modList = modLib.parseMod(line), divisor = line ~= originalLine and 100 or 1 }
-									end
+									local modLists = buildStatModLists(legionAddition)
 									legionAddition.modListGenerated = copyTable(modLists)
 									newNode.node = copyTable(modLists)
 								end

@@ -2154,12 +2154,11 @@ return {
 			["dn"] = "Notable 18", 
 			["id"] = "abyss_murderous_notable_18", 
 			["sd"] = {
-				[1] = "(5-6) to 0 Added Physical Damage with Dagger Attacks", 
-				[2] = "0 to (7-8) Added Physical Damage with Dagger Attacks", 
+				[1] = "(5-6) to (7-8) Added Physical Damage with Dagger Attacks", 
 			}, 
 			["sortedStats"] = {
-				[1] = "attack_maximum_added_physical_damage_with_daggers", 
-				[2] = "attack_minimum_added_physical_damage_with_daggers", 
+				[1] = "attack_minimum_added_physical_damage_with_daggers", 
+				[2] = "attack_maximum_added_physical_damage_with_daggers", 
 			}, 
 			["stats"] = {
 				["attack_maximum_added_physical_damage_with_daggers"] = {
@@ -2182,12 +2181,11 @@ return {
 			["dn"] = "Notable 19", 
 			["id"] = "abyss_murderous_notable_19", 
 			["sd"] = {
-				[1] = "(5-6) to 0 Added Physical Damage with Claw Attacks", 
-				[2] = "0 to (7-8) Added Physical Damage with Claw Attacks", 
+				[1] = "(5-6) to (7-8) Added Physical Damage with Claw Attacks", 
 			}, 
 			["sortedStats"] = {
-				[1] = "attack_maximum_added_physical_damage_with_claws", 
-				[2] = "attack_minimum_added_physical_damage_with_claws", 
+				[1] = "attack_minimum_added_physical_damage_with_claws", 
+				[2] = "attack_maximum_added_physical_damage_with_claws", 
 			}, 
 			["stats"] = {
 				["attack_maximum_added_physical_damage_with_claws"] = {
@@ -2210,12 +2208,11 @@ return {
 			["dn"] = "Notable 20", 
 			["id"] = "abyss_murderous_notable_20", 
 			["sd"] = {
-				[1] = "(5-6) to 0 Added Physical Damage with Sword Attacks", 
-				[2] = "0 to (7-8) Added Physical Damage with Sword Attacks", 
+				[1] = "(5-6) to (7-8) Added Physical Damage with Sword Attacks", 
 			}, 
 			["sortedStats"] = {
-				[1] = "attack_maximum_added_physical_damage_with_swords", 
-				[2] = "attack_minimum_added_physical_damage_with_swords", 
+				[1] = "attack_minimum_added_physical_damage_with_swords", 
+				[2] = "attack_maximum_added_physical_damage_with_swords", 
 			}, 
 			["stats"] = {
 				["attack_maximum_added_physical_damage_with_swords"] = {
@@ -2238,12 +2235,11 @@ return {
 			["dn"] = "Notable 21", 
 			["id"] = "abyss_murderous_notable_21", 
 			["sd"] = {
-				[1] = "(5-6) to 0 Added Physical Damage with Axe Attacks", 
-				[2] = "0 to (7-8) Added Physical Damage with Axe Attacks", 
+				[1] = "(5-6) to (7-8) Added Physical Damage with Axe Attacks", 
 			}, 
 			["sortedStats"] = {
-				[1] = "attack_maximum_added_physical_damage_with_axes", 
-				[2] = "attack_minimum_added_physical_damage_with_axes", 
+				[1] = "attack_minimum_added_physical_damage_with_axes", 
+				[2] = "attack_maximum_added_physical_damage_with_axes", 
 			}, 
 			["stats"] = {
 				["attack_maximum_added_physical_damage_with_axes"] = {
@@ -2266,12 +2262,11 @@ return {
 			["dn"] = "Notable 22", 
 			["id"] = "abyss_murderous_notable_22", 
 			["sd"] = {
-				[1] = "(5-6) to 0 Added Physical Damage with Mace or Sceptre Attacks", 
-				[2] = "0 to (7-8) Added Physical Damage with Mace or Sceptre Attacks", 
+				[1] = "(5-6) to (7-8) Added Physical Damage with Mace or Sceptre Attacks", 
 			}, 
 			["sortedStats"] = {
-				[1] = "attack_maximum_added_physical_damage_with_maces", 
-				[2] = "attack_minimum_added_physical_damage_with_maces", 
+				[1] = "attack_minimum_added_physical_damage_with_maces", 
+				[2] = "attack_maximum_added_physical_damage_with_maces", 
 			}, 
 			["stats"] = {
 				["attack_maximum_added_physical_damage_with_maces"] = {
@@ -2294,12 +2289,11 @@ return {
 			["dn"] = "Notable 23", 
 			["id"] = "abyss_murderous_notable_23", 
 			["sd"] = {
-				[1] = "(5-6) to 0 Added Physical Damage with Staff Attacks", 
-				[2] = "0 to (7-8) Added Physical Damage with Staff Attacks", 
+				[1] = "(5-6) to (7-8) Added Physical Damage with Staff Attacks", 
 			}, 
 			["sortedStats"] = {
-				[1] = "attack_maximum_added_physical_damage_with_staves", 
-				[2] = "attack_minimum_added_physical_damage_with_staves", 
+				[1] = "attack_minimum_added_physical_damage_with_staves", 
+				[2] = "attack_maximum_added_physical_damage_with_staves", 
 			}, 
 			["stats"] = {
 				["attack_maximum_added_physical_damage_with_staves"] = {
@@ -2322,12 +2316,11 @@ return {
 			["dn"] = "Notable 24", 
 			["id"] = "abyss_murderous_notable_24", 
 			["sd"] = {
-				[1] = "(1-4) to 0 Added Lightning Damage with Dagger Attacks", 
-				[2] = "0 to (33-35) Added Lightning Damage with Dagger Attacks", 
+				[1] = "(1-4) to (33-35) Added Lightning Damage with Dagger Attacks", 
 			}, 
 			["sortedStats"] = {
-				[1] = "attack_maximum_added_lightning_damage_with_daggers", 
-				[2] = "attack_minimum_added_lightning_damage_with_daggers", 
+				[1] = "attack_minimum_added_lightning_damage_with_daggers", 
+				[2] = "attack_maximum_added_lightning_damage_with_daggers", 
 			}, 
 			["stats"] = {
 				["attack_maximum_added_lightning_damage_with_daggers"] = {
@@ -2350,12 +2343,11 @@ return {
 			["dn"] = "Notable 25", 
 			["id"] = "abyss_murderous_notable_25", 
 			["sd"] = {
-				[1] = "(1-4) to 0 Added Lightning Damage with Claw Attacks", 
-				[2] = "0 to (33-35) Added Lightning Damage with Claw Attacks", 
+				[1] = "(1-4) to (33-35) Added Lightning Damage with Claw Attacks", 
 			}, 
 			["sortedStats"] = {
-				[1] = "attack_maximum_added_lightning_damage_with_claws", 
-				[2] = "attack_minimum_added_lightning_damage_with_claws", 
+				[1] = "attack_minimum_added_lightning_damage_with_claws", 
+				[2] = "attack_maximum_added_lightning_damage_with_claws", 
 			}, 
 			["stats"] = {
 				["attack_maximum_added_lightning_damage_with_claws"] = {
@@ -2378,12 +2370,11 @@ return {
 			["dn"] = "Notable 26", 
 			["id"] = "abyss_murderous_notable_26", 
 			["sd"] = {
-				[1] = "(1-4) to 0 Added Lightning Damage with Sword Attacks", 
-				[2] = "0 to (33-35) Added Lightning Damage with Sword Attacks", 
+				[1] = "(1-4) to (33-35) Added Lightning Damage with Sword Attacks", 
 			}, 
 			["sortedStats"] = {
-				[1] = "attack_maximum_added_lightning_damage_with_swords", 
-				[2] = "attack_minimum_added_lightning_damage_with_swords", 
+				[1] = "attack_minimum_added_lightning_damage_with_swords", 
+				[2] = "attack_maximum_added_lightning_damage_with_swords", 
 			}, 
 			["stats"] = {
 				["attack_maximum_added_lightning_damage_with_swords"] = {
@@ -2406,12 +2397,11 @@ return {
 			["dn"] = "Notable 27", 
 			["id"] = "abyss_murderous_notable_27", 
 			["sd"] = {
-				[1] = "(1-4) to 0 Added Lightning Damage with Axe Attacks", 
-				[2] = "0 to (33-35) Added Lightning Damage with Axe Attacks", 
+				[1] = "(1-4) to (33-35) Added Lightning Damage with Axe Attacks", 
 			}, 
 			["sortedStats"] = {
-				[1] = "attack_maximum_added_lightning_damage_with_axes", 
-				[2] = "attack_minimum_added_lightning_damage_with_axes", 
+				[1] = "attack_minimum_added_lightning_damage_with_axes", 
+				[2] = "attack_maximum_added_lightning_damage_with_axes", 
 			}, 
 			["stats"] = {
 				["attack_maximum_added_lightning_damage_with_axes"] = {
@@ -2434,12 +2424,11 @@ return {
 			["dn"] = "Notable 28", 
 			["id"] = "abyss_murderous_notable_28", 
 			["sd"] = {
-				[1] = "(1-4) to 0 Added Lightning Damage with Mace or Sceptre Attacks", 
-				[2] = "0 to (33-35) Added Lightning Damage with Mace or Sceptre Attacks", 
+				[1] = "(1-4) to (33-35) Added Lightning Damage with Mace or Sceptre Attacks", 
 			}, 
 			["sortedStats"] = {
-				[1] = "attack_maximum_added_lightning_damage_with_maces", 
-				[2] = "attack_minimum_added_lightning_damage_with_maces", 
+				[1] = "attack_minimum_added_lightning_damage_with_maces", 
+				[2] = "attack_maximum_added_lightning_damage_with_maces", 
 			}, 
 			["stats"] = {
 				["attack_maximum_added_lightning_damage_with_maces"] = {
@@ -2462,12 +2451,11 @@ return {
 			["dn"] = "Notable 29", 
 			["id"] = "abyss_murderous_notable_29", 
 			["sd"] = {
-				[1] = "(1-4) to 0 Added Lightning Damage with Staff Attacks", 
-				[2] = "0 to (33-35) Added Lightning Damage with Staff Attacks", 
+				[1] = "(1-4) to (33-35) Added Lightning Damage with Staff Attacks", 
 			}, 
 			["sortedStats"] = {
-				[1] = "attack_maximum_added_lightning_damage_with_staves", 
-				[2] = "attack_minimum_added_lightning_damage_with_staves", 
+				[1] = "attack_minimum_added_lightning_damage_with_staves", 
+				[2] = "attack_maximum_added_lightning_damage_with_staves", 
 			}, 
 			["stats"] = {
 				["attack_maximum_added_lightning_damage_with_staves"] = {
@@ -2490,12 +2478,11 @@ return {
 			["dn"] = "Notable 30", 
 			["id"] = "abyss_murderous_notable_30", 
 			["sd"] = {
-				[1] = "(12-13) to 0 Added Fire Damage with Dagger Attacks", 
-				[2] = "0 to (20-22) Added Fire Damage with Dagger Attacks", 
+				[1] = "(12-13) to (20-22) Added Fire Damage with Dagger Attacks", 
 			}, 
 			["sortedStats"] = {
-				[1] = "attack_maximum_added_fire_damage_with_daggers", 
-				[2] = "attack_minimum_added_fire_damage_with_daggers", 
+				[1] = "attack_minimum_added_fire_damage_with_daggers", 
+				[2] = "attack_maximum_added_fire_damage_with_daggers", 
 			}, 
 			["stats"] = {
 				["attack_maximum_added_fire_damage_with_daggers"] = {
@@ -2518,12 +2505,11 @@ return {
 			["dn"] = "Notable 31", 
 			["id"] = "abyss_murderous_notable_31", 
 			["sd"] = {
-				[1] = "(12-13) to 0 Added Fire Damage with Claw Attacks", 
-				[2] = "0 to (20-22) Added Fire Damage with Claw Attacks", 
+				[1] = "(12-13) to (20-22) Added Fire Damage with Claw Attacks", 
 			}, 
 			["sortedStats"] = {
-				[1] = "attack_maximum_added_fire_damage_with_claws", 
-				[2] = "attack_minimum_added_fire_damage_with_claws", 
+				[1] = "attack_minimum_added_fire_damage_with_claws", 
+				[2] = "attack_maximum_added_fire_damage_with_claws", 
 			}, 
 			["stats"] = {
 				["attack_maximum_added_fire_damage_with_claws"] = {
@@ -2546,12 +2532,11 @@ return {
 			["dn"] = "Notable 32", 
 			["id"] = "abyss_murderous_notable_32", 
 			["sd"] = {
-				[1] = "(12-13) to 0 Added Fire Damage with Sword Attacks", 
-				[2] = "0 to (20-22) Added Fire Damage with Sword Attacks", 
+				[1] = "(12-13) to (20-22) Added Fire Damage with Sword Attacks", 
 			}, 
 			["sortedStats"] = {
-				[1] = "attack_maximum_added_fire_damage_with_swords", 
-				[2] = "attack_minimum_added_fire_damage_with_swords", 
+				[1] = "attack_minimum_added_fire_damage_with_swords", 
+				[2] = "attack_maximum_added_fire_damage_with_swords", 
 			}, 
 			["stats"] = {
 				["attack_maximum_added_fire_damage_with_swords"] = {
@@ -2574,12 +2559,11 @@ return {
 			["dn"] = "Notable 33", 
 			["id"] = "abyss_murderous_notable_33", 
 			["sd"] = {
-				[1] = "(12-13) to 0 Added Fire Damage with Axe Attacks", 
-				[2] = "0 to (20-22) Added Fire Damage with Axe Attacks", 
+				[1] = "(12-13) to (20-22) Added Fire Damage with Axe Attacks", 
 			}, 
 			["sortedStats"] = {
-				[1] = "attack_maximum_added_fire_damage_with_axes", 
-				[2] = "attack_minimum_added_fire_damage_with_axes", 
+				[1] = "attack_minimum_added_fire_damage_with_axes", 
+				[2] = "attack_maximum_added_fire_damage_with_axes", 
 			}, 
 			["stats"] = {
 				["attack_maximum_added_fire_damage_with_axes"] = {
@@ -2602,12 +2586,11 @@ return {
 			["dn"] = "Notable 34", 
 			["id"] = "abyss_murderous_notable_34", 
 			["sd"] = {
-				[1] = "(12-13) to 0 Added Fire Damage with Mace or Sceptre Attacks", 
-				[2] = "0 to (20-22) Added Fire Damage with Mace or Sceptre Attacks", 
+				[1] = "(12-13) to (20-22) Added Fire Damage with Mace or Sceptre Attacks", 
 			}, 
 			["sortedStats"] = {
-				[1] = "attack_maximum_added_fire_damage_with_maces", 
-				[2] = "attack_minimum_added_fire_damage_with_maces", 
+				[1] = "attack_minimum_added_fire_damage_with_maces", 
+				[2] = "attack_maximum_added_fire_damage_with_maces", 
 			}, 
 			["stats"] = {
 				["attack_maximum_added_fire_damage_with_maces"] = {
@@ -2630,12 +2613,11 @@ return {
 			["dn"] = "Notable 35", 
 			["id"] = "abyss_murderous_notable_35", 
 			["sd"] = {
-				[1] = "(12-13) to 0 Added Fire Damage with Staff Attacks", 
-				[2] = "0 to (20-22) Added Fire Damage with Staff Attacks", 
+				[1] = "(12-13) to (20-22) Added Fire Damage with Staff Attacks", 
 			}, 
 			["sortedStats"] = {
-				[1] = "attack_maximum_added_fire_damage_with_staves", 
-				[2] = "attack_minimum_added_fire_damage_with_staves", 
+				[1] = "attack_minimum_added_fire_damage_with_staves", 
+				[2] = "attack_maximum_added_fire_damage_with_staves", 
 			}, 
 			["stats"] = {
 				["attack_maximum_added_fire_damage_with_staves"] = {
@@ -2658,12 +2640,11 @@ return {
 			["dn"] = "Notable 36", 
 			["id"] = "abyss_murderous_notable_36", 
 			["sd"] = {
-				[1] = "(10-11) to 0 Added Cold Damage with Dagger Attacks", 
-				[2] = "0 to (17-20) Added Cold Damage with Dagger Attacks", 
+				[1] = "(10-11) to (17-20) Added Cold Damage with Dagger Attacks", 
 			}, 
 			["sortedStats"] = {
-				[1] = "attack_maximum_added_cold_damage_with_daggers", 
-				[2] = "attack_minimum_added_cold_damage_with_daggers", 
+				[1] = "attack_minimum_added_cold_damage_with_daggers", 
+				[2] = "attack_maximum_added_cold_damage_with_daggers", 
 			}, 
 			["stats"] = {
 				["attack_maximum_added_cold_damage_with_daggers"] = {
@@ -2686,12 +2667,11 @@ return {
 			["dn"] = "Notable 37", 
 			["id"] = "abyss_murderous_notable_37", 
 			["sd"] = {
-				[1] = "(10-11) to 0 Added Cold Damage with Claw Attacks", 
-				[2] = "0 to (17-20) Added Cold Damage with Claw Attacks", 
+				[1] = "(10-11) to (17-20) Added Cold Damage with Claw Attacks", 
 			}, 
 			["sortedStats"] = {
-				[1] = "attack_maximum_added_cold_damage_with_claws", 
-				[2] = "attack_minimum_added_cold_damage_with_claws", 
+				[1] = "attack_minimum_added_cold_damage_with_claws", 
+				[2] = "attack_maximum_added_cold_damage_with_claws", 
 			}, 
 			["stats"] = {
 				["attack_maximum_added_cold_damage_with_claws"] = {
@@ -2714,12 +2694,11 @@ return {
 			["dn"] = "Notable 38", 
 			["id"] = "abyss_murderous_notable_38", 
 			["sd"] = {
-				[1] = "(10-11) to 0 Added Cold Damage with Sword Attacks", 
-				[2] = "0 to (17-20) Added Cold Damage with Sword Attacks", 
+				[1] = "(10-11) to (17-20) Added Cold Damage with Sword Attacks", 
 			}, 
 			["sortedStats"] = {
-				[1] = "attack_maximum_added_cold_damage_with_swords", 
-				[2] = "attack_minimum_added_cold_damage_with_swords", 
+				[1] = "attack_minimum_added_cold_damage_with_swords", 
+				[2] = "attack_maximum_added_cold_damage_with_swords", 
 			}, 
 			["stats"] = {
 				["attack_maximum_added_cold_damage_with_swords"] = {
@@ -2742,12 +2721,11 @@ return {
 			["dn"] = "Notable 39", 
 			["id"] = "abyss_murderous_notable_39", 
 			["sd"] = {
-				[1] = "(10-11) to 0 Added Cold Damage with Axe Attacks", 
-				[2] = "0 to (17-20) Added Cold Damage with Axe Attacks", 
+				[1] = "(10-11) to (17-20) Added Cold Damage with Axe Attacks", 
 			}, 
 			["sortedStats"] = {
-				[1] = "attack_maximum_added_cold_damage_with_axes", 
-				[2] = "attack_minimum_added_cold_damage_with_axes", 
+				[1] = "attack_minimum_added_cold_damage_with_axes", 
+				[2] = "attack_maximum_added_cold_damage_with_axes", 
 			}, 
 			["stats"] = {
 				["attack_maximum_added_cold_damage_with_axes"] = {
@@ -2770,12 +2748,11 @@ return {
 			["dn"] = "Notable 40", 
 			["id"] = "abyss_murderous_notable_40", 
 			["sd"] = {
-				[1] = "(10-11) to 0 Added Cold Damage with Mace or Sceptre Attacks", 
-				[2] = "0 to (17-20) Added Cold Damage with Mace or Sceptre Attacks", 
+				[1] = "(10-11) to (17-20) Added Cold Damage with Mace or Sceptre Attacks", 
 			}, 
 			["sortedStats"] = {
-				[1] = "attack_maximum_added_cold_damage_with_maces", 
-				[2] = "attack_minimum_added_cold_damage_with_maces", 
+				[1] = "attack_minimum_added_cold_damage_with_maces", 
+				[2] = "attack_maximum_added_cold_damage_with_maces", 
 			}, 
 			["stats"] = {
 				["attack_maximum_added_cold_damage_with_maces"] = {
@@ -2798,12 +2775,11 @@ return {
 			["dn"] = "Notable 41", 
 			["id"] = "abyss_murderous_notable_41", 
 			["sd"] = {
-				[1] = "(10-11) to 0 Added Cold Damage with Staff Attacks", 
-				[2] = "0 to (17-20) Added Cold Damage with Staff Attacks", 
+				[1] = "(10-11) to (17-20) Added Cold Damage with Staff Attacks", 
 			}, 
 			["sortedStats"] = {
-				[1] = "attack_maximum_added_cold_damage_with_staves", 
-				[2] = "attack_minimum_added_cold_damage_with_staves", 
+				[1] = "attack_minimum_added_cold_damage_with_staves", 
+				[2] = "attack_maximum_added_cold_damage_with_staves", 
 			}, 
 			["stats"] = {
 				["attack_maximum_added_cold_damage_with_staves"] = {
@@ -2826,12 +2802,11 @@ return {
 			["dn"] = "Notable 42", 
 			["id"] = "abyss_murderous_notable_42", 
 			["sd"] = {
-				[1] = "(10-11) to 0 Added Chaos Damage with Dagger Attacks", 
-				[2] = "0 to (17-20) Added Chaos Damage with Dagger Attacks", 
+				[1] = "(10-11) to (17-20) Added Chaos Damage with Dagger Attacks", 
 			}, 
 			["sortedStats"] = {
-				[1] = "attack_maximum_added_chaos_damage_with_daggers", 
-				[2] = "attack_minimum_added_chaos_damage_with_daggers", 
+				[1] = "attack_minimum_added_chaos_damage_with_daggers", 
+				[2] = "attack_maximum_added_chaos_damage_with_daggers", 
 			}, 
 			["stats"] = {
 				["attack_maximum_added_chaos_damage_with_daggers"] = {
@@ -2854,12 +2829,11 @@ return {
 			["dn"] = "Notable 43", 
 			["id"] = "abyss_murderous_notable_43", 
 			["sd"] = {
-				[1] = "(10-11) to 0 Added Chaos Damage with Claw Attacks", 
-				[2] = "0 to (17-20) Added Chaos Damage with Claw Attacks", 
+				[1] = "(10-11) to (17-20) Added Chaos Damage with Claw Attacks", 
 			}, 
 			["sortedStats"] = {
-				[1] = "attack_maximum_added_chaos_damage_with_claws", 
-				[2] = "attack_minimum_added_chaos_damage_with_claws", 
+				[1] = "attack_minimum_added_chaos_damage_with_claws", 
+				[2] = "attack_maximum_added_chaos_damage_with_claws", 
 			}, 
 			["stats"] = {
 				["attack_maximum_added_chaos_damage_with_claws"] = {
@@ -2901,12 +2875,11 @@ return {
 			["dn"] = "Notable 45", 
 			["id"] = "abyss_murderous_notable_45", 
 			["sd"] = {
-				[1] = "Adds (6-7) to 0 Fire Damage to Attacks", 
-				[2] = "Adds 0 to (13-16) Fire Damage to Attacks", 
+				[1] = "Adds (6-7) to (13-16) Fire Damage to Attacks", 
 			}, 
 			["sortedStats"] = {
-				[1] = "attack_maximum_added_fire_damage", 
-				[2] = "attack_minimum_added_fire_damage", 
+				[1] = "attack_minimum_added_fire_damage", 
+				[2] = "attack_maximum_added_fire_damage", 
 			}, 
 			["stats"] = {
 				["attack_maximum_added_fire_damage"] = {
@@ -2929,12 +2902,11 @@ return {
 			["dn"] = "Notable 46", 
 			["id"] = "abyss_murderous_notable_46", 
 			["sd"] = {
-				[1] = "Adds (6-7) to 0 Cold Damage to Attacks", 
-				[2] = "Adds 0 to (11-13) Cold Damage to Attacks", 
+				[1] = "Adds (6-7) to (11-13) Cold Damage to Attacks", 
 			}, 
 			["sortedStats"] = {
-				[1] = "attack_maximum_added_cold_damage", 
-				[2] = "attack_minimum_added_cold_damage", 
+				[1] = "attack_minimum_added_cold_damage", 
+				[2] = "attack_maximum_added_cold_damage", 
 			}, 
 			["stats"] = {
 				["attack_maximum_added_cold_damage"] = {
@@ -2957,12 +2929,11 @@ return {
 			["dn"] = "Notable 47", 
 			["id"] = "abyss_murderous_notable_47", 
 			["sd"] = {
-				[1] = "Adds (1-2) to 0 Lightning Damage to Attacks", 
-				[2] = "Adds 0 to (25-27) Lightning Damage to Attacks", 
+				[1] = "Adds (1-2) to (25-27) Lightning Damage to Attacks", 
 			}, 
 			["sortedStats"] = {
-				[1] = "attack_maximum_added_lightning_damage", 
-				[2] = "attack_minimum_added_lightning_damage", 
+				[1] = "attack_minimum_added_lightning_damage", 
+				[2] = "attack_maximum_added_lightning_damage", 
 			}, 
 			["stats"] = {
 				["attack_maximum_added_lightning_damage"] = {
@@ -2985,12 +2956,11 @@ return {
 			["dn"] = "Notable 48", 
 			["id"] = "abyss_murderous_notable_48", 
 			["sd"] = {
-				[1] = "Adds (2-3) to 0 Physical Damage to Attacks", 
-				[2] = "Adds 0 to (4-5) Physical Damage to Attacks", 
+				[1] = "Adds (2-3) to (4-5) Physical Damage to Attacks", 
 			}, 
 			["sortedStats"] = {
-				[1] = "attack_maximum_added_physical_damage", 
-				[2] = "attack_minimum_added_physical_damage", 
+				[1] = "attack_minimum_added_physical_damage", 
+				[2] = "attack_maximum_added_physical_damage", 
 			}, 
 			["stats"] = {
 				["attack_maximum_added_physical_damage"] = {
@@ -3013,12 +2983,11 @@ return {
 			["dn"] = "Notable 49", 
 			["id"] = "abyss_murderous_notable_49", 
 			["sd"] = {
-				[1] = "Adds (8-9) to 0 Chaos Damage to Attacks", 
-				[2] = "Adds 0 to (14-17) Chaos Damage to Attacks", 
+				[1] = "Adds (8-9) to (14-17) Chaos Damage to Attacks", 
 			}, 
 			["sortedStats"] = {
-				[1] = "attack_maximum_added_chaos_damage", 
-				[2] = "attack_minimum_added_chaos_damage", 
+				[1] = "attack_minimum_added_chaos_damage", 
+				[2] = "attack_maximum_added_chaos_damage", 
 			}, 
 			["stats"] = {
 				["attack_maximum_added_chaos_damage"] = {
@@ -3592,12 +3561,11 @@ return {
 			["dn"] = "Notable 27", 
 			["id"] = "abyss_searching_notable_27", 
 			["sd"] = {
-				[1] = "Adds (6-7) to 0 Fire Damage to Attacks", 
-				[2] = "Adds 0 to (13-16) Fire Damage to Attacks", 
+				[1] = "Adds (6-7) to (13-16) Fire Damage to Attacks", 
 			}, 
 			["sortedStats"] = {
-				[1] = "attack_maximum_added_fire_damage", 
-				[2] = "attack_minimum_added_fire_damage", 
+				[1] = "attack_minimum_added_fire_damage", 
+				[2] = "attack_maximum_added_fire_damage", 
 			}, 
 			["stats"] = {
 				["attack_maximum_added_fire_damage"] = {
@@ -3620,12 +3588,11 @@ return {
 			["dn"] = "Notable 28", 
 			["id"] = "abyss_searching_notable_28", 
 			["sd"] = {
-				[1] = "Adds (6-7) to 0 Cold Damage to Attacks", 
-				[2] = "Adds 0 to (11-13) Cold Damage to Attacks", 
+				[1] = "Adds (6-7) to (11-13) Cold Damage to Attacks", 
 			}, 
 			["sortedStats"] = {
-				[1] = "attack_maximum_added_cold_damage", 
-				[2] = "attack_minimum_added_cold_damage", 
+				[1] = "attack_minimum_added_cold_damage", 
+				[2] = "attack_maximum_added_cold_damage", 
 			}, 
 			["stats"] = {
 				["attack_maximum_added_cold_damage"] = {
@@ -3648,12 +3615,11 @@ return {
 			["dn"] = "Notable 29", 
 			["id"] = "abyss_searching_notable_29", 
 			["sd"] = {
-				[1] = "Adds (1-2) to 0 Lightning Damage to Attacks", 
-				[2] = "Adds 0 to (25-27) Lightning Damage to Attacks", 
+				[1] = "Adds (1-2) to (25-27) Lightning Damage to Attacks", 
 			}, 
 			["sortedStats"] = {
-				[1] = "attack_maximum_added_lightning_damage", 
-				[2] = "attack_minimum_added_lightning_damage", 
+				[1] = "attack_minimum_added_lightning_damage", 
+				[2] = "attack_maximum_added_lightning_damage", 
 			}, 
 			["stats"] = {
 				["attack_maximum_added_lightning_damage"] = {
@@ -3676,12 +3642,11 @@ return {
 			["dn"] = "Notable 30", 
 			["id"] = "abyss_searching_notable_30", 
 			["sd"] = {
-				[1] = "Adds (2-3) to 0 Physical Damage to Attacks", 
-				[2] = "Adds 0 to (4-5) Physical Damage to Attacks", 
+				[1] = "Adds (2-3) to (4-5) Physical Damage to Attacks", 
 			}, 
 			["sortedStats"] = {
-				[1] = "attack_maximum_added_physical_damage", 
-				[2] = "attack_minimum_added_physical_damage", 
+				[1] = "attack_minimum_added_physical_damage", 
+				[2] = "attack_maximum_added_physical_damage", 
 			}, 
 			["stats"] = {
 				["attack_maximum_added_physical_damage"] = {
@@ -3704,12 +3669,11 @@ return {
 			["dn"] = "Notable 31", 
 			["id"] = "abyss_searching_notable_31", 
 			["sd"] = {
-				[1] = "Adds (8-9) to 0 Chaos Damage to Attacks", 
-				[2] = "Adds 0 to (14-17) Chaos Damage to Attacks", 
+				[1] = "Adds (8-9) to (14-17) Chaos Damage to Attacks", 
 			}, 
 			["sortedStats"] = {
-				[1] = "attack_maximum_added_chaos_damage", 
-				[2] = "attack_minimum_added_chaos_damage", 
+				[1] = "attack_minimum_added_chaos_damage", 
+				[2] = "attack_maximum_added_chaos_damage", 
 			}, 
 			["stats"] = {
 				["attack_maximum_added_chaos_damage"] = {
@@ -3732,12 +3696,11 @@ return {
 			["dn"] = "Notable 32", 
 			["id"] = "abyss_searching_notable_32", 
 			["sd"] = {
-				[1] = "4 to 0 Added Physical Damage with Wand Attacks", 
-				[2] = "0 to (5-6) Added Physical Damage with Wand Attacks", 
+				[1] = "4 to (5-6) Added Physical Damage with Wand Attacks", 
 			}, 
 			["sortedStats"] = {
-				[1] = "attack_maximum_added_physical_damage_with_wands", 
-				[2] = "attack_minimum_added_physical_damage_with_wands", 
+				[1] = "attack_minimum_added_physical_damage_with_wands", 
+				[2] = "attack_maximum_added_physical_damage_with_wands", 
 			}, 
 			["stats"] = {
 				["attack_maximum_added_physical_damage_with_wands"] = {
@@ -3760,12 +3723,11 @@ return {
 			["dn"] = "Notable 33", 
 			["id"] = "abyss_searching_notable_33", 
 			["sd"] = {
-				[1] = "4 to 0 Added Physical Damage with Bow Attacks", 
-				[2] = "0 to (5-6) Added Physical Damage with Bow Attacks", 
+				[1] = "4 to (5-6) Added Physical Damage with Bow Attacks", 
 			}, 
 			["sortedStats"] = {
-				[1] = "attack_maximum_added_physical_damage_with_bow", 
-				[2] = "attack_minimum_added_physical_damage_with_bow", 
+				[1] = "attack_minimum_added_physical_damage_with_bow", 
+				[2] = "attack_maximum_added_physical_damage_with_bow", 
 			}, 
 			["stats"] = {
 				["attack_maximum_added_physical_damage_with_bow"] = {
@@ -3788,12 +3750,11 @@ return {
 			["dn"] = "Notable 34", 
 			["id"] = "abyss_searching_notable_34", 
 			["sd"] = {
-				[1] = "(1-3) to 0 Added Lightning Damage with Wand Attacks", 
-				[2] = "0 to (28-30) Added Lightning Damage with Wand Attacks", 
+				[1] = "(1-3) to (28-30) Added Lightning Damage with Wand Attacks", 
 			}, 
 			["sortedStats"] = {
-				[1] = "attack_maximum_added_lightning_damage_with_wand", 
-				[2] = "attack_minimum_added_lightning_damage_with_wand", 
+				[1] = "attack_minimum_added_lightning_damage_with_wand", 
+				[2] = "attack_maximum_added_lightning_damage_with_wand", 
 			}, 
 			["stats"] = {
 				["attack_maximum_added_lightning_damage_with_wand"] = {
@@ -3816,12 +3777,11 @@ return {
 			["dn"] = "Notable 35", 
 			["id"] = "abyss_searching_notable_35", 
 			["sd"] = {
-				[1] = "(1-3) to 0 Added Lightning Damage with Bow Attacks", 
-				[2] = "0 to (28-30) Added Lightning Damage with Bow Attacks", 
+				[1] = "(1-3) to (28-30) Added Lightning Damage with Bow Attacks", 
 			}, 
 			["sortedStats"] = {
-				[1] = "attack_maximum_added_lightning_damage_with_bows", 
-				[2] = "attack_minimum_added_lightning_damage_with_bows", 
+				[1] = "attack_minimum_added_lightning_damage_with_bows", 
+				[2] = "attack_maximum_added_lightning_damage_with_bows", 
 			}, 
 			["stats"] = {
 				["attack_maximum_added_lightning_damage_with_bows"] = {
@@ -3844,12 +3804,11 @@ return {
 			["dn"] = "Notable 36", 
 			["id"] = "abyss_searching_notable_36", 
 			["sd"] = {
-				[1] = "(9-11) to 0 Added Fire Damage with Wand Attacks", 
-				[2] = "0 to (16-19) Added Fire Damage with Wand Attacks", 
+				[1] = "(9-11) to (16-19) Added Fire Damage with Wand Attacks", 
 			}, 
 			["sortedStats"] = {
-				[1] = "attack_maximum_added_fire_damage_with_wand", 
-				[2] = "attack_minimum_added_fire_damage_with_wand", 
+				[1] = "attack_minimum_added_fire_damage_with_wand", 
+				[2] = "attack_maximum_added_fire_damage_with_wand", 
 			}, 
 			["stats"] = {
 				["attack_maximum_added_fire_damage_with_wand"] = {
@@ -3872,12 +3831,11 @@ return {
 			["dn"] = "Notable 37", 
 			["id"] = "abyss_searching_notable_37", 
 			["sd"] = {
-				[1] = "(9-11) to 0 Added Fire Damage with Bow Attacks", 
-				[2] = "0 to (16-19) Added Fire Damage with Bow Attacks", 
+				[1] = "(9-11) to (16-19) Added Fire Damage with Bow Attacks", 
 			}, 
 			["sortedStats"] = {
-				[1] = "attack_maximum_added_fire_damage_with_bow", 
-				[2] = "attack_minimum_added_fire_damage_with_bow", 
+				[1] = "attack_minimum_added_fire_damage_with_bow", 
+				[2] = "attack_maximum_added_fire_damage_with_bow", 
 			}, 
 			["stats"] = {
 				["attack_maximum_added_fire_damage_with_bow"] = {
@@ -3900,12 +3858,11 @@ return {
 			["dn"] = "Notable 38", 
 			["id"] = "abyss_searching_notable_38", 
 			["sd"] = {
-				[1] = "(8-9) to 0 Added Cold Damage with Wand Attacks", 
-				[2] = "0 to (14-16) Added Cold Damage with Wand Attacks", 
+				[1] = "(8-9) to (14-16) Added Cold Damage with Wand Attacks", 
 			}, 
 			["sortedStats"] = {
-				[1] = "attack_maximum_added_cold_damage_with_wand", 
-				[2] = "attack_minimum_added_cold_damage_with_wand", 
+				[1] = "attack_minimum_added_cold_damage_with_wand", 
+				[2] = "attack_maximum_added_cold_damage_with_wand", 
 			}, 
 			["stats"] = {
 				["attack_maximum_added_cold_damage_with_wand"] = {
@@ -3928,12 +3885,11 @@ return {
 			["dn"] = "Notable 39", 
 			["id"] = "abyss_searching_notable_39", 
 			["sd"] = {
-				[1] = "(8-9) to 0 Added Cold Damage with Bow Attacks", 
-				[2] = "0 to (14-16) Added Cold Damage with Bow Attacks", 
+				[1] = "(8-9) to (14-16) Added Cold Damage with Bow Attacks", 
 			}, 
 			["sortedStats"] = {
-				[1] = "attack_maximum_added_cold_damage_with_bows", 
-				[2] = "attack_minimum_added_cold_damage_with_bows", 
+				[1] = "attack_minimum_added_cold_damage_with_bows", 
+				[2] = "attack_maximum_added_cold_damage_with_bows", 
 			}, 
 			["stats"] = {
 				["attack_maximum_added_cold_damage_with_bows"] = {
@@ -3956,12 +3912,11 @@ return {
 			["dn"] = "Notable 40", 
 			["id"] = "abyss_searching_notable_40", 
 			["sd"] = {
-				[1] = "(8-9) to 0 Added Chaos Damage with Bow Attacks", 
-				[2] = "0 to (14-16) Added Chaos Damage with Bow Attacks", 
+				[1] = "(8-9) to (14-16) Added Chaos Damage with Bow Attacks", 
 			}, 
 			["sortedStats"] = {
-				[1] = "attack_maximum_added_chaos_damage_with_bows", 
-				[2] = "attack_minimum_added_chaos_damage_with_bows", 
+				[1] = "attack_minimum_added_chaos_damage_with_bows", 
+				[2] = "attack_maximum_added_chaos_damage_with_bows", 
 			}, 
 			["stats"] = {
 				["attack_maximum_added_chaos_damage_with_bows"] = {
@@ -4402,12 +4357,11 @@ return {
 			["dn"] = "Notable 19", 
 			["id"] = "abyss_hypnotic_notable_19", 
 			["sd"] = {
-				[1] = "(13-16) to 0 Added Spell Fire Damage while Dual Wielding", 
-				[2] = "0 to (18-21) Added Spell Fire Damage while Dual Wielding", 
+				[1] = "(13-16) to (18-21) Added Spell Fire Damage while Dual Wielding", 
 			}, 
 			["sortedStats"] = {
-				[1] = "spell_maximum_added_fire_damage_while_dual_wielding", 
-				[2] = "spell_minimum_added_fire_damage_while_dual_wielding", 
+				[1] = "spell_minimum_added_fire_damage_while_dual_wielding", 
+				[2] = "spell_maximum_added_fire_damage_while_dual_wielding", 
 			}, 
 			["stats"] = {
 				["spell_maximum_added_fire_damage_while_dual_wielding"] = {
@@ -4430,12 +4384,11 @@ return {
 			["dn"] = "Notable 20", 
 			["id"] = "abyss_hypnotic_notable_20", 
 			["sd"] = {
-				[1] = "(12-14) to 0 Added Spell Cold Damage while Dual Wielding", 
-				[2] = "0 to (17-19) Added Spell Cold Damage while Dual Wielding", 
+				[1] = "(12-14) to (17-19) Added Spell Cold Damage while Dual Wielding", 
 			}, 
 			["sortedStats"] = {
-				[1] = "spell_maximum_added_cold_damage_while_dual_wielding", 
-				[2] = "spell_minimum_added_cold_damage_while_dual_wielding", 
+				[1] = "spell_minimum_added_cold_damage_while_dual_wielding", 
+				[2] = "spell_maximum_added_cold_damage_while_dual_wielding", 
 			}, 
 			["stats"] = {
 				["spell_maximum_added_cold_damage_while_dual_wielding"] = {
@@ -4458,12 +4411,11 @@ return {
 			["dn"] = "Notable 21", 
 			["id"] = "abyss_hypnotic_notable_21", 
 			["sd"] = {
-				[1] = "(1-4) to 0 Added Spell Lightning Damage while Dual Wielding", 
-				[2] = "0 to (29-34) Added Spell Lightning Damage while Dual Wielding", 
+				[1] = "(1-4) to (29-34) Added Spell Lightning Damage while Dual Wielding", 
 			}, 
 			["sortedStats"] = {
-				[1] = "spell_maximum_added_lightning_damage_while_dual_wielding", 
-				[2] = "spell_minimum_added_lightning_damage_while_dual_wielding", 
+				[1] = "spell_minimum_added_lightning_damage_while_dual_wielding", 
+				[2] = "spell_maximum_added_lightning_damage_while_dual_wielding", 
 			}, 
 			["stats"] = {
 				["spell_maximum_added_lightning_damage_while_dual_wielding"] = {
@@ -4486,12 +4438,11 @@ return {
 			["dn"] = "Notable 22", 
 			["id"] = "abyss_hypnotic_notable_22", 
 			["sd"] = {
-				[1] = "(9-12) to 0 Added Spell Physical Damage while Dual Wielding", 
-				[2] = "0 to (14-17) Added Spell Physical Damage while Dual Wielding", 
+				[1] = "(9-12) to (14-17) Added Spell Physical Damage while Dual Wielding", 
 			}, 
 			["sortedStats"] = {
-				[1] = "spell_maximum_added_physical_damage_while_dual_wielding", 
-				[2] = "spell_minimum_added_physical_damage_while_dual_wielding", 
+				[1] = "spell_minimum_added_physical_damage_while_dual_wielding", 
+				[2] = "spell_maximum_added_physical_damage_while_dual_wielding", 
 			}, 
 			["stats"] = {
 				["spell_maximum_added_physical_damage_while_dual_wielding"] = {
@@ -4514,12 +4465,11 @@ return {
 			["dn"] = "Notable 23", 
 			["id"] = "abyss_hypnotic_notable_23", 
 			["sd"] = {
-				[1] = "(9-12) to 0 Added Spell Chaos Damage while Dual Wielding", 
-				[2] = "0 to (14-17) Added Spell Chaos Damage while Dual Wielding", 
+				[1] = "(9-12) to (14-17) Added Spell Chaos Damage while Dual Wielding", 
 			}, 
 			["sortedStats"] = {
-				[1] = "spell_maximum_added_chaos_damage_while_dual_wielding", 
-				[2] = "spell_minimum_added_chaos_damage_while_dual_wielding", 
+				[1] = "spell_minimum_added_chaos_damage_while_dual_wielding", 
+				[2] = "spell_maximum_added_chaos_damage_while_dual_wielding", 
 			}, 
 			["stats"] = {
 				["spell_maximum_added_chaos_damage_while_dual_wielding"] = {
@@ -4542,12 +4492,11 @@ return {
 			["dn"] = "Notable 24", 
 			["id"] = "abyss_hypnotic_notable_24", 
 			["sd"] = {
-				[1] = "(13-16) to 0 Added Spell Fire Damage while wielding a Two Handed Weapon", 
-				[2] = "0 to (18-21) Added Spell Fire Damage while wielding a Two Handed Weapon", 
+				[1] = "(13-16) to (18-21) Added Spell Fire Damage while wielding a Two Handed Weapon", 
 			}, 
 			["sortedStats"] = {
-				[1] = "spell_maximum_added_fire_damage_while_wielding_two_handed_weapon", 
-				[2] = "spell_minimum_added_fire_damage_while_wielding_two_handed_weapon", 
+				[1] = "spell_minimum_added_fire_damage_while_wielding_two_handed_weapon", 
+				[2] = "spell_maximum_added_fire_damage_while_wielding_two_handed_weapon", 
 			}, 
 			["stats"] = {
 				["spell_maximum_added_fire_damage_while_wielding_two_handed_weapon"] = {
@@ -4570,12 +4519,11 @@ return {
 			["dn"] = "Notable 25", 
 			["id"] = "abyss_hypnotic_notable_25", 
 			["sd"] = {
-				[1] = "(12-14) to 0 Added Spell Cold Damage while wielding a Two Handed Weapon", 
-				[2] = "0 to (17-19) Added Spell Cold Damage while wielding a Two Handed Weapon", 
+				[1] = "(12-14) to (17-19) Added Spell Cold Damage while wielding a Two Handed Weapon", 
 			}, 
 			["sortedStats"] = {
-				[1] = "spell_maximum_added_cold_damage_while_wielding_two_handed_weapon", 
-				[2] = "spell_minimum_added_cold_damage_while_wielding_two_handed_weapon", 
+				[1] = "spell_minimum_added_cold_damage_while_wielding_two_handed_weapon", 
+				[2] = "spell_maximum_added_cold_damage_while_wielding_two_handed_weapon", 
 			}, 
 			["stats"] = {
 				["spell_maximum_added_cold_damage_while_wielding_two_handed_weapon"] = {
@@ -4598,12 +4546,11 @@ return {
 			["dn"] = "Notable 26", 
 			["id"] = "abyss_hypnotic_notable_26", 
 			["sd"] = {
-				[1] = "(1-4) to 0 Added Spell Lightning Damage while wielding a Two Handed Weapon", 
-				[2] = "0 to (29-34) Added Spell Lightning Damage while wielding a Two Handed Weapon", 
+				[1] = "(1-4) to (29-34) Added Spell Lightning Damage while wielding a Two Handed Weapon", 
 			}, 
 			["sortedStats"] = {
-				[1] = "spell_maximum_added_lightning_damage_while_wielding_two_handed_weapon", 
-				[2] = "spell_minimum_added_lightning_damage_while_wielding_two_handed_weapon", 
+				[1] = "spell_minimum_added_lightning_damage_while_wielding_two_handed_weapon", 
+				[2] = "spell_maximum_added_lightning_damage_while_wielding_two_handed_weapon", 
 			}, 
 			["stats"] = {
 				["spell_maximum_added_lightning_damage_while_wielding_two_handed_weapon"] = {
@@ -4626,12 +4573,11 @@ return {
 			["dn"] = "Notable 27", 
 			["id"] = "abyss_hypnotic_notable_27", 
 			["sd"] = {
-				[1] = "(9-12) to 0 Added Spell Physical Damage while wielding a Two Handed Weapon", 
-				[2] = "0 to (14-17) Added Spell Physical Damage while wielding a Two Handed Weapon", 
+				[1] = "(9-12) to (14-17) Added Spell Physical Damage while wielding a Two Handed Weapon", 
 			}, 
 			["sortedStats"] = {
-				[1] = "spell_maximum_added_physical_damage_while_wielding_two_handed_weapon", 
-				[2] = "spell_minimum_added_physical_damage_while_wielding_two_handed_weapon", 
+				[1] = "spell_minimum_added_physical_damage_while_wielding_two_handed_weapon", 
+				[2] = "spell_maximum_added_physical_damage_while_wielding_two_handed_weapon", 
 			}, 
 			["stats"] = {
 				["spell_maximum_added_physical_damage_while_wielding_two_handed_weapon"] = {
@@ -4654,12 +4600,11 @@ return {
 			["dn"] = "Notable 28", 
 			["id"] = "abyss_hypnotic_notable_28", 
 			["sd"] = {
-				[1] = "(9-12) to 0 Added Spell Chaos Damage while wielding a Two Handed Weapon", 
-				[2] = "0 to (14-17) Added Spell Chaos Damage while wielding a Two Handed Weapon", 
+				[1] = "(9-12) to (14-17) Added Spell Chaos Damage while wielding a Two Handed Weapon", 
 			}, 
 			["sortedStats"] = {
-				[1] = "spell_maximum_added_chaos_damage_while_wielding_two_handed_weapon", 
-				[2] = "spell_minimum_added_chaos_damage_while_wielding_two_handed_weapon", 
+				[1] = "spell_minimum_added_chaos_damage_while_wielding_two_handed_weapon", 
+				[2] = "spell_maximum_added_chaos_damage_while_wielding_two_handed_weapon", 
 			}, 
 			["stats"] = {
 				["spell_maximum_added_chaos_damage_while_wielding_two_handed_weapon"] = {
@@ -4682,12 +4627,11 @@ return {
 			["dn"] = "Notable 29", 
 			["id"] = "abyss_hypnotic_notable_29", 
 			["sd"] = {
-				[1] = "(13-16) to 0 Added Spell Fire Damage while holding a Shield", 
-				[2] = "0 to (18-21) Added Spell Fire Damage while holding a Shield", 
+				[1] = "(13-16) to (18-21) Added Spell Fire Damage while holding a Shield", 
 			}, 
 			["sortedStats"] = {
-				[1] = "spell_maximum_added_fire_damage_while_holding_a_shield", 
-				[2] = "spell_minimum_added_fire_damage_while_holding_a_shield", 
+				[1] = "spell_minimum_added_fire_damage_while_holding_a_shield", 
+				[2] = "spell_maximum_added_fire_damage_while_holding_a_shield", 
 			}, 
 			["stats"] = {
 				["spell_maximum_added_fire_damage_while_holding_a_shield"] = {
@@ -4710,12 +4654,11 @@ return {
 			["dn"] = "Notable 30", 
 			["id"] = "abyss_hypnotic_notable_30", 
 			["sd"] = {
-				[1] = "(12-14) to 0 Added Spell Cold Damage while holding a Shield", 
-				[2] = "0 to (17-19) Added Spell Cold Damage while holding a Shield", 
+				[1] = "(12-14) to (17-19) Added Spell Cold Damage while holding a Shield", 
 			}, 
 			["sortedStats"] = {
-				[1] = "spell_maximum_added_cold_damage_while_holding_a_shield", 
-				[2] = "spell_minimum_added_cold_damage_while_holding_a_shield", 
+				[1] = "spell_minimum_added_cold_damage_while_holding_a_shield", 
+				[2] = "spell_maximum_added_cold_damage_while_holding_a_shield", 
 			}, 
 			["stats"] = {
 				["spell_maximum_added_cold_damage_while_holding_a_shield"] = {
@@ -4738,12 +4681,11 @@ return {
 			["dn"] = "Notable 31", 
 			["id"] = "abyss_hypnotic_notable_31", 
 			["sd"] = {
-				[1] = "(1-4) to 0 Added Spell Lightning Damage while holding a Shield", 
-				[2] = "0 to (29-34) Added Spell Lightning Damage while holding a Shield", 
+				[1] = "(1-4) to (29-34) Added Spell Lightning Damage while holding a Shield", 
 			}, 
 			["sortedStats"] = {
-				[1] = "spell_maximum_added_lightning_damage_while_holding_a_shield", 
-				[2] = "spell_minimum_added_lightning_damage_while_holding_a_shield", 
+				[1] = "spell_minimum_added_lightning_damage_while_holding_a_shield", 
+				[2] = "spell_maximum_added_lightning_damage_while_holding_a_shield", 
 			}, 
 			["stats"] = {
 				["spell_maximum_added_lightning_damage_while_holding_a_shield"] = {
@@ -4766,12 +4708,11 @@ return {
 			["dn"] = "Notable 32", 
 			["id"] = "abyss_hypnotic_notable_32", 
 			["sd"] = {
-				[1] = "(9-12) to 0 Added Spell Physical Damage while holding a Shield", 
-				[2] = "0 to (14-17) Added Spell Physical Damage while holding a Shield", 
+				[1] = "(9-12) to (14-17) Added Spell Physical Damage while holding a Shield", 
 			}, 
 			["sortedStats"] = {
-				[1] = "spell_maximum_added_physical_damage_while_holding_a_shield", 
-				[2] = "spell_minimum_added_physical_damage_while_holding_a_shield", 
+				[1] = "spell_minimum_added_physical_damage_while_holding_a_shield", 
+				[2] = "spell_maximum_added_physical_damage_while_holding_a_shield", 
 			}, 
 			["stats"] = {
 				["spell_maximum_added_physical_damage_while_holding_a_shield"] = {
@@ -4794,12 +4735,11 @@ return {
 			["dn"] = "Notable 33", 
 			["id"] = "abyss_hypnotic_notable_33", 
 			["sd"] = {
-				[1] = "(9-12) to 0 Added Spell Chaos Damage while holding a Shield", 
-				[2] = "0 to (14-17) Added Spell Chaos Damage while holding a Shield", 
+				[1] = "(9-12) to (14-17) Added Spell Chaos Damage while holding a Shield", 
 			}, 
 			["sortedStats"] = {
-				[1] = "spell_maximum_added_chaos_damage_while_holding_a_shield", 
-				[2] = "spell_minimum_added_chaos_damage_while_holding_a_shield", 
+				[1] = "spell_minimum_added_chaos_damage_while_holding_a_shield", 
+				[2] = "spell_maximum_added_chaos_damage_while_holding_a_shield", 
 			}, 
 			["stats"] = {
 				["spell_maximum_added_chaos_damage_while_holding_a_shield"] = {
@@ -4822,12 +4762,11 @@ return {
 			["dn"] = "Notable 34", 
 			["id"] = "abyss_hypnotic_notable_34", 
 			["sd"] = {
-				[1] = "Adds (9-12) to 0 Fire Damage to Spells", 
-				[2] = "Adds 0 to (14-17) Fire Damage to Spells", 
+				[1] = "Adds (9-12) to (14-17) Fire Damage to Spells", 
 			}, 
 			["sortedStats"] = {
-				[1] = "spell_maximum_added_fire_damage", 
-				[2] = "spell_minimum_added_fire_damage", 
+				[1] = "spell_minimum_added_fire_damage", 
+				[2] = "spell_maximum_added_fire_damage", 
 			}, 
 			["stats"] = {
 				["spell_maximum_added_fire_damage"] = {
@@ -4850,12 +4789,11 @@ return {
 			["dn"] = "Notable 35", 
 			["id"] = "abyss_hypnotic_notable_35", 
 			["sd"] = {
-				[1] = "Adds (8-11) to 0 Cold Damage to Spells", 
-				[2] = "Adds 0 to (13-16) Cold Damage to Spells", 
+				[1] = "Adds (8-11) to (13-16) Cold Damage to Spells", 
 			}, 
 			["sortedStats"] = {
-				[1] = "spell_maximum_added_cold_damage", 
-				[2] = "spell_minimum_added_cold_damage", 
+				[1] = "spell_minimum_added_cold_damage", 
+				[2] = "spell_maximum_added_cold_damage", 
 			}, 
 			["stats"] = {
 				["spell_maximum_added_cold_damage"] = {
@@ -4878,12 +4816,11 @@ return {
 			["dn"] = "Notable 36", 
 			["id"] = "abyss_hypnotic_notable_36", 
 			["sd"] = {
-				[1] = "Adds (1-3) to 0 Lightning Damage to Spells", 
-				[2] = "Adds 0 to (22-27) Lightning Damage to Spells", 
+				[1] = "Adds (1-3) to (22-27) Lightning Damage to Spells", 
 			}, 
 			["sortedStats"] = {
-				[1] = "spell_maximum_added_lightning_damage", 
-				[2] = "spell_minimum_added_lightning_damage", 
+				[1] = "spell_minimum_added_lightning_damage", 
+				[2] = "spell_maximum_added_lightning_damage", 
 			}, 
 			["stats"] = {
 				["spell_maximum_added_lightning_damage"] = {
@@ -4906,12 +4843,11 @@ return {
 			["dn"] = "Notable 37", 
 			["id"] = "abyss_hypnotic_notable_37", 
 			["sd"] = {
-				[1] = "Adds (4-7) to 0 Physical Damage to Spells", 
-				[2] = "Adds 0 to (10-13) Physical Damage to Spells", 
+				[1] = "Adds (4-7) to (10-13) Physical Damage to Spells", 
 			}, 
 			["sortedStats"] = {
-				[1] = "spell_maximum_added_physical_damage", 
-				[2] = "spell_minimum_added_physical_damage", 
+				[1] = "spell_minimum_added_physical_damage", 
+				[2] = "spell_maximum_added_physical_damage", 
 			}, 
 			["stats"] = {
 				["spell_maximum_added_physical_damage"] = {
@@ -4934,12 +4870,11 @@ return {
 			["dn"] = "Notable 38", 
 			["id"] = "abyss_hypnotic_notable_38", 
 			["sd"] = {
-				[1] = "Adds (4-7) to 0 Chaos Damage to Spells", 
-				[2] = "Adds 0 to (10-13) Chaos Damage to Spells", 
+				[1] = "Adds (4-7) to (10-13) Chaos Damage to Spells", 
 			}, 
 			["sortedStats"] = {
-				[1] = "spell_maximum_added_chaos_damage", 
-				[2] = "spell_minimum_added_chaos_damage", 
+				[1] = "spell_minimum_added_chaos_damage", 
+				[2] = "spell_maximum_added_chaos_damage", 
 			}, 
 			["stats"] = {
 				["spell_maximum_added_chaos_damage"] = {
@@ -5456,12 +5391,11 @@ return {
 			["dn"] = "Notable 23", 
 			["id"] = "abyss_ghastly_notable_23", 
 			["sd"] = {
-				[1] = "Minions deal (15-18) to 0 additional Fire Damage", 
-				[2] = "Minions deal 0 to (21-24) additional Fire Damage", 
+				[1] = "Minions deal (15-18) to (21-24) additional Fire Damage", 
 			}, 
 			["sortedStats"] = {
-				[1] = "minion_global_maximum_added_fire_damage", 
-				[2] = "minion_global_minimum_added_fire_damage", 
+				[1] = "minion_global_minimum_added_fire_damage", 
+				[2] = "minion_global_maximum_added_fire_damage", 
 			}, 
 			["stats"] = {
 				["minion_global_maximum_added_fire_damage"] = {
@@ -5484,12 +5418,11 @@ return {
 			["dn"] = "Notable 24", 
 			["id"] = "abyss_ghastly_notable_24", 
 			["sd"] = {
-				[1] = "Minions deal (15-18) to 0 additional Cold Damage", 
-				[2] = "Minions deal 0 to (21-24) additional Cold Damage", 
+				[1] = "Minions deal (15-18) to (21-24) additional Cold Damage", 
 			}, 
 			["sortedStats"] = {
-				[1] = "minion_global_maximum_added_cold_damage", 
-				[2] = "minion_global_minimum_added_cold_damage", 
+				[1] = "minion_global_minimum_added_cold_damage", 
+				[2] = "minion_global_maximum_added_cold_damage", 
 			}, 
 			["stats"] = {
 				["minion_global_maximum_added_cold_damage"] = {
@@ -5512,12 +5445,11 @@ return {
 			["dn"] = "Notable 25", 
 			["id"] = "abyss_ghastly_notable_25", 
 			["sd"] = {
-				[1] = "Minions deal (1-3) to 0 additional Lightning Damage", 
-				[2] = "Minions deal 0 to (33-39) additional Lightning Damage", 
+				[1] = "Minions deal (1-3) to (33-39) additional Lightning Damage", 
 			}, 
 			["sortedStats"] = {
-				[1] = "minion_global_maximum_added_lightning_damage", 
-				[2] = "minion_global_minimum_added_lightning_damage", 
+				[1] = "minion_global_minimum_added_lightning_damage", 
+				[2] = "minion_global_maximum_added_lightning_damage", 
 			}, 
 			["stats"] = {
 				["minion_global_maximum_added_lightning_damage"] = {
@@ -5540,12 +5472,11 @@ return {
 			["dn"] = "Notable 26", 
 			["id"] = "abyss_ghastly_notable_26", 
 			["sd"] = {
-				[1] = "Minions deal (9-12) to 0 additional Physical Damage", 
-				[2] = "Minions deal 0 to (15-18) additional Physical Damage", 
+				[1] = "Minions deal (9-12) to (15-18) additional Physical Damage", 
 			}, 
 			["sortedStats"] = {
-				[1] = "minion_global_maximum_added_physical_damage", 
-				[2] = "minion_global_minimum_added_physical_damage", 
+				[1] = "minion_global_minimum_added_physical_damage", 
+				[2] = "minion_global_maximum_added_physical_damage", 
 			}, 
 			["stats"] = {
 				["minion_global_maximum_added_physical_damage"] = {
@@ -5568,12 +5499,11 @@ return {
 			["dn"] = "Notable 27", 
 			["id"] = "abyss_ghastly_notable_27", 
 			["sd"] = {
-				[1] = "Minions deal (9-12) to 0 additional Chaos Damage", 
-				[2] = "Minions deal 0 to (15-18) additional Chaos Damage", 
+				[1] = "Minions deal (9-12) to (15-18) additional Chaos Damage", 
 			}, 
 			["sortedStats"] = {
-				[1] = "minion_global_maximum_added_chaos_damage", 
-				[2] = "minion_global_minimum_added_chaos_damage", 
+				[1] = "minion_global_minimum_added_chaos_damage", 
+				[2] = "minion_global_maximum_added_chaos_damage", 
 			}, 
 			["stats"] = {
 				["minion_global_maximum_added_chaos_damage"] = {

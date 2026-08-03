@@ -1226,13 +1226,10 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 						if replacesNode then
 							self:ReplaceNode(node, changedNode)
 						end
-						local statValues = { }
-						for statKey, statMod in pairs(changedNode.stats) do
-							statValues[statKey] = component.rolls[statMod.index]
-						end
-						-- Some added-damage effects use two game stats for one displayed
-						-- line. Describing all rolls together avoids two partial lines.
-						for statIndex, statLine in ipairs(data.describeStats(statValues, "stat_descriptions")) do
+						for statIndex, statLine in ipairs(changedNode.sd) do
+							for statKey, statMod in pairs(changedNode.stats) do
+								statLine = replaceHelperFunc(statLine, statKey, statMod, component.rolls[statMod.index])
+							end
 							self:NodeAdditionOrReplacementFromString(node, (replacesNode and "" or " \n") .. statLine, replacesNode and statIndex == 1)
 						end
 					else

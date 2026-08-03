@@ -222,6 +222,57 @@ describe("Abyss timeless jewels", function()
 		assert.are.equal("abyss_hypnotic", addedJewel.jewelData.conqueredBy.conqueror.type)
 	end)
 
+	it("shows and scores both stats of an added damage notable", function()
+		data.timelessJewelLUTs[9] = parseAbyssJewel(9, kurgalExampleData())
+		build.timelessData.jewelType = { id = 9 }
+		build.timelessData.conquerorType = { }
+		build.timelessData.jewelSocket = { id = 61419 }
+		build.timelessData.searchList = "abyss_hypnotic_notable_20, 1, 0, 0"
+		build.timelessData.searchListFallback = ""
+
+		build.treeTab:FindTimelessJewel()
+		local controls = main.popups[1].controls
+		local addedDamageOption
+		for _, option in ipairs(controls.nodeSelect.list) do
+			if option.id == "abyss_hypnotic_notable_20" then
+				addedDamageOption = option
+				break
+			end
+		end
+		assert.is_truthy(addedDamageOption)
+		assert.are.same({
+			"(12-14) to (17-19) Added Spell Cold Damage while Dual Wielding",
+		}, addedDamageOption.descriptions)
+
+		controls.searchButton.onClick()
+		assert.are.equal(1, #build.timelessData.searchResults)
+		assert.are.equal(12, build.timelessData.searchResults[1].total)
+
+		controls.searchList:SetText("abyss_hypnotic_notable_20, 0, 1, 0", true)
+		controls.searchButton.onClick()
+		assert.are.equal(1, #build.timelessData.searchResults)
+		assert.are.equal(18, build.timelessData.searchResults[1].total)
+
+		local addedDamage
+		for _, addition in pairs(build.spec.tree.legion.additions) do
+			if addition.id == "abyss_hypnotic_notable_20" then
+				addedDamage = addition
+				break
+			end
+		end
+		addedDamage.modListGenerated = nil
+		controls.fallbackWeightsButton.onClick()
+		local primaryValues, secondaryValues = { }, { }
+		for _, mod in ipairs(addedDamage.modListGenerated[1].modList) do
+			primaryValues[mod.name] = mod.value
+		end
+		for _, mod in ipairs(addedDamage.modListGenerated[2].modList) do
+			secondaryValues[mod.name] = mod.value
+		end
+		assert.are.same({ ColdMin = 100, ColdMax = 0 }, primaryValues)
+		assert.are.same({ ColdMin = 0, ColdMax = 100 }, secondaryValues)
+	end)
+
 	it("uses named notables and generates fallback weights for variable small nodes", function()
 		local zorathCastSpeedNotable
 		for _, addition in pairs(build.spec.tree.legion.additions) do
