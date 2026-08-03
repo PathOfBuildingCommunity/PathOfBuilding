@@ -1189,6 +1189,25 @@ describe("TestTriggers", function()
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
 	end)
 
+	it("multiplies Arcanist Brand trigger rate by the attached Brand count", function()
+		build.skillsTab:PasteSocketGroup("Arcanist Brand 20/0  1\nFireball 20/0  1\n")
+		runCallback("OnFrame")
+
+		local mainSocketGroup = build.skillsTab.socketGroupList[build.mainSocketGroup]
+		mainSocketGroup.mainActiveSkill = 2
+		build.modFlag = true
+		build.buildFlag = true
+		runCallback("OnFrame")
+
+		local singleBrandTriggerRate = build.calcsTab.mainOutput.SkillTriggerRate
+		build.configTab.input.customMods = "You can have an additional Brand Attached to an Enemy"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.near(singleBrandTriggerRate * 2, build.calcsTab.mainOutput.SkillTriggerRate, 10 ^ -9)
+		assert.matches("2 attached Brands", build.calcsTab.mainEnv.player.mainSkill.infoMessage)
+	end)
+
 	it("Trigger Shockwave", function()
 		build.itemsTab:CreateDisplayItemFromRaw([[Elemental 1H Mace
 		Behemoth Mace
@@ -1408,5 +1427,37 @@ describe("TestTriggers", function()
 		build.configTab:BuildModList()
 		runCallback("OnFrame")
 		assert.are.not_equals(math.floor(build.calcsTab.mainOutput.SkillTriggerRate * 100), math.floor(baseRate * 100))
+	end)
+
+	it("skillId config search", function()
+		build.itemsTab:CreateDisplayItemFromRaw([[Rarity: RARE
+		Physical 1H Mace
+		Boom Mace
+		Crafted: true
+		Prefix: {range:0.5}LocalIncreasedPhysicalDamagePercent5
+		Prefix: {range:0.5}LocalIncreasedPhysicalDamagePercentAndAccuracyRating5
+		Prefix: {range:0.5}LocalAddedPhysicalDamage6
+		Suffix: {range:0.5}LocalIncreasedAttackSpeed3
+		Suffix: {range:0.5}LocalCriticalStrikeChance3
+		Suffix: {range:0.5}LocalCriticalMultiplier4
+		Quality: 20
+		Sockets: R-R-R
+		LevelReq: 70
+		Implicits: 1
+		Trigger Level 20 Fiery Impact on Melee Hit with this Weapon
+		172% increased Physical Damage
+		Adds 16 to 29 Physical Damage
+		12% increased Attack Speed
+		22% increased Critical Strike Chance
+		+27% to Global Critical Strike Multiplier
+		+111 to Accuracy Rating]])
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
+
+		build.skillsTab:PasteSocketGroup("Smite 20/0  1\n")
+		runCallback("OnFrame")
+
+		local baseRate = build.calcsTab.mainOutput.SkillTriggerRate
+		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
 	end)
 end)

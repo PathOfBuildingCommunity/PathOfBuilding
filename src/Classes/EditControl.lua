@@ -401,6 +401,10 @@ function EditClass:Draw(viewPort, noTooltip)
 			DrawImage(nil, caretX, textY, 1, textHeight)
 		end
 	else
+		if self.buf == '' and self.placeholder then
+			SetDrawColor(self.disableCol)
+			DrawString(textX, textY, "LEFT", textHeight, self.font, self.placeholder)
+		end
 		local pre = self.textCol .. self.buf:sub(1, self.caret - 1)
 		local post = self.buf:sub(self.caret)
 		if self.protected then
@@ -675,7 +679,7 @@ function EditClass:OnKeyUp(key)
 		end
 	elseif self.isNumeric then
 		local cur = tonumber(self.buf)
-		if key == "WHEELUP" or key == "UP" then
+		if (not main.disableScrollControlInteraction and (key == "WHEELUP")) or key == "UP" then
 			if cur then
 				self:SetText(tostring(cur + (self.numberInc or 1)), true)
 			else
@@ -685,7 +689,7 @@ function EditClass:OnKeyUp(key)
 					self:SetText("1", true)
 				end
 			end
-		elseif key == "WHEELDOWN" or key == "DOWN" then
+		elseif (not main.disableScrollControlInteraction and (key == "WHEELDOWN")) or key == "DOWN" then
 			if cur and (self.filter ~= "%D" or cur > 0)then
 				self:SetText(tostring(cur - (self.numberInc or 1)), true)
 			else

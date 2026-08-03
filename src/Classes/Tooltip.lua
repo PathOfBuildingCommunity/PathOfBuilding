@@ -11,7 +11,7 @@ local s_gmatch = string.gmatch
 
 -- Constants
 
-local BORDER_WIDTH = 3
+local BORDER_WIDTH = 1
 local H_PAD	= 12
 local V_PAD = 10
 
@@ -43,6 +43,7 @@ end
 local TooltipClass = newClass("Tooltip", function(self)
 	self.lines = { }
 	self.blocks = { }
+	self.childTooltips = nil
 	self:Clear()
 end)
 
@@ -52,11 +53,13 @@ function TooltipClass:Clear(clearUpdateParams)
 	if self.updateParams and clearUpdateParams then
 		wipeTable(self.updateParams)
 	end
+	---@type string|boolean
 	self.tooltipHeader = false
 	self.titleYOffset = 0
 	self.recipe = nil
 	self.center = false
 	self.maxWidth = nil
+	---@type string|[number, number, number]
 	self.color = { 0.5, 0.3, 0 }
 	t_insert(self.blocks, { height = 0 })
 end
@@ -81,7 +84,7 @@ function TooltipClass:CheckForUpdate(...)
 	end
 end
 
-function TooltipClass:AddLine(size, text, font)
+function TooltipClass:AddLine(size, text, font, modLine)
 	if text then
 		local fontToUse
 		if main.showFlavourText then
@@ -97,10 +100,10 @@ function TooltipClass:AddLine(size, text, font)
 			end
 			if self.maxWidth then
 				for _, wrappedLine in ipairs(main:WrapString(line, size, self.maxWidth - H_PAD)) do
-					t_insert(self.lines, { size = size, text = wrappedLine, block = #self.blocks, font = fontToUse, center = self.center })
+					t_insert(self.lines, { size = size, text = wrappedLine, block = #self.blocks, font = fontToUse, center = self.center, modLine = modLine })
 				end
 			else
-				t_insert(self.lines, { size = size, text = line, block = #self.blocks, font = fontToUse, center = self.center })
+				t_insert(self.lines, { size = size, text = line, block = #self.blocks, font = fontToUse, center = self.center, modLine = modLine })
 			end
 		end
 	end
@@ -291,7 +294,12 @@ function TooltipClass:CalculateColumns(ttY, ttX, ttH, ttW, viewPort)
 			local lineX = lineCentered and (x + ttW / 2) or (x + (H_PAD / 2))
 			local lineAlign = lineCentered and "CENTER_X" or "LEFT"
 
-			t_insert(drawStack, {lineX, y, lineAlign, data.size, font, data.text})
+			local stackEntry = {lineX, y, lineAlign, data.size, font, data.text}
+			if data.modLine and data.modLine.disabled then
+				stackEntry.strikethrough = true
+			end
+			t_insert(drawStack, stackEntry)
+			data.bounds = { x = x + (H_PAD / 2), y = y, width = ttW - H_PAD, height = data.size + 2 }
 			y = y + data.size + 2
 
 			-- track max width for extra columns
@@ -592,6 +600,19 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 			end
 		else
 			DrawString(unpack(line))
+			if line.strikethrough then
+				local textX = line[1]
+				local textY = line[2]
+				local align = line[3]
+				local size = line[4]
+				local font = line[5]
+				local text = line[6]
+				local textW = DrawStringWidth(size, font, text)
+				local strikeX = align == "CENTER_X" and (textX - textW / 2) or textX
+				local strikeY = textY + size / 2
+				SetDrawColor(0.75, 0.75, 0.75, 0.35)
+				DrawImage(nil, strikeX, strikeY, textW, 1.0)
+			end
 		end
 	end
 
@@ -612,5 +633,29 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 	DrawImage(nil, ttX, ttY, totalDrawWidth, BORDER_WIDTH) -- top
 	DrawImage(nil, ttX, ttY + maxColumnHeight - BORDER_WIDTH, totalDrawWidth, BORDER_WIDTH) -- bottom
 
+	-- draw child tooltips for item skills. these are placed directly to the right of the main
+	-- tooltip, growing downwards, unless they would go outside the viewport, in which case they
+	-- will draw over the main tooltip
+	if self.childTooltips then
+		local totalH = 0
+		-- we will move the tooltips up as a group, so get the total height
+		for _, tt in ipairs(self.childTooltips) do
+			local _, childH = tt:GetDynamicSize(viewPort)
+			totalH = totalH + childH
+		end
+		-- if the whole group would go over the bottom edge, we apply a negative offset to keep them
+		-- in
+		local yOffset = math.min(0, viewPort.height - totalH - ttY)
+		-- movement to the left happens individually. i.e. the right edges are aligned
+		local yPos = math.max(ttY + yOffset, viewPort.y)
+		for _, tt in ipairs(self.childTooltips) do
+			local childW, childH = tt:GetSize()
+			local furthestAllowedX = viewPort.width + viewPort.x - childW
+			tt:Draw(math.min(ttX + ttW + 4, furthestAllowedX), yPos, nil, nil,
+				viewPort)
+			-- next tooltip goes below this one
+			yPos = yPos + childH + 6
+		end
+	end
 	return ttW, ttH
 end

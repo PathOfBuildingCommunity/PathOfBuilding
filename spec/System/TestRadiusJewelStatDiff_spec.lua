@@ -362,6 +362,9 @@ describe("TestRadiusJewelStatDiff", function()
 		local conqueredNode = nodesInRadius[1]
 		local origNode = spec.tree.nodes[conqueredNode.id]
 		simulateKaruiConquest(conqueredNode)
+		-- The simulation happens after setup's calculation pass, so refresh the
+		-- cached misc calculator before taking the conquered-state snapshot.
+		build.calcsTab:BuildOutput()
 
 		-- Snapshot the state including the simulated conquest, then revert
 		-- the conquered node back to the original tree node via override.

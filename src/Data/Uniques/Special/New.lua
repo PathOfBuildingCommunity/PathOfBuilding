@@ -8,7 +8,7 @@ data.uniques.new = {
 Fleshrender
 Exquisite Blade
 League: Mirage
-Source: Obtained by using a Coin of Restoration on unique{Fleshrender}
+Source: No longer obtainable
 Implicits: 1
 +50% to Global Critical Strike Multiplier
 (180-240)% increased Physical Damage
@@ -23,7 +23,7 @@ Wither on Hit with this weapon against Enemies with at least 12 Poisons on them
 Khatal's Geyser
 Lapis Amulet
 League: Mirage
-Source: Obtained by using a Coin of Restoration on unique{Khatal's Weeping}
+Source: No longer obtainable
 LevelReq: 56
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Intelligence
@@ -38,7 +38,7 @@ Mana Flask Effects do not Queue
 Khatal's Weeping
 Lapis Amulet
 League: Mirage
-Source: Drops from Mirage encounter
+Source: No longer obtainable
 LevelReq: 56
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Intelligence
@@ -66,7 +66,7 @@ Inflict Hallowing Flame on Hit while on Consecrated Ground
 Saresh's Darkness
 Chain Belt
 League: Mirage
-Source: Drops from unique{Saresh, of the Weeping Black}
+Source: No longer obtainable
 LevelReq: 24
 Implicits: 1
 {tags:jewellery_defense}+(9-20) to maximum Energy Shield
@@ -79,7 +79,7 @@ Grants Level 20 Caustic Retribution
 Screams of the Desiccated
 Leather Belt
 League: Mirage
-Source: Drops from unique{Saresh, of the Weeping Black}
+Source: No longer obtainable
 Has Alt Variant: true
 Selected Variant: 1
 Selected Alt Variant: 1
@@ -122,7 +122,7 @@ Implicits: 1
 Skysunder
 Exquisite Blade
 League: Mirage
-Source: Obtained by using a Coin of Restoration on unique{Fleshrender}
+Source: No longer obtainable
 Implicits: 1
 +50% to Global Critical Strike Multiplier
 (130-160)% increased Physical Damage
@@ -138,7 +138,7 @@ Unaffected by Ignite
 Solerai's Radiance
 Chain Belt
 League: Mirage
-Source: Obtained by using a Coin of Restoration on unique{Saresh's Darkness}
+Source: No longer obtainable
 LevelReq: 24
 Implicits: 1
 {tags:jewellery_defense}+(9-20) to maximum Energy Shield
@@ -161,7 +161,7 @@ Implicits: 1
 The Bane of Hope
 Maraketh Bow
 League: Mirage
-Source: Drops from Mirage encounter
+Source: No longer obtainable
 Requires Level 71
 Implicits: 1
 10% increased Movement Speed
@@ -175,7 +175,7 @@ Trigger Level 20 Tears of Rot when Equipped
 The Broken Elegy
 Foul Staff
 League: Mirage
-Source: Drops from unique{Saresh, of the Weeping Black}
+Source: No longer obtainable
 LevelReq: 64
 Implicits: 1
 +22% Chance to Block Attack Damage while wielding a Staff
@@ -189,7 +189,7 @@ Minions gain (59-83)% of Physical Damage as Extra Chaos Damage
 The Desecrated Chalice
 Coronal Maul
 League: Mirage
-Source: Drops from Mirage encounter
+Source: No longer obtainable
 Requires Level 69
 Implicits: 1
 20% increased Area of Effect
@@ -203,7 +203,7 @@ Gain (40-75)% of Physical Damage as Extra Chaos Damage if you've used an Amethys
 The Flame of Hope
 Maraketh Bow
 League: Mirage
-Source: Obtained by using a Coin of Restoration on unique{The Bane of Hope}
+Source: No longer obtainable
 Requires Level 71
 Implicits: 1
 10% increased Movement Speed
@@ -217,7 +217,7 @@ Trigger Level 20 Cinders when Equipped
 The Sacred Chalice
 Coronal Maul
 League: Mirage
-Source: Obtained by using a Coin of Restoration on unique{The Desecrated Chalice}
+Source: No longer obtainable
 Requires Level 69
 Implicits: 1
 20% increased Area of Effect
@@ -232,7 +232,7 @@ Gain (20-40)% of Physical Damage as Extra Lightning Damage if you've used a Topa
 The Sands of Time
 Tyrant's Sekhem
 League: Mirage
-Source: Drops from unique{Saresh, of the Weeping Black}
+Source: No longer obtainable
 Requires Level 58, 99 Str, 99 Int
 Implicits: 1
 26% increased Elemental Damage
@@ -241,5 +241,49 @@ Trigger level 20 Suspend in Time on Casting a Spell
 (60-80)% increased Mana Regeneration Rate
 (10-15)% increased Cooldown Recovery Rate
 10% increased Cast Speed for each different Non-Instant Spell you've Cast Recently
+]],[[
+Seablister
+Spiny Round Shield
+League: Allflame
+Requires Level 62, 85 Str, 85 Dex
+Implicits: 1
+60% increased Block Recovery
+Grants Level 20 Savage Barnacle
++99 to Armour
++99 to Evasion Rating
+101% increased Armour and Evasion
++3% to Maximum Cold Resistance
++33% to Cold Resistance
+]],[[
+Stormblood
+Topaz Flask
+League: Allflame
+Requires Level 36
+35% chance to gain a Flask Charge when you deal a Critical Strike
+All Damage from Critical Strike can apply Lightning Ailments during effect
+50% reduced Duration
+]],[[
+Spinesnatch
+Fleshripper
+League: Allflame
+Requires Level 70, 156 Str, 84 Dex
+Implicits: 1
+50% increased Critical Strike Chance
+Has 6 Abyssal Sockets
+11% increased Attack Speed per socketed Searching Eye Jewel
+31% increased Critical Strike Chance per socketed Hypnotic Eye Jewel
+29% increased Physical Damage per socketed Murderous Eye Jewel
+Minions have 27% chance to Impale on Attack Hit per socketed Ghastly Eye Jewel
+]],[[
+Subsume the Source
+Faithful Helmet
+League: Allflame
+Requires Level 73, 101 Str, 101 Int
+176% increased Explicit Modifier magnitudes
+Has (4-0) Abyssal Sockets
+[0-4 consumed abyssal jewel modifiers]
+Socketed Rare Abyssal Jewels will be Consumed
+One modifier from Consumed Jewels will be retained
+Cannot have non-Abyssal sockets
 ]]
 }

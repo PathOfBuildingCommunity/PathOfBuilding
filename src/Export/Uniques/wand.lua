@@ -7,14 +7,17 @@ Abberath's Horn
 Goat's Horn
 Variant: Pre 2.3.0
 Variant: Pre 3.21.0
+Variant: Pre 3.29.0
 Variant: Current
 Implicits: 3
 {variant:1}SpellDamageOnWeaponImplicitWand2[9,12]
 {variant:2}SpellDamageOnWeaponImplicitWand2
-{variant:3}AddedFireDamageSpellsAndAttacksImplicit1
-FireDamagePercentUniqueWand10
+{variant:3,4}AddedFireDamageSpellsAndAttacksImplicit1
+{variant:1,2,3}FireDamagePercentUniqueWand10
 SpellAddedFireDamageUniqueWand10
-CriticalStrikeChanceUniqueWand10
+{variant:1,2,3}CriticalStrikeChanceUniqueWand10[40,60]
+{variant:4}CriticalStrikeChanceUniqueWand10
+{variant:4}CriticalIgniteDotMultiplierUnique__1
 LifeGainedOnKillingIgnitedEnemiesUniqueWand10_
 BurnDurationUniqueWand10
 ]],[[
@@ -197,6 +200,19 @@ LightningDamageUniqueWand1
 IncreasedCastSpeedImplicitMarakethWand1
 BlindingHitUniqueWand1
 ]],[[
+Mystic Refractor
+Pagan Wand
+Variant: Pre 3.29.0
+Variant: Current
+Requires Level 34, 118 Int
+Implicits: 1
+IncreasedCastSpeedImplicitMarakethWand1
+AdditionalProjectilesUniqueWand_1
+{variant:1}ProjectileSpeedUnique__9[10,20]
+{variant:2}ProjectileSpeedUnique__9
+IncreasedProjectileDamageUnique__1
+ProjectilesExpireOnHitUniqueWand_1
+]],[[
 Obliteration
 {variant:1,2,3,4}Demon's Horn
 {variant:5}Imbued Wand
@@ -313,18 +329,22 @@ Elder Item
 Source: Drops from unique{The Elder}
 Variant: Pre 3.4.0
 Variant: Pre 3.21.0
+Variant: Pre 3.29.0
 Variant: Current
 Implicits: 2
 {variant:1,2}SpellDamageUniqueWand1[35,39]
-{variant:3}AddedLightningDamageSpellsAndAttacksImplicit3
-SpellDamageUniqueWand1
-SpellAddedLightningDamageUnique__5
+{variant:3,4}AddedLightningDamageSpellsAndAttacksImplicit3
+{variant:1,2,3}SpellDamageUniqueWand1
+{variant:1,2,3}SpellAddedLightningDamageUnique__5
+{variant:4}IncreasedMaximumPowerChargesUnique__5
 CriticalMultiplierPerPowerChargeUnique__1
 AdditionalCriticalStrikeChancePerPowerChargeUnique__1
 ChanceToBlockSpellsPerPowerChargeUnique__1
-AddedLightningDamagePerPowerChargeUnique__1
+{variant:1,2,3}AddedLightningDamagePerPowerChargeUnique__1[3,3][9,9]
+{variant:4}AddedLightningDamagePerPowerChargeUnique__1
 {variant:1}DamageTakenPerPowerChargeOnCritUnique__1[24000,24000]
-{variant:2,3}DamageTakenPerPowerChargeOnCritUnique__1
+{variant:2,3}DamageTakenPerPowerChargeOnCritUnique__1[12000,12000]
+{variant:4}DamageTakenPerPowerChargeOnCritUnique__1
 ]],[[
 Storm Prison
 {variant:1,2}Carved Wand
@@ -381,23 +401,25 @@ Implicits: 2
 {variant:3}AddedColdDamagePerPowerChargeUnique__2
 LosePowerChargesOnMaxPowerChargesUnique__2
 WhenReachingMaxPowerChargesGainAFrenzyChargeUnique__1
-{variant:1}IncreasedColdDamagePerFrenzyChargeUnique__2[10,15]
-{variant:2}IncreasedColdDamagePerFrenzyChargeUnique__2
+{variant:1}IncreasedColdDamagePerFrenzyChargeUnique__1[10,15]
+{variant:2}IncreasedColdDamagePerFrenzyChargeUnique__1
 ]],[[
 Replica Tulfall
 {variant:1}Tornado Wand
 {variant:2}Opal Wand
 Variant: Pre 3.21.0
+Variant: Pre 3.29.0
 Variant: Current
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 2
 {variant:1}SpellDamageOnWeaponImplicitWand16
-{variant:2}AddedColdDamageSpellsAndAttacksImplicit3
+{variant:2,3}AddedColdDamageSpellsAndAttacksImplicit3
 IncreasedCastSpeedUnique__22
 LosePowerChargesOnMaxPowerChargesUnique__1
 WhenReachingMaxPowerChargesGainAFrenzyChargeUnique__1
-IncreasedColdDamagePerFrenzyChargeUnique__1
+{variant:1,2}IncreasedColdDamagePerFrenzyChargeUnique__2[15,20]
+{variant:3}IncreasedColdDamagePerFrenzyChargeUnique__2
 PowerChargeOnHittingFrozenEnemyUnique__1
 TakeColdDamageOnMaximumPowerChargesUnique__1____
 ]],[[
@@ -435,31 +457,6 @@ LocalIncreasedAttackSpeedUniqueWand9
 LocalCriticalStrikeChanceUnique__22
 AttackAdditionalProjectilesUnique__1
 ]],[[
-Void Battery
-Prophecy Wand
-Variant: Pre 2.3.0
-Variant: Current
-Implicits: 2
-{variant:1}SpellDamageOnWeaponImplicitWand17[16,20]
-{variant:2}SpellDamageOnWeaponImplicitWand17
-SpellDamageOnWeaponUniqueWand3
-IncreasedCastSpeedUniqueWand3
-CriticalStrikeChanceUniqueWand3
-IncreasedManaUniqueWand3
-IncreasedMaximumPowerChargesUniqueWand3
-IncreasedSpellDamagePerPowerChargeUniqueWand3
-]],[[
-Mystic Refractor
-Pagan Wand
-Requires Level 34, 118 Int
-Implicits: 1
-IncreasedCastSpeedImplicitMarakethWand1
-AdditionalProjectilesUniqueWand_1
-ProjectileSpeedUnique__9
-IncreasedProjectileDamageUnique__1
-ProjectilesExpireOnHitUniqueWand_1
-]],
-[[
 Unlight Extant
 Sage Wand
 Requires Level 30, 119 Int
@@ -470,5 +467,23 @@ IncreasedCastSpeedUniqueWand11
 GlobalChaosSpellGemsLevelUniqueWand_1
 ApplyMaximumWitherOnChaosSkillHitUnique__1
 CanOnlyInflictWitherAgainstFullLifeEnemies__1
+]],[[
+Void Battery
+Prophecy Wand
+Variant: Pre 2.3.0
+Variant: Pre 3.29.0
+Variant: Current
+Implicits: 2
+{variant:1}SpellDamageOnWeaponImplicitWand17[16,20]
+{variant:2,3}SpellDamageOnWeaponImplicitWand17
+{variant:1,2}SpellDamageOnWeaponUniqueWand3[-80,-80]
+{variant:3}SpellDamageOnWeaponUniqueWand3
+IncreasedCastSpeedUniqueWand3
+CriticalStrikeChanceUniqueWand3
+{variant:1,2}IncreasedManaUniqueWand3[40,50]
+{variant:3}IncreasedManaUniqueWand3
+IncreasedMaximumPowerChargesUniqueWand3
+{variant:1,2}IncreasedSpellDamagePerPowerChargeUniqueWand3[25,25]
+{variant:3}IncreasedSpellDamagePerPowerChargeUniqueWand3
 ]],
 }

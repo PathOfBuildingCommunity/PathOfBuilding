@@ -7,14 +7,17 @@ Abberath's Horn
 Goat's Horn
 Variant: Pre 2.3.0
 Variant: Pre 3.21.0
+Variant: Pre 3.29.0
 Variant: Current
 Implicits: 3
 {variant:1}(9-12)% increased Spell Damage
 {variant:2}(10-14)% increased Spell Damage
-{variant:3}Adds (1-2) to (3-4) Fire Damage to Spells and Attacks
-(20-30)% increased Fire Damage
+{variant:3,4}Adds (1-2) to (3-4) Fire Damage to Spells and Attacks
+{variant:4}+(30-50)% to Damage over Time Multiplier for Ignite from Critical Strikes
+{variant:1,2,3}(20-30)% increased Fire Damage
 Adds (4-6) to (8-12) Fire Damage to Spells
-(40-60)% increased Global Critical Strike Chance
+{variant:1,2,3}(40-60)% increased Global Critical Strike Chance
+{variant:4}(80-120)% increased Global Critical Strike Chance
 Gain 10 Life per Ignited Enemy Killed
 25% reduced Ignite Duration on Enemies
 ]],[[
@@ -99,7 +102,7 @@ Variant: Pre 3.10.0
 Variant: Current
 LevelReq: 63
 Implicits: 1
-(29-33)% increased Spell Damage
+(30-34)% increased Spell Damage
 Triggers Level 20 Blinding Aura when Equipped
 {variant:1}Adds (18-22) to (36-44) Physical Damage
 {variant:2}Adds (30-45) to (60-80) Fire Damage
@@ -201,6 +204,19 @@ Implicits: 3
 (20-30)% increased Lightning Damage
 10% increased Cast Speed
 10% chance to Blind Enemies on hit
+]],[[
+Mystic Refractor
+Pagan Wand
+Variant: Pre 3.29.0
+Variant: Current
+Requires Level 34, 118 Int
+Implicits: 1
+10% increased Cast Speed
+Skills fire (2-3) additional Projectiles
+{variant:1}(10-20)% increased Projectile Speed
+{variant:2}(10-50)% increased Projectile Speed
+(30-50)% increased Projectile Damage
+Projectiles cannot continue after colliding with targets
 ]],[[
 Obliteration
 {variant:1,2,3,4}Demon's Horn
@@ -318,20 +334,25 @@ Elder Item
 Source: Drops from unique{The Elder}
 Variant: Pre 3.4.0
 Variant: Pre 3.21.0
+Variant: Pre 3.29.0
 Variant: Current
 Implicits: 2
 {variant:1,2}(35-39)% increased Spell Damage
-{variant:3}Adds (3-5) to (70-82) Lightning Damage to Spells and Attacks
-(30-40)% increased Spell Damage
-Adds (26-35) to (95-105) Lightning Damage to Spells
+{variant:3,4}Adds (3-5) to (70-82) Lightning Damage to Spells and Attacks
+{variant:1,2,3}(30-40)% increased Spell Damage
+{variant:1,2,3}Adds (26-35) to (95-105) Lightning Damage to Spells
+{variant:4}+1 to Maximum Power Charges
 +(6-10)% to Critical Strike Multiplier per Power Charge
-+0.3% Critical Strike Chance per Power Charge
++0.3% to Critical Strike Chance per Power Charge
 +2% Chance to Block Spell Damage per Power Charge
-Adds 3 to 9 Lightning Damage to Spells per Power Charge
+{variant:1,2,3}Adds 3 to 9 Lightning Damage to Spells per Power Charge
+{variant:4}Adds 3 to (15-25) Lightning Damage to Spells per Power Charge
 {variant:1}400 Lightning Damage taken per second per Power Charge if
 {variant:1}your Skills have dealt a Critical Strike Recently
 {variant:2,3}200 Lightning Damage taken per second per Power Charge if
 {variant:2,3}your Skills have dealt a Critical Strike Recently
+{variant:4}300 Lightning Damage taken per second per Power Charge if
+{variant:4}your Skills have dealt a Critical Strike Recently
 ]],[[
 Storm Prison
 {variant:1,2}Carved Wand
@@ -395,16 +416,18 @@ Replica Tulfall
 {variant:1}Tornado Wand
 {variant:2}Opal Wand
 Variant: Pre 3.21.0
+Variant: Pre 3.29.0
 Variant: Current
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 2
 {variant:1}(35-39)% increased Spell Damage
-{variant:2}Adds (14-29) to (42-47) Cold Damage to Spells and Attacks
+{variant:2,3}Adds (14-29) to (42-47) Cold Damage to Spells and Attacks
 (15-25)% increased Cast Speed
 Lose all Power Charges on reaching Maximum Power Charges
 Gain a Frenzy Charge on reaching Maximum Power Charges
-(15-20)% increased Cold Damage per Frenzy Charge
+{variant:1,2}(15-20)% increased Cold Damage per Frenzy Charge
+{variant:3}(20-30)% increased Cold Damage per Frenzy Charge
 50% chance to gain a Power Charge when you Hit a Frozen Enemy
 Take 500 Cold Damage on reaching Maximum Power Charges
 ]],[[
@@ -442,31 +465,6 @@ Implicits: 2
 (20-40)% increased Critical Strike Chance
 Attacks fire an additional Projectile
 ]],[[
-Void Battery
-Prophecy Wand
-Variant: Pre 2.3.0
-Variant: Current
-Implicits: 2
-{variant:1}(16-20)% increased Spell Damage
-{variant:2}(36-40)% increased Spell Damage
-80% reduced Spell Damage
-(10-20)% increased Cast Speed
-(50-65)% increased Global Critical Strike Chance
-+(40-50) to maximum Mana
-+1 to Maximum Power Charges
-25% increased Spell Damage per Power Charge
-]],[[
-Mystic Refractor
-Pagan Wand
-Requires Level 34, 118 Int
-Implicits: 1
-10% increased Cast Speed
-Skills fire (2-3) additional Projectiles
-(10-20)% increased Projectile Speed
-(30-50)% increased Projectile Damage
-Projectiles cannot continue after colliding with targets
-]],
-[[
 Unlight Extant
 Sage Wand
 Requires Level 30, 119 Int
@@ -477,5 +475,23 @@ Implicits: 1
 +1 to Level of all Chaos Spell Skill Gems
 Chaos Skills inflict up to 15 Withered Debuffs on Hit for (5-7) seconds
 Cannot Inflict Wither on targets that are not on Full Life
+]],[[
+Void Battery
+Prophecy Wand
+Variant: Pre 2.3.0
+Variant: Pre 3.29.0
+Variant: Current
+Implicits: 2
+{variant:1}(16-20)% increased Spell Damage
+{variant:2,3}(36-40)% increased Spell Damage
+{variant:1,2}80% reduced Spell Damage
+{variant:3}50% reduced Spell Damage
+(10-20)% increased Cast Speed
+(50-65)% increased Global Critical Strike Chance
+{variant:1,2}+(40-50) to maximum Mana
+{variant:3}+(100-120) to maximum Mana
++1 to Maximum Power Charges
+{variant:1,2}25% increased Spell Damage per Power Charge
+{variant:3}(10-15)% increased Spell Damage per Power Charge
 ]],
 }

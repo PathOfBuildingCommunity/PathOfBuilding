@@ -250,22 +250,26 @@ Implicits: 1
 {variant:3}(35-50)% increased Quantity of Items Dropped by Slain Normal Enemies
 ]],[[
 Blightwell
-Clutching Talisman
+{variant:1,2}Clutching Talisman
+{variant:3}Shield Crab Talisman
 Variant: Pre 3.16.0
+Variant: Pre 3.29.0
 Variant: Current
 League: Talisman Hardcore
 Talisman Tier: 2
 Requires Level 28
 Implicits: 1
-{tags:defences}(15-25)% increased Global Defences
-{tags:defences}+(20-30) to maximum Energy Shield
+{variant:1,2}{tags:defences}(15-25)% increased Global Defences
+{variant:1,2}{tags:defences}+(20-30) to maximum Energy Shield
+{variant:3}{tags:defences}+(50-100) to maximum Energy Shield
 {tags:resistance}+(15-30)% to Fire Resistance
 {tags:resistance}+(15-30)% to Lightning Resistance
+{variant:3}(15-30)% increased Flask Effect Duration
 {variant:1}{tags:defences}30% slower start of Energy Shield Recharge during any Flask Effect
-{variant:2}{tags:defences}50% slower start of Energy Shield Recharge during any Flask Effect
+{variant:2,3}{tags:defences}50% slower start of Energy Shield Recharge during any Flask Effect
 {variant:1}{tags:defences}400% increased Energy Shield Recharge Rate during any Flask Effect
-{variant:2}{tags:defences}(150-200)% increased Energy Shield Recharge Rate during any Flask Effect
-Corrupted
+{variant:2,3}{tags:defences}(150-200)% increased Energy Shield Recharge Rate during any Flask Effect
+{variant:1,2}Corrupted
 ]],[[
 Blood of Corruption
 Amber Amulet
@@ -364,6 +368,8 @@ Implicits: 1
 ]],[[
 The Untouched Soul
 Gold Amulet
+Variant: Pre 3.29.0
+Variant: Current
 League: Affliction
 Requires Level 48
 Implicits: 1
@@ -371,7 +377,8 @@ Implicits: 1
 {tags:resource}+40 to maximum Life for each Empty Red Socket on any Equipped Item
 {tags:attack}+225 to Accuracy Rating for each Empty Green Socket on any Equipped Item
 {tags:resource}+40 to maximum Mana for each Empty Blue Socket on any Equipped Item
-{tags:resistance}+18% to all Elemental Resistances for each Empty White Socket on any Equipped Item
+{variant:1}{tags:resistance}+18% to all Elemental Resistances for each Empty White Socket on any Equipped Item
+{variant:2}{tags:resistance}+12% to all Elemental Resistances for each Empty White Socket on any Equipped Item
 ]],[[
 Doedre's Tongue
 Lapis Amulet
@@ -434,6 +441,8 @@ Eyes of the Greatwolf
 Greatwolf Talisman
 Requires Level 52
 Has Alt Variant: true
+Selected Variant: 11
+Selected Alt Variant: 19
 Variant: Attributes
 Variant: Global Defences
 Variant: Chaos Damage
@@ -467,41 +476,41 @@ Variant: Lightning taken as Fire
 Variant: Gain Physical as random Element
 Variant: Extra Pierces
 Variant: Damage over Time Multiplier
-Implicits: 32
-{variant:1}{tags:attribute}(24-32)% increased Attributes
-{variant:11}(50-70)% increased Damage
-{variant:4}{tags:attack}(40-60)% increased Attack Damage
-{variant:8}{tags:caster}(40-60)% increased Spell Damage
-{variant:9}{tags:physical_damage}(40-60)% increased Global Physical Damage
-{variant:6}{tags:elemental_damage}(40-60)% increased Fire Damage
-{variant:5}{tags:elemental_damage}(40-60)% increased Cold Damage
-{variant:7}{tags:elemental_damage}(40-60)% increased Lightning Damage
-{variant:3}{tags:chaos_damage}(38-62)% increased Chaos Damage
-{variant:14}{tags:critical}(80-100)% increased Global Critical Strike Chance
-{variant:19}{tags:critical}+(48-72)% to Global Critical Strike Multiplier
-{variant:18}{tags:resource}(16-24)% increased maximum Life
-{variant:10}{tags:resource}(40-60)% increased maximum Mana
-{variant:17}(12-20)% increased Quantity of Items found
-{variant:32}Projectiles Pierce 4 additional Targets
-{variant:15}(10-16)% increased Area of Effect
-{variant:24}{tags:resource}Regenerate 4% of Life per second
-{variant:16}{tags:attack,caster,speed}(12-20)% increased Attack and Cast Speed
-{variant:20}+2 to maximum number of Raised Zombies
-{variant:12}(8-12)% additional Physical Damage Reduction
-{variant:23}20% chance to gain an Endurance Charge on Kill
-{variant:21}20% chance to gain a Frenzy Charge on Kill
-{variant:22}20% chance to gain a Power Charge on Kill
-{variant:13}(8-12)% chance to Freeze, Shock and Ignite
-{variant:2}{tags:defences}(30-50)% increased Global Defences
-{variant:31}{tags:physical_damage,elemental_damage}Gain (12-24)% of Physical Damage as Extra Damage of a random Element
-{variant:27}100% of Fire Damage from Hits taken as Cold Damage
-{variant:28}100% of Fire Damage from Hits taken as Lightning Damage
-{variant:25}100% of Cold Damage from Hits taken as Fire Damage
-{variant:26}100% of Cold Damage from Hits taken as Lightning Damage
-{variant:30}100% of Lightning Damage from Hits taken as Fire Damage
-{variant:29}100% of Lightning Damage from Hits taken as Cold Damage
-{variant:33}+(24-36)% to Damage over Time Multiplier
-Implicit Modifier magnitudes are doubled
+Implicits: 33
+{variant:1}{tags:attribute}(12-16)% increased Attributes
+{variant:11}(25-35)% increased Damage
+{variant:4}{tags:attack}(20-30)% increased Attack Damage
+{variant:8}{tags:caster}(20-30)% increased Spell Damage
+{variant:9}{tags:physical_damage}(20-30)% increased Global Physical Damage
+{variant:33}+(12-18)% to Damage over Time Multiplier
+{variant:6}{tags:elemental_damage}(20-30)% increased Fire Damage
+{variant:5}{tags:elemental_damage}(20-30)% increased Cold Damage
+{variant:7}{tags:elemental_damage}(20-30)% increased Lightning Damage
+{variant:3}{tags:chaos_damage}(19-31)% increased Chaos Damage
+{variant:14}{tags:critical}(40-50)% increased Global Critical Strike Chance
+{variant:19}{tags:critical}+(24-36)% to Global Critical Strike Multiplier
+{variant:18}{tags:resource}(8-12)% increased maximum Life
+{variant:10}{tags:resource}(20-30)% increased maximum Mana
+{variant:17}(6-10)% increased Quantity of Items found
+{variant:32}Projectiles Pierce 2 additional Targets
+{variant:15}(5-8)% increased Area of Effect
+{variant:24}{tags:resource}Regenerate 2% of Life per second
+{variant:16}{tags:attack,caster,speed}(6-10)% increased Attack and Cast Speed
+{variant:20}+1 to maximum number of Raised Zombies
+{variant:12}(4-6)% additional Physical Damage Reduction
+{variant:23}10% chance to gain an Endurance Charge on Kill
+{variant:21}10% chance to gain a Frenzy Charge on Kill
+{variant:22}10% chance to gain a Power Charge on Kill
+{variant:13}(4-6)% chance to Freeze, Shock and Ignite
+{variant:2}{tags:defences}(15-25)% increased Global Defences
+{variant:31}{tags:physical_damage,elemental_damage}Gain (6-12)% of Physical Damage as Extra Damage of a random Element
+{variant:27}50% of Fire Damage from Hits taken as Cold Damage
+{variant:28}50% of Fire Damage from Hits taken as Lightning Damage
+{variant:25}50% of Cold Damage from Hits taken as Fire Damage
+{variant:26}50% of Cold Damage from Hits taken as Lightning Damage
+{variant:30}50% of Lightning Damage from Hits taken as Fire Damage
+{variant:29}50% of Lightning Damage from Hits taken as Cold Damage
+(50-100)% increased Enchantment Modifier magnitudes
 ]],[[
 The Felbog Fang
 Citrine Amulet
@@ -827,18 +836,25 @@ Implicits: 1
 {tags:critical}Critical Strikes have Culling Strike
 ]],[[
 Natural Hierarchy
-Rotfeather Talisman
+{variant:1}Rotfeather Talisman
+{variant:2}Rhex Talisman
+Variant: Pre 3.29.0
+Variant: Current
 League: Talisman Standard, Talisman Hardcore
 Talisman Tier: 3
 Requires Level 44
 Implicits: 1
-(25-35)% increased Damage
-{tags:physical_damage}(10-15)% increased Global Physical Damage
-{tags:elemental_damage}(25-30)% increased Fire Damage
-{tags:elemental_damage}(20-25)% increased Cold Damage
-{tags:elemental_damage}(15-20)% increased Lightning Damage
-{tags:chaos_damage}(30-35)% increased Chaos Damage
-Corrupted
+{variant:1}(25-35)% increased Damage
+{variant:1}{tags:physical_damage}(10-15)% increased Global Physical Damage
+{variant:1}{tags:elemental_damage}(25-30)% increased Fire Damage
+{variant:1}{tags:elemental_damage}(20-25)% increased Cold Damage
+{variant:1}{tags:elemental_damage}(15-20)% increased Lightning Damage
+{variant:1}{tags:chaos_damage}(30-35)% increased Chaos Damage
+{variant:2}{tags:physical_damage,elemental_damage}Gain (10-15)% of Physical Damage as Extra Lightning Damage
+{variant:2}{tags:elemental_damage}Gain (15-20)% of Lightning Damage as Extra Cold Damage
+{variant:2}{tags:elemental_damage}Gain (20-25)% of Cold Damage as Extra Fire Damage
+{variant:2}{tags:elemental_damage,chaos_damage}Gain (25-30)% of Fire Damage as Extra Chaos Damage
+{variant:1}Corrupted
 ]],[[
 Night's Hold
 Black Maw Talisman
@@ -914,20 +930,23 @@ Blind you inflict is Reflected to you
 {variant:2}(10-20)% chance to gain a Frenzy Charge on Hit while Blinded
 ]],[[
 Rigwald's Curse
-Wereclaw Talisman
+{variant:1,2}Wereclaw Talisman
+{variant:3} Wolf Alpha Talisman
 League: Talisman Standard
 Variant: Pre 2.2.0
+Variant: Pre 3.29.0
 Variant: Current
 Talisman Tier: 2
 Requires Level 28
 Implicits: 2
 {variant:1}{tags:critical}+(16-24)% to Global Critical Strike Multiplier
 {variant:2}{tags:critical}+(24-36)% to Global Critical Strike Multiplier
-{tags:critical}+7% to Unarmed Melee Attack Critical Strike Chance
+{variant:1,2}{tags:critical}+7% to Unarmed Melee Attack Critical Strike Chance
+{variant:3}{tags:critical}+(5-10)% to Unarmed Melee Attack Critical Strike Chance
 {tags:attack}Modifiers to Claw Damage also apply to Unarmed Attack Damage with Melee Skills
 {tags:attack,speed}Modifiers to Claw Attack Speed also apply to Unarmed Attack Speed with Melee Skills
 {tags:attack,critical}Modifiers to Claw Critical Strike Chance also apply to Unarmed Critical Strike Chance with Melee Skills
-Corrupted
+{variant:1,2}Corrupted
 ]],[[
 Sacrificial Heart
 Paua Amulet

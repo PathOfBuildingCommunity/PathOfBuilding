@@ -137,7 +137,15 @@ function ItemDBClass:DoesItemMatchFilters(item)
 		local found = false
 		local mode = self.controls.searchMode.selIndex
 		if mode == 1 or mode == 2 then
-			local err, match = PCall(string.matchOrPattern, item.name:lower(), searchStr)
+			-- check if any explicit mods have a mutated line
+			local searchName = item.name:lower()
+			for _, modLine in ipairs(item.explicitModLines) do
+				if modLine.newModId then
+					searchName = "foulborn " .. searchName
+					break
+				end
+			end
+			local err, match = PCall(string.matchOrPattern, searchName, searchStr)
 			if not err and match then
 				found = true
 			end
@@ -158,7 +166,13 @@ function ItemDBClass:DoesItemMatchFilters(item)
 				end
 			end
 			for _, line in pairs(item.explicitModLines) do
-				local err, match = PCall(string.matchOrPattern, line.line:lower(), searchStr)
+				-- Include the other side of Foulborn transformations in modifier searches.
+				local newMod = line.newModId and (data.itemMods.ItemExclusive[line.newModId] or data.itemMods.Foulborn[line.newModId])
+				local searchLine = line.line:lower()
+				if newMod then
+					searchLine = searchLine .. table.concat(newMod, " "):lower()
+				end
+				local err, match = PCall(string.matchOrPattern, searchLine, searchStr)
 				if not err and match then
 					found = true
 					break
@@ -190,7 +204,7 @@ end
 
 function ItemDBClass:BuildSortOrder()
 	wipeTable(self.sortDropList)
-	for id,stat in pairs(data.powerStatList) do
+	for id, stat in ipairs(data.powerStatList) do
 		if not stat.ignoreForItems then
 			t_insert(self.sortDropList, {
 				label="Sort by "..stat.label,
@@ -227,14 +241,11 @@ function ItemDBClass:ListBuilder()
 		local start = GetTime()
 		local calcFunc, calcBase = self.itemsTab.build.calcsTab:GetMiscCalculator(self.build)
 		for itemIndex, item in ipairs(list) do
-			item.measuredPower = 0
+			item.measuredPower = -math.huge
 			for slotName, slot in pairs(self.itemsTab.slots) do
 				if self.itemsTab:IsItemValidForSlot(item, slotName) and not slot.inactive and (not slot.weaponSet or slot.weaponSet == (self.itemsTab.activeItemSet.useSecondWeaponSet and 2 or 1)) then
 					local output = calcFunc(item.base.flask and { toggleFlask = item } or item.base.tincture and { toggleTincture = item } or { repSlotName = slotName, repItem = item }, useFullDPS)
-					local measuredPower = output.Minion and output.Minion[self.sortMode] or output[self.sortMode] or 0
-					if self.sortDetail.transform then
-						measuredPower = self.sortDetail.transform(measuredPower)
-					end
+					local measuredPower = data.powerStatList.GetFromOutput(output, self.sortDetail)
 					item.measuredPower = m_max(item.measuredPower, measuredPower)
 				end
 			end

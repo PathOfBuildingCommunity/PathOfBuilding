@@ -14,7 +14,43 @@ describe("TradeQueryGenerator", function()
 		end)
 	end)
 
+	describe("Talisman mods", function()
+		it("only generates enchant weights when enabled", function()
+			local queryGen = new("TradeQueryGenerator", { itemsTab = { } })
+			local enchantMods = queryGen.modData.Enchant
+			queryGen.modData = { Explicit = { }, Implicit = { }, Enchant = enchantMods, Corrupted = { }, Scourge = { } }
+			queryGen.calcContext = { special = { }, options = { } }
+			local generated = { }
+			queryGen.GenerateModWeights = function(_, mods) generated[mods] = true end
+
+			queryGen:ExecuteQuery()
+			assert.is_nil(generated[enchantMods])
+
+			queryGen.calcContext.options.includeTalisman = true
+			queryGen:ExecuteQuery()
+			assert.is_true(generated[enchantMods])
+		end)
+
+		it("includes the utility flask charge enchant", function()
+			local enchant = LoadModule("Data/QueryMods.lua").Enchant["10670_UtilityFlaskPassiveChargeGain"]
+
+			assert.are.equals("enchant.stat_2567919918", enchant.tradeMod.id)
+			assert.are.equals("Utility Flasks gain # Charges every 3 seconds", enchant.specialCaseData.overrideModLine)
+		end)
+	end)
+
 	describe("WeightedRatioOutputs", function()
+		local maxStatIncrease
+
+		before_each(function()
+			maxStatIncrease = data.misc.maxStatIncrease
+			data.misc.maxStatIncrease = 1000
+		end)
+
+		after_each(function()
+			data.misc.maxStatIncrease = maxStatIncrease
+		end)
+
 		-- Pass: Returns 0, avoiding math errors
 		-- Fail: Returns NaN/inf or crashes, indicating unhandled infinite values, causing evaluation failures in infinite-scaling builds
 		it("handles infinite base", function()
@@ -31,9 +67,82 @@ describe("TradeQueryGenerator", function()
 			local baseOutput = { TotalDPS = 0 }
 			local newOutput = { TotalDPS = 100 }
 			local statWeights = { { stat = "TotalDPS", weightMult = 1 } }
-			data.misc.maxStatIncrease = 1000
 			local result = mock_queryGen.WeightedRatioOutputs(baseOutput, newOutput, statWeights)
 			assert.are.equal(result, 100)
+		end)
+		it("uses minion output for non-FullDPS stats when minion output is desired", function()
+			local baseOutput = { Life = 10, Minion = { Life = 100 } }
+			local newOutput = { Life = 10, Minion = { Life = 250 } }
+			local statWeights = { { stat = "MinionLife", weightMult = 1 } }
+			local result = mock_queryGen.WeightedRatioOutputs(baseOutput, newOutput, statWeights)
+
+			assert.are.equal(result, 2.5)
+		end)
+
+		it("uses lower is better stats correctly", function()
+			local baseOutput = { MaxHit = 100 }
+			local newOutput = { MaxHit = 10 }
+			local statWeights = { { stat = "MaxHit", weightMult = 1, transform = function(number) return -number end } }
+			local result = mock_queryGen.WeightedRatioOutputs(baseOutput, newOutput, statWeights)
+
+			local close_enough = math.abs(result - -0.1) < 0.0001
+			assert.True(close_enough)
+		end)
+
+		it("uses player and minion output for FullDPS", function()
+			-- minion output gets assigned to the player's full dps in reality
+			local baseOutput = { FullDPS = 100, Minion = { FullDPS = 100 } }
+			local newOutput = { FullDPS = 250, Minion = { FullDPS = 1000 } }
+			local statWeights = { { stat = "FullDPS", weightMult = 1 } }
+			local result = mock_queryGen.WeightedRatioOutputs(baseOutput, newOutput, statWeights)
+
+			assert.are.equal(result, 2.5)
+		end)
+
+		it("uses player output for non-FullDPS even when minion output is available", function()
+			local baseOutput = { Life = 100, Minion = { Life = 100 } }
+			local newOutput = { Life = 250, Minion = { Life = 1000 } }
+			local statWeights = { { stat = "Life", weightMult = 1 } }
+			local result = mock_queryGen.WeightedRatioOutputs(baseOutput, newOutput, statWeights)
+			assert.are.equal(result, 2.5)
+		end)
+
+		it("uses the fallback DPS ratio once when FullDPS is unavailable", function()
+			local baseOutput = { Minion = { TotalDPS = 10, TotalDotDPS = 0, CombinedDPS = 10 } }
+			local newOutput = { Minion = { TotalDPS = 25, TotalDotDPS = 0, CombinedDPS = 25 } }
+			local statWeights = { { stat = "FullDPS", weightMult = 1 } }
+			local result = mock_queryGen.WeightedRatioOutputs(baseOutput, newOutput, statWeights)
+
+			assert.are.equal(result, 2.5)
+		end)
+
+		it("falls back to player output when the selected stat is not on minion output", function()
+			local baseOutput = { Spirit = 100, Minion = { AverageDamage = 100 } }
+			local newOutput = { Spirit = 120, Minion = { AverageDamage = 100 } }
+			local statWeights = { { stat = "Spirit", weightMult = 1 } }
+			local result = mock_queryGen.WeightedRatioOutputs(baseOutput, newOutput, statWeights)
+
+			assert.are.equal(result, 1.2)
+		end)
+
+		it("supports light radius as a player stat weight", function()
+			local lightRadiusStat
+			local minionLightRadiusStat
+			for _, stat in ipairs(data.powerStatList) do
+				if stat.stat == "LightRadiusMod" then
+					lightRadiusStat = stat
+				elseif stat.stat == "MinionLightRadiusMod" then
+					minionLightRadiusStat = stat
+				end
+			end
+
+			assert.is_not_nil(lightRadiusStat)
+			assert.is_nil(minionLightRadiusStat)
+			local result = mock_queryGen.WeightedRatioOutputs(
+				{ LightRadiusMod = 1 },
+				{ LightRadiusMod = 1.25 },
+				{ { stat = lightRadiusStat.stat, weightMult = 1 } })
+			assert.are.equal(result, 1.25)
 		end)
 	end)
 

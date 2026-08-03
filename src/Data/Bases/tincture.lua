@@ -7,6 +7,7 @@ itemBases["Prismatic Tincture"] = {
 	tags = { default = true, tincture = true, },
 	implicit = "(70-100)% increased Elemental Damage with Melee Weapons",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "attack" }, },
+	implicitIds = { "TinctureElementalDamageImplicit1", },
 	tincture = { manaBurn = 0.7, cooldown = 8 },
 	req = { },
 }
@@ -15,6 +16,7 @@ itemBases["Rosethorn Tincture"] = {
 	tags = { default = true, tincture = true, },
 	implicit = "(100-150)% increased Critical Strike Chance with Melee Weapons",
 	implicitModTypes = { { "attack", "critical" }, },
+	implicitIds = { "TinctureCriticalStrikeChanceImplicit1", },
 	tincture = { manaBurn = 0.7, cooldown = 8 },
 	req = { },
 }
@@ -23,6 +25,7 @@ itemBases["Ironwood Tincture"] = {
 	tags = { default = true, tincture = true, },
 	implicit = "40% reduced Enemy Stun Threshold with Melee Weapons\n(15-25)% increased Stun Duration with Melee Weapons",
 	implicitModTypes = { { "attack" }, { "attack" }, },
+	implicitIds = { "TinctureStunThresholdImplicit1", },
 	tincture = { manaBurn = 0.9, cooldown = 10 },
 	req = { },
 }
@@ -31,6 +34,7 @@ itemBases["Ashbark Tincture"] = {
 	tags = { default = true, tincture = true, },
 	implicit = "25% chance to Ignite with Melee Weapons\n(60-90)% increased Damage with Ignite from Melee Weapons",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "fire", "attack", "ailment" }, { "elemental_damage", "damage", "elemental", "fire", "attack", "ailment" }, },
+	implicitIds = { "TinctureChanceToIgniteImplicit1", },
 	tincture = { manaBurn = 0.6, cooldown = 7 },
 	req = { },
 }
@@ -39,6 +43,7 @@ itemBases["Borealwood Tincture"] = {
 	tags = { default = true, tincture = true, },
 	implicit = "25% chance to Freeze with Melee Weapons\n(25-35)% increased Effect of Chill from Melee Weapons",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "cold", "attack", "ailment" }, { "elemental_damage", "damage", "elemental", "cold", "attack", "ailment" }, },
+	implicitIds = { "TinctureChanceToFreezeImplicit1", },
 	tincture = { manaBurn = 0.6, cooldown = 7 },
 	req = { },
 }
@@ -47,6 +52,7 @@ itemBases["Fulgurite Tincture"] = {
 	tags = { default = true, tincture = true, },
 	implicit = "25% chance to Shock with Melee Weapons\n(25-35)% increased Effect of Shock from Melee Weapons",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "lightning", "attack", "ailment" }, { "elemental_damage", "damage", "elemental", "lightning", "attack", "ailment" }, },
+	implicitIds = { "TinctureChanceToShockImplicit1", },
 	tincture = { manaBurn = 0.6, cooldown = 7 },
 	req = { },
 }
@@ -55,6 +61,7 @@ itemBases["Poisonberry Tincture"] = {
 	tags = { default = true, tincture = true, },
 	implicit = "20% chance to Poison with Melee Weapons\n(60-90)% increased Damage with Poison from Melee Weapons",
 	implicitModTypes = { { "chaos_damage", "poison", "damage", "chaos", "attack", "ailment" }, { "chaos_damage", "poison", "damage", "chaos", "attack", "ailment" }, },
+	implicitIds = { "TinctureChanceToPoisonImplicit1", },
 	tincture = { manaBurn = 0.7, cooldown = 6 },
 	req = { },
 }
@@ -63,6 +70,7 @@ itemBases["Blood Sap Tincture"] = {
 	tags = { default = true, tincture = true, },
 	implicit = "20% chance to cause Bleeding with Melee Weapons\n(60-90)% increased Damage with Bleeding from Melee Weapons",
 	implicitModTypes = { { "physical_damage", "bleed", "damage", "physical", "attack", "ailment" }, { "physical_damage", "bleed", "damage", "physical", "attack", "ailment" }, },
+	implicitIds = { "TinctureChanceToBleedImplicit1", },
 	tincture = { manaBurn = 0.7, cooldown = 6 },
 	req = { },
 }
@@ -71,6 +79,7 @@ itemBases["Oakbranch Tincture"] = {
 	tags = { default = true, tincture = true, },
 	implicit = "Gain 3 Rage on Melee Weapon Hit",
 	implicitModTypes = { { "attack" }, },
+	implicitIds = { "TinctureRageOnHitImplicit1", },
 	tincture = { manaBurn = 0.5, cooldown = 8 },
 	req = { },
 }
@@ -79,6 +88,7 @@ itemBases["Sporebloom Tincture"] = {
 	tags = { default = true, tincture = true, },
 	implicit = "25% chance to Blind Enemies on Hit with Melee Weapons\n(25-35)% increased Effect of Blind from Melee Weapons",
 	implicitModTypes = { { "attack" }, { "attack" }, },
+	implicitIds = { "TinctureChanceToBlindImplicit1", },
 	tincture = { manaBurn = 0.9, cooldown = 8 },
 	req = { },
 }

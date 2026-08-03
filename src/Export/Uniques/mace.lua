@@ -186,16 +186,18 @@ AdditionalChainUniqueOneHandMace3
 Nebulis
 Void Sceptre
 Variant: Pre 3.27.0
+Variant: Pre 3.29.0
 Variant: Current
 League: Synthesis
 Source: Drops from unique{Synthete Nightmare} in normal{The Cortex} (Uber)
 Requires Level 68, 104 Str, 122 Int
 Implicits: 1
 ElementalDamagePercentImplicitSceptre3
-{variant:2}ClassicNebulisImplicitModifierMagnitudeUnique_1
+{variant:2,3}ClassicNebulisImplicitModifierMagnitudeUnique_1
 IncreasedCastSpeedUnique__16
 {variant:1}ColdDamagePerResistanceAbove75Unique__1
-{variant:2}ElementalDamagePerResistanceAbove75Unique_1
+{variant:2}ElementalDamagePerResistanceAbove75Unique_1[5,10]
+{variant:3}ElementalDamagePerResistanceAbove75Unique_1
 {variant:1}LightningDamagePerResistanceAbove75Unique__1
 ]],[[
 Replica Nebulis
@@ -208,7 +210,7 @@ Requires Level 68, 104 Str, 122 Int
 Implicits: 1
 ElementalDamagePercentImplicitSceptre3
 {variant:2}ReplicaNebulisImplicitModifierMagnitudeUnique_1
-IncreasedCastSpeedUnique__14
+IncreasedCastSpeedUnique__16
 {variant:1}ColdDamagePerMissingColdResistanceUnique__1
 {variant:2}ElementalDamagePerMissingResistanceUnique_1
 {variant:1}FireDamagePerMissingFireResistanceUnique__1
@@ -329,15 +331,19 @@ PhantasmGrantsBuffUnique__1
 Breath of the Council
 Carnal Sceptre
 Variant: Pre 3.0.0
+Variant: Pre 3.29.0
 Variant: Current
 Requires Level 66, 113 Str, 113 Int
 Implicits: 1
 ElementalDamagePercentImplicitSceptreNew20
 LocalIncreasedPhysicalDamagePercentUnique__16
 {variant:1}IncreasedChaosDamageUnique__2[60,80]
-{variant:2}IncreasedChaosDamageUnique__2
-AreaOfEffectImplicitTwoHandMace1__
-ChaosSkillEffectDurationUnique__1
+{variant:2}IncreasedChaosDamageUnique__2[80,100]
+{variant:3}IncreasedChaosDamageUnique__2
+{variant:1,2}AreaOfEffectUnique_9[10,10]
+{variant:3}AreaOfEffectUnique_9
+{variant:1,2}ChaosSkillEffectDurationUnique__1[40,40]
+{variant:3}ChaosSkillEffectDurationUnique__1
 ]],[[
 Brutus' Lead Sprinkler
 Ritual Sceptre
@@ -363,11 +369,14 @@ Cerberus Limb
 Blood Sceptre
 League: Delve
 Source: Drops from unique{Ahuatotli, the Blind}
+Variant: Pre 3.29.0
+Variant: Current
 Requires Level 47, 81 Str, 81 Int
 Implicits: 1
 ElementalDamagePercentImplicitSceptreNew13
 SpellDamageUnique__9
-IncreasedCastSpeedUnique__11__
+{variant:1}IncreasedCastSpeedUnique__14[15,20]
+{variant:2}IncreasedCastSpeedUnique__14
 LifeLeechFromSpellsWith30BlockOnShieldUnique__1_
 EnergyShieldPerArmourOnShieldUnique__1
 ArmourPerEvasionRatingOnShieldUnique__1
@@ -398,7 +407,7 @@ Implicits: 2
 {variant:6,7,8,9,10,11}GlobalChanceToBlindOnHitUniqueSceptre8
 {variant:1,2}ManaGainedOnEnemyDeathPerLevelUniqueSceptre8
 {variant:1,2}EnergyShieldGainedOnEnemyDeathPerLevelUniqueSceptre8
-BlindImmunityUnique__1
+BlindDoesNotAffectHitChanceUnique__1
 MaledictionOnBlindWhileBlindedUnique__1
 {variant:4,5,7,8}EnergyShieldPerLevelUnique__1[1,1]
 {variant:10,11}EnergyShieldPerLevelUnique__1
@@ -551,18 +560,20 @@ Singularity
 Platinum Sceptre
 Variant: Pre 2.3.0
 Variant: Pre 3.19.0
+Variant: Pre 3.29.0
 Variant: Current
 Requires Level 62, 113 Str, 113 Int
 Implicits: 2
 {variant:1}ElementalDamagePercentImplicitSceptreNew11[10,10]
-{variant:2,3}ElementalDamagePercentImplicitSceptreNew11
+{variant:2,3,4}ElementalDamagePercentImplicitSceptreNew11
 {variant:1,2}SpellAddedLightningDamageUnique__2[30,40][60,70]
-{variant:3}SpellAddedLightningDamageUnique__2
+{variant:3,4}SpellAddedLightningDamageUnique__2
 IncreasedCastSpeedUnique__2
-ManaCostReductionUnique__1
+{variant:1,2,3}ManaCostReductionUnique__1
+{variant:4}ManaCostEffiencyUnique__1
 DisplayNearbyEnemiesAreSlowedUnique__1
 {variant:1,2}DamageAgainstNearEnemiesUnique__1[60,80]
-{variant:3}DamageAgainstNearEnemiesUnique__1
+{variant:3,4}DamageAgainstNearEnemiesUnique__1
 ]],[[
 Spine of the First Claimant
 Iron Sceptre
@@ -600,12 +611,13 @@ LocalIncreasedAttackSpeedUniqueSceptre1
 {variant:1}IncreasedExperienceUniqueSceptre1[5,5]
 {variant:2,3}IncreasedExperienceUniqueSceptre1
 {variant:1,2,3}ElementalDamagePercentImplicitSceptre1
-
 ]],[[
 Yaomac's Accord
 Vaal Sceptre
 League: Ultimatum
 Source: Drops from unique{The Trialmaster}
+Variant: Pre 3.29.0
+Variant: Current
 Requires Level 64, 113 Str, 113 Int
 Implicits: 1
 ElementalDamagePercentImplicitSceptreNew20
@@ -613,6 +625,7 @@ VaalSkillDamageUnique__1
 VaalSoulGainPreventionUnique__1__
 GainRandomChargeOnVaalSkillUseUnique__1_
 KeystoneShepherdOfSoulsUnique__1
+{variant:2}GlobalVaalGemsLevelUnique__1
 ]],[[
 Cadigan's Authority
 Platinum Sceptre
@@ -880,16 +893,18 @@ Tidebreaker
 Imperial Maul
 Variant: Pre 3.5.0
 Variant: Pre 3.11.0
+Variant: Pre 3.29.0
 Variant: Current
 Requires Level 65, 212 Str
 Implicits: 2
-{variant:3}PercentageStrengthImplicitMace1
+{variant:3,4}PercentageStrengthImplicitMace1
 {variant:1,2}StunDurationImplicitMace1
 SocketedGemsSupportedByEnduranceChargeOnStunUnique__1
 IntelligenceUnique__5
 {variant:1}LocalAddedPhysicalDamageUnique__26[60,70][300,350]
-{variant:2,3}LocalAddedPhysicalDamageUnique__26
-IncreasedPhysicalDamagePerEnduranceChargeUnique__1
+{variant:2,3,4}LocalAddedPhysicalDamageUnique__26
+{variant:1,2,3}IncreasedPhysicalDamagePerEnduranceChargeUnique__1
+{variant:4}GainBrineChargesUnique__1
 StunThresholdReductionUnique__1___
 ]],[[
 Trypanon

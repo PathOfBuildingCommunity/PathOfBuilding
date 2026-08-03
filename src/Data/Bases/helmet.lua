@@ -554,6 +554,7 @@ itemBases["Sorrow Mask"] = {
 	influenceTags = { shaper = "helmet_shaper", elder = "helmet_elder", adjudicator = "helmet_adjudicator", basilisk = "helmet_basilisk", crusader = "helmet_crusader", eyrie = "helmet_eyrie", cleansing = "helmet_cleansing", tangle = "helmet_tangle" },
 	implicit = "+2% to maximum Chaos Resistance\nYou are Crushed",
 	implicitModTypes = { {  }, {  }, },
+	implicitIds = { "MaxChaosResistanceCrushedImplicitR1", },
 	armour = { ArmourBaseMin = 42, ArmourBaseMax = 49, EvasionBaseMin = 42, EvasionBaseMax = 49, },
 	req = { level = 15, str = 20, dex = 20, },
 }
@@ -565,6 +566,7 @@ itemBases["Atonement Mask"] = {
 	influenceTags = { shaper = "helmet_shaper", elder = "helmet_elder", adjudicator = "helmet_adjudicator", basilisk = "helmet_basilisk", crusader = "helmet_crusader", eyrie = "helmet_eyrie", cleansing = "helmet_cleansing", tangle = "helmet_tangle" },
 	implicit = "+3% to maximum Chaos Resistance\nYou are Crushed",
 	implicitModTypes = { {  }, {  }, },
+	implicitIds = { "MaxChaosResistanceCrushedImplicitR2", },
 	armour = { ArmourBaseMin = 122, ArmourBaseMax = 140, EvasionBaseMin = 122, EvasionBaseMax = 140, },
 	req = { level = 45, str = 51, dex = 51, },
 }
@@ -576,6 +578,7 @@ itemBases["Penitent Mask"] = {
 	influenceTags = { shaper = "helmet_shaper", elder = "helmet_elder", adjudicator = "helmet_adjudicator", basilisk = "helmet_basilisk", crusader = "helmet_crusader", eyrie = "helmet_eyrie", cleansing = "helmet_cleansing", tangle = "helmet_tangle" },
 	implicit = "+4% to maximum Chaos Resistance\nYou are Crushed",
 	implicitModTypes = { {  }, {  }, },
+	implicitIds = { "MaxChaosResistanceCrushedImplicitR3", },
 	armour = { ArmourBaseMin = 185, ArmourBaseMax = 212, EvasionBaseMin = 185, EvasionBaseMax = 212, },
 	req = { level = 75, str = 79, dex = 79, },
 }
@@ -718,6 +721,7 @@ itemBases["Imp Crown"] = {
 	influenceTags = { shaper = "helmet_shaper", elder = "helmet_elder", adjudicator = "helmet_adjudicator", basilisk = "helmet_basilisk", crusader = "helmet_crusader", eyrie = "helmet_eyrie", cleansing = "helmet_cleansing", tangle = "helmet_tangle" },
 	implicit = "-1 to Level of Socketed Support Gems\n+1 to Level of Socketed Skill Gems",
 	implicitModTypes = { {  }, {  }, },
+	implicitIds = { "SocketedActiveGemLevelSupportGemPenaltyImplicitR1", },
 	armour = { ArmourBaseMin = 42, ArmourBaseMax = 49, EnergyShieldBaseMin = 10, EnergyShieldBaseMax = 12, },
 	req = { level = 15, str = 20, int = 20, },
 }
@@ -729,6 +733,7 @@ itemBases["Demon Crown"] = {
 	influenceTags = { shaper = "helmet_shaper", elder = "helmet_elder", adjudicator = "helmet_adjudicator", basilisk = "helmet_basilisk", crusader = "helmet_crusader", eyrie = "helmet_eyrie", cleansing = "helmet_cleansing", tangle = "helmet_tangle" },
 	implicit = "-1 to Level of Socketed Support Gems\n+1 to Level of Socketed Skill Gems",
 	implicitModTypes = { {  }, {  }, },
+	implicitIds = { "SocketedActiveGemLevelSupportGemPenaltyImplicitR1", },
 	armour = { ArmourBaseMin = 122, ArmourBaseMax = 140, EnergyShieldBaseMin = 25, EnergyShieldBaseMax = 29, },
 	req = { level = 45, str = 51, int = 51, },
 }
@@ -740,6 +745,7 @@ itemBases["Archdemon Crown"] = {
 	influenceTags = { shaper = "helmet_shaper", elder = "helmet_elder", adjudicator = "helmet_adjudicator", basilisk = "helmet_basilisk", crusader = "helmet_crusader", eyrie = "helmet_eyrie", cleansing = "helmet_cleansing", tangle = "helmet_tangle" },
 	implicit = "-2 to Level of Socketed Support Gems\n+2 to Level of Socketed Skill Gems",
 	implicitModTypes = { {  }, {  }, },
+	implicitIds = { "SocketedActiveGemLevelSupportGemPenaltyImplicitR2", },
 	armour = { ArmourBaseMin = 185, ArmourBaseMax = 212, EnergyShieldBaseMin = 38, EnergyShieldBaseMax = 43, },
 	req = { level = 75, str = 79, int = 79, },
 }
@@ -751,6 +757,7 @@ itemBases["Bone Helmet"] = {
 	influenceTags = { shaper = "helmet_shaper", elder = "helmet_elder", adjudicator = "helmet_adjudicator", basilisk = "helmet_basilisk", crusader = "helmet_crusader", eyrie = "helmet_eyrie", cleansing = "helmet_cleansing", tangle = "helmet_tangle" },
 	implicit = "Minions deal (15-20)% increased Damage",
 	implicitModTypes = { { "damage", "minion" }, },
+	implicitIds = { "MinionDamageImplicitHelmet1", },
 	armour = { ArmourBaseMin = 197, ArmourBaseMax = 227, EnergyShieldBaseMin = 40, EnergyShieldBaseMax = 46, },
 	req = { level = 73, str = 76, int = 76, },
 }
@@ -903,6 +910,7 @@ itemBases["Gale Crown"] = {
 	influenceTags = { shaper = "helmet_shaper", elder = "helmet_elder", adjudicator = "helmet_adjudicator", basilisk = "helmet_basilisk", crusader = "helmet_crusader", eyrie = "helmet_eyrie", cleansing = "helmet_cleansing", tangle = "helmet_tangle" },
 	implicit = "Adds (3-4) to (5-6) Cold Damage\nYour Hits treat Cold Resistance as 10% higher than actual value",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "cold" }, { "elemental_damage", "damage", "elemental", "cold" }, },
+	implicitIds = { "AddedColdDamageColdPenetration1", },
 	armour = { EvasionBaseMin = 42, EvasionBaseMax = 49, EnergyShieldBaseMin = 10, EnergyShieldBaseMax = 12, },
 	req = { level = 15, dex = 20, int = 20, },
 }
@@ -914,6 +922,7 @@ itemBases["Winter Crown"] = {
 	influenceTags = { shaper = "helmet_shaper", elder = "helmet_elder", adjudicator = "helmet_adjudicator", basilisk = "helmet_basilisk", crusader = "helmet_crusader", eyrie = "helmet_eyrie", cleansing = "helmet_cleansing", tangle = "helmet_tangle" },
 	implicit = "Adds (15-20) to (28-35) Cold Damage\nYour Hits treat Cold Resistance as 10% higher than actual value",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "cold" }, { "elemental_damage", "damage", "elemental", "cold" }, },
+	implicitIds = { "AddedColdDamageColdPenetration2", },
 	armour = { EvasionBaseMin = 122, EvasionBaseMax = 140, EnergyShieldBaseMin = 25, EnergyShieldBaseMax = 29, },
 	req = { level = 45, dex = 51, int = 51, },
 }
@@ -925,6 +934,7 @@ itemBases["Blizzard Crown"] = {
 	influenceTags = { shaper = "helmet_shaper", elder = "helmet_elder", adjudicator = "helmet_adjudicator", basilisk = "helmet_basilisk", crusader = "helmet_crusader", eyrie = "helmet_eyrie", cleansing = "helmet_cleansing", tangle = "helmet_tangle" },
 	implicit = "Adds (75-85) to (115-128) Cold Damage\nYour Hits treat Cold Resistance as 10% higher than actual value",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "cold" }, { "elemental_damage", "damage", "elemental", "cold" }, },
+	implicitIds = { "AddedColdDamageColdPenetration3", },
 	armour = { EvasionBaseMin = 185, EvasionBaseMax = 212, EnergyShieldBaseMin = 38, EnergyShieldBaseMax = 43, },
 	req = { level = 75, dex = 79, int = 79, },
 }
@@ -967,6 +977,7 @@ itemBases["Golden Wreath"] = {
 	influenceTags = { shaper = "helmet_shaper", elder = "helmet_elder", adjudicator = "helmet_adjudicator", basilisk = "helmet_basilisk", crusader = "helmet_crusader", eyrie = "helmet_eyrie", cleansing = "helmet_cleansing", tangle = "helmet_tangle" },
 	implicit = "+(16-24) to all Attributes",
 	implicitModTypes = { { "attribute" }, },
+	implicitIds = { "AllAttributesImplicitWreath1", },
 	armour = { },
 	req = { level = 12, },
 }

@@ -272,7 +272,7 @@ Adds (130-150) to (270-300) Cold Damage
 {variant:2}+(400-500) to Accuracy Rating
 {variant:1}+(400-500) to Accuracy Rating
 4% increased Movement Speed per Frenzy Charge
-2% chance to Avoid Elemental Damage from Hits per Frenzy Charge
+2% chance to Avoid Damage of each Element from Hits per Frenzy Charge
 12 to 14 Added Cold Damage per Frenzy Charge
 0.5% of Attack Damage Leeched as Life per Frenzy Charge
 {variant:1}400 Cold Damage taken per second per Frenzy Charge while moving

@@ -777,7 +777,7 @@ skills["SummonedSpiderViperStrike"] = {
 	baseEffectiveness = 0.64999997615814,
 	incrementalEffectiveness = 0.025499999523163,
 	description = "Hits enemies, converting some of your physical damage to chaos damage and inflicting poison which will be affected by modifiers to skill duration. If dual wielding, will strike with both weapons. Requires a claw, dagger or sword.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Duration] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.DamageOverTime] = true, [SkillType.Chaos] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Duration] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Chaos] = true, },
 	weaponTypes = {
 		["Claw"] = true,
 		["Dagger"] = true,
@@ -1430,7 +1430,7 @@ skills["DropBearSummonedRallyingCry"] = {
 	name = "[DNT] Old Rallying Cry",
 	hidden = true,
 	color = 1,
-	description = "[DNT] Unused (replaced)",
+	description = "DNT Unused (replaced)",
 	skillTypes = { [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Warcry] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.25,
@@ -1621,6 +1621,129 @@ skills["SkitterbotWait"] = {
 		[1] = { levelRequirement = 0, },
 	},
 }
+skills["AbyssalFiendEnfeebleAura"] = {
+	name = "Enfeeble",
+	hidden = true,
+	color = 3,
+	description = "Curses all targets in an area, reducing their accuracy and making them deal less damage.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Cascadable] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Hex] = true, },
+	statDescriptionScope = "curse_skill_stat_descriptions",
+	castTime = 0.5,
+	statMap = {
+		["enfeeble_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "RareOrUnique", neg = true }),
+		},
+		["enfeeble_damage_+%_vs_rare_or_unique_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "RareOrUnique" }),
+		},
+		["accuracy_rating_+%"] = {
+			mod("Accuracy", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+	},
+	baseFlags = {
+		spell = true,
+		curse = true,
+		area = true,
+		duration = true,
+	},
+	constantStats = {
+		{ "accuracy_rating_+%", -19 },
+		{ "enfeeble_damage_+%_final", -29 },
+		{ "enfeeble_damage_+%_vs_rare_or_unique_final", -18 },
+		{ "active_skill_area_of_effect_radius_+%_final", 100 },
+		{ "support_aura_duration_base_buff_duration", 8000 },
+		{ "number_of_additional_curses_allowed", 20 },
+	},
+	stats = {
+		"base_deal_no_damage",
+		"curse_apply_as_aura",
+		"infinite_skill_effect_duration",
+		"base_skill_is_instant",
+	},
+	levels = {
+		[1] = { levelRequirement = 1, },
+	},
+}
+skills["AbyssalFiendTemporalChainsAura"] = {
+	name = "Temporal Chains",
+	hidden = true,
+	color = 4,
+	description = "Curses all enemies in an area, lowering their action speed and making other effects on them expire more slowly.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Cascadable] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Hex] = true, },
+	statDescriptionScope = "curse_skill_stat_descriptions",
+	castTime = 0.5,
+	statMap = {
+		["temporal_chains_action_speed_+%_final"] = {
+			mod("TemporalChainsActionSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "RareOrUnique", neg = true }),
+		},
+		["temporal_chains_action_speed_+%_vs_rare_or_unique_final"] = {
+			mod("TemporalChainsActionSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "RareOrUnique" }),
+		},
+		["buff_time_passed_+%_other_than_temporal_chains"] = {
+			mod("BuffExpireFaster", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+	},
+	baseFlags = {
+		spell = true,
+		curse = true,
+		area = true,
+		duration = true,
+	},
+	constantStats = {
+		{ "temporal_chains_action_speed_+%_final", -29 },
+		{ "buff_time_passed_+%_other_than_temporal_chains", -25 },
+		{ "temporal_chains_action_speed_+%_vs_rare_or_unique_final", -18 },
+		{ "active_skill_area_of_effect_radius_+%_final", 100 },
+		{ "support_aura_duration_base_buff_duration", 8000 },
+		{ "number_of_additional_curses_allowed", 20 },
+	},
+	stats = {
+		"base_deal_no_damage",
+		"curse_apply_as_aura",
+		"infinite_skill_effect_duration",
+		"base_skill_is_instant",
+	},
+	levels = {
+		[1] = { levelRequirement = 0, },
+	},
+}
+skills["AbyssalFiendPunishmentAura"] = {
+	name = "Punishment",
+	hidden = true,
+	color = 1,
+	description = "Curses all targets in an area, causing them to be debilitated when they hit enemies and increasing damage they take while on low life.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Cascadable] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Hex] = true, },
+	statDescriptionScope = "curse_skill_stat_descriptions",
+	castTime = 0.5,
+	statMap = {
+		["damage_taken_+%_on_low_life"] = {
+			mod("DamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "LowLife"}),
+		},
+	},
+	baseFlags = {
+		spell = true,
+		curse = true,
+		area = true,
+		duration = true,
+		hex = true,
+	},
+	constantStats = {
+		{ "damage_taken_+%_on_low_life", 58 },
+		{ "debilitate_self_for_x_milliseconds_on_hit", 2000 },
+		{ "active_skill_area_of_effect_radius_+%_final", 100 },
+		{ "support_aura_duration_base_buff_duration", 8000 },
+		{ "number_of_additional_curses_allowed", 20 },
+	},
+	stats = {
+		"base_deal_no_damage",
+		"curse_apply_as_aura",
+		"infinite_skill_effect_duration",
+		"base_skill_is_instant",
+	},
+	levels = {
+		[1] = { levelRequirement = 1, },
+	},
+}
 skills["MinionInstability"] = {
 	name = "Minion Instability",
 	hidden = true,
@@ -1778,7 +1901,6 @@ skills["SummonedReaperMelee"] = {
 	},
 	stats = {
 		"active_skill_damage_+%_final",
-		"action_attack_or_cast_time_uses_animation_length",
 	},
 	notMinionStat = {
 		"active_skill_damage_+%_final",
@@ -2170,7 +2292,7 @@ skills["HolyStrikeMinionAttack"] = {
 		[1] = { levelRequirement = 1, },
 	},
 }
-skills["MeleeAtAnimationSpeedComboCold"] = {
+skills["MeleeComboCold"] = {
 	name = "Default Attack",
 	hidden = true,
 	color = 4,
@@ -2189,11 +2311,39 @@ skills["MeleeAtAnimationSpeedComboCold"] = {
 	stats = {
 		"skill_can_fire_arrows",
 		"skill_can_fire_wand_projectiles",
-		"action_attack_or_cast_time_uses_animation_length",
 		"projectile_uses_contact_position",
 		"use_scaled_contact_offset",
 	},
 	levels = {
 		[1] = { levelRequirement = 1, },
+	},
+}
+skills["MeleePartialChaos"] = {
+	name = "Default Attack",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 0,
+	description = "Strike your foes down with a powerful blow.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Projectile] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.ProjectilesFromUser] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		melee = true,
+	},
+	constantStats = {
+		{ "skill_physical_damage_%_to_convert_to_chaos", 25 },
+	},
+	stats = {
+		"active_skill_damage_+%_final",
+		"skill_can_fire_arrows",
+		"skill_can_fire_wand_projectiles",
+		"visual_hit_effect_chaos_is_green",
+	},
+	notMinionStat = {
+		"active_skill_damage_+%_final",
+	},
+	levels = {
+		[1] = { 0, baseMultiplier = 0.75, levelRequirement = 1, statInterpolation = { 2, }, },
 	},
 }

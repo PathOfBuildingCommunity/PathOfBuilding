@@ -371,7 +371,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		self:ParseBuffs(self.enemyModList, self.controls.enemyMods.buf, "EnemyMods", self.controls.simpleEnemyMods)
 		self.build.buildFlag = true 
 	end)
-	self.controls.rebuild.tooltipText = "^7Reparse all the inputs incase they have been disabled or they have changed since loading the build or importing"
+	self.controls.rebuild.tooltipText = "^7Reparse all the inputs in case they have been disabled or they have changed since loading the build or importing"
 	self.controls.rebuild.x = function()
 		return (self.width > theme.widthThreshold1) and 8 or (-328)
 	end
@@ -759,9 +759,12 @@ function PartyTabClass:ParseBuffs(list, buf, buffType, label)
 			for line in buf:gmatch("([^\n]*)\n?") do
 				if line:find("=") then
 					-- label is output for this type, as a special case
-					if line:match("%.") then
-						local k1, k2, v = line:match("([%w ]-%w+)%.([%w ]-%w+)=(.+)")
-						label[k1] = {[k2] = tonumber(v)}
+					local k1, k2, v = line:match("^([%w ]-%w+)%.([%w ]-%w+)=(.+)$")
+					if k1 then
+						if type(label[k1]) ~= "table" then
+							label[k1] = { }
+						end
+						label[k1][k2] = tonumber(v)
 					elseif line:match("|") then
 						local k, tags, v = line:match("([%w ]-%w+)|(.+)=(.+)")
 						v = tonumber(v)

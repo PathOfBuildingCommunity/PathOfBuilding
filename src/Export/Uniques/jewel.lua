@@ -1837,9 +1837,10 @@ Variant: Duration of Curses
 Variant: Minion Attack and Cast Speed
 Variant: Minions Accuracy Rating
 Variant: Mana Regen
-Variant: Skill Cost
+Variant: Skill Cost (Pre 3.29.0)
 Variant: Non-Curse Aura Effect
 Variant: Defences from Shield
+Variant: Skill Cost
 Radius: Large
 Implicits: 0
 {variant:1}Carved to glorify (2000-10000) new faithful converted by High Templar Avarius
@@ -1859,6 +1860,7 @@ Implicits: 0
 {variant:15}MinionAccuracyRatingPerDevotion_
 {variant:16}AddedManaRegenerationPerDevotion
 {variant:17}ReducedManaCostPerDevotion
+{variant:20}ManaCostEfficiencyPerDevotion
 {variant:18}AuraEffectPerDevotion
 {variant:19}ShieldDefencesPerDevotion
 Passives in radius are Conquered by the Templars

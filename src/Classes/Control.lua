@@ -35,6 +35,7 @@ local rect = {
 local ControlClass = newClass("Control", function(self, anchor, rect)
 	self.rectStart = rect or {0, 0, 0, 0}
 	self.x, self.y, self.width, self.height = unpack(self.rectStart)
+	---@type (fun(): boolean) | boolean
 	self.shown = true
 	self.enabled = true
 	self.anchor = { }

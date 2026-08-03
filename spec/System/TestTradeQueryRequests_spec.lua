@@ -1,4 +1,5 @@
 describe("TradeQueryRequests", function()
+	local dkjson = require "dkjson"
 	local mock_limiter = {
 		NextRequestTime = function()
 			return os.time()
@@ -54,6 +55,42 @@ describe("TradeQueryRequests", function()
 			table.insert(requests.requestQueue.search, {
 				url = "test",
 				callback = function() end,
+				retryTime = nil
+			})
+			local function mock_next_time(self, policy, time)
+				return time - 1
+			end
+			mock_limiter.NextRequestTime = mock_next_time
+			requests:ProcessQueue()
+			assert.are.equal(#requests.requestQueue.search, 0)
+			launch = orig_launch
+		end)
+
+		-- Pass: Does not crash on 401, and passes error message
+		-- Fail: Crash, or returned error is wrong
+		it("does not crash on 401", function()
+			local json = '"{"error":"invalid_token","error_description":"The access token provided is invalid or has expired"}"'
+			local header = [[HTTP/1.1 401 Unauthorized
+Date: Fri, 24 Apr 2026 07:30:38 GMT
+Content-Type: application/json
+Transfer-Encoding: chunked
+Connection: keep-alive
+Server: cloudflare
+WWW-Authenticate: Bearer realm="pathofexile:production", error="invalid_token", error_description="The access token provided is invalid or has expired"
+Cache-Control: no-store
+Strict-Transport-Security: max-age=63115200; includeSubDomains; preload]]
+		local orig_launch = launch
+			launch = {
+				DownloadPage = function(url, onComplete, opts)
+					onComplete({ body = json, header = header }, nil)
+				end
+			}
+			table.insert(requests.requestQueue.search, {
+				url = "test",
+				callback = function(body, msg)
+					assert.are.equal(body, json)
+					assert.are.equal(msg, "Response code: 401\nAuthorization is invalid. Please Re-Log and reset")
+				end,
 				retryTime = nil
 			})
 			local function mock_next_time(self, policy, time)
@@ -153,6 +190,53 @@ describe("TradeQueryRequests", function()
 			end, {})
 			requests.PerformSearch = orig_perform
 			requests.FetchResultBlock = orig_fetchBlock
+		end)
+	end)
+
+	describe("FetchResultBlock", function()
+		it("reads weighted sums from current and legacy pseudo mods", function()
+			local function makeTradeEntry(id, pseudoMods)
+				return {
+					id = id,
+					listing = {
+						price = { amount = 1, currency = "chaos", type = "~price" },
+						whisper = "hi",
+						account = { name = "seller" },
+					},
+					item = {
+						pseudoMods = pseudoMods,
+						rarity = "Rare",
+						name = "Test Subject",
+						typeLine = "Astral Plate",
+					},
+				}
+			end
+			local response = dkjson.encode({
+				result = {
+					makeTradeEntry("current", { { description = "Sum: 178", domain = "pseudo", hash = "stat.statgroup.0" } }),
+					makeTradeEntry("legacy", { "Sum: 42" }),
+					makeTradeEntry("empty", { }),
+				},
+			})
+			local fetchedItems
+			local callbackError
+			requests.requestQueue.fetch = { }
+			requests:FetchResultBlock("test", function(items, errMsg)
+				fetchedItems = items
+				callbackError = errMsg
+			end)
+
+			local request = table.remove(requests.requestQueue.fetch, 1)
+			request.callback(response)
+
+			local itemsById = { }
+			for _, item in ipairs(fetchedItems) do
+				itemsById[item.id] = item
+			end
+			assert.is_nil(callbackError)
+			assert.are.equal("178", itemsById.current.weight)
+			assert.are.equal("42", itemsById.legacy.weight)
+			assert.are.equal("0", itemsById.empty.weight)
 		end)
 	end)
 

@@ -248,22 +248,26 @@ ItemFoundRarityIncreaseImplicitAmulet1
 {variant:3}NormalMonsterItemQuantityUnique__1
 ]],[[
 Blightwell
-Clutching Talisman
+{variant:1,2}Clutching Talisman
+{variant:3}Shield Crab Talisman
 Variant: Pre 3.16.0
+Variant: Pre 3.29.0
 Variant: Current
 League: Talisman Hardcore
 Talisman Tier: 2
 Requires Level 28
 Implicits: 1
-TalismanGlobalDefensesPercent
-IncreasedEnergyShieldUniqueAmulet14
+{variant:1,2}TalismanGlobalDefensesPercent
+{variant:1,2}IncreasedEnergyShieldUniqueAmulet14
+{variant:3}IncreasedEnergyShieldUnique___1
 FireResistUnique__2
 LightningResistUnique__1
 {variant:1}EnergyShieldDelayDuringFlaskEffect__1[-30,-30]
-{variant:2}EnergyShieldDelayDuringFlaskEffect__1
+{variant:2,3}EnergyShieldDelayDuringFlaskEffect__1
 {variant:1}ESRechargeRateDuringFlaskEffect__1[400,400]
-{variant:2}ESRechargeRateDuringFlaskEffect__1
-Corrupted
+{variant:2,3}ESRechargeRateDuringFlaskEffect__1
+{variant:3}IncreasedFlaskDurationUnique__2
+{variant:1,2}Corrupted
 ]],[[
 Blood of Corruption
 Amber Amulet
@@ -362,6 +366,8 @@ PowerChargeDurationFinalUnique__1__
 ]],[[
 The Untouched Soul
 Gold Amulet
+Variant: Pre 3.29.0
+Variant: Current
 League: Affliction
 Requires Level 48
 Implicits: 1
@@ -369,7 +375,8 @@ ItemFoundRarityIncreaseImplicitAmulet1
 IncreasedLifeEmptyRedSocketUnique__1
 IncreasedAccuracyEmptyGreenSocketUnique__1
 IncreasedManaEmptyBlueSocketUnique__1
-AllResistEmptyWhiteSocketUnique__1
+{variant:1}AllResistEmptyWhiteSocketUnique__1[18,18]
+{variant:2}AllResistEmptyWhiteSocketUnique__1
 ]],[[
 Doedre's Tongue
 Lapis Amulet
@@ -432,6 +439,8 @@ Eyes of the Greatwolf
 Greatwolf Talisman
 Requires Level 52
 Has Alt Variant: true
+Selected Variant: 11
+Selected Alt Variant: 19
 Variant: Attributes
 Variant: Global Defences
 Variant: Chaos Damage
@@ -465,41 +474,41 @@ Variant: Lightning taken as Fire
 Variant: Gain Physical as random Element
 Variant: Extra Pierces
 Variant: Damage over Time Multiplier
-Implicits: 32
-{variant:1}TalismanIncreasedAllAttributes[24,32]
-{variant:2}TalismanGlobalDefensesPercent[30,50]
-{variant:3}TalismanIncreasedChaosDamage[38,62]
-{variant:4}TalismanAttackDamage[40,60]
-{variant:5}TalismanIncreasedColdDamage[40,60]
-{variant:6}TalismanIncreasedFireDamage[40,60]
-{variant:7}TalismanIncreasedLightningDamage[40,60]
-{variant:8}TalismanSpellDamage[40,60]
-{variant:9}TalismanIncreasedPhysicalDamage[40,60]
-{variant:10}TalismanIncreasedMana[40,60]
-{variant:11}TalismanIncreasedDamage[50,70]
-{variant:12}TalismanReducedPhysicalDamageTaken_[8,12]
-{variant:13}TalismanChanceToFreezeShockIgnite_[8,12]
-{variant:14}TalismanIncreasedCriticalChance[80,100]
-{variant:15}TalismanIncreasedAreaOfEffect[10,16]
-{variant:16}TalismanAttackAndCastSpeed[12,20]
-{variant:17}TalismanIncreasedItemQuantity[12,20]
-{variant:18}TalismanIncreasedLife[16,24]
-{variant:19}TalismanIncreasedCriticalStrikeMultiplier_[48,72]
-{variant:20}TalismanAdditionalZombie[2,2]
-{variant:21}TalismanFrenzyChargeOnKill[20,20]
-{variant:22}TalismanPowerChargeOnKill[20,20]
-{variant:23}TalismanEnduranceChargeOnKill_[20,20]
-{variant:24}TalismanPercentLifeRegeneration[240,240]
-{variant:25}TalismanColdTakenAsFire[100,100]
-{variant:26}TalismanColdTakenAsLightning[100,100]
-{variant:27}TalismanFireTakenAsCold[100,100]
-{variant:28}TalismanFireTakenAsLightning[100,100]
-{variant:29}TalismanLightningTakenAsCold[100,100]
-{variant:30}TalismanLightningTakenAsFire[100,100]
-{variant:31}TalismanDamageDealtAddedAsRandomElement[12,24]
-{variant:32}TalismanAdditionalPierce[4,4]
-{variant:33}TalismanGlobalDamageOverTimeMultiplier[24,36]
-LocalDoubleImplicitMods
+Implicits: 33
+{variant:1}TalismanIncreasedAllAttributes
+{variant:2}TalismanGlobalDefensesPercent
+{variant:3}TalismanIncreasedChaosDamage
+{variant:4}TalismanAttackDamage
+{variant:5}TalismanIncreasedColdDamage
+{variant:6}TalismanIncreasedFireDamage
+{variant:7}TalismanIncreasedLightningDamage
+{variant:8}TalismanSpellDamage
+{variant:9}TalismanIncreasedPhysicalDamage
+{variant:10}TalismanIncreasedMana
+{variant:11}TalismanIncreasedDamage
+{variant:12}TalismanReducedPhysicalDamageTaken_
+{variant:13}TalismanChanceToFreezeShockIgnite_
+{variant:14}TalismanIncreasedCriticalChance
+{variant:15}TalismanIncreasedAreaOfEffect
+{variant:16}TalismanAttackAndCastSpeed
+{variant:17}TalismanIncreasedItemQuantity
+{variant:18}TalismanIncreasedLife
+{variant:19}TalismanIncreasedCriticalStrikeMultiplier_
+{variant:20}TalismanAdditionalZombie
+{variant:21}TalismanFrenzyChargeOnKill
+{variant:22}TalismanPowerChargeOnKill
+{variant:23}TalismanEnduranceChargeOnKill_
+{variant:24}TalismanPercentLifeRegeneration
+{variant:25}TalismanColdTakenAsFire
+{variant:26}TalismanColdTakenAsLightning
+{variant:27}TalismanFireTakenAsCold
+{variant:28}TalismanFireTakenAsLightning
+{variant:29}TalismanLightningTakenAsCold
+{variant:30}TalismanLightningTakenAsFire
+{variant:31}TalismanDamageDealtAddedAsRandomElement
+{variant:32}TalismanAdditionalPierce
+{variant:33}TalismanGlobalDamageOverTimeMultiplier
+LocalEnchantStatMagnitudeUnique__1
 ]],[[
 The Felbog Fang
 Citrine Amulet
@@ -824,18 +833,25 @@ LightRadiusUniqueAmulet17
 CullingCriticalStrikes
 ]],[[
 Natural Hierarchy
-Rotfeather Talisman
+{variant:1}Rotfeather Talisman
+{variant:2}Rhex Talisman
+Variant: Pre 3.29.0
+Variant: Current
 League: Talisman Standard, Talisman Hardcore
 Talisman Tier: 3
 Requires Level 44
 Implicits: 1
-TalismanIncreasedDamage
-IncreasedPhysicalDamagePercentUnique__3
-FireDamagePercentUnique__4
-ColdDamagePercentUnique__6
-LightningDamagePercentUnique__2
-IncreasedChaosDamageUnique__1
-Corrupted
+{variant:1}TalismanIncreasedDamage
+{variant:1}IncreasedPhysicalDamagePercentUnique__3
+{variant:1}FireDamagePercentUnique__4
+{variant:1}ColdDamagePercentUnique__6
+{variant:1}LightningDamagePercentUnique__2
+{variant:1}IncreasedChaosDamageUnique__1
+{variant:2}LightningDamageAsPortionOfDamageUniqueTalisman3
+{variant:2}LightningAddedAsColdUniqueTalisman3
+{variant:2}ColdAddedAsFireUniqueTalisman3
+{variant:2}ChaosDamageAsPortionOfFireDamageUniqueTalisman3
+{variant:1}Corrupted
 ]],[[
 Night's Hold
 Black Maw Talisman
@@ -911,20 +927,23 @@ BlindReflectedToSelfUnique__1
 {variant:2}FrenzyChargeOnHitBlindedUnique__1
 ]],[[
 Rigwald's Curse
-Wereclaw Talisman
+{variant:1,2}Wereclaw Talisman
+{variant:3} Wolf Alpha Talisman
 League: Talisman Standard
 Variant: Pre 2.2.0
+Variant: Pre 3.29.0
 Variant: Current
 Talisman Tier: 2
 Requires Level 28
 Implicits: 2
 {variant:1}TalismanIncreasedCriticalStrikeMultiplier_[16,24]
 {variant:2}TalismanIncreasedCriticalStrikeMultiplier_
-BaseUnarmedCriticalStrikeChanceUnique__1
+{variant:1,2}BaseUnarmedCriticalStrikeChanceUnique__1[700,700]
+{variant:3}BaseUnarmedCriticalStrikeChanceUnique__1
 ClawDamageModsAlsoAffectUnarmedUnique__1
 ClawAttackSpeedModsAlsoAffectUnarmed__1
 ClawCritModsAlsoAffectUnarmed__1
-Corrupted
+{variant:1,2}Corrupted
 ]],[[
 Sacrificial Heart
 Paua Amulet

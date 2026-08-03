@@ -16,9 +16,19 @@ CannotBeStunned10CrabBarriersUnique__1
 CrabBarriersLostWhenHitUnique__1_
 ]],[[
 Doryani's Delusion
-Titan Greaves
+{variant:1,2,3,4,5,6,7,8,9}Titan Greaves
+{variant:10,11,12,13,14,15,16,17,18}Leviathan Greaves
 League: Delve
 Source: Drops from unique{The Apex Assembly} in unique{Doryani's Machinarium}
+Variant: Purity of Fire: Fire Pre 3.29.0
+Variant: Purity of Fire: Cold Pre 3.29.0
+Variant: Purity of Fire: Lightning Pre 3.29.0
+Variant: Purity of Ice: Fire Pre 3.29.0
+Variant: Purity of Ice: Cold Pre 3.29.0
+Variant: Purity of Ice: Lightning Pre 3.29.0
+Variant: Purity of Lightning: Fire Pre 3.29.0
+Variant: Purity of Lightning: Cold Pre 3.29.0
+Variant: Purity of Lightning: Lightning Pre 3.29.0
 Variant: Purity of Fire: Fire
 Variant: Purity of Fire: Cold
 Variant: Purity of Fire: Lightning
@@ -29,15 +39,19 @@ Variant: Purity of Lightning: Fire
 Variant: Purity of Lightning: Cold
 Variant: Purity of Lightning: Lightning
 Requires Level 68, 120 Str
-{variant:1,2,3}GrantsPurityOfFireUnique__1
-{variant:4,5,6}GrantsPurityOfIceUnique__1
-{variant:7,8,9}GrantsPurityOfLightningUnique__1
-{variant:1,4,7}AddedFireDamageUnique__3
-{variant:2,5,8}AddedColdDamageUnique__4
-{variant:3,6,9}AddedLightningDamageUnique__2_
-LocalIncreasedPhysicalDamageReductionRatingPercentUnique__10
-IncreasedLifeUnique__60
-MovementVelocityUniqueBootsA1
+{variant:1,2,3,10,11,12}GrantsPurityOfFireUnique__1
+{variant:4,5,6,13,14,15}GrantsPurityOfIceUnique__1
+{variant:7,8,9,16,17,18}GrantsPurityOfLightningUnique__1
+{variant:1,4,7,10,13,16}AddedFireDamageUnique__3
+{variant:2,5,8,11,14,17}AddedColdDamageUnique__4
+{variant:3,6,9,12,15,18}AddedLightningDamageUnique__2_
+{variant:1,2,3,4,5,6,7,8,9}LocalIncreasedPhysicalDamageReductionRatingPercentUnique__10[100,120]
+{variant:10,11,12,13,14,15,16,17,18}LocalIncreasedPhysicalDamageReductionRatingPercentUnique__13
+{variant:1,2,3,4,5,6,7,8,9}IncreasedLifeUnique__60[60,70]
+{variant:10,11,12,13,14,15,16,17,18}IncreasedLifeUnique__60
+{variant:1,2,3,4,5,6,7,8,9}MovementVelocityUniqueBootsA1
+{variant:10,11,12,13,14,15,16,17,18}MovementVelocityUnique__22
+{variant:10,11,12,13,14,15,16,17,18}Corrupted
 ]],[[
 The Infinite Pursuit
 {variant:1}Goliath Greaves
@@ -274,9 +288,19 @@ CannotBeStunnedSuppressedDamageUnique__1
 DebilitateEnemiesSuppressedDamageUnique__1
 ]],[[
 Doryani's Delusion
-Slink Boots
+{variant:1,2,3,4,5,6,7,8,9}Slink Boots
+{variant:10,11,12,13,14,15,16,17,18}Velour Boots
 League: Delve
 Source: Drops from unique{The Apex Assembly} in unique{Doryani's Machinarium}
+Variant: Purity of Fire: Fire Pre 3.29.0
+Variant: Purity of Fire: Cold Pre 3.29.0
+Variant: Purity of Fire: Lightning Pre 3.29.0
+Variant: Purity of Ice: Fire Pre 3.29.0
+Variant: Purity of Ice: Cold Pre 3.29.0
+Variant: Purity of Ice: Lightning Pre 3.29.0
+Variant: Purity of Lightning: Fire Pre 3.29.0
+Variant: Purity of Lightning: Cold Pre 3.29.0
+Variant: Purity of Lightning: Lightning Pre 3.29.0
 Variant: Purity of Fire: Fire
 Variant: Purity of Fire: Cold
 Variant: Purity of Fire: Lightning
@@ -287,15 +311,19 @@ Variant: Purity of Lightning: Fire
 Variant: Purity of Lightning: Cold
 Variant: Purity of Lightning: Lightning
 Requires Level 69, 120 Dex
-{variant:1,2,3}GrantsPurityOfFireUnique__1
-{variant:4,5,6}GrantsPurityOfIceUnique__1
-{variant:7,8,9}GrantsPurityOfLightningUnique__1
-{variant:1,4,7}AddedFireDamageUnique__3
-{variant:2,5,8}AddedColdDamageUnique__4
-{variant:3,6,9}AddedLightningDamageUnique__2_
-LocalIncreasedEvasionRatingPercentUnique__10
-IncreasedLifeUnique__57
-MovementVelocityUniqueBootsA1
+{variant:1,2,3,10,11,12}GrantsPurityOfFireUnique__1
+{variant:4,5,6,13,14,15}GrantsPurityOfIceUnique__1
+{variant:7,8,9,16,17,18}GrantsPurityOfLightningUnique__1
+{variant:1,4,7,10,13,16}AddedFireDamageUnique__3
+{variant:2,5,8,11,14,17}AddedColdDamageUnique__4
+{variant:3,6,9,12,15,18}AddedLightningDamageUnique__2_
+{variant:1,2,3,4,5,6,7,8,9}LocalIncreasedEvasionRatingPercentUnique__10[100,120]
+{variant:10,11,12,13,14,15,16,17,18}LocalIncreasedEvasionRatingPercentUnique__10
+{variant:1,2,3,4,5,6,7,8,9}IncreasedLifeUnique__60[60,70]
+{variant:10,11,12,13,14,15,16,17,18}IncreasedLifeUnique__60
+{variant:1,2,3,4,5,6,7,8,9}MovementVelocityUniqueBootsA1
+{variant:10,11,12,13,14,15,16,17,18}MovementVelocityUnique__22
+{variant:10,11,12,13,14,15,16,17,18}Corrupted
 ]],[[
 Farrul's Chase
 Slink Boots
@@ -439,7 +467,8 @@ MovementVelocityUniqueBootsInt4
 SpiritMinionRefreshOnUniqueHitUnique__1
 ]],[[
 Doryani's Delusion
-Sorcerer Boots
+{variant:1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18}Sorcerer Boots
+{variant:19,20,21,22,23,24,25,26,27}Warlock Boots
 League: Delve
 Source: Drops from unique{The Apex Assembly} in unique{Doryani's Machinarium}
 Variant: Purity of Fire: Fire Pre 3.16.0
@@ -451,6 +480,15 @@ Variant: Purity of Ice: Lightning Pre 3.16.0
 Variant: Purity of Lightning: Fire Pre 3.16.0
 Variant: Purity of Lightning: Cold Pre 3.16.0
 Variant: Purity of Lightning: Lightning Pre 3.16.0
+Variant: Purity of Fire: Fire Pre 3.29.0
+Variant: Purity of Fire: Cold Pre 3.29.0
+Variant: Purity of Fire: Lightning Pre 3.29.0
+Variant: Purity of Ice: Fire Pre 3.29.0
+Variant: Purity of Ice: Cold Pre 3.29.0
+Variant: Purity of Ice: Lightning Pre 3.29.0
+Variant: Purity of Lightning: Fire Pre 3.29.0
+Variant: Purity of Lightning: Cold Pre 3.29.0
+Variant: Purity of Lightning: Lightning Pre 3.29.0
 Variant: Purity of Fire: Fire
 Variant: Purity of Fire: Cold
 Variant: Purity of Fire: Lightning
@@ -461,16 +499,20 @@ Variant: Purity of Lightning: Fire
 Variant: Purity of Lightning: Cold
 Variant: Purity of Lightning: Lightning
 Requires Level 67, 120 Int
-{variant:1,2,3,10,11,12}GrantsPurityOfFireUnique__1
-{variant:4,5,6,13,14,15}GrantsPurityOfIceUnique__1
-{variant:7,8,9,16,17,18}GrantsPurityOfLightningUnique__1
-{variant:1,4,7,10,13,16}AddedFireDamageUnique__3
-{variant:2,5,8,11,14,17}AddedColdDamageUnique__4
-{variant:3,6,9,12,15,18}AddedLightningDamageUnique__2_
+{variant:1,2,3,10,11,12,19,20,21}GrantsPurityOfFireUnique__1
+{variant:4,5,6,13,14,15,22,23,24}GrantsPurityOfIceUnique__1
+{variant:7,8,9,16,17,18,25,26,27}GrantsPurityOfLightningUnique__1
+{variant:1,4,7,10,13,16,19,22,25}AddedFireDamageUnique__3
+{variant:2,5,8,11,14,17,20,23,26}AddedColdDamageUnique__4
+{variant:3,6,9,12,15,18,21,24,27}AddedLightningDamageUnique__2_
 {variant:1,2,3,4,5,6,7,8,9}LocalIncreasedEnergyShieldPercentUnique__10[180,220]
 {variant:10,11,12,13,14,15,16,17,18}LocalIncreasedEnergyShieldPercentUnique__10
-IncreasedLifeUnique__55
-MovementVelocityUniqueBootsA1
+{variant:19,20,21,22,23,24,25,26,27}LocalIncreasedEnergyShieldPercentUnique__13
+{variant:1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18}IncreasedLifeUnique__60[60,70]
+{variant:19,20,21,22,23,24,25,26,27}IncreasedLifeUnique__60
+{variant:1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18}MovementVelocityUniqueBootsA1
+{variant:19,20,21,22,23,24,25,26,27}MovementVelocityUnique__22
+{variant:19,20,21,22,23,24,25,26,27}Corrupted
 ]],[[
 Inya's Epiphany
 Arcanist Slippers
@@ -645,7 +687,7 @@ MovementVelocityUniqueBootsA1
 {variant:3}EnemiesExplodeOnDeathChaosGloriousMadnessUnique1
 {variant:2}ElementalConfluxesGloriousMadnessUnique1
 {variant:2}ElementalAilmentImmunityGloriousMadnessUnique1
-{variant:1}FortifyEffectSelfGloriousMadnessUnique1[15,15]
+{variant:1}FortifyEffectSelfGloriousMadnessUnique1
 ]],[[
 Darkray Vectors
 Dragonscale Boots

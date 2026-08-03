@@ -276,7 +276,7 @@ minions["SummonedSpectralWolf"] = {
 	weaponType1 = "Dagger",
 	limit = "ActiveWolfLimit",
 	skillList = {
-		"MeleeAtAnimationSpeed",
+		"Melee",
 	},
 	modList = {
 		mod("PhysicalDamageLifeLeech", "BASE", 100, 1, 0), -- SummonedWolfLifeLeech [life_leech_from_physical_attack_damage_permyriad = 10000]
@@ -293,17 +293,16 @@ minions["SummonedSpectralTiger"] = {
 	chaosResist = 20,
 	damage = 26.25,
 	damageSpread = 0.2,
-	attackTime = 1.5,
+	attackTime = 0.8,
 	attackRange = 11,
 	accuracy = 3.4,
 	weaponType1 = "Dagger",
 	limit = "ActiveTigerLimit",
 	skillList = {
-		"MeleeAtAnimationSpeed",
+		"Melee",
 	},
 	modList = {
 		mod("PhysicalDamageLifeLeech", "BASE", 100, 1, 0), -- SummonedWolfLifeLeech [life_leech_from_physical_attack_damage_permyriad = 10000]
-		mod("Speed", "INC", 20, 1, 0), -- MonsterImplicitFastAttack4 [attack_speed_+% = 20]
 	},
 }
 
@@ -931,8 +930,8 @@ minions["RhoaUniqueSummoned"] = {
 	accuracy = 3.4,
 	limit = "ActiveBeastMinionLimit",
 	skillList = {
-		"MeleeAtAnimationSpeedUnique",
 		"SummonedRhoaShieldCharge",
+		"Melee",
 	},
 	modList = {
 		-- MonsterNearbyEnemiesAreIntimidated [is_intimidated = 1]
@@ -990,7 +989,7 @@ minions["DropBearUniqueSummoned"] = {
 	weaponType1 = "One Handed Mace",
 	limit = "ActiveBeastMinionLimit",
 	skillList = {
-		"MeleeAtAnimationSpeedUnique",
+		"Melee",
 		"DropBearSummonedGroundSlam",
 		"DropBearSummonedRallyingCry",
 	},
@@ -1159,6 +1158,89 @@ minions["SkitterbotFire"] = {
 	},
 }
 
+minions["AbyssCurseBot"] = {
+	name = "Bone Feeder",
+	monsterTags = { "construct", "extra_extra_small_height", "is_unarmed", "non_attacking", "stone_armour", "very_fast_movement", },
+	life = 1,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1,
+	damageSpread = 0,
+	attackTime = 1,
+	attackRange = 6,
+	accuracy = 1,
+	skillList = {
+		"SkitterbotWait",
+		"AbyssalFiendEnfeebleAura",
+		"AbyssalFiendTemporalChainsAura",
+		"AbyssalFiendPunishmentAura",
+	},
+	modList = {
+		-- MonsterNoDropsOrExperience [monster_no_drops_or_experience = 1]
+		-- CannotBeAugmented [cannot_have_azmeri_dust = 1]
+		-- CannotBeAugmented [cant_possess_this = 1]
+		-- CannotBeAugmented [cant_touch_this = 1]
+		-- CannotBeAugmented [cannot_be_tagged_by_sentinel = 1]
+		-- CannotBeAugmented [cannot_be_afflicted = 1]
+		-- CannotBeAugmented [cannot_have_affliction_mods = 1]
+		-- set_immune_to_cheats [set_immune_to_cheats = 1]
+		-- set_cannot_die [set_cannot_die = 1]
+		mod("Life", "OVERRIDE", 1, 0, 0), -- set_maximum_life_is_one [set_maximum_life_is_one = 1]
+		mod("DamageTaken", "MORE", -100, 0, 0), -- set_base_cannot_be_damaged [set_base_cannot_be_damaged = 1]
+		-- set_cannot_taunt_enemies [set_cannot_taunt_enemies = 1]
+		-- set_untargetable_by_monster_ai [set_untargetable_by_monster_ai = 1]
+		mod("StunImmune", "FLAG", 1, 0, 0), -- base_cannot_be_stunned [base_cannot_be_stunned = 1]
+		mod("KnockbackImmune", "FLAG", 1, 0, 0), -- cannot_be_knocked_back [cannot_be_knocked_back = 1]
+		mod("EnduranceChargesMax", "OVERRIDE", 0, 0, 0), -- set_max_endurance_charges [set_max_endurance_charges = 0]
+		mod("FrenzyChargesMax", "OVERRIDE", 0, 0, 0), -- set_max_frenzy_charges [set_max_frenzy_charges = 0]
+		mod("PowerChargesMax", "OVERRIDE", 0, 0, 0), -- set_max_power_charges [set_max_power_charges = 0]
+		-- set_cannot_be_chained_from [set_cannot_be_chained_from = 1]
+		-- set_cannot_be_splashed_from [set_cannot_be_splashed_from = 1]
+	},
+}
+
+minions["AbyssDebuffBot"] = {
+	name = "Bone Feeder",
+	monsterTags = { "construct", "extra_extra_small_height", "is_unarmed", "non_attacking", "stone_armour", "very_fast_movement", },
+	life = 1,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1,
+	damageSpread = 0,
+	attackTime = 1,
+	attackRange = 6,
+	accuracy = 1,
+	skillList = {
+		"SkitterbotWait",
+	},
+	modList = {
+		-- MonsterNoDropsOrExperience [monster_no_drops_or_experience = 1]
+		-- CannotBeAugmented [cannot_have_azmeri_dust = 1]
+		-- CannotBeAugmented [cant_possess_this = 1]
+		-- CannotBeAugmented [cant_touch_this = 1]
+		-- CannotBeAugmented [cannot_be_tagged_by_sentinel = 1]
+		-- CannotBeAugmented [cannot_be_afflicted = 1]
+		-- CannotBeAugmented [cannot_have_affliction_mods = 1]
+		-- set_immune_to_cheats [set_immune_to_cheats = 1]
+		-- set_cannot_die [set_cannot_die = 1]
+		mod("Life", "OVERRIDE", 1, 0, 0), -- set_maximum_life_is_one [set_maximum_life_is_one = 1]
+		mod("DamageTaken", "MORE", -100, 0, 0), -- set_base_cannot_be_damaged [set_base_cannot_be_damaged = 1]
+		-- set_cannot_taunt_enemies [set_cannot_taunt_enemies = 1]
+		-- set_untargetable_by_monster_ai [set_untargetable_by_monster_ai = 1]
+		mod("StunImmune", "FLAG", 1, 0, 0), -- base_cannot_be_stunned [base_cannot_be_stunned = 1]
+		mod("KnockbackImmune", "FLAG", 1, 0, 0), -- cannot_be_knocked_back [cannot_be_knocked_back = 1]
+		mod("EnduranceChargesMax", "OVERRIDE", 0, 0, 0), -- set_max_endurance_charges [set_max_endurance_charges = 0]
+		mod("FrenzyChargesMax", "OVERRIDE", 0, 0, 0), -- set_max_frenzy_charges [set_max_frenzy_charges = 0]
+		mod("PowerChargesMax", "OVERRIDE", 0, 0, 0), -- set_max_power_charges [set_max_power_charges = 0]
+		-- set_cannot_be_chained_from [set_cannot_be_chained_from = 1]
+		-- set_cannot_be_splashed_from [set_cannot_be_splashed_from = 1]
+	},
+}
+
 minions["SummonedReaper"] = {
 	name = "Reaper",
 	monsterTags = { "bone_armour", "bones", "fast_movement", "has_dual_wield_melee", "has_one_hand_sword", "has_one_handed_melee", "melee", "not_int", "physical_affinity", "skeleton", "slashing_weapon", "undead", },
@@ -1171,7 +1253,7 @@ minions["SummonedReaper"] = {
 	chaosResist = 20,
 	damage = 2.4,
 	damageSpread = 0.2,
-	attackTime = 1.5,
+	attackTime = 1.67,
 	attackRange = 13,
 	accuracy = 3.4,
 	weaponType1 = "One Handed Sword",
@@ -1828,12 +1910,12 @@ minions["Hiveborn"] = {
 	chaosResist = 20,
 	damage = 3,
 	damageSpread = 0.2,
-	attackTime = 1,
+	attackTime = 1.07,
 	attackRange = 11,
 	accuracy = 1,
 	limit = "ActiveHivebornLimit",
 	skillList = {
-		"MeleeAtAnimationSpeedComboCold",
+		"MeleeComboCold",
 	},
 	modList = {
 		-- MonsterNoDropsOrExperience [monster_no_drops_or_experience = 1]
@@ -1850,14 +1932,12 @@ minions["ShamblingUndead"] = {
 	chaosResist = 20,
 	damage = 2.1,
 	damageSpread = 0.4,
-	attackTime = 1.17,
+	attackTime = 1.25,
 	attackRange = 11,
 	accuracy = 3.4,
 	limit = "ShamblingUndeadLimit",
 	skillList = {
-		"MeleeAtAnimationSpeedChaos",
-		"ZombieSlam",
-		"GAZombieCorpseGroundImpact",
+		"MeleePartialChaos",
 	},
 	modList = {
 		mod("Armour", "INC", 40, 0, 0), -- MonsterImplicitDamageReduction1 [physical_damage_reduction_rating_+% = 40]

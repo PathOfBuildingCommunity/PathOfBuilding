@@ -1,5 +1,4 @@
 describe("TestImportReimport", function()
-	local dkjson = require "dkjson"
 	local DEFAULT_CHARACTER_LEVEL = 12
 	local DEFAULT_ITEM_LEVEL = 10
 	local TEST_IMPORT_ITEM_ID = "test-import-item-1"
@@ -50,18 +49,16 @@ describe("TestImportReimport", function()
 
 	-- Build a minimal import payload so the tests stay focused on state, not fixture noise.
 	local function buildImportPayload(items)
-		return dkjson.encode({
-			character = { level = DEFAULT_CHARACTER_LEVEL },
-			items = items,
-		})
+		return {
+			level = DEFAULT_CHARACTER_LEVEL,
+			equipment = items,
+		}
 	end
 
 	local function reimportSocketedItemsWithOptions(itemTypeLine, inventoryId, socketedItems, clearItems)
-		build.importTab.controls.charImportItemsClearSkills.state = true
-		build.importTab.controls.charImportItemsClearItems.state = clearItems
 		build.importTab:ImportItemsAndSkills(buildImportPayload({
 			makeImportItem(itemTypeLine, inventoryId, socketedItems),
-		}))
+		}), clearItems, true, true)
 		runCallback("OnFrame")
 	end
 
@@ -112,15 +109,13 @@ Added Fire Damage 1/0 DISABLED 1
 		socketGroup.mainActiveSkill = 2
 		runCallback("OnFrame")
 
-		build.importTab.controls.charImportItemsClearSkills.state = true
-		build.importTab.controls.charImportItemsClearItems.state = false
 		build.importTab:ImportItemsAndSkills(buildImportPayload({
 			makeImportItem("Iron Hat", "Helm", {
 				makeSocketedGemEntry(0, false, "Cleave", 1),
 				makeSocketedGemEntry(1, false, "Heavy Strike", 1),
 				makeSocketedGemEntry(2, true, "Added Fire Damage Support", 2),
 			}),
-		}))
+		}), false, true, true)
 		runCallback("OnFrame")
 
 		socketGroup = build.skillsTab.socketGroupList[1]
@@ -208,8 +203,6 @@ Blight 20/0  1
 		glovesGroup.enabled = false
 		runCallback("OnFrame")
 
-		build.importTab.controls.charImportItemsClearSkills.state = true
-		build.importTab.controls.charImportItemsClearItems.state = false
 		build.importTab:ImportItemsAndSkills(buildImportPayload({
 			makeImportItem("Iron Hat", "Helm", {
 				makeSocketedGemEntry(0, false, "Cleave", 1),
@@ -219,7 +212,7 @@ Blight 20/0  1
 			makeImportItem("Rawhide Gloves", "Gloves", {
 				makeSocketedGemEntry(0, false, "Blight", 20),
 			}, "test-import-item-gloves"),
-		}))
+		}), false, true, true)
 		runCallback("OnFrame")
 
 		local groupsBySlot = {}

@@ -18,7 +18,7 @@ local function parseStatFile(target, order, fileName)
 		local noDesc = line:match("no_description ([%w_%+%-%%]+)")
 		if noDesc then
 			target[noDesc] = { order = 0 }
-		elseif line:match("handed_description") or (line:match("description") and not line:match("_description")) then	
+		elseif line:match("handed_description") or (line:match("description") and not line:match("_description")) then
 			local name = line:match("description ([%w_]+)")
 			curLang = { }
 			curDescriptor = { curLang, order = order, name = name }
@@ -40,10 +40,10 @@ local function parseStatFile(target, order, fileName)
 			elseif not line:match('table_only') then
 				local statLimits, quality, text, special = line:match('([%d%-#| !]+)%s*([%w_]*)%s*"(.-)"%s*(.*)')
 				if statLimits then
-					local desc = { text = text, limit = { } }
+					local desc = { text = escapeGGGString(text), limit = { } }
 					for statLimit in statLimits:gmatch("[!%d%-#|]+") do
 						local limit = { }
-						
+
 						if statLimit == "#" then
 							limit[1] = "#"
 							limit[2] = "#"
@@ -163,7 +163,7 @@ function loadStatFile(fileName, ...)
 		return
 	end
 	statDescriptor = { }
-	statDescriptors[fileName] = statDescriptor 
+	statDescriptors[fileName] = statDescriptor
 	local finalOrder = parseStatFile(statDescriptor, 1, fileName)
 	print(fileName.. " loaded. ("..finalOrder.." stats)")
 end
@@ -265,6 +265,16 @@ function describeStats(stats)
 				elseif spec.k == "divide_by_two_0dp" then
 					val[spec.v].min = val[spec.v].min / 2
 					val[spec.v].max = val[spec.v].max / 2
+				elseif spec.k == "divide_by_ten_0dp" then
+					val[spec.v].min = val[spec.v].min / 10
+					val[spec.v].max = val[spec.v].max / 10
+				elseif spec.k == "divide_by_fifteen_0dp" then
+					val[spec.v].min = val[spec.v].min / 15
+					val[spec.v].max = val[spec.v].max / 15
+				elseif spec.k == "divide_by_four" then
+					val[spec.v].min = val[spec.v].min / 4
+					val[spec.v].max = val[spec.v].max / 4
+					val[spec.v].fmt = "g"
 				elseif spec.k == "divide_by_five" then
 					val[spec.v].min = val[spec.v].min / 5
 					val[spec.v].max = val[spec.v].max / 5
@@ -334,7 +344,7 @@ function describeStats(stats)
 				elseif spec.k == "milliseconds_to_seconds_2dp_if_required" or spec.k == "milliseconds_to_seconds_2dp" then
 					val[spec.v].min = round(val[spec.v].min / 1000, 2)
 					val[spec.v].max = round(val[spec.v].max / 1000, 2)
-					val[spec.v].fmt = "g"	
+					val[spec.v].fmt = "g"
 				elseif spec.k == "deciseconds_to_seconds" then
 					val[spec.v].min = val[spec.v].min / 10
 					val[spec.v].max = val[spec.v].max / 10
@@ -371,19 +381,19 @@ function describeStats(stats)
 				elseif spec.k == "plus_two_hundred" then
 					val[spec.v].min = val[spec.v].min + 200
 					val[spec.v].max = val[spec.v].max + 200
-				elseif spec.k == "reminderstring" or spec.k == "canonical_line" or spec.k == "_stat" then
+				elseif spec.k == "reminderstring" or spec.k == "canonical_line" or spec.k == "canonical_stat" or spec.k == "_stat" then
 				elseif spec.k then
 					ConPrintf("Unknown description function: %s", spec.k)
 				end
 			end
-			local statDesc = desc.text:gsub("{(%d)}", function(n) 
+			local statDesc = desc.text:gsub("{(%d)}", function(n)
 				local v = val[tonumber(n)+1]
 				if v.min == v.max then
 					return string.format("%"..v.fmt, v.min)
 				else
 					return string.format("(%"..v.fmt.."-%"..v.fmt..")", v.min, v.max)
 				end
-			end):gsub("{}", function() 
+			end):gsub("{}", function()
 				local v = val[1]
 				if v.min == v.max then
 					return string.format("%"..v.fmt, v.min)
@@ -442,4 +452,54 @@ function describeMod(mod)
 	local out, orders = describeStats(stats)
 	out.modTags = describeModTags(mod.ImplicitTags)
 	return out, orders
+end
+
+function getStatDescriptors(fileName)
+	if not statDescriptors[fileName] then
+		loadStatFile(fileName)
+	end
+	return statDescriptors[fileName]
+end
+function describeScalability(fileName)
+	local out = {}
+	local stats = dat("stats")
+	for stat, statDescription in pairsSortByKey(statDescriptors[fileName]) do
+		local scalability = {}
+		if statDescription.stats then
+			for i, stat in ipairs(statDescription.stats) do
+				table.insert(scalability, stats:GetRow("Id", stat).IsScalable)
+			end
+			for _, wordings in ipairs(statDescription[1]) do
+				local wordingFormats = {}
+				local inOrderScalability = {}
+				for _, format in ipairs(wordings) do
+					if type(format.v) == "number" then
+						if wordingFormats[tonumber(format.v)] then
+							table.insert(wordingFormats[tonumber(format.v)], format.k)
+						else
+							wordingFormats[tonumber(format.v)] = { format.k }
+						end
+					end
+				end
+				local strippedLine = wordings.text:gsub("[%+%-]?(%b{})", function(num)
+					local statNum = (num:match("%d") or 0) + 1
+					table.insert(inOrderScalability,
+						{ isScalable = scalability[statNum], formats = wordingFormats[statNum] })
+					return "#"
+				end)
+				if not strippedLine:match("^DNT") then
+					if out[strippedLine] then -- we want to use the format with the least oddities in it. If their are less formats then that will be used instead.
+						for j, priorScalability in ipairs(out[strippedLine]) do
+							if (priorScalability.formats and #priorScalability.formats or 0) > (wordingFormats[j] and #wordingFormats[j] or 0) then
+								out[strippedLine][j] = inOrderScalability[j]
+							end
+						end
+					else -- no present
+						out[strippedLine] = inOrderScalability
+					end
+				end
+			end
+		end
+	end
+	return out
 end

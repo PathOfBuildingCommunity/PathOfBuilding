@@ -274,18 +274,23 @@ Twilight Blade
 Variant: Pre 1.3.0
 Variant: Pre 2.6.0
 Variant: Pre 3.7.0
+Variant: Pre 3.29.0
 Variant: Current
 Implicits: 2
 {variant:1,2}AccuracyPercentImplicitSword1[18,18]
-{variant:3,4}AccuracyPercentImplicitSword1
+{variant:3,4,5}AccuracyPercentImplicitSword1
 {variant:1}BlockWhileDualWieldingUniqueOneHandSword5[10,10]
-{variant:2,3,4}BlockWhileDualWieldingUniqueOneHandSword5
+{variant:2,3,4,5}BlockWhileDualWieldingUniqueOneHandSword5
 {variant:1,2,3}LocalAddedPhysicalDamageUniqueOneHandSword5[20,30][31,40]
-{variant:4}LocalAddedPhysicalDamageUniqueOneHandSword5
-PhysicalDamgePerRedSocketUniqueOneHandSword5
-AttackSpeedPerGreenSocketUniqueOneHandSword5
-ManaLeechPermyriadFromPhysicalDamagePerBlueSocketUniqueOneHandSword5
-MeleeRangePerWhiteSocketUniqueOneHandSword5
+{variant:4,5}LocalAddedPhysicalDamageUniqueOneHandSword5
+{variant:1,2,3,4}PhysicalDamgePerRedSocketUniqueOneHandSword5[25,25]
+{variant:5}PhysicalDamgePerRedSocketUniqueOneHandSword5
+{variant:1,2,3,4}AttackSpeedPerGreenSocketUniqueOneHandSword5[12,12]
+{variant:5}AttackSpeedPerGreenSocketUniqueOneHandSword5
+{variant:1,2,3,4}ManaLeechPermyriadFromPhysicalDamagePerBlueSocketUniqueOneHandSword5[40,40]
+{variant:5}ManaLeechPermyriadFromPhysicalDamagePerBlueSocketUniqueOneHandSword5
+{variant:1,2,3,4}MeleeRangePerWhiteSocketUniqueOneHandSword5[2,2]
+{variant:5}MeleeRangePerWhiteSocketUniqueOneHandSword5
 ]],[[
 Razor of the Seventh Sun
 Midnight Blade
@@ -396,7 +401,7 @@ SpellDamageUnique__5
 LocalIncreasedPhysicalDamagePercentUnique__27
 LocalAddedLightningDamageUnique__5
 SpellAddedLightningDamageUnique__4
-AreaOfEffectUnique__2_
+AreaOfEffectUnique__3
 ]],[[
 The Surging Thoughts
 Legion Sword
@@ -427,18 +432,25 @@ LocalCriticalStrikeChanceUnique__16
 Scaeva
 Gladius
 Variant: Pre 2.6.0
+Variant: Pre 3.29.0
 Variant: Current
 Implicits: 2
 {variant:1}AccuracyPercentImplicitSword1[18,18]
-{variant:2}AccuracyPercentImplicitSword1
+{variant:2,3}AccuracyPercentImplicitSword1
 LocalAddedPhysicalDamageUnique__7_
-LocalCriticalStrikeChanceUnique14
-LifeLeechFromPhysicalAttackDamagePerRedSocket_Unique_1
-CriticalStrikeMultiplierPerGreenSocketUnique_1
-ManaLeechPermyriadFromPhysicalDamagePerBlueSocketUnique
-GlobalDefensesPerWhiteSocketUnique__1
-CriticalStrikeChanceInMainHandUnique_1
-AdditionalChanceToBlockInOffHandUnique_1
+{variant:1,2}LocalCriticalStrikeChanceUnique__5[15,25]
+{variant:3}LocalCriticalStrikeChanceUnique__5
+{variant:1,2}LifeLeechFromPhysicalAttackDamagePerRedSocket_Unique_1
+{variant:3}AreaOfEffectPerRedSocketUnique__1
+{variant:1,2}CriticalStrikeMultiplierPerGreenSocketUnique_1[10,10]
+{variant:3}CriticalStrikeMultiplierPerGreenSocketUnique_1
+{variant:1,2}ManaLeechPermyriadFromPhysicalDamagePerBlueSocketUnique
+{variant:3}CriticalStrikeChancePerBlueSocketUnique__1
+{variant:1,2}GlobalDefensesPerWhiteSocketUnique__1
+{variant:3}GlobalDefensesPerEmptySocketUnique__1
+{variant:1,2}CriticalStrikeChanceInMainHandUnique_1
+{variant:1,2}AdditionalChanceToBlockInOffHandUnique_1[8,8]
+{variant:3}AdditionalChanceToBlockInOffHandUnique_1
 ]],[[
 The Redblade
 Gladius

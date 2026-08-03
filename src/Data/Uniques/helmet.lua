@@ -443,7 +443,7 @@ Requires Level 69, 154 Int
 -30% to Fire Resistance
 (0.4-0.8)% of Attack Damage Leeched as Life
 (0.2-0.4)% of Attack Damage Leeched as Mana
-Increases and Reductions to Spell Damage also apply to Attacks at 150% of their value
+Attacks have 150% Arcane Might
 ]],[[
 Crown of Thorns
 Vine Circlet
@@ -1111,10 +1111,10 @@ Variant: Current
 League: Bestiary
 Source: Drops from unique{Craiceann, First of the Deep}
 Requires Level 58, 64 Str, 64 Int
-{variant:1}+(7-9)% Chance to Block Spell Damage
-{variant:2}+(4-6)% Chance to Block Spell Damage
 (140-180)% increased Armour and Energy Shield
 (4-7)% increased maximum Life
+{variant:1}+(7-9)% Chance to Block Spell Damage
+{variant:2}+(4-6)% Chance to Block Spell Damage
 Cannot lose Crab Barriers if you have lost Crab Barriers Recently
 +3% Chance to Block Attack Damage while you have at least 5 Crab Barriers
 +5% Chance to Block Attack Damage while you have at least 10 Crab Barriers
@@ -1180,19 +1180,21 @@ Soldier Helmet
 League: Legion
 Variant: Pre 3.7.0
 Variant: Pre 3.19.0
+Variant: Pre 3.29.0
 Variant: Current
 Requires Level 12, 16 Str, 16 Int
 {variant:2}+(1-2) to Level of Socketed Gems
-{variant:3}+2 to Level of Socketed Gems
+{variant:3,4}+2 to Level of Socketed Gems
 {variant:1,2}Adds 1 to 13 Lightning Damage to Spells and Attacks
-{variant:3}Adds 1 to 30 Lightning Damage to Spells and Attacks
+{variant:3,4}Adds 1 to 30 Lightning Damage to Spells and Attacks
 {variant:1}(40-50)% increased Armour and Energy Shield
-{variant:2,3}(100-150)% increased Armour and Energy Shield
-{variant:2,3}(10-20)% increased Rarity of Items found
+{variant:2,3,4}(100-150)% increased Armour and Energy Shield
+{variant:2,3,4}(10-20)% increased Rarity of Items found
 {variant:1}+(10-20)% to all Elemental Resistances
 {variant:1}+20% to all Elemental Resistances while on Low Life
 {variant:2,3}(10-20)% reduced Mana Cost of Skills
 {variant:1}20% reduced Mana Cost of Skills when on Low Life
+{variant:4}(30-50)% increased Mana Cost Efficiency
 ]],[[
 Kitava's Thirst
 Zealot Helmet
@@ -1273,7 +1275,7 @@ Strength provides no bonus to Maximum Life
 Intelligence provides no inherent bonus to Maximum Mana
 +1 to Maximum Life per 2 Intelligence
 Cannot gain Energy Shield
-Regenerate 1% of Life per second per 500 Maximum Energy Shield
+Regenerate 1% of Life per second per 500 Player Maximum Energy Shield
 Your Energy Shield starts at zero
 ]],[[
 Mask of the Tribunal
@@ -1281,26 +1283,31 @@ Magistrate Crown
 League: Synthesis
 Source: Drops from unique{Altered/Augmented/Rewritten/Twisted Synthete}
 Variant: Pre 3.16.0
+Variant: Pre 3.29.0
 Variant: Current
 Requires Level 58, 64 Str, 64 Int
 +(25-30) to all Attributes
 (150-200)% increased Armour and Energy Shield
-{variant:2}Nearby Allies have 1% Chance to Block Attack Damage per 100 Strength you have
+{variant:2,3}Nearby Allies have 1% Chance to Block Attack Damage per 100 Strength you have
 {variant:1}Nearby Allies have (4-6)% increased Defences per 100 Strength you have
 Nearby Allies have +(6-8)% to Critical Strike Multiplier per 100 Dexterity you have
 Nearby Allies have (2-4)% increased Cast Speed per 100 Intelligence you have
-2% increased Mana Reservation Efficiency of Skills per 250 total Attributes
+{variant:1,2}2% increased Mana Reservation Efficiency of Skills per 250 total Attributes
+{variant:3}3% increased Mana Reservation Efficiency of Skills per 250 total Attributes
 ]],[[
 Maw of Mischief
 Bone Helmet
 League: Heist
 Source: Obtained from divination card normal{Cursed Words}
+Variant: Pre 3.29.0
+Variant: Current
 Requires Level 73, 76 Str, 76 Int
 Implicits: 1
 Minions deal (15-20)% increased Damage
 Grants Level 20 Death Wish Skill
 +(45-65) to maximum Life
-(20-30)% reduced Mana Cost of Minion Skills
+{variant:2}(40-60)% increased Mana Cost Efficiency of Minion Skills
+{variant:1}(20-30)% reduced Mana Cost of Minion Skills
 Minions are Aggressive
 ]],[[
 Memory Vault
@@ -1504,19 +1511,22 @@ Raven Mask
 League: Domination
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
+Variant: Pre 3.29.0
 Variant: Current
 Requires Level 38, 44 Dex, 44 Int
-{variant:2,3}Trigger Level 1 Create Lesser Shrine when you Kill an Enemy
+{variant:2,3,4}Trigger Level 1 Create Lesser Shrine when you Kill an Enemy
 (120-150)% increased Evasion and Energy Shield
 {variant:2}+(40-65) to maximum Energy Shield
-{variant:3}+(30-45) to maximum Energy Shield
-{variant:2,3}+(60-80) to maximum Life
+{variant:3,4}+(30-45) to maximum Energy Shield
+{variant:2,3,4}+(60-80) to maximum Life
 {variant:1}+(30-40) to maximum Mana
-{variant:2,3}+(30-40)% to Cold Resistance
+{variant:2,3,4}+(30-40)% to Cold Resistance
 {variant:1}Gain (15-20) Life per Enemy Killed
 {variant:1}Gain (10-15) Energy Shield per Enemy Killed
-75% increased Effect of Shrine Buffs on you
-50% increased Duration of Shrine Effects on you
+{variant:1,2,3}75% increased Effect of Shrine Buffs on you
+{variant:4}(25-50)% increased Effect of Shrine Buffs on you
+{variant:1,2,3}50% increased Duration of Shrine Effects on you
+{variant:4}(25-50)% increased Duration of Shrine Effects on you
 ]],[[
 Heretic's Veil
 Deicide Mask
@@ -1648,7 +1658,7 @@ Vaal Mask
 Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Alluring Abyss}
 Requires Level 62, 79 Dex, 72 Int
 +1 to Level of Socketed Gems
-Socketed Gems have 50% reduced Mana Cost
+Socketed Gems have 50% less Mana Cost
 (245-280)% increased Evasion and Energy Shield
 +(30-40) to maximum Energy Shield
 +(24-30)% to Chaos Resistance

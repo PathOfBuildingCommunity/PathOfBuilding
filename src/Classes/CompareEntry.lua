@@ -171,6 +171,7 @@ function CompareEntryClass:LoadFromXML(xmlText)
 	end
 
 	self:SyncCalcsSkillSelection()
+	wipeGlobalCache()
 	self.calcsTab:BuildOutput()
 	self.buildFlag = false
 end
