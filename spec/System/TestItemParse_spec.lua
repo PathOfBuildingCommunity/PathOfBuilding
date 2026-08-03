@@ -147,14 +147,38 @@ describe("TestItemParse", function()
 	end)
 
 	it("Versioned grouped variants", function()
-		local item
-		for _, itemRaw in pairs(data.uniques.ring) do
-			if itemRaw:match("^Zana's Ingenuity") then
-				item = new("Item", itemRaw, "UNIQUE", true)
-				break
-			end
-		end
-		assert.is_not_nil(item)
+		local item = new("Item", [[
+			Rarity: UNIQUE
+			Versioned Grouped Test
+			Prismatic Ring
+			Version: Pre 3.28.0
+			Version: Current
+			Variant: Life
+			Variant: Energy Shield
+			Variant: Mana
+			Variant: Reflect Immune
+			Variant: No damage from Crits
+			Variant: No Monster Suppress
+			Variant: No Enemy Pen
+			Variant: Charges cannot be stolen
+			Variant: Burning Ground Immune
+			Variant: Shocked Ground Immune
+			Variant: Desecrated Ground Immune
+			Variant: Chilled Ground Immune
+			Implicits: 0
+			{version:2}{variant:2}{group:1}20% increased maximum Energy Shield
+			{version:1}{variant:1}{group:1}10% increased maximum Life
+			{variant:3}{group:1}20% increased maximum Mana
+			{variant:4}{group:2}Damage cannot be Reflected
+			{variant:5}{group:2}You take 100% reduced Extra Damage from Critical Strikes
+			{variant:6}{group:2}Monsters cannot Suppress your Spells
+			{variant:7}{group:2}Elemental Resistances cannot be Penetrated
+			{variant:8}{group:2}Monsters cannot steal your Power, Frenzy or Endurance charges on Hit
+			{variant:9}{group:3}Unaffected by Burning Ground
+			{variant:10}{group:3}Unaffected by Shocked Ground
+			{variant:11}{group:3}Unaffected by Desecrated Ground
+			{variant:12}{group:3}Unaffected by Chilled Ground
+		]])
 		assert.are.same({ "Pre 3.28.0", "Current" }, item.versionList)
 		assert.are.equals(2, item.selectedVersion)
 		assert.are.equals(2, item.variantGroupSelections[1])
