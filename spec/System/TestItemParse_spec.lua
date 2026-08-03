@@ -341,6 +341,11 @@ describe("TestItemParse", function()
 		assert.are.same({ "life", "physical_damage" }, item.explicitModLines[1].modTags)
 	end)
 
+	it("ignores disabled modifiers in item conditions", function()
+		local item = new("Item", raw("{disabled}+100 to maximum Life"))
+		assert.is_false(item:FindModifierSubstring("life", "body armour"))
+	end)
+
 	it("variant", function()
 		local item = new("Item", raw([[
 			Selected Variant: 2
@@ -1045,6 +1050,18 @@ describe("TestAdvancedItemParse #item", function()
 			build.itemsTab:AddDisplayItem()
 			runCallback("OnFrame")
 			assert.are.equals(221, chaosDamageInc())
+		end)
+
+		it("does not apply disabled modifier magnitude", function()
+			local item = new("Item", [[
+			Rarity: UNIQUE
+			Magnitude Test
+			Plate Vest
+			Implicits: 1
+			{range:0.5}+(10-20) to maximum Life
+			{disabled}100% increased Implicit Modifier magnitudes
+		]])
+			assert.are.equals(1, item.implicitModLines[1].valueScalar)
 		end)
 
 		it("scales properly using old Eyes of the Greatwolf line", function()
