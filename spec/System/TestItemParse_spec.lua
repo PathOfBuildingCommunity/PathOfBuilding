@@ -146,6 +146,37 @@ describe("TestItemParse", function()
 		assert.are.same({ "Pre 3.19.0", "Current" }, item.variantList)
 	end)
 
+	it("Versioned grouped variants", function()
+		local item
+		for _, itemRaw in pairs(data.uniques.ring) do
+			if itemRaw:match("^Zana's Ingenuity") then
+				item = new("Item", itemRaw, "UNIQUE", true)
+				break
+			end
+		end
+		assert.is_not_nil(item)
+		assert.are.same({ "Pre 3.28.0", "Current" }, item.versionList)
+		assert.are.equals(2, item.selectedVersion)
+		assert.are.equals(2, item.variantGroupSelections[1])
+		assert.are.equals(4, item.variantGroupSelections[2])
+		assert.are.equals(9, item.variantGroupSelections[3])
+		assert.are.same({ 2, 3 }, item:GetVariantGroupOptions(1, false))
+
+		item.variantGroupSelections[1] = 3
+		item.selectedVersion = 1
+		item:NormaliseVariantSelections()
+		assert.are.equals(3, item.variantGroupSelections[1])
+		assert.are.same({ 1, 3 }, item:GetVariantGroupOptions(1, false))
+
+		item.variantGroupSelections[1] = 2
+		item:NormaliseVariantSelections()
+		assert.are.equals(1, item.variantGroupSelections[1])
+		item:BuildAndParseRaw()
+		assert.matches("Selected Version: 1", item.raw, 1, true)
+		assert.matches("Selected Variant Group: 1=1", item.raw, 1, true)
+		assert.matches("{version:1}{variant:1}{group:1}", item.raw, 1, true)
+	end)
+
 	it("Talisman Tier", function()
 		local item = new("Item", raw("Talisman Tier: 3", "Rotfeather Talisman"))
 		assert.are.equals(3, item.talismanTier)

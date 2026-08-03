@@ -1842,18 +1842,18 @@ Requires Level 64
 Implicits: 1
 {tags:resistance}+(8-10)% to all Elemental Resistances
 {tags:attack,speed}(5-15)% increased Attack Speed
-{variant:5}{tags:critical}You take 100% reduced Extra Damage from Critical Strikes
-{variant:2}{tags:defences}20% increased maximum Energy Shield
-{variant:1}{tags:resource}10% increased maximum Life
-{variant:3}{tags:resource}20% increased maximum Mana
+{variant:5}{group:2}{tags:critical}You take 100% reduced Extra Damage from Critical Strikes
+{variant:2}{group:1}{tags:defences}20% increased maximum Energy Shield
+{variant:1}{group:1}{tags:resource}10% increased maximum Life
+{variant:3}{group:1}{tags:resource}20% increased maximum Mana
 {tags:resistance}+(-15-15)% to all Elemental Resistances
-{variant:4}Damage cannot be Reflected
-{variant:7}Elemental Resistances cannot be Penetrated
-{variant:9}Unaffected by Burning Ground
-{variant:12}Unaffected by Chilled Ground
-{variant:11}Unaffected by Desecrated Ground
-{variant:10}Unaffected by Shocked Ground
-{variant:8}Monsters cannot steal your Power, Frenzy or Endurance charges on Hit
-{variant:6}Monsters cannot Suppress your Spells
+{variant:4}{group:2}Damage cannot be Reflected
+{variant:7}{group:2}Elemental Resistances cannot be Penetrated
+{variant:9}{group:3}Unaffected by Burning Ground
+{variant:12}{group:3}Unaffected by Chilled Ground
+{variant:11}{group:3}Unaffected by Desecrated Ground
+{variant:10}{group:3}Unaffected by Shocked Ground
+{variant:8}{group:2}Monsters cannot steal your Power, Frenzy or Endurance charges on Hit
+{variant:6}{group:2}Monsters cannot Suppress your Spells
 ]],
 }
