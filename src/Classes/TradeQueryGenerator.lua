@@ -120,6 +120,7 @@ local function getStatEntries(modType)
 		["Rune"] = "rune",
 		["HeartOfTheWell"] = "explicit",
 		["AgainstTheDarkness"] = "explicit",
+		["Enchant"] = "enchant",
 	}
 	if tradeStatCategoryIndices[modType] then
 		for _, cat in ipairs(tradeStats) do
@@ -232,6 +233,9 @@ function TradeQueryGeneratorClass:ProcessMod(modId, mod, tradeQueryStatsParsed, 
 		elseif modLine == "Flasks gain a Charge every 3 seconds" then
 			specialCaseData.overrideModLineSingular = "Flasks gain a Charge every 3 seconds"
 			modLine = "Flasks gain 1 Charges every 3 seconds"
+		elseif modLine:match("^Utility Flasks gain %d+ Charges every 3 seconds$") then
+			specialCaseData.overrideModLine = "Utility Flasks gain # Charges every 3 seconds"
+			modLine = modLine:gsub("Charges", "Charge")
 		end
 
 		-- If this is the first tier for this mod, find matching trade mod and init the entry
@@ -412,6 +416,7 @@ function TradeQueryGeneratorClass:InitMods()
 	self.modData = {
 		["Explicit"] = { },
 		["Implicit"] = { },
+		["Enchant"] = {},
 		["Corrupted"] = { },
 		["Scourge"] = { },
 		["Eater"] = { },
@@ -484,33 +489,40 @@ function TradeQueryGeneratorClass:InitMods()
 		{ ["AnyJewel"] = "AnyJewel" })
 
 	-- implicit mods
+	local function processBaseMod(baseEntry, modId, modType)
+		local mod = copyTable(data.itemMods.ItemExclusive[modId] or error("mod id doesn't exist " .. modId))
+		mod.type = modType
+
+		-- create trade type mask for base type
+		local maskOverride = {}
+		for tradeName, typeNames in pairs(tradeCategoryNames) do
+			for _, typeName in ipairs(typeNames) do
+				local entryName = baseEntry.type
+				if modType == "Implicit" and baseEntry.subType then
+					entryName = entryName .. ": " .. baseEntry.subType
+				end
+				if typeName == entryName then
+					maskOverride[tradeName] = true;
+					break
+				end
+			end
+		end
+
+		-- A mask avoids processing mods from unimplemented base types
+		if next(maskOverride) ~= nil then
+			self:ProcessMod("", mod, tradeQueryStatsParsed, regularItemMask, maskOverride)
+		end
+	end
 	for _, entry in pairsSortByKey(data.itemBases) do
 		if entry.type == "Graft" then
 			goto continue
 		end
 		for _, modId in ipairs(entry.implicitIds or {}) do
-			local mod = copyTable(data.itemMods.ItemExclusive[modId] or error("mod id doesn't exist " .. modId))
-			mod.type = "Implicit"
-
-			-- create trade type mask for base type
-			local maskOverride = {}
-			for tradeName, typeNames in pairs(tradeCategoryNames) do
-				for _, typeName in ipairs(typeNames) do
-					local entryName = entry.type
-					if entry.subType then
-						entryName = entryName .. ": " .. entry.subType
-					end
-					if typeName == entryName then
-						maskOverride[tradeName] = true;
-						break
-					end
-				end
-			end
-
-			-- mask found process implicit mod this avoids processing unimplemented bases
-			if next(maskOverride) ~= nil then
-				self:ProcessMod("", mod, tradeQueryStatsParsed, regularItemMask, maskOverride)
-			end
+			processBaseMod(entry, modId, "Implicit")
+		end
+		-- talismans have implicit-like enchants on the bases
+		for _, modId in ipairs(entry.enchantIds or {}) do
+			processBaseMod(entry, modId, "Enchant")
 		end
 		::continue::
 	end
@@ -768,6 +780,9 @@ function TradeQueryGeneratorClass:ExecuteQuery()
 	self:GenerateModWeights(self.modData["Implicit"])
 	if self.calcContext.options.includeCorrupted then
 		self:GenerateModWeights(self.modData["Corrupted"])
+	end
+	if self.calcContext.options.includeTalisman then
+		self:GenerateModWeights(self.modData["Enchant"])
 	end
 	if self.calcContext.options.includeScourge then
 		self:GenerateModWeights(self.modData["Scourge"])
@@ -1119,8 +1134,8 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 	end
 
 	if isAmuletSlot then
-		controls.includeTalisman = new("CheckBoxControl", {"TOPRIGHT",lastItemAnchor,"BOTTOMRIGHT"}, {0, 5, 18}, "Talisman Mods:", function(state) end)
-		controls.includeTalisman.state = (self.lastIncludeTalisman == nil or self.lastIncludeTalisman == true)
+		controls.includeTalisman = new("CheckBoxControl", { "TOPRIGHT", lastItemAnchor, "BOTTOMRIGHT" }, { 0, 5, 18 }, "Talisman Mods:", function(state) end, "Whether talisman enchant mods should be included. Disabled by default due to the maximum filter limit.")
+		controls.includeTalisman.state = not not self.lastIncludeTalisman
 		updateLastAnchor(controls.includeTalisman)
 	end
 
