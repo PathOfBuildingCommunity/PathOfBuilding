@@ -940,7 +940,7 @@ holding Shift will put it in the second.]])
 		self.controls["displayItemAffix"..i] = drop
 		self.controls["displayItemAffixLabel"..i] = new("LabelControl", {"RIGHT",drop,"LEFT"}, {-4, 0, 0, 14}, function()
 			local ignoreModType = self.displayItem.rareLikeUnique and self.displayItem.rareLikeUnique.ignorePrefixSuffix
-			return ignoreModType and "Explicit:"
+			return ignoreModType and "^7Explicit:"
 				or drop.outputTable == "prefixes" and "^7Prefix:"
 				or "^7Suffix:"
 		end)
@@ -959,7 +959,7 @@ holding Shift will put it in the second.]])
 		self:AddCustomModifierToDisplayItem()
 	end)
 	self.controls.displayItemAddCustom.shown = function()
-		return self.displayItem and (self.displayItem.rarity == "MAGIC" or self.displayItem.rarity == "RARE" or self.rareLikeUnique)
+		return self.displayItem and (self.displayItem.rarity == "MAGIC" or self.displayItem.rarity == "RARE")
 	end
 
 	-- Section: Crucible modifiers
@@ -2103,7 +2103,8 @@ function ItemsTabClass:UpdateAffixControl(control, item, affixType, outputTable,
 			if index ~= outputIndex or table ~= outputTable then
 				local mod = item.affixes[item[table][index] and item[table][index].modId]
 				if mod then
-					if mod.group then
+					local allowDuplicateAffixes = item.rareLikeUnique and item.rareLikeUnique.allowsDuplicates
+					if mod.group and not allowDuplicateAffixes then
 						excludeGroups[mod.group] = true
 					end
 					if mod.tags then

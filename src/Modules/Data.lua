@@ -1299,20 +1299,26 @@ data.minionTagCrucibleUniques = {
 	["United in Dream"] = true,
 }
 
--- data describing uniques which can contain rare modifiers. these can also
--- ignore prefix/suffix logic
+local crimsonStormMods = {}
+for modId, mod in pairs(data.veiledMods) do
+	if mod.affix == "of the Order" then
+		crimsonStormMods[modId] = mod
+	end
+end
 
 ---@class RareLikeAffixLimits
 ---@field affixLimit integer Total number of possible affixes
----@field prefixLimit integer Total number of possible prefixes. This also implies suffixLimit = affixLimit - prefixLimit
+---@field prefixLimit integer Total number of possible prefixes
 
 ---@class RareLikeUniqueDescription
----@field validBases ItemBaseEntry[]
+---@field validBases ItemBaseEntry[] a list of bases which will have their tags compared to the given affixes
 ---@field affixes table[] Table of rare modifiers (affixes) which might spawn on the item
 ---@field affixLimits RareLikeAffixLimits
----@field ignorePrefixSuffix boolean
+---@field ignorePrefixSuffix boolean?
 ---@field baseExplicits string[] An array of mod ID strings. These should describe the unique explicits which are always present on the item, and thus are contained in ItemExclusive.
 ---@type table<string, RareLikeUniqueDescription>
+-- data describing uniques which can contain rare modifiers. these may also
+-- ignore prefix/suffix logic
 data.rareLikeUniques = {
 	["subsume the source"] = {
 		validBases = data.itemBaseLists["Jewel: Abyss"],
@@ -1322,9 +1328,24 @@ data.rareLikeUniques = {
 			prefixLimit = 4,
 		},
 		ignorePrefixSuffix = true,
+		allowsDuplicates = true,
 		baseExplicits = { "LocalExplicitModEffectUnique__1",
 			"ConsumeAbyssJewelUnique__1",
 			"LocalCannotHaveNonAbyssSocketsUnique__1" },
+	},
+	["the crimson storm"] = {
+		validBases = { base = { tags = { unveiled_mod = true } } },
+		affixes = crimsonStormMods,
+		affixLimits = {
+			affixLimit = 1,
+			prefixLimit = 0,
+		},
+		baseExplicits = { "LocalIncreasedPhysicalDamagePercentUnique__36_",
+			"LocalCriticalStrikeChanceUnique__15",
+			"BleedOnCritUnique__1_",
+			"EnemiesYouBleedGrantIncreasedFlaskChargesUnique__1_",
+			"AddedPhysicalDamageVsBleedingEnemiesUnique__1",
+			"MaimOnCritUnique__1" },
 	}
 }
 -- Uniques (loaded after version-specific data because reasons)
