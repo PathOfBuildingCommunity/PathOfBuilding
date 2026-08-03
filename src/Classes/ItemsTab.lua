@@ -476,13 +476,13 @@ holding Shift will put it in the second.]])
 	self.controls.displayItemSectionEnchant = new("Control", {"TOPLEFT",self.controls.displayItemSectionSockets,"BOTTOMLEFT"}, {0, 0, 0, function()
 		return (self.controls.displayItemEnchant:IsShown() or self.controls.displayItemEnchant2:IsShown() or self.controls.displayItemAnoint:IsShown() or self.controls.displayItemAnoint2:IsShown() or self.controls.displayItemCorrupt:IsShown() ) and 28 or 0
 	end})
-	self.controls.displayItemEnchant = new("ButtonControl", {"TOPLEFT",self.controls.displayItemSectionEnchant,"TOPLEFT"}, {0, 0, 160, 20}, "Apply Enchantment...", function()
+	self.controls.displayItemEnchant = new("ButtonControl", { "TOPLEFT", self.controls.displayItemSectionEnchant, "TOPLEFT" }, { 0, 0, 160, 20 }, "Change Enchantment...", function()
 		self:EnchantDisplayItem(1)
 	end)
 	self.controls.displayItemEnchant.shown = function()
 		return self.displayItem and self.displayItem.enchantments
 	end
-	self.controls.displayItemEnchant2 = new("ButtonControl", {"TOPLEFT",self.controls.displayItemEnchant,"TOPRIGHT",true}, {8, 0, 160, 20}, "Apply Enchantment 2...", function()
+	self.controls.displayItemEnchant2 = new("ButtonControl", { "TOPLEFT", self.controls.displayItemEnchant, "TOPRIGHT", true }, { 8, 0, 160, 20 }, "Change Enchantment 2...", function()
 		self:EnchantDisplayItem(2)
 	end)
 	self.controls.displayItemEnchant2.shown = function()
@@ -1775,8 +1775,8 @@ end
 function ItemsTabClass:CreateDisplayItemFromRaw(itemRaw, normalise)
 	local newItem = new("Item", itemRaw)
 	if newItem.base then
-		self:CopyAnointsAndEldritchImplicits(newItem, main.migrateEldritchImplicits, false)
 		if normalise then
+			self:CopyAnointsAndEldritchImplicits(newItem, main.migrateEldritchImplicits, false)
 			newItem:NormaliseQuality()
 			newItem:BuildModList()
 		end
@@ -3620,7 +3620,7 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 			end)
 		elseif sourceId == "DelveImplicit" then
 			for i, mod in pairs(self.displayItem.affixes) do
-				if self.displayItem:GetModSpawnWeight(mod) > 0 and sourceId:lower() == mod.type:lower() then
+				if self.displayItem:GetModSpawnWeight(mod) > 0 and mod.type and sourceId:lower() == mod.type:lower() then
 					local modLabel = table.concat(mod, "/")
 					if not groupIndexes[mod.group] then
 						t_insert(modList, {})
