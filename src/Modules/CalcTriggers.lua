@@ -422,6 +422,7 @@ local function defaultTriggerHandler(env, config)
 					s_format("%.2f ^8(base activation cooldown of %s)", actor.mainSkill.triggeredBy.mainSkill.skillData.repeatFrequency, config.triggerName),
 					s_format("* %.2f ^8(more activation frequency)", actor.mainSkill.triggeredBy.activationFreqMore),
 					s_format("* %.2f ^8(increased activation frequency)", actor.mainSkill.triggeredBy.activationFreqInc),
+					s_format("* %d ^8(attached Brands)", actor.mainSkill.triggeredBy.attachedBrandCount),
 					s_format("= %.2f ^8(activation rate of %s)", trigRate, actor.mainSkill.triggeredBy.mainSkill.activeEffect.grantedEffect.name)
 				}
 			elseif breakdown then
@@ -878,6 +879,10 @@ local function defaultTriggerHandler(env, config)
 			else
 				actor.mainSkill.infoMessage = actor.mainSkill.triggeredBy and actor.mainSkill.triggeredBy.grantedEffect.name or config.triggerName .. " Trigger"
 			end
+			if actor.mainSkill.skillData.triggeredByBrand then
+				local attachedBrandCount = actor.mainSkill.triggeredBy.attachedBrandCount
+				actor.mainSkill.infoMessage = actor.mainSkill.infoMessage .. ":" .. s_format("%d attached Brand%s", attachedBrandCount, attachedBrandCount == 1 and "" or "s")
+			end
 
 			actor.mainSkill.infoTrigger = config.triggerName
 		end
@@ -1322,8 +1327,9 @@ local configTable = {
 			local activationFreqMore = env.player.mainSkill.triggeredBy.mainSkill.skillModList:More(env.player.mainSkill.triggeredBy.mainSkill.skillCfg, "BrandActivationFrequency")
 			env.player.mainSkill.triggeredBy.activationFreqInc = activationFreqInc
 			env.player.mainSkill.triggeredBy.activationFreqMore = activationFreqMore
+			env.player.mainSkill.triggeredBy.attachedBrandCount = env.player.mainSkill.triggeredBy.mainSkill.skillData.attachedBrandCount
 			env.player.mainSkill.triggeredBy.ignoresTickRate = true
-			return {trigRate = env.player.mainSkill.triggeredBy.mainSkill.skillData.repeatFrequency * activationFreqInc * activationFreqMore,
+			return {trigRate = env.player.mainSkill.triggeredBy.mainSkill.skillData.repeatFrequency * activationFreqInc * activationFreqMore * env.player.mainSkill.triggeredBy.attachedBrandCount,
 					source = env.player.mainSkill.triggeredBy.mainSkill,
 					triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByBrand and slotMatch(env, skill) end}
 		end

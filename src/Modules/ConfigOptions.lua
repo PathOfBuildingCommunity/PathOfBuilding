@@ -315,7 +315,7 @@ return {
 	{ var = "ActiveBrands", type = "count", label = "# of active Brands:", ifSkill = { "Armageddon Brand", "Storm Brand", "Arcanist Brand", "Penance Brand", "Wintertide Brand" }, includeTransfigured = true , apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:ConfigActiveBrands", "BASE", val, "Config")
 	end },
-	{ var = "BrandsAttachedToEnemy", type = "count", label = "# of Brands attached to the enemy:", ifEnemyMult = "BrandsAttached", apply = function(val, modList, enemyModList)
+	{ var = "BrandsAttachedToEnemy", type = "count", label = "# of Brands attached to enemy (if not maximum):", ifSkillFlag = "brand", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:ConfigBrandsAttachedToEnemy", "BASE", val, "Config")
 	end },
 	{ var = "targetBrandedEnemy", type = "check", label = "Skill is targeting the Branded enemy", ifCond = "TargetingBrandedEnemy", defaultState = true, apply = function(val, modList, enemyModList)

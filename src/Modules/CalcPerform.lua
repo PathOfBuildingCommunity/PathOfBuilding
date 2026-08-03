@@ -1320,14 +1320,15 @@ function calcs.perform(env, skipEHP)
 
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
 		if activeSkill.skillTypes[SkillType.Brand] then
-			local attachLimit = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "BrandsAttachedLimit")
-			local attached = modDB:Sum("BASE", nil, "Multiplier:ConfigBrandsAttachedToEnemy")
+			local attachLimit = m_min(activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "BrandsAttachedLimit"), activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "ActiveBrandLimit"))
+			local configured = modDB:Sum("BASE", nil, "Multiplier:ConfigBrandsAttachedToEnemy")
+			local attached = configured > 0 and m_min(configured, attachLimit) or attachLimit
+			activeSkill.skillData.attachedBrandCount = attached
 			local activeBrands = modDB:Sum("BASE", nil, "Multiplier:ConfigActiveBrands")
-			local actual = m_min(attachLimit, attached)
 			-- Cap the number of active brands by the limit, which is 3 by default
 			modDB.multipliers["ActiveBrand"] = m_min(activeBrands, modDB:Sum("BASE", nil, "ActiveBrandLimit"))
-			modDB.multipliers["BrandsAttachedToEnemy"] = m_max(actual, modDB.multipliers["BrandsAttachedToEnemy"] or 0)
-			enemyDB.multipliers["BrandsAttached"] = m_max(actual, enemyDB.multipliers["BrandsAttached"] or 0)
+			modDB.multipliers["BrandsAttachedToEnemy"] = m_max(attached, modDB.multipliers["BrandsAttachedToEnemy"] or 0)
+			enemyDB.multipliers["BrandsAttached"] = m_max(attached, enemyDB.multipliers["BrandsAttached"] or 0)
 		end
 		if activeSkill.skillFlags.totem then
 			local limit = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ActiveTotemLimit", "ActiveBallistaLimit" )
