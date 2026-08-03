@@ -17,7 +17,7 @@ local utils = LoadModule("Modules/Utils")
 -- exist yet, but might exist in the future
 local tradeCategoryNames = {
 	["Ring"] = { "Ring" },
-	["Amulet"] = { "Amulet", "Amulet: Talisman" },
+	["Amulet"] = { "Amulet" },
 	["Belt"] = { "Belt" },
 	["Chest"] = { "Body Armour", "Body Armour: Armour", "Body Armour: Armour/Energy Shield", "Body Armour: Armour/Evasion", "Body Armour: Armour/Evasion/Energy Shield", "Body Armour: Energy Shield", "Body Armour: Evasion", "Body Armour: Evasion/Energy Shield",
 		-- "Body Armour: Ward"
@@ -233,6 +233,9 @@ function TradeQueryGeneratorClass:ProcessMod(modId, mod, tradeQueryStatsParsed, 
 		elseif modLine == "Flasks gain a Charge every 3 seconds" then
 			specialCaseData.overrideModLineSingular = "Flasks gain a Charge every 3 seconds"
 			modLine = "Flasks gain 1 Charges every 3 seconds"
+		elseif modLine:match("^Utility Flasks gain %d+ Charges every 3 seconds$") then
+			specialCaseData.overrideModLine = "Utility Flasks gain # Charges every 3 seconds"
+			modLine = modLine:gsub("Charges", "Charge")
 		end
 
 		-- If this is the first tier for this mod, find matching trade mod and init the entry
@@ -486,7 +489,7 @@ function TradeQueryGeneratorClass:InitMods()
 		{ ["AnyJewel"] = "AnyJewel" })
 
 	-- implicit mods
-	local function processImplicit(baseEntry, modId, modType)
+	local function processBaseMod(baseEntry, modId, modType)
 		local mod = copyTable(data.itemMods.ItemExclusive[modId] or error("mod id doesn't exist " .. modId))
 		mod.type = modType
 
@@ -495,7 +498,7 @@ function TradeQueryGeneratorClass:InitMods()
 		for tradeName, typeNames in pairs(tradeCategoryNames) do
 			for _, typeName in ipairs(typeNames) do
 				local entryName = baseEntry.type
-				if baseEntry.subType then
+				if modType == "Implicit" and baseEntry.subType then
 					entryName = entryName .. ": " .. baseEntry.subType
 				end
 				if typeName == entryName then
@@ -505,7 +508,7 @@ function TradeQueryGeneratorClass:InitMods()
 			end
 		end
 
-		-- mask found process implicit mod this avoids processing unimplemented bases
+		-- A mask avoids processing mods from unimplemented base types
 		if next(maskOverride) ~= nil then
 			self:ProcessMod("", mod, tradeQueryStatsParsed, regularItemMask, maskOverride)
 		end
@@ -515,11 +518,11 @@ function TradeQueryGeneratorClass:InitMods()
 			goto continue
 		end
 		for _, modId in ipairs(entry.implicitIds or {}) do
-			processImplicit(entry, modId, "Implicit")
+			processBaseMod(entry, modId, "Implicit")
 		end
 		-- talismans have implicit-like enchants on the bases
 		for _, modId in ipairs(entry.enchantIds or {}) do
-			processImplicit(entry, modId, "Enchant")
+			processBaseMod(entry, modId, "Enchant")
 		end
 		::continue::
 	end
@@ -778,7 +781,9 @@ function TradeQueryGeneratorClass:ExecuteQuery()
 	if self.calcContext.options.includeCorrupted then
 		self:GenerateModWeights(self.modData["Corrupted"])
 	end
-	self:GenerateModWeights(self.modData["Enchant"])
+	if self.calcContext.options.includeTalisman then
+		self:GenerateModWeights(self.modData["Enchant"])
+	end
 	if self.calcContext.options.includeScourge then
 		self:GenerateModWeights(self.modData["Scourge"])
 	end

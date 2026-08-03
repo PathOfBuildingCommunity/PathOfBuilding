@@ -42163,6 +42163,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_1618482990",
+				["text"] = "#% chance for Energy Shield Recharge to start when you Kill an Enemy",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_3927388937",
 				["text"] = "#% chance for Impales on Enemies you Kill to Reflect Damage to surrounding Enemies",
 				["type"] = "implicit",
@@ -44273,6 +44278,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2881210047",
+				["text"] = "#% of Cold Damage taken as Lightning Damage",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_807450540",
 				["text"] = "#% of Damage dealt by your Mines is Leeched to you as Life",
 				["type"] = "implicit",
@@ -44320,6 +44330,11 @@ return {
 			{
 				["id"] = "implicit.stat_1175213674",
 				["text"] = "#% of Elemental Damage from Hits taken as Chaos Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2340750293",
+				["text"] = "#% of Elemental Damage from Hits taken as Physical Damage",
 				["type"] = "implicit",
 			},
 			{
@@ -45153,6 +45168,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_779829642",
+				["text"] = "+#% to Chaos Resistance while stationary",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_1950806024",
 				["text"] = "+#% to Cold Damage over Time Multiplier",
 				["type"] = "implicit",
@@ -45963,6 +45983,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2059771038",
+				["text"] = "Attacks always inflict Bleeding while you have Cat's Stealth",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_1510714129",
 				["text"] = "Attacks have #% chance to Maim on Hit",
 				["type"] = "implicit",
@@ -46020,6 +46045,11 @@ return {
 			{
 				["id"] = "implicit.stat_3885405204",
 				["text"] = "Bow Attacks fire # additional Arrows",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3292262540",
+				["text"] = "Call to Arms",
 				["type"] = "implicit",
 			},
 			{
@@ -47093,6 +47123,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3520223758",
+				["text"] = "Increases and Reductions to Cast Speed also Apply to Trap Throwing Speed",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_3871212304",
 				["text"] = "Increases and Reductions to Damage with Vaal Skills also apply to Non-Vaal Skills",
 				["type"] = "implicit",
@@ -47328,6 +47363,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2834476618",
+				["text"] = "Minions have #% faster start of Energy Shield Recharge",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_3375935924",
 				["text"] = "Minions have #% increased Attack Speed",
 				["type"] = "implicit",
@@ -47495,6 +47535,11 @@ return {
 			{
 				["id"] = "implicit.stat_98977150",
 				["text"] = "Pain Attunement",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2930706364",
+				["text"] = "Permanently Intimidate Enemies on Block",
 				["type"] = "implicit",
 			},
 			{
@@ -47718,6 +47763,16 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_4235886357",
+				["text"] = "Reflects # Cold Damage to Melee Attackers",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1757945818",
+				["text"] = "Reflects # Fire Damage to Melee Attackers",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_3868184702",
 				["text"] = "Reflects # Lightning Damage to Melee Attackers",
 				["type"] = "implicit",
@@ -47740,6 +47795,16 @@ return {
 			{
 				["id"] = "implicit.stat_3325883026",
 				["text"] = "Regenerate # Life per second",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1704843611",
+				["text"] = "Regenerate # Life per second if you have at least 1000 Maximum Energy Shield",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1898967950",
+				["text"] = "Regenerate # Life per second per Endurance Charge",
 				["type"] = "implicit",
 			},
 			{
@@ -47835,6 +47900,11 @@ return {
 			{
 				["id"] = "implicit.stat_2451856207",
 				["text"] = "Restores Ward on use",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2547149004",
+				["text"] = "Retaliation Skills become Usable for #% longer",
 				["type"] = "implicit",
 			},
 			{
@@ -48313,6 +48383,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3892608176",
+				["text"] = "Trigger Level # Intimidating Cry when you lose Cat's Stealth",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2935409762",
 				["text"] = "Trigger Level # Rain of Arrows when you Attack with a Bow",
 				["type"] = "implicit",
@@ -48570,6 +48645,11 @@ return {
 			{
 				["id"] = "implicit.stat_1434716233",
 				["text"] = "Warcries Exert # additional Attack",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3399924348",
+				["text"] = "Warcries grant Arcane Surge to you and Allies, with #% increased effect per 5 power, up to 50%",
 				["type"] = "implicit",
 			},
 			{
@@ -49715,6 +49795,11 @@ return {
 			{
 				["id"] = "implicit.stat_1419713278",
 				["text"] = "You and nearby Allies deal #% increased Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2936084533",
+				["text"] = "You and nearby Allies have 30% increased Mana Regeneration Rate",
 				["type"] = "implicit",
 			},
 			{
@@ -57485,6 +57570,11 @@ return {
 				["type"] = "fractured",
 			},
 			{
+				["id"] = "fractured.stat_3054487153",
+				["text"] = "Grants Level # Aspect of the Brine King Skill",
+				["type"] = "fractured",
+			},
+			{
 				["id"] = "fractured.stat_1265282021",
 				["text"] = "Grants Level # Aspect of the Cat Skill",
 				["type"] = "fractured",
@@ -60963,6 +61053,11 @@ return {
 			{
 				["id"] = "enchant.stat_1454162553",
 				["text"] = "#% increased Cyclone Damage",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_622110632",
+				["text"] = "#% increased Damage per Moon Rite completed",
 				["type"] = "enchant",
 			},
 			{

@@ -8227,6 +8227,21 @@ return {
 				["type"] = "enchant",
 			},
 		},
+		["10670_UtilityFlaskPassiveChargeGain"] = {
+			["Amulet"] = {
+				["max"] = 2,
+				["min"] = 2,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+				["overrideModLine"] = "Utility Flasks gain # Charges every 3 seconds",
+			},
+			["tradeMod"] = {
+				["id"] = "enchant.stat_2567919918",
+				["text"] = "Utility Flasks gain # Charge every 3 seconds",
+				["type"] = "enchant",
+			},
+		},
 		["10727_WarcriesExertAnAdditionalAttack"] = {
 			["Amulet"] = {
 				["max"] = 1,
@@ -8713,6 +8728,20 @@ return {
 			["tradeMod"] = {
 				["id"] = "enchant.stat_2168861013",
 				["text"] = "#% chance to Freeze Enemies for 1 second when they Hit you",
+				["type"] = "enchant",
+			},
+		},
+		["7009_GreatwolfDamage"] = {
+			["Amulet"] = {
+				["max"] = 44,
+				["min"] = 44,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "enchant.stat_622110632",
+				["text"] = "#% increased Damage per Moon Rite completed",
 				["type"] = "enchant",
 			},
 		},
@@ -56129,20 +56158,6 @@ return {
 				["type"] = "implicit",
 			},
 		},
-		["1206_PercentageAllAttributes"] = {
-			["Amulet"] = {
-				["max"] = 16,
-				["min"] = 12,
-			},
-			["sign"] = "",
-			["specialCaseData"] = {
-			},
-			["tradeMod"] = {
-				["id"] = "implicit.stat_3143208761",
-				["text"] = "#% increased Attributes",
-				["type"] = "implicit",
-			},
-		},
 		["1207_PercentageStrength"] = {
 			["2HMace"] = {
 				["max"] = 10,
@@ -56158,34 +56173,6 @@ return {
 			["tradeMod"] = {
 				["id"] = "implicit.stat_734614379",
 				["text"] = "#% increased Strength",
-				["type"] = "implicit",
-			},
-		},
-		["1214_AllDamage"] = {
-			["Amulet"] = {
-				["max"] = 35,
-				["min"] = 25,
-			},
-			["sign"] = "",
-			["specialCaseData"] = {
-			},
-			["tradeMod"] = {
-				["id"] = "implicit.stat_2154246560",
-				["text"] = "#% increased Damage",
-				["type"] = "implicit",
-			},
-		},
-		["1221_AttackDamage"] = {
-			["Amulet"] = {
-				["max"] = 30,
-				["min"] = 20,
-			},
-			["sign"] = "",
-			["specialCaseData"] = {
-			},
-			["tradeMod"] = {
-				["id"] = "implicit.stat_2843214518",
-				["text"] = "#% increased Attack Damage",
 				["type"] = "implicit",
 			},
 		},
@@ -56207,10 +56194,6 @@ return {
 			["1HWeapon"] = {
 				["max"] = 40,
 				["min"] = 8,
-			},
-			["Amulet"] = {
-				["max"] = 30,
-				["min"] = 20,
 			},
 			["Chest"] = {
 				["max"] = 10,
@@ -56246,10 +56229,6 @@ return {
 				["max"] = 12,
 				["min"] = 8,
 			},
-			["Amulet"] = {
-				["max"] = 30,
-				["min"] = 20,
-			},
 			["Belt"] = {
 				["max"] = 24,
 				["min"] = 12,
@@ -56274,20 +56253,6 @@ return {
 			["tradeMod"] = {
 				["id"] = "implicit.stat_1002362373",
 				["text"] = "#% increased Melee Damage",
-				["type"] = "implicit",
-			},
-		},
-		["1265_GlobalDamageOverTimeMultiplier"] = {
-			["Amulet"] = {
-				["max"] = 18,
-				["min"] = 12,
-			},
-			["sign"] = "",
-			["specialCaseData"] = {
-			},
-			["tradeMod"] = {
-				["id"] = "implicit.stat_3988349707",
-				["text"] = "+#% to Damage over Time Multiplier",
 				["type"] = "implicit",
 			},
 		},
@@ -56327,20 +56292,6 @@ return {
 				["type"] = "implicit",
 			},
 		},
-		["1381_FireDamagePercentage"] = {
-			["Amulet"] = {
-				["max"] = 30,
-				["min"] = 20,
-			},
-			["sign"] = "",
-			["specialCaseData"] = {
-			},
-			["tradeMod"] = {
-				["id"] = "implicit.stat_3962278098",
-				["text"] = "#% increased Fire Damage",
-				["type"] = "implicit",
-			},
-		},
 		["1384_FireDamage"] = {
 			["Quiver"] = {
 				["max"] = 21,
@@ -56371,20 +56322,6 @@ return {
 			["tradeMod"] = {
 				["id"] = "implicit.stat_709508406",
 				["text"] = "Adds # to # Fire Damage (Local)",
-				["type"] = "implicit",
-			},
-		},
-		["1390_ColdDamagePercentage"] = {
-			["Amulet"] = {
-				["max"] = 30,
-				["min"] = 20,
-			},
-			["sign"] = "",
-			["specialCaseData"] = {
-			},
-			["tradeMod"] = {
-				["id"] = "implicit.stat_3291658075",
-				["text"] = "#% increased Cold Damage",
 				["type"] = "implicit",
 			},
 		},
@@ -56452,20 +56389,6 @@ return {
 				["type"] = "implicit",
 			},
 		},
-		["1401_LightningDamagePercentage"] = {
-			["Amulet"] = {
-				["max"] = 30,
-				["min"] = 20,
-			},
-			["sign"] = "",
-			["specialCaseData"] = {
-			},
-			["tradeMod"] = {
-				["id"] = "implicit.stat_2231156303",
-				["text"] = "#% increased Lightning Damage",
-				["type"] = "implicit",
-			},
-		},
 		["1404_LightningDamage"] = {
 			["Quiver"] = {
 				["max"] = 3,
@@ -56481,10 +56404,6 @@ return {
 			},
 		},
 		["1409_IncreasedChaosDamage"] = {
-			["Amulet"] = {
-				["max"] = 31,
-				["min"] = 19,
-			},
 			["Ring"] = {
 				["max"] = 23,
 				["min"] = 17,
@@ -56639,10 +56558,6 @@ return {
 				["max"] = 100,
 				["min"] = 80,
 			},
-			["Amulet"] = {
-				["max"] = 50,
-				["min"] = 40,
-			},
 			["Dagger"] = {
 				["max"] = 45,
 				["min"] = 40,
@@ -56716,10 +56631,6 @@ return {
 			["2HWeapon"] = {
 				["max"] = 50,
 				["min"] = 15,
-			},
-			["Amulet"] = {
-				["max"] = 36,
-				["min"] = 24,
 			},
 			["Bow"] = {
 				["max"] = 25,
@@ -56830,10 +56741,6 @@ return {
 			},
 		},
 		["1593_MaximumLifeIncreasePercent"] = {
-			["Amulet"] = {
-				["max"] = 12,
-				["min"] = 8,
-			},
 			["Ring"] = {
 				["max"] = 7,
 				["min"] = 5,
@@ -56922,10 +56829,6 @@ return {
 			},
 		},
 		["1603_MaximumManaIncreasePercent"] = {
-			["Amulet"] = {
-				["max"] = 30,
-				["min"] = 20,
-			},
 			["Ring"] = {
 				["max"] = 10,
 				["min"] = 8,
@@ -57258,20 +57161,6 @@ return {
 				["type"] = "implicit",
 			},
 		},
-		["1813_AdditionalPierce"] = {
-			["Amulet"] = {
-				["max"] = 2,
-				["min"] = 2,
-			},
-			["sign"] = "",
-			["specialCaseData"] = {
-			},
-			["tradeMod"] = {
-				["id"] = "implicit.stat_2067062068",
-				["text"] = "Projectiles Pierce # additional Targets",
-				["type"] = "implicit",
-			},
-		},
 		["1814_AdditionalArrowPierce"] = {
 			["Quiver"] = {
 				["max"] = 1,
@@ -57384,10 +57273,6 @@ return {
 				["max"] = 20,
 				["min"] = 15,
 			},
-			["Amulet"] = {
-				["max"] = 8,
-				["min"] = 5,
-			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -57455,7 +57340,7 @@ return {
 		},
 		["1967_LifeRegenerationRatePercentage"] = {
 			["Amulet"] = {
-				["max"] = 2,
+				["max"] = 1.6,
 				["min"] = 1.2,
 			},
 			["sign"] = "",
@@ -57588,34 +57473,6 @@ return {
 				["type"] = "implicit",
 			},
 		},
-		["2069_AttackAndCastSpeed"] = {
-			["Amulet"] = {
-				["max"] = 10,
-				["min"] = 6,
-			},
-			["sign"] = "",
-			["specialCaseData"] = {
-			},
-			["tradeMod"] = {
-				["id"] = "implicit.stat_2672805335",
-				["text"] = "#% increased Attack and Cast Speed",
-				["type"] = "implicit",
-			},
-		},
-		["2183_MaximumMinionCount"] = {
-			["Amulet"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
-			["sign"] = "",
-			["specialCaseData"] = {
-			},
-			["tradeMod"] = {
-				["id"] = "implicit.stat_966747987",
-				["text"] = "+# to maximum number of Raised Zombies",
-				["type"] = "implicit",
-			},
-		},
 		["2193_CurseEffectElementalAilmentDurationOnSelf"] = {
 			["Ring"] = {
 				["max"] = 50,
@@ -57666,20 +57523,6 @@ return {
 			["tradeMod"] = {
 				["id"] = "implicit.stat_532463031",
 				["text"] = "Implicit Modifiers Cannot Be Changed",
-				["type"] = "implicit",
-			},
-		},
-		["2296_ReducedPhysicalDamageTaken"] = {
-			["Amulet"] = {
-				["max"] = 6,
-				["min"] = 4,
-			},
-			["sign"] = "",
-			["specialCaseData"] = {
-			},
-			["tradeMod"] = {
-				["id"] = "implicit.stat_3771516363",
-				["text"] = "#% additional Physical Damage Reduction",
 				["type"] = "implicit",
 			},
 		},
@@ -57793,48 +57636,6 @@ return {
 			["tradeMod"] = {
 				["id"] = "implicit.stat_3374165039",
 				["text"] = "#% increased Totem Placement speed",
-				["type"] = "implicit",
-			},
-		},
-		["2655_EnduranceChargeOnKillChance"] = {
-			["Amulet"] = {
-				["max"] = 10,
-				["min"] = 10,
-			},
-			["sign"] = "",
-			["specialCaseData"] = {
-			},
-			["tradeMod"] = {
-				["id"] = "implicit.stat_1054322244",
-				["text"] = "#% chance to gain an Endurance Charge on Kill",
-				["type"] = "implicit",
-			},
-		},
-		["2657_FrenzyChargeOnKillChance"] = {
-			["Amulet"] = {
-				["max"] = 10,
-				["min"] = 10,
-			},
-			["sign"] = "",
-			["specialCaseData"] = {
-			},
-			["tradeMod"] = {
-				["id"] = "implicit.stat_1826802197",
-				["text"] = "#% chance to gain a Frenzy Charge on Kill",
-				["type"] = "implicit",
-			},
-		},
-		["2659_PowerChargeOnKillChance"] = {
-			["Amulet"] = {
-				["max"] = 10,
-				["min"] = 10,
-			},
-			["sign"] = "",
-			["specialCaseData"] = {
-			},
-			["tradeMod"] = {
-				["id"] = "implicit.stat_2483795307",
-				["text"] = "#% chance to gain a Power Charge on Kill",
 				["type"] = "implicit",
 			},
 		},
@@ -58046,25 +57847,7 @@ return {
 				["type"] = "implicit",
 			},
 		},
-		["2835_ChanceToFreezeShockIgnite"] = {
-			["Amulet"] = {
-				["max"] = 6,
-				["min"] = 4,
-			},
-			["sign"] = "",
-			["specialCaseData"] = {
-			},
-			["tradeMod"] = {
-				["id"] = "implicit.stat_800141891",
-				["text"] = "#% chance to Freeze, Shock and Ignite",
-				["type"] = "implicit",
-			},
-		},
 		["2867_AllDefences"] = {
-			["Amulet"] = {
-				["max"] = 25,
-				["min"] = 15,
-			},
 			["Ring"] = {
 				["max"] = 10,
 				["min"] = 5,
@@ -58106,20 +57889,6 @@ return {
 				["type"] = "implicit",
 			},
 		},
-		["2970_PhysicalDamageAddedAsRandomElement"] = {
-			["Amulet"] = {
-				["max"] = 12,
-				["min"] = 6,
-			},
-			["sign"] = "",
-			["specialCaseData"] = {
-			},
-			["tradeMod"] = {
-				["id"] = "implicit.stat_3753703249",
-				["text"] = "Gain #% of Physical Damage as Extra Damage of a random Element",
-				["type"] = "implicit",
-			},
-		},
 		["3014_ElementalPenetration"] = {
 			["1HWeapon"] = {
 				["max"] = 6,
@@ -58135,90 +57904,6 @@ return {
 			["tradeMod"] = {
 				["id"] = "implicit.stat_2101383955",
 				["text"] = "Damage Penetrates #% Elemental Resistances",
-				["type"] = "implicit",
-			},
-		},
-		["3211_FireDamageTakenAsCold"] = {
-			["Amulet"] = {
-				["max"] = 50,
-				["min"] = 50,
-			},
-			["sign"] = "",
-			["specialCaseData"] = {
-			},
-			["tradeMod"] = {
-				["id"] = "implicit.stat_2522672898",
-				["text"] = "#% of Fire Damage from Hits taken as Cold Damage",
-				["type"] = "implicit",
-			},
-		},
-		["3212_FireDamageTakenAsLightning"] = {
-			["Amulet"] = {
-				["max"] = 50,
-				["min"] = 50,
-			},
-			["sign"] = "",
-			["specialCaseData"] = {
-			},
-			["tradeMod"] = {
-				["id"] = "implicit.stat_1504091975",
-				["text"] = "#% of Fire Damage from Hits taken as Lightning Damage",
-				["type"] = "implicit",
-			},
-		},
-		["3213_ColdDamageTakenAsFire"] = {
-			["Amulet"] = {
-				["max"] = 50,
-				["min"] = 50,
-			},
-			["sign"] = "",
-			["specialCaseData"] = {
-			},
-			["tradeMod"] = {
-				["id"] = "implicit.stat_1189760108",
-				["text"] = "#% of Cold Damage from Hits taken as Fire Damage",
-				["type"] = "implicit",
-			},
-		},
-		["3214_ColdDamageTakenAsLightning"] = {
-			["Amulet"] = {
-				["max"] = 50,
-				["min"] = 50,
-			},
-			["sign"] = "",
-			["specialCaseData"] = {
-			},
-			["tradeMod"] = {
-				["id"] = "implicit.stat_1313503107",
-				["text"] = "#% of Cold Damage from Hits taken as Lightning Damage",
-				["type"] = "implicit",
-			},
-		},
-		["3216_LightningDamageTakenAsFire"] = {
-			["Amulet"] = {
-				["max"] = 50,
-				["min"] = 50,
-			},
-			["sign"] = "",
-			["specialCaseData"] = {
-			},
-			["tradeMod"] = {
-				["id"] = "implicit.stat_3375859421",
-				["text"] = "#% of Lightning Damage from Hits taken as Fire Damage",
-				["type"] = "implicit",
-			},
-		},
-		["3218_LightningDamageTakenAsCold"] = {
-			["Amulet"] = {
-				["max"] = 50,
-				["min"] = 50,
-			},
-			["sign"] = "",
-			["specialCaseData"] = {
-			},
-			["tradeMod"] = {
-				["id"] = "implicit.stat_1017730114",
-				["text"] = "#% of Lightning Damage from Hits taken as Cold Damage",
 				["type"] = "implicit",
 			},
 		},
@@ -58265,20 +57950,6 @@ return {
 			["tradeMod"] = {
 				["id"] = "implicit.stat_2622251413",
 				["text"] = "#% chance to double Stun Duration",
-				["type"] = "implicit",
-			},
-		},
-		["3619_FishingBiteSensitivity"] = {
-			["Amulet"] = {
-				["max"] = 40,
-				["min"] = 30,
-			},
-			["sign"] = "",
-			["specialCaseData"] = {
-			},
-			["tradeMod"] = {
-				["id"] = "implicit.stat_1296614065",
-				["text"] = "#% increased Fish Bite Sensitivity",
 				["type"] = "implicit",
 			},
 		},

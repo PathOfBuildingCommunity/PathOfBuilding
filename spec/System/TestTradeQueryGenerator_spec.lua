@@ -14,6 +14,31 @@ describe("TradeQueryGenerator", function()
 		end)
 	end)
 
+	describe("Talisman mods", function()
+		it("only generates enchant weights when enabled", function()
+			local queryGen = new("TradeQueryGenerator", { itemsTab = { } })
+			local enchantMods = queryGen.modData.Enchant
+			queryGen.modData = { Explicit = { }, Implicit = { }, Enchant = enchantMods, Corrupted = { }, Scourge = { } }
+			queryGen.calcContext = { special = { }, options = { } }
+			local generated = { }
+			queryGen.GenerateModWeights = function(_, mods) generated[mods] = true end
+
+			queryGen:ExecuteQuery()
+			assert.is_nil(generated[enchantMods])
+
+			queryGen.calcContext.options.includeTalisman = true
+			queryGen:ExecuteQuery()
+			assert.is_true(generated[enchantMods])
+		end)
+
+		it("includes the utility flask charge enchant", function()
+			local enchant = LoadModule("Data/QueryMods.lua").Enchant["10670_UtilityFlaskPassiveChargeGain"]
+
+			assert.are.equals("enchant.stat_2567919918", enchant.tradeMod.id)
+			assert.are.equals("Utility Flasks gain # Charges every 3 seconds", enchant.specialCaseData.overrideModLine)
+		end)
+	end)
+
 	describe("WeightedRatioOutputs", function()
 		local maxStatIncrease
 
