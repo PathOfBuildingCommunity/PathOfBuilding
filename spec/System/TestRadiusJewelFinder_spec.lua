@@ -2027,6 +2027,16 @@ describe("RadiusJewelFinder #radius-jewel", function()
 				assert.is_false(result.atLimit)
 			end)
 
+			it("allows ordinary jewels in Safe occupied and labels their base type", function()
+				local socketId = ALLOC_SOCKET_IDS[1]
+				equipFakeJewel(socketId, "Chimeric Creed", nil, { baseName = "Crimson Jewel" })
+				local finder = makeFinder()
+				local isAllowed, occupancy = finder:socketMatchesOccupiedMode(socketId, { id = "safe" })
+
+				assert.is_true(isAllowed)
+				assert.are.equal("Chimeric Creed (Crimson Jewel)", occupancy.replacedItemLabel)
+			end)
+
 			it("returns entries with atLimit=true when limited jewel count reaches limit", function()
 				equipFakeJewel(ALLOC_SOCKET_IDS[1], "Thread of Hope", 1)
 				local result = makeFinder():findEquippedJewelSockets({ name = "Thread of Hope" })

@@ -673,7 +673,12 @@ function RadiusJewelFinderClass:getSocketOccupancyInfo(socketId)
 		}
 	end
 	local item = self.build.itemsTab.items[slot.selItemId]
-	local itemLabel = item and (item.title or item.name or item.baseName) or "Unknown item"
+	local itemName = item and (item.title or item.name or item.baseName) or "Unknown item"
+	local itemType = item and item.baseName
+	local itemLabel = itemName
+	if itemType and itemType ~= "" and itemType ~= itemName then
+		itemLabel = itemName .. " (" .. itemType .. ")"
+	end
 	if not isSocketAllocated then
 		return {
 			slot = slot,
