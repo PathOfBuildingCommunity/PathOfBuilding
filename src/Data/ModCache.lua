@@ -3493,6 +3493,7 @@ c["15% increased maximum Life if there are no Life Modifiers on Equipped Body Ar
 c["15% increased maximum Life, Mana and Global Energy Shield"]={{[1]={[1]={type="Global"},flags=0,keywordFlags=0,name="Life",type="INC",value=15},[2]={[1]={type="Global"},flags=0,keywordFlags=0,name="Mana",type="INC",value=15},[3]={[1]={type="Global"},flags=0,keywordFlags=0,name="EnergyShield",type="INC",value=15}},nil}
 c["15% increased maximum Mana"]={{[1]={flags=0,keywordFlags=0,name="Mana",type="INC",value=15}},nil}
 c["15% increased maximum Mana if 2 Shaper Items are Equipped"]={{[1]={[1]={threshold=2,type="MultiplierThreshold",var="ShaperItem"},flags=0,keywordFlags=0,name="Mana",type="INC",value=15}},nil}
+c["15% less Damage taken while you have a Totem"]={{[1]={[1]={type="Condition",var="HaveTotem"},flags=0,keywordFlags=0,name="DamageTaken",type="MORE",value=-15}},nil}
 c["15% less Projectile Speed"]={{[1]={flags=0,keywordFlags=0,name="ProjectileSpeed",type="MORE",value=-15}},nil}
 c["15% more Chaos Damage"]={{[1]={flags=0,keywordFlags=0,name="ChaosDamage",type="MORE",value=15}},nil}
 c["15% more Cold Damage"]={{[1]={flags=0,keywordFlags=0,name="ColdDamage",type="MORE",value=15}},nil}
@@ -5976,7 +5977,6 @@ c["50% more Effect of Herald Buffs on you"]={{[1]={[1]={skillType=52,type="Skill
 c["50% of Cold Damage from Hits taken as Fire Damage"]={{[1]={flags=0,keywordFlags=0,name="ColdDamageFromHitsTakenAsFire",type="BASE",value=50}},nil}
 c["50% of Cold Damage from Hits taken as Lightning Damage"]={{[1]={flags=0,keywordFlags=0,name="ColdDamageFromHitsTakenAsLightning",type="BASE",value=50}},nil}
 c["50% of Cold and Lightning Damage taken as Fire Damage"]={{[1]={flags=0,keywordFlags=0,name="ColdDamageTakenAsFire",type="BASE",value=50},[2]={flags=0,keywordFlags=0,name="LightningDamageTakenAsFire",type="BASE",value=50}},nil}
-c["50% of Damage from your Hits cannot be Reflected"]={{[1]={flags=0,keywordFlags=0,name="Damage",type="BASE",value=50}},"  from your Hits cannot be Reflected "}
 c["50% of Elemental Damage taken as Chaos Damage"]={{[1]={flags=0,keywordFlags=0,name="ElementalDamageTakenAsChaos",type="BASE",value=50}},nil}
 c["50% of Fire Damage from Hits taken as Cold Damage"]={{[1]={flags=0,keywordFlags=0,name="FireDamageFromHitsTakenAsCold",type="BASE",value=50}},nil}
 c["50% of Fire Damage from Hits taken as Lightning Damage"]={{[1]={flags=0,keywordFlags=0,name="FireDamageFromHitsTakenAsLightning",type="BASE",value=50}},nil}
@@ -6219,10 +6219,8 @@ c["60% less Duration"]={{[1]={flags=0,keywordFlags=0,name="Duration",type="MORE"
 c["60% more Critical Strike Chance while Insane"]={{[1]={[1]={type="Condition",var="Insane"},flags=0,keywordFlags=0,name="CritChance",type="MORE",value=60}},nil}
 c["60% of Damage taken from Stunning Hits is Recovered as Life"]={{[1]={flags=0,keywordFlags=0,name="DamageTaken",type="BASE",value=60}},"  from Stunning Hits is Recovered as Life "}
 c["60% of Damage taken from Stunning Hits is Recovered as Life 30% of Damage taken from Stunning Hits is Recovered as Life"]={{[1]={flags=0,keywordFlags=0,name="DamageTaken",type="BASE",value=60}},"  from Stunning Hits is Recovered as Life 30% of Damage taken from Stunning Hits is Recovered as Life "}
-c["60% of Elemental Damage from your Hits cannot be Reflected"]={{[1]={flags=0,keywordFlags=0,name="ElementalDamage",type="BASE",value=60}},"  from your Hits cannot be Reflected "}
 c["60% of Lightning Damage Converted to Chaos Damage"]={{[1]={flags=0,keywordFlags=0,name="LightningDamageConvertToChaos",type="BASE",value=60}},nil}
 c["60% of Physical Damage Converted to Fire Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageConvertToFire",type="BASE",value=60}},nil}
-c["60% of Physical Damage from your Hits cannot be Reflected"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamage",type="BASE",value=60}},"  from your Hits cannot be Reflected "}
 c["60% reduced Cost of Aura Skills that summon Totems"]={{[1]={[1]={skillType=39,type="SkillType"},flags=0,keywordFlags=16384,name="Cost",type="INC",value=-60}},nil}
 c["60% reduced Duration"]={{[1]={flags=0,keywordFlags=0,name="Duration",type="INC",value=-60}},nil}
 c["60% reduced Duration of Elemental Ailments on You while affected by a Rare Abyss Jewel"]={{[1]={[1]={threshold=1,type="MultiplierThreshold",var="RareAbyssJewels"},flags=0,keywordFlags=0,name="SelfElementalAilmentDuration",type="INC",value=-60}},nil}
@@ -7320,9 +7318,10 @@ c["All Sockets are White"]={{},nil}
 c["All bonuses from an Equipped Shield apply to your Minions instead of you"]={{},nil}
 c["All hits are Critical Strikes while holding a Fishing Rod"]={{[1]={[1]={type="Condition",var="UsingFishing"},flags=0,keywordFlags=0,name="CritChance",type="OVERRIDE",value=100}},nil}
 c["All other Summoned Totems die when you Summon a Totem"]={nil,"All other Summoned Totems die when you Summon a Totem "}
-c["All other Summoned Totems die when you Summon a Totem Skills used by Totems have 5% more Area of Effect per maximum number of Summoned Totems"]={nil,"All other Summoned Totems die when you Summon a Totem Skills used by Totems have 5% more Area of Effect per maximum number of Summoned Totems "}
-c["All other Summoned Totems die when you Summon a Totem Skills used by Totems have 5% more Area of Effect per maximum number of Summoned Totems Skills used by Totems deal 10% more Damage per maximum number of Summoned Totems"]={nil,"All other Summoned Totems die when you Summon a Totem Skills used by Totems have 5% more Area of Effect per maximum number of Summoned Totems Skills used by Totems deal 10% more Damage per maximum number of Summoned Totems "}
-c["All other Summoned Totems die when you Summon a Totem Skills used by Totems have 5% more Area of Effect per maximum number of Summoned Totems Skills used by Totems deal 10% more Damage per maximum number of Summoned Totems Totems have 5% more Life per maximum number of Summoned Totems"]={nil,"All other Summoned Totems die when you Summon a Totem Skills used by Totems have 5% more Area of Effect per maximum number of Summoned Totems Skills used by Totems deal 10% more Damage per maximum number of Summoned Totems Totems have 5% more Life per maximum number of Summoned Totems "}
+c["All other Summoned Totems die when you Summon a Totem 15% less Damage taken while you have a Totem"]={nil,"All other Summoned Totems die when you Summon a Totem 15% less Damage taken while you have a Totem "}
+c["All other Summoned Totems die when you Summon a Totem 15% less Damage taken while you have a Totem Skills used by Totems have 10% more Area of Effect per maximum number of Summoned Totems"]={nil,"All other Summoned Totems die when you Summon a Totem 15% less Damage taken while you have a Totem Skills used by Totems have 10% more Area of Effect per maximum number of Summoned Totems "}
+c["All other Summoned Totems die when you Summon a Totem 15% less Damage taken while you have a Totem Skills used by Totems have 10% more Area of Effect per maximum number of Summoned Totems Skills used by Totems deal 10% more Damage per maximum number of Summoned Totems"]={nil,"All other Summoned Totems die when you Summon a Totem 15% less Damage taken while you have a Totem Skills used by Totems have 10% more Area of Effect per maximum number of Summoned Totems Skills used by Totems deal 10% more Damage per maximum number of Summoned Totems "}
+c["All other Summoned Totems die when you Summon a Totem 15% less Damage taken while you have a Totem Skills used by Totems have 10% more Area of Effect per maximum number of Summoned Totems Skills used by Totems deal 10% more Damage per maximum number of Summoned Totems Totems have 5% more Life per maximum number of Summoned Totems"]={nil,"All other Summoned Totems die when you Summon a Totem 15% less Damage taken while you have a Totem Skills used by Totems have 10% more Area of Effect per maximum number of Summoned Totems Skills used by Totems deal 10% more Damage per maximum number of Summoned Totems Totems have 5% more Life per maximum number of Summoned Totems "}
 c["Allies' Aura Buffs do not affect you"]={{[1]={flags=0,keywordFlags=0,name="AlliesAurasCannotAffectSelf",type="FLAG",value=true}},nil}
 c["Allocates Ancestral Fury if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="ancestral fury",side="flame"}}},nil}
 c["Allocates Ancestral Fury if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="ancestral fury",side="flesh"}}},nil}
@@ -9680,6 +9679,9 @@ c["Intelligence provides no inherent bonus to Maximum Mana"]={{[1]={flags=0,keyw
 c["Intimidate Enemies for 4 seconds on Block while holding a Shield"]={{[1]={[1]={type="Condition",var="BlockedRecently"},[2]={type="Condition",var="UsingShield"},flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Condition:Intimidated",type="FLAG",value=true}}}},nil}
 c["Intimidate Enemies for 4 seconds on Hit with Attacks while at maximum Endurance Charges"]={{[1]={[1]={stat="EnduranceCharges",thresholdStat="EnduranceChargesMax",type="StatThreshold"},[2]={type="Condition",var="HitRecently"},flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Condition:Intimidated",type="FLAG",value=true}}}},nil}
 c["Intimidate Enemies on Hit if you've cast Punishment in the past 10 seconds"]={{[1]={[1]={type="Condition",var="SelfCastPunishment"},flags=4,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Condition:Intimidated",type="FLAG",value=true}}}},nil}
+c["Intimidate you inflict applies an extra +15% increased Attack Damage taken"]={nil,"Intimidate you inflict applies an extra +15% increased Attack Damage taken "}
+c["Intimidate you inflict applies an extra +15% increased Attack Damage taken Intimidate you inflict causes targets to deal 10% less Damage"]={nil,"Intimidate you inflict applies an extra +15% increased Attack Damage taken Intimidate you inflict causes targets to deal 10% less Damage "}
+c["Intimidate you inflict causes targets to deal 10% less Damage"]={nil,"Intimidate you inflict causes targets to deal 10% less Damage "}
 c["Iron Flasks gain 2 charges when your Ward Breaks"]={{[1]={flags=0,keywordFlags=0,name="IronFlaskChargesGeneratedOnWardBreak",type="BASE",value=2}},nil}
 c["Iron Grip"]={{[1]={flags=0,keywordFlags=0,name="Keystone",type="LIST",value="Iron Grip"}},nil}
 c["Iron Reflexes"]={{[1]={flags=0,keywordFlags=0,name="Keystone",type="LIST",value="Iron Reflexes"}},nil}
@@ -10561,8 +10563,11 @@ c["Prevent +15% of Suppressed Spell Damage while on Full Energy Shield"]={{[1]={
 c["Prevent +3% of Suppressed Spell Damage"]={{[1]={flags=0,keywordFlags=0,name="SpellSuppressionEffect",type="BASE",value=3}},nil}
 c["Prevent +3% of Suppressed Spell Damage per Bark below maximum"]={{[1]={[1]={type="Multiplier",var="MissingBarkskinStacks"},flags=0,keywordFlags=0,name="SpellSuppressionEffect",type="BASE",value=3}},nil}
 c["Prevent +5% of Suppressed Spell Damage"]={{[1]={flags=0,keywordFlags=0,name="SpellSuppressionEffect",type="BASE",value=5}},nil}
+c["Prevent +50% of Reflected Damage"]={nil,"Prevent +50% of Reflected Damage "}
 c["Prevent +6% of Suppressed Spell Damage"]={{[1]={flags=0,keywordFlags=0,name="SpellSuppressionEffect",type="BASE",value=6}},nil}
 c["Prevent +6% of Suppressed Spell Damage while on Full Energy Shield"]={{[1]={[1]={type="Condition",var="FullEnergyShield"},flags=0,keywordFlags=0,name="SpellSuppressionEffect",type="BASE",value=6}},nil}
+c["Prevent +60% of Reflected Elemental Damage"]={nil,"Prevent +60% of Reflected Elemental Damage "}
+c["Prevent +60% of Reflected Physical Damage"]={nil,"Prevent +60% of Reflected Physical Damage "}
 c["Prevent +75% of Reflected Elemental Damage you would take while"]={nil,"Prevent +75% of Reflected Elemental Damage you would take while "}
 c["Prevent +75% of Reflected Elemental Damage you would take while affected by Purity of Elements"]={nil,"Prevent +75% of Reflected Elemental Damage you would take while affected by Purity of Elements "}
 c["Prevent +75% of Reflected Physical Damage you would take while affected by Determination"]={nil,"Prevent +75% of Reflected Physical Damage you would take while affected by Determination "}
@@ -11540,11 +11545,8 @@ c["Skills used by Mines have 10% increased Area of Effect"]={{[1]={flags=0,keywo
 c["Skills used by Mines have 15% increased Area of Effect if you Detonated a Mine Recently"]={{[1]={[1]={type="Condition",var="DetonatedMinesRecently"},flags=0,keywordFlags=8192,name="AreaOfEffect",type="INC",value=15}},nil}
 c["Skills used by Spectral Totems deal 50% less Damage"]={nil,"Skills used by Spectral Totems deal 50% less Damage "}
 c["Skills used by Spectral Totems deal 50% less Damage Maximum 5 Spectral Totems"]={nil,"Skills used by Spectral Totems deal 50% less Damage Maximum 5 Spectral Totems "}
-c["Skills used by Totems deal 10% more Damage per maximum number of Summoned Totems"]={nil,"Skills used by Totems deal 10% more Damage per maximum number of Summoned Totems "}
-c["Skills used by Totems deal 10% more Damage per maximum number of Summoned Totems Totems have 5% more Life per maximum number of Summoned Totems"]={nil,"Skills used by Totems deal 10% more Damage per maximum number of Summoned Totems Totems have 5% more Life per maximum number of Summoned Totems "}
-c["Skills used by Totems have 5% more Area of Effect per maximum number of Summoned Totems"]={nil,"Skills used by Totems have 5% more Area of Effect per maximum number of Summoned Totems "}
-c["Skills used by Totems have 5% more Area of Effect per maximum number of Summoned Totems Skills used by Totems deal 10% more Damage per maximum number of Summoned Totems"]={nil,"Skills used by Totems have 5% more Area of Effect per maximum number of Summoned Totems Skills used by Totems deal 10% more Damage per maximum number of Summoned Totems "}
-c["Skills used by Totems have 5% more Area of Effect per maximum number of Summoned Totems Skills used by Totems deal 10% more Damage per maximum number of Summoned Totems Totems have 5% more Life per maximum number of Summoned Totems"]={nil,"Skills used by Totems have 5% more Area of Effect per maximum number of Summoned Totems Skills used by Totems deal 10% more Damage per maximum number of Summoned Totems Totems have 5% more Life per maximum number of Summoned Totems "}
+c["Skills used by Totems deal 10% more Damage per maximum number of Summoned Totems"]={{[1]={[1]={stat="ActiveTotemLimit",type="PerStat"},flags=0,keywordFlags=16384,name="Damage",type="MORE",value=10}},nil}
+c["Skills used by Totems have 10% more Area of Effect per maximum number of Summoned Totems"]={{[1]={[1]={stat="ActiveTotemLimit",type="PerStat"},flags=0,keywordFlags=16384,name="AreaOfEffect",type="MORE",value=10}},nil}
 c["Skills used by Traps have 15% increased Area of Effect"]={{[1]={flags=0,keywordFlags=4096,name="AreaOfEffect",type="INC",value=15}},nil}
 c["Skills used by Traps have 20% increased Area of Effect"]={{[1]={flags=0,keywordFlags=4096,name="AreaOfEffect",type="INC",value=20}},nil}
 c["Skills used by Traps have 50% increased Area of Effect"]={{[1]={flags=0,keywordFlags=4096,name="AreaOfEffect",type="INC",value=50}},nil}
@@ -12362,10 +12364,9 @@ c["Totems fire 2 additional Projectiles"]={{[1]={flags=0,keywordFlags=16384,name
 c["Totems gain +16% to all Elemental Resistances"]={{[1]={flags=0,keywordFlags=0,name="TotemElementalResist",type="BASE",value=16}},nil}
 c["Totems gain +20% to all Elemental Resistances"]={{[1]={flags=0,keywordFlags=0,name="TotemElementalResist",type="BASE",value=20}},nil}
 c["Totems gain +25% to Chaos Resistance"]={{[1]={flags=0,keywordFlags=0,name="TotemChaosResist",type="BASE",value=25}},nil}
-c["Totems have 15% additional Physical Damage Reduction"]={nil,"Totems have 15% additional Physical Damage Reduction "}
-c["Totems have 15% additional Physical Damage Reduction Totems gain +25% to Chaos Resistance"]={nil,"Totems have 15% additional Physical Damage Reduction Totems gain +25% to Chaos Resistance "}
-c["Totems have 40% additional Physical Damage Reduction"]={nil,"Totems have 40% additional Physical Damage Reduction "}
-c["Totems have 5% more Life per maximum number of Summoned Totems"]={nil,"Totems have 5% more Life per maximum number of Summoned Totems "}
+c["Totems have 15% additional Physical Damage Reduction"]={{[1]={flags=0,keywordFlags=16384,name="PhysicalDamageReduction",type="BASE",value=15}},nil}
+c["Totems have 40% additional Physical Damage Reduction"]={{[1]={flags=0,keywordFlags=16384,name="PhysicalDamageReduction",type="BASE",value=40}},nil}
+c["Totems have 5% more Life per maximum number of Summoned Totems"]={{[1]={[1]={stat="ActiveTotemLimit",type="PerStat"},flags=0,keywordFlags=16384,name="Life",type="MORE",value=5}},nil}
 c["Totems which would be killed by Enemies become Spectral Totems for 8 seconds instead"]={nil,"Totems which would be killed by Enemies become Spectral Totems for 8 seconds instead "}
 c["Totems which would be killed by Enemies become Spectral Totems for 8 seconds instead Skills used by Spectral Totems deal 50% less Damage"]={nil,"Totems which would be killed by Enemies become Spectral Totems for 8 seconds instead Skills used by Spectral Totems deal 50% less Damage "}
 c["Totems' Action Speed cannot be modified to below Base Value"]={nil,"Totems' Action Speed cannot be modified to below Base Value "}
@@ -12498,6 +12499,7 @@ c["Triggers Level 20 Physical Aegis when Equipped"]={{[1]={flags=0,keywordFlags=
 c["Triggers Level 20 Primal Aegis when Allocated"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="PrimalAegis",triggered=true}}},nil}
 c["Triggers Level 20 Reflection when Equipped"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="UniqueMirageWarriors",triggered=true}}},nil}
 c["Triggers Level 20 Summon Arbalists when Equipped"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="SummonArbalists",triggered=true}}},nil}
+c["Triggers Level 20 Summon Bone Feeders when Allocated"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="SummonAbyssalConstructs",triggered=true}}},nil}
 c["Triggers Level 20 Summon Triggerbots when Allocated"]={{[1]={flags=0,keywordFlags=0,name="HaveTriggerBots",type="FLAG",value=true}},nil}
 c["Triggers Level 7 Abberath's Fury when Equipped"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=7,skillId="RepeatingShockwave",triggered=true}}},nil}
 c["Unaffected by Bleeding"]={{[1]={flags=0,keywordFlags=0,name="SelfBleedEffect",type="MORE",value=-100}},nil}
@@ -12653,6 +12655,9 @@ c["While you have at least 3 Ghastly Eye Jewels socketed: Unholy Might you grant
 c["While you have at least 3 Hypnotic Eye Jewels socketed:"]={nil,"While you have at least 3 Hypnotic Eye Jewels socketed: "}
 c["While you have at least 3 Hypnotic Eye Jewels socketed: Arcane Surge also grants 20% of Damage taken Recouped as Mana to you"]={nil,"While you have at least 3 Hypnotic Eye Jewels socketed: Arcane Surge also grants 20% of Damage taken Recouped as Mana to you "}
 c["While you have at least 3 Hypnotic Eye Jewels socketed: Arcane Surge also grants 20% of Damage taken Recouped as Mana to you Arcane Surge also grants 20% increased Mana Cost Efficiency to you"]={nil,"While you have at least 3 Hypnotic Eye Jewels socketed: Arcane Surge also grants 20% of Damage taken Recouped as Mana to you Arcane Surge also grants 20% increased Mana Cost Efficiency to you "}
+c["While you have at least 3 Murderous Eye Jewels socketed:"]={nil,"While you have at least 3 Murderous Eye Jewels socketed: "}
+c["While you have at least 3 Murderous Eye Jewels socketed: Intimidate you inflict applies an extra +15% increased Attack Damage taken"]={nil,"While you have at least 3 Murderous Eye Jewels socketed: Intimidate you inflict applies an extra +15% increased Attack Damage taken "}
+c["While you have at least 3 Murderous Eye Jewels socketed: Intimidate you inflict applies an extra +15% increased Attack Damage taken Intimidate you inflict causes targets to deal 10% less Damage"]={nil,"While you have at least 3 Murderous Eye Jewels socketed: Intimidate you inflict applies an extra +15% increased Attack Damage taken Intimidate you inflict causes targets to deal 10% less Damage "}
 c["While you have at least 3 Searching Eye Jewels socketed:"]={nil,"While you have at least 3 Searching Eye Jewels socketed: "}
 c["While you have at least 3 Searching Eye Jewels socketed: Targets affected by Maim you inflict cannot deal Critical Strikes"]={nil,"While you have at least 3 Searching Eye Jewels socketed: Targets affected by Maim you inflict cannot deal Critical Strikes "}
 c["While you have at least 3 Searching Eye Jewels socketed: Targets affected by Maim you inflict cannot deal Critical Strikes Maim you inflict causes Hits against the target to have 20% more Critical Strike Chance"]={nil,"While you have at least 3 Searching Eye Jewels socketed: Targets affected by Maim you inflict cannot deal Critical Strikes Maim you inflict causes Hits against the target to have 20% more Critical Strike Chance "}

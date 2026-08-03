@@ -1166,6 +1166,8 @@ local preFlagList = {
 	["^raised spectres, raised zombies, and summoned skeletons have "] = { addToMinion = true, addToMinionTag = { type = "SkillName", skillNameList = { "Raise Spectre", "Raise Zombie", "Summon Skeletons" }, includeTransfigured = true } },
 	-- Totem/trap/mine
 	["^attacks used by totems have "] = { flags = ModFlag.Attack, keywordFlags = KeywordFlag.Totem },
+	["^totems have "] = { keywordFlags = KeywordFlag.Totem },
+	["^skills used by totems [hd][ae][va][el] "] = { keywordFlags = KeywordFlag.Totem },
 	["^spells cast by totems [hd][ae][va][el] "] = { flags = ModFlag.Spell, keywordFlags = KeywordFlag.Totem },
 	["^trap and mine damage "] = { keywordFlags = bor(KeywordFlag.Trap, KeywordFlag.Mine) },
 	["^skills used by traps [hgd][ae][via][enl] "] = { keywordFlags = KeywordFlag.Trap },
@@ -1518,6 +1520,7 @@ local modTagList = {
 	["per totem"] = { tag = { type = "PerStat", stat = "TotemsSummoned" } },
 	["per summoned totem"] = { tag = { type = "PerStat", stat = "TotemsSummoned" } },
 	["for each summoned totem"] =  { tag = { type = "PerStat", stat = "TotemsSummoned" } },
+	["per maximum number of summoned totems"] = { tag = { type = "PerStat", stat = "ActiveTotemLimit" } },
 	["for each time they have chained"] = { tag = { type = "PerStat", stat = "Chain" } },
 	["for each time it has chained"] = { tag = { type = "PerStat", stat = "Chain" } },
 	["for each summoned golem"] = { tag = { type = "PerStat", stat = "ActiveGolemLimit" } },
