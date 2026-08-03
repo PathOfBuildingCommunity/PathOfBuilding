@@ -2588,8 +2588,10 @@ end
 			tooltip:Clear(true)
 			tooltip:AddLine(16, "^7Equip ^x33FF77" .. (row.jewelName or "jewel") .. " ^7in ^x33FF77" .. (row.socketLabel or "socket"))
 			tooltip:AddLine(16, "^8Adds the jewel to this build.")
-			if row.storedUnallocatedItemLabel then
-				tooltip:AddLine(16, "^xFFAA33Replaces the stored jewel ignored by the current tree.")
+			if row.replacedItemLabel then
+				tooltip:AddLine(16, "^xFFAA33Replaces equipped jewel: ^7" .. row.replacedItemLabel)
+			elseif row.storedUnallocatedItemLabel then
+				tooltip:AddLine(16, "^xFFAA33Replaces stored jewel: ^7" .. row.storedUnallocatedItemLabel)
 			end
 			tooltip:AddLine(16, "^8Double-click a result to apply it.")
 		end
