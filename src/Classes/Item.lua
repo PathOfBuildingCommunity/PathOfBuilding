@@ -1187,9 +1187,6 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 		::continue::
 		l = l + 1
 	end
-	if self.baseName and self.title then
-		self.name = self.title .. ", " .. self.baseName:gsub(" %(.+%)","")
-	end
 	if self.advancedCopy and (self.rarity == "UNIQUE" or self.rarity == "RELIC") then
 		if not uniqueModStatOrder then
 			uniqueModStatOrder = { exact = { }, normalised = { } }
@@ -1413,6 +1410,9 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 		self.title = "Foulborn " .. self.title
 	elseif not self.foulborn and hasFoulbornPrefix then
 		self.title = self.title:gsub("[Ff]oulborn ", "")
+	end
+	if self.baseName and self.title then
+		self.name = self.title .. ", " .. self.baseName:gsub(" %(.+%)", "")
 	end
 	if not self.quality then
 		self:NormaliseQuality()
