@@ -1536,7 +1536,6 @@ describe("RadiusJewelFinder #radius-jewel", function()
 			local structuralItem = {
 				type = "Jewel",
 				jewelData = { conqueredBy = true },
-				jewelRadiusIndex = getLargeRadiusIndex(),
 			}
 			local firstStructuralKey = finder:getImpossibleEscapePlanCacheKey("Life", "Acrobatics", {
 				socketNode = { id = 36634 },
@@ -2051,6 +2050,25 @@ describe("RadiusJewelFinder #radius-jewel", function()
 				assert.is_nil(next(item.jewelData.impossibleEscapeKeystones))
 				assert.is_true(isAllowed)
 				assert.are.equal("Chimeric Creed (Crimson Jewel)", occupancy.replacedItemLabel)
+			end)
+
+			it("keeps ordinary Abyss jewels safe but excludes Abyss Timeless jewels", function()
+				local socketId = ALLOC_SOCKET_IDS[1]
+				local ordinaryAbyssJewel = equipFakeJewel(socketId, "Hypnotic Eye Jewel", nil, {
+					type = "Jewel",
+					jewelData = { },
+				})
+				local finder = makeFinder()
+
+				local isOrdinaryAbyssAllowed = finder:socketMatchesOccupiedMode(socketId, { id = "safe" })
+				assert.is_true(isOrdinaryAbyssAllowed)
+
+				ordinaryAbyssJewel.jewelData.conqueredBy = { conqueror = { type = "Abyss" } }
+				local isAbyssTimelessAllowed = finder:socketMatchesOccupiedMode(socketId, { id = "safe" })
+				assert.is_false(isAbyssTimelessAllowed)
+				assert.is_true(finder:socketReplacementChangesPassiveTree({
+					occupancy = { isOccupied = true, item = ordinaryAbyssJewel },
+				}, { type = "Jewel", jewelData = { } }))
 			end)
 
 			it("returns entries with atLimit=true when limited jewel count reaches limit", function()
