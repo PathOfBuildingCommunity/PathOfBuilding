@@ -1721,7 +1721,10 @@ end
 -- Show an error popup if a file cannot be read due to cloud provider unavailability.
 -- Help button opens a URL to PoB's GitHub wiki.
 function main:OpenCloudErrorPopup(fileName)
-	local provider, _, status = GetCloudProvider(fileName)
+	local provider, _, status
+	if GetCloudProvider then
+		provider, _, status = GetCloudProvider(fileName)
+	end
 	ConPrintf('^1Error: file offline "%s" provider: "%s" status: "%s"', fileName or "?", provider, status)
 	fileName = fileName and "\n\n^8'"..fileName.."'" or ""
 	local version = "^8v"..launch.versionNumber..(launch.versionBranch and " "..launch.versionBranch or "")..(launch.devMode and " (dev)" or "")

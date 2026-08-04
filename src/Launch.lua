@@ -14,7 +14,9 @@ ConExecute("set vid_resizable 3")
 
 launch = { }
 SetMainObject(launch)
-jit.opt.start('maxtrace=4000','maxmcode=8192')
+if jit and jit.opt then
+	jit.opt.start('maxtrace=4000','maxmcode=8192')
+end
 collectgarbage("setpause", 400)
 
 function launch:OnInit()
