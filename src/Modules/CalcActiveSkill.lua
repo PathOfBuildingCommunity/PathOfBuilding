@@ -708,6 +708,13 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 				minion.lifeTable = (minion.minionData.lifeScaling == "AltLife1" and env.data.monsterLifeTable2) or (minion.minionData.lifeScaling == "AltLife2" and env.data.monsterLifeTable3) or (isSpectre and env.data.monsterLifeTable) or env.data.monsterAllyLifeTable
 			end
 			local attackTime = minion.minionData.attackTime
+			local useParentMainHandAttackTime = not isSpectre
+				and skillModList:Flag(activeSkill.skillCfg, "NonSpectreMinionsUseParentMainHandAttackTime")
+				and env.player.weaponData1.AttackRate
+				and env.player.weaponData1.AttackRate > 0
+			if useParentMainHandAttackTime then
+				attackTime = 1 / env.player.weaponData1.AttackRate
+			end
 			local damageTable = (isSpectre or minion.minionData.hostile) and env.data.monsterDamageTable or env.data.monsterAllyDamageTable
 			local damage = damageTable[minion.level] * minion.minionData.damage
 			if not minion.minionData.baseDamageIgnoresAttackSpeed then -- minions with this flag do not factor attack time into their base damage
@@ -765,6 +772,12 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 						minion.weaponData2 = env.player.weaponData2
 					end
 				end
+			end
+			if useParentMainHandAttackTime then
+				-- The weapon data may be shared with the player, an item set, or another actor.
+				-- Copy it before replacing only the minion's base attack rate.
+				minion.weaponData1 = copyTable(minion.weaponData1)
+				minion.weaponData1.AttackRate = 1 / attackTime
 			end
 		end
 	elseif activeEffect.srcInstance and not (activeEffect.gemData and activeEffect.gemData.secondaryGrantedEffect) then

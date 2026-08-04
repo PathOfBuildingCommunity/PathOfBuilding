@@ -521,6 +521,19 @@ Raised Zombies Cover Enemies in Ash on Hit
 Raised Zombies take (15-30)% of their Maximum Life per second as Fire Damage
 Raised Zombies have Avatar of Fire
 ]],[[
+Replica Maata's Teaching
+Karui Sceptre
+Variant: Pre 3.25.0
+Variant: Current
+Requires Level 56, 96 Str, 96 Int
+Implicits: 1
+26% increased Elemental Damage
++(30-40) to Intelligence
+(8-16)% increased Attack Speed
+Minions have (15-30)% increased Movement Speed
+Non-Spectre Minions' Base Attack time is equal to
+the Attack time of your Main Hand Weapon
+]],[[
 Maata's Teaching
 Karui Sceptre
 Variant: Pre 3.25.0

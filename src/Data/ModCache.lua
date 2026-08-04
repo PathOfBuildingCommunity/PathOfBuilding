@@ -10222,6 +10222,7 @@ c["Minions have 20% increased Movement Speed"]={{[1]={flags=0,keywordFlags=0,nam
 c["Minions have 20% increased maximum Life"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Life",type="INC",value=20}}}},nil}
 c["Minions have 20% more Maximum Life"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Life",type="MORE",value=20}}}},nil}
 c["Minions have 20% reduced maximum Life"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Life",type="INC",value=-20}}}},nil}
+c["Minions have 23% increased Movement Speed"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=23}}}},nil}
 c["Minions have 25% chance to gain Unholy Might for 4 seconds on Kill"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={[1]={type="Condition",var="KilledRecently"},flags=0,keywordFlags=0,name="Condition:UnholyMight",type="FLAG",value=true}}}},nil}
 c["Minions have 25% increased Critical Strike Chance"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="CritChance",type="INC",value=25}}}},nil}
 c["Minions have 25% increased Movement Speed"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=25}}}},nil}
@@ -10425,6 +10426,8 @@ c["Non-Damaging Elemental Ailments you inflict spread to nearby enemies within 2
 c["Non-Damaging Elemental Ailments you inflict spread to nearby enemies within 2 metres Non-Damaging Elemental Ailments you inflict have 100% more Effect"]={nil,"Non-Damaging Elemental Ailments you inflict spread to nearby enemies within 2 metres Non-Damaging Elemental Ailments you inflict have 100% more Effect "}
 c["Non-Exerted Attacks deal no Damage"]={nil,"Non-Exerted Attacks deal no Damage "}
 c["Non-Instant Warcries ignore their Cooldown when Used"]={{[1]={[1]={neg=true,skillType=64,type="SkillType"},flags=0,keywordFlags=4,name="CooldownRecovery",type="OVERRIDE",value=0}},nil}
+c["Non-Spectre Minions' Base Attack time is equal to"]={nil,"Non-Spectre Minions' Base Attack time is equal to "}
+c["Non-Spectre Minions' Base Attack time is equal to the Attack time of your Main Hand Weapon"]={{[1]={flags=0,keywordFlags=0,name="NonSpectreMinionsUseParentMainHandAttackTime",type="FLAG",value=true}},nil}
 c["Non-Travel Attack Skills Repeat an additional Time"]={{[1]={[1]={neg=true,skillType=79,type="SkillType"},[2]={type="Condition",varList={[1]="averageRepeat",[2]="alwaysFinalRepeat"}},flags=0,keywordFlags=65536,name="RepeatCount",type="BASE",value=1}},nil}
 c["Non-Unique Jewels cause Small and Notable Passive Skills in a Large Radius to"]={nil,"Non-Unique Jewels cause Small and Notable Passive Skills in a Large Radius to "}
 c["Non-Unique Utility Flasks you Use apply to Linked Targets"]={{[1]={flags=0,keywordFlags=0,name="ExtraLinkEffect",type="LIST",value={mod={[1]={effectType="Global",type="GlobalEffect",unscalable=true},flags=0,keywordFlags=0,name="ParentNonUniqueFlasksAppliedToYou",type="FLAG",value=true}}}},nil}
