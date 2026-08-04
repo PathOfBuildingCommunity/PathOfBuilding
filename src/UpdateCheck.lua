@@ -315,6 +315,10 @@ for _, data in pairs(updateFiles) do
 		-- These files will be updated on the second pass of the update script, with the first pass being run within the normal environment
 		updateMode = "basic"
 		table.insert(opsRuntime, 'move "'..data.updateFileName..'" "'..data.fullPath..'"')
+		if localPlatform ~= "win32" and not data.name:match("%.[^/]+$") then
+			-- POSIX executables ship without an extension and lose their executable bit when rewritten
+			table.insert(opsRuntime, 'chmod "'..data.fullPath..'"')
+		end
 	else
 		table.insert(ops, 'move "'..data.updateFileName..'" "'..data.fullPath..'"')
 	end
