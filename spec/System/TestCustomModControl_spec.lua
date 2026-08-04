@@ -110,4 +110,34 @@ describe("Custom modifier controls", function()
 
 		assert.are.equal("m", popup.controls.search.buf)
 	end)
+
+	it("uses the mod group title as the calculation source name", function()
+		local configTab = build.configTab
+		local blockData = configTab.configSets[configTab.activeConfigSetId].customModsList[1]
+		blockData.text = "+100 to maximum Life"
+		configTab:BuildModList()
+
+		configTab.customModsBlockControls[1].controls.titleEdit:SetText("Bossing", true)
+
+		local customMods = configTab.modList:Tabulate("BASE", nil, "Life")
+		assert.are.equal(1, #customMods)
+		assert.are.equal("Custom:Bossing", customMods[1].mod.source)
+
+		build.buildFlag = true
+		runCallback("OnFrame")
+		local breakdownControl = build.calcsTab.controls.breakdown
+		breakdownControl.sectionList = { }
+		breakdownControl:AddModSection({ modName = "Life", modType = "BASE" })
+		local customRow
+		for _, row in ipairs(breakdownControl.sectionList[1].rowList) do
+			if row.mod.source == "Custom:Bossing" then
+				customRow = row
+				break
+			end
+		end
+
+		assert.is_not_nil(customRow)
+		assert.are.equal("Custom", customRow.source)
+		assert.are.equal("Bossing", customRow.sourceName)
+	end)
 end)

@@ -35,6 +35,8 @@ local CustomModBlockClass = newClass("CustomModBlockControl", "Control", "Contro
 	self.controls.titleEdit = new("EditControl", {"LEFT", self.controls.deleteBtn, "RIGHT"}, {6, 0, 222, 18}, blockData.title or "", nil, nil, nil, function(buf)
 		blockData.title = buf
 		configTab:AddUndoState()
+		configTab:BuildModList()
+		configTab.build.buildFlag = true
 	end)
 
 	self.controls.addModBtn = new("ButtonControl", {"LEFT", self.controls.titleEdit, "RIGHT"}, {6, 0, 58, 18}, "^7Add Mod", function()
@@ -1112,7 +1114,7 @@ function ConfigTabClass:BuildModList()
 					local strippedLine = StripEscapes(line):match("^%s*(.-)%s*$")
 					local mods, extra = modLib.parseMod(strippedLine)
 					if mods and not extra then
-						local source = "Custom"
+						local source = "Custom:" .. (block.title or "Default")
 						for i = 1, #mods do
 							local mod = mods[i]
 							if mod then
