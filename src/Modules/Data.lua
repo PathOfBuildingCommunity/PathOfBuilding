@@ -1241,6 +1241,9 @@ for modId, mod in pairs(data.veiledMods) do
 	end
 end
 
+local dreadCaptainBase = { base = copyTable(data.itemBases["Ghostflame Blade"]) }
+dreadCaptainBase.base.tags.deepwater_sword = true
+
 ---@class RareLikeUniqueDescription
 ---@field affixes table<string, table>
 ---@field validBases table[]? Bases used to check modifier spawn tags instead of the item's base
@@ -1263,6 +1266,12 @@ data.rareLikeUniques = {
 		affixes = crimsonStormMods,
 		prefixLimit = 0,
 		suffixLimit = 1,
+	},
+	["dread captain's cutlass"] = {
+		validBases = { dreadCaptainBase },
+		affixes = data.itemMods.Explicit,
+		prefixLimit = 3,
+		suffixLimit = 3,
 	}
 }
 -- Uniques (loaded after version-specific data because reasons)

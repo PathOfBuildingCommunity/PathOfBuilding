@@ -1513,6 +1513,11 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill GhostCannons Ghostly Artillery
+#flags attack
+	fromItem = true,
+#mods
+
 #skill SupportUniqueCastCurseOnCurse Vixen's Entrapment
 #flags spell curse
 	fromItem = true,

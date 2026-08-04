@@ -1034,7 +1034,7 @@ ElementalDamageCanShockUnique__1__
 IncreasedAttackAreaOfEffectUnique__1_
 DealNoNonElementalDamageUnique__1
 ]],
-[[
+	[[
 The Golden Charlatan
 Lion Sword
 Source: Drops from unique{Uber Incarnation of Dread} in normal{Moment of Reverence}
@@ -1048,5 +1048,13 @@ LocalCriticalStrikeChanceUnique__24
 LocalNoCriticalStrikeMultiplierUnique_1
 GainShrineOnRareOrUniqueKillUnique_1
 GainManaPer2IntelligenceUnique_1
-]],
+]], [[
+Dread Captain's Cutlass
+Ghostflame Blade
+Source: Drops from unique{Captainsbane} in normal{The Fathomless Depths}
+League: Allflame
+Crafted: true
+Implicits: 1
+CanBeGhostflameCraftedAsThoughRare
+]]
 }

@@ -1049,7 +1049,7 @@ Your Elemental Damage can Shock
 20% increased Area of Effect for Attacks
 Deal no Non-Elemental Damage
 ]],
-[[
+	[[
 The Golden Charlatan
 Lion Sword
 Source: Drops from unique{Uber Incarnation of Dread} in normal{Moment of Reverence}
@@ -1063,5 +1063,14 @@ Implicits: 1
 Critical Strikes with this Weapon do not deal extra Damage
 Gain a random Shrine Buff for 30 seconds when you Kill a Rare or Unique Enemy
 +1 to maximum Mana per 2 Intelligence
-]],
+]], [[
+Dread Captain's Cutlass
+Ghostflame Blade
+Source: Drops from unique{Captainsbane} in normal{The Fathomless Depths}
+League: Allflame
+Crafted: true
+Implicits: 2
+Can be Allflame Crafted as if Rare
+Cannot gain Intangibility
+]]
 }

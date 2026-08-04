@@ -1522,6 +1522,17 @@ local configTable = {
 					return skill.skillData.triggeredBySettlersEnchantTrigger and slotMatch(env, skill)
 				end}
 	end,
+	["ghostly artillery"] = function(env)
+		-- Skill is triggered only when the weapon with the enchant on it hits
+		return {
+			triggerSkillCond = function(env, skill)
+				return skill.skillTypes[SkillType.Melee]
+			end,
+			triggeredSkillCond = function(env, skill)
+				return slotMatch(env, skill)
+			end
+		}
+	end,
 	["replica gifts from above"] = function()
 		return {
 			triggerSkillCond = function(env, skill)
