@@ -188,6 +188,10 @@ directiveTable.base = function(state, args, out)
 	end
 	if #enchantLines > 0 then
 		out:write('\tenchant = "', table.concat(enchantLines, "\\n"), '",\n')
+		if #enchantModIds > 0 then
+			local modIdLine = string.format('\tenchantIds = %s,\n', utils.stringifyInline(enchantModIds))
+			out:write(modIdLine)
+		end
 		out:write('\tenchantModTypes = { ')
 		for i = 1, #enchantModTypes do
 			out:write('{ ', enchantModTypes[i], ' }, ')

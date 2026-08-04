@@ -84,7 +84,7 @@ function TooltipClass:CheckForUpdate(...)
 	end
 end
 
-function TooltipClass:AddLine(size, text, font, background)
+function TooltipClass:AddLine(size, text, font, modLine, background)
 	if text then
 		local fontToUse
 		if main.showFlavourText then
@@ -100,10 +100,10 @@ function TooltipClass:AddLine(size, text, font, background)
 			end
 			if self.maxWidth then
 				for _, wrappedLine in ipairs(main:WrapString(line, size, self.maxWidth - H_PAD)) do
-					t_insert(self.lines, { size = size, text = wrappedLine, block = #self.blocks, font = fontToUse, center = self.center, background = background })
+					t_insert(self.lines, { size = size, text = wrappedLine, block = #self.blocks, font = fontToUse, center = self.center, modLine = modLine, background = background })
 				end
 			else
-				t_insert(self.lines, { size = size, text = line, block = #self.blocks, font = fontToUse, center = self.center, background = background })
+				t_insert(self.lines, { size = size, text = line, block = #self.blocks, font = fontToUse, center = self.center, modLine = modLine, background = background })
 			end
 		end
 	end
@@ -293,8 +293,14 @@ function TooltipClass:CalculateColumns(ttY, ttX, ttH, ttW, viewPort)
 			end
 			local lineX = lineCentered and (x + ttW / 2) or (x + (H_PAD / 2))
 			local lineAlign = lineCentered and "CENTER_X" or "LEFT"
-
-			t_insert(drawStack, {lineX, y, lineAlign, data.size, font, data.text, background = data.background})
+			
+			local stackEntry = {lineX, y, lineAlign, data.size, font, data.text}
+			if data.modLine and data.modLine.disabled then
+				stackEntry.strikethrough = true
+			end
+			stackEntry.background = data.background
+			t_insert(drawStack, stackEntry)
+			data.bounds = { x = x + (H_PAD / 2), y = y, width = ttW - H_PAD, height = data.size + 2 }
 			y = y + data.size + 2
 
 			-- track max width for extra columns
@@ -627,6 +633,19 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 
 			-- Draw text line
 			DrawString(unpack(line))
+			if line.strikethrough then
+				local textX = line[1]
+				local textY = line[2]
+				local align = line[3]
+				local size = line[4]
+				local font = line[5]
+				local text = line[6]
+				local textW = DrawStringWidth(size, font, text)
+				local strikeX = align == "CENTER_X" and (textX - textW / 2) or textX
+				local strikeY = textY + size / 2
+				SetDrawColor(0.75, 0.75, 0.75, 0.35)
+				DrawImage(nil, strikeX, strikeY, textW, 1.0)
+			end
 		end
 	end
 

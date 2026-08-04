@@ -358,6 +358,9 @@ function itemLib.formatModLine(modLine, dbMode)
 	if line:match("^%+?0%%? ") or (line:match(" %+?0%%? ") and not line:match("0 to [1-9]")) or line:match(" 0%-0 ") or line:match(" 0 to 0 ") then -- Hack to hide 0-value modifiers
 		return
 	end
+	if modLine.disabled then
+		return colorCodes.DISABLED .. line
+	end
 	local colorCode
 	if modLine.extra then
 		colorCode = colorCodes.UNSUPPORTED

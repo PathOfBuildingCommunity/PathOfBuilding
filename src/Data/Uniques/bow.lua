@@ -31,6 +31,19 @@ Implicits: 1
 {variant:1,2,3}30% increased Attack, Cast and Movement Speed while you do not have Iron Reflexes
 {variant:1,2,3}You have Far Shot while you do not have Iron Reflexes
 ]],[[
+The Bane of Hope
+Maraketh Bow
+League: Mirage
+Source: No longer obtainable
+Requires Level 71
+Implicits: 1
+10% increased Movement Speed
+(90-130)% increased Physical Damage
++(28-35)% to Physical Damage over Time Multiplier
+Adds (20-30) to (40-50) Physical Damage
+(15-30)% chance to Impale Enemies on Hit with Attacks
+Trigger Level 20 Tears of Rot when Equipped
+]],[[
 Chin Sol
 Assassin Bow
 Variant: Pre 1.0.0
@@ -60,87 +73,21 @@ The Crimson Storm
 Steelwood Bow
 League: Betrayal
 Source: Drops from unique{Fortification Leaders} in normal{Safehouses}
-Variant: Crit Multi while Rare/Unique Nearby (Pre 3.17.0)
-Variant: Attack Speed while Rare/Unique Nearby (Pre 3.17.0)
-Variant: Damage per Power Charge (Pre 3.17.0)
-Variant: Damage per Frenzy Charge (Pre 3.17.0)
-Variant: Damage per Endurance Charge (Pre 3.17.0)
-Variant: Accuracy and Quality (Pre 3.17.0)
-Variant: Attack Speed and Quality (Pre 3.17.0)
-Variant: Attack Speed/Trigger Blood Rage on Kill (Pre 3.17.0)
-Variant: Cast Speed/Trigger Arcane Surge on Kill (Pre 3.17.0)
-Variant: Minion Attack and Cast Speed (Pre 3.17.0)
-Variant: Double Damage (Pre 3.17.0)
-Variant: Double Damage while Focused (Pre 3.17.0)
-Variant: Socketed Spell Trigger (Pre 3.17.0)
+Crafted: true
+Suffix: None
 Variant: Pre 3.17.0
-Variant: Crit Multi while Rare/Unique Nearby (Current)
-Variant: Attack Speed while Rare/Unique Nearby (Current)
-Variant: Damage per Power Charge (Current)
-Variant: Damage per Frenzy Charge (Current)
-Variant: Damage per Endurance Charge (Current)
-Variant: Accuracy and Str/Dex (Current)
-Variant: Attack Speed and Dex/Int (Current)
-Variant: Critical Strike Chance and Str/Int (Current)
-Variant: Cast Speed/Trigger Arcane Surge on Kill (Current)
-Variant: Minion Attack and Cast Speed (Current)
-Variant: Double Damage (Current)
-Variant: Double Damage while Focused (Current)
-Variant: Socketed Spell Trigger (Current)
-Variant: Fire Damage over Time (Current)
-Variant: Physical Damage over Time (Current)
-Variant: Chaos Damage over Time (Current)
 Variant: Current
 Requires Level 57, 190 Dex
-Implicits: 1
-{variant:1,2,3,4,5,6,7,8,9,10,11,12,13,14}(4-6)% increased Movement Speed
-{variant:1,2,3,4,5,6,7,8,9,10,11,12,13,14}(140-170)% increased Physical Damage
-{variant:15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31}(60-80)% increased Physical Damage
-{variant:7}(8-16)% increased Attack Speed
-{variant:8}(8-16)% increased Attack Speed
-{variant:9}(7-13)% increased Cast Speed
+Implicits: 2
+{variant:2}6% increased Movement Speed
+{variant:1}(4-6)% increased Movement Speed
+{variant:1}(140-170)% increased Physical Damage
+{variant:2}(60-80)% increased Physical Damage
 (25-35)% increased Critical Strike Chance
-{variant:15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31}6% increased Movement Speed
 50% chance to inflict Bleeding on Critical Strike with Attacks
 Enemies you inflict Bleeding on grant (60-100)% increased Flask Charges
 Adds (100-120) to (150-165) Physical Damage against Bleeding Enemies
 50% chance to Maim Enemies on Critical Strike with Attacks
-{variant:1}{crafted}+(18-45)% Critical Strike Multiplier while there is a Rare or Unique Enemy Nearby
-{variant:2}{crafted}(11-22)% increased Attack Speed while a Rare or Unique Enemy is Nearby
-{variant:3}{crafted}(5-6)% increased Damage per Power Charge
-{variant:4}{crafted}(5-6)% increased Damage per Frenzy Charge
-{variant:5}{crafted}(5-6)% increased Damage per Endurance Charge
-{variant:6}{crafted}+(30-250) to Accuracy Rating
-{variant:6,7}{crafted}+(7-18)% to Quality
-{variant:8}{crafted}10% chance to Trigger Level 1 Blood Rage when you Kill an Enemy
-{variant:9}{crafted}10% chance to gain Arcane Surge when you Kill an Enemy
-{variant:10}{crafted}Minions have (16-28)% increased Attack Speed
-{variant:10}{crafted}Minions have (16-28)% increased Cast Speed
-{variant:11}{crafted}(4-12)% chance to deal Double Damage
-{variant:12}{crafted}(13-36)% chance to deal Double Damage while Focused
-{variant:13}{crafted}Trigger a Socketed Spell when you Use a Skill, with a 8 second Cooldown
-{variant:15}{crafted}+(54-60)% Critical Strike Multiplier while there is a Rare or Unique Enemy Nearby
-{variant:16}{crafted}(27-30)% increased Attack Speed while a Rare or Unique Enemy is Nearby
-{variant:17}{crafted}(7-8)% increased Damage per Power Charge
-{variant:18}{crafted}(7-8)% increased Damage per Frenzy Charge
-{variant:19}{crafted}(7-8)% increased Damage per Endurance Charge
-{variant:20}{crafted}+(311-350) to Accuracy Rating
-{variant:20}{crafted}+(25-28) to Strength and Dexterity
-{variant:21}{crafted}(18-22)% increased Attack Speed
-{variant:21}{crafted}+(25-28) to Dexterity and Intelligence
-{variant:22}{crafted}(28-32)% increased Critical Strike Chance
-{variant:22}{crafted}+(25-28) to Strength and Intelligence
-{variant:23}{crafted}(26-31)% increased Cast Speed
-{variant:23}{crafted}15% chance to gain Arcane Surge when you Kill an Enemy
-{variant:24}{crafted}Minions have (34-38)% increased Attack Speed
-{variant:24}{crafted}Minions have (34-38)% increased Cast Speed
-{variant:25}{crafted}(12-14)% chance to deal Double Damage
-{variant:26}{crafted}(36-40)% chance to deal Double Damage while Focused
-{variant:27}{crafted}Trigger a Socketed Spell when you Use a Skill, with a 4 second Cooldown
-{variant:27}{crafted}Spells Triggered this way have 150% more Cost
-{variant:28}{crafted}+(24-28)% to Fire Damage over Time Multiplier
-{variant:29}{crafted}+(24-28)% to Physical Damage over Time Multiplier
-{variant:30}{crafted}+(24-28)% to Chaos Damage over Time Multiplier
 ]],[[
 Darkscorn
 Assassin Bow
@@ -249,6 +196,20 @@ Implicits: 2
 60% increased Mana Regeneration Rate
 {variant:1,2,3}Gain 110% of Weapon Physical Damage as Extra Damage of each Element
 {variant:4}Gain 100% of Weapon Physical Damage as Extra Damage of each Element
+]],[[
+The Flame of Hope
+Maraketh Bow
+League: Mirage
+Source: No longer obtainable
+Requires Level 71
+Implicits: 1
+10% increased Movement Speed
+(90-110)% increased Fire Damage
+Adds (180-230) to (310-360) Fire Damage
+(14-18)% increased Attack Speed
+Inflict Fire Exposure on Hit against Enemies with
+5 Cinderflame, applying -25% to Fire Resistance
+Trigger Level 20 Cinders when Equipped
 ]],[[
 The Gluttonous Tide
 Citadel Bow

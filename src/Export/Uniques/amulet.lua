@@ -771,6 +771,32 @@ IncreasedAccuracyUniqueAmulet5
 ProjectileSpeedUniqueAmulet5
 MovementVelocityUniqueAmulet5
 ]],[[
+Khatal's Geyser
+Lapis Amulet
+League: Mirage
+Source: No longer obtainable
+LevelReq: 56
+Implicits: 1
+IntelligenceImplicitAmulet1
+CannotUseLifeFlaskUnique__1
+IncreasedManaUnique__31
+FlaskEffectAlsoAffectsArcaneSurgeUnique__1
+ArcaneSurgeDuringManaFlaskEffectUnique__1
+ManaFlaskEffectsAreNotRemovedAtFullManaUnique__1
+]],
+[[
+Khatal's Weeping
+Lapis Amulet
+League: Mirage
+Source: No longer obtainable
+LevelReq: 56
+Implicits: 1
+IntelligenceImplicitAmulet1
+IncreasedLifeUnique__127
+CannotUseManaFlaskUnique__1
+ConsumeLifeFlaskChargesForDoTMultiOnAttackUnique__1
+LifeFlaskPassiveChargeGainOnLowLifeUnique__1
+]],[[
 Leadership's Price
 Onyx Amulet
 League: Heist
@@ -944,6 +970,22 @@ ClawDamageModsAlsoAffectUnarmedUnique__1
 ClawAttackSpeedModsAlsoAffectUnarmed__1
 ClawCritModsAlsoAffectUnarmed__1
 {variant:1,2}Corrupted
+]],[[
+Rotmother's Mutiny
+Pearlescent Amulet
+Variant: Fire
+Variant: Cold
+Variant: Lightning
+League: Allflame
+Source: Drops from Treasure Clam chests in normal{The Fathomless Depths}
+Requires Level 28
+AllResistancesImplicitAmulet1
+AllResistancesUniqueAmulet87
+IncreasedMaximumResistsUniqueAmulet87
+LightRadiusUniqueAmulet87
+{variant:1}UniqueAmuletChaosResistancePerFireResistance
+{variant:2}UniqueAmuletChaosResistancePerColdResistance
+{variant:3}UniqueAmuletChaosResistancePerLightningResistance
 ]],[[
 Sacrificial Heart
 Paua Amulet

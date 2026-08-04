@@ -1055,13 +1055,21 @@ describe("TestTriggers", function()
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
 
+		build.itemsTab:CreateDisplayItemFromRaw("Test Shield\nSplintered Tower Shield")
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
+
 		build.skillsTab:PasteSocketGroup("Arc 20/0  1\nSpellslinger 20/0  1\n")
 		runCallback("OnFrame")
 
 		build.skillsTab:PasteSocketGroup("Kinetic Blast 20/0  1\n")
 		runCallback("OnFrame")
 
+		build.skillsTab:PasteSocketGroup("Shield Charge 20/0  1\nFaster Attacks 20/0  1\n")
+		runCallback("OnFrame")
+
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
+		assert.are.equals("Spellslinger's Trigger: Kinetic Blast", build.calcsTab.mainEnv.player.mainSkill.infoMessage)
 	end)
 
 	it("Trigger Mark On Hit", function()
@@ -1187,6 +1195,25 @@ describe("TestTriggers", function()
 		runCallback("OnFrame")
 
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
+	end)
+
+	it("multiplies Arcanist Brand trigger rate by the attached Brand count", function()
+		build.skillsTab:PasteSocketGroup("Arcanist Brand 20/0  1\nFireball 20/0  1\n")
+		runCallback("OnFrame")
+
+		local mainSocketGroup = build.skillsTab.socketGroupList[build.mainSocketGroup]
+		mainSocketGroup.mainActiveSkill = 2
+		build.modFlag = true
+		build.buildFlag = true
+		runCallback("OnFrame")
+
+		local singleBrandTriggerRate = build.calcsTab.mainOutput.SkillTriggerRate
+		build.configTab.input.customMods = "You can have an additional Brand Attached to an Enemy"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.near(singleBrandTriggerRate * 2, build.calcsTab.mainOutput.SkillTriggerRate, 10 ^ -9)
+		assert.matches("2 attached Brands", build.calcsTab.mainEnv.player.mainSkill.infoMessage)
 	end)
 
 	it("Trigger Shockwave", function()

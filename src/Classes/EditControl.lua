@@ -401,6 +401,10 @@ function EditClass:Draw(viewPort, noTooltip)
 			DrawImage(nil, caretX, textY, 1, textHeight)
 		end
 	else
+		if self.buf == '' and self.placeholder then
+			SetDrawColor(self.disableCol)
+			DrawString(textX, textY, "LEFT", textHeight, self.font, self.placeholder)
+		end
 		local pre = self.textCol .. self.buf:sub(1, self.caret - 1)
 		local post = self.buf:sub(self.caret)
 		if self.protected then

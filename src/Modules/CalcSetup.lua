@@ -304,6 +304,21 @@ local function applyGemMods(effect, modList)
 			match = false
 		end
 		if match then
+			-- save quality increases for use in tooltips
+			if value.key == "quality" then
+				local isSocketed = false
+				for _, tag in ipairs(mod.mod) do
+					if tag.type == "SocketedIn" then
+						isSocketed = true
+						break
+					end
+				end
+				if isSocketed then
+					effect.itemQuality = (effect.itemQuality or 0) + value.value
+				else
+					effect.globalQuality = (effect.globalQuality or 0) + value.value
+				end
+			end
 			effect[value.key] = (effect[value.key] or 0) + value.value
 			effect.gemPropertyInfo = effect.gemPropertyInfo or {}
 			t_insert(effect.gemPropertyInfo, mod)
@@ -964,12 +979,14 @@ function calcs.initEnv(build, mode, override, specEnv)
 				if item.type == "Jewel" and item.base.subType == "Abyss" then
 					-- Update Abyss Jewel conditions/multipliers
 					local cond = "Have"..item.baseName:gsub(" ","")
+					local mult = item.baseName:gsub(" ","")
 					if not env.itemModDB.conditions[cond] then
 						env.itemModDB.conditions[cond] = true
 						env.itemModDB.multipliers["AbyssJewelType"] = (env.itemModDB.multipliers["AbyssJewelType"] or 0) + 1
 					end
 					if slot.parentSlot then
 						env.itemModDB.conditions[cond.."In"..slot.parentSlot.slotName] = true
+						env.itemModDB.multipliers[mult.."In"..slot.parentSlot.slotName] = (env.itemModDB.multipliers[mult.."In"..slot.parentSlot.slotName] or 0) + 1
 					end
 					env.itemModDB.multipliers["AbyssJewel"] = (env.itemModDB.multipliers["AbyssJewel"] or 0) + 1
 					if item.rarity == "NORMAL" then env.itemModDB.multipliers["NormalAbyssJewels"] = (env.itemModDB.multipliers["NormalAbyssJewels"] or 0) + 1 end
@@ -1558,10 +1575,15 @@ function calcs.initEnv(build, mode, override, specEnv)
 							if not grantedEffect or not grantedEffect.support then
 								return
 							end
+							local actualQuality = gemInstance.quality + (gemInstance.matchesSocket and data.misc.MatchingSocketQualityBonus or 0)
 							local supportEffect = {
 								grantedEffect = grantedEffect,
 								level = gemInstance.level,
-								quality = gemInstance.quality,
+								quality = actualQuality,
+								globalQuality = 0,
+								itemQuality = 0,
+								supportQuality = 0,
+								socketQuality = gemInstance.matchesSocket and data.misc.MatchingSocketQualityBonus or 0,
 								srcInstance = gemInstance,
 								gemData = gemInstance.gemData,
 								superseded = false,
@@ -1629,10 +1651,15 @@ function calcs.initEnv(build, mode, override, specEnv)
 						for index, grantedEffect in ipairs(grantedEffectList) do
 							if not grantedEffect.support and not grantedEffect.unsupported and (not grantedEffect.hasGlobalEffect or gemInstance["enableGlobal"..index]) then
 								slotHasActiveSkill = true
+								local actualQuality = gemInstance.quality + (gemInstance.matchesSocket and data.misc.MatchingSocketQualityBonus or 0)
 								local activeEffect = {
 									grantedEffect = grantedEffect,
 									level = gemInstance.level,
-									quality = gemInstance.quality,
+									quality = actualQuality,
+									globalQuality = 0,
+									itemQuality = 0,
+									supportQuality = 0,
+									socketQuality = gemInstance.matchesSocket and data.misc.MatchingSocketQualityBonus or 0,
 									srcInstance = gemInstance,
 									gemData = gemInstance.gemData,
 								}

@@ -871,13 +871,55 @@ return {
 		}
 	},
 	alternatetreeart={
+		[1]={
+			list=false,
+			name="TreeVersion",
+			refTo="AlternateTreeVersions",
+			type="Key",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="ConnectionArt",
+			refTo="PassiveSkillTreeConnectionArt",
+			type="Key",
+			width=180
+		},
+		[3]={
+			list=false,
+			name="KeystoneFrameArt",
+			refTo="PassiveSkillTreeNodeFrameArt",
+			type="Key",
+			width=180
+		},
+		[4]={
+			list=false,
+			name="RadiiArt",
+			refTo="PassiveJewelRadiiArt",
+			type="Key",
+			width=150
+		},
+		[5]={
+			list=false,
+			name="NotableFrameArt",
+			refTo="PassiveSkillTreeNodeFrameArt",
+			type="Key",
+			width=180
+		},
+		[6]={
+			list=false,
+			name="AscendancyFrameArt",
+			refTo="PassiveSkillTreeNodeFrameArt",
+			type="Key",
+			width=200
+		}
 	},
 	alternatetreepassivesizes={
 	},
 	alternatetreeversions={
 		[1]={
 			list=false,
-			name="ConquerorType",
+			name="Id",
 			refTo="",
 			type="String",
 			width=150
@@ -4396,6 +4438,64 @@ return {
 			width=150
 		},
 		[2]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=150
+		}
+	},
+	currencyexchange={
+		[1]={
+			list=false,
+			name="BaseItemType",
+			refTo="BaseItemTypes",
+			type="Key",
+			width=410
+		},
+		[2]={
+			list=false,
+			name="Category",
+			refTo="CurrencyExchangeCategories",
+			type="Key",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="SubCategory",
+			refTo="CurrencyExchangeCategories",
+			type="Key",
+			width=150
+		},
+		[4]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=150
+		},
+		[5]={
+			list=false,
+			name="EnabledInLeague",
+			refTo="",
+			type="Bool",
+			width=150
+		},
+		[6]={
+			list=false,
+			name="GoldFee",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[7]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=150
+		},
+		[8]={
 			list=false,
 			name="",
 			refTo="",
@@ -10798,6 +10898,36 @@ return {
 			width=150
 		}
 	},
+	passivejewelradiiart={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=120
+		},
+		[2]={
+			list=false,
+			name="Circle1",
+			refTo="",
+			type="String",
+			width=450
+		},
+		[3]={
+			list=false,
+			name="Circle2",
+			refTo="",
+			type="String",
+			width=450
+		},
+		[4]={
+			list=false,
+			name="Glow",
+			refTo="",
+			type="String",
+			width=450
+		}
+	},
 	passivejewelslots={
 		[1]={
 			list=false,
@@ -11588,6 +11718,108 @@ return {
 			refTo="",
 			type="String",
 			width=150
+		}
+	},
+	passiveskilltreeconnectionart={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=200
+		},
+		[2]={
+			list=false,
+			name="Normal",
+			refTo="",
+			type="String",
+			width=500
+		},
+		[3]={
+			list=false,
+			name="Intermediate2",
+			refTo="",
+			type="String",
+			width=500
+		},
+		[4]={
+			list=false,
+			name="Intermediate",
+			refTo="",
+			type="String",
+			width=500
+		},
+		[5]={
+			list=false,
+			name="Active",
+			refTo="",
+			type="String",
+			width=500
+		},
+		[6]={
+			list=false,
+			name="Mask",
+			refTo="",
+			type="String",
+			width=500
+		},
+		[7]={
+			list=false,
+			name="Ornament1",
+			refTo="",
+			type="String",
+			width=400
+		},
+		[8]={
+			list=false,
+			name="Ornament2",
+			refTo="",
+			type="String",
+			width=400
+		}
+	},
+	passiveskilltreenodeframeart={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=250
+		},
+		[2]={
+			list=false,
+			name="Normal",
+			refTo="",
+			type="String",
+			width=550
+		},
+		[3]={
+			list=false,
+			name="CanAllocate",
+			refTo="",
+			type="String",
+			width=550
+		},
+		[4]={
+			list=false,
+			name="Active",
+			refTo="",
+			type="String",
+			width=550
+		},
+		[5]={
+			list=false,
+			name="Mask",
+			refTo="",
+			type="String",
+			width=550
+		},
+		[6]={
+			list=false,
+			name="Header",
+			refTo="",
+			type="String",
+			width=450
 		}
 	},
 	passiveskilltrees={

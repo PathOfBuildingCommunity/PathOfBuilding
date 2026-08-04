@@ -146,6 +146,61 @@ describe("TestItemParse", function()
 		assert.are.same({ "Pre 3.19.0", "Current" }, item.variantList)
 	end)
 
+	it("Versioned grouped variants", function()
+		local item = new("Item", [[
+			Rarity: UNIQUE
+			Versioned Grouped Test
+			Prismatic Ring
+			Version: Pre 3.28.0
+			Version: Current
+			Variant: Life
+			Variant: Energy Shield
+			Variant: Mana
+			Variant: Reflect Immune
+			Variant: No damage from Crits
+			Variant: No Monster Suppress
+			Variant: No Enemy Pen
+			Variant: Charges cannot be stolen
+			Variant: Burning Ground Immune
+			Variant: Shocked Ground Immune
+			Variant: Desecrated Ground Immune
+			Variant: Chilled Ground Immune
+			Implicits: 0
+			{version:2}{variant:2}{group:1}20% increased maximum Energy Shield
+			{version:1}{variant:1}{group:1}10% increased maximum Life
+			{variant:3}{group:1}20% increased maximum Mana
+			{variant:4}{group:2}Damage cannot be Reflected
+			{variant:5}{group:2}You take 100% reduced Extra Damage from Critical Strikes
+			{variant:6}{group:2}Monsters cannot Suppress your Spells
+			{variant:7}{group:2}Elemental Resistances cannot be Penetrated
+			{variant:8}{group:2}Monsters cannot steal your Power, Frenzy or Endurance charges on Hit
+			{variant:9}{group:3}Unaffected by Burning Ground
+			{variant:10}{group:3}Unaffected by Shocked Ground
+			{variant:11}{group:3}Unaffected by Desecrated Ground
+			{variant:12}{group:3}Unaffected by Chilled Ground
+		]])
+		assert.are.same({ "Pre 3.28.0", "Current" }, item.versionList)
+		assert.are.equals(2, item.selectedVersion)
+		assert.are.equals(2, item.variantGroupSelections[1])
+		assert.are.equals(4, item.variantGroupSelections[2])
+		assert.are.equals(9, item.variantGroupSelections[3])
+		assert.are.same({ 2, 3 }, item:GetVariantGroupOptions(1, false))
+
+		item.variantGroupSelections[1] = 3
+		item.selectedVersion = 1
+		item:NormaliseVariantSelections()
+		assert.are.equals(3, item.variantGroupSelections[1])
+		assert.are.same({ 1, 3 }, item:GetVariantGroupOptions(1, false))
+
+		item.variantGroupSelections[1] = 2
+		item:NormaliseVariantSelections()
+		assert.are.equals(1, item.variantGroupSelections[1])
+		item:BuildAndParseRaw()
+		assert.matches("Selected Version: 1", item.raw, 1, true)
+		assert.matches("Selected Variant Group: 1=1", item.raw, 1, true)
+		assert.matches("{version:1}{variant:1}{group:1}", item.raw, 1, true)
+	end)
+
 	it("Talisman Tier", function()
 		local item = new("Item", raw("Talisman Tier: 3", "Rotfeather Talisman"))
 		assert.are.equals(3, item.talismanTier)
@@ -339,6 +394,11 @@ describe("TestItemParse", function()
 	it("tags", function()
 		local item = new("Item", raw("{tags:life,physical_damage}+8 to Strength"))
 		assert.are.same({ "life", "physical_damage" }, item.explicitModLines[1].modTags)
+	end)
+
+	it("ignores disabled modifiers in item conditions", function()
+		local item = new("Item", raw("{disabled}+100 to maximum Life"))
+		assert.is_false(item:FindModifierSubstring("life", "body armour"))
 	end)
 
 	it("variant", function()
@@ -927,6 +987,42 @@ describe("TestAdvancedItemParse #item", function()
 		assert.are.equals(1, #item.explicitModLines)
 	end)
 
+	it("preserves cluster jewel enchants from advanced copy", function()
+		newBuild()
+		runCallback("onFrame")
+		build.itemsTab:CreateDisplayItemFromRaw([[
+			Item Class: Jewels
+			Rarity: Rare
+			Fulgent Scar
+			Medium Cluster Jewel
+			--------
+			Intangibility: 5%
+			--------
+			Requirements:
+			Level: 54 (unmet)
+			--------
+			Item Level: 74
+			--------
+			Adds 4 Passive Skills (enchant)
+			1 Added Passive Skill is a Jewel Socket (enchant)
+			Added Small Passive Skills grant: 10% increased Damage while affected by a Herald (enchant)
+			--------
+			{ Prefix Modifier "Notable" (Tier: 1) — Damage }
+			1 Added Passive Skill is Endbringer
+			{ Prefix Modifier "Notable" (Tier: 1) — Damage }
+			1 Added Passive Skill is Empowered Envoy
+			{ Suffix Modifier "of the Newt" (Tier: 3) — Life }
+			Added Small Passive Skills also grant: Regenerate 0.1% of Life per Second
+			{ Suffix Modifier "of Joy" (Tier: 2) — Mana }
+			Added Small Passive Skills also grant: 5% increased Mana Regeneration Rate
+		]], true)
+
+		local item = build.itemsTab.displayItem
+		assert.are.equals("affliction_damage_while_you_have_a_herald", item.clusterJewelSkill)
+		assert.are.equals("affliction_damage_while_you_have_a_herald", item.jewelData.clusterJewelSkill)
+		assert.are.equals(4, item.clusterJewelNodeCount)
+	end)
+
 	describe("mod magnitude scaling", function()
 		before_each(function()
 			newBuild()
@@ -1009,6 +1105,18 @@ describe("TestAdvancedItemParse #item", function()
 			build.itemsTab:AddDisplayItem()
 			runCallback("OnFrame")
 			assert.are.equals(221, chaosDamageInc())
+		end)
+
+		it("does not apply disabled modifier magnitude", function()
+			local item = new("Item", [[
+			Rarity: UNIQUE
+			Magnitude Test
+			Plate Vest
+			Implicits: 1
+			{range:0.5}+(10-20) to maximum Life
+			{disabled}100% increased Implicit Modifier magnitudes
+		]])
+			assert.are.equals(1, item.implicitModLines[1].valueScalar)
 		end)
 
 		it("scales properly using old Eyes of the Greatwolf line", function()

@@ -12635,7 +12635,7 @@ return {
                 0
             },
             ["nodes"]= {
-                27602
+                "27602"
             }
         },
         [50933]= {
@@ -12645,7 +12645,7 @@ return {
                 0
             },
             ["nodes"]= {
-                57568
+                "57568"
             }
         },
         [25519]= {
@@ -12655,7 +12655,7 @@ return {
                 0
             },
             ["nodes"]= {
-                52435
+                "52435"
             }
         },
         [60495]= {
@@ -12665,7 +12665,7 @@ return {
                 0
             },
             ["nodes"]= {
-                19355
+                "19355"
             }
         },
         [63033]= {
@@ -12675,7 +12675,7 @@ return {
                 0
             },
             ["nodes"]= {
-                42469
+                "42469"
             }
         },
         [56600]= {
@@ -12685,7 +12685,7 @@ return {
                 0
             },
             ["nodes"]= {
-                18054
+                "18054"
             }
         },
         [37841]= {
@@ -12695,7 +12695,7 @@ return {
                 0
             },
             ["nodes"]= {
-                57331
+                "57331"
             }
         }
     },
@@ -12740,7 +12740,8 @@ return {
             ["isBloodline"]= true,
             ["stats"]= {
                 "All other Summoned Totems die when you Summon a Totem",
-                "Skills used by Totems have 5% more Area of Effect per maximum number of Summoned Totems",
+                "15% less Damage taken while you have a Totem",
+                "Skills used by Totems have 10% more Area of Effect per maximum number of Summoned Totems",
                 "Skills used by Totems deal 10% more Damage per maximum number of Summoned Totems",
                 "Totems have 5% more Life per maximum number of Summoned Totems"
             },
@@ -12759,7 +12760,9 @@ return {
             ["isNotable"]= true,
             ["ascendancyName"]= "Abyssal",
             ["isBloodline"]= true,
-            ["stats"]= {},
+            ["stats"]= {
+                "Triggers Level 20 Summon Bone Feeders when Allocated"
+            },
             ["group"]= 2,
             ["orbit"]= 0,
             ["orbitIndex"]= 0,
@@ -12997,7 +13000,14 @@ return {
             ["ascendancyName"]= "Abyssal",
             ["isBloodline"]= true,
             ["isMultipleChoiceOption"]= true,
-            ["stats"]= {},
+            ["stats"]= {
+                "While you have at least 3 Murderous Eye Jewels socketed:",
+                "Intimidate you inflict applies an extra +15% increased Attack Damage taken",
+                "Intimidate you inflict causes targets to deal 10% less Damage"
+            },
+            ["reminderText"]= {
+                "(Intimidated enemies take 10% increased Attack Damage)"
+            },
             ["group"]= 10,
             ["orbit"]= 0,
             ["orbitIndex"]= 0,
@@ -19259,7 +19269,7 @@ return {
                 {
                     ["effect"]= 4119,
                     ["stats"]= {
-                        "60% of Elemental Damage from your Hits cannot be Reflected"
+                        "Prevent +60% of Reflected Elemental Damage"
                     }
                 },
                 {
@@ -25479,7 +25489,7 @@ return {
                 {
                     ["effect"]= 62782,
                     ["stats"]= {
-                        "60% of Physical Damage from your Hits cannot be Reflected"
+                        "Prevent +60% of Reflected Physical Damage"
                     }
                 },
                 {
@@ -27189,7 +27199,7 @@ return {
                 {
                     ["effect"]= 19422,
                     ["stats"]= {
-                        "50% of Damage from your Hits cannot be Reflected"
+                        "Prevent +50% of Reflected Damage"
                     }
                 },
                 {
@@ -34837,7 +34847,7 @@ return {
                 {
                     ["effect"]= 4119,
                     ["stats"]= {
-                        "60% of Elemental Damage from your Hits cannot be Reflected"
+                        "Prevent +60% of Reflected Elemental Damage"
                     }
                 },
                 {
@@ -38048,7 +38058,7 @@ return {
                 {
                     ["effect"]= 19422,
                     ["stats"]= {
-                        "50% of Damage from your Hits cannot be Reflected"
+                        "Prevent +50% of Reflected Damage"
                     }
                 },
                 {
@@ -38490,7 +38500,7 @@ return {
                 {
                     ["effect"]= 19422,
                     ["stats"]= {
-                        "50% of Damage from your Hits cannot be Reflected"
+                        "Prevent +50% of Reflected Damage"
                     }
                 },
                 {
@@ -38868,7 +38878,7 @@ return {
                 {
                     ["effect"]= 19422,
                     ["stats"]= {
-                        "50% of Damage from your Hits cannot be Reflected"
+                        "Prevent +50% of Reflected Damage"
                     }
                 },
                 {
@@ -39712,7 +39722,7 @@ return {
                 {
                     ["effect"]= 62782,
                     ["stats"]= {
-                        "60% of Physical Damage from your Hits cannot be Reflected"
+                        "Prevent +60% of Reflected Physical Damage"
                     }
                 },
                 {
@@ -44559,7 +44569,7 @@ return {
                 {
                     ["effect"]= 62782,
                     ["stats"]= {
-                        "60% of Physical Damage from your Hits cannot be Reflected"
+                        "Prevent +60% of Reflected Physical Damage"
                     }
                 },
                 {
@@ -46368,7 +46378,7 @@ return {
                 {
                     ["effect"]= 4119,
                     ["stats"]= {
-                        "60% of Elemental Damage from your Hits cannot be Reflected"
+                        "Prevent +60% of Reflected Elemental Damage"
                     }
                 },
                 {
@@ -65235,7 +65245,7 @@ return {
                 {
                     ["effect"]= 19422,
                     ["stats"]= {
-                        "50% of Damage from your Hits cannot be Reflected"
+                        "Prevent +50% of Reflected Damage"
                     }
                 },
                 {
@@ -65612,7 +65622,7 @@ return {
                 {
                     ["effect"]= 19422,
                     ["stats"]= {
-                        "50% of Damage from your Hits cannot be Reflected"
+                        "Prevent +50% of Reflected Damage"
                     }
                 },
                 {
@@ -70335,7 +70345,7 @@ return {
                 {
                     ["effect"]= 4119,
                     ["stats"]= {
-                        "60% of Elemental Damage from your Hits cannot be Reflected"
+                        "Prevent +60% of Reflected Elemental Damage"
                     }
                 },
                 {
@@ -75679,7 +75689,7 @@ return {
                 {
                     ["effect"]= 62782,
                     ["stats"]= {
-                        "60% of Physical Damage from your Hits cannot be Reflected"
+                        "Prevent +60% of Reflected Physical Damage"
                     }
                 },
                 {
@@ -76080,7 +76090,7 @@ return {
                 {
                     ["effect"]= 4119,
                     ["stats"]= {
-                        "60% of Elemental Damage from your Hits cannot be Reflected"
+                        "Prevent +60% of Reflected Elemental Damage"
                     }
                 },
                 {
@@ -76830,7 +76840,7 @@ return {
                 {
                     ["effect"]= 4119,
                     ["stats"]= {
-                        "60% of Elemental Damage from your Hits cannot be Reflected"
+                        "Prevent +60% of Reflected Elemental Damage"
                     }
                 },
                 {
@@ -78485,7 +78495,7 @@ return {
                 {
                     ["effect"]= 62782,
                     ["stats"]= {
-                        "60% of Physical Damage from your Hits cannot be Reflected"
+                        "Prevent +60% of Reflected Physical Damage"
                     }
                 },
                 {

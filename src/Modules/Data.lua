@@ -166,6 +166,7 @@ data.powerStatList = {
 	{ stat="IgniteChance", label="Ignite Chance" },
 	{ stat="ShockChance", label="Shock Chance" },
 	{ stat="EffectiveMovementSpeedMod", label="Move speed" },
+	{ stat="LightRadiusMod", label="Light Radius" },
 	{ stat="BlockChance", label="Block Chance" },
 	{ stat="SpellBlockChance", label="Spell Block Chance" },
 	{ stat="SpellSuppressionChance", label="Spell Suppression Chance" },
@@ -212,6 +213,7 @@ local minionNonApplicableStats = {
 	Int = true,
 	Spirit = true,
 	EffectiveLootRarityMod = true,
+	LightRadiusMod = true,
 }
 for i = 1, #data.powerStatList do
 	local statEntry = data.powerStatList[i]
@@ -292,6 +294,7 @@ data.misc = { -- magic numbers
 	PvpElemental2 = 150,
 	PvpNonElemental1 = 0.57,
 	PvpNonElemental2 = 90,
+	MatchingSocketQualityBonus = 10,
 }
 
 data.skillColorMap = { colorCodes.STRENGTH, colorCodes.DEXTERITY, colorCodes.INTELLIGENCE, colorCodes.NORMAL }
@@ -888,6 +891,11 @@ data.timelessJewelTypes = {
 	[4] = "Militant Faith",
 	[5] = "Elegant Hubris",
 	[6] = "Heroic Tragedy",
+	[7] = "Abyss Tecrod",
+	[8] = "Abyss Ulaman",
+	[9] = "Abyss Kurgal",
+	[10] = "Abyss Amanamu",
+	[11] = "Abyss Zorath",
 }
 data.timelessJewelSeedMin = {
 	[1] = 100,
@@ -918,8 +926,10 @@ data.timelessJewelSeedMax = {
 data.timelessJewelTradeIDs = LoadModule("Data/TimelessJewelData/LegionTradeIds")
 data.timelessJewelAdditions = 337 -- #legionAdditions
 data.nodeIDList = LoadModule("Data/TimelessJewelData/NodeIndexMapping")
+data.abyssNotableNames = LoadModule("Data/TimelessJewelData/AbyssNotableNames")
 data.timelessJewelLUTs = { }
 data.readLUT, data.repairLUTs = LoadModule("Modules/DataLegionLookUpTableHelper")
+data.readAbyssJewelLUT, data.resolveAbyssJewelComponent, data.getAbyssJewelComponentRoll = LoadModule("Modules/DataAbyssJewelLookUpTableHelper")
 
 -- this runs if the "size" key is missing from nodeIDList and attempts to rebuild all jewel LUTs and the nodeIDList
 -- note this should only run in dev mode
@@ -1224,6 +1234,37 @@ data.minionTagCrucibleUniques = {
 	["United in Dream"] = true,
 }
 
+local crimsonStormMods = {}
+for modId, mod in pairs(data.veiledMods) do
+	if mod.affix == "of the Order" then
+		crimsonStormMods[modId] = mod
+	end
+end
+
+---@class RareLikeUniqueDescription
+---@field affixes table<string, table>
+---@field validBases table[]? Bases used to check modifier spawn tags instead of the item's base
+---@field prefixLimit integer
+---@field suffixLimit integer
+---@field ignoreModType boolean?
+---@field allowDuplicateGroups boolean?
+---@type table<string, RareLikeUniqueDescription>
+-- Uniques which use the existing rare item crafting controls.
+data.rareLikeUniques = {
+	["subsume the source"] = {
+		validBases = data.itemBaseLists["Jewel: Abyss"],
+		affixes = data.itemMods.JewelAbyss,
+		prefixLimit = 4,
+		suffixLimit = 0,
+		ignoreModType = true,
+		allowDuplicateGroups = true,
+	},
+	["the crimson storm"] = {
+		affixes = crimsonStormMods,
+		prefixLimit = 0,
+		suffixLimit = 1,
+	}
+}
 -- Uniques (loaded after version-specific data because reasons)
 data.uniques = { }
 for _, type in pairs(itemTypes) do
