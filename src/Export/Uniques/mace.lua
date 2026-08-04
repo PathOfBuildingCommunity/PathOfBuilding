@@ -513,6 +513,18 @@ ZombiesCoverInAshOnHitUnique__1
 ZombiesHaveAvatarOfFireUnique__1
 ZombiesTakeFireDamagePerSecondUnique__1_
 ]],[[
+Replica Maata's Teaching
+Karui Sceptre
+Variant: Pre 3.25.0
+Variant: Current
+Requires Level 56, 96 Str, 96 Int
+Implicits: 1
+ElementalDamagePercentImplicitSceptreNew17
+IntelligenceUnique__33
+LocalIncreasedAttackSpeedUnique__46
+MinionMovementSpeedUnique_2
+MinionsUseMainHandBaseAttackDurationUnique__1
+]],[[
 Maata's Teaching
 Karui Sceptre
 Variant: Pre 3.25.0
