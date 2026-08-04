@@ -91,7 +91,7 @@ local influenceInfo = itemLib.influenceInfo.all
 local ItemClass = newClass("Item", function(self, raw, rarity, highQuality)
 	if raw then
 		self:ParseRaw(sanitiseText(raw), rarity, highQuality)
-	end	
+	end
 end)
 
 -- Reset all influence keys to false
@@ -494,6 +494,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 	self.requirements.int = 0
 	self.baseLines = { }
 	self.foulborn = false
+	self.vestigial = false
 	self.mutatedLines = nil
 	---@type RareLikeUniqueDescription?
 	self.rareLikeUnique = nil
@@ -506,7 +507,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 	local linePrefix = ""
 	local linePostfix = ""
 
-	while self.rawLines[l] do	
+	while self.rawLines[l] do
 		local line = self.rawLines[l]
 		if line == "Veiled Prefix" or line == "Veiled Suffix" then
 			self.veiled = true
@@ -823,8 +824,6 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					self.catalystQuality = specToNumber(specVal)
 				elseif specName == "Intangibility" then
 					self.intangibility = specToNumber(specVal)
-				elseif specName == "Memory Strands" then
-					-- ignored
 				elseif specName == "Note" then
 					self.note = specVal
 				elseif specName == "Str" or specName == "Strength" or specName == "Dex" or specName == "Dexterity" or
@@ -924,6 +923,9 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 				if modLine.enchant then
 					modLine.crafted = true
 					modLine.implicit = true
+				end
+				if modLine.vestigial then
+					self.vestigial = true
 				end
 
 				local baseName
@@ -1433,7 +1435,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 	end
 	self.affixLimit = 0
 	if self.crafted then
-		if not self.affixes then 
+		if not self.affixes then
 			self.crafted = false
 		elseif self.rarity == "MAGIC" then
 			if self.prefixes.limit or self.suffixes.limit then
@@ -1646,7 +1648,7 @@ function ItemClass:NormaliseQuality()
 		elseif not self.uniqueID and not self.corrupted and not self.split and not self.mirrored and self.quality < 20 then
 			self.quality = 20
 		end
-	end	
+	end
 end
 
 function ItemClass:GetModSpawnWeight(mod, includeTags, excludeTags, baseTags)
@@ -2059,7 +2061,7 @@ function ItemClass:Craft()
 						end
 						t_insert(self.explicitModLines, modLine)
 						statOrder[order] = modLine
-					end	
+					end
 				end
 			end
 		end
@@ -2461,7 +2463,7 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 				or ((jewelData.clusterJewelSkill or jewelData.clusterJewelSmallsAreNothingness) and jewelData.clusterJewelNodeCount) 
 				or (jewelData.clusterJewelSocketCountOverride and jewelData.clusterJewelNothingnessCount)
 		end
-	end	
+	end
 	return { unpack(modList) }
 end
 
@@ -2595,7 +2597,7 @@ function ItemClass:BuildModList()
 		-- Force the socket count to be equal to the stated number
 		self.selectableSocketCount = socketCount
 		local group = 0
-		for i = 1, m_max(socketCount, #self.sockets) do 
+		for i = 1, m_max(socketCount, #self.sockets) do
 			if i > socketCount then
 				self.sockets[i] = nil
 			elseif not self.sockets[i] then

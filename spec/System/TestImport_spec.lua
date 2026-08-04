@@ -78,6 +78,7 @@ describe("TestImport", function()
 			typeLine = "Rawhide Gloves",
 			inventoryId = "Gloves",
 			ilvl = 10,
+			vestigial = true,
 			properties = { },
 			implicitMods = {
 				{ description = "+20 to maximum Life" },
@@ -86,6 +87,7 @@ describe("TestImport", function()
 				{ description = "+10 to maximum Life", flags = { crafted = true } },
 				{ description = "+11 to maximum Mana", flags = { fractured = true } },
 				{ description = "+12 to Strength", flags = { mutated = true } },
+				{ description = "+13 to Dexterity", flags = { vestigial = true } },
 			},
 		})
 
@@ -100,6 +102,9 @@ describe("TestImport", function()
 		assert.is_true(explicitMods["+10 to maximum Life"].crafted)
 		assert.is_true(explicitMods["+11 to maximum Mana"].fractured)
 		assert.is_true(explicitMods["+12 to Strength"].mutated)
+		assert.is_true(item.vestigial)
+		assert.is_true(explicitMods["+13 to Dexterity"].vestigial)
+		assert.is_truthy(item:BuildRaw():find("{vestigial}", 1, true))
 	end)
 
 	function importAndReimportWithOldJewel(shouldDelete)

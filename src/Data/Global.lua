@@ -61,6 +61,7 @@ colorCodes = {
 	SPLITPERSONALITY = "^xFFD62A",
 	VESTIGIAL = "^xCBA5F1",
 	INTANGIBILITY = "^x9BF4BD",
+	MEMORY = "^xBFE2FA",
 }
 colorCodes.STRENGTH = colorCodes.MARAUDER
 colorCodes.DEXTERITY = colorCodes.RANGER
@@ -351,7 +352,7 @@ SkillType = {
 	Pact = 135,
 }
 
-GlobalCache = { 
+GlobalCache = {
 	cachedData = { MAIN = {}, CALCS = {}, CALCULATOR = {} },
 }
 

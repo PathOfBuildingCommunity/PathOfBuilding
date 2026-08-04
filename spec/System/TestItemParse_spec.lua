@@ -981,6 +981,8 @@ describe("TestAdvancedItemParse #item", function()
 
 		assert.are.equals(70, item.memoryStrands)
 		assert.are.equals(1, #item.explicitModLines)
+		local _, memoryStrandsCount = item:BuildRaw():gsub("Memory Strands:", "")
+		assert.are.equals(1, memoryStrandsCount)
 
 		item:BuildAndParseRaw()
 		assert.are.equals(70, item.memoryStrands)
