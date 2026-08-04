@@ -67,7 +67,7 @@ The easiest way to make and test changes is by setting up a development installa
        cd PathOfBuilding
 
 3. Start Path of Building from the repository by running `./runtime/Path{space}of{space}Building.exe`.
-   * <ins>Note for Linux users:</ins> The executable files should automatically have the correct permissions when cloned fresh. If you still encounter permission issues, run once: `chmod +x ./runtime/Path{space}of{space}Building-PoE2.exe`
+   * <ins>Note for Linux users:</ins> The executable files should automatically have the correct permissions when cloned fresh. If you still encounter permission issues, run once: `chmod +x ./runtime/Path{space}of{space}Building.exe`
 You can now use the shortcut to run the program from the repository. Running the program in this manner automatically enables "Dev Mode", which has some handy debugging feature:
 * `F5` restarts the program in-place (this is what usually happens when an update is applied).
 * `Ctrl` + `~` toggles the console (Note that this does not work with all keyboard layouts. US layout is a safe bet though).
@@ -209,6 +209,9 @@ If you're using linux you can run the ./runtime/Path{space}of{space}Building.exe
 # winepath -w ~/.vscode/extensions/tangzx.emmylua-0.8.20-linux-x64/debugger/emmy/windows/x64/
 Z:\home\dev\.vscode\extensions\tangzx.emmylua-0.8.20-linux-x64\debugger\emmy\windows\x64\
 ```
+
+See [docs/crossPlatform.md](docs/crossPlatform.md) for how platform support is
+structured and what native Linux/macOS support requires.
 
 ## Testing
 
