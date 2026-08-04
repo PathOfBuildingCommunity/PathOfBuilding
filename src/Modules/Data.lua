@@ -159,6 +159,13 @@ data.powerStatList = {
 	{ stat="ManaCost", label="Mana Cost Efficiency", transform=function(value) return -value end },
 	{ stat="Ward", label="Ward" },
 	{ stat="MaximumRage", label="Maximum Rage" },
+	{ stat="FlaskEffect", label="Flask Effect" },
+	{ stat="FlaskDuration", label="Flask Effect Duration" },
+	{ stat="FlaskRecoveryRate", label="Flask Recovery Rate" },
+	{ stat="FlaskLifeRecovery", label="Flask Life Recovery" },
+	{ stat="FlaskManaRecovery", label="Flask Mana Recovery" },
+	{ stat="FlaskChargesGained", label="Flask Charges Gained" },
+	{ stat="FlaskChargesUsed", label="Flask Charges Used", transform=function(value) return -value end },
 	{ stat="Str", label="Strength" },
 	{ stat="Dex", label="Dexterity" },
 	{ stat="Int", label="Intelligence" },
@@ -252,7 +259,14 @@ local minionNonApplicableStats = {
 	Spirit = true,
 	EffectiveLootRarityMod = true,
 	LightRadiusMod = true,
-	TotalCost = true,
+	-- flask stats are only ever written to the player's output
+	FlaskEffect = true,
+	FlaskDuration = true,
+	FlaskRecoveryRate = true,
+	FlaskLifeRecovery = true,
+	FlaskManaRecovery = true,
+	FlaskChargesGained = true,
+	FlaskChargesUsed = true,
 }
 for i = 1, #data.powerStatList do
 	local statEntry = data.powerStatList[i]

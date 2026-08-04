@@ -1574,8 +1574,11 @@ function calcs.perform(env, skipEHP)
 	local flaskTotalRateInc = modDB:Sum("INC", nil, "FlaskRecoveryRate")
 	local flaskDurInc = modDB:Sum("INC", nil, "FlaskDuration")
 
-	-- flask breakdown
-	if breakdown then
+	-- flask stats
+	-- These are plain modifier aggregates rather than per-flask outcomes, so they are calculated
+	-- unconditionally: node power runs the calculator without a breakdown, and would otherwise
+	-- read every one of them as zero.
+	do
 		local chargesGenerated = modDB:Sum("BASE", nil, "FlaskChargesGenerated")
 		local usedFlasks = 0
 		for i, v in pairs(env.flasks) do
@@ -1591,6 +1594,12 @@ function calcs.perform(env, skipEHP)
 		local manaChargesGenerated = modDB:Sum("BASE", nil, "ManaFlaskChargesGenerated")
 
 		output.FlaskEffect = effectInc
+		output.FlaskDuration = flaskDurInc
+		output.FlaskRecoveryRate = flaskTotalRateInc
+		output.FlaskChargesUsed = modDB:Sum("INC", nil, "FlaskChargesUsed")
+		output.FlaskChargesGained = modDB:Sum("INC", nil, "FlaskChargesGained")
+		output.FlaskLifeRecovery = modDB:Sum("INC", nil, "FlaskLifeRecovery")
+		output.FlaskManaRecovery = modDB:Sum("INC", nil, "FlaskManaRecovery")
 		output.FlaskChargeGen = totalChargesGenerated
 		output.LifeFlaskChargeGen = totalChargesGenerated + lifeChargesGenerated
 		output.ManaFlaskChargeGen = totalChargesGenerated + manaChargesGenerated
