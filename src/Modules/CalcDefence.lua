@@ -608,6 +608,7 @@ function calcs.resistances(actor)
 		
 
 		output[elem.."Resist"] = final
+		output[elem.."ResistMax"] = max
 		output[elem.."ResistTotal"] = total
 		output[elem.."ResistOverCap"] = m_max(0, total - max)
 		output[elem.."ResistOver75"] = m_max(0, final - 75)
