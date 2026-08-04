@@ -1055,13 +1055,21 @@ describe("TestTriggers", function()
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
 
+		build.itemsTab:CreateDisplayItemFromRaw("Test Shield\nSplintered Tower Shield")
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
+
 		build.skillsTab:PasteSocketGroup("Arc 20/0  1\nSpellslinger 20/0  1\n")
 		runCallback("OnFrame")
 
 		build.skillsTab:PasteSocketGroup("Kinetic Blast 20/0  1\n")
 		runCallback("OnFrame")
 
+		build.skillsTab:PasteSocketGroup("Shield Charge 20/0  1\nFaster Attacks 20/0  1\n")
+		runCallback("OnFrame")
+
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
+		assert.are.equals("Spellslinger's Trigger: Kinetic Blast", build.calcsTab.mainEnv.player.mainSkill.infoMessage)
 	end)
 
 	it("Trigger Mark On Hit", function()
