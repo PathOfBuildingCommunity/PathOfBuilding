@@ -642,6 +642,13 @@ function calcs.offence(env, actor, activeSkill)
 			skillModList:NewMod("Damage", mod.type, mod.value, mod.source, bor(ModFlag.Bow, ModFlag.Hit), mod.keywordFlags, unpack(mod))
 		end
 	end
+	if skillModList:Flag(nil, "EvasionAppliesToSpellDamage") then
+		-- The Unblinking Eye evasion rating to spell damage conversion
+		for i, value in ipairs(skillModList:Tabulate("INC", { }, "Evasion")) do
+			local mod = value.mod
+			skillModList:NewMod("Damage", mod.type, mod.value, mod.source, ModFlag.Spell, mod.keywordFlags, unpack(mod))
+		end
+	end
 	if skillModList:Flag(nil, "ClawDamageAppliesToUnarmed") then
 		-- Claw Damage conversion from Rigwald's Curse
 		for i, value in ipairs(skillModList:Tabulate("INC", { flags = bor(ModFlag.Claw, ModFlag.Hit), keywordFlags = KeywordFlag.Hit }, "Damage")) do

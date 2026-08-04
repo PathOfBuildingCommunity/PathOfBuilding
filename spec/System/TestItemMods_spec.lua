@@ -7,6 +7,43 @@ describe("TetsItemMods", function()
 		-- newBuild() takes care of resetting everything in setup()
 	end)
 
+	it("shows versioned reusable variant groups", function()
+		build.itemsTab:CreateDisplayItemFromRaw([[
+			Rarity: Unique
+			Grouped Test Item
+			Plate Vest
+			Version: Pre 3.28.0
+			Version: Current
+			Variant: Life
+			Variant: Energy Shield
+			Variant: Mana
+			Variant: Armour
+			Implicits: 0
+			{version:1}{variant:1}{group:1,2}+10 to maximum Life
+			{version:2}{variant:2}{group:1,2}+10 to maximum Energy Shield
+			{variant:3}{group:1,2}+10 to maximum Mana
+			{variant:4}{group:1,2}+10 to Armour
+			]])
+
+		local versionControl = build.itemsTab.controls.displayItemVersion
+		local group1 = build.itemsTab.controls.displayItemVariant
+		local group2 = build.itemsTab.controls.displayItemAltVariant
+		assert.is_true(versionControl:IsShown())
+		assert.are.equals(2, versionControl.selIndex)
+		assert.are.equals("Energy Shield", group1.list[1].label)
+		assert.are.equals("Mana", group2.list[1].label)
+
+		group2:SetSel(2)
+		group1:SetSel(2)
+		assert.are.equals(3, build.itemsTab.displayItem.variantGroupSelections[1])
+		versionControl:SetSel(1)
+		assert.are.equals(3, build.itemsTab.displayItem.variantGroupSelections[1])
+		assert.are.equals("Life", group1.list[1].label)
+		assert.are.equals("Mana", group1.list[2].label)
+		assert.are.equals("Life", group2.list[1].label)
+		assert.are.equals("Armour", group2.list[2].label)
+	end)
+
 	it("Dialla's socket mods", function()
 		build.skillsTab:PasteSocketGroup("Slot: Body Armour\nArc 20/0  1\nArc 20/0  1\n")
 		runCallback("OnFrame")

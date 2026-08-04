@@ -143,6 +143,20 @@ local skills, mod, flag, skill = ...
 #baseMod skill("stackCount", 1, { type = "Multiplier", var = "SpiderWebApplyStack", limitVar = "SpiderWebApplyStackMax" })
 #mods
 
+#skill BarnacleSnap
+#flags attack area shieldAttack
+	fromItem = true,
+	statMap = {
+		["barnacle_snap_base_activate_rate_ms"] = {
+			skill("hitTimeOverride", nil),
+			div = 1000,
+		},
+		["spider_aspect_max_web_count"] = {
+			mod("Multiplier:SpiderWebApplyStackMax", "BASE", nil),
+		},
+	},
+#mods
+
 #skill SolartwineBlindingNova
 #flags spell area
 	fromItem = true,
@@ -301,6 +315,21 @@ local skills, mod, flag, skill = ...
 
 #skill SupportUniqueCosprisMaliceColdSpellsCastOnMeleeCriticalStrike Cospri's Malice
 	fromItem = true,
+#mods
+
+#skill SupportCrabTotem Crab Totem
+	fromItem = true,
+	addFlags = {
+		totem = true,
+	},
+	statMap = {
+		["support_crab_totem_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+		["support_crab_totem_cast_speed_+%_final"] = {
+			mod("Speed", "MORE", nil, ModFlag.Cast),
+		},
+	},
 #mods
 
 #skill TriggeredSummonLesserShrine
@@ -483,6 +512,11 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("radius", 40)
+#mods
+
+#skill BloodShrineUniqueTriggeredExplodingToad
+#flags hit area
+	fromItem = true,
 #mods
 
 #skill FireAegis

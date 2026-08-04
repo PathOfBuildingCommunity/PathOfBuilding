@@ -83,6 +83,19 @@ IncreasedEnergyShieldPercentUniqueOneHandSword2
 {variant:4,5}WeaponAddedLightningDamagePerEnergyShieldUnique__1[20,20]
 {variant:6}WeaponAddedLightningDamagePerEnergyShieldUnique__1
 ]],[[
+Fleshrender
+Exquisite Blade
+League: Mirage
+Source: No longer obtainable
+Implicits: 1
+CriticalMultiplierImplicitSword3
+LocalIncreasedPhysicalDamagePercentUnique__54
+GlobalDamageOverTimeMultiplierUnique__1
+LocalCriticalStrikeChanceUnique__25
+CannotPoisonEnemiesWithNumPoisonsUnique__1
+LocalApplyAdditionalPoisonUnique__1
+WitherOnHitEnemiesWithNumPoisonsUnique__1
+]],[[
 The Goddess Scorned
 Elegant Sword
 Source: Vendor Recipe
@@ -402,6 +415,21 @@ LocalIncreasedPhysicalDamagePercentUnique__27
 LocalAddedLightningDamageUnique__5
 SpellAddedLightningDamageUnique__4
 AreaOfEffectUnique__3
+]],[[
+Skysunder
+Exquisite Blade
+League: Mirage
+Source: No longer obtainable
+Implicits: 1
+CriticalMultiplierImplicitSword3
+LocalIncreasedPhysicalDamagePercentUnique__55
+GlobalDamageOverTimeMultiplierUnique__2
+LocalCriticalStrikeChanceUnique__26
+ConvertPhysicalToFireUnique__4
+IgnitesReflectedToSelfUnique__1
+IgniteDurationEmberglowUnique__1
+LocalIgniteProlifEmberglowUnique__1
+UnaffectedByIgniteUnique__1
 ]],[[
 The Surging Thoughts
 Legion Sword

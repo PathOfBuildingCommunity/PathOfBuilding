@@ -1153,6 +1153,17 @@ Implicits: 0
 50% reduced maximum Mana
 Gain a Power Charge for each Enemy you hit with a Critical Strike
 {variant:2}Inner Conviction
+]],[[
+Waxen Soul
+Saint's Hauberk
+League: Ritual
+(10-20)% increased maximum Life
++(17-29)% to Chaos Resistance
+Curse Skills cost Life instead of Mana
+Curse Aura Skills reserve Life instead of Mana
+Gain a random Blood Shrine buff every 10 seconds
+2% increased Effect of Shrine Buffs on you for each 5% of Life Reserved
+10% chance to Trigger Explosive Toad when you kill an Enemy
 ]],
 -- Body: Evasion/Energy Shield
 [[

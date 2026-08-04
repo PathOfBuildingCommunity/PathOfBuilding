@@ -396,6 +396,19 @@ AreaOfEffectPer25RampageStacksUnique__1_
 FrenzyChargePer50RampageStacksUnique__1
 SimulatedRampageDexInt6
 ]],[[
+Spinesnatch
+Fleshripper
+League: Allflame
+Source: Drops from unique{Zorath}
+Requires Level 70, 156 Str, 84 Dex
+Implicits: 1
+LocalCriticalStrikeChanceImplicitMarakethTwoHandAxe2
+AbyssJewelSocketUnique__19
+LocalAttackSpeedPercentPerSocketedSearchingUnique__1
+LocalCriticalChancePercentPerSocketedHypnoticUnique__1
+LocalPhysicalDamagePercentPerSocketedMurderousUnique__1
+MinionImpaleChancePerSocketedGhastlyUnique__1
+]],[[
 Uul-Netol's Kiss
 {variant:1}Labrys
 {variant:2}Vaal Axe
