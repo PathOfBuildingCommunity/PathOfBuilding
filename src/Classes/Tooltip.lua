@@ -614,7 +614,7 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 					end
 					if not self._bgHandles[bg] then
 						local h = NewImageHandle()
-						h:Load("Assets/" .. bg .. ".png")
+						h:Load(bg)
 						self._bgHandles[bg] = h
 					end
 					bg = self._bgHandles[bg]

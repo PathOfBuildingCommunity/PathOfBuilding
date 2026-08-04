@@ -4478,23 +4478,18 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode, maxWidth)
 		tooltip:AddLine(fontSizeBig, "^x7F7F7FSockets: "..line, "FONTIN SC")
 	end
 
-	if item.memoryStrands then
-		tooltip:AddLine(fontSizeBig, colorCodes.CRAFTED.."Memory Strands: ^7"..item.memoryStrands, "FONTIN SC")
-		tooltip:AddSeparator(10)
-	end
-
 	if item.talismanTier then
 		tooltip:AddLine(fontSizeBig, "^x7F7F7FTalisman Tier ^xFFFFFF"..item.talismanTier, "FONTIN SC")
 		tooltip:AddSeparator(10)
 	end
 	if item.memoryStrands then
 		if main.showFlavourText then tooltip:AddLine(5, "") end
-		tooltip:AddLine(fontSizeBig, colorCodes.MEMORY .. s_format("Memory Strands: ^7%d", item.memoryStrands), "FONTIN SC", nil, "MemoryBG")
+		tooltip:AddLine(fontSizeBig, colorCodes.MEMORY .. s_format("Memory Strands: ^7%d", item.memoryStrands), "FONTIN SC", nil, "Assets/memorybg.png")
 		if main.showFlavourText then tooltip:AddLine(5, "") end
 	end
 	if item.intangibility then
 		if main.showFlavourText then tooltip:AddLine(5, "") end
-		tooltip:AddLine(fontSizeBig, colorCodes.INTANGIBILITY .. s_format("Intangibility: ^7%d%%", item.intangibility), "FONTIN SC", nil, "IntangibilityBG")
+		tooltip:AddLine(fontSizeBig, colorCodes.INTANGIBILITY .. s_format("Intangibility: ^7%d%%", item.intangibility), "FONTIN SC", nil, "Assets/intangibilitybg.png")
 		if main.showFlavourText then tooltip:AddLine(5, "") end
 	end
 	tooltip:AddSeparator(10)

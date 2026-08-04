@@ -305,7 +305,6 @@ local function addOAuthControls(self)
 						self.oauthErrCode = "Could not import character"
 					end
 				end
-
 				self.oauthLoading = false
 			end)
 		end)
@@ -1635,6 +1634,7 @@ function ImportTabClass:ImportItem(itemData, slotName, ignoreWeaponSwap, itemSet
 	item.corrupted = itemData.corrupted
 	item.fractured = itemData.fractured
 	item.synthesised = itemData.synthesised
+	item.vestigial = itemData.vestigial
 	if itemData.sockets and itemData.sockets[1] then
 		item.sockets = { }
 		for i, socket in pairs(itemData.sockets) do
@@ -1686,9 +1686,10 @@ function ImportTabClass:ImportItem(itemData, slotName, ignoreWeaponSwap, itemSet
 	if itemData.implicitMods then
 		for _, itemMod in ipairs(itemData.implicitMods) do
 			local modLine = itemMod.description or itemMod
+			local flags = itemMod.flags or itemMod
 			for line in modLine:gmatch("[^\n]+") do
 				local modList, extra = modLib.parseMod(line)
-				t_insert(item.implicitModLines, { line = line, extra = extra, mods = modList or { } })
+				t_insert(item.implicitModLines, { line = line, extra = extra, mods = modList or { }, vestigial = flags.vestigial })
 			end
 		end
 	end
@@ -1710,7 +1711,8 @@ function ImportTabClass:ImportItem(itemData, slotName, ignoreWeaponSwap, itemSet
 				t_insert(item.explicitModLines, { line = line, extra = extra, mods = modList or { },
 					fractured = flags.fractured,
 					crafted = flags.crafted,
-					mutated = flags.mutated })
+					mutated = flags.mutated,
+					vestigial = flags.vestigial })
 			end
 		end
 	end
