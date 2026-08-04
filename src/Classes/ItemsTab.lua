@@ -644,7 +644,7 @@ holding Shift will put it in the second.]])
 		{ stat = nil, label = "Default" }
 	}
 	for _, option in ipairs(data.powerStatList) do
-		if not option.ignoreForItems and label ~= "Name" then
+		if not option.ignoreForItems and option.label ~= "Name" then
 			table.insert(sortingOptions, option)
 		end
 	end
@@ -912,7 +912,7 @@ holding Shift will put it in the second.]])
 					if value.modId or #modList == 1 then
 						mod = self.displayItem.affixes[value.modId or modList[1]]
 					else
-						mod = self.displayItem.affixes[modList[1 + round((#modList - 1) * main.defaultItemAffixQuality)]]
+						mod = self.displayItem.affixes[modList[1 + round((#modList - 1) * (main.defaultItemAffixQuality or 0.5))]]
 					end
 					
 					-- Adding Mod
@@ -2104,15 +2104,16 @@ function ItemsTabClass:UpdateAffixControls()
 	local item = self.displayItem
 	local prefixLimit = item.prefixes.limit or (item.affixLimit / 2)
 	local ignoreModType = item.rareLikeUnique and item.rareLikeUnique.ignoreModType
+	local powerCache = {}
 	for i = 1, item.affixLimit do
 		if i <= prefixLimit then
 			local modType = "Prefix"
 			if ignoreModType then
 				modType = nil
 			end
-			self:UpdateAffixControl(self.controls["displayItemAffix" .. i], item, modType, "prefixes", i)
+			self:UpdateAffixControl(self.controls["displayItemAffix" .. i], item, modType, "prefixes", i, powerCache)
 		else
-			self:UpdateAffixControl(self.controls["displayItemAffix"..i], item, "Suffix", "suffixes", i - prefixLimit)
+			self:UpdateAffixControl(self.controls["displayItemAffix" .. i], item, "Suffix", "suffixes", i - prefixLimit, powerCache)
 		end
 	end	
 	-- The custom affixes may have had their indexes changed, so the custom control UI is also rebuilt so that it will
@@ -2120,7 +2121,7 @@ function ItemsTabClass:UpdateAffixControls()
 	self:UpdateCustomControls()
 end
 
-function ItemsTabClass:UpdateAffixControl(control, item, affixType, outputTable, outputIndex)
+function ItemsTabClass:UpdateAffixControl(control, item, affixType, outputTable, outputIndex, powerCache)
 	local extraTags = { }
 	local excludeGroups = { }
 	local allowDuplicateGroups = item.rareLikeUnique and item.rareLikeUnique.allowDuplicateGroups
@@ -2224,52 +2225,51 @@ function ItemsTabClass:UpdateAffixControl(control, item, affixType, outputTable,
 				return modList[1 + round((#modList - 1) * main.defaultItemAffixQuality)]
 			end
 		end
-		---@type table<string, number>
-		-- returns power for a given mod id
-		local powerOutputs = setmetatable({}, {
-			__index = function(t, k)
-				local mod = testSubject.affixes[k]
-
-				local modCount = #mod
-				-- magnitude scaling happens during item parsing, which means we
-				-- can't use the faster path where items don't need to be
-				-- re-parsed. note that this wouldn't be correct if we were
-				-- adding a mod magnitude mod here, but currently all mod
-				-- magnitude mods are custom modifiers and so this works
-				local power
-				if (#testSubject.modMagnitudeMods > 0) or (testSubject.catalyst and testSubject.catalyst > 0) then
-					local originalItem = testSubject:BuildRaw()
-					for _, subMod in ipairs(mod) do
-						local modLine = { line = subMod, modTags = mod.modTags, [mod.type] = true }
-						t_insert(testSubject.explicitModLines, modLine)
-					end
-					testSubject:BuildAndParseRaw()
-					power = data.powerStatList.GetFromOutput(
-						calcFunc({ repSlotName = slotName, repItem = testSubject }),
-						sortOption
-					)
-					testSubject = new("Item", originalItem)
-				else
-					for _, line in ipairs(mod) do
-						local rangedLine = itemLib.applyRange(line, main.defaultItemAffixQuality or 0.5, 1, 1)
-						local modList, extra = modLib.parseMod(rangedLine)
-						local modLine = { line = line, modList = modList, extra = extra, modTags = mod.modTags, [mod.type] = true }
-						t_insert(testSubject.explicitModLines, modLine)
-					end
-
-					testSubject:BuildModList()
-					power = data.powerStatList.GetFromOutput(
-						calcFunc({ repSlotName = slotName, repItem = testSubject }),
-						sortOption
-					)
-					for _ = 1, modCount do
-						t_remove(testSubject.explicitModLines, #testSubject.explicitModLines)
-					end
-				end
-				t[k] = power
-				return power
+		local function getPower(modId)
+			if powerCache[modId] then
+				return powerCache[modId]
 			end
-		})
+			local mod = testSubject.affixes[modId]
+
+			local modCount = #mod
+			-- magnitude scaling happens during item parsing, which means we
+			-- can't use the faster path where items don't need to be
+			-- re-parsed. note that this wouldn't be correct if we were
+			-- adding a mod magnitude mod here, but currently all mod
+			-- magnitude mods are custom modifiers and so this works
+			local power
+			if (#testSubject.modMagnitudeMods > 0) or (testSubject.catalyst and testSubject.catalyst > 0) then
+				local originalItem = testSubject:BuildRaw()
+				for _, subMod in ipairs(mod) do
+					local modLine = { line = subMod, modTags = mod.modTags, [mod.type] = true }
+					t_insert(testSubject.explicitModLines, modLine)
+				end
+				testSubject:BuildAndParseRaw()
+				power = data.powerStatList.GetFromOutput(
+					calcFunc({ repSlotName = slotName, repItem = testSubject }),
+					sortOption
+				)
+				testSubject = new("Item", originalItem)
+			else
+				for _, line in ipairs(mod) do
+					local rangedLine = itemLib.applyRange(line, main.defaultItemAffixQuality or 0.5, 1, 1)
+					local modList, extra = modLib.parseMod(rangedLine)
+					local modLine = { line = line, modList = modList, extra = extra, modTags = mod.modTags, [mod.type] = true }
+					t_insert(testSubject.explicitModLines, modLine)
+				end
+
+				testSubject:BuildModList()
+				power = data.powerStatList.GetFromOutput(
+					calcFunc({ repSlotName = slotName, repItem = testSubject }),
+					sortOption
+				)
+				for _ = 1, modCount do
+					t_remove(testSubject.explicitModLines, #testSubject.explicitModLines)
+				end
+			end
+			powerCache[modId] = power
+			return power
+		end
 		table.sort(control.list, function(a, b)
 			-- keep "None" as the first option
 			if not a.modList then
@@ -2281,7 +2281,7 @@ function ItemsTabClass:UpdateAffixControl(control, item, affixType, outputTable,
 			local modIdA = pickModifierFromList(a.modList)
 			local modIdB = pickModifierFromList(b.modList)
 
-			return powerOutputs[modIdA] > powerOutputs[modIdB]
+			return getPower(modIdA) > getPower(modIdB)
 		end)
 	end
 	local function findSelectedIdx()
@@ -2298,6 +2298,7 @@ function ItemsTabClass:UpdateAffixControl(control, item, affixType, outputTable,
 				end
 			end
 		end
+		return 1
 	end
 	control.selIndex = findSelectedIdx()
 	if control.list[control.selIndex].haveRange then
