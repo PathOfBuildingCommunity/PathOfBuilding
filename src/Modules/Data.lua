@@ -1316,7 +1316,6 @@ end
 ---@field affixes table[] Table of rare modifiers (affixes) which might spawn on the item
 ---@field affixLimits RareLikeAffixLimits
 ---@field ignorePrefixSuffix boolean?
----@field baseExplicits string[] An array of mod ID strings. These should describe the unique explicits which are always present on the item, and thus are contained in ItemExclusive.
 ---@type table<string, RareLikeUniqueDescription>
 -- data describing uniques which can contain rare modifiers. these may also
 -- ignore prefix/suffix logic
@@ -1330,9 +1329,6 @@ data.rareLikeUniques = {
 		},
 		ignorePrefixSuffix = true,
 		allowsDuplicates = true,
-		baseExplicits = { "LocalExplicitModEffectUnique__1",
-			"ConsumeAbyssJewelUnique__1",
-			"LocalCannotHaveNonAbyssSocketsUnique__1" },
 	},
 	["the crimson storm"] = {
 		validBases = { base = { tags = { unveiled_mod = true } } },
@@ -1341,12 +1337,6 @@ data.rareLikeUniques = {
 			affixLimit = 1,
 			prefixLimit = 0,
 		},
-		baseExplicits = { "LocalIncreasedPhysicalDamagePercentUnique__36_",
-			"LocalCriticalStrikeChanceUnique__15",
-			"BleedOnCritUnique__1_",
-			"EnemiesYouBleedGrantIncreasedFlaskChargesUnique__1_",
-			"AddedPhysicalDamageVsBleedingEnemiesUnique__1",
-			"MaimOnCritUnique__1" },
 	}
 }
 -- Uniques (loaded after version-specific data because reasons)
