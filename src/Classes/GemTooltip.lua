@@ -137,12 +137,25 @@ local function addCommonGemInfo(tooltip, build, gemInstance, grantedEffect, addL
 					grantedEffectLevel.damageEffectiveness * 100), "FONTIN SC")
 		end
 	end
-	if addReq and displayInstance.quality > 0 then
-		tooltip:AddLine(fontSizeBig, string.format("^x7F7F7FQuality: " .. colorCodes.MAGIC .. "+%d%%^7%s",
-			gemInstance.quality,
-			(displayInstance.quality > gemInstance.quality) and
-			" (" .. colorCodes.MAGIC .. "+" .. (displayInstance.quality - gemInstance.quality) .. "^7)" or ""
-		), "FONTIN SC")
+	if addReq then
+		if gemInstance.quality > 0 then
+			tooltip:AddLine(fontSizeBig, string.format("^x7F7F7FQuality: +%s%d%%", colorCodes.MAGIC, gemInstance.quality), "FONTIN SC")
+		end
+		local function formatQuality(number, suffix)
+			return colorCodes.MAGIC .. string.format("+%d%% Quality from %s", number, suffix)
+		end
+		if (displayInstance.itemQuality or 0) > 0 then
+			tooltip:AddLine(fontSizeBig, formatQuality(displayInstance.itemQuality, "Item"), "FONTIN SC")
+		end
+		if (displayInstance.supportQuality or 0) > 0 then
+			tooltip:AddLine(fontSizeBig, formatQuality(displayInstance.supportQuality, "Support"), "FONTIN SC")
+		end
+		if (displayInstance.globalQuality or 0) > 0 then
+			tooltip:AddLine(fontSizeBig, formatQuality(displayInstance.globalQuality, "Global Modifiers"), "FONTIN SC")
+		end
+		if (displayInstance.socketQuality or 0) > 0 then
+			tooltip:AddLine(fontSizeBig, formatQuality(displayInstance.socketQuality, "Socket Colour"), "FONTIN SC")
+		end
 	end
 	tooltip:AddSeparator(10)
 	if addReq then

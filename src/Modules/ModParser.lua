@@ -3083,6 +3083,7 @@ local specialModList = {
 	["drop brine ground while moving, lasting 4 seconds"] = { flag("CanCreateBrineGround"), },
 	-- Item local modifiers
 	["has no sockets"] = { flag("NoSockets") },
+	["gems socketed always have the quality bonus from socket colour"] = { flag("SocketAlwaysMatches") },
 	["cannot have non%-abyssal sockets"] = { flag("NoSockets") },
 	["socketed %a+ abyssal jewels will be consumed"] = {
 		-- Display only Subsume The Source sockets removed by "NoSockets"

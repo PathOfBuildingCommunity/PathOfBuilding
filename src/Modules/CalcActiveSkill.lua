@@ -532,9 +532,18 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 	-- Apply gem/quality modifiers from support gems
 	skillModList:NewMod("GemLevel", "BASE", activeSkill.activeEffect.srcInstance and activeSkill.activeEffect.srcInstance.level or activeSkill.activeEffect.level, "Max Level")
 	skillModList:NewMod("GemQuality", "BASE", activeSkill.activeEffect.srcInstance and activeSkill.activeEffect.srcInstance.quality or activeSkill.activeEffect.quality, "Max Quality")
+	-- matching socket bonus
+	local socketMatches = activeSkill.activeEffect.srcInstance and activeSkill.activeEffect.srcInstance.matchesSocket or activeSkill.activeEffect.matchesSocket
+	if socketMatches then
+		skillModList:NewMod("GemSocketQuality", "BASE", data.misc.MatchingSocketQualityBonus, "Socket Quality")
+	end
 	for _, supportProperty in ipairs(skillModList:Tabulate("LIST", activeSkill.skillCfg, "SupportedGemProperty")) do
 		local value = supportProperty.value
 		if value.keyword == "grants_active_skill" and activeSkill.activeEffect.gemData and not activeSkill.activeEffect.gemData.tags.support  then
+			-- save quality increases for use in tooltips
+			if value.key == "quality" then
+				activeEffect.supportQuality = (activeEffect.supportQuality or 0) + value.value
+			end
 			activeEffect[value.key] = activeEffect[value.key] + value.value
 			skillModList:NewMod("GemSupport".. value.key:gsub("^%l", string.upper), "BASE", value.value, supportProperty.mod.source, #supportProperty.mod > 0 and supportProperty.mod[1] or nil)
 		end
