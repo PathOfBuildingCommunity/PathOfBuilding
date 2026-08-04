@@ -1352,7 +1352,44 @@ function ConfigTabClass:OpenAddModPopup(blockData)
 		end
 	end
 
-	table.sort(allModsList)
+	local modTemplateCache = { }
+	local function getModTemplate(modText)
+		if not modTemplateCache[modText] then
+			modTemplateCache[modText] = modText
+				:gsub("([%+-]?)%((%-?%d+%.?%d*)%-(%-?%d+%.?%d*)%)", "%1#")
+				:gsub("%d+%.?%d*", "#")
+				:lower()
+		end
+		return modTemplateCache[modText]
+	end
+	local function sortByModTemplate(a, b)
+		local aTemplate = getModTemplate(a)
+		local bTemplate = getModTemplate(b)
+		if aTemplate ~= bTemplate then
+			return aTemplate < bTemplate
+		end
+		local aLower = a:lower()
+		local bLower = b:lower()
+		if aLower ~= bLower then
+			return aLower < bLower
+		end
+		return a < b
+	end
+
+	table.sort(allModsList, sortByModTemplate)
+
+	-- Collapse affix tiers that only differ by their numeric values. The list is
+	-- sorted first so the retained representative is deterministic.
+	wipeTable(seen)
+	local deduplicatedModsList = { }
+	for _, modText in ipairs(allModsList) do
+		local modTemplate = getModTemplate(modText)
+		if not seen[modTemplate] then
+			seen[modTemplate] = true
+			t_insert(deduplicatedModsList, modText)
+		end
+	end
+	allModsList = deduplicatedModsList
 
 	local displayList = { }
 	local controls = { }
@@ -1416,7 +1453,7 @@ function ConfigTabClass:OpenAddModPopup(blockData)
 				if a.rank ~= b.rank then
 					return a.rank < b.rank
 				end
-				return a.text < b.text
+				return sortByModTemplate(a.text, b.text)
 			end)
 			for _, match in ipairs(matches) do
 				t_insert(displayList, match.text)
@@ -1433,7 +1470,7 @@ function ConfigTabClass:OpenAddModPopup(blockData)
 		end
 	end
 
-	controls.listControl = new("ListControl", {"TOPLEFT", nil, "TOPLEFT"}, {10, 20, 580, 184}, 16, "VERTICAL", false, displayList)
+	controls.listControl = new("ListControl", {"TOPLEFT", nil, "TOPLEFT"}, {10, 20, 700, 454}, 16, "VERTICAL", false, displayList)
 	controls.listControl.font = "VAR"
 	controls.listControl.hasFocus = true
 	controls.listControl.GetRowValue = function(self, column, index, value)
@@ -1452,23 +1489,23 @@ function ConfigTabClass:OpenAddModPopup(blockData)
 		end
 	end
 	controls.listControl.OnSelClick = function(self, index, value, doubleClick)
-		if main.SelectControl then
-			main:SelectControl(self)
-		end
 		self:SelectIndex(index)
 		if doubleClick and controls.save:IsEnabled() then
 			controls.save.onClick()
 		end
 	end
 
-	controls.searchLabel = new("LabelControl", {"TOPRIGHT", nil, "TOPLEFT"}, {65, 212, 0, 16}, "^7Search:")
-	controls.search = new("EditControl", {"TOPLEFT", nil, "TOPLEFT"}, {70, 212, 520, 18}, "", nil, "%c", 100, function()
+	controls.searchLabel = new("LabelControl", {"TOPRIGHT", nil, "TOPLEFT"}, {65, 482, 0, 16}, "^7Search:")
+	controls.search = new("EditControl", {"TOPLEFT", nil, "TOPLEFT"}, {70, 482, 640, 18}, "", nil, "%c", 100, function()
 		updateDisplayList()
-	end)
+	end, nil, nil, true)
+	controls.search.controls.buttonClear.shown = function()
+		return #controls.search.buf > 0
+	end
 
 	updateDisplayList()
 
-	controls.save = new("ButtonControl", nil, {-45, 242, 80, 20}, "Add", function()
+	controls.save = new("ButtonControl", nil, {-45, 512, 80, 20}, "Add", function()
 		local selIndex = controls.listControl.selIndex or 1
 		local selected = displayList[selIndex]
 		if selected and selected ~= "No matching modifiers found" then
@@ -1490,9 +1527,9 @@ function ConfigTabClass:OpenAddModPopup(blockData)
 		return selected ~= nil and selected ~= "No matching modifiers found"
 	end
 
-	controls.close = new("ButtonControl", nil, {45, 242, 80, 20}, "Cancel", function()
+	controls.close = new("ButtonControl", nil, {45, 512, 80, 20}, "Cancel", function()
 		main:ClosePopup()
 	end)
 
-	main:OpenPopup(600, 270, "Mod Browser", controls, "save", nil, "close")
+	main:OpenPopup(720, 540, "Mod Browser", controls, "save", nil, "close")
 end
