@@ -626,7 +626,7 @@ holding Shift will put it in the second.]])
 	self.controls.displayItemSectionQuality = new("Control", {"TOPLEFT",self.controls.displayItemSectionInfluence,"BOTTOMLEFT"}, {0, 0, 0, function()
 		return (self.controls.displayItemQuality:IsShown() and self.controls.displayItemQualityEdit:IsShown()) and 28 or 0
 	end})
-	self.controls.displayItemQuality = new("LabelControl", {"TOPLEFT",self.controls.displayItemSectionQuality,"TOPRIGHT"}, {-4, 0, 0, 16}, "^7Quality:")
+	self.controls.displayItemQuality = new("LabelControl", { "TOPLEFT", self.controls.displayItemSectionQuality, "TOPRIGHT" }, { 0, 0, 0, 16 }, "^7Quality:")
 	self.controls.displayItemQuality.shown = function()
 		return self.displayItem and self.displayItem.quality and (self.displayItem.base.type ~= "Amulet" or self.displayItem.base.type ~= "Belt" or self.displayItem.base.type ~= "Jewel" or self.displayItem.base.type ~= "Quiver" or self.displayItem.base.type ~= "Ring" or self.displayItem.type ~= "Graft")
 	end
@@ -640,6 +640,14 @@ holding Shift will put it in the second.]])
 		return self.displayItem and self.displayItem.quality and (self.displayItem.base.type ~= "Amulet" or self.displayItem.base.type ~= "Belt" or self.displayItem.base.type ~= "Jewel" or self.displayItem.base.type ~= "Quiver" or self.displayItem.base.type ~= "Ring" or self.displayItem.type ~= "Graft")
 	end
 
+	local sortingOptions = {
+		{ stat = nil, label = "Default" }
+	}
+	for _, option in ipairs(data.powerStatList) do
+		if not option.ignoreForItems and label ~= "Name" then
+			table.insert(sortingOptions, option)
+		end
+	end
 	-- Section: Catalysts
 	self.controls.displayItemSectionCatalyst = new("Control", {"TOPLEFT",self.controls.displayItemSectionQuality,"BOTTOMLEFT"}, {0, 0, 0, function()
 		return (self.controls.displayItemCatalyst:IsShown() or self.controls.displayItemCatalystQualityEdit:IsShown()) and 28 or 0
@@ -703,9 +711,16 @@ holding Shift will put it in the second.]])
 		self:CraftClusterJewel()
 	end)
 
+	self.controls.craftingSortingLabel = new("LabelControl", { "TOPLEFT", self.controls.displayItemSectionClusterJewel, "BOTTOMLEFT" }, { 0, 0, 0, 16 }, "^7Modifier sorting:")
+	self.controls.craftingSorting = new("DropDownControl", { "LEFT", self.controls.craftingSortingLabel, "RIGHT" }, { 4, 0, 120, 20 }, sortingOptions, function()
+		self:UpdateAffixControls()
+	end)
+	self.controls.craftingSorting.shown = function()
+		return self.displayItem and self.displayItem.crafted
+	end
 	-- Section: Affix Selection
 	local maxModCount = 9
-	self.controls.displayItemSectionAffix = new("Control", {"TOPLEFT",self.controls.displayItemSectionClusterJewel,"BOTTOMLEFT"}, {0, 0, 0, function()
+	self.controls.displayItemSectionAffix = new("Control", { "TOPLEFT", self.controls.craftingSortingLabel, "BOTTOMLEFT" }, { 0, 8, 0, function()
 		if not self.displayItem or not self.displayItem.crafted then
 			return 0
 		end
@@ -720,6 +735,7 @@ holding Shift will put it in the second.]])
 		end
 		return h
 	end})
+
 	for i = 1, maxModCount do
 		local prev = self.controls["displayItemAffix"..(i-1)] or self.controls.displayItemSectionAffix
 		local drop, slider
@@ -2159,50 +2175,122 @@ function ItemsTabClass:UpdateAffixControl(control, item, affixType, outputTable,
 	control.slider.shown = false
 	control.slider.val = main.defaultItemAffixQuality or 0.5
 	local selAffix = item[outputTable][outputIndex].modId
-	if (item.type == "Jewel" and item.base.subType ~= "Abyss") then
-		for i, modId in pairs(affixList) do
-			local mod = item.affixes[modId]
-			if selAffix == modId then
-				control.selIndex = i + 1
-			end
+	local lastSeries
+	-- combine runs of modifiers to one group, which will only take up one row
+	-- in the list
+	for _, modId in ipairs(affixList) do
+		local mod = item.affixes[modId]
+		if not lastSeries or not tableDeepEquals(lastSeries.statOrder, mod.statOrder) then
 			local modString = table.concat(mod, "/")
-			local label = modString
-			if retainedAffixes[modId] then
-				label = "^8[Retained] " .. modString
-			elseif item.type == "Flask" then
-				label = mod.affix .. "   ^8[" .. modString .. "]"
-			end
-			control.list[i + 1] = {
-				label = label,
-				modList = { modId },
-				modId = modId,
+			lastSeries = {
+				label = modString,
+				modList = {},
 				haveRange = modString:match("%(%-?[%d%.]+%-%-?[%d%.]+%)"),
+				statOrder = mod.statOrder,
 			}
+			t_insert(control.list, lastSeries)
 		end
-	else
-		local lastSeries
-		for _, modId in ipairs(affixList) do
-			local mod = item.affixes[modId]
-			if not lastSeries or not tableDeepEquals(lastSeries.statOrder, mod.statOrder) then
-				local modString = table.concat(mod, "/")
-				lastSeries = {
-					label = modString,
-					modList = { },
-					haveRange = modString:match("%(%-?[%d%.]+%-%-?[%d%.]+%)"),
-					statOrder = mod.statOrder,
-				}
-				t_insert(control.list, lastSeries)
+		-- cluster jewel mods retained after changing the cluster type
+		if retainedAffixes[modId] then
+			lastSeries.label = "^8[Retained] " .. lastSeries.label
+		end
+		t_insert(lastSeries.modList, modId)
+		if #lastSeries.modList == 2 then
+			lastSeries.label = lastSeries.label:gsub("%(%-?[%d%.]+%-%-?[%d%.]+%)", "#"):gsub("%-?%d+%.?%d*", "#")
+			lastSeries.haveRange = true
+		end
+	end
+
+	local sortOption = self.controls.craftingSorting:GetSelValue()
+	-- sort modifier groups by power
+	if sortOption.label ~= "Default" then
+		local calcFunc = self.build.calcsTab:GetMiscCalculator()
+		local slotName = self.displayItem:GetPrimarySlot()
+		local testSubject = new("Item", self.displayItem:BuildRaw())
+		local function pickModifierFromList(modList)
+			-- pick mid tier modifier from a group
+			if #modList == 1 then
+				return modList[1]
+			else
+				return modList[1 + round((#modList - 1) * main.defaultItemAffixQuality)]
 			end
-			if selAffix == modId then
-				control.selIndex = #control.list
+		end
+		---@type table<string, number>
+		-- returns power for a given mod id
+		local powerOutputs = setmetatable({}, {
+			__index = function(t, k)
+				local mod = testSubject.affixes[k]
+
+				local modCount = #mod
+				-- magnitude scaling happens during item parsing, which means we
+				-- can't use the faster path where items don't need to be
+				-- re-parsed. note that this wouldn't be correct if we were
+				-- adding a mod magnitude mod here, but currently all mod
+				-- magnitude mods are custom modifiers and so this works
+				local power
+				if (#testSubject.modMagnitudeMods > 0) or (testSubject.catalyst and testSubject.catalyst > 0) then
+					local originalItem = testSubject:BuildRaw()
+					for _, subMod in ipairs(mod) do
+						local modLine = { line = subMod, modTags = mod.modTags, [mod.type] = true }
+						t_insert(testSubject.explicitModLines, modLine)
+					end
+					testSubject:BuildAndParseRaw()
+					power = data.powerStatList.GetFromOutput(
+						calcFunc({ repSlotName = slotName, repItem = testSubject }),
+						sortOption
+					)
+					testSubject = new("Item", originalItem)
+				else
+					for _, line in ipairs(mod) do
+						local rangedLine = itemLib.applyRange(line, main.defaultItemAffixQuality or 0.5, 1, 1)
+						local modList, extra = modLib.parseMod(rangedLine)
+						local modLine = { line = line, modList = modList, extra = extra, modTags = mod.modTags, [mod.type] = true }
+						t_insert(testSubject.explicitModLines, modLine)
+					end
+
+					testSubject:BuildModList()
+					power = data.powerStatList.GetFromOutput(
+						calcFunc({ repSlotName = slotName, repItem = testSubject }),
+						sortOption
+					)
+					for _ = 1, modCount do
+						t_remove(testSubject.explicitModLines, #testSubject.explicitModLines)
+					end
+				end
+				t[k] = power
+				return power
 			end
-			t_insert(lastSeries.modList, modId)
-			if #lastSeries.modList == 2 then
-				lastSeries.label = lastSeries.label:gsub("%(%-?[%d%.]+%-%-?[%d%.]+%)","#"):gsub("%-?%d+%.?%d*","#")
-				lastSeries.haveRange = true
+		})
+		table.sort(control.list, function(a, b)
+			-- keep "None" as the first option
+			if not a.modList then
+				return true
+			elseif not b.modList then
+				return false
+			end
+
+			local modIdA = pickModifierFromList(a.modList)
+			local modIdB = pickModifierFromList(b.modList)
+
+			return powerOutputs[modIdA] > powerOutputs[modIdB]
+		end)
+	end
+	local function findSelectedIdx()
+		for i, entry in ipairs(control.list) do
+			if entry.modList then
+				for _, modId in ipairs(entry.modList) do
+					if selAffix == modId then
+						return i
+					end
+				end
+			else
+				if selAffix == entry then
+					return i
+				end
 			end
 		end
 	end
+	control.selIndex = findSelectedIdx()
 	if control.list[control.selIndex].haveRange then
 		control.slider.divCount = #control.list[control.selIndex].modList
 		local index = isValueInArray(control.list[control.selIndex].modList, selAffix)
