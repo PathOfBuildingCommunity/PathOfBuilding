@@ -245,6 +245,8 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 			return
 		end
 
+		self.build.itemsTab:AddUndoState()
+
 		-- save count of abyssal sockets
 		local abyssalSocketCount = 0
 		for _, socket in ipairs(item.sockets) do
@@ -277,6 +279,7 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 		end
 		item:BuildAndParseRaw()
 		self:UpdateSocketGroups()
+		self.build.buildFlag = true
 	end)
 	self.controls.optimiseSockets.shown = function()
 		local item = getSelectedItem()
@@ -1207,10 +1210,13 @@ end
 function SkillsTabClass:UpdateSocketGroups()
 	local slotSocketedCounts = {}
 	for _, socketGroup in ipairs(self.socketGroupList) do
+		-- Clear stale matches when a group is no longer assigned to an item.
+		for _, gemInstance in ipairs(socketGroup.gemList) do
+			gemInstance.matchesSocket = false
+		end
 		if socketGroup.slot then
 			local gemOffset = (slotSocketedCounts[socketGroup.slot] or 0)
 			for i, gemInstance in ipairs(socketGroup.gemList) do
-				gemInstance.matchesSocket = false
 				-- add quality for matching sockets by looking up linked item
 				if (gemInstance.grantedEffect or gemInstance.gemData) then
 					local grantedEffect = gemInstance.grantedEffect or gemInstance.gemData.grantedEffect
