@@ -1201,8 +1201,8 @@ local configTable = {
 		return {triggerName = "Spellslinger",
 				triggerOnUse = true,
 				triggerSkillCond = function(env, skill)
-					local isWandAttack = (not skill.weaponTypes or (skill.weaponTypes and skill.weaponTypes["Wand"])) and skill.skillTypes[SkillType.Attack]
-					return isWandAttack and not skill.skillData.triggeredBySpellSlinger
+					local isWandProjectileAttack = skill.skillTypes[SkillType.Attack] and skill.skillTypes[SkillType.Projectile] and band(skill.skillCfg.flags, ModFlag.Wand) > 0
+					return isWandProjectileAttack and not skill.skillData.triggeredBySpellSlinger
 				end}
 	end,
 	["call to arms"] = function(env) -- This is for backwards compatibility only
