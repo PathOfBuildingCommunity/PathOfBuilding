@@ -365,29 +365,49 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 
 	-- Load legion sprite sheets and build sprite map
 	local legionSprites = LoadModule("TreeData/legion/tree-legion.lua")
-	for type, data in pairs(legionSprites) do
-		local maxZoom = data[#data]
-		local sheet = spriteSheets[maxZoom.filename]
+	local function loadLegionSheet(data)
+		local sheet = spriteSheets[data.filename]
 		if not sheet then
 			sheet = { }
 			sheet.handle = NewImageHandle()
-			sheet.handle:Load("TreeData/legion/"..maxZoom.filename)
+			sheet.handle:Load("TreeData/legion/"..data.filename)
 			sheet.width, sheet.height = sheet.handle:ImageSize()
-			spriteSheets[maxZoom.filename] = sheet
+			spriteSheets[data.filename] = sheet
 		end
-		for name, coords in pairs(maxZoom.coords) do
-			if not self.spriteMap[name] then
-				self.spriteMap[name] = { }
-			end
-			self.spriteMap[name][type] = {
+		return sheet
+	end
+	for _, data in ipairs(legionSprites.treeAssets or { }) do
+		local sheet = loadLegionSheet(data)
+		for name, coords in pairs(data.coords) do
+			self.assets[name] = {
 				handle = sheet.handle,
 				width = coords.w,
 				height = coords.h,
 				[1] = coords.x / sheet.width,
 				[2] = coords.y / sheet.height,
 				[3] = (coords.x + coords.w) / sheet.width,
-				[4] = (coords.y + coords.h) / sheet.height
+				[4] = (coords.y + coords.h) / sheet.height,
 			}
+		end
+	end
+	for type, data in pairs(legionSprites) do
+		if type ~= "treeAssets" then
+			local maxZoom = data[#data]
+			local sheet = loadLegionSheet(maxZoom)
+			for name, coords in pairs(maxZoom.coords) do
+				if not self.spriteMap[name] then
+					self.spriteMap[name] = { }
+				end
+				self.spriteMap[name][type] = {
+					handle = sheet.handle,
+					width = coords.w,
+					height = coords.h,
+					[1] = coords.x / sheet.width,
+					[2] = coords.y / sheet.height,
+					[3] = (coords.x + coords.w) / sheet.width,
+					[4] = (coords.y + coords.h) / sheet.height
+				}
+			end
 		end
 	end
 
@@ -673,6 +693,14 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			if node.type == "Normal" then
 				node.modList:NewMod("Condition:ConnectedTo"..class.name.."Start", "FLAG", true, "Tree:"..nodeId)
 			end
+		end
+	end
+
+	-- The game only gives these notables numbered names. Use the manual name for
+	-- their first stat, or show the full stat description when no name exists yet.
+	for _, addition in pairs(self.legion.additions) do
+		if addition.id:match("^abyss_.+_notable_%d+$") and addition.dn:match("^Notable %d+$") then
+			addition.dn = data.abyssNotableNames[addition.sortedStats[1]] or addition.sd[1]
 		end
 	end
 

@@ -61,4 +61,9 @@ return {
 			[3] = "explicit.pseudo_timeless_jewel_medved"
 		}
 	},
+	[7] = { keystone = { [1] = "explicit.pseudo_timeless_jewel_tecrod" } },
+	[8] = { keystone = { [1] = "explicit.pseudo_timeless_jewel_ulaman" } },
+	[9] = { keystone = { [1] = "explicit.pseudo_timeless_jewel_kurgal" } },
+	[10] = { keystone = { [1] = "explicit.pseudo_timeless_jewel_amanamu" } },
+	[11] = { keystone = { [1] = "explicit.pseudo_timeless_jewel_zorath" } },
 }

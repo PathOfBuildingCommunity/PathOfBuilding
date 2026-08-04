@@ -152,6 +152,19 @@ LocalIncreasedAttackSpeedUniqueStaff9
 FlammabilityOnBlockChanceUnique__1
 ReflectFireDamageOnBlockUnique__1___
 ]],[[
+The Broken Elegy
+Foul Staff
+League: Mirage
+Source: No longer obtainable
+LevelReq: 64
+Implicits: 1
+StaffBlockPercentImplicitStaff2
+CeaselessFleshGrantedSkillUnique__1
+MinionDamageUnique__9
+MinionDurationUnique__1
+FleshShieldOnMinionDeathUnique__1
+MinionPhysicalDamageAsChaosUnique__1
+]],[[
 Cane of Unravelling
 Ezomyte Staff
 Variant: Pre 3.5.0
@@ -174,6 +187,17 @@ LocalIncreaseSocketedChaosGemLevelUnique__1
 PowerChargeOnManaSpentUnique__1
 {variant:1,2,3,4}ManaRegeneratedPerSecondPerPowerChargeUnique__1[120,120]
 {variant:5}ManaRegeneratedPerSecondPerPowerChargeUnique__1
+]],[[
+The Crustacean's Call
+Primordial Staff
+League: Allflame
+Source: Drops from unique{Velka, the Tide Witch}
+StaffSpellBlockPercent3
+SupportedByCrabTotemSupportUnique__1
+TotemMovementVelocityUnique__1
+SpellDamageOnWeaponUniqueStaff38
+TotemDurationUniqueStaff38
+AdditionalTotemsUniqueStaff38
 ]],[[
 Disintegrator
 Maelstrom Staff
