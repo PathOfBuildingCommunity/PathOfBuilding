@@ -1473,6 +1473,8 @@ function ImportTabClass:ImportItemsAndSkills(charData, clearItems, clearSkills, 
 	self.build.itemsTab:PopulateSlots()
 	self.build.itemsTab:AddUndoState()
 	self.build.skillsTab:UpdateSocketGroups()
+	-- clear selection as the socket group reference is no longer in the build
+	self.build.skillsTab:SetDisplayGroup()
 	self.build.skillsTab:AddUndoState()
 	self.build.characterLevel = charData.level
 	self.build.configTab:UpdateLevel()
