@@ -482,6 +482,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 	local implicitLines = 0
 	self.variantList = nil
 	self.versionList = nil
+	self.allowDuplicateVariants = false
 	self.variantGroups = { }
 	self.variantGroupSelections = self.variantGroupSelections or { }
 	self.usesVariantGroups = false
@@ -565,7 +566,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 				local backupAffixList = { }
 				for modId, modData in pairs(self.affixes) do
 					if modData.affix == modName then
-						local ignoreModType = self.rareLikeUnique and self.rareLikeUnique.ignorePrefixSuffix
+						local ignoreModType = self.rareLikeUnique and self.rareLikeUnique.ignoreModType
 						if self:CanHaveMod(modData) then
 							if modData.type == "Prefix" or ignoreModType then
 								t_insert(self.pendingAffixList, { modId = modId, table = self.prefixes })
@@ -1005,9 +1006,11 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 						self.affixes = (self.base.subType and data.itemMods[self.base.type..self.base.subType])
 								or data.itemMods[self.base.type]
 								or data.itemMods.Item
-						if self.title and data.rareLikeUniques[self.title:lower()] then
+						if self.title then
 							self.rareLikeUnique = data.rareLikeUniques[self.title:lower()]
-							self.affixes = self.rareLikeUnique.affixes
+							if self.rareLikeUnique then
+								self.affixes = self.rareLikeUnique.affixes
+							end
 						end
 						if self.base.flask then
 							if self.base.utility_flask then
@@ -1448,9 +1451,9 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 				self.affixLimit = self.prefixes.limit + self.suffixes.limit
 			end
 		elseif self.rareLikeUnique then
-			self.affixLimit = self.rareLikeUnique.affixLimits.affixLimit
-			self.prefixes.limit = self.rareLikeUnique.affixLimits.prefixLimit
-			self.suffixes.limit = self.prefixes.limit and (self.affixLimit - self.prefixes.limit) or nil
+			self.prefixes.limit = self.rareLikeUnique.prefixLimit
+			self.suffixes.limit = self.rareLikeUnique.suffixLimit
+			self.affixLimit = self.prefixes.limit + self.suffixes.limit
 		else
 			self.crafted = false
 		end
@@ -1646,9 +1649,10 @@ function ItemClass:NormaliseQuality()
 	end	
 end
 
-function ItemClass:GetModSpawnWeight(mod, includeTags, excludeTags)
+function ItemClass:GetModSpawnWeight(mod, includeTags, excludeTags, baseTags)
 	local weight = 0
 	if self.base then
+		baseTags = baseTags or self.base.tags
 		local function HasInfluenceTag(key)
 			if self.base.influenceTags then
 				for _, curInfluenceInfo in ipairs(influenceInfo) do
@@ -1691,13 +1695,13 @@ function ItemClass:GetModSpawnWeight(mod, includeTags, excludeTags)
 		end
 
 		for i, key in ipairs(mod.weightKey) do
-			if (self.base.tags[key] or (includeTags and includeTags[key]) or HasInfluenceTag(key)) and not (excludeTags and excludeTags[key]) then
+			if (baseTags[key] or (includeTags and includeTags[key]) or HasInfluenceTag(key)) and not (excludeTags and excludeTags[key]) then
 				weight = (HasInfluenceTag(key) and HasMavenInfluence(mod.affix)) and 1000 or mod.weightVal[i]
 				break
 			end
 		end
 		for i, key in ipairs(mod.weightMultiplierKey or {}) do
-			if (self.base.tags[key] or (includeTags and includeTags[key]) or HasInfluenceTag(key)) and not (excludeTags and excludeTags[key]) then
+			if (baseTags[key] or (includeTags and includeTags[key]) or HasInfluenceTag(key)) and not (excludeTags and excludeTags[key]) then
 				weight = weight * mod.weightMultiplierVal[i] / 100
 				break
 			end
@@ -2021,8 +2025,7 @@ function ItemClass:Craft()
 	self.nameSuffix = ""
 	self.requirements.level = self.base.req.level
 	local statOrder = { }
-	local modLists = { self.prefixes, self.suffixes }
-	for _, list in ipairs(modLists) do
+	for _, list in ipairs({ self.prefixes, self.suffixes }) do
 		for i = 1, (list.limit or (self.affixLimit / 2)) do
 			local affix = list[i]
 			if not affix then
@@ -2646,8 +2649,9 @@ function ItemClass:BuildModList()
 	end
 end
 
-function ItemClass:CanHaveMod(mod)
-	local keyMap, includeTags = { }, { }
+function ItemClass:CanHaveMod(mod, includeTags)
+	local keyMap = { }
+	includeTags = includeTags or { }
 	for index, key in ipairs(mod.weightKey) do
 		keyMap[key] = index
 	end
@@ -2658,12 +2662,14 @@ function ItemClass:CanHaveMod(mod)
 	if data.minionTagCrucibleUniques[self.title] then
 		includeTags["minion_unique_weapon"] = true
 	end
-	if self.rareLikeUnique then
+	if self.rareLikeUnique and self.rareLikeUnique.validBases then
+		-- Some uniques use modifiers from another item type.
 		for _, base in ipairs(self.rareLikeUnique.validBases) do
-			if self:GetModSpawnWeight(mod, base.base.tags) > 0 then
+			if self:GetModSpawnWeight(mod, includeTags, nil, base.base.tags) > 0 then
 				return true
 			end
 		end
+		return false
 	end
 	if self.canHaveOnlySupportSkillsCrucibleTree then
 			return keyMap["crucible_unique_staff"] and mod.weightVal[keyMap["crucible_unique_staff"]] ~= 0

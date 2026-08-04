@@ -939,7 +939,7 @@ holding Shift will put it in the second.]])
 		drop.slider = slider
 		self.controls["displayItemAffix"..i] = drop
 		self.controls["displayItemAffixLabel"..i] = new("LabelControl", {"RIGHT",drop,"LEFT"}, {-4, 0, 0, 14}, function()
-			local ignoreModType = self.displayItem.rareLikeUnique and self.displayItem.rareLikeUnique.ignorePrefixSuffix
+			local ignoreModType = self.displayItem.rareLikeUnique and self.displayItem.rareLikeUnique.ignoreModType
 			return ignoreModType and "^7Explicit:"
 				or drop.outputTable == "prefixes" and "^7Prefix:"
 				or "^7Suffix:"
@@ -2078,7 +2078,7 @@ end
 function ItemsTabClass:UpdateAffixControls()
 	local item = self.displayItem
 	local prefixLimit = item.prefixes.limit or (item.affixLimit / 2)
-	local ignoreModType = item.rareLikeUnique and item.rareLikeUnique.ignorePrefixSuffix
+	local ignoreModType = item.rareLikeUnique and item.rareLikeUnique.ignoreModType
 	for i = 1, item.affixLimit do
 		if i <= prefixLimit then
 			local modType = "Prefix"
@@ -2098,13 +2098,13 @@ end
 function ItemsTabClass:UpdateAffixControl(control, item, affixType, outputTable, outputIndex)
 	local extraTags = { }
 	local excludeGroups = { }
+	local allowDuplicateGroups = item.rareLikeUnique and item.rareLikeUnique.allowDuplicateGroups
 	for _, table in ipairs({"prefixes","suffixes"}) do
 		for index = 1, (item[table].limit or (item.affixLimit / 2)) do
 			if index ~= outputIndex or table ~= outputTable then
 				local mod = item.affixes[item[table][index] and item[table][index].modId]
 				if mod then
-					local allowDuplicateAffixes = item.rareLikeUnique and item.rareLikeUnique.allowsDuplicates
-					if mod.group and not allowDuplicateAffixes then
+					if mod.group and not allowDuplicateGroups then
 						excludeGroups[mod.group] = true
 					end
 					if mod.tags then
@@ -2127,7 +2127,7 @@ function ItemsTabClass:UpdateAffixControl(control, item, affixType, outputTable,
 	local retainedAffixes = { }
 	for modId, mod in pairs(item.affixes) do
 		if (not affixType or (mod.type == affixType)) and not excludeGroups[mod.group] and not item:CheckIfModIsDelve(mod) then
-			if (item.rareLikeUnique and item:CanHaveMod(mod)) or item:GetModSpawnWeight(mod, extraTags) > 0 then
+			if item:CanHaveMod(mod, extraTags) then
 				t_insert(affixList, modId)
 			elseif modId == selAffix then
 				t_insert(affixList, modId)
@@ -4500,8 +4500,10 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode, maxWidth)
 				local variantCount = item:GetModLineVariantCount(modLine)
 				if variantCount > 0 then
 					local formattedModLine = itemLib.formatModLine(modLine, dbMode)
-					for _ = 1, variantCount do
-						tooltip:AddLine(fontSizeBig, formattedModLine, "FONTIN SC")
+					if formattedModLine then
+						for _ = 1, variantCount do
+							tooltip:AddLine(fontSizeBig, formattedModLine, "FONTIN SC", modLine)
+						end
 					end
 				end
 			end

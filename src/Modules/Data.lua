@@ -1148,79 +1148,13 @@ data.printMissingMinionSkills = function()
 	end
 end
 
----@class ItemBase
----@field type string # e.g. "Helmet", "Wand", "Body Armour", "Flask", "Jewel"
----@field subType? string # e.g. "Armour", "Evasion/Energy Shield", "Life", "Utility"
----@field socketLimit? integer # max sockets (weapons/armour only)
----@field hidden? boolean # excluded from the base-type selection lists
----@field cannotBeAnointed? boolean
----@field tags table<string, true> # e.g. { armour = true, helmet = true, str_armour = true }
----@field influenceTags? table<string, string> # influence -> mod tag, e.g. { shaper = "helmet_shaper" }
----@field implicit? string # implicit mod line(s), newline-separated
----@field implicitModTypes ModTypeList[] # per-implicit list of mod-type tags
----@field implicitIds? string[] # per-implicit GGG mod id
----@field enchant? string # enchant mod line(s)
----@field enchantModTypes? ModTypeList[]
----@field enchantIds? string[]
----@field flavourText? string
----@field req ItemBaseReq
----@field armour? ItemBaseArmour # present on armour bases
----@field weapon? ItemBaseWeapon # present on weapon bases
----@field flask? ItemBaseFlask # present on flask bases
----@field tincture? ItemBaseTincture # present on tincture bases
-
----@alias ModTypeList string[] # list of mod-type tags, e.g. { "caster_damage", "damage", "caster" }
-
----@class ItemBaseReq
----@field level? integer
----@field str? integer
----@field dex? integer
----@field int? integer
-
----@class ItemBaseArmour
----@field ArmourBaseMin? number
----@field ArmourBaseMax? number
----@field EvasionBaseMin? number
----@field EvasionBaseMax? number
----@field EnergyShieldBaseMin? number
----@field EnergyShieldBaseMax? number
----@field WardBaseMin? number
----@field WardBaseMax? number
----@field BlockChance? number # shields
----@field MovementPenalty? number
-
----@class ItemBaseWeapon
----@field PhysicalMin? number
----@field PhysicalMax? number
----@field CritChanceBase? number
----@field AttackRateBase? number
----@field Range? number
-
----@class ItemBaseFlask
----@field life? number
----@field mana? number
----@field duration? number
----@field chargesUsed? integer
----@field chargesMax? integer
----@field buff? string[] # utility-flask granted buff line(s)
-
----@class ItemBaseTincture
----@field manaBurn? number
----@field cooldown? number
-
----@type table<string, ItemBase>
+-- Item bases
 data.itemBases = { }
 for _, type in pairs(itemTypes) do
 	LoadModule("Data/Bases/"..type, data.itemBases)
 end
 
 -- Build lists of item bases, separated by type
----@class ItemBaseEntry
----@field label string
----@field name string
----@field base ItemBase
-
----@type table<string, ItemBaseEntry[]>
 data.itemBaseLists = { }
 for name, base in pairs(data.itemBases) do
 	if not base.hidden then
@@ -1307,36 +1241,28 @@ for modId, mod in pairs(data.veiledMods) do
 	end
 end
 
----@class RareLikeAffixLimits
----@field affixLimit integer Total number of possible affixes
----@field prefixLimit integer Total number of possible prefixes
-
 ---@class RareLikeUniqueDescription
----@field validBases ItemBaseEntry[] a list of bases which will have their tags compared to the given affixes
----@field affixes table[] Table of rare modifiers (affixes) which might spawn on the item
----@field affixLimits RareLikeAffixLimits
----@field ignorePrefixSuffix boolean?
+---@field affixes table<string, table>
+---@field validBases table[]? Bases used to check modifier spawn tags instead of the item's base
+---@field prefixLimit integer
+---@field suffixLimit integer
+---@field ignoreModType boolean?
+---@field allowDuplicateGroups boolean?
 ---@type table<string, RareLikeUniqueDescription>
--- data describing uniques which can contain rare modifiers. these may also
--- ignore prefix/suffix logic
+-- Uniques which use the existing rare item crafting controls.
 data.rareLikeUniques = {
 	["subsume the source"] = {
 		validBases = data.itemBaseLists["Jewel: Abyss"],
 		affixes = data.itemMods.JewelAbyss,
-		affixLimits = {
-			affixLimit = 4,
-			prefixLimit = 4,
-		},
-		ignorePrefixSuffix = true,
-		allowsDuplicates = true,
+		prefixLimit = 4,
+		suffixLimit = 0,
+		ignoreModType = true,
+		allowDuplicateGroups = true,
 	},
 	["the crimson storm"] = {
-		validBases = { base = { tags = { unveiled_mod = true } } },
 		affixes = crimsonStormMods,
-		affixLimits = {
-			affixLimit = 1,
-			prefixLimit = 0,
-		},
+		prefixLimit = 0,
+		suffixLimit = 1,
 	}
 }
 -- Uniques (loaded after version-specific data because reasons)

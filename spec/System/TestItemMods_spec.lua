@@ -717,6 +717,92 @@ describe("TetsItemMods", function()
 		assert.are.equals(10, build.calcsTab.calcsOutput.PhysicalLifeRecoup)
 		assert.are.equals(10, build.calcsTab.calcsOutput.PhysicalEnergyShieldRecoup)
 	end)
+
+	it("crafts modifiers from supported bases on rare-like uniques", function()
+		local item = new("Item", [[
+			Item Class: Helmets
+			Rarity: Unique
+			Subsume the Source
+			Faithful Helmet
+			--------
+			Item Level: 86
+			--------
+			{ Prefix Modifier "Hale" }
+			+23 to maximum Life
+			{ Unique Modifier }
+			120% increased Explicit Modifier magnitudes
+			{ Suffix Modifier "of Adaption" }
+			+7 to all Attributes
+			{ Unique Modifier }
+			Cannot have non-Abyssal sockets
+		]])
+
+		assert.are.equals(4, item.affixLimit)
+		assert.are.equals(4, item.prefixes.limit)
+		assert.are.equals(0, item.suffixes.limit)
+		assert.are.equals("AbyssJewelAddedLife1", item.prefixes[1].modId)
+		assert.are.equals("AbyssAllAttributesJewel1", item.prefixes[2].modId)
+		build.itemsTab.displayItem = item
+		build.itemsTab:UpdateAffixControls()
+		local lifeModAvailable = false
+		for _, entry in ipairs(build.itemsTab.controls.displayItemAffix2.list) do
+			for _, modId in ipairs(type(entry) == "table" and entry.modList or { }) do
+				lifeModAvailable = lifeModAvailable or modId == "AbyssJewelAddedLife1"
+			end
+		end
+		assert.is_true(lifeModAvailable)
+
+		item:Craft()
+		local raw = item:BuildRaw()
+		assert.is_truthy(raw:find("increased Explicit Modifier magnitudes", 1, true))
+		assert.is_truthy(raw:find("Cannot have non-Abyssal sockets", 1, true))
+	end)
+
+	it("uses the item base for rare-like modifier eligibility by default", function()
+		local item = new("Item", [[
+			Item Class: Bows
+			Rarity: Unique
+			The Crimson Storm
+			Steelwood Bow
+			--------
+			Item Level: 85
+			--------
+			{ Suffix Modifier "of the Order" }
+			+24(24-28)% to Physical Damage over Time Multiplier
+		]])
+
+		assert.are.equals(1, item.affixLimit)
+		assert.are.equals(0, item.prefixes.limit)
+		assert.are.equals(1, item.suffixes.limit)
+		assert.are.equals("JunMasterVeiledPhysicalDamageOverTimeMultiplier", item.suffixes[1].modId)
+	end)
+
+	it("keeps modifier metadata on duplicate variant tooltip lines", function()
+		local item = new("Item", [[
+			Rarity: Unique
+			Duplicate Variant Test
+			Plate Vest
+			Variant: First
+			Variant: Second
+			Selected Variant: 1
+			Has Alt Variant: true
+			Selected Alt Variant: 1
+			Allow Duplicate Variants: true
+			Implicits: 0
+			{variant:1}+10 to maximum Life
+		]])
+		local tooltip = new("Tooltip")
+		build.itemsTab:AddItemTooltip(tooltip, item)
+
+		local count = 0
+		for _, line in ipairs(tooltip.lines) do
+			if line.text and line.text:find("maximum Life", 1, true) then
+				assert.are.equals(item.explicitModLines[1], line.modLine)
+				count = count + 1
+			end
+		end
+		assert.are.equals(2, count)
+	end)
 	
 	it("shows a fallback tooltip when an item's base is no longer supported", function()
 		local item = new("Item", [[
