@@ -7,6 +7,7 @@
 
 local dkjson = require "dkjson"
 local itemSlotHelper = require("Modules.ItemSlotHelper")
+local tradeResistanceSwap = require("Classes.TradeResistanceSwap")
 
 local get_time = os.time
 local t_insert = table.insert
@@ -19,6 +20,27 @@ local s_format = string.format
 
 local baseSlots = { "Weapon 1", "Weapon 2", "Weapon 1 Swap", "Weapon 2 Swap", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring 1", "Ring 2", "Ring 3", "Belt", "Flask 1", "Flask 2", "Flask 3", "Flask 4", "Flask 5" }
 
+local function meetsResistanceCaps(output)
+	for _, resistanceType in ipairs({ "Fire", "Cold", "Lightning", "Chaos" }) do
+		local missing = output["Missing" .. resistanceType .. "Resist"]
+		if type(missing) ~= "number" or missing > 0 then
+			return false
+		end
+	end
+	return true
+end
+
+local function getResistanceState(output)
+	local state = {}
+	for _, resistanceType in ipairs({ "Fire", "Cold", "Lightning", "Chaos" }) do
+		for _, suffix in ipairs({ "Resist", "ResistTotal", "Missing" .. resistanceType .. "Resist" }) do
+			local key = suffix:find("Missing", 1, true) and suffix or resistanceType .. suffix
+			state[key] = output[key]
+		end
+	end
+	return state
+end
+
 ---@class TradeQuery
 local TradeQueryClass = newClass("TradeQuery")
 
@@ -30,10 +52,12 @@ function TradeQueryClass:TradeQuery(itemsTab)
 	self.controls = { }
 	-- table of price results index by slot and number of fetched results
 	self.resultTbl = { }
+	self.unfilteredResultTbl = { }
 	self.sortedResultTbl = { }
 	self.itemIndexTbl = { }
 	-- tooltip acceleration tables
 	self.onlyWeightedBaseOutput = { }
+	self.resistanceBaseOutput = { }
 	self.lastComparedWeightList = { }
 
 	-- default set of trade item sort selection
@@ -829,12 +853,19 @@ function TradeQueryClass:GetResultEvaluation(row_idx, result_index, calcFunc, ba
 		if not self.lastComparedWeightList[row_idx] then
 			self.lastComparedWeightList[row_idx] = { }
 		end
+		if not self.resistanceBaseOutput[row_idx] then
+			self.resistanceBaseOutput[row_idx] = { }
+		end
+		local resistanceBaseOutput = result.resistanceCapsRequired and getResistanceState(baseOutput)
 		-- If the interesting stats are the same (the build hasn't changed) and result has already been evaluated, then just return that
-		if result.evaluation and tableDeepEquals(onlyWeightedBaseOutput, self.onlyWeightedBaseOutput[row_idx][result_index]) and tableDeepEquals(self.statSortSelectionList, self.lastComparedWeightList[row_idx][result_index]) then
+		if result.evaluation and tableDeepEquals(onlyWeightedBaseOutput, self.onlyWeightedBaseOutput[row_idx][result_index])
+			and tableDeepEquals(self.statSortSelectionList, self.lastComparedWeightList[row_idx][result_index])
+			and (not result.resistanceCapsRequired or tableDeepEquals(resistanceBaseOutput, self.resistanceBaseOutput[row_idx][result_index])) then
 			return result.evaluation
 		end
 		self.onlyWeightedBaseOutput[row_idx][result_index] = onlyWeightedBaseOutput
 		self.lastComparedWeightList[row_idx][result_index] = self.statSortSelectionList
+		self.resistanceBaseOutput[row_idx][result_index] = resistanceBaseOutput
 	end
 	local slotTbl = self.slotTables[row_idx]
 	local jewelNodeId = slotTbl.nodeId or slotTbl.selectedJewelNodeId
@@ -871,10 +902,49 @@ function TradeQueryClass:GetResultEvaluation(row_idx, result_index, calcFunc, ba
 		end
 		local slotName = jewelNodeId and "Jewel " .. tostring(jewelNodeId) or slotTbl.selectedSlotName or slotTbl.slotName
 		local item = new("Item"):Item(result.item_string)
-
-		local output = self:ReduceOutput(calcFunc({ repSlotName = slotName, repItem = item }))
-		local weight = self.tradeQueryGenerator.WeightedRatioOutputs(baseOutput, output, self.statSortSelectionList)
-		result.evaluation = {{ output = output, weight = weight }}
+		local descriptors = result.resistanceSwapEnabled and result.resistanceSwapDescriptors
+		local assignments = descriptors and tradeResistanceSwap.validateItem(item, descriptors)
+			and tradeResistanceSwap.getAssignments(descriptors) or {}
+		local bestEvaluation
+		local bestSwapCount
+		local function evaluateVariant(variant)
+			local fullOutput = calcFunc({ repSlotName = slotName, repItem = variant })
+			if result.resistanceCapsRequired and not meetsResistanceCaps(fullOutput) then
+				return
+			end
+			local output = self:ReduceOutput(fullOutput)
+			return {
+				output = output,
+				weight = self.tradeQueryGenerator.WeightedRatioOutputs(baseOutput, output, self.statSortSelectionList),
+			}
+		end
+		for _, assignment in ipairs(assignments) do
+			local variant
+			local swaps
+			if assignment.swaps == 0 then
+				variant = item
+				swaps = {}
+			else
+				variant, swaps = tradeResistanceSwap.buildVariant(result.item_string, descriptors, assignment)
+			end
+			if variant then
+				local evaluation = evaluateVariant(variant)
+				if evaluation and (not bestEvaluation or evaluation.weight > bestEvaluation.weight
+					or evaluation.weight == bestEvaluation.weight and assignment.swaps < bestSwapCount) then
+					bestEvaluation = evaluation
+					bestSwapCount = assignment.swaps
+					if assignment.swaps > 0 then
+						bestEvaluation.theoreticalResistanceSwap = swaps
+					end
+				end
+			end
+		end
+		if bestEvaluation then
+			result.evaluation = { bestEvaluation }
+		else
+			local evaluation = #assignments == 0 and evaluateVariant(item)
+			result.evaluation = evaluation and { evaluation } or {}
+		end
 	end
 	return result.evaluation
 end
@@ -900,11 +970,18 @@ function TradeQueryClass:ResetResultRow(rowIdx)
 	self.itemIndexTbl[rowIdx] = nil
 	self.sortedResultTbl[rowIdx] = nil
 	self.resultTbl[rowIdx] = nil
+	self.unfilteredResultTbl[rowIdx] = nil
+	self.onlyWeightedBaseOutput[rowIdx] = nil
+	self.resistanceBaseOutput[rowIdx] = nil
+	self.lastComparedWeightList[rowIdx] = nil
 	self.totalPrice[rowIdx] = nil
 	self:UpdateDropdownList(rowIdx)
 	self.controls.fullPrice.label = "^7Total Price: " .. self:GetTotalPriceString()
 end
 function TradeQueryClass:UpdateControlsWithItems(row_idx)
+	if self.unfilteredResultTbl[row_idx] then
+		self:FilterToResistanceCapItems(row_idx)
+	end
 	local sortMode = self.itemSortSelectionList[self.pbItemSortSelectionIndex]
 	local sortedItems, errMsg = self:SortFetchResults(row_idx, sortMode)
 	if errMsg == "MissingConversionRates" then
@@ -1035,6 +1112,39 @@ function TradeQueryClass:FilterToSafeItems(itemEntries, slotName)
 	end
 	return itemsSafe
 end
+
+function TradeQueryClass:FilterToResistanceCapItems(row_idx)
+	self.resultTbl[row_idx] = self.unfilteredResultTbl[row_idx] or self.resultTbl[row_idx] or {}
+	local cappedItems = {}
+	for resultIndex, itemEntry in ipairs(self.resultTbl[row_idx]) do
+		if not itemEntry.resistanceCapsRequired or #self:GetResultEvaluation(row_idx, resultIndex) > 0 then
+			t_insert(cappedItems, itemEntry)
+		end
+	end
+	self.resultTbl[row_idx] = cappedItems
+end
+
+function TradeQueryClass:SearchGeneratedQuery(queryOptions, query, callback, params)
+	local searchMethod = queryOptions and queryOptions.weightAdjustedSearch == false
+		and self.tradeQueryRequests.SearchWithQuery or self.tradeQueryRequests.SearchWithQueryWeightAdjusted
+	return searchMethod(self.tradeQueryRequests, self.pbRealm, self.pbLeague, query, callback, params)
+end
+
+function TradeQueryClass:BuildExactListingQuery(query, itemResult)
+	local exactQuery = dkjson.decode(query)
+	local firstStatGroup = exactQuery.query.stats and exactQuery.query.stats[1]
+	if firstStatGroup and firstStatGroup.type == "weight" then
+		-- Weight on site uses floats but only shows integers in the API.
+		firstStatGroup.value = { min = floor(itemResult.weight, 1) - 1, max = round(itemResult.weight, 1) + 1 }
+	end
+	-- The trader account narrows non-weighted searches and makes weighted false positives extremely unlikely.
+	exactQuery.query.filters = exactQuery.query.filters or { }
+	exactQuery.query.filters.trade_filters = exactQuery.query.filters.trade_filters or { filters = { } }
+	exactQuery.query.filters.trade_filters.filters = exactQuery.query.filters.trade_filters.filters or { }
+	exactQuery.query.filters.trade_filters.filters.account = { input = itemResult.trader }
+	return dkjson.encode(exactQuery)
+end
+
 -- Method to generate pane elements for each item slot
 function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, row_vertical_padding, row_height)
 	local controls = self.controls
@@ -1052,7 +1162,7 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 	local nameColor = slotTbl.unique and colorCodes.UNIQUE or "^7"
 	controls["name" .. row_idx] = new("LabelControl"):LabelControl(top_pane_alignment_ref, { 0, row_idx * (row_height + row_vertical_padding), 135, row_height - 4 }, nameColor .. slotTbl.slotName)
 	controls["bestButton" .. row_idx] = new("ButtonControl"):ButtonControl({ "LEFT", controls["name" .. row_idx], "LEFT" }, { 135 + 8, 0, 80, row_height }, "Find best", function()
-		self.tradeQueryGenerator:RequestQuery(activeSlot, { slotTbl = slotTbl, controls = controls, row_idx = row_idx }, self.statSortSelectionList, function(context, query, errMsg)
+		self.tradeQueryGenerator:RequestQuery(activeSlot, { slotTbl = slotTbl, controls = controls, row_idx = row_idx }, self.statSortSelectionList, function(context, query, errMsg, queryOptions)
 			if errMsg then
 				self:SetNotice(context.controls.pbNotice, colorCodes.NEGATIVE .. errMsg)
 				return
@@ -1067,7 +1177,7 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 			end
 			context.controls["priceButton"..context.row_idx].label = "Searching..."
 			self.lastQueries[row_idx] = query
-			self.tradeQueryRequests:SearchWithQueryWeightAdjusted(self.pbRealm, self.pbLeague, query,
+			self:SearchGeneratedQuery(queryOptions, query,
 				function(items, errMsg)
 					if errMsg then
 						self:SetNotice(context.controls.pbNotice, colorCodes.NEGATIVE .. errMsg)
@@ -1096,8 +1206,11 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 							item.enchantModLines = {}
 						end
 						itemsSafe[i].item_string = item:BuildRaw()
+						itemsSafe[i].resistanceSwapEnabled = queryOptions and queryOptions.groupResists == true
+						itemsSafe[i].resistanceCapsRequired = queryOptions and queryOptions.includeResistCaps == true
 					end
 
+					self.unfilteredResultTbl[context.row_idx] = queryOptions and queryOptions.includeResistCaps and itemsSafe or nil
 					self.resultTbl[context.row_idx] = itemsSafe
 					self:UpdateControlsWithItems(context.row_idx)
 					context.controls["priceButton"..context.row_idx].label =  "Price Item"
@@ -1113,7 +1226,7 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 	end)
 	controls["bestButton"..row_idx].shown = function() return not self.resultTbl[row_idx] end
 	controls["bestButton"..row_idx].enabled = function() return self.pbLeague end
-	controls["bestButton"..row_idx].tooltipText = [[Creates a weighted search to find the highest Stat Value items for this slot.
+	controls["bestButton"..row_idx].tooltipText = [[Creates a trade search to find high Stat Value items for this slot.
 Note that even if you are authenticated, you can click this button again to show the search link.
 If you have additional requirements that the trade tool doesn't cover (e.g. Adorned Magic jewels),
 you can add them, copy the link here, and press "Price Item" to evaluate the items.]]
@@ -1227,6 +1340,20 @@ you can add them, copy the link here, and press "Price Item" to evaluate the ite
 			self.itemsTab.build:AddStatComparesToTooltip(tooltip, self.onlyWeightedBaseOutput[row_idx][result_index], evaluationEntry.output, "^8Allocating ^7"..nodeCombo.."^8 will give You:", #nodeDNs + 2)
 		end
 	end
+	local function addResistanceSwapToTooltipIfApplicable(tooltip, result)
+		local evaluation = result.evaluation and result.evaluation[1]
+		local swaps = evaluation and evaluation.theoreticalResistanceSwap
+		if not swaps or #swaps == 0 then
+			return
+		end
+		local descriptions = {}
+		for _, swap in ipairs(swaps) do
+			table.insert(descriptions, string.format("%s to %s (%g%%)", swap.from, swap.to, swap.value))
+		end
+		tooltip:AddSeparator(10)
+		tooltip:AddLine(16, "^7Estimated resistance swap: " .. table.concat(descriptions, ", "))
+		tooltip:AddLine(16, "^8Uses the listed value; Harvest may reroll.")
+	end
 	controls["resultDropdown"..row_idx].tooltipFunc = function(tooltip, dropdown_mode, dropdown_index, dropdown_display_string)
 		local sortedRow = self.sortedResultTbl[row_idx]
 		if not sortedRow or not sortedRow[dropdown_index] then
@@ -1242,6 +1369,7 @@ you can add them, copy the link here, and press "Price Item" to evaluate the ite
 		local tooltipSlot = slotTbl.selectedJewelNodeId and self.itemsTab.sockets[slotTbl.selectedJewelNodeId] or activeSlot
 		self.itemsTab:AddItemTooltip(tooltip, item, tooltipSlot)
 		addMegalomaniacCompareToTooltipIfApplicable(tooltip, pb_index)
+		addResistanceSwapToTooltipIfApplicable(tooltip, result)
 		tooltip:AddSeparator(10)
 		tooltip:AddLine(16, string.format("^7Price: %s %s", result.amount, result.currency))
 	end
@@ -1296,19 +1424,7 @@ you can add them, copy the link here, and press "Price Item" to evaluate the ite
 			if  itemResult.whisper and (itemResult.priceType ~= "~b/o") then
 				Copy(itemResult.whisper)
 			else
-				local exactQuery = dkjson.decode(self.lastQueries[row_idx])
-				-- use trade sum to get the specific item. both min and max
-				-- weight on site uses floats but only shows integer in the api
-				-- e.g. weight of 172.3 shows up as 172 in the api
-				exactQuery.query.stats[1].value = { min = floor(itemResult.weight, 1) - 1, max = round(itemResult.weight, 1) + 1 }
-				-- also apply trader name. this should make false positives
-				-- extremely unlikely. this doesn't seem to take up a filter slot
-				exactQuery.query.filters = exactQuery.query.filters or { }
-				exactQuery.query.filters.trade_filters = exactQuery.query.filters.trade_filters or { filters = { } }
-				exactQuery.query.filters.trade_filters.filters = exactQuery.query.filters.trade_filters.filters or { }
-				exactQuery.query.filters.trade_filters.filters.account = { input = itemResult.trader }
-
-				local exactQueryStr = dkjson.encode(exactQuery)
+				local exactQueryStr = self:BuildExactListingQuery(self.lastQueries[row_idx], itemResult)
 
 				local encodedUrl = s_format("https://www.pathofexile.com/trade/search/%s?q=%s", self.pbLeague, urlEncode(exactQueryStr))
 

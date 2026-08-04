@@ -60,6 +60,35 @@ describe("TradeQuery", function()
 			end)
 			assert.are.equal(0, #tooltip.lines)
 		end)
+
+		it("shows the estimated resistance swap without changing the listed item", function()
+			local itemString = "Rarity: RARE\nBehemoth Hold\nCoral Ring\nImplicits: 0\n+17% to Fire Resistance"
+			local tq = newTradeQuery({
+				resultTbl = { [1] = { [1] = {
+					item_string = itemString,
+					amount = 1,
+					currency = "chaos",
+					evaluation = { {
+						output = {},
+						weight = 1,
+						theoreticalResistanceSwap = { { from = "Fire", to = "Cold", value = 17 } },
+					} },
+				} } },
+				sortedResultTbl = { [1] = { { index = 1 } } },
+			})
+			tq.itemsTab.AddItemTooltip = function() end
+			local dropdown = buildRow1Dropdown(tq)
+			local tooltip = new("Tooltip")
+
+			dropdown.tooltipFunc(tooltip, "DROP", 1, nil)
+			local text = ""
+			for _, line in ipairs(tooltip.lines) do
+				text = text .. (line.text or "") .. "\n"
+			end
+			assert.is_truthy(text:find("Estimated resistance swap: Fire to Cold %(17%%%)"))
+			assert.is_truthy(text:find("listed value; Harvest may reroll", 1, true))
+			assert.are.equal(itemString, tq.resultTbl[1][1].item_string)
+		end)
 	end)
 	describe("GetResultEvaluation", function()
 		it("uses the first visible ring for a Pearl result without a selected slot", function()
@@ -174,6 +203,328 @@ describe("TradeQuery", function()
 				mock_tradeQuery.statSortSelectionList)
 
 			assert.are.equals(1.2, result)
+		end)
+	end)
+
+	describe("exact listing query", function()
+		it("keeps the existing weight range narrowing for weighted queries", function()
+			local query = require("dkjson").encode({
+				query = { stats = { { type = "weight", value = { min = 10 }, filters = {} } }, filters = {} },
+			})
+			local exact = require("dkjson").decode(mock_tradeQuery:BuildExactListingQuery(query, {
+				trader = "WeightSeller",
+				weight = "172",
+			}))
+
+			assert.are.equal(171, exact.query.stats[1].value.min)
+			assert.are.equal(173, exact.query.stats[1].value.max)
+		end)
+
+		it("preserves an AND-only resistance query and adds the trader account", function()
+			local query = require("dkjson").encode({
+				query = {
+					stats = { {
+						type = "and",
+						filters = { { id = "pseudo.pseudo_total_fire_resistance", value = { min = 40 } } },
+					} },
+					filters = {},
+				},
+			})
+			local exact = require("dkjson").decode(mock_tradeQuery:BuildExactListingQuery(query, {
+				trader = "CapSeller",
+				weight = "0",
+			}))
+
+			assert.are.equal("and", exact.query.stats[1].type)
+			assert.is_nil(exact.query.stats[1].value)
+			assert.are.equal(40, exact.query.stats[1].filters[1].value.min)
+			assert.are.equal("CapSeller", exact.query.filters.trade_filters.filters.account.input)
+		end)
+	end)
+
+	describe("generated query routing", function()
+		it("uses the plain search path for caps and weight adjustment otherwise", function()
+			local calls = {}
+			mock_tradeQuery.pbRealm = "pc"
+			mock_tradeQuery.pbLeague = "Standard"
+			mock_tradeQuery.tradeQueryRequests = {
+				SearchWithQuery = function(_, realm, league, query)
+					table.insert(calls, { "plain", realm, league, query })
+				end,
+				SearchWithQueryWeightAdjusted = function(_, realm, league, query)
+					table.insert(calls, { "adjusted", realm, league, query })
+				end,
+			}
+
+			mock_tradeQuery:SearchGeneratedQuery({ weightAdjustedSearch = false }, "caps-query", function() end, {})
+			mock_tradeQuery:SearchGeneratedQuery({ weightAdjustedSearch = true }, "weighted-query", function() end, {})
+
+			assert.are.same({
+				{ "plain", "pc", "Standard", "caps-query" },
+				{ "adjusted", "pc", "Standard", "weighted-query" },
+			}, calls)
+		end)
+	end)
+
+	describe("resistance swap result evaluation", function()
+		local function itemString(lines)
+			return "Rarity: RARE\nTest Ring\nCoral Ring\nImplicits: 0\n" .. table.concat(lines, "\n")
+		end
+
+		local function descriptor(lineIndex, element, domain)
+			return {
+				lineIndex = lineIndex,
+				element = element,
+				domain = domain or "explicit",
+				tier = "S1",
+				range = { min = 1, max = 48 },
+			}
+		end
+
+		local function newEvaluationQuery(lines, descriptors, enabled, capsRequired)
+			local tq = new("TradeQuery", { itemsTab = {} })
+			tq.tradeQueryGenerator = mock_queryGen
+			tq.slotTables[1] = { slotName = "Ring 1" }
+			tq.statSortSelectionList = { { stat = "Life", weightMult = 1 } }
+			tq.resultTbl[1] = { {
+				item_string = itemString(lines),
+				resistanceSwapDescriptors = descriptors,
+				resistanceSwapEnabled = enabled,
+				resistanceCapsRequired = capsRequired,
+			} }
+			return tq
+		end
+
+		local function scoreFromElements(multipliers, onEvaluation)
+			return function(args)
+				local score = 0
+				local seen = {}
+				for _, modLine in ipairs(args.repItem.explicitModLines) do
+					local value, element = modLine.line:match("^%+(%d+)%% to (%a+) Resistance$")
+					if value and multipliers[element] then
+						assert.is_nil(seen[element], "duplicate resistance target " .. element)
+						seen[element] = true
+						score = score + tonumber(value) * multipliers[element]
+					end
+				end
+				if onEvaluation then
+					onEvaluation()
+				end
+				return { Life = 100 + score }
+			end
+		end
+
+		local function scoreAndCapsFromElements(requirements, multipliers)
+			return function(args)
+				local totals = { Fire = 0, Cold = 0, Lightning = 0, Chaos = 0 }
+				local score = 0
+				for _, modLine in ipairs(args.repItem.explicitModLines) do
+					local value, element = modLine.line:match("^%+(%d+)%% to (%a+) Resistance$")
+					if value and totals[element] then
+						totals[element] = totals[element] + tonumber(value)
+						score = score + tonumber(value) * ((multipliers and multipliers[element]) or 0)
+					end
+				end
+				local output = { Life = 100 + score }
+				for element, total in pairs(totals) do
+					output["Missing" .. element .. "Resist"] = math.max(0, (requirements[element] or 0) - total)
+				end
+				return output
+			end
+		end
+
+		it("evaluates exactly 3, 6, and 6 distinct-target assignments for one to three candidates", function()
+			local cases = {
+				{
+					lines = { "+5 to Strength", "{crafted}+10% to Fire Resistance" },
+					descriptors = { descriptor(2, "Fire", "crafted") },
+					expectedCalls = 3,
+				},
+				{
+					lines = { "+10% to Fire Resistance", "+20% to Cold Resistance" },
+					descriptors = { descriptor(1, "Fire"), descriptor(2, "Cold") },
+					expectedCalls = 6,
+				},
+				{
+					lines = { "+10% to Fire Resistance", "+20% to Cold Resistance", "+30% to Lightning Resistance" },
+					descriptors = { descriptor(1, "Fire"), descriptor(2, "Cold"), descriptor(3, "Lightning") },
+					expectedCalls = 6,
+				},
+			}
+			for _, case in ipairs(cases) do
+				local calls = 0
+				local tq = newEvaluationQuery(case.lines, case.descriptors, true)
+				local evaluation = tq:GetResultEvaluation(1, 1,
+					scoreFromElements({ Fire = 1, Cold = 2, Lightning = 3 }, function() calls = calls + 1 end),
+					{ Life = 100 })
+
+				assert.are.equal(case.expectedCalls, calls)
+				assert.are.equal(1, #evaluation)
+			end
+		end)
+
+		it("selects the best permutation and leaves the listed item unchanged", function()
+			local tq = newEvaluationQuery(
+				{ "+10% to Fire Resistance", "+20% to Cold Resistance" },
+				{ descriptor(1, "Fire"), descriptor(2, "Cold") }, true)
+			local original = tq.resultTbl[1][1].item_string
+
+			local evaluation = tq:GetResultEvaluation(1, 1,
+				scoreFromElements({ Fire = 1, Cold = 2, Lightning = 4 }), { Life = 100 })
+			local swaps = evaluation[1].theoreticalResistanceSwap
+
+			assert.are.equal(2, #swaps)
+			assert.are.same({ from = "Fire", to = "Cold", value = 10 }, swaps[1])
+			assert.are.same({ from = "Cold", to = "Lightning", value = 20 }, swaps[2])
+			assert.are.equal(original, tq.resultTbl[1][1].item_string)
+		end)
+
+		it("prefers fewer swaps when theoretical weights tie", function()
+			local tq = newEvaluationQuery(
+				{ "+10% to Cold Resistance" }, { descriptor(1, "Cold") }, true)
+
+			local evaluation = tq:GetResultEvaluation(1, 1, function()
+				return { Life = 100 }
+			end, { Life = 100 })
+
+			assert.is_nil(evaluation[1].theoreticalResistanceSwap)
+		end)
+
+		it("uses one baseline calculation when reranking is disabled or ineligible", function()
+			local cases = {
+				newEvaluationQuery({ "+10% to Fire Resistance" }, { descriptor(1, "Fire") }, false),
+				newEvaluationQuery({ "+10% to Fire Resistance" }, { descriptor(1, "Cold") }, true),
+				newEvaluationQuery({ "+10% to Fire Resistance" }, nil, true),
+			}
+			for _, tq in ipairs(cases) do
+				local calls = 0
+				tq:GetResultEvaluation(1, 1, function()
+					calls = calls + 1
+					return { Life = 100 }
+				end, { Life = 100 })
+				assert.are.equal(1, calls)
+			end
+		end)
+
+		it("keeps only swap permutations that actually reach every resistance cap", function()
+			local tq = newEvaluationQuery(
+				{ "+40% to Fire Resistance", "+80% to Cold Resistance", "+30% to Chaos Resistance" },
+				{ descriptor(1, "Fire"), descriptor(2, "Cold") }, true, true)
+			local evaluation = tq:GetResultEvaluation(1, 1, scoreAndCapsFromElements(
+				{ Fire = 40, Cold = 40, Lightning = 0, Chaos = 30 },
+				{ Fire = 1, Cold = 1, Lightning = 100 }), { Life = 100 })
+
+			assert.are.equal(1, #evaluation)
+			assert.is_nil(evaluation[1].theoreticalResistanceSwap)
+		end)
+
+		it("rejects an elemental total that cannot be split across the missing caps", function()
+			local tq = newEvaluationQuery(
+				{ "+80% to Fire Resistance", "+30% to Chaos Resistance" },
+				{ descriptor(1, "Fire") }, true, true)
+			local evaluation = tq:GetResultEvaluation(1, 1, scoreAndCapsFromElements(
+				{ Fire = 40, Cold = 40, Lightning = 0, Chaos = 30 }), { Life = 100 })
+
+			assert.are.equal(0, #evaluation)
+		end)
+
+		it("validates caps without simulating swaps when only resistance caps are enabled", function()
+			local valid = newEvaluationQuery(
+				{ "+40% to Fire Resistance", "+30% to Chaos Resistance" }, nil, false, true)
+			local invalid = newEvaluationQuery(
+				{ "+39% to Fire Resistance", "+30% to Chaos Resistance" }, nil, false, true)
+			local calc = scoreAndCapsFromElements({ Fire = 40, Cold = 0, Lightning = 0, Chaos = 30 })
+
+			assert.are.equal(1, #valid:GetResultEvaluation(1, 1, calc, { Life = 100 }))
+			assert.are.equal(0, #invalid:GetResultEvaluation(1, 1, calc, { Life = 100 }))
+		end)
+
+		it("rejects an item that only misses the required Chaos resistance", function()
+			local tq = newEvaluationQuery(
+				{ "+40% to Fire Resistance", "+29% to Chaos Resistance" }, nil, false, true)
+			local evaluation = tq:GetResultEvaluation(1, 1,
+				scoreAndCapsFromElements({ Fire = 40, Cold = 0, Lightning = 0, Chaos = 30 }), { Life = 100 })
+
+			assert.are.equal(0, #evaluation)
+		end)
+
+		it("removes uncapped results before any result sort is applied", function()
+			local tq = new("TradeQuery", { itemsTab = {} })
+			tq.resultTbl[1] = {
+				{ id = "uncapped", resistanceCapsRequired = true },
+				{ id = "capped", resistanceCapsRequired = true },
+				{ id = "unrestricted" },
+			}
+			tq.GetResultEvaluation = function(_, _, resultIndex)
+				return resultIndex == 1 and {} or { { weight = 1 } }
+			end
+
+			tq:FilterToResistanceCapItems(1)
+
+			assert.are.same({ "capped", "unrestricted" }, {
+				tq.resultTbl[1][1].id,
+				tq.resultTbl[1][2].id,
+			})
+		end)
+
+		it("revalidates and restores fetched results when the build resistance state changes", function()
+			local requiredFire = 50
+			local tq = newEvaluationQuery(
+				{ "+40% to Fire Resistance", "+30% to Chaos Resistance" }, nil, false, true)
+			local itemEntry = tq.resultTbl[1][1]
+			tq.unfilteredResultTbl[1] = { itemEntry }
+			local function calc(args)
+				return scoreAndCapsFromElements({
+					Fire = requiredFire,
+					Cold = 0,
+					Lightning = 0,
+					Chaos = 30,
+				})(args)
+			end
+			tq.itemsTab.build = { calcsTab = {
+				GetMiscCalculator = function()
+					return calc, {
+						Life = 100,
+						FireResist = 75,
+						FireResistTotal = requiredFire,
+						MissingFireResist = 0,
+						ColdResist = 75,
+						ColdResistTotal = 75,
+						MissingColdResist = 0,
+						LightningResist = 75,
+						LightningResistTotal = 75,
+						MissingLightningResist = 0,
+						ChaosResist = 75,
+						ChaosResistTotal = 75,
+						MissingChaosResist = 0,
+					}
+				end,
+			} }
+
+			tq:FilterToResistanceCapItems(1)
+			assert.are.equal(0, #tq.resultTbl[1])
+
+			requiredFire = 40
+			tq:FilterToResistanceCapItems(1)
+			assert.are.equal(1, #tq.resultTbl[1])
+		end)
+
+		it("reuses the single best evaluation while the build and weights are unchanged", function()
+			local calls = 0
+			local tq = newEvaluationQuery({ "+10% to Fire Resistance" }, { descriptor(1, "Fire") }, true)
+			local calc = scoreFromElements({ Fire = 1, Cold = 2, Lightning = 3 }, function() calls = calls + 1 end)
+			tq.itemsTab.build = { calcsTab = {
+				GetMiscCalculator = function()
+					return calc, { Life = 100 }
+				end,
+			} }
+
+			local first = tq:GetResultEvaluation(1, 1)
+			local second = tq:GetResultEvaluation(1, 1)
+
+			assert.are.equal(3, calls)
+			assert.are.equal(first, second)
+			assert.are.equal(1, #second)
 		end)
 	end)
 end)

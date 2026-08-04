@@ -5,6 +5,7 @@
 --
 
 local dkjson = require "dkjson"
+local tradeResistanceSwap = require("Classes.TradeResistanceSwap")
 local utils = require("Modules.Utils")
 
 local tradeInfluenceApiKeys = {
@@ -305,6 +306,7 @@ function TradeQueryRequestsClass:FetchResultBlock(url, callback)
 			for _, trade_entry in pairs(response.result) do
 				local item = trade_entry.item
 				local t_insert = table.insert
+				local resistanceSwapDescriptors = tradeResistanceSwap.extractDescriptors(item)
 
 				local rawLines = {}
 				t_insert(rawLines, "Rarity: " .. item.rarity)
@@ -355,6 +357,9 @@ function TradeQueryRequestsClass:FetchResultBlock(url, callback)
 							s = s .. string.format("{%s}", flagName)
 						end
 					end
+					if modLine.domain == "crafted" and not (modLine.flags and modLine.flags.crafted) then
+						s = s .. "{crafted}"
+					end
 					return s .. escapeGGGString(modLine.description)
 				end
 				t_insert(rawLines, "Implicits: " .. (#item.enchantMods + #item.scourgeMods + #item.implicitMods))
@@ -384,7 +389,7 @@ function TradeQueryRequestsClass:FetchResultBlock(url, callback)
 				end
 				local pseudoMod = trade_entry.item.pseudoMods and trade_entry.item.pseudoMods[1]
 				local pseudoModLine = pseudoMod and (pseudoMod.description or pseudoMod)
-				table.insert(items, {
+				local resultItem = {
 					amount = trade_entry.listing.price.amount,
 					currency = trade_entry.listing.price.currency,
 					priceType = trade_entry.listing.price.type,
@@ -393,7 +398,11 @@ function TradeQueryRequestsClass:FetchResultBlock(url, callback)
 					trader = trade_entry.listing.account.name,
 					weight = pseudoModLine and pseudoModLine:match("Sum: (.+)") or "0",
 					id = trade_entry.id
-				})
+				}
+				if #resistanceSwapDescriptors > 0 then
+					resultItem.resistanceSwapDescriptors = resistanceSwapDescriptors
+				end
+				table.insert(items, resultItem)
 			end
 			return callback(items)
 		end
