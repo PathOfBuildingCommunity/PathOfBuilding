@@ -146,7 +146,7 @@
 	<File name="Classes/ItemListControl.lua" part="program" sha1="970577af8428309ee7eb475e87438fafa485da84" />
 	<File name="Classes/ItemSetListControl.lua" part="program" sha1="443038191a6ba3a17c3ce6683b96ab2797cf5d39" />
 	<File name="Classes/ItemSlotControl.lua" part="program" sha1="f353849939ff90f259110baaf59bced890b0994e" />
-	<File name="Classes/ItemsTab.lua" part="program" sha1="199d19d478aacd2ac2864c886bf7aa60b4548c52" />
+	<File name="Classes/ItemsTab.lua" part="program" sha1="5ea457d5096c466bb0c8919d66d0ea08e21d8a7d" />
 	<File name="Classes/LabelControl.lua" part="program" sha1="b6c56903b054e14c302a5e4e60ed8e91764bc6a0" />
 	<File name="Classes/ListControl.lua" part="program" sha1="ba5079fe6a1a38bc8c1cf758d42a62a4a7209e84" />
 	<File name="Classes/MinionListControl.lua" part="program" sha1="b9324d7c16d20ac4d7508ecd151c2e9838fdb98c" />
@@ -181,7 +181,7 @@
 	<File name="Classes/TextListControl.lua" part="program" sha1="08444ee7a89fac97d6727541b0e94b4997c1c7af" />
 	<File name="Classes/TimelessJewelListControl.lua" part="program" sha1="e68edb794b357090c49237d234c3c0bcca289814" />
 	<File name="Classes/TimelessJewelSocketControl.lua" part="program" sha1="07de3a54c591ba767a644050a27a9767ca621bf1" />
-	<File name="Classes/Tooltip.lua" part="program" sha1="d160bf669529d8faee86b0ec58482d0be9ca95f1" />
+	<File name="Classes/Tooltip.lua" part="program" sha1="4181ed75842af571892563f9f91fb5b862c36fe6" />
 	<File name="Classes/TooltipHost.lua" part="program" sha1="c9854fd295d8305b0d2b1a31ac28b44a53ec791d" />
 	<File name="Classes/TradeHelpers.lua" part="program" sha1="18d3439ba42836a8415de31e6db23728c8e5445a" />
 	<File name="Classes/TradeQuery.lua" part="program" sha1="184e0d741243661a07d35ed8012c956e9c22d154" />
@@ -367,7 +367,7 @@
 	<File name="Data/Uniques/tincture.lua" part="program" sha1="fc29ab519e3abe14cae5e524cb8e8189e656e7b0" />
 	<File name="Data/Uniques/wand.lua" part="program" sha1="c772e0efdf0387c81a3ee36d65235c1cc6cc8513" />
 	<File name="GameVersions.lua" part="program" sha1="2ba59bb7443d8f829861fdd5794c57db14c894b3" />
-	<File name="Launch.lua" part="program" sha1="53c2f6a73b2e871722837d19708f4e5e8a1dc60b" />
+	<File name="Launch.lua" part="program" sha1="b3538977241ce95b967ea9f5be906988a2093498" />
 	<File name="LaunchServer.lua" part="program" sha1="f15bdfbedaf887e19556490dce49b720f8365379" />
 	<File name="Modules/Build.lua" part="program" sha1="9e737ee48a3d3d47b2137bfe12c146c6e722b637" />
 	<File name="Modules/BuildDisplayStats.lua" part="program" sha1="f1b0f89f803ae4493154ca5b78ddda457679dd30" />
@@ -395,15 +395,15 @@
 	<File name="Modules/DataLegionLookUpTableHelper.lua" part="program" sha1="617477a663b7b6ece264a862c407eb05c2381fae" />
 	<File name="Modules/ItemSlotHelper.lua" part="program" sha1="4b7d441f9ade5d57c413aa1f8f8067b654cfb927" />
 	<File name="Modules/ItemTools.lua" part="program" sha1="52ab80cc205e661078c483ce33323fc1ed912c1e" />
-	<File name="Modules/Main.lua" part="program" sha1="fe81c6c5379c558bbdcab1376b11488433565408" />
+	<File name="Modules/Main.lua" part="program" sha1="b6fbf55a817f1e593335ff32a754d76edd367f8c" />
 	<File name="Modules/ModParser.lua" part="program" sha1="5beabed4f7a1dd1c1a3001fe7424c4e7b253997e" />
 	<File name="Modules/ModTools.lua" part="program" sha1="e32d3c0c320f7add6e70987b5de8ff3370d0b321" />
 	<File name="Modules/PantheonTools.lua" part="program" sha1="ebe91a7d8f8444a6061acf4758da0e775cc8c314" />
 	<File name="Modules/StatDescriber.lua" part="program" sha1="3d50e85ee6ae84414f7880c4856ab7e59004129d" />
 	<File name="Modules/ToastNotification.lua" part="program" sha1="7eda73b862f789e0acff647bc11a6823199d7800" />
 	<File name="Modules/Utils.lua" part="program" sha1="ff63549f844f9a81689d7ee9f6138ad12c782f72" />
-	<File name="UpdateApply.lua" part="program" sha1="4dd42f413cb89a963e4ae1b40e214985b909c05b" />
-	<File name="UpdateCheck.lua" part="program" sha1="2f3861b4e89838150f16e4e09eb6012b0800fa68" />
+	<File name="UpdateApply.lua" part="program" sha1="e6af2f29e464a61d1159d011d40f1a81cfae69b7" />
+	<File name="UpdateCheck.lua" part="program" sha1="9d8a31fdb58fc1b7cce44c714b81d1d3ecc32b00" />
 	<File name="abseil_dll.dll" part="runtime" platform="win32" sha1="9bcb9ca812e69350cca49c7ccaa507371e52a50d" />
 	<File name="concrt140.dll" part="runtime" platform="win32" sha1="1ce87fac4c22aae82a81ddb26952c074b744e78d" />
 	<File name="d3dcompiler_47.dll" part="runtime" platform="win32" sha1="27a4eff95e7f4a359718fda7138a528147969b27" />
