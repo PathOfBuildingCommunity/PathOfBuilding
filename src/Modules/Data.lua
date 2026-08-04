@@ -156,6 +156,7 @@ data.powerStatList = {
 	{ stat="ManaRegen", label="Mana regen" },
 	{ stat="ManaLeechRate", label="Mana leech" },
 	{ stat="ManaRecoupRecoveryAvg", label="Mana Recoup" },
+	{ stat="ManaCost", label="Mana Cost Efficiency", transform=function(value) return -value end },
 	{ stat="Ward", label="Ward" },
 	{ stat="MaximumRage", label="Maximum Rage" },
 	{ stat="Str", label="Strength" },
