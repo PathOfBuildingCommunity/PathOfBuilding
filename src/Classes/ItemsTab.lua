@@ -712,15 +712,24 @@ holding Shift will put it in the second.]])
 	end)
 
 	self.controls.craftingSortingLabel = new("LabelControl", { "TOPLEFT", self.controls.displayItemSectionClusterJewel, "BOTTOMLEFT" }, { 0, 0, 0, 16 }, "^7Modifier sorting:")
+	self.controls.craftingSortingLabel.shown = function()
+		return self.displayItem and self.displayItem.crafted and
+			-- cluster jewels don't have good comparison support and sorting would be misleading
+			not (self.displayItem.base.type == "Jewel" and self.displayItem.base.subType == "Cluster")
+	end
 	self.controls.craftingSorting = new("DropDownControl", { "LEFT", self.controls.craftingSortingLabel, "RIGHT" }, { 4, 0, 120, 20 }, sortingOptions, function()
 		self:UpdateAffixControls()
 	end)
-	self.controls.craftingSorting.shown = function()
-		return self.displayItem and self.displayItem.crafted
-	end
+
 	-- Section: Affix Selection
 	local maxModCount = 9
-	self.controls.displayItemSectionAffix = new("Control", { "TOPLEFT", self.controls.craftingSortingLabel, "BOTTOMLEFT" }, { 0, 8, 0, function()
+	self.controls.displayItemSectionAffix = new("Control", { "TOPLEFT", self.controls.craftingSortingLabel, "BOTTOMLEFT" }, { 0, function()
+		if self.controls.craftingSortingLabel.shown() then
+			return 8
+		else
+			return -16
+		end
+	end, 0, function()
 		if not self.displayItem or not self.displayItem.crafted then
 			return 0
 		end
