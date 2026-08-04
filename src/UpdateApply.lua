@@ -6,6 +6,8 @@
 --
 local opFileName = ...
 
+local maxOpenAttempts = 1000
+
 print("Applying update...")
 local opFile = io.open(opFileName, "r")
 if not opFile then
@@ -26,20 +28,27 @@ for _, line in ipairs(lines) do
 		print("Updating '"..dst.."'")
 		local srcFile = io.open(src, "rb")
 		assert(srcFile, "couldn't open "..src)
-		local dstFile
-		while not dstFile do
-			dstFile = io.open(dst, "w+b")
+		local dstFile, openErr
+		-- The destination may be transiently locked (e.g. antivirus on Windows); retry, but bounded
+		for _ = 1, maxOpenAttempts do
+			dstFile, openErr = io.open(dst, "w+b")
+			if dstFile then
+				break
+			end
 		end
-		if dstFile then
-			dstFile:write(srcFile:read("*a"))
-			dstFile:close()
-		end
+		assert(dstFile, "couldn't write "..dst..(openErr and (": "..openErr) or ""))
+		dstFile:write(srcFile:read("*a"))
+		dstFile:close()
 		srcFile:close()
 		os.remove(src)
 	elseif op == "delete" then
 		local file = args:match('"(.*)"')
 		print("Deleting '"..file.."'")
 		os.remove(file)
+	elseif op == "chmod" then
+		local file = args:match('"(.*)"'):gsub("{space}", " ")
+		print("Marking '"..file.."' as executable")
+		os.execute('chmod +x "'..file..'"')
 	elseif op == "start" then
 		local target = args:match('"(.*)"')
 		SpawnProcess(target)
