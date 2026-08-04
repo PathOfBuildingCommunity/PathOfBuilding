@@ -36,6 +36,9 @@ for _, line in ipairs(lines) do
 				break
 			end
 		end
+		if not dstFile then
+			srcFile:close()
+		end
 		assert(dstFile, "couldn't write "..dst..(openErr and (": "..openErr) or ""))
 		dstFile:write(srcFile:read("*a"))
 		dstFile:close()
