@@ -97,4 +97,17 @@ describe("Custom modifier controls", function()
 		assert.are.equal(454, listHeight)
 		assert.are.equal(640, searchWidth)
 	end)
+
+	it("opens with the search field ready for typing", function()
+		local popup = openModBrowser()
+		local inputEvents = { { type = "Char", key = "m" } }
+
+		assert.are.equal(popup.controls.search, popup.selControl)
+		assert.is_true(popup.controls.search.hasFocus)
+		assert.is_nil(popup.controls.listControl.hasFocus)
+
+		popup:ProcessInput(inputEvents, { x = 0, y = 0, width = 1920, height = 1080 })
+
+		assert.are.equal("m", popup.controls.search.buf)
+	end)
 end)

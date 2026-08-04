@@ -32,12 +32,12 @@ local CustomModBlockClass = newClass("CustomModBlockControl", "Control", "Contro
 		configTab.build.buildFlag = true
 	end)
 
-	self.controls.titleEdit = new("EditControl", {"LEFT", self.controls.deleteBtn, "RIGHT"}, {6, 0, 232, 18}, blockData.title or "", nil, nil, nil, function(buf)
+	self.controls.titleEdit = new("EditControl", {"LEFT", self.controls.deleteBtn, "RIGHT"}, {6, 0, 222, 18}, blockData.title or "", nil, nil, nil, function(buf)
 		blockData.title = buf
 		configTab:AddUndoState()
 	end)
 
-	self.controls.addModBtn = new("ButtonControl", {"LEFT", self.controls.titleEdit, "RIGHT"}, {6, 0, 48, 18}, "^7+ Mod", function()
+	self.controls.addModBtn = new("ButtonControl", {"LEFT", self.controls.titleEdit, "RIGHT"}, {6, 0, 58, 18}, "^7Add Mod", function()
 		configTab:OpenAddModPopup(blockData)
 	end)
 
@@ -59,7 +59,7 @@ local CustomModBlockClass = newClass("CustomModBlockControl", "Control", "Contro
 					local output = calcFunc()
 					blockData.enabled = curState
 					configTab:BuildModList()
-					configTab.build:AddStatComparesToTooltip(tooltip, calcBase, output, curState and "^7Disabling this block will give you:" or "^7Enabling this block will give you:")
+					configTab.build:AddStatComparesToTooltip(tooltip, calcBase, output, curState and "^7Disabling this group will give you:" or "^7Enabling this group will give you:")
 				end
 			end
 		end
@@ -770,9 +770,9 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 	end
 	self.controls.scrollBar = new("ScrollBarControl", {"TOPRIGHT",self,"TOPRIGHT"}, {0, 0, 18, 0}, 50, "VERTICAL", true)
 	if self.customSection then
-		self.controls.customModsAddBlock = new("ButtonControl", {"TOPLEFT", self.customSection, "TOPLEFT"}, {8, 0, 75, 20}, "^7+ Block", function()
+		self.controls.customModsAddBlock = new("ButtonControl", {"TOPLEFT", self.customSection, "TOPLEFT"}, {8, 0, 120, 20}, "^7Add Mod Group", function()
 			local customModsList = self.configSets[self.activeConfigSetId].customModsList
-			t_insert(customModsList, { title = "Block " .. (#customModsList + 1), enabled = true, text = "" })
+			t_insert(customModsList, { title = "Group " .. (#customModsList + 1), enabled = true, text = "" })
 			self:UpdateCustomModsControls()
 			self:AddUndoState()
 			self:BuildModList()
@@ -1101,7 +1101,7 @@ function ConfigTabClass:BuildModList()
 		end
 	end
 
-	-- Apply Custom Modifier Blocks
+	-- Apply Custom Modifier groups
 	local customModsList = self.configSets[self.activeConfigSetId].customModsList
 	local hasBlockText = false
 	if customModsList then
@@ -1488,7 +1488,6 @@ function ConfigTabClass:OpenAddModPopup(blockData)
 
 	controls.listControl = new("ListControl", {"TOPLEFT", nil, "TOPLEFT"}, {10, 20, 700, 454}, 16, "VERTICAL", false, displayList)
 	controls.listControl.font = "VAR"
-	controls.listControl.hasFocus = true
 	controls.listControl.GetRowValue = function(self, column, index, value)
 		return value or ""
 	end
@@ -1545,5 +1544,5 @@ function ConfigTabClass:OpenAddModPopup(blockData)
 		main:ClosePopup()
 	end)
 
-	main:OpenPopup(720, 540, "Mod Browser", controls, "save", nil, "close")
+	main:OpenPopup(720, 540, "Mod Browser", controls, "save", "search", "close")
 end
