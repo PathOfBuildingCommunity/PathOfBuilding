@@ -607,10 +607,12 @@ holding Shift will put it in the second.]])
 	self.controls.displayItemSectionInfluence = new("Control", {"TOPLEFT",self.controls.displayItemSectionEnchant,"BOTTOMLEFT"}, {0, 0, 0, function()
 		return self.displayItem and self.displayItem.canBeInfluenced and 28 or 0
 	end})
+	local influenceTipText = table.concat(main:WrapString("Selecting an influence here will also allow the modifier dropdowns to contain influenced mods.", 16, 140), "\n")
 	self.controls.displayItemInfluence = new("DropDownControl", {"TOPLEFT",self.controls.displayItemSectionInfluence,"TOPRIGHT"}, {0, 0, 100, 20}, influenceDisplayList, function(index, value)
 		local otherIndex = self.controls.displayItemInfluence2.selIndex
 		setDisplayItemInfluence({ index - 1, otherIndex - 1 })
 	end)
+	self.controls.displayItemInfluence.tooltipText = influenceTipText
 	self.controls.displayItemInfluence.shown = function()
 		return self.displayItem and self.displayItem.canBeInfluenced
 	end
@@ -621,6 +623,7 @@ holding Shift will put it in the second.]])
 	self.controls.displayItemInfluence2.shown = function()
 		return self.displayItem and self.displayItem.canBeInfluenced
 	end
+	self.controls.displayItemInfluence2.tooltipText = influenceTipText
 
 	-- Section: Item Quality
 	self.controls.displayItemSectionQuality = new("Control", {"TOPLEFT",self.controls.displayItemSectionInfluence,"BOTTOMLEFT"}, {0, 0, 0, function()
@@ -959,7 +962,7 @@ holding Shift will put it in the second.]])
 		self:AddCustomModifierToDisplayItem()
 	end)
 	self.controls.displayItemAddCustom.shown = function()
-		return self.displayItem and (self.displayItem.rarity == "MAGIC" or self.displayItem.rarity == "RARE")
+		return self.displayItem and (self.displayItem.rarity == "MAGIC" or self.displayItem.rarity == "RARE" or (self.displayItem.rareLikeUnique and self.displayItem.rareLikeUnique.supportsCustomModifiers))
 	end
 
 	-- Section: Crucible modifiers
@@ -3465,6 +3468,18 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 			t_insert(sourceList, { label = "Suffix", sourceId = "SUFFIX" })
 		end
 	end
+	if self.displayItem.rareLikeUnique then
+		local applicableSourceIds = self.displayItem.rareLikeUnique.supportsCustomModifiers
+		if applicableSourceIds then
+			local newSourceList = {}
+			for _, list in ipairs(sourceList) do
+				if applicableSourceIds[list.sourceId] then
+					table.insert(newSourceList, list)
+				end
+			end
+			sourceList = newSourceList
+		end
+	end
 	t_insert(sourceList, { label = "Custom", sourceId = "CUSTOM" })
 	buildMods(sourceList[1].sourceId)
 	local function addModifier()
@@ -3477,8 +3492,10 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 			end
 		else
 			local listMod = modList[controls.modSelect.selIndex]
-			for _, line in ipairs(listMod.mod) do
-				t_insert(item.explicitModLines, { line = line, modTags = listMod.mod.modTags, [listMod.type] = true })
+			if listMod then
+				for _, line in ipairs(listMod.mod) do
+					t_insert(item.explicitModLines, { line = line, modTags = listMod.mod.modTags, [listMod.type] = true })
+				end
 			end
 		end
 		item:BuildAndParseRaw()

@@ -1317,7 +1317,7 @@ dreadCaptainBase.base.tags.deepwater_sword = true
 ---@field suffixLimit integer
 ---@field ignoreModType boolean?
 ---@field allowDuplicateGroups boolean? Whether the same modifier can appear multiple times on the item.
----@field supportsCustomModifiers boolean? Whether the item can be e.g. influenced orb exalted. These mods do not appear in the regular crafter dropdowns.
+---@field supportsCustomModifiers table<string, boolean>? A table which describes which mod source IDs are applicable in the custom modifier menu.
 ---@type table<string, RareLikeUniqueDescription>
 -- Uniques which use the existing rare item crafting controls.
 data.rareLikeUniques = {
@@ -1339,7 +1339,11 @@ data.rareLikeUniques = {
 		affixes = data.itemMods.Explicit,
 		prefixLimit = 3,
 		suffixLimit = 3,
-		supportsCustomModifiers = true,
+		supportsCustomModifiers = {
+			ESSENCE = true,
+			VEILED = true,
+			CUSTOM = true,
+		},
 	}
 }
 -- Uniques (loaded after version-specific data because reasons)
