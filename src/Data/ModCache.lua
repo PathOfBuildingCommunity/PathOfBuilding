@@ -9250,8 +9250,7 @@ c["Gains no Charges during Effect Creates a Smoke Cloud on Use"]={nil,"Gains no 
 c["Gains no Charges during Effect Taunts nearby Enemies on use"]={nil,"Gains no Charges during Effect Taunts nearby Enemies on use "}
 c["Gains no Charges during Effect of any Overflowing Chalice Flask"]={nil,"Gains no Charges during Effect of any Overflowing Chalice Flask "}
 c["Gains no Charges during Effect of any Soul Ripper Flask"]={nil,"Gains no Charges during Effect of any Soul Ripper Flask "}
-c["Gems Socketed always have the Quality bonus from Socket Colour"]={nil,"Gems Socketed always have the Quality bonus from Socket Colour "}
-c["Gems Socketed always have the Quality bonus from Socket Colour Has no Attribute Requirements"]={nil,"Gems Socketed always have the Quality bonus from Socket Colour Has no Attribute Requirements "}
+c["Gems Socketed always have the Quality bonus from Socket Colour"]={{[1]={flags=0,keywordFlags=0,name="SocketAlwaysMatches",type="FLAG",value=true}},nil}
 c["Gems Socketed in Blue Sockets gain 100% increased Experience"]={nil,"Gems Socketed in Blue Sockets gain 100% increased Experience "}
 c["Gems Socketed in Blue Sockets gain 100% increased Experience Gems Socketed always have the Quality bonus from Socket Colour"]={nil,"Gems Socketed in Blue Sockets gain 100% increased Experience Gems Socketed always have the Quality bonus from Socket Colour "}
 c["Gems Socketed in Blue Sockets gain 25% increased Experience"]={nil,"Gems Socketed in Blue Sockets gain 25% increased Experience "}

@@ -211,13 +211,88 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 		self.build.buildFlag = true
 	end)
 
+	local function getSelectedItem()
+		local item
+		local groupSlot = self.controls.groupSlot:GetSelValue()
+		if groupSlot and groupSlot.slotName then
+			local slot = self.build.itemsTab.slots[groupSlot.slotName]
+			if slot then
+				item = self.build.itemsTab.items[slot.selItemId]
+				if not item then
+					return
+				end
+			end
+		end
+		return item, groupSlot
+	end
+	self.controls.socketsLabel = new("LabelControl", { "TOPLEFT", self.controls.groupSlotLabel, "BOTTOMLEFT" }, { 0, 8, 0, 16 }, function()
+		local item = getSelectedItem()
+		local socketLine = ""
+		if item and item.base and not item.base.socketLimit then
+			socketLine = "This item cannot have sockets"
+		elseif item then
+			socketLine = self.build.itemsTab:GetSocketDescriptionLine(item)
+		end
+		return "^7Item sockets: " .. socketLine
+	end)
+	self.controls.socketsLabel.shown = function()
+		local item = getSelectedItem()
+		return not not item
+	end
+	self.controls.optimiseSockets = new("ButtonControl", { "LEFT", self.controls.socketsLabel, "RIGHT" }, { 4, 0, 120, 18 }, "^7Optimise Sockets", function()
+		local item, groupSlot = getSelectedItem()
+		if not item or not groupSlot or not item.base then
+			return
+		end
+
+		self.build.itemsTab:AddUndoState()
+
+		-- save count of abyssal sockets
+		local abyssalSocketCount = 0
+		for _, socket in ipairs(item.sockets) do
+			if socket.color == "A" then
+				abyssalSocketCount = abyssalSocketCount + 1
+			end
+		end
+
+		local groupCount = 0
+		item.sockets = {}
+		local maxSockets = (item.base.socketLimit or 0) - abyssalSocketCount
+		for _, group in ipairs(self.socketGroupList) do
+			local colours = { "R", "G", "B" }
+			if group.slot == groupSlot.slotName then
+				for _, gem in ipairs(group.gemList) do
+					local grantedEffect = gem.grantedEffect or (gem.gemData and gem.gemData.grantedEffect)
+					if grantedEffect and maxSockets > 0 then
+						local gemColour = grantedEffect.color and colours[grantedEffect.color] or "W"
+						table.insert(item.sockets, { color = gemColour, group = groupCount })
+						maxSockets = maxSockets - 1
+					end
+				end
+				groupCount = groupCount + 1
+			end
+		end
+
+		for _ = 0, abyssalSocketCount - 1 do
+			groupCount = groupCount + 1
+			table.insert(item.sockets, { color = "A", group = groupCount })
+		end
+		item:BuildAndParseRaw()
+		self:UpdateSocketGroups()
+		self.build.buildFlag = true
+	end)
+	self.controls.optimiseSockets.shown = function()
+		local item = getSelectedItem()
+		return item and (item.base.socketLimit ~= nil)
+	end
+	self.controls.optimiseSockets.tooltipText = "Rebuild the item's sockets to match the groups assigned to it."
 	-- self.imbuedSupportBySlot is used by CalcSetup to add an ExtraSupport mod of the selected gem
 	-- Each displayGroup has its own "imbuedSupport" and is saved to the xml to load when changing sockets or loading a build
 	-- "slotName" is used on import, which uses builtInSupport to get the gemData and pass in here
 	-- buildFlag to true triggers the reload/run the CalcSetup to add on the support
 	-- the last var in the GemSelectControl init, the true, sets imbuedSelect to true which sets the level to 1 and support filtering
 	self.imbuedSupportBySlot = { }
-	self.controls.imbuedSupportLabel = new("LabelControl", { "LEFT", self.controls.groupSlotLabel, "LEFT" }, { 86, 28, 0, 16 }, colorCodes.CRAFTED.."Imbued Support:")
+	self.controls.imbuedSupportLabel = new("LabelControl", { "TOPLEFT", self.controls.socketsLabel, "BOTTOMLEFT", true }, { 0, 8, 0, 16 }, colorCodes.CRAFTED .. "Imbued Support:")
 	self.controls.imbuedSupport = new("GemSelectControl", { "LEFT", self.controls.imbuedSupportLabel, "RIGHT" }, { 8, 0, 250, 20 }, self, 1, function(gemData, _, _, gemMatch, slotName)
 		local targetSlot = slotName or (self.displayGroup and self.displayGroup.slot)
 		if not targetSlot then
@@ -254,7 +329,8 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 		return isImbuedEnabled()
 	end
 	self.controls.imbuedSupportLabel.shown = function() -- don't show imbued for skills from items
-		return not self.displayGroup.source
+		return self.displayGroup and not
+			self.displayGroup.source
 	end
 	self.controls.imbuedSupportClear = new("ButtonControl", { "LEFT", self.controls.imbuedSupportLabel, "RIGHT" }, { 260, 0, 20, 20}, "x", function()
 		self.controls.imbuedSupport.gemId = nil
@@ -266,7 +342,7 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 	end
 	self.controls.imbuedSupportClear.tooltipText = "Remove this imbued support."
 
-	self.controls.groupCountLabel = new("LabelControl", { "LEFT", self.controls.includeInFullDPS, "RIGHT" }, { 16, 0, 0, 16 }, "Count:")
+	self.controls.groupCountLabel = new("LabelControl", { "LEFT", self.controls.includeInFullDPS, "RIGHT" }, { 16, 0, 0, 16 }, "^7Count:")
 	self.controls.groupCountLabel.shown = function()
 		return self.displayGroup.source ~= nil
 	end
@@ -278,7 +354,7 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 	self.controls.groupCount.shown = function()
 		return self.displayGroup.source ~= nil
 	end
-	self.controls.sourceNote = new("LabelControl", { "TOPLEFT", self.controls.groupSlotLabel, "TOPLEFT" }, { 0, 30, 0, 16 })
+	self.controls.sourceNote = new("LabelControl", { "TOPLEFT", self.controls.socketsLabel, "TOPLEFT" }, { 0, 30, 0, 16 })
 	self.controls.sourceNote.shown = function()
 		return self.displayGroup.source ~= nil
 	end
@@ -324,8 +400,8 @@ will automatically apply to the skill.]]
 	self:SetActiveSkillSet(1)
 
 	-- Skill gem slots
-	self.anchorGemSlots = new("Control", {"TOPLEFT",self.anchorGroupDetail,"TOPLEFT"}, {0, 28 + 28 + 16 + 28, 0, 0})
-	self.gemSlots = { }
+	self.anchorGemSlots = new("Control", { "TOPLEFT", self.controls.imbuedSupportLabel, "BOTTOMLEFT" }, { 0, 30, 0, 0 })
+	self.gemSlots = {}
 	self:CreateGemSlot(1)
 	self.controls.gemNameHeader = new("LabelControl", {"BOTTOMLEFT", self.gemSlots[1].nameSpec, "TOPLEFT"}, {0, -2, 0, 16}, "^7Gem name:")
 	self.controls.gemLevelHeader = new("LabelControl", {"BOTTOMLEFT", self.gemSlots[1].level, "TOPLEFT"}, {0, -2, 0, 16}, "^7Level:")
@@ -654,6 +730,7 @@ function SkillsTabClass:CreateGemSlot(index)
 			self.gemSlots[index2].enableGlobal2.state = gemInstance.enableGlobal2
 			self.gemSlots[index2].count:SetText(gemInstance.count or 1)
 		end
+		self:UpdateSocketGroups()
 		self:AddUndoState()
 		self.build.buildFlag = true
 	end
@@ -772,6 +849,15 @@ function SkillsTabClass:CreateGemSlot(index)
 		self:AddUndoState()
 		self.build.buildFlag = true
 	end)
+	slot.quality.borderFunc = function()
+		local gemInstance = self.displayGroup.gemList[index]
+		-- draw colourful colours for sockets with matching sockets
+		if gemInstance and gemInstance.matchesSocket and gemInstance.color then
+			return unpack(hexToRGB(gemInstance.color:gsub("%^", "0")) or { 0.5, 0.5, 0.5 })
+		else
+			return 0.5, 0.5, 0.5
+		end
+	end
 	slot.quality.tooltipFunc = function(tooltip)
 		if tooltip:CheckForUpdate(self.build.outputRevision, self.displayGroup) then
 			-- Get the gem instance from the skills
@@ -1044,6 +1130,7 @@ function SkillsTabClass:ProcessGemLevel(gemData, imbued)
 end
 
 -- Processes the given socket group, filling in information that will be used for display or calculations
+---@param socketGroup table
 function SkillsTabClass:ProcessSocketGroup(socketGroup)
 	-- Loop through the skill gem list
 	local data = self.build.data
@@ -1119,6 +1206,44 @@ function SkillsTabClass:ProcessSocketGroup(socketGroup)
 	end
 end
 
+-- reprocess socket groups on rebuild
+function SkillsTabClass:UpdateSocketGroups()
+	local slotSocketedCounts = {}
+	for _, socketGroup in ipairs(self.socketGroupList) do
+		-- Clear stale matches when a group is no longer assigned to an item.
+		for _, gemInstance in ipairs(socketGroup.gemList) do
+			gemInstance.matchesSocket = false
+		end
+		if socketGroup.slot then
+			local gemOffset = (slotSocketedCounts[socketGroup.slot] or 0)
+			for i, gemInstance in ipairs(socketGroup.gemList) do
+				-- add quality for matching sockets by looking up linked item
+				if (gemInstance.grantedEffect or gemInstance.gemData) then
+					local grantedEffect = gemInstance.grantedEffect or gemInstance.gemData.grantedEffect
+					local slot = self.build.itemsTab.slots[socketGroup.slot]
+					-- since PoB processes split links on an item as separate
+					-- groups, we can assume that we continue from where the last
+					-- socket group with the slot ended at
+					local colours = { "R", "G", "B" }
+					local gemIdx = gemOffset + i
+					if slot then
+						local item = self.build.itemsTab.items[slot.selItemId]
+						if item and item.sockets then
+							-- e.g. dialla's malefaction
+							if item.sockets.colourAlwaysMatches then
+								gemInstance.matchesSocket = true
+							else
+								local gemColour = grantedEffect.color and colours[grantedEffect.color]
+								gemInstance.matchesSocket = item.sockets[gemIdx] and (item.sockets[gemIdx].color == gemColour)
+							end
+						end
+					end
+				end
+			end
+			slotSocketedCounts[socketGroup.slot] = gemOffset + #socketGroup.gemList
+		end
+	end
+end
 -- Set the skill to be displayed/edited
 function SkillsTabClass:SetDisplayGroup(socketGroup)
 	self.displayGroup = socketGroup

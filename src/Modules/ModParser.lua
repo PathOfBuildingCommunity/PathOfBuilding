@@ -3083,6 +3083,7 @@ local specialModList = {
 	["drop brine ground while moving, lasting 4 seconds"] = { flag("CanCreateBrineGround"), },
 	-- Item local modifiers
 	["has no sockets"] = { flag("NoSockets") },
+	["gems socketed always have the quality bonus from socket colour"] = { flag("SocketAlwaysMatches") },
 	["reflects your o[tp][hp][eo][rs]i?t?e? ring"] = {
 		-- Display only. For Kalandra's Touch.
 	},

@@ -4198,6 +4198,35 @@ local function buildSpecForJewelComparison(itemsTab, compareSlot, replacementIte
 	return spec
 end
 
+function ItemsTabClass:GetSocketDescriptionLine(item)
+	-- Sockets/links
+	local group = 0
+	local line = ""
+	for i, socket in ipairs(item.sockets) do
+		if i > 1 then
+			if socket.group == group then
+				line = line .. "^7="
+			else
+				line = line .. "  "
+			end
+			group = socket.group
+		end
+		local code
+		if socket.color == "R" then
+			code = colorCodes.STRENGTH
+		elseif socket.color == "G" then
+			code = colorCodes.DEXTERITY
+		elseif socket.color == "B" then
+			code = colorCodes.INTELLIGENCE
+		elseif socket.color == "W" then
+			code = colorCodes.SCION
+		elseif socket.color == "A" then
+			code = "^xB0B0B0"
+		end
+		line = line .. code .. socket.color
+	end
+	return line
+end
 function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode, maxWidth)
 	local fontSizeSmall = main.showFlavourText and 16 or 14
 	local fontSizeBig = main.showFlavourText and 18 or 16
@@ -4430,32 +4459,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode, maxWidth)
 	end
 
 	if #item.sockets > 0 then
-		-- Sockets/links
-		local group = 0
-		local line = ""
-		for i, socket in ipairs(item.sockets) do
-			if i > 1 then
-				if socket.group == group then
-					line = line .. "^7="
-				else
-					line = line .. "  "
-				end
-				group = socket.group
-			end
-			local code
-			if socket.color == "R" then
-				code = colorCodes.STRENGTH
-			elseif socket.color == "G" then
-				code = colorCodes.DEXTERITY
-			elseif socket.color == "B" then
-				code = colorCodes.INTELLIGENCE
-			elseif socket.color == "W" then
-				code = colorCodes.SCION
-			elseif socket.color == "A" then
-				code = "^xB0B0B0"
-			end
-			line = line .. code .. socket.color
-		end
+		local line = self:GetSocketDescriptionLine(item)
 		tooltip:AddLine(fontSizeBig, "^x7F7F7FSockets: "..line, "FONTIN SC")
 	end
 	tooltip:AddSeparator(10)

@@ -1923,7 +1923,7 @@ function ItemClass:BuildRaw()
 	end
 	if self.sockets and #self.sockets > 0 then
 		local line = "Sockets: "
-		for i, socket in pairs(self.sockets) do
+		for i, socket in ipairs(self.sockets) do
 			line = line .. socket.color
 			if self.sockets[i+1] then
 				line = line .. (socket.group == self.sockets[i+1].group and "-" or " ")
@@ -2585,6 +2585,9 @@ function ItemClass:BuildModList()
 			})
 		end
 		self.sockets = newSockets
+	end
+	if self.sockets and calcLocal(baseList, "SocketAlwaysMatches", "FLAG", 0) then
+		self.sockets.colourAlwaysMatches = true
 	end
 	self.socketedJewelEffectModifier = 1 + calcLocal(baseList, "SocketedJewelEffect", "INC", 0) / 100
 	if self.base.weapon or self.type == "Ring" then
