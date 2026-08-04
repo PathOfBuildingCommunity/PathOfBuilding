@@ -32,12 +32,14 @@ local CustomModBlockClass = newClass("CustomModBlockControl", "Control", "Contro
 		configTab.build.buildFlag = true
 	end)
 
-	self.controls.titleEdit = new("EditControl", {"LEFT", self.controls.deleteBtn, "RIGHT"}, {6, 0, 232, 18}, blockData.title or "", nil, nil, nil, function(buf)
+	self.controls.titleEdit = new("EditControl", {"LEFT", self.controls.deleteBtn, "RIGHT"}, {6, 0, 222, 18}, blockData.title or "", nil, nil, nil, function(buf)
 		blockData.title = buf
 		configTab:AddUndoState()
+		configTab:BuildModList()
+		configTab.build.buildFlag = true
 	end)
 
-	self.controls.addModBtn = new("ButtonControl", {"LEFT", self.controls.titleEdit, "RIGHT"}, {6, 0, 48, 18}, "^7+ Mod", function()
+	self.controls.addModBtn = new("ButtonControl", {"LEFT", self.controls.titleEdit, "RIGHT"}, {6, 0, 58, 18}, "^7Add Mod", function()
 		configTab:OpenAddModPopup(blockData)
 	end)
 
@@ -59,7 +61,7 @@ local CustomModBlockClass = newClass("CustomModBlockControl", "Control", "Contro
 					local output = calcFunc()
 					blockData.enabled = curState
 					configTab:BuildModList()
-					configTab.build:AddStatComparesToTooltip(tooltip, calcBase, output, curState and "^7Disabling this block will give you:" or "^7Enabling this block will give you:")
+					configTab.build:AddStatComparesToTooltip(tooltip, calcBase, output, curState and "^7Disabling this group will give you:" or "^7Enabling this group will give you:")
 				end
 			end
 		end
@@ -770,9 +772,9 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 	end
 	self.controls.scrollBar = new("ScrollBarControl", {"TOPRIGHT",self,"TOPRIGHT"}, {0, 0, 18, 0}, 50, "VERTICAL", true)
 	if self.customSection then
-		self.controls.customModsAddBlock = new("ButtonControl", {"TOPLEFT", self.customSection, "TOPLEFT"}, {8, 0, 75, 20}, "^7+ Block", function()
+		self.controls.customModsAddBlock = new("ButtonControl", {"TOPLEFT", self.customSection, "TOPLEFT"}, {8, 0, 120, 20}, "^7Add Mod Group", function()
 			local customModsList = self.configSets[self.activeConfigSetId].customModsList
-			t_insert(customModsList, { title = "Block " .. (#customModsList + 1), enabled = true, text = "" })
+			t_insert(customModsList, { title = "Group " .. (#customModsList + 1), enabled = true, text = "" })
 			self:UpdateCustomModsControls()
 			self:AddUndoState()
 			self:BuildModList()
@@ -1101,7 +1103,7 @@ function ConfigTabClass:BuildModList()
 		end
 	end
 
-	-- Apply Custom Modifier Blocks
+	-- Apply Custom Modifier groups
 	local customModsList = self.configSets[self.activeConfigSetId].customModsList
 	local hasBlockText = false
 	if customModsList then
@@ -1112,7 +1114,7 @@ function ConfigTabClass:BuildModList()
 					local strippedLine = StripEscapes(line):match("^%s*(.-)%s*$")
 					local mods, extra = modLib.parseMod(strippedLine)
 					if mods and not extra then
-						local source = "Custom"
+						local source = "Custom:" .. (block.title or "Default")
 						for i = 1, #mods do
 							local mod = mods[i]
 							if mod then
@@ -1352,7 +1354,60 @@ function ConfigTabClass:OpenAddModPopup(blockData)
 		end
 	end
 
-	table.sort(allModsList)
+	local modTemplateCache = { }
+	local function getModTemplate(modText)
+		if not modTemplateCache[modText] then
+			modTemplateCache[modText] = modText
+				:gsub("([%+-]?)%((%-?%d+%.?%d*)%-(%-?%d+%.?%d*)%)", "%1#")
+				:gsub("%d+%.?%d*", "#")
+				:lower()
+		end
+		return modTemplateCache[modText]
+	end
+	local alphabeticalSortKeyCache = { }
+	local function getAlphabeticalSortKey(modText)
+		if not alphabeticalSortKeyCache[modText] then
+			alphabeticalSortKeyCache[modText] = getModTemplate(modText)
+				:gsub("#", " ")
+				:gsub("[^%a]+", " ")
+				:match("^%s*(.-)%s*$")
+		end
+		return alphabeticalSortKeyCache[modText]
+	end
+	local function sortAlphabeticallyIgnoringValues(a, b)
+		local aSortKey = getAlphabeticalSortKey(a)
+		local bSortKey = getAlphabeticalSortKey(b)
+		if aSortKey ~= bSortKey then
+			return aSortKey < bSortKey
+		end
+		local aTemplate = getModTemplate(a)
+		local bTemplate = getModTemplate(b)
+		if aTemplate ~= bTemplate then
+			return aTemplate < bTemplate
+		end
+		local aLower = a:lower()
+		local bLower = b:lower()
+		if aLower ~= bLower then
+			return aLower < bLower
+		end
+		return a < b
+	end
+
+	table.sort(allModsList, sortAlphabeticallyIgnoringValues)
+
+	-- Collapse affix tiers that only differ by their numeric values. The list is
+	-- sorted first so the retained representative is deterministic.
+	wipeTable(seen)
+	local deduplicatedModsList = { }
+	for _, modText in ipairs(allModsList) do
+		local modTemplate = getModTemplate(modText)
+		if not seen[modTemplate] then
+			seen[modTemplate] = true
+			t_insert(deduplicatedModsList, itemLib.applyRange(modText, 0))
+		end
+	end
+	table.sort(deduplicatedModsList, sortAlphabeticallyIgnoringValues)
+	allModsList = deduplicatedModsList
 
 	local displayList = { }
 	local controls = { }
@@ -1416,7 +1471,7 @@ function ConfigTabClass:OpenAddModPopup(blockData)
 				if a.rank ~= b.rank then
 					return a.rank < b.rank
 				end
-				return a.text < b.text
+				return sortAlphabeticallyIgnoringValues(a.text, b.text)
 			end)
 			for _, match in ipairs(matches) do
 				t_insert(displayList, match.text)
@@ -1433,17 +1488,15 @@ function ConfigTabClass:OpenAddModPopup(blockData)
 		end
 	end
 
-	controls.listControl = new("ListControl", {"TOPLEFT", nil, "TOPLEFT"}, {10, 20, 580, 184}, 16, "VERTICAL", false, displayList)
+	controls.listControl = new("ListControl", {"TOPLEFT", nil, "TOPLEFT"}, {10, 20, 700, 454}, 16, "VERTICAL", false, displayList)
 	controls.listControl.font = "VAR"
-	controls.listControl.hasFocus = true
 	controls.listControl.GetRowValue = function(self, column, index, value)
 		return value or ""
 	end
 	controls.listControl.AddValueTooltip = function(self, tooltip, index, value)
 		tooltip:Clear(true)
 		if value and #value > 0 and value ~= "No matching modifiers found" then
-			local cleanText = itemLib.applyRange(value, 0.5)
-			local mods, extra = modLib.parseMod(cleanText)
+			local mods, extra = modLib.parseMod(value)
 			if mods and not extra then
 				tooltip:AddLine(14, "^7Supported: ^2Yes")
 			else
@@ -1452,31 +1505,30 @@ function ConfigTabClass:OpenAddModPopup(blockData)
 		end
 	end
 	controls.listControl.OnSelClick = function(self, index, value, doubleClick)
-		if main.SelectControl then
-			main:SelectControl(self)
-		end
 		self:SelectIndex(index)
 		if doubleClick and controls.save:IsEnabled() then
 			controls.save.onClick()
 		end
 	end
 
-	controls.searchLabel = new("LabelControl", {"TOPRIGHT", nil, "TOPLEFT"}, {65, 212, 0, 16}, "^7Search:")
-	controls.search = new("EditControl", {"TOPLEFT", nil, "TOPLEFT"}, {70, 212, 520, 18}, "", nil, "%c", 100, function()
+	controls.searchLabel = new("LabelControl", {"TOPRIGHT", nil, "TOPLEFT"}, {65, 482, 0, 16}, "^7Search:")
+	controls.search = new("EditControl", {"TOPLEFT", nil, "TOPLEFT"}, {70, 482, 640, 18}, "", nil, "%c", 100, function()
 		updateDisplayList()
-	end)
+	end, nil, nil, true)
+	controls.search.controls.buttonClear.shown = function()
+		return #controls.search.buf > 0
+	end
 
 	updateDisplayList()
 
-	controls.save = new("ButtonControl", nil, {-45, 242, 80, 20}, "Add", function()
+	controls.save = new("ButtonControl", nil, {-45, 512, 80, 20}, "Add", function()
 		local selIndex = controls.listControl.selIndex or 1
 		local selected = displayList[selIndex]
 		if selected and selected ~= "No matching modifiers found" then
-			local textToAdd = itemLib.applyRange(selected, 0.5)
 			if blockData.text and #blockData.text > 0 and not blockData.text:match("\n$") then
 				blockData.text = blockData.text .. "\n"
 			end
-			blockData.text = (blockData.text or "") .. textToAdd
+			blockData.text = (blockData.text or "") .. selected
 			self:UpdateCustomModsControls()
 			self:AddUndoState()
 			self:BuildModList()
@@ -1490,9 +1542,9 @@ function ConfigTabClass:OpenAddModPopup(blockData)
 		return selected ~= nil and selected ~= "No matching modifiers found"
 	end
 
-	controls.close = new("ButtonControl", nil, {45, 242, 80, 20}, "Cancel", function()
+	controls.close = new("ButtonControl", nil, {45, 512, 80, 20}, "Cancel", function()
 		main:ClosePopup()
 	end)
 
-	main:OpenPopup(600, 270, "Mod Browser", controls, "save", nil, "close")
+	main:OpenPopup(720, 540, "Mod Browser", controls, "save", "search", "close")
 end

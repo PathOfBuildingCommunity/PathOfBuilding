@@ -1,4 +1,14 @@
 describe("ItemDBControl", function()
+	local originalGetCursorPos
+
+	before_each(function()
+		originalGetCursorPos = GetCursorPos
+	end)
+
+	after_each(function()
+		GetCursorPos = originalGetCursorPos
+	end)
+
 	it("sorts lower-is-better stats below zero", function()
 		local function makeItem(name)
 			return {
@@ -74,5 +84,34 @@ describe("ItemDBControl", function()
 		control.controls.searchMode.selIndex = 3
 
 		assert.is_true(control:DoesItemMatchFilters(item))
+	end)
+
+	it("releases focus after opening an item with a double click", function()
+		local item = {
+			raw = "Rarity: Unique\nTest Item\nLeather Belt",
+		}
+		local itemsTab
+		itemsTab = {
+			CreateDisplayItemFromRaw = function(_, raw, isUnique)
+				itemsTab.displayRaw = raw
+				itemsTab.displayIsUnique = isUnique
+			end,
+		}
+		local control = new("ItemDBControl", nil, { 0, 0, 100, 100 }, itemsTab, {
+			list = { item },
+		}, "UNIQUE")
+		control.list = { item }
+		GetCursorPos = function()
+			return 3, 3
+		end
+		control.GetRowRegion = function()
+			return { x = 0, y = 0, width = 100, height = 100 }
+		end
+
+		local selectedControl = control:OnKeyDown("LEFTBUTTON", true)
+
+		assert.is_nil(selectedControl)
+		assert.are.equal(item.raw, itemsTab.displayRaw)
+		assert.is_true(itemsTab.displayIsUnique)
 	end)
 end)

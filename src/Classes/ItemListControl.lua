@@ -316,6 +316,7 @@ function ItemListClass:OnSelClick(index, itemId, doubleClick)
 		local newItem = new("Item", item:BuildRaw())
 		newItem.id = item.id
 		self.itemsTab:SetDisplayItem(newItem)
+		return false
 	end
 end
 

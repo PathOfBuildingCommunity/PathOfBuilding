@@ -16,7 +16,7 @@
 -- :OnDragSend(index, value, target)  [Called after a drag event]
 -- :OnOrderChange()  [Called after list order is changed through dragging]
 -- :OnSelect(index, value)  [Called when a list value is selected]
--- :OnSelClick(index, value, doubleClick)  [Called when a list value is clicked]
+-- :OnSelClick(index, value, doubleClick)  [Called when a list value is clicked; return false to release focus]
 -- :OnSelCopy(index, value)  [Called when Ctrl+C is pressed while a list value is selected]
 -- :OnSelDelete(index, value)  [Called when backspace or delete is pressed while a list value is selected]
 -- :OnSelKeyDown(index, value)  [Called when any other key is pressed while a list value is selected]
@@ -366,7 +366,9 @@ function ListClass:OnKeyDown(key, doubleClick)
 				self.selDragActive = false
 			end
 			if self.OnSelClick then
-				self:OnSelClick(self.selIndex, self.selValue, doubleClick)
+				if self:OnSelClick(self.selIndex, self.selValue, doubleClick) == false then
+					return
+				end
 			end
 		end
 	elseif #self.list > 0 and not self.selDragActive then
