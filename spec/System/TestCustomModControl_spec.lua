@@ -31,32 +31,40 @@ describe("Custom modifier controls", function()
 
 		assert.is_nil(main.selControl)
 		assert.are_not.equal(popup, main.popups[1])
-		assert.are.equal(itemLib.applyRange(selectedMod, 0.5), blockData.text)
+		assert.are.equal(selectedMod, blockData.text)
 	end)
 
-	it("collapses numeric tiers of the same modifier", function()
-		local popup = openModBrowser()
+	it("collapses numeric tiers and imports the first range value", function()
+		local popup, blockData = openModBrowser()
 		local minionDamageEntries = { }
-		for _, modText in ipairs(popup.controls.listControl.list) do
+		local minionDamageIndex
+		for index, modText in ipairs(popup.controls.listControl.list) do
 			if modText:match("^Minions deal .-%% increased Damage$") then
 				table.insert(minionDamageEntries, modText)
+				minionDamageIndex = index
 			end
 		end
 
-		assert.are.same({ "Minions deal (10-11)% increased Damage" }, minionDamageEntries)
+		assert.are.same({ "Minions deal 10% increased Damage" }, minionDamageEntries)
+		popup.controls.listControl.selIndex = minionDamageIndex
+		popup.controls.save.onClick()
+		assert.are.equal("Minions deal 10% increased Damage", blockData.text)
 	end)
 
-	it("orders modifiers by their number-independent stat text", function()
+	it("orders modifiers alphabetically while ignoring numeric values", function()
 		local popup = openModBrowser()
-		local previousTemplate
+		local previousSortKey
 		for _, modText in ipairs(popup.controls.listControl.list) do
-			local modTemplate = modText
+			local sortKey = modText
 				:gsub("([%+-]?)%((%-?%d+%.?%d*)%-(%-?%d+%.?%d*)%)", "%1#")
 				:gsub("%d+%.?%d*", "#")
 				:lower()
-			assert.is_true(not previousTemplate or previousTemplate < modTemplate,
-				tostring(previousTemplate) .. " should be ordered before " .. modTemplate)
-			previousTemplate = modTemplate
+				:gsub("#", " ")
+				:gsub("[^%a]+", " ")
+				:match("^%s*(.-)%s*$")
+			assert.is_true(not previousSortKey or previousSortKey <= sortKey,
+				tostring(previousSortKey) .. " should be ordered before " .. sortKey)
+			previousSortKey = sortKey
 		end
 	end)
 

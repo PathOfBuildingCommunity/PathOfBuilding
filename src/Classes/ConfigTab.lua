@@ -1362,7 +1362,22 @@ function ConfigTabClass:OpenAddModPopup(blockData)
 		end
 		return modTemplateCache[modText]
 	end
-	local function sortByModTemplate(a, b)
+	local alphabeticalSortKeyCache = { }
+	local function getAlphabeticalSortKey(modText)
+		if not alphabeticalSortKeyCache[modText] then
+			alphabeticalSortKeyCache[modText] = getModTemplate(modText)
+				:gsub("#", " ")
+				:gsub("[^%a]+", " ")
+				:match("^%s*(.-)%s*$")
+		end
+		return alphabeticalSortKeyCache[modText]
+	end
+	local function sortAlphabeticallyIgnoringValues(a, b)
+		local aSortKey = getAlphabeticalSortKey(a)
+		local bSortKey = getAlphabeticalSortKey(b)
+		if aSortKey ~= bSortKey then
+			return aSortKey < bSortKey
+		end
 		local aTemplate = getModTemplate(a)
 		local bTemplate = getModTemplate(b)
 		if aTemplate ~= bTemplate then
@@ -1376,7 +1391,7 @@ function ConfigTabClass:OpenAddModPopup(blockData)
 		return a < b
 	end
 
-	table.sort(allModsList, sortByModTemplate)
+	table.sort(allModsList, sortAlphabeticallyIgnoringValues)
 
 	-- Collapse affix tiers that only differ by their numeric values. The list is
 	-- sorted first so the retained representative is deterministic.
@@ -1386,9 +1401,10 @@ function ConfigTabClass:OpenAddModPopup(blockData)
 		local modTemplate = getModTemplate(modText)
 		if not seen[modTemplate] then
 			seen[modTemplate] = true
-			t_insert(deduplicatedModsList, modText)
+			t_insert(deduplicatedModsList, itemLib.applyRange(modText, 0))
 		end
 	end
+	table.sort(deduplicatedModsList, sortAlphabeticallyIgnoringValues)
 	allModsList = deduplicatedModsList
 
 	local displayList = { }
@@ -1453,7 +1469,7 @@ function ConfigTabClass:OpenAddModPopup(blockData)
 				if a.rank ~= b.rank then
 					return a.rank < b.rank
 				end
-				return sortByModTemplate(a.text, b.text)
+				return sortAlphabeticallyIgnoringValues(a.text, b.text)
 			end)
 			for _, match in ipairs(matches) do
 				t_insert(displayList, match.text)
@@ -1479,8 +1495,7 @@ function ConfigTabClass:OpenAddModPopup(blockData)
 	controls.listControl.AddValueTooltip = function(self, tooltip, index, value)
 		tooltip:Clear(true)
 		if value and #value > 0 and value ~= "No matching modifiers found" then
-			local cleanText = itemLib.applyRange(value, 0.5)
-			local mods, extra = modLib.parseMod(cleanText)
+			local mods, extra = modLib.parseMod(value)
 			if mods and not extra then
 				tooltip:AddLine(14, "^7Supported: ^2Yes")
 			else
@@ -1509,11 +1524,10 @@ function ConfigTabClass:OpenAddModPopup(blockData)
 		local selIndex = controls.listControl.selIndex or 1
 		local selected = displayList[selIndex]
 		if selected and selected ~= "No matching modifiers found" then
-			local textToAdd = itemLib.applyRange(selected, 0.5)
 			if blockData.text and #blockData.text > 0 and not blockData.text:match("\n$") then
 				blockData.text = blockData.text .. "\n"
 			end
-			blockData.text = (blockData.text or "") .. textToAdd
+			blockData.text = (blockData.text or "") .. selected
 			self:UpdateCustomModsControls()
 			self:AddUndoState()
 			self:BuildModList()
