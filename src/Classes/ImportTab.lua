@@ -835,6 +835,10 @@ function ImportTabClass:DownloadPassiveTree(realm)
 				self.lastLeague = self.controls.siteCharSelectLeague:GetSelValueByKey("league")
 			end
 			local responseLua = dkjson.decode(response.body)
+			-- Account-name imports omit quest choices, so keep the build's current values.
+			responseLua.bandit_choice = responseLua.bandit_choice or self.build.configTab.input.bandit
+			responseLua.pantheon_major = responseLua.pantheon_major or self.build.configTab.input.pantheonMajorGod
+			responseLua.pantheon_minor = responseLua.pantheon_minor or self.build.configTab.input.pantheonMinorGod
 			-- modify response to be like the oauth API response
 			local charData = copyTable(charListData)
 			charData.passives = responseLua
