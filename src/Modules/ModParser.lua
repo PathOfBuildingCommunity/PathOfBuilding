@@ -3084,6 +3084,13 @@ local specialModList = {
 	-- Item local modifiers
 	["has no sockets"] = { flag("NoSockets") },
 	["gems socketed always have the quality bonus from socket colour"] = { flag("SocketAlwaysMatches") },
+	["cannot have non%-abyssal sockets"] = { flag("NoSockets") },
+	["socketed %a+ abyssal jewels will be consumed"] = {
+		-- Display only Subsume The Source sockets removed by "NoSockets"
+	},
+	["one modifier from consumed jewels will be retained"] = {
+		-- Display only
+	},
 	["reflects your o[tp][hp][eo][rs]i?t?e? ring"] = {
 		-- Display only. For Kalandra's Touch.
 	},

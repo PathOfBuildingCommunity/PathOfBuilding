@@ -1234,6 +1234,37 @@ data.minionTagCrucibleUniques = {
 	["United in Dream"] = true,
 }
 
+local crimsonStormMods = {}
+for modId, mod in pairs(data.veiledMods) do
+	if mod.affix == "of the Order" then
+		crimsonStormMods[modId] = mod
+	end
+end
+
+---@class RareLikeUniqueDescription
+---@field affixes table<string, table>
+---@field validBases table[]? Bases used to check modifier spawn tags instead of the item's base
+---@field prefixLimit integer
+---@field suffixLimit integer
+---@field ignoreModType boolean?
+---@field allowDuplicateGroups boolean?
+---@type table<string, RareLikeUniqueDescription>
+-- Uniques which use the existing rare item crafting controls.
+data.rareLikeUniques = {
+	["subsume the source"] = {
+		validBases = data.itemBaseLists["Jewel: Abyss"],
+		affixes = data.itemMods.JewelAbyss,
+		prefixLimit = 4,
+		suffixLimit = 0,
+		ignoreModType = true,
+		allowDuplicateGroups = true,
+	},
+	["the crimson storm"] = {
+		affixes = crimsonStormMods,
+		prefixLimit = 0,
+		suffixLimit = 1,
+	}
+}
 -- Uniques (loaded after version-specific data because reasons)
 data.uniques = { }
 for _, type in pairs(itemTypes) do
