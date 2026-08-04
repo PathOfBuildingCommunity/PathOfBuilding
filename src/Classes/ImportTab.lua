@@ -835,6 +835,10 @@ function ImportTabClass:DownloadPassiveTree(realm)
 				self.lastLeague = self.controls.siteCharSelectLeague:GetSelValueByKey("league")
 			end
 			local responseLua = dkjson.decode(response.body)
+			-- Account-name imports omit quest choices, so keep the build's current values.
+			responseLua.bandit_choice = responseLua.bandit_choice or self.build.configTab.input.bandit
+			responseLua.pantheon_major = responseLua.pantheon_major or self.build.configTab.input.pantheonMajorGod
+			responseLua.pantheon_minor = responseLua.pantheon_minor or self.build.configTab.input.pantheonMinorGod
 			-- modify response to be like the oauth API response
 			local charData = copyTable(charListData)
 			charData.passives = responseLua
@@ -1229,18 +1233,18 @@ function ImportTabClass:ImportPassiveTreeAndJewels(charData, deleteJewels)
 		end
 	end
 
-	-- Unauthenticated character imports omit these fields. In that case, preserve
-	-- the build's existing choices instead of replacing them with "None".
-	if charPassives.bandit_choice then
-		local bandit = charPassives.bandit_choice == "Eramir" and "None" or charPassives.bandit_choice
-		setSelByVal(self.build.configTab.varControls["bandit"], bandit)
-	end
-	if charPassives.pantheon_major then
-		setSelByVal(self.build.configTab.varControls["pantheonMajorGod"], charPassives.pantheon_major)
-	end
-	if charPassives.pantheon_minor then
-		setSelByVal(self.build.configTab.varControls["pantheonMinorGod"], charPassives.pantheon_minor)
-	end
+	local bandit = (charPassives.bandit_choice == "Eramir" or not charPassives.bandit_choice) and "None" or
+		charPassives.bandit_choice
+	setSelByVal(self.build.configTab.varControls["bandit"],
+		bandit)
+
+	local majorGod = charPassives.pantheon_major or "None"
+	setSelByVal(self.build.configTab.varControls["pantheonMajorGod"],
+		majorGod)
+
+	local minorGod = charPassives.pantheon_minor or "None"
+	setSelByVal(self.build.configTab.varControls["pantheonMinorGod"],
+		minorGod)
 
 	main:SetWindowTitleSubtext(string.format("%s (%s, %s, %s)", self.build.buildName, charData.name, charData.class,
 		charData.league))
