@@ -712,7 +712,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			-- Fade out lines in ascendancy classes other than the current one
 			setConnectorColor(0.75, 0.75, 0.75)
 		end
-		SetDrawColor(unpack(connectorColor))
+		SetDrawColor(connectorColor[1], connectorColor[2], connectorColor[3])
 		local assetName = connector.type .. state
 		-- The game uses Abyss connector art only when both connected nodes are conquered.
 		if isAbyssConquered(node1) and isAbyssConquered(node2) then
@@ -760,7 +760,8 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 							SetDrawColor(0, 1, 0)
 							local asset = tree.assets[connector.type..state] or tree.assets[connector.type.."Normal"]
 							if asset then
-								DrawImageQuad(asset.handle, unpack(connector.c))
+								local c = connector.c
+								DrawImageQuad(asset.handle, c[1], c[2], c[3], c[4], c[5], c[6], c[7], c[8])
 							end
 						end
 					end
