@@ -7,7 +7,12 @@ local LabelClass = newClass("LabelControl", "Control", function(self, anchor, re
 	self.Control(anchor, rect)
 	self.label = label
 	self.width = function()
-		return DrawStringWidth(self:GetProperty("height"), "VAR", self:GetProperty("label"))
+		local curLabel = self:GetProperty("label")
+		if self.cachedLabel ~= curLabel then
+			self.cachedLabel = curLabel
+			self.cachedWidth = DrawStringWidth(self:GetProperty("height"), "VAR", curLabel or "")
+		end
+		return self.cachedWidth
 	end
 end)
 
