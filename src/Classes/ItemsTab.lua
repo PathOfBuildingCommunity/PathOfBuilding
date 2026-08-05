@@ -747,7 +747,9 @@ holding Shift will put it in the second.]])
 		end
 		return h
 	end})
-
+	self.controls.displayItemSectionAffix.shown = function()
+		return self.displayItem and self.displayItem.crafted
+	end
 	for i = 1, maxModCount do
 		local prev = self.controls["displayItemAffix"..(i-1)] or self.controls.displayItemSectionAffix
 		local drop, slider
