@@ -398,9 +398,6 @@ skills["BarnacleSnap"] = {
 			skill("hitTimeOverride", nil),
 			div = 1000,
 		},
-		["spider_aspect_max_web_count"] = {
-			mod("Multiplier:SpiderWebApplyStackMax", "BASE", nil),
-		},
 	},
 	baseFlags = {
 		attack = true,
