@@ -154,6 +154,16 @@ Implicits: 1
 			return dkjson.decode(queryJson)
 		end
 
+		local function getUniqueQuery(name, baseName)
+			local url = bs.buildURL({ title = name, baseName = baseName }, nil, {
+				realmDrop = { GetSelValue = function() return "PC" end },
+				leagueDrop = { GetSelValue = function() return "Standard" end },
+				listedDrop = { selIndex = 1 },
+			}, {}, {}, true)
+			local queryJson = urlDecode(assert(url:match("[?&]q=(.+)$")))
+			return dkjson.decode(queryJson)
+		end
+
 		it("rebuilds the URL when league and listed status change", function()
 			local controls = openPopup()
 			getQuery(controls)
@@ -169,6 +179,42 @@ Implicits: 1
 			local query = getQuery(controls)
 			assert.not_equal(standardUrl, copiedUrl)
 			assert.equal("any", query.query.status.option)
+		end)
+
+		it("preserves apostrophes in unique names", function()
+			local item = new("Item", [[
+Rarity: UNIQUE
+Ralakesh's Impatience
+Riveted Boots
+Implicits: 0]])
+			local controls = openPopup(item, "Boots")
+
+			assert.equal("Ralakesh's Impatience", getQuery(controls).query.name)
+		end)
+
+		it("preserves every loaded unique name in direct URLs", function()
+			local expectedNames = {
+				["The Hateful Accuser "] = "The Hateful Accuser",
+			}
+			local uniqueCount = 0
+			for _, typeList in pairs(data.uniques) do
+				for _, uniqueText in ipairs(typeList) do
+					local name, baseName = uniqueText:match("^([^\n]+)\n([^\n]+)")
+					assert.is_not_nil(name)
+					assert.is_not_nil(baseName)
+					assert.equal(expectedNames[name] or name, getUniqueQuery(name, baseName).query.name)
+					uniqueCount = uniqueCount + 1
+				end
+			end
+			assert.is_true(uniqueCount > 0)
+		end)
+
+		it("removes a trailing unique ID without removing name punctuation", function()
+			assert.equal("Uul-Netol's Embrace", getUniqueQuery("Uul-Netol's Embrace 1234", "Vaal Axe").query.name)
+		end)
+
+		it("trims whitespace after a unique name", function()
+			assert.equal("The Hateful Accuser", getUniqueQuery("The Hateful Accuser ", "Ghastly Eye Jewel").query.name)
 		end)
 
 		it("persists league choices by name for each realm", function()

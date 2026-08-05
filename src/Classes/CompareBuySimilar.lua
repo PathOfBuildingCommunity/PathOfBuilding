@@ -41,7 +41,7 @@ end
 
 
 -- Build the trade search URL based on popup selections
-local function buildURL(item, slotName, controls, modEntries, defenceEntries, isUnique)
+function M.buildURL(item, slotName, controls, modEntries, defenceEntries, isUnique)
 	-- Determine realm and league from the popup's dropdowns
 	local realmDisplayValue = controls.realmDrop and controls.realmDrop:GetSelValue() or "PC"
 	local realm = REALM_API_IDS[realmDisplayValue] or "pc"
@@ -74,10 +74,10 @@ local function buildURL(item, slotName, controls, modEntries, defenceEntries, is
 		-- Search by unique name
 		-- Strip "Foulborn" prefix from unique name for trade search
 		local tradeName = (item.title or item.name):gsub("^Foulborn%s+", "")
-		-- only take the first letters and white space to avoid e.g. including
-		-- timeless jewel ids or other numbers the user might have on the item
-		local nameMatch = tradeName:match("(%a[%a%s]+).*")
-		tradeName = (nameMatch and nameMatch:gsub("%s+$", "")) or tradeName
+		-- only strip a trailing numeric identifier to avoid e.g. including
+		-- timeless jewel ids or other numbers appended to the item name.
+		tradeName = tradeName:gsub("%s+$", "")
+		tradeName = tradeName:match("^(.-)%s+%d+$") or tradeName
 		queryTable.query.name = tradeName
 		queryTable.query.type = item.baseName
 		-- If item is Foulborn, add the foulborn_item filter
@@ -339,7 +339,7 @@ function M.openPopup(item, slotName, primaryBuild)
 	end
 
 	local function rebuildUrl()
-		local result = buildURL(item, slotName, controls, modEntries, defenceEntries, isUnique)
+		local result = M.buildURL(item, slotName, controls, modEntries, defenceEntries, isUnique)
 		uri = result
 	end
 	-- Helper to fetch and populate leagues for a given realm API id
