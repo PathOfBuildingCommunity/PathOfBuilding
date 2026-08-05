@@ -106,12 +106,13 @@ skills["Ambush"] = {
 	castTime = 0.3,
 	statMap = {
 		["ambush_additional_critical_strike_chance_permyriad"] = {
-			mod("CritChance", "BASE", nil, ModFlag.Melee, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Ambush" }),
+			mod("CritChance", "BASE", nil, bit.bor(ModFlag.Melee, ModFlag.Weapon), 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Ambush" }, { type = "SkillType", skillType = SkillType.NeverExertable, neg = true }, { type = "SkillType", skillType = SkillType.Triggered, neg = true }, { type = "SkillType", skillType = SkillType.Channel, neg = true }, { type = "SkillType", skillType = SkillType.OtherThingUsesSkill, neg = true }),
 			div = 100,
 		},
 		["vanishing_ambush_critical_strike_multiplier_+"] = {
-			mod("CritMultiplier", "BASE", nil, ModFlag.Melee, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Ambush" }),
+			mod("CritMultiplier", "BASE", nil, bit.bor(ModFlag.Melee, ModFlag.Weapon), 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Ambush" }, { type = "SkillType", skillType = SkillType.NeverExertable, neg = true }, { type = "SkillType", skillType = SkillType.Triggered, neg = true }, { type = "SkillType", skillType = SkillType.Channel, neg = true }, { type = "SkillType", skillType = SkillType.OtherThingUsesSkill, neg = true }),
 		},
+		-- needing a Weapon excludes unarmed attacks, SkillType restrictions mirror attacks that can be exerted
 		-- not excluding Exert for Two-Handed weapons, to simulate a potential weapon swap for skills with a duration ( Rage Vortex )
 	},
 	baseFlags = {
