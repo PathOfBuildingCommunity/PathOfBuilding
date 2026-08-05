@@ -1402,6 +1402,9 @@ function ImportTabClass:ImportItemsAndSkills(charData, clearItems, clearSkills, 
 			t_insert(preservedSocketGroupStateByKey[key], snapshotSocketGroupReimportState(socketGroup, index == self.build.mainSocketGroup))
 		end
 		wipeTable(self.build.skillsTab.socketGroupList)
+		self.build.skillsTab.controls.groupList.selIndex = nil
+		self.build.skillsTab.controls.groupList.selValue = nil
+		self.build.skillsTab:SetDisplayGroup()
 		self.build.skillsTab:RebuildImbuedSupportBySlot()
 	end
 	for _, itemData in ipairs(charData.equipment) do
@@ -1473,8 +1476,6 @@ function ImportTabClass:ImportItemsAndSkills(charData, clearItems, clearSkills, 
 	self.build.itemsTab:PopulateSlots()
 	self.build.itemsTab:AddUndoState()
 	self.build.skillsTab:UpdateSocketGroups()
-	-- clear selection as the socket group reference is no longer in the build
-	self.build.skillsTab:SetDisplayGroup()
 	self.build.skillsTab:AddUndoState()
 	self.build.characterLevel = charData.level
 	self.build.configTab:UpdateLevel()
