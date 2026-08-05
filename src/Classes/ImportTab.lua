@@ -1406,6 +1406,9 @@ function ImportTabClass:ImportItemsAndSkills(charData, clearItems, clearSkills, 
 			t_insert(preservedSocketGroupStateByKey[key], snapshotSocketGroupReimportState(socketGroup, index == self.build.mainSocketGroup))
 		end
 		wipeTable(self.build.skillsTab.socketGroupList)
+		self.build.skillsTab.controls.groupList.selIndex = nil
+		self.build.skillsTab.controls.groupList.selValue = nil
+		self.build.skillsTab:SetDisplayGroup()
 		self.build.skillsTab:RebuildImbuedSupportBySlot()
 	end
 	for _, itemData in ipairs(charData.equipment) do
