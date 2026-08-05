@@ -8,7 +8,7 @@
     (gimp-layer-set-mode effect-layer LAYER-MODE-SCREEN)
     (gimp-layer-set-opacity effect-layer 55)
     (gimp-image-merge-visible-layers image CLIP-TO-IMAGE)
-    (file-png-export RUN-NONINTERACTIVE image output-path -1 0 9 1 0 1 1 1 0 "auto")
+    (export-png image output-path)
     (gimp-image-delete image)))
 
 (define (export-abyss-line-part source-path output-path crop-x crop-y crop-size target-size inner-radius outer-radius)
@@ -32,7 +32,7 @@
         (gimp-selection-none image)))
     (gimp-image-crop image crop-size crop-size crop-x crop-y)
     (gimp-image-scale image target-size target-size)
-    (file-png-export RUN-NONINTERACTIVE image output-path -1 0 9 1 0 1 1 1 0 "auto")
+    (export-png image output-path)
     (gimp-image-delete image)))
 
 (define (extract-abyss-lines source-path temporary-directory output-directory state active)
@@ -51,7 +51,7 @@
     (gimp-layer-add-alpha line-layer)
     (gimp-image-crop line-image image-size line-height 0 10)
     (gimp-image-scale line-image 368 13)
-    (file-png-export RUN-NONINTERACTIVE line-image line-path -1 0 9 1 0 1 1 1 0 "auto")
+    (export-png line-image line-path)
     (gimp-image-delete line-image)
 
     (let loop ((orbit 1) (radius-list radii) (inner-list inner) (outer-list outer) (size-list sizes))

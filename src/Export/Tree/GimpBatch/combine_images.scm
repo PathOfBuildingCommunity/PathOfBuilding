@@ -1,3 +1,20 @@
+(define (export-png image output-path)
+  ; Export timestamps make otherwise identical PNGs change on every run.
+  (file-png-export
+    #:run-mode RUN-NONINTERACTIVE
+    #:image image
+    #:file output-path
+    #:options -1
+    #:interlaced FALSE
+    #:compression 9
+    #:bkgd TRUE
+    #:offs FALSE
+    #:phys TRUE
+    #:time FALSE
+    #:save-transparent TRUE
+    #:optimize-palette FALSE
+    #:format "auto"))
+
 (define (combine-images-into-sprite-sheet output-path width height saturation entries)
   (let* ((sprite-sheet (car (gimp-image-new width height RGB)))
          (background (car (gimp-layer-new sprite-sheet "Background" width height RGBA-IMAGE 100 LAYER-MODE-NORMAL))))
@@ -25,5 +42,5 @@
       entries)
 
     (gimp-image-merge-visible-layers sprite-sheet CLIP-TO-IMAGE)
-    (file-png-export RUN-NONINTERACTIVE sprite-sheet output-path -1 0 9 1 0 1 1 1 0 "auto")
+    (export-png sprite-sheet output-path)
     (gimp-image-delete sprite-sheet)))
