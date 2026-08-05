@@ -395,11 +395,14 @@ local function defaultTriggerHandler(env, config)
 	local triggeredSkills = config.triggeredSkills or {}
 	local trigRate = config.trigRate
 	local uuid
+	local sourceWeapon = config.sourceWeapon
+	-- Only attacks using the granting weapon can activate source-weapon triggers
+	local sourceWeaponFlag = sourceWeapon and actor.mainSkill.socketGroup.slot and (actor.mainSkill.socketGroup.slot:match("^Weapon 2") and "weapon2Attack" or "weapon1Attack")
 
 	-- Find trigger skill and triggered skills
 	if config.triggeredSkillCond or config.triggerSkillCond then
 		for _, skill in ipairs(env.player.activeSkillList) do
-			if config.triggerSkillCond and config.triggerSkillCond(env, skill) and (not isTriggered(skill) or actor.mainSkill.skillFlags.globalTrigger or config.allowTriggered) and skill ~= actor.mainSkill then
+			if config.triggerSkillCond and config.triggerSkillCond(env, skill) and (not sourceWeaponFlag or skill.skillFlags[sourceWeaponFlag]) and (not isTriggered(skill) or actor.mainSkill.skillFlags.globalTrigger or config.allowTriggered) and skill ~= actor.mainSkill then
 				source, trigRate, uuid = findTriggerSkill(env, skill, source, trigRate, config.comparer)
 			end
 			if config.triggeredSkillCond and config.triggeredSkillCond(env,skill) then
@@ -436,7 +439,9 @@ local function defaultTriggerHandler(env, config)
 			end
 
 			-- Dual wield triggers
-			if trigRate and source and env.player.weaponData1.type and env.player.weaponData2.type and not source.skillData.doubleHitsWhenDualWielding and (source.skillTypes[SkillType.Melee] or source.skillTypes[SkillType.Attack]) and actor.mainSkill.triggeredBy and actor.mainSkill.triggeredBy.grantedEffect.support and actor.mainSkill.triggeredBy.grantedEffect.fromItem then
+			local sourceWeaponTrigger = sourceWeapon and source and source.skillFlags.bothWeaponAttack
+			local itemSupportTrigger = actor.mainSkill.triggeredBy and actor.mainSkill.triggeredBy.grantedEffect.support and actor.mainSkill.triggeredBy.grantedEffect.fromItem
+			if trigRate and source and env.player.weaponData1.type and env.player.weaponData2.type and not source.skillData.doubleHitsWhenDualWielding and (source.skillTypes[SkillType.Melee] or source.skillTypes[SkillType.Attack]) and (sourceWeaponTrigger or itemSupportTrigger) then
 				trigRate = trigRate / 2
 				if breakdown then
 					t_insert(breakdown.EffectiveSourceRate, 2, s_format("/ 2 ^8(due to dual wielding)"))
@@ -1522,6 +1527,15 @@ local configTable = {
 					return skill.skillData.triggeredBySettlersEnchantTrigger and slotMatch(env, skill)
 				end}
 	end,
+	["ghostly artillery"] = function(env)
+		return {
+			sourceWeapon = true,
+			triggerOnUse = true,
+			triggerSkillCond = function(env, skill)
+				return skill.skillTypes[SkillType.Attack]
+			end
+		}
+	end,
 	["replica gifts from above"] = function()
 		return {
 			triggerSkillCond = function(env, skill)
@@ -1553,7 +1567,7 @@ local configTable = {
 		return {triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Melee] or skill.skillTypes[SkillType.Attack]) end}
 	end,
 	["FieryImpactHeistMaceImplicit"] = function(env)
-		return {triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Melee] or skill.skillTypes[SkillType.Attack]) end}
+		return {sourceWeapon = true, triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Melee] or skill.skillTypes[SkillType.Attack]) end}
 	end,
 }
 

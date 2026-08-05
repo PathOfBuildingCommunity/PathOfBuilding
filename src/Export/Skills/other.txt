@@ -151,9 +151,6 @@ local skills, mod, flag, skill = ...
 			skill("hitTimeOverride", nil),
 			div = 1000,
 		},
-		["spider_aspect_max_web_count"] = {
-			mod("Multiplier:SpiderWebApplyStackMax", "BASE", nil),
-		},
 	},
 #mods
 
@@ -1511,6 +1508,11 @@ local skills, mod, flag, skill = ...
 			div = 100,
 		},
 	},
+#mods
+
+#skill GhostCannons Ghostly Artillery
+#flags attack projectile area
+	fromItem = true,
 #mods
 
 #skill SupportUniqueCastCurseOnCurse Vixen's Entrapment

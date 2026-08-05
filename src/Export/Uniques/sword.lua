@@ -28,6 +28,14 @@ EvasionRatingWhileMovingUnique__1
 NumberOfProjectilesIfUsedAMovementSkillRecentlyUnique__1
 PlayerFarShotUnique__2
 ]],[[
+Dread Captain's Cutlass
+Ghostflame Blade
+Source: Drops from unique{Captainsbane} in normal{The Fathomless Depths}
+League: Allflame
+Crafted: true
+Implicits: 1
+CanBeGhostflameCraftedAsThoughRare
+]],[[
 Dreamfeather
 Eternal Sword
 Variant: Pre 2.0.0
@@ -795,6 +803,18 @@ LocalIncreasedAttackSpeedUniqueTwoHandSword8
 {variant:4,5}AttackSkillsHavePhysToExtraFireDamagePerSocketedRedGemUniqueTwoHandSword8
 {variant:4,5}VaalPactIfAllSocketedGemsAreRedUniqueTwoHandSword8
 ]],[[
+Echoforge
+Infernal Sword
+Source: Drops from unique{The Maven}
+Implicits: 1
+IncreasedChaosDamageImplicitUnique__1
+LocalAddedChaosDamageUnique__3
+LocalIncreasedAttackSpeedUnique__38
+IncreasedLifeUnique__117
+ChaosDamageCanShockUnique__1
+IncreasedAttackAreaOfEffectUnique__3
+DealNoElementalPhysicalDamageUnique__1
+]],[[
 Edge of Madness
 Etched Greatsword
 League: Beyond
@@ -814,6 +834,20 @@ LocalChaosDamageUniqueTwoHandSword7
 {variant:1}IncreasedChaosDamagePerLevelUniqueTwoHandSword7
 {variant:1,2,4}IncreasedElementalDamagePerLevelUniqueTwoHandSword7
 {variant:2,3,4}PhysicalDamageToAttacksPerLevelUnique__1_
+]],[[
+The Golden Charlatan
+Lion Sword
+Source: Drops from unique{Uber Incarnation of Dread} in normal{Moment of Reverence}
+Requires Level 65, 104 Str, 122 Dex
+Implicits: 1
+StrengthDexterityImplicitSword_1
+IntelligenceRequirementsUnique_1
+LocalIncreasedPhysicalDamagePercentUnique__53
+IncreasedAttackSpeedUniqueGlovesDemigods1
+LocalCriticalStrikeChanceUnique__24
+LocalNoCriticalStrikeMultiplierUnique_1
+GainShrineOnRareOrUniqueKillUnique_1
+GainManaPer2IntelligenceUnique_1
 ]],[[
 Hiltless
 Reaver Sword
@@ -883,18 +917,6 @@ IncreasedPhysicalDamageTakenUniqueTwoHandSword6
 ColdDamageTakenUnique__2
 {variant:2}CullingAgainstFrozenEnemiesUnique__1
 EnduranceChargeIfAttackFreezesUnique__1
-]],[[
-Echoforge
-Infernal Sword
-Source: Drops from unique{The Maven}
-Implicits: 1
-IncreasedChaosDamageImplicitUnique__1
-LocalAddedChaosDamageUnique__3
-LocalIncreasedAttackSpeedUnique__38
-IncreasedLifeUnique__117
-ChaosDamageCanShockUnique__1
-IncreasedAttackAreaOfEffectUnique__3
-DealNoElementalPhysicalDamageUnique__1
 ]],[[
 Queen's Decree
 Ornate Sword
@@ -1033,20 +1055,5 @@ ElementalDamageCanShockUnique__1__
 {variant:3}WeaponPhysicalDamageAddedAsRandomElementUnique__1__
 IncreasedAttackAreaOfEffectUnique__1_
 DealNoNonElementalDamageUnique__1
-]],
-[[
-The Golden Charlatan
-Lion Sword
-Source: Drops from unique{Uber Incarnation of Dread} in normal{Moment of Reverence}
-Requires Level 65, 104 Str, 122 Dex
-Implicits: 1
-StrengthDexterityImplicitSword_1
-IntelligenceRequirementsUnique_1
-LocalIncreasedPhysicalDamagePercentUnique__53
-IncreasedAttackSpeedUniqueGlovesDemigods1
-LocalCriticalStrikeChanceUnique__24
-LocalNoCriticalStrikeMultiplierUnique_1
-GainShrineOnRareOrUniqueKillUnique_1
-GainManaPer2IntelligenceUnique_1
-]],
+]]
 }

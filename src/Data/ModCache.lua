@@ -7952,6 +7952,7 @@ c["Can Allocate Passives from the Templar's starting point"]={{},nil}
 c["Can Allocate Passives from the Witch's starting point"]={{},nil}
 c["Can Consume 4 Uncorrupted Support Gems"]={nil,"Can Consume 4 Uncorrupted Support Gems "}
 c["Can Consume 4 Uncorrupted Support Gems Has not Consumed any Gems"]={nil,"Can Consume 4 Uncorrupted Support Gems Has not Consumed any Gems "}
+c["Can be Allflame Crafted as if Rare"]={{},nil}
 c["Can be Enchanted by a Kalguuran Runesmith"]={nil,"Can be Enchanted by a Kalguuran Runesmith "}
 c["Can be Enchanted by a Kalguuran Runesmith Can have 2 additional Runesmithing Enchantments"]={nil,"Can be Enchanted by a Kalguuran Runesmith Can have 2 additional Runesmithing Enchantments "}
 c["Can be Runesmithed as though it were all One Handed Melee Weapon Types"]={nil,"Can be Runesmithed as though it were all One Handed Melee Weapon Types "}
@@ -8047,6 +8048,7 @@ c["Cannot deal non-Cold Damage"]={{[1]={flags=0,keywordFlags=0,name="DealNoPhysi
 c["Cannot deal non-Fire Damage"]={{[1]={flags=0,keywordFlags=0,name="DealNoPhysical",type="FLAG",value=true},[2]={flags=0,keywordFlags=0,name="DealNoLightning",type="FLAG",value=true},[3]={flags=0,keywordFlags=0,name="DealNoCold",type="FLAG",value=true},[4]={flags=0,keywordFlags=0,name="DealNoChaos",type="FLAG",value=true}},nil}
 c["Cannot deal non-Lightning Damage"]={{[1]={flags=0,keywordFlags=0,name="DealNoPhysical",type="FLAG",value=true},[2]={flags=0,keywordFlags=0,name="DealNoCold",type="FLAG",value=true},[3]={flags=0,keywordFlags=0,name="DealNoFire",type="FLAG",value=true},[4]={flags=0,keywordFlags=0,name="DealNoChaos",type="FLAG",value=true}},nil}
 c["Cannot gain Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="CannotGainEnergyShield",type="FLAG",value=true}},nil}
+c["Cannot gain Intangibility"]={{},nil}
 c["Cannot gain Life during effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="CannotGainLife",type="FLAG",value=true}},nil}
 c["Cannot gain Mana during effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="CannotGainMana",type="FLAG",value=true}},nil}
 c["Cannot gain Power Charges"]={nil,"Cannot gain Power Charges "}

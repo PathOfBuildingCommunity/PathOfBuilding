@@ -3094,6 +3094,12 @@ local specialModList = {
 	["reflects your o[tp][hp][eo][rs]i?t?e? ring"] = {
 		-- Display only. For Kalandra's Touch.
 	},
+	["can be allflame crafted as if rare"] = {
+		-- Display only. For Dread Captain's Cutlass and supported by crafting UI
+	},
+	["cannot gain intangibility"] = {
+		-- Display only. For Dread Captain's Cutlass
+	},
 	["has (%d+) sockets?"] = function(num) return { mod("SocketCount", "BASE", num) } end,
 	["has (%d+) abyssal sockets?"] = function(num) return { mod("AbyssalSocketCount", "BASE", num) } end,
 	["no physical damage"] = { mod("WeaponData", "LIST", { key = "PhysicalMin" }), mod("WeaponData", "LIST", { key = "PhysicalMax" }), mod("WeaponData", "LIST", { key = "PhysicalDPS" }) },
@@ -3281,6 +3287,7 @@ local specialModList = {
 	["trigger level (%d+) (.+) when you use a skill while you have a spirit charge"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
 	["trigger level (%d+) (.+) when you hit an enemy while cursed"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
 	["trigger level (%d+) (.+) when you hit a bleeding enemy"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
+	["trigger level (%d+) (.+) when you attack with this weapon"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
 	["trigger level (%d+) (.+) when you hit a rare or unique enemy"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
 	["trigger level (%d+) (.+) when you hit a rare or unique enemy and have no mark"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
 	["trigger level (%d+) (.+) when you hit a frozen enemy"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,

@@ -28,6 +28,15 @@ Implicits: 1
 Skills fire 2 additional Projectiles if you've used a Movement Skill Recently
 Far Shot
 ]],[[
+Dread Captain's Cutlass
+Ghostflame Blade
+Source: Drops from unique{Captainsbane} in normal{The Fathomless Depths}
+League: Allflame
+Crafted: true
+Implicits: 2
+Can be Allflame Crafted as if Rare
+Cannot gain Intangibility
+]],[[
 Dreamfeather
 Eternal Sword
 Variant: Pre 2.0.0
@@ -804,6 +813,18 @@ Socketed Melee Gems have 15% increased Area of Effect
 {variant:4,5}Attack Skills gain 5% of Physical Damage as Extra Fire Damage per Socketed Red Gem
 {variant:4,5}You have Vaal Pact while all Socketed Gems are Red
 ]],[[
+Echoforge
+Infernal Sword
+Source: Drops from unique{The Maven}
+Implicits: 1
+30% increased Chaos Damage
+Adds (600-650) to (750-800) Chaos Damage
+(-16-16)% reduced Attack Speed
++(-200-200) to maximum Life
+Your Chaos Damage can Shock
+(-40-40)% reduced Area of Effect for Attacks
+Deal no Physical or Elemental Damage
+]],[[
 Edge of Madness
 Etched Greatsword
 League: Beyond
@@ -823,6 +844,20 @@ Adds (60-68) to (90-102) Chaos Damage
 {variant:1}1% increased Elemental Damage per Level
 {variant:1,2,4}1% increased Chaos Damage per Level
 {variant:2,3,4}Adds 1 to 2 Physical Damage to Attacks per Level
+]],[[
+The Golden Charlatan
+Lion Sword
+Source: Drops from unique{Uber Incarnation of Dread} in normal{Moment of Reverence}
+Requires Level 65, 104 Str, 122 Dex
+Implicits: 1
++50 to Strength and Dexterity
++200 Intelligence Requirement
+(200-300)% increased Physical Damage
+(10-16)% increased Attack Speed
+(100-200)% increased Critical Strike Chance
+Critical Strikes with this Weapon do not deal extra Damage
+Gain a random Shrine Buff for 30 seconds when you Kill a Rare or Unique Enemy
++1 to maximum Mana per 2 Intelligence
 ]],[[
 Hiltless
 Reaver Sword
@@ -892,18 +927,6 @@ Adds (385-440) to (490-545) Cold Damage
 10% increased Cold Damage taken
 {variant:2}Culling Strike against Frozen Enemies
 Gain an Endurance Charge if an Attack Freezes an Enemy
-]],[[
-Echoforge
-Infernal Sword
-Source: Drops from unique{The Maven}
-Implicits: 1
-30% increased Chaos Damage
-Adds (600-650) to (750-800) Chaos Damage
-(-16-16)% reduced Attack Speed
-+(-200-200) to maximum Life
-Your Chaos Damage can Shock
-(-40-40)% reduced Area of Effect for Attacks
-Deal no Physical or Elemental Damage
 ]],[[
 Queen's Decree
 Ornate Sword
@@ -1048,20 +1071,5 @@ Your Elemental Damage can Shock
 {variant:3}Gain 700% of Weapon Physical Damage as Extra Damage of a random Element
 20% increased Area of Effect for Attacks
 Deal no Non-Elemental Damage
-]],
-[[
-The Golden Charlatan
-Lion Sword
-Source: Drops from unique{Uber Incarnation of Dread} in normal{Moment of Reverence}
-Requires Level 65, 104 Str, 122 Dex
-Implicits: 1
-+50 to Strength and Dexterity
-+200 Intelligence Requirement
-(200-300)% increased Physical Damage
-(10-16)% increased Attack Speed
-(100-200)% increased Critical Strike Chance
-Critical Strikes with this Weapon do not deal extra Damage
-Gain a random Shrine Buff for 30 seconds when you Kill a Rare or Unique Enemy
-+1 to maximum Mana per 2 Intelligence
-]],
+]]
 }

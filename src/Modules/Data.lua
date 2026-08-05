@@ -1148,14 +1148,80 @@ data.printMissingMinionSkills = function()
 	end
 end
 
--- Item bases
+---@class ItemBase
+---@field type string # e.g. "Helmet", "Wand", "Body Armour", "Flask", "Jewel"
+---@field subType? string # e.g. "Armour", "Evasion/Energy Shield", "Life", "Utility"
+---@field socketLimit? integer # max sockets (weapons/armour only)
+---@field hidden? boolean # excluded from the base-type selection lists
+---@field cannotBeAnointed? boolean
+---@field tags table<string, true> # e.g. { armour = true, helmet = true, str_armour = true }
+---@field influenceTags? table<string, string> # influence -> mod tag, e.g. { shaper = "helmet_shaper" }
+---@field implicit? string # implicit mod line(s), newline-separated
+---@field implicitModTypes ModTypeList[] # per-implicit list of mod-type tags
+---@field implicitIds? string[] # per-implicit GGG mod id
+---@field enchant? string # enchant mod line(s)
+---@field enchantModTypes? ModTypeList[]
+---@field enchantIds? string[]
+---@field flavourText? string
+---@field req ItemBaseReq
+---@field armour? ItemBaseArmour # present on armour bases
+---@field weapon? ItemBaseWeapon # present on weapon bases
+---@field flask? ItemBaseFlask # present on flask bases
+---@field tincture? ItemBaseTincture # present on tincture bases
+
+---@alias ModTypeList string[] # list of mod-type tags, e.g. { "caster_damage", "damage", "caster" }
+
+---@class ItemBaseReq
+---@field level? integer
+---@field str? integer
+---@field dex? integer
+---@field int? integer
+
+---@class ItemBaseArmour
+---@field ArmourBaseMin? number
+---@field ArmourBaseMax? number
+---@field EvasionBaseMin? number
+---@field EvasionBaseMax? number
+---@field EnergyShieldBaseMin? number
+---@field EnergyShieldBaseMax? number
+---@field WardBaseMin? number
+---@field WardBaseMax? number
+---@field BlockChance? number # shields
+---@field MovementPenalty? number
+
+---@class ItemBaseWeapon
+---@field PhysicalMin? number
+---@field PhysicalMax? number
+---@field CritChanceBase? number
+---@field AttackRateBase? number
+---@field Range? number
+
+---@class ItemBaseFlask
+---@field life? number
+---@field mana? number
+---@field duration? number
+---@field chargesUsed? integer
+---@field chargesMax? integer
+---@field buff? string[] # utility-flask granted buff line(s)
+
+---@class ItemBaseTincture
+---@field manaBurn? number
+---@field cooldown? number
+
+---@type table<string, ItemBase>
 data.itemBases = { }
 for _, type in pairs(itemTypes) do
 	LoadModule("Data/Bases/"..type, data.itemBases)
 end
 
+---@class ItemBaseEntry
+---@field label string
+---@field name string
+---@field base ItemBase
+
+---@type table<string, ItemBaseEntry[]>
 -- Build lists of item bases, separated by type
-data.itemBaseLists = { }
+data.itemBaseLists = {}
 for name, base in pairs(data.itemBases) do
 	if not base.hidden then
 		local type = base.type
@@ -1241,13 +1307,17 @@ for modId, mod in pairs(data.veiledMods) do
 	end
 end
 
+local dreadCaptainBase = { base = copyTable(data.itemBases["Ghostflame Blade"]) }
+dreadCaptainBase.base.tags.deepwater_sword = true
+
 ---@class RareLikeUniqueDescription
 ---@field affixes table<string, table>
----@field validBases table[]? Bases used to check modifier spawn tags instead of the item's base
+---@field validBases ItemBaseEntry[]? Bases used to check modifier spawn tags instead of the item's base
 ---@field prefixLimit integer
 ---@field suffixLimit integer
 ---@field ignoreModType boolean?
----@field allowDuplicateGroups boolean?
+---@field allowDuplicateGroups boolean? Whether the same modifier can appear multiple times on the item.
+---@field supportsCustomModifiers table<string, boolean>? A table which describes which mod source IDs are applicable in the custom modifier menu.
 ---@type table<string, RareLikeUniqueDescription>
 -- Uniques which use the existing rare item crafting controls.
 data.rareLikeUniques = {
@@ -1263,6 +1333,17 @@ data.rareLikeUniques = {
 		affixes = crimsonStormMods,
 		prefixLimit = 0,
 		suffixLimit = 1,
+	},
+	["dread captain's cutlass"] = {
+		validBases = { dreadCaptainBase },
+		affixes = data.itemMods.Explicit,
+		prefixLimit = 3,
+		suffixLimit = 3,
+		supportsCustomModifiers = {
+			ESSENCE = true,
+			VEILED = true,
+			CUSTOM = true,
+		},
 	}
 }
 -- Uniques (loaded after version-specific data because reasons)
