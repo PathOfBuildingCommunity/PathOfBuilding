@@ -68,17 +68,18 @@ local function ScanFolder(subPath)
 			local fileName = handle:GetFileName()
 			local fullFileName = main.buildPath..currentSubPath..fileName
 			local header = ReadBuildHeader(fullFileName)
-			if not header then return false end
-			t_insert(list, {
-				fileName = fileName,
-				subPath = currentSubPath,
-				fullFileName = fullFileName,
-				modified = handle:GetFileModifiedTime(),
-				buildName = fileName:gsub("%.xml$",""),
-				level = header.level,
-				className = header.className,
-				ascendClassName = header.ascendClassName,
-			})
+			if header then
+				t_insert(list, {
+					fileName = fileName,
+					subPath = currentSubPath,
+					fullFileName = fullFileName,
+					modified = handle:GetFileModifiedTime(),
+					buildName = fileName:gsub("%.xml$",""),
+					level = header.level,
+					className = header.className,
+					ascendClassName = header.ascendClassName,
+				})
+			end
 
 			if not handle:NextFile() then break end
 		end
@@ -101,9 +102,8 @@ local function ScanFolder(subPath)
 				fullFileName = main.buildPath..currentSubPath..folderName,
 				modified = folder.modified
 			})
-			if not scanDir(nextSubPath) then return false end
+			scanDir(nextSubPath)
 		end
-		return true
 	end
 
 	scanDir(subPath)
