@@ -746,8 +746,17 @@ local skills, mod, flag, skill = ...
 		["skill_empowers_next_x_spells_cast"] = {
 			mod("BeidatEmpoweredSpells", "BASE", nil),
 		},
+		["pact_skill_additional_beam_only_chains"] = {
+			mod("BeidatAdditionalBeamChains", "BASE", nil),
+		},
+		["pact_skill_grant_x_additional_projectiles_fired_in_nova"] = {
+			mod("BeidatAdditionalProjectiles", "BASE", nil),
+		},
+		["pact_skill_grant_x_cascades_to_do_in_spiral"] = {
+			mod("BeidatAdditionalCascades", "BASE", nil),
+		},
 		["pact_skill_damage_+%_final_with_hits_and_ailments_to_grant"] = {
-			mod("BeidatPactDamage", "BASE", nil),
+			mod("BeidatPactDamage", "LIST", { mod = mod("Damage", "MORE", nil, ModFlag.Spell, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment)) }),
 		},
 	},
 #mods
@@ -759,7 +768,7 @@ local skills, mod, flag, skill = ...
 			mod("GhorrEmpoweredSpells", "BASE", nil),
 		},
 		["pact_skill_grant_damage_over_time_+%_final_to_spells"] = {
-			mod("GhorrPactDamage", "BASE", nil),
+			mod("GhorrPactDamage", "LIST", { mod = mod("Damage", "MORE", nil, ModFlag.Dot) }),
 		},
 	},
 #mods
@@ -775,10 +784,13 @@ local skills, mod, flag, skill = ...
 			mod("KtashEmpoweredSpells", "BASE", nil),
 		},
 		["pact_skill_grant_damage_+%_final_to_exerted_skills"] = {
-			mod("KtashPactDamage", "BASE", nil),
+			mod("KtashPactDamage", "LIST", { mod = mod("Damage", "MORE", nil) }),
 		},
 		["active_skill_osm_vaal_skill_soul_gain_prevention_+%_final_to_grant"] = {
 			mod("KtashPactSoulGainPrevention", "BASE", nil),
+		},
+		["active_skill_osm_vaal_skill_soul_refund_chance_%_to_grant"] = {
+			mod("KtashPactSoulRefundChance", "BASE", nil),
 		},
 	},
 #mods
@@ -790,7 +802,7 @@ local skills, mod, flag, skill = ...
 			mod("LyciaEmpoweredSpells", "BASE", nil),
 		},
 		["pact_skill_grant_damage_+%_final_to_exerted_skills"] = {
-			mod("LyciaPactDamage", "BASE", nil),
+			mod("LyciaPactDamage", "LIST", { mod = mod("Damage", "MORE", nil) }),
 		},
 	},
 #mods

@@ -237,6 +237,11 @@ return {
 			modList:NewMod("Condition:WarcryMaxHit", "FLAG", true, "Config")
 		end
 	end },
+	{ var = "pactMode", type = "list", label = "Pact calc mode:", ifSkill = { "Pact of Beidat", "Pact of Ghorr", "Pact of K'Tash", "Pact of Lycia" }, tooltip = "Controls how Empowered spells from Pacts are calculated:\nAverage: Averages the effect based on Pact uptime.\nMax Hit: Applies the full effect to one Empowered spell.", list = {{val="AVERAGE",label="Average"},{val="MAX",label="Max Hit"}}, apply = function(val, modList, enemyModList)
+		if val == "MAX" then
+			modList:NewMod("Condition:PactMaxHit", "FLAG", true, "Config")
+		end
+	end },
 	{ var = "EVBypass", type = "check", label = "Disable Emperor's Vigilance Bypass", ifCond = "EVBypass", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:EVBypass", "FLAG", true, "Config")
 	end },

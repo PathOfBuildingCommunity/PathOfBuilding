@@ -366,72 +366,89 @@ describe("TestSkills", function()
 		assert.are.equals(1, nonDurationSkill.skillModList:Sum("BASE", nonDurationSkill.skillCfg, "NegatedBaseFlagTest"))
 	end)
 
-	it("Test Empowered Spells - Pact of Beidat", function()
-		build.skillsTab:PasteSocketGroup("Fireball 20/0  1")
-		runCallback("OnFrame")
-		local baseDPS = build.calcsTab.calcsOutput.TotalDPS
+	it("applies Pact of Beidat coverage based on uptime", function()
+		for _, test in ipairs({
+			{ skill = "Fireball", output = "ProjectileCount", bonus = "BeidatAdditionalProjectiles", amount = 4 },
+			{ skill = "Arc", output = "ChainMax", bonus = "BeidatAdditionalBeamChains", amount = 4 },
+			{ skill = "Firestorm", bonus = "BeidatAdditionalCascades", amount = 5 },
+		}) do
+			newBuild()
+			build.skillsTab:PasteSocketGroup(test.skill.." 20/0  1")
+			runCallback("OnFrame")
+			local baseOutput = test.output and build.calcsTab.mainOutput[test.output]
+			local baseDPS = build.calcsTab.mainOutput.TotalDPS
 
-		build.skillsTab:PasteSocketGroup("Pact of Beidat 1/0  1")
-		runCallback("OnFrame")
-		assert.True(build.calcsTab.calcsOutput.BeidatUpTimeRatio > 0)
-		assert.True(build.calcsTab.calcsOutput.TotalDPS > baseDPS)
-
-		newBuild()
-		build.skillsTab:PasteSocketGroup("Vaal Arc 20/0  1\nPact of Beidat 1/0  1")
-		runCallback("OnFrame")
-		assert.True(build.calcsTab.calcsOutput.BeidatUpTimeRatio == nil)
-	end)
-
-	it("Test Empowered Spells - Pact of Ghorr", function()
-		build.skillsTab:PasteSocketGroup("Creeping Frost 20/0  1")
-		runCallback("OnFrame")
-		local baseDPS = build.calcsTab.calcsOutput.TotalDotDPS
-
-		build.skillsTab:PasteSocketGroup("Pact of Ghorr 1/0  1")
-		runCallback("OnFrame")
-		assert.True(build.calcsTab.calcsOutput.GhorrUpTimeRatio > 0)
-		assert.True(build.calcsTab.calcsOutput.TotalDotDPS > baseDPS)
+			build.skillsTab:PasteSocketGroup("Pact of Beidat 1/0  1")
+			runCallback("OnFrame")
+			local output = build.calcsTab.mainOutput
+			local expectedBonus = test.amount * output.BeidatUpTimeRatio / 100
+			assert.are.near(expectedBonus, output[test.bonus], 10 ^ -9)
+			if test.output then
+				assert.are.near(baseOutput + expectedBonus, output[test.output], 10 ^ -9)
+			end
+			assert.is_true(output.TotalDPS > baseDPS)
+		end
 
 		newBuild()
-		build.skillsTab:PasteSocketGroup("Vaal Arc 20/0  1\n Pact of Ghorr 1/0  1")
+		build.skillsTab:PasteSocketGroup("Fireball 20/0  1\nPact of Beidat 1/0  1")
+		build.configTab.input.pactMode = "MAX"
+		build.configTab:BuildModList()
 		runCallback("OnFrame")
-		assert.True(build.calcsTab.calcsOutput.GhorrUpTimeRatio == nil)
+		assert.are.equals(4, build.calcsTab.mainOutput.BeidatAdditionalProjectiles)
 	end)
 
-	it("Test Empowered Spells - Pact of K'Tash", function()
-		build.skillsTab:PasteSocketGroup("Vaal Arc 20/0  1")
+	it("applies Pact damage to eligible spells", function()
+		for _, test in ipairs({
+			{ skill = "Creeping Frost", pact = "Pact of Ghorr", uptime = "GhorrUpTimeRatio", dps = "TotalDotDPS" },
+			{ skill = "Lightning Tendrils", pact = "Pact of Lycia", uptime = "LyciaUpTimeRatio", dps = "TotalDPS" },
+		}) do
+			newBuild()
+			build.skillsTab:PasteSocketGroup(test.skill.." 20/0  1")
+			runCallback("OnFrame")
+			local baseDPS = build.calcsTab.mainOutput[test.dps]
+			build.skillsTab:PasteSocketGroup(test.pact.." 1/0  1")
+			runCallback("OnFrame")
+			local output = build.calcsTab.mainOutput
+			assert.is_true(output[test.uptime] > 0)
+			assert.is_true(output[test.dps] > baseDPS)
+		end
+
+		newBuild()
+		build.skillsTab:PasteSocketGroup("Lightning Tendrils 20/0  1\nSpell Totem 20/0  1")
 		runCallback("OnFrame")
-		local baseDPS = build.calcsTab.calcsOutput.TotalDPS
+		local baseDPS = build.calcsTab.mainOutput.TotalDPS
+		build.skillsTab:PasteSocketGroup("Pact of Lycia 1/0  1")
+		runCallback("OnFrame")
+		assert.is_nil(build.calcsTab.mainOutput.LyciaUpTimeRatio)
+		assert.are.equals(baseDPS, build.calcsTab.mainOutput.TotalDPS)
+	end)
+
+	it("applies Pact of K'Tash to instant damaging Vaal spells", function()
+		build.skillsTab:PasteSocketGroup("Vaal Righteous Fire 20/0  1")
+		runCallback("OnFrame")
+		local baseDPS = build.calcsTab.mainOutput.TotalDotDPS
+		local basePrevention = build.calcsTab.mainOutput.SoulGainPreventionDuration
 
 		build.skillsTab:PasteSocketGroup("Pact of K'Tash 1/0  1")
 		runCallback("OnFrame")
-		assert.True(build.calcsTab.calcsOutput.KtashUpTimeRatio > 0)
-		assert.True(build.calcsTab.calcsOutput.TotalDPS > baseDPS)
-
-		newBuild()
-		build.skillsTab:PasteSocketGroup("Fireball 20/0  1\nPact of K'Tash 1/0  1")
-		runCallback("OnFrame")
-		assert.True(build.calcsTab.calcsOutput.KtashUpTimeRatio == nil)
+		local output = build.calcsTab.mainOutput
+		assert.are.equals(100, output.KtashUpTimeRatio)
+		assert.are.near(baseDPS * 1.1, output.TotalDotDPS, 10 ^ -6)
+		assert.are.equals(100, output.KtashSoulRefundChance)
+		assert.are.equals(math.max(math.ceil(basePrevention * 0.5 * data.misc.ServerTickRate), 1) / data.misc.ServerTickRate, output.SoulGainPreventionDuration)
 	end)
 
-	it("Test Empowered Spells - Pact of Lycia", function()
-		build.skillsTab:PasteSocketGroup("Lightning Tendrils 20/0  1")
-		runCallback("OnFrame")
-		local baseDPS = build.calcsTab.calcsOutput.TotalDPS
-
-		build.skillsTab:PasteSocketGroup("Pact of Lycia 1/0  1")
-		runCallback("OnFrame")
-		assert.True(build.calcsTab.calcsOutput.LyciaUpTimeRatio > 0)
-		assert.True(build.calcsTab.calcsOutput.TotalDPS > baseDPS)
-
-		newBuild()
-		build.skillsTab:PasteSocketGroup("Fireball 20/0  1\nPact of Lycia 1/0  1")
-		runCallback("OnFrame")
-		assert.True(build.calcsTab.calcsOutput.LyciaUpTimeRatio == nil)
-
-		newBuild()
-		build.skillsTab:PasteSocketGroup("Vaal Arc 20/0  1\nPact of Lycia 1/0  1")
-		runCallback("OnFrame")
-		assert.True(build.calcsTab.calcsOutput.LyciaUpTimeRatio == nil)
+	it("does not apply Pacts to ineligible spells", function()
+		for _, test in ipairs({
+			{ "Vaal Arc", "Pact of Beidat", "BeidatUpTimeRatio" },
+			{ "Vaal Arc", "Pact of Ghorr", "GhorrUpTimeRatio" },
+			{ "Fireball", "Pact of K'Tash", "KtashUpTimeRatio" },
+			{ "Fireball", "Pact of Lycia", "LyciaUpTimeRatio" },
+		}) do
+			newBuild()
+			build.skillsTab:PasteSocketGroup(test[1].." 20/0  1\n"..test[2].." 1/0  1")
+			runCallback("OnFrame")
+			assert.is_nil(build.calcsTab.mainOutput[test[3]])
+		end
 	end)
 end)

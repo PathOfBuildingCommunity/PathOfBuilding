@@ -2369,6 +2369,6 @@ return {
 	-- Display only
 },
 ["pact_empower_limitation_specifier_for_stat_description"] = {
-	-- display only
+	-- Display only
 },
 }
