@@ -23,27 +23,22 @@ describe("TestMinionAttackTime", function()
 		runCallback("OnFrame")
 	end
 
-	it("uses the parent main-hand attack time and rescales ordinary minion base damage", function()
+	it("uses the parent main-hand attack time without changing minion base damage", function()
 		build.skillsTab:PasteSocketGroup("Summon Skeletons of Archers 20/0  1")
 		runCallback("OnFrame")
 
-		local minionData = data.minions.RaisedSkeletonArcher
 		local baseAverageDamage = build.calcsTab.mainOutput.Minion.AverageDamage
 		assert.is_true(baseAverageDamage > 0)
 
 		equipReplicaMaatasTeaching()
 
 		local env = build.calcsTab.mainEnv
-		local parentAttackTime = 1 / env.player.weaponData1.AttackRate
-		local expectedDamageRatio = parentAttackTime / minionData.attackTime
-		local actualDamageRatio = build.calcsTab.mainOutput.Minion.AverageDamage / baseAverageDamage
 
 		assert.are.near(env.player.weaponData1.AttackRate, env.minion.weaponData1.AttackRate, 10 ^ -9)
-		assert.are.near(expectedDamageRatio, actualDamageRatio, 0.001)
-		assert.is_true(build.calcsTab.mainOutput.Minion.AverageDamage < baseAverageDamage)
+		assert.are.equals(baseAverageDamage, build.calcsTab.mainOutput.Minion.AverageDamage)
 	end)
 
-	it("does not rescale base damage for minions whose base damage ignores attack speed", function()
+	it("keeps damage unchanged when minion base damage ignores attack speed", function()
 		local minionData = data.minions.RaisedSkeletonArcher
 		local originalFlag = minionData.baseDamageIgnoresAttackSpeed
 		minionData.baseDamageIgnoresAttackSpeed = true
