@@ -91,9 +91,10 @@ function ControlHostClass:ProcessControlsInput(inputEvents, viewPort)
 end
 
 function ControlHostClass:DrawControls(viewPort, selControl)
+	local sel = (self.selControl and self.selControl.hasFocus and self.selControl) or (selControl and selControl.hasFocus and selControl)
 	for _, control in pairs(self.controls) do
 		if control:IsShown() and control.Draw then
-			control:Draw(viewPort, (self.selControl and self.selControl.hasFocus and self.selControl ~= control) or (selControl and selControl.hasFocus and selControl ~= control))
+			control:Draw(viewPort, sel and sel ~= control)
 		end
 	end
 end
