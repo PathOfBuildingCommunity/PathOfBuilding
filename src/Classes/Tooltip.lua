@@ -587,18 +587,15 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 			elseif type(self.color) == "string" then
 				SetDrawColor(self.color)
 			else
-				SetDrawColor(unpack(self.color))
+				local c = self.color
+				SetDrawColor(c[1], c[2], c[3], c[4])
 			end
 			if not skip then
 				if line[1] and line[1].handle then
-					local args = { line[1].handle, line[2], line[3], line[4], line[5] }
-					for _, v in ipairs(line[1]) do
-						t_insert(args, v)
-					end
 					SetDrawColor(1,1,1)
-					DrawImage(unpack(args))
+					DrawImage(line[1].handle, line[2], line[3], line[4], line[5], line[1][1], line[1][2], line[1][3], line[1][4])
 				else
-					DrawImage(unpack(line))
+					DrawImage(line[1], line[2], line[3], line[4], line[5])
 				end
 			end
 		else
@@ -632,7 +629,7 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 			end
 
 			-- Draw text line
-			DrawString(unpack(line))
+			DrawString(line[1], line[2], line[3], line[4], line[5], line[6])
 			if line.strikethrough then
 				local textX = line[1]
 				local textY = line[2]
@@ -653,7 +650,8 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 	if type(self.color) == "string" then
 		SetDrawColor(self.color)
 	else
-		SetDrawColor(unpack(self.color))
+		local c = self.color
+		SetDrawColor(c[1], c[2], c[3], c[4])
 	end
 
 	-- draw vertical borders, accounting for separate extra column width
