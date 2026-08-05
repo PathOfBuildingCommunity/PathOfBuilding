@@ -726,7 +726,7 @@ holding Shift will put it in the second.]])
 
 	-- Section: Affix Selection
 	local maxModCount = 9
-	self.controls.displayItemSectionAffix = new("Control", { "TOPLEFT", self.controls.craftingSortingLabel, "BOTTOMLEFT" }, { 0, function()
+	self.controls.displayItemSectionAffix = new("Control", { "TOPLEFT", self.controls.craftingSortingLabel, "BOTTOMLEFT", true }, { 0, function()
 		if self.controls.craftingSortingLabel.shown() then
 			return 8
 		else
