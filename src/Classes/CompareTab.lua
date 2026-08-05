@@ -1538,12 +1538,22 @@ function CompareTabClass:OpenImportFolderPopup()
 		controls = { },
 	}
 	function listHost:BuildList()
+		self.buildIndex = buildListHelpers.ScanFolder(self.subPath)
+		self:FilterBuildList()
+	end
+	function listHost:FilterBuildList()
 		wipeTable(self.list)
-		local scanned = buildListHelpers.ScanFolder(self.subPath, searchText)
-		for _, entry in ipairs(scanned) do
+		for _, entry in ipairs(buildListHelpers.FilterList(self.buildIndex, self.subPath, searchText)) do
 			t_insert(self.list, entry)
 		end
+		self:SortList()
+	end
+	function listHost:SortList()
+		local selectedFullFileName = controls.buildList and controls.buildList.selValue and controls.buildList.selValue.fullFileName
 		buildListHelpers.SortList(self.list, sortMode)
+		if controls.buildList then
+			controls.buildList:SelByFullFileName(selectedFullFileName)
+		end
 	end
 	function listHost:SelectControl(control)
 		-- Focus is managed by the popup's ControlHost; this is a no-op for the popup list.
@@ -1572,12 +1582,13 @@ function CompareTabClass:OpenImportFolderPopup()
 	-- Search box and sort dropdown sit above the build list.
 	controls.searchText = new("EditControl", {"TOPLEFT", nil, "TOPLEFT"}, {15, 25, 450, 20}, "", "Search", "%c%(%)", 100, function(buf)
 		searchText = buf
-		listHost:BuildList()
+		listHost:FilterBuildList()
 	end, nil, nil, true)
+	controls.searchText:SetPlaceholder("(e.g. class:assassin myfilename)")
 	controls.sort = new("DropDownControl", {"TOPLEFT", nil, "TOPLEFT"}, {475, 25, 210, 20}, buildListHelpers.buildSortDropList, function(index, value)
 		sortMode = value.sortMode
 		main.buildSortMode = value.sortMode
-		buildListHelpers.SortList(listHost.list, sortMode)
+		listHost:SortList()
 	end)
 	controls.sort:SelByValue(sortMode, "sortMode")
 
@@ -1590,7 +1601,7 @@ function CompareTabClass:OpenImportFolderPopup()
 	-- navigate folders, import builds, and suppress rename/delete/drag behaviors.
 	function controls.buildList:LoadBuild(build)
 		if build.folderName then
-			self.controls.path:SetSubPath(self.listMode.subPath .. build.folderName .. "/")
+			self.controls.path:SetSubPath(build.subPath .. build.folderName .. "/")
 		else
 			importBuildEntry(build)
 		end

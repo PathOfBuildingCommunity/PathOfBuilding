@@ -1,4 +1,4 @@
-describe("TestAttacks", function()
+describe("TestSkills", function()
 	before_each(function()
 		newBuild()
 	end)
@@ -151,6 +151,86 @@ describe("TestAttacks", function()
 		assert.True(preAdrenalineMaxStages < build.calcsTab.mainEnv.player.activeSkillList[1].skillModList:Sum("BASE", nil, "Multiplier:BlightMaxStages"))
 	end)
 
+	it("calculates Wintertide Brand average damage for attached brands and Wintertide's End", function()
+		local function getAverageDamageMultiplier()
+			for _, mod in ipairs(build.calcsTab.mainEnv.player.mainSkill.skillModList) do
+				if mod.source == "Wintertide Brand Average Multiplier" then
+					return mod.value
+				end
+			end
+		end
+
+		build.skillsTab:PasteSocketGroup("Wintertide Brand 20/0  1\n")
+		runCallback("OnFrame")
+		local mainSocketGroup = build.skillsTab.socketGroupList[build.mainSocketGroup]
+		local srcInstance = mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeEffect.srcInstance
+		srcInstance.skillPart = 1
+		build.modFlag = true
+		build.buildFlag = true
+		runCallback("OnFrame")
+
+		assert.is_true(build.configTab.varControls.BrandsAttachedToEnemy.shown())
+		assert.are.equals(8, build.calcsTab.mainOutput.BrandTicks)
+		assert.are.near(2, build.calcsTab.mainOutput.DurationTertiary, 0.02)
+		assert.are.equals(20, build.calcsTab.mainEnv.player.mainSkill.skillModList:Sum("BASE", build.calcsTab.mainEnv.player.mainSkill.skillCfg, "Multiplier:WintertideBrandMaxStages"))
+		assert.are.equals("Average Damage for 2 attached Brands", build.calcsTab.mainEnv.player.mainSkill.infoMessage)
+		assert.are.near(500, getAverageDamageMultiplier(), 10 ^ -9)
+
+		build.configTab.input.BrandsAttachedToEnemy = 1
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.equals("Average Damage for 1 attached Brand", build.calcsTab.mainEnv.player.mainSkill.infoMessage)
+		assert.are.near(330, getAverageDamageMultiplier(), 10 ^ -9)
+
+		build.configTab.input.BrandsAttachedToEnemy = nil
+		build.configTab.input.customMods = "You can have an additional Brand Attached to an Enemy"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.equals("Average Damage for 3 attached Brands", build.calcsTab.mainEnv.player.mainSkill.infoMessage)
+		assert.are.near(670, getAverageDamageMultiplier(), 10 ^ -9)
+
+		build.configTab.input.customMods = "400% increased Skill Effect Duration"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.equals(40, build.calcsTab.mainOutput.BrandTicks)
+		assert.are.near(1190, getAverageDamageMultiplier(), 10 ^ -9)
+	end)
+
+	it("multiplies Brand DPS by the attached Brand count", function()
+		build.skillsTab:PasteSocketGroup("Armageddon Brand 20/0  1\n")
+		runCallback("OnFrame")
+
+		local singleBrandDPS = build.calcsTab.mainOutput.TotalDPS
+		build.configTab.input.customMods = "You can have an additional Brand Attached to an Enemy"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.near(singleBrandDPS * 2, build.calcsTab.mainOutput.TotalDPS, 10 ^ -9)
+		assert.are.equals("DPS for 2 attached Brands", build.calcsTab.mainEnv.player.mainSkill.infoMessage)
+	end)
+
+	it("multiplies manually staged Brand damage over time by the attached Brand count", function()
+		build.skillsTab:PasteSocketGroup("Wintertide Brand 20/0  1\n")
+		runCallback("OnFrame")
+		local mainSocketGroup = build.skillsTab.socketGroupList[build.mainSocketGroup]
+		mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeEffect.srcInstance.skillPart = 2
+		build.configTab.input.BrandsAttachedToEnemy = 1
+		build.configTab:BuildModList()
+		build.modFlag = true
+		build.buildFlag = true
+		runCallback("OnFrame")
+
+		local singleBrandDPS = build.calcsTab.mainOutput.TotalDot
+		build.configTab.input.BrandsAttachedToEnemy = nil
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.near(singleBrandDPS * 2, build.calcsTab.mainOutput.TotalDot, 10 ^ -9)
+	end)
+
 	it("averages inverted elemental resistance after penetration", function()
 		build.skillsTab:PasteSocketGroup("Fireball 20/0  1")
 		build.configTab.input.enemyIsBoss = "None"
@@ -216,7 +296,7 @@ describe("TestAttacks", function()
 		assert.True(math.abs(finalCost - 12) < 0.1) -- floor(12 * 1.5) / 1.5
 	end)
 
-	it("Test flat cost is added before cost efficiency", function()
+	it("Test flat cost is added after cost efficiency", function()
 		-- In-game order is ((base cost * multipliers) + flat cost) / (1 + cost efficiency)
 		build.skillsTab:PasteSocketGroup("Hydrosphere 1/0  1\n")
 
@@ -226,10 +306,10 @@ describe("TestAttacks", function()
 		runCallback("OnFrame")
 
 		local finalCost = build.calcsTab.mainOutput.ManaCost
-		-- (12 + 10) / 1.5 = 14.667
-		assert.True(math.abs(finalCost - 22 / 1.5) < 0.001)
+		-- 12 / 1.5 + 10 = 18
+		assert.equals(18, finalCost)
 	end)
-	it("Test flat cost is added before cost efficiency for life costs", function()
+	it("Test flat cost is added after cost efficiency for life costs", function()
 		build.skillsTab:PasteSocketGroup("Hydrosphere 1/0  1\n")
 
 		-- Convert Hydrosphere's 12 base cost to life, then add +10 flat and 50% efficiency
@@ -237,11 +317,11 @@ describe("TestAttacks", function()
 		build.configTab:BuildModList()
 		runCallback("OnFrame")
 
-		-- (12 + 10) / 1.5 = 14.667
-		assert.True(math.abs(build.calcsTab.mainOutput.LifeCost - 22 / 1.5) < 0.001)
+		-- 12 / 1.5 + 10 = 18
+		assert.equals(18, build.calcsTab.mainOutput.LifeCost)
 	end)
 
-	it("Test flat cost is added before cost efficiency for energy shield costs (#10003)", function()
+	it("Test flat cost is added after cost efficiency for energy shield costs", function()
 		build.skillsTab:PasteSocketGroup("Hydrosphere 1/0  1\n")
 
 		-- Convert Hydrosphere's 12 base cost to ES, then add +10 flat and 50% efficiency
@@ -249,8 +329,8 @@ describe("TestAttacks", function()
 		build.configTab:BuildModList()
 		runCallback("OnFrame")
 
-		-- (12 + 10) / 1.5 = 14.667
-		assert.True(math.abs(build.calcsTab.mainOutput.ESCost - 22 / 1.5) < 0.001)
+		-- 12 / 1.5 + 10 = 18
+		assert.equals(18, build.calcsTab.mainOutput.ESCost)
 	end)
 	it("Test mana cost efficiency with support gems", function()
 		-- Test interaction between cost efficiency and cost multipliers
@@ -284,5 +364,91 @@ describe("TestAttacks", function()
 		nonDurationSkill.skillModList:NewMod("NegatedBaseFlagTest", "BASE", 1, "Test", { type = "BaseFlag", baseFlag = "duration", neg = true })
 		assert.are.equals(0, nonDurationSkill.skillModList:Sum("BASE", nonDurationSkill.skillCfg, "BaseFlagTest"))
 		assert.are.equals(1, nonDurationSkill.skillModList:Sum("BASE", nonDurationSkill.skillCfg, "NegatedBaseFlagTest"))
+	end)
+
+	it("applies Pact of Beidat coverage based on uptime", function()
+		for _, test in ipairs({
+			{ skill = "Fireball", output = "ProjectileCount", bonus = "BeidatAdditionalProjectiles", amount = 4 },
+			{ skill = "Arc", output = "ChainMax", bonus = "BeidatAdditionalBeamChains", amount = 4 },
+			{ skill = "Firestorm", bonus = "BeidatAdditionalCascades", amount = 5 },
+		}) do
+			newBuild()
+			build.skillsTab:PasteSocketGroup(test.skill.." 20/0  1")
+			runCallback("OnFrame")
+			local baseOutput = test.output and build.calcsTab.mainOutput[test.output]
+			local baseDPS = build.calcsTab.mainOutput.TotalDPS
+
+			build.skillsTab:PasteSocketGroup("Pact of Beidat 1/0  1")
+			runCallback("OnFrame")
+			local output = build.calcsTab.mainOutput
+			local expectedBonus = test.amount * output.BeidatUpTimeRatio / 100
+			assert.are.near(expectedBonus, output[test.bonus], 10 ^ -9)
+			if test.output then
+				assert.are.near(baseOutput + expectedBonus, output[test.output], 10 ^ -9)
+			end
+			assert.is_true(output.TotalDPS > baseDPS)
+		end
+
+		newBuild()
+		build.skillsTab:PasteSocketGroup("Fireball 20/0  1\nPact of Beidat 1/0  1")
+		build.configTab.input.pactMode = "MAX"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+		assert.are.equals(4, build.calcsTab.mainOutput.BeidatAdditionalProjectiles)
+	end)
+
+	it("applies Pact damage to eligible spells", function()
+		for _, test in ipairs({
+			{ skill = "Creeping Frost", pact = "Pact of Ghorr", uptime = "GhorrUpTimeRatio", dps = "TotalDotDPS" },
+			{ skill = "Lightning Tendrils", pact = "Pact of Lycia", uptime = "LyciaUpTimeRatio", dps = "TotalDPS" },
+		}) do
+			newBuild()
+			build.skillsTab:PasteSocketGroup(test.skill.." 20/0  1")
+			runCallback("OnFrame")
+			local baseDPS = build.calcsTab.mainOutput[test.dps]
+			build.skillsTab:PasteSocketGroup(test.pact.." 1/0  1")
+			runCallback("OnFrame")
+			local output = build.calcsTab.mainOutput
+			assert.is_true(output[test.uptime] > 0)
+			assert.is_true(output[test.dps] > baseDPS)
+		end
+
+		newBuild()
+		build.skillsTab:PasteSocketGroup("Lightning Tendrils 20/0  1\nSpell Totem 20/0  1")
+		runCallback("OnFrame")
+		local baseDPS = build.calcsTab.mainOutput.TotalDPS
+		build.skillsTab:PasteSocketGroup("Pact of Lycia 1/0  1")
+		runCallback("OnFrame")
+		assert.is_nil(build.calcsTab.mainOutput.LyciaUpTimeRatio)
+		assert.are.equals(baseDPS, build.calcsTab.mainOutput.TotalDPS)
+	end)
+
+	it("applies Pact of K'Tash to instant damaging Vaal spells", function()
+		build.skillsTab:PasteSocketGroup("Vaal Righteous Fire 20/0  1")
+		runCallback("OnFrame")
+		local baseDPS = build.calcsTab.mainOutput.TotalDotDPS
+		local basePrevention = build.calcsTab.mainOutput.SoulGainPreventionDuration
+
+		build.skillsTab:PasteSocketGroup("Pact of K'Tash 1/0  1")
+		runCallback("OnFrame")
+		local output = build.calcsTab.mainOutput
+		assert.are.equals(100, output.KtashUpTimeRatio)
+		assert.are.near(baseDPS * 1.1, output.TotalDotDPS, 10 ^ -6)
+		assert.are.equals(100, output.KtashSoulRefundChance)
+		assert.are.equals(math.max(math.ceil(basePrevention * 0.5 * data.misc.ServerTickRate), 1) / data.misc.ServerTickRate, output.SoulGainPreventionDuration)
+	end)
+
+	it("does not apply Pacts to ineligible spells", function()
+		for _, test in ipairs({
+			{ "Vaal Arc", "Pact of Beidat", "BeidatUpTimeRatio" },
+			{ "Vaal Arc", "Pact of Ghorr", "GhorrUpTimeRatio" },
+			{ "Fireball", "Pact of K'Tash", "KtashUpTimeRatio" },
+			{ "Fireball", "Pact of Lycia", "LyciaUpTimeRatio" },
+		}) do
+			newBuild()
+			build.skillsTab:PasteSocketGroup(test[1].." 20/0  1\n"..test[2].." 1/0  1")
+			runCallback("OnFrame")
+			assert.is_nil(build.calcsTab.mainOutput[test[3]])
+		end
 	end)
 end)

@@ -1803,7 +1803,7 @@ skills["Cleave"] = {
 	castTime = 1,
 	statMap = {
 		["cleave_+1_base_radius_per_nearby_enemy_up_to_10"] = {
-			skill("radiusExtra", nil, { type = "Multiplier", var = "NearbyEnemies", limit = 10, limitTotal = true })
+			mod("AreaOfEffect", "BASE", nil, 0, 0, { type = "Multiplier", var = "NearbyEnemies", limit = 10, limitTotal = true })
 		},
 	},
 	baseFlags = {
@@ -1975,7 +1975,7 @@ skills["VaalCleave"] = {
 	castTime = 1,
 	statMap = {
 		["cleave_+1_base_radius_per_nearby_enemy_up_to_10"] = {
-			skill("radiusExtra", nil, { type = "Multiplier", var = "NearbyEnemies", limit = 10, limitTotal = true })
+			mod("AreaOfEffect", "BASE", nil, 0, 0, { type = "Multiplier", var = "NearbyEnemies", limit = 10, limitTotal = true })
 		},
 		["vaal_cleave_executioner_damage_against_enemies_on_low_life_+%"] = {
 			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "ActorCondition", actor = "enemy", var = "LowLife" }, { type = "SkillName", skillName = "Cleave", includeTransfigured = true }, { type = "GlobalEffect", effectType = "Buff", effectName = "Vaal Cleave", unscalable = true } ),
@@ -11151,7 +11151,6 @@ skills["ReapAltX"] = {
 		duration = true,
 	},
 	baseMods = {
-		skill("radius", 25),
 		skill("debuff", true),
 	},
 	qualityStats = {

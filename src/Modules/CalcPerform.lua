@@ -1320,14 +1320,15 @@ function calcs.perform(env, skipEHP)
 
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
 		if activeSkill.skillTypes[SkillType.Brand] then
-			local attachLimit = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "BrandsAttachedLimit")
-			local attached = modDB:Sum("BASE", nil, "Multiplier:ConfigBrandsAttachedToEnemy")
+			local attachLimit = m_min(activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "BrandsAttachedLimit"), activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "ActiveBrandLimit"))
+			local configured = modDB:Sum("BASE", nil, "Multiplier:ConfigBrandsAttachedToEnemy")
+			local attached = configured > 0 and m_min(configured, attachLimit) or attachLimit
+			activeSkill.skillData.attachedBrandCount = attached
 			local activeBrands = modDB:Sum("BASE", nil, "Multiplier:ConfigActiveBrands")
-			local actual = m_min(attachLimit, attached)
 			-- Cap the number of active brands by the limit, which is 3 by default
 			modDB.multipliers["ActiveBrand"] = m_min(activeBrands, modDB:Sum("BASE", nil, "ActiveBrandLimit"))
-			modDB.multipliers["BrandsAttachedToEnemy"] = m_max(actual, modDB.multipliers["BrandsAttachedToEnemy"] or 0)
-			enemyDB.multipliers["BrandsAttached"] = m_max(actual, enemyDB.multipliers["BrandsAttached"] or 0)
+			modDB.multipliers["BrandsAttachedToEnemy"] = m_max(attached, modDB.multipliers["BrandsAttachedToEnemy"] or 0)
+			enemyDB.multipliers["BrandsAttached"] = m_max(attached, enemyDB.multipliers["BrandsAttached"] or 0)
 		end
 		if activeSkill.skillFlags.totem then
 			local limit = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ActiveTotemLimit", "ActiveBallistaLimit" )
@@ -1396,9 +1397,9 @@ function calcs.perform(env, skipEHP)
 				hasGuaranteedBonechill = true
 			end
 		end
-		-- Count active, damageable minions. Skills without a limit contribute one minion.
+		-- Count active minions. Skills without a limit contribute one minion.
 		local minionList = activeSkill.minionList
-		if not activeSkill.skillFlags.disable and not activeSkill.skillTypes[SkillType.MinionsAreUndamagable] and minionList and minionList[1] then
+		if not activeSkill.skillFlags.disable and minionList and minionList[1] then
 			local grantedEffect = activeSkill.activeEffect.grantedEffect
 			for _, minionType in ipairs(minionList) do
 				local minionData = env.data.minions[minionType]
@@ -1413,6 +1414,9 @@ function calcs.perform(env, skipEHP)
 					counts.total = m_max(count, counts.total or 0)
 					if not activeSkill.skillTypes[SkillType.Vaal] then
 						counts.nonVaal = m_max(count, counts.nonVaal or 0)
+					end
+					if activeSkill.skillFlags.permanentMinion then
+						counts.permanent = m_max(count, counts.permanent or 0)
 					end
 					minionCounts[key] = counts
 				end
@@ -1454,6 +1458,9 @@ function calcs.perform(env, skipEHP)
 		modDB:NewMod("Multiplier:SummonedMinion", "BASE", counts.total, "Config", { type = "Condition", var = "Combat" })
 		if counts.nonVaal then
 			modDB:NewMod("Multiplier:NonVaalSummonedMinion", "BASE", counts.nonVaal, "Config", { type = "Condition", var = "Combat" })
+		end
+		if counts.permanent then
+			modDB:NewMod("Multiplier:PermanentMinion", "BASE", counts.permanent, "Config", { type = "Condition", var = "Combat" })
 		end
 	end
 
@@ -3884,9 +3891,10 @@ function calcs.perform(env, skipEHP)
 				local baseQuality = mainSkill.skillModList:Sum("BASE", mainSkill.skillCfg, "GemQuality")
 				local totalItemQuality = mainSkill.skillModList:Sum("BASE", mainSkill.skillCfg, "GemItemQuality")
 				local totalSupportQuality = mainSkill.skillModList:Sum("BASE", mainSkill.skillCfg, "GemSupportQuality")
+				local socketQuality = mainSkill.skillModList:Sum("BASE", mainSkill.skillCfg, "GemSocketQuality")
 
 				output.GemHasQuality = true
-				output.GemQuality = baseQuality + totalSupportQuality + totalItemQuality
+				output.GemQuality = baseQuality + totalSupportQuality + totalItemQuality + socketQuality
 
 				if env.player.breakdown then
 					env.player.breakdown.GemQuality = {}
@@ -3896,6 +3904,9 @@ function calcs.perform(env, skipEHP)
 					end
 					if totalItemQuality > 0 then
 						t_insert(env.player.breakdown.GemQuality, s_format("+ %d ^8(quality from items)", totalItemQuality))
+					end
+					if socketQuality > 0 then
+						t_insert(env.player.breakdown.GemQuality, s_format("+ %d ^8(quality from socket)", socketQuality))
 					end
 					t_insert(env.player.breakdown.GemQuality, s_format("= %d", output.GemQuality))
 				end

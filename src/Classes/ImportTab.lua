@@ -24,7 +24,7 @@ local realmList = {
 local function addOAuthControls(self)
 	self.usingOauth = true
 	self.isAuthorized = function() return main.api.authToken ~= nil end
-	-- the 30 second timer for oauth
+	-- the 60 second timer for oauth
 	--- @type integer?
 	self.oauthTimer = nil
 	-- timestamp for when we can request again after being rate limited
@@ -40,16 +40,20 @@ local function addOAuthControls(self)
 	--- @type table<string, table[]>
 	self.characterList = {}
 
+	local function fetchButtonEnabled()
+		local realm = self.controls.accountRealm:GetSelValue()
+		return not (realm and self.characterList[realm.realmCode])
+	end
 	local function charImportStatus()
 		if not self.isAuthorized() and not self.oauthTimer then
 			return colorCodes.WARNING .. "Not authenticated"
 		elseif not self.isAuthorized() and self.oauthTimer then
-			local timeLeft = m_max(0, (self.oauthTimer + 30) - os.time())
+			local timeLeft = m_max(0, (self.oauthTimer + 60) - os.time())
 			if timeLeft < 1 then
 				self.oauthTimer = nil
 				return colorCodes.WARNING .. "Not authenticated"
 			end
-			return string.format("Logging in... (%d)", timeLeft) .. (self.oauthErrCode or "")
+			return string.format("Logging in... (%d) - URL copied to clipboard", timeLeft) .. (self.oauthErrCode or "")
 			-- user is spam changing realms and is rate limited
 		elseif self.isAuthorized() and self.rateLimitEndTime then
 			local timeLeft = m_max(0, self.rateLimitEndTime - os.time())
@@ -59,7 +63,7 @@ local function addOAuthControls(self)
 			end
 			return colorCodes.WARNING .. string.format("You're doing that too fast. Please wait (%d)", timeLeft)
 		elseif self.isAuthorized() and self.oauthLoading then
-			return "Fetching..."
+			return fetchButtonEnabled() and "Fetching..." or "Importing..."
 		elseif self.isAuthorized() then
 			return "Authenticated"
 		end
@@ -204,10 +208,6 @@ local function addOAuthControls(self)
 		end
 		return "Fetch Characters"
 	end
-	local function fetchButtonEnabled()
-		local realm = self.controls.accountRealm:GetSelValue()
-		return not (realm and self.characterList[realm.realmCode])
-	end
 	self.controls.accountRealmFetchButton = new("ButtonControl", { "LEFT", self.controls.accountRealm, "RIGHT" },
 		{ labelSpacing, 0, 130, 20 }, fetchTextFunc, fetchCharacters)
 	self.controls.accountRealmFetchButton.enabled = fetchButtonEnabled
@@ -264,13 +264,16 @@ local function addOAuthControls(self)
 						self.oauthErrCode = "Could not import character"
 					end
 				end
+				self.oauthLoading = false
 			end
 			if self.build.spec:CountAllocNodes() > 0 then
 				main:OpenConfirmPopup("Character Import", "Importing the passive tree will overwrite your current tree.",
 					"Import", function()
+						self.oauthLoading = true
 						main.api:DownloadCharacter(realm.realmCode, selectedName, importHandler)
 					end)
 			else
+				self.oauthLoading = true
 				main.api:DownloadCharacter(realm.realmCode, selectedName, importHandler)
 			end
 		end)
@@ -287,6 +290,7 @@ local function addOAuthControls(self)
 
 			saveDetails(realm.id, league, selectedName)
 
+			self.oauthLoading = true
 			main.api:DownloadCharacter(realm.realmCode, selectedName, function(data, errMsg)
 				local clearItems = self.controls.charImportItemsClearItems.state
 				local clearSkills = self.controls.charImportItemsClearSkills.state
@@ -301,7 +305,7 @@ local function addOAuthControls(self)
 						self.oauthErrCode = "Could not import character"
 					end
 				end
-				
+				self.oauthLoading = false
 			end)
 		end)
 	self.controls.charImportItems.enabled = function()
@@ -501,7 +505,7 @@ local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(
 	end)
 	self.controls.enablePartyExportBuffs = new("CheckBoxControl", {"LEFT",self.controls.generateCode,"RIGHT"}, {100, 0, 18}, "Export Support", function(state)
 		self.build.partyTab.enableExportBuffs = state
-		self.build.buildFlag = true 
+		self.build.buildFlag = true
 	end, "This is for party play, to export support character, it enables the exporting of auras, curses and modifiers to the enemy", false)
 	self.controls.generateCodeOut = new("EditControl", {"TOPLEFT",self.controls.generateCodeLabel,"BOTTOMLEFT"}, {0, 8, 250, 20}, "", "Code", "%Z")
 	self.controls.generateCodeOut.enabled = function()
@@ -722,7 +726,7 @@ local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(
 			end
 		end)
 	end
-	
+
 end)
 
 -- attempt to fetch the last realm's character list once per instance, if there
@@ -765,7 +769,7 @@ function ImportTabClass:Save(xml)
 		xml.attrib.importLink = self.build.importLink
 	end
 	-- Gets rid of erroneous, potentially infinitely nested full base64 XML stored as an import link
-	xml.attrib.importLink = (xml.attrib.importLink and xml.attrib.importLink:len() < 100) and xml.attrib.importLink or nil 
+	xml.attrib.importLink = (xml.attrib.importLink and xml.attrib.importLink:len() < 100) and xml.attrib.importLink or nil
 end
 
 function ImportTabClass:Draw(viewPort, inputEvents)
@@ -831,6 +835,10 @@ function ImportTabClass:DownloadPassiveTree(realm)
 				self.lastLeague = self.controls.siteCharSelectLeague:GetSelValueByKey("league")
 			end
 			local responseLua = dkjson.decode(response.body)
+			-- Account-name imports omit quest choices, so keep the build's current values.
+			responseLua.bandit_choice = responseLua.bandit_choice or self.build.configTab.input.bandit
+			responseLua.pantheon_major = responseLua.pantheon_major or self.build.configTab.input.pantheonMajorGod
+			responseLua.pantheon_minor = responseLua.pantheon_minor or self.build.configTab.input.pantheonMinorGod
 			-- modify response to be like the oauth API response
 			local charData = copyTable(charListData)
 			charData.passives = responseLua
@@ -868,6 +876,7 @@ function ImportTabClass:DownloadItems(realm)
 			-- modify response to be like the oauth API response
 			local charData = copyTable(charListData)
 			charData.equipment = responseLua.items
+			charData.guardian = responseLua.guardian
 			local clearItems = self.controls.siteCharImportItemsClearItems.state
 			local clearSkills = self.controls.siteCharImportItemsClearSkills.state
 			local ignoreWeaponSwap = self.controls.siteCharImportItemsIgnoreWeaponSwap.state
@@ -1189,8 +1198,8 @@ function ImportTabClass:ImportPassiveTreeAndJewels(charData, deleteJewels)
 	local ruthlessSuffix = charData.league:match("Ruthless") and "_ruthless" or ""
 	local phreciaSuffix = isAscendancyInTree(charData.class, latestTreeVersion) and "" or "_alternate"
 	self.build.spec:ImportFromNodeList(charData.class,
-		nil, 
-		nil, 
+		nil,
+		nil,
 		alternateAscendancyId,
 		charPassives.hashes,
 		skillOverrides,
@@ -1208,14 +1217,14 @@ function ImportTabClass:ImportPassiveTreeAndJewels(charData, deleteJewels)
 	local resistancePenaltyIndex = 3
 	if self.build.Act then -- Estimate resistance penalty setting based on act progression estimate
 		if type(self.build.Act) == "string" and self.build.Act == "Endgame" then resistancePenaltyIndex = 3
-		elseif type(self.build.Act) == "number" then 
+		elseif type(self.build.Act) == "number" then
 			if self.build.Act < 5 then resistancePenaltyIndex = 1
 			elseif self.build.Act > 5 and self.build.Act < 11 then resistancePenaltyIndex = 2
 			elseif self.build.Act > 10 then resistancePenaltyIndex = 3 end
 		end
 	end
 	self.build.configTab.varControls["resistancePenalty"]:SetSel(resistancePenaltyIndex)
-	
+
 	local function setSelByVal(dropdown, val)
 		for i, v in ipairs(dropdown.list) do
 			if v.val == val then
@@ -1327,6 +1336,40 @@ local function applySocketGroupReimportState(socketGroup, state)
 	end
 end
 
+local GUARD_ITEM_SET = "Animate Guardian"
+-- Locates AG's item set from the import
+function ImportTabClass:GetOrCreateGuardianItemSet()
+	local itemsTab = self.build.itemsTab
+	for _, itemSetId in ipairs(itemsTab.itemSetOrderList) do
+		local itemSet = itemsTab.itemSets[itemSetId]
+		if itemSet.title == GUARD_ITEM_SET then
+			return itemSet
+		end
+	end
+	local itemSet = itemsTab:NewItemSet()
+	itemSet.title = GUARD_ITEM_SET
+	t_insert(itemsTab.itemSetOrderList, itemSet.id)
+	return itemSet
+end
+
+-- Allocates AG's item set for the AG skill gem.
+function ImportTabClass:AssignGuardianItemSet(itemSetId)
+	local itemsTab = self.build.itemsTab
+	for _, socketGroup in ipairs(self.build.skillsTab.socketGroupList) do
+		for _, gem in ipairs(socketGroup.gemList) do
+			if gem.grantedEffect and gem.grantedEffect.name == "Animate Guardian" then
+				for _, suffix in ipairs({ "", "Calcs" }) do
+					local current = gem["skillMinionItemSet"..suffix]
+					local currentSet = current and itemsTab.itemSets[current]
+					if not current or (currentSet and currentSet.title == GUARD_ITEM_SET) then
+						gem["skillMinionItemSet"..suffix] = itemSetId
+					end
+				end
+			end
+		end
+	end
+end
+
 --- @class CharacterItemsData : CharacterBasicData
 --- @field equipment Item[]
 --- @param charData CharacterItemsData
@@ -1363,10 +1406,20 @@ function ImportTabClass:ImportItemsAndSkills(charData, clearItems, clearSkills, 
 			t_insert(preservedSocketGroupStateByKey[key], snapshotSocketGroupReimportState(socketGroup, index == self.build.mainSocketGroup))
 		end
 		wipeTable(self.build.skillsTab.socketGroupList)
+		self.build.skillsTab.controls.groupList.selIndex = nil
+		self.build.skillsTab.controls.groupList.selValue = nil
+		self.build.skillsTab:SetDisplayGroup()
 		self.build.skillsTab:RebuildImbuedSupportBySlot()
 	end
 	for _, itemData in ipairs(charData.equipment) do
 		self:ImportItem(itemData, nil, ignoreWeaponSwap)
+	end
+	if charData.guardian and charData.guardian[1] then
+		local guardianSet = self:GetOrCreateGuardianItemSet()
+		for _, itemData in ipairs(charData.guardian) do
+			self:ImportItem(itemData, nil, ignoreWeaponSwap, guardianSet.id)
+		end
+		self:AssignGuardianItemSet(guardianSet.id)
 	end
 	if skillOrder then
 		local groupOrder = { }
@@ -1426,6 +1479,7 @@ function ImportTabClass:ImportItemsAndSkills(charData, clearItems, clearSkills, 
 	end
 	self.build.itemsTab:PopulateSlots()
 	self.build.itemsTab:AddUndoState()
+	self.build.skillsTab:UpdateSocketGroups()
 	self.build.skillsTab:AddUndoState()
 	self.build.characterLevel = charData.level
 	self.build.configTab:UpdateLevel()
@@ -1436,10 +1490,10 @@ function ImportTabClass:ImportItemsAndSkills(charData, clearItems, clearSkills, 
 end
 
 local rarityMap = { [0] = "NORMAL", "MAGIC", "RARE", "UNIQUE", [9] = "RELIC", [10] = "RELIC" }
-local slotMap = { ["Weapon"] = "Weapon 1", ["Offhand"] = "Weapon 2", ["Weapon2"] = "Weapon 1 Swap", ["Offhand2"] = "Weapon 2 Swap", ["Helm"] = "Helmet", ["BodyArmour"] = "Body Armour", ["Gloves"] = "Gloves", ["Boots"] = "Boots", 
+local slotMap = { ["Weapon"] = "Weapon 1", ["Offhand"] = "Weapon 2", ["Weapon2"] = "Weapon 1 Swap", ["Offhand2"] = "Weapon 2 Swap", ["Helm"] = "Helmet", ["BodyArmour"] = "Body Armour", ["Gloves"] = "Gloves", ["Boots"] = "Boots",
 				  ["Amulet"] = "Amulet", ["Ring"] = "Ring 1", ["Ring2"] = "Ring 2", ["Ring3"] = "Ring 3", ["Belt"] = "Belt",  ["BrequelGrafts"] = "Graft 1", ["BrequelGrafts2"] = "Graft 2", }
 
-function ImportTabClass:ImportItem(itemData, slotName, ignoreWeaponSwap)
+function ImportTabClass:ImportItem(itemData, slotName, ignoreWeaponSwap, itemSetId)
 	if not slotName then
 		if itemData.inventoryId == "PassiveJewels" then
 			slotName = "Jewel "..self.build.latestTree.jewelSlots[itemData.x + 1]
@@ -1460,7 +1514,7 @@ function ImportTabClass:ImportItem(itemData, slotName, ignoreWeaponSwap)
 	item.rarity = rarityMap[itemData.frameType]
 	if #itemData.name > 0 then
 		item.title = sanitiseText(itemData.name)
-		item.baseName = sanitiseText(itemData.typeLine):gsub("Synthesised ","")
+		item.baseName = sanitiseText(itemData.typeLine):gsub("Synthesised ", ""):gsub("^Vestigial ", "")
 		item.name = item.title .. ", " .. item.baseName
 		if item.baseName == "Two-Toned Boots" then
 			-- Hack for Two-Toned Boots
@@ -1569,6 +1623,10 @@ function ImportTabClass:ImportItem(itemData, slotName, ignoreWeaponSwap)
 					item.baseName = "Two-Toned Boots (Evasion/Energy Shield)"
 					item.base = self.build.data.itemBases[item.baseName]
 				end
+			elseif property.name:find("Intangibility") then
+				item.intangibility = tonumber(property.values[1][1]:match("%d+"))
+			elseif property.name == "Memory Strands" then
+				item.memoryStrands = tonumber(property.values[1][1])
 			end
 			if property.name == "Energy Shield" or property.name == "Ward" or property.name == "Armour" or property.name == "Evasion Rating" then
 				item.armourData = item.armourData or { }
@@ -1583,6 +1641,7 @@ function ImportTabClass:ImportItem(itemData, slotName, ignoreWeaponSwap)
 	item.corrupted = itemData.corrupted
 	item.fractured = itemData.fractured
 	item.synthesised = itemData.synthesised
+	item.vestigial = itemData.vestigial
 	if itemData.sockets and itemData.sockets[1] then
 		item.sockets = { }
 		for i, socket in pairs(itemData.sockets) do
@@ -1634,9 +1693,10 @@ function ImportTabClass:ImportItem(itemData, slotName, ignoreWeaponSwap)
 	if itemData.implicitMods then
 		for _, itemMod in ipairs(itemData.implicitMods) do
 			local modLine = itemMod.description or itemMod
+			local flags = itemMod.flags or itemMod
 			for line in modLine:gmatch("[^\n]+") do
 				local modList, extra = modLib.parseMod(line)
-				t_insert(item.implicitModLines, { line = line, extra = extra, mods = modList or { } })
+				t_insert(item.implicitModLines, { line = line, extra = extra, mods = modList or { }, vestigial = flags.vestigial })
 			end
 		end
 	end
@@ -1658,7 +1718,8 @@ function ImportTabClass:ImportItem(itemData, slotName, ignoreWeaponSwap)
 				t_insert(item.explicitModLines, { line = line, extra = extra, mods = modList or { },
 					fractured = flags.fractured,
 					crafted = flags.crafted,
-					mutated = flags.mutated })
+					mutated = flags.mutated,
+					vestigial = flags.vestigial })
 			end
 		end
 	end
@@ -1750,7 +1811,11 @@ function ImportTabClass:ImportItem(itemData, slotName, ignoreWeaponSwap)
 		else
 			self.build.itemsTab:AddItem(item, true)
 		end
-		self.build.itemsTab.slots[slotName]:SetSelItemId(item.id)
+		if itemSetId and itemSetId ~= self.build.itemsTab.activeItemSetId then
+			self.build.itemsTab.itemSets[itemSetId][slotName].selItemId = item.id
+		else
+			self.build.itemsTab.slots[slotName]:SetSelItemId(item.id)
+		end
 	end
 end
 
@@ -1766,7 +1831,7 @@ function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 			local normalizedBasename = sanitiseText(socketedItem.typeLine)
 			local gemId = self.build.data.gemForBaseName[normalizedBasename:lower()]
 			if socketedItem.hybrid then
-				-- Used by transfigured gems and dual-skill gems (currently just Stormbind) 
+				-- Used by transfigured gems and dual-skill gems (currently just Stormbind)
 				normalizedBasename = sanitiseText(socketedItem.hybrid.baseTypeName)
 				gemId = self.build.data.gemForBaseName[normalizedBasename:lower()]
 				if gemId and socketedItem.hybrid.isVaalGem then
@@ -1789,12 +1854,7 @@ function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 					itemSocketGroupList[groupID] = { label = "", enabled = true, gemList = { }, slot = slotName }
 				end
 				local socketGroup = itemSocketGroupList[groupID]
-				if not socketedItem.support and socketGroup.gemList[1] and socketGroup.gemList[1].support and not (item.title and item.title:match("Dialla's Malefaction")) then
-					-- If the first gemInstance is a support gemInstance, put the first active gemInstance before it
-					t_insert(socketGroup.gemList, 1, gemInstance)
-				else
-					t_insert(socketGroup.gemList, gemInstance)
-				end
+				t_insert(socketGroup.gemList, gemInstance)
 				if socketedItem.builtInSupport then
 					socketGroup.imbuedSupport = socketedItem.builtInSupport:gsub("Supported by Level 1 ", "")
 					self.build.skillsTab.controls.imbuedSupport.gemChangeFunc(data.gems[data.gemForBaseName[socketGroup.imbuedSupport:lower().." support"]], nil, nil, true, slotName)

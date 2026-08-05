@@ -56,6 +56,15 @@ AvoidElementalAilmentsUnique__1_
 NovaSpellsAreaOfEffectUnique__1
 NovaSkillsTargetLocationUnique__1__
 ]],[[
+The Bandit Lord's Band
+Gold Ring
+League: Settlers
+Source: Drops from unique{Sasan, the Bandit Lord}
+Requires Level 44
+Implicits: 1
+ItemFoundRarityIncreaseImplicitRing1
+IncreasedGoldFoundUnique__1
+]],[[
 Berek's Grip
 Two-Stone Ring
 League: Domination, Nemesis
@@ -554,6 +563,19 @@ LightRadiusUniqueRing11
 KilledMonsterItemRarityOnCritUniqueRing11
 {variant:2}IncreasedDamageOnConsecratedGroundUnique__1
 {variant:2}BlockChanceOnConsecratedGroundUnique__1
+]],[[
+Replica Gifts from Above
+League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
+Diamond Ring
+Requires Level 28
+Implicits: 1
+CriticalStrikeChanceImplicitRing1
+TriggeredConsecrateUnique__1
+CriticalStrikeChanceUniqueRing11_
+LightRadiusUniqueRing11
+KilledMonsterItemRarityOnCritUniqueRing11
+HallowOnHitVsConsecratedEnemyUnique__1
 ]],[[
 Grattus Signet
 Diamond Ring
@@ -1778,5 +1800,39 @@ AttackImpaleChanceUnique__2
 {variant:2}ImpaleDurationUnique_1[-50,-40]
 {variant:1}ChanceMeleeHitsDontRemoveSTRONGESTImpaleUnique_1[45,60]
 {variant:2}ChanceMeleeHitsDontRemoveSTRONGESTImpaleUnique_1
+]],
+[[
+Zana's Ingenuity
+Prismatic Ring
+Source: Drops from unique{The Shaper} (Uber)
+Variant: Life
+Variant: Energy Shield
+Variant: Mana
+Variant: Reflect Immune
+Variant: No damage from Crits
+Variant: No Monster Suppress
+Variant: No Enemy Pen
+Variant: Charges cannot be stolen
+Variant: Burning Ground Immune
+Variant: Shocked Ground Immune
+Variant: Desecrated Ground Immune
+Variant: Chilled Ground Immune
+Requires Level 64
+Implicits: 1
+AllResistancesImplicitRing1
+IncreasedAttackSpeedUnique__9
+AllResistancesUnique__38
+{variant:1}{group:1}MaximumLifeUnique__27
+{variant:2}{group:1}IncreasedEnergyShieldPercentUnique__6
+{variant:3}{group:1}MaximumManaUnique__10
+{variant:4}{group:2}DamageCannotBeReflectedUnique__2
+{variant:5}{group:2}UniqueReducedExtraDamageFromCrits__1
+{variant:6}{group:2}UniqueYourSpellsCannotBeSuppressed__1
+{variant:7}{group:2}UniqueElementalResistancesCannotBePenetrated__1
+{variant:8}{group:2}UniqueYourChargesCannotBeStolen__1
+{variant:9}{group:3}UniqueUnaffectedByBurningGround__1
+{variant:10}{group:3}UniqueUnaffectedByShockedGround__1
+{variant:11}{group:3}UniqueUnaffectedByDesecratedGround__1
+{variant:12}{group:3}UniqueUnaffectedByChilledGround__1
 ]],
 }

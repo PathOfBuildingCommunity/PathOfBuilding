@@ -77,6 +77,19 @@ MaximumGolemsUnique__1
 {variant:1,2}AddedPhysicalToMinionAttacksUnique__1
 {variant:3}GolemsAddedPhysicalDamageUnique__1
 ]],[[
+The Desecrated Chalice
+Coronal Maul
+League: Mirage
+Source: No longer obtainable
+Requires Level 69
+Implicits: 1
+AreaOfEffectImplicitMarakethTwoHandMace2
+LocalIncreasedPhysicalDamagePercentUnique__57
+LocalCriticalStrikeChanceUnique__28
+ChaosDamageLifeLeechPermyriadUnique__3
+FlaskChargesOnCritUniqueTwoHandMace__2
+PhysicalAddedAsChaosIfUsedAmethystFlaskRecentlyUnique__1
+]],[[
 Flesh-Eater
 Dream Mace
 Variant: Pre 2.6.0
@@ -232,8 +245,7 @@ AddedPhysicalDamagePerEnduranceChargeUnique__1
 ArmourPerEnduranceChargeUnique__1
 {variant:1}DamageTakenPerEnduranceChargeWhenHitUnique__1_[24000,24000]
 {variant:2}DamageTakenPerEnduranceChargeWhenHitUnique__1_
-]],
-[[
+]],[[
 The Monastery Bell
 Dream Mace
 Requires Level 32, 107 Str
@@ -244,6 +256,20 @@ LocalAddedPhyiscalDamageUnique__43
 IncreasedAttackSpeedUniqueShieldDex6
 BlockIsUnluckyUnique__1
 CountAsBlockingAttackFromShieldAttackFirstTargetUnique__1
+]],[[
+The Sacred Chalice
+Coronal Maul
+League: Mirage
+Source: No longer obtainable
+Requires Level 69
+Implicits: 1
+AreaOfEffectImplicitMarakethTwoHandMace2
+LocalIncreasedPhysicalDamagePercentUnique__56
+LocalCriticalStrikeChanceUnique__27
+FlaskChargesOnCritUniqueTwoHandMace__1
+PhysicalAddedAsColdIfUsedSapphireFlaskRecentlyUnique__1
+PhysicalAddedAsFireIfUsedRubyFlaskRecentlyUnique__1
+PhysicalAddedAsLightningIfUsedTopazFlaskRecentlyUnique__1
 ]],
 -- Weapon: Sceptre
 [[
@@ -487,6 +513,18 @@ ZombiesCoverInAshOnHitUnique__1
 ZombiesHaveAvatarOfFireUnique__1
 ZombiesTakeFireDamagePerSecondUnique__1_
 ]],[[
+Replica Maata's Teaching
+Karui Sceptre
+Variant: Pre 3.25.0
+Variant: Current
+Requires Level 56, 96 Str, 96 Int
+Implicits: 1
+ElementalDamagePercentImplicitSceptreNew17
+IntelligenceUnique__33
+LocalIncreasedAttackSpeedUnique__46
+MinionMovementSpeedUnique_2
+MinionsUseMainHandBaseAttackDurationUnique__1
+]],[[
 Maata's Teaching
 Karui Sceptre
 Variant: Pre 3.25.0
@@ -545,6 +583,19 @@ Implicits: 2
 {variant:1,2,3,4}LightRadiusUnique__11[25,25]
 {variant:5}LightRadiusUnique__11
 {variant:5}BattlemageKeystoneUnique__3
+]],[[
+The Sands of Time
+Tyrant's Sekhem
+League: Mirage
+Source: No longer obtainable
+Requires Level 58, 99 Str, 99 Int
+Implicits: 1
+ElementalDamagePercentImplicitSceptreNew17
+SandMirageOnCastUnique__1
+SpellDamageUnique__18
+ManaRegenerationUnique__16
+GlobalCooldownRecoveryUnique__2
+SpellDamagePerUniqueSpellRecentlyUnique__1
 ]],[[
 Sign of the Sin Eater
 Tyrant's Sekhem

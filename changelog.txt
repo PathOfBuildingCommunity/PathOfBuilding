@@ -1,3 +1,70 @@
+VERSION[2.67.0][2026/08/05]
+
+--- 3.29 - Allflame ---
+* Add support for new Abyss Timeless Jewels (LocalIdentity)
+* Add and support new 3.29 Uniques (LocalIdentity, vaisest)
+* Add support for Pacts (Peechey, LocalIdentity)
+* Add support for 3.29 Vestigial and Intangibility parsing  (vaisest)
+* Add gem quality for matching socket based on equipped item (vaisest)
+
+--- New to Path of Building ---
+* Add sorting for sorting mod dropdowns in crafting UI (vaisest)
+* Add stat display from toggling config options (vaisest)
+* Refactor custom modifiers block into toggleable groups (xoxorwr)
+* Allow toggling individual item mods just by clicking on them (xoxorwr)
+* Allow recursive build list search with class filtering (xoxorwr)
+* Allow filtering the item list by loadout (xoxorwr)
+* Auto calculate Brand DPS by count on enemy (LocalIdentity)
+* Auto support for Wintertide final debuff in DPS calculation (LocalIdentity)
+* Add support for importing Animate Guardian items to separate item set (cupkax)
+* Update skill tree with 3.29.1 changes (Wires77)
+* Add support for Staff Life and Mana Mastery (Wires77)
+* Add quality to items fetched from trade (vaisest)
+* Add Talisman enchants to trader (vaisest)
+* Add Light Radius to stat sort list (ZenJediMind)
+* Use Currency Exchange API instead of poe.ninja in trader (vaisest)
+* Improve stat search with pseudo stats and word order ignore (vaisest)
+* Increase wait time for OAuth login and copy URL to clipboard s (kylhuk)
+
+--- Fixed Crashes ---
+* Fix crash when clicking the "Add Implicit" button on some items (vaisest)
+
+--- User Interface ---
+* Show "Importing..." while importing (vaisest)
+* Add Memory Strands and Intangibility to the item tooltip (Blitz54)
+* Clarify stat-difference shortcut context (mcagnion)
+
+--- Fixed Calculations ---
+* Fix Soulwrest not granting Phantasmal Might damage (LocalIdentity)
+* Fix Mana-Infused Staff damage calculation (LocalIdentity)
+* Fix Communion Support counting temporary minions (LocalIdentity)
+* Fix base radius of Cleave + Vaal Cleave (LocalIdentity)
+* Fix Herald Skills not scaling area with some tree nodes (LocalIdentity)
+* Fix Howlcrack adding Life cost to all skills instead of just Warcries (LocalIdentity)
+* Fix Drillneck damage applying to Spells (LocalIdentity)
+* Fix Shield block chance calcs (Blitz54)
+
+--- Fixed Behaviours ---
+* Fix Fanaticism from Inquisitor not working (LocalIdentity)
+* Fix Raise Spider count not granting Attack Speed (LocalIdentity)
+* Fix Devastator not showing corpse explode damage (LocalIdentity)
+* Fix various issues with advanced copy/paste (LocalIdentity)
+* Fix various issues with the gem dropdown list (LocalIdentity)
+* Fix being unable to set Enemy Resistance to 0 in config tab (cupkax)
+* Prevents legacy Talisman bases from being anointed (cupkax)
+* Avoid copying enchants when editing item (vaisest)
+* Fix some unique name handling issues (vaisest)
+* Fix Vulconus Avatar of Fire mod not applying when the Keystone is allocated (ethannguyen128)
+* Fix Spellslinger selecting invalid trigger skills (Trifall)
+* Fix character reimport resetting bandit and pantheon choices (ltogniolli)
+* Fix reimport of skills showing old gem data (vaisest)
+
+--- Accuracy Improvements ---
+* Fix Reap of Butchery base AoE radius (xoxorwr)
+* Fix trader parsing everything as explicits (vaisest)
+* Revert "Fix Cost efficiency math" (vaisest)
+* Fix missing Catarina veiled mods on Cane of Kulemak variants (Maven35)
+
 VERSION[2.66.2][2026/07/25]
 
 --- Fixed Crashes ---

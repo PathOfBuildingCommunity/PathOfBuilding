@@ -1,5 +1,72 @@
 # Changelog
 
+## [v2.67.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding-PoE2/tree/v2.67.0) (2026/08/05)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.66.2...v2.67.0)
+
+
+## What's Changed
+
+### 3.29 - Allflame
+- Add support for new Abyss Timeless Jewels [\#10095](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10095) ([LocalIdentity](https://github.com/LocalIdentity))
+- Add and support new 3.29 Uniques [\#10105](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10105), [\#10119](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10119), [\#10109](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10109), [\#10114](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10114) ([LocalIdentity](https://github.com/LocalIdentity), [vaisest](https://github.com/vaisest))
+- Add support for Pacts [\#10009](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10009) ([Peechey](https://github.com/Peechey), [LocalIdentity](https://github.com/LocalIdentity))
+- Add support for 3.29 Vestigial and Intangibility parsing  [\#10026](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10026) ([vaisest](https://github.com/vaisest))
+- Add gem quality for matching socket based on equipped item [\#10022](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10022) ([vaisest](https://github.com/vaisest))
+### New to Path of Building
+- Add sorting for sorting mod dropdowns in crafting UI [\#10120](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10120) ([vaisest](https://github.com/vaisest))
+- Add stat display from toggling config options [\#10050](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10050) ([vaisest](https://github.com/vaisest))
+- Refactor custom modifiers block into toggleable groups [\#10020](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10020) ([xoxorwr](https://github.com/xoxorwr))
+- Allow toggling individual item mods just by clicking on them [\#10083](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10083) ([xoxorwr](https://github.com/xoxorwr))
+- Allow recursive build list search with class filtering [\#10084](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10084) ([xoxorwr](https://github.com/xoxorwr))
+- Allow filtering the item list by loadout [\#10079](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10079) ([xoxorwr](https://github.com/xoxorwr))
+- Auto calculate Brand DPS by count on enemy [\#10054](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10054) ([LocalIdentity](https://github.com/LocalIdentity))
+- Auto support for Wintertide final debuff in DPS calculation [\#10054](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10054) ([LocalIdentity](https://github.com/LocalIdentity))
+- Add support for importing Animate Guardian items to separate item set [\#10066](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10066) ([cupkax](https://github.com/cupkax))
+- Update skill tree with 3.29.1 changes [\#10082](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10082) ([Wires77](https://github.com/Wires77))
+- Add support for Staff Life and Mana Mastery [\#10067](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10067) ([Wires77](https://github.com/Wires77))
+- Add quality to items fetched from trade [\#10072](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10072) ([vaisest](https://github.com/vaisest))
+- Add Talisman enchants to trader [\#10078](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10078) ([vaisest](https://github.com/vaisest))
+- Add Light Radius to stat sort list [\#10024](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10024) ([ZenJediMind](https://github.com/ZenJediMind))
+- Use Currency Exchange API instead of poe.ninja in trader [\#10077](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10077) ([vaisest](https://github.com/vaisest))
+- Improve stat search with pseudo stats and word order ignore [\#10036](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10036) ([vaisest](https://github.com/vaisest))
+- Increase wait time for OAuth login and copy URL to clipboard [\#10069](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10069)s ([kylhuk](https://github.com/kylhuk))
+### Fixed Crashes
+- Fix crash when clicking the "Add Implicit" button on some items [\#10089](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10089) ([vaisest](https://github.com/vaisest))
+### User Interface
+- Show "Importing..." while importing [\#10059](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10059) ([vaisest](https://github.com/vaisest))
+- Add Memory Strands and Intangibility to the item tooltip [\#10096](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10096) ([Blitz54](https://github.com/Blitz54))
+- Clarify stat-difference shortcut context [\#10076](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10076) ([mcagnion](https://github.com/mcagnion))
+### Fixed Calculations
+- Fix Soulwrest not granting Phantasmal Might damage [\#10081](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10081) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Mana-Infused Staff damage calculation [\#10042](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10042) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Communion Support counting temporary minions [\#10044](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10044) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix base radius of Cleave + Vaal Cleave [\#10045](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10045) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Herald Skills not scaling area with some tree nodes [\#10046](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10046) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Howlcrack adding Life cost to all skills instead of just Warcries [\#10052](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10052) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Drillneck damage applying to Spells [\#10051](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10051) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Shield block chance calcs [\#10098](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10098) ([Blitz54](https://github.com/Blitz54))
+### Fixed Behaviours
+- Fix Fanaticism from Inquisitor not working [\#10040](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10040) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Raise Spider count not granting Attack Speed [\#10043](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10043) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Devastator not showing corpse explode damage [\#10047](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10047) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix various issues with advanced copy/paste [\#10039](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10039) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix various issues with the gem dropdown list [\#10055](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10055) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix being unable to set Enemy Resistance to 0 in config tab [\#10091](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10091) ([cupkax](https://github.com/cupkax))
+- Prevents legacy Talisman bases from being anointed [\#10088](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10088) ([cupkax](https://github.com/cupkax))
+- Avoid copying enchants when editing item [\#10089](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10089) ([vaisest](https://github.com/vaisest))
+- Fix some unique name handling issues [\#10021](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10021) ([vaisest](https://github.com/vaisest))
+- Fix Vulconus Avatar of Fire mod not applying when the Keystone is allocated [\#10030](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10030) ([ethannguyen128](https://github.com/ethannguyen128))
+- Fix Spellslinger selecting invalid trigger skills [\#10110](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10110) ([Trifall](https://github.com/Trifall))
+- Fix character reimport resetting bandit and pantheon choices [\#10117](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10117) ([ltogniolli](https://github.com/ltogniolli))
+- Fix reimport of skills showing old gem data [\#10121](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10121) ([vaisest](https://github.com/vaisest))
+### Accuracy Improvements
+- Fix Reap of Butchery base AoE radius [\#10032](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10032) ([xoxorwr](https://github.com/xoxorwr))
+- Fix trader parsing everything as explicits [\#10073](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10073) ([vaisest](https://github.com/vaisest))
+- Revert "Fix Cost efficiency math" [\#10060](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10060) ([vaisest](https://github.com/vaisest))
+- Fix missing Catarina veiled mods on Cane of Kulemak variants [\#10033](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10033) ([Maven35](https://github.com/Maven35))
+
+
 ## [v2.66.2](https://github.com/PathOfBuildingCommunity/PathOfBuilding-PoE2/tree/v2.66.2) (2026/07/25)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.66.1...v2.66.2)

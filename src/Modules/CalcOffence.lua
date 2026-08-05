@@ -642,6 +642,13 @@ function calcs.offence(env, actor, activeSkill)
 			skillModList:NewMod("Damage", mod.type, mod.value, mod.source, bor(ModFlag.Bow, ModFlag.Hit), mod.keywordFlags, unpack(mod))
 		end
 	end
+	if skillModList:Flag(nil, "EvasionAppliesToSpellDamage") then
+		-- The Unblinking Eye evasion rating to spell damage conversion
+		for i, value in ipairs(skillModList:Tabulate("INC", { }, "Evasion")) do
+			local mod = value.mod
+			skillModList:NewMod("Damage", mod.type, mod.value, mod.source, ModFlag.Spell, mod.keywordFlags, unpack(mod))
+		end
+	end
 	if skillModList:Flag(nil, "ClawDamageAppliesToUnarmed") then
 		-- Claw Damage conversion from Rigwald's Curse
 		for i, value in ipairs(skillModList:Tabulate("INC", { flags = bor(ModFlag.Claw, ModFlag.Hit), keywordFlags = KeywordFlag.Hit }, "Damage")) do
@@ -1418,6 +1425,7 @@ function calcs.offence(env, actor, activeSkill)
 		output.BrandAttachmentRange = data.misc.BrandAttachmentRangeBase * calcLib.mod(skillModList, skillCfg, "BrandAttachmentRange")
 		output.BrandAttachmentRangeMetre = output.BrandAttachmentRange / 10
 		output.ActiveBrandLimit = skillModList:Sum("BASE", skillCfg, "ActiveBrandLimit")
+		output.AttachedBrandCount = skillData.attachedBrandCount
 		if breakdown then
 			breakdown.BrandAttachmentRange = { radius = output.BrandAttachmentRange }
 		end
@@ -1756,7 +1764,7 @@ function calcs.offence(env, actor, activeSkill)
 				moreType = skillModList:More(skillCfg, val.type.."Cost")
 				moreCost = skillModList:More(skillCfg, "Cost")
 				inc = skillModList:Sum("INC", skillCfg, val.type.."Cost", "Cost")
-				output[costNameRaw] = val.baseCostRaw and m_max(0, m_max(0, (1 + inc / 100) * val.baseCostRaw * moreType * moreCost) + val.totalCost) / costEfficiency
+				output[costNameRaw] = val.baseCostRaw and m_max(0, m_max(0, (1 + inc / 100) * val.baseCostRaw * moreType * moreCost / costEfficiency) + val.totalCost)
 				if inc < 0 then
 					output[costName] = m_max(0, m_ceil((1 + inc / 100) * output[costName]))
 				else
@@ -1772,9 +1780,9 @@ function calcs.offence(env, actor, activeSkill)
 				else
 					output[costName] = m_max(0, m_floor(moreCost * output[costName]))
 				end
-				output[costName] = m_max(0, output[costName] + val.totalCost)
 				-- Apply cost efficiency (similar to reservation efficiency)
 				output[costName] = m_max(0, output[costName] / costEfficiency)
+				output[costName] = m_max(0, output[costName] + val.totalCost)
 				if val.type == "Mana" and hybridLifeCost > 0 then -- Life/Mana Mastery
 					output[costName] = m_max(0, m_floor((1 - hybridLifeCost) * output[costName]))
 					output[costNameRaw] = output[costNameRaw] and m_max(0, (1 - hybridLifeCost) * output[costNameRaw])
@@ -1785,10 +1793,10 @@ function calcs.offence(env, actor, activeSkill)
 				output[costName] = m_floor(val.baseCost + val.baseCostNoMult)
 				output[costName] = m_max(0, (1 + inc / 100) * output[costName])
 				output[costName] = m_max(0, moreType * output[costName])
-				output[costName] = m_max(0, output[costName] + val.totalCost)
 				-- Apply cost efficiency for unaffected costs too
 				output[costName] = m_max(0, output[costName] / costEfficiency)
-				output[costNameRaw] = val.baseCostRaw and m_max(0, m_max(0, (1 + inc / 100) * (val.baseCostRaw + val.baseCostNoMult) * moreType) + val.totalCost) / costEfficiency
+				output[costName] = m_max(0, output[costName] + val.totalCost)
+				output[costNameRaw] = val.baseCostRaw and m_max(0, m_max(0, (1 + inc / 100) * (val.baseCostRaw + val.baseCostNoMult) * moreType / costEfficiency) + val.totalCost)
 			end
 			if breakdown and hasCost then
 				breakdown[costName] = {
@@ -1815,16 +1823,16 @@ function calcs.offence(env, actor, activeSkill)
 				if moreType ~= 1 then
 					t_insert(breakdown[costName], s_format("x %.2f ^8(more/less "..val.text.." cost)", moreType))
 				end
-				if val.totalCost ~= 0 then
-					t_insert(breakdown[costName], s_format("%+d ^8(total " .. val.text .. " cost)", val.totalCost))
-				end
 				if costEfficiency ~= 1 then
 					t_insert(breakdown[costName], s_format("/ %.2f ^8(" .. val.text .. " cost efficiency)", costEfficiency))
+				end
+				if val.totalCost ~= 0 then
+					t_insert(breakdown[costName], s_format("%+d ^8(total "..val.text.." cost)", val.totalCost))
 				end
 				if val.type == "Mana" and hybridLifeCost > 0 then
 					t_insert(breakdown[costName], s_format("x %.2f ^8(%d%% paid for with life)", (1-hybridLifeCost), hybridLifeCost*100))
 				end
-				t_insert(breakdown[costName], s_format("= %" .. (val.upfront and "d" or ".2f") .. (val.percent and "%%" or ""), m_ceil(output[costName])))
+				t_insert(breakdown[costName], s_format("= %"..(val.upfront and "d" or ".2f")..(val.percent and "%%" or ""), output[costName]))
 			end
 		end
 	end
@@ -1838,6 +1846,11 @@ function calcs.offence(env, actor, activeSkill)
 	end
 
 	runSkillFunc("preDamageFunc")
+
+	if activeSkill.skillTypes[SkillType.Brand] then
+		local damageLabel = skillData.countsAttachedBrandsInDamage and "Average Damage" or "DPS"
+		activeSkill.infoMessage = s_format("%s for %d attached Brand%s", damageLabel, output.AttachedBrandCount, output.AttachedBrandCount == 1 and "" or "s")
+	end
 
 	-- Handle corpse and enemy explosions
 	local monsterLife = skillData.corpseLife or (env.enemyLevel and data.monsterLifeTable[env.enemyLevel] or 100)
@@ -2407,6 +2420,10 @@ function calcs.offence(env, actor, activeSkill)
 	end
 	-- Other Misc DPS multipliers (like custom source)
 	skillData.dpsMultiplier = ( skillData.dpsMultiplier or 1 ) * ( 1 + skillModList:Sum("INC", skillCfg, "DPS") / 100 ) * skillModList:More(skillCfg, "DPS")
+	if activeSkill.skillTypes[SkillType.Brand] and not skillData.countsAttachedBrandsInDamage then
+		skillData.dpsMultiplier = skillData.dpsMultiplier * output.AttachedBrandCount
+		output.SkillDPSMultiplier = (output.SkillDPSMultiplier or 1) * output.AttachedBrandCount
+	end
 	if env.configInput.repeatMode == "FINAL" or skillModList:Flag(nil, "OnlyFinalRepeat") then
 		skillData.dpsMultiplier = skillData.dpsMultiplier / (output.Repeats or 1)
 	end
@@ -2781,6 +2798,90 @@ function calcs.offence(env, actor, activeSkill)
 						}
 					end
 					globalOutput.ExertedAttackUptimeRatioCalculated = true
+				end
+			end
+
+			-- Each Pact has different eligible spell types, but shares the same uptime calculation.
+			if activeSkill.skillTypes[SkillType.Spell] and not activeSkill.skillTypes[SkillType.Brand] then
+				for _, value in ipairs(actor.activeSkillList) do
+					local pactName = value.activeEffect.grantedEffect.name
+					local pactKey = pactName:match("^Pact of (.+)$")
+					if pactKey then
+						pactKey = pactKey == "K'Tash" and "Ktash" or pactKey
+						local isVaal = activeSkill.skillTypes[SkillType.Vaal]
+						local pactApplies = pactKey == "Beidat" and not isVaal and not activeSkill.skillTypes[SkillType.Channel]
+							and (skillFlags.projectile or activeSkill.skillTypes[SkillType.Cascadable] or skillFlags.chaining and not skillFlags.projectile)
+							or pactKey == "Ghorr" and not isVaal and activeSkill.skillTypes[SkillType.DamageOverTime]
+							or pactKey == "Ktash" and isVaal and (activeSkill.skillTypes[SkillType.Damage] or activeSkill.skillTypes[SkillType.DamageOverTime])
+							or pactKey == "Lycia" and not isVaal and activeSkill.skillTypes[SkillType.Channel] and skillFlags.selfCast
+						local calculated = "PactOf"..pactKey.."Calculated"
+						if pactApplies and not globalOutput[calculated] and not value.skillFlags.disable then
+							local cooldown = calcSkillCooldown(value.skillModList, value.skillCfg, value.skillData)
+							local castRate = 1 / value.activeEffect.grantedEffect.castTime * calcLib.mod(value.skillModList, value.skillCfg, "Speed") * calcs.actionSpeedMod(actor)
+							local castTime = 1 / m_min(castRate, data.misc.ServerTickRate)
+							local count = value.skillModList:Sum("BASE", value.skillCfg, pactKey.."EmpoweredSpells")
+							local storedUses = value.skillData.storedUses + value.skillModList:Sum("BASE", value.skillCfg, "AdditionalCooldownUses")
+							local uptime = (globalOutput.Speed or 0) == 0 and 100 or m_min((count / globalOutput.Speed) / (cooldown + castTime), 1) * 100
+							uptime = m_min(100, uptime * storedUses)
+							local effect = skillModList:Flag(nil, "Condition:PactMaxHit") and 100 or uptime
+							local effectMult = effect / 100
+
+							globalOutput.CreatePactOffensiveCalcSection = true
+							globalOutput["PactOf"..pactKey.."Cooldown"] = cooldown
+							globalOutput["PactOf"..pactKey.."CastTime"] = castTime
+							globalOutput[pactKey.."EmpoweredCount"] = count
+							globalOutput[pactKey.."UpTimeRatio"] = uptime
+							if globalBreakdown then
+								globalBreakdown[pactKey.."UpTimeRatio"] = {
+									s_format("(%.2f ^8(number of Empowered)", count),
+									s_format("/ %.2f) ^8(casts per second)", globalOutput.Speed or 0),
+									s_format("/ (%.2f ^8(pact cooldown)", cooldown),
+									s_format("+ %.2f) ^8(pact cast time)", castTime),
+									s_format("* %.2f ^8(stored uses)", storedUses),
+									s_format("= %.2f%%", uptime),
+								}
+							end
+
+							local damage = value.skillModList:List(value.skillCfg, pactKey.."PactDamage")[1]
+							if damage then
+								local mod = damage.mod
+								skillModList:NewMod(mod.name, mod.type, mod.value * effectMult, "Uptime Scaled "..pactName, mod.flags, mod.keywordFlags, unpack(mod))
+							end
+
+							if pactKey == "Beidat" then
+								-- Coverage bonuses are averaged with the same uptime as the damage bonus.
+								if skillFlags.projectile and not skillModList:Flag(skillCfg, "NoAdditionalProjectiles") and not skillModList:Flag(skillCfg, "SingleProjectile") then
+									globalOutput.BeidatAdditionalProjectiles = value.skillModList:Sum("BASE", value.skillCfg, "BeidatAdditionalProjectiles") * effectMult
+									globalOutput.ProjectileCount = globalOutput.ProjectileCount + globalOutput.BeidatAdditionalProjectiles
+								end
+								if skillFlags.chaining and not skillFlags.projectile and not skillModList:Flag(skillCfg, "CannotChain") and not skillModList:Flag(skillCfg, "NoAdditionalChains") then
+									globalOutput.BeidatAdditionalBeamChains = value.skillModList:Sum("BASE", value.skillCfg, "BeidatAdditionalBeamChains") * effectMult
+									globalOutput.ChainMax = globalOutput.ChainMax + globalOutput.BeidatAdditionalBeamChains
+									globalOutput.ChainMaxString = globalOutput.ChainMax
+									globalOutput.ChainRemaining = m_max(0, globalOutput.ChainMax - globalOutput.Chain)
+								end
+								if activeSkill.skillTypes[SkillType.Cascadable] then
+									globalOutput.BeidatAdditionalCascades = value.skillModList:Sum("BASE", value.skillCfg, "BeidatAdditionalCascades") * effectMult
+								end
+							elseif pactKey == "Ktash" then
+								globalOutput.KtashSoulRefundChance = value.skillModList:Sum("BASE", value.skillCfg, "KtashPactSoulRefundChance") * effectMult
+								if globalOutput.SoulGainPreventionDuration then
+									local duration = globalOutput.SoulGainPreventionDuration
+									local durationMod = 1 + value.skillModList:Sum("BASE", value.skillCfg, "KtashPactSoulGainPrevention") * effectMult / 100
+									globalOutput.SoulGainPreventionDuration = m_max(m_ceil(duration * durationMod * data.misc.ServerTickRate), 1) / data.misc.ServerTickRate
+									if globalBreakdown then
+										globalBreakdown.SoulGainPreventionDuration = {
+											s_format("%.3fs ^8(before Pact of K'Tash)", duration),
+											s_format("x %.4f ^8(average Pact modifier)", durationMod),
+											"rounded up to nearest server tick",
+											s_format("= %.3fs", globalOutput.SoulGainPreventionDuration),
+										}
+									end
+								end
+							end
+							globalOutput[calculated] = true
+						end
+					end
 				end
 			end
 		end
@@ -5683,8 +5784,9 @@ function calcs.offence(env, actor, activeSkill)
 		if skillModList:Flag(nil, "DotCanStackAsTotems") and skillFlags.totem then
 			skillFlags.DotCanStack = true
 		end
-		output.TotalDot = output.TotalDotInstance
-		output.TotalDotCalcSection = output.TotalDotInstance
+		local attachedBrandCount = activeSkill.skillTypes[SkillType.Brand] and not skillData.countsAttachedBrandsInDamage and output.AttachedBrandCount or 1
+		output.TotalDot = attachedBrandCount > 1 and m_min(output.TotalDotInstance * attachedBrandCount, data.misc.DotDpsCap) or output.TotalDotInstance
+		output.TotalDotCalcSection = output.TotalDot
 	end
 
 	--Calculates and displays cost per second for skills that don't already have one (link skills)

@@ -21,6 +21,9 @@ return {
 	skill("durationTertiary", nil),
 	div = 1000,
 },
+["infinite_minion_duration"] = {
+	skillFlag = "permanentMinion",
+},
 ["spell_minimum_base_physical_damage"] = {
 	skill("PhysicalMin", nil),
 },
@@ -2363,6 +2366,9 @@ return {
 	-- Display only
 },
 ["is_totem"] = {
+	-- Display only
+},
+["pact_empower_limitation_specifier_for_stat_description"] = {
 	-- Display only
 },
 }

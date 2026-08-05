@@ -83,20 +83,22 @@ describe("TestFoulborn", function()
 		assert.are.equals(powerBaseId, mutated.newModId)
 	end)
 
-	it("flags the item as foulborn and prefixes the title once a mod is mutated", function()
+	it("flags the item as foulborn and prefixes the title and name once a mod is mutated", function()
 		local item = vollsDevotion()
 		-- an unmodified item is a plain unique
 		assert.is_falsy(item.foulborn)
 		assert.are.equals("Voll's Devotion", item.title)
+		assert.are.equals("Voll's Devotion, Agate Amulet", item.name)
 
 		toggle(item, findByLine(item, powerBase))
 		assert.is_true(item.foulborn)
 		assert.are.equals("Foulborn Voll's Devotion", item.title)
-
+		assert.are.equals("Foulborn Voll's Devotion, Agate Amulet", item.name)
 		-- reverting the last mutated mod drops the flag and the prefix again
 		toggle(item, findByLine(item, powerFoulborn))
 		assert.is_falsy(item.foulborn)
 		assert.are.equals("Voll's Devotion", item.title)
+		assert.are.equals("Voll's Devotion, Agate Amulet", item.name)
 	end)
 
 	it("keeps the mutated state through BuildRaw", function()

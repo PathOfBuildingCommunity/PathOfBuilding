@@ -214,11 +214,15 @@ function GGPKClass:GetNeededFiles()
 		"Data/PantheonPanelLayout.dat",
 		"Data/AlternatePassiveAdditions.dat",
 		"Data/AlternatePassiveSkills.dat",
+		"Data/AlternateTreeArt.dat",
 		"Data/AlternateTreeVersions.dat",
 		"Data/GrantedEffectQualityStats.dat",
 		"Data/AegisVariations.dat",
 		"Data/CostTypes.dat",
 		"Data/PassiveJewelRadii.dat",
+		"Data/PassiveJewelRadiiArt.dat",
+		"Data/PassiveSkillTreeConnectionArt.dat",
+		"Data/PassiveSkillTreeNodeFrameArt.dat",
 		"Data/SoundEffects.dat",
 		"Data/MavenJewelRadiusKeystones.dat",
 		"Data/GrantedEffectStatSets.dat",
@@ -287,6 +291,7 @@ function GGPKClass:GetNeededFiles()
 		"Data/BrequelGraftSkillStats.dat",
 		"Data/BrequelGraftGrantedSkillLevels.dat",
 		"Data/VillageBalancePerLevelShared.dat",
+		"Data/CurrencyExchange.dat",
 	}
 	local txtFiles = {
 		"Metadata/StatDescriptions/passive_skill_aura_stat_descriptions.txt",

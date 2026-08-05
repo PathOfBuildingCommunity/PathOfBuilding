@@ -1621,6 +1621,129 @@ skills["SkitterbotWait"] = {
 		[1] = { levelRequirement = 0, },
 	},
 }
+skills["AbyssalFiendEnfeebleAura"] = {
+	name = "Enfeeble",
+	hidden = true,
+	color = 3,
+	description = "Curses all targets in an area, reducing their accuracy and making them deal less damage.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Cascadable] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Hex] = true, },
+	statDescriptionScope = "curse_skill_stat_descriptions",
+	castTime = 0.5,
+	statMap = {
+		["enfeeble_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "RareOrUnique", neg = true }),
+		},
+		["enfeeble_damage_+%_vs_rare_or_unique_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "RareOrUnique" }),
+		},
+		["accuracy_rating_+%"] = {
+			mod("Accuracy", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+	},
+	baseFlags = {
+		spell = true,
+		curse = true,
+		area = true,
+		duration = true,
+	},
+	constantStats = {
+		{ "accuracy_rating_+%", -19 },
+		{ "enfeeble_damage_+%_final", -29 },
+		{ "enfeeble_damage_+%_vs_rare_or_unique_final", -18 },
+		{ "active_skill_area_of_effect_radius_+%_final", 100 },
+		{ "support_aura_duration_base_buff_duration", 8000 },
+		{ "number_of_additional_curses_allowed", 20 },
+	},
+	stats = {
+		"base_deal_no_damage",
+		"curse_apply_as_aura",
+		"infinite_skill_effect_duration",
+		"base_skill_is_instant",
+	},
+	levels = {
+		[1] = { levelRequirement = 1, },
+	},
+}
+skills["AbyssalFiendTemporalChainsAura"] = {
+	name = "Temporal Chains",
+	hidden = true,
+	color = 4,
+	description = "Curses all enemies in an area, lowering their action speed and making other effects on them expire more slowly.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Cascadable] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Hex] = true, },
+	statDescriptionScope = "curse_skill_stat_descriptions",
+	castTime = 0.5,
+	statMap = {
+		["temporal_chains_action_speed_+%_final"] = {
+			mod("TemporalChainsActionSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "RareOrUnique", neg = true }),
+		},
+		["temporal_chains_action_speed_+%_vs_rare_or_unique_final"] = {
+			mod("TemporalChainsActionSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "RareOrUnique" }),
+		},
+		["buff_time_passed_+%_other_than_temporal_chains"] = {
+			mod("BuffExpireFaster", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+	},
+	baseFlags = {
+		spell = true,
+		curse = true,
+		area = true,
+		duration = true,
+	},
+	constantStats = {
+		{ "temporal_chains_action_speed_+%_final", -29 },
+		{ "buff_time_passed_+%_other_than_temporal_chains", -25 },
+		{ "temporal_chains_action_speed_+%_vs_rare_or_unique_final", -18 },
+		{ "active_skill_area_of_effect_radius_+%_final", 100 },
+		{ "support_aura_duration_base_buff_duration", 8000 },
+		{ "number_of_additional_curses_allowed", 20 },
+	},
+	stats = {
+		"base_deal_no_damage",
+		"curse_apply_as_aura",
+		"infinite_skill_effect_duration",
+		"base_skill_is_instant",
+	},
+	levels = {
+		[1] = { levelRequirement = 0, },
+	},
+}
+skills["AbyssalFiendPunishmentAura"] = {
+	name = "Punishment",
+	hidden = true,
+	color = 1,
+	description = "Curses all targets in an area, causing them to be debilitated when they hit enemies and increasing damage they take while on low life.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Cascadable] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Hex] = true, },
+	statDescriptionScope = "curse_skill_stat_descriptions",
+	castTime = 0.5,
+	statMap = {
+		["damage_taken_+%_on_low_life"] = {
+			mod("DamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "LowLife"}),
+		},
+	},
+	baseFlags = {
+		spell = true,
+		curse = true,
+		area = true,
+		duration = true,
+		hex = true,
+	},
+	constantStats = {
+		{ "damage_taken_+%_on_low_life", 58 },
+		{ "debilitate_self_for_x_milliseconds_on_hit", 2000 },
+		{ "active_skill_area_of_effect_radius_+%_final", 100 },
+		{ "support_aura_duration_base_buff_duration", 8000 },
+		{ "number_of_additional_curses_allowed", 20 },
+	},
+	stats = {
+		"base_deal_no_damage",
+		"curse_apply_as_aura",
+		"infinite_skill_effect_duration",
+		"base_skill_is_instant",
+	},
+	levels = {
+		[1] = { levelRequirement = 1, },
+	},
+}
 skills["MinionInstability"] = {
 	name = "Minion Instability",
 	hidden = true,

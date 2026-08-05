@@ -1145,6 +1145,16 @@ Implicits: 0
 MaximumManaUniqueBodyStrInt1
 AddPowerChargeOnCrit1__
 {variant:2}KeystoneInnerConvictionUnique__1
+]],[[
+Waxen Soul
+Saint's Hauberk
+League: Ritual
+MaximumLifeUnique__28
+ChaosResistUnique__39
+CurseSkillsCostAndReserveLifeUnique__1
+GainBloodShrineBuffUnique__1
+ShrineBuffEffectPerLifeReservationUnique__1
+TriggerExplodingToadsOnKillUnique__1
 ]],
 -- Body: Evasion/Energy Shield
 [[

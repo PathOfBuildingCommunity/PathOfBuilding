@@ -1,4 +1,32 @@
 describe("TestTriggers", function()
+	local function equipDreadCaptainsCutlass()
+		build.itemsTab:CreateDisplayItemFromRaw([[Dread Captain's Cutlass
+		Ghostflame Blade
+		League: Allflame
+		Crafted: true
+		Prefix: DeepwaterSwordGrantedSkillGhostCannons
+		Sockets: R-R-R
+		LevelReq: 68
+		Implicits: 2
+		Can be Allflame Crafted as if Rare
+		Cannot gain Intangibility
+		Trigger level 20 Ghostly Artillery when you Attack with this Weapon]])
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
+	end
+
+	local function equipReviewSword()
+		build.itemsTab:CreateDisplayItemFromRaw([[Rarity: RARE
+		Review Sword
+		Rusted Sword
+		Crafted: true
+		Implicits: 0
+		Adds 1000 to 1000 Physical Damage
+		Hits can't be Evaded]])
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
+	end
+
 	before_each(function()
 		newBuild()
 	end)
@@ -1055,13 +1083,21 @@ describe("TestTriggers", function()
 		build.itemsTab:AddDisplayItem()
 		runCallback("OnFrame")
 
+		build.itemsTab:CreateDisplayItemFromRaw("Test Shield\nSplintered Tower Shield")
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
+
 		build.skillsTab:PasteSocketGroup("Arc 20/0  1\nSpellslinger 20/0  1\n")
 		runCallback("OnFrame")
 
 		build.skillsTab:PasteSocketGroup("Kinetic Blast 20/0  1\n")
 		runCallback("OnFrame")
 
+		build.skillsTab:PasteSocketGroup("Shield Charge 20/0  1\nFaster Attacks 20/0  1\n")
+		runCallback("OnFrame")
+
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
+		assert.are.equals("Spellslinger's Trigger: Kinetic Blast", build.calcsTab.mainEnv.player.mainSkill.infoMessage)
 	end)
 
 	it("Trigger Mark On Hit", function()
@@ -1187,6 +1223,25 @@ describe("TestTriggers", function()
 		runCallback("OnFrame")
 
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
+	end)
+
+	it("multiplies Arcanist Brand trigger rate by the attached Brand count", function()
+		build.skillsTab:PasteSocketGroup("Arcanist Brand 20/0  1\nFireball 20/0  1\n")
+		runCallback("OnFrame")
+
+		local mainSocketGroup = build.skillsTab.socketGroupList[build.mainSocketGroup]
+		mainSocketGroup.mainActiveSkill = 2
+		build.modFlag = true
+		build.buildFlag = true
+		runCallback("OnFrame")
+
+		local singleBrandTriggerRate = build.calcsTab.mainOutput.SkillTriggerRate
+		build.configTab.input.customMods = "You can have an additional Brand Attached to an Enemy"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.near(singleBrandTriggerRate * 2, build.calcsTab.mainOutput.SkillTriggerRate, 10 ^ -9)
+		assert.matches("2 attached Brands", build.calcsTab.mainEnv.player.mainSkill.infoMessage)
 	end)
 
 	it("Trigger Shockwave", function()
@@ -1410,7 +1465,7 @@ describe("TestTriggers", function()
 		assert.are.not_equals(math.floor(build.calcsTab.mainOutput.SkillTriggerRate * 100), math.floor(baseRate * 100))
 	end)
 
-	it("skillId config search", function()
+	it("Trigger Fiery Impact with its source weapon", function()
 		build.itemsTab:CreateDisplayItemFromRaw([[Rarity: RARE
 		Physical 1H Mace
 		Boom Mace
@@ -1438,7 +1493,63 @@ describe("TestTriggers", function()
 		build.skillsTab:PasteSocketGroup("Smite 20/0  1\n")
 		runCallback("OnFrame")
 
-		local baseRate = build.calcsTab.mainOutput.SkillTriggerRate
+		local baseRate = build.calcsTab.mainOutput.EffectiveSourceRate
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
+
+		equipReviewSword()
+		runCallback("OnFrame")
+
+		assert.is_true(build.calcsTab.mainOutput.EffectiveSourceRate < baseRate)
+		assert.is_true(build.calcsTab.mainEnv.player.mainSkill.skillFlags.weapon1Attack)
+		assert.is_falsy(build.calcsTab.mainEnv.player.mainSkill.skillFlags.weapon2Attack)
+	end)
+
+	it("Trigger Ghostly Artillery with a projectile attack", function()
+		equipDreadCaptainsCutlass()
+		build.skillsTab:PasteSocketGroup("Lancing Steel 20/0  1\n")
+		runCallback("OnFrame")
+
+		assert.are.near(build.calcsTab.mainOutput.EffectiveSourceRate, build.calcsTab.mainOutput.SkillTriggerRate, 0.01)
+	end)
+
+	it("Do not add socketed attacks to the Ghostly Artillery trigger rotation", function()
+		equipDreadCaptainsCutlass()
+		build.skillsTab:PasteSocketGroup("Smite 20/0  1\n")
+		runCallback("OnFrame")
+		local bodyArmourRate = build.calcsTab.mainOutput.SkillTriggerRate
+
+		newBuild()
+		equipDreadCaptainsCutlass()
+		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nSmite 20/0  1\n")
+		runCallback("OnFrame")
+
+		assert.are.near(bodyArmourRate, build.calcsTab.mainOutput.SkillTriggerRate, 10 ^ -9)
+	end)
+
+	it("Use only the Cutlass when dual wielding", function()
+		equipDreadCaptainsCutlass()
+		build.skillsTab:PasteSocketGroup("Smite 20/0  1\n")
+		runCallback("OnFrame")
+		local singleWeaponRate = build.calcsTab.mainOutput.EffectiveSourceRate
+
+		newBuild()
+		equipDreadCaptainsCutlass()
+		equipReviewSword()
+		build.skillsTab:PasteSocketGroup("Smite 20/0  1\n")
+		runCallback("OnFrame")
+
+		assert.is_true(build.calcsTab.mainOutput.EffectiveSourceRate < singleWeaponRate)
+		assert.is_true(build.calcsTab.mainEnv.player.mainSkill.skillFlags.weapon1Attack)
+		assert.is_falsy(build.calcsTab.mainEnv.player.mainSkill.skillFlags.weapon2Attack)
+		assert.is_nil(build.calcsTab.mainOutput.OffHand and build.calcsTab.mainOutput.OffHand.AverageHit)
+
+		newBuild()
+		equipReviewSword()
+		equipDreadCaptainsCutlass()
+		build.skillsTab:PasteSocketGroup("Smite 20/0  1\n")
+		runCallback("OnFrame")
+
+		assert.is_falsy(build.calcsTab.mainEnv.player.mainSkill.skillFlags.weapon1Attack)
+		assert.is_true(build.calcsTab.mainEnv.player.mainSkill.skillFlags.weapon2Attack)
 	end)
 end)
