@@ -133,8 +133,10 @@ Loadouts can be selected from the dropdown in the top middle of the screen. Sele
 
     3) If there is only one set for a set type (except passive tree), e.g. "Default" config set, it will be assigned to all existing loadouts.
 
-The "New Loadout" option allows the user to create all four sets from a single popup for convenience.
+The "Manage Loadouts... (ctrl-l)" option opens a popup that lists your loadouts and lets you manage them as a whole: create (New), rename, copy and delete a loadout (its tree, item, skill and config sets together), and drag to reorder loadouts without moving each set individually. Deleting a loadout will not delete any items used by it, and a set shared between loadouts (or the only set of its type) is left in place.
 The "Sync" option is a backup option to force the UI to update in case the user has changed this data behind the scenes.
+
+Note that a loadout is matched by the plain set name, so a loadout whose tree is on an older tree version (shown with a "[version]" prefix, e.g. "[3.28 (alternate)]") still groups with its plainly-named item, skill and config sets.
 
 
 ---[Party Tab]
