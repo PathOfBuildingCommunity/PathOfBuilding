@@ -44373,6 +44373,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_4142376596",
+				["text"] = "#% of Fire Damage taken as Lightning Damage",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2696663331",
 				["text"] = "#% of Lightning Damage Leeched as Life",
 				["type"] = "implicit",
@@ -46373,6 +46378,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_1238227257",
+				["text"] = "Debuffs on you expire #% faster",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_3653400807",
 				["text"] = "Determination has #% increased Aura Effect",
 				["type"] = "implicit",
@@ -47955,6 +47965,11 @@ return {
 			{
 				["id"] = "implicit.stat_261342933",
 				["text"] = "Secrets of Suffering",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1881314095",
+				["text"] = "Share Endurance Charges with nearby party members",
 				["type"] = "implicit",
 			},
 			{
@@ -56887,6 +56902,11 @@ return {
 			{
 				["id"] = "fractured.stat_2129352930",
 				["text"] = "Armour is increased by Overcapped Fire Resistance",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_1195705739",
+				["text"] = "Attacks fire an additional Projectile",
 				["type"] = "fractured",
 			},
 			{
