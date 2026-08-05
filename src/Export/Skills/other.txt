@@ -741,42 +741,6 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill PactOfBeidat
-#mods
-
-#skill PactOfGhorr
-#mods
-
-#skill TriggeredBloodrend
-#mods
-
-#skill PactOfKtash
-#mods
-
-#skill PactOfLycia
-#mods
-
-#skill TriggeredHeavensScourge
-#mods
-
-#skill Portal
-#flags spell
-#mods
-
-#skill QueensDemand
-	fromItem = true,
-#mods
-
-#skill PrimalAegis
-	fromTree = true,
-#mods
-
-#skill Pacify
-#flags spell curse area duration hex
-	fromTree = true,
-#baseMod skill("debuff", true)
-#mods
-
-#skill PactOfBeidat
 #flags spell pact
 	statMap = {
 		["skill_empowers_next_x_spells_cast"] = {
@@ -798,6 +762,10 @@ local skills, mod, flag, skill = ...
 			mod("GhorrPactDamage", "BASE", nil),
 		},
 	},
+#mods
+
+#skill TriggeredBloodrend
+#flags spell pact projectile
 #mods
 
 #skill PactOfKtash
@@ -825,6 +793,28 @@ local skills, mod, flag, skill = ...
 			mod("LyciaPactDamage", "BASE", nil),
 		},
 	},
+#mods
+
+#skill TriggeredHeavensScourge
+#flags spell pact area
+#mods
+
+#skill Portal
+#flags spell
+#mods
+
+#skill QueensDemand
+	fromItem = true,
+#mods
+
+#skill PrimalAegis
+	fromTree = true,
+#mods
+
+#skill Pacify
+#flags spell curse area duration hex
+	fromTree = true,
+#baseMod skill("debuff", true)
 #mods
 
 #skill Ravenous
