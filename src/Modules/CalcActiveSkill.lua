@@ -278,13 +278,22 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 		activeSkill.weapon2Flags = 0
 	else
 		-- Set weapon flags
+		if skillFlags.attack and activeSkill.socketGroup and activeSkill.socketGroup.sourceItem then
+			-- Item-granted attacks use the weapon that grants the skill
+			local sourceSlot = activeSkill.socketGroup.slot or ""
+			skillFlags.forceMainHand = sourceSlot:match("^Weapon 1") ~= nil
+			skillFlags.forceOffHand = sourceSlot:match("^Weapon 2") ~= nil
+		end
 		local weaponTypes = { activeGrantedEffect.weaponTypes }
 		for _, skillEffect in pairs(activeSkill.effectList) do
 			if skillEffect.grantedEffect.support and skillEffect.grantedEffect.weaponTypes then
 				t_insert(weaponTypes, skillEffect.grantedEffect.weaponTypes)
 			end
 		end
-		local weapon1Flags, weapon1Info = getWeaponFlags(env, activeSkill.actor.weaponData1, weaponTypes)
+		local weapon1Flags, weapon1Info
+		if not skillFlags.forceOffHand then
+			weapon1Flags, weapon1Info = getWeaponFlags(env, activeSkill.actor.weaponData1, weaponTypes)
+		end
 		if not weapon1Flags and activeSkill.summonSkill then
 			-- Minion skills seem to ignore weapon types
 			weapon1Flags, weapon1Info = ModFlag[env.data.weaponTypeInfo["None"].flag], env.data.weaponTypeInfo["None"]
