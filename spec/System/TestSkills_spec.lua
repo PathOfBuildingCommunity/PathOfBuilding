@@ -231,6 +231,30 @@ describe("TestSkills", function()
 		assert.are.near(singleBrandDPS * 2, build.calcsTab.mainOutput.TotalDot, 10 ^ -9)
 	end)
 
+	it("caps total Brand Recall Cooldown Recovery from multiple Chip Away notables at 40%", function()
+		build.skillsTab:PasteSocketGroup("Storm Brand 20/0  1\n")
+		build.configTab.input.ActiveBrands = 10
+		build.configTab.input.customMods = [[
+			You can cast 7 additional brands
+			Brand Recall has 4% increased Cooldown Recovery Rate per Brand, up to a maximum of 40%
+			Brand Recall has 4% increased Cooldown Recovery Rate per Brand, up to a maximum of 40%
+		]]
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.equals(40, build.calcsTab.mainEnv.modDB:Sum("INC", { skillName = "Brand Recall" }, "CooldownRecovery"))
+	end)
+
+	it("applies a single Chip Away notable per active Brand", function()
+		build.skillsTab:PasteSocketGroup("Storm Brand 20/0  1\n")
+		build.configTab.input.ActiveBrands = 3
+		build.configTab.input.customMods = "Brand Recall has 4% increased Cooldown Recovery Rate per Brand, up to a maximum of 40%"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.equals(12, build.calcsTab.mainEnv.modDB:Sum("INC", { skillName = "Brand Recall" }, "CooldownRecovery"))
+	end)
+
 	it("averages inverted elemental resistance after penetration", function()
 		build.skillsTab:PasteSocketGroup("Fireball 20/0  1")
 		build.configTab.input.enemyIsBoss = "None"
