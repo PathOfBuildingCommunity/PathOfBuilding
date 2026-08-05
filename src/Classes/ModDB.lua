@@ -142,17 +142,36 @@ end
 function ModDBClass:SumInternal(context, modType, cfg, flags, keywordFlags, source, ...)
 	local result = 0
 	local globalLimits = { }
-	for i = 1, select('#', ...) do
-		local modList = self.mods[select(i, ...)]
+	local numNames = select('#', ...)
+	if numNames == 1 then
+		local modList = self.mods[...]
 		if modList then
-			for i = 1, #modList do
-				local mod = modList[i]
+			for j = 1, #modList do
+				local mod = modList[j]
 				if mod.type == modType and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.baseSource == source) then
 					if mod[1] then
 						local value = context:EvalMod(mod, cfg, globalLimits) or 0
 						result = result + value
 					else
 						result = result + mod.value
+					end
+				end
+			end
+		end
+	else
+		for i = 1, numNames do
+			local modName = select(i, ...)
+			local modList = self.mods[modName]
+			if modList then
+				for j = 1, #modList do
+					local mod = modList[j]
+					if mod.type == modType and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.baseSource == source) then
+						if mod[1] then
+							local value = context:EvalMod(mod, cfg, globalLimits) or 0
+							result = result + value
+						else
+							result = result + mod.value
+						end
 					end
 				end
 			end
@@ -168,12 +187,13 @@ function ModDBClass:MoreInternal(context, cfg, flags, keywordFlags, source, ...)
 	local result = 1
 	local modPrecision = nil
 	local globalLimits = { }
-	for i = 1, select('#', ...) do
-		local modList = self.mods[select(i, ...)]
+	local numNames = select('#', ...)
+	if numNames == 1 then
+		local modList = self.mods[...]
 		local modResult = 1 --The more multipliers for each mod are computed to the nearest percent then applied.
 		if modList then
-			for i = 1, #modList do
-				local mod = modList[i]
+			for j = 1, #modList do
+				local mod = modList[j]
 				if mod.type == "MORE" and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.baseSource == source) then
 					local value
 					if mod[1] then
@@ -196,6 +216,37 @@ function ModDBClass:MoreInternal(context, cfg, flags, keywordFlags, source, ...)
 		else
 			result = result * round(modResult, 2)
 		end
+	else
+		for i = 1, numNames do
+			local modName = select(i, ...)
+			local modList = self.mods[modName]
+			local modResult = 1 --The more multipliers for each mod are computed to the nearest percent then applied.
+			if modList then
+				for j = 1, #modList do
+					local mod = modList[j]
+					if mod.type == "MORE" and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.baseSource == source) then
+						local value
+						if mod[1] then
+							value = context:EvalMod(mod, cfg, globalLimits) or 0
+						else
+							value = mod.value or 0
+						end
+						modResult = modResult * (1 + value / 100)
+						if modPrecision then
+							modPrecision = m_max(modPrecision, (data.highPrecisionMods[mod.name] and data.highPrecisionMods[mod.name][mod.type]) or modPrecision)
+						else
+							modPrecision = (data.highPrecisionMods[mod.name] and data.highPrecisionMods[mod.name][mod.type]) or nil
+						end
+					end
+				end
+			end
+			if modPrecision then
+				local power = 10 ^ modPrecision
+				result = math.floor(result * modResult * power) / power
+			else
+				result = result * round(modResult, 2)
+			end
+		end
 	end
 	if self.parent then
 		result = result * self.parent:MoreInternal(context, cfg, flags, keywordFlags, source, ...)
@@ -204,11 +255,12 @@ function ModDBClass:MoreInternal(context, cfg, flags, keywordFlags, source, ...)
 end
 
 function ModDBClass:FlagInternal(context, cfg, flags, keywordFlags, source, ...)
-	for i = 1, select('#', ...) do
-		local modList = self.mods[select(i, ...)]
+	local numNames = select('#', ...)
+	if numNames == 1 then
+		local modList = self.mods[...]
 		if modList then
-			for i = 1, #modList do
-				local mod = modList[i]
+			for j = 1, #modList do
+				local mod = modList[j]
 				if mod.type == "FLAG" and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.baseSource == source) then
 					if mod[1] then
 						if context:EvalMod(mod, cfg) then
@@ -220,6 +272,25 @@ function ModDBClass:FlagInternal(context, cfg, flags, keywordFlags, source, ...)
 				end
 			end
 		end
+	else
+		for i = 1, numNames do
+			local modName = select(i, ...)
+			local modList = self.mods[modName]
+			if modList then
+				for j = 1, #modList do
+					local mod = modList[j]
+					if mod.type == "FLAG" and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.baseSource == source) then
+						if mod[1] then
+							if context:EvalMod(mod, cfg) then
+								return true
+							end
+						elseif mod.value then
+							return true
+						end
+					end
+				end
+			end
+		end
 	end
 	if self.parent then
 		return self.parent:FlagInternal(context, cfg, flags, keywordFlags, source, ...)
@@ -227,11 +298,12 @@ function ModDBClass:FlagInternal(context, cfg, flags, keywordFlags, source, ...)
 end
 
 function ModDBClass:OverrideInternal(context, cfg, flags, keywordFlags, source, ...)
-	for i = 1, select('#', ...) do
-		local modList = self.mods[select(i, ...)]
+	local numNames = select('#', ...)
+	if numNames == 1 then
+		local modList = self.mods[...]
 		if modList then
-			for i = 1, #modList do
-				local mod = modList[i]
+			for j = 1, #modList do
+				local mod = modList[j]
 				if mod.type == "OVERRIDE" and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.baseSource == source) then
 					if mod[1] then
 						local value = context:EvalMod(mod, cfg)
@@ -244,6 +316,26 @@ function ModDBClass:OverrideInternal(context, cfg, flags, keywordFlags, source, 
 				end
 			end
 		end
+	else
+		for i = 1, numNames do
+			local modName = select(i, ...)
+			local modList = self.mods[modName]
+			if modList then
+				for j = 1, #modList do
+					local mod = modList[j]
+					if mod.type == "OVERRIDE" and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.baseSource == source) then
+						if mod[1] then
+							local value = context:EvalMod(mod, cfg)
+							if value then
+								return value
+							end
+						elseif mod.value then
+							return mod.value
+						end
+					end
+				end
+			end
+		end
 	end
 	if self.parent then
 		return self.parent:OverrideInternal(context, cfg, flags, keywordFlags, source, ...)
@@ -251,11 +343,12 @@ function ModDBClass:OverrideInternal(context, cfg, flags, keywordFlags, source, 
 end
 
 function ModDBClass:ListInternal(context, result, cfg, flags, keywordFlags, source, ...)
-	for i = 1, select('#', ...) do
-		local modList = self.mods[select(i, ...)]
+	local numNames = select('#', ...)
+	if numNames == 1 then
+		local modList = self.mods[...]
 		if modList then
-			for i = 1, #modList do
-				local mod = modList[i]
+			for j = 1, #modList do
+				local mod = modList[j]
 				if mod.type == "LIST" and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.baseSource == source) then
 					local value
 					if mod[1] then
@@ -269,6 +362,27 @@ function ModDBClass:ListInternal(context, result, cfg, flags, keywordFlags, sour
 				end
 			end
 		end
+	else
+		for i = 1, numNames do
+			local modName = select(i, ...)
+			local modList = self.mods[modName]
+			if modList then
+				for j = 1, #modList do
+					local mod = modList[j]
+					if mod.type == "LIST" and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.baseSource == source) then
+						local value
+						if mod[1] then
+							local value = context:EvalMod(mod, cfg) or nullValue
+							if value then
+								t_insert(result, value)
+							end
+						elseif mod.value then
+							t_insert(result, mod.value)
+						end
+					end
+				end
+			end
+		end
 	end
 	if self.parent then
 		self.parent:ListInternal(context, result, cfg, flags, keywordFlags, source, ...)
@@ -277,12 +391,12 @@ end
 
 function ModDBClass:TabulateInternal(context, result, modType, cfg, flags, keywordFlags, source, ...)
 	local globalLimits = { }
-	for i = 1, select('#', ...) do
-		local modName = select(i, ...)
-		local modList = self.mods[modName]
+	local numNames = select('#', ...)
+	if numNames == 1 then
+		local modList = self.mods[...]
 		if modList then
-			for i = 1, #modList do
-				local mod = modList[i]
+			for j = 1, #modList do
+				local mod = modList[j]
 				if (mod.type == modType or not modType) and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.baseSource == source) then
 					local value
 					if mod[1] then
@@ -292,6 +406,27 @@ function ModDBClass:TabulateInternal(context, result, modType, cfg, flags, keywo
 					end
 					if value and (value ~= 0 or mod.type == "OVERRIDE") then
 						t_insert(result, { value = value, mod = mod })
+					end
+				end
+			end
+		end
+	else
+		for i = 1, numNames do
+			local modName = select(i, ...)
+			local modList = self.mods[modName]
+			if modList then
+				for j = 1, #modList do
+					local mod = modList[j]
+					if (mod.type == modType or not modType) and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.baseSource == source) then
+						local value
+						if mod[1] then
+							value = context:EvalMod(mod, cfg, globalLimits)
+						else
+							value = mod.value
+						end
+						if value and (value ~= 0 or mod.type == "OVERRIDE") then
+							t_insert(result, { value = value, mod = mod })
+						end
 					end
 				end
 			end
@@ -310,13 +445,27 @@ end
 ---@param source string @The mod source to match
 ---@return boolean @true if the mod is found, false otherwise.
 function ModDBClass:HasModInternal(modType, flags, keywordFlags, source, ...)
-	for i = 1, select('#', ...) do
-		local modList = self.mods[select(i, ...)]
+	local numNames = select('#', ...)
+	if numNames == 1 then
+		local modList = self.mods[...]
 		if modList then
-			for i = 1, #modList do
-				local mod = modList[i]
+			for j = 1, #modList do
+				local mod = modList[j]
 				if mod.type == modType and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.baseSource == source) then
 					return true
+				end
+			end
+		end
+	else
+		for i = 1, numNames do
+			local modName = select(i, ...)
+			local modList = self.mods[modName]
+			if modList then
+				for j = 1, #modList do
+					local mod = modList[j]
+					if mod.type == modType and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.baseSource == source) then
+						return true
+					end
 				end
 			end
 		end
