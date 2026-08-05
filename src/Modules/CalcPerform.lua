@@ -20,6 +20,12 @@ local bor = bit.bor
 local band = bit.band
 local bnot = bit.bnot
 
+local attributeStats = { "Str", "Dex", "Int" }
+local modTypeBaseIncMore = { "BASE", "INC", "MORE" }
+local omniComboStats = { "StrDex", "StrInt", "DexInt", "All" }
+local lifeManaPools = { "Life", "Mana" }
+local gearSlotsArmour = { "Helmet", "Gloves", "Boots", "Body Armour", "Weapon 2", "Weapon 3" }
+
 --- getCachedOutputValue
 ---  retrieves a value specified by key from a cached version of skill
 ---  specified by @uuid or if not found in cache computes teh cache.
@@ -387,7 +393,7 @@ local function doActorAttribsConditions(env, actor)
 	-- Calculate attributes
 	local calculateAttributes = function()
 		for pass = 1, 2 do -- Calculate twice because of circular dependency (X attribute higher than Y attribute)
-			for _, stat in pairs({"Str","Dex","Int"}) do
+			for _, stat in ipairs(attributeStats) do
 				output[stat] = m_max(round(calcLib.val(modDB, stat)), 0)
 				if breakdown then
 					breakdown[stat] = breakdown.simple(nil, nil, output[stat], stat)
@@ -419,7 +425,7 @@ local function doActorAttribsConditions(env, actor)
 
 		for pass = 1, 2 do -- Calculate twice because of circular dependency (X attribute higher than Y attribute)
 			if pass ~= 1 then
-				for _, stat in pairs({"Str","Dex","Int"}) do
+				for _, stat in ipairs(attributeStats) do
 					local base = classStats["base_"..stat:lower()]
 					output[stat] = m_min(round(calcLib.val(modDB, stat)), base)
 					if breakdown then
@@ -436,9 +442,9 @@ local function doActorAttribsConditions(env, actor)
 				-- Subtract out double and triple dips
 				local conversion = { }
 				local reduction = { }
-				for _, type in pairs({"BASE", "INC", "MORE"}) do
+				for _, type in ipairs(modTypeBaseIncMore) do
 					conversion[type] = { }
-					for _, stat in pairs({"StrDex", "StrInt", "DexInt", "All"}) do
+					for _, stat in ipairs(omniComboStats) do
 						conversion[type][stat] = modDB:Sum(type, nil, stat) or 0
 					end
 					reduction[type] = conversion[type].StrDex + conversion[type].StrInt + conversion[type].DexInt + 2*conversion[type].All
@@ -448,7 +454,7 @@ local function doActorAttribsConditions(env, actor)
 				modDB:NewMod("Omni", "MORE", -reduction["MORE"], "Reduction from Double/Triple Dipped attributes to Omniscience")
 			end
 
-			for _, stat in pairs({"Str","Dex","Int"}) do
+			for _, stat in ipairs(attributeStats) do
 				local base = classStats["base_"..stat:lower()]
 				output[stat] = base
 			end
@@ -530,7 +536,7 @@ function doActorLifeManaReservation(actor, addAura)
 	local output = actor.output
 	local condList = modDB.conditions
 
-	for _, pool in pairs({"Life", "Mana"}) do
+	for _, pool in ipairs(lifeManaPools) do
 		local max = output[pool]
 		local reserved
 		if max > 0 then
@@ -1489,7 +1495,7 @@ function calcs.perform(env, skipEHP)
 		local energyShieldBase
 		local tempTable1 = { }
 		local slotCfg = wipeTable(tempTable1)
-		for _, slot in pairs({"Helmet","Gloves","Boots","Body Armour","Weapon 2","Weapon 3"}) do
+		for _, slot in ipairs(gearSlotsArmour) do
 			local armourData = env.player.itemList[slot] and env.player.itemList[slot].armourData
 			if armourData then
 				slotCfg.slotName = slot

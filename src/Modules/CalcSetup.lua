@@ -13,6 +13,7 @@ local m_min = math.min
 local m_max = math.max
 
 local tempTable1 = { }
+local attributeStats = { "Str", "Dex", "Int" }
 
 -- Initialise modifier database with stats and conditions common to all actors
 function calcs.initModDB(env, modDB)
@@ -487,7 +488,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 
 	if not cachedPlayerDB then
 		-- Initialise modifier database with base values
-		for _, stat in pairs({"Str","Dex","Int"}) do
+		for _, stat in ipairs(attributeStats) do
 			modDB:NewMod(stat, "BASE", classStats["base_"..stat:lower()], "Base")
 		end
 		modDB.multipliers["Level"] = m_max(1, m_min(100, build.characterLevel))
@@ -775,7 +776,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 						local funcList = (item.jewelData and item.jewelData.funcList) or { { type = "Self", func = function(node, out, data)
 							-- Default function just tallies all stats in radius
 							if node then
-								for _, stat in pairs({"Str","Dex","Int"}) do
+								for _, stat in ipairs(attributeStats) do
 									data[stat] = (data[stat] or 0) + out:Sum("BASE", nil, stat)
 								end
 							end
