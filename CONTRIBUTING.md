@@ -204,6 +204,12 @@ Then, similarly to the EmmyLua example:
   -- debugger:event("wait")  -- Uncomment this line if you want PoB to wait until the debugger is attached.
   ```
 
+  Note that Linux developers using Wine might need to use the Windows debugger instead of using the VSCode debugger. This can be done by:
+
+  1. Downloading the .vsix from the VSCode extension page
+  2. Copying `extension/{script,runtime}` to the `runtime` folder of the PoB directory (i.e., `runtime/runtime`).
+  3. Copying `debugger.lua` from `runtime/scripts/debugger.lua` to `runtime/lua/debugger.lua`.
+  4. Using `local debugger = loadfile(GetRuntimePath().."/lua/debugger.lua")():start("127.0.0.1:12306")` instead of the above code to avoid issues with Wine backwards slashes
 
 #### Excluding directories from EmmyLua
 
