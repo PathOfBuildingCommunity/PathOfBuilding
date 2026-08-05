@@ -1,6 +1,5 @@
 VERSION[2.67.0][2026/08/05]
 
-
 --- 3.29 - Allflame ---
 * Add support for new Abyss Timeless Jewels (LocalIdentity)
 * Add and support new 3.29 Uniques (LocalIdentity, vaisest)
