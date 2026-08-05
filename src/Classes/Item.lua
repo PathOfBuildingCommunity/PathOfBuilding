@@ -13,6 +13,7 @@ local m_floor = math.floor
 local dmgTypeList = {"Physical", "Lightning", "Cold", "Fire", "Chaos"}
 local catalystList = {"Abrasive", "Accelerating", "Dextral", "Fertile", "Imbued", "Intrinsic", "Noxious", "Prismatic", "Sinistral", "Tempering", "Turbulent", "Unstable"}
 local catalystDescriptorList = {"Attack", "Speed", "Suffix", "Life and Mana", "Caster", "Attribute", "Physical and Chaos", "Resistance", "Prefix", "Defence", "Elemental", "Critical"}
+local lineFlagsList = { "unveiled", "prefix", "suffix" }
 local catalystTags = {
 	{ "attack" },
 	{ "speed" },
@@ -291,15 +292,15 @@ function ItemClass:FindModifierSubstring(substring, itemSlotName)
 	--getTagBasedModifiers(substring, itemSlotName)
 
 	-- merge various modifier lines into one table
-	for _,v in pairs(self.explicitModLines) do t_insert(modLines, v) end
+	for _,v in ipairs(self.explicitModLines) do t_insert(modLines, v) end
 	if explicit < 1 then
-		for _,v in pairs(self.enchantModLines) do t_insert(modLines, v) end
-		for _,v in pairs(self.scourgeModLines) do t_insert(modLines, v) end
-		for _,v in pairs(self.implicitModLines) do t_insert(modLines, v) end
-		for _,v in pairs(self.crucibleModLines) do t_insert(modLines, v) end
+		for _,v in ipairs(self.enchantModLines) do t_insert(modLines, v) end
+		for _,v in ipairs(self.scourgeModLines) do t_insert(modLines, v) end
+		for _,v in ipairs(self.implicitModLines) do t_insert(modLines, v) end
+		for _,v in ipairs(self.crucibleModLines) do t_insert(modLines, v) end
 	end
 
-	for _,v in pairs(modLines) do
+	for _,v in ipairs(modLines) do
 		if not v.disabled and self:CheckModLineVariant(v) then
 			if v.line:lower():find(substring) and not v.line:lower():find(substring .. " modifier") then
 				local excluded = false
@@ -1396,7 +1397,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 							tagLookup[curTag] = true;
 						end
 						-- these aren't actual mod tags but do appear in mod magnitude mods
-						for _, lineFlag in ipairs({ "unveiled", "prefix", "suffix" }) do
+						for _, lineFlag in ipairs(lineFlagsList) do
 							if mod[lineFlag] then
 								tagLookup[lineFlag] = true
 							end
