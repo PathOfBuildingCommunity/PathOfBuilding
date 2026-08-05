@@ -74,12 +74,16 @@ function ControlClass:GetPos()
 		local otherW, otherH = 0, 0
 		local width, height = 0, 0
 		local otherPos = anchorPos[self.anchor.otherPoint]
-		assert(otherPos, "invalid anchor position '"..tostring(self.anchor.otherPoint).."'")
+		if not otherPos then
+			error("invalid anchor position '"..tostring(self.anchor.otherPoint).."'", 2)
+		end
 		if self.anchor.otherPoint ~= "TOPLEFT" then
 			otherW, otherH = self.anchor.other:GetSize()
 		end
 		local pos = anchorPos[self.anchor.point]
-		assert(pos, "invalid anchor position '"..tostring(self.anchor.point).."'")
+		if not pos then
+			error("invalid anchor position '"..tostring(self.anchor.point).."'", 2)
+		end
 		if self.anchor.point ~= "TOPLEFT" then
 			width, height = self:GetSize()
 		end
