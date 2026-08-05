@@ -2778,7 +2778,26 @@ skills["PactOfBeidat"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Pact] = true, [SkillType.Buff] = true, [SkillType.Cooldown] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
+	statMap = {
+		["skill_empowers_next_x_spells_cast"] = {
+			mod("BeidatEmpoweredSpells", "BASE", nil),
+		},
+		["pact_skill_additional_beam_only_chains"] = {
+			mod("BeidatAdditionalBeamChains", "BASE", nil),
+		},
+		["pact_skill_grant_x_additional_projectiles_fired_in_nova"] = {
+			mod("BeidatAdditionalProjectiles", "BASE", nil),
+		},
+		["pact_skill_grant_x_cascades_to_do_in_spiral"] = {
+			mod("BeidatAdditionalCascades", "BASE", nil),
+		},
+		["pact_skill_damage_+%_final_with_hits_and_ailments_to_grant"] = {
+			mod("BeidatPactDamage", "LIST", { mod = mod("Damage", "MORE", nil, ModFlag.Spell, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment)) }),
+		},
+	},
 	baseFlags = {
+		spell = true,
+		pact = true,
 	},
 	qualityStats = {
 		{ "skill_empowers_next_x_spells_cast", 0.1 },
@@ -2849,7 +2868,18 @@ skills["PactOfGhorr"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Pact] = true, [SkillType.Buff] = true, [SkillType.Cooldown] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
+	statMap = {
+		["skill_empowers_next_x_spells_cast"] = {
+			mod("GhorrEmpoweredSpells", "BASE", nil),
+		},
+		["pact_skill_grant_damage_over_time_+%_final_to_spells"] = {
+			mod("GhorrPactDamage", "LIST", { mod = mod("Damage", "MORE", nil, ModFlag.Dot) }),
+		},
+	},
 	baseFlags = {
+		spell = true,
+		pact = true,
+		duration = true,
 	},
 	constantStats = {
 		{ "skill_empowers_next_x_spells_cast", 3 },
@@ -2920,6 +2950,9 @@ skills["TriggeredBloodrend"] = {
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0,
 	baseFlags = {
+		spell = true,
+		pact = true,
+		projectile = true,
 	},
 	qualityStats = {
 		{ "skill_effect_duration_+%", 1 },
@@ -2990,7 +3023,23 @@ skills["PactOfKtash"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Pact] = true, [SkillType.Buff] = true, [SkillType.Cooldown] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
+	statMap = {
+		["skill_empowers_next_x_spells_cast"] = {
+			mod("KtashEmpoweredSpells", "BASE", nil),
+		},
+		["pact_skill_grant_damage_+%_final_to_exerted_skills"] = {
+			mod("KtashPactDamage", "LIST", { mod = mod("Damage", "MORE", nil) }),
+		},
+		["active_skill_osm_vaal_skill_soul_gain_prevention_+%_final_to_grant"] = {
+			mod("KtashPactSoulGainPrevention", "BASE", nil),
+		},
+		["active_skill_osm_vaal_skill_soul_refund_chance_%_to_grant"] = {
+			mod("KtashPactSoulRefundChance", "BASE", nil),
+		},
+	},
 	baseFlags = {
+		spell = true,
+		pact = true,
 	},
 	qualityStats = {
 		{ "base_cooldown_speed_+%", 0.5 },
@@ -3060,7 +3109,17 @@ skills["PactOfLycia"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Pact] = true, [SkillType.Buff] = true, [SkillType.Cooldown] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
+	statMap = {
+		["skill_empowers_next_x_spells_cast"] = {
+			mod("LyciaEmpoweredSpells", "BASE", nil),
+		},
+		["pact_skill_grant_damage_+%_final_to_exerted_skills"] = {
+			mod("LyciaPactDamage", "LIST", { mod = mod("Damage", "MORE", nil) }),
+		},
+	},
 	baseFlags = {
+		spell = true,
+		pact = true,
 	},
 	constantStats = {
 		{ "skill_empowers_next_x_spells_cast", 3 },
@@ -3128,6 +3187,9 @@ skills["TriggeredHeavensScourge"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
+		spell = true,
+		pact = true,
+		area = true,
 	},
 	qualityStats = {
 		{ "active_skill_base_area_of_effect_radius", 0.1 },

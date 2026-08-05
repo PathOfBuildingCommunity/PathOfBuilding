@@ -2800,6 +2800,90 @@ function calcs.offence(env, actor, activeSkill)
 					globalOutput.ExertedAttackUptimeRatioCalculated = true
 				end
 			end
+
+			-- Each Pact has different eligible spell types, but shares the same uptime calculation.
+			if activeSkill.skillTypes[SkillType.Spell] and not activeSkill.skillTypes[SkillType.Brand] then
+				for _, value in ipairs(actor.activeSkillList) do
+					local pactName = value.activeEffect.grantedEffect.name
+					local pactKey = pactName:match("^Pact of (.+)$")
+					if pactKey then
+						pactKey = pactKey == "K'Tash" and "Ktash" or pactKey
+						local isVaal = activeSkill.skillTypes[SkillType.Vaal]
+						local pactApplies = pactKey == "Beidat" and not isVaal and not activeSkill.skillTypes[SkillType.Channel]
+							and (skillFlags.projectile or activeSkill.skillTypes[SkillType.Cascadable] or skillFlags.chaining and not skillFlags.projectile)
+							or pactKey == "Ghorr" and not isVaal and activeSkill.skillTypes[SkillType.DamageOverTime]
+							or pactKey == "Ktash" and isVaal and (activeSkill.skillTypes[SkillType.Damage] or activeSkill.skillTypes[SkillType.DamageOverTime])
+							or pactKey == "Lycia" and not isVaal and activeSkill.skillTypes[SkillType.Channel] and skillFlags.selfCast
+						local calculated = "PactOf"..pactKey.."Calculated"
+						if pactApplies and not globalOutput[calculated] and not value.skillFlags.disable then
+							local cooldown = calcSkillCooldown(value.skillModList, value.skillCfg, value.skillData)
+							local castRate = 1 / value.activeEffect.grantedEffect.castTime * calcLib.mod(value.skillModList, value.skillCfg, "Speed") * calcs.actionSpeedMod(actor)
+							local castTime = 1 / m_min(castRate, data.misc.ServerTickRate)
+							local count = value.skillModList:Sum("BASE", value.skillCfg, pactKey.."EmpoweredSpells")
+							local storedUses = value.skillData.storedUses + value.skillModList:Sum("BASE", value.skillCfg, "AdditionalCooldownUses")
+							local uptime = (globalOutput.Speed or 0) == 0 and 100 or m_min((count / globalOutput.Speed) / (cooldown + castTime), 1) * 100
+							uptime = m_min(100, uptime * storedUses)
+							local effect = skillModList:Flag(nil, "Condition:PactMaxHit") and 100 or uptime
+							local effectMult = effect / 100
+
+							globalOutput.CreatePactOffensiveCalcSection = true
+							globalOutput["PactOf"..pactKey.."Cooldown"] = cooldown
+							globalOutput["PactOf"..pactKey.."CastTime"] = castTime
+							globalOutput[pactKey.."EmpoweredCount"] = count
+							globalOutput[pactKey.."UpTimeRatio"] = uptime
+							if globalBreakdown then
+								globalBreakdown[pactKey.."UpTimeRatio"] = {
+									s_format("(%.2f ^8(number of Empowered)", count),
+									s_format("/ %.2f) ^8(casts per second)", globalOutput.Speed or 0),
+									s_format("/ (%.2f ^8(pact cooldown)", cooldown),
+									s_format("+ %.2f) ^8(pact cast time)", castTime),
+									s_format("* %.2f ^8(stored uses)", storedUses),
+									s_format("= %.2f%%", uptime),
+								}
+							end
+
+							local damage = value.skillModList:List(value.skillCfg, pactKey.."PactDamage")[1]
+							if damage then
+								local mod = damage.mod
+								skillModList:NewMod(mod.name, mod.type, mod.value * effectMult, "Uptime Scaled "..pactName, mod.flags, mod.keywordFlags, unpack(mod))
+							end
+
+							if pactKey == "Beidat" then
+								-- Coverage bonuses are averaged with the same uptime as the damage bonus.
+								if skillFlags.projectile and not skillModList:Flag(skillCfg, "NoAdditionalProjectiles") and not skillModList:Flag(skillCfg, "SingleProjectile") then
+									globalOutput.BeidatAdditionalProjectiles = value.skillModList:Sum("BASE", value.skillCfg, "BeidatAdditionalProjectiles") * effectMult
+									globalOutput.ProjectileCount = globalOutput.ProjectileCount + globalOutput.BeidatAdditionalProjectiles
+								end
+								if skillFlags.chaining and not skillFlags.projectile and not skillModList:Flag(skillCfg, "CannotChain") and not skillModList:Flag(skillCfg, "NoAdditionalChains") then
+									globalOutput.BeidatAdditionalBeamChains = value.skillModList:Sum("BASE", value.skillCfg, "BeidatAdditionalBeamChains") * effectMult
+									globalOutput.ChainMax = globalOutput.ChainMax + globalOutput.BeidatAdditionalBeamChains
+									globalOutput.ChainMaxString = globalOutput.ChainMax
+									globalOutput.ChainRemaining = m_max(0, globalOutput.ChainMax - globalOutput.Chain)
+								end
+								if activeSkill.skillTypes[SkillType.Cascadable] then
+									globalOutput.BeidatAdditionalCascades = value.skillModList:Sum("BASE", value.skillCfg, "BeidatAdditionalCascades") * effectMult
+								end
+							elseif pactKey == "Ktash" then
+								globalOutput.KtashSoulRefundChance = value.skillModList:Sum("BASE", value.skillCfg, "KtashPactSoulRefundChance") * effectMult
+								if globalOutput.SoulGainPreventionDuration then
+									local duration = globalOutput.SoulGainPreventionDuration
+									local durationMod = 1 + value.skillModList:Sum("BASE", value.skillCfg, "KtashPactSoulGainPrevention") * effectMult / 100
+									globalOutput.SoulGainPreventionDuration = m_max(m_ceil(duration * durationMod * data.misc.ServerTickRate), 1) / data.misc.ServerTickRate
+									if globalBreakdown then
+										globalBreakdown.SoulGainPreventionDuration = {
+											s_format("%.3fs ^8(before Pact of K'Tash)", duration),
+											s_format("x %.4f ^8(average Pact modifier)", durationMod),
+											"rounded up to nearest server tick",
+											s_format("= %.3fs", globalOutput.SoulGainPreventionDuration),
+										}
+									end
+								end
+							end
+							globalOutput[calculated] = true
+						end
+					end
+				end
+			end
 		end
 
 		output.RuthlessBlowHitEffect = 1
