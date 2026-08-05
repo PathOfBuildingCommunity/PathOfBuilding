@@ -1,3 +1,12 @@
+VERSION[2.66.2][2026/07/25]
+
+--- Fixed Crashes ---
+* Fix Warden import crash (vaisest)
+
+--- Fixed Calculations ---
+* Fix Cost efficiency math and add mods to breakdown (vaisest)
+
+
 VERSION[2.66.1][2026/07/25]
 
 --- Fixed Crashes ---

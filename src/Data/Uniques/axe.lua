@@ -396,6 +396,19 @@ Implicits: 0
 Gain a Frenzy Charge on every 50th Rampage Kill
 Rampage
 ]],[[
+Spinesnatch
+Fleshripper
+League: Allflame
+Source: Drops from unique{Zorath}
+Requires Level 70, 156 Str, 84 Dex
+Implicits: 1
+50% increased Critical Strike Chance
+Has 6 Abyssal Sockets
+(25-50)% increased Physical Damage per socketed Murderous Eye Jewel
+(8-16)% increased Attack Speed per socketed Searching Eye Jewel
+(20-40)% increased Critical Strike Chance per socketed Hypnotic Eye Jewel
+Minions have (20-40)% chance to Impale on Attack Hit per socketed Ghastly Eye Jewel
+]],[[
 Uul-Netol's Kiss
 {variant:1}Labrys
 {variant:2}Vaal Axe

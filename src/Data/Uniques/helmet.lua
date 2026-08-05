@@ -1358,6 +1358,18 @@ Requires Level 63, 85 Str, 62 Int
 2% increased Minion Movement Speed per 50 Dexterity
 Minions' Hits can only Kill Ignited Enemies
 ]],[[
+Subsume the Source
+Faithful Helmet
+League: Allflame
+Source: Drops from unique{Zorath}
+Requires Level 73, 101 Str, 101 Int
+Crafted: true
+(120-240)% increased Explicit Modifier magnitudes
+Has 4 Abyssal Sockets
+Socketed Rare Abyssal Jewels will be Consumed
+One modifier from Consumed Jewels will be retained
+Cannot have non-Abyssal sockets
+]],[[
 Veil of the Night
 Great Helmet
 Requires Level 22, 27 Str, 27 Int
@@ -1652,6 +1664,17 @@ Requires Level 35, 40 Dex, 40 Int
 Your Fire Damage can Shock but not Ignite
 Your Cold Damage can Ignite but not Freeze or Chill
 Your Lightning Damage can Freeze but not Shock
+]],[[
+The Unblinking Eye
+Harlequin Mask
+Shaper Item
+Source: Drops from unique{The Shaper} (Uber)
+Requires Level 57, 64 Dex, 64 Int
++(15-20)% chance to Suppress Spell Damage
++(50-100) to Dexterity
+(120-160)% increased Evasion and Energy Shield
+Increases and Reductions to your Evasion Rating also apply to your Spell Damage
+Physical Damage Reduction is zero
 ]],[[
 The Vertex
 Vaal Mask

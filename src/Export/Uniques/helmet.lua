@@ -1323,6 +1323,16 @@ MinionAttackSpeedPerXDexUnique__1
 MinionMovementSpeedPerXDexUnique__1
 MinionHitsOnlyKillIgnitedEnemiesUnique__1
 ]],[[
+Subsume the Source
+Faithful Helmet
+League: Allflame
+Source: Drops from unique{Zorath}
+Requires Level 73, 101 Str, 101 Int
+Crafted: true
+LocalExplicitModEffectUnique__1
+ConsumeAbyssJewelUnique__1
+LocalCannotHaveNonAbyssSocketsUnique__1
+]],[[
 Veil of the Night
 Great Helmet
 Requires Level 22, 27 Str, 27 Int
@@ -1616,6 +1626,17 @@ AllResistancesUniqueHelmetDexInt4
 FireShocksUniqueHelmetDexInt4
 ColdIgnitesUniqueHelmetDexInt4_
 LightningFreezesUniqueHelmetDexInt4
+]],[[
+The Unblinking Eye
+Harlequin Mask
+Shaper Item
+Source: Drops from unique{The Shaper} (Uber)
+Requires Level 57, 64 Dex, 64 Int
+ChanceToSuppressSpellsUnique__5
+DexterityUnique__35
+LocalIncreasedEvasionAndEnergyShieldUniqueHelmetDexInt18
+EvasionModifersApplyToSpellDamageUnique__1
+NoPhysicalDamageReductionUnique__1
 ]],[[
 The Vertex
 Vaal Mask

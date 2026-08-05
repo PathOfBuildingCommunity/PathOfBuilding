@@ -75,7 +75,9 @@ for _, name in ipairs(itemTypes) do
 			nextOrder = 100000
 		elseif not specName then
 			local prefix = ""
+			local versionString = line:match("({version:[%d,]+})")
 			local variantString = line:match("({variant:[%d,]+})")
+			local groupString = line:match("({group:[%d,]+})")
 			local fractured = line:match("({fractured})") or ""
 			local cleanLine = line:gsub("{.-}", "")
 			-- Check if this is a mod ID: purely alphanumeric+underscore, optionally followed by [num,num] ranges
@@ -89,9 +91,7 @@ for _, name in ipairs(itemTypes) do
 			local mod = modName and uniqueMods[modName]
 			if mod or (modName and legacy ~= "") then
 				modLines = modLines + 1
-				if variantString then
-					prefix = prefix ..variantString
-				end
+				prefix = prefix .. (versionString or "") .. (variantString or "") .. (groupString or "")
 
 				local tags = {}
 				if mod then

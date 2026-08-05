@@ -21,6 +21,9 @@ return {
 	skill("durationTertiary", nil),
 	div = 1000,
 },
+["infinite_minion_duration"] = {
+	skillFlag = "permanentMinion",
+},
 ["spell_minimum_base_physical_damage"] = {
 	skill("PhysicalMin", nil),
 },

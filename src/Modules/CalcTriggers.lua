@@ -395,11 +395,14 @@ local function defaultTriggerHandler(env, config)
 	local triggeredSkills = config.triggeredSkills or {}
 	local trigRate = config.trigRate
 	local uuid
+	local sourceWeapon = config.sourceWeapon
+	-- Only attacks using the granting weapon can activate source-weapon triggers
+	local sourceWeaponFlag = sourceWeapon and actor.mainSkill.socketGroup.slot and (actor.mainSkill.socketGroup.slot:match("^Weapon 2") and "weapon2Attack" or "weapon1Attack")
 
 	-- Find trigger skill and triggered skills
 	if config.triggeredSkillCond or config.triggerSkillCond then
 		for _, skill in ipairs(env.player.activeSkillList) do
-			if config.triggerSkillCond and config.triggerSkillCond(env, skill) and (not isTriggered(skill) or actor.mainSkill.skillFlags.globalTrigger or config.allowTriggered) and skill ~= actor.mainSkill then
+			if config.triggerSkillCond and config.triggerSkillCond(env, skill) and (not sourceWeaponFlag or skill.skillFlags[sourceWeaponFlag]) and (not isTriggered(skill) or actor.mainSkill.skillFlags.globalTrigger or config.allowTriggered) and skill ~= actor.mainSkill then
 				source, trigRate, uuid = findTriggerSkill(env, skill, source, trigRate, config.comparer)
 			end
 			if config.triggeredSkillCond and config.triggeredSkillCond(env,skill) then
@@ -422,6 +425,7 @@ local function defaultTriggerHandler(env, config)
 					s_format("%.2f ^8(base activation cooldown of %s)", actor.mainSkill.triggeredBy.mainSkill.skillData.repeatFrequency, config.triggerName),
 					s_format("* %.2f ^8(more activation frequency)", actor.mainSkill.triggeredBy.activationFreqMore),
 					s_format("* %.2f ^8(increased activation frequency)", actor.mainSkill.triggeredBy.activationFreqInc),
+					s_format("* %d ^8(attached Brands)", actor.mainSkill.triggeredBy.attachedBrandCount),
 					s_format("= %.2f ^8(activation rate of %s)", trigRate, actor.mainSkill.triggeredBy.mainSkill.activeEffect.grantedEffect.name)
 				}
 			elseif breakdown then
@@ -435,7 +439,9 @@ local function defaultTriggerHandler(env, config)
 			end
 
 			-- Dual wield triggers
-			if trigRate and source and env.player.weaponData1.type and env.player.weaponData2.type and not source.skillData.doubleHitsWhenDualWielding and (source.skillTypes[SkillType.Melee] or source.skillTypes[SkillType.Attack]) and actor.mainSkill.triggeredBy and actor.mainSkill.triggeredBy.grantedEffect.support and actor.mainSkill.triggeredBy.grantedEffect.fromItem then
+			local sourceWeaponTrigger = sourceWeapon and source and source.skillFlags.bothWeaponAttack
+			local itemSupportTrigger = actor.mainSkill.triggeredBy and actor.mainSkill.triggeredBy.grantedEffect.support and actor.mainSkill.triggeredBy.grantedEffect.fromItem
+			if trigRate and source and env.player.weaponData1.type and env.player.weaponData2.type and not source.skillData.doubleHitsWhenDualWielding and (source.skillTypes[SkillType.Melee] or source.skillTypes[SkillType.Attack]) and (sourceWeaponTrigger or itemSupportTrigger) then
 				trigRate = trigRate / 2
 				if breakdown then
 					t_insert(breakdown.EffectiveSourceRate, 2, s_format("/ 2 ^8(due to dual wielding)"))
@@ -878,6 +884,10 @@ local function defaultTriggerHandler(env, config)
 			else
 				actor.mainSkill.infoMessage = actor.mainSkill.triggeredBy and actor.mainSkill.triggeredBy.grantedEffect.name or config.triggerName .. " Trigger"
 			end
+			if actor.mainSkill.skillData.triggeredByBrand then
+				local attachedBrandCount = actor.mainSkill.triggeredBy.attachedBrandCount
+				actor.mainSkill.infoMessage = actor.mainSkill.infoMessage .. ":" .. s_format("%d attached Brand%s", attachedBrandCount, attachedBrandCount == 1 and "" or "s")
+			end
 
 			actor.mainSkill.infoTrigger = config.triggerName
 		end
@@ -1196,8 +1206,8 @@ local configTable = {
 		return {triggerName = "Spellslinger",
 				triggerOnUse = true,
 				triggerSkillCond = function(env, skill)
-					local isWandAttack = (not skill.weaponTypes or (skill.weaponTypes and skill.weaponTypes["Wand"])) and skill.skillTypes[SkillType.Attack]
-					return isWandAttack and not skill.skillData.triggeredBySpellSlinger
+					local isWandProjectileAttack = skill.skillTypes[SkillType.Attack] and skill.skillTypes[SkillType.Projectile] and band(skill.skillCfg.flags, ModFlag.Wand) > 0
+					return isWandProjectileAttack and not skill.skillData.triggeredBySpellSlinger
 				end}
 	end,
 	["call to arms"] = function(env) -- This is for backwards compatibility only
@@ -1322,8 +1332,9 @@ local configTable = {
 			local activationFreqMore = env.player.mainSkill.triggeredBy.mainSkill.skillModList:More(env.player.mainSkill.triggeredBy.mainSkill.skillCfg, "BrandActivationFrequency")
 			env.player.mainSkill.triggeredBy.activationFreqInc = activationFreqInc
 			env.player.mainSkill.triggeredBy.activationFreqMore = activationFreqMore
+			env.player.mainSkill.triggeredBy.attachedBrandCount = env.player.mainSkill.triggeredBy.mainSkill.skillData.attachedBrandCount
 			env.player.mainSkill.triggeredBy.ignoresTickRate = true
-			return {trigRate = env.player.mainSkill.triggeredBy.mainSkill.skillData.repeatFrequency * activationFreqInc * activationFreqMore,
+			return {trigRate = env.player.mainSkill.triggeredBy.mainSkill.skillData.repeatFrequency * activationFreqInc * activationFreqMore * env.player.mainSkill.triggeredBy.attachedBrandCount,
 					source = env.player.mainSkill.triggeredBy.mainSkill,
 					triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByBrand and slotMatch(env, skill) end}
 		end
@@ -1516,6 +1527,15 @@ local configTable = {
 					return skill.skillData.triggeredBySettlersEnchantTrigger and slotMatch(env, skill)
 				end}
 	end,
+	["ghostly artillery"] = function(env)
+		return {
+			sourceWeapon = true,
+			triggerOnUse = true,
+			triggerSkillCond = function(env, skill)
+				return skill.skillTypes[SkillType.Attack]
+			end
+		}
+	end,
 	["replica gifts from above"] = function()
 		return {
 			triggerSkillCond = function(env, skill)
@@ -1547,7 +1567,7 @@ local configTable = {
 		return {triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Melee] or skill.skillTypes[SkillType.Attack]) end}
 	end,
 	["FieryImpactHeistMaceImplicit"] = function(env)
-		return {triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Melee] or skill.skillTypes[SkillType.Attack]) end}
+		return {sourceWeapon = true, triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Melee] or skill.skillTypes[SkillType.Attack]) end}
 	end,
 }
 

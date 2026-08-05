@@ -642,6 +642,13 @@ function calcs.offence(env, actor, activeSkill)
 			skillModList:NewMod("Damage", mod.type, mod.value, mod.source, bor(ModFlag.Bow, ModFlag.Hit), mod.keywordFlags, unpack(mod))
 		end
 	end
+	if skillModList:Flag(nil, "EvasionAppliesToSpellDamage") then
+		-- The Unblinking Eye evasion rating to spell damage conversion
+		for i, value in ipairs(skillModList:Tabulate("INC", { }, "Evasion")) do
+			local mod = value.mod
+			skillModList:NewMod("Damage", mod.type, mod.value, mod.source, ModFlag.Spell, mod.keywordFlags, unpack(mod))
+		end
+	end
 	if skillModList:Flag(nil, "ClawDamageAppliesToUnarmed") then
 		-- Claw Damage conversion from Rigwald's Curse
 		for i, value in ipairs(skillModList:Tabulate("INC", { flags = bor(ModFlag.Claw, ModFlag.Hit), keywordFlags = KeywordFlag.Hit }, "Damage")) do
@@ -1418,6 +1425,7 @@ function calcs.offence(env, actor, activeSkill)
 		output.BrandAttachmentRange = data.misc.BrandAttachmentRangeBase * calcLib.mod(skillModList, skillCfg, "BrandAttachmentRange")
 		output.BrandAttachmentRangeMetre = output.BrandAttachmentRange / 10
 		output.ActiveBrandLimit = skillModList:Sum("BASE", skillCfg, "ActiveBrandLimit")
+		output.AttachedBrandCount = skillData.attachedBrandCount
 		if breakdown then
 			breakdown.BrandAttachmentRange = { radius = output.BrandAttachmentRange }
 		end
@@ -1838,6 +1846,11 @@ function calcs.offence(env, actor, activeSkill)
 	end
 
 	runSkillFunc("preDamageFunc")
+
+	if activeSkill.skillTypes[SkillType.Brand] then
+		local damageLabel = skillData.countsAttachedBrandsInDamage and "Average Damage" or "DPS"
+		activeSkill.infoMessage = s_format("%s for %d attached Brand%s", damageLabel, output.AttachedBrandCount, output.AttachedBrandCount == 1 and "" or "s")
+	end
 
 	-- Handle corpse and enemy explosions
 	local monsterLife = skillData.corpseLife or (env.enemyLevel and data.monsterLifeTable[env.enemyLevel] or 100)
@@ -2407,6 +2420,10 @@ function calcs.offence(env, actor, activeSkill)
 	end
 	-- Other Misc DPS multipliers (like custom source)
 	skillData.dpsMultiplier = ( skillData.dpsMultiplier or 1 ) * ( 1 + skillModList:Sum("INC", skillCfg, "DPS") / 100 ) * skillModList:More(skillCfg, "DPS")
+	if activeSkill.skillTypes[SkillType.Brand] and not skillData.countsAttachedBrandsInDamage then
+		skillData.dpsMultiplier = skillData.dpsMultiplier * output.AttachedBrandCount
+		output.SkillDPSMultiplier = (output.SkillDPSMultiplier or 1) * output.AttachedBrandCount
+	end
 	if env.configInput.repeatMode == "FINAL" or skillModList:Flag(nil, "OnlyFinalRepeat") then
 		skillData.dpsMultiplier = skillData.dpsMultiplier / (output.Repeats or 1)
 	end
@@ -5814,8 +5831,9 @@ function calcs.offence(env, actor, activeSkill)
 		if skillModList:Flag(nil, "DotCanStackAsTotems") and skillFlags.totem then
 			skillFlags.DotCanStack = true
 		end
-		output.TotalDot = output.TotalDotInstance
-		output.TotalDotCalcSection = output.TotalDotInstance
+		local attachedBrandCount = activeSkill.skillTypes[SkillType.Brand] and not skillData.countsAttachedBrandsInDamage and output.AttachedBrandCount or 1
+		output.TotalDot = attachedBrandCount > 1 and m_min(output.TotalDotInstance * attachedBrandCount, data.misc.DotDpsCap) or output.TotalDotInstance
+		output.TotalDotCalcSection = output.TotalDot
 	end
 
 	--Calculates and displays cost per second for skills that don't already have one (link skills)

@@ -122,6 +122,21 @@ describe("TestDefence", function()
 		assert.are.equals(0, floor(poolsRemaining.Life))
 		assert.are.equals(0, floor(poolsRemaining.OverkillDamage))
 	end)
+
+	it("applies physical damage reduction overrides", function()
+		build.configTab.input.customMods = "\z
+		+10000 to Armour\n\z
+		10% additional Physical Damage Reduction\n\z
+		Physical Damage Reduction is zero\n\z
+		"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.is_true(build.calcsTab.calcsOutput.Armour > 0)
+		assert.are.equals(0, build.calcsTab.calcsOutput.PhysicalEffectiveAppliedArmour)
+		assert.are.equals(0, build.calcsTab.calcsOutput.BasePhysicalDamageReduction)
+		assert.are.equals(0, build.calcsTab.calcsOutput.PhysicalDamageReduction)
+	end)
 	
 	-- a small helper function to calculate damage taken from limited test parameters
 	local function takenHitFromTypeMaxHit(type, enemyDamageMulti)
@@ -692,14 +707,35 @@ describe("TestDefence", function()
 			assert.is_true(build.calcsTab.calcsOutput.TotalMinionLife > 0)
 		end)
 
-		it("does not count invulnerable Minions for Companionship", function()
+		it("counts invulnerable Minions for Companionship's condition", function()
 			build.skillsTab:PasteSocketGroup("Animate Guardian 20/0  1\nCompanionship 3/0  1")
 			build.skillsTab:PasteSocketGroup("Summon Skitterbots 20/0  1")
 			runCallback("OnFrame")
 
-			assert.are.equals(1, build.calcsTab.calcsEnv.player.modDB:Sum("BASE", nil, "Multiplier:SummonedMinion"))
-			assert.are.equals(15, build.calcsTab.calcsOutput.MinionAllyDamageMitigation)
-			assert.is_true(build.calcsTab.calcsOutput.TotalMinionLife > 0)
+			assert.is_true(build.calcsTab.calcsEnv.player.modDB:Sum("BASE", nil, "Multiplier:SummonedMinion") > 1)
+			assert.are.equals(0, build.calcsTab.calcsOutput.MinionAllyDamageMitigation)
+			assert.is_nil(build.calcsTab.calcsOutput.TotalMinionLife)
+		end)
+
+		it("keeps invulnerable minion limits available to limitStat", function()
+			build.itemsTab:CreateDisplayItemFromRaw([[
+			Test Item
+			Fiend Dagger
+			100% chance to Trigger Level 1 Raise Spiders on Kill
+			]])
+			build.itemsTab:AddDisplayItem()
+			build.skillsTab:PasteSocketGroup("Reave 20/0  1")
+			runCallback("OnFrame")
+
+			build.configTab.input.raiseSpidersSpiderCount = 5
+			build.configTab:BuildModList()
+			runCallback("OnFrame")
+
+			local env = build.calcsTab.calcsEnv
+			local mainSkill = env.player.mainSkill
+			assert.are.equals(20, build.calcsTab.calcsOutput.ActiveSpiderLimit)
+			assert.are.equals(5, env.player.modDB:Sum("BASE", nil, "Multiplier:RaisedSpider"))
+			assert.are.equals(10, mainSkill.skillModList:Sum("INC", mainSkill.skillCfg, "Speed"))
 		end)
 
 		it("counts the same Minion type from different skills separately", function()
@@ -1600,6 +1636,31 @@ describe("TestDefence", function()
 		assert.are.equals(0, round(poolsRemaining.Mana))
 		assert.are.equals(0, floor(poolsRemaining.Life))
 		assert.are.equals(0, floor(poolsRemaining.OverkillDamage))
+	end)
+
+	it("applies permanent Avatar of Fire to conditional modifiers (issue #3062)", function()
+		build.itemsTab:CreateDisplayItemFromRaw([[
+		Vulconus
+		Demon Dagger
+		Variant: Pre 3.5.0
+		Variant: Current
+		Selected Variant: 2
+		Implicits: 1
+		40% increased Global Critical Strike Chance
+		50% chance to cause Bleeding on Hit
+		Every 8 seconds, gain Avatar of Fire for 4 seconds
+		160% increased Critical Strike Chance while you have Avatar of Fire
+		50% of Physical Damage Converted to Fire while you have Avatar of Fire
+		+2000 Armour while you do not have Avatar of Fire]])
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
+
+		local armourWithoutAvatarOfFire = build.calcsTab.mainOutput.Armour
+		build.itemsTab:CreateDisplayItemFromRaw("New Item\nAmber Amulet\nAvatar of Fire")
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
+
+		assert.are.equals(armourWithoutAvatarOfFire - 2000, build.calcsTab.mainOutput.Armour)
 	end)
 
 	it("limits EHP speedup when hit damage is delayed", function()

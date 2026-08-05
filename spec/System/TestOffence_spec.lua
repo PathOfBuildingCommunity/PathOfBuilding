@@ -13,6 +13,43 @@ describe("TestOffence", function()
 			string.format("%s: expected ~%.2f (within %.1f%%), got %.2f", msg, expected, tolerance * 100, actual))
 	end
 
+	it("counts only permanent minions for Communion", function()
+		build.skillsTab:PasteSocketGroup("Fireball 20/0  1\nCommunion 3/0  1")
+		build.skillsTab:PasteSocketGroup("Summon Reaper 20/0  1")
+		build.skillsTab:PasteSocketGroup("Summon Raging Spirit 20/0  1")
+		runCallback("OnFrame")
+
+		local modDB = build.calcsTab.calcsEnv.player.modDB
+		assert.is_true(modDB:Sum("BASE", nil, "Multiplier:SummonedMinion") > 1)
+		assert.are.equals(1, modDB:Sum("BASE", nil, "Multiplier:PermanentMinion"))
+		assert.is_true(build.calcsTab.calcsOutput.PhysicalMin > 0)
+
+		newBuild()
+		build.skillsTab:PasteSocketGroup("Fireball 20/0  1\nCommunion 3/0  1")
+		build.skillsTab:PasteSocketGroup("Summon Raging Spirit 20/0  1")
+		runCallback("OnFrame")
+
+		assert.are.equals(0, build.calcsTab.calcsEnv.player.modDB:Sum("BASE", nil, "Multiplier:PermanentMinion"))
+		assert.are.equals(0, build.calcsTab.calcsOutput.PhysicalMin or 0)
+	end)
+
+	it("does not apply arrow damage modifiers to Fireball", function()
+		build.skillsTab:PasteSocketGroup("Fireball 20/0  1")
+		build.configTab.input.customMods = "Projectiles Pierce an additional Target"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+		local damageWithoutArrowMod = build.calcsTab.mainOutput.AverageDamage
+
+		build.configTab.input.customMods = [[
+		Projectiles Pierce an additional Target
+		Arrows deal 50% increased Damage with Hits and Ailments to Targets they Pierce
+		]]
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.equals(damageWithoutArrowMod, build.calcsTab.mainOutput.AverageDamage)
+	end)
+
 	it("parses more/less/increased/reduced minimum and maximum damage of every type", function()
 		build.itemsTab:CreateDisplayItemFromRaw([[
 		New Item

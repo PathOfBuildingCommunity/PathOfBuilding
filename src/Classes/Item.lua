@@ -61,12 +61,37 @@ local function getCatalystScalar(catalystId, mod, quality)
 	return 1
 end
 
+local function normaliseModLine(line)
+	return line:gsub("%d+%.?%d*", "#")
+		:gsub("%(%-?#%-#%)", "#"):lower()
+		:gsub("\n", " ")
+end
+
+local uniqueModStatOrder
+
+local function sortCraftedModLines(modLines)
+	local sourceOrder = { }
+	for index, modLine in ipairs(modLines) do
+		sourceOrder[modLine] = index
+	end
+	table.sort(modLines, function(a, b)
+		local aGroup = (a.crafted or a.custom) and 3 or a.fractured and 1 or 2
+		local bGroup = (b.crafted or b.custom) and 3 or b.fractured and 1 or 2
+		if aGroup ~= bGroup then
+			return aGroup < bGroup
+		elseif aGroup < 3 and a.order ~= b.order then
+			return (a.order or math.huge) < (b.order or math.huge)
+		end
+		return sourceOrder[a] < sourceOrder[b]
+	end)
+end
+
 local influenceInfo = itemLib.influenceInfo.all
 
 local ItemClass = newClass("Item", function(self, raw, rarity, highQuality)
 	if raw then
 		self:ParseRaw(sanitiseText(raw), rarity, highQuality)
-	end	
+	end
 end)
 
 -- Reset all influence keys to false
@@ -85,6 +110,7 @@ local lineFlags = {
 	["crafted"] = true,
 	["crucible"] = true,
 	["custom"] = true,
+	["disabled"] = true,
 	["eater"] = true,
 	["enchant"] = true,
 	["exarch"] = true,
@@ -100,6 +126,7 @@ local lineFlags = {
 	-- in poe2. this is currently only added as a hack for cane of kulemak and
 	-- should be added based on mod tags after matching a mod in the future
 	["unveiled"] = true,
+	["vestigial"] = true,
 }
 
 -- Special function to store unique instances of modifier on specific item slots
@@ -273,17 +300,7 @@ function ItemClass:FindModifierSubstring(substring, itemSlotName)
 	end
 
 	for _,v in pairs(modLines) do
-		local currentVariant = false
-		if v.variantList then
-			for variant, enabled in pairs(v.variantList) do
-				if enabled and variant == self.variant then
-					currentVariant = true
-				end
-			end
-		else
-			currentVariant = true
-		end
-		if currentVariant then
+		if not v.disabled and self:CheckModLineVariant(v) then
 			if v.line:lower():find(substring) and not v.line:lower():find(substring .. " modifier") then
 				local excluded = false
 				if data.itemTagSpecialExclusionPattern[substring] and data.itemTagSpecialExclusionPattern[substring][itemSlotName] then
@@ -300,7 +317,7 @@ function ItemClass:FindModifierSubstring(substring, itemSlotName)
 			end
 			if data.itemTagSpecial[substring] and data.itemTagSpecial[substring][itemSlotName] then
 				for _, specialMod in ipairs(data.itemTagSpecial[substring][itemSlotName]) do
-					if v.line:lower():find(specialMod:lower()) and (not v.variantList or v.variantList[self.variant]) then
+					if v.line:lower():find(specialMod:lower()) then
 						return true
 					end
 				end
@@ -313,6 +330,76 @@ end
 local function specToNumber(s)
 	local n = s:match("^([%+%-]?[%d%.]+)")
 	return n and tonumber(n)
+end
+
+function ItemClass:IsVariantGroupOptionEligible(groupId, variantId)
+	local group = self.variantGroups and self.variantGroups[groupId]
+	local versions = group and group[variantId]
+	return versions and (versions[0] or self.selectedVersion and versions[self.selectedVersion]) or false
+end
+
+function ItemClass:GetVariantGroupOptions(groupId, excludeSelected)
+	local options = { }
+	if not self.variantGroups or not self.variantGroups[groupId] then
+		return options
+	end
+	local used = { }
+	if excludeSelected then
+		for otherGroupId in pairsSortByKey(self.variantGroups) do
+			if otherGroupId ~= groupId then
+				local variantId = self.variantGroupSelections[otherGroupId]
+				if variantId and self:IsVariantGroupOptionEligible(otherGroupId, variantId) then
+					used[variantId] = true
+				end
+			end
+		end
+	end
+	for variantId = 1, #self.variantList do
+		if self:IsVariantGroupOptionEligible(groupId, variantId) and not used[variantId] then
+			t_insert(options, variantId)
+		end
+	end
+	return options
+end
+
+function ItemClass:NormaliseVariantSelections()
+	if self.versionList and #self.versionList > 0 then
+		self.selectedVersion = m_max(1, m_min(#self.versionList, self.selectedVersion or #self.versionList))
+	else
+		self.selectedVersion = nil
+	end
+	self.variantGroupSelections = self.variantGroupSelections or { }
+	for groupId in pairs(self.variantGroupSelections) do
+		if not self.variantGroups[groupId] then
+			self.variantGroupSelections[groupId] = nil
+		end
+	end
+
+	local used = { }
+	local needsSelection = { }
+	for groupId in pairsSortByKey(self.variantGroups) do
+		if #self:GetVariantGroupOptions(groupId, false) > 0 then
+			local selected = self.variantGroupSelections[groupId]
+			if selected and self:IsVariantGroupOptionEligible(groupId, selected) and not used[selected] then
+				used[selected] = true
+			else
+				t_insert(needsSelection, groupId)
+			end
+		end
+	end
+	for _, groupId in ipairs(needsSelection) do
+		local selected
+		for _, variantId in ipairs(self:GetVariantGroupOptions(groupId, false)) do
+			if not used[variantId] then
+				selected = variantId
+				break
+			end
+		end
+		self.variantGroupSelections[groupId] = selected
+		if selected then
+			used[selected] = true
+		end
+	end
 end
 
 -- Parse raw item data and extract item name, base type, quality, and modifiers
@@ -394,6 +481,11 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 	self.modMagnitudeMods = {}
 	local implicitLines = 0
 	self.variantList = nil
+	self.versionList = nil
+	self.allowDuplicateVariants = false
+	self.variantGroups = { }
+	self.variantGroupSelections = self.variantGroupSelections or { }
+	self.usesVariantGroups = false
 	self.prefixes = { }
 	self.suffixes = { }
 	self.requirements = { }
@@ -402,7 +494,10 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 	self.requirements.int = 0
 	self.baseLines = { }
 	self.foulborn = false
+	self.vestigial = false
 	self.mutatedLines = nil
+	---@type RareLikeUniqueDescription?
+	self.rareLikeUnique = nil
 	local importedLevelReq
 	local flaskBuffLines
 	local tinctureBuffLines
@@ -412,7 +507,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 	local linePrefix = ""
 	local linePostfix = ""
 
-	while self.rawLines[l] do	
+	while self.rawLines[l] do
 		local line = self.rawLines[l]
 		if line == "Veiled Prefix" or line == "Veiled Suffix" then
 			self.veiled = true
@@ -442,11 +537,17 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 			self[influenceItemMap[line]] = true
 		elseif line == "Requirements:" then
 			-- nothing to do
-		elseif line:match("^%(%a+") then
+		elseif line:match("^%(%a+") or line:match("^%(%d+%%? of ") then
 			-- Reminder text, nothing to parse
 			while self.rawLines[l] and not self.rawLines[l]:match("%)$") do
 				l = l + 1
 			end
+		elseif self.base and self.base.flask and (
+			line:match("^Lasts .+ Seconds$")
+			or line:match("^Consumes %d+ of %d+ Charges on use$")
+			or line:match("^Currently has %d+ Charges$")
+		) then
+			-- In-game flask state and base properties aren't modifier lines.
 		elseif line:match("^{ ") then
 			-- We're parsing advanced copy/paste format
 			self.advancedCopy = true
@@ -466,15 +567,16 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 				local backupAffixList = { }
 				for modId, modData in pairs(self.affixes) do
 					if modData.affix == modName then
+						local ignoreModType = self.rareLikeUnique and self.rareLikeUnique.ignoreModType
 						if self:CanHaveMod(modData) then
-							if modData.type == "Prefix" then
+							if modData.type == "Prefix" or ignoreModType then
 								t_insert(self.pendingAffixList, { modId = modId, table = self.prefixes })
 							elseif modData.type == "Suffix" then
 								t_insert(self.pendingAffixList, { modId = modId, table = self.suffixes })
 							end
 						else
 							-- Conqueror mods can't natively spawn on items, so we'll use those if we don't find a match otherwise
-							if modData.type == "Prefix" then
+							if modData.type == "Prefix" or ignoreModType then
 								t_insert(backupAffixList, { modId = modId, table = self.prefixes })
 							elseif modData.type == "Suffix" then
 								t_insert(backupAffixList, { modId = modId, table = self.suffixes })
@@ -500,6 +602,9 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 						linePrefix = linePrefix .. "{" .. flagLower .. "}"
 					end
 				end
+			end
+			if fullModName:match("^Allocated Crucible Passive Skill") then
+				linePrefix = linePrefix .. "{crucible}"
 			end
 			if modTags and modTags ~= "" then
 				linePrefix = linePrefix .. "{tags:" .. modTags:lower():gsub("%s+", "") .. "}"
@@ -537,6 +642,8 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					self.uniqueID = specVal
 				elseif specName == "Item Level" then
 					self.itemLevel = specToNumber(specVal)
+				elseif specName == "Memory Strands" then
+					self.memoryStrands = specToNumber(specVal)
 				elseif specName == "Requires Class" then
 					self.classRestriction = specVal
 				elseif specName:match("Quality %([%a%s]+ Modifiers%)") then
@@ -572,6 +679,12 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					end
 				elseif specName == "Limited to" and self.type == "Jewel" then
 					self.limit = specToNumber(specVal)
+				elseif specName == "Version" then
+					if not self.versionList then
+						self.versionList = { }
+					end
+					t_insert(self.versionList, specVal)
+					self.usesVariantGroups = true
 				elseif specName == "Variant" then
 					if not self.variantList then
 						self.variantList = { }
@@ -623,6 +736,15 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					self.hasAltVariant4 = true
 				elseif specName == "Has Alt Variant Five" then
 					self.hasAltVariant5 = true
+				elseif specName == "Selected Version" then
+					self.selectedVersion = specToNumber(specVal)
+					self.usesVariantGroups = true
+				elseif specName == "Selected Variant Group" then
+					local groupId, variantId = specVal:match("^(%d+)%s*=%s*(%d+)$")
+					if groupId and variantId then
+						self.variantGroupSelections[tonumber(groupId)] = tonumber(variantId)
+						self.usesVariantGroups = true
+					end
 				elseif specName == "Selected Variant" then
 					self.variant = specToNumber(specVal)
 				elseif specName == "Selected Alt Variant" then
@@ -635,6 +757,8 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					self.variantAlt4 = specToNumber(specVal)
 				elseif specName == "Selected Alt Variant Five" then
 					self.variantAlt5 = specToNumber(specVal)
+				elseif specName == "Allow Duplicate Variants" then
+					self.allowDuplicateVariants = specVal == "true"
 				elseif specName == "Has Variants" or specName == "Selected Variants" then
 					-- Need to skip this line for backwards compatibility
 					-- with builds that used an old Watcher's Eye implementation
@@ -649,19 +773,27 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					self.crucible = true
 				elseif specName == "Implicit" then
 					self.implicit = true
-				elseif specName == "Prefix" then
-					local range, affix = specVal:match("{range:([%d.]+)}(.+)")
-					range = range or ((affix or specVal) ~= "None" and main.defaultItemAffixQuality)
-					t_insert(self.prefixes, {
+				elseif specName == "Prefix" or specName == "Suffix" then
+					local affixes = specName == "Prefix" and self.prefixes or self.suffixes
+					local fractured = specVal:match("^{fractured}") and true
+					specVal = specVal:gsub("^{fractured}", "")
+					local range, affix = specVal:match("{range:([^}]+)}(.+)")
+					if range and range:find(",", 1, true) then
+						local ranges = { }
+						for value in range:gmatch("[^,]+") do
+							t_insert(ranges, tonumber(value))
+						end
+						range = ranges
+					else
+						range = tonumber(range)
+					end
+					if not range and (affix or specVal) ~= "None" then
+						range = main.defaultItemAffixQuality
+					end
+					t_insert(affixes, {
 						modId = affix or specVal,
-						range = tonumber(range),
-					})
-				elseif specName == "Suffix" then
-					local range, affix = specVal:match("{range:([%d.]+)}(.+)")
-					range = range or ((affix or specVal) ~= "None" and main.defaultItemAffixQuality)
-					t_insert(self.suffixes, {
-						modId = affix or specVal,
-						range = tonumber(range),
+						range = range,
+						fractured = fractured,
 					})
 				elseif specName == "Implicits" then
 					implicitLines = specToNumber(specVal) or 0
@@ -690,6 +822,8 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					end
 				elseif specName == "CatalystQuality" then
 					self.catalystQuality = specToNumber(specVal)
+				elseif specName == "Intangibility" then
+					self.intangibility = specToNumber(specVal)
 				elseif specName == "Note" then
 					self.note = specVal
 				elseif specName == "Str" or specName == "Strength" or specName == "Dex" or specName == "Dexterity" or
@@ -719,6 +853,21 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 						for varId in val:gmatch("%d+") do
 							modLine.variantList[tonumber(varId)] = true
 						end
+					elseif k == "version" then
+						modLine.versionList = { }
+						for versionId in val:gmatch("%d+") do
+							modLine.versionList[tonumber(versionId)] = true
+						end
+						self.usesVariantGroups = true
+					elseif k == "group" then
+						modLine.variantGroupList = { }
+						for groupId in val:gmatch("%d+") do
+							groupId = tonumber(groupId)
+							if groupId and groupId > 0 then
+								modLine.variantGroupList[groupId] = true
+							end
+						end
+						self.usesVariantGroups = true
 					elseif k == "tags" then
 						for tag in val:gmatch("[%a_]+") do
 							t_insert(modLine.modTags, tag)
@@ -736,6 +885,33 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 
 					return ""
 				end)
+				if modLine.variantGroupList then
+					if not modLine.variantList then
+						ConPrintf("Grouped item line has no variant: %s", line)
+					else
+						for groupId in pairs(modLine.variantGroupList) do
+							local group = self.variantGroups[groupId] or { }
+							self.variantGroups[groupId] = group
+							for variantId in pairs(modLine.variantList) do
+								if self.variantList and self.variantList[variantId] then
+									local versions = group[variantId] or { }
+									group[variantId] = versions
+									if modLine.versionList then
+										for versionId in pairs(modLine.versionList) do
+											if self.versionList and self.versionList[versionId] then
+												versions[versionId] = true
+											end
+										end
+									else
+										versions[0] = true
+									end
+								else
+									ConPrintf("Grouped item line references unknown variant %d: %s", variantId, line)
+								end
+							end
+						end
+					end
+				end
 
 				line = line:gsub(" %((%l+)%)", function(k)
 					if lineFlags[k] then
@@ -747,6 +923,9 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 				if modLine.enchant then
 					modLine.crafted = true
 					modLine.implicit = true
+				end
+				if modLine.vestigial then
+					self.vestigial = true
 				end
 
 				local baseName
@@ -791,7 +970,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					self.name = self.name:gsub(" %(.+%)","")
 				end
 				if not baseName then
-					baseName = line:gsub("^Superior ", ""):gsub("^Synthesised ","")
+					baseName = line:gsub("^Superior ", ""):gsub("^Synthesised ", ""):gsub("^Vestigial ", "")
 				end
 				if baseName == "Two-Toned Boots" then
 					baseName = "Two-Toned Boots (Armour/Energy Shield)"
@@ -799,9 +978,19 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 				local base = data.itemBases[baseName]
 				if base then
 					-- Items with variants can have multiple bases
-					self.baseLines[baseName] = { line = baseName, variantList = modLine.variantList }
+					self.baseLines[baseName] = {
+						line = baseName,
+						variantList = modLine.variantList,
+						versionList = modLine.versionList,
+						variantGroupList = modLine.variantGroupList,
+					}
+					if self.usesVariantGroups and self.versionList and not self.selectedVersion then
+						self.selectedVersion = #self.versionList
+					end
 					-- Set the actual base if variant matches or doesn't have variants
-					if not self.variant or not modLine.variantList or modLine.variantList[self.variant] then
+					local baseMatches = self.usesVariantGroups and self:CheckModLineVariant(modLine)
+						or (not self.usesVariantGroups and (not self.variant or not modLine.variantList or modLine.variantList[self.variant]))
+					if baseMatches then
 						self.baseName = baseName
 						if not (self.rarity == "NORMAL" or self.rarity == "MAGIC") then
 							self.title = self.name
@@ -819,6 +1008,12 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 						self.affixes = (self.base.subType and data.itemMods[self.base.type..self.base.subType])
 								or data.itemMods[self.base.type]
 								or data.itemMods.Item
+						if self.title then
+							self.rareLikeUnique = data.rareLikeUniques[self.title:lower()]
+							if self.rareLikeUnique then
+								self.affixes = self.rareLikeUnique.affixes
+							end
+						end
 						if self.base.flask then
 							if self.base.utility_flask then
 								self.enchantments = data.enchantments["UtilityFlask"]
@@ -867,33 +1062,47 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 				else
 					catalystScalar = getCatalystScalar(self.catalyst, modLine, self.catalystQuality)
 				end
+				-- Advanced copy uses current(base) for fixed-value modifiers,
+				-- in addition to the current(min-max) form handled below.
+				line = line:gsub("(%-?%d+%.?%d*)%((%-?%d+%.?%d*)%)", "%1")
 				if self.pendingAffixList and #self.pendingAffixList > 0 then
 					if #self.pendingAffixList > 1 then
 						-- Probably a conqueror or essence mod since the mod name is the same for all of them
 						-- Try to match the line against one of the mods there
-						local valueStrippedLine = line:gsub("%-?%d+%.?%d*%(", "("):gsub("%-?%d+%.?%d*", "#")
+						local rangeLine = line:gsub("%-?%d+%.?%d*%(", "(")
+						local valueStrippedLine = rangeLine:gsub("%-?%d+%.?%d*", "#")
+						local exactAffix
+						local fallbackAffix
 						for _, pendingAffix in ipairs(self.pendingAffixList) do
 							local modData = self.affixes[pendingAffix.modId]
 							for _, modDataLine in ipairs(modData) do
-								-- Prefer the exact match
-								if line == modDataLine then
-									self.pendingAffixList = { pendingAffix }
+								if line == modDataLine or rangeLine == modDataLine then
+									exactAffix = pendingAffix
 									break
 								end
-								if valueStrippedLine == modDataLine:gsub("%-?%d+%.?%d*", "#") then
-									self.pendingAffixList = { pendingAffix }
-									break
+								if not fallbackAffix and valueStrippedLine == modDataLine:gsub("%-?%d+%.?%d*", "#") then
+									fallbackAffix = pendingAffix
 								end
-							end	
+							end
+							if exactAffix then
+								break
+							end
 						end
+						self.pendingAffixList = { exactAffix or fallbackAffix or self.pendingAffixList[1] }
 					end
 					-- Use rolling Delta/Range in case one range is 1-3 and another is 1-100 so we get the finest precision possible
 					local bestPrecisionDelta = -1
 					local bestPrecisionRange = -1
+					local rollRanges = { }
+					local affixMod = self.affixes[self.pendingAffixList[1].modId]
+					modLine.order = affixMod and affixMod.statOrder[1]
 					for value, range in line:gmatch("(%-?%d+%.?%d*)%((%-?%d+%.?%d*%-%-?%d+%.?%d*)%)") do
-						-- Find advanced copy paste format: 45(40-50)
 						local min, max = range:match("(%-?%d+%.?%d*)%-(%-?%d+%.?%d*)")
+						if tonumber(min) > tonumber(max) then
+							min, max = max, min
+						end
 						local delta = tonumber(max) - min
+						t_insert(rollRanges, delta > 0 and round((value - min) / delta, 6) or 0.5)
 						line = line:gsub(value .. "%(" .. range:gsub("%-", "%%-") .. "%)", value)
 						if delta > bestPrecisionDelta then
 							bestPrecisionRange = round((value - min) / delta, 3)
@@ -902,31 +1111,51 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					end
 					t_insert(self.pendingAffixList[1].table, {
 						modId = self.pendingAffixList[1].modId,
-						range = bestPrecisionRange >= 0 and bestPrecisionRange <= 1 and bestPrecisionRange or 0.5,
+						-- Legacy modifiers can roll outside the current data range. Keep the
+						-- extrapolated range so crafting a different affix doesn't normalise it.
+						range = #rollRanges > 1 and rollRanges or bestPrecisionDelta > 0 and bestPrecisionRange or 0.5,
+						fractured = modLine.fractured,
 					})
 					self.pendingAffixList = {}
 				else
-					-- Use rolling Delta/Range in case one range is 1-3 and another is 1-100 so we get the finest precision possible
 					local bestPrecisionDelta = -1
 					local bestPrecisionRange = -1
-					
-					-- Replace non-number ranges as unsupported
-					line = line:gsub("(%a+)%([%a%s]+%-[%a%s]+%)", "%1")
+					local firstRollRange
+					local hasIndependentRolls
+
+					-- Advanced copy only provides the endpoints for enum ranges; keep the selected value.
+					line = line:gsub("(%s*)(%b())", function(space, range)
+						if range:find("-", 1, true) and not range:find("%d") then
+							return ""
+						end
+						return space .. range
+					end)
+					local advancedCopyLine = line
 
 					for value, range in line:gmatch("(%-?%d+%.?%d*)%((%-?%d+%.?%d*%-%-?%d+%.?%d*)%)") do
 						local min, max = range:match("(%-?%d+%.?%d*)%-(%-?%d+%.?%d*)")
+						if tonumber(min) > tonumber(max) then
+							min, max = max, min
+						end
 						local delta = tonumber(max) - min
+						local rollRange = delta > 0 and round((value - min) / delta, 6) or 0.5
+						if firstRollRange and firstRollRange ~= rollRange then
+							hasIndependentRolls = true
+						end
+						firstRollRange = firstRollRange or rollRange
 						if delta > bestPrecisionDelta then
-							bestPrecisionRange = round((value - min) / delta, 3)
+							bestPrecisionRange = rollRange
 							bestPrecisionDelta = delta
 						end
 						if bestPrecisionRange > 1 or bestPrecisionRange < 0 then
 							line = line:gsub(value .. "%(" .. range:gsub("%-", "%%-") .. "%)", value)
 						else
-							line = line:gsub(value .. "%(" .. range:gsub("%-", "%%-") .. "%)", (tonumber(value) < 0 and "+" or "") .. "(" .. range .. ")")
+							line = line:gsub(value .. "%(" .. range:gsub("%-", "%%-") .. "%)", (tonumber(value) < 0 and "+" or "") .. "(" .. min .. "-" .. max .. ")")
 						end
 					end
-					if bestPrecisionRange <= 1 and bestPrecisionRange >= 0 then
+					if hasIndependentRolls then
+						line = advancedCopyLine:gsub("(%-?%d+%.?%d*)%(%-?%d+%.?%d*%-%-?%d+%.?%d*%)", "%1")
+					elseif bestPrecisionRange <= 1 and bestPrecisionRange >= 0 then
 						modLine.range = bestPrecisionRange
 					end
 				end
@@ -949,7 +1178,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 						modList, extra = modLib.parseMod(rangedLine)
 					end
 				end
-				local lineLower = line:lower()
+				local lineLower = modLine.disabled and "" or line:lower()
 				-- \d+% increased/reduced explicit/implicit/ *tags* modifier magnitudes
 				local modMagnitudePattern = { "(%d+)%% ([ir][ne][cd][ru][ec][ae][sd]e?d?) ?([%a%s]*) modifier magnitudes",
 					-- \d+% increased/reduced effect of suffixes/prefixes
@@ -1018,7 +1247,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					enchantment = "enchant",
 				}
 				for _, pattern in ipairs(modMagnitudePattern) do
-					if rangedLine:lower():find(pattern) then
+					if not modLine.disabled and rangedLine:lower():find(pattern) then
 						local rangedLine = itemLib.applyRange(line, modLine.range or main.defaultItemAffixQuality or 1, catalystScalar, modLine.corruptedRange)
 						local amount, increaseOrDecrease, modTagsString = rangedLine:lower():match(pattern)
 						local multiplier
@@ -1104,8 +1333,30 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 		::continue::
 		l = l + 1
 	end
-	if self.baseName and self.title then
-		self.name = self.title .. ", " .. self.baseName:gsub(" %(.+%)","")
+	if self.advancedCopy and (self.rarity == "UNIQUE" or self.rarity == "RELIC") then
+		if not uniqueModStatOrder then
+			uniqueModStatOrder = { exact = { }, normalised = { } }
+			for _, mod in pairs(data.itemMods.ItemExclusive) do
+				for index, line in ipairs(mod) do
+					local exactLine = line:lower():gsub("\n", " ")
+					local statLine = normaliseModLine(line)
+					uniqueModStatOrder.exact[exactLine] = m_min(uniqueModStatOrder.exact[exactLine] or math.huge, mod.statOrder[index])
+					uniqueModStatOrder.normalised[statLine] = m_min(uniqueModStatOrder.normalised[statLine] or math.huge, mod.statOrder[index])
+				end
+			end
+		end
+		for _, modLine in ipairs(self.explicitModLines) do
+			local exactLine = modLine.line:lower():gsub("\n", " ")
+			modLine.order = uniqueModStatOrder.exact[exactLine]
+				or uniqueModStatOrder.normalised[normaliseModLine(modLine.line)]
+		end
+	end
+	if self.base and #self.sockets > 0 then
+		-- In-game requirement totals include requirements from socketed gems.
+		-- Derive the item's attribute requirements from its base and local mods instead.
+		self.requirements.str = self.base.req.str or 0
+		self.requirements.dex = self.base.req.dex or 0
+		self.requirements.int = self.base.req.int or 0
 	end
 	if self.base and not self.requirements.level then
 		if importedLevelReq and #self.sockets == 0 then
@@ -1123,7 +1374,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 			end
 		end
 	end
-	if self.advancedCopy then
+	if self.advancedCopy or self.crafted then
 		-- apply mod magnitude boost to matching mods
 		if #self.modMagnitudeMods > 0 then
 			for _, modMagnitudeMod in ipairs(self.modMagnitudeMods) do
@@ -1135,6 +1386,10 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 				end
 				for _, mods in ipairs(modLists) do
 					for _, mod in ipairs(mods or {}) do
+						-- avoid scaling variant lines which are not active
+						if mod.variantList and (self:GetModLineVariantCount(mod) == 0) then
+							goto modMagnitudeContinue
+						end
 						-- Create a fast lookup table for all provided tags
 						local tagLookup = {}
 						for _, curTag in ipairs(mod.modTags) do
@@ -1163,20 +1418,24 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 							end
 						end
 						if mod.valueScalar and mod.valueScalar ~= 1 then
-							local rangedLine = itemLib.applyRange(mod.line, mod.range, mod.valueScalar, 1)
+							local rangedLine = itemLib.applyRange(mod.line, mod.range or 1, mod.valueScalar, 1)
 							local modList, extra = modLib.parseMod(rangedLine)
 							mod.displayValueScalar = 1
 							mod.modList = modList
 							mod.extra = extra
 						end
+						::modMagnitudeContinue::
 					end
 				end
 			end
 		end
 	end
+	if self.advancedCopy and #self.explicitModLines > 1 then
+		sortCraftedModLines(self.explicitModLines)
+	end
 	self.affixLimit = 0
 	if self.crafted then
-		if not self.affixes then 
+		if not self.affixes then
 			self.crafted = false
 		elseif self.rarity == "MAGIC" then
 			if self.prefixes.limit or self.suffixes.limit then
@@ -1193,6 +1452,10 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 				self.suffixes.limit = m_max(m_min((self.suffixes.limit or 0) + self.affixLimit / 2, self.affixLimit), 0)
 				self.affixLimit = self.prefixes.limit + self.suffixes.limit
 			end
+		elseif self.rareLikeUnique then
+			self.prefixes.limit = self.rareLikeUnique.prefixLimit
+			self.suffixes.limit = self.rareLikeUnique.suffixLimit
+			self.affixLimit = self.prefixes.limit + self.suffixes.limit
 		else
 			self.crafted = false
 		end
@@ -1227,7 +1490,9 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 		end
 	end
 	self.abyssalSocketCount = 0
-	if self.variantList then
+	if self.usesVariantGroups then
+		self:NormaliseVariantSelections()
+	elseif self.variantList then
 		self.variant = m_min(#self.variantList, self.variant or #self.variantList)
 		if self.hasAltVariant then
 			self.variantAlt = m_min(#self.variantList, self.variantAlt or #self.variantList)
@@ -1246,11 +1511,6 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 		end
 	end
 	if self.mutatedLines then
-		local function normalise(line)
-			return line:gsub("%d+%.?%d*", "#")
-				:gsub("%(%-?#%-#%)", "#"):lower()
-				:gsub("\n", " ")
-		end
 		-- Match both sides so the same checkbox can apply or revert the transformation.
 		for origModId, foulModId in pairs(self.mutatedLines) do
 			local function checkMod(modId, newModId, mutated)
@@ -1263,10 +1523,10 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					local matchingLines = {}
 					local matchedLines = {}
 					for _, line in ipairs(lines) do
-						local statLine = normalise(line)
+						local statLine = normaliseModLine(line)
 						for _, modLine in ipairs(self.explicitModLines) do
 							if not matchedLines[modLine]
-								and normalise(modLine.line:gsub("\n", " ")) == statLine
+								and normaliseModLine(modLine.line) == statLine
 								and self:CheckModLineVariant(modLine) then
 								matchedLines[modLine] = true
 								t_insert(matchingLines, modLine)
@@ -1307,6 +1567,9 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 		self.title = "Foulborn " .. self.title
 	elseif not self.foulborn and hasFoulbornPrefix then
 		self.title = self.title:gsub("[Ff]oulborn ", "")
+	end
+	if self.baseName and self.title then
+		self.name = self.title .. ", " .. self.baseName:gsub(" %(.+%)", "")
 	end
 	if not self.quality then
 		self:NormaliseQuality()
@@ -1351,12 +1614,16 @@ function ItemClass:MutateMod(modId, newModId, mutatedValue)
 	-- where we will reinsert the mod lines
 	local insertIdx
 	local variantList
+	local versionList
+	local variantGroupList
 	while self.explicitModLines[i] do
 		local modLine = self.explicitModLines[i]
 		if modLine.modId == modId and self:CheckModLineVariant(modLine) then
 			if not insertIdx then
 				insertIdx = i
 				variantList = modLine.variantList
+				versionList = modLine.versionList
+				variantGroupList = modLine.variantGroupList
 			end
 			table.remove(self.explicitModLines, i)
 		else
@@ -1367,6 +1634,8 @@ function ItemClass:MutateMod(modId, newModId, mutatedValue)
 		line = table.concat(newMod, "\n"),
 		modTags = newMod.modTags,
 		variantList = variantList,
+		versionList = versionList,
+		variantGroupList = variantGroupList,
 		mutated = mutatedValue,
 		modGroup = newModId,
 	})
@@ -1379,12 +1648,13 @@ function ItemClass:NormaliseQuality()
 		elseif not self.uniqueID and not self.corrupted and not self.split and not self.mirrored and self.quality < 20 then
 			self.quality = 20
 		end
-	end	
+	end
 end
 
-function ItemClass:GetModSpawnWeight(mod, includeTags, excludeTags)
+function ItemClass:GetModSpawnWeight(mod, includeTags, excludeTags, baseTags)
 	local weight = 0
 	if self.base then
+		baseTags = baseTags or self.base.tags
 		local function HasInfluenceTag(key)
 			if self.base.influenceTags then
 				for _, curInfluenceInfo in ipairs(influenceInfo) do
@@ -1427,13 +1697,13 @@ function ItemClass:GetModSpawnWeight(mod, includeTags, excludeTags)
 		end
 
 		for i, key in ipairs(mod.weightKey) do
-			if (self.base.tags[key] or (includeTags and includeTags[key]) or HasInfluenceTag(key)) and not (excludeTags and excludeTags[key]) then
+			if (baseTags[key] or (includeTags and includeTags[key]) or HasInfluenceTag(key)) and not (excludeTags and excludeTags[key]) then
 				weight = (HasInfluenceTag(key) and HasMavenInfluence(mod.affix)) and 1000 or mod.weightVal[i]
 				break
 			end
 		end
 		for i, key in ipairs(mod.weightMultiplierKey or {}) do
-			if (self.base.tags[key] or (includeTags and includeTags[key]) or HasInfluenceTag(key)) and not (excludeTags and excludeTags[key]) then
+			if (baseTags[key] or (includeTags and includeTags[key]) or HasInfluenceTag(key)) and not (excludeTags and excludeTags[key]) then
 				weight = weight * mod.weightMultiplierVal[i] / 100
 				break
 			end
@@ -1479,6 +1749,9 @@ function ItemClass:BuildRaw()
 			end
 		end
 	end
+	if self.intangibility then
+		t_insert(rawLines, string.format("Intangibility: %d%%", self.intangibility))
+	end
 	if self.uniqueID then
 		t_insert(rawLines, "Unique ID: " .. self.uniqueID)
 	end
@@ -1495,11 +1768,13 @@ function ItemClass:BuildRaw()
 	end
 	if self.crafted then
 		t_insert(rawLines, "Crafted: true")
-		for i, affix in ipairs(self.prefixes or { }) do
-			t_insert(rawLines, "Prefix: " .. (affix.range and ("{range:" .. round(affix.range,3) .. "}") or "") .. affix.modId)
+		for _, affix in ipairs(self.prefixes or { }) do
+			local range = affix.range and "{range:" .. (type(affix.range) == "table" and table.concat(affix.range, ",") or round(affix.range, 3)) .. "}" or ""
+			t_insert(rawLines, "Prefix: " .. (affix.fractured and "{fractured}" or "") .. range .. affix.modId)
 		end
-		for i, affix in ipairs(self.suffixes or { }) do
-			t_insert(rawLines, "Suffix: " .. (affix.range and ("{range:" .. round(affix.range,3) .. "}") or "") .. affix.modId)
+		for _, affix in ipairs(self.suffixes or { }) do
+			local range = affix.range and "{range:" .. (type(affix.range) == "table" and table.concat(affix.range, ",") or round(affix.range, 3)) .. "}" or ""
+			t_insert(rawLines, "Suffix: " .. (affix.fractured and "{fractured}" or "") .. range .. affix.modId)
 		end
 	end
 	if self.catalyst and self.catalyst > 0 then
@@ -1522,13 +1797,29 @@ function ItemClass:BuildRaw()
 	if self.itemLevel then
 		t_insert(rawLines, "Item Level: " .. self.itemLevel)
 	end
+	if self.memoryStrands then
+		t_insert(rawLines, "Memory Strands: " .. self.memoryStrands)
+	end
 	local function writeModLine(modLine)
 		local line = modLine.line
+		local function prependToAllLines(prefix)
+			line = prefix .. line:gsub("\n", "\n" .. prefix)
+		end
+		local function makeIdSpec(idList)
+			local ids = { }
+			for id in pairsSortByKey(idList) do
+				t_insert(ids, id)
+			end
+			return table.concat(ids, ",")
+		end
 		if modLine.range and line:match("%(%-?[%d%.]+%-%-?[%d%.]+%)") then
-			line = "{range:" .. round(modLine.range, 3) .. "}" .. line
+			line = "{range:" .. round(modLine.range, 6) .. "}" .. line
 		end
 		if modLine.corruptedRange then
 			line = "{corruptedRange:" .. round(modLine.corruptedRange, 2) .. "}" .. line
+		end
+		if modLine.disabled then
+			line = "{disabled}" .. line
 		end
 		if modLine.crafted then
 			line = "{crafted}" .. line
@@ -1574,49 +1865,84 @@ function ItemClass:BuildRaw()
 		if modLine.unscalable then
 			line = "{unscalable}" .. line
 		end
-		if modLine.variantList then
-			local varSpec
-			for varId in pairs(modLine.variantList) do
-				varSpec = (varSpec and varSpec .. "," or "") .. varId
-			end
-			local var = "{variant:" .. varSpec .. "}"
-			line = var .. line:gsub("\n", "\n" .. var) -- Variants that go over 1 line need to have the gsub to fix there being no "variant:" at the start
+		if modLine.vestigial then
+			line = "{vestigial}" .. line
 		end
-		if modLine.modTags and #modLine.modTags > 0 then
+		local hasNewSelection = modLine.versionList or modLine.variantGroupList
+		if hasNewSelection and modLine.modTags and #modLine.modTags > 0 then
+			line = "{tags:" .. table.concat(modLine.modTags, ",") .. "}" .. line
+		end
+		if modLine.variantGroupList then
+			prependToAllLines("{group:" .. makeIdSpec(modLine.variantGroupList) .. "}")
+		end
+		if modLine.variantList then
+			prependToAllLines("{variant:" .. makeIdSpec(modLine.variantList) .. "}")
+		end
+		if modLine.versionList then
+			prependToAllLines("{version:" .. makeIdSpec(modLine.versionList) .. "}")
+		end
+		if not hasNewSelection and modLine.modTags and #modLine.modTags > 0 then
 			line = "{tags:" .. table.concat(modLine.modTags, ",") .. "}" .. line
 		end
 		t_insert(rawLines, line)
+	end
+	if self.versionList then
+		for _, versionName in ipairs(self.versionList) do
+			t_insert(rawLines, "Version: " .. versionName)
+		end
+		if self.selectedVersion then
+			t_insert(rawLines, "Selected Version: " .. self.selectedVersion)
+		end
 	end
 	if self.variantList then
 		for _, variantName in ipairs(self.variantList) do
 			t_insert(rawLines, "Variant: " .. variantName)
 		end
-		t_insert(rawLines, "Selected Variant: " .. self.variant)
+		if self.usesVariantGroups then
+			for groupId in pairsSortByKey(self.variantGroups) do
+				local variantId = self.variantGroupSelections[groupId]
+				if variantId then
+					t_insert(rawLines, "Selected Variant Group: " .. groupId .. "=" .. variantId)
+				end
+			end
+		else
+			t_insert(rawLines, "Selected Variant: " .. self.variant)
+		end
 
-		for _, baseLine in pairs(self.baseLines) do
-			if baseLine.variantList then
+		for _, baseLine in pairs(self.baseLines or { }) do
+			if baseLine.variantList or baseLine.versionList or baseLine.variantGroupList then
 				writeModLine(baseLine)
 			end
-		end	
-		if self.hasAltVariant then
+		end
+		if not self.usesVariantGroups and self.hasAltVariant then
 			t_insert(rawLines, "Has Alt Variant: true")
 			t_insert(rawLines, "Selected Alt Variant: " .. self.variantAlt)
 		end
-		if self.hasAltVariant2 then
+		if not self.usesVariantGroups and self.hasAltVariant2 then
 			t_insert(rawLines, "Has Alt Variant Two: true")
 			t_insert(rawLines, "Selected Alt Variant Two: " .. self.variantAlt2)
 		end
-		if self.hasAltVariant3 then
+		if not self.usesVariantGroups and self.hasAltVariant3 then
 			t_insert(rawLines, "Has Alt Variant Three: true")
 			t_insert(rawLines, "Selected Alt Variant Three: " .. self.variantAlt3)
 		end
-		if self.hasAltVariant4 then
+		if not self.usesVariantGroups and self.hasAltVariant4 then
 			t_insert(rawLines, "Has Alt Variant Four: true")
 			t_insert(rawLines, "Selected Alt Variant Four: " .. self.variantAlt4)
 		end
-		if self.hasAltVariant5 then
+		if not self.usesVariantGroups and self.hasAltVariant5 then
 			t_insert(rawLines, "Has Alt Variant Five: true")
 			t_insert(rawLines, "Selected Alt Variant Five: " .. self.variantAlt5)
+		end
+		if self.allowDuplicateVariants then
+			t_insert(rawLines, "Allow Duplicate Variants: true")
+		end
+	end
+	if not self.variantList then
+		for _, baseLine in pairs(self.baseLines or { }) do
+			if baseLine.versionList or baseLine.variantGroupList then
+				writeModLine(baseLine)
+			end
 		end
 	end
 	if self.quality then
@@ -1624,7 +1950,7 @@ function ItemClass:BuildRaw()
 	end
 	if self.sockets and #self.sockets > 0 then
 		local line = "Sockets: "
-		for i, socket in pairs(self.sockets) do
+		for i, socket in ipairs(self.sockets) do
 			line = line .. socket.color
 			if self.sockets[i+1] then
 				line = line .. (socket.group == self.sockets[i+1].group and "-" or " ")
@@ -1691,7 +2017,7 @@ function ItemClass:Craft()
 	-- Save off any crafted or custom mods so they can be re-added at the end
 	local savedMods = {}
 	for _, mod in ipairs(self.explicitModLines) do
-		if mod.crafted or mod.custom then
+		if mod.crafted or mod.custom or (self.rareLikeUnique and not (mod.prefix or mod.suffix)) then
 			t_insert(savedMods, mod)
 		end
 	end
@@ -1701,7 +2027,7 @@ function ItemClass:Craft()
 	self.nameSuffix = ""
 	self.requirements.level = self.base.req.level
 	local statOrder = { }
-	for _, list in ipairs({self.prefixes,self.suffixes}) do
+	for _, list in ipairs({ self.prefixes, self.suffixes }) do
 		for i = 1, (list.limit or (self.affixLimit / 2)) do
 			local affix = list[i]
 			if not affix then
@@ -1715,9 +2041,8 @@ function ItemClass:Craft()
 					self.nameSuffix = self.nameSuffix .. " " .. mod.affix
 				end
 				self.requirements.level = m_max(self.requirements.level or 0, m_floor(mod.level * 0.8))
-				local rangeScalar = getCatalystScalar(self.catalyst, mod, self.catalystQuality)
 				for i, line in ipairs(mod) do
-					line = itemLib.applyRange(line, affix.range or 0.5, rangeScalar)
+					line = itemLib.applyRange(line, affix.range or 0.5)
 					local order = mod.statOrder[i]
 					if statOrder[order] then
 						-- Combine stats
@@ -1728,20 +2053,15 @@ function ItemClass:Craft()
 							return tonumber(num) + tonumber(other)
 						end)
 					else
-						local modLine = { line = line, order = order, type = mod.type }
+						local modLine = { line = line, order = order, type = mod.type, modTags = mod.modTags or { }, fractured = affix.fractured }
 						if mod.type == "Prefix" then
 							modLine.prefix = true
 						elseif mod.type == "Suffix" then
 							modLine.suffix = true
 						end
-						for l = 1, #self.explicitModLines + 1 do
-							if not self.explicitModLines[l] or self.explicitModLines[l].order > order then
-								t_insert(self.explicitModLines, l, modLine)
-								break
-							end
-						end
+						t_insert(self.explicitModLines, modLine)
 						statOrder[order] = modLine
-					end	
+					end
 				end
 			end
 		end
@@ -1751,11 +2071,32 @@ function ItemClass:Craft()
 	for _, mod in ipairs(savedMods) do
 		t_insert(self.explicitModLines, mod)
 	end
+	if #self.explicitModLines > 1 then
+		sortCraftedModLines(self.explicitModLines)
+	end
 
 	self:BuildAndParseRaw()
 end
 
 function ItemClass:CheckModLineVariant(modLine)
+	if self.usesVariantGroups then
+		if modLine.versionList and (not self.selectedVersion or not modLine.versionList[self.selectedVersion]) then
+			return false
+		end
+		if modLine.variantGroupList then
+			if not modLine.variantList then
+				return false
+			end
+			for groupId in pairs(modLine.variantGroupList) do
+				local selectedVariant = self.variantGroupSelections[groupId]
+				if selectedVariant and modLine.variantList[selectedVariant] then
+					return true
+				end
+			end
+			return false
+		end
+		return not modLine.variantList
+	end
 	return not modLine.variantList
 		or modLine.variantList[self.variant]
 		or (self.hasAltVariant and modLine.variantList[self.variantAlt])
@@ -1765,6 +2106,23 @@ function ItemClass:CheckModLineVariant(modLine)
 		or (self.hasAltVariant5 and modLine.variantList[self.variantAlt5])
 end
 
+function ItemClass:GetModLineVariantCount(modLine)
+	if not self.allowDuplicateVariants or not modLine.variantList then
+		return self:CheckModLineVariant(modLine) and 1 or 0
+	end
+
+	-- Mageblood can intentionally select the same variant more than once.
+	local variantList = modLine.variantList
+	local count = variantList[self.variant] and 1 or 0
+	for i = 1, 5 do
+		local suffix = i == 1 and "" or i
+		local variant = self["variantAlt" .. suffix]
+		if self["hasAltVariant" .. suffix] and variant and variantList[variant] then
+			count = count + 1
+		end
+	end
+	return count
+end
 -- Return the name of the slot this item is equipped in
 function ItemClass:GetPrimarySlot()
 	if self.base.weapon then
@@ -1998,7 +2356,7 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 		end
 
 		if self.base.armour.BlockChance then
-			armourData.BlockChance = m_floor((self.base.armour.BlockChance * (1 + calcLocal(modList, "BlockChance", "INC", 0) / 100) + calcLocal(modList, "BlockChance", "BASE", 0)))
+			armourData.BlockChance = m_floor((self.base.armour.BlockChance + calcLocal(modList, "BlockChance", "BASE", 0)) * (1 + calcLocal(modList, "BlockChance", "INC", 0) / 100))
 		end
 		if self.base.armour.MovementPenalty then
 			modList:NewMod("MovementSpeed", "INC", -self.base.armour.MovementPenalty, self.modSource, { type = "Condition", var = "IgnoreMovementPenalties", neg = true })
@@ -2098,11 +2456,14 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 			if jewelData.clusterJewelSkill and not self.clusterJewel.skills[jewelData.clusterJewelSkill] then
 				jewelData.clusterJewelSkill = nil
 			end
+			-- Set missing crafting fields when using advanced copy
+			self.clusterJewelSkill = self.clusterJewelSkill or jewelData.clusterJewelSkill
+			self.clusterJewelNodeCount = self.clusterJewelNodeCount or jewelData.clusterJewelNodeCount
 			jewelData.clusterJewelValid = jewelData.clusterJewelKeystone 
 				or ((jewelData.clusterJewelSkill or jewelData.clusterJewelSmallsAreNothingness) and jewelData.clusterJewelNodeCount) 
 				or (jewelData.clusterJewelSocketCountOverride and jewelData.clusterJewelNothingnessCount)
 		end
-	end	
+	end
 	return { unpack(modList) }
 end
 
@@ -2148,7 +2509,11 @@ function ItemClass:BuildModList()
 		end
 	end
 	local function processModLine(modLine)
-		if self:CheckModLineVariant(modLine) then
+		if modLine.disabled then
+			return
+		end
+		local variantCount = self:GetModLineVariantCount(modLine)
+		if variantCount > 0 then
 			-- special section for variant over-ride of pre-modifier item parameters
 			if modLine.line:find("Requires Class") then
 				self.classRestriction = modLine.line:gsub("{variant:([%d,]+)}", ""):match("Requires Class (.+)")
@@ -2165,8 +2530,9 @@ function ItemClass:BuildModList()
 			end
 			if not modLine.extra then
 				for _, mod in ipairs(modLine.modList) do
-					mod = modLib.setSource(mod, self.modSource)
-					baseList:AddMod(mod)
+					for _ = 1, variantCount do
+						baseList:AddMod(modLib.setSource(mod, self.modSource))
+					end
 				end
 				if modLine.modTags and #modLine.modTags > 0 then
 					self.hasModTags = true
@@ -2226,11 +2592,12 @@ function ItemClass:BuildModList()
 		-- Remove all sockets
 		wipeTable(self.sockets)
 		self.selectableSocketCount = 0
+		self.abyssalSocketCount = 0
 	elseif socketCount > 0 then
 		-- Force the socket count to be equal to the stated number
 		self.selectableSocketCount = socketCount
 		local group = 0
-		for i = 1, m_max(socketCount, #self.sockets) do 
+		for i = 1, m_max(socketCount, #self.sockets) do
 			if i > socketCount then
 				self.sockets[i] = nil
 			elseif not self.sockets[i] then
@@ -2266,6 +2633,9 @@ function ItemClass:BuildModList()
 		end
 		self.sockets = newSockets
 	end
+	if self.sockets and calcLocal(baseList, "SocketAlwaysMatches", "FLAG", 0) then
+		self.sockets.colourAlwaysMatches = true
+	end
 	self.socketedJewelEffectModifier = 1 + calcLocal(baseList, "SocketedJewelEffect", "INC", 0) / 100
 	if self.base.weapon or self.type == "Ring" then
 		self.slotModList = { }
@@ -2281,8 +2651,9 @@ function ItemClass:BuildModList()
 	end
 end
 
-function ItemClass:CanHaveMod(mod)
-	local keyMap, includeTags = { }, { }
+function ItemClass:CanHaveMod(mod, includeTags)
+	local keyMap = { }
+	includeTags = includeTags or { }
 	for index, key in ipairs(mod.weightKey) do
 		keyMap[key] = index
 	end
@@ -2292,6 +2663,15 @@ function ItemClass:CanHaveMod(mod)
 	end
 	if data.minionTagCrucibleUniques[self.title] then
 		includeTags["minion_unique_weapon"] = true
+	end
+	if self.rareLikeUnique and self.rareLikeUnique.validBases then
+		-- Some uniques use modifiers from another item type.
+		for _, base in ipairs(self.rareLikeUnique.validBases) do
+			if self:GetModSpawnWeight(mod, includeTags, nil, base.base.tags) > 0 then
+				return true
+			end
+		end
+		return false
 	end
 	if self.canHaveOnlySupportSkillsCrucibleTree then
 			return keyMap["crucible_unique_staff"] and mod.weightVal[keyMap["crucible_unique_staff"]] ~= 0

@@ -25,6 +25,7 @@ manifest-updated.xml
 # GGPK Export
 src/Export/ggpk/metadata/
 src/Export/ggpk/data/
+src/Export/ggpk/art/
 src/Export/ggpk/*.exe
 src/Export/ggpk/*.dll
 

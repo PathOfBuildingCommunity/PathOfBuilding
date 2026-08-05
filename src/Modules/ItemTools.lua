@@ -92,8 +92,12 @@ end
 function itemLib.applyRange(line, range, valueScalar, baseValueScalar)
 	-- stripLines down to # in place of any number and store numbers inside values also remove all + signs are kept if value is positive
 	local values = {}
+	local rangeIndex = 0
+	local ranges = type(range) == "table" and range
 	local strippedLine = line:gsub("([%+-]?)%((%-?%d+%.?%d*)%-(%-?%d+%.?%d*)%)", function(sign, min, max)
-			local value = min + range * (tonumber(max) - min)
+			rangeIndex = rangeIndex + 1
+			local valueRange = ranges and (ranges[rangeIndex] or 0.5) or range
+			local value = min + valueRange * (tonumber(max) - min)
 			if sign == "-" then value = value * -1 end
 			return (sign == "+" and value > 0) and sign .. tostring(value) or tostring(value)
 		end)
@@ -354,6 +358,9 @@ function itemLib.formatModLine(modLine, dbMode)
 	if line:match("^%+?0%%? ") or (line:match(" %+?0%%? ") and not line:match("0 to [1-9]")) or line:match(" 0%-0 ") or line:match(" 0 to 0 ") then -- Hack to hide 0-value modifiers
 		return
 	end
+	if modLine.disabled then
+		return colorCodes.DISABLED .. line
+	end
 	local colorCode
 	if modLine.extra then
 		colorCode = colorCodes.UNSUPPORTED
@@ -362,7 +369,7 @@ function itemLib.formatModLine(modLine, dbMode)
 			line = line .. "   ^1'" .. modLine.extra .. "'"
 		end
 	else
-		colorCode = (modLine.fractured and colorCodes.FRACTURED) or (modLine.crafted and colorCodes.CRAFTED) or (modLine.mutated and colorCodes.MUTATED) or (modLine.scourge and colorCodes.SCOURGE) or (modLine.custom and colorCodes.CUSTOM) or (modLine.crucible and colorCodes.CRUCIBLE) or colorCodes.MAGIC
+		colorCode = (modLine.fractured and colorCodes.FRACTURED) or (modLine.crafted and colorCodes.CRAFTED) or (modLine.mutated and colorCodes.MUTATED) or (modLine.scourge and colorCodes.SCOURGE) or (modLine.custom and colorCodes.CUSTOM) or (modLine.crucible and colorCodes.CRUCIBLE) or (modLine.vestigial and colorCodes.VESTIGIAL) or colorCodes.MAGIC
 	end
 	return colorCode..line
 end

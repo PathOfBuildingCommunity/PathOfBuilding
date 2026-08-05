@@ -55,6 +55,13 @@ itemBases["Searching Eye Jewel"] = {
 	implicitModTypes = { },
 	req = { },
 }
+itemBases["Assembled Eye Jewel"] = {
+	type = "Jewel",
+	subType = "Abyss",
+	tags = { abyss_jewel = true, abyss_jewel_special = true, default = true, not_for_sale = true, },
+	implicitModTypes = { },
+	req = { },
+}
 
 itemBases["Large Cluster Jewel"] = {
 	type = "Jewel",

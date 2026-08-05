@@ -747,6 +747,73 @@ Implicits: 1
 {variant:2}{tags:resource}+(80-100) to maximum Life
 {tags:resource}Gain 50 Life when you Stun an Enemy
 ]],[[
+Saresh's Darkness
+Chain Belt
+League: Mirage
+Source: No longer obtainable
+LevelReq: 24
+Implicits: 1
+{tags:defences}+(9-20) to maximum Energy Shield
+{tags:resistance}+(23-37)% to Chaos Resistance
+(10-25)% increased Poison Duration
+{tags:critical}Enemies Poisoned by you cannot deal Critical Strikes
+Grants Level 20 Caustic Retribution
+]],[[
+Screams of the Desiccated
+Leather Belt
+League: Mirage
+Source: No longer obtainable
+Has Alt Variant: true
+Selected Variant: 1
+Selected Alt Variant: 1
+Variant: Acceleration
+Variant: Brutal
+Variant: Diamond
+Variant: Echoing
+Variant: Gloom
+Variant: Greater Freezing
+Variant: Greater Shocking
+Variant: Greater Skeletal
+Variant: Impenetrable
+Variant: Massive
+Variant: Replenishing
+Variant: Resistance
+Variant: Resonating
+LevelReq: 56
+Implicits: 1
+{tags:resource}+(25-40) to maximum Life
+{variant:1}You have Acceleration Shrine Buff while affected by no Flasks
+{variant:2}You have Brutal Shrine Buff while affected by no Flasks
+{variant:6}You have Greater Freezing Shrine Buff while affected by no Flasks
+{variant:6}(15-20)% increased Effect of Shrine Buffs on you
+{variant:3}You have Diamond Shrine Buff while affected by no Flasks
+{variant:4}You have Echoing Shrine Buff while affected by no Flasks
+{variant:5}You have Gloom Shrine Buff while affected by no Flasks
+{variant:9}You have Impenetrable Shrine Buff while affected by no Flasks
+{variant:10}You have Massive Shrine Buff while affected by no Flasks
+{variant:11}You have Replenishing Shrine Buff while affected by no Flasks
+{variant:12}You have Resistance Shrine Buff while affected by no Flasks
+{variant:13}You have Resonating Shrine Buff while affected by no Flasks
+{variant:7}You have Greater Shocking Shrine Buff while affected by no Flasks
+{variant:7}(15-20)% increased Effect of Shrine Buffs on you
+{variant:8}You have Greater Skeletal Shrine Buff while affected by no Flasks
+{variant:8}(15-20)% increased Effect of Shrine Buffs on you
+{tags:attribute}+(23-32) to Intelligence
+{tags:resistance}+(23-37)% to Chaos Resistance
+]],
+[[
+Solerai's Radiance
+Chain Belt
+League: Mirage
+Source: No longer obtainable
+LevelReq: 24
+Implicits: 1
+{tags:defences}+(9-20) to maximum Energy Shield
+{tags:resistance}+(35-50)% to Fire Resistance
+(10-25)% increased Ignite Duration on Enemies
+Enemies Blinded by you cannot inflict Damaging Ailments
+Grants Level 20 Blazing Glare
+]],[[
 Siegebreaker
 Heavy Belt
 LevelReq: 44
@@ -912,6 +979,17 @@ Implicits: 1
 {tags:resource}Regenerate 2% of Life per second
 Flasks do not apply to you
 Flasks you Use apply to your Raised Zombies and Spectres
+]],[[
+Unholy Accomplice
+Cloth Belt
+Source: Drops from unique{K'Tash, the Hate Shepherd} and unique{Lycia, Herald of the Scourge}
+{tags:caster}(30-50)% increased Spell Damage
+{tags:resource}+(50-77) to maximum Life
+(15-25)% increased Stun and Block Recovery
+{tags:resistance}+(23-37)% to Lightning and Chaos Resistances
+{tags:caster}Pact Skills have (30-50)% increased Cast Speed
+{tags:caster}Pact Skills have (30-50)% increased Cooldown Recovery Rate
+{tags:caster}Pact Skills grant Boons instead of Afflictions
 ]],[[
 Wurm's Molt
 Leather Belt
