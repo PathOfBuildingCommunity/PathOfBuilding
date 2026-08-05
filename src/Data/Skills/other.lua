@@ -5892,6 +5892,8 @@ skills["GhostCannons"] = {
 	fromItem = true,
 	baseFlags = {
 		attack = true,
+		projectile = true,
+		area = true,
 	},
 	constantStats = {
 		{ "skill_physical_damage_%_to_convert_to_fire", 50 },

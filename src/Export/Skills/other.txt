@@ -1514,7 +1514,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill GhostCannons Ghostly Artillery
-#flags attack
+#flags attack projectile area
 	fromItem = true,
 #mods
 
