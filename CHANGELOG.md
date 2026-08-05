@@ -30,7 +30,7 @@
 - Add Light Radius to stat sort list [\#10024](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10024) ([ZenJediMind](https://github.com/ZenJediMind))
 - Use Currency Exchange API instead of poe.ninja in trader [\#10077](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10077) ([vaisest](https://github.com/vaisest))
 - Improve stat search with pseudo stats and word order ignore [\#10036](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10036) ([vaisest](https://github.com/vaisest))
-- Increase wait time for OAuth login and copy URL to clipboard [\#10069](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10069)s ([kylhuk](https://github.com/kylhuk))
+- Increase wait time for OAuth login and copy URL to clipboard [\#10069](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10069) ([kylhuk](https://github.com/kylhuk))
 ### Fixed Crashes
 - Fix crash when clicking the "Add Implicit" button on some items [\#10089](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10089) ([vaisest](https://github.com/vaisest))
 ### User Interface
