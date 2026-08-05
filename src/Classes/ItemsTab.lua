@@ -2213,10 +2213,16 @@ function ItemsTabClass:UpdateAffixControl(control, item, affixType, outputTable,
 
 	local sortOption = self.controls.craftingSorting:GetSelValue()
 	-- sort modifier groups by power
-	if sortOption.label ~= "Default" then
+	if sortOption.stat and self.controls.craftingSortingLabel.shown() then
 		local calcFunc = self.build.calcsTab:GetMiscCalculator()
 		local slotName = self.displayItem:GetPrimarySlot()
 		local testSubject = new("Item", self.displayItem:BuildRaw())
+		local controlPowerCache = powerCache
+		if selAffix and selAffix ~= "None" then
+			testSubject[outputTable][outputIndex] = { modId = "None" }
+			testSubject:Craft()
+			controlPowerCache = { }
+		end
 		local function pickModifierFromList(modList)
 			-- pick mid tier modifier from a group
 			if #modList == 1 then
@@ -2226,8 +2232,8 @@ function ItemsTabClass:UpdateAffixControl(control, item, affixType, outputTable,
 			end
 		end
 		local function getPower(modId)
-			if powerCache[modId] then
-				return powerCache[modId]
+			if controlPowerCache[modId] then
+				return controlPowerCache[modId]
 			end
 			local mod = testSubject.affixes[modId]
 
@@ -2267,7 +2273,7 @@ function ItemsTabClass:UpdateAffixControl(control, item, affixType, outputTable,
 					t_remove(testSubject.explicitModLines, #testSubject.explicitModLines)
 				end
 			end
-			powerCache[modId] = power
+			controlPowerCache[modId] = power
 			return power
 		end
 		table.sort(control.list, function(a, b)
