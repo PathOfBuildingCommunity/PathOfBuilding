@@ -23,6 +23,9 @@ local ModDBClass = newClass("ModDB", "ModStore", function(self, parent)
 end)
 
 function ModDBClass:AddMod(mod)
+	if mod.source and not mod.baseSource then
+		mod.baseSource = mod.source:match("[^:]+")
+	end
 	local name = mod.name
 	if not self.mods[name] then
 		self.mods[name] = { }
@@ -108,6 +111,9 @@ end
 function ModDBClass:AddList(modList)
 	local mods = self.mods
 	for i, mod in ipairs(modList) do
+		if mod.source and not mod.baseSource then
+			mod.baseSource = mod.source:match("[^:]+")
+		end
 		local name = mod.name
 		if not mods[name] then
 			mods[name] = { }
@@ -124,7 +130,11 @@ function ModDBClass:AddDB(modDB)
 		end
 		local modsName = mods[modName]
 		for i = 1, #modList do
-			t_insert(modsName, modList[i])
+			local mod = modList[i]
+			if mod.source and not mod.baseSource then
+				mod.baseSource = mod.source:match("[^:]+")
+			end
+			t_insert(modsName, mod)
 		end
 	end
 end
@@ -137,7 +147,7 @@ function ModDBClass:SumInternal(context, modType, cfg, flags, keywordFlags, sour
 		if modList then
 			for i = 1, #modList do
 				local mod = modList[i]
-				if mod.type == modType and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or ( mod.source and mod.source:match("[^:]+") == source )) then
+				if mod.type == modType and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.baseSource == source) then
 					if mod[1] then
 						local value = context:EvalMod(mod, cfg, globalLimits) or 0
 						result = result + value
@@ -164,7 +174,7 @@ function ModDBClass:MoreInternal(context, cfg, flags, keywordFlags, source, ...)
 		if modList then
 			for i = 1, #modList do
 				local mod = modList[i]
-				if mod.type == "MORE" and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.source:match("[^:]+") == source) then
+				if mod.type == "MORE" and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.baseSource == source) then
 					local value
 					if mod[1] then
 						value = context:EvalMod(mod, cfg, globalLimits) or 0
@@ -199,7 +209,7 @@ function ModDBClass:FlagInternal(context, cfg, flags, keywordFlags, source, ...)
 		if modList then
 			for i = 1, #modList do
 				local mod = modList[i]
-				if mod.type == "FLAG" and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.source:match("[^:]+") == source) then
+				if mod.type == "FLAG" and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.baseSource == source) then
 					if mod[1] then
 						if context:EvalMod(mod, cfg) then
 							return true
@@ -222,7 +232,7 @@ function ModDBClass:OverrideInternal(context, cfg, flags, keywordFlags, source, 
 		if modList then
 			for i = 1, #modList do
 				local mod = modList[i]
-				if mod.type == "OVERRIDE" and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.source:match("[^:]+") == source) then
+				if mod.type == "OVERRIDE" and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.baseSource == source) then
 					if mod[1] then
 						local value = context:EvalMod(mod, cfg)
 						if value then
@@ -246,7 +256,7 @@ function ModDBClass:ListInternal(context, result, cfg, flags, keywordFlags, sour
 		if modList then
 			for i = 1, #modList do
 				local mod = modList[i]
-				if mod.type == "LIST" and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.source:match("[^:]+") == source) then
+				if mod.type == "LIST" and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.baseSource == source) then
 					local value
 					if mod[1] then
 						local value = context:EvalMod(mod, cfg) or nullValue
@@ -273,7 +283,7 @@ function ModDBClass:TabulateInternal(context, result, modType, cfg, flags, keywo
 		if modList then
 			for i = 1, #modList do
 				local mod = modList[i]
-				if (mod.type == modType or not modType) and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.source:match("[^:]+") == source) then
+				if (mod.type == modType or not modType) and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.baseSource == source) then
 					local value
 					if mod[1] then
 						value = context:EvalMod(mod, cfg, globalLimits)
@@ -305,7 +315,7 @@ function ModDBClass:HasModInternal(modType, flags, keywordFlags, source, ...)
 		if modList then
 			for i = 1, #modList do
 				local mod = modList[i]
-				if mod.type == modType and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.source:match("[^:]+") == source) then
+				if mod.type == modType and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.baseSource == source) then
 					return true
 				end
 			end
