@@ -365,4 +365,82 @@ describe("TestAttacks", function()
 		assert.are.equals(0, nonDurationSkill.skillModList:Sum("BASE", nonDurationSkill.skillCfg, "BaseFlagTest"))
 		assert.are.equals(1, nonDurationSkill.skillModList:Sum("BASE", nonDurationSkill.skillCfg, "NegatedBaseFlagTest"))
 	end)
+
+
+	-- 4 Tests for Ambush
+	-- - unarmed check (Doryani's Fist)
+	-- - one handed check (double strike)
+	-- - non-exertable check (Cyclone)
+	-- - two handed check (rage vortex with weapon swap)
+	for _, case in ipairs({
+		{
+			description = "does not apply Ambush to the unarmed Doryani's Touch attack",
+			item = "Doryani's Fist\nVaal Gauntlets\nGrants Level 20 Doryani's Touch Skill",
+			skill = "Doryani's Touch",
+			expectedCritChance = 0,
+			expectedCritMultiplier = 0,
+		},
+		{
+			description = "applies Ambush to one handed weapon attacks",
+			item = "New Item\nSabre",
+			socketGroup = "Slot: Weapon 1\nDouble Strike 20/0  1\n",
+			skill = "Double Strike",
+			expectedCritChance = 25,
+			expectedCritMultiplier = 138,
+		},
+		{
+			description = "does not apply Ambush to channelling attacks",
+			item = "New Item\nSabre",
+			socketGroup = "Slot: Weapon 1\nCyclone 20/0  1\n",
+			skill = "Cyclone",
+			expectedCritChance = 0,
+			expectedCritMultiplier = 0,
+		},
+		{
+			description = "applies Ambush to two handed Rage Vortex after a modelled weapon swap",
+			item = "New Item\nCorroded Blade",
+			socketGroup = "Slot: Weapon 1\nRage Vortex 20/0  1\n",
+			skill = "Rage Vortex",
+			expectedCritChance = 25,
+			expectedCritMultiplier = 138,
+		},
+	}) do
+		it(case.description, function()
+			build.itemsTab:CreateDisplayItemFromRaw(case.item)
+			build.itemsTab:AddDisplayItem()
+			if case.socketGroup then
+				build.skillsTab:PasteSocketGroup(case.socketGroup)
+			end
+			build.skillsTab:PasteSocketGroup("Ambush 20/0  1\n")
+			local ambushGem = build.skillsTab.socketGroupList[#build.skillsTab.socketGroupList].gemList[1]
+			runCallback("OnFrame")
+
+			local skillWithAmbush
+			for _, skill in ipairs(build.calcsTab.mainEnv.player.activeSkillList) do
+				if skill.activeEffect.grantedEffect.name == case.skill then
+					skillWithAmbush = skill
+				end
+			end
+			assert.is_not_nil(skillWithAmbush)
+			local critChanceWithAmbush = skillWithAmbush.skillModList:Sum("BASE", skillWithAmbush.skillCfg, "CritChance")
+			local critMultiplierWithAmbush = skillWithAmbush.skillModList:Sum("BASE", skillWithAmbush.skillCfg, "CritMultiplier")
+
+			ambushGem.enableGlobal1 = false
+			build.buildFlag = true
+			runCallback("OnFrame")
+
+			local skillWithoutAmbush
+			for _, skill in ipairs(build.calcsTab.mainEnv.player.activeSkillList) do
+				if skill.activeEffect.grantedEffect.name == case.skill then
+					skillWithoutAmbush = skill
+				end
+			end
+			assert.is_not_nil(skillWithoutAmbush)
+			local critChanceWithoutAmbush = skillWithoutAmbush.skillModList:Sum("BASE", skillWithoutAmbush.skillCfg, "CritChance")
+			local critMultiplierWithoutAmbush = skillWithoutAmbush.skillModList:Sum("BASE", skillWithoutAmbush.skillCfg, "CritMultiplier")
+
+			assert.are.equals(case.expectedCritChance, critChanceWithAmbush - critChanceWithoutAmbush)
+			assert.are.equals(case.expectedCritMultiplier, critMultiplierWithAmbush - critMultiplierWithoutAmbush)
+		end)
+	end
 end)
