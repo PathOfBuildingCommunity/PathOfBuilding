@@ -803,6 +803,80 @@ describe("TetsItemMods", function()
 		end
 		assert.are.equals(2, count)
 	end)
+
+	it("does not sort cluster jewel modifiers when the sorting control is hidden", function()
+		local item = new("Item", [[
+			Rarity: RARE
+			New Item
+			Large Cluster Jewel
+			Crafted: true
+			Prefix: {range:0.5}AfflictionNotableWickedPall_
+			Prefix: {range:0.5}AfflictionNotableMiseryEverlasting
+			Suffix: {range:0.5}AfflictionNotableUnholyGrace_
+			Suffix: None
+			Cluster Jewel Skill: affliction_chaos_damage
+			Cluster Jewel Node Count: 8
+			Quality: 0
+			LevelReq: 40
+			Implicits: 3
+			{crafted}Adds 8 Passive Skills
+			{crafted}2 Added Passive Skills are Jewel Sockets
+			{crafted}Added Small Passive Skills grant: 12% increased Chaos Damage
+			1 Added Passive Skill is Misery Everlasting
+			1 Added Passive Skill is Unholy Grace
+			1 Added Passive Skill is Wicked Pall
+		]])
+		local calcCount = 0
+		build.itemsTab.displayItem = item
+		build.itemsTab.controls.craftingSorting:SetSel(2, true)
+		build.calcsTab.GetMiscCalculator = function()
+			return function()
+				calcCount = calcCount + 1
+				return { }
+			end
+		end
+
+		assert.is_false(build.itemsTab.controls.craftingSortingLabel.shown())
+		build.itemsTab:UpdateAffixControls()
+		assert.are.equals(0, calcCount)
+	end)
+
+	it("sorts crafted modifier replacements without retaining the selected modifier", function()
+		local item = new("Item", [[
+			Rarity: RARE
+			New Item
+			Cobalt Jewel
+			Crafted: true
+			Prefix: {range:1}PercentIncreasedLifeJewel
+			Prefix: None
+			Suffix: None
+			Suffix: None
+			Quality: 0
+			LevelReq: 0
+			Implicits: 0
+			7% increased maximum Life
+		]])
+		local calcCount = 0
+		local retainedCount = 0
+		build.itemsTab.displayItem = item
+		build.itemsTab.controls.craftingSorting:SetSel(2, true)
+		build.calcsTab.GetMiscCalculator = function()
+			return function(args)
+				calcCount = calcCount + 1
+				for _, modLine in ipairs(args.repItem.explicitModLines) do
+					if modLine.line == "7% increased maximum Life" then
+						retainedCount = retainedCount + 1
+						break
+					end
+				end
+				return { }
+			end
+		end
+
+		build.itemsTab:UpdateAffixControl(build.itemsTab.controls.displayItemAffix1, item, "Prefix", "prefixes", 1, { })
+		assert.is_true(calcCount > 1)
+		assert.are.equals(0, retainedCount)
+	end)
 	
 	it("shows a fallback tooltip when an item's base is no longer supported", function()
 		local item = new("Item", [[
