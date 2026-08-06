@@ -77,6 +77,20 @@ Adds (24-30) to (34-40) Physical Damage
 {variant:1,2}Minions deal (5-8) to (12-16) additional Attack Physical Damage
 {variant:3}Golems have (96-120) to (132-160) Added Attack Physical Damage
 ]],[[
+The Desecrated Chalice
+Coronal Maul
+League: Mirage
+Source: No longer obtainable
+Requires Level 69
+Implicits: 1
+20% increased Area of Effect
+(120-160)% increased Physical Damage
+(20-30)% increased Critical Strike Chance
+(0.4-0.5)% of Chaos Damage Leeched as Life
+Gain a Flask Charge when you deal a Critical Strike
+Gain (40-75)% of Physical Damage as Extra Chaos Damage if you've
+used an Amethyst Flask Recently
+]],[[
 Flesh-Eater
 Dream Mace
 Variant: Pre 2.6.0
@@ -236,8 +250,7 @@ Adds 5 to 8 Physical Damage per Endurance Charge
 +500 to Armour per Endurance Charge
 {variant:1}400 Fire Damage taken per second per Endurance Charge if you've been Hit Recently
 {variant:2}200 Fire Damage taken per second per Endurance Charge if you've been Hit Recently
-]],
-[[
+]],[[
 The Monastery Bell
 Dream Mace
 Requires Level 32, 107 Str
@@ -248,6 +261,23 @@ Adds (5-9) to (13-18) Physical Damage
 (6-10)% increased Attack Speed
 Chance to Block is Unlucky
 Count as Blocking Attack Damage from the first target Hit with each Shield Attack
+]],[[
+The Sacred Chalice
+Coronal Maul
+League: Mirage
+Source: No longer obtainable
+Requires Level 69
+Implicits: 1
+20% increased Area of Effect
+(120-160)% increased Physical Damage
+(20-30)% increased Critical Strike Chance
+Gain a Flask Charge when you deal a Critical Strike
+Gain (20-40)% of Physical Damage as Extra Cold Damage if you've
+used a Sapphire Flask Recently
+Gain (20-40)% of Physical Damage as Extra Fire Damage if you've
+used a Ruby Flask Recently
+Gain (20-40)% of Physical Damage as Extra Lightning Damage if you've
+used a Topaz Flask Recently
 ]],
 -- Weapon: Sceptre
 [[
@@ -491,6 +521,19 @@ Raised Zombies Cover Enemies in Ash on Hit
 Raised Zombies take (15-30)% of their Maximum Life per second as Fire Damage
 Raised Zombies have Avatar of Fire
 ]],[[
+Replica Maata's Teaching
+Karui Sceptre
+Variant: Pre 3.25.0
+Variant: Current
+Requires Level 56, 96 Str, 96 Int
+Implicits: 1
+26% increased Elemental Damage
++(30-40) to Intelligence
+(8-16)% increased Attack Speed
+Minions have (15-30)% increased Movement Speed
+Non-Spectre Minions' Base Attack time is equal to
+the Attack time of your Main Hand Weapon
+]],[[
 Maata's Teaching
 Karui Sceptre
 Variant: Pre 3.25.0
@@ -550,6 +593,19 @@ Implicits: 2
 {variant:1,2,3,4}25% increased Light Radius
 {variant:5}50% increased Light Radius
 {variant:5}Battlemage
+]],[[
+The Sands of Time
+Tyrant's Sekhem
+League: Mirage
+Source: No longer obtainable
+Requires Level 58, 99 Str, 99 Int
+Implicits: 1
+26% increased Elemental Damage
+Trigger level 20 Suspend in Time on Casting a Spell
+(60-80)% increased Spell Damage
+(60-80)% increased Mana Regeneration Rate
+(10-15)% increased Cooldown Recovery Rate
+10% increased Cast Speed for each different Non-Instant Spell you've Cast Recently
 ]],[[
 Sign of the Sin Eater
 Tyrant's Sekhem

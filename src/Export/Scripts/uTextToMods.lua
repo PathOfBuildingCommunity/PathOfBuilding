@@ -92,7 +92,9 @@ for _, name in pairs(itemTypes) do
 		end
 		local specName, specVal = line:match("^([%a ]+): (.+)$")
 		if not specName and line ~= "]],[[" then
+			local versions = line:match("{version:([%d,.]+)}")
 			local variants = line:match("{[vV]ariant:([%d,.]+)}")
+			local groups = line:match("{group:([%d,.]+)}")
 			local fractured = line:match("({fractured})") or ""
 			local modText = line:gsub("{.-}", ""):gsub("\xe2\x80\x93", "-") -- Clean tag prefixes and EM dash
 			local possibleMods = modTextMap[modText:lower()] or {}
@@ -157,10 +159,9 @@ for _, name in pairs(itemTypes) do
 				gggMod = possibleMods[1]
 				usedMods[gggMod] = true
 				itemUsedMods[gggMod] = true
-				local outLine = fractured
-				if variants then
-					outLine = outLine .. "{variant:" .. variants:gsub("%.", ",") .. "}"
-				end
+				local outLine = (versions and "{version:" .. versions:gsub("%.", ",") .. "}" or "")
+					.. (variants and "{variant:" .. variants:gsub("%.", ",") .. "}" or "")
+					.. (groups and "{group:" .. groups:gsub("%.", ",") .. "}" or "") .. fractured
 				outLine = outLine .. gggMod
 				if genericText then
 					-- Figure out where to put [,]

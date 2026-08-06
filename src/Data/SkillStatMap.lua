@@ -2368,4 +2368,7 @@ return {
 ["is_totem"] = {
 	-- Display only
 },
+["pact_empower_limitation_specifier_for_stat_description"] = {
+	-- Display only
+},
 }

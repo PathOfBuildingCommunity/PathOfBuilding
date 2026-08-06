@@ -1326,7 +1326,8 @@ function calcs.perform(env, skipEHP)
 			activeSkill.skillData.attachedBrandCount = attached
 			local activeBrands = modDB:Sum("BASE", nil, "Multiplier:ConfigActiveBrands")
 			-- Cap the number of active brands by the limit, which is 3 by default
-			modDB.multipliers["ActiveBrand"] = m_min(activeBrands, modDB:Sum("BASE", nil, "ActiveBrandLimit"))
+			-- Also consider increase to number of active brands from other sources (e.g. Foulgrasp Support)
+			modDB.multipliers["ActiveBrand"] = m_max(m_min(activeBrands, activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "ActiveBrandLimit")), modDB.multipliers["ActiveBrand"] or 0)
 			modDB.multipliers["BrandsAttachedToEnemy"] = m_max(attached, modDB.multipliers["BrandsAttachedToEnemy"] or 0)
 			enemyDB.multipliers["BrandsAttached"] = m_max(attached, enemyDB.multipliers["BrandsAttached"] or 0)
 		end
@@ -3891,9 +3892,10 @@ function calcs.perform(env, skipEHP)
 				local baseQuality = mainSkill.skillModList:Sum("BASE", mainSkill.skillCfg, "GemQuality")
 				local totalItemQuality = mainSkill.skillModList:Sum("BASE", mainSkill.skillCfg, "GemItemQuality")
 				local totalSupportQuality = mainSkill.skillModList:Sum("BASE", mainSkill.skillCfg, "GemSupportQuality")
+				local socketQuality = mainSkill.skillModList:Sum("BASE", mainSkill.skillCfg, "GemSocketQuality")
 
 				output.GemHasQuality = true
-				output.GemQuality = baseQuality + totalSupportQuality + totalItemQuality
+				output.GemQuality = baseQuality + totalSupportQuality + totalItemQuality + socketQuality
 
 				if env.player.breakdown then
 					env.player.breakdown.GemQuality = {}
@@ -3903,6 +3905,9 @@ function calcs.perform(env, skipEHP)
 					end
 					if totalItemQuality > 0 then
 						t_insert(env.player.breakdown.GemQuality, s_format("+ %d ^8(quality from items)", totalItemQuality))
+					end
+					if socketQuality > 0 then
+						t_insert(env.player.breakdown.GemQuality, s_format("+ %d ^8(quality from socket)", socketQuality))
 					end
 					t_insert(env.player.breakdown.GemQuality, s_format("= %d", output.GemQuality))
 				end

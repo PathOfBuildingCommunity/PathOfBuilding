@@ -122,6 +122,21 @@ describe("TestDefence", function()
 		assert.are.equals(0, floor(poolsRemaining.Life))
 		assert.are.equals(0, floor(poolsRemaining.OverkillDamage))
 	end)
+
+	it("applies physical damage reduction overrides", function()
+		build.configTab.input.customMods = "\z
+		+10000 to Armour\n\z
+		10% additional Physical Damage Reduction\n\z
+		Physical Damage Reduction is zero\n\z
+		"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.is_true(build.calcsTab.calcsOutput.Armour > 0)
+		assert.are.equals(0, build.calcsTab.calcsOutput.PhysicalEffectiveAppliedArmour)
+		assert.are.equals(0, build.calcsTab.calcsOutput.BasePhysicalDamageReduction)
+		assert.are.equals(0, build.calcsTab.calcsOutput.PhysicalDamageReduction)
+	end)
 	
 	-- a small helper function to calculate damage taken from limited test parameters
 	local function takenHitFromTypeMaxHit(type, enemyDamageMulti)

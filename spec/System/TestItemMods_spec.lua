@@ -7,6 +7,43 @@ describe("TetsItemMods", function()
 		-- newBuild() takes care of resetting everything in setup()
 	end)
 
+	it("shows versioned reusable variant groups", function()
+		build.itemsTab:CreateDisplayItemFromRaw([[
+			Rarity: Unique
+			Grouped Test Item
+			Plate Vest
+			Version: Pre 3.28.0
+			Version: Current
+			Variant: Life
+			Variant: Energy Shield
+			Variant: Mana
+			Variant: Armour
+			Implicits: 0
+			{version:1}{variant:1}{group:1,2}+10 to maximum Life
+			{version:2}{variant:2}{group:1,2}+10 to maximum Energy Shield
+			{variant:3}{group:1,2}+10 to maximum Mana
+			{variant:4}{group:1,2}+10 to Armour
+			]])
+
+		local versionControl = build.itemsTab.controls.displayItemVersion
+		local group1 = build.itemsTab.controls.displayItemVariant
+		local group2 = build.itemsTab.controls.displayItemAltVariant
+		assert.is_true(versionControl:IsShown())
+		assert.are.equals(2, versionControl.selIndex)
+		assert.are.equals("Energy Shield", group1.list[1].label)
+		assert.are.equals("Mana", group2.list[1].label)
+
+		group2:SetSel(2)
+		group1:SetSel(2)
+		assert.are.equals(3, build.itemsTab.displayItem.variantGroupSelections[1])
+		versionControl:SetSel(1)
+		assert.are.equals(3, build.itemsTab.displayItem.variantGroupSelections[1])
+		assert.are.equals("Life", group1.list[1].label)
+		assert.are.equals("Mana", group1.list[2].label)
+		assert.are.equals("Life", group2.list[1].label)
+		assert.are.equals("Armour", group2.list[2].label)
+	end)
+
 	it("Dialla's socket mods", function()
 		build.skillsTab:PasteSocketGroup("Slot: Body Armour\nArc 20/0  1\nArc 20/0  1\n")
 		runCallback("OnFrame")
@@ -679,6 +716,204 @@ describe("TetsItemMods", function()
 		assert.are.equals(20, build.calcsTab.calcsOutput.EnergyShieldRecoup)
 		assert.are.equals(10, build.calcsTab.calcsOutput.PhysicalLifeRecoup)
 		assert.are.equals(10, build.calcsTab.calcsOutput.PhysicalEnergyShieldRecoup)
+	end)
+
+	it("crafts modifiers from supported bases on rare-like uniques", function()
+		local item = new("Item", [[
+			Item Class: Helmets
+			Rarity: Unique
+			Subsume the Source
+			Faithful Helmet
+			--------
+			Item Level: 86
+			--------
+			{ Prefix Modifier "Hale" }
+			+23 to maximum Life
+			{ Unique Modifier }
+			120% increased Explicit Modifier magnitudes
+			{ Suffix Modifier "of Adaption" }
+			+7 to all Attributes
+			{ Unique Modifier }
+			Cannot have non-Abyssal sockets
+		]])
+
+		assert.are.equals(4, item.affixLimit)
+		assert.are.equals(4, item.prefixes.limit)
+		assert.are.equals(0, item.suffixes.limit)
+		assert.are.equals("AbyssJewelAddedLife1", item.prefixes[1].modId)
+		assert.are.equals("AbyssAllAttributesJewel1", item.prefixes[2].modId)
+		build.itemsTab.displayItem = item
+		build.itemsTab:UpdateAffixControls()
+		local lifeModAvailable = false
+		for _, entry in ipairs(build.itemsTab.controls.displayItemAffix2.list) do
+			for _, modId in ipairs(type(entry) == "table" and entry.modList or { }) do
+				lifeModAvailable = lifeModAvailable or modId == "AbyssJewelAddedLife1"
+			end
+		end
+		assert.is_true(lifeModAvailable)
+
+		item:Craft()
+		local raw = item:BuildRaw()
+		assert.is_truthy(raw:find("increased Explicit Modifier magnitudes", 1, true))
+		assert.is_truthy(raw:find("Cannot have non-Abyssal sockets", 1, true))
+	end)
+
+	it("uses the item base for rare-like modifier eligibility by default", function()
+		local item = new("Item", [[
+			Item Class: Bows
+			Rarity: Unique
+			The Crimson Storm
+			Steelwood Bow
+			--------
+			Item Level: 85
+			--------
+			{ Suffix Modifier "of the Order" }
+			+24(24-28)% to Physical Damage over Time Multiplier
+		]])
+
+		assert.are.equals(1, item.affixLimit)
+		assert.are.equals(0, item.prefixes.limit)
+		assert.are.equals(1, item.suffixes.limit)
+		assert.are.equals("JunMasterVeiledPhysicalDamageOverTimeMultiplier", item.suffixes[1].modId)
+	end)
+
+	it("keeps modifier metadata on duplicate variant tooltip lines", function()
+		local item = new("Item", [[
+			Rarity: Unique
+			Duplicate Variant Test
+			Plate Vest
+			Variant: First
+			Variant: Second
+			Selected Variant: 1
+			Has Alt Variant: true
+			Selected Alt Variant: 1
+			Allow Duplicate Variants: true
+			Implicits: 0
+			{variant:1}+10 to maximum Life
+		]])
+		local tooltip = new("Tooltip")
+		build.itemsTab:AddItemTooltip(tooltip, item)
+
+		local count = 0
+		for _, line in ipairs(tooltip.lines) do
+			if line.text and line.text:find("maximum Life", 1, true) then
+				assert.are.equals(item.explicitModLines[1], line.modLine)
+				count = count + 1
+			end
+		end
+		assert.are.equals(2, count)
+	end)
+
+	it("does not sort cluster jewel modifiers when the sorting control is hidden", function()
+		local item = new("Item", [[
+			Rarity: RARE
+			New Item
+			Large Cluster Jewel
+			Crafted: true
+			Prefix: {range:0.5}AfflictionNotableWickedPall_
+			Prefix: {range:0.5}AfflictionNotableMiseryEverlasting
+			Suffix: {range:0.5}AfflictionNotableUnholyGrace_
+			Suffix: None
+			Cluster Jewel Skill: affliction_chaos_damage
+			Cluster Jewel Node Count: 8
+			Quality: 0
+			LevelReq: 40
+			Implicits: 3
+			{crafted}Adds 8 Passive Skills
+			{crafted}2 Added Passive Skills are Jewel Sockets
+			{crafted}Added Small Passive Skills grant: 12% increased Chaos Damage
+			1 Added Passive Skill is Misery Everlasting
+			1 Added Passive Skill is Unholy Grace
+			1 Added Passive Skill is Wicked Pall
+		]])
+		local calcCount = 0
+		build.itemsTab.displayItem = item
+		build.itemsTab.controls.craftingSorting:SetSel(2, true)
+		build.calcsTab.GetMiscCalculator = function()
+			return function()
+				calcCount = calcCount + 1
+				return { }
+			end
+		end
+
+		assert.is_false(build.itemsTab.controls.craftingSortingLabel.shown())
+		build.itemsTab:UpdateAffixControls()
+		assert.are.equals(0, calcCount)
+	end)
+
+	it("shows custom modifier controls when affix crafting is hidden", function()
+		build.itemsTab:CreateDisplayItemFromRaw([[
+			Rarity: RARE
+			Test Item
+			Iron Ring
+			Implicits: 1
+			Adds 1 to 4 Physical Damage to Attacks
+			{crafted}+8 to Strength
+		]])
+
+		local controls = build.itemsTab.controls
+		assert.is_falsy(build.itemsTab.displayItem.crafted)
+		assert.is_falsy(controls.displayItemSectionAffix:IsShown())
+		assert.is_true(controls.displayItemSectionCustom:IsShown())
+		assert.is_true(controls.displayItemAddCustom:IsShown())
+		assert.is_true(controls.displayItemCustomModifierRemove1:IsShown())
+	end)
+
+	it("shows affix controls for items crafted in Path of Building", function()
+		build.itemsTab:CreateDisplayItemFromRaw([[
+			Rarity: RARE
+			New Item
+			Cobalt Jewel
+			Crafted: true
+			Prefix: None
+			Prefix: None
+			Suffix: None
+			Suffix: None
+			Quality: 0
+			LevelReq: 0
+			Implicits: 0
+		]])
+
+		local controls = build.itemsTab.controls
+		assert.is_true(controls.displayItemSectionAffix:IsShown())
+		assert.is_true(controls.displayItemAffix1:IsShown())
+	end)
+
+	it("sorts crafted modifier replacements without retaining the selected modifier", function()
+		local item = new("Item", [[
+			Rarity: RARE
+			New Item
+			Cobalt Jewel
+			Crafted: true
+			Prefix: {range:1}PercentIncreasedLifeJewel
+			Prefix: None
+			Suffix: None
+			Suffix: None
+			Quality: 0
+			LevelReq: 0
+			Implicits: 0
+			7% increased maximum Life
+		]])
+		local calcCount = 0
+		local retainedCount = 0
+		build.itemsTab.displayItem = item
+		build.itemsTab.controls.craftingSorting:SetSel(2, true)
+		build.calcsTab.GetMiscCalculator = function()
+			return function(args)
+				calcCount = calcCount + 1
+				for _, modLine in ipairs(args.repItem.explicitModLines) do
+					if modLine.line == "7% increased maximum Life" then
+						retainedCount = retainedCount + 1
+						break
+					end
+				end
+				return { }
+			end
+		end
+
+		build.itemsTab:UpdateAffixControl(build.itemsTab.controls.displayItemAffix1, item, "Prefix", "prefixes", 1, { })
+		assert.is_true(calcCount > 1)
+		assert.are.equals(0, retainedCount)
 	end)
 	
 	it("shows a fallback tooltip when an item's base is no longer supported", function()

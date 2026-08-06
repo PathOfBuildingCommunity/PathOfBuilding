@@ -56,6 +56,15 @@ Implicits: 1
 {tags:caster}Nova Spells have 20% less Area of Effect
 {tags:caster}Nova Spells Cast at the targeted location instead of around you
 ]],[[
+The Bandit Lord's Band
+Gold Ring
+League: Settlers
+Source: Drops from unique{Sasan, the Bandit Lord}
+Requires Level 44
+Implicits: 1
+(6-15)% increased Rarity of Items found
+(25-35)% increased Quantity of Gold Dropped by Slain Enemies
+]],[[
 Berek's Grip
 Two-Stone Ring
 League: Domination, Nemesis
@@ -556,6 +565,19 @@ Implicits: 1
 {tags:critical}(40-50)% increased Rarity of Items Dropped by Enemies killed with a Critical Strike
 {variant:2}50% increased Damage while on Consecrated Ground
 {variant:2}+5% Chance to Block Attack Damage while on Consecrated Ground
+]],[[
+Replica Gifts from Above
+League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
+Diamond Ring
+Requires Level 28
+Implicits: 1
+{tags:critical}(20-30)% increased Global Critical Strike Chance
+{tags:critical}Trigger Level 10 Consecrate when you deal a Critical Strike
+{tags:critical}(30-35)% increased Global Critical Strike Chance
+(10-15)% increased Light Radius
+{tags:critical}(40-50)% increased Rarity of Items Dropped by Enemies killed with a Critical Strike
+Inflict Hallowing Flame on Hit while on Consecrated Ground
 ]],[[
 Grattus Signet
 Diamond Ring
@@ -1799,5 +1821,39 @@ Implicits: 1
 {variant:2}{tags:attack}(20-30)% chance on Melee Hit for the Strongest Impale on target to last for 1 additional Hit
 {variant:2}(40-50)% less Impale Duration
 {variant:1}(40-25)% reduced Impale Duration
+]],
+[[
+Zana's Ingenuity
+Prismatic Ring
+Source: Drops from unique{The Shaper} (Uber)
+Variant: Life
+Variant: Energy Shield
+Variant: Mana
+Variant: Reflect Immune
+Variant: No damage from Crits
+Variant: No Monster Suppress
+Variant: No Enemy Pen
+Variant: Charges cannot be stolen
+Variant: Burning Ground Immune
+Variant: Shocked Ground Immune
+Variant: Desecrated Ground Immune
+Variant: Chilled Ground Immune
+Requires Level 64
+Implicits: 1
+{tags:resistance}+(8-10)% to all Elemental Resistances
+{tags:attack,speed}(5-15)% increased Attack Speed
+{variant:5}{group:2}{tags:critical}You take 100% reduced Extra Damage from Critical Strikes
+{variant:2}{group:1}{tags:defences}20% increased maximum Energy Shield
+{variant:1}{group:1}{tags:resource}10% increased maximum Life
+{variant:3}{group:1}{tags:resource}20% increased maximum Mana
+{tags:resistance}+(-15-15)% to all Elemental Resistances
+{variant:4}{group:2}Damage cannot be Reflected
+{variant:7}{group:2}Elemental Resistances cannot be Penetrated
+{variant:9}{group:3}Unaffected by Burning Ground
+{variant:12}{group:3}Unaffected by Chilled Ground
+{variant:11}{group:3}Unaffected by Desecrated Ground
+{variant:10}{group:3}Unaffected by Shocked Ground
+{variant:8}{group:2}Monsters cannot steal or remove your Power, Frenzy or Endurance charges on Hit
+{variant:6}{group:2}Monsters cannot Suppress your Spells
 ]],
 }

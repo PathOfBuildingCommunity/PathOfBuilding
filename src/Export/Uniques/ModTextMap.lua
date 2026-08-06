@@ -7635,7 +7635,7 @@ return {
 	["modifiers to minimum power charges instead apply to minimum absorption charges"] = { "MinimumAbsorptionChargeModifiersEqualsPowerUnique__1", },
 	["modifiers to number of projectiles instead apply"] = { "ProjectileModifiersApplyToSplitsUnique__1", },
 	["monsters cannot block your attacks"] = { "UniqueYourAttacksCannotBeBlocked__1", },
-	["monsters cannot steal your power, frenzy or endurance charges on hit"] = { "UniqueYourChargesCannotBeStolen__1", },
+	["monsters cannot steal or remove your power, frenzy or endurance charges on hit"] = { "UniqueYourChargesCannotBeStolen__1", },
 	["monsters cannot suppress your spells"] = { "UniqueYourSpellsCannotBeSuppressed__1", },
 	["movement attack skills have #% reduced attack speed"] = { "ReducedAttackSpeedOfMovementSkillsUnique__1", },
 	["movement attack skills have 40% reduced attack speed"] = { "ReducedAttackSpeedOfMovementSkillsUnique__1", },

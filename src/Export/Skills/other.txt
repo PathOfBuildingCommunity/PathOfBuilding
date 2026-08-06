@@ -143,6 +143,17 @@ local skills, mod, flag, skill = ...
 #baseMod skill("stackCount", 1, { type = "Multiplier", var = "SpiderWebApplyStack", limitVar = "SpiderWebApplyStackMax" })
 #mods
 
+#skill BarnacleSnap
+#flags attack area shieldAttack
+	fromItem = true,
+	statMap = {
+		["barnacle_snap_base_activate_rate_ms"] = {
+			skill("hitTimeOverride", nil),
+			div = 1000,
+		},
+	},
+#mods
+
 #skill SolartwineBlindingNova
 #flags spell area
 	fromItem = true,
@@ -301,6 +312,21 @@ local skills, mod, flag, skill = ...
 
 #skill SupportUniqueCosprisMaliceColdSpellsCastOnMeleeCriticalStrike Cospri's Malice
 	fromItem = true,
+#mods
+
+#skill SupportCrabTotem Crab Totem
+	fromItem = true,
+	addFlags = {
+		totem = true,
+	},
+	statMap = {
+		["support_crab_totem_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+		["support_crab_totem_cast_speed_+%_final"] = {
+			mod("Speed", "MORE", nil, ModFlag.Cast),
+		},
+	},
 #mods
 
 #skill TriggeredSummonLesserShrine
@@ -485,6 +511,11 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 40)
 #mods
 
+#skill BloodShrineUniqueTriggeredExplodingToad
+#flags hit area
+	fromItem = true,
+#mods
+
 #skill FireAegis
 #flags spell
 	fromItem = true,
@@ -502,7 +533,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill FieryImpactHeistMaceImplicit
-#flags attack area melee
+#flags attack area melee forceSourceWeapon
 	fromItem = true,
 #mods
 
@@ -710,21 +741,74 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill PactOfBeidat
+#flags spell pact
+	statMap = {
+		["skill_empowers_next_x_spells_cast"] = {
+			mod("BeidatEmpoweredSpells", "BASE", nil),
+		},
+		["pact_skill_additional_beam_only_chains"] = {
+			mod("BeidatAdditionalBeamChains", "BASE", nil),
+		},
+		["pact_skill_grant_x_additional_projectiles_fired_in_nova"] = {
+			mod("BeidatAdditionalProjectiles", "BASE", nil),
+		},
+		["pact_skill_grant_x_cascades_to_do_in_spiral"] = {
+			mod("BeidatAdditionalCascades", "BASE", nil),
+		},
+		["pact_skill_damage_+%_final_with_hits_and_ailments_to_grant"] = {
+			mod("BeidatPactDamage", "LIST", { mod = mod("Damage", "MORE", nil, ModFlag.Spell, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment)) }),
+		},
+	},
 #mods
 
 #skill PactOfGhorr
+#flags spell pact duration
+	statMap = {
+		["skill_empowers_next_x_spells_cast"] = {
+			mod("GhorrEmpoweredSpells", "BASE", nil),
+		},
+		["pact_skill_grant_damage_over_time_+%_final_to_spells"] = {
+			mod("GhorrPactDamage", "LIST", { mod = mod("Damage", "MORE", nil, ModFlag.Dot) }),
+		},
+	},
 #mods
 
 #skill TriggeredBloodrend
+#flags spell pact projectile
 #mods
 
 #skill PactOfKtash
+#flags spell pact
+	statMap = {
+		["skill_empowers_next_x_spells_cast"] = {
+			mod("KtashEmpoweredSpells", "BASE", nil),
+		},
+		["pact_skill_grant_damage_+%_final_to_exerted_skills"] = {
+			mod("KtashPactDamage", "LIST", { mod = mod("Damage", "MORE", nil) }),
+		},
+		["active_skill_osm_vaal_skill_soul_gain_prevention_+%_final_to_grant"] = {
+			mod("KtashPactSoulGainPrevention", "BASE", nil),
+		},
+		["active_skill_osm_vaal_skill_soul_refund_chance_%_to_grant"] = {
+			mod("KtashPactSoulRefundChance", "BASE", nil),
+		},
+	},
 #mods
 
 #skill PactOfLycia
+#flags spell pact
+	statMap = {
+		["skill_empowers_next_x_spells_cast"] = {
+			mod("LyciaEmpoweredSpells", "BASE", nil),
+		},
+		["pact_skill_grant_damage_+%_final_to_exerted_skills"] = {
+			mod("LyciaPactDamage", "LIST", { mod = mod("Damage", "MORE", nil) }),
+		},
+	},
 #mods
 
 #skill TriggeredHeavensScourge
+#flags spell pact area
 #mods
 
 #skill Portal
@@ -1477,6 +1561,11 @@ local skills, mod, flag, skill = ...
 			div = 100,
 		},
 	},
+#mods
+
+#skill GhostCannons Ghostly Artillery
+#flags attack projectile area forceSourceWeapon
+	fromItem = true,
 #mods
 
 #skill SupportUniqueCastCurseOnCurse Vixen's Entrapment

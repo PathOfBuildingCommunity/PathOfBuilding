@@ -312,7 +312,7 @@ function ItemDBClass:Draw(viewPort)
 end
 
 function ItemDBClass:GetRowValue(column, index, item)
-	if column == 1 then
+	if item and column == 1 then
 		return colorCodes[item.rarity] .. item.name
 	end
 end
@@ -359,7 +359,12 @@ function ItemDBClass:OnSelClick(index, item, doubleClick)
 		self.itemsTab:AddUndoState()
 		self.itemsTab.build.buildFlag = true
 	elseif doubleClick then
+		-- disallow dragging after double click since the window can jump when
+		-- the display item tooltip is created, which might cause the drag item
+		-- to get stuck to the cursor
+		self.selDragging = false
 		self.itemsTab:CreateDisplayItemFromRaw(item.raw, true)
+		return false
 	end
 end
 

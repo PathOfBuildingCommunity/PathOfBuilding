@@ -1,5 +1,6 @@
 describe("ItemListControl", function()
 	local originalOpenConfirmPopup
+	local originalGetCursorPos
 
 	local function newItemListControl()
 		local activeItemSet = {
@@ -57,10 +58,12 @@ describe("ItemListControl", function()
 
 	before_each(function()
 		originalOpenConfirmPopup = main.OpenConfirmPopup
+		originalGetCursorPos = GetCursorPos
 	end)
 
 	after_each(function()
 		main.OpenConfirmPopup = originalOpenConfirmPopup
+		GetCursorPos = originalGetCursorPos
 	end)
 
 	it("only shows items from the active item set and passive tree", function()
@@ -171,5 +174,30 @@ describe("ItemListControl", function()
 
 		assert.are.same({ }, itemsTab.itemOrderList)
 		assert.are.same({ }, itemsTab.items)
+	end)
+
+	it("releases focus after opening an item with a double click", function()
+		local control, itemsTab = newItemListControl()
+		local item = new("Item", [[
+Rarity: Rare
+Test Belt
+Leather Belt
+]])
+		item.id = 1
+		itemsTab.items[1] = item
+		itemsTab.SetDisplayItem = function(_, displayItem)
+			itemsTab.displayItem = displayItem
+		end
+		GetCursorPos = function()
+			return 3, 3
+		end
+		control.GetRowRegion = function()
+			return { x = 0, y = 0, width = 360, height = 308 }
+		end
+
+		local selectedControl = control:OnKeyDown("LEFTBUTTON", true)
+
+		assert.is_nil(selectedControl)
+		assert.are.equal(1, itemsTab.displayItem.id)
 	end)
 end)

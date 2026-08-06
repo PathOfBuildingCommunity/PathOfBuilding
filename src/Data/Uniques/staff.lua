@@ -152,6 +152,19 @@ Implicits: 2
 Curse Enemies with Flammability on Block
 Reflects (22-44) Fire Damage to Attackers on Block
 ]],[[
+The Broken Elegy
+Foul Staff
+League: Mirage
+Source: No longer obtainable
+LevelReq: 64
+Implicits: 1
++22% Chance to Block Attack Damage
+Trigger level 25 Ceaseless Flesh once every second
+Minions deal (113-157)% increased Damage
+(17-31)% increased Minion Duration
+When a nearby Minion dies, gain Rotten Bulwark equal to (7-9)% of its maximum Life
+Minions gain (59-83)% of Physical Damage as Extra Chaos Damage
+]],[[
 Cane of Unravelling
 Ezomyte Staff
 Variant: Pre 3.5.0
@@ -174,6 +187,17 @@ Implicits: 3
 {variant:1,2,3,4}Regenerate 2 Mana per Second per Power Charge
 {variant:5}Regenerate 5 Mana per Second per Power Charge
 Gain a Power Charge after Spending a total of 200 Mana
+]],[[
+The Crustacean's Call
+Primordial Staff
+League: Allflame
+Source: Drops from unique{Velka, the Tide Witch}
+Socketed Spells are Supported by level 20 Crab Totem
+Totems have 100% increased Movement Speed
+(150-200)% increased Spell Damage
+(50-75)% increased Totem Duration
++2 to maximum number of Summoned Totems
++25% Chance to Block Spell Damage
 ]],[[
 Disintegrator
 Maelstrom Staff
