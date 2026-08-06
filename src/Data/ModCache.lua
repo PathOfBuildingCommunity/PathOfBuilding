@@ -10310,8 +10310,8 @@ c["Modifiers to number of Projectiles instead apply"]={nil,"Modifiers to number 
 c["Modifiers to number of Projectiles instead apply to the number of targets Projectiles Split towards"]={{[1]={flags=0,keywordFlags=0,name="NoAdditionalProjectiles",type="FLAG",value=true},[2]={flags=0,keywordFlags=0,name="AdditionalProjectilesAddSplitsInstead",type="FLAG",value=true}},nil}
 c["Monsters cannot Block your Attacks"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="CannotBlockAttacks",type="FLAG",value=true}}}},nil}
 c["Monsters cannot Suppress your Spells"]={nil,"Monsters cannot Suppress your Spells "}
-c["Monsters cannot steal your Power, Frenzy or Endurance charges on Hit"]={nil,"Monsters cannot steal your Power, Frenzy or Endurance charges on Hit "}
-c["Monsters cannot steal your Power, Frenzy or Endurance charges on Hit Monsters cannot Suppress your Spells"]={nil,"Monsters cannot steal your Power, Frenzy or Endurance charges on Hit Monsters cannot Suppress your Spells "}
+c["Monsters cannot steal or remove your Power, Frenzy or Endurance charges on Hit"]={nil,"Monsters cannot steal or remove your Power, Frenzy or Endurance charges on Hit "}
+c["Monsters cannot steal or remove your Power, Frenzy or Endurance charges on Hit Monsters cannot Suppress your Spells"]={nil,"Monsters cannot steal or remove your Power, Frenzy or Endurance charges on Hit Monsters cannot Suppress your Spells "}
 c["Movement Speed cannot be modified to below Base Value"]={{[1]={flags=0,keywordFlags=0,name="MovementSpeedCannotBeBelowBase",type="FLAG",value=true}},nil}
 c["Moving while Bleeding doesn't cause Minions to take extra Damage"]={nil,"Moving while Bleeding doesn't cause Minions to take extra Damage "}
 c["Moving while Bleeding doesn't cause you to take extra Damage"]={nil,"Moving while Bleeding doesn't cause you to take extra Damage "}
@@ -12542,7 +12542,7 @@ c["Unaffected by Shock"]={{[1]={flags=0,keywordFlags=0,name="SelfShockEffect",ty
 c["Unaffected by Shock if 2 Crusader Items are Equipped"]={{[1]={[1]={threshold=2,type="MultiplierThreshold",var="CrusaderItem"},flags=0,keywordFlags=0,name="SelfShockEffect",type="MORE",value=-100}},nil}
 c["Unaffected by Shock while Leeching Energy Shield"]={{[1]={[1]={type="Condition",var="LeechingEnergyShield"},flags=0,keywordFlags=0,name="SelfShockEffect",type="MORE",value=-100}},nil}
 c["Unaffected by Shocked Ground"]={nil,"Unaffected by Shocked Ground "}
-c["Unaffected by Shocked Ground Monsters cannot steal your Power, Frenzy or Endurance charges on Hit"]={nil,"Unaffected by Shocked Ground Monsters cannot steal your Power, Frenzy or Endurance charges on Hit "}
+c["Unaffected by Shocked Ground Monsters cannot steal or remove your Power, Frenzy or Endurance charges on Hit"]={nil,"Unaffected by Shocked Ground Monsters cannot steal or remove your Power, Frenzy or Endurance charges on Hit "}
 c["Unaffected by Shocked Ground while affected by Purity of Lightning"]={nil,"Unaffected by Shocked Ground while affected by Purity of Lightning "}
 c["Unaffected by Shocked Ground while affected by Purity of Lightning 1.5% of Damage leeched as Life while affected by Vitality"]={nil,"Unaffected by Shocked Ground while affected by Purity of Lightning 1.5% of Damage leeched as Life while affected by Vitality "}
 c["Unaffected by Shocked Ground while affected by Purity of Lightning 2% of Damage leeched as Life while affected by Vitality"]={nil,"Unaffected by Shocked Ground while affected by Purity of Lightning 2% of Damage leeched as Life while affected by Vitality "}

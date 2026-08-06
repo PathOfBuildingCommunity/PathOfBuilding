@@ -144503,7 +144503,7 @@ return {
 						[2]="#"
 					}
 				},
-				text="Chance for Orbs of Chance to drop as Ancient Orbs instead"
+				text="{0}% chance for Orbs of Chance to drop as Ancient Orbs instead"
 			},
 			[2]={
 				limit={
@@ -144528,7 +144528,7 @@ return {
 						[2]="#"
 					}
 				},
-				text="Chance for Chaos Orbs to drop as Divine Orbs instead"
+				text="{0}% chance for Chaos Orbs to drop as Divine Orbs instead"
 			},
 			[2]={
 				limit={
@@ -144553,7 +144553,7 @@ return {
 						[2]="#"
 					}
 				},
-				text="Chance for Jeweller's Orbs to drop as Chromatic Orbs instead"
+				text="{0}% chance for Jeweller's Orbs to drop as Chromatic Orbs instead"
 			},
 			[2]={
 				limit={
@@ -144578,7 +144578,7 @@ return {
 						[2]="#"
 					}
 				},
-				text="Chance for Orbs of Scouring to drop as Orbs of Annulment instead"
+				text="{0}% chance for Orbs of Scouring to drop as Orbs of Annulment instead"
 			},
 			[2]={
 				limit={
@@ -144603,7 +144603,7 @@ return {
 						[2]="#"
 					}
 				},
-				text="Chance for Orbs of Transmutation to drop as Chaos Orbs instead"
+				text="{0}% chance for Orbs of Transmutation to drop as Chaos Orbs instead"
 			},
 			[2]={
 				limit={
@@ -190974,7 +190974,7 @@ return {
 						[2]="#"
 					}
 				},
-				text="Abyss Chasms in Area spawn {0}% increased Monsters per fed soul"
+				text="Abyss Chasms in Area spawn {0}% increased Monsters per fed Soul"
 			},
 			[2]={
 				[1]={
@@ -190987,7 +190987,7 @@ return {
 						[2]=-1
 					}
 				},
-				text="Abyss Chasms in Area spawn {0}% reduced Monsters per fed soul"
+				text="Abyss Chasms in Area spawn {0}% reduced Monsters per fed Soul"
 			}
 		},
 		stats={
@@ -248342,7 +248342,7 @@ return {
 						[2]="#"
 					}
 				},
-				text="Monsters cannot steal your Power, Frenzy or Endurance charges on Hit"
+				text="Monsters cannot steal or remove your Power, Frenzy or Endurance charges on Hit"
 			}
 		},
 		stats={
