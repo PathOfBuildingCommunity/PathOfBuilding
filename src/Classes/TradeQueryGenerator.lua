@@ -947,6 +947,9 @@ function TradeQueryGeneratorClass:FinishQuery()
 	if options.sockets and options.sockets > 0 then
 		num_extra = num_extra + 1
 	end
+	if options.links and options.links > 0 then
+		num_extra = num_extra + 1
+	end
 
 	local effective_max = MAX_FILTERS - num_extra
 
