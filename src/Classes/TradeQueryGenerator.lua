@@ -916,42 +916,21 @@ function TradeQueryGeneratorClass:FinishQuery()
 				{
 					type = "weight",
 					value = { min = minWeight },
-					filters = { }
+					filters = {},
+				},
+				{
+					type = "and",
+					filters = {},
 				}
 			}
 		},
 		sort = { ["statgroup.0"] = "desc" },
 		engine = "new"
 	}
-	local requiredModFilters
-	if #requiredMods > 0 then
-		requiredModFilters = {
-			type = "and",
-			filters = {}
-		}
-		t_insert(queryTable.query.stats, requiredModFilters)
-	end
-
-	local options = self.calcContext.options
-
-	local num_extra = 2
-	if not options.includeMirrored then
-		num_extra = num_extra + 1
-	end
-	if options.maxPrice and options.maxPrice > 0 then
-		num_extra = num_extra + 1
-	end
-	if options.maxLevel and options.maxLevel > 0 then
-		num_extra = num_extra + 1
-	end
-	if options.sockets and options.sockets > 0 then
-		num_extra = num_extra + 1
-	end
-	if options.links and options.links > 0 then
-		num_extra = num_extra + 1
-	end
-
-	local effective_max = MAX_FILTERS - num_extra
+	local weightGroup = queryTable.query.stats[1]
+	local andGroup = queryTable.query.stats[2]
+	-- the trade site has a maximum complexity of 200 for each query. our baseline is 54 for the weighted sum group, 4 for the rarity filter plus category, and 4 for the and group
+	local complexityBudget = 200 - 54 - 4 - 4
 
 	local pseudoMap = {
 		["3372524247"] = "pseudo.pseudo_total_fire_resistance",
@@ -1014,35 +993,29 @@ function TradeQueryGeneratorClass:FinishQuery()
 	end
 
 	for k, v in pairs(self.calcContext.special.queryExtra or {}) do
+		complexityBudget -= 2
 		queryTable.query[k] = v
 	end
 
-	local andFilters = { type = "and", filters = { } }
 	local options = self.calcContext.options
+	-- influence pseudo mods
 	if options.influence1 > 1 then
-		t_insert(andFilters.filters, { id = hasInfluenceModIds[options.influence1 - 1] })
-		filters = filters + 1
+		complexityBudget -= 1
+		t_insert(andGroup.filters, { id = hasInfluenceModIds[options.influence1 - 1] })
 	end
 	if options.influence2 > 1 then
-		t_insert(andFilters.filters, { id = hasInfluenceModIds[options.influence2 - 1] })
-		filters = filters + 1
+		complexityBudget -= 1
+		t_insert(andGroup.filters, { id = hasInfluenceModIds[options.influence2 - 1] })
 	end
 
-	if #andFilters.filters > 0 then
-		t_insert(queryTable.query.stats, andFilters)
-	end
-	
-	for _, entry in ipairs(statFilters) do
-		t_insert(queryTable.query.stats[1].filters, entry)
-		filters = filters + 1
-		if filters == effective_max then
-			break
-		end
-	end
+	-- and filters specified by the user
 	for _, entry in ipairs(requiredMods) do
-		t_insert(requiredModFilters.filters, { id = entry.tradeId, value = { min = entry.value } })
+		complexityBudget -= 4
+		t_insert(andGroup.filters, { id = entry.tradeId, value = { min = entry.value } })
 	end
+	local options = self.calcContext.options
 	if not options.includeMirrored then
+		complexityBudget -= 3
 		queryTable.query.filters.misc_filters = {
 			disabled = false,
 			filters = {
@@ -1052,6 +1025,7 @@ function TradeQueryGeneratorClass:FinishQuery()
 	end
 
 	if options.maxPrice and options.maxPrice > 0 then
+		complexityBudget -= 3
 		queryTable.query.filters.trade_filters = {
 			filters = {
 				price = {
@@ -1063,10 +1037,12 @@ function TradeQueryGeneratorClass:FinishQuery()
 	end
 
 	if options.account then
-		queryTable.query.filters.trade_filters.filters.account = {input = options.account}
+		complexityBudget -= 3
+		queryTable.query.filters.trade_filters.filters.account = { input = options.account }
 	end
 
 	if options.maxLevel and options.maxLevel > 0 then
+		complexityBudget -= 3
 		queryTable.query.filters.req_filters = {
 			disabled = false,
 			filters = {
@@ -1078,6 +1054,7 @@ function TradeQueryGeneratorClass:FinishQuery()
 	end
 
 	if options.sockets and options.sockets > 0 then
+		complexityBudget -= 3
 		queryTable.query.filters.socket_filters = {
 			disabled = false,
 			filters = {
@@ -1090,6 +1067,7 @@ function TradeQueryGeneratorClass:FinishQuery()
 	end
 
 	if options.links and options.links > 0 then
+		complexityBudget -= 3
 		if not queryTable.query.filters.socket_filters then
 			queryTable.query.filters.socket_filters = {
 				disabled = false,
@@ -1108,8 +1086,17 @@ function TradeQueryGeneratorClass:FinishQuery()
 		end
 	end
 
+	for _, entry in ipairs(statFilters) do
+		-- leave some room for the exact search account name and price query
+		if complexityBudget < 8 then
+			break
+		end
+		complexityBudget -= 4
+		t_insert(weightGroup.filters, entry)
+	end
 	local errMsg = nil
-	if #queryTable.query.stats[1].filters == 0 then
+	ConPrintf("filters: %d, budget: %d", #weightGroup.filters, complexityBudget)
+	if #weightGroup.filters == 0 then
 		-- No mods to filter
 		errMsg = "Could not generate search, found no mods to search for"
 	end
