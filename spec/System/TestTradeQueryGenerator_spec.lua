@@ -32,8 +32,15 @@ describe("TradeQueryGenerator", function()
 		end)
 
 		it("includes the utility flask charge enchant", function()
-			local enchant = LoadModule("Data/QueryMods.lua").Enchant["10670_UtilityFlaskPassiveChargeGain"]
+			local enchant
+			for id, mod in pairs(LoadModule("Data/QueryMods.lua").Enchant) do
+				if id:match("_UtilityFlaskPassiveChargeGain$") then
+					enchant = mod
+					break
+				end
+			end
 
+			assert.is_not_nil(enchant)
 			assert.are.equals("enchant.stat_2567919918", enchant.tradeMod.id)
 			assert.are.equals("Utility Flasks gain # Charges every 3 seconds", enchant.specialCaseData.overrideModLine)
 		end)
