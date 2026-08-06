@@ -151,6 +151,21 @@ describe("TestSkills", function()
 		assert.True(preAdrenalineMaxStages < build.calcsTab.mainEnv.player.activeSkillList[1].skillModList:Sum("BASE", nil, "Multiplier:BlightMaxStages"))
 	end)
 
+	it("calculates added resistance from heralds even when using scornful herald", function()
+		build.skillsTab:PasteSocketGroup("Cyclone 20/0  1\n")
+		build.skillsTab:PasteSocketGroup("Herald of Thunder 20/0  1\nScornful Herald 20/0  1\n")
+		build.itemsTab:CreateDisplayItemFromRaw([[Circle of Regret
+		Topaz Ring
+		{tags:resistance}+(50-60)% to Lightning Resistance while affected by Herald of Thunder
+		]])
+		build.itemsTab:AddDisplayItem()
+		
+		runCallback("OnFrame")
+
+		assert.are.equals(0, build.calcsTab.mainEnv.player.modDB:Sum("BASE", nil, "LightningMin"))
+		assert.are.equals(-5, build.calcsTab.mainEnv.player.modDB:Sum("BASE", nil, "LightningResist"))
+	end)
+
 	it("calculates Wintertide Brand average damage for attached brands and Wintertide's End", function()
 		local function getAverageDamageMultiplier()
 			for _, mod in ipairs(build.calcsTab.mainEnv.player.mainSkill.skillModList) do

@@ -2263,7 +2263,7 @@ function calcs.perform(env, skipEHP)
 				-- Also nothing :/
 			elseif buff.type == "GlobalDB" then
 				modDB:AddList(buff.modList) -- Allows a skill mod to affect other skills through modDB
-			elseif buff.type == "Buff" and not skillModList:Flag(skillCfg, "DisableBuff") then
+			elseif buff.type == "Buff" then
 				if env.mode_buffs and (not activeSkill.skillFlags.totem or buff.allowTotemBuff) then
 					local skillCfg = buff.activeSkillBuff and skillCfg
 					local modStore = buff.activeSkillBuff and skillModList or modDB
@@ -2273,6 +2273,9 @@ function calcs.perform(env, skipEHP)
 						local srcList = new("ModList")
 						local inc = modStore:Sum("INC", skillCfg, "BuffEffect", "BuffEffectOnSelf", "BuffEffectOnPlayer") + skillModList:Sum("INC", skillCfg, buff.name:gsub(" ", "").."Effect")
 						local more = modStore:More(skillCfg, "BuffEffect", "BuffEffectOnSelf")
+						if skillModList:Flag(skillCfg, "DisableBuff") then
+							more = 0
+						end
 						srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
 						mergeBuff(srcList, buffs, buff.name)
 						if activeSkill.skillData.thisIsNotABuff then
