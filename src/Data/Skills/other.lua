@@ -1925,6 +1925,7 @@ skills["FieryImpactHeistMaceImplicit"] = {
 		attack = true,
 		area = true,
 		melee = true,
+		forceSourceWeapon = true,
 	},
 	constantStats = {
 		{ "skill_physical_damage_%_to_convert_to_fire", 60 },
@@ -5953,6 +5954,7 @@ skills["GhostCannons"] = {
 		attack = true,
 		projectile = true,
 		area = true,
+		forceSourceWeapon = true,
 	},
 	constantStats = {
 		{ "skill_physical_damage_%_to_convert_to_fire", 50 },
