@@ -1340,7 +1340,7 @@ local modTagList = {
 	["per gale force"] = { tag = { type = "Multiplier", var = "GaleForce" } },
 	["per intensity"] = { tag = { type = "Multiplier", var = "Intensity" } },
 	["per brand"] = { tag = { type = "Multiplier", var = "ActiveBrand" } },
-	["per brand, up to a maximum of (%d+)%%"] = function(num) return { tag = { type = "Multiplier", var = "ActiveBrand", limit = tonumber(num), limitTotal = true } } end,
+	["per brand, up to a maximum of (%d+)%%"] = function(num) return { tag = { type = "Multiplier", var = "ActiveBrand", globalLimit = tonumber(num), globalLimitKey = "ChipAway" } } end,
 	["per blitz charge"] = { tag = { type = "Multiplier", var = "BlitzCharge" } },
 	["per ghost shroud"] = { tag = { type = "Multiplier", var = "GhostShroud" } },
 	["per crab barrier"] = { tag = { type = "Multiplier", var = "CrabBarrier" } },
@@ -4006,12 +4006,6 @@ local specialModList = {
 	} end,
 	["(%d+)%% increased area of effect per second you've been stationary, up to a maximum of (%d+)%%"] = function(num, _, limit) return {
 		mod("AreaOfEffect", "INC", num, { type = "Multiplier", var = "StationarySeconds", globalLimit = tonumber(limit), globalLimitKey = "ExpansiveMight", limitTotal = true })
-	} end,
-	["brand recall has (%d+)%% increased cooldown recovery rate per brand, up to a maximum of (%d+)%%"] = function(num, _, limit) return {
-		mod("CooldownRecovery", "INC", num, { type = "Multiplier", var = "ActiveBrand", globalLimit = tonumber(limit), globalLimitKey = "ChipAway" }, { type = "SkillName", skillName = "Brand Recall", includeTransfigured = true })
-	} end,
-	["brand recall has (%d+)%% increased cooldown recovery speed per brand, up to a maximum of (%d+)%%"] = function(num, _, limit) return {
-		mod("CooldownRecovery", "INC", num, { type = "Multiplier", var = "ActiveBrand", globalLimit = tonumber(limit), globalLimitKey = "ChipAway" }, { type = "SkillName", skillName = "Brand Recall", includeTransfigured = true })
 	} end,
 	["(%d+)%% increased chaos damage per (%d+) maximum mana, up to a maximum of (%d+)%%"] = function(num, _, div, limit) return {
 		mod("ChaosDamage", "INC", num, { type = "PerStat", stat = "Mana", div = tonumber(div), globalLimit = tonumber(limit), globalLimitKey = "DarkIdeation" })
