@@ -74,10 +74,10 @@ local function buildURL(item, slotName, controls, modEntries, defenceEntries, is
 		-- Search by unique name
 		-- Strip "Foulborn" prefix from unique name for trade search
 		local tradeName = (item.title or item.name):gsub("^Foulborn%s+", "")
-		-- only take the first letters and white space to avoid e.g. including
-		-- timeless jewel ids or other numbers the user might have on the item
-		local nameMatch = tradeName:match("(%a[%a%s]+).*")
-		tradeName = (nameMatch and nameMatch:gsub("%s+$", "")) or tradeName
+		-- only strip a trailing numeric identifier to avoid e.g. including
+		-- timeless jewel ids or other numbers appended to the item name.
+		tradeName = tradeName:gsub("%s+$", "")
+		tradeName = tradeName:match("^(.-)%s+%d+$") or tradeName
 		queryTable.query.name = tradeName
 		queryTable.query.type = item.baseName
 		-- If item is Foulborn, add the foulborn_item filter

@@ -154,6 +154,13 @@ Implicits: 1
 			return dkjson.decode(queryJson)
 		end
 
+		local function getUniqueQuery(name, baseName)
+			local item = new("Item", "Rarity: UNIQUE\n" .. name .. "\n" .. baseName .. "\nImplicits: 0")
+			local query = getQuery(openPopup(item, "Jewel"))
+			main:ClosePopup()
+			return query
+		end
+
 		it("rebuilds the URL when league and listed status change", function()
 			local controls = openPopup()
 			getQuery(controls)
@@ -169,6 +176,25 @@ Implicits: 1
 			local query = getQuery(controls)
 			assert.not_equal(standardUrl, copiedUrl)
 			assert.equal("any", query.query.status.option)
+		end)
+
+		it("preserves apostrophes in unique names", function()
+			local item = new("Item", [[
+Rarity: UNIQUE
+Ralakesh's Impatience
+Riveted Boots
+Implicits: 0]])
+			local controls = openPopup(item, "Boots")
+
+			assert.equal("Ralakesh's Impatience", getQuery(controls).query.name)
+		end)
+
+		it("removes a trailing unique ID without removing name punctuation", function()
+			assert.equal("Uul-Netol's Embrace", getUniqueQuery("Uul-Netol's Embrace 1234", "Vaal Axe").query.name)
+		end)
+
+		it("trims whitespace after a unique name", function()
+			assert.equal("The Hateful Accuser", getUniqueQuery("The Hateful Accuser ", "Ghastly Eye Jewel").query.name)
 		end)
 
 		it("persists league choices by name for each realm", function()
