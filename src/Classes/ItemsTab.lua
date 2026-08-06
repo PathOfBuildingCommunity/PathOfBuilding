@@ -747,7 +747,9 @@ holding Shift will put it in the second.]])
 		end
 		return h
 	end})
-
+	self.controls.displayItemSectionAffix.shown = function()
+		return self.displayItem and self.displayItem.crafted
+	end
 	for i = 1, maxModCount do
 		local prev = self.controls["displayItemAffix"..(i-1)] or self.controls.displayItemSectionAffix
 		local drop, slider
@@ -980,7 +982,7 @@ holding Shift will put it in the second.]])
 
 	-- Section: Custom modifiers
 	-- if either Custom or Crucible mod buttons are shown, create the control for the list of mods
-	self.controls.displayItemSectionCustom = new("Control", {"TOPLEFT",self.controls.displayItemSectionAffix,"BOTTOMLEFT"}, {0, 0, 0, function()
+	self.controls.displayItemSectionCustom = new("Control", {"TOPLEFT",self.controls.displayItemSectionAffix,"BOTTOMLEFT",true}, {0, 0, 0, function()
 		return (self.controls.displayItemAddCustom:IsShown() or self.controls.displayItemAddCrucible:IsShown()) and 28 + self.displayItem.customCount * 22 or 0
 	end})
 	self.controls.displayItemAddCustom = new("ButtonControl", {"TOPLEFT",self.controls.displayItemSectionCustom,"TOPLEFT"}, {0, 0, 120, 20}, "Add modifier...", function()
