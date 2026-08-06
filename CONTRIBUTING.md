@@ -220,7 +220,10 @@ A native arm64 app can be built from source:
 1. Install prerequisites: Xcode, plus `brew install cmake ninja`.
 2. Clone the host repo as a sibling:
    `git clone https://github.com/PathOfBuildingCommunity/PathOfBuilding-SimpleGraphic.git ../PathOfBuilding-SimpleGraphic`
-   and check out its `feat/macos-build` branch (`git submodule update --init --recursive`).
+   then run `git submodule update --init --recursive`. The macOS build also
+   needs the `feat/macos-build` changes, which are not yet merged upstream —
+   see [docs/crossPlatform.md](docs/crossPlatform.md) for their status; until
+   they land, use a checkout that already contains them.
 3. From this repo: `make macos-app` (first run builds all native
    dependencies via vcpkg — expect 30-60 minutes), then `make run-macos`.
 

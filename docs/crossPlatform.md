@@ -58,7 +58,7 @@ Native Linux/macOS support additionally requires (tracked as follow-on plans):
    pobfrontend.
 
 On macOS, a native app can be built locally today: `make macos-app` builds
-the SimpleGraphic host from a sibling clone (branch `feat/macos-build`) and
+the SimpleGraphic host from a sibling clone (branch `feat/macos-build`, currently local-only, pending upstream submission) and
 assembles `build/macos/Path of Building.app`, a dev-mode app running
 `src/Launch.lua` from this checkout (auto-updates disabled by design — see
 the spec in `docs/superpowers/specs/2026-08-05-macos-app-design.md`).
