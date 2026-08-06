@@ -463,3 +463,82 @@ describe("WeightedScore — tree integration", function()
 		assert.are.equal("Defence", candidates[1].label)
 	end)
 end)
+
+describe("WeightedScore — crafted affix sorting", function()
+	local originalGetMiscCalculator
+	local originalGetValue
+
+	before_each(function()
+		newBuild()
+		originalGetMiscCalculator = build.calcsTab.GetMiscCalculator
+		originalGetValue = data.powerStatList.GetValue
+	end)
+
+	after_each(function()
+		build.calcsTab.GetMiscCalculator = originalGetMiscCalculator
+		data.powerStatList.GetValue = originalGetValue
+	end)
+
+	it("evaluates contextual scores with their baseline and Full DPS requirement", function()
+		local itemsTab = build.itemsTab
+		itemsTab:CreateDisplayItemFromRaw([[
+Rarity: RARE
+Weighted Sort Helmet
+Royal Burgonet
+Item Level: 86
+Crafted: true
+Prefix: None
+Prefix: None
+Prefix: None
+Suffix: None
+Suffix: None
+Suffix: None
+Quality: 20
+Implicits: 0
+]])
+		itemsTab.tradeQuery.statSortSelectionList = {
+			{ stat = "FullDPS", label = "Full DPS", weightMult = 1 },
+		}
+		itemsTab.controls.craftingSorting:SelByValue("WeightedScore", "stat")
+
+		local useFullDPSCalls = { }
+		build.calcsTab.GetMiscCalculator = function()
+			return function(params, useFullDPS)
+				useFullDPSCalls[#useFullDPSCalls + 1] = useFullDPS
+				return {
+					modCount = params and params.repItem and #params.repItem.explicitModLines or 0,
+				}
+			end
+		end
+
+		local getValueCalls = 0
+		local sawBaseline = false
+		data.powerStatList.GetValue = function(output, statTable, ownerBuild, calcBase)
+			getValueCalls = getValueCalls + 1
+			sawBaseline = sawBaseline or (calcBase and calcBase.modCount == 0)
+			assert.are.equal("WeightedScore", statTable.stat)
+			assert.are.equal(build, ownerBuild)
+			return output.modCount
+		end
+
+		local control = itemsTab.controls.displayItemAffix1
+		itemsTab:UpdateAffixControl(
+			control,
+			itemsTab.displayItem,
+			"Prefix",
+			"prefixes",
+			1,
+			{ }
+		)
+
+		assert.is_true(getValueCalls > 0, "crafted affix sorting must evaluate contextual stats through GetValue")
+		assert.is_true(sawBaseline, "contextual scoring must receive the item without the candidate affix")
+		assert.is_true(#useFullDPSCalls > 0)
+		for _, useFullDPS in ipairs(useFullDPSCalls) do
+			assert.is_true(useFullDPS)
+		end
+		assert.is_not_nil(control.list[2].modList)
+		local highestScoredMod = itemsTab.displayItem.affixes[control.list[2].modList[1]]
+		assert.are.equal(2, #highestScoredMod, "the highest contextual score must sort first")
+	end)
+end)

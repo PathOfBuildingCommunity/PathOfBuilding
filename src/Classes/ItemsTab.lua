@@ -2234,6 +2234,7 @@ function ItemsTabClass:UpdateAffixControl(control, item, affixType, outputTable,
 	if sortOption.stat and self.controls.craftingSortingLabel.shown() then
 		local calcFunc = self.build.calcsTab:GetMiscCalculator()
 		local slotName = self.displayItem:GetPrimarySlot()
+		local useFullDPS = data.powerStatList.RequiresFullDPS(sortOption, self.build)
 		local testSubject = new("Item"):Item(self.displayItem:BuildRaw())
 		local controlPowerCache = powerCache
 		if selAffix and selAffix ~= "None" then
@@ -2241,6 +2242,8 @@ function ItemsTabClass:UpdateAffixControl(control, item, affixType, outputTable,
 			testSubject:Craft()
 			controlPowerCache = { }
 		end
+		local calcBase = sortOption.getValue
+			and calcFunc({ repSlotName = slotName, repItem = testSubject }, useFullDPS)
 		local function pickModifierFromList(modList)
 			-- pick mid tier modifier from a group
 			if #modList == 1 then
@@ -2269,9 +2272,11 @@ function ItemsTabClass:UpdateAffixControl(control, item, affixType, outputTable,
 					t_insert(testSubject.explicitModLines, modLine)
 				end
 				testSubject:BuildAndParseRaw()
-				power = data.powerStatList.GetFromOutput(
-					calcFunc({ repSlotName = slotName, repItem = testSubject }),
-					sortOption
+				power = data.powerStatList.GetValue(
+					calcFunc({ repSlotName = slotName, repItem = testSubject }, useFullDPS),
+					sortOption,
+					self.build,
+					calcBase
 				)
 				testSubject = new("Item"):Item(originalItem)
 			else
@@ -2283,9 +2288,11 @@ function ItemsTabClass:UpdateAffixControl(control, item, affixType, outputTable,
 				end
 
 				testSubject:BuildModList()
-				power = data.powerStatList.GetFromOutput(
-					calcFunc({ repSlotName = slotName, repItem = testSubject }),
-					sortOption
+				power = data.powerStatList.GetValue(
+					calcFunc({ repSlotName = slotName, repItem = testSubject }, useFullDPS),
+					sortOption,
+					self.build,
+					calcBase
 				)
 				for _ = 1, modCount do
 					t_remove(testSubject.explicitModLines, #testSubject.explicitModLines)
