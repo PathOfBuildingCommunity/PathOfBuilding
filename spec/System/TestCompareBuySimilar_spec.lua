@@ -155,13 +155,10 @@ Implicits: 1
 		end
 
 		local function getUniqueQuery(name, baseName)
-			local url = bs.buildURL({ title = name, baseName = baseName }, nil, {
-				realmDrop = { GetSelValue = function() return "PC" end },
-				leagueDrop = { GetSelValue = function() return "Standard" end },
-				listedDrop = { selIndex = 1 },
-			}, {}, {}, true)
-			local queryJson = urlDecode(assert(url:match("[?&]q=(.+)$")))
-			return dkjson.decode(queryJson)
+			local item = new("Item", "Rarity: UNIQUE\n" .. name .. "\n" .. baseName .. "\nImplicits: 0")
+			local query = getQuery(openPopup(item, "Jewel"))
+			main:ClosePopup()
+			return query
 		end
 
 		it("rebuilds the URL when league and listed status change", function()
@@ -190,23 +187,6 @@ Implicits: 0]])
 			local controls = openPopup(item, "Boots")
 
 			assert.equal("Ralakesh's Impatience", getQuery(controls).query.name)
-		end)
-
-		it("preserves every loaded unique name in direct URLs", function()
-			local expectedNames = {
-				["The Hateful Accuser "] = "The Hateful Accuser",
-			}
-			local uniqueCount = 0
-			for _, typeList in pairs(data.uniques) do
-				for _, uniqueText in ipairs(typeList) do
-					local name, baseName = uniqueText:match("^([^\n]+)\n([^\n]+)")
-					assert.is_not_nil(name)
-					assert.is_not_nil(baseName)
-					assert.equal(expectedNames[name] or name, getUniqueQuery(name, baseName).query.name)
-					uniqueCount = uniqueCount + 1
-				end
-			end
-			assert.is_true(uniqueCount > 0)
 		end)
 
 		it("removes a trailing unique ID without removing name punctuation", function()

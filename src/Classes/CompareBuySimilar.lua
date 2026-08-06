@@ -41,7 +41,7 @@ end
 
 
 -- Build the trade search URL based on popup selections
-function M.buildURL(item, slotName, controls, modEntries, defenceEntries, isUnique)
+local function buildURL(item, slotName, controls, modEntries, defenceEntries, isUnique)
 	-- Determine realm and league from the popup's dropdowns
 	local realmDisplayValue = controls.realmDrop and controls.realmDrop:GetSelValue() or "PC"
 	local realm = REALM_API_IDS[realmDisplayValue] or "pc"
@@ -339,7 +339,7 @@ function M.openPopup(item, slotName, primaryBuild)
 	end
 
 	local function rebuildUrl()
-		local result = M.buildURL(item, slotName, controls, modEntries, defenceEntries, isUnique)
+		local result = buildURL(item, slotName, controls, modEntries, defenceEntries, isUnique)
 		uri = result
 	end
 	-- Helper to fetch and populate leagues for a given realm API id
