@@ -278,8 +278,8 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 		activeSkill.weapon2Flags = 0
 	else
 		-- Set weapon flags
-		if skillFlags.attack and activeSkill.socketGroup and activeSkill.socketGroup.sourceItem then
-			-- Item-granted attacks use the weapon that grants the skill
+		if skillFlags.forceSourceWeapon and activeSkill.socketGroup and activeSkill.socketGroup.sourceItem then
+			-- Some item-granted attacks must use the weapon that grants the skill
 			local sourceSlot = activeSkill.socketGroup.slot or ""
 			skillFlags.forceMainHand = sourceSlot:match("^Weapon 1") ~= nil
 			skillFlags.forceOffHand = sourceSlot:match("^Weapon 2") ~= nil

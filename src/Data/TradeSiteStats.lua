@@ -27768,7 +27768,7 @@ return {
 			},
 			{
 				["id"] = "explicit.stat_1455353008",
-				["text"] = "Monsters cannot steal your Power, Frenzy or Endurance charges on Hit",
+				["text"] = "Monsters cannot steal or remove your Power, Frenzy or Endurance charges on Hit",
 				["type"] = "explicit",
 			},
 			{

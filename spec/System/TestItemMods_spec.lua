@@ -841,6 +841,44 @@ describe("TetsItemMods", function()
 		assert.are.equals(0, calcCount)
 	end)
 
+	it("shows custom modifier controls when affix crafting is hidden", function()
+		build.itemsTab:CreateDisplayItemFromRaw([[
+			Rarity: RARE
+			Test Item
+			Iron Ring
+			Implicits: 1
+			Adds 1 to 4 Physical Damage to Attacks
+			{crafted}+8 to Strength
+		]])
+
+		local controls = build.itemsTab.controls
+		assert.is_falsy(build.itemsTab.displayItem.crafted)
+		assert.is_falsy(controls.displayItemSectionAffix:IsShown())
+		assert.is_true(controls.displayItemSectionCustom:IsShown())
+		assert.is_true(controls.displayItemAddCustom:IsShown())
+		assert.is_true(controls.displayItemCustomModifierRemove1:IsShown())
+	end)
+
+	it("shows affix controls for items crafted in Path of Building", function()
+		build.itemsTab:CreateDisplayItemFromRaw([[
+			Rarity: RARE
+			New Item
+			Cobalt Jewel
+			Crafted: true
+			Prefix: None
+			Prefix: None
+			Suffix: None
+			Suffix: None
+			Quality: 0
+			LevelReq: 0
+			Implicits: 0
+		]])
+
+		local controls = build.itemsTab.controls
+		assert.is_true(controls.displayItemSectionAffix:IsShown())
+		assert.is_true(controls.displayItemAffix1:IsShown())
+	end)
+
 	it("sorts crafted modifier replacements without retaining the selected modifier", function()
 		local item = new("Item", [[
 			Rarity: RARE

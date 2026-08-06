@@ -1,5 +1,29 @@
 # Changelog
 
+## [v2.67.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding-PoE2/tree/v2.67.1) (2026/08/06)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.67.0...v2.67.1)
+
+
+## What's Changed
+### New to Path of Building
+- Add support for pseudo stats in trader [\#10085](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10085) ([vaisest](https://github.com/vaisest))
+### Fixed Crashes
+- Fix crash when double-clicking and dragging an item on small window sizes [\#10134](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10134) ([vaisest](https://github.com/vaisest))
+- Fix crash from equipping Quivers and Shields that grant skills [\#10144](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10144) ([LocalIdentity](https://github.com/LocalIdentity))
+### Fixed Calculations
+- Fix Chip Away not using a global limit [\#10141](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10141) ([Trifall](https://github.com/Trifall))
+- Fix Foulgrasp support not increasing Brand limit [\#10141](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10141) ([Trifall](https://github.com/Trifall))
+- Fix Block chance rounding with Mana-Infused Staff [\#10142](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10142) ([LocalIdentity](https://github.com/LocalIdentity))
+### Fixed Behaviours
+- Fix harvest Weapon Range enchant not appearing properly [\#10133](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10133) ([vaisest](https://github.com/vaisest))
+- Fix "Buy Similar" searches for punctuated unique names [\#10139](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10139) ([mcagnion](https://github.com/mcagnion))
+- Fix missing modifier controls on imported items [\#10138](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10138) ([vaisest](https://github.com/vaisest))
+- Fix file sort not using folder name when determining the sort order of builds [\#10131](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10131) ([xoxorwr](https://github.com/xoxorwr))
+- Prevent recursion from stopping on file errors in build list [\#10130](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10130) ([xoxorwr](https://github.com/xoxorwr))
+
+
+
 ## [v2.67.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding-PoE2/tree/v2.67.0) (2026/08/05)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.66.2...v2.67.0)
@@ -30,7 +54,7 @@
 - Add Light Radius to stat sort list [\#10024](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10024) ([ZenJediMind](https://github.com/ZenJediMind))
 - Use Currency Exchange API instead of poe.ninja in trader [\#10077](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10077) ([vaisest](https://github.com/vaisest))
 - Improve stat search with pseudo stats and word order ignore [\#10036](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10036) ([vaisest](https://github.com/vaisest))
-- Increase wait time for OAuth login and copy URL to clipboard [\#10069](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10069)s ([kylhuk](https://github.com/kylhuk))
+- Increase wait time for OAuth login and copy URL to clipboard [\#10069](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10069) ([kylhuk](https://github.com/kylhuk))
 ### Fixed Crashes
 - Fix crash when clicking the "Add Implicit" button on some items [\#10089](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10089) ([vaisest](https://github.com/vaisest))
 ### User Interface

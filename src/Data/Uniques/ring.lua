@@ -1853,7 +1853,7 @@ Implicits: 1
 {variant:12}{group:3}Unaffected by Chilled Ground
 {variant:11}{group:3}Unaffected by Desecrated Ground
 {variant:10}{group:3}Unaffected by Shocked Ground
-{variant:8}{group:2}Monsters cannot steal your Power, Frenzy or Endurance charges on Hit
+{variant:8}{group:2}Monsters cannot steal or remove your Power, Frenzy or Endurance charges on Hit
 {variant:6}{group:2}Monsters cannot Suppress your Spells
 ]],
 }

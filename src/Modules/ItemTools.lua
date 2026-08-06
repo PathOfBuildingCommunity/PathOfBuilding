@@ -270,6 +270,9 @@ function itemLib.applyRange(line, range, valueScalar, baseValueScalar)
 					elseif format == "milliseconds_to_seconds_2dp" then
 						precision = 1000
 						displayPrecision = 2
+					elseif format == "locations_to_metres" then
+						precision = 10
+						displayPrecision = 1
 					elseif format == "milliseconds_to_seconds_2dp_if_required" then
 						precision = 1000
 						displayPrecision = 2

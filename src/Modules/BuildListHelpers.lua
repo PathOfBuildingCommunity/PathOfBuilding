@@ -68,17 +68,18 @@ local function ScanFolder(subPath)
 			local fileName = handle:GetFileName()
 			local fullFileName = main.buildPath..currentSubPath..fileName
 			local header = ReadBuildHeader(fullFileName)
-			if not header then return false end
-			t_insert(list, {
-				fileName = fileName,
-				subPath = currentSubPath,
-				fullFileName = fullFileName,
-				modified = handle:GetFileModifiedTime(),
-				buildName = fileName:gsub("%.xml$",""),
-				level = header.level,
-				className = header.className,
-				ascendClassName = header.ascendClassName,
-			})
+			if header then
+				t_insert(list, {
+					fileName = fileName,
+					subPath = currentSubPath,
+					fullFileName = fullFileName,
+					modified = handle:GetFileModifiedTime(),
+					buildName = fileName:gsub("%.xml$",""),
+					level = header.level,
+					className = header.className,
+					ascendClassName = header.ascendClassName,
+				})
+			end
 
 			if not handle:NextFile() then break end
 		end
@@ -101,9 +102,8 @@ local function ScanFolder(subPath)
 				fullFileName = main.buildPath..currentSubPath..folderName,
 				modified = folder.modified
 			})
-			if not scanDir(nextSubPath) then return false end
+			scanDir(nextSubPath)
 		end
-		return true
 	end
 
 	scanDir(subPath)
@@ -146,21 +146,20 @@ local function SortList(list, sortMode)
 		if a_is_folder and not b_is_folder then return true end
 		if not a_is_folder and b_is_folder then return false end
 
+		local aPathName = (a.subPath or "") .. (a.folderName or a.fileName or "")
+		local bPathName = (b.subPath or "") .. (b.folderName or b.fileName or "")
+
 		if sortMode == "EDITED" then
 			local modA = a.modified or 0
 			local modB = b.modified or 0
 			if modA ~= modB then
 				return modA > modB
 			end
-			if a_is_folder then
-				return naturalSortCompare(a.folderName, b.folderName)
-			else
-				return naturalSortCompare(a.fileName, b.fileName)
-			end
+			return naturalSortCompare(aPathName, bPathName)
 		end
 
 		if a_is_folder then
-			return naturalSortCompare(a.folderName, b.folderName)
+			return naturalSortCompare(aPathName, bPathName)
 		else
 			if sortMode == "CLASS" then
 				local a_has_class = a.className ~= nil
@@ -178,16 +177,16 @@ local function SortList(list, sortMode)
 				elseif a_has_asc and b_has_asc and a.ascendClassName ~= b.ascendClassName then
 					return a.ascendClassName < b.ascendClassName
 				end
-				return naturalSortCompare(a.fileName, b.fileName)
+				return naturalSortCompare(aPathName, bPathName)
 			elseif sortMode == "LEVEL" then
 				if a.level and not b.level then return false
 				elseif not a.level and b.level then return true
 				elseif a.level and b.level then
 					if a.level ~= b.level then return a.level < b.level end
 				end
-				return naturalSortCompare(a.fileName, b.fileName)
+				return naturalSortCompare(aPathName, bPathName)
 			else
-				return naturalSortCompare(a.fileName, b.fileName)
+				return naturalSortCompare(aPathName, bPathName)
 			end
 		end
 	end)

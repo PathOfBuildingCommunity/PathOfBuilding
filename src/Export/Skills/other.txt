@@ -533,7 +533,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill FieryImpactHeistMaceImplicit
-#flags attack area melee
+#flags attack area melee forceSourceWeapon
 	fromItem = true,
 #mods
 
@@ -1564,7 +1564,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill GhostCannons Ghostly Artillery
-#flags attack projectile area
+#flags attack projectile area forceSourceWeapon
 	fromItem = true,
 #mods
 

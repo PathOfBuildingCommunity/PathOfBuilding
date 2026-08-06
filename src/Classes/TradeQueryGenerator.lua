@@ -147,7 +147,7 @@ local eldritchModSlots = {
 	["Boots"] = true
 }
 
-local MAX_FILTERS = 35
+local MAX_FILTERS = 36
 
 local function logToFile(...)
 	ConPrintf(...)
@@ -947,19 +947,71 @@ function TradeQueryGeneratorClass:FinishQuery()
 	if options.sockets and options.sockets > 0 then
 		num_extra = num_extra + 1
 	end
+	if options.links and options.links > 0 then
+		num_extra = num_extra + 1
+	end
 
 	local effective_max = MAX_FILTERS - num_extra
 
-	local prioritizedMods = {}
-	for _, entry in ipairs(self.modWeights) do
-		if #prioritizedMods < effective_max then
-			table.insert(prioritizedMods, entry)
-		else
-			break
+	local pseudoMap = {
+		["3372524247"] = "pseudo.pseudo_total_fire_resistance",
+		["4220027924"] = "pseudo.pseudo_total_cold_resistance",
+		["1671376347"] = "pseudo.pseudo_total_lightning_resistance",
+		["2923486259"] = "pseudo.pseudo_total_chaos_resistance",
+		["4080418644"] = "pseudo.pseudo_total_strength",
+		["3261801346"] = "pseudo.pseudo_total_dexterity",
+		["328541901"] = "pseudo.pseudo_total_intelligence",
+	}
+	local ignoredStats = {
+		-- % all resistances
+		["2901986750"] = true,
+		-- all attributes
+		["1379411836"] = true,
+		["2897413282"] = true,
+	}
+	-- block all hybrid resistance stats
+	local resElements = { "fire", "cold", "lightning", "chaos" }
+	for _, elem1 in ipairs(resElements) do
+		for _, elem2 in ipairs(resElements) do
+			local stats = { string.format("%s_and_%s_damage_resistance_%%", elem1, elem2) }
+			ignoredStats[tostring(HashStats(stats))] = true
 		end
 	end
+	-- block all hybrid attribute stats
+	local attributeElements = { "dexterity", "strength", "intelligence" }
+	for _, elem1 in ipairs(attributeElements) do
+		for _, elem2 in ipairs(attributeElements) do
+			local stats = { string.format("base_%s_and_%s", elem1, elem2) }
+			ignoredStats[tostring(HashStats(stats))] = true
+			stats = { string.format("additional_%s_and_%s", elem1, elem2) }
+			ignoredStats[tostring(HashStats(stats))] = true
+		end
+	end
+	local statFilters = {}
+	local pseudoMods = {}
+	for _, entry in ipairs(self.modWeights) do
+		local hash = entry.tradeModId:match("stat_(%d+)")
+		local filterEntry = { id = entry.tradeModId, value = { weight = (entry.invert == true and entry.weight * -1 or entry.weight) } }
+		-- avoid adding hybrid stats since we get the weight for them from
+		-- individual stats
+		if ignoredStats[hash] then
+			goto weightContinue
+		elseif pseudoMap[hash] then
+			local tradeId = pseudoMap[hash]
+			filterEntry.id = tradeId
+			-- avoid adding duplicate pseudo filters: update existing
+			if pseudoMods[tradeId] then
+				pseudoMods[tradeId].value.weight = math.max(filterEntry.value.weight, pseudoMods[tradeId].value.weight)
+			else
+				pseudoMods[tradeId] = filterEntry
+				table.insert(statFilters, filterEntry)
+			end
+		else
+			table.insert(statFilters, filterEntry)
+		end
 
-	self.modWeights = prioritizedMods
+		::weightContinue::
+	end
 
 	for k, v in pairs(self.calcContext.special.queryExtra or {}) do
 		queryTable.query[k] = v
@@ -980,8 +1032,8 @@ function TradeQueryGeneratorClass:FinishQuery()
 		t_insert(queryTable.query.stats, andFilters)
 	end
 	
-	for _, entry in ipairs(self.modWeights) do
-		t_insert(queryTable.query.stats[1].filters, { id = entry.tradeModId, value = { weight = (entry.invert == true and entry.weight * -1 or entry.weight) } })
+	for _, entry in ipairs(statFilters) do
+		t_insert(queryTable.query.stats[1].filters, entry)
 		filters = filters + 1
 		if filters == effective_max then
 			break

@@ -1,3 +1,25 @@
+VERSION[2.67.1][2026/08/06]
+
+--- New to Path of Building ---
+* Add support for pseudo stats in trader (vaisest)
+
+--- Fixed Crashes ---
+* Fix crash when double-clicking and dragging an item on small window sizes (vaisest)
+* Fix crash from equipping Quivers and Shields that grant skills (LocalIdentity)
+
+--- Fixed Calculations ---
+* Fix Chip Away not using a global limit (Trifall)
+* Fix Foulgrasp support not increasing Brand limit (Trifall)
+* Fix Block chance rounding with Mana-Infused Staff (LocalIdentity)
+
+--- Fixed Behaviours ---
+* Fix harvest Weapon Range enchant not appearing properly (vaisest)
+* Fix "Buy Similar" searches for punctuated unique names (mcagnion)
+* Fix missing modifier controls on imported items (vaisest)
+* Fix file sort not using folder name when determining the sort order of builds (xoxorwr)
+* Prevent recursion from stopping on file errors in build list (xoxorwr)
+
+
 VERSION[2.67.0][2026/08/05]
 
 --- 3.29 - Allflame ---
@@ -24,7 +46,7 @@ VERSION[2.67.0][2026/08/05]
 * Add Light Radius to stat sort list (ZenJediMind)
 * Use Currency Exchange API instead of poe.ninja in trader (vaisest)
 * Improve stat search with pseudo stats and word order ignore (vaisest)
-* Increase wait time for OAuth login and copy URL to clipboard s (kylhuk)
+* Increase wait time for OAuth login and copy URL to clipboard (kylhuk)
 
 --- Fixed Crashes ---
 * Fix crash when clicking the "Add Implicit" button on some items (vaisest)

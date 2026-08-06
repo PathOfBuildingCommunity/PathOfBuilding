@@ -1504,6 +1504,23 @@ describe("TestTriggers", function()
 		assert.is_falsy(build.calcsTab.mainEnv.player.mainSkill.skillFlags.weapon2Attack)
 	end)
 
+	it("Use the equipped bow for Void Shot granted by Voidfletcher", function()
+		build.itemsTab:CreateDisplayItemFromRaw("Test Bow\nShort Bow")
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
+
+		build.itemsTab:CreateDisplayItemFromRaw([[Voidfletcher
+		Ornate Quiver
+		Consumes a Void Charge to Trigger Level 20 Void Shot when you fire Arrows with a Non-Triggered Skill]])
+		build.itemsTab:AddDisplayItem()
+		runCallback("OnFrame")
+
+		local mainSkill = build.calcsTab.mainEnv.player.mainSkill
+		assert.are.equals("Void Shot", mainSkill.activeEffect.grantedEffect.name)
+		assert.is_true(mainSkill.skillFlags.weapon1Attack)
+		assert.is_falsy(mainSkill.skillFlags.weapon2Attack)
+	end)
+
 	it("Trigger Ghostly Artillery with a projectile attack", function()
 		equipDreadCaptainsCutlass()
 		build.skillsTab:PasteSocketGroup("Lancing Steel 20/0  1\n")
