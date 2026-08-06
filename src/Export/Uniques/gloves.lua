@@ -484,7 +484,7 @@ LocalIncreasedEnergyShieldUniqueGlovesInt1
 {variant:1}ItemFoundQuantityIncreaseUniqueGlovesInt1[18,24]
 {variant:2}ItemFoundQuantityIncreaseUniqueGlovesInt1[12,16]
 {variant:3}ItemFoundQuantityIncreaseUniqueGlovesInt1
-{variant:4}ItemFoundRarityIncreaseUniqueGlovesStrDex2[10,15]
+{variant:4}ItemFoundRarityIncreaseUnique__7[10,15]
 ]],[[
 Voidbringer
 Conjurer Gloves

@@ -1450,6 +1450,7 @@ Variant: Additional Projectile
 Variant: Malediction
 Variant: Quantity
 CorruptUntilFiveImplicits
+ModifyableWhileCorruptedUnique__1
 {variant:7}LocalIncreaseSocketedGemLevelUnique__1
 {variant:3}UniqueSpecialCorruptionSocketedGemsManaMultiplier_
 LifeAndReducedFireResistanceUnique__1
@@ -1473,7 +1474,7 @@ Gorgon's Gaze
 Regicide Mask
 Requires Level 52, 58 Dex, 58 Int
 Implicits: 0
-Grants Level 20 Summon Petrification Statue Skill
+PetrificationStatueUnique__1
 LocalIncreasedEnergyShieldPercentUnique__15_
 IncreasedLifeUnique__121
 AttackAndCastSpeedUnique__2

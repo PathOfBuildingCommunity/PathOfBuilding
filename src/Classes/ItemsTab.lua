@@ -2343,7 +2343,10 @@ function ItemsTabClass:UpdateAffixControl(control, item, affixType, outputTable,
 			if (#testSubject.modMagnitudeMods > 0) or (testSubject.catalyst and testSubject.catalyst > 0) then
 				local originalItem = testSubject:BuildRaw()
 				for _, subMod in ipairs(mod) do
-					local modLine = { line = subMod, modTags = mod.modTags, [mod.type] = true }
+					local modLine = { line = subMod, modTags = mod.modTags }
+					if mod.type then
+						modLine[mod.type] = true
+					end
 					t_insert(testSubject.explicitModLines, modLine)
 				end
 				testSubject:BuildAndParseRaw()
@@ -2356,7 +2359,10 @@ function ItemsTabClass:UpdateAffixControl(control, item, affixType, outputTable,
 				for _, line in ipairs(mod) do
 					local rangedLine = itemLib.applyRange(line, main.defaultItemAffixQuality or 0.5, 1, 1)
 					local modList, extra = modLib.parseMod(rangedLine)
-					local modLine = { line = line, modList = modList, extra = extra, modTags = mod.modTags, [mod.type] = true }
+					local modLine = { line = line, modList = modList, extra = extra, modTags = mod.modTags }
+					if mod.type then
+						modLine[mod.type] = true
+					end
 					t_insert(testSubject.explicitModLines, modLine)
 				end
 
@@ -2501,7 +2507,11 @@ function ItemsTabClass:AddModComparisonTooltip(tooltip, mod)
 	local newItem = new("Item"):Item(self.displayItem:BuildRaw())
 
 	for _, subMod in ipairs(mod) do
-		t_insert(newItem.explicitModLines, { line = checkLineForAllocates(subMod, self.build.spec.nodes), modTags = mod.modTags, [mod.type] = true })
+		local modLine = { line = checkLineForAllocates(subMod, self.build.spec.nodes), modTags = mod.modTags }
+		if mod.type then
+			modLine[mod.type] = true
+		end
+		t_insert(newItem.explicitModLines, modLine)
 	end
 
 	newItem:BuildAndParseRaw()
@@ -4041,8 +4051,44 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 					return a.defaultOrder < b.defaultOrder
 				end)
 			end
+		elseif sourceId == "VESTIGIAL" then
+			for id, uniqueTitle in pairs(data.vestigialModMappings) do
+				local unique = main.uniqueDB.byTitle[uniqueTitle]
+				if not unique or (unique.base.type ~= self.displayItem.type) then
+					goto vestigialContinue
+				end
+				local mod = copyTable(data.itemMods.Vestigial[id])
+				local modLabel = colorCodes.VESTIGIAL .. table.concat(mod, "/")
+				if not groupIndexes[mod.group] then
+					t_insert(modList, {})
+					t_insert(modGroups, {
+						label = modLabel,
+						mod = mod,
+						modListIndex = #modList,
+						defaultOrder = id,
+						uniqueTitle = uniqueTitle,
+					})
+					groupIndexes[mod.group] = #modGroups
+				end
+				t_insert(modList[groupIndexes[mod.group]], {
+					label = modLabel,
+					mod = mod,
+					type = "vestigial",
+					defaultOrder = id,
+					uniqueTitle = uniqueTitle,
+				})
+				::vestigialContinue::
+			end
+			for i, _ in pairs(modList) do
+				table.sort(modList[i], function(a, b)
+					return a.defaultOrder < b.defaultOrder
+				end)
+			end
 		end
 		setDefaultSortOrder()
+	end
+	if self.displayItem.rarity == "UNIQUE" and data.vestigialUniqueBaseTypes[self.displayItem.base.type] then
+		t_insert(sourceList, { label = "Vestigial", sourceId = "VESTIGIAL" })
 	end
 	if (self.displayItem.rarity ~= "UNIQUE" and self.displayItem.rarity ~= "RELIC") and (self.displayItem.type == "Helmet" or self.displayItem.type == "Body Armour" or self.displayItem.type == "Gloves" or self.displayItem.type == "Boots") then
 		if self.displayItem.cleansing then
@@ -4076,9 +4122,15 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 				end
 				return
 			end
+		elseif listMod.type == "vestigial" then
+			item.implicitModLines = {}
 		end
 		for _, line in ipairs(listMod.mod) do
-			t_insert(item.implicitModLines, { line = line, modTags = listMod.mod.modTags, [listMod.type] = true })
+			local modLine = { line = line, modTags = listMod.mod.modTags }
+			if listMod.type then
+				modLine[listMod.type] = true
+			end
+			t_insert(item.implicitModLines, modLine)
 		end
 	end
 	local function getSortValue(listMod, stat, calcFunc, slotName, useFullDPS)
@@ -4175,6 +4227,8 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 			end
 		elseif sourceId == "SYNTHESIS" then
 			applyCandidateMod(item, modList[controls.modSelect.selIndex])
+		elseif sourceId == "VESTIGIAL" then
+			applyCandidateMod(item, modList[modGroups[controls.modGroupSelect.selIndex].modListIndex][controls.modSelect.selIndex])
 		else
 			applyCandidateMod(item, modList[modGroups[controls.modGroupSelect.selIndex].modListIndex][controls.modSelect.selIndex])
 		end
@@ -4227,6 +4281,9 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 			for _, line in ipairs(value.mod) do
 				tooltip:AddLine(16, "^7"..line)
 			end
+			if value.uniqueTitle then
+				tooltip:AddLine(16, "^7Source: " .. colorCodes.UNIQUE .. value.uniqueTitle .. "^7")
+			end
 			self:AddModComparisonTooltip(tooltip, value.mod)
 		end
 	end
@@ -4240,6 +4297,9 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 		if mode ~= "OUT" and value then
 			for _, line in ipairs(value.mod) do
 				tooltip:AddLine(16, "^7"..line)
+			end
+			if value.uniqueTitle then
+				tooltip:AddLine(16, "^7Source: " .. colorCodes.UNIQUE .. value.uniqueTitle .. "^7")
 			end
 			self:AddModComparisonTooltip(tooltip, value.mod)
 		end
