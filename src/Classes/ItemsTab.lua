@@ -4053,8 +4053,9 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 			end
 		elseif sourceId == "VESTIGIAL" then
 			for id, uniqueTitle in pairs(data.vestigialModMappings) do
-				local unique = main.uniqueDB.byTitle[uniqueTitle]
-				if not unique or (unique.base.type ~= self.displayItem.type) then
+				local unique = main.uniqueDB.byTitle[uniqueTitle:lower()]
+				if not unique or (unique.base.type ~= self.displayItem.type)
+					or (self.displayItem.title:lower():find(uniqueTitle:lower())) then
 					goto vestigialContinue
 				end
 				local mod = copyTable(data.itemMods.Vestigial[id])

@@ -164,7 +164,7 @@ function main:Init()
 				local newItem = new("Item"):Item(raw, "UNIQUE", true)
 				if newItem.base then
 					self.uniqueDB.list[newItem.name] = newItem
-					self.uniqueDB.byTitle[newItem.title] = newItem
+					self.uniqueDB.byTitle[newItem.title:lower()] = newItem
 				elseif launch.devMode then
 					ConPrintf("Unique DB unrecognised item of type '%s':\n%s", type, raw)
 				end
