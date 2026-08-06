@@ -1408,7 +1408,6 @@ data.rareLikeUniques = {
 		},
 	},
 	["paradoxica"] = {
-		validBases = { { base = data.itemBases["Vaal Rapier"] } },
 		affixes = veiledMods,
 		prefixLimit = 1,
 		suffixLimit = 1,
@@ -1432,6 +1431,13 @@ data.rareLikeUniques = {
 		affixes = table.combine(catarinaPrefixes, veiledSuffixes),
 		prefixLimit = 1,
 		suffixLimit = 1,
+	},
+	["that which was taken"] = {
+		validBases = data.itemBaseLists["Jewel: Charm"],
+		affixes = data.itemMods.JewelCharm,
+		prefixLimit = 4,
+		suffixLimit = 0,
+		ignoreModType = true,
 	}
 }
 -- Uniques (loaded after version-specific data because reasons)
