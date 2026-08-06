@@ -774,7 +774,7 @@ function TradeQueryClass:SetStatWeights(previousSelectionList, onSave)
 		self.statSortSelectionList = { }
 		initStatSortSelectionList(self.statSortSelectionList)
 		main:ClosePopup()
-		self:SetStatWeights(previousSelection)
+		self:SetStatWeights(previousSelection, onSave)
 	end)
 	main:OpenPopup(420, popupHeight, "Stat Weight Multipliers", controls)
 end
