@@ -101,7 +101,7 @@ local manualFixes = {
 	["DivergentPhasingIfBlockedRecentlyReplicaUnique__1"] = { "Replica Mistwall" },
 	["DivergentMovementVelocityPerEvasionLesserUnique__1"] = { "Queen of the Forest" },
 	["DivergentMovementVelocityOverrideUnique__2"] = { "Replica Stampede" },
-	["DivergentModifyableWhileCorruptedUnique__2"] = { "Glimpse of Chaos" },
+	["DivergentModifyableWhileCorruptedUnique__2"] = { "Hands of the High Templar" },
 	-- No clue, but looks like a dupe anyyway
 	["DivergentCannotBeFrozenOrChilledUnique__2"] = false,
 }

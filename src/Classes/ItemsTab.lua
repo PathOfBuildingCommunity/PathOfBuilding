@@ -4228,8 +4228,6 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 			end
 		elseif sourceId == "SYNTHESIS" then
 			applyCandidateMod(item, modList[controls.modSelect.selIndex])
-		elseif sourceId == "VESTIGIAL" then
-			applyCandidateMod(item, modList[modGroups[controls.modGroupSelect.selIndex].modListIndex][controls.modSelect.selIndex])
 		else
 			applyCandidateMod(item, modList[modGroups[controls.modGroupSelect.selIndex].modListIndex][controls.modSelect.selIndex])
 		end

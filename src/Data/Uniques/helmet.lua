@@ -1488,7 +1488,6 @@ Variant: Malediction
 Variant: Quantity
 Can be modified while Corrupted
 Can have up to 5 Implicit Modifiers while Item has this Modifier
-Can be modified while Corrupted
 {variant:7}+2 to Level of Socketed Gems
 {variant:3}Socketed Skill Gems get a 80% Cost & Reservation Multiplier
 (30-40)% increased maximum Life and reduced Fire Resistance

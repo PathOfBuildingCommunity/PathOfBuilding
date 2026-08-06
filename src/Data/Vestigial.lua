@@ -933,7 +933,7 @@ return {
 		"The Baron",
 	},
 	["DivergentModifyableWhileCorruptedUnique__2"] = {
-		"Glimpse of Chaos",
+		"Hands of the High Templar",
 	},
 	["DivergentMovementSpeedPerPoisonOnSelfUnique__1"] = {
 		"Temptation Step",

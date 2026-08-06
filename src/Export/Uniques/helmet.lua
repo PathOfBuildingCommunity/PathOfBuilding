@@ -1450,7 +1450,6 @@ Variant: Additional Projectile
 Variant: Malediction
 Variant: Quantity
 CorruptUntilFiveImplicits
-ModifyableWhileCorruptedUnique__1
 {variant:7}LocalIncreaseSocketedGemLevelUnique__1
 {variant:3}UniqueSpecialCorruptionSocketedGemsManaMultiplier_
 LifeAndReducedFireResistanceUnique__1
