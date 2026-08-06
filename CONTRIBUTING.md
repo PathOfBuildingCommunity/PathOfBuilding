@@ -213,6 +213,21 @@ Z:\home\dev\.vscode\extensions\tangzx.emmylua-0.8.20-linux-x64\debugger\emmy\win
 See [docs/crossPlatform.md](docs/crossPlatform.md) for how platform support is
 structured and what native Linux/macOS support requires.
 
+### macOS
+
+A native arm64 app can be built from source:
+
+1. Install prerequisites: Xcode, plus `brew install cmake ninja`.
+2. Clone the host repo as a sibling:
+   `git clone https://github.com/PathOfBuildingCommunity/PathOfBuilding-SimpleGraphic.git ../PathOfBuilding-SimpleGraphic`
+   and check out its `feat/macos-build` branch (`git submodule update --init --recursive`).
+3. From this repo: `make macos-app` (first run builds all native
+   dependencies via vcpkg — expect 30-60 minutes), then `make run-macos`.
+
+The app runs in dev mode from your checkout: update with `git pull`, user
+data lives in `src/`. Override the checkout with `POB_SCRIPT_PATH` or the
+host clone location with `make SG_DIR=/path/to/clone macos-app`.
+
 ## Testing
 
 PoB uses the [Busted](https://lunarmodules.github.io/busted/) framework to run its tests. Tests are stored under `spec/System` and run automatically when a PR is modified.

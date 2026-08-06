@@ -53,6 +53,12 @@ Native Linux/macOS support additionally requires (tracked as follow-on plans):
    `SimpleGraphicDLLs-<arch>-<os>.tar` release assets (the Windows asset
    already follows this naming).
 2. Per-platform runtime bundles in this repo (`[runtime-<platform>]` manifest
-   sections), ingestion workflow updates, and packaging (tar.gz, then
-   AppImage/dmg). Until then, Linux users run the Windows build under Wine or
-   use community hosts such as pobfrontend.
+   sections), ingestion workflow updates, and packaging. Until then, Linux
+   users run the Windows build under Wine or use community hosts such as
+   pobfrontend.
+
+On macOS, a native app can be built locally today: `make macos-app` builds
+the SimpleGraphic host from a sibling clone (branch `feat/macos-build`) and
+assembles `build/macos/Path of Building.app`, a dev-mode app running
+`src/Launch.lua` from this checkout (auto-updates disabled by design — see
+the spec in `docs/superpowers/specs/2026-08-05-macos-app-design.md`).
