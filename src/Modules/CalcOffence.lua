@@ -608,6 +608,13 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 	end
+	if skillModList:Flag(nil, "EvasionAppliesToSpellDamage") then
+		-- The Unblinking Eye evasion rating to spell damage conversion
+		for i, value in ipairs(skillModList:Tabulate("INC", { }, "Evasion")) do
+			local mod = value.mod
+			skillModList:NewMod("Damage", mod.type, mod.value, mod.source, ModFlag.Spell, mod.keywordFlags, unpack(mod))
+		end
+	end
 	if skillModList:Flag(nil, "SpellDamageAppliesToAttacks") or skillModList:Flag(skillCfg, "SpellDamageAppliesToAttacks") then
 		-- Spell Damage conversion from Crown of Eyes, Kinetic Bolt, and the Wandslinger notable
 		local multiplier = (skillModList:Max(skillCfg, "ImprovedSpellDamageAppliesToAttacks") or 100) / 100
@@ -640,13 +647,6 @@ function calcs.offence(env, actor, activeSkill)
 		for i, value in ipairs(skillModList:Tabulate("INC", { }, "ProjectileSpeed")) do
 			local mod = value.mod
 			skillModList:NewMod("Damage", mod.type, mod.value, mod.source, bor(ModFlag.Bow, ModFlag.Hit), mod.keywordFlags, unpack(mod))
-		end
-	end
-	if skillModList:Flag(nil, "EvasionAppliesToSpellDamage") then
-		-- The Unblinking Eye evasion rating to spell damage conversion
-		for i, value in ipairs(skillModList:Tabulate("INC", { }, "Evasion")) do
-			local mod = value.mod
-			skillModList:NewMod("Damage", mod.type, mod.value, mod.source, ModFlag.Spell, mod.keywordFlags, unpack(mod))
 		end
 	end
 	if skillModList:Flag(nil, "ClawDamageAppliesToUnarmed") then
