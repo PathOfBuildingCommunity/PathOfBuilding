@@ -613,7 +613,7 @@ Stun Threshold is based on 500% of your Mana instead of Life
 Steppan Eard
 Sorcerer Boots
 League: Warbands
-Source: Drops from Renegeade Warband monsters
+Source: Drops from Renegade Warband monsters
 Variant: Pre 3.0.0
 Variant: Current
 Requires Level 67, 123 Int

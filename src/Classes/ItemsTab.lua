@@ -4092,11 +4092,16 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 		end
 		setDefaultSortOrder()
 	end
-	local displayDBUnique = main.uniqueDB.byTitle[self.displayItem.title:lower()]
-	if self.displayItem.rarity == "UNIQUE" and data.vestigialUniqueBaseTypes[self.displayItem.base.type]
+	local titleLower = self.displayItem.title:lower()
+	local displayDBUnique = main.uniqueDB.byTitle[titleLower]
+	if self.displayItem.rarity == "UNIQUE"
+		and data.vestigialUniqueBaseTypes[self.displayItem.base.type]
 		-- the source field should mean that the item comes from a specific
 		-- mechanic, which usually means it is not in the core drop pool
-		and not displayDBUnique.source then
+		and (not displayDBUnique.source
+			-- this is the only exception to the above, as it occasionally drops
+			-- instead of other body armours in legion
+			or titleLower == "stasis prison") then
 		t_insert(sourceList, { label = "Vestigial", sourceId = "VESTIGIAL" })
 	end
 	if (self.displayItem.rarity ~= "UNIQUE" and self.displayItem.rarity ~= "RELIC") and (self.displayItem.type == "Helmet" or self.displayItem.type == "Body Armour" or self.displayItem.type == "Gloves" or self.displayItem.type == "Boots") then

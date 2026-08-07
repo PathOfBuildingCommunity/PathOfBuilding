@@ -604,7 +604,7 @@ StunThresholdBasedOnManaUnique__1
 Steppan Eard
 Sorcerer Boots
 League: Warbands
-Source: Drops from Renegeade Warband monsters
+Source: Drops from Renegade Warband monsters
 Variant: Pre 3.0.0
 Variant: Current
 Requires Level 67, 123 Int
