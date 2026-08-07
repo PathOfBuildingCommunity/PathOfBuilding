@@ -90,6 +90,7 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 	self.showLegacyGems = false
 	self.defaultGemLevel = "normalMaximum"
 	self.defaultGemQuality = main.defaultGemQuality
+	self.proxyGroupsDirty = true
 
 	-- Set selector
 	self.controls.setSelect = new("DropDownControl", { "TOPLEFT", self, "TOPLEFT" }, { 76, 8, 210, 20 }, nil, function(index, value)
@@ -119,15 +120,14 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 
 	-- Gem options
 	local optionInputsX = 170
-	local optionInputsY = 45
-	self.controls.optionSection = new("SectionControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, { 0, optionInputsY + 50, 360, 156 }, "Gem Options")
-	self.controls.sortGemsByDPS = new("CheckBoxControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, { optionInputsX, optionInputsY + 70, 20 }, "Sort gems by DPS:", function(state)
+	self.controls.optionSection = new("SectionControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, { 0, 110, 360, 156 }, "Gem Options")
+	self.controls.sortGemsByDPS = new("CheckBoxControl", { "TOPLEFT", self.controls.optionSection, "TOPLEFT" }, { optionInputsX, 20, 20 }, "Sort gems by DPS:", function(state)
 		self.sortGemsByDPS = state
 	end, nil, true)
 	self.controls.sortGemsByDPSFieldControl = new("DropDownControl", { "LEFT", self.controls.sortGemsByDPS, "RIGHT" }, { 10, 0, 140, 20 }, sortGemTypeList, function(index, value)
 		self.sortGemsByDPSField = value.type
 	end)
-	self.controls.defaultLevel = new("DropDownControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, { optionInputsX, optionInputsY + 94, 170, 20 }, defaultGemLevelList, function(index, value)
+	self.controls.defaultLevel = new("DropDownControl", { "TOPLEFT", self.controls.optionSection, "TOPLEFT" }, { optionInputsX, 44, 170, 20 }, defaultGemLevelList, function(index, value)
 		self.defaultGemLevel = value.gemLevel
 	end)
 	self.controls.defaultLevel.tooltipFunc = function(tooltip, mode, index, value)
@@ -137,17 +137,27 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 		end
 	end
 	self.controls.defaultLevelLabel = new("LabelControl", { "RIGHT", self.controls.defaultLevel, "LEFT" }, { -4, 0, 0, 16 }, "^7Default gem level:")
-	self.controls.defaultQuality = new("EditControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, { optionInputsX, optionInputsY + 118, 60, 20 }, nil, nil, "%D", 2, function(buf)
+	self.controls.defaultQuality = new("EditControl", { "TOPLEFT", self.controls.optionSection, "TOPLEFT" }, { optionInputsX, 68, 60, 20 }, nil, nil, "%D", 2, function(buf)
 		self.defaultGemQuality = m_min(tonumber(buf) or 0, 23)
 	end)
 	self.controls.defaultQualityLabel = new("LabelControl", { "RIGHT", self.controls.defaultQuality, "LEFT" }, { -4, 0, 0, 16 }, "^7Default gem quality:")
-	self.controls.showSupportGemTypes = new("DropDownControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, { optionInputsX, optionInputsY + 142, 170, 20 }, showSupportGemTypeList, function(index, value)
+	self.controls.showSupportGemTypes = new("DropDownControl", { "TOPLEFT", self.controls.optionSection, "TOPLEFT" }, { optionInputsX, 92, 170, 20 }, showSupportGemTypeList, function(index, value)
 		self.showSupportGemTypes = value.show
 	end)
 	self.controls.showSupportGemTypesLabel = new("LabelControl", { "RIGHT", self.controls.showSupportGemTypes, "LEFT" }, { -4, 0, 0, 16 }, "^7Show support gems:")
-	self.controls.showLegacyGems = new("CheckBoxControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, { optionInputsX, optionInputsY + 166, 20 }, "^7Show legacy gems:", function(state)
+	self.controls.showLegacyGems = new("CheckBoxControl", { "TOPLEFT", self.controls.optionSection, "TOPLEFT" }, { optionInputsX, 116, 20 }, "^7Show legacy gems:", function(state)
 		self.showLegacyGems = state
 	end)
+
+	self.controls.proxyGroupHeader = new("LabelControl", { "TOPLEFT", self.controls.optionSection, "BOTTOMLEFT" }, { 0, 16, 0, 14 }, "^7Quick Skill Toggles: ^8(Right-click entry to select socket group)")
+	self.controls.proxyGroupHeader.shown = function()
+		return (self.proxyGroupsHeight and self.proxyGroupsHeight > 0)
+	end
+
+	self.controls.proxyGroupContainer = new("Control", { "TOPLEFT", self.controls.proxyGroupHeader, "BOTTOMLEFT" }, { 0, 10, 360, 0 })
+	self.controls.proxyGroupContainer.height = function()
+		return self.proxyGroupsHeight or 0
+	end
 
 	-- Socket group details
 	if main.portraitMode then
@@ -181,6 +191,8 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 		self.displayGroup.slot = value.slotName
 		self:AddUndoState()
 		self.build.buildFlag = true
+		self.proxyGroupsDirty = true
+		self:UpdateProxyGroups()
 	end)
 	self.controls.groupSlot.tooltipFunc = function(tooltip, mode, index, value)
 		tooltip:Clear()
@@ -204,6 +216,8 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 		self.displayGroup.enabled = state
 		self:AddUndoState()
 		self.build.buildFlag = true
+		self.proxyGroupsDirty = true
+		self:UpdateProxyGroups()
 	end)
 	self.controls.includeInFullDPS = new("CheckBoxControl", { "LEFT", self.controls.groupEnabled, "RIGHT" }, { 145, 0, 20 }, "Include in Full DPS:", function(state)
 		self.displayGroup.includeInFullDPS = state
@@ -541,6 +555,8 @@ function SkillsTabClass:Load(xml, fileName)
 	end
 	self:SetActiveSkillSet(tonumber(xml.attrib.activeSkillSet) or 1)
 	self:ResetUndo()
+	self.proxyGroupsDirty = true
+	self:UpdateProxyGroups(true)
 end
 
 function SkillsTabClass:Save(xml)
@@ -602,6 +618,9 @@ function SkillsTabClass:Save(xml)
 end
 
 function SkillsTabClass:Draw(viewPort, inputEvents)
+	if self.proxyGroupsDirty or not self.proxyControlKeys then
+		self:UpdateProxyGroups()
+	end
 	self.x = viewPort.x
 	self.y = viewPort.y
 	self.width = viewPort.width
@@ -708,6 +727,8 @@ function SkillsTabClass:PasteSocketGroup(testInput)
 			self:SetDisplayGroup(newGroup)
 			self:AddUndoState()
 			self.build.buildFlag = true
+			self.proxyGroupsDirty = true
+			self:UpdateProxyGroups()
 		end
 	end
 end
@@ -733,6 +754,8 @@ function SkillsTabClass:CreateGemSlot(index)
 		self:UpdateSocketGroups()
 		self:AddUndoState()
 		self.build.buildFlag = true
+		self.proxyGroupsDirty = true
+		self:UpdateProxyGroups()
 	end
 	-- Delete gem
 	slot.delete = new("ButtonControl", nil, {0, 0, 20, 20}, "x", function()
@@ -807,6 +830,8 @@ function SkillsTabClass:CreateGemSlot(index)
 		if bufMatchesGem then
 			self.build.buildFlag = true
 		end
+		self.proxyGroupsDirty = true
+		self:UpdateProxyGroups()
 	end, true)
 	slot.nameSpec:AddToTabGroup(self.controls.groupLabel)
 	self.controls["gemSlot"..index.."Name"] = slot.nameSpec
@@ -944,6 +969,8 @@ function SkillsTabClass:CreateGemSlot(index)
 		self:ProcessSocketGroup(self.displayGroup)
 		self:AddUndoState()
 		self.build.buildFlag = true
+		self.proxyGroupsDirty = true
+		self:UpdateProxyGroups()
 	end)
 	slot.enabled.tooltipFunc = function(tooltip)
 		if tooltip:CheckForUpdate(self.build.outputRevision, self.displayGroup) then
@@ -1278,6 +1305,8 @@ function SkillsTabClass:SetDisplayGroup(socketGroup)
 			self.gemSlots[index].count:SetText(gemInstance.count or 1)
 		end
 	end
+	self.proxyGroupsDirty = true
+	self:UpdateProxyGroups()
 end
 
 function SkillsTabClass:AddSocketGroupTooltip(tooltip, socketGroup)
@@ -1472,4 +1501,271 @@ function SkillsTabClass:SetActiveSkillSet(skillSetId)
 	-- set the loadout option to the dummy option since it is now dirty
 	self:SetDisplayGroup(self.socketGroupList[1])
 	self.build:SyncLoadouts()
+	self.proxyGroupsDirty = true
+	self:UpdateProxyGroups(true)
+end
+
+function SkillsTabClass:SelectSocketGroup(socketGroup)
+	if not socketGroup then return end
+	self:SetDisplayGroup(socketGroup)
+	self.controls.groupList.selValue = socketGroup
+	for idx, sg in ipairs(self.socketGroupList) do
+		if sg == socketGroup then
+			self.controls.groupList.selIndex = idx
+			break
+		end
+	end
+end
+
+local function getGrantedEffect(build, gem)
+	if not gem then return nil end
+	if gem.grantedEffect then
+		return gem.grantedEffect
+	end
+	if gem.gemData and gem.gemData.grantedEffect then
+		return gem.gemData.grantedEffect
+	end
+	local bData = (build and build.data) or _G.data
+	if not bData then return nil end
+	if gem.gemId and bData.gems and bData.gems[gem.gemId] then
+		return bData.gems[gem.gemId].grantedEffect
+	end
+	if gem.skillId then
+		if bData.gemForSkill and bData.gemForSkill[gem.skillId] and bData.gems[bData.gemForSkill[gem.skillId]] then
+			return bData.gems[bData.gemForSkill[gem.skillId]].grantedEffect
+		end
+		if bData.skills and bData.skills[gem.skillId] then
+			return bData.skills[gem.skillId]
+		end
+	end
+	if gem.nameSpec and gem.nameSpec:match("%S") and bData.gems then
+		for _, gData in pairs(bData.gems) do
+			if gData.name == gem.nameSpec or gData.nameSpec == gem.nameSpec then
+				return gData.grantedEffect
+			end
+		end
+	end
+	return nil
+end
+
+local function hasSkillType(ge, ...)
+	if not ge or not ge.skillTypes then return false end
+	for i = 1, select("#", ...) do
+		if ge.skillTypes[select(i, ...)] then
+			return true
+		end
+	end
+	return false
+end
+
+function SkillsTabClass:UpdateProxyGroups(force)
+	if not force and not self.proxyGroupsDirty then
+		return
+	end
+	if self.isUpdatingProxyGroups then return end
+	self.isUpdatingProxyGroups = true
+	self.proxyGroupsDirty = false
+
+	if self.proxyControlKeys then
+		for _, key in ipairs(self.proxyControlKeys) do
+			self.controls[key] = nil
+		end
+	end
+	self.proxyControlKeys = {}
+
+	local categories = {
+		{
+			id = "Aura",
+			label = "Reservation Skills",
+			items = {},
+			match = function(ge, gem)
+				if hasSkillType(ge, SkillType.Aura, SkillType.AuraAffectsEnemies, SkillType.Herald, SkillType.Stance, SkillType.Banner) then
+					return true
+				end
+				local lvl = ge.levels and ge.levels[gem.level or 1]
+				return hasSkillType(ge, SkillType.HasReservation) and lvl and (lvl.manaReservationPercent or lvl.manaReservationFlat or lvl.lifeReservationPercent or lvl.lifeReservationFlat) ~= nil
+			end,
+		},
+		{
+			id = "Guard",
+			label = "Guard",
+			items = {},
+			match = function(ge)
+				return hasSkillType(ge, SkillType.Guard)
+			end,
+		},
+		{
+			id = "Curse",
+			label = "Curse",
+			items = {},
+			match = function(ge)
+				return hasSkillType(ge,
+					SkillType.Hex,
+					SkillType.Mark,
+					SkillType.AppliesCurse
+				)
+			end,
+		},
+		{
+			id = "Warcry",
+			label = "Warcry",
+			items = {},
+			match = function(ge)
+				return hasSkillType(ge, SkillType.Warcry)
+			end,
+		},
+	}
+
+	if self.socketGroupList then
+		for _, socketGroup in ipairs(self.socketGroupList) do
+			for _, gem in ipairs(socketGroup.gemList) do
+				local ge = getGrantedEffect(self.build, gem)
+				if ge and not ge.support then
+					for _, cat in ipairs(categories) do
+						if cat.match(ge, gem) then
+							local skillName = ge.name or gem.nameSpec or "Skill"
+							local slotIcon = self.controls.groupList:GetRowIcon(1, nil, socketGroup)
+							t_insert(cat.items, {
+								socketGroup = socketGroup,
+								gem = gem,
+								displayLabel = skillName,
+								slotIcon = slotIcon,
+								enabled = socketGroup.enabled and gem.enabled,
+							})
+						end
+					end
+				end
+			end
+		end
+	end
+
+	local currentY = 0
+	local sectionWidth = 360
+
+	for _, cat in ipairs(categories) do
+		if #cat.items > 0 then
+			local secHeight = 22 + (#cat.items * 22) + 6
+			local secKey = "proxy_sec_" .. cat.id
+			self.controls[secKey] = new("SectionControl", { "TOPLEFT", self.controls.proxyGroupContainer, "TOPLEFT" }, { 0, currentY, sectionWidth, secHeight }, cat.label)
+			t_insert(self.proxyControlKeys, secKey)
+
+			for i, item in ipairs(cat.items) do
+				local cbKey = "proxy_cb_" .. cat.id .. "_" .. i
+				local itemY = 16 + (i - 1) * 22
+				local targetGem = item.gem
+				local targetGroup = item.socketGroup
+
+				local cb = new("CheckBoxControl", { "TOPLEFT", self.controls[secKey], "TOPLEFT" }, { 240, itemY, 18 }, item.displayLabel, function(state)
+					targetGem.enabled = state
+					if state then
+						targetGroup.enabled = true
+					else
+						local hasOtherEnabled = false
+						for _, g in ipairs(targetGroup.gemList) do
+							if g ~= targetGem then
+								local ge = getGrantedEffect(self.build, g)
+								if ge and not ge.support and g.enabled then
+									hasOtherEnabled = true
+									break
+								end
+							end
+						end
+						if not hasOtherEnabled then
+							targetGroup.enabled = false
+						end
+					end
+					self:AddUndoState()
+					self.build.buildFlag = true
+					self.proxyGroupsDirty = true
+					if self.displayGroup then
+						self:SetDisplayGroup(self.displayGroup)
+					end
+				end)
+
+				cb.OnKeyDown = function(ctrl, key)
+					if not ctrl:IsShown() or not ctrl:IsEnabled() then
+						return
+					end
+					if key == "LEFTBUTTON" or key == "RIGHTBUTTON" then
+						ctrl.clicked = true
+						return ctrl
+					end
+				end
+
+				cb.OnKeyUp = function(ctrl, key)
+					if not ctrl:IsShown() or not ctrl:IsEnabled() then
+						return
+					end
+					if key == "RIGHTBUTTON" then
+						if ctrl:IsMouseOver() then
+							self:SelectSocketGroup(targetGroup)
+						end
+					elseif key == "LEFTBUTTON" then
+						if ctrl:IsMouseOver() then
+							ctrl.state = not ctrl.state
+							if ctrl.changeFunc then
+								ctrl.changeFunc(ctrl.state)
+							end
+						end
+					end
+					ctrl.clicked = false
+					return nil
+				end
+
+				cb.state = item.enabled
+				cb.tooltipFunc = function(tooltip)
+					if tooltip:CheckForUpdate(self.build.outputRevision, targetGem) then
+						local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator(self.build)
+						if calcFunc then
+							local prevEnabled = targetGem.enabled
+							targetGem.enabled = not prevEnabled
+							local output = calcFunc()
+							targetGem.enabled = prevEnabled
+							self.build:AddStatComparesToTooltip(tooltip, calcBase, output, prevEnabled and "^7Disabling this gem will give you:" or "^7Enabling this gem will give you:")
+						end
+					end
+				end
+				self.controls[cbKey] = cb
+				t_insert(self.proxyControlKeys, cbKey)
+
+				if item.slotIcon then
+					local iconKey = "proxy_icon_" .. cat.id .. "_" .. i
+					local labelWidth = DrawStringWidth(14, "VAR", item.displayLabel)
+					local iconX = 240 - 5 - labelWidth - 18
+					local slotIcon = item.slotIcon
+					local iconCtrl = new("Control", { "TOPLEFT", self.controls[secKey], "TOPLEFT" }, { iconX, itemY + 1, 16, 16 })
+					iconCtrl.Draw = function(ctrl)
+						if slotIcon then
+							local x, y = ctrl:GetPos()
+							SetDrawColor(1, 1, 1)
+							DrawImage(slotIcon, x, y, 16, 16)
+						end
+					end
+					iconCtrl.IsMouseOver = function(ctrl)
+						local x, y = ctrl:GetPos()
+						local cursorX, cursorY = GetCursorPos()
+						return cursorX >= x and cursorY >= y and cursorX < x + 16 and cursorY < y + 16
+					end
+					iconCtrl.OnKeyDown = function(ctrl, key)
+						if key == "LEFTBUTTON" or key == "RIGHTBUTTON" then
+							return ctrl
+						end
+					end
+					iconCtrl.OnKeyUp = function(ctrl, key)
+						if (key == "RIGHTBUTTON" or key == "LEFTBUTTON") and ctrl:IsMouseOver() then
+							self:SelectSocketGroup(targetGroup)
+						end
+						return nil
+					end
+					self.controls[iconKey] = iconCtrl
+					t_insert(self.proxyControlKeys, iconKey)
+				end
+			end
+
+			currentY = currentY + secHeight + 10
+		end
+	end
+
+	self.proxyGroupsHeight = currentY > 0 and (currentY - 10) or 0
+	self.isUpdatingProxyGroups = false
 end
