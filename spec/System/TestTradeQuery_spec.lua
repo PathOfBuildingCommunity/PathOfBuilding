@@ -88,6 +88,34 @@ describe("TradeQuery", function()
 			assert.is_truthy(tooltipText:find("[Ctrl: compare]", 1, true))
 		end)
 
+		it("identifies a replaced bench craft in the result tooltip", function()
+			local tq = newTradeQuery({
+				resultTbl = { [1] = { [1] = {
+					item_string = "Rarity: RARE\nBehemoth Hold\nGold Ring",
+					amount = 1,
+					currency = "chaos",
+					evaluation = { {
+						benchCraft = "+25 to Strength ^8(Suffix)",
+						benchCraftReplaced = "+20 to Dexterity ^8(Suffix)",
+						benchCraftItemString = "Rarity: RARE\nBehemoth Hold\nGold Ring\nImplicits: 0\n{crafted}{suffix}+25 to Strength",
+					} },
+				} } },
+				sortedResultTbl = { [1] = { { index = 1 } } },
+			})
+			tq.itemsTab.AddItemTooltip = function() end
+			local dropdown = buildRow1Dropdown(tq)
+			local tooltip = new("Tooltip")
+
+			dropdown.tooltipFunc(tooltip, "DROP", 1, nil)
+
+			local tooltipText = ""
+			for _, line in ipairs(tooltip.lines) do
+				tooltipText = tooltipText .. (line.text or "") .. "\n"
+			end
+			assert.is_truthy(tooltipText:find("Replace craft: +20 to Dexterity", 1, true))
+			assert.is_truthy(tooltipText:find("-> +25 to Strength", 1, true))
+		end)
+
 		it("shows the simulated item and highlights its craft while Ctrl is held", function()
 			local tq = newTradeQuery({
 				resultTbl = { [1] = { [1] = {
@@ -358,10 +386,43 @@ describe("TradeQuery", function()
 			assert.are.equal(main.defaultItemAffixQuality or 0.5, previewModLine.range)
 		end)
 
-		it("does not add a second bench craft", function()
-			local evaluation = evaluate(makeRareRing(1, 1, { "{crafted}{suffix}+20 to Strength" }))
+		it("replaces an existing bench craft when the item is otherwise full", function()
+			local evaluation = evaluate(makeRareRing(3, 2, { "{crafted}{suffix}+20 to Dexterity" }), { suffixCraft })
 
+			assert.is_truthy(evaluation.benchCraft:find("to Strength", 1, true))
+			assert.is_truthy(evaluation.benchCraftReplaced:find("+20 to Dexterity", 1, true))
+			assert.is_nil(evaluation.benchCraftItemString:find("+20 to Dexterity", 1, true))
+		end)
+
+		it("keeps an existing bench craft when every replacement is worse", function()
+			local evaluation = evaluate(makeRareRing(1, 1, { "{crafted}{prefix}+50 to maximum Life" }), { suffixCraft })
+
+			assert.is_true(evaluation.weight > 1)
 			assert.is_nil(evaluation.benchCraft)
+			assert.is_nil(evaluation.benchCraftReplaced)
+		end)
+
+		it("removes every line of a replaced multi-line craft", function()
+			local evaluation = evaluate(makeRareRing(1, 1, {
+				"{crafted}{prefix}{modGroup:trade:crafted:0}+20 to Dexterity",
+				"{crafted}{prefix}{modGroup:trade:crafted:0}10% increased Rarity of Items found",
+			}), { suffixCraft })
+
+			assert.is_truthy(evaluation.benchCraftReplaced:find("to Dexterity/10% increased Rarity", 1, true))
+			assert.is_nil(evaluation.benchCraftItemString:find("+20 to Dexterity", 1, true))
+			assert.is_nil(evaluation.benchCraftItemString:find("10% increased Rarity", 1, true))
+		end)
+
+		it("tracks the replacement preview line after a full item reparse", function()
+			local itemString = makeRareRing(3, 2, { "{crafted}{suffix}+20 to Dexterity" })
+				:gsub("Implicits: 0", "Catalyst: Intrinsic\nCatalystQuality: 20\nImplicits: 0")
+			local evaluation = evaluate(itemString, { suffixCraft })
+			local previewItem = new("Item", evaluation.benchCraftItemString)
+			local previewModLine = previewItem.explicitModLines[evaluation.benchCraftLineIndexes[1]]
+
+			assert.is_true(previewModLine.crafted)
+			assert.is_truthy(previewModLine.line:find("to Strength", 1, true))
+			assert.is_nil(evaluation.benchCraftItemString:find("+20 to Dexterity", 1, true))
 		end)
 
 		it("allows another bench craft with multiple crafted modifiers", function()
@@ -370,6 +431,7 @@ describe("TradeQuery", function()
 			}), { prefixCraft })
 
 			assert.is_truthy(evaluation.benchCraft:find("maximum Life", 1, true))
+			assert.is_nil(evaluation.benchCraftReplaced)
 		end)
 
 		it("does not add a fourth craft when crafted modifiers have distinct source indices", function()
