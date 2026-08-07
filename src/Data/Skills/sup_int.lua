@@ -5968,7 +5968,8 @@ skills["SupportScornfulHerald"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["herald_no_buff_effect"] = {
-			flag("DisableBuff", { type = "SkillType", skillType = SkillType.Herald }),
+			mod("BuffEffect", "MORE", nil, 0, 0, { type = "SkillType", skillType = SkillType.Herald }),
+			value = -100,
 		},
 	},
 	qualityStats = {
