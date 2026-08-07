@@ -309,7 +309,7 @@ describe("TradeQuery", function()
 			return tradeQuery:GetResultEvaluation(1, 1, calcOverride or calc, { Life = 100 })[1]
 		end
 
-		it("only scores suffix crafts when the prefix side is full", function()
+		it("only evaluates suffix crafts when the prefix side is full", function()
 			local evaluation = evaluate(makeRareRing(3, 2))
 
 			assert.are.equal(1.5, evaluation.weight)
@@ -318,19 +318,19 @@ describe("TradeQuery", function()
 			assert.are.same({ 6 }, evaluation.benchCraftLineIndexes)
 		end)
 
-		it("only scores prefix crafts when the suffix side is full", function()
+		it("only evaluates prefix crafts when the suffix side is full", function()
 			local evaluation = evaluate(makeRareRing(2, 3))
 
 			assert.is_true(evaluation.weight > 1)
 			assert.is_truthy(evaluation.benchCraft:find("maximum Life", 1, true))
 		end)
 
-		it("previews the same craft roll that was used for scoring", function()
-			local scoredCraftLine
+		it("previews the same craft roll that was used for evaluation", function()
+			local evaluatedCraftLine
 			local evaluation = evaluate(makeRareRing(3, 2), { suffixCraft }, function(args)
 				for _, modLine in ipairs(args.repItem.explicitModLines or { }) do
 					if modLine.crafted then
-						scoredCraftLine = itemLib.applyRange(modLine.line, modLine.range, 1, 1)
+						evaluatedCraftLine = itemLib.applyRange(modLine.line, modLine.range, 1, 1)
 						return { Life = 200 }
 					end
 				end
@@ -340,7 +340,7 @@ describe("TradeQuery", function()
 			local previewModLine = previewItem.explicitModLines[evaluation.benchCraftLineIndexes[1]]
 			local previewCraftLine = itemLib.applyRange(previewModLine.line, previewModLine.range, 1, 1)
 
-			assert.are.equal(scoredCraftLine, previewCraftLine)
+			assert.are.equal(evaluatedCraftLine, previewCraftLine)
 			assert.are.equal(main.defaultItemAffixQuality or 0.5, previewModLine.range)
 		end)
 
@@ -369,7 +369,7 @@ describe("TradeQuery", function()
 			assert.is_nil(evaluation.benchCraft)
 		end)
 
-		it("does not score crafts on corrupted or mirrored items", function()
+		it("does not evaluate crafts on corrupted or mirrored items", function()
 			for _, marker in ipairs({ "Corrupted", "Mirrored" }) do
 				local evaluation = evaluate(makeRareRing(1, 1, { marker }))
 				assert.are.equal(1, evaluation.weight)
@@ -384,21 +384,21 @@ describe("TradeQuery", function()
 			assert.is_nil(evaluation.benchCraft)
 		end)
 
-		it("does not score an item when an explicit affix side is unknown", function()
+		it("does not evaluate an item when an explicit affix side is unknown", function()
 			local evaluation = evaluate(makeRareRing(0, 0, { "+50 to maximum Life" }), { suffixCraft })
 
 			assert.are.equal(1, evaluation.weight)
 			assert.is_nil(evaluation.benchCraft)
 		end)
 
-		it("does not score an item without explicit affix metadata", function()
+		it("does not evaluate an item without explicit affix metadata", function()
 			local evaluation = evaluate(makeRareRing(0, 0), { suffixCraft })
 
 			assert.are.equal(1, evaluation.weight)
 			assert.is_nil(evaluation.benchCraft)
 		end)
 
-		it("does not score contradictory sides for the same trade affix", function()
+		it("does not evaluate contradictory sides for the same trade affix", function()
 			local evaluation = evaluate(makeRareRing(0, 0, {
 				"{prefix}{modGroup:trade:explicit:0}+50 to maximum Life",
 				"{suffix}{modGroup:trade:explicit:0}+30% to Fire Resistance",
@@ -453,11 +453,11 @@ describe("TradeQuery", function()
 		it("keeps lower bench tiers when a higher tier has a worse trade-off", function()
 			local crafts = {
 				{
-					type = "Suffix", group = "FlaskTradeoff", level = 60, types = { Ring = true },
+					type = "Suffix", group = "FlaskEffectAndFlaskChargesGained", level = 60, types = { Ring = true },
 					"20% reduced Flask Charges gained", "(8-10)% increased Effect of Flasks on you",
 				},
 				{
-					type = "Suffix", group = "FlaskTradeoff", level = 75, types = { Ring = true },
+					type = "Suffix", group = "FlaskEffectAndFlaskChargesGained", level = 75, types = { Ring = true },
 					"33% reduced Flask Charges gained", "(11-14)% increased Effect of Flasks on you",
 				},
 			}
@@ -478,7 +478,7 @@ describe("TradeQuery", function()
 
 		it("renders every line of a multi-line craft in the Ctrl preview", function()
 			local multiLineCraft = {
-				type = "Suffix", group = "FlaskTradeoff", types = { Ring = true },
+				type = "Suffix", group = "FlaskEffectAndFlaskChargesGained", types = { Ring = true },
 				"20% reduced Flask Charges gained", "(8-10)% increased Effect of Flasks on you",
 			}
 			local originalItemString = makeRareRing(3, 2)
