@@ -61,7 +61,7 @@ describe("TradeQuery", function()
 			assert.are.equal(0, #tooltip.lines)
 		end)
 
-		it("shows the estimated resistance swap without changing the listed item", function()
+		it("shows a compact resistance swap without changing the listed item", function()
 			local itemString = "Rarity: RARE\nBehemoth Hold\nCoral Ring\nImplicits: 0\n+17% to Fire Resistance"
 			local tq = newTradeQuery({
 				resultTbl = { [1] = { [1] = {
@@ -72,6 +72,8 @@ describe("TradeQuery", function()
 						output = {},
 						weight = 1,
 						theoreticalResistanceSwap = { { from = "Fire", to = "Cold", value = 17 } },
+						theoreticalResistanceSwapItemString = "Rarity: RARE\nBehemoth Hold\nCoral Ring\nImplicits: 0\n+17% to Cold Resistance",
+						theoreticalResistanceSwapLineIndexes = { 1 },
 					} },
 				} } },
 				sortedResultTbl = { [1] = { { index = 1 } } },
@@ -85,8 +87,54 @@ describe("TradeQuery", function()
 			for _, line in ipairs(tooltip.lines) do
 				text = text .. (line.text or "") .. "\n"
 			end
-			assert.is_truthy(text:find("Estimated resistance swap: Fire to Cold %(17%%%)"))
-			assert.is_truthy(text:find("listed value; Harvest may reroll", 1, true))
+			assert.is_truthy(text:find("Estimated swap: Fire -> Cold", 1, true))
+			assert.is_truthy(text:find("(roll may change)", 1, true))
+			assert.is_truthy(text:find("[Ctrl: compare]", 1, true))
+			assert.is_nil(text:find("17%", 1, true))
+			assert.are.equal(itemString, tq.resultTbl[1][1].item_string)
+		end)
+
+		it("highlights every swapped line and leaves other lines unchanged in the Ctrl preview", function()
+			local itemString = "Rarity: RARE\nBehemoth Hold\nCoral Ring\nImplicits: 0\n+30 to Strength\n+17% to Fire Resistance\n+24% to Cold Resistance"
+			local tq = newTradeQuery({
+				resultTbl = { [1] = { [1] = {
+					item_string = itemString,
+					amount = 1,
+					currency = "chaos",
+					evaluation = { {
+						output = {},
+						weight = 1,
+						theoreticalResistanceSwap = {
+							{ from = "Fire", to = "Cold", value = 17 },
+							{ from = "Cold", to = "Lightning", value = 24 },
+						},
+						theoreticalResistanceSwapItemString = "Rarity: RARE\nBehemoth Hold\nCoral Ring\nImplicits: 0\n+30 to Strength\n+17% to Cold Resistance\n+24% to Lightning Resistance",
+						theoreticalResistanceSwapLineIndexes = { 2, 3 },
+					} },
+				} } },
+				sortedResultTbl = { [1] = { { index = 1 } } },
+			})
+			tq.itemsTab.AddItemTooltip = function(_, tooltip, item)
+				for _, modLine in ipairs(item.explicitModLines) do
+					tooltip:AddLine(16, colorCodes.MAGIC .. modLine.line, nil, modLine)
+				end
+			end
+			tq.IsResistanceSwapPreviewActive = function() return true end
+			local dropdown = buildRow1Dropdown(tq)
+			local tooltip = new("Tooltip")
+
+			dropdown.tooltipFunc(tooltip, "DROP", 1, nil)
+
+			assert.are.equal(1, #tooltip.childTooltips)
+			local previewText = ""
+			for _, line in ipairs(tooltip.childTooltips[1].lines) do
+				previewText = previewText .. StripEscapes(line.text or "") .. "\n"
+			end
+			assert.is_truthy(previewText:find("[Swap] +17% to Cold Resistance", 1, true))
+			assert.is_truthy(previewText:find("[Swap] +24% to Lightning Resistance", 1, true))
+			assert.is_truthy(previewText:find("Estimated after swap; rolls may change.", 1, true))
+			assert.is_nil(previewText:find("[Swap] +30 to Strength", 1, true))
+			assert.is_nil(previewText:find("[Swap] +17% to Fire Resistance", 1, true))
 			assert.are.equal(itemString, tq.resultTbl[1][1].item_string)
 		end)
 	end)
@@ -376,6 +424,9 @@ describe("TradeQuery", function()
 			assert.are.equal(2, #swaps)
 			assert.are.same({ from = "Fire", to = "Cold", value = 10 }, swaps[1])
 			assert.are.same({ from = "Cold", to = "Lightning", value = 20 }, swaps[2])
+			assert.are.same({ 1, 2 }, evaluation[1].theoreticalResistanceSwapLineIndexes)
+			assert.is_truthy(evaluation[1].theoreticalResistanceSwapItemString:find("+10%% to Cold Resistance"))
+			assert.is_truthy(evaluation[1].theoreticalResistanceSwapItemString:find("+20%% to Lightning Resistance"))
 			assert.are.equal(original, tq.resultTbl[1][1].item_string)
 		end)
 

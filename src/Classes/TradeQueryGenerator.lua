@@ -1375,12 +1375,12 @@ Remove: %s will be removed from the search results.]], term, term, term)
 	if not context.slotTbl.unique then
 		controls.groupResists = new("CheckBoxControl", { "TOPLEFT", lastItemAnchor, "BOTTOMLEFT" }, { 0, 5, 18 }, "Resistance swaps:", function(state) end)
 		controls.groupResists.state = self.lastGroupResists == true
-		controls.groupResists.tooltipText = "Searches total resistance and estimates Fire/Cold/Lightning swaps for Stat Value.\nHarvest may reroll values."
+		controls.groupResists.tooltipText = "Searches Fire, Cold, and Lightning Resistance as one total.\nResults are sorted using the best estimated swap; rolls may change."
 		updateLastAnchor(controls.groupResists)
 
 		controls.includeResistCaps = new("CheckBoxControl", { "TOPLEFT", lastItemAnchor, "BOTTOMLEFT" }, { 0, 5, 18 }, "Resistance caps:", function(state) end)
 		controls.includeResistCaps.state = self.lastIncludeResistCaps == true
-		controls.includeResistCaps.tooltipText = "Requires listed resistance to reach current elemental and Chaos caps; extra resistance is not weighted.\nWith swaps, filters by total resistance first; fetched items need a valid estimate."
+		controls.includeResistCaps.tooltipText = "Only shows items that meet current Elemental and Chaos Resistance caps.\nResistance above those caps does not affect sorting."
 		updateLastAnchor(controls.includeResistCaps)
 	end
 

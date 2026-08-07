@@ -827,6 +827,10 @@ function TradeQueryClass:SetNotice(notice_control, msg)
 	notice_control.label = msg
 end
 
+function TradeQueryClass:IsResistanceSwapPreviewActive()
+	return IsKeyDown("CTRL")
+end
+
 -- Method to reduce the full output to only the values that were 'weighted'
 function TradeQueryClass:ReduceOutput(output)
 	local smallOutput = {}
@@ -921,11 +925,12 @@ function TradeQueryClass:GetResultEvaluation(row_idx, result_index, calcFunc, ba
 		for _, assignment in ipairs(assignments) do
 			local variant
 			local swaps
+			local swappedLineIndexes
 			if assignment.swaps == 0 then
 				variant = item
 				swaps = {}
 			else
-				variant, swaps = tradeResistanceSwap.buildVariant(result.item_string, descriptors, assignment)
+				variant, swaps, swappedLineIndexes = tradeResistanceSwap.buildVariant(result.item_string, descriptors, assignment)
 			end
 			if variant then
 				local evaluation = evaluateVariant(variant)
@@ -935,6 +940,8 @@ function TradeQueryClass:GetResultEvaluation(row_idx, result_index, calcFunc, ba
 					bestSwapCount = assignment.swaps
 					if assignment.swaps > 0 then
 						bestEvaluation.theoreticalResistanceSwap = swaps
+						bestEvaluation.theoreticalResistanceSwapItemString = variant:BuildRaw()
+						bestEvaluation.theoreticalResistanceSwapLineIndexes = swappedLineIndexes
 					end
 				end
 			end
@@ -1348,11 +1355,39 @@ you can add them, copy the link here, and press "Price Item" to evaluate the ite
 		end
 		local descriptions = {}
 		for _, swap in ipairs(swaps) do
-			table.insert(descriptions, string.format("%s to %s (%g%%)", swap.from, swap.to, swap.value))
+			table.insert(descriptions, string.format("%s -> %s", swap.from, swap.to))
 		end
+		local label = #swaps == 1 and "Estimated swap: " or "Estimated swaps: "
+		local rollNote = #swaps == 1 and " (roll may change)" or " (rolls may change)"
+		local compareHint = evaluation.theoreticalResistanceSwapItemString and colorCodes.TIP .. " [Ctrl: compare]" or ""
 		tooltip:AddSeparator(10)
-		tooltip:AddLine(16, "^7Estimated resistance swap: " .. table.concat(descriptions, ", "))
-		tooltip:AddLine(16, "^8Uses the listed value; Harvest may reroll.")
+		tooltip:AddLine(16, "^7" .. label .. table.concat(descriptions, ", ") .. "^8" .. rollNote .. compareHint)
+		return evaluation
+	end
+	local function addResistanceSwapPreviewIfApplicable(tooltip, evaluation, tooltipSlot)
+		if not evaluation or not evaluation.theoreticalResistanceSwapItemString or not self:IsResistanceSwapPreviewActive() then
+			return
+		end
+		local previewItem = new("Item", evaluation.theoreticalResistanceSwapItemString)
+		local previewTooltip = tooltip.resistanceSwapPreviewTooltip or new("Tooltip")
+		tooltip.resistanceSwapPreviewTooltip = previewTooltip
+		previewTooltip:Clear()
+		self.itemsTab:AddItemTooltip(previewTooltip, previewItem, tooltipSlot)
+		local swappedModLines = {}
+		for _, lineIndex in ipairs(evaluation.theoreticalResistanceSwapLineIndexes or {}) do
+			local modLine = previewItem.explicitModLines[lineIndex]
+			if modLine then
+				swappedModLines[modLine] = true
+			end
+		end
+		for _, line in ipairs(previewTooltip.lines) do
+			if line.modLine and swappedModLines[line.modLine] and line.text then
+				line.text = colorCodes.WARNING .. "[Swap] " .. StripEscapes(line.text)
+			end
+		end
+		previewTooltip:AddSeparator(10)
+		previewTooltip:AddLine(14, colorCodes.TIP .. "Estimated after swap; rolls may change.")
+		tooltip.childTooltips = { previewTooltip }
 	end
 	controls["resultDropdown"..row_idx].tooltipFunc = function(tooltip, dropdown_mode, dropdown_index, dropdown_display_string)
 		local sortedRow = self.sortedResultTbl[row_idx]
@@ -1369,7 +1404,8 @@ you can add them, copy the link here, and press "Price Item" to evaluate the ite
 		local tooltipSlot = slotTbl.selectedJewelNodeId and self.itemsTab.sockets[slotTbl.selectedJewelNodeId] or activeSlot
 		self.itemsTab:AddItemTooltip(tooltip, item, tooltipSlot)
 		addMegalomaniacCompareToTooltipIfApplicable(tooltip, pb_index)
-		addResistanceSwapToTooltipIfApplicable(tooltip, result)
+		local resistanceSwapEvaluation = addResistanceSwapToTooltipIfApplicable(tooltip, result)
+		addResistanceSwapPreviewIfApplicable(tooltip, resistanceSwapEvaluation, tooltipSlot)
 		tooltip:AddSeparator(10)
 		tooltip:AddLine(16, string.format("^7Price: %s %s", result.amount, result.currency))
 	end
