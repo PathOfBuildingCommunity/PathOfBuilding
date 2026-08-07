@@ -892,13 +892,17 @@ function TradeQueryClass:GetBenchCraftAvailability(item)
 			end
 		end
 	end
+	local craftState = {
+		count = craftedCount,
+		limit = craftedLimit,
+	}
 	if craftedCount >= craftedLimit then
-		return
+		return nil, craftState
 	end
 	return {
 		Prefix = m_max(getAffixSideLimit(item, "prefixes", defaultLimit) - occupied.Prefix, 0),
 		Suffix = m_max(getAffixSideLimit(item, "suffixes", defaultLimit) - occupied.Suffix, 0),
-	}
+	}, craftState
 end
 
 local function getExistingAffixGroups(item, existingLines)
@@ -946,22 +950,58 @@ local function conflictsWithExistingAffix(craft, existingGroups, existingLines)
 	return false
 end
 
+local function getItemWithoutCraftedMods(item)
+	local strippedItem = new("Item", item:BuildRaw())
+	local retainedModLines = { }
+	local replacedCraftLines = { }
+	local replacedCraftType
+	for _, modLine in ipairs(strippedItem.explicitModLines or { }) do
+		if modLine.crafted then
+			for line in modLine.line:gmatch("[^\r\n]+") do
+				t_insert(replacedCraftLines, line)
+			end
+			replacedCraftType = replacedCraftType or (modLine.prefix and "Prefix" or modLine.suffix and "Suffix")
+		else
+			t_insert(retainedModLines, modLine)
+		end
+	end
+	if #replacedCraftLines == 0 then
+		return
+	end
+	strippedItem.explicitModLines = retainedModLines
+	local replacedCraft = table.concat(replacedCraftLines, "/")
+	if replacedCraftType then
+		replacedCraft = replacedCraft .. " ^8(" .. replacedCraftType .. ")"
+	end
+	return new("Item", strippedItem:BuildRaw()), replacedCraft
+end
+
 function TradeQueryClass:GetBestBenchCraftEvaluation(item, slotName, calcFunc, baseOutput, output, weight)
-	local available = self:GetBenchCraftAvailability(item)
+	local available, craftState = self:GetBenchCraftAvailability(item)
+	local evaluationItem = item
+	local replacedCraft
+	if (not available or (available.Prefix == 0 and available.Suffix == 0))
+		and craftState and craftState.count == 1 and craftState.limit == 1 then
+		evaluationItem, replacedCraft = getItemWithoutCraftedMods(item)
+		if evaluationItem then
+			available = self:GetBenchCraftAvailability(evaluationItem)
+		end
+	end
 	if not available or (available.Prefix == 0 and available.Suffix == 0) then
 		return output, weight
 	end
-	local existingLines = getExistingModLines(item)
-	local existingGroups = getExistingAffixGroups(item, existingLines)
+	local existingLines = getExistingModLines(evaluationItem)
+	local existingGroups = getExistingAffixGroups(evaluationItem, existingLines)
 	local bestCraft
 	local bestCraftItemString
 	local bestCraftLineIndexes
-	local originalItem = item:BuildRaw()
+	local bestReplacedCraft
+	local originalItem = evaluationItem:BuildRaw()
 	local craftedItem = new("Item", originalItem)
 	local requiresFullParse = #craftedItem.modMagnitudeMods > 0 or (craftedItem.catalyst and craftedItem.catalyst > 0)
 	for _, craft in ipairs(self.itemsTab.build.data.masterMods or { }) do
 		if available[craft.type] and available[craft.type] > 0
-			and craft.types and craft.types[item.type]
+			and craft.types and craft.types[evaluationItem.type]
 			and not conflictsWithExistingAffix(craft, existingGroups, existingLines) then
 			local firstCraftLineIndex = #craftedItem.explicitModLines + 1
 			for _, line in ipairs(craft) do
@@ -994,6 +1034,7 @@ function TradeQueryClass:GetBestBenchCraftEvaluation(item, slotName, calcFunc, b
 				weight = craftWeight
 				bestCraft = table.concat(craft, "/") .. " ^8(" .. craft.type .. ")"
 				bestCraftItemString = craftedItem:BuildRaw()
+				bestReplacedCraft = replacedCraft
 				bestCraftLineIndexes = { }
 				for lineIndex = firstCraftLineIndex, #craftedItem.explicitModLines do
 					t_insert(bestCraftLineIndexes, lineIndex)
@@ -1008,7 +1049,7 @@ function TradeQueryClass:GetBestBenchCraftEvaluation(item, slotName, calcFunc, b
 			end
 		end
 	end
-	return output, weight, bestCraft, bestCraftItemString, bestCraftLineIndexes
+	return output, weight, bestCraft, bestCraftItemString, bestCraftLineIndexes, bestReplacedCraft
 end
 
 -- Method to evaluate a result by getting it's output and weight
@@ -1068,9 +1109,9 @@ function TradeQueryClass:GetResultEvaluation(row_idx, result_index, calcFunc, ba
 
 		local output = self:ReduceOutput(calcFunc({ repSlotName = slotName, repItem = item }))
 		local weight = self.tradeQueryGenerator.WeightedRatioOutputs(baseOutput, output, self.statSortSelectionList)
-		local benchCraft, benchCraftItemString, benchCraftLineIndexes
+		local benchCraft, benchCraftItemString, benchCraftLineIndexes, benchCraftReplaced
 		if slotTbl.considerBenchCraft then
-			output, weight, benchCraft, benchCraftItemString, benchCraftLineIndexes = self:GetBestBenchCraftEvaluation(item, slotName, calcFunc, baseOutput, output, weight)
+			output, weight, benchCraft, benchCraftItemString, benchCraftLineIndexes, benchCraftReplaced = self:GetBestBenchCraftEvaluation(item, slotName, calcFunc, baseOutput, output, weight)
 		end
 		result.evaluation = {{
 			output = output,
@@ -1078,6 +1119,7 @@ function TradeQueryClass:GetResultEvaluation(row_idx, result_index, calcFunc, ba
 			benchCraft = benchCraft,
 			benchCraftItemString = benchCraftItemString,
 			benchCraftLineIndexes = benchCraftLineIndexes,
+			benchCraftReplaced = benchCraftReplaced,
 		}}
 	end
 	return result.evaluation
@@ -1437,8 +1479,11 @@ you can add them, copy the link here, and press "Price Item" to evaluate the ite
 			return
 		end
 		local compareHint = evaluation.benchCraftItemString and colorCodes.TIP .. " [Ctrl: compare]" or ""
+		local craftLabel = evaluation.benchCraftReplaced
+			and "^7Replace craft: " .. evaluation.benchCraftReplaced .. " -> "
+			or "^7Bench craft: "
 		tooltip:AddSeparator(10)
-		tooltip:AddLine(16, "^7Bench craft: " .. evaluation.benchCraft .. compareHint)
+		tooltip:AddLine(16, craftLabel .. evaluation.benchCraft .. compareHint)
 		return evaluation
 	end
 	local function addBenchCraftPreviewIfApplicable(tooltip, evaluation, tooltipSlot)
