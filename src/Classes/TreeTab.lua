@@ -1947,8 +1947,7 @@ function TreeTabClass:FindTimelessJewel()
 
 	local function generateFallbackWeights(nodes, powerStat)
 		local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator(self.build)
-		local useFullDPS = powerStat.stat == "FullDPS"
-			or (powerStat.isWeightedScore and WeightedScore.weightsNeedFullDPS(WeightedScore.getWeights(self.build)))
+		local useFullDPS = data.powerStatList.RequiresFullDPS(powerStat, self.build)
 		if useFullDPS then
 			calcBase = calcFunc(nil, true)
 		end
@@ -2132,14 +2131,34 @@ function TreeTabClass:FindTimelessJewel()
 				stat = stat.stat,
 				transform = stat.transform,
 				getValue = stat.getValue,
+				requiresFullDPS = stat.requiresFullDPS,
+				isWeightedScore = stat.isWeightedScore,
 			})
 		end
 	end
-	controls.fallbackWeightsList = new("DropDownControl"):DropDownControl({"TOPLEFT", controls.nodeSelect, "BOTTOMLEFT"}, {0, rowSpacing, 200, rowHeight}, fallbackWeightsList, function(index)
-		timelessData.fallbackWeightMode.idx = index
+	local activeFallbackWeightIndex = timelessData.fallbackWeightMode.idx or 1
+	if not fallbackWeightsList[activeFallbackWeightIndex] then
+		activeFallbackWeightIndex = 1
+	end
+	local activeFallbackWeight = fallbackWeightsList[activeFallbackWeightIndex]
+	WeightedScore.appendEditWeightsAction(fallbackWeightsList, function()
+		controls.fallbackWeightsList:SelByValue(activeFallbackWeight.stat, "stat")
+		local tradeQuery = self.build.itemsTab.tradeQuery
+		if tradeQuery then
+			tradeQuery:SetStatWeights()
+		end
+	end)
+	controls.fallbackWeightsList = new("DropDownControl"):DropDownControl({"TOPLEFT", controls.nodeSelect, "BOTTOMLEFT"}, {0, rowSpacing, 200, rowHeight}, fallbackWeightsList, function(index, value)
+		if value.isAction then
+			value.action()
+		else
+			activeFallbackWeightIndex = index
+			activeFallbackWeight = value
+			timelessData.fallbackWeightMode.idx = index
+		end
 	end)
 	controls.fallbackWeightsLabel = new("LabelControl"):LabelControl({"RIGHT", controls.fallbackWeightsList, "LEFT"}, {-labelSpacing, 0, 0, labelHeight}, "^7Fallback Weight Mode:")
-	controls.fallbackWeightsList.selIndex = timelessData.fallbackWeightMode.idx or 1
+	controls.fallbackWeightsList.selIndex = activeFallbackWeightIndex
 	controls.fallbackWeightsButton = new("ButtonControl"):ButtonControl({"LEFT", controls.fallbackWeightsList, "RIGHT"}, {5, 0, 66, 18}, "Generate", function()
 		setupFallbackWeights()
 		controls.searchListFallbackButton.label = "^4Fallback Nodes"

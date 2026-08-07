@@ -663,6 +663,15 @@ holding Shift will put it in the second.]])
 			table.insert(sortingOptions, option)
 		end
 	end
+	local activeCraftingSort = sortingOptions[1]
+	WeightedScore.appendEditWeightsAction(sortingOptions, function()
+		self.controls.craftingSorting:SelByValue(activeCraftingSort.stat, "stat")
+		if self.tradeQuery then
+			self.tradeQuery:SetStatWeights(nil, function()
+				self:UpdateAffixControls()
+			end)
+		end
+	end)
 	-- Section: Catalysts
 	self.controls.displayItemSectionCatalyst = new("Control"):Control({"TOPLEFT",self.controls.displayItemSectionQuality,"BOTTOMLEFT"}, {0, 0, 0, function()
 		return (self.controls.displayItemCatalyst:IsShown() or self.controls.displayItemCatalystQualityEdit:IsShown()) and 28 or 0
@@ -732,8 +741,13 @@ holding Shift will put it in the second.]])
 			-- cluster jewels don't have good comparison support and sorting would be misleading
 			not (self.displayItem.base.type == "Jewel" and self.displayItem.base.subType == "Cluster")
 	end
-	self.controls.craftingSorting = new("DropDownControl"):DropDownControl({ "LEFT", self.controls.craftingSortingLabel, "RIGHT" }, { 4, 0, 200, 20 }, sortingOptions, function()
-		self:UpdateAffixControls()
+	self.controls.craftingSorting = new("DropDownControl"):DropDownControl({ "LEFT", self.controls.craftingSortingLabel, "RIGHT" }, { 4, 0, 200, 20 }, sortingOptions, function(index, value)
+		if value.isAction then
+			value.action()
+		else
+			activeCraftingSort = value
+			self:UpdateAffixControls()
+		end
 	end)
 
 	-- Section: Affix Selection
