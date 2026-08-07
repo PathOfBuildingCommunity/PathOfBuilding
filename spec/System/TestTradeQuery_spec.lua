@@ -325,6 +325,20 @@ describe("TradeQuery", function()
 			assert.is_truthy(evaluation.benchCraft:find("maximum Life", 1, true))
 		end)
 
+		it("does not evaluate crafts unavailable for the item type", function()
+			local amuletCraft = {
+				type = "Prefix",
+				group = "IncreasedLife",
+				modTags = { "life" },
+				types = { Amulet = true },
+				"+(51-55) to maximum Life",
+			}
+			local evaluation = evaluate(makeRareRing(2, 2), { amuletCraft })
+
+			assert.are.equal(1, evaluation.weight)
+			assert.is_nil(evaluation.benchCraft)
+		end)
+
 		it("previews the same craft roll that was used for evaluation", function()
 			local evaluatedCraftLine
 			local evaluation = evaluate(makeRareRing(3, 2), { suffixCraft }, function(args)
