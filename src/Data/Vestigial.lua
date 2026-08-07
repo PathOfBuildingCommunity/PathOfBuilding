@@ -257,7 +257,7 @@ return {
 		"Esh's Visage",
 	},
 	["DivergentChaosDamageDoesNotBypassEnergyShieldPercentUnique__2"] = {
-		"Solaris Lorica",
+		"Shavronne's Wrappings",
 	},
 	["DivergentChaosDamageOverTimeUnique__1"] = {
 		"Solaris Lorica",

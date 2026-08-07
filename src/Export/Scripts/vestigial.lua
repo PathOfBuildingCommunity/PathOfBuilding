@@ -55,7 +55,7 @@ local manualFixes = {
 	["DivergentCannotBeFrozenUnique__1"] = { "Vix Lunaris" },
 	-- Complete mystery
 	["DivergentCannotBeFrozenUnique__6"] = false,
-	["DivergentChaosDamageDoesNotBypassEnergyShieldPercentUnique__2"] = { "Solaris Lorica" },
+	["DivergentChaosDamageDoesNotBypassEnergyShieldPercentUnique__2"] = { "Shavronne's Wrappings" },
 	["DivergentFireDamageCanPoisonAndLessDurationUnique__1"] = { "Volkuur's Guidance" },
 	["DivergentColdDamageCanPoisonAndLessDurationUnique__1"] = { "Volkuur's Guidance" },
 	["DivergentLightningDamageCanPoisonAndLessDurationUnique__1"] = { "Volkuur's Guidance" },

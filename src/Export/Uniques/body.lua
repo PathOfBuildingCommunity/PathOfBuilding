@@ -663,7 +663,7 @@ Implicits: 1
 CriticalStrikeChanceUniqueBodyInt4
 {variant:1,2}LocalIncreasedEnergyShieldUniqueBodyInt4[190,230]
 {variant:3,4,5}LocalIncreasedEnergyShieldUniqueBodyInt4
-ConvertFireToChaosUniqueBodyInt4
+ConvertFireToChaosUniqueBodyInt4Updated
 {variant:1,2,5}SpellDamageTakenOnLowManaUniqueBodyInt4[100,100]
 {variant:3}SpellDamageTakenOnLowManaUniqueBodyInt4[25,25]
 {variant:4}SpellDamageTakenOnLowManaUniqueBodyInt4[15,15]
