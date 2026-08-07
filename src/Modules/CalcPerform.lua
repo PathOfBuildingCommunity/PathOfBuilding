@@ -2263,7 +2263,7 @@ function calcs.perform(env, skipEHP)
 				-- Also nothing :/
 			elseif buff.type == "GlobalDB" then
 				modDB:AddList(buff.modList) -- Allows a skill mod to affect other skills through modDB
-			elseif buff.type == "Buff" and not skillModList:Flag(skillCfg, "DisableBuff") then
+			elseif buff.type == "Buff" then
 				if env.mode_buffs and (not activeSkill.skillFlags.totem or buff.allowTotemBuff) then
 					local skillCfg = buff.activeSkillBuff and skillCfg
 					local modStore = buff.activeSkillBuff and skillModList or modDB

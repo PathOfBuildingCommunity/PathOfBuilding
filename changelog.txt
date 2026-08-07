@@ -1,3 +1,14 @@
+VERSION[2.67.2][2026/08/07]
+
+--- Fixed Calculations ---
+* Fix Scornful Herald not counting buffs as affecting you (Wires77)
+* Fix The Unblinking Eye increased evasion not applying to Attacks with Arcane Might (andyli00)
+
+--- Fixed Behaviours ---
+* Fix Foulborn icon display on Linux (cupkax)
+* Fix double-clicking and dragging items causing issues (vaisest)
+
+
 VERSION[2.67.1][2026/08/06]
 
 --- New to Path of Building ---
