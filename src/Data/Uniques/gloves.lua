@@ -6,6 +6,7 @@ return {
 Admiral's Arrogance
 Antique Gauntlets
 League: Settlers of Kalguur
+Source: Drops from unique{Admiral Valerius} in normal{Shipping encounters}
 Requires Level 39, 58 Str
 (6-12)% increased Attack Speed
 (100-140)% increased Armour
@@ -284,7 +285,6 @@ Slink Gloves
 League: Heist
 Variant: Pre 3.26.0
 Variant: Current
-Source: Reward from a mercenary duel
 Requires Level 70, 95 Dex
 +(80-120) to Evasion Rating
 (5-8)% increased Attack and Cast Speed
@@ -887,6 +887,7 @@ Chaos Skills have 20% chance to Ignite
 Hand of Heresy
 Martyr Gloves
 League: Mercenaries of Trarthus
+Source: Reward from Mercenary duel
 Variant: Pre 3.28.0
 Variant: Current
 Requires Level 77, 70 Str, 70 Int
@@ -922,7 +923,6 @@ Unaffected by Shock while Leeching Energy Shield
 Algor Mortis
 Carnal Mitts
 League: Delirium
-Source: Drops from the Simulacrum Encounter
 Requires Level 50, 39 Dex, 39 Int
 +(50-70) to maximum Energy Shield
 +(15-20)% to Cold and Lightning Resistances
@@ -1065,6 +1065,8 @@ Requires Level 5
 ]],[[
 Malachai's Mark
 Murder Mitts
+Source: Drops from unique{Nightmare of the Depraved Trinity} in
+normal{Abomination Map}
 Requires Level 67, 51 Dex, 51 Int
 (80-100)% increased Evasion and Energy Shield
 +(60-80) to maximum Life

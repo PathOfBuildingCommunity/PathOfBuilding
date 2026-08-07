@@ -133,6 +133,7 @@ Unwavering Stance
 Redblade Tramplers
 Ancient Greaves
 League: Warbands
+Source: Drops from Redblade Mercenary monsters
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 46, 82 Str
@@ -612,6 +613,7 @@ Stun Threshold is based on 500% of your Mana instead of Life
 Steppan Eard
 Sorcerer Boots
 League: Warbands
+Source: Drops from Renegeade Warband monsters
 Variant: Pre 3.0.0
 Variant: Current
 Requires Level 67, 123 Int
@@ -952,6 +954,7 @@ Gain (10-20) Life per Enemy Killed
 Brinerot Whalers
 Trapper Boots
 League: Warbands
+Source: Drops from Brinerot Warband monsters
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Current

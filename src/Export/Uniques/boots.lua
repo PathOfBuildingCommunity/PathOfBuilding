@@ -133,6 +133,7 @@ KeystoneUnwaveringStanceUnique__1
 Redblade Tramplers
 Ancient Greaves
 League: Warbands
+Source: Drops from Redblade Mercenary monsters
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 46, 82 Str
@@ -603,6 +604,7 @@ StunThresholdBasedOnManaUnique__1
 Steppan Eard
 Sorcerer Boots
 League: Warbands
+Source: Drops from Renegeade Warband monsters
 Variant: Pre 3.0.0
 Variant: Current
 Requires Level 67, 123 Int
@@ -941,6 +943,7 @@ LifeGainedFromEnemyDeathUniqueBootsStrInt1
 Brinerot Whalers
 Trapper Boots
 League: Warbands
+Source: Drops from Brinerot Warband monsters
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Current

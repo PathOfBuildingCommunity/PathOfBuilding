@@ -136,6 +136,7 @@ Triggers Level 20 Elemental Aegis when Equipped
 Redblade Banner
 Painted Tower Shield
 League: Warbands
+Source: Drops from Redblade Mercenary monsters
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Pre 3.11.0
@@ -157,6 +158,7 @@ Implicits: 1
 Svalinn
 Girded Tower Shield
 League: Settlers of Kalguur
+Source: Drops from unique{The Black Knight} in a normal{Starfall Crater}
 Requires Level 51, 123 Str
 Implicits: 1
 +(10-20) to maximum Life
@@ -392,6 +394,7 @@ You are at Maximum Chance to Block Spell Damage if you have not Blocked Recently
 Mutewind Pennant
 Enameled Buckler
 League: Warbands
+Source: Drop from Mutewind Mercenary monsters
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Pre 3.11.0
@@ -536,6 +539,7 @@ Your Raised Spectres also gain Arcane Surge when you do
 Brinerot Flag
 Tarnished Spirit Shield
 League: Warbands
+Source: Drops from Brinerot Warband monsters
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Pre 3.11.0
@@ -672,6 +676,7 @@ Shocks you when you reach Maximum Power Charges
 Manastorm
 {variant:1}Fossilised Spirit Shield
 {variant:2,3}Lacewood Spirit Shield
+Source: Drops from unique{Nightmare of Uhtred} in normal{Citadel Map}
 Variant: Pre 3.19.0
 Variant: Pre 3.24.0
 Variant: Current
@@ -778,6 +783,7 @@ Curse Enemies with Elemental Weakness when you Block their Spell Damage, ignorin
 The Flawed Refuge
 Maple Round Shield
 League: Affliction
+Source: Drops from Viridian Wildwood and Ritual monsters
 Requires Level 39, 52 Str, 52 Dex
 Implicits: 1
 180% increased Block Recovery
@@ -828,6 +834,7 @@ Teak Round Shield
 Variant: Pre 3.16.0
 Variant: Current
 League: Heist
+Source: Reward from Mercenary duel
 Implicits: 1
 180% increased Block Recovery
 +2 to Level of Socketed Support Gems
@@ -888,6 +895,7 @@ Socketed Support Gems can also Support Skills from your Main Hand
 ]],[[
 Vix Lunaris
 Cardinal Round Shield
+Source: Drops from unique{Selenia, the Endless Night} in normal{The Twilight Temple}
 Implicits: 0
 +2 to Level of Socketed Gems
 Triggers Level 20 Cold Aegis when Equipped
@@ -944,6 +952,7 @@ Implicits: 0
 Broken Faith
 Archon Kite Shield
 League: Warbands
+Source: Drops from Renegade Warband monsters
 Variant: Pre 2.6.0
 Variant: Pre 3.11.0
 Variant: Current
@@ -977,6 +986,7 @@ Glancing Blows
 ]],[[
 Invictus Solaris
 Archon Kite Shield
+Source: Drops from unique{Helial, the Day Unending}
 Implicits: 1
 +12% to all Elemental Resistances
 +2 to Level of Socketed Gems
@@ -1215,7 +1225,6 @@ Implicits: 2
 ]],[[
 Leper's Alms
 Mirrored Spiked Shield
-Source: Drops from unique{The Eradicator}
 Variant: Pre 3.5.0
 Variant: Current
 Implicits: 1

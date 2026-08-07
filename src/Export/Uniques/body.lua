@@ -180,6 +180,7 @@ Allow2ActiveBannersUnique__1
 Pragmatism
 Colosseum Plate
 League: Affliction
+Source: unique{The King in the Mists} in the normal{Crux of Nothingness}
 Requires Level 49, 134 Str
 LocalIncreaseSocketedActiveSkillGemLevelUnique__1
 LocalIncreasedPhysicalDamageReductionRatingPercentUnique__19
@@ -1149,6 +1150,7 @@ AddPowerChargeOnCrit1__
 Waxen Soul
 Saint's Hauberk
 League: Ritual
+Source: Reward from Nameless Ritual, and rarely a regular Ritual
 MaximumLifeUnique__28
 ChaosResistUnique__39
 CurseSkillsCostAndReserveLifeUnique__1

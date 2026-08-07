@@ -134,6 +134,7 @@ LocalFlatIncreasedEvasionAndEnergyShieldUnique__1
 Redblade Banner
 Painted Tower Shield
 League: Warbands
+Source: Drops from Redblade Mercenary monsters
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Pre 3.11.0
@@ -155,6 +156,7 @@ AdditionalBlockChanceUniqueShieldDex1
 Svalinn
 Girded Tower Shield
 League: Settlers of Kalguur
+Source: Drops from unique{The Black Knight} in a normal{Starfall Crater}
 Requires Level 51, 123 Str
 Implicits: 1
 IncreasedLifeImplicitShield1
@@ -390,6 +392,7 @@ PhasingIfBlockedRecentlyUnique__1
 Mutewind Pennant
 Enameled Buckler
 League: Warbands
+Source: Drop from Mutewind Mercenary monsters
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Pre 3.11.0
@@ -534,6 +537,7 @@ SpectresGainArcaneSurgeWhenYouDoUnique__1_
 Brinerot Flag
 Tarnished Spirit Shield
 League: Warbands
+Source: Drops from Brinerot Warband monsters
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Pre 3.11.0
@@ -670,6 +674,7 @@ ShockOnMaxPowerChargesUnique__1
 Manastorm
 {variant:1}Fossilised Spirit Shield
 {variant:2,3}Lacewood Spirit Shield
+Source: Drops from unique{Nightmare of Uhtred} in normal{Citadel Map}
 Variant: Pre 3.19.0
 Variant: Pre 3.24.0
 Variant: Current
@@ -774,6 +779,7 @@ ElementalWeaknessOnSpellBlockUniqueShieldInt4
 The Flawed Refuge
 Maple Round Shield
 League: Affliction
+Source: Drops from Viridian Wildwood and Ritual monsters
 Requires Level 39, 52 Str, 52 Dex
 Implicits: 1
 BlockRecoveryImplicitShield3
@@ -824,6 +830,7 @@ Teak Round Shield
 Variant: Pre 3.16.0
 Variant: Current
 League: Heist
+Source: Reward from Mercenary duel
 Implicits: 1
 BlockRecoveryImplicitShield3
 LocalIncreaseSocketedSupportGemLevelUnique__1
@@ -883,6 +890,7 @@ AdditionalBlockChanceUniqueShieldStrDex3__
 ]],[[
 Vix Lunaris
 Cardinal Round Shield
+Source: Drops from unique{Selenia, the Endless Night} in normal{The Twilight Temple}
 Implicits: 0
 LocalIncreaseSocketedGemLevelUnique__11_
 TriggeredColdAegisSkillUnique__1
@@ -939,6 +947,7 @@ WeaponElementalDamageUniqueShieldStrInt4
 Broken Faith
 Archon Kite Shield
 League: Warbands
+Source: Drops from Renegade Warband monsters
 Variant: Pre 2.6.0
 Variant: Pre 3.11.0
 Variant: Current
@@ -971,6 +980,7 @@ KeystoneGlancingBlowsUnique__1___
 ]],[[
 Invictus Solaris
 Archon Kite Shield
+Source: Drops from unique{Helial, the Day Unending}
 Implicits: 1
 AllResistancesImplicitShield3
 LocalIncreaseSocketedGemLevelUnique__1
@@ -1209,7 +1219,6 @@ PhysicalAttackDamageReducedUniqueShieldDexInt1
 ]],[[
 Leper's Alms
 Mirrored Spiked Shield
-Source: Drops from unique{The Eradicator}
 Variant: Pre 3.5.0
 Variant: Current
 Implicits: 1
