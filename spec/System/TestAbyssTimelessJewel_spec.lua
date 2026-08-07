@@ -300,6 +300,42 @@ describe("Abyss timeless jewels", function()
 		assert.matches("abyss_special_small_attribute25, 1, 0, 0", build.timelessData.searchListFallback, nil, true)
 	end)
 
+	it("exposes weight editing beside the Weighted Score fallback mode", function()
+		build.timelessData.jewelType = { id = 11 }
+		build.timelessData.conquerorType = { }
+		build.timelessData.jewelSocket = { id = 26196 }
+		build.itemsTab.tradeQuery.statSortSelectionList = {
+			{ stat = "FullDPS", label = "Full DPS", weightMult = 1 },
+		}
+		build.treeTab:FindTimelessJewel()
+		local control = main.popups[1].controls.fallbackWeightsList
+		local weightedIndex
+		local weightedCount = 0
+		for index, entry in ipairs(control.list) do
+			if entry.isWeightedScore then
+				weightedIndex = index
+				weightedCount = weightedCount + 1
+			end
+		end
+		assert.are.equal(1, weightedCount)
+		assert.is_truthy(weightedIndex)
+		assert.is_true(control.list[weightedIndex + 1].isAction)
+		assert.is_true(data.powerStatList.RequiresFullDPS(control.list[weightedIndex], build))
+
+		local opened = false
+		build.itemsTab.tradeQuery.SetStatWeights = function()
+			opened = true
+		end
+		control:SetSel(weightedIndex)
+		for char in ("Edit"):gmatch(".") do
+			control:OnSearchChar(char)
+		end
+		control:SetSel(1)
+
+		assert.is_true(opened)
+		assert.are.equal("WeightedScore", control:GetSelValue().stat)
+	end)
+
 	it("reads Zorath seed 6564 node and Inquisitor ascendancy changes", function()
 		data.timelessJewelLUTs[11] = parseAbyssJewel(11, zorathExampleData())
 		local expected = {

@@ -978,8 +978,21 @@ function CompareTabClass:InitControls()
 			t_insert(powerStatList, entry)
 		end
 	end
+	WeightedScore.appendEditWeightsAction(powerStatList, function()
+		self.controls.comparePowerStatSelect:SelByValue(self.comparePowerStat and self.comparePowerStat.stat, "stat")
+		local tradeQuery = self.primaryBuild.itemsTab.tradeQuery
+		if tradeQuery then
+			tradeQuery:SetStatWeights(nil, function()
+				if self.comparePowerStat and self.comparePowerStat.isWeightedScore then
+					self.comparePowerDirty = true
+				end
+			end)
+		end
+	end)
 	self.controls.comparePowerStatSelect = new("DropDownControl"):DropDownControl(nil, {0, 0, 200, 20}, powerStatList, function(index, value)
-		if value and value.stat and value ~= self.comparePowerStat then
+		if value and value.isAction then
+			value.action()
+		elseif value and value.stat and value ~= self.comparePowerStat then
 			self.comparePowerStat = value
 			self.comparePowerDirty = true
 		elseif value and not value.stat then
