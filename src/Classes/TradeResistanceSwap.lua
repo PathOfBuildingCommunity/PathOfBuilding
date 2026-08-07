@@ -204,6 +204,7 @@ function M.buildVariant(itemString, descriptors, assignment)
 		return
 	end
 	local swaps = {}
+	local swappedLineIndexes = {}
 	for index, descriptor in ipairs(descriptors) do
 		local target = assignment.targets[index]
 		local modLine = item.explicitModLines[descriptor.lineIndex]
@@ -214,10 +215,11 @@ function M.buildVariant(itemString, descriptors, assignment)
 		if target ~= source then
 			modLine.line = modLine.line:gsub(" " .. source .. " Resistance$", " " .. target .. " Resistance")
 			table.insert(swaps, { from = source, to = target, value = tonumber(value) })
+			table.insert(swappedLineIndexes, descriptor.lineIndex)
 		end
 	end
 	item:BuildAndParseRaw()
-	return item, swaps
+	return item, swaps, swappedLineIndexes
 end
 
 return M
