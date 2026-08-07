@@ -313,6 +313,9 @@ function ItemListClass:OnSelClick(index, itemId, doubleClick)
 			self.itemsTab.build.buildFlag = true
 		end
 	elseif doubleClick then
+		-- disallow dragging since if the cursor is outside the selection after
+		-- the second click, the item will be stuck onto the cursor
+		self.selDragging = false
 		local newItem = new("Item", item:BuildRaw())
 		newItem.id = item.id
 		self.itemsTab:SetDisplayItem(newItem)
