@@ -1239,6 +1239,16 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 		updateLastAnchor(controls.includeMirrored)
 	end
 
+	local supportsBenchCraft = slot and not context.slotTbl.unique and not isJewelSlot and not isAbyssalJewelSlot
+		and not slot.slotName:find("Flask")
+	if supportsBenchCraft then
+		controls.considerBenchCraft = new("CheckBoxControl", { "TOPRIGHT", lastItemAnchor, "BOTTOMRIGHT" },
+			{ 0, 5, 18 }, "Empty Mods:", function(state) end,
+			"Values an empty prefix or suffix using its best bench craft.")
+		controls.considerBenchCraft.state = self.lastConsiderBenchCraft == true
+		updateLastAnchor(controls.considerBenchCraft)
+	end
+
 	if not isJewelSlot and not isAbyssalJewelSlot and includeScourge then
 		controls.includeScourge = new("CheckBoxControl"):CheckBoxControl({ "TOPLEFT", lastItemAnchor, "BOTTOMLEFT" }, { 0, 5, 18 }, "Scourge Mods:", function(state) end)
 		controls.includeScourge.state = (self.lastIncludeScourge == nil or self.lastIncludeScourge == true)
@@ -1380,6 +1390,8 @@ Remove: %s will be removed from the search results.]], term, term, term)
 		if controls.includeMirrored then
 			self.lastIncludeMirrored, options.includeMirrored = controls.includeMirrored.state, controls.includeMirrored.state
 		end
+		self.lastConsiderBenchCraft = controls.considerBenchCraft and controls.considerBenchCraft.state or false
+		context.slotTbl.considerBenchCraft = self.lastConsiderBenchCraft
 		if controls.includeCorrupted then
 			self.lastIncludeCorrupted, options.includeCorrupted = controls.includeCorrupted.state, controls.includeCorrupted.state
 		end
