@@ -350,7 +350,7 @@ describe("TradeQuery", function()
 			assert.is_nil(evaluation.benchCraft)
 		end)
 
-		it("allows another bench craft when the item has the multimod modifier", function()
+		it("allows another bench craft with multiple crafted modifiers", function()
 			local evaluation = evaluate(makeRareRing(1, 1, {
 				"{crafted}{suffix}Can have up to 3 Crafted Modifiers",
 			}), { prefixCraft })
@@ -358,7 +358,7 @@ describe("TradeQuery", function()
 			assert.is_truthy(evaluation.benchCraft:find("maximum Life", 1, true))
 		end)
 
-		it("does not add a fourth craft when multimod affixes have distinct source indices", function()
+		it("does not add a fourth craft when crafted modifiers have distinct source indices", function()
 			local evaluation = evaluate(makeRareRing(1, 0, {
 				"{crafted}{suffix}{modGroup:trade:crafted:0}Can have up to 3 Crafted Modifiers",
 				"{crafted}{suffix}{modGroup:trade:crafted:1}+20% to Fire Resistance",
