@@ -464,6 +464,79 @@ describe("WeightedScore — tree integration", function()
 	end)
 end)
 
+describe("WeightedScore — selector contracts", function()
+	local function findWeightedScore(list)
+		local weightedIndex
+		local weightedCount = 0
+		for index, entry in ipairs(list) do
+			if entry.isWeightedScore then
+				weightedIndex = index
+				weightedCount = weightedCount + 1
+			end
+		end
+		assert.are.equal(1, weightedCount)
+		assert.is_truthy(weightedIndex)
+		assert.is_truthy(list[weightedIndex + 1])
+		assert.is_true(list[weightedIndex + 1].isAction)
+		return weightedIndex
+	end
+
+	before_each(function()
+		newBuild()
+	end)
+
+	it("opens weight editing from crafted modifier sorting and restores Weighted Score", function()
+		local itemsTab = build.itemsTab
+		itemsTab:CreateDisplayItemFromRaw([[
+Rarity: RARE
+Weighted Selector Helmet
+Royal Burgonet
+Item Level: 86
+Crafted: true
+Prefix: None
+Prefix: None
+Prefix: None
+Suffix: None
+Suffix: None
+Suffix: None
+Quality: 20
+Implicits: 0
+]])
+		local control = itemsTab.controls.craftingSorting
+		local weightedIndex = findWeightedScore(control.list)
+		local opened = false
+		itemsTab.tradeQuery.SetStatWeights = function(_, _, onSave)
+			opened = true
+			onSave()
+		end
+
+		control:SetSel(weightedIndex)
+		control:SetSel(weightedIndex + 1)
+
+		assert.is_true(opened)
+		assert.are.equal("WeightedScore", control:GetSelValue().stat)
+	end)
+
+	it("opens weight editing from Compare Power and invalidates the selected report", function()
+		local compareTab = build.compareTab
+		local control = compareTab.controls.comparePowerStatSelect
+		local weightedIndex = findWeightedScore(control.list)
+		local opened = false
+		build.itemsTab.tradeQuery.SetStatWeights = function(_, _, onSave)
+			opened = true
+			onSave()
+		end
+
+		control:SetSel(weightedIndex)
+		compareTab.comparePowerDirty = false
+		control:SetSel(weightedIndex + 1)
+
+		assert.is_true(opened)
+		assert.are.equal("WeightedScore", control:GetSelValue().stat)
+		assert.is_true(compareTab.comparePowerDirty)
+	end)
+end)
+
 describe("WeightedScore — crafted affix sorting", function()
 	local originalGetMiscCalculator
 	local originalGetValue
