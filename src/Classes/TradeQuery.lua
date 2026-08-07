@@ -803,6 +803,10 @@ function TradeQueryClass:SetNotice(notice_control, msg)
 	notice_control.label = msg
 end
 
+function TradeQueryClass:IsBenchCraftPreviewActive()
+	return IsKeyDown("CTRL")
+end
+
 -- Method to reduce the full output to only the values that were 'weighted'
 function TradeQueryClass:ReduceOutput(output)
 	local smallOutput = {}
@@ -815,6 +819,196 @@ function TradeQueryClass:ReduceOutput(output)
 		end
 	end
 	return smallOutput
+end
+
+local function getDefaultAffixSideLimit(item)
+	if item.rarity == "MAGIC" then
+		return 1
+	elseif item.rarity == "RARE" then
+		return (item.type == "Jewel" or item.type == "Graft") and 2 or 3
+	end
+end
+
+local function getAffixSideLimit(item, side, defaultLimit)
+	local affixes = item[side]
+	if item.crafted and item.affixLimit and item.affixLimit > 0 then
+		return affixes.limit or item.affixLimit / 2
+	end
+	return m_max(defaultLimit + (affixes.limit or 0), 0)
+end
+
+local function normaliseBenchCraftLine(line)
+	return line:lower()
+		:gsub("{[^}]+}", "")
+		:gsub("[%d#%(%)%+%-%.]", "")
+		:gsub("%s+", " ")
+		:match("^%s*(.-)%s*$")
+end
+
+function TradeQueryClass:GetBenchCraftAvailability(item)
+	if item.corrupted or item.mirrored or item.rareLikeUnique then
+		return
+	end
+	local defaultLimit = getDefaultAffixSideLimit(item)
+	if not defaultLimit then
+		return
+	end
+	local explicitModLines = item.explicitModLines or { }
+	if #explicitModLines == 0 then
+		return
+	end
+	local occupied = { Prefix = 0, Suffix = 0 }
+	local craftedCount = 0
+	local craftedLimit = 1
+	local seenAffixes = { }
+	local seenCraftedAffixes = { }
+	for _, modLine in ipairs(explicitModLines) do
+		local side = modLine.prefix and "Prefix" or modLine.suffix and "Suffix" or nil
+		if not side then
+			return
+		end
+		local affixKeys = { modLine }
+		if modLine.modGroup and modLine.modGroup:sub(1, 6) == "trade:" then
+			affixKeys = { }
+			for affixId in modLine.modGroup:sub(7):gmatch("[^|]+") do
+				t_insert(affixKeys, "trade:" .. affixId)
+			end
+		end
+		for _, affixKey in ipairs(affixKeys) do
+			if seenAffixes[affixKey] and seenAffixes[affixKey] ~= side then
+				return
+			elseif not seenAffixes[affixKey] then
+				seenAffixes[affixKey] = side
+				occupied[side] = occupied[side] + 1
+			end
+			if modLine.crafted and not seenCraftedAffixes[affixKey] then
+				seenCraftedAffixes[affixKey] = true
+				craftedCount = craftedCount + 1
+			end
+		end
+		if modLine.crafted then
+			if modLine.line:find("Can have up to 3 Crafted Modifiers", 1, true) then
+				craftedLimit = 3
+			end
+		end
+	end
+	if craftedCount >= craftedLimit then
+		return
+	end
+	return {
+		Prefix = m_max(getAffixSideLimit(item, "prefixes", defaultLimit) - occupied.Prefix, 0),
+		Suffix = m_max(getAffixSideLimit(item, "suffixes", defaultLimit) - occupied.Suffix, 0),
+	}
+end
+
+local function getExistingAffixGroups(item, existingLines)
+	local groups = { }
+	for _, side in ipairs({ "prefixes", "suffixes" }) do
+		for _, affix in ipairs(item[side] or { }) do
+			local mod = item.affixes and item.affixes[affix.modId]
+			if mod and mod.group then
+				groups[mod.group] = true
+			end
+		end
+	end
+	for _, mod in pairs(item.affixes or { }) do
+		if mod.group then
+			for _, line in ipairs(mod) do
+				if existingLines[normaliseBenchCraftLine(line)] then
+					groups[mod.group] = true
+					break
+				end
+			end
+		end
+	end
+	return groups
+end
+
+local function getExistingModLines(item)
+	local lines = { }
+	for _, modLine in ipairs(item.explicitModLines or { }) do
+		for line in modLine.line:gmatch("[^\r\n]+") do
+			lines[normaliseBenchCraftLine(line)] = true
+		end
+	end
+	return lines
+end
+
+local function conflictsWithExistingAffix(craft, existingGroups, existingLines)
+	if craft.group and existingGroups[craft.group] then
+		return true
+	end
+	for _, line in ipairs(craft) do
+		if existingLines[normaliseBenchCraftLine(line)] then
+			return true
+		end
+	end
+	return false
+end
+
+function TradeQueryClass:GetBestBenchCraftEvaluation(item, slotName, calcFunc, baseOutput, output, weight)
+	local available = self:GetBenchCraftAvailability(item)
+	if not available or (available.Prefix == 0 and available.Suffix == 0) then
+		return output, weight
+	end
+	local existingLines = getExistingModLines(item)
+	local existingGroups = getExistingAffixGroups(item, existingLines)
+	local bestCraft
+	local bestCraftItemString
+	local bestCraftLineIndexes
+	local originalItem = item:BuildRaw()
+	local craftedItem = new("Item", originalItem)
+	local requiresFullParse = #craftedItem.modMagnitudeMods > 0 or (craftedItem.catalyst and craftedItem.catalyst > 0)
+	for _, craft in ipairs(self.itemsTab.build.data.masterMods or { }) do
+		if available[craft.type] and available[craft.type] > 0
+			and craft.types and craft.types[item.type]
+			and not conflictsWithExistingAffix(craft, existingGroups, existingLines) then
+			local firstCraftLineIndex = #craftedItem.explicitModLines + 1
+			for _, line in ipairs(craft) do
+				local modList, extra
+				if not requiresFullParse then
+					local rangedLine = itemLib.applyRange(line, main.defaultItemAffixQuality or 0.5, 1, 1)
+					modList, extra = modLib.parseMod(rangedLine)
+				end
+				t_insert(craftedItem.explicitModLines, {
+					line = line,
+					modList = modList,
+					extra = extra,
+					range = main.defaultItemAffixQuality or 0.5,
+					modTags = craft.modTags,
+					modGroup = craft.group,
+					crafted = true,
+					prefix = craft.type == "Prefix",
+					suffix = craft.type == "Suffix",
+				})
+			end
+			if requiresFullParse then
+				craftedItem:BuildAndParseRaw()
+			else
+				craftedItem:BuildModList()
+			end
+			local craftOutput = self:ReduceOutput(calcFunc({ repSlotName = slotName, repItem = craftedItem }))
+			local craftWeight = self.tradeQueryGenerator.WeightedRatioOutputs(baseOutput, craftOutput, self.statSortSelectionList)
+			if craftWeight > weight then
+				output = craftOutput
+				weight = craftWeight
+				bestCraft = table.concat(craft, "/") .. " ^8(" .. craft.type .. ")"
+				bestCraftItemString = craftedItem:BuildRaw()
+				bestCraftLineIndexes = { }
+				for lineIndex = firstCraftLineIndex, #craftedItem.explicitModLines do
+					t_insert(bestCraftLineIndexes, lineIndex)
+				end
+			end
+			if requiresFullParse then
+				craftedItem = new("Item", originalItem)
+			else
+				for _ = 1, #craft do
+					t_remove(craftedItem.explicitModLines, #craftedItem.explicitModLines)
+				end
+			end
+		end
+	end
+	return output, weight, bestCraft, bestCraftItemString, bestCraftLineIndexes
 end
 
 -- Method to evaluate a result by getting it's output and weight
@@ -874,7 +1068,17 @@ function TradeQueryClass:GetResultEvaluation(row_idx, result_index, calcFunc, ba
 
 		local output = self:ReduceOutput(calcFunc({ repSlotName = slotName, repItem = item }))
 		local weight = self.tradeQueryGenerator.WeightedRatioOutputs(baseOutput, output, self.statSortSelectionList)
-		result.evaluation = {{ output = output, weight = weight }}
+		local benchCraft, benchCraftItemString, benchCraftLineIndexes
+		if slotTbl.considerBenchCraft then
+			output, weight, benchCraft, benchCraftItemString, benchCraftLineIndexes = self:GetBestBenchCraftEvaluation(item, slotName, calcFunc, baseOutput, output, weight)
+		end
+		result.evaluation = {{
+			output = output,
+			weight = weight,
+			benchCraft = benchCraft,
+			benchCraftItemString = benchCraftItemString,
+			benchCraftLineIndexes = benchCraftLineIndexes,
+		}}
 	end
 	return result.evaluation
 end
@@ -1227,6 +1431,41 @@ you can add them, copy the link here, and press "Price Item" to evaluate the ite
 			self.itemsTab.build:AddStatComparesToTooltip(tooltip, self.onlyWeightedBaseOutput[row_idx][result_index], evaluationEntry.output, "^8Allocating ^7"..nodeCombo.."^8 will give You:", #nodeDNs + 2)
 		end
 	end
+	local function addBenchCraftToTooltipIfApplicable(tooltip, result)
+		local evaluation = result.evaluation and result.evaluation[1]
+		if not evaluation or not evaluation.benchCraft then
+			return
+		end
+		local compareHint = evaluation.benchCraftItemString and colorCodes.TIP .. " [Ctrl: compare]" or ""
+		tooltip:AddSeparator(10)
+		tooltip:AddLine(16, "^7Bench craft: " .. evaluation.benchCraft .. compareHint)
+		return evaluation
+	end
+	local function addBenchCraftPreviewIfApplicable(tooltip, evaluation, tooltipSlot)
+		if not evaluation or not evaluation.benchCraftItemString or not self:IsBenchCraftPreviewActive() then
+			return
+		end
+		local previewItem = new("Item", evaluation.benchCraftItemString)
+		local previewTooltip = tooltip.benchCraftPreviewTooltip or new("Tooltip")
+		tooltip.benchCraftPreviewTooltip = previewTooltip
+		previewTooltip:Clear()
+		self.itemsTab:AddItemTooltip(previewTooltip, previewItem, tooltipSlot)
+		local craftedModLines = { }
+		for _, lineIndex in ipairs(evaluation.benchCraftLineIndexes or { }) do
+			local modLine = previewItem.explicitModLines[lineIndex]
+			if modLine then
+				craftedModLines[modLine] = true
+			end
+		end
+		for _, line in ipairs(previewTooltip.lines) do
+			if line.modLine and craftedModLines[line.modLine] and line.text then
+				line.text = colorCodes.WARNING .. "[Craft] " .. StripEscapes(line.text)
+			end
+		end
+		previewTooltip:AddSeparator(10)
+		previewTooltip:AddLine(14, colorCodes.TIP .. "Estimated with bench craft.")
+		tooltip.childTooltips = { previewTooltip }
+	end
 	controls["resultDropdown"..row_idx].tooltipFunc = function(tooltip, dropdown_mode, dropdown_index, dropdown_display_string)
 		local sortedRow = self.sortedResultTbl[row_idx]
 		if not sortedRow or not sortedRow[dropdown_index] then
@@ -1239,9 +1478,12 @@ you can add them, copy the link here, and press "Price Item" to evaluate the ite
 		end
 		local item = new("Item"):Item(result.item_string)
 		tooltip:Clear()
+		tooltip.childTooltips = nil
 		local tooltipSlot = slotTbl.selectedJewelNodeId and self.itemsTab.sockets[slotTbl.selectedJewelNodeId] or activeSlot
 		self.itemsTab:AddItemTooltip(tooltip, item, tooltipSlot)
 		addMegalomaniacCompareToTooltipIfApplicable(tooltip, pb_index)
+		local benchCraftEvaluation = addBenchCraftToTooltipIfApplicable(tooltip, result)
+		addBenchCraftPreviewIfApplicable(tooltip, benchCraftEvaluation, tooltipSlot)
 		tooltip:AddSeparator(10)
 		tooltip:AddLine(16, string.format("^7Price: %s %s", result.amount, result.currency))
 	end

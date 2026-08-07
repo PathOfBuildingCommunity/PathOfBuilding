@@ -348,11 +348,71 @@ function TradeQueryRequestsClass:FetchResultBlock(url, callback)
 					end
 				end
 
-				local function processLine(modLine)
+				local groupsByDomain = { }
+				for _, domain in ipairs({ "explicit", "crafted" }) do
+					local groupsByHash = { }
+					for _, entry in ipairs(item.extended and item.extended.hashes and item.extended.hashes[domain] or { }) do
+						if type(entry) == "table" and type(entry[1]) == "string" and type(entry[2]) == "table" then
+							if groupsByHash[entry[1]] ~= nil then
+								groupsByHash[entry[1]] = false
+							else
+								groupsByHash[entry[1]] = entry[2]
+							end
+						end
+					end
+					groupsByDomain[domain] = groupsByHash
+				end
+
+				local function getTradeAffixMetadata(modLine)
+					-- ItemMod flags do not include affix sides; source-mod tiers use P/S.
+					-- Extended hash indices identify the source affix across multi-line stats.
+					local affixSide
+					local mods = type(modLine.mods) == "table" and modLine.mods or { }
+					for _, mod in ipairs(mods) do
+						local side = mod.tier and mod.tier:sub(1, 1)
+						if side ~= "P" and side ~= "S" then
+							return
+						elseif affixSide and affixSide ~= side then
+							return
+						end
+						affixSide = side
+					end
+					local domain = modLine.domain
+					local uniqueMod = #mods == 1 and mods[1] or nil
+					local magnitude = uniqueMod and uniqueMod.magnitudes and uniqueMod.magnitudes[1]
+					local rawHash = modLine.hash or uniqueMod and uniqueMod.hash or magnitude and magnitude.hash
+					local hash = type(rawHash) == "string" and rawHash:gsub("^stat%.", "")
+					local groupIndices = groupsByDomain[domain] and groupsByDomain[domain][hash]
+					if not affixSide or type(groupIndices) ~= "table" or #groupIndices == 0 then
+						return
+					end
+					local affixIds = { }
+					local seenIndices = { }
+					for _, index in ipairs(groupIndices) do
+						if type(index) ~= "number" or seenIndices[index] then
+							return
+						end
+						seenIndices[index] = true
+						t_insert(affixIds, domain .. ":" .. index)
+					end
+					table.sort(affixIds)
+					return affixSide == "P" and "prefix" or "suffix", "trade:" .. table.concat(affixIds, "|")
+				end
+
+				local function processLine(modLine, includeAffixMetadata)
 					local s = ""
 					for flagName, flag in pairs(modLine.flags or {}) do
 						if flag then
 							s = s .. string.format("{%s}", flagName)
+						end
+					end
+					if modLine.domain == "crafted" and not (modLine.flags and modLine.flags.crafted) then
+						s = s .. "{crafted}"
+					end
+					if includeAffixMetadata then
+						local affixSide, affixGroup = getTradeAffixMetadata(modLine)
+						if affixSide then
+							s = s .. string.format("{%s}{modGroup:%s}", affixSide, affixGroup)
 						end
 					end
 					return s .. escapeGGGString(modLine.description)
@@ -368,7 +428,7 @@ function TradeQueryRequestsClass:FetchResultBlock(url, callback)
 					t_insert(rawLines, processLine(modLine))
 				end
 				for _, modLine in ipairs(item.explicitMods) do
-					t_insert(rawLines, processLine(modLine))
+					t_insert(rawLines, processLine(modLine, true))
 				end
 				for _, influenceInfo in ipairs(itemLib.influenceInfo.all) do
 					local apiKey = tradeInfluenceApiKeys[influenceInfo.key]

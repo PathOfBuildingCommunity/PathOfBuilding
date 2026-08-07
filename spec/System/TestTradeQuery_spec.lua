@@ -60,6 +60,77 @@ describe("TradeQuery", function()
 			end)
 			assert.are.equal(0, #tooltip.lines)
 		end)
+
+		it("shows the simulated bench craft and its Ctrl compare hint", function()
+			local tq = newTradeQuery({
+				resultTbl = { [1] = { [1] = {
+					item_string = "Rarity: RARE\nBehemoth Hold\nGold Ring",
+					amount = 1,
+					currency = "chaos",
+					evaluation = { {
+						benchCraft = "+25 to Strength ^8(Suffix)",
+						benchCraftItemString = "Rarity: RARE\nBehemoth Hold\nGold Ring\nImplicits: 0\n{crafted}{suffix}+25 to Strength",
+					} },
+				} } },
+				sortedResultTbl = { [1] = { { index = 1 } } },
+			})
+			tq.itemsTab.AddItemTooltip = function() end
+			local dropdown = buildRow1Dropdown(tq)
+			local tooltip = new("Tooltip")
+
+			dropdown.tooltipFunc(tooltip, "DROP", 1, nil)
+
+			local tooltipText = ""
+			for _, line in ipairs(tooltip.lines) do
+				tooltipText = tooltipText .. (line.text or "") .. "\n"
+			end
+			assert.is_truthy(tooltipText:find("Bench craft: +25 to Strength", 1, true))
+			assert.is_truthy(tooltipText:find("[Ctrl: compare]", 1, true))
+		end)
+
+		it("shows the simulated item and highlights its craft while Ctrl is held", function()
+			local tq = newTradeQuery({
+				resultTbl = { [1] = { [1] = {
+					item_string = "Rarity: RARE\nBehemoth Hold\nGold Ring\nImplicits: 0\n{prefix}+40 to maximum Mana",
+					amount = 1,
+					currency = "chaos",
+					evaluation = { {
+						benchCraft = "+25 to Strength ^8(Suffix)",
+						benchCraftItemString = "Rarity: RARE\nBehemoth Hold\nGold Ring\nImplicits: 0\n{prefix}+40 to maximum Mana\n{crafted}{suffix}+25 to Strength",
+						benchCraftLineIndexes = { 2 },
+					} },
+				} } },
+				sortedResultTbl = { [1] = { { index = 1 } } },
+			})
+			tq.itemsTab.AddItemTooltip = function(_, tooltip, item)
+				for _, modLine in ipairs(item.explicitModLines or { }) do
+					tooltip:AddLine(16, colorCodes.MAGIC .. modLine.line, nil, modLine)
+				end
+			end
+			local previewActive = true
+			tq.IsBenchCraftPreviewActive = function() return previewActive end
+			local dropdown = buildRow1Dropdown(tq)
+			local tooltip = new("Tooltip")
+
+			dropdown.tooltipFunc(tooltip, "DROP", 1, nil)
+
+			assert.are.equal(1, #tooltip.childTooltips)
+			local previewText = ""
+			for _, line in ipairs(tooltip.childTooltips[1].lines) do
+				previewText = previewText .. (line.text or "") .. "\n"
+			end
+			assert.is_truthy(previewText:find("[Craft] +25 to Strength", 1, true))
+			assert.is_truthy(previewText:find("Estimated with bench craft", 1, true))
+
+			previewActive = false
+			dropdown.tooltipFunc(tooltip, "DROP", 1, nil)
+			assert.is_nil(tooltip.childTooltips)
+
+			previewActive = true
+			tq.resultTbl[1][1].evaluation = { { } }
+			dropdown.tooltipFunc(tooltip, "DROP", 1, nil)
+			assert.is_nil(tooltip.childTooltips)
+		end)
 	end)
 	describe("GetResultEvaluation", function()
 		it("uses the first visible ring for a Pearl result without a selected slot", function()
@@ -175,5 +246,284 @@ describe("TradeQuery", function()
 
 			assert.are.equals(1.2, result)
 		end)
+	end)
+
+	describe("bench craft result evaluation", function()
+		local prefixCraft = {
+			type = "Prefix",
+			group = "IncreasedLife",
+			modTags = { "life" },
+			types = { Ring = true },
+			"+(51-55) to maximum Life",
+		}
+		local suffixCraft = {
+			type = "Suffix",
+			group = "Strength",
+			modTags = { "attribute" },
+			types = { Ring = true },
+			"+(21-25) to Strength",
+		}
+
+		local function makeRareRing(prefixCount, suffixCount, extraLines)
+			local lines = { "Rarity: Rare", "Test Ring", "Sapphire Ring", "Implicits: 0" }
+			local prefixLines = {
+				"{prefix}+40 to maximum Mana",
+				"{prefix}20% increased Armour",
+				"{prefix}20% increased Evasion Rating",
+			}
+			local suffixLines = {
+				"{suffix}+30% to Fire Resistance",
+				"{suffix}+30% to Cold Resistance",
+				"{suffix}+30% to Lightning Resistance",
+			}
+			for index = 1, prefixCount do
+				table.insert(lines, prefixLines[index])
+			end
+			for index = 1, suffixCount do
+				table.insert(lines, suffixLines[index])
+			end
+			for _, line in ipairs(extraLines or { }) do
+				table.insert(lines, line)
+			end
+			return table.concat(lines, "\n")
+		end
+
+		local function evaluate(itemString, crafts, calcOverride)
+			local tradeQuery = new("TradeQuery", { itemsTab = { } })
+			tradeQuery.tradeQueryGenerator = mock_queryGen
+			tradeQuery.itemsTab.build = { data = { masterMods = crafts or { prefixCraft, suffixCraft } } }
+			tradeQuery.statSortSelectionList = { { stat = "Life", weightMult = 1 } }
+			tradeQuery.slotTables[1] = { slotName = "Ring 1", considerBenchCraft = true }
+			tradeQuery.resultTbl[1] = { { item_string = itemString } }
+			local function calc(args)
+				local life = 100
+				for _, modLine in ipairs(args.repItem.explicitModLines or { }) do
+					if modLine.crafted and modLine.line:find("maximum Life", 1, true) then
+						life = 300
+					elseif modLine.crafted and modLine.line:find("to Strength", 1, true) then
+						life = 150
+					end
+				end
+				return { Life = life }
+			end
+			return tradeQuery:GetResultEvaluation(1, 1, calcOverride or calc, { Life = 100 })[1]
+		end
+
+		it("only scores suffix crafts when the prefix side is full", function()
+			local evaluation = evaluate(makeRareRing(3, 2))
+
+			assert.are.equal(1.5, evaluation.weight)
+			assert.is_truthy(evaluation.benchCraft:find("to Strength", 1, true))
+			assert.is_truthy(evaluation.benchCraftItemString:find("{crafted}", 1, true))
+			assert.are.same({ 6 }, evaluation.benchCraftLineIndexes)
+		end)
+
+		it("only scores prefix crafts when the suffix side is full", function()
+			local evaluation = evaluate(makeRareRing(2, 3))
+
+			assert.is_true(evaluation.weight > 1)
+			assert.is_truthy(evaluation.benchCraft:find("maximum Life", 1, true))
+		end)
+
+		it("previews the same craft roll that was used for scoring", function()
+			local scoredCraftLine
+			local evaluation = evaluate(makeRareRing(3, 2), { suffixCraft }, function(args)
+				for _, modLine in ipairs(args.repItem.explicitModLines or { }) do
+					if modLine.crafted then
+						scoredCraftLine = itemLib.applyRange(modLine.line, modLine.range, 1, 1)
+						return { Life = 200 }
+					end
+				end
+				return { Life = 100 }
+			end)
+			local previewItem = new("Item", evaluation.benchCraftItemString)
+			local previewModLine = previewItem.explicitModLines[evaluation.benchCraftLineIndexes[1]]
+			local previewCraftLine = itemLib.applyRange(previewModLine.line, previewModLine.range, 1, 1)
+
+			assert.are.equal(scoredCraftLine, previewCraftLine)
+			assert.are.equal(main.defaultItemAffixQuality or 0.5, previewModLine.range)
+		end)
+
+		it("does not add a second bench craft", function()
+			local evaluation = evaluate(makeRareRing(1, 1, { "{crafted}{suffix}+20 to Strength" }))
+
+			assert.is_nil(evaluation.benchCraft)
+		end)
+
+		it("allows another bench craft when the item has the multimod modifier", function()
+			local evaluation = evaluate(makeRareRing(1, 1, {
+				"{crafted}{suffix}Can have up to 3 Crafted Modifiers",
+			}), { prefixCraft })
+
+			assert.is_truthy(evaluation.benchCraft:find("maximum Life", 1, true))
+		end)
+
+		it("does not add a fourth craft when multimod affixes have distinct source indices", function()
+			local evaluation = evaluate(makeRareRing(1, 0, {
+				"{crafted}{suffix}{modGroup:trade:crafted:0}Can have up to 3 Crafted Modifiers",
+				"{crafted}{suffix}{modGroup:trade:crafted:1}+20% to Fire Resistance",
+				"{crafted}{suffix}{modGroup:trade:crafted:2}+20% to Cold Resistance",
+			}), { prefixCraft })
+
+			assert.are.equal(1, evaluation.weight)
+			assert.is_nil(evaluation.benchCraft)
+		end)
+
+		it("does not score crafts on corrupted or mirrored items", function()
+			for _, marker in ipairs({ "Corrupted", "Mirrored" }) do
+				local evaluation = evaluate(makeRareRing(1, 1, { marker }))
+				assert.are.equal(1, evaluation.weight)
+				assert.is_nil(evaluation.benchCraft)
+			end
+		end)
+
+		it("does not duplicate an existing affix group", function()
+			local evaluation = evaluate(makeRareRing(1, 3, { "{prefix}+50 to maximum Life" }), { prefixCraft })
+
+			assert.are.equal(1, evaluation.weight)
+			assert.is_nil(evaluation.benchCraft)
+		end)
+
+		it("does not score an item when an explicit affix side is unknown", function()
+			local evaluation = evaluate(makeRareRing(0, 0, { "+50 to maximum Life" }), { suffixCraft })
+
+			assert.are.equal(1, evaluation.weight)
+			assert.is_nil(evaluation.benchCraft)
+		end)
+
+		it("does not score an item without explicit affix metadata", function()
+			local evaluation = evaluate(makeRareRing(0, 0), { suffixCraft })
+
+			assert.are.equal(1, evaluation.weight)
+			assert.is_nil(evaluation.benchCraft)
+		end)
+
+		it("does not score contradictory sides for the same trade affix", function()
+			local evaluation = evaluate(makeRareRing(0, 0, {
+				"{prefix}{modGroup:trade:explicit:0}+50 to maximum Life",
+				"{suffix}{modGroup:trade:explicit:0}+30% to Fire Resistance",
+			}), { suffixCraft })
+
+			assert.are.equal(1, evaluation.weight)
+			assert.is_nil(evaluation.benchCraft)
+		end)
+
+		it("counts multi-line trade affixes once", function()
+			local independentPrefixCraft = copyTable(suffixCraft, true)
+			independentPrefixCraft.type = "Prefix"
+			local evaluation = evaluate(makeRareRing(1, 3, {
+				"{prefix}{modGroup:trade:explicit:0}+50 to maximum Life",
+				"{prefix}{modGroup:trade:explicit:0}20% increased Armour",
+			}), { independentPrefixCraft })
+
+			assert.is_true(evaluation.weight > 1)
+			assert.is_truthy(evaluation.benchCraft:find("to Strength", 1, true))
+		end)
+
+		it("reuses the parsed item without leaking prior craft candidates", function()
+			local crafts = { }
+			for index = 1, 25 do
+				table.insert(crafts, {
+					type = "Suffix",
+					group = "Candidate" .. index,
+					modTags = { "attribute" },
+					types = { Ring = true },
+					"+" .. index .. " to Strength",
+				})
+			end
+			local calls = 0
+			local maxCraftedLines = 0
+			local evaluation = evaluate(makeRareRing(3, 2), crafts, function(args)
+				calls = calls + 1
+				local craftedLines = 0
+				for _, modLine in ipairs(args.repItem.explicitModLines or { }) do
+					if modLine.crafted then
+						craftedLines = craftedLines + 1
+					end
+				end
+				maxCraftedLines = math.max(maxCraftedLines, craftedLines)
+				return { Life = 100 + craftedLines }
+			end)
+
+			assert.are.equal(26, calls)
+			assert.are.equal(1, maxCraftedLines)
+			assert.is_truthy(evaluation.benchCraft)
+		end)
+
+		it("keeps lower bench tiers when a higher tier has a worse trade-off", function()
+			local crafts = {
+				{
+					type = "Suffix", group = "FlaskTradeoff", level = 60, types = { Ring = true },
+					"20% reduced Flask Charges gained", "(8-10)% increased Effect of Flasks on you",
+				},
+				{
+					type = "Suffix", group = "FlaskTradeoff", level = 75, types = { Ring = true },
+					"33% reduced Flask Charges gained", "(11-14)% increased Effect of Flasks on you",
+				},
+			}
+			local evaluation = evaluate(makeRareRing(3, 2), crafts, function(args)
+				local life = 100
+				for _, modLine in ipairs(args.repItem.explicitModLines or { }) do
+					if modLine.crafted and modLine.line:find("20% reduced", 1, true) then
+						life = 200
+					elseif modLine.crafted and modLine.line:find("33% reduced", 1, true) then
+						life = 50
+					end
+				end
+				return { Life = life }
+			end)
+
+			assert.is_truthy(evaluation.benchCraft:find("20% reduced", 1, true))
+		end)
+
+		it("renders every line of a multi-line craft in the Ctrl preview", function()
+			local multiLineCraft = {
+				type = "Suffix", group = "FlaskTradeoff", types = { Ring = true },
+				"20% reduced Flask Charges gained", "(8-10)% increased Effect of Flasks on you",
+			}
+			local originalItemString = makeRareRing(3, 2)
+			local evaluation = evaluate(originalItemString, { multiLineCraft }, function(args)
+				for _, modLine in ipairs(args.repItem.explicitModLines or { }) do
+					if modLine.crafted then
+						return { Life = 200 }
+					end
+				end
+				return { Life = 100 }
+			end)
+			local tooltipQuery = new("TradeQuery", { itemsTab = { } })
+			tooltipQuery.itemsTab.activeItemSet = { }
+			tooltipQuery.itemsTab.slots = { }
+			tooltipQuery.slotTables[1] = { slotName = "Ring 1" }
+			tooltipQuery.resultTbl[1] = { {
+				item_string = originalItemString,
+				amount = 1,
+				currency = "chaos",
+				evaluation = { evaluation },
+			} }
+			tooltipQuery.sortedResultTbl[1] = { { index = 1 } }
+			tooltipQuery.itemsTab.AddItemTooltip = function(_, tooltip, item)
+				for _, modLine in ipairs(item.explicitModLines or { }) do
+					local renderedLine = modLine.range
+						and itemLib.applyRange(modLine.line, modLine.range, modLine.valueScalar, modLine.corruptedRange)
+						or modLine.line
+					tooltip:AddLine(16, colorCodes.MAGIC .. renderedLine, nil, modLine)
+				end
+			end
+			tooltipQuery.IsBenchCraftPreviewActive = function() return true end
+			tooltipQuery:PriceItemRowDisplay(1, nil, 0, 20)
+			local tooltip = new("Tooltip")
+
+			tooltipQuery.controls.resultDropdown1.tooltipFunc(tooltip, "DROP", 1, nil)
+
+			assert.are.equal(originalItemString, tooltipQuery.resultTbl[1][1].item_string)
+			assert.are.equal(1, #tooltip.childTooltips)
+			local previewText = ""
+			for _, line in ipairs(tooltip.childTooltips[1].lines) do
+				previewText = previewText .. (line.text or "") .. "\n"
+			end
+			assert.is_truthy(previewText:find("[Craft] 20% reduced Flask Charges gained", 1, true))
+			assert.is_truthy(previewText:find("9% increased Effect of Flasks on you", 1, true))
+		end)
+
 	end)
 end)

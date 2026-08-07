@@ -281,6 +281,55 @@ Strict-Transport-Security: max-age=63115200; includeSubDomains; preload]]
 			assert.are.equal("42", itemsById.legacy.weight)
 			assert.are.equal("0", itemsById.empty.weight)
 		end)
+
+		it("preserves prefix and suffix metadata from trade modifier tiers", function()
+			local response = dkjson.encode({
+				result = { {
+					id = "affix-metadata",
+					listing = {
+						price = { amount = 1, currency = "chaos", type = "~price" },
+						whisper = "hi",
+						account = { name = "seller" },
+					},
+					item = {
+						rarity = "Rare",
+						name = "Test Band",
+						typeLine = "Sapphire Ring",
+						explicitMods = {
+							{ description = "+50 to maximum Life", domain = "explicit", hash = "stat.explicit.life", mods = { { name = "Sanguine", tier = "P2", level = 50 } } },
+							{ description = "20% increased Armour", domain = "explicit", hash = "stat.explicit.armour", mods = { { name = "Sanguine", tier = "P2", level = 50 } } },
+							{ description = "+30% to Fire Resistance", domain = "explicit", hash = "stat.explicit.fire", mods = { { name = "of Craft", tier = "S3", level = 30 } } },
+							{ description = "+30% to Cold Resistance", domain = "explicit", hash = "stat.explicit.cold", mods = { { name = "of Craft", tier = "S3", level = 30 } } },
+						},
+						extended = { hashes = { explicit = {
+							{ "explicit.life", { 0 } },
+							{ "explicit.armour", { 0 } },
+							{ "explicit.fire", { 1 } },
+							{ "explicit.cold", { 2 } },
+						} } },
+					},
+				} },
+			})
+			local fetchedItems
+			requests.requestQueue.fetch = { }
+			requests:FetchResultBlock("test", function(items)
+				fetchedItems = items
+			end)
+
+			local request = table.remove(requests.requestQueue.fetch, 1)
+			request.callback(response)
+
+			local item = new("Item", fetchedItems[1].item_string)
+			assert.is_true(item.explicitModLines[1].prefix)
+			assert.is_true(item.explicitModLines[2].prefix)
+			assert.are.equal(item.explicitModLines[1].modGroup, item.explicitModLines[2].modGroup)
+			assert.is_true(item.explicitModLines[3].suffix)
+			assert.is_true(item.explicitModLines[4].suffix)
+			assert.are_not.equal(item.explicitModLines[3].modGroup, item.explicitModLines[4].modGroup)
+			local availability = new("TradeQuery", { itemsTab = { } }):GetBenchCraftAvailability(item)
+			assert.are.equal(2, availability.Prefix)
+			assert.are.equal(1, availability.Suffix)
+		end)
 	end)
 
 	describe("FetchResults", function()
