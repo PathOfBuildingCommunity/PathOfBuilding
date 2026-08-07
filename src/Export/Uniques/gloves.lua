@@ -1051,8 +1051,7 @@ Requires Level 5
 ]],[[
 Malachai's Mark
 Murder Mitts
-Source: Drops from unique{Nightmare of the Depraved Trinity} in
-normal{Abomination Map}
+Source: Drops from unique{Nightmare of the Depraved Trinity} in normal{Abomination Map}
 Requires Level 67, 51 Dex, 51 Int
 LocalIncreasedEvasionAndEnergyShieldUnique__8
 IncreasedLifeUniqueGlovesInt3

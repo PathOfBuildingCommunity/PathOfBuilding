@@ -4092,9 +4092,9 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 		end
 		setDefaultSortOrder()
 	end
-	local titleLower = self.displayItem.title:lower()
+	local titleLower = self.displayItem.title and self.displayItem.title:lower()
 	local displayDBUnique = main.uniqueDB.byTitle[titleLower]
-	if self.displayItem.rarity == "UNIQUE"
+	if self.displayItem.rarity == "UNIQUE" and displayDBUnique
 		and data.vestigialUniqueBaseTypes[self.displayItem.base.type]
 		-- the source field should mean that the item comes from a specific
 		-- mechanic, which usually means it is not in the core drop pool

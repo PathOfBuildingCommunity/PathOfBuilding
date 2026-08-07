@@ -759,8 +759,8 @@ return {
 		"Mahuxotl's Machination",
 	},
 	["DivergentKeystoneUnwaveringStanceUnique__1"] = {
-		"Ezomyte Peak",
 		"Kaom's Roots",
+		"Ezomyte Peak",
 	},
 	["DivergentKeystoneVaalPactUnique__2"] = {
 		"Mahuxotl's Machination",

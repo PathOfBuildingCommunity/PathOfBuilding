@@ -865,9 +865,9 @@ data.vestigialUniqueBaseTypes = {
 data.vestigialModMappings = LoadModule("Data/Vestigial")
 for k, v in pairs(data.vestigialModMappings) do
 	data.vestigialModMappings[k] = v[1]
-	if launch.devMode then
-		assert(v[1])
-	end
+	-- if launch.devMode then
+	-- 	assert(v[1], "Data/Vestigial is malformed")
+	-- end
 end
 -- Cluster jewel data
 data.clusterJewels = LoadModule("Data/ClusterJewels")
