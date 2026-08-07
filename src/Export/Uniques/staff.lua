@@ -776,6 +776,7 @@ Highborn Staff
 Variant: Pre 3.25.0
 Variant: Current
 League: Crucible
+Source: Drops from Crucible monsters
 Implicits: 2
 {variant:1}StaffBlockPercentImplicitStaff1[18,18]
 {variant:2}StaffBlockPercentImplicitStaff2

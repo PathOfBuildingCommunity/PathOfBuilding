@@ -774,6 +774,7 @@ LoseAdrenalineFireTouchedLossUnique__1
 Gamblesprint
 Hydrascale Boots
 League: Affliction
+Source: Reward from Ultimatum encounters
 Requires Level 59, 56 Str, 56 Dex
 DexterityUniqueBootsDex4_
 LocalIncreasedArmourAndEvasionUnique__24
@@ -1158,6 +1159,7 @@ CelestialFootprintsUnique__1_
 Olroth's Charge
 Runic Sollerets
 League: Expedition
+Source: Drops from Expedition monsters
 Requires Level 48, 37 Str, 37 Dex, 37 Int
 LocalIncreasedWardPercentUnique__4_
 WardDelayRecoveryUnique__2

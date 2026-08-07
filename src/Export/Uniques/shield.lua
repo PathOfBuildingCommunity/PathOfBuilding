@@ -745,6 +745,7 @@ MaximumLifeShieldInt1
 ]],[[
 The Scales of Justice
 Chiming Spirit Shield
+Source: Labyrinth
 Implicits: 1
 SpellDamageImplicitShield2
 NoEnergyShieldUnique__1

@@ -4055,7 +4055,10 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 			for id, uniqueTitle in pairs(data.vestigialModMappings) do
 				local titleLower = uniqueTitle:lower()
 				local unique = main.uniqueDB.byTitle[titleLower]
-				if not unique or (unique.base.type ~= self.displayItem.type)
+				if not unique
+					-- vestigial implicits can only end up on the same item type
+					or (unique.base.type ~= self.displayItem.type)
+					-- avoid adding the item's own mods as vestigial
 					or (self.displayItem.title:lower() == titleLower) then
 					goto vestigialContinue
 				end
@@ -4089,7 +4092,11 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 		end
 		setDefaultSortOrder()
 	end
-	if self.displayItem.rarity == "UNIQUE" and data.vestigialUniqueBaseTypes[self.displayItem.base.type] then
+	local displayDBUnique = main.uniqueDB.byTitle[self.displayItem.title:lower()]
+	if self.displayItem.rarity == "UNIQUE" and data.vestigialUniqueBaseTypes[self.displayItem.base.type]
+		-- the source field should mean that the item comes from a specific
+		-- mechanic, which usually means it is not in the core drop pool
+		and not displayDBUnique.source then
 		t_insert(sourceList, { label = "Vestigial", sourceId = "VESTIGIAL" })
 	end
 	if (self.displayItem.rarity ~= "UNIQUE" and self.displayItem.rarity ~= "RELIC") and (self.displayItem.type == "Helmet" or self.displayItem.type == "Body Armour" or self.displayItem.type == "Gloves" or self.displayItem.type == "Boots") then

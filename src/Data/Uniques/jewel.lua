@@ -857,18 +857,21 @@ Radius: Medium
 [[
 Amanamu's Gaze
 Ghastly Eye Jewel
+Source: Drops from unique{Abyssal Liches} in normal{Abyssal Depths}
 +(5-10) to all Attributes
 Minions have +6% to Damage over Time Multiplier per
 Ghastly Eye Jewel affecting you, up to a maximum of +30%
 ]],[[
 Kurgal's Gaze
 Hypnotic Eye Jewel
+Source: Drops from unique{Abyssal Liches} in normal{Abyssal Depths}
 +(10-20) to Intelligence
 8% increased Effect of Arcane Surge on you per
 Hypnotic Eye Jewel affecting you, up to a maximum of 40%
 ]],[[
 Tecrod's Gaze
 Murderous Eye Jewel
+Source: Drops from unique{Abyssal Liches} in normal{Abyssal Depths}
 Variant: Pre 3.21.0
 Variant: Current
 Requires Level 40
@@ -884,6 +887,7 @@ Requires Level 40
 ]],[[
 Ulaman's Gaze
 Searching Eye Jewel
+Source: Drops from unique{Abyssal Liches} in normal{Abyssal Depths}
 Requires Level 40
 +(10-20) to Dexterity
 Projectiles have 4% chance to be able to Chain when colliding with terrain per

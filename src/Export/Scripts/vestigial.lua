@@ -35,6 +35,7 @@ end
 -- confirmed to be correct in most cases. some of these also have ids that
 -- aren't the same as the original. usually in cases where the effect is nerfed
 -- in some way
+-- spell-checker: disable
 local manualFixes = {
 	-- no clue and these are not important anyway
 	["DivergentAbyssJewelSocketUnique__3"] = false,
@@ -105,8 +106,18 @@ local manualFixes = {
 	-- No clue, but looks like a dupe anyyway
 	["DivergentCannotBeFrozenOrChilledUnique__2"] = false,
 }
+-- spell-checker: enable
 
 for k, v in pairs(manualFixes) do
 	output[k] = v and v or nil
 end
-utils.saveTableToFile("../Data/Vestigial.lua", output)
+for k, v in pairs(output) do
+	if #v > 1 then
+		print(string.format("Mod id %s has ambiguous mapping. Check and fix manually", k))
+	elseif #v == 0 then
+		print(string.format("Mod id %s has no mapping. Check and fix manually", k))
+	end
+end
+local vestigialDescription = "This file describes which item each mod ID comes from."
+print("Vestigial mappings exported.")
+utils.saveTableToFile("../Data/Vestigial.lua", output, vestigialDescription)

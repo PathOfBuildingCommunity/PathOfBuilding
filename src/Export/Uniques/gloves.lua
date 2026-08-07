@@ -280,6 +280,7 @@ Slink Gloves
 League: Heist
 Variant: Pre 3.26.0
 Variant: Current
+Source: Reward from a mercenary duel
 Requires Level 70, 95 Dex
 LocalIncreasedEvasionRatingUnique__5
 AttackAndCastSpeedUnique__7
@@ -1133,6 +1134,7 @@ Medved's Challenge
 Runic Gauntlets
 Requires Level 69, 38 Str, 38 Dex, 38 Int
 League: Expedition
+Source: Drops from Expedition monsters
 IncreasedLocalAttributeRequirementsUnique__1
 LocalIncreasedWardPercentUnique__3
 AllResistancesUnique__23__
@@ -1145,6 +1147,7 @@ Variant: Pre 3.16.0
 Variant: Pre 3.25.0
 Variant: Current
 League: Expedition
+Source: Drops from Expedition monsters
 Requires Level 48, 31 Str, 31 Dex, 31 Int
 LocalIncreasedWardPercentUnique__1_
 ChaosResistUnique__10

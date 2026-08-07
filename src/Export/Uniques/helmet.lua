@@ -996,6 +996,7 @@ LocalIncreasedArmourAndEvasionUniqueHelmetStrDex5
 El'Abin's Visage
 Fencer Helm
 League: Crucible
+Source: Drops from Crucible monsters
 StrengthUnique__23
 DexterityUnique__28
 LocalIncreasedArmourAndEvasionUnique__23
@@ -1676,6 +1677,7 @@ LosePowerChargesOnBlockUnique__1
 Faithguard
 Runic Helm
 League: Expedition
+Source: Drops from Expedition monsters
 Variant: Pre 3.19.0
 Variant: Current
 IntelligenceUniqueHelmetInt9

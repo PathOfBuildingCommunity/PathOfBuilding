@@ -784,6 +784,7 @@ Lose Adrenaline when you cease to be Flame-Touched
 Gamblesprint
 Hydrascale Boots
 League: Affliction
+Source: Reward from Ultimatum encounters
 Requires Level 59, 56 Str, 56 Dex
 +(30-40) to Dexterity
 (100-150)% increased Armour and Evasion
@@ -1170,6 +1171,7 @@ Celestial Footprints
 Olroth's Charge
 Runic Sollerets
 League: Expedition
+Source: Drops from Expedition monsters
 Requires Level 48, 37 Str, 37 Dex, 37 Int
 (50-80)% increased Ward
 (30-50)% slower Restoration of Ward

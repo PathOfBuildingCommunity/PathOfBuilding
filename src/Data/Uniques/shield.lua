@@ -749,6 +749,7 @@ Implicits: 0
 ]],[[
 The Scales of Justice
 Chiming Spirit Shield
+Source: Labyrinth
 Implicits: 1
 (10-15)% increased Spell Damage
 Has no Energy Shield

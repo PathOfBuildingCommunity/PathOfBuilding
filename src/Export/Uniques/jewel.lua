@@ -822,16 +822,19 @@ SoulTattooEffectUnique__1
 [[
 Amanamu's Gaze
 Ghastly Eye Jewel
+Source: Drops from unique{Abyssal Liches} in normal{Abyssal Depths}
 AllAttributesUnique__23
 MinionDamageOverTimeMultiplierPerMinionAbyssJewelUnique__1
 ]],[[
 Kurgal's Gaze
 Hypnotic Eye Jewel
+Source: Drops from unique{Abyssal Liches} in normal{Abyssal Depths}
 IntelligenceUnique__28
 ArcaneSurgeEffectPerCasterAbyssJewelUnique__1
 ]],[[
 Tecrod's Gaze
 Murderous Eye Jewel
+Source: Drops from unique{Abyssal Liches} in normal{Abyssal Depths}
 Variant: Pre 3.21.0
 Variant: Current
 Requires Level 40
@@ -843,6 +846,7 @@ StrengthUnique__21
 ]],[[
 Ulaman's Gaze
 Searching Eye Jewel
+Source: Drops from unique{Abyssal Liches} in normal{Abyssal Depths}
 Requires Level 40
 DexterityUnique__21_
 ChainOffTerrainChancePerRangedAbyssJewelUnique__1__

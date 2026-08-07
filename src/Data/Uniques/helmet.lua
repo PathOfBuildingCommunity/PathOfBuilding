@@ -1028,6 +1028,7 @@ Requires Level 36, 42 Str, 42 Dex
 El'Abin's Visage
 Fencer Helm
 League: Crucible
+Source: Drops from Crucible monsters
 +(20-30) to Strength
 +(20-30) to Dexterity
 (80-120)% increased Armour and Evasion
@@ -1714,6 +1715,7 @@ Lose all Power Charges when you Block
 Faithguard
 Runic Helm
 League: Expedition
+Source: Drops from Expedition monsters
 Variant: Pre 3.19.0
 Variant: Current
 +(20-30) to Intelligence
