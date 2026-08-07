@@ -4,6 +4,7 @@
 -- Notes tab for the current build.
 --
 local t_insert = table.insert
+local m_floor = math.floor
 
 local NotesTabClass = newClass("NotesTab", "ControlHost", "Control", function(self, build)
 	self.ControlHost()
@@ -31,14 +32,75 @@ Below are some common color codes PoB uses:	]]
 	self.controls.intelligence = new("ButtonControl", {"TOPLEFT",self.controls.dexterity,"TOPLEFT"}, {120, 0, 100, 18}, colorCodes.INTELLIGENCE.."INTELLIGENCE", function() self:SetColor(colorCodes.INTELLIGENCE) end)
 	self.controls.default = new("ButtonControl", {"TOPLEFT",self.controls.intelligence,"TOPLEFT"}, {120, 0, 100, 18}, "^7DEFAULT", function() self:SetColor("^7") end)
 
-	self.controls.edit = new("EditControl", {"TOPLEFT",self.controls.fire,"TOPLEFT"}, {0, 48, 0, 0}, "", nil, "^%C\t\n", nil, nil, 16, true)
+	self.controls.edit = new("EditControl", {"TOPLEFT",self.controls.fire,"TOPLEFT"}, {0, 48, 0, 0}, "", nil, "^%C\t\n", nil, function()
+		self.controls.edit:RefreshSearch()
+	end, 16, true)
 	self.controls.edit.width = function()
 		return self.width - 16
 	end
 	self.controls.edit.height = function()
 		return self.height - 128
 	end
-	self.controls.toggleColorCodes = new("ButtonControl", {"TOPRIGHT",self,"TOPRIGHT"}, {-10, 70, 160, 20}, "Show Color Codes", function()
+
+	self.controls.searchClear = new("ButtonControl", {"TOPRIGHT",self,"TOPRIGHT"}, {-10, 10, 20, 20}, "x", function()
+		self:ClearSearch()
+	end)
+	self.controls.searchClear.tooltipText = function()
+		return "Clear search"
+	end
+	self.controls.searchClear.enabled = function()
+		return self.controls.search.buf ~= ""
+	end
+	self.controls.searchNext = new("ButtonControl", {"RIGHT",self.controls.searchClear,"LEFT"}, {-4, 0, 24, 20}, "\\/", function()
+		self:AdvanceSearch(1)
+	end)
+	self.controls.searchNext.tooltipText = function()
+		return "Next match\n\nShortcut: Enter"
+	end
+	self.controls.searchNext.enabled = function()
+		return #self.controls.edit.searchMatches > 0
+	end
+	self.controls.searchPrev = new("ButtonControl", {"RIGHT",self.controls.searchNext,"LEFT"}, {-4, 0, 24, 20}, "/\\", function()
+		self:AdvanceSearch(-1)
+	end)
+	self.controls.searchPrev.tooltipText = function()
+		return "Previous match\n\nShortcut: Shift+Enter"
+	end
+	self.controls.searchPrev.enabled = function()
+		return #self.controls.edit.searchMatches > 0
+	end
+	self.controls.search = new("EditControl", {"RIGHT",self.controls.searchPrev,"LEFT"}, {-8, 0, 220, 20}, "", nil, "%c", 100, function(buf)
+		self.controls.edit:SetSearchQuery(buf, true)
+	end)
+	self.controls.search.width = function()
+		local baseWidth = math.max(140, math.min(320, self.width - 700))
+		return math.max(100, m_floor(baseWidth * 0.7))
+	end
+	self.controls.search.enterFunc = function()
+		self:AdvanceSearch(IsKeyDown("SHIFT") and -1 or 1)
+	end
+	self.controls.search:SetPlaceholder("Search")
+
+	self.controls.searchCount = new("LabelControl", {"RIGHT",self.controls.search,"LEFT"}, {-8, 0, 60, 16}, function()
+		if self.controls.search.buf == "" then
+			return ""
+		end
+		local matchCount = #self.controls.edit.searchMatches
+		if matchCount == 0 then
+			return "^10/0"
+		end
+		return ("^7%d/%d"):format(self.controls.edit.searchFocusIndex or 0, matchCount)
+	end)
+	self.controls.searchCount.x = function()
+		local reservedWidth = self.controls.searchCount:GetProperty("width")
+		local labelWidth = DrawStringWidth(self.controls.searchCount:GetProperty("height"), "VAR", self.controls.searchCount:GetProperty("label"))
+		return reservedWidth - 8 - labelWidth
+	end
+	self.controls.searchCount.width = function()
+		return DrawStringWidth(self.controls.searchCount:GetProperty("height"), "VAR", "^7999/9999") + 8
+	end
+
+	self.controls.toggleColorCodes = new("ButtonControl", {"TOPRIGHT",self,"TOPRIGHT"}, {-10, 38, 160, 20}, "Show Color Codes", function()
 		self.showColorCodes = not self.showColorCodes
 		self:SetShowColorCodes(self.showColorCodes)
 	end)
@@ -54,6 +116,7 @@ function NotesTabClass:SetShowColorCodes(setting)
 		self.controls.toggleColorCodes.label = "Show Color Codes"
 		self.controls.edit.buf = self.controls.edit.buf:gsub("%^_x(%x%x%x%x%x%x)","^x%1"):gsub("%^_(%d)","^%1")
 	end
+	self.controls.edit:RefreshSearch(#self.controls.edit.searchMatches > 0)
 end
 
 function NotesTabClass:SetColor(color)
@@ -82,6 +145,19 @@ function NotesTabClass:Save(xml)
 	self.lastContent = self.controls.edit.buf
 end
 
+function NotesTabClass:ClearSearch()
+	self.controls.search:SetText("", true)
+	self.controls.search:SelectAll()
+	self:SelectControl(self.controls.search)
+	return self.controls.search
+end
+
+function NotesTabClass:AdvanceSearch(direction)
+	self.controls.edit:AdvanceSearchMatch(direction)
+	self:SelectControl(self.controls.search)
+	return self.controls.search
+end
+
 function NotesTabClass:Draw(viewPort, inputEvents)
 	self.x = viewPort.x
 	self.y = viewPort.y
@@ -94,6 +170,17 @@ function NotesTabClass:Draw(viewPort, inputEvents)
 				self.controls.edit:Undo()
 			elseif event.key == "y" and IsKeyDown("CTRL") then
 				self.controls.edit:Redo()
+			elseif event.key == "f" and IsKeyDown("CTRL") then
+				self:SelectControl(self.controls.search)
+				self.controls.search:SelectAll()
+				inputEvents[id] = nil
+			elseif event.key == "ESCAPE" and self.controls.search.hasFocus then
+				if self.controls.search.buf ~= "" then
+					self:ClearSearch()
+				else
+					self:SelectControl(self.controls.edit)
+				end
+				inputEvents[id] = nil
 			end
 		end
 	end
