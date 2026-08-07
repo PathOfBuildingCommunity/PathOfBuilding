@@ -400,7 +400,7 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 		Exarch = "Assets/exarchicon.png",
 		Synthesis = "Assets/synthesisicon.png",
 		Experimented = "Assets/experimentedicon.png",
-		Foulborn = "Assets/breachicon.png",
+		Foulborn = "Assets/BreachIcon.png",
 		Memory = "Assets/memoryicon.png",
 		Vestigial = "Assets/vestigialicon.png",
 	}

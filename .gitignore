@@ -40,3 +40,4 @@ runtime/imgui.ini
 runtime/SimpleGraphic/SimpleGraphic.log
 
 src/poe_api_response.json
+build/

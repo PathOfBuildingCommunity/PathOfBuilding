@@ -75,14 +75,14 @@ def create_manifest(version: str | None = None, replace: bool = False) -> None:
 
     base_url = "https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/"
     parts: list[dict[str, str]] = []
-    for part in config.sections():
-        url = base_url + config[part]["path"]
+    for section in config.sections():
+        url = base_url + config[section]["path"]
         url_with_trailing_slash = url if url.endswith("/") else url + "/"
-        attributes = (
-            {"part": part, "platform": "win32", "url": url_with_trailing_slash}
-            if part == "runtime"
-            else {"part": part, "url": url_with_trailing_slash}
-        )
+        part = config[section].get("part", section)
+        platform = config[section].get("platform")
+        attributes = {"part": part, "url": url_with_trailing_slash}
+        if platform:
+            attributes = {"part": part, "platform": platform, "url": url_with_trailing_slash}
         parts.append(attributes)
 
     files: list[dict[str, str]] = []
@@ -91,8 +91,12 @@ def create_manifest(version: str | None = None, replace: bool = False) -> None:
         include_dirs = _parse_list_option(config, section, "include-directories")
         exclude_files = _parse_list_option(config, section, "exclude-files")
         exclude_dirs = _parse_list_option(config, section, "exclude-directories")
+        part = config[section].get("part", section)
+        platform = config[section].get("platform")
         source = pathlib.Path(config[section]["path"])
-        for path in source.glob("**/*.*"):
+        for path in source.glob("**/*"):
+            if not path.is_file():
+                continue
             if include_files and not _exclude_file(include_files, path):
                 continue
             if include_dirs and not _exclude_directory(include_dirs, path):
@@ -107,11 +111,9 @@ def create_manifest(version: str | None = None, replace: bool = False) -> None:
                 data = re.sub(rb"\r\n?|\n", b"\r\n", data)
             sha1 = hashlib.sha1(data).hexdigest()
             name = path.relative_to(config[section]["path"]).as_posix()
-            attributes = (
-                {"name": name, "part": section, "runtime": "win32", "sha1": sha1}
-                if path.suffix in [".dll", ".exe"]
-                else {"name": name, "part": section, "sha1": sha1}
-            )
+            attributes = {"name": name, "part": part, "sha1": sha1}
+            if platform:
+                attributes = {"name": name, "part": part, "platform": platform, "sha1": sha1}
             files.append(attributes)
 
     files.sort(key=lambda attr: (attr["part"], _alphanumeric(attr["name"])))

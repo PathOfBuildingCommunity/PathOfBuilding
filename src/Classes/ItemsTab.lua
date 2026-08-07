@@ -1021,7 +1021,7 @@ holding Shift will put it in the second.]])
 		end
 	end})
 	local foulbornIcon = NewImageHandle()
-	foulbornIcon:Load("Assets/breachicon.png")
+	foulbornIcon:Load("Assets/BreachIcon.png")
 	self.controls.displayItemRangeLine = new("DropDownControl", {"TOPLEFT",self.controls.displayItemSectionRange,"TOPLEFT"}, {0, 0, 350, 18}, nil, function(index, value)
 		self.controls.displayItemRangeSlider.val = self.displayItem.rangeLineList[index].range
 	end)

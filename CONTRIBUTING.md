@@ -67,7 +67,7 @@ The easiest way to make and test changes is by setting up a development installa
        cd PathOfBuilding
 
 3. Start Path of Building from the repository by running `./runtime/Path{space}of{space}Building.exe`.
-   * <ins>Note for Linux users:</ins> The executable files should automatically have the correct permissions when cloned fresh. If you still encounter permission issues, run once: `chmod +x ./runtime/Path{space}of{space}Building-PoE2.exe`
+   * <ins>Note for Linux users:</ins> The executable files should automatically have the correct permissions when cloned fresh. If you still encounter permission issues, run once: `chmod +x ./runtime/Path{space}of{space}Building.exe`
 You can now use the shortcut to run the program from the repository. Running the program in this manner automatically enables "Dev Mode", which has some handy debugging feature:
 * `F5` restarts the program in-place (this is what usually happens when an update is applied).
 * `Ctrl` + `~` toggles the console (Note that this does not work with all keyboard layouts. US layout is a safe bet though).
@@ -209,6 +209,34 @@ If you're using linux you can run the ./runtime/Path{space}of{space}Building.exe
 # winepath -w ~/.vscode/extensions/tangzx.emmylua-0.8.20-linux-x64/debugger/emmy/windows/x64/
 Z:\home\dev\.vscode\extensions\tangzx.emmylua-0.8.20-linux-x64\debugger\emmy\windows\x64\
 ```
+
+See [docs/crossPlatform.md](docs/crossPlatform.md) for how platform support is
+structured and what native Linux/macOS support requires.
+
+### macOS
+
+A native arm64 app can be built from source:
+
+1. Install prerequisites: Xcode, plus `brew install cmake ninja`.
+2. Clone the host repo as a sibling:
+   `git clone https://github.com/PathOfBuildingCommunity/PathOfBuilding-SimpleGraphic.git ../PathOfBuilding-SimpleGraphic`
+   then run `git submodule update --init --recursive`. The macOS build also
+   needs the `feat/macos-build` changes, which are not yet merged upstream —
+   see [docs/crossPlatform.md](docs/crossPlatform.md) for their status; until
+   they land, use a checkout that already contains them.
+3. From this repo: `make macos-app` (first run builds all native
+   dependencies via vcpkg — expect 30-60 minutes), then `make run-macos`.
+
+The app runs in dev mode from your checkout: update with `git pull`, user
+data lives in `src/`. Override the checkout with `POB_SCRIPT_PATH` or the
+host clone location with `make SG_DIR=/path/to/clone macos-app`.
+
+Known limitations of the local app: `pob://` links launch the app but URL
+delivery into the running program is best-effort (links to an
+already-running instance are not received); and the app writes some runtime
+state (`imgui.ini`, logs) inside its own bundle, which is discarded on the
+next `make macos-app`. Build/character data is unaffected — it lives in
+`src/` in your checkout.
 
 ## Testing
 

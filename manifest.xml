@@ -150,7 +150,7 @@
 	<File name="Classes/ItemListControl.lua" part="program" sha1="cb98f307436d876a84591167896a50d14e6d535e" />
 	<File name="Classes/ItemSetListControl.lua" part="program" sha1="443038191a6ba3a17c3ce6683b96ab2797cf5d39" />
 	<File name="Classes/ItemSlotControl.lua" part="program" sha1="f353849939ff90f259110baaf59bced890b0994e" />
-	<File name="Classes/ItemsTab.lua" part="program" sha1="75b76c44dfd9f9c472a2f9d26a48b2998f84fba6" />
+	<File name="Classes/ItemsTab.lua" part="program" sha1="da0690002a77a97211b50d9db68079b65e6c5f59" />
 	<File name="Classes/LabelControl.lua" part="program" sha1="b6c56903b054e14c302a5e4e60ed8e91764bc6a0" />
 	<File name="Classes/ListControl.lua" part="program" sha1="b51a294cd00391400bc5d0ad101319bb126dc6a0" />
 	<File name="Classes/MinionListControl.lua" part="program" sha1="b9324d7c16d20ac4d7508ecd151c2e9838fdb98c" />
@@ -185,7 +185,7 @@
 	<File name="Classes/TextListControl.lua" part="program" sha1="08444ee7a89fac97d6727541b0e94b4997c1c7af" />
 	<File name="Classes/TimelessJewelListControl.lua" part="program" sha1="e68edb794b357090c49237d234c3c0bcca289814" />
 	<File name="Classes/TimelessJewelSocketControl.lua" part="program" sha1="07de3a54c591ba767a644050a27a9767ca621bf1" />
-	<File name="Classes/Tooltip.lua" part="program" sha1="9b20bb37b2c09241c3d6e4850db01f18b8f68459" />
+	<File name="Classes/Tooltip.lua" part="program" sha1="be83a8f78f2d3ec914e5c3551c9255ec204bf036" />
 	<File name="Classes/TooltipHost.lua" part="program" sha1="c9854fd295d8305b0d2b1a31ac28b44a53ec791d" />
 	<File name="Classes/TradeHelpers.lua" part="program" sha1="18d3439ba42836a8415de31e6db23728c8e5445a" />
 	<File name="Classes/TradeQuery.lua" part="program" sha1="184e0d741243661a07d35ed8012c956e9c22d154" />
@@ -371,7 +371,7 @@
 	<File name="Data/Uniques/tincture.lua" part="program" sha1="fc29ab519e3abe14cae5e524cb8e8189e656e7b0" />
 	<File name="Data/Uniques/wand.lua" part="program" sha1="c772e0efdf0387c81a3ee36d65235c1cc6cc8513" />
 	<File name="GameVersions.lua" part="program" sha1="2ba59bb7443d8f829861fdd5794c57db14c894b3" />
-	<File name="Launch.lua" part="program" sha1="53c2f6a73b2e871722837d19708f4e5e8a1dc60b" />
+	<File name="Launch.lua" part="program" sha1="b3538977241ce95b967ea9f5be906988a2093498" />
 	<File name="LaunchServer.lua" part="program" sha1="f15bdfbedaf887e19556490dce49b720f8365379" />
 	<File name="Modules/Build.lua" part="program" sha1="1ef2cc076312e8f79506dc9e56b7c486a88df584" />
 	<File name="Modules/BuildDisplayStats.lua" part="program" sha1="f1b0f89f803ae4493154ca5b78ddda457679dd30" />
@@ -383,7 +383,7 @@
 	<File name="Modules/CalcDefence.lua" part="program" sha1="77e6bd8ae00a80459821f069910a2068567f401f" />
 	<File name="Modules/CalcFormat.lua" part="program" sha1="eacfddab6dc96067db1822b48d906d20d25708dc" />
 	<File name="Modules/CalcMirages.lua" part="program" sha1="6391a1e8001052ce3ebfdf530624f9b268b93d9f" />
-	<File name="Modules/CalcOffence.lua" part="program" sha1="1377c41cfa7b6324b8e4481bde52d9194d33c235" />
+	<File name="Modules/CalcOffence.lua" part="program" sha1="d6fb21d32df5f0cf234e1a838cab70b5d9e7ac79" />
 	<File name="Modules/CalcPerform.lua" part="program" sha1="e205704f97a540b198f0eb60e04004e2433f9e33" />
 	<File name="Modules/Calcs.lua" part="program" sha1="5060ae20bbf22121d747f1274c56baab8f7ca758" />
 	<File name="Modules/CalcSections.lua" part="program" sha1="fb490a3105beb1cab3ef3a17e6b0a348272b04c2" />
@@ -399,171 +399,171 @@
 	<File name="Modules/DataLegionLookUpTableHelper.lua" part="program" sha1="617477a663b7b6ece264a862c407eb05c2381fae" />
 	<File name="Modules/ItemSlotHelper.lua" part="program" sha1="4b7d441f9ade5d57c413aa1f8f8067b654cfb927" />
 	<File name="Modules/ItemTools.lua" part="program" sha1="2ea3bf94281203188090982c4ecd91e0ade782e4" />
-	<File name="Modules/Main.lua" part="program" sha1="fe81c6c5379c558bbdcab1376b11488433565408" />
+	<File name="Modules/Main.lua" part="program" sha1="b6fbf55a817f1e593335ff32a754d76edd367f8c" />
 	<File name="Modules/ModParser.lua" part="program" sha1="9c8ba0ebc313d58ee8cf1ba090460f1d6e00e4dc" />
 	<File name="Modules/ModTools.lua" part="program" sha1="e32d3c0c320f7add6e70987b5de8ff3370d0b321" />
 	<File name="Modules/PantheonTools.lua" part="program" sha1="ebe91a7d8f8444a6061acf4758da0e775cc8c314" />
 	<File name="Modules/StatDescriber.lua" part="program" sha1="3d50e85ee6ae84414f7880c4856ab7e59004129d" />
 	<File name="Modules/ToastNotification.lua" part="program" sha1="7eda73b862f789e0acff647bc11a6823199d7800" />
 	<File name="Modules/Utils.lua" part="program" sha1="ff63549f844f9a81689d7ee9f6138ad12c782f72" />
-	<File name="UpdateApply.lua" part="program" sha1="4dd42f413cb89a963e4ae1b40e214985b909c05b" />
-	<File name="UpdateCheck.lua" part="program" sha1="2f3861b4e89838150f16e4e09eb6012b0800fa68" />
-	<File name="abseil_dll.dll" part="runtime" runtime="win32" sha1="9bcb9ca812e69350cca49c7ccaa507371e52a50d" />
-	<File name="concrt140.dll" part="runtime" runtime="win32" sha1="1ce87fac4c22aae82a81ddb26952c074b744e78d" />
-	<File name="d3dcompiler_47.dll" part="runtime" runtime="win32" sha1="27a4eff95e7f4a359718fda7138a528147969b27" />
-	<File name="fmt.dll" part="runtime" runtime="win32" sha1="b029d66f7e349346cd636d459b76cd0b8e3016ee" />
-	<File name="glfw3.dll" part="runtime" runtime="win32" sha1="da685ead02663a6bdfa55a2724eff355dcf85017" />
-	<File name="lcurl.dll" part="runtime" runtime="win32" sha1="e56009584fcf4cf78c9a14bd9065ea3a7778c7de" />
-	<File name="libcurl.dll" part="runtime" runtime="win32" sha1="7e1bc49779acedd6ae6a0dfa4bdd4bfe8783ccb5" />
-	<File name="libEGL.dll" part="runtime" runtime="win32" sha1="ec01cc0990d9c0000d03ad9f5bc1793d7a44aeab" />
-	<File name="libGLESv2.dll" part="runtime" runtime="win32" sha1="d44d3fee28172aef2fc4331696a6ff73706c6df1" />
-	<File name="libwebpdecoder.dll" part="runtime" runtime="win32" sha1="b8f1cdb57747c278a92ff088cdd58f64313dec4a" />
-	<File name="lua51.dll" part="runtime" runtime="win32" sha1="dd55f49619ede7c8a3b088477d71782414b32e29" />
-	<File name="lua-utf8.dll" part="runtime" runtime="win32" sha1="3fc001d23ca0178617d5f1ddca62ac565bb95725" />
-	<File name="lua/base64.lua" part="runtime" sha1="18629865eb351e483178b6524fb3935cbc9b8297" />
-	<File name="lua/dkjson.lua" part="runtime" sha1="a318615b8b7615809805857e35562ffd7bba400e" />
-	<File name="lua/sha1/bit32_ops.lua" part="runtime" sha1="25bc8def626fd8d8bd3d37dcd96808c6b8b00087" />
-	<File name="lua/sha1/bit_ops.lua" part="runtime" sha1="53ce6b3174386d1e4565ced0c1a7f1b3df3bb83f" />
-	<File name="lua/sha1/common.lua" part="runtime" sha1="70faf0efa48e6d44c7b8a4279467f0025257b84f" />
-	<File name="lua/sha1/init.lua" part="runtime" sha1="e23c730650ac2ffe595b4ed2a5f3484225414ebd" />
-	<File name="lua/sha1/lua53_ops.lua" part="runtime" sha1="b10c732f322358c4112226df61af61f53a21b911" />
-	<File name="lua/sha1/pure_lua_ops.lua" part="runtime" sha1="0dff15b1cfd171a3572032346613adcf5e9962c2" />
-	<File name="lua/sha2.lua" part="runtime" sha1="be1204772be5b5cb29f0ba65f1323b08f561bf6b" />
-	<File name="lua/socket.lua" part="runtime" sha1="33842fc36ea37caf272d31503d8b863edb42a4fb" />
-	<File name="lua/xml.lua" part="runtime" sha1="06b35967b8efc4889584f692204e237d400a78fd" />
-	<File name="lzip.dll" part="runtime" runtime="win32" sha1="aa67b1a644ecee549c7ee78dd4acf17c98995aa7" />
-	<File name="msvcp140.dll" part="runtime" runtime="win32" sha1="b370eca8fa727e46cf61d834fcc956698b02e1fd" />
-	<File name="msvcp140_1.dll" part="runtime" runtime="win32" sha1="9ce5c3d6c7d94b175f136f552af8771dca6147b3" />
-	<File name="msvcp140_2.dll" part="runtime" runtime="win32" sha1="e48159bb2127ec812ff679f6fabc41141009f26a" />
-	<File name="msvcp140_atomic_wait.dll" part="runtime" runtime="win32" sha1="a85a6a4de6656e5969fa4ab15f2230dfe2839e75" />
-	<File name="msvcp140_codecvt_ids.dll" part="runtime" runtime="win32" sha1="91b19dd0db24a5cbd944eca9c67fad3b53f9c154" />
-	<File name="Path{space}of{space}Building.exe" part="runtime" runtime="win32" sha1="8dcd46aac0b70d0a4d5eac5c7244302c9b805f85" />
-	<File name="re2.dll" part="runtime" runtime="win32" sha1="0fd062fe4c82ddabe97b640f4a3da173e4bae886" />
-	<File name="SimpleGraphic.dll" part="runtime" runtime="win32" sha1="00248efe6208e0d268bbf737a0bf2e6332428077" />
-	<File name="SimpleGraphic/Fonts/Bitstream Vera Sans Mono.10.tga" part="runtime" sha1="12e59115634000273611ef08b0d1b130ea95d4a7" />
-	<File name="SimpleGraphic/Fonts/Bitstream Vera Sans Mono.12.tga" part="runtime" sha1="325378beb3e4944f1504b402bdd809c99b240c1d" />
-	<File name="SimpleGraphic/Fonts/Bitstream Vera Sans Mono.14.tga" part="runtime" sha1="0df6084dca4762df282cc4ab1ad5ddc21e9c6e12" />
-	<File name="SimpleGraphic/Fonts/Bitstream Vera Sans Mono.16.tga" part="runtime" sha1="ea50ad683c87fe6e583d5718eb3090e62e9317fb" />
-	<File name="SimpleGraphic/Fonts/Bitstream Vera Sans Mono.18.tga" part="runtime" sha1="d373c499821592acb6e766da108aa8e389a53c02" />
-	<File name="SimpleGraphic/Fonts/Bitstream Vera Sans Mono.20.tga" part="runtime" sha1="9af184c5eb1cd420d564e24e25ec5a5052233240" />
-	<File name="SimpleGraphic/Fonts/Bitstream Vera Sans Mono.22.tga" part="runtime" sha1="285ad048eb12f7de9a7c8cc8220a1e3feeb8a59a" />
-	<File name="SimpleGraphic/Fonts/Bitstream Vera Sans Mono.24.tga" part="runtime" sha1="2c77f0f63a2979d5bd9472957eb6ae13c66151c9" />
-	<File name="SimpleGraphic/Fonts/Bitstream Vera Sans Mono.26.tga" part="runtime" sha1="eb2e1113ba2ad054823cc2c2b616366e04098915" />
-	<File name="SimpleGraphic/Fonts/Bitstream Vera Sans Mono.28.tga" part="runtime" sha1="462365a809a528be7726173ab1e0dfbb4d9bc395" />
-	<File name="SimpleGraphic/Fonts/Bitstream Vera Sans Mono.32.tga" part="runtime" sha1="85e68b5d8d1185e4bb8aeabef69c54ff576f8d8c" />
-	<File name="SimpleGraphic/Fonts/Bitstream Vera Sans Mono.36.tga" part="runtime" sha1="ba4f2e2882e92553ebe06d6c0f754be8301e739e" />
-	<File name="SimpleGraphic/Fonts/Bitstream Vera Sans Mono.40.tga" part="runtime" sha1="f10e1a0512dff3e14d091531a7d48a2c0a026320" />
-	<File name="SimpleGraphic/Fonts/Bitstream Vera Sans Mono.48.tga" part="runtime" sha1="b0fc64ebb0fdddfb534879238d0572241a4e25f3" />
-	<File name="SimpleGraphic/Fonts/Bitstream Vera Sans Mono.56.tga" part="runtime" sha1="162306270648fee343d67379c5d387b2c581ec19" />
-	<File name="SimpleGraphic/Fonts/Bitstream Vera Sans Mono.64.tga" part="runtime" sha1="6405e5fce201576e889e71173761421ac24d92eb" />
-	<File name="SimpleGraphic/Fonts/Bitstream Vera Sans Mono.tgf" part="runtime" sha1="929705ce9d75e69a023de2722affef815b93a542" />
-	<File name="SimpleGraphic/Fonts/Fontin Italic.10.tga" part="runtime" sha1="c5f013dd652292d7d96f9df22f9caee053e766df" />
-	<File name="SimpleGraphic/Fonts/Fontin Italic.12.tga" part="runtime" sha1="01b4f3d57e1a958b9854847ce99ac663694ba833" />
-	<File name="SimpleGraphic/Fonts/Fontin Italic.14.tga" part="runtime" sha1="66820529b1ed6e3e6a4d25e95b3c3c5cb8635117" />
-	<File name="SimpleGraphic/Fonts/Fontin Italic.16.tga" part="runtime" sha1="79c6cbeff65ab43773e1ac781386cf0cecc2a28e" />
-	<File name="SimpleGraphic/Fonts/Fontin Italic.18.tga" part="runtime" sha1="8b5d06a199dc907b15ef9d0a6266065c999005c0" />
-	<File name="SimpleGraphic/Fonts/Fontin Italic.20.tga" part="runtime" sha1="d3b667abdb98b947f51a36e5c5d6a3308f0e014f" />
-	<File name="SimpleGraphic/Fonts/Fontin Italic.22.tga" part="runtime" sha1="233664083f592e0cb6b69fd25a311c1ade4148a6" />
-	<File name="SimpleGraphic/Fonts/Fontin Italic.24.tga" part="runtime" sha1="00c774802ccdd1e02f6e3abc70ee51d0b5bb79cb" />
-	<File name="SimpleGraphic/Fonts/Fontin Italic.26.tga" part="runtime" sha1="1f5009b194a60b02b6eb2e042ab3040be63ae06a" />
-	<File name="SimpleGraphic/Fonts/Fontin Italic.28.tga" part="runtime" sha1="85a17e1d7f1877693c740600c6e4eeef28f8b076" />
-	<File name="SimpleGraphic/Fonts/Fontin Italic.32.tga" part="runtime" sha1="9b44528dc9e96f623763398a8bf1f82b41a75447" />
-	<File name="SimpleGraphic/Fonts/Fontin Italic.36.tga" part="runtime" sha1="6122e160e9ad3ec91496c4c583d28b125a303a2e" />
-	<File name="SimpleGraphic/Fonts/Fontin Italic.40.tga" part="runtime" sha1="b26995690a516b3f990d9e018c23b072ca4e799c" />
-	<File name="SimpleGraphic/Fonts/Fontin Italic.48.tga" part="runtime" sha1="2f5d62b9dd28809991fdf147a4a7287284faec9f" />
-	<File name="SimpleGraphic/Fonts/Fontin Italic.56.tga" part="runtime" sha1="be959fa8e32c5691169680572f87ff6d2a6d46c6" />
-	<File name="SimpleGraphic/Fonts/Fontin Italic.64.tga" part="runtime" sha1="7cce9bf759badfc1dd7c9727c3f7df724fc63219" />
-	<File name="SimpleGraphic/Fonts/Fontin Italic.tgf" part="runtime" sha1="7cb32d1f6eee44d2fe8f59ed146cd6961ea47b9f" />
-	<File name="SimpleGraphic/Fonts/Fontin SmallCaps Italic.10.tga" part="runtime" sha1="13289fa65e4223836751851e8d056bb1a4e509fd" />
-	<File name="SimpleGraphic/Fonts/Fontin SmallCaps Italic.12.tga" part="runtime" sha1="8173601992761f9919ade4dabf7b19bd3aa9bc90" />
-	<File name="SimpleGraphic/Fonts/Fontin SmallCaps Italic.14.tga" part="runtime" sha1="04c2202c18c16f4e45747e338164825d676667f7" />
-	<File name="SimpleGraphic/Fonts/Fontin SmallCaps Italic.16.tga" part="runtime" sha1="bec94f5e57af4c63d3a2a10981714f50e2264e4c" />
-	<File name="SimpleGraphic/Fonts/Fontin SmallCaps Italic.18.tga" part="runtime" sha1="617438fc98ad28804785810da3f979a77011f44f" />
-	<File name="SimpleGraphic/Fonts/Fontin SmallCaps Italic.20.tga" part="runtime" sha1="5c894bc51722d817e0aedcfa9dbcf0866426d316" />
-	<File name="SimpleGraphic/Fonts/Fontin SmallCaps Italic.22.tga" part="runtime" sha1="dd29cea8a5453cc54fb4ddda716ca98f0687f1bb" />
-	<File name="SimpleGraphic/Fonts/Fontin SmallCaps Italic.24.tga" part="runtime" sha1="b322402735d9bbc355c2581c9f9de1577e003bcc" />
-	<File name="SimpleGraphic/Fonts/Fontin SmallCaps Italic.26.tga" part="runtime" sha1="ba081562d6ccfaca8bfbc5ebd470cfbe23101160" />
-	<File name="SimpleGraphic/Fonts/Fontin SmallCaps Italic.28.tga" part="runtime" sha1="6ae3f5283ba733c1049d18ebb6866c5c7ebc6e3a" />
-	<File name="SimpleGraphic/Fonts/Fontin SmallCaps Italic.32.tga" part="runtime" sha1="3de727555f3da7347f26e677fa653e26795f26b6" />
-	<File name="SimpleGraphic/Fonts/Fontin SmallCaps Italic.36.tga" part="runtime" sha1="c1057f6eedace306df6241c13e2782922d90cfae" />
-	<File name="SimpleGraphic/Fonts/Fontin SmallCaps Italic.40.tga" part="runtime" sha1="fd3c2f25fda7d0f2f6e8ef0de7bc68bea1169828" />
-	<File name="SimpleGraphic/Fonts/Fontin SmallCaps Italic.48.tga" part="runtime" sha1="d6904ad512717107e52931a1ada555215ff02c5e" />
-	<File name="SimpleGraphic/Fonts/Fontin SmallCaps Italic.56.tga" part="runtime" sha1="d5bee07111075fb9139363ba8cd6dc5a03a400c0" />
-	<File name="SimpleGraphic/Fonts/Fontin SmallCaps Italic.64.tga" part="runtime" sha1="7544c92003354fd148a8f705375b9de85b9b77e3" />
-	<File name="SimpleGraphic/Fonts/Fontin SmallCaps Italic.tgf" part="runtime" sha1="aa865dea65b35998bcea3eef69acadf65ad1bb02" />
-	<File name="SimpleGraphic/Fonts/Fontin SmallCaps.10.tga" part="runtime" sha1="7ef135874ac7591e41b202437fb09e7a3827bcfa" />
-	<File name="SimpleGraphic/Fonts/Fontin SmallCaps.12.tga" part="runtime" sha1="f17ac57f2ef2823187c49b7e85c2b105a1e837ee" />
-	<File name="SimpleGraphic/Fonts/Fontin SmallCaps.14.tga" part="runtime" sha1="c38c0919f437ebc553fee0a766d3078a1c1fc38e" />
-	<File name="SimpleGraphic/Fonts/Fontin SmallCaps.16.tga" part="runtime" sha1="4f8f76df0f91fd50103ad070ed355afd0430f3fc" />
-	<File name="SimpleGraphic/Fonts/Fontin SmallCaps.18.tga" part="runtime" sha1="6d8724d66a340749dc2417e729002680805ce314" />
-	<File name="SimpleGraphic/Fonts/Fontin SmallCaps.20.tga" part="runtime" sha1="2ace27c6f10e4a011232c9677d70c888a9e2fc22" />
-	<File name="SimpleGraphic/Fonts/Fontin SmallCaps.22.tga" part="runtime" sha1="8a9e0964d9173873456b5afa9be117ebb1157820" />
-	<File name="SimpleGraphic/Fonts/Fontin SmallCaps.24.tga" part="runtime" sha1="6b0db13cfc07492051ac9d780259eb9f0ff38d32" />
-	<File name="SimpleGraphic/Fonts/Fontin SmallCaps.26.tga" part="runtime" sha1="7c9147ba06f6b1749755297a489482f70a1d98c8" />
-	<File name="SimpleGraphic/Fonts/Fontin SmallCaps.28.tga" part="runtime" sha1="890973d7e229167f85a57bf97444d6b1f174b4e2" />
-	<File name="SimpleGraphic/Fonts/Fontin SmallCaps.32.tga" part="runtime" sha1="f6ce43e6050134feb9d9ffb413b2e98db0ae5cf3" />
-	<File name="SimpleGraphic/Fonts/Fontin SmallCaps.36.tga" part="runtime" sha1="c66485a42c20b768786d8ddb3bb6c6e1303fc534" />
-	<File name="SimpleGraphic/Fonts/Fontin SmallCaps.40.tga" part="runtime" sha1="38173185e36d57ac3e40d18e4b20a3959e6af2ad" />
-	<File name="SimpleGraphic/Fonts/Fontin SmallCaps.48.tga" part="runtime" sha1="5aa5d3c19e69c74cd02fa5933149b8df81baa9d8" />
-	<File name="SimpleGraphic/Fonts/Fontin SmallCaps.56.tga" part="runtime" sha1="6a82ff852cdf5d9ee7eea9f262b121b255b1df36" />
-	<File name="SimpleGraphic/Fonts/Fontin SmallCaps.64.tga" part="runtime" sha1="b31ce811a5386276ad8abe7ddb5ba3bd2a8b93fc" />
-	<File name="SimpleGraphic/Fonts/Fontin SmallCaps.tgf" part="runtime" sha1="47444e337474f5719419cf6ac9a6cf5d89d9c2aa" />
-	<File name="SimpleGraphic/Fonts/Fontin.10.tga" part="runtime" sha1="dc4041fe079722e4006e7ea96396b5341fd80aa5" />
-	<File name="SimpleGraphic/Fonts/Fontin.12.tga" part="runtime" sha1="6a8aafa69cb89ca10db4f0b3bc997f88354130ad" />
-	<File name="SimpleGraphic/Fonts/Fontin.14.tga" part="runtime" sha1="50a0ac3cabe193b9e357d75b45523474ed87d0ad" />
-	<File name="SimpleGraphic/Fonts/Fontin.16.tga" part="runtime" sha1="18374eb27c57e0e608a11839bf6393ae78eb65ca" />
-	<File name="SimpleGraphic/Fonts/Fontin.18.tga" part="runtime" sha1="d288d0701cf3c3c341b831086d523647c32a5a4f" />
-	<File name="SimpleGraphic/Fonts/Fontin.20.tga" part="runtime" sha1="ba6ef99c64f1dc0a87709166bf3366241030ddcc" />
-	<File name="SimpleGraphic/Fonts/Fontin.22.tga" part="runtime" sha1="5bba9924fa0509d8d62fef6dc9901e85ca4eb07b" />
-	<File name="SimpleGraphic/Fonts/Fontin.24.tga" part="runtime" sha1="8c3712c79627cc0f5e017b003e88c859abca6843" />
-	<File name="SimpleGraphic/Fonts/Fontin.26.tga" part="runtime" sha1="ce4b900c8dd99ea4a8d39e517b18629e9c3e19b5" />
-	<File name="SimpleGraphic/Fonts/Fontin.28.tga" part="runtime" sha1="6e247c4fab167deb6c5d7ff0e150060866bfb3a4" />
-	<File name="SimpleGraphic/Fonts/Fontin.32.tga" part="runtime" sha1="e3698a896c7259a7c658f107aa58cac6de2e01a9" />
-	<File name="SimpleGraphic/Fonts/Fontin.36.tga" part="runtime" sha1="058f0af632661fdcb1953f7ddc93d15798c98325" />
-	<File name="SimpleGraphic/Fonts/Fontin.40.tga" part="runtime" sha1="be02e75c9e8ca6ef026e109c51dc1ed2336e106b" />
-	<File name="SimpleGraphic/Fonts/Fontin.48.tga" part="runtime" sha1="d43a75c662e5cfc93afcdf10301f676b97531963" />
-	<File name="SimpleGraphic/Fonts/Fontin.56.tga" part="runtime" sha1="ce02d0030e8b1917d695f08aff1e70872a5171c0" />
-	<File name="SimpleGraphic/Fonts/Fontin.64.tga" part="runtime" sha1="2dfc17700177408325f3cac6b416b063e4c0786d" />
-	<File name="SimpleGraphic/Fonts/Fontin.tgf" part="runtime" sha1="b4a2516e45541c88d35425e07636a617c0504cef" />
-	<File name="SimpleGraphic/Fonts/Liberation Sans Bold.10.tga" part="runtime" sha1="8383fbd4d3c949175dd7a41a88d1440d10862062" />
-	<File name="SimpleGraphic/Fonts/Liberation Sans Bold.12.tga" part="runtime" sha1="2cd0eb3042e6e3cee6889172593860e8b77d467b" />
-	<File name="SimpleGraphic/Fonts/Liberation Sans Bold.14.tga" part="runtime" sha1="6b154853b65f3f4c9b3f930d93890141f308807c" />
-	<File name="SimpleGraphic/Fonts/Liberation Sans Bold.16.tga" part="runtime" sha1="3a08c391bb06a029df31c98ee1325547a07390f9" />
-	<File name="SimpleGraphic/Fonts/Liberation Sans Bold.18.tga" part="runtime" sha1="86584d0e60dfc91d102b8c1bb2683b3b3047711d" />
-	<File name="SimpleGraphic/Fonts/Liberation Sans Bold.20.tga" part="runtime" sha1="85dd74aa158df890fc796df4e77c660d621f878c" />
-	<File name="SimpleGraphic/Fonts/Liberation Sans Bold.22.tga" part="runtime" sha1="f8e05829bade4ccf6d3da3fb480ce9d539a07e1b" />
-	<File name="SimpleGraphic/Fonts/Liberation Sans Bold.24.tga" part="runtime" sha1="07d5cdc8247101de7d1cd3f48a0f40ac1f9e87d1" />
-	<File name="SimpleGraphic/Fonts/Liberation Sans Bold.26.tga" part="runtime" sha1="c24dce18f29117947e4852e18109b3b0d0fcb872" />
-	<File name="SimpleGraphic/Fonts/Liberation Sans Bold.28.tga" part="runtime" sha1="cc19027aa985c1c6c586929fec9db7086c2b2f45" />
-	<File name="SimpleGraphic/Fonts/Liberation Sans Bold.32.tga" part="runtime" sha1="d1385aa1beca6168b9dfe8214ae60b5d2c6b6dee" />
-	<File name="SimpleGraphic/Fonts/Liberation Sans Bold.36.tga" part="runtime" sha1="2a1db5cb1f9a32de52693475271f0f4090cf1917" />
-	<File name="SimpleGraphic/Fonts/Liberation Sans Bold.40.tga" part="runtime" sha1="0d5c13bf0da3453fac4780bccfea4a65e4efa451" />
-	<File name="SimpleGraphic/Fonts/Liberation Sans Bold.48.tga" part="runtime" sha1="d359dde48f6bd075c7d5ad89071061f79dfd6898" />
-	<File name="SimpleGraphic/Fonts/Liberation Sans Bold.56.tga" part="runtime" sha1="4f0be3982df803b4172707f5805379f14bd056a1" />
-	<File name="SimpleGraphic/Fonts/Liberation Sans Bold.64.tga" part="runtime" sha1="df9aa3d2e8cd55aac247938ad64d0b620a0f80f4" />
-	<File name="SimpleGraphic/Fonts/Liberation Sans Bold.tgf" part="runtime" sha1="73ba4807cecb33059133f1639f6246ed55290736" />
-	<File name="SimpleGraphic/Fonts/Liberation Sans.10.tga" part="runtime" sha1="775d7a0588f688e9d69d253c472a59101df802e0" />
-	<File name="SimpleGraphic/Fonts/Liberation Sans.12.tga" part="runtime" sha1="9c337690fa1c317cef959a2805277153ef3f3697" />
-	<File name="SimpleGraphic/Fonts/Liberation Sans.14.tga" part="runtime" sha1="164f0cf97723a263486689fdf795f12104a66bc8" />
-	<File name="SimpleGraphic/Fonts/Liberation Sans.16.tga" part="runtime" sha1="3d873264e1bcba028d2afd1a1404012ab3d5b7f1" />
-	<File name="SimpleGraphic/Fonts/Liberation Sans.18.tga" part="runtime" sha1="6b26ae2fcd768790613f47f8fe4d938d685c873f" />
-	<File name="SimpleGraphic/Fonts/Liberation Sans.20.tga" part="runtime" sha1="35234b6d6962d5ca70c0f5c8fc8392c98a126ee4" />
-	<File name="SimpleGraphic/Fonts/Liberation Sans.22.tga" part="runtime" sha1="e2c23d910e545c94b50b669e443a36d0d48c2407" />
-	<File name="SimpleGraphic/Fonts/Liberation Sans.24.tga" part="runtime" sha1="2410033ac4e3baca6536af531930c89aa2993057" />
-	<File name="SimpleGraphic/Fonts/Liberation Sans.26.tga" part="runtime" sha1="f70422d06ea264bacc2e075307941a6311f75fac" />
-	<File name="SimpleGraphic/Fonts/Liberation Sans.28.tga" part="runtime" sha1="08961f6528972e6ff22103c846ab49088e49959e" />
-	<File name="SimpleGraphic/Fonts/Liberation Sans.32.tga" part="runtime" sha1="1f585f25542b650cf30abe8f9c0a5a9865bfb1e5" />
-	<File name="SimpleGraphic/Fonts/Liberation Sans.36.tga" part="runtime" sha1="5dc36086f8fda658f8822d90d344a061c80fa02c" />
-	<File name="SimpleGraphic/Fonts/Liberation Sans.40.tga" part="runtime" sha1="9e334509f3544f9f1db2e7bef85180487fed4757" />
-	<File name="SimpleGraphic/Fonts/Liberation Sans.48.tga" part="runtime" sha1="7d559d6ccdb46d1cfe99d62b38d6ffadab9be9df" />
-	<File name="SimpleGraphic/Fonts/Liberation Sans.56.tga" part="runtime" sha1="4fe2ce621b23324a134957473c788a52fdd017e3" />
-	<File name="SimpleGraphic/Fonts/Liberation Sans.64.tga" part="runtime" sha1="301ad24fae1b872d28632b9bfcb9f3e0889a0925" />
-	<File name="SimpleGraphic/Fonts/Liberation Sans.tgf" part="runtime" sha1="4048906c89ff0fd7f8799d038978b96e5e7b40b9" />
-	<File name="socket.dll" part="runtime" runtime="win32" sha1="37cda809af7532ccb27cd7105f3994d63afecb82" />
-	<File name="vcruntime140.dll" part="runtime" runtime="win32" sha1="3d2998a27d164dd7cc3bc7d3eca08acf89a0ee42" />
-	<File name="vcruntime140_1.dll" part="runtime" runtime="win32" sha1="a0330279d3d0d47f19ed984726e25260b547a228" />
-	<File name="zlib1.dll" part="runtime" runtime="win32" sha1="49f1ccf17328fca0a831555a35b8eacb1e845ae0" />
-	<File name="zstd.dll" part="runtime" runtime="win32" sha1="83f0e34e2b7e689a25255b98d74b2fee34e6d390" />
+	<File name="UpdateApply.lua" part="program" sha1="e6af2f29e464a61d1159d011d40f1a81cfae69b7" />
+	<File name="UpdateCheck.lua" part="program" sha1="9d8a31fdb58fc1b7cce44c714b81d1d3ecc32b00" />
+	<File name="abseil_dll.dll" part="runtime" platform="win32" sha1="9bcb9ca812e69350cca49c7ccaa507371e52a50d" />
+	<File name="concrt140.dll" part="runtime" platform="win32" sha1="1ce87fac4c22aae82a81ddb26952c074b744e78d" />
+	<File name="d3dcompiler_47.dll" part="runtime" platform="win32" sha1="27a4eff95e7f4a359718fda7138a528147969b27" />
+	<File name="fmt.dll" part="runtime" platform="win32" sha1="b029d66f7e349346cd636d459b76cd0b8e3016ee" />
+	<File name="glfw3.dll" part="runtime" platform="win32" sha1="da685ead02663a6bdfa55a2724eff355dcf85017" />
+	<File name="lcurl.dll" part="runtime" platform="win32" sha1="e56009584fcf4cf78c9a14bd9065ea3a7778c7de" />
+	<File name="libcurl.dll" part="runtime" platform="win32" sha1="7e1bc49779acedd6ae6a0dfa4bdd4bfe8783ccb5" />
+	<File name="libEGL.dll" part="runtime" platform="win32" sha1="ec01cc0990d9c0000d03ad9f5bc1793d7a44aeab" />
+	<File name="libGLESv2.dll" part="runtime" platform="win32" sha1="d44d3fee28172aef2fc4331696a6ff73706c6df1" />
+	<File name="libwebpdecoder.dll" part="runtime" platform="win32" sha1="b8f1cdb57747c278a92ff088cdd58f64313dec4a" />
+	<File name="lua51.dll" part="runtime" platform="win32" sha1="dd55f49619ede7c8a3b088477d71782414b32e29" />
+	<File name="lua-utf8.dll" part="runtime" platform="win32" sha1="3fc001d23ca0178617d5f1ddca62ac565bb95725" />
+	<File name="lua/base64.lua" part="runtime" platform="win32" sha1="18629865eb351e483178b6524fb3935cbc9b8297" />
+	<File name="lua/dkjson.lua" part="runtime" platform="win32" sha1="a318615b8b7615809805857e35562ffd7bba400e" />
+	<File name="lua/sha1/bit32_ops.lua" part="runtime" platform="win32" sha1="25bc8def626fd8d8bd3d37dcd96808c6b8b00087" />
+	<File name="lua/sha1/bit_ops.lua" part="runtime" platform="win32" sha1="53ce6b3174386d1e4565ced0c1a7f1b3df3bb83f" />
+	<File name="lua/sha1/common.lua" part="runtime" platform="win32" sha1="70faf0efa48e6d44c7b8a4279467f0025257b84f" />
+	<File name="lua/sha1/init.lua" part="runtime" platform="win32" sha1="e23c730650ac2ffe595b4ed2a5f3484225414ebd" />
+	<File name="lua/sha1/lua53_ops.lua" part="runtime" platform="win32" sha1="b10c732f322358c4112226df61af61f53a21b911" />
+	<File name="lua/sha1/pure_lua_ops.lua" part="runtime" platform="win32" sha1="0dff15b1cfd171a3572032346613adcf5e9962c2" />
+	<File name="lua/sha2.lua" part="runtime" platform="win32" sha1="be1204772be5b5cb29f0ba65f1323b08f561bf6b" />
+	<File name="lua/socket.lua" part="runtime" platform="win32" sha1="33842fc36ea37caf272d31503d8b863edb42a4fb" />
+	<File name="lua/xml.lua" part="runtime" platform="win32" sha1="06b35967b8efc4889584f692204e237d400a78fd" />
+	<File name="lzip.dll" part="runtime" platform="win32" sha1="aa67b1a644ecee549c7ee78dd4acf17c98995aa7" />
+	<File name="msvcp140.dll" part="runtime" platform="win32" sha1="b370eca8fa727e46cf61d834fcc956698b02e1fd" />
+	<File name="msvcp140_1.dll" part="runtime" platform="win32" sha1="9ce5c3d6c7d94b175f136f552af8771dca6147b3" />
+	<File name="msvcp140_2.dll" part="runtime" platform="win32" sha1="e48159bb2127ec812ff679f6fabc41141009f26a" />
+	<File name="msvcp140_atomic_wait.dll" part="runtime" platform="win32" sha1="a85a6a4de6656e5969fa4ab15f2230dfe2839e75" />
+	<File name="msvcp140_codecvt_ids.dll" part="runtime" platform="win32" sha1="91b19dd0db24a5cbd944eca9c67fad3b53f9c154" />
+	<File name="Path{space}of{space}Building.exe" part="runtime" platform="win32" sha1="8dcd46aac0b70d0a4d5eac5c7244302c9b805f85" />
+	<File name="re2.dll" part="runtime" platform="win32" sha1="0fd062fe4c82ddabe97b640f4a3da173e4bae886" />
+	<File name="SimpleGraphic.dll" part="runtime" platform="win32" sha1="00248efe6208e0d268bbf737a0bf2e6332428077" />
+	<File name="SimpleGraphic/Fonts/Bitstream Vera Sans Mono.10.tga" part="runtime" platform="win32" sha1="12e59115634000273611ef08b0d1b130ea95d4a7" />
+	<File name="SimpleGraphic/Fonts/Bitstream Vera Sans Mono.12.tga" part="runtime" platform="win32" sha1="325378beb3e4944f1504b402bdd809c99b240c1d" />
+	<File name="SimpleGraphic/Fonts/Bitstream Vera Sans Mono.14.tga" part="runtime" platform="win32" sha1="0df6084dca4762df282cc4ab1ad5ddc21e9c6e12" />
+	<File name="SimpleGraphic/Fonts/Bitstream Vera Sans Mono.16.tga" part="runtime" platform="win32" sha1="ea50ad683c87fe6e583d5718eb3090e62e9317fb" />
+	<File name="SimpleGraphic/Fonts/Bitstream Vera Sans Mono.18.tga" part="runtime" platform="win32" sha1="d373c499821592acb6e766da108aa8e389a53c02" />
+	<File name="SimpleGraphic/Fonts/Bitstream Vera Sans Mono.20.tga" part="runtime" platform="win32" sha1="9af184c5eb1cd420d564e24e25ec5a5052233240" />
+	<File name="SimpleGraphic/Fonts/Bitstream Vera Sans Mono.22.tga" part="runtime" platform="win32" sha1="285ad048eb12f7de9a7c8cc8220a1e3feeb8a59a" />
+	<File name="SimpleGraphic/Fonts/Bitstream Vera Sans Mono.24.tga" part="runtime" platform="win32" sha1="2c77f0f63a2979d5bd9472957eb6ae13c66151c9" />
+	<File name="SimpleGraphic/Fonts/Bitstream Vera Sans Mono.26.tga" part="runtime" platform="win32" sha1="eb2e1113ba2ad054823cc2c2b616366e04098915" />
+	<File name="SimpleGraphic/Fonts/Bitstream Vera Sans Mono.28.tga" part="runtime" platform="win32" sha1="462365a809a528be7726173ab1e0dfbb4d9bc395" />
+	<File name="SimpleGraphic/Fonts/Bitstream Vera Sans Mono.32.tga" part="runtime" platform="win32" sha1="85e68b5d8d1185e4bb8aeabef69c54ff576f8d8c" />
+	<File name="SimpleGraphic/Fonts/Bitstream Vera Sans Mono.36.tga" part="runtime" platform="win32" sha1="ba4f2e2882e92553ebe06d6c0f754be8301e739e" />
+	<File name="SimpleGraphic/Fonts/Bitstream Vera Sans Mono.40.tga" part="runtime" platform="win32" sha1="f10e1a0512dff3e14d091531a7d48a2c0a026320" />
+	<File name="SimpleGraphic/Fonts/Bitstream Vera Sans Mono.48.tga" part="runtime" platform="win32" sha1="b0fc64ebb0fdddfb534879238d0572241a4e25f3" />
+	<File name="SimpleGraphic/Fonts/Bitstream Vera Sans Mono.56.tga" part="runtime" platform="win32" sha1="162306270648fee343d67379c5d387b2c581ec19" />
+	<File name="SimpleGraphic/Fonts/Bitstream Vera Sans Mono.64.tga" part="runtime" platform="win32" sha1="6405e5fce201576e889e71173761421ac24d92eb" />
+	<File name="SimpleGraphic/Fonts/Bitstream Vera Sans Mono.tgf" part="runtime" platform="win32" sha1="929705ce9d75e69a023de2722affef815b93a542" />
+	<File name="SimpleGraphic/Fonts/Fontin Italic.10.tga" part="runtime" platform="win32" sha1="c5f013dd652292d7d96f9df22f9caee053e766df" />
+	<File name="SimpleGraphic/Fonts/Fontin Italic.12.tga" part="runtime" platform="win32" sha1="01b4f3d57e1a958b9854847ce99ac663694ba833" />
+	<File name="SimpleGraphic/Fonts/Fontin Italic.14.tga" part="runtime" platform="win32" sha1="66820529b1ed6e3e6a4d25e95b3c3c5cb8635117" />
+	<File name="SimpleGraphic/Fonts/Fontin Italic.16.tga" part="runtime" platform="win32" sha1="79c6cbeff65ab43773e1ac781386cf0cecc2a28e" />
+	<File name="SimpleGraphic/Fonts/Fontin Italic.18.tga" part="runtime" platform="win32" sha1="8b5d06a199dc907b15ef9d0a6266065c999005c0" />
+	<File name="SimpleGraphic/Fonts/Fontin Italic.20.tga" part="runtime" platform="win32" sha1="d3b667abdb98b947f51a36e5c5d6a3308f0e014f" />
+	<File name="SimpleGraphic/Fonts/Fontin Italic.22.tga" part="runtime" platform="win32" sha1="233664083f592e0cb6b69fd25a311c1ade4148a6" />
+	<File name="SimpleGraphic/Fonts/Fontin Italic.24.tga" part="runtime" platform="win32" sha1="00c774802ccdd1e02f6e3abc70ee51d0b5bb79cb" />
+	<File name="SimpleGraphic/Fonts/Fontin Italic.26.tga" part="runtime" platform="win32" sha1="1f5009b194a60b02b6eb2e042ab3040be63ae06a" />
+	<File name="SimpleGraphic/Fonts/Fontin Italic.28.tga" part="runtime" platform="win32" sha1="85a17e1d7f1877693c740600c6e4eeef28f8b076" />
+	<File name="SimpleGraphic/Fonts/Fontin Italic.32.tga" part="runtime" platform="win32" sha1="9b44528dc9e96f623763398a8bf1f82b41a75447" />
+	<File name="SimpleGraphic/Fonts/Fontin Italic.36.tga" part="runtime" platform="win32" sha1="6122e160e9ad3ec91496c4c583d28b125a303a2e" />
+	<File name="SimpleGraphic/Fonts/Fontin Italic.40.tga" part="runtime" platform="win32" sha1="b26995690a516b3f990d9e018c23b072ca4e799c" />
+	<File name="SimpleGraphic/Fonts/Fontin Italic.48.tga" part="runtime" platform="win32" sha1="2f5d62b9dd28809991fdf147a4a7287284faec9f" />
+	<File name="SimpleGraphic/Fonts/Fontin Italic.56.tga" part="runtime" platform="win32" sha1="be959fa8e32c5691169680572f87ff6d2a6d46c6" />
+	<File name="SimpleGraphic/Fonts/Fontin Italic.64.tga" part="runtime" platform="win32" sha1="7cce9bf759badfc1dd7c9727c3f7df724fc63219" />
+	<File name="SimpleGraphic/Fonts/Fontin Italic.tgf" part="runtime" platform="win32" sha1="7cb32d1f6eee44d2fe8f59ed146cd6961ea47b9f" />
+	<File name="SimpleGraphic/Fonts/Fontin SmallCaps Italic.10.tga" part="runtime" platform="win32" sha1="13289fa65e4223836751851e8d056bb1a4e509fd" />
+	<File name="SimpleGraphic/Fonts/Fontin SmallCaps Italic.12.tga" part="runtime" platform="win32" sha1="8173601992761f9919ade4dabf7b19bd3aa9bc90" />
+	<File name="SimpleGraphic/Fonts/Fontin SmallCaps Italic.14.tga" part="runtime" platform="win32" sha1="04c2202c18c16f4e45747e338164825d676667f7" />
+	<File name="SimpleGraphic/Fonts/Fontin SmallCaps Italic.16.tga" part="runtime" platform="win32" sha1="bec94f5e57af4c63d3a2a10981714f50e2264e4c" />
+	<File name="SimpleGraphic/Fonts/Fontin SmallCaps Italic.18.tga" part="runtime" platform="win32" sha1="617438fc98ad28804785810da3f979a77011f44f" />
+	<File name="SimpleGraphic/Fonts/Fontin SmallCaps Italic.20.tga" part="runtime" platform="win32" sha1="5c894bc51722d817e0aedcfa9dbcf0866426d316" />
+	<File name="SimpleGraphic/Fonts/Fontin SmallCaps Italic.22.tga" part="runtime" platform="win32" sha1="dd29cea8a5453cc54fb4ddda716ca98f0687f1bb" />
+	<File name="SimpleGraphic/Fonts/Fontin SmallCaps Italic.24.tga" part="runtime" platform="win32" sha1="b322402735d9bbc355c2581c9f9de1577e003bcc" />
+	<File name="SimpleGraphic/Fonts/Fontin SmallCaps Italic.26.tga" part="runtime" platform="win32" sha1="ba081562d6ccfaca8bfbc5ebd470cfbe23101160" />
+	<File name="SimpleGraphic/Fonts/Fontin SmallCaps Italic.28.tga" part="runtime" platform="win32" sha1="6ae3f5283ba733c1049d18ebb6866c5c7ebc6e3a" />
+	<File name="SimpleGraphic/Fonts/Fontin SmallCaps Italic.32.tga" part="runtime" platform="win32" sha1="3de727555f3da7347f26e677fa653e26795f26b6" />
+	<File name="SimpleGraphic/Fonts/Fontin SmallCaps Italic.36.tga" part="runtime" platform="win32" sha1="c1057f6eedace306df6241c13e2782922d90cfae" />
+	<File name="SimpleGraphic/Fonts/Fontin SmallCaps Italic.40.tga" part="runtime" platform="win32" sha1="fd3c2f25fda7d0f2f6e8ef0de7bc68bea1169828" />
+	<File name="SimpleGraphic/Fonts/Fontin SmallCaps Italic.48.tga" part="runtime" platform="win32" sha1="d6904ad512717107e52931a1ada555215ff02c5e" />
+	<File name="SimpleGraphic/Fonts/Fontin SmallCaps Italic.56.tga" part="runtime" platform="win32" sha1="d5bee07111075fb9139363ba8cd6dc5a03a400c0" />
+	<File name="SimpleGraphic/Fonts/Fontin SmallCaps Italic.64.tga" part="runtime" platform="win32" sha1="7544c92003354fd148a8f705375b9de85b9b77e3" />
+	<File name="SimpleGraphic/Fonts/Fontin SmallCaps Italic.tgf" part="runtime" platform="win32" sha1="aa865dea65b35998bcea3eef69acadf65ad1bb02" />
+	<File name="SimpleGraphic/Fonts/Fontin SmallCaps.10.tga" part="runtime" platform="win32" sha1="7ef135874ac7591e41b202437fb09e7a3827bcfa" />
+	<File name="SimpleGraphic/Fonts/Fontin SmallCaps.12.tga" part="runtime" platform="win32" sha1="f17ac57f2ef2823187c49b7e85c2b105a1e837ee" />
+	<File name="SimpleGraphic/Fonts/Fontin SmallCaps.14.tga" part="runtime" platform="win32" sha1="c38c0919f437ebc553fee0a766d3078a1c1fc38e" />
+	<File name="SimpleGraphic/Fonts/Fontin SmallCaps.16.tga" part="runtime" platform="win32" sha1="4f8f76df0f91fd50103ad070ed355afd0430f3fc" />
+	<File name="SimpleGraphic/Fonts/Fontin SmallCaps.18.tga" part="runtime" platform="win32" sha1="6d8724d66a340749dc2417e729002680805ce314" />
+	<File name="SimpleGraphic/Fonts/Fontin SmallCaps.20.tga" part="runtime" platform="win32" sha1="2ace27c6f10e4a011232c9677d70c888a9e2fc22" />
+	<File name="SimpleGraphic/Fonts/Fontin SmallCaps.22.tga" part="runtime" platform="win32" sha1="8a9e0964d9173873456b5afa9be117ebb1157820" />
+	<File name="SimpleGraphic/Fonts/Fontin SmallCaps.24.tga" part="runtime" platform="win32" sha1="6b0db13cfc07492051ac9d780259eb9f0ff38d32" />
+	<File name="SimpleGraphic/Fonts/Fontin SmallCaps.26.tga" part="runtime" platform="win32" sha1="7c9147ba06f6b1749755297a489482f70a1d98c8" />
+	<File name="SimpleGraphic/Fonts/Fontin SmallCaps.28.tga" part="runtime" platform="win32" sha1="890973d7e229167f85a57bf97444d6b1f174b4e2" />
+	<File name="SimpleGraphic/Fonts/Fontin SmallCaps.32.tga" part="runtime" platform="win32" sha1="f6ce43e6050134feb9d9ffb413b2e98db0ae5cf3" />
+	<File name="SimpleGraphic/Fonts/Fontin SmallCaps.36.tga" part="runtime" platform="win32" sha1="c66485a42c20b768786d8ddb3bb6c6e1303fc534" />
+	<File name="SimpleGraphic/Fonts/Fontin SmallCaps.40.tga" part="runtime" platform="win32" sha1="38173185e36d57ac3e40d18e4b20a3959e6af2ad" />
+	<File name="SimpleGraphic/Fonts/Fontin SmallCaps.48.tga" part="runtime" platform="win32" sha1="5aa5d3c19e69c74cd02fa5933149b8df81baa9d8" />
+	<File name="SimpleGraphic/Fonts/Fontin SmallCaps.56.tga" part="runtime" platform="win32" sha1="6a82ff852cdf5d9ee7eea9f262b121b255b1df36" />
+	<File name="SimpleGraphic/Fonts/Fontin SmallCaps.64.tga" part="runtime" platform="win32" sha1="b31ce811a5386276ad8abe7ddb5ba3bd2a8b93fc" />
+	<File name="SimpleGraphic/Fonts/Fontin SmallCaps.tgf" part="runtime" platform="win32" sha1="47444e337474f5719419cf6ac9a6cf5d89d9c2aa" />
+	<File name="SimpleGraphic/Fonts/Fontin.10.tga" part="runtime" platform="win32" sha1="dc4041fe079722e4006e7ea96396b5341fd80aa5" />
+	<File name="SimpleGraphic/Fonts/Fontin.12.tga" part="runtime" platform="win32" sha1="6a8aafa69cb89ca10db4f0b3bc997f88354130ad" />
+	<File name="SimpleGraphic/Fonts/Fontin.14.tga" part="runtime" platform="win32" sha1="50a0ac3cabe193b9e357d75b45523474ed87d0ad" />
+	<File name="SimpleGraphic/Fonts/Fontin.16.tga" part="runtime" platform="win32" sha1="18374eb27c57e0e608a11839bf6393ae78eb65ca" />
+	<File name="SimpleGraphic/Fonts/Fontin.18.tga" part="runtime" platform="win32" sha1="d288d0701cf3c3c341b831086d523647c32a5a4f" />
+	<File name="SimpleGraphic/Fonts/Fontin.20.tga" part="runtime" platform="win32" sha1="ba6ef99c64f1dc0a87709166bf3366241030ddcc" />
+	<File name="SimpleGraphic/Fonts/Fontin.22.tga" part="runtime" platform="win32" sha1="5bba9924fa0509d8d62fef6dc9901e85ca4eb07b" />
+	<File name="SimpleGraphic/Fonts/Fontin.24.tga" part="runtime" platform="win32" sha1="8c3712c79627cc0f5e017b003e88c859abca6843" />
+	<File name="SimpleGraphic/Fonts/Fontin.26.tga" part="runtime" platform="win32" sha1="ce4b900c8dd99ea4a8d39e517b18629e9c3e19b5" />
+	<File name="SimpleGraphic/Fonts/Fontin.28.tga" part="runtime" platform="win32" sha1="6e247c4fab167deb6c5d7ff0e150060866bfb3a4" />
+	<File name="SimpleGraphic/Fonts/Fontin.32.tga" part="runtime" platform="win32" sha1="e3698a896c7259a7c658f107aa58cac6de2e01a9" />
+	<File name="SimpleGraphic/Fonts/Fontin.36.tga" part="runtime" platform="win32" sha1="058f0af632661fdcb1953f7ddc93d15798c98325" />
+	<File name="SimpleGraphic/Fonts/Fontin.40.tga" part="runtime" platform="win32" sha1="be02e75c9e8ca6ef026e109c51dc1ed2336e106b" />
+	<File name="SimpleGraphic/Fonts/Fontin.48.tga" part="runtime" platform="win32" sha1="d43a75c662e5cfc93afcdf10301f676b97531963" />
+	<File name="SimpleGraphic/Fonts/Fontin.56.tga" part="runtime" platform="win32" sha1="ce02d0030e8b1917d695f08aff1e70872a5171c0" />
+	<File name="SimpleGraphic/Fonts/Fontin.64.tga" part="runtime" platform="win32" sha1="2dfc17700177408325f3cac6b416b063e4c0786d" />
+	<File name="SimpleGraphic/Fonts/Fontin.tgf" part="runtime" platform="win32" sha1="b4a2516e45541c88d35425e07636a617c0504cef" />
+	<File name="SimpleGraphic/Fonts/Liberation Sans Bold.10.tga" part="runtime" platform="win32" sha1="8383fbd4d3c949175dd7a41a88d1440d10862062" />
+	<File name="SimpleGraphic/Fonts/Liberation Sans Bold.12.tga" part="runtime" platform="win32" sha1="2cd0eb3042e6e3cee6889172593860e8b77d467b" />
+	<File name="SimpleGraphic/Fonts/Liberation Sans Bold.14.tga" part="runtime" platform="win32" sha1="6b154853b65f3f4c9b3f930d93890141f308807c" />
+	<File name="SimpleGraphic/Fonts/Liberation Sans Bold.16.tga" part="runtime" platform="win32" sha1="3a08c391bb06a029df31c98ee1325547a07390f9" />
+	<File name="SimpleGraphic/Fonts/Liberation Sans Bold.18.tga" part="runtime" platform="win32" sha1="86584d0e60dfc91d102b8c1bb2683b3b3047711d" />
+	<File name="SimpleGraphic/Fonts/Liberation Sans Bold.20.tga" part="runtime" platform="win32" sha1="85dd74aa158df890fc796df4e77c660d621f878c" />
+	<File name="SimpleGraphic/Fonts/Liberation Sans Bold.22.tga" part="runtime" platform="win32" sha1="f8e05829bade4ccf6d3da3fb480ce9d539a07e1b" />
+	<File name="SimpleGraphic/Fonts/Liberation Sans Bold.24.tga" part="runtime" platform="win32" sha1="07d5cdc8247101de7d1cd3f48a0f40ac1f9e87d1" />
+	<File name="SimpleGraphic/Fonts/Liberation Sans Bold.26.tga" part="runtime" platform="win32" sha1="c24dce18f29117947e4852e18109b3b0d0fcb872" />
+	<File name="SimpleGraphic/Fonts/Liberation Sans Bold.28.tga" part="runtime" platform="win32" sha1="cc19027aa985c1c6c586929fec9db7086c2b2f45" />
+	<File name="SimpleGraphic/Fonts/Liberation Sans Bold.32.tga" part="runtime" platform="win32" sha1="d1385aa1beca6168b9dfe8214ae60b5d2c6b6dee" />
+	<File name="SimpleGraphic/Fonts/Liberation Sans Bold.36.tga" part="runtime" platform="win32" sha1="2a1db5cb1f9a32de52693475271f0f4090cf1917" />
+	<File name="SimpleGraphic/Fonts/Liberation Sans Bold.40.tga" part="runtime" platform="win32" sha1="0d5c13bf0da3453fac4780bccfea4a65e4efa451" />
+	<File name="SimpleGraphic/Fonts/Liberation Sans Bold.48.tga" part="runtime" platform="win32" sha1="d359dde48f6bd075c7d5ad89071061f79dfd6898" />
+	<File name="SimpleGraphic/Fonts/Liberation Sans Bold.56.tga" part="runtime" platform="win32" sha1="4f0be3982df803b4172707f5805379f14bd056a1" />
+	<File name="SimpleGraphic/Fonts/Liberation Sans Bold.64.tga" part="runtime" platform="win32" sha1="df9aa3d2e8cd55aac247938ad64d0b620a0f80f4" />
+	<File name="SimpleGraphic/Fonts/Liberation Sans Bold.tgf" part="runtime" platform="win32" sha1="73ba4807cecb33059133f1639f6246ed55290736" />
+	<File name="SimpleGraphic/Fonts/Liberation Sans.10.tga" part="runtime" platform="win32" sha1="775d7a0588f688e9d69d253c472a59101df802e0" />
+	<File name="SimpleGraphic/Fonts/Liberation Sans.12.tga" part="runtime" platform="win32" sha1="9c337690fa1c317cef959a2805277153ef3f3697" />
+	<File name="SimpleGraphic/Fonts/Liberation Sans.14.tga" part="runtime" platform="win32" sha1="164f0cf97723a263486689fdf795f12104a66bc8" />
+	<File name="SimpleGraphic/Fonts/Liberation Sans.16.tga" part="runtime" platform="win32" sha1="3d873264e1bcba028d2afd1a1404012ab3d5b7f1" />
+	<File name="SimpleGraphic/Fonts/Liberation Sans.18.tga" part="runtime" platform="win32" sha1="6b26ae2fcd768790613f47f8fe4d938d685c873f" />
+	<File name="SimpleGraphic/Fonts/Liberation Sans.20.tga" part="runtime" platform="win32" sha1="35234b6d6962d5ca70c0f5c8fc8392c98a126ee4" />
+	<File name="SimpleGraphic/Fonts/Liberation Sans.22.tga" part="runtime" platform="win32" sha1="e2c23d910e545c94b50b669e443a36d0d48c2407" />
+	<File name="SimpleGraphic/Fonts/Liberation Sans.24.tga" part="runtime" platform="win32" sha1="2410033ac4e3baca6536af531930c89aa2993057" />
+	<File name="SimpleGraphic/Fonts/Liberation Sans.26.tga" part="runtime" platform="win32" sha1="f70422d06ea264bacc2e075307941a6311f75fac" />
+	<File name="SimpleGraphic/Fonts/Liberation Sans.28.tga" part="runtime" platform="win32" sha1="08961f6528972e6ff22103c846ab49088e49959e" />
+	<File name="SimpleGraphic/Fonts/Liberation Sans.32.tga" part="runtime" platform="win32" sha1="1f585f25542b650cf30abe8f9c0a5a9865bfb1e5" />
+	<File name="SimpleGraphic/Fonts/Liberation Sans.36.tga" part="runtime" platform="win32" sha1="5dc36086f8fda658f8822d90d344a061c80fa02c" />
+	<File name="SimpleGraphic/Fonts/Liberation Sans.40.tga" part="runtime" platform="win32" sha1="9e334509f3544f9f1db2e7bef85180487fed4757" />
+	<File name="SimpleGraphic/Fonts/Liberation Sans.48.tga" part="runtime" platform="win32" sha1="7d559d6ccdb46d1cfe99d62b38d6ffadab9be9df" />
+	<File name="SimpleGraphic/Fonts/Liberation Sans.56.tga" part="runtime" platform="win32" sha1="4fe2ce621b23324a134957473c788a52fdd017e3" />
+	<File name="SimpleGraphic/Fonts/Liberation Sans.64.tga" part="runtime" platform="win32" sha1="301ad24fae1b872d28632b9bfcb9f3e0889a0925" />
+	<File name="SimpleGraphic/Fonts/Liberation Sans.tgf" part="runtime" platform="win32" sha1="4048906c89ff0fd7f8799d038978b96e5e7b40b9" />
+	<File name="socket.dll" part="runtime" platform="win32" sha1="37cda809af7532ccb27cd7105f3994d63afecb82" />
+	<File name="vcruntime140.dll" part="runtime" platform="win32" sha1="3d2998a27d164dd7cc3bc7d3eca08acf89a0ee42" />
+	<File name="vcruntime140_1.dll" part="runtime" platform="win32" sha1="a0330279d3d0d47f19ed984726e25260b547a228" />
+	<File name="zlib1.dll" part="runtime" platform="win32" sha1="49f1ccf17328fca0a831555a35b8eacb1e845ae0" />
+	<File name="zstd.dll" part="runtime" platform="win32" sha1="83f0e34e2b7e689a25255b98d74b2fee34e6d390" />
 	<File name="TreeData/2_6/skill_sprite-3-32f639bbfc42783ca7ec218a787dd918.jpg" part="tree" sha1="dc7a2a0383847ac28eade8a31a57a8bfa7b298e4" />
 	<File name="TreeData/2_6/skill_sprite-active-3-3e73c4c4534433ecfc340c7287093bd5.png" part="tree" sha1="baa878007cfac73bee50958d25617b95c0e73a2d" />
 	<File name="TreeData/2_6/skill_sprite-active-3-7798fabab8a21829831293c20ac9c414.jpg" part="tree" sha1="526654400851f032d3d2f46980c0ecc077aa0c4c" />
