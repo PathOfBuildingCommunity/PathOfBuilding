@@ -8,11 +8,10 @@
 ## What's Changed
 ### Fixed Calculations
 - Fix Scornful Herald not counting buffs as affecting you [\#10158](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10158) ([Wires77](https://github.com/Wires77))
+- Fix The Unblinking Eye increased evasion not applying to Attacks with Arcane Might [\#10155](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10155) ([andyli00](https://github.com/andyli00))
 ### Fixed Behaviours
 - Fix Foulborn icon display on Linux [\#10160](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10160) ([cupkax](https://github.com/cupkax))
 - Fix double clicking and dragging items causing issues [\#10149](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10149) ([vaisest](https://github.com/vaisest))
-### Fixed Calculation
-- Fix The Unblinking Eye increased evasion not applying to Attacks with Arcane Might [\#10155](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10155) ([andyli00](https://github.com/andyli00))
 
 
 
