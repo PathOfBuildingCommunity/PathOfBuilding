@@ -827,7 +827,7 @@ function PassiveTreeClass:ProcessStats(node, startIndex)
 				if list and not extra then
 					-- Success, add dummy mod lists to the other lines that were combined with this one
 					for ci = i + 1, endI do
-						node.mods[ci] = { list = { } }
+						node.mods[ci] = { list = {}, combined = true }
 					end
 					break
 				end

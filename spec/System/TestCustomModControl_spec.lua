@@ -14,10 +14,12 @@ describe("Custom modifier controls", function()
 		end
 	end)
 
+	local configModBrowser = require("Modules.ConfigModBrowser")
+
 	local function openModBrowser()
 		local configTab = build.configTab
 		local blockData = configTab.configSets[configTab.activeConfigSetId].customModsList[1]
-		configTab:OpenAddModPopup(blockData)
+		configModBrowser.OpenAddModPopup(configTab, blockData)
 		return main.popups[1], blockData
 	end
 
@@ -31,31 +33,31 @@ describe("Custom modifier controls", function()
 
 		assert.is_nil(main.selControl)
 		assert.are_not.equal(popup, main.popups[1])
-		assert.are.equal(selectedMod, blockData.text)
+		assert.are.equal(selectedMod.text, blockData.text)
 	end)
 
-	it("collapses numeric tiers and imports the first range value", function()
+	it("collapses numeric tiers into a single entry and imports it", function()
 		local popup, blockData = openModBrowser()
 		local minionDamageEntries = { }
 		local minionDamageIndex
-		for index, modText in ipairs(popup.controls.listControl.list) do
-			if modText:match("^Minions deal .-%% increased Damage$") then
-				table.insert(minionDamageEntries, modText)
+		for index, mod in ipairs(popup.controls.listControl.list) do
+			if mod.text:match("^Minions deal .-%% increased Damage$") then
+				table.insert(minionDamageEntries, mod.text)
 				minionDamageIndex = index
 			end
 		end
 
-		assert.are.same({ "Minions deal 10% increased Damage" }, minionDamageEntries)
+		assert.are.same({ "Minions deal 12% increased Damage" }, minionDamageEntries)
 		popup.controls.listControl.selIndex = minionDamageIndex
 		popup.controls.save.onClick()
-		assert.are.equal("Minions deal 10% increased Damage", blockData.text)
+		assert.are.equal("Minions deal 12% increased Damage", blockData.text)
 	end)
 
 	it("orders modifiers alphabetically while ignoring numeric values", function()
 		local popup = openModBrowser()
 		local previousSortKey
-		for _, modText in ipairs(popup.controls.listControl.list) do
-			local sortKey = modText
+		for _, mod in ipairs(popup.controls.listControl.list) do
+			local sortKey = mod.text
 				:gsub("([%+-]?)%((%-?%d+%.?%d*)%-(%-?%d+%.?%d*)%)", "%1#")
 				:gsub("%d+%.?%d*", "#")
 				:lower()
@@ -92,7 +94,7 @@ describe("Custom modifier controls", function()
 		local searchWidth = popup.controls.search:GetSize()
 
 		assert.are.equal(720, popup.width)
-		assert.are.equal(540, popup.height)
+		assert.are.equal(566, popup.height)
 		assert.are.equal(700, listWidth)
 		assert.are.equal(454, listHeight)
 		assert.are.equal(640, searchWidth)
