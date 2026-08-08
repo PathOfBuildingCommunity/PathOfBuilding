@@ -1420,9 +1420,11 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 						if mod.valueScalar and mod.valueScalar ~= 1 then
 							local rangedLine = itemLib.applyRange(mod.line, mod.range or 1, mod.valueScalar, 1)
 							local modList, extra = modLib.parseMod(rangedLine)
-							mod.displayValueScalar = 1
-							mod.modList = modList
-							mod.extra = extra
+							if modList then
+								mod.displayValueScalar = 1
+								mod.modList = modList
+								mod.extra = extra
+							end
 						end
 						::modMagnitudeContinue::
 					end
