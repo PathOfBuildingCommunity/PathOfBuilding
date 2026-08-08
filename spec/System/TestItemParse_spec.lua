@@ -1358,5 +1358,36 @@ describe("TestAdvancedItemParse #item", function()
 			assert.equal(27, spellCrit())
 			assert.equal(8, spellDamage())
 		end)
+
+
+		it("does not overwrite existing values when a suffix magnitude mod fails to parse", function()
+			-- grantedExtraSkill returns (nil) when the skill is missing from gemIdLookup,
+			-- so parseMod also returns nil (no second value) -> overwriting both modList and extra when the magnitude loop runs
+			local item = new("Item", [[
+				Item Class: Rings
+				Rarity: Rare
+				Plague Knuckle
+				Helical Ring
+				--------
+				Item Level: 84
+				--------
+				{ Implicit Modifier }
+				50% increased Suffix Modifier magnitudes
+				--------
+				{ Suffix Modifier "of !!UNPARSEABLE!!"  — 50% Increased }
+				Grants Level 20 Aspect of !!UNPARSEABLE!! Skill
+				--------
+			]])
+			assert.truthy(item.base)
+			local aspectLine
+			for _, modLine in ipairs(item.explicitModLines) do
+				if modLine.line:find("UNPARSEABLE", 1, true) then
+					aspectLine = modLine
+				end
+			end
+			assert.truthy(aspectLine)
+			assert.truthy(aspectLine.modList)
+			assert.truthy(aspectLine.extra)
+		end)
 	end)
 end)
