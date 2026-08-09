@@ -198,6 +198,64 @@ function TradeQueryGeneratorClass.WeightedRatioOutputs(baseOutput, newOutput, st
 	return meanStatDiff
 end
 
+function TradeQueryGeneratorClass:CreateBenchCraftWeightSnapshot(statWeights)
+	if not self.modWeights or #self.modWeights == 0 then
+		return
+	end
+	return {
+		modWeights = copyTable(self.modWeights),
+		statWeights = copyTable(statWeights or { }),
+	}
+end
+
+function TradeQueryGeneratorClass:EstimateBenchCraftWeight(craft, weightSnapshot)
+	local weightSource = weightSnapshot and weightSnapshot.modWeights
+	if not weightSource then
+		return nil
+	end
+	self.benchCraftWeightCaches = self.benchCraftWeightCaches or { }
+	if not self.benchCraftWeightCaches[weightSource] then
+		local weightsByTradeMod = { }
+		for _, entry in ipairs(weightSource) do
+			weightsByTradeMod[entry.tradeModId] = entry
+		end
+		self.benchCraftWeightCaches[weightSource] = {
+			weightsByTradeMod = weightsByTradeMod,
+			craftWeights = { },
+		}
+	end
+	local cache = self.benchCraftWeightCaches[weightSource]
+	local cached = cache.craftWeights[craft]
+	if cached ~= nil then
+		return cached or nil
+	end
+
+	local score = 0
+	local matchedWeight = false
+	for index, line in ipairs(craft) do
+		local statOrder = craft.statOrder and craft.statOrder[index]
+		local explicitMods = self.modData and self.modData.Explicit
+		local modEntry = statOrder and explicitMods and explicitMods[tostring(statOrder) .. "_" .. craft.group]
+		local weightEntry = modEntry and cache.weightsByTradeMod[modEntry.tradeMod.id]
+		if weightEntry then
+			local rangedLine = itemLib.applyRange(line, main.defaultItemAffixQuality or 0.5, 1, 1)
+			local _, value = tradeHelpers.findTradeHash(rangedLine)
+			if value == nil and not modEntry.tradeMod.text:find("#", 1, true) then
+				value = 1
+			end
+			if value ~= nil then
+				if weightEntry.invert then
+					value = -value
+				end
+				score = score + weightEntry.weight * value
+				matchedWeight = true
+			end
+		end
+	end
+	cache.craftWeights[craft] = matchedWeight and score or false
+	return matchedWeight and score or nil
+end
+
 function TradeQueryGeneratorClass:ProcessMod(modId, mod, tradeQueryStatsParsed, itemCategoriesMask, itemCategoriesOverride)
 	if type(modId) == "string" and modId:find("HellscapeDownside") ~= nil then -- skip scourge downsides, they often don't follow standard parsing rules, and should basically never be beneficial anyways
 		goto continue
@@ -771,6 +829,7 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
 
 	-- Test each mod one at a time and cache the normalized Stat (configured earlier) diff to use as weight
 	self.modWeights = { }
+	self.benchCraftWeightCaches = nil
 	self.alreadyWeightedMods = { }
 
 	self.calcContext = {
@@ -1159,6 +1218,11 @@ function TradeQueryGeneratorClass:FinishQuery()
 	end
 
 	local queryJson = dkjson.encode(queryTable)
+	if self.requesterContext then
+		self.requesterContext.benchCraftWeightSnapshot = self.requesterContext.slotTbl
+			and self.requesterContext.slotTbl.considerBenchCraft
+			and self:CreateBenchCraftWeightSnapshot(self.calcContext.options.statWeights) or nil
+	end
 	self.requesterCallback(self.requesterContext, queryJson, errMsg)
 
 	-- Close blocker popup
@@ -1244,7 +1308,7 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 	if supportsBenchCraft then
 		controls.considerBenchCraft = new("CheckBoxControl", { "TOPRIGHT", lastItemAnchor, "BOTTOMRIGHT" },
 			{ 0, 5, 18 }, "Bench Craft:", function(state) end,
-			"Sorts fetched results by their best bench craft or replacement.")
+			"Sorts fetched results using the highest-weight legal bench craft or replacement.")
 		controls.considerBenchCraft.state = self.lastConsiderBenchCraft == true
 		updateLastAnchor(controls.considerBenchCraft)
 	end

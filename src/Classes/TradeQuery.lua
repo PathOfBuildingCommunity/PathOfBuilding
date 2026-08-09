@@ -976,7 +976,7 @@ local function getItemWithoutCraftedMods(item)
 	return new("Item", strippedItem:BuildRaw()), replacedCraft
 end
 
-function TradeQueryClass:GetBestBenchCraftEvaluation(item, slotName, calcFunc, baseOutput, output, weight)
+function TradeQueryClass:GetBestBenchCraftEvaluation(item, slotName, calcFunc, baseOutput, output, weight, weightSnapshot, yieldFunc)
 	local available, craftState = self:GetBenchCraftAvailability(item)
 	local evaluationItem = item
 	local replacedCraft
@@ -999,10 +999,27 @@ function TradeQueryClass:GetBestBenchCraftEvaluation(item, slotName, calcFunc, b
 	local originalItem = evaluationItem:BuildRaw()
 	local craftedItem = new("Item", originalItem)
 	local requiresFullParse = #craftedItem.modMagnitudeMods > 0 or (craftedItem.catalyst and craftedItem.catalyst > 0)
+	local legalCrafts = { }
+	local bestEstimatedCraft
+	local bestEstimatedWeight
 	for _, craft in ipairs(self.itemsTab.build.data.masterMods or { }) do
 		if available[craft.type] and available[craft.type] > 0
 			and craft.types and craft.types[evaluationItem.type]
 			and not conflictsWithExistingAffix(craft, existingGroups, existingLines) then
+			t_insert(legalCrafts, craft)
+			local estimatedWeight = self.tradeQueryGenerator:EstimateBenchCraftWeight(craft, weightSnapshot)
+			if estimatedWeight and (not bestEstimatedWeight or estimatedWeight > bestEstimatedWeight) then
+				bestEstimatedCraft = craft
+				bestEstimatedWeight = estimatedWeight
+			end
+		end
+	end
+	-- Generated queries already have marginal mod weights. Use them to choose one
+	-- concrete legal craft; pasted queries without weights retain the exact fallback.
+	if bestEstimatedCraft then
+		legalCrafts = bestEstimatedWeight > 0 and { bestEstimatedCraft } or { }
+	end
+	for _, craft in ipairs(legalCrafts) do
 			local firstCraftLineIndex = #craftedItem.explicitModLines + 1
 			for _, line in ipairs(craft) do
 				local modList, extra
@@ -1028,6 +1045,9 @@ function TradeQueryClass:GetBestBenchCraftEvaluation(item, slotName, calcFunc, b
 				craftedItem:BuildModList()
 			end
 			local craftOutput = self:ReduceOutput(calcFunc({ repSlotName = slotName, repItem = craftedItem }))
+			if yieldFunc then
+				yieldFunc()
+			end
 			local craftWeight = self.tradeQueryGenerator.WeightedRatioOutputs(baseOutput, craftOutput, self.statSortSelectionList)
 			if craftWeight > weight then
 				output = craftOutput
@@ -1047,30 +1067,32 @@ function TradeQueryClass:GetBestBenchCraftEvaluation(item, slotName, calcFunc, b
 					t_remove(craftedItem.explicitModLines, #craftedItem.explicitModLines)
 				end
 			end
-		end
 	end
 	return output, weight, bestCraft, bestCraftItemString, bestCraftLineIndexes, bestReplacedCraft
 end
 
 -- Method to evaluate a result by getting it's output and weight
-function TradeQueryClass:GetResultEvaluation(row_idx, result_index, calcFunc, baseOutput)
+function TradeQueryClass:GetResultEvaluation(row_idx, result_index, calcFunc, baseOutput, yieldFunc)
 	local result = self.resultTbl[row_idx][result_index]
-	if not calcFunc then -- Always evaluate when calcFunc is given
+	if not calcFunc then
 		calcFunc, baseOutput = self.itemsTab.build.calcsTab:GetMiscCalculator()
-		local onlyWeightedBaseOutput = self:ReduceOutput(baseOutput)
-		if not self.onlyWeightedBaseOutput[row_idx] then
-			self.onlyWeightedBaseOutput[row_idx] = { }
-		end
-		if not self.lastComparedWeightList[row_idx] then
-			self.lastComparedWeightList[row_idx] = { }
-		end
-		-- If the interesting stats are the same (the build hasn't changed) and result has already been evaluated, then just return that
-		if result.evaluation and tableDeepEquals(onlyWeightedBaseOutput, self.onlyWeightedBaseOutput[row_idx][result_index]) and tableDeepEquals(self.statSortSelectionList, self.lastComparedWeightList[row_idx][result_index]) then
-			return result.evaluation
-		end
-		self.onlyWeightedBaseOutput[row_idx][result_index] = onlyWeightedBaseOutput
-		self.lastComparedWeightList[row_idx][result_index] = self.statSortSelectionList
 	end
+	local onlyWeightedBaseOutput = self:ReduceOutput(baseOutput)
+	if not self.onlyWeightedBaseOutput[row_idx] then
+		self.onlyWeightedBaseOutput[row_idx] = { }
+	end
+	if not self.lastComparedWeightList[row_idx] then
+		self.lastComparedWeightList[row_idx] = { }
+	end
+	-- A shared calculator is an optimisation, not a cache bypass. Reuse the result
+	-- whenever the build outputs and selected weights still match.
+	if result.evaluation
+		and tableDeepEquals(onlyWeightedBaseOutput, self.onlyWeightedBaseOutput[row_idx][result_index])
+		and tableDeepEquals(self.statSortSelectionList, self.lastComparedWeightList[row_idx][result_index]) then
+		return result.evaluation
+	end
+	self.onlyWeightedBaseOutput[row_idx][result_index] = onlyWeightedBaseOutput
+	self.lastComparedWeightList[row_idx][result_index] = self.statSortSelectionList
 	local slotTbl = self.slotTables[row_idx]
 	local jewelNodeId = slotTbl.nodeId or slotTbl.selectedJewelNodeId
 	if slotTbl.slotName == "Megalomaniac" then
@@ -1078,10 +1100,17 @@ function TradeQueryClass:GetResultEvaluation(row_idx, result_index, calcFunc, ba
 		for nodeName in (result.item_string.."\r\n"):gmatch("1 Added Passive Skill is (.-)\r?\n") do
 			t_insert(addedNodes, self.itemsTab.build.spec.tree.clusterNodeMap[nodeName])
 		end
-		local output12  = self:ReduceOutput(calcFunc({ addNodes = { [addedNodes[1]] = true, [addedNodes[2]] = true } }))
-		local output13  = self:ReduceOutput(calcFunc({ addNodes = { [addedNodes[1]] = true, [addedNodes[3]] = true } }))
-		local output23  = self:ReduceOutput(calcFunc({ addNodes = { [addedNodes[2]] = true, [addedNodes[3]] = true } }))
-		local output123 = self:ReduceOutput(calcFunc({ addNodes = { [addedNodes[1]] = true, [addedNodes[2]] = true, [addedNodes[3]] = true } }))
+		local function calculateNodes(nodes)
+			local output = calcFunc({ addNodes = nodes })
+			if yieldFunc then
+				yieldFunc()
+			end
+			return self:ReduceOutput(output)
+		end
+		local output12  = calculateNodes({ [addedNodes[1]] = true, [addedNodes[2]] = true })
+		local output13  = calculateNodes({ [addedNodes[1]] = true, [addedNodes[3]] = true })
+		local output23  = calculateNodes({ [addedNodes[2]] = true, [addedNodes[3]] = true })
+		local output123 = calculateNodes({ [addedNodes[1]] = true, [addedNodes[2]] = true, [addedNodes[3]] = true })
 		-- Sometimes the third node is as powerful as a wet noodle, so use weight per point spent, including the jewel socket
 		local weight12  = self.tradeQueryGenerator.WeightedRatioOutputs(baseOutput, output12,  self.statSortSelectionList) / 4
 		local weight13  = self.tradeQueryGenerator.WeightedRatioOutputs(baseOutput, output13,  self.statSortSelectionList) / 4
@@ -1108,10 +1137,17 @@ function TradeQueryClass:GetResultEvaluation(row_idx, result_index, calcFunc, ba
 		local item = new("Item"):Item(result.item_string)
 
 		local output = self:ReduceOutput(calcFunc({ repSlotName = slotName, repItem = item }))
+		if yieldFunc then
+			yieldFunc()
+		end
 		local weight = self.tradeQueryGenerator.WeightedRatioOutputs(baseOutput, output, self.statSortSelectionList)
 		local benchCraft, benchCraftItemString, benchCraftLineIndexes, benchCraftReplaced
 		if slotTbl.considerBenchCraft then
-			output, weight, benchCraft, benchCraftItemString, benchCraftLineIndexes, benchCraftReplaced = self:GetBestBenchCraftEvaluation(item, slotName, calcFunc, baseOutput, output, weight)
+			local weightSnapshot = result.benchCraftWeightSnapshot
+			if weightSnapshot and not tableDeepEquals(self.statSortSelectionList, weightSnapshot.statWeights) then
+				weightSnapshot = nil
+			end
+			output, weight, benchCraft, benchCraftItemString, benchCraftLineIndexes, benchCraftReplaced = self:GetBestBenchCraftEvaluation(item, slotName, calcFunc, baseOutput, output, weight, weightSnapshot, yieldFunc)
 		end
 		result.evaluation = {{
 			output = output,
@@ -1342,6 +1378,7 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 							item.enchantModLines = {}
 						end
 						itemsSafe[i].item_string = item:BuildRaw()
+						itemsSafe[i].benchCraftWeightSnapshot = context.benchCraftWeightSnapshot
 					end
 
 					self.resultTbl[context.row_idx] = itemsSafe
