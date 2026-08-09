@@ -103,6 +103,11 @@ function calcs.initModDB(env, modDB)
 	modDB:NewMod("LesserMassiveShrine", "FLAG", true, "Base", { type = "Condition", var = "LesserMassiveShrine" }, { type = "Condition", var = "MassiveShrine", neg = true })
 	modDB:NewMod("LesserReplenishingShrine", "FLAG", true, "Base", { type = "Condition", var = "LesserReplenishingShrine" }, { type = "Condition", var = "ReplenishingShrine", neg = true })
 	modDB:NewMod("LesserResistanceShrine", "FLAG", true, "Base", { type = "Condition", var = "LesserResistanceShrine" }, { type = "Condition", var = "ResistanceShrine", neg = true })
+	modDB:NewMod("BloodShrineOfRats", "FLAG", true, "Base", { type = "Condition", var = "BloodShrineOfRats" })
+	modDB:NewMod("BloodShrineOfLocusts", "FLAG", true, "Base", { type = "Condition", var = "BloodShrineOfLocusts" })
+	modDB:NewMod("BloodShrineOfToads", "FLAG", true, "Base", { type = "Condition", var = "BloodShrineOfToads" })
+	modDB:NewMod("BloodShrineOfCrows", "FLAG", true, "Base", { type = "Condition", var = "BloodShrineOfCrows" })
+	modDB:NewMod("BloodShrineOfBats", "FLAG", true, "Base", { type = "Condition", var = "BloodShrineOfBats" })
 	modDB:NewMod("AlchemistsGenius", "FLAG", true, "Base", { type = "Condition", var = "AlchemistsGenius" })
 	modDB:NewMod("LuckyHits", "FLAG", true, "Base", { type = "Condition", var = "LuckyHits" })
 	modDB:NewMod("Convergence", "FLAG", true, "Base", { type = "Condition", var = "Convergence" })
@@ -1397,6 +1402,9 @@ function calcs.initEnv(build, mode, override, specEnv)
 				group.noSupports = grantedSkill.noSupports
 				activeGemInstance.triggered = grantedSkill.triggered
 				activeGemInstance.triggerChance = grantedSkill.triggerChance
+				if grantedSkill.skillId == "BloodShrineUniqueTriggeredExplodingToad" and grantedSkill.triggerChance then
+					activeGemInstance.triggerChance = m_min(grantedSkill.triggerChance + env.player.modDB:Sum("BASE", nil, "BloodShrineExplodingToadTriggerChance"), 100)
+				end
 				wipeTable(group.gemList)
 				t_insert(group.gemList, activeGemInstance)
 				build.skillsTab:ProcessSocketGroup(group)
