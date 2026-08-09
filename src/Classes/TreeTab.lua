@@ -1208,47 +1208,54 @@ function TreeTabClass:FindTimelessJewel()
 	else
 		timelessData.jewelType = jewelTypes[1]
 	end
+	local function getLegionDescriptionsByName(nodeName)
+		for _, node in pairs(legionNodes) do
+			if node.dn == nodeName then
+				return copyTable(node.sd)
+			end
+		end
+	end
 	local conquerorTypes = {
 		[1] = {
 			{ label = "Any", id = 1 },
-			{ label = "Doryani (Corrupted Soul)", id = 2 },
-			{ label = "Xibaqua (Divine Flesh)", id = 3 },
-			{ label = "Ahuana (Immortal Ambition)", id = 4 }
+			{ label = "Doryani (Corrupted Soul)", id = 2, descriptions = getLegionDescriptionsByName("Corrupted Soul") },
+			{ label = "Xibaqua (Divine Flesh)", id = 3, descriptions = getLegionDescriptionsByName("Divine Flesh") },
+			{ label = "Ahuana (Immortal Ambition)", id = 4, descriptions = getLegionDescriptionsByName("Immortal Ambition") }
 		},
 		[2] = {
 			{ label = "Any", id = 1 },
-			{ label = "Kaom (Strength of Blood)", id = 2 },
-			{ label = "Rakiata (Tempered by War)", id = 3 },
-			{ label = "Akoya (Chainbreaker)", id = 4 }
+			{ label = "Kaom (Strength of Blood)", id = 2, descriptions = getLegionDescriptionsByName("Strength of Blood") },
+			{ label = "Rakiata (Tempered by War)", id = 3, descriptions = getLegionDescriptionsByName("Tempered by War") },
+			{ label = "Akoya (Chainbreaker)", id = 4, descriptions = getLegionDescriptionsByName("Chainbreaker") }
 		},
 		[3] = {
 			{ label = "Any", id = 1 },
-			{ label = "Asenath (Dance with Death)", id = 2 },
-			{ label = "Nasima (Second Sight)", id = 3 },
-			{ label = "Balbala (The Traitor)", id = 4 }
+			{ label = "Asenath (Dance with Death)", id = 2, descriptions = getLegionDescriptionsByName("Dance with Death") },
+			{ label = "Nasima (Second Sight)", id = 3, descriptions = getLegionDescriptionsByName("Second Sight") },
+			{ label = "Balbala (The Traitor)", id = 4, descriptions = getLegionDescriptionsByName("The Traitor") }
 		},
 		[4] = {
 			{ label = "Any", id = 1 },
-			{ label = "Avarius (Power of Purpose)", id = 2 },
-			{ label = "Dominus (Inner Conviction)", id = 3 },
-			{ label = "Maxarius (Transcendence)", id = 4 }
+			{ label = "Avarius (Power of Purpose)", id = 2, descriptions = getLegionDescriptionsByName("Power of Purpose") },
+			{ label = "Dominus (Inner Conviction)", id = 3, descriptions = getLegionDescriptionsByName("Inner Conviction") },
+			{ label = "Maxarius (Transcendence)", id = 4, descriptions = getLegionDescriptionsByName("Transcendence") }
 		},
 		[5] = {
 			{ label = "Any", id = 1 },
-			{ label = "Cadiro (Supreme Decadence)", id = 2 },
-			{ label = "Victario (Supreme Grandstanding)", id = 3 },
-			{ label = "Caspiro (Supreme Ostentation)", id = 4 }
+			{ label = "Cadiro (Supreme Decadence)", id = 2, descriptions = getLegionDescriptionsByName("Supreme Decadence") },
+			{ label = "Victario (Supreme Grandstanding)", id = 3, descriptions = getLegionDescriptionsByName("Supreme Grandstanding") },
+			{ label = "Caspiro (Supreme Ostentation)", id = 4, descriptions = getLegionDescriptionsByName("Supreme Ostentation") }
 		},
 		[6] = {
 			{ label = "Any", id = 1 },
-			{ label = "Vorana (Black Scythe Training)", id = 2 },
-			{ label = "Uhtred (Celestial Mathematics)", id = 3 },
-			{ label = "Medved (The Unbreaking Circle)", id = 4 }
+			{ label = "Vorana (Black Scythe Training)", id = 2, descriptions = getLegionDescriptionsByName("Black Scythe Training") },
+			{ label = "Uhtred (Celestial Mathematics)", id = 3, descriptions = getLegionDescriptionsByName("Celestial Mathematics") },
+			{ label = "Medved (The Unbreaking Circle)", id = 4, descriptions = getLegionDescriptionsByName("The Unbreaking Circle") }
 		},
-		[7] = { { label = "Tecrod (Overwhelming Hate)", id = 1 } },
-		[8] = { { label = "Ulaman (Weighted Exchange)", id = 1 } },
-		[9] = { { label = "Kurgal (Reconstructed Essence)", id = 1 } },
-		[10] = { { label = "Amanamu (The Loyal Few)", id = 1 } },
+		[7] = { { label = "Tecrod (Overwhelming Hate)", id = 1, descriptions = getLegionDescriptionsByName("Overwhelming Hate") } },
+		[8] = { { label = "Ulaman (Weighted Exchange)", id = 1, descriptions = getLegionDescriptionsByName("Weighted Exchange") } },
+		[9] = { { label = "Kurgal (Reconstructed Essence)", id = 1, descriptions = getLegionDescriptionsByName("Reconstructed Essence") } },
+		[10] = { { label = "Amanamu (The Loyal Few)", id = 1, descriptions = getLegionDescriptionsByName("The Loyal Few") } },
 		[11] = { { label = "Zorath", id = 1 } }
 	}
 	-- rebuild `timelessData.conquerorType` as we only store the minimum amount of `conquerorType` data in build XML
@@ -1553,6 +1560,14 @@ function TreeTabClass:FindTimelessJewel()
 		self.build.modFlag = true
 	end)
 	controls.conquerorSelect.selIndex = timelessData.conquerorType.id
+	controls.conquerorSelect.tooltipFunc = function(tooltip, mode, index, value)
+		tooltip:Clear()
+		if mode ~= "OUT" and value.descriptions then
+			for _, line in ipairs(value.descriptions) do
+				tooltip:AddLine(16, "^7" .. line)
+			end
+		end
+	end
 	controls.conquerorSelectLabel = new("LabelControl", {"RIGHT", controls.conquerorSelect, "LEFT"}, {-labelSpacing, 0, 0, labelHeight}, "^7Conqueror:")
 
 	setAllocatedNodes = function()
