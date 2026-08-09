@@ -316,13 +316,16 @@ describe("TradeQuery", function()
 			return table.concat(lines, "\n")
 		end
 
-		local function evaluate(itemString, crafts, calcOverride)
+		local function evaluate(itemString, crafts, calcOverride, yieldFunc, weightSnapshot)
 			local tradeQuery = new("TradeQuery", { itemsTab = { } })
 			tradeQuery.tradeQueryGenerator = mock_queryGen
 			tradeQuery.itemsTab.build = { data = { masterMods = crafts or { prefixCraft, suffixCraft } } }
 			tradeQuery.statSortSelectionList = { { stat = "Life", weightMult = 1 } }
 			tradeQuery.slotTables[1] = { slotName = "Ring 1", considerBenchCraft = true }
-			tradeQuery.resultTbl[1] = { { item_string = itemString } }
+			tradeQuery.resultTbl[1] = { {
+				item_string = itemString,
+				benchCraftWeightSnapshot = weightSnapshot,
+			} }
 			local function calc(args)
 				local life = 100
 				for _, modLine in ipairs(args.repItem.explicitModLines or { }) do
@@ -334,7 +337,7 @@ describe("TradeQuery", function()
 				end
 				return { Life = life }
 			end
-			return tradeQuery:GetResultEvaluation(1, 1, calcOverride or calc, { Life = 100 })[1]
+			return tradeQuery:GetResultEvaluation(1, 1, calcOverride or calc, { Life = 100 }, yieldFunc)[1]
 		end
 
 		it("only evaluates suffix crafts when the prefix side is full", function()
@@ -351,6 +354,31 @@ describe("TradeQuery", function()
 
 			assert.is_true(evaluation.weight > 1)
 			assert.is_truthy(evaluation.benchCraft:find("maximum Life", 1, true))
+		end)
+
+		it("reuses cached craft evaluations when a shared calculator is provided", function()
+			local tradeQuery = new("TradeQuery", { itemsTab = { } })
+			tradeQuery.tradeQueryGenerator = mock_queryGen
+			tradeQuery.statSortSelectionList = { { stat = "Life", weightMult = 1 } }
+			tradeQuery.slotTables[1] = { slotName = "Ring 1", considerBenchCraft = true }
+			tradeQuery.resultTbl[1] = { { item_string = makeRareRing(3, 2) } }
+			local calls = 0
+			tradeQuery.itemsTab.build = { data = { masterMods = { suffixCraft } } }
+			local function calc(args)
+				calls = calls + 1
+				for _, modLine in ipairs(args.repItem.explicitModLines or { }) do
+					if modLine.crafted and modLine.line:find("to Strength", 1, true) then
+						return { Life = 150 }
+					end
+				end
+				return { Life = 100 }
+			end
+			local baseOutput = { Life = 100 }
+
+			tradeQuery:GetResultEvaluation(1, 1, calc, baseOutput)
+			tradeQuery:GetResultEvaluation(1, 1, calc, baseOutput)
+
+			assert.are.equal(2, calls)
 		end)
 
 		it("does not evaluate crafts unavailable for the item type", function()
@@ -524,6 +552,97 @@ describe("TradeQuery", function()
 			assert.are.equal(26, calls)
 			assert.are.equal(1, maxCraftedLines)
 			assert.is_truthy(evaluation.benchCraft)
+		end)
+
+		it("provides a cooperative yield point after the item and every bench craft", function()
+			local calls = 0
+			local yields = 0
+
+			evaluate(makeRareRing(3, 2), { suffixCraft }, function()
+				calls = calls + 1
+				return { Life = 100 }
+			end, function()
+				yields = yields + 1
+			end)
+
+			assert.are.equal(2, calls)
+			assert.are.equal(calls, yields)
+		end)
+
+		it("fully evaluates only the highest-weight legal bench craft", function()
+			local predictedBest = {
+				type = "Suffix",
+				group = "PredictedBest",
+				types = { Ring = true },
+				statOrder = { 1 },
+				"+(1-1) to Strength",
+			}
+			local actualBest = {
+				type = "Suffix",
+				group = "ActualBest",
+				types = { Ring = true },
+				statOrder = { 2 },
+				"+(2-2) to Dexterity",
+			}
+			local weightSnapshot = {
+				modWeights = { { tradeModId = "explicit.test", weight = 1 } },
+				statWeights = { { stat = "Life", weightMult = 1 } },
+			}
+			local originalEstimator = mock_queryGen.EstimateBenchCraftWeight
+			mock_queryGen.EstimateBenchCraftWeight = function(_, craft, receivedSnapshot)
+				assert.are.equal(weightSnapshot, receivedSnapshot)
+				return craft == predictedBest and 2 or 1
+			end
+			local calls = 0
+			local evaluation = evaluate(makeRareRing(3, 2), { actualBest, predictedBest }, function(args)
+				calls = calls + 1
+				for _, modLine in ipairs(args.repItem.explicitModLines or { }) do
+					if modLine.crafted and modLine.line:find("Dexterity", 1, true) then
+						return { Life = 300 }
+					elseif modLine.crafted and modLine.line:find("Strength", 1, true) then
+						return { Life = 200 }
+					end
+				end
+				return { Life = 100 }
+			end, nil, weightSnapshot)
+			mock_queryGen.EstimateBenchCraftWeight = originalEstimator
+
+			assert.are.equal(2, calls)
+			assert.is_truthy(evaluation.benchCraft:find("Strength", 1, true))
+		end)
+
+		it("falls back to exhaustive evaluation when stat weights changed after the query", function()
+			local strengthCraft = {
+				type = "Suffix", group = "Strength", types = { Ring = true }, "+1 to Strength",
+			}
+			local dexterityCraft = {
+				type = "Suffix", group = "Dexterity", types = { Ring = true }, "+2 to Dexterity",
+			}
+			local staleSnapshot = {
+				modWeights = { { tradeModId = "explicit.test", weight = 1 } },
+				statWeights = { { stat = "Life", weightMult = 2 } },
+			}
+			local originalEstimator = mock_queryGen.EstimateBenchCraftWeight
+			mock_queryGen.EstimateBenchCraftWeight = function(_, _, receivedSnapshot)
+				assert.is_nil(receivedSnapshot)
+			end
+			local calls = 0
+			local evaluation = evaluate(makeRareRing(3, 2), { strengthCraft, dexterityCraft }, function(args)
+				calls = calls + 1
+				for _, modLine in ipairs(args.repItem.explicitModLines or { }) do
+					if modLine.crafted and modLine.line:find("Dexterity", 1, true) then
+						return { Life = 190 }
+					elseif modLine.crafted and modLine.line:find("Strength", 1, true) then
+						return { Life = 150 }
+					end
+				end
+				return { Life = 100 }
+			end, nil, staleSnapshot)
+			mock_queryGen.EstimateBenchCraftWeight = originalEstimator
+
+			assert.are.equal(3, calls)
+			assert.are.equal(190, evaluation.output.Life)
+			assert.is_truthy(evaluation.benchCraft:find("Dexterity", 1, true))
 		end)
 
 		it("keeps lower bench tiers when a higher tier has a worse trade-off", function()

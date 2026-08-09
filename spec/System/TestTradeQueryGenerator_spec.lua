@@ -165,6 +165,44 @@ describe("TradeQueryGenerator", function()
 		end)
 	end)
 
+	describe("EstimateBenchCraftWeight", function()
+		it("adds the weighted values of every craft line", function()
+			local queryGen = new("TradeQueryGenerator", { itemsTab = { } })
+			queryGen.modData = {
+				Explicit = {
+					["1203_TestAttributes"] = { tradeMod = { id = "explicit.stat_4080418644", text = "+# to Strength" } },
+					["1204_TestAttributes"] = { tradeMod = { id = "explicit.stat_3261801346", text = "+# to Dexterity" } },
+				},
+			}
+			queryGen.modWeights = {
+				{ tradeModId = "explicit.stat_4080418644", weight = 2 },
+				{ tradeModId = "explicit.stat_3261801346", weight = 3 },
+			}
+			local craft = {
+				"+(10-10) to Strength",
+				"+(20-20) to Dexterity",
+				statOrder = { 1203, 1204 },
+				group = "TestAttributes",
+			}
+			local snapshot = queryGen:CreateBenchCraftWeightSnapshot({ { stat = "Life", weightMult = 1 } })
+
+			assert.are.equal(80, queryGen:EstimateBenchCraftWeight(craft, snapshot))
+		end)
+
+		it("keeps generated mod and stat weights immutable", function()
+			local queryGen = new("TradeQueryGenerator", { itemsTab = { } })
+			queryGen.modWeights = { { tradeModId = "explicit.test", weight = 2 } }
+			local statWeights = { { stat = "Life", weightMult = 1 } }
+
+			local snapshot = queryGen:CreateBenchCraftWeightSnapshot(statWeights)
+			queryGen.modWeights[1].weight = 20
+			statWeights[1].weightMult = 10
+
+			assert.are.equal(2, snapshot.modWeights[1].weight)
+			assert.are.equal(1, snapshot.statWeights[1].weightMult)
+		end)
+	end)
+
 	describe("Filter prioritization", function()
 		it("counts socket and link constraints against MAX_FILTERS", function()
 			local queryGen = new("TradeQueryGenerator"):TradeQueryGenerator({ itemsTab = { items = {} } })
