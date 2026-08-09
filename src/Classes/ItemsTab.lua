@@ -1825,7 +1825,7 @@ function ItemsTabClass:CopyAnointsAndEldritchImplicits(newItem, copyEldritchImpl
 		-- if you don't have an equipped item that matches the type of the newItem, no need to do anything
 		if currentItem then
 			-- if the new item is anointable and does not have an anoint and your current respective item does, apply that anoint to the new item
-			if isAnointable(newItem) and (#newItem.enchantModLines == 0 or overwrite) and self.activeItemSet[newItemType].selItemId > 0 then
+			if isAnointable(currentItem) and isAnointable(newItem) and (#newItem.enchantModLines == 0 or overwrite) and self.activeItemSet[newItemType].selItemId > 0 then
 				local currentAnoint = currentItem.enchantModLines
 				if currentAnoint and #currentAnoint == 1 then -- skip if amulet has more than one anoint e.g. Stranglegasp
 					newItem.enchantModLines = currentAnoint
@@ -1833,8 +1833,6 @@ function ItemsTabClass:CopyAnointsAndEldritchImplicits(newItem, copyEldritchImpl
 			end
 			-- if the new item is a non-corrupted Normal, Magic, or Rare Helmet, Body Armour, Gloves, or Boots and does not have any influence
 			-- and your current respective item is Eater and/or Exarch, apply those implicits and influence to the new item
-			local eldritchBaseTypes = { "Helmet", "Body Armour", "Gloves", "Boots" }
-			local eldritchRarities = { "NORMAL", "MAGIC", "RARE" }
 			for _, influence in ipairs(itemLib.influenceInfo.default) do
 				if newItem[influence.key] then
 					return
@@ -1842,8 +1840,12 @@ function ItemsTabClass:CopyAnointsAndEldritchImplicits(newItem, copyEldritchImpl
 			end
 
 			local modifiableItem = not (newItem.corrupted or newItem.mirrored)
-			if copyEldritchImplicits and isValueInTable(eldritchBaseTypes, newItem.base.type) and isValueInTable(eldritchRarities, newItem.rarity)
-				and (#newItem.implicitModLines == 0 or overwrite) and modifiableItem and (currentItem.cleansing or currentItem.tangle) and currentItem.implicitModLines then
+			if copyEldritchImplicits and
+				isValueInArray(data.eldritch.baseTypes, newItem.base.type)
+				and isValueInArray(data.eldritch.rarities, newItem.rarity)
+				and (#newItem.implicitModLines == 0 or overwrite)
+				and modifiableItem and (currentItem.cleansing or currentItem.tangle)
+				and currentItem.implicitModLines then
 					newItem.implicitModLines = currentItem.implicitModLines
 					newItem.tangle = currentItem.tangle
 					newItem.cleansing = currentItem.cleansing
@@ -1994,7 +1996,7 @@ function ItemsTabClass:SetDisplayItem(item)
 		local influence1 = 1
 		local influence2 = 1
 		local influenceDisplayList = { "Influence" }
-		for i, curInfluenceInfo in ipairs((item.canHaveEldritchInfluence or item.type == "Helmet" or item.type == "Body Armour" or item.type == "Gloves" or item.type == "Boots") and itemLib.influenceInfo.all or itemLib.influenceInfo.default) do
+		for i, curInfluenceInfo in ipairs((item.canHaveEldritchInfluence or (isValueInArray(data.eldritch.baseTypes, item.type))) and itemLib.influenceInfo.all or itemLib.influenceInfo.default) do
 			influenceDisplayList[i + 1] = curInfluenceInfo.display
 		end
 		self.controls.displayItemInfluence.list = influenceDisplayList
@@ -3771,7 +3773,6 @@ function ItemsTabClass:AddCrucibleModifierToDisplayItem()
 	end)
 	main:OpenPopup(710, 185, "Add Crucible Modifier to Item", controls, "save")
 end
-
 -- Opens the custom Implicit popup
 function ItemsTabClass:AddImplicitToDisplayItem()
 	local controls = { }
@@ -3800,7 +3801,7 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 		local groupIndexes = {}
 		if sourceId == "EXARCH" or sourceId == "EATER" then
 			for i, mod in pairs(self.displayItem.affixes) do
-				if self.displayItem:GetModSpawnWeight(mod) > 0 and sourceId:lower() == mod.type:lower() then
+				if self.displayItem:GetModSpawnWeight(mod) > 0 and (sourceId:lower() == (mod.type and mod.type:lower() or nil)) then
 					local modLabel = table.concat(mod, "/")
 					local group = mod.group:gsub("PinnaclePresence", ""):gsub("UniquePresence", "")
 					if not groupIndexes[group] then
@@ -3919,7 +3920,7 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 		end
 		setDefaultSortOrder()
 	end
-	if (self.displayItem.rarity ~= "UNIQUE" and self.displayItem.rarity ~= "RELIC") and (self.displayItem.type == "Helmet" or self.displayItem.type == "Body Armour" or self.displayItem.type == "Gloves" or self.displayItem.type == "Boots") then
+	if (self.displayItem.rarity ~= "UNIQUE" and self.displayItem.rarity ~= "RELIC") and (isValueInArray(data.eldritch.baseTypes, self.displayItem.base.type)) then
 		if self.displayItem.cleansing then
 			t_insert(sourceList, { label = "Searing Exarch", sourceId = "EXARCH" })
 		end
