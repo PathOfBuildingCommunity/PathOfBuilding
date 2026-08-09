@@ -1208,9 +1208,9 @@ function TreeTabClass:FindTimelessJewel()
 	else
 		timelessData.jewelType = jewelTypes[1]
 	end
-	local function getLegionDescriptionsByName(nodeName)
+	local function getLegionDescriptionsById(nodeId)
 		for _, node in pairs(legionNodes) do
-			if node.dn == nodeName then
+			if node.id == nodeId then
 				return copyTable(node.sd)
 			end
 		end
@@ -1218,44 +1218,44 @@ function TreeTabClass:FindTimelessJewel()
 	local conquerorTypes = {
 		[1] = {
 			{ label = "Any", id = 1 },
-			{ label = "Doryani (Corrupted Soul)", id = 2, descriptions = getLegionDescriptionsByName("Corrupted Soul") },
-			{ label = "Xibaqua (Divine Flesh)", id = 3, descriptions = getLegionDescriptionsByName("Divine Flesh") },
-			{ label = "Ahuana (Immortal Ambition)", id = 4, descriptions = getLegionDescriptionsByName("Immortal Ambition") }
+			{ label = "Doryani (Corrupted Soul)", id = 2, descriptions = getLegionDescriptionsById("vaal_keystone_3") },
+			{ label = "Xibaqua (Divine Flesh)", id = 3, descriptions = getLegionDescriptionsById("vaal_keystone_1") },
+			{ label = "Ahuana (Immortal Ambition)", id = 4, descriptions = getLegionDescriptionsById("vaal_keystone_2_v2") }
 		},
 		[2] = {
 			{ label = "Any", id = 1 },
-			{ label = "Kaom (Strength of Blood)", id = 2, descriptions = getLegionDescriptionsByName("Strength of Blood") },
-			{ label = "Rakiata (Tempered by War)", id = 3, descriptions = getLegionDescriptionsByName("Tempered by War") },
-			{ label = "Akoya (Chainbreaker)", id = 4, descriptions = getLegionDescriptionsByName("Chainbreaker") }
+			{ label = "Kaom (Strength of Blood)", id = 2, descriptions = getLegionDescriptionsById("karui_keystone_1") },
+			{ label = "Rakiata (Tempered by War)", id = 3, descriptions = getLegionDescriptionsById("karui_keystone_2") },
+			{ label = "Akoya (Chainbreaker)", id = 4, descriptions = getLegionDescriptionsById("karui_keystone_3_v2") }
 		},
 		[3] = {
 			{ label = "Any", id = 1 },
-			{ label = "Asenath (Dance with Death)", id = 2, descriptions = getLegionDescriptionsByName("Dance with Death") },
-			{ label = "Nasima (Second Sight)", id = 3, descriptions = getLegionDescriptionsByName("Second Sight") },
-			{ label = "Balbala (The Traitor)", id = 4, descriptions = getLegionDescriptionsByName("The Traitor") }
+			{ label = "Asenath (Dance with Death)", id = 2, descriptions = getLegionDescriptionsById("maraketh_keystone_2") },
+			{ label = "Nasima (Second Sight)", id = 3, descriptions = getLegionDescriptionsById("maraketh_keystone_3") },
+			{ label = "Balbala (The Traitor)", id = 4, descriptions = getLegionDescriptionsById("maraketh_keystone_1_v2") }
 		},
 		[4] = {
 			{ label = "Any", id = 1 },
-			{ label = "Avarius (Power of Purpose)", id = 2, descriptions = getLegionDescriptionsByName("Power of Purpose") },
-			{ label = "Dominus (Inner Conviction)", id = 3, descriptions = getLegionDescriptionsByName("Inner Conviction") },
-			{ label = "Maxarius (Transcendence)", id = 4, descriptions = getLegionDescriptionsByName("Transcendence") }
+			{ label = "Avarius (Power of Purpose)", id = 2, descriptions = getLegionDescriptionsById("templar_keystone_3") },
+			{ label = "Dominus (Inner Conviction)", id = 3, descriptions = getLegionDescriptionsById("templar_keystone_2") },
+			{ label = "Maxarius (Transcendence)", id = 4, descriptions = getLegionDescriptionsById("templar_keystone_1_v2") }
 		},
 		[5] = {
 			{ label = "Any", id = 1 },
-			{ label = "Cadiro (Supreme Decadence)", id = 2, descriptions = getLegionDescriptionsByName("Supreme Decadence") },
-			{ label = "Victario (Supreme Grandstanding)", id = 3, descriptions = getLegionDescriptionsByName("Supreme Grandstanding") },
-			{ label = "Caspiro (Supreme Ostentation)", id = 4, descriptions = getLegionDescriptionsByName("Supreme Ostentation") }
+			{ label = "Cadiro (Supreme Decadence)", id = 2, descriptions = getLegionDescriptionsById("eternal_keystone_1") },
+			{ label = "Victario (Supreme Grandstanding)", id = 3, descriptions = getLegionDescriptionsById("eternal_keystone_2") },
+			{ label = "Caspiro (Supreme Ostentation)", id = 4, descriptions = getLegionDescriptionsById("eternal_keystone_3_v2") }
 		},
 		[6] = {
 			{ label = "Any", id = 1 },
-			{ label = "Vorana (Black Scythe Training)", id = 2, descriptions = getLegionDescriptionsByName("Black Scythe Training") },
-			{ label = "Uhtred (Celestial Mathematics)", id = 3, descriptions = getLegionDescriptionsByName("Celestial Mathematics") },
-			{ label = "Medved (The Unbreaking Circle)", id = 4, descriptions = getLegionDescriptionsByName("The Unbreaking Circle") }
+			{ label = "Vorana (Black Scythe Training)", id = 2, descriptions = getLegionDescriptionsById("kalguur_keystone_1") },
+			{ label = "Uhtred (Celestial Mathematics)", id = 3, descriptions = getLegionDescriptionsById("kalguur_keystone_2") },
+			{ label = "Medved (The Unbreaking Circle)", id = 4, descriptions = getLegionDescriptionsById("kalguur_keystone_3") }
 		},
-		[7] = { { label = "Tecrod (Overwhelming Hate)", id = 1, descriptions = getLegionDescriptionsByName("Overwhelming Hate") } },
-		[8] = { { label = "Ulaman (Weighted Exchange)", id = 1, descriptions = getLegionDescriptionsByName("Weighted Exchange") } },
-		[9] = { { label = "Kurgal (Reconstructed Essence)", id = 1, descriptions = getLegionDescriptionsByName("Reconstructed Essence") } },
-		[10] = { { label = "Amanamu (The Loyal Few)", id = 1, descriptions = getLegionDescriptionsByName("The Loyal Few") } },
+		[7] = { { label = "Tecrod (Overwhelming Hate)", id = 1, descriptions = getLegionDescriptionsById("abyss_murderous_keystone") } },
+		[8] = { { label = "Ulaman (Weighted Exchange)", id = 1, descriptions = getLegionDescriptionsById("abyss_searching_keystone") } },
+		[9] = { { label = "Kurgal (Reconstructed Essence)", id = 1, descriptions = getLegionDescriptionsById("abyss_hypnotic_keystone") } },
+		[10] = { { label = "Amanamu (The Loyal Few)", id = 1, descriptions = getLegionDescriptionsById("abyss_ghastly_keystone") } },
 		[11] = { { label = "Zorath", id = 1 } }
 	}
 	-- rebuild `timelessData.conquerorType` as we only store the minimum amount of `conquerorType` data in build XML
