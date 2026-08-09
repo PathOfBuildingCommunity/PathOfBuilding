@@ -393,7 +393,7 @@ function CalcsTabClass:SetDisplayStat(displayData, pin)
 	self.controls.breakdown:SetBreakdownData(displayData, pin)
 end
 
-function CalcsTabClass:CheckFlag(obj, actor)
+function CalcsTabClass:CheckFlag(obj, actor, player)
 	actor = actor or (self.input.showMinion and self.calcsEnv.minion or self.calcsEnv.player)
 	local skillFlags = actor.mainSkill.skillFlags
 	if obj.flag and not skillFlags[obj.flag] then
@@ -406,7 +406,7 @@ function CalcsTabClass:CheckFlag(obj, actor)
 			end
 		end
 	end
-	if obj.playerFlag and not self.calcsEnv.player.mainSkill.skillFlags[obj.playerFlag] then
+	if obj.playerFlag and not (player or self.calcsEnv.player).mainSkill.skillFlags[obj.playerFlag] then
 		return
 	end
 	if obj.notFlag and skillFlags[obj.notFlag] then

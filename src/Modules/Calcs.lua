@@ -391,6 +391,7 @@ end
 -- Process active skill
 function calcs.buildActiveSkill(env, mode, skill, targetUUID, limitedProcessingFlags)
 	local fullEnv, _, _, _ = calcs.initEnv(env.build, mode, env.override)
+	fullEnv.buildBreakdown = false
 
 	-- env.limitedSkills contains a map of uuids that should be limited in calculation
 	-- this is in order to prevent infinite recursion loops
