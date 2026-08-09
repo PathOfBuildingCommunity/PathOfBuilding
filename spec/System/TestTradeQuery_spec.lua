@@ -6,6 +6,40 @@ describe("TradeQuery", function()
 		mock_tradeQuery = new("TradeQuery"):TradeQuery({ itemsTab = {} })
 		mock_queryGen = new("TradeQueryGenerator"):TradeQueryGenerator({ itemsTab = {} })
 	end)
+	describe("cooperative result evaluation", function()
+		it("resumes fetched result work over multiple frames", function()
+			local tradeQuery = new("TradeQuery", { itemsTab = {} })
+			tradeQuery.controls.priceButton1 = { label = "Price Item" }
+			tradeQuery.controls.pbNotice = { label = "" }
+			tradeQuery.resultTbl[1] = { { }, { } }
+			local events = { }
+			tradeQuery.UpdateControlsWithItems = function(_, _, yieldFunc)
+				table.insert(events, "first")
+				yieldFunc(1, 2)
+				table.insert(events, "second")
+				yieldFunc(2, 2)
+				table.insert(events, "done")
+			end
+
+			tradeQuery:StartResultEvaluation(1)
+
+			assert.are.same({ }, events)
+			assert.are.equal("Eval 0/2...", tradeQuery.controls.priceButton1.label)
+
+			tradeQuery:ProcessResultEvaluations()
+			assert.are.same({ "first" }, events)
+			assert.are.equal("Eval 1/2...", tradeQuery.controls.priceButton1.label)
+
+			tradeQuery:ProcessResultEvaluations()
+			assert.are.same({ "first", "second" }, events)
+			assert.are.equal("Eval 2/2...", tradeQuery.controls.priceButton1.label)
+
+			tradeQuery:ProcessResultEvaluations()
+			assert.are.same({ "first", "second", "done" }, events)
+			assert.are.equal("Price Item", tradeQuery.controls.priceButton1.label)
+			assert.is_nil(tradeQuery.resultEvaluationContexts[1])
+		end)
+	end)
 	describe("result dropdown tooltipFunc", function()
 		-- Builds a TradeQuery with the strict minimum needed for
 		-- PriceItemRowDisplay to construct row 1 without exploding. Only the
@@ -381,6 +415,99 @@ describe("TradeQuery", function()
 			end
 		end
 
+		it("uses only the listed item when it is already capped and resistance state is irrelevant", function()
+			local tq = newEvaluationQuery(
+				{ "+10% to Fire Resistance", "+20% to Cold Resistance" },
+				{ descriptor(1, "Fire"), descriptor(2, "Cold") }, true, true)
+			local calls = 0
+			tq.HasResistanceSwapOutputDependency = function() return false end
+
+			local evaluation = tq:GetResultEvaluation(1, 1, function()
+				calls = calls + 1
+				return {
+					Life = 100,
+					MissingFireResist = 0,
+					MissingColdResist = 0,
+					MissingLightningResist = 0,
+					MissingChaosResist = 0,
+				}
+			end, { Life = 100 })
+
+			assert.are.equal(1, calls)
+			assert.are.equal(1, #evaluation)
+			assert.is_nil(evaluation[1].theoreticalResistanceSwap)
+		end)
+
+		it("only evaluates swaps that can feed an elemental resistance deficit", function()
+			local tq = newEvaluationQuery(
+				{ "+10% to Fire Resistance" }, { descriptor(1, "Fire") }, true, true)
+			local calls = 0
+			tq.HasResistanceSwapOutputDependency = function() return false end
+
+			local evaluation = tq:GetResultEvaluation(1, 1, function(args)
+				calls = calls + 1
+				return scoreAndCapsFromElements(
+					{ Fire = 0, Cold = 10, Lightning = 0, Chaos = 0 })(args)
+			end, { Life = 100 })
+
+			assert.are.equal(2, calls)
+			assert.are.equal(1, #evaluation)
+			assert.are.equal("Cold", evaluation[1].theoreticalResistanceSwap[1].to)
+		end)
+
+		it("keeps resistance swaps when the build depends on resistance state", function()
+			local tq = newEvaluationQuery(
+				{ "+10% to Fire Resistance", "+20% to Cold Resistance" },
+				{ descriptor(1, "Fire"), descriptor(2, "Cold") }, true, true)
+			local calls = 0
+			local calc = scoreAndCapsFromElements({ Fire = 0, Cold = 0, Lightning = 0, Chaos = 0 },
+				{ Fire = 1, Cold = 2, Lightning = 3 })
+			tq.HasResistanceSwapOutputDependency = function() return true end
+
+			tq:GetResultEvaluation(1, 1, function(args)
+				calls = calls + 1
+				return calc(args)
+			end, { Life = 100 })
+
+			assert.are.equal(6, calls)
+		end)
+
+		it("detects direct and modifier-based resistance output dependencies", function()
+			local tq = newEvaluationQuery({ "+10% to Fire Resistance" }, { descriptor(1, "Fire") }, true, true)
+			tq.itemsTab.build = { calcsTab = { mainEnv = { player = {
+				modDB = { mods = { } },
+			} } } }
+
+			assert.is_false(tq:HasResistanceSwapOutputDependency())
+			assert.is_true(tq:HasResistanceSwapOutputDependency({ modList = { {
+				name = "FirePenIncreasedByUncappedFireRes",
+				type = "FLAG",
+			} } }))
+			assert.is_true(tq:HasResistanceSwapOutputDependency({ modList = { {
+				name = "DamageIncreasedByOvercappedColdRes",
+				type = "FLAG",
+			} } }))
+
+			tq.statSortSelectionList = { { stat = "FireResistTotal", weightMult = 1 } }
+			assert.is_true(tq:HasResistanceSwapOutputDependency())
+
+			tq.statSortSelectionList = { { stat = "Life", weightMult = 1 } }
+			tq.itemsTab.build.calcsTab.mainEnv.player.modDB.mods.LifeRegen = { {
+				name = "LifeRegen",
+				type = "BASE",
+				[1] = { type = "PerStat", stat = "FireResistTotal" },
+			} }
+			assert.is_true(tq:HasResistanceSwapOutputDependency())
+
+			tq.itemsTab.build.calcsTab.mainEnv.player.modDB.mods = {
+				FirePenIncreasedByUncappedFireRes = { {
+					name = "FirePenIncreasedByUncappedFireRes",
+					type = "FLAG",
+				} },
+			}
+			assert.is_true(tq:HasResistanceSwapOutputDependency())
+		end)
+
 		it("evaluates exactly 3, 6, and 6 distinct-target assignments for one to three candidates", function()
 			local cases = {
 				{
@@ -409,6 +536,22 @@ describe("TradeQuery", function()
 				assert.are.equal(case.expectedCalls, calls)
 				assert.are.equal(1, #evaluation)
 			end
+		end)
+
+		it("provides a cooperative yield point after each calculated assignment", function()
+			local calls = 0
+			local yields = 0
+			local tq = newEvaluationQuery(
+				{ "+10% to Fire Resistance", "+20% to Cold Resistance" },
+				{ descriptor(1, "Fire"), descriptor(2, "Cold") }, true)
+
+			tq:GetResultEvaluation(1, 1,
+				scoreFromElements({ Fire = 1, Cold = 2, Lightning = 3 }, function() calls = calls + 1 end),
+				{ Life = 100 },
+				function() yields = yields + 1 end)
+
+			assert.are.equal(6, calls)
+			assert.are.equal(calls, yields)
 		end)
 
 		it("selects the best permutation and leaves the listed item unchanged", function()
@@ -469,17 +612,18 @@ describe("TradeQuery", function()
 			assert.is_nil(evaluation[1].theoreticalResistanceSwap)
 		end)
 
-		it("rejects an elemental total that cannot be split across the missing caps", function()
+		it("retains the best partial assignment when the elemental total cannot reach every cap", function()
 			local tq = newEvaluationQuery(
 				{ "+80% to Fire Resistance", "+30% to Chaos Resistance" },
 				{ descriptor(1, "Fire") }, true, true)
 			local evaluation = tq:GetResultEvaluation(1, 1, scoreAndCapsFromElements(
 				{ Fire = 40, Cold = 40, Lightning = 0, Chaos = 30 }), { Life = 100 })
 
-			assert.are.equal(0, #evaluation)
+			assert.are.equal(1, #evaluation)
+			assert.are.equal(40, evaluation[1].resistanceCapShortfall)
 		end)
 
-		it("validates caps without simulating swaps when only resistance caps are enabled", function()
+		it("records cap shortfall without dropping items when swaps are disabled", function()
 			local valid = newEvaluationQuery(
 				{ "+40% to Fire Resistance", "+30% to Chaos Resistance" }, nil, false, true)
 			local invalid = newEvaluationQuery(
@@ -487,34 +631,42 @@ describe("TradeQuery", function()
 			local calc = scoreAndCapsFromElements({ Fire = 40, Cold = 0, Lightning = 0, Chaos = 30 })
 
 			assert.are.equal(1, #valid:GetResultEvaluation(1, 1, calc, { Life = 100 }))
-			assert.are.equal(0, #invalid:GetResultEvaluation(1, 1, calc, { Life = 100 }))
+			local invalidEvaluation = invalid:GetResultEvaluation(1, 1, calc, { Life = 100 })
+			assert.are.equal(1, #invalidEvaluation)
+			assert.are.equal(1, invalidEvaluation[1].resistanceCapShortfall)
 		end)
 
-		it("rejects an item that only misses the required Chaos resistance", function()
+		it("retains an item that only misses the requested Chaos resistance", function()
 			local tq = newEvaluationQuery(
 				{ "+40% to Fire Resistance", "+29% to Chaos Resistance" }, nil, false, true)
 			local evaluation = tq:GetResultEvaluation(1, 1,
 				scoreAndCapsFromElements({ Fire = 40, Cold = 0, Lightning = 0, Chaos = 30 }), { Life = 100 })
 
-			assert.are.equal(0, #evaluation)
+			assert.are.equal(1, #evaluation)
+			assert.are.equal(1, evaluation[1].resistanceCapShortfall)
 		end)
 
-		it("removes uncapped results before any result sort is applied", function()
+		it("sorts retained capped and uncapped results by requested stat value", function()
 			local tq = new("TradeQuery", { itemsTab = {} })
 			tq.resultTbl[1] = {
 				{ id = "uncapped", resistanceCapsRequired = true },
 				{ id = "capped", resistanceCapsRequired = true },
 				{ id = "unrestricted" },
 			}
+			tq.sortModes = { StatValue = "statValue" }
+			tq.itemsTab.build = { calcsTab = { GetMiscCalculator = function()
+				return function() return { } end, { }
+			end } }
 			tq.GetResultEvaluation = function(_, _, resultIndex)
-				return resultIndex == 1 and {} or { { weight = 1 } }
+				return { { weight = 4 - resultIndex, resistanceCapShortfall = resultIndex == 1 and 10 or 0 } }
 			end
 
-			tq:FilterToResistanceCapItems(1)
+			local sorted = tq:SortFetchResults(1, tq.sortModes.StatValue)
 
-			assert.are.same({ "capped", "unrestricted" }, {
-				tq.resultTbl[1][1].id,
-				tq.resultTbl[1][2].id,
+			assert.are.same({ "uncapped", "capped", "unrestricted" }, {
+				tq.resultTbl[1][sorted[1].index].id,
+				tq.resultTbl[1][sorted[2].index].id,
+				tq.resultTbl[1][sorted[3].index].id,
 			})
 		end)
 
@@ -552,12 +704,14 @@ describe("TradeQuery", function()
 				end,
 			} }
 
-			tq:FilterToResistanceCapItems(1)
-			assert.are.equal(0, #tq.resultTbl[1])
+			local first = tq:GetResultEvaluation(1, 1)
+			assert.are.equal(1, #first)
+			assert.are.equal(10, first[1].resistanceCapShortfall)
 
 			requiredFire = 40
-			tq:FilterToResistanceCapItems(1)
-			assert.are.equal(1, #tq.resultTbl[1])
+			local second = tq:GetResultEvaluation(1, 1)
+			assert.are.equal(1, #second)
+			assert.are.equal(0, second[1].resistanceCapShortfall)
 		end)
 
 		it("reuses the single best evaluation while the build and weights are unchanged", function()
@@ -576,6 +730,24 @@ describe("TradeQuery", function()
 			assert.are.equal(3, calls)
 			assert.are.equal(first, second)
 			assert.are.equal(1, #second)
+		end)
+
+		it("reuses the cached evaluation when sorting supplies a shared calculator", function()
+			local calls = 0
+			local tq = newEvaluationQuery({ "+10% to Fire Resistance" }, { descriptor(1, "Fire") }, true)
+			local calc = scoreFromElements({ Fire = 1, Cold = 2, Lightning = 3 }, function() calls = calls + 1 end)
+			local baseOutput = { Life = 100 }
+			tq.itemsTab.build = { calcsTab = {
+				GetMiscCalculator = function()
+					return calc, baseOutput
+				end,
+			} }
+
+			local first = tq:GetResultEvaluation(1, 1)
+			local second = tq:GetResultEvaluation(1, 1, calc, baseOutput)
+
+			assert.are.equal(3, calls)
+			assert.are.equal(first, second)
 		end)
 	end)
 end)

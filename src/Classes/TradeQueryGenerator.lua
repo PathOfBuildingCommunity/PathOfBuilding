@@ -1380,7 +1380,7 @@ Remove: %s will be removed from the search results.]], term, term, term)
 
 		controls.includeResistCaps = new("CheckBoxControl", { "TOPLEFT", lastItemAnchor, "BOTTOMLEFT" }, { 0, 5, 18 }, "Resistance caps:", function(state) end)
 		controls.includeResistCaps.state = self.lastIncludeResistCaps == true
-		controls.includeResistCaps.tooltipText = "Only shows items that meet current Elemental and Chaos Resistance caps.\nResistance above those caps does not affect sorting."
+		controls.includeResistCaps.tooltipText = "Targets the current Elemental and Chaos Resistance caps when searching and evaluating items.\nItems that still miss a cap remain visible, and the selected result sort is unchanged."
 		updateLastAnchor(controls.includeResistCaps)
 	end
 
