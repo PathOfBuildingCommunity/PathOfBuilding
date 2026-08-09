@@ -4020,37 +4020,6 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 			table.sort(modList, function(a, b)
 				return a.defaultOrder < b.defaultOrder
 			end)
-		elseif sourceId == "DelveImplicit" then
-			for i, mod in pairs(self.displayItem.affixes) do
-				if self.displayItem:GetModSpawnWeight(mod) > 0 and mod.type and sourceId:lower() == mod.type:lower() then
-					local modLabel = table.concat(mod, "/")
-					if not groupIndexes[mod.group] then
-						t_insert(modList, {})
-						t_insert(modGroups, {
-							label = modLabel,
-							mod = mod,
-							modListIndex = #modList,
-							defaultOrder = i,
-						})
-						groupIndexes[mod.group] = #modGroups
-					--elseif mod[1].len() < modGroups[groupIndexes[mod.group] ].mod[1].len() then
-					--	modGroups[groupIndexes[mod.group]].label = modLabel
-					--	modGroups[groupIndexes[mod.group]].mod = mod
-					end
-					t_insert(modList[groupIndexes[mod.group]], {
-						label = modLabel,
-						mod = mod,
-						affixType = mod.type,
-						type = "custom",
-						defaultOrder = i,
-					})
-				end
-			end
-			for i, _ in pairs(modList) do
-				table.sort(modList[i], function(a, b)
-					return a.defaultOrder < b.defaultOrder
-				end)
-			end
 		elseif sourceId == "VESTIGIAL" then
 			for id, uniqueTitle in pairs(data.vestigialModMappings) do
 				local titleLower = uniqueTitle:lower()
@@ -4111,10 +4080,6 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 		if self.displayItem.tangle then
 			t_insert(sourceList, { label = "Eater of Worlds", sourceId = "EATER" })
 		end
-	end
-	if self.displayItem.type ~= "Flask" and self.displayItem.type ~= "Jewel" and self.displayItem.type ~= "Graft" then
-		--t_insert(sourceList, { label = "Synth", sourceId = "SYNTHESIS" }) -- synth removed until we get proper support for where the mods go
-		t_insert(sourceList, { label = "Delve", sourceId = "DelveImplicit" })
 	end
 	t_insert(sourceList, { label = "Custom", sourceId = "CUSTOM" })
 	buildMods(sourceList[1].sourceId)
