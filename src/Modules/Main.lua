@@ -467,6 +467,14 @@ function main:OnChar(key)
 	t_insert(self.inputEvents, { type = "Char", key = key })
 end
 
+-- Text an input method is still composing. It isn't committed yet, so it is
+-- held as state and drawn by whichever control has focus rather than being
+-- queued as an input event.
+function main:OnPreedit(text, caret)
+	self.imePreedit = text
+	self.imePreeditCaret = caret
+end
+
 function main:SetMode(newMode, ...)
 	self.newMode = newMode
 	self.newModeArgs = {...}

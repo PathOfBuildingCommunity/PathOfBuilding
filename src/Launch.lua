@@ -197,6 +197,15 @@ function launch:OnChar(key)
 	end
 end
 
+function launch:OnPreedit(text, caret)
+	if self.main and self.main.OnPreedit then
+		local errMsg = PCall(self.main.OnPreedit, self.main, text, caret)
+		if errMsg then
+			self:ShowErrMsg("In 'OnPreedit': %s", errMsg)
+		end
+	end
+end
+
 function launch:OnSubCall(func, ...)
 	if func == "UpdateProgress" then
 		self.updateProgress = string.format(...)
