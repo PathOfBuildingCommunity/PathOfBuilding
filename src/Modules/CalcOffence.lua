@@ -2107,6 +2107,10 @@ function calcs.offence(env, actor, activeSkill)
 	local storedMainHandAccuracy = nil
 	local storedMainHandAccuracyVsEnemy = nil
 	local storedSustainedTraumaBreakdown = { }
+	-- Skills flagged hitTimeCappedByCastTime hit once per use, so their total hit rate is limited by
+	-- how fast those uses can be created. Brands need one use per attached brand, matching the
+	-- AttachedBrandCount factor applied to dpsMultiplier below
+	local hitInstancesPerUse = (activeSkill.skillTypes[SkillType.Brand] and not skillData.countsAttachedBrandsInDamage and output.AttachedBrandCount) or 1
 	-- Calculate how often you hit (speed, accuracy, block, etc)
 	for _, pass in ipairs(passList) do
 		globalOutput, globalBreakdown = output, breakdown
@@ -2402,10 +2406,15 @@ function calcs.offence(env, actor, activeSkill)
 		end
 		if skillData.hitTimeOverride and not skillData.triggeredOnDeath then
 			output.HitTime = skillData.hitTimeOverride
+			if skillData.hitTimeCappedByCastTime and output.Time then
+				-- Skill hits once per use, so it cannot hit more often than those uses can be created
+				output.HitTime = m_max(output.HitTime, output.Time * hitInstancesPerUse)
+			end
 			output.HitSpeed = 1 / output.HitTime
 			--Brands always have hitTimeOverride
 			if activeSkill.skillTypes[SkillType.Brand] and not skillModList:Flag(nil, "UnlimitedBrandDuration") then
-				output.BrandTicks = m_floor(output.Duration * output.HitSpeed)
+				-- Brands that don't hit on every activation track their activation interval separately
+				output.BrandTicks = m_floor(output.Duration / (skillData.brandActivationTime or output.HitTime))
 			end
 		elseif skillData.hitTimeMultiplier and output.Time and not skillData.triggeredOnDeath then
 			output.HitTime = output.Time * skillData.hitTimeMultiplier
@@ -2473,6 +2482,10 @@ function calcs.offence(env, actor, activeSkill)
 		end
 		if skillData.hitTimeOverride and not skillData.triggeredOnDeath then
 			output.HitTime = skillData.hitTimeOverride
+			if skillData.hitTimeCappedByCastTime and output.Time then
+				-- Skill hits once per use, so it cannot hit more often than those uses can be created
+				output.HitTime = m_max(output.HitTime, output.Time * hitInstancesPerUse)
+			end
 			output.HitSpeed = 1 / output.HitTime
 		elseif skillData.hitTimeMultiplier and output.Time and not skillData.triggeredOnDeath then
 			output.HitTime = output.Time * skillData.hitTimeMultiplier
@@ -2488,7 +2501,21 @@ function calcs.offence(env, actor, activeSkill)
 	if breakdown then
 		if skillData.hitTimeOverride and not skillData.triggeredOnDeath then
 			breakdown.HitSpeed = { }
-			t_insert(breakdown.HitSpeed, s_format("1 / %.2f ^8(hit time override)", output.HitTime))
+			if skillData.hitTimeCappedByCastTime and output.Time then
+				local useType = isAttack and "attack" or "cast"
+				t_insert(breakdown.HitSpeed, "Skill only hits once per use:")
+				t_insert(breakdown.HitSpeed, s_format("%.2fs ^8(base hit time)", skillData.hitTimeOverride))
+				if hitInstancesPerUse > 1 then
+					t_insert(breakdown.HitSpeed, s_format("%.2fs ^8(%s time x %d attached brands)", output.Time * hitInstancesPerUse, useType, hitInstancesPerUse))
+				else
+					t_insert(breakdown.HitSpeed, s_format("%.2fs ^8(%s time)", output.Time, useType))
+				end
+				t_insert(breakdown.HitSpeed, s_format("= %.2fs ^8(hit time, higher of the two)", output.HitTime))
+				t_insert(breakdown.HitSpeed, s_format(""))
+				t_insert(breakdown.HitSpeed, s_format("1 / %.2f ^8(hit time)", output.HitTime))
+			else
+				t_insert(breakdown.HitSpeed, s_format("1 / %.2f ^8(hit time override)", output.HitTime))
+			end
 			t_insert(breakdown.HitSpeed, s_format("= %.2f", output.HitSpeed))
 		elseif skillData.hitTimeMultiplier and output.Time and not skillData.triggeredOnDeath then
 			breakdown.HitTime = { }
