@@ -283,9 +283,11 @@ function TradeQueryClass:PriceItem()
 	end
 
 	-- refetch the league lists whenever authorization is reset (logout, failed
-	-- refresh, outdated scope) so private leagues don't linger in the dropdowns
+	-- refresh, outdated scope) so private leagues don't linger in the dropdowns;
+	-- an in-flight authenticated pass may already have stored private leagues,
+	-- so the pass token has to be checked as well as the completed-fetch token
 	main.api.onAuthReset = function()
-		if self.controls.realm and self.leaguesFetchToken ~= main.api.authToken then
+		if self.controls.realm and (self.leaguesFetchToken ~= main.api.authToken or self.leaguesPassToken ~= main.api.authToken) then
 			self:UpdateRealms()
 		end
 	end
@@ -293,8 +295,9 @@ function TradeQueryClass:PriceItem()
 	if main.api.authToken then
 		main.api:ValidateAuth(function(valid)
 			if valid then
-				-- if the token was refreshed after the league lists were fetched, refetch them so private leagues appear
-				if self.controls.realm and self.leaguesFetchToken ~= main.api.authToken then
+				-- if the token was refreshed after the league lists were fetched, refetch them
+				-- so private leagues appear; a pass already running with this token counts
+				if self.controls.realm and self.leaguesFetchToken ~= main.api.authToken and self.leaguesPassToken ~= main.api.authToken then
 					self:UpdateRealms()
 				end
 			else
@@ -1370,6 +1373,9 @@ function TradeQueryClass:UpdateRealms()
 	self.allLeagues = {}
 	self.leaguesFetchToken = nil
 	self.leaguesFetchDirty = nil
+	-- the token this pass started with; leaguesFetchToken stays nil until the
+	-- pass completes, so auth-change checks need this to see in-flight passes
+	self.leaguesPassToken = main.api.authToken
 	for _, realmId in pairs (self.realmIds) do
 		self:FetchLeaguesForRealm(realmId, setRealmDropList)
 	end

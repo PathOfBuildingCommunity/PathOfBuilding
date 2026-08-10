@@ -466,6 +466,20 @@ function TradeQueryRequestsClass:FetchPrivateLeagues(callback)
 	cache = { token = token, pending = { callback } }
 	self.privateLeaguesCache = cache
 	main.api:DownloadWithRateLimit("account-leagues-request-limit", "/account/leagues", function(json_data, errMsg)
+		if not main.api.authToken then
+			-- logged out while the request was in flight; discard the result
+			if self.privateLeaguesCache == cache then
+				self.privateLeaguesCache = nil
+			end
+			for _, cb in ipairs(cache.pending) do
+				cb({}, true)
+			end
+			cache.pending = {}
+			return
+		end
+		-- the request may have transparently rotated the token; re-key the cache
+		-- so callers holding the new token still hit it
+		cache.token = main.api.authToken
 		local privateLeagues
 		if not errMsg and json_data and json_data.leagues then
 			privateLeagues = {}

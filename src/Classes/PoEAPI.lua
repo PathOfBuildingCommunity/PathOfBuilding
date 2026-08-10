@@ -47,9 +47,16 @@ function PoEAPIClass:ValidateAuth(callback)
 				end
 			end
 			-- here recreate the token with the refresh_token
-			local formText = "client_id=pob&grant_type=refresh_token&refresh_token=" .. self.refreshToken
+			local refreshToken = self.refreshToken
+			local formText = "client_id=pob&grant_type=refresh_token&refresh_token=" .. refreshToken
 			launch:DownloadPage("https://www.pathofexile.com/oauth/token", function(response, errMsg)
 				ConPrintf("Recreating auth token")
+				if self.refreshToken ~= refreshToken then
+					-- authorization changed while the refresh was in flight (logout or
+					-- new login); discard this result rather than overwrite the new state
+					finish(false, "Authorization changed during refresh")
+					return
+				end
 				if errMsg then
 					ConPrintf("Failed to recreate auth token: %s", errMsg)
 					self:ResetDetails()
