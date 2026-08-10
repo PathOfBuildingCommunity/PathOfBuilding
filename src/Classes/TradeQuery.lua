@@ -282,6 +282,14 @@ function TradeQueryClass:PriceItem()
 		end
 	end
 
+	-- refetch the league lists whenever authorization is reset (logout, failed
+	-- refresh, outdated scope) so private leagues don't linger in the dropdowns
+	main.api.onAuthReset = function()
+		if self.controls.realm and self.leaguesFetchToken ~= main.api.authToken then
+			self:UpdateRealms()
+		end
+	end
+
 	if main.api.authToken then
 		main.api:ValidateAuth(function(valid)
 			if valid then
@@ -290,6 +298,7 @@ function TradeQueryClass:PriceItem()
 					self:UpdateRealms()
 				end
 			else
+				-- clear the dead token; the league refetch happens via onAuthReset
 				main.api:ResetDetails()
 			end
 		end)
@@ -315,16 +324,7 @@ function TradeQueryClass:PriceItem()
 			self.clickTime = os.time()
 		-- LOGOUT
 		else
-			main.lastToken = nil
-			main.api.authToken = nil
-			main.lastRefreshToken = nil
-			main.api.refreshToken = nil
-			main.tokenExpiry = nil
-			main.api.tokenExpiry = nil
-			main:SaveSettings()
-
-			-- refetch the league lists so private leagues are removed from the dropdowns
-			self:UpdateRealms()
+			main.api:ResetDetails()
 		end
 	end)
 	self.controls.tradeAuthButton.tooltipText = [[
@@ -441,33 +441,21 @@ Highest Weight - Displays the order retrieved from trade]]
 			self.controls.league:SetList(self.itemsTab.leagueDropList)
 			-- invalidate selIndex to trigger select function call in the SetSel
 			self.controls.league.selIndex = nil
-			self.controls.league:SetSel(self.pbLeagueIndex)
+			-- restore the selection by league name, as a refetch can change the list order
+			local selIndex = self.pbLeagueIndex
+			for index, league in ipairs(self.itemsTab.leagueDropList) do
+				if league == self.pbLeague then
+					selIndex = index
+					break
+				end
+			end
+			self.controls.league:SetSel(selIndex)
 		end
 		if self.allLeagues[self.pbRealm] then
 			setLeagueDropList()
 		else
-			local leaguesTbl = self.allLeagues
 			local fetchRealm = self.pbRealm
-			self.tradeQueryRequests:FetchLeagues(fetchRealm, function(leagues, errMsg)
-				if leaguesTbl ~= self.allLeagues or self.allLeagues[fetchRealm] then
-					-- superseded by a newer refetch, or another fetch already filled this realm
-					return
-				end
-				if errMsg then
-					self:SetNotice(self.controls.pbNotice, "Error while fetching league list: "..errMsg)
-					return
-				end
-				local sorted_leagues = { }
-				for _, league in ipairs(leagues) do
-					if league ~= "Standard" and  league ~= "Ruthless" and league ~= "Hardcore" and league ~= "Hardcore Ruthless" then
-						t_insert(sorted_leagues, league)
-					end
-				end
-				t_insert(sorted_leagues, "Standard")
-				t_insert(sorted_leagues, "Hardcore")
-				t_insert(sorted_leagues, "Ruthless")
-				t_insert(sorted_leagues, "Hardcore Ruthless")
-				self.allLeagues[fetchRealm] = sorted_leagues
+			self:FetchLeaguesForRealm(fetchRealm, function()
 				if fetchRealm == self.pbRealm then
 					setLeagueDropList()
 				end
@@ -1310,6 +1298,55 @@ function TradeQueryClass:GetTotalPriceString()
 	return text
 end
 
+-- Fetches the league list for one realm into self.allLeagues, with the base
+-- leagues sorted to the end. onDone is called only after a successful fill;
+-- failures show a notice and leave the realm unset so a later fetch retries it.
+function TradeQueryClass:FetchLeaguesForRealm(realmId, onDone)
+	local leaguesTbl = self.allLeagues
+	self.tradeQueryRequests:FetchLeagues(realmId, function(leagues, errMsg, privateLeaguesFailed)
+		if leaguesTbl ~= self.allLeagues or self.allLeagues[realmId] then
+			-- superseded by a newer refetch, or another fetch already filled this realm
+			return
+		end
+		if errMsg then
+			self:SetNotice(self.controls.pbNotice, "Error while fetching league list: "..errMsg)
+			return
+		end
+		if privateLeaguesFailed then
+			self.leaguesFetchDirty = true
+			self:SetNotice(self.controls.pbNotice, "Failed to fetch private leagues")
+		end
+		local sorted_leagues = { }
+		for _, league in ipairs(leagues) do
+			if league ~= "Standard" and league ~= "Ruthless" and league ~= "Hardcore" and league ~= "Hardcore Ruthless" then
+				t_insert(sorted_leagues, league)
+			end
+		end
+		t_insert(sorted_leagues, "Standard")
+		t_insert(sorted_leagues, "Hardcore")
+		t_insert(sorted_leagues, "Ruthless")
+		t_insert(sorted_leagues, "Hardcore Ruthless")
+		self.allLeagues[realmId] = sorted_leagues
+		-- record the token only once every realm has a clean list, so an
+		-- incomplete pass is retried on the next popup open or auth change
+		if not self.leaguesFetchDirty then
+			local complete = true
+			for _, id in pairs(self.realmIds) do
+				if not self.allLeagues[id] then
+					complete = false
+					break
+				end
+			end
+			if complete then
+				self.leaguesFetchToken = main.api.authToken
+			end
+		end
+		if onDone then
+			onDone()
+		end
+	end)
+end
+
 -- Method to update realms and leagues
 function TradeQueryClass:UpdateRealms()
 	local function setRealmDropList()
@@ -1331,24 +1368,10 @@ function TradeQueryClass:UpdateRealms()
 
 	-- use trade leagues api to get trade leagues including private leagues is valid.
 	self.allLeagues = {}
-	local leaguesTbl = self.allLeagues
+	self.leaguesFetchToken = nil
+	self.leaguesFetchDirty = nil
 	for _, realmId in pairs (self.realmIds) do
-		self.tradeQueryRequests:FetchLeagues(realmId, function(leagues, errMsg, privateLeaguesFailed)
-			if leaguesTbl ~= self.allLeagues or self.allLeagues[realmId] then
-				-- superseded by a newer refetch, or the realm dropdown's own fetch already filled this realm
-				return
-			end
-			if errMsg then
-				self:SetNotice(self.controls.pbNotice, "Using Fallback Error while fetching league list: "..errMsg)
-			elseif privateLeaguesFailed then
-				self:SetNotice(self.controls.pbNotice, "Failed to fetch private leagues")
-			else
-				-- remember which token produced a clean fetch, so a later login or token refresh triggers a refetch
-				self.leaguesFetchToken = main.api.authToken
-			end
-			self.allLeagues[realmId] = leagues
-			setRealmDropList()
-		end)
+		self:FetchLeaguesForRealm(realmId, setRealmDropList)
 	end
 
 	-- perform a generic search to make sure the authorization is valid.

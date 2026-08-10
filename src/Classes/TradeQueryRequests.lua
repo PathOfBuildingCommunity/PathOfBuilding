@@ -444,7 +444,8 @@ function TradeQueryRequestsClass:FetchSearchQuery(realm, league, queryId, callba
 end
 
 --- Fetches the account's private leagues from the account API (the trade site
---- endpoint ignores OAuth tokens, so they can only come from there).
+--- endpoint ignores OAuth tokens, so they can only come from there), with
+--- token refresh and rate limiting handled by PoEAPI.
 --- Memoized per token; concurrent calls share one request. Failures are not
 --- cached, so a later fetch retries.
 ---@param callback fun(privateLeagues:table, ok:boolean)
@@ -464,16 +465,13 @@ function TradeQueryRequestsClass:FetchPrivateLeagues(callback)
 	end
 	cache = { token = token, pending = { callback } }
 	self.privateLeaguesCache = cache
-	launch:DownloadPage(main.api.baseUrl .. "/account/leagues", function(response, errMsg)
+	main.api:DownloadWithRateLimit("account-leagues-request-limit", "/account/leagues", function(json_data, errMsg)
 		local privateLeagues
-		if not errMsg then
-			local json_data = dkjson.decode(response.body)
-			if json_data and json_data.leagues then
-				privateLeagues = {}
-				for _, league in ipairs(json_data.leagues) do
-					if league.privateLeagueUrl then
-						table.insert(privateLeagues, league)
-					end
+		if not errMsg and json_data and json_data.leagues then
+			privateLeagues = {}
+			for _, league in ipairs(json_data.leagues) do
+				if league.privateLeagueUrl then
+					table.insert(privateLeagues, league)
 				end
 			end
 		end
@@ -486,7 +484,7 @@ function TradeQueryRequestsClass:FetchPrivateLeagues(callback)
 			cb(privateLeagues or {}, privateLeagues ~= nil)
 		end
 		cache.pending = {}
-	end, {header = "Authorization: Bearer " .. token})
+	end)
 end
 
 --- Fetches the list of all available leagues using trade league API,

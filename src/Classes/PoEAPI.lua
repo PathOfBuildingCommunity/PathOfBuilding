@@ -32,6 +32,20 @@ function PoEAPIClass:ValidateAuth(callback)
 		ConPrintf("Validating auth token")
 		if self.tokenExpiry < os.time() then
 			ConPrintf("Auth token expired")
+			-- coalesce concurrent validations: the refresh token is single-use,
+			-- so a second in-flight refresh would invalidate the session
+			if self.refreshCallbacks then
+				table.insert(self.refreshCallbacks, callback)
+				return
+			end
+			self.refreshCallbacks = { callback }
+			local function finish(valid, errMsg)
+				local callbacks = self.refreshCallbacks
+				self.refreshCallbacks = nil
+				for _, cb in ipairs(callbacks) do
+					cb(valid, errMsg)
+				end
+			end
 			-- here recreate the token with the refresh_token
 			local formText = "client_id=pob&grant_type=refresh_token&refresh_token=" .. self.refreshToken
 			launch:DownloadPage("https://www.pathofexile.com/oauth/token", function(response, errMsg)
@@ -39,22 +53,22 @@ function PoEAPIClass:ValidateAuth(callback)
 				if errMsg then
 					ConPrintf("Failed to recreate auth token: %s", errMsg)
 					self:ResetDetails()
-					callback(false, errMsg)
+					finish(false, errMsg)
 					return
 				end
 				local responseLua = dkjson.decode(response.body)
 				if not responseLua then
 					self:ResetDetails()
-					callback(false, "Malformed response")
+					finish(false, "Malformed response")
 				else
 					self.authToken = responseLua.access_token
 					self.refreshToken = responseLua.refresh_token
 					self.tokenExpiry = os.time() + responseLua.expires_in
 					self:UpdateMain()
 					self.retries = 0
-					callback(true)
+					finish(true)
 				end
-				
+
 			end, { body = formText })
 		else
 			callback(true)
@@ -75,6 +89,9 @@ function PoEAPIClass:ResetDetails()
 	self.refreshToken = nil
 	self.tokenExpiry = nil
 	self:UpdateMain()
+	if self.onAuthReset then
+		self.onAuthReset()
+	end
 end
 
 --- updates main so that API details are saved across restarts
