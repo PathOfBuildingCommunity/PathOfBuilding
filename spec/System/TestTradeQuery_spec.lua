@@ -584,7 +584,7 @@ describe("TradeQuery", function()
 			assert.is_nil(evaluation[1].theoreticalResistanceSwap)
 		end)
 
-		it("uses one baseline calculation when reranking is disabled or ineligible", function()
+		it("uses one baseline calculation when ranking is disabled or ineligible", function()
 			local cases = {
 				newEvaluationQuery({ "+10% to Fire Resistance" }, { descriptor(1, "Fire") }, false),
 				newEvaluationQuery({ "+10% to Fire Resistance" }, { descriptor(1, "Cold") }, true),
