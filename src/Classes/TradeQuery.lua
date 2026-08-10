@@ -68,38 +68,6 @@ end)
 
 
 
--- Method to pull down and interpret available leagues from PoE
-function TradeQueryClass:PullLeagueList()
-	launch:DownloadPage(
-		self.hostName .. "api/leagues?type=main&compact=1",
-		function(response, errMsg)
-			if errMsg then
-				self:SetNotice(self.controls.pbNotice, "Error: " .. tostring(errMsg))
-				return "POE ERROR", "Error: "..errMsg
-			else
-				local json_data = dkjson.decode(response.body)
-				if not json_data then
-					self:SetNotice(self.controls.pbNotice, "Failed to Get PoE League List response")
-					return
-				end
-				table.sort(json_data, function(a, b)
-					if a.endAt == nil then return false end
-					if b.endAt == nil then return true end
-					return a.id < b.id
-				end)
-				self.itemsTab.leagueDropList = {}
-				for _, league_data in pairs(json_data) do
-					if not league_data.id:find("SSF") then
-						t_insert(self.itemsTab.leagueDropList,league_data.id)
-					end
-				end
-				self.controls.league:SetList(self.itemsTab.leagueDropList)
-				self.controls.league.selIndex = 1
-				self.pbLeague = self.itemsTab.leagueDropList[self.controls.league.selIndex]
-			end
-		end)
-end
-
 --- @param currencyId string
 --- @param amount integer
 --- @return number?
@@ -317,7 +285,10 @@ function TradeQueryClass:PriceItem()
 	if main.api.authToken then
 		main.api:ValidateAuth(function(valid)
 			if valid then
-				return
+				-- if the token was refreshed after the league lists were fetched, refetch them so private leagues appear
+				if self.controls.realm and self.leaguesFetchToken ~= main.api.authToken then
+					self:UpdateRealms()
+				end
 			else
 				main.api:ResetDetails()
 			end
@@ -335,6 +306,7 @@ function TradeQueryClass:PriceItem()
 					main.tokenExpiry = main.api.tokenExpiry
 					main:SaveSettings()
 
+					self:UpdateRealms()
 					TradeQueryClass:SetNotice(self.controls.pbNotice, "")
 				else
 					self.loginStatus = colorCodes.WARNING.."Not authenticated"
@@ -1348,8 +1320,15 @@ function TradeQueryClass:UpdateRealms()
 
 	-- use trade leagues api to get trade leagues including private leagues is valid.
 	self.allLeagues = {}
+	-- remember which token fetched the league lists, so a later login or token refresh triggers a refetch
+	self.leaguesFetchToken = main.api.authToken
+	local leaguesTbl = self.allLeagues
 	for _, realmId in pairs (self.realmIds) do
 		self.tradeQueryRequests:FetchLeagues(realmId, function(leagues, errMsg)
+			if leaguesTbl ~= self.allLeagues then
+				-- superseded by a newer refetch (e.g. after re-authentication)
+				return
+			end
 			if errMsg then
 				self:SetNotice(self.controls.pbNotice, "Using Fallback Error while fetching league list: "..errMsg)
 			end

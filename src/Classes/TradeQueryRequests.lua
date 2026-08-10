@@ -443,7 +443,8 @@ function TradeQueryRequestsClass:FetchSearchQuery(realm, league, queryId, callba
 	})
 end
 
---- Fetches the list of all available leagues using trade league API
+--- Fetches the list of all available leagues using trade league API,
+--- appending private leagues from the account API when authenticated
 ---@param realm string
 ---@param callback fun(query:table, errMsg:string)
 function TradeQueryRequestsClass:FetchLeagues(realm, callback)
@@ -469,7 +470,23 @@ function TradeQueryRequestsClass:FetchLeagues(realm, callback)
 						table.insert(leagues, value.id)
 					end
 				end
-				callback(leagues, errMsg)
+				if not main.api.authToken then
+					return callback(leagues, errMsg)
+				end
+				-- the trade site endpoint ignores OAuth tokens, so private leagues have to come from the account API
+				launch:DownloadPage(main.api.baseUrl .. "/account/leagues", function(accountResponse, accountErrMsg)
+					if not accountErrMsg then
+						local account_data = dkjson.decode(accountResponse.body)
+						if account_data and account_data.leagues then
+							for _, league in ipairs(account_data.leagues) do
+								if league.realm == realm and league.privateLeagueUrl then
+									table.insert(leagues, league.id)
+								end
+							end
+						end
+					end
+					callback(leagues, errMsg)
+				end, {header = header})
 			end,
 			{header = header}
 	)
