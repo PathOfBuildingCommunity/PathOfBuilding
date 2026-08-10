@@ -443,12 +443,57 @@ function TradeQueryRequestsClass:FetchSearchQuery(realm, league, queryId, callba
 	})
 end
 
+--- Fetches the account's private leagues from the account API (the trade site
+--- endpoint ignores OAuth tokens, so they can only come from there).
+--- Memoized per token; concurrent calls share one request. Failures are not
+--- cached, so a later fetch retries.
+---@param callback fun(privateLeagues:table, ok:boolean)
+function TradeQueryRequestsClass:FetchPrivateLeagues(callback)
+	local token = main.api.authToken
+	if not token then
+		return callback({}, true)
+	end
+	local cache = self.privateLeaguesCache
+	if cache and cache.token == token then
+		if cache.leagues then
+			return callback(cache.leagues, true)
+		end
+		-- request already in flight, share its result
+		table.insert(cache.pending, callback)
+		return
+	end
+	cache = { token = token, pending = { callback } }
+	self.privateLeaguesCache = cache
+	launch:DownloadPage(main.api.baseUrl .. "/account/leagues", function(response, errMsg)
+		local privateLeagues
+		if not errMsg then
+			local json_data = dkjson.decode(response.body)
+			if json_data and json_data.leagues then
+				privateLeagues = {}
+				for _, league in ipairs(json_data.leagues) do
+					if league.privateLeagueUrl then
+						table.insert(privateLeagues, league)
+					end
+				end
+			end
+		end
+		if privateLeagues then
+			cache.leagues = privateLeagues
+		elseif self.privateLeaguesCache == cache then
+			self.privateLeaguesCache = nil
+		end
+		for _, cb in ipairs(cache.pending) do
+			cb(privateLeagues or {}, privateLeagues ~= nil)
+		end
+		cache.pending = {}
+	end, {header = "Authorization: Bearer " .. token})
+end
+
 --- Fetches the list of all available leagues using trade league API,
 --- appending private leagues from the account API when authenticated
 ---@param realm string
----@param callback fun(query:table, errMsg:string)
+---@param callback fun(leagues:table, errMsg:string?, privateLeaguesFailed:boolean?)
 function TradeQueryRequestsClass:FetchLeagues(realm, callback)
-	local header = "Authorization: Bearer " .. (main.api.authToken or "")
 	launch:DownloadPage(
 			self.hostName .. "api/trade/data/leagues",
 			function(response, errMsg)
@@ -470,25 +515,15 @@ function TradeQueryRequestsClass:FetchLeagues(realm, callback)
 						table.insert(leagues, value.id)
 					end
 				end
-				if not main.api.authToken then
-					return callback(leagues, errMsg)
-				end
-				-- the trade site endpoint ignores OAuth tokens, so private leagues have to come from the account API
-				launch:DownloadPage(main.api.baseUrl .. "/account/leagues", function(accountResponse, accountErrMsg)
-					if not accountErrMsg then
-						local account_data = dkjson.decode(accountResponse.body)
-						if account_data and account_data.leagues then
-							for _, league in ipairs(account_data.leagues) do
-								if league.realm == realm and league.privateLeagueUrl then
-									table.insert(leagues, league.id)
-								end
-							end
+				self:FetchPrivateLeagues(function(privateLeagues, ok)
+					for _, league in ipairs(privateLeagues) do
+						if (league.realm or "pc") == realm then
+							table.insert(leagues, league.id)
 						end
 					end
-					callback(leagues, errMsg)
-				end, {header = header})
-			end,
-			{header = header}
+					callback(leagues, nil, not ok)
+				end)
+			end
 	)
 end
 

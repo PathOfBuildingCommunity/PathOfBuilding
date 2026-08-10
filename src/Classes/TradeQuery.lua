@@ -322,6 +322,9 @@ function TradeQueryClass:PriceItem()
 			main.tokenExpiry = nil
 			main.api.tokenExpiry = nil
 			main:SaveSettings()
+
+			-- refetch the league lists so private leagues are removed from the dropdowns
+			self:UpdateRealms()
 		end
 	end)
 	self.controls.tradeAuthButton.tooltipText = [[
@@ -443,7 +446,13 @@ Highest Weight - Displays the order retrieved from trade]]
 		if self.allLeagues[self.pbRealm] then
 			setLeagueDropList()
 		else
-			self.tradeQueryRequests:FetchLeagues(self.pbRealm, function(leagues, errMsg)
+			local leaguesTbl = self.allLeagues
+			local fetchRealm = self.pbRealm
+			self.tradeQueryRequests:FetchLeagues(fetchRealm, function(leagues, errMsg)
+				if leaguesTbl ~= self.allLeagues or self.allLeagues[fetchRealm] then
+					-- superseded by a newer refetch, or another fetch already filled this realm
+					return
+				end
 				if errMsg then
 					self:SetNotice(self.controls.pbNotice, "Error while fetching league list: "..errMsg)
 					return
@@ -458,8 +467,10 @@ Highest Weight - Displays the order retrieved from trade]]
 				t_insert(sorted_leagues, "Hardcore")
 				t_insert(sorted_leagues, "Ruthless")
 				t_insert(sorted_leagues, "Hardcore Ruthless")
-				self.allLeagues[self.pbRealm] = sorted_leagues
-				setLeagueDropList()
+				self.allLeagues[fetchRealm] = sorted_leagues
+				if fetchRealm == self.pbRealm then
+					setLeagueDropList()
+				end
 			end)
 		end
 	end)
@@ -1320,36 +1331,37 @@ function TradeQueryClass:UpdateRealms()
 
 	-- use trade leagues api to get trade leagues including private leagues is valid.
 	self.allLeagues = {}
-	-- remember which token fetched the league lists, so a later login or token refresh triggers a refetch
-	self.leaguesFetchToken = main.api.authToken
 	local leaguesTbl = self.allLeagues
 	for _, realmId in pairs (self.realmIds) do
-		self.tradeQueryRequests:FetchLeagues(realmId, function(leagues, errMsg)
-			if leaguesTbl ~= self.allLeagues then
-				-- superseded by a newer refetch (e.g. after re-authentication)
+		self.tradeQueryRequests:FetchLeagues(realmId, function(leagues, errMsg, privateLeaguesFailed)
+			if leaguesTbl ~= self.allLeagues or self.allLeagues[realmId] then
+				-- superseded by a newer refetch, or the realm dropdown's own fetch already filled this realm
 				return
 			end
 			if errMsg then
 				self:SetNotice(self.controls.pbNotice, "Using Fallback Error while fetching league list: "..errMsg)
+			elseif privateLeaguesFailed then
+				self:SetNotice(self.controls.pbNotice, "Failed to fetch private leagues")
+			else
+				-- remember which token produced a clean fetch, so a later login or token refresh triggers a refetch
+				self.leaguesFetchToken = main.api.authToken
 			end
-			for _, league in ipairs(leagues) do
-				if not self.allLeagues[realmId] then self.allLeagues[realmId] = {} end
-				t_insert(self.allLeagues[realmId], league)
-			end
+			self.allLeagues[realmId] = leagues
 			setRealmDropList()
-
 		end)
 	end
 
 	-- perform a generic search to make sure the authorization is valid.
-	self.tradeQueryRequests:PerformSearch("pc", "Standard", [[{"query":{"status":{"option":"online"},"stats":[{"type":"and","filters":[]}]},"sort":{"price":"asc"}}]], function(response, errMsg)
-		if errMsg then
-			-- a 403 here likely means that the user has an outdated scope
-			if errMsg == "Response code: 403" then
-				main.api:ResetDetails()
-				errMsg = errMsg .. "\nPlease re-authenticate"
+	if main.api.authToken then
+		self.tradeQueryRequests:PerformSearch("pc", "Standard", [[{"query":{"status":{"option":"online"},"stats":[{"type":"and","filters":[]}]},"sort":{"price":"asc"}}]], function(response, errMsg)
+			if errMsg then
+				-- a 403 here likely means that the user has an outdated scope
+				if errMsg == "Response code: 403" then
+					main.api:ResetDetails()
+					errMsg = errMsg .. "\nPlease re-authenticate"
+				end
+				self:SetNotice(self.controls.pbNotice, "Error: " .. tostring(errMsg))
 			end
-			self:SetNotice(self.controls.pbNotice, "Error: " .. tostring(errMsg))
-		end
-	end)
+		end)
+	end
 end
