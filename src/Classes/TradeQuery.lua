@@ -67,14 +67,13 @@ local function getMissingElementalResistanceTargets(output)
 	return targets
 end
 
-local function assignmentCanRepairResistanceDeficit(descriptors, assignment, missingTargets, canFreeBenchGroup)
+local function assignmentCanRepairResistanceDeficit(descriptors, assignment, missingTargets)
 	if not missingTargets then
 		return true
 	end
 	for index, target in ipairs(assignment.targets or { }) do
 		local source = descriptors[index].element
-		if target ~= source and (missingTargets[target]
-			or canFreeBenchGroup and missingTargets[source]) then
+		if target ~= source and missingTargets[target] then
 			return true
 		end
 	end
@@ -1045,7 +1044,7 @@ function TradeQueryClass:HasResistanceSwapOutputDependency(item)
 	local env = calcsTab and calcsTab.mainEnv
 	local player = env and env.player
 	if not player or not player.modDB then
-		-- Without the calculated modifier graph, irrelevance cannot be proven.
+		-- Without the calculated modifier graph, the resistance state cannot be proven irrelevant.
 		return true
 	end
 	if modStoreUsesResistanceState(player.modDB, visited) then
@@ -1077,7 +1076,7 @@ function TradeQueryClass:GetResultEvaluation(row_idx, result_index, calcFunc, ba
 		self.resistanceBaseOutput[row_idx] = { }
 	end
 	local resistanceBaseOutput = result.resistanceCapsRequired and getResistanceState(baseOutput)
-	-- A shared calculator is an optimisation, not a cache bypass. Reuse the result
+	-- A shared calculator is an optimization, not a cache bypass. Reuse the result
 	-- whenever the build outputs, selected weights, and resistance state still match.
 	if result.evaluation and tableDeepEquals(onlyWeightedBaseOutput, self.onlyWeightedBaseOutput[row_idx][result_index])
 		and tableDeepEquals(self.statSortSelectionList, self.lastComparedWeightList[row_idx][result_index])
@@ -1165,7 +1164,7 @@ function TradeQueryClass:GetResultEvaluation(row_idx, result_index, calcFunc, ba
 			and getMissingElementalResistanceTargets(listedFullOutput) or nil
 		for _, assignment in ipairs(assignments) do
 			if assignment.swaps > 0 and not skipSwaps
-				and assignmentCanRepairResistanceDeficit(descriptors, assignment, missingTargets, false) then
+				and assignmentCanRepairResistanceDeficit(descriptors, assignment, missingTargets) then
 				local variant, swaps, swappedLineIndexes = tradeResistanceSwap.buildVariant(result.item_string, descriptors, assignment)
 				if variant then
 					local evaluation = evaluateVariant(variant)
