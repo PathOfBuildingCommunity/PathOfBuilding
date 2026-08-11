@@ -1773,6 +1773,17 @@ function calcs.initEnv(build, mode, override, specEnv)
 					env.player.modDB:AddMod(modLib.setSource(value.value, groupCfg.slotName or ""))
 				end
 
+				-- Reimport can defer a support-granted selection until this MAIN skill list exists.
+				-- Consume it once, then clear it below.
+				if index == env.mainSocketGroup and env.mode == "MAIN" and group.pendingMainGrantedEffectId then
+					for activeSkillIndex, activeSkill in ipairs(socketGroupSkillList) do
+						if activeSkill.activeEffect.grantedEffect.id == group.pendingMainGrantedEffectId then
+							group.mainActiveSkill = activeSkillIndex
+							break
+						end
+					end
+				end
+
 				if index == env.mainSocketGroup and #socketGroupSkillList > 0 then
 					-- Select the main skill from this socket group
 					local activeSkillIndex
@@ -1790,6 +1801,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 			end
 
 			if env.mode == "MAIN" then
+				group.pendingMainGrantedEffectId = nil
 				-- Create display label for the socket group if the user didn't specify one
 				if group.label and group.label:match("%S") then
 					group.displayLabel = group.label
