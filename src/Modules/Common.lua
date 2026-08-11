@@ -129,7 +129,26 @@ function new(className, extraArg)
 		error(line)
 	end
 	local class = getClass(className)
-	local object = setmetatable({ }, class)
+	-- protect against calling new("Foo") without calling :Foo()
+	local object
+	if class[className] then
+		if not rawget(class, "_unconstructedMeta") then
+			class._unconstructedMeta = {
+				__index = function(obj, key)
+					if key == className then
+						setmetatable(obj, class)
+						return class[className]
+					end
+					error(s_format(
+						"Object of class '%s' was used before it was constructed (accessed '%s'). Did you forget to call new(\"%s\"):%s()?",
+						className, tostring(key), className, className))
+				end,
+			}
+		end
+		object = setmetatable({}, class._unconstructedMeta)
+	else
+		object = setmetatable({}, class)
+	end
 	object.Object = object
 	if class._parents then
 		-- Add parent and superparent class proxies
