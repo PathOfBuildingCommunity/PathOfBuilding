@@ -1068,7 +1068,6 @@ function main:OpenOptionsPopup(savedState)
 	controls.showThousandsSeparators.state = self.showThousandsSeparators
 
 	nextRow()
-	nextRow()
 	controls.useCompactValues = new("CheckBoxControl"):CheckBoxControl({ "TOPLEFT", controls.sectionAnchor, "TOPLEFT" }, { currentX + defaultLabelPlacementX, currentY, 20 }, "^7Compact large numbers (e.g. 12.3K):", function(state)
 		self.useCompactValues = state
 	end)
