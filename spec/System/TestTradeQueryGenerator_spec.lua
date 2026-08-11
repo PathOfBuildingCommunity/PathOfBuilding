@@ -167,7 +167,7 @@ describe("TradeQueryGenerator", function()
 
 	describe("EstimateBenchCraftWeight", function()
 		it("adds the weighted values of every craft line", function()
-			local queryGen = new("TradeQueryGenerator", { itemsTab = { } })
+			local queryGen = new("TradeQueryGenerator"):TradeQueryGenerator({ itemsTab = { } })
 			queryGen.modData = {
 				Explicit = {
 					["1203_TestAttributes"] = { tradeMod = { id = "explicit.stat_4080418644", text = "+# to Strength" } },
@@ -190,7 +190,7 @@ describe("TradeQueryGenerator", function()
 		end)
 
 		it("keeps generated mod and stat weights immutable", function()
-			local queryGen = new("TradeQueryGenerator", { itemsTab = { } })
+			local queryGen = new("TradeQueryGenerator"):TradeQueryGenerator({ itemsTab = { } })
 			queryGen.modWeights = { { tradeModId = "explicit.test", weight = 2 } }
 			local statWeights = { { stat = "Life", weightMult = 1 } }
 
