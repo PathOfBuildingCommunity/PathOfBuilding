@@ -153,7 +153,10 @@ local function logToFile(...)
 	ConPrintf(...)
 end
 
-local TradeQueryGeneratorClass = newClass("TradeQueryGenerator", function(self, queryTab)
+---@class TradeQueryGenerator
+local TradeQueryGeneratorClass = newClass("TradeQueryGenerator")
+
+function TradeQueryGeneratorClass:TradeQueryGenerator(queryTab)
 	self:InitMods()
 	self.queryTab = queryTab
 	self.itemsTab = queryTab.itemsTab
@@ -161,7 +164,8 @@ local TradeQueryGeneratorClass = newClass("TradeQueryGenerator", function(self, 
 	self.lastMaxPrice = nil
 	self.lastMaxPriceTypeIndex = nil
 	self.lastMaxLevel = nil
-end)
+	return self
+end
 
 function TradeQueryGeneratorClass.WeightedRatioOutputs(baseOutput, newOutput, statWeights)
 	local meanStatDiff = 0

@@ -56,7 +56,7 @@ function CalcSectionClass:CalcSectionControl(calcsTab, width, id, group, colour,
 			end
 		end
 	end
-	self.controls.popOut = new("ButtonControl", {"TOPRIGHT",self,"TOPRIGHT"}, {-22, 3, 16, 16}, "^", function()
+	self.controls.popOut = new("ButtonControl"):ButtonControl({"TOPRIGHT",self,"TOPRIGHT"}, {-22, 3, 16, 16}, "^", function()
 		self:ToggleOverlay()
 	end)
 	self.controls.popOut.shown = function()
