@@ -66,7 +66,7 @@ describe("Common", function()
 				new("StupidClass"):StupidClass()
 			end, "Class StupidClass constructor did not return a value")
 		end)
-		it("produces an error if its constructor hasnt been called", function()
+		it("produces an error if its constructor has not been called", function()
 			local StupidClass = newClass("StupidClass")
 			function StupidClass:StupidClass()
 				return self
