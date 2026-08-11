@@ -6,6 +6,120 @@ describe("TradeQuery", function()
 		mock_tradeQuery = new("TradeQuery"):TradeQuery({ itemsTab = {} })
 		mock_queryGen = new("TradeQueryGenerator"):TradeQueryGenerator({ itemsTab = {} })
 	end)
+	describe("cooperative result evaluation", function()
+		it("resumes fetched result work over multiple frames", function()
+			local tradeQuery = new("TradeQuery"):TradeQuery({ itemsTab = {} })
+			tradeQuery.controls.priceButton1 = { label = "Price Item" }
+			tradeQuery.controls.pbNotice = { label = "" }
+			tradeQuery.resultTbl[1] = { { }, { } }
+			local events = { }
+			tradeQuery.UpdateControlsWithItems = function(_, _, yieldFunc)
+				table.insert(events, "first")
+				yieldFunc(1, 2)
+				table.insert(events, "second")
+				yieldFunc(2, 2)
+				table.insert(events, "done")
+			end
+
+			tradeQuery:StartResultEvaluation(1)
+
+			assert.are.same({ }, events)
+			assert.are.equal("Eval 0/2...", tradeQuery.controls.priceButton1.label)
+
+			tradeQuery:ProcessResultEvaluations()
+			assert.are.same({ "first" }, events)
+			assert.are.equal("Eval 1/2...", tradeQuery.controls.priceButton1.label)
+
+			tradeQuery:ProcessResultEvaluations()
+			assert.are.same({ "first", "second" }, events)
+			assert.are.equal("Eval 2/2...", tradeQuery.controls.priceButton1.label)
+
+			tradeQuery:ProcessResultEvaluations()
+			assert.are.same({ "first", "second", "done" }, events)
+			assert.are.equal("Price Item", tradeQuery.controls.priceButton1.label)
+			assert.is_nil(tradeQuery.resultEvaluationContexts[1])
+		end)
+
+		it("clears the prior selection before scheduling a new evaluation", function()
+			local tradeQuery = new("TradeQuery"):TradeQuery({ itemsTab = {} })
+			local dropdownList
+			tradeQuery.controls.priceButton1 = { label = "Price Item" }
+			tradeQuery.controls.resultDropdown1 = {
+				SetList = function(_, list)
+					dropdownList = list
+				end,
+			}
+			tradeQuery.controls.fullPrice = { label = "" }
+			tradeQuery.resultTbl[1] = { { } }
+			tradeQuery.sortedResultTbl[1] = { { index = 1 } }
+			tradeQuery.itemIndexTbl[1] = 1
+			tradeQuery.totalPrice[1] = { amount = 1, currency = "chaos" }
+			tradeQuery.UpdateControlsWithItems = function() end
+
+			tradeQuery:StartResultEvaluation(1)
+
+			assert.is_nil(tradeQuery.sortedResultTbl[1])
+			assert.is_nil(tradeQuery.itemIndexTbl[1])
+			assert.is_nil(tradeQuery.totalPrice[1])
+			assert.are.same({ }, dropdownList)
+			assert.are.equal("^7Total Price: ", tradeQuery.controls.fullPrice.label)
+		end)
+
+		it("does not replace an active fetch with evaluation of old results", function()
+			local tradeQuery = new("TradeQuery"):TradeQuery({ itemsTab = {} })
+			tradeQuery.controls.priceButton1 = { label = "Price Item" }
+			tradeQuery.resultTbl[1] = { { } }
+			local evaluated = false
+			tradeQuery.UpdateControlsWithItems = function()
+				evaluated = true
+			end
+
+			local fetchContext = tradeQuery:StartResultFetch(1)
+			tradeQuery:StartResultEvaluation(1)
+
+			assert.is_true(tradeQuery:IsResultFetchCurrent(1, fetchContext))
+			assert.is_nil(tradeQuery.resultEvaluationContexts[1])
+			assert.is_false(evaluated)
+			assert.are.equal("Searching...", tradeQuery.controls.priceButton1.label)
+		end)
+
+		it("rejects a response from a superseded fetch", function()
+			local tradeQuery = new("TradeQuery"):TradeQuery({ itemsTab = {} })
+			tradeQuery.controls.priceButton1 = { label = "Price Item" }
+
+			local firstFetch = tradeQuery:StartResultFetch(1)
+			local secondFetch = tradeQuery:StartResultFetch(1)
+
+			assert.is_false(tradeQuery:FinishResultFetch(1, firstFetch))
+			assert.are.equal("Searching...", tradeQuery.controls.priceButton1.label)
+			assert.is_true(tradeQuery:FinishResultFetch(1, secondFetch))
+			assert.are.equal("Price Item", tradeQuery.controls.priceButton1.label)
+		end)
+
+		it("publishes only the replacement of a suspended evaluation", function()
+			local tradeQuery = new("TradeQuery"):TradeQuery({ itemsTab = {} })
+			tradeQuery.controls.priceButton1 = { label = "Price Item" }
+			tradeQuery.controls.pbNotice = { label = "" }
+			tradeQuery.resultTbl[1] = { { } }
+			local run = 0
+			local published
+			tradeQuery.UpdateControlsWithItems = function(_, _, yieldFunc)
+				run = run + 1
+				local currentRun = run
+				yieldFunc(1, 1)
+				published = currentRun
+			end
+
+			tradeQuery:StartResultEvaluation(1)
+			tradeQuery:ProcessResultEvaluations()
+			tradeQuery:StartResultEvaluation(1)
+			tradeQuery:ProcessResultEvaluations()
+			tradeQuery:ProcessResultEvaluations()
+
+			assert.are.equal(2, published)
+			assert.is_nil(tradeQuery.resultEvaluationContexts[1])
+		end)
+	end)
 	describe("result dropdown tooltipFunc", function()
 		-- Builds a TradeQuery with the strict minimum needed for
 		-- PriceItemRowDisplay to construct row 1 without exploding. Only the
@@ -76,7 +190,7 @@ describe("TradeQuery", function()
 			})
 			tq.itemsTab.AddItemTooltip = function() end
 			local dropdown = buildRow1Dropdown(tq)
-			local tooltip = new("Tooltip")
+			local tooltip = new("Tooltip"):Tooltip()
 
 			dropdown.tooltipFunc(tooltip, "DROP", 1, nil)
 
@@ -104,7 +218,7 @@ describe("TradeQuery", function()
 			})
 			tq.itemsTab.AddItemTooltip = function() end
 			local dropdown = buildRow1Dropdown(tq)
-			local tooltip = new("Tooltip")
+			local tooltip = new("Tooltip"):Tooltip()
 
 			dropdown.tooltipFunc(tooltip, "DROP", 1, nil)
 
@@ -138,7 +252,7 @@ describe("TradeQuery", function()
 			local previewActive = true
 			tq.IsBenchCraftPreviewActive = function() return previewActive end
 			local dropdown = buildRow1Dropdown(tq)
-			local tooltip = new("Tooltip")
+			local tooltip = new("Tooltip"):Tooltip()
 
 			dropdown.tooltipFunc(tooltip, "DROP", 1, nil)
 
@@ -220,6 +334,31 @@ describe("TradeQuery", function()
 				assert.is_table(entry.DNs)
 				assert.is_true(#entry.DNs >= 2)
 			end
+		end)
+	end)
+	describe("result action controls", function()
+		it("ignore a stale selection while asynchronous evaluation is pending", function()
+			local tradeQuery = new("TradeQuery"):TradeQuery({ itemsTab = {} })
+			tradeQuery.itemsTab.activeItemSet = {}
+			tradeQuery.itemsTab.slots = {}
+			tradeQuery.slotTables[1] = { slotName = "Ring 1" }
+			tradeQuery.resultTbl[1] = { {
+				item_string = "Rarity: RARE\nBehemoth Hold\nGold Ring",
+				amount = 1,
+				currency = "chaos",
+			} }
+			tradeQuery.sortedResultTbl[1] = { { index = 1 } }
+			tradeQuery:PriceItemRowDisplay(1, nil, 0, 20)
+			tradeQuery.itemIndexTbl[1] = 2
+			local tooltip = new("Tooltip"):Tooltip()
+
+			assert.has_no.errors(function()
+				tradeQuery.controls.importButton1.tooltipFunc(tooltip)
+			end)
+			assert.is_false(tradeQuery.controls.importButton1.enabled())
+			assert.has_no.errors(function()
+				tradeQuery.controls.whisperButton1.tooltipFunc(tooltip)
+			end)
 		end)
 	end)
 	describe("ReduceOutput", function()
@@ -317,7 +456,7 @@ describe("TradeQuery", function()
 		end
 
 		local function evaluate(itemString, crafts, calcOverride, yieldFunc, weightSnapshot)
-			local tradeQuery = new("TradeQuery", { itemsTab = { } })
+			local tradeQuery = new("TradeQuery"):TradeQuery({ itemsTab = { } })
 			tradeQuery.tradeQueryGenerator = mock_queryGen
 			tradeQuery.itemsTab.build = { data = { masterMods = crafts or { prefixCraft, suffixCraft } } }
 			tradeQuery.statSortSelectionList = { { stat = "Life", weightMult = 1 } }
@@ -357,7 +496,7 @@ describe("TradeQuery", function()
 		end)
 
 		it("reuses cached craft evaluations when a shared calculator is provided", function()
-			local tradeQuery = new("TradeQuery", { itemsTab = { } })
+			local tradeQuery = new("TradeQuery"):TradeQuery({ itemsTab = { } })
 			tradeQuery.tradeQueryGenerator = mock_queryGen
 			tradeQuery.statSortSelectionList = { { stat = "Life", weightMult = 1 } }
 			tradeQuery.slotTables[1] = { slotName = "Ring 1", considerBenchCraft = true }
@@ -406,7 +545,7 @@ describe("TradeQuery", function()
 				end
 				return { Life = 100 }
 			end)
-			local previewItem = new("Item", evaluation.benchCraftItemString)
+			local previewItem = new("Item"):Item(evaluation.benchCraftItemString)
 			local previewModLine = previewItem.explicitModLines[evaluation.benchCraftLineIndexes[1]]
 			local previewCraftLine = itemLib.applyRange(previewModLine.line, previewModLine.range, 1, 1)
 
@@ -445,7 +584,7 @@ describe("TradeQuery", function()
 			local itemString = makeRareRing(3, 2, { "{crafted}{suffix}+20 to Dexterity" })
 				:gsub("Implicits: 0", "Catalyst: Intrinsic\nCatalystQuality: 20\nImplicits: 0")
 			local evaluation = evaluate(itemString, { suffixCraft })
-			local previewItem = new("Item", evaluation.benchCraftItemString)
+			local previewItem = new("Item"):Item(evaluation.benchCraftItemString)
 			local previewModLine = previewItem.explicitModLines[evaluation.benchCraftLineIndexes[1]]
 
 			assert.is_true(previewModLine.crafted)
@@ -569,7 +708,7 @@ describe("TradeQuery", function()
 			assert.are.equal(calls, yields)
 		end)
 
-		it("fully evaluates only the highest-weight legal bench craft", function()
+		it("fully evaluates only the highest estimated-weight legal bench craft", function()
 			local predictedBest = {
 				type = "Suffix",
 				group = "PredictedBest",
@@ -685,7 +824,7 @@ describe("TradeQuery", function()
 				end
 				return { Life = 100 }
 			end)
-			local tooltipQuery = new("TradeQuery", { itemsTab = { } })
+			local tooltipQuery = new("TradeQuery"):TradeQuery({ itemsTab = { } })
 			tooltipQuery.itemsTab.activeItemSet = { }
 			tooltipQuery.itemsTab.slots = { }
 			tooltipQuery.slotTables[1] = { slotName = "Ring 1" }
@@ -706,7 +845,7 @@ describe("TradeQuery", function()
 			end
 			tooltipQuery.IsBenchCraftPreviewActive = function() return true end
 			tooltipQuery:PriceItemRowDisplay(1, nil, 0, 20)
-			local tooltip = new("Tooltip")
+			local tooltip = new("Tooltip"):Tooltip()
 
 			tooltipQuery.controls.resultDropdown1.tooltipFunc(tooltip, "DROP", 1, nil)
 

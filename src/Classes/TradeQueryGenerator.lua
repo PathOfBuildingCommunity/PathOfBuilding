@@ -1306,9 +1306,9 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 	local supportsBenchCraft = slot and not context.slotTbl.unique and not isJewelSlot and not isAbyssalJewelSlot
 		and not slot.slotName:find("Flask")
 	if supportsBenchCraft then
-		controls.considerBenchCraft = new("CheckBoxControl", { "TOPRIGHT", lastItemAnchor, "BOTTOMRIGHT" },
+		controls.considerBenchCraft = new("CheckBoxControl"):CheckBoxControl({ "TOPRIGHT", lastItemAnchor, "BOTTOMRIGHT" },
 			{ 0, 5, 18 }, "Bench Craft:", function(state) end,
-			"Sorts fetched results using the highest-weight legal bench craft or replacement.")
+			"Sorts fetched results using the highest estimated-weight legal bench craft or replacement.")
 		controls.considerBenchCraft.state = self.lastConsiderBenchCraft == true
 		updateLastAnchor(controls.considerBenchCraft)
 	end
