@@ -38,7 +38,7 @@ describe("TestItemParse", function()
 			cannotBeAnointed = true,
 		}
 
-		local item = new("Item", "Rarity: Normal\n" .. baseName)
+		local item = new("Item"):Item("Rarity: Normal\n" .. baseName)
 
 		assert.are.equals(1, #item.enchantModLines)
 		assert.are.equals("+10 to Strength", item.enchantModLines[1].line)
@@ -147,7 +147,7 @@ describe("TestItemParse", function()
 	end)
 
 	it("Versioned grouped variants", function()
-		local item = new("Item", [[
+		local item = new("Item"):Item([[
 			Rarity: UNIQUE
 			Versioned Grouped Test
 			Prismatic Ring
@@ -397,7 +397,7 @@ describe("TestItemParse", function()
 	end)
 
 	it("ignores disabled modifiers in item conditions", function()
-		local item = new("Item", raw("{disabled}+100 to maximum Life"))
+		local item = new("Item"):Item(raw("{disabled}+100 to maximum Life"))
 		assert.is_false(item:FindModifierSubstring("life", "body armour"))
 	end)
 
@@ -763,7 +763,7 @@ describe("TestAdvancedItemParse #item", function()
 	end)
 
 	it("parses allocated Crucible passive skills from advanced copy", function()
-		local item = new("Item", raw([[
+		local item = new("Item"):Item(raw([[
 			{ Allocated Crucible Passive Skill (Tier: 1) }
 			-3% to Critical Strike Chance
 			+100% to Global Critical Strike Multiplier
@@ -782,7 +782,7 @@ describe("TestAdvancedItemParse #item", function()
 	end)
 
 	it("ignores attribute requirements from socketed gems", function()
-		local item = new("Item", raw([[
+		local item = new("Item"):Item(raw([[
 			Requirements:
 			Str: 126 (unmet)
 			Dex: 185 (unmet)
@@ -801,7 +801,7 @@ describe("TestAdvancedItemParse #item", function()
 	end)
 
 	it("orders fractured mods first and crafted mods last", function()
-		local item = new("Item", raw([[
+		local item = new("Item"):Item(raw([[
 			Item Level: 83
 			{ Fractured Prefix Modifier "Cheetah's" (Tier: 2) — Speed }
 			30% increased Movement Speed
@@ -826,7 +826,7 @@ describe("TestAdvancedItemParse #item", function()
 	end)
 
 	it("matches same-name affixes using their advanced-copy ranges", function()
-		local item = new("Item", raw([[
+		local item = new("Item"):Item(raw([[
 			Item Level: 85
 			{ Fractured Prefix Modifier "Essences" — Damage, Elemental, Fire, Attack }
 			Adds 100(80-109) to 179(162-189) Fire Damage
@@ -844,7 +844,7 @@ describe("TestAdvancedItemParse #item", function()
 	end)
 
 	it("filters flask base properties and parses fixed-value advanced rolls", function()
-		local item = new("Item", [[
+		local item = new("Item"):Item([[
 			Rarity: Unique
 			Soul Catcher
 			Quartz Flask
@@ -870,7 +870,7 @@ describe("TestAdvancedItemParse #item", function()
 	end)
 
 	it("preserves rolls from large advanced-copy ranges", function()
-		local item = new("Item", [[
+		local item = new("Item"):Item([[
 			Rarity: Unique
 			Elegant Hubris
 			Timeless Jewel
@@ -887,7 +887,7 @@ describe("TestAdvancedItemParse #item", function()
 	end)
 
 	it("preserves independently rolled values on the same modifier line", function()
-		local item = new("Item", [[
+		local item = new("Item"):Item([[
 			Rarity: Unique
 			Prismweave
 			Rustic Sash
@@ -902,7 +902,7 @@ describe("TestAdvancedItemParse #item", function()
 	end)
 
 	it("orders advanced-copy unique modifiers by their database stat order", function()
-		local item = new("Item", [[
+		local item = new("Item"):Item([[
 			Rarity: Unique
 			Geofri's Sanctuary
 			Elegant Ringmail
@@ -931,7 +931,7 @@ describe("TestAdvancedItemParse #item", function()
 	end)
 
 	it("keeps the selected value from advanced-copy enum ranges", function()
-		local item = new("Item", [[
+		local item = new("Item"):Item([[
 			Rarity: Unique
 			The Dark Monarch
 			Lich's Circlet
@@ -946,7 +946,7 @@ describe("TestAdvancedItemParse #item", function()
 	end)
 
 	it("parses punctuated enum and descending numeric ranges", function()
-		local gemItem = new("Item", [[
+		local gemItem = new("Item"):Item([[
 			Rarity: Unique
 			Replica Dragonfang's Flight
 			Onyx Amulet
@@ -956,7 +956,7 @@ describe("TestAdvancedItemParse #item", function()
 		assert.are.equals("+3 to Level of all Lightning Tendrils Gems", gemItem.explicitModLines[1].line)
 		assert.is_true(#gemItem.explicitModLines[1].modList > 0)
 
-		local requirementItem = new("Item", [[
+		local requirementItem = new("Item"):Item([[
 			Rarity: Unique
 			Replica Dragonfang's Flight
 			Onyx Amulet
@@ -969,7 +969,7 @@ describe("TestAdvancedItemParse #item", function()
 	end)
 
 	it("parses Memory Strands as an item property", function()
-		local item = new("Item", [[
+		local item = new("Item"):Item([[
 			Rarity: Magic
 			Imperial Maul of Revitalization
 			Weapon Range: 1.3 metres
@@ -1110,7 +1110,7 @@ describe("TestAdvancedItemParse #item", function()
 		end)
 
 		it("does not apply disabled modifier magnitude", function()
-			local item = new("Item", [[
+			local item = new("Item"):Item([[
 			Rarity: UNIQUE
 			Magnitude Test
 			Plate Vest
@@ -1342,7 +1342,7 @@ describe("TestAdvancedItemParse #item", function()
 		]]
 		it("scales only prefixes for increased effect of prefixes for advanced copy format", function()
 			assert.equal(0, spellCrit())
-			local item = new("Item", realJewel)
+			local item = new("Item"):Item(realJewel)
 			build.itemsTab:AddItem(item)
 			build.itemsTab:EquipItemInSet(item, build.itemsTab.activeItemSetId)
 			runCallback("OnFrame")
@@ -1351,7 +1351,7 @@ describe("TestAdvancedItemParse #item", function()
 		end)
 
 		it("does not apply scaling twice when saving and loading", function()
-			local item = new("Item", new("Item", realJewel):BuildRaw())
+			local item = new("Item"):Item(new("Item"):Item(realJewel):BuildRaw())
 			build.itemsTab:AddItem(item)
 			build.itemsTab:EquipItemInSet(item, build.itemsTab.activeItemSetId)
 			runCallback("OnFrame")

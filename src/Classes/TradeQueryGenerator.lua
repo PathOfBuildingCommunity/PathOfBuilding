@@ -83,7 +83,7 @@ local function canModSpawnForItemCategory(mod, category)
 		end
 	end
 	-- mock item
-	local itemClass = new("Item")
+	local itemClass = new("Item"):Item()
 	local itemObj = {}
 	-- add all influences to fake item
 	for _, curInfluenceInfo in ipairs(itemLib.influenceInfo.all) do

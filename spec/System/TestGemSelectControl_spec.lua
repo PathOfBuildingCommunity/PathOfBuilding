@@ -9,7 +9,7 @@ describe("GemSelectControl", function()
 				data = { gems = { } },
 			},
 		}
-		local control = new("GemSelectControl", nil, { 0, 0, 300, 20 }, skillsTab, 1, function(...)
+		local control = new("GemSelectControl"):GemSelectControl(nil, { 0, 0, 300, 20 }, skillsTab, 1, function(...)
 			change = { ... }
 		end)
 		control.gems = {

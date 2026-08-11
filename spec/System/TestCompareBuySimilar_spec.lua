@@ -155,7 +155,7 @@ Implicits: 1
 		end
 
 		local function getUniqueQuery(name, baseName)
-			local item = new("Item", "Rarity: UNIQUE\n" .. name .. "\n" .. baseName .. "\nImplicits: 0")
+			local item = new("Item"):Item("Rarity: UNIQUE\n" .. name .. "\n" .. baseName .. "\nImplicits: 0")
 			local query = getQuery(openPopup(item, "Jewel"))
 			main:ClosePopup()
 			return query
@@ -179,7 +179,7 @@ Implicits: 1
 		end)
 
 		it("preserves apostrophes in unique names", function()
-			local item = new("Item", [[
+			local item = new("Item"):Item([[
 Rarity: UNIQUE
 Ralakesh's Impatience
 Riveted Boots
