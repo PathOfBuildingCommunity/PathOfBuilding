@@ -384,7 +384,7 @@ function CalcSectionClass:DrawOverlay(viewPort, inputEvents)
 	local totalHeight = self:GetOverlayHeight()
 
 	-- Ensure it's above most other controls
-	SetDrawLayer(12)
+	SetDrawLayer(10)
 
 	-- Draw background
 	SetDrawColor(0.08, 0.08, 0.08, 0.95)
