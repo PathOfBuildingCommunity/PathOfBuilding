@@ -466,8 +466,9 @@ end
 ---@param realm string
 ---@param callback fun(query:table, errMsg:string)
 function TradeQueryRequestsClass:FetchLeagues(realm, callback)
-	local header = "Authorization: Bearer " .. (main.api.authToken or "")
-	launch:DownloadPage(
+	local function fetchStatic()
+		ConPrintf("fetching static leagues")
+		launch:DownloadPage(
 			self.hostName .. "api/trade/data/leagues",
 			function(response, errMsg)
 				if errMsg then
@@ -489,9 +490,45 @@ function TradeQueryRequestsClass:FetchLeagues(realm, callback)
 					end
 				end
 				callback(leagues, errMsg)
-			end,
-			{header = header}
-	)
+			end
+		)
+	end
+	if main.api.authToken then
+		main.api:FetchLeagues(realm, function(body, err)
+			-- fall back to static data on error
+			if not body or err then
+				ConPrintf("Failed to fetch oauth leagues: %s", err)
+				return fetchStatic()
+			end
+			if body.error then
+				local apiError = body.error
+				local errMsg = apiError or "Failed to parse trade leagues JSON"
+				if type(apiError) == "table" then
+					errMsg = apiError.message or (apiError.code and tostring(apiError.code)) or "Failed to parse trade leagues JSON"
+				end
+				ConPrintf("Failed to fetch oauth leagues: %s", errMsg)
+				return fetchStatic()
+			end
+			local leagues = {}
+			for _, value in pairs(body.leagues or {}) do
+				if value.rules then
+					-- filter out ssf leagues which might be present in the oauth query
+					for _, rule in ipairs(value.rules) do
+						if rule.id == "NoParties" then
+							goto skipLeague
+						end
+					end
+				end
+				if value.realm == realm then
+					table.insert(leagues, value.id)
+				end
+				::skipLeague::
+			end
+			callback(leagues, err)
+		end)
+	else
+		fetchStatic()
+	end
 end
 
 --- Build search and trade URLs with proper encoding
