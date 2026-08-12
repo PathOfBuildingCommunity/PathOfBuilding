@@ -199,7 +199,7 @@ function M.validateItem(item, descriptors)
 end
 
 function M.buildVariant(itemString, descriptors, assignment)
-	local item = new("Item", itemString)
+	local item = new("Item"):Item(itemString)
 	if not M.validateItem(item, descriptors) then
 		return
 	end
