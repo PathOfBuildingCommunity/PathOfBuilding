@@ -9,11 +9,11 @@ describe("TestItemsTab", function ()
 			build.itemsTab:EquipItemInSet(item, build.itemsTab.activeItemSetId)
 		end
 		it("does not copy an anoint onto a talisman", function()
-			local amulet = new("Item", "Rarity: Rare\nAnointed\nOnyx Amulet\n+8 to Strength (enchant)")
+			local amulet = new("Item"):Item("Rarity: Rare\nAnointed\nOnyx Amulet\n+8 to Strength (enchant)")
 			assert.are.equals(1, #amulet.enchantModLines)
 			equip(amulet)
 
-			local talisman = new("Item", "Rarity: Rare\nCharm\nBlack Maw Talisman")
+			local talisman = new("Item"):Item("Rarity: Rare\nCharm\nBlack Maw Talisman")
 			local originalCount = #talisman.enchantModLines
 
 			build.itemsTab:CopyAnointsAndEldritchImplicits(talisman, false, false)
@@ -25,12 +25,12 @@ describe("TestItemsTab", function ()
 		end)
 
 		it("does not copy an anoint from a talisman", function()
-			local talisman = new("Item", "Rarity: Rare\nCharm\nBlack Maw Talisman\n+8 to Strength (enchant)")
+			local talisman = new("Item"):Item("Rarity: Rare\nCharm\nBlack Maw Talisman\n+8 to Strength (enchant)")
 			assert.are.equals(1, #talisman.enchantModLines)
 			equip(talisman)
 
 			-- new amulet must not inherit the talisman's enchant as an anoint
-			local amulet = new("Item", "Rarity: Rare\nPlain\nOnyx Amulet")
+			local amulet = new("Item"):Item("Rarity: Rare\nPlain\nOnyx Amulet")
 			assert.are.equals(0, #amulet.enchantModLines)
 
 			build.itemsTab:CopyAnointsAndEldritchImplicits(amulet, false, false)
