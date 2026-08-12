@@ -519,9 +519,7 @@ function TradeQueryRequestsClass:FetchLeagues(realm, callback)
 						end
 					end
 				end
-				if value.realm == realm then
-					table.insert(leagues, value.id)
-				end
+				table.insert(leagues, value.id)
 				::skipLeague::
 			end
 			callback(leagues, err)

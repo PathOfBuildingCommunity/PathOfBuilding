@@ -308,8 +308,10 @@ function TradeQueryClass:PriceItem()
 					main:SaveSettings()
 
 					TradeQueryClass:SetNotice(self.controls.pbNotice, "")
+					self:UpdateRealms()
 				else
 					self.loginStatus = colorCodes.WARNING.."Not authenticated"
+					self:UpdateRealms()
 				end
 			end)
 			self.clickTime = os.time()
@@ -322,11 +324,12 @@ function TradeQueryClass:PriceItem()
 			main.tokenExpiry = nil
 			main.api.tokenExpiry = nil
 			main:SaveSettings()
+			self:UpdateRealms()
 		end
 	end)
 	self.controls.tradeAuthButton.tooltipText = [[
 The Trader feature supports two modes of operation depending on the authorization availability.
-You can click this button to authorize PoB by logging in.
+You can click this button to authorize PoB by logging in. The URL is also copied to your clipboard.
 
 ^2Session Mode^7
 - Requires authorization on pathofexile.com.
@@ -1353,8 +1356,8 @@ function TradeQueryClass:UpdateRealms()
 	end
 
 	-- use trade leagues api to get trade leagues including private leagues is valid.
-	setRealmDropList()
 	self.allLeagues = {}
+	setRealmDropList()
 
 	-- perform a generic search to make sure the authorization is valid.
 	self.tradeQueryRequests:PerformSearch("pc", "Standard", [[{"query":{"status":{"option":"online"},"stats":[{"type":"and","filters":[]}]},"sort":{"price":"asc"}}]], function(response, errMsg)
