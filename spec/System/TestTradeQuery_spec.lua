@@ -8,7 +8,7 @@ describe("TradeQuery", function()
 	end)
 	describe("cooperative result evaluation", function()
 		it("resumes fetched result work over multiple frames", function()
-			local tradeQuery = new("TradeQuery", { itemsTab = {} })
+			local tradeQuery = new("TradeQuery"):TradeQuery({ itemsTab = {} })
 			tradeQuery.controls.priceButton1 = { label = "Price Item" }
 			tradeQuery.controls.pbNotice = { label = "" }
 			tradeQuery.resultTbl[1] = { { }, { } }
@@ -37,6 +37,86 @@ describe("TradeQuery", function()
 			tradeQuery:ProcessResultEvaluations()
 			assert.are.same({ "first", "second", "done" }, events)
 			assert.are.equal("Price Item", tradeQuery.controls.priceButton1.label)
+			assert.is_nil(tradeQuery.resultEvaluationContexts[1])
+		end)
+
+		it("clears the prior selection before scheduling a new evaluation", function()
+			local tradeQuery = new("TradeQuery"):TradeQuery({ itemsTab = {} })
+			local dropdownList
+			tradeQuery.controls.priceButton1 = { label = "Price Item" }
+			tradeQuery.controls.resultDropdown1 = {
+				SetList = function(_, list)
+					dropdownList = list
+				end,
+			}
+			tradeQuery.controls.fullPrice = { label = "" }
+			tradeQuery.resultTbl[1] = { { } }
+			tradeQuery.sortedResultTbl[1] = { { index = 1 } }
+			tradeQuery.itemIndexTbl[1] = 1
+			tradeQuery.totalPrice[1] = { amount = 1, currency = "chaos" }
+			tradeQuery.UpdateControlsWithItems = function() end
+
+			tradeQuery:StartResultEvaluation(1)
+
+			assert.is_nil(tradeQuery.sortedResultTbl[1])
+			assert.is_nil(tradeQuery.itemIndexTbl[1])
+			assert.is_nil(tradeQuery.totalPrice[1])
+			assert.are.same({ }, dropdownList)
+			assert.are.equal("^7Total Price: ", tradeQuery.controls.fullPrice.label)
+		end)
+
+		it("does not replace an active fetch with evaluation of old results", function()
+			local tradeQuery = new("TradeQuery"):TradeQuery({ itemsTab = {} })
+			tradeQuery.controls.priceButton1 = { label = "Price Item" }
+			tradeQuery.resultTbl[1] = { { } }
+			local evaluated = false
+			tradeQuery.UpdateControlsWithItems = function()
+				evaluated = true
+			end
+
+			local fetchContext = tradeQuery:StartResultFetch(1)
+			tradeQuery:StartResultEvaluation(1)
+
+			assert.is_true(tradeQuery:IsResultFetchCurrent(1, fetchContext))
+			assert.is_nil(tradeQuery.resultEvaluationContexts[1])
+			assert.is_false(evaluated)
+			assert.are.equal("Searching...", tradeQuery.controls.priceButton1.label)
+		end)
+
+		it("rejects a response from a superseded fetch", function()
+			local tradeQuery = new("TradeQuery"):TradeQuery({ itemsTab = {} })
+			tradeQuery.controls.priceButton1 = { label = "Price Item" }
+
+			local firstFetch = tradeQuery:StartResultFetch(1)
+			local secondFetch = tradeQuery:StartResultFetch(1)
+
+			assert.is_false(tradeQuery:FinishResultFetch(1, firstFetch))
+			assert.are.equal("Searching...", tradeQuery.controls.priceButton1.label)
+			assert.is_true(tradeQuery:FinishResultFetch(1, secondFetch))
+			assert.are.equal("Price Item", tradeQuery.controls.priceButton1.label)
+		end)
+
+		it("publishes only the replacement of a suspended evaluation", function()
+			local tradeQuery = new("TradeQuery"):TradeQuery({ itemsTab = {} })
+			tradeQuery.controls.priceButton1 = { label = "Price Item" }
+			tradeQuery.controls.pbNotice = { label = "" }
+			tradeQuery.resultTbl[1] = { { } }
+			local run = 0
+			local published
+			tradeQuery.UpdateControlsWithItems = function(_, _, yieldFunc)
+				run = run + 1
+				local currentRun = run
+				yieldFunc(1, 1)
+				published = currentRun
+			end
+
+			tradeQuery:StartResultEvaluation(1)
+			tradeQuery:ProcessResultEvaluations()
+			tradeQuery:StartResultEvaluation(1)
+			tradeQuery:ProcessResultEvaluations()
+			tradeQuery:ProcessResultEvaluations()
+
+			assert.are.equal(2, published)
 			assert.is_nil(tradeQuery.resultEvaluationContexts[1])
 		end)
 	end)
@@ -234,6 +314,65 @@ describe("TradeQuery", function()
 			end
 		end)
 	end)
+
+	describe("result action controls", function()
+		it("ignore a stale selection while asynchronous evaluation is pending", function()
+			local tradeQuery = new("TradeQuery"):TradeQuery({ itemsTab = {} })
+			tradeQuery.itemsTab.activeItemSet = {}
+			tradeQuery.itemsTab.slots = {}
+			tradeQuery.slotTables[1] = { slotName = "Ring 1" }
+			tradeQuery.resultTbl[1] = { {
+				item_string = "Rarity: RARE\nBehemoth Hold\nGold Ring",
+				amount = 1,
+				currency = "chaos",
+			} }
+			tradeQuery.sortedResultTbl[1] = { { index = 1 } }
+			tradeQuery:PriceItemRowDisplay(1, nil, 0, 20)
+			tradeQuery.itemIndexTbl[1] = 2
+			local tooltip = new("Tooltip")
+
+			assert.has_no.errors(function()
+				tradeQuery.controls.importButton1.tooltipFunc(tooltip)
+			end)
+			assert.is_false(tradeQuery.controls.importButton1.enabled())
+			assert.has_no.errors(function()
+				tradeQuery.controls.whisperButton1.tooltipFunc(tooltip)
+			end)
+		end)
+
+		it("replaces capped candidates with the results of a pasted URL", function()
+			local tradeQuery = new("TradeQuery"):TradeQuery({ itemsTab = {} })
+			tradeQuery.itemsTab.activeItemSet = {}
+			tradeQuery.itemsTab.slots = {}
+			tradeQuery.controls.pbNotice = { label = "" }
+			tradeQuery.slotTables[1] = { slotName = "Ring 1" }
+			local oldResult = {
+				item_string = "Rarity: RARE\nOld Hold\nGold Ring",
+				amount = 1,
+				currency = "chaos",
+			}
+			local newResult = {
+				item_string = "Rarity: RARE\nNew Hold\nGold Ring",
+				amount = 2,
+				currency = "chaos",
+			}
+			tradeQuery.unfilteredResultTbl[1] = { oldResult }
+			tradeQuery.resultTbl[1] = { oldResult }
+			tradeQuery.sortedResultTbl[1] = { { index = 1 } }
+			local searchCallback
+			tradeQuery.tradeQueryRequests.SearchWithURL = function(_, _, callback)
+				searchCallback = callback
+			end
+			tradeQuery:PriceItemRowDisplay(1, nil, 0, 20)
+			tradeQuery.controls.uri1.buf = "https://www.pathofexile.com/trade/search/pc/example"
+
+			tradeQuery.controls.priceButton1.onClick()
+			searchCallback({ newResult }, nil, "{}")
+
+			assert.is_nil(tradeQuery.unfilteredResultTbl[1])
+			assert.are.equal(newResult.item_string, tradeQuery.resultTbl[1][1].item_string)
+		end)
+	end)
 	describe("ReduceOutput", function()
 		it("preserves lower-is-better values for weighted result comparison", function()
 			local weights = {
@@ -364,7 +503,7 @@ describe("TradeQuery", function()
 		end
 
 		local function newEvaluationQuery(lines, descriptors, enabled, capsRequired)
-			local tq = new("TradeQuery", { itemsTab = {} })
+			local tq = new("TradeQuery"):TradeQuery({ itemsTab = {} })
 			tq.tradeQueryGenerator = mock_queryGen
 			tq.slotTables[1] = { slotName = "Ring 1" }
 			tq.statSortSelectionList = { { stat = "Life", weightMult = 1 } }
@@ -647,7 +786,7 @@ describe("TradeQuery", function()
 		end)
 
 		it("sorts retained capped and uncapped results by requested stat value", function()
-			local tq = new("TradeQuery", { itemsTab = {} })
+			local tq = new("TradeQuery"):TradeQuery({ itemsTab = {} })
 			tq.resultTbl[1] = {
 				{ id = "uncapped", resistanceCapsRequired = true },
 				{ id = "capped", resistanceCapsRequired = true },

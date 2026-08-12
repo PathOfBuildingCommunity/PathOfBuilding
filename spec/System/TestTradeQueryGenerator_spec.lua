@@ -178,12 +178,12 @@ describe("TradeQueryGenerator", function()
 		end)
 
 		it("annotates weights through the real GenerateModWeights method", function()
-			local queryGen = new("TradeQueryGenerator", { itemsTab = {} })
+			local queryGen = new("TradeQueryGenerator"):TradeQueryGenerator({ itemsTab = {} })
 			queryGen.modWeights = {}
 			queryGen.alreadyWeightedMods = {}
 			queryGen.calcContext = {
 				itemCategory = "Ring",
-				testItem = new("Item", "Rarity: RARE\nTest Ring\nCoral Ring\nImplicits: 0"),
+				testItem = new("Item"):Item("Rarity: RARE\nTest Ring\nCoral Ring\nImplicits: 0"),
 				baseOutput = { Life = 100 },
 				baseStatValue = 1000,
 				calcFunc = function() return { Life = 110 } end,
@@ -208,13 +208,13 @@ describe("TradeQueryGenerator", function()
 
 		local function finishQuery(options, weights)
 			options = options or {}
-			local queryGen = new("TradeQueryGenerator", { itemsTab = {} })
+			local queryGen = new("TradeQueryGenerator"):TradeQueryGenerator({ itemsTab = {} })
 			queryGen.tradeTypeIndex = 4
 			queryGen.modWeights = weights
 			queryGen.calcContext = {
 				itemCategoryQueryStr = "accessory.ring",
 				special = {},
-				testItem = new("Item", "Rarity: RARE\nTest Ring\nCoral Ring\nImplicits: 0"),
+				testItem = new("Item"):Item("Rarity: RARE\nTest Ring\nCoral Ring\nImplicits: 0"),
 				baseOutput = { Life = 100 },
 				baseStatValue = 1000,
 				calcFunc = function() return { Life = 100 } end,
