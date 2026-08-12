@@ -27,7 +27,7 @@ describe("PoEAPI auth", function()
 			callback(nil, "SSL connect error")
 		end
 
-		local api = new("PoEAPI")
+		local api = new("PoEAPI"):PoEAPI()
 		local callbackArgs
 		api:FetchAuthToken(function(errMsg)
 			callbackArgs = {
@@ -51,7 +51,7 @@ describe("PoEAPI auth", function()
 			error("token exchange should not run for mismatched OAuth state")
 		end
 
-		local api = new("PoEAPI")
+		local api = new("PoEAPI"):PoEAPI()
 		local callbackArgs
 		api:FetchAuthToken(function(errMsg)
 			callbackArgs = {
@@ -66,7 +66,7 @@ describe("PoEAPI auth", function()
 		assert.is_nil(api.authToken)
 	end)
 	it("stays usable after an error", function()
-		local api = new("PoEAPI", "token", "refresh", os.time() + 3600)
+		local api = new("PoEAPI"):PoEAPI("token", "refresh", os.time() + 3600)
 
 		-- Drive the network layer directly so we bypass ValidateAuth/token
 		-- refresh and exercise only DownloadWithRateLimit's limiter bookkeeping.

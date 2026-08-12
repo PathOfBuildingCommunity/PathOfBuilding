@@ -1,6 +1,5 @@
 -- Item data (c) Grinding Gear Games
-local itemBases = ...
-
+return function(itemBases)
 #type One Handed Sword
 #socketLimit 3
 #influenceBaseTag sword
@@ -27,3 +26,4 @@ local itemBases = ...
 #forceHide true
 #base Metadata/Items/Weapons/TwoHandWeapons/TwoHandSwords/StormBladeTwoHand
 #forceHide false
+end

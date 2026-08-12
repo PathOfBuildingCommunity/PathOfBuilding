@@ -4,8 +4,10 @@
 -- Minion Data
 -- Monster data (c) Grinding Gear Games
 --
-local minions, mod = ...
 
+return function(mod, flag)
+	---@class MinionData
+	local minions = {}
 minions["RaisedZombie"] = {
 	name = "Raised Zombie",
 	monsterTags = { "animal_claw_weapon", "fast_movement", "flesh_armour", "is_unarmed", "medium_height", "melee", "physical_affinity", "red_blood", "undead", "zombie", },
@@ -1945,3 +1947,5 @@ minions["ShamblingUndead"] = {
 		-- set_item_drop_slots [set_item_drop_slots = 0]
 	},
 }
+	return minions
+end

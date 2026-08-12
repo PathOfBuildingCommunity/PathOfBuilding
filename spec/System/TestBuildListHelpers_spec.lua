@@ -97,7 +97,7 @@ describe("BuildListHelpers", function()
 			subPath = "",
 			BuildList = function() end,
 		}
-		local control = new("BuildListControl", nil, { 0, 0, 500, 500 }, listMode)
+		local control = new("BuildListControl"):BuildListControl(nil, { 0, 0, 500, 500 }, listMode)
 
 		control:SelByFullFileName("Builds/Other/Same.xml")
 

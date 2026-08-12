@@ -145,7 +145,7 @@ describe("TestImport", function()
 	end)
 
 	function importAndReimportWithOldJewel(shouldDelete)
-		local oldJewel = new("Item", [[Rarity: RARE
+		local oldJewel = new("Item"):Item([[Rarity: RARE
 TEST JEWEL
 Crimson Jewel
 Crafted: true

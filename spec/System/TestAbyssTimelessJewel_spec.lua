@@ -58,7 +58,7 @@ local function zorathExampleData()
 end
 
 local function newAbyssTimelessJewel(name, baseName, seedLine)
-	return new("Item", "Rarity: UNIQUE\n" .. name .. "\n" .. baseName .. "\n" ..
+	return new("Item"):Item("Rarity: UNIQUE\n" .. name .. "\n" .. baseName .. "\n" ..
 		"Limited to: 1 Historic\nImplicits: 0\n" .. seedLine .. "\n" ..
 		"Passives affected are Conquered by the Abyssal\nHistoric\n")
 end
@@ -424,7 +424,7 @@ describe("Abyss timeless jewels", function()
 			end
 		end
 		assert.are.equal(baseNodeName, controls.protectAllocatedSelect:GetSelValue().label)
-		local tooltip = new("Tooltip")
+		local tooltip = new("Tooltip"):Tooltip()
 		controls.protectAllocatedSelect.tooltipFunc(tooltip, "DROP", controls.protectAllocatedSelect.selIndex, protectedOption)
 		assert.is_true(#tooltip.lines > 0)
 		assert.are.same(spec.tree.nodes[53884].sd, protectedOption.descriptions)
@@ -453,7 +453,7 @@ describe("Abyss timeless jewels", function()
 		runCallback("OnFrame")
 		assert.are.equal("Fire Resistance", spec.nodes[15117].dn)
 
-		local tooltip = new("Tooltip")
+		local tooltip = new("Tooltip"):Tooltip()
 		build.itemsTab:AddItemTooltip(tooltip, item, slot)
 
 		local hasComparison

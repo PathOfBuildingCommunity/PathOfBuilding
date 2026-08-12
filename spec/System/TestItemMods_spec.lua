@@ -719,7 +719,7 @@ describe("TetsItemMods", function()
 	end)
 
 	it("crafts modifiers from supported bases on rare-like uniques", function()
-		local item = new("Item", [[
+		local item = new("Item"):Item([[
 			Item Class: Helmets
 			Rarity: Unique
 			Subsume the Source
@@ -759,7 +759,7 @@ describe("TetsItemMods", function()
 	end)
 
 	it("uses the item base for rare-like modifier eligibility by default", function()
-		local item = new("Item", [[
+		local item = new("Item"):Item([[
 			Item Class: Bows
 			Rarity: Unique
 			The Crimson Storm
@@ -778,7 +778,7 @@ describe("TetsItemMods", function()
 	end)
 
 	it("keeps modifier metadata on duplicate variant tooltip lines", function()
-		local item = new("Item", [[
+		local item = new("Item"):Item([[
 			Rarity: Unique
 			Duplicate Variant Test
 			Plate Vest
@@ -791,7 +791,7 @@ describe("TetsItemMods", function()
 			Implicits: 0
 			{variant:1}+10 to maximum Life
 		]])
-		local tooltip = new("Tooltip")
+		local tooltip = new("Tooltip"):Tooltip()
 		build.itemsTab:AddItemTooltip(tooltip, item)
 
 		local count = 0
@@ -805,7 +805,7 @@ describe("TetsItemMods", function()
 	end)
 
 	it("does not sort cluster jewel modifiers when the sorting control is hidden", function()
-		local item = new("Item", [[
+		local item = new("Item"):Item([[
 			Rarity: RARE
 			New Item
 			Large Cluster Jewel
@@ -880,7 +880,7 @@ describe("TetsItemMods", function()
 	end)
 
 	it("sorts crafted modifier replacements without retaining the selected modifier", function()
-		local item = new("Item", [[
+		local item = new("Item"):Item([[
 			Rarity: RARE
 			New Item
 			Cobalt Jewel
@@ -917,12 +917,12 @@ describe("TetsItemMods", function()
 	end)
 	
 	it("shows a fallback tooltip when an item's base is no longer supported", function()
-		local item = new("Item", [[
+		local item = new("Item"):Item([[
 			Rarity: Unique
 			Legacy Item
 			Removed Base
 		]])
-		local tooltip = new("Tooltip")
+		local tooltip = new("Tooltip"):Tooltip()
 
 		assert.has_no.errors(function()
 			build.itemsTab:AddItemTooltip(tooltip, item)

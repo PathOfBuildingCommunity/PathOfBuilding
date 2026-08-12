@@ -52,7 +52,7 @@ describe("ItemListControl", function()
 			PopulateSlots = function() end,
 			AddUndoState = function() end,
 		}
-		local control = new("ItemListControl", nil, { 0, 0, 360, 308 }, itemsTab, true)
+		local control = new("ItemListControl"):ItemListControl(nil, { 0, 0, 360, 308 }, itemsTab, true)
 		return control, itemsTab, treeTab
 	end
 
@@ -178,7 +178,7 @@ describe("ItemListControl", function()
 
 	it("releases focus after opening an item with a double click", function()
 		local control, itemsTab = newItemListControl()
-		local item = new("Item", [[
+		local item = new("Item"):Item([[
 Rarity: Rare
 Test Belt
 Leather Belt

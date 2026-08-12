@@ -9,10 +9,16 @@
 local t_insert = table.insert
 local t_remove = table.remove
 
-local UndoHandlerClass = newClass("UndoHandler", function(self)
+---@class UndoHandler
+---@field CreateUndoState fun() Must be manually defined. Creates a state that can be restored
+---@field RestoreUndoState fun(state: any) Must be manually defined. Restores a state created by calling CreateUndoState()
+local UndoHandlerClass = newClass("UndoHandler")
+
+function UndoHandlerClass:UndoHandler()
 	self.undo = { }
 	self.redo = { }
-end)
+	return self
+end
 
 -- Initialises the undo/redo buffers
 -- Should be called after the current state is first loaded/initialised
@@ -24,6 +30,7 @@ end
 
 -- Adds a new undo state to the undo buffer, and also clears the redo buffer
 -- Should be called after the user makes a change to the current state
+---@param noClearRedo boolean?
 function UndoHandlerClass:AddUndoState(noClearRedo)
 	t_insert(self.undo, 1, self:CreateUndoState())
 	self.undo[102] = nil

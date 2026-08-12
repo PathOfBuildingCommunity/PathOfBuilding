@@ -3,10 +3,13 @@
 -- Class: Text List
 -- Simple list control for displaying a block of text
 --
-local TextListClass = newClass("TextListControl", "Control", "ControlHost", function(self, anchor, rect, columns, list, sectionHeights)
-	self.Control(anchor, rect)
-	self.ControlHost()
-	self.controls.scrollBar = new("ScrollBarControl", {"RIGHT",self,"RIGHT"}, {-1, 0, 18, 0}, 40)
+---@class TextListControl: Control, ControlHost
+local TextListClass = newClass("TextListControl", "Control", "ControlHost")
+
+function TextListClass:TextListControl(anchor, rect, columns, list, sectionHeights)
+	self:Control(anchor, rect)
+	self:ControlHost()
+	self.controls.scrollBar = new("ScrollBarControl"):ScrollBarControl({"RIGHT",self,"RIGHT"}, {-1, 0, 18, 0}, 40)
 	self.controls.scrollBar.height = function()
 		local width, height = self:GetSize()
 		return height - 2
@@ -14,7 +17,8 @@ local TextListClass = newClass("TextListControl", "Control", "ControlHost", func
 	self.columns = columns or { { x = 0, align = "LEFT" } }
 	self.list = list or { }
 	self.sectionHeights = sectionHeights
-end)
+	return self
+end
 
 function TextListClass:IsMouseOver()
 	if not self:IsShown() then

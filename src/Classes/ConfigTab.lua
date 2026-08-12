@@ -12,15 +12,18 @@ local s_upper = string.upper
 local varList = LoadModule("Modules/ConfigOptions")
 local configVisibility = LoadModule("Modules/ConfigVisibility")
 
-local CustomModBlockClass = newClass("CustomModBlockControl", "Control", "ControlHost", function(self, anchor, rect, configTab, blockIndex, blockData)
-	self.Control(anchor, rect)
-	self.ControlHost()
+---@class CustomModBlock: ControlHost, Control
+local CustomModBlockClass = newClass("CustomModBlockControl", "ControlHost", "Control")
+
+function CustomModBlockClass:CustomModBlockControl(anchor, rect, configTab, blockIndex, blockData)
+	self:Control(anchor, rect)
+	self:ControlHost()
 
 	self.configTab = configTab
 	self.blockIndex = blockIndex
 	self.blockData = blockData
 
-	self.controls.deleteBtn = new("ButtonControl", {"TOPLEFT", self, "TOPLEFT"}, {0, 0, 20, 18}, "^1X", function()
+	self.controls.deleteBtn = new("ButtonControl"):ButtonControl({"TOPLEFT", self, "TOPLEFT"}, {0, 0, 20, 18}, "^1X", function()
 		local customModsList = configTab.configSets[configTab.activeConfigSetId].customModsList
 		table.remove(customModsList, blockIndex)
 		if #customModsList == 0 then
@@ -32,18 +35,18 @@ local CustomModBlockClass = newClass("CustomModBlockControl", "Control", "Contro
 		configTab.build.buildFlag = true
 	end)
 
-	self.controls.titleEdit = new("EditControl", {"LEFT", self.controls.deleteBtn, "RIGHT"}, {6, 0, 222, 18}, blockData.title or "", nil, nil, nil, function(buf)
+	self.controls.titleEdit = new("EditControl"):EditControl({"LEFT", self.controls.deleteBtn, "RIGHT"}, {6, 0, 222, 18}, blockData.title or "", nil, nil, nil, function(buf)
 		blockData.title = buf
 		configTab:AddUndoState()
 		configTab:BuildModList()
 		configTab.build.buildFlag = true
 	end)
 
-	self.controls.addModBtn = new("ButtonControl", {"LEFT", self.controls.titleEdit, "RIGHT"}, {6, 0, 58, 18}, "^7Add Mod", function()
+	self.controls.addModBtn = new("ButtonControl"):ButtonControl({"LEFT", self.controls.titleEdit, "RIGHT"}, {6, 0, 58, 18}, "^7Add Mod", function()
 		configTab:OpenAddModPopup(blockData)
 	end)
 
-	self.controls.enableCheck = new("CheckBoxControl", {"TOPRIGHT", self, "TOPRIGHT"}, {0, 0, 18}, "", function(state)
+	self.controls.enableCheck = new("CheckBoxControl"):CheckBoxControl({"TOPRIGHT", self, "TOPRIGHT"}, {0, 0, 18}, "", function(state)
 		blockData.enabled = state
 		configTab:AddUndoState()
 		configTab:BuildModList()
@@ -67,7 +70,7 @@ local CustomModBlockClass = newClass("CustomModBlockControl", "Control", "Contro
 		end
 	end
 
-	self.controls.textEdit = new("ResizableEditControl", {"TOPLEFT", self, "TOPLEFT"}, {0, 22, 344, 80, 344, 40, 344, 600}, blockData.text or "", nil, "^%C\t\n", nil, function(buf)
+	self.controls.textEdit = new("ResizableEditControl"):ResizableEditControl({"TOPLEFT", self, "TOPLEFT"}, {0, 22, 344, 80, 344, 40, 344, 600}, blockData.text or "", nil, "^%C\t\n", nil, function(buf)
 		blockData.text = buf
 		configTab:AddUndoState()
 		configTab:BuildModList()
@@ -83,7 +86,8 @@ local CustomModBlockClass = newClass("CustomModBlockControl", "Control", "Contro
 		end
 		return inactiveText
 	end
-end)
+	return self
+end
 
 function CustomModBlockClass:GetSize()
 	local textHeight = self.controls.textEdit and self.controls.textEdit.height or 80
@@ -116,10 +120,14 @@ function CustomModBlockClass:Draw(viewPort)
 	self:DrawControls(viewPort)
 end
 
-local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Control", function(self, build)
-	self.UndoHandler()
-	self.ControlHost()
-	self.Control()
+---@class ConfigTab: UndoHandler, ControlHost, Control
+local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Control")
+
+---@param build Build
+function ConfigTabClass:ConfigTab(build)
+	self:UndoHandler()
+	self:ControlHost()
+	self:Control()
 
 	self.build = build
 
@@ -146,10 +154,10 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 	-- A calculator base output matching the calcFunc which is updated by the build when it is rebuilt
 	---@type table
 	self.calcBase = nil
-	self.controls.sectionAnchor = new("LabelControl", { "TOPLEFT", self, "TOPLEFT" }, { 0, 20, 0, 0 }, "")
+	self.controls.sectionAnchor = new("LabelControl"):LabelControl({ "TOPLEFT", self, "TOPLEFT" }, { 0, 20, 0, 0 }, "")
 
 	-- Set selector
-	self.controls.setSelect = new("DropDownControl", { "TOPLEFT", self.controls.sectionAnchor, "TOPLEFT" }, { 76, -12, 210, 20 }, nil, function(index, value)
+	self.controls.setSelect = new("DropDownControl"):DropDownControl({ "TOPLEFT", self.controls.sectionAnchor, "TOPLEFT" }, { 76, -12, 210, 20 }, nil, function(index, value)
 		self:SetActiveConfigSet(self.configSetOrderList[index])
 		self:AddUndoState()
 	end)
@@ -157,15 +165,15 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 	self.controls.setSelect.enabled = function()
 		return #self.configSetOrderList > 1
 	end
-	self.controls.setLabel = new("LabelControl", { "RIGHT", self.controls.setSelect, "LEFT" }, { -2, 0, 0, 16 }, "^7Config set:")
-	self.controls.setManage = new("ButtonControl", { "LEFT", self.controls.setSelect, "RIGHT" }, { 4, 0, 90, 20 }, "Manage...", function()
+	self.controls.setLabel = new("LabelControl"):LabelControl({ "RIGHT", self.controls.setSelect, "LEFT" }, { -2, 0, 0, 16 }, "^7Config set:")
+	self.controls.setManage = new("ButtonControl"):ButtonControl({ "LEFT", self.controls.setSelect, "RIGHT" }, { 4, 0, 90, 20 }, "Manage...", function()
 		self:OpenConfigSetManagePopup()
 	end)
 
-	self.controls.search = new("EditControl", { "TOPLEFT", self.controls.sectionAnchor, "TOPLEFT" }, { 8, 15, 360, 20 }, "", "Search", "%c", 100, function()
+	self.controls.search = new("EditControl"):EditControl({ "TOPLEFT", self.controls.sectionAnchor, "TOPLEFT" }, { 8, 15, 360, 20 }, "", "Search", "%c", 100, function()
 		self:UpdateControls()
 	end, nil, nil, true)
-	self.controls.toggleConfigs = new("ButtonControl", { "LEFT", self.controls.search, "RIGHT" }, { 10, 0, 200, 20 }, function()
+	self.controls.toggleConfigs = new("ButtonControl"):ButtonControl({ "LEFT", self.controls.search, "RIGHT" }, { 10, 0, 200, 20 }, function()
 		-- dynamic text
 		return self.toggleConfigs and "Hide Ineligible Configurations" or "Show All Configurations"
 	end, function()
@@ -242,7 +250,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 	local lastSection
 	for _, varData in ipairs(varList) do
 		if varData.section then
-			lastSection = new("SectionControl", {"TOPLEFT",self.controls.search,"BOTTOMLEFT"}, {0, 0, 360, 0}, varData.section)
+			lastSection = new("SectionControl"):SectionControl({"TOPLEFT",self.controls.search,"BOTTOMLEFT"}, {0, 0, 360, 0}, varData.section)
 			lastSection.varControlList = { }
 			lastSection.col = varData.col
 			lastSection.height = function(self)
@@ -263,14 +271,14 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 		else
 			local control
 			if varData.type == "check" then
-				control = new("CheckBoxControl", {"TOPLEFT",lastSection,"TOPLEFT"}, {234, 0, 18}, varData.label, function(state)
+				control = new("CheckBoxControl"):CheckBoxControl({"TOPLEFT",lastSection,"TOPLEFT"}, {234, 0, 18}, varData.label, function(state)
 					self.configSets[self.activeConfigSetId].input[varData.var] = state
 					self:AddUndoState()
 					self:BuildModList()
 					self.build.buildFlag = true
 				end)
 			elseif varData.type == "count" or varData.type == "integer" or varData.type == "countAllowZero" or varData.type == "float" then
-				control = new("EditControl", {"TOPLEFT",lastSection,"TOPLEFT"}, {234, 0, 90, 18}, "", nil, ((varData.type == "integer" or varData.type == "countAllowZero") and "^%-%d") or (varData.type == "float" and "^%d.") or "%D", 10, function(buf, placeholder)
+				control = new("EditControl"):EditControl({"TOPLEFT",lastSection,"TOPLEFT"}, {234, 0, 90, 18}, "", nil, ((varData.type == "integer" or varData.type == "countAllowZero") and "^%-%d") or (varData.type == "float" and "^%d.") or "%D", 10, function(buf, placeholder)
 					if placeholder then
 						self.configSets[self.activeConfigSetId].placeholder[varData.var] = tonumber(buf)
 					else
@@ -281,14 +289,14 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					self.build.buildFlag = true
 				end)
 			elseif varData.type == "list" then
-				control = new("DropDownControl", {"TOPLEFT",lastSection,"TOPLEFT"}, {234, 0, 118, 16}, varData.list, function(index, value)
+				control = new("DropDownControl"):DropDownControl({"TOPLEFT",lastSection,"TOPLEFT"}, {234, 0, 118, 16}, varData.list, function(index, value)
 					self.configSets[self.activeConfigSetId].input[varData.var] = value.val
 					self:AddUndoState()
 					self:BuildModList()
 					self.build.buildFlag = true
 				end)
 			elseif varData.type == "text" and not varData.resizable then
-				control = new("EditControl", {"TOPLEFT",lastSection,"TOPLEFT"}, {8, 0, 344, 118}, "", nil, "^%C\t\n", nil, function(buf, placeholder)
+				control = new("EditControl"):EditControl({"TOPLEFT",lastSection,"TOPLEFT"}, {8, 0, 344, 118}, "", nil, "^%C\t\n", nil, function(buf, placeholder)
 					if placeholder then
 						self.configSets[self.activeConfigSetId].placeholder[varData.var] = tostring(buf)
 					else
@@ -299,7 +307,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					self.build.buildFlag = true
 				end, 16)
 			elseif varData.type == "text" and varData.resizable then
-				control = new("ResizableEditControl", {"TOPLEFT",lastSection,"TOPLEFT"}, {8, 0, 344, 118, nil, nil, nil, 118 + 16 * 40}, "", nil, "^%C\t\n", nil, function(buf, placeholder)
+				control = new("ResizableEditControl"):ResizableEditControl({"TOPLEFT",lastSection,"TOPLEFT"}, {8, 0, 344, 118, nil, nil, nil, 118 + 16 * 40}, "", nil, "^%C\t\n", nil, function(buf, placeholder)
 					if placeholder then
 						self.configSets[self.activeConfigSetId].placeholder[varData.var] = tostring(buf)
 					else
@@ -310,7 +318,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					self.build.buildFlag = true
 				end, 16)
 			else
-				control = new("Control", {"TOPLEFT",lastSection,"TOPLEFT"}, {234, 0, 16, 16})
+				control = new("Control"):Control({"TOPLEFT",lastSection,"TOPLEFT"}, {234, 0, 16, 16})
 			end
 
 			if varData.inactiveText then
@@ -634,7 +642,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 			end
 			local labelControl = control
 			if varData.label and varData.type ~= "check" then
-				labelControl = new("LabelControl", {"RIGHT",control,"LEFT"}, {-4, 0, 0, DrawStringWidth(14, "VAR", varData.label) > 228 and 12 or 14}, "^7"..varData.label)
+				labelControl = new("LabelControl"):LabelControl({"RIGHT",control,"LEFT"}, {-4, 0, 0, DrawStringWidth(14, "VAR", varData.label) > 228 and 12 or 14}, "^7"..varData.label)
 				t_insert(self.controls, labelControl)
 			end
 			if varData.var then
@@ -770,9 +778,9 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 			t_insert(lastSection.varControlList, control)
 		end
 	end
-	self.controls.scrollBar = new("ScrollBarControl", {"TOPRIGHT",self,"TOPRIGHT"}, {0, 0, 18, 0}, 50, "VERTICAL", true)
+	self.controls.scrollBar = new("ScrollBarControl"):ScrollBarControl({"TOPRIGHT",self,"TOPRIGHT"}, {0, 0, 18, 0}, 50, "VERTICAL", true)
 	if self.customSection then
-		self.controls.customModsAddBlock = new("ButtonControl", {"TOPLEFT", self.customSection, "TOPLEFT"}, {8, 0, 120, 20}, "^7Add Mod Group", function()
+		self.controls.customModsAddBlock = new("ButtonControl"):ButtonControl({"TOPLEFT", self.customSection, "TOPLEFT"}, {8, 0, 120, 20}, "^7Add Mod Group", function()
 			local customModsList = self.configSets[self.activeConfigSetId].customModsList
 			t_insert(customModsList, { title = "Group " .. (#customModsList + 1), enabled = true, text = "" })
 			self:UpdateCustomModsControls()
@@ -783,7 +791,9 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 		self.customModsBlockControls = { }
 		self:UpdateCustomModsControls()
 	end
-end)
+
+	return self
+end
 
 function ConfigTabClass:Load(xml, fileName)
 	self.activeConfigSetId = 1
@@ -1072,9 +1082,9 @@ function ConfigTabClass:UpdateLevel()
 end
 
 function ConfigTabClass:BuildModList()
-	local modList = new("ModList")
+	local modList = new("ModList"):ModList()
 	self.modList = modList
-	local enemyModList = new("ModList")
+	local enemyModList = new("ModList"):ModList()
 	self.enemyModList = enemyModList
 	local input = self.configSets[self.activeConfigSetId].input
 	local placeholder = self.configSets[self.activeConfigSetId].placeholder
@@ -1213,8 +1223,8 @@ end
 
 function ConfigTabClass:OpenConfigSetManagePopup()
 	main:OpenPopup(370, 290, "Manage Config Sets", {
-		new("ConfigSetListControl", nil, {0, 50, 350, 200}, self),
-		new("ButtonControl", nil, {0, 260, 90, 20}, "Done", function()
+		new("ConfigSetListControl"):ConfigSetListControl(nil, {0, 50, 350, 200}, self),
+		new("ButtonControl"):ButtonControl(nil, {0, 260, 90, 20}, "Done", function()
 			main:ClosePopup()
 		end),
 	})
@@ -1267,7 +1277,7 @@ function ConfigTabClass:UpdateCustomModsControls()
 	self.customSection.varControlList = { self.controls.customModsAddBlock }
 
 	for index, block in ipairs(configSet.customModsList) do
-		local blockControl = new("CustomModBlockControl", {"TOPLEFT", self.customSection, "TOPLEFT"}, {8, 0, 344, 120}, self, index, block)
+		local blockControl = new("CustomModBlockControl"):CustomModBlockControl({"TOPLEFT", self.customSection, "TOPLEFT"}, {8, 0, 344, 120}, self, index, block)
 		t_insert(self.customModsBlockControls, blockControl)
 		t_insert(self.controls, blockControl)
 		t_insert(self.customSection.varControlList, blockControl)
@@ -1488,7 +1498,7 @@ function ConfigTabClass:OpenAddModPopup(blockData)
 		end
 	end
 
-	controls.listControl = new("ListControl", {"TOPLEFT", nil, "TOPLEFT"}, {10, 20, 700, 454}, 16, "VERTICAL", false, displayList)
+	controls.listControl = new("ListControl"):ListControl({"TOPLEFT", nil, "TOPLEFT"}, {10, 20, 700, 454}, 16, "VERTICAL", false, displayList)
 	controls.listControl.font = "VAR"
 	controls.listControl.GetRowValue = function(self, column, index, value)
 		return value or ""
@@ -1511,8 +1521,8 @@ function ConfigTabClass:OpenAddModPopup(blockData)
 		end
 	end
 
-	controls.searchLabel = new("LabelControl", {"TOPRIGHT", nil, "TOPLEFT"}, {65, 482, 0, 16}, "^7Search:")
-	controls.search = new("EditControl", {"TOPLEFT", nil, "TOPLEFT"}, {70, 482, 640, 18}, "", nil, "%c", 100, function()
+	controls.searchLabel = new("LabelControl"):LabelControl({"TOPRIGHT", nil, "TOPLEFT"}, {65, 482, 0, 16}, "^7Search:")
+	controls.search = new("EditControl"):EditControl({"TOPLEFT", nil, "TOPLEFT"}, {70, 482, 640, 18}, "", nil, "%c", 100, function()
 		updateDisplayList()
 	end, nil, nil, true)
 	controls.search.controls.buttonClear.shown = function()
@@ -1521,7 +1531,7 @@ function ConfigTabClass:OpenAddModPopup(blockData)
 
 	updateDisplayList()
 
-	controls.save = new("ButtonControl", nil, {-45, 512, 80, 20}, "Add", function()
+	controls.save = new("ButtonControl"):ButtonControl(nil, {-45, 512, 80, 20}, "Add", function()
 		local selIndex = controls.listControl.selIndex or 1
 		local selected = displayList[selIndex]
 		if selected and selected ~= "No matching modifiers found" then
@@ -1542,7 +1552,7 @@ function ConfigTabClass:OpenAddModPopup(blockData)
 		return selected ~= nil and selected ~= "No matching modifiers found"
 	end
 
-	controls.close = new("ButtonControl", nil, {45, 512, 80, 20}, "Cancel", function()
+	controls.close = new("ButtonControl"):ButtonControl(nil, {45, 512, 80, 20}, "Cancel", function()
 		main:ClosePopup()
 	end)
 

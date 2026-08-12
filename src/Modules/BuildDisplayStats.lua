@@ -248,4 +248,4 @@ local extraSaveStats = {
 	"ActiveMinionLimit",
 }
 
-return displayStats, minionDisplayStats, extraSaveStats
+return { displayStats = displayStats, minionDisplayStats = minionDisplayStats, extraSaveStats = extraSaveStats }
