@@ -194,7 +194,7 @@ describe("TradeQuery", function()
 			})
 			tq.itemsTab.AddItemTooltip = function() end
 			local dropdown = buildRow1Dropdown(tq)
-			local tooltip = new("Tooltip")
+			local tooltip = new("Tooltip"):Tooltip()
 
 			dropdown.tooltipFunc(tooltip, "DROP", 1, nil)
 			local text = ""
@@ -235,7 +235,7 @@ describe("TradeQuery", function()
 			end
 			tq.IsResistanceSwapPreviewActive = function() return true end
 			local dropdown = buildRow1Dropdown(tq)
-			local tooltip = new("Tooltip")
+			local tooltip = new("Tooltip"):Tooltip()
 
 			dropdown.tooltipFunc(tooltip, "DROP", 1, nil)
 
@@ -329,7 +329,7 @@ describe("TradeQuery", function()
 			tradeQuery.sortedResultTbl[1] = { { index = 1 } }
 			tradeQuery:PriceItemRowDisplay(1, nil, 0, 20)
 			tradeQuery.itemIndexTbl[1] = 2
-			local tooltip = new("Tooltip")
+			local tooltip = new("Tooltip"):Tooltip()
 
 			assert.has_no.errors(function()
 				tradeQuery.controls.importButton1.tooltipFunc(tooltip)

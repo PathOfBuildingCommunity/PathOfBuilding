@@ -1669,7 +1669,7 @@ you can add them, copy the link here, and press "Price Item" to evaluate the ite
 			return
 		end
 		local previewItem = new("Item"):Item(evaluation.theoreticalResistanceSwapItemString)
-		local previewTooltip = tooltip.resistanceSwapPreviewTooltip or new("Tooltip")
+		local previewTooltip = tooltip.resistanceSwapPreviewTooltip or new("Tooltip"):Tooltip()
 		tooltip.resistanceSwapPreviewTooltip = previewTooltip
 		previewTooltip:Clear()
 		self.itemsTab:AddItemTooltip(previewTooltip, previewItem, tooltipSlot)
