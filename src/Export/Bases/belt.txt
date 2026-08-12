@@ -1,6 +1,5 @@
 -- Item data (c) Grinding Gear Games
-local itemBases = ...
-
+return function(itemBases)
 #type Belt
 #influenceBaseTag belt
 #baseMatch Metadata/Items/Belts/Belt%d+
@@ -12,3 +11,4 @@ local itemBases = ...
 #base Metadata/Items/Belts/BeltFaridun
 
 #base Metadata/Items/Belts/BeltDemigods1
+end

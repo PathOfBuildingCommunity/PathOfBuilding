@@ -4,8 +4,7 @@
 -- Glove enchantment skills
 -- Skill data (c) Grinding Gear Games
 --
-local skills, mod, flag, skill = ...
-
+return function(skills, mod, flag, skill)
 skills["EnchantmentOfBladesOnHit"] = {
 	name = "Word of Blades",
 	hidden = true,
@@ -2246,3 +2245,4 @@ skills["EnchantmentOfWinterWhenHit4"] = {
 		[1] = { 2.4000000953674, 3.7999999523163, PvPDamageMultiplier = -80, cooldown = 10, critChance = 5, levelRequirement = 75, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
+end

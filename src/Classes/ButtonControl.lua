@@ -3,14 +3,18 @@
 -- Class: Button Control
 -- Basic button control.
 --
-local ButtonClass = newClass("ButtonControl", "Control", "TooltipHost", function(self, anchor, rect, label, onClick, onHover, forceTooltip)
-	self.Control(anchor, rect)
-	self.TooltipHost()
+---@class ButtonControl: Control, TooltipHost
+local ButtonClass = newClass("ButtonControl", "Control", "TooltipHost")
+
+function ButtonClass:ButtonControl(anchor, rect, label, onClick, onHover, forceTooltip)
+	self:Control(anchor, rect)
+	self:TooltipHost()
 	self.label = label
 	self.onClick = onClick
 	self.onHover = onHover
 	self.forceTooltip = forceTooltip
-end)
+	return self
+end
 
 function ButtonClass:Click()
 	if self:IsShown() and self:IsEnabled() then

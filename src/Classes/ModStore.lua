@@ -27,12 +27,16 @@ local conditionName = setmetatable({ }, { __index = function(t, var)
 	return t[var]
 end })
 
-local ModStoreClass = newClass("ModStore", function(self, parent)
+---@class ModStore
+local ModStoreClass = newClass("ModStore")
+
+function ModStoreClass:ModStore(parent)
 	self.parent = parent or false
 	self.actor = parent and parent.actor or { }
 	self.multipliers = { }
 	self.conditions = { }
-end)
+	return self
+end
 
 local function getActor(self, actorType)
 	if actorType == "player" then

@@ -3,15 +3,19 @@
 -- Class: Check Box Control
 -- Basic check box control.
 --
-local CheckBoxClass = newClass("CheckBoxControl", "Control", "TooltipHost", function(self, anchor, rect, label, changeFunc, tooltipText, initialState)
+---@class CheckBoxControl: Control, TooltipHost
+local CheckBoxClass = newClass("CheckBoxControl", "Control", "TooltipHost")
+
+function CheckBoxClass:CheckBoxControl(anchor, rect, label, changeFunc, tooltipText, initialState)
 	rect[4] = rect[3] or 0
-	self.Control(anchor, rect)
-	self.TooltipHost(tooltipText)
+	self:Control(anchor, rect)
+	self:TooltipHost(tooltipText)
 	self.label = label
 	self.labelWidth = DrawStringWidth(self.width - 4, "VAR", label or "") + 5
 	self.changeFunc = changeFunc
 	self.state = initialState
-end)
+	return self
+end
 
 function CheckBoxClass:IsMouseOver()
 	if not self:IsShown() then

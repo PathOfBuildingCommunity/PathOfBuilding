@@ -7,20 +7,23 @@ local pairs = pairs
 local ipairs = ipairs
 local t_insert = table.insert
 
-local ItemListClass = newClass("ItemListControl", "ListControl", function(self, anchor, rect, itemsTab, forceTooltip)
-	self.ListControl(anchor, rect, 16, "VERTICAL", true, itemsTab.itemOrderList, forceTooltip)
+---@class ItemListControl: ListControl
+local ItemListClass = newClass("ItemListControl", "ListControl")
+
+function ItemListClass:ItemListControl(anchor, rect, itemsTab, forceTooltip)
+	self:ListControl(anchor, rect, 16, "VERTICAL", true, itemsTab.itemOrderList, forceTooltip)
 	self.itemsTab = itemsTab
 	self.defaultText = "^x7F7F7FThis is the list of items that have been added to this build.\nYou can add items to this list by dragging them from\none of the other lists, or by clicking 'Add to build' when\nviewing an item."
 	self.dragTargetList = { }
-	self.controls.loadoutFilter = new("DropDownControl", {"BOTTOMLEFT",self,"TOPLEFT"}, {0, -2, 110, 18}, nil, function()
+	self.controls.loadoutFilter = new("DropDownControl"):DropDownControl({"BOTTOMLEFT",self,"TOPLEFT"}, {0, -2, 110, 18}, nil, function()
 		self:UpdateList()
 	end)
 	self.controls.loadoutFilter.enableDroppedWidth = true
-	self.controls.sort = new("ButtonControl", {"LEFT",self.controls.loadoutFilter,"RIGHT"}, {4, 0, 42, 18}, "Sort", function()
+	self.controls.sort = new("ButtonControl"):ButtonControl({"LEFT",self.controls.loadoutFilter,"RIGHT"}, {4, 0, 42, 18}, "Sort", function()
 		itemsTab:SortItemList()
 		self:UpdateList()
 	end)
-	self.controls.deleteUnused = new("ButtonControl", {"LEFT",self.controls.sort,"RIGHT"}, {4, 0, 84, 18}, "Del Unused", function()
+	self.controls.deleteUnused = new("ButtonControl"):ButtonControl({"LEFT",self.controls.sort,"RIGHT"}, {4, 0, 84, 18}, "Del Unused", function()
 		local delList = {}
 		for _, itemId in pairs(itemsTab.itemOrderList) do
 			if not itemsTab:GetEquippedSlotForItem(itemsTab.items[itemId]) and not self:FindEquippedAbyssJewel(itemId, false) and not self:FindSocketedJewel(itemId, false) then
@@ -43,7 +46,7 @@ local ItemListClass = newClass("ItemListControl", "ListControl", function(self, 
 	self.controls.deleteUnused.enabled = function()
 		return #self.list > 0
 	end
-	self.controls.deleteAll = new("ButtonControl", {"LEFT",self.controls.deleteUnused,"RIGHT"}, {4, 0, 58, 18}, "Del All", function()
+	self.controls.deleteAll = new("ButtonControl"):ButtonControl({"LEFT",self.controls.deleteUnused,"RIGHT"}, {4, 0, 58, 18}, "Del All", function()
 		main:OpenConfirmPopup("Delete All", "Are you sure you want to delete all items in this build?", "Delete", function()
 			for _, slot in pairs(itemsTab.slots) do
 				slot:SetSelItemId(0)
@@ -66,13 +69,14 @@ local ItemListClass = newClass("ItemListControl", "ListControl", function(self, 
 	self.controls.deleteAll.enabled = function()
 		return #self.list > 0
 	end
-	self.controls.delete = new("ButtonControl", {"LEFT",self.controls.deleteAll,"RIGHT"}, {4, 0, 50, 18}, "Delete", function()
+	self.controls.delete = new("ButtonControl"):ButtonControl({"LEFT",self.controls.deleteAll,"RIGHT"}, {4, 0, 50, 18}, "Delete", function()
 		self:OnSelDelete(self.selIndex, self.selValue)
 	end)
 	self.controls.delete.enabled = function()
 		return self.selValue ~= nil
 	end
-end)
+	return self
+end
 
 function ItemListClass:UpdateLoadoutList()
 	local list = { "Any Loadout", "Current Loadout", "Unused Items" }
@@ -274,7 +278,7 @@ end
 
 function ItemListClass:ReceiveDrag(type, value, source)
 	if type == "Item" then
-		local newItem = new("Item", value.raw)
+		local newItem = new("Item"):Item(value.raw)
 		newItem:NormaliseQuality()
 		self.itemsTab:AddItem(newItem, true, self.selDragIndex)
 		self.itemsTab:PopulateSlots()
@@ -316,7 +320,7 @@ function ItemListClass:OnSelClick(index, itemId, doubleClick)
 		-- disallow dragging since if the cursor is outside the selection after
 		-- the second click, the item will be stuck onto the cursor
 		self.selDragging = false
-		local newItem = new("Item", item:BuildRaw())
+		local newItem = new("Item"):Item(item:BuildRaw())
 		newItem.id = item.id
 		self.itemsTab:SetDisplayItem(newItem)
 		return false

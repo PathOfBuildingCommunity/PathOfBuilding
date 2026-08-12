@@ -1,6 +1,6 @@
 describe("SearchHost", function()
 	it("merges all overlapping ranges when word order is ignored", function()
-		local searchHost = new("SearchHost", function()
+		local searchHost = new("SearchHost"):SearchHost(function()
 			return { "caster" }
 		end, nil, true)
 

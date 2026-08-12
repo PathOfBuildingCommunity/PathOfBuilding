@@ -3,7 +3,8 @@
 -- Module: Calc Setup
 -- Initialises the environment for calculations.
 --
-local calcs = ...
+---@class Calcs
+local calcs = require("Modules.CalcBase")
 
 local pairs = pairs
 local ipairs = ipairs
@@ -114,7 +115,7 @@ function calcs.initModDB(env, modDB)
 end
 
 function calcs.buildModListForNode(env, node)
-	local modList = new("ModList")
+	local modList = new("ModList"):ModList()
 	if node.type == "Keystone" then
 		modList:AddMod(node.keystoneMod)
 	else
@@ -135,7 +136,7 @@ function calcs.buildModListForNode(env, node)
 	-- Apply effect scaling
 	local scale = calcLib.mod(modList, nil, "PassiveSkillEffect")
 	if scale ~= 1 then
-		local scaledList = new("ModList")
+		local scaledList = new("ModList"):ModList()
 		scaledList:ScaleAddList(modList, scale)
 		modList = scaledList
 	end
@@ -178,7 +179,7 @@ function calcs.buildModListForNodeList(env, nodeList, finishJewels)
 	end
 
 	-- Add node modifiers
-	local modList = new("ModList")
+	local modList = new("ModList"):ModList()
 	local explodeSources = {}
 	for _, node in pairs(nodeList) do
 		local nodeModList, explode = calcs.buildModListForNode(env, node)
@@ -400,11 +401,11 @@ function calcs.initEnv(build, mode, override, specEnv)
 		env.override = override
 		env.classId = env.spec.curClassId
 
-		modDB = new("ModDB")
+		modDB = new("ModDB"):ModDB()
 		env.modDB = modDB
-		enemyDB = new("ModDB")
+		enemyDB = new("ModDB"):ModDB()
 		env.enemyDB = enemyDB
-		env.itemModDB = new("ModDB")
+		env.itemModDB = new("ModDB"):ModDB()
 
 		env.enemyLevel = build.configTab.enemyLevel or m_min(data.misc.MaxEnemyLevel, build.characterLevel)
 
@@ -997,7 +998,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 				end
 				if item.type == "Shield" and env.allocNodes[45175] and env.allocNodes[45175].dn == "Necromantic Aegis" then
 					-- Special handling for Necromantic Aegis
-					env.aegisModList = new("ModList")
+					env.aegisModList = new("ModList"):ModList()
 					for _, mod in ipairs(srcList) do
 						-- Filter out mods that apply to socketed gems, or which add supports
 						local add = true
@@ -1019,7 +1020,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 					local info = env.data.weaponTypeInfo[type]
 					if info and type ~= "Bow" then
 						local name = info.oneHand and "Energy Blade One Handed" or "Energy Blade Two Handed"
-						local item = new("Item")
+						local item = new("Item"):Item()
 						item.name = name
 						item.base = data.itemBases[name]
 						item.baseName = name
@@ -1050,7 +1051,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 					end
 				elseif slotName == "Weapon 1" and item.name == "The Iron Mass, Gladius" then
 					-- Special handling for The Iron Mass
-					env.theIronMass = new("ModList")
+					env.theIronMass = new("ModList"):ModList()
 					for _, mod in ipairs(srcList) do
 						-- Filter out mods that apply to socketed gems, or which add supports
 						local add = true
@@ -1068,7 +1069,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 					end
 				elseif slotName == "Weapon 1" and item.grantedSkills[1] and item.grantedSkills[1].skillId == "UniqueAnimateWeapon" then
 					-- Special handling for The Dancing Dervish
-					env.weaponModList1 = new("ModList")
+					env.weaponModList1 = new("ModList"):ModList()
 					for _, mod in ipairs(srcList) do
 						-- Filter out mods that apply to socketed gems, or which add supports
 						local add = true
@@ -1127,25 +1128,25 @@ function calcs.initEnv(build, mode, override, specEnv)
 					local widowHailMod= (1 + (items["Weapon 1"] and items["Weapon 1"].baseModList:Sum("INC", nil, "EffectOfBonusesFromQuiver") + env.initialNodeModDB:Sum("INC", nil, "EffectOfBonusesFromQuiver") or 100) / 100)
 					scale = scale * widowHailMod
 					env.modDB:NewMod("WidowHailMultiplier", "BASE", widowHailMod, "Widowhail")
-					local combinedList = new("ModList")
+					local combinedList = new("ModList"):ModList()
 					for _, mod in ipairs(srcList) do
 						combinedList:MergeMod(mod)
 					end
 					env.itemModDB:ScaleAddList(combinedList, scale)
 				elseif env.modDB.multipliers["Corrupted" .. item.rarity:gsub("(%a)(%u*)", function(a, b) return a..string.lower(b) end) .. "JewelEffect"] and item.type == "Jewel" and item.corrupted and slot.nodeId and item.base.subType ~= "Charm" and not env.spec.nodes[slot.nodeId].containJewelSocket then
 					scale = scale + env.modDB.multipliers["Corrupted" .. item.rarity:gsub("(%a)(%u*)", function(a, b) return a..string.lower(b) end) .. "JewelEffect"]
-					local combinedList = new("ModList")
+					local combinedList = new("ModList"):ModList()
 					for _, mod in ipairs(srcList) do
 						combinedList:MergeMod(mod)
 					end	
 					env.itemModDB:ScaleAddList(combinedList, scale)
 				elseif item.type == "Gloves" and calcLib.mod(env.initialNodeModDB, nil, "EffectOfBonusesFromGloves") ~=1 then
 					scale = calcLib.mod(env.initialNodeModDB, nil, "EffectOfBonusesFromGloves") - 1
-					local combinedList = new("ModList")
+					local combinedList = new("ModList"):ModList()
 					for _, mod in ipairs(srcList) do
 						combinedList:MergeMod(mod)
 					end
-					local scaledList = new("ModList")
+					local scaledList = new("ModList"):ModList()
 					scaledList:ScaleAddList(combinedList, scale)
 					for _, mod in ipairs(scaledList) do
 						combinedList:MergeMod(mod, true)
@@ -1153,11 +1154,11 @@ function calcs.initEnv(build, mode, override, specEnv)
 					env.itemModDB:AddList(combinedList)
 				elseif item.type == "Boots" and calcLib.mod(env.initialNodeModDB, nil, "EffectOfBonusesFromBoots") ~= 1 then
 					scale = calcLib.mod(env.initialNodeModDB, nil, "EffectOfBonusesFromBoots") - 1
-					local combinedList = new("ModList")
+					local combinedList = new("ModList"):ModList()
 					for _, mod in ipairs(srcList) do
 						combinedList:MergeMod(mod)
 					end
-					local scaledList = new("ModList")
+					local scaledList = new("ModList"):ModList()
 					scaledList:ScaleAddList(combinedList, scale)
 					for _, mod in ipairs(scaledList) do
 						combinedList:MergeMod(mod, true)
@@ -1322,7 +1323,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 	end
 	if not override or (override and not override.extraJewelFuncs) then
 		override = override or {}
-		override.extraJewelFuncs = new("ModList")
+		override.extraJewelFuncs = new("ModList"):ModList()
 		override.extraJewelFuncs.actor = env.player
 		for _, mod in ipairs(env.modDB:Tabulate("LIST", nil, "ExtraJewelFunc")) do
 			override.extraJewelFuncs:AddMod(mod.mod)

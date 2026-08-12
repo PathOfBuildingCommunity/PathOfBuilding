@@ -4,8 +4,7 @@
 -- Minion active skills
 -- Skill data (c) Grinding Gear Games
 --
-local skills, mod, flag, skill = ...
-
+return function(skills, mod, flag, skill)
 skills["ChaosElementalCascadeSummoned"] = {
 	name = "Cascade",
 	hidden = true,
@@ -2347,3 +2346,4 @@ skills["MeleePartialChaos"] = {
 		[1] = { 0, baseMultiplier = 0.75, levelRequirement = 1, statInterpolation = { 2, }, },
 	},
 }
+end

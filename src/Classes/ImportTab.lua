@@ -76,19 +76,19 @@ local function addOAuthControls(self)
 	local rowSpacing = 6
 
 
-	self.controls.charImportStatusLabel = new("LabelControl", { "TOPLEFT", self.controls.sectionOauthCharImport, "TOPLEFT" },
+	self.controls.charImportStatusLabel = new("LabelControl"):LabelControl({ "TOPLEFT", self.controls.sectionOauthCharImport, "TOPLEFT" },
 		{ labelSpacing, 14, 200, 16 }, function()
 			return "^7Character import status: " .. charImportStatus()
 		end)
 
-	self.controls.logoutApiButton = new("ButtonControl", { "TOPLEFT", self.controls.charImportStatusLabel, "TOPRIGHT" },
+	self.controls.logoutApiButton = new("ButtonControl"):ButtonControl({ "TOPLEFT", self.controls.charImportStatusLabel, "TOPRIGHT" },
 		{ labelSpacing, 0, 170, 16 }, "^7Logout from Path of Exile API", function()
 			main.api:ResetDetails()
 			main:SaveSettings()
 		end)
 	self.controls.logoutApiButton.shown = function() return self.usingOauth and self.isAuthorized() end
 
-	self.controls.characterImportAnchor = new("Control", { "TOPLEFT", self.controls.sectionOauthCharImport, "TOPLEFT" },
+	self.controls.characterImportAnchor = new("Control"):Control({ "TOPLEFT", self.controls.sectionOauthCharImport, "TOPLEFT" },
 		{ labelSpacing, 40, 200, 16 })
 	self.controls.sectionOauthCharImport.height = function()
 		return self.isAuthorized() and 200 or 60
@@ -160,7 +160,7 @@ local function addOAuthControls(self)
 		main.api:DownloadCharacterList(realm.realmCode, onResponse)
 	end
 
-	self.controls.authenticateButton = new("ButtonControl", { "TOPLEFT", self.controls.characterImportAnchor, "TOPLEFT" },
+	self.controls.authenticateButton = new("ButtonControl"):ButtonControl({ "TOPLEFT", self.controls.characterImportAnchor, "TOPLEFT" },
 		{ 0, 0, 200, 16 }, "^7Authorize with Path of Exile", function()
 			main.api:FetchAuthToken(function(errCode)
 				if errCode then
@@ -182,20 +182,20 @@ local function addOAuthControls(self)
 	end
 
 	-- Stage: select realm, league, character, and import data
-	self.controls.charSelectHeader = new("LabelControl", { "TOPLEFT", self.controls.sectionOauthCharImport, "TOPLEFT" },
+	self.controls.charSelectHeader = new("LabelControl"):LabelControl({ "TOPLEFT", self.controls.sectionOauthCharImport, "TOPLEFT" },
 		{ labelSpacing, 40, 200, 16 }, "^7Choose character to import data from:")
 	self.controls.charSelectHeader.shown = function()
 		return self.usingOauth and self.isAuthorized()
 	end
 
-	self.controls.oauthErrorLabel = new("LabelControl", { "TOPRIGHT", self.controls.sectionOauthCharImport, "TOPRIGHT" },
+	self.controls.oauthErrorLabel = new("LabelControl"):LabelControl({ "TOPRIGHT", self.controls.sectionOauthCharImport, "TOPRIGHT" },
 		{ -8, 40, 0, 18 })
 	self.controls.oauthErrorLabel.label = function()
 		local text = self.oauthErrCode and string.format("%sError: %s", colorCodes.NEGATIVE, self.oauthErrCode) or ""
 		return text
 	end
 
-	self.controls.accountRealm = new("DropDownControl", { "TOPLEFT", self.controls.charSelectHeader, "BOTTOMLEFT" },
+	self.controls.accountRealm = new("DropDownControl"):DropDownControl({ "TOPLEFT", self.controls.charSelectHeader, "BOTTOMLEFT" },
 		{ 0, rowSpacing, 60, 20 }, realmList, function()
 			setLeaguesFromCharList()
 		end)
@@ -208,7 +208,7 @@ local function addOAuthControls(self)
 		end
 		return "Fetch Characters"
 	end
-	self.controls.accountRealmFetchButton = new("ButtonControl", { "LEFT", self.controls.accountRealm, "RIGHT" },
+	self.controls.accountRealmFetchButton = new("ButtonControl"):ButtonControl({ "LEFT", self.controls.accountRealm, "RIGHT" },
 		{ labelSpacing, 0, 130, 20 }, fetchTextFunc, fetchCharacters)
 	self.controls.accountRealmFetchButton.enabled = fetchButtonEnabled
 
@@ -223,12 +223,12 @@ local function addOAuthControls(self)
 		end
 	end
 
-	self.controls.charSelectLeagueLabel = new("LabelControl", { "TOPLEFT", self.controls.accountRealm, "BOTTOMLEFT" },
+	self.controls.charSelectLeagueLabel = new("LabelControl"):LabelControl({ "TOPLEFT", self.controls.accountRealm, "BOTTOMLEFT" },
 		{ 0, rowSpacing, 0, 14 }, "^7League:")
-	self.controls.charSelectLeague = new("DropDownControl", { "LEFT", self.controls.charSelectLeagueLabel, "RIGHT" },
+	self.controls.charSelectLeague = new("DropDownControl"):DropDownControl({ "LEFT", self.controls.charSelectLeagueLabel, "RIGHT" },
 		{ labelSpacing, 0, 150, 18 }, nil, onLeagueChange)
 	-- character select
-	self.controls.charSelect = new("DropDownControl", { "TOPLEFT", self.controls.charSelectLeagueLabel, "BOTTOMLEFT" },
+	self.controls.charSelect = new("DropDownControl"):DropDownControl({ "TOPLEFT", self.controls.charSelectLeagueLabel, "BOTTOMLEFT" },
 		{ 0, rowSpacing, 400, 18 }, nil)
 	self.controls.charSelect.enabled = function()
 		return self.usingOauth and self.isAuthorized()
@@ -243,9 +243,9 @@ local function addOAuthControls(self)
 		main.lastCharacterHash = common.sha1(charName)
 		self.lastCharacterHash = common.sha1(charName)
 	end
-	self.controls.charImportHeader = new("LabelControl", { "TOPLEFT", self.controls.charSelect, "BOTTOMLEFT" },
+	self.controls.charImportHeader = new("LabelControl"):LabelControl({ "TOPLEFT", self.controls.charSelect, "BOTTOMLEFT" },
 		{ 0, rowSpacing, 200, 16 }, "^7Import:")
-	self.controls.charImportTree = new("ButtonControl", { "LEFT", self.controls.charImportHeader, "RIGHT" },
+	self.controls.charImportTree = new("ButtonControl"):ButtonControl({ "LEFT", self.controls.charImportHeader, "RIGHT" },
 		{ labelSpacing, 0, 170, 20 }, "Passive Tree and Jewels", function()
 			local realm = self.controls.accountRealm:GetSelValue()
 			local league = self.controls.charSelectLeague:GetSelValue()
@@ -280,9 +280,9 @@ local function addOAuthControls(self)
 	self.controls.charImportTree.enabled = function()
 		return self.usingOauth and self.isAuthorized() and self.controls.charSelect:GetSelValue()
 	end
-	self.controls.charImportTreeClearJewels = new("CheckBoxControl", { "LEFT", self.controls.charImportTree, "RIGHT" },
+	self.controls.charImportTreeClearJewels = new("CheckBoxControl"):CheckBoxControl({ "LEFT", self.controls.charImportTree, "RIGHT" },
 		{ 90, 0, 18 }, "Delete jewels:", nil, "Delete all equipped jewels when importing.", true)
-	self.controls.charImportItems = new("ButtonControl", { "TOPLEFT", self.controls.charImportTree, "BOTTOMLEFT" },
+	self.controls.charImportItems = new("ButtonControl"):ButtonControl({ "TOPLEFT", self.controls.charImportTree, "BOTTOMLEFT" },
 		{ 0, rowSpacing, 110, 20 }, "Items and Skills", function()
 			local realm = self.controls.accountRealm:GetSelValue()
 			local league = self.controls.charSelectLeague:GetSelValue()
@@ -311,33 +311,32 @@ local function addOAuthControls(self)
 	self.controls.charImportItems.enabled = function()
 		return self.usingOauth and self.isAuthorized() and self.controls.charSelect:GetSelValue()
 	end
-	self.controls.charImportItemsClearSkills = new("CheckBoxControl", { "LEFT", self.controls.charImportItems, "RIGHT" },
+	self.controls.charImportItemsClearSkills = new("CheckBoxControl"):CheckBoxControl({ "LEFT", self.controls.charImportItems, "RIGHT" },
 		{ 85, 0, 18 }, "Delete skills:", nil, "Delete all existing skills when importing.", true)
-	self.controls.charImportItemsClearItems = new("CheckBoxControl", { "LEFT", self.controls.charImportItems, "RIGHT" },
+	self.controls.charImportItemsClearItems = new("CheckBoxControl"):CheckBoxControl({ "LEFT", self.controls.charImportItems, "RIGHT" },
 		{ 220, 0, 18 }, "Delete equipment:", nil, "Delete all equipped items when importing.", true)
-	self.controls.charImportItemsIgnoreWeaponSwap = new("CheckBoxControl", { "LEFT", self.controls.charImportItems,
+	self.controls.charImportItemsIgnoreWeaponSwap = new("CheckBoxControl"):CheckBoxControl({ "LEFT", self.controls.charImportItems,
 		"RIGHT" }, { 380, 0, 18 }, "Ignore weapon swap:", nil, "Ignore items and skills in weapon swap.", false)
 end
 local function addAccountNameControls(self)
 	self.charImportMode = "GETACCOUNTNAME"
 	self.charImportStatus = "Idle"
-	self.controls.siteCharImportStatusLabel = new("LabelControl", { "TOPLEFT", self.controls.sectionCharSiteImport, "TOPLEFT" },
+	self.controls.siteCharImportStatusLabel = new("LabelControl"):LabelControl({ "TOPLEFT", self.controls.sectionCharSiteImport, "TOPLEFT" },
 		{ 6, 14, 200, 16 }, function()
 		return "^7Character import status: " .. self.charImportStatus
 	end)
 
 	-- Stage: input account name
-	self.controls.siteAccountNameHeader = new("LabelControl", { "TOPLEFT", self.controls.sectionCharSiteImport, "TOPLEFT" },
+	self.controls.siteAccountNameHeader = new("LabelControl"):LabelControl({ "TOPLEFT", self.controls.sectionCharSiteImport, "TOPLEFT" },
 		{ 6, 40, 250, 16 }, "^7To start importing a character, enter the character's account name:")
 	self.controls.siteAccountNameHeader.shown = function()
 		return self.charImportMode == "GETACCOUNTNAME"
 	end
 
-	self.controls.siteAccountRealm = new("DropDownControl",
-		{ "TOPLEFT", self.controls.siteAccountNameHeader, "BOTTOMLEFT" },
+	self.controls.siteAccountRealm = new("DropDownControl"):DropDownControl({ "TOPLEFT", self.controls.siteAccountNameHeader, "BOTTOMLEFT" },
 		{ 0, 4, 60, 20 }, realmList)
 	self.controls.siteAccountRealm:SelByValue(main.lastRealm or "PC", "id")
-	self.controls.siteAccountName = new("EditControl", { "LEFT", self.controls.siteAccountRealm, "RIGHT" }, { 8, 0, 200, 20 },
+	self.controls.siteAccountName = new("EditControl"):EditControl({ "LEFT", self.controls.siteAccountRealm, "RIGHT" }, { 8, 0, 200, 20 },
 		main.lastAccountName or "", nil, "%c", nil, nil, nil, nil, true)
 	self.controls.siteAccountName.pasteFilter = function(text)
 		return text:gsub(".", function(c)
@@ -360,7 +359,7 @@ local function addAccountNameControls(self)
 			return a:lower() < b:lower()
 		end)
 	end -- don't load the list many times
-	self.controls.siteAccountNameGo = new("ButtonControl", { "LEFT", self.controls.siteAccountName, "RIGHT" }, { 8, 0, 60, 20 },
+	self.controls.siteAccountNameGo = new("ButtonControl"):ButtonControl({ "LEFT", self.controls.siteAccountName, "RIGHT" }, { 8, 0, 60, 20 },
 		"Start", function()
 			local realm = self.controls.siteAccountRealm:GetSelValue()
 			self:DownloadSiteCharacterList(realm)
@@ -375,14 +374,14 @@ local function addAccountNameControls(self)
 		end
 	end
 
-	self.controls.siteAccountHistory = new("DropDownControl", { "LEFT", self.controls.siteAccountNameGo, "RIGHT" },
+	self.controls.siteAccountHistory = new("DropDownControl"):DropDownControl({ "LEFT", self.controls.siteAccountNameGo, "RIGHT" },
 		{ 8, 0, 200, 20 }, historyList, function()
 		self.controls.siteAccountName.buf = self.controls.siteAccountHistory.list[self.controls.siteAccountHistory.selIndex]
 	end)
 	self.controls.siteAccountHistory:SelByValue(main.lastAccountName)
 	self.controls.siteAccountHistory:CheckDroppedWidth(true)
 
-	self.controls.siteRemoveAccount = new("ButtonControl", { "LEFT", self.controls.siteAccountHistory, "RIGHT" }, { 8, 0, 20, 20 },
+	self.controls.siteRemoveAccount = new("ButtonControl"):ButtonControl({ "LEFT", self.controls.siteAccountHistory, "RIGHT" }, { 8, 0, 20, 20 },
 		"X", function()
 		local accountName = self.controls.siteAccountHistory.list[self.controls.siteAccountHistory.selIndex]
 		if (accountName ~= nil) then
@@ -397,37 +396,36 @@ local function addAccountNameControls(self)
 		tooltip:AddLine(16, "^7Removes account from the dropdown list")
 	end
 
-	self.controls.siteAccountNameMissingDiscriminator = new("LabelControl",
-		{ "TOPLEFT", self.controls.siteAccountName, "BOTTOMLEFT" }, { 0, 8, 0, 16 }, "^1Missing discriminator e.g. #1234")
+	self.controls.siteAccountNameMissingDiscriminator = new("LabelControl"):LabelControl({ "TOPLEFT", self.controls.siteAccountName, "BOTTOMLEFT" }, { 0, 8, 0, 16 }, "^1Missing discriminator e.g. #1234")
 	self.controls.siteAccountNameMissingDiscriminator.shown = function()
 		return not self.controls.siteAccountName.buf:match("[#%-]%d%d%d%d$") and self.controls.siteAccountName.buf ~= ""
 	end
 
-	self.controls.siteAccountNameUnicode = new("LabelControl", { "TOPLEFT", self.controls.siteAccountRealm, "BOTTOMLEFT" },
+	self.controls.siteAccountNameUnicode = new("LabelControl"):LabelControl({ "TOPLEFT", self.controls.siteAccountRealm, "BOTTOMLEFT" },
 		{ 0, 34, 0, 14 },
 		"^7Note: if the account name contains non-ASCII characters it must be pasted into the textbox,\nnot typed manually.")
 
 	-- Stage: select character and import data
-	self.controls.siteCharSelectHeader = new("LabelControl", { "TOPLEFT", self.controls.sectionCharSiteImport, "TOPLEFT" },
+	self.controls.siteCharSelectHeader = new("LabelControl"):LabelControl({ "TOPLEFT", self.controls.sectionCharSiteImport, "TOPLEFT" },
 		{ 6, 40, 200, 16 }, "^7Choose character to import data from:")
 	self.controls.siteCharSelectHeader.shown = function()
 		return self.charImportMode == "SELECTCHAR" or self.charImportMode == "IMPORTING"
 	end
-	self.controls.siteCharSelectLeagueLabel = new("LabelControl", { "TOPLEFT", self.controls.siteCharSelectHeader, "BOTTOMLEFT" },
+	self.controls.siteCharSelectLeagueLabel = new("LabelControl"):LabelControl({ "TOPLEFT", self.controls.siteCharSelectHeader, "BOTTOMLEFT" },
 		{ 0, 6, 0, 14 }, "^7League:")
-	self.controls.siteCharSelectLeague = new("DropDownControl", { "LEFT", self.controls.siteCharSelectLeagueLabel, "RIGHT" },
+	self.controls.siteCharSelectLeague = new("DropDownControl"):DropDownControl({ "LEFT", self.controls.siteCharSelectLeagueLabel, "RIGHT" },
 		{ 4, 0, 150, 18 }, nil, function(index, value)
 			local realm = self.controls.siteAccountRealm:GetSelValue()
 			self:BuildCharacterList(realm.realmCode, value.league, self.lastCharList, self.controls.siteCharSelect)
 		end)
-	self.controls.siteCharSelect = new("DropDownControl", { "TOPLEFT", self.controls.siteCharSelectHeader, "BOTTOMLEFT" },
+	self.controls.siteCharSelect = new("DropDownControl"):DropDownControl({ "TOPLEFT", self.controls.siteCharSelectHeader, "BOTTOMLEFT" },
 		{ 0, 24, 400, 18 })
 	self.controls.siteCharSelect.enabled = function()
 		return self.charImportMode == "SELECTCHAR"
 	end
-	self.controls.siteCharImportHeader = new("LabelControl", { "TOPLEFT", self.controls.siteCharSelect, "BOTTOMLEFT" },
+	self.controls.siteCharImportHeader = new("LabelControl"):LabelControl({ "TOPLEFT", self.controls.siteCharSelect, "BOTTOMLEFT" },
 		{ 0, 16, 200, 16 }, "^7Import:")
-	self.controls.siteCharImportTree = new("ButtonControl", { "LEFT", self.controls.siteCharImportHeader, "RIGHT" },
+	self.controls.siteCharImportTree = new("ButtonControl"):ButtonControl({ "LEFT", self.controls.siteCharImportHeader, "RIGHT" },
 		{ 8, 0, 170, 20 }, "Passive Tree and Jewels", function()
 			local realm = self.controls.siteAccountRealm:GetSelValue()
 			if self.build.spec:CountAllocNodes() > 0 then
@@ -443,9 +441,9 @@ local function addAccountNameControls(self)
 	self.controls.siteCharImportTree.enabled = function()
 		return self.charImportMode == "SELECTCHAR"
 	end
-	self.controls.siteCharImportTreeClearJewels = new("CheckBoxControl", { "LEFT", self.controls.siteCharImportTree, "RIGHT" },
+	self.controls.siteCharImportTreeClearJewels = new("CheckBoxControl"):CheckBoxControl({ "LEFT", self.controls.siteCharImportTree, "RIGHT" },
 		{ 90, 0, 18 }, "Delete jewels:", nil, "Delete all equipped jewels when importing.", true)
-	self.controls.siteCharImportItems = new("ButtonControl", { "LEFT", self.controls.siteCharImportTree, "LEFT" },
+	self.controls.siteCharImportItems = new("ButtonControl"):ButtonControl({ "LEFT", self.controls.siteCharImportTree, "LEFT" },
 		{ 0, 36, 110, 20 }, "Items and Skills", function()
 			local realm = self.controls.siteAccountRealm:GetSelValue()
 			self:DownloadItems(realm)
@@ -454,64 +452,66 @@ local function addAccountNameControls(self)
 	self.controls.siteCharImportItems.enabled = function()
 		return self.charImportMode == "SELECTCHAR"
 	end
-	self.controls.siteCharImportItemsClearSkills = new("CheckBoxControl", { "LEFT", self.controls.siteCharImportItems, "RIGHT" },
+	self.controls.siteCharImportItemsClearSkills = new("CheckBoxControl"):CheckBoxControl({ "LEFT", self.controls.siteCharImportItems, "RIGHT" },
 		{ 85, 0, 18 }, "Delete skills:", nil, "Delete all existing skills when importing.", true)
-	self.controls.siteCharImportItemsClearItems = new("CheckBoxControl", { "LEFT", self.controls.siteCharImportItems, "RIGHT" },
+	self.controls.siteCharImportItemsClearItems = new("CheckBoxControl"):CheckBoxControl({ "LEFT", self.controls.siteCharImportItems, "RIGHT" },
 		{ 220, 0, 18 }, "Delete equipment:", nil, "Delete all equipped items when importing.", true)
-	self.controls.siteCharImportItemsIgnoreWeaponSwap = new("CheckBoxControl", { "LEFT", self.controls.siteCharImportItems,
+	self.controls.siteCharImportItemsIgnoreWeaponSwap = new("CheckBoxControl"):CheckBoxControl({ "LEFT", self.controls.siteCharImportItems,
 		"RIGHT" }, { 380, 0, 18 }, "Ignore weapon swap:", nil, "Ignore items and skills in weapon swap.", false)
-	self.controls.siteCharBanditNote = new("LabelControl", { "TOPLEFT", self.controls.siteCharImportHeader, "BOTTOMLEFT" },
+	self.controls.siteCharBanditNote = new("LabelControl"):LabelControl({ "TOPLEFT", self.controls.siteCharImportHeader, "BOTTOMLEFT" },
 		{ 0, 50, 200, 14 },
 		"^7Tip: After you finish importing a character, make sure you update the bandit choice,\nas it can only be imported by logging in above.")
 
-	self.controls.siteCharClose = new("ButtonControl", { "TOPLEFT", self.controls.siteCharImportHeader, "BOTTOMLEFT" },
+	self.controls.siteCharClose = new("ButtonControl"):ButtonControl({ "TOPLEFT", self.controls.siteCharImportHeader, "BOTTOMLEFT" },
 		{ 0, 90, 60, 20 }, "Close", function()
 		self.charImportMode = "GETACCOUNTNAME"
 		self.charImportStatus = "Idle"
 	end)
 end
 
-local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(self, build)
-	self.ControlHost()
-	self.Control()
+---@class ImportTab: ControlHost, Control
+local ImportTabClass = newClass("ImportTab", "ControlHost", "Control")
+
+---@param build Build
+function ImportTabClass:ImportTab(build)
+	self:ControlHost()
+	self:Control()
 
 	self.build = build
 
 	if not main.api then
-		main.api = new("PoEAPI", main.lastToken, main.lastRefreshToken, main.tokenExpiry)
+		main.api = new("PoEAPI"):PoEAPI(main.lastToken, main.lastRefreshToken, main.tokenExpiry)
 	end
 
 
-	self.controls.sectionOauthCharImport = new("SectionControl", { "TOPLEFT", self, "TOPLEFT" }, { 10, 18, 650, 200 },
+	self.controls.sectionOauthCharImport = new("SectionControl"):SectionControl({ "TOPLEFT", self, "TOPLEFT" }, { 10, 18, 650, 200 },
 		"Import From Your Account")
 
 	addOAuthControls(self)
 
-	self.controls.sectionCharSiteImport = new("SectionControl",
-		{ "TOPLEFT", self.controls.sectionOauthCharImport, "BOTTOMLEFT" },
+	self.controls.sectionCharSiteImport = new("SectionControl"):SectionControl({ "TOPLEFT", self.controls.sectionOauthCharImport, "BOTTOMLEFT" },
 		{ 0, 18, 650, 250 },
 		"Import By Account Name")
 	addAccountNameControls(self)
 
 
 	-- Build import/export
-	self.controls.sectionBuild = new("SectionControl",
-		{ "TOPLEFT", self.controls.sectionCharSiteImport, "BOTTOMLEFT", true },
+	self.controls.sectionBuild = new("SectionControl"):SectionControl({ "TOPLEFT", self.controls.sectionCharSiteImport, "BOTTOMLEFT", true },
 		{ 0, 18, 650, 182 }, "Build Sharing")
-	self.controls.generateCodeLabel = new("LabelControl", { "TOPLEFT", self.controls.sectionBuild, "TOPLEFT" },
+	self.controls.generateCodeLabel = new("LabelControl"):LabelControl({ "TOPLEFT", self.controls.sectionBuild, "TOPLEFT" },
 		{ 6, 14, 0, 16 }, "^7Generate a code to share this build with other Path of Building users:")
-	self.controls.generateCode = new("ButtonControl", {"LEFT",self.controls.generateCodeLabel,"RIGHT"}, {4, 0, 80, 20}, "Generate", function()
+	self.controls.generateCode = new("ButtonControl"):ButtonControl({ "LEFT", self.controls.generateCodeLabel, "RIGHT" }, { 4, 0, 80, 20 }, "Generate", function()
 		self.controls.generateCodeOut:SetText(common.base64.encode(Deflate(self.build:SaveDB("code"))):gsub("+","-"):gsub("/","_"))
 	end)
-	self.controls.enablePartyExportBuffs = new("CheckBoxControl", {"LEFT",self.controls.generateCode,"RIGHT"}, {100, 0, 18}, "Export Support", function(state)
+	self.controls.enablePartyExportBuffs = new("CheckBoxControl"):CheckBoxControl({"LEFT",self.controls.generateCode,"RIGHT"}, {100, 0, 18}, "Export Support", function(state)
 		self.build.partyTab.enableExportBuffs = state
 		self.build.buildFlag = true
 	end, "This is for party play, to export support character, it enables the exporting of auras, curses and modifiers to the enemy", false)
-	self.controls.generateCodeOut = new("EditControl", {"TOPLEFT",self.controls.generateCodeLabel,"BOTTOMLEFT"}, {0, 8, 250, 20}, "", "Code", "%Z")
+	self.controls.generateCodeOut = new("EditControl"):EditControl({"TOPLEFT",self.controls.generateCodeLabel,"BOTTOMLEFT"}, {0, 8, 250, 20}, "", "Code", "%Z")
 	self.controls.generateCodeOut.enabled = function()
 		return #self.controls.generateCodeOut.buf > 0
 	end
-	self.controls.generateCodeCopy = new("ButtonControl", {"LEFT",self.controls.generateCodeOut,"RIGHT"}, {8, 0, 60, 20}, "Copy", function()
+	self.controls.generateCodeCopy = new("ButtonControl"):ButtonControl({"LEFT",self.controls.generateCodeOut,"RIGHT"}, {8, 0, 60, 20}, "Copy", function()
 		Copy(self.controls.generateCodeOut.buf)
 		self.controls.generateCodeOut:SetText("")
 	end)
@@ -531,12 +531,12 @@ local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(
 	end
 	local exportWebsitesList = getExportSitesFromImportList()
 
-	self.controls.exportFrom = new("DropDownControl", { "LEFT", self.controls.generateCodeCopy,"RIGHT"}, {8, 0, 120, 20}, exportWebsitesList, function(_, selectedWebsite)
+	self.controls.exportFrom = new("DropDownControl"):DropDownControl({ "LEFT", self.controls.generateCodeCopy, "RIGHT" }, { 8, 0, 120, 20 }, exportWebsitesList, function(_, selectedWebsite)
 		main.lastExportWebsite = selectedWebsite.id
 		self.exportWebsiteSelected = selectedWebsite.id
 	end)
 	self.controls.exportFrom:SelByValue(self.exportWebsiteSelected or main.lastExportWebsite or "Pastebin", "id")
-	self.controls.generateCodeByLink = new("ButtonControl", { "LEFT", self.controls.exportFrom, "RIGHT"}, {8, 0, 100, 20}, "Share", function()
+	self.controls.generateCodeByLink = new("ButtonControl"):ButtonControl({ "LEFT", self.controls.exportFrom, "RIGHT" }, { 8, 0, 100, 20 }, "Share", function()
 		local exportWebsite = exportWebsitesList[self.controls.exportFrom.selIndex]
 		local subScriptId = buildSites.UploadBuild(self.controls.generateCodeOut.buf, exportWebsite)
 		if subScriptId then
@@ -568,8 +568,8 @@ local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(
 		end
 		return #self.controls.generateCodeOut.buf > 0
 	end
-	self.controls.generateCodeNote = new("LabelControl", {"TOPLEFT",self.controls.generateCodeOut,"BOTTOMLEFT"}, {0, 4, 0, 14}, "^7Note: this code can be very long; you can use 'Share' to shrink it.")
-	self.controls.importCodeHeader = new("LabelControl", {"TOPLEFT",self.controls.generateCodeNote,"BOTTOMLEFT"}, {0, 26, 0, 16}, "^7To import a build, enter URL or code here:")
+	self.controls.generateCodeNote = new("LabelControl"):LabelControl({"TOPLEFT",self.controls.generateCodeOut,"BOTTOMLEFT"}, {0, 4, 0, 14}, "^7Note: this code can be very long; you can use 'Share' to shrink it.")
+	self.controls.importCodeHeader = new("LabelControl"):LabelControl({"TOPLEFT",self.controls.generateCodeNote,"BOTTOMLEFT"}, {0, 26, 0, 16}, "^7To import a build, enter URL or code here:")
 
 	local importCodeHandle = function (buf)
 		self.importCodeSite = nil
@@ -667,21 +667,21 @@ local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(
 		end
 	end
 
-	self.controls.importCodeIn = new("EditControl", {"TOPLEFT",self.controls.importCodeHeader,"BOTTOMLEFT"}, {0, 4, 328, 20}, "", nil, nil, nil, importCodeHandle, nil, nil, true)
+	self.controls.importCodeIn = new("EditControl"):EditControl({"TOPLEFT",self.controls.importCodeHeader,"BOTTOMLEFT"}, {0, 4, 328, 20}, "", nil, nil, nil, importCodeHandle, nil, nil, true)
 	self.controls.importCodeIn.enterFunc = function()
 		if self.importCodeValid then
 			self.controls.importCodeGo.onClick()
 		end
 	end
-	self.controls.importCodeState = new("LabelControl", {"LEFT",self.controls.importCodeIn,"RIGHT"}, {8, 0, 0, 16})
+	self.controls.importCodeState = new("LabelControl"):LabelControl({"LEFT",self.controls.importCodeIn,"RIGHT"}, {8, 0, 0, 16})
 	self.controls.importCodeState.label = function()
 		return self.importCodeDetail or ""
 	end
-	self.controls.importCodeMode = new("DropDownControl", {"TOPLEFT",self.controls.importCodeIn,"BOTTOMLEFT"}, {0, 4, 200, 20}, { "Import to this build", "Import to a new build", "Import as comparison" })
+	self.controls.importCodeMode = new("DropDownControl"):DropDownControl({"TOPLEFT",self.controls.importCodeIn,"BOTTOMLEFT"}, {0, 4, 200, 20}, { "Import to this build", "Import to a new build", "Import as comparison" })
 	self.controls.importCodeMode.enabled = function()
 		return (self.build.dbFileName or self.controls.importCodeMode.selIndex == 3) and self.importCodeValid
 	end
-	self.controls.importCodeGo = new("ButtonControl", {"LEFT",self.controls.importCodeMode,"RIGHT"}, {8, 0, 160, 20}, "Import", function()
+	self.controls.importCodeGo = new("ButtonControl"):ButtonControl({"LEFT",self.controls.importCodeMode,"RIGHT"}, {8, 0, 160, 20}, "Import", function()
 		if self.importCodeSite and not self.importCodeXML then
 			self.importCodeFetching = true
 			local selectedWebsite = buildSites.websiteList[self.importCodeSite]
@@ -726,8 +726,8 @@ local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(
 			end
 		end)
 	end
-
-end)
+	return self
+end
 
 -- attempt to fetch the last realm's character list once per instance, if there
 -- is a last realm saved
@@ -1508,7 +1508,7 @@ function ImportTabClass:ImportItem(itemData, slotName, ignoreWeaponSwap, itemSet
 		return
 	end
 
-	local item = new("Item")
+	local item = new("Item"):Item()
 
 	-- Determine rarity, display name and base type of the item
 	item.rarity = rarityMap[itemData.frameType]

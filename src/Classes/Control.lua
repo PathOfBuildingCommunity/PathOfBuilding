@@ -6,6 +6,8 @@
 local t_insert = table.insert
 local m_floor = math.floor
 
+
+---@enum (key) AnchorPoint
 local anchorPos = {
 	    ["TOPLEFT"] = { 0  , 0   },
 	        ["TOP"] = { 0.5, 0   },
@@ -32,7 +34,21 @@ local rect = {
 	for containers
 --]]
 
-local ControlClass = newClass("Control", function(self, anchor, rect)
+---@class Control
+---@field enabled        boolean | fun(...: any): boolean
+---@field onFocusGained? fun()
+---@field onFocusLost?   fun()
+---@field shown          Prop<boolean>
+---@field x              Prop<number>?
+---@field y              Prop<number>?
+local ControlClass = newClass("Control")
+
+---@alias ControlAnchor [AnchorPoint, Control|ControlHost, AnchorPoint, boolean|nil]
+---@alias ControlRect [number|nil, number|nil, number|nil, number]
+
+---@param anchor? ControlAnchor
+---@param rect? ControlRect
+function ControlClass:Control(anchor, rect)
 	self.rectStart = rect or {0, 0, 0, 0}
 	self.x, self.y, self.width, self.height = unpack(self.rectStart)
 	---@type (fun(): boolean) | boolean
@@ -42,8 +58,14 @@ local ControlClass = newClass("Control", function(self, anchor, rect)
 	if anchor then
 		self:SetAnchor(anchor[1], anchor[2], anchor[3], nil, nil, anchor[4])
 	end
-end)
+	return self
+end
 
+---@generic T
+---@alias Prop<T> (fun(self: self): T) | T
+
+---@param name string
+---@return any value
 function ControlClass:GetProperty(name)
 	if type(self[name]) == "function" then
 		return self[name](self)

@@ -1,4 +1,5 @@
-local c=...c[" Wolf Alpha Talisman"]={nil," Wolf Alpha Talisman "}
+local c = {}
+c[" Wolf Alpha Talisman"]={nil," Wolf Alpha Talisman "}
 c[" Wolf Alpha Talisman League: Talisman Standard"]={nil," Wolf Alpha Talisman League: Talisman Standard "}
 c["(10-15)% increased Energy Shield Recharge Rate"]={nil,"(10-15)% increased Energy Shield Recharge Rate "}
 c["(10-20)% increased Effect of Cold Ailments"]={nil,"(10-20)% increased Effect of Cold Ailments "}
@@ -13173,3 +13174,4 @@ c["wielding a Bow, with a 1 second Cooldown 12% increased Cast Speed"]={nil,"wie
 c["you consume a total of 8 Steel Shards"]={nil,"you consume a total of 8 Steel Shards "}
 c["your maximum number of Crab Barriers"]={nil,"your maximum number of Crab Barriers "}
 c["your maximum number of Power Charges"]={nil,"your maximum number of Power Charges "}
+return c

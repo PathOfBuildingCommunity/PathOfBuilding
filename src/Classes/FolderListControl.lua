@@ -6,13 +6,16 @@
 local ipairs = ipairs
 local t_insert = table.insert
 
-local FolderListClass = newClass("FolderListControl", "ListControl", function(self, anchor, rect, subPath, onChange)
-	self.ListControl(anchor, rect, 16, "VERTICAL", false, { })
+---@class FolderListControl: ListControl
+local FolderListClass = newClass("FolderListControl", "ListControl")
+
+function FolderListClass:FolderListControl(anchor, rect, subPath, onChange)
+	self:ListControl(anchor, rect, 16, "VERTICAL", false, { })
 	self.subPath = subPath or ""
 	self.sortMode = "NAME"
 	self.onChangeCallback = onChange
 
-	self.controls.path = new("PathControl", {"BOTTOM",self,"TOP"}, {0, -2, self.width, 24}, main.buildPath, self.subPath, function(newSubPath)
+	self.controls.path = new("PathControl"):PathControl({"BOTTOM",self,"TOP"}, {0, -2, self.width, 24}, main.buildPath, self.subPath, function(newSubPath)
 		self.subPath = newSubPath
 		self:BuildList()
 		self.selIndex = nil
@@ -22,7 +25,8 @@ local FolderListClass = newClass("FolderListControl", "ListControl", function(se
 		end
 	end)
 	self:BuildList()
-end)
+	return self
+end
 
 function FolderListClass:SortList()
 	if not self.list then return end

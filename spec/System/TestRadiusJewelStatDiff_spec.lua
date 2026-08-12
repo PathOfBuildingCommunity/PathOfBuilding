@@ -144,7 +144,7 @@ end
 -- parsing path: the mod sets jewelData.radiusIndex (an annular ring index, not
 -- the same as the full-circle index 3 that "Radius: Large" would produce).
 local function newThreadOfHope()
-	return new("Item", "Rarity: UNIQUE\n" ..
+	return new("Item"):Item("Rarity: UNIQUE\n" ..
 		"Thread of Hope\n" ..
 		"Crimson Jewel\n" ..
 		"Variant: Large Ring\n" ..
@@ -156,7 +156,7 @@ local function newThreadOfHope()
 end
 
 local function newCustomLeapJewel(name)
-	return new("Item", "Rarity: RARE\n" ..
+	return new("Item"):Item("Rarity: RARE\n" ..
 		name .. "\n" ..
 		"Crimson Jewel\n" ..
 		"Radius: Variable\n" ..
@@ -166,7 +166,7 @@ local function newCustomLeapJewel(name)
 end
 
 local function newPlainJewel()
-	return new("Item", "Rarity: RARE\n" ..
+	return new("Item"):Item("Rarity: RARE\n" ..
 		"Plain Spark\n" ..
 		"Crimson Jewel\n" ..
 		"Implicits: 0\n")
@@ -176,7 +176,7 @@ end
 -- a specific keystone. The parser populates both impossibleEscapeKeystone
 -- and impossibleEscapeKeystones from the "in Radius of X" mod.
 local function newImpossibleEscape(keystoneName)
-	return new("Item", "Rarity: UNIQUE\n" ..
+	return new("Item"):Item("Rarity: UNIQUE\n" ..
 		"Impossible Escape\n" ..
 		"Viridian Jewel\n" ..
 		"Radius: Small\n" ..
@@ -196,7 +196,7 @@ end
 -- text are intentionally omitted; the tests exercise behavior, not the parser
 -- against the full serialized form.
 local function newLethalPride()
-	return new("Item", "Rarity: UNIQUE\n" ..
+	return new("Item"):Item("Rarity: UNIQUE\n" ..
 		"Lethal Pride\n" ..
 		"Timeless Jewel\n" ..
 		"Radius: Large\n" ..
@@ -211,7 +211,7 @@ end
 -- will reset the modList back to the original tree node modList.
 local function simulateKaruiConquest(node)
 	node.conqueredBy = { id = 10000, conqueror = { id = 1, type = "karui" } }
-	node.modList = new("ModList")
+	node.modList = new("ModList"):ModList()
 	node.modList:NewMod("Life", "BASE", 100, "Timeless Jewel")
 end
 
@@ -220,7 +220,7 @@ local function overrideNodeWithLife(spec, node, life)
 	override.id = node.id
 	override.dn = node.dn
 	override.sd = { "+" .. life .. " to maximum Life" }
-	override.modList = new("ModList")
+	override.modList = new("ModList"):ModList()
 	override.modList:NewMod("Life", "BASE", life, "Test")
 	spec.hashOverrides[node.id] = override
 end
@@ -459,7 +459,7 @@ describe("TestRadiusJewelStatDiff", function()
 
 		local plainJewel = newPlainJewel()
 		build.itemsTab:AddItem(plainJewel, true)
-		local tooltip = new("Tooltip")
+		local tooltip = new("Tooltip"):Tooltip()
 		build.itemsTab:AddItemTooltip(tooltip, plainJewel, slot)
 
 		assert.is_true(tooltipContains(tooltip, "Equipping this item in"),
@@ -518,7 +518,7 @@ describe("TestRadiusJewelStatDiff", function()
 		assert.are.equals(2, #targetNode.intuitiveLeapLikesAffecting,
 			"Allocated overlap node should still be supported by both radius jewels")
 
-		local tooltip = new("Tooltip")
+		local tooltip = new("Tooltip"):Tooltip()
 		build.itemsTab:AddItemTooltip(tooltip, itemA, slotA)
 
 		assert.is_false(tooltipContainsNegativeStat(tooltip, "Total Life"),
@@ -593,7 +593,7 @@ describe("TestRadiusJewelStatDiff", function()
 		assert.is_true(#nodesInRadius > 0, "Should have allocated nodes in jewel radius")
 		simulateKaruiConquest(nodesInRadius[1])
 
-		local tooltip = new("Tooltip")
+		local tooltip = new("Tooltip"):Tooltip()
 		build.itemsTab:AddItemTooltip(tooltip, item, slot)
 
 		assert.is_true(tooltipContains(tooltip, "Removing this item"),

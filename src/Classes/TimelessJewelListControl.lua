@@ -9,13 +9,17 @@ local m_min = math.min
 local m_max = math.max
 local t_concat = table.concat
 
-local TimelessJewelListControlClass = newClass("TimelessJewelListControl", "ListControl", function(self, anchor, rect, build)
+---@class TimelessJewelListControl: ListControl
+local TimelessJewelListControlClass = newClass("TimelessJewelListControl", "ListControl")
+
+function TimelessJewelListControlClass:TimelessJewelListControl(anchor, rect, build)
 	self.build = build
 	self.sharedList = self.build.timelessData.sharedResults or { }
 	self.list = self.build.timelessData.searchResults or { }
-	self.ListControl(anchor, rect, 16, true, false, self.list)
+	self:ListControl(anchor, rect, 16, true, false, self.list)
 	self.selIndex = nil
-end)
+	return self
+end
 
 function TimelessJewelListControlClass:Draw(viewPort, noTooltip)
 	self.noTooltip = noTooltip
@@ -304,7 +308,7 @@ Passives affected are Conquered by the Abyssal
 Historic
 ]]
 		end
-		local item = new("Item", itemData)
+		local item = new("Item"):Item(itemData)
 		self.build.itemsTab:AddItem(item, true)
 		self.build.itemsTab:PopulateSlots()
 		self.list[index].label = "^xB2B2B2" .. self.list[index].label

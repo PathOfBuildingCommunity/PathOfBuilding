@@ -1,5 +1,5 @@
 describe("TradeQueryGenerator", function()
-	local mock_queryGen = new("TradeQueryGenerator", { itemsTab = {} })
+	local mock_queryGen = new("TradeQueryGenerator"):TradeQueryGenerator({ itemsTab = {} })
 
 	describe("ProcessMod", function()
 		-- Pass: Mod line maps correctly to trade stat entry without error
@@ -16,7 +16,7 @@ describe("TradeQueryGenerator", function()
 
 	describe("Talisman mods", function()
 		it("only generates enchant weights when enabled", function()
-			local queryGen = new("TradeQueryGenerator", { itemsTab = { } })
+			local queryGen = new("TradeQueryGenerator"):TradeQueryGenerator({ itemsTab = {} })
 			local enchantMods = queryGen.modData.Enchant
 			queryGen.modData = { Explicit = { }, Implicit = { }, Enchant = enchantMods, Corrupted = { }, Scourge = { } }
 			queryGen.calcContext = { special = { }, options = { } }
@@ -155,7 +155,7 @@ describe("TradeQueryGenerator", function()
 
 	describe("Filter prioritization", function()
 		it("counts socket and link constraints against MAX_FILTERS", function()
-			local queryGen = new("TradeQueryGenerator", { itemsTab = { items = { } } })
+			local queryGen = new("TradeQueryGenerator"):TradeQueryGenerator({ itemsTab = { items = {} } })
 			queryGen.modWeights = { }
 			for index = 1, 40 do
 				table.insert(queryGen.modWeights, {
@@ -165,7 +165,7 @@ describe("TradeQueryGenerator", function()
 				})
 			end
 			queryGen.calcContext = {
-				testItem = new("Item", "Rarity: RARE\nNew Item\nGold Ring\nImplicits: 0"),
+				testItem = new("Item"):Item("Rarity: RARE\nNew Item\nGold Ring\nImplicits: 0"),
 				baseOutput = { },
 				baseStatValue = 0,
 				itemCategoryQueryStr = "accessory.ring",

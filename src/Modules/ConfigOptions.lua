@@ -119,7 +119,7 @@ local function mapAffixDropDownFunction(val, modList, enemyModList, build)
 		local affixData = data.mapMods.AffixData[val] or {}
 		if affixData.apply then
 			if affixData.type == "check" then
-				affixData.apply(var, (1 + (build.configTab.input['multiplierMapModEffect'] or 0)/100), modList, enemyModList)
+				affixData.apply(val, (1 + (build.configTab.input['multiplierMapModEffect'] or 0) / 100), modList, enemyModList)
 			elseif affixData.type == "list" then
 				affixData.apply(4 - (build.configTab.varControls['multiplierMapModTier'].selIndex or 1), (1 + (build.configTab.input['multiplierMapModEffect'] or 0)/100), affixData.values, modList, enemyModList)
 			elseif affixData.type == "count" then
