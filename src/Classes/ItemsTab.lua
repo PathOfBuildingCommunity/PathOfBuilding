@@ -86,6 +86,7 @@ local function buildModSortList()
 end
 
 ---@class ItemsTab: UndoHandler, ControlHost, Control
+---@field displayItem Item?
 local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Control")
 
 ---@param build Build
@@ -562,19 +563,11 @@ holding Shift will put it in the second.]])
 			#self.displayItem.enchantModLines > 2
 	end
 	self.controls.displayItemCorrupt = new("ButtonControl"):ButtonControl({"TOPLEFT",self.controls.displayItemAnoint4,"TOPRIGHT",true}, {8, 10, 100, 20}, "Corrupt...", function()
-		self:CorruptDisplayItem("Corrupted")
+		self:CorruptDisplayItem()
 	end)
 	self.controls.displayItemCorrupt.shown = function()
 		return self.displayItem and self.displayItem.corruptible
 	end
-	--[[
-	self.controls.displayItemScourge = new("ButtonControl"):ButtonControl({"TOPLEFT",self.controls.displayItemCorrupt,"TOPRIGHT",true}, {8, 0, 100, 20}, "Scourge...", function()
-		self:CorruptDisplayItem("Scourge")
-	end)
-	self.controls.displayItemScourge.shown = function()
-		return self.displayItem and self.displayItem.corruptible
-	end
-	--]]
 	self.controls.displayItemAddImplicit = new("ButtonControl"):ButtonControl({"TOPLEFT",self.controls.displayItemCorrupt,"TOPRIGHT",true}, {8, 0, 120, 20}, "Add Implicit...", function()
 		addImplicit.AddImplicitToDisplayItem(self, self.displayItem)
 	end)
@@ -3122,8 +3115,7 @@ function ItemsTabClass:AnointDisplayItem(enchantSlot)
 end
 
 -- Opens the item corrupting popup
-function ItemsTabClass:CorruptDisplayItem(modType)
-	local currentModType = modType or "Corrupted"
+function ItemsTabClass:CorruptDisplayItem()
 	local controls = { }
 	local implicitList = { }
 	local shownExplicits = {}
@@ -3131,14 +3123,38 @@ function ItemsTabClass:CorruptDisplayItem(modType)
 	local corruptedRanges = {}
 	local sourceList = { "Corrupted", "Scourge" }
 	local sortList, sortStats = buildModSortList()
+	local itemMaxCorruptImplicits = self.displayItem.corruptImplicitCount or 2
+	for i, modLine in ipairs(self.displayItem.implicitModLines) do
+		for _, mod in ipairs(modLine.modList or {}) do
+			-- the vestigial implicit modifier doesn't go away when corrupting items
+			if mod.name == "CorruptImplicitCount" then
+				itemMaxCorruptImplicits = itemMaxCorruptImplicits - 1
+			end
+		end
+	end
+	local isGlimpse = self.displayItem.title and self.displayItem.title:lower():find("glimpse of chaos") and self.displayItem.isUnique
+	if isGlimpse then
+		table.insert(sourceList, 1, "Glimpse of Chaos")
+	end
+	local currentModType = sourceList[1]
+	-- the amount of controls created
+	local maxImplicitNum = 5
 	local function buildImplicitList(modType)
 		if implicitList[modType] then
 			return
 		end
 		implicitList[modType] = {}
-		for modId, mod in pairs(self.displayItem.affixes) do
-			if mod.type == modType and self.displayItem:GetModSpawnWeight(mod) > 0 then
-				t_insert(implicitList[modType], { mod = mod })
+		if modType == "Glimpse of Chaos" then
+			for modId, mod in pairs(data.itemMods.ItemExclusive) do
+				if modId:find("^UniqueSpecialCorruption") then
+					t_insert(implicitList[modType], { mod = mod })
+				end
+			end
+		else
+			for modId, mod in pairs(self.displayItem.affixes) do
+				if mod.type == modType and self.displayItem:GetModSpawnWeight(mod) > 0 then
+					t_insert(implicitList[modType], { mod = mod })
+				end
 			end
 		end
 		table.sort(implicitList[modType], function(a, b)
@@ -3155,7 +3171,7 @@ function ItemsTabClass:CorruptDisplayItem(modType)
 		end
 	end
 	buildImplicitList(currentModType)
-	local function buildList(control, other, modType)
+	local function buildScourgeList(control, other, modType)
 		local selfMod = control.selIndex and control.selIndex > 1 and control.list[control.selIndex].mod
 		local otherMod = other and other.selIndex and other.selIndex > 1 and other.list[other.selIndex].mod
 		wipeTable(control.list)
@@ -3167,6 +3183,26 @@ function ItemsTabClass:CorruptDisplayItem(modType)
 			end
 		end
 		control:SelByValue(selfMod, "mod")
+	end
+	local function buildCorruptLists(modType)
+		local selectedGroups = {}
+		for i = 1, maxImplicitNum do
+			---@type DropDownControl
+			local control = controls[string.format("implicit%d", i)]
+			local selected = control:GetSelValue()
+			wipeTable(control.list)
+			t_insert(control.list, { label = "None" })
+			for _, entry in ipairs(implicitList[modType]) do
+				local mod = entry.mod
+				if not selectedGroups[mod.group] then
+					t_insert(control.list, { label = table.concat(mod, "/"), mod = mod })
+				end
+			end
+			if selected and selected.mod then
+				control:SelByValue(selected.mod, "mod")
+				selectedGroups[selected.mod.group] = true
+			end
+		end
 	end
 	local function getSortValue(entry, modType, stat, calcFunc, slotName, useFullDPS)
 		entry.sortValues = entry.sortValues or { }
@@ -3220,20 +3256,19 @@ function ItemsTabClass:CorruptDisplayItem(modType)
 		local slotName = self.displayItem:GetPrimarySlot()
 		local calcFunc = stat and self.build.calcsTab:GetMiscCalculator() or nil
 		local useFullDPS = stat == "FullDPS"
-		if currentModType == "Corrupted" then
+		if currentModType ~= "Scourge" then
 			sortModType("Corrupted", stat, calcFunc, slotName, useFullDPS)
 		else
 			sortModType("ScourgeUpside", stat, calcFunc, slotName, useFullDPS)
 			sortModType("ScourgeDownside", stat, calcFunc, slotName, useFullDPS)
 		end
-		if currentModType == "Corrupted" then
-			buildList(controls.implicit1, controls.implicit2, currentModType)
-			buildList(controls.implicit2, controls.implicit1, currentModType)
+		if currentModType ~= "Scourge" then
+			buildCorruptLists(currentModType)
 		else
-			buildList(controls.implicit1, controls.implicit2, "ScourgeUpside")
-			buildList(controls.implicit2, controls.implicit1, "ScourgeUpside")
-			buildList(controls.implicit3, controls.implicit4, "ScourgeDownside")
-			buildList(controls.implicit4, controls.implicit3, "ScourgeDownside")
+			buildScourgeList(controls.implicit1, controls.implicit2, "ScourgeUpside")
+			buildScourgeList(controls.implicit2, controls.implicit1, "ScourgeUpside")
+			buildScourgeList(controls.implicit3, controls.implicit4, "ScourgeDownside")
+			buildScourgeList(controls.implicit4, controls.implicit3, "ScourgeDownside")
 		end
 		controls.implicit1:UpdateSearch()
 		controls.implicit2:UpdateSearch()
@@ -3244,12 +3279,23 @@ function ItemsTabClass:CorruptDisplayItem(modType)
 		local item = new("Item"):Item(self.displayItem:BuildRaw())
 		item.id = self.displayItem.id
 		item.corrupted = true
+		local specialCorruptLine
+		if currentModType ~= "Scourge" then
+			for i, modLine in ipairs(self.displayItem.implicitModLines) do
+				for _, mod in ipairs(modLine.modList or {}) do
+					if mod.name == "CorruptImplicitCount" then
+						specialCorruptLine = modLine
+					end
+				end
+			end
+		end
 		-- either add implicits or roll ranges. if in the future it is possible
 		-- to double corrupt an item, this needs to be changed to not remove
 		-- implicits, like in pob2
 		if addingImplicits then
 			local newImplicit = {}
-			for _, control in ipairs { controls.implicit1, controls.implicit2, controls.implicit3, controls.implicit4 } do
+			for i = 1, maxImplicitNum do
+				local control = controls[string.format("implicit%d", i)]
 				if control.selIndex > 1 then
 					local mod = control.list[control.selIndex].mod
 					for _, modLine in ipairs(mod) do
@@ -3263,9 +3309,12 @@ function ItemsTabClass:CorruptDisplayItem(modType)
 				end
 			end
 			if #newImplicit > 0 then
-				wipeTable(currentModType == "Corrupted" and item.implicitModLines or item.scourgeModLines)
-				for i, implicit in ipairs(newImplicit) do
-					t_insert(currentModType == "Corrupted" and item.implicitModLines or item.scourgeModLines, i, implicit)
+				wipeTable(currentModType ~= "Scourge" and item.implicitModLines or item.scourgeModLines)
+				if specialCorruptLine then
+					t_insert(item.implicitModLines, specialCorruptLine)
+				end
+				for _, implicit in ipairs(newImplicit) do
+					t_insert(currentModType ~= "Scourge" and item.implicitModLines or item.scourgeModLines, implicit)
 				end
 			end
 		end
@@ -3316,7 +3365,7 @@ function ItemsTabClass:CorruptDisplayItem(modType)
 		explicitOffset = offset
 	end
 	local function setImplicitControlsShown(implicitNum, canChangeImplicits)
-		for i = 1, 4 do
+		for i = 1, maxImplicitNum do
 			local shown = canChangeImplicits and i <= implicitNum
 			controls["implicit" .. i].shown = shown
 			controls["implicit" .. i .. "Label"].shown = shown
@@ -3325,7 +3374,7 @@ function ItemsTabClass:CorruptDisplayItem(modType)
 	end
 	controls.implicits = new("ButtonControl"):ButtonControl({ "TOPLEFT", nil, "TOPLEFT" }, { 5, 5, 80, 20 }, "Implicits",
 		function()
-			local implicitNum = currentModType == "Corrupted" and 2 or 4
+			local implicitNum = currentModType ~= "Scourge" and itemMaxCorruptImplicits or 4
 			local canChangeImplicits = currentModType ~= "Corrupted" or not self.displayItem.implicitsCannotBeChanged
 			setImplicitControlsShown(implicitNum, canChangeImplicits)
 			for _, i in ipairs(shownExplicits) do
@@ -3371,18 +3420,17 @@ function ItemsTabClass:CorruptDisplayItem(modType)
 				local implicitNum = (self.displayItem.rarity == "UNIQUE" or self.displayItem.rarity == "RELIC") and 4 or 3
 				setImplicitControlsShown(implicitNum, true)
 				main.popups[1].height = 103 + 20 * implicitNum
-				buildList(controls.implicit3, controls.implicit4, "ScourgeDownside")
-				buildList(controls.implicit4, controls.implicit3, "ScourgeDownside")
+				buildScourgeList(controls.implicit3, controls.implicit4, "ScourgeDownside")
+				buildScourgeList(controls.implicit4, controls.implicit3, "ScourgeDownside")
 			else
 				currentModType = value
-				setImplicitControlsShown(2, not self.displayItem.implicitsCannotBeChanged)
-				main.popups[1].height = 103 + 20 * 2
+				setImplicitControlsShown(itemMaxCorruptImplicits, not self.displayItem.implicitsCannotBeChanged)
+				main.popups[1].height = 103 + 20 * itemMaxCorruptImplicits
 			end
 			if controls.sort then
-				applySort(controls.sort.list[controls.sort.selIndex].stat, true)
+				applySort(controls.sort.list[controls.sort.selIndex].stat)
 			else
-				buildList(controls.implicit1, controls.implicit2, currentModType)
-				buildList(controls.implicit2, controls.implicit1, currentModType)
+				buildCorruptLists(currentModType)
 			end
 			controls.implicit1:SetSel(1)
 			controls.implicit2:SetSel(1)
@@ -3398,7 +3446,7 @@ function ItemsTabClass:CorruptDisplayItem(modType)
 	local implicitYPos = 35
 	controls.implicitCannotBeChangedLabel = new("LabelControl"):LabelControl({ "TOPLEFT", nil, "TOPLEFT" }, { 20, implicitYPos + implicitRowSize, 0, 20 }, "^7This Items Implicits Cannot Be Changed")
 	controls.implicitCannotBeChangedLabel.shown = self.displayItem.implicitsCannotBeChanged
-	for i = 1, 4 do
+	for i = 1, maxImplicitNum do
 		local controlName = "implicit" .. i
 		controls[controlName .. "Label"] = new("LabelControl"):LabelControl({ "TOPRIGHT", nil, "TOPLEFT" }, { 75, implicitYPos + i * implicitRowSize, 0, 16 },
 			string.format("^7Implicit #%d:", i))
@@ -3413,7 +3461,7 @@ function ItemsTabClass:CorruptDisplayItem(modType)
 			end
 		end
 		local shownVal
-		if i < 3 then
+		if i <= itemMaxCorruptImplicits then
 			shownVal = not self.displayItem.implicitsCannotBeChanged
 		else
 			shownVal = false
@@ -3421,17 +3469,21 @@ function ItemsTabClass:CorruptDisplayItem(modType)
 		controls[controlName].shown = shownVal
 		controls[controlName .. "Label"].shown = shownVal
 	end
-	for i = 1, 4 do
+	for i = 1, maxImplicitNum do
 		controls["implicit" .. i].selFunc = function()
-			local otherIdx = (i % 2 == 0) and (i - 1) or (i + 1)
-			-- remove selected entry from other dropdown of the same type
-			buildList(controls["implicit" .. otherIdx], controls["implicit" .. i], i < 3 and currentModType or "ScourgeDownside")
+			if currentModType ~= "Scourge" then
+				buildCorruptLists(currentModType)
+			else
+				local otherIdx = (i % 2 == 0) and (i - 1) or (i + 1)
+				-- remove selected entry from other dropdown of the same type
+				buildScourgeList(controls["implicit" .. otherIdx], controls["implicit" .. i], "ScourgeDownside")
+			end
 		end
-		if i < 3 then
+		if i <= itemMaxCorruptImplicits then
 			controls["implicit" .. i].selFunc()
 		end
 	end
-	controls.save = new("ButtonControl"):ButtonControl({ "BOTTOM", nil, "BOTTOM" }, { -45, -4, 80, 20 }, modType, function()
+	controls.save = new("ButtonControl"):ButtonControl({ "BOTTOM", nil, "BOTTOM" }, { -45, -4, 80, 20 }, "Corrupt", function()
 		self:SetDisplayItem(corruptItem(controls.implicit1.shown))
 		main:ClosePopup()
 	end)
@@ -3442,7 +3494,7 @@ function ItemsTabClass:CorruptDisplayItem(modType)
 	controls.close = new("ButtonControl"):ButtonControl({ "BOTTOM", nil, "BOTTOM" }, { 45, -4, 80, 20 }, "Cancel", function()
 		main:ClosePopup()
 	end)
-	main:OpenPopup(605, 103 + 20 * 2, modType .. " Item", controls)
+	main:OpenPopup(605, 103 + 20 * itemMaxCorruptImplicits, "Corrupt Item", controls)
 end
 
 local delveDropOnlyCategories = require("Data.DelveDropOnly")

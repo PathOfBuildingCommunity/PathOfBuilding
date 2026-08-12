@@ -7956,8 +7956,7 @@ c["Can be Allflame Crafted as if Rare"]={{},nil}
 c["Can be Enchanted by a Kalguuran Runesmith"]={nil,"Can be Enchanted by a Kalguuran Runesmith "}
 c["Can be Enchanted by a Kalguuran Runesmith Can have 2 additional Runesmithing Enchantments"]={nil,"Can be Enchanted by a Kalguuran Runesmith Can have 2 additional Runesmithing Enchantments "}
 c["Can be Runesmithed as though it were all One Handed Melee Weapon Types"]={nil,"Can be Runesmithed as though it were all One Handed Melee Weapon Types "}
-c["Can be modified while Corrupted"]={nil,"Can be modified while Corrupted "}
-c["Can be modified while Corrupted Can have up to 5 Implicit Modifiers while Item has this Modifier"]={nil,"Can be modified while Corrupted Can have up to 5 Implicit Modifiers while Item has this Modifier "}
+c["Can be modified while Corrupted"]={{[1]={flags=0,keywordFlags=0,name="CorruptImplicitCount",type="BASE",value=5}},nil}
 c["Can have 2 additional Runesmithing Enchantments"]={nil,"Can have 2 additional Runesmithing Enchantments "}
 c["Can have 2 additional Runesmithing Enchantments Can be Runesmithed as though it were all One Handed Melee Weapon Types"]={nil,"Can have 2 additional Runesmithing Enchantments Can be Runesmithed as though it were all One Handed Melee Weapon Types "}
 c["Can have 3 additional Enchantment Modifiers"]={{},nil}
