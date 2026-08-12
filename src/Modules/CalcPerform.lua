@@ -3581,6 +3581,11 @@ function calcs.perform(env, skipEHP)
 				for _, mod in ipairs(modDB:Tabulate("BASE", nil, "ExtraExposure", "Extra"..element.."Exposure")) do
 					min = min + mod.value
 				end
+				-- Scale the resulting magnitude by increased effect of Exposure you inflict
+				local exposureEffectInc = modDB:Sum("INC", nil, "ExposureEffect", element.."ExposureEffect")
+				if exposureEffectInc ~= 0 then
+					min = min * (1 + exposureEffectInc / 100)
+				end
 				enemyDB:NewMod("Condition:Has"..element.."Exposure", "FLAG", true, "")
 				enemyDB:NewMod(element.."Resist", "BASE", m_min(min, modDB:Override(nil, "ExposureMin")), source)
 				modDB:NewMod("Condition:AppliedExposureRecently", "FLAG", true, "")
