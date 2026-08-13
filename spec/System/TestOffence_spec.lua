@@ -50,6 +50,19 @@ describe("TestOffence", function()
 		assert.are.equals(damageWithoutArrowMod, build.calcsTab.mainOutput.AverageDamage)
 	end)
 
+	it("rounds area modifiers before calculating radius", function()
+		build.skillsTab:PasteSocketGroup("Fireball 20/0  1")
+		build.configTab.input.customMods = [[
+		1% increased Area of Effect
+		50% more Area of Effect
+		]]
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		-- The client truncates 101% * 150% to 151% before taking the square root.
+		assert.are.equals(1.51, build.calcsTab.mainOutput.AreaOfEffectMod)
+	end)
+
 	it("parses more/less/increased/reduced minimum and maximum damage of every type", function()
 		build.itemsTab:CreateDisplayItemFromRaw([[
 		New Item
