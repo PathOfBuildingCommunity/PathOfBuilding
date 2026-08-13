@@ -381,6 +381,46 @@ describe("TestSkills", function()
 		assert.equals(18, build.calcsTab.mainOutput.LifeCost)
 	end)
 
+	it("converts and rounds flat mana cost separately from base cost", function()
+		build.skillsTab:PasteSocketGroup("Hydrosphere 1/0  1\n")
+		build.configTab.input.customMods = "Skills Cost Life instead of 15% of Mana Cost\n+4 to Total Mana Cost"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.equals(3, build.calcsTab.mainOutput.LifeCost)
+		assert.equals(13, build.calcsTab.mainOutput.ManaCost)
+	end)
+
+	it("moves flat mana cost when all costs are converted", function()
+		build.skillsTab:PasteSocketGroup("Hydrosphere 1/0  1\n")
+		build.configTab.input.customMods = "Skills Cost Life instead of Mana\n+4 to Total Mana Cost"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.equals(16, build.calcsTab.mainOutput.LifeCost)
+		assert.equals(0, build.calcsTab.mainOutput.ManaCost)
+	end)
+
+	it("does not move reduced flat mana cost to life", function()
+		build.skillsTab:PasteSocketGroup("Hydrosphere 1/0  1\n")
+		build.configTab.input.customMods = "Skills Cost Life instead of Mana\nNon-Channelling Skills have -7 to Total Mana Cost"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.equals(12, build.calcsTab.mainOutput.LifeCost)
+		assert.equals(0, build.calcsTab.mainOutput.ManaCost)
+	end)
+
+	it("does not partially convert reduced flat mana cost to life", function()
+		build.skillsTab:PasteSocketGroup("Hydrosphere 1/0  1\n")
+		build.configTab.input.customMods = "Skills Cost Life instead of 15% of Mana Cost\nNon-Channelling Skills have -7 to Total Mana Cost"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.equals(2, build.calcsTab.mainOutput.LifeCost)
+		assert.equals(4, build.calcsTab.mainOutput.ManaCost)
+	end)
+
 	it("Test flat cost is added after cost efficiency for energy shield costs", function()
 		build.skillsTab:PasteSocketGroup("Hydrosphere 1/0  1\n")
 
@@ -391,6 +431,26 @@ describe("TestSkills", function()
 
 		-- 12 / 1.5 + 10 = 18
 		assert.equals(18, build.calcsTab.mainOutput.ESCost)
+	end)
+
+	it("moves flat mana cost to energy shield with the base cost", function()
+		build.skillsTab:PasteSocketGroup("Hydrosphere 1/0  1\n")
+		build.configTab.input.customMods = "Skills Cost Energy Shield instead of Mana or Life\n+4 to Total Mana Cost"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.equals(16, build.calcsTab.mainOutput.ESCost)
+		assert.equals(0, build.calcsTab.mainOutput.ManaCost)
+	end)
+
+	it("does not move reduced flat mana cost to energy shield", function()
+		build.skillsTab:PasteSocketGroup("Hydrosphere 1/0  1\n")
+		build.configTab.input.customMods = "Skills Cost Energy Shield instead of Mana or Life\nNon-Channelling Skills have -7 to Total Mana Cost"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.equals(12, build.calcsTab.mainOutput.ESCost)
+		assert.equals(0, build.calcsTab.mainOutput.ManaCost)
 	end)
 	it("Test mana cost efficiency with support gems", function()
 		-- Test interaction between cost efficiency and cost multipliers
