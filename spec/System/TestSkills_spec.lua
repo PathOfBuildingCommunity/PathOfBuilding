@@ -392,6 +392,38 @@ describe("TestSkills", function()
 		-- 12 / 1.5 + 10 = 18
 		assert.equals(18, build.calcsTab.mainOutput.ESCost)
 	end)
+
+	it("only grants payable cost damage when the full cost can be paid", function()
+		build.skillsTab:PasteSocketGroup("Fireball 1/0  1\n")
+		build.configTab.input.customMods = "Skills gain Added Chaos Damage equal to 25% of Mana Cost, if Mana Cost is not higher than the maximum you could spend"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.equals(5, build.calcsTab.mainOutput.ManaCost)
+		assert.are.equals(1, build.calcsTab.mainEnv.player.mainSkill.skillModList:Sum("BASE", build.calcsTab.mainEnv.player.mainSkill.skillCfg, "ChaosMin"))
+
+		build.configTab.input.customMods = build.configTab.input.customMods .. "\n-10000 to maximum Mana"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.equals(0, build.calcsTab.mainEnv.player.mainSkill.skillModList:Sum("BASE", build.calcsTab.mainEnv.player.mainSkill.skillCfg, "ChaosMin"))
+
+		build.configTab.input.customMods = build.configTab.input.customMods .. "\nEnergy Shield protects Mana instead of Life\n+100 to maximum Energy Shield"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.equals(1, build.calcsTab.mainEnv.player.mainSkill.skillModList:Sum("BASE", build.calcsTab.mainEnv.player.mainSkill.skillCfg, "ChaosMin"))
+	end)
+
+	it("checks life-cost damage against the full life cost", function()
+		build.skillsTab:PasteSocketGroup("Fireball 1/0  1\n")
+		build.configTab.input.customMods = "Skills Cost Life instead of Mana\nSkills gain Added Chaos Damage equal to 25% of Life Cost, if Life Cost is not higher than the maximum you could spend\n-10000 to maximum Life"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.equals(5, build.calcsTab.mainOutput.LifeCost)
+		assert.are.equals(0, build.calcsTab.mainEnv.player.mainSkill.skillModList:Sum("BASE", build.calcsTab.mainEnv.player.mainSkill.skillCfg, "ChaosMin"))
+	end)
 	it("Test mana cost efficiency with support gems", function()
 		-- Test interaction between cost efficiency and cost multipliers
 		build.skillsTab:PasteSocketGroup("Contagion 6/0  1\nMagnified Area I 1/0  1")
