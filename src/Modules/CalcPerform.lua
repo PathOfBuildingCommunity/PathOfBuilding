@@ -1684,6 +1684,9 @@ function calcs.perform(env, skipEHP)
 			local effectMod = 1 + (flaskEffectInc) / 100
 			local effectModNonPlayer = 1 + (flaskEffectIncNonPlayer) / 100
 
+			-- Life and Mana flasks are not Utility flasks, so their effects are kept when Utility flasks are disabled
+			local isUtilityFlask = not (item.base.flask.life or item.base.flask.mana)
+
 			-- Avert thine eyes, lest they be forever scarred
 			-- I have no idea how to determine which buff is applied by a given flask,
 			-- so utility flasks are grouped by base, unique flasks are grouped by name, and magic flasks by their modifiers
@@ -1693,6 +1696,9 @@ function calcs.perform(env, skipEHP)
 					srcList:ScaleAddList(buffModList, effectMod)
 					mergeBuff(srcList, flaskBuffs, baseName)
 					mergeBuff(srcList, flaskBuffsPerBase[item.baseName], baseName)
+					if not isUtilityFlask then
+						mergeBuff(srcList, flaskBuffsNonUtility, baseName)
+					end
 				end
 				if (not onlyRecovery or checkNonRecoveryFlasksForMinions) and (flasksApplyToMinion or quickSilverAppliesToAllies or (nonUniqueFlasksApplyToMinion and item.rarity ~= "UNIQUE" and item.rarity ~= "RELIC")) then
 					srcList = new("ModList"):ModList()
@@ -1717,7 +1723,9 @@ function calcs.perform(env, skipEHP)
 				if not onlyRecovery then
 					mergeBuff(srcList, flaskBuffs, key)
 					mergeBuff(srcList, flaskBuffsPerBase[item.baseName], key)
-					mergeBuff(srcList, flaskBuffsNonUtility, key)
+					if not isUtilityFlask then
+						mergeBuff(srcList, flaskBuffsNonUtility, key)
+					end
 				end
 				if (not onlyRecovery or checkNonRecoveryFlasksForMinions) and (flasksApplyToMinion or quickSilverAppliesToAllies or (nonUniqueFlasksApplyToMinion and item.rarity ~= "UNIQUE" and item.rarity ~= "RELIC")) then
 					srcList = new("ModList"):ModList()
