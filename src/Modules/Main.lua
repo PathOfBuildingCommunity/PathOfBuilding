@@ -200,7 +200,23 @@ function main:Init()
 	if self.saveNewModCache then
 		local saved = self.defaultItemAffixQuality
 		self.defaultItemAffixQuality = 0.5
+		local socket = require("socket.core")
+		local start = socket.gettime()
 		loadItemDBs()
+		for modCategoryName, mods in pairs(data.itemMods) do
+			if (modCategoryName ~= "Item") then
+				for _, mod in pairs(mods) do
+					-- the trade hash field is split by stat descriptor, which
+					-- means we shouldn't have problems with long stats being
+					-- split
+					for _, line in pairs(mod.tradeHashes) do
+						local rangedLine = itemLib.applyRange(table.concat(line, " "), 0.5)
+						modLib.parseMod(rangedLine)
+					end
+				end
+			end
+		end
+		ConPrintf("took %.2f", socket.gettime() - start)
 		self:SaveModCache()
 		self.defaultItemAffixQuality = saved
 	end
