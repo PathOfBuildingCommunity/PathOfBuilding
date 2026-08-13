@@ -405,6 +405,16 @@ describe("TestSkills", function()
 		assert.are.equals(7, round(finalCost))
 	end)
 
+	it("applies reservation final modifiers as separate integer stages", function()
+		build.skillsTab:PasteSocketGroup("Clarity 1/0  1\n")
+		build.configTab.input.customMods = "50% more Mana Reservation\n50% more Reservation"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		-- 34 base becomes 51 after Mana Reservation, then 76 after generic Reservation.
+		assert.are.equals(76, build.calcsTab.mainEnv.player.mainSkill.skillData.ManaReservedBase)
+	end)
+
 	it("evaluates BaseFlag tags using PoB 1 skill data", function()
 		build.skillsTab:PasteSocketGroup("Absolution 20/0  1\n")
 		runCallback("OnFrame")
