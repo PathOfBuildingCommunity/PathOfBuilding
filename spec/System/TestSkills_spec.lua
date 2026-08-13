@@ -132,6 +132,29 @@ describe("TestSkills", function()
 		assert.are.equals(cappedCombinedDPS, build.calcsTab.mainOutput.CombinedDPS)
 	end)
 
+	it("uses enemy radius when calculating Ball Lightning hits", function()
+		build.skillsTab:PasteSocketGroup("Ball Lightning 20/0  1\n")
+		runCallback("OnFrame")
+
+		local mainSocketGroup = build.skillsTab.socketGroupList[build.mainSocketGroup]
+		mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeEffect.srcInstance.skillPart = 2
+		build.configTab.input.projectileDistance = 40
+		build.configTab.input.enemyRadius = 1
+		build.configTab:BuildModList()
+		build.modFlag = true
+		build.buildFlag = true
+		runCallback("OnFrame")
+		local smallEnemyHits = build.calcsTab.mainOutput.SkillDPSMultiplier
+
+		build.configTab.input.enemyRadius = 11
+		build.configTab:BuildModList()
+		build.modFlag = true
+		build.buildFlag = true
+		runCallback("OnFrame")
+
+		assert.is_true(build.calcsTab.mainOutput.SkillDPSMultiplier > smallEnemyHits)
+	end)
+
 	it("Test Adrenaline affecting blight max stage count", function()
 		build.skillsTab:PasteSocketGroup("Blight 20/0  1\n")
 		runCallback("OnFrame")
