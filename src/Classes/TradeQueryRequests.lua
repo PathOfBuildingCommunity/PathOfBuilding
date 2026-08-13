@@ -467,7 +467,6 @@ end
 ---@param callback fun(query:table, errMsg:string)
 function TradeQueryRequestsClass:FetchLeagues(realm, callback)
 	local function fetchStatic()
-		ConPrintf("fetching static leagues")
 		launch:DownloadPage(
 			self.hostName .. "api/trade/data/leagues",
 			function(response, errMsg)
