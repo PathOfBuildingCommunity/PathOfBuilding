@@ -582,7 +582,7 @@ return {
 	mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Condition", var = "CastOnFrostbolt" }),
 },
 ["active_skill_area_of_effect_radius_+%_final"] = {
-	mod("AreaOfEffect", "MORE", nil),
+	mod("AreaOfEffectRadius", "MORE", nil),
 },
 ["active_skill_area_of_effect_+%_final"] = {
 	mod("AreaOfEffect", "MORE", nil),

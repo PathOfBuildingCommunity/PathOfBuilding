@@ -63,6 +63,30 @@ describe("TestOffence", function()
 		assert.are.equals(1.51, build.calcsTab.mainOutput.AreaOfEffectMod)
 	end)
 
+	it("applies final skill radius modifiers after area scaling", function()
+		build.skillsTab:PasteSocketGroup("Summon Carrion Golem 20/0  1")
+		runCallback("OnFrame")
+
+		local mainSocketGroup = build.skillsTab.socketGroupList[build.mainSocketGroup]
+		local activeSkill = mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill]
+		local foundLeapSlam
+		for index, minionSkill in ipairs(activeSkill.minion.activeSkillList) do
+			if minionSkill.activeEffect.grantedEffect.id == "BoneGolemLeapSlam" then
+				activeSkill.activeEffect.srcInstance.skillMinionSkill = index
+				activeSkill.activeEffect.srcInstance.skillMinionSkillCalcs = index
+				foundLeapSlam = true
+				break
+			end
+		end
+		assert.is_true(foundLeapSlam)
+		build.modFlag = true
+		build.buildFlag = true
+		runCallback("OnFrame")
+
+		-- Leap Slam has 15 base radius and 30% final radius: floor(15 * 1.30) = 19.
+		assert.are.equals(19, build.calcsTab.mainEnv.minion.output.AreaOfEffectRadius)
+	end)
+
 	it("parses more/less/increased/reduced minimum and maximum damage of every type", function()
 		build.itemsTab:CreateDisplayItemFromRaw([[
 		New Item

@@ -164,9 +164,13 @@ end
 ---Calculates skill radius
 ---@param baseRadius number
 ---@param areaMod number
+---@param radiusMod number|nil
 ---@return number
-local function calcRadius(baseRadius, areaMod)
-	return m_floor(baseRadius * m_floor(100 * m_sqrt(areaMod)) / 100)
+local function calcRadius(baseRadius, areaMod, radiusMod)
+	local radiusPercent = m_floor(100 * m_sqrt(areaMod))
+	-- Final radius modifiers apply after Area of Effect has been converted to radius.
+	radiusPercent = m_floor(radiusPercent * (radiusMod or 1))
+	return m_floor(baseRadius * radiusPercent / 100)
 end
 
 ---Calculates the tertiary radius for Molten Strike, correctly handling the deadzone.
@@ -185,30 +189,31 @@ end
 ---@param baseRadius number
 ---@param incArea number @Additive modifier
 ---@param moreArea number @Multiplicative modifier
+---@param radiusMod number|nil @Final radius modifier
 ---@return number, number, number, number @Next breakpoint: increased, more; Previous breakpoint: reduced, less
-local function calcRadiusBreakpoints(baseRadius, incArea, moreArea)
-	local radius = calcRadius(baseRadius, calcAreaMod(incArea, moreArea))
+local function calcRadiusBreakpoints(baseRadius, incArea, moreArea, radiusMod)
+	local radius = calcRadius(baseRadius, calcAreaMod(incArea, moreArea), radiusMod)
 	local incAreaBreakpoint, redAreaBreakpoint, moreAreaBreakpoint, lessAreaBreakpoint
 	if radius > 0 then
 		incAreaBreakpoint = 0
 		repeat
 			incAreaBreakpoint = incAreaBreakpoint + 1
-			local newRadius = calcRadius(baseRadius, calcAreaMod(incArea + incAreaBreakpoint / 100, moreArea))
+			local newRadius = calcRadius(baseRadius, calcAreaMod(incArea + incAreaBreakpoint / 100, moreArea), radiusMod)
 		until (newRadius > radius)
 		redAreaBreakpoint = 0
 		repeat
 			redAreaBreakpoint = redAreaBreakpoint + 1
-			local newRadius = calcRadius(baseRadius, calcAreaMod(incArea - redAreaBreakpoint / 100, moreArea))
+			local newRadius = calcRadius(baseRadius, calcAreaMod(incArea - redAreaBreakpoint / 100, moreArea), radiusMod)
 		until (newRadius < radius)
 		moreAreaBreakpoint = 0
 		repeat
 			moreAreaBreakpoint = moreAreaBreakpoint + 1
-			local newRadius = calcRadius(baseRadius, calcAreaMod(incArea, moreArea * (1 + moreAreaBreakpoint / 100)))
+			local newRadius = calcRadius(baseRadius, calcAreaMod(incArea, moreArea * (1 + moreAreaBreakpoint / 100)), radiusMod)
 		until (newRadius > radius)
 		lessAreaBreakpoint = 0
 		repeat
 			lessAreaBreakpoint = lessAreaBreakpoint + 1
-			local newRadius = calcRadius(baseRadius, calcAreaMod(incArea, moreArea * (1 - lessAreaBreakpoint / 100)))
+			local newRadius = calcRadius(baseRadius, calcAreaMod(incArea, moreArea * (1 - lessAreaBreakpoint / 100)), radiusMod)
 		until (newRadius < radius)
 	end
 	return incAreaBreakpoint, moreAreaBreakpoint, redAreaBreakpoint, lessAreaBreakpoint
@@ -358,6 +363,7 @@ function calcs.offence(env, actor, activeSkill)
 	local function calcAreaOfEffect(skillModList, skillCfg, skillData, skillFlags, output, breakdown)
 		local incArea, moreArea = calcLib.mods(skillModList, skillCfg, "AreaOfEffect", "AreaOfEffectPrimary")
 		output.AreaOfEffectMod = calcAreaMod(incArea, moreArea)
+		local radiusMod = calcLib.mod(skillModList, skillCfg, "AreaOfEffectRadius")
 		if skillData.radiusIsWeaponRange then
 			local range = 0
 			if skillFlags.weapon1Attack then
@@ -371,24 +377,24 @@ function calcs.offence(env, actor, activeSkill)
 		if skillData.radius then
 			skillFlags.area = true
 			local baseRadius = skillData.radius + (skillData.radiusExtra or 0) + skillModList:Sum("BASE", skillCfg, "AreaOfEffect")
-			output.AreaOfEffectRadius = calcRadius(baseRadius, output.AreaOfEffectMod)
+			output.AreaOfEffectRadius = calcRadius(baseRadius, output.AreaOfEffectMod, radiusMod)
 			output.AreaOfEffectRadiusMetres = output.AreaOfEffectRadius / 10
 			if breakdown then
-				local incAreaBreakpoint, moreAreaBreakpoint, redAreaBreakpoint, lessAreaBreakpoint = calcRadiusBreakpoints(baseRadius, incArea, moreArea)
-				breakdown.AreaOfEffectRadius = breakdown.area(baseRadius, output.AreaOfEffectMod, output.AreaOfEffectRadius, incAreaBreakpoint, moreAreaBreakpoint, redAreaBreakpoint, lessAreaBreakpoint, skillData.radiusLabel)
+				local incAreaBreakpoint, moreAreaBreakpoint, redAreaBreakpoint, lessAreaBreakpoint = calcRadiusBreakpoints(baseRadius, incArea, moreArea, radiusMod)
+				breakdown.AreaOfEffectRadius = breakdown.area(baseRadius, output.AreaOfEffectMod, output.AreaOfEffectRadius, incAreaBreakpoint, moreAreaBreakpoint, redAreaBreakpoint, lessAreaBreakpoint, skillData.radiusLabel, radiusMod)
 			end
 			if skillData.radiusSecondary then
 				local incAreaSecondary, moreAreaSecondary = calcLib.mods(skillModList, skillCfg, "AreaOfEffect", "AreaOfEffectSecondary")
 				output.AreaOfEffectModSecondary = calcAreaMod(incAreaSecondary, moreAreaSecondary)
 				baseRadius = skillData.radiusSecondary + (skillData.radiusExtra or 0)
-				output.AreaOfEffectRadiusSecondary = calcRadius(baseRadius, output.AreaOfEffectModSecondary)
+				output.AreaOfEffectRadiusSecondary = calcRadius(baseRadius, output.AreaOfEffectModSecondary, radiusMod)
 				output.AreaOfEffectRadiusSecondaryMetres = output.AreaOfEffectRadiusSecondary / 10
 				if breakdown then
 					local incAreaBreakpointSecondary, moreAreaBreakpointSecondary, redAreaBreakpointSecondary, lessAreaBreakpointSecondary
 					if not skillData.projectileSpeedAppliesToMSAreaOfEffect then
-						incAreaBreakpointSecondary, moreAreaBreakpointSecondary, redAreaBreakpointSecondary, lessAreaBreakpointSecondary = calcRadiusBreakpoints(baseRadius, incAreaSecondary, moreAreaSecondary)
+						incAreaBreakpointSecondary, moreAreaBreakpointSecondary, redAreaBreakpointSecondary, lessAreaBreakpointSecondary = calcRadiusBreakpoints(baseRadius, incAreaSecondary, moreAreaSecondary, radiusMod)
 					end
-					breakdown.AreaOfEffectRadiusSecondary = breakdown.area(baseRadius, output.AreaOfEffectModSecondary, output.AreaOfEffectRadiusSecondary, incAreaBreakpointSecondary, moreAreaBreakpointSecondary, redAreaBreakpointSecondary, lessAreaBreakpointSecondary, skillData.radiusSecondaryLabel)
+					breakdown.AreaOfEffectRadiusSecondary = breakdown.area(baseRadius, output.AreaOfEffectModSecondary, output.AreaOfEffectRadiusSecondary, incAreaBreakpointSecondary, moreAreaBreakpointSecondary, redAreaBreakpointSecondary, lessAreaBreakpointSecondary, skillData.radiusSecondaryLabel, radiusMod)
 				end
 			end
 			if skillData.radiusTertiary then
@@ -419,7 +425,7 @@ function calcs.offence(env, actor, activeSkill)
 					local radiusForBaseRadius = {}
 					local radiiOccurrences = {}
 					for adjustedBaseRadius, occurrenceCount in pairs(baseRadiiOccurrences) do
-						local radiusForDeviation = calcRadius(adjustedBaseRadius, output.AreaOfEffectModTertiary)
+						local radiusForDeviation = calcRadius(adjustedBaseRadius, output.AreaOfEffectModTertiary, radiusMod)
 						radiusForBaseRadius[adjustedBaseRadius] = radiusForDeviation
 						sumOfRandomRadii = sumOfRandomRadii + radiusForDeviation * occurrenceCount
 						radiiOccurrences[radiusForDeviation] = (radiiOccurrences[radiusForDeviation] or 0) + occurrenceCount
@@ -431,6 +437,9 @@ function calcs.offence(env, actor, activeSkill)
 						local incAreaBreakpointTertiary, moreAreaBreakpointTertiary, redAreaBreakpointTertiary, lessAreaBreakpointTertiary = m_huge, m_huge, m_huge, m_huge
 						t_insert(out, skillData.radiusTertiaryLabel)
 						t_insert(out, s_format("R ^8(base radius)^7 x %.2f ^8(square root of area of effect modifier)", m_floor(100 * m_sqrt(output.AreaOfEffectModTertiary)) / 100))
+						if radiusMod ~= 1 then
+							t_insert(out, s_format("x %.2f ^8(final radius modifier)", radiusMod))
+						end
 						local baseRadii = {}
 						for adjustedBaseRadius in pairs(baseRadiiOccurrences) do
 							t_insert(baseRadii, adjustedBaseRadius)
@@ -438,7 +447,7 @@ function calcs.offence(env, actor, activeSkill)
 						table.sort(baseRadii, function(a,b) return a < b end)
 						for _, adjustedBaseRadius in ipairs(baseRadii) do
 							t_insert(out, s_format("%.1f%% ^8chance of^7 %.1fm ^8base radius resulting in^7 %.1fm ^8final radius", baseRadiiOccurrences[adjustedBaseRadius] / marginWidth * 100, adjustedBaseRadius / 10, radiusForBaseRadius[adjustedBaseRadius] / 10))
-							local incAreaBreakpointTertiaryIntermediate, moreAreaBreakpointTertiaryIntermediate, redAreaBreakpointTertiaryIntermediate, lessAreaBreakpointTertiaryIntermediate = calcRadiusBreakpoints(adjustedBaseRadius, incAreaTertiary, moreAreaTertiary)
+							local incAreaBreakpointTertiaryIntermediate, moreAreaBreakpointTertiaryIntermediate, redAreaBreakpointTertiaryIntermediate, lessAreaBreakpointTertiaryIntermediate = calcRadiusBreakpoints(adjustedBaseRadius, incAreaTertiary, moreAreaTertiary, radiusMod)
 							incAreaBreakpointTertiary = m_min(incAreaBreakpointTertiary, incAreaBreakpointTertiaryIntermediate)
 							moreAreaBreakpointTertiary = m_min(moreAreaBreakpointTertiary, moreAreaBreakpointTertiaryIntermediate)
 							redAreaBreakpointTertiary = m_min(redAreaBreakpointTertiary, redAreaBreakpointTertiaryIntermediate)
@@ -450,10 +459,10 @@ function calcs.offence(env, actor, activeSkill)
 						breakdown.AreaOfEffectRadiusTertiary = out
 					end
 				else
-					output.AreaOfEffectRadiusTertiary = calcRadius(baseRadius, output.AreaOfEffectModTertiary)
+					output.AreaOfEffectRadiusTertiary = calcRadius(baseRadius, output.AreaOfEffectModTertiary, radiusMod)
 					if breakdown then
-						local incAreaBreakpointTertiary, moreAreaBreakpointTertiary, redAreaBreakpointTertiary, lessAreaBreakpointTertiary = calcRadiusBreakpoints(baseRadius, incAreaTertiary, moreAreaTertiary)
-						breakdown.AreaOfEffectRadiusTertiary = breakdown.area(baseRadius, output.AreaOfEffectModTertiary, output.AreaOfEffectRadiusTertiary, incAreaBreakpointTertiary, moreAreaBreakpointTertiary, redAreaBreakpointTertiary, lessAreaBreakpointTertiary, skillData.radiusTertiaryLabel)
+						local incAreaBreakpointTertiary, moreAreaBreakpointTertiary, redAreaBreakpointTertiary, lessAreaBreakpointTertiary = calcRadiusBreakpoints(baseRadius, incAreaTertiary, moreAreaTertiary, radiusMod)
+						breakdown.AreaOfEffectRadiusTertiary = breakdown.area(baseRadius, output.AreaOfEffectModTertiary, output.AreaOfEffectRadiusTertiary, incAreaBreakpointTertiary, moreAreaBreakpointTertiary, redAreaBreakpointTertiary, lessAreaBreakpointTertiary, skillData.radiusTertiaryLabel, radiusMod)
 					end
 				end
 				output.AreaOfEffectRadiusTertiaryMetres = output.AreaOfEffectRadiusTertiary / 10
