@@ -1911,12 +1911,16 @@ function calcs.offence(env, actor, activeSkill)
 				globalTotal = globalTotal * factor
 			end
 			local dmgTable = { conversion = { }, gain = { } }
+			local convertedTotal = 0
 			for type in pairs(globalConv) do
-				dmgTable.conversion[type] = (globalConv[type] + skillConv[type]) / 100
+				-- The game stores each scaled conversion destination as a whole percent.
+				local conversion = round(globalConv[type] + skillConv[type])
+				dmgTable.conversion[type] = conversion / 100
 				dmgTable.gain[type] = add[type] / 100
-				dmgTable[type] = (globalConv[type] + skillConv[type] + add[type]) / 100
+				dmgTable[type] = (conversion + add[type]) / 100
+				convertedTotal = convertedTotal + conversion
 			end
-			dmgTable.mult = 1 - m_min((globalTotal + skillTotal) / 100, 1)
+			dmgTable.mult = 1 - m_min(convertedTotal / 100, 1)
 			conversionTable[damageType] = dmgTable
 		end
 		conversionTable["Chaos"] = { mult = 1 }

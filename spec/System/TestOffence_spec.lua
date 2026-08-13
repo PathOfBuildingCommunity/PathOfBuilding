@@ -50,6 +50,23 @@ describe("TestOffence", function()
 		assert.are.equals(damageWithoutArrowMod, build.calcsTab.mainOutput.AverageDamage)
 	end)
 
+	it("rounds each scaled damage conversion to a whole percent", function()
+		build.skillsTab:PasteSocketGroup("Fireball 20/0  1")
+		build.configTab.input.customMods = [[
+		40% of Physical Damage Converted to Lightning Damage
+		40% of Physical Damage Converted to Cold Damage
+		40% of Physical Damage Converted to Fire Damage
+		]]
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		local conversion = build.calcsTab.mainEnv.player.mainSkill.conversionTable.Physical
+		assert.are.equals(0.33, conversion.conversion.Lightning)
+		assert.are.equals(0.33, conversion.conversion.Cold)
+		assert.are.equals(0.33, conversion.conversion.Fire)
+		assert.is_true(math.abs(conversion.mult - 0.01) < 0.000001)
+	end)
+
 	it("parses more/less/increased/reduced minimum and maximum damage of every type", function()
 		build.itemsTab:CreateDisplayItemFromRaw([[
 		New Item
