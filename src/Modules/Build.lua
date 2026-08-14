@@ -306,8 +306,8 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 			self.controls.buildLoadouts:SetSel(1)
 			return
 		end
-		if value == "^7^7Sync" then
-			self:SyncLoadouts()
+		if value == "^7^7Manage Loadouts" then
+			self:OpenLoadoutManagePopup()
 			self.controls.buildLoadouts:SetSel(1)
 			return
 		end
@@ -317,40 +317,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 			return
 		end
 		if value == "^7^7New Loadout" then
-			local controls = { }
-			controls.label = new("LabelControl"):LabelControl(nil, {0, 20, 0, 16}, "^7Enter name for this loadout:")
-			controls.edit = new("EditControl"):EditControl(nil, {0, 40, 350, 20}, "New Loadout", nil, nil, 100, function(buf)
-				controls.save.enabled = buf:match("%S")
-			end)
-			controls.save = new("ButtonControl"):ButtonControl(nil, {-45, 70, 80, 20}, "Save", function()
-				local loadout = controls.edit.buf
-
-				local newSpec = new("PassiveSpec"):PassiveSpec(self, latestTreeVersion)
-				newSpec.title = loadout
-				t_insert(self.treeTab.specList, newSpec)
-
-				local itemSet = self.itemsTab:NewItemSet(#self.itemsTab.itemSets + 1)
-				t_insert(self.itemsTab.itemSetOrderList, itemSet.id)
-				itemSet.title = loadout
-
-				local skillSet = self.skillsTab:NewSkillSet(#self.skillsTab.skillSets + 1)
-				t_insert(self.skillsTab.skillSetOrderList, skillSet.id)
-				skillSet.title = loadout
-
-				local configSet = self.configTab:NewConfigSet(#self.configTab.configSets + 1)
-				t_insert(self.configTab.configSetOrderList, configSet.id)
-				configSet.title = loadout
-
-				self:SyncLoadouts()
-				self.modFlag = true
-				main:ClosePopup()
-			end)
-			controls.save.enabled = false
-			controls.cancel = new("ButtonControl"):ButtonControl(nil, {45, 70, 80, 20}, "Cancel", function()
-				main:ClosePopup()
-			end)
-			main:OpenPopup(370, 100, "Set Name", controls, "save", "edit", "cancel")
-
+			self:OpenLoadoutNamePopup()
 			self.controls.buildLoadouts:SetSel(1)
 			return
 		end
@@ -758,6 +725,9 @@ end
 
 function buildMode:SyncLoadouts()
 	self.controls.buildLoadouts.list = {"No Loadouts"}
+	-- Resolved loadouts (name plus the ids of the four associated sets), used by the loadout manager
+	self.loadoutList = self.loadoutList or { }
+	wipeTable(self.loadoutList)
 
 	local filteredList = {"^7^7Loadouts:"}
 	local treeList = {}
@@ -797,7 +767,7 @@ function buildMode:SyncLoadouts()
 					transferTable = {}
 				end
 			else
-				t_insert(treeList, (spec.treeVersion ~= latestTreeVersion and ("["..treeVersions[spec.treeVersion].display.."] ") or "")..(specTitle))
+				t_insert(treeList, { specId = id, name = (spec.treeVersion ~= latestTreeVersion and ("["..treeVersions[spec.treeVersion].display.."] ") or "")..(specTitle) })
 			end
 		end
 
@@ -822,7 +792,7 @@ function buildMode:SyncLoadouts()
 						transferTable = {}
 					end
 				else
-					setList[setTitle] = true
+					setList[setTitle] = set
 				end
 			end
 		end
@@ -832,15 +802,31 @@ function buildMode:SyncLoadouts()
 
 		-- loop over all for exact match loadouts
 		for id, tree in ipairs(treeList) do
-			if (oneItem or itemList[tree]) and (oneSkill or skillList[tree]) and (oneConfig or configList[tree]) then
-				t_insert(filteredList, tree)
+			local itemSetId = oneItem and self.itemsTab.itemSetOrderList[1] or itemList[tree.name]
+			local skillSetId = oneSkill and self.skillsTab.skillSetOrderList[1] or skillList[tree.name]
+			local configSetId = oneConfig and self.configTab.configSetOrderList[1] or configList[tree.name]
+			if itemSetId and skillSetId and configSetId then
+				t_insert(filteredList, tree.name)
+				t_insert(self.loadoutList, { name = tree.name, specId = tree.specId, itemSetId = itemSetId, skillSetId = skillSetId, configSetId = configSetId })
 			end
 		end
 		-- loop over the identifiers found within braces and set the loadout name to the TreeSet
 		for _, tree in ipairs(sortedTreeListSpecialLinks) do
 			local treeLinkId = tree.linkId
-			if ((oneItem or self.itemListSpecialLinks[treeLinkId]) and (oneSkill or self.skillListSpecialLinks[treeLinkId]) and (oneConfig or self.configListSpecialLinks[treeLinkId])) then
-				t_insert(filteredList, tree.setName .." {"..treeLinkId.."}")
+			local itemLink = self.itemListSpecialLinks[treeLinkId]
+			local skillLink = self.skillListSpecialLinks[treeLinkId]
+			local configLink = self.configListSpecialLinks[treeLinkId]
+			if ((oneItem or itemLink) and (oneSkill or skillLink) and (oneConfig or configLink)) then
+				local loadoutName = tree.setName .." {"..treeLinkId.."}"
+				t_insert(filteredList, loadoutName)
+				t_insert(self.loadoutList, {
+					name = loadoutName,
+					specId = tree.setId,
+					linkId = treeLinkId,
+					itemSetId = oneItem and self.itemsTab.itemSetOrderList[1] or itemLink.setId,
+					skillSetId = oneSkill and self.skillsTab.skillSetOrderList[1] or skillLink.setId,
+					configSetId = oneConfig and self.configTab.configSetOrderList[1] or configLink.setId,
+				})
 			end
 		end
 	end
@@ -848,7 +834,7 @@ function buildMode:SyncLoadouts()
 	-- giving the options unique formatting so it can not match with user-created sets
 	t_insert(filteredList, "^7^7-----")
 	t_insert(filteredList, "^7^7New Loadout")
-	t_insert(filteredList, "^7^7Sync")
+	t_insert(filteredList, "^7^7Manage Loadouts")
 	t_insert(filteredList, "^7^7Help >>")
 
 	if #filteredList > 0 then
@@ -881,6 +867,61 @@ function buildMode:SyncLoadouts()
 
 	self.controls.buildLoadouts:SetSel(1)
 	return treeList, itemList, skillList, configList
+end
+
+-- Creates a new loadout: a passive tree, item set, skill set and config set sharing the given name
+function buildMode:NewLoadout(loadoutName)
+	local newSpec = new("PassiveSpec"):PassiveSpec(self, latestTreeVersion)
+	newSpec.title = loadoutName
+	t_insert(self.treeTab.specList, newSpec)
+
+	local itemSet = self.itemsTab:NewItemSet(#self.itemsTab.itemSets + 1)
+	t_insert(self.itemsTab.itemSetOrderList, itemSet.id)
+	itemSet.title = loadoutName
+
+	local skillSet = self.skillsTab:NewSkillSet(#self.skillsTab.skillSets + 1)
+	t_insert(self.skillsTab.skillSetOrderList, skillSet.id)
+	skillSet.title = loadoutName
+
+	local configSet = self.configTab:NewConfigSet(#self.configTab.configSets + 1)
+	t_insert(self.configTab.configSetOrderList, configSet.id)
+	configSet.title = loadoutName
+
+	self:SyncLoadouts()
+	self.modFlag = true
+end
+
+-- Opens the naming popup for a new loadout
+function buildMode:OpenLoadoutNamePopup()
+	local controls = { }
+	controls.label = new("LabelControl"):LabelControl(nil, {0, 20, 0, 16}, "^7Enter name for this loadout:")
+	controls.edit = new("EditControl"):EditControl(nil, {0, 40, 350, 20}, "New Loadout", nil, nil, 100, function(buf)
+		controls.save.enabled = buf:match("%S")
+	end)
+	controls.save = new("ButtonControl"):ButtonControl(nil, {-45, 70, 80, 20}, "Save", function()
+		self:NewLoadout(controls.edit.buf)
+		main:ClosePopup()
+	end)
+	controls.save.enabled = false
+	controls.cancel = new("ButtonControl"):ButtonControl(nil, {45, 70, 80, 20}, "Cancel", function()
+		main:ClosePopup()
+	end)
+	main:OpenPopup(370, 100, "Set Name", controls, "save", "edit", "cancel")
+end
+
+-- Opens the loadout manager
+function buildMode:OpenLoadoutManagePopup()
+	local syncButton = new("ButtonControl"):ButtonControl(nil, {-50, 260, 90, 20}, "Sync", function()
+		self:SyncLoadouts()
+	end)
+	syncButton.tooltipText = "Force the loadout list to update in case sets have been changed behind the scenes."
+	main:OpenPopup(470, 290, "Manage Loadouts", {
+		new("LoadoutListControl"):LoadoutListControl(nil, {0, 50, 450, 200}, self),
+		syncButton,
+		new("ButtonControl"):ButtonControl(nil, {50, 260, 90, 20}, "Done", function()
+			main:ClosePopup()
+		end),
+	})
 end
 
 function buildMode:EstimatePlayerProgress()
