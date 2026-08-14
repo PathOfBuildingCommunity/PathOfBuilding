@@ -42,7 +42,7 @@ return {
 			[10] = "explicit.stat_3808469650",
 			[11] = "explicit.stat_2830135449",
 			[12] = "explicit.stat_2042813020",
-			[13] = "explicit.stat_3293275880",
+			[13] = "explicit.stat_1355915086",
 			[14] = "explicit.stat_2585926696",
 			[15] = "explicit.stat_2803981661"
 		}
