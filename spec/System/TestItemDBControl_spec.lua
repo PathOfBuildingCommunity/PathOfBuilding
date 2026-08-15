@@ -104,7 +104,7 @@ describe("ItemDBControl", function()
 				end,
 			},
 		}
-		local control = new("ItemDBControl", nil, { 0, 0, 100, 100 }, itemsTab, {
+		local control = new("ItemDBControl"):ItemDBControl(nil, { 0, 0, 100, 100 }, itemsTab, {
 			list = { invalidItem, betterItem, worseItem },
 		}, "RARE")
 		control.sortDetail = { stat = "WeightedScore", isWeightedScore = true }
@@ -150,7 +150,7 @@ describe("ItemDBControl", function()
 				end,
 			},
 		}
-		local control = new("ItemDBControl", nil, { 0, 0, 100, 100 }, itemsTab, { list = { item } }, "RARE")
+		local control = new("ItemDBControl"):ItemDBControl(nil, { 0, 0, 100, 100 }, itemsTab, { list = { item } }, "RARE")
 		control.sortDetail = { stat = "WeightedScore", isWeightedScore = true }
 		control.sortOrder = { control.sortControl.STAT, control.sortControl.NAME }
 

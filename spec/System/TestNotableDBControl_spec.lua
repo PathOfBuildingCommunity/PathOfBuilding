@@ -25,7 +25,7 @@ describe("NotableDBControl", function()
 				end,
 			},
 		}
-		local control = new("NotableDBControl", nil, { 0, 0, 100, 100 }, itemsTab, { [1] = notable }, "ANNOINT")
+		local control = new("NotableDBControl"):NotableDBControl(nil, { 0, 0, 100, 100 }, itemsTab, { [1] = notable }, "ANNOINT")
 		control.sortDetail = { stat = "WeightedScore", isWeightedScore = true }
 		control.sortOrder = { control.sortControl.STAT, control.sortControl.NAME }
 
