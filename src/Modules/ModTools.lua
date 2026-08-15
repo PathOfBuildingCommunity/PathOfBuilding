@@ -22,7 +22,7 @@ modLib = { }
 ---@alias Doubled ["MORE", "OVERRIDE"]
 ---@alias NumericModTypes "INC"|"MORE"|"BASE"|"OVERRIDE"|"MAX"|"CHANCE"|"DUMMY"|"Flag"|"MIN"|Doubled
 
--- Massive disciminated union. Todo: probably has to be built with an LLM for a start
+-- Massive discriminated union. Todo: probably has to be built with an LLM for a start
 ---@class ModTag
 ---@field type string
 
