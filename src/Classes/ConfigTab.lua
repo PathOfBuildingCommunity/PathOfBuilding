@@ -12,9 +12,14 @@ local s_upper = string.upper
 local varList = LoadModule("Modules/ConfigOptions")
 local configVisibility = LoadModule("Modules/ConfigVisibility")
 
----@class CustomModBlock: ControlHost, Control
+---@class CustomModBlockControl: ControlHost, Control
 local CustomModBlockClass = newClass("CustomModBlockControl", "ControlHost", "Control")
 
+---@param anchor Anchor
+---@param rect Rect
+---@param configTab ConfigTab
+---@param blockIndex integer
+---@param blockData any
 function CustomModBlockClass:CustomModBlockControl(anchor, rect, configTab, blockIndex, blockData)
 	self:Control(anchor, rect)
 	self:ControlHost()

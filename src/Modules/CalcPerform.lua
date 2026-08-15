@@ -70,6 +70,7 @@ function doActorLifeMana(actor)
 	local modDB = actor.modDB
 	---@class Output
 	local output = actor.output
+	---@class Breakdown
 	local breakdown = actor.breakdown
 	local condList = modDB.conditions
 
@@ -138,6 +139,7 @@ local function doActorAttribsConditions(env, actor)
 	local modDB = actor.modDB
 	---@class Output
 	local output = actor.output
+	---@class Breakdown
 	local breakdown = actor.breakdown
 	local condList = modDB.conditions
 

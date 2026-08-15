@@ -78,9 +78,15 @@ return calcs
 ---@field TotemChaosResist number?
 ---@field TotemLife number?
 
+---@class Breakdown
+---@field MainHand Breakdown?
+---@field OffHand Breakdown?
+
 ---@class Actor
 ---@field output Output
 ---@field modDB ModDB
+---@field enemy Actor?
+---@field breakdown? Breakdown?
 
 ---@class ActiveSkill
 ---@field skillModList ModList

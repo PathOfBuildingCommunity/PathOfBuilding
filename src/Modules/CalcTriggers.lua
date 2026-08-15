@@ -139,6 +139,7 @@ local function helmetFocusHandler(env)
 		env.player.mainSkill.skillData.triggered = true
 		---@class Output
 		local output = env.player.output
+		---@class Breakdown
 		local breakdown = env.player.breakdown
 		local triggerCD = env.player.mainSkill.triggeredBy.grantedEffect.levels[env.player.mainSkill.triggeredBy.level].cooldown
 		local triggeredCD = env.player.mainSkill.skillData.cooldown
@@ -224,6 +225,7 @@ local function CWCHandler(env)
 		local source = nil
 		local triggerName = "Cast While Channeling"
 		local output = env.player.output
+		---@class Breakdown
 		local breakdown = env.player.breakdown
 		for _, skill in ipairs(env.player.activeSkillList) do
 			local slotMatch = slotMatch(env, skill)
@@ -392,6 +394,7 @@ end
 local function defaultTriggerHandler(env, config)
 	local actor = config.actor
 	local output = config.actor.output
+	---@class Breakdown
 	local breakdown = config.actor.breakdown
 	local source = config.source
 	local triggeredSkills = config.triggeredSkills or {}

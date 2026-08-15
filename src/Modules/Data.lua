@@ -123,6 +123,7 @@ end
 ---@field ignoreForNodes? boolean
 ---@field ignoreForItems? boolean
 ---@field reverseSort? boolean
+---@field itemField string?
 
 ---@type PowerStat[]
 data.powerStatList = {

@@ -12,6 +12,16 @@ local m_floor = math.floor
 ---@class PassiveMasteryControl: ListControl
 local PassiveMasteryControlClass = newClass("PassiveMasteryControl", "ListControl")
 
+---@class MasterListElem
+---@field label string
+---@field id number
+
+---@param anchor Anchor
+---@param rect Rect
+---@param list MasterListElem[]
+---@param treeTab TreeTab
+---@param node Node
+---@param saveButton ButtonControl
 function PassiveMasteryControlClass:PassiveMasteryControl(anchor, rect, list, treeTab, node, saveButton)
 	self.list = list or { }
 	-- automagical width

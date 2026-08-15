@@ -467,8 +467,10 @@ function CalcsTabClass:BuildOutput()
 	end
 	
 	-- Retrieve calculator functions
-	self.nodeCalculator = { self.calcs.getNodeCalculator(self.build) }
-	self.miscCalculator = { self.calcs.getMiscCalculator(self.build) }
+	local nodeCalcFunc, nodeCalcBase = self.calcs.getNodeCalculator(self.build)
+	self.nodeCalculator = { nodeCalcFunc, nodeCalcBase }
+	local miscCalcFunc, miscCalcBase = self.calcs.getMiscCalculator(self.build)
+	self.miscCalculator = { miscCalcFunc, miscCalcBase }
 end
 
 -- Controls the coroutine that calculates node power
@@ -496,6 +498,10 @@ end
 function CalcsTabClass:PowerBuilder()
 	-- local timer_start = GetTime()
 	local useFullDPS = self.powerStat and self.powerStat.stat == "FullDPS"
+	---@type CalcOverride
+	local override = {
+		repItem
+	}
 	local calcFunc, calcBase = self:GetMiscCalculator()
 	local cache = { }
 	local distanceMap = { }
@@ -757,12 +763,8 @@ function CalcsTabClass:CalculateCombinedOffDefStat(original, modified)
 	return dpsIncr / modifiedDps, defence
 end
 
-function CalcsTabClass:GetNodeCalculator()
-	return unpack(self.nodeCalculator)
-end
-
 function CalcsTabClass:GetMiscCalculator()
-	return unpack(self.miscCalculator)
+	return self.miscCalculator[1], self.miscCalculator[2]
 end
 
 function CalcsTabClass:CreateUndoState()

@@ -507,11 +507,24 @@ function calcs.defenceForConditionals(env, actor)
 	end
 end
 
+---@class MinMaxTotalBreakdownResist
+---@field min string min %
+---@field max string max %
+---@field total string total %
 -- Performs resistance calculations
 function calcs.resistances(actor)
 	local modDB = actor.modDB
 	---@class Output
 	local output = actor.output
+	---@class Breakdown
+	---@field FireResist MinMaxTotalBreakdownResist?
+	---@field ColdResist MinMaxTotalBreakdownResist?
+	---@field LightningResist MinMaxTotalBreakdownResist?
+	---@field ChaosResist MinMaxTotalBreakdownResist?
+	---@field TotemFireResist MinMaxTotalBreakdownResist?
+	---@field TotemColdResist MinMaxTotalBreakdownResist?
+	---@field TotemLightningResist MinMaxTotalBreakdownResist?
+	---@field TotemChaosResist MinMaxTotalBreakdownResist?
 	local breakdown = actor.breakdown
 	output["PhysicalResist"] = 0
 	
@@ -643,6 +656,7 @@ function calcs.defence(env, actor)
 	local enemyDB = actor.enemy.modDB
 	---@class Output
 	local output = actor.output
+	---@class Breakdown
 	local breakdown = actor.breakdown
 
 	local condList = modDB.conditions
@@ -1643,6 +1657,7 @@ function calcs.buildDefenceEstimations(env, actor)
 	local enemyDB = actor.enemy.modDB
 	---@class Output
 	local output = actor.output
+	---@class Breakdown
 	local breakdown = actor.breakdown
 
 	local condList = modDB.conditions

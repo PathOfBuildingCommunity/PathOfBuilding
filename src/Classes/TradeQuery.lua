@@ -22,6 +22,7 @@ local baseSlots = { "Weapon 1", "Weapon 2", "Weapon 1 Swap", "Weapon 2 Swap", "H
 ---@class TradeQuery
 local TradeQueryClass = newClass("TradeQuery")
 
+---@param itemsTab ItemsTab
 function TradeQueryClass:TradeQuery(itemsTab)
 	self.itemsTab = itemsTab
 	self.itemsTab.leagueDropList = { }

@@ -13,6 +13,15 @@ local m_floor = math.floor
 ---@class ItemDBControl: ListControl
 local ItemDBClass = newClass("ItemDBControl", "ListControl")
 
+---@class ItemDBData
+---@field list Item[]
+---@field loading boolean
+
+---@param anchor Anchor
+---@param rect Rect
+---@param itemsTab ItemsTab
+---@param db ItemDBData
+---@param dbType "RARE"|"UNIQUE"
 function ItemDBClass:ItemDBControl(anchor, rect, itemsTab, db, dbType)
 	self:ListControl(anchor, rect, 16, "VERTICAL", false)
 	self.itemsTab = itemsTab

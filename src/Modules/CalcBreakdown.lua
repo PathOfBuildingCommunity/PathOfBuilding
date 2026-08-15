@@ -11,6 +11,7 @@ local m_sqrt = math.sqrt
 local s_format = string.format
 
 return function(modDB, output, actor)
+	---@class Breakdown
 	local breakdown = {}
 
 	function breakdown.multiChain(out, chain)

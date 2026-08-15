@@ -63,6 +63,7 @@ local damageStatsForTypes = setmetatable({ }, { __index = function(t, k)
 end })
 
 local globalOutput = nil
+---@class Breakdown?
 local globalBreakdown = nil
 
 -- Calculate min/max damage for the given damage type
@@ -321,11 +322,15 @@ function calcs.calcTotemLife(env, activeSkill)
 end
 
 -- Performs all offensive calculations
+---@param env Env
+---@param actor Actor
+---@param activeSkill ActiveSkill
 function calcs.offence(env, actor, activeSkill)
 	local modDB = actor.modDB
 	local enemyDB = actor.enemy.modDB
 	---@class Output
 	local output = actor.output
+	---@class Breakdown
 	local breakdown = actor.breakdown
 
 	local skillModList = activeSkill.skillModList
@@ -2532,6 +2537,7 @@ function calcs.offence(env, actor, activeSkill)
 		---@class Output
 		local output = pass.output
 		local cfg = pass.cfg
+		---@class Breakdown
 		local breakdown = pass.breakdown
 
 		-- Exerted Attack members
@@ -4057,6 +4063,7 @@ function calcs.offence(env, actor, activeSkill)
 		---@class Output
 		local output = pass.output
 		local cfg = pass.cfg
+		---@class Breakdown
 		local breakdown = pass.breakdown
 
 		do -- Perfect Agony
