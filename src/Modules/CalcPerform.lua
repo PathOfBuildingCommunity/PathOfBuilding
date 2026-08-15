@@ -611,6 +611,7 @@ end
 
 -- Process enemy modifiers and other buffs
 local function doActorMisc(env, actor)
+	---@type ModDB
 	local modDB = actor.modDB
 	local enemyDB = actor.enemy.modDB
 	local output = actor.output
@@ -698,9 +699,13 @@ local function doActorMisc(env, actor)
 			if arcaneSurgeDamage ~= 0 then
 				modDB:NewMod("Damage", "MORE", arcaneSurgeDamage * effect, "Arcane Surge", ModFlag.Spell) 
 			end
-			local arcaneSurgeLifeRegen = modDB:Sum("BASE", nil, "ArcaneSurgeAlsoLifeRegen")
-			if arcaneSurgeLifeRegen > 0 then
-				modDB:NewMod("LifeRegen", "INC", arcaneSurgeLifeRegen * effect, "Arcane Surge")
+			local prefix = "ArcaneSurgeAlso"
+			local additionalMods = { LifeRegen = "BASE", ManaRecoup = "BASE", ManaCostEfficiency = "INC" }
+			for mod, modType in pairs(additionalMods) do
+				local value = modDB:Sum(modType, nil, prefix .. mod)
+				if value ~= 0 then
+					modDB:NewMod(mod, modType, value * effect, "Arcane Surge")
+				end
 			end
 		end
 		if modDB:Flag(nil, "Fanaticism") and actor.mainSkill and actor.mainSkill.skillFlags.selfCast then
@@ -722,6 +727,15 @@ local function doActorMisc(env, actor)
 			local effect = 1 + modDB:Sum("INC", nil, "BuffEffectOnSelf") / 100
 			modDB:NewMod("PhysicalDamageConvertToChaos", "BASE", m_floor(100 * effect), "Unholy Might")
 			modDB:NewMod("Condition:CanWither", "FLAG", true, "Unholy Might")
+			local value = modDB:Sum("BASE", nil, "UnholyMightAlsoChaosPenetration")
+			if value ~= 0 then
+				modDB:NewMod("ChaosPenetration", "BASE", value * effect, "Unholy Might")
+			end
+			local witherValue = modDB:Sum("INC", nil, "UnholyMightAlsoWitherEffect")
+			local currentMax = modDB:Max(nil, "WitherEffectStack")
+			if witherValue ~= 0 and currentMax then
+				modDB:NewMod("WitherEffectStack", "MAX", currentMax * (1 + witherValue / 100))
+			end
 		end
 		if modDB:Flag(nil, "ShepherdOfSouls") then
 			modDB:NewMod("SoulCost", "MORE", -80, "Shepherd of Souls", { type = "SkillType", skillType = SkillType.Vaal }, { type = "SkillType", skillType = SkillType.Aura, neg = true })
