@@ -2116,6 +2116,13 @@ local explodeFunc = function(chance, amount, type, ...)
 	}
 end
 
+local dmgTypes = {
+	["physical"] = "Physical",
+	["lightning"] = "Lightning",
+	["cold"] = "Cold",
+	["fire"] = "Fire",
+	["chaos"] = "Chaos",
+}
 -- List of special modifiers
 ---@type table<string, Mod[]|fun(num: number, ...: string): Mod|Mod[]>
 local specialModList = {
@@ -5306,6 +5313,15 @@ local specialModList = {
 		mod("FireDamageFromHitsTakenAsCold", "BASE", num, { type = "Condition", var = "UsingFlask" }), 
 		mod("LightningDamageFromHitsTakenAsCold", "BASE", num, { type = "Condition", var = "UsingFlask" }), 
 	} end,
+	["(%d+)%% of (%a+) and (%a+) damage from hits taken as (%a+) damage"] = function(num, _, type1, type2, type3)
+		local fromType1 = dmgTypes[type1]
+		local fromType2 = dmgTypes[type2]
+		local toType = dmgTypes[type3]
+		return fromType1 and fromType2 and toType and {
+			mod(fromType1 .. "DamageFromHitsTakenAs" .. toType, "BASE", num),
+			mod(fromType2 .. "DamageFromHitsTakenAs" .. toType, "BASE", num),
+		}
+	end,
 	["items and gems have (%d+)%% reduced attribute requirements"] = function(num) return { mod("GlobalAttributeRequirements", "INC", -num) } end,
 	["items and gems have (%d+)%% increased attribute requirements"] = function(num) return { mod("GlobalAttributeRequirements", "INC", num) } end,
 	["mana reservation of herald skills is always (%d+)%%"] = function(num) return { mod("SkillData", "LIST", { key = "ManaReservationPercentForced", value = num }, { type = "SkillType", skillType = SkillType.Herald }) } end,
@@ -5932,13 +5948,6 @@ local suffixTypes = {
 	["is leeched as mana"] = "ManaLeech",
 	["leeched as energy shield"] = "EnergyShieldLeech",
 	["is leeched as energy shield"] = "EnergyShieldLeech",
-}
-local dmgTypes = {
-	["physical"] = "Physical",
-	["lightning"] = "Lightning",
-	["cold"] = "Cold",
-	["fire"] = "Fire",
-	["chaos"] = "Chaos",
 }
 local penTypes = {
 	["lightning resistance"] = "LightningPenetration",
