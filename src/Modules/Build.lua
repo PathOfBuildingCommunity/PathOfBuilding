@@ -17,6 +17,7 @@ local s_format = string.format
 
 ---@class Build: ControlHost
 ---@field spec PassiveSpec added by TreeTab
+---@field powerBuilderProgressCallback fun(progress: number)
 ---@field powerBuilderCallback fun()
 local buildMode = new("ControlHost"):ControlHost()
 
@@ -1251,7 +1252,7 @@ function buildMode:OnFrame(inputEvents)
 		self.skillsTab:UpdateSocketGroups()
 		self.calcsTab:BuildOutput()
 		self:RefreshStatList()
-		self.configTab.calcFunc, self.configTab.calcBase = self.calcsTab:GetMiscCalculator(self)
+		self.configTab.calcFunc, self.configTab.calcBase = self.calcsTab:GetMiscCalculator()
 	end
 	if main.showThousandsSeparators ~= self.lastShowThousandsSeparators then
 		self:RefreshStatList()

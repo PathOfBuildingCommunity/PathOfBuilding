@@ -324,6 +324,7 @@ end
 function calcs.offence(env, actor, activeSkill)
 	local modDB = actor.modDB
 	local enemyDB = actor.enemy.modDB
+	---@class Output
 	local output = actor.output
 	local breakdown = actor.breakdown
 
@@ -2111,7 +2112,10 @@ function calcs.offence(env, actor, activeSkill)
 	-- Calculate how often you hit (speed, accuracy, block, etc)
 	for _, pass in ipairs(passList) do
 		globalOutput, globalBreakdown = output, breakdown
-		local source, output, cfg, breakdown = pass.source, pass.output, pass.cfg, pass.breakdown
+		local source = pass.source
+		---@class Output
+		local output = pass.output
+		local cfg = pass.cfg
 
 		if skillData.averageBurstHits then
 			output.AverageBurstHits = skillData.averageBurstHits
@@ -2524,7 +2528,11 @@ function calcs.offence(env, actor, activeSkill)
 	--Calculate damage (exerts, crits, ruthless, DPS, etc)
 	for _, pass in ipairs(passList) do
 		globalOutput, globalBreakdown = output, breakdown
-		local source, output, cfg, breakdown = pass.source, pass.output, pass.cfg, pass.breakdown
+		local source = pass.source
+		---@class Output
+		local output = pass.output
+		local cfg = pass.cfg
+		local breakdown = pass.breakdown
 
 		-- Exerted Attack members
 		local exertedDoubleDamage = env.modDB:Sum("BASE", cfg, "ExertDoubleDamageChance")
@@ -4045,7 +4053,11 @@ function calcs.offence(env, actor, activeSkill)
 	--Calculate ailments and debuffs (poison, bleed, ignite, impale, exposure, etc)
 	for _, pass in ipairs(passList) do
 		globalOutput, globalBreakdown = output, breakdown
-		local source, output, cfg, breakdown = pass.source, pass.output, pass.cfg, pass.breakdown
+		local source = pass.source
+		---@class Output
+		local output = pass.output
+		local cfg = pass.cfg
+		local breakdown = pass.breakdown
 
 		do -- Perfect Agony
 			local handCondition = pass.label == "Off Hand" and { type = "Condition", var = "OffHandAttack" } or pass.label == "Main Hand" and { type = "Condition", var = "MainHandAttack" } or nil

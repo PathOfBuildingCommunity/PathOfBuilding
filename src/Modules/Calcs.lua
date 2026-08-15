@@ -121,6 +121,9 @@ function calcs.getNodeCalculator(build)
 end
 
 -- Get calculator for other changes (adding/removing nodes, items, gems, etc)
+---@param build Build
+---@return fun(override: any, useFullDPS, boolean?): Output calcFunc
+---@return Output output
 function calcs.getMiscCalculator(build)
 	-- Run base calculation pass
 	local env, cachedPlayerDB, cachedEnemyDB, cachedMinionDB = calcs.initEnv(build, "CALCULATOR")

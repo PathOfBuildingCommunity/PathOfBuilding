@@ -137,6 +137,7 @@ local function helmetFocusHandler(env)
 	if not env.player.mainSkill.skillFlags.minion and not env.player.mainSkill.skillFlags.disable and env.player.mainSkill.triggeredBy then
 		local triggerName = "Focus"
 		env.player.mainSkill.skillData.triggered = true
+		---@class Output
 		local output = env.player.output
 		local breakdown = env.player.breakdown
 		local triggerCD = env.player.mainSkill.triggeredBy.grantedEffect.levels[env.player.mainSkill.triggeredBy.level].cooldown

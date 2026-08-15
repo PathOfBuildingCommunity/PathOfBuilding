@@ -41,10 +41,12 @@ local rect = {
 ---@field shown          Prop<boolean>
 ---@field x              Prop<number>?
 ---@field y              Prop<number>?
+---@field width          Prop<number>?
+---@field height         Prop<number>?
 local ControlClass = newClass("Control")
 
 ---@alias ControlAnchor [AnchorPoint, Control|ControlHost, AnchorPoint, boolean|nil]
----@alias ControlRect [number|nil, number|nil, number|nil, number]
+---@alias ControlRect [Prop<number>?,Prop<number>?, Prop<number>?, Prop<number>?]
 
 ---@param anchor? ControlAnchor
 ---@param rect? ControlRect
