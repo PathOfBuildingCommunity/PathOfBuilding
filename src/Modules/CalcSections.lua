@@ -1521,8 +1521,8 @@ return {
 		{ label = "Recovery modifiers", modName = "ManaRecoveryRate" },
 	}, },
 	{ label = "Recoup", haveOutput = "ManaRecoup", { format = "{1:output:ManaRecoup}%", { breakdown = "ManaRecoup" }, 
-		{ label = "Sources", modName = "ManaRecoup" },
-		{ label = "Recovery modifiers", modName = "ManaRecoveryRate" },
+		{ label = "Sources", modName = { "ManaRecoup", "AddLifeRecoupToManaRecoup" } },
+		{ label = "Recovery modifiers", modName = { "ManaRecoveryRate", "RecoupRecoveryAmount" } },
 		{ label = "FasterRecoup", modName = "3SecondRecoup" },
 	}, },
 } }
