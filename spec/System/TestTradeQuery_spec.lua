@@ -188,7 +188,7 @@ describe("TradeQuery", function()
 			main.ClosePopup = function() end
 
 			local itemsTab = {}
-			local tradeQuery = new("TradeQuery", itemsTab)
+			local tradeQuery = new("TradeQuery"):TradeQuery(itemsTab)
 			local ok, errMsg = pcall(function()
 				tradeQuery:SetStatWeights()
 				for _, entry in ipairs(capturedControls.ListControl.list) do
@@ -218,7 +218,7 @@ describe("TradeQuery", function()
 
 			local callbackCount = 0
 			local ok, errMsg = pcall(function()
-				local tradeQuery = new("TradeQuery", {})
+				local tradeQuery = new("TradeQuery"):TradeQuery({})
 				tradeQuery:SetStatWeights(nil, function()
 					callbackCount = callbackCount + 1
 				end)
