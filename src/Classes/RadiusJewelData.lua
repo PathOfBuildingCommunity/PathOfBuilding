@@ -374,7 +374,7 @@ local function buildFoulbornVariants(uniqueName, baseName, foulbornMap)
 	local combinationCount = 2 ^ #mutationPairs - 1
 	local baseRawText = mustGetCurrentUniqueRawText(uniqueName, baseName)
 	for combination = 1, combinationCount do
-		local item = new("Item", "Rarity: Unique\n" .. baseRawText)
+		local item = new("Item"):Item("Rarity: Unique\n" .. baseRawText)
 		local newModIds = { }
 		for index, mutationPair in ipairs(mutationPairs) do
 			if math.floor(combination / 2 ^ (index - 1)) % 2 == 1 then

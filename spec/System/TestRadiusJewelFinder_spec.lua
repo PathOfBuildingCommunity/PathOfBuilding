@@ -2039,7 +2039,7 @@ describe("RadiusJewelFinder #radius-jewel", function()
 			it("allows ordinary jewels in Safe occupied and labels their base type", function()
 				local socketId = ALLOC_SOCKET_IDS[1]
 				local itemId = 999000 + socketId
-				local item = new("Item", "Rarity: RARE\nChimeric Creed\nCrimson Jewel\n")
+				local item = new("Item"):Item("Rarity: RARE\nChimeric Creed\nCrimson Jewel\n")
 				item.id = itemId
 				build.itemsTab.items[itemId] = item
 				build.itemsTab.sockets[socketId].selItemId = itemId
