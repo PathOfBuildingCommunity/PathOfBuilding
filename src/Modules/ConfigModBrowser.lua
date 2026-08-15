@@ -226,7 +226,7 @@ function M.OpenAddModPopup(configTab, blockData)
 	local controls = {}
 
 
-	controls.listControl = new("ListControl", { "TOPLEFT", nil, "TOPLEFT" }, { 10, 20, 700, 454 }, 16, "VERTICAL", false, displayList)
+	controls.listControl = new("ListControl"):ListControl({ "TOPLEFT", nil, "TOPLEFT" }, { 10, 20, 700, 454 }, 16, "VERTICAL", false, displayList)
 	controls.listControl.forceTooltip = true
 	controls.listControl.font = "VAR"
 	controls.listControl.GetRowValue = function(self, column, index, value)
@@ -252,8 +252,8 @@ function M.OpenAddModPopup(configTab, blockData)
 		end
 	end
 
-	controls.searchLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, { 65, 482, 0, 16 }, "^7Search:")
-	controls.search = new("EditControl", { "TOPLEFT", nil, "TOPLEFT" }, { 70, 482, 640, 18 }, "", nil, "%c", 100, function()
+	controls.searchLabel = new("LabelControl"):LabelControl({ "TOPRIGHT", nil, "TOPLEFT" }, { 65, 482, 0, 16 }, "^7Search:")
+	controls.search = new("EditControl"):EditControl({ "TOPLEFT", nil, "TOPLEFT" }, { 70, 482, 640, 18 }, "", nil, "%c", 100, function()
 		updateDisplayList(controls, displayList, supportedList)
 	end, nil, nil, true)
 	controls.search.controls.buttonClear.shown = function()
@@ -262,7 +262,7 @@ function M.OpenAddModPopup(configTab, blockData)
 
 	updateDisplayList(controls, displayList, supportedList)
 	local helpSize = 24
-	controls.whatDoesItDo = new("ButtonControl", { "BOTTOM", nil, "BOTTOM" }, { 0, -10, helpSize, helpSize }, "?", function() end)
+	controls.whatDoesItDo = new("ButtonControl"):ButtonControl({ "BOTTOM", nil, "BOTTOM" }, { 0, -10, helpSize, helpSize }, "?", function() end)
 	controls.whatDoesItDo.forceTooltip = true
 
 	controls.whatDoesItDo.tooltipText = table.concat(
@@ -274,7 +274,7 @@ This UI is not a representation of what PoB can parse, and this is only a limite
 A mod being supported does not necessarily mean that it will be included in calculations, and only means that the mod parser accepts it.]],
 			16, 240), "\n")
 
-	controls.save = new("ButtonControl", { "BOTTOMRIGHT", controls.whatDoesItDo, "TOP" }, { -2, -4, 80, 20 }, "Add", function()
+	controls.save = new("ButtonControl"):ButtonControl({ "BOTTOMRIGHT", controls.whatDoesItDo, "TOP" }, { -2, -4, 80, 20 }, "Add", function()
 		local selIndex = controls.listControl.selIndex or 1
 		local selected = displayList[selIndex]
 		if selected and selected.text ~= NO_MATCH_TEXT then
@@ -296,7 +296,7 @@ A mod being supported does not necessarily mean that it will be included in calc
 	end
 
 
-	controls.close = new("ButtonControl", { "BOTTOMLEFT", controls.whatDoesItDo, "TOP" }, { 2, -4, 80, 20 }, "Cancel", function()
+	controls.close = new("ButtonControl"):ButtonControl({ "BOTTOMLEFT", controls.whatDoesItDo, "TOP" }, { 2, -4, 80, 20 }, "Cancel", function()
 		main:ClosePopup()
 	end)
 
