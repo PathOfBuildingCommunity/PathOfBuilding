@@ -76,6 +76,25 @@ local function getClass(className)
 	return class
 end
 
+-- wrap constructor to check that the constructors for all parent and superparent classes have been called
+local function wrapConstructor(class, className, originalFunc)
+	return function(self, ...)
+		local ret = originalFunc(self, ...)
+		if class._parents then
+			for parent in pairs(class._superParents) do
+				if parent[parent._className] and not self._parentInit[parent] then
+					error("Parent class '" ..
+						parent._className .. "' of class '" .. className .. "' must be initialised")
+				end
+			end
+		end
+		if not ret then
+			error(string.format("Class %s constructor did not return a value", className))
+		end
+		return ret
+	end
+end
+
 ---@generic T
 ---@param className `T`
 ---@param ... string parent class names
@@ -90,8 +109,11 @@ function newClass(className, ...)
 		end
 		return obj
 	end
+	-- a list of metatables. one for each parent
+	class._metaList = {}
 	class._className = className
 	local numVarArg = select("#", ...)
+	local parentIndex
 	if numVarArg > 0 then
 		-- Build list of parent classes
 		class._parents = { }
@@ -102,21 +124,79 @@ function newClass(className, ...)
 		class._superParents = { }
 		addSuperParents(class, class)
 		-- Set up inheritance
-		setmetatable(class, {
-			__index = function(self, key)
-				for _, parent in ipairs(class._parents) do
-					local val = parent[key]
-					if val ~= nil then
-						self[key] = val
-						return val
-					end
+		function parentIndex(self, key)
+			for _, parent in ipairs(class._parents) do
+				local val = parent[key]
+				if val ~= nil then
+					rawset(self, key, val)
+					return val
 				end
 			end
-		})
+		end
 	end
+	setmetatable(class, {
+		__index = parentIndex,
+		__newindex = function(self, k, v)
+			if k == className then
+				-- Check that the constructors for all parent and superparent classes have been called
+				v = wrapConstructor(class, className, v)
+			end
+			rawset(self, k, v)
+		end
+	})
+	class._unconstructedMeta = {
+		__index = function(obj, key)
+			if key == className then
+				setmetatable(obj, class)
+				return class[className]
+			end
+			error(s_format(
+				"Object of class '%s' was used before it was constructed (accessed '%s'). Did you forget to call new(\"%s\"):%s()?",
+				className, tostring(key), className, className))
+		end,
+	}
 	return class
 end
 
+-- avoid rebuilding metatables constantly. this is done by caching class-parent pair metatables
+local function getMeta(class, parent)
+	local metaList = rawget(class, "_metaList")
+	local meta = metaList[parent]
+	if not meta then
+		local parentName = parent._className
+		meta = {
+			__index = function(proxy, key)
+				local object = rawget(proxy, "_object")
+				local v = rawget(object, key)
+				if v ~= nil then
+					return v
+				else
+					return parent[key]
+				end
+			end,
+			__newindex = function(proxy, k, v)
+				local object = rawget(proxy, "_object")
+				object[k] = v
+			end,
+			__call = function(proxy, self, ...)
+				local object = rawget(proxy, "_object")
+				if not parent[parentName] then
+					error("Parent class '" .. parentName .. "' of class '" .. class._className .. "' has no constructor")
+				end
+				if object._parentInit[parent] then
+					error("Parent class '" .. parentName .. "' of class '" .. class._className .. "' has already been initialised")
+				end
+				if self ~= object then
+					error(string.format("Parent class %s constructor of class %s was not provided self. Are you perhaps calling it with self.%s instead of self:%s?", parentName, class._className, parentName, parentName))
+				end
+				parent[parent._className](self, ...)
+				object._parentInit[parent] = true
+			end,
+		}
+		metaList[parent] = meta
+	end
+	return meta
+end
 ---@generic T
 ---@param className `T`
 ---@param extraArg nil Never pass extra parameters. Defined purely to guard against old syntax.
@@ -130,77 +210,14 @@ function new(className, extraArg)
 	end
 	local class = getClass(className)
 	-- protect against calling new("Foo") without calling :Foo()
-	local object
-	if class[className] then
-		if not rawget(class, "_unconstructedMeta") then
-			class._unconstructedMeta = {
-				__index = function(obj, key)
-					if key == className then
-						setmetatable(obj, class)
-						return class[className]
-					end
-					error(s_format(
-						"Object of class '%s' was used before it was constructed (accessed '%s'). Did you forget to call new(\"%s\"):%s()?",
-						className, tostring(key), className, className))
-				end,
-			}
-		end
-		object = setmetatable({}, class._unconstructedMeta)
-	else
-		object = setmetatable({}, class)
-	end
+	local object = setmetatable({}, class._unconstructedMeta or class)
 	object.Object = object
 	if class._parents then
 		-- Add parent and superparent class proxies
 		object._parentInit = { }
 		for parent in pairs(class._superParents) do
-			local proxyMeta = {
-				__index = function(self, key)
-					local v = rawget(object, key)
-					if v ~= nil then
-						return v
-					else
-						return parent[key]
-					end
-				end,
-				__newindex = object,
-				__call = function(_, self, ...)
-					if not parent[parent._className] then
-						error("Parent class '"..parent._className.."' of class '"..class._className.."' has no constructor")
-					end
-					if object._parentInit[parent] then
-						error("Parent class '"..parent._className.."' of class '"..class._className.."' has already been initialised")
-					end
-					if self ~= object then
-						error(string.format("Parent class %s constructor of class %s was not provided self. Are you perhaps calling it with self.%s instead of self:%s?", parent._className, className, parent._className, parent._className))
-					end
-					parent[parent._className](self, ...)
-					object._parentInit[parent] = true
-				end,
-			}
-			object[parent._className] = setmetatable(proxyMeta, proxyMeta)
+			object[parent._className] = setmetatable({ _object = object }, getMeta(class, parent))
 		end
-	end
-
-	if class[className] and not rawget(class, "_constructorInitialised") then
-		local originalFunc = class[className]
-		class[className] = function(self, ...)
-			local ret = originalFunc(self, ...)
-			if class._parents then
-				-- Check that the constructors for all parent and superparent classes have been called
-				for parent in pairs(class._superParents) do
-					if parent[parent._className] and not self._parentInit[parent] then
-						error("Parent class '" ..
-							parent._className .. "' of class '" .. className .. "' must be initialised")
-					end
-				end
-			end
-			if not ret then
-				error(string.format("Class %s constructor did not return a value", className))
-			end
-			return ret
-		end
-		class._constructorInitialised = true
 	end
 	return object
 end
