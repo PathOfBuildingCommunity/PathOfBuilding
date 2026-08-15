@@ -1670,6 +1670,19 @@ function TreeTabClass:FindTimelessJewel()
 	end
 	controls.socketFilter.state = timelessData.socketFilter
 
+	-- sits on the same row as the socket filter, right of the node distance slider it can show
+	controls.socketAllocate = new("CheckBoxControl"):CheckBoxControl({"LEFT", controls.socketFilter, "RIGHT"}, {165, 0, rowHeight}, nil, function(value)
+		timelessData.socketAllocate = value
+	end)
+	controls.socketAllocateLabel = new("LabelControl"):LabelControl({"RIGHT", controls.socketAllocate, "LEFT"}, {-labelSpacing, 0, 0, labelHeight}, "^7Socket Jewel:")
+	controls.socketAllocate.tooltipFunc = function(tooltip, mode, index, value)
+		tooltip:Clear()
+		tooltip:AddLine(16, "^7Double clicking a result also equips the jewel in its jewel socket.")
+		tooltip:AddLine(16, "^7The socket must be allocated on your current tree; if it isn't, the jewel is only added to your item list.")
+		tooltip:AddLine(16, "^7A jewel already in that socket is replaced.")
+	end
+	controls.socketAllocate.state = timelessData.socketAllocate
+
 	-- Protect notables that must not be replaced by Militant Faith or Reclaimed Malevolence.
 	controls.protectAllocatedLabel = new("LabelControl"):LabelControl({ "TOPLEFT", nil, "TOPLEFT" }, {
 		15,
