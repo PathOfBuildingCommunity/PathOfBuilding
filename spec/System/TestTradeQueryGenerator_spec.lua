@@ -14,7 +14,7 @@ describe("TradeQueryGenerator", function()
 	end
 
 	local function finishQueryWithAttributeShortfall(shortfall, includeAttrReqs)
-		local queryGen = new("TradeQueryGenerator", { itemsTab = {} })
+		local queryGen = new("TradeQueryGenerator"):TradeQueryGenerator({ itemsTab = {} })
 		local queryTable
 		local errMsg
 		queryGen.modWeights = {

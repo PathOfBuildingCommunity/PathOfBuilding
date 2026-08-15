@@ -67,7 +67,7 @@ describe("TradeQuery", function()
 				sortedResultTbl = { [1] = {} },
 			})
 			buildRow1Dropdown(tq)
-			local tooltip = new("Tooltip")
+			local tooltip = new("Tooltip"):Tooltip()
 
 			assert.has_no.errors(function()
 				tq.controls.importButton1.tooltipFunc(tooltip)
@@ -80,7 +80,7 @@ describe("TradeQuery", function()
 	describe("attribute requirement result filtering", function()
 		local function newTradeQueryWithOutput(output, slotTbl)
 			local calcCalls = 0
-			local tq = new("TradeQuery", { itemsTab = {} })
+			local tq = new("TradeQuery"):TradeQuery({ itemsTab = {} })
 			tq.slotTables[1] = slotTbl or { slotName = "Ring 1" }
 			tq.resultTbl = {
 				[1] = {
