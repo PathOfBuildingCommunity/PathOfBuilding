@@ -267,12 +267,12 @@ function M.OpenAddModPopup(configTab, blockData)
 
 	controls.whatDoesItDo.tooltipText = table.concat(
 		main:WrapString(
-			[[This is UI currently contains supported mod lines from tree nodes and item modifiers only.
+			[[This menu currently contains supported mod lines from tree nodes and item modifiers only.
 
-This UI is not a representation of what PoB can parse, and this is only a limited list of mods. Additionally, some mods might be local to items and might not function in custom modifiers.
+This menu is not a representation of what PoB can parse, and this is only a limited list of mods. Additionally, some mods might be local to items and might not function in custom modifiers.
 
 A mod being supported does not necessarily mean that it will be included in calculations, and only means that the mod parser accepts it.]],
-			16, 240), "\n")
+			16, 270), "\n")
 
 	controls.save = new("ButtonControl"):ButtonControl({ "BOTTOMRIGHT", controls.whatDoesItDo, "TOP" }, { -2, -4, 80, 20 }, "Add", function()
 		local selIndex = controls.listControl.selIndex or 1
