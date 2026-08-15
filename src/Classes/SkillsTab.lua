@@ -253,7 +253,7 @@ function SkillsTabClass:SkillsTab(build)
 		local maxSockets = (item.base.socketLimit or 0) - abyssalSocketCount
 		return maxSockets, abyssalSocketCount
 	end
-	self.controls.optimiseSockets = new("ButtonControl"):ButtonControl({ "LEFT", self.controls.socketsLabel, "RIGHT" }, { 4, 0, 120, 18 }, "^7Optimise Sockets", function()
+	self.controls.optimiseSockets = new("ButtonControl"):ButtonControl({ "LEFT", self.controls.socketsLabel, "RIGHT" }, { 4, 0, 120, 18 }, "Optimise Sockets", function()
 		local item, groupSlot = getSelectedItem()
 		if not item or not groupSlot or not item.base then
 			return
@@ -304,7 +304,7 @@ function SkillsTabClass:SkillsTab(build)
 						if not gem.matchesSocket then
 							return true
 						end
-						maxSockets -= 1
+						maxSockets = maxSockets - 1
 					end
 				end
 			end
