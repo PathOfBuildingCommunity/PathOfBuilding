@@ -16,6 +16,10 @@ local m_pi = math.pi
 
 LoadModule("GameVersions")
 LoadModule("Modules/Common")
+
+-- Load as global so the control classes can share one set of colours and drawing primitives
+ui = LoadModule("Modules/UI")
+
 LoadModule("Modules/CalcFormat")
 LoadModule("Modules/Data")
 LoadModule("Modules/ModTools")

@@ -151,107 +151,50 @@ function ScrollBarClass:Draw()
 			self.holdPauseTime = GetTime()
 		end
 	end
-	-- Draw up/left button background
-	if not enabled then
-		SetDrawColor(0.33, 0.33, 0.33)
-	elseif mOverComp == "UP" then
-		SetDrawColor(1, 1, 1)
-	else
-		SetDrawColor(0.5, 0.5, 0.5)
-	end
-	if dir == "HORIZONTAL" then
-		DrawImage(nil, x, y, height, height)
-	else
-		DrawImage(nil, x, y, width, width)
-	end
-	if enabled and mOverComp == "UP" then
-		SetDrawColor(0.33, 0.33, 0.33)
-	else
-		SetDrawColor(0, 0, 0)
-	end
-	if dir == "HORIZONTAL" then
-		DrawImage(nil, x + 1, y + 1, height - 2, height - 2)
-	else
-		DrawImage(nil, x + 1, y + 1, width - 2, width - 2)
-	end
+	local colors = ui.colors
+	-- Draw the track behind the whole bar, including the stepper buttons
+	ui.SetColor(colors.accentSubtle, 0.6)
+	ui.DrawRect(x, y, width, height, ui.radiusSmall)
 	-- Draw up/left arrow
 	if not enabled then
-		SetDrawColor(0.33, 0.33, 0.33)
+		ui.SetColor(colors.textDisabled)
 	elseif mOverComp == "UP" then
-		SetDrawColor(1, 1, 1)
+		ui.SetColor(colors.text)
 	else
-		SetDrawColor(0.5, 0.5, 0.5)
+		ui.SetColor(colors.textMuted)
 	end
 	if dir == "HORIZONTAL" then
-		main:DrawArrow(x + height/2, y + height/2, height/2, height/2, "LEFT")
+		main:DrawArrow(x + height/2, y + height/2, height/2 - 2, height/2 - 2, "LEFT")
 	else
-		main:DrawArrow(x + width/2, y + width/2, width/2, width/2, "UP")
-	end
-	-- Draw down/right button background
-	if not enabled then
-		SetDrawColor(0.33, 0.33, 0.33)
-	elseif mOverComp == "DOWN" then
-		SetDrawColor(1, 1, 1)
-	else
-		SetDrawColor(0.5, 0.5, 0.5)
-	end
-	if dir == "HORIZONTAL" then
-		DrawImage(nil, x + width - height, y, height, height)
-	else
-		DrawImage(nil, x, y + height - width, width, width)
-	end
-	if enabled and mOverComp == "DOWN" then
-		SetDrawColor(0.33, 0.33, 0.33)
-	else
-		SetDrawColor(0, 0, 0)
-	end
-	if dir == "HORIZONTAL" then
-		DrawImage(nil, x + width - height + 1, y + 1, height - 2, height - 2)
-	else
-		DrawImage(nil, x + 1, y + height - width + 1, width - 2, width - 2)
+		main:DrawArrow(x + width/2, y + width/2, width/2 - 2, width/2 - 2, "UP")
 	end
 	-- Draw down/right arrow
 	if not enabled then
-		SetDrawColor(0.33, 0.33, 0.33)
+		ui.SetColor(colors.textDisabled)
 	elseif mOverComp == "DOWN" then
-		SetDrawColor(1, 1, 1)
+		ui.SetColor(colors.text)
 	else
-		SetDrawColor(0.5, 0.5, 0.5)
+		ui.SetColor(colors.textMuted)
 	end
 	if dir == "HORIZONTAL" then
-		main:DrawArrow(x + width - height/2, y + height/2, height/2, height/2, "RIGHT")
+		main:DrawArrow(x + width - height/2, y + height/2, height/2 - 2, height/2 - 2, "RIGHT")
 	else
-		main:DrawArrow(x + width/2, y + height - width/2, width/2, width/2, "DOWN")
-	end
-	-- Draw slide background
-	if not enabled then
-		SetDrawColor(0.33, 0.33, 0.33)
-	elseif self.dragging or mOverComp == "KNOB" or mOverComp == "SLIDEUP" or mOverComp == "SLIDEDOWN" then
-		SetDrawColor(1, 1, 1)
-	else
-		SetDrawColor(0.5, 0.5, 0.5)
-	end
-	if dir == "HORIZONTAL" then
-		DrawImage(nil, x + height, y, width - height * 2, height)
-		SetDrawColor(0, 0, 0)
-		DrawImage(nil, x + height, y + 1, width - height * 2, height - 2)
-	else
-		DrawImage(nil, x, y + width, width, height - width * 2)
-		SetDrawColor(0, 0, 0)
-		DrawImage(nil, x + 1, y + width, width - 2, height - width * 2)
+		main:DrawArrow(x + width/2, y + height - width/2, width/2 - 2, width/2 - 2, "DOWN")
 	end
 	-- Draw knob
 	if enabled then
 		if self.dragging or mOverComp == "KNOB" then
-			SetDrawColor(1, 1, 1)
+			ui.SetColor(colors.borderActive)
+		elseif mOverComp == "SLIDEUP" or mOverComp == "SLIDEDOWN" then
+			ui.SetColor(colors.borderHover)
 		else
-			SetDrawColor(0.5, 0.5, 0.5)
+			ui.SetColor(colors.border)
 		end
 		local knobPos = self:GetKnobPosForOffset()
 		if dir == "HORIZONTAL" then
-			DrawImage(nil, x + height + knobPos + 1, y + 2, self.knobDim - 2, height - 4)
+			ui.DrawRect(x + height + knobPos + 1, y + 3, self.knobDim - 2, height - 6, (height - 6) / 2)
 		else
-			DrawImage(nil, x + 2, y + width + knobPos + 1, width - 4, self.knobDim - 2)
+			ui.DrawRect(x + 3, y + width + knobPos + 1, width - 6, self.knobDim - 2, (width - 6) / 2)
 		end
 	end
 end

@@ -184,20 +184,14 @@ function ListClass:Draw(viewPort, noTooltip)
 	if label then
 		DrawString(x + self.labelPositionOffset[1], y - 20 + self.labelPositionOffset[2], "LEFT", 16, self.font, label)
 	end
+	local colors = ui.colors
+	local border, fill = colors.border, colors.input
 	if self.otherDragSource and not self.CanDragToValue then
-		SetDrawColor(0.2, 0.6, 0.2)
+		border, fill = colors.dropTarget, colors.dropTargetSurface
 	elseif self.hasFocus then
-		SetDrawColor(1, 1, 1)
-	else
-		SetDrawColor(0.5, 0.5, 0.5)
+		border = colors.borderActive
 	end
-	DrawImage(nil, x, y, width, height)
-	if self.otherDragSource and not self.CanDragToValue then
-		SetDrawColor(0, 0.05, 0)
-	else
-		SetDrawColor(0, 0, 0)
-	end
-	DrawImage(nil, x + 1, y + 1, width - 2, height - 2)
+	ui.DrawBox(x, y, width, height, ui.radius, border, fill)
 	self:DrawControls(viewPort, (noTooltip and not self.forceTooltip) and self)
 
 	SetViewport(x + 2, y + 2,  self.scroll and width - 20 or width, height - 4 - (self.scroll and self.scrollH and 16 or 0))
@@ -236,40 +230,29 @@ function ListClass:Draw(viewPort, noTooltip)
 					ttWidth = m_max(textWidth + 8, relX - colOffset)
 				end
 			end
-			if self.showRowSeparators then
-				if self.hasFocus and value == self.selValue then
-					SetDrawColor(1, 1, 1)
-				elseif value == ttValue then
-					SetDrawColor(0.8, 0.8, 0.8)
-				else
-					SetDrawColor(0.5, 0.5, 0.5)
+			-- Rows are filled rather than outlined; columns are drawn one after another, so any
+			-- corner rounding here would show up as notches between them
+			local rowWidth = not self.scroll and colWidth - 4 or colWidth
+			local rowFill
+			if value == self.selValue then
+				rowFill = self.hasFocus and colors.accent or colors.accentSubtle
+			elseif value == ttValue then
+				rowFill = colors.accentSubtle
+			elseif self.otherDragSource and self.CanDragToValue and self:CanDragToValue(index, value, self.otherDragSource) then
+				rowFill = colors.dropTargetSurface
+			elseif self.showRowSeparators and index % 2 == 0 then
+				rowFill = colors.surface
+			end
+			if rowFill then
+				ui.SetColor(rowFill)
+				DrawImage(nil, colOffset, lineY + 1, rowWidth, rowHeight - 2)
+			end
+			if value == self.selValue and self.hasFocus then
+				-- Accent bar marking the focused selection, drawn once at the left edge
+				if colIndex == 1 then
+					ui.SetColor(colors.primary)
+					DrawImage(nil, colOffset, lineY + 2, 2, rowHeight - 4)
 				end
-				DrawImage(nil, colOffset, lineY, not self.scroll and colWidth - 4 or colWidth, rowHeight)
-				if (value == self.selValue or value == ttValue) then
-					SetDrawColor(0.33, 0.33, 0.33)
-				elseif self.otherDragSource and self.CanDragToValue and self:CanDragToValue(index, value, self.otherDragSource) then
-					SetDrawColor(0, 0.2, 0)
-				elseif index % 2 == 0 then
-					SetDrawColor(0.05, 0.05, 0.05)
-				else
-					SetDrawColor(0, 0, 0)
-				end
-				DrawImage(nil, colOffset, lineY + 1, not self.scroll and colWidth - 4 or colWidth, rowHeight - 2)
-			elseif value == self.selValue or value == ttValue then
-				if self.hasFocus and value == self.selValue then
-					SetDrawColor(1, 1, 1)
-				elseif value == ttValue then
-					SetDrawColor(0.8, 0.8, 0.8)
-				else
-					SetDrawColor(0.5, 0.5, 0.5)
-				end
-				DrawImage(nil, colOffset, lineY, not self.scroll and colWidth - 4 or colWidth, rowHeight)
-				if self.otherDragSource and self.CanDragToValue and self:CanDragToValue(index, value, self.otherDragSource) then
-					SetDrawColor(0, 0.2, 0)
-				else
-					SetDrawColor(0.15, 0.15, 0.15)
-				end
-				DrawImage(nil, colOffset, lineY + 1, not self.scroll and colWidth - 4 or colWidth, rowHeight - 2)
 			end
 			if not self.SetHighlightColor or not self:SetHighlightColor(index, value) then
 				SetDrawColor(1, 1, 1)
@@ -285,33 +268,28 @@ function ListClass:Draw(viewPort, noTooltip)
 		if self.colLabels then
 			local mOver = relX >= colOffset and relX <= colOffset + colWidth and relY >= 0 and relY <= 18
 			if mOver and self:GetColumnProperty(column, "sortable") then
-				SetDrawColor(1, 1, 1)
-				DrawImage(nil, colOffset, 1, colWidth, 18)
-				SetDrawColor(0.33, 0.33, 0.33)
-				DrawImage(nil, colOffset + 1, 2, colWidth - 2, 16)
+				ui.SetColor(colors.accent)
 			else
-				SetDrawColor(0.5, 0.5, 0.5)
-				DrawImage(nil, colOffset, 1, colWidth, 18)
-				SetDrawColor(0.15, 0.15, 0.15)
-				DrawImage(nil, colOffset + 1, 2, colWidth - 2, 16)
+				ui.SetColor(colors.surface)
 			end
+			DrawImage(nil, colOffset, 1, colWidth - 1, 18)
+			ui.SetColor(colors.border)
+			DrawImage(nil, colOffset, 19, colWidth - 1, 1)
 			local label = self:GetColumnProperty(column, "label")
 			if label and #label > 0 then
-				SetDrawColor(1, 1, 1)
+				ui.SetColor(colors.textMuted)
 				DrawString(colOffset + colWidth/2, 4, "CENTER_X", 12, "VAR", label)
 			end
 		end
 	end
 	if #self.list == 0 and self.defaultText then
-		SetDrawColor(1, 1, 1)
+		ui.SetColor(colors.textMuted)
 		DrawString(2, 2, "LEFT", 14, self.font, self.defaultText)
 	end
 	if self.selDragIndex then
 		local lineY = rowHeight * (self.selDragIndex - 1) - scrollOffsetV
-		SetDrawColor(1, 1, 1)
-		DrawImage(nil, 0, lineY - 1, width - 20, 3)
-		SetDrawColor(0, 0, 0)
-		DrawImage(nil, 0, lineY, width - 20, 1)
+		ui.SetColor(colors.primary)
+		ui.DrawRect(0, lineY - 1, width - 20, 2, 1)
 	end
 	SetViewport()
 
