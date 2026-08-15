@@ -123,50 +123,117 @@ function calcs.buildModListForNode(env, node)
 	end
 
 	-- Run first pass radius jewels
-	for _, rad in pairs(env.radiusJewelList) do
-		if rad.type == "Other" and rad.nodes[node.id] and rad.nodes[node.id].type ~= "Mastery" then
-			rad.func(node, modList, rad.data)
+	for i = 1, #env.radiusJewelList do
+		local rad = env.radiusJewelList[i]
+		if rad.type == "Other" then
+			local radNode = rad.nodes[node.id]
+			if radNode and radNode.type ~= "Mastery" then
+				rad.func(node, modList, rad.data)
+			end
 		end
 	end
 
-	if modList:Flag(nil, "PassiveSkillHasNoEffect") or (env.allocNodes[node.id] and modList:Flag(nil, "AllocatedPassiveSkillHasNoEffect")) then
+	-- prefilter the modlist so that every :Flag() call does not have to go through the entire mod list
+	local hasNoEffect, hasAllocNoEffect, hasScale, hasOtherEffect, hasExtraSkill, hasExplode
+	for i = 1, #modList do
+		local name = modList[i].name
+		if name == "PassiveSkillHasNoEffect" then
+			hasNoEffect = true
+		elseif name == "AllocatedPassiveSkillHasNoEffect" then
+			hasAllocNoEffect = true
+		elseif name == "PassiveSkillEffect" then
+			hasScale = true
+		elseif name == "PassiveSkillHasOtherEffect" then
+			hasOtherEffect = true
+		elseif name == "ExtraSkill" then
+			hasExtraSkill = true
+		elseif name == "CanExplode" then
+			hasExplode = true
+		end
+	end
+
+	if (hasNoEffect and modList:Flag(nil, "PassiveSkillHasNoEffect")) or (env.allocNodes[node.id] and (hasAllocNoEffect and modList:Flag(nil, "AllocatedPassiveSkillHasNoEffect"))) then
 		wipeTable(modList)
+		hasScale = false
+		hasOtherEffect = nil
+		hasExtraSkill = nil
+		hasExplode = nil
 	end
 
 	-- Apply effect scaling
-	local scale = calcLib.mod(modList, nil, "PassiveSkillEffect")
-	if scale ~= 1 then
-		local scaledList = new("ModList"):ModList()
-		scaledList:ScaleAddList(modList, scale)
-		modList = scaledList
-	end
-
-	-- Run second pass radius jewels
-	for _, rad in pairs(env.radiusJewelList) do
-		if rad.nodes[node.id] and rad.nodes[node.id].type ~= "Mastery" and (rad.type == "Threshold" or (rad.type == "Self" and env.allocNodes[node.id]) or (rad.type == "SelfUnalloc" and not env.allocNodes[node.id])) then
-			rad.func(node, modList, rad.data)
+	if hasScale then
+		local scale = calcLib.mod(modList, nil, "PassiveSkillEffect")
+		if scale ~= 1 then
+			local scaledList = new("ModList"):ModList()
+			scaledList:ScaleAddList(modList, scale)
+			modList = scaledList
 		end
 	end
 
-	if modList:Flag(nil, "PassiveSkillHasOtherEffect") then
-		for i, mod in ipairs(modList:List(skillCfg, "NodeModifier")) do
-			if i == 1 then wipeTable(modList) end
+	-- Run second pass radius jewels
+	local rescan = false
+	for i = 1, #env.radiusJewelList do
+		local rad = env.radiusJewelList[i]
+		if rad.nodes[node.id] and rad.nodes[node.id].type ~= "Mastery" and (rad.type == "Threshold" or (rad.type == "Self" and env.allocNodes[node.id]) or (rad.type == "SelfUnalloc" and not env.allocNodes[node.id])) then
+			rad.func(node, modList, rad.data)
+			rescan = true
+			hasOtherEffect = nil
+			hasExtraSkill = nil
+			hasExplode = nil
+		end
+	end
+
+	if rescan then
+		for i = 1, #modList do
+			local name = modList[i].name
+			if name == "PassiveSkillHasOtherEffect" then
+				hasOtherEffect = true
+			elseif name == "ExtraSkill" then
+				hasExtraSkill = true
+			elseif name == "CanExplode" then
+				hasExplode = true
+			end
+		end
+	end
+
+	if hasOtherEffect and modList:Flag(nil, "PassiveSkillHasOtherEffect") then
+		local newMods = modList:List(nil, "NodeModifier")
+		for i = 1, #newMods do
+			local mod = newMods[i]
+			if i == 1 then
+				wipeTable(modList)
+				hasExtraSkill = nil
+				hasExplode = nil
+			end
+			if mod.name == "ExtraSkill" then
+				hasExtraSkill = true
+			elseif mod.name == "CanExplode" then
+				hasExplode = true
+			end
 			modList:AddMod(mod.mod)
 		end
 	end
 
-	node.grantedSkills = { }
-	for _, skill in ipairs(modList:List(nil, "ExtraSkill")) do
-		if skill.name ~= "Unknown" then
-			t_insert(node.grantedSkills, {
-				skillId = skill.skillId,
-				level = skill.level,
-				source = "Tree:"..node.id
-			})
+	node.grantedSkills = {}
+	if hasExtraSkill then
+		local list = modList:List(nil, "ExtraSkill")
+		for i = 1, #list do
+			local skill = list[i]
+			if skill.name ~= "Unknown" then
+				t_insert(node.grantedSkills, {
+					skillId = skill.skillId,
+					level = skill.level,
+					source = "Tree:" .. node.id
+				})
+			end
 		end
 	end
 
-	return modList, modList:Flag(nil, "CanExplode") and node
+	if hasExplode then
+		return modList, modList:Flag(nil, "CanExplode") and node
+	else
+		return modList
+	end
 end
 
 -- Build list of modifiers from the listed tree nodes
