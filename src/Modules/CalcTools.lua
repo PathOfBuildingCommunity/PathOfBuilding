@@ -82,6 +82,7 @@ function calcLib.doesTypeExpressionMatch(checkTypes, skillTypes, minionTypes)
 end
 
 -- Check if given support skill can support the given active skill
+---@param appliesToItemGranted boolean? Generally modifiers which add support gems to the socketed skills don't work with item granted skills, but this flag makes them work.
 function calcLib.canGrantedEffectSupportActiveSkill(grantedEffect, activeSkill, imbuedSupport, appliesToItemGranted)
 	if grantedEffect.unsupported or activeSkill.activeEffect.grantedEffect.cannotBeSupported then
 		return false

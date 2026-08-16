@@ -930,4 +930,70 @@ describe("TetsItemMods", function()
 		assert.is_truthy(tooltip.lines[#tooltip.lines].text:find("Item base is not supported", 1, true))
 	end)
 
+	local function findActiveSkill(name)
+		for _, activeSkill in ipairs(build.calcsTab.mainEnv.player.activeSkillList) do
+			if activeSkill.activeEffect.grantedEffect.name == name then
+				return activeSkill
+			end
+		end
+	end
+
+	local function hasSupport(activeSkill, supportId)
+		for _, effect in ipairs(activeSkill.effectList) do
+			if effect.grantedEffect.id == supportId then
+				return true
+			end
+		end
+		return false
+	end
+
+	local function addItem(raw)
+		build.itemsTab:CreateDisplayItemFromRaw(raw)
+		build.itemsTab:AddDisplayItem()
+	end
+
+	-- Pearl of Tsoatha: despite the "Socketed in" wording these support skills granted
+	-- by the item in that slot as well, which ExtraSupport normally excludes
+	it("ExtraSupport marked appliesToItemGranted supports an item granted skill", function()
+		addItem("Granting Helmet\nEzomyte Burgonet\nGrants Level 20 Fireball")
+		addItem("Supporting Ring\nPrismatic Ring\nSkills Socketed in your Helmet are Supported by level 20 Added Lightning Damage")
+		runCallback("OnFrame")
+
+		local fireball = findActiveSkill("Fireball")
+		assert.is_not_nil(fireball)
+		assert.is_true(hasSupport(fireball, "SupportAddedLightningDamage"))
+		assert.is_true(fireball.skillModList:Sum("BASE", fireball.skillCfg, "LightningMin") > 0)
+	end)
+
+	it("ExtraSupport marked appliesToItemGranted still supports a socketed gem", function()
+		addItem("Socketed Helmet\nEzomyte Burgonet\nSockets: B")
+		addItem("Supporting Ring\nPrismatic Ring\nSkills Socketed in your Helmet are Supported by level 20 Added Lightning Damage")
+		build.skillsTab:PasteSocketGroup("Slot: Helmet\nFireball 20/0  1\n")
+		runCallback("OnFrame")
+
+		local fireball = findActiveSkill("Fireball")
+		assert.is_not_nil(fireball)
+		assert.is_true(hasSupport(fireball, "SupportAddedLightningDamage"))
+	end)
+
+	it("ExtraSupport marked appliesToItemGranted does not cross slots", function()
+		addItem("Granting Gloves\nSpiked Gloves\nGrants Level 20 Fireball")
+		addItem("Supporting Ring\nPrismatic Ring\nSkills Socketed in your Helmet are Supported by level 20 Added Lightning Damage")
+		runCallback("OnFrame")
+
+		local fireball = findActiveSkill("Fireball")
+		assert.is_not_nil(fireball)
+		assert.is_false(hasSupport(fireball, "SupportAddedLightningDamage"))
+	end)
+
+	-- The relaxation is opt-in, so a Forbidden Shako style mod must keep the old behaviour
+	it("plain ExtraSupport does not support an item granted skill", function()
+		addItem("Shako Like Helmet\nEzomyte Burgonet\nGrants Level 20 Fireball\nSocketed Gems are Supported by Level 20 Added Cold Damage")
+		runCallback("OnFrame")
+
+		local fireball = findActiveSkill("Fireball")
+		assert.is_not_nil(fireball)
+		assert.is_false(hasSupport(fireball, "SupportAddedColdDamage"))
+	end)
+
 end)
