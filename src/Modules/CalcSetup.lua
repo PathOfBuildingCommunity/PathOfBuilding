@@ -114,8 +114,21 @@ function calcs.initModDB(env, modDB)
 	modDB.conditions["Effective"] = env.mode_effective
 end
 
-function calcs.buildModListForNode(env, node)
-	local modList = new("ModList"):ModList()
+-- Recycle a modlist so that we do not allocate many tables for each node.
+local function resetModList(list)
+	for i = #list, 1, -1 do
+		list[i] = nil
+	end
+	list.multipliers = wipeTable(list.multipliers)
+	list.conditions = wipeTable(list.conditions)
+	list.actor = wipeTable(list.actor)
+	list.parent = false
+	return list
+end
+
+---@param reuse table|nil A ModList to recycle instead of allocating. Only safe when the caller discards the result.
+function calcs.buildModListForNode(env, node, reuse)
+	local modList = reuse and resetModList(reuse) or new("ModList"):ModList()
 	if node.type == "Keystone" then
 		modList:AddMod(node.keystoneMod)
 	else
@@ -214,7 +227,7 @@ function calcs.buildModListForNode(env, node)
 		end
 	end
 
-	node.grantedSkills = {}
+	node.grantedSkills = wipeTable(node.grantedSkills)
 	if hasExtraSkill then
 		local list = modList:List(nil, "ExtraSkill")
 		for i = 1, #list do
@@ -247,8 +260,12 @@ function calcs.buildModListForNodeList(env, nodeList, finishJewels)
 	-- Add node modifiers
 	local modList = new("ModList"):ModList()
 	local explodeSources = {}
+	-- Outside MAIN mode the per-node list is merged into modList and then
+	-- dropped, so a single list can be recycled for every node instead of
+	-- allocating one each time.
+	local scratch = env.mode ~= "MAIN" and new("ModList"):ModList() or nil
 	for _, node in pairs(nodeList) do
-		local nodeModList, explode = calcs.buildModListForNode(env, node)
+		local nodeModList, explode = calcs.buildModListForNode(env, node, scratch)
 		t_insert(explodeSources, explode)
 		modList:AddList(nodeModList)
 		if env.mode == "MAIN" then
@@ -259,7 +276,7 @@ function calcs.buildModListForNodeList(env, nodeList, finishJewels)
 	if finishJewels then
 		-- Process extra radius nodes; these are unallocated nodes near conversion or threshold jewels that need to be processed
 		for _, node in pairs(env.extraRadiusNodeList) do
-			local nodeModList = calcs.buildModListForNode(env, node)
+			local nodeModList = calcs.buildModListForNode(env, node, scratch)
 			if env.mode == "MAIN" then
 				node.finalModList = nodeModList
 			end
