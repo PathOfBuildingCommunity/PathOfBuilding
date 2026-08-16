@@ -648,7 +648,7 @@ describe("RadiusJewelFinder #radius-jewel", function()
 	describe("buildVariantsFromUniqueItem", function()
 
 		it("builds Light of Meaning variants with valid name and rawText", function()
-			local variants = makeFinder():buildVariantsFromUniqueItem("The Light of Meaning")
+			local variants = RadiusJewelData.buildVariantsFromUniqueItem("The Light of Meaning")
 			assert.is_true(#variants > 0, "expected at least one Light of Meaning variant")
 			for _, v in ipairs(variants) do
 				assert.is_string(v.name)
@@ -661,7 +661,7 @@ describe("RadiusJewelFinder #radius-jewel", function()
 		end)
 
 		it("builds Split Personality variants with unique names", function()
-			local variants = makeFinder():buildVariantsFromUniqueItem("Split Personality")
+			local variants = RadiusJewelData.buildVariantsFromUniqueItem("Split Personality")
 			assert.is_true(#variants > 0, "expected at least one Split Personality variant")
 			local seenNames = {}
 			for _, v in ipairs(variants) do
@@ -673,7 +673,7 @@ describe("RadiusJewelFinder #radius-jewel", function()
 		end)
 
 		it("variant rawText contains Selected Variant header", function()
-			local variants = makeFinder():buildVariantsFromUniqueItem("The Light of Meaning")
+			local variants = RadiusJewelData.buildVariantsFromUniqueItem("The Light of Meaning")
 			for _, v in ipairs(variants) do
 				assert.is_not_nil(v.rawText:match("Selected Variant: %d+"), "rawText should contain Selected Variant: " .. v.name)
 			end
@@ -806,7 +806,7 @@ describe("RadiusJewelFinder #radius-jewel", function()
 
 		it("accepts an injected map fixture and round-trips the mutation", function()
 			local originalModId, newModId = next(data.foulbornMap["Unnatural Instinct"])
-			local variants = makeFinder():buildFoulbornVariants("Unnatural Instinct", nil, {
+			local variants = RadiusJewelData.buildFoulbornVariants("Unnatural Instinct", nil, {
 				["Unnatural Instinct"] = { [originalModId] = newModId },
 			})
 			assert.are.equal(1, #variants)
@@ -818,11 +818,11 @@ describe("RadiusJewelFinder #radius-jewel", function()
 		end)
 
 		it("returns no variants when a unique has no Foulborn mapping", function()
-			assert.are.equal(0, #makeFinder():buildFoulbornVariants("Anatomical Knowledge"))
+			assert.are.equal(0, #RadiusJewelData.buildFoulbornVariants("Anatomical Knowledge"))
 		end)
 
 		it("builds every non-empty Unnatural Instinct mutation subset", function()
-			local variants = makeFinder():buildFoulbornVariants("Unnatural Instinct")
+			local variants = RadiusJewelData.buildFoulbornVariants("Unnatural Instinct")
 			assert.are.equal(3, #variants)
 
 			for _, variant in ipairs(variants) do
@@ -868,7 +868,7 @@ describe("RadiusJewelFinder #radius-jewel", function()
 				allocatedNotableD = true,
 			}
 
-			for _, variant in ipairs(makeFinder():buildFoulbornVariants("Unnatural Instinct")) do
+			for _, variant in ipairs(RadiusJewelData.buildFoulbornVariants("Unnatural Instinct")) do
 				local expectedScore
 				if hasMutation(variant, gainNotable) and hasMutation(variant, loseNotable) then
 					expectedScore = 1 -- 5 unallocated notables - 4 allocated notables
@@ -882,7 +882,7 @@ describe("RadiusJewelFinder #radius-jewel", function()
 		end)
 
 		it("uses the mapped Inspired Learning mutation and excludes Foulborn Might of the Meek", function()
-			local inspired = makeFinder():buildFoulbornVariants("Inspired Learning")
+			local inspired = RadiusJewelData.buildFoulbornVariants("Inspired Learning")
 			assert.are.equal(1, #inspired)
 			assert.are.equal("alloc small passives", inspired[1].scoreLabel)
 			assert.are.equal(2, inspired[1].score({
@@ -895,11 +895,11 @@ describe("RadiusJewelFinder #radius-jewel", function()
 			}))
 
 			assert.is_not_nil(data.foulbornMap["Might of the Meek"])
-			assert.are.equal(0, #makeFinder():buildFoulbornVariants("Might of the Meek"))
+			assert.are.equal(0, #RadiusJewelData.buildFoulbornVariants("Might of the Meek"))
 		end)
 
 		it("marks Foulborn Intuitive Leap as Massive Radius keystone-only in preview and compute", function()
-			local variants = makeFinder():buildFoulbornVariants("Intuitive Leap")
+			local variants = RadiusJewelData.buildFoulbornVariants("Intuitive Leap")
 			assert.are.equal(1, #variants)
 			local variant = variants[1]
 			assert.is_true(variant.isMassiveRadius)
@@ -933,7 +933,8 @@ describe("RadiusJewelFinder #radius-jewel", function()
 
 			local massiveRadiusIndex
 			for index, radius in ipairs(data.jewelRadius) do
-				if radius.outer > data.jewelRadius[getSmallRadiusIndex()].outer and radius.outer <= 2400 then
+				if radius.outer > data.jewelRadius[getSmallRadiusIndex()].outer
+						and radius.outer <= RadiusJewelData.FULL_MASSIVE_RADIUS then
 					massiveRadiusIndex = index
 					break
 				end
@@ -991,7 +992,7 @@ describe("RadiusJewelFinder #radius-jewel", function()
 		end
 
 		local function getLightOfMeaningVariants()
-			return makeFinder():buildVariantsFromUniqueItem("The Light of Meaning")
+			return RadiusJewelData.buildVariantsFromUniqueItem("The Light of Meaning")
 		end
 
 		it("returns one result per socket and uses the best variant", function()
