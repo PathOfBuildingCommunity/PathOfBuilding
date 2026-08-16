@@ -34,6 +34,11 @@ local socketDropList = {
 
 local baseSlots = { "Weapon 1", "Weapon 2", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring 1", "Ring 2", "Ring 3", "Belt", "Graft 1", "Graft 2", "Flask 1", "Flask 2", "Flask 3", "Flask 4", "Flask 5" }
 
+local forbiddenJewelCounterpart = {
+	["Forbidden Flame"] = "Forbidden Flesh",
+	["Forbidden Flesh"] = "Forbidden Flame",
+}
+
 local influenceInfo = itemLib.influenceInfo.all
 
 local catalystQualityFormat = {
@@ -1720,11 +1725,93 @@ function ItemsTabClass:AddItem(item, noAutoEquip, index)
 	end
 end
 
+-- Given one half of a Forbidden Flame/Flesh pair, adds the other half with the same notable
+-- Both jewels are generated from the same sorted class/notable list
+function ItemsTabClass:AddForbiddenJewelCounterpart(item)
+	local otherTitle = item and item.title and forbiddenJewelCounterpart[item.title]
+	if not otherTitle or main.uniqueDB.loading or not item.variantList or not item.variant then
+		return
+	end
+	local variantName = item.variantList[item.variant]
+	if not variantName then
+		return
+	end
+
+	for _, other in pairs(self.items) do
+		if other.title == otherTitle and other.variantList and other.variantList[other.variant] == variantName then
+			return
+		end
+	end
+
+	local dbItem
+	for _, unique in pairs(main.uniqueDB.list) do
+		if unique.title == otherTitle then
+			dbItem = unique
+			break
+		end
+	end
+	if not dbItem then
+		return
+	end
+
+	local newItem = new("Item"):Item(dbItem.raw)
+	local variantIndex
+	for index, name in ipairs(newItem.variantList or { }) do
+		if name == variantName then
+			variantIndex = index
+			break
+		end
+	end
+	if not variantIndex then
+		return
+	end
+	newItem.variant = variantIndex
+	newItem:BuildAndParseRaw()
+	newItem:NormaliseQuality()
+	self:AddItem(newItem, true)
+	return newItem
+end
+
+-- Keeps the Forbidden jewels in sync: manually editing one jewel moves the other counterpart to the same notable
+function ItemsTabClass:UpdateForbiddenJewelCounterpart(oldItem, item)
+	local otherTitle = item and item.title and forbiddenJewelCounterpart[item.title]
+	if not otherTitle or not oldItem or oldItem.title ~= item.title then
+		return
+	end
+	if not (item.variantList and item.variant and oldItem.variantList and oldItem.variant) then
+		return
+	end
+	local oldName = oldItem.variantList[oldItem.variant]
+	local newName = item.variantList[item.variant]
+	if not oldName or not newName or oldName == newName then
+		return
+	end
+
+	for _, other in pairs(self.items) do
+		if other.id ~= item.id and other.title == otherTitle and other.variantList and other.variantList[other.variant] == oldName then
+			for index, name in ipairs(other.variantList) do
+				if name == newName then
+					other.variant = index
+					other:BuildAndParseRaw()
+					other:BuildModList()
+					self.build.buildFlag = true
+					break
+				end
+			end
+		end
+	end
+end
+
 -- Adds the current display item to the build's item list
 function ItemsTabClass:AddDisplayItem(noAutoEquip)
+	local item = self.displayItem
+	local oldItem = item and item.id and self.items[item.id]
 	-- Add it to the list and clear the current display item
-	self:AddItem(self.displayItem, noAutoEquip)
+	self:AddItem(item, noAutoEquip)
 	self:SetDisplayItem()
+
+	self:UpdateForbiddenJewelCounterpart(oldItem, item)
+	self:AddForbiddenJewelCounterpart(item)
 
 	self:PopulateSlots()
 	self:AddUndoState()

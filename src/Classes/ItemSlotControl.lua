@@ -127,6 +127,7 @@ function ItemSlotClass:ReceiveDrag(type, value, source)
 		newItem:NormaliseQuality()
 		self.itemsTab:AddItem(newItem, true)
 		self:SetSelItemId(newItem.id)
+		self.itemsTab:AddForbiddenJewelCounterpart(newItem)
 	end
 	self.itemsTab:PopulateSlots()
 	self.itemsTab:AddUndoState()
