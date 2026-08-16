@@ -6454,6 +6454,29 @@ return {
 	},
 	incursionuniqueupgrades={
 	},
+	indexablenonactivesupportgems={
+		[1]={
+			list=false,
+			name="Index",
+			refTo="",
+			type="Int",
+			width=70
+		},
+		[2]={
+			list=false,
+			name="SupportGem",
+			refTo="SkillGems",
+			type="Key",
+			width=400
+		},
+		[3]={
+			list=false,
+			name="Name",
+			refTo="",
+			type="String",
+			width=300
+		}
+	},
 	indexableskillgems={
 		[1]={
 			list=false,
