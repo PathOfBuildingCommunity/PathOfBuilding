@@ -6,6 +6,11 @@
 
 data.uniques.generated = { }
 
+local function getModTagString(mod)
+	if not mod.modTags or #mod.modTags == 0 then return "" end
+	return string.format("{tags:%s}", table.concat(mod.modTags, ","))
+end
+
 local parseVeiledModName = function(string)
 	return (string:
 	gsub("%JunMasterVeiled", ""):
@@ -1060,12 +1065,14 @@ for _, mod in ipairs(pearlMods) do
 end
 
 -- implcit lines
-table.insert(pearl, table.concat(data.itemMods.ItemExclusive["AllResistancesImplicitRing1"], " "))
+local implicitMod = data.itemMods.ItemExclusive["AllResistancesImplicitRing1"]
+table.insert(pearl, getModTagString(implicitMod) .. table.concat(implicitMod, " "))
 
 -- non-variant explicit lines
 local pearlBaseMods = { "AllResistancesUniqueRing98", "ElementalDamageUnique__5" }
-for _, mod in ipairs(pearlBaseMods) do
-	table.insert(pearl, table.concat(data.itemMods.ItemExclusive[mod], " "))
+for _, modId in ipairs(pearlBaseMods) do
+	local mod = data.itemMods.ItemExclusive[modId]
+	table.insert(pearl, getModTagString(mod) .. table.concat(mod, " "))
 end
 
 -- variant lines
