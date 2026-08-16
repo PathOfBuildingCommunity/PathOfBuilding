@@ -54,6 +54,21 @@ describe("RadiusJewelCompute #radius-jewel", function()
 			end
 		end)
 
+		it("keeps comparison snapshots free of nested requirement sources", function()
+			local results = makeFinder():computeBestVariantSocketImpact(getSockets(), getLightOfMeaningVariants(), "Life")
+			local nestedRequirementKeys = {
+				"ReqStrFailList", "ReqDexFailList", "ReqIntFailList", "ReqOmniFailList",
+				"ReqStrItem", "ReqDexItem", "ReqIntItem", "ReqOmniItem",
+			}
+			assert.is_true(#results > 0, "expected comparison snapshots")
+			for _, result in ipairs(results) do
+				for _, key in ipairs(nestedRequirementKeys) do
+					assert.is_nil(result.baseOutput[key], "base snapshot should omit " .. key)
+					assert.is_nil(result.compareOutput[key], "comparison snapshot should omit " .. key)
+				end
+			end
+		end)
+
 		it("results are sorted by delta descending", function()
 			local sockets = getSockets()
 			local results, _ = makeFinder():computeBestVariantSocketImpact(sockets, getLightOfMeaningVariants(), "Life")

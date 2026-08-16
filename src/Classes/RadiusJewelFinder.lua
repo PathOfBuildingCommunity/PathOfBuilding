@@ -18,10 +18,8 @@ local COL_META = RadiusJewelData.COL_META
 local FULL_MASSIVE_RADIUS = RadiusJewelData.FULL_MASSIVE_RADIUS
 
 -- Small output snapshot for stat-comparison tooltips.
--- Copies only scalar fields and the small tables needed by
--- AddStatComparesToTooltip / AddRequirementWarningsToTooltip,
--- skipping heavy sub-tables (SkillDPS, env, modDB, etc.)
--- that would otherwise cause multi-GB memory usage.
+-- Copies scalar fields and compact Minion output while skipping nested
+-- calculation and requirement-source tables that retain large object graphs.
 local function extractTooltipStats(output)
 	if not output then return nil end
 	local out = {}
@@ -29,13 +27,6 @@ local function extractTooltipStats(output)
 		local t = type(v)
 		if t == "number" or t == "string" or t == "boolean" then
 			out[k] = v
-		end
-	end
-	-- Requirement fail lists (small tables with source references)
-	for _, key in ipairs({"ReqStrFailList", "ReqDexFailList", "ReqIntFailList", "ReqOmniFailList",
-						   "ReqStrItem", "ReqDexItem", "ReqIntItem", "ReqOmniItem"}) do
-		if output[key] then
-			out[key] = output[key]
 		end
 	end
 	-- Copy minion stats with the same scalar-only treatment.
