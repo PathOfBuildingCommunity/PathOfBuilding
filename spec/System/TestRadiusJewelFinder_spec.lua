@@ -430,7 +430,7 @@ describe("RadiusJewelFinder #radius-jewel", function()
 					delta = 10,
 					pct = 10,
 					pctPerPoint = 10,
-					sortPctPerPoint = 10,
+					sortValue = 10,
 					detailText = "Test detail",
 					itemTooltipLines = selectedResultPreview,
 					action = "new",
@@ -1218,7 +1218,7 @@ describe("RadiusJewelFinder #radius-jewel", function()
 					delta = 0,
 					pct = 0,
 					pctPerPoint = 0,
-					sortPctPerPoint = 0,
+					sortValue = 0,
 					detailText = "",
 					action = "replace",
 					replacedItemLabel = "Existing jewel",
@@ -1751,7 +1751,7 @@ describe("RadiusJewelFinder #radius-jewel", function()
 			options = options or {}
 			return {
 				socketId = socketId,
-				sortPctPerPoint = score,
+				sortValue = score,
 				isSocketIndependent = options.isSocketIndependent,
 				jewelLimitKey = options.jewelLimitKey,
 				jewelLimit = options.jewelLimit,

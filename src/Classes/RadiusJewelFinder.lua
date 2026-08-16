@@ -431,7 +431,7 @@ local buildDisplayedDisconnectedPassivePlans = LoadModule("Classes/RadiusJewelCo
 ---
 --- Each row is expected to carry:
 ---   socketId            (number)   – jewel socket id
----   sortPctPerPoint / scorePerPointSort (number) – sort key (higher = better)
+---   sortValue           (number)   – sort key (higher = better)
 ---   isSocketIndependent (boolean?) – true for jewels like IE
 ---   jewelLimitKey       (string?)  – key for the "Limited to: X" cap
 ---   jewelLimit          (number?)  – max copies allowed (nil = unlimited)
@@ -442,7 +442,7 @@ function RadiusJewelFinderClass:filterBestPerSocket(rows)
 		t_insert(sorted, row)
 	end
 	t_sort(sorted, function(a, b)
-		return (a.sortPctPerPoint or a.scorePerPointSort or 0) > (b.sortPctPerPoint or b.scorePerPointSort or 0)
+		return (a.sortValue or 0) > (b.sortValue or 0)
 	end)
 	local usedSockets = { }
 	local limitCounts = { }
@@ -469,8 +469,8 @@ function RadiusJewelFinderClass:filterBestPerSocket(rows)
 		end
 	end
 	t_sort(independentSorted, function(a, b)
-		local aScore = a.sortPctPerPoint or a.scorePerPointSort or 0
-		local bScore = b.sortPctPerPoint or b.scorePerPointSort or 0
+		local aScore = a.sortValue or 0
+		local bScore = b.sortValue or 0
 		if aScore ~= bScore then
 			return aScore > bScore
 		end
@@ -490,7 +490,7 @@ function RadiusJewelFinderClass:filterBestPerSocket(rows)
 		end
 	end
 	t_sort(filtered, function(a, b)
-		return (a.sortPctPerPoint or a.scorePerPointSort or 0) > (b.sortPctPerPoint or b.scorePerPointSort or 0)
+		return (a.sortValue or 0) > (b.sortValue or 0)
 	end)
 	return filtered
 end
@@ -602,10 +602,6 @@ function RadiusJewelFinderClass:Open()
 	local selectedAllJewelsView = ALL_JEWELS_VIEW_OPTIONS[1]
 	local lastComputeAllRows = nil
 
-	local function filterBestPerSocket(rows)
-		return self:filterBestPerSocket(rows)
-	end
-
 	local suppressFinderStateSave = false
 	local runFind
 	local computeContext
@@ -676,7 +672,7 @@ function RadiusJewelFinderClass:Open()
 		if cache.mode == "computeSocketAll" then
 			lastComputeAllRows = rows
 			if selectedAllJewelsView.id == "bestPerSocket" then
-				rows = filterBestPerSocket(rows)
+				rows = self:filterBestPerSocket(rows)
 			end
 		end
 		controls.resultsList:SetMode(cache.mode, rows, cache.defaultText)
@@ -1235,7 +1231,7 @@ end
 		selectedAllJewelsView = ALL_JEWELS_VIEW_OPTIONS[idx]
 		if lastComputeAllRows then
 			local displayRows = selectedAllJewelsView.id == "bestPerSocket"
-				and filterBestPerSocket(lastComputeAllRows) or lastComputeAllRows
+				and self:filterBestPerSocket(lastComputeAllRows) or lastComputeAllRows
 			controls.resultsList:SetMode("computeSocketAll", displayRows, COL_META .. "(no compatible sockets)")
 		end
 		saveFinderState()
@@ -1588,7 +1584,7 @@ end
 					delta = displayDelta,
 					pct = pct,
 					pctPerPoint = totalPoints > 0 and (pct / totalPoints) or pct,
-					sortPctPerPoint = totalPoints > 0 and (pct / totalPoints) or pct,
+					sortValue = totalPoints > 0 and (pct / totalPoints) or pct,
 					detailText = detailText,
 					detailNodeId = detailNodeId,
 					resultNodes = plan.resultNodes,
@@ -1704,7 +1700,7 @@ end
 						local bestBySocket = { }
 						for _, row in ipairs(typeRows) do
 							local ex = bestBySocket[row.socketId]
-							if not ex or row.sortPctPerPoint > ex.sortPctPerPoint then
+							if not ex or row.sortValue > ex.sortValue then
 								bestBySocket[row.socketId] = row
 							end
 						end
@@ -1722,7 +1718,7 @@ end
 				globalBaseline = globalBaseline or 0
 				lastComputeAllRows = allRows
 				local displayRows = selectedAllJewelsView.id == "bestPerSocket"
-					and filterBestPerSocket(allRows) or allRows
+					and self:filterBestPerSocket(allRows) or allRows
 				controls.resultsList:SetMode("computeSocketAll", displayRows, COL_META .. "(no compatible sockets)")
 				controls.statusLabel.label = formatComputeStatus("All jewels", statLabel, globalBaseline, computeMethodLabel) .. formatElapsed(searchStartTime)
 				saveResultCache("compute", "computeSocketAll", allRows, COL_META .. "(no compatible sockets)", controls.statusLabel.label, true)
@@ -2020,7 +2016,7 @@ end
 						local points = isEquippedSocket and 0
 							or self:getSocketBasePoints(r.socket, { isOccupied = r.replacedItemLabel ~= nil })
 						local scorePerPoint = points > 0 and (r.score / points) or r.score
-						local scorePerPointSort = points > 0 and scorePerPoint or r.score
+						local sortValue = points > 0 and scorePerPoint or r.score
 						local detailText = r.detailText
 						if not detailText or detailText == "" then
 							detailText = #r.topNodes > 0 and s_format("%d match%s", #r.topNodes, #r.topNodes == 1 and "" or "es") or scoreLabel
@@ -2050,7 +2046,7 @@ end
 							points = points,
 							score = r.score or 0,
 							scorePerPoint = scorePerPoint,
-							scorePerPointSort = scorePerPointSort,
+							sortValue = sortValue,
 							variantLabel = r.variant and (isThreadBestVariantSearch and (r.variant.name .. " Ring")
 								or r.variant.dropdownLabel or r.variant.name) or "",
 							detailText = detailText,
