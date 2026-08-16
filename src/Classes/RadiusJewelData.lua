@@ -19,15 +19,11 @@ M.FULL_MASSIVE_RADIUS = 2400
 -- Color constants
 -- ─────────────────────────────────────────────────────────────────────────────
 
-M.COL_UNIQUE = "^xAF6025"
-M.COL_MOD    = "^7"
-M.COL_META   = "^8"
-M.COL_NEG    = "^1"
-
-local COL_UNIQUE = M.COL_UNIQUE
-local COL_MOD    = M.COL_MOD
-local COL_META   = M.COL_META
-local COL_NEG    = M.COL_NEG
+local COL_UNIQUE = "^xAF6025"
+local COL_MOD    = "^7"
+local COL_META   = "^8"
+local COL_NEG    = "^1"
+M.COL_META = COL_META
 
 -- ─────────────────────────────────────────────────────────────────────────────
 -- Unique raw text lookup
@@ -196,8 +192,6 @@ local function scoreAllocPassives(nodes, allocNodes)
 	end
 	return s
 end
-
-M.scoreAllocPassives = scoreAllocPassives
 
 local function scoreUnallocPassives(nodes, allocNodes)
 	local s = 0
@@ -956,25 +950,6 @@ function M.buildJewelTypes()
 		score = scoreUnallocNotablesAndKeystones,
 	})
 	return jewelTypes
-end
-
-function M.jewelTypeSortOrder(jt)
-	if jt.name == "The Light of Meaning" then return 10 end
-	if jt.name == "Might of the Meek" then return 20 end
-	if jt.name == "Unnatural Instinct" then return 30 end
-	if jt.name == "Inspired Learning" then return 40 end
-	if jt.name == "Anatomical Knowledge" then return 50 end
-	if jt.name == "Tempered & Transcendent" then return 55 end
-	if jt.name == "Lioneye's Fall" then return 60 end
-	if jt.name == "Intuitive Leap" then return 70 end
-	if jt.isImpossibleEscape then return 75 end
-	if jt.isSplitPersonality then return 80 end
-	if jt.name == "Stat Conversion" then return 90 end
-	if jt.name == "Attribute Conversion" then return 100 end
-	if jt.name == "Combat Focus" then return 110 end
-	if jt.name == "Dreams & Nightmares" then return 120 end
-	if jt.isThread then return 130 end
-	return 1000
 end
 
 return M

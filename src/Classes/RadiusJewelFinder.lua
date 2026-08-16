@@ -102,9 +102,7 @@ local IMPACT_STATS                  = RadiusJewelData.buildImpactStats()
 local DISCONNECTED_PASSIVE_COMPUTE_METHODS = RadiusJewelData.DISCONNECTED_PASSIVE_COMPUTE_METHODS
 local OCCUPIED_SOCKET_OPTIONS       = RadiusJewelData.OCCUPIED_SOCKET_OPTIONS
 local jewelPreviewFn                = RadiusJewelData.jewelPreviewFn
-local scoreAllocPassives            = RadiusJewelData.scoreAllocPassives
 local buildJewelTypes               = RadiusJewelData.buildJewelTypes
-local jewelTypeSortOrder            = RadiusJewelData.jewelTypeSortOrder
 local makeVariantDropdownEntry      = RadiusJewelData.makeVariantDropdownEntry
 local findDisconnectedPassiveComputeMethod = RadiusJewelData.findDisconnectedPassiveComputeMethod
 local getSplitPersonalityVariants   = RadiusJewelData.getSplitPersonalityVariants
@@ -1375,42 +1373,42 @@ local function buildRadiusJewelPopupContext(self)
 	end
 
 	local function buildGenericTypeTooltipLinesForJewelType(jewelType)
-	if not jewelType then
-		return nil
-	end
-	if not (jewelType.isThread or jewelType.variants) then
-		local lines = buildPreviewLinesForJewelType(jewelType)
+		if not jewelType then
+			return nil
+		end
+		if not (jewelType.isThread or jewelType.variants) then
+			local lines = buildPreviewLinesForJewelType(jewelType)
+			if type(lines) ~= "table" then
+				return nil
+			end
+			return lines
+		end
+		local fn = jewelPreviewFn[jewelType.name]
+		local lines = fn and fn() or nil
 		if type(lines) ~= "table" then
 			return nil
 		end
-		return lines
-	end
-	local fn = jewelPreviewFn[jewelType.name]
-	local lines = fn and fn() or nil
-	if type(lines) ~= "table" then
-		return nil
-	end
 
-	local genericLines = { }
-	local blankCount = 0
-	for _, line in ipairs(lines) do
-		t_insert(genericLines, line)
-		if line[1] == "" then
-			blankCount = blankCount + 1
-			if blankCount >= 2 then
-				break
+		local genericLines = { }
+		local blankCount = 0
+		for _, line in ipairs(lines) do
+			t_insert(genericLines, line)
+			if line[1] == "" then
+				blankCount = blankCount + 1
+				if blankCount >= 2 then
+					break
+				end
 			end
 		end
+		local note
+		if jewelType.isThread then
+			note = "Multiple ring sizes available"
+		else
+			note = "Multiple variants available"
+		end
+		t_insert(genericLines, { height = 16, [1] = COL_META .. note })
+		return genericLines
 	end
-	local note
-	if jewelType.isThread then
-		note = "Multiple ring sizes available"
-	else
-		note = "Multiple variants available"
-	end
-	t_insert(genericLines, { height = 16, [1] = COL_META .. note })
-	return genericLines
-end
 	local function isAnyFinderDropdownDropped()
 		return (controls.jewelTypeSelect and controls.jewelTypeSelect.dropped)
 			or (controls.jewelVariantSelect and controls.jewelVariantSelect.dropped)
@@ -1606,18 +1604,18 @@ end
 		addPreviewLines(lines)
 	end
 
-		controls.resultsList = new("RadiusJewelResultsListControl"):RadiusJewelResultsListControl(TL, { edgePadding, contentTopY, leftPanelWidth, resultListBottomY - contentTopY }, self.build, socketViewer)
-		controls.resultsList.suppressTooltipFunc = isAnyFinderDropdownDropped
-		controls.resultsList.OnSelect = function(_, _, row)
-			updateResultDetails(row)
-			updatePreview(row)
+	controls.resultsList = new("RadiusJewelResultsListControl"):RadiusJewelResultsListControl(TL, { edgePadding, contentTopY, leftPanelWidth, resultListBottomY - contentTopY }, self.build, socketViewer)
+	controls.resultsList.suppressTooltipFunc = isAnyFinderDropdownDropped
+	controls.resultsList.OnSelect = function(_, _, row)
+		updateResultDetails(row)
+		updatePreview(row)
+	end
+	controls.resultsList.OnSelClick = function(_, index, value, doubleClick)
+		if doubleClick then
+			applySelectedResult()
 		end
-		controls.resultsList.OnSelClick = function(_, index, value, doubleClick)
-			if doubleClick then
-				applySelectedResult()
-			end
-		end
-		controls.resultsList:SetMode("message", { }, COL_META .. "Click Find to search")
+	end
+	controls.resultsList:SetMode("message", { }, COL_META .. "Click Find to search")
 
 	local function rebuildJewelTypeDropdown()
 		jewelTypes = buildJewelTypes()
@@ -1647,29 +1645,32 @@ end
 		end
 		if controls.jewelTypeSelect then
 			controls.jewelTypeSelect:SetList(jtLabels)
-			-- keep current selection if still visible, else reset to first
+			-- Keep the current selection if it remains visible; otherwise reset to the first entry.
 			local selIdx = 1
-				for i, jt in ipairs(activeJewelTypes) do
-					if selectedJewelType and jt.name == selectedJewelType.name then selIdx = i; break end
+			for i, jt in ipairs(activeJewelTypes) do
+				if selectedJewelType and jt.name == selectedJewelType.name then
+					selIdx = i
+					break
+				end
 			end
 			controls.jewelTypeSelect.selIndex = selIdx
 			selectedJewelType = activeJewelTypes[selIdx]
 
-				local hasVariants = selectedJewelType.variants ~= nil
-				controls.jewelVariantLabel.shown = hasVariants
-				controls.jewelVariantSelect.shown = hasVariants
-				if hasVariants then
-					syncDisplayedVariants()
-				else
-					selectedJewelVariant = nil
-				end
+			local hasVariants = selectedJewelType.variants ~= nil
+			controls.jewelVariantLabel.shown = hasVariants
+			controls.jewelVariantSelect.shown = hasVariants
+			if hasVariants then
+				syncDisplayedVariants()
+			else
+				selectedJewelVariant = nil
+			end
 			saveFinderState()
 		else
-			-- initial build before controls exist
+			-- Select the initial entry before controls exist.
 			selectedJewelType = activeJewelTypes[1]
 		end
 	end
-	rebuildJewelTypeDropdown()  -- initial build (controls.jewelTypeSelect not yet created)
+	rebuildJewelTypeDropdown()
 
 	controls.jewelTypeLabel = new("LabelControl"):LabelControl(TL, { edgePadding, headerLabelY, 0, 16 }, "^7Type:")
 
@@ -1779,151 +1780,151 @@ end
 	controls.allJewelsViewLabel.shown = false
 	controls.allJewelsViewSelect.shown = false
 
-		-- Thread ring selector (shown when Thread of Hope selected)
-		controls.threadVariantLabel = new("LabelControl"):LabelControl(TL, { variantDefaultX, headerLabelY, 0, 16 }, "^7Preview ring:")
-		controls.threadVariantSelect = new("DropDownControl"):DropDownControl(TL, { variantDefaultX, headerInputY, 200, 20 }, tvLabels, function(idx)
+	-- Thread ring selector (shown when Thread of Hope selected)
+	controls.threadVariantLabel = new("LabelControl"):LabelControl(TL, { variantDefaultX, headerLabelY, 0, 16 }, "^7Preview ring:")
+	controls.threadVariantSelect = new("DropDownControl"):DropDownControl(TL, { variantDefaultX, headerInputY, 200, 20 }, tvLabels, function(idx)
 		cancelCompute()
 		selectedThreadVariant = threadVariants[idx]
 		saveFinderState()
 		updatePreview()
 		runFind(false)
 	end)
-		controls.threadVariantLabel.shown = false
-		controls.threadVariantSelect.shown = false
+	controls.threadVariantLabel.shown = false
+	controls.threadVariantSelect.shown = false
 
-		controls.variantGroupLabel = new("LabelControl"):LabelControl(TL, { variantGroupX, headerLabelY, 0, 16 }, "^7Jewel:")
-		controls.variantGroupSelect = new("DropDownControl"):DropDownControl(TL, { variantGroupX, headerInputY, variantGroupWidth, 20 }, { "All" }, function(idx)
-			cancelCompute()
-			selectedVariantGroup = variantGroupOptions[idx] or variantGroupOptions[1]
-			controls.jewelVariantSelect.selIndex = 1
-			selectedJewelVariant = nil
-			syncDisplayedVariants()
+	controls.variantGroupLabel = new("LabelControl"):LabelControl(TL, { variantGroupX, headerLabelY, 0, 16 }, "^7Jewel:")
+	controls.variantGroupSelect = new("DropDownControl"):DropDownControl(TL, { variantGroupX, headerInputY, variantGroupWidth, 20 }, { "All" }, function(idx)
+		cancelCompute()
+		selectedVariantGroup = variantGroupOptions[idx] or variantGroupOptions[1]
+		controls.jewelVariantSelect.selIndex = 1
+		selectedJewelVariant = nil
+		syncDisplayedVariants()
+		saveFinderState()
+		updatePreview()
+		runFind(false)
+	end)
+	controls.variantGroupLabel.shown = false
+	controls.variantGroupSelect.shown = false
+
+	-- Jewel variant selector (shown when jewel type has built-in variants)
+	controls.jewelVariantLabel = new("LabelControl"):LabelControl(TL, { variantDefaultX, headerLabelY, 0, 16 }, "^7Variant:")
+	controls.jewelVariantSelect = new("DropDownControl"):DropDownControl(TL, { variantDefaultX, headerInputY, variantDefaultWidth, 20 }, {}, function(idx)
+		cancelCompute()
+		local variants = getDisplayedVariants()
+		if variants then
+			selectedJewelVariant = idx == 1 and nil or variants[idx - 1]
 			saveFinderState()
 			updatePreview()
-			runFind(false)
-		end)
-		controls.variantGroupLabel.shown = false
-		controls.variantGroupSelect.shown = false
-
-		-- Jewel variant selector (shown when jewel type has built-in variants)
-		controls.jewelVariantLabel = new("LabelControl"):LabelControl(TL, { variantDefaultX, headerLabelY, 0, 16 }, "^7Variant:")
-		controls.jewelVariantSelect = new("DropDownControl"):DropDownControl(TL, { variantDefaultX, headerInputY, variantDefaultWidth, 20 }, {}, function(idx)
-			cancelCompute()
-			local variants = getDisplayedVariants()
-			if variants then
-				selectedJewelVariant = idx == 1 and nil or variants[idx - 1]
-				saveFinderState()
-				updatePreview()
-				if controls.findButton then
-					controls.findButton.shown = not (selectedJewelType and selectedJewelType.variants
-						and not selectedJewelVariant and not selectedJewelType.isImpossibleEscape)
-				end
-			end
-		end)
-		controls.jewelVariantSelect.enableDroppedWidth = true
-		controls.jewelVariantSelect.maxDroppedWidth = 520
-		controls.jewelVariantLabel.shown = false
-		controls.jewelVariantSelect.shown = false
-
-		local function syncVariantControlLayout(hasVariantGroupFilter)
-			if hasVariantGroupFilter then
-				controls.jewelVariantLabel.x = variantFilteredX
-				controls.jewelVariantSelect.x = variantFilteredX
-				controls.jewelVariantSelect.width = variantFilteredWidth
-			else
-				controls.jewelVariantLabel.x = variantDefaultX
-				controls.jewelVariantSelect.x = variantDefaultX
-				controls.jewelVariantSelect.width = variantDefaultWidth
-			end
-		end
-
-		local function syncComputeMethodSelect(methods)
-			methods = methods or getSelectedComputeMethods()
-			if not methods or #methods == 0 then
-				controls.computeMethodSelect:SetList({ })
-				controls.computeMethodSelect.selIndex = nil
-				return
-			end
-			local methodLabels = { }
-			for _, method in ipairs(methods) do
-				t_insert(methodLabels, method.label)
-			end
-			local selectedIndex = 1
-			for i, method in ipairs(methods) do
-				if selectedComputeMethod and method.id == selectedComputeMethod.id then
-					selectedIndex = i
-					break
-				end
-			end
-			selectedComputeMethod = methods[selectedIndex]
-			controls.computeMethodSelect:SetList(methodLabels)
-			controls.computeMethodSelect.selIndex = selectedIndex
-		end
-
-		local function syncSelectedJewelTypeControls()
-			if selectedJewelType.isAllJewels then
-				controls.allJewelsViewLabel.shown  = true
-				controls.allJewelsViewSelect.shown = true
-				controls.threadVariantLabel.shown  = false
-				controls.threadVariantSelect.shown = false
-				controls.variantGroupLabel.shown   = false
-				controls.variantGroupSelect.shown  = false
-				controls.jewelVariantLabel.shown   = false
-				controls.jewelVariantSelect.shown  = false
-				controls.computeMethodLabel.shown  = true
-				controls.computeMethodSelect.shown = true
-				controls.impactStatLabel.shown     = true
-				controls.impactStatSelect.shown    = true
-				syncComputeMethodSelect(DISCONNECTED_PASSIVE_COMPUTE_METHODS)
-				if controls.computeButton then
-					controls.computeButton.shown = true
-				end
-				if controls.findButton then
-					controls.findButton.shown = false
-				end
-				selectedJewelVariant = nil
-				return
-			end
-			controls.allJewelsViewLabel.shown  = false
-			controls.allJewelsViewSelect.shown = false
-			local isThread = selectedJewelType.isThread == true
-			local hasVariants = selectedJewelType.variants ~= nil
-			local hasVariantGroupFilter = syncVariantGroupSelect()
-			local hasComputeMethods = selectedJewelSupportsComputeMethods()
-			syncVariantControlLayout(hasVariantGroupFilter)
-
-			controls.threadVariantLabel.shown  = isThread
-			controls.threadVariantSelect.shown = isThread
-			controls.variantGroupLabel.shown   = hasVariantGroupFilter
-			controls.variantGroupSelect.shown  = hasVariantGroupFilter
-			controls.jewelVariantLabel.shown   = hasVariants
-			controls.jewelVariantSelect.shown  = hasVariants
-			controls.computeMethodLabel.shown  = hasComputeMethods
-			controls.computeMethodSelect.shown = hasComputeMethods
-			controls.impactStatLabel.shown     = selectedJewelType.hasCompute
-			controls.impactStatSelect.shown    = selectedJewelType.hasCompute
 			if controls.findButton then
-				controls.findButton.shown = true
+				controls.findButton.shown = not (selectedJewelType and selectedJewelType.variants
+					and not selectedJewelVariant and not selectedJewelType.isImpossibleEscape)
 			end
-			if controls.computeButton then
-				controls.computeButton.shown = selectedJewelType.hasCompute
-			end
+		end
+	end)
+	controls.jewelVariantSelect.enableDroppedWidth = true
+	controls.jewelVariantSelect.maxDroppedWidth = 520
+	controls.jewelVariantLabel.shown = false
+	controls.jewelVariantSelect.shown = false
 
-			if hasVariants then
-				if not hasVariantGroupFilter then
-					selectedVariantGroup = variantGroupOptions[1]
-					controls.variantGroupSelect.selIndex = 1
-				end
-				syncDisplayedVariants()
-			else
-				selectedJewelVariant = nil
+	local function syncVariantControlLayout(hasVariantGroupFilter)
+		if hasVariantGroupFilter then
+			controls.jewelVariantLabel.x = variantFilteredX
+			controls.jewelVariantSelect.x = variantFilteredX
+			controls.jewelVariantSelect.width = variantFilteredWidth
+		else
+			controls.jewelVariantLabel.x = variantDefaultX
+			controls.jewelVariantSelect.x = variantDefaultX
+			controls.jewelVariantSelect.width = variantDefaultWidth
+		end
+	end
+
+	local function syncComputeMethodSelect(methods)
+		methods = methods or getSelectedComputeMethods()
+		if not methods or #methods == 0 then
+			controls.computeMethodSelect:SetList({ })
+			controls.computeMethodSelect.selIndex = nil
+			return
+		end
+		local methodLabels = { }
+		for _, method in ipairs(methods) do
+			t_insert(methodLabels, method.label)
+		end
+		local selectedIndex = 1
+		for i, method in ipairs(methods) do
+			if selectedComputeMethod and method.id == selectedComputeMethod.id then
+				selectedIndex = i
+				break
 			end
-			if controls.findButton and hasVariants and not selectedJewelVariant and not selectedJewelType.isImpossibleEscape then
+		end
+		selectedComputeMethod = methods[selectedIndex]
+		controls.computeMethodSelect:SetList(methodLabels)
+		controls.computeMethodSelect.selIndex = selectedIndex
+	end
+
+	local function syncSelectedJewelTypeControls()
+		if selectedJewelType.isAllJewels then
+			controls.allJewelsViewLabel.shown  = true
+			controls.allJewelsViewSelect.shown = true
+			controls.threadVariantLabel.shown  = false
+			controls.threadVariantSelect.shown = false
+			controls.variantGroupLabel.shown   = false
+			controls.variantGroupSelect.shown  = false
+			controls.jewelVariantLabel.shown   = false
+			controls.jewelVariantSelect.shown  = false
+			controls.computeMethodLabel.shown  = true
+			controls.computeMethodSelect.shown = true
+			controls.impactStatLabel.shown     = true
+			controls.impactStatSelect.shown    = true
+			syncComputeMethodSelect(DISCONNECTED_PASSIVE_COMPUTE_METHODS)
+			if controls.computeButton then
+				controls.computeButton.shown = true
+			end
+			if controls.findButton then
 				controls.findButton.shown = false
 			end
-			if hasComputeMethods then
-				syncComputeMethodSelect(selectedJewelType.computeMethods)
+			selectedJewelVariant = nil
+			return
+		end
+		controls.allJewelsViewLabel.shown  = false
+		controls.allJewelsViewSelect.shown = false
+		local isThread = selectedJewelType.isThread == true
+		local hasVariants = selectedJewelType.variants ~= nil
+		local hasVariantGroupFilter = syncVariantGroupSelect()
+		local hasComputeMethods = selectedJewelSupportsComputeMethods()
+		syncVariantControlLayout(hasVariantGroupFilter)
+
+		controls.threadVariantLabel.shown  = isThread
+		controls.threadVariantSelect.shown = isThread
+		controls.variantGroupLabel.shown   = hasVariantGroupFilter
+		controls.variantGroupSelect.shown  = hasVariantGroupFilter
+		controls.jewelVariantLabel.shown   = hasVariants
+		controls.jewelVariantSelect.shown  = hasVariants
+		controls.computeMethodLabel.shown  = hasComputeMethods
+		controls.computeMethodSelect.shown = hasComputeMethods
+		controls.impactStatLabel.shown     = selectedJewelType.hasCompute
+		controls.impactStatSelect.shown    = selectedJewelType.hasCompute
+		if controls.findButton then
+			controls.findButton.shown = true
+		end
+		if controls.computeButton then
+			controls.computeButton.shown = selectedJewelType.hasCompute
+		end
+
+		if hasVariants then
+			if not hasVariantGroupFilter then
+				selectedVariantGroup = variantGroupOptions[1]
+				controls.variantGroupSelect.selIndex = 1
 			end
+			syncDisplayedVariants()
+		else
+			selectedJewelVariant = nil
+		end
+		if controls.findButton and hasVariants and not selectedJewelVariant and not selectedJewelType.isImpossibleEscape then
+			controls.findButton.shown = false
+		end
+		if hasComputeMethods then
+			syncComputeMethodSelect(selectedJewelType.computeMethods)
+		end
 	end
 
 	-- Jewel type dropdown (defined after variant controls so :Click() is safe)
