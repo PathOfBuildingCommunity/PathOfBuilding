@@ -4068,7 +4068,8 @@ function ItemsTabClass:FormatItemSource(text)
 			   :gsub("prophecy{([^}]+)}",colorCodes.PROPHECY.."%1"..colorCodes.SOURCE)
 end
 
-local function itemChangesPassiveTree(item)
+-- Cluster Jewels use the separate comparison path that rebuilds cluster subgraphs.
+function ItemsTabClass:ItemNeedsMainTreeComparisonSpec(item)
 	return not not (item and item.type == "Jewel" and item.jewelData
 		and (item.jewelData.conqueredBy or item.jewelRadiusIndex
 			and (item.jewelData.intuitiveLeapLike or item.jewelData.impossibleEscapeKeystone)))
@@ -4949,7 +4950,10 @@ function ItemsTabClass:AddItemStatDifferences(tooltip, item, base, slot)
 		local function getReplacedItemAndOutput(compareSlot)
 			local selItem = self.items[compareSlot.selItemId]
 			local override = { repSlotName = compareSlot.slotName, repItem = item ~= selItem and item or nil }
-			if compareSlot.nodeId and (itemChangesPassiveTree(selItem) or itemChangesPassiveTree(item)) then
+			if compareSlot.nodeId and (
+				self:ItemNeedsMainTreeComparisonSpec(selItem)
+				or self:ItemNeedsMainTreeComparisonSpec(item)
+			) then
 				override.spec = self:BuildSpecForJewelComparison(compareSlot, override.repItem)
 			end
 			local output = calcFunc(override)

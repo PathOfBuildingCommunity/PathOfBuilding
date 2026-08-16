@@ -137,13 +137,9 @@ local function buildReplacementItem(slot)
 	return item
 end
 
-local function itemChangesPassiveTreeRadius(item)
-	return not not (item and item.type == "Jewel" and (
-		item.clusterJewel
-		or (item.jewelData and (item.jewelData.conqueredBy
-			or item.jewelRadiusIndex
-				and (item.jewelData.intuitiveLeapLike or item.jewelData.impossibleEscapeKeystone)))
-	))
+local function itemNeedsRadiusComparisonSpec(itemsTab, item)
+	return itemsTab:ItemNeedsMainTreeComparisonSpec(item)
+		or not not (item and item.type == "Jewel" and item.clusterJewel)
 end
 
 local function buildDisconnectedPassivePlanStep(baseOutput, baseValue, value, compareOutput, chosenNodes, variantLabel)
@@ -215,13 +211,14 @@ end
 
 function Class:socketReplacementChangesPassiveTree(replacementContext, item)
 	local replacedItem = replacementContext.occupancy and replacementContext.occupancy.isOccupied and replacementContext.occupancy.item
-	return itemChangesPassiveTreeRadius(replacedItem) or itemChangesPassiveTreeRadius(item)
+	return itemNeedsRadiusComparisonSpec(self.build.itemsTab, replacedItem)
+		or itemNeedsRadiusComparisonSpec(self.build.itemsTab, item)
 end
 
 function Class:getImpossibleEscapePlanCacheKey(statField, variantName, replacementContext)
 	local cacheKey = s_format("IE|%s|%s", statField, variantName)
 	local occupancy = replacementContext.occupancy
-	if occupancy and occupancy.isOccupied and itemChangesPassiveTreeRadius(occupancy.item) then
+	if occupancy and occupancy.isOccupied and itemNeedsRadiusComparisonSpec(self.build.itemsTab, occupancy.item) then
 		-- Removing a structural jewel changes the comparison spec for this socket.
 		return s_format("%s|%s", cacheKey, replacementContext.socketNode.id)
 	end
