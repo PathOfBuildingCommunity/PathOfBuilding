@@ -175,7 +175,7 @@ function RadiusJewelResultsListClass:ReSort(colIndex)
 		elseif colIndex == 4 then
 			t_sort(self.list, function(a, b) return a.pct > b.pct end)
 		elseif colIndex == 5 then
-			t_sort(self.list, function(a, b) return a.sortPctPerPoint > b.sortPctPerPoint end)
+			t_sort(self.list, function(a, b) return a.sortValue > b.sortValue end)
 		elseif colIndex == 6 then
 			t_sort(self.list, function(a, b) return a.detailText < b.detailText end)
 		end
@@ -191,7 +191,7 @@ function RadiusJewelResultsListClass:ReSort(colIndex)
 		elseif colIndex == 5 then
 			t_sort(self.list, function(a, b) return a.pct > b.pct end)
 		elseif colIndex == 6 then
-			t_sort(self.list, function(a, b) return a.sortPctPerPoint > b.sortPctPerPoint end)
+			t_sort(self.list, function(a, b) return a.sortValue > b.sortValue end)
 		elseif colIndex == 7 then
 			t_sort(self.list, function(a, b) return a.detailText < b.detailText end)
 		end
@@ -203,7 +203,7 @@ function RadiusJewelResultsListClass:ReSort(colIndex)
 		elseif colIndex == 3 then
 			t_sort(self.list, function(a, b) return a.score > b.score end)
 		elseif colIndex == 4 then
-			t_sort(self.list, function(a, b) return a.scorePerPointSort > b.scorePerPointSort end)
+			t_sort(self.list, function(a, b) return a.sortValue > b.sortValue end)
 		elseif colIndex == 5 then
 			if self.mode == "findThread" then
 				t_sort(self.list, function(a, b) return a.variantLabel < b.variantLabel end)
