@@ -12,6 +12,9 @@ local s_format = string.format
 
 local M = { }
 
+-- Outer boundary for the full Massive radius used by the Foulborn Intuitive Leap effect.
+M.FULL_MASSIVE_RADIUS = 2400
+
 -- ─────────────────────────────────────────────────────────────────────────────
 -- Color constants
 -- ─────────────────────────────────────────────────────────────────────────────

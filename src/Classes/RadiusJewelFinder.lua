@@ -1,18 +1,8 @@
 -- Path of Building
 --
 -- Class: Radius Jewel Finder
--- Popup that scores passive tree sockets for radius unique jewels.
--- Supports: The Light of Meaning, Might of the Meek, Unnatural Instinct,
---           Inspired Learning, Anatomical Knowledge, Thread of Hope, Lioneye's Fall,
---           Intuitive Leap, Tempered Flesh, Tempered Mind, Tempered Spirit,
---           Transcendent Flesh, Transcendent Mind, Transcendent Spirit,
---           Split Personality, Impossible Escape,
---           Energy From Within, Healthy Mind, Energised Armour,
---           Brute Force Solution, Careful Planning, Efficient Training,
---           Fertile Mind, Fluid Motion, Inertia,
---           Combat Focus (Crimson/Cobalt/Viridian),
---           The Red Dream, The Red Nightmare, The Green Dream, The Green Nightmare,
---           The Blue Dream, The Blue Nightmare.
+-- Popup for comparing radius unique jewels across passive tree sockets.
+-- Supported jewel definitions come from RadiusJewelData.buildJewelTypes().
 --
 local ipairs = ipairs
 local pairs = pairs
@@ -25,6 +15,7 @@ local m_abs = math.abs
 
 local RadiusJewelData = LoadModule("Classes/RadiusJewelData")
 local COL_META = RadiusJewelData.COL_META
+local FULL_MASSIVE_RADIUS = RadiusJewelData.FULL_MASSIVE_RADIUS
 
 -- Small output snapshot for stat-comparison tooltips.
 -- Copies only scalar fields and the small tables needed by
@@ -128,15 +119,6 @@ local findDisconnectedPassiveComputeMethod = RadiusJewelData.findDisconnectedPas
 local getSplitPersonalityVariants   = RadiusJewelData.getSplitPersonalityVariants
 local getImpossibleEscapeVariants   = RadiusJewelData.getImpossibleEscapeVariants
 local mustGetUniqueRawText          = RadiusJewelData.mustGetUniqueRawText
-
--- Exposed for testing; calls the data module helper.
-function RadiusJewelFinderClass:buildVariantsFromUniqueItem(uniqueName, baseName)
-	return RadiusJewelData.buildVariantsFromUniqueItem(uniqueName, baseName)
-end
-
-function RadiusJewelFinderClass:buildFoulbornVariants(uniqueName, baseName, foulbornMap)
-	return RadiusJewelData.buildFoulbornVariants(uniqueName, baseName, foulbornMap)
-end
 
 -- ─────────────────────────────────────────────────────────────────────────────
 -- Build jewel socket list
@@ -420,6 +402,7 @@ local buildDisplayedDisconnectedPassivePlans = LoadModule("Classes/RadiusJewelCo
 	normalizeImpactStat = normalizeImpactStat,
 	calculateImpactPercent = calculateImpactPercent,
 	mustGetUniqueRawText = mustGetUniqueRawText,
+	fullMassiveRadius = FULL_MASSIVE_RADIUS,
 })
 
 -- ─────────────────────────────────────────────────────────────────────────────
@@ -1948,10 +1931,10 @@ end
 						else
 							local nodes
 							if isMassiveRadiusVariant then
-								-- Build a temporary full Massive radius (2400).
+								-- Merge every parsed ring inside the full Massive boundary.
 								nodes = { }
 								for idx, r in ipairs(data.jewelRadius) do
-									if r.outer <= 2400 and socketNode.nodesInRadius[idx] then
+									if r.outer <= FULL_MASSIVE_RADIUS and socketNode.nodesInRadius[idx] then
 										for nodeId, node in pairs(socketNode.nodesInRadius[idx]) do
 											nodes[nodeId] = node
 										end

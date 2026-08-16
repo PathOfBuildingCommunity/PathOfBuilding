@@ -6,7 +6,10 @@
 --
 -- Usage:
 --   local attachCompute = LoadModule("Classes/RadiusJewelCompute")
---   attachCompute(RadiusJewelFinderClass, { extractTooltipStats, normalizeImpactStat, calculateImpactPercent, mustGetUniqueRawText })
+--   attachCompute(RadiusJewelFinderClass, {
+--     extractTooltipStats, normalizeImpactStat, calculateImpactPercent,
+--     mustGetUniqueRawText, fullMassiveRadius,
+--   })
 --
 local ipairs = ipairs
 local pairs = pairs
@@ -20,6 +23,7 @@ local extractTooltipStats    = helpers.extractTooltipStats
 local normalizeImpactStat    = helpers.normalizeImpactStat
 local calculateImpactPercent = helpers.calculateImpactPercent
 local mustGetUniqueRawText   = helpers.mustGetUniqueRawText
+local FULL_MASSIVE_RADIUS    = helpers.fullMassiveRadius
 
 -- ─────────────────────────────────────────────────────────────────────────────
 -- Local helpers
@@ -588,7 +592,7 @@ function Class:computeIntuitiveLeapSocketImpact(sockets, impactStat, variant, me
 			return nodes
 		end
 		for idx, radius in ipairs(data.jewelRadius) do
-			if radius.outer <= 2400 and socketNode.nodesInRadius[idx] then
+			if radius.outer <= FULL_MASSIVE_RADIUS and socketNode.nodesInRadius[idx] then
 				for nodeId, node in pairs(socketNode.nodesInRadius[idx]) do
 					nodes[nodeId] = node
 				end
