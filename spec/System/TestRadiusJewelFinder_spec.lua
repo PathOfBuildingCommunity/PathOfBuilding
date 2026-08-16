@@ -178,16 +178,24 @@ describe("RadiusJewelFinder #radius-jewel", function()
 			assert.is_true(#computeTooltipTexts > 0, "expected Compute tooltip content")
 			assert.is_true(computeTooltipTexts[1]:find("selected stat", 1, true) ~= nil,
 				"expected Compute tooltip to explain stat ranking")
+			assert.is_true(computeTooltipTexts[2]:find("Max points", 1, true) ~= nil,
+				"expected Compute tooltip to name the Max points filter")
 			assert.is_false(popup.controls.findButton:IsShown(), "Find should be hidden for All jewels")
 			local applyTooltipTexts = buttonTooltipTexts(popup.controls.applyButton)
 			assert.is_true(#applyTooltipTexts > 0, "expected Apply tooltip content")
 			assert.is_true(applyTooltipTexts[1]:find("Select a result", 1, true) ~= nil,
 				"expected Apply tooltip to explain missing selection")
 			assert.is_nil(popup.controls.closeButton.tooltipFunc, "Close is self-explanatory and should not need a tooltip")
+			assert.are.equal("^7Max points:", popup.controls.maxPointsLabel.label)
 			local maxPointsTooltipTexts = buttonTooltipTexts(popup.controls.maxPointsEdit)
-			assert.is_true(#maxPointsTooltipTexts > 0, "expected Max pts tooltip content")
+			assert.is_true(#maxPointsTooltipTexts > 0, "expected Max points tooltip content")
 			assert.is_true(maxPointsTooltipTexts[1]:find("total passive points", 1, true) ~= nil,
-				"expected Max pts tooltip to explain total point limit")
+				"expected Max points tooltip to explain total point limit")
+			for mode, pointColumnIndex in pairs({ computeSocket = 2, computeSocketAll = 3, find = 2, findThread = 2 }) do
+				local pointColumn = popup.controls.resultsList.columnsByMode[mode][pointColumnIndex]
+				assert.are.equal("Points", pointColumn.label, mode .. " should spell out Points")
+				assert.are.equal(50, pointColumn.width, mode .. " should leave room for the Points label")
+			end
 			local occupiedTooltipTexts = buttonTooltipTexts(popup.controls.occupiedModeSelect, "DROP", 2, popup.controls.occupiedModeSelect.list[2])
 			assert.is_true(#occupiedTooltipTexts > 0, "expected Sockets tooltip content")
 			assert.is_true(occupiedTooltipTexts[2]:find("socket%-specific") ~= nil,

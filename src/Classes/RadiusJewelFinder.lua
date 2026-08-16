@@ -1721,8 +1721,8 @@ end
 	controls.impactStatLabel.shown = true
 	controls.impactStatSelect.shown = true
 
-	controls.maxPointsLabel = new("LabelControl"):LabelControl(BL, { edgePadding + 110, bottomLabelY, 0, 16 }, "^7Max pts:")
-	controls.maxPointsEdit = new("EditControl"):EditControl(BL, { edgePadding + 172, bottomInputY, 56, buttonHeight }, tostring(selectedMaxPoints), nil, "%D", 3, function(buf)
+	controls.maxPointsLabel = new("LabelControl"):LabelControl(BL, { edgePadding + 110, bottomLabelY, 0, 16 }, "^7Max points:")
+	controls.maxPointsEdit = new("EditControl"):EditControl(BL, { edgePadding + 190, bottomInputY, 56, buttonHeight }, tostring(selectedMaxPoints), nil, "%D", 3, function(buf)
 		cancelCompute()
 		selectedMaxPoints = buf ~= "" and tonumber(buf) or nil
 		saveFinderState()
@@ -1737,8 +1737,8 @@ end
 	controls.maxPointsLabel.shown = true
 	controls.maxPointsEdit.shown = true
 
-	controls.occupiedModeLabel = new("LabelControl"):LabelControl(BL, { edgePadding + 240, bottomLabelY, 0, 16 }, "^7Sockets:")
-	controls.occupiedModeSelect = new("DropDownControl"):DropDownControl(BL, { edgePadding + 298, bottomInputY, 170, buttonHeight }, occupiedModeLabels, function(idx)
+	controls.occupiedModeLabel = new("LabelControl"):LabelControl(BL, { edgePadding + 256, bottomLabelY, 0, 16 }, "^7Sockets:")
+	controls.occupiedModeSelect = new("DropDownControl"):DropDownControl(BL, { edgePadding + 314, bottomInputY, 150, buttonHeight }, occupiedModeLabels, function(idx)
 		cancelCompute()
 		selectedOccupiedMode = OCCUPIED_SOCKET_OPTIONS[idx]
 		saveFinderState()
@@ -2187,7 +2187,7 @@ end
 		else
 			tooltip:AddLine(16, "^7Rank compatible sockets by the selected stat.")
 		end
-		tooltip:AddLine(16, "^8Uses Stat, Max pts, and Sockets filters.")
+		tooltip:AddLine(16, "^8Uses Stat, Max points, and Sockets filters.")
 	end
 	controls.computeButton.shown = true
 
