@@ -101,19 +101,7 @@ function support.makeImpossibleEscapeTestVariant()
 end
 
 function support.makeThreadVariants()
-	local names = { "Small", "Medium", "Large", "Very Large", "Massive" }
-	local variants = { }
-	local variantIndex = 1
-	for radiusIndex, radius in ipairs(data.jewelRadius) do
-		if radius.inner > 0 then
-			variants[#variants + 1] = {
-				name = names[variantIndex] or ("Ring " .. variantIndex),
-				radiusIndex = radiusIndex,
-			}
-			variantIndex = variantIndex + 1
-		end
-	end
-	return variants
+	return support.RadiusJewelData.getThreadOfHopeVariants()
 end
 
 function support.isSorted(results, key)

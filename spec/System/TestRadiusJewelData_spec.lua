@@ -55,6 +55,49 @@ describe("RadiusJewelData #radius-jewel", function()
 
 	describe("buildJewelTypes", function()
 
+		it("assigns canonical identities to grouped variants and Thread rings", function()
+			local jewelTypes = RadiusJewelData.buildJewelTypes()
+			local function findJewelType(name)
+				for _, jewelType in ipairs(jewelTypes) do
+					if jewelType.name == name then
+						return jewelType
+					end
+				end
+			end
+			local function findVariant(jewelType, name)
+				for _, variant in ipairs(jewelType.variants or { }) do
+					if variant.name == name then
+						return variant
+					end
+				end
+			end
+
+			for _, expected in ipairs({
+				{ family = "Dreams & Nightmares", variant = "The Red Nightmare", uniqueName = "The Red Nightmare", limit = 1 },
+				{ family = "Stat Conversion", variant = "Healthy Mind", uniqueName = "Healthy Mind", limit = 1 },
+				{ family = "Tempered & Transcendent", variant = "Tempered Flesh", uniqueName = "Tempered Flesh" },
+			}) do
+				local variant = findVariant(findJewelType(expected.family), expected.variant)
+				assert.is_not_nil(variant, "missing grouped variant " .. expected.variant)
+				assert.are.equal(expected.family, variant.variantIdentity.family)
+				assert.are.equal(expected.uniqueName, variant.variantIdentity.uniqueName)
+				assert.are.equal(expected.uniqueName, variant.variantIdentity.limitKey)
+				assert.are.equal(expected.limit, variant.variantIdentity.limit)
+				assert.are.equal(variant.rawText, variant.variantIdentity.rawText)
+				assert.are.equal(variant.radiusIndex, variant.variantIdentity.radiusIndex)
+			end
+
+			local threadVariants = RadiusJewelData.getThreadOfHopeVariants()
+			assert.is_true(#threadVariants > 0, "expected Thread of Hope ring variants")
+			for _, variant in ipairs(threadVariants) do
+				assert.are.equal("Thread of Hope", variant.variantIdentity.family)
+				assert.are.equal("Thread of Hope", variant.variantIdentity.uniqueName)
+				assert.are.equal("Thread of Hope", variant.variantIdentity.limitKey)
+				assert.are.equal(variant.rawText, variant.variantIdentity.rawText)
+				assert.are.equal(getRadiusIndexFromRawText(variant.rawText), variant.radiusIndex)
+			end
+		end)
+
 		it("keeps raw-backed radius indexes aligned with item data", function()
 			local jewelTypes = RadiusJewelData.buildJewelTypes()
 			local checkedTypes = 0
@@ -269,6 +312,9 @@ describe("RadiusJewelData #radius-jewel", function()
 		end)
 
 		it("marks Foulborn Intuitive Leap as Massive Radius keystone-only in preview and compute", function()
+			local previousJewelRadius = data.jewelRadius
+			local previousMaxJewelRadius = data.maxJewelRadius
+			data.setJewelRadiiGlobally("3_29")
 			local variants = RadiusJewelData.buildFoulbornVariants("Intuitive Leap")
 			assert.are.equal(1, #variants)
 			local variant = variants[1]
@@ -299,17 +345,13 @@ describe("RadiusJewelData #radius-jewel", function()
 
 			assert.is_not_nil(capturedOptions)
 			assert.is_true(capturedOptions.keystoneOnly)
-			assert.is_function(capturedOptions.collectNodes)
 
-			local massiveRadiusIndex
-			for index, radius in ipairs(data.jewelRadius) do
-				if radius.outer > data.jewelRadius[getSmallRadiusIndex()].outer
-						and radius.outer <= RadiusJewelData.FULL_MASSIVE_RADIUS then
-					massiveRadiusIndex = index
-					break
-				end
-			end
-			assert.is_not_nil(massiveRadiusIndex, "expected a radius beyond Small and within Massive Radius")
+			local massiveRadiusIndex = RadiusJewelData.getJewelRadiusIndex("Massive")
+			assert.is_not_nil(massiveRadiusIndex, "expected canonical Massive radius data")
+			assert.are.equal(2880, data.jewelRadius[massiveRadiusIndex].outer)
+			assert.are.equal(massiveRadiusIndex, variant.radiusIndex)
+			assert.are.equal(massiveRadiusIndex, capturedOptions.radiusIndex)
+			assert.is_nil(capturedOptions.collectNodes)
 			local massiveKeystone = { id = "foulbornMassiveKeystone", type = "Keystone" }
 			local syntheticSocket = {
 				nodesInRadius = {
@@ -319,6 +361,8 @@ describe("RadiusJewelData #radius-jewel", function()
 			}
 			local candidates = finder:collectDisconnectedPassiveCandidates(syntheticSocket, capturedOptions)
 			assert.are.same({ massiveKeystone }, candidates)
+			data.jewelRadius = previousJewelRadius
+			data.maxJewelRadius = previousMaxJewelRadius
 		end)
 
 		it("compares Intuitive Leap normal and Foulborn variants while retaining the winner", function()

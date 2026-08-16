@@ -8,7 +8,7 @@
 --   local attachCompute = LoadModule("Classes/RadiusJewelCompute")
 --   attachCompute(RadiusJewelFinderClass, {
 --     extractTooltipStats, normalizeImpactStat, calculateImpactPercent,
---     mustGetUniqueRawText, buildNodeLabelList, fullMassiveRadius,
+--     mustGetUniqueRawText, buildNodeLabelList, getJewelRadiusIndex,
 --   })
 --
 local ipairs = ipairs
@@ -24,7 +24,7 @@ local normalizeImpactStat    = helpers.normalizeImpactStat
 local calculateImpactPercent = helpers.calculateImpactPercent
 local mustGetUniqueRawText   = helpers.mustGetUniqueRawText
 local buildNodeLabelList     = helpers.buildNodeLabelList
-local FULL_MASSIVE_RADIUS    = helpers.fullMassiveRadius
+local getJewelRadiusIndex    = helpers.getJewelRadiusIndex
 
 -- ─────────────────────────────────────────────────────────────────────────────
 -- Local helpers
@@ -560,38 +560,12 @@ function Class:computeIntuitiveLeapSocketImpact(sockets, impactStat, variant, me
 	local calcFunc, baseOutput = self.build.calcsTab:GetMiscCalculator()
 	local realBaseline = self:getImpactValue(impactStat, baseOutput)
 	local statField = impactStat.field
-	local radiusLookup = { }
-	for i, radius in ipairs(data.jewelRadius) do
-		if radius.inner == 0 and not radiusLookup[radius.label] then
-			radiusLookup[radius.label] = i
-		end
-	end
 
-	local isMassiveRadius = variant and variant.isMassiveRadius
 	local keystoneOnly = variant and variant.keystoneOnly or false
 	local rawText = (variant and variant.rawText) or mustGetUniqueRawText("Intuitive Leap")
-
-	local function collectMassiveNodes(socketNode)
-		local nodes = { }
-		if not socketNode or not socketNode.nodesInRadius then
-			return nodes
-		end
-		for idx, radius in ipairs(data.jewelRadius) do
-			if radius.outer <= FULL_MASSIVE_RADIUS and socketNode.nodesInRadius[idx] then
-				for nodeId, node in pairs(socketNode.nodesInRadius[idx]) do
-					nodes[nodeId] = node
-				end
-			end
-		end
-		return nodes
-	end
-
-	local candidateOptions = isMassiveRadius and {
-		collectNodes = collectMassiveNodes,
+	local candidateOptions = {
+		radiusIndex = variant and variant.radiusIndex or getJewelRadiusIndex("Small"),
 		keystoneOnly = keystoneOnly,
-	} or {
-		radiusIndex = radiusLookup["Small"],
-		keystoneOnly = false,
 	}
 
 	local variantKey = variant and variant.name or "normal"
@@ -671,11 +645,9 @@ function Class:computeThreadOfHopeSocketImpact(sockets, impactStat, threadVarian
 	local results = { }
 
 	-- Pre-build items per ring variant (avoid re-creating inside the socket loop)
-	local threadRawText = mustGetUniqueRawText("Thread of Hope")
 	local threadItems = { }
-	for variantIndex in ipairs(threadVariants) do
-		local item = new("Item"):Item("Rarity: Unique\n" .. threadRawText)
-		item.variant = variantIndex
+	for variantIndex, threadVariant in ipairs(threadVariants) do
+		local item = new("Item"):Item("Rarity: Unique\n" .. threadVariant.rawText)
 		item:BuildModList()
 		threadItems[variantIndex] = item
 	end
@@ -876,12 +848,7 @@ function Class:computeSplitPersonalitySocketImpact(sockets, impactStat, variants
 end
 
 local function getSmallRadiusIndex()
-	for i, radius in ipairs(data.jewelRadius) do
-		if radius.label == "Small" and radius.inner == 0 then
-			return i
-		end
-	end
-	return nil
+	return getJewelRadiusIndex("Small")
 end
 
 local function prepareImpossibleEscapeVariants(self, variants, smallRadiusIndex, notableOrKeystoneOnly)

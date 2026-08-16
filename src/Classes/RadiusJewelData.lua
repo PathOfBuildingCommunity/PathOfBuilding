@@ -12,9 +12,6 @@ local s_format = string.format
 
 local M = { }
 
--- Outer boundary for the full Massive radius used by the Foulborn Intuitive Leap effect.
-M.FULL_MASSIVE_RADIUS = 2400
-
 -- ─────────────────────────────────────────────────────────────────────────────
 -- Color constants
 -- ─────────────────────────────────────────────────────────────────────────────
@@ -124,6 +121,40 @@ local function getRadiusIndexFromRawText(rawText)
 	return item.jewelRadiusIndex
 end
 
+local function getJewelRadiusIndex(label)
+	for index, radius in ipairs(data.jewelRadius) do
+		if radius.inner == 0 and radius.label == label then
+			return index
+		end
+	end
+	return nil
+end
+
+M.getJewelRadiusIndex = getJewelRadiusIndex
+
+local function makeVariantIdentity(family, rawText, variantGroup, radiusIndex)
+	local item = new("Item"):Item("Rarity: Unique\n" .. rawText)
+	local uniqueName = (item.title or rawText:match("^([^\n]+)")):gsub("^[Ff]oulborn ", "")
+	return {
+		family = family,
+		uniqueName = uniqueName,
+		rawText = rawText,
+		variantGroup = variantGroup or uniqueName,
+		radiusIndex = radiusIndex or item.jewelRadiusIndex,
+		limitKey = uniqueName,
+		limit = item.limit,
+	}
+end
+
+local function assignVariantIdentity(candidate, family, variantGroup)
+	if not candidate.rawText then
+		return candidate
+	end
+	candidate.variantIdentity = makeVariantIdentity(family, candidate.rawText, variantGroup, candidate.radiusIndex)
+	candidate.radiusIndex = candidate.variantIdentity.radiusIndex
+	return candidate
+end
+
 local function getUniqueRadiusIndex(name, baseName)
 	return getRadiusIndexFromRawText(mustGetCurrentUniqueRawText(name, baseName))
 end
@@ -164,6 +195,27 @@ local function buildVariantsFromUniqueItem(uniqueName, baseName)
 end
 
 M.buildVariantsFromUniqueItem = buildVariantsFromUniqueItem
+
+local THREAD_OF_HOPE_VARIANTS
+local THREAD_OF_HOPE_RADIUS_DATA
+function M.getThreadOfHopeVariants()
+	if not THREAD_OF_HOPE_VARIANTS or THREAD_OF_HOPE_RADIUS_DATA ~= data.jewelRadius then
+		THREAD_OF_HOPE_VARIANTS = { }
+		THREAD_OF_HOPE_RADIUS_DATA = data.jewelRadius
+		local rawText = mustGetUniqueRawText("Thread of Hope")
+		local item = new("Item"):Item("Rarity: Unique\n" .. rawText)
+		for variantIndex, variantName in ipairs(item.variantList or { }) do
+			local variantRawText = mustGetUniqueVariantRawText("Thread of Hope", variantIndex)
+			local variant = {
+				name = variantName:gsub(" Ring$", ""),
+				rawText = variantRawText,
+				radiusIndex = getRadiusIndexFromRawText(variantRawText),
+			}
+			t_insert(THREAD_OF_HOPE_VARIANTS, assignVariantIdentity(variant, "Thread of Hope", variant.name))
+		end
+	end
+	return THREAD_OF_HOPE_VARIANTS
+end
 
 -- ─────────────────────────────────────────────────────────────────────────────
 -- Scoring functions
@@ -312,6 +364,7 @@ local function addIntuitiveLeapFoulbornFields(variant)
 	end
 	-- Massive radius is part of the Foulborn effect, not a parsed item mod line.
 	variant.isMassiveRadius = true
+	variant.radiusIndex = getJewelRadiusIndex("Massive")
 	variant.keystoneOnly = true
 	variant.previewMeta = { "Massive Radius", "Keystone Passive Skills only" }
 	variant.scoreLabel = "unalloc keystones"
@@ -854,6 +907,7 @@ function M.buildJewelTypes()
 		makeUniqueVariant("Combat Focus (Cobalt)", "Combat Focus", "Cobalt Jewel"),
 		makeUniqueVariant("Combat Focus (Viridian)", "Combat Focus", "Viridian Jewel"),
 	}
+	local threadOfHopeRawText = mustGetUniqueRawText("Thread of Hope")
 
 	local jewelTypes = { }
 	t_insert(jewelTypes, {
@@ -946,9 +1000,15 @@ function M.buildJewelTypes()
 		scoreLabel = "unalloc notable/keystone in ring",
 		hasCompute = true,
 		computeMethods = M.DISCONNECTED_PASSIVE_COMPUTE_METHODS,
-		rawText = nil,
+		rawText = threadOfHopeRawText,
 		score = scoreUnallocNotablesAndKeystones,
 	})
+	for _, jewelType in ipairs(jewelTypes) do
+		assignVariantIdentity(jewelType, jewelType.name, jewelType.name)
+		for _, variant in ipairs(jewelType.variants or { }) do
+			assignVariantIdentity(variant, jewelType.name, variant.variantGroup)
+		end
+	end
 	return jewelTypes
 end
 

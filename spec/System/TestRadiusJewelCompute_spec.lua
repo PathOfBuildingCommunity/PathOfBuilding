@@ -1109,6 +1109,43 @@ describe("RadiusJewelCompute #radius-jewel", function()
 				assert.is_true(result.atLimit)
 			end)
 
+			it("matches grouped families through the selected canonical variant", function()
+				local jewelTypes = RadiusJewelData.buildJewelTypes()
+				local function findJewelType(name)
+					for _, jewelType in ipairs(jewelTypes) do
+						if jewelType.name == name then
+							return jewelType
+						end
+					end
+				end
+				local function findVariant(jewelType, name)
+					for _, variant in ipairs(jewelType.variants or { }) do
+						if variant.name == name then
+							return variant
+						end
+					end
+				end
+
+				local cases = {
+					{ socketId = ALLOC_SOCKET_IDS[1], family = "Dreams & Nightmares", variant = "The Red Nightmare", limit = 1 },
+					{ socketId = ALLOC_SOCKET_IDS[2], family = "Stat Conversion", variant = "Healthy Mind", limit = 1 },
+					{ socketId = ALLOC_SOCKET_IDS[3], family = "Tempered & Transcendent", variant = "Tempered Flesh" },
+				}
+				for _, testCase in ipairs(cases) do
+					equipFakeJewel(testCase.socketId, testCase.variant, testCase.limit)
+				end
+
+				local finder = makeFinder()
+				for _, testCase in ipairs(cases) do
+					local jewelType = findJewelType(testCase.family)
+					local variant = findVariant(jewelType, testCase.variant)
+					local result = finder:findEquippedJewelSockets(jewelType, variant)
+					assert.are.equal(1, #result, "expected canonical match for " .. testCase.variant)
+					assert.are.equal(testCase.socketId, result[1].socketId)
+					assert.are.equal(testCase.limit ~= nil, result.atLimit)
+				end
+			end)
+
 			it("returns entry but atLimit=false when equipped count is below limit", function()
 				equipFakeJewel(ALLOC_SOCKET_IDS[1], "Combat Focus", 2)
 				local result = makeFinder():findEquippedJewelSockets({ name = "Combat Focus" })
