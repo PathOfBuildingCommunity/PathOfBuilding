@@ -82,7 +82,7 @@ function calcLib.doesTypeExpressionMatch(checkTypes, skillTypes, minionTypes)
 end
 
 -- Check if given support skill can support the given active skill
-function calcLib.canGrantedEffectSupportActiveSkill(grantedEffect, activeSkill, imbuedSupport)
+function calcLib.canGrantedEffectSupportActiveSkill(grantedEffect, activeSkill, imbuedSupport, appliesToItemGranted)
 	if grantedEffect.unsupported or activeSkill.activeEffect.grantedEffect.cannotBeSupported then
 		return false
 	end
@@ -91,7 +91,7 @@ function calcLib.canGrantedEffectSupportActiveSkill(grantedEffect, activeSkill, 
 	end
 
 	-- Special case for things like Forbidden Shako or Hungry Loop with  for example Prismatic Burst and another compatible support
-	if grantedEffect.fromItem and grantedEffect.support and (activeSkill.activeEffect.grantedEffect.fromItem or activeSkill.activeEffect.grantedEffect.modSource:sub(1, #"Item") == "Item" or (activeSkill.activeEffect.srcInstance and activeSkill.activeEffect.srcInstance.fromItem)) then
+	if not appliesToItemGranted and grantedEffect.fromItem and grantedEffect.support and (activeSkill.activeEffect.grantedEffect.fromItem or activeSkill.activeEffect.grantedEffect.modSource:sub(1, #"Item") == "Item" or (activeSkill.activeEffect.srcInstance and activeSkill.activeEffect.srcInstance.fromItem)) then
 		return false
 	end
 

@@ -2069,7 +2069,7 @@ local function triggerExtraSkill(name, level, options)
 	end
 	return mods
 end
-local function extraSupport(name, level, slot)
+local function extraSupport(name, level, slot, appliesToItemGranted)
 	local skillId = gemIdLookup[name] or gemIdLookup[name:gsub("^increased ","")] or gemIdLookup[name:gsub(" support$","")]
 
 	if slot == "main hand" or slot == "main hand weapon" then
@@ -2086,10 +2086,10 @@ local function extraSupport(name, level, slot)
 	if skillId then
 		local gemId = data.gemForBaseName[(data.skills[skillId].name .. " Support"):lower()]
 		if gemId then
-			local mods = {mod("ExtraSupport", "LIST", { skillId = data.gems[gemId].grantedEffectId, level = level }, { type = "SocketedIn", slotName = slot })}
+			local mods = { mod("ExtraSupport", "LIST", { skillId = data.gems[gemId].grantedEffectId, level = level, appliesToItemGranted = appliesToItemGranted }, { type = "SocketedIn", slotName = slot }) }
 			if data.gems[gemId].secondaryGrantedEffect then
 				if data.gems[gemId].secondaryGrantedEffect.support then
-					t_insert(mods, mod("ExtraSupport", "LIST", { skillId = data.gems[gemId].secondaryGrantedEffectId, level = level }, { type = "SocketedIn", slotName = slot }))
+					t_insert(mods, mod("ExtraSupport", "LIST", { skillId = data.gems[gemId].secondaryGrantedEffectId, level = level, appliesToItemGranted = appliesToItemGranted }, { type = "SocketedIn", slotName = slot }))
 				else
 					t_insert(mods, mod("ExtraSkill", "LIST", { skillId = data.gems[gemId].secondaryGrantedEffectId, level = level }))
 				end
@@ -2097,7 +2097,7 @@ local function extraSupport(name, level, slot)
 			return mods
 		else
 			return {
-				mod("ExtraSupport", "LIST", { skillId = skillId, level = level }, { type = "SocketedIn", slotName = slot }),
+				mod("ExtraSupport", "LIST", { skillId = skillId, level = level, appliesToItemGranted = appliesToItemGranted }, { type = "SocketedIn", slotName = slot }),
 			}
 		end
 	end
@@ -3372,7 +3372,8 @@ local specialModList = {
 	["socketed [%a+]* ?gems a?r?e? ?supported by level (%d+) (.+)"] = function(num, _, support) return extraSupport(support, num) end,
 	["socketed [%a+]* ?spells a?r?e? ?supported by level (%d+) (.+)"] = function(num, _, support) return extraSupport(support, num, nil) end,
 	["skills from equipped (.+) are supported by level (%d+) (.+)"] = function(_, slot, level, support) return extraSupport(support, level, slot) end,
-	["skills socketed in your (.+) are supported by level (%d+) (.+)"] = function(_, slot, level, support) return extraSupport(support, level, slot) end,
+	-- despite the wording, this can support item granted skills
+	["skills socketed in your (.+) are supported by level (%d+) (.+)"] = function(_, slot, level, support) return extraSupport(support, level, slot, true) end,
 	["socketed support gems can also support skills from y?o?u?r? ?e?q?u?i?p?p?e?d? ?([%a%s]+)"] = function (_, itemSlotName)
 		local targetItemSlotName = "Body Armour"
 		if itemSlotName == "main hand" then

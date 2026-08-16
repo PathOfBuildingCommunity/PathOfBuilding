@@ -1541,6 +1541,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 								grantedEffect = grantedEffect,
 								gemData = env.data.gems[env.data.gemForBaseName[grantedEffect.name:lower()] or env.data.gemForBaseName[(grantedEffect.name .. " Support"):lower()]],
 								level = level or value.level,
+								appliesToItemGranted = value.appliesToItemGranted,
 								quality = 0,
 								enabled = true,
 							})
@@ -1549,9 +1550,9 @@ function calcs.initEnv(build, mode, override, specEnv)
 				end
 
 				-- if not unique item that provides skills
-				if not group.source then
 					-- Add extra supports from the item this group is socketed in
-					for _, value in ipairs(env.modDB:List(groupCfg, "ExtraSupport")) do
+				for _, value in ipairs(env.modDB:List(groupCfg, "ExtraSupport")) do
+					if not group.source or value.appliesToItemGranted then
 						addExtraSupports(value)
 					end
 				end
