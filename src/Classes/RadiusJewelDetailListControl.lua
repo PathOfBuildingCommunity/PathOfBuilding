@@ -6,6 +6,8 @@
 
 local ipairs = ipairs
 
+local placeTooltip = LoadModule("Classes/RadiusJewelTooltipPlacement").placeTooltip
+
 ---@class RadiusJewelDetailListControl: TextListControl
 local RadiusJewelDetailListClass = newClass("RadiusJewelDetailListControl", "TextListControl")
 
@@ -45,44 +47,13 @@ function RadiusJewelDetailListClass:Draw(viewPort)
 		return
 	end
 
-	local function clampRectPosition(x, y, width, height)
-		x = math.max(viewPort.x, math.min(x, viewPort.x + viewPort.width - width))
-		y = math.max(viewPort.y, math.min(y, viewPort.y + viewPort.height - height))
-		return x, y
-	end
-	local function rectanglesOverlap(aX, aY, aW, aH, bX, bY, bW, bH)
-		return aX < bX + bW and aX + aW > bX and aY < bY + bH and aY + aH > bY
-	end
-	local function placeTooltip(ttW, ttH, cursorX, cursorY, blockedRectangles)
-		local candidates = {
-			{ x = cursorX + 20, y = cursorY + 20 },
-			{ x = cursorX - ttW - 20, y = cursorY + 20 },
-			{ x = cursorX + 20, y = cursorY - ttH - 20 },
-			{ x = cursorX - ttW - 20, y = cursorY - ttH - 20 },
-		}
-		for _, candidate in ipairs(candidates) do
-			local ttX, ttY = clampRectPosition(candidate.x, candidate.y, ttW, ttH)
-			local overlaps = false
-			for _, blockedRect in ipairs(blockedRectangles or { }) do
-				if rectanglesOverlap(ttX, ttY, ttW, ttH, blockedRect.x, blockedRect.y, blockedRect.width, blockedRect.height) then
-					overlaps = true
-					break
-				end
-			end
-			if not overlaps then
-				return ttX, ttY
-			end
-		end
-		return clampRectPosition(cursorX + 20, cursorY + 20, ttW, ttH)
-	end
-
 	local cursorX, cursorY = GetCursorPos()
 	if hoverLine.item then
 		SetDrawLayer(nil, 100)
 		self.itemTooltip:Clear(true)
 		self.build.itemsTab:AddItemTooltip(self.itemTooltip, hoverLine.item)
 		local ttW, ttH = self.itemTooltip:GetSize()
-		local ttX, ttY = placeTooltip(ttW, ttH, cursorX, cursorY)
+		local ttX, ttY = placeTooltip(viewPort, ttW, ttH, cursorX, cursorY)
 		self.itemTooltip:Draw(ttX, ttY, nil, nil, viewPort)
 		SetDrawLayer(nil, 0)
 		return
@@ -125,7 +96,7 @@ function RadiusJewelDetailListClass:Draw(viewPort)
 	self.socketViewer:AddNodeTooltip(self.nodeTooltip, node, self.build)
 	self.socketViewer.showStatDifferences = prevShowStatDifferences
 	local ttW, ttH = self.nodeTooltip:GetSize()
-	local ttX, ttY = placeTooltip(ttW, ttH, cursorX, cursorY, { viewerRect })
+	local ttX, ttY = placeTooltip(viewPort, ttW, ttH, cursorX, cursorY, { viewerRect })
 	self.nodeTooltip:Draw(ttX, ttY, nil, nil, viewPort)
 	SetDrawLayer(nil, 0)
 end

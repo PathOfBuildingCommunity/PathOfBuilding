@@ -8,7 +8,7 @@
 --   local attachCompute = LoadModule("Classes/RadiusJewelCompute")
 --   attachCompute(RadiusJewelFinderClass, {
 --     extractTooltipStats, normalizeImpactStat, calculateImpactPercent,
---     mustGetUniqueRawText, fullMassiveRadius,
+--     mustGetUniqueRawText, buildNodeLabelList, fullMassiveRadius,
 --   })
 --
 local ipairs = ipairs
@@ -23,6 +23,7 @@ local extractTooltipStats    = helpers.extractTooltipStats
 local normalizeImpactStat    = helpers.normalizeImpactStat
 local calculateImpactPercent = helpers.calculateImpactPercent
 local mustGetUniqueRawText   = helpers.mustGetUniqueRawText
+local buildNodeLabelList     = helpers.buildNodeLabelList
 local FULL_MASSIVE_RADIUS    = helpers.fullMassiveRadius
 
 -- ─────────────────────────────────────────────────────────────────────────────
@@ -94,22 +95,6 @@ local function copyNodeList(nodes)
 		out[i] = node
 	end
 	return out
-end
-
-local function buildNodeLabelList(nodes)
-	local labels = { }
-	for _, node in ipairs(nodes or { }) do
-		if type(node) == "table" then
-			if node.label then
-				t_insert(labels, node.label)
-			else
-				t_insert(labels, getPassiveNodeLabel(node))
-			end
-		else
-			t_insert(labels, tostring(node))
-		end
-	end
-	return labels
 end
 
 local function buildNodeEntries(nodes)
