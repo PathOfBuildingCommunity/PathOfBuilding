@@ -4,6 +4,7 @@ local support = LoadModule("../spec/System/RadiusJewelFinderTestSupport.lua")
 local occVortex = support.occVortex
 local makeFinder = support.makeFinder
 local getLargeRadiusIndex = support.getLargeRadiusIndex
+local RadiusJewelData = support.RadiusJewelData
 describe("RadiusJewelFinder #radius-jewel", function()
 
 	before_each(function()
@@ -83,6 +84,196 @@ describe("RadiusJewelFinder #radius-jewel", function()
 	end)
 
 	describe("popup integration", function()
+		local previousJewelRadius
+		local previousMaxJewelRadius
+
+		before_each(function()
+			previousJewelRadius = data.jewelRadius
+			previousMaxJewelRadius = data.maxJewelRadius
+		end)
+
+		after_each(function()
+			while main.popups[1] do
+				main:ClosePopup()
+			end
+			data.jewelRadius = previousJewelRadius
+			data.maxJewelRadius = previousMaxJewelRadius
+		end)
+
+		it("uses the canonical Massive radius for Foulborn Intuitive Leap Find", function()
+			data.setJewelRadiiGlobally("3_29")
+			local massiveRadiusIndex = RadiusJewelData.getJewelRadiusIndex("Massive")
+			local syntheticSocketId = 990001
+			local syntheticKeystone = { id = 990002, type = "Keystone", name = "Synthetic Keystone" }
+			build.spec.tree.nodes[syntheticSocketId] = {
+				id = syntheticSocketId,
+				nodesInRadius = {
+					[massiveRadiusIndex] = { [syntheticKeystone.id] = syntheticKeystone },
+				},
+			}
+			local finder = makeFinder()
+			finder.buildJewelSockets = function()
+				return { { id = syntheticSocketId, label = "Synthetic socket", pathDist = 1 } }
+			end
+			local popup = finder:Open()
+			local function findIndex(list, needle)
+				for index, entry in ipairs(list) do
+					local label = type(entry) == "table" and entry.label or entry
+					if label == needle or (type(label) == "string" and label:find(needle, 1, true)) then
+						return index
+					end
+				end
+			end
+
+			popup.controls.jewelTypeSelect.selFunc(findIndex(popup.controls.jewelTypeSelect.list, "Intuitive Leap"))
+			popup.controls.jewelVariantSelect.selFunc(findIndex(popup.controls.jewelVariantSelect.list, "Foulborn:"))
+			popup.controls.findButton:Click()
+
+			assert.are.equal(1, #popup.controls.resultsList.list)
+			assert.are.equal(1, popup.controls.resultsList.list[1].score)
+		end)
+
+		it("enables Apply for Thread of Hope Find and Compute results", function()
+			local threadVariants = RadiusJewelData.getThreadOfHopeVariants()
+			local syntheticSocketId = 990011
+			local syntheticNotable = { id = 990012, type = "Notable", name = "Synthetic Notable" }
+			local nodesInRadius = { }
+			for _, variant in ipairs(threadVariants) do
+				nodesInRadius[variant.radiusIndex] = { [syntheticNotable.id] = syntheticNotable }
+			end
+			build.spec.tree.nodes[syntheticSocketId] = {
+				id = syntheticSocketId,
+				nodesInRadius = nodesInRadius,
+			}
+			local finder = makeFinder()
+			finder.buildJewelSockets = function()
+				return { { id = syntheticSocketId, label = "Synthetic socket", pathDist = 1 } }
+			end
+			local popup = finder:Open()
+			local function findIndex(list, needle)
+				for index, entry in ipairs(list) do
+					local label = type(entry) == "table" and entry.label or entry
+					if label == needle then
+						return index
+					end
+				end
+			end
+
+			popup.controls.jewelTypeSelect.selFunc(findIndex(popup.controls.jewelTypeSelect.list, "Thread of Hope"))
+			popup.controls.findButton:Click()
+			assert.are.equal(1, #popup.controls.resultsList.list)
+			assert.matches("^Thread of Hope\n", popup.controls.resultsList.list[1].applyRawText)
+			popup.controls.resultsList.selIndex = 1
+			assert.is_true(popup.controls.applyButton.enabled())
+
+			finder.computeThreadOfHopeSocketImpact = function(_, sockets, _, variants)
+				return {
+					{
+						socket = sockets[1],
+						variant = variants[1],
+						delta = 1,
+						addedNodeCount = 0,
+						baseOutput = { },
+						compareOutput = { },
+					},
+				}, 100
+			end
+			popup.controls.computeButton:Click()
+			while main.onFrameFuncs["RadiusJewelFinderCompute"] do
+				runCallback("OnFrame")
+			end
+			assert.are.equal(1, #popup.controls.resultsList.list)
+			assert.matches("^Thread of Hope\n", popup.controls.resultsList.list[1].applyRawText)
+			popup.controls.resultsList.selIndex = 1
+			assert.is_true(popup.controls.applyButton.enabled())
+
+		end)
+
+		it("isolates grouped limit identities for All variants and All jewels Compute", function()
+			local sourceSocketId = 36634
+			local targetSocketId = 990021
+			local equippedItemId = 1990021
+			local sourceSlot = build.itemsTab.sockets[sourceSocketId]
+			assert.is_not_nil(sourceSlot)
+			build.itemsTab.items[equippedItemId] = { title = "The Red Nightmare", limit = 1 }
+			sourceSlot.selItemId = equippedItemId
+			build.spec.jewels[sourceSocketId] = equippedItemId
+
+			local finder = makeFinder()
+			finder.buildJewelSockets = function()
+				return {
+					{ id = sourceSocketId, label = "Source socket", pathDist = 1 },
+					{ id = targetSocketId, label = "Target socket", pathDist = 2 },
+				}
+			end
+
+			local observedPartitions = { }
+			finder.computeBestVariantSocketImpact = function(_, sockets, variants)
+				local identity = variants[1].variantIdentity
+				local limitKey = identity.limitKey
+				for _, variant in ipairs(variants) do
+					assert.are.equal(limitKey, variant.variantIdentity.limitKey,
+						"each compute call should contain one canonical limit partition")
+				end
+				if identity.family ~= "Dreams & Nightmares" then
+					return { }, 100
+				end
+				observedPartitions[limitKey] = sourceSlot.selItemId
+				local sourceDelta = limitKey == "The Red Nightmare" and 10 or 1
+				local targetDelta = limitKey == "The Red Nightmare" and 15 or 2
+				return {
+					{ socket = sockets[1], variant = variants[1], delta = sourceDelta, baseOutput = { }, compareOutput = { } },
+					{ socket = sockets[2], variant = variants[1], delta = targetDelta, baseOutput = { }, compareOutput = { } },
+				}, 100
+			end
+			finder.computeSocketImpact = function() return { }, 100 end
+			finder.computeBestIntuitiveLeapSocketImpact = function() return { }, 100 end
+			finder.computeThreadOfHopeSocketImpact = function() return { }, 100 end
+			finder.computeImpossibleEscapeSocketImpact = function() return { }, 100 end
+			finder.computeSplitPersonalitySocketImpact = function() return { }, 100 end
+
+			local popup = finder:Open()
+			local function findIndex(list, needle)
+				for index, entry in ipairs(list) do
+					local label = type(entry) == "table" and entry.label or entry
+					if label == needle then
+						return index
+					end
+				end
+			end
+			local function runCompute()
+				popup.controls.computeButton:Click()
+				while main.onFrameFuncs["RadiusJewelFinderCompute"] do
+					runCallback("OnFrame")
+				end
+			end
+			local function assertCanonicalPartitioning()
+				assert.are.equal(0, observedPartitions["The Red Nightmare"],
+					"matching limited unique should be removed for its partition")
+				assert.are.equal(equippedItemId, observedPartitions["The Green Dream"],
+					"other unique partitions should retain the equipped jewel")
+				assert.are.equal(equippedItemId, sourceSlot.selItemId, "equipped jewel should be restored")
+				assert.are.equal(equippedItemId, build.spec.jewels[sourceSocketId])
+			end
+
+			popup.controls.jewelTypeSelect.selFunc(findIndex(popup.controls.jewelTypeSelect.list, "Dreams & Nightmares"))
+			runCompute()
+			assertCanonicalPartitioning()
+			local rowsBySocket = { }
+			for _, row in ipairs(popup.controls.resultsList.list) do
+				rowsBySocket[row.socketId] = row
+			end
+			assert.are.equal("keep", rowsBySocket[sourceSocketId].action)
+			assert.are.equal("move", rowsBySocket[targetSocketId].action)
+			assert.are.equal(5, rowsBySocket[targetSocketId].delta)
+			assert.are.equal("The Red Nightmare", rowsBySocket[targetSocketId].jewelLimitKey)
+			assert.are.equal(1, rowsBySocket[targetSocketId].jewelLimit)
+
+			observedPartitions = { }
+			popup.controls.jewelTypeSelect.selFunc(findIndex(popup.controls.jewelTypeSelect.list, "All jewels"))
+			runCompute()
+			assertCanonicalPartitioning()
+		end)
 
 			it("opens the popup with expected jewel types and controls", function()
 			local function listLabels(list)
