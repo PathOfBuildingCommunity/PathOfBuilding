@@ -938,13 +938,18 @@ describe("TetsItemMods", function()
 		end
 	end
 
-	local function hasSupport(activeSkill, supportId)
+	local function countSupport(activeSkill, supportId)
+		local count = 0
 		for _, effect in ipairs(activeSkill.effectList) do
 			if effect.grantedEffect.id == supportId then
-				return true
+				count = count + 1
 			end
 		end
-		return false
+		return count
+	end
+
+	local function hasSupport(activeSkill, supportId)
+		return countSupport(activeSkill, supportId) > 0
 	end
 
 	local function addItem(raw)
@@ -954,7 +959,7 @@ describe("TetsItemMods", function()
 
 	-- Pearl of Tsoatha: despite the "Socketed in" wording these support skills granted
 	-- by the item in that slot as well, which ExtraSupport normally excludes
-	it("ExtraSupport marked appliesToItemGranted supports an item granted skill", function()
+	it("ExtraSupport marked appliesToGrantedSkills supports an item granted skill", function()
 		addItem("Granting Helmet\nEzomyte Burgonet\nGrants Level 20 Fireball")
 		addItem("Supporting Ring\nPrismatic Ring\nSkills Socketed in your Helmet are Supported by level 20 Added Lightning Damage")
 		runCallback("OnFrame")
@@ -965,7 +970,7 @@ describe("TetsItemMods", function()
 		assert.is_true(fireball.skillModList:Sum("BASE", fireball.skillCfg, "LightningMin") > 0)
 	end)
 
-	it("ExtraSupport marked appliesToItemGranted still supports a socketed gem", function()
+	it("ExtraSupport marked appliesToGrantedSkills still supports a socketed gem", function()
 		addItem("Socketed Helmet\nEzomyte Burgonet\nSockets: B")
 		addItem("Supporting Ring\nPrismatic Ring\nSkills Socketed in your Helmet are Supported by level 20 Added Lightning Damage")
 		build.skillsTab:PasteSocketGroup("Slot: Helmet\nFireball 20/0  1\n")
@@ -976,7 +981,7 @@ describe("TetsItemMods", function()
 		assert.is_true(hasSupport(fireball, "SupportAddedLightningDamage"))
 	end)
 
-	it("ExtraSupport marked appliesToItemGranted does not cross slots", function()
+	it("ExtraSupport marked appliesToGrantedSkills does not cross slots", function()
 		addItem("Granting Gloves\nSpiked Gloves\nGrants Level 20 Fireball")
 		addItem("Supporting Ring\nPrismatic Ring\nSkills Socketed in your Helmet are Supported by level 20 Added Lightning Damage")
 		runCallback("OnFrame")
@@ -996,4 +1001,63 @@ describe("TetsItemMods", function()
 		assert.is_false(hasSupport(fireball, "SupportAddedColdDamage"))
 	end)
 
+	local anointedTreeSkill = "Anointed Amulet\nAmber Amulet\nAllocates Radiant Crusade"
+	local treePearl = "Tree Pearl\nPrismatic Ring\nSkills granted by your Passive Tree are Supported by level 20 Minion Damage"
+
+	it("ExtraSupport marked appliesToGrantedSkills supports a tree granted skill", function()
+		addItem(anointedTreeSkill)
+		addItem(treePearl)
+		runCallback("OnFrame")
+
+		local sentinel = findActiveSkill("Summon Sentinel of Radiance")
+		assert.is_not_nil(sentinel)
+		assert.is_true(hasSupport(sentinel, "SupportMinionDamage"))
+	end)
+
+	-- Regression guard for the duplicate application fix: addExtraSupports has to go
+	-- through addBestSupport, otherwise both rings insert their own copy of the support
+	it("applies a tree ExtraSupport once when two items grant it", function()
+		addItem(anointedTreeSkill)
+		addItem(treePearl)
+		addItem(treePearl)
+		runCallback("OnFrame")
+
+		local sentinel = findActiveSkill("Summon Sentinel of Radiance")
+		assert.is_not_nil(sentinel)
+		assert.are.equals(1, countSupport(sentinel, "SupportMinionDamage"))
+	end)
+
+	it("tree ExtraSupport does not support an item granted skill", function()
+		addItem("Granting Helmet\nEzomyte Burgonet\nGrants Level 20 Fireball")
+		addItem("Tree Pearl\nPrismatic Ring\nSkills granted by your Passive Tree are Supported by level 20 Added Lightning Damage")
+		runCallback("OnFrame")
+
+		local fireball = findActiveSkill("Fireball")
+		assert.is_not_nil(fireball)
+		assert.is_false(hasSupport(fireball, "SupportAddedLightningDamage"))
+	end)
+
+	it("tree ExtraSupport does not support a socketed gem", function()
+		addItem("Socketed Helmet\nEzomyte Burgonet\nSockets: B")
+		addItem("Tree Pearl\nPrismatic Ring\nSkills granted by your Passive Tree are Supported by level 20 Added Lightning Damage")
+		build.skillsTab:PasteSocketGroup("Slot: Helmet\nFireball 20/0  1\n")
+		runCallback("OnFrame")
+
+		local fireball = findActiveSkill("Fireball")
+		assert.is_not_nil(fireball)
+		assert.is_false(hasSupport(fireball, "SupportAddedLightningDamage"))
+	end)
+
+	-- Every tree granted skill shares the synthetic "Passive Tree" slot, so each one pools
+	-- the support lists of all the others. A second tree skill must not inflate the count.
+	it("applies a tree ExtraSupport once when another tree skill shares the slot", function()
+		addItem("Anointed Amulet\nAmber Amulet\nAllocates Radiant Crusade\nAllocates Avatar of the Wilds")
+		addItem(treePearl)
+		runCallback("OnFrame")
+
+		assert.is_not_nil(findActiveSkill("Unbound Avatar"))
+		local sentinel = findActiveSkill("Summon Sentinel of Radiance")
+		assert.is_not_nil(sentinel)
+		assert.are.equals(1, countSupport(sentinel, "SupportMinionDamage"))
+	end)
 end)

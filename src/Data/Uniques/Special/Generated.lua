@@ -1064,7 +1064,7 @@ for _, mod in ipairs(pearlMods) do
 	table.insert(pearl, string.format("Variant: %s / %s", mod.slot, mod.gem))
 end
 
--- implcit lines
+-- implicit lines
 local implicitMod = data.itemMods.ItemExclusive["AllResistancesImplicitRing1"]
 table.insert(pearl, getModTagString(implicitMod) .. table.concat(implicitMod, " "))
 
