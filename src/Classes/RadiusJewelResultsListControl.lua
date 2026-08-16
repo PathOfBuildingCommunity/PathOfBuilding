@@ -9,6 +9,8 @@ local t_insert = table.insert
 local t_sort = table.sort
 local s_format = string.format
 
+local placeTooltip = LoadModule("Classes/RadiusJewelTooltipPlacement").placeTooltip
+
 local function formatSignedValue(value)
 	local sign = value >= 0 and "+" or ""
 	local col = value > 0 and "^2" or (value < 0 and "^1" or "^8")
@@ -265,44 +267,6 @@ function RadiusJewelResultsListClass:Draw(viewPort, noTooltip)
 		return
 	end
 
-	local function clampRectPosition(x, y, width, height)
-		x = math.max(viewPort.x, math.min(x, viewPort.x + viewPort.width - width))
-		y = math.max(viewPort.y, math.min(y, viewPort.y + viewPort.height - height))
-		return x, y
-	end
-	local function rectanglesOverlap(aX, aY, aW, aH, bX, bY, bW, bH)
-		return aX < bX + bW and aX + aW > bX and aY < bY + bH and aY + aH > bY
-	end
-	local function placeResultTooltip(ttW, ttH, cursorX, cursorY, blockedRectangles)
-		local candidates = {
-			{ x = cursorX + 20, y = cursorY + 20 },
-			{ x = cursorX - ttW - 20, y = cursorY + 20 },
-			{ x = cursorX + 20, y = cursorY - ttH - 20 },
-			{ x = cursorX - ttW - 20, y = cursorY - ttH - 20 },
-		}
-		local primaryBlockedRect = blockedRectangles and blockedRectangles[1] or nil
-		if primaryBlockedRect then
-			t_insert(candidates, 1, { x = primaryBlockedRect.x - ttW - 12, y = cursorY + 20 })
-			t_insert(candidates, 2, { x = primaryBlockedRect.x + primaryBlockedRect.width + 12, y = cursorY + 20 })
-			t_insert(candidates, 3, { x = primaryBlockedRect.x, y = primaryBlockedRect.y - ttH - 12 })
-			t_insert(candidates, 4, { x = primaryBlockedRect.x, y = primaryBlockedRect.y + primaryBlockedRect.height + 12 })
-		end
-		for _, candidate in ipairs(candidates) do
-			local ttX, ttY = clampRectPosition(candidate.x, candidate.y, ttW, ttH)
-			local overlapsBlockedRect = false
-			for _, blockedRect in ipairs(blockedRectangles or { }) do
-				if rectanglesOverlap(ttX, ttY, ttW, ttH, blockedRect.x, blockedRect.y, blockedRect.width, blockedRect.height) then
-					overlapsBlockedRect = true
-					break
-				end
-			end
-			if not overlapsBlockedRect then
-				return ttX, ttY
-			end
-		end
-		return clampRectPosition(cursorX + 20, cursorY + 20, ttW, ttH)
-	end
-
 	local cursorX, cursorY = GetCursorPos()
 	local x, y = self:GetPos()
 	local relX = cursorX - (x + 2)
@@ -361,7 +325,7 @@ function RadiusJewelResultsListClass:Draw(viewPort, noTooltip)
 			self.resultTooltip:AddLine(14, "^7No stat changes for this result.")
 		end
 		local ttW, ttH = self.resultTooltip:GetSize()
-		local ttX, ttY = placeResultTooltip(ttW, ttH, cursorX, cursorY, blockedRectangles)
+		local ttX, ttY = placeTooltip(viewPort, ttW, ttH, cursorX, cursorY, blockedRectangles, true)
 		self.resultTooltip:Draw(ttX, ttY, nil, nil, viewPort)
 		t_insert(blockedRectangles, { x = ttX, y = ttY, width = ttW, height = ttH })
 		SetDrawLayer(nil, 0)
@@ -373,7 +337,7 @@ function RadiusJewelResultsListClass:Draw(viewPort, noTooltip)
 			self.itemTooltip:AddLine(line.height or 16, line[1], line.font)
 		end
 		local itemTtW, itemTtH = self.itemTooltip:GetSize()
-		local itemTtX, itemTtY = placeResultTooltip(itemTtW, itemTtH, cursorX, cursorY, blockedRectangles)
+		local itemTtX, itemTtY = placeTooltip(viewPort, itemTtW, itemTtH, cursorX, cursorY, blockedRectangles, true)
 		self.itemTooltip:Draw(itemTtX, itemTtY, nil, nil, viewPort)
 		SetDrawLayer(nil, 0)
 	end

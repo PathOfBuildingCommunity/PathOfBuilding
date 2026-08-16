@@ -402,6 +402,7 @@ local buildDisplayedDisconnectedPassivePlans = LoadModule("Classes/RadiusJewelCo
 	normalizeImpactStat = normalizeImpactStat,
 	calculateImpactPercent = calculateImpactPercent,
 	mustGetUniqueRawText = mustGetUniqueRawText,
+	buildNodeLabelList = buildNodeLabelList,
 	fullMassiveRadius = FULL_MASSIVE_RADIUS,
 })
 
