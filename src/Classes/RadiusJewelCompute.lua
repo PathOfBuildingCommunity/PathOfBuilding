@@ -875,21 +875,16 @@ function Class:computeSplitPersonalitySocketImpact(sockets, impactStat, variants
 	return results, realBaseline
 end
 
-function Class:computeImpossibleEscapeSocketImpact(sockets, impactStat, variants, methodId, planCache, progress, maxTotalPoints, occupiedMode, skipPlanSteps)
-	impactStat = normalizeImpactStat(impactStat)
-	local calcFunc, baseOutput = self.build.calcsTab:GetMiscCalculator()
-	local realBaseline = self:getImpactValue(impactStat, baseOutput)
-	local statField = impactStat.field
-	local results = { }
-	local smallRadiusIndex
+local function getSmallRadiusIndex()
 	for i, radius in ipairs(data.jewelRadius) do
 		if radius.label == "Small" and radius.inner == 0 then
-			smallRadiusIndex = i
-			break
+			return i
 		end
 	end
+	return nil
+end
 
-	local notableOrKeystoneOnly = skipPlanSteps or methodId == "fast"
+local function prepareImpossibleEscapeVariants(self, variants, smallRadiusIndex, notableOrKeystoneOnly)
 	local variantDataByName = { }
 	for _, variant in ipairs(variants) do
 		local keystoneNode = self.build.spec.tree.keystoneMap[variant.keystoneName]
@@ -912,9 +907,12 @@ function Class:computeImpossibleEscapeSocketImpact(sockets, impactStat, variants
 			end
 		end
 	end
+	return variantDataByName
+end
 
-	-- Free sockets with the same remaining points share a representative socket;
-	-- the computed result is copied back onto every socket in the group below.
+-- Free sockets with the same remaining points share one representative.
+-- Occupied sockets stay separate because each replacement state can differ.
+local function groupImpossibleEscapeSockets(self, sockets, maxTotalPoints, occupiedMode)
 	local groupedEntries = { }
 	local groupedOrder = { }
 	for _, socket in ipairs(sockets) do
@@ -936,31 +934,35 @@ function Class:computeImpossibleEscapeSocketImpact(sockets, impactStat, variants
 			t_insert(groupedEntries[groupKey].sockets, socket)
 		end
 	end
-	if #groupedOrder == 0 then
-		return results, realBaseline
-	end
-
 	t_sort(groupedOrder, function(a, b)
 		if a.remainingPoints ~= b.remainingPoints then
 			return a.remainingPoints > b.remainingPoints
 		end
 		return a.representativeSocket.id < b.representativeSocket.id
 	end)
-	local bestResultByGroupKey = { }
-	local totalPlanCount = #groupedOrder * #variants
-	local currentPlanIndex = 0
+	return groupedOrder
+end
 
-	-- Track max candidate count across all variants to detect when remaining points can cover all
+local function getMaxCandidateCount(variantDataByName)
 	local maxCandidateCount = 0
 	for _, variantData in pairs(variantDataByName) do
 		if #variantData.candidates > maxCandidateCount then
 			maxCandidateCount = #variantData.candidates
 		end
 	end
+	return maxCandidateCount
+end
+
+local function computeImpossibleEscapeRepresentativeResults(self, groupedOrder, variants, variantDataByName, methodId, impactStat, statField, calcFunc, planCache, progress)
+	local bestResultByGroupKey = { }
+	local totalPlanCount = #groupedOrder * #variants
+	local currentPlanIndex = 0
+	local maxCandidateCount = getMaxCandidateCount(variantDataByName)
 	local previousFreeResult
 	for _, groupEntry in ipairs(groupedOrder) do
-		-- Skip free groups whose remaining points can cover all candidates: reuse the first free group's result
 		local isFreeGroup = not groupEntry.groupKey:match("^occupied:")
+		-- Groups are sorted by remaining points. Once they cover every candidate,
+		-- reuse the first free result; skipped variants still advance progress.
 		if isFreeGroup and previousFreeResult and groupEntry.remainingPoints >= maxCandidateCount then
 			bestResultByGroupKey[groupEntry.groupKey] = previousFreeResult
 			currentPlanIndex = currentPlanIndex + #variants
@@ -1033,7 +1035,11 @@ function Class:computeImpossibleEscapeSocketImpact(sockets, impactStat, variants
 		end
 		::continueGroup::
 	end
+	return bestResultByGroupKey
+end
 
+local function fanOutImpossibleEscapeResults(self, groupedOrder, bestResultByGroupKey)
+	local results = { }
 	for _, groupEntry in ipairs(groupedOrder) do
 		local bestResult = bestResultByGroupKey[groupEntry.groupKey]
 		if bestResult then
@@ -1047,65 +1053,86 @@ function Class:computeImpossibleEscapeSocketImpact(sockets, impactStat, variants
 			end
 		end
 	end
-
 	t_sort(results, function(a, b)
 		if a.delta ~= b.delta then
 			return a.delta > b.delta
 		end
 		return a.variant.name < b.variant.name
 	end)
+	return results
+end
 
-	-- Pass 2: compute plan steps for the best variant (single-jewel mode only)
-	if not skipPlanSteps and methodId == "fast" and #results > 0 then
-		local topResult = results[1]
-		local variantData = variantDataByName[topResult.variant.name]
-		if variantData then
-			-- Find the group entry for this result to get replacement context
-			for _, groupEntry in ipairs(groupedOrder) do
-				local bestResult = bestResultByGroupKey[groupEntry.groupKey]
-				if bestResult and bestResult.variant.name == topResult.variant.name then
-					local replacementContext = self:buildSocketReplacementContext(calcFunc, groupEntry.representativeSocket.id)
-					local socketBaseline = self:getImpactValue(impactStat, replacementContext.baselineOutput)
-					local maxAdditionalNodes = groupEntry.remainingPoints >= 0 and groupEntry.remainingPoints or nil
-					local cacheKey = self:getImpossibleEscapePlanCacheKey(statField, topResult.variant.name, replacementContext)
-					local fullResult = self:computeDisconnectedPassiveFastPlan(
-						calcFunc,
-						replacementContext,
-						replacementContext.baselineOutput,
-						socketBaseline,
-						replacementContext.socketNode,
-						variantData.item,
-						impactStat,
-						variantData.candidates,
-						topResult.variant.name,
-						planCache[cacheKey],
-						nil,
-						nil,
-						maxAdditionalNodes,
-						false,
-						nil
-					)
-					fullResult.variant = topResult.variant
-					-- Apply plan steps to all copied results for this variant
-					for i, r in ipairs(results) do
-						if r.variant.name == topResult.variant.name then
-							local updated = copyTableSafe(fullResult, false, true)
-							updated.socket = r.socket
-							updated.replacedItemLabel = r.replacedItemLabel
-							updated.storedUnallocatedItemLabel = r.storedUnallocatedItemLabel
-							results[i] = updated
-						end
-					end
-					break
+local function addImpossibleEscapePlanDetails(self, results, groupedOrder, bestResultByGroupKey, variantDataByName, impactStat, statField, calcFunc, planCache)
+	local topResult = results[1]
+	local variantData = variantDataByName[topResult.variant.name]
+	if not variantData then
+		return
+	end
+	for _, groupEntry in ipairs(groupedOrder) do
+		local bestResult = bestResultByGroupKey[groupEntry.groupKey]
+		if bestResult and bestResult.variant.name == topResult.variant.name then
+			local replacementContext = self:buildSocketReplacementContext(calcFunc, groupEntry.representativeSocket.id)
+			local socketBaseline = self:getImpactValue(impactStat, replacementContext.baselineOutput)
+			local maxAdditionalNodes = groupEntry.remainingPoints >= 0 and groupEntry.remainingPoints or nil
+			local cacheKey = self:getImpossibleEscapePlanCacheKey(statField, topResult.variant.name, replacementContext)
+			local fullResult = self:computeDisconnectedPassiveFastPlan(
+				calcFunc,
+				replacementContext,
+				replacementContext.baselineOutput,
+				socketBaseline,
+				replacementContext.socketNode,
+				variantData.item,
+				impactStat,
+				variantData.candidates,
+				topResult.variant.name,
+				planCache[cacheKey],
+				nil,
+				nil,
+				maxAdditionalNodes,
+				false,
+				nil
+			)
+			fullResult.variant = topResult.variant
+			for i, result in ipairs(results) do
+				if result.variant.name == topResult.variant.name then
+					local updated = copyTableSafe(fullResult, false, true)
+					updated.socket = result.socket
+					updated.replacedItemLabel = result.replacedItemLabel
+					updated.storedUnallocatedItemLabel = result.storedUnallocatedItemLabel
+					results[i] = updated
 				end
 			end
+			break
 		end
+	end
+end
+
+function Class:computeImpossibleEscapeSocketImpact(sockets, impactStat, variants, methodId, planCache, progress, maxTotalPoints, occupiedMode, skipPlanSteps)
+	impactStat = normalizeImpactStat(impactStat)
+	local calcFunc, baseOutput = self.build.calcsTab:GetMiscCalculator()
+	local realBaseline = self:getImpactValue(impactStat, baseOutput)
+	local statField = impactStat.field
+	local notableOrKeystoneOnly = skipPlanSteps or methodId == "fast"
+	local variantDataByName = prepareImpossibleEscapeVariants(self, variants, getSmallRadiusIndex(), notableOrKeystoneOnly)
+	local groupedOrder = groupImpossibleEscapeSockets(self, sockets, maxTotalPoints, occupiedMode)
+	if #groupedOrder == 0 then
+		return { }, realBaseline
+	end
+	local bestResultByGroupKey = computeImpossibleEscapeRepresentativeResults(
+		self, groupedOrder, variants, variantDataByName, methodId, impactStat,
+		statField, calcFunc, planCache, progress
+	)
+	local results = fanOutImpossibleEscapeResults(self, groupedOrder, bestResultByGroupKey)
+	if not skipPlanSteps and methodId == "fast" and #results > 0 then
+		addImpossibleEscapePlanDetails(
+			self, results, groupedOrder, bestResultByGroupKey, variantDataByName,
+			impactStat, statField, calcFunc, planCache
+		)
 	end
 
 	return results, realBaseline
 end
 
--- Return the helper function for use by the UI
 return buildDisplayedDisconnectedPassivePlans
 
 end -- return function(Class, helpers)
