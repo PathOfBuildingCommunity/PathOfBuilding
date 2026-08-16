@@ -36,6 +36,7 @@ function TradeQueryClass:TradeQuery(itemsTab)
 	self.lastComparedWeightList = { }
 
 	-- default set of trade item sort selection
+	---@type TradeQuerySlotTable[]
 	self.slotTables = { }
 	self.pbItemSortSelectionIndex = 1
 	-- for each realm and league, a table of values of each currency in div
@@ -531,6 +532,15 @@ Highest Weight - Displays the order retrieved from trade]]
 	end
 
 	-- Individual slot rows
+	---@class TradeQuerySlotTable
+	---@field slotName string Display name of the row, also the slot name for regular slots
+	---@field fullName string? Actual slot name for abyssal sockets, where slotName is the shortened label
+	---@field nodeId number? Passive tree node id for jewel socket rows
+	---@field unique boolean? Row targets a specific unique instead of a slot
+	---@field alreadyCorrupted boolean? The targeted unique only drops corrupted
+	---@field selectedJewelNodeId number? Jewel socket the unique row searches for
+
+	---@type TradeQuerySlotTable[]
 	local slotTables = {}
 	for _, slotName in ipairs(baseSlots) do
 		if self.itemsTab.slots[slotName].shown() then
@@ -602,7 +612,15 @@ Highest Weight - Displays the order retrieved from trade]]
 	self.controls["name"..row_count].shown = function()
 		return hideRowFunc(self, row_count)
 	end
+	row_count = row_count + 1
 
+	-- Pearl of Tsoatha
+	self.slotTables[row_count] = { slotName = "Pearl of Tsoatha", unique = true }
+	self:PriceItemRowDisplay(row_count, top_pane_alignment_ref, row_vertical_padding, row_height)
+	self.controls["name" .. row_count].y = self.controls["name" .. row_count].y + (row_height + row_vertical_padding)
+	self.controls["name" .. row_count].shown = function()
+		return hideRowFunc(self, row_count)
+	end
 	-- fix case where the row count is reduced from the last time the popup was
 	-- opened, which would leave extra row controls in the menu
 	for k, v in pairs(self.controls) do
@@ -612,7 +630,7 @@ Highest Weight - Displays the order retrieved from trade]]
 		end
 	end
 
-	row_count = row_count + 2
+	row_count = row_count + 1
 
 	local effective_row_count = row_count - ((scrollBarShown and #slotTables >= 19) and #slotTables-19 or 0) + 2 + 2 -- Two top menu rows, two bottom rows, slots after #19 overlap the other controls at the bottom of the pane
 	self.effective_rows_height = row_height * (effective_row_count - #slotTables + (18 - (#slotTables > 37 and 3 or 0))) -- scrollBar height, "18 - slotTables > 37" logic is fine tuning whitespace after last row
@@ -1153,7 +1171,7 @@ you can add them, copy the link here, and press "Price Item" to evaluate the ite
 		local isSearching = controls["priceButton"..row_idx].label == "Searching..."
 		local selectedJewelSlot = slotTbl.selectedJewelNodeId and self.itemsTab.sockets[slotTbl.selectedJewelNodeId]
 		local hasRequiredJewelSlot = not slotTbl.unique or selectedJewelSlot and not selectedJewelSlot.inactive
-		return isAuthorized and validURL and not isSearching and hasRequiredJewelSlot
+		return isAuthorized and validURL and not isSearching and (hasRequiredJewelSlot or not slotTbl.selectedJewelNodeId)
 	end
 	controls["priceButton"..row_idx].tooltipFunc = function(tooltip)
 		tooltip:Clear()
