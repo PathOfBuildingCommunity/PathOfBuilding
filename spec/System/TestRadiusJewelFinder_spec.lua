@@ -193,20 +193,10 @@ describe("RadiusJewelFinder #radius-jewel", function()
 		end)
 
 		it("enables Apply for Thread of Hope Find and Compute results", function()
-			local threadVariants = RadiusJewelData.getThreadOfHopeVariants()
-			local syntheticSocketId = 990011
-			local syntheticNotable = { id = 990012, type = "Notable", name = "Synthetic Notable" }
-			local nodesInRadius = { }
-			for _, variant in ipairs(threadVariants) do
-				nodesInRadius[variant.radiusIndex] = { [syntheticNotable.id] = syntheticNotable }
-			end
-			build.spec.tree.nodes[syntheticSocketId] = {
-				id = syntheticSocketId,
-				nodesInRadius = nodesInRadius,
-			}
+			local targetSocketId = 33631
 			local finder = makeFinder()
 			finder.buildJewelSockets = function()
-				return { { id = syntheticSocketId, label = "Synthetic socket", pathDist = 1 } }
+				return { { id = targetSocketId, label = "Target socket", pathDist = 1 } }
 			end
 			local popup = finder:Open()
 			local function findIndex(list, needle)
@@ -222,6 +212,8 @@ describe("RadiusJewelFinder #radius-jewel", function()
 			popup.controls.findButton:Click()
 			assert.are.equal(1, #popup.controls.resultsList.list)
 			assert.matches("^Thread of Hope\n", popup.controls.resultsList.list[1].applyRawText)
+			assert.is_not_nil(popup.controls.resultsList.list[1].actionPlan,
+				"Find rows should consume the shared action planner")
 			popup.controls.resultsList.selIndex = 1
 			assert.is_true(popup.controls.applyButton.enabled())
 
@@ -243,6 +235,8 @@ describe("RadiusJewelFinder #radius-jewel", function()
 			end
 			assert.are.equal(1, #popup.controls.resultsList.list)
 			assert.matches("^Thread of Hope\n", popup.controls.resultsList.list[1].applyRawText)
+			assert.is_not_nil(popup.controls.resultsList.list[1].actionPlan,
+				"Compute rows should consume the shared action planner")
 			popup.controls.resultsList.selIndex = 1
 			assert.is_true(popup.controls.applyButton.enabled())
 
@@ -345,19 +339,10 @@ describe("RadiusJewelFinder #radius-jewel", function()
 
 		it("keeps the Thread preview ring outside Find and Compute result identity", function()
 			local threadVariants = RadiusJewelData.getThreadOfHopeVariants()
-			local syntheticSocketId = 990013
-			local syntheticNotable = { id = 990014, type = "Notable", name = "Synthetic Notable" }
-			local nodesInRadius = { }
-			for _, variant in ipairs(threadVariants) do
-				nodesInRadius[variant.radiusIndex] = { [syntheticNotable.id] = syntheticNotable }
-			end
-			build.spec.tree.nodes[syntheticSocketId] = {
-				id = syntheticSocketId,
-				nodesInRadius = nodesInRadius,
-			}
+			local targetSocketId = 33631
 			local finder = makeFinder()
 			finder.buildJewelSockets = function()
-				return { { id = syntheticSocketId, label = "Synthetic socket", pathDist = 1 } }
+				return { { id = targetSocketId, label = "Target socket", pathDist = 1 } }
 			end
 			finder.computeThreadOfHopeSocketImpact = function(_, sockets, _, variants)
 				return {
@@ -477,13 +462,30 @@ describe("RadiusJewelFinder #radius-jewel", function()
 
 		it("isolates grouped limit identities for All variants and All jewels Compute", function()
 			local sourceSocketId = 36634
-			local targetSocketId = 990021
-			local equippedItemId = 1990021
+			local targetSocketId = 61419
 			local sourceSlot = build.itemsTab.sockets[sourceSocketId]
+			local targetSlot = build.itemsTab.sockets[targetSocketId]
 			assert.is_not_nil(sourceSlot)
-			build.itemsTab.items[equippedItemId] = { title = "The Red Nightmare", limit = 1 }
-			sourceSlot.selItemId = equippedItemId
-			build.spec.jewels[sourceSocketId] = equippedItemId
+			assert.is_not_nil(targetSlot)
+			local redNightmare
+			for _, jewelType in ipairs(RadiusJewelData.buildJewelTypes()) do
+				if jewelType.name == "Dreams & Nightmares" then
+					for _, variant in ipairs(jewelType.variants) do
+						if variant.variantIdentity.limitKey == "The Red Nightmare" and not variant.isFoulborn then
+							redNightmare = variant
+							break
+						end
+					end
+				end
+			end
+			assert.is_not_nil(redNightmare)
+			local equippedItem = new("Item"):Item("Rarity: Unique\n" .. redNightmare.rawText)
+			equippedItem:BuildModList()
+			build.itemsTab:AddItem(equippedItem, true)
+			sourceSlot:SetSelItemId(equippedItem.id)
+			targetSlot:SetSelItemId(0)
+			build.itemsTab:PopulateSlots()
+			local equippedItemId = equippedItem.id
 
 			local finder = makeFinder()
 			finder.buildJewelSockets = function()
@@ -549,7 +551,7 @@ describe("RadiusJewelFinder #radius-jewel", function()
 			for _, row in ipairs(popup.controls.resultsList.list) do
 				rowsBySocket[row.socketId] = row
 			end
-			assert.are.equal("keep", rowsBySocket[sourceSocketId].action)
+			assert.are.equal("equipped", rowsBySocket[sourceSocketId].action)
 			assert.are.equal("move", rowsBySocket[targetSocketId].action)
 			assert.are.equal(5, rowsBySocket[targetSocketId].delta)
 			assert.are.equal("The Red Nightmare", rowsBySocket[targetSocketId].jewelLimitKey)
@@ -634,17 +636,27 @@ describe("RadiusJewelFinder #radius-jewel", function()
 				"previewList",
 				"resultDetailList",
 				"findButton",
+				"addToBuildButton",
 				"applyButton",
 				"closeButton",
 			}) do
 				assertControlInsidePopup(controlName)
 			end
-			for _, controlName in ipairs({ "findButton", "applyButton", "closeButton" }) do
+			for _, controlName in ipairs({ "findButton", "addToBuildButton", "applyButton", "closeButton" }) do
 				local control = popup.controls[controlName]
 				local _, y = control:GetPos()
 				local _, height = control:GetSize()
 				assert.are.equal(10, popupY + popupHeight - (y + height), controlName .. " should keep the bottom action margin")
 			end
+			local occupiedX = popup.controls.occupiedModeSelect:GetPos()
+			local occupiedWidth = popup.controls.occupiedModeSelect:GetSize()
+			local addToBuildX = popup.controls.addToBuildButton:GetPos()
+			local addToBuildWidth = popup.controls.addToBuildButton:GetSize()
+			local applyX = popup.controls.applyButton:GetPos()
+			assert.is_true(occupiedX + occupiedWidth <= addToBuildX,
+				"Add to build should not overlap the Sockets selector")
+			assert.is_true(addToBuildX + addToBuildWidth <= applyX,
+				"placement action should not overlap Add to build")
 			local computeX = popup.controls.computeButton:GetPos()
 			local computeWidth = popup.controls.computeButton:GetSize()
 			assert.are.equal(20, popupX + popupWidth - (computeX + computeWidth), "computeButton should keep the header right margin")
@@ -658,6 +670,10 @@ describe("RadiusJewelFinder #radius-jewel", function()
 			assert.is_true(computeTooltipTexts[2]:find("Max points", 1, true) ~= nil,
 				"expected Compute tooltip to name the Max points filter")
 			assert.is_false(popup.controls.findButton:IsShown(), "Find should be hidden for All jewels")
+			local addToBuildTooltipTexts = buttonTooltipTexts(popup.controls.addToBuildButton)
+			assert.is_true(#addToBuildTooltipTexts > 0, "expected Add to build tooltip content")
+			assert.is_true(addToBuildTooltipTexts[1]:find("Select a result", 1, true) ~= nil,
+				"expected Add to build tooltip to explain missing selection")
 			local applyTooltipTexts = buttonTooltipTexts(popup.controls.applyButton)
 			assert.is_true(#applyTooltipTexts > 0, "expected Apply tooltip content")
 			assert.is_true(applyTooltipTexts[1]:find("Select a result", 1, true) ~= nil,
@@ -758,7 +774,7 @@ describe("RadiusJewelFinder #radius-jewel", function()
 					sortValue = 10,
 					detailText = "Test detail",
 					itemTooltipLines = selectedResultPreview,
-					action = "new",
+					action = "equip",
 				},
 			}, "(no compatible sockets)")
 			assert.are.equal("^7Selected Jewel", popup.controls.previewList.list[1][1])

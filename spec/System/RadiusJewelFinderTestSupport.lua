@@ -125,14 +125,22 @@ function support.snapshotFinderState()
 	end
 
 	local itemCount = 0
-	for _ in pairs(build.itemsTab.items) do
+	local itemStateById = { }
+	for itemId, item in pairs(build.itemsTab.items) do
 		itemCount = itemCount + 1
+		itemStateById[itemId] = item.BuildRaw and item:BuildRaw() or {
+			title = item.title,
+			name = item.name,
+			baseName = item.baseName,
+			limit = item.limit,
+		}
 	end
 
 	return {
 		socketSelItemIds = socketSelItemIds,
 		itemOrderList = itemOrderList,
 		itemCount = itemCount,
+		itemStateById = itemStateById,
 		jewels = copyTable(build.spec.jewels, true),
 	}
 end
@@ -142,6 +150,7 @@ function support.assertFinderStateUnchanged(before, check)
 	check.are.same(before.socketSelItemIds, after.socketSelItemIds)
 	check.are.same(before.itemOrderList, after.itemOrderList)
 	check.are.equal(before.itemCount, after.itemCount)
+	check.are.same(before.itemStateById, after.itemStateById)
 	check.are.same(before.jewels, after.jewels)
 end
 

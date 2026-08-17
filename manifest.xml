@@ -174,8 +174,8 @@
 	<File name="Classes/RadiusJewelCompute.lua" part="program" sha1="801b4bf7217580999d44a6c7673015daf240f985" />
 	<File name="Classes/RadiusJewelData.lua" part="program" sha1="558fd9fb38108361efedd852660db6a0e998e60b" />
 	<File name="Classes/RadiusJewelDetailListControl.lua" part="program" sha1="f938b23b5b703e21084983d0ea2517838159ac0b" />
-	<File name="Classes/RadiusJewelFinder.lua" part="program" sha1="8b1d589aa40ef2421afda58117f17b214d9ff538" />
-	<File name="Classes/RadiusJewelResultsListControl.lua" part="program" sha1="517b6b2d9a58cf208ba004ca9e5dd568d39b368e" />
+	<File name="Classes/RadiusJewelFinder.lua" part="program" sha1="d9ff74347b20fb94e8c2080ec074d6d5f4469a70" />
+	<File name="Classes/RadiusJewelResultsListControl.lua" part="program" sha1="3b649e8cfdfa77c8b7f8f90a5ddf07b5c82e6a99" />
 	<File name="Classes/RadiusJewelTooltipPlacement.lua" part="program" sha1="768fe21dcb1dff1809f4d6180d94b49374899082" />
 	<File name="Classes/RectangleOutlineControl.lua" part="program" sha1="4da285dbe76549deae46d3835e00c382c59c18b4" />
 	<File name="Classes/ResizableEditControl.lua" part="program" sha1="1270c263bd762759cc1121c3eeb4906018136e05" />
