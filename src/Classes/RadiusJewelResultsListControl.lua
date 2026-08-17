@@ -31,11 +31,10 @@ local function formatPerPointDisplay(value, points)
 end
 
 local ACTION_COLORS = {
-	new         = "^2",
-	move        = "^x33AAFF",
-	moveReplace = "^xBB88FF",
-	replace     = "^xFFAA33",
-	keep        = "^8",
+	equip    = "^2",
+	move     = "^x33AAFF",
+	replace  = "^xFFAA33",
+	equipped = "^8",
 }
 local function colorSocketLabel(row)
 	return (row.action and ACTION_COLORS[row.action] or "") .. row.socketLabel

@@ -248,6 +248,349 @@ function RadiusJewelFinderClass:findEquippedJewelSockets(jewelType, variant)
 	return equipped
 end
 
+---@alias RadiusJewelActionKind 'equip'|'move'|'replace'|'equipped'
+
+---@class RadiusJewelActionPlan
+---@field kind RadiusJewelActionKind
+---@field sourceItemId number?
+---@field sourceItemLabel string?
+---@field sourceItemStateKey string?
+---@field sourceSocketId number?
+---@field sourceSocketLabel string?
+---@field sourceMatchesTarget boolean
+---@field targetSocketId number
+---@field targetSocketLabel string
+---@field targetSocketAllocated boolean
+---@field targetIdentity table
+---@field targetCanonicalKey string
+---@field targetRawText string
+---@field targetItemId number
+---@field targetItemStateKey string?
+---@field matchingItemsStateKey string
+---@field replacedTargetId number?
+---@field replacedTargetLabel string?
+
+local function sortedNumericKeys(tbl)
+	local keys = { }
+	for key in pairs(tbl or { }) do
+		t_insert(keys, key)
+	end
+	t_sort(keys, function(a, b)
+		if type(a) == type(b) then
+			return a < b
+		end
+		return tostring(a) < tostring(b)
+	end)
+	return keys
+end
+
+-- Variant identity deliberately excludes rolls, quality, item level, and unique ID.
+-- It retains every field that selects a canonical unique variant, including Foulborn mods.
+local function buildItemCanonicalVariantKey(item)
+	if not item then
+		return nil
+	end
+	local parts = {
+		item.rarity or "",
+		item.title or item.name or "",
+		item.baseName or "",
+		item.jewelRadiusLabel or "",
+		tostring(item.selectedVersion or ""),
+		tostring(item.variant or ""),
+		tostring(item.variantAlt or ""),
+		tostring(item.variantAlt2 or ""),
+		tostring(item.variantAlt3 or ""),
+		tostring(item.variantAlt4 or ""),
+		tostring(item.variantAlt5 or ""),
+	}
+	for _, groupId in ipairs(sortedNumericKeys(item.variantGroupSelections)) do
+		t_insert(parts, "group:" .. tostring(groupId) .. "=" .. tostring(item.variantGroupSelections[groupId]))
+	end
+	local mutatedModIds = { }
+	for _, modLine in ipairs(item.explicitModLines or { }) do
+		if modLine.mutated then
+			t_insert(mutatedModIds, modLine.modGroup or modLine.modId or modLine.line or "mutated")
+		end
+	end
+	t_sort(mutatedModIds)
+	for _, modId in ipairs(mutatedModIds) do
+		t_insert(parts, "mutated:" .. modId)
+	end
+	return t_concat(parts, "\31")
+end
+
+local function makeTargetItem(targetRawText)
+	local item = new("Item"):Item("Rarity: Unique\n" .. targetRawText)
+	item:BuildModList()
+	return item
+end
+
+local function getItemLabel(item)
+	if not item then
+		return nil
+	end
+	local itemName = item.title or item.name or item.baseName or "Unknown item"
+	local itemType = item.baseName
+	if itemType and itemType ~= "" and itemType ~= itemName then
+		return itemName .. " (" .. itemType .. ")"
+	end
+	return itemName
+end
+
+local function getItemStateKey(item)
+	if not item then
+		return nil
+	end
+	local rawText = item.BuildRaw and item:BuildRaw() or ""
+	return (buildItemCanonicalVariantKey(item) or "") .. "\30" .. rawText
+end
+
+local function getSocketLabel(slot, socketId)
+	local label = slot and slot.label
+	if label and label ~= "" then
+		return label .. " (" .. tostring(socketId) .. ")"
+	end
+	return "Jewel socket " .. tostring(socketId)
+end
+
+local function findCanonicalBuildItem(itemsTab, targetCanonicalKey)
+	local socketByItemId = { }
+	for _, socketId in ipairs(sortedNumericKeys(itemsTab.sockets)) do
+		local itemId = itemsTab.sockets[socketId].selItemId
+		if itemId and itemId ~= 0 and not socketByItemId[itemId] then
+			socketByItemId[itemId] = socketId
+		end
+	end
+
+	local firstItem, firstSocket, firstSocketId
+	local matchingStates = { }
+	for _, itemId in ipairs(itemsTab.itemOrderList) do
+		local item = itemsTab.items[itemId]
+		if buildItemCanonicalVariantKey(item) == targetCanonicalKey then
+			local socketId = socketByItemId[itemId]
+			t_insert(matchingStates, table.concat({
+				tostring(itemId),
+				getItemStateKey(item) or "",
+				tostring(socketId or ""),
+			}, "\29"))
+			if not firstItem then
+				firstItem = item
+				firstSocketId = socketId
+				firstSocket = socketId and itemsTab.sockets[socketId] or nil
+			end
+		end
+	end
+	return firstItem, firstSocket, firstSocketId, t_concat(matchingStates, "\28")
+end
+
+local function findExactStoredSource(itemsTab, allocNodes, targetCanonicalKey, targetSocketId)
+	local socketedItemIds = { }
+	for _, socketId in ipairs(sortedNumericKeys(itemsTab.sockets)) do
+		local slot = itemsTab.sockets[socketId]
+		local itemId = slot.selItemId
+		if itemId and itemId ~= 0 then
+			socketedItemIds[itemId] = true
+			if socketId ~= targetSocketId and not allocNodes[socketId] then
+				local item = itemsTab.items[itemId]
+				if buildItemCanonicalVariantKey(item) == targetCanonicalKey then
+					return item, slot, socketId
+				end
+			end
+		end
+	end
+	for _, itemId in ipairs(itemsTab.itemOrderList) do
+		if not socketedItemIds[itemId] then
+			local item = itemsTab.items[itemId]
+			if buildItemCanonicalVariantKey(item) == targetCanonicalKey then
+				return item, nil, nil
+			end
+		end
+	end
+	return nil, nil, nil
+end
+
+---@param target table
+---@return RadiusJewelActionPlan?
+function RadiusJewelFinderClass:buildActionPlan(target)
+	local targetSocket = self.build.itemsTab.sockets[target.socketId]
+	local targetIdentity = target.targetIdentity
+	local targetRawText = target.targetRawText
+	if not targetSocket or not targetIdentity or not targetRawText then
+		return nil
+	end
+
+	local targetTemplate = makeTargetItem(targetRawText)
+	local targetCanonicalKey = buildItemCanonicalVariantKey(targetTemplate)
+	local targetItemId = targetSocket.selItemId or 0
+	local targetItem = targetItemId ~= 0 and self.build.itemsTab.items[targetItemId] or nil
+	local targetMatches = buildItemCanonicalVariantKey(targetItem) == targetCanonicalKey
+	local targetSocketLabel = target.socketLabel or getSocketLabel(targetSocket, target.socketId)
+	local targetSocketAllocated = self.build.spec.allocNodes[target.socketId] ~= nil
+	local _, _, _, matchingItemsStateKey = findCanonicalBuildItem(self.build.itemsTab, targetCanonicalKey)
+	if targetMatches then
+		return {
+			kind = "equipped",
+			sourceItemId = targetItemId,
+			sourceItemLabel = getItemLabel(targetItem),
+			sourceItemStateKey = getItemStateKey(targetItem),
+			sourceSocketId = target.socketId,
+			sourceSocketLabel = targetSocketLabel,
+			sourceMatchesTarget = true,
+			targetSocketId = target.socketId,
+			targetSocketLabel = targetSocketLabel,
+			targetSocketAllocated = targetSocketAllocated,
+			targetIdentity = targetIdentity,
+			targetCanonicalKey = targetCanonicalKey,
+			targetRawText = targetRawText,
+			targetItemId = targetItemId,
+			targetItemStateKey = getItemStateKey(targetItem),
+			matchingItemsStateKey = matchingItemsStateKey,
+		}
+	end
+
+	local sourceItem, sourceSocket, sourceSocketId
+	local equipped = self:findEquippedJewelSockets({
+		name = targetIdentity.family or targetIdentity.uniqueName,
+		variantIdentity = targetIdentity,
+	})
+	if equipped.atLimit then
+		t_sort(equipped, function(a, b)
+			local aIsTarget = a.socketId == target.socketId
+			local bIsTarget = b.socketId == target.socketId
+			if aIsTarget ~= bIsTarget then return aIsTarget end
+			local aMatches = buildItemCanonicalVariantKey(a.item) == targetCanonicalKey
+			local bMatches = buildItemCanonicalVariantKey(b.item) == targetCanonicalKey
+			if aMatches ~= bMatches then return aMatches end
+			return a.socketId < b.socketId
+		end)
+		local source = equipped[1]
+		if source then
+			sourceItem = source.item
+			sourceSocket = source.slot
+			sourceSocketId = source.socketId
+		end
+	else
+		local storedItem, storedSocket, storedSocketId = findExactStoredSource(
+			self.build.itemsTab, self.build.spec.allocNodes, targetCanonicalKey, target.socketId)
+		if storedItem then
+			sourceItem = storedItem
+			sourceSocket = storedSocket
+			sourceSocketId = storedSocketId
+		end
+	end
+
+	local sourceMatchesTarget = buildItemCanonicalVariantKey(sourceItem) == targetCanonicalKey
+	local kind
+	if sourceSocket and sourceSocket ~= targetSocket then
+		kind = "move"
+	elseif targetItem then
+		kind = "replace"
+	else
+		kind = "equip"
+	end
+	return {
+		kind = kind,
+		sourceItemId = sourceItem and sourceItem.id or nil,
+		sourceItemLabel = getItemLabel(sourceItem),
+		sourceItemStateKey = getItemStateKey(sourceItem),
+		sourceSocketId = sourceSocketId,
+		sourceSocketLabel = sourceSocketId and getSocketLabel(sourceSocket, sourceSocketId) or nil,
+		sourceMatchesTarget = sourceMatchesTarget,
+		targetSocketId = target.socketId,
+		targetSocketLabel = targetSocketLabel,
+		targetSocketAllocated = targetSocketAllocated,
+		targetIdentity = targetIdentity,
+		targetCanonicalKey = targetCanonicalKey,
+		targetRawText = targetRawText,
+		targetItemId = targetItemId,
+		targetItemStateKey = getItemStateKey(targetItem),
+		matchingItemsStateKey = matchingItemsStateKey,
+		replacedTargetId = targetItemId ~= 0 and targetItemId or nil,
+		replacedTargetLabel = getItemLabel(targetItem),
+	}
+end
+
+local function isActionPlanCurrent(build, plan)
+	local itemsTab = build.itemsTab
+	local targetSocket = plan and itemsTab.sockets[plan.targetSocketId]
+	if not targetSocket or targetSocket.selItemId ~= plan.targetItemId then
+		return false
+	end
+	if (build.spec.allocNodes[plan.targetSocketId] ~= nil) ~= plan.targetSocketAllocated then
+		return false
+	end
+	local _, _, _, matchingItemsStateKey = findCanonicalBuildItem(itemsTab, plan.targetCanonicalKey)
+	if matchingItemsStateKey ~= plan.matchingItemsStateKey then
+		return false
+	end
+	if plan.targetItemId ~= 0 and getItemStateKey(itemsTab.items[plan.targetItemId]) ~= plan.targetItemStateKey then
+		return false
+	end
+	local sourceSocket = plan.sourceSocketId and itemsTab.sockets[plan.sourceSocketId]
+	if plan.sourceSocketId and (not sourceSocket or sourceSocket.selItemId ~= plan.sourceItemId) then
+		return false
+	end
+	if plan.sourceItemId and not plan.sourceSocketId then
+		for _, socket in pairs(itemsTab.sockets) do
+			if socket.selItemId == plan.sourceItemId then
+				return false
+			end
+		end
+	end
+	return not plan.sourceItemId or getItemStateKey(itemsTab.items[plan.sourceItemId]) == plan.sourceItemStateKey
+end
+
+---@param plan RadiusJewelActionPlan
+function RadiusJewelFinderClass:executeActionPlan(plan)
+	local itemsTab = self.build.itemsTab
+	if not isActionPlanCurrent(self.build, plan) or plan.kind == "equipped" then
+		return false
+	end
+
+	local sourceItem = plan.sourceItemId and itemsTab.items[plan.sourceItemId]
+	local sourceSocket = plan.sourceSocketId and itemsTab.sockets[plan.sourceSocketId]
+	local targetSocket = itemsTab.sockets[plan.targetSocketId]
+	local targetItem = plan.sourceMatchesTarget and sourceItem or makeTargetItem(plan.targetRawText)
+	local changesVariantInPlace = sourceItem and not plan.sourceMatchesTarget and sourceSocket == targetSocket
+	if sourceItem and not plan.sourceMatchesTarget and not changesVariantInPlace then
+		targetItem.id = sourceItem.id
+	end
+	if not targetItem.id or targetItem ~= itemsTab.items[targetItem.id] then
+		itemsTab:AddItem(targetItem, true)
+	end
+	if sourceSocket and sourceSocket ~= targetSocket then
+		sourceSocket:SetSelItemId(0)
+	end
+	targetSocket:SetSelItemId(targetItem.id)
+	if changesVariantInPlace then
+		-- Keep the final item count stable, but use a new ID so normal Undo restoration
+		-- changes the socket selection and rebuilds variant-dependent passive graphs.
+		itemsTab:DeleteItem(sourceItem, true)
+	end
+	itemsTab:PopulateSlots()
+	itemsTab:AddUndoState()
+	self.build.buildFlag = true
+	return true
+end
+
+---@param plan RadiusJewelActionPlan
+function RadiusJewelFinderClass:executeAddToBuildPlan(plan)
+	local itemsTab = self.build.itemsTab
+	if not isActionPlanCurrent(self.build, plan) then
+		return false
+	end
+	local existingItem = findCanonicalBuildItem(itemsTab, plan.targetCanonicalKey)
+	if existingItem then
+		return false
+	end
+
+	itemsTab:AddItem(makeTargetItem(plan.targetRawText), true)
+	itemsTab:PopulateSlots()
+	itemsTab:AddUndoState()
+	self.build.buildFlag = true
+	return true
+end
+
 -- Disconnected-passive jewels allocate passives "without being connected to your tree".
 -- Find allocated nodes that depend on Intuitive Leap, Inspired Learning, or Thread of Hope.
 -- Returns a list of nodeIds that should be temporarily unallocated.
@@ -744,12 +1087,8 @@ local function runRadiusJewelFind(self, context, makePreferred)
 		local equippedVariant = selectedJewelVariant
 		local equippedList = self:findEquippedJewelSockets(selectedJewelType, equippedVariant)
 		local equippedSocketIds = { }
-		local existingSocketId
 		for _, entry in ipairs(equippedList) do
 			equippedSocketIds[entry.socketId] = true
-			if equippedList.atLimit then
-				existingSocketId = existingSocketId or entry.socketId
-			end
 		end
 		local rows = { }
 		for _, r in ipairs(results) do
@@ -777,18 +1116,19 @@ local function runRadiusJewelFind(self, context, makePreferred)
 				local keystoneNode = treeData.keystoneMap[r.variant.keystoneName]
 				detailNodeId = keystoneNode and keystoneNode.id or nil
 			end
-			local action
-			if isEquippedSocket then
-				action = "keep"
-			elseif existingSocketId and r.replacedItemLabel then
-				action = "moveReplace"
-			elseif existingSocketId then
-				action = "move"
-			elseif r.replacedItemLabel then
-				action = "replace"
-			else
-				action = "new"
-			end
+			local targetIdentity = r.variant and r.variant.variantIdentity
+				or selectedJewelVariant and selectedJewelVariant.variantIdentity
+				or selectedJewelType.variantIdentity
+			local targetRawText = targetIdentity and targetIdentity.rawText
+				or r.variant and r.variant.rawText
+				or selectedJewelVariant and selectedJewelVariant.rawText
+				or selectedJewelType.rawText
+			local actionPlan = self:buildActionPlan({
+				socketId = r.socket.id,
+				socketLabel = r.socket.label,
+				targetIdentity = targetIdentity,
+				targetRawText = targetRawText,
+			})
 			t_insert(rows, {
 				socketLabel = r.socket.label,
 				socketId = r.socket.id,
@@ -803,10 +1143,10 @@ local function runRadiusJewelFind(self, context, makePreferred)
 				topNodes = copyTableSafe(r.topNodes, false, true),
 				replacedItemLabel = r.replacedItemLabel,
 				storedUnallocatedItemLabel = r.storedUnallocatedItemLabel,
-				action = action,
-				applyRawText = (r.variant and r.variant.rawText)
-					or (selectedJewelVariant and selectedJewelVariant.rawText)
-					or selectedJewelType.rawText,
+				action = actionPlan and actionPlan.kind or nil,
+				actionPlan = actionPlan,
+				targetIdentity = targetIdentity,
+				applyRawText = targetRawText,
 			})
 		end
 		stampResultRows(rows, resultContextKey)
@@ -833,20 +1173,10 @@ local function runRadiusJewelFind(self, context, makePreferred)
 end
 
 local function applyRadiusJewelResult(self, row, resultContextKey)
-	if not row or not row.applyRawText or row.resultContextKey ~= resultContextKey then
+	if not row or not row.actionPlan or row.resultContextKey ~= resultContextKey then
 		return
 	end
-
-	local item = new("Item"):Item("Rarity: Unique\n" .. row.applyRawText)
-	item:BuildModList()
-	self.build.itemsTab:AddItem(item, true)
-
-	local slot = self.build.itemsTab.sockets[row.socketId]
-	if slot then
-		slot:SetSelItemId(item.id)
-	end
-	self.build.itemsTab:PopulateSlots()
-	self.build.buildFlag = true
+	self:executeActionPlan(row.actionPlan)
 end
 
 local function runRadiusJewelCompute(self, context)
@@ -1335,7 +1665,8 @@ local function buildRadiusJewelPopupContext(self)
 		return resultContextKey == getResultContextKey()
 	end
 	local function isResultApplicable(row)
-		return row ~= nil and row.applyRawText ~= nil and isResultContextCurrent(row.resultContextKey)
+		return row ~= nil and row.actionPlan ~= nil and isResultContextCurrent(row.resultContextKey)
+			and isActionPlanCurrent(self.build, row.actionPlan)
 	end
 	local function onCriteriaChanged(updateCriteria)
 		cancelCompute()
@@ -1629,25 +1960,38 @@ local function buildRadiusJewelPopupContext(self)
 		if row.variantLabel and row.variantLabel ~= "" then
 			t_insert(resultDetailListData, { height = 16, [1] = "^7Variant: " .. row.variantLabel })
 		end
-		local replacementItem
-		if row.replacedItemLabel or row.storedUnallocatedItemLabel then
+		local actionPlan = row.actionPlan
+		local action = actionPlan and actionPlan.kind or row.action
+		if actionPlan and not actionPlan.targetSocketAllocated then
+			t_insert(resultDetailListData, { height = 16, [1] = "^xFFAA33This socket is unallocated and hidden from the Items panel." })
+			t_insert(resultDetailListData, { height = 16, [1] = "^8Add to build keeps the jewel in the item list; placement uses the hidden socket." })
+		end
+		local replacementItem = actionPlan and actionPlan.replacedTargetId
+			and self.build.itemsTab.items[actionPlan.replacedTargetId]
+		if not replacementItem and (row.replacedItemLabel or row.storedUnallocatedItemLabel) then
 			local occupancy = self:getSocketOccupancyInfo(row.socketId)
 			replacementItem = occupancy and occupancy.item
 		end
-		if row.action == "keep" then
+		if actionPlan and actionPlan.sourceItemId then
+			local sourceText = actionPlan.sourceSocketId
+				and (actionPlan.sourceItemLabel .. " in " .. actionPlan.sourceSocketLabel)
+				or (actionPlan.sourceItemLabel .. " from Items")
+			t_insert(resultDetailListData, { height = 16, [1] = "^7Source: ^x33FF77" .. sourceText })
+		elseif actionPlan then
+			t_insert(resultDetailListData, { height = 16, [1] = "^7Source: ^x33FF77New " .. (actionPlan.targetIdentity.uniqueName or "jewel") })
+		end
+		if action == "equipped" then
 			t_insert(resultDetailListData, { height = 16, [1] = "^8Already equipped" })
-		elseif row.action == "moveReplace" then
-			t_insert(resultDetailListData, { height = 16, [1] = "^xBB88FFMove equipped jewel" })
-			t_insert(resultDetailListData, { height = 16, [1] = "^xFFAA33Will replace: ^7" .. (row.replacedItemLabel or "?"), item = replacementItem })
-		elseif row.action == "move" then
+		elseif action == "move" then
 			t_insert(resultDetailListData, { height = 16, [1] = "^x33AAFFMove equipped jewel" })
-		elseif row.replacedItemLabel then
+			if actionPlan and actionPlan.replacedTargetLabel then
+				t_insert(resultDetailListData, { height = 16, [1] = "^xFFAA33Will replace: ^7" .. actionPlan.replacedTargetLabel, item = replacementItem })
+			end
+		elseif action == "replace" then
 			t_insert(resultDetailListData, { height = 16, [1] = "^xFFAA33Use occupied socket" })
-			t_insert(resultDetailListData, { height = 16, [1] = "^xFFAA33Will replace: ^7" .. row.replacedItemLabel, item = replacementItem })
-		elseif row.storedUnallocatedItemLabel then
-			t_insert(resultDetailListData, { height = 16, [1] = "^2Use unallocated socket" })
-			t_insert(resultDetailListData, { height = 16, [1] = "^8Stored jewel ignored until this socket is allocated." })
-			t_insert(resultDetailListData, { height = 16, [1] = "^xFFAA33Apply will replace the stored jewel: ^7" .. row.storedUnallocatedItemLabel, item = replacementItem })
+			local replacementLabel = actionPlan and actionPlan.replacedTargetLabel
+				or row.replacedItemLabel or row.storedUnallocatedItemLabel or "?"
+			t_insert(resultDetailListData, { height = 16, [1] = "^xFFAA33Will replace: ^7" .. replacementLabel, item = replacementItem })
 		else
 			t_insert(resultDetailListData, { height = 16, [1] = "^2Use free socket" })
 		end
@@ -1673,6 +2017,7 @@ local function buildRadiusJewelPopupContext(self)
 			t_insert(resultDetailListData, { height = 6, [1] = "" })
 			t_insert(resultDetailListData, { height = 16, [1] = row.resultNodes and (COL_META .. "No passives to allocate") or (COL_META .. "No passives in range") })
 		end
+		t_insert(resultDetailListData, { height = 16, [1] = "^8Passive allocations are not applied automatically." })
 	end
 	controls.previewList = new("TextListControl"):TextListControl(TL, { rightPanelX, previewListY, rightPanelWidth, previewListHeight },
 		{ { x = 0, align = "LEFT" }, { x = 210, align = "LEFT" } }, previewListData)
@@ -2223,18 +2568,12 @@ local function buildRadiusJewelPopupContext(self)
 					local keystoneNode = treeData.keystoneMap[r.variant.keystoneName]
 					detailNodeId = keystoneNode and keystoneNode.id or nil
 				end
-				local action
-				if isEquippedSocket then
-					action = "keep"
-				elseif existingSocketId and r.replacedItemLabel then
-					action = "moveReplace"
-				elseif existingSocketId then
-					action = "move"
-				elseif r.replacedItemLabel then
-					action = "replace"
-				else
-					action = "new"
-				end
+				local actionPlan = self:buildActionPlan({
+					socketId = r.socket.id,
+					socketLabel = r.socket.label,
+					targetIdentity = variantIdentity,
+					targetRawText = applyRawText,
+				})
 				t_insert(rows, {
 					socketLabel = r.socket.label,
 					socketId = r.socket.id,
@@ -2257,7 +2596,9 @@ local function buildRadiusJewelPopupContext(self)
 					jewelLimit = jewelLimit,
 					isSocketIndependent = jewelType.isSocketIndependent,
 					applyRawText = applyRawText,
-					action = action,
+					action = actionPlan and actionPlan.kind or nil,
+					actionPlan = actionPlan,
+					targetIdentity = variantIdentity,
 					tooltipHeader = jewelType.isThread and "^7Socketing this jewel and allocating the best ring plan here will give you:"
 						or jewelType.name == "Intuitive Leap" and "^7Socketing this jewel and allocating the best nodes here will give you:"
 						or jewelType.isImpossibleEscape and "^7Socketing this jewel and allocating the best keystone plan here will give you:"
@@ -2364,40 +2705,137 @@ local function buildRadiusJewelPopupContext(self)
 		tooltip:AddLine(16, "^8Use Compute to rank by the selected stat.")
 	end
 
-	applySelectedResult = function()
+	local actionLabels = {
+		equip = "Equip",
+		move = "Move",
+		replace = "Replace",
+		equipped = "Equipped",
+	}
+	local function getSelectedActionRow()
 		local idx = controls.resultsList.selIndex
-		local row = idx and controls.resultsList.list[idx]
-		local resultContextKey = getResultContextKey()
+		return idx and controls.resultsList.list[idx] or nil
+	end
+	local function getMatchingBuildItem(row)
+		if not row or not row.actionPlan then
+			return nil
+		end
+		return findCanonicalBuildItem(self.build.itemsTab, row.actionPlan.targetCanonicalKey)
+	end
+	local function executeSelectedResult(row, resultContextKey)
 		if isResultApplicable(row) then
 			applyRadiusJewelResult(self, row, resultContextKey)
 		end
 	end
-	controls.applyButton = new("ButtonControl"):ButtonControl(BL, { edgePadding + 480, bottomButtonY, 80, buttonHeight }, "Apply", applySelectedResult)
+	applySelectedResult = function()
+		local row = getSelectedActionRow()
+		local resultContextKey = getResultContextKey()
+		if not isResultApplicable(row) then
+			return
+		end
+		local plan = row.actionPlan
+		if not plan.targetSocketAllocated then
+			local actionLabel = actionLabels[plan.kind] or "Equip"
+			local itemName = plan.targetIdentity.uniqueName or row.jewelName or "jewel"
+			main:OpenConfirmPopup("Unallocated Jewel Socket",
+				"Socket " .. plan.targetSocketLabel .. " is not allocated and is hidden from the Items panel.\n"
+				.. actionLabel .. " will place " .. itemName .. " in that hidden socket.\n"
+				.. "No passive nodes will be allocated.\n\n"
+				.. "Use Add to build instead to keep the jewel in the item list without equipping it.",
+				actionLabel, function()
+					executeSelectedResult(row, resultContextKey)
+				end)
+			return
+		end
+		executeSelectedResult(row, resultContextKey)
+	end
+	local function addSelectedResultToBuild()
+		local row = getSelectedActionRow()
+		if isResultApplicable(row) then
+			self:executeAddToBuildPlan(row.actionPlan)
+		end
+	end
+	controls.addToBuildButton = new("ButtonControl"):ButtonControl(BL, { rightPanelX, bottomButtonY, 100, buttonHeight }, function()
+		local existingItem = getMatchingBuildItem(getSelectedActionRow())
+		return existingItem and "In build" or "Add to build"
+	end, addSelectedResultToBuild)
+	controls.addToBuildButton.enabled = function()
+		local row = getSelectedActionRow()
+		return isResultApplicable(row) and not getMatchingBuildItem(row)
+	end
+	controls.addToBuildButton.tooltipFunc = function(tooltip)
+		local row = getSelectedActionRow()
+		tooltip:Clear(true)
+		if not row or not row.actionPlan then
+			tooltip:AddLine(16, "^7Select a result to add its jewel to the build.")
+			return
+		end
+		local plan = row.actionPlan
+		local itemName = plan.targetIdentity.uniqueName or row.jewelName or "jewel"
+		local existingItem, existingSocket, existingSocketId = getMatchingBuildItem(row)
+		if existingItem then
+			local location = existingSocketId and getSocketLabel(existingSocket, existingSocketId) or "Items"
+			tooltip:AddLine(16, "^8" .. itemName .. " is already in this build in " .. location .. ".")
+			if existingSocketId and self.build.spec.allocNodes[existingSocketId] == nil then
+				tooltip:AddLine(16, "^xFFAA33That socket is unallocated and hidden from the Items panel.")
+			end
+			return
+		end
+		if not isResultApplicable(row) then
+			tooltip:AddLine(16, "^xFFAA33Results are out of date for the current build or criteria.")
+			tooltip:AddLine(16, "^8Run Find or Compute again.")
+			return
+		end
+		tooltip:AddLine(16, "^7Add ^x33FF77" .. itemName .. " ^7to this build without equipping it.")
+		tooltip:AddLine(16, "^7Recommended socket: ^x33FF77" .. plan.targetSocketLabel)
+		tooltip:AddLine(16, "^8The jewel remains in the item list; no sockets or passive allocations change.")
+	end
+	controls.applyButton = new("ButtonControl"):ButtonControl(BL, { rightPanelX + 110, bottomButtonY, 80, buttonHeight }, function()
+		local row = getSelectedActionRow()
+		local kind = row and row.actionPlan and row.actionPlan.kind
+		return actionLabels[kind] or "Equip"
+	end, applySelectedResult)
 	controls.applyButton.enabled = function()
-		local idx = controls.resultsList.selIndex
-		return isResultApplicable(idx and controls.resultsList.list[idx])
+		local row = getSelectedActionRow()
+		return isResultApplicable(row) and row.actionPlan.kind ~= "equipped"
 	end
 	controls.applyButton.tooltipFunc = function(tooltip)
-		local idx = controls.resultsList.selIndex
-		local row = idx and controls.resultsList.list[idx]
-		if row and row.applyRawText and not isResultApplicable(row) then
+		local row = getSelectedActionRow()
+		if row and row.actionPlan and not isResultApplicable(row) then
 			tooltip:Clear(true)
 			tooltip:AddLine(16, "^xFFAA33Results are out of date for the current build or criteria.")
 			tooltip:AddLine(16, "^8Run Find or Compute again.")
 			return
 		end
-		if not row or not row.applyRawText then
+		if not row or not row.actionPlan then
 			tooltip:Clear(true)
-			tooltip:AddLine(16, "^7Select a result to apply.")
+			tooltip:AddLine(16, "^7Select a result to equip.")
 			return
 		end
+		local plan = row.actionPlan
 		tooltip:Clear(true)
-		tooltip:AddLine(16, "^7Equip ^x33FF77" .. (row.jewelName or "jewel") .. " ^7in ^x33FF77" .. (row.socketLabel or "socket"))
-		tooltip:AddLine(16, "^8Adds the jewel to this build.")
-		if row.storedUnallocatedItemLabel then
-			tooltip:AddLine(16, "^xFFAA33Replaces the stored jewel ignored by the current tree.")
+		local itemName = plan.targetIdentity.uniqueName or row.jewelName or "jewel"
+		if plan.kind == "equipped" then
+			tooltip:AddLine(16, "^8" .. itemName .. " is already equipped in " .. plan.targetSocketLabel .. ".")
+		else
+			tooltip:AddLine(16, "^7" .. actionLabels[plan.kind] .. " ^x33FF77" .. itemName .. " ^7in ^x33FF77" .. plan.targetSocketLabel)
+			if plan.sourceItemId then
+				local source = plan.sourceSocketId and plan.sourceSocketLabel or "Items"
+				tooltip:AddLine(16, "^7Source: ^x33FF77" .. plan.sourceItemLabel .. " ^7in " .. source)
+			else
+				tooltip:AddLine(16, "^7Source: ^x33FF77New jewel")
+			end
+			if plan.replacedTargetId then
+				tooltip:AddLine(16, "^xFFAA33Replaces: ^7" .. plan.replacedTargetLabel .. " in " .. plan.targetSocketLabel)
+			end
+			if not plan.targetSocketAllocated then
+				tooltip:AddLine(16, "^xFFAA33This socket is unallocated and hidden from the Items panel.")
+				tooltip:AddLine(16, "^8A confirmation is required; no passive nodes will be allocated.")
+			end
 		end
-		tooltip:AddLine(16, "^8Double-click a result to apply it.")
+		tooltip:AddLine(16, "^8Passive allocations shown in Details are not applied automatically.")
+		if plan.kind ~= "equipped" then
+			tooltip:AddLine(16, "^8Double-click a result to " .. actionLabels[plan.kind]:lower() .. " it.")
+		end
 	end
 
 	local function restoreFinderState()
