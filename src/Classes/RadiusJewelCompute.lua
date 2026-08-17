@@ -43,6 +43,19 @@ local function progressChild(progress, startFraction, spanFraction)
 	return progress
 end
 
+local function calculateWithSocketDistance(calcFunc, override, socketNode, distance)
+	local previousDistance = socketNode.distanceToClassStart
+	socketNode.distanceToClassStart = distance
+	local ok, output = xpcall(function()
+		return calcFunc(override)
+	end, debug.traceback)
+	socketNode.distanceToClassStart = previousDistance
+	if not ok then
+		error(output, 0)
+	end
+	return output
+end
+
 local function isDisconnectedPassiveCandidateNode(node, keystoneOnly, notableOrKeystoneOnly)
 	if not node then
 		return false
@@ -728,14 +741,11 @@ function Class:computeSplitPersonalitySocketImpact(sockets, impactStat, variants
 			local socketNode = replacementContext.socketNode
 			local slotName = replacementContext.slotName
 			local splitDistance = socket.classStartDist or self:getSocketDistanceToClassStart(socket.id)
-			local previousDistance = socketNode.distanceToClassStart
-
-			socketNode.distanceToClassStart = splitDistance
-			local baselineOutput = calcFunc({
+			local baselineOutput = calculateWithSocketDistance(calcFunc, {
 				addNodes = { [socketNode] = true },
 				repSlotName = slotName,
 				repItem = replacementContext.baselineItem,
-			})
+			}, socketNode, splitDistance)
 
 			local bestResult
 			for variantIdx, variant in ipairs(variants) do
@@ -748,7 +758,8 @@ function Class:computeSplitPersonalitySocketImpact(sockets, impactStat, variants
 				if override.spec then
 					override.spec.nodes[socketNode.id].distanceToClassStart = splitDistance
 				end
-				local output = calcFunc(override)
+				local output = override.spec and calcFunc(override)
+					or calculateWithSocketDistance(calcFunc, override, socketNode, splitDistance)
 				local value = self:getImpactValue(impactStat, output)
 				local delta = self:calculateImpactDelta(impactStat, baselineOutput, output)
 				if not bestResult or delta > bestResult.delta then
@@ -767,7 +778,6 @@ function Class:computeSplitPersonalitySocketImpact(sockets, impactStat, variants
 				end
 			end
 
-			socketNode.distanceToClassStart = previousDistance
 			if bestResult then
 				bestResult.splitDistance = splitDistance
 				t_insert(results, bestResult)
