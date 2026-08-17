@@ -848,31 +848,11 @@ local function groupImpossibleEscapeSockets(self, sockets, maxTotalPoints, occup
 	return groupedOrder
 end
 
-local function getMaxCandidateCount(variantDataByName)
-	local maxCandidateCount = 0
-	for _, variantData in pairs(variantDataByName) do
-		if #variantData.candidates > maxCandidateCount then
-			maxCandidateCount = #variantData.candidates
-		end
-	end
-	return maxCandidateCount
-end
-
 local function computeImpossibleEscapeRepresentativeResults(self, groupedOrder, variants, variantDataByName, methodId, impactStat, statField, calcFunc, planCache, progress)
 	local bestResultByGroupKey = { }
 	local totalPlanCount = #groupedOrder * #variants
 	local currentPlanIndex = 0
-	local maxCandidateCount = getMaxCandidateCount(variantDataByName)
-	local previousFreeResult
 	for _, groupEntry in ipairs(groupedOrder) do
-		local isFreeGroup = not groupEntry.groupKey:match("^occupied:")
-		-- Groups are sorted by remaining points. Once they cover every candidate,
-		-- reuse the first free result; skipped variants still advance progress.
-		if isFreeGroup and previousFreeResult and groupEntry.remainingPoints >= maxCandidateCount then
-			bestResultByGroupKey[groupEntry.groupKey] = previousFreeResult
-			currentPlanIndex = currentPlanIndex + #variants
-			goto continueGroup
-		end
 		local representativeSocket = groupEntry.representativeSocket
 		local replacementContext = self:buildSocketReplacementContext(calcFunc, representativeSocket.id)
 		local representativeSocketNode = replacementContext.socketNode
@@ -934,11 +914,10 @@ local function computeImpossibleEscapeRepresentativeResults(self, groupedOrder, 
 			end
 			progressTick(planProgress, 1, 1, variant.name)
 		end
-		bestResultByGroupKey[groupEntry.groupKey] = bestResult
-		if isFreeGroup and not previousFreeResult then
-			previousFreeResult = bestResult
+		if bestResult then
+			bestResult.impossibleEscapeGroupKey = groupEntry.groupKey
 		end
-		::continueGroup::
+		bestResultByGroupKey[groupEntry.groupKey] = bestResult
 	end
 	return bestResultByGroupKey
 end
@@ -951,6 +930,7 @@ local function fanOutImpossibleEscapeResults(self, groupedOrder, bestResultByGro
 			for _, socket in ipairs(groupEntry.sockets) do
 				local socketOccupancy = self:getSocketOccupancyInfo(socket.id)
 				local resultForSocket = copyTableSafe(bestResult, false, true)
+				resultForSocket.impossibleEscapeGroupKey = groupEntry.groupKey
 				resultForSocket.socket = socket
 				resultForSocket.replacedItemLabel = socketOccupancy and socketOccupancy.replacedItemLabel or nil
 				resultForSocket.storedUnallocatedItemLabel = socketOccupancy and socketOccupancy.storedUnallocatedItemLabel or nil
@@ -968,18 +948,15 @@ local function fanOutImpossibleEscapeResults(self, groupedOrder, bestResultByGro
 end
 
 local function addImpossibleEscapePlanDetails(self, results, groupedOrder, bestResultByGroupKey, variantDataByName, impactStat, statField, calcFunc, planCache)
-	local topResult = results[1]
-	local variantData = variantDataByName[topResult.variant.name]
-	if not variantData then
-		return
-	end
 	for _, groupEntry in ipairs(groupedOrder) do
 		local bestResult = bestResultByGroupKey[groupEntry.groupKey]
-		if bestResult and bestResult.variant.name == topResult.variant.name then
+		local variantData = bestResult and variantDataByName[bestResult.variant.name]
+		if variantData then
 			local replacementContext = self:buildSocketReplacementContext(calcFunc, groupEntry.representativeSocket.id)
 			local socketBaseline = self:getImpactValue(impactStat, replacementContext.baselineOutput)
 			local maxAdditionalNodes = groupEntry.remainingPoints >= 0 and groupEntry.remainingPoints or nil
-			local cacheKey = self:getImpossibleEscapePlanCacheKey(statField, topResult.variant.name, replacementContext)
+			local cacheKey = self:getImpossibleEscapePlanCacheKey(statField, bestResult.variant.name, replacementContext)
+			planCache[cacheKey] = planCache[cacheKey] or { }
 			local fullResult = self:computeDisconnectedPassiveFastPlan(
 				calcFunc,
 				replacementContext,
@@ -989,7 +966,7 @@ local function addImpossibleEscapePlanDetails(self, results, groupedOrder, bestR
 				variantData.item,
 				impactStat,
 				variantData.candidates,
-				topResult.variant.name,
+				bestResult.variant.name,
 				planCache[cacheKey],
 				nil,
 				nil,
@@ -997,9 +974,10 @@ local function addImpossibleEscapePlanDetails(self, results, groupedOrder, bestR
 				false,
 				nil
 			)
-			fullResult.variant = topResult.variant
+			fullResult.variant = bestResult.variant
+			fullResult.impossibleEscapeGroupKey = groupEntry.groupKey
 			for i, result in ipairs(results) do
-				if result.variant.name == topResult.variant.name then
+				if result.impossibleEscapeGroupKey == groupEntry.groupKey then
 					local updated = copyTableSafe(fullResult, false, true)
 					updated.socket = result.socket
 					updated.replacedItemLabel = result.replacedItemLabel
@@ -1007,7 +985,6 @@ local function addImpossibleEscapePlanDetails(self, results, groupedOrder, bestR
 					results[i] = updated
 				end
 			end
-			break
 		end
 	end
 end

@@ -670,6 +670,82 @@ describe("RadiusJewelCompute #radius-jewel", function()
 			end
 		end)
 
+		it("keeps plan details isolated between budget and replacement groups", function()
+			local finder = makeFinder()
+			local variant = makeImpossibleEscapeTestVariant()
+			assert.is_not_nil(variant, "expected an Impossible Escape variant")
+			local freeSocket = { id = 101, label = "Free socket", pathDist = 1 }
+			local occupiedSocket = { id = 202, label = "Occupied socket", pathDist = 3 }
+			local occupancyBySocketId = {
+				[101] = { isOccupied = false },
+				[202] = { isOccupied = true, replacedItemLabel = "Existing jewel" },
+			}
+			finder.socketMatchesOccupiedMode = function(_, socketId)
+				return true, occupancyBySocketId[socketId]
+			end
+			finder.getSocketOccupancyInfo = function(_, socketId)
+				return occupancyBySocketId[socketId]
+			end
+			finder.getSocketBasePoints = function(_, socket)
+				return socket.pathDist
+			end
+			finder.collectDisconnectedPassiveCandidates = function()
+				return {
+					{ id = -101, name = "First" },
+					{ id = -102, name = "Second" },
+					{ id = -103, name = "Third" },
+				}
+			end
+			finder.buildSocketReplacementContext = function(_, _, socketId)
+				return {
+					socketNode = { id = socketId },
+					occupancy = occupancyBySocketId[socketId],
+					baselineOutput = { Life = 0 },
+				}
+			end
+			finder.computeDisconnectedPassiveFastPlan = function(_, _, _, _, _, socketNode, _, _, _, variantLabel, _, _, _, maxAdditionalNodes, skipPlanSteps)
+				local result = {
+					delta = socketNode.id == freeSocket.id and 100 or 90,
+					addedNodeCount = maxAdditionalNodes,
+					resultNodes = { socketNode.id * 10 },
+					resultNodeLabels = { "Plan for " .. socketNode.id },
+					baseOutput = { Life = 0 },
+					compareOutput = { Life = socketNode.id },
+					detailText = "plan-" .. socketNode.id,
+					variantLabel = variantLabel,
+				}
+				if not skipPlanSteps then
+					result.planSteps = { { detailText = result.detailText } }
+				end
+				return result
+			end
+
+			local originalGetMiscCalculator = build.calcsTab.GetMiscCalculator
+			build.calcsTab.GetMiscCalculator = function()
+				return function() return { Life = 0 } end, { Life = 0 }
+			end
+			local results = finder:computeImpossibleEscapeSocketImpact(
+				{ freeSocket, occupiedSocket }, "Life", { variant }, "fast", { }, nil, 5, nil, false)
+			build.calcsTab.GetMiscCalculator = originalGetMiscCalculator
+
+			local resultBySocketId = { }
+			for _, result in ipairs(results) do
+				resultBySocketId[result.socket.id] = result
+			end
+			assert.are.equal("plan-101", resultBySocketId[101].detailText)
+			assert.are.equal("plan-202", resultBySocketId[202].detailText)
+			assert.are.same({ 1010 }, resultBySocketId[101].resultNodes)
+			assert.are.same({ 2020 }, resultBySocketId[202].resultNodes)
+			assert.are.equal(100, resultBySocketId[101].delta)
+			assert.are.equal(90, resultBySocketId[202].delta)
+			assert.are.equal(4, resultBySocketId[101].addedNodeCount)
+			assert.are.equal(2, resultBySocketId[202].addedNodeCount)
+			assert.is_nil(resultBySocketId[101].replacedItemLabel)
+			assert.are.equal("Existing jewel", resultBySocketId[202].replacedItemLabel)
+			assert.are.equal("free:4", resultBySocketId[101].impossibleEscapeGroupKey)
+			assert.are.equal("occupied:202", resultBySocketId[202].impossibleEscapeGroupKey)
+		end)
+
 	end)
 
 	describe("computeThreadOfHopeSocketImpact", function()
