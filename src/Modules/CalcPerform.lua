@@ -700,7 +700,7 @@ local function doActorMisc(env, actor)
 				modDB:NewMod("Damage", "MORE", arcaneSurgeDamage * effect, "Arcane Surge", ModFlag.Spell) 
 			end
 			local prefix = "ArcaneSurgeAlso"
-			local additionalMods = { LifeRegen = "BASE", ManaRecoup = "BASE", ManaCostEfficiency = "INC" }
+			local additionalMods = { LifeRegen = "INC", ManaRecoup = "BASE", ManaCostEfficiency = "INC" }
 			for mod, modType in pairs(additionalMods) do
 				local value = modDB:Sum(modType, nil, prefix .. mod)
 				if value ~= 0 then
@@ -734,7 +734,7 @@ local function doActorMisc(env, actor)
 			local witherValue = modDB:Sum("INC", nil, "UnholyMightAlsoWitherEffect")
 			local currentMax = modDB:Max(nil, "WitherEffectStack")
 			if witherValue ~= 0 and currentMax then
-				modDB:NewMod("WitherEffectStack", "MAX", currentMax * (1 + witherValue / 100))
+				modDB:NewMod("WitherEffectStack", "MAX", math.floor(currentMax * (1 + witherValue / 100)), "Unholy Might")
 			end
 		end
 		if modDB:Flag(nil, "ShepherdOfSouls") then

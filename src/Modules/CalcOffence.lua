@@ -322,7 +322,9 @@ end
 
 -- Performs all offensive calculations
 function calcs.offence(env, actor, activeSkill)
+	---@type ModDB
 	local modDB = actor.modDB
+	---@type ModDB
 	local enemyDB = actor.enemy.modDB
 	local output = actor.output
 	local breakdown = actor.breakdown
@@ -3015,7 +3017,7 @@ function calcs.offence(env, actor, activeSkill)
 				if not critOverride then
 					base = skillModList:Sum("BASE", cfg, "CritChance") + (env.mode_effective and enemyDB:Sum("BASE", nil, "SelfCritChance") or 0)
 					inc = skillModList:Sum("INC", cfg, "CritChance") + (env.mode_effective and enemyDB:Sum("INC", nil, "SelfCritChance") or 0)
-					more = skillModList:More(cfg, "CritChance")
+					more = skillModList:More(cfg, "CritChance") * (env.mode_effective and enemyDB:More(nil, "SelfCritChance") or 1)
 				end
 				output.CritChance = (baseCrit + base) * (1 + inc / 100) * more
 				local preCapCritChance = output.CritChance
