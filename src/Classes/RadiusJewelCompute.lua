@@ -393,7 +393,7 @@ function Class:computeDisconnectedPassiveSimulatedPlan(calcFunc, replacementCont
 	return result
 end
 
-function Class:computeDisconnectedPassiveFastPlan(calcFunc, replacementContext, baseOutput, baseValue, socketNode, item, impactStat, candidates, variantLabel, deltaCache, progressLabel, progress, maxAdditionalNodes, skipPlanSteps, earlyPruneThreshold)
+function Class:computeDisconnectedPassiveFastPlan(calcFunc, replacementContext, baseOutput, baseValue, socketNode, item, impactStat, candidates, variantLabel, deltaCache, progressLabel, progress, maxAdditionalNodes, skipPlanSteps)
 	impactStat = normalizeImpactStat(impactStat)
 	local jewelOnlyOutput, jewelOnlyValue
 	local function ensureJewelOnly()
@@ -437,18 +437,11 @@ function Class:computeDisconnectedPassiveFastPlan(calcFunc, replacementContext, 
 	end)
 
 	local chosenNodes = { }
-	local estimatedDelta = 0
 	for i, entry in ipairs(scoredCandidates) do
 		if maxAdditionalNodes and i > maxAdditionalNodes then
 			break
 		end
 		t_insert(chosenNodes, entry.node)
-		estimatedDelta = estimatedDelta + entry.delta
-	end
-
-	-- Early pruning: if the sum of individual gains can't beat the current best, skip the slower final calcFunc
-	if earlyPruneThreshold and estimatedDelta <= earlyPruneThreshold then
-		return { delta = estimatedDelta, pruned = true }
 	end
 
 	local addNodes = { [socketNode] = true }
@@ -685,23 +678,20 @@ function Class:computeThreadOfHopeSocketImpact(sockets, impactStat, threadVarian
 				})
 				if #candidates > 0 then
 					local maxAdditionalNodes = maxTotalPoints and math.max(maxTotalPoints - socketBasePoints, 0) or nil
-					local earlyPruneThreshold = bestResult and bestResult.delta or nil
 					local result
 					if methodId == "fast" then
 						local cacheKey = s_format("ThreadOfHope|%s|%s", statField, socket.id)
 						planCache[cacheKey] = planCache[cacheKey] or { }
-						result = self:computeDisconnectedPassiveFastPlan(calcFunc, replacementContext, replacementContext.baselineOutput, socketBaseline, socketNode, item, impactStat, candidates, ringLabel, planCache[cacheKey], socket.label .. " | " .. ringLabel, variantProgress, maxAdditionalNodes, skipPlanSteps, earlyPruneThreshold)
+						result = self:computeDisconnectedPassiveFastPlan(calcFunc, replacementContext, replacementContext.baselineOutput, socketBaseline, socketNode, item, impactStat, candidates, ringLabel, planCache[cacheKey], socket.label .. " | " .. ringLabel, variantProgress, maxAdditionalNodes, skipPlanSteps)
 					else
 						result = self:computeDisconnectedPassiveSimulatedPlan(calcFunc, replacementContext, replacementContext.baselineOutput, socketBaseline, socketNode, item, impactStat, candidates, ringLabel, socket.label .. " | " .. ringLabel, variantProgress, maxAdditionalNodes)
 					end
-					if not result.pruned then
-						result.variant = threadVariant
-						if not bestResult
-						or result.delta > bestResult.delta
-						or (result.delta == bestResult.delta and result.addedNodeCount < bestResult.addedNodeCount)
-						or (result.delta == bestResult.delta and result.addedNodeCount == bestResult.addedNodeCount and threadVariant.radiusIndex < bestResult.variant.radiusIndex) then
-							bestResult = result
-						end
+					result.variant = threadVariant
+					if not bestResult
+					or result.delta > bestResult.delta
+					or (result.delta == bestResult.delta and result.addedNodeCount < bestResult.addedNodeCount)
+					or (result.delta == bestResult.delta and result.addedNodeCount == bestResult.addedNodeCount and threadVariant.radiusIndex < bestResult.variant.radiusIndex) then
+						bestResult = result
 					end
 				end
 			end
@@ -874,7 +864,6 @@ local function computeImpossibleEscapeRepresentativeResults(self, groupedOrder, 
 			local variantData = variantDataByName[variant.name]
 			if variantData then
 				local maxAdditionalNodes = groupEntry.remainingPoints >= 0 and groupEntry.remainingPoints or nil
-				local earlyPruneThreshold = bestResult and bestResult.delta or nil
 				local result
 				if methodId == "fast" then
 					local cacheKey = self:getImpossibleEscapePlanCacheKey(statField, variant.name, replacementContext)
@@ -893,8 +882,7 @@ local function computeImpossibleEscapeRepresentativeResults(self, groupedOrder, 
 						variant.name,
 						planProgress,
 						maxAdditionalNodes,
-						true,
-						earlyPruneThreshold
+						true
 					)
 				else
 					result = self:computeDisconnectedPassiveSimulatedPlan(
@@ -912,14 +900,12 @@ local function computeImpossibleEscapeRepresentativeResults(self, groupedOrder, 
 						maxAdditionalNodes
 					)
 				end
-				if not result.pruned then
-					result.variant = variant
-					if not bestResult
-					or result.delta > bestResult.delta
-					or (result.delta == bestResult.delta and result.addedNodeCount < bestResult.addedNodeCount)
-					or (result.delta == bestResult.delta and result.addedNodeCount == bestResult.addedNodeCount and variant.name < bestResult.variant.name) then
-						bestResult = result
-					end
+				result.variant = variant
+				if not bestResult
+				or result.delta > bestResult.delta
+				or (result.delta == bestResult.delta and result.addedNodeCount < bestResult.addedNodeCount)
+				or (result.delta == bestResult.delta and result.addedNodeCount == bestResult.addedNodeCount and variant.name < bestResult.variant.name) then
+					bestResult = result
 				end
 			end
 			progressTick(planProgress, 1, 1, variant.name)
@@ -981,8 +967,7 @@ local function addImpossibleEscapePlanDetails(self, results, groupedOrder, bestR
 				nil,
 				nil,
 				maxAdditionalNodes,
-				false,
-				nil
+				false
 			)
 			fullResult.variant = bestResult.variant
 			fullResult.impossibleEscapeGroupKey = groupEntry.groupKey
