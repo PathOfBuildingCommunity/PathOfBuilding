@@ -212,7 +212,7 @@ function calcs.buildModListForNode(env, node, reuse)
 	if hasOtherEffect and modList:Flag(nil, "PassiveSkillHasOtherEffect") then
 		local newMods = modList:List(nil, "NodeModifier")
 		for i = 1, #newMods do
-			local mod = newMods[i]
+			local mod = newMods[i].mod
 			if i == 1 then
 				wipeTable(modList)
 				hasExtraSkill = nil
@@ -223,7 +223,7 @@ function calcs.buildModListForNode(env, node, reuse)
 			elseif mod.name == "CanExplode" then
 				hasExplode = true
 			end
-			modList:AddMod(mod.mod)
+			modList:AddMod(mod)
 		end
 	end
 
