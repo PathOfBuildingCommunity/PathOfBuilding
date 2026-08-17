@@ -118,6 +118,14 @@ local function progressChild(progress, startFraction, spanFraction)
 	return progress
 end
 
+local function copyRequest(request)
+	local copied = { }
+	for key, value in pairs(request) do
+		copied[key] = value
+	end
+	return copied
+end
+
 local function calculateWithSocketDistance(calcFunc, override, socketNode, distance)
 	local previousDistance = socketNode.distanceToClassStart
 	socketNode.distanceToClassStart = distance
@@ -409,7 +417,19 @@ function RadiusJewelComputeClass:collectDisconnectedPassiveCandidates(socketNode
 	return candidates
 end
 
-function RadiusJewelComputeClass:computeDisconnectedPassiveSimulatedPlan(calcFunc, replacementContext, baseOutput, baseValue, socketNode, item, impactStat, candidates, variantLabel, progressLabel, progress, maxAdditionalNodes)
+function RadiusJewelComputeClass:computeDisconnectedPassiveSimulatedPlan(request)
+	local calcFunc = request.calcFunc
+	local replacementContext = request.replacementContext
+	local baseOutput = request.baseOutput
+	local baseValue = request.baseValue
+	local socketNode = request.socketNode
+	local item = request.item
+	local impactStat = request.impactStat
+	local candidates = request.candidates
+	local variantLabel = request.variantLabel
+	local progressLabel = request.progressLabel
+	local progress = request.progress
+	local maxAdditionalNodes = request.maxAdditionalNodes
 	impactStat = normalizeImpactStat(impactStat)
 	local addNodes = { [socketNode] = true }
 	local function calculate(extraNode)
@@ -468,7 +488,21 @@ function RadiusJewelComputeClass:computeDisconnectedPassiveSimulatedPlan(calcFun
 	return result
 end
 
-function RadiusJewelComputeClass:computeDisconnectedPassiveFastPlan(calcFunc, replacementContext, baseOutput, baseValue, socketNode, item, impactStat, candidates, variantLabel, deltaCache, progressLabel, progress, maxAdditionalNodes, skipPlanSteps)
+function RadiusJewelComputeClass:computeDisconnectedPassiveFastPlan(request)
+	local calcFunc = request.calcFunc
+	local replacementContext = request.replacementContext
+	local baseOutput = request.baseOutput
+	local baseValue = request.baseValue
+	local socketNode = request.socketNode
+	local item = request.item
+	local impactStat = request.impactStat
+	local candidates = request.candidates
+	local variantLabel = request.variantLabel
+	local deltaCache = request.deltaCache
+	local progressLabel = request.progressLabel
+	local progress = request.progress
+	local maxAdditionalNodes = request.maxAdditionalNodes
+	local skipPlanSteps = request.skipPlanSteps
 	impactStat = normalizeImpactStat(impactStat)
 	local jewelOnlyOutput, jewelOnlyValue
 	local function ensureJewelOnly()
@@ -552,7 +586,20 @@ function RadiusJewelComputeClass:computeDisconnectedPassiveFastPlan(calcFunc, re
 	return result
 end
 
-function RadiusJewelComputeClass:computeSocketImpact(sockets, rawText, impactStat, progress, maxTotalPoints, occupiedMode)
+function RadiusJewelComputeClass:computeDisconnectedPassivePlan(request)
+	if request.methodId == "fast" then
+		return self:computeDisconnectedPassiveFastPlan(request)
+	end
+	return self:computeDisconnectedPassiveSimulatedPlan(request)
+end
+
+function RadiusJewelComputeClass:computeSocketImpact(request)
+	local sockets = request.sockets
+	local rawText = request.rawText
+	local impactStat = request.impactStat
+	local progress = request.progress
+	local maxTotalPoints = request.maxTotalPoints
+	local occupiedMode = request.occupiedMode
 	impactStat = normalizeImpactStat(impactStat)
 	local calcFunc, baseOutput = self.build.calcsTab:GetMiscCalculator()
 	local realBaseline = self:getImpactValue(impactStat, baseOutput)
@@ -587,7 +634,13 @@ function RadiusJewelComputeClass:computeSocketImpact(sockets, rawText, impactSta
 	return results, realBaseline
 end
 
-function RadiusJewelComputeClass:computeBestVariantSocketImpact(sockets, variants, impactStat, progress, maxTotalPoints, occupiedMode)
+function RadiusJewelComputeClass:computeBestVariantSocketImpact(request)
+	local sockets = request.sockets
+	local variants = request.variants
+	local impactStat = request.impactStat
+	local progress = request.progress
+	local maxTotalPoints = request.maxTotalPoints
+	local occupiedMode = request.occupiedMode
 	impactStat = normalizeImpactStat(impactStat)
 	local calcFunc, baseOutput = self.build.calcsTab:GetMiscCalculator()
 	local realBaseline = self:getImpactValue(impactStat, baseOutput)
@@ -636,7 +689,16 @@ function RadiusJewelComputeClass:computeBestVariantSocketImpact(sockets, variant
 	return results, realBaseline
 end
 
-function RadiusJewelComputeClass:computeIntuitiveLeapSocketImpact(sockets, impactStat, variant, methodId, planCache, progress, maxTotalPoints, occupiedMode, skipPlanSteps)
+function RadiusJewelComputeClass:computeIntuitiveLeapSocketImpact(request)
+	local sockets = request.sockets
+	local impactStat = request.impactStat
+	local variant = request.variant
+	local methodId = request.methodId
+	local planCache = request.planCache
+	local progress = request.progress
+	local maxTotalPoints = request.maxTotalPoints
+	local occupiedMode = request.occupiedMode
+	local skipPlanSteps = request.skipPlanSteps
 	impactStat = normalizeImpactStat(impactStat)
 	local calcFunc, baseOutput = self.build.calcsTab:GetMiscCalculator()
 	local realBaseline = self:getImpactValue(impactStat, baseOutput)
@@ -665,14 +727,28 @@ function RadiusJewelComputeClass:computeIntuitiveLeapSocketImpact(sockets, impac
 			if #candidates > 0 then
 				local maxAdditionalNodes = maxTotalPoints and math.max(maxTotalPoints - socketBasePoints, 0) or nil
 				local socketBaseline = self:getImpactValue(impactStat, replacementContext.baselineOutput)
-				local result
+				local deltaCache
 				if methodId == "fast" then
 					local cacheKey = s_format("IL|%s|%s|%s", statField, variantKey, socket.id)
 					planCache[cacheKey] = planCache[cacheKey] or { }
-					result = self:computeDisconnectedPassiveFastPlan(calcFunc, replacementContext, replacementContext.baselineOutput, socketBaseline, socketNode, item, impactStat, candidates, nil, planCache[cacheKey], socket.label, socketProgress, maxAdditionalNodes, skipPlanSteps)
-				else
-					result = self:computeDisconnectedPassiveSimulatedPlan(calcFunc, replacementContext, replacementContext.baselineOutput, socketBaseline, socketNode, item, impactStat, candidates, nil, socket.label, socketProgress, maxAdditionalNodes)
+					deltaCache = planCache[cacheKey]
 				end
+				local result = self:computeDisconnectedPassivePlan({
+					methodId = methodId,
+					calcFunc = calcFunc,
+					replacementContext = replacementContext,
+					baseOutput = replacementContext.baselineOutput,
+					baseValue = socketBaseline,
+					socketNode = socketNode,
+					item = item,
+					impactStat = impactStat,
+					candidates = candidates,
+					deltaCache = deltaCache,
+					progressLabel = socket.label,
+					progress = socketProgress,
+					maxAdditionalNodes = maxAdditionalNodes,
+					skipPlanSteps = skipPlanSteps,
+				})
 				result.socket = socket
 				result.variant = variant
 				result.replacedItemLabel = occupancy and occupancy.replacedItemLabel or nil
@@ -687,17 +763,20 @@ function RadiusJewelComputeClass:computeIntuitiveLeapSocketImpact(sockets, impac
 	return results, realBaseline
 end
 
-function RadiusJewelComputeClass:computeBestIntuitiveLeapSocketImpact(sockets, impactStat, variants, methodId, planCache, progress, maxTotalPoints, occupiedMode, skipPlanSteps)
+function RadiusJewelComputeClass:computeBestIntuitiveLeapSocketImpact(request)
+	local variants = request.variants
 	if not variants or #variants == 0 then
-		return self:computeIntuitiveLeapSocketImpact(sockets, impactStat, nil, methodId, planCache, progress, maxTotalPoints, occupiedMode, skipPlanSteps)
+		return self:computeIntuitiveLeapSocketImpact(request)
 	end
 	local bestBySocket = { }
 	local realBaseline
 	local variantCount = #variants
 	for variantIndex, variant in ipairs(variants) do
-		local variantProgress = progressChild(progress, (variantIndex - 1) / variantCount, 1 / variantCount)
-		local results, baseline = self:computeIntuitiveLeapSocketImpact(sockets, impactStat, variant, methodId, planCache,
-			variantProgress, maxTotalPoints, occupiedMode, skipPlanSteps)
+		local variantProgress = progressChild(request.progress, (variantIndex - 1) / variantCount, 1 / variantCount)
+		local variantRequest = copyRequest(request)
+		variantRequest.variant = variant
+		variantRequest.progress = variantProgress
+		local results, baseline = self:computeIntuitiveLeapSocketImpact(variantRequest)
 		realBaseline = realBaseline or baseline
 		for _, result in ipairs(results) do
 			result.variant = variant
@@ -718,7 +797,16 @@ function RadiusJewelComputeClass:computeBestIntuitiveLeapSocketImpact(sockets, i
 	return results, realBaseline
 end
 
-function RadiusJewelComputeClass:computeThreadOfHopeSocketImpact(sockets, impactStat, threadVariants, methodId, planCache, progress, maxTotalPoints, occupiedMode, skipPlanSteps)
+function RadiusJewelComputeClass:computeThreadOfHopeSocketImpact(request)
+	local sockets = request.sockets
+	local impactStat = request.impactStat
+	local threadVariants = request.variants
+	local methodId = request.methodId
+	local planCache = request.planCache
+	local progress = request.progress
+	local maxTotalPoints = request.maxTotalPoints
+	local occupiedMode = request.occupiedMode
+	local skipPlanSteps = request.skipPlanSteps
 	impactStat = normalizeImpactStat(impactStat)
 	local calcFunc, baseOutput = self.build.calcsTab:GetMiscCalculator()
 	local realBaseline = self:getImpactValue(impactStat, baseOutput)
@@ -753,14 +841,29 @@ function RadiusJewelComputeClass:computeThreadOfHopeSocketImpact(sockets, impact
 				})
 				if #candidates > 0 then
 					local maxAdditionalNodes = maxTotalPoints and math.max(maxTotalPoints - socketBasePoints, 0) or nil
-					local result
+					local deltaCache
 					if methodId == "fast" then
 						local cacheKey = s_format("ThreadOfHope|%s|%s", statField, socket.id)
 						planCache[cacheKey] = planCache[cacheKey] or { }
-						result = self:computeDisconnectedPassiveFastPlan(calcFunc, replacementContext, replacementContext.baselineOutput, socketBaseline, socketNode, item, impactStat, candidates, ringLabel, planCache[cacheKey], socket.label .. " | " .. ringLabel, variantProgress, maxAdditionalNodes, skipPlanSteps)
-					else
-						result = self:computeDisconnectedPassiveSimulatedPlan(calcFunc, replacementContext, replacementContext.baselineOutput, socketBaseline, socketNode, item, impactStat, candidates, ringLabel, socket.label .. " | " .. ringLabel, variantProgress, maxAdditionalNodes)
+						deltaCache = planCache[cacheKey]
 					end
+					local result = self:computeDisconnectedPassivePlan({
+						methodId = methodId,
+						calcFunc = calcFunc,
+						replacementContext = replacementContext,
+						baseOutput = replacementContext.baselineOutput,
+						baseValue = socketBaseline,
+						socketNode = socketNode,
+						item = item,
+						impactStat = impactStat,
+						candidates = candidates,
+						variantLabel = ringLabel,
+						deltaCache = deltaCache,
+						progressLabel = socket.label .. " | " .. ringLabel,
+						progress = variantProgress,
+						maxAdditionalNodes = maxAdditionalNodes,
+						skipPlanSteps = skipPlanSteps,
+					})
 					result.variant = threadVariant
 					if not bestResult
 					or result.delta > bestResult.delta
@@ -790,7 +893,13 @@ function RadiusJewelComputeClass:computeThreadOfHopeSocketImpact(sockets, impact
 	return results, realBaseline
 end
 
-function RadiusJewelComputeClass:computeSplitPersonalitySocketImpact(sockets, impactStat, variants, progress, maxTotalPoints, occupiedMode)
+function RadiusJewelComputeClass:computeSplitPersonalitySocketImpact(request)
+	local sockets = request.sockets
+	local impactStat = request.impactStat
+	local variants = request.variants
+	local progress = request.progress
+	local maxTotalPoints = request.maxTotalPoints
+	local occupiedMode = request.occupiedMode
 	impactStat = normalizeImpactStat(impactStat)
 	local calcFunc, baseOutput = self.build.calcsTab:GetMiscCalculator()
 	local realBaseline = self:getImpactValue(impactStat, baseOutput)
@@ -923,7 +1032,16 @@ local function groupImpossibleEscapeSockets(self, sockets, maxTotalPoints, occup
 	return groupedOrder
 end
 
-local function computeImpossibleEscapeRepresentativeResults(self, groupedOrder, variants, variantDataByName, methodId, impactStat, statField, calcFunc, planCache, progress)
+local function computeImpossibleEscapeRepresentativeResults(self, request)
+	local groupedOrder = request.groupedOrder
+	local variants = request.variants
+	local variantDataByName = request.variantDataByName
+	local methodId = request.methodId
+	local impactStat = request.impactStat
+	local statField = request.statField
+	local calcFunc = request.calcFunc
+	local planCache = request.planCache
+	local progress = request.progress
 	local bestResultByGroupKey = { }
 	local totalPlanCount = #groupedOrder * #variants
 	local currentPlanIndex = 0
@@ -939,42 +1057,29 @@ local function computeImpossibleEscapeRepresentativeResults(self, groupedOrder, 
 			local variantData = variantDataByName[variant.name]
 			if variantData then
 				local maxAdditionalNodes = groupEntry.remainingPoints >= 0 and groupEntry.remainingPoints or nil
-				local result
+				local deltaCache
 				if methodId == "fast" then
 					local cacheKey = self:getImpossibleEscapePlanCacheKey(statField, variant.name, replacementContext)
 					planCache[cacheKey] = planCache[cacheKey] or { }
-					result = self:computeDisconnectedPassiveFastPlan(
-						calcFunc,
-						replacementContext,
-						replacementContext.baselineOutput,
-						socketBaseline,
-						representativeSocketNode,
-						variantData.item,
-						impactStat,
-						variantData.candidates,
-						variant.name,
-						planCache[cacheKey],
-						variant.name,
-						planProgress,
-						maxAdditionalNodes,
-						true
-					)
-				else
-					result = self:computeDisconnectedPassiveSimulatedPlan(
-						calcFunc,
-						replacementContext,
-						replacementContext.baselineOutput,
-						socketBaseline,
-						representativeSocketNode,
-						variantData.item,
-						impactStat,
-						variantData.candidates,
-						variant.name,
-						variant.name,
-						planProgress,
-						maxAdditionalNodes
-					)
+					deltaCache = planCache[cacheKey]
 				end
+				local result = self:computeDisconnectedPassivePlan({
+					methodId = methodId,
+					calcFunc = calcFunc,
+					replacementContext = replacementContext,
+					baseOutput = replacementContext.baselineOutput,
+					baseValue = socketBaseline,
+					socketNode = representativeSocketNode,
+					item = variantData.item,
+					impactStat = impactStat,
+					candidates = variantData.candidates,
+					variantLabel = variant.name,
+					deltaCache = deltaCache,
+					progressLabel = variant.name,
+					progress = planProgress,
+					maxAdditionalNodes = maxAdditionalNodes,
+					skipPlanSteps = true,
+				})
 				result.variant = variant
 				if not bestResult
 				or result.delta > bestResult.delta
@@ -1018,7 +1123,15 @@ local function fanOutImpossibleEscapeResults(self, groupedOrder, bestResultByGro
 	return results
 end
 
-local function addImpossibleEscapePlanDetails(self, results, groupedOrder, bestResultByGroupKey, variantDataByName, impactStat, statField, calcFunc, planCache)
+local function addImpossibleEscapePlanDetails(self, request)
+	local results = request.results
+	local groupedOrder = request.groupedOrder
+	local bestResultByGroupKey = request.bestResultByGroupKey
+	local variantDataByName = request.variantDataByName
+	local impactStat = request.impactStat
+	local statField = request.statField
+	local calcFunc = request.calcFunc
+	local planCache = request.planCache
 	for _, groupEntry in ipairs(groupedOrder) do
 		local bestResult = bestResultByGroupKey[groupEntry.groupKey]
 		local variantData = bestResult and variantDataByName[bestResult.variant.name]
@@ -1028,22 +1141,20 @@ local function addImpossibleEscapePlanDetails(self, results, groupedOrder, bestR
 			local maxAdditionalNodes = groupEntry.remainingPoints >= 0 and groupEntry.remainingPoints or nil
 			local cacheKey = self:getImpossibleEscapePlanCacheKey(statField, bestResult.variant.name, replacementContext)
 			planCache[cacheKey] = planCache[cacheKey] or { }
-			local fullResult = self:computeDisconnectedPassiveFastPlan(
-				calcFunc,
-				replacementContext,
-				replacementContext.baselineOutput,
-				socketBaseline,
-				replacementContext.socketNode,
-				variantData.item,
-				impactStat,
-				variantData.candidates,
-				bestResult.variant.name,
-				planCache[cacheKey],
-				nil,
-				nil,
-				maxAdditionalNodes,
-				false
-			)
+			local fullResult = self:computeDisconnectedPassiveFastPlan({
+				calcFunc = calcFunc,
+				replacementContext = replacementContext,
+				baseOutput = replacementContext.baselineOutput,
+				baseValue = socketBaseline,
+				socketNode = replacementContext.socketNode,
+				item = variantData.item,
+				impactStat = impactStat,
+				candidates = variantData.candidates,
+				variantLabel = bestResult.variant.name,
+				deltaCache = planCache[cacheKey],
+				maxAdditionalNodes = maxAdditionalNodes,
+				skipPlanSteps = false,
+			})
 			fullResult.variant = bestResult.variant
 			fullResult.impossibleEscapeGroupKey = groupEntry.groupKey
 			for i, result in ipairs(results) do
@@ -1059,7 +1170,16 @@ local function addImpossibleEscapePlanDetails(self, results, groupedOrder, bestR
 	end
 end
 
-function RadiusJewelComputeClass:computeImpossibleEscapeSocketImpact(sockets, impactStat, variants, methodId, planCache, progress, maxTotalPoints, occupiedMode, skipPlanSteps)
+function RadiusJewelComputeClass:computeImpossibleEscapeSocketImpact(request)
+	local sockets = request.sockets
+	local impactStat = request.impactStat
+	local variants = request.variants
+	local methodId = request.methodId
+	local planCache = request.planCache
+	local progress = request.progress
+	local maxTotalPoints = request.maxTotalPoints
+	local occupiedMode = request.occupiedMode
+	local skipPlanSteps = request.skipPlanSteps
 	impactStat = normalizeImpactStat(impactStat)
 	local calcFunc, baseOutput = self.build.calcsTab:GetMiscCalculator()
 	local realBaseline = self:getImpactValue(impactStat, baseOutput)
@@ -1070,16 +1190,29 @@ function RadiusJewelComputeClass:computeImpossibleEscapeSocketImpact(sockets, im
 	if #groupedOrder == 0 then
 		return { }, realBaseline
 	end
-	local bestResultByGroupKey = computeImpossibleEscapeRepresentativeResults(
-		self, groupedOrder, variants, variantDataByName, methodId, impactStat,
-		statField, calcFunc, planCache, progress
-	)
+	local bestResultByGroupKey = computeImpossibleEscapeRepresentativeResults(self, {
+		groupedOrder = groupedOrder,
+		variants = variants,
+		variantDataByName = variantDataByName,
+		methodId = methodId,
+		impactStat = impactStat,
+		statField = statField,
+		calcFunc = calcFunc,
+		planCache = planCache,
+		progress = progress,
+	})
 	local results = fanOutImpossibleEscapeResults(self, groupedOrder, bestResultByGroupKey)
 	if not skipPlanSteps and methodId == "fast" and #results > 0 then
-		addImpossibleEscapePlanDetails(
-			self, results, groupedOrder, bestResultByGroupKey, variantDataByName,
-			impactStat, statField, calcFunc, planCache
-		)
+		addImpossibleEscapePlanDetails(self, {
+			results = results,
+			groupedOrder = groupedOrder,
+			bestResultByGroupKey = bestResultByGroupKey,
+			variantDataByName = variantDataByName,
+			impactStat = impactStat,
+			statField = statField,
+			calcFunc = calcFunc,
+			planCache = planCache,
+		})
 	end
 
 	return results, realBaseline

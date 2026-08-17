@@ -118,10 +118,10 @@ describe("RadiusJewelFinder actions #radius-jewel", function()
 		finder.buildJewelSockets = function()
 			return { { id = targetSocketId, label = "Target socket", pathDist = 0 } }
 		end
-		finder.compute.computeThreadOfHopeSocketImpact = function(_, sockets)
+		finder.compute.computeThreadOfHopeSocketImpact = function(_, request)
 			return {
 				{
-					socket = sockets[1],
+					socket = request.sockets[1],
 					variant = targetVariant,
 					delta = 10,
 					baseOutput = { },
@@ -150,10 +150,10 @@ describe("RadiusJewelFinder actions #radius-jewel", function()
 		finder.buildJewelSockets = function()
 			return { { id = targetSocketId, label = "Free target", pathDist = 0 } }
 		end
-		finder.compute.computeSocketImpact = function(_, sockets)
+		finder.compute.computeSocketImpact = function(_, request)
 			return {
 				{
-					socket = sockets[1],
+					socket = request.sockets[1],
 					delta = 10,
 					baseOutput = { },
 					compareOutput = { },
@@ -183,10 +183,10 @@ describe("RadiusJewelFinder actions #radius-jewel", function()
 		finder.buildJewelSockets = function()
 			return { { id = targetSocketId, label = "Target socket", pathDist = 0 } }
 		end
-		finder.compute.computeBestVariantSocketImpact = function(_, sockets)
+		finder.compute.computeBestVariantSocketImpact = function(_, request)
 			return {
 				{
-					socket = sockets[1],
+					socket = request.sockets[1],
 					variant = variant,
 					delta = 10,
 					baseOutput = { },

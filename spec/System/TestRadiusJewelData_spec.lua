@@ -340,7 +340,14 @@ describe("RadiusJewelData #radius-jewel", function()
 				return { }
 			end
 			local sockets = finder:buildJewelSockets(getSmallRadiusIndex())
-			finder.compute:computeIntuitiveLeapSocketImpact({ sockets[1] }, "Life", variant, "fast", { }, nil, nil, { id = "all" })
+			finder.compute:computeIntuitiveLeapSocketImpact({
+				sockets = { sockets[1] },
+				impactStat = "Life",
+				variant = variant,
+				methodId = "fast",
+				planCache = { },
+				occupiedMode = { id = "all" },
+			})
 			finder.compute.collectDisconnectedPassiveCandidates = originalCollect
 
 			assert.is_not_nil(capturedOptions)
@@ -377,17 +384,23 @@ describe("RadiusJewelData #radius-jewel", function()
 
 			local finder = makeFinder()
 			local computedVariants = { }
-			function finder.compute:computeIntuitiveLeapSocketImpact(sockets, impactStat, variant)
-				computedVariants[#computedVariants + 1] = variant
+			function finder.compute:computeIntuitiveLeapSocketImpact(request)
+				computedVariants[#computedVariants + 1] = request.variant
 				return {
 					{
-						socket = sockets[1],
-						delta = variant.isFoulborn and 2 or 1,
+						socket = request.sockets[1],
+						delta = request.variant.isFoulborn and 2 or 1,
 						addedNodeCount = 0,
 					},
 				}, 100
 			end
-			local results, baseline = finder.compute:computeBestIntuitiveLeapSocketImpact({ { id = "testSocket" } }, "Life", intuitiveVariants, "fast", { })
+			local results, baseline = finder.compute:computeBestIntuitiveLeapSocketImpact({
+				sockets = { { id = "testSocket" } },
+				impactStat = "Life",
+				variants = intuitiveVariants,
+				methodId = "fast",
+				planCache = { },
+			})
 			assert.are.equal(2, #computedVariants)
 			assert.are.equal(100, baseline)
 			assert.are.equal(1, #results)

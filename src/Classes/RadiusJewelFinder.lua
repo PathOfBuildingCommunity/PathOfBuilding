@@ -1193,9 +1193,14 @@ local function runRadiusJewelCompute(self, context)
 						local equippedList = self:findEquippedJewelSockets(jewelType, partition.representative)
 						local removedJewels = equippedList.atLimit and self:removeEquippedJewels(equippedList) or { }
 						computeState.computeContext.removedJewels = removedJewels
-						local socketResults, partitionBaseline = self.compute:computeBestVariantSocketImpact(
-							jewelSockets, partition.variants, selectedImpactStat,
-							partitionProgress, selectedMaxPoints, selectedOccupiedMode)
+						local socketResults, partitionBaseline = self.compute:computeBestVariantSocketImpact({
+							sockets = jewelSockets,
+							variants = partition.variants,
+							impactStat = selectedImpactStat,
+							progress = partitionProgress,
+							maxTotalPoints = selectedMaxPoints,
+							occupiedMode = selectedOccupiedMode,
+						})
 						baseline = baseline or partitionBaseline
 						self:restoreEquippedJewels(removedJewels)
 						computeState.computeContext.removedJewels = nil
@@ -1263,27 +1268,59 @@ local function runRadiusJewelCompute(self, context)
 							local removedJewels = equippedList.atLimit and self:removeEquippedJewels(equippedList) or { }
 							computeState.computeContext.removedJewels = removedJewels
 							if jt.name == "Intuitive Leap" then
-								socketResults, baseline =
-								self.compute:computeBestIntuitiveLeapSocketImpact(jewelSockets, selectedImpactStat, jt.variants,
-									computeMethod.id, finderState.disconnectedPassivePlanCache, typeProgress, selectedMaxPoints, selectedOccupiedMode, true)
+								socketResults, baseline = self.compute:computeBestIntuitiveLeapSocketImpact({
+									sockets = jewelSockets,
+									impactStat = selectedImpactStat,
+									variants = jt.variants,
+									methodId = computeMethod.id,
+									planCache = finderState.disconnectedPassivePlanCache,
+									progress = typeProgress,
+									maxTotalPoints = selectedMaxPoints,
+									occupiedMode = selectedOccupiedMode,
+									skipPlanSteps = true,
+								})
 							elseif jt.isThread then
-								socketResults, baseline =
-								self.compute:computeThreadOfHopeSocketImpact(jewelSockets, selectedImpactStat, threadVariants,
-									computeMethod.id, finderState.disconnectedPassivePlanCache, typeProgress, selectedMaxPoints, selectedOccupiedMode, true)
+								socketResults, baseline = self.compute:computeThreadOfHopeSocketImpact({
+									sockets = jewelSockets,
+									impactStat = selectedImpactStat,
+									variants = threadVariants,
+									methodId = computeMethod.id,
+									planCache = finderState.disconnectedPassivePlanCache,
+									progress = typeProgress,
+									maxTotalPoints = selectedMaxPoints,
+									occupiedMode = selectedOccupiedMode,
+									skipPlanSteps = true,
+								})
 							elseif jt.isImpossibleEscape then
-								socketResults, baseline =
-								self.compute:computeImpossibleEscapeSocketImpact(jewelSockets, selectedImpactStat,
-									jt.variants or getImpossibleEscapeVariants(),
-									computeMethod.id, finderState.disconnectedPassivePlanCache, typeProgress, selectedMaxPoints, selectedOccupiedMode, true)
+								socketResults, baseline = self.compute:computeImpossibleEscapeSocketImpact({
+									sockets = jewelSockets,
+									impactStat = selectedImpactStat,
+									variants = jt.variants or getImpossibleEscapeVariants(),
+									methodId = computeMethod.id,
+									planCache = finderState.disconnectedPassivePlanCache,
+									progress = typeProgress,
+									maxTotalPoints = selectedMaxPoints,
+									occupiedMode = selectedOccupiedMode,
+									skipPlanSteps = true,
+								})
 							elseif jt.isSplitPersonality then
-								socketResults, baseline =
-								self.compute:computeSplitPersonalitySocketImpact(jewelSockets, selectedImpactStat,
-									jt.variants or getSplitPersonalityVariants(),
-									typeProgress, selectedMaxPoints, selectedOccupiedMode)
+								socketResults, baseline = self.compute:computeSplitPersonalitySocketImpact({
+									sockets = jewelSockets,
+									impactStat = selectedImpactStat,
+									variants = jt.variants or getSplitPersonalityVariants(),
+									progress = typeProgress,
+									maxTotalPoints = selectedMaxPoints,
+									occupiedMode = selectedOccupiedMode,
+								})
 							else
-								socketResults, baseline =
-								self.compute:computeSocketImpact(jewelSockets, jt.rawText, selectedImpactStat,
-									typeProgress, selectedMaxPoints, selectedOccupiedMode)
+								socketResults, baseline = self.compute:computeSocketImpact({
+									sockets = jewelSockets,
+									rawText = jt.rawText,
+									impactStat = selectedImpactStat,
+									progress = typeProgress,
+									maxTotalPoints = selectedMaxPoints,
+									occupiedMode = selectedOccupiedMode,
+								})
 							end
 							self:restoreEquippedJewels(removedJewels)
 							computeState.computeContext.removedJewels = nil
@@ -1347,28 +1384,69 @@ local function runRadiusJewelCompute(self, context)
 						local removedJewels = equippedList.atLimit and self:removeEquippedJewels(equippedList) or { }
 						computeState.computeContext.removedJewels = removedJewels
 						if selectedJewelType.name == "Intuitive Leap" then
-							socketResults, baseline =
-								self.compute:computeBestIntuitiveLeapSocketImpact(jewelSockets, selectedImpactStat, displayedVariants, computeMethod.id,
-									finderState.disconnectedPassivePlanCache, progress, selectedMaxPoints, selectedOccupiedMode)
+							socketResults, baseline = self.compute:computeBestIntuitiveLeapSocketImpact({
+								sockets = jewelSockets,
+								impactStat = selectedImpactStat,
+								variants = displayedVariants,
+								methodId = computeMethod.id,
+								planCache = finderState.disconnectedPassivePlanCache,
+								progress = progress,
+								maxTotalPoints = selectedMaxPoints,
+								occupiedMode = selectedOccupiedMode,
+							})
 						elseif selectedJewelType.isThread then
-							socketResults, baseline =
-								self.compute:computeThreadOfHopeSocketImpact(jewelSockets, selectedImpactStat, threadVariants, computeMethod.id, finderState.disconnectedPassivePlanCache, progress, selectedMaxPoints, selectedOccupiedMode)
+							socketResults, baseline = self.compute:computeThreadOfHopeSocketImpact({
+								sockets = jewelSockets,
+								impactStat = selectedImpactStat,
+								variants = threadVariants,
+								methodId = computeMethod.id,
+								planCache = finderState.disconnectedPassivePlanCache,
+								progress = progress,
+								maxTotalPoints = selectedMaxPoints,
+								occupiedMode = selectedOccupiedMode,
+							})
 						elseif selectedJewelType.isImpossibleEscape then
-							socketResults, baseline =
-								self.compute:computeImpossibleEscapeSocketImpact(jewelSockets, selectedImpactStat, displayedVariants or getImpossibleEscapeVariants(), computeMethod.id, finderState.disconnectedPassivePlanCache, progress, selectedMaxPoints, selectedOccupiedMode)
+							socketResults, baseline = self.compute:computeImpossibleEscapeSocketImpact({
+								sockets = jewelSockets,
+								impactStat = selectedImpactStat,
+								variants = displayedVariants or getImpossibleEscapeVariants(),
+								methodId = computeMethod.id,
+								planCache = finderState.disconnectedPassivePlanCache,
+								progress = progress,
+								maxTotalPoints = selectedMaxPoints,
+								occupiedMode = selectedOccupiedMode,
+							})
 						elseif selectedJewelType.isSplitPersonality then
-							socketResults, baseline =
-								self.compute:computeSplitPersonalitySocketImpact(jewelSockets, selectedImpactStat, displayedVariants or getSplitPersonalityVariants(), progress, selectedMaxPoints, selectedOccupiedMode)
+							socketResults, baseline = self.compute:computeSplitPersonalitySocketImpact({
+								sockets = jewelSockets,
+								impactStat = selectedImpactStat,
+								variants = displayedVariants or getSplitPersonalityVariants(),
+								progress = progress,
+								maxTotalPoints = selectedMaxPoints,
+								occupiedMode = selectedOccupiedMode,
+							})
 						elseif displayedVariants and #displayedVariants > 0 then
 							if hasVariantGroups() and selectedVariantGroup and selectedVariantGroup.value ~= ALL_VARIANT_GROUPS_VALUE then
 								itemLabel = selectedVariantGroup.name
 							end
-							socketResults, baseline =
-								self.compute:computeBestVariantSocketImpact(jewelSockets, displayedVariants, selectedImpactStat, progress, selectedMaxPoints, selectedOccupiedMode)
+							socketResults, baseline = self.compute:computeBestVariantSocketImpact({
+								sockets = jewelSockets,
+								variants = displayedVariants,
+								impactStat = selectedImpactStat,
+								progress = progress,
+								maxTotalPoints = selectedMaxPoints,
+								occupiedMode = selectedOccupiedMode,
+							})
 						else
 							local rawText = selectedJewelType.rawText
-							socketResults, baseline =
-								self.compute:computeSocketImpact(jewelSockets, rawText, selectedImpactStat, progress, selectedMaxPoints, selectedOccupiedMode)
+							socketResults, baseline = self.compute:computeSocketImpact({
+								sockets = jewelSockets,
+								rawText = rawText,
+								impactStat = selectedImpactStat,
+								progress = progress,
+								maxTotalPoints = selectedMaxPoints,
+								occupiedMode = selectedOccupiedMode,
+							})
 						end
 						self:restoreEquippedJewels(removedJewels)
 						computeState.computeContext.removedJewels = nil

@@ -131,16 +131,16 @@ describe("RadiusJewelFinder #radius-jewel", function()
 			finder.buildJewelSockets = function()
 				return { { id = 33631, label = "Synthetic socket", pathDist = 1 } }
 			end
-			finder.compute.computeBestIntuitiveLeapSocketImpact = function(_, sockets, _, variants, methodId, planCache)
-				planCache["result-context-test"] = methodId
+			finder.compute.computeBestIntuitiveLeapSocketImpact = function(_, request)
+				request.planCache["result-context-test"] = request.methodId
 				if yieldDuringCompute then
 					coroutine.yield()
 				end
 				computeCompleted = true
 				return {
 					{
-						socket = sockets[1],
-						variant = variants[1],
+						socket = request.sockets[1],
+						variant = request.variants[1],
 						delta = 1,
 						addedNodeCount = 0,
 						baseOutput = { },
@@ -225,11 +225,11 @@ describe("RadiusJewelFinder #radius-jewel", function()
 			popup.controls.resultsList.selIndex = 1
 			assert.is_true(popup.controls.applyButton.enabled())
 
-			finder.compute.computeThreadOfHopeSocketImpact = function(_, sockets, _, variants)
+			finder.compute.computeThreadOfHopeSocketImpact = function(_, request)
 				return {
 					{
-						socket = sockets[1],
-						variant = variants[1],
+						socket = request.sockets[1],
+						variant = request.variants[1],
 						delta = 1,
 						addedNodeCount = 0,
 						baseOutput = { },
@@ -305,11 +305,11 @@ describe("RadiusJewelFinder #radius-jewel", function()
 			finder.buildJewelSockets = function()
 				return { { id = 33631, label = "Synthetic socket", pathDist = 1 } }
 			end
-			finder.compute.computeBestVariantSocketImpact = function(_, sockets, variants)
+			finder.compute.computeBestVariantSocketImpact = function(_, request)
 				return {
 					{
-						socket = sockets[1],
-						variant = variants[1],
+						socket = request.sockets[1],
+						variant = request.variants[1],
 						delta = 1,
 						baseOutput = { },
 						compareOutput = { },
@@ -353,12 +353,12 @@ describe("RadiusJewelFinder #radius-jewel", function()
 				return { { id = targetSocketId, label = "Target socket", pathDist = 1 } }
 			end
 			local computedVariants
-			finder.compute.computeThreadOfHopeSocketImpact = function(_, sockets, _, variants)
-				computedVariants = variants
+			finder.compute.computeThreadOfHopeSocketImpact = function(_, request)
+				computedVariants = request.variants
 				return {
 					{
-						socket = sockets[1],
-						variant = variants[1],
+						socket = request.sockets[1],
+						variant = request.variants[1],
 						delta = 1,
 						addedNodeCount = 0,
 						baseOutput = { },
@@ -539,10 +539,10 @@ describe("RadiusJewelFinder #radius-jewel", function()
 			end
 
 			local observedPartitions = { }
-			finder.compute.computeBestVariantSocketImpact = function(_, sockets, variants)
-				local identity = variants[1].variantIdentity
+			finder.compute.computeBestVariantSocketImpact = function(_, request)
+				local identity = request.variants[1].variantIdentity
 				local limitKey = identity.limitKey
-				for _, variant in ipairs(variants) do
+				for _, variant in ipairs(request.variants) do
 					assert.are.equal(limitKey, variant.variantIdentity.limitKey,
 						"each compute call should contain one canonical limit partition")
 				end
@@ -553,8 +553,8 @@ describe("RadiusJewelFinder #radius-jewel", function()
 				local sourceDelta = limitKey == "The Red Nightmare" and 10 or 1
 				local targetDelta = limitKey == "The Red Nightmare" and 15 or 2
 				return {
-					{ socket = sockets[1], variant = variants[1], delta = sourceDelta, baseOutput = { }, compareOutput = { } },
-					{ socket = sockets[2], variant = variants[1], delta = targetDelta, baseOutput = { }, compareOutput = { } },
+					{ socket = request.sockets[1], variant = request.variants[1], delta = sourceDelta, baseOutput = { }, compareOutput = { } },
+					{ socket = request.sockets[2], variant = request.variants[1], delta = targetDelta, baseOutput = { }, compareOutput = { } },
 				}, 100
 			end
 			finder.compute.computeSocketImpact = function() return { }, 100 end
@@ -990,8 +990,8 @@ describe("RadiusJewelFinder #radius-jewel", function()
 			assert.is_true(#popup.controls.jewelVariantSelect.list > 1, "expected at least one selectable keystone variant")
 
 			local capturedVariants
-			finder.compute.computeImpossibleEscapeSocketImpact = function(_, _, _, variants)
-				capturedVariants = variants
+			finder.compute.computeImpossibleEscapeSocketImpact = function(_, request)
+				capturedVariants = request.variants
 				return { }, 0
 			end
 			popup.controls.computeButton:Click()
