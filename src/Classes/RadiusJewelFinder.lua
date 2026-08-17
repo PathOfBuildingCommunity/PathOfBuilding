@@ -837,9 +837,9 @@ local function buildRadiusJewelPopupSetup(self)
 	}
 	local threadVariants = RadiusJewelData.getThreadOfHopeVariants()
 
-	local threadVariantLabels = { }
+	local threadVariantLabels = { "Any ring" }
 	for _, variant in ipairs(threadVariants) do
-		t_insert(threadVariantLabels, variant.name .. " Ring")
+		t_insert(threadVariantLabels, variant.ringLabel or (variant.name .. " Ring"))
 	end
 	local impactStatLabels = { }
 	for _, stat in ipairs(IMPACT_STATS) do
@@ -1136,7 +1136,7 @@ local function runRadiusJewelFind(self, context, makePreferred)
 				score = r.score or 0,
 				scorePerPoint = scorePerPoint,
 				sortValue = sortValue,
-				variantLabel = r.variant and (isThreadBestVariantSearch and (r.variant.name .. " Ring")
+				variantLabel = r.variant and (isThreadBestVariantSearch and (r.variant.ringLabel or (r.variant.name .. " Ring"))
 					or r.variant.dropdownLabel or r.variant.name) or "",
 				detailText = detailText,
 				detailNodeId = detailNodeId,
@@ -1152,8 +1152,11 @@ local function runRadiusJewelFind(self, context, makePreferred)
 		stampResultRows(rows, resultContextKey)
 		controls.resultsList:SetMode(isThreadBestVariantSearch and "findThread" or "find", rows, COL_META .. "(no results)")
 		local elapsed = formatElapsed(searchStartTime)
+		local threadLabel = #threadVariants == 1
+			and ("Thread of Hope (" .. (threadVariants[1].ringLabel or (threadVariants[1].name .. " Ring")) .. ")")
+			or "Thread of Hope (Any ring)"
 		controls.statusLabel.label = (isThreadBestVariantSearch
-			and s_format("^7Thread of Hope | %d | score/pt", #results)
+			and s_format("^7%s | %d | score/pt", threadLabel, #results)
 			or isImpossibleEscapeBestVariantSearch
 			and s_format("^7Impossible Escape | %d | score/pt", #results)
 			or isSplitPersonalitySearch
@@ -1380,6 +1383,11 @@ local function runRadiusJewelCompute(self, context)
 				else
 					local displayedVariants = getSelectedVariants()
 					local itemLabel = selectedJewelType.name
+					if selectedJewelType.isThread then
+						itemLabel = #threadVariants == 1
+							and (itemLabel .. " (" .. (threadVariants[1].ringLabel or (threadVariants[1].name .. " Ring")) .. ")")
+							or (itemLabel .. " (Any ring)")
+					end
 					local socketResults, baseline
 					local rows
 					local useVariantPartitions = displayedVariants and #displayedVariants > 1
@@ -1501,7 +1509,7 @@ local function buildRadiusJewelPopupContext(self)
 	local showLegacy = false
 	local activeJewelTypes = { }
 	local selectedJewelType
-	local selectedThreadVariant = threadVariants[1]
+	local selectedThreadVariant
 	local selectedJewelVariant
 	local selectedComputeMethod = DISCONNECTED_PASSIVE_COMPUTE_METHODS[1]
 	local selectedMaxPoints = 20
@@ -1562,11 +1570,14 @@ local function buildRadiusJewelPopupContext(self)
 			or selectedJewelType.computeMethods and #selectedJewelType.computeMethods > 0)
 		local computeMethodKey = supportsComputeMethods and selectedComputeMethod and selectedComputeMethod.id or ""
 		local legacyKey = selectedJewelType and selectedJewelType.isAllJewels and showLegacy and "1" or "0"
+		local threadVariantKey = selectedJewelType and selectedJewelType.isThread
+			and (selectedThreadVariant and selectedThreadVariant.rawText or "ANY") or ""
 		return table.concat({
 			tostring(self.build.outputRevision or 0),
 			selectedJewelType and selectedJewelType.name or "",
 			selectedVariantKey,
 			variantGroupKey,
+			threadVariantKey,
 			selectedImpactStat and selectedImpactStat.field or "",
 			computeMethodKey,
 			selectedMaxPoints and tostring(selectedMaxPoints) or "",
@@ -1794,6 +1805,10 @@ local function buildRadiusJewelPopupContext(self)
 		return variants
 	end
 
+	local function getSelectedThreadVariants()
+		return selectedThreadVariant and { selectedThreadVariant } or threadVariants
+	end
+
 	local function buildPreviewLinesForJewelType(jewelType, previewVariantOverride)
 		if not jewelType then
 			return nil
@@ -1844,6 +1859,9 @@ local function buildRadiusJewelPopupContext(self)
 		local lines = fn and fn() or nil
 		if type(lines) ~= "table" then
 			return nil
+		end
+		if jewelType.isThread then
+			return lines
 		end
 
 		local genericLines = { }
@@ -2254,11 +2272,12 @@ local function buildRadiusJewelPopupContext(self)
 	controls.allJewelsViewSelect.shown = false
 
 	-- Thread ring selector (shown when Thread of Hope selected)
-	controls.threadVariantLabel = new("LabelControl"):LabelControl(TL, { variantDefaultX, headerLabelY, 0, 16 }, "^7Preview ring:")
+	controls.threadVariantLabel = new("LabelControl"):LabelControl(TL, { variantDefaultX, headerLabelY, 0, 16 }, "^7Ring:")
 	controls.threadVariantSelect = new("DropDownControl"):DropDownControl(TL, { variantDefaultX, headerInputY, 200, 20 }, tvLabels, function(idx)
-		selectedThreadVariant = threadVariants[idx]
-		saveFinderState()
-		updatePreview()
+		onCriteriaChanged(function()
+			selectedThreadVariant = idx == 1 and nil or threadVariants[idx - 1]
+			updatePreview()
+		end)
 	end)
 	controls.threadVariantLabel.shown = false
 	controls.threadVariantSelect.shown = false
@@ -2436,11 +2455,18 @@ local function buildRadiusJewelPopupContext(self)
 		end
 	end
 	controls.threadVariantSelect.tooltipFunc = function(tooltip, mode, index)
-		local variant = threadVariants[index]
-		if not selectedJewelType or not variant then
+		if not selectedJewelType then
 			return
 		end
+		if index == 1 then
+			addPreviewLinesToTooltip(tooltip, buildGenericTypeTooltipLinesForJewelType(selectedJewelType))
+			tooltip:AddLine(16, "^8Find and Compute compare every ring.")
+			return
+		end
+		local variant = threadVariants[index - 1]
+		if not variant then return end
 		addPreviewLinesToTooltip(tooltip, buildPreviewLinesForJewelType(selectedJewelType, variant))
+		tooltip:AddLine(16, "^8Find and Compute use only this ring.")
 	end
 	syncSelectedJewelTypeControls()
 
@@ -2518,7 +2544,9 @@ local function buildRadiusJewelPopupContext(self)
 			local isEquippedSocket = equippedSocketIds[r.socket.id]
 			local points = isEquippedSocket and 0
 				or self:getSocketBasePoints(r.socket, { isOccupied = r.replacedItemLabel ~= nil })
-			local variantLabel = r.variant and (r.variant.dropdownLabel or r.variant.name) or ""
+			local variantLabel = r.variant and (jewelType.isThread
+				and (r.variant.ringLabel or (r.variant.name .. " Ring"))
+				or r.variant.dropdownLabel or r.variant.name) or ""
 			local itemTooltipLines = buildPreviewLinesForJewelType(jewelType, r.variant)
 			local variantIdentity = r.variant and r.variant.variantIdentity or jewelType.variantIdentity
 			local applyRawText = variantIdentity and variantIdentity.rawText or r.variant and r.variant.rawText or jewelType.rawText
@@ -2612,6 +2640,8 @@ local function buildRadiusJewelPopupContext(self)
 
 	controls.computeButton = new("ButtonControl"):ButtonControl(TL, { popupWidth - edgePadding * 2 - 72, headerInputY, 72, buttonHeight }, "Compute", function()
 		local resultContextKey = getResultContextKey()
+		local selectedThreadVariants = selectedJewelType and selectedJewelType.isThread
+			and getSelectedThreadVariants() or threadVariants
 		runRadiusJewelCompute(self, {
 			controls = controls,
 			computeState = computeState,
@@ -2625,7 +2655,7 @@ local function buildRadiusJewelPopupContext(self)
 			selectedJewelSupportsComputeMethods = selectedJewelSupportsComputeMethods,
 			activeJewelTypes = activeJewelTypes,
 			jewelSockets = jewelSockets,
-			threadVariants = threadVariants,
+			threadVariants = selectedThreadVariants,
 			finderState = finderState,
 			selectedMaxPoints = selectedMaxPoints,
 			selectedOccupiedMode = selectedOccupiedMode,
@@ -2680,7 +2710,7 @@ local function buildRadiusJewelPopupContext(self)
 			controls = controls,
 			treeData = treeData,
 			radiusIndexByLabel = radiusIndexByLabel,
-			threadVariants = threadVariants,
+			threadVariants = getSelectedThreadVariants(),
 			jewelSockets = jewelSockets,
 			selectedJewelType = selectedJewelType,
 			selectedJewelVariant = selectedJewelVariant,
@@ -2915,7 +2945,7 @@ local function buildRadiusJewelPopupContext(self)
 			for i, variant in ipairs(threadVariants) do
 				if variant.name == finderState.threadVariantName then
 					selectedThreadVariant = variant
-					controls.threadVariantSelect.selIndex = i
+					controls.threadVariantSelect.selIndex = i + 1
 					break
 				end
 			end

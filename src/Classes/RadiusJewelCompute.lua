@@ -652,8 +652,6 @@ function Class:computeThreadOfHopeSocketImpact(sockets, impactStat, threadVarian
 		threadItems[variantIndex] = item
 	end
 
-	-- Pass 1: find best ring variant per socket (skip plan steps, with early pruning)
-	local pendingPlanSteps = { }
 	for socketIndex, socket in ipairs(sockets) do
 		progressTick(progress, socketIndex - 1, #sockets, socket.label)
 		local socketProgress = progressChild(progress, (socketIndex - 1) / #sockets, 1 / #sockets)
@@ -664,10 +662,10 @@ function Class:computeThreadOfHopeSocketImpact(sockets, impactStat, threadVarian
 			local socketNode = replacementContext.socketNode
 			local socketBaseline = self:getImpactValue(impactStat, replacementContext.baselineOutput)
 			local bestResult
-			local bestVariantIndex, bestCandidates
 			for variantIndex, threadVariant in ipairs(threadVariants) do
 				local variantProgress = progressChild(socketProgress, (variantIndex - 1) / #threadVariants, 1 / #threadVariants)
 				local item = threadItems[variantIndex]
+				local ringLabel = threadVariant.ringLabel or (threadVariant.name .. " Ring")
 				local candidates = self:collectDisconnectedPassiveCandidates(socketNode, {
 					radiusIndex = threadVariant.radiusIndex,
 					notableOrKeystoneOnly = skipPlanSteps or methodId == "fast",
@@ -679,9 +677,9 @@ function Class:computeThreadOfHopeSocketImpact(sockets, impactStat, threadVarian
 					if methodId == "fast" then
 						local cacheKey = s_format("ThreadOfHope|%s|%s", statField, socket.id)
 						planCache[cacheKey] = planCache[cacheKey] or { }
-						result = self:computeDisconnectedPassiveFastPlan(calcFunc, replacementContext, replacementContext.baselineOutput, socketBaseline, socketNode, item, impactStat, candidates, threadVariant.name .. " Ring", planCache[cacheKey], socket.label .. " | " .. threadVariant.name .. " Ring", variantProgress, maxAdditionalNodes, true, earlyPruneThreshold)
+						result = self:computeDisconnectedPassiveFastPlan(calcFunc, replacementContext, replacementContext.baselineOutput, socketBaseline, socketNode, item, impactStat, candidates, ringLabel, planCache[cacheKey], socket.label .. " | " .. ringLabel, variantProgress, maxAdditionalNodes, skipPlanSteps, earlyPruneThreshold)
 					else
-						result = self:computeDisconnectedPassiveSimulatedPlan(calcFunc, replacementContext, replacementContext.baselineOutput, socketBaseline, socketNode, item, impactStat, candidates, threadVariant.name .. " Ring", socket.label .. " | " .. threadVariant.name .. " Ring", variantProgress, maxAdditionalNodes)
+						result = self:computeDisconnectedPassiveSimulatedPlan(calcFunc, replacementContext, replacementContext.baselineOutput, socketBaseline, socketNode, item, impactStat, candidates, ringLabel, socket.label .. " | " .. ringLabel, variantProgress, maxAdditionalNodes)
 					end
 					if not result.pruned then
 						result.variant = threadVariant
@@ -690,8 +688,6 @@ function Class:computeThreadOfHopeSocketImpact(sockets, impactStat, threadVarian
 						or (result.delta == bestResult.delta and result.addedNodeCount < bestResult.addedNodeCount)
 						or (result.delta == bestResult.delta and result.addedNodeCount == bestResult.addedNodeCount and threadVariant.radiusIndex < bestResult.variant.radiusIndex) then
 							bestResult = result
-							bestVariantIndex = variantIndex
-							bestCandidates = candidates
 						end
 					end
 				end
@@ -701,17 +697,6 @@ function Class:computeThreadOfHopeSocketImpact(sockets, impactStat, threadVarian
 				bestResult.replacedItemLabel = occupancy and occupancy.replacedItemLabel or nil
 				bestResult.storedUnallocatedItemLabel = occupancy and occupancy.storedUnallocatedItemLabel or nil
 				t_insert(results, bestResult)
-				if not skipPlanSteps and methodId == "fast" and bestVariantIndex then
-					t_insert(pendingPlanSteps, {
-						replacementContext = replacementContext,
-						socketBaseline = socketBaseline,
-						bestVariantIndex = bestVariantIndex,
-						bestCandidates = bestCandidates,
-						socketBasePoints = socketBasePoints,
-						cacheKey = s_format("ThreadOfHope|%s|%s", statField, socket.id),
-						resultIndex = #results,
-					})
-				end
 			end
 			progressTick(socketProgress, 1, 1, socket.label)
 		end
@@ -723,53 +708,6 @@ function Class:computeThreadOfHopeSocketImpact(sockets, impactStat, threadVarian
 		end
 		return a.variant.radiusIndex < b.variant.radiusIndex
 	end)
-
-	-- Pass 2: compute plan steps only for top results (single-jewel mode)
-	if #pendingPlanSteps > 0 then
-		-- Build lookup: which result indices need plan steps (top 5 by delta)
-		local topResultIndices = { }
-		for i = 1, math.min(5, #results) do
-			topResultIndices[results[i]] = true
-		end
-		for _, pending in ipairs(pendingPlanSteps) do
-			local result = results[pending.resultIndex]
-			-- resultIndex may point to another row after sorting; check by reference
-			if not topResultIndices[result] then
-				goto continuePending
-			end
-			local replacementContext = pending.replacementContext
-			local maxAdditionalNodes = maxTotalPoints and math.max(maxTotalPoints - pending.socketBasePoints, 0) or nil
-			local fullResult = self:computeDisconnectedPassiveFastPlan(
-				calcFunc,
-				replacementContext,
-				replacementContext.baselineOutput,
-				pending.socketBaseline,
-				replacementContext.socketNode,
-				threadItems[pending.bestVariantIndex],
-				impactStat,
-				pending.bestCandidates,
-				threadVariants[pending.bestVariantIndex].name .. " Ring",
-				planCache[pending.cacheKey],
-				nil,
-				nil,
-				maxAdditionalNodes,
-				false,
-				nil
-			)
-			fullResult.variant = threadVariants[pending.bestVariantIndex]
-			fullResult.socket = result.socket
-			fullResult.replacedItemLabel = result.replacedItemLabel
-			fullResult.storedUnallocatedItemLabel = result.storedUnallocatedItemLabel
-			-- Replace in-place in results
-			for i, r in ipairs(results) do
-				if r == result then
-					results[i] = fullResult
-					break
-				end
-			end
-			::continuePending::
-		end
-	end
 
 	return results, realBaseline
 end

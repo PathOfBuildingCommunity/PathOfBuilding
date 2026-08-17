@@ -208,6 +208,7 @@ function M.getThreadOfHopeVariants()
 			local variantRawText = mustGetUniqueVariantRawText("Thread of Hope", variantIndex)
 			local variant = {
 				name = variantName:gsub(" Ring$", ""),
+				ringLabel = variantName,
 				rawText = variantRawText,
 				radiusIndex = getRadiusIndexFromRawText(variantRawText),
 			}
@@ -688,21 +689,22 @@ local function previewVariantOrGroup(groupName, variant)
 end
 
 local function previewThreadOfHope(ringName)
+	if not ringName then
+		return previewFinderGroup("Thread of Hope", "Multiple ring sizes available")
+	end
 	local rawText = mustGetUniqueRawText("Thread of Hope")
 	local displayName
-	if ringName then
-		local item = new("Item"):Item("Rarity: Unique\n" .. rawText)
-		local variantName
-		for _, candidate in ipairs(item.variantList or { }) do
-			if candidate == ringName or candidate:gsub(" Ring$", "") == ringName then
-				variantName = candidate
-				break
-			end
+	local item = new("Item"):Item("Rarity: Unique\n" .. rawText)
+	local variantName
+	for _, candidate in ipairs(item.variantList or { }) do
+		if candidate == ringName or candidate:gsub(" Ring$", "") == ringName then
+			variantName = candidate
+			break
 		end
-		if variantName then
-			rawText = mustGetUniqueVariantRawText("Thread of Hope", variantName)
-			displayName = "Thread of Hope (" .. variantName .. ")"
-		end
+	end
+	if variantName then
+		rawText = mustGetUniqueVariantRawText("Thread of Hope", variantName)
+		displayName = "Thread of Hope (" .. variantName .. ")"
 	end
 	return previewFromRawText(rawText, displayName)
 end
