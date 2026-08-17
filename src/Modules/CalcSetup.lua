@@ -1541,7 +1541,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 								grantedEffect = grantedEffect,
 								gemData = env.data.gems[env.data.gemForBaseName[grantedEffect.name:lower()] or env.data.gemForBaseName[(grantedEffect.name .. " Support"):lower()]],
 								level = level or value.level,
-								appliesToGrantedSkills = value.appliesToGrantedSkills,
+								appliesToGrantedSkills = value and value.appliesToGrantedSkills,
 								quality = 0,
 								enabled = true,
 							}, targetList, env.mode)

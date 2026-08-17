@@ -1165,13 +1165,18 @@ you can add them, copy the link here, and press "Price Item" to evaluate the ite
 				controls["priceButton"..row_idx].label = "Price Item"
 			end)
 		end)
+	local jewelUniques = {
+		Megalomaniac = true,
+		["Watcher's Eye"] = true,
+	}
 	controls["priceButton"..row_idx].enabled = function()
 		local isAuthorized = main.api.authToken ~= nil
 		local validURL = controls["uri"..row_idx].validURL
 		local isSearching = controls["priceButton"..row_idx].label == "Searching..."
+		local requiresJewelSlot = not slotTbl.unique or jewelUniques[slotTbl.slotName]
 		local selectedJewelSlot = slotTbl.selectedJewelNodeId and self.itemsTab.sockets[slotTbl.selectedJewelNodeId]
 		local hasRequiredJewelSlot = not slotTbl.unique or selectedJewelSlot and not selectedJewelSlot.inactive
-		return isAuthorized and validURL and not isSearching and (hasRequiredJewelSlot or not slotTbl.selectedJewelNodeId)
+		return isAuthorized and validURL and not isSearching and (hasRequiredJewelSlot or not requiresJewelSlot)
 	end
 	controls["priceButton"..row_idx].tooltipFunc = function(tooltip)
 		tooltip:Clear()
