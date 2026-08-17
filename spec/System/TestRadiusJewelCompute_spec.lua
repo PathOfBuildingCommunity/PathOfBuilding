@@ -736,6 +736,91 @@ describe("RadiusJewelCompute #radius-jewel", function()
 			end
 		end)
 
+		local function runSyntheticFastThreadCompute(sockets, deltaBySocketId)
+			local finder = makeFinder()
+			local originalGetMiscCalculator = build.calcsTab.GetMiscCalculator
+			build.calcsTab.GetMiscCalculator = function()
+				return function() return { Life = 0 } end, { Life = 0 }
+			end
+			finder.socketMatchesOccupiedMode = function()
+				return true, nil
+			end
+			finder.getSocketBasePoints = function(_, socket)
+				return socket.pathDist or 0
+			end
+			finder.buildSocketReplacementContext = function(_, _, socketId)
+				return {
+					socketNode = { id = socketId },
+					baselineOutput = { Life = 0 },
+				}
+			end
+			finder.collectDisconnectedPassiveCandidates = function(_, socketNode)
+				return { { id = socketNode.id * 10, name = "Candidate " .. socketNode.id } }
+			end
+			finder.computeDisconnectedPassiveFastPlan = function(_, _, _, _, _, socketNode, _, _, _, variantLabel, _, _, _, _, skipPlanSteps)
+				local result = {
+					delta = deltaBySocketId[socketNode.id],
+					addedNodeCount = 1,
+					resultNodes = { socketNode.id * 10 },
+					resultNodeLabels = { "Candidate " .. socketNode.id },
+					baseOutput = { Life = 0 },
+					compareOutput = { Life = deltaBySocketId[socketNode.id] },
+					detailText = "plan-" .. socketNode.id,
+					variantLabel = variantLabel,
+				}
+				if not skipPlanSteps then
+					result.planSteps = { { detailText = result.detailText } }
+				end
+				return result
+			end
+
+			local results = finder:computeThreadOfHopeSocketImpact(
+				sockets, "Life", { getTestVariants()[1] }, "fast", { }, nil, nil, nil, false)
+			build.calcsTab.GetMiscCalculator = originalGetMiscCalculator
+			return results
+		end
+
+		it("keeps every fast plan attached to its socket after sorting", function()
+			local results = runSyntheticFastThreadCompute({
+				{ id = 101, label = "Lower gain", pathDist = 1 },
+				{ id = 202, label = "Higher gain", pathDist = 1 },
+			}, {
+				[101] = 10,
+				[202] = 20,
+			})
+
+			assert.are.equal(2, #results)
+			assert.are.equal(202, results[1].socket.id)
+			for _, result in ipairs(results) do
+				assert.are.equal("plan-" .. result.socket.id, result.detailText)
+				assert.is_not_nil(result.planSteps)
+			end
+		end)
+
+		it("builds plan details for a percent-per-point leader outside the top five gains", function()
+			local sockets = { }
+			local deltas = { }
+			for index, delta in ipairs({ 100, 90, 80, 70, 60, 10 }) do
+				local socketId = 300 + index
+				table.insert(sockets, {
+					id = socketId,
+					label = "Socket " .. index,
+					pathDist = index == 6 and 0 or 99,
+				})
+				deltas[socketId] = delta
+			end
+			local results = runSyntheticFastThreadCompute(sockets, deltas)
+			local efficiencyLeader = results[6]
+			local leaderEfficiency = efficiencyLeader.delta
+				/ (efficiencyLeader.socket.pathDist + efficiencyLeader.addedNodeCount)
+
+			assert.are.equal(10, efficiencyLeader.delta)
+			assert.is_true(leaderEfficiency > results[1].delta
+				/ (results[1].socket.pathDist + results[1].addedNodeCount))
+			assert.is_not_nil(efficiencyLeader.planSteps)
+			assert.are.equal("plan-" .. efficiencyLeader.socket.id, efficiencyLeader.detailText)
+		end)
+
 	end)
 
 	-- ── Jewel limit parsing ─────────────────────────────────────────────────

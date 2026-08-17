@@ -116,6 +116,14 @@ describe("RadiusJewelFinder #radius-jewel", function()
 			end
 		end
 
+		local function getPreviewText(popup)
+			local lines = { }
+			for _, line in ipairs(popup.controls.previewList.list) do
+				table.insert(lines, line[1] or "")
+			end
+			return table.concat(lines, "\n")
+		end
+
 		local function openResultContextTestPopup(yieldDuringCompute)
 			build.radiusJewelFinderState = nil
 			local finder = makeFinder()
@@ -337,14 +345,16 @@ describe("RadiusJewelFinder #radius-jewel", function()
 			assertCachedResultsAreApplicable(popup, allJewelsContextKey, allJewelsResultCount)
 		end)
 
-		it("keeps the Thread preview ring outside Find and Compute result identity", function()
+		it("filters Thread Find and Compute by the selected ring", function()
 			local threadVariants = RadiusJewelData.getThreadOfHopeVariants()
 			local targetSocketId = 33631
 			local finder = makeFinder()
 			finder.buildJewelSockets = function()
 				return { { id = targetSocketId, label = "Target socket", pathDist = 1 } }
 			end
+			local computedVariants
 			finder.computeThreadOfHopeSocketImpact = function(_, sockets, _, variants)
+				computedVariants = variants
 				return {
 					{
 						socket = sockets[1],
@@ -358,31 +368,64 @@ describe("RadiusJewelFinder #radius-jewel", function()
 			end
 			local popup = finder:Open()
 			popup.controls.jewelTypeSelect.selFunc(findControlIndex(popup.controls.jewelTypeSelect.list, "Thread of Hope"))
+			assert.are.equal("^7Ring:", popup.controls.threadVariantLabel.label)
+			assert.are.equal("Any ring", popup.controls.threadVariantSelect.list[1])
+			for index, variant in ipairs(threadVariants) do
+				assert.are.equal(variant.ringLabel, popup.controls.threadVariantSelect.list[index + 1])
+			end
+			local anyRingPreview = getPreviewText(popup)
+			assert.matches("Multiple ring sizes available", anyRingPreview, 1, true)
+			for _, variant in ipairs(threadVariants) do
+				assert.is_nil(anyRingPreview:find(variant.ringLabel, 1, true))
+			end
 			popup.controls.findButton:Click()
 			local findRow = popup.controls.resultsList.list[1]
 			assert.is_not_nil(findRow)
-			local findResultContextKey = findRow.resultContextKey
-			popup.controls.resultsList.selIndex = 1
+			local anyRingContextKey = findRow.resultContextKey
 
 			popup.controls.threadVariantSelect.selFunc(2)
+			assertResultsCleared(popup)
+			local explicitRingPreview = getPreviewText(popup)
+			assert.matches(threadVariants[1].ringLabel, explicitRingPreview, 1, true)
+			assert.is_nil(explicitRingPreview:find("Multiple ring sizes available", 1, true))
+			popup.controls.findButton:Click()
+			local explicitRingRow = popup.controls.resultsList.list[1]
 
 			assert.are.equal("findThread", popup.controls.resultsList.mode)
-			assert.are.equal(findRow, popup.controls.resultsList.list[1])
-			assert.are.equal(findResultContextKey, popup.controls.resultsList.list[1].resultContextKey)
-			assert.is_true(popup.controls.applyButton.enabled())
+			assert.are.equal(threadVariants[1].ringLabel, explicitRingRow.variantLabel)
+			assert.are_not.equal(anyRingContextKey, explicitRingRow.resultContextKey)
 
 			runPopupCompute(popup)
 			local row = popup.controls.resultsList.list[1]
 			assert.is_not_nil(row)
-			local resultContextKey = row.resultContextKey
+			assert.are.equal(1, #computedVariants)
+			assert.are.equal(threadVariants[1].name, computedVariants[1].name)
+			assert.matches(threadVariants[1].ringLabel, row.detailText, 1, true)
+			assert.matches(threadVariants[1].ringLabel, popup.controls.statusLabel.label, 1, true)
 
 			popup.controls.threadVariantSelect.selFunc(1)
 
-			assert.are.equal("computeSocket", popup.controls.resultsList.mode)
-			assert.are.equal(row, popup.controls.resultsList.list[1])
-			assert.are.equal(resultContextKey, popup.controls.resultsList.list[1].resultContextKey)
-			assert.is_true(popup.controls.applyButton.enabled())
-			assert.are.equal(threadVariants[1].name, build.radiusJewelFinderState.threadVariantName)
+			assert.are.equal("findThread", popup.controls.resultsList.mode)
+			assert.are.equal(anyRingContextKey, popup.controls.resultsList.list[1].resultContextKey)
+			assert.is_nil(build.radiusJewelFinderState.threadVariantName)
+		end)
+
+		it("restores an explicit Thread ring and its cached result view", function()
+			local finder = makeFinder()
+			local popup = finder:Open()
+			popup.controls.jewelTypeSelect.selFunc(findControlIndex(popup.controls.jewelTypeSelect.list, "Thread of Hope"))
+			popup.controls.threadVariantSelect.selFunc(2)
+			popup.controls.findButton:Click()
+			local resultContextKey = popup.controls.resultsList.list[1].resultContextKey
+
+			popup.controls.closeButton:Click()
+			local reopenedPopup = finder:Open()
+
+			assert.are.equal(2, reopenedPopup.controls.threadVariantSelect.selIndex)
+			assert.are.equal("findThread", reopenedPopup.controls.resultsList.mode)
+			assert.are.equal(resultContextKey, reopenedPopup.controls.resultsList.list[1].resultContextKey)
+			assert.are.equal(RadiusJewelData.getThreadOfHopeVariants()[1].name,
+				build.radiusJewelFinderState.threadVariantName)
 		end)
 
 		it("cancels a suspended Compute when a result criterion changes", function()
