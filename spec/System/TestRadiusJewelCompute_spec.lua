@@ -482,6 +482,65 @@ describe("RadiusJewelCompute #radius-jewel", function()
 			end
 		end)
 
+		it("restores socket distance when a suspended computation is cancelled", function()
+			local socket = getSockets()[1]
+			local socketNode = build.spec.nodes[socket.id]
+			local previousDistance = socketNode.distanceToClassStart
+			local splitDistance = (previousDistance or 0) + 100
+			local progress = { }
+			function progress:tick()
+				coroutine.yield()
+			end
+			function progress:child()
+				return self
+			end
+			local computation = coroutine.create(function()
+				makeFinder():computeSplitPersonalitySocketImpact({ {
+					id = socket.id,
+					label = socket.label,
+					classStartDist = splitDistance,
+					pathDist = socket.pathDist,
+				} }, "Life", variants, progress, nil, { id = "all" })
+			end)
+
+			assert.is_true(coroutine.resume(computation))
+			assert.are.equal(previousDistance, socketNode.distanceToClassStart)
+			assert.is_true(coroutine.resume(computation))
+			assert.are.equal("suspended", coroutine.status(computation))
+			assert.are.equal(previousDistance, socketNode.distanceToClassStart)
+		end)
+
+		it("restores socket distance after a calculator error", function()
+			local socket = getSockets()[1]
+			local socketNode = build.spec.nodes[socket.id]
+			local previousDistance = socketNode.distanceToClassStart
+			local originalGetMiscCalculator = build.calcsTab.GetMiscCalculator
+			local callCount = 0
+			build.calcsTab.GetMiscCalculator = function()
+				return function()
+					callCount = callCount + 1
+					if callCount == 2 then
+						error("injected Split Personality calculator failure")
+					end
+					return { Life = 0 }
+				end, { Life = 0 }
+			end
+
+			local ok, err = pcall(function()
+				makeFinder():computeSplitPersonalitySocketImpact({ {
+					id = socket.id,
+					label = socket.label,
+					classStartDist = (previousDistance or 0) + 100,
+					pathDist = socket.pathDist,
+				} }, "Life", variants, nil, nil, { id = "all" })
+			end)
+			build.calcsTab.GetMiscCalculator = originalGetMiscCalculator
+
+			assert.is_false(ok)
+			assert.is_truthy(tostring(err):match("injected Split Personality calculator failure"))
+			assert.are.equal(previousDistance, socketNode.distanceToClassStart)
+		end)
+
 	end)
 
 	describe("cluster jewel replacements", function()
