@@ -5,11 +5,11 @@
 -- across all socket/jewel pairs.
 --
 -- Usage:
---   local attachCompute = LoadModule("Classes/RadiusJewelCompute")
---   attachCompute(RadiusJewelFinderClass, {
---     extractTooltipStats, normalizeImpactStat, calculateImpactPercent,
---     mustGetUniqueRawText, buildNodeLabelList, getJewelRadiusIndex,
+--   local RadiusJewelCompute = LoadModule("Classes/RadiusJewelCompute")({
+--     calculateImpactPercent, mustGetUniqueRawText, buildNodeLabelList,
+--     getJewelRadiusIndex,
 --   })
+--   local compute = RadiusJewelCompute.new(finder)
 --
 local ipairs = ipairs
 local pairs = pairs
@@ -17,14 +17,89 @@ local t_insert = table.insert
 local t_sort = table.sort
 local s_format = string.format
 
-return function(Class, helpers)
+return function(helpers)
 
-local extractTooltipStats    = helpers.extractTooltipStats
-local normalizeImpactStat    = helpers.normalizeImpactStat
+local RadiusJewelComputeClass = { }
+RadiusJewelComputeClass.__index = RadiusJewelComputeClass
+
 local calculateImpactPercent = helpers.calculateImpactPercent
 local mustGetUniqueRawText   = helpers.mustGetUniqueRawText
 local buildNodeLabelList     = helpers.buildNodeLabelList
 local getJewelRadiusIndex    = helpers.getJewelRadiusIndex
+
+local function extractTooltipStats(output)
+	if not output then return nil end
+	local out = { }
+	for key, value in pairs(output) do
+		local valueType = type(value)
+		if valueType == "number" or valueType == "string" or valueType == "boolean" then
+			out[key] = value
+		end
+	end
+	if output.Minion then
+		out.Minion = extractTooltipStats(output.Minion)
+	end
+	return out
+end
+
+local function normalizeImpactStat(impactStat)
+	if type(impactStat) == "string" then
+		return {
+			field = impactStat,
+			label = impactStat,
+			selection = { stat = impactStat, label = impactStat },
+		}
+	elseif impactStat and impactStat.stat and not impactStat.selection then
+		return {
+			field = impactStat.stat,
+			label = impactStat.label,
+			selection = impactStat,
+		}
+	end
+	return impactStat
+end
+
+function RadiusJewelComputeClass:new(finder)
+	return setmetatable({
+		finder = finder,
+		build = finder.build,
+	}, self)
+end
+
+function RadiusJewelComputeClass:getImpactValue(impactStat, output)
+	impactStat = normalizeImpactStat(impactStat)
+	local selection = impactStat.selection or impactStat
+	if selection.getValue then
+		return selection.getValue(output, self.build)
+	end
+	local statOutput = output
+	if statOutput and statOutput.Minion and selection.stat ~= "FullDPS" then
+		statOutput = statOutput.Minion
+	end
+	local value = statOutput and (statOutput[selection.stat] or 0) or 0
+	if selection.transform then
+		value = selection.transform(value)
+	end
+	return value
+end
+
+function RadiusJewelComputeClass:calculateImpactDelta(impactStat, baselineOutput, compareOutput)
+	impactStat = normalizeImpactStat(impactStat)
+	local selection = impactStat.selection or impactStat
+	return self.build.calcsTab:CalculatePowerStat(selection, compareOutput, baselineOutput)
+end
+
+function RadiusJewelComputeClass:getSocketOccupancyInfo(...)
+	return self.finder:getSocketOccupancyInfo(...)
+end
+
+function RadiusJewelComputeClass:socketMatchesOccupiedMode(...)
+	return self.finder:socketMatchesOccupiedMode(...)
+end
+
+function RadiusJewelComputeClass:getSocketBasePoints(...)
+	return self.finder:getSocketBasePoints(...)
+end
 
 -- ─────────────────────────────────────────────────────────────────────────────
 -- Local helpers
@@ -187,7 +262,7 @@ end
 -- Class methods
 -- ─────────────────────────────────────────────────────────────────────────────
 
-function Class:buildSocketReplacementContext(calcFunc, socketId)
+function RadiusJewelComputeClass:buildSocketReplacementContext(calcFunc, socketId)
 	local socketNode = self.build.spec.nodes[socketId] or self.build.spec.tree.nodes[socketId]
 	if not socketNode then
 		return nil
@@ -211,13 +286,13 @@ function Class:buildSocketReplacementContext(calcFunc, socketId)
 	}
 end
 
-function Class:socketReplacementChangesPassiveTree(replacementContext, item)
+function RadiusJewelComputeClass:socketReplacementChangesPassiveTree(replacementContext, item)
 	local replacedItem = replacementContext.occupancy and replacementContext.occupancy.isOccupied and replacementContext.occupancy.item
 	return itemNeedsRadiusComparisonSpec(self.build.itemsTab, replacedItem)
 		or itemNeedsRadiusComparisonSpec(self.build.itemsTab, item)
 end
 
-function Class:getImpossibleEscapePlanCacheKey(statField, variantName, replacementContext)
+function RadiusJewelComputeClass:getImpossibleEscapePlanCacheKey(statField, variantName, replacementContext)
 	local cacheKey = s_format("IE|%s|%s", statField, variantName)
 	local occupancy = replacementContext.occupancy
 	if occupancy and occupancy.isOccupied and itemNeedsRadiusComparisonSpec(self.build.itemsTab, occupancy.item) then
@@ -227,7 +302,7 @@ function Class:getImpossibleEscapePlanCacheKey(statField, variantName, replaceme
 	return cacheKey
 end
 
-function Class:buildSocketReplacementOverride(replacementContext, item, addNodes)
+function RadiusJewelComputeClass:buildSocketReplacementOverride(replacementContext, item, addNodes)
 	local override = {
 		addNodes = addNodes,
 		repSlotName = replacementContext.slotName,
@@ -257,7 +332,7 @@ function Class:buildSocketReplacementOverride(replacementContext, item, addNodes
 	return override
 end
 
-function Class:getSocketDistanceToClassStart(socketId)
+function RadiusJewelComputeClass:getSocketDistanceToClassStart(socketId)
 	local spec = self.build.spec
 	local socketNode = spec.nodes[socketId]
 	if not socketNode then
@@ -295,7 +370,7 @@ function Class:getSocketDistanceToClassStart(socketId)
 end
 
 -- Candidates are unallocated passives a disconnected-passive jewel may add before scoring.
-function Class:collectDisconnectedPassiveCandidates(socketNode, options)
+function RadiusJewelComputeClass:collectDisconnectedPassiveCandidates(socketNode, options)
 	local allocNodes = self.build.spec.allocNodes
 	local candidates = { }
 	local seen = { }
@@ -334,7 +409,7 @@ function Class:collectDisconnectedPassiveCandidates(socketNode, options)
 	return candidates
 end
 
-function Class:computeDisconnectedPassiveSimulatedPlan(calcFunc, replacementContext, baseOutput, baseValue, socketNode, item, impactStat, candidates, variantLabel, progressLabel, progress, maxAdditionalNodes)
+function RadiusJewelComputeClass:computeDisconnectedPassiveSimulatedPlan(calcFunc, replacementContext, baseOutput, baseValue, socketNode, item, impactStat, candidates, variantLabel, progressLabel, progress, maxAdditionalNodes)
 	impactStat = normalizeImpactStat(impactStat)
 	local addNodes = { [socketNode] = true }
 	local function calculate(extraNode)
@@ -393,7 +468,7 @@ function Class:computeDisconnectedPassiveSimulatedPlan(calcFunc, replacementCont
 	return result
 end
 
-function Class:computeDisconnectedPassiveFastPlan(calcFunc, replacementContext, baseOutput, baseValue, socketNode, item, impactStat, candidates, variantLabel, deltaCache, progressLabel, progress, maxAdditionalNodes, skipPlanSteps)
+function RadiusJewelComputeClass:computeDisconnectedPassiveFastPlan(calcFunc, replacementContext, baseOutput, baseValue, socketNode, item, impactStat, candidates, variantLabel, deltaCache, progressLabel, progress, maxAdditionalNodes, skipPlanSteps)
 	impactStat = normalizeImpactStat(impactStat)
 	local jewelOnlyOutput, jewelOnlyValue
 	local function ensureJewelOnly()
@@ -477,7 +552,7 @@ function Class:computeDisconnectedPassiveFastPlan(calcFunc, replacementContext, 
 	return result
 end
 
-function Class:computeSocketImpact(sockets, rawText, impactStat, progress, maxTotalPoints, occupiedMode)
+function RadiusJewelComputeClass:computeSocketImpact(sockets, rawText, impactStat, progress, maxTotalPoints, occupiedMode)
 	impactStat = normalizeImpactStat(impactStat)
 	local calcFunc, baseOutput = self.build.calcsTab:GetMiscCalculator()
 	local realBaseline = self:getImpactValue(impactStat, baseOutput)
@@ -512,7 +587,7 @@ function Class:computeSocketImpact(sockets, rawText, impactStat, progress, maxTo
 	return results, realBaseline
 end
 
-function Class:computeBestVariantSocketImpact(sockets, variants, impactStat, progress, maxTotalPoints, occupiedMode)
+function RadiusJewelComputeClass:computeBestVariantSocketImpact(sockets, variants, impactStat, progress, maxTotalPoints, occupiedMode)
 	impactStat = normalizeImpactStat(impactStat)
 	local calcFunc, baseOutput = self.build.calcsTab:GetMiscCalculator()
 	local realBaseline = self:getImpactValue(impactStat, baseOutput)
@@ -561,7 +636,7 @@ function Class:computeBestVariantSocketImpact(sockets, variants, impactStat, pro
 	return results, realBaseline
 end
 
-function Class:computeIntuitiveLeapSocketImpact(sockets, impactStat, variant, methodId, planCache, progress, maxTotalPoints, occupiedMode, skipPlanSteps)
+function RadiusJewelComputeClass:computeIntuitiveLeapSocketImpact(sockets, impactStat, variant, methodId, planCache, progress, maxTotalPoints, occupiedMode, skipPlanSteps)
 	impactStat = normalizeImpactStat(impactStat)
 	local calcFunc, baseOutput = self.build.calcsTab:GetMiscCalculator()
 	local realBaseline = self:getImpactValue(impactStat, baseOutput)
@@ -612,7 +687,7 @@ function Class:computeIntuitiveLeapSocketImpact(sockets, impactStat, variant, me
 	return results, realBaseline
 end
 
-function Class:computeBestIntuitiveLeapSocketImpact(sockets, impactStat, variants, methodId, planCache, progress, maxTotalPoints, occupiedMode, skipPlanSteps)
+function RadiusJewelComputeClass:computeBestIntuitiveLeapSocketImpact(sockets, impactStat, variants, methodId, planCache, progress, maxTotalPoints, occupiedMode, skipPlanSteps)
 	if not variants or #variants == 0 then
 		return self:computeIntuitiveLeapSocketImpact(sockets, impactStat, nil, methodId, planCache, progress, maxTotalPoints, occupiedMode, skipPlanSteps)
 	end
@@ -643,7 +718,7 @@ function Class:computeBestIntuitiveLeapSocketImpact(sockets, impactStat, variant
 	return results, realBaseline
 end
 
-function Class:computeThreadOfHopeSocketImpact(sockets, impactStat, threadVariants, methodId, planCache, progress, maxTotalPoints, occupiedMode, skipPlanSteps)
+function RadiusJewelComputeClass:computeThreadOfHopeSocketImpact(sockets, impactStat, threadVariants, methodId, planCache, progress, maxTotalPoints, occupiedMode, skipPlanSteps)
 	impactStat = normalizeImpactStat(impactStat)
 	local calcFunc, baseOutput = self.build.calcsTab:GetMiscCalculator()
 	local realBaseline = self:getImpactValue(impactStat, baseOutput)
@@ -715,7 +790,7 @@ function Class:computeThreadOfHopeSocketImpact(sockets, impactStat, threadVarian
 	return results, realBaseline
 end
 
-function Class:computeSplitPersonalitySocketImpact(sockets, impactStat, variants, progress, maxTotalPoints, occupiedMode)
+function RadiusJewelComputeClass:computeSplitPersonalitySocketImpact(sockets, impactStat, variants, progress, maxTotalPoints, occupiedMode)
 	impactStat = normalizeImpactStat(impactStat)
 	local calcFunc, baseOutput = self.build.calcsTab:GetMiscCalculator()
 	local realBaseline = self:getImpactValue(impactStat, baseOutput)
@@ -984,7 +1059,7 @@ local function addImpossibleEscapePlanDetails(self, results, groupedOrder, bestR
 	end
 end
 
-function Class:computeImpossibleEscapeSocketImpact(sockets, impactStat, variants, methodId, planCache, progress, maxTotalPoints, occupiedMode, skipPlanSteps)
+function RadiusJewelComputeClass:computeImpossibleEscapeSocketImpact(sockets, impactStat, variants, methodId, planCache, progress, maxTotalPoints, occupiedMode, skipPlanSteps)
 	impactStat = normalizeImpactStat(impactStat)
 	local calcFunc, baseOutput = self.build.calcsTab:GetMiscCalculator()
 	local realBaseline = self:getImpactValue(impactStat, baseOutput)
@@ -1010,6 +1085,11 @@ function Class:computeImpossibleEscapeSocketImpact(sockets, impactStat, variants
 	return results, realBaseline
 end
 
-return buildDisplayedDisconnectedPassivePlans
+return {
+	new = function(finder)
+		return RadiusJewelComputeClass:new(finder)
+	end,
+	buildDisplayedDisconnectedPassivePlans = buildDisplayedDisconnectedPassivePlans,
+}
 
-end -- return function(Class, helpers)
+end -- return function(helpers)

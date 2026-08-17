@@ -131,7 +131,7 @@ describe("RadiusJewelFinder #radius-jewel", function()
 			finder.buildJewelSockets = function()
 				return { { id = 33631, label = "Synthetic socket", pathDist = 1 } }
 			end
-			finder.computeBestIntuitiveLeapSocketImpact = function(_, sockets, _, variants, methodId, planCache)
+			finder.compute.computeBestIntuitiveLeapSocketImpact = function(_, sockets, _, variants, methodId, planCache)
 				planCache["result-context-test"] = methodId
 				if yieldDuringCompute then
 					coroutine.yield()
@@ -225,7 +225,7 @@ describe("RadiusJewelFinder #radius-jewel", function()
 			popup.controls.resultsList.selIndex = 1
 			assert.is_true(popup.controls.applyButton.enabled())
 
-			finder.computeThreadOfHopeSocketImpact = function(_, sockets, _, variants)
+			finder.compute.computeThreadOfHopeSocketImpact = function(_, sockets, _, variants)
 				return {
 					{
 						socket = sockets[1],
@@ -305,7 +305,7 @@ describe("RadiusJewelFinder #radius-jewel", function()
 			finder.buildJewelSockets = function()
 				return { { id = 33631, label = "Synthetic socket", pathDist = 1 } }
 			end
-			finder.computeBestVariantSocketImpact = function(_, sockets, variants)
+			finder.compute.computeBestVariantSocketImpact = function(_, sockets, variants)
 				return {
 					{
 						socket = sockets[1],
@@ -316,11 +316,11 @@ describe("RadiusJewelFinder #radius-jewel", function()
 					},
 				}, 100
 			end
-			finder.computeSocketImpact = function() return { }, 100 end
-			finder.computeBestIntuitiveLeapSocketImpact = function() return { }, 100 end
-			finder.computeThreadOfHopeSocketImpact = function() return { }, 100 end
-			finder.computeImpossibleEscapeSocketImpact = function() return { }, 100 end
-			finder.computeSplitPersonalitySocketImpact = function() return { }, 100 end
+			finder.compute.computeSocketImpact = function() return { }, 100 end
+			finder.compute.computeBestIntuitiveLeapSocketImpact = function() return { }, 100 end
+			finder.compute.computeThreadOfHopeSocketImpact = function() return { }, 100 end
+			finder.compute.computeImpossibleEscapeSocketImpact = function() return { }, 100 end
+			finder.compute.computeSplitPersonalitySocketImpact = function() return { }, 100 end
 
 			local popup = finder:Open()
 			popup.controls.jewelTypeSelect.selFunc(findControlIndex(popup.controls.jewelTypeSelect.list, "Dreams & Nightmares"))
@@ -353,7 +353,7 @@ describe("RadiusJewelFinder #radius-jewel", function()
 				return { { id = targetSocketId, label = "Target socket", pathDist = 1 } }
 			end
 			local computedVariants
-			finder.computeThreadOfHopeSocketImpact = function(_, sockets, _, variants)
+			finder.compute.computeThreadOfHopeSocketImpact = function(_, sockets, _, variants)
 				computedVariants = variants
 				return {
 					{
@@ -539,7 +539,7 @@ describe("RadiusJewelFinder #radius-jewel", function()
 			end
 
 			local observedPartitions = { }
-			finder.computeBestVariantSocketImpact = function(_, sockets, variants)
+			finder.compute.computeBestVariantSocketImpact = function(_, sockets, variants)
 				local identity = variants[1].variantIdentity
 				local limitKey = identity.limitKey
 				for _, variant in ipairs(variants) do
@@ -557,11 +557,11 @@ describe("RadiusJewelFinder #radius-jewel", function()
 					{ socket = sockets[2], variant = variants[1], delta = targetDelta, baseOutput = { }, compareOutput = { } },
 				}, 100
 			end
-			finder.computeSocketImpact = function() return { }, 100 end
-			finder.computeBestIntuitiveLeapSocketImpact = function() return { }, 100 end
-			finder.computeThreadOfHopeSocketImpact = function() return { }, 100 end
-			finder.computeImpossibleEscapeSocketImpact = function() return { }, 100 end
-			finder.computeSplitPersonalitySocketImpact = function() return { }, 100 end
+			finder.compute.computeSocketImpact = function() return { }, 100 end
+			finder.compute.computeBestIntuitiveLeapSocketImpact = function() return { }, 100 end
+			finder.compute.computeThreadOfHopeSocketImpact = function() return { }, 100 end
+			finder.compute.computeImpossibleEscapeSocketImpact = function() return { }, 100 end
+			finder.compute.computeSplitPersonalitySocketImpact = function() return { }, 100 end
 
 			local popup = finder:Open()
 			local function findIndex(list, needle)
@@ -990,7 +990,7 @@ describe("RadiusJewelFinder #radius-jewel", function()
 			assert.is_true(#popup.controls.jewelVariantSelect.list > 1, "expected at least one selectable keystone variant")
 
 			local capturedVariants
-			finder.computeImpossibleEscapeSocketImpact = function(_, _, _, variants)
+			finder.compute.computeImpossibleEscapeSocketImpact = function(_, _, _, variants)
 				capturedVariants = variants
 				return { }, 0
 			end
