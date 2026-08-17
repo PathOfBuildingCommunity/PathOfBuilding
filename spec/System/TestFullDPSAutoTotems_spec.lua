@@ -69,7 +69,7 @@ describe("TestFullDPSAutoTotems", function()
 		assert.is_true(build.calcsTab.mainOutput.FullDPS > baselineFullDPS)
 	end)
 
-	it("does not auto-scale when multiple Totem skills are included in Full DPS (avoids overcounting the global limit)", function()
+	it("does not auto-scale when multiple Totem skills are included in Full DPS (avoids counting the global limit twice)", function()
 		-- Two distinct Totem socket groups both opted into Full DPS, both at Count 1.
 		-- ActiveTotemLimit is a global slot pool; applying it to each skill would
 		-- multi-count the same totem slots. The implementation must keep each skill
