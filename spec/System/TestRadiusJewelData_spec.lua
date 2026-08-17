@@ -334,14 +334,14 @@ describe("RadiusJewelData #radius-jewel", function()
 
 			local finder = makeFinder()
 			local capturedOptions
-			local originalCollect = finder.collectDisconnectedPassiveCandidates
-			function finder:collectDisconnectedPassiveCandidates(socketNode, options)
+			local originalCollect = finder.compute.collectDisconnectedPassiveCandidates
+			function finder.compute:collectDisconnectedPassiveCandidates(socketNode, options)
 				capturedOptions = options
 				return { }
 			end
 			local sockets = finder:buildJewelSockets(getSmallRadiusIndex())
-			finder:computeIntuitiveLeapSocketImpact({ sockets[1] }, "Life", variant, "fast", { }, nil, nil, { id = "all" })
-			finder.collectDisconnectedPassiveCandidates = originalCollect
+			finder.compute:computeIntuitiveLeapSocketImpact({ sockets[1] }, "Life", variant, "fast", { }, nil, nil, { id = "all" })
+			finder.compute.collectDisconnectedPassiveCandidates = originalCollect
 
 			assert.is_not_nil(capturedOptions)
 			assert.is_true(capturedOptions.keystoneOnly)
@@ -359,7 +359,7 @@ describe("RadiusJewelData #radius-jewel", function()
 					[massiveRadiusIndex] = { foulbornMassiveKeystone = massiveKeystone },
 				},
 			}
-			local candidates = finder:collectDisconnectedPassiveCandidates(syntheticSocket, capturedOptions)
+			local candidates = finder.compute:collectDisconnectedPassiveCandidates(syntheticSocket, capturedOptions)
 			assert.are.same({ massiveKeystone }, candidates)
 			data.jewelRadius = previousJewelRadius
 			data.maxJewelRadius = previousMaxJewelRadius
@@ -377,7 +377,7 @@ describe("RadiusJewelData #radius-jewel", function()
 
 			local finder = makeFinder()
 			local computedVariants = { }
-			function finder:computeIntuitiveLeapSocketImpact(sockets, impactStat, variant)
+			function finder.compute:computeIntuitiveLeapSocketImpact(sockets, impactStat, variant)
 				computedVariants[#computedVariants + 1] = variant
 				return {
 					{
@@ -387,7 +387,7 @@ describe("RadiusJewelData #radius-jewel", function()
 					},
 				}, 100
 			end
-			local results, baseline = finder:computeBestIntuitiveLeapSocketImpact({ { id = "testSocket" } }, "Life", intuitiveVariants, "fast", { })
+			local results, baseline = finder.compute:computeBestIntuitiveLeapSocketImpact({ { id = "testSocket" } }, "Life", intuitiveVariants, "fast", { })
 			assert.are.equal(2, #computedVariants)
 			assert.are.equal(100, baseline)
 			assert.are.equal(1, #results)

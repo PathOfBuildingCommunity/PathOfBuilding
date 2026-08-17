@@ -41,7 +41,7 @@ describe("RadiusJewelCompute #radius-jewel", function()
 		it("returns one result per socket and uses the best variant", function()
 			local sockets = getSockets()
 			local variants = getLightOfMeaningVariants()
-			local results, baseline = makeFinder():computeBestVariantSocketImpact(sockets, variants, "Life")
+			local results, baseline = makeFinder().compute:computeBestVariantSocketImpact(sockets, variants, "Life")
 			assert.is_true(#results > 0, "expected at least one result")
 			assert.is_true(#results <= #sockets, "should return no more than socket count")
 			assert.is_number(baseline)
@@ -55,7 +55,7 @@ describe("RadiusJewelCompute #radius-jewel", function()
 		end)
 
 		it("keeps comparison snapshots free of nested requirement sources", function()
-			local results = makeFinder():computeBestVariantSocketImpact(getSockets(), getLightOfMeaningVariants(), "Life")
+			local results = makeFinder().compute:computeBestVariantSocketImpact(getSockets(), getLightOfMeaningVariants(), "Life")
 			local nestedRequirementKeys = {
 				"ReqStrFailList", "ReqDexFailList", "ReqIntFailList", "ReqOmniFailList",
 				"ReqStrItem", "ReqDexItem", "ReqIntItem", "ReqOmniItem",
@@ -71,14 +71,14 @@ describe("RadiusJewelCompute #radius-jewel", function()
 
 		it("results are sorted by delta descending", function()
 			local sockets = getSockets()
-			local results, _ = makeFinder():computeBestVariantSocketImpact(sockets, getLightOfMeaningVariants(), "Life")
+			local results, _ = makeFinder().compute:computeBestVariantSocketImpact(sockets, getLightOfMeaningVariants(), "Life")
 			assert.is_true(isSorted(results, "delta"),
 				"results should be sorted by delta descending")
 		end)
 
 		it("Life variant selected on sockets where it is better than others", function()
 			local sockets = getSockets()
-			local results, _ = makeFinder():computeBestVariantSocketImpact(sockets, getLightOfMeaningVariants(), "Life")
+			local results, _ = makeFinder().compute:computeBestVariantSocketImpact(sockets, getLightOfMeaningVariants(), "Life")
 			local hasLife = false
 			for _, r in ipairs(results) do
 				if r.variant.name == "Life" then hasLife = true; break end
@@ -89,7 +89,7 @@ describe("RadiusJewelCompute #radius-jewel", function()
 		it("restores TotalLife after compute", function()
 			local sockets = getSockets()
 			local before = build.calcsTab.mainOutput["Life"]
-			makeFinder():computeBestVariantSocketImpact(sockets, getLightOfMeaningVariants(), "Life")
+			makeFinder().compute:computeBestVariantSocketImpact(sockets, getLightOfMeaningVariants(), "Life")
 			local after = build.calcsTab.mainOutput["Life"]
 			assert.are.equal(before, after)
 		end)
@@ -97,13 +97,13 @@ describe("RadiusJewelCompute #radius-jewel", function()
 		it("restores socket and item state after compute", function()
 			local sockets = getSockets()
 			local before = snapshotFinderState()
-			makeFinder():computeBestVariantSocketImpact(sockets, getLightOfMeaningVariants(), "Life")
+			makeFinder().compute:computeBestVariantSocketImpact(sockets, getLightOfMeaningVariants(), "Life")
 			assertFinderStateUnchanged(before)
 		end)
 
 		it("respects occupiedMode filter", function()
 			local sockets = getSockets()
-			local results, _ = makeFinder():computeBestVariantSocketImpact(sockets, getLightOfMeaningVariants(), "Life", nil, nil, { id = "all" })
+			local results, _ = makeFinder().compute:computeBestVariantSocketImpact(sockets, getLightOfMeaningVariants(), "Life", nil, nil, { id = "all" })
 			assert.is_true(#results > 0, "expected results with occupied mode 'all'")
 		end)
 
@@ -135,7 +135,7 @@ describe("RadiusJewelCompute #radius-jewel", function()
 				end, { Life = 0 }
 			end
 
-			local results = makeFinder():computeBestVariantSocketImpact({ {
+			local results = makeFinder().compute:computeBestVariantSocketImpact({ {
 				id = socketId,
 				label = "Historic socket",
 				pathDist = 0,
@@ -155,7 +155,7 @@ describe("RadiusJewelCompute #radius-jewel", function()
 			local testSocket
 			for _, socket in ipairs(finder:buildJewelSockets(radiusIndex)) do
 				local socketNode = build.spec.nodes[socket.id]
-				local candidates = finder:collectDisconnectedPassiveCandidates(socketNode, {
+				local candidates = finder.compute:collectDisconnectedPassiveCandidates(socketNode, {
 					radiusIndex = radiusIndex,
 				})
 				if build.spec.allocNodes[socket.id] and #candidates > 0 then
@@ -181,7 +181,7 @@ describe("RadiusJewelCompute #radius-jewel", function()
 				end, { Life = 0 }
 			end
 
-			local results = finder:computeIntuitiveLeapSocketImpact(
+			local results = finder.compute:computeIntuitiveLeapSocketImpact(
 				{ testSocket }, "Life", nil, "fast", { }, nil, 0, { id = "all" }, true)
 			build.calcsTab.GetMiscCalculator = originalGetMiscCalculator
 
@@ -205,7 +205,7 @@ describe("RadiusJewelCompute #radius-jewel", function()
 				end, { Life = 0 }
 			end
 
-			local results = makeFinder():computeSplitPersonalitySocketImpact({ {
+			local results = makeFinder().compute:computeSplitPersonalitySocketImpact({ {
 				id = socketId,
 				label = "Historic socket",
 				classStartDist = splitDistance,
@@ -244,7 +244,7 @@ describe("RadiusJewelCompute #radius-jewel", function()
 				end, { Life = 0 }
 			end
 
-			makeFinder():computeSplitPersonalitySocketImpact({ {
+			makeFinder().compute:computeSplitPersonalitySocketImpact({ {
 				id = testSocket.id,
 				label = "Stored Historic socket",
 				classStartDist = 42,
@@ -269,7 +269,7 @@ describe("RadiusJewelCompute #radius-jewel", function()
 		end
 
 		it("returns a table (may be empty if all sockets occupied)", function()
-			local results, baseline = makeFinder():computeSocketImpact(
+			local results, baseline = makeFinder().compute:computeSocketImpact(
 				getSockets(), MIGHT_OF_MEEK_RAW_TEXT, "Life")
 			assert.is_table(results)
 			assert.is_number(baseline)
@@ -277,19 +277,19 @@ describe("RadiusJewelCompute #radius-jewel", function()
 
 		it("returns the current main output as baseline for the selected stat", function()
 			local expectedBaseline = build.calcsTab.mainOutput["Life"]
-			local _, baseline = makeFinder():computeSocketImpact(
+			local _, baseline = makeFinder().compute:computeSocketImpact(
 				getSockets(), MIGHT_OF_MEEK_RAW_TEXT, "Life")
 			assert.are.equal(expectedBaseline, baseline)
 		end)
 
 		it("returns at least one result for the fixture build", function()
-			local results, _ = makeFinder():computeSocketImpact(
+			local results, _ = makeFinder().compute:computeSocketImpact(
 				getSockets(), MIGHT_OF_MEEK_RAW_TEXT, "Life")
 			assert.is_true(#results > 0, "expected at least one empty jewel socket result")
 		end)
 
 		it("MoM: only tests empty sockets (selItemId == 0)", function()
-			local results, _ = makeFinder():computeSocketImpact(
+			local results, _ = makeFinder().compute:computeSocketImpact(
 				getSockets(), MIGHT_OF_MEEK_RAW_TEXT, "Life")
 			for _, r in ipairs(results) do
 				local slot = build.itemsTab.sockets[r.socket.id]
@@ -299,7 +299,7 @@ describe("RadiusJewelCompute #radius-jewel", function()
 		end)
 
 		it("MoM: results sorted by delta descending", function()
-			local results, _ = makeFinder():computeSocketImpact(
+			local results, _ = makeFinder().compute:computeSocketImpact(
 				getSockets(), MIGHT_OF_MEEK_RAW_TEXT, "Life")
 			assert.is_true(isSorted(results, "delta"),
 				"MoM socket results should be sorted by delta descending")
@@ -307,31 +307,31 @@ describe("RadiusJewelCompute #radius-jewel", function()
 
 		it("MoM: restores TotalLife after compute", function()
 			local before = build.calcsTab.mainOutput["Life"]
-			makeFinder():computeSocketImpact(getSockets(), MIGHT_OF_MEEK_RAW_TEXT, "Life")
+			makeFinder().compute:computeSocketImpact(getSockets(), MIGHT_OF_MEEK_RAW_TEXT, "Life")
 			assert.are.equal(before, build.calcsTab.mainOutput["Life"])
 		end)
 
 		it("MoM: restores socket and item state after compute", function()
 			local before = snapshotFinderState()
-			makeFinder():computeSocketImpact(getSockets(), MIGHT_OF_MEEK_RAW_TEXT, "Life")
+			makeFinder().compute:computeSocketImpact(getSockets(), MIGHT_OF_MEEK_RAW_TEXT, "Life")
 			assertFinderStateUnchanged(before)
 		end)
 
 		it("UI: restores TotalLife after compute", function()
 			local before = build.calcsTab.mainOutput["Life"]
-			makeFinder():computeSocketImpact(getSockets(), UNNATURAL_INSTINCT_RAW_TEXT, "Life")
+			makeFinder().compute:computeSocketImpact(getSockets(), UNNATURAL_INSTINCT_RAW_TEXT, "Life")
 			assert.are.equal(before, build.calcsTab.mainOutput["Life"])
 		end)
 
 		it("AK: restores TotalLife after compute", function()
 			local before = build.calcsTab.mainOutput["Life"]
-			makeFinder():computeSocketImpact(getSockets(), ANATOMICAL_KNOWLEDGE_RAW_TEXT, "Life")
+			makeFinder().compute:computeSocketImpact(getSockets(), ANATOMICAL_KNOWLEDGE_RAW_TEXT, "Life")
 			assert.are.equal(before, build.calcsTab.mainOutput["Life"])
 		end)
 
 		it("respects max total points for standard compute", function()
 			local maxPoints = 2
-			local results, _ = makeFinder():computeSocketImpact(
+			local results, _ = makeFinder().compute:computeSocketImpact(
 				getSockets(), MIGHT_OF_MEEK_RAW_TEXT, "Life", false, maxPoints)
 			for _, r in ipairs(results) do
 				assert.is_true((r.socket.pathDist or 0) <= maxPoints,
@@ -340,7 +340,7 @@ describe("RadiusJewelCompute #radius-jewel", function()
 		end)
 
 		it("occupied sockets (36634, 61419, 41263) are skipped", function()
-			local results, _ = makeFinder():computeSocketImpact(
+			local results, _ = makeFinder().compute:computeSocketImpact(
 				getSockets(), MIGHT_OF_MEEK_RAW_TEXT, "Life")
 			local occupiedIds = { [36634] = true, [61419] = true, [41263] = true }
 			for _, r in ipairs(results) do
@@ -350,7 +350,7 @@ describe("RadiusJewelCompute #radius-jewel", function()
 		end)
 
 		it("occupiedMode 'all' includes occupied sockets", function()
-			local results, _ = makeFinder():computeSocketImpact(
+			local results, _ = makeFinder().compute:computeSocketImpact(
 				getSockets(), MIGHT_OF_MEEK_RAW_TEXT, "Life", false, nil, { id = "all" })
 			local occupiedIds = { [36634] = true, [61419] = true, [41263] = true }
 			local foundOccupied = false
@@ -363,9 +363,9 @@ describe("RadiusJewelCompute #radius-jewel", function()
 
 		it("occupiedMode 'safe' returns at least as many results as 'free'", function()
 			local sockets = getSockets()
-			local freeResults, _ = makeFinder():computeSocketImpact(
+			local freeResults, _ = makeFinder().compute:computeSocketImpact(
 				sockets, MIGHT_OF_MEEK_RAW_TEXT, "Life")
-			local safeResults, _ = makeFinder():computeSocketImpact(
+			local safeResults, _ = makeFinder().compute:computeSocketImpact(
 				sockets, MIGHT_OF_MEEK_RAW_TEXT, "Life", false, nil, { id = "safe" })
 			assert.is_true(#safeResults >= #freeResults,
 				"safe mode should include at least all free sockets")
@@ -373,16 +373,16 @@ describe("RadiusJewelCompute #radius-jewel", function()
 
 		it("occupiedMode 'all' returns more results than 'free' (build has occupied sockets)", function()
 			local sockets = getSockets()
-			local freeResults, _ = makeFinder():computeSocketImpact(
+			local freeResults, _ = makeFinder().compute:computeSocketImpact(
 				sockets, MIGHT_OF_MEEK_RAW_TEXT, "Life")
-			local allResults, _ = makeFinder():computeSocketImpact(
+			local allResults, _ = makeFinder().compute:computeSocketImpact(
 				sockets, MIGHT_OF_MEEK_RAW_TEXT, "Life", false, nil, { id = "all" })
 			assert.is_true(#allResults > #freeResults,
 				"all mode should include more sockets than free mode (occupied sockets exist)")
 		end)
 
 		it("each result has socket, value and delta fields", function()
-			local results, _ = makeFinder():computeSocketImpact(
+			local results, _ = makeFinder().compute:computeSocketImpact(
 				getSockets(), MIGHT_OF_MEEK_RAW_TEXT, "Life")
 			local seenSocketIds = {}
 			for _, r in ipairs(results) do
@@ -406,7 +406,7 @@ describe("RadiusJewelCompute #radius-jewel", function()
 
 		it("respects max total points for Intuitive Leap", function()
 			local maxPoints = 4
-			local results, _ = makeFinder():computeIntuitiveLeapSocketImpact(
+			local results, _ = makeFinder().compute:computeIntuitiveLeapSocketImpact(
 				getSockets(), "Life", false, "simulated_greedy", { }, nil, maxPoints)
 			for _, r in ipairs(results) do
 				local totalPoints = (r.socket.pathDist or 0) + (r.addedNodeCount or 0)
@@ -426,9 +426,9 @@ describe("RadiusJewelCompute #radius-jewel", function()
 			assert.is_not_nil(targetSocket, "expected at least one socket with path points")
 			local maxPoints = targetSocket.pathDist
 			local sockets = { targetSocket }
-			local fastResults = makeFinder():computeIntuitiveLeapSocketImpact(
+			local fastResults = makeFinder().compute:computeIntuitiveLeapSocketImpact(
 				sockets, "Life", false, "fast", { }, nil, maxPoints)
-			local simulatedResults = makeFinder():computeIntuitiveLeapSocketImpact(
+			local simulatedResults = makeFinder().compute:computeIntuitiveLeapSocketImpact(
 				sockets, "Life", false, "simulated_greedy", { }, nil, maxPoints)
 			assert.are.equal(0, fastResults[1].addedNodeCount or 0)
 			assert.are.equal(0, simulatedResults[1].addedNodeCount or 0)
@@ -444,7 +444,7 @@ describe("RadiusJewelCompute #radius-jewel", function()
 			local firstNode = { id = 2, name = "First" }
 			local secondNode = { id = 3, name = "Second" }
 			local evaluatedCombinedNodes = false
-			finder.buildSocketReplacementOverride = function(_, _, item, addNodes)
+			finder.compute.buildSocketReplacementOverride = function(_, _, item, addNodes)
 				return { item = item, addNodes = addNodes }
 			end
 			local function calcFunc(override)
@@ -459,7 +459,7 @@ describe("RadiusJewelCompute #radius-jewel", function()
 			local previousBestDelta = 5
 
 			-- Keep passing the historical pruning threshold so this test fails if that unsafe bound is restored.
-			local result = finder:computeDisconnectedPassiveFastPlan(
+			local result = finder.compute:computeDisconnectedPassiveFastPlan(
 				calcFunc, { }, { Life = 0 }, 0, socketNode, { }, "Life",
 				{ firstNode, secondNode }, "Combined", { }, nil, nil, 2, true,
 				previousBestDelta)
@@ -490,7 +490,7 @@ describe("RadiusJewelCompute #radius-jewel", function()
 				previousDistanceBySocketId[socket.id] = build.spec.nodes[socket.id] and build.spec.nodes[socket.id].distanceToClassStart
 			end
 
-			local results, baseline = makeFinder():computeSplitPersonalitySocketImpact(sockets, "Life", variants)
+			local results, baseline = makeFinder().compute:computeSplitPersonalitySocketImpact(sockets, "Life", variants)
 
 			assert.is_true(#results > 0, "expected split personality results")
 			assert.is_number(baseline)
@@ -508,7 +508,7 @@ describe("RadiusJewelCompute #radius-jewel", function()
 
 		it("respects max total points", function()
 			local maxPoints = 4
-			local results, _ = makeFinder():computeSplitPersonalitySocketImpact(
+			local results, _ = makeFinder().compute:computeSplitPersonalitySocketImpact(
 				getSockets(), "Life", variants, nil, maxPoints)
 			for _, result in ipairs(results) do
 				local totalPoints = (result.socket.pathDist or 0)
@@ -530,7 +530,7 @@ describe("RadiusJewelCompute #radius-jewel", function()
 				return self
 			end
 			local computation = coroutine.create(function()
-				makeFinder():computeSplitPersonalitySocketImpact({ {
+				makeFinder().compute:computeSplitPersonalitySocketImpact({ {
 					id = socket.id,
 					label = socket.label,
 					classStartDist = splitDistance,
@@ -562,7 +562,7 @@ describe("RadiusJewelCompute #radius-jewel", function()
 			end
 
 			local ok, err = pcall(function()
-				makeFinder():computeSplitPersonalitySocketImpact({ {
+				makeFinder().compute:computeSplitPersonalitySocketImpact({ {
 					id = socket.id,
 					label = socket.label,
 					classStartDist = (previousDistance or 0) + 100,
@@ -612,7 +612,7 @@ describe("RadiusJewelCompute #radius-jewel", function()
 				end, { Life = 0 }
 			end
 
-			makeFinder():computeBestVariantSocketImpact({ {
+			makeFinder().compute:computeBestVariantSocketImpact({ {
 				id = socketId,
 				label = "Cluster socket",
 				pathDist = 0,
@@ -644,7 +644,7 @@ describe("RadiusJewelCompute #radius-jewel", function()
 
 		it("shares fast cache keys except for structural jewel replacements", function()
 			local finder = makeFinder()
-			local sharedKey = finder:getImpossibleEscapePlanCacheKey("Life", "Acrobatics", {
+			local sharedKey = finder.compute:getImpossibleEscapePlanCacheKey("Life", "Acrobatics", {
 				socketNode = { id = 36634 },
 				occupancy = { isOccupied = false },
 			})
@@ -652,11 +652,11 @@ describe("RadiusJewelCompute #radius-jewel", function()
 				type = "Jewel",
 				jewelData = { conqueredBy = true },
 			}
-			local firstStructuralKey = finder:getImpossibleEscapePlanCacheKey("Life", "Acrobatics", {
+			local firstStructuralKey = finder.compute:getImpossibleEscapePlanCacheKey("Life", "Acrobatics", {
 				socketNode = { id = 36634 },
 				occupancy = { isOccupied = true, item = structuralItem },
 			})
-			local secondStructuralKey = finder:getImpossibleEscapePlanCacheKey("Life", "Acrobatics", {
+			local secondStructuralKey = finder.compute:getImpossibleEscapePlanCacheKey("Life", "Acrobatics", {
 				socketNode = { id = 61419 },
 				occupancy = { isOccupied = true, item = structuralItem },
 			})
@@ -686,9 +686,9 @@ describe("RadiusJewelCompute #radius-jewel", function()
 			assert.are.equal(2, #sockets, "expected two free jewel sockets")
 
 			local originalGetMiscCalculator = build.calcsTab.GetMiscCalculator
-			local originalCollectCandidates = finder.collectDisconnectedPassiveCandidates
-			local originalBuildOverride = finder.buildSocketReplacementOverride
-			local originalCacheKey = finder.getImpossibleEscapePlanCacheKey
+			local originalCollectCandidates = finder.compute.collectDisconnectedPassiveCandidates
+			local originalBuildOverride = finder.compute.buildSocketReplacementOverride
+			local originalCacheKey = finder.compute.getImpossibleEscapePlanCacheKey
 			local calculationCount = 0
 			build.calcsTab.GetMiscCalculator = function()
 				return function(override)
@@ -700,21 +700,21 @@ describe("RadiusJewelCompute #radius-jewel", function()
 					return { Life = allocatedCount }
 				end, { Life = 0 }
 			end
-			finder.collectDisconnectedPassiveCandidates = function()
+			finder.compute.collectDisconnectedPassiveCandidates = function()
 				return {
 					{ id = -101, name = "First" },
 					{ id = -102, name = "Second" },
 					{ id = -103, name = "Third" },
 				}
 			end
-			finder.buildSocketReplacementOverride = function(_, _, _, addNodes)
+			finder.compute.buildSocketReplacementOverride = function(_, _, _, addNodes)
 				return { addNodes = addNodes }
 			end
 
 			local function countCalculations(cacheKeyFunc)
-				finder.getImpossibleEscapePlanCacheKey = cacheKeyFunc
+				finder.compute.getImpossibleEscapePlanCacheKey = cacheKeyFunc
 				calculationCount = 0
-				finder:computeImpossibleEscapeSocketImpact(sockets, "Life", { variant }, "fast", { }, nil, 2, nil, true)
+				finder.compute:computeImpossibleEscapeSocketImpact(sockets, "Life", { variant }, "fast", { }, nil, 2, nil, true)
 				return calculationCount
 			end
 
@@ -723,9 +723,9 @@ describe("RadiusJewelCompute #radius-jewel", function()
 				return string.format("IE|%s|%s|%s", statField, variantName, replacementContext.socketNode.id)
 			end)
 			build.calcsTab.GetMiscCalculator = originalGetMiscCalculator
-			finder.collectDisconnectedPassiveCandidates = originalCollectCandidates
-			finder.buildSocketReplacementOverride = originalBuildOverride
-			finder.getImpossibleEscapePlanCacheKey = originalCacheKey
+			finder.compute.collectDisconnectedPassiveCandidates = originalCollectCandidates
+			finder.compute.buildSocketReplacementOverride = originalBuildOverride
+			finder.compute.getImpossibleEscapePlanCacheKey = originalCacheKey
 
 			assert.is_true(sharedCount < socketScopedCount,
 				"expected shared cache to avoid repeated Impossible Escape calculations")
@@ -737,9 +737,9 @@ describe("RadiusJewelCompute #radius-jewel", function()
 			local sockets = getSockets()
 			local before = snapshotFinderState()
 
-			local fastResults, fastBaseline = makeFinder():computeImpossibleEscapeSocketImpact(
+			local fastResults, fastBaseline = makeFinder().compute:computeImpossibleEscapeSocketImpact(
 				sockets, "Life", { variant }, "fast", { }, nil)
-			local simulatedResults, simulatedBaseline = makeFinder():computeImpossibleEscapeSocketImpact(
+			local simulatedResults, simulatedBaseline = makeFinder().compute:computeImpossibleEscapeSocketImpact(
 				sockets, "Life", { variant }, "simulated_greedy", { }, nil)
 
 			assert.is_true(#fastResults > 0, "expected fast Impossible Escape results")
@@ -755,7 +755,7 @@ describe("RadiusJewelCompute #radius-jewel", function()
 			local variant = makeImpossibleEscapeTestVariant()
 			assert.is_not_nil(variant, "expected at least one keystone-based Impossible Escape variant")
 			local maxPoints = 4
-			local results, _ = makeFinder():computeImpossibleEscapeSocketImpact(
+			local results, _ = makeFinder().compute:computeImpossibleEscapeSocketImpact(
 				getSockets(), "Life", { variant }, "simulated_greedy", { }, nil, maxPoints)
 			for _, result in ipairs(results) do
 				local totalPoints = (result.socket.pathDist or 0) + (result.addedNodeCount or 0)
@@ -783,21 +783,21 @@ describe("RadiusJewelCompute #radius-jewel", function()
 			finder.getSocketBasePoints = function(_, socket)
 				return socket.pathDist
 			end
-			finder.collectDisconnectedPassiveCandidates = function()
+			finder.compute.collectDisconnectedPassiveCandidates = function()
 				return {
 					{ id = -101, name = "First" },
 					{ id = -102, name = "Second" },
 					{ id = -103, name = "Third" },
 				}
 			end
-			finder.buildSocketReplacementContext = function(_, _, socketId)
+			finder.compute.buildSocketReplacementContext = function(_, _, socketId)
 				return {
 					socketNode = { id = socketId },
 					occupancy = occupancyBySocketId[socketId],
 					baselineOutput = { Life = 0 },
 				}
 			end
-			finder.computeDisconnectedPassiveFastPlan = function(_, _, _, _, _, socketNode, _, _, _, variantLabel, _, _, _, maxAdditionalNodes, skipPlanSteps)
+			finder.compute.computeDisconnectedPassiveFastPlan = function(_, _, _, _, _, socketNode, _, _, _, variantLabel, _, _, _, maxAdditionalNodes, skipPlanSteps)
 				local result = {
 					delta = socketNode.id == freeSocket.id and 100 or 90,
 					addedNodeCount = maxAdditionalNodes,
@@ -818,7 +818,7 @@ describe("RadiusJewelCompute #radius-jewel", function()
 			build.calcsTab.GetMiscCalculator = function()
 				return function() return { Life = 0 } end, { Life = 0 }
 			end
-			local results = finder:computeImpossibleEscapeSocketImpact(
+			local results = finder.compute:computeImpossibleEscapeSocketImpact(
 				{ freeSocket, occupiedSocket }, "Life", { variant }, "fast", { }, nil, 5, nil, false)
 			build.calcsTab.GetMiscCalculator = originalGetMiscCalculator
 
@@ -875,9 +875,9 @@ describe("RadiusJewelCompute #radius-jewel", function()
 			local sockets = getTestSockets(threadVariants)
 			local before = snapshotFinderState()
 
-			local fastResults, fastBaseline = makeFinder():computeThreadOfHopeSocketImpact(
+			local fastResults, fastBaseline = makeFinder().compute:computeThreadOfHopeSocketImpact(
 				sockets, "Life", threadVariants, "fast", { }, nil)
-			local simulatedResults, simulatedBaseline = makeFinder():computeThreadOfHopeSocketImpact(
+			local simulatedResults, simulatedBaseline = makeFinder().compute:computeThreadOfHopeSocketImpact(
 				sockets, "Life", threadVariants, "simulated_greedy", { }, nil)
 
 			assert.is_true(#fastResults > 0, "expected fast Thread of Hope results")
@@ -897,7 +897,7 @@ describe("RadiusJewelCompute #radius-jewel", function()
 			local threadVariants = getTestVariants()
 			assert.is_true(#threadVariants > 0, "expected Thread of Hope ring variants")
 			local maxPoints = 4
-			local results, _ = makeFinder():computeThreadOfHopeSocketImpact(
+			local results, _ = makeFinder().compute:computeThreadOfHopeSocketImpact(
 				getTestSockets(threadVariants), "Life", threadVariants, "simulated_greedy", { }, nil, maxPoints)
 			for _, result in ipairs(results) do
 				local totalPoints = (result.socket.pathDist or 0) + (result.addedNodeCount or 0)
@@ -918,16 +918,16 @@ describe("RadiusJewelCompute #radius-jewel", function()
 			finder.getSocketBasePoints = function(_, socket)
 				return socket.pathDist or 0
 			end
-			finder.buildSocketReplacementContext = function(_, _, socketId)
+			finder.compute.buildSocketReplacementContext = function(_, _, socketId)
 				return {
 					socketNode = { id = socketId },
 					baselineOutput = { Life = 0 },
 				}
 			end
-			finder.collectDisconnectedPassiveCandidates = function(_, socketNode)
+			finder.compute.collectDisconnectedPassiveCandidates = function(_, socketNode)
 				return { { id = socketNode.id * 10, name = "Candidate " .. socketNode.id } }
 			end
-			finder.computeDisconnectedPassiveFastPlan = function(_, _, _, _, _, socketNode, _, _, _, variantLabel, _, _, _, _, skipPlanSteps)
+			finder.compute.computeDisconnectedPassiveFastPlan = function(_, _, _, _, _, socketNode, _, _, _, variantLabel, _, _, _, _, skipPlanSteps)
 				local result = {
 					delta = deltaBySocketId[socketNode.id],
 					addedNodeCount = 1,
@@ -944,7 +944,7 @@ describe("RadiusJewelCompute #radius-jewel", function()
 				return result
 			end
 
-			local results = finder:computeThreadOfHopeSocketImpact(
+			local results = finder.compute:computeThreadOfHopeSocketImpact(
 				sockets, "Life", { getTestVariants()[1] }, "fast", { }, nil, nil, nil, false)
 			build.calcsTab.GetMiscCalculator = originalGetMiscCalculator
 			return results
@@ -1342,7 +1342,7 @@ describe("RadiusJewelCompute #radius-jewel", function()
 				ordinaryAbyssJewel.jewelData.conqueredBy = { conqueror = { type = "Abyss" } }
 				local isAbyssTimelessAllowed = finder:socketMatchesOccupiedMode(socketId, { id = "safe" })
 				assert.is_false(isAbyssTimelessAllowed)
-				assert.is_true(finder:socketReplacementChangesPassiveTree({
+				assert.is_true(finder.compute:socketReplacementChangesPassiveTree({
 					occupancy = { isOccupied = true, item = ordinaryAbyssJewel },
 				}, { type = "Jewel", jewelData = { } }))
 			end)
@@ -1428,7 +1428,7 @@ describe("RadiusJewelCompute #radius-jewel", function()
 			local socketId = findUnallocatedSocketId()
 			equipFakeJewel(socketId, "Unnatural Instinct", 1)
 			local finder = makeFinder()
-			local results = finder:computeSocketImpact({
+			local results = finder.compute:computeSocketImpact({
 				{ id = socketId, label = "Test socket", pathDist = 7 },
 			}, MIGHT_OF_MEEK_RAW_TEXT, "Life", nil, nil, { id = "free" })
 
