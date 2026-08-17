@@ -122,7 +122,6 @@ local function getStatEntries(modType)
 		["AgainstTheDarkness"] = "explicit",
 		["pseudo"] = "pseudo",
 		["Enchant"] = "enchant",
-		["Pearl"] = "explicit",
 	}
 	if tradeStatCategoryIndices[modType] then
 		for _, cat in ipairs(tradeStats) do

@@ -1549,8 +1549,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 					end
 				end
 
-				-- if not unique item that provides skills
-					-- Add extra supports from the item this group is socketed in
+				-- Add extra supports from the item this group is socketed in
 				for _, value in ipairs(env.modDB:List(groupCfg, "ExtraSupport")) do
 					if not group.source or value.appliesToGrantedSkills then
 						addExtraSupports(value)
