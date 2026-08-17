@@ -871,6 +871,191 @@ function RadiusJewelResultState:isApplicable(row, currentResultContextKey)
 		and isActionPlanCurrent(self.finder.build, row.actionPlan)
 end
 
+local ACTION_LABELS = {
+	equip = "Equip",
+	move = "Move",
+	replace = "Replace",
+	equipped = "Equipped",
+}
+
+local RadiusJewelResultActions = { }
+RadiusJewelResultActions.__index = RadiusJewelResultActions
+
+function RadiusJewelResultActions:new(finder, resultState, resultsList, getResultContextKey)
+	return setmetatable({
+		finder = finder,
+		resultState = resultState,
+		resultsList = resultsList,
+		getResultContextKey = getResultContextKey,
+	}, self)
+end
+
+function RadiusJewelResultActions:getSelectedRow()
+	local index = self.resultsList.selIndex
+	return index and self.resultsList.list[index] or nil
+end
+
+function RadiusJewelResultActions:isApplicable(row)
+	return self.resultState:isApplicable(row, self.getResultContextKey())
+end
+
+function RadiusJewelResultActions:getMatchingBuildItem(row)
+	if not row or not row.actionPlan then
+		return nil
+	end
+	return findCanonicalBuildItem(self.finder.build.itemsTab, row.actionPlan.targetCanonicalKey)
+end
+
+function RadiusJewelResultActions:execute(row, resultContextKey)
+	if self:isApplicable(row) and row.resultContextKey == resultContextKey then
+		self.finder:executeActionPlan(row.actionPlan)
+	end
+end
+
+function RadiusJewelResultActions:applySelected()
+	local row = self:getSelectedRow()
+	local resultContextKey = self.getResultContextKey()
+	if not self:isApplicable(row) then
+		return
+	end
+	local plan = row.actionPlan
+	if not plan.targetSocketAllocated then
+		local actionLabel = ACTION_LABELS[plan.kind] or "Equip"
+		local itemName = plan.targetIdentity.uniqueName or row.jewelName or "jewel"
+		main:OpenConfirmPopup("Unallocated Jewel Socket",
+			"Socket " .. plan.targetSocketLabel .. " is not allocated and is hidden from the Items panel.\n"
+			.. actionLabel .. " will place " .. itemName .. " in that hidden socket.\n"
+			.. "No passive nodes will be allocated.\n\n"
+			.. "Use Add to build instead to keep the jewel in the item list without equipping it.",
+			actionLabel, function()
+				self:execute(row, resultContextKey)
+			end)
+		return
+	end
+	self:execute(row, resultContextKey)
+end
+
+function RadiusJewelResultActions:addSelectedToBuild()
+	local row = self:getSelectedRow()
+	if self:isApplicable(row) then
+		self.finder:executeAddToBuildPlan(row.actionPlan)
+	end
+end
+
+function RadiusJewelResultActions:addToBuildLabel()
+	return self:getMatchingBuildItem(self:getSelectedRow()) and "In build" or "Add to build"
+end
+
+function RadiusJewelResultActions:addToBuildEnabled()
+	local row = self:getSelectedRow()
+	return self:isApplicable(row) and not self:getMatchingBuildItem(row)
+end
+
+function RadiusJewelResultActions:addToBuildTooltip(tooltip)
+	local row = self:getSelectedRow()
+	tooltip:Clear(true)
+	if not row or not row.actionPlan then
+		tooltip:AddLine(16, "^7Select a result to add its jewel to the build.")
+		return
+	end
+	local plan = row.actionPlan
+	local itemName = plan.targetIdentity.uniqueName or row.jewelName or "jewel"
+	local existingItem, existingSocket, existingSocketId = self:getMatchingBuildItem(row)
+	if existingItem then
+		local location = existingSocketId and getSocketLabel(existingSocket, existingSocketId) or "Items"
+		tooltip:AddLine(16, "^8" .. itemName .. " is already in this build in " .. location .. ".")
+		if existingSocketId and self.finder.build.spec.allocNodes[existingSocketId] == nil then
+			tooltip:AddLine(16, "^xFFAA33That socket is unallocated and hidden from the Items panel.")
+		end
+		return
+	end
+	if not self:isApplicable(row) then
+		tooltip:AddLine(16, "^xFFAA33Results are out of date for the current build or criteria.")
+		tooltip:AddLine(16, "^8Run Find or Compute again.")
+		return
+	end
+	tooltip:AddLine(16, "^7Add ^x33FF77" .. itemName .. " ^7to this build without equipping it.")
+	tooltip:AddLine(16, "^7Recommended socket: ^x33FF77" .. plan.targetSocketLabel)
+	tooltip:AddLine(16, "^8The jewel remains in the item list; no sockets or passive allocations change.")
+end
+
+function RadiusJewelResultActions:applyLabel()
+	local row = self:getSelectedRow()
+	local kind = row and row.actionPlan and row.actionPlan.kind
+	return ACTION_LABELS[kind] or "Equip"
+end
+
+function RadiusJewelResultActions:applyEnabled()
+	local row = self:getSelectedRow()
+	return self:isApplicable(row) and row.actionPlan.kind ~= "equipped"
+end
+
+function RadiusJewelResultActions:applyTooltip(tooltip)
+	local row = self:getSelectedRow()
+	if row and row.actionPlan and not self:isApplicable(row) then
+		tooltip:Clear(true)
+		tooltip:AddLine(16, "^xFFAA33Results are out of date for the current build or criteria.")
+		tooltip:AddLine(16, "^8Run Find or Compute again.")
+		return
+	end
+	if not row or not row.actionPlan then
+		tooltip:Clear(true)
+		tooltip:AddLine(16, "^7Select a result to equip.")
+		return
+	end
+	local plan = row.actionPlan
+	tooltip:Clear(true)
+	local itemName = plan.targetIdentity.uniqueName or row.jewelName or "jewel"
+	if plan.kind == "equipped" then
+		tooltip:AddLine(16, "^8" .. itemName .. " is already equipped in " .. plan.targetSocketLabel .. ".")
+	else
+		tooltip:AddLine(16, "^7" .. ACTION_LABELS[plan.kind] .. " ^x33FF77" .. itemName .. " ^7in ^x33FF77" .. plan.targetSocketLabel)
+		if plan.sourceItemId then
+			local source = plan.sourceSocketId and plan.sourceSocketLabel or "Items"
+			tooltip:AddLine(16, "^7Source: ^x33FF77" .. plan.sourceItemLabel .. " ^7in " .. source)
+		else
+			tooltip:AddLine(16, "^7Source: ^x33FF77New jewel")
+		end
+		if plan.replacedTargetId then
+			tooltip:AddLine(16, "^xFFAA33Replaces: ^7" .. plan.replacedTargetLabel .. " in " .. plan.targetSocketLabel)
+		end
+		if not plan.targetSocketAllocated then
+			tooltip:AddLine(16, "^xFFAA33This socket is unallocated and hidden from the Items panel.")
+			tooltip:AddLine(16, "^8A confirmation is required; no passive nodes will be allocated.")
+		end
+	end
+	tooltip:AddLine(16, "^8Passive allocations shown in Details are not applied automatically.")
+	if plan.kind ~= "equipped" then
+		tooltip:AddLine(16, "^8Double-click a result to " .. ACTION_LABELS[plan.kind]:lower() .. " it.")
+	end
+end
+
+function RadiusJewelResultActions:bindSelection(onSelect)
+	self.resultsList.OnSelect = function(_, _, row)
+		onSelect(row)
+	end
+	self.resultsList.OnSelClick = function(_, index, value, doubleClick)
+		if doubleClick then
+			self:applySelected()
+		end
+	end
+end
+
+function RadiusJewelResultActions:createControls(anchor, addToBuildRect, applyRect)
+	local addToBuildButton = new("ButtonControl"):ButtonControl(anchor, addToBuildRect,
+		function() return self:addToBuildLabel() end,
+		function() self:addSelectedToBuild() end)
+	addToBuildButton.enabled = function() return self:addToBuildEnabled() end
+	addToBuildButton.tooltipFunc = function(tooltip) self:addToBuildTooltip(tooltip) end
+
+	local applyButton = new("ButtonControl"):ButtonControl(anchor, applyRect,
+		function() return self:applyLabel() end,
+		function() self:applySelected() end)
+	applyButton.enabled = function() return self:applyEnabled() end
+	applyButton.tooltipFunc = function(tooltip) self:applyTooltip(tooltip) end
+	return addToBuildButton, applyButton
+end
+
 local function buildRadiusJewelPopupSetup(self)
 	local treeData = self.build.spec.tree
 	local radiusIndexByLabel = {
@@ -1321,13 +1506,6 @@ local function runRadiusJewelFind(self, context, makePreferred)
 	end
 end
 
-local function applyRadiusJewelResult(self, row, resultContextKey)
-	if not row or not row.actionPlan or row.resultContextKey ~= resultContextKey then
-		return
-	end
-	self:executeActionPlan(row.actionPlan)
-end
-
 local function runRadiusJewelCompute(self, context)
 	local controls = context.controls
 	local computeState = context.computeState
@@ -1630,7 +1808,6 @@ local function buildRadiusJewelPopupContext(self)
 	local variantGroupOptions = { { name = "All", value = ALL_VARIANT_GROUPS_VALUE } }
 	local selectedVariantGroup = variantGroupOptions[1]
 	local controls = { }
-	local applySelectedResult
 	local jtLabels = { }
 	local tvLabels = setup.threadVariantLabels
 	local socketViewer = setup.socketViewer
@@ -1731,12 +1908,6 @@ local function buildRadiusJewelPopupContext(self)
 	end
 	local function isResultContextCurrent(resultContextKey)
 		return resultContextKey == getResultContextKey()
-	end
-	local function isResultApplicable(row)
-		if not row or not row.actionPlan then
-			return false
-		end
-		return resultState:isApplicable(row, getResultContextKey())
 	end
 	local function onCriteriaChanged(updateCriteria)
 		cancelCompute()
@@ -2154,15 +2325,11 @@ local function buildRadiusJewelPopupContext(self)
 
 	controls.resultsList = new("RadiusJewelResultsListControl"):RadiusJewelResultsListControl(TL, { edgePadding, contentTopY, leftPanelWidth, resultListBottomY - contentTopY }, self.build, socketViewer)
 	controls.resultsList.suppressTooltipFunc = isAnyFinderDropdownDropped
-	controls.resultsList.OnSelect = function(_, _, row)
+	local resultActions = RadiusJewelResultActions:new(self, resultState, controls.resultsList, getResultContextKey)
+	resultActions:bindSelection(function(row)
 		updateResultDetails(row)
 		updatePreview(row)
-	end
-	controls.resultsList.OnSelClick = function(_, index, value, doubleClick)
-		if doubleClick then
-			applySelectedResult()
-		end
-	end
+	end)
 	controls.resultsList:SetMode("message", { }, COL_META .. "Click Find to search")
 
 	local function rebuildJewelTypeDropdown()
@@ -2795,138 +2962,10 @@ local function buildRadiusJewelPopupContext(self)
 		tooltip:AddLine(16, "^8Use Compute to rank by the selected stat.")
 	end
 
-	local actionLabels = {
-		equip = "Equip",
-		move = "Move",
-		replace = "Replace",
-		equipped = "Equipped",
-	}
-	local function getSelectedActionRow()
-		local idx = controls.resultsList.selIndex
-		return idx and controls.resultsList.list[idx] or nil
-	end
-	local function getMatchingBuildItem(row)
-		if not row or not row.actionPlan then
-			return nil
-		end
-		return findCanonicalBuildItem(self.build.itemsTab, row.actionPlan.targetCanonicalKey)
-	end
-	local function executeSelectedResult(row, resultContextKey)
-		if isResultApplicable(row) then
-			applyRadiusJewelResult(self, row, resultContextKey)
-		end
-	end
-	applySelectedResult = function()
-		local row = getSelectedActionRow()
-		local resultContextKey = getResultContextKey()
-		if not isResultApplicable(row) then
-			return
-		end
-		local plan = row.actionPlan
-		if not plan.targetSocketAllocated then
-			local actionLabel = actionLabels[plan.kind] or "Equip"
-			local itemName = plan.targetIdentity.uniqueName or row.jewelName or "jewel"
-			main:OpenConfirmPopup("Unallocated Jewel Socket",
-				"Socket " .. plan.targetSocketLabel .. " is not allocated and is hidden from the Items panel.\n"
-				.. actionLabel .. " will place " .. itemName .. " in that hidden socket.\n"
-				.. "No passive nodes will be allocated.\n\n"
-				.. "Use Add to build instead to keep the jewel in the item list without equipping it.",
-				actionLabel, function()
-					executeSelectedResult(row, resultContextKey)
-				end)
-			return
-		end
-		executeSelectedResult(row, resultContextKey)
-	end
-	local function addSelectedResultToBuild()
-		local row = getSelectedActionRow()
-		if isResultApplicable(row) then
-			self:executeAddToBuildPlan(row.actionPlan)
-		end
-	end
-	controls.addToBuildButton = new("ButtonControl"):ButtonControl(BL, { rightPanelX, bottomButtonY, 100, buttonHeight }, function()
-		local existingItem = getMatchingBuildItem(getSelectedActionRow())
-		return existingItem and "In build" or "Add to build"
-	end, addSelectedResultToBuild)
-	controls.addToBuildButton.enabled = function()
-		local row = getSelectedActionRow()
-		return isResultApplicable(row) and not getMatchingBuildItem(row)
-	end
-	controls.addToBuildButton.tooltipFunc = function(tooltip)
-		local row = getSelectedActionRow()
-		tooltip:Clear(true)
-		if not row or not row.actionPlan then
-			tooltip:AddLine(16, "^7Select a result to add its jewel to the build.")
-			return
-		end
-		local plan = row.actionPlan
-		local itemName = plan.targetIdentity.uniqueName or row.jewelName or "jewel"
-		local existingItem, existingSocket, existingSocketId = getMatchingBuildItem(row)
-		if existingItem then
-			local location = existingSocketId and getSocketLabel(existingSocket, existingSocketId) or "Items"
-			tooltip:AddLine(16, "^8" .. itemName .. " is already in this build in " .. location .. ".")
-			if existingSocketId and self.build.spec.allocNodes[existingSocketId] == nil then
-				tooltip:AddLine(16, "^xFFAA33That socket is unallocated and hidden from the Items panel.")
-			end
-			return
-		end
-		if not isResultApplicable(row) then
-			tooltip:AddLine(16, "^xFFAA33Results are out of date for the current build or criteria.")
-			tooltip:AddLine(16, "^8Run Find or Compute again.")
-			return
-		end
-		tooltip:AddLine(16, "^7Add ^x33FF77" .. itemName .. " ^7to this build without equipping it.")
-		tooltip:AddLine(16, "^7Recommended socket: ^x33FF77" .. plan.targetSocketLabel)
-		tooltip:AddLine(16, "^8The jewel remains in the item list; no sockets or passive allocations change.")
-	end
-	controls.applyButton = new("ButtonControl"):ButtonControl(BL, { rightPanelX + 110, bottomButtonY, 80, buttonHeight }, function()
-		local row = getSelectedActionRow()
-		local kind = row and row.actionPlan and row.actionPlan.kind
-		return actionLabels[kind] or "Equip"
-	end, applySelectedResult)
-	controls.applyButton.enabled = function()
-		local row = getSelectedActionRow()
-		return isResultApplicable(row) and row.actionPlan.kind ~= "equipped"
-	end
-	controls.applyButton.tooltipFunc = function(tooltip)
-		local row = getSelectedActionRow()
-		if row and row.actionPlan and not isResultApplicable(row) then
-			tooltip:Clear(true)
-			tooltip:AddLine(16, "^xFFAA33Results are out of date for the current build or criteria.")
-			tooltip:AddLine(16, "^8Run Find or Compute again.")
-			return
-		end
-		if not row or not row.actionPlan then
-			tooltip:Clear(true)
-			tooltip:AddLine(16, "^7Select a result to equip.")
-			return
-		end
-		local plan = row.actionPlan
-		tooltip:Clear(true)
-		local itemName = plan.targetIdentity.uniqueName or row.jewelName or "jewel"
-		if plan.kind == "equipped" then
-			tooltip:AddLine(16, "^8" .. itemName .. " is already equipped in " .. plan.targetSocketLabel .. ".")
-		else
-			tooltip:AddLine(16, "^7" .. actionLabels[plan.kind] .. " ^x33FF77" .. itemName .. " ^7in ^x33FF77" .. plan.targetSocketLabel)
-			if plan.sourceItemId then
-				local source = plan.sourceSocketId and plan.sourceSocketLabel or "Items"
-				tooltip:AddLine(16, "^7Source: ^x33FF77" .. plan.sourceItemLabel .. " ^7in " .. source)
-			else
-				tooltip:AddLine(16, "^7Source: ^x33FF77New jewel")
-			end
-			if plan.replacedTargetId then
-				tooltip:AddLine(16, "^xFFAA33Replaces: ^7" .. plan.replacedTargetLabel .. " in " .. plan.targetSocketLabel)
-			end
-			if not plan.targetSocketAllocated then
-				tooltip:AddLine(16, "^xFFAA33This socket is unallocated and hidden from the Items panel.")
-				tooltip:AddLine(16, "^8A confirmation is required; no passive nodes will be allocated.")
-			end
-		end
-		tooltip:AddLine(16, "^8Passive allocations shown in Details are not applied automatically.")
-		if plan.kind ~= "equipped" then
-			tooltip:AddLine(16, "^8Double-click a result to " .. actionLabels[plan.kind]:lower() .. " it.")
-		end
-	end
+	controls.addToBuildButton, controls.applyButton = resultActions:createControls(
+		BL,
+		{ rightPanelX, bottomButtonY, 100, buttonHeight },
+		{ rightPanelX + 110, bottomButtonY, 80, buttonHeight })
 
 	local function restoreFinderState()
 		if not finderState.jewelTypeName then
