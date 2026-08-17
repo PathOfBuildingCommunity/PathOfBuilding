@@ -436,6 +436,41 @@ describe("RadiusJewelCompute #radius-jewel", function()
 
 	end)
 
+	describe("computeDisconnectedPassiveFastPlan", function()
+
+		it("does not treat individual gains as a bound for combined interactions", function()
+			local finder = makeFinder()
+			local socketNode = { id = 1, name = "Socket" }
+			local firstNode = { id = 2, name = "First" }
+			local secondNode = { id = 3, name = "Second" }
+			local evaluatedCombinedNodes = false
+			finder.buildSocketReplacementOverride = function(_, _, item, addNodes)
+				return { item = item, addNodes = addNodes }
+			end
+			local function calcFunc(override)
+				local hasFirst = override.addNodes[firstNode] == true
+				local hasSecond = override.addNodes[secondNode] == true
+				evaluatedCombinedNodes = evaluatedCombinedNodes or hasFirst and hasSecond
+				if hasFirst and hasSecond then
+					return { Life = 20 }
+				end
+				return { Life = (hasFirst or hasSecond) and 2 or 0 }
+			end
+			local previousBestDelta = 5
+
+			-- Keep passing the historical pruning threshold so this test fails if that unsafe bound is restored.
+			local result = finder:computeDisconnectedPassiveFastPlan(
+				calcFunc, { }, { Life = 0 }, 0, socketNode, { }, "Life",
+				{ firstNode, secondNode }, "Combined", { }, nil, nil, 2, true,
+				previousBestDelta)
+
+			assert.are.equal(20, result.delta)
+			assert.is_nil(result.pruned)
+			assert.is_true(evaluatedCombinedNodes)
+		end)
+
+	end)
+
 	describe("computeSplitPersonalitySocketImpact", function()
 
 		local function getSockets()
