@@ -202,7 +202,7 @@ local function newPlainJewel()
 end
 
 local function newSplitPersonality()
-	return new("Item", "Rarity: UNIQUE\n" ..
+	return new("Item"):Item("Rarity: UNIQUE\n" ..
 		"Split Personality\n" ..
 		"Crimson Jewel\n" ..
 		"Implicits: 0\n" ..
@@ -656,7 +656,7 @@ describe("TestRadiusJewelStatDiff", function()
 		end
 
 		local ok, err = pcall(function()
-			local tooltip = new("Tooltip")
+			local tooltip = new("Tooltip"):Tooltip()
 			build.itemsTab:AddItemTooltip(tooltip, item)
 		end)
 		specClass.BuildAllDependsAndPaths = originalBuildAllDependsAndPaths
@@ -687,15 +687,15 @@ describe("TestRadiusJewelStatDiff", function()
 		end
 
 		local ok, err = pcall(function()
-			local tooltip = new("Tooltip")
+			local tooltip = new("Tooltip"):Tooltip()
 			build.itemsTab:AddItemTooltip(tooltip, item, slot)
-			tooltip = new("Tooltip")
+			tooltip = new("Tooltip"):Tooltip()
 			build.itemsTab:AddItemTooltip(tooltip, item, slot)
 			assert.are.equals(1, rebuilds,
 				"targeted radius jewel hover should reuse its cached comparison spec")
 
 			build.outputRevision = build.outputRevision + 1
-			tooltip = new("Tooltip")
+			tooltip = new("Tooltip"):Tooltip()
 			build.itemsTab:AddItemTooltip(tooltip, item, slot)
 			assert.are.equals(2, rebuilds,
 				"targeted radius jewel comparison spec cache should reset when output changes")
@@ -740,7 +740,7 @@ describe("TestRadiusJewelStatDiff", function()
 		end
 
 		local ok, err = pcall(function()
-			local tooltip = new("Tooltip")
+			local tooltip = new("Tooltip"):Tooltip()
 			build.itemsTab:AddItemTooltip(tooltip, radiusItem, radiusSlot)
 		end)
 		specClass.BuildAllDependsAndPaths = originalBuildAllDependsAndPaths
@@ -784,13 +784,13 @@ describe("TestRadiusJewelStatDiff", function()
 		end
 
 		local ok, err = pcall(function()
-			local tooltip = new("Tooltip")
+			local tooltip = new("Tooltip"):Tooltip()
 			build.itemsTab:AddItemTooltip(tooltip, item, slot)
 			local firstPassCalcCalls = calcCalls
 			assert.is_true(firstPassCalcCalls > 0,
 				"full radius jewel tooltip should calculate outputs on first pass")
 
-			tooltip = new("Tooltip")
+			tooltip = new("Tooltip"):Tooltip()
 			build.itemsTab:AddItemTooltip(tooltip, item, slot)
 			local secondPassCalcCalls = calcCalls - firstPassCalcCalls
 			assert.is_true(secondPassCalcCalls < firstPassCalcCalls,
@@ -798,7 +798,7 @@ describe("TestRadiusJewelStatDiff", function()
 
 			build.outputRevision = build.outputRevision + 1
 			local beforeInvalidationCalcCalls = calcCalls
-			tooltip = new("Tooltip")
+			tooltip = new("Tooltip"):Tooltip()
 			build.itemsTab:AddItemTooltip(tooltip, item, slot)
 			assert.is_true(calcCalls - beforeInvalidationCalcCalls > secondPassCalcCalls,
 				"full radius jewel output cache should reset when output changes")
