@@ -167,6 +167,66 @@ describe("RadiusJewelFinder #radius-jewel", function()
 			assert.is_false(popup.controls.applyButton.enabled(), message)
 		end
 
+		it("dispatches every jewel strategy to its compute owner", function()
+			build.radiusJewelFinderState = nil
+			local finder = makeFinder()
+			local calls = { }
+			local computeMethods = {
+				"computeSocketImpact",
+				"computeBestVariantSocketImpact",
+				"computeBestIntuitiveLeapSocketImpact",
+				"computeThreadOfHopeSocketImpact",
+				"computeImpossibleEscapeSocketImpact",
+				"computeSplitPersonalitySocketImpact",
+			}
+			for _, methodName in ipairs(computeMethods) do
+				local capturedMethodName = methodName
+				finder.compute[capturedMethodName] = function(_, request)
+					table.insert(calls, { methodName = capturedMethodName, request = request })
+					return { }, 100
+				end
+			end
+
+			local popup = finder:Open()
+			local cases = {
+				{ jewelType = "Might of the Meek", methodName = "computeSocketImpact", field = "rawText" },
+				{ jewelType = "The Light of Meaning", methodName = "computeBestVariantSocketImpact", field = "variants" },
+				{ jewelType = "Intuitive Leap", methodName = "computeBestIntuitiveLeapSocketImpact", field = "variants" },
+				{ jewelType = "Thread of Hope", methodName = "computeThreadOfHopeSocketImpact", field = "variants" },
+				{ jewelType = "Impossible Escape", methodName = "computeImpossibleEscapeSocketImpact", field = "variants" },
+				{ jewelType = "Split Personality", methodName = "computeSplitPersonalitySocketImpact", field = "variants" },
+			}
+			for _, case in ipairs(cases) do
+				calls = { }
+				popup.controls.jewelTypeSelect.selFunc(findControlIndex(popup.controls.jewelTypeSelect.list, case.jewelType))
+				runPopupCompute(popup)
+				assert.is_true(#calls > 0, "expected a compute call for " .. case.jewelType)
+				for _, call in ipairs(calls) do
+					assert.are.equal(case.methodName, call.methodName, "unexpected compute owner for " .. case.jewelType)
+					assert.is_not_nil(call.request[case.field], "missing " .. case.field .. " for " .. case.jewelType)
+				end
+			end
+
+			calls = { }
+			popup.controls.jewelTypeSelect.selFunc(findControlIndex(popup.controls.jewelTypeSelect.list, "All jewels"))
+			runPopupCompute(popup)
+			local seenMethods = { }
+			local expandedPlanMethods = {
+				computeBestIntuitiveLeapSocketImpact = true,
+				computeThreadOfHopeSocketImpact = true,
+				computeImpossibleEscapeSocketImpact = true,
+			}
+			for _, call in ipairs(calls) do
+				seenMethods[call.methodName] = true
+				if expandedPlanMethods[call.methodName] then
+					assert.is_true(call.request.skipPlanSteps, "All jewels should skip expanded plan steps")
+				end
+			end
+			for _, methodName in ipairs(computeMethods) do
+				assert.is_true(seenMethods[methodName], "All jewels did not dispatch " .. methodName)
+			end
+		end)
+
 		it("uses the canonical Massive radius for Foulborn Intuitive Leap Find", function()
 			data.setJewelRadiiGlobally("3_29")
 			local massiveRadiusIndex = RadiusJewelData.getJewelRadiusIndex("Massive")

@@ -55,6 +55,20 @@ describe("RadiusJewelData #radius-jewel", function()
 
 	describe("buildJewelTypes", function()
 
+		it("assigns one evaluation strategy to every jewel type", function()
+			local strategy = RadiusJewelData.JEWEL_STRATEGY
+			local expectedSpecialStrategies = {
+				["Intuitive Leap"] = strategy.INTUITIVE_LEAP,
+				["Thread of Hope"] = strategy.THREAD_OF_HOPE,
+				["Impossible Escape"] = strategy.IMPOSSIBLE_ESCAPE,
+				["Split Personality"] = strategy.SPLIT_PERSONALITY,
+			}
+			for _, jewelType in ipairs(RadiusJewelData.buildJewelTypes()) do
+				assert.are.equal(expectedSpecialStrategies[jewelType.name] or strategy.RADIUS, jewelType.strategy,
+					"unexpected strategy for " .. jewelType.name)
+			end
+		end)
+
 		it("assigns canonical identities to grouped variants and Thread rings", function()
 			local jewelTypes = RadiusJewelData.buildJewelTypes()
 			local function findJewelType(name)
