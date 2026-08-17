@@ -470,6 +470,22 @@ end
 -- Open popup
 -- ─────────────────────────────────────────────────────────────────────────────
 
+local function synchronizeResultCaches(build, finderState)
+	local outputRevision = build.outputRevision or 0
+	if finderState.resultCacheOutputRevision ~= outputRevision then
+		finderState.findCache = { }
+		finderState.computeCache = { }
+		finderState.resultViewByKey = { }
+		finderState.disconnectedPassivePlanCache = { }
+		finderState.resultCacheOutputRevision = outputRevision
+	else
+		finderState.findCache = finderState.findCache or { }
+		finderState.computeCache = finderState.computeCache or { }
+		finderState.resultViewByKey = finderState.resultViewByKey or { }
+		finderState.disconnectedPassivePlanCache = finderState.disconnectedPassivePlanCache or { }
+	end
+end
+
 local function buildRadiusJewelPopupSetup(self)
 	local treeData = self.build.spec.tree
 	local radiusIndexByLabel = {
@@ -493,10 +509,7 @@ local function buildRadiusJewelPopupSetup(self)
 
 	local finderState = self.build.radiusJewelFinderState or { }
 	self.build.radiusJewelFinderState = finderState
-	finderState.findCache = finderState.findCache or { }
-	finderState.computeCache = finderState.computeCache or { }
-	finderState.resultViewByKey = finderState.resultViewByKey or { }
-	finderState.disconnectedPassivePlanCache = finderState.disconnectedPassivePlanCache or { }
+	synchronizeResultCaches(self.build, finderState)
 
 	local allJewelsViewOptions = {
 		{ id = "all", label = "All results" },
@@ -564,13 +577,14 @@ local function runRadiusJewelFind(self, context, makePreferred)
 	local threadVariants = context.threadVariants
 	local jewelSockets = context.jewelSockets
 	local selectedJewelType = context.selectedJewelType
-	local selectedThreadVariant = context.selectedThreadVariant
 	local selectedJewelVariant = context.selectedJewelVariant
 	local selectedOccupiedMode = context.selectedOccupiedMode
+	local resultContextKey = context.resultContextKey
 	local getSelectedVariants = context.getSelectedVariants
 	local formatElapsed = context.formatElapsed
 	local restoreCachedResults = context.restoreCachedResults
 	local saveResultCache = context.saveResultCache
+	local stampResultRows = context.stampResultRows
 	local showAllJewelsComputePrompt = context.showAllJewelsComputePrompt
 
 	local searchStartTime = GetTime()
@@ -588,11 +602,7 @@ local function runRadiusJewelFind(self, context, makePreferred)
 		local isSplitPersonalitySearch = selectedJewelType.isSplitPersonality == true
 		local radiusIndex
 		local smallRadiusIndex = isImpossibleEscapeBestVariantSearch and radiusIndexByLabel["Small"] or nil
-		if isThreadBestVariantSearch then
-			if selectedThreadVariant then
-				radiusIndex = selectedThreadVariant.radiusIndex
-			end
-		elseif isImpossibleEscapeBestVariantSearch or isSplitPersonalitySearch then
+		if isImpossibleEscapeBestVariantSearch or isSplitPersonalitySearch then
 			radiusIndex = nil
 		elseif selectedJewelType.variants and selectedJewelVariant and selectedJewelVariant.radiusIndex then
 			radiusIndex = selectedJewelVariant.radiusIndex
@@ -731,7 +741,7 @@ local function runRadiusJewelFind(self, context, makePreferred)
 
 		t_sort(results, function(a, b) return (a.score or 0) > (b.score or 0) end)
 
-		local equippedVariant = selectedJewelVariant or (isThreadBestVariantSearch and selectedThreadVariant or nil)
+		local equippedVariant = selectedJewelVariant
 		local equippedList = self:findEquippedJewelSockets(selectedJewelType, equippedVariant)
 		local equippedSocketIds = { }
 		local existingSocketId
@@ -799,6 +809,7 @@ local function runRadiusJewelFind(self, context, makePreferred)
 					or selectedJewelType.rawText,
 			})
 		end
+		stampResultRows(rows, resultContextKey)
 		controls.resultsList:SetMode(isThreadBestVariantSearch and "findThread" or "find", rows, COL_META .. "(no results)")
 		local elapsed = formatElapsed(searchStartTime)
 		controls.statusLabel.label = (isThreadBestVariantSearch
@@ -808,7 +819,7 @@ local function runRadiusJewelFind(self, context, makePreferred)
 			or isSplitPersonalitySearch
 			and s_format("^7Split Personality | %d | score/pt", #results)
 			or s_format("^7%d results | score/pt", #results)) .. elapsed
-		saveResultCache("find", isThreadBestVariantSearch and "findThread" or "find", rows, COL_META .. "(no results)", controls.statusLabel.label, makePreferred)
+		saveResultCache("find", isThreadBestVariantSearch and "findThread" or "find", rows, COL_META .. "(no results)", controls.statusLabel.label, makePreferred, resultContextKey)
 		if not makePreferred then
 			restoreCachedResults()
 		end
@@ -821,8 +832,8 @@ local function runRadiusJewelFind(self, context, makePreferred)
 	end
 end
 
-local function applyRadiusJewelResult(self, row)
-	if not row or not row.applyRawText then
+local function applyRadiusJewelResult(self, row, resultContextKey)
+	if not row or not row.applyRawText or row.resultContextKey ~= resultContextKey then
 		return
 	end
 
@@ -860,10 +871,12 @@ local function runRadiusJewelCompute(self, context)
 	local formatComputeStatus = context.formatComputeStatus
 	local formatElapsed = context.formatElapsed
 	local saveResultCache = context.saveResultCache
+	local stampResultRows = context.stampResultRows
 	local getSelectedVariants = context.getSelectedVariants
 	local hasVariantGroups = context.hasVariantGroups
 	local selectedVariantGroup = context.selectedVariantGroup
 	local ALL_VARIANT_GROUPS_VALUE = context.allVariantGroupsValue
+	local resultContextKey = context.resultContextKey
 
 	if computeState.computeContext then
 		cancelCompute("^8Compute stopped")
@@ -876,6 +889,7 @@ local function runRadiusJewelCompute(self, context)
 	setComputeProgress("^7Computing...")
 	local progress = makeComputeProgressTracker()
 	computeState.computeContext = {
+		resultContextKey = resultContextKey,
 		co = coroutine.create(function()
 			local ok, err = pcall(function()
 				local statLabel = selectedImpactStat.label
@@ -1025,12 +1039,14 @@ local function runRadiusJewelCompute(self, context)
 					end
 
 					globalBaseline = globalBaseline or 0
+					stampResultRows(allRows, resultContextKey)
 					computeState.lastComputeAllRows = allRows
+					computeState.lastComputeAllResultContextKey = resultContextKey
 					local displayRows = getSelectedAllJewelsView().id == "bestPerSocket"
 						and self:filterBestPerSocket(allRows) or allRows
 					controls.resultsList:SetMode("computeSocketAll", displayRows, COL_META .. "(no compatible sockets)")
 					controls.statusLabel.label = formatComputeStatus("All jewels", statLabel, globalBaseline, computeMethodLabel) .. formatElapsed(searchStartTime)
-					saveResultCache("compute", "computeSocketAll", allRows, COL_META .. "(no compatible sockets)", controls.statusLabel.label, true)
+					saveResultCache("compute", "computeSocketAll", allRows, COL_META .. "(no compatible sockets)", controls.statusLabel.label, true, resultContextKey)
 				else
 					local displayedVariants = getSelectedVariants()
 					local itemLabel = selectedJewelType.name
@@ -1079,9 +1095,10 @@ local function runRadiusJewelCompute(self, context)
 						computeState.computeContext.removedJewels = nil
 						rows = buildComputeRows(selectedJewelType, socketResults, baseline, equippedList)
 					end
+					stampResultRows(rows, resultContextKey)
 					controls.resultsList:SetMode("computeSocket", rows, COL_META .. "(no compatible sockets)")
 					controls.statusLabel.label = formatComputeStatus(itemLabel, statLabel, baseline, computeMethodLabel) .. formatElapsed(searchStartTime)
-					saveResultCache("compute", "computeSocket", rows, COL_META .. "(no compatible sockets)", controls.statusLabel.label, true)
+					saveResultCache("compute", "computeSocket", rows, COL_META .. "(no compatible sockets)", controls.statusLabel.label, true, resultContextKey)
 				end
 			end)
 			if not ok then
@@ -1092,6 +1109,11 @@ local function runRadiusJewelCompute(self, context)
 	main.onFrameFuncs["RadiusJewelFinderCompute"] = function()
 		if not computeState.computeContext then
 			main.onFrameFuncs["RadiusJewelFinderCompute"] = nil
+			return
+		end
+		if not context.isResultContextCurrent(resultContextKey) then
+			cancelCompute()
+			context.clearResultsForContext()
 			return
 		end
 		local res, errMsg = coroutine.resume(computeState.computeContext.co)
@@ -1199,24 +1221,38 @@ local function buildRadiusJewelPopupContext(self)
 		finderState.allJewelsViewId = selectedAllJewelsView and selectedAllJewelsView.id or nil
 	end
 
-	local function getSelectionKey()
-		local supportsComputeMethods = selectedJewelType and selectedJewelType.computeMethods and #selectedJewelType.computeMethods > 0
+	local function getResultContextKey()
+		synchronizeResultCaches(self.build, finderState)
+		local selectedVariantIdentity = selectedJewelVariant and selectedJewelVariant.variantIdentity
+		local selectedVariantKey = selectedVariantIdentity and selectedVariantIdentity.rawText
+			or selectedJewelVariant and (selectedJewelVariant.dropdownLabel or selectedJewelVariant.name)
+			or ""
+		local variantGroupKey = #variantGroupOptions > 1 and selectedVariantGroup and selectedVariantGroup.value or ""
+		local supportsComputeMethods = selectedJewelType and (selectedJewelType.isAllJewels
+			or selectedJewelType.computeMethods and #selectedJewelType.computeMethods > 0)
 		local computeMethodKey = supportsComputeMethods and selectedComputeMethod and selectedComputeMethod.id or ""
+		local legacyKey = selectedJewelType and selectedJewelType.isAllJewels and showLegacy and "1" or "0"
 		return table.concat({
-			tostring(showLegacy and 1 or 0),
+			tostring(self.build.outputRevision or 0),
 			selectedJewelType and selectedJewelType.name or "",
-			selectedJewelVariant and (selectedJewelVariant.dropdownLabel or selectedJewelVariant.name) or "",
-			selectedThreadVariant and selectedThreadVariant.name or "",
-			selectedVariantGroup and selectedVariantGroup.value or "",
+			selectedVariantKey,
+			variantGroupKey,
 			selectedImpactStat and selectedImpactStat.field or "",
 			computeMethodKey,
 			selectedMaxPoints and tostring(selectedMaxPoints) or "",
 			selectedOccupiedMode and selectedOccupiedMode.id or "",
+			legacyKey,
 		}, "|")
 	end
 
-	local function restoreCachedResults()
-		local key = getSelectionKey()
+	local function stampResultRows(rows, resultContextKey)
+		for _, row in ipairs(rows or { }) do
+			row.resultContextKey = resultContextKey
+		end
+	end
+
+	local function restoreCachedResults(resultContextKey)
+		local key = resultContextKey or getResultContextKey()
 		local preferredView = finderState.resultViewByKey[key]
 		local allowFindCache = not (selectedJewelType and selectedJewelType.isAllJewels)
 		local findCache = allowFindCache and finderState.findCache[key] or nil
@@ -1233,28 +1269,83 @@ local function buildRadiusJewelPopupContext(self)
 		if not cache then
 			return false
 		end
+		if cache.resultContextKey ~= key then
+			return false
+		end
 		local rows = copyTableSafe(cache.rows, false, true)
 		if cache.mode == "computeSocketAll" then
 			computeState.lastComputeAllRows = rows
+			computeState.lastComputeAllResultContextKey = key
 			if selectedAllJewelsView.id == "bestPerSocket" then
 				rows = self:filterBestPerSocket(rows)
 			end
+		else
+			computeState.lastComputeAllRows = nil
+			computeState.lastComputeAllResultContextKey = nil
 		end
 		controls.resultsList:SetMode(cache.mode, rows, cache.defaultText)
 		controls.statusLabel.label = cache.statusLabel or controls.statusLabel.label
 		return true
 	end
-	local function saveResultCache(viewName, mode, rows, defaultText, statusLabel, makePreferred)
-		local key = getSelectionKey()
+	local function saveResultCache(viewName, mode, rows, defaultText, statusLabel, makePreferred, resultContextKey)
+		local key = resultContextKey or getResultContextKey()
+		if key ~= getResultContextKey() then
+			return false
+		end
 		local targetCache = viewName == "compute" and finderState.computeCache or finderState.findCache
 		targetCache[key] = {
 			mode = mode,
 			rows = copyTableSafe(rows, false, true),
 			defaultText = defaultText,
 			statusLabel = statusLabel,
+			resultContextKey = key,
 		}
 		if makePreferred then
 			finderState.resultViewByKey[key] = viewName
+		end
+		return true
+	end
+	local function clearResultsForContext()
+		computeState.lastComputeAllRows = nil
+		computeState.lastComputeAllResultContextKey = nil
+		local message = selectedJewelType and selectedJewelType.isAllJewels
+			and (COL_META .. "Click Compute to rank all jewels")
+			or (COL_META .. "Click Find to search")
+		controls.statusLabel.label = message
+		controls.resultsList:SetMode("message", { }, message)
+	end
+	local function saveVisibleResultView(resultContextKey)
+		local mode = controls.resultsList.mode
+		local viewName = (mode == "find" or mode == "findThread") and "find"
+			or (mode == "computeSocket" or mode == "computeSocketAll") and "compute"
+		if not viewName then
+			return
+		end
+		local cache
+		if viewName == "compute" then
+			cache = finderState.computeCache[resultContextKey]
+		else
+			cache = finderState.findCache[resultContextKey]
+		end
+		if cache and cache.resultContextKey == resultContextKey then
+			finderState.resultViewByKey[resultContextKey] = viewName
+		end
+	end
+	local function isResultContextCurrent(resultContextKey)
+		return resultContextKey == getResultContextKey()
+	end
+	local function isResultApplicable(row)
+		return row ~= nil and row.applyRawText ~= nil and isResultContextCurrent(row.resultContextKey)
+	end
+	local function onCriteriaChanged(updateCriteria)
+		cancelCompute()
+		local previousResultContextKey = getResultContextKey()
+		saveVisibleResultView(previousResultContextKey)
+		updateCriteria()
+		saveFinderState()
+		local resultContextKey = getResultContextKey()
+		if not restoreCachedResults(resultContextKey) then
+			clearResultsForContext()
 		end
 	end
 	local function formatComputeStatus(itemLabel, statLabel, baseline, methodLabel)
@@ -1711,12 +1802,12 @@ local function buildRadiusJewelPopupContext(self)
 
 	controls.computeMethodLabel = new("LabelControl"):LabelControl(TL, { rightPanelX, headerLabelY, 0, 16 }, "^7Method:")
 	controls.computeMethodSelect = new("DropDownControl"):DropDownControl(TL, { rightPanelX, headerInputY, 160, buttonHeight }, { }, function(idx)
-		cancelCompute()
-		local methods = getSelectedComputeMethods()
-		if methods then
-			selectedComputeMethod = methods[idx]
-		end
-		saveFinderState()
+		onCriteriaChanged(function()
+			local methods = getSelectedComputeMethods()
+			if methods then
+				selectedComputeMethod = methods[idx]
+			end
+		end)
 	end)
 	local function addComputeMethodTooltip(tooltip, mode, index)
 		local methods = getSelectedComputeMethods()
@@ -1741,18 +1832,18 @@ local function buildRadiusJewelPopupContext(self)
 	-- Impact stat selector (shown when jewel has compute)
 	controls.impactStatLabel = new("LabelControl"):LabelControl(TL, { rightPanelX + 180, headerLabelY, 0, 16 }, "^7Stat:")
 	controls.impactStatSelect = new("DropDownControl"):DropDownControl(TL, { rightPanelX + 180, headerInputY, 140, buttonHeight }, impactStatLabels, function(idx)
-		cancelCompute()
-		selectedImpactStat = IMPACT_STATS[idx]
-		saveFinderState()
+		onCriteriaChanged(function()
+			selectedImpactStat = IMPACT_STATS[idx]
+		end)
 	end)
 	controls.impactStatLabel.shown = true
 	controls.impactStatSelect.shown = true
 
 	controls.maxPointsLabel = new("LabelControl"):LabelControl(BL, { edgePadding + 110, bottomLabelY, 0, 16 }, "^7Max points:")
 	controls.maxPointsEdit = new("EditControl"):EditControl(BL, { edgePadding + 190, bottomInputY, 56, buttonHeight }, tostring(selectedMaxPoints), nil, "%D", 3, function(buf)
-		cancelCompute()
-		selectedMaxPoints = buf ~= "" and tonumber(buf) or nil
-		saveFinderState()
+		onCriteriaChanged(function()
+			selectedMaxPoints = buf ~= "" and tonumber(buf) or nil
+		end)
 	end)
 	local function addMaxPointsTooltip(tooltip)
 		tooltip:Clear(true)
@@ -1766,10 +1857,9 @@ local function buildRadiusJewelPopupContext(self)
 
 	controls.occupiedModeLabel = new("LabelControl"):LabelControl(BL, { edgePadding + 256, bottomLabelY, 0, 16 }, "^7Sockets:")
 	controls.occupiedModeSelect = new("DropDownControl"):DropDownControl(BL, { edgePadding + 314, bottomInputY, 150, buttonHeight }, occupiedModeLabels, function(idx)
-		cancelCompute()
-		selectedOccupiedMode = OCCUPIED_SOCKET_OPTIONS[idx]
-		saveFinderState()
-		runFind(false)
+		onCriteriaChanged(function()
+			selectedOccupiedMode = OCCUPIED_SOCKET_OPTIONS[idx]
+		end)
 	end)
 	local function addOccupiedModeTooltip(tooltip, mode, index)
 		local option = (index and OCCUPIED_SOCKET_OPTIONS[index]) or selectedOccupiedMode
@@ -1793,10 +1883,13 @@ local function buildRadiusJewelPopupContext(self)
 	controls.allJewelsViewLabel = new("LabelControl"):LabelControl(TL, { variantDefaultX, headerLabelY, 0, 16 }, "^7View:")
 	controls.allJewelsViewSelect = new("DropDownControl"):DropDownControl(TL, { variantDefaultX, headerInputY, 160, 20 }, allJewelsViewLabels, function(idx)
 		selectedAllJewelsView = ALL_JEWELS_VIEW_OPTIONS[idx]
-		if computeState.lastComputeAllRows then
+		if computeState.lastComputeAllRows
+		and isResultContextCurrent(computeState.lastComputeAllResultContextKey) then
 			local displayRows = selectedAllJewelsView.id == "bestPerSocket"
 				and self:filterBestPerSocket(computeState.lastComputeAllRows) or computeState.lastComputeAllRows
 			controls.resultsList:SetMode("computeSocketAll", displayRows, COL_META .. "(no compatible sockets)")
+		elseif computeState.lastComputeAllRows then
+			clearResultsForContext()
 		end
 		saveFinderState()
 	end)
@@ -1818,25 +1911,22 @@ local function buildRadiusJewelPopupContext(self)
 	-- Thread ring selector (shown when Thread of Hope selected)
 	controls.threadVariantLabel = new("LabelControl"):LabelControl(TL, { variantDefaultX, headerLabelY, 0, 16 }, "^7Preview ring:")
 	controls.threadVariantSelect = new("DropDownControl"):DropDownControl(TL, { variantDefaultX, headerInputY, 200, 20 }, tvLabels, function(idx)
-		cancelCompute()
 		selectedThreadVariant = threadVariants[idx]
 		saveFinderState()
 		updatePreview()
-		runFind(false)
 	end)
 	controls.threadVariantLabel.shown = false
 	controls.threadVariantSelect.shown = false
 
 	controls.variantGroupLabel = new("LabelControl"):LabelControl(TL, { variantGroupX, headerLabelY, 0, 16 }, "^7Jewel:")
 	controls.variantGroupSelect = new("DropDownControl"):DropDownControl(TL, { variantGroupX, headerInputY, variantGroupWidth, 20 }, { "All" }, function(idx)
-		cancelCompute()
-		selectedVariantGroup = variantGroupOptions[idx] or variantGroupOptions[1]
-		controls.jewelVariantSelect.selIndex = 1
-		selectedJewelVariant = nil
-		syncDisplayedVariants()
-		saveFinderState()
-		updatePreview()
-		runFind(false)
+		onCriteriaChanged(function()
+			selectedVariantGroup = variantGroupOptions[idx] or variantGroupOptions[1]
+			controls.jewelVariantSelect.selIndex = 1
+			selectedJewelVariant = nil
+			syncDisplayedVariants()
+			updatePreview()
+		end)
 	end)
 	controls.variantGroupLabel.shown = false
 	controls.variantGroupSelect.shown = false
@@ -1844,17 +1934,17 @@ local function buildRadiusJewelPopupContext(self)
 	-- Jewel variant selector (shown when jewel type has built-in variants)
 	controls.jewelVariantLabel = new("LabelControl"):LabelControl(TL, { variantDefaultX, headerLabelY, 0, 16 }, "^7Variant:")
 	controls.jewelVariantSelect = new("DropDownControl"):DropDownControl(TL, { variantDefaultX, headerInputY, variantDefaultWidth, 20 }, {}, function(idx)
-		cancelCompute()
-		local variants = getDisplayedVariants()
-		if variants then
-			selectedJewelVariant = idx == 1 and nil or variants[idx - 1]
-			saveFinderState()
-			updatePreview()
-			if controls.findButton then
-				controls.findButton.shown = not (selectedJewelType and selectedJewelType.variants
-					and not selectedJewelVariant and not selectedJewelType.isImpossibleEscape)
+		onCriteriaChanged(function()
+			local variants = getDisplayedVariants()
+			if variants then
+				selectedJewelVariant = idx == 1 and nil or variants[idx - 1]
+				updatePreview()
+				if controls.findButton then
+					controls.findButton.shown = not (selectedJewelType and selectedJewelType.variants
+						and not selectedJewelVariant and not selectedJewelType.isImpossibleEscape)
+				end
 			end
-		end
+		end)
 	end)
 	controls.jewelVariantSelect.enableDroppedWidth = true
 	controls.jewelVariantSelect.maxDroppedWidth = 520
@@ -1964,13 +2054,12 @@ local function buildRadiusJewelPopupContext(self)
 
 	-- Jewel type dropdown (defined after variant controls so :Click() is safe)
 	controls.jewelTypeSelect = new("DropDownControl"):DropDownControl(TL, { 10, headerInputY, 260, 20 }, jtLabels, function(idx)
-		cancelCompute()
-		selectedJewelType = activeJewelTypes[idx]
-		controls.jewelVariantSelect.selIndex = 1
-		syncSelectedJewelTypeControls()
-		saveFinderState()
-		updatePreview()
-		runFind(false)
+		onCriteriaChanged(function()
+			selectedJewelType = activeJewelTypes[idx]
+			controls.jewelVariantSelect.selIndex = 1
+			syncSelectedJewelTypeControls()
+			updatePreview()
+		end)
 	end)
 	controls.jewelTypeSelect.tooltipFunc = function(tooltip, mode, index)
 		local jewelType = activeJewelTypes[index]
@@ -2181,6 +2270,7 @@ local function buildRadiusJewelPopupContext(self)
 	end
 
 	controls.computeButton = new("ButtonControl"):ButtonControl(TL, { popupWidth - edgePadding * 2 - 72, headerInputY, 72, buttonHeight }, "Compute", function()
+		local resultContextKey = getResultContextKey()
 		runRadiusJewelCompute(self, {
 			controls = controls,
 			computeState = computeState,
@@ -2203,10 +2293,14 @@ local function buildRadiusJewelPopupContext(self)
 			formatComputeStatus = formatComputeStatus,
 			formatElapsed = formatElapsed,
 			saveResultCache = saveResultCache,
+			stampResultRows = stampResultRows,
 			getSelectedVariants = getSelectedVariants,
 			hasVariantGroups = hasVariantGroups,
 			selectedVariantGroup = selectedVariantGroup,
 			allVariantGroupsValue = ALL_VARIANT_GROUPS_VALUE,
+			resultContextKey = resultContextKey,
+			isResultContextCurrent = isResultContextCurrent,
+			clearResultsForContext = clearResultsForContext,
 		})
 	end)
 	controls.computeButton.tooltipFunc = function(tooltip)
@@ -2231,16 +2325,16 @@ local function buildRadiusJewelPopupContext(self)
 		controls.resultsList:SetMode("message", { }, COL_META .. "Click Compute to rank all jewels")
 	end
 	controls.showLegacyCheck = new("CheckBoxControl"):CheckBoxControl(TL, { 700, statusLabelY, 18 }, "Show legacy", function(state)
-		cancelCompute()
-		showLegacy = state
-		saveFinderState()
-		rebuildJewelTypeDropdown()
-		syncSelectedJewelTypeControls()
-		updatePreview()
-		runFind(false)
+		onCriteriaChanged(function()
+			showLegacy = state
+			rebuildJewelTypeDropdown()
+			syncSelectedJewelTypeControls()
+			updatePreview()
+		end)
 	end)
 
 	runFind = function(makePreferred)
+		local resultContextKey = getResultContextKey()
 		runRadiusJewelFind(self, {
 			controls = controls,
 			treeData = treeData,
@@ -2248,13 +2342,14 @@ local function buildRadiusJewelPopupContext(self)
 			threadVariants = threadVariants,
 			jewelSockets = jewelSockets,
 			selectedJewelType = selectedJewelType,
-			selectedThreadVariant = selectedThreadVariant,
 			selectedJewelVariant = selectedJewelVariant,
 			selectedOccupiedMode = selectedOccupiedMode,
+			resultContextKey = resultContextKey,
 			getSelectedVariants = getSelectedVariants,
 			formatElapsed = formatElapsed,
 			restoreCachedResults = restoreCachedResults,
 			saveResultCache = saveResultCache,
+			stampResultRows = stampResultRows,
 			showAllJewelsComputePrompt = showAllJewelsComputePrompt,
 		}, makePreferred)
 	end
@@ -2272,16 +2367,25 @@ local function buildRadiusJewelPopupContext(self)
 	applySelectedResult = function()
 		local idx = controls.resultsList.selIndex
 		local row = idx and controls.resultsList.list[idx]
-		applyRadiusJewelResult(self, row)
+		local resultContextKey = getResultContextKey()
+		if isResultApplicable(row) then
+			applyRadiusJewelResult(self, row, resultContextKey)
+		end
 	end
 	controls.applyButton = new("ButtonControl"):ButtonControl(BL, { edgePadding + 480, bottomButtonY, 80, buttonHeight }, "Apply", applySelectedResult)
 	controls.applyButton.enabled = function()
 		local idx = controls.resultsList.selIndex
-		return idx and controls.resultsList.list[idx] and controls.resultsList.list[idx].applyRawText ~= nil
+		return isResultApplicable(idx and controls.resultsList.list[idx])
 	end
 	controls.applyButton.tooltipFunc = function(tooltip)
 		local idx = controls.resultsList.selIndex
 		local row = idx and controls.resultsList.list[idx]
+		if row and row.applyRawText and not isResultApplicable(row) then
+			tooltip:Clear(true)
+			tooltip:AddLine(16, "^xFFAA33Results are out of date for the current build or criteria.")
+			tooltip:AddLine(16, "^8Run Find or Compute again.")
+			return
+		end
 		if not row or not row.applyRawText then
 			tooltip:Clear(true)
 			tooltip:AddLine(16, "^7Select a result to apply.")
@@ -2299,9 +2403,7 @@ local function buildRadiusJewelPopupContext(self)
 	local function restoreFinderState()
 		if not finderState.jewelTypeName then
 			updatePreview()
-			if selectedJewelType and selectedJewelType.isAllJewels then
-				showAllJewelsComputePrompt()
-			end
+			clearResultsForContext()
 			return
 		end
 		suppressFinderStateSave = true
@@ -2398,7 +2500,9 @@ local function buildRadiusJewelPopupContext(self)
 		suppressFinderStateSave = false
 		saveFinderState()
 		updatePreview()
-		runFind(false)
+		if not restoreCachedResults() then
+			clearResultsForContext()
+		end
 	end
 
 	controls.closeButton = new("ButtonControl"):ButtonControl(BR, { -edgePadding, bottomButtonY, 100, buttonHeight }, "Close", function()
