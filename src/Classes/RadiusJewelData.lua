@@ -22,6 +22,16 @@ local COL_META   = "^8"
 local COL_NEG    = "^1"
 M.COL_META = COL_META
 
+M.JEWEL_STRATEGY = {
+	RADIUS = "radius",
+	INTUITIVE_LEAP = "intuitiveLeap",
+	THREAD_OF_HOPE = "threadOfHope",
+	IMPOSSIBLE_ESCAPE = "impossibleEscape",
+	SPLIT_PERSONALITY = "splitPersonality",
+	ALL_JEWELS = "allJewels",
+}
+local JEWEL_STRATEGY = M.JEWEL_STRATEGY
+
 -- ─────────────────────────────────────────────────────────────────────────────
 -- Unique raw text lookup
 -- ─────────────────────────────────────────────────────────────────────────────
@@ -789,6 +799,7 @@ M.jewelPreviewFn = jewelPreviewFn
 function M.buildJewelTypes()
 	local mightOfTheMeek = {
 		name = "Might of the Meek",
+		strategy = JEWEL_STRATEGY.RADIUS,
 		radiusIndex = getUniqueRadiusIndex("Might of the Meek"),
 		scoreLabel = "alloc small passives",
 		hasCompute = true,
@@ -806,6 +817,7 @@ function M.buildJewelTypes()
 
 	local inspiredLearning = {
 		name = "Inspired Learning",
+		strategy = JEWEL_STRATEGY.RADIUS,
 		hasCompute = true,
 		radiusIndex = getUniqueRadiusIndex("Inspired Learning"),
 		scoreLabel = "alloc notables",
@@ -824,6 +836,7 @@ function M.buildJewelTypes()
 
 	local unnaturalInstinct = {
 		name = "Unnatural Instinct",
+		strategy = JEWEL_STRATEGY.RADIUS,
 		radiusIndex = getUniqueRadiusIndex("Unnatural Instinct"),
 		scoreLabel = "unalloc small - alloc small",
 		hasCompute = true,
@@ -843,6 +856,7 @@ function M.buildJewelTypes()
 
 	local lioneyesFall = {
 		name = "Lioneye's Fall",
+		strategy = JEWEL_STRATEGY.RADIUS,
 		radiusIndex = getUniqueRadiusIndex("Lioneye's Fall"),
 		scoreLabel = "alloc passives",
 		hasCompute = true,
@@ -853,6 +867,7 @@ function M.buildJewelTypes()
 
 	local intuitiveLeap = {
 		name = "Intuitive Leap",
+		strategy = JEWEL_STRATEGY.INTUITIVE_LEAP,
 		radiusIndex = getUniqueRadiusIndex("Intuitive Leap"),
 		scoreLabel = "unalloc passives",
 		hasCompute = true,
@@ -914,6 +929,7 @@ function M.buildJewelTypes()
 	local jewelTypes = { }
 	t_insert(jewelTypes, {
 		name = "The Light of Meaning",
+		strategy = JEWEL_STRATEGY.RADIUS,
 		radiusIndex = lightOfMeaningVariants[1] and lightOfMeaningVariants[1].radiusIndex,
 		scoreLabel = "alloc passives",
 		hasCompute = true,
@@ -925,6 +941,7 @@ function M.buildJewelTypes()
 	t_insert(jewelTypes, inspiredLearning)
 	t_insert(jewelTypes, {
 		name = "Anatomical Knowledge",
+		strategy = JEWEL_STRATEGY.RADIUS,
 		radiusIndex = getUniqueRadiusIndex("Anatomical Knowledge"),
 		scoreLabel = "alloc passives",
 		hasCompute = true,
@@ -934,6 +951,7 @@ function M.buildJewelTypes()
 	})
 	t_insert(jewelTypes, {
 		name = "Tempered & Transcendent",
+		strategy = JEWEL_STRATEGY.RADIUS,
 		radiusIndex = temperedTranscendentVariants[1] and temperedTranscendentVariants[1].radiusIndex,
 		scoreLabel = "attr in radius",
 		hasCompute = true,
@@ -946,6 +964,7 @@ function M.buildJewelTypes()
 	t_insert(jewelTypes, intuitiveLeap)
 	t_insert(jewelTypes, {
 		name = "Impossible Escape",
+		strategy = JEWEL_STRATEGY.IMPOSSIBLE_ESCAPE,
 		isImpossibleEscape = true,
 		isSocketIndependent = true,
 		scoreLabel = "unalloc notable/keystone near keystone",
@@ -956,6 +975,7 @@ function M.buildJewelTypes()
 	})
 	t_insert(jewelTypes, {
 		name = "Split Personality",
+		strategy = JEWEL_STRATEGY.SPLIT_PERSONALITY,
 		isSplitPersonality = true,
 		scoreLabel = "dist to start",
 		hasCompute = true,
@@ -966,6 +986,7 @@ function M.buildJewelTypes()
 	})
 	t_insert(jewelTypes, {
 		name = "Stat Conversion",
+		strategy = JEWEL_STRATEGY.RADIUS,
 		radiusIndex = statConversionVariants[1] and statConversionVariants[1].radiusIndex,
 		scoreLabel = "alloc passives",
 		hasCompute = true,
@@ -974,6 +995,7 @@ function M.buildJewelTypes()
 	})
 	t_insert(jewelTypes, {
 		name = "Attribute Conversion",
+		strategy = JEWEL_STRATEGY.RADIUS,
 		radiusIndex = attributeConversionVariants[1] and attributeConversionVariants[1].radiusIndex,
 		scoreLabel = "alloc passives",
 		hasCompute = true,
@@ -982,6 +1004,7 @@ function M.buildJewelTypes()
 	})
 	t_insert(jewelTypes, {
 		name = "Combat Focus",
+		strategy = JEWEL_STRATEGY.RADIUS,
 		radiusIndex = combatFocusVariants[1] and combatFocusVariants[1].radiusIndex,
 		scoreLabel = "alloc passives",
 		hasCompute = true,
@@ -990,6 +1013,7 @@ function M.buildJewelTypes()
 	})
 	t_insert(jewelTypes, {
 		name = "Dreams & Nightmares",
+		strategy = JEWEL_STRATEGY.RADIUS,
 		radiusIndex = dreamsVariants[1] and dreamsVariants[1].radiusIndex,
 		scoreLabel = "alloc passives",
 		hasCompute = true,
@@ -998,6 +1022,7 @@ function M.buildJewelTypes()
 	})
 	t_insert(jewelTypes, {
 		name = "Thread of Hope",
+		strategy = JEWEL_STRATEGY.THREAD_OF_HOPE,
 		isThread = true,
 		scoreLabel = "unalloc notable/keystone in ring",
 		hasCompute = true,

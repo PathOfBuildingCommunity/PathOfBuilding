@@ -44,6 +44,7 @@ end
 local IMPACT_STATS                  = RadiusJewelData.buildImpactStats()
 local DISCONNECTED_PASSIVE_COMPUTE_METHODS = RadiusJewelData.DISCONNECTED_PASSIVE_COMPUTE_METHODS
 local OCCUPIED_SOCKET_OPTIONS       = RadiusJewelData.OCCUPIED_SOCKET_OPTIONS
+local JEWEL_STRATEGY                = RadiusJewelData.JEWEL_STRATEGY
 local jewelPreviewFn                = RadiusJewelData.jewelPreviewFn
 local buildJewelTypes               = RadiusJewelData.buildJewelTypes
 local makeVariantDropdownEntry      = RadiusJewelData.makeVariantDropdownEntry
@@ -854,6 +855,229 @@ local function buildRadiusJewelPopupSetup(self)
 	}
 end
 
+local function collectFindTopNodes(nodes)
+	local topNodes = { }
+	for _, node in pairs(nodes) do
+		if not node.ascendancyName and (node.type == "Notable" or node.type == "Keystone") then
+			t_insert(topNodes, {
+				label = node.dn or node.name or "Unknown",
+				nodeId = node.id,
+			})
+		end
+	end
+	t_sort(topNodes, function(a, b) return a.label < b.label end)
+	return topNodes
+end
+
+local function prepareRadiusFind(request)
+	local selectedVariant = request.selectedVariant
+	local radiusIndex = selectedVariant and selectedVariant.radiusIndex or request.jewelType.radiusIndex
+	if not radiusIndex then
+		return
+	end
+	return {
+		radiusIndex = radiusIndex,
+	}
+end
+
+local function findRadiusSocket(_, request, findState)
+	local nodes = request.socketNode.nodesInRadius[findState.radiusIndex]
+	if not nodes then
+		return
+	end
+	local selectedVariant = request.selectedVariant
+	local scoreFn = selectedVariant and selectedVariant.score or request.jewelType.score
+	local detailBuilder = selectedVariant and selectedVariant.detailBuilder or request.jewelType.detailBuilder
+	return {
+		socket = request.socket,
+		score = scoreFn(nodes, request.allocNodes) or 0,
+		topNodes = collectFindTopNodes(nodes),
+		variant = selectedVariant,
+		detailText = detailBuilder and detailBuilder(nodes, request.allocNodes) or nil,
+		replacedItemLabel = request.occupancy and request.occupancy.replacedItemLabel or nil,
+		storedUnallocatedItemLabel = request.occupancy and request.occupancy.storedUnallocatedItemLabel or nil,
+	}
+end
+
+local function findThreadSocket(_, request)
+	local bestResult
+	for _, variant in ipairs(request.threadVariants) do
+		local nodes = request.socketNode.nodesInRadius[variant.radiusIndex]
+		if nodes then
+			local candidate = {
+				socket = request.socket,
+				score = request.jewelType.score(nodes, request.allocNodes) or 0,
+				topNodes = collectFindTopNodes(nodes),
+				variant = variant,
+				replacedItemLabel = request.occupancy and request.occupancy.replacedItemLabel or nil,
+				storedUnallocatedItemLabel = request.occupancy and request.occupancy.storedUnallocatedItemLabel or nil,
+			}
+			if not bestResult
+			or candidate.score > bestResult.score
+			or (candidate.score == bestResult.score and candidate.variant.radiusIndex < bestResult.variant.radiusIndex) then
+				bestResult = candidate
+			end
+		end
+	end
+	return bestResult
+end
+
+local function prepareImpossibleEscapeFind(request)
+	local bestResult
+	local smallRadiusIndex = request.radiusIndexByLabel["Small"]
+	for _, variant in ipairs(request.selectedVariants or request.jewelType.variants or { }) do
+		local keystoneNode = request.treeData.keystoneMap[variant.keystoneName]
+		local nodes = keystoneNode and keystoneNode.nodesInRadius and smallRadiusIndex
+			and keystoneNode.nodesInRadius[smallRadiusIndex]
+		if nodes then
+			local candidate = {
+				score = request.jewelType.score(nodes, request.allocNodes) or 0,
+				topNodes = collectFindTopNodes(nodes),
+				variant = variant,
+				detailText = variant.name,
+			}
+			if not bestResult
+			or candidate.score > bestResult.score
+			or (candidate.score == bestResult.score and candidate.variant.name < bestResult.variant.name) then
+				bestResult = candidate
+			end
+		end
+	end
+	return { bestResult = bestResult }
+end
+
+local function findImpossibleEscapeSocket(_, request, findState)
+	local bestResult = findState.bestResult
+	if not bestResult then
+		return
+	end
+	return {
+		socket = request.socket,
+		score = bestResult.score,
+		topNodes = bestResult.topNodes,
+		variant = bestResult.variant,
+		detailText = bestResult.detailText,
+		replacedItemLabel = request.occupancy and request.occupancy.replacedItemLabel or nil,
+		storedUnallocatedItemLabel = request.occupancy and request.occupancy.storedUnallocatedItemLabel or nil,
+	}
+end
+
+local function findSplitPersonalitySocket(self, request)
+	local score = request.socket.classStartDist or self.compute:getSocketDistanceToClassStart(request.socket.id)
+	return {
+		socket = request.socket,
+		score = score,
+		topNodes = { },
+		detailText = s_format("dist to start %d", score),
+		replacedItemLabel = request.occupancy and request.occupancy.replacedItemLabel or nil,
+		storedUnallocatedItemLabel = request.occupancy and request.occupancy.storedUnallocatedItemLabel or nil,
+	}
+end
+
+local function copyComputeRequestWith(request, field, value)
+	local requestCopy = copyTableSafe(request, true)
+	requestCopy[field] = value
+	return requestCopy
+end
+
+local function computeRadiusStrategy(compute, jewelType, request)
+	if request.variants and #request.variants > 0 then
+		return compute:computeBestVariantSocketImpact(request)
+	end
+	return compute:computeSocketImpact(copyComputeRequestWith(request, "rawText", jewelType.rawText))
+end
+
+local function computeIntuitiveLeapStrategy(compute, _, request)
+	return compute:computeBestIntuitiveLeapSocketImpact(request)
+end
+
+local function computeThreadOfHopeStrategy(compute, _, request)
+	return compute:computeThreadOfHopeSocketImpact(copyComputeRequestWith(request, "variants", request.threadVariants))
+end
+
+local function computeImpossibleEscapeStrategy(compute, jewelType, request)
+	local variants = request.variants or jewelType.variants or getImpossibleEscapeVariants()
+	return compute:computeImpossibleEscapeSocketImpact(copyComputeRequestWith(request, "variants", variants))
+end
+
+local function computeSplitPersonalityStrategy(compute, jewelType, request)
+	local variants = request.variants or jewelType.variants or getSplitPersonalityVariants()
+	return compute:computeSplitPersonalitySocketImpact(copyComputeRequestWith(request, "variants", variants))
+end
+
+local JEWEL_STRATEGIES = {
+	[JEWEL_STRATEGY.RADIUS] = {
+		prepareFind = prepareRadiusFind,
+		findSocket = findRadiusSocket,
+		compute = computeRadiusStrategy,
+		usesVariantPartitions = true,
+	},
+	[JEWEL_STRATEGY.INTUITIVE_LEAP] = {
+		prepareFind = prepareRadiusFind,
+		findSocket = findRadiusSocket,
+		compute = computeIntuitiveLeapStrategy,
+		keepBestAllJewelsRowPerSocket = true,
+	},
+	[JEWEL_STRATEGY.THREAD_OF_HOPE] = {
+		findSocket = findThreadSocket,
+		compute = computeThreadOfHopeStrategy,
+		resultMode = "findThread",
+		appendMatchCount = true,
+		keepBestAllJewelsRowPerSocket = true,
+		formatVariantLabel = function(variant)
+			return variant.ringLabel or (variant.name .. " Ring")
+		end,
+		formatFindStatus = function(request, resultCount)
+			local variants = request.threadVariants
+			local label = #variants == 1
+				and ("Thread of Hope (" .. (variants[1].ringLabel or (variants[1].name .. " Ring")) .. ")")
+				or "Thread of Hope (Any ring)"
+			return s_format("^7%s | %d | score/pt", label, resultCount)
+		end,
+		formatComputeLabel = function(jewelType, request)
+			local variants = request.threadVariants
+			return #variants == 1
+				and (jewelType.name .. " (" .. (variants[1].ringLabel or (variants[1].name .. " Ring")) .. ")")
+				or (jewelType.name .. " (Any ring)")
+		end,
+	},
+	[JEWEL_STRATEGY.IMPOSSIBLE_ESCAPE] = {
+		prepareFind = prepareImpossibleEscapeFind,
+		findSocket = findImpossibleEscapeSocket,
+		compute = computeImpossibleEscapeStrategy,
+		appendMatchCount = true,
+		keepBestAllJewelsRowPerSocket = true,
+		getDetailNodeId = function(request, variant)
+			local keystoneNode = variant and request.treeData.keystoneMap[variant.keystoneName]
+			return keystoneNode and keystoneNode.id or nil
+		end,
+		formatFindStatus = function(_, resultCount)
+			return s_format("^7Impossible Escape | %d | score/pt", resultCount)
+		end,
+	},
+	[JEWEL_STRATEGY.SPLIT_PERSONALITY] = {
+		findSocket = findSplitPersonalitySocket,
+		compute = computeSplitPersonalityStrategy,
+		allowsSocketWithoutRadius = true,
+		formatFindStatus = function(_, resultCount)
+			return s_format("^7Split Personality | %d | score/pt", resultCount)
+		end,
+	},
+	[JEWEL_STRATEGY.ALL_JEWELS] = { },
+}
+
+local function getJewelStrategy(jewelType)
+	local strategy = jewelType and JEWEL_STRATEGIES[jewelType.strategy]
+	assert(strategy, "Missing radius jewel strategy: " .. tostring(jewelType and jewelType.name))
+	return strategy
+end
+
+local function computeJewelType(self, jewelType, request)
+	local strategy = getJewelStrategy(jewelType)
+	assert(strategy.compute, "Radius jewel strategy cannot compute: " .. jewelType.name)
+	return strategy.compute(self.compute, jewelType, request)
+end
+
 local function runRadiusJewelFind(self, context, makePreferred)
 	local controls = context.controls
 	local treeData = context.treeData
@@ -881,144 +1105,35 @@ local function runRadiusJewelFind(self, context, makePreferred)
 	controls.statusLabel.label = "^7Searching..."
 	local ok, err = pcall(function()
 		local allocNodes = self.build.spec.allocNodes
-		local isThreadBestVariantSearch = selectedJewelType.isThread == true
-		local isImpossibleEscapeBestVariantSearch = selectedJewelType.isImpossibleEscape == true
-		local isSplitPersonalitySearch = selectedJewelType.isSplitPersonality == true
-		local radiusIndex
-		local smallRadiusIndex = isImpossibleEscapeBestVariantSearch and radiusIndexByLabel["Small"] or nil
-		if isImpossibleEscapeBestVariantSearch or isSplitPersonalitySearch then
-			radiusIndex = nil
-		elseif selectedJewelType.variants and selectedJewelVariant and selectedJewelVariant.radiusIndex then
-			radiusIndex = selectedJewelVariant.radiusIndex
-		else
-			radiusIndex = selectedJewelType.radiusIndex
-		end
-
-		if not isThreadBestVariantSearch and not isImpossibleEscapeBestVariantSearch and not isSplitPersonalitySearch
-		and not radiusIndex then
-			return
-		end
-
-		local results = { }
-		local impossibleEscapeBestResult
-		if isImpossibleEscapeBestVariantSearch then
-			local variants = getSelectedVariants() or selectedJewelType.variants or { }
-			for _, variant in ipairs(variants) do
-				local keystoneNode = treeData.keystoneMap[variant.keystoneName]
-				local nodes = keystoneNode and keystoneNode.nodesInRadius and smallRadiusIndex and keystoneNode.nodesInRadius[smallRadiusIndex]
-				if nodes then
-					local score = selectedJewelType.score(nodes, allocNodes) or 0
-					local topNodes = { }
-					for _, n in pairs(nodes) do
-						if not n.ascendancyName and (n.type == "Notable" or n.type == "Keystone") then
-							t_insert(topNodes, {
-								label = n.dn or n.name or "Unknown",
-								nodeId = n.id,
-							})
-						end
-					end
-					t_sort(topNodes, function(a, b) return a.label < b.label end)
-					local candidate = {
-						score = score,
-						topNodes = topNodes,
-						variant = variant,
-						detailText = variant.name,
-					}
-					if not impossibleEscapeBestResult
-					or candidate.score > impossibleEscapeBestResult.score
-					or (candidate.score == impossibleEscapeBestResult.score and candidate.variant.name < impossibleEscapeBestResult.variant.name) then
-						impossibleEscapeBestResult = candidate
-					end
-				end
+		local strategy = getJewelStrategy(selectedJewelType)
+		assert(strategy.findSocket, "Radius jewel strategy cannot find: " .. selectedJewelType.name)
+		local findRequest = {
+			jewelType = selectedJewelType,
+			selectedVariant = selectedJewelVariant,
+			selectedVariants = getSelectedVariants(),
+			threadVariants = threadVariants,
+			treeData = treeData,
+			radiusIndexByLabel = radiusIndexByLabel,
+			allocNodes = allocNodes,
+		}
+		local findState = { }
+		if strategy.prepareFind then
+			findState = strategy.prepareFind(findRequest)
+			if not findState then
+				return
 			end
 		end
+		local results = { }
 		for _, socket in ipairs(jewelSockets) do
 			local socketAllowed, occupancy = self:socketMatchesOccupiedMode(socket.id, selectedOccupiedMode)
 			local socketNode = treeData.nodes[socket.id]
-			if socketAllowed and socketNode and (socketNode.nodesInRadius or isSplitPersonalitySearch) then
-				if isThreadBestVariantSearch then
-					local bestThreadResult
-					for _, threadVariant in ipairs(threadVariants) do
-						local nodes = socketNode.nodesInRadius[threadVariant.radiusIndex]
-						if nodes then
-							local score = selectedJewelType.score(nodes, allocNodes) or 0
-							local topNodes = { }
-							for _, n in pairs(nodes) do
-								if not n.ascendancyName and (n.type == "Notable" or n.type == "Keystone") then
-									t_insert(topNodes, {
-										label = n.dn or n.name or "Unknown",
-										nodeId = n.id,
-									})
-								end
-							end
-							t_sort(topNodes, function(a, b) return a.label < b.label end)
-							local candidate = {
-								socket = socket,
-								score = score,
-								topNodes = topNodes,
-								variant = threadVariant,
-								replacedItemLabel = occupancy and occupancy.replacedItemLabel or nil,
-								storedUnallocatedItemLabel = occupancy and occupancy.storedUnallocatedItemLabel or nil,
-							}
-							if not bestThreadResult
-							or candidate.score > bestThreadResult.score
-							or (candidate.score == bestThreadResult.score and candidate.variant.radiusIndex < bestThreadResult.variant.radiusIndex) then
-								bestThreadResult = candidate
-							end
-						end
-					end
-					if bestThreadResult then
-						t_insert(results, bestThreadResult)
-					end
-				elseif isImpossibleEscapeBestVariantSearch and impossibleEscapeBestResult then
-					t_insert(results, {
-						socket = socket,
-						score = impossibleEscapeBestResult.score,
-						topNodes = impossibleEscapeBestResult.topNodes,
-						variant = impossibleEscapeBestResult.variant,
-						detailText = impossibleEscapeBestResult.detailText,
-						replacedItemLabel = occupancy and occupancy.replacedItemLabel or nil,
-						storedUnallocatedItemLabel = occupancy and occupancy.storedUnallocatedItemLabel or nil,
-					})
-				elseif isSplitPersonalitySearch then
-					local score = socket.classStartDist or self.compute:getSocketDistanceToClassStart(socket.id)
-					t_insert(results, {
-						socket = socket,
-						score = score,
-						topNodes = { },
-						detailText = s_format("dist to start %d", score),
-						replacedItemLabel = occupancy and occupancy.replacedItemLabel or nil,
-						storedUnallocatedItemLabel = occupancy and occupancy.storedUnallocatedItemLabel or nil,
-					})
-				else
-					local nodes = socketNode.nodesInRadius[radiusIndex]
-
-					if nodes then
-						local scoreFn = (selectedJewelType.variants and selectedJewelVariant and selectedJewelVariant.score)
-							or selectedJewelType.score
-						local score = scoreFn(nodes, allocNodes)
-						local detailBuilder = (selectedJewelType.variants and selectedJewelVariant and selectedJewelVariant.detailBuilder)
-							or selectedJewelType.detailBuilder
-						local topNodes = { }
-						for _, n in pairs(nodes) do
-							if not n.ascendancyName and (n.type == "Notable" or n.type == "Keystone") then
-								t_insert(topNodes, {
-									label = n.dn or n.name or "Unknown",
-									nodeId = n.id,
-								})
-							end
-						end
-						t_sort(topNodes, function(a, b) return a.label < b.label end)
-						t_insert(results, {
-							socket = socket,
-							score = score or 0,
-							topNodes = topNodes,
-							variant = selectedJewelVariant,
-							detailText = detailBuilder and detailBuilder(nodes, allocNodes) or nil,
-							replacedItemLabel = occupancy and occupancy.replacedItemLabel or nil,
-							storedUnallocatedItemLabel = occupancy and occupancy.storedUnallocatedItemLabel or nil,
-						})
-					end
+			if socketAllowed and socketNode and (socketNode.nodesInRadius or strategy.allowsSocketWithoutRadius) then
+				findRequest.socket = socket
+				findRequest.socketNode = socketNode
+				findRequest.occupancy = occupancy
+				local result = strategy.findSocket(self, findRequest, findState)
+				if result then
+					t_insert(results, result)
 				end
 			end
 		end
@@ -1049,14 +1164,10 @@ local function runRadiusJewelFind(self, context, makePreferred)
 			local detailText = r.detailText
 			if not detailText or detailText == "" then
 				detailText = #r.topNodes > 0 and s_format("%d match%s", #r.topNodes, #r.topNodes == 1 and "" or "es") or scoreLabel
-			elseif #topStr > 0 and (isThreadBestVariantSearch or isImpossibleEscapeBestVariantSearch) then
+			elseif #topStr > 0 and strategy.appendMatchCount then
 				detailText = detailText .. s_format(" | %d match%s", #r.topNodes, #r.topNodes == 1 and "" or "es")
 			end
-			local detailNodeId = nil
-			if isImpossibleEscapeBestVariantSearch and r.variant and r.variant.keystoneName then
-				local keystoneNode = treeData.keystoneMap[r.variant.keystoneName]
-				detailNodeId = keystoneNode and keystoneNode.id or nil
-			end
+			local detailNodeId = strategy.getDetailNodeId and strategy.getDetailNodeId(findRequest, r.variant) or nil
 			local targetIdentity = r.variant and r.variant.variantIdentity
 				or selectedJewelVariant and selectedJewelVariant.variantIdentity
 				or selectedJewelType.variantIdentity
@@ -1077,7 +1188,7 @@ local function runRadiusJewelFind(self, context, makePreferred)
 				score = r.score or 0,
 				scorePerPoint = scorePerPoint,
 				sortValue = sortValue,
-				variantLabel = r.variant and (isThreadBestVariantSearch and (r.variant.ringLabel or (r.variant.name .. " Ring"))
+				variantLabel = r.variant and (strategy.formatVariantLabel and strategy.formatVariantLabel(r.variant)
 					or r.variant.dropdownLabel or r.variant.name) or "",
 				detailText = detailText,
 				detailNodeId = detailNodeId,
@@ -1091,19 +1202,13 @@ local function runRadiusJewelFind(self, context, makePreferred)
 			})
 		end
 		stampResultRows(rows, resultContextKey)
-		controls.resultsList:SetMode(isThreadBestVariantSearch and "findThread" or "find", rows, COL_META .. "(no results)")
+		local resultMode = strategy.resultMode or "find"
+		controls.resultsList:SetMode(resultMode, rows, COL_META .. "(no results)")
 		local elapsed = formatElapsed(searchStartTime)
-		local threadLabel = #threadVariants == 1
-			and ("Thread of Hope (" .. (threadVariants[1].ringLabel or (threadVariants[1].name .. " Ring")) .. ")")
-			or "Thread of Hope (Any ring)"
-		controls.statusLabel.label = (isThreadBestVariantSearch
-			and s_format("^7%s | %d | score/pt", threadLabel, #results)
-			or isImpossibleEscapeBestVariantSearch
-			and s_format("^7Impossible Escape | %d | score/pt", #results)
-			or isSplitPersonalitySearch
-			and s_format("^7Split Personality | %d | score/pt", #results)
+		controls.statusLabel.label = (strategy.formatFindStatus
+			and strategy.formatFindStatus(findRequest, #results)
 			or s_format("^7%d results | score/pt", #results)) .. elapsed
-		saveResultCache("find", isThreadBestVariantSearch and "findThread" or "find", rows, COL_META .. "(no results)", controls.statusLabel.label, makePreferred, resultContextKey)
+		saveResultCache("find", resultMode, rows, COL_META .. "(no results)", controls.statusLabel.label, makePreferred, resultContextKey)
 		if not makePreferred then
 			restoreCachedResults()
 		end
@@ -1169,6 +1274,20 @@ local function runRadiusJewelCompute(self, context)
 				local statLabel = selectedImpactStat.label
 				local computeMethod = selectedComputeMethod or findDisconnectedPassiveComputeMethod(nil)
 				local computeMethodLabel = selectedJewelSupportsComputeMethods() and computeMethod.label or nil
+				local function makeComputeRequest(variants, computeProgress, skipPlanSteps)
+					return {
+						sockets = jewelSockets,
+						variants = variants,
+						threadVariants = threadVariants,
+						impactStat = selectedImpactStat,
+						methodId = computeMethod.id,
+						planCache = finderState.disconnectedPassivePlanCache,
+						progress = computeProgress,
+						maxTotalPoints = selectedMaxPoints,
+						occupiedMode = selectedOccupiedMode,
+						skipPlanSteps = skipPlanSteps,
+					}
+				end
 				local function computeVariantPartitionRows(jewelType, variants, computeProgress)
 					local partitions = { }
 					local partitionByLimitKey = { }
@@ -1193,14 +1312,8 @@ local function runRadiusJewelCompute(self, context)
 						local equippedList = self:findEquippedJewelSockets(jewelType, partition.representative)
 						local removedJewels = equippedList.atLimit and self:removeEquippedJewels(equippedList) or { }
 						computeState.computeContext.removedJewels = removedJewels
-						local socketResults, partitionBaseline = self.compute:computeBestVariantSocketImpact({
-							sockets = jewelSockets,
-							variants = partition.variants,
-							impactStat = selectedImpactStat,
-							progress = partitionProgress,
-							maxTotalPoints = selectedMaxPoints,
-							occupiedMode = selectedOccupiedMode,
-						})
+						local socketResults, partitionBaseline = computeJewelType(self, jewelType,
+							makeComputeRequest(partition.variants, partitionProgress))
 						baseline = baseline or partitionBaseline
 						self:restoreEquippedJewels(removedJewels)
 						computeState.computeContext.removedJewels = nil
@@ -1255,73 +1368,18 @@ local function runRadiusJewelCompute(self, context)
 						local typeProgress = wrapProgress(rawChild)
 						local socketResults, baseline
 						local typeRows
-						local isStandardVariantType = jt.variants and #jt.variants > 0
-							and jt.name ~= "Intuitive Leap"
-							and not jt.isThread
-							and not jt.isImpossibleEscape
-							and not jt.isSplitPersonality
+						local strategy = getJewelStrategy(jt)
+						local useVariantPartitions = strategy.usesVariantPartitions
+							and jt.variants and #jt.variants > 0
 
-						if isStandardVariantType then
+						if useVariantPartitions then
 							typeRows, baseline = computeVariantPartitionRows(jt, jt.variants, typeProgress)
 						else
 							local equippedList = self:findEquippedJewelSockets(jt)
 							local removedJewels = equippedList.atLimit and self:removeEquippedJewels(equippedList) or { }
 							computeState.computeContext.removedJewels = removedJewels
-							if jt.name == "Intuitive Leap" then
-								socketResults, baseline = self.compute:computeBestIntuitiveLeapSocketImpact({
-									sockets = jewelSockets,
-									impactStat = selectedImpactStat,
-									variants = jt.variants,
-									methodId = computeMethod.id,
-									planCache = finderState.disconnectedPassivePlanCache,
-									progress = typeProgress,
-									maxTotalPoints = selectedMaxPoints,
-									occupiedMode = selectedOccupiedMode,
-									skipPlanSteps = true,
-								})
-							elseif jt.isThread then
-								socketResults, baseline = self.compute:computeThreadOfHopeSocketImpact({
-									sockets = jewelSockets,
-									impactStat = selectedImpactStat,
-									variants = threadVariants,
-									methodId = computeMethod.id,
-									planCache = finderState.disconnectedPassivePlanCache,
-									progress = typeProgress,
-									maxTotalPoints = selectedMaxPoints,
-									occupiedMode = selectedOccupiedMode,
-									skipPlanSteps = true,
-								})
-							elseif jt.isImpossibleEscape then
-								socketResults, baseline = self.compute:computeImpossibleEscapeSocketImpact({
-									sockets = jewelSockets,
-									impactStat = selectedImpactStat,
-									variants = jt.variants or getImpossibleEscapeVariants(),
-									methodId = computeMethod.id,
-									planCache = finderState.disconnectedPassivePlanCache,
-									progress = typeProgress,
-									maxTotalPoints = selectedMaxPoints,
-									occupiedMode = selectedOccupiedMode,
-									skipPlanSteps = true,
-								})
-							elseif jt.isSplitPersonality then
-								socketResults, baseline = self.compute:computeSplitPersonalitySocketImpact({
-									sockets = jewelSockets,
-									impactStat = selectedImpactStat,
-									variants = jt.variants or getSplitPersonalityVariants(),
-									progress = typeProgress,
-									maxTotalPoints = selectedMaxPoints,
-									occupiedMode = selectedOccupiedMode,
-								})
-							else
-								socketResults, baseline = self.compute:computeSocketImpact({
-									sockets = jewelSockets,
-									rawText = jt.rawText,
-									impactStat = selectedImpactStat,
-									progress = typeProgress,
-									maxTotalPoints = selectedMaxPoints,
-									occupiedMode = selectedOccupiedMode,
-								})
-							end
+							socketResults, baseline = computeJewelType(self, jt,
+								makeComputeRequest(jt.variants, typeProgress, true))
 							self:restoreEquippedJewels(removedJewels)
 							computeState.computeContext.removedJewels = nil
 							typeRows = buildComputeRows(jt, socketResults, baseline, equippedList)
@@ -1329,8 +1387,7 @@ local function runRadiusJewelCompute(self, context)
 
 						globalBaseline = globalBaseline or baseline
 
-						-- For disconnected-passive types: keep only the best row per socket
-						if jt.name == "Intuitive Leap" or jt.isThread or jt.isImpossibleEscape then
+						if strategy.keepBestAllJewelsRowPerSocket then
 							local bestBySocket = { }
 							for _, row in ipairs(typeRows) do
 								local ex = bestBySocket[row.socketId]
@@ -1360,19 +1417,15 @@ local function runRadiusJewelCompute(self, context)
 					saveResultCache("compute", "computeSocketAll", allRows, COL_META .. "(no compatible sockets)", controls.statusLabel.label, true, resultContextKey)
 				else
 					local displayedVariants = getSelectedVariants()
-					local itemLabel = selectedJewelType.name
-					if selectedJewelType.isThread then
-						itemLabel = #threadVariants == 1
-							and (itemLabel .. " (" .. (threadVariants[1].ringLabel or (threadVariants[1].name .. " Ring")) .. ")")
-							or (itemLabel .. " (Any ring)")
-					end
+					local strategy = getJewelStrategy(selectedJewelType)
+					local computeRequest = makeComputeRequest(displayedVariants, progress)
+					local itemLabel = strategy.formatComputeLabel
+						and strategy.formatComputeLabel(selectedJewelType, computeRequest)
+						or selectedJewelType.name
 					local socketResults, baseline
 					local rows
-					local useVariantPartitions = displayedVariants and #displayedVariants > 1
-						and selectedJewelType.name ~= "Intuitive Leap"
-						and not selectedJewelType.isThread
-						and not selectedJewelType.isImpossibleEscape
-						and not selectedJewelType.isSplitPersonality
+					local useVariantPartitions = strategy.usesVariantPartitions
+						and displayedVariants and #displayedVariants > 1
 					if useVariantPartitions then
 						if hasVariantGroups() and selectedVariantGroup and selectedVariantGroup.value ~= ALL_VARIANT_GROUPS_VALUE then
 							itemLabel = selectedVariantGroup.name
@@ -1383,71 +1436,12 @@ local function runRadiusJewelCompute(self, context)
 						local equippedList = self:findEquippedJewelSockets(selectedJewelType, equippedVariant)
 						local removedJewels = equippedList.atLimit and self:removeEquippedJewels(equippedList) or { }
 						computeState.computeContext.removedJewels = removedJewels
-						if selectedJewelType.name == "Intuitive Leap" then
-							socketResults, baseline = self.compute:computeBestIntuitiveLeapSocketImpact({
-								sockets = jewelSockets,
-								impactStat = selectedImpactStat,
-								variants = displayedVariants,
-								methodId = computeMethod.id,
-								planCache = finderState.disconnectedPassivePlanCache,
-								progress = progress,
-								maxTotalPoints = selectedMaxPoints,
-								occupiedMode = selectedOccupiedMode,
-							})
-						elseif selectedJewelType.isThread then
-							socketResults, baseline = self.compute:computeThreadOfHopeSocketImpact({
-								sockets = jewelSockets,
-								impactStat = selectedImpactStat,
-								variants = threadVariants,
-								methodId = computeMethod.id,
-								planCache = finderState.disconnectedPassivePlanCache,
-								progress = progress,
-								maxTotalPoints = selectedMaxPoints,
-								occupiedMode = selectedOccupiedMode,
-							})
-						elseif selectedJewelType.isImpossibleEscape then
-							socketResults, baseline = self.compute:computeImpossibleEscapeSocketImpact({
-								sockets = jewelSockets,
-								impactStat = selectedImpactStat,
-								variants = displayedVariants or getImpossibleEscapeVariants(),
-								methodId = computeMethod.id,
-								planCache = finderState.disconnectedPassivePlanCache,
-								progress = progress,
-								maxTotalPoints = selectedMaxPoints,
-								occupiedMode = selectedOccupiedMode,
-							})
-						elseif selectedJewelType.isSplitPersonality then
-							socketResults, baseline = self.compute:computeSplitPersonalitySocketImpact({
-								sockets = jewelSockets,
-								impactStat = selectedImpactStat,
-								variants = displayedVariants or getSplitPersonalityVariants(),
-								progress = progress,
-								maxTotalPoints = selectedMaxPoints,
-								occupiedMode = selectedOccupiedMode,
-							})
-						elseif displayedVariants and #displayedVariants > 0 then
-							if hasVariantGroups() and selectedVariantGroup and selectedVariantGroup.value ~= ALL_VARIANT_GROUPS_VALUE then
-								itemLabel = selectedVariantGroup.name
-							end
-							socketResults, baseline = self.compute:computeBestVariantSocketImpact({
-								sockets = jewelSockets,
-								variants = displayedVariants,
-								impactStat = selectedImpactStat,
-								progress = progress,
-								maxTotalPoints = selectedMaxPoints,
-								occupiedMode = selectedOccupiedMode,
-							})
-						else
-							local rawText = selectedJewelType.rawText
-							socketResults, baseline = self.compute:computeSocketImpact({
-								sockets = jewelSockets,
-								rawText = rawText,
-								impactStat = selectedImpactStat,
-								progress = progress,
-								maxTotalPoints = selectedMaxPoints,
-								occupiedMode = selectedOccupiedMode,
-							})
+						if strategy.usesVariantPartitions and displayedVariants and #displayedVariants > 0
+						and hasVariantGroups() and selectedVariantGroup
+						and selectedVariantGroup.value ~= ALL_VARIANT_GROUPS_VALUE then
+							itemLabel = selectedVariantGroup.name
 						end
+						socketResults, baseline = computeJewelType(self, selectedJewelType, computeRequest)
 						self:restoreEquippedJewels(removedJewels)
 						computeState.computeContext.removedJewels = nil
 						rows = buildComputeRows(selectedJewelType, socketResults, baseline, equippedList)
@@ -2145,6 +2139,7 @@ local function buildRadiusJewelPopupContext(self)
 		end)
 		t_insert(activeJewelTypes, 1, {
 			name = "All jewels",
+			strategy = JEWEL_STRATEGY.ALL_JEWELS,
 			isAllJewels = true,
 			hasCompute = true,
 		})
