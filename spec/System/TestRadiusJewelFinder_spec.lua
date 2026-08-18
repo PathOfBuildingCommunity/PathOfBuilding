@@ -324,6 +324,7 @@ describe("RadiusJewelFinder #radius-jewel", function()
 			local resultContextKey = popup.controls.resultsList.list[1].resultContextKey
 			local resultMode = popup.controls.resultsList.mode
 			local criteriaChangedMessage = "^xFFAA33Criteria changed. ^8Run Find or Compute again."
+			local computeOnlyCriteriaChangedMessage = "^xFFAA33Criteria changed. ^8Run Compute again."
 			local intuitiveLeapIndex = findControlIndex(popup.controls.jewelTypeSelect.list, "Intuitive Leap")
 			local threadOfHopeIndex = findControlIndex(popup.controls.jewelTypeSelect.list, "Thread of Hope")
 			assert.is_string(resultContextKey)
@@ -333,38 +334,44 @@ describe("RadiusJewelFinder #radius-jewel", function()
 					name = "variant",
 					change = function() popup.controls.jewelVariantSelect.selFunc(2) end,
 					restore = function() popup.controls.jewelVariantSelect.selFunc(1) end,
+					message = criteriaChangedMessage,
 				},
 				{
 					name = "impact stat",
 					change = function() popup.controls.impactStatSelect.selFunc(2) end,
 					restore = function() popup.controls.impactStatSelect.selFunc(1) end,
+					message = computeOnlyCriteriaChangedMessage,
 				},
 				{
 					name = "compute method",
 					change = function() popup.controls.computeMethodSelect.selFunc(2) end,
 					restore = function() popup.controls.computeMethodSelect.selFunc(1) end,
+					message = computeOnlyCriteriaChangedMessage,
 				},
 				{
 					name = "max points",
 					change = function() popup.controls.maxPointsEdit:SetText("21", true) end,
 					restore = function() popup.controls.maxPointsEdit:SetText("20", true) end,
+					message = computeOnlyCriteriaChangedMessage,
 				},
 				{
 					name = "occupied sockets",
 					change = function() popup.controls.occupiedModeSelect.selFunc(2) end,
 					restore = function() popup.controls.occupiedModeSelect.selFunc(1) end,
+					message = computeOnlyCriteriaChangedMessage,
 				},
 				{
 					name = "jewel type",
 					change = function() popup.controls.jewelTypeSelect.selFunc(threadOfHopeIndex) end,
 					restore = function() popup.controls.jewelTypeSelect.selFunc(intuitiveLeapIndex) end,
+					message = criteriaChangedMessage,
 				},
 			}
 			for _, criterion in ipairs(changes) do
 				criterion.change()
 				assertStaleResultsRemainVisible(popup, resultContextKey, 1, resultMode,
 					criterion.name .. " should keep the previous results visible but stale")
-				assert.are.equal(criteriaChangedMessage, popup.controls.statusLabel.label,
+				assert.are.equal(criterion.message, popup.controls.statusLabel.label,
 					criterion.name .. " should explain how to refresh results")
 				assert.is_nil(main.onFrameFuncs["RadiusJewelFinderCompute"],
 					criterion.name .. " should not start Compute automatically")
@@ -375,6 +382,71 @@ describe("RadiusJewelFinder #radius-jewel", function()
 				assertCachedResultsAreApplicable(popup, resultContextKey, 1,
 					criterion.name .. " should restore matching cached results")
 			end
+		end)
+
+		it("keeps Find discoverable when an exact variant is required", function()
+			build.radiusJewelFinderState = nil
+			local finder = makeFinder()
+			local popup = finder:Open()
+			local computeOnlyCriteriaChangedMessage = "^xFFAA33Criteria changed. ^8Run Compute again."
+
+			local function tooltipText(control, mode, index)
+				local tooltip = new("Tooltip"):Tooltip()
+				control.tooltipFunc(tooltip, mode, index, index and control.list and control.list[index])
+				local texts = { }
+				for _, line in ipairs(tooltip.lines) do
+					if line.text and line.text ~= "" then
+						texts[#texts + 1] = line.text
+					end
+				end
+				return table.concat(texts, "\n")
+			end
+
+			for _, jewelTypeName in ipairs({
+				"Intuitive Leap",
+				"Dreams & Nightmares",
+				"Tempered & Transcendent",
+				"Split Personality",
+			}) do
+				popup.controls.jewelTypeSelect.selFunc(findControlIndex(popup.controls.jewelTypeSelect.list, jewelTypeName))
+				assert.is_true(popup.controls.findButton:IsShown(), jewelTypeName .. " should keep Find visible")
+				assert.is_false(popup.controls.findButton:IsEnabled(), jewelTypeName .. " should require an exact variant")
+				assert.are.equal(computeOnlyCriteriaChangedMessage, popup.controls.statusLabel.label)
+				local statusBeforeClick = popup.controls.statusLabel.label
+				popup.controls.findButton:Click()
+				assert.are.equal(statusBeforeClick, popup.controls.statusLabel.label,
+					"disabled Find should not start a search")
+			end
+
+			local allVariantsTooltip = tooltipText(popup.controls.jewelVariantSelect, "DROP", 1)
+			assert.matches("Find ranks sockets for one exact variant.", allVariantsTooltip, 1, true)
+			assert.matches("Compute to compare the displayed variants by the selected stat.", allVariantsTooltip, 1, true)
+
+			popup.controls.jewelTypeSelect.selFunc(findControlIndex(popup.controls.jewelTypeSelect.list, "Dreams & Nightmares"))
+			popup.controls.variantGroupSelect.selFunc(2)
+			assert.is_false(popup.controls.findButton:IsEnabled(), "a filtered All variants selection should still require one variant")
+			popup.controls.jewelVariantSelect.selFunc(2)
+			assert.is_true(popup.controls.findButton:IsEnabled(), "an exact grouped variant should enable Find")
+
+			popup.controls.jewelTypeSelect.selFunc(findControlIndex(popup.controls.jewelTypeSelect.list, "Impossible Escape"))
+			assert.is_true(popup.controls.findButton:IsShown())
+			assert.is_true(popup.controls.findButton:IsEnabled(), "Impossible Escape should keep its All variants Find contract")
+			assert.matches("every displayed Keystone variant", tooltipText(popup.controls.jewelVariantSelect, "DROP", 1), 1, true)
+
+			popup.controls.jewelTypeSelect.selFunc(findControlIndex(popup.controls.jewelTypeSelect.list, "Thread of Hope"))
+			assert.is_true(popup.controls.findButton:IsShown())
+			assert.is_true(popup.controls.findButton:IsEnabled(), "Thread should keep its Any ring Find contract")
+			assert.matches("every ring", tooltipText(popup.controls.findButton), 1, true)
+
+			popup.controls.jewelTypeSelect.selFunc(findControlIndex(popup.controls.jewelTypeSelect.list, "All jewels"))
+			assert.is_false(popup.controls.findButton:IsShown(), "All jewels should remain Compute-only")
+
+			popup.controls.jewelTypeSelect.selFunc(findControlIndex(popup.controls.jewelTypeSelect.list, "Tempered & Transcendent"))
+			popup.controls.closeButton:Click()
+			local reopenedPopup = finder:Open()
+			assert.is_true(reopenedPopup.controls.findButton:IsShown())
+			assert.is_false(reopenedPopup.controls.findButton:IsEnabled())
+			assert.are.equal("^8Select a variant for Find, or click Compute", reopenedPopup.controls.statusLabel.label)
 		end)
 
 		it("tracks grouped variants and the legacy All jewels option in result identity", function()
@@ -922,8 +994,10 @@ describe("RadiusJewelFinder #radius-jewel", function()
 				"expected type tooltip to describe Intuitive Leap")
 			assert.is_true(popup.controls.jewelVariantSelect.shown, "expected Foulborn variant selector for Intuitive Leap")
 			assert.are.equal("All variants", popup.controls.jewelVariantSelect.list[1])
-			assert.is_false(popup.controls.findButton:IsShown(),
-				"Find should stay hidden while all Intuitive Leap variants are selected")
+			assert.is_true(popup.controls.findButton:IsShown(),
+				"Find should stay visible while all Intuitive Leap variants are selected")
+			assert.is_false(popup.controls.findButton:IsEnabled(),
+				"Find should require one Intuitive Leap variant")
 			local intuitiveVariantLabels = listLabels(popup.controls.jewelVariantSelect.list)
 			local foulbornIntuitiveIdx
 			for i, label in ipairs(intuitiveVariantLabels) do
@@ -950,8 +1024,10 @@ describe("RadiusJewelFinder #radius-jewel", function()
 			popup.controls.jewelTypeSelect.selFunc(normalDreamsIdx)
 			assert.are.equal("All variants", popup.controls.jewelVariantSelect.list[1])
 			assert.are.equal(1, popup.controls.jewelVariantSelect.selIndex)
-			assert.is_false(popup.controls.findButton:IsShown(),
-				"Find should be hidden while all variants are selected")
+			assert.is_true(popup.controls.findButton:IsShown(),
+				"Find should stay visible while all variants are selected")
+			assert.is_false(popup.controls.findButton:IsEnabled(),
+				"Find should require one Dreams & Nightmares variant")
 			assert.is_true(popup.controls.jewelVariantLabel.y >= 18,
 				"expected header labels to sit below the popup title")
 			if popup.controls.variantGroupSelect.shown then

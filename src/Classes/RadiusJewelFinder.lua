@@ -838,20 +838,21 @@ function RadiusJewelResultState:save(request)
 	return true
 end
 
-function RadiusJewelResultState:clear(isAllJewels)
+function RadiusJewelResultState:clear(isAllJewels, canFind)
 	self.computeState.lastComputeAllRows = nil
 	self.computeState.lastComputeAllResultContextKey = nil
 	local message = isAllJewels
 		and (COL_META .. "Click Compute to rank all jewels")
+		or not canFind and (COL_META .. "Select a variant for Find, or click Compute")
 		or (COL_META .. "Click Find to search")
 	self.controls.statusLabel.label = message
 	self.controls.resultsList:SetMode("message", { }, message)
 end
 
-function RadiusJewelResultState:showCriteriaChanged(isAllJewels)
+function RadiusJewelResultState:showCriteriaChanged(isAllJewels, canFind)
 	self.computeState.lastComputeAllRows = nil
 	self.computeState.lastComputeAllResultContextKey = nil
-	local message = isAllJewels
+	local message = (isAllJewels or not canFind)
 		and "^xFFAA33Criteria changed. ^8Run Compute again."
 		or "^xFFAA33Criteria changed. ^8Run Find or Compute again."
 	self.controls.statusLabel.label = message
@@ -2085,6 +2086,15 @@ local function buildRadiusJewelPopupContext(self)
 	local suppressFinderStateSave = false
 	local runFind
 	local cancelCompute
+	local function canFindCurrentSelection()
+		if not selectedJewelType or selectedJewelType.isAllJewels then
+			return false
+		end
+		if selectedJewelType.isThread or selectedJewelType.isImpossibleEscape then
+			return true
+		end
+		return not selectedJewelType.variants or selectedJewelVariant ~= nil
+	end
 
 	local function formatElapsed(startTime)
 		if not startTime then return "" end
@@ -2163,10 +2173,10 @@ local function buildRadiusJewelPopupContext(self)
 		})
 	end
 	local function clearResultsForContext()
-		resultState:clear(selectedJewelType and selectedJewelType.isAllJewels)
+		resultState:clear(selectedJewelType and selectedJewelType.isAllJewels, canFindCurrentSelection())
 	end
 	local function showCriteriaChangedForContext()
-		resultState:showCriteriaChanged(selectedJewelType and selectedJewelType.isAllJewels)
+		resultState:showCriteriaChanged(selectedJewelType and selectedJewelType.isAllJewels, canFindCurrentSelection())
 	end
 	local function saveVisibleResultView(resultContextKey)
 		resultState:rememberVisibleView(resultContextKey)
@@ -2596,10 +2606,6 @@ local function buildRadiusJewelPopupContext(self)
 			if variants then
 				selectedJewelVariant = idx == 1 and nil or variants[idx - 1]
 				updatePreview()
-				if controls.findButton then
-					controls.findButton.shown = not (selectedJewelType and selectedJewelType.variants
-						and not selectedJewelVariant and not selectedJewelType.isImpossibleEscape)
-				end
 			end
 		end)
 	end)
@@ -2701,9 +2707,6 @@ local function buildRadiusJewelPopupContext(self)
 		else
 			selectedJewelVariant = nil
 		end
-		if controls.findButton and hasVariants and not selectedJewelVariant and not selectedJewelType.isImpossibleEscape then
-			controls.findButton.shown = false
-		end
 		if hasComputeMethods then
 			syncComputeMethodSelect(selectedJewelType.computeMethods)
 		end
@@ -2739,7 +2742,12 @@ local function buildRadiusJewelPopupContext(self)
 		end
 		if index == 1 then
 			addPreviewLinesToTooltip(tooltip, buildGenericTypeTooltipLinesForJewelType(selectedJewelType))
-			tooltip:AddLine(16, "^8Compute compares every displayed variant.")
+			if selectedJewelType.isImpossibleEscape then
+				tooltip:AddLine(16, "^8Find and Compute compare every displayed Keystone variant.")
+			else
+				tooltip:AddLine(16, "^7Find ranks sockets for one exact variant.")
+				tooltip:AddLine(16, "^8Choose a variant, or use Compute to compare the displayed variants by the selected stat.")
+			end
 			return
 		end
 		local variant = variants[index - 1]
@@ -3022,10 +3030,20 @@ local function buildRadiusJewelPopupContext(self)
 		runFind(true)
 	end)
 	controls.findButton.shown = not (selectedJewelType and selectedJewelType.isAllJewels)
+	controls.findButton.enabled = canFindCurrentSelection
 	controls.findButton.tooltipFunc = function(tooltip)
 		tooltip:Clear(true)
-		tooltip:AddLine(16, "^7Find sockets with matching passives for this jewel.")
-		tooltip:AddLine(16, "^8Use Compute to rank by the selected stat.")
+		if selectedJewelType and selectedJewelType.isThread and not selectedThreadVariant then
+			tooltip:AddLine(16, "^7Find compares every ring and ranks compatible sockets.")
+		elseif selectedJewelType and selectedJewelType.isImpossibleEscape and not selectedJewelVariant then
+			tooltip:AddLine(16, "^7Find compares every displayed Keystone variant and ranks compatible sockets.")
+		elseif selectedJewelType and selectedJewelType.variants and not selectedJewelVariant then
+			tooltip:AddLine(16, "^7Find ranks sockets for one exact variant.")
+			tooltip:AddLine(16, "^8Choose a variant, or use Compute to compare the displayed variants by the selected stat.")
+		else
+			tooltip:AddLine(16, "^7Find sockets with matching passives for this jewel.")
+			tooltip:AddLine(16, "^8Use Compute to rank by the selected stat.")
+		end
 	end
 
 	controls.addToBuildButton, controls.applyButton = resultActions:createControls(
@@ -3124,10 +3142,6 @@ local function buildRadiusJewelPopupContext(self)
 					break
 				end
 			end
-		end
-
-		if controls.findButton and selectedJewelType and selectedJewelType.variants then
-			controls.findButton.shown = not (not selectedJewelVariant and not selectedJewelType.isImpossibleEscape)
 		end
 
 		suppressFinderStateSave = false
