@@ -335,8 +335,7 @@ return function(skills, mod, flag, skill)
 #mods
 
 #skill ChainHookAltX
-#flags attack melee area
-#baseMod skill("radius", 24)
+#flags attack melee
 #mods
 
 #skill ChainHookAltY

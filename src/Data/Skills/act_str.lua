@@ -1706,10 +1706,6 @@ skills["ChainHookAltX"] = {
 	baseFlags = {
 		attack = true,
 		melee = true,
-		area = true,
-	},
-	baseMods = {
-		skill("radius", 24),
 	},
 	qualityStats = {
 		{ "chain_hook_range_+%", 2 },
