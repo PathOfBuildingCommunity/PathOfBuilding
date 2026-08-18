@@ -203,6 +203,10 @@ local function writeMods(outName, condFunc)
 end
 
 
+local delveNames = {
+	Subterranean = true,
+	["of the Underground"] = true,
+}
 
 -- generic explicit mods
 writeMods("../Data/ModExplicit.lua", function(mod)
@@ -212,6 +216,7 @@ writeMods("../Data/ModExplicit.lua", function(mod)
 		and not mod.Id:match("Royale")
 		and not mod.Id:match("Necropolis")
 		and not mod.Id:match("^Synthesis")
+		and not (mod.Name and delveNames[mod.Name])
 		and not (mod.GenerationType == GenTypes.SearingExarch or mod.GenerationType == GenTypes.EaterOfWorlds)
 		and #mod.AuraFlags == 0
 end)
@@ -220,7 +225,7 @@ writeMods("../Data/ModCorrupted.lua", function(mod)
 end)
 writeMods("../Data/ModDelve.lua", function(mod)
 	-- contains both explicit mods and the "item sells for more" implicit
-	return mod.Domain == Domains.DelveFossil
+	return mod.Domain == Domains.DelveFossil or (mod.Name and delveNames[mod.Name])
 end)
 writeMods("../Data/ModSynthesis.lua", function(mod)
 	return mod.GenerationType == GenTypes.Intrinsic and mod.Domain == Domains.Item
