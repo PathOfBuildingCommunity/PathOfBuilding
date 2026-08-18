@@ -290,6 +290,7 @@ skills["AnimateWeaponAltX"] = {
 	weaponTypes = {
 		["Claw"] = true,
 		["Dagger"] = true,
+		["Fishing Rod"] = true,
 		["One Handed Axe"] = true,
 		["One Handed Mace"] = true,
 		["One Handed Sword"] = true,

@@ -334,6 +334,10 @@ return function(skills, mod, flag, skill)
 #baseMod skill("radius", 24)
 #mods
 
+#skill ChainHookAltX
+#flags attack melee
+#mods
+
 #skill ChainHookAltY
 #flags attack melee area
 	statMap = {
