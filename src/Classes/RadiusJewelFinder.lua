@@ -848,6 +848,18 @@ function RadiusJewelResultState:clear(isAllJewels)
 	self.controls.resultsList:SetMode("message", { }, message)
 end
 
+function RadiusJewelResultState:showCriteriaChanged(isAllJewels)
+	self.computeState.lastComputeAllRows = nil
+	self.computeState.lastComputeAllResultContextKey = nil
+	local message = isAllJewels
+		and "^xFFAA33Criteria changed. ^8Run Compute again."
+		or "^xFFAA33Criteria changed. ^8Run Find or Compute again."
+	self.controls.statusLabel.label = message
+	if self.controls.resultsList.mode == "message" or #self.controls.resultsList.list == 0 then
+		self.controls.resultsList:SetMode("message", { }, message)
+	end
+end
+
 function RadiusJewelResultState:rememberVisibleView(resultContextKey)
 	local mode = self.controls.resultsList.mode
 	local viewName = (mode == "find" or mode == "findThread") and "find"
@@ -2153,6 +2165,9 @@ local function buildRadiusJewelPopupContext(self)
 	local function clearResultsForContext()
 		resultState:clear(selectedJewelType and selectedJewelType.isAllJewels)
 	end
+	local function showCriteriaChangedForContext()
+		resultState:showCriteriaChanged(selectedJewelType and selectedJewelType.isAllJewels)
+	end
 	local function saveVisibleResultView(resultContextKey)
 		resultState:rememberVisibleView(resultContextKey)
 	end
@@ -2167,7 +2182,7 @@ local function buildRadiusJewelPopupContext(self)
 		saveFinderState()
 		local resultContextKey = getResultContextKey()
 		if not restoreCachedResults(resultContextKey) then
-			clearResultsForContext()
+			showCriteriaChangedForContext()
 		end
 	end
 	local function formatComputeStatus(itemLabel, statLabel, baseline, methodLabel)
