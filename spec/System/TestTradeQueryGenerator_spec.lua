@@ -166,10 +166,10 @@ describe("TradeQueryGenerator", function()
 		end)
 	end)
 
-	describe("resistance pseudo-stat grouping", function()
+	describe("resistance search options", function()
 		it("derives non-negative cap shortfalls from the blank-item output", function()
 			assert.are.same({ Fire = 12, Cold = 0, Lightning = 34, Chaos = 56 },
-				tradeResistanceGrouping.getResistanceCapShortfall({
+				tradeResistanceGrouping.getResistanceCapShortfallByType({
 					MissingFireResist = 12,
 					MissingColdResist = -3,
 					MissingLightningResist = 34,
@@ -221,11 +221,11 @@ describe("TradeQueryGenerator", function()
 				options = {
 					includeMirrored = true,
 					statWeights = { { stat = "Life", weightMult = 1 } },
-					groupResists = options.groupResists,
+					includeResistSwaps = options.includeResistSwaps,
 					includeResistCaps = options.includeResistCaps,
 				},
 				requiredMods = options.requiredMods or {},
-				resistCapShortfall = options.resistCapShortfall,
+				resistanceCapShortfallByType = options.resistanceCapShortfallByType,
 			}
 			queryGen.requesterContext = { slotTbl = { sentinel = true } }
 			local queryJson
@@ -250,7 +250,7 @@ describe("TradeQueryGenerator", function()
 		end
 
 		it("groups resistance without changing damage filters", function()
-			local query = finishQuery({ groupResists = true }, {
+			local query = finishQuery({ includeResistSwaps = true }, {
 				annotatedWeight("explicit.fire_resistance", "+#% to Fire Resistance", 10, 10),
 				{ tradeModId = "explicit.fire_damage", weight = 8, meanStatDiff = 8, invert = false },
 				{ tradeModId = "explicit.life", weight = 6, meanStatDiff = 6, invert = false },
@@ -267,7 +267,7 @@ describe("TradeQueryGenerator", function()
 		end)
 
 		it("leaves hybrid elemental and chaos resistance as its only original filter", function()
-			local query = finishQuery({ groupResists = true }, {
+			local query = finishQuery({ includeResistSwaps = true }, {
 				annotatedWeight("explicit.hybrid_resistance", "+#% to Fire and Chaos Resistances", 10, 10),
 			})
 			local filters = query.query.stats[1].filters
@@ -277,7 +277,7 @@ describe("TradeQueryGenerator", function()
 		end)
 
 		it("leaves implicit elemental resistance as its original filter", function()
-			local query = finishQuery({ groupResists = true }, {
+			local query = finishQuery({ includeResistSwaps = true }, {
 				annotatedWeight("implicit.fire_resistance", "+#% to Fire Resistance", 10, 10),
 			})
 			local filters = query.query.stats[1].filters
@@ -300,7 +300,7 @@ describe("TradeQueryGenerator", function()
 			end
 			table.insert(weights, { tradeModId = "explicit.low_priority_filter", weight = 1, meanStatDiff = 1, invert = false })
 
-			local query = finishQuery({ groupResists = true }, weights)
+			local query = finishQuery({ includeResistSwaps = true }, weights)
 			local ids = {}
 			for _, filter in ipairs(query.query.stats[1].filters) do
 				ids[filter.id] = true
@@ -311,17 +311,17 @@ describe("TradeQueryGenerator", function()
 			assert.is_true(ids["explicit.low_priority_filter"])
 		end)
 
-		it("does not persist the grouping option into requester context", function()
-			local _, slotTable, queryOptions = finishQuery({ groupResists = true }, {
+		it("does not persist the swap option into requester context", function()
+			local _, slotTable, queryOptions = finishQuery({ includeResistSwaps = true }, {
 				{ tradeModId = "explicit.life", weight = 6, meanStatDiff = 6, invert = false },
 			})
 
 			assert.are.same({ sentinel = true }, slotTable)
-			assert.are.same({ groupResists = true, includeResistCaps = false, weightAdjustedSearch = true }, queryOptions)
+			assert.are.same({ includeResistSwaps = true, includeResistCaps = false, weightAdjustedSearch = true }, queryOptions)
 		end)
 
 		it("normalises multi-element resistance weights before pseudo grouping", function()
-			local query = finishQuery({ groupResists = true }, {
+			local query = finishQuery({ includeResistSwaps = true }, {
 				annotatedWeight("explicit.all_resistance", "+#% to all Elemental Resistances", 30, 30),
 				annotatedWeight("explicit.fire_resistance", "+#% to Fire Resistance", 8, 8),
 			})
@@ -334,7 +334,7 @@ describe("TradeQueryGenerator", function()
 		it("moves individual resistance shortfalls into AND filters and removes resistance weights", function()
 			local query, _, queryOptions = finishQuery({
 				includeResistCaps = true,
-				resistCapShortfall = { Fire = 10, Cold = 20, Lightning = 30, Chaos = 40 },
+				resistanceCapShortfallByType = { Fire = 10, Cold = 20, Lightning = 30, Chaos = 40 },
 			}, {
 				annotatedWeight("explicit.fire_resistance", "+#% to Fire Resistance", 10, 10),
 				annotatedWeight("implicit.cold_resistance", "+#% to Cold Resistance", 9, 9),
@@ -367,9 +367,9 @@ describe("TradeQueryGenerator", function()
 
 		it("combines elemental shortfalls when caps and swaps are enabled", function()
 			local query = finishQuery({
-				groupResists = true,
+				includeResistSwaps = true,
 				includeResistCaps = true,
-				resistCapShortfall = { Fire = 10, Cold = 20, Lightning = 30, Chaos = 40 },
+				resistanceCapShortfallByType = { Fire = 10, Cold = 20, Lightning = 30, Chaos = 40 },
 			}, {
 				annotatedWeight("explicit.fire_resistance", "+#% to Fire Resistance", 10, 10),
 				{ tradeModId = "explicit.life", weight = 6, meanStatDiff = 6, invert = false },
@@ -393,7 +393,7 @@ describe("TradeQueryGenerator", function()
 		it("builds an AND-only price-sorted query when caps remove every weighted filter", function()
 			local query, _, queryOptions = finishQuery({
 				includeResistCaps = true,
-				resistCapShortfall = { Fire = 25 },
+				resistanceCapShortfallByType = { Fire = 25 },
 			}, {
 				annotatedWeight("explicit.fire_resistance", "+#% to Fire Resistance", 10, 10),
 			})
@@ -407,7 +407,7 @@ describe("TradeQueryGenerator", function()
 		it("does not add zero resistance minimums or an empty AND group", function()
 			local query, _, _, queryError = finishQuery({
 				includeResistCaps = true,
-				resistCapShortfall = { Fire = 0, Cold = 0, Lightning = 0, Chaos = 0 },
+				resistanceCapShortfallByType = { Fire = 0, Cold = 0, Lightning = 0, Chaos = 0 },
 			}, {
 				annotatedWeight("explicit.fire_resistance", "+#% to Fire Resistance", 10, 10),
 			})
@@ -436,7 +436,7 @@ describe("TradeQueryGenerator", function()
 			end
 			local query, _, queryOptions = finishQuery({
 				includeResistCaps = true,
-				resistCapShortfall = { Fire = 25 },
+				resistanceCapShortfallByType = { Fire = 25 },
 				requiredMods = requiredMods,
 			}, {
 				{ tradeModId = "explicit.life", weight = 6, meanStatDiff = 6, invert = false },
@@ -451,8 +451,8 @@ describe("TradeQueryGenerator", function()
 			assert.is_false(queryOptions.weightAdjustedSearch)
 		end)
 
-		it("preserves upstream filter order when resistance grouping is disabled", function()
-			local query = finishQuery({ groupResists = false }, {
+		it("preserves upstream filter order when resistance swaps are disabled", function()
+			local query = finishQuery({ includeResistSwaps = false }, {
 				annotatedWeight("explicit.fire_resistance", "+#% to Fire Resistance", 3, 30),
 				{ tradeModId = "explicit.fire_damage", weight = 2, meanStatDiff = 20, invert = false },
 				{ tradeModId = "explicit.life", weight = 1, meanStatDiff = 10, invert = false },

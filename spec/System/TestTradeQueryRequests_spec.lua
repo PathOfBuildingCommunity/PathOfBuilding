@@ -349,8 +349,6 @@ Strict-Transport-Security: max-age=63115200; includeSubDomains; preload]]
 					lineIndex = 1,
 					element = "Fire",
 					domain = "explicit",
-					tier = "S7",
-					range = { min = 12, max = 17 },
 				},
 			}, result.resistanceSwapDescriptors)
 			assert.is_nil(result.explicitMods)

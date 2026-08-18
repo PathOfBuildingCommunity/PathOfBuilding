@@ -1,7 +1,7 @@
 -- Path of Building
 --
 -- Module: Trade Resistance Swap
--- Extracts safe resistance-swap metadata and builds theoretical item variants.
+-- Extracts safe resistance-swap metadata and builds estimated item variants.
 --
 
 local M = {}
@@ -32,14 +32,14 @@ local function getHashGroups(item)
 	return groupsByDomain
 end
 
-local function getUniqueMod(modLine)
+local function getSingleModMetadata(modLine)
 	local metadata = type(modLine.mods) == "table" and modLine.mods
 	return metadata and #metadata == 1 and metadata[1]
 end
 
 local function getAffixFingerprint(modLine)
 	local domain = modLine.domain
-	local mod = getUniqueMod(modLine)
+	local mod = getSingleModMetadata(modLine)
 	if (domain ~= "explicit" and domain ~= "crafted") or not mod
 		or type(mod.name) ~= "string" or mod.name == ""
 		or type(mod.tier) ~= "string" or mod.tier == ""
@@ -51,7 +51,7 @@ end
 
 local function getLineGroups(modLine, groupsByDomain)
 	local domain = modLine.domain
-	local metadata = getUniqueMod(modLine)
+	local metadata = getSingleModMetadata(modLine)
 	local magnitude = metadata and type(metadata.magnitudes) == "table" and metadata.magnitudes[1]
 	local rawHash = modLine.hash or metadata and metadata.hash or magnitude and magnitude.hash
 	local hash = type(rawHash) == "string" and rawHash:gsub("^stat%.", "")
@@ -90,6 +90,8 @@ function M.extractDescriptors(item)
 			metadataComplete = false
 		end
 	end
+	-- A partial descriptor set could make two lines from the same affix appear
+	-- independently swappable, so ambiguous metadata disables every swap.
 	if not metadataComplete then
 		return {}
 	end
@@ -104,7 +106,7 @@ function M.extractDescriptors(item)
 		if type(modLine.description) == "string" then
 			value, element = modLine.description:match("^%+(%d+%.?%d*)%% to (%a+) Resistance$")
 		end
-		local mod = getUniqueMod(modLine)
+		local mod = getSingleModMetadata(modLine)
 		local magnitudes = mod and mod.magnitudes
 		local magnitude = type(magnitudes) == "table" and #magnitudes == 1 and magnitudes[1]
 		local groups = getLineGroups(modLine, groupsByDomain)
@@ -123,8 +125,6 @@ function M.extractDescriptors(item)
 					lineIndex = lineIndex,
 					element = element,
 					domain = domain,
-					tier = mod.tier,
-					range = { min = tonumber(magnitude.min), max = tonumber(magnitude.max) },
 				})
 				seenElements[element] = true
 			end
@@ -151,6 +151,8 @@ function M.getAssignments(descriptors)
 	local assignments = {}
 	local assignment = {}
 	local used = {}
+	-- Each source line must map to a distinct target element; assigning two
+	-- affixes to the same element cannot represent a valid swap assignment.
 	local function visit(index, swaps)
 		if index > #descriptors then
 			local targets = {}
@@ -183,7 +185,7 @@ local function readResistanceLine(modLine)
 	end
 end
 
-function M.validateItem(item, descriptors)
+function M.itemMatchesSwapDescriptors(item, descriptors)
 	if not item or item.corrupted or item.mirrored or item.duplicated then
 		return false
 	end
@@ -200,7 +202,7 @@ end
 
 function M.buildVariant(itemString, descriptors, assignment)
 	local item = new("Item"):Item(itemString)
-	if not M.validateItem(item, descriptors) then
+	if not M.itemMatchesSwapDescriptors(item, descriptors) then
 		return
 	end
 	local swaps = {}
@@ -214,7 +216,7 @@ function M.buildVariant(itemString, descriptors, assignment)
 		end
 		if target ~= source then
 			modLine.line = modLine.line:gsub(" " .. source .. " Resistance$", " " .. target .. " Resistance")
-			table.insert(swaps, { from = source, to = target, value = tonumber(value) })
+			table.insert(swaps, { from = source, to = target })
 			table.insert(swappedLineIndexes, descriptor.lineIndex)
 		end
 	end
