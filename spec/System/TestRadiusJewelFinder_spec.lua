@@ -167,6 +167,14 @@ describe("RadiusJewelFinder #radius-jewel", function()
 			assert.is_false(popup.controls.applyButton.enabled(), message)
 		end
 
+		local function assertStaleResultsRemainVisible(popup, resultContextKey, expectedCount, expectedMode, message)
+			assert.are.equal(expectedMode, popup.controls.resultsList.mode, message)
+			assert.are.equal(expectedCount, #popup.controls.resultsList.list, message)
+			assert.are.equal(resultContextKey, popup.controls.resultsList.list[1].resultContextKey, message)
+			assert.is_not_nil(popup.controls.resultsList.selIndex, message)
+			assert.is_false(popup.controls.applyButton.enabled(), message)
+		end
+
 		it("dispatches every jewel strategy to its compute owner", function()
 			build.radiusJewelFinderState = nil
 			local finder = makeFinder()
@@ -310,10 +318,12 @@ describe("RadiusJewelFinder #radius-jewel", function()
 
 		end)
 
-		it("clears or restores results for every result-affecting criterion", function()
+		it("keeps stale results visible, blocks Apply, and restores matching results", function()
 			local _, popup = openResultContextTestPopup()
 			runPopupCompute(popup)
 			local resultContextKey = popup.controls.resultsList.list[1].resultContextKey
+			local resultMode = popup.controls.resultsList.mode
+			local criteriaChangedMessage = "^xFFAA33Criteria changed. ^8Run Find or Compute again."
 			local intuitiveLeapIndex = findControlIndex(popup.controls.jewelTypeSelect.list, "Intuitive Leap")
 			local threadOfHopeIndex = findControlIndex(popup.controls.jewelTypeSelect.list, "Thread of Hope")
 			assert.is_string(resultContextKey)
@@ -352,7 +362,15 @@ describe("RadiusJewelFinder #radius-jewel", function()
 			}
 			for _, criterion in ipairs(changes) do
 				criterion.change()
-				assertResultsCleared(popup, criterion.name .. " should clear unmatched results")
+				assertStaleResultsRemainVisible(popup, resultContextKey, 1, resultMode,
+					criterion.name .. " should keep the previous results visible but stale")
+				assert.are.equal(criteriaChangedMessage, popup.controls.statusLabel.label,
+					criterion.name .. " should explain how to refresh results")
+				assert.is_nil(main.onFrameFuncs["RadiusJewelFinderCompute"],
+					criterion.name .. " should not start Compute automatically")
+				local beforeApply = support.snapshotFinderState()
+				popup.controls.applyButton:Click()
+				support.assertFinderStateUnchanged(beforeApply, assert)
 				criterion.restore()
 				assertCachedResultsAreApplicable(popup, resultContextKey, 1,
 					criterion.name .. " should restore matching cached results")
@@ -390,7 +408,7 @@ describe("RadiusJewelFinder #radius-jewel", function()
 			assert.is_true(#popup.controls.variantGroupSelect.list > 1)
 
 			popup.controls.variantGroupSelect.selFunc(2)
-			assertResultsCleared(popup)
+			assertStaleResultsRemainVisible(popup, groupedContextKey, groupedResultCount, "computeSocket")
 			popup.controls.variantGroupSelect.selFunc(1)
 			assertCachedResultsAreApplicable(popup, groupedContextKey, groupedResultCount)
 
@@ -400,7 +418,9 @@ describe("RadiusJewelFinder #radius-jewel", function()
 			local allJewelsResultCount = #popup.controls.resultsList.list
 
 			popup.controls.showLegacyCheck.changeFunc(true)
-			assertResultsCleared(popup)
+			assertStaleResultsRemainVisible(popup, allJewelsContextKey, allJewelsResultCount, "computeSocketAll")
+			assert.are.equal("^xFFAA33Criteria changed. ^8Run Compute again.",
+				popup.controls.statusLabel.label)
 			popup.controls.showLegacyCheck.changeFunc(false)
 			assertCachedResultsAreApplicable(popup, allJewelsContextKey, allJewelsResultCount)
 		end)
@@ -444,7 +464,7 @@ describe("RadiusJewelFinder #radius-jewel", function()
 			local anyRingContextKey = findRow.resultContextKey
 
 			popup.controls.threadVariantSelect.selFunc(2)
-			assertResultsCleared(popup)
+			assertStaleResultsRemainVisible(popup, anyRingContextKey, 1, "findThread")
 			local explicitRingPreview = getPreviewText(popup)
 			assert.matches(threadVariants[1].ringLabel, explicitRingPreview, 1, true)
 			assert.is_nil(explicitRingPreview:find("Multiple ring sizes available", 1, true))
