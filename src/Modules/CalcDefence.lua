@@ -1750,9 +1750,12 @@ function calcs.buildDefenceEstimations(env, actor)
 					local gainAsPercent = enemyDB:Sum("BASE", enemyCfg, (damageType.."DamageGainAs"..damageTypeTo)) / 100
 					local conversionPercent = conversions[damageTypeTo] / 100
 					local skillConversionPercent = conversions[damageTypeTo.."skill"] / 100
-					if skillConversionPercent > 0 and damageType == "Physical" and damageTypeTo ~= "Chaos" then
-						local physBonus = 1 + data.monsterPhysConversionMultiTable[env.enemyLevel] / 100
-						conversionPercent = conversionPercent + skillConversionPercent * physBonus
+					if skillConversionPercent > 0 then
+						if damageType == "Physical" and damageTypeTo ~= "Chaos" then
+							local physBonus = 1 + data.monsterPhysConversionMultiTable[env.enemyLevel] / 100
+							skillConversionPercent = skillConversionPercent * physBonus
+						end
+						conversionPercent = conversionPercent + skillConversionPercent
 					end
 					if gainAsPercent > 0 or conversionPercent > 0 then
 						enemyDamageConversion[damageTypeTo] = enemyDamageConversion[damageTypeTo] or { }
