@@ -3075,7 +3075,7 @@ function calcs.buildDefenceEstimations(env, actor)
 	
 	-- pvp
 	if env.configInput.PvpScaling then
-		local PvpTvalue = output.enemySkillTime
+		local PvpTvalue = output.enemySkillTime or 1
 		local PvpMultiplier = (env.configInput.enemyMultiplierPvpDamage or 100) / 100
 		
 		local PvpNonElemental1 = data.misc.PvpNonElemental1
