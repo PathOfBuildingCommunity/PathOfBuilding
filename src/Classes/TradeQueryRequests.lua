@@ -306,6 +306,8 @@ function TradeQueryRequestsClass:FetchResultBlock(url, callback)
 			for _, trade_entry in pairs(response.result) do
 				local item = trade_entry.item
 				local t_insert = table.insert
+				-- The API affix and hash metadata is not preserved by PoB's raw item
+				-- format, so extract swap descriptors before serialising the item.
 				local resistanceSwapDescriptors = tradeResistanceSwap.extractDescriptors(item)
 
 				local rawLines = {}

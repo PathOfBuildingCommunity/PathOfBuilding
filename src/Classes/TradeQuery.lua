@@ -30,7 +30,7 @@ local function meetsResistanceCaps(output)
 	return true
 end
 
-local function getResistanceCapShortfall(output)
+local function getTotalResistanceCapShortfall(output)
 	local shortfall = 0
 	for _, resistanceType in ipairs({ "Fire", "Cold", "Lightning", "Chaos" }) do
 		local missing = output["Missing" .. resistanceType .. "Resist"]
@@ -42,7 +42,7 @@ local function getResistanceCapShortfall(output)
 	return shortfall
 end
 
-local function getResistanceState(output)
+local function getResistanceStateSnapshot(output)
 	local state = {}
 	for _, resistanceType in ipairs({ "Fire", "Cold", "Lightning", "Chaos" }) do
 		for _, suffix in ipairs({ "Resist", "ResistTotal", "Missing" .. resistanceType .. "Resist" }) do
@@ -67,7 +67,7 @@ local function getMissingElementalResistanceTargets(output)
 	return targets
 end
 
-local function assignmentCanRepairResistanceDeficit(descriptors, assignment, missingTargets)
+local function assignmentTargetsMissingResistance(descriptors, assignment, missingTargets)
 	if not missingTargets then
 		return true
 	end
@@ -80,7 +80,7 @@ local function assignmentCanRepairResistanceDeficit(descriptors, assignment, mis
 	return false
 end
 
-local function isResistanceStateFlag(value)
+local function isElementalResistanceStateFlag(value)
 	return type(value) == "string"
 		and (value:find("Uncapped", 1, true) or value:find("Overcapped", 1, true))
 		and (value:find("FireRes", 1, true)
@@ -88,7 +88,7 @@ local function isResistanceStateFlag(value)
 			or value:find("LightningRes", 1, true))
 end
 
-local function isResistanceStateStat(value)
+local function isElementalResistanceStat(value)
 	return type(value) == "string" and (
 		value:find("FireResist", 1, true)
 		or value:find("ColdResist", 1, true)
@@ -96,11 +96,11 @@ local function isResistanceStateStat(value)
 	)
 end
 
-local function modUsesResistanceState(mod)
+local function modUsesElementalResistanceState(mod)
 	for _, tag in ipairs(mod or { }) do
 		if type(tag) == "table" then
 			for _, value in pairs(tag) do
-				if isResistanceStateStat(value) then
+				if isElementalResistanceStat(value) then
 					return true
 				end
 			end
@@ -109,30 +109,30 @@ local function modUsesResistanceState(mod)
 	return false
 end
 
-local function modStoreUsesResistanceState(store, visited)
+local function modStoreUsesElementalResistanceState(store, visited)
 	if type(store) ~= "table" or visited[store] then
 		return false
 	end
 	visited[store] = true
 	if store.mods then
 		for name, modList in pairs(store.mods) do
-			if isResistanceStateFlag(name) then
+			if isElementalResistanceStateFlag(name) then
 				return true
 			end
 			for _, mod in ipairs(modList) do
-				if modUsesResistanceState(mod) then
+				if modUsesElementalResistanceState(mod) then
 					return true
 				end
 			end
 		end
 	else
 		for _, mod in ipairs(store) do
-			if isResistanceStateFlag(mod.name) or modUsesResistanceState(mod) then
+			if isElementalResistanceStateFlag(mod.name) or modUsesElementalResistanceState(mod) then
 				return true
 			end
 		end
 	end
-	return modStoreUsesResistanceState(store.parent, visited)
+	return modStoreUsesElementalResistanceState(store.parent, visited)
 end
 
 ---@class TradeQuery
@@ -146,12 +146,11 @@ function TradeQueryClass:TradeQuery(itemsTab)
 	self.controls = { }
 	-- table of price results index by slot and number of fetched results
 	self.resultTbl = { }
-	self.unfilteredResultTbl = { }
 	self.sortedResultTbl = { }
 	self.itemIndexTbl = { }
 	-- tooltip acceleration tables
 	self.onlyWeightedBaseOutput = { }
-	self.resistanceBaseOutput = { }
+	self.resistanceStateCache = { }
 	self.lastComparedWeightList = { }
 
 	-- default set of trade item sort selection
@@ -185,7 +184,7 @@ function TradeQueryClass:TradeQuery(itemsTab)
 	self.resultEvaluationQueued = {}
 	-- Identity tokens keep network fetches separate from result evaluation and
 	-- prevent an older response from replacing a newer search.
-	self.resultFetchContexts = {}
+	self.resultFetchTokens = {}
 
 	self.tradeQueryRequests = new("TradeQueryRequests"):TradeQueryRequests()
 	if not main.api then
@@ -571,7 +570,7 @@ on trade site to work on other leagues and realms)]]
 	self.controls.itemSortSelection = new("DropDownControl"):DropDownControl({"TOPRIGHT", self.controls.StatWeightMultipliersButton, "TOPLEFT"}, {-8, 0, 170, row_height}, self.itemSortSelectionList, function(index, value)
 		self.pbItemSortSelectionIndex = index
 		for row_idx, _ in pairs(self.resultTbl) do
-			if not self.resultFetchContexts[row_idx] then
+			if not self.resultFetchTokens[row_idx] then
 				self:StartResultEvaluation(row_idx)
 			end
 		end
@@ -898,7 +897,7 @@ function TradeQueryClass:SetStatWeights(previousSelectionList)
 			self.statSortSelectionList = statSortSelectionList
 		end
 		for row_idx in pairs(self.resultTbl) do
-			if not self.resultFetchContexts[row_idx] then
+			if not self.resultFetchTokens[row_idx] then
 				self:StartResultEvaluation(row_idx)
 			end
 		end
@@ -951,24 +950,24 @@ end
 
 function TradeQueryClass:StartResultFetch(rowIdx)
 	self:CancelResultEvaluation(rowIdx)
-	local context = { }
-	self.resultFetchContexts[rowIdx] = context
+	local fetchToken = { }
+	self.resultFetchTokens[rowIdx] = fetchToken
 	local button = self.controls["priceButton" .. rowIdx]
 	if button then
 		button.label = "Searching..."
 	end
-	return context
+	return fetchToken
 end
 
-function TradeQueryClass:IsResultFetchCurrent(rowIdx, context)
-	return self.resultFetchContexts[rowIdx] == context
+function TradeQueryClass:IsResultFetchCurrent(rowIdx, fetchToken)
+	return self.resultFetchTokens[rowIdx] == fetchToken
 end
 
-function TradeQueryClass:FinishResultFetch(rowIdx, context)
-	if not self:IsResultFetchCurrent(rowIdx, context) then
+function TradeQueryClass:FinishResultFetch(rowIdx, fetchToken)
+	if not self:IsResultFetchCurrent(rowIdx, fetchToken) then
 		return false
 	end
-	self.resultFetchContexts[rowIdx] = nil
+	self.resultFetchTokens[rowIdx] = nil
 	local button = self.controls["priceButton" .. rowIdx]
 	if button then
 		button.label = "Price Item"
@@ -977,15 +976,15 @@ function TradeQueryClass:FinishResultFetch(rowIdx, context)
 end
 
 function TradeQueryClass:CancelResultFetch(rowIdx)
-	self.resultFetchContexts[rowIdx] = nil
+	self.resultFetchTokens[rowIdx] = nil
 	self:CancelResultEvaluation(rowIdx)
 end
 
 function TradeQueryClass:StartResultEvaluation(rowIdx)
-	if self.resultFetchContexts[rowIdx] then
+	if self.resultFetchTokens[rowIdx] then
 		return
 	end
-	local results = self.unfilteredResultTbl[rowIdx] or self.resultTbl[rowIdx] or { }
+	local results = self.resultTbl[rowIdx] or { }
 	self.itemIndexTbl[rowIdx] = nil
 	self.sortedResultTbl[rowIdx] = nil
 	self.totalPrice[rowIdx] = nil
@@ -1077,19 +1076,21 @@ function TradeQueryClass:ReduceOutput(output)
 	return smallOutput
 end
 
-function TradeQueryClass:HasResistanceSwapOutputDependency(item)
+-- True includes any uncertainty; false proves that elemental resistance swaps
+-- cannot affect the selected outputs, so cap-only pruning is safe.
+function TradeQueryClass:ResistanceSwapMayAffectOutput(item)
 	for _, stat in ipairs(self.statSortSelectionList or { }) do
-		if isResistanceStateStat(stat.stat) then
+		if isElementalResistanceStat(stat.stat) then
 			return true
 		end
 	end
 	local visited = { }
-	if item and (modStoreUsesResistanceState(item.modList, visited)
-		or modStoreUsesResistanceState(item.baseModList, visited)) then
+	if item and (modStoreUsesElementalResistanceState(item.modList, visited)
+		or modStoreUsesElementalResistanceState(item.baseModList, visited)) then
 		return true
 	end
 	for _, modList in pairs(item and item.slotModList or { }) do
-		if modStoreUsesResistanceState(modList, visited) then
+		if modStoreUsesElementalResistanceState(modList, visited) then
 			return true
 		end
 	end
@@ -1100,19 +1101,20 @@ function TradeQueryClass:HasResistanceSwapOutputDependency(item)
 		-- Without the calculated modifier graph, the resistance state cannot be proven irrelevant.
 		return true
 	end
-	if modStoreUsesResistanceState(player.modDB, visited) then
+	if modStoreUsesElementalResistanceState(player.modDB, visited) then
 		return true
 	end
 	for _, activeSkill in ipairs(player.activeSkillList or { }) do
-		if modStoreUsesResistanceState(activeSkill.skillModList, visited)
-			or modStoreUsesResistanceState(activeSkill.modList, visited) then
+		if modStoreUsesElementalResistanceState(activeSkill.skillModList, visited)
+			or modStoreUsesElementalResistanceState(activeSkill.modList, visited) then
 			return true
 		end
 	end
 	return false
 end
 
--- Method to evaluate a result by getting it's output and weight
+-- Cache the best eligible item variant while the compared build outputs,
+-- selected weights, and resistance state remain unchanged.
 function TradeQueryClass:GetResultEvaluation(row_idx, result_index, calcFunc, baseOutput, yieldFunc)
 	local result = self.resultTbl[row_idx][result_index]
 	if not calcFunc then
@@ -1125,20 +1127,18 @@ function TradeQueryClass:GetResultEvaluation(row_idx, result_index, calcFunc, ba
 	if not self.lastComparedWeightList[row_idx] then
 		self.lastComparedWeightList[row_idx] = { }
 	end
-	if not self.resistanceBaseOutput[row_idx] then
-		self.resistanceBaseOutput[row_idx] = { }
+	if not self.resistanceStateCache[row_idx] then
+		self.resistanceStateCache[row_idx] = { }
 	end
-	local resistanceBaseOutput = result.resistanceCapsRequired and getResistanceState(baseOutput)
-	-- A shared calculator is an optimization, not a cache bypass. Reuse the result
-	-- whenever the build outputs, selected weights, and resistance state still match.
+	local resistanceStateSnapshot = result.prioritiseResistanceCaps and getResistanceStateSnapshot(baseOutput)
 	if result.evaluation and tableDeepEquals(onlyWeightedBaseOutput, self.onlyWeightedBaseOutput[row_idx][result_index])
 		and tableDeepEquals(self.statSortSelectionList, self.lastComparedWeightList[row_idx][result_index])
-		and (not result.resistanceCapsRequired or tableDeepEquals(resistanceBaseOutput, self.resistanceBaseOutput[row_idx][result_index])) then
+		and (not result.prioritiseResistanceCaps or tableDeepEquals(resistanceStateSnapshot, self.resistanceStateCache[row_idx][result_index])) then
 		return result.evaluation
 	end
 	self.onlyWeightedBaseOutput[row_idx][result_index] = onlyWeightedBaseOutput
 	self.lastComparedWeightList[row_idx][result_index] = self.statSortSelectionList
-	self.resistanceBaseOutput[row_idx][result_index] = resistanceBaseOutput
+	self.resistanceStateCache[row_idx][result_index] = resistanceStateSnapshot
 	local slotTbl = self.slotTables[row_idx]
 	local jewelNodeId = slotTbl.nodeId or slotTbl.selectedJewelNodeId
 	if slotTbl.slotName == "Megalomaniac" then
@@ -1182,7 +1182,7 @@ function TradeQueryClass:GetResultEvaluation(row_idx, result_index, calcFunc, ba
 		local slotName = jewelNodeId and "Jewel " .. tostring(jewelNodeId) or slotTbl.selectedSlotName or slotTbl.slotName
 		local item = new("Item"):Item(result.item_string)
 		local descriptors = result.resistanceSwapEnabled and result.resistanceSwapDescriptors
-		local assignments = descriptors and tradeResistanceSwap.validateItem(item, descriptors)
+		local assignments = descriptors and tradeResistanceSwap.itemMatchesSwapDescriptors(item, descriptors)
 			and tradeResistanceSwap.getAssignments(descriptors) or {}
 		local bestEvaluation
 		local bestSwapCount
@@ -1195,38 +1195,38 @@ function TradeQueryClass:GetResultEvaluation(row_idx, result_index, calcFunc, ba
 			return {
 				output = output,
 				weight = self.tradeQueryGenerator.WeightedRatioOutputs(baseOutput, output, self.statSortSelectionList),
-				resistanceCapShortfall = result.resistanceCapsRequired
-					and getResistanceCapShortfall(fullOutput) or 0,
+				totalResistanceCapShortfall = result.prioritiseResistanceCaps
+					and getTotalResistanceCapShortfall(fullOutput) or 0,
 			}, fullOutput
 		end
 		local listedEvaluation, listedFullOutput = evaluateVariant(item)
 		bestEvaluation = listedEvaluation
 		bestSwapCount = 0
 		local function isBetterEvaluation(evaluation, swapCount)
-			if result.resistanceCapsRequired
-				and evaluation.resistanceCapShortfall ~= bestEvaluation.resistanceCapShortfall then
-				return evaluation.resistanceCapShortfall < bestEvaluation.resistanceCapShortfall
+			if result.prioritiseResistanceCaps
+				and evaluation.totalResistanceCapShortfall ~= bestEvaluation.totalResistanceCapShortfall then
+				return evaluation.totalResistanceCapShortfall < bestEvaluation.totalResistanceCapShortfall
 		end
 			return evaluation.weight > bestEvaluation.weight
 				or evaluation.weight == bestEvaluation.weight and swapCount < bestSwapCount
 		end
-		local resistanceStateIndependent = result.resistanceCapsRequired
-			and not self:HasResistanceSwapOutputDependency(item)
-		local skipSwaps = resistanceStateIndependent and meetsResistanceCaps(listedFullOutput)
-		local missingTargets = resistanceStateIndependent
+		local canPruneSwapsByResistanceCaps = result.prioritiseResistanceCaps
+			and not self:ResistanceSwapMayAffectOutput(item)
+		local skipSwaps = canPruneSwapsByResistanceCaps and meetsResistanceCaps(listedFullOutput)
+		local missingTargets = canPruneSwapsByResistanceCaps
 			and getMissingElementalResistanceTargets(listedFullOutput) or nil
 		for _, assignment in ipairs(assignments) do
 			if assignment.swaps > 0 and not skipSwaps
-				and assignmentCanRepairResistanceDeficit(descriptors, assignment, missingTargets) then
+				and assignmentTargetsMissingResistance(descriptors, assignment, missingTargets) then
 				local variant, swaps, swappedLineIndexes = tradeResistanceSwap.buildVariant(result.item_string, descriptors, assignment)
 				if variant then
 					local evaluation = evaluateVariant(variant)
 					if evaluation and isBetterEvaluation(evaluation, assignment.swaps) then
 						bestEvaluation = evaluation
 						bestSwapCount = assignment.swaps
-						bestEvaluation.theoreticalResistanceSwap = swaps
-						bestEvaluation.theoreticalResistanceSwapItemString = variant:BuildRaw()
-						bestEvaluation.theoreticalResistanceSwapLineIndexes = swappedLineIndexes
+						bestEvaluation.estimatedResistanceSwaps = swaps
+						bestEvaluation.estimatedResistanceSwapItemString = variant:BuildRaw()
+						bestEvaluation.estimatedResistanceSwapLineIndexes = swappedLineIndexes
 					end
 				end
 			end
@@ -1258,18 +1258,14 @@ function TradeQueryClass:ResetResultRow(rowIdx)
 	self.itemIndexTbl[rowIdx] = nil
 	self.sortedResultTbl[rowIdx] = nil
 	self.resultTbl[rowIdx] = nil
-	self.unfilteredResultTbl[rowIdx] = nil
 	self.onlyWeightedBaseOutput[rowIdx] = nil
-	self.resistanceBaseOutput[rowIdx] = nil
+	self.resistanceStateCache[rowIdx] = nil
 	self.lastComparedWeightList[rowIdx] = nil
 	self.totalPrice[rowIdx] = nil
 	self:UpdateDropdownList(rowIdx)
 	self.controls.fullPrice.label = "^7Total Price: " .. self:GetTotalPriceString()
 end
 function TradeQueryClass:UpdateControlsWithItems(row_idx, yieldFunc)
-	if self.unfilteredResultTbl[row_idx] then
-		self.resultTbl[row_idx] = self.unfilteredResultTbl[row_idx]
-	end
 	local sortMode = self.itemSortSelectionList[self.pbItemSortSelectionIndex]
 	local sortedItems, errMsg = self:SortFetchResults(row_idx, sortMode, yieldFunc)
 	if errMsg == "MissingConversionRates" then
@@ -1473,11 +1469,11 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 				controls["uri"..context.row_idx]:SetText(url, true)
 				return
 			end
-			local fetchContext = self:StartResultFetch(context.row_idx)
+			local fetchToken = self:StartResultFetch(context.row_idx)
 			self.lastQueries[row_idx] = query
 			self:SearchGeneratedQuery(queryOptions, query,
 				function(items, errMsg)
-					if not self:FinishResultFetch(context.row_idx, fetchContext) then
+					if not self:FinishResultFetch(context.row_idx, fetchToken) then
 						return
 					end
 					if errMsg then
@@ -1506,17 +1502,16 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 							item.enchantModLines = {}
 						end
 						itemsSafe[i].item_string = item:BuildRaw()
-						itemsSafe[i].resistanceSwapEnabled = queryOptions and queryOptions.groupResists == true
-						itemsSafe[i].resistanceCapsRequired = queryOptions and queryOptions.includeResistCaps == true
+						itemsSafe[i].resistanceSwapEnabled = queryOptions and queryOptions.includeResistSwaps == true
+						itemsSafe[i].prioritiseResistanceCaps = queryOptions and queryOptions.includeResistCaps == true
 					end
 
-					self.unfilteredResultTbl[context.row_idx] = queryOptions and queryOptions.includeResistCaps and itemsSafe or nil
 					self.resultTbl[context.row_idx] = itemsSafe
 					self:StartResultEvaluation(context.row_idx)
 				end,
 				{
 					callbackQueryId = function(queryId)
-						if not self:IsResultFetchCurrent(context.row_idx, fetchContext) then
+						if not self:IsResultFetchCurrent(context.row_idx, fetchToken) then
 							return
 						end
 						local url = self.tradeQueryRequests:buildUrl(self.hostName .. "trade/search", self.pbRealm, self.pbLeague, queryId)
@@ -1574,13 +1569,13 @@ you can add them, copy the link here, and press "Price Item" to evaluate the ite
 	end
 	controls["priceButton"..row_idx] = new("ButtonControl"):ButtonControl({ "TOPLEFT", controls["uri"..row_idx], "TOPRIGHT"}, {8, 0, 100, row_height}, "Price Item",
 		function()
-			local fetchContext = self:StartResultFetch(row_idx)
+			local fetchToken = self:StartResultFetch(row_idx)
 			local url = controls["uri" .. row_idx].buf
 			if not url:find("^https://") then
 				url = "https://" .. url
 			end
 			self.tradeQueryRequests:SearchWithURL(url, function(items, errMsg, query)
-				if not self:FinishResultFetch(row_idx, fetchContext) then
+				if not self:FinishResultFetch(row_idx, fetchToken) then
 					return
 				end
 				if errMsg then
@@ -1590,7 +1585,6 @@ you can add them, copy the link here, and press "Price Item" to evaluate the ite
 					self.lastQueries[row_idx] = query
 					local selectedSlot = getSelectedSlot()
 					local itemsSafe = self:FilterToSafeItems(items, selectedSlot and selectedSlot.slotName)
-					self.unfilteredResultTbl[row_idx] = nil
 					self.resultTbl[row_idx] = itemsSafe
 					self:StartResultEvaluation(row_idx)
 				end
@@ -1603,7 +1597,7 @@ you can add them, copy the link here, and press "Price Item" to evaluate the ite
 	controls["priceButton"..row_idx].enabled = function()
 		local isAuthorized = main.api.authToken ~= nil
 		local validURL = controls["uri"..row_idx].validURL
-		local isSearching = self.resultFetchContexts[row_idx] ~= nil
+		local isSearching = self.resultFetchTokens[row_idx] ~= nil
 		local isEvaluating = self.resultEvaluationContexts[row_idx] ~= nil
 		local requiresJewelSlot = not slotTbl.unique or jewelUniques[slotTbl.slotName]
 		local selectedJewelSlot = slotTbl.selectedJewelNodeId and self.itemsTab.sockets[slotTbl.selectedJewelNodeId]
@@ -1649,7 +1643,7 @@ you can add them, copy the link here, and press "Price Item" to evaluate the ite
 	end
 	local function addResistanceSwapToTooltipIfApplicable(tooltip, result)
 		local evaluation = result.evaluation and result.evaluation[1]
-		local swaps = evaluation and evaluation.theoreticalResistanceSwap
+		local swaps = evaluation and evaluation.estimatedResistanceSwaps
 		if not swaps or #swaps == 0 then
 			return
 		end
@@ -1659,22 +1653,22 @@ you can add them, copy the link here, and press "Price Item" to evaluate the ite
 		end
 		local label = #swaps == 1 and "Estimated swap: " or "Estimated swaps: "
 		local rollNote = #swaps == 1 and " (roll may change)" or " (rolls may change)"
-		local compareHint = evaluation.theoreticalResistanceSwapItemString and colorCodes.TIP .. " [Ctrl: compare]" or ""
+		local compareHint = evaluation.estimatedResistanceSwapItemString and colorCodes.TIP .. " [Ctrl: compare]" or ""
 		tooltip:AddSeparator(10)
 		tooltip:AddLine(16, "^7" .. label .. table.concat(descriptions, ", ") .. "^8" .. rollNote .. compareHint)
 		return evaluation
 	end
 	local function addResistanceSwapPreviewIfApplicable(tooltip, evaluation, tooltipSlot)
-		if not evaluation or not evaluation.theoreticalResistanceSwapItemString or not self:IsResistanceSwapPreviewActive() then
+		if not evaluation or not evaluation.estimatedResistanceSwapItemString or not self:IsResistanceSwapPreviewActive() then
 			return
 		end
-		local previewItem = new("Item"):Item(evaluation.theoreticalResistanceSwapItemString)
+		local previewItem = new("Item"):Item(evaluation.estimatedResistanceSwapItemString)
 		local previewTooltip = tooltip.resistanceSwapPreviewTooltip or new("Tooltip"):Tooltip()
 		tooltip.resistanceSwapPreviewTooltip = previewTooltip
 		previewTooltip:Clear()
 		self.itemsTab:AddItemTooltip(previewTooltip, previewItem, tooltipSlot)
 		local swappedModLines = {}
-		for _, lineIndex in ipairs(evaluation.theoreticalResistanceSwapLineIndexes or {}) do
+		for _, lineIndex in ipairs(evaluation.estimatedResistanceSwapLineIndexes or {}) do
 			local modLine = previewItem.explicitModLines[lineIndex]
 			if modLine then
 				swappedModLines[modLine] = true

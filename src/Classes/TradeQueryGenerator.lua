@@ -776,7 +776,7 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
 	-- Calculate base output with a blank item
 	local calcFunc, baseOutput = self.itemsTab.build.calcsTab:GetMiscCalculator()
 	local baseItemOutput = slot and calcFunc({ repSlotName = slot.slotName, repItem = testItem }) or baseOutput
-	local resistCapShortfall = tradeResistanceGrouping.getResistanceCapShortfall(
+	local resistanceCapShortfallByType = tradeResistanceGrouping.getResistanceCapShortfallByType(
 		slot and not slot.slotName:find("Flask") and baseItemOutput or {})
 	-- make weights more human readable
 	local compStatValue = TradeQueryGeneratorClass.WeightedRatioOutputs(baseOutput, baseItemOutput, options.statWeights) * 1000
@@ -797,7 +797,7 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
 		slot = slot,
 		requiredMods = options.requiredMods,
 		blockedMods = options.blockedMods,
-		resistCapShortfall = resistCapShortfall,
+		resistanceCapShortfallByType = resistanceCapShortfallByType,
 	}
 
 	-- OnFrame will pick this up and begin the work
@@ -946,7 +946,7 @@ function TradeQueryGeneratorClass:FinishQuery()
 	if self.calcContext.options.includeAllWEMods then
 		self:addMoreWEMods()
 	end
-	self.modWeights = tradeResistanceGrouping.groupResistanceWeights(self.modWeights, self.calcContext.options.groupResists, self.calcContext.options.includeResistCaps)
+	self.modWeights = tradeResistanceGrouping.applyResistanceWeightOptions(self.modWeights, self.calcContext.options.includeResistSwaps, self.calcContext.options.includeResistCaps)
 
 	-- Sort by mean Stat diff rather than weight to more accurately prioritize stats that can contribute more
 	table.sort(self.modWeights, function(a, b)
@@ -1075,20 +1075,20 @@ function TradeQueryGeneratorClass:FinishQuery()
 	end
 	local options = self.calcContext.options
 	if options.includeResistCaps then
-		local shortfall = self.calcContext.resistCapShortfall or {}
+		local shortfallByType = self.calcContext.resistanceCapShortfallByType or {}
 		local function addResistanceMinimum(id, minimum)
 			if minimum and minimum > 0 then
 				t_insert(andGroup.filters, { id = id, value = { min = minimum } })
 				complexityBudget = complexityBudget - 4
 			end
 		end
-		if options.groupResists then
-			local elementalMinimum = (shortfall.Fire or 0) + (shortfall.Cold or 0) + (shortfall.Lightning or 0)
+		if options.includeResistSwaps then
+			local elementalMinimum = (shortfallByType.Fire or 0) + (shortfallByType.Cold or 0) + (shortfallByType.Lightning or 0)
 			addResistanceMinimum("pseudo.pseudo_total_elemental_resistance", elementalMinimum)
-			addResistanceMinimum(resistancePseudoIds.Chaos, shortfall.Chaos)
+			addResistanceMinimum(resistancePseudoIds.Chaos, shortfallByType.Chaos)
 		else
 			for _, resistanceType in ipairs(resistanceTypes) do
-				addResistanceMinimum(resistancePseudoIds[resistanceType], shortfall[resistanceType])
+				addResistanceMinimum(resistancePseudoIds[resistanceType], shortfallByType[resistanceType])
 			end
 		end
 	end
@@ -1204,7 +1204,7 @@ function TradeQueryGeneratorClass:FinishQuery()
 
 	local queryJson = dkjson.encode(queryTable)
 	self.requesterCallback(self.requesterContext, queryJson, errMsg, {
-		groupResists = options.groupResists == true,
+		includeResistSwaps = options.includeResistSwaps == true,
 		includeResistCaps = options.includeResistCaps == true,
 		weightAdjustedSearch = hasWeightedFilters and not options.includeResistCaps,
 	})
@@ -1373,10 +1373,10 @@ Remove: %s will be removed from the search results.]], term, term, term)
 	updateLastAnchor(controls.maxLevel)
 
 	if not context.slotTbl.unique then
-		controls.groupResists = new("CheckBoxControl"):CheckBoxControl({ "TOPLEFT", lastItemAnchor, "BOTTOMLEFT" }, { 0, 5, 18 }, "Resistance swaps:", function(state) end)
-		controls.groupResists.state = self.lastGroupResists == true
-		controls.groupResists.tooltipText = "Searches Fire, Cold, and Lightning Resistance as one total.\nResults are sorted using the best estimated swap; rolls may change."
-		updateLastAnchor(controls.groupResists)
+		controls.includeResistSwaps = new("CheckBoxControl"):CheckBoxControl({ "TOPLEFT", lastItemAnchor, "BOTTOMLEFT" }, { 0, 5, 18 }, "Resistance swaps:", function(state) end)
+		controls.includeResistSwaps.state = self.lastIncludeResistSwaps == true
+		controls.includeResistSwaps.tooltipText = "Searches Fire, Cold, and Lightning Resistance as one total.\nResults are sorted using the best estimated swap; rolls may change."
+		updateLastAnchor(controls.includeResistSwaps)
 
 		controls.includeResistCaps = new("CheckBoxControl"):CheckBoxControl({ "TOPLEFT", lastItemAnchor, "BOTTOMLEFT" }, { 0, 5, 18 }, "Resistance caps:", function(state) end)
 		controls.includeResistCaps.state = self.lastIncludeResistCaps == true
@@ -1483,9 +1483,9 @@ Remove: %s will be removed from the search results.]], term, term, term)
 		if #notMods > 0 then
 			options.blockedMods = copyTable(notMods)
 		end
-		if controls.groupResists then
-			self.lastGroupResists = controls.groupResists.state
-			options.groupResists = controls.groupResists.state
+		if controls.includeResistSwaps then
+			self.lastIncludeResistSwaps = controls.includeResistSwaps.state
+			options.includeResistSwaps = controls.includeResistSwaps.state
 		end
 		if controls.includeResistCaps then
 			self.lastIncludeResistCaps = controls.includeResistCaps.state

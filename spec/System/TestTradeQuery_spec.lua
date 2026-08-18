@@ -74,10 +74,10 @@ describe("TradeQuery", function()
 				evaluated = true
 			end
 
-			local fetchContext = tradeQuery:StartResultFetch(1)
+			local fetchToken = tradeQuery:StartResultFetch(1)
 			tradeQuery:StartResultEvaluation(1)
 
-			assert.is_true(tradeQuery:IsResultFetchCurrent(1, fetchContext))
+			assert.is_true(tradeQuery:IsResultFetchCurrent(1, fetchToken))
 			assert.is_nil(tradeQuery.resultEvaluationContexts[1])
 			assert.is_false(evaluated)
 			assert.are.equal("Searching...", tradeQuery.controls.priceButton1.label)
@@ -185,9 +185,9 @@ describe("TradeQuery", function()
 					evaluation = { {
 						output = {},
 						weight = 1,
-						theoreticalResistanceSwap = { { from = "Fire", to = "Cold", value = 17 } },
-						theoreticalResistanceSwapItemString = "Rarity: RARE\nBehemoth Hold\nCoral Ring\nImplicits: 0\n+17% to Cold Resistance",
-						theoreticalResistanceSwapLineIndexes = { 1 },
+						estimatedResistanceSwaps = { { from = "Fire", to = "Cold" } },
+						estimatedResistanceSwapItemString = "Rarity: RARE\nBehemoth Hold\nCoral Ring\nImplicits: 0\n+17% to Cold Resistance",
+						estimatedResistanceSwapLineIndexes = { 1 },
 					} },
 				} } },
 				sortedResultTbl = { [1] = { { index = 1 } } },
@@ -218,12 +218,12 @@ describe("TradeQuery", function()
 					evaluation = { {
 						output = {},
 						weight = 1,
-						theoreticalResistanceSwap = {
-							{ from = "Fire", to = "Cold", value = 17 },
-							{ from = "Cold", to = "Lightning", value = 24 },
+						estimatedResistanceSwaps = {
+							{ from = "Fire", to = "Cold" },
+							{ from = "Cold", to = "Lightning" },
 						},
-						theoreticalResistanceSwapItemString = "Rarity: RARE\nBehemoth Hold\nCoral Ring\nImplicits: 0\n+30 to Strength\n+17% to Cold Resistance\n+24% to Lightning Resistance",
-						theoreticalResistanceSwapLineIndexes = { 2, 3 },
+						estimatedResistanceSwapItemString = "Rarity: RARE\nBehemoth Hold\nCoral Ring\nImplicits: 0\n+30 to Strength\n+17% to Cold Resistance\n+24% to Lightning Resistance",
+						estimatedResistanceSwapLineIndexes = { 2, 3 },
 					} },
 				} } },
 				sortedResultTbl = { [1] = { { index = 1 } } },
@@ -340,7 +340,7 @@ describe("TradeQuery", function()
 			end)
 		end)
 
-		it("replaces capped candidates with the results of a pasted URL", function()
+		it("replaces fetched candidates with the results of a pasted URL", function()
 			local tradeQuery = new("TradeQuery"):TradeQuery({ itemsTab = {} })
 			tradeQuery.itemsTab.activeItemSet = {}
 			tradeQuery.itemsTab.slots = {}
@@ -356,7 +356,6 @@ describe("TradeQuery", function()
 				amount = 2,
 				currency = "chaos",
 			}
-			tradeQuery.unfilteredResultTbl[1] = { oldResult }
 			tradeQuery.resultTbl[1] = { oldResult }
 			tradeQuery.sortedResultTbl[1] = { { index = 1 } }
 			local searchCallback
@@ -369,7 +368,6 @@ describe("TradeQuery", function()
 			tradeQuery.controls.priceButton1.onClick()
 			searchCallback({ newResult }, nil, "{}")
 
-			assert.is_nil(tradeQuery.unfilteredResultTbl[1])
 			assert.are.equal(newResult.item_string, tradeQuery.resultTbl[1][1].item_string)
 		end)
 	end)
@@ -497,12 +495,10 @@ describe("TradeQuery", function()
 				lineIndex = lineIndex,
 				element = element,
 				domain = domain or "explicit",
-				tier = "S1",
-				range = { min = 1, max = 48 },
 			}
 		end
 
-		local function newEvaluationQuery(lines, descriptors, enabled, capsRequired)
+		local function newEvaluationQuery(lines, descriptors, enabled, prioritiseCaps)
 			local tq = new("TradeQuery"):TradeQuery({ itemsTab = {} })
 			tq.tradeQueryGenerator = mock_queryGen
 			tq.slotTables[1] = { slotName = "Ring 1" }
@@ -511,7 +507,7 @@ describe("TradeQuery", function()
 				item_string = itemString(lines),
 				resistanceSwapDescriptors = descriptors,
 				resistanceSwapEnabled = enabled,
-				resistanceCapsRequired = capsRequired,
+				prioritiseResistanceCaps = prioritiseCaps,
 			} }
 			return tq
 		end
@@ -559,7 +555,7 @@ describe("TradeQuery", function()
 				{ "+10% to Fire Resistance", "+20% to Cold Resistance" },
 				{ descriptor(1, "Fire"), descriptor(2, "Cold") }, true, true)
 			local calls = 0
-			tq.HasResistanceSwapOutputDependency = function() return false end
+			tq.ResistanceSwapMayAffectOutput = function() return false end
 
 			local evaluation = tq:GetResultEvaluation(1, 1, function()
 				calls = calls + 1
@@ -574,14 +570,14 @@ describe("TradeQuery", function()
 
 			assert.are.equal(1, calls)
 			assert.are.equal(1, #evaluation)
-			assert.is_nil(evaluation[1].theoreticalResistanceSwap)
+			assert.is_nil(evaluation[1].estimatedResistanceSwaps)
 		end)
 
 		it("only evaluates swaps that can feed an elemental resistance deficit", function()
 			local tq = newEvaluationQuery(
 				{ "+10% to Fire Resistance" }, { descriptor(1, "Fire") }, true, true)
 			local calls = 0
-			tq.HasResistanceSwapOutputDependency = function() return false end
+			tq.ResistanceSwapMayAffectOutput = function() return false end
 
 			local evaluation = tq:GetResultEvaluation(1, 1, function(args)
 				calls = calls + 1
@@ -591,7 +587,7 @@ describe("TradeQuery", function()
 
 			assert.are.equal(2, calls)
 			assert.are.equal(1, #evaluation)
-			assert.are.equal("Cold", evaluation[1].theoreticalResistanceSwap[1].to)
+			assert.are.equal("Cold", evaluation[1].estimatedResistanceSwaps[1].to)
 		end)
 
 		it("keeps resistance swaps when the build depends on resistance state", function()
@@ -601,7 +597,7 @@ describe("TradeQuery", function()
 			local calls = 0
 			local calc = scoreAndCapsFromElements({ Fire = 0, Cold = 0, Lightning = 0, Chaos = 0 },
 				{ Fire = 1, Cold = 2, Lightning = 3 })
-			tq.HasResistanceSwapOutputDependency = function() return true end
+			tq.ResistanceSwapMayAffectOutput = function() return true end
 
 			tq:GetResultEvaluation(1, 1, function(args)
 				calls = calls + 1
@@ -617,18 +613,18 @@ describe("TradeQuery", function()
 				modDB = { mods = { } },
 			} } } }
 
-			assert.is_false(tq:HasResistanceSwapOutputDependency())
-			assert.is_true(tq:HasResistanceSwapOutputDependency({ modList = { {
+			assert.is_false(tq:ResistanceSwapMayAffectOutput())
+			assert.is_true(tq:ResistanceSwapMayAffectOutput({ modList = { {
 				name = "FirePenIncreasedByUncappedFireRes",
 				type = "FLAG",
 			} } }))
-			assert.is_true(tq:HasResistanceSwapOutputDependency({ modList = { {
+			assert.is_true(tq:ResistanceSwapMayAffectOutput({ modList = { {
 				name = "DamageIncreasedByOvercappedColdRes",
 				type = "FLAG",
 			} } }))
 
 			tq.statSortSelectionList = { { stat = "FireResistTotal", weightMult = 1 } }
-			assert.is_true(tq:HasResistanceSwapOutputDependency())
+			assert.is_true(tq:ResistanceSwapMayAffectOutput())
 
 			tq.statSortSelectionList = { { stat = "Life", weightMult = 1 } }
 			tq.itemsTab.build.calcsTab.mainEnv.player.modDB.mods.LifeRegen = { {
@@ -636,7 +632,7 @@ describe("TradeQuery", function()
 				type = "BASE",
 				[1] = { type = "PerStat", stat = "FireResistTotal" },
 			} }
-			assert.is_true(tq:HasResistanceSwapOutputDependency())
+			assert.is_true(tq:ResistanceSwapMayAffectOutput())
 
 			tq.itemsTab.build.calcsTab.mainEnv.player.modDB.mods = {
 				FirePenIncreasedByUncappedFireRes = { {
@@ -644,7 +640,7 @@ describe("TradeQuery", function()
 					type = "FLAG",
 				} },
 			}
-			assert.is_true(tq:HasResistanceSwapOutputDependency())
+			assert.is_true(tq:ResistanceSwapMayAffectOutput())
 		end)
 
 		it("evaluates exactly 3, 6, and 6 distinct-target assignments for one to three candidates", function()
@@ -701,18 +697,18 @@ describe("TradeQuery", function()
 
 			local evaluation = tq:GetResultEvaluation(1, 1,
 				scoreFromElements({ Fire = 1, Cold = 2, Lightning = 4 }), { Life = 100 })
-			local swaps = evaluation[1].theoreticalResistanceSwap
+			local swaps = evaluation[1].estimatedResistanceSwaps
 
 			assert.are.equal(2, #swaps)
-			assert.are.same({ from = "Fire", to = "Cold", value = 10 }, swaps[1])
-			assert.are.same({ from = "Cold", to = "Lightning", value = 20 }, swaps[2])
-			assert.are.same({ 1, 2 }, evaluation[1].theoreticalResistanceSwapLineIndexes)
-			assert.is_truthy(evaluation[1].theoreticalResistanceSwapItemString:find("+10%% to Cold Resistance"))
-			assert.is_truthy(evaluation[1].theoreticalResistanceSwapItemString:find("+20%% to Lightning Resistance"))
+			assert.are.same({ from = "Fire", to = "Cold" }, swaps[1])
+			assert.are.same({ from = "Cold", to = "Lightning" }, swaps[2])
+			assert.are.same({ 1, 2 }, evaluation[1].estimatedResistanceSwapLineIndexes)
+			assert.is_truthy(evaluation[1].estimatedResistanceSwapItemString:find("+10%% to Cold Resistance"))
+			assert.is_truthy(evaluation[1].estimatedResistanceSwapItemString:find("+20%% to Lightning Resistance"))
 			assert.are.equal(original, tq.resultTbl[1][1].item_string)
 		end)
 
-		it("prefers fewer swaps when theoretical weights tie", function()
+		it("prefers fewer swaps when evaluated weights tie", function()
 			local tq = newEvaluationQuery(
 				{ "+10% to Cold Resistance" }, { descriptor(1, "Cold") }, true)
 
@@ -720,7 +716,7 @@ describe("TradeQuery", function()
 				return { Life = 100 }
 			end, { Life = 100 })
 
-			assert.is_nil(evaluation[1].theoreticalResistanceSwap)
+			assert.is_nil(evaluation[1].estimatedResistanceSwaps)
 		end)
 
 		it("uses one baseline calculation when ranking is disabled or ineligible", function()
@@ -739,7 +735,7 @@ describe("TradeQuery", function()
 			end
 		end)
 
-		it("keeps only swap permutations that actually reach every resistance cap", function()
+		it("keeps the listed item when it already meets every resistance cap", function()
 			local tq = newEvaluationQuery(
 				{ "+40% to Fire Resistance", "+80% to Cold Resistance", "+30% to Chaos Resistance" },
 				{ descriptor(1, "Fire"), descriptor(2, "Cold") }, true, true)
@@ -748,7 +744,7 @@ describe("TradeQuery", function()
 				{ Fire = 1, Cold = 1, Lightning = 100 }), { Life = 100 })
 
 			assert.are.equal(1, #evaluation)
-			assert.is_nil(evaluation[1].theoreticalResistanceSwap)
+			assert.is_nil(evaluation[1].estimatedResistanceSwaps)
 		end)
 
 		it("retains the best partial assignment when the elemental total cannot reach every cap", function()
@@ -759,7 +755,7 @@ describe("TradeQuery", function()
 				{ Fire = 40, Cold = 40, Lightning = 0, Chaos = 30 }), { Life = 100 })
 
 			assert.are.equal(1, #evaluation)
-			assert.are.equal(40, evaluation[1].resistanceCapShortfall)
+			assert.are.equal(40, evaluation[1].totalResistanceCapShortfall)
 		end)
 
 		it("records cap shortfall without dropping items when swaps are disabled", function()
@@ -772,7 +768,7 @@ describe("TradeQuery", function()
 			assert.are.equal(1, #valid:GetResultEvaluation(1, 1, calc, { Life = 100 }))
 			local invalidEvaluation = invalid:GetResultEvaluation(1, 1, calc, { Life = 100 })
 			assert.are.equal(1, #invalidEvaluation)
-			assert.are.equal(1, invalidEvaluation[1].resistanceCapShortfall)
+			assert.are.equal(1, invalidEvaluation[1].totalResistanceCapShortfall)
 		end)
 
 		it("retains an item that only misses the requested Chaos resistance", function()
@@ -782,14 +778,14 @@ describe("TradeQuery", function()
 				scoreAndCapsFromElements({ Fire = 40, Cold = 0, Lightning = 0, Chaos = 30 }), { Life = 100 })
 
 			assert.are.equal(1, #evaluation)
-			assert.are.equal(1, evaluation[1].resistanceCapShortfall)
+			assert.are.equal(1, evaluation[1].totalResistanceCapShortfall)
 		end)
 
 		it("sorts retained capped and uncapped results by requested stat value", function()
 			local tq = new("TradeQuery"):TradeQuery({ itemsTab = {} })
 			tq.resultTbl[1] = {
-				{ id = "uncapped", resistanceCapsRequired = true },
-				{ id = "capped", resistanceCapsRequired = true },
+				{ id = "uncapped", prioritiseResistanceCaps = true },
+				{ id = "capped", prioritiseResistanceCaps = true },
 				{ id = "unrestricted" },
 			}
 			tq.sortModes = { StatValue = "statValue" }
@@ -797,7 +793,7 @@ describe("TradeQuery", function()
 				return function() return { } end, { }
 			end } }
 			tq.GetResultEvaluation = function(_, _, resultIndex)
-				return { { weight = 4 - resultIndex, resistanceCapShortfall = resultIndex == 1 and 10 or 0 } }
+				return { { weight = 4 - resultIndex, totalResistanceCapShortfall = resultIndex == 1 and 10 or 0 } }
 			end
 
 			local sorted = tq:SortFetchResults(1, tq.sortModes.StatValue)
@@ -809,12 +805,10 @@ describe("TradeQuery", function()
 			})
 		end)
 
-		it("revalidates and restores fetched results when the build resistance state changes", function()
+		it("recalculates cached cap shortfall when the build resistance state changes", function()
 			local requiredFire = 50
 			local tq = newEvaluationQuery(
 				{ "+40% to Fire Resistance", "+30% to Chaos Resistance" }, nil, false, true)
-			local itemEntry = tq.resultTbl[1][1]
-			tq.unfilteredResultTbl[1] = { itemEntry }
 			local function calc(args)
 				return scoreAndCapsFromElements({
 					Fire = requiredFire,
@@ -845,12 +839,12 @@ describe("TradeQuery", function()
 
 			local first = tq:GetResultEvaluation(1, 1)
 			assert.are.equal(1, #first)
-			assert.are.equal(10, first[1].resistanceCapShortfall)
+			assert.are.equal(10, first[1].totalResistanceCapShortfall)
 
 			requiredFire = 40
 			local second = tq:GetResultEvaluation(1, 1)
 			assert.are.equal(1, #second)
-			assert.are.equal(0, second[1].resistanceCapShortfall)
+			assert.are.equal(0, second[1].totalResistanceCapShortfall)
 		end)
 
 		it("reuses the single best evaluation while the build and weights are unchanged", function()

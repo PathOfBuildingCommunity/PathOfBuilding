@@ -13,7 +13,7 @@ local elementSet = {
 	Lightning = true,
 }
 
-function M.getResistanceCapShortfall(output)
+function M.getResistanceCapShortfallByType(output)
 	local shortfall = {}
 	for _, resistanceType in ipairs(resistanceTypes) do
 		shortfall[resistanceType] = math.max(0, output["Missing" .. resistanceType .. "Resist"] or 0)
@@ -73,8 +73,11 @@ local function makePseudoWeight(id, aggregate)
 	}
 end
 
-function M.groupResistanceWeights(modWeights, groupResists, includeResistCaps)
-	if not groupResists and not includeResistCaps then
+-- Swap searches fold interchangeable elemental weights into one pseudo filter.
+-- Cap searches take precedence and remove resistance weights because their
+-- minimum filters are emitted separately from the current cap shortfall.
+function M.applyResistanceWeightOptions(modWeights, includeResistSwaps, includeResistCaps)
+	if not includeResistSwaps and not includeResistCaps then
 		return modWeights
 	end
 
