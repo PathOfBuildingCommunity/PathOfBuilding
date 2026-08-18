@@ -6549,6 +6549,182 @@ for _, keystone in ipairs(data.clusterJewels.keystones) do
 	clusterJewelSkills["adds "..keystone:lower()] = { mod("JewelData", "LIST", { key = "clusterJewelKeystone", value = keystone }) }
 end
 
+-- a list of lua pattern magic characters which aren't a part of the longest
+-- literal we look for
+local allowedMagicChars = {
+	["+"] = true,
+	["^"] = true,
+	["$"] = true,
+	["."] = true,
+}
+local notAllowedMagicChars = {
+	["*"] = true,
+	["?"] = true,
+	["-"] = true,
+}
+
+local function use_aho_corasick(automaton, str)
+	local found = {}
+	local state = automaton
+	for i = 1, string.len(str) do
+		state = state[string.lower(string.sub(str, i, i))] or automaton
+
+		for _, capture in ipairs(state.captures) do
+			table.insert(found, { i - capture + 1, i })
+		end
+	end
+	return found
+end
+
+local automaton_mt = { __call = use_aho_corasick }
+local lookupCache = {
+	__index = function(self, i)
+		local v = { __index = i }
+		self[i] = v
+		return v
+	end
+}
+-- given a dictionary Array<string>
+-- output a DFA with metatable magic
+local function aho_corasick(dictionary)
+	-- captures: Array<numbers> representing the length of matched strings
+	local automaton = { captures = {} }
+
+	-- construct a basic Trie for the dictionary
+	for _, word in ipairs(dictionary) do
+		local cur = automaton
+		for char in string.gmatch(word, ".") do
+			local next = cur[char]
+			if next == nil then
+				next = {}
+				cur[char] = next
+			end
+			cur = next
+		end
+		cur.captures = cur.captures or {}
+		table.insert(cur.captures, string.len(word))
+	end
+
+	-- Link each node to the longest suffix in its path
+	-- Do a BFS, linking each level with its runs
+	-- (BFS allows us to use our links as we go!)
+	local pointers = setmetatable({}, lookupCache)
+	local queue = { { {}, automaton } }
+
+	for _, data in ipairs(queue) do
+		for char, node in pairs(data[2]) do
+			if char ~= "captures" then
+				local state = data[1][char] or automaton
+
+				if #state.captures > 0 then
+					if node.captures == nil then node.captures = {} end
+					table.move(state.captures, 1, #state.captures, #node.captures + 1, node.captures)
+				end
+
+				table.insert(queue, { state, setmetatable(node, pointers[state]) })
+			end
+		end
+	end
+
+	return setmetatable(automaton, automaton_mt)
+end
+
+---@param pattern string
+local function getLongestLiteral(pattern)
+	local longest = {}
+	local current = {}
+
+	local i = 1
+	local len = #pattern
+	while i <= len do
+		local c = pattern:sub(i, i)
+		if c == "%" then
+			local next = pattern:sub(i + 1, i + 1)
+			-- escaped punctuation is valid
+			if next:find("[%p]") then
+				table.insert(current, next)
+				-- character classes are not
+			else
+				if #current > #longest then
+					longest = current
+				end
+				current = {}
+			end
+			i = i + 2
+			-- capture groups are ignored
+		elseif c == "(" or c == ")" then
+			i = i + 1
+			-- skip square brackets
+		elseif c == "[" then
+			i = pattern:find("%]", i) + 1
+			if #current > #longest then
+				longest = current
+			end
+			current = {}
+			-- pattern magic characters
+		elseif notAllowedMagicChars[c] then
+			-- the quantified item may appear zero times
+			table.remove(current)
+			if #current > #longest then
+				longest = current
+			end
+			current = {}
+			i = i + 1
+		elseif allowedMagicChars[c] then
+			if #current > #longest then
+				longest = current
+			end
+			current = {}
+			i = i + 1
+			-- regular character
+		else
+			table.insert(current, c)
+			i = i + 1
+		end
+	end
+	if #current > #longest then
+		longest = current
+	end
+
+	return table.concat(longest, "")
+end
+
+---@type table<table, [fun(line: string): [integer, integer][], table<string, string>]>
+local patternCache = {}
+---@param line string
+---@param patterns table<string, any> Map from pattern to mod details
+---@param plain boolean Whether patterns contains patterns or plain strings
+local function scanCandidates(line, patterns, plain)
+	local automaton = patternCache[patterns] and patternCache[patterns][1] or nil
+	local patternMap = patternCache[patterns] and patternCache[patterns][2] or nil
+	if not automaton then
+		patternMap = {}
+		for pattern, _ in pairs(patterns) do
+			local literalKey = getLongestLiteral(pattern)
+			local keyPatterns = patternMap[literalKey]
+			if not keyPatterns then
+				keyPatterns = {}
+				patternMap[literalKey] = keyPatterns
+			end
+			table.insert(keyPatterns, pattern)
+		end
+		local keys = {}
+		for literal, _ in pairs(patternMap) do
+			table.insert(keys, literal)
+		end
+		automaton = aho_corasick(keys)
+		patternCache[patterns] = { automaton, patternMap }
+	end
+	local possiblyMatchingPatterns = {}
+	for _, range in ipairs(automaton(line)) do
+		local s = string.sub(line, unpack(range))
+		local patterns = patternMap[s]
+		for _, pattern in ipairs(patterns) do
+			possiblyMatchingPatterns[pattern] = true
+		end
+	end
+	return possiblyMatchingPatterns
+end
 -- Scan a line for the earliest and longest match from the pattern list
 -- If a match is found, returns the corresponding value from the pattern list, plus the remainder of the line and a table of captures
 ---@generic T
@@ -6561,13 +6737,14 @@ local function scan(line, patternList, plain)
 	local bestPattern = ""
 	local bestVal, bestStart, bestEnd, bestCaps
 	local lineLower = line:lower()
-	for pattern, patternVal in pairs(patternList) do
+	local candidates = scanCandidates(lineLower, patternList, plain)
+	for pattern, _ in pairs(candidates) do
 		local index, endIndex, cap1, cap2, cap3, cap4, cap5 = lineLower:find(pattern, 1, plain)
 		if index and (not bestIndex or index < bestIndex or (index == bestIndex and (endIndex > bestEndIndex or (endIndex == bestEndIndex and #pattern > #bestPattern)))) then
 			bestIndex = index
 			bestEndIndex = endIndex
 			bestPattern = pattern
-			bestVal = patternVal
+			bestVal = patternList[pattern]
 			bestStart = index
 			bestEnd = endIndex
 			bestCaps = { cap1, cap2, cap3, cap4, cap5 }
