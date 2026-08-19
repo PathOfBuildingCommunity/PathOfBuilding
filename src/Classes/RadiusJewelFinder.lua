@@ -1634,6 +1634,7 @@ local function runRadiusJewelFind(self, context, makePreferred)
 	local jewelSockets = context.jewelSockets
 	local selectedJewelType = context.selectedJewelType
 	local selectedJewelVariant = context.selectedJewelVariant
+	local selectedMaxPoints = context.selectedMaxPoints
 	local selectedOccupiedMode = context.selectedOccupiedMode
 	local resultContextKey = context.resultContextKey
 	local getSelectedVariants = context.getSelectedVariants
@@ -1675,7 +1676,9 @@ local function runRadiusJewelFind(self, context, makePreferred)
 		for _, socket in ipairs(jewelSockets) do
 			local socketAllowed, occupancy = self:socketMatchesOccupiedMode(socket.id, selectedOccupiedMode)
 			local socketNode = treeData.nodes[socket.id]
-			if socketAllowed and socketNode and (socketNode.nodesInRadius or strategy.allowsSocketWithoutRadius) then
+			local socketPoints = self:getSocketBasePoints(socket, occupancy)
+			if socketAllowed and (not selectedMaxPoints or socketPoints <= selectedMaxPoints)
+			and socketNode and (socketNode.nodesInRadius or strategy.allowsSocketWithoutRadius) then
 				findRequest.socket = socket
 				findRequest.socketNode = socketNode
 				findRequest.occupancy = occupancy
@@ -2513,8 +2516,9 @@ local function buildRadiusJewelPopupContext(self)
 	end)
 	local function addMaxPointsTooltip(tooltip)
 		tooltip:Clear(true)
-		tooltip:AddLine(16, "^7Maximum total passive points for a result.")
-		tooltip:AddLine(16, "^8Includes pathing to the socket and passives to allocate.")
+		tooltip:AddLine(16, "^7Maximum Points per result.")
+		tooltip:AddLine(16, "^8For Compute, this includes pathing and passives to allocate.")
+		tooltip:AddLine(16, "^8Leave blank for no limit.")
 	end
 	controls.maxPointsLabel.tooltipFunc = addMaxPointsTooltip
 	controls.maxPointsEdit.tooltipFunc = addMaxPointsTooltip
@@ -3015,6 +3019,7 @@ local function buildRadiusJewelPopupContext(self)
 			jewelSockets = jewelSockets,
 			selectedJewelType = selectedJewelType,
 			selectedJewelVariant = selectedJewelVariant,
+			selectedMaxPoints = selectedMaxPoints,
 			selectedOccupiedMode = selectedOccupiedMode,
 			resultContextKey = resultContextKey,
 			getSelectedVariants = getSelectedVariants,
