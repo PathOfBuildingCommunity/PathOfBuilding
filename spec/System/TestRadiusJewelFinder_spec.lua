@@ -86,15 +86,25 @@ describe("RadiusJewelFinder #radius-jewel", function()
 	describe("popup integration", function()
 		local previousJewelRadius
 		local previousMaxJewelRadius
+		local syntheticAllocatedNodeIds
+		local syntheticRadiusRestores
 
 		before_each(function()
 			previousJewelRadius = data.jewelRadius
 			previousMaxJewelRadius = data.maxJewelRadius
+			syntheticAllocatedNodeIds = { }
+			syntheticRadiusRestores = { }
 		end)
 
 		after_each(function()
 			while main.popups[1] do
 				main:ClosePopup()
+			end
+			for index = #syntheticRadiusRestores, 1, -1 do
+				syntheticRadiusRestores[index]()
+			end
+			for _, nodeId in ipairs(syntheticAllocatedNodeIds) do
+				build.spec.allocNodes[nodeId] = nil
 			end
 			data.jewelRadius = previousJewelRadius
 			data.maxJewelRadius = previousMaxJewelRadius
@@ -151,6 +161,58 @@ describe("RadiusJewelFinder #radius-jewel", function()
 			local popup = finder:Open()
 			popup.controls.jewelTypeSelect.selFunc(findControlIndex(popup.controls.jewelTypeSelect.list, "Intuitive Leap"))
 			return finder, popup, function() return computeCompleted end
+		end
+
+		local function findJewelType(name)
+			for _, jewelType in ipairs(RadiusJewelData.buildJewelTypes()) do
+				if jewelType.name == name then
+					return jewelType
+				end
+			end
+		end
+
+		local function setSyntheticRadiusNodes(treeNode, radiusIndices, nodeType, count, allocated)
+			local previousNodesInRadius = treeNode.nodesInRadius
+			local previousNodesByRadius = { }
+			for _, radiusIndex in ipairs(radiusIndices) do
+				previousNodesByRadius[radiusIndex] = previousNodesInRadius and previousNodesInRadius[radiusIndex] or false
+			end
+			table.insert(syntheticRadiusRestores, function()
+				if not previousNodesInRadius then
+					treeNode.nodesInRadius = nil
+					return
+				end
+				for _, radiusIndex in ipairs(radiusIndices) do
+					local previousNodes = previousNodesByRadius[radiusIndex]
+					previousNodesInRadius[radiusIndex] = previousNodes ~= false and previousNodes or nil
+				end
+			end)
+			local nodes = { }
+			for index = 1, count do
+				local nodeId = -(treeNode.id * 10 + index)
+				local node = {
+					id = nodeId,
+					name = "Synthetic " .. nodeType .. " " .. index,
+					type = nodeType,
+				}
+				nodes[nodeId] = node
+				if allocated then
+					build.spec.allocNodes[nodeId] = node
+					table.insert(syntheticAllocatedNodeIds, nodeId)
+				end
+			end
+			treeNode.nodesInRadius = treeNode.nodesInRadius or { }
+			for _, radiusIndex in ipairs(radiusIndices) do
+				treeNode.nodesInRadius[radiusIndex] = nodes
+			end
+		end
+
+		local function countEntries(tbl)
+			local count = 0
+			for _ in pairs(tbl) do
+				count = count + 1
+			end
+			return count
 		end
 
 		local function assertCachedResultsAreApplicable(popup, resultContextKey, expectedCount, message)
@@ -382,6 +444,104 @@ describe("RadiusJewelFinder #radius-jewel", function()
 				assertCachedResultsAreApplicable(popup, resultContextKey, 1,
 					criterion.name .. " should restore matching cached results")
 			end
+		end)
+
+		it("filters standard Find by Points, keeps Score independent, and restores each Max points value", function()
+			build.radiusJewelFinderState = nil
+			local jewelType = findJewelType("Might of the Meek")
+			assert.is_not_nil(jewelType)
+			setSyntheticRadiusNodes(build.spec.tree.nodes[36634], { jewelType.radiusIndex }, "Normal", 3, true)
+			setSyntheticRadiusNodes(build.spec.tree.nodes[33631], { jewelType.radiusIndex }, "Normal", 3, true)
+
+			local finder = makeFinder()
+			finder.buildJewelSockets = function()
+				return {
+					{ id = 36634, label = "Occupied zero-cost socket", pathDist = 9 },
+					{ id = 33631, label = "Within Max points socket", pathDist = 1 },
+					{ id = 33631, label = "Above Max points socket", pathDist = 2 },
+				}
+			end
+			local popup = finder:Open()
+			popup.controls.jewelTypeSelect.selFunc(findControlIndex(popup.controls.jewelTypeSelect.list, "Might of the Meek"))
+			popup.controls.occupiedModeSelect.selFunc(3)
+			popup.controls.maxPointsEdit:SetText("1", true)
+			popup.controls.findButton:Click()
+
+			assert.are.equal(2, #popup.controls.resultsList.list)
+			local maxPointsOneContextKey = popup.controls.resultsList.list[1].resultContextKey
+			local sawZeroCost = false
+			for _, row in ipairs(popup.controls.resultsList.list) do
+				assert.is_true(row.points <= 1, "Find returned a row above Max points")
+				assert.are.equal(3, row.score)
+				assert.is_true(row.score > 1, "Score should not be capped by Max points")
+				sawZeroCost = sawZeroCost or row.points == 0
+			end
+			assert.is_true(sawZeroCost, "expected the occupied zero-cost socket to remain eligible")
+			assert.matches("2 results", popup.controls.statusLabel.label, 1, true)
+
+			popup.controls.maxPointsEdit:SetText("0", true)
+			assertStaleResultsRemainVisible(popup, maxPointsOneContextKey, 2, "find")
+			popup.controls.findButton:Click()
+			assert.are.equal(1, #popup.controls.resultsList.list)
+			assert.are.equal(0, popup.controls.resultsList.list[1].points)
+			assert.are.equal(2, countEntries(build.radiusJewelFinderState.findCache))
+
+			popup.controls.maxPointsEdit:SetText("1", true)
+			assertCachedResultsAreApplicable(popup, maxPointsOneContextKey, 2)
+			assert.are.equal(2, countEntries(build.radiusJewelFinderState.findCache))
+		end)
+
+		it("applies Max points to Thread Find and caches a zero-result value", function()
+			build.radiusJewelFinderState = nil
+			local socketId = 33631
+			local radiusIndices = { }
+			for _, variant in ipairs(RadiusJewelData.getThreadOfHopeVariants()) do
+				table.insert(radiusIndices, variant.radiusIndex)
+			end
+			setSyntheticRadiusNodes(build.spec.tree.nodes[socketId], radiusIndices, "Notable", 4, false)
+			local finder = makeFinder()
+			finder.buildJewelSockets = function()
+				return { { id = socketId, label = "Thread Max points socket", pathDist = 2 } }
+			end
+			local popup = finder:Open()
+			popup.controls.jewelTypeSelect.selFunc(findControlIndex(popup.controls.jewelTypeSelect.list, "Thread of Hope"))
+			popup.controls.maxPointsEdit:SetText("1", true)
+			popup.controls.findButton:Click()
+
+			assert.are.equal("findThread", popup.controls.resultsList.mode)
+			assert.are.equal(0, #popup.controls.resultsList.list)
+			assert.are.equal(1, countEntries(build.radiusJewelFinderState.findCache))
+
+			popup.controls.maxPointsEdit:SetText("2", true)
+			popup.controls.findButton:Click()
+			assert.are.equal(1, #popup.controls.resultsList.list)
+			assert.are.equal(2, popup.controls.resultsList.list[1].points)
+			assert.is_true(popup.controls.resultsList.list[1].score > 0)
+		end)
+
+		it("applies Max points to Impossible Escape Find", function()
+			build.radiusJewelFinderState = nil
+			local jewelType = findJewelType("Impossible Escape")
+			local variant = jewelType and jewelType.variants[1]
+			local keystoneNode = variant and build.spec.tree.keystoneMap[variant.keystoneName]
+			assert.is_not_nil(keystoneNode)
+			setSyntheticRadiusNodes(keystoneNode, { RadiusJewelData.getJewelRadiusIndex("Small") }, "Notable", 4, false)
+			local finder = makeFinder()
+			finder.buildJewelSockets = function()
+				return { { id = 33631, label = "Impossible Escape Max points socket", pathDist = 3 } }
+			end
+			local popup = finder:Open()
+			popup.controls.jewelTypeSelect.selFunc(findControlIndex(popup.controls.jewelTypeSelect.list, "Impossible Escape"))
+			popup.controls.maxPointsEdit:SetText("2", true)
+			popup.controls.findButton:Click()
+
+			assert.are.equal("find", popup.controls.resultsList.mode)
+			assert.are.equal(0, #popup.controls.resultsList.list)
+
+			popup.controls.maxPointsEdit:SetText("3", true)
+			popup.controls.findButton:Click()
+			assert.are.equal(1, #popup.controls.resultsList.list)
+			assert.are.equal(3, popup.controls.resultsList.list[1].points)
 		end)
 
 		it("keeps Find discoverable when an exact variant is required", function()
@@ -877,8 +1037,12 @@ describe("RadiusJewelFinder #radius-jewel", function()
 			assert.are.equal("^7Max points:", popup.controls.maxPointsLabel.label)
 			local maxPointsTooltipTexts = buttonTooltipTexts(popup.controls.maxPointsEdit)
 			assert.is_true(#maxPointsTooltipTexts > 0, "expected Max points tooltip content")
-			assert.is_true(maxPointsTooltipTexts[1]:find("total passive points", 1, true) ~= nil,
-				"expected Max points tooltip to explain total point limit")
+			assert.is_true(maxPointsTooltipTexts[1]:find("Maximum Points per result.", 1, true) ~= nil,
+				"expected Max points tooltip to explain the result limit")
+			assert.is_true(table.concat(maxPointsTooltipTexts, "\n"):find("For Compute, this includes pathing and passives to allocate.", 1, true) ~= nil,
+				"expected Max points tooltip to explain Compute point cost")
+			assert.is_true(table.concat(maxPointsTooltipTexts, "\n"):find("Leave blank for no limit.", 1, true) ~= nil,
+				"expected Max points tooltip to explain the unlimited state")
 			for mode, pointColumnIndex in pairs({ computeSocket = 2, computeSocketAll = 3, find = 2, findThread = 2 }) do
 				local pointColumn = popup.controls.resultsList.columnsByMode[mode][pointColumnIndex]
 				assert.are.equal("Points", pointColumn.label, mode .. " should spell out Points")
