@@ -481,8 +481,6 @@ function TradeQueryGeneratorClass:InitMods()
 		end
 	end
 
-
-
 	-- drop-restricted delve and temple mods
 	for _, list in ipairs({ require("Data.IncursionDropOnly"), require("Data.DelveDropOnly") }) do
 		for modId, entry in pairs(list) do
@@ -495,7 +493,6 @@ function TradeQueryGeneratorClass:InitMods()
 			if next(mask) ~= nil then
 				self:ProcessMod(modId, mod, tradeQueryStatsParsed, regularItemMask, mask)
 			end
-			::nextDropRestricted::
 		end
 	end
 	regularItemMask.Flask = true -- Update mask as flasks can have crafted mods.
