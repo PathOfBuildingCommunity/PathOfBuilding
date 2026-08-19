@@ -178,6 +178,8 @@ function CompareEntryClass:LoadFromXML(xmlText)
 	end
 
 	self:SyncCalcsSkillSelection()
+	-- reprocess socket groups as they might depend on items which don't necessarily load first.
+	self.skillsTab:UpdateSocketGroups()
 	wipeGlobalCache()
 	self.calcsTab:BuildOutput()
 	self.buildFlag = false
@@ -248,6 +250,7 @@ end
 function CompareEntryClass:Rebuild()
 	wipeGlobalCache()
 	self.outputRevision = self.outputRevision + 1
+	self.skillsTab:UpdateSocketGroups()
 	self.calcsTab:BuildOutput()
 	self.buildFlag = false
 end
