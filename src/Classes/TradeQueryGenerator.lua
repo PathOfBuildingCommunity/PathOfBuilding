@@ -1044,7 +1044,18 @@ function TradeQueryGeneratorClass:FinishQuery()
 		end
 	end
 	for _, entry in ipairs(requiredMods) do
-		t_insert(requiredModFilters.filters, { id = entry.tradeId, value = { min = entry.value } })
+		local filterValue = {}
+		if entry.value then
+			filterValue.min = entry.value
+		end
+		if entry.maxValue then
+			filterValue.max = entry.maxValue
+		end
+		local filterEntry = { id = entry.tradeId }
+		if next(filterValue) then
+			filterEntry.value = filterValue
+		end
+		t_insert(requiredModFilters.filters, filterEntry)
 	end
 	if not options.includeMirrored then
 		queryTable.query.filters.misc_filters = {
@@ -1420,13 +1431,13 @@ Remove: %s will be removed from the search results.]], term, term, term)
 
 	-- intended width of the whole row, including dropdown and aux controls
 	local totalWidth = 340
-	-- size of min value input
+	-- size of min/max value inputs
 	local fieldWidth = 60
 	-- size of clear button
 	local buttonSize = 20
 	-- gap between controls
 	local xSpacing = 4
-	local auxControlWidth = buttonSize + fieldWidth + 2 * xSpacing
+	local auxControlWidth = buttonSize + 2 * fieldWidth + 3 * xSpacing
 
 	local _, lastItemY = lastItemAnchor:GetPos()
 	local _, lastItemH = lastItemAnchor:GetSize()
@@ -1494,6 +1505,7 @@ Remove: %s will be removed from the search results.]], term, term, term)
 			local mod = selectedMods[i]
 			local selector = controls["modSelector" .. i]
 			local minimumBox = controls["modSelectorMin" .. i]
+			local maximumBox = controls["modSelectorMax" .. i]
 			if modList then
 				selector:SetList(modList)
 			end
@@ -1501,6 +1513,7 @@ Remove: %s will be removed from the search results.]], term, term, term)
 				selector:SelByValue(mod.label, "label")
 				selector.width = totalWidth - auxControlWidth
 				minimumBox.buf = mod.value and tostring(mod.value) or ""
+				maximumBox.buf = mod.maxValue and tostring(mod.maxValue) or ""
 			else
 				selector.selIndex = 1
 				selector.width = totalWidth
@@ -1538,8 +1551,18 @@ Remove: %s will be removed from the search results.]], term, term, term)
 		end
 		controls["modSelectorMin" .. i] = minimumBox
 
+		-- box that sets maximum value for filter
+		local maximumBox = tradeHelpers.newPlainNumericEdit({ "LEFT", minimumBox, "RIGHT" },
+			{ xSpacing, 0, fieldWidth, buttonSize }, "", "Max", 6, false, function(val)
+				selectedMods[i].maxValue = tonumber(val)
+			end)
+		maximumBox.shown = function()
+			return not not selectedMods[i]
+		end
+		controls["modSelectorMax" .. i] = maximumBox
+
 		-- button which removes the mod row
-		local clearButton = new("ButtonControl"):ButtonControl({ "LEFT", minimumBox, "RIGHT" }, { xSpacing, 0, buttonSize, buttonSize },
+		local clearButton = new("ButtonControl"):ButtonControl({ "LEFT", maximumBox, "RIGHT" }, { xSpacing, 0, buttonSize, buttonSize },
 			"x", function()
 				table.remove(selectedMods, i)
 				setModSelectors(controls)

@@ -548,7 +548,7 @@ end
 -- Helper: create a numeric EditControl without +/- spinner buttons, and
 -- with a preset changeFunc intended for mod values
 function M.newPlainNumericEdit(anchor, rect, init, prompt, limit, integer, changeFunc)
-	local format = integer and "%D" or "^%d."
+	local format = integer and "^%-%d" or "^%-%d."
 	local ctrl = new("EditControl"):EditControl(anchor, rect, init, prompt, format, limit, changeFunc)
 	-- Remove the +/- spinner buttons that "%D" filter triggers
 	ctrl.isNumeric = false
