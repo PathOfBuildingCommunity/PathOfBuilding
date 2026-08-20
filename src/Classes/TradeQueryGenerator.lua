@@ -132,13 +132,6 @@ local function getStatEntries(modType)
 	end
 end
 
-local influenceDropdownNames = { "None" }
-local hasInfluenceModIds = { }
-for i, curInfluenceInfo in ipairs(itemLib.influenceInfo.default) do
-	influenceDropdownNames[i + 1] = curInfluenceInfo.display
-	hasInfluenceModIds[i] = "pseudo.pseudo_has_" .. string.lower(curInfluenceInfo.display) .. "_influence"
-end
-
 -- slots that allow eldritch mods (non-unique only)
 local eldritchModSlots = {
 	["Body Armour"] = true,
@@ -146,8 +139,6 @@ local eldritchModSlots = {
 	["Gloves"] = true,
 	["Boots"] = true
 }
-
-local MAX_FILTERS = 36
 
 local function logToFile(...)
 	ConPrintf(...)
@@ -729,14 +720,6 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
 	local itemRawStr = "Rarity: RARE\nStat Tester\n" .. testItemType
 	local testItem = new("Item"):Item(itemRawStr)
 
-	-- Apply any requests influences
-	if options.influence1 > 1 then
-		testItem[itemLib.influenceInfo.default[options.influence1 - 1].key] = true
-	end
-	if options.influence2 > 1 then
-		testItem[itemLib.influenceInfo.default[options.influence2 - 1].key] = true
-	end
-
 	-- Calculate base output with a blank item
 	local calcFunc, baseOutput = self.itemsTab.build.calcsTab:GetMiscCalculator()
 	local baseItemOutput = slot and calcFunc({ repSlotName = slot.slotName, repItem = testItem }) or baseOutput
@@ -794,11 +777,7 @@ function TradeQueryGeneratorClass:ExecuteQuery()
 		self:GenerateModWeights(self.modData["Scourge"])
 	end
 	local eldritchOption = self.calcContext.options.includeEldritch
-	if eldritchOption and eldritchOption:find("^Keep") and
-		-- skip weights if we need an influenced item as they can produce really
-		-- bad results due to the filter limit
-		self.calcContext.options.influence1 == 1 and
-		self.calcContext.options.influence2 == 1 then
+	if eldritchOption and eldritchOption:find("^Keep") then
 		local omitConditional = eldritchOption == "Keep regular"
 		local eaterMods = self.modData["Eater"]
 		local exarchMods = self.modData["Exarch"]
@@ -1005,17 +984,6 @@ function TradeQueryGeneratorClass:FinishQuery()
 	for k, v in pairs(self.calcContext.special.queryExtra or {}) do
 		complexityBudget = complexityBudget - 2
 		queryTable.query[k] = v
-	end
-
-	local options = self.calcContext.options
-	-- influence pseudo mods
-	if options.influence1 > 1 then
-		complexityBudget = complexityBudget - 1
-		t_insert(andGroup.filters, { id = hasInfluenceModIds[options.influence1 - 1] })
-	end
-	if options.influence2 > 1 then
-		complexityBudget = complexityBudget - 1
-		t_insert(andGroup.filters, { id = hasInfluenceModIds[options.influence2 - 1] })
 	end
 
 	-- and filters specified by the user
@@ -1243,27 +1211,6 @@ Remove: %s will be removed from the search results.]], term, term, term)
 		controls.jewelType.selIndex = self.lastJewelType or 1
 		controls.jewelTypeLabel = new("LabelControl"):LabelControl({ "RIGHT", controls.jewelType, "LEFT" }, { -5, 0, 0, 16 }, "Jewel Type:")
 		updateLastAnchor(controls.jewelType)
-	elseif slot and not isAbyssalJewelSlot and context.slotTbl.slotName ~= "Watcher's Eye" then
-		local selFunc = function()
-			-- influenced items can't have eldritch implicits
-			if controls.includeEldritch and isEldritchModSlot then
-				local hasInfluence1 = controls.influence1 and controls.influence1:GetSelValue() ~= "None"
-				local hasInfluence2 = controls.influence2 and controls.influence2:GetSelValue() ~= "None"
-				controls.includeEldritch.enabled = not hasInfluence1 and not hasInfluence2
-			end
-		end
-		controls.influence1 = new("DropDownControl"):DropDownControl({ "TOPLEFT", lastItemAnchor, "BOTTOMLEFT" }, { 0, 5, 100, 18 },
-			influenceDropdownNames, selFunc)
-		controls.influence1:SetSel(self.lastInfluence1 or 1)
-		controls.influence1Label = new("LabelControl"):LabelControl({"RIGHT",controls.influence1,"LEFT"}, {-5, 0, 0, 16}, "^7Influence 1:")
-
-		controls.influence2 = new("DropDownControl"):DropDownControl({ "TOPLEFT", controls.influence1, "BOTTOMLEFT" }, { 0, 5, 100, 18 },
-			influenceDropdownNames, selFunc)
-		controls.influence2:SetSel(self.lastInfluence2 or 1)
-		selFunc()
-		controls.influence2Label = new("LabelControl"):LabelControl({ "RIGHT", controls.influence2, "LEFT" }, { -5, 0, 0, 16 },
-			"^7Influence 2:")
-		updateLastAnchor(controls.influence2, 46)
 	elseif isAbyssalJewelSlot then
 		controls.jewelType = new("DropDownControl"):DropDownControl({"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, {0, 5, 100, 18}, { "Abyss" }, nil)
 		controls.jewelType.selIndex = 1
@@ -1355,16 +1302,6 @@ Remove: %s will be removed from the search results.]], term, term, term)
 		end
 		if controls.includeTalisman then
 			self.lastIncludeTalisman, options.includeTalisman = controls.includeTalisman.state, controls.includeTalisman.state
-		end
-		if controls.influence1 then
-			self.lastInfluence1, options.influence1 = controls.influence1.selIndex, controls.influence1.selIndex
-		else
-			options.influence1 = 1
-		end
-		if controls.influence2 then
-			self.lastInfluence2, options.influence2 = controls.influence2.selIndex, controls.influence2.selIndex
-		else
-			options.influence2 = 1
 		end
 		if controls.jewelType then
 			self.lastJewelType = controls.jewelType.selIndex
@@ -1482,7 +1419,7 @@ Remove: %s will be removed from the search results.]], term, term, term)
 	local popupHeightBeforeModControls = popupHeight
 	-- amount of mod selectors: technically we could have 40, but the more we have the fewer
 	-- stats fit in the weighted sum, and this means a static popup size is ok
-	local maxSelectors = 4
+	local maxSelectors = 5
 	-- set mod selector dropdown labels, adjust width, and possibly change the mod list
 	local function setModSelectors(controls, modList, prefix, selectedList)
 		-- reset selections
