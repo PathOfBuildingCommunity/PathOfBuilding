@@ -196,9 +196,6 @@ describe("WeightedScore — TradeQueryGenerator delegation", function()
 		GetTradeStatusOption = function() return "online" end,
 	})
 
-	-- Pass: WeightedRatioOutputs returns the same value as calling
-	--       WeightedScore.computeRatioScore directly, confirming delegation
-	-- Fail: divergence would indicate the wrapper has extra logic or a copy-paste
 	it("WeightedRatioOutputs delegates to WeightedScore.computeRatioScore", function()
 		local savedMax = data.misc.maxStatIncrease
 		data.misc.maxStatIncrease = 2
@@ -214,8 +211,6 @@ describe("WeightedScore — TradeQueryGenerator delegation", function()
 		assert.are.equal(direct, delegated)
 	end)
 
-	-- Pass: higher-stat candidate ranks above lower-stat candidate
-	-- Fail: regression in delegation would silently return 0 for all, making order random
 	it("higher-stat candidate ranks above lower-stat candidate", function()
 		local base    = { TotalDPS = 1000 }
 		local high    = { TotalDPS = 1500 }
@@ -250,12 +245,9 @@ describe("WeightedScore — tree integration", function()
 		until not build.calcsTab.powerBuilder or iter >= maxIter
 	end
 
-	-- Pass: WeightedScore entry is registered in the shared power stat list
-	-- Fail: missing registration would mean the mode never appears in the UI
-	it("WeightedScore entry exists in data.powerStatList with isWeightedScore flag", function()
+	it("registers WeightedScore as the final shared power stat", function()
 		local stat = findStat("WeightedScore")
 		assert.is_not_nil(stat)
-		assert.is_true(stat.isWeightedScore)
 		assert.are.equal("WeightedScore", data.powerStatList[#data.powerStatList].stat)
 	end)
 
@@ -263,8 +255,6 @@ describe("WeightedScore — tree integration", function()
 		assert.is_nil(findStat("MinionWeightedScore"))
 	end)
 
-	-- Pass: power builder runs to completion without Lua error
-	-- Fail: a crash in CalculatePowerStat's isWeightedScore branch
 	it("power builder completes without error using WeightedScore stat", function()
 		local stat = findStat("WeightedScore")
 		assert.is_not_nil(stat)
@@ -272,8 +262,6 @@ describe("WeightedScore — tree integration", function()
 		assert.is_true(build.calcsTab.powerBuilderInitialized)
 	end)
 
-	-- Pass: powerMax is initialized and singleStat is non-negative
-	-- Fail: negative singleStat would break heatmap colour scaling
 	it("powerMax.singleStat is non-negative after WeightedScore build", function()
 		drainPowerBuild(findStat("WeightedScore"))
 		assert.is_not_nil(build.calcsTab.powerMax)
@@ -321,9 +309,7 @@ describe("WeightedScore — tree integration", function()
 		end
 	end)
 
-	-- Pass: getValue returns a positive score when the new output is better than base
-	-- Fail: reading output["WeightedScore"] (non-existent field) would return 0, giving
-	--       weight1 = (0/1 - 1)*100 = -100 for every fallback node regardless of actual impact
+	-- Fallback weights must evaluate the configured stats rather than a synthetic output key.
 	it("getValue on WeightedScore entry returns positive score for better output", function()
 		local stat = findStat("WeightedScore")
 		assert.is_not_nil(stat)
@@ -335,7 +321,7 @@ describe("WeightedScore — tree integration", function()
 		assert.is_true(betterScore > baseScore)
 	end)
 
-	it("power stat helpers evaluate WeightedScore with its baseline and Full DPS requirement", function()
+	it("power stat helpers keep WeightedScore deltas and baselines on the same scale", function()
 		local weightedScore = findStat("WeightedScore")
 		local fullDPS = findStat("FullDPS")
 		local life = findStat("Life")
@@ -345,10 +331,13 @@ describe("WeightedScore — tree integration", function()
 		assert.is_true(data.powerStatList.RequiresFullDPS(weightedScore, build))
 		assert.is_true(data.powerStatList.RequiresFullDPS(fullDPS, build))
 		assert.is_false(data.powerStatList.RequiresFullDPS(life, build))
-		assert.is_true(
-			data.powerStatList.GetValue(betterOutput, weightedScore, build, baseOutput)
-				> data.powerStatList.GetValue(baseOutput, weightedScore, build, baseOutput)
-		)
+		local baseValue = data.powerStatList.GetValue(baseOutput, weightedScore, build, baseOutput)
+		local betterValue = data.powerStatList.GetValue(betterOutput, weightedScore, build, baseOutput)
+		local delta = build.calcsTab:CalculatePowerStat(weightedScore, betterOutput, baseOutput)
+		assert.is_true(math.abs(baseValue - 1500) < 0.0001)
+		assert.is_true(math.abs(betterValue - 1700) < 0.0001)
+		assert.is_true(math.abs(delta - 200) < 0.0001)
+		assert.is_true(math.abs(delta / baseValue - 2 / 15) < 0.0001)
 		assert.are.equal(123, data.powerStatList.GetValue({ Life = 123 }, life, build, baseOutput))
 	end)
 
@@ -377,10 +366,6 @@ describe("WeightedScore — tree integration", function()
 		assert.is_true(score > 0)
 	end)
 
-	-- Pass: getValue returns a non-zero base score (build has some meaningful output)
-	-- Fail: if getValue silently returned 0 for base, generateFallbackWeights would
-	--       set baseValue=1 and all weights would be computed against 1 instead of the
-	--       real build score, producing incorrect -100 values for all neutral nodes
 	it("getValue on WeightedScore entry returns non-zero score for current build output", function()
 		local stat = findStat("WeightedScore")
 		assert.is_not_nil(stat)
@@ -406,16 +391,15 @@ describe("WeightedScore — tree integration", function()
 	it("appendEditWeightsAction appends an action after WeightedScore", function()
 		local list = {
 			{ label = "Sort by Name", sortMode = "name" },
-			{ label = "Sort by Weighted Score", sortMode = "WeightedScore", isWeightedScore = true },
+			{ label = "Sort by Weighted Score", sortMode = "WeightedScore", stat = "WeightedScore" },
 		}
 		local opened = false
 		WeightedScore.appendEditWeightsAction(list, function() opened = true end)
 		assert.are.equal(3, #list)
 		local entry = list[3]
-		assert.is_true(entry.isAction)
 		assert.is_function(entry.action)
 		assert.is_string(entry.label)
-		assert.is_true(list[2].isWeightedScore)
+		assert.are.equal("WeightedScore", list[2].stat)
 		entry.action()
 		assert.is_true(opened, "calling entry.action must invoke the openEditor callback")
 	end)
@@ -423,7 +407,7 @@ describe("WeightedScore — tree integration", function()
 	it("createSortHandler restores the metric and invalidates cached candidate scores after editing weights", function()
 		local list = {
 			{ label = "Default", stat = nil },
-			{ label = "Weighted Score", stat = "WeightedScore", isWeightedScore = true },
+			{ label = "Weighted Score", stat = "WeightedScore" },
 		}
 		local candidates = {
 			{ label = "Damage", scores = { damage = 2, defence = 1 } },
@@ -469,7 +453,7 @@ describe("WeightedScore — selector contracts", function()
 		local weightedIndex
 		local weightedCount = 0
 		for index, entry in ipairs(list) do
-			if entry.isWeightedScore then
+			if entry.stat == "WeightedScore" then
 				weightedIndex = index
 				weightedCount = weightedCount + 1
 			end
@@ -477,7 +461,7 @@ describe("WeightedScore — selector contracts", function()
 		assert.are.equal(1, weightedCount)
 		assert.is_truthy(weightedIndex)
 		assert.is_truthy(list[weightedIndex + 1])
-		assert.is_true(list[weightedIndex + 1].isAction)
+		assert.is_function(list[weightedIndex + 1].action)
 		return weightedIndex
 	end
 

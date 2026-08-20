@@ -1,8 +1,7 @@
 -- Path of Building
 --
 -- Module: Weighted Score
--- Shared weighted stat score computation and weight management.
--- Used by Trade Query, Unique Item DB, Gem Upgrade Report, and Tree heatmap.
+-- Shared weighted stat score computation and weight management for stat-based ranking.
 --
 
 local WeightedScore = {}
@@ -82,10 +81,9 @@ end
 -- score remains the final metric while its configuration stays adjacent.
 function WeightedScore.appendEditWeightsAction(sortDropList, openEditor)
 	for _, entry in ipairs(sortDropList) do
-		if entry.isWeightedScore then
+		if entry.stat == "WeightedScore" then
 			table.insert(sortDropList, {
 				label = colorCodes.TIP .. "Edit Weights...",
-				isAction = true,
 				action = openEditor,
 			})
 			return
@@ -103,7 +101,7 @@ function WeightedScore.createSortHandler(sortDropList, controls, openEditor, app
 		end)
 	end)
 	return function(index, value)
-		if value.isAction then
+		if value.action then
 			value.action()
 		else
 			activeSort = value
