@@ -319,7 +319,7 @@ local function addOAuthControls(self)
 	self.controls.charImportItemsIgnoreWeaponSwap = new("CheckBoxControl"):CheckBoxControl({ "LEFT", self.controls.charImportItems,
 		"RIGHT" }, { 380, 0, 18 }, "Ignore weapon swap:", nil, "Ignore items and skills in weapon swap.", false)
 	self.controls.charImportItemsSetGemsMaxLevel = new("CheckBoxControl"):CheckBoxControl({ "LEFT", self.controls.charImportItems,
-		"RIGHT" }, { 540, 0, 18 }, "Set gems to max level:", nil, "Set all skill and support gems to their natural maximum level, ignoring corruption or Awakened bonuses.", false)
+		"RIGHT" }, { 540, 0, 18 }, "Set gems to max level:", nil, "Set all skill and support gems to their natural maximum level.", false)
 end
 local function addAccountNameControls(self)
 	self.charImportMode = "GETACCOUNTNAME"
