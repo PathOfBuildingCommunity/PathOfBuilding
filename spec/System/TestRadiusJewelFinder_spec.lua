@@ -86,12 +86,14 @@ describe("RadiusJewelFinder #radius-jewel", function()
 	describe("popup integration", function()
 		local previousJewelRadius
 		local previousMaxJewelRadius
+		local previousGetCursorPos
 		local syntheticAllocatedNodeIds
 		local syntheticRadiusRestores
 
 		before_each(function()
 			previousJewelRadius = data.jewelRadius
 			previousMaxJewelRadius = data.maxJewelRadius
+			previousGetCursorPos = GetCursorPos
 			syntheticAllocatedNodeIds = { }
 			syntheticRadiusRestores = { }
 		end)
@@ -108,6 +110,7 @@ describe("RadiusJewelFinder #radius-jewel", function()
 			end
 			data.jewelRadius = previousJewelRadius
 			data.maxJewelRadius = previousMaxJewelRadius
+			GetCursorPos = previousGetCursorPos
 		end)
 
 		local function findControlIndex(list, needle)
@@ -126,10 +129,12 @@ describe("RadiusJewelFinder #radius-jewel", function()
 			end
 		end
 
-		local function getPreviewText(popup)
+		local function getDropdownTooltipText(control, index)
+			local tooltip = new("Tooltip"):Tooltip()
+			control.tooltipFunc(tooltip, "DROP", index, control.list[index])
 			local lines = { }
-			for _, line in ipairs(popup.controls.previewList.list) do
-				table.insert(lines, line[1] or "")
+			for _, line in ipairs(tooltip.lines) do
+				table.insert(lines, line.text or "")
 			end
 			return table.concat(lines, "\n")
 		end
@@ -236,6 +241,334 @@ describe("RadiusJewelFinder #radius-jewel", function()
 			assert.is_not_nil(popup.controls.resultsList.selIndex, message)
 			assert.is_false(popup.controls.applyButton.enabled(), message)
 		end
+
+		local function detailText(popup)
+			local lines = { }
+			for _, line in ipairs(popup.controls.resultDetailList.list) do
+				table.insert(lines, line[1] or "")
+			end
+			return table.concat(lines, "\n")
+		end
+
+		local function countPlainText(text, needle)
+			local count = 0
+			local offset = 1
+			while true do
+				local startPos = text:find(needle, offset, true)
+				if not startPos then
+					return count
+				end
+				count = count + 1
+				offset = startPos + #needle
+			end
+		end
+
+		local function countDetailNodeLines(popup)
+			local count = 0
+			for _, line in ipairs(popup.controls.resultDetailList.list) do
+				if line.nodeId then
+					count = count + 1
+				end
+			end
+			return count
+		end
+
+		local function makeDetailRow(overrides)
+			local row = {
+				socketId = 36634,
+				socketLabel = "Worst-case occupied socket label",
+				variantLabel = "Long selected jewel variant label",
+				points = 2,
+				delta = 10,
+				pct = 10,
+				pctPerPoint = 5,
+				sortValue = 10,
+				detailText = "Worst-case dynamic detail summary",
+				resultNodes = {
+					{ label = "Passive Alpha", nodeId = 36634 },
+					{ label = "Passive Beta", nodeId = 61419 },
+				},
+				actionPlan = {
+					kind = "replace",
+					targetSocketAllocated = true,
+					sourceItemId = 999001,
+					sourceItemLabel = "Source jewel",
+					targetIdentity = { uniqueName = "Test jewel" },
+					replacedTargetId = build.itemsTab.sockets[36634].selItemId,
+					replacedTargetLabel = "Existing jewel with a long label",
+				},
+			}
+			for key, value in pairs(overrides or { }) do
+				row[key] = value
+			end
+			return row
+		end
+
+		it("uses full-height Details without changing Results", function()
+			build.radiusJewelFinderState = nil
+			local popup = makeFinder():Open()
+			local popupWidth, popupHeight = popup:GetSize()
+			assert.are.equal(1020, popupWidth)
+			assert.are.equal(474, popupHeight)
+			assert.is_nil(popup.controls.previewList)
+			assert.is_nil(popup.controls.resultPassivesButton)
+
+			local resultsWidth, resultsHeight = popup.controls.resultsList:GetSize()
+			assert.are.equal(580, resultsWidth)
+			assert.are.equal(352, resultsHeight)
+			local _, detailsHeight = popup.controls.resultDetailList:GetSize()
+			assert.are.equal(334, detailsHeight)
+			assert.are.equal("", popup.controls.resultsList.defaultText,
+				"the status line should not be repeated inside empty Results")
+		end)
+
+		it("keeps a long Search error once in Results with a short status", function()
+			build.radiusJewelFinderState = nil
+			local finder = makeFinder()
+			local popup = finder:Open()
+			popup.controls.jewelTypeSelect.selFunc(findControlIndex(popup.controls.jewelTypeSelect.list, "Might of the Meek"))
+			local searchError = "synthetic search failure with diagnostic context beyond the status width"
+			finder.socketMatchesOccupiedMode = function()
+				error(searchError)
+			end
+
+			popup.controls.findButton:Click()
+
+			assert.are.equal("^1Search failed", popup.controls.statusLabel.label)
+			assert.are.equal("message", popup.controls.resultsList.mode)
+			assert.are.equal("", popup.controls.resultsList.defaultText)
+			assert.are.equal(1, #popup.controls.resultsList.list)
+			local resultError = popup.controls.resultsList.list[1].text
+			assert.are.equal(1, countPlainText(resultError, searchError))
+			assert.are.equal(1, countPlainText(popup.controls.statusLabel.label .. resultError, searchError),
+				"the detailed Search error should appear exactly once across status and Results")
+		end)
+
+		it("keeps a long Compute error once in Results with a short status", function()
+			build.radiusJewelFinderState = nil
+			local finder = makeFinder()
+			local popup = finder:Open()
+			popup.controls.jewelTypeSelect.selFunc(findControlIndex(popup.controls.jewelTypeSelect.list, "Might of the Meek"))
+			local computeError = "synthetic compute failure with diagnostic context beyond the status width"
+			finder.compute.computeSocketImpact = function()
+				error(computeError)
+			end
+
+			runPopupCompute(popup)
+
+			assert.are.equal("^1Compute failed", popup.controls.statusLabel.label)
+			assert.are.equal("message", popup.controls.resultsList.mode)
+			assert.are.equal("", popup.controls.resultsList.defaultText)
+			assert.are.equal(1, #popup.controls.resultsList.list)
+			local resultError = popup.controls.resultsList.list[1].text
+			assert.are.equal(1, countPlainText(resultError, computeError))
+			assert.are.equal(1, countPlainText(popup.controls.statusLabel.label .. resultError, computeError),
+				"the detailed Compute error should appear exactly once across status and Results")
+		end)
+
+		it("shows a computed variant once under Variant in Details", function()
+			build.radiusJewelFinderState = nil
+			local finder = makeFinder()
+			finder.buildJewelSockets = function()
+				return { { id = 33631, label = "Synthetic socket", pathDist = 1 } }
+			end
+			finder.compute.computeBestVariantSocketImpact = function(_, request)
+				return {
+					{
+						socket = request.sockets[1],
+						variant = request.variants[1],
+						delta = 10,
+						addedNodeCount = 0,
+						baseOutput = { },
+						compareOutput = { },
+					},
+				}, 100
+			end
+			local popup = finder:Open()
+			popup.controls.jewelTypeSelect.selFunc(findControlIndex(popup.controls.jewelTypeSelect.list, "The Light of Meaning"))
+			popup.controls.jewelVariantSelect.selFunc(findControlIndex(popup.controls.jewelVariantSelect.list, "Armour"))
+
+			runPopupCompute(popup)
+
+			local row = popup.controls.resultsList.list[1]
+			assert.are.equal("Armour", row.detailText,
+				"Results Detail should keep the general summary")
+			assert.are.equal("Armour", row.variantLabel,
+				"the computed variant should remain available to Details")
+			local text = detailText(popup)
+			assert.is_true(text:find("Variant: Armour", 1, true) ~= nil)
+			assert.are.equal(1, countPlainText(text, "Armour"),
+				"Details should not repeat the variant as a generic detail line")
+		end)
+
+		it("builds stable Details hover tooltips only once", function()
+			build.radiusJewelFinderState = nil
+			local popup = makeFinder():Open()
+			local control = popup.controls.resultDetailList
+			local viewPort = { x = 0, y = 0, width = 1024, height = 768 }
+			GetCursorPos = function() return 620, 150 end
+			local secondPopup = main.popups[2]
+			main.popups[2] = nil
+
+			local item = build.itemsTab.items[build.itemsTab.sockets[36634].selItemId]
+			assert.is_not_nil(item)
+			local itemLine = { height = 16, [1] = "Replacement", item = item }
+			control.GetHoverLine = function() return itemLine end
+			local itemTooltipBuilds = 0
+			local originalAddItemTooltip = build.itemsTab.AddItemTooltip
+			build.itemsTab.AddItemTooltip = function(_, tooltip)
+				itemTooltipBuilds = itemTooltipBuilds + 1
+				tooltip:AddLine(16, "Item tooltip")
+			end
+			control:Draw(viewPort)
+			control:Draw(viewPort)
+			build.itemsTab.AddItemTooltip = originalAddItemTooltip
+
+			local node = build.spec.nodes[33631] or build.spec.tree.nodes[33631]
+			assert.is_not_nil(node)
+			local nodeLine = { height = 16, [1] = "Passive", nodeId = node.id }
+			control.GetHoverLine = function() return nodeLine end
+			local nodeTooltipBuilds = 0
+			local originalViewerDraw = control.socketViewer.Draw
+			local originalAddNodeTooltip = control.socketViewer.AddNodeTooltip
+			control.socketViewer.Draw = function() end
+			control.socketViewer.AddNodeTooltip = function(_, tooltip)
+				nodeTooltipBuilds = nodeTooltipBuilds + 1
+				tooltip:AddLine(16, "Node tooltip")
+			end
+			control:Draw(viewPort)
+			control:Draw(viewPort)
+			control.socketViewer.Draw = originalViewerDraw
+			control.socketViewer.AddNodeTooltip = originalAddNodeTooltip
+			main.popups[2] = secondPopup
+			assert.are.equal(1, itemTooltipBuilds,
+				"an unchanged item hover should reuse its tooltip between frames")
+			assert.are.equal(1, nodeTooltipBuilds,
+				"an unchanged passive hover should reuse its tooltip between frames")
+		end)
+
+		it("shows fact-only Details and passive rows immediately", function()
+			build.radiusJewelFinderState = nil
+			local popup = makeFinder():Open()
+			popup.controls.jewelTypeSelect.selFunc(findControlIndex(popup.controls.jewelTypeSelect.list, "Intuitive Leap"))
+			local firstRow = makeDetailRow()
+			local secondRow = makeDetailRow({
+				socketId = 33631,
+				socketLabel = "Second socket",
+				resultNodes = { { label = "Passive Gamma", nodeId = 33631 } },
+			})
+			popup.controls.resultsList:SetMode("computeSocket", { firstRow, secondRow }, "")
+
+			local text = detailText(popup)
+			for _, expected in ipairs({
+				"Jewel:",
+				"Test jewel",
+				"Variant: Long selected jewel variant label",
+				"Socket: Worst-case occupied socket label",
+				"Current location:",
+				"Items",
+				"Will replace:",
+				"Existing jewel with a long label",
+				"Worst-case dynamic detail summary",
+				"Recommended passives (2):",
+				"Passive Alpha",
+				"Passive Beta",
+			}) do
+				assert.is_true(text:find(expected, 1, true) ~= nil, "expected detail: " .. expected)
+			end
+			for _, redundant in ipairs({
+				"Use occupied socket",
+				"Use free socket",
+				"Move equipped jewel",
+				"Already equipped",
+				"This socket is unallocated",
+				"Passive allocations are not applied automatically",
+				"Source:",
+				"New Test jewel",
+			}) do
+				assert.is_nil(text:find(redundant, 1, true), "unexpected Details text: " .. redundant)
+			end
+			local jewelPos = assert(text:find("Jewel:", 1, true))
+			local variantPos = assert(text:find("Variant: Long selected jewel variant label", 1, true))
+			local socketPos = assert(text:find("Socket: Worst-case occupied socket label", 1, true))
+			local locationPos = assert(text:find("Current location:", 1, true))
+			assert.is_true(jewelPos < variantPos and variantPos < socketPos and socketPos < locationPos,
+				"Details should read Jewel, Variant, Socket, then Current location")
+			assert.are.equal(2, countDetailNodeLines(popup))
+
+			local replacementLine
+			for _, line in ipairs(popup.controls.resultDetailList.list) do
+				if line[1] and line[1]:find("Will replace", 1, true) then
+					replacementLine = line
+					break
+				end
+			end
+			assert.is_not_nil(replacementLine)
+			assert.is_not_nil(replacementLine.item, "replacement item tooltip should remain available")
+
+			popup.controls.resultDetailList.controls.scrollBar.offset = 80
+			popup.controls.resultsList:SelectIndex(2)
+			assert.are.equal(0, popup.controls.resultDetailList.controls.scrollBar.offset)
+			assert.are.equal(1, countDetailNodeLines(popup))
+			assert.is_true(detailText(popup):find("Passive Gamma", 1, true) ~= nil)
+			for _, line in ipairs(popup.controls.resultDetailList.list) do
+				if line.nodeId then
+					assert.is_not_nil(build.spec.nodes[line.nodeId] or build.spec.tree.nodes[line.nodeId],
+						"passive lines should resolve to nodes for their tooltips")
+				end
+			end
+		end)
+
+		it("uses precise zero-passive labels", function()
+			build.radiusJewelFinderState = nil
+			local popup = makeFinder():Open()
+			popup.controls.resultsList:SetMode("computeSocket", { makeDetailRow({ resultNodes = { } }) }, "")
+			assert.is_true(detailText(popup):find("No recommended passives", 1, true) ~= nil)
+
+			local findRow = makeDetailRow({ topNodes = { } })
+			findRow.resultNodes = nil
+			popup.controls.resultsList:SetMode("find", { findRow }, "")
+			assert.is_true(detailText(popup):find("No notables or keystones in range", 1, true) ~= nil)
+		end)
+
+		it("omits a Detail summary already shown by Variant and recommended passives", function()
+			build.radiusJewelFinderState = nil
+			local popup = makeFinder():Open()
+			popup.controls.resultsList:SetMode("computeSocket", { makeDetailRow({
+				variantLabel = "Normal",
+				detailText = "Normal | 2 nodes",
+			}) }, "")
+
+			local text = detailText(popup)
+			assert.is_true(text:find("Variant: Normal", 1, true) ~= nil)
+			assert.is_true(text:find("Recommended passives (2):", 1, true) ~= nil)
+			assert.is_nil(text:find("Normal | 2 nodes", 1, true),
+				"Details should not repeat the Results summary")
+		end)
+
+		it("keeps Split Personality distance ranking without a passive block", function()
+			build.radiusJewelFinderState = nil
+			local finder = makeFinder()
+			finder.buildJewelSockets = function()
+				return {
+					{ id = 33631, label = "Near split socket", pathDist = 1, classStartDist = 3 },
+					{ id = 54127, label = "Far split socket", pathDist = 1, classStartDist = 9 },
+				}
+			end
+			local popup = finder:Open()
+			popup.controls.jewelTypeSelect.selFunc(findControlIndex(popup.controls.jewelTypeSelect.list, "Split Personality"))
+			popup.controls.jewelVariantSelect.selFunc(2)
+			popup.controls.findButton:Click()
+
+			local row = popup.controls.resultsList.list[1]
+			assert.are.equal("Far split socket", row.socketLabel)
+			assert.are.equal("dist to start 9", row.detailText)
+			assert.is_nil(row.topNodes)
+			local text = detailText(popup)
+			assert.is_true(text:find("dist to start 9", 1, true) ~= nil)
+			assert.is_nil(text:find("passive", 1, true))
+			assert.is_nil(text:find("in range", 1, true))
+		end)
 
 		it("dispatches every jewel strategy to its compute owner", function()
 			build.radiusJewelFinderState = nil
@@ -685,10 +1018,10 @@ describe("RadiusJewelFinder #radius-jewel", function()
 			for index, variant in ipairs(threadVariants) do
 				assert.are.equal(variant.ringLabel, popup.controls.threadVariantSelect.list[index + 1])
 			end
-			local anyRingPreview = getPreviewText(popup)
-			assert.matches("Multiple ring sizes available", anyRingPreview, 1, true)
+			local anyRingTooltip = getDropdownTooltipText(popup.controls.threadVariantSelect, 1)
+			assert.matches("Multiple ring sizes available", anyRingTooltip, 1, true)
 			for _, variant in ipairs(threadVariants) do
-				assert.is_nil(anyRingPreview:find(variant.ringLabel, 1, true))
+				assert.is_nil(anyRingTooltip:find(variant.ringLabel, 1, true))
 			end
 			popup.controls.findButton:Click()
 			local findRow = popup.controls.resultsList.list[1]
@@ -697,9 +1030,9 @@ describe("RadiusJewelFinder #radius-jewel", function()
 
 			popup.controls.threadVariantSelect.selFunc(2)
 			assertStaleResultsRemainVisible(popup, anyRingContextKey, 1, "findThread")
-			local explicitRingPreview = getPreviewText(popup)
-			assert.matches(threadVariants[1].ringLabel, explicitRingPreview, 1, true)
-			assert.is_nil(explicitRingPreview:find("Multiple ring sizes available", 1, true))
+			local explicitRingTooltip = getDropdownTooltipText(popup.controls.threadVariantSelect, 2)
+			assert.matches(threadVariants[1].ringLabel, explicitRingTooltip, 1, true)
+			assert.is_nil(explicitRingTooltip:find("Multiple ring sizes available", 1, true))
 			popup.controls.findButton:Click()
 			local explicitRingRow = popup.controls.resultsList.list[1]
 
@@ -988,7 +1321,6 @@ describe("RadiusJewelFinder #radius-jewel", function()
 			for _, controlName in ipairs({
 				"computeButton",
 				"impactStatSelect",
-				"previewList",
 				"resultDetailList",
 				"findButton",
 				"addToBuildButton",
@@ -1136,8 +1468,8 @@ describe("RadiusJewelFinder #radius-jewel", function()
 					action = "equip",
 				},
 			}, "(no compatible sockets)")
-			assert.are.equal("^7Selected Jewel", popup.controls.previewList.list[1][1])
-			assert.are.equal(180, popup.controls.previewList.height())
+			assert.is_nil(popup.controls.previewList)
+			assert.are.equal("^7Selected Jewel", popup.controls.resultsList.selValue.itemTooltipLines[1][1])
 			local allJewelsDetailHover = popup.controls.resultsList:GetHoverInfo(7, popup.controls.resultsList.selValue)
 			assert.is_true(allJewelsDetailHover.showItemTooltip,
 				"All jewels Compute detail column should show jewel preview tooltip")
@@ -1145,8 +1477,6 @@ describe("RadiusJewelFinder #radius-jewel", function()
 			assert.is_true(allJewelsSocketHover.showViewer,
 				"All jewels Compute socket column should show socket preview")
 			popup.controls.resultsList:SetMode("message", { }, "Click Compute")
-			assert.are.equal("^7Evaluate every jewel type.", popup.controls.previewList.list[1][1])
-			assert.are.equal(48, popup.controls.previewList.height())
 
 			-- Intuitive Leap: tooltip, compute method, occupied mode
 			local intuitiveIdx = findIndex(popup.controls.jewelTypeSelect.list, "Intuitive Leap")
