@@ -405,14 +405,15 @@ describe("TestSkills", function()
 		assert.are.equals(7, round(finalCost))
 	end)
 
-	it("applies reservation final modifiers as separate integer stages", function()
-		build.skillsTab:PasteSocketGroup("Clarity 1/0  1\n")
-		build.configTab.input.customMods = "50% more Mana Reservation\n50% more Reservation"
-		build.configTab:BuildModList()
+	it("rounds Supreme Ego mana reservation down", function()
+		build.skillsTab:PasteSocketGroup("Precision 1/0  1\n")
+		local supremeEgo = build.spec.tree.keystoneMap["Supreme Ego"]
+		build.spec:AllocNode(build.spec.nodes[supremeEgo.id])
+		build.spec:BuildAllDependsAndPaths()
 		runCallback("OnFrame")
 
-		-- 34 base becomes 51 after Mana Reservation, then 76 after generic Reservation.
-		assert.are.equals(76, build.calcsTab.mainEnv.player.mainSkill.skillData.ManaReservedBase)
+		-- 22 base + floor(40% of 22) = 30, rather than round(22 * 1.4) = 31.
+		assert.are.equals(30, build.calcsTab.mainEnv.player.mainSkill.skillData.ManaReservedBase)
 	end)
 
 	it("evaluates BaseFlag tags using PoB 1 skill data", function()
