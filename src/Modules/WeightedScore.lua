@@ -45,8 +45,8 @@ end
 -- Higher score means the candidate is better.
 -- Missing or zero stats are handled safely (no crash, no infinite values).
 function WeightedScore.computeRatioScore(baseOutput, newOutput, weights)
-	local meanStatDiff = 0.0
-	local function ratioModSums(...)
+	local weightedScore = 0.0
+	local function computeStatSumRatio(...)
 		local baseModSum = 0
 		local newModSum = 0
 		for _, statTable in ipairs({ ... }) do
@@ -65,16 +65,16 @@ function WeightedScore.computeRatioScore(baseOutput, newOutput, weights)
 		local modSumRatio
 		if statTable.stat == "FullDPS" and not (baseOutput["FullDPS"] and newOutput["FullDPS"]) then
 			-- FullDPS fallback: use combined DPS components when FullDPS is not directly available
-			modSumRatio = ratioModSums({ stat = "TotalDPS" }, { stat = "TotalDotDPS" }, { stat = "CombinedDPS" })
+			modSumRatio = computeStatSumRatio({ stat = "TotalDPS" }, { stat = "TotalDotDPS" }, { stat = "CombinedDPS" })
 		else
-			modSumRatio = ratioModSums(statTable)
+			modSumRatio = computeStatSumRatio(statTable)
 		end
 		if statTable.transform then
 			modSumRatio = statTable.transform(modSumRatio)
 		end
-		meanStatDiff = meanStatDiff + modSumRatio * statTable.weightMult
+		weightedScore = weightedScore + modSumRatio * statTable.weightMult
 	end
-	return meanStatDiff
+	return weightedScore
 end
 
 -- Append a contextual "Edit Weights..." action after WeightedScore so the

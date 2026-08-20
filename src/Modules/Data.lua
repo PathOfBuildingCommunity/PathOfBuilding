@@ -271,6 +271,8 @@ t_insert(data.powerStatList, {
 			local _, cachedBuildBase = build.calcsTab:GetMiscCalculator()
 			buildBase = cachedBuildBase
 		end
+		-- Keep this synthetic stat on the trade-query weight scale. Calcs and Compare
+		-- subtract candidate and baseline values; other consumers rank or normalize it.
 		return WeightedScore.computeRatioScore(buildBase, output, weights) * 1000
 	end,
 })
