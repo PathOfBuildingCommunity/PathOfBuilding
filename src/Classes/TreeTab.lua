@@ -276,10 +276,7 @@ function TreeTabClass:TreeTab(build)
 		end
 	end
 	WeightedScore.appendEditWeightsAction(self.powerStatList, function()
-		local tq = self.build.itemsTab.tradeQuery
-		if tq then
-			tq:SetStatWeights(nil, function() self:SetPowerCalc(self.build.calcsTab.powerStat) end)
-		end
+		WeightedScore.editWeights(self.build, function() self:SetPowerCalc(self.build.calcsTab.powerStat) end)
 	end)
 
 	-- Show/Hide Power Report Button
@@ -2153,10 +2150,7 @@ function TreeTabClass:FindTimelessJewel()
 	local activeFallbackWeight = fallbackWeightsList[activeFallbackWeightIndex]
 	WeightedScore.appendEditWeightsAction(fallbackWeightsList, function()
 		controls.fallbackWeightsList:SelByValue(activeFallbackWeight.stat, "stat")
-		local tradeQuery = self.build.itemsTab.tradeQuery
-		if tradeQuery then
-			tradeQuery:SetStatWeights()
-		end
+		WeightedScore.editWeights(self.build)
 	end)
 	controls.fallbackWeightsList = new("DropDownControl"):DropDownControl({"TOPLEFT", controls.nodeSelect, "BOTTOMLEFT"}, {0, rowSpacing, 200, rowHeight}, fallbackWeightsList, function(index, value)
 		if value.action then

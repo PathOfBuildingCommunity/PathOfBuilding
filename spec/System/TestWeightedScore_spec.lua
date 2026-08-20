@@ -376,6 +376,13 @@ describe("WeightedScore — tree integration", function()
 	end)
 
 	-- appendEditWeightsAction -----------------------------------------------
+	local function buildWithWeightEditor(openEditor)
+		return { itemsTab = { tradeQuery = {
+			SetStatWeights = function(_, previousSelection, onSave)
+				openEditor(previousSelection, onSave)
+			end,
+		} } }
+	end
 
 	it("appendEditWeightsAction is a no-op when the list has no WeightedScore entry", function()
 		local list = {
@@ -435,10 +442,11 @@ describe("WeightedScore — tree integration", function()
 				candidate.sortValues = nil
 			end
 		end
-		local handler = WeightedScore.createSortHandler(list, controls, function(onSave)
+		local build = buildWithWeightEditor(function(_, onSave)
 			weight = "defence"
 			onSave()
-		end, applySort, clearSortValues)
+		end)
+		local handler = WeightedScore.createSortHandler(list, controls, build, applySort, clearSortValues)
 
 		handler(2, list[2])
 		assert.are.equal("Damage", candidates[1].label)
