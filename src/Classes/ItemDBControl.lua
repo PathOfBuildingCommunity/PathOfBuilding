@@ -234,10 +234,7 @@ function ItemDBClass:BuildSortOrder()
 		end
 	end
 	WeightedScore.appendEditWeightsAction(self.sortDropList, function()
-		local tq = self.itemsTab.tradeQuery
-		if tq then
-			tq:SetStatWeights(nil, function() self.listBuildFlag = true end)
-		end
+		WeightedScore.editWeights(self.itemsTab.build, function() self.listBuildFlag = true end)
 	end)
 	wipeTable(self.sortOrder)
 	if self.controls.sort then
