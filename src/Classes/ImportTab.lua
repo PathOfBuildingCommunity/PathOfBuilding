@@ -295,9 +295,10 @@ local function addOAuthControls(self)
 				local clearItems = self.controls.charImportItemsClearItems.state
 				local clearSkills = self.controls.charImportItemsClearSkills.state
 				local ignoreWeaponSwap = self.controls.charImportItemsIgnoreWeaponSwap.state
+				local setGemsMaxLevel = self.controls.charImportItemsSetGemsMaxLevel.state
 				if data and data.character then
 					self.oauthErrCode = nil
-					self:ImportItemsAndSkills(data.character, clearItems, clearSkills, ignoreWeaponSwap)
+					self:ImportItemsAndSkills(data.character, clearItems, clearSkills, ignoreWeaponSwap, setGemsMaxLevel)
 				else
 					if errMsg then
 						self.oauthErrCode = "Could not import: " .. errMsg
@@ -317,6 +318,8 @@ local function addOAuthControls(self)
 		{ 220, 0, 18 }, "Delete equipment:", nil, "Delete all equipped items when importing.", true)
 	self.controls.charImportItemsIgnoreWeaponSwap = new("CheckBoxControl"):CheckBoxControl({ "LEFT", self.controls.charImportItems,
 		"RIGHT" }, { 380, 0, 18 }, "Ignore weapon swap:", nil, "Ignore items and skills in weapon swap.", false)
+	self.controls.charImportItemsSetGemsMaxLevel = new("CheckBoxControl"):CheckBoxControl({ "LEFT", self.controls.charImportItems,
+		"RIGHT" }, { 540, 0, 18 }, "Set gems to max level:", nil, "Set all skill and support gems to their natural maximum level, ignoring corruption or Awakened bonuses.", false)
 end
 local function addAccountNameControls(self)
 	self.charImportMode = "GETACCOUNTNAME"
@@ -484,20 +487,20 @@ function ImportTabClass:ImportTab(build)
 	end
 
 
-	self.controls.sectionOauthCharImport = new("SectionControl"):SectionControl({ "TOPLEFT", self, "TOPLEFT" }, { 10, 18, 650, 200 },
+	self.controls.sectionOauthCharImport = new("SectionControl"):SectionControl({ "TOPLEFT", self, "TOPLEFT" }, { 10, 18, 730, 200 },
 		"Import From Your Account")
 
 	addOAuthControls(self)
 
 	self.controls.sectionCharSiteImport = new("SectionControl"):SectionControl({ "TOPLEFT", self.controls.sectionOauthCharImport, "BOTTOMLEFT" },
-		{ 0, 18, 650, 250 },
+		{ 0, 18, 730, 250 },
 		"Import By Account Name")
 	addAccountNameControls(self)
 
 
 	-- Build import/export
 	self.controls.sectionBuild = new("SectionControl"):SectionControl({ "TOPLEFT", self.controls.sectionCharSiteImport, "BOTTOMLEFT", true },
-		{ 0, 18, 650, 182 }, "Build Sharing")
+		{ 0, 18, 730, 182 }, "Build Sharing")
 	self.controls.generateCodeLabel = new("LabelControl"):LabelControl({ "TOPLEFT", self.controls.sectionBuild, "TOPLEFT" },
 		{ 6, 14, 0, 16 }, "^7Generate a code to share this build with other Path of Building users:")
 	self.controls.generateCode = new("ButtonControl"):ButtonControl({ "LEFT", self.controls.generateCodeLabel, "RIGHT" }, { 4, 0, 80, 20 }, "Generate", function()
@@ -1376,8 +1379,9 @@ end
 --- @param clearItems boolean
 --- @param clearSkills boolean
 --- @param ignoreWeaponSwap boolean
+--- @param setGemsMaxLevel boolean
 --- @return CharacterItemsData, string
-function ImportTabClass:ImportItemsAndSkills(charData, clearItems, clearSkills, ignoreWeaponSwap)
+function ImportTabClass:ImportItemsAndSkills(charData, clearItems, clearSkills, ignoreWeaponSwap, setGemsMaxLevel)
 	charData = copyTable(charData)
 	if clearItems then
 		for _, slot in pairs(self.build.itemsTab.slots) do
@@ -1412,12 +1416,12 @@ function ImportTabClass:ImportItemsAndSkills(charData, clearItems, clearSkills, 
 		self.build.skillsTab:RebuildImbuedSupportBySlot()
 	end
 	for _, itemData in ipairs(charData.equipment) do
-		self:ImportItem(itemData, nil, ignoreWeaponSwap)
+		self:ImportItem(itemData, nil, ignoreWeaponSwap, nil, setGemsMaxLevel)
 	end
 	if charData.guardian and charData.guardian[1] then
 		local guardianSet = self:GetOrCreateGuardianItemSet()
 		for _, itemData in ipairs(charData.guardian) do
-			self:ImportItem(itemData, nil, ignoreWeaponSwap, guardianSet.id)
+			self:ImportItem(itemData, nil, ignoreWeaponSwap, guardianSet.id, setGemsMaxLevel)
 		end
 		self:AssignGuardianItemSet(guardianSet.id)
 	end
@@ -1493,7 +1497,7 @@ local rarityMap = { [0] = "NORMAL", "MAGIC", "RARE", "UNIQUE", [9] = "RELIC", [1
 local slotMap = { ["Weapon"] = "Weapon 1", ["Offhand"] = "Weapon 2", ["Weapon2"] = "Weapon 1 Swap", ["Offhand2"] = "Weapon 2 Swap", ["Helm"] = "Helmet", ["BodyArmour"] = "Body Armour", ["Gloves"] = "Gloves", ["Boots"] = "Boots",
 				  ["Amulet"] = "Amulet", ["Ring"] = "Ring 1", ["Ring2"] = "Ring 2", ["Ring3"] = "Ring 3", ["Belt"] = "Belt",  ["BrequelGrafts"] = "Graft 1", ["BrequelGrafts2"] = "Graft 2", }
 
-function ImportTabClass:ImportItem(itemData, slotName, ignoreWeaponSwap, itemSetId)
+function ImportTabClass:ImportItem(itemData, slotName, ignoreWeaponSwap, itemSetId, setGemsMaxLevel)
 	if not slotName then
 		if itemData.inventoryId == "PassiveJewels" then
 			slotName = "Jewel "..self.build.latestTree.jewelSlots[itemData.x + 1]
@@ -1655,7 +1659,7 @@ function ImportTabClass:ImportItem(itemData, slotName, ignoreWeaponSwap, itemSet
 		end
 	end
 	if itemData.socketedItems then
-		self:ImportSocketedItems(item, itemData.socketedItems, slotName)
+		self:ImportSocketedItems(item, itemData.socketedItems, slotName, setGemsMaxLevel)
 	end
 	if itemData.requirements and (not itemData.socketedItems or not itemData.socketedItems[1]) then
 		-- Requirements cannot be trusted if there are socketed gems, as they may override the item's natural requirements
@@ -1819,7 +1823,7 @@ function ImportTabClass:ImportItem(itemData, slotName, ignoreWeaponSwap, itemSet
 	end
 end
 
-function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
+function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName, setGemsMaxLevel)
 	-- Build socket group list
 	local itemSocketGroupList = { }
 	local abyssalSocketId = 1
@@ -1839,8 +1843,9 @@ function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 				end
 			end
 			if gemId then
+				local gemData = self.build.data.gems[gemId]
 				local gemInstance = { level = 20, quality = 0, enabled = true, enableGlobal1 = true, gemId = gemId }
-				gemInstance.nameSpec = self.build.data.gems[gemId].name
+				gemInstance.nameSpec = gemData.name
 				gemInstance.support = socketedItem.support
 				for _, property in pairs(socketedItem.properties) do
 					if property.name == "Level" then
@@ -1848,6 +1853,9 @@ function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 					elseif property.name == "Quality" then
 						gemInstance.quality = tonumber(property.values[1][1]:match("%d+"))
 					end
+				end
+				if setGemsMaxLevel then
+					gemInstance.level = gemData.naturalMaxLevel
 				end
 				local groupID = item.sockets[socketedItem.socket + 1].group
 				if not itemSocketGroupList[groupID] then
