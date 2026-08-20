@@ -22,9 +22,13 @@ modLib = { }
 ---@alias Doubled ["MORE", "OVERRIDE"]
 ---@alias NumericModTypes "INC"|"MORE"|"BASE"|"OVERRIDE"|"MAX"|"CHANCE"|"DUMMY"|"Flag"|"MIN"|Doubled
 
----@overload fun(modName: string, modType: NumericModTypes, modVal?: number)
----@overload fun(modName: string, modType: "FLAG", modVal: boolean)
----@overload fun(modName: string, modType: "LIST", modVal: any[]|any)
+-- Massive discriminated union. Todo: probably has to be built with an LLM for a start
+---@class ModTag
+---@field type string
+
+---@overload fun(modName: string, modType: NumericModTypes, modVal?: number, sourceOrTag: string|ModTag?, flagsOrModTag: number|ModTag?, keywordFlagsOrModTag: number|ModTag?, ...: ModTag)
+---@overload fun(modName: string, modType: "FLAG", modVal: boolean, sourceOrModTag: string|ModTag?, flagsOrModTag: number|ModTag?, keywordFlagsOrModTag: number|ModTag?, ...: ModTag)
+---@overload fun(modName: string, modType: "LIST", modVal: any[]|any, sourceOrModTag: string|ModTag?, flagsOrModTag: number|ModTag?, keywordFlagsOrModTag: number|ModTag?, ...: ModTag)
 ---@return Mod
 function modLib.createMod(modName, modType, modVal, ...)
 	local flags = 0
@@ -44,6 +48,13 @@ function modLib.createMod(modName, modType, modVal, ...)
 		tagStart = 4
 	end
 	---@class Mod
+	---@field name string
+	---@field type NumericModTypes|"FLAG"|"LIST"
+	---@field value number|boolean|any Number for numeric mod types, boolean for FLAG, any for LIST
+	---@field flags number
+	---@field keywordFlags number
+	---@field source? string
+	---@field [integer] ModTag
 	return {
 		name = modName,
 		type = modType,

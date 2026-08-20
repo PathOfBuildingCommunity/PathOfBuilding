@@ -294,6 +294,7 @@ Broadhead Arrow Quiver
 Variant: Pre 3.17.0
 Variant: Current
 LevelReq: 52
+Source: Labyrinth
 Implicits: 2
 {variant:1}AddedPhysicalDamageImplicitQuiver11
 {variant:2}IncreasedAttackSpeedImplicitQuiver10New

@@ -53,7 +53,54 @@ local rageCost = {
 	"RageCost", "Cost", "RageCostNoMult", "RageCostEfficiency", "CostEfficiency"
 }
 
--- format {width, id, group, color, subsection:{default hidden, label, data:{}}}
+---@class CalcSectionEntry A single description which is in the shown breakdown popup
+---@field breakdown? string Key indicating which output breakdown should be displayed
+---@field modName? string|string[]
+---@field modType? "BASE"|"INC"|"MORE"|"OVERRIDE"
+---@field cfg? string Config source
+---@field enemy? boolean Whether the enemy modDB should be used
+---@field actor? string Which actor should be used
+---@field modSource? string Restrict mods to e.g. items
+---@field label? string Heading shown above the resulting table
+---@field control? table Injected by calcs for e.g. the skill details
+---@field controlName? string
+---@field skipSideBarIndex boolean? Set to true if this cell should be ignored while indexing the side bar breakdowns, and a later breakdown source should be preferred.
+
+---@class CalcSectionColumn : CalcSectionEntry One column cell: a format and descriptions for the popup
+---@field [integer] CalcSectionEntry
+---@field format? string Value format string (e.g. "{0:output:Life}") or literal header text
+
+---@class CalcSectionRow One row of a subsection
+---@field [integer] CalcSectionColumn Column cells
+---@field label? string Row label
+---@field haveOutput? string Only show the row when this output value is non-zero
+---@field flag? string Only show when the skill has this flag
+---@field flagList? string[] Only show when the skill has all of these flags
+---@field playerFlag? string Only show when the player skill has this flag
+---@field notFlag? string Hide when the skill has this flag
+---@field notFlagList? string[] Hide when the skill has any of these flags
+
+---@class CalcSectionData A subsection's rows plus subsection configuration values
+---@field [integer] CalcSectionRow The rows
+---@field extra? string Summary text shown beside the header (e.g. "{0:output:Life}")
+---@field colWidth? integer Fixed width for value columns in this subsection
+---@field flag? string Applied to the whole subsection (via subSection[1].data.flag)
+---@field notFlag? string
+
+---@class CalcSectionSubsection
+---@field defaultCollapsed boolean
+---@field label string
+---@field data CalcSectionData
+
+---@class CalcSection
+---@field [1] integer Width in columns
+---@field [2] string Section id
+---@field [3] integer Group
+---@field [4] string Colour escape code
+---@field [5] CalcSectionSubsection[] Subsections
+---@field [6] fun()? Optional update function
+
+---@type CalcSection[]
 return {
 { 3, "HitDamage", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Skill Hit Damage", data = {
 	extra = "{output:DisplayDamage}",
@@ -658,8 +705,8 @@ return {
 	{ label = "OH DMG Mod.", bgCol = colorCodes.OFFHANDBG, flag = "weapon2Attack", haveOutput = "OffHand.ImpaleModifier", { format = "{3:output:OffHand.ImpaleModifier}", modType = "MORE",
 		{ breakdown = "OffHand.ImpaleModifier" },
 	}, },
-	{ label = "Impale DPS", flag = "impale", flag = "notAverage", { format = "{1:output:ImpaleDPS}", { breakdown = "ImpaleDPS" }, }, },
-	{ label = "Impale Damage", flag = "impale", flag = "showAverage", { format = "{1:output:ImpaleDPS}", { breakdown = "ImpaleDPS" }, }, },
+	{ label = "Impale DPS", flag = "notAverage", { format = "{1:output:ImpaleDPS}", { breakdown = "ImpaleDPS" }, }, },
+	{ label = "Impale Damage", flag = "showAverage", { format = "{1:output:ImpaleDPS}", { breakdown = "ImpaleDPS" }, }, },
 } }
 } },
 { 1, "SkillTypeStats", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Skill type-specific Stats", data = {
@@ -1521,15 +1568,15 @@ return {
 		{ label = "Recovery modifiers", modName = "ManaRecoveryRate" },
 	}, },
 	{ label = "Recoup", haveOutput = "ManaRecoup", { format = "{1:output:ManaRecoup}%", { breakdown = "ManaRecoup" }, 
-		{ label = "Sources", modName = "ManaRecoup" },
-		{ label = "Recovery modifiers", modName = "ManaRecoveryRate" },
+		{ label = "Sources", modName = { "ManaRecoup", "AddLifeRecoupToManaRecoup" } },
+		{ label = "Recovery modifiers", modName = { "ManaRecoveryRate", "RecoupRecoveryAmount" } },
 		{ label = "FasterRecoup", modName = "3SecondRecoup" },
 	}, },
 } }
 } },
 { 1, "EnergyShield", 2, colorCodes.ES, {{ defaultCollapsed = false, label = "Energy Shield", data = {
 	extra = "{0:output:EnergyShield}",
-	{ label = "Base from Armours", { format = "{0:output:Gear:EnergyShield}", { breakdown = "EnergyShield", gearOnly = true }, }, },
+			{ label = "Base from Armours", { format = "{0:output:Gear:EnergyShield}", { breakdown = "EnergyShield", gearOnly = true, skipSideBarIndex = true }, }, },
 	{ label = "Global Base", { format = "{0:mod:1}", { modName = "EnergyShield", modType = "BASE" }, }, },
 	{ label = "Inc. from Tree", { format = "{0:mod:1}%", { modName = "EnergyShield", modType = "INC", modSource = "Tree" }, }, },
 	{ label = "Total Increased", { format = "{0:mod:1}%", { modName = { "EnergyShield", "Defences" }, modType = "INC" }, }, },
@@ -1591,7 +1638,7 @@ return {
 } },
 { 1, "Ward", 2, colorCodes.WARD, {{ defaultCollapsed = false, label = "Ward", data = {
 	extra = "{0:output:Ward}",
-	{ label = "Base from Armours", { format = "{0:output:Gear:Ward}", { breakdown = "Ward", gearOnly = true }, }, },
+			{ label = "Base from Armours", { format = "{0:output:Gear:Ward}", { breakdown = "Ward", gearOnly = true }, }, },
 	{ label = "Global Base", { format = "{0:mod:1}", { modName = "Ward", modType = "BASE" }, }, },
 	{ label = "Inc. from Tree", { format = "{0:mod:1}%", { modName = "Ward", modType = "INC", modSource = "Tree" }, }, },
 	{ label = "Total Increased", { format = "{0:mod:1}%", { modName = { "Ward", "Defences" }, modType = "INC" }, }, },
@@ -1626,7 +1673,7 @@ return {
 } },
 { 1, "Armour", 3, colorCodes.ARMOUR, {{ defaultCollapsed = false, label = "Armour", data = {
 	extra = "{0:output:Armour}",
-	{ label = "Base from Armours", { format = "{0:output:Gear:Armour}", { breakdown = "Armour", gearOnly = true }, }, },
+			{ label = "Base from Armours", { format = "{0:output:Gear:Armour}", { breakdown = "Armour", gearOnly = true, skipSideBarIndex = true, }, }, },
 	{ label = "Global Base", { format = "{0:mod:1}", { modName = { "Armour", "ArmourAndEvasion" }, modType = "BASE" }, }, },
 	{ label = "Inc. from Tree", { format = "{0:mod:1}%", { modName = { "Armour", "ArmourAndEvasion" }, modType = "INC", modSource = "Tree", }, }, },
 	{ label = "Total Increased", { format = "{0:mod:1}%", { modName = { "Armour", "ArmourAndEvasion", "Defences" }, modType = "INC" }, }, },
@@ -1657,7 +1704,7 @@ return {
 } },
 { 1, "Evasion", 3, colorCodes.EVASION, {{ defaultCollapsed = false, label = "Evasion", data = {
 	extra = "{0:output:Evasion}",
-	{ label = "Base from Armours", { format = "{0:output:Gear:Evasion}", { breakdown = "Evasion", gearOnly = true }, }, },
+			{ label = "Base from Armours", { format = "{0:output:Gear:Evasion}", { breakdown = "Evasion", gearOnly = true, skipSideBarIndex = true }, }, },
 	{ label = "Global Base", { format = "{0:mod:1}", { modName = { "Evasion", "ArmourAndEvasion" }, modType = "BASE" }, }, },
 	{ label = "Inc. from Tree", { format = "{0:mod:1}%", { modName = { "Evasion", "ArmourAndEvasion" }, modType = "INC", modSource = "Tree" }, }, },
 	{ label = "Total Increased", { format = "{0:mod:1}%", { modName = { "Evasion", "ArmourAndEvasion", "Defences" }, modType = "INC" }, }, },

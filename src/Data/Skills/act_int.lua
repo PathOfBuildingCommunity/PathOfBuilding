@@ -1116,9 +1116,10 @@ skills["BallLightning"] = {
 			local ballDistPerStrike = ballDistPerSec * secsPerStrike
 			-- How many times does the ball proc a bolt strike while it is in
 			-- range of the enemy?
-			local enemyRadius = 0 -- for now, we will be conservative and assume no enemy radius
+			local enemyRadius = skillModList:Override(skillCfg, "EnemyRadius") or skillModList:Sum("BASE", skillCfg, "EnemyRadius")
 			local baseStrikeRadius = output.AreaOfEffectRadius
-			local strikeRadius = baseStrikeRadius
+			-- A bolt can hit when its area overlaps any part of the enemy's collision circle.
+			local strikeRadius = baseStrikeRadius + enemyRadius
 			local castDist = 0
 			if skillCfg.skillDist then
 				-- Advanced users can specify exactly the standoff distance

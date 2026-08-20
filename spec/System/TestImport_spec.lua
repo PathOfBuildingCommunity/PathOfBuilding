@@ -115,6 +115,7 @@ describe("TestImport", function()
 			typeLine = "Rawhide Gloves",
 			inventoryId = "Gloves",
 			ilvl = 10,
+			duplicated = true,
 			vestigial = true,
 			properties = { },
 			implicitMods = {
@@ -139,6 +140,7 @@ describe("TestImport", function()
 		assert.is_true(explicitMods["+10 to maximum Life"].crafted)
 		assert.is_true(explicitMods["+11 to maximum Mana"].fractured)
 		assert.is_true(explicitMods["+12 to Strength"].mutated)
+		assert.is_true(item.mirrored)
 		assert.is_true(item.vestigial)
 		assert.is_true(explicitMods["+13 to Dexterity"].vestigial)
 		assert.is_truthy(item:BuildRaw():find("{vestigial}", 1, true))

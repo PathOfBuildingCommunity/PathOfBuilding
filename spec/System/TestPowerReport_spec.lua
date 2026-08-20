@@ -28,7 +28,7 @@ describe("PowerReportListControl", function()
 
 	it("Show Allocated includes allocated nodes", function()
 		local list = relist({
-			{ name = "allocated", power = 10, pathDist = 1, allocated = true },
+			{ name = "allocated", power = -10, pathDist = 1, allocated = true },
 			{ name = "unallocated", power = 5, pathDist = 1, allocated = false },
 		}, false, true)
 

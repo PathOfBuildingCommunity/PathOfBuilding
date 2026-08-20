@@ -9,12 +9,18 @@ local m_max = math.max
 local m_floor = math.floor
 local s_upper = string.upper
 
-local varList = LoadModule("Modules/ConfigOptions")
-local configVisibility = LoadModule("Modules/ConfigVisibility")
+local varList = require("Modules.ConfigOptions")
+local configVisibility = require("Modules.ConfigVisibility")
+local configModBrowser = require("Modules.ConfigModBrowser")
 
----@class CustomModBlock: ControlHost, Control
+---@class CustomModBlockControl: ControlHost, Control
 local CustomModBlockClass = newClass("CustomModBlockControl", "ControlHost", "Control")
 
+---@param anchor Anchor?
+---@param rect Rect?
+---@param configTab ConfigTab
+---@param blockIndex integer
+---@param blockData any
 function CustomModBlockClass:CustomModBlockControl(anchor, rect, configTab, blockIndex, blockData)
 	self:Control(anchor, rect)
 	self:ControlHost()
@@ -43,7 +49,7 @@ function CustomModBlockClass:CustomModBlockControl(anchor, rect, configTab, bloc
 	end)
 
 	self.controls.addModBtn = new("ButtonControl"):ButtonControl({"LEFT", self.controls.titleEdit, "RIGHT"}, {6, 0, 58, 18}, "^7Add Mod", function()
-		configTab:OpenAddModPopup(blockData)
+		configModBrowser.OpenAddModPopup(self.configTab, blockData)
 	end)
 
 	self.controls.enableCheck = new("CheckBoxControl"):CheckBoxControl({"TOPRIGHT", self, "TOPRIGHT"}, {0, 0, 18}, "", function(state)
@@ -180,6 +186,10 @@ function ConfigTabClass:ConfigTab(build)
 		self.toggleConfigs = not self.toggleConfigs
 	end)
 
+	local function isCollapsed(section)
+		return self:IsSectionCollapsed(section)
+	end
+
 	local function searchMatch(varData)
 		local searchStr = self.controls.search.buf:lower():gsub("[%-%.%+%[%]%$%^%%%?%*]", "%%%0")
 		if searchStr and searchStr:match("%S") then
@@ -253,9 +263,13 @@ function ConfigTabClass:ConfigTab(build)
 			lastSection = new("SectionControl"):SectionControl({"TOPLEFT",self.controls.search,"BOTTOMLEFT"}, {0, 0, 360, 0}, varData.section)
 			lastSection.varControlList = { }
 			lastSection.col = varData.col
-			lastSection.height = function(self)
+			lastSection.collapsed = false
+			lastSection.height = function(section)
+				if isCollapsed(section) then
+					return 16
+				end
 				local height = 20
-				for _, varControl in pairs(self.varControlList) do
+				for _, varControl in pairs(section.varControlList) do
 					if varControl:IsShown() then
 						local _, ctrlHeight = varControl:GetSize()
 						height = height + m_max(ctrlHeight or varControl.height, 16) + 4
@@ -263,8 +277,18 @@ function ConfigTabClass:ConfigTab(build)
 				end
 				return m_max(height, 32)
 			end
+			-- Collapse toggle, matching the Calcs tab: right aligned, '-' when expanded, '+' when collapsed.
+			-- Sits on the section's top border, as the header label does, to clear the option controls below.
+			local section = lastSection
+			local toggle = new("ButtonControl"):ButtonControl({"TOPRIGHT",lastSection,"TOPRIGHT"}, {-6, -7, 16, 16}, function()
+				return section.collapsed and "+" or "-"
+			end, function()
+				section.collapsed = not section.collapsed
+			end)
+			-- Deliberately not in varControlList: it must not count towards the section's height or visibility
 			t_insert(self.sectionList, lastSection)
 			t_insert(self.controls, lastSection)
+			t_insert(self.controls, toggle)
 			if varData.section == "Custom Modifiers" then
 				self.customSection = lastSection
 			end
@@ -774,6 +798,15 @@ function ConfigTabClass:ConfigTab(build)
 				end
 			end
 
+			local ownSection = lastSection
+			local eligibleShown = control.shown
+			control.shown = function()
+				if isCollapsed(ownSection) then
+					return false
+				end
+				return type(eligibleShown) == "boolean" and eligibleShown or eligibleShown()
+			end
+
 			t_insert(self.controls, control)
 			t_insert(lastSection.varControlList, control)
 		end
@@ -788,11 +821,19 @@ function ConfigTabClass:ConfigTab(build)
 			self:BuildModList()
 			self.build.buildFlag = true
 		end)
+		self.controls.customModsAddBlock.shown = function()
+			return not isCollapsed(self.customSection)
+		end
 		self.customModsBlockControls = { }
 		self:UpdateCustomModsControls()
 	end
 
 	return self
+end
+
+-- A collapsed section hides its contents, unless a search is active
+function ConfigTabClass:IsSectionCollapsed(section)
+	return section.collapsed and not self.controls.search.buf:match("%S")
 end
 
 function ConfigTabClass:Load(xml, fileName)
@@ -1017,6 +1058,10 @@ function ConfigTabClass:Draw(viewPort, inputEvents)
 	for _, section in ipairs(self.sectionList) do
 		local y = 14
 		section.shown = true
+		-- Probe with the section expanded, so a collapsed section that still has
+		-- eligible options keeps its (clickable) header on screen
+		local collapsed = section.collapsed
+		section.collapsed = false
 		local doShow = false
 		for _, varControl in pairs(section.varControlList) do
 			if varControl:IsShown() then
@@ -1027,6 +1072,7 @@ function ConfigTabClass:Draw(viewPort, inputEvents)
 				y = y + height + 4
 			end
 		end
+		section.collapsed = collapsed
 		section.shown = doShow
 		if doShow then
 			local width, height = section:GetSize()
@@ -1278,6 +1324,9 @@ function ConfigTabClass:UpdateCustomModsControls()
 
 	for index, block in ipairs(configSet.customModsList) do
 		local blockControl = new("CustomModBlockControl"):CustomModBlockControl({"TOPLEFT", self.customSection, "TOPLEFT"}, {8, 0, 344, 120}, self, index, block)
+		blockControl.shown = function()
+			return not self:IsSectionCollapsed(self.customSection)
+		end
 		t_insert(self.customModsBlockControls, blockControl)
 		t_insert(self.controls, blockControl)
 		t_insert(self.customSection.varControlList, blockControl)
@@ -1310,251 +1359,4 @@ function ConfigTabClass:SetActiveConfigSet(configSetId, init)
 	end
 	self.build.buildFlag = true
 	self.build:SyncLoadouts()
-end
-
-function ConfigTabClass:OpenAddModPopup(blockData)
-	local bData = (self.build and self.build.data) or data
-	local allModsList = { }
-	local seen = { }
-
-	local function addModEntry(mod)
-		local function registerMod(str)
-			local stripped = StripEscapes(str):match("^%s*(.-)%s*$")
-			if #stripped > 0 and not seen[stripped] then
-				seen[stripped] = true
-				t_insert(allModsList, stripped)
-			end
-		end
-
-		if type(mod) == "string" then
-			registerMod(mod)
-		elseif type(mod) == "table" then
-			for i = 1, #mod do
-				if type(mod[i]) == "string" then
-					registerMod(mod[i])
-				end
-			end
-		end
-	end
-
-	if bData then
-		if bData.masterMods then
-			for _, mod in pairs(bData.masterMods) do
-				addModEntry(mod)
-			end
-		end
-		if bData.itemMods then
-			for catName, catMods in pairs(bData.itemMods) do
-				if catName ~= "Item" and type(catMods) == "table" then
-					for _, mod in pairs(catMods) do
-						addModEntry(mod)
-					end
-				end
-			end
-		end
-		if bData.veiledMods then
-			for _, mod in pairs(bData.veiledMods) do
-				addModEntry(mod)
-			end
-		end
-		if bData.beastCraft then
-			for _, mod in pairs(bData.beastCraft) do
-				addModEntry(mod)
-			end
-		end
-	end
-
-	local modTemplateCache = { }
-	local function getModTemplate(modText)
-		if not modTemplateCache[modText] then
-			modTemplateCache[modText] = modText
-				:gsub("([%+-]?)%((%-?%d+%.?%d*)%-(%-?%d+%.?%d*)%)", "%1#")
-				:gsub("%d+%.?%d*", "#")
-				:lower()
-		end
-		return modTemplateCache[modText]
-	end
-	local alphabeticalSortKeyCache = { }
-	local function getAlphabeticalSortKey(modText)
-		if not alphabeticalSortKeyCache[modText] then
-			alphabeticalSortKeyCache[modText] = getModTemplate(modText)
-				:gsub("#", " ")
-				:gsub("[^%a]+", " ")
-				:match("^%s*(.-)%s*$")
-		end
-		return alphabeticalSortKeyCache[modText]
-	end
-	local function sortAlphabeticallyIgnoringValues(a, b)
-		local aSortKey = getAlphabeticalSortKey(a)
-		local bSortKey = getAlphabeticalSortKey(b)
-		if aSortKey ~= bSortKey then
-			return aSortKey < bSortKey
-		end
-		local aTemplate = getModTemplate(a)
-		local bTemplate = getModTemplate(b)
-		if aTemplate ~= bTemplate then
-			return aTemplate < bTemplate
-		end
-		local aLower = a:lower()
-		local bLower = b:lower()
-		if aLower ~= bLower then
-			return aLower < bLower
-		end
-		return a < b
-	end
-
-	table.sort(allModsList, sortAlphabeticallyIgnoringValues)
-
-	-- Collapse affix tiers that only differ by their numeric values. The list is
-	-- sorted first so the retained representative is deterministic.
-	wipeTable(seen)
-	local deduplicatedModsList = { }
-	for _, modText in ipairs(allModsList) do
-		local modTemplate = getModTemplate(modText)
-		if not seen[modTemplate] then
-			seen[modTemplate] = true
-			t_insert(deduplicatedModsList, itemLib.applyRange(modText, 0))
-		end
-	end
-	table.sort(deduplicatedModsList, sortAlphabeticallyIgnoringValues)
-	allModsList = deduplicatedModsList
-
-	local displayList = { }
-	local controls = { }
-
-	local function fuzzyScore(modText, searchStr, words)
-		local modLower = modText:lower()
-		if modLower:find(searchStr, 1, true) then
-			return 1
-		end
-		if #words > 1 then
-			local allFound = true
-			for i = 1, #words do
-				if not modLower:find(words[i], 1, true) then
-					allFound = false
-					break
-				end
-			end
-			if allFound then
-				return 2
-			end
-		end
-		if #words == 1 and #searchStr >= 3 then
-			local textWords = {}
-			for word in modLower:gmatch("%w+") do
-				t_insert(textWords, word)
-			end
-			for i = 1, #textWords do
-				for len1 = 2, #searchStr - 1 do
-					local part1 = searchStr:sub(1, len1)
-					local part2 = searchStr:sub(len1 + 1)
-					if textWords[i]:sub(1, #part1) == part1 and textWords[i + 1] and textWords[i + 1]:sub(1, #part2) == part2 then
-						return 3
-					end
-				end
-			end
-		end
-		return nil
-	end
-
-	local function updateDisplayList()
-		wipeTable(displayList)
-		local searchStr = controls.search.buf:lower():gsub("^[%s]+", ""):gsub("[%s]+$", "")
-
-		if #searchStr == 0 then
-			for _, modText in ipairs(allModsList) do
-				t_insert(displayList, modText)
-			end
-		else
-			local words = {}
-			for word in searchStr:gmatch("%S+") do
-				t_insert(words, word)
-			end
-			local matches = {}
-			for _, modText in ipairs(allModsList) do
-				local rank = fuzzyScore(modText, searchStr, words)
-				if rank then
-					t_insert(matches, { text = modText, rank = rank })
-				end
-			end
-			table.sort(matches, function(a, b)
-				if a.rank ~= b.rank then
-					return a.rank < b.rank
-				end
-				return sortAlphabeticallyIgnoringValues(a.text, b.text)
-			end)
-			for _, match in ipairs(matches) do
-				t_insert(displayList, match.text)
-			end
-		end
-
-		if #displayList == 0 then
-			t_insert(displayList, "No matching modifiers found")
-		end
-		if controls.listControl then
-			controls.listControl.selIndex = 1
-			controls.listControl.selValue = displayList[1]
-			controls.listControl.controls.scrollBarV.offset = 0
-		end
-	end
-
-	controls.listControl = new("ListControl"):ListControl({"TOPLEFT", nil, "TOPLEFT"}, {10, 20, 700, 454}, 16, "VERTICAL", false, displayList)
-	controls.listControl.font = "VAR"
-	controls.listControl.GetRowValue = function(self, column, index, value)
-		return value or ""
-	end
-	controls.listControl.AddValueTooltip = function(self, tooltip, index, value)
-		tooltip:Clear(true)
-		if value and #value > 0 and value ~= "No matching modifiers found" then
-			local mods, extra = modLib.parseMod(value)
-			if mods and not extra then
-				tooltip:AddLine(14, "^7Supported: ^2Yes")
-			else
-				tooltip:AddLine(14, "^7Supported: ^1No")
-			end
-		end
-	end
-	controls.listControl.OnSelClick = function(self, index, value, doubleClick)
-		self:SelectIndex(index)
-		if doubleClick and controls.save:IsEnabled() then
-			controls.save.onClick()
-		end
-	end
-
-	controls.searchLabel = new("LabelControl"):LabelControl({"TOPRIGHT", nil, "TOPLEFT"}, {65, 482, 0, 16}, "^7Search:")
-	controls.search = new("EditControl"):EditControl({"TOPLEFT", nil, "TOPLEFT"}, {70, 482, 640, 18}, "", nil, "%c", 100, function()
-		updateDisplayList()
-	end, nil, nil, true)
-	controls.search.controls.buttonClear.shown = function()
-		return #controls.search.buf > 0
-	end
-
-	updateDisplayList()
-
-	controls.save = new("ButtonControl"):ButtonControl(nil, {-45, 512, 80, 20}, "Add", function()
-		local selIndex = controls.listControl.selIndex or 1
-		local selected = displayList[selIndex]
-		if selected and selected ~= "No matching modifiers found" then
-			if blockData.text and #blockData.text > 0 and not blockData.text:match("\n$") then
-				blockData.text = blockData.text .. "\n"
-			end
-			blockData.text = (blockData.text or "") .. selected
-			self:UpdateCustomModsControls()
-			self:AddUndoState()
-			self:BuildModList()
-			self.build.buildFlag = true
-		end
-		main:ClosePopup()
-	end)
-	controls.save.enabled = function()
-		local selIndex = controls.listControl and controls.listControl.selIndex or 1
-		local selected = displayList[selIndex]
-		return selected ~= nil and selected ~= "No matching modifiers found"
-	end
-
-	controls.close = new("ButtonControl"):ButtonControl(nil, {45, 512, 80, 20}, "Cancel", function()
-		main:ClosePopup()
-	end)
-
-	main:OpenPopup(720, 540, "Mod Browser", controls, "save", "search", "close")
 end

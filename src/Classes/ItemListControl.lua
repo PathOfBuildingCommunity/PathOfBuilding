@@ -10,6 +10,10 @@ local t_insert = table.insert
 ---@class ItemListControl: ListControl
 local ItemListClass = newClass("ItemListControl", "ListControl")
 
+---@param anchor Anchor?
+---@param rect Rect?
+---@param itemsTab ItemsTab
+---@param forceTooltip boolean?
 function ItemListClass:ItemListControl(anchor, rect, itemsTab, forceTooltip)
 	self:ListControl(anchor, rect, 16, "VERTICAL", true, itemsTab.itemOrderList, forceTooltip)
 	self.itemsTab = itemsTab
@@ -281,6 +285,7 @@ function ItemListClass:ReceiveDrag(type, value, source)
 		local newItem = new("Item"):Item(value.raw)
 		newItem:NormaliseQuality()
 		self.itemsTab:AddItem(newItem, true, self.selDragIndex)
+		self.itemsTab:AddForbiddenJewelCounterpart(newItem)
 		self.itemsTab:PopulateSlots()
 		self.itemsTab:AddUndoState()
 		self:UpdateList()

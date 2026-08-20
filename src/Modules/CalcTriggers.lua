@@ -137,7 +137,9 @@ local function helmetFocusHandler(env)
 	if not env.player.mainSkill.skillFlags.minion and not env.player.mainSkill.skillFlags.disable and env.player.mainSkill.triggeredBy then
 		local triggerName = "Focus"
 		env.player.mainSkill.skillData.triggered = true
+		---@class Output
 		local output = env.player.output
+		---@class Breakdown
 		local breakdown = env.player.breakdown
 		local triggerCD = env.player.mainSkill.triggeredBy.grantedEffect.levels[env.player.mainSkill.triggeredBy.level].cooldown
 		local triggeredCD = env.player.mainSkill.skillData.cooldown
@@ -223,6 +225,7 @@ local function CWCHandler(env)
 		local source = nil
 		local triggerName = "Cast While Channeling"
 		local output = env.player.output
+		---@class Breakdown
 		local breakdown = env.player.breakdown
 		for _, skill in ipairs(env.player.activeSkillList) do
 			local slotMatch = slotMatch(env, skill)
@@ -391,6 +394,7 @@ end
 local function defaultTriggerHandler(env, config)
 	local actor = config.actor
 	local output = config.actor.output
+	---@class Breakdown
 	local breakdown = config.actor.breakdown
 	local source = config.source
 	local triggeredSkills = config.triggeredSkills or {}
@@ -1543,6 +1547,11 @@ local configTable = {
 				return not skill.skillTypes[SkillType.SummonsTotem] and skill.skillTypes[SkillType.Attack]
 			end
 		}
+	end,
+	["BloodShrineUniqueTriggeredExplodingToad"] = function(env)
+		local triggerChance = env.player.mainSkill.activeEffect.srcInstance.triggerChance + env.player.modDB:Sum("BASE", nil, "BloodShrineExplodingToadTriggerChance")
+		return {assumingEveryHitKills = true, triggerChance = m_min(triggerChance, 100),
+			triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack] end}
 	end,
 	["bursting toad"] = function(env)
 		local triggerInterval = m_huge

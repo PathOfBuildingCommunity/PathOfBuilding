@@ -2,3 +2,92 @@
 ---@class Calcs
 local calcs = {}
 return calcs
+
+---@class Output
+---@field MainHand Output
+---@field OffHand Output
+---@field Minion Output?
+---@field ActivePhantasmLimit number?
+---@field ActiveSpectreLimit number?
+---@field BattleCryExertsCount number?
+---@field BattleMageCryCastTime number?
+---@field BattleMageCryCooldown number?
+---@field BattleMageCryDuration number?
+---@field BattlemageUpTimeRatio number?
+---@field BleedDamage number?
+---@field ChaosHitAverage number?
+---@field ChaosResist number?
+---@field ColdHitAverage number?
+---@field ColdResistOverCap number?
+---@field ColdResistTotal number?
+---@field CullMultiplier number?
+---@field Dex number?
+---@field EffectiveBlockChance number?
+---@field EffectiveProjectileBlockChance number?
+---@field EffectiveSpellBlockChance number?
+---@field EffectiveSpellProjectileBlockChance number?
+---@field EnergyShieldLeechDuration number?
+---@field EnergyShieldRecoupRecoveryAvg number?
+---@field EnergyShieldRegenRecovery number?
+---@field ESCost  number?
+---@field FireHitAverage  number?
+---@field FireResistOverCap number?
+---@field FireResistTotal number?
+---@field FreezeChanceOnCrit number?
+---@field FreezeChanceOnHit number?
+---@field GlobalWarcryUptimeRatio number?
+---@field IgniteAvoidChance number?
+---@field IgniteChanceOnCrit number?
+---@field IgniteChanceOnHit number?
+---@field InfernalCryCastTime number?
+---@field InfernalCryCooldown number?
+---@field InfernalCryDuration number?
+---@field InfernalExertsCount number?
+---@field InfernalUpTimeRatio number?
+---@field Int number?
+---@field LifeCancellableReservation  number?
+---@field LifeCost  number?
+---@field LifeLeechDuration number?
+---@field LifeRecoupRecoveryAvg number?
+---@field LifeRegenRecovery number?
+---@field LifeReservedPercent number?
+---@field LifeUnreserved number?
+---@field LightningHitAverage number?
+---@field LightningResist number?
+---@field LightningResistOverCap number?
+---@field LightningResistTotal number?
+---@field ManaCost number?
+---@field ManaCostRaw number?
+---@field ManaHasCost boolean?
+---@field ManaLeechDuration number?
+---@field ManaRecoupRecoveryAvg number?
+---@field ManaRegenRecovery number?
+---@field ManaUnreserved number?
+---@field PhysicalTakenDamage number?
+---@field PhysicalTakenHit number?
+---@field PoisonAvoidChance number?
+---@field RageCost number?
+---@field ReservationDpsMultiplier number?
+---@field ReturnChance number?
+---@field SelfIgniteDuration number?
+---@field SelfIgniteEffect number?
+---@field SelfPoisonDuration number?
+---@field SelfPoisonEffect number?
+---@field Str number?
+---@field TotalVaalRejuvenationTotemLife number?
+---@field TotemChaosResist number?
+---@field TotemLife number?
+
+---@class Breakdown
+---@field MainHand Breakdown?
+---@field OffHand Breakdown?
+
+---@class Actor
+---@field output Output
+---@field modDB ModDB
+---@field enemy Actor?
+---@field breakdown? Breakdown?
+
+---@class ActiveSkill
+---@field skillModList ModList
+---@field skillCfg ModCfg

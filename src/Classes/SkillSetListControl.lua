@@ -11,6 +11,9 @@ local s_format = string.format
 ---@class SkillSetListControl: ListControl
 local SkillSetListClass = newClass("SkillSetListControl", "ListControl")
 
+---@param anchor Anchor?
+---@param rect Rect?
+---@param skillsTab SkillsTab
 function SkillSetListClass:SkillSetListControl(anchor, rect, skillsTab)
 	self:ListControl(anchor, rect, 16, "VERTICAL", true, skillsTab.skillSetOrderList)
 	self.skillsTab = skillsTab

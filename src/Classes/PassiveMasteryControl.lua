@@ -12,13 +12,23 @@ local m_floor = math.floor
 ---@class PassiveMasteryControl: ListControl
 local PassiveMasteryControlClass = newClass("PassiveMasteryControl", "ListControl")
 
+---@class MasterListElem
+---@field label string
+---@field id number
+
+---@param anchor Anchor?
+---@param rect Rect
+---@param list MasterListElem[]
+---@param treeTab TreeTab
+---@param node Node
+---@param saveButton ButtonControl
 function PassiveMasteryControlClass:PassiveMasteryControl(anchor, rect, list, treeTab, node, saveButton)
 	self.list = list or { }
 	-- automagical width
 	for j=1,#list do
 		rect[3] = m_max(rect[3], DrawStringWidth(16, "VAR", list[j].label) + 5)
 	end
-	self:ListControl(anchor, rect, 16, false, false, self.list)
+	self:ListControl(anchor, rect, 16, nil, false, self.list)
 	self.treeTab = treeTab
 	self.treeView = treeTab.viewer
 	self.node = node

@@ -258,6 +258,17 @@ return {
 	{ var = "arcaneCloakUsedRecentlyCheck", type = "check", label = "Include in ^x7070FFMana ^7spent Recently?", ifSkill = "Arcane Cloak", tooltip = "When enabled, the mana spent by Arcane Cloak used at full mana \nwill be added to the value provided in # of ^x7070FFMana ^7spent Recently.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:ArcaneCloakUsedRecently", "FLAG", true, "Config")
 	end },
+	{ label = "Aspect of Lunaris:", ifSkill = "Aspect of Lunaris" },
+	{ var = "aspectOfLunarisLunarProtection", type = "countAllowZero", label = "# of Lunar Protection:", ifSkill = "Aspect of Lunaris", tooltip = "Gained when you take ^xB97123Physical ^7Damage, up to 8 stacks.", defaultPlaceholderState = 8, apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:LunarProtection", "BASE", val, "Config")
+	end },
+	{ var = "aspectOfLunarisLunarResistance", type = "countAllowZero", label = "# of Lunar Resistance:", ifSkill = "Aspect of Lunaris", tooltip = "Gained when you take Elemental Damage, up to 8 stacks.", defaultPlaceholderState = 8, apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:LunarResistance", "BASE", val, "Config")
+	end },
+	{ label = "Aspect of Solaris:", ifSkill = "Aspect of Solaris" },
+	{ var = "aspectOfSolarisSunscaldStacks", type = "countAllowZero", label = "# of Sunscald Stacks:", ifSkill = "Aspect of Solaris", tooltip = "Each Sunscald increases the effect of ^xB97123Fire Exposure ^7on affected enemies by 15%, up to 5 stacks.", defaultPlaceholderState = 5, apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:SunscaldStack", "BASE", val, "Config", { type = "Condition", var = "Effective" })
+	end },
 	{ label = "Aspect of the Avian:", ifSkill = "Aspect of the Avian" },
 	{ var = "aspectOfTheAvianAviansMight", type = "check", label = "Is Avian's Might active?", ifSkill = "Aspect of the Avian", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:AviansMightActive", "FLAG", true, "Config")
@@ -762,8 +773,8 @@ return {
 	{ var = "VaalMoltenShellDamageMitigated", type = "count", label = "Damage mitigated:", tooltip = "Vaal Molten Shell reflects damage to the enemy,\nbased on the amount of damage it has mitigated in the last second.", ifSkill = "Vaal Molten Shell", apply = function(val, modList, enemyModList)
 		modList:NewMod("SkillData", "LIST", { key = "VaalMoltenShellDamageMitigated", value = val }, "Config", { type = "SkillName", skillName = "Molten Shell" })
 	end },
-	{ label = "Multi-part area skills:", ifSkill = { "Seismic Trap", "Lightning Spire Trap", "Explosive Trap", "Molten Strike" }, includeTransfigured = true },
-	{ var = "enemySizePreset", type = "list", label = "Enemy size preset:", ifSkill = { "Seismic Trap", "Lightning Spire Trap", "Explosive Trap", "Molten Strike" }, includeTransfigured = true, defaultIndex = 2, tooltip = [[
+	{ label = "Multi-part area skills:", ifSkill = { "Seismic Trap", "Lightning Spire Trap", "Explosive Trap", "Molten Strike", "Ball Lightning" }, includeTransfigured = true },
+	{ var = "enemySizePreset", type = "list", label = "Enemy size preset:", ifSkill = { "Seismic Trap", "Lightning Spire Trap", "Explosive Trap", "Molten Strike", "Ball Lightning" }, includeTransfigured = true, defaultIndex = 2, tooltip = [[
 Configure the radius of an enemy hitbox which is used in calculating some area multi-hitting (shotgunning) effects.
 
 Small sets the radius to 2.
@@ -788,7 +799,7 @@ Huge sets the radius to 11.
 			modList:NewMod("EnemyRadius", "BASE", 11, "Config")
 		end
 	end },
-	{ var = "enemyRadius", type = "integer", label = "Enemy radius:", ifSkill = { "Seismic Trap", "Lightning Spire Trap", "Explosive Trap", "Molten Strike" }, includeTransfigured = true, tooltip = "Configure the radius of an enemy hitbox to calculate some area overlapping (shotgunning) effects.", apply = function(val, modList, enemyModList)
+	{ var = "enemyRadius", type = "integer", label = "Enemy radius:", ifSkill = { "Seismic Trap", "Lightning Spire Trap", "Explosive Trap", "Molten Strike", "Ball Lightning" }, includeTransfigured = true, tooltip = "Configure the radius of an enemy hitbox to calculate some area overlapping (shotgunning) effects.", apply = function(val, modList, enemyModList)
 		modList:NewMod("EnemyRadius", "OVERRIDE", m_max(val, 1), "Config")
 	end },
 	{ var = "TotalMinionLife", type = "integer", label = "Minion Life override:", ifMod = "takenFromMinionBeforeYou", tooltip = "Overrides the automatically calculated Life of the minion supported by Companionship.", apply = function(val, modList, enemyModList)
@@ -1748,6 +1759,21 @@ Huge sets the radius to 11.
 	end },
 	{ var = "buffLesserResistanceShrine", type = "check", label = "Have Lesser Resistance Shrine?", ifFlag = "Condition:CanHaveLesserShrines", tooltip = "This will enable the Lesser Resistance Shrine buff.\n\t+25% to all Elemental Resistances\n\t+2% to all maximum Resistances", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:LesserResistanceShrine", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "buffBloodShrineOfRats", type = "check", label = "Have Blood Shrine of Rats?", ifFlag = "Condition:CanHaveBloodShrines", tooltip = "This will enable the Blood Shrine of Rats buff.\n\tGain 30% of Elemental Damage as Extra Chaos Damage", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:BloodShrineOfRats", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "buffBloodShrineOfLocusts", type = "check", label = "Have Blood Shrine of Locusts?", ifFlag = "Condition:CanHaveBloodShrines", tooltip = "This will enable the Blood Shrine of Locusts buff.\n\t+30% to Damage over Time Multiplier", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:BloodShrineOfLocusts", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "buffBloodShrineOfToads", type = "check", label = "Have Blood Shrine of Toads?", ifFlag = "Condition:CanHaveBloodShrines", tooltip = "This will enable the Blood Shrine of Toads buff.\n\tExplosive Toad has an additional 25% chance to Trigger when you kill an Enemy", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:BloodShrineOfToads", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "buffBloodShrineOfCrows", type = "check", label = "Have Blood Shrine of Crows?", ifFlag = "Condition:CanHaveBloodShrines", tooltip = "This will enable the Blood Shrine of Crows buff.\n\t+50% to Chaos Resistance\n\t10% of Elemental Damage taken as Chaos Damage\n\t10% of Physical Damage taken as Chaos Damage", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:BloodShrineOfCrows", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "buffBloodShrineOfBats", type = "check", label = "Have Blood Shrine of Bats?", ifFlag = "Condition:CanHaveBloodShrines", tooltip = "This will enable the Blood Shrine of Bats buff.\n\tCurse Enemies with Enfeeble on Hit\n\tYou can apply an additional Curse", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:BloodShrineOfBats", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	-- Section: Effective DPS options
 	{ section = "For Effective DPS", col = 1 },

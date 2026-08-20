@@ -11,6 +11,7 @@ local m_sqrt = math.sqrt
 local s_format = string.format
 
 return function(modDB, output, actor)
+	---@class Breakdown
 	local breakdown = {}
 
 	function breakdown.multiChain(out, chain)
@@ -91,12 +92,15 @@ return function(modDB, output, actor)
 		})
 	end
 
-	function breakdown.area(base, areaMod, total, incBreakpoint, moreBreakpoint, redBreakpoint, lessBreakpoint, label)
+	function breakdown.area(base, areaMod, total, incBreakpoint, moreBreakpoint, redBreakpoint, lessBreakpoint, label, radiusMod)
 		local out = {}
 		t_insert(out, label)
 		if base ~= total then
 			t_insert(out, s_format("%.1fm ^8(base radius)", base / 10))
 			t_insert(out, s_format("x %.2f ^8(square root of area of effect modifier)", m_floor(100 * m_sqrt(areaMod)) / 100))
+			if radiusMod and radiusMod ~= 1 then
+				t_insert(out, s_format("x %.2f ^8(final radius modifier)", radiusMod))
+			end
 			t_insert(out, s_format("= %.1fm", total / 10))
 		end
 		if incBreakpoint and moreBreakpoint and redBreakpoint and lessBreakpoint then

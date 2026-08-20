@@ -29,7 +29,7 @@ function CalcsTabClass:CalcsTab(build)
 
 	self.build = build
 
-	self.calcs = LoadModule("Modules/Calcs")
+	self.calcs = require("Modules.Calcs")
 
 	self.input = { }
 	self.input.skill_number = 1
@@ -393,7 +393,7 @@ function CalcsTabClass:SetDisplayStat(displayData, pin)
 	self.controls.breakdown:SetBreakdownData(displayData, pin)
 end
 
-function CalcsTabClass:CheckFlag(obj, actor)
+function CalcsTabClass:CheckFlag(obj, actor, player)
 	actor = actor or (self.input.showMinion and self.calcsEnv.minion or self.calcsEnv.player)
 	local skillFlags = actor.mainSkill.skillFlags
 	if obj.flag and not skillFlags[obj.flag] then
@@ -406,7 +406,7 @@ function CalcsTabClass:CheckFlag(obj, actor)
 			end
 		end
 	end
-	if obj.playerFlag and not self.calcsEnv.player.mainSkill.skillFlags[obj.playerFlag] then
+	if obj.playerFlag and not (player or self.calcsEnv.player).mainSkill.skillFlags[obj.playerFlag] then
 		return
 	end
 	if obj.notFlag and skillFlags[obj.notFlag] then
@@ -467,8 +467,8 @@ function CalcsTabClass:BuildOutput()
 	end
 	
 	-- Retrieve calculator functions
-	self.nodeCalculator = { self.calcs.getNodeCalculator(self.build) }
-	self.miscCalculator = { self.calcs.getMiscCalculator(self.build) }
+	local miscCalcFunc, miscCalcBase = self.calcs.getMiscCalculator(self.build)
+	self.miscCalculator = { miscCalcFunc, miscCalcBase }
 end
 
 -- Controls the coroutine that calculates node power
@@ -757,12 +757,8 @@ function CalcsTabClass:CalculateCombinedOffDefStat(original, modified)
 	return dpsIncr / modifiedDps, defence
 end
 
-function CalcsTabClass:GetNodeCalculator()
-	return unpack(self.nodeCalculator)
-end
-
 function CalcsTabClass:GetMiscCalculator()
-	return unpack(self.miscCalculator)
+	return self.miscCalculator[1], self.miscCalculator[2]
 end
 
 function CalcsTabClass:CreateUndoState()

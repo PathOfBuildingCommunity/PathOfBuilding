@@ -110,6 +110,7 @@ for _, curInfluenceInfo in ipairs(influenceInfo) do
 	influenceItemMap[curInfluenceInfo.display.." Item"] = curInfluenceInfo.key
 end
 
+---@enum (key) LineFlags
 local lineFlags = {
 	["crafted"] = true,
 	["crucible"] = true,
@@ -406,6 +407,19 @@ function ItemClass:NormaliseVariantSelections()
 	end
 end
 
+---@class ModLine A modifier line on an item. An in-game mod can translate to multiple ModLines.
+---@field modList Mod[]
+---@field line string The actual text for the line. This might describe a range of values, in which case applyRange() can be used with this and the range value to get a ranged line.
+---@field range number?
+---@field extra string?
+---@field valueScalar number?
+---@field [LineFlags] boolean?
+---@field modTags string[]?
+---@field variantList table<number, boolean>?
+---@field versionList table<number, boolean>?
+---@field variantGroupList table<number, boolean>?
+---@field modId string?
+
 -- Parse raw item data and extract item name, base type, quality, and modifiers
 function ItemClass:ParseRaw(raw, rarity, highQuality)
 	self.raw = raw
@@ -472,11 +486,16 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 	self.sockets = { }
 	self.classRequirementModLines = { }
 	self.buffModLines = { }
+	---@type ModLine[]
 	self.enchantModLines = { }
-	self.scourgeModLines = { }
-	self.implicitModLines = { }
-	self.explicitModLines = { }
-	self.crucibleModLines = { }
+	---@type ModLine[]
+	self.scourgeModLines = {}
+	---@type ModLine[]
+	self.implicitModLines = {}
+	---@type ModLine[]
+	self.explicitModLines = {}
+	---@type ModLine[]
+	self.crucibleModLines = {}
 	-- old items or trade-sourced items have increases to modifiers baked in to the item text, which
 	-- means that we can't add e.g. quality or mod magnitude effect to them during parsing. we will
 	-- assume an item to be an advanced copy format if either has mod roll information, a modifier
@@ -849,6 +868,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 				gameModeStage = "EXPLICIT"
 			end
 			if not specName or foundExplicit or foundImplicit then
+				---@type ModLine
 				local modLine = { modTags = {} }
 
 				line = line:gsub("{(%a*):?([^}]*)}", function(k,val)
@@ -1394,6 +1414,18 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 						if mod.variantList and (self:GetModLineVariantCount(mod) == 0) then
 							goto modMagnitudeContinue
 						end
+						-- Modifiers that grant skills are not affected by modifier magnitude.
+						local grantsSkill = false
+						for _, parsedMod in ipairs(mod.modList) do
+							if parsedMod.name == "ExtraSkill" then
+								grantsSkill = true
+								break
+							end
+						end
+						if mod.extra and not grantsSkill then
+							local line = mod.line:lower()
+							grantsSkill = line:match("^grants level %d+ ") or line:match("^grants %D+$")
+						end
 						-- Create a fast lookup table for all provided tags
 						local tagLookup = {}
 						for _, curTag in ipairs(mod.modTags) do
@@ -1414,7 +1446,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 						if modMagnitudeMod.anyTags and not (tagLookup[modMagnitudeMod.anyTags[1]] or tagLookup[modMagnitudeMod.anyTags[2]]) then
 							match = false
 						end
-						if match and not mod.unscalable then
+						if match and not mod.unscalable and not grantsSkill then
 							if modMagnitudeMod.multiplier then
 								mod.valueScalar = (mod.valueScalar or 1) * modMagnitudeMod.multiplier
 							else
@@ -1424,9 +1456,11 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 						if mod.valueScalar and mod.valueScalar ~= 1 then
 							local rangedLine = itemLib.applyRange(mod.line, mod.range or 1, mod.valueScalar, 1)
 							local modList, extra = modLib.parseMod(rangedLine)
-							mod.displayValueScalar = 1
-							mod.modList = modList
-							mod.extra = extra
+							if modList then
+								mod.displayValueScalar = 1
+								mod.modList = modList
+								mod.extra = extra
+							end
 						end
 						::modMagnitudeContinue::
 					end
@@ -1603,6 +1637,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 	if deferJewelRadiusIndexAssignment then
 		self.jewelRadiusIndex = self.jewelData.radiusIndex
 	end
+	self.isUnique = self.rarity == "UNIQUE" or self.rarity == "RELIC"
 end
 
 ---@param modId string The id which will be present on the removed mod lines
@@ -2149,6 +2184,11 @@ end
 -- Calculate local modifiers, and removes them from the modifier list
 -- To be considered local, a modifier must be an exact flag match, and cannot have any tags (e.g. conditions, multipliers)
 -- Only the InSlot tag is allowed (for Adds x to x X Damage in X Hand modifiers)
+---@param modList any
+---@param name string
+---@param type "FLAG"|"MORE"|"BASE"|"INC" other mod types not handled
+---@param flags integer
+---@return boolean|number
 local function calcLocal(modList, name, type, flags)
 	local result
 	if type == "FLAG" then
@@ -2237,6 +2277,10 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 			self.quality = (self.quality or 0) - self.craftedQuality + craftedQuality
 		end
 		self.craftedQuality = craftedQuality
+	end
+	self.corruptImplicitCount = calcLocal(modList, "CorruptImplicitCount", "BASE", 0)
+	if self.corruptImplicitCount == 0 then
+		self.corruptImplicitCount = nil
 	end
 	if self.quality then
 		modList:NewMod("Multiplier:QualityOn"..slotName, "BASE", self.quality, "Quality")
@@ -2341,9 +2385,13 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 			armourData.WardBasePercentile = round(m_max(m_min(armourData.WardBasePercentile, 1), 0),4)
 		end
 
+		armourData.ArmourBase = round((self.base.armour.ArmourBaseMin or 0) + armourVariance * (armourData.ArmourBasePercentile or 1))
 		armourData.Armour = round((armourBase + armourEvasionBase + armourEnergyShieldBase + armourVariance * (armourData.ArmourBasePercentile or 1)) * (1 + (armourInc + armourEvasionInc + armourEnergyShieldInc + defencesInc) / 100) * (1 + (qualityScalar / 100)))
+		armourData.EvasionBase = round((self.base.armour.EvasionBaseMin or 0) + evasionVariance * (armourData.EvasionBasePercentile or 1))
 		armourData.Evasion = round((evasionBase + armourEvasionBase + evasionEnergyShieldBase + evasionVariance * (armourData.EvasionBasePercentile or 1)) * (1 + (evasionInc + armourEvasionInc + evasionEnergyShieldInc + defencesInc) / 100) * (1 + (qualityScalar / 100)))
+		armourData.EnergyShieldBase = round((self.base.armour.EnergyShieldBaseMin or 0) + energyShieldVariance * (armourData.EnergyShieldBasePercentile or 1))
 		armourData.EnergyShield = round((energyShieldBase + evasionEnergyShieldBase + armourEnergyShieldBase + energyShieldVariance * (armourData.EnergyShieldBasePercentile or 1)) * (1 + (energyShieldInc + armourEnergyShieldInc + evasionEnergyShieldInc + defencesInc) / 100) * (1 + (qualityScalar / 100)))
+		armourData.WardBase = round((self.base.armour.WardBaseMin or 0) + wardVariance * (armourData.WardBasePercentile or 1))
 		armourData.Ward = round((wardBase + wardVariance * (armourData.WardBasePercentile or 1)) * (1 + (wardInc + defencesInc) / 100) * (1 + (qualityScalar / 100)))
 
 		if not armourData.ArmourBasePercentile and armourData.Armour > 0 then

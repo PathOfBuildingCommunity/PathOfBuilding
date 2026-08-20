@@ -12,7 +12,7 @@ local m_ceil = math.ceil
 
 ---@class Calcs
 local calcs = require("Modules.CalcBase")
-calcs.breakdownModule = "Modules/CalcBreakdown"
+calcs.breakdownModule = "Modules.CalcBreakdown"
 require("Modules.CalcSetup")
 require("Modules.CalcPerform")
 require("Modules.CalcActiveSkill")
@@ -70,57 +70,22 @@ local function infoDump(env)
 	prettyPrintTable(env.player.output)
 end
 
--- Generate a function for calculating the effect of some modification to the environment
-local function getCalculator(build, fullInit, modFunc)
-	-- Initialise environment
-	local env, cachedPlayerDB, cachedEnemyDB, cachedMinionDB = calcs.initEnv(build, "CALCULATOR")
 
-	-- Run base calculation pass
-	calcs.perform(env)
-	local fullDPS = calcs.calcFullDPS(build, "CALCULATOR", {}, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = nil })
-	env.player.output.SkillDPS = fullDPS.skills
-	env.player.output.FullDPS = fullDPS.combinedDPS
-	env.player.output.FullDotDPS = fullDPS.TotalDotDPS
-	local baseOutput = env.player.output
-
-	env.modDB.parent = cachedPlayerDB
-	env.enemyDB.parent = cachedEnemyDB
-	if cachedMinionDB then
-		env.minion.modDB.parent = cachedMinionDB
-	end
-
-	return function(...)
-		-- Remove mods added during the last pass
-		wipeTable(env.modDB.mods)
-		wipeTable(env.modDB.conditions)
-		wipeTable(env.modDB.multipliers)
-		wipeTable(env.enemyDB.mods)
-		wipeTable(env.enemyDB.conditions)
-		wipeTable(env.enemyDB.multipliers)
-
-		-- Call function to make modifications to the environment
-		modFunc(env, ...)
-		
-		-- Run calculation pass
-		calcs.perform(env)
-		fullDPS = calcs.calcFullDPS(build, "CALCULATOR", {}, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = nil})
-		env.player.output.SkillDPS = fullDPS.skills
-		env.player.output.FullDPS = fullDPS.combinedDPS
-		env.player.output.FullDotDPS = fullDPS.TotalDotDPS
-
-		return env.player.output
-	end, baseOutput	
-end
-
--- Get fast calculator for adding tree node modifiers
-function calcs.getNodeCalculator(build)
-	return getCalculator(build, true, function(env, nodeList)
-		-- Build and merge modifiers for these nodes
-		env.modDB:AddList(calcs.buildModListForNodeList(env, nodeList))
-	end)
-end
+---@class CalcOverride
+---@field spec PassiveSpec?
+---@field addNodes table<Node|number, boolean>? A set of passive nodes. Only keyed by node id for anointed nodes.
+---@field removeNodes table<Node|number, boolean>? A set of passive nodes. Only keyed by node id for anointed nodes.
+---@field repSlotName string? The name of the replaced item slot
+---@field repItem Item?
+---@field toggleFlask Item? Item object used as a table key.
+---@field toggleTincture Item? Item object used as a table key.
+---@field conditions string[]?
+---@field extraJewelFuncs ModList?
 
 -- Get calculator for other changes (adding/removing nodes, items, gems, etc)
+---@param build Build
+---@return fun(override?: CalcOverride, useFullDPS?: boolean): Output calcFunc
+---@return Output output
 function calcs.getMiscCalculator(build)
 	-- Run base calculation pass
 	local env, cachedPlayerDB, cachedEnemyDB, cachedMinionDB = calcs.initEnv(build, "CALCULATOR")
@@ -391,6 +356,7 @@ end
 -- Process active skill
 function calcs.buildActiveSkill(env, mode, skill, targetUUID, limitedProcessingFlags)
 	local fullEnv, _, _, _ = calcs.initEnv(env.build, mode, env.override)
+	fullEnv.buildBreakdown = false
 
 	-- env.limitedSkills contains a map of uuids that should be limited in calculation
 	-- this is in order to prevent infinite recursion loops
@@ -770,6 +736,21 @@ function calcs.buildOutput(build, mode)
 		end
 		if env.modDB:Flag(nil, "LesserResistanceShrine") then
 			t_insert(combatList, "Lesser Resistance Shrine")
+		end
+		if env.modDB:Flag(nil, "BloodShrineOfRats") then
+			t_insert(combatList, "Blood Shrine of Rats")
+		end
+		if env.modDB:Flag(nil, "BloodShrineOfLocusts") then
+			t_insert(combatList, "Blood Shrine of Locusts")
+		end
+		if env.modDB:Flag(nil, "BloodShrineOfToads") then
+			t_insert(combatList, "Blood Shrine of Toads")
+		end
+		if env.modDB:Flag(nil, "BloodShrineOfCrows") then
+			t_insert(combatList, "Blood Shrine of Crows")
+		end
+		if env.modDB:Flag(nil, "BloodShrineOfBats") then
+			t_insert(combatList, "Blood Shrine of Bats")
 		end
 		for name in pairs(env.buffs) do
 			t_insert(buffList, name)

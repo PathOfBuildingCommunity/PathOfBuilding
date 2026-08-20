@@ -10,6 +10,10 @@ local t_remove = table.remove
 ---@class SharedItemListControl: ListControl
 local SharedItemListClass = newClass("SharedItemListControl", "ListControl")
 
+---@param anchor Anchor?
+---@param rect Rect?
+---@param itemsTab ItemsTab
+---@param forceTooltip boolean?
 function SharedItemListClass:SharedItemListControl(anchor, rect, itemsTab, forceTooltip)
 	self:ListControl(anchor, rect, 16, "VERTICAL", true, main.sharedItemList, forceTooltip)
 	self.itemsTab = itemsTab
