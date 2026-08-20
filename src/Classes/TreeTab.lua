@@ -255,7 +255,7 @@ function TreeTabClass:TreeTab(build)
 
 	-- Control for selecting the power stat to sort by (Defense, DPS, etc)
 	self.controls.treeHeatMapStatSelect = new("DropDownControl"):DropDownControl({ "LEFT", self.controls.nodePowerMaxDepthSelect, "RIGHT" }, { 8, 0, 150, 20 }, nil, function(index, value)
-		if value.isAction then
+		if value.action then
 			value.action()
 			if self.build.calcsTab.powerStat then
 				self.controls.treeHeatMapStatSelect:SelByValue(self.build.calcsTab.powerStat.stat, "stat")
@@ -1953,10 +1953,7 @@ function TreeTabClass:FindTimelessJewel()
 		end
 		local newList = { }
 		local function getStatValue(output)
-			if powerStat.getValue then
-				return powerStat.getValue(output, self.build, calcBase)
-			end
-			return data.powerStatList.GetFromOutput(output, powerStat)
+			return data.powerStatList.GetValue(output, powerStat, self.build, calcBase)
 		end
 		local basePower = getStatValue(calcBase)
 		for _, newNode in ipairs(nodes) do
@@ -2126,14 +2123,9 @@ function TreeTabClass:FindTimelessJewel()
 	local fallbackWeightsList = { }
 	for _, stat in ipairs(data.powerStatList) do
 		if not stat.ignoreForItems and stat.label ~= "Name" then
-			t_insert(fallbackWeightsList, {
-				label = "Sort by " .. stat.label,
-				stat = stat.stat,
-				transform = stat.transform,
-				getValue = stat.getValue,
-				requiresFullDPS = stat.requiresFullDPS,
-				isWeightedScore = stat.isWeightedScore,
-			})
+			local fallbackWeight = copyTable(stat)
+			fallbackWeight.label = "Sort by " .. stat.label
+			t_insert(fallbackWeightsList, fallbackWeight)
 		end
 	end
 	local activeFallbackWeightIndex = timelessData.fallbackWeightMode.idx or 1
@@ -2149,7 +2141,7 @@ function TreeTabClass:FindTimelessJewel()
 		end
 	end)
 	controls.fallbackWeightsList = new("DropDownControl"):DropDownControl({"TOPLEFT", controls.nodeSelect, "BOTTOMLEFT"}, {0, rowSpacing, 200, rowHeight}, fallbackWeightsList, function(index, value)
-		if value.isAction then
+		if value.action then
 			value.action()
 		else
 			activeFallbackWeightIndex = index

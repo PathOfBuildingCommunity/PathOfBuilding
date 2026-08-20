@@ -36,7 +36,7 @@ function NotableDBClass:NotableDBControl(anchor, rect, itemsTab, db, dbType)
 	self.sortOrder = { }
 	self.sortMode = "NAME"
 	self.controls.sort = new("DropDownControl"):DropDownControl({"BOTTOMLEFT",self,"TOPLEFT"}, {0, -22, 360, 18}, self.sortDropList, function(index, value)
-		if value.isAction then
+		if value.action then
 			value.action()
 			self.controls.sort:SelByValue(self.sortMode, "sortMode")
 		else
@@ -98,14 +98,10 @@ function NotableDBClass:BuildSortOrder()
 	wipeTable(self.sortDropList)
 	for id, stat in ipairs(data.powerStatList) do
 		if not stat.ignoreForItems then
-			t_insert(self.sortDropList, {
-				label="Sort by "..stat.label,
-				sortMode=stat.itemField or stat.stat,
-				itemField=stat.itemField,
-				stat=stat.stat,
-				transform=stat.transform,
-				isWeightedScore=stat.isWeightedScore,
-			})
+			local sortEntry = copyTable(stat)
+			sortEntry.label = "Sort by " .. stat.label
+			sortEntry.sortMode = stat.itemField or stat.stat
+			t_insert(self.sortDropList, sortEntry)
 		end
 	end
 	WeightedScore.appendEditWeightsAction(self.sortDropList, function()
@@ -127,6 +123,9 @@ function NotableDBClass:BuildSortOrder()
 end
 
 function NotableDBClass:CalculatePowerStat(selection, original, modified)
+	if selection.getValue then
+		return data.powerStatList.GetValue(original, selection, self.itemsTab.build, modified)
+	end
 	local originalValue = data.powerStatList.GetFromOutput(original, selection)
 	local modifiedValue = data.powerStatList.GetFromOutput(modified, selection)
 	return originalValue - modifiedValue
@@ -146,20 +145,14 @@ function NotableDBClass:ListBuilder()
 		local start = GetTime()
 		local calcFunc = self.itemsTab.build.calcsTab:GetMiscCalculator()
 		local itemType = self.itemsTab.displayItem.base.type
-		local weights = self.sortDetail.isWeightedScore and WeightedScore.getWeights(self.itemsTab.build)
-		local useFullDPS = self.sortDetail.stat == "FullDPS"
-			or (self.sortDetail.isWeightedScore and WeightedScore.weightsNeedFullDPS(weights))
+		local useFullDPS = data.powerStatList.RequiresFullDPS(self.sortDetail, self.itemsTab.build)
 		local calcBase = calcFunc({ repSlotName = itemType, repItem = self.itemsTab:anointItem(nil) }, useFullDPS)
 		self.sortMaxPower = 0
 		for nodeIndex, node in ipairs(list) do
 			node.measuredPower = 0
 			if node.modKey ~= "" then
 				local output = calcFunc({ repSlotName = itemType, repItem = self.itemsTab:anointItem(node) }, useFullDPS)
-				if self.sortDetail.isWeightedScore then
-					node.measuredPower = WeightedScore.computeRatioScore(calcBase, output, weights)
-				else
-					node.measuredPower = self:CalculatePowerStat(self.sortDetail, output, calcBase)
-				end
+				node.measuredPower = self:CalculatePowerStat(self.sortDetail, output, calcBase)
 				if node.measuredPower == m_huge then
 					t_insert(infinites, node)
 				else

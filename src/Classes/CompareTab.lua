@@ -983,14 +983,14 @@ function CompareTabClass:InitControls()
 		local tradeQuery = self.primaryBuild.itemsTab.tradeQuery
 		if tradeQuery then
 			tradeQuery:SetStatWeights(nil, function()
-				if self.comparePowerStat and self.comparePowerStat.isWeightedScore then
+				if self.comparePowerStat and self.comparePowerStat.stat == "WeightedScore" then
 					self.comparePowerDirty = true
 				end
 			end)
 		end
 	end)
 	self.controls.comparePowerStatSelect = new("DropDownControl"):DropDownControl(nil, {0, 0, 200, 20}, powerStatList, function(index, value)
-		if value and value.isAction then
+		if value and value.action then
 			value.action()
 		elseif value and value.stat and value ~= self.comparePowerStat then
 			self.comparePowerStat = value
@@ -2505,15 +2505,17 @@ end
 -- Coroutine: calculate power of compared build elements against primary build
 function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories)
 	local results = {}
-	local weightedScoreWeights = powerStat.isWeightedScore and WeightedScore.getWeights(self.primaryBuild)
-	local useFullDPS = powerStat.stat == "FullDPS"
-		or (powerStat.isWeightedScore and WeightedScore.weightsNeedFullDPS(weightedScoreWeights))
+	local useFullDPS = data.powerStatList.RequiresFullDPS(powerStat, self.primaryBuild)
+	local function getPowerCalculator()
+		local calcFunc, calcBase = self.calcs.getMiscCalculator(self.primaryBuild)
+		if useFullDPS then
+			calcBase = calcFunc(nil, true)
+		end
+		return calcFunc, calcBase
+	end
 
 	-- Get calculator for primary build
-	local calcFunc, calcBase = self.calcs.getMiscCalculator(self.primaryBuild)
-	if useFullDPS then
-		calcBase = calcFunc(nil, true)
-	end
+	local calcFunc, calcBase = getPowerCalculator()
 
 	-- Find display stat for formatting
 	local displayStat = nil
@@ -2616,8 +2618,7 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 	end
 
 	-- Get baseline stat value for percentage calculation
-	local baseStatValue = powerStat.getValue and powerStat.getValue(calcBase, self.primaryBuild, calcBase)
-		or data.powerStatList.GetFromOutput(calcBase, powerStat)
+	local baseStatValue = data.powerStatList.GetValue(calcBase, powerStat, self.primaryBuild, calcBase)
 
 	-- Helper to format an impact value and compute percentage
 	local function formatImpact(impact)
@@ -2913,10 +2914,7 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 				self.primaryBuild.buildFlag = true
 
 				-- Get a fresh calculator with the added group (pcall to guarantee cleanup)
-				local ok, gemCalcFunc, gemCalcBase = pcall(function()
-					local calcFunc, calcBase = self.calcs.getMiscCalculator(self.primaryBuild)
-					return calcFunc, useFullDPS and calcFunc(nil, true) or calcBase
-				end)
+				local ok, gemCalcFunc, gemCalcBase = pcall(getPowerCalculator)
 
 				-- Always remove the temporarily added group
 				t_remove(pGroups)
@@ -2997,10 +2995,7 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 						t_insert(pMainGroup.gemList, tempGem)
 						self.primaryBuild.buildFlag = true
 
-						local ok, sgCalcFunc, sgCalcBase = pcall(function()
-							local calcFunc, calcBase = self.calcs.getMiscCalculator(self.primaryBuild)
-							return calcFunc, useFullDPS and calcFunc(nil, true) or calcBase
-						end)
+						local ok, sgCalcFunc, sgCalcBase = pcall(getPowerCalculator)
 
 						-- Always remove the temporarily added gem
 						t_remove(pMainGroup.gemList)
@@ -3068,8 +3063,7 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 					local ok, cfgCalcFunc, cfgCalcBase = pcall(function()
 						self.primaryBuild.configTab:BuildModList()
 						self.primaryBuild.buildFlag = true
-						local calcFunc, calcBase = self.calcs.getMiscCalculator(self.primaryBuild)
-						return calcFunc, useFullDPS and calcFunc(nil, true) or calcBase
+						return getPowerCalculator()
 					end)
 
 					-- Always restore original value

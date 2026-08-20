@@ -312,14 +312,14 @@ describe("Abyss timeless jewels", function()
 		local weightedIndex
 		local weightedCount = 0
 		for index, entry in ipairs(control.list) do
-			if entry.isWeightedScore then
+			if entry.stat == "WeightedScore" then
 				weightedIndex = index
 				weightedCount = weightedCount + 1
 			end
 		end
 		assert.are.equal(1, weightedCount)
 		assert.is_truthy(weightedIndex)
-		assert.is_true(control.list[weightedIndex + 1].isAction)
+		assert.is_function(control.list[weightedIndex + 1].action)
 		assert.is_true(data.powerStatList.RequiresFullDPS(control.list[weightedIndex], build))
 
 		local opened = false

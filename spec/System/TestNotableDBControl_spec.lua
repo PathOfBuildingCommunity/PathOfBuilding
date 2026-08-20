@@ -26,12 +26,20 @@ describe("NotableDBControl", function()
 			},
 		}
 		local control = new("NotableDBControl"):NotableDBControl(nil, { 0, 0, 100, 100 }, itemsTab, { [1] = notable }, "ANNOINT")
-		control.sortDetail = { stat = "WeightedScore", isWeightedScore = true }
+		for _, stat in ipairs(data.powerStatList) do
+			if stat.stat == "WeightedScore" then
+				control.sortDetail = copyTable(stat)
+				break
+			end
+		end
 		control.sortOrder = { control.sortControl.STAT, control.sortControl.NAME }
 
 		control:ListBuilder()
 
 		assert.are.same({ true, true }, requestedFullDPS)
 		assert.are.equal(notable, control.list[1])
+		assert.is_true(notable.measuredPower > 0)
+		assert.are.equal(notable.measuredPower, control.sortMaxPower)
+		assert.are.equal("^xFF8080Full DPS Notable", control:GetRowValue(1, 1, notable))
 	end)
 end)

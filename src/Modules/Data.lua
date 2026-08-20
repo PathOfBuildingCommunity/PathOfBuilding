@@ -124,6 +124,9 @@ end
 ---@field ignoreForNodes? boolean
 ---@field ignoreForItems? boolean
 ---@field reverseSort? boolean
+---@field itemField? string
+---@field requiresFullDPS? boolean|fun(build?: table): boolean
+---@field getValue? fun(output: any, build?: table, calcBase?: table): number
 
 ---@type StatTable[]
 data.powerStatList = {
@@ -246,7 +249,7 @@ local minionNonApplicableStats = {
 }
 for i = 1, #data.powerStatList do
 	local statEntry = data.powerStatList[i]
-	if (not statEntry.stat) or statEntry.isWeightedScore or statEntry.stat:match("DPS") or minionNonApplicableStats[statEntry.stat] then
+	if (not statEntry.stat) or statEntry.stat == "WeightedScore" or statEntry.stat:match("DPS") or minionNonApplicableStats[statEntry.stat] then
 		goto statContinue
 	end
 	local minionStat = copyTable(statEntry)
@@ -258,7 +261,6 @@ end
 t_insert(data.powerStatList, {
 	stat="WeightedScore",
 	label="Weighted Score",
-	isWeightedScore=true,
 	requiresFullDPS=function(build)
 		return WeightedScore.weightsNeedFullDPS(WeightedScore.getWeights(build))
 	end,

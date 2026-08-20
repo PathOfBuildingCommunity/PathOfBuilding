@@ -687,7 +687,7 @@ function TradeQueryClass:SetStatWeights(previousSelectionList, onSave)
 		{ -410, 45, 400, listHeight }, statList, sliderController)
 
 	for _, stat in ipairs(data.powerStatList) do
-		if not stat.ignoreForItems and stat.label ~= "Name" and not stat.isWeightedScore then
+		if not stat.ignoreForItems and stat.label ~= "Name" and stat.stat ~= "WeightedScore" then
 			t_insert(statList, {
 				label = "0      :  "..stat.label,
 				stat = {

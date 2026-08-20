@@ -72,7 +72,7 @@ local function buildModSortList()
 	local sortStats = { }
 	for _, entry in ipairs(data.powerStatList) do
 		if entry.stat and not entry.ignoreForNodes then
-			t_insert(sortList, { label = entry.label, stat = entry.stat, isWeightedScore = entry.isWeightedScore })
+			t_insert(sortList, { label = entry.label, stat = entry.stat })
 			sortStats[entry.stat] = entry
 		end
 	end
@@ -742,7 +742,7 @@ holding Shift will put it in the second.]])
 			not (self.displayItem.base.type == "Jewel" and self.displayItem.base.subType == "Cluster")
 	end
 	self.controls.craftingSorting = new("DropDownControl"):DropDownControl({ "LEFT", self.controls.craftingSortingLabel, "RIGHT" }, { 4, 0, 200, 20 }, sortingOptions, function(index, value)
-		if value.isAction then
+		if value.action then
 			value.action()
 		else
 			activeCraftingSort = value

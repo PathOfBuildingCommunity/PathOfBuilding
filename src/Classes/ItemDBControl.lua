@@ -39,7 +39,7 @@ function ItemDBClass:ItemDBControl(anchor, rect, itemsTab, db, dbType)
 	end)
 	if dbType == "UNIQUE" then
 		self.controls.sort = new("DropDownControl"):DropDownControl({"BOTTOMLEFT",self,"TOPLEFT"}, {0, baseY + 20, 179, 18}, self.sortDropList, function(index, value)
-			if value.isAction then
+			if value.action then
 				value.action()
 				self.controls.sort:SelByValue(self.sortMode, "sortMode")
 			else
@@ -215,14 +215,10 @@ function ItemDBClass:BuildSortOrder()
 	wipeTable(self.sortDropList)
 	for id, stat in ipairs(data.powerStatList) do
 		if not stat.ignoreForItems then
-			t_insert(self.sortDropList, {
-				label="Sort by "..stat.label,
-				sortMode=stat.itemField or stat.stat,
-				itemField=stat.itemField,
-				stat=stat.stat,
-				transform=stat.transform,
-				isWeightedScore=stat.isWeightedScore,
-			})
+			local sortEntry = copyTable(stat)
+			sortEntry.label = "Sort by " .. stat.label
+			sortEntry.sortMode = stat.itemField or stat.stat
+			t_insert(self.sortDropList, sortEntry)
 		end
 	end
 	WeightedScore.appendEditWeightsAction(self.sortDropList, function()
@@ -252,29 +248,8 @@ function ItemDBClass:ListBuilder()
 		end
 	end
 
-	if self.sortDetail and self.sortDetail.isWeightedScore then
-		local start = GetTime()
-		local calcFunc, calcBase = self.itemsTab.build.calcsTab:GetMiscCalculator(self.build)
-		local weights = WeightedScore.getWeights(self.itemsTab.build)
-		local useFullDPS = WeightedScore.weightsNeedFullDPS(weights)
-		for itemIndex, item in ipairs(list) do
-			item.measuredPower = -math.huge
-			for slotName, slot in pairs(self.itemsTab.slots) do
-				if self.itemsTab:IsItemValidForSlot(item, slotName) and not slot.inactive and (not slot.weaponSet or slot.weaponSet == (self.itemsTab.activeItemSet.useSecondWeaponSet and 2 or 1)) then
-					local output = calcFunc(item.base.flask and { toggleFlask = item } or item.base.tincture and { toggleTincture = item } or { repSlotName = slotName, repItem = item }, useFullDPS)
-					local score = WeightedScore.computeRatioScore(calcBase, output, weights)
-					item.measuredPower = m_max(item.measuredPower, score)
-				end
-			end
-			local now = GetTime()
-			if now - start > 50 then
-				self.defaultText = "^7Sorting... ("..m_floor(itemIndex/#list*100).."%)"
-				coroutine.yield()
-				start = now
-			end
-		end
-	elseif self.sortDetail and self.sortDetail.stat then -- stat-based
-		local useFullDPS = self.sortDetail.stat == "FullDPS"
+	if self.sortDetail and self.sortDetail.stat then -- stat-based
+		local useFullDPS = data.powerStatList.RequiresFullDPS(self.sortDetail, self.itemsTab.build)
 		local start = GetTime()
 		local calcFunc, calcBase = self.itemsTab.build.calcsTab:GetMiscCalculator(self.build)
 		for itemIndex, item in ipairs(list) do
@@ -282,7 +257,7 @@ function ItemDBClass:ListBuilder()
 			for slotName, slot in pairs(self.itemsTab.slots) do
 				if self.itemsTab:IsItemValidForSlot(item, slotName) and not slot.inactive and (not slot.weaponSet or slot.weaponSet == (self.itemsTab.activeItemSet.useSecondWeaponSet and 2 or 1)) then
 					local output = calcFunc(item.base.flask and { toggleFlask = item } or item.base.tincture and { toggleTincture = item } or { repSlotName = slotName, repItem = item }, useFullDPS)
-					local measuredPower = data.powerStatList.GetFromOutput(output, self.sortDetail)
+					local measuredPower = data.powerStatList.GetValue(output, self.sortDetail, self.itemsTab.build, calcBase)
 					item.measuredPower = m_max(item.measuredPower, measuredPower)
 				end
 			end

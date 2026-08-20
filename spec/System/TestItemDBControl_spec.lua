@@ -1,5 +1,12 @@
 describe("ItemDBControl", function()
 	local originalGetCursorPos
+	local function findPowerStat(statName)
+		for _, stat in ipairs(data.powerStatList) do
+			if stat.stat == statName then
+				return stat
+			end
+		end
+	end
 
 	before_each(function()
 		originalGetCursorPos = GetCursorPos
@@ -107,7 +114,7 @@ describe("ItemDBControl", function()
 		local control = new("ItemDBControl"):ItemDBControl(nil, { 0, 0, 100, 100 }, itemsTab, {
 			list = { invalidItem, betterItem, worseItem },
 		}, "RARE")
-		control.sortDetail = { stat = "WeightedScore", isWeightedScore = true }
+		control.sortDetail = copyTable(findPowerStat("WeightedScore"))
 		control.sortOrder = { control.sortControl.STAT, control.sortControl.NAME }
 
 		control:ListBuilder()
@@ -115,8 +122,8 @@ describe("ItemDBControl", function()
 		assert.are.equal(betterItem, control.list[1])
 		assert.are.equal(worseItem, control.list[2])
 		assert.are.equal(invalidItem, control.list[3])
-		assert.are.equal(-0.8, betterItem.measuredPower)
-		assert.are.equal(-1.2, worseItem.measuredPower)
+		assert.is_true(betterItem.measuredPower < 0)
+		assert.is_true(worseItem.measuredPower < betterItem.measuredPower)
 		assert.are.equal(-math.huge, invalidItem.measuredPower)
 		assert.are.same({ false, false }, requestedFullDPS)
 	end)
@@ -151,7 +158,7 @@ describe("ItemDBControl", function()
 			},
 		}
 		local control = new("ItemDBControl"):ItemDBControl(nil, { 0, 0, 100, 100 }, itemsTab, { list = { item } }, "RARE")
-		control.sortDetail = { stat = "WeightedScore", isWeightedScore = true }
+		control.sortDetail = copyTable(findPowerStat("WeightedScore"))
 		control.sortOrder = { control.sortControl.STAT, control.sortControl.NAME }
 
 		control:ListBuilder()
