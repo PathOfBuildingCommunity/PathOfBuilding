@@ -50,8 +50,9 @@ function RadiusJewelDetailListClass:Draw(viewPort)
 	local cursorX, cursorY = GetCursorPos()
 	if hoverLine.item then
 		SetDrawLayer(nil, 100)
-		self.itemTooltip:Clear(true)
-		self.build.itemsTab:AddItemTooltip(self.itemTooltip, hoverLine.item)
+		if self.itemTooltip:CheckForUpdate(hoverLine.item, IsKeyDown("SHIFT"), launch.devModeAlt, self.build.outputRevision) then
+			self.build.itemsTab:AddItemTooltip(self.itemTooltip, hoverLine.item)
+		end
 		local ttW, ttH = self.itemTooltip:GetSize()
 		local ttX, ttY = placeTooltip(viewPort, ttW, ttH, cursorX, cursorY)
 		self.itemTooltip:Draw(ttX, ttY, nil, nil, viewPort)
@@ -90,11 +91,13 @@ function RadiusJewelDetailListClass:Draw(viewPort)
 	SetViewport()
 
 	SetDrawLayer(nil, 100)
-	self.nodeTooltip:Clear(true)
-	local prevShowStatDifferences = self.socketViewer.showStatDifferences
-	self.socketViewer.showStatDifferences = true
-	self.socketViewer:AddNodeTooltip(self.nodeTooltip, node, self.build)
-	self.socketViewer.showStatDifferences = prevShowStatDifferences
+	if self.nodeTooltip:CheckForUpdate(node, true, self.socketViewer.tracePath, launch.devModeAlt,
+		self.build.outputRevision, self.build.spec.allocMode) then
+		local prevShowStatDifferences = self.socketViewer.showStatDifferences
+		self.socketViewer.showStatDifferences = true
+		self.socketViewer:AddNodeTooltip(self.nodeTooltip, node, self.build)
+		self.socketViewer.showStatDifferences = prevShowStatDifferences
+	end
 	local ttW, ttH = self.nodeTooltip:GetSize()
 	local ttX, ttY = placeTooltip(viewPort, ttW, ttH, cursorX, cursorY, { viewerRect })
 	self.nodeTooltip:Draw(ttX, ttY, nil, nil, viewPort)

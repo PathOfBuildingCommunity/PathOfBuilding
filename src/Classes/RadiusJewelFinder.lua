@@ -846,7 +846,7 @@ function RadiusJewelResultState:clear(isAllJewels, canFind)
 		or not canFind and (COL_META .. "Select a variant for Find, or click Compute")
 		or (COL_META .. "Click Find to search")
 	self.controls.statusLabel.label = message
-	self.controls.resultsList:SetMode("message", { }, message)
+	self.controls.resultsList:SetMode("message", { }, "")
 end
 
 function RadiusJewelResultState:showCriteriaChanged(isAllJewels, canFind)
@@ -857,7 +857,7 @@ function RadiusJewelResultState:showCriteriaChanged(isAllJewels, canFind)
 		or "^xFFAA33Criteria changed. ^8Run Find or Compute again."
 	self.controls.statusLabel.label = message
 	if self.controls.resultsList.mode == "message" or #self.controls.resultsList.list == 0 then
-		self.controls.resultsList:SetMode("message", { }, message)
+		self.controls.resultsList:SetMode("message", { }, "")
 	end
 end
 
@@ -1023,11 +1023,14 @@ function RadiusJewelResultActions:applyTooltip(tooltip)
 		tooltip:AddLine(16, "^8" .. itemName .. " is already equipped in " .. plan.targetSocketLabel .. ".")
 	else
 		tooltip:AddLine(16, "^7" .. ACTION_LABELS[plan.kind] .. " ^x33FF77" .. itemName .. " ^7in ^x33FF77" .. plan.targetSocketLabel)
-		if plan.sourceItemId then
-			local source = plan.sourceSocketId and plan.sourceSocketLabel or "Items"
-			tooltip:AddLine(16, "^7Source: ^x33FF77" .. plan.sourceItemLabel .. " ^7in " .. source)
+		if not plan.sourceItemId then
+			tooltip:AddLine(16, "^7Current location: ^8Not in build")
+		elseif not plan.sourceSocketId then
+			tooltip:AddLine(16, "^7Current location: Items")
+		elseif plan.sourceSocketId == plan.targetSocketId then
+			tooltip:AddLine(16, "^7Current location: This socket")
 		else
-			tooltip:AddLine(16, "^7Source: ^x33FF77New jewel")
+			tooltip:AddLine(16, "^7Current location: " .. plan.sourceSocketLabel)
 		end
 		if plan.replacedTargetId then
 			tooltip:AddLine(16, "^xFFAA33Replaces: ^7" .. plan.replacedTargetLabel .. " in " .. plan.targetSocketLabel)
@@ -1077,9 +1080,7 @@ function RadiusJewelResultPresentation:new(finder, controls, socketViewer, layou
 		finder = finder,
 		controls = controls,
 		layout = layout,
-		previewListData = { },
 		resultDetailListData = { },
-		compactPreview = false,
 	}, self)
 	presentation:createControls(socketViewer)
 	presentation:updateResultDetails(nil)
@@ -1165,158 +1166,95 @@ function RadiusJewelResultPresentation:buildGenericTypeTooltipLines(request)
 	return genericLines
 end
 
-function RadiusJewelResultPresentation:getPreviewListHeight()
-	return self.compactPreview and 48 or 180
-end
-
-function RadiusJewelResultPresentation:getResultDetailLabelY()
-	return self.layout.y + self:getPreviewListHeight() + 6
-end
-
-function RadiusJewelResultPresentation:getResultDetailListY()
-	return self:getResultDetailLabelY() + 18
+function RadiusJewelResultPresentation:resetResultDetailScroll()
+	self.controls.resultDetailList.controls.scrollBar:SetOffset(0)
 end
 
 function RadiusJewelResultPresentation:updateResultDetails(row)
 	wipeTable(self.resultDetailListData)
 	if not row then
 		t_insert(self.resultDetailListData, { height = 16, [1] = COL_META .. "Select a result to view details." })
+		self:resetResultDetailScroll()
 		return
 	end
-	t_insert(self.resultDetailListData, { height = 16, [1] = "^7Socket: " .. (row.socketLabel or "(n/a)") })
+	local actionPlan = row.actionPlan
+	local jewelName = actionPlan and actionPlan.targetIdentity.uniqueName or row.jewelName or "jewel"
+	t_insert(self.resultDetailListData, { height = 16, [1] = "^7Jewel: ^x33FF77" .. jewelName })
 	if row.variantLabel and row.variantLabel ~= "" then
 		t_insert(self.resultDetailListData, { height = 16, [1] = "^7Variant: " .. row.variantLabel })
 	end
-	local actionPlan = row.actionPlan
-	local action = actionPlan and actionPlan.kind or row.action
-	if actionPlan and not actionPlan.targetSocketAllocated then
-		t_insert(self.resultDetailListData, { height = 16, [1] = "^xFFAA33This socket is unallocated and hidden from the Items panel." })
-		t_insert(self.resultDetailListData, { height = 16, [1] = "^8Add to build keeps the jewel in the item list; placement uses the hidden socket." })
+	t_insert(self.resultDetailListData, { height = 16, [1] = "^7Socket: " .. (row.socketLabel or "(n/a)") })
+	if actionPlan then
+		local currentLocation
+		if not actionPlan.sourceItemId then
+			currentLocation = "^8Not in build"
+		elseif not actionPlan.sourceSocketId then
+			currentLocation = "^7Items"
+		elseif actionPlan.sourceSocketId == actionPlan.targetSocketId then
+			currentLocation = "^7This socket"
+		else
+			currentLocation = "^7" .. actionPlan.sourceSocketLabel
+		end
+		t_insert(self.resultDetailListData, { height = 16, [1] = "^7Current location: " .. currentLocation })
 	end
+	local action = actionPlan and actionPlan.kind or row.action
 	local replacementItem = actionPlan and actionPlan.replacedTargetId
 		and self.finder.build.itemsTab.items[actionPlan.replacedTargetId]
 	if not replacementItem and (row.replacedItemLabel or row.storedUnallocatedItemLabel) then
 		local occupancy = self.finder:getSocketOccupancyInfo(row.socketId)
 		replacementItem = occupancy and occupancy.item
 	end
-	if actionPlan and actionPlan.sourceItemId then
-		local sourceText = actionPlan.sourceSocketId
-			and (actionPlan.sourceItemLabel .. " in " .. actionPlan.sourceSocketLabel)
-			or (actionPlan.sourceItemLabel .. " from Items")
-		t_insert(self.resultDetailListData, { height = 16, [1] = "^7Source: ^x33FF77" .. sourceText })
-	elseif actionPlan then
-		t_insert(self.resultDetailListData, { height = 16, [1] = "^7Source: ^x33FF77New " .. (actionPlan.targetIdentity.uniqueName or "jewel") })
+	local replacementLabel = actionPlan and actionPlan.replacedTargetLabel
+		or row.replacedItemLabel or row.storedUnallocatedItemLabel
+	if action == "replace" then
+		replacementLabel = replacementLabel or "?"
 	end
-	if action == "equipped" then
-		t_insert(self.resultDetailListData, { height = 16, [1] = "^8Already equipped" })
-	elseif action == "move" then
-		t_insert(self.resultDetailListData, { height = 16, [1] = "^x33AAFFMove equipped jewel" })
-		if actionPlan and actionPlan.replacedTargetLabel then
-			t_insert(self.resultDetailListData, { height = 16, [1] = "^xFFAA33Will replace: ^7" .. actionPlan.replacedTargetLabel, item = replacementItem })
-		end
-	elseif action == "replace" then
-		t_insert(self.resultDetailListData, { height = 16, [1] = "^xFFAA33Use occupied socket" })
-		local replacementLabel = actionPlan and actionPlan.replacedTargetLabel
-			or row.replacedItemLabel or row.storedUnallocatedItemLabel or "?"
+	if replacementLabel and (action == "move" or action == "replace") then
 		t_insert(self.resultDetailListData, { height = 16, [1] = "^xFFAA33Will replace: ^7" .. replacementLabel, item = replacementItem })
-	else
-		t_insert(self.resultDetailListData, { height = 16, [1] = "^2Use free socket" })
 	end
-	if row.detailText and row.detailText ~= "" then
+	local isRecommendation = row.resultNodes ~= nil
+	local nodeEntries = isRecommendation and row.resultNodes or row.topNodes
+	local detailTextAlreadyShown = row.detailText == row.variantLabel
+	if isRecommendation and #nodeEntries > 0 then
+		local nodeCountLabel = s_format("%d node%s", #nodeEntries, #nodeEntries == 1 and "" or "s")
+		detailTextAlreadyShown = detailTextAlreadyShown or row.detailText == nodeCountLabel
+			or row.variantLabel and row.variantLabel ~= "" and row.detailText == row.variantLabel .. " | " .. nodeCountLabel
+	end
+	if row.detailText and row.detailText ~= "" and not detailTextAlreadyShown then
 		t_insert(self.resultDetailListData, { height = 16, [1] = "^7" .. row.detailText })
 	end
-	local nodeEntries = row.resultNodes or row.topNodes
-	if nodeEntries and #nodeEntries > 0 then
+	if nodeEntries then
 		t_insert(self.resultDetailListData, { height = 6, [1] = "" })
-		t_insert(self.resultDetailListData, {
-			height = 16,
-			[1] = row.resultNodes and s_format("^7Passives to allocate (%d):", #nodeEntries)
-				or s_format("^7Passives in range (%d):", #nodeEntries),
-		})
-		for _, nodeEntry in ipairs(nodeEntries) do
+		if #nodeEntries > 0 then
 			t_insert(self.resultDetailListData, {
 				height = 16,
-				[1] = "^xC8C8C8- " .. (nodeEntry.label or tostring(nodeEntry)),
-				nodeId = nodeEntry.nodeId,
+				[1] = isRecommendation and s_format("^7Recommended passives (%d):", #nodeEntries)
+					or s_format("^7Notables and keystones in range (%d):", #nodeEntries),
 			})
-		end
-	else
-		t_insert(self.resultDetailListData, { height = 6, [1] = "" })
-		t_insert(self.resultDetailListData, { height = 16, [1] = row.resultNodes and (COL_META .. "No passives to allocate") or (COL_META .. "No passives in range") })
-	end
-	t_insert(self.resultDetailListData, { height = 16, [1] = "^8Passive allocations are not applied automatically." })
-end
-
-function RadiusJewelResultPresentation:addPreviewLines(lines)
-	if type(lines) ~= "table" then
-		return false
-	end
-	for _, line in ipairs(lines) do
-		t_insert(self.previewListData, line)
-	end
-	return #lines > 0
-end
-
-function RadiusJewelResultPresentation:updatePreview(request, row)
-	wipeTable(self.previewListData)
-	self.compactPreview = false
-	local selectedJewelType = request.selectedJewelType
-	if not selectedJewelType then
-		t_insert(self.previewListData, { height = 16, [1] = COL_META .. "(no preview)" })
-		return
-	end
-	if selectedJewelType.isAllJewels then
-		local mode = self.controls.resultsList and self.controls.resultsList.mode
-		local selectedPreviewLines
-		if mode == "computeSocketAll" then
-			local previewRow = row or self.controls.resultsList.selValue
-			selectedPreviewLines = previewRow and previewRow.itemTooltipLines
-			if previewRow and self:addPreviewLines(previewRow.itemTooltipLines) then
-				return
+			for _, nodeEntry in ipairs(nodeEntries) do
+				t_insert(self.resultDetailListData, {
+					height = 16,
+					[1] = "^xC8C8C8- " .. (nodeEntry.label or tostring(nodeEntry)),
+					nodeId = nodeEntry.nodeId,
+				})
 			end
-		end
-		self.compactPreview = not selectedPreviewLines
-		t_insert(self.previewListData, { height = 16, [1] = "^7Evaluate every jewel type." })
-		if request.selectedAllJewelsView.id == "bestPerSocket" then
-			t_insert(self.previewListData, { height = 16, [1] = "^7Best jewel per socket." })
 		else
-			t_insert(self.previewListData, { height = 16, [1] = "^7Sorted globally by %/Pt." })
+			t_insert(self.resultDetailListData, { height = 16, [1] = isRecommendation
+				and (COL_META .. "No recommended passives")
+				or (COL_META .. "No notables or keystones in range") })
 		end
-		return
 	end
-	local lines = self:buildPreviewLines(request)
-	if type(lines) ~= "table" then
-		t_insert(self.previewListData, { height = 16, [1] = COL_META .. "(no preview)" })
-		return
-	end
-	self:addPreviewLines(lines)
-end
-
-function RadiusJewelResultPresentation:selectResult(row, previewRequest)
-	self:updateResultDetails(row)
-	self:updatePreview(previewRequest, row)
+	self:resetResultDetailScroll()
 end
 
 function RadiusJewelResultPresentation:createControls(socketViewer)
 	local controls = self.controls
 	local layout = self.layout
-	controls.previewList = new("TextListControl"):TextListControl(layout.anchor,
-		{ layout.x, layout.y, layout.width, 180 },
-		{ { x = 0, align = "LEFT" }, { x = 210, align = "LEFT" } }, self.previewListData)
-	controls.previewList.height = function() return self:getPreviewListHeight() end
-	controls.previewList.shown = function()
-		return not (controls.jewelTypeSelect and controls.jewelTypeSelect.dropped)
-	end
 	controls.resultDetailLabel = new("LabelControl"):LabelControl(layout.anchor,
-		{ layout.x, 256, 0, 16 }, "^7Details:")
-	controls.resultDetailLabel.y = function() return self:getResultDetailLabelY() end
+		{ layout.x, layout.y, 0, 16 }, "^7Details:")
 	controls.resultDetailList = new("RadiusJewelDetailListControl"):RadiusJewelDetailListControl(layout.anchor,
-		{ layout.x, 274, layout.width, 156 },
+		{ layout.x, layout.y + 18, layout.width, layout.bottomY - layout.y - 18 },
 		{ { x = 0, align = "LEFT" } }, self.resultDetailListData, self.finder.build, socketViewer)
-	controls.resultDetailList.y = function() return self:getResultDetailListY() end
-	controls.resultDetailList.height = function()
-		return layout.bottomY - self:getResultDetailListY()
-	end
 end
 
 local function buildRadiusJewelPopupSetup(self)
@@ -1515,7 +1453,6 @@ local function findSplitPersonalitySocket(self, request)
 	return {
 		socket = request.socket,
 		score = score,
-		topNodes = { },
 		detailText = s_format("dist to start %d", score),
 		replacedItemLabel = request.occupancy and request.occupancy.replacedItemLabel or nil,
 		storedUnallocatedItemLabel = request.occupancy and request.occupancy.storedUnallocatedItemLabel or nil,
@@ -1699,7 +1636,8 @@ local function runRadiusJewelFind(self, context, makePreferred)
 		end
 		local rows = { }
 		for _, r in ipairs(results) do
-			local topLabels = buildNodeLabelList(r.topNodes)
+			local topNodes = r.topNodes or { }
+			local topLabels = buildNodeLabelList(topNodes)
 			local topStr = t_concat(topLabels, ", ")
 			if #topStr > 50 then
 				topStr = topStr:sub(1, 47) .. "..."
@@ -1714,9 +1652,9 @@ local function runRadiusJewelFind(self, context, makePreferred)
 			local sortValue = points > 0 and scorePerPoint or r.score
 			local detailText = r.detailText
 			if not detailText or detailText == "" then
-				detailText = #r.topNodes > 0 and s_format("%d match%s", #r.topNodes, #r.topNodes == 1 and "" or "es") or scoreLabel
+				detailText = #topNodes > 0 and s_format("%d match%s", #topNodes, #topNodes == 1 and "" or "es") or scoreLabel
 			elseif #topStr > 0 and strategy.appendMatchCount then
-				detailText = detailText .. s_format(" | %d match%s", #r.topNodes, #r.topNodes == 1 and "" or "es")
+				detailText = detailText .. s_format(" | %d match%s", #topNodes, #topNodes == 1 and "" or "es")
 			end
 			local detailNodeId = strategy.getDetailNodeId and strategy.getDetailNodeId(findRequest, r.variant) or nil
 			local targetIdentity = r.variant and r.variant.variantIdentity
@@ -1743,7 +1681,7 @@ local function runRadiusJewelFind(self, context, makePreferred)
 					or r.variant.dropdownLabel or r.variant.name) or "",
 				detailText = detailText,
 				detailNodeId = detailNodeId,
-				topNodes = copyTableSafe(r.topNodes, false, true),
+				topNodes = r.topNodes and copyTableSafe(r.topNodes, false, true),
 				replacedItemLabel = r.replacedItemLabel,
 				storedUnallocatedItemLabel = r.storedUnallocatedItemLabel,
 				action = actionPlan and actionPlan.kind or nil,
@@ -1765,10 +1703,10 @@ local function runRadiusJewelFind(self, context, makePreferred)
 		end
 	end)
 	if not ok then
-		controls.statusLabel.label = "^1Error: " .. tostring(err)
+		controls.statusLabel.label = "^1Search failed"
 		controls.resultsList:SetMode("message", {
 			{ text = "^1" .. tostring(err) },
-		}, "^1Error")
+		}, "")
 	end
 end
 
@@ -2014,10 +1952,10 @@ local function runRadiusJewelCompute(self, context)
 		local res, errMsg = coroutine.resume(computeState.computeContext.co)
 		if not res then
 			cancelCompute()
-			controls.statusLabel.label = "^1Error: " .. tostring(errMsg)
+			controls.statusLabel.label = "^1Compute failed"
 			controls.resultsList:SetMode("message", {
 				{ text = "^1" .. tostring(errMsg) },
-			}, "^1Error")
+			}, "")
 			return
 		end
 		if coroutine.status(computeState.computeContext.co) == "dead" then
@@ -2209,9 +2147,7 @@ local function buildRadiusJewelPopupContext(self)
 	end
 	local function setComputeProgress(message)
 		controls.statusLabel.label = message
-		controls.resultsList:SetMode("message", {
-			{ text = message },
-		}, message)
+		controls.resultsList:SetMode("message", { }, "")
 	end
 	cancelCompute = function(statusMessage)
 		if not computeState.computeContext then
@@ -2387,7 +2323,6 @@ local function buildRadiusJewelPopupContext(self)
 			selectedJewelType = selectedJewelType,
 			selectedJewelVariant = selectedJewelVariant,
 			selectedThreadVariant = selectedThreadVariant,
-			selectedAllJewelsView = selectedAllJewelsView,
 		}
 	end
 	local function buildPreviewLinesForJewelType(jewelType, previewVariant)
@@ -2399,17 +2334,13 @@ local function buildRadiusJewelPopupContext(self)
 	local function addPreviewLinesToTooltip(tooltip, lines)
 		resultPresentation:addPreviewLinesToTooltip(tooltip, lines)
 	end
-	local function updatePreview(row)
-		resultPresentation:updatePreview(buildPreviewRequest(selectedJewelType), row)
-	end
-
 	controls.resultsList = new("RadiusJewelResultsListControl"):RadiusJewelResultsListControl(TL, { edgePadding, contentTopY, leftPanelWidth, resultListBottomY - contentTopY }, self.build, socketViewer)
 	controls.resultsList.suppressTooltipFunc = isAnyFinderDropdownDropped
 	local resultActions = RadiusJewelResultActions:new(self, resultState, controls.resultsList, getResultContextKey)
 	resultActions:bindSelection(function(row)
-		resultPresentation:selectResult(row, buildPreviewRequest(selectedJewelType))
+		resultPresentation:updateResultDetails(row)
 	end)
-	controls.resultsList:SetMode("message", { }, COL_META .. "Click Find to search")
+	controls.resultsList:SetMode("message", { }, "")
 
 	local function rebuildJewelTypeDropdown()
 		jewelTypes = buildJewelTypes()
@@ -2583,7 +2514,6 @@ local function buildRadiusJewelPopupContext(self)
 	controls.threadVariantSelect = new("DropDownControl"):DropDownControl(TL, { variantDefaultX, headerInputY, 200, 20 }, tvLabels, function(idx)
 		onCriteriaChanged(function()
 			selectedThreadVariant = idx == 1 and nil or threadVariants[idx - 1]
-			updatePreview()
 		end)
 	end)
 	controls.threadVariantLabel.shown = false
@@ -2596,7 +2526,6 @@ local function buildRadiusJewelPopupContext(self)
 			controls.jewelVariantSelect.selIndex = 1
 			selectedJewelVariant = nil
 			syncDisplayedVariants()
-			updatePreview()
 		end)
 	end)
 	controls.variantGroupLabel.shown = false
@@ -2609,7 +2538,6 @@ local function buildRadiusJewelPopupContext(self)
 			local variants = getDisplayedVariants()
 			if variants then
 				selectedJewelVariant = idx == 1 and nil or variants[idx - 1]
-				updatePreview()
 			end
 		end)
 	end)
@@ -2722,7 +2650,6 @@ local function buildRadiusJewelPopupContext(self)
 			selectedJewelType = activeJewelTypes[idx]
 			controls.jewelVariantSelect.selIndex = 1
 			syncSelectedJewelTypeControls()
-			updatePreview()
 		end)
 	end)
 	controls.jewelTypeSelect.tooltipFunc = function(tooltip, mode, index)
@@ -2915,6 +2842,7 @@ local function buildRadiusJewelPopupContext(self)
 					pct = pct,
 					pctPerPoint = totalPoints > 0 and (pct / totalPoints) or pct,
 					sortValue = totalPoints > 0 and (pct / totalPoints) or pct,
+					variantLabel = variantLabel,
 					detailText = detailText,
 					detailNodeId = detailNodeId,
 					resultNodes = plan.resultNodes,
@@ -2998,14 +2926,13 @@ local function buildRadiusJewelPopupContext(self)
 	controls.statusLabel = new("LabelControl"):LabelControl(TL, { 10, statusLabelY, 400, 16 }, COL_META .. "Click Find to search")
 	local function showAllJewelsComputePrompt()
 		controls.statusLabel.label = COL_META .. "Click Compute to rank all jewels"
-		controls.resultsList:SetMode("message", { }, COL_META .. "Click Compute to rank all jewels")
+		controls.resultsList:SetMode("message", { }, "")
 	end
 	controls.showLegacyCheck = new("CheckBoxControl"):CheckBoxControl(TL, { 700, statusLabelY, 18 }, "Show legacy", function(state)
 		onCriteriaChanged(function()
 			showLegacy = state
 			rebuildJewelTypeDropdown()
 			syncSelectedJewelTypeControls()
-			updatePreview()
 		end)
 	end)
 
@@ -3058,7 +2985,6 @@ local function buildRadiusJewelPopupContext(self)
 
 	local function restoreFinderState()
 		if not finderState.jewelTypeName then
-			updatePreview()
 			clearResultsForContext()
 			return
 		end
@@ -3151,7 +3077,6 @@ local function buildRadiusJewelPopupContext(self)
 
 		suppressFinderStateSave = false
 		saveFinderState()
-		updatePreview()
 		if not restoreCachedResults() then
 			clearResultsForContext()
 		end
