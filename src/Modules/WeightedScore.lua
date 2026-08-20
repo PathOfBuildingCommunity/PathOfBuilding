@@ -24,6 +24,13 @@ function WeightedScore.getWeights(build)
 	return WeightedScore.defaultWeights()
 end
 
+function WeightedScore.editWeights(build, onSave)
+	local tradeQuery = build and build.itemsTab and build.itemsTab.tradeQuery
+	if tradeQuery then
+		tradeQuery:SetStatWeights(nil, onSave)
+	end
+end
+
 -- Returns true when any active weight targets FullDPS, so callers can route
 -- through the FullDPS-aware calculation path.
 function WeightedScore.weightsNeedFullDPS(weights)
@@ -91,11 +98,11 @@ function WeightedScore.appendEditWeightsAction(sortDropList, openEditor)
 	end
 end
 
-function WeightedScore.createSortHandler(sortDropList, controls, openEditor, applySort, clearSortValues)
+function WeightedScore.createSortHandler(sortDropList, controls, build, applySort, clearSortValues)
 	local activeSort = sortDropList[1]
 	WeightedScore.appendEditWeightsAction(sortDropList, function()
 		controls.sort:SelByValue(activeSort.stat, "stat")
-		openEditor(function()
+		WeightedScore.editWeights(build, function()
 			clearSortValues()
 			applySort(activeSort.stat, true)
 		end)

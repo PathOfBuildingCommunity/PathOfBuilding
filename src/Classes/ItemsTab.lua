@@ -665,11 +665,9 @@ holding Shift will put it in the second.]])
 	local activeCraftingSort = sortingOptions[1]
 	WeightedScore.appendEditWeightsAction(sortingOptions, function()
 		self.controls.craftingSorting:SelByValue(activeCraftingSort.stat, "stat")
-		if self.tradeQuery then
-			self.tradeQuery:SetStatWeights(nil, function()
-				self:UpdateAffixControls()
-			end)
-		end
+		WeightedScore.editWeights(self.build, function()
+			self:UpdateAffixControls()
+		end)
 	end)
 	-- Section: Catalysts
 	self.controls.displayItemSectionCatalyst = new("Control"):Control({"TOPLEFT",self.controls.displayItemSectionQuality,"BOTTOMLEFT"}, {0, 0, 0, function()
@@ -2984,11 +2982,7 @@ function ItemsTabClass:EnchantDisplayItem(enchantSlot)
 	end)
 	controls.sortLabel = new("LabelControl"):LabelControl({"TOPRIGHT",nil,"TOPLEFT"}, {350, 45, 0, 16}, "^7Sort by:")
 	controls.sort = new("DropDownControl"):DropDownControl({"TOPLEFT",nil,"TOPLEFT"}, {355, 45, 240, 18}, sortList,
-		WeightedScore.createSortHandler(sortList, controls, function(onSave)
-			if self.tradeQuery then
-				self.tradeQuery:SetStatWeights(nil, onSave)
-			end
-		end, applySort, clearSortValues))
+		WeightedScore.createSortHandler(sortList, controls, self.build, applySort, clearSortValues))
 	controls.enchantmentLabel = new("LabelControl"):LabelControl({"TOPRIGHT",nil,"TOPLEFT"}, {95, 70, 0, 16}, "^7Enchantment:")
 	controls.enchantment = new("DropDownControl"):DropDownControl({"TOPLEFT",nil,"TOPLEFT"}, {100, 70, 495, 18}, enchantmentList)
 	controls.enchantment.tooltipFunc = function(tooltip, mode, index)
@@ -3500,11 +3494,7 @@ function ItemsTabClass:CorruptDisplayItem()
 	controls.source.enabled = #sourceList > 1
 	controls.sortLabel = new("LabelControl"):LabelControl({"TOPRIGHT",nil,"TOPLEFT"}, {350, 20, 0, 16}, "^7Sort by:")
 	controls.sort = new("DropDownControl"):DropDownControl({"TOPLEFT",nil,"TOPLEFT"}, {355, 20, 240, 18}, sortList,
-		WeightedScore.createSortHandler(sortList, controls, function(onSave)
-			if self.tradeQuery then
-				self.tradeQuery:SetStatWeights(nil, onSave)
-			end
-		end, applySort, clearSortValues))
+		WeightedScore.createSortHandler(sortList, controls, self.build, applySort, clearSortValues))
 	local implicitRowSize = 20
 	local implicitYPos = 35
 	controls.implicitCannotBeChangedLabel = new("LabelControl"):LabelControl({ "TOPLEFT", nil, "TOPLEFT" }, { 20, implicitYPos + implicitRowSize, 0, 20 }, "^7This Items Implicits Cannot Be Changed")
@@ -3885,11 +3875,7 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 		return sourceList[controls.source.selIndex].sourceId ~= "CUSTOM"
 	end
 	controls.sort = new("DropDownControl"):DropDownControl({"TOPLEFT",nil,"TOPLEFT"}, {355, 20, 240, 18}, sortList,
-		WeightedScore.createSortHandler(sortList, controls, function(onSave)
-			if self.tradeQuery then
-				self.tradeQuery:SetStatWeights(nil, onSave)
-			end
-		end, applySort, clearSortValues))
+		WeightedScore.createSortHandler(sortList, controls, self.build, applySort, clearSortValues))
 	controls.sort.shown = function()
 		return sourceList[controls.source.selIndex].sourceId ~= "CUSTOM"
 	end
