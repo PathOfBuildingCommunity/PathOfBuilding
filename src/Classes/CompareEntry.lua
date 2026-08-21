@@ -48,7 +48,7 @@ function CompareEntryClass:CompareEntry(xmlText, label)
 	self.outputRevision = 1
 
 	-- Display stats (same as primary build uses)
-	local displayStatsModule = LoadModule("Modules/BuildDisplayStats")
+	local displayStatsModule = require("Modules.BuildDisplayStats")
 	self.displayStats = displayStatsModule.displayStats
 	self.minionDisplayStats = displayStatsModule.minionDisplayStats
 	self.extraSaveStats = displayStatsModule.extraSaveStats
