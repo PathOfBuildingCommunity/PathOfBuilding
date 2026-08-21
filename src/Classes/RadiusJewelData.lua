@@ -165,10 +165,6 @@ local function assignVariantIdentity(candidate, family, variantGroup)
 	return candidate
 end
 
-local function getUniqueRadiusIndex(name, baseName)
-	return getRadiusIndexFromRawText(mustGetCurrentUniqueRawText(name, baseName))
-end
-
 local function makeUniqueVariant(name, uniqueName, baseName)
 	local rawText = mustGetCurrentUniqueRawText(uniqueName or name, baseName)
 	return {
@@ -681,21 +677,10 @@ local function previewUnique(uniqueName, displayName, baseName)
 	return previewFromRawText(mustGetCurrentUniqueRawText(uniqueName, baseName), displayName)
 end
 
-local function previewVariant(variant, displayName)
-	if variant and variant.rawText then
-		return previewFromRawText(variant.rawText, displayName or variant.name, variant.previewMeta)
-	end
-	return nil
-end
-
 local function previewFinderGroup(name, note)
 	local lines = previewHeader(name, "Finder group", nil)
 	t_insert(lines, { height = 16, [1] = COL_META .. (note or "Select a variant to preview item data.") })
 	return lines
-end
-
-local function previewVariantOrGroup(groupName, variant)
-	return previewVariant(variant) or previewFinderGroup(groupName)
 end
 
 local function previewThreadOfHope(ringName)
@@ -719,76 +704,46 @@ local function previewThreadOfHope(ringName)
 	return previewFromRawText(rawText, displayName)
 end
 
-local jewelPreviewFn = {
-	["The Light of Meaning"] = function(variant)
-		if variant and variant.rawText then
-			return previewFromRawText(variant.rawText, "The Light of Meaning (" .. variant.name .. ")")
-		end
-		return previewFinderGroup("The Light of Meaning")
-	end,
-
-	["Might of the Meek"] = function(variant)
-		return previewVariant(variant) or previewUnique("Might of the Meek")
-	end,
-
-	["Unnatural Instinct"] = function(variant)
-		return previewVariant(variant) or previewUnique("Unnatural Instinct")
-	end,
-
-	["Inspired Learning"] = function(variant)
-		return previewVariant(variant) or previewUnique("Inspired Learning")
-	end,
-
-	["Anatomical Knowledge"] = function()
-		return previewUnique("Anatomical Knowledge")
-	end,
-
-	["Lioneye's Fall"] = function(variant)
-		return previewVariant(variant) or previewUnique("Lioneye's Fall")
-	end,
-
-	["Intuitive Leap"] = function(variant)
-		return previewVariant(variant) or previewUnique("Intuitive Leap")
-	end,
-
-	["Tempered & Transcendent"] = function(variant)
-		return previewVariantOrGroup("Tempered & Transcendent", variant)
-	end,
-
-	["Split Personality"] = function(variant)
-		if variant and variant.rawText then
-			return previewFromRawText(variant.rawText, "Split Personality (" .. variant.name .. ")")
-		end
-		return previewFinderGroup("Split Personality")
-	end,
-
-	["Impossible Escape"] = function(variant)
-		if variant and variant.rawText then
-			return previewFromRawText(variant.rawText, "Impossible Escape (" .. variant.name .. ")")
-		end
-		return previewFinderGroup("Impossible Escape")
-	end,
-
-	["Attribute Conversion"] = function(variant)
-		return previewVariantOrGroup("Attribute Conversion", variant)
-	end,
-
-	["Stat Conversion"] = function(variant)
-		return previewVariantOrGroup("Stat Conversion", variant)
-	end,
-
-	["Combat Focus"] = function(variant)
-		return previewVariantOrGroup("Combat Focus", variant)
-	end,
-
-	["Dreams & Nightmares"] = function(variant)
-		return previewVariantOrGroup("Dreams & Nightmares", variant)
-	end,
-
-	["Thread of Hope"] = function(ringName)
-		return previewThreadOfHope(ringName)
-	end,
+local JEWEL_PREVIEW_SCHEMA = {
+	["The Light of Meaning"] = { group = true, prefixVariantName = true },
+	["Might of the Meek"] = { },
+	["Unnatural Instinct"] = { },
+	["Inspired Learning"] = { },
+	["Anatomical Knowledge"] = { },
+	["Tempered & Transcendent"] = { group = true },
+	["Lioneye's Fall"] = { },
+	["Intuitive Leap"] = { },
+	["Impossible Escape"] = { group = true, prefixVariantName = true },
+	["Split Personality"] = { group = true, prefixVariantName = true },
+	["Stat Conversion"] = { group = true },
+	["Attribute Conversion"] = { group = true },
+	["Combat Focus"] = { group = true },
+	["Dreams & Nightmares"] = { group = true },
+	["Thread of Hope"] = { thread = true },
 }
+
+local function buildJewelPreview(name, schema, variant)
+	if schema.thread then
+		return previewThreadOfHope(variant)
+	elseif variant and variant.rawText then
+		local displayName = schema.prefixVariantName and (name .. " (" .. variant.name .. ")") or variant.name
+		return previewFromRawText(variant.rawText, displayName, variant.previewMeta)
+	elseif schema.group then
+		return previewFinderGroup(name)
+	end
+	return previewUnique(name)
+end
+
+local function makeJewelPreviewFn(name, schema)
+	return function(variant)
+		return buildJewelPreview(name, schema, variant)
+	end
+end
+
+local jewelPreviewFn = { }
+for name, schema in pairs(JEWEL_PREVIEW_SCHEMA) do
+	jewelPreviewFn[name] = makeJewelPreviewFn(name, schema)
+end
 
 M.jewelPreviewFn = jewelPreviewFn
 
@@ -796,87 +751,68 @@ M.jewelPreviewFn = jewelPreviewFn
 -- Jewel type definitions
 -- ─────────────────────────────────────────────────────────────────────────────
 
-function M.buildJewelTypes()
-	local mightOfTheMeek = {
-		name = "Might of the Meek",
-		strategy = JEWEL_STRATEGY.RADIUS,
-		radiusIndex = getUniqueRadiusIndex("Might of the Meek"),
-		scoreLabel = "alloc small passives",
-		hasCompute = true,
-		rawText = mustGetUniqueRawText("Might of the Meek"),
-		score = function(nodes, allocNodes)
-			local s = 0
-			for nodeId, node in pairs(nodes) do
-				if allocNodes[nodeId] and node.type == "Normal" then
-					s = s + 1
-				end
+local function scoreAllocatedNodeType(nodeType)
+	return function(nodes, allocNodes)
+		local score = 0
+		for nodeId, node in pairs(nodes) do
+			if allocNodes[nodeId] and node.type == nodeType then
+				score = score + 1
 			end
-			return s
-		end,
-	}
+		end
+		return score
+	end
+end
 
-	local inspiredLearning = {
-		name = "Inspired Learning",
-		strategy = JEWEL_STRATEGY.RADIUS,
-		hasCompute = true,
-		radiusIndex = getUniqueRadiusIndex("Inspired Learning"),
-		scoreLabel = "alloc notables",
-		rawText = mustGetUniqueRawText("Inspired Learning"),
-		score = function(nodes, allocNodes)
-			local s = 0
-			for nodeId, node in pairs(nodes) do
-				if allocNodes[nodeId] and node.type == "Notable" then
-					s = s + 1
-				end
-			end
-			return s
-		end,
-	}
+local function scoreUnnaturalInstinct(nodes, allocNodes)
+	local gained, lost = 0, 0
+	for nodeId, node in pairs(nodes) do
+		if node.type == "Normal" then
+			if allocNodes[nodeId] then lost = lost + 1
+			else gained = gained + 1 end
+		end
+	end
+	return gained - lost
+end
+
+local function makeJewelType(name, scoreLabel, score, options)
+	local jewelType = { }
+	for key, value in pairs(options or { }) do
+		jewelType[key] = value
+	end
+	jewelType.name = name
+	jewelType.strategy = jewelType.strategy or JEWEL_STRATEGY.RADIUS
+	jewelType.scoreLabel = scoreLabel
+	jewelType.score = score
+	jewelType.hasCompute = true
+	if not jewelType.rawText and not jewelType.variants then
+		jewelType.rawText = mustGetUniqueRawText(name)
+	end
+	if not jewelType.radiusIndex then
+		jewelType.radiusIndex = jewelType.variants and jewelType.variants[1]
+			and jewelType.variants[1].radiusIndex
+			or jewelType.rawText and getRadiusIndexFromRawText(jewelType.rawText)
+	end
+	return jewelType
+end
+
+function M.buildJewelTypes()
+	local scoreAllocatedNormals = scoreAllocatedNodeType("Normal")
+	local scoreAllocatedNotables = scoreAllocatedNodeType("Notable")
+	local mightOfTheMeek = makeJewelType("Might of the Meek", "alloc small passives", scoreAllocatedNormals)
+
+	local inspiredLearning = makeJewelType("Inspired Learning", "alloc notables", scoreAllocatedNotables)
 	appendFoulbornVariants(inspiredLearning, "Inspired Learning")
 
-	local unnaturalInstinct = {
-		name = "Unnatural Instinct",
-		strategy = JEWEL_STRATEGY.RADIUS,
-		radiusIndex = getUniqueRadiusIndex("Unnatural Instinct"),
-		scoreLabel = "unalloc small - alloc small",
-		hasCompute = true,
-		rawText = mustGetUniqueRawText("Unnatural Instinct"),
-		score = function(nodes, allocNodes)
-			local gained, lost = 0, 0
-			for nodeId, node in pairs(nodes) do
-				if node.type == "Normal" then
-					if allocNodes[nodeId] then lost = lost + 1
-					else gained = gained + 1 end
-				end
-			end
-			return gained - lost
-		end,
-	}
+	local unnaturalInstinct = makeJewelType("Unnatural Instinct", "unalloc small - alloc small", scoreUnnaturalInstinct)
 	appendFoulbornVariants(unnaturalInstinct, "Unnatural Instinct")
 
-	local lioneyesFall = {
-		name = "Lioneye's Fall",
-		strategy = JEWEL_STRATEGY.RADIUS,
-		radiusIndex = getUniqueRadiusIndex("Lioneye's Fall"),
-		scoreLabel = "alloc passives",
-		hasCompute = true,
-		rawText = mustGetUniqueRawText("Lioneye's Fall"),
-		score = scoreAllocPassives,
-	}
+	local lioneyesFall = makeJewelType("Lioneye's Fall", "alloc passives", scoreAllocPassives)
 	appendFoulbornVariants(lioneyesFall, "Lioneye's Fall")
 
-	local intuitiveLeap = {
-		name = "Intuitive Leap",
+	local intuitiveLeap = makeJewelType("Intuitive Leap", "unalloc passives", scoreUnallocPassives, {
 		strategy = JEWEL_STRATEGY.INTUITIVE_LEAP,
-		radiusIndex = getUniqueRadiusIndex("Intuitive Leap"),
-		scoreLabel = "unalloc passives",
-		hasCompute = true,
 		computeMethods = M.DISCONNECTED_PASSIVE_COMPUTE_METHODS,
-		rawText = mustGetUniqueRawText("Intuitive Leap"),
-		score = function(nodes, allocNodes)
-			return scoreUnallocPassives(nodes, allocNodes)
-		end,
-	}
+	})
 	appendFoulbornVariants(intuitiveLeap, "Intuitive Leap")
 
 	local dreamsNightmaresJewels = {
@@ -927,109 +863,54 @@ function M.buildJewelTypes()
 	local threadOfHopeRawText = mustGetUniqueRawText("Thread of Hope")
 
 	local jewelTypes = { }
-	t_insert(jewelTypes, {
-		name = "The Light of Meaning",
-		strategy = JEWEL_STRATEGY.RADIUS,
-		radiusIndex = lightOfMeaningVariants[1] and lightOfMeaningVariants[1].radiusIndex,
-		scoreLabel = "alloc passives",
-		hasCompute = true,
-		score = scoreAllocPassives,
+	t_insert(jewelTypes, makeJewelType("The Light of Meaning", "alloc passives", scoreAllocPassives, {
 		variants = lightOfMeaningVariants,
-	})
+	}))
 	t_insert(jewelTypes, mightOfTheMeek)
 	t_insert(jewelTypes, unnaturalInstinct)
 	t_insert(jewelTypes, inspiredLearning)
-	t_insert(jewelTypes, {
-		name = "Anatomical Knowledge",
-		strategy = JEWEL_STRATEGY.RADIUS,
-		radiusIndex = getUniqueRadiusIndex("Anatomical Knowledge"),
-		scoreLabel = "alloc passives",
-		hasCompute = true,
+	t_insert(jewelTypes, makeJewelType("Anatomical Knowledge", "alloc passives", scoreAllocPassives, {
 		isLegacy = true,
-		rawText = mustGetUniqueRawText("Anatomical Knowledge"),
-		score = scoreAllocPassives,
-	})
-	t_insert(jewelTypes, {
-		name = "Tempered & Transcendent",
-		strategy = JEWEL_STRATEGY.RADIUS,
-		radiusIndex = temperedTranscendentVariants[1] and temperedTranscendentVariants[1].radiusIndex,
-		scoreLabel = "attr in radius",
-		hasCompute = true,
-		score = function(nodes, allocNodes)
+	}))
+	t_insert(jewelTypes, makeJewelType("Tempered & Transcendent", "attr in radius", function(nodes, allocNodes)
 			return scoreRadiusAttributes(nodes, allocNodes, "Str", true, false)
-		end,
+		end, {
 		variants = temperedTranscendentVariants,
-	})
+	}))
 	t_insert(jewelTypes, lioneyesFall)
 	t_insert(jewelTypes, intuitiveLeap)
-	t_insert(jewelTypes, {
-		name = "Impossible Escape",
+	t_insert(jewelTypes, makeJewelType("Impossible Escape", "unalloc notable/keystone near keystone",
+		scoreUnallocNotablesAndKeystones, {
 		strategy = JEWEL_STRATEGY.IMPOSSIBLE_ESCAPE,
 		isImpossibleEscape = true,
 		isSocketIndependent = true,
-		scoreLabel = "unalloc notable/keystone near keystone",
-		hasCompute = true,
 		computeMethods = M.DISCONNECTED_PASSIVE_COMPUTE_METHODS,
-		score = scoreUnallocNotablesAndKeystones,
 		variants = M.getImpossibleEscapeVariants(),
-	})
-	t_insert(jewelTypes, {
-		name = "Split Personality",
+	}))
+	t_insert(jewelTypes, makeJewelType("Split Personality", "dist to start", function() return 0 end, {
 		strategy = JEWEL_STRATEGY.SPLIT_PERSONALITY,
 		isSplitPersonality = true,
-		scoreLabel = "dist to start",
-		hasCompute = true,
-		score = function()
-			return 0
-		end,
 		variants = M.getSplitPersonalityVariants(),
-	})
-	t_insert(jewelTypes, {
-		name = "Stat Conversion",
-		strategy = JEWEL_STRATEGY.RADIUS,
-		radiusIndex = statConversionVariants[1] and statConversionVariants[1].radiusIndex,
-		scoreLabel = "alloc passives",
-		hasCompute = true,
-		score = scoreAllocPassives,
+	}))
+	t_insert(jewelTypes, makeJewelType("Stat Conversion", "alloc passives", scoreAllocPassives, {
 		variants = statConversionVariants,
-	})
-	t_insert(jewelTypes, {
-		name = "Attribute Conversion",
-		strategy = JEWEL_STRATEGY.RADIUS,
-		radiusIndex = attributeConversionVariants[1] and attributeConversionVariants[1].radiusIndex,
-		scoreLabel = "alloc passives",
-		hasCompute = true,
-		score = scoreAllocPassives,
+	}))
+	t_insert(jewelTypes, makeJewelType("Attribute Conversion", "alloc passives", scoreAllocPassives, {
 		variants = attributeConversionVariants,
-	})
-	t_insert(jewelTypes, {
-		name = "Combat Focus",
-		strategy = JEWEL_STRATEGY.RADIUS,
-		radiusIndex = combatFocusVariants[1] and combatFocusVariants[1].radiusIndex,
-		scoreLabel = "alloc passives",
-		hasCompute = true,
-		score = scoreAllocPassives,
+	}))
+	t_insert(jewelTypes, makeJewelType("Combat Focus", "alloc passives", scoreAllocPassives, {
 		variants = combatFocusVariants,
-	})
-	t_insert(jewelTypes, {
-		name = "Dreams & Nightmares",
-		strategy = JEWEL_STRATEGY.RADIUS,
-		radiusIndex = dreamsVariants[1] and dreamsVariants[1].radiusIndex,
-		scoreLabel = "alloc passives",
-		hasCompute = true,
-		score = scoreAllocPassives,
+	}))
+	t_insert(jewelTypes, makeJewelType("Dreams & Nightmares", "alloc passives", scoreAllocPassives, {
 		variants = dreamsVariants,
-	})
-	t_insert(jewelTypes, {
-		name = "Thread of Hope",
+	}))
+	t_insert(jewelTypes, makeJewelType("Thread of Hope", "unalloc notable/keystone in ring",
+		scoreUnallocNotablesAndKeystones, {
 		strategy = JEWEL_STRATEGY.THREAD_OF_HOPE,
 		isThread = true,
-		scoreLabel = "unalloc notable/keystone in ring",
-		hasCompute = true,
 		computeMethods = M.DISCONNECTED_PASSIVE_COMPUTE_METHODS,
 		rawText = threadOfHopeRawText,
-		score = scoreUnallocNotablesAndKeystones,
-	})
+	}))
 	for _, jewelType in ipairs(jewelTypes) do
 		assignVariantIdentity(jewelType, jewelType.name, jewelType.name)
 		for _, variant in ipairs(jewelType.variants or { }) do

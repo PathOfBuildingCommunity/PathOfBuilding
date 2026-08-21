@@ -212,21 +212,6 @@ describe("RadiusJewelFinder #radius-jewel", function()
 			end
 		end
 
-		local function countEntries(tbl)
-			local count = 0
-			for _ in pairs(tbl) do
-				count = count + 1
-			end
-			return count
-		end
-
-		local function assertCachedResultsAreApplicable(popup, resultContextKey, expectedCount, message)
-			assert.are.equal(expectedCount or 1, #popup.controls.resultsList.list, message)
-			assert.are.equal(resultContextKey, popup.controls.resultsList.list[1].resultContextKey, message)
-			popup.controls.resultsList.selIndex = 1
-			assert.is_true(popup.controls.applyButton.enabled(), message)
-		end
-
 		local function assertResultsCleared(popup, message)
 			assert.are.equal("message", popup.controls.resultsList.mode, message)
 			assert.are.equal(0, #popup.controls.resultsList.list, message)
@@ -303,6 +288,74 @@ describe("RadiusJewelFinder #radius-jewel", function()
 			end
 			return row
 		end
+
+		it("drives rendering, sorting, and hover roles from each result mode schema", function()
+			build.radiusJewelFinderState = nil
+			local resultsList = makeFinder():Open().controls.resultsList
+			local rows = {
+				{
+					jewelName = "Zeta Jewel",
+					socketLabel = "Zeta socket",
+					points = 2,
+					delta = 1,
+					pct = 1,
+					pctPerPoint = 0.5,
+					sortValue = 0.5,
+					score = 1,
+					scorePerPoint = 0.5,
+					variantLabel = "Large",
+					detailText = "Zeta detail",
+					action = "move",
+					baseOutput = { },
+					compareOutput = { },
+					itemTooltipLines = { { height = 16, [1] = "Zeta preview" } },
+				},
+				{
+					jewelName = "Alpha Jewel",
+					socketLabel = "Alpha socket",
+					points = 1,
+					delta = 2,
+					pct = 2,
+					pctPerPoint = 2,
+					sortValue = 2,
+					score = 2,
+					scorePerPoint = 2,
+					variantLabel = "Small",
+					detailText = "Alpha detail",
+					action = "equip",
+					baseOutput = { },
+					compareOutput = { },
+					itemTooltipLines = { { height = 16, [1] = "Alpha preview" } },
+				},
+			}
+			local modeCases = {
+				{ mode = "computeSocket", sortColumn = 3, expectedRow = rows[2], valueColumn = 3,
+					expectedValue = "^2+2.0", socketColumn = 1, statColumn = 3, detailColumn = 6 },
+				{ mode = "computeSocketAll", sortColumn = 1, expectedRow = rows[2], valueColumn = 1,
+					expectedValue = "Alpha Jewel", socketColumn = 2, statColumn = 4, detailColumn = 7 },
+				{ mode = "find", sortColumn = 3, expectedRow = rows[2], valueColumn = 3,
+					expectedValue = "^72", socketColumn = 1, detailColumn = 5 },
+				{ mode = "findThread", sortColumn = 5, expectedRow = rows[1], valueColumn = 5,
+					expectedValue = "Large", socketColumn = 1, detailColumn = 6 },
+			}
+
+			for _, case in ipairs(modeCases) do
+				local modeRows = { rows[1], rows[2] }
+				resultsList:SetMode(case.mode, modeRows, "")
+				resultsList:ReSort(case.sortColumn)
+				assert.are.equal(case.expectedRow, modeRows[1], case.mode .. " sort should follow its column descriptor")
+				assert.are.equal(case.expectedValue, resultsList:GetRowValue(case.valueColumn, 1, modeRows[1]),
+					case.mode .. " rendering should follow its column descriptor")
+				assert.is_true(resultsList:GetHoverInfo(case.socketColumn, modeRows[1]).showViewer,
+					case.mode .. " socket column should show the passive viewer")
+				assert.is_true(resultsList:GetHoverInfo(case.detailColumn, modeRows[1]).showItemTooltip,
+					case.mode .. " detail column should show the item preview")
+				if case.statColumn then
+					assert.is_true(resultsList:GetHoverInfo(case.statColumn, modeRows[1]).showStatTooltip,
+						case.mode .. " stat column should show the stat comparison")
+				end
+			end
+		end)
 
 		it("uses full-height Details without changing Results", function()
 			build.radiusJewelFinderState = nil
@@ -713,16 +766,12 @@ describe("RadiusJewelFinder #radius-jewel", function()
 
 		end)
 
-		it("keeps stale results visible, blocks Apply, and restores matching results", function()
+		it("keeps stale results visible and blocks Apply when criteria change", function()
 			local _, popup = openResultContextTestPopup()
-			runPopupCompute(popup)
-			local resultContextKey = popup.controls.resultsList.list[1].resultContextKey
-			local resultMode = popup.controls.resultsList.mode
 			local criteriaChangedMessage = "^xFFAA33Criteria changed. ^8Run Find or Compute again."
 			local computeOnlyCriteriaChangedMessage = "^xFFAA33Criteria changed. ^8Run Compute again."
 			local intuitiveLeapIndex = findControlIndex(popup.controls.jewelTypeSelect.list, "Intuitive Leap")
 			local threadOfHopeIndex = findControlIndex(popup.controls.jewelTypeSelect.list, "Thread of Hope")
-			assert.is_string(resultContextKey)
 
 			local changes = {
 				{
@@ -763,23 +812,25 @@ describe("RadiusJewelFinder #radius-jewel", function()
 				},
 			}
 			for _, criterion in ipairs(changes) do
+				runPopupCompute(popup)
+				local staleRow = popup.controls.resultsList.list[1]
+				local resultMode = popup.controls.resultsList.mode
+				assert.is_not_nil(staleRow)
 				criterion.change()
-				assertStaleResultsRemainVisible(popup, resultContextKey, 1, resultMode,
+				assertStaleResultsRemainVisible(popup, staleRow.resultContextKey, 1, resultMode,
 					criterion.name .. " should keep the previous results visible but stale")
 				assert.are.equal(criterion.message, popup.controls.statusLabel.label,
 					criterion.name .. " should explain how to refresh results")
 				assert.is_nil(main.onFrameFuncs["RadiusJewelFinderCompute"],
 					criterion.name .. " should not start Compute automatically")
 				local beforeApply = support.snapshotFinderState()
-				popup.controls.applyButton:Click()
+				popup.controls.resultsList.OnSelClick(popup.controls.resultsList, 1, staleRow, true)
 				support.assertFinderStateUnchanged(beforeApply, assert)
 				criterion.restore()
-				assertCachedResultsAreApplicable(popup, resultContextKey, 1,
-					criterion.name .. " should restore matching cached results")
 			end
 		end)
 
-		it("filters standard Find by Points, keeps Score independent, and restores each Max points value", function()
+		it("filters standard Find by Points and keeps Score independent", function()
 			build.radiusJewelFinderState = nil
 			local jewelType = findJewelType("Might of the Meek")
 			assert.is_not_nil(jewelType)
@@ -813,18 +864,17 @@ describe("RadiusJewelFinder #radius-jewel", function()
 			assert.matches("2 results", popup.controls.statusLabel.label, 1, true)
 
 			popup.controls.maxPointsEdit:SetText("0", true)
-			assertStaleResultsRemainVisible(popup, maxPointsOneContextKey, 2, "find")
 			popup.controls.findButton:Click()
 			assert.are.equal(1, #popup.controls.resultsList.list)
 			assert.are.equal(0, popup.controls.resultsList.list[1].points)
-			assert.are.equal(2, countEntries(build.radiusJewelFinderState.findCache))
 
 			popup.controls.maxPointsEdit:SetText("1", true)
-			assertCachedResultsAreApplicable(popup, maxPointsOneContextKey, 2)
-			assert.are.equal(2, countEntries(build.radiusJewelFinderState.findCache))
+			popup.controls.findButton:Click()
+			assert.are.equal(2, #popup.controls.resultsList.list)
+			assert.are.equal(maxPointsOneContextKey, popup.controls.resultsList.list[1].resultContextKey)
 		end)
 
-		it("applies Max points to Thread Find and caches a zero-result value", function()
+		it("applies Max points to Thread Find including zero-result searches", function()
 			build.radiusJewelFinderState = nil
 			local socketId = 33631
 			local radiusIndices = { }
@@ -843,7 +893,6 @@ describe("RadiusJewelFinder #radius-jewel", function()
 
 			assert.are.equal("findThread", popup.controls.resultsList.mode)
 			assert.are.equal(0, #popup.controls.resultsList.list)
-			assert.are.equal(1, countEntries(build.radiusJewelFinderState.findCache))
 
 			popup.controls.maxPointsEdit:SetText("2", true)
 			popup.controls.findButton:Click()
@@ -973,21 +1022,39 @@ describe("RadiusJewelFinder #radius-jewel", function()
 			assert.is_true(#popup.controls.variantGroupSelect.list > 1)
 
 			popup.controls.variantGroupSelect.selFunc(2)
-			assertStaleResultsRemainVisible(popup, groupedContextKey, groupedResultCount, "computeSocket")
+			runPopupCompute(popup)
+			assert.are_not.equal(groupedContextKey, popup.controls.resultsList.list[1].resultContextKey)
 			popup.controls.variantGroupSelect.selFunc(1)
-			assertCachedResultsAreApplicable(popup, groupedContextKey, groupedResultCount)
+			runPopupCompute(popup)
+			assert.are.equal(groupedResultCount, #popup.controls.resultsList.list)
+			assert.are.equal(groupedContextKey, popup.controls.resultsList.list[1].resultContextKey)
 
 			popup.controls.jewelTypeSelect.selFunc(findControlIndex(popup.controls.jewelTypeSelect.list, "All jewels"))
 			runPopupCompute(popup)
 			local allJewelsContextKey = popup.controls.resultsList.list[1].resultContextKey
 			local allJewelsResultCount = #popup.controls.resultsList.list
+			popup.controls.allJewelsViewSelect.selFunc(2)
+			assert.is_true(#popup.controls.resultsList.list <= allJewelsResultCount)
+			popup.controls.allJewelsViewSelect.selFunc(1)
+			assert.are.equal(allJewelsResultCount, #popup.controls.resultsList.list)
 
 			popup.controls.showLegacyCheck.changeFunc(true)
-			assertStaleResultsRemainVisible(popup, allJewelsContextKey, allJewelsResultCount, "computeSocketAll")
 			assert.are.equal("^xFFAA33Criteria changed. ^8Run Compute again.",
 				popup.controls.statusLabel.label)
+			local staleAllJewelsMode = popup.controls.resultsList.mode
+			for _, viewIndex in ipairs({ 2, 1 }) do
+				popup.controls.allJewelsViewSelect.selFunc(viewIndex)
+				assertStaleResultsRemainVisible(popup, allJewelsContextKey, allJewelsResultCount,
+					staleAllJewelsMode, "changing the All-jewels view should keep stale results visible")
+				assert.are.equal("^xFFAA33Criteria changed. ^8Run Compute again.",
+					popup.controls.statusLabel.label)
+			end
+			runPopupCompute(popup)
+			assert.are_not.equal(allJewelsContextKey, popup.controls.resultsList.list[1].resultContextKey)
 			popup.controls.showLegacyCheck.changeFunc(false)
-			assertCachedResultsAreApplicable(popup, allJewelsContextKey, allJewelsResultCount)
+			runPopupCompute(popup)
+			assert.are.equal(allJewelsResultCount, #popup.controls.resultsList.list)
+			assert.are.equal(allJewelsContextKey, popup.controls.resultsList.list[1].resultContextKey)
 		end)
 
 		it("filters Thread Find and Compute by the selected ring", function()
@@ -1029,7 +1096,6 @@ describe("RadiusJewelFinder #radius-jewel", function()
 			local anyRingContextKey = findRow.resultContextKey
 
 			popup.controls.threadVariantSelect.selFunc(2)
-			assertStaleResultsRemainVisible(popup, anyRingContextKey, 1, "findThread")
 			local explicitRingTooltip = getDropdownTooltipText(popup.controls.threadVariantSelect, 2)
 			assert.matches(threadVariants[1].ringLabel, explicitRingTooltip, 1, true)
 			assert.is_nil(explicitRingTooltip:find("Multiple ring sizes available", 1, true))
@@ -1050,25 +1116,19 @@ describe("RadiusJewelFinder #radius-jewel", function()
 
 			popup.controls.threadVariantSelect.selFunc(1)
 
-			assert.are.equal("findThread", popup.controls.resultsList.mode)
-			assert.are.equal(anyRingContextKey, popup.controls.resultsList.list[1].resultContextKey)
 			assert.is_nil(build.radiusJewelFinderState.threadVariantName)
 		end)
 
-		it("restores an explicit Thread ring and its cached result view", function()
+		it("restores an explicit Thread ring selection", function()
 			local finder = makeFinder()
 			local popup = finder:Open()
 			popup.controls.jewelTypeSelect.selFunc(findControlIndex(popup.controls.jewelTypeSelect.list, "Thread of Hope"))
 			popup.controls.threadVariantSelect.selFunc(2)
 			popup.controls.findButton:Click()
-			local resultContextKey = popup.controls.resultsList.list[1].resultContextKey
-
 			popup.controls.closeButton:Click()
 			local reopenedPopup = finder:Open()
 
 			assert.are.equal(2, reopenedPopup.controls.threadVariantSelect.selIndex)
-			assert.are.equal("findThread", reopenedPopup.controls.resultsList.mode)
-			assert.are.equal(resultContextKey, reopenedPopup.controls.resultsList.list[1].resultContextKey)
 			assert.are.equal(RadiusJewelData.getThreadOfHopeVariants()[1].name,
 				build.radiusJewelFinderState.threadVariantName)
 		end)
@@ -1085,16 +1145,13 @@ describe("RadiusJewelFinder #radius-jewel", function()
 			assert.is_nil(main.onFrameFuncs["RadiusJewelFinderCompute"])
 			assert.is_false(computeCompleted())
 			assertResultsCleared(popup)
-			assert.is_nil(next(build.radiusJewelFinderState.computeCache))
-			assert.is_nil(next(build.radiusJewelFinderState.resultViewByKey))
 		end)
 
-		it("cancels a suspended Compute before stale revision results can be saved", function()
+		it("cancels a suspended Compute after a build revision", function()
 			local _, popup, computeCompleted = openResultContextTestPopup(true)
 			popup.controls.computeButton:Click()
 			runCallback("OnFrame")
 			assert.is_not_nil(main.onFrameFuncs["RadiusJewelFinderCompute"])
-			assert.is_not_nil(next(build.radiusJewelFinderState.disconnectedPassivePlanCache))
 
 			build.outputRevision = build.outputRevision + 1
 			runCallback("OnFrame")
@@ -1102,36 +1159,14 @@ describe("RadiusJewelFinder #radius-jewel", function()
 			assert.is_nil(main.onFrameFuncs["RadiusJewelFinderCompute"])
 			assert.is_false(computeCompleted())
 			assertResultsCleared(popup)
-			assert.is_nil(next(build.radiusJewelFinderState.findCache))
-			assert.is_nil(next(build.radiusJewelFinderState.computeCache))
-			assert.is_nil(next(build.radiusJewelFinderState.resultViewByKey))
-			assert.is_nil(next(build.radiusJewelFinderState.disconnectedPassivePlanCache))
 		end)
 
-		it("restores matching results after closing and reopening without a build mutation", function()
-			local finder, popup = openResultContextTestPopup()
-			runPopupCompute(popup)
-			local resultContextKey = popup.controls.resultsList.list[1].resultContextKey
-			assertCachedResultsAreApplicable(popup, resultContextKey)
-
-			popup.controls.closeButton:Click()
-			local reopenedPopup = finder:Open()
-
-			assertCachedResultsAreApplicable(reopenedPopup, resultContextKey)
-		end)
-
-		it("invalidates every cache and blocks stale Apply after a build revision", function()
+		it("blocks stale Apply after a build revision", function()
 			local finder, popup = openResultContextTestPopup()
 			runPopupCompute(popup)
 			local staleRow = popup.controls.resultsList.list[1]
 			assert.is_not_nil(staleRow)
 			popup.controls.resultsList.selIndex = 1
-			local finderState = build.radiusJewelFinderState
-			finderState.findCache["old-find"] = { }
-			assert.is_not_nil(next(finderState.findCache))
-			assert.is_not_nil(next(finderState.computeCache))
-			assert.is_not_nil(next(finderState.resultViewByKey))
-			assert.is_not_nil(next(finderState.disconnectedPassivePlanCache))
 
 			popup.controls.closeButton:Click()
 			build.outputRevision = build.outputRevision + 1
@@ -1142,10 +1177,6 @@ describe("RadiusJewelFinder #radius-jewel", function()
 
 			local reopenedPopup = finder:Open()
 			assertResultsCleared(reopenedPopup)
-			assert.is_nil(next(finderState.findCache))
-			assert.is_nil(next(finderState.computeCache))
-			assert.is_nil(next(finderState.resultViewByKey))
-			assert.is_nil(next(finderState.disconnectedPassivePlanCache))
 		end)
 
 		it("isolates grouped limit identities for All variants and All jewels Compute", function()

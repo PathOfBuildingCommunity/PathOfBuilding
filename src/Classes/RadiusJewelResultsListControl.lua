@@ -40,28 +40,31 @@ local function colorSocketLabel(row)
 	return (row.action and ACTION_COLORS[row.action] or "") .. row.socketLabel
 end
 
-local RESULT_DETAIL_COLUMN_BY_MODE = {
-	computeSocket = 6,
-	computeSocketAll = 7,
-	find = 5,
-	findThread = 6,
-}
-local RESULT_SOCKET_COLUMN_BY_MODE = {
-	computeSocket = 1,
-	computeSocketAll = 2,
-	find = 1,
-	findThread = 1,
-}
-local RESULT_STAT_COLUMNS_BY_MODE = {
-	computeSocket = { [3] = true, [4] = true, [5] = true },
-	computeSocketAll = { [4] = true, [5] = true, [6] = true },
-}
-local RESULT_ITEM_COLUMNS_BY_MODE = {
-	computeSocket = { [6] = true },
-	computeSocketAll = { [7] = true },
-	find = { [5] = true },
-	findThread = { [6] = true },
-}
+local function compareField(field, descending)
+	return function(a, b)
+		local aValue = a[field]
+		local bValue = b[field]
+		if aValue == bValue then return false end
+		if aValue == nil then return false end
+		if bValue == nil then return true end
+		return descending and aValue > bValue or not descending and aValue < bValue
+	end
+end
+
+local function column(width, label, getValue, sortField, descending, hoverRole)
+	return {
+		width = width,
+		label = label,
+		sortable = sortField ~= nil,
+		getValue = getValue,
+		compare = sortField and compareField(sortField, descending) or nil,
+		hoverRole = hoverRole,
+	}
+end
+
+local function findPerPoint(row)
+	return row.points == 0 and (row.score > 0 and "^2Free" or "^8Free") or s_format("^7%.2f", row.scorePerPoint)
+end
 
 ---@class RadiusJewelResultsListControl: ListControl
 local RadiusJewelResultsListClass = newClass("RadiusJewelResultsListControl", "ListControl")
@@ -76,39 +79,39 @@ function RadiusJewelResultsListClass:RadiusJewelResultsListControl(anchor, rect,
 	self.mode = "message"
 	self.columnsByMode = {
 		message = {
-			{ width = rect[3] - 22, label = "" },
+			column(rect[3] - 22, "", function(row) return row.text or "" end),
 		},
 		computeSocket = {
-			{ width = 170, label = "Socket", sortable = true },
-			{ width = 50, label = "Points", sortable = true },
-			{ width = 75, label = "Gain", sortable = true },
-			{ width = 60, label = "%", sortable = true },
-			{ width = 65, label = "%/Pt", sortable = true },
-			{ width = 140, label = "Detail", sortable = true },
+			column(170, "Socket", colorSocketLabel, "socketLabel", false, "socket"),
+			column(50, "Points", function(row) return tostring(row.points) end, "points"),
+			column(75, "Gain", function(row) return formatSignedValue(row.delta) end, "delta", true, "stat"),
+			column(60, "%", function(row) return formatSignedPercent(row.pct) end, "pct", true, "stat"),
+			column(65, "%/Pt", function(row) return formatPerPointDisplay(row.pctPerPoint, row.points) end, "sortValue", true, "stat"),
+			column(140, "Detail", function(row) return row.detailText or "" end, "detailText", false, "detail"),
 		},
 		computeSocketAll = {
-			{ width = 120, label = "Jewel", sortable = true },
-			{ width = 130, label = "Socket", sortable = true },
-			{ width = 50, label = "Points", sortable = true },
-			{ width = 75, label = "Gain", sortable = true },
-			{ width = 60, label = "%", sortable = true },
-			{ width = 65, label = "%/Pt", sortable = true },
-			{ width = 60, label = "Detail", sortable = true },
+			column(120, "Jewel", function(row) return row.jewelName or "" end, "jewelName"),
+			column(130, "Socket", colorSocketLabel, "socketLabel", false, "socket"),
+			column(50, "Points", function(row) return tostring(row.points) end, "points"),
+			column(75, "Gain", function(row) return formatSignedValue(row.delta) end, "delta", true, "stat"),
+			column(60, "%", function(row) return formatSignedPercent(row.pct) end, "pct", true, "stat"),
+			column(65, "%/Pt", function(row) return formatPerPointDisplay(row.pctPerPoint, row.points) end, "sortValue", true, "stat"),
+			column(60, "Detail", function(row) return row.detailText or "" end, "detailText", false, "detail"),
 		},
 		find = {
-			{ width = 170, label = "Socket", sortable = true },
-			{ width = 50, label = "Points", sortable = true },
-			{ width = 60, label = "Score", sortable = true },
-			{ width = 70, label = "/Pt", sortable = true },
-			{ width = 210, label = "Detail", sortable = true },
+			column(170, "Socket", colorSocketLabel, "socketLabel", false, "socket"),
+			column(50, "Points", function(row) return tostring(row.points) end, "points"),
+			column(60, "Score", function(row) return s_format("^7%d", row.score) end, "score", true),
+			column(70, "/Pt", findPerPoint, "sortValue", true),
+			column(210, "Detail", function(row) return row.detailText or "" end, "detailText", false, "detail"),
 		},
 		findThread = {
-			{ width = 170, label = "Socket", sortable = true },
-			{ width = 50, label = "Points", sortable = true },
-			{ width = 60, label = "Score", sortable = true },
-			{ width = 70, label = "/Pt", sortable = true },
-			{ width = 90, label = "Ring", sortable = true },
-			{ width = 120, label = "Detail", sortable = true },
+			column(170, "Socket", colorSocketLabel, "socketLabel", false, "socket"),
+			column(50, "Points", function(row) return tostring(row.points) end, "points"),
+			column(60, "Score", function(row) return s_format("^7%d", row.score) end, "score", true),
+			column(70, "/Pt", findPerPoint, "sortValue", true),
+			column(90, "Ring", function(row) return row.variantLabel or "" end, "variantLabel"),
+			column(120, "Detail", function(row) return row.detailText or "" end, "detailText", false, "detail"),
 		},
 	}
 	self.defaultSortByMode = {
@@ -144,13 +147,15 @@ function RadiusJewelResultsListClass:SetMode(mode, list, defaultText)
 end
 
 function RadiusJewelResultsListClass:GetHoverInfo(hoverColumn, hoverData)
-	local detailColumn = hoverColumn and RESULT_DETAIL_COLUMN_BY_MODE[self.mode] == hoverColumn
-	local socketColumn = hoverColumn and RESULT_SOCKET_COLUMN_BY_MODE[self.mode] == hoverColumn
+	local columnInfo = hoverColumn and self.colList[hoverColumn]
+	local hoverRole = columnInfo and columnInfo.hoverRole
+	local detailColumn = hoverRole == "detail"
+	local socketColumn = hoverRole == "socket"
 	local showViewer = socketColumn or (detailColumn and hoverData and hoverData.detailNodeId)
 	local showStatTooltip = hoverData and hoverData.baseOutput and hoverData.compareOutput
-		and hoverColumn and RESULT_STAT_COLUMNS_BY_MODE[self.mode] and RESULT_STAT_COLUMNS_BY_MODE[self.mode][hoverColumn]
+		and hoverRole == "stat"
 	local showItemTooltip = hoverData and hoverData.itemTooltipLines
-		and hoverColumn and RESULT_ITEM_COLUMNS_BY_MODE[self.mode] and RESULT_ITEM_COLUMNS_BY_MODE[self.mode][hoverColumn]
+		and detailColumn
 	local hoverNodeId = hoverData and hoverData.socketId or nil
 	if hoverData and hoverData.detailNodeId and detailColumn then
 		hoverNodeId = hoverData.detailNodeId
@@ -166,94 +171,15 @@ function RadiusJewelResultsListClass:GetHoverInfo(hoverColumn, hoverData)
 end
 
 function RadiusJewelResultsListClass:ReSort(colIndex)
-	if self.mode == "computeSocket" then
-		if colIndex == 1 then
-			t_sort(self.list, function(a, b) return a.socketLabel < b.socketLabel end)
-		elseif colIndex == 2 then
-			t_sort(self.list, function(a, b) return a.points < b.points end)
-		elseif colIndex == 3 then
-			t_sort(self.list, function(a, b) return a.delta > b.delta end)
-		elseif colIndex == 4 then
-			t_sort(self.list, function(a, b) return a.pct > b.pct end)
-		elseif colIndex == 5 then
-			t_sort(self.list, function(a, b) return a.sortValue > b.sortValue end)
-		elseif colIndex == 6 then
-			t_sort(self.list, function(a, b) return a.detailText < b.detailText end)
-		end
-	elseif self.mode == "computeSocketAll" then
-		if colIndex == 1 then
-			t_sort(self.list, function(a, b) return a.jewelName < b.jewelName end)
-		elseif colIndex == 2 then
-			t_sort(self.list, function(a, b) return a.socketLabel < b.socketLabel end)
-		elseif colIndex == 3 then
-			t_sort(self.list, function(a, b) return a.points < b.points end)
-		elseif colIndex == 4 then
-			t_sort(self.list, function(a, b) return a.delta > b.delta end)
-		elseif colIndex == 5 then
-			t_sort(self.list, function(a, b) return a.pct > b.pct end)
-		elseif colIndex == 6 then
-			t_sort(self.list, function(a, b) return a.sortValue > b.sortValue end)
-		elseif colIndex == 7 then
-			t_sort(self.list, function(a, b) return a.detailText < b.detailText end)
-		end
-	elseif self.mode == "find" or self.mode == "findThread" then
-		if colIndex == 1 then
-			t_sort(self.list, function(a, b) return a.socketLabel < b.socketLabel end)
-		elseif colIndex == 2 then
-			t_sort(self.list, function(a, b) return a.points < b.points end)
-		elseif colIndex == 3 then
-			t_sort(self.list, function(a, b) return a.score > b.score end)
-		elseif colIndex == 4 then
-			t_sort(self.list, function(a, b) return a.sortValue > b.sortValue end)
-		elseif colIndex == 5 then
-			if self.mode == "findThread" then
-				t_sort(self.list, function(a, b) return a.variantLabel < b.variantLabel end)
-			else
-				t_sort(self.list, function(a, b) return a.detailText < b.detailText end)
-			end
-		elseif colIndex == 6 and self.mode == "findThread" then
-			t_sort(self.list, function(a, b) return a.detailText < b.detailText end)
-		end
+	local columnInfo = self.colList[colIndex]
+	if columnInfo and columnInfo.compare then
+		t_sort(self.list, columnInfo.compare)
 	end
 end
 
 function RadiusJewelResultsListClass:GetRowValue(column, index, row)
-	if self.mode == "message" then
-		return column == 1 and row.text or ""
-	elseif self.mode == "computeSocket" then
-		return column == 1 and colorSocketLabel(row)
-			or column == 2 and tostring(row.points)
-			or column == 3 and formatSignedValue(row.delta)
-			or column == 4 and formatSignedPercent(row.pct)
-			or column == 5 and formatPerPointDisplay(row.pctPerPoint, row.points)
-			or column == 6 and row.detailText
-			or ""
-	elseif self.mode == "computeSocketAll" then
-		return column == 1 and row.jewelName
-			or column == 2 and colorSocketLabel(row)
-			or column == 3 and tostring(row.points)
-			or column == 4 and formatSignedValue(row.delta)
-			or column == 5 and formatSignedPercent(row.pct)
-			or column == 6 and formatPerPointDisplay(row.pctPerPoint, row.points)
-			or column == 7 and row.detailText
-			or ""
-	elseif self.mode == "find" then
-		return column == 1 and colorSocketLabel(row)
-			or column == 2 and tostring(row.points)
-			or column == 3 and s_format("^7%d", row.score)
-			or column == 4 and (row.points == 0 and (row.score > 0 and "^2Free" or "^8Free") or s_format("^7%.2f", row.scorePerPoint))
-			or column == 5 and row.detailText
-			or ""
-	elseif self.mode == "findThread" then
-		return column == 1 and colorSocketLabel(row)
-			or column == 2 and tostring(row.points)
-			or column == 3 and s_format("^7%d", row.score)
-			or column == 4 and (row.points == 0 and (row.score > 0 and "^2Free" or "^8Free") or s_format("^7%.2f", row.scorePerPoint))
-			or column == 5 and row.variantLabel
-			or column == 6 and row.detailText
-			or ""
-	end
-	return ""
+	local columnInfo = self.colList[column]
+	return columnInfo and columnInfo.getValue and columnInfo.getValue(row) or ""
 end
 
 function RadiusJewelResultsListClass:Draw(viewPort, noTooltip)
