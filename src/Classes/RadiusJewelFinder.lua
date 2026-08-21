@@ -755,29 +755,12 @@ end
 -- Open popup
 -- ─────────────────────────────────────────────────────────────────────────────
 
-local function synchronizeResultCaches(build, finderState)
-	local outputRevision = build.outputRevision or 0
-	if finderState.resultCacheOutputRevision ~= outputRevision then
-		finderState.findCache = { }
-		finderState.computeCache = { }
-		finderState.resultViewByKey = { }
-		finderState.disconnectedPassivePlanCache = { }
-		finderState.resultCacheOutputRevision = outputRevision
-	else
-		finderState.findCache = finderState.findCache or { }
-		finderState.computeCache = finderState.computeCache or { }
-		finderState.resultViewByKey = finderState.resultViewByKey or { }
-		finderState.disconnectedPassivePlanCache = finderState.disconnectedPassivePlanCache or { }
-	end
-end
-
 local RadiusJewelResultState = { }
 RadiusJewelResultState.__index = RadiusJewelResultState
 
-function RadiusJewelResultState:new(finder, finderState, computeState, controls)
+function RadiusJewelResultState:new(finder, computeState, controls)
 	return setmetatable({
 		finder = finder,
-		finderState = finderState,
 		computeState = computeState,
 		controls = controls,
 	}, self)
@@ -787,55 +770,6 @@ function RadiusJewelResultState:setResultContext(rows, resultContextKey)
 	for _, row in ipairs(rows or { }) do
 		row.resultContextKey = resultContextKey
 	end
-end
-
-function RadiusJewelResultState:restore(resultContextKey, isAllJewels, allJewelsViewId)
-	local preferredView = self.finderState.resultViewByKey[resultContextKey]
-	local findCache = not isAllJewels and self.finderState.findCache[resultContextKey] or nil
-	local computeCache = self.finderState.computeCache[resultContextKey]
-	local cache = preferredView == "compute" and computeCache or findCache
-	if not cache and preferredView == "compute" then
-		cache = findCache
-	elseif not cache and preferredView == "find" then
-		cache = computeCache
-	end
-	cache = cache or findCache or computeCache
-	if not cache or cache.resultContextKey ~= resultContextKey then
-		return false
-	end
-
-	local rows = copyTableSafe(cache.rows, false, true)
-	if cache.mode == "computeSocketAll" then
-		self.computeState.lastComputeAllRows = rows
-		self.computeState.lastComputeAllResultContextKey = resultContextKey
-		if allJewelsViewId == "bestPerSocket" then
-			rows = self.finder:filterBestPerSocket(rows)
-		end
-	else
-		self.computeState.lastComputeAllRows = nil
-		self.computeState.lastComputeAllResultContextKey = nil
-	end
-	self.controls.resultsList:SetMode(cache.mode, rows, cache.defaultText)
-	self.controls.statusLabel.label = cache.statusLabel or self.controls.statusLabel.label
-	return true
-end
-
-function RadiusJewelResultState:save(request)
-	if request.resultContextKey ~= request.currentResultContextKey then
-		return false
-	end
-	local targetCache = request.viewName == "compute" and self.finderState.computeCache or self.finderState.findCache
-	targetCache[request.resultContextKey] = {
-		mode = request.mode,
-		rows = copyTableSafe(request.rows, false, true),
-		defaultText = request.defaultText,
-		statusLabel = request.statusLabel,
-		resultContextKey = request.resultContextKey,
-	}
-	if request.makePreferred then
-		self.finderState.resultViewByKey[request.resultContextKey] = request.viewName
-	end
-	return true
 end
 
 function RadiusJewelResultState:clear(isAllJewels, canFind)
@@ -850,32 +784,12 @@ function RadiusJewelResultState:clear(isAllJewels, canFind)
 end
 
 function RadiusJewelResultState:showCriteriaChanged(isAllJewels, canFind)
-	self.computeState.lastComputeAllRows = nil
-	self.computeState.lastComputeAllResultContextKey = nil
 	local message = (isAllJewels or not canFind)
 		and "^xFFAA33Criteria changed. ^8Run Compute again."
 		or "^xFFAA33Criteria changed. ^8Run Find or Compute again."
 	self.controls.statusLabel.label = message
 	if self.controls.resultsList.mode == "message" or #self.controls.resultsList.list == 0 then
 		self.controls.resultsList:SetMode("message", { }, "")
-	end
-end
-
-function RadiusJewelResultState:rememberVisibleView(resultContextKey)
-	local mode = self.controls.resultsList.mode
-	local viewName = (mode == "find" or mode == "findThread") and "find"
-		or (mode == "computeSocket" or mode == "computeSocketAll") and "compute"
-	if not viewName then
-		return
-	end
-	local cache
-	if viewName == "compute" then
-		cache = self.finderState.computeCache[resultContextKey]
-	else
-		cache = self.finderState.findCache[resultContextKey]
-	end
-	if cache and cache.resultContextKey == resultContextKey then
-		self.finderState.resultViewByKey[resultContextKey] = viewName
 	end
 end
 
@@ -1280,7 +1194,6 @@ local function buildRadiusJewelPopupSetup(self)
 
 	local finderState = self.build.radiusJewelFinderState or { }
 	self.build.radiusJewelFinderState = finderState
-	synchronizeResultCaches(self.build, finderState)
 
 	local allJewelsViewOptions = {
 		{ id = "all", label = "All results" },
@@ -1563,7 +1476,7 @@ local function computeJewelType(self, jewelType, request)
 	return strategy.compute(self.compute, jewelType, request)
 end
 
-local function runRadiusJewelFind(self, context, makePreferred)
+local function runRadiusJewelFind(self, context)
 	local controls = context.controls
 	local treeData = context.treeData
 	local radiusIndexByLabel = context.radiusIndexByLabel
@@ -1576,16 +1489,12 @@ local function runRadiusJewelFind(self, context, makePreferred)
 	local resultContextKey = context.resultContextKey
 	local getSelectedVariants = context.getSelectedVariants
 	local formatElapsed = context.formatElapsed
-	local restoreCachedResults = context.restoreCachedResults
-	local saveResultCache = context.saveResultCache
 	local setResultContext = context.setResultContext
 	local showAllJewelsComputePrompt = context.showAllJewelsComputePrompt
 
 	local searchStartTime = GetTime()
 	if selectedJewelType and selectedJewelType.isAllJewels then
-		if not restoreCachedResults() then
-			showAllJewelsComputePrompt()
-		end
+		showAllJewelsComputePrompt()
 		return
 	end
 	controls.statusLabel.label = "^7Searching..."
@@ -1697,10 +1606,6 @@ local function runRadiusJewelFind(self, context, makePreferred)
 		controls.statusLabel.label = (strategy.formatFindStatus
 			and strategy.formatFindStatus(findRequest, #results)
 			or s_format("^7%d results | score/pt", #results)) .. elapsed
-		saveResultCache("find", resultMode, rows, COL_META .. "(no results)", controls.statusLabel.label, makePreferred, resultContextKey)
-		if not makePreferred then
-			restoreCachedResults()
-		end
 	end)
 	if not ok then
 		controls.statusLabel.label = "^1Search failed"
@@ -1714,7 +1619,6 @@ local function runRadiusJewelCompute(self, context)
 	local controls = context.controls
 	local computeState = context.computeState
 	local cancelCompute = context.cancelCompute
-	local restoreCachedResults = context.restoreCachedResults
 	local setComputeProgress = context.setComputeProgress
 	local makeComputeProgressTracker = context.makeComputeProgressTracker
 	local selectedImpactStat = context.selectedImpactStat
@@ -1724,14 +1628,12 @@ local function runRadiusJewelCompute(self, context)
 	local activeJewelTypes = context.activeJewelTypes
 	local jewelSockets = context.jewelSockets
 	local threadVariants = context.threadVariants
-	local finderState = context.finderState
 	local selectedMaxPoints = context.selectedMaxPoints
 	local selectedOccupiedMode = context.selectedOccupiedMode
 	local buildComputeRows = context.buildComputeRows
 	local getSelectedAllJewelsView = context.getSelectedAllJewelsView
 	local formatComputeStatus = context.formatComputeStatus
 	local formatElapsed = context.formatElapsed
-	local saveResultCache = context.saveResultCache
 	local setResultContext = context.setResultContext
 	local getSelectedVariants = context.getSelectedVariants
 	local hasVariantGroups = context.hasVariantGroups
@@ -1741,12 +1643,15 @@ local function runRadiusJewelCompute(self, context)
 
 	if computeState.computeContext then
 		cancelCompute("^8Compute stopped")
-		restoreCachedResults()
+		context.clearResultsForContext()
 		return
 	end
 
 	controls.computeButton.label = "Cancel"
 	local searchStartTime = GetTime()
+	local planCache = { }
+	computeState.lastComputeAllRows = nil
+	computeState.lastComputeAllResultContextKey = nil
 	setComputeProgress("^7Computing...")
 	local progress = makeComputeProgressTracker()
 	computeState.computeContext = {
@@ -1763,7 +1668,7 @@ local function runRadiusJewelCompute(self, context)
 						threadVariants = threadVariants,
 						impactStat = selectedImpactStat,
 						methodId = computeMethod.id,
-						planCache = finderState.disconnectedPassivePlanCache,
+						planCache = planCache,
 						progress = computeProgress,
 						maxTotalPoints = selectedMaxPoints,
 						occupiedMode = selectedOccupiedMode,
@@ -1896,7 +1801,6 @@ local function runRadiusJewelCompute(self, context)
 						and self:filterBestPerSocket(allRows) or allRows
 					controls.resultsList:SetMode("computeSocketAll", displayRows, COL_META .. "(no compatible sockets)")
 					controls.statusLabel.label = formatComputeStatus("All jewels", statLabel, globalBaseline, computeMethodLabel) .. formatElapsed(searchStartTime)
-					saveResultCache("compute", "computeSocketAll", allRows, COL_META .. "(no compatible sockets)", controls.statusLabel.label, true, resultContextKey)
 				else
 					local displayedVariants = getSelectedVariants()
 					local strategy = getJewelStrategy(selectedJewelType)
@@ -1931,7 +1835,6 @@ local function runRadiusJewelCompute(self, context)
 					setResultContext(rows, resultContextKey)
 					controls.resultsList:SetMode("computeSocket", rows, COL_META .. "(no compatible sockets)")
 					controls.statusLabel.label = formatComputeStatus(itemLabel, statLabel, baseline, computeMethodLabel) .. formatElapsed(searchStartTime)
-					saveResultCache("compute", "computeSocket", rows, COL_META .. "(no compatible sockets)", controls.statusLabel.label, true, resultContextKey)
 				end
 			end)
 			if not ok then
@@ -2022,7 +1925,7 @@ local function buildRadiusJewelPopupContext(self)
 	local allJewelsViewLabels = setup.allJewelsViewLabels
 	local selectedAllJewelsView = ALL_JEWELS_VIEW_OPTIONS[1]
 	local computeState = { }
-	local resultState = RadiusJewelResultState:new(self, finderState, computeState, controls)
+	local resultState = RadiusJewelResultState:new(self, computeState, controls)
 
 	local suppressFinderStateSave = false
 	local runFind
@@ -2064,7 +1967,6 @@ local function buildRadiusJewelPopupContext(self)
 	end
 
 	local function getResultContextKey()
-		synchronizeResultCaches(self.build, finderState)
 		local selectedVariantIdentity = selectedJewelVariant and selectedJewelVariant.variantIdentity
 		local selectedVariantKey = selectedVariantIdentity and selectedVariantIdentity.rawText
 			or selectedJewelVariant and (selectedJewelVariant.dropdownLabel or selectedJewelVariant.name)
@@ -2094,47 +1996,20 @@ local function buildRadiusJewelPopupContext(self)
 		resultState:setResultContext(rows, resultContextKey)
 	end
 
-	local function restoreCachedResults(resultContextKey)
-		local key = resultContextKey or getResultContextKey()
-		return resultState:restore(key,
-			selectedJewelType and selectedJewelType.isAllJewels,
-			selectedAllJewelsView.id)
-	end
-	local function saveResultCache(viewName, mode, rows, defaultText, statusLabel, makePreferred, resultContextKey)
-		local key = resultContextKey or getResultContextKey()
-		return resultState:save({
-			viewName = viewName,
-			mode = mode,
-			rows = rows,
-			defaultText = defaultText,
-			statusLabel = statusLabel,
-			makePreferred = makePreferred,
-			resultContextKey = key,
-			currentResultContextKey = getResultContextKey(),
-		})
-	end
 	local function clearResultsForContext()
 		resultState:clear(selectedJewelType and selectedJewelType.isAllJewels, canFindCurrentSelection())
 	end
 	local function showCriteriaChangedForContext()
 		resultState:showCriteriaChanged(selectedJewelType and selectedJewelType.isAllJewels, canFindCurrentSelection())
 	end
-	local function saveVisibleResultView(resultContextKey)
-		resultState:rememberVisibleView(resultContextKey)
-	end
 	local function isResultContextCurrent(resultContextKey)
 		return resultContextKey == getResultContextKey()
 	end
 	local function onCriteriaChanged(updateCriteria)
 		cancelCompute()
-		local previousResultContextKey = getResultContextKey()
-		saveVisibleResultView(previousResultContextKey)
 		updateCriteria()
 		saveFinderState()
-		local resultContextKey = getResultContextKey()
-		if not restoreCachedResults(resultContextKey) then
-			showCriteriaChangedForContext()
-		end
+		showCriteriaChangedForContext()
 	end
 	local function formatComputeStatus(itemLabel, statLabel, baseline, methodLabel)
 		if methodLabel and methodLabel ~= "" then
@@ -2489,8 +2364,6 @@ local function buildRadiusJewelPopupContext(self)
 			local displayRows = selectedAllJewelsView.id == "bestPerSocket"
 				and self:filterBestPerSocket(computeState.lastComputeAllRows) or computeState.lastComputeAllRows
 			controls.resultsList:SetMode("computeSocketAll", displayRows, COL_META .. "(no compatible sockets)")
-		elseif computeState.lastComputeAllRows then
-			clearResultsForContext()
 		end
 		saveFinderState()
 	end)
@@ -2879,7 +2752,6 @@ local function buildRadiusJewelPopupContext(self)
 			controls = controls,
 			computeState = computeState,
 			cancelCompute = cancelCompute,
-			restoreCachedResults = restoreCachedResults,
 			setComputeProgress = setComputeProgress,
 			makeComputeProgressTracker = makeComputeProgressTracker,
 			selectedImpactStat = selectedImpactStat,
@@ -2889,14 +2761,12 @@ local function buildRadiusJewelPopupContext(self)
 			activeJewelTypes = activeJewelTypes,
 			jewelSockets = jewelSockets,
 			threadVariants = selectedThreadVariants,
-			finderState = finderState,
 			selectedMaxPoints = selectedMaxPoints,
 			selectedOccupiedMode = selectedOccupiedMode,
 			buildComputeRows = buildComputeRows,
 			getSelectedAllJewelsView = function() return selectedAllJewelsView end,
 			formatComputeStatus = formatComputeStatus,
 			formatElapsed = formatElapsed,
-			saveResultCache = saveResultCache,
 			setResultContext = setResultContext,
 			getSelectedVariants = getSelectedVariants,
 			hasVariantGroups = hasVariantGroups,
@@ -2911,7 +2781,7 @@ local function buildRadiusJewelPopupContext(self)
 		tooltip:Clear(true)
 		if computeState.computeContext then
 			tooltip:AddLine(16, "^7Stop the current compute.")
-			tooltip:AddLine(16, "^8Restores the previous results.")
+			tooltip:AddLine(16, "^8Run Compute again to refresh the results.")
 			return
 		end
 		if selectedJewelType and selectedJewelType.isAllJewels then
@@ -2936,7 +2806,7 @@ local function buildRadiusJewelPopupContext(self)
 		end)
 	end)
 
-	runFind = function(makePreferred)
+	runFind = function()
 		local resultContextKey = getResultContextKey()
 		runRadiusJewelFind(self, {
 			controls = controls,
@@ -2951,15 +2821,13 @@ local function buildRadiusJewelPopupContext(self)
 			resultContextKey = resultContextKey,
 			getSelectedVariants = getSelectedVariants,
 			formatElapsed = formatElapsed,
-			restoreCachedResults = restoreCachedResults,
-			saveResultCache = saveResultCache,
 			setResultContext = setResultContext,
 			showAllJewelsComputePrompt = showAllJewelsComputePrompt,
-		}, makePreferred)
+		})
 	end
 	controls.findButton = new("ButtonControl"):ButtonControl(BL, { edgePadding, bottomButtonY, 100, buttonHeight }, "Find", function()
 		cancelCompute()
-		runFind(true)
+		runFind()
 	end)
 	controls.findButton.shown = not (selectedJewelType and selectedJewelType.isAllJewels)
 	controls.findButton.enabled = canFindCurrentSelection
@@ -3077,9 +2945,7 @@ local function buildRadiusJewelPopupContext(self)
 
 		suppressFinderStateSave = false
 		saveFinderState()
-		if not restoreCachedResults() then
-			clearResultsForContext()
-		end
+		clearResultsForContext()
 	end
 
 	controls.closeButton = new("ButtonControl"):ButtonControl(BR, { -edgePadding, bottomButtonY, 100, buttonHeight }, "Close", function()

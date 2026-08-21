@@ -54,6 +54,13 @@ describe("RadiusJewelData #radius-jewel", function()
 	-- ── buildJewelTypes ──────────────────────────────────────────────────────
 
 	describe("buildJewelTypes", function()
+		it("registers previews only for known jewel types", function()
+			assert.is_nil(RadiusJewelData.jewelPreviewFn["Unknown Radius Jewel"])
+			for _, jewelType in ipairs(RadiusJewelData.buildJewelTypes()) do
+				assert.is_function(RadiusJewelData.jewelPreviewFn[jewelType.name],
+					"missing preview function for " .. jewelType.name)
+			end
+		end)
 
 		it("assigns one evaluation strategy to every jewel type", function()
 			local strategy = RadiusJewelData.JEWEL_STRATEGY
