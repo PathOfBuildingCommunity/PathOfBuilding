@@ -36,6 +36,7 @@ function PassiveSpecClass:Init(treeVersion, convert)
 	self.tree = main:LoadTree(treeVersion)
 	self.ignoredNodes = { }
 	self.ignoreAllocatingSubgraph = false
+	self.checkNodeLinks = false
 	local previousTreeNodes = { }
 	if convert then
 		previousTreeNodes = self.build.spec.nodes
@@ -909,57 +910,79 @@ function PassiveSpecClass:GetSocketedJewel(nodeId)
 	return self:GetJewel(itemId)
 end
 
--- Perform a breadth-first search of the tree, starting from this node, and determine if it is the closest node to any other nodes
-function PassiveSpecClass:BuildPathFromNode(root)
-	root.pathDist = 0
-	root.path = { }
-	local queue = { root }
-	local o, i = 1, 2 -- Out, in
-	while o < i do
-		-- Nodes are processed in a queue, until there are no nodes left
-		-- All nodes that are 1 node away from the root will be processed first, then all nodes that are 2 nodes away, etc
-		local node = queue[o]
-		o = o + 1
-		local curDist = node.pathDist
-		-- Iterate through all nodes that are connected to this one
-		for index, other in ipairs(node.linked) do
-			-- Cluster subgraph rebuilds can replace node objects while retaining IDs.
-			-- Normalize stale link references to the canonical node object.
-			local canonicalNode = other and other.id and self.nodes[other.id]
-			if not canonicalNode then
-				other = nil
-			elseif canonicalNode ~= other then
-				node.linked[index] = canonicalNode
-				other = canonicalNode
-			end
-			if other then
-				-- Paths must obey these rules:
-				-- 1. They must not pass through class or ascendancy class start nodes (but they can start from such nodes)
-				-- 2. They cannot pass between different ascendancy classes or between an ascendancy class and the main tree
-				--    The one exception to that rule is that a path may start from an ascendancy node and pass into the main tree
-				--    This permits pathing from the Ascendant 'Path of the X' nodes into the respective class start areas
-				-- 3. They must not pass away from mastery nodes
-				local otherPathDist = other.pathDist or 1000
-				if node.type ~= "Mastery" and other.type ~= "ClassStart" and other.type ~= "AscendClassStart" and otherPathDist > curDist and (node.ascendancyName == other.ascendancyName or (curDist == 0 and not other.ascendancyName)) then
-					-- The shortest path to the other node is through the current node
-					other.pathDist = curDist
-					if not other.alloc then
-						other.pathDist = other.pathDist + 1
-					end
-					other.path = wipeTable(other.path)
-					other.path[1] = other
-					for i, n in ipairs(node.path) do
-						other.path[i+1] = n
-					end
-					-- Add the other node to the end of the queue
-					queue[i] = other
-					i = i + 1
-				end
-			end
+local function traversable(curDist, node, other)
+	-- Paths must obey these rules:
+	-- 1. They must not pass through class or ascendancy class start nodes (but they can start from such nodes)
+	-- 2. They cannot pass between different ascendancy classes or between an ascendancy class and the main tree
+	--    The one exception to that rule is that a path may start from an ascendancy node and pass into the main tree
+	--    This permits pathing from the Ascendant 'Path of the X' nodes into the respective class start areas
+	-- 3. They must not pass away from mastery nodes
+	return node.type ~= "Mastery" and other.type ~= "ClassStart" and other.type ~= "AscendClassStart" and (node.ascendancyName == other.ascendancyName or (curDist == 0 and not other.ascendancyName))
+end
+
+-- Cluster subgraph rebuilds can replace node objects while retaining IDs.
+-- Normalize stale link references to the canonical node object.
+function PassiveSpecClass:NormalizeNodeLinks(node)
+	local linked = node.linked
+	for index = #linked, 1, -1 do
+		local other = linked[index]
+		local canonicalNode = other and other.id and self.nodes[other.id]
+		if not canonicalNode then
+			t_remove(linked, index)
+		elseif canonicalNode ~= other then
+			linked[index] = canonicalNode
 		end
 	end
 end
 
+-- Multi-source 0-1 BFS to find what other root (i.e., allocated) nodes each node is closest to
+---@param roots Node[] A list of currently allocated, and other nodes which should be considered as the sources of distances.
+function PassiveSpecClass:BuildNodePathsToRootNodes(roots)
+	-- A dequeue. We will keep a pointer to the start and end of this to keep
+	-- track of its length
+	local q = {}
+	for _, node in ipairs(roots) do
+		node.pathDist = 0
+		node.path = wipeTable(node.path)
+		t_insert(q, node)
+	end
+	local qStart = 1
+	local qLen = #q
+	while qStart <= qLen do
+		-- pop front
+		local node = q[qStart]
+		qStart = qStart + 1
+		local linked = node.linked
+		local nodeDist = node.pathDist
+		local nodePath = node.path
+		for i = 1, #linked do
+			local other = linked[i]
+			local weight = other.alloc and 0 or 1
+			local distViaNode = nodeDist + weight
+			if (distViaNode < (other.pathDist or math.huge))
+				and traversable(nodeDist, node, other) then
+				-- if this node is free, push it to the front so that it can shorten paths
+				if weight == 0 then
+					qStart = qStart - 1
+					q[qStart] = other
+					-- otherwise push to back
+				else
+					qLen = qLen + 1
+					q[qLen] = other
+				end
+
+				-- save path and distance for the node
+				other.pathDist = distViaNode
+				local path = wipeTable(other.path)
+				path[1] = other
+				for i = 1, #nodePath do
+					path[i + 1] = nodePath[i]
+				end
+				other.path = path
+			end
+		end
+	end
+end
 -- Determine this node's distance from the class' start
 -- Only allocated nodes can be traversed
 function PassiveSpecClass:SetNodeDistanceToClassStart(root)
@@ -1064,23 +1087,38 @@ function PassiveSpecClass:BuildSplitPersonalityPath()
 	self.splitPersonalityPath = splitPersonalityPath
 end
 
+-- cache the unallocated mastery option data as it doesn't change based on the build
+-- adds stat descriptions and other node data for unallocated mastery nodes
 function PassiveSpecClass:AddMasteryEffectOptionsToNode(node)
-	node.sd = {}
-	if node.masteryEffects ~= nil and #node.masteryEffects > 0 then
-		for _, effect in ipairs(node.masteryEffects) do
-			effect = self.tree.masteryEffects[effect.effect]
-			local startIndex = #node.sd + 1
-			for _, sd in ipairs(effect.sd) do
-				t_insert(node.sd, sd)
+	local treeNode = self.tree.nodes[node.id]
+	local cacheNode = treeNode and treeNode.masteryCache
+	if not cacheNode then
+		cacheNode = { id = node.id, sd = {} }
+		if node.masteryEffects ~= nil and #node.masteryEffects > 0 then
+			for _, effect in ipairs(node.masteryEffects) do
+				effect = self.tree.masteryEffects[effect.effect]
+				for _, sd in ipairs(effect.sd) do
+					t_insert(cacheNode.sd, sd)
+				end
+				self.tree:ProcessStats(cacheNode, 1)
 			end
-			self.tree:ProcessStats(node, startIndex)
+		else
+			self.tree:ProcessStats(cacheNode)
 		end
-	else
-		self.tree:ProcessStats(node)
+		if treeNode then
+			treeNode.masteryCache = cacheNode
+		end
+	end
+	for k, v in pairs(cacheNode) do
+		if k == "modList" then
+			node.modList = new("ModList"):ModList()
+			node.modList:AddList(v)
+		else
+			node[k] = v
+		end
 	end
 	node.allMasteryOptions = true
 end
-
 function PassiveSpecClass:NodesInIntuitiveLeapLikeRadius(node)
 	local result = { }
 	if self.jewels[node.id] and self.jewels[node.id] > 0 then
@@ -1111,8 +1149,10 @@ function PassiveSpecClass:NodesInIntuitiveLeapLikeRadius(node)
 	return result
 end
 
+-- local sock = require("socket.core")
 -- Rebuilds dependencies and paths for all nodes
 function PassiveSpecClass:BuildAllDependsAndPaths()
+	-- local start = sock.gettime() * 1000
 	local timelessJewelTypeByConqueror = {
 		vaal = 1,
 		karui = 2,
@@ -1147,58 +1187,76 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 			end
 		end
 	end
+
+	-- gather list of radius jewels
+	local radiusJewels = {}
+	for nodeId, itemId in pairs(self.jewels) do
+		local item = self.build.itemsTab.items[itemId]
+		if item and item.jewelRadiusIndex and self.allocNodes[nodeId] and item.jewelData and not item.jewelData.limitDisabled then
+			local socket = self.nodes[nodeId]
+			table.insert(radiusJewels, {
+				socket = socket,
+				item = item,
+			})
+		end
+	end
 	-- Check all nodes for other nodes which depend on them (i.e. are only connected to the tree through that node)
 	for id, node in pairs(self.nodes) do
 		node.depends = wipeTable(node.depends)
 		node.intuitiveLeapLikesAffecting = { }
 		node.conqueredBy = nil
 
+		if self.checkNodeLinks then
+			self:NormalizeNodeLinks(node)
+		end
 		-- ignore cluster jewel nodes that don't have an id in the tree
 		if self.tree.nodes[id] then
 			self:ReplaceNode(node,self.tree.nodes[id])
 		end
 		node.conqueredBy = abyssConquests[id]
 
-		if node.type ~= "ClassStart" and node.type ~= "Socket" and not node.ascendancyName then
-			for nodeId, itemId in pairs(self.jewels) do
-				local item = self.build.itemsTab.items[itemId]
-				if item and item.jewelRadiusIndex and self.allocNodes[nodeId] and item.jewelData and not item.jewelData.limitDisabled then
-					local radiusIndex = item.jewelRadiusIndex
-					if self.nodes[nodeId].nodesInRadius and self.nodes[nodeId].nodesInRadius[radiusIndex][node.id] then
-						if itemId ~= 0 then
-							if item.jewelData.intuitiveLeapLike and not (item.jewelData.intuitiveLeapKeystoneOnly and node.type ~= "Keystone") then
-								-- This node depends on Intuitive Leap-like behaviour
-								-- This flag:
-								-- 1. Prevents generation of paths from this node unless it's also connected to the start
-								-- 2. Prevents allocation of path nodes when this node is being allocated
-								t_insert(node.intuitiveLeapLikesAffecting, self.nodes[nodeId])
-							end
-							if item.jewelData.conqueredBy then
-								local radiusJewelType = timelessJewelTypeByConqueror[item.jewelData.conqueredBy.conqueror.type]
-								if not radiusJewelType or radiusJewelType < 7 then
-									node.conqueredBy = item.jewelData.conqueredBy
-								end
-							end
+		if #radiusJewels > 0 and node.type ~= "ClassStart" and node.type ~= "Socket" and not node.ascendancyName then
+			for _, radiusJewel in ipairs(radiusJewels) do
+				local item = radiusJewel.item
+				local socket = radiusJewel.socket
+				local radiusIndex = item.jewelRadiusIndex
+				local nodesInRadius = radiusIndex and socket.nodesInRadius and socket.nodesInRadius[item.jewelRadiusIndex]
+				if nodesInRadius and nodesInRadius[node.id] then
+					if item.id ~= 0 then
+						if item.jewelData.intuitiveLeapLike and not (item.jewelData.intuitiveLeapKeystoneOnly and node.type ~= "Keystone") then
+							-- This node depends on Intuitive Leap-like behaviour
+							-- This flag:
+							-- 1. Prevents generation of paths from this node unless it's also connected to the start
+							-- 2. Prevents allocation of path nodes when this node is being allocated
+							t_insert(node.intuitiveLeapLikesAffecting, socket)
 						end
-					end
-
-					if item.jewelData and item.jewelData.impossibleEscapeKeystone then
-						for keyName, keyNode in pairs(self.tree.keystoneMap) do
-							if item.jewelData.impossibleEscapeKeystones[keyName] and keyNode.nodesInRadius then
-								if keyNode.nodesInRadius[radiusIndex][node.id] then
-									t_insert(node.intuitiveLeapLikesAffecting, self.nodes[nodeId])
-								end
+						if item.jewelData.conqueredBy then
+							local radiusJewelType = timelessJewelTypeByConqueror[item.jewelData.conqueredBy.conqueror.type]
+							if not radiusJewelType or radiusJewelType < 7 then
+								node.conqueredBy = item.jewelData.conqueredBy
 							end
 						end
 					end
 				end
+
+				local impossibleEscapeKeystones = item.jewelData and item.jewelData.impossibleEscapeKeystones
+				if impossibleEscapeKeystones then
+					for keyName in pairs(impossibleEscapeKeystones) do
+						local keyNode = self.tree.keystoneMap[keyName]
+						local inRadius = keyNode and keyNode.nodesInRadius and keyNode.nodesInRadius[radiusIndex]
+						if inRadius and inRadius[node.id] then
+							t_insert(node.intuitiveLeapLikesAffecting, socket)
+						end
+					end
+				end
 			end
+
 		end
 		if node.alloc then
 			node.depends[1] = node -- All nodes depend on themselves
 		end
 	end
-
+	self.checkNodeLinks = false
 	for id, node in pairs(self.nodes) do
 		-- If node is tattooed, replace it
 		if self.hashOverrides[node.id] then
@@ -1609,23 +1667,28 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 	end
 	
 	-- Reset and rebuild all node paths
-	for id, node in pairs(self.nodes) do
+	for _, node in pairs(self.nodes) do
 		node.pathDist = (node.alloc and #node.intuitiveLeapLikesAffecting == 0) and 0 or 1000
 		node.path = nil
 		if node.isJewelSocket or node.expansionJewel then
 			node.distanceToClassStart = 0
 		end
 	end
-	for id, node in pairs(self.allocNodes) do
+	local rootList = {}
+	for _, node in pairs(self.allocNodes) do
 		if #node.intuitiveLeapLikesAffecting == 0 or node.connectedToStart then
-			self:BuildPathFromNode(node)
-			if node.isJewelSocket or node.expansionJewel then
-				self:SetNodeDistanceToClassStart(node)
-			end
+			t_insert(rootList, node)
+		end
+	end
+	self:BuildNodePathsToRootNodes(rootList)
+	for _, node in ipairs(rootList) do
+		if node.isJewelSocket or node.expansionJewel then
+			self:SetNodeDistanceToClassStart(node)
 		end
 	end
 
 	self:BuildSplitPersonalityPath()
+	-- ConPrintf("BuildAllDependsAndPaths time: %.2f ms", sock.gettime() * 1000 - start)
 end
 
 function PassiveSpecClass:ReplaceNode(old, newNode)
@@ -1740,6 +1803,8 @@ end
 function PassiveSpecClass:BuildClusterJewelGraphs()
 	local needsLegacyClusterHashConversion = self:BeginLegacyClusterHashConversion()
 
+	-- Mark that path building should clear out stale references to cluster nodes
+	self.checkNodeLinks = true
 	-- Remove old subgraphs
 	for id, subGraph in pairs(self.subGraphs) do
 		for _, node in ipairs(subGraph.nodes) do
@@ -2415,13 +2480,12 @@ function PassiveSpecClass:NodeAdditionOrReplacementFromString(node,sd,replacemen
 end
 
 function PassiveSpecClass:NodeInKeystoneRadius(keystoneNames, nodeId, radiusIndex)
-	for _, node in pairs(self.nodes) do
-		if node.name and node.type == "Keystone" and keystoneNames[node.name:lower()] then
-			if (node.nodesInRadius[radiusIndex][nodeId]) then
-				return true
-			end
+	for keystoneName, _ in pairs(keystoneNames) do
+		local keystoneNode = self.tree.keystoneMap[keystoneName]
+		local radius = keystoneNode and keystoneNode.nodesInRadius and keystoneNode.nodesInRadius[radiusIndex]
+		if radius and radius[nodeId] then
+			return true
 		end
 	end
-
 	return false
 end
