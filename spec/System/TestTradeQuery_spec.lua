@@ -37,7 +37,7 @@ describe("TradeQuery", function()
 			tradeQuery:ProcessResultEvaluations()
 			assert.are.same({ "first", "second", "done" }, events)
 			assert.are.equal("Price Item", tradeQuery.controls.priceButton1.label)
-			assert.is_nil(tradeQuery.resultEvaluationContexts[1])
+			assert.is_nil(tradeQuery.resultProcessingByRow[1])
 		end)
 
 		it("clears the prior selection before scheduling a new evaluation", function()
@@ -78,7 +78,6 @@ describe("TradeQuery", function()
 			tradeQuery:StartResultEvaluation(1)
 
 			assert.is_true(tradeQuery:IsResultFetchCurrent(1, fetchToken))
-			assert.is_nil(tradeQuery.resultEvaluationContexts[1])
 			assert.is_false(evaluated)
 			assert.are.equal("Searching...", tradeQuery.controls.priceButton1.label)
 		end)
@@ -117,7 +116,30 @@ describe("TradeQuery", function()
 			tradeQuery:ProcessResultEvaluations()
 
 			assert.are.equal(2, published)
-			assert.is_nil(tradeQuery.resultEvaluationContexts[1])
+			assert.is_nil(tradeQuery.resultProcessingByRow[1])
+		end)
+
+		it("does not resume replaced queued work before another result row", function()
+			local tradeQuery = new("TradeQuery"):TradeQuery({ itemsTab = {} })
+			tradeQuery.resultTbl[1] = { { } }
+			tradeQuery.resultTbl[2] = { { } }
+			local events = { }
+			tradeQuery.UpdateControlsWithItems = function(_, rowIdx, yieldFunc)
+				table.insert(events, rowIdx)
+				yieldFunc(1, 1)
+				table.insert(events, rowIdx)
+			end
+
+			tradeQuery:StartResultEvaluation(1)
+			local fetchToken = tradeQuery:StartResultFetch(1)
+			assert.is_true(tradeQuery:FinishResultFetch(1, fetchToken))
+			tradeQuery:StartResultEvaluation(1)
+			tradeQuery:StartResultEvaluation(2)
+
+			tradeQuery:ProcessResultEvaluations()
+			tradeQuery:ProcessResultEvaluations()
+
+			assert.are.same({ 1, 2 }, events)
 		end)
 	end)
 	describe("result dropdown tooltipFunc", function()
@@ -185,9 +207,11 @@ describe("TradeQuery", function()
 					evaluation = { {
 						output = {},
 						weight = 1,
-						estimatedResistanceSwaps = { { from = "Fire", to = "Cold" } },
-						estimatedResistanceSwapItemString = "Rarity: RARE\nBehemoth Hold\nCoral Ring\nImplicits: 0\n+17% to Cold Resistance",
-						estimatedResistanceSwapLineIndexes = { 1 },
+						estimatedResistanceSwap = {
+							swaps = { { from = "Fire", to = "Cold" } },
+							itemString = "Rarity: RARE\nBehemoth Hold\nCoral Ring\nImplicits: 0\n+17% to Cold Resistance",
+							lineIndexes = { 1 },
+						},
 					} },
 				} } },
 				sortedResultTbl = { [1] = { { index = 1 } } },
@@ -218,12 +242,14 @@ describe("TradeQuery", function()
 					evaluation = { {
 						output = {},
 						weight = 1,
-						estimatedResistanceSwaps = {
-							{ from = "Fire", to = "Cold" },
-							{ from = "Cold", to = "Lightning" },
+						estimatedResistanceSwap = {
+							swaps = {
+								{ from = "Fire", to = "Cold" },
+								{ from = "Cold", to = "Lightning" },
+							},
+							itemString = "Rarity: RARE\nBehemoth Hold\nCoral Ring\nImplicits: 0\n+30 to Strength\n+17% to Cold Resistance\n+24% to Lightning Resistance",
+							lineIndexes = { 2, 3 },
 						},
-						estimatedResistanceSwapItemString = "Rarity: RARE\nBehemoth Hold\nCoral Ring\nImplicits: 0\n+30 to Strength\n+17% to Cold Resistance\n+24% to Lightning Resistance",
-						estimatedResistanceSwapLineIndexes = { 2, 3 },
 					} },
 				} } },
 				sortedResultTbl = { [1] = { { index = 1 } } },
@@ -570,7 +596,7 @@ describe("TradeQuery", function()
 
 			assert.are.equal(1, calls)
 			assert.are.equal(1, #evaluation)
-			assert.is_nil(evaluation[1].estimatedResistanceSwaps)
+			assert.is_nil(evaluation[1].estimatedResistanceSwap)
 		end)
 
 		it("only evaluates swaps that can feed an elemental resistance deficit", function()
@@ -587,7 +613,7 @@ describe("TradeQuery", function()
 
 			assert.are.equal(2, calls)
 			assert.are.equal(1, #evaluation)
-			assert.are.equal("Cold", evaluation[1].estimatedResistanceSwaps[1].to)
+			assert.are.equal("Cold", evaluation[1].estimatedResistanceSwap.swaps[1].to)
 		end)
 
 		it("keeps resistance swaps when the build depends on resistance state", function()
@@ -697,14 +723,15 @@ describe("TradeQuery", function()
 
 			local evaluation = tq:GetResultEvaluation(1, 1,
 				scoreFromElements({ Fire = 1, Cold = 2, Lightning = 4 }), { Life = 100 })
-			local swaps = evaluation[1].estimatedResistanceSwaps
+			local resistanceSwap = evaluation[1].estimatedResistanceSwap
+			local swaps = resistanceSwap.swaps
 
 			assert.are.equal(2, #swaps)
 			assert.are.same({ from = "Fire", to = "Cold" }, swaps[1])
 			assert.are.same({ from = "Cold", to = "Lightning" }, swaps[2])
-			assert.are.same({ 1, 2 }, evaluation[1].estimatedResistanceSwapLineIndexes)
-			assert.is_truthy(evaluation[1].estimatedResistanceSwapItemString:find("+10%% to Cold Resistance"))
-			assert.is_truthy(evaluation[1].estimatedResistanceSwapItemString:find("+20%% to Lightning Resistance"))
+			assert.are.same({ 1, 2 }, resistanceSwap.lineIndexes)
+			assert.is_truthy(resistanceSwap.itemString:find("+10%% to Cold Resistance"))
+			assert.is_truthy(resistanceSwap.itemString:find("+20%% to Lightning Resistance"))
 			assert.are.equal(original, tq.resultTbl[1][1].item_string)
 		end)
 
@@ -716,7 +743,7 @@ describe("TradeQuery", function()
 				return { Life = 100 }
 			end, { Life = 100 })
 
-			assert.is_nil(evaluation[1].estimatedResistanceSwaps)
+			assert.is_nil(evaluation[1].estimatedResistanceSwap)
 		end)
 
 		it("uses one baseline calculation when ranking is disabled or ineligible", function()
@@ -744,7 +771,7 @@ describe("TradeQuery", function()
 				{ Fire = 1, Cold = 1, Lightning = 100 }), { Life = 100 })
 
 			assert.are.equal(1, #evaluation)
-			assert.is_nil(evaluation[1].estimatedResistanceSwaps)
+			assert.is_nil(evaluation[1].estimatedResistanceSwap)
 		end)
 
 		it("retains the best partial assignment when the elemental total cannot reach every cap", function()
@@ -863,6 +890,26 @@ describe("TradeQuery", function()
 			assert.are.equal(3, calls)
 			assert.are.equal(first, second)
 			assert.are.equal(1, #second)
+		end)
+
+		it("publishes evaluation inputs only after cooperative calculation completes", function()
+			local tq = newEvaluationQuery({ "+10% to Fire Resistance" }, { descriptor(1, "Fire") }, true)
+			local result = tq.resultTbl[1][1]
+			result.evaluation = { { weight = -1 } }
+			local co = coroutine.create(function()
+				tq:GetResultEvaluation(1, 1,
+					scoreFromElements({ Fire = 1, Cold = 2, Lightning = 3 }),
+					{ Life = 100 }, coroutine.yield)
+			end)
+
+			assert.is_true(coroutine.resume(co))
+			assert.are.equal(-1, result.evaluation[1].weight)
+			assert.is_nil(result.evaluationInputs)
+			while coroutine.status(co) ~= "dead" do
+				assert.is_true(coroutine.resume(co))
+			end
+			assert.is_truthy(result.evaluationInputs)
+			assert.is_true(result.evaluation[1].weight > 0)
 		end)
 
 		it("reuses the cached evaluation when sorting supplies a shared calculator", function()
