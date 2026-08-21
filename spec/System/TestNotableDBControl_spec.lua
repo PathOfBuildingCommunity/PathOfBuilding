@@ -25,7 +25,7 @@ describe("NotableDBControl", function()
 				end,
 			},
 		}
-		local control = new("NotableDBControl"):NotableDBControl(nil, { 0, 0, 100, 100 }, itemsTab, { [1] = notable }, "ANNOINT")
+		local control = new("NotableDBControl"):NotableDBControl(nil, { 0, 0, 100, 100 }, itemsTab, { [1] = notable }, "ANOINT")
 		for _, stat in ipairs(data.powerStatList) do
 			if stat.stat == "WeightedScore" then
 				control.sortDetail = copyTable(stat)

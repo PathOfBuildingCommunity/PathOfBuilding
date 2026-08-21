@@ -2143,26 +2143,26 @@ function TreeTabClass:FindTimelessJewel()
 			t_insert(fallbackWeightsList, fallbackWeight)
 		end
 	end
-	local activeFallbackWeightIndex = timelessData.fallbackWeightMode.idx or 1
-	if not fallbackWeightsList[activeFallbackWeightIndex] then
-		activeFallbackWeightIndex = 1
+	local selectedFallbackStatIndex = timelessData.fallbackWeightMode.idx or 1
+	if not fallbackWeightsList[selectedFallbackStatIndex] then
+		selectedFallbackStatIndex = 1
 	end
-	local activeFallbackWeight = fallbackWeightsList[activeFallbackWeightIndex]
+	local selectedFallbackStat = fallbackWeightsList[selectedFallbackStatIndex]
 	WeightedScore.appendEditWeightsAction(fallbackWeightsList, function()
-		controls.fallbackWeightsList:SelByValue(activeFallbackWeight.stat, "stat")
+		controls.fallbackWeightsList:SelByValue(selectedFallbackStat.stat, "stat")
 		WeightedScore.editWeights(self.build)
 	end)
 	controls.fallbackWeightsList = new("DropDownControl"):DropDownControl({"TOPLEFT", controls.nodeSelect, "BOTTOMLEFT"}, {0, rowSpacing, 200, rowHeight}, fallbackWeightsList, function(index, value)
 		if value.action then
 			value.action()
 		else
-			activeFallbackWeightIndex = index
-			activeFallbackWeight = value
+			selectedFallbackStatIndex = index
+			selectedFallbackStat = value
 			timelessData.fallbackWeightMode.idx = index
 		end
 	end)
 	controls.fallbackWeightsLabel = new("LabelControl"):LabelControl({"RIGHT", controls.fallbackWeightsList, "LEFT"}, {-labelSpacing, 0, 0, labelHeight}, "^7Fallback Weight Mode:")
-	controls.fallbackWeightsList.selIndex = activeFallbackWeightIndex
+	controls.fallbackWeightsList.selIndex = selectedFallbackStatIndex
 	controls.fallbackWeightsButton = new("ButtonControl"):ButtonControl({"LEFT", controls.fallbackWeightsList, "RIGHT"}, {5, 0, 66, 18}, "Generate", function()
 		setupFallbackWeights()
 		controls.searchListFallbackButton.label = "^4Fallback Nodes"
