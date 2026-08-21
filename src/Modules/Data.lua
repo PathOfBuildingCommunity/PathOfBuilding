@@ -262,18 +262,18 @@ t_insert(data.powerStatList, {
 	stat="WeightedScore",
 	label="Weighted Score",
 	requiresFullDPS=function(build)
-		return WeightedScore.weightsNeedFullDPS(WeightedScore.getWeights(build))
+		return WeightedScore.weightsRequireFullDPS(WeightedScore.getWeights(build))
 	end,
 	getValue=function(output, build, calcBase)
 		local weights = WeightedScore.getWeights(build)
-		local buildBase = calcBase
-		if not buildBase then
-			local _, cachedBuildBase = build.calcsTab:GetMiscCalculator()
-			buildBase = cachedBuildBase
+		local baselineOutput = calcBase
+		if not baselineOutput then
+			local _, cachedBaselineOutput = build.calcsTab:GetMiscCalculator()
+			baselineOutput = cachedBaselineOutput
 		end
-		-- Keep this synthetic stat on the trade-query weight scale. Calcs and Compare
-		-- subtract candidate and baseline values; other consumers rank or normalize it.
-		return WeightedScore.computeRatioScore(buildBase, output, weights) * 1000
+		-- Trader multiplies ratio scores by 1000 to create weight points. Reuse it so
+		-- Calcs/Compare deltas and every ranking or normalization preserve one scale.
+		return WeightedScore.computeRatioScore(baselineOutput, output, weights) * 1000
 	end,
 })
 data.misc = { -- magic numbers
