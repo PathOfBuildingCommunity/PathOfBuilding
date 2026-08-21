@@ -1088,7 +1088,10 @@ function PassiveSpecClass:NodesInIntuitiveLeapLikeRadius(node)
 	return result
 end
 
--- Rebuilds dependencies and paths for all nodes
+-- Rebuilds dependencies and calculation distances for all nodes.
+-- When node paths are skipped, node.path/pathDist remain unset while jewel socket
+-- distanceToClassStart values and Split Personality paths are still refreshed.
+---@param skipNodePathRebuild? boolean
 function PassiveSpecClass:BuildAllDependsAndPaths(skipNodePathRebuild)
 	local timelessJewelTypeByConqueror = {
 		vaal = 1,

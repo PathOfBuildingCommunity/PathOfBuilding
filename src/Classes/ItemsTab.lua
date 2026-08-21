@@ -4074,7 +4074,9 @@ local function itemChangesPassiveTree(item)
 			and (item.jewelData.intuitiveLeapLike or item.jewelData.impossibleEscapeKeystone)))
 end
 
-local function getStoredItemId(itemsTab, item)
+-- An empty key part represents no replacement; replacement items without a stored ID
+-- return nil so their output is not cached.
+local function getJewelComparisonItemCacheKeyPart(itemsTab, item)
 	if not item then
 		return ""
 	end
@@ -4098,11 +4100,11 @@ local function getJewelComparisonOutputCache(itemsTab)
 end
 
 local function getJewelComparisonOutputCacheKey(itemsTab, compareSlot, replacementItem)
-	local replacementItemId = getStoredItemId(itemsTab, replacementItem)
-	if not replacementItemId then
+	local replacementItemKeyPart = getJewelComparisonItemCacheKeyPart(itemsTab, replacementItem)
+	if not replacementItemKeyPart then
 		return
 	end
-	return tostring(compareSlot.slotName) .. ":" .. tostring(compareSlot.nodeId or "") .. ":" .. tostring(compareSlot.selItemId or "") .. ":" .. replacementItemId
+	return tostring(compareSlot.slotName) .. ":" .. tostring(compareSlot.nodeId or "") .. ":" .. tostring(compareSlot.selItemId or "") .. ":" .. replacementItemKeyPart
 end
 
 -- These jewels can replace passive nodes or disconnect allocated passives, so
@@ -4184,23 +4186,23 @@ end
 ---@param itemsTab ItemsTab
 ---@param compareSlot ItemSlotControl
 ---@param replacementItem Item
----@param useCache boolean?
-local function buildSpecForJewelComparison(itemsTab, compareSlot, replacementItem, useCache)
+---@param useJewelComparisonSpecCache boolean?
+local function buildSpecForJewelComparison(itemsTab, compareSlot, replacementItem, useJewelComparisonSpecCache)
 	local tempItemId
 	local replacementItemId = replacementItem and replacementItem.id
 	local replacementItemIsStored = replacementItemId and itemsTab.items[replacementItemId] == replacementItem
-	local canCache = useCache and (not replacementItem or replacementItemIsStored)
+	local canCache = useJewelComparisonSpecCache and (not replacementItem or replacementItemIsStored)
 	local cacheKey
 	local cache
 	if canCache then
 		local outputRevision = itemsTab.build and itemsTab.build.outputRevision or 0
-		cache = itemsTab.targetedJewelComparisonSpecCache
+		cache = itemsTab.slotOnlyJewelComparisonSpecCache
 		if not cache or cache.outputRevision ~= outputRevision then
 			cache = {
 				outputRevision = outputRevision,
 				specs = { },
 			}
-			itemsTab.targetedJewelComparisonSpecCache = cache
+			itemsTab.slotOnlyJewelComparisonSpecCache = cache
 		end
 		cacheKey = tostring(compareSlot.nodeId) .. ":" .. tostring(replacementItemId or "")
 		if cache.specs[cacheKey] then
@@ -4224,7 +4226,9 @@ local function buildSpecForJewelComparison(itemsTab, compareSlot, replacementIte
 		spec.jewels[compareSlot.nodeId] = nil
 	end
 	local ok, err = xpcall(function()
-		-- Tooltip comparison specs only need calc state; node paths are UI data.
+		-- These temporary specs only feed the misc calculator, which does not read node.path/pathDist.
+		-- Jewel socket distances are still rebuilt for jewel scaling;
+		-- Split Personality highlight paths are also refreshed.
 		spec:BuildAllDependsAndPaths(true)
 	end, debug.traceback)
 	if tempItemId then

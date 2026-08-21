@@ -668,7 +668,7 @@ describe("TestRadiusJewelStatDiff", function()
 			"limited unique radius jewels should rebuild only the same-unique slot that will be displayed")
 	end)
 
-	it("AddItemTooltip reuses targeted radius jewel comparison specs until output changes", function()
+	it("AddItemTooltip reuses slot-only radius jewel comparison specs until output changes", function()
 		local spec, sockets = setupAllocatedSockets(2)
 
 		local item = newCustomLeapJewel("Cached Leap")
@@ -692,13 +692,13 @@ describe("TestRadiusJewelStatDiff", function()
 			tooltip = new("Tooltip"):Tooltip()
 			build.itemsTab:AddItemTooltip(tooltip, item, slot)
 			assert.are.equals(1, rebuilds,
-				"targeted radius jewel hover should reuse its cached comparison spec")
+				"slot-only radius jewel hover should reuse its cached comparison spec")
 
 			build.outputRevision = build.outputRevision + 1
 			tooltip = new("Tooltip"):Tooltip()
 			build.itemsTab:AddItemTooltip(tooltip, item, slot)
 			assert.are.equals(2, rebuilds,
-				"targeted radius jewel comparison spec cache should reset when output changes")
+				"slot-only radius jewel comparison spec cache should reset when output changes")
 		end)
 		specClass.BuildAllDependsAndPaths = originalBuildAllDependsAndPaths
 		main.slotOnlyTooltips = originalSlotOnlyTooltips
@@ -771,7 +771,7 @@ describe("TestRadiusJewelStatDiff", function()
 		local originalSlotOnlyTooltips = main.slotOnlyTooltips
 		main.slotOnlyTooltips = false
 		build.itemsTab.jewelComparisonOutputCache = nil
-		build.itemsTab.targetedJewelComparisonSpecCache = nil
+		build.itemsTab.slotOnlyJewelComparisonSpecCache = nil
 
 		local originalGetMiscCalculator = build.calcsTab.GetMiscCalculator
 		local calcCalls = 0
