@@ -144,7 +144,9 @@ function NotableDBClass:ListBuilder()
 		local calcFunc = self.itemsTab.build.calcsTab:GetMiscCalculator()
 		local itemType = self.itemsTab.displayItem.base.type
 		local useFullDPS = data.powerStatList.RequiresFullDPS(self.sortDetail, self.itemsTab.build)
-		local calcBase = calcFunc({ repSlotName = itemType, repItem = self.itemsTab:anointItem(nil) }, useFullDPS)
+		-- Contextual stats compare with the displayed item; scalar stats retain the historical no-anoint delta.
+		local referenceItem = self.sortDetail.getValue and self.itemsTab.displayItem or self.itemsTab:anointItem(nil)
+		local calcBase = calcFunc({ repSlotName = itemType, repItem = referenceItem }, useFullDPS)
 		self.sortMaxPower = 0
 		for nodeIndex, node in ipairs(list) do
 			node.measuredPower = 0
