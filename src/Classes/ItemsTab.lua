@@ -2338,8 +2338,9 @@ function ItemsTabClass:UpdateAffixControl(control, item, affixType, outputTable,
 			testSubject:Craft()
 			controlPowerCache = { }
 		end
+		-- Contextual stats use the displayed item as their reference; testSubject only builds replacement candidates.
 		local calcBase = sortOption.getValue
-			and calcFunc({ repSlotName = slotName, repItem = testSubject }, useFullDPS)
+			and calcFunc({ repSlotName = slotName, repItem = self.displayItem }, useFullDPS)
 		local function pickModifierFromList(modList)
 			-- pick mid tier modifier from a group
 			if #modList == 1 then
