@@ -113,9 +113,9 @@ describe("WeightedScore module", function()
 		assert.are.equal(1.5, WeightedScore.computeRatioScore(base, new, weights))
 	end)
 
-	-- weightsNeedFullDPS: routing helper used by PowerBuilder ------------------
+	-- weightsRequireFullDPS: FullDPS requirement used by PowerBuilder ----------
 
-	it("weightsNeedFullDPS recognizes active FullDPS weights", function()
+	it("weightsRequireFullDPS identifies active FullDPS weights", function()
 		local cases = {
 			{ label = "nil", expected = false },
 			{ label = "empty", weights = {}, expected = false },
@@ -139,7 +139,7 @@ describe("WeightedScore module", function()
 		}
 
 		for _, case in ipairs(cases) do
-			assert.are.equal(case.expected, WeightedScore.weightsNeedFullDPS(case.weights), case.label)
+			assert.are.equal(case.expected, WeightedScore.weightsRequireFullDPS(case.weights), case.label)
 		end
 	end)
 end)
@@ -189,12 +189,12 @@ describe("WeightedScore — tree integration", function()
 	local function drainPowerBuild(stat)
 		build.calcsTab.powerBuildFlag = true
 		build.calcsTab.powerStat = stat or findStat("Life")
-		local maxIter = 100000
-		local iter = 0
+		local maxIterations = 100000
+		local iterations = 0
 		repeat
 			build.calcsTab:BuildPower()
-			iter = iter + 1
-		until not build.calcsTab.powerBuilder or iter >= maxIter
+			iterations = iterations + 1
+		until not build.calcsTab.powerBuilder or iterations >= maxIterations
 	end
 
 	it("registers WeightedScore as the final shared non-minion power stat", function()
@@ -477,7 +477,7 @@ describe("WeightedScore — crafted affix sorting", function()
 		data.powerStatList.GetValue = originalGetValue
 	end)
 
-	it("evaluates contextual scores with their baseline and Full DPS requirement", function()
+	it("evaluates baseline-dependent scores with their reference output and Full DPS requirement", function()
 		local itemsTab = build.itemsTab
 		itemsTab:CreateDisplayItemFromRaw([[
 Rarity: RARE
@@ -529,14 +529,14 @@ Implicits: 0
 			{ }
 		)
 
-		assert.is_true(getValueCalls > 0, "crafted affix sorting must evaluate contextual stats through GetValue")
-		assert.is_true(sawBaseline, "contextual scoring must receive the item without the candidate affix")
+		assert.is_true(getValueCalls > 0, "crafted affix sorting must evaluate baseline-dependent stats through GetValue")
+		assert.is_true(sawBaseline, "baseline-dependent scoring must receive the item without the candidate affix")
 		assert.is_true(#useFullDPSCalls > 0)
 		for _, useFullDPS in ipairs(useFullDPSCalls) do
 			assert.is_true(useFullDPS)
 		end
 		assert.is_not_nil(control.list[2].modList)
 		local highestScoredMod = itemsTab.displayItem.affixes[control.list[2].modList[1]]
-		assert.are.equal(2, #highestScoredMod, "the highest contextual score must sort first")
+		assert.are.equal(2, #highestScoredMod, "the highest baseline-dependent score must sort first")
 	end)
 end)
