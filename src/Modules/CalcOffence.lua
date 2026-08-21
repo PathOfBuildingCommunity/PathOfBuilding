@@ -87,11 +87,6 @@ local function calcDamage(activeSkill, output, cfg, breakdown, damageType, typeF
 			addMax = addMax + max * convMult
 		end
 	end
-	if addMin ~= 0 and addMax ~= 0 then
-		addMin = round(addMin)
-		addMax = round(addMax)
-	end
-
 	local baseMin = output[damageType.."MinBase"]
 	local baseMax = output[damageType.."MaxBase"]
 	if baseMin == 0 and baseMax == 0 then
@@ -99,13 +94,16 @@ local function calcDamage(activeSkill, output, cfg, breakdown, damageType, typeF
 		if breakdown and (addMin ~= 0 or addMax ~= 0) then
 			t_insert(breakdown.damageTypes, {
 				source = damageType,
-				convSrc = (addMin ~= 0 or addMax ~= 0) and (addMin .. " to " .. addMax),
-				total = addMin .. " to " .. addMax,
+				convSrc = (addMin ~= 0 or addMax ~= 0) and (round(addMin) .. " to " .. round(addMax)),
+				total = round(addMin) .. " to " .. round(addMax),
 				convDst = convDst and s_format("%d%% to %s", conversionTable[damageType].conversion[convDst] * 100, convDst),
 				gainDst = convDst and s_format("%d%% gained as %s", conversionTable[damageType].gain[convDst] * 100, convDst),
 			})
 		end
-		return addMin, addMax
+		if convDst then
+			return addMin, addMax
+		end
+		return round(addMin), round(addMax)
 	end
 
 	-- Combine modifiers
@@ -125,15 +123,20 @@ local function calcDamage(activeSkill, output, cfg, breakdown, damageType, typeF
 			base = baseMin .. " to " .. baseMax,
 			inc = (inc ~= 1 and "x "..inc),
 			more = (more ~= 1 and "x "..more),
-			convSrc = (addMin ~= 0 or addMax ~= 0) and (addMin .. " to " .. addMax),
-			total = (round(baseMin * inc * more) + addMin) .. " to " .. (round(baseMax * inc * more) + addMax),
+			convSrc = (addMin ~= 0 or addMax ~= 0) and (round(addMin) .. " to " .. round(addMax)),
+			total = round(baseMin * inc * more + addMin) .. " to " .. round(baseMax * inc * more + addMax),
 			convDst = convDst and conversionTable[damageType].conversion[convDst] > 0 and s_format("%d%% to %s", conversionTable[damageType].conversion[convDst] * 100, convDst),
 			gainDst = convDst and conversionTable[damageType].gain[convDst] > 0 and s_format("%d%% gained as %s", conversionTable[damageType].gain[convDst] * 100, convDst),
 		})
 	end
 
-	return 	round(((baseMin * inc * more) * genericMoreMinDamage + addMin) * moreMinDamage * incMinDamage),
-			round(((baseMax * inc * more) * genericMoreMaxDamage + addMax) * moreMaxDamage * incMaxDamage)
+	local min = ((baseMin * inc * more) * genericMoreMinDamage + addMin) * moreMinDamage * incMinDamage
+	local max = ((baseMax * inc * more) * genericMoreMaxDamage + addMax) * moreMaxDamage * incMaxDamage
+	if convDst then
+		-- Converted paths stay fractional until they reach their final damage type.
+		return min, max
+	end
+	return round(min), round(max)
 end
 
 local function calcAilmentSourceDamage(activeSkill, output, cfg, breakdown, damageType, typeFlags)

@@ -67,6 +67,25 @@ describe("TestOffence", function()
 		assert.is_true(math.abs(conversion.mult - 0.01) < 0.000001)
 	end)
 
+	it("rounds damage after the final step of a conversion path", function()
+		build.itemsTab:CreateDisplayItemFromRaw([[
+		New Item
+		Imbued Wand
+		Adds 2 to 2 Physical Damage to Spells
+		]])
+		build.itemsTab:AddDisplayItem()
+		build.skillsTab:PasteSocketGroup("Fireball 20/0  1")
+		build.configTab.input.customMods = [[
+		50% of Physical Damage Converted to Lightning Damage
+		50% of Lightning Damage Converted to Cold Damage
+		]]
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.equals(9.6, build.calcsTab.calcsOutput.PhysicalMinBase)
+		assert.are.equals(1, build.calcsTab.calcsOutput.ColdMin)
+	end)
+
 	it("parses more/less/increased/reduced minimum and maximum damage of every type", function()
 		build.itemsTab:CreateDisplayItemFromRaw([[
 		New Item
