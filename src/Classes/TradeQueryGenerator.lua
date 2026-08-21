@@ -198,36 +198,65 @@ function TradeQueryGeneratorClass.WeightedRatioOutputs(baseOutput, newOutput, st
 	return meanStatDiff
 end
 
-function TradeQueryGeneratorClass:CreateBenchCraftWeightSnapshot(statWeights)
+function TradeQueryGeneratorClass:CreateBenchCraftEvaluationPlan(statWeights)
 	if not self.modWeights or #self.modWeights == 0 then
 		return
 	end
+	local weightsByTradeMod = { }
+	for _, entry in ipairs(self.modWeights) do
+		weightsByTradeMod[entry.tradeModId] = copyTable(entry)
+	end
 	return {
-		modWeights = copyTable(self.modWeights),
 		statWeights = copyTable(statWeights or { }),
+		weightsByTradeMod = weightsByTradeMod,
+		craftWeights = { },
 	}
 end
 
-function TradeQueryGeneratorClass:EstimateBenchCraftWeight(craft, weightSnapshot)
-	local weightSource = weightSnapshot and weightSnapshot.modWeights
-	if not weightSource then
+function TradeQueryGeneratorClass:GetHighestLevelBenchCrafts(crafts)
+	local craftByGroup = { }
+	local groupOrder = { }
+	for _, craft in ipairs(crafts) do
+		local group = craft.group or craft
+		if not craftByGroup[group] then
+			t_insert(groupOrder, group)
+		end
+		if not craftByGroup[group] or (craft.level or 0) > (craftByGroup[group].level or 0) then
+			craftByGroup[group] = craft
+		end
+	end
+	local highestLevelCrafts = { }
+	for _, group in ipairs(groupOrder) do
+		t_insert(highestLevelCrafts, craftByGroup[group])
+	end
+	return highestLevelCrafts
+end
+
+function TradeQueryGeneratorClass:IsLocalBenchCraft(craft)
+	-- Generated local modifier groups change the concrete item's weapon or defence values.
+	return craft.group and craft.group:find("^Local") ~= nil
+end
+
+function TradeQueryGeneratorClass:GetBenchCraftValueScalar(item, craft)
+	if not item or not item.GetModLineValueScalar then
+		return 1
+	end
+	return item:GetModLineValueScalar({
+		modTags = craft.modTags,
+		unscalable = craft.unscalable,
+		prefix = craft.type == "Prefix",
+		suffix = craft.type == "Suffix",
+	}, "explicit")
+end
+
+function TradeQueryGeneratorClass:EstimateBenchCraftWeight(craft, evaluationPlan, valueScalar)
+	if not evaluationPlan then
 		return nil
 	end
-	self.benchCraftWeightCaches = self.benchCraftWeightCaches or { }
-	if not self.benchCraftWeightCaches[weightSource] then
-		local weightsByTradeMod = { }
-		for _, entry in ipairs(weightSource) do
-			weightsByTradeMod[entry.tradeModId] = entry
-		end
-		self.benchCraftWeightCaches[weightSource] = {
-			weightsByTradeMod = weightsByTradeMod,
-			craftWeights = { },
-		}
-	end
-	local cache = self.benchCraftWeightCaches[weightSource]
-	local cached = cache.craftWeights[craft]
+	valueScalar = valueScalar or 1
+	local cached = evaluationPlan.craftWeights[craft]
 	if cached ~= nil then
-		return cached or nil
+		return cached and cached * valueScalar or nil
 	end
 
 	local score = 0
@@ -236,7 +265,7 @@ function TradeQueryGeneratorClass:EstimateBenchCraftWeight(craft, weightSnapshot
 		local statOrder = craft.statOrder and craft.statOrder[index]
 		local explicitMods = self.modData and self.modData.Explicit
 		local modEntry = statOrder and explicitMods and explicitMods[tostring(statOrder) .. "_" .. craft.group]
-		local weightEntry = modEntry and cache.weightsByTradeMod[modEntry.tradeMod.id]
+		local weightEntry = modEntry and evaluationPlan.weightsByTradeMod[modEntry.tradeMod.id]
 		if weightEntry then
 			local rangedLine = itemLib.applyRange(line, main.defaultItemAffixQuality or 0.5, 1, 1)
 			local _, value = tradeHelpers.findTradeHash(rangedLine)
@@ -252,8 +281,42 @@ function TradeQueryGeneratorClass:EstimateBenchCraftWeight(craft, weightSnapshot
 			end
 		end
 	end
-	cache.craftWeights[craft] = matchedWeight and score or false
-	return matchedWeight and score or nil
+	evaluationPlan.craftWeights[craft] = matchedWeight and score or false
+	return matchedWeight and score * valueScalar or nil
+end
+
+function TradeQueryGeneratorClass:GetBenchCraftQueryWeight(item, evaluationPlan)
+	if not item or not item.type or not evaluationPlan then
+		return
+	end
+	local compatibleCrafts = { }
+	local masterMods = self.itemsTab and self.itemsTab.build and self.itemsTab.build.data
+		and self.itemsTab.build.data.masterMods or { }
+	for _, craft in ipairs(masterMods) do
+		if (craft.type == "Prefix" or craft.type == "Suffix") and craft.types and craft.types[item.type] then
+			t_insert(compatibleCrafts, craft)
+		end
+	end
+	local bestWeight
+	for _, craft in ipairs(self:GetHighestLevelBenchCrafts(compatibleCrafts)) do
+		local valueScalar = self:GetBenchCraftValueScalar(item, craft)
+		local weight = self:EstimateBenchCraftWeight(craft, evaluationPlan, valueScalar)
+		if weight and weight > (bestWeight or 0) then
+			bestWeight = weight
+		end
+	end
+	return bestWeight
+end
+
+function TradeQueryGeneratorClass:GetBenchCraftQueryFilter(item, evaluationPlan)
+	local weight = self:GetBenchCraftQueryWeight(item, evaluationPlan)
+	if not weight then
+		return
+	end
+	return {
+		id = "pseudo.pseudo_number_of_empty_affix_mods",
+		value = { min = 1, max = 1, weight = weight },
+	}, weight
 end
 
 function TradeQueryGeneratorClass:ProcessMod(modId, mod, tradeQueryStatsParsed, itemCategoriesMask, itemCategoriesOverride)
@@ -829,7 +892,6 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
 
 	-- Test each mod one at a time and cache the normalized Stat (configured earlier) diff to use as weight
 	self.modWeights = { }
-	self.benchCraftWeightCaches = nil
 	self.alreadyWeightedMods = { }
 
 	self.calcContext = {
@@ -1000,6 +1062,9 @@ function TradeQueryGeneratorClass:FinishQuery()
 		end
 		return a.meanStatDiff > b.meanStatDiff
 	end)
+	local benchCraftEvaluationPlan = self.requesterContext and self.requesterContext.slotTbl
+		and self.requesterContext.slotTbl.considerBenchCraft
+		and self:CreateBenchCraftEvaluationPlan(self.calcContext.options.statWeights) or nil
 
 	-- A megalomaniac is not being compared to anything and the currentStatDiff will be 0, so just go for an arbitrary min weight - in this case triple the weight of the worst evaluated node.
 	local megalomaniacSpecialMinWeight = self.calcContext.special.itemName == "Megalomaniac" and self.modWeights[#self.modWeights] * 3
@@ -1089,7 +1154,16 @@ function TradeQueryGeneratorClass:FinishQuery()
 			ignoredStats[tostring(HashStats(stats))] = true
 		end
 	end
-	local statFilters = {}
+	local statFilterEntries = { }
+	local function addStatFilter(filterEntry, priority)
+		local entry = {
+			filter = filterEntry,
+			priority = priority or 0,
+			order = #statFilterEntries + 1,
+		}
+		t_insert(statFilterEntries, entry)
+		return entry
+	end
 	local pseudoMods = {}
 	for _, entry in ipairs(self.modWeights) do
 		local hash = entry.tradeModId:match("stat_(%d+)")
@@ -1103,17 +1177,19 @@ function TradeQueryGeneratorClass:FinishQuery()
 			filterEntry.id = tradeId
 			-- avoid adding duplicate pseudo filters: update existing
 			if pseudoMods[tradeId] then
-				pseudoMods[tradeId].value.weight = math.max(filterEntry.value.weight, pseudoMods[tradeId].value.weight)
+				local existingEntry = pseudoMods[tradeId]
+				existingEntry.filter.value.weight = math.max(filterEntry.value.weight, existingEntry.filter.value.weight)
+				existingEntry.priority = m_max(existingEntry.priority, entry.meanStatDiff or 0)
 			else
-				pseudoMods[tradeId] = filterEntry
-				table.insert(statFilters, filterEntry)
+				pseudoMods[tradeId] = addStatFilter(filterEntry, entry.meanStatDiff)
 			end
 		else
-			table.insert(statFilters, filterEntry)
+			addStatFilter(filterEntry, entry.meanStatDiff)
 		end
 
 		::weightContinue::
 	end
+	local benchCraftQueryFilter, benchCraftQueryPriority = self:GetBenchCraftQueryFilter(self.calcContext.testItem, benchCraftEvaluationPlan)
 
 	for k, v in pairs(self.calcContext.special.queryExtra or {}) do
 		complexityBudget = complexityBudget - 2
@@ -1202,13 +1278,22 @@ function TradeQueryGeneratorClass:FinishQuery()
 		end
 	end
 
-	for _, entry in ipairs(statFilters) do
+	if benchCraftQueryFilter then
+		addStatFilter(benchCraftQueryFilter, benchCraftQueryPriority)
+	end
+	table.sort(statFilterEntries, function(a, b)
+		if a.priority == b.priority then
+			return a.order < b.order
+		end
+		return a.priority > b.priority
+	end)
+	for _, entry in ipairs(statFilterEntries) do
 		-- leave some room for the exact search account name and price query
 		if complexityBudget < 8 then
 			break
 		end
 		complexityBudget = complexityBudget - 4
-		t_insert(weightGroup.filters, entry)
+		t_insert(weightGroup.filters, entry.filter)
 	end
 	local errMsg = nil
 	ConPrintf("filters: %d, budget: %d", #weightGroup.filters, complexityBudget)
@@ -1219,9 +1304,7 @@ function TradeQueryGeneratorClass:FinishQuery()
 
 	local queryJson = dkjson.encode(queryTable)
 	if self.requesterContext then
-		self.requesterContext.benchCraftWeightSnapshot = self.requesterContext.slotTbl
-			and self.requesterContext.slotTbl.considerBenchCraft
-			and self:CreateBenchCraftWeightSnapshot(self.calcContext.options.statWeights) or nil
+		self.requesterContext.benchCraftEvaluationPlan = benchCraftEvaluationPlan
 	end
 	self.requesterCallback(self.requesterContext, queryJson, errMsg)
 
@@ -1308,7 +1391,7 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 	if supportsBenchCraft then
 		controls.considerBenchCraft = new("CheckBoxControl"):CheckBoxControl({ "TOPRIGHT", lastItemAnchor, "BOTTOMRIGHT" },
 			{ 0, 5, 18 }, "Bench Craft:", function(state) end,
-			"Sorts fetched results using the highest estimated-weight legal bench craft or replacement.")
+			"Searches for one empty affix and ranks each result using its best compatible bench craft or replacement.")
 		controls.considerBenchCraft.state = self.lastConsiderBenchCraft == true
 		updateLastAnchor(controls.considerBenchCraft)
 	end
@@ -1344,7 +1427,7 @@ Remove: eldritch implicits are removed and ignored in the search.]]
 		controls.includeEldritch = new("DropDownControl"):DropDownControl({ "TOPLEFT", lastItemAnchor, "BOTTOMLEFT" }, { 0, 5, 140, 18 },
 			{ "Copy Current", "Keep regular", "Keep regular+presence", "Remove" }, function(_state) end, eldritchTooltip)
 		controls.includeEldritchLabel = new("LabelControl"):LabelControl({ "RIGHT", controls.includeEldritch, "LEFT" },
-			{ -4, 0, 80, 16 }, "Eldritch Mods:")
+			{ -4, 0, 80, 16 }, "^7Eldritch Mods:")
 		controls.includeEldritch:SelByValue(self.lastIncludeEldritch)
 		updateLastAnchor(controls.includeEldritch)
 	end

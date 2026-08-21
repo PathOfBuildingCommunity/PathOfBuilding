@@ -1043,7 +1043,7 @@ function TradeQueryClass:GetBenchCraftAvailability(item)
 	}, craftState
 end
 
-local function getExistingAffixGroups(item, existingLines)
+local function getExistingAffixGroups(item, existingLines, benchGroups)
 	local groups = { }
 	for _, side in ipairs({ "prefixes", "suffixes" }) do
 		for _, affix in ipairs(item[side] or { }) do
@@ -1054,7 +1054,8 @@ local function getExistingAffixGroups(item, existingLines)
 		end
 	end
 	for _, mod in pairs(item.affixes or { }) do
-		if mod.group then
+		-- Unique, corrupted and other non-affix data cannot occupy a bench slot.
+		if (mod.type == "Prefix" or mod.type == "Suffix") and benchGroups[mod.group] then
 			for _, line in ipairs(mod) do
 				if existingLines[normaliseBenchCraftLine(line)] then
 					groups[mod.group] = true
@@ -1114,7 +1115,53 @@ local function getItemWithoutCraftedMods(item)
 	return new("Item"):Item(strippedItem:BuildRaw()), replacedCraft
 end
 
-function TradeQueryClass:GetBestBenchCraftEvaluation(item, slotName, calcFunc, baseOutput, output, weight, weightSnapshot, yieldFunc)
+function TradeQueryClass:GetBenchCraftsToEvaluate(item, available, evaluationPlan)
+	local existingLines = getExistingModLines(item)
+	local benchCrafts = self.itemsTab.build.data.masterMods or { }
+	local benchGroups = { }
+	for _, craft in ipairs(benchCrafts) do
+		if craft.group then
+			benchGroups[craft.group] = true
+		end
+	end
+	local existingGroups = getExistingAffixGroups(item, existingLines, benchGroups)
+	local legalCrafts = { }
+	for _, craft in ipairs(benchCrafts) do
+		if available[craft.type] and available[craft.type] > 0
+			and craft.types and craft.types[item.type]
+			and not conflictsWithExistingAffix(craft, existingGroups, existingLines) then
+			t_insert(legalCrafts, craft)
+		end
+	end
+	legalCrafts = self.tradeQueryGenerator:GetHighestLevelBenchCrafts(legalCrafts)
+	if not evaluationPlan then
+		return legalCrafts
+	end
+
+	local candidates = { }
+	local bestEstimatedCraft
+	local bestEstimatedWeight
+	-- Local groups depend on concrete item properties and require exact evaluation.
+	-- For other groups, evaluate only the best estimate from the generated query plan.
+	for _, craft in ipairs(legalCrafts) do
+		if self.tradeQueryGenerator:IsLocalBenchCraft(craft) then
+			t_insert(candidates, craft)
+		else
+			local valueScalar = self.tradeQueryGenerator:GetBenchCraftValueScalar(item, craft)
+			local estimatedWeight = self.tradeQueryGenerator:EstimateBenchCraftWeight(craft, evaluationPlan, valueScalar)
+			if estimatedWeight and (not bestEstimatedWeight or estimatedWeight > bestEstimatedWeight) then
+				bestEstimatedCraft = craft
+				bestEstimatedWeight = estimatedWeight
+			end
+		end
+	end
+	if bestEstimatedCraft and bestEstimatedWeight > 0 then
+		t_insert(candidates, bestEstimatedCraft)
+	end
+	return candidates
+end
+
+function TradeQueryClass:GetBestBenchCraftEvaluation(item, slotName, calcFunc, baseOutput, output, weight, evaluationPlan, yieldFunc)
 	local available, craftState = self:GetBenchCraftAvailability(item)
 	local evaluationItem = item
 	local replacedCraft
@@ -1128,90 +1175,59 @@ function TradeQueryClass:GetBestBenchCraftEvaluation(item, slotName, calcFunc, b
 	if not available or (available.Prefix == 0 and available.Suffix == 0) then
 		return output, weight
 	end
-	local existingLines = getExistingModLines(evaluationItem)
-	local existingGroups = getExistingAffixGroups(evaluationItem, existingLines)
 	local bestCraft
 	local bestCraftItemString
 	local bestCraftLineIndexes
 	local bestReplacedCraft
-	local originalItem = evaluationItem:BuildRaw()
-	local craftedItem = new("Item"):Item(originalItem)
-	local requiresFullParse = #craftedItem.modMagnitudeMods > 0 or (craftedItem.catalyst and craftedItem.catalyst > 0)
-	local legalCrafts = { }
-	local bestEstimatedCraft
-	local bestEstimatedWeight
-	for _, craft in ipairs(self.itemsTab.build.data.masterMods or { }) do
-		if available[craft.type] and available[craft.type] > 0
-			and craft.types and craft.types[evaluationItem.type]
-			and not conflictsWithExistingAffix(craft, existingGroups, existingLines) then
-			t_insert(legalCrafts, craft)
-			local estimatedWeight = self.tradeQueryGenerator:EstimateBenchCraftWeight(craft, weightSnapshot)
-			if estimatedWeight and (not bestEstimatedWeight or estimatedWeight > bestEstimatedWeight) then
-				bestEstimatedCraft = craft
-				bestEstimatedWeight = estimatedWeight
+	local legalCrafts = self:GetBenchCraftsToEvaluate(evaluationItem, available, evaluationPlan)
+	local craftedItem = new("Item"):Item(evaluationItem:BuildRaw())
+	for _, craft in ipairs(legalCrafts) do
+		local firstCraftLineIndex = #craftedItem.explicitModLines + 1
+		local valueScalar = self.tradeQueryGenerator:GetBenchCraftValueScalar(craftedItem, craft)
+		for _, line in ipairs(craft) do
+			local rangedLine = itemLib.applyRange(line, main.defaultItemAffixQuality or 0.5, valueScalar, 1)
+			local modList, extra = modLib.parseMod(rangedLine)
+			t_insert(craftedItem.explicitModLines, {
+				line = line,
+				modList = modList,
+				extra = extra,
+				range = main.defaultItemAffixQuality or 0.5,
+				valueScalar = valueScalar,
+				modTags = craft.modTags,
+				modGroup = craft.group,
+				crafted = true,
+				prefix = craft.type == "Prefix",
+				suffix = craft.type == "Suffix",
+			})
+		end
+		craftedItem:BuildModList()
+		local craftOutput = self:ReduceOutput(calcFunc({ repSlotName = slotName, repItem = craftedItem }))
+		if yieldFunc then
+			yieldFunc()
+		end
+		local craftWeight = self.tradeQueryGenerator.WeightedRatioOutputs(baseOutput, craftOutput, self.statSortSelectionList)
+		if craftWeight > weight then
+			output = craftOutput
+			weight = craftWeight
+			bestCraft = table.concat(craft, "/") .. " ^8(" .. craft.type .. ")"
+			bestCraftItemString = craftedItem:BuildRaw()
+			bestReplacedCraft = replacedCraft
+			bestCraftLineIndexes = { }
+			for lineIndex = firstCraftLineIndex, #craftedItem.explicitModLines do
+				t_insert(bestCraftLineIndexes, lineIndex)
 			end
 		end
-	end
-	-- Generated queries already have marginal mod weights. Use them to choose one
-	-- concrete legal craft; pasted queries without weights retain the exact fallback.
-	if bestEstimatedCraft then
-		legalCrafts = bestEstimatedWeight > 0 and { bestEstimatedCraft } or { }
-	end
-	for _, craft in ipairs(legalCrafts) do
-			local firstCraftLineIndex = #craftedItem.explicitModLines + 1
-			for _, line in ipairs(craft) do
-				local modList, extra
-				if not requiresFullParse then
-					local rangedLine = itemLib.applyRange(line, main.defaultItemAffixQuality or 0.5, 1, 1)
-					modList, extra = modLib.parseMod(rangedLine)
-				end
-				t_insert(craftedItem.explicitModLines, {
-					line = line,
-					modList = modList,
-					extra = extra,
-					range = main.defaultItemAffixQuality or 0.5,
-					modTags = craft.modTags,
-					modGroup = craft.group,
-					crafted = true,
-					prefix = craft.type == "Prefix",
-					suffix = craft.type == "Suffix",
-				})
-			end
-			if requiresFullParse then
-				craftedItem:BuildAndParseRaw()
-			else
-				craftedItem:BuildModList()
-			end
-			local craftOutput = self:ReduceOutput(calcFunc({ repSlotName = slotName, repItem = craftedItem }))
-			if yieldFunc then
-				yieldFunc()
-			end
-			local craftWeight = self.tradeQueryGenerator.WeightedRatioOutputs(baseOutput, craftOutput, self.statSortSelectionList)
-			if craftWeight > weight then
-				output = craftOutput
-				weight = craftWeight
-				bestCraft = table.concat(craft, "/") .. " ^8(" .. craft.type .. ")"
-				bestCraftItemString = craftedItem:BuildRaw()
-				bestReplacedCraft = replacedCraft
-				bestCraftLineIndexes = { }
-				for lineIndex = firstCraftLineIndex, #craftedItem.explicitModLines do
-					t_insert(bestCraftLineIndexes, lineIndex)
-				end
-			end
-			if requiresFullParse then
-				craftedItem = new("Item"):Item(originalItem)
-			else
-				for _ = 1, #craft do
-					t_remove(craftedItem.explicitModLines, #craftedItem.explicitModLines)
-				end
-			end
+		for _ = 1, #craft do
+			t_remove(craftedItem.explicitModLines, #craftedItem.explicitModLines)
+		end
 	end
 	return output, weight, bestCraft, bestCraftItemString, bestCraftLineIndexes, bestReplacedCraft
 end
 
 -- Method to evaluate a result by getting it's output and weight
 function TradeQueryClass:GetResultEvaluation(row_idx, result_index, calcFunc, baseOutput, yieldFunc)
-	local result = self.resultTbl[row_idx][result_index]
+	local resultRow = self.resultTbl[row_idx]
+	local result = resultRow[result_index]
 	if not calcFunc then
 		calcFunc, baseOutput = self.itemsTab.build.calcsTab:GetMiscCalculator()
 	end
@@ -1281,11 +1297,11 @@ function TradeQueryClass:GetResultEvaluation(row_idx, result_index, calcFunc, ba
 		local weight = self.tradeQueryGenerator.WeightedRatioOutputs(baseOutput, output, self.statSortSelectionList)
 		local benchCraft, benchCraftItemString, benchCraftLineIndexes, benchCraftReplaced
 		if slotTbl.considerBenchCraft then
-			local weightSnapshot = result.benchCraftWeightSnapshot
-			if weightSnapshot and not tableDeepEquals(self.statSortSelectionList, weightSnapshot.statWeights) then
-				weightSnapshot = nil
+			local evaluationPlan = resultRow.benchCraftEvaluationPlan
+			if evaluationPlan and not tableDeepEquals(self.statSortSelectionList, evaluationPlan.statWeights) then
+				evaluationPlan = nil
 			end
-			output, weight, benchCraft, benchCraftItemString, benchCraftLineIndexes, benchCraftReplaced = self:GetBestBenchCraftEvaluation(item, slotName, calcFunc, baseOutput, output, weight, weightSnapshot, yieldFunc)
+			output, weight, benchCraft, benchCraftItemString, benchCraftLineIndexes, benchCraftReplaced = self:GetBestBenchCraftEvaluation(item, slotName, calcFunc, baseOutput, output, weight, evaluationPlan, yieldFunc)
 		end
 		result.evaluation = {{
 			output = output,
@@ -1410,7 +1426,7 @@ function TradeQueryClass:SortFetchResults(row_idx, mode, yieldFunc)
 	end
 	local newTbl = {}
 	if mode == self.sortModes.Weight then
-		for index, _ in pairs(self.resultTbl[row_idx]) do
+		for index = 1, #self.resultTbl[row_idx] do
 			t_insert(newTbl, { outputAttr = index, index = index })
 		end
 		return newTbl
@@ -1534,9 +1550,9 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 							item.enchantModLines = {}
 						end
 						itemsSafe[i].item_string = item:BuildRaw()
-						itemsSafe[i].benchCraftWeightSnapshot = context.benchCraftWeightSnapshot
 					end
 
+					itemsSafe.benchCraftEvaluationPlan = context.benchCraftEvaluationPlan
 					self.resultTbl[context.row_idx] = itemsSafe
 					self:StartResultEvaluation(context.row_idx)
 				end,
