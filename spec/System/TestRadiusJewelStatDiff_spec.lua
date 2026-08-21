@@ -787,11 +787,14 @@ describe("TestRadiusJewelStatDiff", function()
 			local tooltip = new("Tooltip"):Tooltip()
 			build.itemsTab:AddItemTooltip(tooltip, item, slot)
 			local firstPassCalcCalls = calcCalls
+			local firstPassTooltipText = tooltipText(tooltip)
 			assert.is_true(firstPassCalcCalls > 0,
 				"full radius jewel tooltip should calculate outputs on first pass")
 
 			tooltip = new("Tooltip"):Tooltip()
 			build.itemsTab:AddItemTooltip(tooltip, item, slot)
+			assert.are.equals(firstPassTooltipText, tooltipText(tooltip),
+				"cached radius outputs should preserve tooltip content")
 			local secondPassCalcCalls = calcCalls - firstPassCalcCalls
 			assert.is_true(secondPassCalcCalls < firstPassCalcCalls,
 				"full radius jewel tooltip should reuse cached radius outputs on second pass")
