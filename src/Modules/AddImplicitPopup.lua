@@ -135,23 +135,25 @@ function M.AddImplicitToDisplayItem(itemsTab, displayItem)
 					label = modLabel,
 					mod = mod,
 					type = "vestigial",
-					defaultOrder = id,
 					uniqueTitle = uniqueTitle,
+					modListIndex = #modList + 1,
+					id = id,
 				} })
-				t_insert(modGroups, {
-					label = modLabel,
-					mod = mod,
-					modListIndex = #modList,
-					defaultOrder = id,
-					uniqueTitle = uniqueTitle,
-				})
 				groupIndexes[mod.group] = #modGroups
 				::vestigialContinue::
 			end
-			for i, _ in pairs(modList) do
-				table.sort(modList[i], function(a, b)
-					return a.defaultOrder < b.defaultOrder
-				end)
+			table.sort(modList, function(a, b)
+				a = a[1]
+				b = b[1]
+				if a.group == b.group then
+					return a.id < b.id
+				end
+				return a.mod.group < b.mod.group
+			end)
+			for i, elem in ipairs(modList) do
+				local group = elem[1]
+				group.modListIndex = i
+				table.insert(modGroups, elem[1])
 			end
 		end
 		setDefaultSortOrder()

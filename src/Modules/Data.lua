@@ -862,7 +862,7 @@ data.vestigialUniqueBaseTypes = {
 }
 -- map from mod ID to what item it *should* come from
 ---@type table<string, string>
-data.vestigialModMappings = LoadModule("Data/Vestigial")
+data.vestigialModMappings = require("Data.Vestigial")
 for k, v in pairs(data.vestigialModMappings) do
 	data.vestigialModMappings[k] = v[1]
 	-- if launch.devMode then
