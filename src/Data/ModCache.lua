@@ -7967,9 +7967,7 @@ c["Can have up to 2 additional Remote Mines placed at a time"]={{[1]={flags=0,ke
 c["Can have up to 2 additional Traps placed at a time"]={{[1]={flags=0,keywordFlags=0,name="ActiveTrapLimit",type="BASE",value=2}},nil}
 c["Can have up to 3 additional Remote Mines placed at a time"]={{[1]={flags=0,keywordFlags=0,name="ActiveMineLimit",type="BASE",value=3}},nil}
 c["Can have up to 4 additional Traps placed at a time"]={{[1]={flags=0,keywordFlags=0,name="ActiveTrapLimit",type="BASE",value=4}},nil}
-c["Can have up to 5 Implicit Modifiers while Item has this Modifier"]={nil,"Can have up to 5 Implicit Modifiers while Item has this Modifier "}
-c["Can have up to 5 Implicit Modifiers while Item has this Modifier +2 to Level of Socketed Gems"]={nil,"Can have up to 5 Implicit Modifiers while Item has this Modifier +2 to Level of Socketed Gems "}
-c["Can have up to 5 Implicit Modifiers while Item has this Modifier 200% increased Armour and Energy Shield"]={nil,"Can have up to 5 Implicit Modifiers while Item has this Modifier 200% increased Armour and Energy Shield "}
+c["Can have up to 5 Implicit Modifiers while Item has this Modifier"]={{},nil}
 c["Can have up to 5 additional Traps placed at a time"]={{[1]={flags=0,keywordFlags=0,name="ActiveTrapLimit",type="BASE",value=5}},nil}
 c["Can't use Amulets"]={{[1]={[1]={slotName="Amulet",type="DisablesItem"},flags=0,keywordFlags=0,name="CanNotUseItem",type="Flag",value=1}},nil}
 c["Can't use Belts"]={{[1]={[1]={slotName="Belt",type="DisablesItem"},flags=0,keywordFlags=0,name="CanNotUseItem",type="Flag",value=1}},nil}

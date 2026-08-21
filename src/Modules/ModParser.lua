@@ -5934,7 +5934,7 @@ local specialModList = {
 	-- instead say how many implicits the item can have. in that case, the two
 	-- below modifiers should be swapped.
 	["can be modified while corrupted"] = { mod("CorruptImplicitCount", "BASE", 5) },
-	["Can have up to 5 implicit modifiers while item has this modifier"] = {},
+	["can have up to 5 implicit modifiers while item has this modifier"] = {},
 }
 for _, name in ipairs(data.keystones) do
 	specialModList[name:lower()] = { mod("Keystone", "LIST", name), flag("Condition:Have"..firstToUpper(name):gsub(" %l", string.upper):gsub(" ", "")) }

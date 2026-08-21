@@ -3185,23 +3185,32 @@ function ItemsTabClass:CorruptDisplayItem()
 		control:SelByValue(selfMod, "mod")
 	end
 	local function buildCorruptLists(modType)
+		-- avoid letting the user select the same implicit twice
 		local selectedGroups = {}
 		for i = 1, maxImplicitNum do
 			---@type DropDownControl
 			local control = controls[string.format("implicit%d", i)]
 			local selected = control:GetSelValue()
+			if selected and selected.mod then
+				selectedGroups[selected.mod.group] = { idx = i, val = selected.mod }
+			end
+		end
+		for i = 1, maxImplicitNum do
+			---@type DropDownControl
+			local control = controls[string.format("implicit%d", i)]
 			wipeTable(control.list)
 			t_insert(control.list, { label = "None" })
 			for _, entry in ipairs(implicitList[modType]) do
 				local mod = entry.mod
-				if not selectedGroups[mod.group] then
+				if not selectedGroups[mod.group] or selectedGroups[mod.group].idx == i then
 					t_insert(control.list, { label = table.concat(mod, "/"), mod = mod })
 				end
 			end
-			if selected and selected.mod then
-				control:SelByValue(selected.mod, "mod")
-				selectedGroups[selected.mod.group] = true
-			end
+		end
+		for _, entry in pairs(selectedGroups) do
+			---@type DropDownControl
+			local control = controls[string.format("implicit%d", entry.idx)]
+			control:SelByValue(entry.val, "mod")
 		end
 	end
 	local function getSortValue(entry, modType, stat, calcFunc, slotName, useFullDPS)
@@ -3256,13 +3265,13 @@ function ItemsTabClass:CorruptDisplayItem()
 		local slotName = self.displayItem:GetPrimarySlot()
 		local calcFunc = stat and self.build.calcsTab:GetMiscCalculator() or nil
 		local useFullDPS = stat == "FullDPS"
-		if currentModType ~= "Scourge" then
+		if currentModType ~= "ScourgeUpside" then
 			sortModType("Corrupted", stat, calcFunc, slotName, useFullDPS)
 		else
 			sortModType("ScourgeUpside", stat, calcFunc, slotName, useFullDPS)
 			sortModType("ScourgeDownside", stat, calcFunc, slotName, useFullDPS)
 		end
-		if currentModType ~= "Scourge" then
+		if currentModType ~= "ScourgeUpside" then
 			buildCorruptLists(currentModType)
 		else
 			buildScourgeList(controls.implicit1, controls.implicit2, "ScourgeUpside")
@@ -3270,17 +3279,17 @@ function ItemsTabClass:CorruptDisplayItem()
 			buildScourgeList(controls.implicit3, controls.implicit4, "ScourgeDownside")
 			buildScourgeList(controls.implicit4, controls.implicit3, "ScourgeDownside")
 		end
-		controls.implicit1:UpdateSearch()
-		controls.implicit2:UpdateSearch()
-		if controls.implicit3 then controls.implicit3:UpdateSearch() end
-		if controls.implicit4 then controls.implicit4:UpdateSearch() end
+		for i = 1, maxImplicitNum do
+			local control = controls[string.format("implicit%d", i)]
+			control:UpdateSearch()
+		end
 	end
 	local function corruptItem(addingImplicits)
 		local item = new("Item"):Item(self.displayItem:BuildRaw())
 		item.id = self.displayItem.id
 		item.corrupted = true
 		local specialCorruptLine
-		if currentModType ~= "Scourge" then
+		if currentModType ~= "ScourgeUpside" then
 			for i, modLine in ipairs(self.displayItem.implicitModLines) do
 				for _, mod in ipairs(modLine.modList or {}) do
 					if mod.name == "CorruptImplicitCount" then
@@ -3309,12 +3318,12 @@ function ItemsTabClass:CorruptDisplayItem()
 				end
 			end
 			if #newImplicit > 0 then
-				wipeTable(currentModType ~= "Scourge" and item.implicitModLines or item.scourgeModLines)
+				wipeTable(currentModType ~= "ScourgeUpside" and item.implicitModLines or item.scourgeModLines)
 				if specialCorruptLine then
 					t_insert(item.implicitModLines, specialCorruptLine)
 				end
 				for _, implicit in ipairs(newImplicit) do
-					t_insert(currentModType ~= "Scourge" and item.implicitModLines or item.scourgeModLines, implicit)
+					t_insert(currentModType ~= "ScourgeUpside" and item.implicitModLines or item.scourgeModLines, implicit)
 				end
 			end
 		end
@@ -3374,7 +3383,7 @@ function ItemsTabClass:CorruptDisplayItem()
 	end
 	controls.implicits = new("ButtonControl"):ButtonControl({ "TOPLEFT", nil, "TOPLEFT" }, { 5, 5, 80, 20 }, "Implicits",
 		function()
-			local implicitNum = currentModType ~= "Scourge" and itemMaxCorruptImplicits or 4
+			local implicitNum = currentModType ~= "ScourgeUpside" and itemMaxCorruptImplicits or 4
 			local canChangeImplicits = currentModType ~= "Corrupted" or not self.displayItem.implicitsCannotBeChanged
 			setImplicitControlsShown(implicitNum, canChangeImplicits)
 			for _, i in ipairs(shownExplicits) do
@@ -3423,6 +3432,7 @@ function ItemsTabClass:CorruptDisplayItem()
 				buildScourgeList(controls.implicit3, controls.implicit4, "ScourgeDownside")
 				buildScourgeList(controls.implicit4, controls.implicit3, "ScourgeDownside")
 			else
+				buildImplicitList(value)
 				currentModType = value
 				setImplicitControlsShown(itemMaxCorruptImplicits, not self.displayItem.implicitsCannotBeChanged)
 				main.popups[1].height = 103 + 20 * itemMaxCorruptImplicits
@@ -3432,10 +3442,9 @@ function ItemsTabClass:CorruptDisplayItem()
 			else
 				buildCorruptLists(currentModType)
 			end
-			controls.implicit1:SetSel(1)
-			controls.implicit2:SetSel(1)
-			controls.implicit3:SetSel(1)
-			controls.implicit4:SetSel(1)
+			for i = 1, maxImplicitNum do
+				controls[string.format("implicit%d", i)]:SetSel(1)
+			end
 		end)
 	controls.source.enabled = #sourceList > 1
 	controls.sortLabel = new("LabelControl"):LabelControl({"TOPRIGHT",nil,"TOPLEFT"}, {350, 20, 0, 16}, "^7Sort by:")
@@ -3471,12 +3480,13 @@ function ItemsTabClass:CorruptDisplayItem()
 	end
 	for i = 1, maxImplicitNum do
 		controls["implicit" .. i].selFunc = function()
-			if currentModType ~= "Scourge" then
-				buildCorruptLists(currentModType)
-			else
+			if currentModType == "ScourgeUpside" then
 				local otherIdx = (i % 2 == 0) and (i - 1) or (i + 1)
+				local modType = i <= 2 and "ScourgeUpside" or "ScourgeDownside"
 				-- remove selected entry from other dropdown of the same type
-				buildScourgeList(controls["implicit" .. otherIdx], controls["implicit" .. i], "ScourgeDownside")
+				buildScourgeList(controls["implicit" .. otherIdx], controls["implicit" .. i], modType)
+			else
+				buildCorruptLists(currentModType)
 			end
 		end
 		if i <= itemMaxCorruptImplicits then
@@ -3938,7 +3948,7 @@ function ItemsTabClass:AddCrucibleModifierToDisplayItem()
 				for _, line in ipairs(value.mod) do
 					tooltip:AddLine(16, "^7"..checkLineForAllocates(line, self.build.spec.nodes))
 				end
-				self:AddModComparisonTooltip(tooltip, value.mod)
+				self:AddModComparisonTooltip(tooltip, value.mod, true)
 			end
 		end
 		y = y + 22
