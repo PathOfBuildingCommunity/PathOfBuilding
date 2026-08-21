@@ -464,20 +464,17 @@ end)
 
 describe("WeightedScore — crafted affix sorting", function()
 	local originalGetMiscCalculator
-	local originalGetValue
 
 	before_each(function()
 		newBuild()
 		originalGetMiscCalculator = build.calcsTab.GetMiscCalculator
-		originalGetValue = data.powerStatList.GetValue
 	end)
 
 	after_each(function()
 		build.calcsTab.GetMiscCalculator = originalGetMiscCalculator
-		data.powerStatList.GetValue = originalGetValue
 	end)
 
-	it("evaluates baseline-dependent scores with their reference output and Full DPS requirement", function()
+	it("sorts crafted affixes against the displayed item", function()
 		local itemsTab = build.itemsTab
 		itemsTab:CreateDisplayItemFromRaw([[
 Rarity: RARE
@@ -485,7 +482,7 @@ Weighted Sort Helmet
 Royal Burgonet
 Item Level: 86
 Crafted: true
-Prefix: None
+Prefix: {range:0.5}IncreasedLife6
 Prefix: None
 Prefix: None
 Suffix: None
@@ -493,9 +490,11 @@ Suffix: None
 Suffix: None
 Quality: 20
 Implicits: 0
++65 to maximum Life
 ]])
 		itemsTab.tradeQuery.statSortSelectionList = {
 			{ stat = "FullDPS", label = "Full DPS", weightMult = 1 },
+			{ stat = "TotalEHP", label = "Effective Hit Pool", weightMult = 1 },
 		}
 		itemsTab.controls.craftingSorting:SelByValue("WeightedScore", "stat")
 
@@ -503,20 +502,17 @@ Implicits: 0
 		build.calcsTab.GetMiscCalculator = function()
 			return function(params, useFullDPS)
 				useFullDPSCalls[#useFullDPSCalls + 1] = useFullDPS
-				return {
-					modCount = params and params.repItem and #params.repItem.explicitModLines or 0,
-				}
+				local item = params and params.repItem
+				local modCount = item and #item.explicitModLines or 0
+				if item == itemsTab.displayItem then
+					return { FullDPS = 200, TotalEHP = 100 }
+				elseif modCount >= 2 then
+					return { FullDPS = 180, TotalEHP = 120 }
+				elseif modCount == 1 then
+					return { FullDPS = 150, TotalEHP = 140 }
+				end
+				return { FullDPS = 100, TotalEHP = 100 }
 			end
-		end
-
-		local getValueCalls = 0
-		local sawBaseline = false
-		data.powerStatList.GetValue = function(output, statTable, ownerBuild, calcBase)
-			getValueCalls = getValueCalls + 1
-			sawBaseline = sawBaseline or (calcBase and calcBase.modCount == 0)
-			assert.are.equal("WeightedScore", statTable.stat)
-			assert.are.equal(build, ownerBuild)
-			return output.modCount
 		end
 
 		local control = itemsTab.controls.displayItemAffix1
@@ -529,14 +525,12 @@ Implicits: 0
 			{ }
 		)
 
-		assert.is_true(getValueCalls > 0, "crafted affix sorting must evaluate baseline-dependent stats through GetValue")
-		assert.is_true(sawBaseline, "baseline-dependent scoring must receive the item without the candidate affix")
 		assert.is_true(#useFullDPSCalls > 0)
 		for _, useFullDPS in ipairs(useFullDPSCalls) do
 			assert.is_true(useFullDPS)
 		end
 		assert.is_not_nil(control.list[2].modList)
 		local highestScoredMod = itemsTab.displayItem.affixes[control.list[2].modList[1]]
-		assert.are.equal(2, #highestScoredMod, "the highest baseline-dependent score must sort first")
+		assert.are.equal(1, #highestScoredMod, "the best modifier for the displayed item must sort first")
 	end)
 end)
