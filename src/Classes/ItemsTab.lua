@@ -3466,7 +3466,7 @@ function ItemsTabClass:CorruptDisplayItem()
 				for _, line in ipairs(value.mod) do
 					tooltip:AddLine(16, "^7" .. line)
 				end
-				self:AddModComparisonTooltip(tooltip, value.mod)
+				self:AddModComparisonTooltip(tooltip, value.mod, true)
 			end
 		end
 		local shownVal
@@ -3948,7 +3948,7 @@ function ItemsTabClass:AddCrucibleModifierToDisplayItem()
 				for _, line in ipairs(value.mod) do
 					tooltip:AddLine(16, "^7"..checkLineForAllocates(line, self.build.spec.nodes))
 				end
-				self:AddModComparisonTooltip(tooltip, value.mod, true)
+				self:AddModComparisonTooltip(tooltip, value.mod)
 			end
 		end
 		y = y + 22
