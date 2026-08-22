@@ -7,6 +7,7 @@
 
 local dkjson = require "dkjson"
 local itemSlotHelper = require("Modules.ItemSlotHelper")
+local tradeHelpers = require("Classes.TradeHelpers")
 
 local get_time = os.time
 local t_insert = table.insert
@@ -460,19 +461,19 @@ Highest Weight - Displays the order retrieved from trade]]
 	self.controls.itemSortSelection:SetSel(self.pbItemSortSelectionIndex, true)
 	self.controls.itemSortSelectionLabel = new("LabelControl"):LabelControl({"TOPRIGHT", self.controls.itemSortSelection, "TOPLEFT"}, {-4, 0, 56, 16}, "^7Sort By:")
 
-	-- Hide fetched results that would leave unmet attribute requirements unless unchecked.
+	-- Optional post-fetch validation complements the query filters with the fully equipped output.
 	local hideAttributeRequirementsLabel = "^7Hide results failing attribute requirements"
 	local hideAttributeRequirementsLabelWidth = DrawStringWidth(row_height - 4, "VAR", hideAttributeRequirementsLabel) + 5
 	local hideAttributeRequirementsRect = {24 + hideAttributeRequirementsLabelWidth, 0, row_height, row_height}
-	self.controls.hideAttributeRequirementsCheck = new("CheckBoxControl"):CheckBoxControl({"LEFT", self.controls.tradeTypeSelection, "RIGHT"}, hideAttributeRequirementsRect, hideAttributeRequirementsLabel, function(state)
+	self.controls.hideResultsFailingAttributeRequirementsCheck = new("CheckBoxControl"):CheckBoxControl({"LEFT", self.controls.tradeTypeSelection, "RIGHT"}, hideAttributeRequirementsRect, hideAttributeRequirementsLabel, function(state)
 		self.hideResultsFailingAttributeRequirements = state
 		for row_idx, _ in pairs(self.resultTbl) do
 			self:UpdateControlsWithItems(row_idx)
 		end
 	end)
-	self.controls.hideAttributeRequirementsCheck.tooltipText = "Hide fetched results when equipping the item would leave unmet Str/Dex/Int/Omniscience attribute requirements.\nUnchecked: show those results after fetching."
+	self.controls.hideResultsFailingAttributeRequirementsCheck.tooltipText = "Hide fetched results when equipping the item would leave unmet Str/Dex/Int/Omniscience attribute requirements.\nUnchecked: show those results after fetching."
 	self.hideResultsFailingAttributeRequirements = self.hideResultsFailingAttributeRequirements == true
-	self.controls.hideAttributeRequirementsCheck.state = self.hideResultsFailingAttributeRequirements
+	self.controls.hideResultsFailingAttributeRequirementsCheck.state = self.hideResultsFailingAttributeRequirements
 
 	-- Realm selection
 	self.controls.realmLabel = new("LabelControl"):LabelControl({"LEFT", self.controls.setSelect, "RIGHT"}, {18, 0, 20, row_height - 4}, "^7Realm:")
@@ -834,24 +835,41 @@ function TradeQueryClass:ReduceOutput(output)
 	return smallOutput
 end
 
-function TradeQueryClass:GetReplacementSlotName(row_idx)
+-- Resolve from current ItemsTab state so result filtering does not depend on row-control construction.
+function TradeQueryClass:GetReplacementSlot(row_idx)
 	local slotTbl = self.slotTables[row_idx]
 	if not slotTbl then
 		return nil
 	end
 	local jewelNodeId = slotTbl.nodeId or slotTbl.selectedJewelNodeId
 	if jewelNodeId then
-		return "Jewel " .. tostring(jewelNodeId)
+		return self.itemsTab.sockets and self.itemsTab.sockets[jewelNodeId]
 	end
-	if slotTbl.replacementSlotName then
-		return slotTbl.replacementSlotName
+	if slotTbl.slotName == "Pearl of Tsoatha" and not slotTbl.selectedSlotName then
+		for index = 1, 3 do
+			local ringSlot = self.itemsTab.slots and self.itemsTab.slots["Ring " .. index]
+			if ringSlot and ringSlot.shown() then
+				slotTbl.selectedSlotName = ringSlot.slotName
+				break
+			end
+		end
+	end
+	if slotTbl.selectedSlotName then
+		return self.itemsTab.slots and self.itemsTab.slots[slotTbl.selectedSlotName]
 	end
 	if slotTbl.fullName then
-		return slotTbl.fullName
+		return self.itemsTab.slots and self.itemsTab.slots[slotTbl.fullName]
 	end
-	if self.itemsTab.slots and self.itemsTab.slots[slotTbl.slotName] then
-		return slotTbl.slotName
+	return self.itemsTab.slots and self.itemsTab.slots[slotTbl.slotName]
+end
+
+function TradeQueryClass:GetReplacementSlotName(row_idx)
+	local slotTbl = self.slotTables[row_idx]
+	if not slotTbl or not self:GetReplacementSlot(row_idx) then
+		return nil
 	end
+	local jewelNodeId = slotTbl.nodeId or slotTbl.selectedJewelNodeId
+	return jewelNodeId and "Jewel " .. tostring(jewelNodeId) or slotTbl.selectedSlotName or slotTbl.fullName or slotTbl.slotName
 end
 
 -- Method to evaluate a result by getting it's output and weight
@@ -874,17 +892,8 @@ function TradeQueryClass:GetResultEvaluation(row_idx, result_index, calcFunc, ba
 		self.lastComparedWeightList[row_idx][result_index] = self.statSortSelectionList
 	end
 	local slotTbl = self.slotTables[row_idx]
-	if slotTbl.slotName == "Pearl of Tsoatha" and not slotTbl.selectedSlotName then
-		for index = 1, 3 do
-			local ringSlot = self.itemsTab.slots["Ring " .. index]
-			if ringSlot and ringSlot.shown() then
-				slotTbl.selectedSlotName = ringSlot.slotName
-				break
-			end
-		end
-	end
-	local slotName = self:GetReplacementSlotName(row_idx) or slotTbl.selectedSlotName or slotTbl.slotName
-	if slotName == "Megalomaniac" then
+	local slotName = self:GetReplacementSlotName(row_idx) or slotTbl.slotName
+	if slotTbl.slotName == "Megalomaniac" then
 		local addedNodes = {}
 		for nodeName in (result.item_string.."\r\n"):gmatch("1 Added Passive Skill is (.-)\r?\n") do
 			t_insert(addedNodes, self.itemsTab.build.spec.tree.clusterNodeMap[nodeName])
@@ -944,16 +953,20 @@ function TradeQueryClass:ResetResultRow(rowIdx)
 	self.controls.fullPrice.label = "^7Total Price: " .. self:GetTotalPriceString()
 end
 function TradeQueryClass:UpdateControlsWithItems(row_idx)
-	local results = self.resultTbl[row_idx]
-	if not results or #results == 0 then
+	local function clearVisibleResults()
 		self.sortedResultTbl[row_idx] = {}
+		self.itemIndexTbl[row_idx] = nil
+		self.totalPrice[row_idx] = nil
 		if self.controls["resultDropdown".. row_idx] then
 			self.controls["resultDropdown".. row_idx]:SetList({})
 			self.controls["resultDropdown".. row_idx].selIndex = 1
 		end
-		self.itemIndexTbl[row_idx] = nil
-		self.totalPrice[row_idx] = nil
-		self.controls.fullPrice.label = "Total Price: " .. self:GetTotalPriceString()
+		self.controls.fullPrice.label = "^7Total Price: " .. self:GetTotalPriceString()
+	end
+
+	local results = self.resultTbl[row_idx]
+	if not results or #results == 0 then
+		clearVisibleResults()
 		return
 	end
 
@@ -969,24 +982,13 @@ function TradeQueryClass:UpdateControlsWithItems(row_idx)
 		self:SetNotice(self.controls.pbNotice, "")
 	end
 	if not sortedItems or #sortedItems == 0 then
-		self:SetNotice(self.controls.pbNotice, "No usable results (attribute requirements)")
-		self.sortedResultTbl[row_idx] = {}
-		if self.controls["resultDropdown".. row_idx] then
-			self.controls["resultDropdown".. row_idx]:SetList({})
-			self.controls["resultDropdown".. row_idx].selIndex = 1
-		end
-		self.itemIndexTbl[row_idx] = nil
-		self.totalPrice[row_idx] = nil
-		self.controls.fullPrice.label = "Total Price: " .. self:GetTotalPriceString()
+		clearVisibleResults()
+		self:SetNotice(self.controls.pbNotice, self.hideResultsFailingAttributeRequirements and
+			"No usable results (attribute requirements)" or "^4No compatible items found for this slot.")
 		return
 	end
 
 	self.sortedResultTbl[row_idx] = sortedItems
-	if not sortedItems[1] then
-		self:ResetResultRow(row_idx)
-		self:SetNotice(self.controls.pbNotice, "^4No compatible items found for this slot.")
-		return
-	end
 	local pb_index = sortedItems[1].index
 	self.itemIndexTbl[row_idx] = pb_index
 	self.controls["priceButton".. row_idx].tooltipText = "Sorted by " .. self.itemSortSelectionList[self.pbItemSortSelectionIndex]
@@ -1012,37 +1014,24 @@ end
 -- Method to sort the fetched results
 function TradeQueryClass:SortFetchResults(row_idx, mode)
 	local calcFunc, baseOutput
-	local attrReqCache = {}
 	local slotName = self:GetReplacementSlotName(row_idx)
 	local results = self.resultTbl[row_idx]
 	if not results or #results == 0 then
 		return {}
 	end
 
-	-- Returns true if the candidate item meets its attribute requirements when equipped
+	-- Post-fetch validation recalculates the equipped candidate so Omniscience and
+	-- other requirement transformations are applied before filtering the result.
 	local function meetsAttributeRequirements(result_index)
 		if not self.hideResultsFailingAttributeRequirements or not slotName then
 			return true
-		end
-		if attrReqCache[result_index] ~= nil then
-			return attrReqCache[result_index]
 		end
 		if not calcFunc then
 			calcFunc, baseOutput = self.itemsTab.build.calcsTab:GetMiscCalculator()
 		end
 		local item = new("Item"):Item(self.resultTbl[row_idx][result_index].item_string)
 		local output = calcFunc({ repSlotName = slotName, repItem = item })
-		local ok
-		if output.ReqOmni then
-			ok = (output.ReqOmni or 0) <= (output.Omni or 0)
-		else
-			local function attrOk(reqKey, attrKey)
-				return (output[reqKey] or 0) <= (output[attrKey] or 0)
-			end
-			ok = attrOk("ReqStr", "Str") and attrOk("ReqDex", "Dex") and attrOk("ReqInt", "Int")
-		end
-		attrReqCache[result_index] = ok
-		return ok
+		return tradeHelpers.meetsAttributeRequirements(output)
 	end
 
 	local function getResultWeight(result_index)
@@ -1145,17 +1134,11 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 	local controls = self.controls
 	local slotTbl = self.slotTables[row_idx]
 	local activeSlotRef = slotTbl.nodeId and self.itemsTab.activeItemSet[slotTbl.nodeId] or self.itemsTab.activeItemSet[slotTbl.slotName]
-	local nodeId = slotTbl.nodeId or slotTbl.selectedJewelNodeId
-	local activeSlot = nodeId and self.itemsTab.sockets[nodeId] or
-		slotTbl.slotName and (self.itemsTab.slots[slotTbl.slotName] or
-			slotTbl.slotName == "Watcher's Eye" and self:findValidSlotForWatchersEye() or
-			-- fullName for Abyssal Sockets
-			slotTbl.fullName and self.itemsTab.slots[slotTbl.fullName])
+	local activeSlot = self:GetReplacementSlot(row_idx)
 	local function getSelectedSlot()
 		local selectedNodeId = slotTbl.nodeId or slotTbl.selectedJewelNodeId
 		return selectedNodeId and self.itemsTab.sockets[selectedNodeId] or activeSlot
 	end
-	slotTbl.replacementSlotName = activeSlot and activeSlot.slotName or slotTbl.fullName or nil
 	local nameColor = slotTbl.unique and colorCodes.UNIQUE or "^7"
 	controls["name" .. row_idx] = new("LabelControl"):LabelControl(top_pane_alignment_ref, { 0, row_idx * (row_height + row_vertical_padding), 135, row_height - 4 }, nameColor .. slotTbl.slotName)
 	controls["bestButton" .. row_idx] = new("ButtonControl"):ButtonControl({ "LEFT", controls["name" .. row_idx], "LEFT" }, { 135 + 8, 0, 80, row_height }, "Find best", function()

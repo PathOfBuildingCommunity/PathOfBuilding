@@ -766,15 +766,10 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
 	-- Calculate base output with a blank item
 	local calcFunc, baseOutput = self.itemsTab.build.calcsTab:GetMiscCalculator()
 	local baseItemOutput = slot and calcFunc({ repSlotName = slot.slotName, repItem = testItem }) or baseOutput
-	-- Determine attribute shortfall when replacing the current item with a blank base
-	local attrReqShortfall = { Str = 0, Dex = 0, Int = 0 }
+	-- Pre-fetch constraint: require the replacement to restore attributes lost with the current item.
+	local attributeRequirementShortfall = { Str = 0, Dex = 0, Int = 0 }
 	if slot and (not slot.slotName:find("Flask")) then
-		local needStr = math.max(0, (baseItemOutput.ReqStr or 0) - (baseItemOutput.Str or 0))
-		local needDex = math.max(0, (baseItemOutput.ReqDex or 0) - (baseItemOutput.Dex or 0))
-		local needInt = math.max(0, (baseItemOutput.ReqInt or 0) - (baseItemOutput.Int or 0))
-		attrReqShortfall.Str = needStr
-		attrReqShortfall.Dex = needDex
-		attrReqShortfall.Int = needInt
+		attributeRequirementShortfall = tradeHelpers.getAttributeRequirementShortfall(baseItemOutput)
 	end
 	-- make weights more human readable
 	local compStatValue = TradeQueryGeneratorClass.WeightedRatioOutputs(baseOutput, baseItemOutput, options.statWeights) * 1000
@@ -795,7 +790,7 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
 		slot = slot,
 		requiredMods = options.requiredMods,
 		blockedMods = options.blockedMods,
-		attrReqShortfall = attrReqShortfall,
+		attributeRequirementShortfall = attributeRequirementShortfall,
 	}
 
 	-- OnFrame will pick this up and begin the work
@@ -1074,8 +1069,8 @@ function TradeQueryGeneratorClass:FinishQuery()
 
 	local options = self.calcContext.options
 	-- If enabled, require the new item to provide enough attributes to meet build requirements.
-	if options.includeAttrReqs and self.calcContext.attrReqShortfall then
-		local need = self.calcContext.attrReqShortfall
+	if options.includeAttributeRequirementFilters and self.calcContext.attributeRequirementShortfall then
+		local need = self.calcContext.attributeRequirementShortfall
 		if need.Str and need.Str > 0 then
 			complexityBudget = complexityBudget - 4
 			t_insert(andGroup.filters, { id = "pseudo.pseudo_total_strength", value = { min = need.Str } })
@@ -1353,10 +1348,10 @@ Remove: %s will be removed from the search results.]], term, term, term)
 	updateLastAnchor(controls.maxLevel)
 
 	-- When enabled, the generated query asks for enough attributes on the new item
-	controls.includeAttrReqs = new("CheckBoxControl"):CheckBoxControl({"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, {0, 5, 18}, "Attribute requirements:", function(state) end)
-	controls.includeAttrReqs.state = (self.lastIncludeAttrReqs == nil or self.lastIncludeAttrReqs == true)
-	controls.includeAttrReqs.tooltipText = "Add Str/Dex/Int pseudo filters when the current build is short on attributes.\nThis narrows the generated trade query before fetching results."
-	updateLastAnchor(controls.includeAttrReqs)
+	controls.includeAttributeRequirementFilters = new("CheckBoxControl"):CheckBoxControl({"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, {0, 5, 18}, "Attribute requirements:", function(state) end)
+	controls.includeAttributeRequirementFilters.state = self.lastIncludeAttributeRequirementFilters == nil or self.lastIncludeAttributeRequirementFilters == true
+	controls.includeAttributeRequirementFilters.tooltipText = "Add Str/Dex/Int pseudo filters when the current build is short on attributes.\nThis narrows the generated trade query before fetching results."
+	updateLastAnchor(controls.includeAttributeRequirementFilters)
 
 	-- basic filtering by slot for sockets and links, Megalomaniac does not have slot and Sockets use "Jewel nodeId"
 	if slot and not isJewelSlot and not isAbyssalJewelSlot and not slot.slotName:find("Flask") then
@@ -1441,8 +1436,9 @@ Remove: %s will be removed from the search results.]], term, term, term)
 			options.maxLevel = tonumber(controls.maxLevel.buf)
 			self.lastMaxLevel = options.maxLevel
 		end
-		if controls.includeAttrReqs then
-			self.lastIncludeAttrReqs, options.includeAttrReqs = controls.includeAttrReqs.state, controls.includeAttrReqs.state
+		if controls.includeAttributeRequirementFilters then
+			self.lastIncludeAttributeRequirementFilters = controls.includeAttributeRequirementFilters.state
+			options.includeAttributeRequirementFilters = controls.includeAttributeRequirementFilters.state
 		end
 		if controls.sockets and controls.sockets.buf then
 			options.sockets = tonumber(controls.sockets.buf)

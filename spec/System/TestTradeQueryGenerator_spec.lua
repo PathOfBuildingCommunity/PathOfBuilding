@@ -13,7 +13,7 @@ describe("TradeQueryGenerator", function()
 		end
 	end
 
-	local function finishQueryWithAttributeShortfall(shortfall, includeAttrReqs)
+	local function finishQueryWithAttributeShortfall(shortfall, includeAttributeRequirementFilters)
 		local queryGen = new("TradeQueryGenerator"):TradeQueryGenerator({ itemsTab = {} })
 		local queryTable
 		local errMsg
@@ -27,7 +27,7 @@ describe("TradeQueryGenerator", function()
 			errMsg = queryErrMsg
 		end
 		queryGen.calcContext = {
-			itemCategoryQueryStr = "ring",
+			itemCategoryQueryStr = "accessory.ring",
 			special = {},
 			testItem = {
 				BuildAndParseRaw = function() end,
@@ -37,20 +37,56 @@ describe("TradeQueryGenerator", function()
 			options = {
 				statWeights = { { stat = "TotalDPS", weightMult = 1 } },
 				includeAllWEMods = false,
-				includeAttrReqs = includeAttrReqs,
+				includeAttributeRequirementFilters = includeAttributeRequirementFilters,
 				includeMirrored = true,
 				influence1 = 1,
 				influence2 = 1,
 			},
-			attrReqShortfall = shortfall,
+			attributeRequirementShortfall = shortfall,
 		}
 
 		local previousClosePopup = main.ClosePopup
 		main.ClosePopup = function() end
-		queryGen:FinishQuery()
+		local ok, finishError = pcall(function()
+			queryGen:FinishQuery()
+		end)
 		main.ClosePopup = previousClosePopup
+		assert.is_true(ok, finishError)
 
 		return queryTable, errMsg
+	end
+
+	local function startQueryWithReplacementOutput(replacementOutput)
+		local calcArgs
+		local queryGen = new("TradeQueryGenerator"):TradeQueryGenerator({
+			itemsTab = {
+				items = {
+					[1] = { baseName = "Gold Ring", type = "Ring", base = { type = "Ring" } },
+				},
+				build = {
+					calcsTab = {
+						GetMiscCalculator = function()
+							return function(args)
+								calcArgs = args
+								return replacementOutput
+							end, { TotalDPS = 100 }
+						end,
+					},
+				},
+			},
+		})
+		local previousOpenPopup = main.OpenPopup
+		main.OpenPopup = function() return {} end
+		local ok, startError = pcall(function()
+			queryGen:StartQuery({ slotName = "Ring 1", selItemId = 1 }, {
+				influence1 = 1,
+				influence2 = 1,
+				statWeights = { { stat = "TotalDPS", weightMult = 1 } },
+			})
+		end)
+		main.OpenPopup = previousOpenPopup
+		assert.is_true(ok, startError)
+		return queryGen, calcArgs
 	end
 
 	describe("ProcessMod", function()
@@ -258,6 +294,21 @@ describe("TradeQueryGenerator", function()
 	end)
 
 	describe("attribute requirement filters", function()
+		it("calculates the shortfall from the blank replacement output", function()
+			local queryGen, calcArgs = startQueryWithReplacementOutput({
+				TotalDPS = 100,
+				ReqStr = 50,
+				Str = 40,
+				ReqDex = 30,
+				Dex = 35,
+				ReqInt = 25,
+				Int = 20,
+			})
+			assert.are.equal("Ring 1", calcArgs.repSlotName)
+			assert.are.equal("Gold Ring", calcArgs.repItem.baseName)
+			assert.same({ Str = 10, Dex = 0, Int = 5 }, queryGen.calcContext.attributeRequirementShortfall)
+		end)
+
 		it("adds needed attribute pseudo filters to the generated query", function()
 			local queryTable, errMsg = finishQueryWithAttributeShortfall({ Str = 12, Dex = 34, Int = 56 }, true)
 			assert.is_nil(errMsg)
