@@ -1189,7 +1189,7 @@ describe("RadiusJewelCompute #radius-jewel", function()
 			return {
 				socketId = socketId,
 				sortValue = score,
-				isSocketIndependent = options.isSocketIndependent,
+				isEffectSocketIndependent = options.isEffectSocketIndependent,
 				jewelLimitKey = options.jewelLimitKey,
 				jewelLimit = options.jewelLimit,
 				points = options.points,
@@ -1256,8 +1256,8 @@ describe("RadiusJewelCompute #radius-jewel", function()
 			-- The dependent should get socket 1, independent goes to socket 2
 			local rows = {
 				makeRow(1, 10, { name = "dependent" }),
-				makeRow(1, 20, { name = "independent", isSocketIndependent = true }),
-				makeRow(2, 5,  { name = "independent2", isSocketIndependent = true }),
+				makeRow(1, 20, { name = "independent", isEffectSocketIndependent = true }),
+				makeRow(2, 5,  { name = "independent2", isEffectSocketIndependent = true }),
 			}
 			local result = makeFinder():filterBestPerSocket(rows)
 			assert.are.equal(2, #result)
@@ -1272,9 +1272,9 @@ describe("RadiusJewelCompute #radius-jewel", function()
 			local rows = {
 				makeRow(1, 30, { name = "dependent-1" }),
 				makeRow(2, 25, { name = "dependent-2" }),
-				makeRow(1, 20, { name = "independent-1", isSocketIndependent = true }),
-				makeRow(2, 15, { name = "independent-2", isSocketIndependent = true }),
-				makeRow(3, 10, { name = "independent-3", isSocketIndependent = true }),
+				makeRow(1, 20, { name = "independent-1", isEffectSocketIndependent = true }),
+				makeRow(2, 15, { name = "independent-2", isEffectSocketIndependent = true }),
+				makeRow(3, 10, { name = "independent-3", isEffectSocketIndependent = true }),
 			}
 			local result = makeFinder():filterBestPerSocket(rows)
 			local bySocket = {}
@@ -1286,8 +1286,8 @@ describe("RadiusJewelCompute #radius-jewel", function()
 
 		it("socket-independent tie-break uses fewer points", function()
 			local rows = {
-				makeRow(1, 20, { isSocketIndependent = true, points = 5 }),
-				makeRow(2, 20, { isSocketIndependent = true, points = 2 }),
+				makeRow(1, 20, { isEffectSocketIndependent = true, points = 5 }),
+				makeRow(2, 20, { isEffectSocketIndependent = true, points = 2 }),
 			}
 			local result = makeFinder():filterBestPerSocket(rows)
 			assert.are.equal(2, #result)
@@ -1300,8 +1300,8 @@ describe("RadiusJewelCompute #radius-jewel", function()
 			-- Two independent jewels can use a single remaining socket
 			local rows = {
 				makeRow(1, 50, { name = "dependent" }),        -- takes socket 1
-				makeRow(1, 20, { name = "ie-high-points", isSocketIndependent = true, points = 8 }),
-				makeRow(2, 20, { name = "ie-low-points",  isSocketIndependent = true, points = 2 }),
+				makeRow(1, 20, { name = "ie-high-points", isEffectSocketIndependent = true, points = 8 }),
+				makeRow(2, 20, { name = "ie-low-points",  isEffectSocketIndependent = true, points = 2 }),
 			}
 			local result = makeFinder():filterBestPerSocket(rows)
 			local bySocket = {}
@@ -1315,7 +1315,7 @@ describe("RadiusJewelCompute #radius-jewel", function()
 			-- independent rows with that key are blocked
 			local rows = {
 				makeRow(1, 30, { name = "dependent-ie", jewelLimitKey = "IE", jewelLimit = 1 }),
-				makeRow(2, 20, { name = "independent-ie", isSocketIndependent = true, jewelLimitKey = "IE", jewelLimit = 1 }),
+				makeRow(2, 20, { name = "independent-ie", isEffectSocketIndependent = true, jewelLimitKey = "IE", jewelLimit = 1 }),
 				makeRow(3, 10, { name = "other" }),
 			}
 			local result = makeFinder():filterBestPerSocket(rows)

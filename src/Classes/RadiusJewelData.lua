@@ -883,7 +883,7 @@ function M.buildJewelTypes()
 		scoreUnallocNotablesAndKeystones, {
 		strategy = JEWEL_STRATEGY.IMPOSSIBLE_ESCAPE,
 		isImpossibleEscape = true,
-		isSocketIndependent = true,
+		isEffectSocketIndependent = true,
 		computeMethods = M.DISCONNECTED_PASSIVE_COMPUTE_METHODS,
 		variants = M.getImpossibleEscapeVariants(),
 	}))
