@@ -282,53 +282,86 @@ Strict-Transport-Security: max-age=63115200; includeSubDomains; preload]]
 			assert.are.equal("0", itemsById.empty.weight)
 		end)
 
-		it("preserves prefix and suffix metadata from trade modifier tiers", function()
+		it("reconstructs explicit and crafted affixes for bench craft replacement", function()
+			local function tradeMod(description, hash, tier, domain)
+				return {
+					description = description, domain = domain or "explicit", hash = "stat." .. hash,
+					mods = { { name = "Test Affix", tier = tier, level = 30 } },
+				}
+			end
 			local response = dkjson.encode({
 				result = { {
 					id = "affix-metadata",
-					listing = {
-						price = { amount = 1, currency = "chaos", type = "~price" },
-						whisper = "hi",
-						account = { name = "seller" },
-					},
+					listing = { price = { amount = 1, currency = "chaos", type = "~price" },
+						whisper = "hi", account = { name = "seller" } },
 					item = {
-						rarity = "Rare",
-						name = "Test Band",
-						typeLine = "Sapphire Ring",
+						rarity = "Rare", name = "Test Band", typeLine = "Sapphire Ring",
 						explicitMods = {
-							{ description = "+50 to maximum Life", domain = "explicit", hash = "stat.explicit.life", mods = { { name = "Sanguine", tier = "P2", level = 50 } } },
-							{ description = "20% increased Armour", domain = "explicit", hash = "stat.explicit.armour", mods = { { name = "Sanguine", tier = "P2", level = 50 } } },
-							{ description = "+30% to Fire Resistance", domain = "explicit", hash = "stat.explicit.fire", mods = { { name = "of Craft", tier = "S3", level = 30 } } },
-							{ description = "+30% to Cold Resistance", domain = "explicit", hash = "stat.explicit.cold", mods = { { name = "of Craft", tier = "S3", level = 30 } } },
+							tradeMod("+50 to maximum Life", "explicit.life", "P2"),
+							tradeMod("20% increased Armour", "explicit.armour", "P2"),
+							tradeMod("+30% to Fire Resistance", "explicit.fire", "S3"),
+							tradeMod("+30% to Cold Resistance", "explicit.cold", "S3"),
+							tradeMod("+20 to Dexterity", "crafted.dexterity", "S3", "crafted"),
+							tradeMod("10% increased Rarity of Items found", "crafted.rarity", "S3", "crafted"),
 						},
-						extended = { hashes = { explicit = {
-							{ "explicit.life", { 0 } },
-							{ "explicit.armour", { 0 } },
-							{ "explicit.fire", { 1 } },
-							{ "explicit.cold", { 2 } },
-						} } },
+						extended = { hashes = {
+							explicit = {
+								{ "explicit.life", { 0 } }, { "explicit.armour", { 0 } },
+								{ "explicit.fire", { 1 } }, { "explicit.cold", { 2 } },
+							},
+							crafted = { { "crafted.dexterity", { 0 } }, { "crafted.rarity", { 0 } } },
+						} },
 					},
 				} },
 			})
 			local fetchedItems
 			requests.requestQueue.fetch = { }
-			requests:FetchResultBlock("test", function(items)
-				fetchedItems = items
-			end)
+			requests:FetchResultBlock("test", function(items) fetchedItems = items end)
 
 			local request = table.remove(requests.requestQueue.fetch, 1)
 			request.callback(response)
 
 			local item = new("Item"):Item(fetchedItems[1].item_string)
-			assert.is_true(item.explicitModLines[1].prefix)
-			assert.is_true(item.explicitModLines[2].prefix)
-			assert.are.equal(item.explicitModLines[1].modGroup, item.explicitModLines[2].modGroup)
-			assert.is_true(item.explicitModLines[3].suffix)
-			assert.is_true(item.explicitModLines[4].suffix)
-			assert.are_not.equal(item.explicitModLines[3].modGroup, item.explicitModLines[4].modGroup)
-			local availability = new("TradeQuery"):TradeQuery({ itemsTab = { } }):GetBenchCraftAvailability(item)
-			assert.are.equal(2, availability.Prefix)
-			assert.are.equal(1, availability.Suffix)
+			local modLines = item.explicitModLines
+			assert.are.same({ true, true }, { modLines[1].prefix, modLines[2].prefix })
+			assert.are.equal(modLines[1].modGroup, modLines[2].modGroup)
+			assert.are.same({ true, true, true, true },
+				{ modLines[3].suffix, modLines[4].suffix, modLines[5].suffix, modLines[6].suffix })
+			assert.are_not.equal(modLines[3].modGroup, modLines[4].modGroup)
+			assert.are.same({ true, true }, { modLines[5].crafted, modLines[6].crafted })
+			assert.are.equal(modLines[5].modGroup, modLines[6].modGroup)
+
+			local tradeQuery = new("TradeQuery"):TradeQuery({ itemsTab = { } })
+			local uncraftedItem = new("Item"):Item(item:BuildRaw())
+			for index = #uncraftedItem.explicitModLines, 1, -1 do
+				if uncraftedItem.explicitModLines[index].crafted then
+					table.remove(uncraftedItem.explicitModLines, index)
+				end
+			end
+			uncraftedItem = new("Item"):Item(uncraftedItem:BuildRaw())
+			assert.are.same({ Prefix = 2, Suffix = 1 }, tradeQuery:GetBenchCraftAvailability(uncraftedItem))
+
+			local availability, craftState = tradeQuery:GetBenchCraftAvailability(item)
+			assert.is_nil(availability)
+			assert.are.same({ count = 1, limit = 1 }, craftState)
+
+			local replacementCraft = { type = "Suffix", group = "Strength",
+				modTags = { "attribute" }, types = { Ring = true }, "+(21-25) to Strength" }
+			tradeQuery.tradeQueryGenerator = new("TradeQueryGenerator"):TradeQueryGenerator({ itemsTab = { } })
+			tradeQuery.itemsTab.build = { data = { masterMods = { replacementCraft } } }
+			tradeQuery.statSortSelectionList = { { stat = "Life", weightMult = 1 } }
+			tradeQuery.slotTables[1] = { slotName = "Ring 1", considerBenchCraft = true }
+			tradeQuery.resultTbl[1] = { fetchedItems[1] }
+			local evaluation = tradeQuery:GetResultEvaluation(1, 1, function(args)
+				local raw = args.repItem:BuildRaw()
+				local hasStrengthCraft = raw:find("{crafted}", 1, true) and raw:find("to Strength", 1, true)
+				return { Life = hasStrengthCraft and 150 or 100 }
+			end, { Life = 100 })[1]
+
+			assert.is_truthy(evaluation.benchCraft:find("to Strength", 1, true))
+			assert.is_truthy(evaluation.benchCraftReplaced:find("to Dexterity/10% increased Rarity", 1, true))
+			assert.is_nil(evaluation.benchCraftItemString:find("+20 to Dexterity", 1, true))
+			assert.is_nil(evaluation.benchCraftItemString:find("10% increased Rarity", 1, true))
 		end)
 	end)
 

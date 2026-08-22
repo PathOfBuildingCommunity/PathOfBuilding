@@ -166,38 +166,47 @@ describe("TradeQueryGenerator", function()
 	end)
 
 	describe("EstimateBenchCraftWeight", function()
+		local queryGen
+
+		local function makeCraft(spec)
+			local lines = spec.lines or { spec.line }
+			spec.line, spec.lines = nil, nil
+			for _, line in ipairs(lines) do table.insert(spec, line) end
+			spec.types = spec.types or { Ring = true }
+			return spec
+		end
+
+		local function addWeightedTradeMod(spec)
+			queryGen.modData.Explicit[spec.statOrder .. "_" .. spec.group] =
+				{ tradeMod = { id = spec.id, text = spec.text } }
+			table.insert(queryGen.modWeights, { tradeModId = spec.id, weight = spec.weight })
+		end
+
+		before_each(function()
+			queryGen = new("TradeQueryGenerator"):TradeQueryGenerator({ itemsTab = { } })
+			queryGen.modData = { Explicit = { } }
+			queryGen.modWeights = { }
+		end)
+
 		it("adds the weighted values of every craft line", function()
-			local queryGen = new("TradeQueryGenerator"):TradeQueryGenerator({ itemsTab = { } })
-			queryGen.modData = {
-				Explicit = {
-					["1203_TestAttributes"] = { tradeMod = { id = "explicit.stat_4080418644", text = "+# to Strength" } },
-					["1204_TestAttributes"] = { tradeMod = { id = "explicit.stat_3261801346", text = "+# to Dexterity" } },
-				},
-			}
-			queryGen.modWeights = {
-				{ tradeModId = "explicit.stat_4080418644", weight = 2 },
-				{ tradeModId = "explicit.stat_3261801346", weight = 3 },
-			}
-			local craft = {
-				"+(10-10) to Strength",
-				"+(20-20) to Dexterity",
-				statOrder = { 1203, 1204 },
-				group = "TestAttributes",
-			}
+			addWeightedTradeMod({ statOrder = 1203, group = "TestAttributes", id = "explicit.stat_4080418644",
+				text = "+# to Strength", weight = 2 })
+			addWeightedTradeMod({ statOrder = 1204, group = "TestAttributes", id = "explicit.stat_3261801346",
+				text = "+# to Dexterity", weight = 3 })
+			local craft = makeCraft({ lines = { "+(10-10) to Strength", "+(20-20) to Dexterity" },
+				statOrder = { 1203, 1204 }, group = "TestAttributes" })
 			local evaluationPlan = queryGen:CreateBenchCraftEvaluationPlan({ { stat = "Life", weightMult = 1 } })
 
 			assert.are.equal(80, queryGen:EstimateBenchCraftWeight(craft, evaluationPlan))
 			assert.are.equal(96, queryGen:EstimateBenchCraftWeight(craft, evaluationPlan, 1.2))
 			assert.are.equal(120, queryGen:EstimateBenchCraftWeight(craft, evaluationPlan, 1.5))
-			assert.are.equal(80, queryGen:EstimateBenchCraftWeight(craft, evaluationPlan))
 			assert.are.equal(80, evaluationPlan.craftWeights[craft])
 		end)
 
 		it("keeps the first craft when the highest levels in a group are tied", function()
-			local queryGen = new("TradeQueryGenerator"):TradeQueryGenerator({ itemsTab = { } })
-			local low = { group = "Test", level = 1 }
-			local firstHigh = { group = "Test", level = 2 }
-			local secondHigh = { group = "Test", level = 2 }
+			local low = makeCraft({ group = "Test", level = 1 })
+			local firstHigh = makeCraft({ group = "Test", level = 2 })
+			local secondHigh = makeCraft({ group = "Test", level = 2 })
 
 			local crafts = queryGen:GetHighestLevelBenchCrafts({ low, firstHigh, secondHigh })
 
@@ -205,7 +214,6 @@ describe("TradeQueryGenerator", function()
 		end)
 
 		it("keeps generated mod and stat weights immutable", function()
-			local queryGen = new("TradeQueryGenerator"):TradeQueryGenerator({ itemsTab = { } })
 			queryGen.modWeights = { { tradeModId = "explicit.test", weight = 2 } }
 			local statWeights = { { stat = "Life", weightMult = 1 } }
 
@@ -218,58 +226,25 @@ describe("TradeQueryGenerator", function()
 		end)
 
 		it("finds the best positive compatible bench craft query weight", function()
-			local prefixLow = {
-				"+(10-10) to Strength",
-				type = "Prefix",
-				level = 1,
-				types = { Ring = true },
-				statOrder = { 1203 },
-				group = "TestStrength",
+			local prefixLow = makeCraft({ type = "Prefix", level = 1, statOrder = { 1203 },
+				group = "TestStrength", line = "+(10-10) to Strength" })
+			local prefixHigh = makeCraft({ type = "Prefix", level = 2, statOrder = { 1203 },
+				group = "TestStrength", line = "+(20-20) to Strength" })
+			local suffix = makeCraft({ type = "Suffix", statOrder = { 1204 },
+				group = "TestDexterity", line = "+(10-10) to Dexterity" })
+			local incompatible = makeCraft({ type = "Prefix", types = { Amulet = true }, statOrder = { 1203 },
+				group = "TestStrength", line = "+(100-100) to Strength" })
+			local negative = makeCraft({ type = "Prefix", types = { Belt = true }, statOrder = { 1205 },
+				group = "TestIntelligence", line = "+(10-10) to Intelligence" })
+			queryGen.itemsTab.build = {
+				data = { masterMods = { prefixLow, prefixHigh, suffix, incompatible, negative } },
 			}
-			local prefixHigh = {
-				"+(20-20) to Strength",
-				type = "Prefix",
-				level = 2,
-				types = { Ring = true },
-				statOrder = { 1203 },
-				group = "TestStrength",
-			}
-			local suffix = {
-				"+(10-10) to Dexterity",
-				type = "Suffix",
-				types = { Ring = true },
-				statOrder = { 1204 },
-				group = "TestDexterity",
-			}
-			local incompatible = {
-				"+(100-100) to Strength",
-				type = "Prefix",
-				types = { Amulet = true },
-				statOrder = { 1203 },
-				group = "TestStrength",
-			}
-			local negative = {
-				"+(10-10) to Intelligence",
-				type = "Prefix",
-				types = { Belt = true },
-				statOrder = { 1205 },
-				group = "TestIntelligence",
-			}
-			local queryGen = new("TradeQueryGenerator"):TradeQueryGenerator({
-				itemsTab = { build = { data = { masterMods = { prefixLow, prefixHigh, suffix, incompatible, negative } } } },
-			})
-			queryGen.modData = {
-				Explicit = {
-					["1203_TestStrength"] = { tradeMod = { id = "explicit.stat_4080418644", text = "+# to Strength" } },
-					["1204_TestDexterity"] = { tradeMod = { id = "explicit.stat_3261801346", text = "+# to Dexterity" } },
-					["1205_TestIntelligence"] = { tradeMod = { id = "explicit.stat_328541901", text = "+# to Intelligence" } },
-				},
-			}
-			queryGen.modWeights = {
-				{ tradeModId = "explicit.stat_4080418644", weight = 2 },
-				{ tradeModId = "explicit.stat_3261801346", weight = 3 },
-				{ tradeModId = "explicit.stat_328541901", weight = -4 },
-			}
+			addWeightedTradeMod({ statOrder = 1203, group = "TestStrength", id = "explicit.stat_4080418644",
+				text = "+# to Strength", weight = 2 })
+			addWeightedTradeMod({ statOrder = 1204, group = "TestDexterity", id = "explicit.stat_3261801346",
+				text = "+# to Dexterity", weight = 3 })
+			addWeightedTradeMod({ statOrder = 1205, group = "TestIntelligence", id = "explicit.stat_328541901",
+				text = "+# to Intelligence", weight = -4 })
 			local evaluationPlan = queryGen:CreateBenchCraftEvaluationPlan({ })
 
 			local weight = queryGen:GetBenchCraftQueryWeight({ type = "Ring" }, evaluationPlan)
@@ -279,17 +254,12 @@ describe("TradeQueryGenerator", function()
 		end)
 
 		it("weights only items with exactly one empty affix", function()
-			local queryGen = new("TradeQueryGenerator"):TradeQueryGenerator({ itemsTab = { } })
-			queryGen.GetBenchCraftQueryWeight = function()
-				return 60
-			end
+			queryGen.GetBenchCraftQueryWeight = function() return 60 end
 
 			local filter, priority = queryGen:GetBenchCraftQueryFilter({ type = "Ring" }, { })
 
 			assert.are.equal("pseudo.pseudo_number_of_empty_affix_mods", filter.id)
-			assert.are.equal(1, filter.value.min)
-			assert.are.equal(1, filter.value.max)
-			assert.are.equal(60, filter.value.weight)
+			assert.are.same({ min = 1, max = 1, weight = 60 }, filter.value)
 			assert.are.equal(60, priority)
 			assert.is_nil(filter.priority)
 		end)
