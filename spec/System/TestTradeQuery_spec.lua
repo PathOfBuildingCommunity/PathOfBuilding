@@ -447,11 +447,11 @@ describe("TradeQuery", function()
 
 		it("evaluates crafts only on the open affix side", function()
 			local cases = {
-				{ name = "suffix open", prefixes = 3, suffixes = 2, weight = 1.5, craftText = "to Strength" },
-				{ name = "prefix open", prefixes = 2, suffixes = 3, craftText = "maximum Life" },
+				{ name = "suffix open", prefixCount = 3, suffixCount = 2, weight = 1.5, craftText = "to Strength" },
+				{ name = "prefix open", prefixCount = 2, suffixCount = 3, craftText = "maximum Life" },
 			}
 			for _, case in ipairs(cases) do
-				local evaluation = evaluate(makeRareRing(case.prefixes, case.suffixes))
+				local evaluation = evaluate(makeRareRing(case.prefixCount, case.suffixCount))
 
 				if case.weight then assert.are.equal(case.weight, evaluation.weight, case.name)
 				else assert.is_true(evaluation.weight > 1, case.name) end

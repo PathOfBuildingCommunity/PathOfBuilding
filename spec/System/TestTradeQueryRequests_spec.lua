@@ -283,7 +283,7 @@ Strict-Transport-Security: max-age=63115200; includeSubDomains; preload]]
 		end)
 
 		it("reconstructs explicit and crafted affixes for bench craft replacement", function()
-			local function tradeMod(description, hash, tier, domain)
+			local function makeTradeApiMod(description, hash, tier, domain)
 				return {
 					description = description, domain = domain or "explicit", hash = "stat." .. hash,
 					mods = { { name = "Test Affix", tier = tier, level = 30 } },
@@ -297,12 +297,12 @@ Strict-Transport-Security: max-age=63115200; includeSubDomains; preload]]
 					item = {
 						rarity = "Rare", name = "Test Band", typeLine = "Sapphire Ring",
 						explicitMods = {
-							tradeMod("+50 to maximum Life", "explicit.life", "P2"),
-							tradeMod("20% increased Armour", "explicit.armour", "P2"),
-							tradeMod("+30% to Fire Resistance", "explicit.fire", "S3"),
-							tradeMod("+30% to Cold Resistance", "explicit.cold", "S3"),
-							tradeMod("+20 to Dexterity", "crafted.dexterity", "S3", "crafted"),
-							tradeMod("10% increased Rarity of Items found", "crafted.rarity", "S3", "crafted"),
+							makeTradeApiMod("+50 to maximum Life", "explicit.life", "P2"),
+							makeTradeApiMod("20% increased Armour", "explicit.armour", "P2"),
+							makeTradeApiMod("+30% to Fire Resistance", "explicit.fire", "S3"),
+							makeTradeApiMod("+30% to Cold Resistance", "explicit.cold", "S3"),
+							makeTradeApiMod("+20 to Dexterity", "crafted.dexterity", "S3", "crafted"),
+							makeTradeApiMod("10% increased Rarity of Items found", "crafted.rarity", "S3", "crafted"),
 						},
 						extended = { hashes = {
 							explicit = {
@@ -332,14 +332,14 @@ Strict-Transport-Security: max-age=63115200; includeSubDomains; preload]]
 			assert.are.equal(modLines[5].modGroup, modLines[6].modGroup)
 
 			local tradeQuery = new("TradeQuery"):TradeQuery({ itemsTab = { } })
-			local uncraftedItem = new("Item"):Item(item:BuildRaw())
-			for index = #uncraftedItem.explicitModLines, 1, -1 do
-				if uncraftedItem.explicitModLines[index].crafted then
-					table.remove(uncraftedItem.explicitModLines, index)
+			local strippedItem = new("Item"):Item(item:BuildRaw())
+			for index = #strippedItem.explicitModLines, 1, -1 do
+				if strippedItem.explicitModLines[index].crafted then
+					table.remove(strippedItem.explicitModLines, index)
 				end
 			end
-			uncraftedItem = new("Item"):Item(uncraftedItem:BuildRaw())
-			assert.are.same({ Prefix = 2, Suffix = 1 }, tradeQuery:GetBenchCraftAvailability(uncraftedItem))
+			strippedItem = new("Item"):Item(strippedItem:BuildRaw())
+			assert.are.same({ Prefix = 2, Suffix = 1 }, tradeQuery:GetBenchCraftAvailability(strippedItem))
 
 			local availability, craftState = tradeQuery:GetBenchCraftAvailability(item)
 			assert.is_nil(availability)
