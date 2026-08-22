@@ -1765,7 +1765,7 @@ function PassiveSpecClass:BuildClusterJewelGraphs()
 	for nodeId in pairs(self.tree.sockets) do
 		local node = self.tree.nodes[nodeId]
 		local jewel = self:GetSocketedJewel(nodeId)
-		if node and node.expansionJewel and node.expansionJewel.size == 2 and jewel and jewel.jewelData.clusterJewelValid then
+		if node and self.allocNodes[node.id] and node.expansionJewel and node.expansionJewel.size == 2 and jewel and jewel.jewelData.clusterJewelValid then
 			-- This is a Large Jewel Socket, and it has a cluster jewel in it
 			self:BuildSubgraph(jewel, self.nodes[nodeId], nil, nil, importedNodes, importedGroups)
 		end
@@ -1971,7 +1971,9 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize, importe
 		if proxyGroup then
 			for id, data in pairs(importedNodes) do
 				if proxyGroup == data.group then
-					if node.oidx == data.orbitIndex and not data.isMastery then
+					local matches = node.type == "Keystone" and data.isKeystone
+						or (node.oidx == data.orbitIndex and not data.isMastery)
+					if matches then
 						for _, extendedId in ipairs(importedGroups[proxyGroup].nodes) do
 							if id == extendedId and inExtendedHashes(tonumber(id)) then
 								return true
