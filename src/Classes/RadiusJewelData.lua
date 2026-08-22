@@ -704,48 +704,21 @@ local function previewThreadOfHope(ringName)
 	return previewFromRawText(rawText, displayName)
 end
 
-local JEWEL_PREVIEW_SCHEMA = {
-	["The Light of Meaning"] = { group = true, prefixVariantName = true },
-	["Might of the Meek"] = { },
-	["Unnatural Instinct"] = { },
-	["Inspired Learning"] = { },
-	["Anatomical Knowledge"] = { },
-	["Tempered & Transcendent"] = { group = true },
-	["Lioneye's Fall"] = { },
-	["Intuitive Leap"] = { },
-	["Impossible Escape"] = { group = true, prefixVariantName = true },
-	["Split Personality"] = { group = true, prefixVariantName = true },
-	["Stat Conversion"] = { group = true },
-	["Attribute Conversion"] = { group = true },
-	["Combat Focus"] = { group = true },
-	["Dreams & Nightmares"] = { group = true },
-	["Thread of Hope"] = { thread = true },
-}
-
-local function buildJewelPreview(name, schema, variant)
-	if schema.thread then
+local function buildJewelPreview(jewelType, variant)
+	if jewelType.strategy == JEWEL_STRATEGY.THREAD_OF_HOPE then
 		return previewThreadOfHope(variant)
 	elseif variant and variant.rawText then
-		local displayName = schema.prefixVariantName and (name .. " (" .. variant.name .. ")") or variant.name
+		local previewOptions = jewelType.previewOptions or { }
+		local displayName = previewOptions.prefixVariantName
+			and (jewelType.name .. " (" .. variant.name .. ")") or variant.name
 		return previewFromRawText(variant.rawText, displayName, variant.previewMeta)
-	elseif schema.group then
-		return previewFinderGroup(name)
+	elseif jewelType.rawText then
+		return previewUnique(jewelType.name)
+	elseif jewelType.variants then
+		return previewFinderGroup(jewelType.name)
 	end
-	return previewUnique(name)
+	return previewUnique(jewelType.name)
 end
-
-local function makeJewelPreviewFn(name, schema)
-	return function(variant)
-		return buildJewelPreview(name, schema, variant)
-	end
-end
-
-local jewelPreviewFn = { }
-for name, schema in pairs(JEWEL_PREVIEW_SCHEMA) do
-	jewelPreviewFn[name] = makeJewelPreviewFn(name, schema)
-end
-
-M.jewelPreviewFn = jewelPreviewFn
 
 -- ─────────────────────────────────────────────────────────────────────────────
 -- Jewel type definitions
@@ -783,7 +756,6 @@ local function makeJewelType(name, scoreLabel, score, options)
 	jewelType.strategy = jewelType.strategy or JEWEL_STRATEGY.RADIUS
 	jewelType.scoreLabel = scoreLabel
 	jewelType.score = score
-	jewelType.hasCompute = true
 	if not jewelType.rawText and not jewelType.variants then
 		jewelType.rawText = mustGetUniqueRawText(name)
 	end
@@ -791,6 +763,9 @@ local function makeJewelType(name, scoreLabel, score, options)
 		jewelType.radiusIndex = jewelType.variants and jewelType.variants[1]
 			and jewelType.variants[1].radiusIndex
 			or jewelType.rawText and getRadiusIndexFromRawText(jewelType.rawText)
+	end
+	jewelType.preview = function(variant)
+		return buildJewelPreview(jewelType, variant)
 	end
 	return jewelType
 end
@@ -811,7 +786,6 @@ function M.buildJewelTypes()
 
 	local intuitiveLeap = makeJewelType("Intuitive Leap", "unalloc passives", scoreUnallocPassives, {
 		strategy = JEWEL_STRATEGY.INTUITIVE_LEAP,
-		computeMethods = M.DISCONNECTED_PASSIVE_COMPUTE_METHODS,
 	})
 	appendFoulbornVariants(intuitiveLeap, "Intuitive Leap")
 
@@ -864,6 +838,7 @@ function M.buildJewelTypes()
 
 	local jewelTypes = { }
 	t_insert(jewelTypes, makeJewelType("The Light of Meaning", "alloc passives", scoreAllocPassives, {
+		previewOptions = { prefixVariantName = true },
 		variants = lightOfMeaningVariants,
 	}))
 	t_insert(jewelTypes, mightOfTheMeek)
@@ -882,14 +857,12 @@ function M.buildJewelTypes()
 	t_insert(jewelTypes, makeJewelType("Impossible Escape", "unalloc notable/keystone near keystone",
 		scoreUnallocNotablesAndKeystones, {
 		strategy = JEWEL_STRATEGY.IMPOSSIBLE_ESCAPE,
-		isImpossibleEscape = true,
-		isEffectSocketIndependent = true,
-		computeMethods = M.DISCONNECTED_PASSIVE_COMPUTE_METHODS,
+		previewOptions = { prefixVariantName = true },
 		variants = M.getImpossibleEscapeVariants(),
 	}))
 	t_insert(jewelTypes, makeJewelType("Split Personality", "dist to start", function() return 0 end, {
 		strategy = JEWEL_STRATEGY.SPLIT_PERSONALITY,
-		isSplitPersonality = true,
+		previewOptions = { prefixVariantName = true },
 		variants = M.getSplitPersonalityVariants(),
 	}))
 	t_insert(jewelTypes, makeJewelType("Stat Conversion", "alloc passives", scoreAllocPassives, {
@@ -907,8 +880,6 @@ function M.buildJewelTypes()
 	t_insert(jewelTypes, makeJewelType("Thread of Hope", "unalloc notable/keystone in ring",
 		scoreUnallocNotablesAndKeystones, {
 		strategy = JEWEL_STRATEGY.THREAD_OF_HOPE,
-		isThread = true,
-		computeMethods = M.DISCONNECTED_PASSIVE_COMPUTE_METHODS,
 		rawText = threadOfHopeRawText,
 	}))
 	for _, jewelType in ipairs(jewelTypes) do
