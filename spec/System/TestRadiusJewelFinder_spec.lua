@@ -735,9 +735,9 @@ describe("RadiusJewelFinder #radius-jewel", function()
 			popup.controls.jewelTypeSelect.selFunc(findIndex(popup.controls.jewelTypeSelect.list, "Thread of Hope"))
 			popup.controls.findButton:Click()
 			assert.are.equal(1, #popup.controls.resultsList.list)
-			assert.matches("^Thread of Hope\n", popup.controls.resultsList.list[1].applyRawText)
 			assert.is_not_nil(popup.controls.resultsList.list[1].actionPlan,
 				"Find rows should consume the shared action planner")
+			assert.matches("^Thread of Hope\n", popup.controls.resultsList.list[1].actionPlan.targetRawText)
 			popup.controls.resultsList.selIndex = 1
 			assert.is_true(popup.controls.applyButton.enabled())
 
@@ -758,9 +758,9 @@ describe("RadiusJewelFinder #radius-jewel", function()
 				runCallback("OnFrame")
 			end
 			assert.are.equal(1, #popup.controls.resultsList.list)
-			assert.matches("^Thread of Hope\n", popup.controls.resultsList.list[1].applyRawText)
 			assert.is_not_nil(popup.controls.resultsList.list[1].actionPlan,
 				"Compute rows should consume the shared action planner")
+			assert.matches("^Thread of Hope\n", popup.controls.resultsList.list[1].actionPlan.targetRawText)
 			popup.controls.resultsList.selIndex = 1
 			assert.is_true(popup.controls.applyButton.enabled())
 

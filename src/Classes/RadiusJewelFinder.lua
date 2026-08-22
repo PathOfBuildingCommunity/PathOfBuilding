@@ -342,12 +342,12 @@ local buildDisplayedDisconnectedPassivePlans = RadiusJewelCompute.buildDisplayed
 -- ─────────────────────────────────────────────────────────────────────────────
 
 --- Filter rows to keep at most one result per socket while applying jewel limits
---- and use socket-dependent jewels before socket-independent ones.
+--- and use socket-dependent effects before socket-independent ones.
 ---
 --- Each row is expected to carry:
 ---   socketId            (number)   – jewel socket id
 ---   sortValue           (number)   – sort key (higher = better)
----   isSocketIndependent (boolean?) – true for jewels like IE
+---   isEffectSocketIndependent (boolean?) – true when the effect location does not depend on the socket (Impossible Escape)
 ---   jewelLimitKey       (string?)  – key for the "Limited to: X" cap
 ---   jewelLimit          (number?)  – max copies allowed (nil = unlimited)
 ---   points              (number?)  – total points (tie-break for independent)
@@ -364,7 +364,7 @@ function RadiusJewelFinderClass:filterBestPerSocket(rows)
 	local filtered = { }
 	-- Pass 1: assign socket-dependent jewels first (they need specific sockets)
 	for _, row in ipairs(sorted) do
-		if not row.isSocketIndependent and not usedSockets[row.socketId] then
+		if not row.isEffectSocketIndependent and not usedSockets[row.socketId] then
 			local limitKey = row.jewelLimitKey
 			local limit = row.jewelLimit
 			if not limit or (limitCounts[limitKey] or 0) < limit then
@@ -376,10 +376,10 @@ function RadiusJewelFinderClass:filterBestPerSocket(rows)
 			end
 		end
 	end
-	-- Pass 2: assign socket-independent jewels (e.g. IE) to remaining sockets, fewer points first
+	-- Pass 2: assign socket-independent effects (Impossible Escape) to remaining sockets, fewer points first
 	local independentSorted = { }
 	for _, row in ipairs(sorted) do
-		if row.isSocketIndependent then
+		if row.isEffectSocketIndependent then
 			t_insert(independentSorted, row)
 		end
 	end
@@ -1254,8 +1254,6 @@ local function runRadiusJewelFind(self, context)
 				storedUnallocatedItemLabel = r.storedUnallocatedItemLabel,
 				action = actionPlan and actionPlan.kind or nil,
 				actionPlan = actionPlan,
-				targetIdentity = targetIdentity,
-				applyRawText = targetRawText,
 			})
 		end
 		setResultContext(rows, resultContextKey)
@@ -2313,14 +2311,14 @@ local function buildRadiusJewelPopupContext(self)
 				or r.variant.dropdownLabel or r.variant.name) or ""
 			local itemTooltipLines = buildPreviewLinesForJewelType(jewelType, r.variant)
 			local variantIdentity = r.variant and r.variant.variantIdentity or jewelType.variantIdentity
-			local applyRawText = variantIdentity and variantIdentity.rawText or r.variant and r.variant.rawText or jewelType.rawText
+			local targetRawText = variantIdentity and variantIdentity.rawText or r.variant and r.variant.rawText or jewelType.rawText
 			local jewelLimitKey = variantIdentity and variantIdentity.limitKey
-				or applyRawText and applyRawText:match("^([^\n]+)")
+				or targetRawText and targetRawText:match("^([^\n]+)")
 				or jewelType.name
 			jewelLimitKey = jewelLimitKey:gsub("^[Ff]oulborn ", "")
 			local jewelLimit = variantIdentity and variantIdentity.limit
 				or jewelType.limit
-				or (applyRawText and tonumber(applyRawText:match("Limited to: (%d+)")))
+				or (targetRawText and tonumber(targetRawText:match("Limited to: (%d+)")))
 				or nil
 			local displayedPlans = (jewelType.name == "Intuitive Leap" or jewelType.isThread or jewelType.isImpossibleEscape)
 				and buildDisplayedDisconnectedPassivePlans(r, points, baseline)
@@ -2364,7 +2362,7 @@ local function buildRadiusJewelPopupContext(self)
 					socketId = r.socket.id,
 					socketLabel = r.socket.label,
 					targetIdentity = variantIdentity,
-					targetRawText = applyRawText,
+					targetRawText = targetRawText,
 				})
 				t_insert(rows, {
 					socketLabel = r.socket.label,
@@ -2387,11 +2385,9 @@ local function buildRadiusJewelPopupContext(self)
 					jewelName = jewelType.name,
 					jewelLimitKey = jewelLimitKey,
 					jewelLimit = jewelLimit,
-					isSocketIndependent = jewelType.isSocketIndependent,
-					applyRawText = applyRawText,
+					isEffectSocketIndependent = jewelType.isEffectSocketIndependent,
 					action = actionPlan and actionPlan.kind or nil,
 					actionPlan = actionPlan,
-					targetIdentity = variantIdentity,
 					tooltipHeader = jewelType.isThread and "^7Socketing this jewel and allocating the best ring plan here will give you:"
 						or jewelType.name == "Intuitive Leap" and "^7Socketing this jewel and allocating the best nodes here will give you:"
 						or jewelType.isImpossibleEscape and "^7Socketing this jewel and allocating the best keystone plan here will give you:"
