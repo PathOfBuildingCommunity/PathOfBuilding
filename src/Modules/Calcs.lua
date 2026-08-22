@@ -139,42 +139,66 @@ local function getActiveSkillCount(activeSkill)
 	return 1, true
 end
 
--- A Full DPS totem skill occupies a slot in the global totem-slot pool, regardless
--- of whether the generic auto-count operation is allowed to scale it. Explosive
--- Arrow Ballista is the notable case: its custom DPS function already models active
--- totems internally, so it must not be scaled again -- but it still consumes a
--- global totem slot and therefore counts as a Full DPS totem source.
-local function isIncludedFullDPSTotemSource(activeSkill)
-	if not activeSkill.socketGroup or not activeSkill.socketGroup.includeInFullDPS then
-		return false
-	end
-	local _, enabled = getActiveSkillCount(activeSkill)
-	return enabled and activeSkill.skillFlags and activeSkill.skillFlags.totem == true
-end
+local fullDPSTotemPoolKey = { }
+local fullDPSTotemCountPolicy = {
+	getPoolKey = function(activeSkill, enabled)
+		-- Explosive Arrow Ballista occupies the same global slot pool as other Totem
+		-- skills even though its custom DPS function already models active Totems.
+		if enabled
+			and activeSkill.socketGroup
+			and activeSkill.socketGroup.includeInFullDPS
+			and activeSkill.skillFlags
+			and activeSkill.skillFlags.totem == true then
+			return fullDPSTotemPoolKey
+		end
+	end,
+	resolveCount = function(env, activeSkill, sourceCount)
+		-- TotemsSummoned / ActiveTotemLimit is a global slot pool. With more than one
+		-- participating source (including Explosive Arrow), allocating it to one skill
+		-- would be ambiguous, so the manual Count remains authoritative.
+		if not env.configInput.fullDPSAutoTotems
+			or sourceCount ~= 1
+			or activeSkill.activeEffect.grantedEffect.explosiveArrowFunc then
+			return
+		end
+		local output = env.player.output
+		return output.TotemsSummoned or output.ActiveTotemLimit
+	end,
+}
 
-local function countFullDPSTotemSources(activeSkillList)
-	local count = 0
+-- A policy returns the same pool key for every source that shares a limited pool.
+-- resolveCount returns an automatic Count or nil to keep the manual Count. Policies
+-- are ordered; the first policy that returns a pool key owns the skill.
+local fullDPSCountPolicies = {
+	fullDPSTotemCountPolicy,
+}
+
+local function buildFullDPSCountContext(activeSkillList)
+	local context = { sourceCountByPoolKey = { } }
 	for _, activeSkill in ipairs(activeSkillList) do
-		if isIncludedFullDPSTotemSource(activeSkill) then
-			count = count + 1
+		local _, enabled = getActiveSkillCount(activeSkill)
+		for _, policy in ipairs(fullDPSCountPolicies) do
+			local poolKey = policy.getPoolKey(activeSkill, enabled)
+			if poolKey then
+				context.sourceCountByPoolKey[poolKey] = (context.sourceCountByPoolKey[poolKey] or 0) + 1
+				break
+			end
 		end
 	end
-	return count
+	return context
 end
 
-local function getFullDPSTotemCount(env, activeSkill, activeSkillCount, totemSourceCount)
-	-- ActiveTotemLimit / TotemsSummoned is a global slot pool. With more than one
-	-- Totem source included in Full DPS (including Explosive Arrow), applying it to
-	-- each scalable skill would overcount; fall back to manual Count for the user.
-	if not env.configInput.fullDPSAutoTotems
-		or activeSkillCount ~= 1
-		or totemSourceCount ~= 1
-		or not isIncludedFullDPSTotemSource(activeSkill)
-		or activeSkill.activeEffect.grantedEffect.explosiveArrowFunc then
+local function resolveFullDPSCount(env, activeSkill, activeSkillCount, context)
+	if activeSkillCount ~= 1 then
 		return activeSkillCount
 	end
-	local output = env.player.output
-	return output.TotemsSummoned or output.ActiveTotemLimit or activeSkillCount
+	for _, policy in ipairs(fullDPSCountPolicies) do
+		local poolKey = policy.getPoolKey(activeSkill, true)
+		if poolKey then
+			return policy.resolveCount(env, activeSkill, context.sourceCountByPoolKey[poolKey] or 0) or activeSkillCount
+		end
+	end
+	return activeSkillCount
 end
 
 function calcs.calcFullDPS(build, mode, override, specEnv)
@@ -203,7 +227,7 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 	local burningGroundSource = ""
 	local causticGroundSource = ""
 
-	local fullDPSTotemSourceCount = countFullDPSTotemSources(fullEnv.player.activeSkillList)
+	local fullDPSCountContext = buildFullDPSCountContext(fullEnv.player.activeSkillList)
 
 	for _, activeSkill in ipairs(fullEnv.player.activeSkillList) do
 		if activeSkill.socketGroup and activeSkill.socketGroup.includeInFullDPS then
@@ -212,7 +236,7 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 				fullEnv.player.mainSkill = activeSkill
 				calcs.perform(fullEnv, true)
 				usedEnv = fullEnv
-				activeSkillCount = getFullDPSTotemCount(fullEnv, activeSkill, activeSkillCount, fullDPSTotemSourceCount)
+				activeSkillCount = resolveFullDPSCount(fullEnv, activeSkill, activeSkillCount, fullDPSCountContext)
 				local minionName = nil
 				if activeSkill.minion or usedEnv.minion then
 					if usedEnv.minion.output.TotalDPS and usedEnv.minion.output.TotalDPS > 0 then

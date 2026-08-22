@@ -21,7 +21,7 @@ describe("TestFullDPSAutoTotems", function()
 		build.itemsTab:AddDisplayItem()
 	end
 
-	local function enableAutoCount()
+	local function enableAutoCountWithExtraTotemLimit()
 		build.configTab.input.customMods = "+2 to maximum number of Summoned Totems"
 		build.configTab.input.fullDPSAutoTotems = true
 		build.configTab:BuildModList()
@@ -103,7 +103,7 @@ describe("TestFullDPSAutoTotems", function()
 		runCallback("OnFrame")
 		build.skillsTab.socketGroupList[2].includeInFullDPS = true
 
-		enableAutoCount()
+		enableAutoCountWithExtraTotemLimit()
 
 		local totemLimit = build.calcsTab.mainOutput.ActiveTotemLimit
 		assert.is_true(totemLimit > 1, "expected ActiveTotemLimit > 1, got " .. tostring(totemLimit))
@@ -142,7 +142,7 @@ describe("TestFullDPSAutoTotems", function()
 		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nExplosive Arrow 20/0  1\nBallista Totem 20/0  1\n")
 		runCallback("OnFrame")
 		build.skillsTab.socketGroupList[1].includeInFullDPS = true
-		enableAutoCount()
+		enableAutoCountWithExtraTotemLimit()
 
 		assert.is_true(build.calcsTab.mainOutput.ActiveTotemLimit > 1)
 		assertSkillCount("Explosive Arrow", 1)
@@ -158,7 +158,7 @@ describe("TestFullDPSAutoTotems", function()
 		build.skillsTab:PasteSocketGroup("Slot: Body Armour\nHoly Flame Totem 20/0  1\n")
 		runCallback("OnFrame")
 		build.skillsTab.socketGroupList[2].includeInFullDPS = true
-		enableAutoCount()
+		enableAutoCountWithExtraTotemLimit()
 
 		assert.is_true(build.calcsTab.mainOutput.ActiveTotemLimit > 1)
 		assertSkillCount("Explosive Arrow", 1)
