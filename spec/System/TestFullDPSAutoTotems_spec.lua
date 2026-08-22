@@ -16,13 +16,33 @@ describe("TestFullDPSAutoTotems", function()
 		return socketGroup
 	end
 
-	teardown(function()
-		-- newBuild() resets state for the next describe block
-	end)
+	local function equipBow()
+		build.itemsTab:CreateDisplayItemFromRaw("Test Bow\nShort Bow")
+		build.itemsTab:AddDisplayItem()
+	end
+
+	local function enableAutoCount()
+		build.configTab.input.customMods = "+2 to maximum number of Summoned Totems"
+		build.configTab.input.fullDPSAutoTotems = true
+		build.configTab:BuildModList()
+		build.buildFlag = true
+		runCallback("OnFrame")
+	end
+
+	local function assertSkillCount(name, expected)
+		local matches = 0
+		for _, entry in ipairs(build.calcsTab.mainOutput.SkillDPS) do
+			if entry.name == name then
+				assert.are.equals(expected, entry.count, name .. " Full DPS count")
+				matches = matches + 1
+			end
+		end
+		assert.is_true(matches > 0, "expected a Full DPS entry for " .. name)
+	end
 
 	it("does not enable the opt-in option by default", function()
 		newBuild()
-		assert.is_nil(build.configTab.input.fullDPSAutoMaxTotems)
+		assert.is_nil(build.configTab.input.fullDPSAutoTotems)
 	end)
 
 	it("Full DPS for a Totem skill uses skill count 1 when the option is off", function()
@@ -39,7 +59,7 @@ describe("TestFullDPSAutoTotems", function()
 		setupHolyFlameTotemInFullDPS()
 		local baselineFullDPS = build.calcsTab.mainOutput.FullDPS
 
-		build.configTab.input.fullDPSAutoMaxTotems = true
+		build.configTab.input.fullDPSAutoTotems = true
 		build.configTab:BuildModList()
 		build.buildFlag = true
 		runCallback("OnFrame")
@@ -58,7 +78,7 @@ describe("TestFullDPSAutoTotems", function()
 		local baselineFullDPS = build.calcsTab.mainOutput.FullDPS
 
 		socketGroup.groupCount = 5
-		build.configTab.input.fullDPSAutoMaxTotems = true
+		build.configTab.input.fullDPSAutoTotems = true
 		build.configTab:BuildModList()
 		build.buildFlag = true
 		runCallback("OnFrame")
@@ -74,16 +94,6 @@ describe("TestFullDPSAutoTotems", function()
 		-- ActiveTotemLimit is a global slot pool; applying it to each skill would
 		-- multi-count the same totem slots. The implementation must keep each skill
 		-- at its manual Count when more than one Totem source is included.
-		--
-		-- Explosive Arrow Ballista in the same scenario is handled correctly by
-		-- construction in `src/Modules/Calcs.lua`: `isIncludedFullDPSTotemSource`
-		-- (used by the source counter) does NOT check `explosiveArrowFunc`, so an
-		-- EA Ballista source still increments the source count; only
-		-- `isFullDPSAutoTotemScalable` (used by the per-skill scaling gate) excludes
-		-- it. The two predicates cannot be conflated without editing the helpers
-		-- themselves. A spec-level test for the EA Ballista variant would require
-		-- additional weapon+support fixture wiring that the existing test harness
-		-- does not currently expose.
 		newBuild()
 		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nHoly Flame Totem 20/0  1\n")
 		runCallback("OnFrame")
@@ -93,11 +103,7 @@ describe("TestFullDPSAutoTotems", function()
 		runCallback("OnFrame")
 		build.skillsTab.socketGroupList[2].includeInFullDPS = true
 
-		build.configTab.input.customMods = "+2 to maximum number of Summoned Totems"
-		build.configTab.input.fullDPSAutoMaxTotems = true
-		build.configTab:BuildModList()
-		build.buildFlag = true
-		runCallback("OnFrame")
+		enableAutoCount()
 
 		local totemLimit = build.calcsTab.mainOutput.ActiveTotemLimit
 		assert.is_true(totemLimit > 1, "expected ActiveTotemLimit > 1, got " .. tostring(totemLimit))
@@ -112,9 +118,56 @@ describe("TestFullDPSAutoTotems", function()
 		assert.are.equals(2, totemEntries, "expected both Holy Flame Totem socket groups in the Full DPS skill list")
 	end)
 
+	it("ignores disabled Vaal Totem skills when counting Full DPS sources", function()
+		setupHolyFlameTotemInFullDPS()
+		build.skillsTab:PasteSocketGroup("Slot: Body Armour\nVaal Rejuvenation Totem 20/0  1\n")
+		runCallback("OnFrame")
+		local socketGroup = build.skillsTab.socketGroupList[2]
+		socketGroup.includeInFullDPS = true
+		socketGroup.gemList[1].enableGlobal1 = false
+		socketGroup.gemList[1].enableGlobal2 = false
+		build.configTab.input.fullDPSAutoTotems = true
+		build.configTab:BuildModList()
+		build.buildFlag = true
+		runCallback("OnFrame")
+
+		local totemLimit = build.calcsTab.mainOutput.ActiveTotemLimit
+		assert.is_true(totemLimit > 1, "expected ActiveTotemLimit > 1, got " .. tostring(totemLimit))
+		assertSkillCount("Holy Flame Totem", totemLimit)
+	end)
+
+	it("does not auto-scale Explosive Arrow Ballista", function()
+		newBuild()
+		equipBow()
+		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nExplosive Arrow 20/0  1\nBallista Totem 20/0  1\n")
+		runCallback("OnFrame")
+		build.skillsTab.socketGroupList[1].includeInFullDPS = true
+		enableAutoCount()
+
+		assert.is_true(build.calcsTab.mainOutput.ActiveTotemLimit > 1)
+		assertSkillCount("Explosive Arrow", 1)
+	end)
+
+	it("counts Explosive Arrow as a second Totem source", function()
+		newBuild()
+		equipBow()
+		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nExplosive Arrow 20/0  1\nBallista Totem 20/0  1\n")
+		runCallback("OnFrame")
+		build.skillsTab.socketGroupList[1].includeInFullDPS = true
+
+		build.skillsTab:PasteSocketGroup("Slot: Body Armour\nHoly Flame Totem 20/0  1\n")
+		runCallback("OnFrame")
+		build.skillsTab.socketGroupList[2].includeInFullDPS = true
+		enableAutoCount()
+
+		assert.is_true(build.calcsTab.mainOutput.ActiveTotemLimit > 1)
+		assertSkillCount("Explosive Arrow", 1)
+		assertSkillCount("Holy Flame Totem", 1)
+	end)
+
 	it("uses the current TotemsSummoned override, not ActiveTotemLimit, when both are set", function()
 		-- Raise ActiveTotemLimit to 4 via custom mod, then set the existing TotemsSummoned
-		-- config to 2: getSummonedTotemCount reads output.TotemsSummoned first, so it must
+		-- config to 2: the Full DPS count reads output.TotemsSummoned first, so it must
 		-- land on 2, not 4. This pins the "current count" half of the tooltip contract.
 		newBuild()
 		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nHoly Flame Totem 20/0  1\n")
@@ -123,7 +176,7 @@ describe("TestFullDPSAutoTotems", function()
 		socketGroup.includeInFullDPS = true
 		build.configTab.input.customMods = "+3 to maximum number of Summoned Totems"
 		build.configTab.input.TotemsSummoned = 2
-		build.configTab.input.fullDPSAutoMaxTotems = true
+		build.configTab.input.fullDPSAutoTotems = true
 		build.configTab:BuildModList()
 		build.buildFlag = true
 		runCallback("OnFrame")

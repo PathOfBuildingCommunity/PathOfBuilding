@@ -148,15 +148,8 @@ local function isIncludedFullDPSTotemSource(activeSkill)
 	if not activeSkill.socketGroup or not activeSkill.socketGroup.includeInFullDPS then
 		return false
 	end
-	return activeSkill.skillFlags and activeSkill.skillFlags.totem == true
-end
-
-local function isFullDPSAutoTotemScalable(activeSkill)
-	if not isIncludedFullDPSTotemSource(activeSkill) then
-		return false
-	end
-	-- Explosive Arrow already accounts for active totems in its custom DPS logic.
-	return not activeSkill.activeEffect.grantedEffect.explosiveArrowFunc
+	local _, enabled = getActiveSkillCount(activeSkill)
+	return enabled and activeSkill.skillFlags and activeSkill.skillFlags.totem == true
 end
 
 local function countFullDPSTotemSources(activeSkillList)
@@ -169,24 +162,19 @@ local function countFullDPSTotemSources(activeSkillList)
 	return count
 end
 
-local function shouldScaleFullDPSBySummonedTotems(env, activeSkill, activeSkillCount, totemSourceCount)
-	if not env.configInput.fullDPSAutoMaxTotems then
-		return false
-	end
-	if activeSkillCount ~= 1 then
-		return false
-	end
-	if not isFullDPSAutoTotemScalable(activeSkill) then
-		return false
-	end
+local function getFullDPSTotemCount(env, activeSkill, activeSkillCount, totemSourceCount)
 	-- ActiveTotemLimit / TotemsSummoned is a global slot pool. With more than one
 	-- Totem source included in Full DPS (including Explosive Arrow), applying it to
 	-- each scalable skill would overcount; fall back to manual Count for the user.
-	return totemSourceCount == 1
-end
-
-local function getSummonedTotemCount(output)
-	return output.TotemsSummoned or output.ActiveTotemLimit or 1
+	if not env.configInput.fullDPSAutoTotems
+		or activeSkillCount ~= 1
+		or totemSourceCount ~= 1
+		or not isIncludedFullDPSTotemSource(activeSkill)
+		or activeSkill.activeEffect.grantedEffect.explosiveArrowFunc then
+		return activeSkillCount
+	end
+	local output = env.player.output
+	return output.TotemsSummoned or output.ActiveTotemLimit or activeSkillCount
 end
 
 function calcs.calcFullDPS(build, mode, override, specEnv)
@@ -215,7 +203,7 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 	local burningGroundSource = ""
 	local causticGroundSource = ""
 
-	local fullDPSAutoTotemSourceCount = countFullDPSTotemSources(fullEnv.player.activeSkillList)
+	local fullDPSTotemSourceCount = countFullDPSTotemSources(fullEnv.player.activeSkillList)
 
 	for _, activeSkill in ipairs(fullEnv.player.activeSkillList) do
 		if activeSkill.socketGroup and activeSkill.socketGroup.includeInFullDPS then
@@ -224,9 +212,7 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 				fullEnv.player.mainSkill = activeSkill
 				calcs.perform(fullEnv, true)
 				usedEnv = fullEnv
-				if shouldScaleFullDPSBySummonedTotems(fullEnv, activeSkill, activeSkillCount, fullDPSAutoTotemSourceCount) then
-					activeSkillCount = getSummonedTotemCount(usedEnv.player.output)
-				end
+				activeSkillCount = getFullDPSTotemCount(fullEnv, activeSkill, activeSkillCount, fullDPSTotemSourceCount)
 				local minionName = nil
 				if activeSkill.minion or usedEnv.minion then
 					if usedEnv.minion.output.TotalDPS and usedEnv.minion.output.TotalDPS > 0 then
