@@ -866,23 +866,27 @@ function PassiveSpecClass:FindStartFromNode(node, visited, noAscend)
 	node.visited = true
 	t_insert(visited, node)
 	-- For each node which is connected to this one, check if...
+	local nodeAscendancy = node.ascendancyName
 	for _, other in ipairs(node.linked) do
 		-- Either:
 		--  - the other node is a start node, or
 		--  - there is a path to a start node through the other node which didn't pass through any nodes which have already been visited
-		local startIndex = #visited + 1
-		if other.alloc and
-		  (other.type == "ClassStart" or other.type == "AscendClassStart" or
-		    (not other.visited and node.type ~= "Mastery" and self:FindStartFromNode(other, visited, noAscend))
-		  ) then
-			if node.ascendancyName and not other.ascendancyName then
-				-- Pathing out of Ascendant, un-visit the outside nodes
-				for i = startIndex, #visited do
-					visited[i].visited = false
-					visited[i] = nil
+		local startIndex = nodeAscendancy and #visited + 1
+		if other.alloc then
+			local otherType = other.type
+			if
+				(otherType == "ClassStart" or otherType == "AscendClassStart" or
+					(not other.visited and node.type ~= "Mastery" and self:FindStartFromNode(other, visited, noAscend))
+				) then
+				if nodeAscendancy and not other.ascendancyName then
+					-- Pathing out of Ascendant, un-visit the outside nodes
+					for i = startIndex, #visited do
+						visited[i].visited = false
+						visited[i] = nil
+					end
+				elseif not noAscend or otherType ~= "AscendClassStart" then
+					return true
 				end
-			elseif not noAscend or other.type ~= "AscendClassStart" then
-				return true
 			end
 		end
 	end
@@ -1203,14 +1207,17 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 	-- Check all nodes for other nodes which depend on them (i.e. are only connected to the tree through that node)
 	for id, node in pairs(self.nodes) do
 		node.depends = wipeTable(node.depends)
-		node.intuitiveLeapLikesAffecting = { }
+		node.intuitiveLeapLikesAffecting = wipeTable(node.intuitiveLeapLikesAffecting)
 		node.conqueredBy = nil
 
 		if self.checkNodeLinks then
 			self:NormalizeNodeLinks(node)
 		end
 		-- ignore cluster jewel nodes that don't have an id in the tree
-		if self.tree.nodes[id] then
+		local treeNode = self.tree.nodes[id]
+		-- skip updating unallocated masteries which don't have a runegraft
+		local isUnallocatedMastery = node.allMasteryOptions and node.type == "Mastery" and not self.hashOverrides[id]
+		if treeNode and not isUnallocatedMastery then
 			self:ReplaceNode(node,self.tree.nodes[id])
 		end
 		node.conqueredBy = abyssConquests[id]
@@ -1220,7 +1227,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 				local item = radiusJewel.item
 				local socket = radiusJewel.socket
 				local radiusIndex = item.jewelRadiusIndex
-				local nodesInRadius = radiusIndex and socket.nodesInRadius and socket.nodesInRadius[item.jewelRadiusIndex]
+				local nodesInRadius = radiusIndex and socket.nodesInRadius and socket.nodesInRadius[radiusIndex]
 				if nodesInRadius and nodesInRadius[node.id] then
 					if item.id ~= 0 then
 						if item.jewelData.intuitiveLeapLike and not (item.jewelData.intuitiveLeapKeystoneOnly and node.type ~= "Keystone") then
@@ -1294,7 +1301,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 				return statToFix -- if it doesn't need to be changed
 			end
 
-			if jewelType >= 7 then
+			if jewelType >= 7 and node.type ~= "Mastery" then
 				for _, component in ipairs(conqueredBy.modification) do
 					local changedNode, replacesNode = data.resolveAbyssJewelComponent(component, self.tree.legion)
 					if changedNode then
@@ -1458,6 +1465,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 	self.allocatedMasteryTypes = { }
 	self.allocatedMasteryTypeCount = 0
 	self.allocatedTattooTypes = { }
+	local masteryReminderText = { "Tip: Right click to select a different effect" }
 	for id, node in pairs(self.nodes) do
 		if self.ignoredNodes[id] and self.allocNodes[id] then
 			self.nodes[id].alloc = false
@@ -1474,7 +1482,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 						node.sd = effect.sd
 					end
 					node.allMasteryOptions = false
-					node.reminderText = { "Tip: Right click to select a different effect" }
+					node.reminderText = masteryReminderText
 					self.tree:ProcessStats(node)
 					self.allocatedMasteryCount = self.allocatedMasteryCount + 1
 					if not self.allocatedMasteryTypes[self.allocNodes[id].name] then
@@ -1493,7 +1501,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 					self.allocNodes[id] = nil
 					self.masterySelections[id] = nil
 				end
-			elseif node.type == "Mastery" then
+			elseif node.type == "Mastery" and not node.allMasteryOptions then
 				self:AddMasteryEffectOptionsToNode(node)
 			elseif node.type == "Notable" and node.alloc then
 				self.allocatedNotableCount = self.allocatedNotableCount + 1
@@ -1711,7 +1719,7 @@ function PassiveSpecClass:ReplaceNode(old, newNode)
 	old.icon = newNode.icon
 	old.spriteId = newNode.spriteId
 	old.activeEffectImage = newNode.activeEffectImage
-	old.reminderText = newNode.reminderText or { }
+	old.reminderText = newNode.reminderText or wipeTable(old.reminderText)
 end
 
 ---Reconnects altered timeless jewel to class start, for Pure Talent

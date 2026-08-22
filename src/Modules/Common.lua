@@ -551,7 +551,10 @@ function specCopy(env)
 	return modDB, enemyDB, minionDB
 end
 
--- Wipe all keys from the table and return it, or return a new table if no table provided
+-- Wipe all keys from the table and return it, or return a new table if no table
+-- provided. This is useful to avoid alllocations in hot paths if a table can be reused. Using LuaJIT's `table.clear()` is another alternative to this, but this performs similarly on small tables, or tables which are often already empty.
+---@param tbl table?
+---@return table tbl
 function wipeTable(tbl)
 	if not tbl then
 		return { }
