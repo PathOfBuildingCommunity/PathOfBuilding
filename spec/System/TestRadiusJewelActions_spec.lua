@@ -218,7 +218,7 @@ describe("RadiusJewelFinder actions #radius-jewel", function()
 		local beforeAllocatedNodes = allocatedNodeIds()
 		local undoCount = #build.itemsTab.undo
 		local finder = support.makeFinder()
-		local plan = finder:buildActionPlan({
+		local plan = finder.itemActions:buildPlan({
 			socketId = targetSocketId,
 			socketLabel = "Free target",
 			targetIdentity = jewelType.variantIdentity,
@@ -229,7 +229,7 @@ describe("RadiusJewelFinder actions #radius-jewel", function()
 		assert.is_nil(plan.sourceItemId)
 		assert.are.equal(jewelType.variantIdentity, plan.targetIdentity)
 		assert.are.equal(jewelType.rawText, plan.targetRawText)
-		assert.is_true(finder:executeActionPlan(plan))
+		assert.is_true(finder.itemActions:executePlan(plan))
 		local equippedId = build.itemsTab.sockets[targetSocketId].selItemId
 		assert.is_true(equippedId ~= 0)
 		assert.are.equal("Might of the Meek", build.itemsTab.items[equippedId].title)
@@ -248,7 +248,7 @@ describe("RadiusJewelFinder actions #radius-jewel", function()
 		local undoCount = #build.itemsTab.undo
 		local itemCount = #build.itemsTab.itemOrderList
 		local finder = support.makeFinder()
-		local plan = finder:buildActionPlan({
+		local plan = finder.itemActions:buildPlan({
 			socketId = targetSocketId,
 			socketLabel = "Free target",
 			targetIdentity = jewelType.variantIdentity,
@@ -256,7 +256,7 @@ describe("RadiusJewelFinder actions #radius-jewel", function()
 		})
 
 		assert.is_false(plan.targetSocketAllocated)
-		assert.is_true(finder:executeAddToBuildPlan(plan))
+		assert.is_true(finder.itemActions:executeAddToBuildPlan(plan))
 		assert.are.equal(0, build.itemsTab.sockets[targetSocketId].selItemId)
 		assert.are.equal(itemCount + 1, #build.itemsTab.itemOrderList)
 		local addedItemId = build.itemsTab.itemOrderList[#build.itemsTab.itemOrderList]
@@ -274,7 +274,7 @@ describe("RadiusJewelFinder actions #radius-jewel", function()
 		local before = support.snapshotFinderState()
 		local undoCount = #build.itemsTab.undo
 		local finder = support.makeFinder()
-		local plan = finder:buildActionPlan({
+		local plan = finder.itemActions:buildPlan({
 			socketId = targetSocketId,
 			socketLabel = "Free target",
 			targetIdentity = jewelType.variantIdentity,
@@ -282,7 +282,7 @@ describe("RadiusJewelFinder actions #radius-jewel", function()
 		})
 
 		assert.are.equal(existingItem.id, plan.sourceItemId)
-		assert.is_false(finder:executeAddToBuildPlan(plan))
+		assert.is_false(finder.itemActions:executeAddToBuildPlan(plan))
 		assert.are.equal(undoCount, #build.itemsTab.undo)
 		support.assertFinderStateUnchanged(before, assert)
 	end)
@@ -307,7 +307,7 @@ describe("RadiusJewelFinder actions #radius-jewel", function()
 		local before = support.snapshotFinderState()
 		local undoCount = #build.itemsTab.undo
 		local finder = support.makeFinder()
-		local plan = finder:buildActionPlan({
+		local plan = finder.itemActions:buildPlan({
 			socketId = targetSocketId,
 			socketLabel = "Variant target",
 			targetIdentity = foulbornVariant.variantIdentity,
@@ -316,7 +316,7 @@ describe("RadiusJewelFinder actions #radius-jewel", function()
 
 		assert.are.equal(sourceItem.id, plan.sourceItemId)
 		assert.is_false(plan.sourceMatchesTarget)
-		assert.is_true(finder:executeAddToBuildPlan(plan))
+		assert.is_true(finder.itemActions:executeAddToBuildPlan(plan))
 		assert.are.equal(sourceItem.id, build.itemsTab.sockets[sourceSocketId].selItemId)
 		assert.are.equal(0, build.itemsTab.sockets[targetSocketId].selItemId)
 		local addedItemId = build.itemsTab.itemOrderList[#build.itemsTab.itemOrderList]
@@ -408,7 +408,7 @@ describe("RadiusJewelFinder actions #radius-jewel", function()
 		local before = support.snapshotFinderState()
 		local undoCount = #build.itemsTab.undo
 		local finder = support.makeFinder()
-		local plan = finder:buildActionPlan({
+		local plan = finder.itemActions:buildPlan({
 			socketId = targetSocketId,
 			socketLabel = "Exact target",
 			targetIdentity = jewelType.variantIdentity,
@@ -417,7 +417,7 @@ describe("RadiusJewelFinder actions #radius-jewel", function()
 
 		assert.are.equal("equipped", plan.kind)
 		assert.are.equal(item.id, plan.sourceItemId)
-		assert.is_false(finder:executeActionPlan(plan))
+		assert.is_false(finder.itemActions:executePlan(plan))
 		assert.are.equal(undoCount, #build.itemsTab.undo)
 		support.assertFinderStateUnchanged(before, assert)
 	end)
@@ -431,7 +431,7 @@ describe("RadiusJewelFinder actions #radius-jewel", function()
 		local before = support.snapshotFinderState()
 		local undoCount = #build.itemsTab.undo
 		local finder = support.makeFinder()
-		local plan = finder:buildActionPlan({
+		local plan = finder.itemActions:buildPlan({
 			socketId = targetSocketId,
 			socketLabel = "Occupied target",
 			targetIdentity = jewelType.variantIdentity,
@@ -440,7 +440,7 @@ describe("RadiusJewelFinder actions #radius-jewel", function()
 
 		assert.are.equal("replace", plan.kind)
 		assert.are.equal(replacedItem.id, plan.replacedTargetId)
-		assert.is_true(finder:executeActionPlan(plan))
+		assert.is_true(finder.itemActions:executePlan(plan))
 		assert.is_true(build.itemsTab.sockets[targetSocketId].selItemId ~= replacedItemId)
 		assert.are.equal(replacedItem, build.itemsTab.items[replacedItemId])
 		assertUndoRestores(before, undoCount)
@@ -544,7 +544,7 @@ describe("RadiusJewelFinder actions #radius-jewel", function()
 		local before = support.snapshotFinderState()
 		local undoCount = #build.itemsTab.undo
 		local finder = support.makeFinder()
-		local plan = finder:buildActionPlan({
+		local plan = finder.itemActions:buildPlan({
 			socketId = targetSocketId,
 			socketLabel = "Allocated target",
 			targetIdentity = jewelType.variantIdentity,
@@ -555,7 +555,7 @@ describe("RadiusJewelFinder actions #radius-jewel", function()
 		assert.are.equal(sourceSocketId, plan.sourceSocketId)
 		assert.are.equal(sourceItem.id, plan.sourceItemId)
 		assert.is_true(plan.sourceMatchesTarget)
-		assert.is_true(finder:executeActionPlan(plan))
+		assert.is_true(finder.itemActions:executePlan(plan))
 		assert.are.equal(0, build.itemsTab.sockets[sourceSocketId].selItemId)
 		assert.are.equal(sourceItem.id, build.itemsTab.sockets[targetSocketId].selItemId)
 		assertUndoRestores(before, undoCount)
@@ -572,7 +572,7 @@ describe("RadiusJewelFinder actions #radius-jewel", function()
 		build.itemsTab.sockets[targetSocketId]:SetSelItemId(0)
 		build.itemsTab:ResetUndo()
 		local finder = support.makeFinder()
-		local equipPlan = finder:buildActionPlan({
+		local equipPlan = finder.itemActions:buildPlan({
 			socketId = sourceSocketId,
 			socketLabel = "Unallocated source",
 			targetIdentity = variant.variantIdentity,
@@ -580,10 +580,10 @@ describe("RadiusJewelFinder actions #radius-jewel", function()
 		})
 
 		assert.are.equal("equip", equipPlan.kind)
-		assert.is_true(finder:executeActionPlan(equipPlan))
+		assert.is_true(finder.itemActions:executePlan(equipPlan))
 		local itemId = build.itemsTab.sockets[sourceSocketId].selItemId
 		assert.is_true(itemId ~= 0)
-		local movePlan = finder:buildActionPlan({
+		local movePlan = finder.itemActions:buildPlan({
 			socketId = targetSocketId,
 			socketLabel = "Unallocated destination",
 			targetIdentity = variant.variantIdentity,
@@ -591,7 +591,7 @@ describe("RadiusJewelFinder actions #radius-jewel", function()
 		})
 
 		assert.are.equal("move", movePlan.kind)
-		assert.is_true(finder:executeActionPlan(movePlan))
+		assert.is_true(finder.itemActions:executePlan(movePlan))
 		assert.are.equal(0, build.itemsTab.sockets[sourceSocketId].selItemId)
 		assert.are.equal(itemId, build.itemsTab.sockets[targetSocketId].selItemId)
 		assert.are.equal(3, #build.itemsTab.undo)
@@ -618,7 +618,7 @@ describe("RadiusJewelFinder actions #radius-jewel", function()
 		local before = support.snapshotFinderState()
 		local undoCount = #build.itemsTab.undo
 		local finder = support.makeFinder()
-		local plan = finder:buildActionPlan({
+		local plan = finder.itemActions:buildPlan({
 			socketId = targetSocketId,
 			socketLabel = "Allocated target",
 			targetIdentity = jewelType.variantIdentity,
@@ -628,7 +628,7 @@ describe("RadiusJewelFinder actions #radius-jewel", function()
 		assert.are.equal("move", plan.kind)
 		assert.are.equal(storedSourceSocketId, plan.sourceSocketId)
 		assert.are.equal(storedItem.id, plan.sourceItemId)
-		assert.is_true(finder:executeActionPlan(plan))
+		assert.is_true(finder.itemActions:executePlan(plan))
 		assert.are.equal(0, build.itemsTab.sockets[storedSourceSocketId].selItemId)
 		assert.are.equal(storedItem.id, build.itemsTab.sockets[targetSocketId].selItemId)
 		assertUndoRestores(before, undoCount)
@@ -677,7 +677,7 @@ describe("RadiusJewelFinder actions #radius-jewel", function()
 		local before = support.snapshotFinderState()
 		local undoCount = #build.itemsTab.undo
 		local finder = support.makeFinder()
-		local plan = finder:buildActionPlan({
+		local plan = finder.itemActions:buildPlan({
 			socketId = targetSocketId,
 			socketLabel = "Variant target",
 			targetIdentity = foulbornVariant.variantIdentity,
@@ -693,7 +693,7 @@ describe("RadiusJewelFinder actions #radius-jewel", function()
 		assert.are.equal("replace", plan.kind)
 		assert.are.equal(sourceItem.id, plan.sourceItemId)
 		assert.is_false(plan.sourceMatchesTarget)
-		assert.is_true(finder:executeActionPlan(plan))
+		assert.is_true(finder.itemActions:executePlan(plan))
 		assert.are.equal(1, graphBuildCount)
 		local replacementItemId = build.itemsTab.sockets[targetSocketId].selItemId
 		assert.is_true(replacementItemId ~= sourceItem.id)
@@ -727,7 +727,7 @@ describe("RadiusJewelFinder actions #radius-jewel", function()
 		local before = support.snapshotFinderState()
 		local undoCount = #build.itemsTab.undo
 		local finder = support.makeFinder()
-		local plan = finder:buildActionPlan({
+		local plan = finder.itemActions:buildPlan({
 			socketId = targetSocketId,
 			socketLabel = "Variant target",
 			targetIdentity = foulbornVariant.variantIdentity,
@@ -737,7 +737,7 @@ describe("RadiusJewelFinder actions #radius-jewel", function()
 		assert.are.equal("move", plan.kind)
 		assert.are.equal(sourceItem.id, plan.sourceItemId)
 		assert.is_false(plan.sourceMatchesTarget)
-		assert.is_true(finder:executeActionPlan(plan))
+		assert.is_true(finder.itemActions:executePlan(plan))
 		assert.are.equal(0, build.itemsTab.sockets[sourceSocketId].selItemId)
 		local targetItem = build.itemsTab.items[build.itemsTab.sockets[targetSocketId].selItemId]
 		assert.is_true(targetItem.foulborn)
