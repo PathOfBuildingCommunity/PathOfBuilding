@@ -18,6 +18,7 @@ local RadiusJewelItemActions = LoadModule("Classes/RadiusJewelItemActions")
 local COL_META = RadiusJewelData.COL_META
 local getJewelRadiusIndex = RadiusJewelData.getJewelRadiusIndex
 local RadiusJewelCompute
+local getJewelStrategy
 
 -- These sockets have no nearby Keystone. Keep the labels used by the Timeless Jewel finder.
 local SOCKET_ZONE_NAMES = {
@@ -47,7 +48,6 @@ local IMPACT_STATS                  = RadiusJewelData.buildImpactStats()
 local DISCONNECTED_PASSIVE_COMPUTE_METHODS = RadiusJewelData.DISCONNECTED_PASSIVE_COMPUTE_METHODS
 local OCCUPIED_SOCKET_OPTIONS       = RadiusJewelData.OCCUPIED_SOCKET_OPTIONS
 local JEWEL_STRATEGY                = RadiusJewelData.JEWEL_STRATEGY
-local jewelPreviewFn                = RadiusJewelData.jewelPreviewFn
 local buildJewelTypes               = RadiusJewelData.buildJewelTypes
 local makeVariantDropdownEntry      = RadiusJewelData.makeVariantDropdownEntry
 local findDisconnectedPassiveComputeMethod = RadiusJewelData.findDisconnectedPassiveComputeMethod
@@ -665,13 +665,14 @@ function RadiusJewelResultPresentation:buildPreviewLines(request)
 	if not jewelType then
 		return nil
 	end
-	local fn = jewelPreviewFn[jewelType.name]
+	local fn = jewelType.preview
 	if not fn then
 		return nil
 	end
+	local strategy = getJewelStrategy(jewelType)
 	local selectedTypeMatches = request.selectedJewelType
 		and request.selectedJewelType.name == jewelType.name
-	if jewelType.isThread then
+	if strategy.usesThreadVariants then
 		local threadVariant = request.previewVariant or request.selectedThreadVariant
 		return fn(threadVariant and threadVariant.name)
 	elseif jewelType.variants then
@@ -702,19 +703,20 @@ function RadiusJewelResultPresentation:buildGenericTypeTooltipLines(request)
 	if not jewelType then
 		return nil
 	end
-	if not (jewelType.isThread or jewelType.variants) then
+	local strategy = getJewelStrategy(jewelType)
+	if not (strategy.usesThreadVariants or jewelType.variants) then
 		local lines = self:buildPreviewLines(request)
 		if type(lines) ~= "table" then
 			return nil
 		end
 		return lines
 	end
-	local fn = jewelPreviewFn[jewelType.name]
+	local fn = jewelType.preview
 	local lines = fn and fn() or nil
 	if type(lines) ~= "table" then
 		return nil
 	end
-	if jewelType.isThread then
+	if strategy.usesThreadVariants then
 		return lines
 	end
 
@@ -729,13 +731,7 @@ function RadiusJewelResultPresentation:buildGenericTypeTooltipLines(request)
 			end
 		end
 	end
-	local note
-	if jewelType.isThread then
-		note = "Multiple ring sizes available"
-	else
-		note = "Multiple variants available"
-	end
-	t_insert(genericLines, { height = 16, [1] = COL_META .. note })
+	t_insert(genericLines, { height = 16, [1] = COL_META .. "Multiple variants available" })
 	return genericLines
 end
 
@@ -1073,11 +1069,20 @@ local JEWEL_STRATEGIES = {
 		prepareFind = prepareRadiusFind,
 		findSocket = findRadiusSocket,
 		compute = computeIntuitiveLeapStrategy,
+		computeMethods = DISCONNECTED_PASSIVE_COMPUTE_METHODS,
+		showsDisconnectedPassivePlans = true,
+		computeTooltipHeader = "^7Socketing this jewel and allocating the best nodes here will give you:",
 		keepBestAllJewelsRowPerSocket = true,
 	},
 	[JEWEL_STRATEGY.THREAD_OF_HOPE] = {
 		findSocket = findThreadSocket,
 		compute = computeThreadOfHopeStrategy,
+		computeMethods = DISCONNECTED_PASSIVE_COMPUTE_METHODS,
+		usesThreadVariants = true,
+		findsAllVariants = true,
+		findAllVariantsTooltip = "^7Find compares every ring and ranks compatible sockets.",
+		showsDisconnectedPassivePlans = true,
+		computeTooltipHeader = "^7Socketing this jewel and allocating the best ring plan here will give you:",
 		resultMode = "findThread",
 		appendMatchCount = true,
 		keepBestAllJewelsRowPerSocket = true,
@@ -1102,10 +1107,16 @@ local JEWEL_STRATEGIES = {
 		prepareFind = prepareImpossibleEscapeFind,
 		findSocket = findImpossibleEscapeSocket,
 		compute = computeImpossibleEscapeStrategy,
+		computeMethods = DISCONNECTED_PASSIVE_COMPUTE_METHODS,
+		findsAllVariants = true,
+		findAllVariantsTooltip = "^7Find compares every displayed Keystone variant and ranks compatible sockets.",
+		showsDisconnectedPassivePlans = true,
+		isEffectSocketIndependent = true,
+		computeTooltipHeader = "^7Socketing this jewel and allocating the best keystone plan here will give you:",
 		appendMatchCount = true,
 		keepBestAllJewelsRowPerSocket = true,
-		getDetailNodeId = function(request, variant)
-			local keystoneNode = variant and request.treeData.keystoneMap[variant.keystoneName]
+		getDetailNodeId = function(treeData, variant)
+			local keystoneNode = variant and treeData.keystoneMap[variant.keystoneName]
 			return keystoneNode and keystoneNode.id or nil
 		end,
 		formatFindStatus = function(_, resultCount)
@@ -1120,10 +1131,13 @@ local JEWEL_STRATEGIES = {
 			return s_format("^7Split Personality | %d | score/pt", resultCount)
 		end,
 	},
-	[JEWEL_STRATEGY.ALL_JEWELS] = { },
+	[JEWEL_STRATEGY.ALL_JEWELS] = {
+		isAllJewels = true,
+		computeMethods = DISCONNECTED_PASSIVE_COMPUTE_METHODS,
+	},
 }
 
-local function getJewelStrategy(jewelType)
+getJewelStrategy = function(jewelType)
 	local strategy = jewelType and JEWEL_STRATEGIES[jewelType.strategy]
 	assert(strategy, "Missing radius jewel strategy: " .. tostring(jewelType and jewelType.name))
 	return strategy
@@ -1152,14 +1166,15 @@ local function runRadiusJewelFind(self, context)
 	local showAllJewelsComputePrompt = context.showAllJewelsComputePrompt
 
 	local searchStartTime = GetTime()
-	if selectedJewelType and selectedJewelType.isAllJewels then
+	local selectedStrategy = selectedJewelType and getJewelStrategy(selectedJewelType)
+	if selectedStrategy and selectedStrategy.isAllJewels then
 		showAllJewelsComputePrompt()
 		return
 	end
 	controls.statusLabel.label = "^7Searching..."
 	local ok, err = pcall(function()
 		local allocNodes = self.build.spec.allocNodes
-		local strategy = getJewelStrategy(selectedJewelType)
+		local strategy = selectedStrategy
 		assert(strategy.findSocket, "Radius jewel strategy cannot find: " .. selectedJewelType.name)
 		local findRequest = {
 			jewelType = selectedJewelType,
@@ -1224,7 +1239,7 @@ local function runRadiusJewelFind(self, context)
 			elseif #topStr > 0 and strategy.appendMatchCount then
 				detailText = detailText .. s_format(" | %d match%s", #topNodes, #topNodes == 1 and "" or "es")
 			end
-			local detailNodeId = strategy.getDetailNodeId and strategy.getDetailNodeId(findRequest, r.variant) or nil
+			local detailNodeId = strategy.getDetailNodeId and strategy.getDetailNodeId(treeData, r.variant) or nil
 			local targetIdentity = r.variant and r.variant.variantIdentity
 				or selectedJewelVariant and selectedJewelVariant.variantIdentity
 				or selectedJewelType.variantIdentity
@@ -1281,7 +1296,7 @@ local function runRadiusJewelCompute(self, context)
 	local selectedImpactStat = context.selectedImpactStat
 	local selectedComputeMethod = context.selectedComputeMethod
 	local selectedJewelType = context.selectedJewelType
-	local selectedJewelSupportsComputeMethods = context.selectedJewelSupportsComputeMethods
+	local selectedStrategy = getJewelStrategy(selectedJewelType)
 	local activeJewelTypes = context.activeJewelTypes
 	local jewelSockets = context.jewelSockets
 	local threadVariants = context.threadVariants
@@ -1317,7 +1332,7 @@ local function runRadiusJewelCompute(self, context)
 			local ok, err = pcall(function()
 				local statLabel = selectedImpactStat.label
 				local computeMethod = selectedComputeMethod or findDisconnectedPassiveComputeMethod(nil)
-				local computeMethodLabel = selectedJewelSupportsComputeMethods() and computeMethod.label or nil
+				local computeMethodLabel = selectedStrategy.computeMethods and computeMethod.label or nil
 				local function makeComputeRequest(variants, computeProgress, skipPlanSteps)
 					return {
 						sockets = jewelSockets,
@@ -1383,13 +1398,13 @@ local function runRadiusJewelCompute(self, context)
 					return rows, baseline or 0
 				end
 
-				if selectedJewelType.isAllJewels then
+				if selectedStrategy.isAllJewels then
 					local allRows = { }
 					local globalBaseline
 
 					local computeJewelTypes = { }
 					for _, jt in ipairs(activeJewelTypes) do
-						if not jt.isAllJewels and jt.hasCompute then
+						if not getJewelStrategy(jt).isAllJewels then
 							t_insert(computeJewelTypes, jt)
 						end
 					end
@@ -1460,7 +1475,7 @@ local function runRadiusJewelCompute(self, context)
 					controls.statusLabel.label = formatComputeStatus("All jewels", statLabel, globalBaseline, computeMethodLabel) .. formatElapsed(searchStartTime)
 				else
 					local displayedVariants = getSelectedVariants()
-					local strategy = getJewelStrategy(selectedJewelType)
+					local strategy = selectedStrategy
 					local computeRequest = makeComputeRequest(displayedVariants, progress)
 					local itemLabel = strategy.formatComputeLabel
 						and strategy.formatComputeLabel(selectedJewelType, computeRequest)
@@ -1587,11 +1602,15 @@ local function buildRadiusJewelPopupContext(self)
 	local suppressFinderStateSave = false
 	local runFind
 	local cancelCompute
+	local function getSelectedJewelStrategy()
+		return selectedJewelType and getJewelStrategy(selectedJewelType) or nil
+	end
 	local function canFindCurrentSelection()
-		if not selectedJewelType or selectedJewelType.isAllJewels then
+		local strategy = getSelectedJewelStrategy()
+		if not strategy or strategy.isAllJewels then
 			return false
 		end
-		if selectedJewelType.isThread or selectedJewelType.isImpossibleEscape then
+		if strategy.findsAllVariants then
 			return true
 		end
 		return not selectedJewelType.variants or selectedJewelVariant ~= nil
@@ -1624,16 +1643,16 @@ local function buildRadiusJewelPopupContext(self)
 	end
 
 	local function getResultContextKey()
+		local strategy = getSelectedJewelStrategy()
 		local selectedVariantIdentity = selectedJewelVariant and selectedJewelVariant.variantIdentity
 		local selectedVariantKey = selectedVariantIdentity and selectedVariantIdentity.rawText
 			or selectedJewelVariant and (selectedJewelVariant.dropdownLabel or selectedJewelVariant.name)
 			or ""
 		local variantGroupKey = #variantGroupOptions > 1 and selectedVariantGroup and selectedVariantGroup.value or ""
-		local supportsComputeMethods = selectedJewelType and (selectedJewelType.isAllJewels
-			or selectedJewelType.computeMethods and #selectedJewelType.computeMethods > 0)
+		local supportsComputeMethods = strategy and strategy.computeMethods and #strategy.computeMethods > 0
 		local computeMethodKey = supportsComputeMethods and selectedComputeMethod and selectedComputeMethod.id or ""
-		local legacyKey = selectedJewelType and selectedJewelType.isAllJewels and showLegacy and "1" or "0"
-		local threadVariantKey = selectedJewelType and selectedJewelType.isThread
+		local legacyKey = strategy and strategy.isAllJewels and showLegacy and "1" or "0"
+		local threadVariantKey = strategy and strategy.usesThreadVariants
 			and (selectedThreadVariant and selectedThreadVariant.rawText or "ANY") or ""
 		return table.concat({
 			tostring(self.build.outputRevision or 0),
@@ -1654,10 +1673,12 @@ local function buildRadiusJewelPopupContext(self)
 	end
 
 	local function clearResultsForContext()
-		resultState:clear(selectedJewelType and selectedJewelType.isAllJewels, canFindCurrentSelection())
+		local strategy = getSelectedJewelStrategy()
+		resultState:clear(strategy and strategy.isAllJewels, canFindCurrentSelection())
 	end
 	local function showCriteriaChangedForContext()
-		resultState:showCriteriaChanged(selectedJewelType and selectedJewelType.isAllJewels, canFindCurrentSelection())
+		local strategy = getSelectedJewelStrategy()
+		resultState:showCriteriaChanged(strategy and strategy.isAllJewels, canFindCurrentSelection())
 	end
 	local function isResultContextCurrent(resultContextKey)
 		return resultContextKey == getResultContextKey()
@@ -1698,12 +1719,8 @@ local function buildRadiusJewelPopupContext(self)
 		end
 	end
 	local function getSelectedComputeMethods()
-		if selectedJewelType and selectedJewelType.isAllJewels then
-			return DISCONNECTED_PASSIVE_COMPUTE_METHODS
-		end
-		if selectedJewelType and selectedJewelType.computeMethods and #selectedJewelType.computeMethods > 0 then
-			return selectedJewelType.computeMethods
-		end
+		local strategy = getSelectedJewelStrategy()
+		return strategy and strategy.computeMethods or nil
 	end
 	local function selectedJewelSupportsComputeMethods()
 		local methods = getSelectedComputeMethods()
@@ -1895,8 +1912,6 @@ local function buildRadiusJewelPopupContext(self)
 		t_insert(activeJewelTypes, 1, {
 			name = "All jewels",
 			strategy = JEWEL_STRATEGY.ALL_JEWELS,
-			isAllJewels = true,
-			hasCompute = true,
 		})
 		for _, jt in ipairs(activeJewelTypes) do
 			t_insert(jtLabels, jt.name)
@@ -1945,7 +1960,8 @@ local function buildRadiusJewelPopupContext(self)
 		local methods = getSelectedComputeMethods()
 		local method = (index and methods and methods[index]) or selectedComputeMethod
 		tooltip:Clear(true)
-		if selectedJewelType and selectedJewelType.isAllJewels then
+		local strategy = getSelectedJewelStrategy()
+		if strategy and strategy.isAllJewels then
 			tooltip:AddLine(16, "^7Used for Intuitive Leap, Thread of Hope, and Impossible Escape.")
 		else
 			tooltip:AddLine(16, "^7Controls how passives are selected for this jewel.")
@@ -1961,7 +1977,7 @@ local function buildRadiusJewelPopupContext(self)
 	controls.computeMethodLabel.shown = false
 	controls.computeMethodSelect.shown = false
 
-	-- Impact stat selector (shown when jewel has compute)
+	-- Impact stat selector
 	controls.impactStatLabel = new("LabelControl"):LabelControl(TL, { rightPanelX + 180, headerLabelY, 0, 16 }, "^7Stat:")
 	controls.impactStatSelect = new("DropDownControl"):DropDownControl(TL, { rightPanelX + 180, headerInputY, 140, buttonHeight }, impactStatLabels, function(idx)
 		onCriteriaChanged(function()
@@ -2112,7 +2128,8 @@ local function buildRadiusJewelPopupContext(self)
 	end
 
 	local function syncSelectedJewelTypeControls()
-		if selectedJewelType.isAllJewels then
+		local strategy = getSelectedJewelStrategy()
+		if strategy.isAllJewels then
 			controls.allJewelsViewLabel.shown  = true
 			controls.allJewelsViewSelect.shown = true
 			controls.threadVariantLabel.shown  = false
@@ -2125,7 +2142,7 @@ local function buildRadiusJewelPopupContext(self)
 			controls.computeMethodSelect.shown = true
 			controls.impactStatLabel.shown     = true
 			controls.impactStatSelect.shown    = true
-			syncComputeMethodSelect(DISCONNECTED_PASSIVE_COMPUTE_METHODS)
+			syncComputeMethodSelect(strategy.computeMethods)
 			if controls.computeButton then
 				controls.computeButton.shown = true
 			end
@@ -2137,27 +2154,27 @@ local function buildRadiusJewelPopupContext(self)
 		end
 		controls.allJewelsViewLabel.shown  = false
 		controls.allJewelsViewSelect.shown = false
-		local isThread = selectedJewelType.isThread == true
+		local usesThreadVariants = strategy.usesThreadVariants == true
 		local hasVariants = selectedJewelType.variants ~= nil
 		local hasVariantGroupFilter = syncVariantGroupSelect()
 		local hasComputeMethods = selectedJewelSupportsComputeMethods()
 		syncVariantControlLayout(hasVariantGroupFilter)
 
-		controls.threadVariantLabel.shown  = isThread
-		controls.threadVariantSelect.shown = isThread
+		controls.threadVariantLabel.shown  = usesThreadVariants
+		controls.threadVariantSelect.shown = usesThreadVariants
 		controls.variantGroupLabel.shown   = hasVariantGroupFilter
 		controls.variantGroupSelect.shown  = hasVariantGroupFilter
 		controls.jewelVariantLabel.shown   = hasVariants
 		controls.jewelVariantSelect.shown  = hasVariants
 		controls.computeMethodLabel.shown  = hasComputeMethods
 		controls.computeMethodSelect.shown = hasComputeMethods
-		controls.impactStatLabel.shown     = selectedJewelType.hasCompute
-		controls.impactStatSelect.shown    = selectedJewelType.hasCompute
+		controls.impactStatLabel.shown     = true
+		controls.impactStatSelect.shown    = true
 		if controls.findButton then
 			controls.findButton.shown = true
 		end
 		if controls.computeButton then
-			controls.computeButton.shown = selectedJewelType.hasCompute
+			controls.computeButton.shown = true
 		end
 
 		if hasVariants then
@@ -2170,7 +2187,7 @@ local function buildRadiusJewelPopupContext(self)
 			selectedJewelVariant = nil
 		end
 		if hasComputeMethods then
-			syncComputeMethodSelect(selectedJewelType.computeMethods)
+			syncComputeMethodSelect(strategy.computeMethods)
 		end
 	end
 
@@ -2184,7 +2201,8 @@ local function buildRadiusJewelPopupContext(self)
 	end)
 	controls.jewelTypeSelect.tooltipFunc = function(tooltip, mode, index)
 		local jewelType = activeJewelTypes[index]
-		if jewelType and jewelType.isAllJewels then
+		local strategy = jewelType and getJewelStrategy(jewelType)
+		if strategy and strategy.isAllJewels then
 			tooltip:Clear(true)
 			tooltip:AddLine(16, "^7Evaluate every jewel type at once.")
 			tooltip:AddLine(16, "^7Results sorted globally by %/Pt.")
@@ -2203,7 +2221,7 @@ local function buildRadiusJewelPopupContext(self)
 		end
 		if index == 1 then
 			addPreviewLinesToTooltip(tooltip, buildGenericTypeTooltipLinesForJewelType(selectedJewelType))
-			if selectedJewelType.isImpossibleEscape then
+			if getSelectedJewelStrategy().findsAllVariants then
 				tooltip:AddLine(16, "^8Find and Compute compare every displayed Keystone variant.")
 			else
 				tooltip:AddLine(16, "^7Find ranks sockets for one exact variant.")
@@ -2282,6 +2300,7 @@ local function buildRadiusJewelPopupContext(self)
 		return tracker
 	end
 	local function buildComputeRows(jewelType, socketResults, baseline, equippedList)
+		local strategy = getJewelStrategy(jewelType)
 		local rows = { }
 		for _, r in ipairs(socketResults) do
 			local rowEquippedList = r.variant and self:findEquippedJewelSockets(jewelType, r.variant) or equippedList or { }
@@ -2306,8 +2325,8 @@ local function buildRadiusJewelPopupContext(self)
 			local isEquippedSocket = equippedSocketIds[r.socket.id]
 			local points = isEquippedSocket and 0
 				or self:getSocketBasePoints(r.socket, { isOccupied = r.replacedItemLabel ~= nil })
-			local variantLabel = r.variant and (jewelType.isThread
-				and (r.variant.ringLabel or (r.variant.name .. " Ring"))
+			local variantLabel = r.variant and (strategy.formatVariantLabel
+				and strategy.formatVariantLabel(r.variant)
 				or r.variant.dropdownLabel or r.variant.name) or ""
 			local itemTooltipLines = buildPreviewLinesForJewelType(jewelType, r.variant)
 			local variantIdentity = r.variant and r.variant.variantIdentity or jewelType.variantIdentity
@@ -2320,7 +2339,7 @@ local function buildRadiusJewelPopupContext(self)
 				or jewelType.limit
 				or (targetRawText and tonumber(targetRawText:match("Limited to: (%d+)")))
 				or nil
-			local displayedPlans = (jewelType.name == "Intuitive Leap" or jewelType.isThread or jewelType.isImpossibleEscape)
+			local displayedPlans = strategy.showsDisconnectedPassivePlans
 				and buildDisplayedDisconnectedPassivePlans(r, points, baseline)
 				or { r }
 			for _, plan in ipairs(displayedPlans) do
@@ -2353,11 +2372,7 @@ local function buildRadiusJewelPopupContext(self)
 					end
 				end
 				local detailText = #summaryParts > 0 and t_concat(summaryParts, " | ") or (plan.detailText or "")
-				local detailNodeId = nil
-				if jewelType.isImpossibleEscape and r.variant and r.variant.keystoneName then
-					local keystoneNode = treeData.keystoneMap[r.variant.keystoneName]
-					detailNodeId = keystoneNode and keystoneNode.id or nil
-				end
+				local detailNodeId = strategy.getDetailNodeId and strategy.getDetailNodeId(treeData, r.variant) or nil
 				local actionPlan = self.itemActions:buildPlan({
 					socketId = r.socket.id,
 					socketLabel = r.socket.label,
@@ -2385,12 +2400,10 @@ local function buildRadiusJewelPopupContext(self)
 					jewelName = jewelType.name,
 					jewelLimitKey = jewelLimitKey,
 					jewelLimit = jewelLimit,
-					isEffectSocketIndependent = jewelType.isEffectSocketIndependent,
+					isEffectSocketIndependent = strategy.isEffectSocketIndependent,
 					action = actionPlan and actionPlan.kind or nil,
 					actionPlan = actionPlan,
-					tooltipHeader = jewelType.isThread and "^7Socketing this jewel and allocating the best ring plan here will give you:"
-						or jewelType.name == "Intuitive Leap" and "^7Socketing this jewel and allocating the best nodes here will give you:"
-						or jewelType.isImpossibleEscape and "^7Socketing this jewel and allocating the best keystone plan here will give you:"
+					tooltipHeader = strategy.computeTooltipHeader
 						or variantLabel ~= "" and "^7Socketing the best variant here will give you:"
 						or "^7Socketing this jewel will give you:",
 				})
@@ -2401,7 +2414,7 @@ local function buildRadiusJewelPopupContext(self)
 
 	controls.computeButton = new("ButtonControl"):ButtonControl(TL, { popupWidth - edgePadding * 2 - 72, headerInputY, 72, buttonHeight }, "Compute", function()
 		local resultContextKey = getResultContextKey()
-		local selectedThreadVariants = selectedJewelType and selectedJewelType.isThread
+		local selectedThreadVariants = getSelectedJewelStrategy().usesThreadVariants
 			and getSelectedThreadVariants() or threadVariants
 		runRadiusJewelCompute(self, {
 			controls = controls,
@@ -2412,7 +2425,6 @@ local function buildRadiusJewelPopupContext(self)
 			selectedImpactStat = selectedImpactStat,
 			selectedComputeMethod = selectedComputeMethod,
 			selectedJewelType = selectedJewelType,
-			selectedJewelSupportsComputeMethods = selectedJewelSupportsComputeMethods,
 			activeJewelTypes = activeJewelTypes,
 			jewelSockets = jewelSockets,
 			threadVariants = selectedThreadVariants,
@@ -2439,7 +2451,8 @@ local function buildRadiusJewelPopupContext(self)
 			tooltip:AddLine(16, "^8Run Compute again to refresh the results.")
 			return
 		end
-		if selectedJewelType and selectedJewelType.isAllJewels then
+		local strategy = getSelectedJewelStrategy()
+		if strategy and strategy.isAllJewels then
 			tooltip:AddLine(16, "^7Rank every jewel type by the selected stat.")
 		else
 			tooltip:AddLine(16, "^7Rank compatible sockets by the selected stat.")
@@ -2484,14 +2497,16 @@ local function buildRadiusJewelPopupContext(self)
 		cancelCompute()
 		runFind()
 	end)
-	controls.findButton.shown = not (selectedJewelType and selectedJewelType.isAllJewels)
+	controls.findButton.shown = not (getSelectedJewelStrategy() and getSelectedJewelStrategy().isAllJewels)
 	controls.findButton.enabled = canFindCurrentSelection
 	controls.findButton.tooltipFunc = function(tooltip)
 		tooltip:Clear(true)
-		if selectedJewelType and selectedJewelType.isThread and not selectedThreadVariant then
-			tooltip:AddLine(16, "^7Find compares every ring and ranks compatible sockets.")
-		elseif selectedJewelType and selectedJewelType.isImpossibleEscape and not selectedJewelVariant then
-			tooltip:AddLine(16, "^7Find compares every displayed Keystone variant and ranks compatible sockets.")
+		local strategy = getSelectedJewelStrategy()
+		local findsAllVariants = strategy and strategy.findsAllVariants
+			and ((strategy.usesThreadVariants and not selectedThreadVariant)
+				or (not strategy.usesThreadVariants and not selectedJewelVariant))
+		if findsAllVariants then
+			tooltip:AddLine(16, strategy.findAllVariantsTooltip)
 		elseif selectedJewelType and selectedJewelType.variants and not selectedJewelVariant then
 			tooltip:AddLine(16, "^7Find ranks sockets for one exact variant.")
 			tooltip:AddLine(16, "^8Choose a variant, or use Compute to compare the displayed variants by the selected stat.")
@@ -2578,7 +2593,8 @@ local function buildRadiusJewelPopupContext(self)
 				end
 			end
 		end
-		if selectedJewelType and selectedJewelType.isThread and finderState.threadVariantName then
+		local strategy = getSelectedJewelStrategy()
+		if strategy and strategy.usesThreadVariants and finderState.threadVariantName then
 			for i, variant in ipairs(threadVariants) do
 				if variant.name == finderState.threadVariantName then
 					selectedThreadVariant = variant

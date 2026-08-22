@@ -54,12 +54,39 @@ describe("RadiusJewelData #radius-jewel", function()
 	-- ── buildJewelTypes ──────────────────────────────────────────────────────
 
 	describe("buildJewelTypes", function()
-		it("registers previews only for known jewel types", function()
-			assert.is_nil(RadiusJewelData.jewelPreviewFn["Unknown Radius Jewel"])
+		it("gives every jewel descriptor its preview", function()
 			for _, jewelType in ipairs(RadiusJewelData.buildJewelTypes()) do
-				assert.is_function(RadiusJewelData.jewelPreviewFn[jewelType.name],
+				assert.is_function(jewelType.preview,
 					"missing preview function for " .. jewelType.name)
 			end
+		end)
+
+		it("preserves base previews when descriptors have raw text and groups variants-only descriptors", function()
+			local jewelTypesByName = { }
+			for _, jewelType in ipairs(RadiusJewelData.buildJewelTypes()) do
+				jewelTypesByName[jewelType.name] = jewelType
+			end
+			local function previewText(jewelType, variant)
+				local text = { }
+				for _, line in ipairs(jewelType.preview(variant)) do
+					if line[1] then
+						text[#text + 1] = line[1]
+					end
+				end
+				return table.concat(text, "\n")
+			end
+
+			local intuitivePreview = previewText(jewelTypesByName["Intuitive Leap"])
+			assert.is_not_nil(intuitivePreview:find("Radius: Small", 1, true))
+			assert.is_nil(intuitivePreview:find("Finder group", 1, true))
+
+			local groupPreview = previewText(jewelTypesByName["Tempered & Transcendent"])
+			assert.is_not_nil(groupPreview:find("Finder group", 1, true))
+
+			local splitPersonality = jewelTypesByName["Split Personality"]
+			local splitVariant = splitPersonality.variants[1]
+			local splitPreview = previewText(splitPersonality, splitVariant)
+			assert.is_not_nil(splitPreview:find("Split Personality (" .. splitVariant.name .. ")", 1, true))
 		end)
 
 		it("assigns one evaluation strategy to every jewel type", function()
@@ -343,7 +370,15 @@ describe("RadiusJewelData #radius-jewel", function()
 			assert.is_true(variant.keystoneOnly)
 			assert.are.same({ "Massive Radius", "Keystone Passive Skills only" }, variant.previewMeta)
 
-			local preview = RadiusJewelData.jewelPreviewFn["Intuitive Leap"](variant)
+			local intuitiveLeap
+			for _, jewelType in ipairs(RadiusJewelData.buildJewelTypes()) do
+				if jewelType.name == "Intuitive Leap" then
+					intuitiveLeap = jewelType
+					break
+				end
+			end
+			assert.is_not_nil(intuitiveLeap)
+			local preview = intuitiveLeap.preview(variant)
 			local previewText = { }
 			for _, line in ipairs(preview) do
 				if line[1] then
