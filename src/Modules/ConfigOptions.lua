@@ -1125,7 +1125,7 @@ Huge sets the radius to 11.
 		modList:NewMod("Condition:HaveTotem", "FLAG", val >= 1, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{
-		var = "fullDPSAutoMaxTotems",
+		var = "fullDPSAutoTotems",
 		type = "check",
 		label = "Auto-count Totems in Full DPS?",
 		ifSkillFlag = "totem",
