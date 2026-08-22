@@ -4435,8 +4435,6 @@ end
 
 local function buildSpecForJewelComparison(itemsTab, compareSlot, replacementItem)
 	local tempItemId
-	local socket = require("socket.core")
-	local start = socket.gettime() * 1000
 	local spec = cloneSpecForJewelComparison(itemsTab.build.spec)
 	if replacementItem then
 		if replacementItem.id and itemsTab.items[replacementItem.id] == replacementItem then
@@ -4452,13 +4450,9 @@ local function buildSpecForJewelComparison(itemsTab, compareSlot, replacementIte
 	else
 		spec.jewels[compareSlot.nodeId] = nil
 	end
-	ConPrintf("spec build time: %.2f ms", socket.gettime() * 1000 - start)
-	start = socket.gettime() * 1000
 	local ok, err = xpcall(function()
 		spec:BuildAllDependsAndPaths()
 	end, debug.traceback)
-	ConPrintf("build all depends: %.2f ms", socket.gettime() * 1000 - start)
-	start = socket.gettime() * 1000
 	if tempItemId then
 		itemsTab.items[tempItemId] = nil
 	end

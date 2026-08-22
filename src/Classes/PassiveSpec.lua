@@ -1153,10 +1153,8 @@ function PassiveSpecClass:NodesInIntuitiveLeapLikeRadius(node)
 	return result
 end
 
--- local sock = require("socket.core")
 -- Rebuilds dependencies and paths for all nodes
 function PassiveSpecClass:BuildAllDependsAndPaths()
-	-- local start = sock.gettime() * 1000
 	local timelessJewelTypeByConqueror = {
 		vaal = 1,
 		karui = 2,
@@ -1696,7 +1694,6 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 	end
 
 	self:BuildSplitPersonalityPath()
-	-- ConPrintf("BuildAllDependsAndPaths time: %.2f ms", sock.gettime() * 1000 - start)
 end
 
 function PassiveSpecClass:ReplaceNode(old, newNode)
