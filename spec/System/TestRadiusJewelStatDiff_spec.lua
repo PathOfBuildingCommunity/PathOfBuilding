@@ -668,7 +668,7 @@ describe("TestRadiusJewelStatDiff", function()
 			"limited unique radius jewels should rebuild only the same-unique slot that will be displayed")
 	end)
 
-	it("AddItemTooltip reuses slot-only radius jewel comparison specs until output changes", function()
+	it("AddItemTooltip reuses slot-only radius jewel comparison outputs until output changes", function()
 		local spec, sockets = setupAllocatedSockets(2)
 
 		local item = newCustomLeapJewel("Cached Leap")
@@ -678,6 +678,7 @@ describe("TestRadiusJewelStatDiff", function()
 
 		local originalSlotOnlyTooltips = main.slotOnlyTooltips
 		main.slotOnlyTooltips = true
+		build.itemsTab.jewelComparisonOutputCache = nil
 		local specClass = getmetatable(spec)
 		local originalBuildAllDependsAndPaths = specClass.BuildAllDependsAndPaths
 		local rebuilds = 0
@@ -685,22 +686,42 @@ describe("TestRadiusJewelStatDiff", function()
 			rebuilds = rebuilds + 1
 			return originalBuildAllDependsAndPaths(self, ...)
 		end
+		local originalGetMiscCalculator = build.calcsTab.GetMiscCalculator
+		local calcCalls = 0
+		build.calcsTab.GetMiscCalculator = function(self, ...)
+			local calcFunc, calcBase = originalGetMiscCalculator(self, ...)
+			return function(...)
+				calcCalls = calcCalls + 1
+				return calcFunc(...)
+			end, calcBase
+		end
 
 		local ok, err = pcall(function()
 			local tooltip = new("Tooltip"):Tooltip()
 			build.itemsTab:AddItemTooltip(tooltip, item, slot)
+			local firstPassTooltipText = tooltipText(tooltip)
+			local firstPassCalcCalls = calcCalls
+			assert.is_true(firstPassCalcCalls > 0,
+				"slot-only radius jewel hover should calculate its output on first pass")
 			tooltip = new("Tooltip"):Tooltip()
 			build.itemsTab:AddItemTooltip(tooltip, item, slot)
+			assert.are.equals(firstPassTooltipText, tooltipText(tooltip),
+				"cached slot-only radius output should preserve tooltip content")
 			assert.are.equals(1, rebuilds,
-				"slot-only radius jewel hover should reuse its cached comparison spec")
+				"slot-only radius jewel hover should reuse its cached comparison output")
+			assert.are.equals(firstPassCalcCalls, calcCalls,
+				"slot-only radius jewel hover should not recalculate a cached output")
 
 			build.outputRevision = build.outputRevision + 1
 			tooltip = new("Tooltip"):Tooltip()
 			build.itemsTab:AddItemTooltip(tooltip, item, slot)
 			assert.are.equals(2, rebuilds,
-				"slot-only radius jewel comparison spec cache should reset when output changes")
+				"slot-only radius jewel output cache should reset when output changes")
+			assert.is_true(calcCalls > firstPassCalcCalls,
+				"slot-only radius jewel comparison should recalculate after output changes")
 		end)
 		specClass.BuildAllDependsAndPaths = originalBuildAllDependsAndPaths
+		build.calcsTab.GetMiscCalculator = originalGetMiscCalculator
 		main.slotOnlyTooltips = originalSlotOnlyTooltips
 		if not ok then
 			error(err)
@@ -725,11 +746,13 @@ describe("TestRadiusJewelStatDiff", function()
 		local specClass = getmetatable(spec)
 		local originalBuildAllDependsAndPaths = specClass.BuildAllDependsAndPaths
 		local originalSetNodeDistanceToClassStart = specClass.SetNodeDistanceToClassStart
+		local originalBuildSplitPersonalityPath = specClass.BuildSplitPersonalityPath
 		local calculationOnlySpec
 		local distanceCalls = 0
-		specClass.BuildAllDependsAndPaths = function(self, skipNodePathRebuild, ...)
-			local result = originalBuildAllDependsAndPaths(self, skipNodePathRebuild, ...)
-			if skipNodePathRebuild then
+		local splitPersonalityPathCalls = 0
+		specClass.BuildAllDependsAndPaths = function(self, calculationOnly, ...)
+			local result = originalBuildAllDependsAndPaths(self, calculationOnly, ...)
+			if calculationOnly then
 				calculationOnlySpec = self
 			end
 			return result
@@ -738,26 +761,44 @@ describe("TestRadiusJewelStatDiff", function()
 			distanceCalls = distanceCalls + 1
 			return originalSetNodeDistanceToClassStart(self, ...)
 		end
+		specClass.BuildSplitPersonalityPath = function(self, ...)
+			splitPersonalityPathCalls = splitPersonalityPathCalls + 1
+			return originalBuildSplitPersonalityPath(self, ...)
+		end
 
 		local ok, err = pcall(function()
 			local tooltip = new("Tooltip"):Tooltip()
 			build.itemsTab:AddItemTooltip(tooltip, radiusItem, radiusSlot)
+			local calculationOnlyTooltipText = tooltipText(tooltip)
+			assert.is_truthy(calculationOnlySpec,
+				"temporary tooltip specs should use the calculation-only path")
+			for _, node in pairs(calculationOnlySpec.nodes) do
+				assert.is_nil(node.path, "calculation-only tooltip specs should not retain UI node paths")
+				assert.is_nil(node.pathDist, "calculation-only tooltip specs should not retain UI path distances")
+			end
+			assert.is_true(distanceCalls > 0,
+				"calculation-only tooltip specs should refresh jewel socket distances used by calc")
+			assert.are.equals(0, splitPersonalityPathCalls,
+				"calculation-only tooltip specs should not rebuild Split Personality highlight paths")
+
+			build.itemsTab.jewelComparisonOutputCache = nil
+			specClass.BuildAllDependsAndPaths = function(self)
+				return originalBuildAllDependsAndPaths(self)
+			end
+			local fullRebuildTooltip = new("Tooltip"):Tooltip()
+			build.itemsTab:AddItemTooltip(fullRebuildTooltip, radiusItem, radiusSlot)
+			assert.are.equals(calculationOnlyTooltipText, tooltipText(fullRebuildTooltip),
+				"calculation-only radius jewel specs should preserve full-rebuild tooltip output")
+			assert.is_true(splitPersonalityPathCalls > 0,
+				"the full-rebuild comparison should exercise Split Personality highlight paths")
 		end)
 		specClass.BuildAllDependsAndPaths = originalBuildAllDependsAndPaths
 		specClass.SetNodeDistanceToClassStart = originalSetNodeDistanceToClassStart
+		specClass.BuildSplitPersonalityPath = originalBuildSplitPersonalityPath
 		main.slotOnlyTooltips = originalSlotOnlyTooltips
 		if not ok then
 			error(err)
 		end
-
-		assert.is_truthy(calculationOnlySpec,
-			"temporary tooltip specs should use the calculation-only path")
-		for _, node in pairs(calculationOnlySpec.nodes) do
-			assert.is_nil(node.path, "calculation-only tooltip specs should not retain UI node paths")
-			assert.is_nil(node.pathDist, "calculation-only tooltip specs should not retain UI path distances")
-		end
-		assert.is_true(distanceCalls > 0,
-			"temporary tooltip specs should still refresh jewel socket distances used by calc")
 	end)
 
 	it("AddItemTooltip reuses full radius jewel comparison outputs until output changes", function()
@@ -771,7 +812,6 @@ describe("TestRadiusJewelStatDiff", function()
 		local originalSlotOnlyTooltips = main.slotOnlyTooltips
 		main.slotOnlyTooltips = false
 		build.itemsTab.jewelComparisonOutputCache = nil
-		build.itemsTab.slotOnlyJewelComparisonSpecCache = nil
 
 		local originalGetMiscCalculator = build.calcsTab.GetMiscCalculator
 		local calcCalls = 0

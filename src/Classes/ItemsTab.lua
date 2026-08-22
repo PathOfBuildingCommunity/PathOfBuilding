@@ -4186,34 +4186,12 @@ end
 ---@param itemsTab ItemsTab
 ---@param compareSlot ItemSlotControl
 ---@param replacementItem Item
----@param useJewelComparisonSpecCache boolean?
-local function buildSpecForJewelComparison(itemsTab, compareSlot, replacementItem, useJewelComparisonSpecCache)
+local function buildSpecForJewelComparison(itemsTab, compareSlot, replacementItem)
 	local tempItemId
-	local replacementItemId = replacementItem and replacementItem.id
-	local replacementItemIsStored = replacementItemId and itemsTab.items[replacementItemId] == replacementItem
-	local canCache = useJewelComparisonSpecCache and (not replacementItem or replacementItemIsStored)
-	local cacheKey
-	local cache
-	if canCache then
-		local outputRevision = itemsTab.build and itemsTab.build.outputRevision or 0
-		cache = itemsTab.slotOnlyJewelComparisonSpecCache
-		if not cache or cache.outputRevision ~= outputRevision then
-			cache = {
-				outputRevision = outputRevision,
-				specs = { },
-			}
-			itemsTab.slotOnlyJewelComparisonSpecCache = cache
-		end
-		cacheKey = tostring(compareSlot.nodeId) .. ":" .. tostring(replacementItemId or "")
-		if cache.specs[cacheKey] then
-			return cache.specs[cacheKey]
-		end
-	end
-
 	local spec = cloneSpecForJewelComparison(itemsTab.build.spec)
 	if replacementItem then
-		if replacementItemIsStored then
-			spec.jewels[compareSlot.nodeId] = replacementItemId
+		if replacementItem.id and itemsTab.items[replacementItem.id] == replacementItem then
+			spec.jewels[compareSlot.nodeId] = replacementItem.id
 		else
 			tempItemId = -1
 			while itemsTab.items[tempItemId] do
@@ -4226,9 +4204,9 @@ local function buildSpecForJewelComparison(itemsTab, compareSlot, replacementIte
 		spec.jewels[compareSlot.nodeId] = nil
 	end
 	local ok, err = xpcall(function()
-		-- These temporary specs only feed the misc calculator, which does not read node.path/pathDist.
-		-- Jewel socket distances are still rebuilt for jewel scaling;
-		-- Split Personality highlight paths are also refreshed.
+		-- These temporary specs only feed the misc calculator, which does not read regular
+		-- node paths or Split Personality highlight paths. Jewel socket distances are still
+		-- rebuilt for Split Personality modifier scaling.
 		spec:BuildAllDependsAndPaths(true)
 	end, debug.traceback)
 	if tempItemId then
@@ -4236,9 +4214,6 @@ local function buildSpecForJewelComparison(itemsTab, compareSlot, replacementIte
 	end
 	if not ok then
 		error(err, 0)
-	end
-	if cacheKey then
-		cache.specs[cacheKey] = spec
 	end
 	return spec
 end
@@ -4978,22 +4953,20 @@ function ItemsTabClass:AddItemStatDifferences(tooltip, item, base, slot)
 			end
 		end
 
-		local function getReplacedItemAndOutput(compareSlot, selItem, useJewelComparisonSpecCache, useJewelComparisonOutputCache)
+		local function getReplacedItemAndOutput(compareSlot, selItem)
 			selItem = selItem or self.items[compareSlot.selItemId]
 			local override = { repSlotName = compareSlot.slotName, repItem = item ~= selItem and item or nil }
 			local outputCache
 			local outputCacheKey
 			if compareSlot.nodeId and (itemChangesPassiveTree(selItem) or itemChangesPassiveTree(item)) then
-				if useJewelComparisonOutputCache then
-					outputCacheKey = getJewelComparisonOutputCacheKey(self, compareSlot, override.repItem)
-					if outputCacheKey then
-						outputCache = getJewelComparisonOutputCache(self)
-						if outputCache.outputs[outputCacheKey] then
-							return selItem, outputCache.outputs[outputCacheKey]
-						end
+				outputCacheKey = getJewelComparisonOutputCacheKey(self, compareSlot, override.repItem)
+				if outputCacheKey then
+					outputCache = getJewelComparisonOutputCache(self)
+					if outputCache.outputs[outputCacheKey] then
+						return selItem, outputCache.outputs[outputCacheKey]
 					end
 				end
-				override.spec = buildSpecForJewelComparison(self, compareSlot, override.repItem, useJewelComparisonSpecCache)
+				override.spec = buildSpecForJewelComparison(self, compareSlot, override.repItem)
 			end
 			local output = calcFunc(override)
 			if outputCacheKey then
@@ -5001,9 +4974,9 @@ function ItemsTabClass:AddItemStatDifferences(tooltip, item, base, slot)
 			end
 			return selItem, output
 		end
-		local function addCompareForSlot(compareSlot, selItem, output, useJewelComparisonSpecCache)
+		local function addCompareForSlot(compareSlot, selItem, output)
 			if not selItem or not output then
-				selItem, output = getReplacedItemAndOutput(compareSlot, nil, useJewelComparisonSpecCache)
+				selItem, output = getReplacedItemAndOutput(compareSlot)
 			end
 			local header
 			if item == selItem then
@@ -5019,7 +4992,7 @@ function ItemsTabClass:AddItemStatDifferences(tooltip, item, base, slot)
 		-- one slot.
 		local compareOnlySlot = type(slot) ~= "string" and slot or self.slots[slot]
 		if main.slotOnlyTooltips and slot then
-			if compareOnlySlot then addCompareForSlot(compareOnlySlot, nil, nil, true) end
+			if compareOnlySlot then addCompareForSlot(compareOnlySlot) end
 			return
 		end
 
@@ -5040,7 +5013,7 @@ function ItemsTabClass:AddItemStatDifferences(tooltip, item, base, slot)
 		local slots = {}
 		for _, slotEntry in ipairs(slotCandidates) do
 			if not isLimitedUniqueAtLimit or slotEntry.isSameUnique then
-				local _, output = getReplacedItemAndOutput(slotEntry.compareSlot, slotEntry.selItem, nil, true)
+				local _, output = getReplacedItemAndOutput(slotEntry.compareSlot, slotEntry.selItem)
 				slotEntry.output = output
 				table.insert(slots, slotEntry)
 			end

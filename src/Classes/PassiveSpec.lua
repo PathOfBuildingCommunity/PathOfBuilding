@@ -1089,10 +1089,10 @@ function PassiveSpecClass:NodesInIntuitiveLeapLikeRadius(node)
 end
 
 -- Rebuilds dependencies and calculation distances for all nodes.
--- When node paths are skipped, node.path/pathDist remain unset while jewel socket
--- distanceToClassStart values and Split Personality paths are still refreshed.
----@param skipNodePathRebuild? boolean
-function PassiveSpecClass:BuildAllDependsAndPaths(skipNodePathRebuild)
+-- Calculation-only specs leave UI path fields unset while still refreshing jewel
+-- socket distanceToClassStart values used by the calculator.
+---@param calculationOnly? boolean
+function PassiveSpecClass:BuildAllDependsAndPaths(calculationOnly)
 	local timelessJewelTypeByConqueror = {
 		vaal = 1,
 		karui = 2,
@@ -1628,7 +1628,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths(skipNodePathRebuild)
 	
 	-- Reset and rebuild all node paths
 	for _, node in pairs(self.nodes) do
-		if skipNodePathRebuild then
+		if calculationOnly then
 			node.pathDist = nil
 			node.path = nil
 		else
@@ -1646,7 +1646,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths(skipNodePathRebuild)
 		end
 	end
 
-	if not skipNodePathRebuild then
+	if not calculationOnly then
 		-- Use a multi-source 0-1 BFS to find the closest allocated node. Allocated
 		-- nodes have zero weight, while each unallocated node costs one passive point.
 		local queue = { }
@@ -1701,7 +1701,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths(skipNodePathRebuild)
 		end
 	end
 
-	if not skipNodePathRebuild then
+	if not calculationOnly then
 		self:BuildSplitPersonalityPath()
 	end
 end
