@@ -6,6 +6,50 @@ describe("TradeQuery", function()
 		mock_tradeQuery = new("TradeQuery"):TradeQuery({ itemsTab = {} })
 		mock_queryGen = new("TradeQueryGenerator"):TradeQueryGenerator({ itemsTab = {} })
 	end)
+
+	local function newResultQuery(evaluation, itemString)
+		local tradeQuery = new("TradeQuery"):TradeQuery({ itemsTab = { }, activeItemSet = { }, slots = { } })
+		tradeQuery.slotTables[1] = { slotName = "Ring 1" }
+		if evaluation then
+			tradeQuery.resultTbl[1] = { {
+				item_string = itemString or "Rarity: RARE\nBehemoth Hold\nGold Ring", amount = 1,
+				currency = "chaos", evaluation = next(evaluation) and { evaluation } or nil,
+			} }
+			tradeQuery.sortedResultTbl[1] = { { index = 1 } }
+		end
+		return tradeQuery
+	end
+
+	local function buildResultDropdown(tradeQuery)
+		tradeQuery:PriceItemRowDisplay(1, nil, 0, 20)
+		return tradeQuery.controls.resultDropdown1
+	end
+
+	local function tooltipText(tooltip)
+		local lines = { }
+		for _, line in ipairs(tooltip.lines) do
+			if line.text then
+				table.insert(lines, line.text)
+			end
+		end
+		return table.concat(lines, "\n")
+	end
+
+	local function addItemTooltip(_, tooltip, item)
+		for _, modLine in ipairs(item.explicitModLines or { }) do
+			local line = modLine.range
+				and itemLib.applyRange(modLine.line, modLine.range, modLine.valueScalar, modLine.corruptedRange)
+				or modLine.line
+			tooltip:AddLine(16, colorCodes.MAGIC .. line, nil, modLine)
+		end
+	end
+
+	local function newEvaluationQuery(results)
+		local tradeQuery = new("TradeQuery"):TradeQuery({ itemsTab = { } })
+		tradeQuery.controls.priceButton1, tradeQuery.controls.pbNotice = { label = "Price Item" }, { label = "" }
+		tradeQuery.resultTbl[1] = results or { { } }
+		return tradeQuery
+	end
 	describe("result sorting", function()
 		it("ignores row metadata in Highest Weight order", function()
 			mock_tradeQuery.resultTbl[1] = { { }, { }, { } }
@@ -23,10 +67,7 @@ describe("TradeQuery", function()
 	end)
 	describe("cooperative result evaluation", function()
 		it("resumes fetched result work over multiple frames", function()
-			local tradeQuery = new("TradeQuery"):TradeQuery({ itemsTab = {} })
-			tradeQuery.controls.priceButton1 = { label = "Price Item" }
-			tradeQuery.controls.pbNotice = { label = "" }
-			tradeQuery.resultTbl[1] = { { }, { } }
+			local tradeQuery = newEvaluationQuery({ { }, { } })
 			local events = { }
 			tradeQuery.UpdateControlsWithItems = function(_, _, yieldFunc)
 				table.insert(events, "first")
@@ -56,16 +97,14 @@ describe("TradeQuery", function()
 		end)
 
 		it("clears the prior selection before scheduling a new evaluation", function()
-			local tradeQuery = new("TradeQuery"):TradeQuery({ itemsTab = {} })
+			local tradeQuery = newEvaluationQuery()
 			local dropdownList
-			tradeQuery.controls.priceButton1 = { label = "Price Item" }
 			tradeQuery.controls.resultDropdown1 = {
 				SetList = function(_, list)
 					dropdownList = list
 				end,
 			}
 			tradeQuery.controls.fullPrice = { label = "" }
-			tradeQuery.resultTbl[1] = { { } }
 			tradeQuery.sortedResultTbl[1] = { { index = 1 } }
 			tradeQuery.itemIndexTbl[1] = 1
 			tradeQuery.totalPrice[1] = { amount = 1, currency = "chaos" }
@@ -81,9 +120,7 @@ describe("TradeQuery", function()
 		end)
 
 		it("does not replace an active fetch with evaluation of old results", function()
-			local tradeQuery = new("TradeQuery"):TradeQuery({ itemsTab = {} })
-			tradeQuery.controls.priceButton1 = { label = "Price Item" }
-			tradeQuery.resultTbl[1] = { { } }
+			local tradeQuery = newEvaluationQuery()
 			local evaluated = false
 			tradeQuery.UpdateControlsWithItems = function()
 				evaluated = true
@@ -99,8 +136,7 @@ describe("TradeQuery", function()
 		end)
 
 		it("rejects a response from a superseded fetch", function()
-			local tradeQuery = new("TradeQuery"):TradeQuery({ itemsTab = {} })
-			tradeQuery.controls.priceButton1 = { label = "Price Item" }
+			local tradeQuery = newEvaluationQuery()
 
 			local firstFetch = tradeQuery:StartResultFetch(1)
 			local secondFetch = tradeQuery:StartResultFetch(1)
@@ -112,10 +148,7 @@ describe("TradeQuery", function()
 		end)
 
 		it("publishes only the replacement of a suspended evaluation", function()
-			local tradeQuery = new("TradeQuery"):TradeQuery({ itemsTab = {} })
-			tradeQuery.controls.priceButton1 = { label = "Price Item" }
-			tradeQuery.controls.pbNotice = { label = "" }
-			tradeQuery.resultTbl[1] = { { } }
+			local tradeQuery = newEvaluationQuery()
 			local run = 0
 			local published
 			tradeQuery.UpdateControlsWithItems = function(_, _, yieldFunc)
@@ -136,146 +169,60 @@ describe("TradeQuery", function()
 		end)
 	end)
 	describe("result dropdown tooltipFunc", function()
-		-- Builds a TradeQuery with the strict minimum needed for
-		-- PriceItemRowDisplay to construct row 1 without exploding. Only the
-		-- two itemsTab subtables read by the slot lookup at the top of
-		-- PriceItemRowDisplay need to be created here; everything else either
-		-- lives behind a callback we never trigger, or is already initialized
-		-- by the TradeQuery constructor.
-		local function newTradeQuery(state)
-			local tq = new("TradeQuery"):TradeQuery({ itemsTab = {} })
-			tq.itemsTab.activeItemSet = {}
-			tq.itemsTab.slots         = {}
-			tq.slotTables[1] = { slotName = "Ring 1" }
-			if state.resultTbl       then tq.resultTbl       = state.resultTbl       end
-			if state.sortedResultTbl then tq.sortedResultTbl = state.sortedResultTbl end
-			return tq
-		end
+		it("returns early when result state is missing or cleared", function()
+			for _, case in ipairs({
+				{ name = "sort missing", tradeQuery = newResultQuery() },
+				{ name = "result cleared", tradeQuery = newResultQuery({ }), clearResult = true },
+			}) do
+				local dropdown = buildResultDropdown(case.tradeQuery)
+				if case.clearResult then case.tradeQuery.resultTbl[1] = { } end
+				local tooltip = new("Tooltip"):Tooltip()
 
-		-- Builds row 1 of the trader UI and returns the dropdown that owns the
-		-- tooltipFunc we want to exercise.
-		local function buildRow1Dropdown(tq)
-			tq:PriceItemRowDisplay(1, nil, 0, 20)
-			return tq.controls.resultDropdown1
-		end
-
-		it("returns early when sortedResultTbl[row_idx] is missing", function()
-			-- No sorted results at all -> first guard must short-circuit.
-			local tq = newTradeQuery({})
-			local dropdown = buildRow1Dropdown(tq)
-			local tooltip = new("Tooltip"):Tooltip()
-
-			assert.has_no.errors(function()
-				dropdown.tooltipFunc(tooltip, "DROP", 1, nil)
-			end)
-			assert.are.equal(0, #tooltip.lines)
-		end)
-
-		it("returns early when the backing result entry has been cleared", function()
-			-- The dropdown must be built against a valid result so that
-			-- PriceItemRowDisplay's construction loop succeeds; we wipe
-			-- resultTbl[1] only afterwards, to simulate a stale tooltip
-			-- callback firing after the results were invalidated.
-			local tq = newTradeQuery({
-				resultTbl       = { [1] = { [1] = { item_string = "Rarity: RARE\nBehemoth Hold\nGold Ring", amount = 1, currency = "chaos" } } },
-				sortedResultTbl = { [1] = { { index = 1 } } },
-			})
-			local dropdown = buildRow1Dropdown(tq)
-			tq.resultTbl[1] = {}
-			local tooltip = new("Tooltip"):Tooltip()
-
-			assert.has_no.errors(function()
-				dropdown.tooltipFunc(tooltip, "DROP", 1, nil)
-			end)
-			assert.are.equal(0, #tooltip.lines)
-		end)
-
-		it("shows the simulated bench craft and its Ctrl compare hint", function()
-			local tq = newTradeQuery({
-				resultTbl = { [1] = { [1] = {
-					item_string = "Rarity: RARE\nBehemoth Hold\nGold Ring",
-					amount = 1,
-					currency = "chaos",
-					evaluation = { {
-						benchCraft = "+25 to Strength ^8(Suffix)",
-						benchCraftItemString = "Rarity: RARE\nBehemoth Hold\nGold Ring\nImplicits: 0\n{crafted}{suffix}+25 to Strength",
-					} },
-				} } },
-				sortedResultTbl = { [1] = { { index = 1 } } },
-			})
-			tq.itemsTab.AddItemTooltip = function() end
-			local dropdown = buildRow1Dropdown(tq)
-			local tooltip = new("Tooltip"):Tooltip()
-
-			dropdown.tooltipFunc(tooltip, "DROP", 1, nil)
-
-			local tooltipText = ""
-			for _, line in ipairs(tooltip.lines) do
-				tooltipText = tooltipText .. (line.text or "") .. "\n"
+				assert.has_no.errors(function()
+					dropdown.tooltipFunc(tooltip, "DROP", 1, nil)
+				end, case.name)
+				assert.are.equal(0, #tooltip.lines, case.name)
 			end
-			assert.is_truthy(tooltipText:find("Bench craft: +25 to Strength", 1, true))
-			assert.is_truthy(tooltipText:find("[Ctrl: compare]", 1, true))
 		end)
 
-		it("identifies a replaced bench craft in the result tooltip", function()
-			local tq = newTradeQuery({
-				resultTbl = { [1] = { [1] = {
-					item_string = "Rarity: RARE\nBehemoth Hold\nGold Ring",
-					amount = 1,
-					currency = "chaos",
-					evaluation = { {
-						benchCraft = "+25 to Strength ^8(Suffix)",
-						benchCraftReplaced = "+20 to Dexterity ^8(Suffix)",
-						benchCraftItemString = "Rarity: RARE\nBehemoth Hold\nGold Ring\nImplicits: 0\n{crafted}{suffix}+25 to Strength",
-					} },
-				} } },
-				sortedResultTbl = { [1] = { { index = 1 } } },
-			})
-			tq.itemsTab.AddItemTooltip = function() end
-			local dropdown = buildRow1Dropdown(tq)
-			local tooltip = new("Tooltip"):Tooltip()
-
-			dropdown.tooltipFunc(tooltip, "DROP", 1, nil)
-
-			local tooltipText = ""
-			for _, line in ipairs(tooltip.lines) do
-				tooltipText = tooltipText .. (line.text or "") .. "\n"
+		it("describes added and replaced bench crafts in result tooltips", function()
+			local itemString = "Rarity: RARE\nBehemoth Hold\nGold Ring\nImplicits: 0\n{crafted}{suffix}+25 to Strength"
+			local cases = {
+				{ name = "added", evaluation = { benchCraft = "+25 to Strength ^8(Suffix)",
+					benchCraftItemString = itemString },
+					expected = { "Bench craft: +25 to Strength", "[Ctrl: compare]" } },
+				{ name = "replaced", evaluation = { benchCraft = "+25 to Strength ^8(Suffix)",
+					benchCraftReplaced = "+20 to Dexterity ^8(Suffix)", benchCraftItemString = itemString },
+					expected = { "Replace craft: +20 to Dexterity", "-> +25 to Strength" } },
+			}
+			for _, case in ipairs(cases) do
+				local tq = newResultQuery(case.evaluation)
+				tq.itemsTab.AddItemTooltip = function() end
+				local tooltip = new("Tooltip"):Tooltip()
+				buildResultDropdown(tq).tooltipFunc(tooltip, "DROP", 1, nil)
+				local text = tooltipText(tooltip)
+				for _, expected in ipairs(case.expected) do
+					assert.is_truthy(text:find(expected, 1, true), case.name)
+				end
 			end
-			assert.is_truthy(tooltipText:find("Replace craft: +20 to Dexterity", 1, true))
-			assert.is_truthy(tooltipText:find("-> +25 to Strength", 1, true))
 		end)
 
 		it("shows the simulated item and highlights its craft while Ctrl is held", function()
-			local tq = newTradeQuery({
-				resultTbl = { [1] = { [1] = {
-					item_string = "Rarity: RARE\nBehemoth Hold\nGold Ring\nImplicits: 0\n{prefix}+40 to maximum Mana",
-					amount = 1,
-					currency = "chaos",
-					evaluation = { {
-						benchCraft = "+25 to Strength ^8(Suffix)",
-						benchCraftItemString = "Rarity: RARE\nBehemoth Hold\nGold Ring\nImplicits: 0\n{prefix}+40 to maximum Mana\n{crafted}{suffix}+25 to Strength",
-						benchCraftLineIndexes = { 2 },
-					} },
-				} } },
-				sortedResultTbl = { [1] = { { index = 1 } } },
-			})
-			tq.itemsTab.AddItemTooltip = function(_, tooltip, item)
-				for _, modLine in ipairs(item.explicitModLines or { }) do
-					tooltip:AddLine(16, colorCodes.MAGIC .. modLine.line, nil, modLine)
-				end
-			end
+			local tq = newResultQuery({
+				benchCraft = "+25 to Strength ^8(Suffix)",
+				benchCraftItemString = "Rarity: RARE\nBehemoth Hold\nGold Ring\nImplicits: 0\n{prefix}+40 to maximum Mana\n{crafted}{suffix}+25 to Strength",
+				benchCraftLineIndexes = { 2 },
+			}, "Rarity: RARE\nBehemoth Hold\nGold Ring\nImplicits: 0\n{prefix}+40 to maximum Mana")
+			tq.itemsTab.AddItemTooltip = addItemTooltip
 			local previewActive = true
 			tq.IsBenchCraftPreviewActive = function() return previewActive end
-			local dropdown = buildRow1Dropdown(tq)
+			local dropdown = buildResultDropdown(tq)
 			local tooltip = new("Tooltip"):Tooltip()
 
 			dropdown.tooltipFunc(tooltip, "DROP", 1, nil)
 
 			assert.are.equal(1, #tooltip.childTooltips)
-			local previewText = ""
-			for _, line in ipairs(tooltip.childTooltips[1].lines) do
-				previewText = previewText .. (line.text or "") .. "\n"
-			end
+			local previewText = tooltipText(tooltip.childTooltips[1])
 			assert.is_truthy(previewText:find("[Craft] +25 to Strength", 1, true))
 			assert.is_truthy(previewText:find("Estimated with bench craft", 1, true))
 
@@ -353,17 +300,8 @@ describe("TradeQuery", function()
 	end)
 	describe("result action controls", function()
 		it("ignore a stale selection while asynchronous evaluation is pending", function()
-			local tradeQuery = new("TradeQuery"):TradeQuery({ itemsTab = {} })
-			tradeQuery.itemsTab.activeItemSet = {}
-			tradeQuery.itemsTab.slots = {}
-			tradeQuery.slotTables[1] = { slotName = "Ring 1" }
-			tradeQuery.resultTbl[1] = { {
-				item_string = "Rarity: RARE\nBehemoth Hold\nGold Ring",
-				amount = 1,
-				currency = "chaos",
-			} }
-			tradeQuery.sortedResultTbl[1] = { { index = 1 } }
-			tradeQuery:PriceItemRowDisplay(1, nil, 0, 20)
+			local tradeQuery = newResultQuery({ })
+			buildResultDropdown(tradeQuery)
 			tradeQuery.itemIndexTbl[1] = 2
 			local tooltip = new("Tooltip"):Tooltip()
 
@@ -431,20 +369,27 @@ describe("TradeQuery", function()
 	end)
 
 	describe("bench craft result evaluation", function()
-		local prefixCraft = {
-			type = "Prefix",
-			group = "IncreasedLife",
-			modTags = { "life" },
-			types = { Ring = true },
-			"+(51-55) to maximum Life",
-		}
-		local suffixCraft = {
-			type = "Suffix",
-			group = "Strength",
-			modTags = { "attribute" },
-			types = { Ring = true },
-			"+(21-25) to Strength",
-		}
+		local function makeCraft(spec)
+			local lines = spec.lines or { spec.line }
+			spec.line, spec.lines = nil, nil
+			for _, line in ipairs(lines) do table.insert(spec, line) end
+			spec.types = spec.types or { Ring = true }
+			return spec
+		end
+
+		local prefixCraft = makeCraft({ type = "Prefix", group = "IncreasedLife",
+			modTags = { "life" }, line = "+(51-55) to maximum Life" })
+		local suffixCraft = makeCraft({ type = "Suffix", group = "Strength",
+			modTags = { "attribute" }, line = "+(21-25) to Strength" })
+		local originalEstimator
+
+		before_each(function()
+			originalEstimator = mock_queryGen.EstimateBenchCraftWeight
+		end)
+
+		after_each(function()
+			mock_queryGen.EstimateBenchCraftWeight = originalEstimator
+		end)
 
 		local function makeRareRing(prefixCount, suffixCount, extraLines)
 			local lines = { "Rarity: Rare", "Test Ring", "Sapphire Ring", "Implicits: 0" }
@@ -458,16 +403,23 @@ describe("TradeQuery", function()
 				"{suffix}+30% to Cold Resistance",
 				"{suffix}+30% to Lightning Resistance",
 			}
-			for index = 1, prefixCount do
-				table.insert(lines, prefixLines[index])
-			end
-			for index = 1, suffixCount do
-				table.insert(lines, suffixLines[index])
-			end
-			for _, line in ipairs(extraLines or { }) do
-				table.insert(lines, line)
-			end
+			for index = 1, prefixCount do table.insert(lines, prefixLines[index]) end
+			for index = 1, suffixCount do table.insert(lines, suffixLines[index]) end
+			for _, line in ipairs(extraLines or { }) do table.insert(lines, line) end
 			return table.concat(lines, "\n")
+		end
+
+		local function craftOutput(args, lifeByText)
+			for _, modLine in ipairs(args.repItem.explicitModLines or { }) do
+				if modLine.crafted then
+					for text, life in pairs(lifeByText) do
+						if modLine.line:find(text, 1, true) then
+							return { Life = life }
+						end
+					end
+				end
+			end
+			return { Life = 100 }
 		end
 
 		local function evaluate(itemString, crafts, calcOverride, yieldFunc, evaluationPlan)
@@ -480,73 +432,53 @@ describe("TradeQuery", function()
 				{ item_string = itemString },
 				benchCraftEvaluationPlan = evaluationPlan,
 			}
-			local function calc(args)
-				local life = 100
-				for _, modLine in ipairs(args.repItem.explicitModLines or { }) do
-					if modLine.crafted and modLine.line:find("maximum Life", 1, true) then
-						life = 300
-					elseif modLine.crafted and modLine.line:find("to Strength", 1, true) then
-						life = 150
-					end
-				end
-				return { Life = life }
+			local calcFunc = calcOverride or function(args)
+				return craftOutput(args, { ["maximum Life"] = 300, ["to Strength"] = 150 })
 			end
-			return tradeQuery:GetResultEvaluation(1, 1, calcOverride or calc, { Life = 100 }, yieldFunc)[1]
+			local baseOutput = { Life = 100 }
+			local evaluation = tradeQuery:GetResultEvaluation(1, 1, calcFunc, baseOutput, yieldFunc)[1]
+			return evaluation, tradeQuery, calcFunc, baseOutput
 		end
 
-		it("only evaluates suffix crafts when the prefix side is full", function()
-			local evaluation = evaluate(makeRareRing(3, 2))
+		local function assertNoCraft(evaluation, caseName)
+			assert.are.equal(1, evaluation.weight, caseName)
+			assert.is_nil(evaluation.benchCraft, caseName)
+		end
 
-			assert.are.equal(1.5, evaluation.weight)
-			assert.is_truthy(evaluation.benchCraft:find("to Strength", 1, true))
-			assert.is_truthy(evaluation.benchCraftItemString:find("{crafted}", 1, true))
-			assert.are.same({ 6 }, evaluation.benchCraftLineIndexes)
-		end)
+		it("evaluates crafts only on the open affix side", function()
+			local cases = {
+				{ name = "suffix open", prefixes = 3, suffixes = 2, weight = 1.5, craftText = "to Strength" },
+				{ name = "prefix open", prefixes = 2, suffixes = 3, craftText = "maximum Life" },
+			}
+			for _, case in ipairs(cases) do
+				local evaluation = evaluate(makeRareRing(case.prefixes, case.suffixes))
 
-		it("only evaluates prefix crafts when the suffix side is full", function()
-			local evaluation = evaluate(makeRareRing(2, 3))
-
-			assert.is_true(evaluation.weight > 1)
-			assert.is_truthy(evaluation.benchCraft:find("maximum Life", 1, true))
+				if case.weight then assert.are.equal(case.weight, evaluation.weight, case.name)
+				else assert.is_true(evaluation.weight > 1, case.name) end
+				assert.is_truthy(evaluation.benchCraft:find(case.craftText, 1, true), case.name)
+				assert.is_truthy(evaluation.benchCraftItemString:find("{crafted}", 1, true), case.name)
+				assert.are.same({ 6 }, evaluation.benchCraftLineIndexes, case.name)
+			end
 		end)
 
 		it("reuses cached craft evaluations when a shared calculator is provided", function()
-			local tradeQuery = new("TradeQuery"):TradeQuery({ itemsTab = { } })
-			tradeQuery.tradeQueryGenerator = mock_queryGen
-			tradeQuery.statSortSelectionList = { { stat = "Life", weightMult = 1 } }
-			tradeQuery.slotTables[1] = { slotName = "Ring 1", considerBenchCraft = true }
-			tradeQuery.resultTbl[1] = { { item_string = makeRareRing(3, 2) } }
 			local calls = 0
-			tradeQuery.itemsTab.build = { data = { masterMods = { suffixCraft } } }
-			local function calc(args)
+			local _, tradeQuery, calcFunc, baseOutput = evaluate(makeRareRing(3, 2), { suffixCraft }, function(args)
 				calls = calls + 1
-				for _, modLine in ipairs(args.repItem.explicitModLines or { }) do
-					if modLine.crafted and modLine.line:find("to Strength", 1, true) then
-						return { Life = 150 }
-					end
-				end
-				return { Life = 100 }
-			end
-			local baseOutput = { Life = 100 }
+				return craftOutput(args, { ["to Strength"] = 150 })
+			end)
 
-			tradeQuery:GetResultEvaluation(1, 1, calc, baseOutput)
-			tradeQuery:GetResultEvaluation(1, 1, calc, baseOutput)
+			tradeQuery:GetResultEvaluation(1, 1, calcFunc, baseOutput)
 
 			assert.are.equal(2, calls)
 		end)
 
 		it("does not evaluate crafts unavailable for the item type", function()
-			local amuletCraft = {
-				type = "Prefix",
-				group = "IncreasedLife",
-				modTags = { "life" },
-				types = { Amulet = true },
-				"+(51-55) to maximum Life",
-			}
+			local amuletCraft = makeCraft({ type = "Prefix", group = "IncreasedLife", modTags = { "life" },
+				types = { Amulet = true }, line = "+(51-55) to maximum Life" })
 			local evaluation = evaluate(makeRareRing(2, 2), { amuletCraft })
 
-			assert.are.equal(1, evaluation.weight)
-			assert.is_nil(evaluation.benchCraft)
+			assertNoCraft(evaluation, "Ring cannot use Amulet craft")
 		end)
 
 		it("previews the same craft roll that was used for evaluation", function()
@@ -623,33 +555,29 @@ describe("TradeQuery", function()
 				"{crafted}{suffix}{modGroup:trade:crafted:2}+20% to Cold Resistance",
 			}), { prefixCraft })
 
-			assert.are.equal(1, evaluation.weight)
-			assert.is_nil(evaluation.benchCraft)
+			assertNoCraft(evaluation, "crafted modifier limit")
 		end)
 
 		it("does not evaluate crafts on corrupted or mirrored items", function()
 			for _, marker in ipairs({ "Corrupted", "Mirrored" }) do
 				local evaluation = evaluate(makeRareRing(1, 1, { marker }))
-				assert.are.equal(1, evaluation.weight)
-				assert.is_nil(evaluation.benchCraft)
+				assertNoCraft(evaluation, marker)
 			end
 		end)
 
 		it("does not duplicate an existing affix group", function()
 			local evaluation = evaluate(makeRareRing(1, 3, { "{prefix}+50 to maximum Life" }), { prefixCraft })
 
-			assert.are.equal(1, evaluation.weight)
-			assert.is_nil(evaluation.benchCraft)
+			assertNoCraft(evaluation, "existing affix group")
 		end)
 
 		it("blocks a craft when a differently worded explicit mod occupies its group", function()
-			local minionCountCraft = {
-				type = "Prefix",
-				group = "MaximumMinionCount",
+			local minionCountCraft = makeCraft({ type = "Prefix", group = "MaximumMinionCount",
 				types = { Helmet = true },
-				"+1 to maximum number of Raised Zombies",
-				"+1 to maximum number of Skeletons",
-			}
+				lines = {
+					"+1 to maximum number of Raised Zombies",
+					"+1 to maximum number of Skeletons",
+				} })
 			local itemString = table.concat({
 				"Rarity: Rare",
 				"Test Helmet",
@@ -660,32 +588,22 @@ describe("TradeQuery", function()
 
 			local evaluation = evaluate(itemString, { minionCountCraft })
 
-			assert.are.equal(1, evaluation.weight)
-			assert.is_nil(evaluation.benchCraft)
+			assertNoCraft(evaluation, "same group with different wording")
 		end)
 
-		it("does not evaluate an item when an explicit affix side is unknown", function()
-			local evaluation = evaluate(makeRareRing(0, 0, { "+50 to maximum Life" }), { suffixCraft })
-
-			assert.are.equal(1, evaluation.weight)
-			assert.is_nil(evaluation.benchCraft)
-		end)
-
-		it("does not evaluate an item without explicit affix metadata", function()
-			local evaluation = evaluate(makeRareRing(0, 0), { suffixCraft })
-
-			assert.are.equal(1, evaluation.weight)
-			assert.is_nil(evaluation.benchCraft)
-		end)
-
-		it("does not evaluate contradictory sides for the same trade affix", function()
-			local evaluation = evaluate(makeRareRing(0, 0, {
-				"{prefix}{modGroup:trade:explicit:0}+50 to maximum Life",
-				"{suffix}{modGroup:trade:explicit:0}+30% to Fire Resistance",
-			}), { suffixCraft })
-
-			assert.are.equal(1, evaluation.weight)
-			assert.is_nil(evaluation.benchCraft)
+		it("rejects incomplete or contradictory explicit affix metadata", function()
+			local cases = {
+				{ name = "side absent", lines = { "+50 to maximum Life" } },
+				{ name = "metadata absent", lines = { } },
+				{ name = "sides contradictory", lines = {
+					"{prefix}{modGroup:trade:explicit:0}+50 to maximum Life",
+					"{suffix}{modGroup:trade:explicit:0}+30% to Fire Resistance",
+				} },
+			}
+			for _, case in ipairs(cases) do
+				local evaluation = evaluate(makeRareRing(0, 0, case.lines), { suffixCraft })
+				assertNoCraft(evaluation, case.name)
+			end
 		end)
 
 		it("counts multi-line trade affixes once", function()
@@ -703,13 +621,8 @@ describe("TradeQuery", function()
 		it("reuses the parsed item without leaking prior craft candidates", function()
 			local crafts = { }
 			for index = 1, 25 do
-				table.insert(crafts, {
-					type = "Suffix",
-					group = "Candidate" .. index,
-					modTags = { "attribute" },
-					types = { Ring = true },
-					"+" .. index .. " to Strength",
-				})
+				table.insert(crafts, makeCraft({ type = "Suffix", group = "Candidate" .. index,
+					modTags = { "attribute" }, line = "+" .. index .. " to Strength" }))
 			end
 			local calls = 0
 			local maxCraftedLines = 0
@@ -746,24 +659,11 @@ describe("TradeQuery", function()
 		end)
 
 		it("fully evaluates only the highest estimated-weight legal bench craft", function()
-			local predictedBest = {
-				type = "Suffix",
-				group = "PredictedBest",
-				types = { Ring = true },
-				statOrder = { 1 },
-				"+(1-1) to Strength",
-			}
-			local actualBest = {
-				type = "Suffix",
-				group = "ActualBest",
-				types = { Ring = true },
-				statOrder = { 2 },
-				"+(2-2) to Dexterity",
-			}
-			local evaluationPlan = {
-				statWeights = { { stat = "Life", weightMult = 1 } },
-			}
-			local originalEstimator = mock_queryGen.EstimateBenchCraftWeight
+			local predictedBest = makeCraft({ type = "Suffix", group = "PredictedBest",
+				statOrder = { 1 }, line = "+(1-1) to Strength" })
+			local actualBest = makeCraft({ type = "Suffix", group = "ActualBest",
+				statOrder = { 2 }, line = "+(2-2) to Dexterity" })
+			local evaluationPlan = { statWeights = { { stat = "Life", weightMult = 1 } } }
 			mock_queryGen.EstimateBenchCraftWeight = function(_, craft, receivedPlan)
 				assert.are.equal(evaluationPlan, receivedPlan)
 				return craft == predictedBest and 2 or 1
@@ -771,46 +671,24 @@ describe("TradeQuery", function()
 			local calls = 0
 			local evaluation = evaluate(makeRareRing(3, 2), { actualBest, predictedBest }, function(args)
 				calls = calls + 1
-				for _, modLine in ipairs(args.repItem.explicitModLines or { }) do
-					if modLine.crafted and modLine.line:find("Dexterity", 1, true) then
-						return { Life = 300 }
-					elseif modLine.crafted and modLine.line:find("Strength", 1, true) then
-						return { Life = 200 }
-					end
-				end
-				return { Life = 100 }
+				return craftOutput(args, { Dexterity = 300, Strength = 200 })
 			end, nil, evaluationPlan)
-			mock_queryGen.EstimateBenchCraftWeight = originalEstimator
-
 			assert.are.equal(2, calls)
 			assert.is_truthy(evaluation.benchCraft:find("Strength", 1, true))
 		end)
 
 		it("evaluates the best general craft and each highest-level local group", function()
-			local localStunLow = {
-				type = "Prefix", group = "LocalStunDuration", level = 20, types = { Ring = true },
-				"11% increased Stun Duration on Enemies",
-			}
-			local localStunHigh = {
-				type = "Prefix", group = "LocalStunDuration", level = 40, types = { Ring = true },
-				"22% increased Stun Duration on Enemies",
-			}
-			local localEnergyShield = {
-				type = "Prefix", group = "LocalIncreasedEnergyShield", level = 30, types = { Ring = true },
-				"+10 to maximum Energy Shield",
-			}
-			local generalBest = {
-				type = "Prefix", group = "IncreasedLife", level = 30, types = { Ring = true },
-				"+20 to maximum Life",
-			}
-			local generalWorse = {
-				type = "Prefix", group = "IncreasedMana", level = 30, types = { Ring = true },
-				"+20 to maximum Mana",
-			}
-			local evaluationPlan = {
-				statWeights = { { stat = "Life", weightMult = 1 } },
-			}
-			local originalEstimator = mock_queryGen.EstimateBenchCraftWeight
+			local localStunLow = makeCraft({ type = "Prefix", group = "LocalStunDuration", level = 20,
+				line = "11% increased Stun Duration on Enemies" })
+			local localStunHigh = makeCraft({ type = "Prefix", group = "LocalStunDuration", level = 40,
+				line = "22% increased Stun Duration on Enemies" })
+			local localEnergyShield = makeCraft({ type = "Prefix", group = "LocalIncreasedEnergyShield", level = 30,
+				line = "+10 to maximum Energy Shield" })
+			local generalBest = makeCraft({ type = "Prefix", group = "IncreasedLife", level = 30,
+				line = "+20 to maximum Life" })
+			local generalWorse = makeCraft({ type = "Prefix", group = "IncreasedMana", level = 30,
+				line = "+20 to maximum Mana" })
+			local evaluationPlan = { statWeights = { { stat = "Life", weightMult = 1 } } }
 			mock_queryGen.EstimateBenchCraftWeight = function(_, craft)
 				return craft == generalBest and 2 or 1
 			end
@@ -825,8 +703,6 @@ describe("TradeQuery", function()
 				end
 				return { Life = 100 }
 			end, nil, evaluationPlan)
-			mock_queryGen.EstimateBenchCraftWeight = originalEstimator
-
 			assert.is_nil(evaluatedLines["11% increased Stun Duration on Enemies"])
 			assert.is_true(evaluatedLines["22% increased Stun Duration on Enemies"])
 			assert.is_true(evaluatedLines["+10 to maximum Energy Shield"])
@@ -835,64 +711,34 @@ describe("TradeQuery", function()
 		end)
 
 		it("uses item scaling when selecting the best general craft", function()
-			local attributeCraft = {
-				type = "Suffix", group = "Strength", modTags = { "attribute" }, types = { Ring = true },
-				"+20 to Strength",
-			}
-			local lifeCraft = {
-				type = "Suffix", group = "LifeRegeneration", modTags = { "life" }, types = { Ring = true },
-				"Regenerate 20 Life per second",
-			}
-			local evaluationPlan = {
-				statWeights = { { stat = "Life", weightMult = 1 } },
-			}
-			local originalEstimator = mock_queryGen.EstimateBenchCraftWeight
+			local attributeCraft = makeCraft({ type = "Suffix", group = "Strength",
+				modTags = { "attribute" }, line = "+20 to Strength" })
+			local lifeCraft = makeCraft({ type = "Suffix", group = "LifeRegeneration",
+				modTags = { "life" }, line = "Regenerate 20 Life per second" })
+			local evaluationPlan = { statWeights = { { stat = "Life", weightMult = 1 } } }
 			mock_queryGen.EstimateBenchCraftWeight = function(_, craft, _, valueScalar)
 				return (craft == attributeCraft and 100 or 110) * valueScalar
 			end
 			local itemString = makeRareRing(3, 2)
 				:gsub("Implicits: 0", "Catalyst: Intrinsic\nCatalystQuality: 20\nImplicits: 0")
 			local evaluation = evaluate(itemString, { lifeCraft, attributeCraft }, function(args)
-				for _, modLine in ipairs(args.repItem.explicitModLines or { }) do
-					if modLine.crafted and modLine.line:find("Strength", 1, true) then
-						return { Life = 200 }
-					end
-				end
-				return { Life = 100 }
+				return craftOutput(args, { Strength = 200 })
 			end, nil, evaluationPlan)
-			mock_queryGen.EstimateBenchCraftWeight = originalEstimator
-
 			assert.is_truthy(evaluation.benchCraft:find("Strength", 1, true))
 		end)
 
 		it("falls back to exhaustive evaluation when stat weights changed after the query", function()
-			local strengthCraft = {
-				type = "Suffix", group = "Strength", types = { Ring = true }, "+1 to Strength",
-			}
-			local dexterityCraft = {
-				type = "Suffix", group = "Dexterity", types = { Ring = true }, "+2 to Dexterity",
-			}
-			local stalePlan = {
-				statWeights = { { stat = "Life", weightMult = 2 } },
-			}
-			local originalEstimator = mock_queryGen.EstimateBenchCraftWeight
+			local strengthCraft = makeCraft({ type = "Suffix", group = "Strength", line = "+1 to Strength" })
+			local dexterityCraft = makeCraft({ type = "Suffix", group = "Dexterity", line = "+2 to Dexterity" })
+			local stalePlan = { statWeights = { { stat = "Life", weightMult = 2 } } }
 			mock_queryGen.EstimateBenchCraftWeight = function(_, _, receivedPlan)
 				assert.is_nil(receivedPlan)
 			end
 			local calls = 0
 			local evaluation = evaluate(makeRareRing(3, 2), { strengthCraft, dexterityCraft }, function(args)
 				calls = calls + 1
-				for _, modLine in ipairs(args.repItem.explicitModLines or { }) do
-					if modLine.crafted and modLine.line:find("Dexterity", 1, true) then
-						return { Life = 190 }
-					elseif modLine.crafted and modLine.line:find("Strength", 1, true) then
-						return { Life = 150 }
-					end
-				end
-				return { Life = 100 }
+				return craftOutput(args, { Dexterity = 190, Strength = 150 })
 			end, nil, stalePlan)
-			mock_queryGen.EstimateBenchCraftWeight = originalEstimator
-
 			assert.are.equal(3, calls)
 			assert.are.equal(190, evaluation.output.Life)
 			assert.is_truthy(evaluation.benchCraft:find("Dexterity", 1, true))
@@ -900,35 +746,21 @@ describe("TradeQuery", function()
 
 		it("evaluates only the highest-level craft in a group", function()
 			local crafts = {
-				{
-					type = "Suffix", group = "FlaskEffectAndFlaskChargesGained", level = 60, types = { Ring = true },
-					"20% reduced Flask Charges gained", "(8-10)% increased Effect of Flasks on you",
-				},
-				{
-					type = "Suffix", group = "FlaskEffectAndFlaskChargesGained", level = 75, types = { Ring = true },
-					"33% reduced Flask Charges gained", "(11-14)% increased Effect of Flasks on you",
-				},
+				makeCraft({ type = "Suffix", group = "FlaskEffectAndFlaskChargesGained", level = 60,
+					lines = { "20% reduced Flask Charges gained", "(8-10)% increased Effect of Flasks on you" } }),
+				makeCraft({ type = "Suffix", group = "FlaskEffectAndFlaskChargesGained", level = 75,
+					lines = { "33% reduced Flask Charges gained", "(11-14)% increased Effect of Flasks on you" } }),
 			}
 			local evaluation = evaluate(makeRareRing(3, 2), crafts, function(args)
-				local life = 100
-				for _, modLine in ipairs(args.repItem.explicitModLines or { }) do
-					if modLine.crafted and modLine.line:find("20% reduced", 1, true) then
-						life = 200
-					elseif modLine.crafted and modLine.line:find("33% reduced", 1, true) then
-						life = 150
-					end
-				end
-				return { Life = life }
+				return craftOutput(args, { ["20% reduced"] = 200, ["33% reduced"] = 150 })
 			end)
 
 			assert.is_truthy(evaluation.benchCraft:find("33% reduced", 1, true))
 		end)
 
 		it("renders every line of a multi-line craft in the Ctrl preview", function()
-			local multiLineCraft = {
-				type = "Suffix", group = "FlaskEffectAndFlaskChargesGained", types = { Ring = true },
-				"20% reduced Flask Charges gained", "(8-10)% increased Effect of Flasks on you",
-			}
+			local multiLineCraft = makeCraft({ type = "Suffix", group = "FlaskEffectAndFlaskChargesGained",
+				lines = { "20% reduced Flask Charges gained", "(8-10)% increased Effect of Flasks on you" } })
 			local originalItemString = makeRareRing(3, 2)
 			local evaluation = evaluate(originalItemString, { multiLineCraft }, function(args)
 				for _, modLine in ipairs(args.repItem.explicitModLines or { }) do
@@ -938,37 +770,17 @@ describe("TradeQuery", function()
 				end
 				return { Life = 100 }
 			end)
-			local tooltipQuery = new("TradeQuery"):TradeQuery({ itemsTab = { } })
-			tooltipQuery.itemsTab.activeItemSet = { }
-			tooltipQuery.itemsTab.slots = { }
-			tooltipQuery.slotTables[1] = { slotName = "Ring 1" }
-			tooltipQuery.resultTbl[1] = { {
-				item_string = originalItemString,
-				amount = 1,
-				currency = "chaos",
-				evaluation = { evaluation },
-			} }
-			tooltipQuery.sortedResultTbl[1] = { { index = 1 } }
-			tooltipQuery.itemsTab.AddItemTooltip = function(_, tooltip, item)
-				for _, modLine in ipairs(item.explicitModLines or { }) do
-					local renderedLine = modLine.range
-						and itemLib.applyRange(modLine.line, modLine.range, modLine.valueScalar, modLine.corruptedRange)
-						or modLine.line
-					tooltip:AddLine(16, colorCodes.MAGIC .. renderedLine, nil, modLine)
-				end
-			end
+			local tooltipQuery = newResultQuery(evaluation, originalItemString)
+			tooltipQuery.itemsTab.AddItemTooltip = addItemTooltip
 			tooltipQuery.IsBenchCraftPreviewActive = function() return true end
-			tooltipQuery:PriceItemRowDisplay(1, nil, 0, 20)
+			local dropdown = buildResultDropdown(tooltipQuery)
 			local tooltip = new("Tooltip"):Tooltip()
 
-			tooltipQuery.controls.resultDropdown1.tooltipFunc(tooltip, "DROP", 1, nil)
+			dropdown.tooltipFunc(tooltip, "DROP", 1, nil)
 
 			assert.are.equal(originalItemString, tooltipQuery.resultTbl[1][1].item_string)
 			assert.are.equal(1, #tooltip.childTooltips)
-			local previewText = ""
-			for _, line in ipairs(tooltip.childTooltips[1].lines) do
-				previewText = previewText .. (line.text or "") .. "\n"
-			end
+			local previewText = tooltipText(tooltip.childTooltips[1])
 			assert.is_truthy(previewText:find("[Craft] 20% reduced Flask Charges gained", 1, true))
 			assert.is_truthy(previewText:find("9% increased Effect of Flasks on you", 1, true))
 		end)
