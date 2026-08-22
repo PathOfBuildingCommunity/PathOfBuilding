@@ -465,7 +465,7 @@ describe("TradeQuery", function()
 					end
 
 					local routedRequest
-					local function search(routeName)
+					local function makeSearchHandler(routeName)
 						return function(_, realm, league, query, callback)
 							routedRequest = { routeName, realm, league, query }
 							callback({ {
@@ -475,8 +475,8 @@ describe("TradeQuery", function()
 						end
 					end
 					tradeQuery.tradeQueryRequests = {
-						SearchWithQuery = search("plain"),
-						SearchWithQueryWeightAdjusted = search("adjusted"),
+						SearchWithQuery = makeSearchHandler("plain"),
+						SearchWithQueryWeightAdjusted = makeSearchHandler("adjusted"),
 					}
 
 					local evaluatedResult
@@ -740,17 +740,21 @@ describe("TradeQuery", function()
 
 		it("uses one baseline calculation when ranking is disabled or ineligible", function()
 			local cases = {
-				newEvaluationQuery({ resistance(10, "Fire") }),
-				newEvaluationQuery({ resistance(10, "Fire", { descriptorElement = "Cold" }) }, { swaps = true }),
-				newEvaluationQuery({ resistance(10, "Fire", { descriptor = false }) }, { swaps = true }),
+				{ label = "swaps disabled", query = newEvaluationQuery({ resistance(10, "Fire") }) },
+				{ label = "descriptor element mismatch", query = newEvaluationQuery({
+					resistance(10, "Fire", { descriptorElement = "Cold" }),
+				}, { swaps = true }) },
+				{ label = "descriptor missing", query = newEvaluationQuery({
+					resistance(10, "Fire", { descriptor = false }),
+				}, { swaps = true }) },
 			}
-			for _, tq in ipairs(cases) do
+			for _, case in ipairs(cases) do
 				local calls = 0
-				evaluate(tq, function()
+				evaluate(case.query, function()
 					calls = calls + 1
 					return { Life = 100 }
 				end)
-				assert.are.equal(1, calls)
+				assert.are.equal(1, calls, case.label)
 			end
 		end)
 
