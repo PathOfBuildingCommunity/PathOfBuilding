@@ -6,12 +6,38 @@ describe("TradeQuery", function()
 		mock_tradeQuery = new("TradeQuery"):TradeQuery({ itemsTab = {} })
 		mock_queryGen = new("TradeQueryGenerator"):TradeQueryGenerator({ itemsTab = {} })
 	end)
+
+	local function newRowQuery(state)
+		local tq = new("TradeQuery"):TradeQuery({ itemsTab = {} })
+		tq.itemsTab.activeItemSet = { }
+		tq.itemsTab.slots = { }
+		tq.slotTables[1] = { slotName = "Ring 1" }
+		tq.controls.pbNotice = { label = "" }
+		if state and state.resultTbl then tq.resultTbl = state.resultTbl end
+		if state and state.sortedResultTbl then tq.sortedResultTbl = state.sortedResultTbl end
+		return tq
+	end
+
+	local function listedResult(itemString, evaluation, amount)
+		return { item_string = itemString, evaluation = evaluation, amount = amount or 1, currency = "chaos" }
+	end
+
 	describe("cooperative result evaluation", function()
-		it("resumes fetched result work over multiple frames", function()
+		local function newProcessingQuery(resultCounts)
 			local tradeQuery = new("TradeQuery"):TradeQuery({ itemsTab = {} })
 			tradeQuery.controls.priceButton1 = { label = "Price Item" }
 			tradeQuery.controls.pbNotice = { label = "" }
-			tradeQuery.resultTbl[1] = { { }, { } }
+			for rowIdx, count in ipairs(resultCounts or { }) do
+				tradeQuery.resultTbl[rowIdx] = { }
+				for _ = 1, count do
+					table.insert(tradeQuery.resultTbl[rowIdx], { })
+				end
+			end
+			return tradeQuery
+		end
+
+		it("resumes fetched result work over multiple frames", function()
+			local tradeQuery = newProcessingQuery({ 2 })
 			local events = { }
 			tradeQuery.UpdateControlsWithItems = function(_, _, yieldFunc)
 				table.insert(events, "first")
@@ -22,35 +48,29 @@ describe("TradeQuery", function()
 			end
 
 			tradeQuery:StartResultEvaluation(1)
-
-			assert.are.same({ }, events)
-			assert.are.equal("Eval 0/2...", tradeQuery.controls.priceButton1.label)
-
-			tradeQuery:ProcessResultEvaluations()
-			assert.are.same({ "first" }, events)
-			assert.are.equal("Eval 1/2...", tradeQuery.controls.priceButton1.label)
-
-			tradeQuery:ProcessResultEvaluations()
-			assert.are.same({ "first", "second" }, events)
-			assert.are.equal("Eval 2/2...", tradeQuery.controls.priceButton1.label)
-
-			tradeQuery:ProcessResultEvaluations()
-			assert.are.same({ "first", "second", "done" }, events)
-			assert.are.equal("Price Item", tradeQuery.controls.priceButton1.label)
+			local frames = {
+				{ { }, "Eval 0/2..." },
+				{ { "first" }, "Eval 1/2..." },
+				{ { "first", "second" }, "Eval 2/2..." },
+				{ { "first", "second", "done" }, "Price Item" },
+			}
+			for index, frame in ipairs(frames) do
+				if index > 1 then tradeQuery:ProcessResultEvaluations() end
+				assert.are.same(frame[1], events, "frame " .. index)
+				assert.are.equal(frame[2], tradeQuery.controls.priceButton1.label, "frame " .. index)
+			end
 			assert.is_nil(tradeQuery.resultProcessingByRow[1])
 		end)
 
 		it("clears the prior selection before scheduling a new evaluation", function()
-			local tradeQuery = new("TradeQuery"):TradeQuery({ itemsTab = {} })
+			local tradeQuery = newProcessingQuery({ 1 })
 			local dropdownList
-			tradeQuery.controls.priceButton1 = { label = "Price Item" }
 			tradeQuery.controls.resultDropdown1 = {
 				SetList = function(_, list)
 					dropdownList = list
 				end,
 			}
 			tradeQuery.controls.fullPrice = { label = "" }
-			tradeQuery.resultTbl[1] = { { } }
 			tradeQuery.sortedResultTbl[1] = { { index = 1 } }
 			tradeQuery.itemIndexTbl[1] = 1
 			tradeQuery.totalPrice[1] = { amount = 1, currency = "chaos" }
@@ -66,9 +86,7 @@ describe("TradeQuery", function()
 		end)
 
 		it("does not replace an active fetch with evaluation of old results", function()
-			local tradeQuery = new("TradeQuery"):TradeQuery({ itemsTab = {} })
-			tradeQuery.controls.priceButton1 = { label = "Price Item" }
-			tradeQuery.resultTbl[1] = { { } }
+			local tradeQuery = newProcessingQuery({ 1 })
 			local evaluated = false
 			tradeQuery.UpdateControlsWithItems = function()
 				evaluated = true
@@ -83,8 +101,7 @@ describe("TradeQuery", function()
 		end)
 
 		it("rejects a response from a superseded fetch", function()
-			local tradeQuery = new("TradeQuery"):TradeQuery({ itemsTab = {} })
-			tradeQuery.controls.priceButton1 = { label = "Price Item" }
+			local tradeQuery = newProcessingQuery()
 
 			local firstFetch = tradeQuery:StartResultFetch(1)
 			local secondFetch = tradeQuery:StartResultFetch(1)
@@ -96,10 +113,7 @@ describe("TradeQuery", function()
 		end)
 
 		it("publishes only the replacement of a suspended evaluation", function()
-			local tradeQuery = new("TradeQuery"):TradeQuery({ itemsTab = {} })
-			tradeQuery.controls.priceButton1 = { label = "Price Item" }
-			tradeQuery.controls.pbNotice = { label = "" }
-			tradeQuery.resultTbl[1] = { { } }
+			local tradeQuery = newProcessingQuery({ 1 })
 			local run = 0
 			local published
 			tradeQuery.UpdateControlsWithItems = function(_, _, yieldFunc)
@@ -120,9 +134,7 @@ describe("TradeQuery", function()
 		end)
 
 		it("does not resume replaced queued work before another result row", function()
-			local tradeQuery = new("TradeQuery"):TradeQuery({ itemsTab = {} })
-			tradeQuery.resultTbl[1] = { { } }
-			tradeQuery.resultTbl[2] = { { } }
+			local tradeQuery = newProcessingQuery({ 1, 1 })
 			local events = { }
 			tradeQuery.UpdateControlsWithItems = function(_, rowIdx, yieldFunc)
 				table.insert(events, rowIdx)
@@ -143,22 +155,6 @@ describe("TradeQuery", function()
 		end)
 	end)
 	describe("result dropdown tooltipFunc", function()
-		-- Builds a TradeQuery with the strict minimum needed for
-		-- PriceItemRowDisplay to construct row 1 without exploding. Only the
-		-- two itemsTab subtables read by the slot lookup at the top of
-		-- PriceItemRowDisplay need to be created here; everything else either
-		-- lives behind a callback we never trigger, or is already initialized
-		-- by the TradeQuery constructor.
-		local function newTradeQuery(state)
-			local tq = new("TradeQuery"):TradeQuery({ itemsTab = {} })
-			tq.itemsTab.activeItemSet = {}
-			tq.itemsTab.slots         = {}
-			tq.slotTables[1] = { slotName = "Ring 1" }
-			if state.resultTbl       then tq.resultTbl       = state.resultTbl       end
-			if state.sortedResultTbl then tq.sortedResultTbl = state.sortedResultTbl end
-			return tq
-		end
-
 		-- Builds row 1 of the trader UI and returns the dropdown that owns the
 		-- tooltipFunc we want to exercise.
 		local function buildRow1Dropdown(tq)
@@ -166,9 +162,25 @@ describe("TradeQuery", function()
 			return tq.controls.resultDropdown1
 		end
 
+		local function swapEvaluation(itemString, swaps, lineIndexes)
+			return { {
+				output = { },
+				weight = 1,
+				estimatedResistanceSwap = { swaps = swaps, itemString = itemString, lineIndexes = lineIndexes },
+			} }
+		end
+
+		local function tooltipText(tooltip)
+			local text = ""
+			for _, line in ipairs(tooltip.lines) do
+				text = text .. (line.text or "") .. "\n"
+			end
+			return text
+		end
+
 		it("returns early when sortedResultTbl[row_idx] is missing", function()
 			-- No sorted results at all -> first guard must short-circuit.
-			local tq = newTradeQuery({})
+			local tq = newRowQuery({})
 			local dropdown = buildRow1Dropdown(tq)
 			local tooltip = new("Tooltip"):Tooltip()
 
@@ -183,8 +195,8 @@ describe("TradeQuery", function()
 			-- PriceItemRowDisplay's construction loop succeeds; we wipe
 			-- resultTbl[1] only afterwards, to simulate a stale tooltip
 			-- callback firing after the results were invalidated.
-			local tq = newTradeQuery({
-				resultTbl       = { [1] = { [1] = { item_string = "Rarity: RARE\nBehemoth Hold\nGold Ring", amount = 1, currency = "chaos" } } },
+			local tq = newRowQuery({
+				resultTbl = { [1] = { [1] = listedResult("Rarity: RARE\nBehemoth Hold\nGold Ring") } },
 				sortedResultTbl = { [1] = { { index = 1 } } },
 			})
 			local dropdown = buildRow1Dropdown(tq)
@@ -199,21 +211,10 @@ describe("TradeQuery", function()
 
 		it("shows a compact resistance swap without changing the listed item", function()
 			local itemString = "Rarity: RARE\nBehemoth Hold\nCoral Ring\nImplicits: 0\n+17% to Fire Resistance"
-			local tq = newTradeQuery({
-				resultTbl = { [1] = { [1] = {
-					item_string = itemString,
-					amount = 1,
-					currency = "chaos",
-					evaluation = { {
-						output = {},
-						weight = 1,
-						estimatedResistanceSwap = {
-							swaps = { { from = "Fire", to = "Cold" } },
-							itemString = "Rarity: RARE\nBehemoth Hold\nCoral Ring\nImplicits: 0\n+17% to Cold Resistance",
-							lineIndexes = { 1 },
-						},
-					} },
-				} } },
+			local tq = newRowQuery({
+				resultTbl = { [1] = { [1] = listedResult(itemString, swapEvaluation(
+						"Rarity: RARE\nBehemoth Hold\nCoral Ring\nImplicits: 0\n+17% to Cold Resistance",
+						{ { from = "Fire", to = "Cold" } }, { 1 })) } },
 				sortedResultTbl = { [1] = { { index = 1 } } },
 			})
 			tq.itemsTab.AddItemTooltip = function() end
@@ -221,10 +222,7 @@ describe("TradeQuery", function()
 			local tooltip = new("Tooltip"):Tooltip()
 
 			dropdown.tooltipFunc(tooltip, "DROP", 1, nil)
-			local text = ""
-			for _, line in ipairs(tooltip.lines) do
-				text = text .. (line.text or "") .. "\n"
-			end
+			local text = tooltipText(tooltip)
 			assert.is_truthy(text:find("Estimated swap: Fire -> Cold", 1, true))
 			assert.is_truthy(text:find("(roll may change)", 1, true))
 			assert.is_truthy(text:find("[Ctrl: compare]", 1, true))
@@ -234,24 +232,10 @@ describe("TradeQuery", function()
 
 		it("highlights every swapped line and leaves other lines unchanged in the Ctrl preview", function()
 			local itemString = "Rarity: RARE\nBehemoth Hold\nCoral Ring\nImplicits: 0\n+30 to Strength\n+17% to Fire Resistance\n+24% to Cold Resistance"
-			local tq = newTradeQuery({
-				resultTbl = { [1] = { [1] = {
-					item_string = itemString,
-					amount = 1,
-					currency = "chaos",
-					evaluation = { {
-						output = {},
-						weight = 1,
-						estimatedResistanceSwap = {
-							swaps = {
-								{ from = "Fire", to = "Cold" },
-								{ from = "Cold", to = "Lightning" },
-							},
-							itemString = "Rarity: RARE\nBehemoth Hold\nCoral Ring\nImplicits: 0\n+30 to Strength\n+17% to Cold Resistance\n+24% to Lightning Resistance",
-							lineIndexes = { 2, 3 },
-						},
-					} },
-				} } },
+			local tq = newRowQuery({
+				resultTbl = { [1] = { [1] = listedResult(itemString, swapEvaluation(
+						"Rarity: RARE\nBehemoth Hold\nCoral Ring\nImplicits: 0\n+30 to Strength\n+17% to Cold Resistance\n+24% to Lightning Resistance",
+						{ { from = "Fire", to = "Cold" }, { from = "Cold", to = "Lightning" } }, { 2, 3 })) } },
 				sortedResultTbl = { [1] = { { index = 1 } } },
 			})
 			tq.itemsTab.AddItemTooltip = function(_, tooltip, item)
@@ -266,10 +250,7 @@ describe("TradeQuery", function()
 			dropdown.tooltipFunc(tooltip, "DROP", 1, nil)
 
 			assert.are.equal(1, #tooltip.childTooltips)
-			local previewText = ""
-			for _, line in ipairs(tooltip.childTooltips[1].lines) do
-				previewText = previewText .. StripEscapes(line.text or "") .. "\n"
-			end
+			local previewText = StripEscapes(tooltipText(tooltip.childTooltips[1]))
 			assert.is_truthy(previewText:find("[Swap] +17% to Cold Resistance", 1, true))
 			assert.is_truthy(previewText:find("[Swap] +24% to Lightning Resistance", 1, true))
 			assert.is_truthy(previewText:find("Estimated after swap; rolls may change.", 1, true))
@@ -343,16 +324,10 @@ describe("TradeQuery", function()
 
 	describe("result action controls", function()
 		it("ignore a stale selection while asynchronous evaluation is pending", function()
-			local tradeQuery = new("TradeQuery"):TradeQuery({ itemsTab = {} })
-			tradeQuery.itemsTab.activeItemSet = {}
-			tradeQuery.itemsTab.slots = {}
-			tradeQuery.slotTables[1] = { slotName = "Ring 1" }
-			tradeQuery.resultTbl[1] = { {
-				item_string = "Rarity: RARE\nBehemoth Hold\nGold Ring",
-				amount = 1,
-				currency = "chaos",
-			} }
-			tradeQuery.sortedResultTbl[1] = { { index = 1 } }
+			local tradeQuery = newRowQuery({
+				resultTbl = { [1] = { listedResult("Rarity: RARE\nBehemoth Hold\nGold Ring") } },
+				sortedResultTbl = { [1] = { { index = 1 } } },
+			})
 			tradeQuery:PriceItemRowDisplay(1, nil, 0, 20)
 			tradeQuery.itemIndexTbl[1] = 2
 			local tooltip = new("Tooltip"):Tooltip()
@@ -367,23 +342,11 @@ describe("TradeQuery", function()
 		end)
 
 		it("replaces fetched candidates with the results of a pasted URL", function()
-			local tradeQuery = new("TradeQuery"):TradeQuery({ itemsTab = {} })
-			tradeQuery.itemsTab.activeItemSet = {}
-			tradeQuery.itemsTab.slots = {}
-			tradeQuery.controls.pbNotice = { label = "" }
-			tradeQuery.slotTables[1] = { slotName = "Ring 1" }
-			local oldResult = {
-				item_string = "Rarity: RARE\nOld Hold\nGold Ring",
-				amount = 1,
-				currency = "chaos",
-			}
-			local newResult = {
-				item_string = "Rarity: RARE\nNew Hold\nGold Ring",
-				amount = 2,
-				currency = "chaos",
-			}
-			tradeQuery.resultTbl[1] = { oldResult }
-			tradeQuery.sortedResultTbl[1] = { { index = 1 } }
+			local oldResult = listedResult("Rarity: RARE\nOld Hold\nGold Ring")
+			local newResult = listedResult("Rarity: RARE\nNew Hold\nGold Ring", nil, 2)
+			local tradeQuery = newRowQuery({
+				resultTbl = { [1] = { oldResult } }, sortedResultTbl = { [1] = { { index = 1 } } },
+			})
 			local searchCallback
 			tradeQuery.tradeQueryRequests.SearchWithURL = function(_, _, callback)
 				searchCallback = callback
@@ -452,33 +415,24 @@ describe("TradeQuery", function()
 	end)
 
 	describe("exact listing query", function()
+		local function buildExact(stats, trader, weight)
+			local query = require("dkjson").encode({ query = { stats = stats, filters = { } } })
+			return require("dkjson").decode(mock_tradeQuery:BuildExactListingQuery(query,
+				{ trader = trader, weight = weight }))
+		end
+
 		it("keeps the existing weight range narrowing for weighted queries", function()
-			local query = require("dkjson").encode({
-				query = { stats = { { type = "weight", value = { min = 10 }, filters = {} } }, filters = {} },
-			})
-			local exact = require("dkjson").decode(mock_tradeQuery:BuildExactListingQuery(query, {
-				trader = "WeightSeller",
-				weight = "172",
-			}))
+			local exact = buildExact({ { type = "weight", value = { min = 10 }, filters = { } } },
+				"WeightSeller", "172")
 
 			assert.are.equal(171, exact.query.stats[1].value.min)
 			assert.are.equal(173, exact.query.stats[1].value.max)
 		end)
 
 		it("preserves an AND-only resistance query and adds the trader account", function()
-			local query = require("dkjson").encode({
-				query = {
-					stats = { {
-						type = "and",
-						filters = { { id = "pseudo.pseudo_total_fire_resistance", value = { min = 40 } } },
-					} },
-					filters = {},
-				},
-			})
-			local exact = require("dkjson").decode(mock_tradeQuery:BuildExactListingQuery(query, {
-				trader = "CapSeller",
-				weight = "0",
-			}))
+			local exact = buildExact({ { type = "and",
+				filters = { { id = "pseudo.pseudo_total_fire_resistance", value = { min = 40 } } } } },
+				"CapSeller", "0")
 
 			assert.are.equal("and", exact.query.stats[1].type)
 			assert.is_nil(exact.query.stats[1].value)
@@ -488,102 +442,163 @@ describe("TradeQuery", function()
 	end)
 
 	describe("generated query routing", function()
-		it("uses the plain search path for caps and weight adjustment otherwise", function()
-			local calls = {}
-			mock_tradeQuery.pbRealm = "pc"
-			mock_tradeQuery.pbLeague = "Standard"
-			mock_tradeQuery.tradeQueryRequests = {
-				SearchWithQuery = function(_, realm, league, query)
-					table.insert(calls, { "plain", realm, league, query })
-				end,
-				SearchWithQueryWeightAdjusted = function(_, realm, league, query)
-					table.insert(calls, { "adjusted", realm, league, query })
-				end,
-			}
+		it("carries generated options and descriptors into scheduled evaluation", function()
+			local originalAuthToken = main.api.authToken
+			local ok, err = pcall(function()
+				main.api.authToken = "test-token"
+				local cases = {
+					{ label = "resistance options enabled", swaps = true, caps = true, weighted = false, route = "plain" },
+					{ label = "resistance options disabled", swaps = false, caps = false, weighted = true, route = "adjusted" },
+				}
+				for _, case in ipairs(cases) do
+					local queryOptions = {
+						includeResistSwaps = case.swaps,
+						includeResistCaps = case.caps,
+						weightAdjustedSearch = case.weighted,
+					}
+					local tradeQuery = newRowQuery({})
+					tradeQuery.pbRealm = "pc"
+					tradeQuery.pbLeague = "Standard"
+					tradeQuery.tradeQueryGenerator = { }
+					tradeQuery.tradeQueryGenerator.RequestQuery = function(_, _, context, _, callback)
+						callback(context, case.label .. " query", nil, queryOptions)
+					end
 
-			mock_tradeQuery:SearchGeneratedQuery({ weightAdjustedSearch = false }, "caps-query", function() end, {})
-			mock_tradeQuery:SearchGeneratedQuery({ weightAdjustedSearch = true }, "weighted-query", function() end, {})
+					local routedRequest
+					local function search(routeName)
+						return function(_, realm, league, query, callback)
+							routedRequest = { routeName, realm, league, query }
+							callback({ {
+								item_string = "Rarity: RARE\nTest Ring\nCoral Ring\nImplicits: 0\n+17% to Fire Resistance",
+								resistanceSwapDescriptors = { { lineIndex = 1, element = "Fire", domain = "explicit" } },
+							} })
+						end
+					end
+					tradeQuery.tradeQueryRequests = {
+						SearchWithQuery = search("plain"),
+						SearchWithQueryWeightAdjusted = search("adjusted"),
+					}
 
-			assert.are.same({
-				{ "plain", "pc", "Standard", "caps-query" },
-				{ "adjusted", "pc", "Standard", "weighted-query" },
-			}, calls)
+					local evaluatedResult
+					tradeQuery.GetResultEvaluation = function(self, rowIdx, resultIndex)
+						evaluatedResult = self.resultTbl[rowIdx][resultIndex]
+						return { { weight = 1 } }
+					end
+					tradeQuery.UpdateControlsWithItems = function(self, rowIdx)
+						self:GetResultEvaluation(rowIdx, 1)
+					end
+
+					tradeQuery:PriceItemRowDisplay(1, nil, 0, 20)
+					tradeQuery.controls.bestButton1.onClick()
+					tradeQuery:ProcessResultEvaluations()
+
+					local result = tradeQuery.resultTbl[1][1]
+					assert.are.same({ case.route, "pc", "Standard", case.label .. " query" },
+						routedRequest, case.label)
+					assert.are.equal(case.swaps, result.resistanceSwapEnabled, case.label)
+					assert.are.equal(case.caps, result.prioritiseResistanceCaps, case.label)
+					assert.are.same({ { lineIndex = 1, element = "Fire", domain = "explicit" } },
+						result.resistanceSwapDescriptors, case.label)
+					assert.are.equal(result, evaluatedResult, case.label)
+				end
+			end)
+			main.api.authToken = originalAuthToken
+			assert.is_true(ok, err)
 		end)
 	end)
 
 	describe("resistance swap result evaluation", function()
-		local function itemString(lines)
-			return "Rarity: RARE\nTest Ring\nCoral Ring\nImplicits: 0\n" .. table.concat(lines, "\n")
-		end
-
-		local function descriptor(lineIndex, element, domain)
+		local function resistance(value, element, options)
+			options = options or { }
+			local domain = options.domain or "explicit"
 			return {
-				lineIndex = lineIndex,
-				element = element,
-				domain = domain or "explicit",
+				line = (domain == "crafted" and "{crafted}" or "")
+					.. string.format("+%d%% to %s Resistance", value, element),
+				descriptor = options.descriptor ~= false
+					and { element = options.descriptorElement or element, domain = domain } or nil,
 			}
 		end
 
-		local function newEvaluationQuery(lines, descriptors, enabled, prioritiseCaps)
+		local function newEvaluationQuery(mods, options)
+			options = options or { }
+			local lines = { }
+			local descriptors = { }
+			for lineIndex, mod in ipairs(mods) do
+				local line = type(mod) == "string" and mod or mod.line
+				table.insert(lines, line)
+				if type(mod) == "table" and mod.descriptor then
+					table.insert(descriptors, { lineIndex = lineIndex,
+						element = mod.descriptor.element, domain = mod.descriptor.domain })
+				end
+			end
 			local tq = new("TradeQuery"):TradeQuery({ itemsTab = {} })
 			tq.tradeQueryGenerator = mock_queryGen
 			tq.slotTables[1] = { slotName = "Ring 1" }
 			tq.statSortSelectionList = { { stat = "Life", weightMult = 1 } }
 			tq.resultTbl[1] = { {
-				item_string = itemString(lines),
-				resistanceSwapDescriptors = descriptors,
-				resistanceSwapEnabled = enabled,
-				prioritiseResistanceCaps = prioritiseCaps,
+				item_string = "Rarity: RARE\nTest Ring\nCoral Ring\nImplicits: 0\n" .. table.concat(lines, "\n"),
+				resistanceSwapDescriptors = #descriptors > 0 and descriptors or nil,
+				resistanceSwapEnabled = options.swaps == true,
+				prioritiseResistanceCaps = options.caps == true,
 			} }
 			return tq
 		end
 
-		local function scoreFromElements(multipliers, onEvaluation)
-			return function(args)
-				local score = 0
-				local seen = {}
-				for _, modLine in ipairs(args.repItem.explicitModLines) do
-					local value, element = modLine.line:match("^%+(%d+)%% to (%a+) Resistance$")
-					if value and multipliers[element] then
-						assert.is_nil(seen[element], "duplicate resistance target " .. element)
-						seen[element] = true
-						score = score + tonumber(value) * multipliers[element]
-					end
-				end
-				if onEvaluation then
-					onEvaluation()
-				end
-				return { Life = 100 + score }
-			end
-		end
-
-		local function scoreAndCapsFromElements(requirements, multipliers)
+		local function elementCalculator(multipliers, requirements, onEvaluation)
 			return function(args)
 				local totals = { Fire = 0, Cold = 0, Lightning = 0, Chaos = 0 }
-				local score = 0
+				local seen = { }
 				for _, modLine in ipairs(args.repItem.explicitModLines) do
 					local value, element = modLine.line:match("^%+(%d+)%% to (%a+) Resistance$")
 					if value and totals[element] then
-						totals[element] = totals[element] + tonumber(value)
-						score = score + tonumber(value) * ((multipliers and multipliers[element]) or 0)
+						assert.is_nil(seen[element], "duplicate resistance target " .. element)
+						seen[element] = true
+						totals[element] = tonumber(value)
 					end
 				end
+				local score = 0
+				for element, total in pairs(totals) do
+					score = score + total * ((multipliers and multipliers[element]) or 0)
+				end
+				if onEvaluation then onEvaluation() end
 				local output = { Life = 100 + score }
 				for element, total in pairs(totals) do
-					output["Missing" .. element .. "Resist"] = math.max(0, (requirements[element] or 0) - total)
+					output["Missing" .. element .. "Resist"] = math.max(0,
+						((requirements and requirements[element]) or 0) - total)
 				end
 				return output
 			end
 		end
 
+		local function evaluate(tq, calc, yieldFunc)
+			return tq:GetResultEvaluation(1, 1, calc, { Life = 100 }, yieldFunc)
+		end
+
+		local function attachCalculator(tq, calc, baseOutput)
+			tq.itemsTab.build = { calcsTab = { GetMiscCalculator = function()
+				local output = type(baseOutput) == "function" and baseOutput() or baseOutput
+				return calc, output or { Life = 100 }
+			end } }
+		end
+
+		local function resistanceState(fireTotal)
+			local output = { Life = 100 }
+			for _, element in ipairs({ "Fire", "Cold", "Lightning", "Chaos" }) do
+				output[element .. "Resist"] = 75
+				output[element .. "ResistTotal"] = 75
+				output["Missing" .. element .. "Resist"] = 0
+			end
+			output.FireResistTotal = fireTotal
+			return output
+		end
+
 		it("uses only the listed item when it is already capped and resistance state is irrelevant", function()
-			local tq = newEvaluationQuery(
-				{ "+10% to Fire Resistance", "+20% to Cold Resistance" },
-				{ descriptor(1, "Fire"), descriptor(2, "Cold") }, true, true)
+			local tq = newEvaluationQuery({ resistance(10, "Fire"), resistance(20, "Cold") },
+				{ swaps = true, caps = true })
 			local calls = 0
 			tq.ResistanceSwapMayAffectOutput = function() return false end
 
-			local evaluation = tq:GetResultEvaluation(1, 1, function()
+			local evaluation = evaluate(tq, function()
 				calls = calls + 1
 				return {
 					Life = 100,
@@ -592,7 +607,7 @@ describe("TradeQuery", function()
 					MissingLightningResist = 0,
 					MissingChaosResist = 0,
 				}
-			end, { Life = 100 })
+			end)
 
 			assert.are.equal(1, calls)
 			assert.are.equal(1, #evaluation)
@@ -600,16 +615,15 @@ describe("TradeQuery", function()
 		end)
 
 		it("only evaluates swaps that can feed an elemental resistance deficit", function()
-			local tq = newEvaluationQuery(
-				{ "+10% to Fire Resistance" }, { descriptor(1, "Fire") }, true, true)
+			local tq = newEvaluationQuery({ resistance(10, "Fire") }, { swaps = true, caps = true })
 			local calls = 0
 			tq.ResistanceSwapMayAffectOutput = function() return false end
 
-			local evaluation = tq:GetResultEvaluation(1, 1, function(args)
+			local evaluation = evaluate(tq, function(args)
 				calls = calls + 1
-				return scoreAndCapsFromElements(
+				return elementCalculator(nil,
 					{ Fire = 0, Cold = 10, Lightning = 0, Chaos = 0 })(args)
-			end, { Life = 100 })
+			end)
 
 			assert.are.equal(2, calls)
 			assert.are.equal(1, #evaluation)
@@ -617,37 +631,37 @@ describe("TradeQuery", function()
 		end)
 
 		it("keeps resistance swaps when the build depends on resistance state", function()
-			local tq = newEvaluationQuery(
-				{ "+10% to Fire Resistance", "+20% to Cold Resistance" },
-				{ descriptor(1, "Fire"), descriptor(2, "Cold") }, true, true)
+			local tq = newEvaluationQuery({ resistance(10, "Fire"), resistance(20, "Cold") },
+				{ swaps = true, caps = true })
 			local calls = 0
-			local calc = scoreAndCapsFromElements({ Fire = 0, Cold = 0, Lightning = 0, Chaos = 0 },
-				{ Fire = 1, Cold = 2, Lightning = 3 })
+			local calc = elementCalculator({ Fire = 1, Cold = 2, Lightning = 3 },
+				{ Fire = 0, Cold = 0, Lightning = 0, Chaos = 0 })
 			tq.ResistanceSwapMayAffectOutput = function() return true end
 
-			tq:GetResultEvaluation(1, 1, function(args)
+			evaluate(tq, function(args)
 				calls = calls + 1
 				return calc(args)
-			end, { Life = 100 })
+			end)
 
 			assert.are.equal(6, calls)
 		end)
 
 		it("detects direct and modifier-based resistance output dependencies", function()
-			local tq = newEvaluationQuery({ "+10% to Fire Resistance" }, { descriptor(1, "Fire") }, true, true)
+			local tq = newEvaluationQuery({ resistance(10, "Fire") }, { swaps = true, caps = true })
 			tq.itemsTab.build = { calcsTab = { mainEnv = { player = {
 				modDB = { mods = { } },
 			} } } }
+			local function flag(name)
+				return { name = name, type = "FLAG" }
+			end
 
 			assert.is_false(tq:ResistanceSwapMayAffectOutput())
-			assert.is_true(tq:ResistanceSwapMayAffectOutput({ modList = { {
-				name = "FirePenIncreasedByUncappedFireRes",
-				type = "FLAG",
-			} } }))
-			assert.is_true(tq:ResistanceSwapMayAffectOutput({ modList = { {
-				name = "DamageIncreasedByOvercappedColdRes",
-				type = "FLAG",
-			} } }))
+			assert.is_true(tq:ResistanceSwapMayAffectOutput({
+				modList = { flag("FirePenIncreasedByUncappedFireRes") },
+			}))
+			assert.is_true(tq:ResistanceSwapMayAffectOutput({
+				modList = { flag("DamageIncreasedByOvercappedColdRes") },
+			}))
 
 			tq.statSortSelectionList = { { stat = "FireResistTotal", weightMult = 1 } }
 			assert.is_true(tq:ResistanceSwapMayAffectOutput())
@@ -661,54 +675,36 @@ describe("TradeQuery", function()
 			assert.is_true(tq:ResistanceSwapMayAffectOutput())
 
 			tq.itemsTab.build.calcsTab.mainEnv.player.modDB.mods = {
-				FirePenIncreasedByUncappedFireRes = { {
-					name = "FirePenIncreasedByUncappedFireRes",
-					type = "FLAG",
-				} },
+				FirePenIncreasedByUncappedFireRes = { flag("FirePenIncreasedByUncappedFireRes") },
 			}
 			assert.is_true(tq:ResistanceSwapMayAffectOutput())
 		end)
 
-		it("evaluates exactly 3, 6, and 6 distinct-target assignments for one to three candidates", function()
+		it("generates exactly 3, 6, and 6 distinct-target assignments for one to three candidates", function()
+			local resistanceSwap = LoadModule("Classes/TradeResistanceSwap")
 			local cases = {
-				{
-					lines = { "+5 to Strength", "{crafted}+10% to Fire Resistance" },
-					descriptors = { descriptor(2, "Fire", "crafted") },
-					expectedCalls = 3,
-				},
-				{
-					lines = { "+10% to Fire Resistance", "+20% to Cold Resistance" },
-					descriptors = { descriptor(1, "Fire"), descriptor(2, "Cold") },
-					expectedCalls = 6,
-				},
-				{
-					lines = { "+10% to Fire Resistance", "+20% to Cold Resistance", "+30% to Lightning Resistance" },
-					descriptors = { descriptor(1, "Fire"), descriptor(2, "Cold"), descriptor(3, "Lightning") },
-					expectedCalls = 6,
-				},
+				{ elements = { "Fire" }, expectedAssignments = 3 },
+				{ elements = { "Fire", "Cold" }, expectedAssignments = 6 },
+				{ elements = { "Fire", "Cold", "Lightning" }, expectedAssignments = 6 },
 			}
 			for _, case in ipairs(cases) do
-				local calls = 0
-				local tq = newEvaluationQuery(case.lines, case.descriptors, true)
-				local evaluation = tq:GetResultEvaluation(1, 1,
-					scoreFromElements({ Fire = 1, Cold = 2, Lightning = 3 }, function() calls = calls + 1 end),
-					{ Life = 100 })
-
-				assert.are.equal(case.expectedCalls, calls)
-				assert.are.equal(1, #evaluation)
+				local descriptors = { }
+				for lineIndex, element in ipairs(case.elements) do
+					table.insert(descriptors, { lineIndex = lineIndex, element = element, domain = "explicit" })
+				end
+				assert.are.equal(case.expectedAssignments, #resistanceSwap.getAssignments(descriptors),
+					table.concat(case.elements, ", "))
 			end
 		end)
 
 		it("provides a cooperative yield point after each calculated assignment", function()
 			local calls = 0
 			local yields = 0
-			local tq = newEvaluationQuery(
-				{ "+10% to Fire Resistance", "+20% to Cold Resistance" },
-				{ descriptor(1, "Fire"), descriptor(2, "Cold") }, true)
+			local tq = newEvaluationQuery({ resistance(10, "Fire"), resistance(20, "Cold") }, { swaps = true })
 
-			tq:GetResultEvaluation(1, 1,
-				scoreFromElements({ Fire = 1, Cold = 2, Lightning = 3 }, function() calls = calls + 1 end),
-				{ Life = 100 },
+			evaluate(tq,
+				elementCalculator({ Fire = 1, Cold = 2, Lightning = 3 }, nil,
+					function() calls = calls + 1 end),
 				function() yields = yields + 1 end)
 
 			assert.are.equal(6, calls)
@@ -716,13 +712,10 @@ describe("TradeQuery", function()
 		end)
 
 		it("selects the best permutation and leaves the listed item unchanged", function()
-			local tq = newEvaluationQuery(
-				{ "+10% to Fire Resistance", "+20% to Cold Resistance" },
-				{ descriptor(1, "Fire"), descriptor(2, "Cold") }, true)
+			local tq = newEvaluationQuery({ resistance(10, "Fire"), resistance(20, "Cold") }, { swaps = true })
 			local original = tq.resultTbl[1][1].item_string
 
-			local evaluation = tq:GetResultEvaluation(1, 1,
-				scoreFromElements({ Fire = 1, Cold = 2, Lightning = 4 }), { Life = 100 })
+			local evaluation = evaluate(tq, elementCalculator({ Fire = 1, Cold = 2, Lightning = 4 }))
 			local resistanceSwap = evaluation[1].estimatedResistanceSwap
 			local swaps = resistanceSwap.swaps
 
@@ -736,76 +729,66 @@ describe("TradeQuery", function()
 		end)
 
 		it("prefers fewer swaps when evaluated weights tie", function()
-			local tq = newEvaluationQuery(
-				{ "+10% to Cold Resistance" }, { descriptor(1, "Cold") }, true)
+			local tq = newEvaluationQuery({ resistance(10, "Cold") }, { swaps = true })
 
-			local evaluation = tq:GetResultEvaluation(1, 1, function()
+			local evaluation = evaluate(tq, function()
 				return { Life = 100 }
-			end, { Life = 100 })
+			end)
 
 			assert.is_nil(evaluation[1].estimatedResistanceSwap)
 		end)
 
 		it("uses one baseline calculation when ranking is disabled or ineligible", function()
 			local cases = {
-				newEvaluationQuery({ "+10% to Fire Resistance" }, { descriptor(1, "Fire") }, false),
-				newEvaluationQuery({ "+10% to Fire Resistance" }, { descriptor(1, "Cold") }, true),
-				newEvaluationQuery({ "+10% to Fire Resistance" }, nil, true),
+				newEvaluationQuery({ resistance(10, "Fire") }),
+				newEvaluationQuery({ resistance(10, "Fire", { descriptorElement = "Cold" }) }, { swaps = true }),
+				newEvaluationQuery({ resistance(10, "Fire", { descriptor = false }) }, { swaps = true }),
 			}
 			for _, tq in ipairs(cases) do
 				local calls = 0
-				tq:GetResultEvaluation(1, 1, function()
+				evaluate(tq, function()
 					calls = calls + 1
 					return { Life = 100 }
-				end, { Life = 100 })
+				end)
 				assert.are.equal(1, calls)
 			end
 		end)
 
-		it("keeps the listed item when it already meets every resistance cap", function()
-			local tq = newEvaluationQuery(
-				{ "+40% to Fire Resistance", "+80% to Cold Resistance", "+30% to Chaos Resistance" },
-				{ descriptor(1, "Fire"), descriptor(2, "Cold") }, true, true)
-			local evaluation = tq:GetResultEvaluation(1, 1, scoreAndCapsFromElements(
-				{ Fire = 40, Cold = 40, Lightning = 0, Chaos = 30 },
-				{ Fire = 1, Cold = 1, Lightning = 100 }), { Life = 100 })
-
-			assert.are.equal(1, #evaluation)
-			assert.is_nil(evaluation[1].estimatedResistanceSwap)
+		it("keeps capped and partially repaired listings", function()
+			local requirements = { Fire = 40, Cold = 40, Lightning = 0, Chaos = 30 }
+			local cases = {
+				{ label = "already capped", mods = {
+					resistance(40, "Fire"), resistance(80, "Cold"), resistance(30, "Chaos", { descriptor = false }),
+				}, multipliers = { Fire = 1, Cold = 1, Lightning = 100 }, shortfall = 0, expectSwap = false },
+				{ label = "best partial assignment", mods = {
+					resistance(80, "Fire"), resistance(30, "Chaos", { descriptor = false }),
+				}, shortfall = 40 },
+			}
+			for _, case in ipairs(cases) do
+				local tq = newEvaluationQuery(case.mods, { swaps = true, caps = true })
+				local evaluation = evaluate(tq, elementCalculator(case.multipliers, requirements))
+				assert.are.equal(1, #evaluation, case.label)
+				assert.are.equal(case.shortfall, evaluation[1].totalResistanceCapShortfall, case.label)
+				if case.expectSwap ~= nil then
+					assert.are.equal(case.expectSwap, evaluation[1].estimatedResistanceSwap ~= nil, case.label)
+				end
+			end
 		end)
 
-		it("retains the best partial assignment when the elemental total cannot reach every cap", function()
-			local tq = newEvaluationQuery(
-				{ "+80% to Fire Resistance", "+30% to Chaos Resistance" },
-				{ descriptor(1, "Fire") }, true, true)
-			local evaluation = tq:GetResultEvaluation(1, 1, scoreAndCapsFromElements(
-				{ Fire = 40, Cold = 40, Lightning = 0, Chaos = 30 }), { Life = 100 })
-
-			assert.are.equal(1, #evaluation)
-			assert.are.equal(40, evaluation[1].totalResistanceCapShortfall)
-		end)
-
-		it("records cap shortfall without dropping items when swaps are disabled", function()
-			local valid = newEvaluationQuery(
-				{ "+40% to Fire Resistance", "+30% to Chaos Resistance" }, nil, false, true)
-			local invalid = newEvaluationQuery(
-				{ "+39% to Fire Resistance", "+30% to Chaos Resistance" }, nil, false, true)
-			local calc = scoreAndCapsFromElements({ Fire = 40, Cold = 0, Lightning = 0, Chaos = 30 })
-
-			assert.are.equal(1, #valid:GetResultEvaluation(1, 1, calc, { Life = 100 }))
-			local invalidEvaluation = invalid:GetResultEvaluation(1, 1, calc, { Life = 100 })
-			assert.are.equal(1, #invalidEvaluation)
-			assert.are.equal(1, invalidEvaluation[1].totalResistanceCapShortfall)
-		end)
-
-		it("retains an item that only misses the requested Chaos resistance", function()
-			local tq = newEvaluationQuery(
-				{ "+40% to Fire Resistance", "+29% to Chaos Resistance" }, nil, false, true)
-			local evaluation = tq:GetResultEvaluation(1, 1,
-				scoreAndCapsFromElements({ Fire = 40, Cold = 0, Lightning = 0, Chaos = 30 }), { Life = 100 })
-
-			assert.are.equal(1, #evaluation)
-			assert.are.equal(1, evaluation[1].totalResistanceCapShortfall)
+		it("records elemental and Chaos shortfalls without dropping caps-only listings", function()
+			local calc = elementCalculator(nil, { Fire = 40, Cold = 0, Lightning = 0, Chaos = 30 })
+			local cases = {
+				{ label = "capped", fire = 40, chaos = 30, shortfall = 0 },
+				{ label = "elemental shortfall", fire = 39, chaos = 30, shortfall = 1 },
+				{ label = "Chaos shortfall", fire = 40, chaos = 29, shortfall = 1 },
+			}
+			for _, case in ipairs(cases) do
+				local tq = newEvaluationQuery({ resistance(case.fire, "Fire"), resistance(case.chaos, "Chaos") },
+					{ caps = true })
+				local evaluation = evaluate(tq, calc)
+				assert.are.equal(1, #evaluation, case.label)
+				assert.are.equal(case.shortfall, evaluation[1].totalResistanceCapShortfall, case.label)
+			end
 		end)
 
 		it("sorts retained capped and uncapped results by requested stat value", function()
@@ -834,35 +817,16 @@ describe("TradeQuery", function()
 
 		it("recalculates cached cap shortfall when the build resistance state changes", function()
 			local requiredFire = 50
-			local tq = newEvaluationQuery(
-				{ "+40% to Fire Resistance", "+30% to Chaos Resistance" }, nil, false, true)
+			local tq = newEvaluationQuery({ resistance(40, "Fire"), resistance(30, "Chaos") }, { caps = true })
 			local function calc(args)
-				return scoreAndCapsFromElements({
+				return elementCalculator(nil, {
 					Fire = requiredFire,
 					Cold = 0,
 					Lightning = 0,
 					Chaos = 30,
 				})(args)
 			end
-			tq.itemsTab.build = { calcsTab = {
-				GetMiscCalculator = function()
-					return calc, {
-						Life = 100,
-						FireResist = 75,
-						FireResistTotal = requiredFire,
-						MissingFireResist = 0,
-						ColdResist = 75,
-						ColdResistTotal = 75,
-						MissingColdResist = 0,
-						LightningResist = 75,
-						LightningResistTotal = 75,
-						MissingLightningResist = 0,
-						ChaosResist = 75,
-						ChaosResistTotal = 75,
-						MissingChaosResist = 0,
-					}
-				end,
-			} }
+			attachCalculator(tq, calc, function() return resistanceState(requiredFire) end)
 
 			local first = tq:GetResultEvaluation(1, 1)
 			assert.are.equal(1, #first)
@@ -876,13 +840,11 @@ describe("TradeQuery", function()
 
 		it("reuses the single best evaluation while the build and weights are unchanged", function()
 			local calls = 0
-			local tq = newEvaluationQuery({ "+10% to Fire Resistance" }, { descriptor(1, "Fire") }, true)
-			local calc = scoreFromElements({ Fire = 1, Cold = 2, Lightning = 3 }, function() calls = calls + 1 end)
-			tq.itemsTab.build = { calcsTab = {
-				GetMiscCalculator = function()
-					return calc, { Life = 100 }
-				end,
-			} }
+			local tq = newEvaluationQuery({ "+5 to Strength", resistance(10, "Fire", { domain = "crafted" }) },
+				{ swaps = true })
+			local calc = elementCalculator({ Fire = 1, Cold = 2, Lightning = 3 }, nil,
+				function() calls = calls + 1 end)
+			attachCalculator(tq, calc)
 
 			local first = tq:GetResultEvaluation(1, 1)
 			local second = tq:GetResultEvaluation(1, 1)
@@ -893,12 +855,12 @@ describe("TradeQuery", function()
 		end)
 
 		it("publishes evaluation inputs only after cooperative calculation completes", function()
-			local tq = newEvaluationQuery({ "+10% to Fire Resistance" }, { descriptor(1, "Fire") }, true)
+			local tq = newEvaluationQuery({ resistance(10, "Fire") }, { swaps = true })
 			local result = tq.resultTbl[1][1]
 			result.evaluation = { { weight = -1 } }
 			local co = coroutine.create(function()
 				tq:GetResultEvaluation(1, 1,
-					scoreFromElements({ Fire = 1, Cold = 2, Lightning = 3 }),
+					elementCalculator({ Fire = 1, Cold = 2, Lightning = 3 }),
 					{ Life = 100 }, coroutine.yield)
 			end)
 
@@ -914,14 +876,11 @@ describe("TradeQuery", function()
 
 		it("reuses the cached evaluation when sorting supplies a shared calculator", function()
 			local calls = 0
-			local tq = newEvaluationQuery({ "+10% to Fire Resistance" }, { descriptor(1, "Fire") }, true)
-			local calc = scoreFromElements({ Fire = 1, Cold = 2, Lightning = 3 }, function() calls = calls + 1 end)
+			local tq = newEvaluationQuery({ resistance(10, "Fire") }, { swaps = true })
+			local calc = elementCalculator({ Fire = 1, Cold = 2, Lightning = 3 }, nil,
+				function() calls = calls + 1 end)
 			local baseOutput = { Life = 100 }
-			tq.itemsTab.build = { calcsTab = {
-				GetMiscCalculator = function()
-					return calc, baseOutput
-				end,
-			} }
+			attachCalculator(tq, calc, baseOutput)
 
 			local first = tq:GetResultEvaluation(1, 1)
 			local second = tq:GetResultEvaluation(1, 1, calc, baseOutput)

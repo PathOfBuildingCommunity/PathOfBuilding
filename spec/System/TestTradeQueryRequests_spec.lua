@@ -239,18 +239,9 @@ Strict-Transport-Security: max-age=63115200; includeSubDomains; preload]]
 
 		local function makeExplicitMod(description, domain, hash, name, tier, min, max, flags)
 			return {
-				description = description,
-				domain = domain,
-				hash = "stat." .. hash,
-				flags = flags,
-				mods = {
-					{
-						name = name,
-						tier = tier,
-						level = 44,
-						magnitudes = { { min = tostring(min), max = tostring(max) } },
-					},
-				},
+				description = description, domain = domain, hash = "stat." .. hash, flags = flags,
+				mods = { { name = name, tier = tier, level = 44,
+					magnitudes = { { min = tostring(min), max = tostring(max) } } } },
 			}
 		end
 
@@ -258,31 +249,26 @@ Strict-Transport-Security: max-age=63115200; includeSubDomains; preload]]
 			domain = domain or "explicit"
 			local hash = domain .. ".fire_resistance"
 			return {
-				rarity = "Rare",
-				name = "Test Subject",
-				typeLine = "Coral Ring",
-				explicitMods = {
-					makeExplicitMod("+17% to Fire Resistance", domain, hash, "of the Salamander", "S7", 12, 17,
-						domain == "crafted" and { crafted = true } or nil),
-				},
+				rarity = "Rare", name = "Test Subject", typeLine = "Coral Ring",
+				explicitMods = { makeExplicitMod("+17% to Fire Resistance", domain, hash,
+					"of the Salamander", "S7", 12, 17, domain == "crafted" and { crafted = true } or nil) },
 				extended = { hashes = { [domain] = { { hash, { 0 } } } } },
 			}
 		end
 
-		local function fetchSingle(item)
-			local response = dkjson.encode({
-				result = {
-					{
-						id = "item-id",
-						listing = {
-							price = { amount = 1, currency = "chaos", type = "~price" },
-							whisper = "private listing text",
-							account = { name = "private account" },
-						},
-						item = item,
-					},
+		local function makeTradeEntry(id, item)
+			return {
+				id = id,
+				listing = {
+					price = { amount = 1, currency = "chaos", type = "~price" },
+					whisper = "private listing text", account = { name = "private account" },
 				},
-			})
+				item = item,
+			}
+		end
+
+		local function fetchEntries(entries)
+			local response = dkjson.encode({ result = entries })
 			local fetchedItems
 			local callbackError
 			requests.requestQueue.fetch = {}
@@ -293,49 +279,27 @@ Strict-Transport-Security: max-age=63115200; includeSubDomains; preload]]
 			local request = table.remove(requests.requestQueue.fetch, 1)
 			request.callback(response)
 			assert.is_nil(callbackError)
-			return fetchedItems[1]
+			return fetchedItems
+		end
+
+		local function fetchSingle(item)
+			return fetchEntries({ makeTradeEntry("item-id", item) })[1]
 		end
 
 		it("reads weighted sums from current and legacy pseudo mods", function()
-			local function makeTradeEntry(id, pseudoMods)
-				return {
-					id = id,
-					listing = {
-						price = { amount = 1, currency = "chaos", type = "~price" },
-						whisper = "hi",
-						account = { name = "seller" },
-					},
-					item = {
-						pseudoMods = pseudoMods,
-						rarity = "Rare",
-						name = "Test Subject",
-						typeLine = "Astral Plate",
-					},
-				}
+			local function itemWithPseudoMods(pseudoMods)
+				return { pseudoMods = pseudoMods, rarity = "Rare", name = "Test Subject", typeLine = "Astral Plate" }
 			end
-			local response = dkjson.encode({
-				result = {
-					makeTradeEntry("current", { { description = "Sum: 178", domain = "pseudo", hash = "stat.statgroup.0" } }),
-					makeTradeEntry("legacy", { "Sum: 42" }),
-					makeTradeEntry("empty", { }),
-				},
+			local fetchedItems = fetchEntries({
+				makeTradeEntry("current", itemWithPseudoMods({ { description = "Sum: 178", domain = "pseudo", hash = "stat.statgroup.0" } })),
+				makeTradeEntry("legacy", itemWithPseudoMods({ "Sum: 42" })),
+				makeTradeEntry("empty", itemWithPseudoMods({ })),
 			})
-			local fetchedItems
-			local callbackError
-			requests.requestQueue.fetch = { }
-			requests:FetchResultBlock("test", function(items, errMsg)
-				fetchedItems = items
-				callbackError = errMsg
-			end)
-
-			local request = table.remove(requests.requestQueue.fetch, 1)
-			request.callback(response)
 
 			local itemsById = { }
 			for _, item in ipairs(fetchedItems) do
 				itemsById[item.id] = item
 			end
-			assert.is_nil(callbackError)
 			assert.are.equal("178", itemsById.current.weight)
 			assert.are.equal("42", itemsById.legacy.weight)
 			assert.are.equal("0", itemsById.empty.weight)
@@ -344,13 +308,8 @@ Strict-Transport-Security: max-age=63115200; includeSubDomains; preload]]
 		it("keeps only a compact descriptor for a standalone explicit resistance", function()
 			local result = fetchSingle(makeStandaloneItem())
 
-			assert.are.same({
-				{
-					lineIndex = 1,
-					element = "Fire",
-					domain = "explicit",
-				},
-			}, result.resistanceSwapDescriptors)
+			assert.are.same({ { lineIndex = 1, element = "Fire", domain = "explicit" } },
+				result.resistanceSwapDescriptors)
 			assert.is_nil(result.explicitMods)
 			assert.is_nil(result.extended)
 		end)
@@ -382,52 +341,6 @@ Strict-Transport-Security: max-age=63115200; includeSubDomains; preload]]
 			assert.are.equal("11% of Physical Damage from Hits taken as Fire Damage", parsedItem.explicitModLines[2].line)
 		end)
 
-		it("rejects a composite resistance whose lines share one affix group", function()
-			local item = makeStandaloneItem()
-			item.explicitMods[1].mods[1].name = "of Puhuarte"
-			item.explicitMods[1].mods[1].tier = "S0"
-			table.insert(item.explicitMods, makeExplicitMod(
-				"3% of Physical Damage from Hits taken as Fire Damage", "explicit", "explicit.phys_taken",
-				"of Puhuarte", "S0", 3, 5))
-			item.extended.hashes.explicit = {
-				{ "explicit.fire_resistance", { 0 } },
-				{ "explicit.phys_taken", { 0 } },
-			}
-
-			local result = fetchSingle(item)
-			assert.is_nil(result.resistanceSwapDescriptors)
-		end)
-
-		it("rejects a composite resistance when its sibling line loses its hash mapping", function()
-			local item = makeStandaloneItem()
-			item.explicitMods[1].mods[1].name = "of Puhuarte"
-			item.explicitMods[1].mods[1].tier = "S0"
-			local sibling = makeExplicitMod(
-				"3% of Physical Damage from Hits taken as Fire Damage", "explicit", "explicit.phys_taken",
-				"of Puhuarte", "S0", 3, 5)
-			sibling.hash = nil
-			table.insert(item.explicitMods, sibling)
-			item.extended.hashes.explicit = {
-				{ "explicit.fire_resistance", { 0 } },
-			}
-
-			local result = fetchSingle(item)
-			assert.is_nil(result.resistanceSwapDescriptors)
-		end)
-
-		it("rejects the whole item when a sibling loses both group and identity metadata", function()
-			local item = makeStandaloneItem()
-			local sibling = makeExplicitMod(
-				"3% of Physical Damage from Hits taken as Fire Damage", "explicit", "explicit.phys_taken",
-				"of Puhuarte", "S0", 3, 5)
-			sibling.hash = nil
-			sibling.mods[1].level = nil
-			table.insert(item.explicitMods, sibling)
-
-			local result = fetchSingle(item)
-			assert.is_nil(result.resistanceSwapDescriptors)
-		end)
-
 		it("keeps explicit and crafted affixes separate when their group indices collide", function()
 			local item = makeStandaloneItem("crafted")
 			table.insert(item.explicitMods, 1, makeExplicitMod(
@@ -443,37 +356,53 @@ Strict-Transport-Security: max-age=63115200; includeSubDomains; preload]]
 			assert.is_true(parsedItem.explicitModLines[2].crafted)
 		end)
 
-		it("rejects immutable items and fractured resistance lines", function()
-			local cases = {
-				function(item) item.explicitMods[1].flags = { fractured = true } end,
-				function(item) item.corrupted = true end,
-				function(item) item.duplicated = true end,
-				function(item) item.mirrored = true end,
-				function(item) item.unmodifiable = true end,
-				function(item) item.unmodifiableExceptChaos = true end,
-			}
-			for _, mutate in ipairs(cases) do
-				local item = makeStandaloneItem()
-				mutate(item)
-				assert.is_nil(fetchSingle(item).resistanceSwapDescriptors)
+		it("rejects unsafe items and incomplete or ambiguous metadata", function()
+			local resistanceSwap = LoadModule("Classes/TradeResistanceSwap")
+			local function physicalTakenSibling()
+				return makeExplicitMod("3% of Physical Damage from Hits taken as Fire Damage", "explicit",
+					"explicit.phys_taken", "of Puhuarte", "S0", 3, 5)
 			end
-		end)
-
-		it("falls back safely when resistance metadata is missing or ambiguous", function()
 			local cases = {
-				function(item) item.extended = nil end,
-				function(item) item.explicitMods[1].mods = {} end,
-				function(item) table.insert(item.explicitMods[1].mods, item.explicitMods[1].mods[1]) end,
-				function(item) item.explicitMods[1].mods[1].tier = nil end,
-				function(item) item.explicitMods[1].mods[1].level = nil end,
-				function(item) item.explicitMods[1].mods[1].magnitudes = {} end,
-				function(item) item.extended.hashes.explicit[1][2] = { 0, 1 } end,
-				function(item) table.insert(item.extended.hashes.explicit, { "explicit.fire_resistance", { 0 } }) end,
+				{ "shared affix group", function(item)
+					item.explicitMods[1].mods[1].name = "of Puhuarte"
+					item.explicitMods[1].mods[1].tier = "S0"
+					table.insert(item.explicitMods, physicalTakenSibling())
+					item.extended.hashes.explicit = {
+						{ "explicit.fire_resistance", { 0 } }, { "explicit.phys_taken", { 0 } },
+					}
+				end },
+				{ "sibling hash mapping missing", function(item)
+					item.explicitMods[1].mods[1].name = "of Puhuarte"
+					item.explicitMods[1].mods[1].tier = "S0"
+					local sibling = physicalTakenSibling()
+					sibling.hash = nil
+					table.insert(item.explicitMods, sibling)
+				end },
+				{ "sibling group and identity missing", function(item)
+					local sibling = physicalTakenSibling()
+					sibling.hash = nil
+					sibling.mods[1].level = nil
+					table.insert(item.explicitMods, sibling)
+				end },
+				{ "fractured", function(item) item.explicitMods[1].flags = { fractured = true } end },
+				{ "corrupted", function(item) item.corrupted = true end },
+				{ "duplicated", function(item) item.duplicated = true end },
+				{ "mirrored", function(item) item.mirrored = true end },
+				{ "unmodifiable", function(item) item.unmodifiable = true end },
+				{ "unmodifiable except chaos", function(item) item.unmodifiableExceptChaos = true end },
+				{ "extended metadata missing", function(item) item.extended = nil end },
+				{ "affix metadata missing", function(item) item.explicitMods[1].mods = {} end },
+				{ "affix metadata ambiguous", function(item) table.insert(item.explicitMods[1].mods, item.explicitMods[1].mods[1]) end },
+				{ "tier missing", function(item) item.explicitMods[1].mods[1].tier = nil end },
+				{ "level missing", function(item) item.explicitMods[1].mods[1].level = nil end },
+				{ "magnitude missing", function(item) item.explicitMods[1].mods[1].magnitudes = {} end },
+				{ "hash index ambiguous", function(item) item.extended.hashes.explicit[1][2] = { 0, 1 } end },
+				{ "hash duplicated", function(item) table.insert(item.extended.hashes.explicit, { "explicit.fire_resistance", { 0 } }) end },
 			}
-			for _, mutate in ipairs(cases) do
+			for _, case in ipairs(cases) do
 				local item = makeStandaloneItem()
-				mutate(item)
-				assert.is_nil(fetchSingle(item).resistanceSwapDescriptors)
+				case[2](item)
+				assert.are.same({ }, resistanceSwap.extractDescriptors(item), case[1])
 			end
 		end)
 	end)

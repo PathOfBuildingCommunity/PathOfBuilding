@@ -242,48 +242,59 @@ describe("TradeQueryGenerator", function()
 
 		local function annotatedWeight(id, text, weight, meanStatDiff)
 			return tradeResistanceGrouping.annotateResistanceWeight({
-				tradeModId = id,
-				weight = weight,
-				meanStatDiff = meanStatDiff,
-				invert = false,
+				tradeModId = id, weight = weight, meanStatDiff = meanStatDiff, invert = false,
 			}, text)
+		end
+
+		local function weight(id, value, meanStatDiff)
+			return { tradeModId = id, weight = value, meanStatDiff = meanStatDiff or value, invert = false }
+		end
+
+		local function filtersById(query, groupType)
+			local filters = { }
+			for _, group in ipairs(query.query.stats) do
+				if not groupType or group.type == groupType then
+					for _, filter in ipairs(group.filters) do
+						filters[filter.id] = filter
+					end
+				end
+			end
+			return filters
+		end
+
+		local function minimumsById(query)
+			local minimums = { }
+			for id, filter in pairs(filtersById(query, "and")) do
+				minimums[id] = filter.value.min
+			end
+			return minimums
 		end
 
 		it("groups resistance without changing damage filters", function()
 			local query = finishQuery({ includeResistSwaps = true }, {
 				annotatedWeight("explicit.fire_resistance", "+#% to Fire Resistance", 10, 10),
-				{ tradeModId = "explicit.fire_damage", weight = 8, meanStatDiff = 8, invert = false },
-				{ tradeModId = "explicit.life", weight = 6, meanStatDiff = 6, invert = false },
+				weight("explicit.fire_damage", 8),
+				weight("explicit.life", 6),
 			})
-			local ids = {}
-			for _, filter in ipairs(query.query.stats[1].filters) do
-				ids[filter.id] = true
+			local filters = filtersById(query, "weight")
+
+			assert.is_not_nil(filters["pseudo.pseudo_total_elemental_resistance"])
+			assert.is_not_nil(filters["explicit.fire_damage"])
+			assert.is_not_nil(filters["explicit.life"])
+			assert.is_nil(filters["explicit.fire_resistance"])
+		end)
+
+		it("leaves non-swappable resistance filters unchanged", function()
+			local cases = {
+				{ "hybrid elemental and chaos", "explicit.hybrid_resistance", "+#% to Fire and Chaos Resistances" },
+				{ "implicit resistance", "implicit.fire_resistance", "+#% to Fire Resistance" },
+			}
+			for _, case in ipairs(cases) do
+				local query = finishQuery({ includeResistSwaps = true }, { annotatedWeight(case[2], case[3], 10, 10) })
+				local filters = query.query.stats[1].filters
+				assert.are.equal(1, #filters, case[1])
+				assert.are.equal(case[2], filters[1].id, case[1])
 			end
-
-			assert.is_true(ids["pseudo.pseudo_total_elemental_resistance"])
-			assert.is_true(ids["explicit.fire_damage"])
-			assert.is_true(ids["explicit.life"])
-			assert.is_nil(ids["explicit.fire_resistance"])
-		end)
-
-		it("leaves hybrid elemental and chaos resistance as its only original filter", function()
-			local query = finishQuery({ includeResistSwaps = true }, {
-				annotatedWeight("explicit.hybrid_resistance", "+#% to Fire and Chaos Resistances", 10, 10),
-			})
-			local filters = query.query.stats[1].filters
-
-			assert.are.equal(1, #filters)
-			assert.are.equal("explicit.hybrid_resistance", filters[1].id)
-		end)
-
-		it("leaves implicit elemental resistance as its original filter", function()
-			local query = finishQuery({ includeResistSwaps = true }, {
-				annotatedWeight("implicit.fire_resistance", "+#% to Fire Resistance", 10, 10),
-			})
-			local filters = query.query.stats[1].filters
-
-			assert.are.equal(1, #filters)
-			assert.are.equal("implicit.fire_resistance", filters[1].id)
 		end)
 
 		it("does not let hybrid resistance expansion evict a lower-priority filter", function()
@@ -291,29 +302,21 @@ describe("TradeQueryGenerator", function()
 				annotatedWeight("explicit.hybrid_resistance", "+#% to Fire and Chaos Resistances", 100, 100),
 			}
 			for index = 1, 31 do
-				table.insert(weights, {
-					tradeModId = string.format("explicit.filler_%d", index),
-					weight = 100 - index,
-					meanStatDiff = 100 - index,
-					invert = false,
-				})
+				table.insert(weights, weight(string.format("explicit.filler_%d", index), 100 - index))
 			end
-			table.insert(weights, { tradeModId = "explicit.low_priority_filter", weight = 1, meanStatDiff = 1, invert = false })
+			table.insert(weights, weight("explicit.low_priority_filter", 1))
 
 			local query = finishQuery({ includeResistSwaps = true }, weights)
-			local ids = {}
-			for _, filter in ipairs(query.query.stats[1].filters) do
-				ids[filter.id] = true
-			end
+			local filters = filtersById(query, "weight")
 
 			assert.are.equal(33, #query.query.stats[1].filters)
-			assert.is_true(ids["explicit.hybrid_resistance"])
-			assert.is_true(ids["explicit.low_priority_filter"])
+			assert.is_not_nil(filters["explicit.hybrid_resistance"])
+			assert.is_not_nil(filters["explicit.low_priority_filter"])
 		end)
 
 		it("does not persist the swap option into requester context", function()
 			local _, slotTable, queryOptions = finishQuery({ includeResistSwaps = true }, {
-				{ tradeModId = "explicit.life", weight = 6, meanStatDiff = 6, invert = false },
+				weight("explicit.life", 6),
 			})
 
 			assert.are.same({ sentinel = true }, slotTable)
@@ -331,63 +334,37 @@ describe("TradeQueryGenerator", function()
 			assert.are.equal(10, filter.value.weight)
 		end)
 
-		it("moves individual resistance shortfalls into AND filters and removes resistance weights", function()
-			local query, _, queryOptions = finishQuery({
-				includeResistCaps = true,
-				resistanceCapShortfallByType = { Fire = 10, Cold = 20, Lightning = 30, Chaos = 40 },
-			}, {
-				annotatedWeight("explicit.fire_resistance", "+#% to Fire Resistance", 10, 10),
-				annotatedWeight("implicit.cold_resistance", "+#% to Cold Resistance", 9, 9),
-				annotatedWeight("explicit.fire_chaos_resistance", "+#% to Fire and Chaos Resistances", 8, 8),
-				{ tradeModId = "explicit.life", weight = 6, meanStatDiff = 6, invert = false },
-			})
-			local weightedIds = {}
-			for _, filter in ipairs(query.query.stats[1].filters) do
-				weightedIds[filter.id] = true
+		it("uses individual or grouped cap minimums according to the swap option", function()
+			local shortfalls = { Fire = 10, Cold = 20, Lightning = 30, Chaos = 40 }
+			local cases = {
+				{ label = "caps only", options = { includeResistCaps = true }, weights = {
+					annotatedWeight("explicit.fire_resistance", "+#% to Fire Resistance", 10, 10),
+					annotatedWeight("implicit.cold_resistance", "+#% to Cold Resistance", 9, 9),
+					annotatedWeight("explicit.fire_chaos_resistance", "+#% to Fire and Chaos Resistances", 8, 8),
+					weight("explicit.life", 6),
+				}, minimums = {
+					["pseudo.pseudo_total_fire_resistance"] = 10,
+					["pseudo.pseudo_total_cold_resistance"] = 20,
+					["pseudo.pseudo_total_lightning_resistance"] = 30,
+					["pseudo.pseudo_total_chaos_resistance"] = 40,
+				} },
+				{ label = "caps with swaps", options = { includeResistCaps = true, includeResistSwaps = true }, weights = {
+					annotatedWeight("explicit.fire_resistance", "+#% to Fire Resistance", 10, 10),
+					weight("explicit.life", 6),
+				}, minimums = {
+					["pseudo.pseudo_total_elemental_resistance"] = 60,
+					["pseudo.pseudo_total_chaos_resistance"] = 40,
+				} },
+			}
+			for _, case in ipairs(cases) do
+				case.options.resistanceCapShortfallByType = shortfalls
+				local query, _, queryOptions = finishQuery(case.options, case.weights)
+				assert.are.same(case.minimums, minimumsById(query), case.label)
+				assert.are.equal(1, #query.query.stats[1].filters, case.label)
+				assert.are.equal("explicit.life", query.query.stats[1].filters[1].id, case.label)
+				assert.are.equal(0, query.query.stats[1].value.min, case.label)
+				assert.is_false(queryOptions.weightAdjustedSearch, case.label)
 			end
-			assert.are.same({ ["explicit.life"] = true }, weightedIds)
-
-			local minimums = {}
-			for _, group in ipairs(query.query.stats) do
-				if group.type == "and" then
-					for _, filter in ipairs(group.filters) do
-						minimums[filter.id] = filter.value.min
-					end
-				end
-			end
-			assert.are.same({
-				["pseudo.pseudo_total_fire_resistance"] = 10,
-				["pseudo.pseudo_total_cold_resistance"] = 20,
-				["pseudo.pseudo_total_lightning_resistance"] = 30,
-				["pseudo.pseudo_total_chaos_resistance"] = 40,
-			}, minimums)
-			assert.are.equal(0, query.query.stats[1].value.min)
-			assert.is_false(queryOptions.weightAdjustedSearch)
-		end)
-
-		it("combines elemental shortfalls when caps and swaps are enabled", function()
-			local query = finishQuery({
-				includeResistSwaps = true,
-				includeResistCaps = true,
-				resistanceCapShortfallByType = { Fire = 10, Cold = 20, Lightning = 30, Chaos = 40 },
-			}, {
-				annotatedWeight("explicit.fire_resistance", "+#% to Fire Resistance", 10, 10),
-				{ tradeModId = "explicit.life", weight = 6, meanStatDiff = 6, invert = false },
-			})
-			local minimums = {}
-			for _, group in ipairs(query.query.stats) do
-				if group.type == "and" then
-					for _, filter in ipairs(group.filters) do
-						minimums[filter.id] = filter.value.min
-					end
-				end
-			end
-			assert.are.same({
-				["pseudo.pseudo_total_elemental_resistance"] = 60,
-				["pseudo.pseudo_total_chaos_resistance"] = 40,
-			}, minimums)
-			assert.are.equal(1, #query.query.stats[1].filters)
-			assert.are.equal("explicit.life", query.query.stats[1].filters[1].id)
 		end)
 
 		it("builds an AND-only price-sorted query when caps remove every weighted filter", function()
@@ -439,7 +416,7 @@ describe("TradeQueryGenerator", function()
 				resistanceCapShortfallByType = { Fire = 25 },
 				requiredMods = requiredMods,
 			}, {
-				{ tradeModId = "explicit.life", weight = 6, meanStatDiff = 6, invert = false },
+				weight("explicit.life", 6),
 			})
 			local filterCount = 0
 			for _, group in ipairs(query.query.stats) do
@@ -454,8 +431,8 @@ describe("TradeQueryGenerator", function()
 		it("preserves upstream filter order when resistance swaps are disabled", function()
 			local query = finishQuery({ includeResistSwaps = false }, {
 				annotatedWeight("explicit.fire_resistance", "+#% to Fire Resistance", 3, 30),
-				{ tradeModId = "explicit.fire_damage", weight = 2, meanStatDiff = 20, invert = false },
-				{ tradeModId = "explicit.life", weight = 1, meanStatDiff = 10, invert = false },
+				weight("explicit.fire_damage", 2, 20),
+				weight("explicit.life", 1, 10),
 			})
 			local filters = query.query.stats[1].filters
 
