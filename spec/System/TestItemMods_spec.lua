@@ -718,6 +718,26 @@ describe("TetsItemMods", function()
 		assert.are.equals(10, build.calcsTab.calcsOutput.PhysicalEnergyShieldRecoup)
 	end)
 
+	it("supports Baleful Dominion recoup modifiers", function()
+		build.configTab.input.customMods = [[
+			15% of Damage taken Recouped as Life
+			10% of Physical Damage taken Recouped as Life
+			Life Recoup also recovers Mana
+			50% less recovery from Recoup
+		]]
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.equals(7.5, build.calcsTab.calcsOutput.LifeRecoup)
+		assert.are.equals(7.5, build.calcsTab.calcsOutput.ManaRecoup)
+		assert.are.equals(5, build.calcsTab.calcsOutput.PhysicalLifeRecoup)
+		assert.are.equals(5, build.calcsTab.calcsOutput.PhysicalManaRecoup)
+		local lifeRecoupBreakdown = build.calcsTab.calcsEnv.player.breakdown.LifeRecoup
+		assert.are.equals("7.5% over 4 seconds", lifeRecoupBreakdown[#lifeRecoupBreakdown])
+		local physicalLifeRecoupBreakdown = build.calcsTab.calcsEnv.player.breakdown.PhysicalLifeRecoup
+		assert.are.equals("= 5.0% over 4 seconds", physicalLifeRecoupBreakdown[#physicalLifeRecoupBreakdown])
+	end)
+
 	it("crafts modifiers from supported bases on rare-like uniques", function()
 		local item = new("Item"):Item([[
 			Item Class: Helmets
