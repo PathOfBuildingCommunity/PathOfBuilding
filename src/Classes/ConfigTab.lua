@@ -181,6 +181,10 @@ function ConfigTabClass:ConfigTab(build)
 		self.toggleConfigs = not self.toggleConfigs
 	end)
 
+	local function isCollapsed(section)
+		return self:IsSectionCollapsed(section)
+	end
+
 	local function searchMatch(varData)
 		local searchStr = self.controls.search.buf:lower():gsub("[%-%.%+%[%]%$%^%%%?%*]", "%%%0")
 		if searchStr and searchStr:match("%S") then
@@ -254,9 +258,13 @@ function ConfigTabClass:ConfigTab(build)
 			lastSection = new("SectionControl"):SectionControl({"TOPLEFT",self.controls.search,"BOTTOMLEFT"}, {0, 0, 360, 0}, varData.section)
 			lastSection.varControlList = { }
 			lastSection.col = varData.col
-			lastSection.height = function(self)
+			lastSection.collapsed = false
+			lastSection.height = function(section)
+				if isCollapsed(section) then
+					return 16
+				end
 				local height = 20
-				for _, varControl in pairs(self.varControlList) do
+				for _, varControl in pairs(section.varControlList) do
 					if varControl:IsShown() then
 						local _, ctrlHeight = varControl:GetSize()
 						height = height + m_max(ctrlHeight or varControl.height, 16) + 4
@@ -264,8 +272,18 @@ function ConfigTabClass:ConfigTab(build)
 				end
 				return m_max(height, 32)
 			end
+			-- Collapse toggle, matching the Calcs tab: right aligned, '-' when expanded, '+' when collapsed.
+			-- Sits on the section's top border, as the header label does, to clear the option controls below.
+			local section = lastSection
+			local toggle = new("ButtonControl"):ButtonControl({"TOPRIGHT",lastSection,"TOPRIGHT"}, {-6, -7, 16, 16}, function()
+				return section.collapsed and "+" or "-"
+			end, function()
+				section.collapsed = not section.collapsed
+			end)
+			-- Deliberately not in varControlList: it must not count towards the section's height or visibility
 			t_insert(self.sectionList, lastSection)
 			t_insert(self.controls, lastSection)
+			t_insert(self.controls, toggle)
 			if varData.section == "Custom Modifiers" then
 				self.customSection = lastSection
 			end
@@ -775,6 +793,15 @@ function ConfigTabClass:ConfigTab(build)
 				end
 			end
 
+			local ownSection = lastSection
+			local eligibleShown = control.shown
+			control.shown = function()
+				if isCollapsed(ownSection) then
+					return false
+				end
+				return type(eligibleShown) == "boolean" and eligibleShown or eligibleShown()
+			end
+
 			t_insert(self.controls, control)
 			t_insert(lastSection.varControlList, control)
 		end
@@ -789,11 +816,19 @@ function ConfigTabClass:ConfigTab(build)
 			self:BuildModList()
 			self.build.buildFlag = true
 		end)
+		self.controls.customModsAddBlock.shown = function()
+			return not isCollapsed(self.customSection)
+		end
 		self.customModsBlockControls = { }
 		self:UpdateCustomModsControls()
 	end
 
 	return self
+end
+
+-- A collapsed section hides its contents, unless a search is active
+function ConfigTabClass:IsSectionCollapsed(section)
+	return section.collapsed and not self.controls.search.buf:match("%S")
 end
 
 function ConfigTabClass:Load(xml, fileName)
@@ -1018,6 +1053,10 @@ function ConfigTabClass:Draw(viewPort, inputEvents)
 	for _, section in ipairs(self.sectionList) do
 		local y = 14
 		section.shown = true
+		-- Probe with the section expanded, so a collapsed section that still has
+		-- eligible options keeps its (clickable) header on screen
+		local collapsed = section.collapsed
+		section.collapsed = false
 		local doShow = false
 		for _, varControl in pairs(section.varControlList) do
 			if varControl:IsShown() then
@@ -1028,6 +1067,7 @@ function ConfigTabClass:Draw(viewPort, inputEvents)
 				y = y + height + 4
 			end
 		end
+		section.collapsed = collapsed
 		section.shown = doShow
 		if doShow then
 			local width, height = section:GetSize()
@@ -1279,6 +1319,9 @@ function ConfigTabClass:UpdateCustomModsControls()
 
 	for index, block in ipairs(configSet.customModsList) do
 		local blockControl = new("CustomModBlockControl"):CustomModBlockControl({"TOPLEFT", self.customSection, "TOPLEFT"}, {8, 0, 344, 120}, self, index, block)
+		blockControl.shown = function()
+			return not self:IsSectionCollapsed(self.customSection)
+		end
 		t_insert(self.customModsBlockControls, blockControl)
 		t_insert(self.controls, blockControl)
 		t_insert(self.customSection.varControlList, blockControl)
