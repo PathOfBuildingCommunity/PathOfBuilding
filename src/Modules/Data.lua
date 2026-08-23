@@ -1304,6 +1304,13 @@ data.minionTagCrucibleUniques = {
 	["United in Dream"] = true,
 }
 
+local subsumeTheSourceMods = {}
+for modId, mod in pairs(data.itemMods.JewelAbyss) do
+	if mod.type ~="Corrupted" then
+		subsumeTheSourceMods[modId] = mod
+	end
+end
+
 local crimsonStormMods = {}
 for modId, mod in pairs(data.veiledMods) do
 	if mod.affix == "of the Order" then
@@ -1327,7 +1334,7 @@ dreadCaptainBase.base.tags.deepwater_sword = true
 data.rareLikeUniques = {
 	["subsume the source"] = {
 		validBases = data.itemBaseLists["Jewel: Abyss"],
-		affixes = data.itemMods.JewelAbyss,
+		affixes = subsumeTheSourceMods,
 		prefixLimit = 4,
 		suffixLimit = 0,
 		ignoreModType = true,
