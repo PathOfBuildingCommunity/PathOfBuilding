@@ -34,14 +34,11 @@ function ScrollBarClass:SetContentDimension(conDim, viewDim)
 		self.offset = 0
 	else
 		local width, height = self:GetSize()
+		local length = self.dir == "HORIZONTAL" and width or height
 		self.enabled = true
-		if self.dir == "HORIZONTAL" then
-			self.knobDim = m_max(height, (width - height * 2) * viewDim / conDim)
-			self.knobTravel = (width - height * 2) - self.knobDim
-		else
-			self.knobDim = m_max(width, (height - width * 2) * viewDim / conDim)
-			self.knobTravel = (height - width * 2) - self.knobDim
-		end
+		-- The knob runs the whole length of the bar; there are no stepper buttons to make room for
+		self.knobDim = m_max(m_min(length, 24), length * viewDim / conDim)
+		self.knobTravel = length - self.knobDim
 		self.offsetMax = conDim - viewDim
 		self.offset = m_min(self.offset, self.offsetMax)
 	end
@@ -81,30 +78,14 @@ function ScrollBarClass:IsMouseOver()
 	local mOver = cursorX >= x and cursorY >= y and cursorX < x + width and cursorY < y + height
 	local mOverComp
 	if mOver and self.enabled then
-		local relDim
-		local shortDim, longDim
-		if self.dir == "HORIZONTAL" then
-			relDim = cursorX - x
-			shortDim = height
-			longDim = width
+		local relDim = self.dir == "HORIZONTAL" and cursorX - x or cursorY - y
+		local knobPos = self:GetKnobPosForOffset()
+		if relDim < knobPos then
+			mOverComp = "SLIDEUP"
+		elseif relDim >= knobPos + self.knobDim then
+			mOverComp = "SLIDEDOWN"
 		else
-			relDim = cursorY - y
-			shortDim = width
-			longDim = height
-		end
-		if relDim < shortDim then
-			mOverComp = "UP"
-		elseif relDim >= longDim - shortDim then
-			mOverComp = "DOWN"
-		else
-			local knobPos = self:GetKnobPosForOffset()
-			if relDim < shortDim + knobPos then
-				mOverComp = "SLIDEUP"
-			elseif relDim >= shortDim + knobPos + self.knobDim then
-				mOverComp = "SLIDEDOWN"
-			else
-				mOverComp = "KNOB"
-			end
+			mOverComp = "KNOB"
 		end
 	end
 	return mOver, mOverComp
@@ -141,9 +122,9 @@ function ScrollBarClass:Draw()
 					self.holdPauseTime = nil
 				end
 				local time = now - self.holdTime
-				if self.holdComp == "UP" then
+				if self.holdComp == "SLIDEUP" then
 					self:SetOffset(self.holdBase - m_ceil(time / 50) * self.step)
-				elseif self.holdComp == "DOWN" then
+				elseif self.holdComp == "SLIDEDOWN" then
 					self:SetOffset(self.holdBase + m_ceil(time / 50) * self.step)
 				end
 			end
@@ -151,51 +132,39 @@ function ScrollBarClass:Draw()
 			self.holdPauseTime = GetTime()
 		end
 	end
+	-- Nothing to scroll, so nothing to show
+	if not enabled then
+		return
+	end
 	local colors = ui.colors
-	-- Draw the track behind the whole bar, including the stepper buttons
-	ui.SetColor(colors.accentSubtle, 0.6)
-	ui.DrawRect(x, y, width, height, ui.radiusSmall)
-	-- Draw up/left arrow
-	if not enabled then
-		ui.SetColor(colors.textDisabled)
-	elseif mOverComp == "UP" then
-		ui.SetColor(colors.text)
+	local horizontal = dir == "HORIZONTAL"
+	-- Thickness of the bar across its short axis; the track is a thin rail down the middle of it,
+	-- while the full width stays clickable
+	local shortDim = horizontal and height or width
+	local active = self.dragging or mOver
+	local trackDim = m_max(4, shortDim - 8)
+	local trackOff = m_floor((shortDim - trackDim) / 2)
+	ui.SetColor(colors.accentSubtle, active and 0.9 or 0.55)
+	if horizontal then
+		ui.DrawRect(x, y + trackOff, width, trackDim, trackDim / 2)
 	else
-		ui.SetColor(colors.textMuted)
+		ui.DrawRect(x + trackOff, y, trackDim, height, trackDim / 2)
 	end
-	if dir == "HORIZONTAL" then
-		main:DrawArrow(x + height/2, y + height/2, height/2 - 2, height/2 - 2, "LEFT")
+	-- Knob, which fattens up while the bar is being used
+	if self.dragging or mOverComp == "KNOB" then
+		ui.SetColor(colors.borderActive)
+	elseif mOver then
+		ui.SetColor(colors.borderHover)
 	else
-		main:DrawArrow(x + width/2, y + width/2, width/2 - 2, width/2 - 2, "UP")
+		ui.SetColor(colors.border)
 	end
-	-- Draw down/right arrow
-	if not enabled then
-		ui.SetColor(colors.textDisabled)
-	elseif mOverComp == "DOWN" then
-		ui.SetColor(colors.text)
+	local knobDim = active and m_max(6, shortDim - 3) or trackDim
+	local knobOff = m_floor((shortDim - knobDim) / 2)
+	local knobPos = m_floor(self:GetKnobPosForOffset())
+	if horizontal then
+		ui.DrawRect(x + knobPos, y + knobOff, self.knobDim, knobDim, knobDim / 2)
 	else
-		ui.SetColor(colors.textMuted)
-	end
-	if dir == "HORIZONTAL" then
-		main:DrawArrow(x + width - height/2, y + height/2, height/2 - 2, height/2 - 2, "RIGHT")
-	else
-		main:DrawArrow(x + width/2, y + height - width/2, width/2 - 2, width/2 - 2, "DOWN")
-	end
-	-- Draw knob
-	if enabled then
-		if self.dragging or mOverComp == "KNOB" then
-			ui.SetColor(colors.borderActive)
-		elseif mOverComp == "SLIDEUP" or mOverComp == "SLIDEDOWN" then
-			ui.SetColor(colors.borderHover)
-		else
-			ui.SetColor(colors.border)
-		end
-		local knobPos = self:GetKnobPosForOffset()
-		if dir == "HORIZONTAL" then
-			ui.DrawRect(x + height + knobPos + 1, y + 3, self.knobDim - 2, height - 6, (height - 6) / 2)
-		else
-			ui.DrawRect(x + 3, y + width + knobPos + 1, width - 6, self.knobDim - 2, (width - 6) / 2)
-		end
+		ui.DrawRect(x + knobOff, y + knobPos, knobDim, self.knobDim, knobDim / 2)
 	end
 end
 
@@ -216,20 +185,14 @@ function ScrollBarClass:OnKeyDown(key)
 				self.dragCY = cursorY
 				self.dragKnobPos = self:GetKnobPosForOffset()
 			end
-		elseif mOverComp == "UP" then
-			self:Scroll(-1)
-			self.holdComp = "UP"
+		elseif mOverComp == "SLIDEUP" or mOverComp == "SLIDEDOWN" then
+			-- Clicking the track pages towards the cursor, and holding keeps scrolling that way
+			-- until the knob catches up
+			local step = mOverComp == "SLIDEUP" and -self.knobDim or self.knobDim
+			self:SetOffsetFromKnobPos(self:GetKnobPosForOffset() + step)
+			self.holdComp = mOverComp
 			self.holdTime = GetTime()
 			self.holdBase = self.offset
-		elseif mOverComp == "DOWN" then
-			self:Scroll(1)
-			self.holdComp = "DOWN"
-			self.holdTime = GetTime()
-			self.holdBase = self.offset
-		elseif mOverComp == "SLIDEUP" then
-			self:SetOffsetFromKnobPos(self:GetKnobPosForOffset() - self.knobDim)
-		elseif mOverComp == "SLIDEDOWN" then
-			self:SetOffsetFromKnobPos(self:GetKnobPosForOffset() + self.knobDim)
 		end
 	end
 	return self

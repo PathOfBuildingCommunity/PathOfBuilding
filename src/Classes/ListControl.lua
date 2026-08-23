@@ -247,13 +247,6 @@ function ListClass:Draw(viewPort, noTooltip)
 				ui.SetColor(rowFill)
 				DrawImage(nil, colOffset, lineY + 1, rowWidth, rowHeight - 2)
 			end
-			if value == self.selValue and self.hasFocus then
-				-- Accent bar marking the focused selection, drawn once at the left edge
-				if colIndex == 1 then
-					ui.SetColor(colors.primary)
-					DrawImage(nil, colOffset, lineY + 2, 2, rowHeight - 4)
-				end
-			end
 			if not self.SetHighlightColor or not self:SetHighlightColor(index, value) then
 				SetDrawColor(1, 1, 1)
 			end

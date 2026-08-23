@@ -26,23 +26,31 @@ ui.colors = {
 	borderActive = { 0.63, 0.63, 0.69 },
 	borderDisabled = { 0.16, 0.16, 0.18 },
 
-	-- Control bodies
-	surface = { 0.10, 0.10, 0.12 },
-	surfaceHover = { 0.16, 0.16, 0.19 },
-	surfaceActive = { 0.22, 0.22, 0.25 },
-	surfaceDisabled = { 0.08, 0.08, 0.09 },
+	-- Control bodies. Item names, "(Unused)" notes and other body text use the game's own
+	-- palette, which is mixed for contrast against black, so anything holding text stays near
+	-- black and leans on the border for definition. Only the hover and pressed states lift far
+	-- enough to be felt.
+	surface = { 0.055, 0.055, 0.065 },
+	surfaceHover = { 0.115, 0.115, 0.135 },
+	surfaceActive = { 0.17, 0.17, 0.20 },
+	surfaceDisabled = { 0.035, 0.035, 0.04 },
 
 	-- Containers that float above the rest of the interface
-	popover = { 0.06, 0.06, 0.07 },
-	panel = { 0.09, 0.09, 0.10 },
+	popover = { 0.03, 0.03, 0.038 },
+	panel = { 0.042, 0.042, 0.05 },
+
+	-- Window chrome, i.e. the top bar and the side bar the tab buttons sit on. It reads as raised
+	-- rather than recessed, so it is the one surface that sits above the controls it holds.
+	chrome = { 0.13, 0.13, 0.15 },
+	chromeBorder = { 0.30, 0.30, 0.34 },
 
 	-- Text entry bodies, which sit a little deeper than a button
-	input = { 0.05, 0.05, 0.06 },
-	inputHover = { 0.08, 0.08, 0.09 },
+	input = { 0.022, 0.022, 0.028 },
+	inputHover = { 0.045, 0.045, 0.055 },
 
 	-- Row highlights inside lists and drop downs
-	accent = { 0.20, 0.20, 0.23 },
-	accentSubtle = { 0.14, 0.14, 0.16 },
+	accent = { 0.17, 0.17, 0.20 },
+	accentSubtle = { 0.095, 0.095, 0.11 },
 
 	-- Filled emphasis, e.g. a ticked check box or a slider knob
 	primary = { 0.88, 0.88, 0.91 },
@@ -51,8 +59,8 @@ ui.colors = {
 
 	-- Text
 	text = { 0.98, 0.98, 0.98 },
-	textMuted = { 0.64, 0.64, 0.68 },
-	textDisabled = { 0.38, 0.38, 0.41 },
+	textMuted = { 0.72, 0.72, 0.75 },
+	textDisabled = { 0.42, 0.42, 0.45 },
 
 	-- Focus ring drawn just outside a focused control
 	ring = { 0.55, 0.55, 0.62 },
@@ -66,6 +74,11 @@ ui.colors = {
 -- four corner draws plus three plain quads.
 local roundImage = NewImageHandle()
 roundImage:Load("Assets/ui_round.png", "CLAMP", "MIPMAP")
+
+-- Untextured geometry has no antialiasing, which a diagonal shape like a check mark shows badly,
+-- so it comes from a sprite as well
+local checkImage = NewImageHandle()
+checkImage:Load("Assets/ui_check.png", "CLAMP", "MIPMAP")
 
 ---Set the current draw colour from a token
 ---@param color number[]
@@ -99,6 +112,11 @@ end
 ---Draw a filled circle of the given diameter, using the current draw colour
 function ui.DrawCircle(x, y, diameter)
 	DrawImage(roundImage, x, y, diameter, diameter)
+end
+
+---Draw a check mark centred on the given point, using the current draw colour
+function ui.DrawCheckMark(x, y, size)
+	DrawImage(checkImage, x - size / 2, y - size / 2, size, size)
 end
 
 ---Draw an outlined, filled rounded rectangle
