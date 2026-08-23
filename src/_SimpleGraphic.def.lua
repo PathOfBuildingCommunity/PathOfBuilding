@@ -432,7 +432,7 @@ function AbortSubScript(ssID) end
 function IsSubScriptRunning(ssID) end
 
 ---@param name string
----@param ... any
+---@param ... any Extra parameters are passed to the file. This should be avoided to keep compatibility with require(). It is instead better to return a function which can be called with the parameters.
 ---@return unknown retVal use ---@module "name" instead
 function LoadModule(name, ...)
 	if not name:match("%.lua") then

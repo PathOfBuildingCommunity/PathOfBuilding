@@ -6,7 +6,7 @@
 
 
 local dkjson = require "dkjson"
-local itemSlotHelper = LoadModule("Modules/ItemSlotHelper")
+local itemSlotHelper = require("Modules.ItemSlotHelper")
 
 local get_time = os.time
 local t_insert = table.insert

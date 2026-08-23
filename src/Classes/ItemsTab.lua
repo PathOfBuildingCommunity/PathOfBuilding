@@ -14,9 +14,9 @@ local m_min = math.min
 local m_ceil = math.ceil
 local m_floor = math.floor
 local m_modf = math.modf
-local buySimilar = LoadModule("Classes/CompareBuySimilar")
+local buySimilar = require("Classes.CompareBuySimilar")
 
-local gemTooltip = LoadModule("Classes/GemTooltip")
+local gemTooltip = require("Classes.GemTooltip")
 local rarityDropList = {
 	{ label = colorCodes.NORMAL.."Normal", rarity = "NORMAL" },
 	{ label = colorCodes.MAGIC.."Magic", rarity = "MAGIC" },
@@ -33,6 +33,11 @@ local socketDropList = {
 }
 
 local baseSlots = { "Weapon 1", "Weapon 2", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring 1", "Ring 2", "Ring 3", "Belt", "Graft 1", "Graft 2", "Flask 1", "Flask 2", "Flask 3", "Flask 4", "Flask 5" }
+
+local forbiddenJewelCounterpart = {
+	["Forbidden Flame"] = "Forbidden Flesh",
+	["Forbidden Flesh"] = "Forbidden Flame",
+}
 
 local influenceInfo = itemLib.influenceInfo.all
 
@@ -1720,11 +1725,93 @@ function ItemsTabClass:AddItem(item, noAutoEquip, index)
 	end
 end
 
+-- Given one half of a Forbidden Flame/Flesh pair, adds the other half with the same notable
+-- Both jewels are generated from the same sorted class/notable list
+function ItemsTabClass:AddForbiddenJewelCounterpart(item)
+	local otherTitle = item and item.title and forbiddenJewelCounterpart[item.title]
+	if not otherTitle or main.uniqueDB.loading or not item.variantList or not item.variant then
+		return
+	end
+	local variantName = item.variantList[item.variant]
+	if not variantName then
+		return
+	end
+
+	for _, other in pairs(self.items) do
+		if other.title == otherTitle and other.variantList and other.variantList[other.variant] == variantName then
+			return
+		end
+	end
+
+	local dbItem
+	for _, unique in pairs(main.uniqueDB.list) do
+		if unique.title == otherTitle then
+			dbItem = unique
+			break
+		end
+	end
+	if not dbItem then
+		return
+	end
+
+	local newItem = new("Item"):Item(dbItem.raw)
+	local variantIndex
+	for index, name in ipairs(newItem.variantList or { }) do
+		if name == variantName then
+			variantIndex = index
+			break
+		end
+	end
+	if not variantIndex then
+		return
+	end
+	newItem.variant = variantIndex
+	newItem:BuildAndParseRaw()
+	newItem:NormaliseQuality()
+	self:AddItem(newItem, true)
+	return newItem
+end
+
+-- Keeps the Forbidden jewels in sync: manually editing one jewel moves the other counterpart to the same notable
+function ItemsTabClass:UpdateForbiddenJewelCounterpart(oldItem, item)
+	local otherTitle = item and item.title and forbiddenJewelCounterpart[item.title]
+	if not otherTitle or not oldItem or oldItem.title ~= item.title then
+		return
+	end
+	if not (item.variantList and item.variant and oldItem.variantList and oldItem.variant) then
+		return
+	end
+	local oldName = oldItem.variantList[oldItem.variant]
+	local newName = item.variantList[item.variant]
+	if not oldName or not newName or oldName == newName then
+		return
+	end
+
+	for _, other in pairs(self.items) do
+		if other.id ~= item.id and other.title == otherTitle and other.variantList and other.variantList[other.variant] == oldName then
+			for index, name in ipairs(other.variantList) do
+				if name == newName then
+					other.variant = index
+					other:BuildAndParseRaw()
+					other:BuildModList()
+					self.build.buildFlag = true
+					break
+				end
+			end
+		end
+	end
+end
+
 -- Adds the current display item to the build's item list
 function ItemsTabClass:AddDisplayItem(noAutoEquip)
+	local item = self.displayItem
+	local oldItem = item and item.id and self.items[item.id]
 	-- Add it to the list and clear the current display item
-	self:AddItem(self.displayItem, noAutoEquip)
+	self:AddItem(item, noAutoEquip)
 	self:SetDisplayItem()
+
+	self:UpdateForbiddenJewelCounterpart(oldItem, item)
+	self:AddForbiddenJewelCounterpart(item)
 
 	self:PopulateSlots()
 	self:AddUndoState()
@@ -3342,6 +3429,8 @@ function ItemsTabClass:CorruptDisplayItem(modType)
 	main:OpenPopup(605, 103 + 20 * 2, modType .. " Item", controls)
 end
 
+local delveDropOnlyCategories = require("Data.DelveDropOnly")
+local incursionDropOnlyCategories = require("Data.IncursionDropOnly")
 -- Opens the custom modifier popup
 function ItemsTabClass:AddCustomModifierToDisplayItem()
 	local controls = { }
@@ -3406,6 +3495,37 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 			controls.modSelect:SetSel(1, true)
 		end
 	end
+	local function buildDropRestricted(baseCategories, modDb)
+		local base = self.displayItem.base
+		local subTypeName = base.subType and base.type .. ": " .. base.subType
+		for modId, entry in pairs(baseCategories) do
+			local mod = modDb[modId]
+			if not mod then
+				ConPrintf("Unknown drop-restricted mod id: %s", tostring(modId))
+				goto nextDrop
+			end
+			for _, cat in ipairs(entry.categories) do
+				if base.type == cat or subTypeName == cat then
+					t_insert(modList, {
+						label = table.concat(mod, "/") .. " (" .. mod.type .. ")",
+						mod = mod,
+						affixType = mod.type,
+						type = "custom",
+						defaultOrder = modId,
+					})
+					goto nextDrop
+				end
+			end
+			::nextDrop::
+		end
+	end
+	local function sortByPrefixSuffix(a, b)
+		if a.affixType ~= b.affixType then
+			return a.affixType == "Prefix" and b.affixType == "Suffix"
+		else
+			return a.defaultOrder < b.defaultOrder
+		end
+	end
 	---Mutates modList to contain mods from the specified source
 	---@param sourceId string @The crafting source id to build the list of mods for
 	local function buildMods(sourceId)
@@ -3441,12 +3561,14 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 			for _, essence in pairs(self.build.data.essences) do
 				local modId = essence.mods[self.displayItem.type]
 				local mod = self.displayItem.affixes[modId]
-				t_insert(modList, {
-					label = essence.name .. "   " .. "^8[" .. table.concat(mod, "/") .. "]" .. " (" .. mod.type .. ")",
-					mod = mod,
-					type = "custom",
-					essence = essence,
-				})
+				if mod then
+					t_insert(modList, {
+						label = essence.name .. "   " .. "^8[" .. table.concat(mod, "/") .. "]" .. " (" .. mod.type .. ")",
+						mod = mod,
+						type = "custom",
+						essence = essence,
+					})
+				end
 			end
 			table.sort(modList, function(a, b)
 				if a.essence.type ~= b.essence.type then
@@ -3457,7 +3579,7 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 			end)
 		elseif sourceId == "PREFIX" or sourceId == "SUFFIX" then
 			for _, mod in pairs(self.displayItem.affixes) do
-				if sourceId:lower() == mod.type:lower() and self.displayItem:GetModSpawnWeight(mod) > 0 then
+				if sourceId:lower() == (mod.type and mod.type:lower()) and self.displayItem:GetModSpawnWeight(mod) > 0 then
 					t_insert(modList, {
 						label = mod.affix .. "   ^8[" .. table.concat(mod, "/") .. "]",
 						mod = mod,
@@ -3498,7 +3620,13 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 					return a.defaultOrder < b.defaultOrder
 				end
 			end)
+		elseif sourceId == "INCURSION" then
+			buildDropRestricted(incursionDropOnlyCategories, data.itemMods.Explicit)
+			table.sort(modList, sortByPrefixSuffix)
 		elseif sourceId == "DELVE" then
+			buildDropRestricted(delveDropOnlyCategories, data.itemMods.Delve)
+			table.sort(modList, sortByPrefixSuffix)
+		elseif sourceId == "FOSSIL" then
 			for i, mod in pairs(self.displayItem.affixes) do
 				if self.displayItem:CheckIfModIsDelve(mod) and self.displayItem:GetModSpawnWeight(mod) > 0 then
 					t_insert(modList, {
@@ -3510,13 +3638,7 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 					})
 				end
 			end
-			table.sort(modList, function(a, b)
-				if a.affixType ~= b.affixType then
-					return a.affixType == "Prefix" and b.affixType == "Suffix"
-				else
-					return a.defaultOrder < b.defaultOrder
-				end
-			end)
+			table.sort(modList, sortByPrefixSuffix)
 		elseif sourceId == "NECROPOLIS" then
 			for i, mod in pairs(self.build.data.necropolisMods) do
 				if self.displayItem:GetNecropolisModSpawnWeight(mod) > 0 then
@@ -3529,13 +3651,7 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 					})
 				end
 			end
-			table.sort(modList, function(a, b)
-				if a.affixType ~= b.affixType then
-					return a.affixType == "Prefix" and b.affixType == "Suffix"
-				else
-					return a.defaultOrder < b.defaultOrder
-				end
-			end)
+			table.sort(modList, sortByPrefixSuffix)
 		elseif sourceId == "BEASTCRAFT" then
 			for i, mod in pairs(self.build.data.beastCraft) do
 				t_insert(modList, {
@@ -3546,13 +3662,7 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 					defaultOrder = i,
 				})
 			end
-			table.sort(modList, function(a, b)
-				if a.affixType ~= b.affixType then
-					return a.affixType == "Prefix" and b.affixType == "Suffix"
-				else
-					return a.defaultOrder < b.defaultOrder
-				end
-			end)
+			table.sort(modList, sortByPrefixSuffix)
 		end
 		setDefaultSortOrder()
 	end
@@ -3569,7 +3679,9 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 			t_insert(sourceList, { label = "Necropolis", sourceId = "NECROPOLIS"})
 		end
 		if not self.displayItem.clusterJewel and self.displayItem.type ~= "Flask" and self.displayItem.type ~= "Graft" then
-			t_insert(sourceList, { label = "Delve", sourceId = "DELVE"})
+			t_insert(sourceList, { label = "Fossil", sourceId = "FOSSIL" })
+			t_insert(sourceList, { label = "Delve Drop-restricted", sourceId = "DELVE" })
+			t_insert(sourceList, { label = "Incursion Drop-restricted", sourceId = "INCURSION" })
 		end
 		if not self.displayItem.crafted then
 			t_insert(sourceList, { label = "Prefix", sourceId = "PREFIX" })
@@ -3586,6 +3698,19 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 				end
 			end
 			sourceList = newSourceList
+		end
+	end
+	-- test each category to see if they actually match any mods
+	-- TODO: given that we need to do this, it would be better to just keep a
+	-- list of matching mod ids, rather than building a list to check, and then
+	-- building it again when selecting it
+	local i = 1
+	while sourceList[i] do
+		buildMods(sourceList[i].sourceId)
+		if #modList == 0 then
+			table.remove(sourceList, i)
+		else
+			i = i + 1
 		end
 	end
 	t_insert(sourceList, { label = "Custom", sourceId = "CUSTOM" })

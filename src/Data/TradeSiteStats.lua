@@ -60320,6 +60320,11 @@ return {
 				["type"] = "fractured",
 			},
 			{
+				["id"] = "fractured.stat_3181879507",
+				["text"] = "Shock yourself for # Seconds when you Focus",
+				["type"] = "fractured",
+			},
+			{
 				["id"] = "fractured.stat_74338099",
 				["text"] = "Skills fire an additional Projectile",
 				["type"] = "fractured",

@@ -9,12 +9,12 @@ local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
 local s_format = string.format
-local tradeHelpers = LoadModule("Classes/TradeHelpers")
-local buySimilar = LoadModule("Classes/CompareBuySimilar")
-local calcsHelpers = LoadModule("Classes/CompareCalcsHelpers")
-local buildListHelpers = LoadModule("Modules/BuildListHelpers")
-local itemSlotHelper = LoadModule("Modules/ItemSlotHelper")
-local configVisibility = LoadModule("Modules/ConfigVisibility")
+local tradeHelpers = require("Classes.TradeHelpers")
+local buySimilar = require("Classes.CompareBuySimilar")
+local calcsHelpers = require("Classes.CompareCalcsHelpers")
+local buildListHelpers = require("Modules.BuildListHelpers")
+local itemSlotHelper = require("Modules.ItemSlotHelper")
+local configVisibility = require("Modules.ConfigVisibility")
 
 -- Node IDs below this value are normal passive tree nodes; IDs at or above are cluster jewel nodes
 local CLUSTER_NODE_OFFSET = 65536
@@ -188,9 +188,9 @@ function CompareTabClass:CompareTab(primaryBuild)
 	self.comparePowerCompareId = nil      -- track which compare entry was calculated
 
 	-- Pre-load static module data
-	self.configOptions = LoadModule("Modules/ConfigOptions")
+	self.configOptions = require("Modules.ConfigOptions")
 	self.calcSections = LoadModule("Modules/CalcSections")
-	self.calcs = LoadModule("Modules/Calcs")
+	self.calcs = require("Modules.Calcs")
 
 	-- Controls for the comparison screen
 	self:InitControls()
@@ -1847,6 +1847,16 @@ function CompareTabClass:Draw(viewPort, inputEvents)
 	end
 
 	self:DrawControls(viewPort)
+	if self.compareViewMode == "CONFIG" and compareEntry then
+		self:DrawConfig(contentVP, compareEntry, true)
+		self:DrawControlList(viewPort, {
+			self.controls.copyConfigBtn,
+			self.controls.configToggleBtn,
+			self.controls.configSearchEdit,
+			self.controls.configPrimarySetLabel,
+			self.controls.configPrimarySetSelect,
+		})
+	end
 	if drawingTree then
 		SetDrawLayer(0)
 	end
@@ -1858,6 +1868,17 @@ end
 -- ============================================================
 -- DRAW HELPERS
 -- ============================================================
+
+function CompareTabClass:DrawControlList(viewPort, controls)
+	local noTooltip = function(control)
+		return self.selControl and self.selControl.hasFocus and self.selControl ~= control
+	end
+	for _, control in ipairs(controls) do
+		if control:IsShown() and control.Draw then
+			control:Draw(viewPort, noTooltip(control))
+		end
+	end
+end
 
 -- Pre-draw tree header/footer backgrounds and position tree controls.
 -- Must run before ProcessControlsInput so controls render on top of backgrounds.
@@ -2176,6 +2197,7 @@ function CompareTabClass:LayoutConfigView(contentVP, compareEntry)
 	local scrollTopAbs = contentVP.y + fixedHeaderHeight
 	local scrollBottomAbs = contentVP.y + contentVP.height
 	local ctrlH = rowHeight
+	local mouseClipRect = { contentVP.x, scrollTopAbs, contentVP.width, scrollBottomAbs - scrollTopAbs }
 	for _, sec in ipairs(sectionLayout) do
 		local sectionAbsX = contentVP.x + sec.x
 		local rowY = sec.y + sectionInnerPad
@@ -2187,11 +2209,13 @@ function CompareTabClass:LayoutConfigView(contentVP, compareEntry)
 			ci.compareControl.y = contentVP.y + fixedHeaderHeight + rowY - self.scrollY
 			local shownFn = function()
 				local ay = ci.primaryControl.y
-				return ay >= scrollTopAbs and ay + ctrlH <= scrollBottomAbs
+				return ay + ctrlH > scrollTopAbs and ay < scrollBottomAbs
 					and self.compareViewMode == "CONFIG" and self:GetActiveCompare() ~= nil
 			end
 			ci.primaryControl.shown = shownFn
 			ci.compareControl.shown = shownFn
+			ci.primaryControl.mouseClipRect = mouseClipRect
+			ci.compareControl.mouseClipRect = mouseClipRect
 			rowY = rowY + rowHeight
 		end
 	end
@@ -3959,7 +3983,7 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 	-- Draw item tooltip on hover (compact mode only, on top of everything)
 	SetViewport()
 	local maxTooltipWidth = m_min(600, m_max(260, vp.width - 24))
-	if hoverItem and hoverItemsTab then
+	if not main.popups[1] and hoverItem and hoverItemsTab then
 		self.itemTooltip:Clear()
 		hoverItemsTab:AddItemTooltip(self.itemTooltip, hoverItem, nil, nil, maxTooltipWidth)
 		SetDrawLayer(nil, 100)
@@ -3968,7 +3992,7 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 	end
 
 	-- Draw stat comparison tooltip when hovering Equip button
-	if hoverEquipItem and hoverEquipSlotName and not hoverItem then
+	if not main.popups[1] and hoverEquipItem and hoverEquipSlotName and not hoverItem then
 		self.itemTooltip:Clear()
 		self.itemTooltip.maxWidth = maxTooltipWidth
 		local calcFunc, calcBase = self.calcs.getMiscCalculator(self.primaryBuild)
@@ -4909,7 +4933,7 @@ end
 -- ============================================================
 -- CONFIG VIEW
 -- ============================================================
-function CompareTabClass:DrawConfig(vp, compareEntry)
+function CompareTabClass:DrawConfig(vp, compareEntry, headerOnly)
 	local rowHeight = LAYOUT.configRowHeight
 	local columnHeaderHeight = LAYOUT.configColumnHeaderHeight
 	local fixedHeaderHeight = LAYOUT.configFixedHeaderHeight
@@ -4919,6 +4943,8 @@ function CompareTabClass:DrawConfig(vp, compareEntry)
 
 	-- Fixed header area: row 1 = buttons, row 2 = search/dropdowns, then column headers + separator
 	SetViewport(vp.x, vp.y, vp.width, fixedHeaderHeight)
+	SetDrawColor(0.05, 0.05, 0.05)
+	DrawImage(nil, 0, 0, vp.width, fixedHeaderHeight)
 	-- Controls are drawn by ControlHost (positioned in LayoutConfigView)
 	local colHeaderY = 54
 	SetDrawColor(1, 1, 1)
@@ -4930,6 +4956,10 @@ function CompareTabClass:DrawConfig(vp, compareEntry)
 		colorCodes.WARNING .. (compareEntry.label or "Compare Build"))
 	SetDrawColor(0.5, 0.5, 0.5)
 	DrawImage(nil, 4, colHeaderY + columnHeaderHeight + 4, vp.width - 8, 2)
+	if headerOnly then
+		SetViewport()
+		return
+	end
 
 	-- Scrollable content area (clipped below fixed header)
 	local scrollH = vp.height - fixedHeaderHeight

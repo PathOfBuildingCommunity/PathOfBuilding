@@ -9,8 +9,8 @@ local curl = require("lcurl.safe")
 local m_max = math.max
 local s_format = string.format
 local t_insert = table.insert
-local tradeHelpers = LoadModule("Classes/TradeHelpers")
-local utils = LoadModule("Modules/Utils")
+local tradeHelpers = require("Classes.TradeHelpers")
+local utils = require("Modules.Utils")
 
 -- a table which tells us what subtypes each category we can search for
 -- contains. the commented out lines are type-subtype combinations which don't
@@ -39,7 +39,7 @@ local tradeCategoryNames = {
 	["1HSword"] = { "One Handed Sword", "One Handed Sword: Thrusting" },
 	["1HMace"] = { "One Handed Mace" },
 	["Sceptre"] = { "Sceptre" },
-	["Dagger"] = { "Dagger" },
+	["Dagger"] = { "Dagger", "Dagger: Rune Dagger" },
 	["Wand"] = { "Wand" },
 	["Claw"] = { "Claw" },
 	["Staff"] = { "Staff", "Staff: Warstaff" },
@@ -380,7 +380,7 @@ function TradeQueryGeneratorClass:InitMods()
 	if file then
 		file:close()
 		---@module "src.Data.QueryMods"
-		self.modData = LoadModule(queryModFilePath)
+		self.modData = require(queryModFilePath:gsub("%.lua$", ""))
 		return
 	end
 
@@ -460,15 +460,43 @@ function TradeQueryGeneratorClass:InitMods()
 		{ ["AbyssJewel"] = true })
 	self:GenerateModData(data.itemMods.Flask, tradeQueryStatsParsed, { ["Flask"] = true })
 
+	-- translate base type name to trade category name for e.g. essences and drop-restricted mods
+	local function getTradeCategoryNamesForType(mask, cat)
+		for tradeName, typeNames in pairs(tradeCategoryNames) do
+			if tradeName == cat then
+				mask[tradeName] = true
+			end
+			for _, name in ipairs(typeNames) do
+				if cat == name then
+					mask[tradeName] = true
+				end
+			end
+		end
+	end
+
 	-- Special handling for essences
 	for _, essenceItem in pairs(data.essences) do
 		for itemType, modId in pairs(essenceItem.mods) do
 			local mask = {}
-			mask[itemType] = true
+			getTradeCategoryNamesForType(mask, itemType:gsub("Thrusting One Handed Sword", "One Handed Sword: Thrusting"))
 			self:ProcessMod(modId, data.itemMods.Item[modId], tradeQueryStatsParsed, regularItemMask, mask)
 		end
 	end
 
+	-- drop-restricted delve and temple mods
+	for _, list in ipairs({ require("Data.IncursionDropOnly"), require("Data.DelveDropOnly") }) do
+		for modId, entry in pairs(list) do
+			local mod = data.itemMods.Delve[modId] or data.itemMods.Explicit[modId]
+			local mask = {}
+			-- convert base type name to trade category
+			for _, cat in ipairs(entry.categories) do
+				getTradeCategoryNamesForType(mask, cat)
+			end
+			if next(mask) ~= nil then
+				self:ProcessMod(modId, mod, tradeQueryStatsParsed, regularItemMask, mask)
+			end
+		end
+	end
 	regularItemMask.Flask = true -- Update mask as flasks can have crafted mods.
 	self:GenerateModData(data.masterMods, tradeQueryStatsParsed, regularItemMask)
 	self:GenerateModData(data.veiledMods, tradeQueryStatsParsed, regularItemMask)

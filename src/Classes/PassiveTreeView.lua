@@ -18,7 +18,7 @@ local JEWEL_RADIUS_TINT_NEUTRAL = { 1, 1, 1, 0.7 }
 local JEWEL_RADIUS_TINT_PRIMARY_ONLY = { 1, 0, 0, 0.7 }
 local JEWEL_RADIUS_TINT_COMPARE_ONLY = { 0, 1, 0, 0.7 }
 
-local gemTooltip = LoadModule("Classes/GemTooltip")
+local gemTooltip = require("Classes.GemTooltip")
 
 local function isAbyssConquered(node)
 	local conqueror = node and node.conqueredBy and node.conqueredBy.conqueror
