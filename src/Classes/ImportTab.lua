@@ -129,7 +129,8 @@ local function addOAuthControls(self)
 					self.controls.charSelectLeague:SetSel(i)
 				end
 			end
-		else
+		end
+		if not self.controls.charSelectLeague.selIndex then
 			self.controls.charSelectLeague:SetSel(1)
 		end
 	end
