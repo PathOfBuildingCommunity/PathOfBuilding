@@ -1334,25 +1334,31 @@ for modId, mod in pairs(data.itemMods.JewelAbyss) do
 	end
 end
 
-local veiledMods = {}
+local catarinaPrefixes = {}
 local veiledPrefixes = {}
 local veiledSuffixes = {}
 for modId, mod in pairs(data.veiledMods) do
 	if mod.affix == "Chosen" then
 		veiledPrefixes[modId] = mod
-		veiledMods[modId] = mod
+	elseif mod.affix == "Catarina's" then
+		catarinaPrefixes[modId] = mod
 	elseif mod.affix == "of the Order" then
 		veiledSuffixes[modId] = mod
-		veiledMods[modId] = mod
 	end
 end
+local veiledMods = table.combine(veiledPrefixes, veiledSuffixes)
 
 local dreadCaptainBase = { base = copyTable(data.itemBases["Ghostflame Blade"]) }
 dreadCaptainBase.base.tags.deepwater_sword = true
 
+local caneOfKulemakBase = { base = copyTable(data.itemBases["Serpentine Staff"]) }
+caneOfKulemakBase.base.tags.catarina_veiled_prefix = true
+
+---@class RareLikeItemBase Pick<ItemBaseEntry, "base">
+---@field base ItemBase
 ---@class RareLikeUniqueDescription
 ---@field affixes table<string, table>
----@field validBases ItemBaseEntry[]? Bases used to check modifier spawn tags instead of the item's base
+---@field validBases RareLikeItemBase[]? Bases used to check modifier spawn tags instead of the item's base
 ---@field prefixLimit integer
 ---@field suffixLimit integer
 ---@field ignoreModType boolean?
@@ -1391,6 +1397,12 @@ data.rareLikeUniques = {
 		prefixLimit = 1,
 		suffixLimit = 1,
 	},
+	["cane of kulemak"] = {
+		validBases = { caneOfKulemakBase },
+		affixes = table.combine(catarinaPrefixes, veiledMods),
+		prefixLimit = 2,
+		suffixLimit = 2,
+	}
 }
 -- Uniques (loaded after version-specific data because reasons)
 data.uniques = { }

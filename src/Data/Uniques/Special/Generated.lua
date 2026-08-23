@@ -78,38 +78,6 @@ local getVeiledModsByName = function (modNames)
 	return veiledMods
 end
 
-
-local caneOfKulemakMods = getVeiledMods("catarina", "weapon", "staff", "two_hand_weapon")
-local caneOfKulemak = {
-	"Cane of Kulemak",
-	"Serpentine Staff",
-	"Source: Drops from unique{Catarina, Master of Undeath}",
-	"Has Alt Variant: true",
-	"Has Alt Variant Two: true",
-	"Has Alt Variant Three: true",
-	"Selected Variant: 1",
-	"Selected Alt Variant: 3",
-	"Selected Alt Variant Two: 25",
-	"Selected Alt Variant Three: 26",
-}
-
-for _, mod in pairs(caneOfKulemakMods) do
-	table.insert(caneOfKulemak, "Variant: "..mod.veiledName)
-end
-
-table.insert(caneOfKulemak, "Requires Level 68, 85 Str, 85 Int")
-table.insert(caneOfKulemak, "Implicits: 1")
-table.insert(caneOfKulemak, table.concat(data.itemMods.ItemExclusive.StaffBlockPercentImplicitStaff2))
-table.insert(caneOfKulemak, table.concat(data.itemMods.ItemExclusive.LocalVeiledModEffectUnique__1))
-
-for index, mod in pairs(caneOfKulemakMods) do
-	for _, value in pairs(mod.veiledLines) do
-		table.insert(caneOfKulemak, "{variant:" .. index .. "}" .. value .. "")
-	end
-end
-
-table.insert(data.uniques.generated, table.concat(caneOfKulemak, "\n"))
-
 local replicaParadoxicaMods = getVeiledMods("all", "weapon", "one_hand_weapon")
 local replicaParadoxica = {
 	"Replica Paradoxica",
