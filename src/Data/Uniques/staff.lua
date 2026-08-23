@@ -810,5 +810,14 @@ Implicits: 2
 Reflects 1 to 150 Lightning Damage to Melee Attackers
 {variant:1,2}20% chance for Energy Shield Recharge to start when you Block
 {variant:3}(25-35)% chance for Energy Shield Recharge to start when you Block
-]],
+]],[[
+Cane of Kulemak
+Serpentine Staff
+Source: Drops from unique{Catarina, Master of Undeath}
+Crafted: true
+Requires Level 68, 85 Str, 85 Int
+Implicits: 1
++22% Chance to Block Attack Damage
+(60-90)% increased Unveiled Modifier magnitudes
+]]
 }

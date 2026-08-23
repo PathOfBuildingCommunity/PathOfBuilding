@@ -805,5 +805,14 @@ LocalIncreaseSocketedGemLevelUnique___3
 AttackerTakesLightningDamageUnique___1
 {variant:1,2}EnergyShieldRechargeOnBlockUnique__1[20,20]
 {variant:3}EnergyShieldRechargeOnBlockUnique__1
-]],
+]],[[
+Cane of Kulemak
+Serpentine Staff
+Source: Drops from unique{Catarina, Master of Undeath}
+Crafted: true
+Requires Level 68, 85 Str, 85 Int
+Implicits: 1
+StaffBlockPercentImplicitStaff2
+LocalVeiledModEffectUnique__1
+]]
 }

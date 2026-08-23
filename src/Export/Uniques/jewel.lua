@@ -1919,5 +1919,15 @@ Implicits: 0
 Binding (100-8000) souls to phylacteries to sustain Zorath
 Passives affected are Conquered by the Abyssal
 Historic
-]],
+]],[[
+Item Class: Jewels
+Rarity: Unique
+That Which Was Taken
+Crimson Jewel
+Crafted: true
+League: Affliction
+Limited to: 1
+Requires Level 48
+Implicits: 0
+]]
 }

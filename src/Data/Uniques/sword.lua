@@ -1072,5 +1072,22 @@ Your Elemental Damage can Shock
 {variant:3}Gain 700% of Weapon Physical Damage as Extra Damage of a random Element
 20% increased Area of Effect for Attacks
 Deal no Non-Elemental Damage
+]],[[
+Paradoxica
+Vaal Rapier
+League: Betrayal
+Source: Drops from unique{Intervention Leaders} in normal{Safehouses}
+Crafted: true
+Implicits: 1
++25% to Global Critical Strike Multiplier
+Attacks with this Weapon deal Double Damage
+]],[[
+Replica Paradoxica
+Vaal Rapier
+League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
+Crafted: true
+Implicits: 1
++25% to Global Critical Strike Multiplier
 ]]
 }
