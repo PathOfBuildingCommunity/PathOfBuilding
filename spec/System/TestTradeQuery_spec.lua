@@ -62,6 +62,29 @@ describe("TradeQuery", function()
 		end)
 	end)
 	describe("GetResultEvaluation", function()
+		it("uses the first visible ring for a Pearl result without a selected slot", function()
+			local tq = new("TradeQuery"):TradeQuery({ itemsTab = {} })
+			tq.statSortSelectionList = {}
+			tq.tradeQueryGenerator = new("TradeQueryGenerator"):TradeQueryGenerator({ itemsTab = {} })
+			tq.itemsTab.slots = {
+				["Ring 1"] = { slotName = "Ring 1", shown = function() return false end },
+				["Ring 2"] = { slotName = "Ring 2", shown = function() return true end },
+			}
+			tq.slotTables[1] = { slotName = "Pearl of Tsoatha", unique = true }
+			tq.resultTbl[1] = {
+				[1] = { item_string = "Rarity: RARE\nBehemoth Hold\nGold Ring" },
+			}
+			local evaluatedSlot
+
+			tq:GetResultEvaluation(1, 1, function(override)
+				evaluatedSlot = override.repSlotName
+				return {}
+			end, {})
+
+			assert.are.equal("Ring 2", evaluatedSlot)
+			assert.are.equal("Ring 2", tq.slotTables[1].selectedSlotName)
+		end)
+
 		it("evaluates a socketed Megalomaniac by node combination", function()
 			local slotTbl = {
 				slotName = "Megalomaniac", unique = true, alreadyCorrupted = true, selectedJewelNodeId = 12345,
