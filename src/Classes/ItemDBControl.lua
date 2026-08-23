@@ -359,6 +359,8 @@ function ItemDBClass:OnSelClick(index, item, doubleClick)
 			self.itemsTab.slots[slotName]:SetSelItemId(newItem.id)
 		end
 
+		self.itemsTab:AddForbiddenJewelCounterpart(newItem)
+
 		self.itemsTab:PopulateSlots()
 		self.itemsTab:AddUndoState()
 		self.itemsTab.build.buildFlag = true
