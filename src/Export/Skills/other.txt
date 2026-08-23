@@ -76,6 +76,42 @@ return function(skills, mod, flag, skill)
 	fromTree = true,
 #mods
 
+#skill AspectOfArakaali
+#flags cast
+	fromItem = true,
+	statMap = {
+		["active_skill_buff_life_recovery_rate_+%_per_wither_on_self_to_grant"] = {
+			mod("LifeRecoveryRate", "INC", nil, 0, 0, { type = "Multiplier", var = "WitheredStack", limit = 15 }, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+	},
+#baseMod flag("Condition:CanWither", { type = "GlobalEffect", effectType = "Buff" })
+#baseMod flag("Condition:CanBeWithered", { type = "GlobalEffect", effectType = "Buff" })
+#mods
+
+#skill AspectOfLunaris
+#flags cast duration
+	fromItem = true,
+	statMap = {
+		["lunaris_aspect_skill_physical_damage_taken_+%_final_per_phys_rebuff"] = {
+			mod("PhysicalDamageTaken", "MORE", nil, 0, 0, { type = "Multiplier", var = "LunarProtection", limit = 8 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Lunar Protection" }),
+		},
+		["lunaris_aspect_skill_elemental_damage_taken_+%_final_per_ele_rebuff"] = {
+			mod("ElementalDamageTaken", "MORE", nil, 0, 0, { type = "Multiplier", var = "LunarResistance", limit = 8 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Lunar Resistance" }),
+		},
+	},
+#mods
+
+#skill AspectOfSolaris
+#flags cast duration
+	fromItem = true,
+	statMap = {
+		["solaris_aspect_debuff_exposure_effect_+%_to_apply"] = {
+			mod("ExposureEffect", "INC", nil, 0, 0, { type = "Multiplier", var = "SunscaldStack", limit = 5 }, { type = "Condition", var = "Effective" }, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+	},
+#baseMod mod("EnemyModifier", "LIST", { mod = mod("FireExposure", "BASE", -10) }, 0, 0, { type = "Condition", var = "Effective" }, { type = "GlobalEffect", effectType = "Buff" })
+#mods
+
 #skill AspectOfTheAvian
 #flags cast duration
 	fromItem = true,
@@ -91,6 +127,19 @@ return function(skills, mod, flag, skill)
 		},
 		["minion_movement_speed_+%"] = {
 			mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "INC", nil) }, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Avian's Flight", effectCond = "AviansFlightActive" }),
+		},
+	},
+#mods
+
+#skill AspectOfTheBrineKing
+#flags cast guaranteedChill
+	fromItem = true,
+	statMap = {
+		["active_skill_buff_chill_effect_+%_to_grant"] = {
+			mod("EnemyChillEffect", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["cold_penetration_%_vs_chilled_enemies"] = {
+			mod("ColdPenetration", "BASE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Chilled" }, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 	},
 #mods

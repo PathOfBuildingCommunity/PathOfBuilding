@@ -258,6 +258,17 @@ return {
 	{ var = "arcaneCloakUsedRecentlyCheck", type = "check", label = "Include in ^x7070FFMana ^7spent Recently?", ifSkill = "Arcane Cloak", tooltip = "When enabled, the mana spent by Arcane Cloak used at full mana \nwill be added to the value provided in # of ^x7070FFMana ^7spent Recently.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:ArcaneCloakUsedRecently", "FLAG", true, "Config")
 	end },
+	{ label = "Aspect of Lunaris:", ifSkill = "Aspect of Lunaris" },
+	{ var = "aspectOfLunarisLunarProtection", type = "countAllowZero", label = "# of Lunar Protection:", ifSkill = "Aspect of Lunaris", tooltip = "Gained when you take ^xB97123Physical ^7Damage, up to 8 stacks.", defaultPlaceholderState = 8, apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:LunarProtection", "BASE", val, "Config")
+	end },
+	{ var = "aspectOfLunarisLunarResistance", type = "countAllowZero", label = "# of Lunar Resistance:", ifSkill = "Aspect of Lunaris", tooltip = "Gained when you take Elemental Damage, up to 8 stacks.", defaultPlaceholderState = 8, apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:LunarResistance", "BASE", val, "Config")
+	end },
+	{ label = "Aspect of Solaris:", ifSkill = "Aspect of Solaris" },
+	{ var = "aspectOfSolarisSunscaldStacks", type = "countAllowZero", label = "# of Sunscald Stacks:", ifSkill = "Aspect of Solaris", tooltip = "Each Sunscald increases the effect of ^xB97123Fire Exposure ^7on affected enemies by 15%, up to 5 stacks.", defaultPlaceholderState = 5, apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:SunscaldStack", "BASE", val, "Config", { type = "Condition", var = "Effective" })
+	end },
 	{ label = "Aspect of the Avian:", ifSkill = "Aspect of the Avian" },
 	{ var = "aspectOfTheAvianAviansMight", type = "check", label = "Is Avian's Might active?", ifSkill = "Aspect of the Avian", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:AviansMightActive", "FLAG", true, "Config")

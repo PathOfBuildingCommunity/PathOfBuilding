@@ -23,6 +23,19 @@ describe("TestSkills", function()
 		assert.are.equals(round(205 * 1.44), build.calcsTab.mainEnv.minion.modDB:Sum("BASE", build.calcsTab.mainEnv.minion.mainSkill.skillCfg, "ChaosMin"))
 	end)
 
+	it("applies Aspect of the Brine King's chilling aura", function()
+		build.itemsTab:CreateDisplayItemFromRaw("New Item\nCoral Amulet\nGrants Level 20 Aspect of the Brine King Skill")
+		build.itemsTab:AddDisplayItem()
+		build.skillsTab:PasteSocketGroup("Freezing Pulse 20/0  1\n")
+		runCallback("OnFrame")
+
+		local env = build.calcsTab.mainEnv
+		assert.is_true(env.enemy.modDB:Flag(nil, "Condition:Chilled"))
+		assert.are.equals(15, build.calcsTab.mainOutput.CurrentChill)
+		assert.are.equals(50, env.player.mainSkill.skillModList:Sum("INC", env.player.mainSkill.skillCfg, "EnemyChillEffect"))
+		assert.are.equals(10, env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ColdPenetration"))
+	end)
+
 	it("Test Mirage Archer using triggered skill", function()
 		build.itemsTab:CreateDisplayItemFromRaw([[+3 Bow
 		Thicket Bow

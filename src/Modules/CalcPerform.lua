@@ -1304,6 +1304,7 @@ function calcs.perform(env, skipEHP)
 	end
 
 	local hasGuaranteedBonechill = false
+	local guaranteedChillSkills = { }
 	
 	-- Banners
 	if modDB:Flag(nil,"Condition:BannerPlanted") then
@@ -1400,9 +1401,8 @@ function calcs.perform(env, skipEHP)
 					modDB:NewMod("SelfScorchOverride", "BASE", effect, activeSkill.activeEffect.grantedEffect.name)
 				end
 			end
-		elseif activeSkill.skillTypes[SkillType.ChillingArea] or (activeSkill.skillTypes[SkillType.NonHitChill] and not activeSkill.skillModList:Flag(nil, "CannotChill")) then
-			local effect = data.nonDamagingAilment.Chill.default * calcLib.mod(activeSkill.skillModList, activeSkill.skillCfg, "EnemyChillEffect")
-			modDB:NewMod("ChillOverride", "BASE", effect, activeSkill.activeEffect.grantedEffect.name)
+		elseif activeSkill.skillFlags.guaranteedChill or activeSkill.skillTypes[SkillType.ChillingArea] or (activeSkill.skillTypes[SkillType.NonHitChill] and not activeSkill.skillModList:Flag(nil, "CannotChill")) then
+			t_insert(guaranteedChillSkills, activeSkill)
 			enemyDB:NewMod("Condition:Chilled", "FLAG", true, activeSkill.activeEffect.grantedEffect.name)
 			if activeSkill.skillData.supportBonechill then
 				hasGuaranteedBonechill = true
@@ -3342,6 +3342,12 @@ function calcs.perform(env, skipEHP)
 		end
 	end
 
+	-- Calculate guaranteed chills after buffs so chilling areas benefit from active buff modifiers.
+	for _, activeSkill in ipairs(guaranteedChillSkills) do
+		local effect = data.nonDamagingAilment.Chill.default * calcLib.mod(activeSkill.skillModList, activeSkill.skillCfg, "EnemyChillEffect")
+		modDB:NewMod("ChillOverride", "BASE", effect, activeSkill.activeEffect.grantedEffect.name)
+	end
+
 	-- Fix the configured impale stacks on the enemy
 	-- 		If the config is missing (blank), then use the maximum number of stacks
 	--		If the config is larger than the maximum number of stacks, replace it with the correct maximum
@@ -3606,6 +3612,11 @@ function calcs.perform(env, skipEHP)
 				-- Modify the magnitude of all exposures
 				for _, mod in ipairs(modDB:Tabulate("BASE", nil, "ExtraExposure", "Extra"..element.."Exposure")) do
 					min = min + mod.value
+				end
+				-- Scale the resulting magnitude by increased effect of Exposure you inflict
+				local exposureEffectInc = modDB:Sum("INC", nil, "ExposureEffect", element.."ExposureEffect")
+				if exposureEffectInc ~= 0 then
+					min = min * (1 + exposureEffectInc / 100)
 				end
 				enemyDB:NewMod("Condition:Has"..element.."Exposure", "FLAG", true, "")
 				enemyDB:NewMod(element.."Resist", "BASE", m_min(min, modDB:Override(nil, "ExposureMin")), source)

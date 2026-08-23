@@ -225,6 +225,102 @@ skills["AilmentBearer"] = {
 		[20] = { cooldown = 0.5, levelRequirement = 70, storedUses = 1, cost = { Mana = 13, }, },
 	},
 }
+skills["AspectOfArakaali"] = {
+	name = "Aspect of Arakaali",
+	hidden = true,
+	color = 4,
+	description = "While active, you inflict Wither on hit, and Wither you inflict will be reflected back to you. Additionally, for each stack of Wither on you, your Life recovery rate is increased.",
+	skillTypes = { [SkillType.Buff] = true, [SkillType.Spell] = true, [SkillType.HasReservation] = true, [SkillType.Instant] = true, [SkillType.Chaos] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0,
+	fromItem = true,
+	statMap = {
+		["active_skill_buff_life_recovery_rate_+%_per_wither_on_self_to_grant"] = {
+			mod("LifeRecoveryRate", "INC", nil, 0, 0, { type = "Multiplier", var = "WitheredStack", limit = 15 }, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+	},
+	baseFlags = {
+		cast = true,
+	},
+	baseMods = {
+		flag("Condition:CanWither", { type = "GlobalEffect", effectType = "Buff" }),
+		flag("Condition:CanBeWithered", { type = "GlobalEffect", effectType = "Buff" }),
+	},
+	constantStats = {
+		{ "active_skill_buff_wither_on_hit_%_chance_to_grant", 100 },
+		{ "active_skill_buff_life_recovery_rate_+%_per_wither_on_self_to_grant", 3 },
+	},
+	stats = {
+	},
+	levels = {
+		[20] = { cooldown = 0.5, levelRequirement = 1, manaReservationPercent = 25, storedUses = 1, },
+	},
+}
+skills["AspectOfLunaris"] = {
+	name = "Aspect of Lunaris",
+	hidden = true,
+	color = 4,
+	description = "While active, taking Physical or Elemental Damage will grant you either Lunar Protection or Lunar Resistance, respectively. Aspect of Lunaris lessens incoming Physical Damage for each Lunar Protection on you, and lessens incoming Elemental Damage for each Lunar Resistance on you. These buffs can both stack up to eight times.",
+	skillTypes = { [SkillType.Buff] = true, [SkillType.Spell] = true, [SkillType.HasReservation] = true, [SkillType.Duration] = true, [SkillType.Cooldown] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, },
+	statDescriptionScope = "buff_skill_stat_descriptions",
+	castTime = 0,
+	fromItem = true,
+	statMap = {
+		["lunaris_aspect_skill_physical_damage_taken_+%_final_per_phys_rebuff"] = {
+			mod("PhysicalDamageTaken", "MORE", nil, 0, 0, { type = "Multiplier", var = "LunarProtection", limit = 8 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Lunar Protection" }),
+		},
+		["lunaris_aspect_skill_elemental_damage_taken_+%_final_per_ele_rebuff"] = {
+			mod("ElementalDamageTaken", "MORE", nil, 0, 0, { type = "Multiplier", var = "LunarResistance", limit = 8 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Lunar Resistance" }),
+		},
+	},
+	baseFlags = {
+		cast = true,
+		duration = true,
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 3000 },
+	},
+	stats = {
+		"lunaris_aspect_skill_elemental_damage_taken_+%_final_per_ele_rebuff",
+		"lunaris_aspect_skill_physical_damage_taken_+%_final_per_phys_rebuff",
+	},
+	levels = {
+		[20] = { -2, -2, cooldown = 0.5, levelRequirement = 1, manaReservationPercent = 25, storedUses = 1, statInterpolation = { 1, 1, }, },
+	},
+}
+skills["AspectOfSolaris"] = {
+	name = "Aspect of Solaris",
+	hidden = true,
+	color = 4,
+	description = "While active, inflicts Fire Exposure on enemies within its radius. Additionally, periodically applies a Sunscald debuff to enemies within its radius, with each Sunscald debuff increasing the effect of exposure on affected enemies. Sunscald can stack up to five times.",
+	skillTypes = { [SkillType.Buff] = true, [SkillType.Spell] = true, [SkillType.HasReservation] = true, [SkillType.Instant] = true, [SkillType.Fire] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, [SkillType.Duration] = true, },
+	statDescriptionScope = "debuff_skill_stat_descriptions",
+	castTime = 0,
+	fromItem = true,
+	statMap = {
+		["solaris_aspect_debuff_exposure_effect_+%_to_apply"] = {
+			mod("ExposureEffect", "INC", nil, 0, 0, { type = "Multiplier", var = "SunscaldStack", limit = 5 }, { type = "Condition", var = "Effective" }, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+	},
+	baseFlags = {
+		cast = true,
+		duration = true,
+	},
+	baseMods = {
+		mod("EnemyModifier", "LIST", { mod = mod("FireExposure", "BASE", -10) }, 0, 0, { type = "Condition", var = "Effective" }, { type = "GlobalEffect", effectType = "Buff" }),
+	},
+	constantStats = {
+		{ "active_skill_base_area_of_effect_radius", 40 },
+		{ "base_skill_effect_duration", 4000 },
+		{ "solaris_aspect_debuff_interval_ms", 1000 },
+		{ "solaris_aspect_debuff_exposure_effect_+%_to_apply", 15 },
+	},
+	stats = {
+	},
+	levels = {
+		[20] = { cooldown = 0.5, levelRequirement = 1, manaReservationPercent = 25, storedUses = 1, },
+	},
+}
 skills["AspectOfTheAvian"] = {
 	name = "Aspect of the Avian",
 	hidden = true,
@@ -266,6 +362,39 @@ skills["AspectOfTheAvian"] = {
 		[20] = { 10, 10, 10, 10, cooldown = 0.5, levelRequirement = 1, manaReservationPercent = 25, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, },
 		[30] = { 12, 12, 14, 14, cooldown = 0.5, levelRequirement = 1, manaReservationPercent = 25, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, },
 		[35] = { 15, 15, 18, 18, cooldown = 0.5, levelRequirement = 1, manaReservationPercent = 25, storedUses = 1, statInterpolation = { 1, 1, 1, 1, }, },
+	},
+}
+skills["AspectOfTheBrineKing"] = {
+	name = "Aspect of the Brine King",
+	hidden = true,
+	color = 4,
+	description = "While active, inflicts Chill on enemies within it's radius, while also increasing the strength of Chill you inflict and causing Damage you deal to Chilled enemies to penetrate some of their Cold Resistance.",
+	skillTypes = { [SkillType.Buff] = true, [SkillType.Spell] = true, [SkillType.HasReservation] = true, [SkillType.Instant] = true, [SkillType.Cold] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
+	statDescriptionScope = "buff_skill_stat_descriptions",
+	castTime = 0,
+	fromItem = true,
+	statMap = {
+		["active_skill_buff_chill_effect_+%_to_grant"] = {
+			mod("EnemyChillEffect", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["cold_penetration_%_vs_chilled_enemies"] = {
+			mod("ColdPenetration", "BASE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Chilled" }, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+	},
+	baseFlags = {
+		cast = true,
+		guaranteedChill = true,
+	},
+	constantStats = {
+		{ "active_skill_base_area_of_effect_radius", 60 },
+		{ "active_skill_buff_chill_effect_+%_to_grant", 50 },
+		{ "active_skill_buff_cold_penetration_%_vs_chilled_enemies_to_grant", 10 },
+	},
+	stats = {
+		"cold_penetration_%_vs_chilled_enemies",
+	},
+	levels = {
+		[20] = { 10, cooldown = 0.5, levelRequirement = 1, manaReservationPercent = 25, storedUses = 1, statInterpolation = { 1, }, },
 	},
 }
 skills["AspectOfTheCat"] = {
