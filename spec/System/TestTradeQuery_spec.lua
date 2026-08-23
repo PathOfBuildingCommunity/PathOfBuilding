@@ -61,6 +61,45 @@ describe("TradeQuery", function()
 			assert.are.equal(0, #tooltip.lines)
 		end)
 	end)
+	describe("GetResultEvaluation", function()
+		it("evaluates a socketed Megalomaniac by node combination", function()
+			local slotTbl = {
+				slotName = "Megalomaniac", unique = true, alreadyCorrupted = true, selectedJewelNodeId = 12345,
+			}
+			local tq = new("TradeQuery"):TradeQuery({ itemsTab = {} })
+			tq.statSortSelectionList = {}
+			tq.tradeQueryGenerator = new("TradeQueryGenerator"):TradeQueryGenerator({ itemsTab = {} })
+			tq.itemsTab.build = {
+				spec = {
+					tree = {
+						clusterNodeMap = {
+							["Node One"] = { dn = "Node One" },
+							["Node Two"] = { dn = "Node Two" },
+							["Node Three"] = { dn = "Node Three" },
+						}
+					}
+				}
+			}
+			tq.slotTables[1] = slotTbl
+			tq.resultTbl[1] = {
+				[1] = {
+					item_string = table.concat({
+						"1 Added Passive Skill is Node One",
+						"1 Added Passive Skill is Node Two",
+						"1 Added Passive Skill is Node Three",
+					}, "\n")
+				}
+			}
+
+			local evaluation = tq:GetResultEvaluation(1, 1, function() return {} end, {})
+
+			assert.are.equal(4, #evaluation)
+			for _, entry in ipairs(evaluation) do
+				assert.is_table(entry.DNs)
+				assert.is_true(#entry.DNs >= 2)
+			end
+		end)
+	end)
 	describe("ReduceOutput", function()
 		it("preserves lower-is-better values for weighted result comparison", function()
 			local weights = {
