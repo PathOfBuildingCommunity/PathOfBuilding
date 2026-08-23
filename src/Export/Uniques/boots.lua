@@ -127,12 +127,13 @@ HasNoSockets
 CannotBeKnockedBack
 {variant:1}IncreasedLifeUniqueBootsStr2[120,150]
 {variant:2}IncreasedLifeUniqueBootsStr2
-KeystoneUnwaveringStanceUnique__1
+UnwaveringStance
 {variant:2}CannotBeSlowedBelowBaseUnique__1
 ]],[[
 Redblade Tramplers
 Ancient Greaves
 League: Warbands
+Source: Drops from Redblade Mercenary monsters
 Variant: Pre 2.6.0
 Variant: Current
 Requires Level 46, 82 Str
@@ -603,6 +604,7 @@ StunThresholdBasedOnManaUnique__1
 Steppan Eard
 Sorcerer Boots
 League: Warbands
+Source: Drops from Renegade Warband monsters
 Variant: Pre 3.0.0
 Variant: Current
 Requires Level 67, 123 Int
@@ -774,6 +776,7 @@ LoseAdrenalineFireTouchedLossUnique__1
 Gamblesprint
 Hydrascale Boots
 League: Affliction
+Source: Reward from Ultimatum encounters
 Requires Level 59, 56 Str, 56 Dex
 DexterityUniqueBootsDex4_
 LocalIncreasedArmourAndEvasionUnique__24
@@ -940,6 +943,7 @@ LifeGainedFromEnemyDeathUniqueBootsStrInt1
 Brinerot Whalers
 Trapper Boots
 League: Warbands
+Source: Drops from Brinerot Warband monsters
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Current
@@ -1158,6 +1162,7 @@ CelestialFootprintsUnique__1_
 Olroth's Charge
 Runic Sollerets
 League: Expedition
+Source: Drops from Expedition monsters
 Requires Level 48, 37 Str, 37 Dex, 37 Int
 LocalIncreasedWardPercentUnique__4_
 WardDelayRecoveryUnique__2

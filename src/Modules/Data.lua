@@ -664,7 +664,13 @@ data.itemMods = {
 	JewelCharm = LoadModule("Data/ModJewelCharm"),
 	Foulborn = LoadModule("Data/ModFoulborn"),
 	Mercenary = LoadModule("Data/ModMercenary"),
+	Vestigial = {}
 }
+for modId, mod in pairs(data.itemMods.ItemExclusive) do
+	if modId:find("^Divergent") then
+		data.itemMods.Vestigial[modId] = mod
+	end
+end
 data.masterMods = LoadModule("Data/ModMaster")
 data.enchantments = {
 	["Helmet"] = LoadModule("Data/EnchantmentHelmet"),
@@ -847,6 +853,23 @@ data.itemTagSpecialExclusionPattern = {
 	},
 }
 
+-- Table of which slots can have vestigial uniques
+data.vestigialUniqueBaseTypes = {
+	Helmet = true,
+	["Body Armour"] = true,
+	Gloves = true,
+	Boots = true,
+	Shield = true,
+}
+-- map from mod ID to what item it *should* come from
+---@type table<string, string>
+data.vestigialModMappings = require("Data.Vestigial")
+for k, v in pairs(data.vestigialModMappings) do
+	data.vestigialModMappings[k] = v[1]
+	-- if launch.devMode then
+	-- 	assert(v[1], "Data/Vestigial is malformed")
+	-- end
+end
 -- Cluster jewel data
 data.clusterJewels = LoadModule("Data/ClusterJewels")
 

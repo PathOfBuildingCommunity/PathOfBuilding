@@ -780,6 +780,7 @@ Highborn Staff
 Variant: Pre 3.25.0
 Variant: Current
 League: Crucible
+Source: Drops from Crucible monsters
 Implicits: 2
 {variant:1}+18% Chance to Block Attack Damage
 {variant:2}+22% Chance to Block Attack Damage
