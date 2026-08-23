@@ -192,4 +192,60 @@ describe("TradeQueryGenerator", function()
 			assert.is_not_nil(query.filters.socket_filters.filters.links)
 		end)
 	end)
+
+	describe("Query generation with Min and Max required mods", function()
+		it("includes min and max in query when both are provided", function()
+			local queryGen = new("TradeQueryGenerator"):TradeQueryGenerator({ itemsTab = { items = {} } })
+			queryGen.modWeights = { }
+			queryGen.calcContext = {
+				testItem = new("Item"):Item("Rarity: RARE\nNew Item\nGold Ring\nImplicits: 0"),
+				baseOutput = { },
+				baseStatValue = 0,
+				itemCategoryQueryStr = "accessory.ring",
+				special = { },
+				requiredMods = {
+					{ tradeId = "explicit.stat_1234", value = 5, maxValue = 10 },
+					{ tradeId = "explicit.stat_5678", value = -3 },
+					{ tradeId = "explicit.stat_9012", maxValue = -1 },
+					{ tradeId = "explicit.stat_3456" }
+				},
+				options = {
+					statWeights = { },
+					influence1 = 1,
+					influence2 = 1,
+					includeMirrored = false,
+				},
+			}
+			queryGen.tradeTypeIndex = 1
+			local query
+			queryGen.requesterCallback = function(_, queryJson)
+				query = require("dkjson").decode(queryJson).query
+			end
+
+			queryGen:FinishQuery()
+
+			-- The required mods are stored in stats[2] because stats[1] is the weighted sum list
+			local modFilters = query.stats[2].filters
+			assert.are.equal(4, #modFilters)
+			
+			-- Test both min and max
+			assert.are.equal("explicit.stat_1234", modFilters[1].id)
+			assert.are.equal(5, modFilters[1].value.min)
+			assert.are.equal(10, modFilters[1].value.max)
+
+			-- Test only min
+			assert.are.equal("explicit.stat_5678", modFilters[2].id)
+			assert.are.equal(-3, modFilters[2].value.min)
+			assert.is_nil(modFilters[2].value.max)
+
+			-- Test only max
+			assert.are.equal("explicit.stat_9012", modFilters[3].id)
+			assert.is_nil(modFilters[3].value.min)
+			assert.are.equal(-1, modFilters[3].value.max)
+
+			-- Test neither (no value object)
+			assert.are.equal("explicit.stat_3456", modFilters[4].id)
+			assert.is_nil(modFilters[4].value)
+		end)
+	end)
 end)
