@@ -637,4 +637,35 @@ describe("TestSkills", function()
 			assert.is_nil(build.calcsTab.mainOutput[test[3]])
 		end
 	end)
+
+	it("ignores invalid extra supports while allowing support name collisions", function()
+		build.skillsTab:PasteSocketGroup("Slot: Gloves\nFireball 20/0  1")
+		runCallback("OnFrame")
+		build.configTab.input.customMods = "Skills socketed in your gloves are supported by level 20 Arc"
+		build.configTab:BuildModList()
+		build.modFlag = true
+		build.buildFlag = true
+		assert.has_no.errors(function()
+			main:OnFrame()
+		end)
+		assert.are.equals(0, #build.calcsTab.mainEnv.player.mainSkill.supportList)
+
+		newBuild()
+		build.skillsTab:PasteSocketGroup("Slot: Gloves\nFireball 20/0  1")
+		build.configTab.input.customMods = "Skills socketed in your gloves are supported by level 20 Arcane Surge"
+		build.configTab:BuildModList()
+		main:OnFrame()
+		local arcaneSurge = build.calcsTab.mainEnv.player.mainSkill.supportList[1]
+		assert.are.equals("SupportArcaneSurge", arcaneSurge.grantedEffect.id)
+		assert.are.equals(20, arcaneSurge.level)
+
+		newBuild()
+		build.skillsTab:PasteSocketGroup("Slot: Gloves\nRain of Arrows 20/0  1")
+		build.configTab.input.customMods = "Skills socketed in your gloves are supported by level 20 Barrage"
+		build.configTab:BuildModList()
+		main:OnFrame()
+		local barrage = build.calcsTab.mainEnv.player.mainSkill.supportList[1]
+		assert.are.equals("SupportBarrage", barrage.grantedEffect.id)
+		assert.are.equals(20, barrage.level)
+	end)
 end)
