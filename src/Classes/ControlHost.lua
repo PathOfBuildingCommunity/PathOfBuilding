@@ -50,6 +50,7 @@ function ControlHostClass:ProcessControlsInput(inputEvents, viewPort)
 	local processedImbuedControl
 	for id, event in ipairs(inputEvents) do
 		if event.type == "KeyDown" then
+			local prevSelControl = self.selControl
 			if self.selControl then
 				processedImbuedControl = self.selControl.imbuedSelect and self.selControl.dropped and event.key:match("BUTTON")
 				self:SelectControl(self.selControl:OnKeyDown(event.key, event.doubleClick))
@@ -62,7 +63,8 @@ function ControlHostClass:ProcessControlsInput(inputEvents, viewPort)
 				self:SelectControl()
 				if isMouseInRegion(viewPort) then
 					local mOverControl = self:GetMouseOverControl()
-					if mOverControl and mOverControl.OnKeyDown then
+					-- Skip the control that just handled this event and released focus, otherwise it would process the same click twice
+					if mOverControl and mOverControl ~= prevSelControl and mOverControl.OnKeyDown then
 						self:SelectControl(mOverControl:OnKeyDown(event.key, event.doubleClick))
 						inputEvents[id] = nil
 					end
