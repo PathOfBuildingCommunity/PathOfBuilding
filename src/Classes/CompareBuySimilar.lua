@@ -218,7 +218,7 @@ function M.addModEntries(item, modTypeSources)
 		for _, existingFilter in ipairs(modEntries) do
 			-- check if all result trade ids are equal
 			local sameHashes = #entry.tradeIds > 0 and tableDeepEquals(entry.tradeIds, existingFilter.tradeIds)
-			if sameHashes and existingFilter.type == entry.type then
+			if sameHashes and existingFilter.type == entry.type and not entry.isOption then
 				if entry.value then
 					local value = (entry.invert ~= existingFilter.invert) and -entry.value or entry.value or 0
 					existingFilter.value = (existingFilter.value or 0) + value
