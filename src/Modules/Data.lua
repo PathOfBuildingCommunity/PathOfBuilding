@@ -663,6 +663,7 @@ data.itemMods = {
 	JewelCluster = LoadModule("Data/ModJewelCluster"),
 	JewelCharm = LoadModule("Data/ModJewelCharm"),
 	Foulborn = LoadModule("Data/ModFoulborn"),
+	Mercenary = LoadModule("Data/ModMercenary"),
 	Vestigial = {}
 }
 for modId, mod in pairs(data.itemMods.ItemExclusive) do
@@ -683,7 +684,7 @@ data.enchantments = {
 
 -- combined table of many mod categories
 data.itemMods.Item = {}
-for _, key in ipairs({ "Explicit", "ItemExclusive", "Corrupted", "Delve", "Synthesis", "Scourge", "Eldritch" }) do
+for _, key in ipairs({ "Explicit", "ItemExclusive", "Corrupted", "Delve", "Synthesis", "Scourge", "Eldritch", "Mercenary" }) do
 	local itemData = data.itemMods[key]
 	for k, v in pairs(itemData) do
 		data.itemMods.Item[k] = v
@@ -1326,6 +1327,13 @@ data.minionTagCrucibleUniques = {
 	["United in Dream"] = true,
 }
 
+local subsumeTheSourceMods = {}
+for modId, mod in pairs(data.itemMods.JewelAbyss) do
+	if mod.type ~="Corrupted" then
+		subsumeTheSourceMods[modId] = mod
+	end
+end
+
 local crimsonStormMods = {}
 for modId, mod in pairs(data.veiledMods) do
 	if mod.affix == "of the Order" then
@@ -1349,7 +1357,7 @@ dreadCaptainBase.base.tags.deepwater_sword = true
 data.rareLikeUniques = {
 	["subsume the source"] = {
 		validBases = data.itemBaseLists["Jewel: Abyss"],
-		affixes = data.itemMods.JewelAbyss,
+		affixes = subsumeTheSourceMods,
 		prefixLimit = 4,
 		suffixLimit = 0,
 		ignoreModType = true,
