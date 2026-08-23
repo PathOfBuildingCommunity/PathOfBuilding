@@ -1478,5 +1478,15 @@ AllResistancesPerCorruptedItemUnique__1
 MaximumEnergyShieldPercentPerCorruptedItemUnique__1_
 MaximumLifePercentPerCorruptedItemUnique__1_
 Corrupted
-]],
+]],[[
+The Queen's Hunger
+Vaal Regalia
+League: Betrayal
+Source: Drops from unique{Catarina, Master of Undeath}
+Crafted: true
+Implicits: 0
+TriggerRandomOfferingSkillUnique__1
+LocalIncreasedEnergyShieldPercentUnique__20_
+MaximumLifeUnique__16
+]]
 }

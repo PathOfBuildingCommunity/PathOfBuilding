@@ -1366,6 +1366,10 @@ for _, tag in ipairs(data.veiledMasterSpawnTags) do
 		replicaParadoxicaBase.base.tags[tag] = true
 	end
 end
+
+local queensHungerBase = { base = copyTable(data.itemBases["Vaal Regalia"]) }
+queensHungerBase.base.tags.catarina_veiled_prefix = true
+
 ---@class RareLikeItemBase Pick<ItemBaseEntry, "base">
 ---@field base ItemBase
 ---@class RareLikeUniqueDescription
@@ -1422,6 +1426,12 @@ data.rareLikeUniques = {
 		affixes = data.veiledMods,
 		prefixLimit = 3,
 		suffixLimit = 3,
+	},
+	["the queen's hunger"] = {
+		validBases = { queensHungerBase },
+		affixes = table.combine(catarinaPrefixes, veiledSuffixes),
+		prefixLimit = 1,
+		suffixLimit = 1,
 	}
 }
 -- Uniques (loaded after version-specific data because reasons)

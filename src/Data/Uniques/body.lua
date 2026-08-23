@@ -1489,5 +1489,16 @@ Recover (3-5)% of Energy Shield on Kill
 8% increased Maximum Energy Shield for each Corrupted Item Equipped
 -(6-4)% to all Resistances for each Corrupted Item Equipped
 Corrupted
-]],
+]],[[
+The Queen's Hunger
+Vaal Regalia
+League: Betrayal
+Source: Drops from unique{Catarina, Master of Undeath}
+Crafted: true
+Implicits: 0
+Trigger Level 20 Bone Offering, Flesh Offering, Spirit Offering every 5 seconds in sequence
+Offering Skills Triggered this way also affect you
+(100-130)% increased Energy Shield
+(6-10)% increased maximum Life
+]]
 }
