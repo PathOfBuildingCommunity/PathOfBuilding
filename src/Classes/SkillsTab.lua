@@ -385,7 +385,7 @@ which comes from the following sources:]]
 			label = [[^7This is a special group created for the ']] .. activeGem.color .. (activeGem.grantedEffect and activeGem.grantedEffect.name or activeGem.nameSpec) .. [[^7' skill,
 which is being provided by ]] .. sourceName .. [[.
 You cannot delete this group, but it will disappear if you ]] .. (self.displayGroup.sourceNode and [[un-allocate the node.]] or [[un-equip the item.]])
-			if not self.displayGroup.noSupports then
+			if not self.displayGroup.noSupports and not self.displayGroup.sourceNode then
 				label = label .. "\n\n" .. [[You cannot add support gems to this group, but support gems in
 any other group socketed into ]] .. sourceName .. [[
 will automatically apply to the skill.]]

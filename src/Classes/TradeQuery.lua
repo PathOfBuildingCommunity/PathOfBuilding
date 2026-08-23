@@ -36,6 +36,7 @@ function TradeQueryClass:TradeQuery(itemsTab)
 	self.lastComparedWeightList = { }
 
 	-- default set of trade item sort selection
+	---@type TradeQuerySlotTable[]
 	self.slotTables = { }
 	self.pbItemSortSelectionIndex = 1
 	-- for each realm and league, a table of values of each currency in div
@@ -531,6 +532,15 @@ Highest Weight - Displays the order retrieved from trade]]
 	end
 
 	-- Individual slot rows
+	---@class TradeQuerySlotTable
+	---@field slotName string Display name of the row, also the slot name for regular slots
+	---@field fullName string? Actual slot name for abyssal sockets, where slotName is the shortened label
+	---@field nodeId number? Passive tree node id for jewel socket rows
+	---@field unique boolean? Row targets a specific unique instead of a slot
+	---@field alreadyCorrupted boolean? The targeted unique only drops corrupted
+	---@field selectedJewelNodeId number? Jewel socket the unique row searches for
+
+	---@type TradeQuerySlotTable[]
 	local slotTables = {}
 	for _, slotName in ipairs(baseSlots) do
 		if self.itemsTab.slots[slotName].shown() then
@@ -602,7 +612,15 @@ Highest Weight - Displays the order retrieved from trade]]
 	self.controls["name"..row_count].shown = function()
 		return hideRowFunc(self, row_count)
 	end
+	row_count = row_count + 1
 
+	-- Pearl of Tsoatha
+	self.slotTables[row_count] = { slotName = "Pearl of Tsoatha", unique = true }
+	self:PriceItemRowDisplay(row_count, top_pane_alignment_ref, row_vertical_padding, row_height)
+	self.controls["name" .. row_count].y = self.controls["name" .. row_count].y + (row_height + row_vertical_padding)
+	self.controls["name" .. row_count].shown = function()
+		return hideRowFunc(self, row_count)
+	end
 	-- fix case where the row count is reduced from the last time the popup was
 	-- opened, which would leave extra row controls in the menu
 	for k, v in pairs(self.controls) do
@@ -1147,13 +1165,18 @@ you can add them, copy the link here, and press "Price Item" to evaluate the ite
 				controls["priceButton"..row_idx].label = "Price Item"
 			end)
 		end)
+	local jewelUniques = {
+		Megalomaniac = true,
+		["Watcher's Eye"] = true,
+	}
 	controls["priceButton"..row_idx].enabled = function()
 		local isAuthorized = main.api.authToken ~= nil
 		local validURL = controls["uri"..row_idx].validURL
 		local isSearching = controls["priceButton"..row_idx].label == "Searching..."
+		local requiresJewelSlot = not slotTbl.unique or jewelUniques[slotTbl.slotName]
 		local selectedJewelSlot = slotTbl.selectedJewelNodeId and self.itemsTab.sockets[slotTbl.selectedJewelNodeId]
 		local hasRequiredJewelSlot = not slotTbl.unique or selectedJewelSlot and not selectedJewelSlot.inactive
-		return isAuthorized and validURL and not isSearching and hasRequiredJewelSlot
+		return isAuthorized and validURL and not isSearching and (hasRequiredJewelSlot or not requiresJewelSlot)
 	end
 	controls["priceButton"..row_idx].tooltipFunc = function(tooltip)
 		tooltip:Clear()
@@ -1161,7 +1184,7 @@ you can add them, copy the link here, and press "Price Item" to evaluate the ite
 			tooltip:AddLine(16, "You must log in to use the search feature")
 		elseif not controls["uri"..row_idx].validURL then
 			tooltip:AddLine(16, "Enter a valid trade URL")
-		elseif slotTbl.unique and (not slotTbl.selectedJewelNodeId or not self.itemsTab.sockets[slotTbl.selectedJewelNodeId] or self.itemsTab.sockets[slotTbl.selectedJewelNodeId].inactive) then
+		elseif jewelUniques[slotTbl.slotName] and (not slotTbl.selectedJewelNodeId or not self.itemsTab.sockets[slotTbl.selectedJewelNodeId] or self.itemsTab.sockets[slotTbl.selectedJewelNodeId].inactive) then
 			tooltip:AddLine(16, "Requires an active Jewel Socket")
 		end
 	end

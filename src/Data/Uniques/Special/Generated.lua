@@ -6,6 +6,11 @@
 
 data.uniques.generated = { }
 
+local function getModTagString(mod)
+	if not mod.modTags or #mod.modTags == 0 then return "" end
+	return string.format("{tags:%s}", table.concat(mod.modTags, ","))
+end
+
 local parseVeiledModName = function(string)
 	return (string:
 	gsub("%JunMasterVeiled", ""):
@@ -1011,3 +1016,68 @@ table.insert(replicaDragonfangsFlight,
 )
 
 table.insert(data.uniques.generated, table.concat(replicaDragonfangsFlight, "\n"))
+
+local pearl = {
+	"Pearl of Tsoatha",
+	"Prismatic Ring",
+	"LevelReq: 30",
+	"Item Level: 85",
+	"League: Allflame",
+	"Source: Velka, the Tide Witch",
+	"Has Alt Variant: true",
+	"Selected Variant: 1",
+	"Selected Alt Variant: 313",
+	"Implicits: 1",
+}
+
+local pearlSupports = require("Data.PearlSupports")
+
+local pearlMods = {}
+local stats = {
+	local_pearl_random_support_gem_2_level = 20
+}
+local pearlSlots = { "Helmet", "Gloves", "Boots", "Passive Tree" }
+for i, pearlSupport in ipairs(pearlSupports) do
+	for slot = 1, 4 do
+		local gemShortName = pearlSupport.baseItemName:gsub(" Support", "")
+
+		stats["local_pearl_random_support_gem_2_slot_index"] = slot
+		stats["local_pearl_random_support_gem_2_index"] = i
+
+		local description = table.concat(data.describeStats(stats, "stat_descriptions"), " ")
+		table.insert(pearlMods, { gem = gemShortName, description = description, slot = pearlSlots[slot] })
+	end
+end
+
+table.sort(pearlMods, function(a, b)
+	if a.slot ~= b.slot then
+		return a.slot < b.slot
+	elseif a.gem ~= b.gem then
+		return a.gem < b.gem
+	elseif a.description ~= b.description then
+		return a.description < b.description
+	end
+	return false
+end)
+
+for _, mod in ipairs(pearlMods) do
+	table.insert(pearl, string.format("Variant: %s / %s", mod.slot, mod.gem))
+end
+
+-- implicit lines
+local implicitMod = data.itemMods.ItemExclusive["AllResistancesImplicitRing1"]
+table.insert(pearl, getModTagString(implicitMod) .. table.concat(implicitMod, " "))
+
+-- non-variant explicit lines
+local pearlBaseMods = { "AllResistancesUniqueRing98", "ElementalDamageUnique__5" }
+for _, modId in ipairs(pearlBaseMods) do
+	local mod = data.itemMods.ItemExclusive[modId]
+	table.insert(pearl, getModTagString(mod) .. table.concat(mod, " "))
+end
+
+-- variant lines
+for i, mod in ipairs(pearlMods) do
+	table.insert(pearl, string.format("{variant:%d}%s", i, mod.description))
+end
+
+table.insert(data.uniques.generated, table.concat(pearl, "\n"))

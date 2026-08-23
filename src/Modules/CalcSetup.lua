@@ -161,7 +161,6 @@ function calcs.buildModListForNode(env, node)
 			t_insert(node.grantedSkills, {
 				skillId = skill.skillId,
 				level = skill.level,
-				noSupports = true,
 				source = "Tree:"..node.id
 			})
 		end
@@ -1505,7 +1504,8 @@ function calcs.initEnv(build, mode, override, specEnv)
 			group.slotEnabled = not slot or not slot.weaponSet or slot.weaponSet == (build.itemsTab.activeItemSet.useSecondWeaponSet and 2 or 1)
 			-- if group is main skill or group is enabled 
 			if index == env.mainSocketGroup or (group.enabled and group.slotEnabled) then
-				local slotName = group.slot and group.slot:gsub(" Swap","")
+				local isTreeSkill = not group.slot and group.source and group.source:lower():find("tree")
+				local slotName = group.slot and group.slot:gsub(" Swap", "") or (isTreeSkill and "Passive Tree") or nil
 				groupCfgList[slotName or "noSlot"] = groupCfgList[slotName or "noSlot"] or {}
 				groupCfgList[slotName or "noSlot"][group] = groupCfgList[slotName or "noSlot"][group] or {
 					slotName = slotName,
@@ -1537,21 +1537,21 @@ function calcs.initEnv(build, mode, override, specEnv)
 					end
 					if grantedEffect then
 						for _, targetList in ipairs(targetListList) do
-							t_insert(targetList, {
+							addBestSupport({
 								grantedEffect = grantedEffect,
 								gemData = env.data.gems[env.data.gemForBaseName[grantedEffect.name:lower()] or env.data.gemForBaseName[(grantedEffect.name .. " Support"):lower()]],
 								level = level or value.level,
+								appliesToGrantedSkills = value and value.appliesToGrantedSkills,
 								quality = 0,
 								enabled = true,
-							})
+							}, targetList, env.mode)
 						end
 					end
 				end
 
-				-- if not unique item that provides skills
-				if not group.source then
-					-- Add extra supports from the item this group is socketed in
-					for _, value in ipairs(env.modDB:List(groupCfg, "ExtraSupport")) do
+				-- Add extra supports from the item this group is socketed in
+				for _, value in ipairs(env.modDB:List(groupCfg, "ExtraSupport")) do
+					if not group.source or value.appliesToGrantedSkills then
 						addExtraSupports(value)
 					end
 				end
@@ -1633,7 +1633,8 @@ function calcs.initEnv(build, mode, override, specEnv)
 		local socketGroupSkillListList = { }
 		for index, group in ipairs(build.skillsTab.socketGroupList) do
 			if index == env.mainSocketGroup or (group.enabled and group.slotEnabled) then
-				local slotName = group.slot and group.slot:gsub(" Swap","")
+				local isTreeSkill = not group.slot and group.source and group.source:lower():find("tree")
+				local slotName = group.slot and group.slot:gsub(" Swap", "") or (isTreeSkill and "Passive Tree") or nil
 				groupCfgList[slotName or "noSlot"][group] = groupCfgList[slotName or "noSlot"][group] or {
 					slotName = slotName,
 					propertyModList = env.modDB:Tabulate("LIST", {slotName = slotName}, "GemProperty")
@@ -1759,7 +1760,8 @@ function calcs.initEnv(build, mode, override, specEnv)
 
 		-- Process calculated active skill lists
 		for index, group in ipairs(build.skillsTab.socketGroupList) do
-			local slotName = group.slot and group.slot:gsub(" Swap","")
+			local isTreeSkill = not group.slot and group.source and group.source:lower():find("tree")
+			local slotName = group.slot and group.slot:gsub(" Swap", "") or (isTreeSkill and "Passive Tree") or nil
 			socketGroupSkillListList[slotName or "noSlot"] = socketGroupSkillListList[slotName or "noSlot"] or {}
 			socketGroupSkillListList[slotName or "noSlot"][group] = socketGroupSkillListList[slotName or "noSlot"][group] or {}
 			local socketGroupSkillList = socketGroupSkillListList[slotName or "noSlot"][group]
