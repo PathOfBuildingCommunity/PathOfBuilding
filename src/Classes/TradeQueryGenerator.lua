@@ -137,7 +137,8 @@ local eldritchModSlots = {
 	["Body Armour"] = true,
 	["Helmet"] = true,
 	["Gloves"] = true,
-	["Boots"] = true
+	["Boots"] = true,
+	["Amulet"] = true
 }
 
 local function logToFile(...)
