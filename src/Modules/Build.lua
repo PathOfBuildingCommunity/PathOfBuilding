@@ -427,7 +427,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 	end
 
 	-- List of display stats
-	local displayStatsModule = LoadModule("Modules/BuildDisplayStats")
+	local displayStatsModule = require("Modules.BuildDisplayStats")
 	self.displayStats = displayStatsModule.displayStats
 	self.minionDisplayStats = displayStatsModule.minionDisplayStats
 	self.extraSaveStats = displayStatsModule.extraSaveStats

@@ -9,8 +9,8 @@ local m_max = math.max
 local m_floor = math.floor
 local s_upper = string.upper
 
-local varList = LoadModule("Modules/ConfigOptions")
-local configVisibility = LoadModule("Modules/ConfigVisibility")
+local varList = require("Modules.ConfigOptions")
+local configVisibility = require("Modules.ConfigVisibility")
 
 ---@class CustomModBlock: ControlHost, Control
 local CustomModBlockClass = newClass("CustomModBlockControl", "ControlHost", "Control")

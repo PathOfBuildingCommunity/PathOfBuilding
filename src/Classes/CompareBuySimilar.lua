@@ -6,15 +6,19 @@
 local t_insert = table.insert
 local m_floor = math.floor
 local dkjson = require "dkjson"
-local tradeHelpers = LoadModule("Classes/TradeHelpers")
-local tradeStats = tradeHelpers.getTradeStats()
+local tradeHelpers = require("Classes.TradeHelpers")
 
--- used to check what stats actually exist on the trade site.
-local existingStats = {}
-for _, cat in ipairs(tradeStats or {}) do
-	for _, entry in ipairs(cat.entries) do
-		existingStats[entry.id] = true
+-- used to check what stats actually exist on the trade site
+local _existingStats
+local function getStats()
+	if _existingStats then return _existingStats end
+	_existingStats = {}
+	for _, cat in ipairs(tradeHelpers.getTradeStats() or {}) do
+		for _, entry in ipairs(cat.entries) do
+			_existingStats[entry.id] = true
+		end
 	end
+	return _existingStats
 end
 
 local M = {}
@@ -257,6 +261,7 @@ function M.addModEntries(item, modTypeSources)
 							-- convert hashes to string ids
 							local resultIds = {}
 							if resultHashes then
+								local existingStats = getStats()
 								for idx = 1, #resultHashes do
 									local id = string.format("%s.stat_%s", source.type, resultHashes[idx])
 									if existingStats[id] then

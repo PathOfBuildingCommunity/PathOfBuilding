@@ -1994,7 +1994,7 @@ function calcs.offence(env, actor, activeSkill)
 		local critOverride = skillModList:Override(skillCfg, "WeaponBaseCritChance")
 		if skillFlags.weapon1Attack then
 			if breakdown then
-				breakdown.MainHand = LoadModule(calcs.breakdownModule)(skillModList, output.MainHand)
+				breakdown.MainHand = require(calcs.breakdownModule)(skillModList, output.MainHand)
 			end
 			activeSkill.weapon1Cfg.skillStats = output.MainHand
 			local source = copyTable(actor.weaponData1)
@@ -2011,7 +2011,7 @@ function calcs.offence(env, actor, activeSkill)
 		end
 		if skillFlags.weapon2Attack then
 			if breakdown then
-				breakdown.OffHand = LoadModule(calcs.breakdownModule)(skillModList, output.OffHand)
+				breakdown.OffHand = require(calcs.breakdownModule)(skillModList, output.OffHand)
 			end
 			activeSkill.weapon2Cfg.skillStats = output.OffHand
 			local source = copyTable(actor.weaponData2)

@@ -75,8 +75,8 @@ function PassiveTreeClass:PassiveTree(treeVersion)
 	self.treeVersion = treeVersion
 	local versionNum = treeVersions[treeVersion].num
 
-	self.legion = LoadModule("Data/TimelessJewelData/LegionPassives")
-	self.tattoo = LoadModule("Data/TattooPassives")
+	self.legion = require("Data.TimelessJewelData.LegionPassives")
+	self.tattoo = require("Data.TattooPassives")
 
 	MakeDir("TreeData")
 
@@ -231,7 +231,7 @@ function PassiveTreeClass:PassiveTree(treeVersion)
 	end
 
 	if not self.assets then
-		self.assets = LoadModule("TreeData/3_19/Assets.lua")
+		self.assets = require("TreeData.3_19.Assets")
 		self.assets = self.assets.assets
 		if self.alternate_ascendancies then
 			-- backgrounds
@@ -386,7 +386,7 @@ function PassiveTreeClass:PassiveTree(treeVersion)
 	end
 
 	-- Load legion sprite sheets and build sprite map
-	local legionSprites = LoadModule("TreeData/legion/tree-legion.lua")
+	local legionSprites = require("TreeData.legion.tree-legion")
 	local function loadLegionSheet(data)
 		local sheet = spriteSheets[data.filename]
 		if not sheet then
