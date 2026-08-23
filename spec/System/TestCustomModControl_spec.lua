@@ -23,6 +23,13 @@ describe("Custom modifier controls", function()
 		return main.popups[1], blockData
 	end
 
+	local function getModTemplate(modText)
+		return modText
+			:gsub("([%+-]?)%((%-?%d+%.?%d*)%-(%-?%d+%.?%d*)%)", "%1#")
+			:gsub("%d+%.?%d*", "#")
+			:lower()
+	end
+
 	it("does not retain the modifier list focus after adding a mod", function()
 		local popup, blockData = openModBrowser()
 		local listControl = popup.controls.listControl
@@ -86,6 +93,62 @@ describe("Custom modifier controls", function()
 		assert.are.equal("", controls.search.buf)
 		assert.are.equal(unfilteredCount, #controls.listControl.list)
 		assert.is_false(controls.search.controls.buttonClear:IsShown())
+	end)
+
+	it("disables adding when no modifiers match the search", function()
+		local popup = openModBrowser()
+		local controls = popup.controls
+
+		controls.search:SetText("this modifier cannot possibly exist", true)
+
+		assert.are.equal("No matching modifiers found", controls.listControl.list[1].text)
+		assert.is_false(controls.save:IsEnabled())
+	end)
+
+	it("includes every supported tree modifier", function()
+		local popup = openModBrowser()
+		local displayedMods = { }
+		for _, mod in ipairs(popup.controls.listControl.list) do
+			displayedMods[mod.template] = mod
+		end
+
+		local tree = build.treeTab.specList[build.treeTab.activeSpec].tree
+		for _, node in pairs(tree.nodes) do
+			if node.type == "Mastery" and node.masteryEffects then
+				for _, masteryEffect in ipairs(node.masteryEffects) do
+					for _, statLine in ipairs(masteryEffect.stats) do
+						local modList, extra = modLib.parseMod(statLine)
+						if modList and not extra then
+							local displayed = displayedMods[getModTemplate(statLine)]
+							assert.is_not_nil(displayed, "Missing supported mastery modifier: " .. statLine)
+							assert.is_true(displayed.sources["Mastery Node"], "Missing mastery source: " .. statLine)
+						end
+					end
+				end
+			else
+				local i = 1
+				while node.stats[i] do
+					local combinedLine = node.stats[i]
+					while node.mods[i + 1] and node.mods[i + 1].combined do
+						combinedLine = combinedLine .. " " .. node.stats[i + 1]
+						i = i + 1
+					end
+					if node.mods[i].list and not node.mods[i].extra then
+						assert.is_not_nil(displayedMods[getModTemplate(combinedLine)], "Missing supported tree modifier: " .. combinedLine)
+					end
+					i = i + 1
+				end
+			end
+		end
+	end)
+
+	it("only lists modifier text accepted by the parser", function()
+		local popup = openModBrowser()
+		for _, mod in ipairs(popup.controls.listControl.list) do
+			local modList, extra = modLib.parseMod(mod.text)
+			assert.is_not_nil(modList, "Unsupported browser modifier: " .. mod.text)
+			assert.is_nil(extra, "Partially supported browser modifier: " .. mod.text)
+		end
 	end)
 
 	it("uses the expanded browser dimensions", function()

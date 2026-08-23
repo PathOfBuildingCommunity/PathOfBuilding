@@ -54,16 +54,18 @@ end
 -- either adds a new entry or adds the source to an existing entry
 local function addModLine(set, line, source, supported)
 	local template = getModTemplate(line)
-	if not set[template] then
-		local modEntry = { text = line, sources = { [source] = true } }
-		if supported ~= nil then
-			-- tree nodes have info on whether they are supported as
-			-- they are parsed when the tree is loaded
-			modEntry.supported = supported
-		end
+	local modEntry = set[template]
+	if not modEntry then
+		modEntry = { text = line, sources = { [source] = true } }
 		set[template] = modEntry
 	else
-		set[template].sources[source] = true
+		modEntry.sources[source] = true
+	end
+	if supported ~= nil then
+		if supported and not modEntry.supported then
+			modEntry.text = line
+		end
+		modEntry.supported = modEntry.supported or supported
 	end
 end
 ---@param seenGroups table
@@ -157,7 +159,8 @@ function M.OpenAddModPopup(configTab, blockData)
 		if node.type == "Mastery" and node.masteryEffects then
 			for _, masteryEffect in ipairs(node.masteryEffects) do
 				for _, statLine in ipairs(masteryEffect.stats) do
-					addModLine(modSet, statLine, string.format("%s Node", node.type))
+					local modList, extra = modLib.parseMod(statLine)
+					addModLine(modSet, statLine, string.format("%s Node", node.type), (not not modList) and not extra)
 				end
 			end
 		else
@@ -167,7 +170,7 @@ function M.OpenAddModPopup(configTab, blockData)
 				while node.mods[i + 1] do
 					local nextMod = node.mods[i + 1]
 					if nextMod.combined then
-						combinedLine = combinedLine .. node.stats[i + 1]
+						combinedLine = combinedLine .. " " .. node.stats[i + 1]
 						i = i + 1
 					else
 						break
@@ -292,7 +295,7 @@ A mod being supported does not necessarily mean that it will be included in calc
 	controls.save.enabled = function()
 		local selIndex = controls.listControl and controls.listControl.selIndex or 1
 		local selected = displayList[selIndex]
-		return selected ~= nil and selected ~= NO_MATCH_TEXT
+		return selected ~= nil and selected.text ~= NO_MATCH_TEXT
 	end
 
 
