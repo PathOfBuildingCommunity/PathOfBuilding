@@ -31,7 +31,17 @@ end
 function ControlHostClass:GetMouseOverControl()
 	for _, control in pairs(self.controls) do
 		if control.IsMouseOver and control:IsMouseOver() then
-			return control
+			local clip = control.mouseClipRect
+			if type(clip) == "function" then
+				clip = clip(control)
+			end
+			if not clip then
+				return control
+			end
+			local cursorX, cursorY = GetCursorPos()
+			if cursorX >= clip[1] and cursorY >= clip[2] and cursorX < clip[1] + clip[3] and cursorY < clip[2] + clip[4] then
+				return control
+			end
 		end
 	end
 end
@@ -40,6 +50,7 @@ function ControlHostClass:ProcessControlsInput(inputEvents, viewPort)
 	local processedImbuedControl
 	for id, event in ipairs(inputEvents) do
 		if event.type == "KeyDown" then
+			local prevSelControl = self.selControl
 			if self.selControl then
 				processedImbuedControl = self.selControl.imbuedSelect and self.selControl.dropped and event.key:match("BUTTON")
 				self:SelectControl(self.selControl:OnKeyDown(event.key, event.doubleClick))
@@ -52,7 +63,8 @@ function ControlHostClass:ProcessControlsInput(inputEvents, viewPort)
 				self:SelectControl()
 				if isMouseInRegion(viewPort) then
 					local mOverControl = self:GetMouseOverControl()
-					if mOverControl and mOverControl.OnKeyDown then
+					-- Skip the control that just handled this event and released focus, otherwise it would process the same click twice
+					if mOverControl and mOverControl ~= prevSelControl and mOverControl.OnKeyDown then
 						self:SelectControl(mOverControl:OnKeyDown(event.key, event.doubleClick))
 						inputEvents[id] = nil
 					end

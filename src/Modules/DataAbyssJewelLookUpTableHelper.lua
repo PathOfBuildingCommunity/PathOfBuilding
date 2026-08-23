@@ -5,7 +5,7 @@
 --
 local s_byte = string.byte
 local s_sub = string.sub
-local loadJewelFile = LoadModule("Modules/DataJewelFileLoader")
+local loadJewelFile = require("Modules.DataJewelFileLoader")
 
 local function readUInt16(jewelData, offset)
 	return bytesToUShort(jewelData, offset), offset + 2

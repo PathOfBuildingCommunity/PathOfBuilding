@@ -111,7 +111,7 @@ function calcs.createActiveSkill(activeEffect, supportList, actor, socketGroup, 
 	for index, supportEffect in ipairs(supportList) do
 		-- Pass 1: Add skill types from compatible supports
 		if supportEffect.grantedEffect.support then
-			if calcLib.canGrantedEffectSupportActiveSkill(supportEffect.grantedEffect, activeSkill) then
+			if calcLib.canGrantedEffectSupportActiveSkill(supportEffect.grantedEffect, activeSkill, nil, supportEffect.appliesToGrantedSkills) then
 				for _, skillType in pairs(supportEffect.grantedEffect.addSkillTypes) do
 					activeSkill.skillTypes[skillType] = true
 				end
@@ -129,7 +129,7 @@ function calcs.createActiveSkill(activeEffect, supportList, actor, socketGroup, 
 		for index, supportEffectIndex in ipairs(rejectedSupportsIndices) do
 			local supportEffect = supportList[supportEffectIndex]
 			if supportEffect.grantedEffect.support then
-				if calcLib.canGrantedEffectSupportActiveSkill(supportEffect.grantedEffect, activeSkill) then
+				if calcLib.canGrantedEffectSupportActiveSkill(supportEffect.grantedEffect, activeSkill, nil, supportEffect.appliesToGrantedSkills) then
 					notAddedNewSupport = false
 					rejectedSupportsIndices[index] = nil
 					for _, skillType in pairs(supportEffect.grantedEffect.addSkillTypes) do
@@ -143,7 +143,7 @@ function calcs.createActiveSkill(activeEffect, supportList, actor, socketGroup, 
 	for _, supportEffect in ipairs(supportList) do
 		-- Pass 2: Add all compatible supports
 		if supportEffect.grantedEffect.support then
-			if calcLib.canGrantedEffectSupportActiveSkill(supportEffect.grantedEffect, activeSkill) then
+			if calcLib.canGrantedEffectSupportActiveSkill(supportEffect.grantedEffect, activeSkill, nil, supportEffect.appliesToGrantedSkills) then
 				t_insert(activeSkill.effectList, supportEffect)
 				if supportEffect.isSupporting and activeEffect.srcInstance then
 					supportEffect.isSupporting[activeEffect.srcInstance] = true

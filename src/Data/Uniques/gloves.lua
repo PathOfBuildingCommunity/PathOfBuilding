@@ -6,6 +6,7 @@ return {
 Admiral's Arrogance
 Antique Gauntlets
 League: Settlers of Kalguur
+Source: Drops from unique{Admiral Valerius} in normal{Shipping encounters}
 Requires Level 39, 58 Str
 (6-12)% increased Attack Speed
 (100-140)% increased Armour
@@ -886,6 +887,7 @@ Chaos Skills have 20% chance to Ignite
 Hand of Heresy
 Martyr Gloves
 League: Mercenaries of Trarthus
+Source: Reward from Mercenary duel
 Variant: Pre 3.28.0
 Variant: Current
 Requires Level 77, 70 Str, 70 Int
@@ -921,7 +923,6 @@ Unaffected by Shock while Leeching Energy Shield
 Algor Mortis
 Carnal Mitts
 League: Delirium
-Source: Drops from the Simulacrum Encounter
 Requires Level 50, 39 Dex, 39 Int
 +(50-70) to maximum Energy Shield
 +(15-20)% to Cold and Lightning Resistances
@@ -1064,6 +1065,7 @@ Requires Level 5
 ]],[[
 Malachai's Mark
 Murder Mitts
+Source: Drops from unique{Nightmare of the Depraved Trinity} in normal{Abomination Map}
 Requires Level 67, 51 Dex, 51 Int
 (80-100)% increased Evasion and Energy Shield
 +(60-80) to maximum Life
@@ -1147,6 +1149,7 @@ Medved's Challenge
 Runic Gauntlets
 Requires Level 69, 38 Str, 38 Dex, 38 Int
 League: Expedition
+Source: Drops from Expedition monsters
 800% increased Attribute Requirements
 (30-50)% increased Ward
 +(15-25)% to all Elemental Resistances
@@ -1159,6 +1162,7 @@ Variant: Pre 3.16.0
 Variant: Pre 3.25.0
 Variant: Current
 League: Expedition
+Source: Drops from Expedition monsters
 Requires Level 48, 31 Str, 31 Dex, 31 Int
 (33-48)% increased Ward
 +(17-23)% to Chaos Resistance

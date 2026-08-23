@@ -132,6 +132,29 @@ describe("TestSkills", function()
 		assert.are.equals(cappedCombinedDPS, build.calcsTab.mainOutput.CombinedDPS)
 	end)
 
+	it("uses enemy radius when calculating Ball Lightning hits", function()
+		build.skillsTab:PasteSocketGroup("Ball Lightning 20/0  1\n")
+		runCallback("OnFrame")
+
+		local mainSocketGroup = build.skillsTab.socketGroupList[build.mainSocketGroup]
+		mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeEffect.srcInstance.skillPart = 2
+		build.configTab.input.projectileDistance = 40
+		build.configTab.input.enemyRadius = 1
+		build.configTab:BuildModList()
+		build.modFlag = true
+		build.buildFlag = true
+		runCallback("OnFrame")
+		local smallEnemyHits = build.calcsTab.mainOutput.SkillDPSMultiplier
+
+		build.configTab.input.enemyRadius = 11
+		build.configTab:BuildModList()
+		build.modFlag = true
+		build.buildFlag = true
+		runCallback("OnFrame")
+
+		assert.is_true(build.calcsTab.mainOutput.SkillDPSMultiplier > smallEnemyHits)
+	end)
+
 	it("Test Adrenaline affecting blight max stage count", function()
 		build.skillsTab:PasteSocketGroup("Blight 20/0  1\n")
 		runCallback("OnFrame")
@@ -331,8 +354,8 @@ describe("TestSkills", function()
 		runCallback("OnFrame")
 
 		local genericEfficiencyCost = build.calcsTab.mainOutput.ManaCost
-		-- Test actual behavior: 12/1.25 = 9.6 (not rounded)
-		assert.True(math.abs(genericEfficiencyCost - 9.6) < 0.001)
+		-- The game rounds 12 / 1.25 = 9.6 after applying efficiency.
+		assert.are.equals(10, genericEfficiencyCost)
 
 		-- Test multiple efficiency sources stacking additively
 		build.configTab.input.customMods = "25% increased Cost Efficiency\n25% increased Mana Cost Efficiency"
@@ -381,6 +404,46 @@ describe("TestSkills", function()
 		assert.equals(18, build.calcsTab.mainOutput.LifeCost)
 	end)
 
+	it("converts and rounds flat mana cost separately from base cost", function()
+		build.skillsTab:PasteSocketGroup("Hydrosphere 1/0  1\n")
+		build.configTab.input.customMods = "Skills Cost Life instead of 15% of Mana Cost\n+4 to Total Mana Cost"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.equals(3, build.calcsTab.mainOutput.LifeCost)
+		assert.equals(13, build.calcsTab.mainOutput.ManaCost)
+	end)
+
+	it("moves flat mana cost when all costs are converted", function()
+		build.skillsTab:PasteSocketGroup("Hydrosphere 1/0  1\n")
+		build.configTab.input.customMods = "Skills Cost Life instead of Mana\n+4 to Total Mana Cost"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.equals(16, build.calcsTab.mainOutput.LifeCost)
+		assert.equals(0, build.calcsTab.mainOutput.ManaCost)
+	end)
+
+	it("does not move reduced flat mana cost to life", function()
+		build.skillsTab:PasteSocketGroup("Hydrosphere 1/0  1\n")
+		build.configTab.input.customMods = "Skills Cost Life instead of Mana\nNon-Channelling Skills have -7 to Total Mana Cost"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.equals(12, build.calcsTab.mainOutput.LifeCost)
+		assert.equals(0, build.calcsTab.mainOutput.ManaCost)
+	end)
+
+	it("does not partially convert reduced flat mana cost to life", function()
+		build.skillsTab:PasteSocketGroup("Hydrosphere 1/0  1\n")
+		build.configTab.input.customMods = "Skills Cost Life instead of 15% of Mana Cost\nNon-Channelling Skills have -7 to Total Mana Cost"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.equals(2, build.calcsTab.mainOutput.LifeCost)
+		assert.equals(4, build.calcsTab.mainOutput.ManaCost)
+	end)
+
 	it("Test flat cost is added after cost efficiency for energy shield costs", function()
 		build.skillsTab:PasteSocketGroup("Hydrosphere 1/0  1\n")
 
@@ -391,6 +454,58 @@ describe("TestSkills", function()
 
 		-- 12 / 1.5 + 10 = 18
 		assert.equals(18, build.calcsTab.mainOutput.ESCost)
+	end)
+
+	it("moves flat mana cost to energy shield with the base cost", function()
+		build.skillsTab:PasteSocketGroup("Hydrosphere 1/0  1\n")
+		build.configTab.input.customMods = "Skills Cost Energy Shield instead of Mana or Life\n+4 to Total Mana Cost"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.equals(16, build.calcsTab.mainOutput.ESCost)
+		assert.equals(0, build.calcsTab.mainOutput.ManaCost)
+	end)
+
+	it("does not move reduced flat mana cost to energy shield", function()
+		build.skillsTab:PasteSocketGroup("Hydrosphere 1/0  1\n")
+		build.configTab.input.customMods = "Skills Cost Energy Shield instead of Mana or Life\nNon-Channelling Skills have -7 to Total Mana Cost"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.equals(12, build.calcsTab.mainOutput.ESCost)
+		assert.equals(0, build.calcsTab.mainOutput.ManaCost)
+	end)
+
+	it("only grants payable cost damage when the full cost can be paid", function()
+		build.skillsTab:PasteSocketGroup("Fireball 1/0  1\n")
+		build.configTab.input.customMods = "Skills gain Added Chaos Damage equal to 25% of Mana Cost, if Mana Cost is not higher than the maximum you could spend"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.equals(5, build.calcsTab.mainOutput.ManaCost)
+		assert.are.equals(1, build.calcsTab.mainEnv.player.mainSkill.skillModList:Sum("BASE", build.calcsTab.mainEnv.player.mainSkill.skillCfg, "ChaosMin"))
+
+		build.configTab.input.customMods = build.configTab.input.customMods .. "\n-10000 to maximum Mana"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.equals(0, build.calcsTab.mainEnv.player.mainSkill.skillModList:Sum("BASE", build.calcsTab.mainEnv.player.mainSkill.skillCfg, "ChaosMin"))
+
+		build.configTab.input.customMods = build.configTab.input.customMods .. "\nEnergy Shield protects Mana instead of Life\n+100 to maximum Energy Shield"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.equals(1, build.calcsTab.mainEnv.player.mainSkill.skillModList:Sum("BASE", build.calcsTab.mainEnv.player.mainSkill.skillCfg, "ChaosMin"))
+	end)
+
+	it("checks life-cost damage against the full life cost", function()
+		build.skillsTab:PasteSocketGroup("Fireball 1/0  1\n")
+		build.configTab.input.customMods = "Skills Cost Life instead of Mana\nSkills gain Added Chaos Damage equal to 25% of Life Cost, if Life Cost is not higher than the maximum you could spend\n-10000 to maximum Life"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.equals(5, build.calcsTab.mainOutput.LifeCost)
+		assert.are.equals(0, build.calcsTab.mainEnv.player.mainSkill.skillModList:Sum("BASE", build.calcsTab.mainEnv.player.mainSkill.skillCfg, "ChaosMin"))
 	end)
 	it("Test mana cost efficiency with support gems", function()
 		-- Test interaction between cost efficiency and cost multipliers
@@ -403,6 +518,17 @@ describe("TestSkills", function()
 
 		local finalCost = build.calcsTab.mainOutput.ManaCost
 		assert.are.equals(7, round(finalCost))
+	end)
+
+	it("rounds Supreme Ego mana reservation down", function()
+		build.skillsTab:PasteSocketGroup("Precision 1/0  1\n")
+		local supremeEgo = build.spec.tree.keystoneMap["Supreme Ego"]
+		build.spec:AllocNode(build.spec.nodes[supremeEgo.id])
+		build.spec:BuildAllDependsAndPaths()
+		runCallback("OnFrame")
+
+		-- 22 base + floor(40% of 22) = 30, rather than round(22 * 1.4) = 31.
+		assert.are.equals(30, build.calcsTab.mainEnv.player.mainSkill.skillData.ManaReservedBase)
 	end)
 
 	it("evaluates BaseFlag tags using PoB 1 skill data", function()

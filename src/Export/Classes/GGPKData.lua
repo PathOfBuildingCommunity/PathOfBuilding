@@ -258,6 +258,7 @@ function GGPKClass:GetNeededFiles()
 		"Data/ItemisedCorpse.dat",
 		"Data/IndexableSkillGems.dat",
 		"Data/IndexableSupportGems.dat",
+		"Data/IndexableNonActiveSupportGems.dat",
 		"Data/ItemClassCategories.dat",
 		"Data/MinionType.dat",
 		"Data/SummonedSpecificMonsters.dat",

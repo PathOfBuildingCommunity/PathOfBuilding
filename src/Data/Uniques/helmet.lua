@@ -133,6 +133,7 @@ Requires Level 55, 114 Str
 Kaom's Command
 Siege Helmet
 League: Settlers of Kalguur
+Source: Kingsmarch Shipping to normal{Ngakanu} or normal{Te Onui}
 Requires Level 48, 101 Str
 +(60-80) to maximum Life
 (25-35)% increased Warcry Speed
@@ -784,6 +785,7 @@ Bone Circlet
 Variant: Pre 3.19.0
 Variant: Pre 3.24.0
 Variant: Current
+Source: Drops from unique{Nightmare of Catarina} in normal{Ziggurat Map}
 Requires Level: 34, 73 Int
 {variant:3}Has 4 Abyssal Sockets
 {variant:1,2}+2 to Level of Socketed Minion Gems
@@ -1028,6 +1030,7 @@ Requires Level 36, 42 Str, 42 Dex
 El'Abin's Visage
 Fencer Helm
 League: Crucible
+Source: Drops from Crucible monsters
 +(20-30) to Strength
 +(20-30) to Dexterity
 (80-120)% increased Armour and Evasion
@@ -1038,6 +1041,7 @@ Crucible Passive Skill Tree is removed if this Modifier is removed
 The Trickster's Smile
 Visored Sallet
 League: Affliction
+Source: Drops from Viridian Wildwood and Ritual monsters
 Requires Level 23, 28 Str, 28 Dex
 (60-100)% increased Armour and Evasion
 Reflects 100 Cold Damage to Melee Attackers
@@ -1508,10 +1512,11 @@ Chaos Resistance is Zero
 Corrupted
 ]],[[
 Gorgon's Gaze
+Source: Drops from unique{Talin, Faithbreaker} in normal{Pillars of Arun}
 Regicide Mask
 Requires Level 52, 58 Dex, 58 Int
 Implicits: 0
-Grants Level 20 Summon Petrification Statue Skill
+Grants Level 20 Petrification Statue Skill
 (200-250)% increased Energy Shield
 +(60-80) to maximum Life
 (5-10)% increased Attack and Cast Speed
@@ -1714,6 +1719,7 @@ Lose all Power Charges when you Block
 Faithguard
 Runic Helm
 League: Expedition
+Source: Drops from Expedition monsters
 Variant: Pre 3.19.0
 Variant: Current
 +(20-30) to Intelligence

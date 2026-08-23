@@ -9,8 +9,8 @@ local curl = require("lcurl.safe")
 local m_max = math.max
 local s_format = string.format
 local t_insert = table.insert
-local tradeHelpers = LoadModule("Classes/TradeHelpers")
-local utils = LoadModule("Modules/Utils")
+local tradeHelpers = require("Classes.TradeHelpers")
+local utils = require("Modules.Utils")
 
 -- a table which tells us what subtypes each category we can search for
 -- contains. the commented out lines are type-subtype combinations which don't
@@ -39,7 +39,7 @@ local tradeCategoryNames = {
 	["1HSword"] = { "One Handed Sword", "One Handed Sword: Thrusting" },
 	["1HMace"] = { "One Handed Mace" },
 	["Sceptre"] = { "Sceptre" },
-	["Dagger"] = { "Dagger" },
+	["Dagger"] = { "Dagger", "Dagger: Rune Dagger" },
 	["Wand"] = { "Wand" },
 	["Claw"] = { "Claw" },
 	["Staff"] = { "Staff", "Staff: Warstaff" },
@@ -156,9 +156,11 @@ end
 ---@class TradeQueryGenerator
 local TradeQueryGeneratorClass = newClass("TradeQueryGenerator")
 
+---@param queryTab TradeQuery
 function TradeQueryGeneratorClass:TradeQueryGenerator(queryTab)
 	self:InitMods()
 	self.queryTab = queryTab
+	---@type ItemsTab
 	self.itemsTab = queryTab.itemsTab
 	self.calcContext = { }
 	self.lastMaxPrice = nil
@@ -378,7 +380,7 @@ function TradeQueryGeneratorClass:InitMods()
 	if file then
 		file:close()
 		---@module "src.Data.QueryMods"
-		self.modData = LoadModule(queryModFilePath)
+		self.modData = require(queryModFilePath:gsub("%.lua$", ""))
 		return
 	end
 
@@ -419,15 +421,15 @@ function TradeQueryGeneratorClass:InitMods()
 	local description = "This file contains the trade site data from https://www.pathofexile.com/api/trade/data/stats"
 	utils.saveTableToFile("./Data/TradeSiteStats.lua", body.result, description)
 	self.modData = {
-		["Explicit"] = { },
-		["Implicit"] = { },
+		["Explicit"] = {},
+		["Implicit"] = {},
 		["Enchant"] = {},
-		["Corrupted"] = { },
-		["Scourge"] = { },
-		["Eater"] = { },
+		["Corrupted"] = {},
+		["Scourge"] = {},
+		["Eater"] = {},
 		["Exarch"] = {},
-		["PassiveNode"] = { },
-		["WatchersEye"] = { },
+		["PassiveNode"] = {},
+		["WatchersEye"] = {},
 	}
 
 	local tradeQueryStatsParsed = body
@@ -458,15 +460,43 @@ function TradeQueryGeneratorClass:InitMods()
 		{ ["AbyssJewel"] = true })
 	self:GenerateModData(data.itemMods.Flask, tradeQueryStatsParsed, { ["Flask"] = true })
 
+	-- translate base type name to trade category name for e.g. essences and drop-restricted mods
+	local function getTradeCategoryNamesForType(mask, cat)
+		for tradeName, typeNames in pairs(tradeCategoryNames) do
+			if tradeName == cat then
+				mask[tradeName] = true
+			end
+			for _, name in ipairs(typeNames) do
+				if cat == name then
+					mask[tradeName] = true
+				end
+			end
+		end
+	end
+
 	-- Special handling for essences
 	for _, essenceItem in pairs(data.essences) do
 		for itemType, modId in pairs(essenceItem.mods) do
 			local mask = {}
-			mask[itemType] = true
+			getTradeCategoryNamesForType(mask, itemType:gsub("Thrusting One Handed Sword", "One Handed Sword: Thrusting"))
 			self:ProcessMod(modId, data.itemMods.Item[modId], tradeQueryStatsParsed, regularItemMask, mask)
 		end
 	end
 
+	-- drop-restricted delve and temple mods
+	for _, list in ipairs({ require("Data.IncursionDropOnly"), require("Data.DelveDropOnly") }) do
+		for modId, entry in pairs(list) do
+			local mod = data.itemMods.Delve[modId] or data.itemMods.Explicit[modId]
+			local mask = {}
+			-- convert base type name to trade category
+			for _, cat in ipairs(entry.categories) do
+				getTradeCategoryNamesForType(mask, cat)
+			end
+			if next(mask) ~= nil then
+				self:ProcessMod(modId, mod, tradeQueryStatsParsed, regularItemMask, mask)
+			end
+		end
+	end
 	regularItemMask.Flask = true -- Update mask as flasks can have crafted mods.
 	self:GenerateModData(data.masterMods, tradeQueryStatsParsed, regularItemMask)
 	self:GenerateModData(data.veiledMods, tradeQueryStatsParsed, regularItemMask)
@@ -704,6 +734,18 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
 			itemCategory = "AnyJewel"
 			itemCategoryQueryStr = "jewel"
 		end
+		if options.special.itemName == "Pearl of Tsoatha" then
+			itemCategory = "Ring"
+			itemCategoryQueryStr = "ring"
+			testItemType = "Prismatic Ring"
+			special = {
+				queryFilters = {},
+				queryExtra = {
+					name = "Pearl of Tsoatha",
+				},
+				pearl = true,
+			}
+		end
 	else
 		itemCategoryQueryStr, itemCategory = tradeHelpers.getTradeCategory(slot.slotName, existingItem)
 
@@ -779,6 +821,38 @@ function TradeQueryGeneratorClass:ExecuteQuery()
 		if self.calcContext.options.includeCorrupted then
 			self:GenerateModWeights(self.modData["Corrupted"])
 		end
+		return
+	end
+	if self.calcContext.special.pearl then
+		-- this item has no queryMods data as it only has a single mod which
+		-- instead has stats defining what it does
+		local mods = {}
+		-- mystery hash. no clue what stat names this is from
+		local statHash = "4089743927"
+		for slot = 1, 4 do
+			for support = 1, #require("Data.PearlSupports") do
+				local stats = {
+					local_pearl_random_support_gem_2_level = 20,
+					local_pearl_random_support_gem_2_slot_index = slot,
+					local_pearl_random_support_gem_2_index = support,
+				}
+				local text = table.concat(data.describeStats(stats, "stat_descriptions"), " ")
+				local modEntry = {
+					Ring = {
+						max = 1,
+						min = 1,
+					},
+					specialCaseData = {},
+					sign = "",
+					tradeMod = {
+						id = string.format("explicit.stat_%s|%s|%s", statHash, slot, support),
+						text = text
+					},
+				}
+				table.insert(mods, modEntry)
+			end
+		end
+		self:GenerateModWeights(mods)
 		return
 	end
 	self:GenerateModWeights(self.modData["Explicit"])
@@ -1177,6 +1251,21 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 		end
 		updateLastAnchor(controls.jewelSlot)
 	end
+	if context.slotTbl.slotName == "Pearl of Tsoatha" then
+		local ringList = {}
+		for i = 1, 3 do
+			local slot = self.itemsTab.slots["Ring " .. i]
+			if slot and slot.shown() then
+				table.insert(ringList, slot)
+			end
+		end
+		table.sort(ringList, function(a, b)
+			return a.label < b.label
+		end)
+		controls.ringSlot = new("DropDownControl"):DropDownControl({ "TOPLEFT", lastItemAnchor, "BOTTOMLEFT" }, { 0, 5, 100, 18 }, ringList, function() end)
+		controls.ringSlotLabel = new("LabelControl"):LabelControl({ "RIGHT", controls.ringSlot, "LEFT" }, { -5, 0, 0, 16 }, "Ring Slot:")
+		updateLastAnchor(controls.ringSlot)
+	end
 	-- these unique items cannot be mirrored
 	if not context.slotTbl.unique then
 		controls.includeMirrored = new("CheckBoxControl"):CheckBoxControl({"TOPRIGHT",lastItemAnchor,"BOTTOMRIGHT"}, {0, 5, 18}, "Mirrored Items:", function(state) end)
@@ -1402,6 +1491,9 @@ Remove: %s will be removed from the search results.]], term, term, term)
 		if controls.jewelSlot then
 			slot = controls.jewelSlot:GetSelValue()
 			context.slotTbl.selectedJewelNodeId = slot.nodeId
+		end
+		if controls.ringSlot then
+			slot = controls.ringSlot:GetSelValue()
 		end
 
 		self:StartQuery(slot, options)

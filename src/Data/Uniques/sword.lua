@@ -494,6 +494,7 @@ Adds (75-92) to (125-154) Physical Damage
 The Redblade
 Gladius
 League: Crucible
+Source: Drops from Crucible monsters
 Implicits: 1
 40% increased Global Accuracy Rating
 (150-180)% increased Physical Damage
