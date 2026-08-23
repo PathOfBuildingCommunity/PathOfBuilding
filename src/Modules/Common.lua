@@ -1150,17 +1150,3 @@ function HashStats(stats, extraStat)
 	end
 	return murmurHash2(statHashes, GGG_TRADE_SEED)
 end
-
----@param a table
----@param b table
----@return table combination A new table which contains the items from both tables. Note that if both tables contain the same key, b's key will override it. The values will not be copied and will still refer to the old values.
-function table.combine(a, b)
-	local combination = {}
-	for k, v in pairs(a) do
-		combination[k] = v
-	end
-	for k, v in pairs(b) do
-		combination[k] = v
-	end
-	return combination
-end

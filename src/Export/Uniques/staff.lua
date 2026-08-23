@@ -810,6 +810,7 @@ Cane of Kulemak
 Serpentine Staff
 Source: Drops from unique{Catarina, Master of Undeath}
 Crafted: true
+Requires Level 68, 85 Str, 85 Int
 Implicits: 1
 StaffBlockPercentImplicitStaff2
 LocalVeiledModEffectUnique__1

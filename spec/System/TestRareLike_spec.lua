@@ -2,7 +2,7 @@ describe("Veiled unique affix pools", function()
 	local function makeUnique(name)
 		for _, typeList in pairs(data.uniques) do
 			for _, raw in pairs(typeList) do
-				if raw:match("^%s*([^\r\n]+)") == name then
+				if raw:match("^%s*([^\r\n]+)") == name or raw:find("\n" .. name .. "\n", 1, true) then
 					return new("Item"):Item(raw, "UNIQUE")
 				end
 			end
@@ -34,6 +34,7 @@ describe("Veiled unique affix pools", function()
 	it("includes weapon-legal Catarina veiled mods on Cane of Kulemak", function()
 		local cane = makeUnique("Cane of Kulemak")
 		assert.is_not_nil(cane)
+		assert.are.equal(68, cane.requirements.level)
 		local lines = offeredLines(cane)
 		assert.is_not_nil(lines:find("+2 to Level of Socketed Support Gems", 1, true))
 		assert.is_not_nil(lines:find("+(5-8)% to Quality of Socketed Support Gems", 1, true))
@@ -65,5 +66,14 @@ describe("Veiled unique affix pools", function()
 		assert.is_not_nil(lines:find("chance to Explode", 1, true))
 		assert.is_nil(lines:find("maximum number of Spectres", 1, true))
 		assert.is_nil(lines:find("Minions are Aggressive", 1, true))
+	end)
+
+	it("only offers attainable modifiers on That Which Was Taken", function()
+		local item = makeUnique("That Which Was Taken")
+		assert.is_not_nil(item)
+		assert.are.equal(1, item.limit)
+		assert.are.equal(48, item.requirements.level)
+		assert.is_nil(item.affixes.AnimalCharmMaximumRage1)
+		assert.is_not_nil(item.affixes.AnimalCharmMaximumRage2)
 	end)
 end)

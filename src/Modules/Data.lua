@@ -1334,25 +1334,37 @@ for modId, mod in pairs(data.itemMods.JewelAbyss) do
 	end
 end
 
-data.veiledMasterSpawnTags = {}
-local catarinaPrefixes = {}
-local veiledPrefixes = {}
+local veiledMasterSpawnTags = {}
+local veiledMods = {}
 local veiledSuffixes = {}
+local caneOfKulemakMods = {}
+local queensHungerMods = {}
 for modId, mod in pairs(data.veiledMods) do
 	if mod.affix == "Chosen" then
-		veiledPrefixes[modId] = mod
+		veiledMods[modId] = mod
+		caneOfKulemakMods[modId] = mod
 	elseif mod.affix == "Catarina's" then
-		catarinaPrefixes[modId] = mod
+		caneOfKulemakMods[modId] = mod
+		queensHungerMods[modId] = mod
 	elseif mod.affix == "of the Order" then
+		veiledMods[modId] = mod
 		veiledSuffixes[modId] = mod
+		caneOfKulemakMods[modId] = mod
+		queensHungerMods[modId] = mod
 	end
 	for _, tag in pairs(mod.weightKey) do
 		if tag:find("^[%a_]+_veiled_prefix") or tag:find("^[%a_]+_veiled_suffix") then
-			table.insert(data.veiledMasterSpawnTags, tag)
+			table.insert(veiledMasterSpawnTags, tag)
 		end
 	end
 end
-local veiledMods = table.combine(veiledPrefixes, veiledSuffixes)
+
+local thatWhichWasTakenMods = {}
+for modId, mod in pairs(data.itemMods.JewelCharm) do
+	if not modId:match("1$") then
+		thatWhichWasTakenMods[modId] = mod
+	end
+end
 
 local dreadCaptainBase = { base = copyTable(data.itemBases["Ghostflame Blade"]) }
 dreadCaptainBase.base.tags.deepwater_sword = true
@@ -1361,7 +1373,7 @@ local caneOfKulemakBase = { base = copyTable(data.itemBases["Serpentine Staff"])
 caneOfKulemakBase.base.tags.catarina_veiled_prefix = true
 
 local replicaParadoxicaBase = { base = copyTable(data.itemBases["Vaal Rapier"]) }
-for _, tag in ipairs(data.veiledMasterSpawnTags) do
+for _, tag in ipairs(veiledMasterSpawnTags) do
 	if tag:find("prefix") then
 		replicaParadoxicaBase.base.tags[tag] = true
 	end
@@ -1414,7 +1426,7 @@ data.rareLikeUniques = {
 	},
 	["cane of kulemak"] = {
 		validBases = { caneOfKulemakBase },
-		affixes = table.combine(catarinaPrefixes, veiledMods),
+		affixes = caneOfKulemakMods,
 		prefixLimit = 2,
 		suffixLimit = 2,
 	},
@@ -1428,13 +1440,13 @@ data.rareLikeUniques = {
 	},
 	["the queen's hunger"] = {
 		validBases = { queensHungerBase },
-		affixes = table.combine(catarinaPrefixes, veiledSuffixes),
+		affixes = queensHungerMods,
 		prefixLimit = 1,
 		suffixLimit = 1,
 	},
 	["that which was taken"] = {
 		validBases = data.itemBaseLists["Jewel: Charm"],
-		affixes = data.itemMods.JewelCharm,
+		affixes = thatWhichWasTakenMods,
 		prefixLimit = 4,
 		suffixLimit = 0,
 		ignoreModType = true,
