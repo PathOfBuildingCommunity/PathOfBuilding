@@ -372,6 +372,24 @@ local function doActorAttribsConditions(env, actor)
 			modDB:NewMod("ElementalResistMax", "BASE", m_floor(2 * shrineEffectMod), "Lesser Resistance Shrine")
 			modDB:NewMod("ChaosResistMax", "BASE", m_floor(2 * shrineEffectMod), "Lesser Resistance Shrine")
 		end
+		if modDB:Flag(nil, "BloodShrineOfRats") then
+			modDB:NewMod("ElementalDamageGainAsChaos", "BASE", m_floor(30 * shrineEffectMod), "Blood Shrine of Rats")
+		end
+		if modDB:Flag(nil, "BloodShrineOfLocusts") then
+			modDB:NewMod("DotMultiplier", "BASE", m_floor(30 * shrineEffectMod), "Blood Shrine of Locusts")
+		end
+		if modDB:Flag(nil, "BloodShrineOfToads") then
+			modDB:NewMod("BloodShrineExplodingToadTriggerChance", "BASE", m_floor(25 * shrineEffectMod), "Blood Shrine of Toads")
+		end
+		if modDB:Flag(nil, "BloodShrineOfCrows") then
+			modDB:NewMod("ChaosResist", "BASE", m_floor(50 * shrineEffectMod), "Blood Shrine of Crows")
+			modDB:NewMod("ElementalDamageFromHitsTakenAsChaos", "BASE", m_floor(10 * shrineEffectMod), "Blood Shrine of Crows")
+			modDB:NewMod("PhysicalDamageFromHitsTakenAsChaos", "BASE", m_floor(10 * shrineEffectMod), "Blood Shrine of Crows")
+		end
+		if modDB:Flag(nil, "BloodShrineOfBats") then
+			modDB:NewMod("EnemyCurseLimit", "BASE", m_floor(1 * shrineEffectMod), "Blood Shrine of Bats")
+			modDB:NewMod("ExtraCurse", "LIST", { skillId = "Enfeeble", level = 1 }, "Blood Shrine of Bats")
+		end
 	end
 	if env.mode_effective then
 		if env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "FireExposureChance") > 0 or modDB:Sum("BASE", nil, "FireExposureChance") > 0 then

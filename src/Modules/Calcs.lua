@@ -772,6 +772,21 @@ function calcs.buildOutput(build, mode)
 		if env.modDB:Flag(nil, "LesserResistanceShrine") then
 			t_insert(combatList, "Lesser Resistance Shrine")
 		end
+		if env.modDB:Flag(nil, "BloodShrineOfRats") then
+			t_insert(combatList, "Blood Shrine of Rats")
+		end
+		if env.modDB:Flag(nil, "BloodShrineOfLocusts") then
+			t_insert(combatList, "Blood Shrine of Locusts")
+		end
+		if env.modDB:Flag(nil, "BloodShrineOfToads") then
+			t_insert(combatList, "Blood Shrine of Toads")
+		end
+		if env.modDB:Flag(nil, "BloodShrineOfCrows") then
+			t_insert(combatList, "Blood Shrine of Crows")
+		end
+		if env.modDB:Flag(nil, "BloodShrineOfBats") then
+			t_insert(combatList, "Blood Shrine of Bats")
+		end
 		for name in pairs(env.buffs) do
 			t_insert(buffList, name)
 		end

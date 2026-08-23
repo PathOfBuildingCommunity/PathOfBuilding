@@ -16252,8 +16252,7 @@ c["Gain a Spirit Charge on Kill Recover 5% of Life when you lose a Spirit Charge
 c["Gain a Void Charge every 0.5 seconds"]={nil,"a Void Charge every 0.5 seconds "}
 c["Gain a Void Charge every second"]={nil,"a Void Charge every second "}
 c["Gain a Void Charge every second 5 Maximum Void Charges"]={nil,"a Void Charge every second 5 Maximum Void Charges "}
-c["Gain a random Blood Shrine buff every 10 seconds"]={nil,"a random Blood Shrine buff every 10 seconds "}
-c["Gain a random Blood Shrine buff every 10 seconds 2% increased Effect of Shrine Buffs on you for each 5% of Life Reserved"]={nil,"a random Blood Shrine buff every 10 seconds 2% increased Effect of Shrine Buffs on you  "}
+c["Gain a random Blood Shrine buff every 10 seconds"]={{[1]={flags=0,keywordFlags=0,name="Condition:CanHaveBloodShrines",type="FLAG",value=true}},nil}
 c["Gain a random Shrine Buff for 30 seconds when you Kill a Rare or Unique Enemy"]={{[1]={flags=0,keywordFlags=0,name="Condition:CanHaveRegularShrines",type="FLAG",value=true}},nil}
 c["Gain a random Shrine buff every 10 seconds"]={{[1]={flags=0,keywordFlags=0,name="Condition:CanHaveRegularShrines",type="FLAG",value=true}},nil}
 c["Gain a random shrine buff every 10 seconds"]={{[1]={flags=0,keywordFlags=0,name="Condition:CanHaveRegularShrines",type="FLAG",value=true}},nil}

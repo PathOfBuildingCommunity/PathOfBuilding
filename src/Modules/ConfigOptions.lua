@@ -1760,6 +1760,21 @@ Huge sets the radius to 11.
 	{ var = "buffLesserResistanceShrine", type = "check", label = "Have Lesser Resistance Shrine?", ifFlag = "Condition:CanHaveLesserShrines", tooltip = "This will enable the Lesser Resistance Shrine buff.\n\t+25% to all Elemental Resistances\n\t+2% to all maximum Resistances", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:LesserResistanceShrine", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
+	{ var = "buffBloodShrineOfRats", type = "check", label = "Have Blood Shrine of Rats?", ifFlag = "Condition:CanHaveBloodShrines", tooltip = "This will enable the Blood Shrine of Rats buff.\n\tGain 30% of Elemental Damage as Extra Chaos Damage", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:BloodShrineOfRats", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "buffBloodShrineOfLocusts", type = "check", label = "Have Blood Shrine of Locusts?", ifFlag = "Condition:CanHaveBloodShrines", tooltip = "This will enable the Blood Shrine of Locusts buff.\n\t+30% to Damage over Time Multiplier", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:BloodShrineOfLocusts", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "buffBloodShrineOfToads", type = "check", label = "Have Blood Shrine of Toads?", ifFlag = "Condition:CanHaveBloodShrines", tooltip = "This will enable the Blood Shrine of Toads buff.\n\tExplosive Toad has an additional 25% chance to Trigger when you kill an Enemy", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:BloodShrineOfToads", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "buffBloodShrineOfCrows", type = "check", label = "Have Blood Shrine of Crows?", ifFlag = "Condition:CanHaveBloodShrines", tooltip = "This will enable the Blood Shrine of Crows buff.\n\t+50% to Chaos Resistance\n\t10% of Elemental Damage taken as Chaos Damage\n\t10% of Physical Damage taken as Chaos Damage", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:BloodShrineOfCrows", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "buffBloodShrineOfBats", type = "check", label = "Have Blood Shrine of Bats?", ifFlag = "Condition:CanHaveBloodShrines", tooltip = "This will enable the Blood Shrine of Bats buff.\n\tCurse Enemies with Enfeeble on Hit\n\tYou can apply an additional Curse", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:BloodShrineOfBats", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
 	-- Section: Effective DPS options
 	{ section = "For Effective DPS", col = 1 },
 	{ var = "skillForkCount", type = "count", label = "# of times Skill has Forked:", ifFlag = "forking", apply = function(val, modList, enemyModList)

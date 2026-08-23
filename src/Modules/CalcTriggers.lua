@@ -1544,6 +1544,11 @@ local configTable = {
 			end
 		}
 	end,
+	["BloodShrineUniqueTriggeredExplodingToad"] = function(env)
+		local triggerChance = env.player.mainSkill.activeEffect.srcInstance.triggerChance + env.player.modDB:Sum("BASE", nil, "BloodShrineExplodingToadTriggerChance")
+		return {assumingEveryHitKills = true, triggerChance = m_min(triggerChance, 100),
+			triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack] end}
+	end,
 	["bursting toad"] = function(env)
 		local triggerInterval = m_huge
 		-- All gems in the socket group should return the same HexToadCooldown even when there are multiple hextoad support gems slotted
