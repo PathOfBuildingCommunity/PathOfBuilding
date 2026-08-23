@@ -384,8 +384,8 @@ Source: Drops in Tul Breach or from unique{Tul, Creeping Avalanche}
 Upgrade: Upgrades to unique{Tulfall} using currency{Blessing of Tul}
 Implicits: 3
 {variant:1,2}(15-19)% increased Spell Damage
-{variant:3}Adds (14-29) to (42-47) Cold Damage to Spells and Attacks
 {variant:4}(31-35)% increased Spell Damage
+{variant:3}Adds (14-29) to (42-47) Cold Damage to Spells and Attacks
 {variant:3,4}Adds (120-140) to (150-170) Cold Damage to Spells
 {variant:1,2}(10-15)% increased Cast Speed
 {variant:1,2}50% chance to gain a Power Charge on Killing a Frozen Enemy
@@ -405,8 +405,8 @@ League: Breach
 Source: Upgraded from unique{Tulborn} using currency{Blessing of Tul}
 Implicits: 3
 {variant:1,2}(35-39)% increased Spell Damage
-{variant:3}Adds (14-29) to (42-47) Cold Damage to Spells and Attacks
 {variant:4}(31-35)% increased Spell Damage
+{variant:3}Adds (14-29) to (42-47) Cold Damage to Spells and Attacks
 {variant:1,2}(10-15)% increased Cast Speed
 {variant:3,4}(10-20)% increased Cast Speed
 {variant:1}50% chance to gain a Power Charge on Killing a Frozen Enemy
@@ -428,8 +428,8 @@ League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 3
 {variant:1}(35-39)% increased Spell Damage
-{variant:2}Adds (14-29) to (42-47) Cold Damage to Spells and Attacks
 {variant:3}(31-35)% increased Spell Damage
+{variant:2}Adds (14-29) to (42-47) Cold Damage to Spells and Attacks
 (15-25)% increased Cast Speed
 Lose all Power Charges on reaching Maximum Power Charges
 Gain a Frenzy Charge on reaching Maximum Power Charges
