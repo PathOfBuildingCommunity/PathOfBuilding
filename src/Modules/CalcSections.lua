@@ -53,7 +53,53 @@ local rageCost = {
 	"RageCost", "Cost", "RageCostNoMult", "RageCostEfficiency", "CostEfficiency"
 }
 
--- format {width, id, group, color, subsection:{default hidden, label, data:{}}}
+---@class CalcSectionEntry A single description which is in the shown breakdown popup
+---@field breakdown? string Key indicating which output breakdown should be displayed
+---@field modName? string|string[]
+---@field modType? "BASE"|"INC"|"MORE"|"OVERRIDE"
+---@field cfg? string Config source
+---@field enemy? boolean Whether the enemy modDB should be used
+---@field actor? string Which actor should be used
+---@field modSource? string Restrict mods to e.g. items
+---@field label? string Heading shown above the resulting table
+---@field control? table Injected by calcs for e.g. the skill details
+---@field controlName? string
+
+---@class CalcSectionColumn : CalcSectionEntry One column cell: a format and descriptions for the popup
+---@field [integer] CalcSectionEntry
+---@field format? string Value format string (e.g. "{0:output:Life}") or literal header text
+
+---@class CalcSectionRow One row of a subsection
+---@field [integer] CalcSectionColumn Column cells
+---@field label? string Row label
+---@field haveOutput? string Only show the row when this output value is non-zero
+---@field flag? string Only show when the skill has this flag
+---@field flagList? string[] Only show when the skill has all of these flags
+---@field playerFlag? string Only show when the player skill has this flag
+---@field notFlag? string Hide when the skill has this flag
+---@field notFlagList? string[] Hide when the skill has any of these flags
+
+---@class CalcSectionData A subsection's rows plus subsection configuration values
+---@field [integer] CalcSectionRow The rows
+---@field extra? string Summary text shown beside the header (e.g. "{0:output:Life}")
+---@field colWidth? integer Fixed width for value columns in this subsection
+---@field flag? string Applied to the whole subsection (via subSection[1].data.flag)
+---@field notFlag? string
+
+---@class CalcSectionSubsection
+---@field defaultCollapsed boolean
+---@field label string
+---@field data CalcSectionData
+
+---@class CalcSection
+---@field [1] integer Width in columns
+---@field [2] string Section id
+---@field [3] integer Group
+---@field [4] string Colour escape code
+---@field [5] CalcSectionSubsection[] Subsections
+---@field [6] fun()? Optional update function
+
+---@type CalcSection[]
 return {
 { 3, "HitDamage", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Skill Hit Damage", data = {
 	extra = "{output:DisplayDamage}",
@@ -658,8 +704,8 @@ return {
 	{ label = "OH DMG Mod.", bgCol = colorCodes.OFFHANDBG, flag = "weapon2Attack", haveOutput = "OffHand.ImpaleModifier", { format = "{3:output:OffHand.ImpaleModifier}", modType = "MORE",
 		{ breakdown = "OffHand.ImpaleModifier" },
 	}, },
-	{ label = "Impale DPS", flag = "impale", flag = "notAverage", { format = "{1:output:ImpaleDPS}", { breakdown = "ImpaleDPS" }, }, },
-	{ label = "Impale Damage", flag = "impale", flag = "showAverage", { format = "{1:output:ImpaleDPS}", { breakdown = "ImpaleDPS" }, }, },
+	{ label = "Impale DPS", flag = "notAverage", { format = "{1:output:ImpaleDPS}", { breakdown = "ImpaleDPS" }, }, },
+	{ label = "Impale Damage", flag = "showAverage", { format = "{1:output:ImpaleDPS}", { breakdown = "ImpaleDPS" }, }, },
 } }
 } },
 { 1, "SkillTypeStats", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Skill type-specific Stats", data = {

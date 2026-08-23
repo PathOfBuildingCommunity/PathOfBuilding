@@ -1487,7 +1487,7 @@ function calcs.perform(env, skipEHP)
 	output.LootRarityMagicEnemies = (lootRarityMagicEnemies > 0) and lootRarityMagicEnemies + modDB:Sum("INC", nil, "LootRarity") or 0
 
 	local breakdown = nil
-	if env.mode == "CALCS" then
+	if env.buildBreakdown then
 		-- Initialise breakdown module
 		breakdown = require(calcs.breakdownModule)(modDB, output, env.player)
 		env.player.breakdown = breakdown
