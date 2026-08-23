@@ -578,7 +578,7 @@ Highest Weight - Displays the order retrieved from trade]]
 			local rowWithPadding = row_height + row_vertical_padding
 			-- this many items fit in the scrollBar "box" so as the offset moves, we need to dynamically show what is within the boundaries
 			local maxItemsInView = math.floor(self.controls.scrollBar.height / rowWithPadding) - 2
-			if (index < maxItemsInView and (self.controls.scrollBar.offset < (rowWithPadding * (index - 1) + row_vertical_padding))) or
+			if (index <= maxItemsInView and (self.controls.scrollBar.offset < (rowWithPadding * (index - 1) + row_vertical_padding))) or
 				-- the second and in this applies if we have more than 44 slots because we need to hide the next "page" of rows as they go above the line, e.g. #23 could be above or below the "box"
 				(index >= maxItemsInView + 1 and (self.controls.scrollBar.offset > rowWithPadding * (index - maxItemsInView) and self.controls.scrollBar.offset < rowWithPadding * (index - 1))) then
 				return true
@@ -859,6 +859,15 @@ function TradeQueryClass:GetResultEvaluation(row_idx, result_index, calcFunc, ba
 		}
 		table.sort(result.evaluation, function(a, b) return a.weight > b.weight end)
 	else
+		if slotTbl.slotName == "Pearl of Tsoatha" and not slotTbl.selectedSlotName then
+			for index = 1, 3 do
+				local ringSlot = self.itemsTab.slots["Ring " .. index]
+				if ringSlot and ringSlot.shown() then
+					slotTbl.selectedSlotName = ringSlot.slotName
+					break
+				end
+			end
+		end
 		local slotName = jewelNodeId and "Jewel " .. tostring(jewelNodeId) or slotTbl.selectedSlotName or slotTbl.slotName
 		local item = new("Item"):Item(result.item_string)
 
