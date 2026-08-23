@@ -287,6 +287,7 @@ end
 ---@param index any
 ---@param data any
 function TimelessJewelListControlClass:AddValueTooltip(tooltip, index, data)
+	local socket = self.build.itemsTab:GetSocketAndJewelForNodeID(data.socketId)
 	if not tooltip:CheckForUpdate(self.build.outputRevision, data) then
 		return
 	end
@@ -317,7 +318,6 @@ function TimelessJewelListControlClass:AddValueTooltip(tooltip, index, data)
 			tooltip:AddLine(16, "^7Combined Node Weight: " .. data.total)
 		end
 		local jewel = self:GetJewelItem(data)
-		local socket = self.sharedList.socket and self.build.itemsTab:GetSocketAndJewelForNodeID(self.sharedList.socket.id)
 		self.build.itemsTab:AddItemStatDifferences(tooltip, jewel, jewel.base, socket)
 	end
 end

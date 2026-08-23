@@ -1670,7 +1670,9 @@ function TreeTabClass:FindTimelessJewel()
 	if controls.socketFilter.state then
 		setAllocatedNodes()
 	end
-	controls.protectAllocatedLabel.shown = (controls.jewelSelect.selIndex == 4 or controls.jewelSelect.selIndex == 11) and controls.socketFilter.state
+	controls.protectAllocatedLabel.shown = function()
+		return (controls.jewelSelect.selIndex == 4 or controls.jewelSelect.selIndex == 11) and controls.socketFilter.state and not (timelessData.jewelSocket and timelessData.jewelSocket.id == -1)
+	end
 
 	-- This requirement is separate from ordinary node weights and remains above
 	-- the protection list so adding protected nodes does not move the selector.
