@@ -1598,10 +1598,12 @@ function TreeTabClass:FindTimelessJewel()
 	end
 
 	setAllocatedNodes = function()
+		wipeTable(allocatedNodes)
+		self.allocatedNodesInRadiusCount = 0
 		if timelessData.jewelSocket.id == -1 or not treeData.nodes[timelessData.jewelSocket.id] then
+			buildNodeOptionCheckboxes()
 			return
 		end
-		wipeTable(allocatedNodes)
 		local nodeOptions = { }
 		if timelessData.jewelType.id == 11 then
 			-- Reclaimed Malevolence can replace an allocated notable in the selected ascendancy.
