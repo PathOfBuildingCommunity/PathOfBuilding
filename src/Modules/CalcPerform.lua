@@ -1693,6 +1693,9 @@ function calcs.perform(env, skipEHP)
 			local effectMod = 1 + (flaskEffectInc) / 100
 			local effectModNonPlayer = 1 + (flaskEffectIncNonPlayer) / 100
 
+			-- Life and Mana flasks are not Utility flasks, so their effects are kept when Utility flasks are disabled
+			local isUtilityFlask = not (item.base.flask.life or item.base.flask.mana)
+
 			-- Avert thine eyes, lest they be forever scarred
 			-- I have no idea how to determine which buff is applied by a given flask,
 			-- so utility flasks are grouped by base, unique flasks are grouped by name, and magic flasks by their modifiers
@@ -1702,6 +1705,9 @@ function calcs.perform(env, skipEHP)
 					srcList:ScaleAddList(buffModList, effectMod)
 					mergeBuff(srcList, flaskBuffs, baseName)
 					mergeBuff(srcList, flaskBuffsPerBase[item.baseName], baseName)
+					if not isUtilityFlask then
+						mergeBuff(srcList, flaskBuffsNonUtility, baseName)
+					end
 				end
 				if (not onlyRecovery or checkNonRecoveryFlasksForMinions) and (flasksApplyToMinion or quickSilverAppliesToAllies or (nonUniqueFlasksApplyToMinion and item.rarity ~= "UNIQUE" and item.rarity ~= "RELIC")) then
 					srcList = new("ModList"):ModList()
@@ -1726,7 +1732,9 @@ function calcs.perform(env, skipEHP)
 				if not onlyRecovery then
 					mergeBuff(srcList, flaskBuffs, key)
 					mergeBuff(srcList, flaskBuffsPerBase[item.baseName], key)
-					mergeBuff(srcList, flaskBuffsNonUtility, key)
+					if not isUtilityFlask then
+						mergeBuff(srcList, flaskBuffsNonUtility, key)
+					end
 				end
 				if (not onlyRecovery or checkNonRecoveryFlasksForMinions) and (flasksApplyToMinion or quickSilverAppliesToAllies or (nonUniqueFlasksApplyToMinion and item.rarity ~= "UNIQUE" and item.rarity ~= "RELIC")) then
 					srcList = new("ModList"):ModList()
@@ -1782,18 +1790,14 @@ function calcs.perform(env, skipEHP)
 				calcFlaskMods(item, item.baseName, item.buffModList, item.modList)
 			end
 		end
-		if modDB:Flag(nil, "UtilityFlasksDoNotApplyToPlayer") then
-			for flaskCond, status in pairs(flaskConditionsNonUtility) do
+		if not modDB:Flag(nil, "FlasksDoNotApplyToPlayer") then
+			local utilityFlasksDisabled = modDB:Flag(nil, "UtilityFlasksDoNotApplyToPlayer")
+			local appliedFlaskConditions = utilityFlasksDisabled and flaskConditionsNonUtility or flaskConditions
+			local appliedFlaskBuffs = utilityFlasksDisabled and flaskBuffsNonUtility or flaskBuffs
+			for flaskCond, status in pairs(appliedFlaskConditions) do
 				modDB.conditions[flaskCond] = status
 			end
-			for _, buffModList in pairs(flaskBuffsNonUtility) do
-				modDB:AddList(buffModList)
-			end
-		elseif not modDB:Flag(nil, "FlasksDoNotApplyToPlayer") then
-			for flaskCond, status in pairs(flaskConditions) do
-				modDB.conditions[flaskCond] = status
-			end
-			for _, buffModList in pairs(flaskBuffs) do
+			for _, buffModList in pairs(appliedFlaskBuffs) do
 				modDB:AddList(buffModList)
 			end
 		end
