@@ -362,6 +362,7 @@ c["+100 to maximum Mana"]={{[1]={flags=0,keywordFlags=0,name="Mana",type="BASE",
 c["+100% Chance to Block Attack Damage if you have Blocked Spell Damage Recently"]={{[1]={[1]={type="Condition",var="BlockedSpellRecently"},flags=0,keywordFlags=0,name="BlockChance",type="BASE",value=100}},nil}
 c["+100% chance to Block Spell Damage if you have Blocked Attack Damage Recently"]={{[1]={[1]={type="Condition",var="BlockedAttackRecently"},flags=0,keywordFlags=0,name="SpellBlockChance",type="BASE",value=100}},nil}
 c["+100% to Cold Resistance when Socketed with a Green Gem"]={{[1]={[1]={keyword="dexterity",slotName="{SlotName}",sockets={[1]=1},type="SocketedIn"},flags=0,keywordFlags=0,name="SocketProperty",type="LIST",value={value={flags=0,keywordFlags=0,name="ColdResist",type="BASE",value=100}}}},nil}
+c["+100% to Critical Strike Multiplier"]={{[1]={flags=0,keywordFlags=0,name="CritMultiplier",type="BASE",value=100}},nil}
 c["+100% to Critical Strike Multiplier against Enemies that are not on Low Life"]={{[1]={[1]={actor="enemy",neg=true,type="ActorCondition",var="LowLife"},flags=0,keywordFlags=0,name="CritMultiplier",type="BASE",value=100}},nil}
 c["+100% to Critical Strike Multiplier against Enemies that are on Full Life"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="FullLife"},flags=0,keywordFlags=0,name="CritMultiplier",type="BASE",value=100}},nil}
 c["+100% to Critical Strike Multiplier against Enemies that are on Low Life"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="LowLife"},flags=0,keywordFlags=0,name="CritMultiplier",type="BASE",value=100}},nil}
@@ -369,7 +370,6 @@ c["+100% to Critical Strike Multiplier for Spells if you haven't Killed Recently
 c["+100% to Critical Strike Multiplier while you have no Frenzy Charges"]={{[1]={[1]={stat="FrenzyCharges",threshold=0,type="StatThreshold",upper=true},flags=0,keywordFlags=0,name="CritMultiplier",type="BASE",value=100}},nil}
 c["+100% to Critical Strike Multiplier with One Handed Melee Weapons"]={{[1]={flags=335544324,keywordFlags=0,name="CritMultiplier",type="BASE",value=100}},nil}
 c["+100% to Fire Resistance when Socketed with a Red Gem"]={{[1]={[1]={keyword="strength",slotName="{SlotName}",sockets={[1]=1},type="SocketedIn"},flags=0,keywordFlags=0,name="SocketProperty",type="LIST",value={value={flags=0,keywordFlags=0,name="FireResist",type="BASE",value=100}}}},nil}
-c["+100% to Global Critical Strike Multiplier"]={{[1]={[1]={type="Global"},flags=0,keywordFlags=0,name="CritMultiplier",type="BASE",value=100}},nil}
 c["+100% to Lightning Resistance when Socketed with a Blue Gem"]={{[1]={[1]={keyword="intelligence",slotName="{SlotName}",sockets={[1]=1},type="SocketedIn"},flags=0,keywordFlags=0,name="SocketProperty",type="LIST",value={value={flags=0,keywordFlags=0,name="LightningResist",type="BASE",value=100}}}},nil}
 c["+1000 Armour if you've Blocked Recently"]={{[1]={[1]={type="Condition",var="BlockedRecently"},flags=0,keywordFlags=0,name="Armour",type="BASE",value=1000}},nil}
 c["+1000 Armour while you do not have Avatar of Fire"]={{[1]={[1]={neg=true,type="Condition",var="HaveAvatarOfFire"},flags=0,keywordFlags=0,name="Armour",type="BASE",value=1000}},nil}
@@ -523,7 +523,6 @@ c["+15% to Damage over Time Multiplier for Poison"]={{[1]={flags=0,keywordFlags=
 c["+15% to Fire Resistance"]={{[1]={flags=0,keywordFlags=0,name="FireResist",type="BASE",value=15}},nil}
 c["+15% to Fire and Chaos Resistances"]={{[1]={flags=0,keywordFlags=0,name="FireResist",type="BASE",value=15},[2]={flags=0,keywordFlags=0,name="ChaosResist",type="BASE",value=15}},nil}
 c["+15% to Fire and Cold Resistances"]={{[1]={flags=0,keywordFlags=0,name="FireResist",type="BASE",value=15},[2]={flags=0,keywordFlags=0,name="ColdResist",type="BASE",value=15}},nil}
-c["+15% to Global Critical Strike Multiplier"]={{[1]={[1]={type="Global"},flags=0,keywordFlags=0,name="CritMultiplier",type="BASE",value=15}},nil}
 c["+15% to Global Critical Strike Multiplier per Green Socket"]={{[1]={[1]={type="Global"},[2]={type="Multiplier",var="GreenSocketIn{SlotName}"},flags=0,keywordFlags=0,name="CritMultiplier",type="BASE",value=15}},nil}
 c["+15% to Lightning Resistance"]={{[1]={flags=0,keywordFlags=0,name="LightningResist",type="BASE",value=15}},nil}
 c["+15% to Lightning and Chaos Resistances"]={{[1]={flags=0,keywordFlags=0,name="LightningResist",type="BASE",value=15},[2]={flags=0,keywordFlags=0,name="ChaosResist",type="BASE",value=15}},nil}
@@ -543,6 +542,7 @@ c["+150 to Ward"]={{[1]={flags=0,keywordFlags=0,name="Ward",type="BASE",value=15
 c["+150 to maximum Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="EnergyShield",type="BASE",value=150}},nil}
 c["+150 to maximum Life"]={{[1]={flags=0,keywordFlags=0,name="Life",type="BASE",value=150}},nil}
 c["+150 to maximum Mana"]={{[1]={flags=0,keywordFlags=0,name="Mana",type="BASE",value=150}},nil}
+c["+150% to Critical Strike Multiplier"]={{[1]={flags=0,keywordFlags=0,name="CritMultiplier",type="BASE",value=150}},nil}
 c["+150% to Global Critical Strike Multiplier"]={{[1]={[1]={type="Global"},flags=0,keywordFlags=0,name="CritMultiplier",type="BASE",value=150}},nil}
 c["+150% to Melee Critical Strike Multiplier"]={{[1]={flags=256,keywordFlags=0,name="CritMultiplier",type="BASE",value=150}},nil}
 c["+1500 Armour if you've Blocked Recently"]={{[1]={[1]={type="Condition",var="BlockedRecently"},flags=0,keywordFlags=0,name="Armour",type="BASE",value=1500}},nil}
@@ -568,7 +568,7 @@ c["+160 to Armour"]={{[1]={flags=0,keywordFlags=0,name="Armour",type="BASE",valu
 c["+160 to maximum Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="EnergyShield",type="BASE",value=160}},nil}
 c["+160 to maximum Life"]={{[1]={flags=0,keywordFlags=0,name="Life",type="BASE",value=160}},nil}
 c["+160 to maximum Mana"]={{[1]={flags=0,keywordFlags=0,name="Mana",type="BASE",value=160}},nil}
-c["+160% to Global Critical Strike Multiplier"]={{[1]={[1]={type="Global"},flags=0,keywordFlags=0,name="CritMultiplier",type="BASE",value=160}},nil}
+c["+160% to Critical Strike Multiplier"]={{[1]={flags=0,keywordFlags=0,name="CritMultiplier",type="BASE",value=160}},nil}
 c["+165 to maximum Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="EnergyShield",type="BASE",value=165}},nil}
 c["+17 to Dexterity and Intelligence"]={{[1]={flags=0,keywordFlags=0,name="Dex",type="BASE",value=17},[2]={flags=0,keywordFlags=0,name="Int",type="BASE",value=17},[3]={flags=0,keywordFlags=0,name="DexInt",type="BASE",value=17}},nil}
 c["+17 to Strength and Dexterity"]={{[1]={flags=0,keywordFlags=0,name="Str",type="BASE",value=17},[2]={flags=0,keywordFlags=0,name="Dex",type="BASE",value=17},[3]={flags=0,keywordFlags=0,name="StrDex",type="BASE",value=17}},nil}
@@ -728,6 +728,7 @@ c["+20% to Chaos Resistance"]={{[1]={flags=0,keywordFlags=0,name="ChaosResist",t
 c["+20% to Cold Resistance"]={{[1]={flags=0,keywordFlags=0,name="ColdResist",type="BASE",value=20}},nil}
 c["+20% to Cold and Chaos Resistances"]={{[1]={flags=0,keywordFlags=0,name="ColdResist",type="BASE",value=20},[2]={flags=0,keywordFlags=0,name="ChaosResist",type="BASE",value=20}},nil}
 c["+20% to Cold and Lightning Resistances"]={{[1]={flags=0,keywordFlags=0,name="ColdResist",type="BASE",value=20},[2]={flags=0,keywordFlags=0,name="LightningResist",type="BASE",value=20}},nil}
+c["+20% to Critical Strike Multiplier"]={{[1]={flags=0,keywordFlags=0,name="CritMultiplier",type="BASE",value=20}},nil}
 c["+20% to Critical Strike Multiplier if you've been Channelling for at least 1 second"]={{[1]={[1]={threshold=1,type="MultiplierThreshold",var="ChannellingTime"},flags=0,keywordFlags=0,name="CritMultiplier",type="BASE",value=20}},nil}
 c["+20% to Critical Strike Multiplier with Claws"]={{[1]={flags=262148,keywordFlags=0,name="CritMultiplier",type="BASE",value=20}},nil}
 c["+20% to Critical Strike Multiplier with Staves"]={{[1]={flags=2097156,keywordFlags=0,name="CritMultiplier",type="BASE",value=20}},nil}
@@ -814,8 +815,8 @@ c["+24 to all Attributes"]={{[1]={flags=0,keywordFlags=0,name="Str",type="BASE",
 c["+24 to maximum Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="EnergyShield",type="BASE",value=24}},nil}
 c["+24% chance to Suppress Spell Damage"]={{[1]={flags=0,keywordFlags=0,name="SpellSuppressionChance",type="BASE",value=24}},nil}
 c["+24% to Chaos Resistance"]={{[1]={flags=0,keywordFlags=0,name="ChaosResist",type="BASE",value=24}},nil}
+c["+24% to Critical Strike Multiplier"]={{[1]={flags=0,keywordFlags=0,name="CritMultiplier",type="BASE",value=24}},nil}
 c["+24% to Fire Resistance"]={{[1]={flags=0,keywordFlags=0,name="FireResist",type="BASE",value=24}},nil}
-c["+24% to Global Critical Strike Multiplier"]={{[1]={[1]={type="Global"},flags=0,keywordFlags=0,name="CritMultiplier",type="BASE",value=24}},nil}
 c["+24% to all Elemental Resistances"]={{[1]={flags=0,keywordFlags=0,name="ElementalResist",type="BASE",value=24}},nil}
 c["+240 to Accuracy Rating"]={{[1]={flags=0,keywordFlags=0,name="Accuracy",type="BASE",value=240}},nil}
 c["+240 to maximum Life"]={{[1]={flags=0,keywordFlags=0,name="Life",type="BASE",value=240}},nil}
@@ -903,9 +904,9 @@ c["+28 to maximum Mana"]={{[1]={flags=0,keywordFlags=0,name="Mana",type="BASE",v
 c["+28% to Chaos Damage over Time Multiplier"]={{[1]={flags=0,keywordFlags=0,name="ChaosDotMultiplier",type="BASE",value=28}},nil}
 c["+28% to Cold Damage over Time Multiplier"]={{[1]={flags=0,keywordFlags=0,name="ColdDotMultiplier",type="BASE",value=28}},nil}
 c["+28% to Cold Resistance"]={{[1]={flags=0,keywordFlags=0,name="ColdResist",type="BASE",value=28}},nil}
+c["+28% to Critical Strike Multiplier"]={{[1]={flags=0,keywordFlags=0,name="CritMultiplier",type="BASE",value=28}},nil}
 c["+28% to Fire Damage over Time Multiplier"]={{[1]={flags=0,keywordFlags=0,name="FireDotMultiplier",type="BASE",value=28}},nil}
 c["+28% to Fire and Cold Resistances"]={{[1]={flags=0,keywordFlags=0,name="FireResist",type="BASE",value=28},[2]={flags=0,keywordFlags=0,name="ColdResist",type="BASE",value=28}},nil}
-c["+28% to Global Critical Strike Multiplier"]={{[1]={[1]={type="Global"},flags=0,keywordFlags=0,name="CritMultiplier",type="BASE",value=28}},nil}
 c["+28% to Lightning Resistance"]={{[1]={flags=0,keywordFlags=0,name="LightningResist",type="BASE",value=28}},nil}
 c["+28% to Physical Damage over Time Multiplier"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDotMultiplier",type="BASE",value=28}},nil}
 c["+28% to all Elemental Resistances"]={{[1]={flags=0,keywordFlags=0,name="ElementalResist",type="BASE",value=28}},nil}
@@ -1378,6 +1379,7 @@ c["+350 to Evasion Rating"]={{[1]={flags=0,keywordFlags=0,name="Evasion",type="B
 c["+36% Chance to Block Spell Damage while on Low Life"]={{[1]={[1]={type="Condition",var="LowLife"},flags=0,keywordFlags=0,name="SpellBlockChance",type="BASE",value=36}},nil}
 c["+36% to Chaos Resistance"]={{[1]={flags=0,keywordFlags=0,name="ChaosResist",type="BASE",value=36}},nil}
 c["+36% to Cold Resistance"]={{[1]={flags=0,keywordFlags=0,name="ColdResist",type="BASE",value=36}},nil}
+c["+36% to Critical Strike Multiplier"]={{[1]={flags=0,keywordFlags=0,name="CritMultiplier",type="BASE",value=36}},nil}
 c["+36% to Global Critical Strike Multiplier"]={{[1]={[1]={type="Global"},flags=0,keywordFlags=0,name="CritMultiplier",type="BASE",value=36}},nil}
 c["+360 to Accuracy Rating"]={{[1]={flags=0,keywordFlags=0,name="Accuracy",type="BASE",value=360}},nil}
 c["+37% to Chaos Resistance"]={{[1]={flags=0,keywordFlags=0,name="ChaosResist",type="BASE",value=37}},nil}
@@ -1507,6 +1509,7 @@ c["+45 to maximum Mana"]={{[1]={flags=0,keywordFlags=0,name="Mana",type="BASE",v
 c["+45% Chance to Block Spell Damage while in Off Hand"]={{[1]={[1]={num=2,type="SlotNumber"},flags=0,keywordFlags=0,name="SpellBlockChance",type="BASE",value=45}},nil}
 c["+45% to Chaos Resistance"]={{[1]={flags=0,keywordFlags=0,name="ChaosResist",type="BASE",value=45}},nil}
 c["+45% to Cold Resistance"]={{[1]={flags=0,keywordFlags=0,name="ColdResist",type="BASE",value=45}},nil}
+c["+45% to Critical Strike Multiplier"]={{[1]={flags=0,keywordFlags=0,name="CritMultiplier",type="BASE",value=45}},nil}
 c["+45% to Critical Strike Multiplier with Two Handed Melee Weapons"]={{[1]={flags=603979780,keywordFlags=0,name="CritMultiplier",type="BASE",value=45}},nil}
 c["+45% to Fire Resistance"]={{[1]={flags=0,keywordFlags=0,name="FireResist",type="BASE",value=45}},nil}
 c["+45% to Global Critical Strike Multiplier"]={{[1]={[1]={type="Global"},flags=0,keywordFlags=0,name="CritMultiplier",type="BASE",value=45}},nil}
@@ -1601,6 +1604,7 @@ c["+50% to Chaos Resistance during any Flask Effect"]={{[1]={[1]={type="Conditio
 c["+50% to Chaos Resistance while affected by Purity of Elements"]={{[1]={[1]={type="Condition",var="AffectedByPurityofElements"},flags=0,keywordFlags=0,name="ChaosResist",type="BASE",value=50}},nil}
 c["+50% to Cold Damage over Time Multiplier"]={{[1]={flags=0,keywordFlags=0,name="ColdDotMultiplier",type="BASE",value=50}},nil}
 c["+50% to Cold Resistance"]={{[1]={flags=0,keywordFlags=0,name="ColdResist",type="BASE",value=50}},nil}
+c["+50% to Critical Strike Multiplier"]={{[1]={flags=0,keywordFlags=0,name="CritMultiplier",type="BASE",value=50}},nil}
 c["+50% to Critical Strike Multiplier against Stunned Enemies"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Stunned"},flags=0,keywordFlags=0,name="CritMultiplier",type="BASE",value=50}},nil}
 c["+50% to Critical Strike Multiplier while affected by Anger"]={{[1]={[1]={type="Condition",var="AffectedByAnger"},flags=0,keywordFlags=0,name="CritMultiplier",type="BASE",value=50}},nil}
 c["+50% to Critical Strike Multiplier while affected by Precision"]={{[1]={[1]={type="Condition",var="AffectedByPrecision"},flags=0,keywordFlags=0,name="CritMultiplier",type="BASE",value=50}},nil}
@@ -1689,6 +1693,7 @@ c["+60% Critical Strike Multiplier while a Rare or Unique Enemy is Nearby"]={{[1
 c["+60% to Chaos Resistance"]={{[1]={flags=0,keywordFlags=0,name="ChaosResist",type="BASE",value=60}},nil}
 c["+60% to Cold Resistance"]={{[1]={flags=0,keywordFlags=0,name="ColdResist",type="BASE",value=60}},nil}
 c["+60% to Cold Resistance while affected by Herald of Ice"]={{[1]={[1]={type="Condition",var="AffectedByHeraldofIce"},flags=0,keywordFlags=0,name="ColdResist",type="BASE",value=60}},nil}
+c["+60% to Critical Strike Multiplier"]={{[1]={flags=0,keywordFlags=0,name="CritMultiplier",type="BASE",value=60}},nil}
 c["+60% to Critical Strike Multiplier for Spells if you haven't Killed Recently"]={{[1]={[1]={neg=true,type="Condition",var="KilledRecently"},flags=2,keywordFlags=0,name="CritMultiplier",type="BASE",value=60}},nil}
 c["+60% to Critical Strike Multiplier if you haven't dealt a Critical Strike Recently"]={{[1]={[1]={neg=true,type="Condition",var="CritRecently"},flags=0,keywordFlags=0,name="CritMultiplier",type="BASE",value=60}},nil}
 c["+60% to Critical Strike Multiplier if you've dealt a Non-Critical Strike Recently"]={{[1]={[1]={type="Condition",var="NonCritRecently"},flags=0,keywordFlags=0,name="CritMultiplier",type="BASE",value=60}},nil}
@@ -1696,7 +1701,6 @@ c["+60% to Damage over Time Multiplier if you've dealt a Critical Strike in the 
 c["+60% to Fire Damage over Time Multiplier"]={{[1]={flags=0,keywordFlags=0,name="FireDotMultiplier",type="BASE",value=60}},nil}
 c["+60% to Fire Resistance"]={{[1]={flags=0,keywordFlags=0,name="FireResist",type="BASE",value=60}},nil}
 c["+60% to Fire Resistance while affected by Herald of Ash"]={{[1]={[1]={type="Condition",var="AffectedByHeraldofAsh"},flags=0,keywordFlags=0,name="FireResist",type="BASE",value=60}},nil}
-c["+60% to Global Critical Strike Multiplier"]={{[1]={[1]={type="Global"},flags=0,keywordFlags=0,name="CritMultiplier",type="BASE",value=60}},nil}
 c["+60% to Lightning Resistance"]={{[1]={flags=0,keywordFlags=0,name="LightningResist",type="BASE",value=60}},nil}
 c["+60% to Lightning Resistance while affected by Herald of Thunder"]={{[1]={[1]={type="Condition",var="AffectedByHeraldofThunder"},flags=0,keywordFlags=0,name="LightningResist",type="BASE",value=60}},nil}
 c["+60% to all Elemental Resistances"]={{[1]={flags=0,keywordFlags=0,name="ElementalResist",type="BASE",value=60}},nil}
@@ -1831,7 +1835,7 @@ c["+90 to all Attributes"]={{[1]={flags=0,keywordFlags=0,name="Str",type="BASE",
 c["+90 to maximum Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="EnergyShield",type="BASE",value=90}},nil}
 c["+90 to maximum Life"]={{[1]={flags=0,keywordFlags=0,name="Life",type="BASE",value=90}},nil}
 c["+90 to maximum Mana"]={{[1]={flags=0,keywordFlags=0,name="Mana",type="BASE",value=90}},nil}
-c["+90% to Global Critical Strike Multiplier"]={{[1]={[1]={type="Global"},flags=0,keywordFlags=0,name="CritMultiplier",type="BASE",value=90}},nil}
+c["+90% to Critical Strike Multiplier"]={{[1]={flags=0,keywordFlags=0,name="CritMultiplier",type="BASE",value=90}},nil}
 c["+900 to Accuracy Rating"]={{[1]={flags=0,keywordFlags=0,name="Accuracy",type="BASE",value=900}},nil}
 c["+92 to Armour"]={{[1]={flags=0,keywordFlags=0,name="Armour",type="BASE",value=92}},nil}
 c["+92 to Evasion Rating"]={{[1]={flags=0,keywordFlags=0,name="Evasion",type="BASE",value=92}},nil}
@@ -3652,6 +3656,7 @@ c["18 to 347 Added Lightning Damage with Wand Attacks"]={{[1]={flags=8388612,key
 c["18% Chance to Block Spell Damage"]={{[1]={flags=0,keywordFlags=0,name="SpellBlockChance",type="BASE",value=18}},nil}
 c["18% chance to Freeze, Shock and Ignite"]={{[1]={flags=0,keywordFlags=0,name="EnemyFreezeChance",type="BASE",value=18},[2]={flags=0,keywordFlags=0,name="EnemyShockChance",type="BASE",value=18},[3]={flags=0,keywordFlags=0,name="EnemyIgniteChance",type="BASE",value=18}},nil}
 c["18% chance to Shock"]={{[1]={flags=0,keywordFlags=0,name="EnemyShockChance",type="BASE",value=18}},nil}
+c["18% increased Accuracy Rating"]={{[1]={flags=0,keywordFlags=0,name="Accuracy",type="INC",value=18}},nil}
 c["18% increased Accuracy Rating with Daggers"]={{[1]={flags=524292,keywordFlags=0,name="Accuracy",type="INC",value=18}},nil}
 c["18% increased Area of Effect"]={{[1]={flags=0,keywordFlags=0,name="AreaOfEffect",type="INC",value=18}},nil}
 c["18% increased Area of Effect of Aura Skills"]={{[1]={[1]={skillType=39,type="SkillType"},flags=0,keywordFlags=0,name="AreaOfEffect",type="INC",value=18}},nil}
@@ -3673,7 +3678,6 @@ c["18% increased Effect of Non-Damaging Ailments"]={{[1]={flags=0,keywordFlags=0
 c["18% increased Effect of your Curses"]={{[1]={flags=0,keywordFlags=0,name="CurseEffect",type="INC",value=18}},nil}
 c["18% increased Elemental Damage"]={{[1]={flags=0,keywordFlags=0,name="ElementalDamage",type="INC",value=18}},nil}
 c["18% increased Evasion Rating"]={{[1]={flags=0,keywordFlags=0,name="Evasion",type="INC",value=18}},nil}
-c["18% increased Global Accuracy Rating"]={{[1]={[1]={type="Global"},flags=0,keywordFlags=0,name="Accuracy",type="INC",value=18}},nil}
 c["18% increased Global Defences"]={{[1]={[1]={type="Global"},flags=0,keywordFlags=0,name="Defences",type="INC",value=18}},nil}
 c["18% increased Global Physical Damage"]={{[1]={[1]={type="Global"},flags=0,keywordFlags=0,name="PhysicalDamage",type="INC",value=18}},nil}
 c["18% increased Golem Damage for each Type of Golem you have Summoned"]={{[1]={[1]={skillType=51,type="SkillType"},flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={[1]={actor="parent",type="ActorCondition",var="HavePhysicalGolem"},flags=0,keywordFlags=0,name="Damage",type="INC",value=18}}},[2]={[1]={skillType=51,type="SkillType"},flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={[1]={actor="parent",type="ActorCondition",var="HaveLightningGolem"},flags=0,keywordFlags=0,name="Damage",type="INC",value=18}}},[3]={[1]={skillType=51,type="SkillType"},flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={[1]={actor="parent",type="ActorCondition",var="HaveColdGolem"},flags=0,keywordFlags=0,name="Damage",type="INC",value=18}}},[4]={[1]={skillType=51,type="SkillType"},flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={[1]={actor="parent",type="ActorCondition",var="HaveFireGolem"},flags=0,keywordFlags=0,name="Damage",type="INC",value=18}}},[5]={[1]={skillType=51,type="SkillType"},flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={[1]={actor="parent",type="ActorCondition",var="HaveChaosGolem"},flags=0,keywordFlags=0,name="Damage",type="INC",value=18}}},[6]={[1]={skillType=51,type="SkillType"},flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={[1]={actor="parent",type="ActorCondition",var="HaveCarrionGolem"},flags=0,keywordFlags=0,name="Damage",type="INC",value=18}}}},nil}
@@ -5341,6 +5345,7 @@ c["40% chance when you Kill a Scorched Enemy to Burn Each surrounding"]={{}," wh
 c["40% chance when you Kill a Scorched Enemy to Burn Each surrounding Enemy for 4 seconds, dealing 8% of the Killed Enemy's Life as Fire Damage per second"]={{[1]={flags=0,keywordFlags=0,name="Life",type="BASE",value=40}}," when you Kill a Scorched Enemy to Burn Each surrounding Enemy , dealing 8% of the Killed Enemy's  as Fire Damage per second "}
 c["40% faster start of Energy Shield Recharge"]={{[1]={flags=0,keywordFlags=0,name="EnergyShieldRechargeFaster",type="INC",value=40}},nil}
 c["40% faster start of Energy Shield Recharge while affected by Discipline"]={{[1]={[1]={type="Condition",var="AffectedByDiscipline"},flags=0,keywordFlags=0,name="EnergyShieldRechargeFaster",type="INC",value=40}},nil}
+c["40% increased Accuracy Rating"]={{[1]={flags=0,keywordFlags=0,name="Accuracy",type="INC",value=40}},nil}
 c["40% increased Accuracy Rating while you have at least 1 nearby Ally"]={{[1]={[1]={threshold=1,type="MultiplierThreshold",var="NearbyAlly"},flags=0,keywordFlags=0,name="Accuracy",type="INC",value=40}},nil}
 c["40% increased Amount Recovered"]={{[1]={flags=0,keywordFlags=0,name="FlaskRecovery",type="INC",value=40}},nil}
 c["40% increased Area of Effect of Aura Skills"]={{[1]={[1]={skillType=39,type="SkillType"},flags=0,keywordFlags=0,name="AreaOfEffect",type="INC",value=40}},nil}
@@ -6130,6 +6135,7 @@ c["60% increased Charges per use"]={{[1]={flags=0,keywordFlags=0,name="FlaskChar
 c["60% increased Cold Damage while affected by Hatred"]={{[1]={[1]={type="Condition",var="AffectedByHatred"},flags=0,keywordFlags=0,name="ColdDamage",type="INC",value=60}},nil}
 c["60% increased Cold Damage while affected by Herald of Ice"]={{[1]={[1]={type="Condition",var="AffectedByHeraldofIce"},flags=0,keywordFlags=0,name="ColdDamage",type="INC",value=60}},nil}
 c["60% increased Cost of Skills for each 200 total Mana Spent Recently"]={{[1]={[1]={div=200,type="Multiplier",var="ManaSpentRecently"},flags=0,keywordFlags=0,name="Cost",type="INC",value=60}},nil}
+c["60% increased Critical Strike Chance"]={{[1]={flags=0,keywordFlags=0,name="CritChance",type="INC",value=60}},nil}
 c["60% increased Critical Strike Chance against Blinded Enemies"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Blinded"},flags=0,keywordFlags=0,name="CritChance",type="INC",value=60}},nil}
 c["60% increased Critical Strike Chance against Chilled Enemies"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Chilled"},flags=0,keywordFlags=0,name="CritChance",type="INC",value=60}},nil}
 c["60% increased Critical Strike Chance against enemies with Lightning Exposure"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="HasLightningExposure"},flags=0,keywordFlags=0,name="CritChance",type="INC",value=60}},nil}
@@ -6245,8 +6251,8 @@ c["69% increased Chaos Damage"]={{[1]={flags=0,keywordFlags=0,name="ChaosDamage"
 c["69% increased Spell Damage"]={{[1]={flags=2,keywordFlags=0,name="Damage",type="INC",value=69}},nil}
 c["7 to 10 Added Physical Damage with Bow Attacks"]={{[1]={flags=131076,keywordFlags=0,name="PhysicalMin",type="BASE",value=7},[2]={flags=131076,keywordFlags=0,name="PhysicalMax",type="BASE",value=10}},nil}
 c["7% Chance to Block Spell Damage"]={{[1]={flags=0,keywordFlags=0,name="SpellBlockChance",type="BASE",value=7}},nil}
-c["7% Global chance to Blind Enemies on hit"]={{},"%  chance to Blind Enemies on hit "}
-c["7% Global chance to Blind Enemies on hit 10% Global chance to Blind Enemies on hit"]={{},"%  chance to Blind Enemies on hit 10% Global chance to Blind Enemies on hit "}
+c["7% chance to Blind Enemies on Hit"]={{}," to Blind Enemies  "}
+c["7% chance to Blind Enemies on Hit 10% Global chance to Blind Enemies on hit"]={{}," to Blind Enemies  10% Global chance to Blind Enemies on hit "}
 c["7% chance to Ignite"]={{[1]={flags=0,keywordFlags=0,name="EnemyIgniteChance",type="BASE",value=7}},nil}
 c["7% chance to deal Double Damage"]={{[1]={flags=0,keywordFlags=0,name="DoubleDamageChance",type="BASE",value=7}},nil}
 c["7% chance to gain 100% of Non-Chaos Damage with Hits as Extra Chaos Damage"]={{[1]={flags=0,keywordFlags=0,name="NonChaosDamageGainAsChaos",type="BASE",value=7}},nil}
