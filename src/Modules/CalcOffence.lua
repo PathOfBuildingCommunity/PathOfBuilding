@@ -342,7 +342,9 @@ end
 
 -- Performs all offensive calculations
 function calcs.offence(env, actor, activeSkill)
+	---@type ModDB
 	local modDB = actor.modDB
+	---@type ModDB
 	local enemyDB = actor.enemy.modDB
 	local output = actor.output
 	local breakdown = actor.breakdown
@@ -2526,6 +2528,20 @@ function calcs.offence(env, actor, activeSkill)
 				}
 			end
 		end
+		if breakdown then
+			if skillFlags.bothWeaponAttack then
+				breakdown.HitChance = {
+					"Both weapons:",
+					s_format("%.2f%% ^8(main hand)", output.MainHand.HitChance),
+					s_format("%.2f%% ^8(off hand)", output.OffHand.HitChance),
+					s_format("= %.2f%% ^8(average)", output.HitChance),
+				}
+			else
+				local handBreakdown = skillFlags.weapon1Attack and breakdown.MainHand or breakdown.OffHand
+				breakdown.HitChance = handBreakdown.HitChance or handBreakdown.AccuracyHitChance
+				breakdown.Speed = breakdown.Speed or handBreakdown.Speed
+			end
+		end
 		if skillData.hitTimeOverride and not skillData.triggeredOnDeath then
 			output.HitTime = skillData.hitTimeOverride
 			output.HitSpeed = 1 / output.HitTime
@@ -3069,7 +3085,7 @@ function calcs.offence(env, actor, activeSkill)
 				if not critOverride then
 					base = skillModList:Sum("BASE", cfg, "CritChance") + (env.mode_effective and enemyDB:Sum("BASE", nil, "SelfCritChance") or 0)
 					inc = skillModList:Sum("INC", cfg, "CritChance") + (env.mode_effective and enemyDB:Sum("INC", nil, "SelfCritChance") or 0)
-					more = skillModList:More(cfg, "CritChance")
+					more = skillModList:More(cfg, "CritChance") * (env.mode_effective and enemyDB:More(nil, "SelfCritChance") or 1)
 				end
 				-- The game uses an integer permyriad chance for each critical strike roll.
 				output.CritChance = round((baseCrit + base) * (1 + inc / 100) * more * 100) / 100
@@ -3132,6 +3148,7 @@ function calcs.offence(env, actor, activeSkill)
 						local overCap = preCapCritChance - 100
 						t_insert(breakdown.CritChance, s_format("Crit is overcapped by %.2f%% (%d%% increased Critical Strike Chance)", overCap, overCap / more / (baseCrit + base) * 100))
 					end
+					breakdown.PreEffectiveCritChance = copyTable(breakdown.CritChance)
 					if env.mode_effective then
 						if critRolls ~= 0 then
 							if skillModList:Flag(skillCfg, "Unexciting") then
@@ -3955,6 +3972,36 @@ function calcs.offence(env, actor, activeSkill)
 		combineStat("ManaOnHitRate", "DPS")
 		combineStat("ManaOnKill", "DPS")
 		combineStat("impaleStoredHitAvg", "DPS")
+		if breakdown then
+			if skillFlags.bothWeaponAttack then
+				for _, critStat in ipairs({ "PreEffectiveCritChance", "CritChance" }) do
+					local combinedBreakdown = { "Both weapons:" }
+					for _, pass in ipairs(passList) do
+						t_insert(combinedBreakdown, pass.label .. ":")
+						if pass.breakdown[critStat] then
+							for _, line in ipairs(pass.breakdown[critStat]) do
+								t_insert(combinedBreakdown, line)
+							end
+						else
+							t_insert(combinedBreakdown, s_format("%.2f%%", pass.output[critStat]))
+						end
+					end
+					t_insert(combinedBreakdown, s_format("= %.2f%% ^8(average)", output[critStat]))
+					breakdown[critStat] = combinedBreakdown
+				end
+			else
+				local handBreakdown = skillFlags.weapon1Attack and breakdown.MainHand or breakdown.OffHand
+				breakdown.PreEffectiveCritChance = handBreakdown.PreEffectiveCritChance
+				breakdown.CritChance = handBreakdown.CritChance
+			end
+			local breakdownSource = skillFlags.weapon1Attack and "MainHand.CritChance" or "OffHand.CritChance"
+			if breakdown.PreEffectiveCritChance then
+				breakdown.PreEffectiveCritChance.breakdownSource = breakdownSource
+			end
+			if breakdown.CritChance then
+				breakdown.CritChance.breakdownSource = breakdownSource
+			end
+		end
 		if skillFlags.bothWeaponAttack then
 			if breakdown then
 				breakdown.AverageDamage = { }

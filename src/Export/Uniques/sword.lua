@@ -491,6 +491,7 @@ LocalAddedPhysicalDamageUnique__7_
 The Redblade
 Gladius
 League: Crucible
+Source: Drops from Crucible monsters
 Implicits: 1
 AccuracyPercentImplicitSword1
 LocalIncreasedPhysicalDamagePercentUnique__46
@@ -1055,5 +1056,22 @@ ElementalDamageCanShockUnique__1__
 {variant:3}WeaponPhysicalDamageAddedAsRandomElementUnique__1__
 IncreasedAttackAreaOfEffectUnique__1_
 DealNoNonElementalDamageUnique__1
+]],[[
+Paradoxica
+Vaal Rapier
+League: Betrayal
+Source: Drops from unique{Intervention Leaders} in normal{Safehouses}
+Crafted: true
+Implicits: 1
+CriticalMultiplierImplicitSword1
+DoubleDamageWithWeaponUnique__1
+]],[[
+Replica Paradoxica
+Vaal Rapier
+League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
+Crafted: true
+Implicits: 1
+CriticalMultiplierImplicitSword1
 ]]
 }

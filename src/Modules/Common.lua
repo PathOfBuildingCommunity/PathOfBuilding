@@ -151,7 +151,6 @@ function newClass(className, ...)
 	}
 	return class
 end
-
 ---@generic T
 ---@param className `T`
 ---@param extraArg nil Never pass extra parameters. Defined purely to guard against old syntax.

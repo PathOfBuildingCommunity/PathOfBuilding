@@ -12,6 +12,7 @@ local t_concat = table.concat
 ---@class TimelessJewelListControl: ListControl
 local TimelessJewelListControlClass = newClass("TimelessJewelListControl", "ListControl")
 
+---@param build Build
 function TimelessJewelListControlClass:TimelessJewelListControl(anchor, rect, build)
 	self.build = build
 	self.sharedList = self.build.timelessData.sharedResults or { }
@@ -68,45 +69,14 @@ function TimelessJewelListControlClass:GetRowValue(column, index, data)
 	end
 end
 
-function TimelessJewelListControlClass:AddValueTooltip(tooltip, index, data)
-	tooltip:Clear()
-	if not self.noTooltip then
-		if self.list[index].label:match("B2B2B2") == nil then
-			tooltip:AddLine(16, "^7Double click to add this jewel to your build.")
-		else
-			tooltip:AddLine(16, "^7" .. self.sharedList.type.label .. " " .. data.seed .. " was successfully added to your build.")
-		end
-		local treeData = self.build.spec.tree
-		local sortedNodeLists = { }
-		for legionId, desiredNode in pairs(self.sharedList.desiredNodes or { }) do
-			if self.list[index][legionId] then
-				if self.list[index][legionId].targetNodeNames and #self.list[index][legionId].targetNodeNames > 0 then
-					sortedNodeLists[desiredNode.desiredIdx] = "^7        " .. desiredNode.displayName .. ":\n^8                " .. t_concat(self.list[index][legionId].targetNodeNames, "\n                ")
-				else
-					sortedNodeLists[desiredNode.desiredIdx] = "^7        " .. desiredNode.displayName .. ":\n^8                None"
-				end
-			end
-		end
-		if next(sortedNodeLists) then
-			tooltip:AddLine(16, "^7Node List:")
-			for _, sortedNodeList in pairs(sortedNodeLists) do
-				tooltip:AddLine(16, sortedNodeList)
-			end
-		end
-		if data.total > 0 then
-			tooltip:AddLine(16, "^7Combined Node Weight: " .. data.total)
-		end
-	end
-end
-
-function TimelessJewelListControlClass:OnSelClick(index, data, doubleClick)
-	if doubleClick and self.list[index].label:match("B2B2B2") == nil then
-		local socketInfo = data.socketLabel or (self.sharedList.socket and self.sharedList.socket.keystone) or "Unknown"
-		local label = "[" .. data.seed .. "; " .. data.total.. "; " .. socketInfo .. "]\n"
-		local variant = self.sharedList.conqueror.id == 1 and 1 or (self.sharedList.conqueror.id - 1) .. "\n"
-		local itemData
-		if self.sharedList.type.id == 1 then
-			itemData = [[
+---@return Item item
+function TimelessJewelListControlClass:GetJewelItem(data)
+	local socketInfo = data.socketLabel or (self.sharedList.socket and self.sharedList.socket.keystone) or "Unknown"
+	local label = "[" .. data.seed .. "; " .. data.total .. "; " .. socketInfo .. "]\n"
+	local variant = self.sharedList.conqueror.id == 1 and 1 or (self.sharedList.conqueror.id - 1) .. "\n"
+	local itemData
+	if self.sharedList.type.id == 1 then
+		itemData = [[
 Glorious Vanity ]] .. label .. [[
 Timeless Jewel
 League: Legion
@@ -114,7 +84,7 @@ Limited to: 1 Historic
 Variant: Doryani (Corrupted Soul)
 Variant: Xibaqua (Divine Flesh)
 Variant: Ahuana (Immortal Ambition)
-Selected Variant: ]] .. variant .. "\n" ..[[
+Selected Variant: ]] .. variant .. "\n" .. [[
 Radius: Large
 Implicits: 0
 {variant:1}Bathed in the blood of ]] .. data.seed .. [[ sacrificed in the name of Doryani
@@ -123,8 +93,8 @@ Implicits: 0
 Passives in radius are Conquered by the Vaal
 Historic
 ]]
-		elseif self.sharedList.type.id == 2 then
-			itemData = [[
+	elseif self.sharedList.type.id == 2 then
+		itemData = [[
 Lethal Pride ]] .. label .. [[
 Timeless Jewel
 League: Legion
@@ -141,8 +111,8 @@ Implicits: 0
 Passives in radius are Conquered by the Karui
 Historic
 ]]
-		elseif self.sharedList.type.id == 3 then
-			itemData = [[
+	elseif self.sharedList.type.id == 3 then
+		itemData = [[
 Brutal Restraint ]] .. label .. [[
 Timeless Jewel
 League: Legion
@@ -159,13 +129,15 @@ Implicits: 0
 Passives in radius are Conquered by the Maraketh
 Historic
 ]]
-		elseif self.sharedList.type.id == 4 then
-			local altVariant = self.sharedList.devotionVariant1.id ~= 1 and self.sharedList.devotionVariant1.id or m_random(2, 16)
-			local altVariant2 = self.sharedList.devotionVariant2.id ~= 1 and self.sharedList.devotionVariant2.id or m_random(2, 16)
-			if altVariant == altVariant2 then
-				altVariant = altVariant % 15 + 2
-			end
-			itemData = [[
+	elseif self.sharedList.type.id == 4 then
+		local altVariant = self.sharedList.devotionVariant1.id ~= 1 and self.sharedList.devotionVariant1.id or data.altVariant or m_random(2, 17)
+		local altVariant2 = self.sharedList.devotionVariant2.id ~= 1 and self.sharedList.devotionVariant2.id or data.altVariant2 or m_random(2, 17)
+		if altVariant == altVariant2 then
+			altVariant = altVariant % 16 + 2
+		end
+		data.altVariant = altVariant
+		data.altVariant2 = altVariant2
+		itemData = [[
 Militant Faith ]] .. label .. [[
 Timeless Jewel
 League: Legion
@@ -187,9 +159,10 @@ Variant: Duration of Curses
 Variant: Minion Attack and Cast Speed
 Variant: Minions Accuracy Rating
 Variant: Mana Regen
-Variant: Skill Cost
+Variant: Mana Cost (legacy)
 Variant: Non-Curse Aura Effect
 Variant: Defences from Shield
+Variant: Mana Cost Efficiency
 Selected Variant: ]] .. variant .. "\n" .. [[
 Selected Alt Variant: ]] .. altVariant + 2 .. "\n" .. [[
 Selected Alt Variant Two: ]] .. altVariant2 + 2 .. "\n" .. [[
@@ -213,11 +186,12 @@ Implicits: 0
 {variant:16}1% reduced Mana Cost of Skills per 10 Devotion
 {variant:17}1% increased effect of Non-Curse Auras per 10 Devotion
 {variant:18}3% increased Defences from Equipped Shield per 10 Devotion
+{variant:19}3% increased Mana Cost Efficiency per 10 Devotion
 Passives in radius are Conquered by the Templars
 Historic
 ]]
-		elseif self.sharedList.type.id == 5 then
-			itemData = [[
+	elseif self.sharedList.type.id == 5 then
+		itemData = [[
 Elegant Hubris ]] .. label .. [[
 Timeless Jewel
 League: Legion
@@ -234,8 +208,8 @@ Implicits: 0
 Passives in radius are Conquered by the Eternal Empire
 Historic
 ]]
-		elseif self.sharedList.type.id == 6 then
-			itemData = [[
+	elseif self.sharedList.type.id == 6 then
+		itemData = [[
 Heroic Tragedy ]] .. label .. [[
 Timeless Jewel
 League: Legion
@@ -252,8 +226,8 @@ Implicits: 0
 Passives in radius are Conquered by the Kalguur
 Historic
 ]]
-		elseif self.sharedList.type.id == 7 then
-			itemData = [[
+	elseif self.sharedList.type.id == 7 then
+		itemData = [[
 Festering Vengeance ]] .. label .. [[
 Murderous Eye Jewel
 League: Allflame
@@ -263,8 +237,8 @@ Subjugating ]] .. data.seed .. [[ souls in the thrall of Tecrod
 Passives affected are Conquered by the Abyssal
 Historic
 ]]
-		elseif self.sharedList.type.id == 8 then
-			itemData = [[
+	elseif self.sharedList.type.id == 8 then
+		itemData = [[
 Extinguishing Grasp ]] .. label .. [[
 Searching Eye Jewel
 League: Allflame
@@ -274,8 +248,8 @@ Subjugating ]] .. data.seed .. [[ souls in the thrall of Ulaman
 Passives affected are Conquered by the Abyssal
 Historic
 ]]
-		elseif self.sharedList.type.id == 9 then
-			itemData = [[
+	elseif self.sharedList.type.id == 9 then
+		itemData = [[
 Baleful Dominion ]] .. label .. [[
 Hypnotic Eye Jewel
 League: Allflame
@@ -285,8 +259,8 @@ Subjugating ]] .. data.seed .. [[ souls in the thrall of Kurgal
 Passives affected are Conquered by the Abyssal
 Historic
 ]]
-		elseif self.sharedList.type.id == 10 then
-			itemData = [[
+	elseif self.sharedList.type.id == 10 then
+		itemData = [[
 Destructive Aspiration ]] .. label .. [[
 Ghastly Eye Jewel
 League: Allflame
@@ -296,8 +270,8 @@ Subjugating ]] .. data.seed .. [[ souls in the thrall of Amanamu
 Passives affected are Conquered by the Abyssal
 Historic
 ]]
-		elseif self.sharedList.type.id == 11 then
-			itemData = [[
+	elseif self.sharedList.type.id == 11 then
+		itemData = [[
 Reclaimed Malevolence ]] .. label .. [[
 Assembled Eye Jewel
 League: Allflame
@@ -307,8 +281,53 @@ Binding ]] .. data.seed .. [[ souls to phylacteries to sustain Zorath
 Passives affected are Conquered by the Abyssal
 Historic
 ]]
+	end
+	return new("Item"):Item(itemData)
+end
+
+---@param tooltip Tooltip
+---@param index any
+---@param data any
+function TimelessJewelListControlClass:AddValueTooltip(tooltip, index, data)
+	local socketId = data.socketId or self.sharedList.socket.id
+	local socket = socketId and socketId ~= -1 and self.build.itemsTab:GetSocketAndJewelForNodeID(socketId)
+	if not tooltip:CheckForUpdate(self.build.outputRevision, data) then
+		return
+	end
+	tooltip:Clear()
+	if not self.noTooltip then
+		if self.list[index].label:match("B2B2B2") == nil then
+			tooltip:AddLine(16, "^7Double click to add this jewel to your build.")
+		else
+			tooltip:AddLine(16, "^7" .. self.sharedList.type.label .. " " .. data.seed .. " was successfully added to your build.")
 		end
-		local item = new("Item"):Item(itemData)
+		local sortedNodeLists = {}
+		for legionId, desiredNode in pairs(self.sharedList.desiredNodes or {}) do
+			if self.list[index][legionId] then
+				if self.list[index][legionId].targetNodeNames and #self.list[index][legionId].targetNodeNames > 0 then
+					sortedNodeLists[desiredNode.desiredIdx] = "^7        " .. desiredNode.displayName .. ":\n^8                " .. t_concat(self.list[index][legionId].targetNodeNames, "\n                ")
+				else
+					sortedNodeLists[desiredNode.desiredIdx] = "^7        " .. desiredNode.displayName .. ":\n^8                None"
+				end
+			end
+		end
+		if next(sortedNodeLists) then
+			tooltip:AddLine(16, "^7Node List:")
+			for _, sortedNodeList in pairs(sortedNodeLists) do
+				tooltip:AddLine(16, sortedNodeList)
+			end
+		end
+		if data.total > 0 then
+			tooltip:AddLine(16, "^7Combined Node Weight: " .. data.total)
+		end
+		local jewel = self:GetJewelItem(data)
+		self.build.itemsTab:AddItemStatDifferences(tooltip, jewel, jewel.base, socket)
+	end
+end
+
+function TimelessJewelListControlClass:OnSelClick(index, data, doubleClick)
+	if doubleClick and self.list[index].label:match("B2B2B2") == nil then
+		local item = self:GetJewelItem(data)
 		self.build.itemsTab:AddItem(item, true)
 		self.build.itemsTab:PopulateSlots()
 		self.list[index].label = "^xB2B2B2" .. self.list[index].label

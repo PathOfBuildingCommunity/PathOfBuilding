@@ -1603,6 +1603,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 	if deferJewelRadiusIndexAssignment then
 		self.jewelRadiusIndex = self.jewelData.radiusIndex
 	end
+	self.isUnique = self.rarity == "UNIQUE" or self.rarity == "RELIC"
 end
 
 ---@param modId string The id which will be present on the removed mod lines
@@ -2149,6 +2150,11 @@ end
 -- Calculate local modifiers, and removes them from the modifier list
 -- To be considered local, a modifier must be an exact flag match, and cannot have any tags (e.g. conditions, multipliers)
 -- Only the InSlot tag is allowed (for Adds x to x X Damage in X Hand modifiers)
+---@param modList any
+---@param name string
+---@param type "FLAG"|"MORE"|"BASE"|"INC" other mod types not handled
+---@param flags integer
+---@return boolean|number
 local function calcLocal(modList, name, type, flags)
 	local result
 	if type == "FLAG" then
@@ -2237,6 +2243,10 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 			self.quality = (self.quality or 0) - self.craftedQuality + craftedQuality
 		end
 		self.craftedQuality = craftedQuality
+	end
+	self.corruptImplicitCount = calcLocal(modList, "CorruptImplicitCount", "BASE", 0)
+	if self.corruptImplicitCount == 0 then
+		self.corruptImplicitCount = nil
 	end
 	if self.quality then
 		modList:NewMod("Multiplier:QualityOn"..slotName, "BASE", self.quality, "Quality")

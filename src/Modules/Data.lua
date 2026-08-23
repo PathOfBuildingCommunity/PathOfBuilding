@@ -663,7 +663,14 @@ data.itemMods = {
 	JewelCluster = LoadModule("Data/ModJewelCluster"),
 	JewelCharm = LoadModule("Data/ModJewelCharm"),
 	Foulborn = LoadModule("Data/ModFoulborn"),
+	Mercenary = LoadModule("Data/ModMercenary"),
+	Vestigial = {}
 }
+for modId, mod in pairs(data.itemMods.ItemExclusive) do
+	if modId:find("^Divergent") then
+		data.itemMods.Vestigial[modId] = mod
+	end
+end
 data.masterMods = LoadModule("Data/ModMaster")
 data.enchantments = {
 	["Helmet"] = LoadModule("Data/EnchantmentHelmet"),
@@ -677,7 +684,7 @@ data.enchantments = {
 
 -- combined table of many mod categories
 data.itemMods.Item = {}
-for _, key in ipairs({ "Explicit", "ItemExclusive", "Corrupted", "Delve", "Synthesis", "Scourge", "Eldritch" }) do
+for _, key in ipairs({ "Explicit", "ItemExclusive", "Corrupted", "Delve", "Synthesis", "Scourge", "Eldritch", "Mercenary" }) do
 	local itemData = data.itemMods[key]
 	for k, v in pairs(itemData) do
 		data.itemMods.Item[k] = v
@@ -846,6 +853,23 @@ data.itemTagSpecialExclusionPattern = {
 	},
 }
 
+-- Table of which slots can have vestigial uniques
+data.vestigialUniqueBaseTypes = {
+	Helmet = true,
+	["Body Armour"] = true,
+	Gloves = true,
+	Boots = true,
+	Shield = true,
+}
+-- map from mod ID to what item it *should* come from
+---@type table<string, string>
+data.vestigialModMappings = require("Data.Vestigial")
+for k, v in pairs(data.vestigialModMappings) do
+	data.vestigialModMappings[k] = v[1]
+	-- if launch.devMode then
+	-- 	assert(v[1], "Data/Vestigial is malformed")
+	-- end
+end
 -- Cluster jewel data
 data.clusterJewels = LoadModule("Data/ClusterJewels")
 
@@ -1303,19 +1327,66 @@ data.minionTagCrucibleUniques = {
 	["United in Dream"] = true,
 }
 
-local crimsonStormMods = {}
+local subsumeTheSourceMods = {}
+for modId, mod in pairs(data.itemMods.JewelAbyss) do
+	if mod.type ~="Corrupted" then
+		subsumeTheSourceMods[modId] = mod
+	end
+end
+
+local veiledMasterSpawnTags = {}
+local veiledMods = {}
+local veiledSuffixes = {}
+local caneOfKulemakMods = {}
+local queensHungerMods = {}
 for modId, mod in pairs(data.veiledMods) do
-	if mod.affix == "of the Order" then
-		crimsonStormMods[modId] = mod
+	if mod.affix == "Chosen" then
+		veiledMods[modId] = mod
+		caneOfKulemakMods[modId] = mod
+	elseif mod.affix == "Catarina's" then
+		caneOfKulemakMods[modId] = mod
+		queensHungerMods[modId] = mod
+	elseif mod.affix == "of the Order" then
+		veiledMods[modId] = mod
+		veiledSuffixes[modId] = mod
+		caneOfKulemakMods[modId] = mod
+		queensHungerMods[modId] = mod
+	end
+	for _, tag in pairs(mod.weightKey) do
+		if tag:find("^[%a_]+_veiled_prefix") or tag:find("^[%a_]+_veiled_suffix") then
+			table.insert(veiledMasterSpawnTags, tag)
+		end
+	end
+end
+
+local thatWhichWasTakenMods = {}
+for modId, mod in pairs(data.itemMods.JewelCharm) do
+	if not modId:match("1$") then
+		thatWhichWasTakenMods[modId] = mod
 	end
 end
 
 local dreadCaptainBase = { base = copyTable(data.itemBases["Ghostflame Blade"]) }
 dreadCaptainBase.base.tags.deepwater_sword = true
 
+local caneOfKulemakBase = { base = copyTable(data.itemBases["Serpentine Staff"]) }
+caneOfKulemakBase.base.tags.catarina_veiled_prefix = true
+
+local replicaParadoxicaBase = { base = copyTable(data.itemBases["Vaal Rapier"]) }
+for _, tag in ipairs(veiledMasterSpawnTags) do
+	if tag:find("prefix") then
+		replicaParadoxicaBase.base.tags[tag] = true
+	end
+end
+
+local queensHungerBase = { base = copyTable(data.itemBases["Vaal Regalia"]) }
+queensHungerBase.base.tags.catarina_veiled_prefix = true
+
+---@class RareLikeItemBase Pick<ItemBaseEntry, "base">
+---@field base ItemBase
 ---@class RareLikeUniqueDescription
 ---@field affixes table<string, table>
----@field validBases ItemBaseEntry[]? Bases used to check modifier spawn tags instead of the item's base
+---@field validBases RareLikeItemBase[]? Bases used to check modifier spawn tags instead of the item's base
 ---@field prefixLimit integer
 ---@field suffixLimit integer
 ---@field ignoreModType boolean?
@@ -1326,14 +1397,14 @@ dreadCaptainBase.base.tags.deepwater_sword = true
 data.rareLikeUniques = {
 	["subsume the source"] = {
 		validBases = data.itemBaseLists["Jewel: Abyss"],
-		affixes = data.itemMods.JewelAbyss,
+		affixes = subsumeTheSourceMods,
 		prefixLimit = 4,
 		suffixLimit = 0,
 		ignoreModType = true,
 		allowDuplicateGroups = true,
 	},
 	["the crimson storm"] = {
-		affixes = crimsonStormMods,
+		affixes = veiledSuffixes,
 		prefixLimit = 0,
 		suffixLimit = 1,
 	},
@@ -1347,6 +1418,38 @@ data.rareLikeUniques = {
 			VEILED = true,
 			CUSTOM = true,
 		},
+	},
+	["paradoxica"] = {
+		affixes = veiledMods,
+		prefixLimit = 1,
+		suffixLimit = 1,
+	},
+	["cane of kulemak"] = {
+		validBases = { caneOfKulemakBase },
+		affixes = caneOfKulemakMods,
+		prefixLimit = 2,
+		suffixLimit = 2,
+	},
+	["replica paradoxica"] = {
+		-- note that technically this item should only have the signature veiled
+		-- mods on the 6th modifier, instead of all prefix modifiers
+		validBases = { replicaParadoxicaBase },
+		affixes = data.veiledMods,
+		prefixLimit = 3,
+		suffixLimit = 3,
+	},
+	["the queen's hunger"] = {
+		validBases = { queensHungerBase },
+		affixes = queensHungerMods,
+		prefixLimit = 1,
+		suffixLimit = 1,
+	},
+	["that which was taken"] = {
+		validBases = data.itemBaseLists["Jewel: Charm"],
+		affixes = thatWhichWasTakenMods,
+		prefixLimit = 4,
+		suffixLimit = 0,
+		ignoreModType = true,
 	}
 }
 -- Uniques (loaded after version-specific data because reasons)

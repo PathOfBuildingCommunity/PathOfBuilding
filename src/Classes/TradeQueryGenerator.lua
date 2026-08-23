@@ -1490,10 +1490,12 @@ Remove: %s will be removed from the search results.]], term, term, term)
 		options.statWeights = statWeights
 		if controls.jewelSlot then
 			slot = controls.jewelSlot:GetSelValue()
+			-- pass node id back to table so evaluation can use the correct socket instead of the unique pseudo slot
 			context.slotTbl.selectedJewelNodeId = slot.nodeId
 		end
 		if controls.ringSlot then
 			slot = controls.ringSlot:GetSelValue()
+			context.slotTbl.selectedSlotName = slot.slotName
 		end
 
 		self:StartQuery(slot, options)

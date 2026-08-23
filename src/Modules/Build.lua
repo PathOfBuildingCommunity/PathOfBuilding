@@ -31,8 +31,8 @@ end
 ---matchFlags
 ---  Compares the skill flags table against the line flag settings
 ---  Required enabling flags check takes precedence over disabling flags check
----@param reqFlags table containing the required flags
----@param notFlags table containing the disabling flags
+---@param reqFlags table|string containing the required flags
+---@param notFlags table|string containing the disabling flags
 ---@param flags table containing the flags to match against
 local function matchFlags(reqFlags, notFlags, flags)
 	if type(reqFlags) == "string" then
@@ -572,6 +572,9 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 		local warnHeight = main.showWarnings and #self.controls.warnings.lines > 0 and 18 or 0
 		return main.screenH - main.mainBarHeight - 4 - y - warnHeight
 	end
+	function self.controls.statBox.onClick(hoveredLine)
+		self:SetDisplayStat(hoveredLine, true)
+	end
 	self.controls.warnings = new("Control"):Control({"TOPLEFT",self.controls.statBox,"BOTTOMLEFT",true}, {0, 0, 0, 18})
 	self.controls.warnings.lines = {}
 	self.controls.warnings.width = function(control)
@@ -609,6 +612,14 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 	self.treeTab = new("TreeTab"):TreeTab(self)
 	self.skillsTab = new("SkillsTab"):SkillsTab(self)
 	self.calcsTab = new("CalcsTab"):CalcsTab(self)
+	self.controls.breakdown = new("CalcBreakdownControl"):CalcBreakdownControl(self.calcsTab)
+	self.controls.breakdown.pinnedColour = hexToRGB(colorCodes.CUSTOM) or error("failed to set breakdown pin colour")
+	self.controls.breakdown.envName = "mainEnv"
+	self.controls.breakdown.clearDisplayFunc = function()
+		self:ClearDisplayStat()
+	end
+	-- ensure that we don't refer to outdated calc tab sections
+	self.breakdownIndex = nil
 	self.compareTab = new("CompareTab"):CompareTab(self)
 	-- Used for pined calcs panes
 	self.overlayPanes = { }
@@ -1250,6 +1261,10 @@ function buildMode:OnFrame(inputEvents)
 		self.buildFlag = false
 		self.skillsTab:UpdateSocketGroups()
 		self.calcsTab:BuildOutput()
+		if self.controls.breakdown.pinned and self.breakdownInputs then
+			self.controls.breakdown:SetBreakdownData()
+			self.controls.breakdown:SetBreakdownData(unpack(self.breakdownInputs))
+		end
 		self:RefreshStatList()
 		self.configTab.calcFunc, self.configTab.calcBase = self.calcsTab:GetMiscCalculator(self)
 	end
@@ -1324,7 +1339,52 @@ function buildMode:OnFrame(inputEvents)
 	DrawImage(nil, sideBarWidth - 4, 32, 4, main.screenH - 32)
 
 
+	local hovered = self.controls.statBox and self.controls.statBox.hoveredLine
+	self:SetDisplayStat(hovered, false)
 	self:DrawControls(main.viewPort)
+	if self.controls.breakdown.pinned and self.breakdownInputs and not self.selControl then
+		self:SelectControl(self.controls.breakdown)
+	end
+end
+
+function buildMode:SetDisplayStat(hovered, pin)
+	if not hovered or (not pin and self.controls.breakdown.pinned) then
+		-- if this is a hover popup, clear when the user moved mouse out of frame
+		if not self.controls.breakdown.pinned then
+			self:ClearDisplayStat()
+		end
+		return
+	end
+	local key = hovered.line.breakdown
+	-- user clicked a second time: clear
+	if pin and self.controls.breakdown.pinned then
+		self:ClearDisplayStat()
+		return
+		-- avoid being able to pin empty breakdowns
+	elseif pin and not self.controls.breakdown.pinned and not key then
+		return
+	end
+
+	self.sidebarBreakdownData = self:GetSidebarBreakdown(key, hovered.line.modNames, hovered.line.ignoredSections, hovered.line.actorName)
+	self.sidebarBreakdownData.x = hovered.x - 1
+	self.sidebarBreakdownData.y = hovered.y
+	self.sidebarBreakdownData.width = hovered.width
+	if hovered.line.breakdownColour then
+		self.controls.breakdown.borderColour = hovered.line.breakdownColour
+	end
+	local breakdownInputs = { self.sidebarBreakdownData, pin, hovered.line.actorName }
+	-- avoid rebuilding the sidebar every frame
+	if tableDeepEquals(breakdownInputs, self.breakdownInputs) then
+		return
+	end
+	self.breakdownInputs = breakdownInputs
+	self.controls.breakdown:SetBreakdownData(unpack(breakdownInputs))
+end
+
+function buildMode:ClearDisplayStat()
+	self.controls.breakdown:SetBreakdownData()
+	self.breakdownInputs = nil
+	self.sidebarBreakdownData = nil
 end
 
 -- Opens the game version conversion popup
@@ -1691,8 +1751,156 @@ function buildMode:FormatStat(statData, statVal, overCapStatVal, colorOverride)
 	return valStr
 end
 
+-- lazily index the calcs tab sections so that we can look up the matching
+-- sections by breakdown name
+function buildMode:BuildBreakdownIndex()
+	if self.breakdownIndex then
+		return self.breakdownIndex
+	end
+	local index = {}
+	local sectionList = self.calcsTab.sectionList
+	for _, section in ipairs(sectionList) do
+		if section.subSection then
+			for _, subSection in ipairs(section.subSection) do
+				-- cells for each mod name
+				local modSectionsByName = {}
+				local breakdownCells = {}
+				for _, row in ipairs(subSection.data) do
+					for _, colData in ipairs(row) do
+						for _, cell in ipairs(colData) do
+							if cell.breakdown and not breakdownCells[cell.breakdown] then
+								breakdownCells[cell.breakdown] = colData
+							end
+							if cell.modName then
+								-- inherit flags from parent row
+								local copy = copyTable(row, true)
+								for k, v in pairs(cell) do
+									copy[k] = v
+								end
+								local names = type(cell.modName) == "table" and cell.modName or { cell.modName }
+								for _, name in ipairs(names) do
+									modSectionsByName[name] = modSectionsByName[name] or {}
+									t_insert(modSectionsByName[name], copy)
+								end
+							end
+						end
+					end
+				end
+				for key, colData in pairs(breakdownCells) do
+					-- ensure that we only set each breakdown once
+					if not index[key] then
+						index[key] = { colData = colData, modSectionsByName = modSectionsByName }
+					end
+				end
+			end
+		end
+	end
+	self.breakdownIndex = index
+	return index
+end
+
+---@param key string A breakdown key
+---@param modNames string[]? A modName key. Required if the mod name is different from the breakdown key. E.g. breakdown has Time while the mod has Speed
+---@param ignoredSections table<string, boolean>?
+---@param actorName string?
+function buildMode:GetSidebarBreakdown(key, modNames, ignoredSections, actorName)
+	local env = actorName and self.calcsTab.mainEnv[actorName]
+	local breakdownData = env and env.breakdown and env.breakdown[key]
+	local sourceKey = breakdownData and breakdownData.breakdownSource or key
+	local entry = self:BuildBreakdownIndex()[sourceKey]
+	if not entry then
+		local output = { { breakdown = key } }
+		-- it's possible for calc sections to not have a breakdown, while still
+		-- having a mod list. this handles e.g. spell suppression chance
+		if modNames then
+			table.insert(output, { modName = modNames })
+		end
+		return output
+	end
+	local displayData = {}
+	-- this will include all of the hover information for the selected breakdown
+	for _, cell in ipairs(entry.colData) do
+		local displayCell = copyTable(cell)
+		if displayCell.breakdown == sourceKey then
+			displayCell.breakdown = key
+		end
+		t_insert(displayData, displayCell)
+	end
+	-- sometimes the breakdown doesn't include the mod names. for
+	-- example life has its mod tables separated to the inc and more breakdowns.
+	if modNames then
+		for _, modKey in ipairs(modNames) do
+			if entry.modSectionsByName[modKey] then
+				for _, statDisplay in ipairs(entry.modSectionsByName[modKey]) do
+					t_insert(displayData, statDisplay)
+				end
+			end
+		end
+	end
+
+	local visitedSections = {}
+	-- remove sections that have been manually excluded, or ones that have
+	-- already been added. it's probably not guaranteed that the sections with
+	-- the same label always contain the exact same contents, but this gets rid
+	-- of pointless repeated sections
+	for i = #displayData, 1, -1 do
+		local label = displayData[i].label
+		if label then
+			if visitedSections[label] or (ignoredSections and ignoredSections[label]) then
+				table.remove(displayData, i)
+			end
+			visitedSections[label] = true
+		end
+	end
+	if #displayData == 0 then
+		return { { breakdown = key } }
+	end
+	return displayData
+end
+
+---@param actorName string
+function buildMode:GetStatBreakdownKey(statData, actorName)
+	local env = self.calcsTab.mainEnv[actorName]
+	local breakdown = env and env.breakdown
+	if not breakdown then
+		return nil
+	end
+	local key
+	if statData.breakdown ~= nil then
+		key = statData.breakdown
+	elseif statData.childStat then
+		local parent = breakdown[statData.stat]
+		if parent and parent[statData.childStat] then
+			key = statData.stat .. "." .. statData.childStat
+		end
+	elseif breakdown[statData.stat] then
+		key = statData.stat
+	end
+	if key == nil then
+		return nil
+	end
+	-- Modifier-only popups do not require a calculated breakdown.
+	if statData.modNames then
+		return key
+	end
+	local namespace, name = key:match("^(%a+)%.(%a+)$")
+	local breakdownData = namespace and breakdown[namespace] and breakdown[namespace][name] or breakdown[key]
+	if breakdownData and (#breakdownData > 0
+		or breakdownData.radius
+		or breakdownData.rowList and #breakdownData.rowList > 0
+		or breakdownData.reservations and #breakdownData.reservations > 0
+		or breakdownData.damageTypes and #breakdownData.damageTypes > 0
+		or breakdownData.slots and #breakdownData.slots > 0
+		or breakdownData.modList and #breakdownData.modList > 0) then
+		return key
+	end
+	return nil
+end
 -- Add stat list for given actor
-function buildMode:AddDisplayStatList(statList, actor)
+---@param statList DisplayStat[]
+---@param actor any
+---@param actorName string
+function buildMode:AddDisplayStatList(statList, actor, actorName)
 	local statBoxList = self.controls.statBox.list
 	for index, statData in ipairs(statList) do
 		if matchFlags(statData.flag, statData.notFlag, actor.mainSkill.skillFlags) then
@@ -1759,10 +1967,30 @@ function buildMode:AddDisplayStatList(statList, actor)
 								formattedStat = formattedStat .. "^x808080 (" .. suffix .. ")"
 							end
 						end
+						local breakdown = self:GetStatBreakdownKey(statData, actorName)
+						local ignoredSections
+						if statData.ignoredSections then
+							ignoredSections = {}
+							for _, label in ipairs(statData.ignoredSections) do
+								ignoredSections[label] = true
+							end
+						end
+						-- SimpleGraphic also has these short codes which cannot be easily translated to hex
+						local colourCodeMap = {
+							["^1"] = { 0.917, 0, 0 },
+							["^7"] = { 1, 1, 1 },
+						}
+						local breakdownColour = labelColor ~= "^7" and hexToRGB(labelColor) or colourCodeMap[labelColor]
 						t_insert(statBoxList, {
 							height = 16,
 							labelColor..statData.label..":",
 							formattedStat,
+							breakdown = breakdown,
+							modNames = statData.modNames,
+							underline = { false, not not breakdown },
+							actorName = actorName,
+							ignoredSections = ignoredSections,
+							breakdownColour = breakdownColour,
 						})
 					end
 				end
@@ -1867,7 +2095,7 @@ function buildMode:RefreshStatList()
 				t_insert(statBoxList, { height = 14, align = "CENTER_X", x = 140, "^8" .. self.calcsTab.mainEnv.minion.mainSkill.infoMessage2})
 			end
 		end
-		self:AddDisplayStatList(self.minionDisplayStats, self.calcsTab.mainEnv.minion)
+		self:AddDisplayStatList(self.minionDisplayStats, self.calcsTab.mainEnv.minion, "minion")
 		t_insert(statBoxList, { height = 10 })
 		t_insert(statBoxList, { height = 18, "^7Player:" })
 	end
@@ -1875,7 +2103,7 @@ function buildMode:RefreshStatList()
 		t_insert(statBoxList, { height = 16, "^7Skill disabled:" })
 		t_insert(statBoxList, { height = 14, align = "CENTER_X", x = 140, self.calcsTab.mainEnv.player.mainSkill.disableReason })
 	end
-	self:AddDisplayStatList(self.displayStats, self.calcsTab.mainEnv.player)
+	self:AddDisplayStatList(self.displayStats, self.calcsTab.mainEnv.player, "player")
 	self:InsertItemWarnings()
 	self:EstimatePlayerProgress()
 end

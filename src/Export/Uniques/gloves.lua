@@ -6,6 +6,7 @@ return {
 Admiral's Arrogance
 Antique Gauntlets
 League: Settlers of Kalguur
+Source: Drops from unique{Admiral Valerius} in normal{Shipping encounters}
 Requires Level 39, 58 Str
 IncreasedAttackSpeedUnique__7
 LocalIncreasedPhysicalDamageReductionRatingPercentUnique__1
@@ -484,7 +485,7 @@ LocalIncreasedEnergyShieldUniqueGlovesInt1
 {variant:1}ItemFoundQuantityIncreaseUniqueGlovesInt1[18,24]
 {variant:2}ItemFoundQuantityIncreaseUniqueGlovesInt1[12,16]
 {variant:3}ItemFoundQuantityIncreaseUniqueGlovesInt1
-{variant:4}ItemFoundRarityIncreaseUniqueGlovesStrDex2[10,15]
+{variant:4}ItemFoundRarityIncreaseUnique__7[10,15]
 ]],[[
 Voidbringer
 Conjurer Gloves
@@ -874,6 +875,7 @@ UniqueVolkuursGuidanceIgniteDurationFinal
 Hand of Heresy
 Martyr Gloves
 League: Mercenaries of Trarthus
+Source: Reward from Mercenary duel
 Variant: Pre 3.28.0
 Variant: Current
 Requires Level 77, 70 Str, 70 Int
@@ -908,7 +910,6 @@ UnaffectedByShockLeechingESUnique__1
 Algor Mortis
 Carnal Mitts
 League: Delirium
-Source: Drops from the Simulacrum Encounter
 Requires Level 50, 39 Dex, 39 Int
 IncreasedEnergyShieldUnique__9
 ColdAndLightningResistUnique__2
@@ -1050,6 +1051,7 @@ Requires Level 5
 ]],[[
 Malachai's Mark
 Murder Mitts
+Source: Drops from unique{Nightmare of the Depraved Trinity} in normal{Abomination Map}
 Requires Level 67, 51 Dex, 51 Int
 LocalIncreasedEvasionAndEnergyShieldUnique__8
 IncreasedLifeUniqueGlovesInt3
@@ -1133,6 +1135,7 @@ Medved's Challenge
 Runic Gauntlets
 Requires Level 69, 38 Str, 38 Dex, 38 Int
 League: Expedition
+Source: Drops from Expedition monsters
 IncreasedLocalAttributeRequirementsUnique__1
 LocalIncreasedWardPercentUnique__3
 AllResistancesUnique__23__
@@ -1145,6 +1148,7 @@ Variant: Pre 3.16.0
 Variant: Pre 3.25.0
 Variant: Current
 League: Expedition
+Source: Drops from Expedition monsters
 Requires Level 48, 31 Str, 31 Dex, 31 Int
 LocalIncreasedWardPercentUnique__1_
 ChaosResistUnique__10

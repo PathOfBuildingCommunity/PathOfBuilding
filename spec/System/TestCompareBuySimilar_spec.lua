@@ -105,6 +105,22 @@ Implicits: 1
 			assert.equal(-100, entries[1].value)
 			assert.equal(50, entries[2].value)
 		end)
+		it("does not combine options", function()
+			local lifelessDiamond = new("Item"):Item([[
+Test Subject
+Onyx Amulet
+Implicits: 2
+Allocates Adamant (enchant)
+Allocates Admonisher (enchant)
+Can have 3 additional Enchantment Modifiers]])
+			local entries = bs.addModEntries(lifelessDiamond,
+				{ { list = lifelessDiamond.enchantModLines, type = "enchant" }, { list = lifelessDiamond.explicitModLines, type = "explicit" } })
+			assert.equal(3, #entries)
+			assert.equal("enchant.stat_2954116742", entries[1].tradeIds[1])
+			assert.equal(49416, entries[1].value)
+			assert.equal("enchant.stat_2954116742", entries[2].tradeIds[1])
+			assert.equal(50858, entries[2].value)
+		end)
 	end)
 	describe("popup URL controls", function()
 		local originalCopy

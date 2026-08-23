@@ -182,6 +182,7 @@ Having a placed Banner does not prevent you gaining Valour
 Pragmatism
 Colosseum Plate
 League: Affliction
+Source: unique{The King in the Mists} in the normal{Crux of Nothingness}
 Requires Level 49, 134 Str
 +12 to Level of Socketed Skill Gems
 (80-120)% increased Armour
@@ -1157,6 +1158,7 @@ Gain a Power Charge for each Enemy you hit with a Critical Strike
 Waxen Soul
 Saint's Hauberk
 League: Ritual
+Source: Reward from Nameless Ritual, and rarely a regular Ritual
 (10-20)% increased maximum Life
 +(17-29)% to Chaos Resistance
 Curse Skills cost Life instead of Mana
@@ -1487,5 +1489,16 @@ Recover (3-5)% of Energy Shield on Kill
 8% increased Maximum Energy Shield for each Corrupted Item Equipped
 -(6-4)% to all Resistances for each Corrupted Item Equipped
 Corrupted
-]],
+]],[[
+The Queen's Hunger
+Vaal Regalia
+League: Betrayal
+Source: Drops from unique{Catarina, Master of Undeath}
+Crafted: true
+Implicits: 0
+Trigger Level 20 Bone Offering, Flesh Offering, Spirit Offering every 5 seconds in sequence
+Offering Skills Triggered this way also affect you
+(100-130)% increased Energy Shield
+(6-10)% increased maximum Life
+]]
 }
