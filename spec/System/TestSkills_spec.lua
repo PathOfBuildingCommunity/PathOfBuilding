@@ -354,8 +354,8 @@ describe("TestSkills", function()
 		runCallback("OnFrame")
 
 		local genericEfficiencyCost = build.calcsTab.mainOutput.ManaCost
-		-- Test actual behavior: 12/1.25 = 9.6 (not rounded)
-		assert.True(math.abs(genericEfficiencyCost - 9.6) < 0.001)
+		-- The game rounds 12 / 1.25 = 9.6 after applying efficiency.
+		assert.are.equals(10, genericEfficiencyCost)
 
 		-- Test multiple efficiency sources stacking additively
 		build.configTab.input.customMods = "25% increased Cost Efficiency\n25% increased Mana Cost Efficiency"

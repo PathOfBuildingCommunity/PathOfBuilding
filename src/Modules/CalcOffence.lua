@@ -1820,6 +1820,10 @@ function calcs.offence(env, actor, activeSkill)
 				end
 				-- Apply cost efficiency (similar to reservation efficiency)
 				output[costName] = m_max(0, output[costName] / costEfficiency)
+				if val.upfront and not val.percent then
+					-- The game stores upfront resource costs as whole numbers after efficiency.
+					output[costName] = round(output[costName])
+				end
 				output[costName] = m_max(0, output[costName] + val.totalCost)
 				if val.type == "Mana" and hybridLifeCost > 0 then -- Life/Mana Mastery
 					output[costName] = m_max(0, m_floor((1 - hybridLifeCost) * output[costName]))
@@ -1833,6 +1837,10 @@ function calcs.offence(env, actor, activeSkill)
 				output[costName] = m_max(0, moreType * output[costName])
 				-- Apply cost efficiency for unaffected costs too
 				output[costName] = m_max(0, output[costName] / costEfficiency)
+				if val.upfront and not val.percent then
+					-- The game stores upfront resource costs as whole numbers after efficiency.
+					output[costName] = round(output[costName])
+				end
 				output[costName] = m_max(0, output[costName] + val.totalCost)
 				output[costNameRaw] = val.baseCostRaw and m_max(0, m_max(0, (1 + inc / 100) * (val.baseCostRaw + val.baseCostNoMult) * moreType / costEfficiency) + val.totalCost)
 			end
