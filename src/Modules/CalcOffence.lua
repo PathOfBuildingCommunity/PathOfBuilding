@@ -3038,7 +3038,8 @@ function calcs.offence(env, actor, activeSkill)
 					inc = skillModList:Sum("INC", cfg, "CritChance") + (env.mode_effective and enemyDB:Sum("INC", nil, "SelfCritChance") or 0)
 					more = skillModList:More(cfg, "CritChance")
 				end
-				output.CritChance = (baseCrit + base) * (1 + inc / 100) * more
+				-- The game uses an integer permyriad chance for each critical strike roll.
+				output.CritChance = round((baseCrit + base) * (1 + inc / 100) * more * 100) / 100
 				local preCapCritChance = output.CritChance
 				output.CritChance = m_min(output.CritChance, skillModList:Override(nil, "CritChanceCap") or skillModList:Sum("BASE", cfg, "CritChanceCap"))
 				if (baseCrit + base) > 0 then
