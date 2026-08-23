@@ -132,7 +132,7 @@ return function(skills, mod, flag, skill)
 #mods
 
 #skill AspectOfTheBrineKing
-#flags cast
+#flags cast guaranteedChill
 	fromItem = true,
 	statMap = {
 		["active_skill_buff_chill_effect_+%_to_grant"] = {

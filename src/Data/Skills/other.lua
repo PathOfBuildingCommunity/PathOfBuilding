@@ -383,6 +383,7 @@ skills["AspectOfTheBrineKing"] = {
 	},
 	baseFlags = {
 		cast = true,
+		guaranteedChill = true,
 	},
 	constantStats = {
 		{ "active_skill_base_area_of_effect_radius", 60 },
