@@ -437,7 +437,7 @@ Implicits: 2
 {variant:1,2,3,4,5}(30-50)% increased Global Damage
 {variant:6,7,8}(40-60)% increased Global Damage
 {variant:9,10,11}+2 to Level of all Spell Skill Gems
-{variant:1,2,3,4,5}7% Global chance to Blind Enemies on hit
+{variant:1,2,3,4,5}7% chance to Blind Enemies on Hit
 {variant:6,7,8,9,10,11}10% Global chance to Blind Enemies on hit
 {variant:1,2}Gain 1 Mana on Kill per Level
 {variant:1,2}Gain 1 Energy Shield on Kill per Level

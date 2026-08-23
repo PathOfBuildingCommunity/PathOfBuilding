@@ -869,7 +869,7 @@ Variant: Pre 3.5.0
 Variant: Pre 3.19.0
 Variant: Current
 Implicits: 0
-{variant:1}(60-100)% increased Global Physical Damage
+{variant:1}(60-100)% increased Physical Damage
 {variant:2,3}100% increased Global Physical Damage
 {variant:3}(300-400)% increased Armour and Evasion
 {variant:1}+(130-160) to maximum Life

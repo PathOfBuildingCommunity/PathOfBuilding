@@ -280,7 +280,7 @@ Implicits: 2
 (75-100)% increased Physical Damage
 20% increased Attack Speed
 25% increased Critical Strike Chance
-{variant:1}+25% to Global Critical Strike Multiplier
+{variant:1}+25% to Critical Strike Multiplier
 {variant:2,3,4}+40% to Global Critical Strike Multiplier
 (10-20)% of Physical Damage Converted to Chaos Damage
 {variant:1,2,3}Poisonous Hit

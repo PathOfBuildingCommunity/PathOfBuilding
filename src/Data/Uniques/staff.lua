@@ -115,7 +115,7 @@ Implicits: 2
 {variant:1}+18% Chance to Block Attack Damage
 {variant:2,3}+22% Chance to Block Attack Damage
 (700-800)% increased Physical Damage
-{variant:1,2}+100% to Global Critical Strike Multiplier
+{variant:1,2}+100% to Critical Strike Multiplier
 {variant:3}+(100-150)% to Global Critical Strike Multiplier
 75% of Physical Damage converted to a random Element
 25% of Physical Damage Converted to Chaos Damage

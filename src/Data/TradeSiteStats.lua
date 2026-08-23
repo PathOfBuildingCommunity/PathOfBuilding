@@ -36047,6 +36047,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_654335115",
+				["text"] = "Socketed Gems are Supported by Level # Cooldown Recovery",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.indexable_support_155",
 				["text"] = "Socketed Gems are Supported by Level # Corrupting Cry",
 				["type"] = "explicit",
@@ -43038,6 +43043,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2409504914",
+				["text"] = "#% increased Critical Strike Chance per Brand",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2091591880",
 				["text"] = "#% increased Critical Strike Chance with Bows",
 				["type"] = "implicit",
@@ -43735,6 +43745,11 @@ return {
 			{
 				["id"] = "implicit.stat_304970526",
 				["text"] = "#% increased Movement Speed during any Flask Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1360723495",
+				["text"] = "#% increased Movement Speed for each Poison on you up to a maximum of 50%",
 				["type"] = "implicit",
 			},
 			{
@@ -44953,6 +44968,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2894704558",
+				["text"] = "+# to Maximum number of Crab Barriers",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_3706959521",
 				["text"] = "+# to Minimum Endurance Charges",
 				["type"] = "implicit",
@@ -45625,6 +45645,11 @@ return {
 			{
 				["id"] = "implicit.stat_2885144362",
 				["text"] = "Adds # to # Lightning Damage to Spells and Attacks",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_855634301",
+				["text"] = "Adds # to # Lightning Damage while you have Avian's Might",
 				["type"] = "implicit",
 			},
 			{
@@ -47020,6 +47045,11 @@ return {
 			{
 				["id"] = "implicit.stat_3872739249|11",
 				["text"] = "Grants Summon Greater Harbinger of Storms Skill",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3872739249|3",
+				["text"] = "Grants Summon Harbinger of Focus Skill",
 				["type"] = "implicit",
 			},
 			{
@@ -48438,6 +48468,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2603798371",
+				["text"] = "Trigger Level 30 Shade Form when Hit",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_3591112611",
 				["text"] = "Trigger a Socketed Elemental Spell on Block, with a # second Cooldown",
 				["type"] = "implicit",
@@ -48515,6 +48550,11 @@ return {
 			{
 				["id"] = "implicit.stat_4004298002",
 				["text"] = "Unaffected by Desecrated Ground",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2716882575",
+				["text"] = "Unaffected by Ignite or Shock if Maximum Life and Maximum Mana are within 500",
 				["type"] = "implicit",
 			},
 			{
@@ -48713,8 +48753,33 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2661498709",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% chance to Avoid being Frozen",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_911929910",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% chance to Avoid being Ignited",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2714750784",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% chance to Avoid being Poisoned",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3823702653",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% chance to Avoid being Shocked",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_990874979",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% chance to Avoid being Stunned",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1158288860",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% chance to Extinguish Enemies on Hit",
 				["type"] = "implicit",
 			},
 			{
@@ -48738,6 +48803,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3004272949",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% chance to Intimidate Enemies for 4 seconds on Hit",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_532792006",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% chance to Poison on Hit",
 				["type"] = "implicit",
@@ -48745,6 +48815,26 @@ return {
 			{
 				["id"] = "implicit.stat_2459490852",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% chance to Shock",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_4018420421",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% chance to Unnerve Enemies for 4 seconds on Hit",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2251857767",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Action Speed",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3744585764",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Arctic Armour Buff Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_568930056",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Area of Effect",
 				["type"] = "implicit",
 			},
 			{
@@ -48763,6 +48853,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2446980928",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Attack Speed",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_1455812442",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Battlemage's Cry Buff Effect",
 				["type"] = "implicit",
@@ -48773,6 +48868,31 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2391109128",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Brand Attachment range",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_4098747485",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Cast Speed",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2070979181",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Chaos Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1576689223",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Cold Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2095999895",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Conductivity Curse Effect",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_668321613",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Cooldown Recovery Rate",
 				["type"] = "implicit",
@@ -48780,6 +48900,11 @@ return {
 			{
 				["id"] = "implicit.stat_850668052",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Cooldown Recovery Rate of Travel Skills",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1840069423",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Critical Strike Chance for Attacks",
 				["type"] = "implicit",
 			},
 			{
@@ -48798,6 +48923,26 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_740797388",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Damage per Endurance Charge",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1855179125",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Damage per Frenzy Charge",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2809284200",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Damage per Power Charge",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2775855429",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Despair Curse Effect",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_867827325",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Duration of Ailments on Enemies",
 				["type"] = "implicit",
@@ -48808,13 +48953,63 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_4128294206",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Effect of Buffs granted by your Golems",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_1016769968",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Effect of Non-Damaging Ailments",
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3209267362",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Effect of Onslaught on you",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1080711147",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Effect of the Buff granted by your Carrion Golems",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_510803146",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Effect of the Buff granted by your Chaos Golems",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_783010498",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Effect of the Buff granted by your Flame Golems",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_168204696",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Effect of the Buff granted by your Ice Golems",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2527345629",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Effect of the Buff granted by your Lightning Golems",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_438468314",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Effect of the Buff granted by your Stone Golems",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1350472585",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Effect of your Curses",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_1138753695",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Effect of your Marks",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2029969019",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Elemental Weakness Curse Effect",
 				["type"] = "implicit",
 			},
 			{
@@ -48833,6 +49028,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_38083709",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Enfeeble Curse Effect",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2386062386",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Evasion Rating",
 				["type"] = "implicit",
@@ -48843,8 +49043,28 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2782184338",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Fire Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_323292443",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Flammability Curse Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2068042138",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Frostbite Curse Effect",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2086047206",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Global Accuracy Rating",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2545907302",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Global Physical Damage",
 				["type"] = "implicit",
 			},
 			{
@@ -48855,6 +49075,16 @@ return {
 			{
 				["id"] = "implicit.stat_498250787",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Life Regeneration rate",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1328859059",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Lightning Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3996548075",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Mana Cost Efficiency",
 				["type"] = "implicit",
 			},
 			{
@@ -48883,6 +49113,21 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3827973062",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Mine Throwing Speed",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1702124724",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Movement Speed",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_40584863",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Punishment Curse Effect",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2063107864",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Rallying Cry Buff Effect",
 				["type"] = "implicit",
@@ -48890,6 +49135,11 @@ return {
 			{
 				["id"] = "implicit.stat_2828309116",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Skill Effect Duration",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1412947753",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Spell Critical Strike Chance",
 				["type"] = "implicit",
 			},
 			{
@@ -48903,8 +49153,43 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3695602451",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Temporal Chains Curse Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_100371300",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Totem Placement speed",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_547463927",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Trap Throwing Speed",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1668340466",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Vulnerability Curse Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_794753348",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Warcry Buff Effect",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2117066923",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Warcry Speed",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3788782813",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased effect of Non-Curse Auras from your Skills",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2526554500",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased effect of Offerings",
 				["type"] = "implicit",
 			},
 			{
@@ -48923,13 +49208,38 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2181576428",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% of Cold Damage taken Recouped as Life",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_699673918",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% of Damage is taken from Mana before Life",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2525287976",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% of Damage taken Recouped as Life",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_3480255365",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% of Fire Damage Leeched as Life",
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_1613190388",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% of Fire Damage taken Recouped as Life",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_373606913",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% of Lightning Damage Leeched as Life",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3870554516",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% of Lightning Damage taken Recouped as Life",
 				["type"] = "implicit",
 			},
 			{
@@ -48978,8 +49288,18 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_286128234",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% of Physical Damage taken Recouped as Life",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_433740375",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% reduced Effect of Shock on you",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2169620689",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% reduced Enemy Stun Threshold",
 				["type"] = "implicit",
 			},
 			{
@@ -48993,6 +49313,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_1297664519",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% reduced Mana Cost of Attacks",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_771112337",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, +# to Accuracy Rating per Frenzy Charge",
 				["type"] = "implicit",
@@ -49003,8 +49328,83 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2163155983",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, +#% to Chaos Damage over Time Multiplier",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_74135418",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, +#% to Chaos Resistance",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2619970520",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, +#% to Cold Damage over Time Multiplier",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3864103630",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, +#% to Cold Resistance",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_529984126",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, +#% to Critical Strike Multiplier for Attack Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2955927568",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, +#% to Critical Strike Multiplier for Spell Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1870961528",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, +#% to Fire Damage over Time Multiplier",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1299790658",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, +#% to Fire Resistance",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3980173235",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, +#% to Lightning Resistance",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_4084536353",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, +#% to Physical Damage over Time Multiplier",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2251516251",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, +#% to all Elemental Resistances",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_673499528",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, +#% to all maximum Resistances",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_944522962",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, +#% to maximum Chaos Resistance",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3415855998",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, +#% to maximum Cold Resistance",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1133929401",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, +#% to maximum Fire Resistance",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_4136085904",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, +#% to maximum Lightning Resistance",
 				["type"] = "implicit",
 			},
 			{
@@ -49020,6 +49420,56 @@ return {
 			{
 				["id"] = "implicit.stat_514187658",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, 1% less Damage Taken per # Strength",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3953801646",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Adds # to # Chaos Damage to Attacks",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3206883665",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Adds # to # Chaos Damage to Spells",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1016130575",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Adds # to # Cold Damage to Attacks",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3349767748",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Adds # to # Cold Damage to Spells",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3972399670",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Adds # to # Fire Damage to Attacks",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3954869480",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Adds # to # Fire Damage to Spells",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2925105924",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Adds # to # Lightning Damage to Attacks",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3874289",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Adds # to # Lightning Damage to Spells",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3477311591",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Adds # to # Physical Damage to Attacks",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_485268361",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Adds # to # Physical Damage to Spells",
 				["type"] = "implicit",
 			},
 			{
@@ -49053,6 +49503,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_689723685",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Bone Offering has #% increased Effect",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_403285636",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Damage Penetrates #% Cold Resistance",
 				["type"] = "implicit",
@@ -49078,6 +49533,21 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_4007728388",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Drops Brittle Ground while moving, lasting # seconds",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3812596254",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Drops Sapped Ground while moving, lasting # seconds",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2022820500",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Drops Scorched Ground while moving, lasting # seconds",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_906749304",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Enduring Cry has #% increased Cooldown Recovery Rate",
 				["type"] = "implicit",
@@ -49090,6 +49560,36 @@ return {
 			{
 				["id"] = "implicit.stat_376260015",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Exerted Attacks deal #% increased Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_4155771029",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Flasks applied to you have #% increased Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1519845279",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Flasks gain # Charges every 3 seconds",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2013839784",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Flesh Offering has #% increased Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_764963982",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Flesh and Stone has #% increased Area of Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2689351720",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Freezes you inflict spread to other Enemies within # metre",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3344624374",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Gain # Rage on Attack Hit",
 				["type"] = "implicit",
 			},
 			{
@@ -49113,6 +49613,21 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2237382624",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Gain a Frenzy Charge every # seconds",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2776235850",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Gain a Power Charge every # seconds",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2896379260",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Gain an Endurance Charge every # seconds",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_133006298",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, General's Cry has #% increased Cooldown Recovery Rate",
 				["type"] = "implicit",
@@ -49133,6 +49648,31 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3001066983",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Herald of Agony has #% increased Buff Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3045509476",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Herald of Ash has #% increased Buff Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1609260458",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Herald of Ice has #% increased Buff Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3005679448",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Herald of Purity has #% increased Buff Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1553385903",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Herald of Thunder has #% increased Buff Effect",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_3990398819",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Hits have #% chance to ignore Enemy Physical Damage Reduction",
 				["type"] = "implicit",
@@ -49140,6 +49680,11 @@ return {
 			{
 				["id"] = "implicit.stat_1053495752",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Ignites you inflict deal Damage #% faster",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3343791355",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Ignites you inflict spread to other Enemies within # metre",
 				["type"] = "implicit",
 			},
 			{
@@ -49178,8 +49723,28 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3141084961",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Minions deal #% increased Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2809900883",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Minions have #% increased Movement Speed",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_4057257145",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Minions have #% increased maximum Life",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_1973340656",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Minions prevent +#% of Reflected Damage they would take",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1884100040",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Non-Vaal Strike Skills target # additional nearby Enemy",
 				["type"] = "implicit",
 			},
 			{
@@ -49228,6 +49793,21 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2218095219",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Shocks you inflict spread to other Enemies within # metre",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_726251263",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Spirit Offering has #% increased Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1138488752",
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Tempest Shield has #% increased Buff Effect",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_3457821036",
 				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Withered you Inflict expires #% faster",
 				["type"] = "implicit",
@@ -49243,6 +49823,31 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_725501141",
+				["text"] = "While a Unique Enemy is in your Presence, #% Chance to Block Attack Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1358320252",
+				["text"] = "While a Unique Enemy is in your Presence, #% Chance to Block Spell Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_172529037",
+				["text"] = "While a Unique Enemy is in your Presence, #% chance to Aggravate Bleeding on targets you Hit with Attacks",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2651293339",
+				["text"] = "While a Unique Enemy is in your Presence, #% chance to Avoid Bleeding",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3264420229",
+				["text"] = "While a Unique Enemy is in your Presence, #% chance to Avoid Elemental Ailments",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_3887072924",
 				["text"] = "While a Unique Enemy is in your Presence, #% chance to Avoid being Frozen",
 				["type"] = "implicit",
@@ -49250,6 +49855,11 @@ return {
 			{
 				["id"] = "implicit.stat_2796083262",
 				["text"] = "While a Unique Enemy is in your Presence, #% chance to Avoid being Ignited",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3553907672",
+				["text"] = "While a Unique Enemy is in your Presence, #% chance to Avoid being Poisoned",
 				["type"] = "implicit",
 			},
 			{
@@ -49268,8 +49878,38 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_1542827808",
+				["text"] = "While a Unique Enemy is in your Presence, #% chance to Freeze",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3423886807",
+				["text"] = "While a Unique Enemy is in your Presence, #% chance to Hinder Enemies on Hit with Spells",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_874990741",
+				["text"] = "While a Unique Enemy is in your Presence, #% chance to Ignite",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2391907787",
+				["text"] = "While a Unique Enemy is in your Presence, #% chance to Impale Enemies on Hit with Attacks",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_144453866",
 				["text"] = "While a Unique Enemy is in your Presence, #% chance to Intimidate Enemies for 4 seconds on Hit",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2433754249",
+				["text"] = "While a Unique Enemy is in your Presence, #% chance to Poison on Hit",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2621869142",
+				["text"] = "While a Unique Enemy is in your Presence, #% chance to Shock",
 				["type"] = "implicit",
 			},
 			{
@@ -49293,8 +49933,33 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_1980216452",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Armour",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_4053459163",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Armour from Equipped Helmet and Gloves",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_4061200499",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Attack Damage",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_3401410854",
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Attack Speed",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3173180145",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Battlemage's Cry Buff Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_886650454",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Blind Effect",
 				["type"] = "implicit",
 			},
 			{
@@ -49323,8 +49988,33 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2491353340",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Cooldown Recovery Rate",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2986495340",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Cooldown Recovery Rate of Travel Skills",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_3710240762",
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Critical Strike Chance for Attacks",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3966336964",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Damage per 100 Dexterity",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_545832642",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Damage per 100 Intelligence",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_410716074",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Damage per 100 Strength",
 				["type"] = "implicit",
 			},
 			{
@@ -49348,8 +50038,23 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3341892633",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Duration of Ailments on Enemies",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3163099942",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Effect of Arcane Surge on you",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2159248495",
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Effect of Buffs granted by your Golems",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2950684886",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Effect of Non-Damaging Ailments",
 				["type"] = "implicit",
 			},
 			{
@@ -49393,13 +50098,43 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_505694848",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Effect of your Marks",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_771845579",
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Elemental Weakness Curse Effect",
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2413932980",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Elusive Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3806837783",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Energy Shield Recharge Rate",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_587322642",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Energy Shield Recovery rate",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_937462392",
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Enfeeble Curse Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3394288644",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Evasion Rating",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1825301877",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Evasion Rating from Equipped Helmet and Boots",
 				["type"] = "implicit",
 			},
 			{
@@ -49418,8 +50153,23 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2423625781",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Global Accuracy Rating",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_604852150",
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Global Physical Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1481249164",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Life Recovery rate",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1916766878",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Life Regeneration rate",
 				["type"] = "implicit",
 			},
 			{
@@ -49430,6 +50180,31 @@ return {
 			{
 				["id"] = "implicit.stat_4094153038",
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Mana Cost Efficiency",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1217759839",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Mana Recovery rate",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_760444887",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Mana Regeneration Rate",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1918872160",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Mana Regeneration Rate per Power Charge",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2358903592",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Mana Reservation Efficiency of Skills",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2734758957",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Maximum Energy Shield from Equipped Gloves and Boots",
 				["type"] = "implicit",
 			},
 			{
@@ -49448,8 +50223,28 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_1381761351",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Rallying Cry Buff Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_614709726",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Skill Effect Duration",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_4191234472",
 				["text"] = "While a Unique Enemy is in your Presence, #% increased Spell Critical Strike Chance",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_4136821316",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Spell Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_266654028",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Stun Threshold",
 				["type"] = "implicit",
 			},
 			{
@@ -49478,6 +50273,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2255001736",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Warcry Speed",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2558323947",
 				["text"] = "While a Unique Enemy is in your Presence, #% increased effect of Non-Curse Auras from your Skills",
 				["type"] = "implicit",
@@ -49485,6 +50285,21 @@ return {
 			{
 				["id"] = "implicit.stat_1132843482",
 				["text"] = "While a Unique Enemy is in your Presence, #% increased effect of Offerings",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1114962813",
+				["text"] = "While a Unique Enemy is in your Presence, #% increased maximum Energy Shield",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_676741860",
+				["text"] = "While a Unique Enemy is in your Presence, #% of Chaos Damage Leeched as Life",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2887638881",
+				["text"] = "While a Unique Enemy is in your Presence, #% of Cold Damage Leeched as Life",
 				["type"] = "implicit",
 			},
 			{
@@ -49503,8 +50318,18 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2940779795",
+				["text"] = "While a Unique Enemy is in your Presence, #% of Fire Damage Leeched as Life",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2143647966",
 				["text"] = "While a Unique Enemy is in your Presence, #% of Fire Damage taken Recouped as Life",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1944219739",
+				["text"] = "While a Unique Enemy is in your Presence, #% of Lightning Damage Leeched as Life",
 				["type"] = "implicit",
 			},
 			{
@@ -49513,8 +50338,58 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_1623369100",
+				["text"] = "While a Unique Enemy is in your Presence, #% of Physical Damage Converted to Chaos Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1153825002",
+				["text"] = "While a Unique Enemy is in your Presence, #% of Physical Damage Converted to Cold Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_380027104",
+				["text"] = "While a Unique Enemy is in your Presence, #% of Physical Damage Converted to Fire Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1516273114",
+				["text"] = "While a Unique Enemy is in your Presence, #% of Physical Damage Converted to Lightning Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3678860707",
+				["text"] = "While a Unique Enemy is in your Presence, #% of Physical Damage Leeched as Life",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2393004388",
+				["text"] = "While a Unique Enemy is in your Presence, #% of Physical Damage from Hits taken as Chaos Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_848890513",
+				["text"] = "While a Unique Enemy is in your Presence, #% of Physical Damage from Hits taken as Cold Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1283684786",
+				["text"] = "While a Unique Enemy is in your Presence, #% of Physical Damage from Hits taken as Fire Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_196824923",
+				["text"] = "While a Unique Enemy is in your Presence, #% of Physical Damage from Hits taken as Lightning Damage",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_428533194",
 				["text"] = "While a Unique Enemy is in your Presence, #% of Physical Damage taken Recouped as Life",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1343931641",
+				["text"] = "While a Unique Enemy is in your Presence, #% reduced Effect of Shock on you",
 				["type"] = "implicit",
 			},
 			{
@@ -49523,8 +50398,28 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3985862221",
+				["text"] = "While a Unique Enemy is in your Presence, #% reduced Freeze Duration on you",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2520245478",
+				["text"] = "While a Unique Enemy is in your Presence, #% reduced Ignite Duration on you",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2879204033",
 				["text"] = "While a Unique Enemy is in your Presence, #% reduced Mana Cost of Attacks",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1492071500",
+				["text"] = "While a Unique Enemy is in your Presence, +# to Accuracy Rating per Frenzy Charge",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3998961962",
+				["text"] = "While a Unique Enemy is in your Presence, +#% chance to Suppress Spell Damage",
 				["type"] = "implicit",
 			},
 			{
@@ -49578,6 +50473,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2358153166",
+				["text"] = "While a Unique Enemy is in your Presence, +#% to all Elemental Resistances",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_3062531896",
 				["text"] = "While a Unique Enemy is in your Presence, +#% to all maximum Resistances",
 				["type"] = "implicit",
@@ -49600,6 +50500,21 @@ return {
 			{
 				["id"] = "implicit.stat_789714862",
 				["text"] = "While a Unique Enemy is in your Presence, +#% to maximum Lightning Resistance",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3123599008",
+				["text"] = "While a Unique Enemy is in your Presence, 1% less Damage Taken per # Dexterity",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_535043290",
+				["text"] = "While a Unique Enemy is in your Presence, 1% less Damage Taken per # Intelligence",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_184959267",
+				["text"] = "While a Unique Enemy is in your Presence, 1% less Damage Taken per # Strength",
 				["type"] = "implicit",
 			},
 			{
@@ -49653,8 +50568,63 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_778803098",
+				["text"] = "While a Unique Enemy is in your Presence, Anger has #% increased Aura Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3598887112",
+				["text"] = "While a Unique Enemy is in your Presence, Attacks Exerted by Ancestral Cry deal #% increased Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1505297139",
+				["text"] = "While a Unique Enemy is in your Presence, Attacks Exerted by Seismic Cry deal #% increased Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_720015764",
+				["text"] = "While a Unique Enemy is in your Presence, Attacks have #% chance to Maim on Hit",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3757358729",
+				["text"] = "While a Unique Enemy is in your Presence, Attacks have #% chance to cause Bleeding",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_738837643",
+				["text"] = "While a Unique Enemy is in your Presence, Bleeding you inflict deals Damage #% faster",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_666003799",
 				["text"] = "While a Unique Enemy is in your Presence, Bone Offering has #% increased Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1477049675",
+				["text"] = "While a Unique Enemy is in your Presence, Damage Penetrates #% Cold Resistance",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3425675761",
+				["text"] = "While a Unique Enemy is in your Presence, Damage Penetrates #% Fire Resistance",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1598254831",
+				["text"] = "While a Unique Enemy is in your Presence, Damage Penetrates #% Lightning Resistance",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2366356855",
+				["text"] = "While a Unique Enemy is in your Presence, Determination has #% increased Aura Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_334238649",
+				["text"] = "While a Unique Enemy is in your Presence, Discipline has #% increased Aura Effect",
 				["type"] = "implicit",
 			},
 			{
@@ -49670,6 +50640,21 @@ return {
 			{
 				["id"] = "implicit.stat_3096936188",
 				["text"] = "While a Unique Enemy is in your Presence, Drops Scorched Ground while moving, lasting # seconds",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2792560229",
+				["text"] = "While a Unique Enemy is in your Presence, Enduring Cry has #% increased Cooldown Recovery Rate",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_577552701",
+				["text"] = "While a Unique Enemy is in your Presence, Enemies you've Hit Recently have #% reduced Life Regeneration rate",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3291139981",
+				["text"] = "While a Unique Enemy is in your Presence, Exerted Attacks deal #% increased Damage",
 				["type"] = "implicit",
 			},
 			{
@@ -49703,6 +50688,26 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_620552892",
+				["text"] = "While a Unique Enemy is in your Presence, Gain #% of Physical Damage as Extra Chaos Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3171354842",
+				["text"] = "While a Unique Enemy is in your Presence, Gain #% of Physical Damage as Extra Cold Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3549954477",
+				["text"] = "While a Unique Enemy is in your Presence, Gain #% of Physical Damage as Extra Fire Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1918094957",
+				["text"] = "While a Unique Enemy is in your Presence, Gain #% of Physical Damage as Extra Lightning Damage",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_996960575",
 				["text"] = "While a Unique Enemy is in your Presence, Gain 1 Rage on Hit with Attacks",
 				["type"] = "implicit",
@@ -49720,6 +50725,26 @@ return {
 			{
 				["id"] = "implicit.stat_290895331",
 				["text"] = "While a Unique Enemy is in your Presence, Gain an Endurance Charge every # seconds",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_942266300",
+				["text"] = "While a Unique Enemy is in your Presence, General's Cry has #% increased Cooldown Recovery Rate",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3303144948",
+				["text"] = "While a Unique Enemy is in your Presence, Grace has #% increased Aura Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2735804076",
+				["text"] = "While a Unique Enemy is in your Presence, Haste has #% increased Aura Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_4218330172",
+				["text"] = "While a Unique Enemy is in your Presence, Hatred has #% increased Aura Effect",
 				["type"] = "implicit",
 			},
 			{
@@ -49748,8 +50773,53 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_4105610833",
+				["text"] = "While a Unique Enemy is in your Presence, Hits have #% chance to ignore Enemy Physical Damage Reduction",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2349328837",
+				["text"] = "While a Unique Enemy is in your Presence, Ignites you inflict deal Damage #% faster",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_1698847655",
 				["text"] = "While a Unique Enemy is in your Presence, Ignites you inflict spread to other Enemies within # metre",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1373026185",
+				["text"] = "While a Unique Enemy is in your Presence, Infernal Cry has #% increased Area of Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1836549522",
+				["text"] = "While a Unique Enemy is in your Presence, Inflict Cold Exposure on Hit, applying #% to Cold Resistance",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3473165335",
+				["text"] = "While a Unique Enemy is in your Presence, Inflict Fire Exposure on Hit, applying #% to Fire Resistance",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2996354577",
+				["text"] = "While a Unique Enemy is in your Presence, Inflict Lightning Exposure on Hit, applying #% to Lightning Resistance",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3381588096",
+				["text"] = "While a Unique Enemy is in your Presence, Intimidating Cry has #% increased Cooldown Recovery Rate",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1327020319",
+				["text"] = "While a Unique Enemy is in your Presence, Malevolence has #% increased Aura Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_993223747",
+				["text"] = "While a Unique Enemy is in your Presence, Melee Hits Fortify",
 				["type"] = "implicit",
 			},
 			{
@@ -49768,8 +50838,58 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_1695965847",
+				["text"] = "While a Unique Enemy is in your Presence, Minions prevent +#% of Reflected Damage they would take",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_1524679549",
 				["text"] = "While a Unique Enemy is in your Presence, Non-Vaal Strike Skills target # additional nearby Enemy",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3828039449",
+				["text"] = "While a Unique Enemy is in your Presence, Poisons you inflict deal Damage #% faster",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2195698019",
+				["text"] = "While a Unique Enemy is in your Presence, Prevent +#% of Reflected Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_4039774101",
+				["text"] = "While a Unique Enemy is in your Presence, Pride has #% increased Aura Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3924473787",
+				["text"] = "While a Unique Enemy is in your Presence, Projectiles Pierce # additional Targets",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_348693938",
+				["text"] = "While a Unique Enemy is in your Presence, Purity of Elements has #% increased Aura Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1926772156",
+				["text"] = "While a Unique Enemy is in your Presence, Purity of Fire has #% increased Aura Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3499126604",
+				["text"] = "While a Unique Enemy is in your Presence, Purity of Ice has #% increased Aura Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_908556575",
+				["text"] = "While a Unique Enemy is in your Presence, Purity of Lightning has #% increased Aura Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1123587207",
+				["text"] = "While a Unique Enemy is in your Presence, Regenerate #% of Life per second per Endurance Charge",
 				["type"] = "implicit",
 			},
 			{
@@ -49785,6 +50905,26 @@ return {
 			{
 				["id"] = "implicit.stat_1186828634",
 				["text"] = "While a Unique Enemy is in your Presence, Tempest Shield has #% increased Buff Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3262721796",
+				["text"] = "While a Unique Enemy is in your Presence, Withered you Inflict expires #% faster",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_399528178",
+				["text"] = "While a Unique Enemy is in your Presence, Wrath has #% increased Aura Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3550578554",
+				["text"] = "While a Unique Enemy is in your Presence, Zealotry has #% increased Aura Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1831757355",
+				["text"] = "Wintertide Brand has #% increased Chill Effect",
 				["type"] = "implicit",
 			},
 			{
@@ -52310,6 +53450,11 @@ return {
 				["type"] = "fractured",
 			},
 			{
+				["id"] = "fractured.stat_1192661666",
+				["text"] = "#% increased Critical Strike Chance with Traps",
+				["type"] = "fractured",
+			},
+			{
 				["id"] = "fractured.stat_764295120",
 				["text"] = "#% increased Critical Strike Chance with Two Handed Melee Weapons",
 				["type"] = "fractured",
@@ -53440,6 +54585,11 @@ return {
 				["type"] = "fractured",
 			},
 			{
+				["id"] = "fractured.stat_497716276",
+				["text"] = "#% increased Trap Trigger Area of Effect",
+				["type"] = "fractured",
+			},
+			{
 				["id"] = "fractured.stat_464535071",
 				["text"] = "#% increased Trap and Mine Throwing Speed",
 				["type"] = "fractured",
@@ -53562,6 +54712,11 @@ return {
 			{
 				["id"] = "fractured.stat_3964669425",
 				["text"] = "#% more Mana cost of Lightning Skills while Shocked",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_1353128245",
+				["text"] = "#% more Melee Damage while Burning",
 				["type"] = "fractured",
 			},
 			{
@@ -54567,6 +55722,11 @@ return {
 			{
 				["id"] = "fractured.stat_670153687",
 				["text"] = "+#% to Critical Strike Multiplier with One Handed Melee Weapons",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_1780168381",
+				["text"] = "+#% to Critical Strike Multiplier with Traps",
 				["type"] = "fractured",
 			},
 			{
@@ -56712,6 +57872,11 @@ return {
 			{
 				["id"] = "fractured.stat_816367946",
 				["text"] = "All Monster Damage from Hits always Ignites",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_270993809",
+				["text"] = "Always Hits Burning Enemies",
 				["type"] = "fractured",
 			},
 			{
@@ -59155,6 +60320,11 @@ return {
 				["type"] = "fractured",
 			},
 			{
+				["id"] = "fractured.stat_3181879507",
+				["text"] = "Shock yourself for # Seconds when you Focus",
+				["type"] = "fractured",
+			},
+			{
 				["id"] = "fractured.stat_74338099",
 				["text"] = "Skills fire an additional Projectile",
 				["type"] = "fractured",
@@ -59660,6 +60830,11 @@ return {
 				["type"] = "fractured",
 			},
 			{
+				["id"] = "fractured.stat_3440719546",
+				["text"] = "The Effect of Chill on you is reversed while on Chilled ground",
+				["type"] = "fractured",
+			},
+			{
 				["id"] = "fractured.stat_1441799693",
 				["text"] = "The Impaler",
 				["type"] = "fractured",
@@ -59687,6 +60862,11 @@ return {
 			{
 				["id"] = "fractured.stat_436556261",
 				["text"] = "This Map's Modifiers to Quantity of Items found also apply to Rarity",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_2130824945",
+				["text"] = "Throw up to # additional Trap if dual wielding",
 				["type"] = "fractured",
 			},
 			{
@@ -59887,6 +61067,11 @@ return {
 			{
 				["id"] = "fractured.stat_3444518809",
 				["text"] = "Wrath has #% increased Mana Reservation Efficiency",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_790453126",
+				["text"] = "You and Allies near your Banner have +#% to Damage over Time Multiplier per 2 Valour consumed for that Banner",
 				["type"] = "fractured",
 			},
 			{

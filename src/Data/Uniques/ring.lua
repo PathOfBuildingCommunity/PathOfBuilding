@@ -1114,8 +1114,8 @@ Requires Level 60
 Implicits: 1
 {tags:critical}(20-30)% increased Global Critical Strike Chance
 {tags:attack}+333 to Accuracy Rating
-{variant:1}{tags:critical}+(10-20)% to Global Critical Strike Multiplier
-{variant:2}{tags:critical}+(10-15)% to Global Critical Strike Multiplier
+{variant:1}{tags:critical}+(10-20)% to Critical Strike Multiplier
+{variant:2}{tags:critical}+(10-15)% to Critical Strike Multiplier
 {variant:3}{tags:critical}+(15-25)% to Global Critical Strike Multiplier
 {tags:resource}+(40-60) to maximum Mana
 {tags:resource,attack}0.4% of Physical Attack Damage Leeched as Mana

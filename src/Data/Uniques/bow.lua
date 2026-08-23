@@ -131,8 +131,8 @@ Implicits: 1
 {variant:1,2,3,4,5}(100-125)% increased Physical Damage
 {variant:6,7}(90-105)% increased Physical Damage
 10% increased Attack Speed
-{variant:1,2,4}+100% to Global Critical Strike Multiplier
-{variant:3}+150% to Global Critical Strike Multiplier
+{variant:1,2,4}+100% to Critical Strike Multiplier
+{variant:3}+150% to Critical Strike Multiplier
 {variant:5,6,7}+50% to Global Critical Strike Multiplier
 {variant:1,2,3,4,5,6}Bow Attacks fire an additional Arrow
 {variant:7}Bow Attacks fire 2 additional Arrows
@@ -153,8 +153,8 @@ Implicits: 1
 {variant:6}(90-105)% increased Physical Damage
 Adds (10-20) to (30-35) Physical Damage
 10% increased Attack Speed
-{variant:1,2,4}+100% to Global Critical Strike Multiplier
-{variant:3}+150% to Global Critical Strike Multiplier
+{variant:1,2,4}+100% to Critical Strike Multiplier
+{variant:3}+150% to Critical Strike Multiplier
 {variant:5,6}+50% to Global Critical Strike Multiplier
 Bow Attacks fire 2 additional Arrows
 ]],[[

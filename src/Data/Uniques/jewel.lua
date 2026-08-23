@@ -1099,7 +1099,7 @@ Variant: Pre 3.3.0
 Variant: Current
 Limited to: 2
 Radius: Medium
-{variant:1}(4-12)% increased Global Physical Damage
+{variant:1}(4-12)% increased Physical Damage
 {variant:2,3}(8-12)% increased Global Physical Damage
 {variant:2}With at least 40 Strength in Radius, Ground Slam has a 25% chance
 {variant:2}to grant an Endurance Charge when you Stun an Enemy
