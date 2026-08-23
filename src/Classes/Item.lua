@@ -1390,6 +1390,18 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 						if mod.variantList and (self:GetModLineVariantCount(mod) == 0) then
 							goto modMagnitudeContinue
 						end
+						-- Modifiers that grant skills are not affected by modifier magnitude.
+						local grantsSkill = false
+						for _, parsedMod in ipairs(mod.modList) do
+							if parsedMod.name == "ExtraSkill" then
+								grantsSkill = true
+								break
+							end
+						end
+						if mod.extra and not grantsSkill then
+							local line = mod.line:lower()
+							grantsSkill = line:match("^grants level %d+ ") or line:match("^grants %D+$")
+						end
 						-- Create a fast lookup table for all provided tags
 						local tagLookup = {}
 						for _, curTag in ipairs(mod.modTags) do
@@ -1410,7 +1422,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 						if modMagnitudeMod.anyTags and not (tagLookup[modMagnitudeMod.anyTags[1]] or tagLookup[modMagnitudeMod.anyTags[2]]) then
 							match = false
 						end
-						if match and not mod.unscalable then
+						if match and not mod.unscalable and not grantsSkill then
 							if modMagnitudeMod.multiplier then
 								mod.valueScalar = (mod.valueScalar or 1) * modMagnitudeMod.multiplier
 							else
