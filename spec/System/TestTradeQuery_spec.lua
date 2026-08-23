@@ -178,57 +178,47 @@ describe("TradeQuery", function()
 	end)
 
 	describe("SetStatWeights", function()
-		it("marks the build modified after saving changed weights", function()
-			local capturedControls
-			local originalOpenPopup = main.OpenPopup
-			local originalClosePopup = main.ClosePopup
+		local capturedControls
+		local originalOpenPopup
+		local originalClosePopup
+		before_each(function()
+			originalOpenPopup = main.OpenPopup
+			originalClosePopup = main.ClosePopup
 			main.OpenPopup = function(_, _, _, _, controls)
 				capturedControls = controls
 			end
 			main.ClosePopup = function() end
-
-			local itemsTab = {}
-			local tradeQuery = new("TradeQuery"):TradeQuery(itemsTab)
-			local ok, errMsg = pcall(function()
-				tradeQuery:SetStatWeights()
-				for _, entry in ipairs(capturedControls.ListControl.list) do
-					if entry.stat.stat == "FullDPS" then
-						entry.stat.weightMult = 0.75
-						break
-					end
-				end
-				capturedControls.finalise.onClick()
-			end)
+		end)
+		after_each(function()
 			main.OpenPopup = originalOpenPopup
 			main.ClosePopup = originalClosePopup
+		end)
 
-			assert.is_true(ok, errMsg)
+		it("marks the build modified after saving changed weights", function()
+			local itemsTab = {}
+			local tradeQuery = new("TradeQuery"):TradeQuery(itemsTab)
+			tradeQuery:SetStatWeights()
+			for _, entry in ipairs(capturedControls.ListControl.list) do
+				if entry.stat.stat == "FullDPS" then
+					entry.stat.weightMult = 0.75
+					break
+				end
+			end
+			capturedControls.finalise.onClick()
+
 			assert.is_true(itemsTab.modFlag)
 			assert.are.equal(0.75, tradeQuery.statSortSelectionList[1].weightMult)
 		end)
 
 		it("preserves the save callback after resetting weights", function()
-			local capturedControls
-			local originalOpenPopup = main.OpenPopup
-			local originalClosePopup = main.ClosePopup
-			main.OpenPopup = function(_, _, _, _, controls)
-				capturedControls = controls
-			end
-			main.ClosePopup = function() end
-
 			local callbackCount = 0
-			local ok, errMsg = pcall(function()
-				local tradeQuery = new("TradeQuery"):TradeQuery({})
-				tradeQuery:SetStatWeights(nil, function()
-					callbackCount = callbackCount + 1
-				end)
-				capturedControls.reset.onClick()
-				capturedControls.finalise.onClick()
+			local tradeQuery = new("TradeQuery"):TradeQuery({})
+			tradeQuery:SetStatWeights(nil, function()
+				callbackCount = callbackCount + 1
 			end)
-			main.OpenPopup = originalOpenPopup
-			main.ClosePopup = originalClosePopup
+			capturedControls.reset.onClick()
+			capturedControls.finalise.onClick()
 
-			assert.is_true(ok, errMsg)
 			assert.are.equal(1, callbackCount)
 		end)
 	end)
