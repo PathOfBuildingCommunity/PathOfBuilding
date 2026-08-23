@@ -1499,7 +1499,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 					self.allocNodes[id] = nil
 					self.masterySelections[id] = nil
 				end
-			elseif node.type == "Mastery" and not node.allMasteryOptions then
+			elseif node.type == "Mastery" and not node.allMasteryOptions and node.overrideType ~= "AlternateMastery" then
 				self:AddMasteryEffectOptionsToNode(node)
 			elseif node.type == "Notable" and node.alloc then
 				self.allocatedNotableCount = self.allocatedNotableCount + 1
