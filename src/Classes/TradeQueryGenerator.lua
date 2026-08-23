@@ -139,14 +139,6 @@ for i, curInfluenceInfo in ipairs(itemLib.influenceInfo.default) do
 	hasInfluenceModIds[i] = "pseudo.pseudo_has_" .. string.lower(curInfluenceInfo.display) .. "_influence"
 end
 
--- slots that allow eldritch mods (non-unique only)
-local eldritchModSlots = {
-	["Body Armour"] = true,
-	["Helmet"] = true,
-	["Gloves"] = true,
-	["Boots"] = true
-}
-
 local MAX_FILTERS = 36
 
 local function logToFile(...)
@@ -1139,7 +1131,7 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 	local isAmuletSlot = slot and slot.slotName == "Amulet"
 	local isBeltSlot = slot and slot.slotName == "Belt"
 	local isWeaponSlot = slot and (slot.slotName == "Weapon 1" or slot.slotName == "Weapon 2")
-	local isEldritchModSlot = slot and eldritchModSlots[slot.slotName] == true
+	local isEldritchModSlot = slot and isValueInArray(data.eldritch.baseTypes, slot.slotName)
 
 	local lastItemAnchor
 	local function updateLastAnchor(anchor, height)
