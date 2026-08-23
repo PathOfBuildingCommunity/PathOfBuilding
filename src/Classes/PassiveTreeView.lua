@@ -1460,7 +1460,8 @@ function PassiveTreeViewClass:AddNodeName(tooltip, node, build)
 	end
 end
 
-function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
+---@param returnEarly boolean? Whether the function should stop after writing the mod info, before any allocation-specific info
+function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build, returnEarly)
 	local fontSizeBig = main.showFlavourText and 18 or 16
 	self.skillTooltip:Clear()
 	tooltip.center = true
@@ -1632,6 +1633,7 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 		end
 	end
 
+
 	-- Reminder text
 	if node.reminderText then
 		tooltip:AddSeparator(14)
@@ -1646,6 +1648,10 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 		for _, line in ipairs(node.flavourText) do
 			tooltip:AddLine(fontSizeBig, colorCodes.UNIQUE..line, "FONTIN ITALIC")
 		end
+	end
+
+	if returnEarly then
+		return
 	end
 
 	-- Tattoo Editing

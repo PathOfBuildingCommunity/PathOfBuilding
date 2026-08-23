@@ -44,7 +44,8 @@ return {
 			[12] = "explicit.stat_2042813020",
 			[13] = "explicit.stat_3293275880",
 			[14] = "explicit.stat_2585926696",
-			[15] = "explicit.stat_2803981661"
+			[15] = "explicit.stat_2803981661",
+			[16] = "explicit.stat_1355915086",
 		}
 	},
 	[5] = {
