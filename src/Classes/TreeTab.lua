@@ -1670,8 +1670,8 @@ function TreeTabClass:FindTimelessJewel()
 	end
 	controls.socketFilter.state = timelessData.socketFilter
 
-	-- sits on the same row as the socket filter, right of the node distance slider it can show
-	controls.socketAllocate = new("CheckBoxControl"):CheckBoxControl({"LEFT", controls.socketFilter, "RIGHT"}, {165, 0, rowHeight}, nil, function(value)
+	-- own row under the socket filter, so it never collides with the node distance slider
+	controls.socketAllocate = new("CheckBoxControl"):CheckBoxControl({"TOPLEFT", controls.socketFilter, "BOTTOMLEFT"}, {0, rowSpacing, rowHeight}, nil, function(value)
 		timelessData.socketAllocate = value
 		self.build.modFlag = true
 	end)
@@ -1764,7 +1764,7 @@ function TreeTabClass:FindTimelessJewel()
 	local scrollWheelSpeedTbl2 = { ["SHIFT"] = 0.2, ["CTRL"] = 0.002, ["DEFAULT"] = 0.02 }
 
 	local nodeSliderStatLabel = "None"
-	controls.nodeSlider = new("SliderControl"):SliderControl({"TOPLEFT", controls.socketFilter, "BOTTOMLEFT"}, {0, rowSpacing, 200, rowHeight}, function(value)
+	controls.nodeSlider = new("SliderControl"):SliderControl({"TOPLEFT", controls.socketAllocate, "BOTTOMLEFT"}, {0, rowSpacing, 200, rowHeight}, function(value)
 		controls.nodeSliderValue.label = s_format("^7%.3f", value * 10)
 		parseSearchList(1, controls.searchListFallback and controls.searchListFallback.shown or false)
 	end, scrollWheelSpeedTbl)
@@ -2881,6 +2881,8 @@ function TreeTabClass:FindTimelessJewel()
 		end
 	end)
 
-	local panelHeight = 565
+	-- the settings column is top anchored and the results/trade block bottom anchored,
+	-- so the panel grows by a row for every row the settings column gains
+	local panelHeight = 565 + rowSpacing + rowHeight
 	main:OpenPopup(panelWidth, panelHeight, "Find a Timeless Jewel", controls)
 end
