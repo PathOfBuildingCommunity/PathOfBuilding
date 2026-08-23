@@ -202,6 +202,19 @@ function main:Init()
 		local saved = self.defaultItemAffixQuality
 		self.defaultItemAffixQuality = 0.5
 		loadItemDBs()
+		for modCategoryName, mods in pairs(data.itemMods) do
+			if (modCategoryName ~= "Item") then
+				for _, mod in pairs(mods) do
+					-- the trade hash field is split by stat descriptor, which
+					-- means we shouldn't have problems with long stats being
+					-- split
+					for _, line in pairs(mod.tradeHashes) do
+						local rangedLine = itemLib.applyRange(table.concat(line, " "), 0.5)
+						modLib.parseMod(rangedLine)
+					end
+				end
+			end
+		end
 		self:SaveModCache()
 		self.defaultItemAffixQuality = saved
 	end
@@ -301,6 +314,12 @@ function main:SaveModCache()
 	-- Update mod cache
 	local out = io.open("Data/ModCache.lua", "w")
 	out:write('local c = {}\n')
+	-- luajit has problems with loading large tables due to require() and
+	-- LoadModule wrapping the loaded file in a function, which means the
+	-- program runs out of constants and crashes. this works around that by
+	-- splitting the mod cache into functions of 5k statements
+	local count = 0
+	out:write("(function()\n")
 	for line, dat in pairsSortByKey(modLib.parseModCache) do
 		if not dat[1] or not dat[1][1] or (dat[1][1].name ~= "JewelFunc" and dat[1][1].name ~= "ExtraJewelFunc") then
 			out:write('c["', line:gsub("\n","\\n"), '"]={')
@@ -314,9 +333,15 @@ function main:SaveModCache()
 			else
 				out:write(',nil}\n')
 			end
+			if count == 5000 then
+				out:write("end)();(function()\n")
+				count = 0
+			else
+				count += 1
+			end
 		end
 	end
-	out:write('return c\n')
+	out:write("end)();\nreturn c\n")
 	out:close()
 end
 
