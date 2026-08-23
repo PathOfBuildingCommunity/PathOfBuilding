@@ -1728,6 +1728,11 @@ function calcs.offence(env, actor, activeSkill)
 			if val.type == "Life" then
 				local manaType = resource:gsub("Life", "Mana")
 				if skillModList:Flag(skillCfg, "CostLifeInsteadOfMana") then -- Blood Magic / Lifetap
+					if val.upfront then
+						local manaTotalCost = skillModList:Sum("BASE", skillCfg, manaType.."Cost")
+						val.totalCost = val.totalCost + m_max(0, manaTotalCost)
+						costs[manaType].totalCost = costs[manaType].totalCost - manaTotalCost
+					end
 					val.baseCost = val.baseCost + costs[manaType].baseCost
 					val.baseCostNoMult = val.baseCostNoMult + costs[manaType].baseCostNoMult
 					val.finalBaseCost = val.finalBaseCost + costs[manaType].finalBaseCost
@@ -1738,11 +1743,22 @@ function calcs.offence(env, actor, activeSkill)
 				elseif (additionalLifeCost > 0 or hybridLifeCost > 0) and not skillModList:Flag(skillCfg, "CostESInsteadOfManaOrLife") then
 					val.baseCost = costs[manaType].baseCost
 					val.finalBaseCost = val.finalBaseCost + round(costs[manaType].finalBaseCost * (hybridLifeCost + additionalLifeCost))
+					if val.upfront and hybridLifeCost > 0 then
+						-- Only positive flat mana cost is converted, and it is rounded separately from base cost.
+						val.totalCost = val.totalCost + round(m_max(0, skillModList:Sum("BASE", skillCfg, manaType.."Cost")) * hybridLifeCost)
+					end
 				end
 			elseif val.type == "ES" then
 				local manaType = resource:gsub("ES", "Mana")
 				local lifeType = resource:gsub("ES", "Life")
 			  	if skillModList:Flag(skillCfg, "CostESInsteadOfManaOrLife") then -- Whispers of Infinity
+					if val.upfront then
+						local manaTotalCost = skillModList:Sum("BASE", skillCfg, manaType.."Cost")
+						local lifeTotalCost = skillModList:Sum("BASE", skillCfg, lifeType.."Cost")
+						val.totalCost = val.totalCost + m_max(0, manaTotalCost) + m_max(0, lifeTotalCost)
+						costs[manaType].totalCost = costs[manaType].totalCost - manaTotalCost
+						costs[lifeType].totalCost = costs[lifeType].totalCost - lifeTotalCost
+					end
 					val.baseCost = val.baseCost + costs[manaType].baseCost+ costs[lifeType].baseCost
 					val.baseCostNoMult = val.baseCostNoMult + costs[manaType].baseCostNoMult + costs[lifeType].baseCostNoMult
 					val.finalBaseCost = val.finalBaseCost + costs[manaType].finalBaseCost + costs[lifeType].finalBaseCost
