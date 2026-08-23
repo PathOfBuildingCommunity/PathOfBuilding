@@ -46,6 +46,18 @@ describe("TradeQueryGenerator", function()
 		end)
 	end)
 
+	describe("Eldritch mods", function()
+		it("shows the Eldritch options for amulets", function()
+			local queryGen = new("TradeQueryGenerator"):TradeQueryGenerator({ itemsTab = { items = { } } })
+			queryGen:RequestQuery({ slotName = "Amulet" }, {
+				slotTbl = { slotName = "Amulet", alreadyCorrupted = false },
+			}, { }, function() end)
+
+			assert.is_not_nil(main.popups[1].controls.includeEldritch)
+			main:ClosePopup()
+		end)
+	end)
+
 	describe("WeightedRatioOutputs", function()
 		local maxStatIncrease
 

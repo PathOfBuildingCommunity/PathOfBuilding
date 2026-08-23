@@ -132,22 +132,14 @@ local function getStatEntries(modType)
 	end
 end
 
-local influenceDropdownNames = { "None" }
-local hasInfluenceModIds = { }
-for i, curInfluenceInfo in ipairs(itemLib.influenceInfo.default) do
-	influenceDropdownNames[i + 1] = curInfluenceInfo.display
-	hasInfluenceModIds[i] = "pseudo.pseudo_has_" .. string.lower(curInfluenceInfo.display) .. "_influence"
-end
-
 -- slots that allow eldritch mods (non-unique only)
 local eldritchModSlots = {
 	["Body Armour"] = true,
 	["Helmet"] = true,
 	["Gloves"] = true,
-	["Boots"] = true
+	["Boots"] = true,
+	["Amulet"] = true
 }
-
-local MAX_FILTERS = 36
 
 local function logToFile(...)
 	ConPrintf(...)
@@ -771,14 +763,6 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
 	local itemRawStr = "Rarity: RARE\nStat Tester\n" .. testItemType
 	local testItem = new("Item"):Item(itemRawStr)
 
-	-- Apply any requests influences
-	if options.influence1 > 1 then
-		testItem[itemLib.influenceInfo.default[options.influence1 - 1].key] = true
-	end
-	if options.influence2 > 1 then
-		testItem[itemLib.influenceInfo.default[options.influence2 - 1].key] = true
-	end
-
 	-- Calculate base output with a blank item
 	local calcFunc, baseOutput = self.itemsTab.build.calcsTab:GetMiscCalculator()
 	local baseItemOutput = slot and calcFunc({ repSlotName = slot.slotName, repItem = testItem }) or baseOutput
@@ -800,6 +784,7 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
 		options = options,
 		slot = slot,
 		requiredMods = options.requiredMods,
+		blockedMods = options.blockedMods
 	}
 
 	-- OnFrame will pick this up and begin the work
@@ -867,11 +852,7 @@ function TradeQueryGeneratorClass:ExecuteQuery()
 		self:GenerateModWeights(self.modData["Scourge"])
 	end
 	local eldritchOption = self.calcContext.options.includeEldritch
-	if eldritchOption and eldritchOption:find("^Keep") and
-		-- skip weights if we need an influenced item as they can produce really
-		-- bad results due to the filter limit
-		self.calcContext.options.influence1 == 1 and
-		self.calcContext.options.influence2 == 1 then
+	if eldritchOption and eldritchOption:find("^Keep") then
 		local omitConditional = eldritchOption == "Keep regular"
 		local eaterMods = self.modData["Eater"]
 		local exarchMods = self.modData["Exarch"]
@@ -977,8 +958,8 @@ function TradeQueryGeneratorClass:FinishQuery()
 	}
 	local selectedTradeType = self.tradeTypes[self.tradeTypeIndex]
 	-- Generate trade query str and open in browser
-	local filters = 0
 	local requiredMods = self.calcContext.requiredMods or {}
+	local blockedMods = self.calcContext.blockedMods or {}
 	local queryTable = {
 		query = {
 			filters = self.calcContext.special.queryFilters or {
@@ -994,42 +975,26 @@ function TradeQueryGeneratorClass:FinishQuery()
 				{
 					type = "weight",
 					value = { min = minWeight },
-					filters = { }
+					filters = {},
+				},
+				{
+					type = "and",
+					filters = {},
+				},
+				{
+					type = "not",
+					filters = {},
 				}
 			}
 		},
 		sort = { ["statgroup.0"] = "desc" },
 		engine = "new"
 	}
-	local requiredModFilters
-	if #requiredMods > 0 then
-		requiredModFilters = {
-			type = "and",
-			filters = {}
-		}
-		t_insert(queryTable.query.stats, requiredModFilters)
-	end
-
-	local options = self.calcContext.options
-
-	local num_extra = 2
-	if not options.includeMirrored then
-		num_extra = num_extra + 1
-	end
-	if options.maxPrice and options.maxPrice > 0 then
-		num_extra = num_extra + 1
-	end
-	if options.maxLevel and options.maxLevel > 0 then
-		num_extra = num_extra + 1
-	end
-	if options.sockets and options.sockets > 0 then
-		num_extra = num_extra + 1
-	end
-	if options.links and options.links > 0 then
-		num_extra = num_extra + 1
-	end
-
-	local effective_max = MAX_FILTERS - num_extra
+	local weightGroup = queryTable.query.stats[1]
+	local andGroup = queryTable.query.stats[2]
+	local notGroup = queryTable.query.stats[3]
+	-- the trade site has a maximum complexity of 200 for each query. our baseline is 54 for the weighted sum group, 4 for the rarity filter plus category, and 4 for the and group
+	local complexityBudget = 200 - 54 - 4 - 4
 
 	local pseudoMap = {
 		["3372524247"] = "pseudo.pseudo_total_fire_resistance",
@@ -1092,35 +1057,22 @@ function TradeQueryGeneratorClass:FinishQuery()
 	end
 
 	for k, v in pairs(self.calcContext.special.queryExtra or {}) do
+		complexityBudget = complexityBudget - 2
 		queryTable.query[k] = v
 	end
 
-	local andFilters = { type = "and", filters = { } }
-	local options = self.calcContext.options
-	if options.influence1 > 1 then
-		t_insert(andFilters.filters, { id = hasInfluenceModIds[options.influence1 - 1] })
-		filters = filters + 1
-	end
-	if options.influence2 > 1 then
-		t_insert(andFilters.filters, { id = hasInfluenceModIds[options.influence2 - 1] })
-		filters = filters + 1
-	end
-
-	if #andFilters.filters > 0 then
-		t_insert(queryTable.query.stats, andFilters)
-	end
-	
-	for _, entry in ipairs(statFilters) do
-		t_insert(queryTable.query.stats[1].filters, entry)
-		filters = filters + 1
-		if filters == effective_max then
-			break
-		end
-	end
+	-- and filters specified by the user
 	for _, entry in ipairs(requiredMods) do
-		t_insert(requiredModFilters.filters, { id = entry.tradeId, value = { min = entry.value } })
+		complexityBudget = complexityBudget - 4
+		t_insert(andGroup.filters, { id = entry.tradeId, value = { min = entry.value } })
 	end
+	for _, entry in ipairs(blockedMods) do
+		complexityBudget = complexityBudget - 4
+		t_insert(notGroup.filters, { id = entry.tradeId, value = { min = entry.value } })
+	end
+	local options = self.calcContext.options
 	if not options.includeMirrored then
+		complexityBudget = complexityBudget - 3
 		queryTable.query.filters.misc_filters = {
 			disabled = false,
 			filters = {
@@ -1130,6 +1082,7 @@ function TradeQueryGeneratorClass:FinishQuery()
 	end
 
 	if options.maxPrice and options.maxPrice > 0 then
+		complexityBudget = complexityBudget - 3
 		queryTable.query.filters.trade_filters = {
 			filters = {
 				price = {
@@ -1141,10 +1094,12 @@ function TradeQueryGeneratorClass:FinishQuery()
 	end
 
 	if options.account then
-		queryTable.query.filters.trade_filters.filters.account = {input = options.account}
+		complexityBudget = complexityBudget - 3
+		queryTable.query.filters.trade_filters.filters.account = { input = options.account }
 	end
 
 	if options.maxLevel and options.maxLevel > 0 then
+		complexityBudget = complexityBudget - 3
 		queryTable.query.filters.req_filters = {
 			disabled = false,
 			filters = {
@@ -1156,6 +1111,7 @@ function TradeQueryGeneratorClass:FinishQuery()
 	end
 
 	if options.sockets and options.sockets > 0 then
+		complexityBudget = complexityBudget - 3
 		queryTable.query.filters.socket_filters = {
 			disabled = false,
 			filters = {
@@ -1168,6 +1124,7 @@ function TradeQueryGeneratorClass:FinishQuery()
 	end
 
 	if options.links and options.links > 0 then
+		complexityBudget = complexityBudget - 3
 		if not queryTable.query.filters.socket_filters then
 			queryTable.query.filters.socket_filters = {
 				disabled = false,
@@ -1186,8 +1143,17 @@ function TradeQueryGeneratorClass:FinishQuery()
 		end
 	end
 
+	for _, entry in ipairs(statFilters) do
+		-- leave some room for the exact search account name and price query
+		if complexityBudget < 8 then
+			break
+		end
+		complexityBudget = complexityBudget - 4
+		t_insert(weightGroup.filters, entry)
+	end
 	local errMsg = nil
-	if #queryTable.query.stats[1].filters == 0 then
+	ConPrintf("filters: %d, budget: %d", #weightGroup.filters, complexityBudget)
+	if #weightGroup.filters == 0 then
 		-- No mods to filter
 		errMsg = "Could not generate search, found no mods to search for"
 	end
@@ -1206,7 +1172,7 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 	local controls = { }
 	local options = { }
 	local popupHeight = 110
-	local popupWidth = 400
+	local popupWidth = 480
 
 	local isJewelSlot = slot and slot.slotName:find("Jewel") ~= nil
 	local isAbyssalJewelSlot = slot and slot.slotName:find("Abyssal") ~= nil
@@ -1324,41 +1290,17 @@ Remove: %s will be removed from the search results.]], term, term, term)
 		updateLastAnchor(controls.copyEnchantMode)
 	end
 	-- forward declarations for functions interacting with mod filter selectors
-	---@type fun(): table
-	local getModList
-	---@type fun(controls: any, modList: any)
-	local setModSelectors
+	---@type fun()
+	local setAllModSelectors
 	-- jewel type selector
 	if isJewelSlot and not context.slotTbl.unique then
 		controls.jewelType = new("DropDownControl"):DropDownControl({ "TOPLEFT", lastItemAnchor, "BOTTOMLEFT" }, { 0, 5, 100, 18 }, { "Base", "Abyss" }, function(index, value)
 			-- update mod list for selectors
-			local mods = getModList()
-			setModSelectors(controls, mods)
+			setAllModSelectors()
 		end)
 		controls.jewelType.selIndex = self.lastJewelType or 1
 		controls.jewelTypeLabel = new("LabelControl"):LabelControl({ "RIGHT", controls.jewelType, "LEFT" }, { -5, 0, 0, 16 }, "Jewel Type:")
 		updateLastAnchor(controls.jewelType)
-	elseif slot and not isAbyssalJewelSlot and context.slotTbl.slotName ~= "Watcher's Eye" then
-		local selFunc = function()
-			-- influenced items can't have eldritch implicits
-			if controls.includeEldritch and isEldritchModSlot then
-				local hasInfluence1 = controls.influence1 and controls.influence1:GetSelValue() ~= "None"
-				local hasInfluence2 = controls.influence2 and controls.influence2:GetSelValue() ~= "None"
-				controls.includeEldritch.enabled = not hasInfluence1 and not hasInfluence2
-			end
-		end
-		controls.influence1 = new("DropDownControl"):DropDownControl({ "TOPLEFT", lastItemAnchor, "BOTTOMLEFT" }, { 0, 5, 100, 18 },
-			influenceDropdownNames, selFunc)
-		controls.influence1:SetSel(self.lastInfluence1 or 1)
-		controls.influence1Label = new("LabelControl"):LabelControl({"RIGHT",controls.influence1,"LEFT"}, {-5, 0, 0, 16}, "^7Influence 1:")
-
-		controls.influence2 = new("DropDownControl"):DropDownControl({ "TOPLEFT", controls.influence1, "BOTTOMLEFT" }, { 0, 5, 100, 18 },
-			influenceDropdownNames, selFunc)
-		controls.influence2:SetSel(self.lastInfluence2 or 1)
-		selFunc()
-		controls.influence2Label = new("LabelControl"):LabelControl({ "RIGHT", controls.influence2, "LEFT" }, { -5, 0, 0, 16 },
-			"^7Influence 2:")
-		updateLastAnchor(controls.influence2, 46)
 	elseif isAbyssalJewelSlot then
 		controls.jewelType = new("DropDownControl"):DropDownControl({"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, {0, 5, 100, 18}, { "Abyss" }, nil)
 		controls.jewelType.selIndex = 1
@@ -1419,7 +1361,6 @@ Remove: %s will be removed from the search results.]], term, term, term)
 	end
 	popupHeight = popupHeight + 4
 
-	local selectedMods = {}
 	if context.slotTbl.slotName == "Watcher's Eye" then
 		controls.includeAllWEMods = new("CheckBoxControl"):CheckBoxControl({"TOPRIGHT",lastItemAnchor,"BOTTOMRIGHT"}, {0, 5, 18}, "Include all Watcher's Eye mods:", function(state) end)
 		controls.includeAllWEMods.tooltipText = "Include mods that could not have a weight calculated for them at weight 0."
@@ -1427,7 +1368,9 @@ Remove: %s will be removed from the search results.]], term, term, term)
 		popupHeight = popupHeight + 23
 	end
 
-	controls.generateQuery = new("ButtonControl"):ButtonControl({ "BOTTOM", nil, "BOTTOM" }, {-45, -10, 80, 20}, "Execute", function()
+	local selectedMods = {}
+	local notMods = {}
+	controls.generateQuery = new("ButtonControl"):ButtonControl({ "BOTTOM", nil, "BOTTOM" }, { -45, -10, 80, 20 }, "Execute", function()
 		main:ClosePopup()
 
 		self.tradeTypeIndex = context.controls.tradeTypeSelection.selIndex
@@ -1449,16 +1392,6 @@ Remove: %s will be removed from the search results.]], term, term, term)
 		end
 		if controls.includeTalisman then
 			self.lastIncludeTalisman, options.includeTalisman = controls.includeTalisman.state, controls.includeTalisman.state
-		end
-		if controls.influence1 then
-			self.lastInfluence1, options.influence1 = controls.influence1.selIndex, controls.influence1.selIndex
-		else
-			options.influence1 = 1
-		end
-		if controls.influence2 then
-			self.lastInfluence2, options.influence2 = controls.influence2.selIndex, controls.influence2.selIndex
-		else
-			options.influence2 = 1
 		end
 		if controls.jewelType then
 			self.lastJewelType = controls.jewelType.selIndex
@@ -1487,6 +1420,9 @@ Remove: %s will be removed from the search results.]], term, term, term)
 		if #selectedMods > 0 then
 			options.requiredMods = copyTable(selectedMods)
 		end
+		if #notMods > 0 then
+			options.blockedMods = copyTable(notMods)
+		end
 		options.statWeights = statWeights
 		if controls.jewelSlot then
 			slot = controls.jewelSlot:GetSelValue()
@@ -1513,7 +1449,7 @@ Remove: %s will be removed from the search results.]], term, term, term)
 	end
 
 	-- intended width of the whole row, including dropdown and aux controls
-	local totalWidth = 340
+	local totalWidth = 420
 	-- size of min value input
 	local fieldWidth = 60
 	-- size of clear button
@@ -1526,24 +1462,23 @@ Remove: %s will be removed from the search results.]], term, term, term)
 	local _, lastItemH = lastItemAnchor:GetSize()
 	controls.modSelectorHeaderAnchor = new("Control"):Control({ "TOPLEFT", nil, "TOPLEFT" },
 		-- position right below last item, centered horizontally
-		{ (popupWidth - totalWidth) / 2, lastItemH + lastItemY, 0, 0 },
-		"")
+		{ (popupWidth - totalWidth) / 2, lastItemH + lastItemY, 0, 0 })
 	updateLastAnchor(controls.modSelectorHeaderAnchor)
 	-- get mod selector list
-	getModList = function()
+	local function getModList(firstLabel)
 		local _, itemCategory = tradeHelpers.getTradeCategory(slot.slotName, slot and self.itemsTab.items[slot.selItemId])
 		-- add radius/base as they have different mods
 		if controls.jewelType and itemCategory == "Jewel" then
 			itemCategory = controls.jewelType:GetSelValue() .. itemCategory
 		end
-		local mods = { { label = "^7+ Add Required Stat" } }
+		local mods = { { label = firstLabel } }
 		-- pob1 uses ids in QueryMods.lua which are based on mod names and stat
 		-- orders. these result in duplicates
 		local includedIds = {}
 		for _, modType in ipairs({ "Explicit", "Implicit", "Corrupted" }) do
-			for idStr, modData in pairs(self.modData[modType]) do
+			for _, modData in pairs(self.modData[modType]) do
 				if modData[itemCategory] ~= nil and not includedIds[modData.tradeMod.id] then
-					local text = "^7" .. modData.tradeMod.text:gsub("(%a+) Passive Skills in Radius also grant ", "%1: ")
+					local text = colorCodes.MAGIC .. modData.tradeMod.text:gsub("(%a+) Passive Skills in Radius also grant ", "%1: ")
 					includedIds[modData.tradeMod.id] = true
 					if modType ~= "Explicit" then
 						-- dim-ish red or the greenish yellow trade site uses for implicits slightly brightened
@@ -1570,24 +1505,26 @@ Remove: %s will be removed from the search results.]], term, term, term)
 					goto pseudoContinue
 				end
 			end
-			t_insert(mods, { label = s_format("^7%s (Pseudo)", entry.text), tradeId = entry.id })
+			t_insert(mods, { label = s_format(colorCodes.MEMORY .. "%s (Pseudo)", entry.text), tradeId = entry.id })
 			::pseudoContinue::
 		end
 		return mods
 	end
+	-- save height so that we can make it dynamic based on how many filters are selected
+	local popupHeightBeforeModControls = popupHeight
 	-- amount of mod selectors: technically we could have 40, but the more we have the fewer
 	-- stats fit in the weighted sum, and this means a static popup size is ok
-	local maxSelectors = 3
+	local maxSelectors = 5
 	-- set mod selector dropdown labels, adjust width, and possibly change the mod list
-	setModSelectors = function(controls, modList)
+	local function setModSelectors(controls, modList, prefix, selectedList)
 		-- reset selections
 		if modList then
-			selectedMods = {}
+			wipeTable(selectedList)
 		end
 		for i = 1, maxSelectors do
-			local mod = selectedMods[i]
-			local selector = controls["modSelector" .. i]
-			local minimumBox = controls["modSelectorMin" .. i]
+			local mod = selectedList[i]
+			local selector = controls[prefix .. i]
+			local minimumBox = controls[prefix .. "Min" .. i]
 			if modList then
 				selector:SetList(modList)
 			end
@@ -1602,48 +1539,71 @@ Remove: %s will be removed from the search results.]], term, term, term)
 			selector:CheckDroppedWidth(true)
 		end
 	end
-	-- mod filter dropdown and aux controls
-	for i = 1, maxSelectors do
+	function setAllModSelectors()
+		setModSelectors(controls, getModList("^7+ Add Required Stat"), "modSelector", selectedMods)
+		setModSelectors(controls, getModList("^7+ Add Blocked Stat"), "modNotSelector", notMods)
+	end
+
+	local function createDropdownRow(selectedList, prefix, i)
 		-- dropdown which lists all mods that fit
-		local dropdown = new("DropDownControl"):DropDownControl({ "TOPLEFT", lastItemAnchor, "BOTTOMLEFT" },
+		local dropdown = new("DropDownControl"):DropDownControl({ "TOPLEFT", lastItemAnchor, "BOTTOMLEFT", true },
 			{ 0, 4, totalWidth, 20 }, nil,
 			function(idx, val)
 				if idx == 1 then
-					table.remove(selectedMods, i)
+					table.remove(selectedList, i)
 				else
-					selectedMods[i] = copyTable(val)
+					selectedList[i] = copyTable(val)
 				end
-				setModSelectors(controls)
+				setModSelectors(controls, nil, prefix, selectedList)
 			end, nil, true)
 		dropdown.shown = function()
-			return not not selectedMods[i - 1] or i == 1
+			return not not selectedList[i - 1] or i == 1
 		end
 		updateLastAnchor(dropdown)
 		dropdown:SetList({})
-		controls["modSelector" .. i] = dropdown
+		controls[prefix .. i] = dropdown
 
 		-- box that sets minimum value for filter
 		local minimumBox = tradeHelpers.newPlainNumericEdit({ "LEFT", lastItemAnchor, "RIGHT" },
 			{ xSpacing, 0, fieldWidth, buttonSize }, "", "Min", 6, false, function(val)
-				selectedMods[i].value = tonumber(val)
+				selectedList[i].value = tonumber(val)
 			end)
 		minimumBox.shown = function()
-			return not not selectedMods[i]
+			return not not selectedList[i]
 		end
-		controls["modSelectorMin" .. i] = minimumBox
+		controls[prefix .. "Min" .. i] = minimumBox
 
 		-- button which removes the mod row
 		local clearButton = new("ButtonControl"):ButtonControl({ "LEFT", minimumBox, "RIGHT" }, { xSpacing, 0, buttonSize, buttonSize },
 			"x", function()
-				table.remove(selectedMods, i)
-				setModSelectors(controls)
+				table.remove(selectedList, i)
+				setModSelectors(controls, nil, prefix, selectedList)
 			end)
 		clearButton.shown = function()
-			return not not selectedMods[i]
+			return not not selectedList[i]
 		end
-		controls["modSelectorClear" .. i] = clearButton
+		controls[prefix .. "Clear" .. i] = clearButton
 	end
-	setModSelectors(controls, getModList())
+	controls.andLabel = new("LabelControl"):LabelControl({ "TOPLEFT", lastItemAnchor, "BOTTOMLEFT" }, { 0, 8, totalWidth, 16 }, "^7Required Stats")
+	updateLastAnchor(controls.andLabel, 18)
+	-- mod filter dropdown and aux controls
+	for i = 1, maxSelectors do
+		createDropdownRow(selectedMods, "modSelector", i)
+	end
 
-	main:OpenPopup(popupWidth, popupHeight, "Query Options", controls)
+	controls.notLabel = new("LabelControl"):LabelControl({ "TOPLEFT", lastItemAnchor, "BOTTOMLEFT", true }, { 0, 4, totalWidth, 16 }, "^7Blocked Stats")
+	controls.notLabel.collapseY = 8
+	updateLastAnchor(controls.notLabel, 18)
+
+	-- not filters
+	for i = 1, maxSelectors do
+		createDropdownRow(notMods, "modNotSelector", i)
+	end
+
+	setAllModSelectors()
+
+	main:OpenPopup(popupWidth, popupHeight, "Query Options", controls, nil, nil, nil, nil, function()
+		local height = math.min(#selectedMods, maxSelectors - 1) * 23 + math.min(#notMods, maxSelectors - 1) * 23 + 2 * 18
+		main.popups[1].height = popupHeightBeforeModControls + height
+	end)
 end
