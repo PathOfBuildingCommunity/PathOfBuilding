@@ -642,6 +642,12 @@ data.enchantmentSource = {
 	{ name = "NORMAL", label = "Normal Labyrinth" },
 }
 
+-- a list of base types which can contain eldritch implicits
+data.eldritch = {}
+data.eldritch.baseTypes = { "Helmet", "Body Armour", "Gloves", "Boots", "Amulet" }
+-- a list of rarities which can contain eldritch implicits
+data.eldritch.rarities = { "NORMAL", "MAGIC", "RARE" }
+
 -- Stat descriptions
 data.describeStats = LoadModule("Modules/StatDescriber")
 
