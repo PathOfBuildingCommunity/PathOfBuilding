@@ -16,7 +16,7 @@ Implicits: 3
 {variant:4}+(30-50)% to Damage over Time Multiplier for Ignite from Critical Strikes
 {variant:1,2,3}(20-30)% increased Fire Damage
 Adds (4-6) to (8-12) Fire Damage to Spells
-{variant:1,2,3}(40-60)% increased Critical Strike Chance
+{variant:1,2,3}(40-60)% increased Global Critical Strike Chance
 {variant:4}(80-120)% increased Global Critical Strike Chance
 Gain 10 Life per Ignited Enemy Killed
 25% reduced Ignite Duration on Enemies
@@ -87,7 +87,7 @@ Implicits: 4
 {variant:4,5}Adds (30-45) to (60-80) Fire Damage
 {variant:4,5}(6-10)% increased Attack Speed
 {variant:6}(20-26)% increased Attack Speed
-{variant:1}+(18-30)% to Critical Strike Multiplier
+{variant:1}+(18-30)% to Global Critical Strike Multiplier
 {variant:2,3,4,5,6}+(27-33)% to Global Critical Strike Multiplier
 {variant:1,2,3,4,5}20% increased Light Radius
 {variant:6}(15-20)% increased Light Radius

@@ -27,7 +27,7 @@ Implicits: 1
 {variant:1,2}Adds (50-60) to (120-140) Physical Damage
 {variant:3,4}Adds (140-155) to (210-235) Physical Damage
 (40-50)% increased Critical Strike Chance
-{variant:1}+(10-15)% to Critical Strike Multiplier
+{variant:1}+(10-15)% to Global Critical Strike Multiplier
 {variant:2,3,4}+(15-25)% to Global Critical Strike Multiplier
 {variant:3}+(8-12)% to Chaos Resistance
 {variant:4}+(17-27)% to Chaos Resistance

@@ -20,7 +20,7 @@ Variant: Pre 3.16.0
 Variant: Current
 Requires Level 75, 100 Str
 +(60-80) to Intelligence
-{variant:2}(25-35)% increased Critical Strike Chance
+{variant:2}(25-35)% increased Global Critical Strike Chance
 {variant:3}(40-60)% increased Global Critical Strike Chance
 (200-220)% increased Armour
 +(60-75) to maximum Life
@@ -33,7 +33,7 @@ League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 63, 100 Str
 +(60-80) to Intelligence
-(25-35)% increased Critical Strike Chance
+(25-35)% increased Global Critical Strike Chance
 (200-220)% increased Armour
 +(60-75) to maximum Life
 You have Perfect Agony if you've dealt a Critical Strike recently
@@ -273,8 +273,8 @@ Requires Level 21, 33 Dex
 +(20-30) to Dexterity
 5% increased Attack Speed
 50% increased Global Critical Strike Chance
-{variant:1}+(40-50)% to Critical Strike Multiplier
-{variant:2}+(28-36)% to Critical Strike Multiplier
+{variant:1}+(40-50)% to Global Critical Strike Multiplier
+{variant:2}+(28-36)% to Global Critical Strike Multiplier
 {variant:3}+(20-30)% to Global Critical Strike Multiplier
 (60-80)% increased Evasion Rating
 {variant:4}Your Critical Strike Multiplier is 300%
@@ -1003,9 +1003,9 @@ Variant: Pre 3.0.0
 Variant: Pre 3.26.0
 Variant: Current
 Requires Level 16, 14 Dex, 14 Int
-{variant:1,2}+60% to Critical Strike Multiplier
-{variant:3}+90% to Critical Strike Multiplier
-{variant:4}+45% to Critical Strike Multiplier
+{variant:1,2}+60% to Global Critical Strike Multiplier
+{variant:3}+90% to Global Critical Strike Multiplier
+{variant:4}+45% to Global Critical Strike Multiplier
 {variant:5,6}+30% to Global Critical Strike Multiplier
 10% reduced Enemy Stun Threshold
 {variant:1}(800-1000)% more Physical Damage with Unarmed Melee Attacks
@@ -1079,8 +1079,8 @@ Variant: Pre 3.0.0
 Variant: Current
 Requires Level 31, 25 Dex, 25 Int
 (20-30)% increased Global Critical Strike Chance
-{variant:1}+(15-30)% to Critical Strike Multiplier
-{variant:2}+(25-45)% to Critical Strike Multiplier
+{variant:1}+(15-30)% to Global Critical Strike Multiplier
+{variant:2}+(25-45)% to Global Critical Strike Multiplier
 {variant:3}+(20-30)% to Global Critical Strike Multiplier
 (100-130)% increased Evasion and Energy Shield
 {variant:1,2}0.2% of Physical Attack Damage Leeched as Mana
