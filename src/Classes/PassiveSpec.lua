@@ -914,79 +914,6 @@ function PassiveSpecClass:GetSocketedJewel(nodeId)
 	return self:GetJewel(itemId)
 end
 
-local function traversable(curDist, node, other)
-	-- Paths must obey these rules:
-	-- 1. They must not pass through class or ascendancy class start nodes (but they can start from such nodes)
-	-- 2. They cannot pass between different ascendancy classes or between an ascendancy class and the main tree
-	--    The one exception to that rule is that a path may start from an ascendancy node and pass into the main tree
-	--    This permits pathing from the Ascendant 'Path of the X' nodes into the respective class start areas
-	-- 3. They must not pass away from mastery nodes
-	return node.type ~= "Mastery" and other.type ~= "ClassStart" and other.type ~= "AscendClassStart" and (node.ascendancyName == other.ascendancyName or (curDist == 0 and not other.ascendancyName))
-end
-
--- Cluster subgraph rebuilds can replace node objects while retaining IDs.
--- Normalize stale link references to the canonical node object.
-function PassiveSpecClass:NormalizeNodeLinks(node)
-	local linked = node.linked
-	for index = #linked, 1, -1 do
-		local other = linked[index]
-		local canonicalNode = other and other.id and self.nodes[other.id]
-		if not canonicalNode then
-			t_remove(linked, index)
-		elseif canonicalNode ~= other then
-			linked[index] = canonicalNode
-		end
-	end
-end
-
--- Multi-source 0-1 BFS to find what other root (i.e., allocated) nodes each node is closest to
----@param roots Node[] A list of currently allocated, and other nodes which should be considered as the sources of distances.
-function PassiveSpecClass:BuildNodePathsToRootNodes(roots)
-	-- A dequeue. We will keep a pointer to the start and end of this to keep
-	-- track of its length
-	local q = {}
-	for _, node in ipairs(roots) do
-		node.pathDist = 0
-		node.path = wipeTable(node.path)
-		t_insert(q, node)
-	end
-	local qStart = 1
-	local qLen = #q
-	while qStart <= qLen do
-		-- pop front
-		local node = q[qStart]
-		qStart = qStart + 1
-		local linked = node.linked
-		local nodeDist = node.pathDist
-		local nodePath = node.path
-		for i = 1, #linked do
-			local other = linked[i]
-			local weight = other.alloc and 0 or 1
-			local distViaNode = nodeDist + weight
-			if (distViaNode < (other.pathDist or math.huge))
-				and traversable(nodeDist, node, other) then
-				-- if this node is free, push it to the front so that it can shorten paths
-				if weight == 0 then
-					qStart = qStart - 1
-					q[qStart] = other
-					-- otherwise push to back
-				else
-					qLen = qLen + 1
-					q[qLen] = other
-				end
-
-				-- save path and distance for the node
-				other.pathDist = distViaNode
-				local path = wipeTable(other.path)
-				path[1] = other
-				for i = 1, #nodePath do
-					path[i + 1] = nodePath[i]
-				end
-				other.path = path
-			end
-		end
-	end
-end
 -- Determine this node's distance from the class' start
 -- Only allocated nodes can be traversed
 function PassiveSpecClass:SetNodeDistanceToClassStart(root)
@@ -1113,6 +1040,8 @@ function PassiveSpecClass:AddMasteryEffectOptionsToNode(node)
 			treeNode.masteryCache = cacheNode
 		end
 	end
+	-- Cached options do not include the reminder from a previously selected effect
+	node.reminderText = nil
 	for k, v in pairs(cacheNode) do
 		if k == "modList" then
 			node.modList = new("ModList"):ModList()
@@ -1196,7 +1125,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 		local item = self.build.itemsTab.items[itemId]
 		if item and item.jewelRadiusIndex and self.allocNodes[nodeId] and item.jewelData and not item.jewelData.limitDisabled then
 			local socket = self.nodes[nodeId]
-			table.insert(radiusJewels, {
+			t_insert(radiusJewels, {
 				socket = socket,
 				item = item,
 			})
@@ -1209,7 +1138,18 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 		node.conqueredBy = nil
 
 		if self.checkNodeLinks then
-			self:NormalizeNodeLinks(node)
+			-- Cluster subgraph rebuilds can leave links to replaced node objects,
+			-- so normalize them to the canonical nodes before rebuilding paths.
+			local linked = node.linked
+			for index = #linked, 1, -1 do
+				local other = linked[index]
+				local canonicalNode = other and other.id and self.nodes[other.id]
+				if not canonicalNode then
+					t_remove(linked, index)
+				elseif canonicalNode ~= other then
+					linked[index] = canonicalNode
+				end
+			end
 		end
 		-- ignore cluster jewel nodes that don't have an id in the tree
 		local treeNode = self.tree.nodes[id]
@@ -1266,6 +1206,11 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 		-- If node is tattooed, replace it
 		if self.hashOverrides[node.id] then
 			self:ReplaceNode(node, self.hashOverrides[node.id])
+			-- Runegrafts use mastery nodes, but represent one modifier rather than
+			-- the usual list of mastery options
+			if node.overrideType == "AlternateMastery" then
+				node.allMasteryOptions = false
+			end
 		end
 
 		-- If node is conquered, replace it or add mods
@@ -1686,7 +1631,54 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 			t_insert(rootList, node)
 		end
 	end
-	self:BuildNodePathsToRootNodes(rootList)
+
+	-- Use a multi-source 0-1 BFS to find the closest allocated node. Allocated
+	-- nodes have zero weight, while each unallocated node costs one passive point.
+	local queue = { }
+	for _, node in ipairs(rootList) do
+		node.pathDist = 0
+		node.path = wipeTable(node.path)
+		t_insert(queue, node)
+	end
+	local queueStart = 1
+	local queueLength = #queue
+	while queueStart <= queueLength do
+		local node = queue[queueStart]
+		queueStart = queueStart + 1
+		local linked = node.linked
+		local nodeDist = node.pathDist
+		local nodePath = node.path
+		for i = 1, #linked do
+			local other = linked[i]
+			local weight = other.alloc and 0 or 1
+			local distViaNode = nodeDist + weight
+			-- Paths cannot pass through start nodes, cross ascendancies, or move
+			-- away from masteries. Ascendant paths may leave at distance zero.
+			local canTraverse = node.type ~= "Mastery"
+				and other.type ~= "ClassStart"
+				and other.type ~= "AscendClassStart"
+				and (node.ascendancyName == other.ascendancyName or (nodeDist == 0 and not other.ascendancyName))
+			if distViaNode < (other.pathDist or math.huge) and canTraverse then
+				if weight == 0 then
+					-- Free nodes go to the front so they can shorten paid paths immediately.
+					queueStart = queueStart - 1
+					queue[queueStart] = other
+				else
+					queueLength = queueLength + 1
+					queue[queueLength] = other
+				end
+
+				other.pathDist = distViaNode
+				local path = wipeTable(other.path)
+				path[1] = other
+				for pathIndex = 1, #nodePath do
+					path[pathIndex + 1] = nodePath[pathIndex]
+				end
+				other.path = path
+			end
+		end
+	end
+
 	for _, node in ipairs(rootList) do
 		if node.isJewelSocket or node.expansionJewel then
 			self:SetNodeDistanceToClassStart(node)
