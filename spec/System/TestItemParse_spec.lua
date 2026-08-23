@@ -1358,5 +1358,44 @@ describe("TestAdvancedItemParse #item", function()
 			assert.equal(27, spellCrit())
 			assert.equal(8, spellDamage())
 		end)
+		it("does not scale modifiers that grant skills", function()
+			local item = new("Item", [[
+				Item Class: Rings
+				Rarity: Rare
+				Plague Knuckle
+				Helical Ring
+				--------
+				Item Level: 84
+				--------
+				{ Implicit Modifier }
+				50% increased Suffix Modifier magnitudes
+				--------
+				{ Suffix Modifier "of !!UNPARSEABLE!!"  — 50% Increased }
+				Grants Level 20 Aspect of !!UNPARSEABLE!! Skill
+				{ Suffix Modifier "of the Spider"  — 50% Increased }
+				Grants Level 20 Aspect of the Spider Skill
+				--------
+			]])
+			assert.truthy(item.base)
+			local found = 0
+			local foundExtraSkill = false
+			for _, modLine in ipairs(item.explicitModLines) do
+				if modLine.line:find("Grants Level", 1, true) then
+					found = found + 1
+					assert.matches("Level 20", itemLib.formatModLine(modLine))
+					for _, mod in ipairs(modLine.modList) do
+						if mod.name == "ExtraSkill" then
+							foundExtraSkill = true
+							assert.equals(20, mod.value.level)
+						end
+					end
+					if modLine.line:find("UNPARSEABLE", 1, true) then
+						assert.truthy(modLine.extra)
+					end
+				end
+			end
+			assert.equals(2, found)
+			assert.is_true(foundExtraSkill)
+		end)
 	end)
 end)
