@@ -778,11 +778,14 @@ function PassiveSpecClass:AllocNode(node, altPath)
 	end
 
 	-- Allocate all nodes along the path
+	local rebuildClusterJewelGraphs = false
 	if #node.intuitiveLeapLikesAffecting > 0 then
+		rebuildClusterJewelGraphs = not node.alloc and node.expansionJewel ~= nil
 		node.alloc = true
 		self.allocNodes[node.id] = node
 	else
 		for _, pathNode in ipairs(altPath or node.path) do
+			rebuildClusterJewelGraphs = rebuildClusterJewelGraphs or not pathNode.alloc and pathNode.expansionJewel ~= nil
 			pathNode.alloc = true
 			self.allocNodes[pathNode.id] = pathNode
 		end
@@ -799,8 +802,12 @@ function PassiveSpecClass:AllocNode(node, altPath)
 		end
 	end
 
-	-- Rebuild all dependencies and paths for all allocated nodes
-	self:BuildAllDependsAndPaths()
+	if rebuildClusterJewelGraphs then
+		self:BuildClusterJewelGraphs()
+	else
+		-- Rebuild all dependencies and paths for all allocated nodes
+		self:BuildAllDependsAndPaths()
+	end
 end
 
 function PassiveSpecClass:DeallocSingleNode(node)
@@ -814,12 +821,18 @@ end
 
 -- Deallocate the given node, and all nodes which depend on it (i.e. which are only connected to the tree through this node)
 function PassiveSpecClass:DeallocNode(node)
+	local rebuildClusterJewelGraphs = false
 	for _, depNode in ipairs(node.depends) do
+		rebuildClusterJewelGraphs = rebuildClusterJewelGraphs or depNode.alloc and depNode.expansionJewel ~= nil
 		self:DeallocSingleNode(depNode)
 	end
 
-	-- Rebuild all paths and dependencies for all allocated nodes
-	self:BuildAllDependsAndPaths()
+	if rebuildClusterJewelGraphs then
+		self:BuildClusterJewelGraphs()
+	else
+		-- Rebuild all paths and dependencies for all allocated nodes
+		self:BuildAllDependsAndPaths()
+	end
 end
 
 -- Count the number of allocated nodes and allocated ascendancy nodes
@@ -2267,7 +2280,8 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize, importe
 		if node.type == "Socket" then
 			-- Recurse to smaller jewels
 			local jewel = self:GetSocketedJewel(node.id)
-			if jewel and jewel.jewelData.clusterJewelValid then
+			-- Allocated subgraph nodes are temporarily preserved outside allocNodes while rebuilding.
+			if (self.allocNodes[node.id] or isValueInArray(self.allocSubgraphNodes, node.id)) and jewel and jewel.jewelData.clusterJewelValid then
 				self:BuildSubgraph(jewel, node, id, upSize, importedNodes, importedGroups)
 			end
 		end
