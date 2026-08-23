@@ -1588,6 +1588,16 @@ function TreeTabClass:FindTimelessJewel()
 	end)
 	controls.conquerorSelect.selIndex = timelessData.conquerorType.id
 	controls.conquerorSelectLabel = new("LabelControl"):LabelControl({"RIGHT", controls.conquerorSelect, "LEFT"}, {-labelSpacing, 0, 0, labelHeight}, "^7Conqueror:")
+	controls.conquerorSelect.tooltipFunc = function(tt, _, idx, val)
+		tt:Clear()
+		local keystoneName = val.label:match("%((.+)%)$")
+		if keystoneName then
+			local keyStoneNode = self.build.spec.tree.keystoneMap[keystoneName]
+			if keyStoneNode then
+				self.viewer:AddNodeTooltip(tt, keyStoneNode, self.build, true)
+			end
+		end
+	end
 
 	setAllocatedNodes = function()
 		if timelessData.jewelSocket.id == -1 or not treeData.nodes[timelessData.jewelSocket.id] then

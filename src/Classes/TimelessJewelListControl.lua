@@ -287,7 +287,8 @@ end
 ---@param index any
 ---@param data any
 function TimelessJewelListControlClass:AddValueTooltip(tooltip, index, data)
-	local socket = self.build.itemsTab:GetSocketAndJewelForNodeID(data.socketId)
+	local socketId = data.socketId or self.sharedList.socket.id
+	local socket = socketId and socketId ~= -1 and self.build.itemsTab:GetSocketAndJewelForNodeID(socketId)
 	if not tooltip:CheckForUpdate(self.build.outputRevision, data) then
 		return
 	end
