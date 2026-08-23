@@ -17,6 +17,25 @@ describe("TestDefence", function()
 		return build.calcsTab.calcs.reducePoolsByDamage(nil, takenDamages, build.calcsTab.calcsEnv.player)
 	end
 
+	it("applies Consecrated Ground curse reduction to the player and minion", function()
+		build.skillsTab:PasteSocketGroup("Raise Zombie 20/0  1")
+		build.configTab.input.conditionOnConsecratedGround = true
+		build.configTab.input.playerCursedWithElementalWeakness = 20
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.equals(50, build.calcsTab.mainOutput.CurseEffectOnSelf)
+		assert.are.equals(50, build.calcsTab.mainEnv.minion.output.CurseEffectOnSelf)
+		local fireResistOnConsecratedGround = build.calcsTab.mainOutput.FireResist
+
+		newBuild()
+		build.configTab.input.playerCursedWithElementalWeakness = 20
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.is_true(fireResistOnConsecratedGround > build.calcsTab.mainOutput.FireResist)
+	end)
+
 	-- boring part
 	it("no armour max hits", function()
 		build.configTab.input.enemyIsBoss = "None"
