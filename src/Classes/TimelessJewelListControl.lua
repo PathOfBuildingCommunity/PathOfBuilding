@@ -130,11 +130,13 @@ Passives in radius are Conquered by the Maraketh
 Historic
 ]]
 	elseif self.sharedList.type.id == 4 then
-		local altVariant = self.sharedList.devotionVariant1.id ~= 1 and self.sharedList.devotionVariant1.id or m_random(2, 17)
-		local altVariant2 = self.sharedList.devotionVariant2.id ~= 1 and self.sharedList.devotionVariant2.id or m_random(2, 17)
+		local altVariant = self.sharedList.devotionVariant1.id ~= 1 and self.sharedList.devotionVariant1.id or data.altVariant or m_random(2, 17)
+		local altVariant2 = self.sharedList.devotionVariant2.id ~= 1 and self.sharedList.devotionVariant2.id or data.altVariant2 or m_random(2, 17)
 		if altVariant == altVariant2 then
 			altVariant = altVariant % 16 + 2
 		end
+		data.altVariant = altVariant
+		data.altVariant2 = altVariant2
 		itemData = [[
 Militant Faith ]] .. label .. [[
 Timeless Jewel

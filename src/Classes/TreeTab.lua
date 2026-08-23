@@ -1572,7 +1572,6 @@ function TreeTabClass:FindTimelessJewel()
 		updateSearchList("", false)
 		updateSearchList("", true)
 		if controls.socketFilter.state then
-			buildNodeOptionCheckboxes()
 			setAllocatedNodes()
 		end
 	end)
@@ -1628,7 +1627,6 @@ function TreeTabClass:FindTimelessJewel()
 		end
 		t_sort(nodeOptions, function(a, b) return a.label < b.label end)
 		buildNodeOptionCheckboxes(nodeOptions)
-		self.nodeOptions = nodeOptions
 		self.allocatedNodesInRadiusCount = #nodeOptions
 	end
 
@@ -2793,7 +2791,7 @@ function TreeTabClass:FindTimelessJewel()
 		controls.abyssAscendancySelect.selIndex = 1
 		wipeTable(timelessData.searchResults)
 		controls.searchTradeButton.enabled = false
-		buildNodeOptionCheckboxes()
+		setAllocatedNodes()
 	end)
 	controls.closeButton = new("ButtonControl"):ButtonControl({"LEFT", controls.resetButton, "RIGHT"}, {buttonDivider, 0, buttonWidth, buttonHeight}, "Cancel", function()
 		main:ClosePopup()

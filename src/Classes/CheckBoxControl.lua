@@ -26,10 +26,12 @@ function CheckBoxClass:IsMouseOver()
 	local width, height = self:GetSize()
 	local cursorX, cursorY = GetCursorPos()
 
-	-- move x left by label width, increase width by label width
+	-- Include the label in the clickable area.
 	local label = self:GetProperty("label")
 	if label then
-		x = x - self.labelWidth
+		if not self.labelRight then
+			x = x - self.labelWidth
+		end
 		width = width + self.labelWidth
 	end
 	return cursorX >= x and cursorY >= y and cursorX < x + width and cursorY < y + height
