@@ -79,40 +79,6 @@ local getVeiledModsByName = function (modNames)
 end
 
 
-local paradoxicaMods = getVeiledMods("base", "weapon", "one_hand_weapon")
-local paradoxica = {
-	"Paradoxica",
-	"Vaal Rapier",
-	"League: Betrayal",
-	"Source: Drops from unique{Intervention Leaders} in normal{Safehouses}",
-	"Has Alt Variant: true",
-	"Selected Variant: 4",
-	"Selected Alt Variant: 16"
-}
-
-for index, mod in pairs(paradoxicaMods) do
-	if (mod.veiledName == "(Suffix) Double Damage Chance") then
-		table.remove(paradoxicaMods, index)
-	end
-end
-
-for index, mod in pairs(paradoxicaMods) do
-	table.insert(paradoxica, "Variant: "..mod.veiledName)
-end
-
-table.insert(paradoxica, "Requires Level 66, 212 Dex")
-table.insert(paradoxica, "Implicits: 1")
-table.insert(paradoxica, "+25% to Global Critical Strike Multiplier")
-
-for index, mod in pairs(paradoxicaMods) do
-	for _, value in pairs(mod.veiledLines) do
-		table.insert(paradoxica, "{variant:"..index.."}"..value.."")
-	end
-end
-
-table.insert(paradoxica, "Attacks with this Weapon deal Double Damage")
-table.insert(data.uniques.generated, table.concat(paradoxica, "\n"))
-
 local caneOfKulemakMods = getVeiledMods("catarina", "weapon", "staff", "two_hand_weapon")
 local caneOfKulemak = {
 	"Cane of Kulemak",

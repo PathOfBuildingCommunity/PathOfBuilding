@@ -1334,10 +1334,16 @@ for modId, mod in pairs(data.itemMods.JewelAbyss) do
 	end
 end
 
-local crimsonStormMods = {}
+local veiledMods = {}
+local veiledPrefixes = {}
+local veiledSuffixes = {}
 for modId, mod in pairs(data.veiledMods) do
-	if mod.affix == "of the Order" then
-		crimsonStormMods[modId] = mod
+	if mod.affix == "Chosen" then
+		veiledPrefixes[modId] = mod
+		veiledMods[modId] = mod
+	elseif mod.affix == "of the Order" then
+		veiledSuffixes[modId] = mod
+		veiledMods[modId] = mod
 	end
 end
 
@@ -1364,7 +1370,7 @@ data.rareLikeUniques = {
 		allowDuplicateGroups = true,
 	},
 	["the crimson storm"] = {
-		affixes = crimsonStormMods,
+		affixes = veiledSuffixes,
 		prefixLimit = 0,
 		suffixLimit = 1,
 	},
@@ -1378,7 +1384,13 @@ data.rareLikeUniques = {
 			VEILED = true,
 			CUSTOM = true,
 		},
-	}
+	},
+	["paradoxica"] = {
+		validBases = { { base = data.itemBases["Vaal Rapier"] } },
+		affixes = veiledMods,
+		prefixLimit = 1,
+		suffixLimit = 1,
+	},
 }
 -- Uniques (loaded after version-specific data because reasons)
 data.uniques = { }
