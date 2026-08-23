@@ -780,7 +780,6 @@ local function doActorMisc(env, actor)
 		if modDB:Flag(nil, "Condition:OnConsecratedGround") then
 			local effect = 1 + modDB:Sum("INC", nil, "ConsecratedGroundEffect") / 100
 			modDB:NewMod("LifeRegenPercent", "BASE", 5 * effect, "Consecrated Ground")
-			modDB:NewMod("CurseEffectOnSelf", "INC", -50 * effect, "Consecrated Ground")
 			modDB:NewMod("Accuracy", "INC", m_floor(modDB:Sum("INC", nil, "ConsecratedGroundAlsoAccuracy") * effect), "Consecrated Ground")
 		end
 		if modDB:Flag(nil, "Condition:PhantasmalMight") then
@@ -3113,6 +3112,10 @@ function calcs.perform(env, skipEHP)
 
 	-- Check for extra curses
 	for dest, modDB in pairs({[curses] = modDB, [minionCurses] = env.minion and env.minion.modDB}) do
+		if env.mode_combat and modDB:Flag(nil, "Condition:OnConsecratedGround") then
+			local effect = 1 + modDB:Sum("INC", nil, "ConsecratedGroundEffect") / 100
+			modDB:NewMod("CurseEffectOnSelf", "INC", -50 * effect, "Consecrated Ground")
+		end
 		for _, value in ipairs(modDB:List(nil, "ExtraCurse")) do
 			local gemModList = new("ModList"):ModList()
 			local grantedEffect = env.data.skills[value.skillId]
