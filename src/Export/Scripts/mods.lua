@@ -18,6 +18,7 @@ local Domains = {
 	Charm = 35,
 	Idol = 37,
 	Graft = 38,
+	Mercenary = 41,
 }
 -- https://www.poewiki.net/wiki/Modifier#Generation_type
 local GenTypes = {
@@ -298,6 +299,9 @@ writeMods("../Data/BeastCraft.lua", function(mod)
 end)
 writeMods("../Data/ModFoulborn.lua", function(mod)
 	return (mod.Domain == Domains.Item or mod.Domain == Domains.Jewel) and mod.GenerationType == GenTypes.Intrinsic and mod.Id:match("^MutatedUnique")
+end)
+writeMods("../Data/ModMercenary.lua", function(mod)
+	return (mod.Domain == Domains.Mercenary) and (mod.GenerationType == GenTypes.Suffix or mod.GenerationType == GenTypes.Prefix)
 end)
 
 -- Generate unique mod mappings from text to mod
