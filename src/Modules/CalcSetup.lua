@@ -1402,10 +1402,6 @@ function calcs.initEnv(build, mode, override, specEnv)
 				group.noSupports = grantedSkill.noSupports
 				activeGemInstance.triggered = grantedSkill.triggered
 				activeGemInstance.triggerChance = grantedSkill.triggerChance
-				if grantedSkill.skillId == "BloodShrineUniqueTriggeredExplodingToad" and grantedSkill.triggerChance and env.player.modDB:Flag(nil, "BloodShrineOfToads") then
-					local shrineEffectMod = 1 + env.player.modDB:Sum("INC", nil, "BuffEffectOnSelf", "ShrineBuffEffect") / 100
-					activeGemInstance.triggerChance = m_min(grantedSkill.triggerChance + math.floor(25 * shrineEffectMod), 100)
-				end
 				wipeTable(group.gemList)
 				t_insert(group.gemList, activeGemInstance)
 				build.skillsTab:ProcessSocketGroup(group)
