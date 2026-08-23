@@ -93,7 +93,7 @@ Implicits: 4
 {variant:6}(15-20)% increased Light Radius
 Nearby Enemies are Blinded
 (120-140)% increased Critical Strike Chance against Blinded Enemies
-Adds 2 to 5 Fire Damage to Attacks for every 1% your Light Radius is above base value
+{variant:6}Adds 2 to 5 Fire Damage to Attacks for every 1% your Light Radius is above base value
 ]],[[
 Corona Solaris
 Crystal Wand
@@ -182,7 +182,6 @@ Minions deal (50-70)% increased Damage
 +3 to maximum number of Summoned Phantasms
 ]],[[
 Moonsorrow
-Imbued Wand
 {variant:1,2,3,4}Imbued Wand
 {variant:5}Kinetic Wand
 Variant: Pre 2.0.0
@@ -247,6 +246,7 @@ Piscator's Vigil
 Variant: Pre 2.3.0
 Variant: Pre 2.6.0
 Variant: Pre 3.21.0
+Variant: Pre 3.27.0
 Variant: Current
 Implicits: 4
 {variant:1}(16-19)% increased Spell Damage
@@ -263,13 +263,15 @@ Attacks with this Weapon have (100-115)% increased Elemental Damage
 The Poet's Pen
 {variant:1}Carved Wand
 {variant:2}Somatic Wand
-Implicits: 1
+Variant: Pre 3.27.0
+Variant: Current
+Implicits: 2
 {variant:1}(11-15)% increased Spell Damage
+{variant:2}Cannot roll Caster Modifiers
 +1 to Level of Socketed Skill Gems per 25 Player Levels
 Trigger a Socketed Spell when you Attack with this Weapon, with a 0.25 second Cooldown
 Adds 3 to 5 Physical Damage to Attacks with this Weapon per 3 Player Levels
 (8-12)% increased Attack Speed
-{variant:2}Cannot roll Caster Modifiers
 ]],[[
 Reverberation Rod
 Spiraled Wand
@@ -337,8 +339,8 @@ Variant: Pre 3.21.0
 Variant: Pre 3.29.0
 Variant: Current
 Implicits: 2
-{variant:1,2}(35-39)% increased Spell Damage
-{variant:3,4}Adds (3-5) to (70-82) Lightning Damage to Spells and Attacks
+{variant:1,2,4}(35-39)% increased Spell Damage
+{variant:3}Adds (3-5) to (70-82) Lightning Damage to Spells and Attacks
 {variant:1,2,3}(30-40)% increased Spell Damage
 {variant:1,2,3}Adds (26-35) to (95-105) Lightning Damage to Spells
 {variant:4}+1 to Maximum Power Charges
@@ -372,41 +374,45 @@ Adds 1 to (35-45) Lightning Damage
 ]],[[
 Tulborn
 {variant:1,2}Spiraled Wand
-{variant:3}Opal Wand
+{variant:3,4}Opal Wand
 Variant: Pre 3.16.0
 Variant: Pre 3.21.0
+Variant: Pre 3.29.0
 Variant: Current
 League: Breach
 Source: Drops in Tul Breach or from unique{Tul, Creeping Avalanche}
 Upgrade: Upgrades to unique{Tulfall} using currency{Blessing of Tul}
-Implicits: 2
+Implicits: 3
 {variant:1,2}(15-19)% increased Spell Damage
+{variant:4}(31-35)% increased Spell Damage
 {variant:3}Adds (14-29) to (42-47) Cold Damage to Spells and Attacks
-{variant:3}Adds (120-140) to (150-170) Cold Damage to Spells
+{variant:3,4}Adds (120-140) to (150-170) Cold Damage to Spells
 {variant:1,2}(10-15)% increased Cast Speed
 {variant:1,2}50% chance to gain a Power Charge on Killing a Frozen Enemy
-{variant:3}Gain a Power Charge on Killing a Frozen Enemy
+{variant:3,4}Gain a Power Charge on Killing a Frozen Enemy
 {variant:1,2}Adds 10 to 20 Cold Damage to Spells per Power Charge
-{variant:3}Cold Exposure you inflict applies an extra -12% to Cold Resistance
+{variant:3,4}Cold Exposure you inflict applies an extra -12% to Cold Resistance
 +(20-25) Mana gained on Killing a Frozen Enemy
 ]],[[
 Tulfall
 {variant:1,2}Tornado Wand
-{variant:3}Opal Wand
+{variant:3,4}Opal Wand
 Variant: Pre 3.16.0
 Variant: Pre 3.21.0
+Variant: Pre 3.29.0
 Variant: Current
 League: Breach
 Source: Upgraded from unique{Tulborn} using currency{Blessing of Tul}
-Implicits: 2
+Implicits: 3
 {variant:1,2}(35-39)% increased Spell Damage
+{variant:4}(31-35)% increased Spell Damage
 {variant:3}Adds (14-29) to (42-47) Cold Damage to Spells and Attacks
 {variant:1,2}(10-15)% increased Cast Speed
-{variant:3}(10-20)% increased Cast Speed
+{variant:3,4}(10-20)% increased Cast Speed
 {variant:1}50% chance to gain a Power Charge on Killing a Frozen Enemy
-{variant:2,3}Gain a Power Charge on Killing a Frozen Enemy
+{variant:2,3,4}Gain a Power Charge on Killing a Frozen Enemy
 {variant:1,2}Adds 15 to 25 Cold Damage to Spells per Power Charge
-{variant:3}Adds 50 to 70 Cold Damage to Spells per Power Charge
+{variant:3,4}Adds 50 to 70 Cold Damage to Spells per Power Charge
 Lose all Power Charges on reaching Maximum Power Charges
 Gain a Frenzy Charge on reaching Maximum Power Charges
 {variant:1}(10-15)% increased Cold Damage per Frenzy Charge
@@ -414,15 +420,16 @@ Gain a Frenzy Charge on reaching Maximum Power Charges
 ]],[[
 Replica Tulfall
 {variant:1}Tornado Wand
-{variant:2}Opal Wand
+{variant:2,3}Opal Wand
 Variant: Pre 3.21.0
 Variant: Pre 3.29.0
 Variant: Current
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Implicits: 2
+Implicits: 3
 {variant:1}(35-39)% increased Spell Damage
-{variant:2,3}Adds (14-29) to (42-47) Cold Damage to Spells and Attacks
+{variant:3}(31-35)% increased Spell Damage
+{variant:2}Adds (14-29) to (42-47) Cold Damage to Spells and Attacks
 (15-25)% increased Cast Speed
 Lose all Power Charges on reaching Maximum Power Charges
 Gain a Frenzy Charge on reaching Maximum Power Charges
@@ -437,16 +444,16 @@ Twyzel
 Variant: Pre 2.3.0
 Variant: Pre 2.27.0
 Variant: Current
-Implicits: 2
+Implicits: 3
 {variant:1}(11-14)% increased Spell Damage
 {variant:2}(17-21)% increased Spell Damage
+{variant:3}Cannot roll Caster Modifiers
 {variant:1,2}Socketed Gems fire an additional Projectile
 {variant:1,2}(80-120)% increased Physical Damage
 {variant:3}(80-140)% increased Physical Damage
 Adds (5-8) to (13-17) Physical Damage
 (5-10)% increased Attack Speed
 (10-20)% increased Critical Strike Chance
-{variant:3}Cannot roll Caster Modifiers
 {variant:3}Attacks fire (1-2) additional Projectile when in Off Hand
 {variant:3}Attacks have (40-60)% increased Area of Effect when in Main Hand
 ]],[[
