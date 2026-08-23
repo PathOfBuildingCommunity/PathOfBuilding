@@ -3222,7 +3222,7 @@ function ItemsTabClass:CorruptDisplayItem()
 		item.id = self.displayItem.id
 		item.corrupted = true
 		local mod = entry.mod
-		local targetLines = modType == "Corrupted" and item.implicitModLines or item.scourgeModLines
+		local targetLines = (modType == "ScourgeUpside" or modType == "ScourgeDownside") and item.scourgeModLines or item.implicitModLines
 		wipeTable(targetLines)
 		for _, modLine in ipairs(mod) do
 			modLine = (currentModType == "ScourgeUpside" and "{scourge}" or "") .. modLine
@@ -3266,7 +3266,7 @@ function ItemsTabClass:CorruptDisplayItem()
 		local calcFunc = stat and self.build.calcsTab:GetMiscCalculator() or nil
 		local useFullDPS = stat == "FullDPS"
 		if currentModType ~= "ScourgeUpside" then
-			sortModType("Corrupted", stat, calcFunc, slotName, useFullDPS)
+			sortModType(currentModType, stat, calcFunc, slotName, useFullDPS)
 		else
 			sortModType("ScourgeUpside", stat, calcFunc, slotName, useFullDPS)
 			sortModType("ScourgeDownside", stat, calcFunc, slotName, useFullDPS)
