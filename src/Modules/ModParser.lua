@@ -3067,8 +3067,6 @@ local specialModList = {
 		return {
 			mod("UnholyMightAlsoChaosPenetration", "BASE", tonumber(pen), { type = "MultiplierThreshold", var = "GhastlyEyeJewel", threshold = jewels }),
 			mod("UnholyMightAlsoWitherEffect", "INC", tonumber(wither), { type = "MultiplierThreshold", var = "GhastlyEyeJewel", threshold = jewels }),
-			mod("MinionModifier", "LIST", { mod = mod("UnholyMightAlsoChaosPenetration", "BASE", tonumber(pen)) }, { type = "MultiplierThreshold", var = "GhastlyEyeJewel", threshold = jewels }),
-			mod("MinionModifier", "LIST", { mod = mod("UnholyMightAlsoWitherEffect", "INC", tonumber(wither)) }, { type = "MultiplierThreshold", var = "GhastlyEyeJewel", threshold = jewels }),
 		}
 	end,
 	["while you have at least (%d+) searching eye jewels socketed: targets affected by maim you inflict cannot deal critical strikes maim you inflict causes hits against the target to have (%d+)%% more critical strike chance"] = function(jewels, _, crit)
@@ -3082,7 +3080,7 @@ local specialModList = {
 		return {
 			-- intimidate effect increases and decreases should affect this, but none exist yet
 			mod("EnemyModifier", "LIST",
-				{ mod = mod("DamageTaken", "INC", tonumber(attackDam), 0, KeywordFlag.Attack, { type = "Condition", var = "Intimidated", }), },
+				{ mod = mod("DamageTaken", "INC", tonumber(attackDam), 0, ModFlag.Attack, { type = "Condition", var = "Intimidated", }), },
 				{ type = "MultiplierThreshold", var = "MurderousEyeJewel", threshold = jewels }),
 			mod("EnemyModifier", "LIST",
 				{ mod = mod("Damage", "MORE", -tonumber(lessDam), { type = "Condition", var = "Intimidated", }), },

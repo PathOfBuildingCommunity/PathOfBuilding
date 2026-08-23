@@ -731,11 +731,6 @@ local function doActorMisc(env, actor)
 			if value ~= 0 then
 				modDB:NewMod("ChaosPenetration", "BASE", value * effect, "Unholy Might")
 			end
-			local witherValue = modDB:Sum("INC", nil, "UnholyMightAlsoWitherEffect")
-			local currentMax = modDB:Max(nil, "WitherEffectStack")
-			if witherValue ~= 0 and currentMax then
-				modDB:NewMod("WitherEffectStack", "MAX", math.floor(currentMax * (1 + witherValue / 100)), "Unholy Might")
-			end
 		end
 		if modDB:Flag(nil, "ShepherdOfSouls") then
 			modDB:NewMod("SoulCost", "MORE", -80, "Shepherd of Souls", { type = "SkillType", skillType = SkillType.Vaal }, { type = "SkillType", skillType = SkillType.Aura, neg = true })
@@ -2717,7 +2712,11 @@ function calcs.perform(env, skipEHP)
 			end
 		end
 		if activeSkill.skillModList:Flag(nil, "Condition:CanWither") or (activeSkill.minion and env.minion and env.minion.modDB:Flag(nil, "Condition:CanWither")) then
-			local effect = activeSkill.minion and m_floor(6 * (1 + modDB:Sum("INC", nil, "MinionWitherEffect") / 100)) or m_floor(6 * (1 + modDB:Sum("INC", nil, "WitherEffect") / 100))
+			local witherEffect = modDB:Sum("INC", nil, activeSkill.minion and "MinionWitherEffect" or "WitherEffect")
+			if not activeSkill.minion and modDB:Flag(nil, "UnholyMight") then
+				witherEffect = witherEffect + modDB:Sum("INC", nil, "UnholyMightAlsoWitherEffect")
+			end
+			local effect = m_floor(6 * (1 + witherEffect / 100))
 			modDB:NewMod("WitherEffectStack", "MAX", effect)
 		end
 		--Handle combustion
