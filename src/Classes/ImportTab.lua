@@ -1371,7 +1371,7 @@ function ImportTabClass:AssignGuardianItemSet(itemSetId)
 end
 
 --- @class CharacterItemsData : CharacterBasicData
---- @field equipment Item[]
+--- @field equipment GGGItem[]
 --- @param charData CharacterItemsData
 --- @param clearItems boolean
 --- @param clearSkills boolean

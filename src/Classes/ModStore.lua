@@ -32,6 +32,7 @@ end })
 ---@field flags number? bit mask
 ---@field keywordFlags number?
 ---@field skillName string?
+---@field source string?
 
 ---@class ModStore
 local ModStoreClass = newClass("ModStore")

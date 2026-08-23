@@ -63,7 +63,7 @@ local damageStatsForTypes = setmetatable({ }, { __index = function(t, k)
 end })
 
 local globalOutput = nil
----@class Breakdown?
+---@type Breakdown?
 local globalBreakdown = nil
 
 -- Calculate min/max damage for the given damage type

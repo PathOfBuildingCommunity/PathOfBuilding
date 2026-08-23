@@ -467,8 +467,6 @@ function CalcsTabClass:BuildOutput()
 	end
 	
 	-- Retrieve calculator functions
-	local nodeCalcFunc, nodeCalcBase = self.calcs.getNodeCalculator(self.build)
-	self.nodeCalculator = { nodeCalcFunc, nodeCalcBase }
 	local miscCalcFunc, miscCalcBase = self.calcs.getMiscCalculator(self.build)
 	self.miscCalculator = { miscCalcFunc, miscCalcBase }
 end

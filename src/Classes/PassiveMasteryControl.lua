@@ -17,7 +17,7 @@ local PassiveMasteryControlClass = newClass("PassiveMasteryControl", "ListContro
 ---@field id number
 
 ---@param anchor Anchor?
----@param rect Rect?
+---@param rect Rect
 ---@param list MasterListElem[]
 ---@param treeTab TreeTab
 ---@param node Node
@@ -28,7 +28,7 @@ function PassiveMasteryControlClass:PassiveMasteryControl(anchor, rect, list, tr
 	for j=1,#list do
 		rect[3] = m_max(rect[3], DrawStringWidth(16, "VAR", list[j].label) + 5)
 	end
-	self:ListControl(anchor, rect, 16, false, false, self.list)
+	self:ListControl(anchor, rect, 16, nil, false, self.list)
 	self.treeTab = treeTab
 	self.treeView = treeTab.viewer
 	self.node = node
