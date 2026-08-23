@@ -2297,7 +2297,7 @@ function ItemsTabClass:UpdateAffixControl(control, item, affixType, outputTable,
 			t_insert(control.list, lastSeries)
 		end
 		-- cluster jewel mods retained after changing the cluster type
-		if retainedAffixes[modId] then
+		if retainedAffixes[modId] and item.clusterJewel then
 			lastSeries.label = "^8[Retained] " .. lastSeries.label
 		end
 		t_insert(lastSeries.modList, modId)
