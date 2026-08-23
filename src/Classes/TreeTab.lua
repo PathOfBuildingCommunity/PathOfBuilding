@@ -1673,6 +1673,7 @@ function TreeTabClass:FindTimelessJewel()
 	-- sits on the same row as the socket filter, right of the node distance slider it can show
 	controls.socketAllocate = new("CheckBoxControl"):CheckBoxControl({"LEFT", controls.socketFilter, "RIGHT"}, {165, 0, rowHeight}, nil, function(value)
 		timelessData.socketAllocate = value
+		self.build.modFlag = true
 	end)
 	controls.socketAllocateLabel = new("LabelControl"):LabelControl({"RIGHT", controls.socketAllocate, "LEFT"}, {-labelSpacing, 0, 0, labelHeight}, "^7Socket Jewel:")
 	controls.socketAllocate.tooltipFunc = function(tooltip, mode, index, value)
