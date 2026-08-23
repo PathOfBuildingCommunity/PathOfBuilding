@@ -6,6 +6,8 @@
 local t_insert = table.insert
 local m_floor = math.floor
 
+
+---@enum (key) AnchorPoint
 local anchorPos = {
 	    ["TOPLEFT"] = { 0  , 0   },
 	        ["TOP"] = { 0.5, 0   },
@@ -32,7 +34,23 @@ local rect = {
 	for containers
 --]]
 
-local ControlClass = newClass("Control", function(self, anchor, rect)
+---@class Control
+---@field enabled        boolean | fun(...: any): boolean
+---@field onFocusGained? fun()
+---@field onFocusLost?   fun()
+---@field shown          Prop<boolean>
+---@field x              Prop<number>?
+---@field y              Prop<number>?
+---@field collapseY      number? An additional offset which is applied when this control uses a collapsed anchor.
+---@field collapseX      number? An additional offset which is applied when this control uses a collapsed anchor.
+local ControlClass = newClass("Control")
+
+---@alias ControlAnchor [AnchorPoint, Control|ControlHost, AnchorPoint, boolean|nil]
+---@alias ControlRect [number|nil, number|nil, number|nil, number]
+
+---@param anchor? ControlAnchor
+---@param rect? ControlRect
+function ControlClass:Control(anchor, rect)
 	self.rectStart = rect or {0, 0, 0, 0}
 	self.x, self.y, self.width, self.height = unpack(self.rectStart)
 	---@type (fun(): boolean) | boolean
@@ -42,8 +60,14 @@ local ControlClass = newClass("Control", function(self, anchor, rect)
 	if anchor then
 		self:SetAnchor(anchor[1], anchor[2], anchor[3], nil, nil, anchor[4])
 	end
-end)
+	return self
+end
 
+---@generic T
+---@alias Prop<T> (fun(self: self): T) | T
+
+---@param name string
+---@return any value
 function ControlClass:GetProperty(name)
 	if type(self[name]) == "function" then
 		return self[name](self)
@@ -65,7 +89,10 @@ end
 
 function ControlClass:GetPos()
 	if self.anchor.collapse and self.anchor.other and not self.anchor.other:GetProperty("shown") then
-		return self.anchor.other:GetPos()
+		local x, y = self.anchor.other:GetPos()
+		x = x + (self.collapseX or 0)
+		y = y + (self.collapseY or 0)
+		return x, y
 	end
 	local x = self:GetProperty("x")
 	local y = self:GetProperty("y")

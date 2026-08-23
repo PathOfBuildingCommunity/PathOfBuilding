@@ -82,7 +82,8 @@ function calcLib.doesTypeExpressionMatch(checkTypes, skillTypes, minionTypes)
 end
 
 -- Check if given support skill can support the given active skill
-function calcLib.canGrantedEffectSupportActiveSkill(grantedEffect, activeSkill, imbuedSupport)
+---@param appliesToGrantedSkills boolean? Generally modifiers which add support gems to the socketed skills don't work with granted skills, and this flag can be used to mark exceptions such as the Pearl of Tsoatha.
+function calcLib.canGrantedEffectSupportActiveSkill(grantedEffect, activeSkill, imbuedSupport, appliesToGrantedSkills)
 	if grantedEffect.unsupported or activeSkill.activeEffect.grantedEffect.cannotBeSupported then
 		return false
 	end
@@ -91,7 +92,7 @@ function calcLib.canGrantedEffectSupportActiveSkill(grantedEffect, activeSkill, 
 	end
 
 	-- Special case for things like Forbidden Shako or Hungry Loop with  for example Prismatic Burst and another compatible support
-	if grantedEffect.fromItem and grantedEffect.support and (activeSkill.activeEffect.grantedEffect.fromItem or activeSkill.activeEffect.grantedEffect.modSource:sub(1, #"Item") == "Item" or (activeSkill.activeEffect.srcInstance and activeSkill.activeEffect.srcInstance.fromItem)) then
+	if not appliesToGrantedSkills and grantedEffect.fromItem and grantedEffect.support and (activeSkill.activeEffect.grantedEffect.fromItem or activeSkill.activeEffect.grantedEffect.modSource:sub(1, #"Item") == "Item" or (activeSkill.activeEffect.srcInstance and activeSkill.activeEffect.srcInstance.fromItem)) then
 		return false
 	end
 
@@ -244,7 +245,7 @@ end
 --- Correct the tags on conversion with multipliers so they carry over correctly
 --- @param mod table
 --- @param multiplier number
---- @param minionMods bool @convert ActorConditions pointing at parent to normal Conditions
+--- @param minionMods boolean @convert ActorConditions pointing at parent to normal Conditions
 --- @return table @converted multipliers
 function calcLib.getConvertedModTags(mod, multiplier, minionMods)
 	local modifiers = { }
@@ -284,7 +285,7 @@ end
 
 --- Use getGameIdFromGemName to get gameId from the gemName and passed in type. Return true if they're the same and not nil
 --- @param gemName string
---- @param type string
+--- @param typeName string
 --- @param dropVaal boolean 
 --- @return boolean
 function calcLib.isGemIdSame(gemName, typeName, dropVaal)

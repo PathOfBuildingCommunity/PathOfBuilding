@@ -10,7 +10,7 @@ describe("TestFoulborn", function()
 	local powerFoulbornId = "MutatedUniqueAmulet14GainPowerChargesNotLostRecently"
 
 	local function vollsDevotion()
-		return new("Item", [[
+		return new("Item"):Item([[
 			Rarity: Unique
 			Voll's Devotion
 			Agate Amulet
@@ -109,7 +109,7 @@ describe("TestFoulborn", function()
 		assert.is_truthy(raw:find("{mutated}" .. powerFoulborn, 1, true))
 
 		-- re-importing the built text preserves the foulborn conversion
-		local reimported = new("Item", raw)
+		local reimported = new("Item"):Item(raw)
 		local mutated = findByLine(reimported, powerFoulborn)
 		assert.is_not_nil(mutated)
 		assert.is_true(mutated.mutated)
@@ -145,7 +145,7 @@ describe("TestFoulborn", function()
 	it("leaves items without a foulborn mapping untouched", function()
 		-- same mod text, but on a rare: mutatedLines is only populated for
 		-- uniques listed in the foulborn map
-		local item = new("Item", "Rarity: Rare\nTest Subject\nAgate Amulet\n30% reduced Power Charge Duration")
+		local item = new("Item"):Item("Rarity: Rare\nTest Subject\nAgate Amulet\n30% reduced Power Charge Duration")
 		assert.is_nil(item.mutatedLines)
 		assert.is_nil(item.explicitModLines[1].modId)
 	end)
@@ -156,7 +156,7 @@ describe("TestFoulborn", function()
 	local viseFoulbornId = "MutatedUniqueGlovesStr2StrengthRequirementAndTripleDamageChance"
 
 	local function meginordsVise()
-		return new("Item", [[
+		return new("Item"):Item([[
 			Rarity: Unique
 			Meginord's Vise
 			Steel Gauntlets
@@ -233,7 +233,7 @@ describe("TestFoulborn", function()
 	end)
 
 	it("keeps Kitava's Thirst transformations reversible", function()
-		local item = new("Item", [[
+		local item = new("Item"):Item([[
 			Rarity: Unique
 			Kitava's Thirst
 			Zealot Helmet
@@ -258,7 +258,7 @@ describe("TestFoulborn", function()
 	end)
 
 	it("keeps Foulborn lines separate from unsupported modifiers", function()
-		local item = new("Item", [[
+		local item = new("Item"):Item([[
 			Rarity: Unique
 			The Green Nightmare
 			Viridian Jewel

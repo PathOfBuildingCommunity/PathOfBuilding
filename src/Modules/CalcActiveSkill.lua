@@ -3,7 +3,8 @@
 -- Module: Calc Active Skill
 -- Active skill setup.
 --
-local calcs = ...
+---@class Calcs
+local calcs = require("Modules.CalcBase")
 
 local pairs = pairs
 local ipairs = ipairs
@@ -110,7 +111,7 @@ function calcs.createActiveSkill(activeEffect, supportList, actor, socketGroup, 
 	for index, supportEffect in ipairs(supportList) do
 		-- Pass 1: Add skill types from compatible supports
 		if supportEffect.grantedEffect.support then
-			if calcLib.canGrantedEffectSupportActiveSkill(supportEffect.grantedEffect, activeSkill) then
+			if calcLib.canGrantedEffectSupportActiveSkill(supportEffect.grantedEffect, activeSkill, nil, supportEffect.appliesToGrantedSkills) then
 				for _, skillType in pairs(supportEffect.grantedEffect.addSkillTypes) do
 					activeSkill.skillTypes[skillType] = true
 				end
@@ -128,7 +129,7 @@ function calcs.createActiveSkill(activeEffect, supportList, actor, socketGroup, 
 		for index, supportEffectIndex in ipairs(rejectedSupportsIndices) do
 			local supportEffect = supportList[supportEffectIndex]
 			if supportEffect.grantedEffect.support then
-				if calcLib.canGrantedEffectSupportActiveSkill(supportEffect.grantedEffect, activeSkill) then
+				if calcLib.canGrantedEffectSupportActiveSkill(supportEffect.grantedEffect, activeSkill, nil, supportEffect.appliesToGrantedSkills) then
 					notAddedNewSupport = false
 					rejectedSupportsIndices[index] = nil
 					for _, skillType in pairs(supportEffect.grantedEffect.addSkillTypes) do
@@ -142,7 +143,7 @@ function calcs.createActiveSkill(activeEffect, supportList, actor, socketGroup, 
 	for _, supportEffect in ipairs(supportList) do
 		-- Pass 2: Add all compatible supports
 		if supportEffect.grantedEffect.support then
-			if calcLib.canGrantedEffectSupportActiveSkill(supportEffect.grantedEffect, activeSkill) then
+			if calcLib.canGrantedEffectSupportActiveSkill(supportEffect.grantedEffect, activeSkill, nil, supportEffect.appliesToGrantedSkills) then
 				t_insert(activeSkill.effectList, supportEffect)
 				if supportEffect.isSupporting and activeEffect.srcInstance then
 					supportEffect.isSupporting[activeEffect.srcInstance] = true
@@ -178,9 +179,9 @@ function calcs.copyActiveSkill(env, mode, skill)
 	local newSkill = calcs.createActiveSkill(activeEffect, skill.supportList, skill.actor, skill.socketGroup, skill.summonSkill)
 	local newEnv, _, _, _ = calcs.initEnv(env.build, mode, env.override)
 	calcs.buildActiveSkillModList(newEnv, newSkill)
-	newSkill.skillModList = new("ModList", newSkill.baseSkillModList)
+	newSkill.skillModList = new("ModList"):ModList(newSkill.baseSkillModList)
 	if newSkill.minion then
-		newSkill.minion.modDB = new("ModDB")
+		newSkill.minion.modDB = new("ModDB"):ModDB()
 		newSkill.minion.modDB.actor = newSkill.minion
 		calcs.createMinionSkills(env, newSkill)
 		newSkill.skillPartName = newSkill.minion.mainSkill.activeEffect.grantedEffect.name
@@ -479,7 +480,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 	end
 
 	-- Initialise skill modifier list
-	local skillModList = new("ModList", activeSkill.actor.modDB)
+	local skillModList = new("ModList"):ModList(activeSkill.actor.modDB)
 	activeSkill.skillModList = skillModList
 	activeSkill.baseSkillModList = skillModList
 	

@@ -6454,6 +6454,29 @@ return {
 	},
 	incursionuniqueupgrades={
 	},
+	indexablenonactivesupportgems={
+		[1]={
+			list=false,
+			name="Index",
+			refTo="",
+			type="Int",
+			width=70
+		},
+		[2]={
+			list=false,
+			name="SupportGem",
+			refTo="SkillGems",
+			type="Key",
+			width=400
+		},
+		[3]={
+			list=false,
+			name="Name",
+			refTo="",
+			type="String",
+			width=300
+		}
+	},
 	indexableskillgems={
 		[1]={
 			list=false,
@@ -12043,10 +12066,10 @@ return {
 		},
 		[8]={
 			list=false,
-			name="",
+			name="RandomizeVisualRotationOnSpawn",
 			refTo="",
 			type="Bool",
-			width=50
+			width=200
 		},
 		[9]={
 			list=false,
@@ -12071,31 +12094,31 @@ return {
 		},
 		[12]={
 			list=false,
-			name="",
-			refTo="",
+			name="MiscAnimated",
+			refTo="MiscAnimated",
 			type="Key",
-			width=40
+			width=220
 		},
 		[13]={
 			list=false,
 			name="",
 			refTo="",
 			type="Int",
-			width=50
+			width=150
 		},
 		[14]={
 			list=false,
-			name="",
+			name="ApplyProjectileSpeedToAuxiliarySpeed",
 			refTo="",
 			type="Bool",
-			width=50
+			width=200
 		},
 		[15]={
 			list=false,
-			name="",
+			name="AuxiliarySpeedCannotBeBelowBase",
 			refTo="",
 			type="Bool",
-			width=50
+			width=190
 		},
 		[16]={
 			list=true,

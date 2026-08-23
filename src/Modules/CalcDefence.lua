@@ -3,7 +3,8 @@
 -- Module: Calc Defence
 -- Performs defence calculations.
 --
-local calcs = ...
+---@class Calcs
+local calcs = require("Modules.CalcBase")
 
 local pairs = pairs
 local ipairs = ipairs
@@ -76,9 +77,9 @@ function calcs.armourReduction(armour, raw)
 end
 
 -- Based on code from FR and BS found in act_*.txt
----@param activeSkill/output/breakdown references table passed in from calc offence
+---@param activeSkill any /output/breakdown references table passed in from calc offence
 ---@param sourceType string type of incoming damage - it will be converted (taken as) from this type if applicable
----@param baseDmg for which to calculate the damage
+---@param baseDmg number for which to calculate the damage
 ---@return table of taken damage parts, and number, sum of damages
 function calcs.applyDmgTakenConversion(activeSkill, output, breakdown, sourceType, baseDmg)
 	local damageBreakdown = { }
@@ -634,6 +635,7 @@ end
 
 -- Performs all ingame and related defensive calculations
 function calcs.defence(env, actor)
+	---@type ModDB
 	local modDB = actor.modDB
 	local enemyDB = actor.enemy.modDB
 	local output = actor.output
@@ -1386,31 +1388,45 @@ function calcs.defence(env, actor)
 	do
 		output["anyRecoup"] = 0
 		local recoupTypeList = {"Life", "Mana", "EnergyShield"}
+		local recoupInc = 1 + modDB:Sum("INC", nil, "RecoupRecoveryAmount") / 100
+		local recoupMore = modDB:More(nil, "RecoupRecoveryAmount")
 		for _, recoupType in ipairs(recoupTypeList) do
-			local baseRecoup = modDB:Sum("BASE", nil, recoupType.."Recoup")
+			for _, recoupType2 in ipairs(recoupTypeList) do
+				if recoupType ~= recoupType2 then
+					local addFlag = s_format("Add%sRecoupTo%sRecoup", recoupType, recoupType2)
+					if modDB:Flag(nil, addFlag) then
+						local baseRecoup = modDB:Sum("BASE", nil, recoupType .. "Recoup")
+						-- inherit source from original flag
+						local flagMod = modDB:Tabulate("FLAG", nil, addFlag)[1].mod
+						modDB:NewMod(recoupType2 .. "Recoup", "BASE", baseRecoup, flagMod.source)
+					end
+				end
+			end
+		end
+		for _, recoupType in ipairs(recoupTypeList) do
 			if recoupType == "Life" and modDB:Flag(nil, "EnergyShieldRecoupInsteadOfLife") then
 				output.LifeRecoup = 0
 				local lifeRecoup = modDB:Sum("BASE", nil, "LifeRecoup")
 				modDB:NewMod("EnergyShieldRecoup", "BASE", lifeRecoup, "Life Recoup Conversion")
 			else
-				output[recoupType.."Recoup"] =  baseRecoup * output[recoupType.."RecoveryRateMod"]
+				local baseRecoup = modDB:Sum("BASE", nil, recoupType .. "Recoup")
+				output[recoupType .. "Recoup"] = baseRecoup * output[recoupType .. "RecoveryRateMod"] * recoupInc * recoupMore
 				output["anyRecoup"] = output["anyRecoup"] + output[recoupType.."Recoup"]
 				if breakdown then
-					if output[recoupType.."RecoveryRateMod"] ~= 1 then
-						breakdown[recoupType.."Recoup"] = {
-							s_format("%d%% ^8(base)", baseRecoup),
-							s_format("* %.2f ^8(recovery rate modifier)", output[recoupType.."RecoveryRateMod"]),
-							s_format("= %.1f%% over %d seconds", output[recoupType.."Recoup"], (modDB:Flag(nil, "3Second"..recoupType.."Recoup") or modDB:Flag(nil, "3SecondRecoup")) and 3 or 4)
-						}
+					breakdown[recoupType .. "Recoup"] = { s_format("%d%% ^8(base)", baseRecoup) }
+					if recoupInc ~= 1 then
+						t_insert(breakdown[recoupType .. "Recoup"], s_format("x %.2f (increased/reduced)", recoupInc))
+					end
+					if recoupMore ~= 1 then
+						t_insert(breakdown[recoupType .. "Recoup"], s_format("x %.2f (more/less)", recoupMore))
+					end
+					if output[recoupType .. "RecoveryRateMod"] ~= 1 then
+						t_insert(breakdown[recoupType .. "Recoup"], s_format("* %.2f ^8(recovery rate modifier)", output[recoupType .. "RecoveryRateMod"]))
+						t_insert(breakdown[recoupType .. "Recoup"], s_format("= %.1f%% over %d seconds", output[recoupType .. "Recoup"], (modDB:Flag(nil, "3Second" .. recoupType .. "Recoup") or modDB:Flag(nil, "3SecondRecoup")) and 3 or 4))
 					else
-						breakdown[recoupType.."Recoup"] = { s_format("%d%% over %d seconds", output[recoupType.."Recoup"], (modDB:Flag(nil, "3Second"..recoupType.."Recoup") or modDB:Flag(nil, "3SecondRecoup")) and 3 or 4) }
+						table.insert(breakdown[recoupType .. "Recoup"], s_format("%.1f%% over %d seconds", output[recoupType .. "Recoup"], (modDB:Flag(nil, "3Second" .. recoupType .. "Recoup") or modDB:Flag(nil, "3SecondRecoup")) and 3 or 4))
 					end
 				end
-			end
-			local addToEnergyShieldFlag = "Add"..recoupType.."RecoupToEnergyShieldRecoup"
-			if modDB:Flag(nil, addToEnergyShieldFlag) then
-				local flagMod = modDB:Tabulate("FLAG", nil, addToEnergyShieldFlag)[1].mod
-				modDB:ReplaceMod("EnergyShieldRecoup", "BASE", baseRecoup, flagMod.source)
 			end
 		end
 
@@ -1424,28 +1440,35 @@ function calcs.defence(env, actor)
 		for _, recoupType in ipairs(recoupTypeList) do
 			for _, damageType in ipairs(dmgTypeList) do
 				local recoup = modDB:Sum("BASE", nil, damageType..recoupType.."Recoup")
+				local recoupName = damageType..recoupType.."Recoup"
 				if recoupType == "Life" and modDB:Flag(nil, "EnergyShieldRecoupInsteadOfLife") then
-					output[damageType.."LifeRecoup"] = 0
+					output[recoupName] = 0
 					modDB:NewMod(damageType.."EnergyShieldRecoup", "BASE", recoup, "Life Recoup Conversion")
 				else
-					output[damageType..recoupType.."Recoup"] =  recoup * output[recoupType.."RecoveryRateMod"]
-					output["anyRecoup"] = output["anyRecoup"] + output[damageType..recoupType.."Recoup"]
+					output[recoupName] = recoup * output[recoupType.."RecoveryRateMod"] * recoupInc * recoupMore
+					output["anyRecoup"] = output["anyRecoup"] + output[recoupName]
 					if breakdown then
-						if output[recoupType.."RecoveryRateMod"] ~= 1 then
-							breakdown[damageType..recoupType.."Recoup"] = {
-								s_format("%d%% ^8(base)", recoup),
-								s_format("* %.2f ^8(recovery rate modifier)", output[recoupType.."RecoveryRateMod"]),
-								s_format("= %.1f%% over %d seconds", output[damageType..recoupType.."Recoup"], (modDB:Flag(nil, "3Second"..recoupType.."Recoup") or modDB:Flag(nil, "3SecondRecoup")) and 3 or 4)
-							}
-						else
-							breakdown[damageType..recoupType.."Recoup"] = { s_format("%d%% over %d seconds", output[damageType..recoupType.."Recoup"], (modDB:Flag(nil, "3Second"..recoupType.."Recoup") or modDB:Flag(nil, "3SecondRecoup")) and 3 or 4) }
+						breakdown[recoupName] = { s_format("%d%% ^8(base)", recoup) }
+						if recoupInc ~= 1 then
+							t_insert(breakdown[recoupName], s_format("x %.2f (increased/reduced)", recoupInc))
 						end
+						if recoupMore ~= 1 then
+							t_insert(breakdown[recoupName], s_format("x %.2f (more/less)", recoupMore))
+						end
+						if output[recoupType.."RecoveryRateMod"] ~= 1 then
+							t_insert(breakdown[recoupName], s_format("* %.2f ^8(recovery rate modifier)", output[recoupType.."RecoveryRateMod"]))
+						end
+						t_insert(breakdown[recoupName], s_format("= %.1f%% over %d seconds", output[recoupName], (modDB:Flag(nil, "3Second"..recoupType.."Recoup") or modDB:Flag(nil, "3SecondRecoup")) and 3 or 4))
 					end
 				end
-				local addToEnergyShieldFlag = "Add"..recoupType.."RecoupToEnergyShieldRecoup"
-				if modDB:Flag(nil, addToEnergyShieldFlag) then
-					local flagMod = modDB:Tabulate("FLAG", nil, addToEnergyShieldFlag)[1].mod
-					modDB:ReplaceMod(damageType.."EnergyShieldRecoup", "BASE", recoup, flagMod.source)
+				for _, recoupType2 in ipairs(recoupTypeList) do
+					if recoupType ~= recoupType2 then
+						local addFlag = s_format("Add%sRecoupTo%sRecoup", recoupType, recoupType2)
+						if modDB:Flag(nil, addFlag) then
+							local flagMod = modDB:Tabulate("FLAG", nil, addFlag)[1].mod
+							modDB:ReplaceMod(damageType..recoupType2.."Recoup", "BASE", recoup, flagMod.source)
+						end
+					end
 				end
 			end
 		end
@@ -1749,9 +1772,12 @@ function calcs.buildDefenceEstimations(env, actor)
 					local gainAsPercent = enemyDB:Sum("BASE", enemyCfg, (damageType.."DamageGainAs"..damageTypeTo)) / 100
 					local conversionPercent = conversions[damageTypeTo] / 100
 					local skillConversionPercent = conversions[damageTypeTo.."skill"] / 100
-					if skillConversionPercent > 0 and damageType == "Physical" and damageTypeTo ~= "Chaos" then
-						local physBonus = 1 + data.monsterPhysConversionMultiTable[env.enemyLevel] / 100
-						conversionPercent = conversionPercent + skillConversionPercent * physBonus
+					if skillConversionPercent > 0 then
+						if damageType == "Physical" and damageTypeTo ~= "Chaos" then
+							local physBonus = 1 + data.monsterPhysConversionMultiTable[env.enemyLevel] / 100
+							skillConversionPercent = skillConversionPercent * physBonus
+						end
+						conversionPercent = conversionPercent + skillConversionPercent
 					end
 					if gainAsPercent > 0 or conversionPercent > 0 then
 						enemyDamageConversion[damageTypeTo] = enemyDamageConversion[damageTypeTo] or { }
@@ -3071,7 +3097,7 @@ function calcs.buildDefenceEstimations(env, actor)
 	
 	-- pvp
 	if env.configInput.PvpScaling then
-		local PvpTvalue = output.enemySkillTime
+		local PvpTvalue = output.enemySkillTime or 1
 		local PvpMultiplier = (env.configInput.enemyMultiplierPvpDamage or 100) / 100
 		
 		local PvpNonElemental1 = data.misc.PvpNonElemental1
@@ -3826,3 +3852,5 @@ function calcs.buildDefenceEstimations(env, actor)
 	end
 	--endregion
 end
+
+return calcs

@@ -5,20 +5,33 @@
 --
 
 local dkjson = require "dkjson"
-local utils = LoadModule("Modules/Utils")
+local utils = require("Modules.Utils")
+
+local tradeInfluenceApiKeys = {
+	shaper = "shaper",
+	elder = "elder",
+	adjudicator = "warlord",
+	basilisk = "hunter",
+	crusader = "crusader",
+	eyrie = "redeemer",
+	cleansing = "searing",
+	tangle = "tangled",
+}
 
 ---@class TradeQueryRequests
-local TradeQueryRequestsClass = newClass("TradeQueryRequests", function(self, rateLimiter)
+local TradeQueryRequestsClass = newClass("TradeQueryRequests")
+
+function TradeQueryRequestsClass:TradeQueryRequests(rateLimiter)
 	self.maxFetchPerSearch = 10
-	self.tradeQuery = tradeQuery
-	self.rateLimiter = rateLimiter or new("TradeQueryRateLimiter")
+	self.rateLimiter = rateLimiter or new("TradeQueryRateLimiter"):TradeQueryRateLimiter()
 	self.requestQueue = {
 		["search"] = {},
 		["fetch"] = {},
 	}
 	self.hostName = "https://www.pathofexile.com/"
 	self.hostNamePattern = "h?t?t?p?s?:?/?/?w?w?w?%.?pathofexile%.com/"
-end)
+	return self
+end
 
 ---Main routine for processing request queue
 --- @param onRateLimit fun(integer)?
@@ -356,6 +369,12 @@ function TradeQueryRequestsClass:FetchResultBlock(url, callback)
 				end
 				for _, modLine in ipairs(item.explicitMods) do
 					t_insert(rawLines, processLine(modLine))
+				end
+				for _, influenceInfo in ipairs(itemLib.influenceInfo.all) do
+					local apiKey = tradeInfluenceApiKeys[influenceInfo.key]
+					if apiKey and ((item.influences and item.influences[apiKey]) or item[apiKey]) then
+						t_insert(rawLines, influenceInfo.display .. " Item")
+					end
 				end
 				if item.duplicated then
 					t_insert(rawLines, "Mirrored")

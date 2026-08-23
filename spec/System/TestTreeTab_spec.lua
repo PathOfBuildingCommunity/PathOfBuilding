@@ -2,6 +2,14 @@ describe("TreeTab", function()
 	local originalClusterNodeMap
 	local originalMasteryEffects
 
+	local function findMasteryNode()
+		for _, node in pairs(build.spec.nodes) do
+			if node.type == "Mastery" and node.masteryEffects and #node.masteryEffects > 0 then
+				return node
+			end
+		end
+	end
+
 	before_each(function()
 		newBuild()
 		originalClusterNodeMap = build.spec.tree.clusterNodeMap
@@ -11,6 +19,37 @@ describe("TreeTab", function()
 	after_each(function()
 		build.spec.tree.clusterNodeMap = originalClusterNodeMap
 		build.spec.tree.masteryEffects = originalMasteryEffects
+	end)
+
+	it("restores a Runegraft after rebuilding mastery options", function()
+		local node = assert(findMasteryNode())
+		local override
+		for _, tattooNode in pairs(build.spec.tree.tattoo.nodes) do
+			if tattooNode.overrideType == "AlternateMastery" then
+				override = copyTable(tattooNode, true)
+				break
+			end
+		end
+		assert(override)
+		override.id = node.id
+		build.spec.hashOverrides[node.id] = override
+		build.spec:ReplaceNode(node, override)
+
+		build.spec:DeallocSingleNode(node)
+		build.spec:BuildAllDependsAndPaths()
+
+		assert.is_false(node.allMasteryOptions)
+		assert.are.equal("AlternateMastery", node.overrideType)
+	end)
+
+	it("clears the selected mastery reminder after deallocation", function()
+		local node = assert(findMasteryNode())
+		node.reminderText = { "Tip: Right click to select a different effect" }
+
+		build.spec:DeallocSingleNode(node)
+		build.spec:BuildAllDependsAndPaths()
+
+		assert.is_nil(node.reminderText)
 	end)
 
 	it("adds separate power report entries for mastery effects", function()

@@ -49,12 +49,34 @@ local function getFile(URL)
 	return #page > 0 and page
 end
 
-local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
+---@class PassiveTreeGroup
+---@field x number
+---@field y number
+---@field orbits integer[]
+---@field nodes string[]
+---@field background any
+---@field isProxy boolean?
+---@class PassiveTree
+---@field classes any[] A list of classes on the tree
+---@field alternate_ascendancies any[]?
+---@field tree "Default"|"DefaultAltAscendancies"
+---@field groups PassiveTreeGroup[]
+---@field nodes table<"root"|integer, any>
+---@field jewelSlots integer[]
+---@field min_x integer
+---@field min_y integer
+---@field max_x integer
+---@field max_y integer
+---@field constants table<string, any>
+---@field points table<string, integer>
+local PassiveTreeClass = newClass("PassiveTree")
+
+function PassiveTreeClass:PassiveTree(treeVersion)
 	self.treeVersion = treeVersion
 	local versionNum = treeVersions[treeVersion].num
 
-	self.legion = LoadModule("Data/TimelessJewelData/LegionPassives")
-	self.tattoo = LoadModule("Data/TattooPassives")
+	self.legion = require("Data.TimelessJewelData.LegionPassives")
+	self.tattoo = require("Data.TattooPassives")
 
 	MakeDir("TreeData")
 
@@ -209,7 +231,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	end
 
 	if not self.assets then
-		self.assets = LoadModule("TreeData/3_19/Assets.lua")
+		self.assets = require("TreeData.3_19.Assets")
 		self.assets = self.assets.assets
 		if self.alternate_ascendancies then
 			-- backgrounds
@@ -364,7 +386,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	end
 
 	-- Load legion sprite sheets and build sprite map
-	local legionSprites = LoadModule("TreeData/legion/tree-legion.lua")
+	local legionSprites = require("TreeData.legion.tree-legion")
 	local function loadLegionSheet(data)
 		local sheet = spriteSheets[data.filename]
 		if not sheet then
@@ -764,14 +786,15 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	if treeVersion == latestTreeVersion then
 		buildTreeDependentUniques(self)
 	end
-end)
+	return self
+end
 
 function PassiveTreeClass:ProcessStats(node, startIndex)
 	startIndex = startIndex or 1
 	if startIndex == 1 then
 		node.modKey = ""
 		node.mods = { }
-		node.modList = new("ModList")
+		node.modList = new("ModList"):ModList()
 	end
 
 	if not node.sd then
@@ -804,7 +827,7 @@ function PassiveTreeClass:ProcessStats(node, startIndex)
 				if list and not extra then
 					-- Success, add dummy mod lists to the other lines that were combined with this one
 					for ci = i + 1, endI do
-						node.mods[ci] = { list = { } }
+						node.mods[ci] = { list = {}, combined = true }
 					end
 					break
 				end

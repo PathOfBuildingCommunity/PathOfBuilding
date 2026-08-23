@@ -776,6 +776,7 @@ Highborn Staff
 Variant: Pre 3.25.0
 Variant: Current
 League: Crucible
+Source: Drops from Crucible monsters
 Implicits: 2
 {variant:1}StaffBlockPercentImplicitStaff1[18,18]
 {variant:2}StaffBlockPercentImplicitStaff2
@@ -804,5 +805,14 @@ LocalIncreaseSocketedGemLevelUnique___3
 AttackerTakesLightningDamageUnique___1
 {variant:1,2}EnergyShieldRechargeOnBlockUnique__1[20,20]
 {variant:3}EnergyShieldRechargeOnBlockUnique__1
-]],
+]],[[
+Cane of Kulemak
+Serpentine Staff
+Source: Drops from unique{Catarina, Master of Undeath}
+Crafted: true
+Requires Level 68, 85 Str, 85 Int
+Implicits: 1
+StaffBlockPercentImplicitStaff2
+LocalVeiledModEffectUnique__1
+]]
 }

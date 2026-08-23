@@ -93,7 +93,7 @@ Implicits: 4
 {variant:6}LightRadiusUnique__1
 DisplayBlindAuraUnique__1
 CriticalChanceAgainstBlindedEnemiesUnique__1
-AddedFireDamageFromLightRadiusUnique__1
+{variant:6}AddedFireDamageFromLightRadiusUnique__1
 ]],[[
 Corona Solaris
 Crystal Wand
@@ -177,7 +177,6 @@ ExtraRagingSpiritsUnique__1
 ExtraMaximumPhantasmsUnique__1
 ]],[[
 Moonsorrow
-Imbued Wand
 {variant:1,2,3,4}Imbued Wand
 {variant:5}Kinetic Wand
 Variant: Pre 2.0.0
@@ -242,6 +241,7 @@ Piscator's Vigil
 Variant: Pre 2.3.0
 Variant: Pre 2.6.0
 Variant: Pre 3.21.0
+Variant: Pre 3.27.0
 Variant: Current
 Implicits: 4
 {variant:1}SpellDamageOnWeaponImplicitWand15[16,19]
@@ -258,13 +258,15 @@ ThisWeaponsWeaponElementalDamageUniqueWand6
 The Poet's Pen
 {variant:1}Carved Wand
 {variant:2}Somatic Wand
-Implicits: 1
+Variant: Pre 3.27.0
+Variant: Current
+Implicits: 2
 {variant:1}SpellDamageOnWeaponImplicitWand3
+{variant:2}KineticWandImplicit
 SocketedGemLevelPer25PlayerLevelsUnique__1
 TriggerSocketedSpellOnAttackUnique__1
 AddsPhysicalDamagePer3PlayerLevelsUnique__1_
 LocalIncreasedAttackSpeedUnique__24
-{variant:2}KineticWandImplicit
 ]],[[
 Reverberation Rod
 Spiraled Wand
@@ -332,8 +334,8 @@ Variant: Pre 3.21.0
 Variant: Pre 3.29.0
 Variant: Current
 Implicits: 2
-{variant:1,2}SpellDamageUniqueWand1[35,39]
-{variant:3,4}AddedLightningDamageSpellsAndAttacksImplicit3
+{variant:1,2,4}SpellDamageUniqueWand1[35,39]
+{variant:3}AddedLightningDamageSpellsAndAttacksImplicit3
 {variant:1,2,3}SpellDamageUniqueWand1
 {variant:1,2,3}SpellAddedLightningDamageUnique__5
 {variant:4}IncreasedMaximumPowerChargesUnique__5
@@ -364,41 +366,45 @@ PowerChargeOnKillChanceUnique__1
 ]],[[
 Tulborn
 {variant:1,2}Spiraled Wand
-{variant:3}Opal Wand
+{variant:3,4}Opal Wand
 Variant: Pre 3.16.0
 Variant: Pre 3.21.0
+Variant: Pre 3.29.0
 Variant: Current
 League: Breach
 Source: Drops in Tul Breach or from unique{Tul, Creeping Avalanche}
 Upgrade: Upgrades to unique{Tulfall} using currency{Blessing of Tul}
-Implicits: 2
+Implicits: 3
 {variant:1,2}SpellDamageOnWeaponImplicitWand5
 {variant:3}AddedColdDamageSpellsAndAttacksImplicit3
+{variant:4}SpellDamageOnWeaponImplicitWand14
 {variant:1,2}IncreasedCastSpeedUnique__20
-{variant:3}SpellAddedColdDamageUnique__7
+{variant:3,4}SpellAddedColdDamageUnique__7
 {variant:1,2}GainPowerChargeOnKillingFrozenEnemyUnique__1[50,50]
-{variant:3}GainPowerChargeOnKillingFrozenEnemyUnique__1
+{variant:3,4}GainPowerChargeOnKillingFrozenEnemyUnique__1
 {variant:1,2}AddedColdDamagePerPowerChargeUnique__1
-{variant:3}ColdExposureAdditionalResistanceUnique__1
+{variant:3,4}ColdExposureAdditionalResistanceUnique__1
 GainManaOnKillingFrozenEnemyUnique__1
 ]],[[
 Tulfall
 {variant:1,2}Tornado Wand
-{variant:3}Opal Wand
+{variant:3,4}Opal Wand
 Variant: Pre 3.16.0
 Variant: Pre 3.21.0
+Variant: Pre 3.29.0
 Variant: Current
 League: Breach
 Source: Upgraded from unique{Tulborn} using currency{Blessing of Tul}
-Implicits: 2
+Implicits: 3
 {variant:1,2}SpellDamageOnWeaponImplicitWand16
 {variant:3}AddedColdDamageSpellsAndAttacksImplicit3
+{variant:4}SpellDamageOnWeaponImplicitWand14
 {variant:1,2}IncreasedCastSpeedUniqueWand3[10,15]
-{variant:3}IncreasedCastSpeedUniqueWand3
+{variant:3,4}IncreasedCastSpeedUniqueWand3
 {variant:1}GainPowerChargeOnKillingFrozenEnemyUnique__1[50,50]
-{variant:2,3}GainPowerChargeOnKillingFrozenEnemyUnique__1
+{variant:2,3,4}GainPowerChargeOnKillingFrozenEnemyUnique__1
 {variant:1,2}AddedColdDamagePerPowerChargeUnique__2[15,15][25,25]
-{variant:3}AddedColdDamagePerPowerChargeUnique__2
+{variant:3,4}AddedColdDamagePerPowerChargeUnique__2
 LosePowerChargesOnMaxPowerChargesUnique__2
 WhenReachingMaxPowerChargesGainAFrenzyChargeUnique__1
 {variant:1}IncreasedColdDamagePerFrenzyChargeUnique__1[10,15]
@@ -406,15 +412,16 @@ WhenReachingMaxPowerChargesGainAFrenzyChargeUnique__1
 ]],[[
 Replica Tulfall
 {variant:1}Tornado Wand
-{variant:2}Opal Wand
+{variant:2,3}Opal Wand
 Variant: Pre 3.21.0
 Variant: Pre 3.29.0
 Variant: Current
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Implicits: 2
+Implicits: 3
 {variant:1}SpellDamageOnWeaponImplicitWand16
-{variant:2,3}AddedColdDamageSpellsAndAttacksImplicit3
+{variant:2}AddedColdDamageSpellsAndAttacksImplicit3
+{variant:3}SpellDamageOnWeaponImplicitWand14
 IncreasedCastSpeedUnique__22
 LosePowerChargesOnMaxPowerChargesUnique__1
 WhenReachingMaxPowerChargesGainAFrenzyChargeUnique__1
@@ -429,16 +436,16 @@ Twyzel
 Variant: Pre 2.3.0
 Variant: Pre 2.27.0
 Variant: Current
-Implicits: 2
+Implicits: 3
 {variant:1}SpellDamageOnWeaponImplicitWand6[11,14]
 {variant:2}SpellDamageOnWeaponImplicitWand6
+{variant:3}KineticWandImplicit
 {variant:1,2}SocketedGemsAdditionalProjectilesUniqueWand9
 {variant:1,2}LocalIncreasedPhysicalDamagePercentUniqueWand9[80,120]
 {variant:3}LocalIncreasedPhysicalDamagePercentUniqueWand9
 LocalAddedPhysicalDamageUniqueWand9
 LocalIncreasedAttackSpeedUniqueWand9
 LocalCriticalStrikeChanceUniqueWand9
-{variant:3}KineticWandImplicit
 {variant:3}MainHandAdditionalProjectilesWhileInOffHandUnique__1
 {variant:3}OffHandAreaOfEffectWhileInMainHandUnique__1
 ]],[[

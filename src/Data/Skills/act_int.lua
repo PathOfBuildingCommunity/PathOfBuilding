@@ -4,8 +4,7 @@
 -- Active Intelligence skill gems
 -- Skill data (c) Grinding Gear Games
 --
-local skills, mod, flag, skill = ...
-
+return function(skills, mod, flag, skill)
 skills["Arc"] = {
 	name = "Arc",
 	baseTypeName = "Arc",
@@ -1117,9 +1116,10 @@ skills["BallLightning"] = {
 			local ballDistPerStrike = ballDistPerSec * secsPerStrike
 			-- How many times does the ball proc a bolt strike while it is in
 			-- range of the enemy?
-			local enemyRadius = 0 -- for now, we will be conservative and assume no enemy radius
+			local enemyRadius = skillModList:Override(skillCfg, "EnemyRadius") or skillModList:Sum("BASE", skillCfg, "EnemyRadius")
 			local baseStrikeRadius = output.AreaOfEffectRadius
-			local strikeRadius = baseStrikeRadius
+			-- A bolt can hit when its area overlaps any part of the enemy's collision circle.
+			local strikeRadius = baseStrikeRadius + enemyRadius
 			local castDist = 0
 			if skillCfg.skillDist then
 				-- Advanced users can specify exactly the standoff distance
@@ -21484,3 +21484,4 @@ skills["Zealotry"] = {
 		[40] = { 20, 54, 34, cooldown = 1.2, levelRequirement = 100, manaReservationPercent = 50, storedUses = 1, statInterpolation = { 1, 1, 1, }, },
 	},
 }
+end

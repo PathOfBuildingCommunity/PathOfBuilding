@@ -18,14 +18,17 @@ local JEWEL_RADIUS_TINT_NEUTRAL = { 1, 1, 1, 0.7 }
 local JEWEL_RADIUS_TINT_PRIMARY_ONLY = { 1, 0, 0, 0.7 }
 local JEWEL_RADIUS_TINT_COMPARE_ONLY = { 0, 1, 0, 0.7 }
 
-local gemTooltip = LoadModule("Classes/GemTooltip")
+local gemTooltip = require("Classes.GemTooltip")
 
 local function isAbyssConquered(node)
 	local conqueror = node and node.conqueredBy and node.conqueredBy.conqueror
 	return conqueror and conqueror.type and conqueror.type:match("^abyss_")
 end
 
-local PassiveTreeViewClass = newClass("PassiveTreeView", function(self)
+---@class PassiveTreeView
+local PassiveTreeViewClass = newClass("PassiveTreeView")
+
+function PassiveTreeViewClass:PassiveTreeView()
 	self.ring = NewImageHandle()
 	self.ring:Load("Assets/ring.png", "CLAMP")
 	self.highlightRing = NewImageHandle()
@@ -64,8 +67,8 @@ local PassiveTreeViewClass = newClass("PassiveTreeView", function(self)
 	self.kalguur2 = NewImageHandle()
 	self.kalguur2:Load("TreeData/PassiveSkillScreenKalguuranJewelCircle2.png", "CLAMP")
 
-	self.tooltip = new("Tooltip")
-	self.skillTooltip = new("Tooltip")
+	self.tooltip = new("Tooltip"):Tooltip()
+	self.skillTooltip = new("Tooltip"):Tooltip()
 
 	self.zoomLevel = 3
 	self.zoom = 1.2 ^ self.zoomLevel
@@ -78,7 +81,8 @@ local PassiveTreeViewClass = newClass("PassiveTreeView", function(self)
 	self.searchStrResults = {}
 	self.showStatDifferences = true
 	self.hoverNode = nil
-end)
+	return self
+end
 
 function PassiveTreeViewClass:Load(xml, fileName)
 	if xml.attrib.zoomLevel then
@@ -184,6 +188,7 @@ function PassiveTreeViewClass:GetCompareNodeColor(node, compareNode, spec, build
 	return nodeDefaultColor
 end
 
+---@param build Build
 function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 	local spec = build.spec
 	local tree = spec.tree
@@ -1455,7 +1460,8 @@ function PassiveTreeViewClass:AddNodeName(tooltip, node, build)
 	end
 end
 
-function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
+---@param returnEarly boolean? Whether the function should stop after writing the mod info, before any allocation-specific info
+function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build, returnEarly)
 	local fontSizeBig = main.showFlavourText and 18 or 16
 	self.skillTooltip:Clear()
 	tooltip.center = true
@@ -1575,7 +1581,8 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 		end
 	end
 
-	if mNode.sd[1] and mNode.allMasteryOptions then
+	local isRunegraft = mNode.overrideType == "AlternateMastery"
+	if mNode.sd[1] and mNode.allMasteryOptions and not isRunegraft then
 		tooltip:AddSeparator(14)
 		tooltip:AddLine(14, "^7Available Mastery node options are:")
 		tooltip:AddLine(6, "")
@@ -1599,7 +1606,7 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 	end
 
 	-- This stanza actives for both Mastery and non Mastery tooltips. Proof: add '"Blah "..' to addModInfoToTooltip
-	if mNode.sd[1] and not mNode.allMasteryOptions then
+	if mNode.sd[1] and (not mNode.allMasteryOptions or isRunegraft) then
 		tooltip:AddLine(16, "")
 		for i, line in ipairs(mNode.sd) do
 			addModInfoToTooltip(mNode, i, masteryColor..line)
@@ -1627,6 +1634,7 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 		end
 	end
 
+
 	-- Reminder text
 	if node.reminderText then
 		tooltip:AddSeparator(14)
@@ -1641,6 +1649,10 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 		for _, line in ipairs(node.flavourText) do
 			tooltip:AddLine(fontSizeBig, colorCodes.UNIQUE..line, "FONTIN ITALIC")
 		end
+	end
+
+	if returnEarly then
+		return
 	end
 
 	-- Tattoo Editing

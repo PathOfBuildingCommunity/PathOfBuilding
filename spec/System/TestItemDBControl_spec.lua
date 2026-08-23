@@ -43,7 +43,7 @@ describe("ItemDBControl", function()
 				return item ~= invalidItem
 			end,
 		}
-		local control = new("ItemDBControl", nil, { 0, 0, 100, 100 }, itemsTab, {
+		local control = new("ItemDBControl"):ItemDBControl(nil, { 0, 0, 100, 100 }, itemsTab, {
 			list = { invalidItem, betterItem, worseItem },
 		}, "RARE")
 		control.sortDetail = {
@@ -63,7 +63,7 @@ describe("ItemDBControl", function()
 	end)
 
 	it("searches Foulborn modifier text without case sensitivity", function()
-		local item = new("Item", [[
+		local item = new("Item"):Item([[
 			Rarity: Unique
 			Kitava's Thirst
 			Zealot Helmet
@@ -73,7 +73,7 @@ describe("ItemDBControl", function()
 			50% chance to Trigger Socketed Spells when you Spend at least 100 Mana on an
 			Upfront Cost to Use or Trigger a Skill, with a 0.1 second Cooldown
 		]])
-		local control = new("ItemDBControl", nil, { 0, 0, 100, 100 }, {
+		local control = new("ItemDBControl"):ItemDBControl(nil, { 0, 0, 100, 100 }, {
 			build = {
 				characterLevel = 100,
 			},
@@ -97,7 +97,7 @@ describe("ItemDBControl", function()
 				itemsTab.displayIsUnique = isUnique
 			end,
 		}
-		local control = new("ItemDBControl", nil, { 0, 0, 100, 100 }, itemsTab, {
+		local control = new("ItemDBControl"):ItemDBControl(nil, { 0, 0, 100, 100 }, itemsTab, {
 			list = { item },
 		}, "UNIQUE")
 		control.list = { item }

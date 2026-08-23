@@ -4,7 +4,9 @@
 -- Handles mirages that use player skills
 --
 
-local calcs = ...
+---@class Calcs
+local calcs = require("Modules.CalcBase")
+
 local pairs = pairs
 local ipairs = ipairs
 local t_insert = table.insert

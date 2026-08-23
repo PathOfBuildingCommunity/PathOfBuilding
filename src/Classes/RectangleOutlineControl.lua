@@ -3,11 +3,15 @@
 -- Class: RectangleOutline Control
 -- Simple Outline Only Rectangle control
 --
-local RectangleOutlineClass = newClass("RectangleOutlineControl", "Control", function(self, anchor, rect, colors, stroke)
-    self.Control(anchor, rect)
+---@class RectangleOutlineControl: Control
+local RectangleOutlineClass = newClass("RectangleOutlineControl", "Control")
+
+function RectangleOutlineClass:RectangleOutlineControl(anchor, rect, colors, stroke)
+    self:Control(anchor, rect)
     self.stroke = stroke or 1
     self.colors = colors or { 1, 1, 1 }
-end)
+	return self
+end
 
 function RectangleOutlineClass:Draw()
     local x, y = self:GetPos()

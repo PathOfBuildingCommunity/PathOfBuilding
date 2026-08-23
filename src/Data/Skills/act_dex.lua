@@ -4,8 +4,7 @@
 -- Active Dexterity skill gems
 -- Skill data (c) Grinding Gear Games
 --
-local skills, mod, flag, skill = ...
-
+return function(skills, mod, flag, skill)
 skills["AlchemistsMark"] = {
 	name = "Alchemist's Mark",
 	baseTypeName = "Alchemist's Mark",
@@ -291,6 +290,7 @@ skills["AnimateWeaponAltX"] = {
 	weaponTypes = {
 		["Claw"] = true,
 		["Dagger"] = true,
+		["Fishing Rod"] = true,
 		["One Handed Axe"] = true,
 		["One Handed Mace"] = true,
 		["One Handed Sword"] = true,
@@ -4287,7 +4287,6 @@ skills["Conflagration"] = {
 		{ "base_number_of_projectiles", 3 },
 	},
 	stats = {
-		"base_number_of_projectiles",
 		"base_fire_damage_to_deal_per_minute",
 		"active_skill_base_tertiary_area_of_effect_radius",
 		"base_is_projectile",
@@ -4297,8 +4296,11 @@ skills["Conflagration"] = {
 		"quality_display_base_number_of_projectiles_is_gem",
 		"projectile_damage_modifiers_apply_to_skill_dot",
 	},
+	notMinionStat = {
+		"base_fire_damage_to_deal_per_minute",
+	},
 	levels = {
-		[1] = { 8, baseMultiplier = 0.2, damageEffectiveness = 0.2, levelRequirement = 28, statInterpolation = { 1, }, cost = { Mana = 9, }, },
+		[1] = { 49.500001583248, 15, baseMultiplier = 0.3, damageEffectiveness = 0.3, levelRequirement = 28, statInterpolation = { 3, 1, }, cost = { Mana = 9, }, },
 		[2] = { 49.500001583248, 15, baseMultiplier = 0.303, damageEffectiveness = 0.3, levelRequirement = 31, statInterpolation = { 3, 1, }, cost = { Mana = 9, }, },
 		[3] = { 49.500001583248, 16, baseMultiplier = 0.306, damageEffectiveness = 0.31, levelRequirement = 34, statInterpolation = { 3, 1, }, cost = { Mana = 10, }, },
 		[4] = { 49.500001583248, 16, baseMultiplier = 0.309, damageEffectiveness = 0.31, levelRequirement = 37, statInterpolation = { 3, 1, }, cost = { Mana = 10, }, },
@@ -5111,6 +5113,7 @@ skills["Desecrate"] = {
 		"base_chaos_damage_to_deal_per_minute",
 		"desecrate_corpse_level",
 		"is_area_damage",
+		"pact_of_ghorr_can_modify_damage_over_time_of_skill",
 	},
 	levels = {
 		[1] = { 16.666667039196, 20, levelRequirement = 16, statInterpolation = { 3, 1, }, cost = { Mana = 11, }, },
@@ -18481,3 +18484,4 @@ skills["QuickstepHardMode"] = {
 		[10] = { cooldown = 10, levelRequirement = 1, storedUses = 1, },
 	},
 }
+end

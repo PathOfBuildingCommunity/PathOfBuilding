@@ -58,7 +58,7 @@ local function zorathExampleData()
 end
 
 local function newAbyssTimelessJewel(name, baseName, seedLine)
-	return new("Item", "Rarity: UNIQUE\n" .. name .. "\n" .. baseName .. "\n" ..
+	return new("Item"):Item("Rarity: UNIQUE\n" .. name .. "\n" .. baseName .. "\n" ..
 		"Limited to: 1 Historic\nImplicits: 0\n" .. seedLine .. "\n" ..
 		"Passives affected are Conquered by the Abyssal\nHistoric\n")
 end
@@ -415,20 +415,29 @@ describe("Abyss timeless jewels", function()
 		controls.searchButton.onClick()
 		assert.are.equal(1, #build.timelessData.searchResults)
 
-		local protectedOption
-		for index, option in ipairs(controls.protectAllocatedSelect.list) do
-			if option.label == baseNodeName then
-				controls.protectAllocatedSelect.selIndex = index
-				protectedOption = option
+		local protectBox
+		local boxIndex = 1
+		while controls["protectAllocatedBox" .. boxIndex] do
+			if controls["protectAllocatedBox" .. boxIndex].label == baseNodeName then
+				protectBox = controls["protectAllocatedBox" .. boxIndex]
 				break
 			end
+			boxIndex = boxIndex + 1
 		end
-		assert.are.equal(baseNodeName, controls.protectAllocatedSelect:GetSelValue().label)
-		local tooltip = new("Tooltip")
-		controls.protectAllocatedSelect.tooltipFunc(tooltip, "DROP", controls.protectAllocatedSelect.selIndex, protectedOption)
+		assert.is_truthy(protectBox, "Expected a protection checkbox for " .. baseNodeName)
+		local tooltip = new("Tooltip"):Tooltip()
+		protectBox.tooltipFunc(tooltip)
 		assert.is_true(#tooltip.lines > 0)
-		assert.are.same(spec.tree.nodes[53884].sd, protectedOption.descriptions)
-		controls.protectAllocatedButtonAdd.onClick()
+		local tooltipText = {}
+		for _, line in ipairs(tooltip.lines) do
+			table.insert(tooltipText, line.text or "")
+		end
+		tooltipText = table.concat(tooltipText, "\n")
+		for _, line in ipairs(spec.tree.nodes[53884].sd) do
+			assert.is_truthy(tooltipText:find(line, 1, true), "Expected tooltip to describe " .. line)
+		end
+		protectBox.state = true
+		protectBox.changeFunc(true)
 		local _, requiredAscendancyYAfterAdd = controls.abyssAscendancySelect:GetPos()
 		assert.are.equal(requiredAscendancyY, requiredAscendancyYAfterAdd)
 		controls.searchButton.onClick()
@@ -453,7 +462,7 @@ describe("Abyss timeless jewels", function()
 		runCallback("OnFrame")
 		assert.are.equal("Fire Resistance", spec.nodes[15117].dn)
 
-		local tooltip = new("Tooltip")
+		local tooltip = new("Tooltip"):Tooltip()
 		build.itemsTab:AddItemTooltip(tooltip, item, slot)
 
 		local hasComparison

@@ -4,8 +4,7 @@
 -- Intelligence support gems
 -- Skill data (c) Grinding Gear Games
 --
-local skills, mod, flag, skill = ...
-
+return function(skills, mod, flag, skill)
 skills["SupportAddedChaosDamage"] = {
 	name = "Added Chaos Damage",
 	description = "Supports any skill that hits enemies.",
@@ -7005,3 +7004,4 @@ skills["SupportVaalSacrifice"] = {
 		[15] = { 125, levelRequirement = 95, statInterpolation = { 1, }, },
 	},
 }
+end

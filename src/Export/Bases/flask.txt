@@ -1,6 +1,5 @@
 -- Item data (c) Grinding Gear Games
-local itemBases = ...
-
+return function(itemBases)
 #type Flask
 #subType Life
 #baseMatch Metadata/Items/Flasks/FlaskLife
@@ -13,3 +12,4 @@ local itemBases = ...
 
 #subType Utility
 #baseMatch Metadata/Items/Flasks/FlaskUtility
+end

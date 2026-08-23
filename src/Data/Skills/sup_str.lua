@@ -4,8 +4,7 @@
 -- Strength support gems
 -- Skill data (c) Grinding Gear Games
 --
-local skills, mod, flag, skill = ...
-
+return function(skills, mod, flag, skill)
 skills["SupportAddedFireDamage"] = {
 	name = "Added Fire Damage",
 	description = "Supports any skill that hits enemies.",
@@ -1607,6 +1606,7 @@ skills["SupportCrystalfall"] = {
 	weaponTypes = {
 		["Claw"] = true,
 		["Dagger"] = true,
+		["Fishing Rod"] = true,
 		["None"] = true,
 		["One Handed Axe"] = true,
 		["One Handed Mace"] = true,
@@ -1659,6 +1659,7 @@ skills["TriggeredSupportCrystalfall"] = {
 	weaponTypes = {
 		["Claw"] = true,
 		["Dagger"] = true,
+		["Fishing Rod"] = true,
 		["None"] = true,
 		["One Handed Axe"] = true,
 		["One Handed Mace"] = true,
@@ -5546,3 +5547,4 @@ skills["SupportExpertRetaliation"] = {
 		[40] = { 108, 54, levelRequirement = 100, manaMultiplier = 30, statInterpolation = { 1, 1, }, },
 	},
 }
+end

@@ -119,7 +119,7 @@ local function mapAffixDropDownFunction(val, modList, enemyModList, build)
 		local affixData = data.mapMods.AffixData[val] or {}
 		if affixData.apply then
 			if affixData.type == "check" then
-				affixData.apply(var, (1 + (build.configTab.input['multiplierMapModEffect'] or 0)/100), modList, enemyModList)
+				affixData.apply(val, (1 + (build.configTab.input['multiplierMapModEffect'] or 0) / 100), modList, enemyModList)
 			elseif affixData.type == "list" then
 				affixData.apply(4 - (build.configTab.varControls['multiplierMapModTier'].selIndex or 1), (1 + (build.configTab.input['multiplierMapModEffect'] or 0)/100), affixData.values, modList, enemyModList)
 			elseif affixData.type == "count" then
@@ -257,6 +257,17 @@ return {
 	{ label = "Arcane Cloak:", ifSkill = "Arcane Cloak"},
 	{ var = "arcaneCloakUsedRecentlyCheck", type = "check", label = "Include in ^x7070FFMana ^7spent Recently?", ifSkill = "Arcane Cloak", tooltip = "When enabled, the mana spent by Arcane Cloak used at full mana \nwill be added to the value provided in # of ^x7070FFMana ^7spent Recently.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:ArcaneCloakUsedRecently", "FLAG", true, "Config")
+	end },
+	{ label = "Aspect of Lunaris:", ifSkill = "Aspect of Lunaris" },
+	{ var = "aspectOfLunarisLunarProtection", type = "countAllowZero", label = "# of Lunar Protection:", ifSkill = "Aspect of Lunaris", tooltip = "Gained when you take ^xB97123Physical ^7Damage, up to 8 stacks.", defaultPlaceholderState = 8, apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:LunarProtection", "BASE", val, "Config")
+	end },
+	{ var = "aspectOfLunarisLunarResistance", type = "countAllowZero", label = "# of Lunar Resistance:", ifSkill = "Aspect of Lunaris", tooltip = "Gained when you take Elemental Damage, up to 8 stacks.", defaultPlaceholderState = 8, apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:LunarResistance", "BASE", val, "Config")
+	end },
+	{ label = "Aspect of Solaris:", ifSkill = "Aspect of Solaris" },
+	{ var = "aspectOfSolarisSunscaldStacks", type = "countAllowZero", label = "# of Sunscald Stacks:", ifSkill = "Aspect of Solaris", tooltip = "Each Sunscald increases the effect of ^xB97123Fire Exposure ^7on affected enemies by 15%, up to 5 stacks.", defaultPlaceholderState = 5, apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:SunscaldStack", "BASE", val, "Config", { type = "Condition", var = "Effective" })
 	end },
 	{ label = "Aspect of the Avian:", ifSkill = "Aspect of the Avian" },
 	{ var = "aspectOfTheAvianAviansMight", type = "check", label = "Is Avian's Might active?", ifSkill = "Aspect of the Avian", apply = function(val, modList, enemyModList)
@@ -762,8 +773,8 @@ return {
 	{ var = "VaalMoltenShellDamageMitigated", type = "count", label = "Damage mitigated:", tooltip = "Vaal Molten Shell reflects damage to the enemy,\nbased on the amount of damage it has mitigated in the last second.", ifSkill = "Vaal Molten Shell", apply = function(val, modList, enemyModList)
 		modList:NewMod("SkillData", "LIST", { key = "VaalMoltenShellDamageMitigated", value = val }, "Config", { type = "SkillName", skillName = "Molten Shell" })
 	end },
-	{ label = "Multi-part area skills:", ifSkill = { "Seismic Trap", "Lightning Spire Trap", "Explosive Trap", "Molten Strike" }, includeTransfigured = true },
-	{ var = "enemySizePreset", type = "list", label = "Enemy size preset:", ifSkill = { "Seismic Trap", "Lightning Spire Trap", "Explosive Trap", "Molten Strike" }, includeTransfigured = true, defaultIndex = 2, tooltip = [[
+	{ label = "Multi-part area skills:", ifSkill = { "Seismic Trap", "Lightning Spire Trap", "Explosive Trap", "Molten Strike", "Ball Lightning" }, includeTransfigured = true },
+	{ var = "enemySizePreset", type = "list", label = "Enemy size preset:", ifSkill = { "Seismic Trap", "Lightning Spire Trap", "Explosive Trap", "Molten Strike", "Ball Lightning" }, includeTransfigured = true, defaultIndex = 2, tooltip = [[
 Configure the radius of an enemy hitbox which is used in calculating some area multi-hitting (shotgunning) effects.
 
 Small sets the radius to 2.
@@ -788,7 +799,7 @@ Huge sets the radius to 11.
 			modList:NewMod("EnemyRadius", "BASE", 11, "Config")
 		end
 	end },
-	{ var = "enemyRadius", type = "integer", label = "Enemy radius:", ifSkill = { "Seismic Trap", "Lightning Spire Trap", "Explosive Trap", "Molten Strike" }, includeTransfigured = true, tooltip = "Configure the radius of an enemy hitbox to calculate some area overlapping (shotgunning) effects.", apply = function(val, modList, enemyModList)
+	{ var = "enemyRadius", type = "integer", label = "Enemy radius:", ifSkill = { "Seismic Trap", "Lightning Spire Trap", "Explosive Trap", "Molten Strike", "Ball Lightning" }, includeTransfigured = true, tooltip = "Configure the radius of an enemy hitbox to calculate some area overlapping (shotgunning) effects.", apply = function(val, modList, enemyModList)
 		modList:NewMod("EnemyRadius", "OVERRIDE", m_max(val, 1), "Config")
 	end },
 	{ var = "TotalMinionLife", type = "integer", label = "Minion Life override:", ifMod = "takenFromMinionBeforeYou", tooltip = "Overrides the automatically calculated Life of the minion supported by Companionship.", apply = function(val, modList, enemyModList)
