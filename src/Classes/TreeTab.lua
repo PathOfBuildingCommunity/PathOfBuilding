@@ -1291,7 +1291,7 @@ function TreeTabClass:FindTimelessJewel()
 		if node.id:match("^abyss_special_ascendancy_notable_%d+$") then
 			t_insert(abyssAscendancyOptions, {
 				label = node.dn,
-				descriptions = copyTable(node.sd),
+				node = node,
 				id = node.id,
 			})
 		end
@@ -1534,6 +1534,8 @@ function TreeTabClass:FindTimelessJewel()
 
 	local function buildNodeOptionCheckboxes(nodes)
 		local i = 1
+		protectedNodes = {}
+		protectedNodesCount = 0
 		-- clear old boxes
 		while controls["protectAllocatedBox" .. i] do
 			controls["protectAllocatedBox" .. i] = nil
@@ -1701,10 +1703,8 @@ function TreeTabClass:FindTimelessJewel()
 	end
 	controls.abyssAscendancySelect.tooltipFunc = function(tooltip, mode, index, value)
 		tooltip:Clear()
-		if mode ~= "OUT" and value.descriptions then
-			for _, line in ipairs(value.descriptions) do
-				tooltip:AddLine(16, "^7" .. line)
-			end
+		if value.node then
+			self.viewer:AddNodeTooltip(tooltip, value.node, self.build, true)
 		end
 	end
 
