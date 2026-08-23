@@ -1334,6 +1334,7 @@ for modId, mod in pairs(data.itemMods.JewelAbyss) do
 	end
 end
 
+data.veiledMasterSpawnTags = {}
 local catarinaPrefixes = {}
 local veiledPrefixes = {}
 local veiledSuffixes = {}
@@ -1345,6 +1346,11 @@ for modId, mod in pairs(data.veiledMods) do
 	elseif mod.affix == "of the Order" then
 		veiledSuffixes[modId] = mod
 	end
+	for _, tag in pairs(mod.weightKey) do
+		if tag:find("^[%a_]+_veiled_prefix") or tag:find("^[%a_]+_veiled_suffix") then
+			table.insert(data.veiledMasterSpawnTags, tag)
+		end
+	end
 end
 local veiledMods = table.combine(veiledPrefixes, veiledSuffixes)
 
@@ -1354,6 +1360,12 @@ dreadCaptainBase.base.tags.deepwater_sword = true
 local caneOfKulemakBase = { base = copyTable(data.itemBases["Serpentine Staff"]) }
 caneOfKulemakBase.base.tags.catarina_veiled_prefix = true
 
+local replicaParadoxicaBase = { base = copyTable(data.itemBases["Vaal Rapier"]) }
+for _, tag in ipairs(data.veiledMasterSpawnTags) do
+	if tag:find("prefix") then
+		replicaParadoxicaBase.base.tags[tag] = true
+	end
+end
 ---@class RareLikeItemBase Pick<ItemBaseEntry, "base">
 ---@field base ItemBase
 ---@class RareLikeUniqueDescription
@@ -1402,6 +1414,14 @@ data.rareLikeUniques = {
 		affixes = table.combine(catarinaPrefixes, veiledMods),
 		prefixLimit = 2,
 		suffixLimit = 2,
+	},
+	["replica paradoxica"] = {
+		-- note that technically this item should only have the signature veiled
+		-- mods on the 6th modifier, instead of all prefix modifiers
+		validBases = { replicaParadoxicaBase },
+		affixes = data.veiledMods,
+		prefixLimit = 3,
+		suffixLimit = 3,
 	}
 }
 -- Uniques (loaded after version-specific data because reasons)

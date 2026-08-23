@@ -1081,5 +1081,13 @@ Crafted: true
 Implicits: 1
 +25% to Global Critical Strike Multiplier
 Attacks with this Weapon deal Double Damage
+]],[[
+Replica Paradoxica
+Vaal Rapier
+League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
+Crafted: true
+Implicits: 1
++25% to Global Critical Strike Multiplier
 ]]
 }

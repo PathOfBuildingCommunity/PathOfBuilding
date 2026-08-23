@@ -1065,5 +1065,13 @@ Crafted: true
 Implicits: 1
 CriticalMultiplierImplicitSword1
 DoubleDamageWithWeaponUnique__1
+]],[[
+Replica Paradoxica
+Vaal Rapier
+League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
+Crafted: true
+Implicits: 1
+CriticalMultiplierImplicitSword1
 ]]
 }
