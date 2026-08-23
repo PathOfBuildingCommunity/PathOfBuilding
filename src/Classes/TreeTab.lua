@@ -1529,7 +1529,6 @@ function TreeTabClass:FindTimelessJewel()
 	local protectedNodes = { }
 	local protectedNodesCount = 0
 	local setAllocatedNodes
-	-- local clearProtected
 	self.allocatedNodesInRadiusCount = 0
 
 	local function buildNodeOptionCheckboxes(nodes)
@@ -1565,7 +1564,6 @@ function TreeTabClass:FindTimelessJewel()
 		controls.devotionSelectLabel.shown = value.id == 4 -- Militant Faith
 		controls.abyssAscendancyLabel.shown = value.id == 11
 		controls.abyssAscendancySelect.selIndex = 1
-		controls.protectAllocatedLabel.shown = (value.id == 4 or value.id == 11) and controls.socketFilter.state
 		controls.conquerorSelect.list = conquerorTypes[timelessData.jewelType.id]
 		controls.conquerorSelect.selIndex = 1
 		timelessData.conquerorType = conquerorTypes[timelessData.jewelType.id][1]
@@ -1653,7 +1651,6 @@ function TreeTabClass:FindTimelessJewel()
 		controls.socketFilterAdditionalDistanceLabel.shown = value
 		controls.socketFilterAdditionalDistance.shown = value
 		controls.socketFilterAdditionalDistanceValue.shown = value
-		controls.protectAllocatedLabel.shown = value and (timelessData.jewelType.id == 4 or timelessData.jewelType.id == 11)
 
 		if value then
 			setAllocatedNodes()
@@ -1683,7 +1680,7 @@ function TreeTabClass:FindTimelessJewel()
 		setAllocatedNodes()
 	end
 	controls.protectAllocatedLabel.shown = function()
-		return (controls.jewelSelect.selIndex == 4 or controls.jewelSelect.selIndex == 11) and controls.socketFilter.state and not (timelessData.jewelSocket and timelessData.jewelSocket.id == -1)
+		return (timelessData.jewelType.id == 4 or timelessData.jewelType.id == 11) and controls.socketFilter.state and not (timelessData.jewelSocket and timelessData.jewelSocket.id == -1)
 	end
 
 	-- This requirement is separate from ordinary node weights and remains above
