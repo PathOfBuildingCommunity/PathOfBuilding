@@ -2504,16 +2504,20 @@ local function checkLineForAllocates(line, nodes)
 	return line
 end
 
-function ItemsTabClass:AddModComparisonTooltip(tooltip, mod)
+function ItemsTabClass:AddModComparisonTooltip(tooltip, mod, replaceImplicits)
 	local slotName = self.displayItem:GetPrimarySlot()
 	local newItem = new("Item"):Item(self.displayItem:BuildRaw())
+	local targetLines = replaceImplicits and newItem.implicitModLines or newItem.explicitModLines
+	if replaceImplicits then
+		wipeTable(targetLines)
+	end
 
 	for _, subMod in ipairs(mod) do
 		local modLine = { line = checkLineForAllocates(subMod, self.build.spec.nodes), modTags = mod.modTags }
 		if mod.type then
 			modLine[mod.type] = true
 		end
-		t_insert(newItem.explicitModLines, modLine)
+		t_insert(targetLines, modLine)
 	end
 
 	newItem:BuildAndParseRaw()

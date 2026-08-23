@@ -362,7 +362,7 @@ function M.AddImplicitToDisplayItem(itemsTab, displayItem)
 			if value.uniqueTitle then
 				tooltip:AddLine(16, "^7Source: " .. colorCodes.UNIQUE .. value.uniqueTitle .. "^7")
 			end
-			itemsTab:AddModComparisonTooltip(tooltip, value.mod)
+			itemsTab:AddModComparisonTooltip(tooltip, value.mod, value.type == "vestigial")
 		end
 	end
 	controls.modSelectLabel = new("LabelControl"):LabelControl({ "TOPRIGHT", nil, "TOPLEFT" }, { 95, 70, 0, 16 }, "^7Modifier:")
