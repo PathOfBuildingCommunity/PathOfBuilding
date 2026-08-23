@@ -2929,7 +2929,7 @@ c["100% more Elemental Damage while Unbound"]={{[1]={[1]={type="Condition",var="
 c["100% more Main Hand attack speed"]={{[1]={[1]={type="Condition",var="MainHandAttack"},[2]={skillType=1,type="SkillType"},flags=1,keywordFlags=0,name="Speed",type="MORE",value=100}},nil}
 c["100% more Warcry Duration"]={{[1]={flags=0,keywordFlags=4,name="Duration",type="MORE",value=100}},nil}
 c["100% of Cold Damage Converted to Fire Damage"]={{[1]={flags=0,keywordFlags=0,name="ColdDamageConvertToFire",type="BASE",value=100}},nil}
-c["100% of Cold and Lightning Damage from Hits taken as Fire Damage"]={{[1]={flags=0,keywordFlags=0,name="LightningDamageFromHitsTakenAsFire",type="BASE",value=100}}," Cold and   "}
+c["100% of Cold and Lightning Damage from Hits taken as Fire Damage"]={{[1]={flags=0,keywordFlags=0,name="ColdDamageFromHitsTakenAsFire",type="BASE",value=100},[2]={flags=0,keywordFlags=0,name="LightningDamageFromHitsTakenAsFire",type="BASE",value=100}},nil}
 c["100% of Damage taken Recouped as Life"]={{[1]={flags=0,keywordFlags=0,name="LifeRecoup",type="BASE",value=100}},nil}
 c["100% of Damage you Reflect to Enemies when Hit is leeched as Life"]={{[1]={flags=0,keywordFlags=0,name="DamageLifeLeech",type="BASE",value=100}},"  you Reflect to Enemies when Hit  "}
 c["100% of Fire Damage from Hits taken as Physical Damage"]={{[1]={flags=0,keywordFlags=0,name="FireDamageFromHitsTakenAsPhysical",type="BASE",value=100}},nil}
