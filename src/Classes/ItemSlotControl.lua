@@ -11,7 +11,7 @@ local itemSlotHelper = LoadModule("Modules/ItemSlotHelper")
 ---@class ItemSlotControl
 local ItemSlotClass = newClass("ItemSlotControl", "DropDownControl")
 
----@param anchor Anchor
+---@param anchor Anchor?
 ---@param x Prop<number>
 ---@param y Prop<number>
 ---@param itemsTab ItemsTab

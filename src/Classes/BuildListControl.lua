@@ -10,8 +10,8 @@ local buildListHelpers = LoadModule("Modules/BuildListHelpers")
 ---@class BuildListControl: ListControl
 local BuildListClass = newClass("BuildListControl", "ListControl")
 
----@param anchor Anchor
----@param rect Rect
+---@param anchor Anchor?
+---@param rect Rect?
 ---@param listMode any
 function BuildListClass:BuildListControl(anchor, rect, listMode)
 	self:ListControl(anchor, rect, 20, "VERTICAL", false, listMode.list)

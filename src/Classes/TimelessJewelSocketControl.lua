@@ -9,8 +9,8 @@ local m_min = math.min
 ---@class TimelessJewelSocketControl: DropDownControl
 local TimelessJewelSocketClass = newClass("TimelessJewelSocketControl", "DropDownControl")
 
----@param anchor Anchor
----@param rect Rect
+---@param anchor Anchor?
+---@param rect Rect?
 ---@param list any[]
 ---@param selFunc any
 ---@param build Build

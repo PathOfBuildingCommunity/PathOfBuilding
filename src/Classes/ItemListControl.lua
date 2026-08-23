@@ -10,8 +10,8 @@ local t_insert = table.insert
 ---@class ItemListControl: ListControl
 local ItemListClass = newClass("ItemListControl", "ListControl")
 
----@param anchor Anchor
----@param rect Rect
+---@param anchor Anchor?
+---@param rect Rect?
 ---@param itemsTab ItemsTab
 ---@param forceTooltip boolean?
 function ItemListClass:ItemListControl(anchor, rect, itemsTab, forceTooltip)

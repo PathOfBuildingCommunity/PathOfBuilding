@@ -2121,6 +2121,7 @@ function calcs.offence(env, actor, activeSkill)
 		---@class Output
 		local output = pass.output
 		local cfg = pass.cfg
+		local breakdown = pass.breakdown
 
 		if skillData.averageBurstHits then
 			output.AverageBurstHits = skillData.averageBurstHits

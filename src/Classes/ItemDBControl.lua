@@ -17,8 +17,8 @@ local ItemDBClass = newClass("ItemDBControl", "ListControl")
 ---@field list Item[]
 ---@field loading boolean
 
----@param anchor Anchor
----@param rect Rect
+---@param anchor Anchor?
+---@param rect Rect?
 ---@param itemsTab ItemsTab
 ---@param db ItemDBData
 ---@param dbType "RARE"|"UNIQUE"

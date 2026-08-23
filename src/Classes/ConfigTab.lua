@@ -15,8 +15,8 @@ local configVisibility = LoadModule("Modules/ConfigVisibility")
 ---@class CustomModBlockControl: ControlHost, Control
 local CustomModBlockClass = newClass("CustomModBlockControl", "ControlHost", "Control")
 
----@param anchor Anchor
----@param rect Rect
+---@param anchor Anchor?
+---@param rect Rect?
 ---@param configTab ConfigTab
 ---@param blockIndex integer
 ---@param blockData any

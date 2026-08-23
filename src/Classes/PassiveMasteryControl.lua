@@ -16,8 +16,8 @@ local PassiveMasteryControlClass = newClass("PassiveMasteryControl", "ListContro
 ---@field label string
 ---@field id number
 
----@param anchor Anchor
----@param rect Rect
+---@param anchor Anchor?
+---@param rect Rect?
 ---@param list MasterListElem[]
 ---@param treeTab TreeTab
 ---@param node Node
