@@ -879,6 +879,29 @@ describe("TetsItemMods", function()
 		assert.is_true(controls.displayItemCustomModifierRemove1:IsShown())
 	end)
 
+	it("hides custom modifier controls after saving the display item", function()
+		build.itemsTab:CreateDisplayItemFromRaw([[
+			Rarity: RARE
+			Test Item
+			Iron Ring
+			Implicits: 1
+			Adds 1 to 4 Physical Damage to Attacks
+			{crafted}+8 to Strength
+		]])
+
+		local controls = build.itemsTab.controls
+		assert.is_true(controls.displayItemCustomModifierRemove1:IsShown())
+		assert.is_true(controls.displayItemCustomModifier1:IsShown())
+
+		build.itemsTab:AddDisplayItem()
+
+		assert.is_nil(build.itemsTab.displayItem)
+		assert.is_falsy(controls.displayItemSectionCustom:IsShown())
+		assert.is_falsy(controls.displayItemCustomModifierRemove1:IsShown())
+		assert.is_falsy(controls.displayItemCustomModifier1:IsShown())
+		assert.is_falsy(controls.displayItemCustomModifierLabel1:IsShown())
+	end)
+
 	it("shows affix controls for items crafted in Path of Building", function()
 		build.itemsTab:CreateDisplayItemFromRaw([[
 			Rarity: RARE

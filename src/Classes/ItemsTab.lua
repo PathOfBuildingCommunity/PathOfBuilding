@@ -988,6 +988,9 @@ holding Shift will put it in the second.]])
 	self.controls.displayItemSectionCustom = new("Control"):Control({"TOPLEFT",self.controls.displayItemSectionAffix,"BOTTOMLEFT",true}, {0, 0, 0, function()
 		return (self.controls.displayItemAddCustom:IsShown() or self.controls.displayItemAddCrucible:IsShown()) and 28 + self.displayItem.customCount * 22 or 0
 	end})
+	self.controls.displayItemSectionCustom.shown = function()
+		return self.displayItem ~= nil
+	end
 	self.controls.displayItemAddCustom = new("ButtonControl"):ButtonControl({"TOPLEFT",self.controls.displayItemSectionCustom,"TOPLEFT"}, {0, 0, 120, 20}, "Add modifier...", function()
 		self:AddCustomModifierToDisplayItem()
 	end)
