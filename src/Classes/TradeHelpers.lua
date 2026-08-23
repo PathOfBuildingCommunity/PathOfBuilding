@@ -4,34 +4,40 @@
 -- Stateless trade mod lookup/matching and item display helper functions
 --
 local m_floor = math.floor
-local statDescData = require("Data.StatDescriptions.stat_descriptions")
 
--- precalculate patterns used for matching stat lines
+-- The stat description data is big and is only needed once a trade lookup actually runs,
+-- so it and its precalculated patterns are built lazily
 local numberPattern = "%%d%+%%.%?%%d*"
-for _, statDescEntry in ipairs(statDescData) do
-	for _, desc in ipairs(statDescEntry[1] or {}) do
-		-- pob doesn't parse this as a part of other mods
-		desc.text = desc.text:gsub("\nPassage", "")
-		desc.pat = desc.text
-			-- ignore uppercase letters to help custom items match
-			:lower()
-			-- remove minus and plus signs
-			:gsub("%-{", "{")
-			:gsub("%+{", "{")
-			-- escape existing characters
-			:gsub("([%(%)%.%%%+%-%*%?%[%]%^%$])", "%%%1")
-			-- match # to # as one block since the trade site uses the midpoint. these don't seem to
-			-- ever have plus or minus signs, and can't be negative as even flat damage turns into
-			-- flat damage against you instead of being negative
-			:gsub("{.-} to {.-}", string.format("(%s to %s)", numberPattern, numberPattern))
+local statDescData
+local function getStatDescData()
+	if statDescData then return statDescData end
+	statDescData = LoadModule("Data/StatDescriptions/stat_descriptions")
+	for _, statDescEntry in ipairs(statDescData) do
+		for _, desc in ipairs(statDescEntry[1] or {}) do
+			-- pob doesn't parse this as a part of other mods
+			desc.text = desc.text:gsub("\nPassage", "")
+			desc.pat = desc.text
+				-- ignore uppercase letters to help custom items match
+				:lower()
+				-- remove minus and plus signs
+				:gsub("%-{", "{")
+				:gsub("%+{", "{")
+				-- escape existing characters
+				:gsub("([%(%)%.%%%+%-%*%?%[%]%^%$])", "%%%1")
+				-- match # to # as one block since the trade site uses the midpoint. these don't seem to
+				-- ever have plus or minus signs, and can't be negative as even flat damage turns into
+				-- flat damage against you instead of being negative
+				:gsub("{.-} to {.-}", string.format("(%s to %s)", numberPattern, numberPattern))
 
-			-- match number variables like {}, {0}, {0:-d}, {0:+d}, or {:d}
-			:gsub("{.-}",
-				-- and add optional plus and number signs. this is not necessarily correct as some
-				-- stats do require the plus sign to parse, but this simplifies handling reflected
-				-- mods
-				"%%%+%?(%%%-%?" .. numberPattern .. ")")
+				-- match number variables like {}, {0}, {0:-d}, {0:+d}, or {:d}
+				:gsub("{.-}",
+					-- and add optional plus and number signs. this is not necessarily correct as some
+					-- stats do require the plus sign to parse, but this simplifies handling reflected
+					-- mods
+					"%%%+%?(%%%-%?" .. numberPattern .. ")")
+		end
 	end
+	return statDescData
 end
 
 local M = {}
@@ -68,13 +74,9 @@ function M.modLineValue(line, onlyFromTo)
 	return tonumber(line:match("%-?[%d]+%.?[%d]*"))
 end
 
-local _tradeStats
-
 ---@return table? tradeStats
 function M.getTradeStats()
-	if _tradeStats then return _tradeStats end
-	_tradeStats = LoadModule("Data/TradeSiteStats")
-	return _tradeStats
+	return require("Data.TradeSiteStats")
 end
 
 local _optionTradeStatMap
@@ -216,7 +218,7 @@ function M.findTradeHash(modLine)
 			break
 		end
 	end
-	for _, statDescEntry in ipairs(statDescData) do
+	for _, statDescEntry in ipairs(getStatDescData()) do
 		local statDescriptions = statDescEntry[1]
 		if not statDescriptions then
 			goto continue

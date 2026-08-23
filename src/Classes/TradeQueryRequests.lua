@@ -5,7 +5,7 @@
 --
 
 local dkjson = require "dkjson"
-local utils = LoadModule("Modules/Utils")
+local utils = require("Modules.Utils")
 
 ---@class TradeQueryRequests
 local TradeQueryRequestsClass = newClass("TradeQueryRequests")

@@ -7,7 +7,7 @@ local pairs = pairs
 local t_insert = table.insert
 local m_min = math.min
 
-local itemSlotHelper = LoadModule("Modules/ItemSlotHelper")
+local itemSlotHelper = require("Modules.ItemSlotHelper")
 ---@class ItemSlotControl
 local ItemSlotClass = newClass("ItemSlotControl", "DropDownControl")
 

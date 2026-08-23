@@ -948,7 +948,7 @@ table.insert(data.uniques.generated, table.concat(thatWhichWasTaken, "\n"))
 
 local replicaDragonfangsFlightMods = {}
 
-LoadModule("Modules/CalcTools")
+require("Modules.CalcTools")
 for _, gem in pairs(data.gems) do
 	if not string.match(gem.grantedEffectId, "Alt[XY]$") and calcLib.gemIsType(gem, "active skill", false) and calcLib.gemIsType(gem, "non-vaal", false) then
 		replicaDragonfangsFlightMods[gem.name] = "+3 to Level of all "..gem.name.." Gems"

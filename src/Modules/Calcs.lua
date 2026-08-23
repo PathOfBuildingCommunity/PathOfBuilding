@@ -12,7 +12,7 @@ local m_ceil = math.ceil
 
 ---@class Calcs
 local calcs = require("Modules.CalcBase")
-calcs.breakdownModule = "Modules/CalcBreakdown"
+calcs.breakdownModule = "Modules.CalcBreakdown"
 require("Modules.CalcSetup")
 require("Modules.CalcPerform")
 require("Modules.CalcActiveSkill")

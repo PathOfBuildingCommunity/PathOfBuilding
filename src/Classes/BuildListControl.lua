@@ -5,7 +5,7 @@
 --
 local ipairs = ipairs
 local s_format = string.format
-local buildListHelpers = LoadModule("Modules/BuildListHelpers")
+local buildListHelpers = require("Modules.BuildListHelpers")
 
 ---@class BuildListControl: ListControl
 local BuildListClass = newClass("BuildListControl", "ListControl")

@@ -9,8 +9,8 @@ local curl = require("lcurl.safe")
 local m_max = math.max
 local s_format = string.format
 local t_insert = table.insert
-local tradeHelpers = LoadModule("Classes/TradeHelpers")
-local utils = LoadModule("Modules/Utils")
+local tradeHelpers = require("Classes.TradeHelpers")
+local utils = require("Modules.Utils")
 
 -- a table which tells us what subtypes each category we can search for
 -- contains. the commented out lines are type-subtype combinations which don't
@@ -378,7 +378,7 @@ function TradeQueryGeneratorClass:InitMods()
 	if file then
 		file:close()
 		---@module "src.Data.QueryMods"
-		self.modData = LoadModule(queryModFilePath)
+		self.modData = require(queryModFilePath:gsub("%.lua$", ""))
 		return
 	end
 

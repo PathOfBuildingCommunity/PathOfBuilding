@@ -29,7 +29,7 @@ function CalcsTabClass:CalcsTab(build)
 
 	self.build = build
 
-	self.calcs = LoadModule("Modules/Calcs")
+	self.calcs = require("Modules.Calcs")
 
 	self.input = { }
 	self.input.skill_number = 1
