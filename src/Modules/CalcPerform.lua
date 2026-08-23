@@ -1964,7 +1964,9 @@ function calcs.perform(env, skipEHP)
 				activeSkill.skillData["ManaReservationPercentForced"] = nil
 			end
 			for name, values in pairs(pool) do
-				values.more = skillModList:More(skillCfg, name.."Reserved", "Reserved")
+				values.resourceMore = skillModList:More(skillCfg, name.."Reserved")
+				values.genericMore = skillModList:More(skillCfg, "Reserved")
+				values.more = values.resourceMore * values.genericMore
 				values.inc = skillModList:Sum("INC", skillCfg, name.."Reserved", "Reserved")
 				values.efficiency = m_max(skillModList:Sum("INC", skillCfg, name.."ReservationEfficiency", "ReservationEfficiency"), -100)
 				values.efficiencyMore = skillModList:More(skillCfg, name.."ReservationEfficiency", "ReservationEfficiency")
@@ -1973,19 +1975,26 @@ function calcs.perform(env, skipEHP)
 				if activeSkill.skillData[name.."ReservationFlatForced"] then
 					values.reservedFlat = activeSkill.skillData[name.."ReservationFlatForced"]
 				else
-					local baseFlatVal = m_floor(values.baseFlat * mult)
+					local baseFlatVal = m_modf(values.baseFlat * mult)
 					values.reservedFlat = 0
-					if values.more > 0 and values.inc > -100 and baseFlatVal ~= 0 then
-						values.reservedFlat = m_max(round(baseFlatVal * (100 + values.inc) / 100 * values.more / (1 + values.efficiency / 100) / values.efficiencyMore, 0), 0)
+					if baseFlatVal ~= 0 then
+						-- Reservation modifiers use separate integer stages before efficiency.
+						local modifiedFlat = baseFlatVal + m_modf(baseFlatVal * values.inc / 100)
+						modifiedFlat = modifiedFlat + m_modf(modifiedFlat * (values.resourceMore - 1))
+						modifiedFlat = modifiedFlat + m_modf(modifiedFlat * (values.genericMore - 1))
+						values.reservedFlat = m_max(round(modifiedFlat / (1 + values.efficiency / 100) / values.efficiencyMore, 0), 0)
 					end
 				end
 				if activeSkill.skillData[name.."ReservationPercentForced"] then
 					values.reservedPercent = activeSkill.skillData[name.."ReservationPercentForced"]
 				else
-					local basePercentVal = values.basePercent * mult
+					local basePercentVal = m_modf(values.basePercent * 100 * mult)
 					values.reservedPercent = 0
-					if values.more > 0 and values.inc > -100 and basePercentVal ~= 0 then
-						values.reservedPercent = m_max(round(basePercentVal * (100 + values.inc) / 100 * values.more / (1 + values.efficiency / 100) / values.efficiencyMore, 2), 0)
+					if basePercentVal ~= 0 then
+						local modifiedPercent = basePercentVal + m_modf(basePercentVal * values.inc / 100)
+						modifiedPercent = modifiedPercent + m_modf(modifiedPercent * (values.resourceMore - 1))
+						modifiedPercent = modifiedPercent + m_modf(modifiedPercent * (values.genericMore - 1))
+						values.reservedPercent = m_max(round(modifiedPercent / (1 + values.efficiency / 100) / values.efficiencyMore, 0) / 100, 0)
 					end
 				end
 				if activeSkill.activeMineCount then

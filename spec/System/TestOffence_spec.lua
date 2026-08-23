@@ -50,6 +50,43 @@ describe("TestOffence", function()
 		assert.are.equals(damageWithoutArrowMod, build.calcsTab.mainOutput.AverageDamage)
 	end)
 
+	it("rounds area modifiers before calculating radius", function()
+		build.skillsTab:PasteSocketGroup("Fireball 20/0  1")
+		build.configTab.input.customMods = [[
+		1% increased Area of Effect
+		50% more Area of Effect
+		]]
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		-- The client truncates 101% * 150% to 151% before taking the square root.
+		assert.are.equals(1.51, build.calcsTab.mainOutput.AreaOfEffectMod)
+	end)
+
+	it("applies final skill radius modifiers after area scaling", function()
+		build.skillsTab:PasteSocketGroup("Summon Carrion Golem 20/0  1")
+		runCallback("OnFrame")
+
+		local mainSocketGroup = build.skillsTab.socketGroupList[build.mainSocketGroup]
+		local activeSkill = mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill]
+		local foundLeapSlam
+		for index, minionSkill in ipairs(activeSkill.minion.activeSkillList) do
+			if minionSkill.activeEffect.grantedEffect.id == "BoneGolemLeapSlam" then
+				activeSkill.activeEffect.srcInstance.skillMinionSkill = index
+				activeSkill.activeEffect.srcInstance.skillMinionSkillCalcs = index
+				foundLeapSlam = true
+				break
+			end
+		end
+		assert.is_true(foundLeapSlam)
+		build.modFlag = true
+		build.buildFlag = true
+		runCallback("OnFrame")
+
+		-- Leap Slam has 15 base radius and 30% final radius: floor(15 * 1.30) = 19.
+		assert.are.equals(19, build.calcsTab.mainEnv.minion.output.AreaOfEffectRadius)
+	end)
+
 	it("rounds each scaled damage conversion to a whole percent", function()
 		build.skillsTab:PasteSocketGroup("Fireball 20/0  1")
 		build.configTab.input.customMods = [[
