@@ -258,12 +258,12 @@ function ConfigTabClass:ConfigTab(build)
 			lastSection.varControlList = { }
 			lastSection.col = varData.col
 			lastSection.collapsed = false
-			lastSection.height = function(self)
-				if self.collapsed then
+			lastSection.height = function(section)
+				if isCollapsed(section) then
 					return 16
 				end
 				local height = 20
-				for _, varControl in pairs(self.varControlList) do
+				for _, varControl in pairs(section.varControlList) do
 					if varControl:IsShown() then
 						local _, ctrlHeight = varControl:GetSize()
 						height = height + m_max(ctrlHeight or varControl.height, 16) + 4
