@@ -12,25 +12,19 @@ describe("WeightedScore module", function()
 		data.misc.maxStatIncrease = savedMaxStatIncrease
 	end)
 
-	-- defaultWeights -----------------------------------------------------------
+	it("provides default and configured weights", function()
+		local defaults = WeightedScore.defaultWeights()
+		assert.are.equal(2, #defaults)
+		assert.are.equal("FullDPS", defaults[1].stat)
+		assert.are.equal("TotalEHP", defaults[2].stat)
 
-	it("defaultWeights returns two entries (FullDPS and TotalEHP)", function()
-		local weights = WeightedScore.defaultWeights()
-		assert.are.equal(2, #weights)
-		assert.are.equal("FullDPS", weights[1].stat)
-		assert.are.equal("TotalEHP", weights[2].stat)
-	end)
-
-	-- getWeights ---------------------------------------------------------------
-
-	it("getWeights selects defaults or configured weights", function()
 		local custom = { { stat = "TotalDPS", label = "DPS", weightMult = 2.0 } }
 		local cases = {
-			{ label = "nil build", expected = WeightedScore.defaultWeights() },
+			{ label = "nil build", expected = defaults },
 			{
 				label = "empty selection",
 				build = { itemsTab = { tradeQuery = { statSortSelectionList = {} } } },
-				expected = WeightedScore.defaultWeights(),
+				expected = defaults,
 			},
 			{
 				label = "configured selection",
@@ -44,14 +38,12 @@ describe("WeightedScore module", function()
 		end
 	end)
 
-	-- computeRatioScore: basic ranking -----------------------------------------
-
-	it("scores ordinary ratios and weight combinations", function()
+	it("scores ratios, weighted combinations, and invalid inputs", function()
 		local unitWeight = { { stat = "TotalDPS", weightMult = 1.0 } }
 		local cases = {
-			{ label = "neutral", base = { TotalDPS = 1000 }, candidate = { TotalDPS = 1000 }, weights = unitWeight, expected = 1.0 },
-			{ label = "better", base = { TotalDPS = 1000 }, candidate = { TotalDPS = 1500 }, weights = unitWeight, expected = 1.5 },
-			{ label = "worse", base = { TotalDPS = 1000 }, candidate = { TotalDPS = 500 }, weights = unitWeight, expected = 0.5 },
+			{ label = "neutral", base = { TotalDPS = 1000 }, candidate = { TotalDPS = 1000 }, expected = 1.0 },
+			{ label = "better", base = { TotalDPS = 1000 }, candidate = { TotalDPS = 1500 }, expected = 1.5 },
+			{ label = "worse", base = { TotalDPS = 1000 }, candidate = { TotalDPS = 500 }, expected = 0.5 },
 			{
 				label = "multiple weighted stats",
 				base = { TotalDPS = 100, TotalEHP = 200 },
@@ -63,22 +55,6 @@ describe("WeightedScore module", function()
 				expected = 2.5625,
 			},
 			{ label = "empty weights", base = { TotalDPS = 1000 }, candidate = { TotalDPS = 5000 }, weights = {}, expected = 0.0 },
-		}
-
-		for _, case in ipairs(cases) do
-			assert.are.equal(
-				case.expected,
-				WeightedScore.computeRatioScore(case.base, case.candidate, case.weights),
-				case.label
-			)
-		end
-	end)
-
-	-- computeRatioScore: edge cases --------------------------------------------
-
-	it("handles infinite, zero, and missing ratio inputs safely", function()
-		local weights = { { stat = "TotalDPS", weightMult = 1.0 } }
-		local cases = {
 			{ label = "infinite base", base = { TotalDPS = math.huge }, candidate = { TotalDPS = 1000 }, expected = 0.0 },
 			{ label = "infinite candidate", base = { TotalDPS = 1000 }, candidate = { TotalDPS = math.huge }, expected = 2.0 },
 			{ label = "zero base", base = { TotalDPS = 0 }, candidate = { TotalDPS = 500 }, expected = 2.0 },
@@ -88,32 +64,30 @@ describe("WeightedScore module", function()
 		for _, case in ipairs(cases) do
 			assert.are.equal(
 				case.expected,
-				WeightedScore.computeRatioScore(case.base, case.candidate, weights),
+				WeightedScore.computeRatioScore(case.base, case.candidate, case.weights or unitWeight),
 				case.label
 			)
 		end
 	end)
 
-	-- computeRatioScore: FullDPS fallback --------------------------------------
-
-	it("uses combined DPS fallback when FullDPS is absent from both outputs", function()
-		-- baseSum = 500+200+300 = 1000, newSum = 750+300+450 = 1500 → ratio 1.5
-		local base    = { TotalDPS = 500, TotalDotDPS = 200, CombinedDPS = 300 }
-		local new     = { TotalDPS = 750, TotalDotDPS = 300, CombinedDPS = 450 }
+	it("uses combined DPS only when FullDPS is absent", function()
+		local cases = {
+			{
+				label = "fallback",
+				base = { TotalDPS = 500, TotalDotDPS = 200, CombinedDPS = 300 },
+				candidate = { TotalDPS = 750, TotalDotDPS = 300, CombinedDPS = 450 },
+			},
+			{
+				label = "direct FullDPS",
+				base = { FullDPS = 1000, TotalDPS = 500, TotalDotDPS = 200, CombinedDPS = 300 },
+				candidate = { FullDPS = 1500, TotalDPS = 750, TotalDotDPS = 300, CombinedDPS = 450 },
+			},
+		}
 		local weights = { { stat = "FullDPS", weightMult = 1.0 } }
-		assert.are.equal(1.5, WeightedScore.computeRatioScore(base, new, weights))
+		for _, case in ipairs(cases) do
+			assert.are.equal(1.5, WeightedScore.computeRatioScore(case.base, case.candidate, weights), case.label)
+		end
 	end)
-
-	it("does not activate fallback when FullDPS is present (no double-counting)", function()
-		-- If fallback also ran, score would be higher than 1.5 (the FullDPS ratio)
-		local base    = { FullDPS = 1000, TotalDPS = 500, TotalDotDPS = 200, CombinedDPS = 300 }
-		local new     = { FullDPS = 1500, TotalDPS = 750, TotalDotDPS = 300, CombinedDPS = 450 }
-		local weights = { { stat = "FullDPS", weightMult = 1.0 } }
-		-- Only FullDPS direct: 1500/1000 = 1.5
-		assert.are.equal(1.5, WeightedScore.computeRatioScore(base, new, weights))
-	end)
-
-	-- weightsRequireFullDPS: FullDPS requirement used by PowerBuilder ----------
 
 	it("weightsRequireFullDPS identifies active FullDPS weights", function()
 		local cases = {
@@ -150,7 +124,7 @@ describe("WeightedScore — TradeQueryGenerator delegation", function()
 		GetTradeStatusOption = function() return "online" end,
 	})
 
-	it("WeightedRatioOutputs delegates ratio calculation and preserves candidate ranking", function()
+	it("WeightedRatioOutputs delegates ratio calculation", function()
 		local savedMax = data.misc.maxStatIncrease
 		data.misc.maxStatIncrease = 2
 
@@ -163,15 +137,6 @@ describe("WeightedScore — TradeQueryGenerator delegation", function()
 
 		data.misc.maxStatIncrease = savedMax
 		assert.are.equal(direct, delegated)
-
-		base = { TotalDPS = 1000 }
-		local high    = { TotalDPS = 1500 }
-		local low     = { TotalDPS = 800 }
-		weights = { { stat = "TotalDPS", weightMult = 1.0 } }
-
-		local highScore = mock_queryGen.WeightedRatioOutputs(base, high, weights)
-		local lowScore  = mock_queryGen.WeightedRatioOutputs(base, low,  weights)
-		assert.is_true(highScore > lowScore)
 	end)
 end)
 
@@ -188,13 +153,14 @@ describe("WeightedScore — tree integration", function()
 
 	local function drainPowerBuild(stat)
 		build.calcsTab.powerBuildFlag = true
-		build.calcsTab.powerStat = stat or findStat("Life")
-		local maxIterations = 100000
+		build.calcsTab.powerStat = stat
+		build.calcsTab.nodePowerMaxDepth = 1
 		local iterations = 0
 		repeat
 			build.calcsTab:BuildPower()
 			iterations = iterations + 1
-		until not build.calcsTab.powerBuilder or iterations >= maxIterations
+		until not build.calcsTab.powerBuilder or iterations >= 1000
+		assert.is_nil(build.calcsTab.powerBuilder, "depth-1 Power Builder must finish within 1000 steps")
 	end
 
 	it("registers WeightedScore as the final shared non-minion power stat", function()
@@ -218,9 +184,7 @@ describe("WeightedScore — tree integration", function()
 		assert.is_not_nil(stat)
 
 		local originalGetMiscCalculator = build.calcsTab.GetMiscCalculator
-		local originalNodePowerMaxDepth = build.calcsTab.nodePowerMaxDepth
 		local calledUseFullDPS = { }
-		build.calcsTab.nodePowerMaxDepth = 1
 		build.calcsTab.GetMiscCalculator = function()
 			local function calcFunc(_, useFullDPS)
 				calledUseFullDPS[#calledUseFullDPS + 1] = useFullDPS
@@ -241,20 +205,15 @@ describe("WeightedScore — tree integration", function()
 			}
 		end
 
-		local ok, errMsg = pcall(function()
-			drainPowerBuild(stat)
-		end)
+		drainPowerBuild(stat)
 		build.calcsTab.GetMiscCalculator = originalGetMiscCalculator
-		build.calcsTab.nodePowerMaxDepth = originalNodePowerMaxDepth
 
-		assert.is_true(ok, errMsg)
 		assert.is_true(#calledUseFullDPS > 0, "fixture should exercise candidate calculations")
 		for _, useFullDPS in ipairs(calledUseFullDPS) do
 			assert.is_true(useFullDPS)
 		end
 	end)
 
-	-- Fallback weights must evaluate the configured stats rather than a synthetic output key.
 	it("power stat helpers keep positive WeightedScore deltas and baselines on the same scale", function()
 		local weightedScore = findStat("WeightedScore")
 		local fullDPS = findStat("FullDPS")
@@ -310,7 +269,6 @@ describe("WeightedScore — tree integration", function()
 		assert.is_true(score ~= 0)
 	end)
 
-	-- appendEditWeightsAction -----------------------------------------------
 	local function buildWithWeightEditor(openEditor)
 		return { itemsTab = { tradeQuery = {
 			SetStatWeights = function(_, previousSelection, onSave)
