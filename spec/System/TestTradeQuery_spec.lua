@@ -62,17 +62,13 @@ describe("TradeQuery", function()
 		end)
 	end)
 	describe("GetResultEvaluation", function()
-		local function newMegalomaniacTradeQuery(slotTbl)
-			return tq
-		end
-
 		it("evaluates a socketed Megalomaniac by node combination", function()
 			local slotTbl = {
 				slotName = "Megalomaniac", unique = true, alreadyCorrupted = true, selectedJewelNodeId = 12345,
 			}
-			local tq = new("TradeQuery", { itemsTab = {} })
+			local tq = new("TradeQuery"):TradeQuery({ itemsTab = {} })
 			tq.statSortSelectionList = {}
-			tq.tradeQueryGenerator = new("TradeQueryGenerator", { itemsTab = {} })
+			tq.tradeQueryGenerator = new("TradeQueryGenerator"):TradeQueryGenerator({ itemsTab = {} })
 			tq.itemsTab.build = {
 				spec = {
 					tree = {
