@@ -194,6 +194,49 @@ Strict-Transport-Security: max-age=63115200; includeSubDomains; preload]]
 	end)
 
 	describe("FetchResultBlock", function()
+		it("preserves item influences in reconstructed item strings", function()
+			local response = dkjson.encode({
+				result = {
+					{
+						id = "influenced",
+						listing = {
+							price = { amount = 1, currency = "chaos", type = "~price" },
+							whisper = "hi",
+							account = { name = "seller" },
+						},
+						item = {
+							rarity = "Rare",
+							name = "Test Subject",
+							typeLine = "Astral Plate",
+							influences = {
+								shaper = true,
+								elder = true,
+								warlord = true,
+								hunter = true,
+								crusader = true,
+								redeemer = true,
+							},
+							searing = true,
+							tangled = true,
+						},
+					},
+				},
+			})
+			local fetchedItems
+			requests.requestQueue.fetch = { }
+			requests:FetchResultBlock("test", function(items)
+				fetchedItems = items
+			end)
+
+			local request = table.remove(requests.requestQueue.fetch, 1)
+			request.callback(response)
+
+			local item = new("Item"):Item(fetchedItems[1].item_string)
+			for _, influenceInfo in ipairs(itemLib.influenceInfo.all) do
+				assert.is_true(item[influenceInfo.key], influenceInfo.display)
+			end
+		end)
+
 		it("reads weighted sums from current and legacy pseudo mods", function()
 			local function makeTradeEntry(id, pseudoMods)
 				return {
