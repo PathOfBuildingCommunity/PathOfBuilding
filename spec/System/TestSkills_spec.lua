@@ -488,6 +488,17 @@ describe("TestSkills", function()
 		assert.are.equals(7, round(finalCost))
 	end)
 
+	it("rounds Supreme Ego mana reservation down", function()
+		build.skillsTab:PasteSocketGroup("Precision 1/0  1\n")
+		local supremeEgo = build.spec.tree.keystoneMap["Supreme Ego"]
+		build.spec:AllocNode(build.spec.nodes[supremeEgo.id])
+		build.spec:BuildAllDependsAndPaths()
+		runCallback("OnFrame")
+
+		-- 22 base + floor(40% of 22) = 30, rather than round(22 * 1.4) = 31.
+		assert.are.equals(30, build.calcsTab.mainEnv.player.mainSkill.skillData.ManaReservedBase)
+	end)
+
 	it("evaluates BaseFlag tags using PoB 1 skill data", function()
 		build.skillsTab:PasteSocketGroup("Absolution 20/0  1\n")
 		runCallback("OnFrame")
