@@ -1184,7 +1184,7 @@ you can add them, copy the link here, and press "Price Item" to evaluate the ite
 			tooltip:AddLine(16, "You must log in to use the search feature")
 		elseif not controls["uri"..row_idx].validURL then
 			tooltip:AddLine(16, "Enter a valid trade URL")
-		elseif slotTbl.unique and (not slotTbl.selectedJewelNodeId or not self.itemsTab.sockets[slotTbl.selectedJewelNodeId] or self.itemsTab.sockets[slotTbl.selectedJewelNodeId].inactive) then
+		elseif jewelUniques[slotTbl.slotName] and (not slotTbl.selectedJewelNodeId or not self.itemsTab.sockets[slotTbl.selectedJewelNodeId] or self.itemsTab.sockets[slotTbl.selectedJewelNodeId].inactive) then
 			tooltip:AddLine(16, "Requires an active Jewel Socket")
 		end
 	end
