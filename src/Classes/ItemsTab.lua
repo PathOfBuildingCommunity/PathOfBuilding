@@ -3342,6 +3342,8 @@ function ItemsTabClass:CorruptDisplayItem(modType)
 	main:OpenPopup(605, 103 + 20 * 2, modType .. " Item", controls)
 end
 
+local delveDropOnlyCategories = require("Data.DelveDropOnly")
+local incursionDropOnlyCategories = require("Data.IncursionDropOnly")
 -- Opens the custom modifier popup
 function ItemsTabClass:AddCustomModifierToDisplayItem()
 	local controls = { }
@@ -3406,6 +3408,37 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 			controls.modSelect:SetSel(1, true)
 		end
 	end
+	local function buildDropRestricted(baseCategories, modDb)
+		local base = self.displayItem.base
+		local subTypeName = base.subType and base.type .. ": " .. base.subType
+		for modId, entry in pairs(baseCategories) do
+			local mod = modDb[modId]
+			if not mod then
+				ConPrintf("Unknown drop-restricted mod id: %s", tostring(modId))
+				goto nextDrop
+			end
+			for _, cat in ipairs(entry.categories) do
+				if base.type == cat or subTypeName == cat then
+					t_insert(modList, {
+						label = table.concat(mod, "/") .. " (" .. mod.type .. ")",
+						mod = mod,
+						affixType = mod.type,
+						type = "custom",
+						defaultOrder = modId,
+					})
+					goto nextDrop
+				end
+			end
+			::nextDrop::
+		end
+	end
+	local function sortByPrefixSuffix(a, b)
+		if a.affixType ~= b.affixType then
+			return a.affixType == "Prefix" and b.affixType == "Suffix"
+		else
+			return a.defaultOrder < b.defaultOrder
+		end
+	end
 	---Mutates modList to contain mods from the specified source
 	---@param sourceId string @The crafting source id to build the list of mods for
 	local function buildMods(sourceId)
@@ -3441,12 +3474,14 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 			for _, essence in pairs(self.build.data.essences) do
 				local modId = essence.mods[self.displayItem.type]
 				local mod = self.displayItem.affixes[modId]
-				t_insert(modList, {
-					label = essence.name .. "   " .. "^8[" .. table.concat(mod, "/") .. "]" .. " (" .. mod.type .. ")",
-					mod = mod,
-					type = "custom",
-					essence = essence,
-				})
+				if mod then
+					t_insert(modList, {
+						label = essence.name .. "   " .. "^8[" .. table.concat(mod, "/") .. "]" .. " (" .. mod.type .. ")",
+						mod = mod,
+						type = "custom",
+						essence = essence,
+					})
+				end
 			end
 			table.sort(modList, function(a, b)
 				if a.essence.type ~= b.essence.type then
@@ -3457,7 +3492,7 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 			end)
 		elseif sourceId == "PREFIX" or sourceId == "SUFFIX" then
 			for _, mod in pairs(self.displayItem.affixes) do
-				if sourceId:lower() == mod.type:lower() and self.displayItem:GetModSpawnWeight(mod) > 0 then
+				if sourceId:lower() == (mod.type and mod.type:lower()) and self.displayItem:GetModSpawnWeight(mod) > 0 then
 					t_insert(modList, {
 						label = mod.affix .. "   ^8[" .. table.concat(mod, "/") .. "]",
 						mod = mod,
@@ -3498,7 +3533,13 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 					return a.defaultOrder < b.defaultOrder
 				end
 			end)
+		elseif sourceId == "INCURSION" then
+			buildDropRestricted(incursionDropOnlyCategories, data.itemMods.Explicit)
+			table.sort(modList, sortByPrefixSuffix)
 		elseif sourceId == "DELVE" then
+			buildDropRestricted(delveDropOnlyCategories, data.itemMods.Delve)
+			table.sort(modList, sortByPrefixSuffix)
+		elseif sourceId == "FOSSIL" then
 			for i, mod in pairs(self.displayItem.affixes) do
 				if self.displayItem:CheckIfModIsDelve(mod) and self.displayItem:GetModSpawnWeight(mod) > 0 then
 					t_insert(modList, {
@@ -3510,13 +3551,7 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 					})
 				end
 			end
-			table.sort(modList, function(a, b)
-				if a.affixType ~= b.affixType then
-					return a.affixType == "Prefix" and b.affixType == "Suffix"
-				else
-					return a.defaultOrder < b.defaultOrder
-				end
-			end)
+			table.sort(modList, sortByPrefixSuffix)
 		elseif sourceId == "NECROPOLIS" then
 			for i, mod in pairs(self.build.data.necropolisMods) do
 				if self.displayItem:GetNecropolisModSpawnWeight(mod) > 0 then
@@ -3529,13 +3564,7 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 					})
 				end
 			end
-			table.sort(modList, function(a, b)
-				if a.affixType ~= b.affixType then
-					return a.affixType == "Prefix" and b.affixType == "Suffix"
-				else
-					return a.defaultOrder < b.defaultOrder
-				end
-			end)
+			table.sort(modList, sortByPrefixSuffix)
 		elseif sourceId == "BEASTCRAFT" then
 			for i, mod in pairs(self.build.data.beastCraft) do
 				t_insert(modList, {
@@ -3546,13 +3575,7 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 					defaultOrder = i,
 				})
 			end
-			table.sort(modList, function(a, b)
-				if a.affixType ~= b.affixType then
-					return a.affixType == "Prefix" and b.affixType == "Suffix"
-				else
-					return a.defaultOrder < b.defaultOrder
-				end
-			end)
+			table.sort(modList, sortByPrefixSuffix)
 		end
 		setDefaultSortOrder()
 	end
@@ -3569,7 +3592,9 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 			t_insert(sourceList, { label = "Necropolis", sourceId = "NECROPOLIS"})
 		end
 		if not self.displayItem.clusterJewel and self.displayItem.type ~= "Flask" and self.displayItem.type ~= "Graft" then
-			t_insert(sourceList, { label = "Delve", sourceId = "DELVE"})
+			t_insert(sourceList, { label = "Fossil", sourceId = "FOSSIL" })
+			t_insert(sourceList, { label = "Delve Drop-restricted", sourceId = "DELVE" })
+			t_insert(sourceList, { label = "Incursion Drop-restricted", sourceId = "INCURSION" })
 		end
 		if not self.displayItem.crafted then
 			t_insert(sourceList, { label = "Prefix", sourceId = "PREFIX" })
@@ -3586,6 +3611,19 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 				end
 			end
 			sourceList = newSourceList
+		end
+	end
+	-- test each category to see if they actually match any mods
+	-- TODO: given that we need to do this, it would be better to just keep a
+	-- list of matching mod ids, rather than building a list to check, and then
+	-- building it again when selecting it
+	local i = 1
+	while sourceList[i] do
+		buildMods(sourceList[i].sourceId)
+		if #modList == 0 then
+			table.remove(sourceList, i)
+		else
+			i = i + 1
 		end
 	end
 	t_insert(sourceList, { label = "Custom", sourceId = "CUSTOM" })

@@ -15710,6 +15710,10 @@ return {
 			},
 		},
 		["10220_IncreasedManaAndCostNew"] = {
+			["Ring"] = {
+				["max"] = 6,
+				["min"] = 8,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -16104,6 +16108,10 @@ return {
 			},
 		},
 		["10484_FireResistanceAilments"] = {
+			["Gloves"] = {
+				["max"] = 65,
+				["min"] = 60,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -16513,6 +16521,10 @@ return {
 			},
 		},
 		["10901_ZeroChaosResistanceDelve"] = {
+			["Helmet"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
 			["specialCaseData"] = {
 			},
 			["tradeMod"] = {
@@ -16539,6 +16551,14 @@ return {
 			},
 		},
 		["10936_MinionLargerAggroRadius"] = {
+			["1HWeapon"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
+			["Wand"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
 			["specialCaseData"] = {
 			},
 			["tradeMod"] = {
@@ -17427,10 +17447,6 @@ return {
 				["max"] = 60,
 				["min"] = 8,
 			},
-			["Body Armour"] = {
-				["max"] = 58,
-				["min"] = 18,
-			},
 			["Boots"] = {
 				["max"] = 58,
 				["min"] = 8,
@@ -17440,7 +17456,7 @@ return {
 				["min"] = 15,
 			},
 			["Chest"] = {
-				["max"] = 55,
+				["max"] = 58,
 				["min"] = 8,
 			},
 			["Claw"] = {
@@ -17583,10 +17599,6 @@ return {
 				["max"] = 58,
 				["min"] = 13,
 			},
-			["Body Armour"] = {
-				["max"] = 58,
-				["min"] = 13,
-			},
 			["Boots"] = {
 				["max"] = 58,
 				["min"] = 8,
@@ -17596,7 +17608,7 @@ return {
 				["min"] = 8,
 			},
 			["Chest"] = {
-				["max"] = 55,
+				["max"] = 58,
 				["min"] = 8,
 			},
 			["Claw"] = {
@@ -17739,10 +17751,6 @@ return {
 				["max"] = 58,
 				["min"] = 28,
 			},
-			["Body Armour"] = {
-				["max"] = 58,
-				["min"] = 28,
-			},
 			["Boots"] = {
 				["max"] = 58,
 				["min"] = 8,
@@ -17752,7 +17760,7 @@ return {
 				["min"] = 15,
 			},
 			["Chest"] = {
-				["max"] = 55,
+				["max"] = 58,
 				["min"] = 8,
 			},
 			["Claw"] = {
@@ -18540,7 +18548,7 @@ return {
 				["min"] = 35,
 			},
 			["1HWeapon"] = {
-				["max"] = 54,
+				["max"] = 95,
 				["min"] = 35,
 			},
 			["2HAxe"] = {
@@ -18556,7 +18564,7 @@ return {
 				["min"] = 61,
 			},
 			["2HWeapon"] = {
-				["max"] = 95,
+				["max"] = 166,
 				["min"] = 61,
 			},
 			["Bow"] = {
@@ -18568,19 +18576,19 @@ return {
 				["min"] = 35,
 			},
 			["Dagger"] = {
-				["max"] = 54,
+				["max"] = 95,
 				["min"] = 35,
 			},
 			["Sceptre"] = {
-				["max"] = 54,
+				["max"] = 95,
 				["min"] = 35,
 			},
 			["Staff"] = {
-				["max"] = 95,
+				["max"] = 166,
 				["min"] = 61,
 			},
 			["Wand"] = {
-				["max"] = 54,
+				["max"] = 95,
 				["min"] = 35,
 			},
 			["sign"] = "",
@@ -18638,7 +18646,7 @@ return {
 				["min"] = 35,
 			},
 			["1HWeapon"] = {
-				["max"] = 54,
+				["max"] = 95,
 				["min"] = 35,
 			},
 			["2HAxe"] = {
@@ -18654,7 +18662,7 @@ return {
 				["min"] = 61,
 			},
 			["2HWeapon"] = {
-				["max"] = 95,
+				["max"] = 166,
 				["min"] = 61,
 			},
 			["Bow"] = {
@@ -18666,19 +18674,19 @@ return {
 				["min"] = 35,
 			},
 			["Dagger"] = {
-				["max"] = 54,
+				["max"] = 95,
 				["min"] = 35,
 			},
 			["Sceptre"] = {
-				["max"] = 54,
+				["max"] = 95,
 				["min"] = 35,
 			},
 			["Staff"] = {
-				["max"] = 95,
+				["max"] = 166,
 				["min"] = 61,
 			},
 			["Wand"] = {
-				["max"] = 54,
+				["max"] = 95,
 				["min"] = 35,
 			},
 			["sign"] = "",
@@ -19114,16 +19122,16 @@ return {
 		},
 		["1250_TwoHandWeaponSpellDamage"] = {
 			["2HAxe"] = {
-				["max"] = 115,
-				["min"] = 44,
+				["max"] = 165,
+				["min"] = 18,
 			},
 			["2HMace"] = {
-				["max"] = 115,
-				["min"] = 44,
+				["max"] = 165,
+				["min"] = 18,
 			},
 			["2HSword"] = {
-				["max"] = 115,
-				["min"] = 44,
+				["max"] = 165,
+				["min"] = 18,
 			},
 			["2HWeapon"] = {
 				["max"] = 200,
@@ -19135,18 +19143,6 @@ return {
 			},
 			["Staff"] = {
 				["max"] = 200,
-				["min"] = 18,
-			},
-			["Two Handed Axe"] = {
-				["max"] = 165,
-				["min"] = 18,
-			},
-			["Two Handed Mace"] = {
-				["max"] = 165,
-				["min"] = 18,
-			},
-			["Two Handed Sword"] = {
-				["max"] = 165,
 				["min"] = 18,
 			},
 			["sign"] = "",
@@ -19178,16 +19174,16 @@ return {
 		},
 		["1250_WeaponSpellDamage"] = {
 			["1HAxe"] = {
-				["max"] = 66,
-				["min"] = 25,
+				["max"] = 94,
+				["min"] = 10,
 			},
 			["1HMace"] = {
-				["max"] = 66,
-				["min"] = 25,
+				["max"] = 94,
+				["min"] = 10,
 			},
 			["1HSword"] = {
-				["max"] = 66,
-				["min"] = 25,
+				["max"] = 94,
+				["min"] = 10,
 			},
 			["1HWeapon"] = {
 				["max"] = 109,
@@ -19201,28 +19197,12 @@ return {
 				["max"] = 109,
 				["min"] = 10,
 			},
-			["One Handed Axe"] = {
-				["max"] = 94,
-				["min"] = 10,
-			},
-			["One Handed Mace"] = {
-				["max"] = 94,
-				["min"] = 10,
-			},
-			["One Handed Sword"] = {
-				["max"] = 94,
-				["min"] = 10,
-			},
 			["Sceptre"] = {
 				["max"] = 109,
 				["min"] = 10,
 			},
 			["Shield"] = {
 				["max"] = 109,
-				["min"] = 10,
-			},
-			["Thrusting One Handed Sword"] = {
-				["max"] = 94,
 				["min"] = 10,
 			},
 			["Wand"] = {
@@ -19239,6 +19219,30 @@ return {
 			},
 		},
 		["1250_WeaponSpellDamageAddedAsChaos"] = {
+			["1HWeapon"] = {
+				["max"] = 74,
+				["min"] = 70,
+			},
+			["2HWeapon"] = {
+				["max"] = 130,
+				["min"] = 123,
+			},
+			["Dagger"] = {
+				["max"] = 74,
+				["min"] = 70,
+			},
+			["Sceptre"] = {
+				["max"] = 74,
+				["min"] = 70,
+			},
+			["Staff"] = {
+				["max"] = 130,
+				["min"] = 123,
+			},
+			["Wand"] = {
+				["max"] = 74,
+				["min"] = 70,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -19357,6 +19361,26 @@ return {
 			},
 		},
 		["1250_WeaponSpellDamageTriggerSkill"] = {
+			["1HWeapon"] = {
+				["max"] = 74,
+				["min"] = 70,
+			},
+			["2HWeapon"] = {
+				["max"] = 130,
+				["min"] = 123,
+			},
+			["Sceptre"] = {
+				["max"] = 74,
+				["min"] = 70,
+			},
+			["Staff"] = {
+				["max"] = 130,
+				["min"] = 123,
+			},
+			["Wand"] = {
+				["max"] = 74,
+				["min"] = 70,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -19493,6 +19517,26 @@ return {
 			},
 		},
 		["1258_SpellAddedPhysicalDamageHybrid"] = {
+			["1HWeapon"] = {
+				["max"] = 40,
+				["min"] = 20,
+			},
+			["2HWeapon"] = {
+				["max"] = 40,
+				["min"] = 20,
+			},
+			["Dagger"] = {
+				["max"] = 40,
+				["min"] = 20,
+			},
+			["Sceptre"] = {
+				["max"] = 40,
+				["min"] = 20,
+			},
+			["Staff"] = {
+				["max"] = 40,
+				["min"] = 20,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -20247,6 +20291,62 @@ return {
 			},
 		},
 		["1259_LocalPhysicalDamagePercentAddedAsChaos"] = {
+			["1HAxe"] = {
+				["max"] = 169,
+				["min"] = 155,
+			},
+			["1HMace"] = {
+				["max"] = 169,
+				["min"] = 155,
+			},
+			["1HSword"] = {
+				["max"] = 169,
+				["min"] = 155,
+			},
+			["1HWeapon"] = {
+				["max"] = 169,
+				["min"] = 155,
+			},
+			["2HAxe"] = {
+				["max"] = 169,
+				["min"] = 155,
+			},
+			["2HMace"] = {
+				["max"] = 169,
+				["min"] = 155,
+			},
+			["2HSword"] = {
+				["max"] = 169,
+				["min"] = 155,
+			},
+			["2HWeapon"] = {
+				["max"] = 169,
+				["min"] = 155,
+			},
+			["Bow"] = {
+				["max"] = 169,
+				["min"] = 155,
+			},
+			["Claw"] = {
+				["max"] = 169,
+				["min"] = 155,
+			},
+			["Dagger"] = {
+				["max"] = 169,
+				["min"] = 155,
+			},
+			["Sceptre"] = {
+				["max"] = 169,
+				["min"] = 155,
+			},
+			["Staff"] = {
+				["max"] = 169,
+				["min"] = 155,
+			},
+			["Wand"] = {
+				["max"] = 169,
+				["min"] = 155,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -21184,24 +21284,8 @@ return {
 				["max"] = 40.5,
 				["min"] = 1.5,
 			},
-			["One Handed Axe"] = {
-				["max"] = 36.5,
-				["min"] = 1.5,
-			},
-			["One Handed Mace"] = {
-				["max"] = 36.5,
-				["min"] = 1.5,
-			},
-			["One Handed Sword"] = {
-				["max"] = 36.5,
-				["min"] = 1.5,
-			},
 			["Sceptre"] = {
 				["max"] = 40.5,
-				["min"] = 1.5,
-			},
-			["Thrusting One Handed Sword"] = {
-				["max"] = 36.5,
 				["min"] = 1.5,
 			},
 			["Wand"] = {
@@ -21241,18 +21325,6 @@ return {
 			},
 			["Staff"] = {
 				["max"] = 65.5,
-				["min"] = 3,
-			},
-			["Two Handed Axe"] = {
-				["max"] = 58.5,
-				["min"] = 3,
-			},
-			["Two Handed Mace"] = {
-				["max"] = 58.5,
-				["min"] = 3,
-			},
-			["Two Handed Sword"] = {
-				["max"] = 58.5,
 				["min"] = 3,
 			},
 			["sign"] = "",
@@ -21632,6 +21704,22 @@ return {
 			},
 		},
 		["1385_FireDamageWeaponPrefixAndFlat"] = {
+			["1HWeapon"] = {
+				["max"] = 79,
+				["min"] = 75,
+			},
+			["Sceptre"] = {
+				["max"] = 79,
+				["min"] = 75,
+			},
+			["Shield"] = {
+				["max"] = 79,
+				["min"] = 75,
+			},
+			["Wand"] = {
+				["max"] = 79,
+				["min"] = 75,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -21656,6 +21744,58 @@ return {
 			},
 		},
 		["1385_LocalFireDamageHybrid"] = {
+			["1HAxe"] = {
+				["max"] = 40,
+				["min"] = 20,
+			},
+			["1HMace"] = {
+				["max"] = 40,
+				["min"] = 20,
+			},
+			["1HSword"] = {
+				["max"] = 40,
+				["min"] = 20,
+			},
+			["1HWeapon"] = {
+				["max"] = 40,
+				["min"] = 20,
+			},
+			["2HAxe"] = {
+				["max"] = 40,
+				["min"] = 20,
+			},
+			["2HMace"] = {
+				["max"] = 40,
+				["min"] = 20,
+			},
+			["2HSword"] = {
+				["max"] = 40,
+				["min"] = 20,
+			},
+			["2HWeapon"] = {
+				["max"] = 40,
+				["min"] = 20,
+			},
+			["Bow"] = {
+				["max"] = 40,
+				["min"] = 20,
+			},
+			["Claw"] = {
+				["max"] = 40,
+				["min"] = 20,
+			},
+			["Dagger"] = {
+				["max"] = 40,
+				["min"] = 20,
+			},
+			["Staff"] = {
+				["max"] = 40,
+				["min"] = 20,
+			},
+			["Wand"] = {
+				["max"] = 40,
+				["min"] = 20,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -21666,6 +21806,26 @@ return {
 			},
 		},
 		["1385_SpellAddedFireDamageHybrid"] = {
+			["1HWeapon"] = {
+				["max"] = 40,
+				["min"] = 20,
+			},
+			["2HWeapon"] = {
+				["max"] = 40,
+				["min"] = 20,
+			},
+			["Dagger"] = {
+				["max"] = 40,
+				["min"] = 20,
+			},
+			["Sceptre"] = {
+				["max"] = 40,
+				["min"] = 20,
+			},
+			["Staff"] = {
+				["max"] = 40,
+				["min"] = 20,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -21706,6 +21866,14 @@ return {
 			},
 		},
 		["1385_TwoHandFireDamageWeaponPrefixAndFlat"] = {
+			["2HWeapon"] = {
+				["max"] = 138,
+				["min"] = 131,
+			},
+			["Staff"] = {
+				["max"] = 138,
+				["min"] = 131,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -21846,6 +22014,10 @@ return {
 			},
 		},
 		["1388_FireDamagePhysConvertedToFire"] = {
+			["Gloves"] = {
+				["max"] = 10,
+				["min"] = 8,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -21890,25 +22062,9 @@ return {
 				["max"] = 165.5,
 				["min"] = 2,
 			},
-			["One Handed Axe"] = {
-				["max"] = 149,
-				["min"] = 11.5,
-			},
-			["One Handed Mace"] = {
-				["max"] = 149,
-				["min"] = 11.5,
-			},
-			["One Handed Sword"] = {
-				["max"] = 149,
-				["min"] = 11.5,
-			},
 			["Sceptre"] = {
 				["max"] = 165.5,
 				["min"] = 2,
-			},
-			["Thrusting One Handed Sword"] = {
-				["max"] = 149,
-				["min"] = 11.5,
 			},
 			["Wand"] = {
 				["max"] = 165.5,
@@ -21925,6 +22081,38 @@ return {
 			},
 		},
 		["1390_LocalFireDamageAndPen"] = {
+			["1HAxe"] = {
+				["max"] = 83.5,
+				["min"] = 68,
+			},
+			["1HMace"] = {
+				["max"] = 83.5,
+				["min"] = 68,
+			},
+			["1HSword"] = {
+				["max"] = 83.5,
+				["min"] = 68,
+			},
+			["1HWeapon"] = {
+				["max"] = 83.5,
+				["min"] = 68,
+			},
+			["Claw"] = {
+				["max"] = 83.5,
+				["min"] = 68,
+			},
+			["Dagger"] = {
+				["max"] = 83.5,
+				["min"] = 68,
+			},
+			["Sceptre"] = {
+				["max"] = 83.5,
+				["min"] = 68,
+			},
+			["Wand"] = {
+				["max"] = 83.5,
+				["min"] = 68,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 				["overrideModLine"] = "Adds # to # Fire Damage",
@@ -21936,6 +22124,58 @@ return {
 			},
 		},
 		["1390_LocalFireDamageHybrid"] = {
+			["1HAxe"] = {
+				["max"] = 33,
+				["min"] = 27,
+			},
+			["1HMace"] = {
+				["max"] = 33,
+				["min"] = 27,
+			},
+			["1HSword"] = {
+				["max"] = 33,
+				["min"] = 27,
+			},
+			["1HWeapon"] = {
+				["max"] = 33,
+				["min"] = 27,
+			},
+			["2HAxe"] = {
+				["max"] = 58,
+				["min"] = 47.5,
+			},
+			["2HMace"] = {
+				["max"] = 58,
+				["min"] = 47.5,
+			},
+			["2HSword"] = {
+				["max"] = 58,
+				["min"] = 47.5,
+			},
+			["2HWeapon"] = {
+				["max"] = 58,
+				["min"] = 47.5,
+			},
+			["Bow"] = {
+				["max"] = 58,
+				["min"] = 47.5,
+			},
+			["Claw"] = {
+				["max"] = 33,
+				["min"] = 27,
+			},
+			["Dagger"] = {
+				["max"] = 33,
+				["min"] = 27,
+			},
+			["Staff"] = {
+				["max"] = 58,
+				["min"] = 47.5,
+			},
+			["Wand"] = {
+				["max"] = 33,
+				["min"] = 27,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 				["overrideModLine"] = "Adds # to # Fire Damage",
@@ -22049,18 +22289,6 @@ return {
 				["max"] = 307.5,
 				["min"] = 4.5,
 			},
-			["Two Handed Axe"] = {
-				["max"] = 277,
-				["min"] = 21.5,
-			},
-			["Two Handed Mace"] = {
-				["max"] = 277,
-				["min"] = 21.5,
-			},
-			["Two Handed Sword"] = {
-				["max"] = 277,
-				["min"] = 21.5,
-			},
 			["sign"] = "",
 			["specialCaseData"] = {
 				["overrideModLine"] = "Adds # to # Fire Damage",
@@ -22072,6 +22300,30 @@ return {
 			},
 		},
 		["1390_LocalFireDamageTwoHandAndPen"] = {
+			["2HAxe"] = {
+				["max"] = 146,
+				["min"] = 119,
+			},
+			["2HMace"] = {
+				["max"] = 146,
+				["min"] = 119,
+			},
+			["2HSword"] = {
+				["max"] = 146,
+				["min"] = 119,
+			},
+			["2HWeapon"] = {
+				["max"] = 146,
+				["min"] = 119,
+			},
+			["Bow"] = {
+				["max"] = 146,
+				["min"] = 119,
+			},
+			["Staff"] = {
+				["max"] = 146,
+				["min"] = 119,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 				["overrideModLine"] = "Adds # to # Fire Damage",
@@ -22289,6 +22541,22 @@ return {
 			},
 		},
 		["1394_ColdDamageWeaponPrefixAndFlat"] = {
+			["1HWeapon"] = {
+				["max"] = 79,
+				["min"] = 75,
+			},
+			["Sceptre"] = {
+				["max"] = 79,
+				["min"] = 75,
+			},
+			["Shield"] = {
+				["max"] = 79,
+				["min"] = 75,
+			},
+			["Wand"] = {
+				["max"] = 79,
+				["min"] = 75,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -22299,6 +22567,58 @@ return {
 			},
 		},
 		["1394_LocalColdDamageHybrid"] = {
+			["1HAxe"] = {
+				["max"] = 40,
+				["min"] = 20,
+			},
+			["1HMace"] = {
+				["max"] = 40,
+				["min"] = 20,
+			},
+			["1HSword"] = {
+				["max"] = 40,
+				["min"] = 20,
+			},
+			["1HWeapon"] = {
+				["max"] = 40,
+				["min"] = 20,
+			},
+			["2HAxe"] = {
+				["max"] = 40,
+				["min"] = 20,
+			},
+			["2HMace"] = {
+				["max"] = 40,
+				["min"] = 20,
+			},
+			["2HSword"] = {
+				["max"] = 40,
+				["min"] = 20,
+			},
+			["2HWeapon"] = {
+				["max"] = 40,
+				["min"] = 20,
+			},
+			["Bow"] = {
+				["max"] = 40,
+				["min"] = 20,
+			},
+			["Claw"] = {
+				["max"] = 40,
+				["min"] = 20,
+			},
+			["Dagger"] = {
+				["max"] = 40,
+				["min"] = 20,
+			},
+			["Staff"] = {
+				["max"] = 40,
+				["min"] = 20,
+			},
+			["Wand"] = {
+				["max"] = 40,
+				["min"] = 20,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -22309,6 +22629,26 @@ return {
 			},
 		},
 		["1394_SpellAddedColdDamageHybrid"] = {
+			["1HWeapon"] = {
+				["max"] = 40,
+				["min"] = 20,
+			},
+			["2HWeapon"] = {
+				["max"] = 40,
+				["min"] = 20,
+			},
+			["Dagger"] = {
+				["max"] = 40,
+				["min"] = 20,
+			},
+			["Sceptre"] = {
+				["max"] = 40,
+				["min"] = 20,
+			},
+			["Staff"] = {
+				["max"] = 40,
+				["min"] = 20,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -22349,6 +22689,14 @@ return {
 			},
 		},
 		["1394_TwoHandColdDamageWeaponPrefixAndFlat"] = {
+			["2HWeapon"] = {
+				["max"] = 138,
+				["min"] = 131,
+			},
+			["Staff"] = {
+				["max"] = 138,
+				["min"] = 131,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -22489,6 +22837,10 @@ return {
 			},
 		},
 		["1397_ColdDamagePhysConvertedToCold"] = {
+			["Gloves"] = {
+				["max"] = 9.5,
+				["min"] = 7.5,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -22533,24 +22885,8 @@ return {
 				["max"] = 150,
 				["min"] = 2,
 			},
-			["One Handed Axe"] = {
-				["max"] = 135,
-				["min"] = 2,
-			},
-			["One Handed Mace"] = {
-				["max"] = 135,
-				["min"] = 2,
-			},
-			["One Handed Sword"] = {
-				["max"] = 135,
-				["min"] = 2,
-			},
 			["Sceptre"] = {
 				["max"] = 150,
-				["min"] = 2,
-			},
-			["Thrusting One Handed Sword"] = {
-				["max"] = 135,
 				["min"] = 2,
 			},
 			["Wand"] = {
@@ -22568,6 +22904,38 @@ return {
 			},
 		},
 		["1399_LocalColdDamageAndPen"] = {
+			["1HAxe"] = {
+				["max"] = 68.5,
+				["min"] = 55.5,
+			},
+			["1HMace"] = {
+				["max"] = 68.5,
+				["min"] = 55.5,
+			},
+			["1HSword"] = {
+				["max"] = 68.5,
+				["min"] = 55.5,
+			},
+			["1HWeapon"] = {
+				["max"] = 68.5,
+				["min"] = 55.5,
+			},
+			["Claw"] = {
+				["max"] = 68.5,
+				["min"] = 55.5,
+			},
+			["Dagger"] = {
+				["max"] = 68.5,
+				["min"] = 55.5,
+			},
+			["Sceptre"] = {
+				["max"] = 68.5,
+				["min"] = 55.5,
+			},
+			["Wand"] = {
+				["max"] = 68.5,
+				["min"] = 55.5,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 				["overrideModLine"] = "Adds # to # Cold Damage",
@@ -22579,6 +22947,58 @@ return {
 			},
 		},
 		["1399_LocalColdDamageHybrid"] = {
+			["1HAxe"] = {
+				["max"] = 27.5,
+				["min"] = 22.5,
+			},
+			["1HMace"] = {
+				["max"] = 27.5,
+				["min"] = 22.5,
+			},
+			["1HSword"] = {
+				["max"] = 27.5,
+				["min"] = 22.5,
+			},
+			["1HWeapon"] = {
+				["max"] = 27.5,
+				["min"] = 22.5,
+			},
+			["2HAxe"] = {
+				["max"] = 47.5,
+				["min"] = 39,
+			},
+			["2HMace"] = {
+				["max"] = 47.5,
+				["min"] = 39,
+			},
+			["2HSword"] = {
+				["max"] = 47.5,
+				["min"] = 39,
+			},
+			["2HWeapon"] = {
+				["max"] = 47.5,
+				["min"] = 39,
+			},
+			["Bow"] = {
+				["max"] = 47.5,
+				["min"] = 39,
+			},
+			["Claw"] = {
+				["max"] = 27.5,
+				["min"] = 22.5,
+			},
+			["Dagger"] = {
+				["max"] = 27.5,
+				["min"] = 22.5,
+			},
+			["Staff"] = {
+				["max"] = 47.5,
+				["min"] = 39,
+			},
+			["Wand"] = {
+				["max"] = 27.5,
+				["min"] = 22.5,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 				["overrideModLine"] = "Adds # to # Cold Damage",
@@ -22692,18 +23112,6 @@ return {
 				["max"] = 276,
 				["min"] = 4,
 			},
-			["Two Handed Axe"] = {
-				["max"] = 248.5,
-				["min"] = 4,
-			},
-			["Two Handed Mace"] = {
-				["max"] = 248.5,
-				["min"] = 4,
-			},
-			["Two Handed Sword"] = {
-				["max"] = 248.5,
-				["min"] = 4,
-			},
 			["sign"] = "",
 			["specialCaseData"] = {
 				["overrideModLine"] = "Adds # to # Cold Damage",
@@ -22715,6 +23123,30 @@ return {
 			},
 		},
 		["1399_LocalColdDamageTwoHandAndPen"] = {
+			["2HAxe"] = {
+				["max"] = 119.5,
+				["min"] = 97.5,
+			},
+			["2HMace"] = {
+				["max"] = 119.5,
+				["min"] = 97.5,
+			},
+			["2HSword"] = {
+				["max"] = 119.5,
+				["min"] = 97.5,
+			},
+			["2HWeapon"] = {
+				["max"] = 119.5,
+				["min"] = 97.5,
+			},
+			["Bow"] = {
+				["max"] = 119.5,
+				["min"] = 97.5,
+			},
+			["Staff"] = {
+				["max"] = 119.5,
+				["min"] = 97.5,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 				["overrideModLine"] = "Adds # to # Cold Damage",
@@ -22970,6 +23402,22 @@ return {
 			},
 		},
 		["1405_LightningDamageWeaponPrefixAndFlat"] = {
+			["1HWeapon"] = {
+				["max"] = 79,
+				["min"] = 75,
+			},
+			["Sceptre"] = {
+				["max"] = 79,
+				["min"] = 75,
+			},
+			["Shield"] = {
+				["max"] = 79,
+				["min"] = 75,
+			},
+			["Wand"] = {
+				["max"] = 79,
+				["min"] = 75,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -22980,6 +23428,58 @@ return {
 			},
 		},
 		["1405_LocalLightningDamageHybrid"] = {
+			["1HAxe"] = {
+				["max"] = 40,
+				["min"] = 20,
+			},
+			["1HMace"] = {
+				["max"] = 40,
+				["min"] = 20,
+			},
+			["1HSword"] = {
+				["max"] = 40,
+				["min"] = 20,
+			},
+			["1HWeapon"] = {
+				["max"] = 40,
+				["min"] = 20,
+			},
+			["2HAxe"] = {
+				["max"] = 40,
+				["min"] = 20,
+			},
+			["2HMace"] = {
+				["max"] = 40,
+				["min"] = 20,
+			},
+			["2HSword"] = {
+				["max"] = 40,
+				["min"] = 20,
+			},
+			["2HWeapon"] = {
+				["max"] = 40,
+				["min"] = 20,
+			},
+			["Bow"] = {
+				["max"] = 40,
+				["min"] = 20,
+			},
+			["Claw"] = {
+				["max"] = 40,
+				["min"] = 20,
+			},
+			["Dagger"] = {
+				["max"] = 40,
+				["min"] = 20,
+			},
+			["Staff"] = {
+				["max"] = 40,
+				["min"] = 20,
+			},
+			["Wand"] = {
+				["max"] = 40,
+				["min"] = 20,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -22990,6 +23490,26 @@ return {
 			},
 		},
 		["1405_SpellAddedLightningDamageHybrid"] = {
+			["1HWeapon"] = {
+				["max"] = 40,
+				["min"] = 20,
+			},
+			["2HWeapon"] = {
+				["max"] = 40,
+				["min"] = 20,
+			},
+			["Dagger"] = {
+				["max"] = 40,
+				["min"] = 20,
+			},
+			["Sceptre"] = {
+				["max"] = 40,
+				["min"] = 20,
+			},
+			["Staff"] = {
+				["max"] = 40,
+				["min"] = 20,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -23030,6 +23550,14 @@ return {
 			},
 		},
 		["1405_TwoHandLightningDamageWeaponPrefixAndFlat"] = {
+			["2HWeapon"] = {
+				["max"] = 138,
+				["min"] = 131,
+			},
+			["Staff"] = {
+				["max"] = 138,
+				["min"] = 131,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -23170,6 +23698,10 @@ return {
 			},
 		},
 		["1408_LightningDamagePhysConvertedToLightning"] = {
+			["Gloves"] = {
+				["max"] = 12.5,
+				["min"] = 11.5,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -23214,25 +23746,9 @@ return {
 				["max"] = 182.5,
 				["min"] = 3,
 			},
-			["One Handed Axe"] = {
-				["max"] = 164.5,
-				["min"] = 30,
-			},
-			["One Handed Mace"] = {
-				["max"] = 164.5,
-				["min"] = 30,
-			},
-			["One Handed Sword"] = {
-				["max"] = 164.5,
-				["min"] = 30,
-			},
 			["Sceptre"] = {
 				["max"] = 182.5,
 				["min"] = 3,
-			},
-			["Thrusting One Handed Sword"] = {
-				["max"] = 164.5,
-				["min"] = 30,
 			},
 			["Wand"] = {
 				["max"] = 182.5,
@@ -23249,6 +23765,38 @@ return {
 			},
 		},
 		["1410_LocalLightningDamageAndPen"] = {
+			["1HAxe"] = {
+				["max"] = 89.5,
+				["min"] = 81,
+			},
+			["1HMace"] = {
+				["max"] = 89.5,
+				["min"] = 81,
+			},
+			["1HSword"] = {
+				["max"] = 89.5,
+				["min"] = 81,
+			},
+			["1HWeapon"] = {
+				["max"] = 89.5,
+				["min"] = 81,
+			},
+			["Claw"] = {
+				["max"] = 89.5,
+				["min"] = 81,
+			},
+			["Dagger"] = {
+				["max"] = 89.5,
+				["min"] = 81,
+			},
+			["Sceptre"] = {
+				["max"] = 89.5,
+				["min"] = 81,
+			},
+			["Wand"] = {
+				["max"] = 89.5,
+				["min"] = 81,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 				["overrideModLine"] = "Adds # to # Lightning Damage",
@@ -23260,6 +23808,58 @@ return {
 			},
 		},
 		["1410_LocalLightningDamageHybrid"] = {
+			["1HAxe"] = {
+				["max"] = 35.5,
+				["min"] = 32.5,
+			},
+			["1HMace"] = {
+				["max"] = 35.5,
+				["min"] = 32.5,
+			},
+			["1HSword"] = {
+				["max"] = 35.5,
+				["min"] = 32.5,
+			},
+			["1HWeapon"] = {
+				["max"] = 35.5,
+				["min"] = 32.5,
+			},
+			["2HAxe"] = {
+				["max"] = 62.5,
+				["min"] = 56,
+			},
+			["2HMace"] = {
+				["max"] = 62.5,
+				["min"] = 56,
+			},
+			["2HSword"] = {
+				["max"] = 62.5,
+				["min"] = 56,
+			},
+			["2HWeapon"] = {
+				["max"] = 62.5,
+				["min"] = 56,
+			},
+			["Bow"] = {
+				["max"] = 62.5,
+				["min"] = 56,
+			},
+			["Claw"] = {
+				["max"] = 35.5,
+				["min"] = 32.5,
+			},
+			["Dagger"] = {
+				["max"] = 35.5,
+				["min"] = 32.5,
+			},
+			["Staff"] = {
+				["max"] = 62.5,
+				["min"] = 56,
+			},
+			["Wand"] = {
+				["max"] = 35.5,
+				["min"] = 32.5,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 				["overrideModLine"] = "Adds # to # Lightning Damage",
@@ -23373,18 +23973,6 @@ return {
 				["max"] = 338,
 				["min"] = 6,
 			},
-			["Two Handed Axe"] = {
-				["max"] = 304.5,
-				["min"] = 55.5,
-			},
-			["Two Handed Mace"] = {
-				["max"] = 304.5,
-				["min"] = 55.5,
-			},
-			["Two Handed Sword"] = {
-				["max"] = 304.5,
-				["min"] = 55.5,
-			},
 			["sign"] = "",
 			["specialCaseData"] = {
 				["overrideModLine"] = "Adds # to # Lightning Damage",
@@ -23396,6 +23984,30 @@ return {
 			},
 		},
 		["1410_LocalLightningDamageTwoHandAndPen"] = {
+			["2HAxe"] = {
+				["max"] = 156,
+				["min"] = 141,
+			},
+			["2HMace"] = {
+				["max"] = 156,
+				["min"] = 141,
+			},
+			["2HSword"] = {
+				["max"] = 156,
+				["min"] = 141,
+			},
+			["2HWeapon"] = {
+				["max"] = 156,
+				["min"] = 141,
+			},
+			["Bow"] = {
+				["max"] = 156,
+				["min"] = 141,
+			},
+			["Staff"] = {
+				["max"] = 156,
+				["min"] = 141,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 				["overrideModLine"] = "Adds # to # Lightning Damage",
@@ -23613,6 +24225,34 @@ return {
 			},
 		},
 		["1413_LocalChanceToPoisonOnHitChaosDamage"] = {
+			["1HSword"] = {
+				["max"] = 30,
+				["min"] = 26,
+			},
+			["1HWeapon"] = {
+				["max"] = 30,
+				["min"] = 26,
+			},
+			["2HSword"] = {
+				["max"] = 30,
+				["min"] = 26,
+			},
+			["2HWeapon"] = {
+				["max"] = 30,
+				["min"] = 26,
+			},
+			["Bow"] = {
+				["max"] = 30,
+				["min"] = 26,
+			},
+			["Claw"] = {
+				["max"] = 30,
+				["min"] = 26,
+			},
+			["Dagger"] = {
+				["max"] = 30,
+				["min"] = 26,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -23623,6 +24263,58 @@ return {
 			},
 		},
 		["1413_LocalChaosDamageHybrid"] = {
+			["1HAxe"] = {
+				["max"] = 30,
+				["min"] = 15,
+			},
+			["1HMace"] = {
+				["max"] = 30,
+				["min"] = 15,
+			},
+			["1HSword"] = {
+				["max"] = 30,
+				["min"] = 15,
+			},
+			["1HWeapon"] = {
+				["max"] = 30,
+				["min"] = 15,
+			},
+			["2HAxe"] = {
+				["max"] = 30,
+				["min"] = 15,
+			},
+			["2HMace"] = {
+				["max"] = 30,
+				["min"] = 15,
+			},
+			["2HSword"] = {
+				["max"] = 30,
+				["min"] = 15,
+			},
+			["2HWeapon"] = {
+				["max"] = 30,
+				["min"] = 15,
+			},
+			["Bow"] = {
+				["max"] = 30,
+				["min"] = 15,
+			},
+			["Claw"] = {
+				["max"] = 30,
+				["min"] = 15,
+			},
+			["Dagger"] = {
+				["max"] = 30,
+				["min"] = 15,
+			},
+			["Staff"] = {
+				["max"] = 30,
+				["min"] = 15,
+			},
+			["Wand"] = {
+				["max"] = 30,
+				["min"] = 15,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -23633,6 +24325,34 @@ return {
 			},
 		},
 		["1413_PoisonDurationChaosDamage"] = {
+			["1HSword"] = {
+				["max"] = 30,
+				["min"] = 26,
+			},
+			["1HWeapon"] = {
+				["max"] = 30,
+				["min"] = 26,
+			},
+			["2HSword"] = {
+				["max"] = 30,
+				["min"] = 26,
+			},
+			["2HWeapon"] = {
+				["max"] = 30,
+				["min"] = 26,
+			},
+			["Bow"] = {
+				["max"] = 30,
+				["min"] = 26,
+			},
+			["Claw"] = {
+				["max"] = 30,
+				["min"] = 26,
+			},
+			["Dagger"] = {
+				["max"] = 30,
+				["min"] = 26,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -23643,6 +24363,26 @@ return {
 			},
 		},
 		["1413_SpellAddedChaosDamageHybrid"] = {
+			["1HWeapon"] = {
+				["max"] = 30,
+				["min"] = 15,
+			},
+			["2HWeapon"] = {
+				["max"] = 30,
+				["min"] = 15,
+			},
+			["Dagger"] = {
+				["max"] = 30,
+				["min"] = 15,
+			},
+			["Sceptre"] = {
+				["max"] = 30,
+				["min"] = 15,
+			},
+			["Staff"] = {
+				["max"] = 30,
+				["min"] = 15,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -23739,19 +24479,19 @@ return {
 		["1418_LocalChaosDamage"] = {
 			["1HAxe"] = {
 				["max"] = 123.5,
-				["min"] = 80.5,
+				["min"] = 58,
 			},
 			["1HMace"] = {
 				["max"] = 123.5,
-				["min"] = 80.5,
+				["min"] = 58,
 			},
 			["1HSword"] = {
 				["max"] = 123.5,
-				["min"] = 80.5,
+				["min"] = 58,
 			},
 			["1HWeapon"] = {
 				["max"] = 123.5,
-				["min"] = 80.5,
+				["min"] = 58,
 			},
 			["Claw"] = {
 				["max"] = 123.5,
@@ -23761,24 +24501,8 @@ return {
 				["max"] = 123.5,
 				["min"] = 58,
 			},
-			["One Handed Axe"] = {
-				["max"] = 105,
-				["min"] = 58,
-			},
-			["One Handed Mace"] = {
-				["max"] = 105,
-				["min"] = 58,
-			},
-			["One Handed Sword"] = {
-				["max"] = 105,
-				["min"] = 58,
-			},
 			["Sceptre"] = {
 				["max"] = 123.5,
-				["min"] = 58,
-			},
-			["Thrusting One Handed Sword"] = {
-				["max"] = 105,
 				["min"] = 58,
 			},
 			["Wand"] = {
@@ -23796,6 +24520,58 @@ return {
 			},
 		},
 		["1418_LocalChaosDamageHybrid"] = {
+			["1HAxe"] = {
+				["max"] = 38.5,
+				["min"] = 28.5,
+			},
+			["1HMace"] = {
+				["max"] = 38.5,
+				["min"] = 28.5,
+			},
+			["1HSword"] = {
+				["max"] = 38.5,
+				["min"] = 28.5,
+			},
+			["1HWeapon"] = {
+				["max"] = 38.5,
+				["min"] = 28.5,
+			},
+			["2HAxe"] = {
+				["max"] = 68,
+				["min"] = 50,
+			},
+			["2HMace"] = {
+				["max"] = 68,
+				["min"] = 50,
+			},
+			["2HSword"] = {
+				["max"] = 68,
+				["min"] = 50,
+			},
+			["2HWeapon"] = {
+				["max"] = 68,
+				["min"] = 50,
+			},
+			["Bow"] = {
+				["max"] = 68,
+				["min"] = 50,
+			},
+			["Claw"] = {
+				["max"] = 38.5,
+				["min"] = 28.5,
+			},
+			["Dagger"] = {
+				["max"] = 38.5,
+				["min"] = 28.5,
+			},
+			["Staff"] = {
+				["max"] = 68,
+				["min"] = 50,
+			},
+			["Wand"] = {
+				["max"] = 38.5,
+				["min"] = 28.5,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 				["overrideModLine"] = "Adds # to # Chaos Damage",
@@ -23876,19 +24652,19 @@ return {
 		["1418_LocalChaosDamageTwoHand"] = {
 			["2HAxe"] = {
 				["max"] = 214.5,
-				["min"] = 140.5,
+				["min"] = 105,
 			},
 			["2HMace"] = {
 				["max"] = 214.5,
-				["min"] = 140.5,
+				["min"] = 105,
 			},
 			["2HSword"] = {
 				["max"] = 214.5,
-				["min"] = 140.5,
+				["min"] = 105,
 			},
 			["2HWeapon"] = {
 				["max"] = 214.5,
-				["min"] = 140.5,
+				["min"] = 105,
 			},
 			["Bow"] = {
 				["max"] = 214.5,
@@ -23896,18 +24672,6 @@ return {
 			},
 			["Staff"] = {
 				["max"] = 214.5,
-				["min"] = 105,
-			},
-			["Two Handed Axe"] = {
-				["max"] = 180,
-				["min"] = 105,
-			},
-			["Two Handed Mace"] = {
-				["max"] = 180,
-				["min"] = 105,
-			},
-			["Two Handed Sword"] = {
-				["max"] = 180,
 				["min"] = 105,
 			},
 			["sign"] = "",
@@ -23921,6 +24685,58 @@ return {
 			},
 		},
 		["1418_LocalIncreasedAttackSpeedAddedChaos"] = {
+			["1HAxe"] = {
+				["max"] = 48.5,
+				["min"] = 36,
+			},
+			["1HMace"] = {
+				["max"] = 48.5,
+				["min"] = 36,
+			},
+			["1HSword"] = {
+				["max"] = 48.5,
+				["min"] = 36,
+			},
+			["1HWeapon"] = {
+				["max"] = 48.5,
+				["min"] = 36,
+			},
+			["2HAxe"] = {
+				["max"] = 48.5,
+				["min"] = 36,
+			},
+			["2HMace"] = {
+				["max"] = 48.5,
+				["min"] = 36,
+			},
+			["2HSword"] = {
+				["max"] = 48.5,
+				["min"] = 36,
+			},
+			["2HWeapon"] = {
+				["max"] = 48.5,
+				["min"] = 36,
+			},
+			["Bow"] = {
+				["max"] = 48.5,
+				["min"] = 36,
+			},
+			["Claw"] = {
+				["max"] = 48.5,
+				["min"] = 36,
+			},
+			["Dagger"] = {
+				["max"] = 48.5,
+				["min"] = 36,
+			},
+			["Sceptre"] = {
+				["max"] = 48.5,
+				["min"] = 36,
+			},
+			["Wand"] = {
+				["max"] = 48.5,
+				["min"] = 36,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 				["overrideModLine"] = "Adds # to # Chaos Damage",
@@ -23932,6 +24748,34 @@ return {
 			},
 		},
 		["1418_PoisonDamageAddedChaosToAttacks"] = {
+			["1HSword"] = {
+				["max"] = 48.5,
+				["min"] = 36,
+			},
+			["1HWeapon"] = {
+				["max"] = 48.5,
+				["min"] = 36,
+			},
+			["2HSword"] = {
+				["max"] = 48.5,
+				["min"] = 36,
+			},
+			["2HWeapon"] = {
+				["max"] = 48.5,
+				["min"] = 36,
+			},
+			["Bow"] = {
+				["max"] = 48.5,
+				["min"] = 36,
+			},
+			["Claw"] = {
+				["max"] = 48.5,
+				["min"] = 36,
+			},
+			["Dagger"] = {
+				["max"] = 48.5,
+				["min"] = 36,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -23949,6 +24793,10 @@ return {
 			["2HWeapon"] = {
 				["max"] = 171,
 				["min"] = 98,
+			},
+			["Amulet"] = {
+				["max"] = 34,
+				["min"] = 22.5,
 			},
 			["Dagger"] = {
 				["max"] = 105,
@@ -23980,6 +24828,26 @@ return {
 			},
 		},
 		["1431_SpellAddedPhysicalDamageHybrid"] = {
+			["1HWeapon"] = {
+				["max"] = 26,
+				["min"] = 21.5,
+			},
+			["2HWeapon"] = {
+				["max"] = 41.5,
+				["min"] = 34,
+			},
+			["Dagger"] = {
+				["max"] = 26,
+				["min"] = 21.5,
+			},
+			["Sceptre"] = {
+				["max"] = 26,
+				["min"] = 21.5,
+			},
+			["Staff"] = {
+				["max"] = 41.5,
+				["min"] = 34,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -24004,6 +24872,22 @@ return {
 			},
 		},
 		["1432_FireDamageWeaponPrefixAndFlat"] = {
+			["1HWeapon"] = {
+				["max"] = 27.5,
+				["min"] = 22.5,
+			},
+			["Sceptre"] = {
+				["max"] = 27.5,
+				["min"] = 22.5,
+			},
+			["Shield"] = {
+				["max"] = 27.5,
+				["min"] = 22.5,
+			},
+			["Wand"] = {
+				["max"] = 27.5,
+				["min"] = 22.5,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -24015,15 +24899,15 @@ return {
 		},
 		["1432_SpellAddedFireDamage"] = {
 			["1HAxe"] = {
-				["max"] = 61.5,
+				["max"] = 115,
 				["min"] = 19,
 			},
 			["1HMace"] = {
-				["max"] = 61.5,
+				["max"] = 115,
 				["min"] = 19,
 			},
 			["1HSword"] = {
-				["max"] = 61.5,
+				["max"] = 115,
 				["min"] = 19,
 			},
 			["1HWeapon"] = {
@@ -24038,25 +24922,9 @@ return {
 				["max"] = 115,
 				["min"] = 2,
 			},
-			["One Handed Axe"] = {
-				["max"] = 115,
-				["min"] = 42.5,
-			},
-			["One Handed Mace"] = {
-				["max"] = 115,
-				["min"] = 42.5,
-			},
-			["One Handed Sword"] = {
-				["max"] = 115,
-				["min"] = 42.5,
-			},
 			["Sceptre"] = {
 				["max"] = 115,
 				["min"] = 2,
-			},
-			["Thrusting One Handed Sword"] = {
-				["max"] = 115,
-				["min"] = 42.5,
 			},
 			["Wand"] = {
 				["max"] = 115,
@@ -24072,6 +24940,26 @@ return {
 			},
 		},
 		["1432_SpellAddedFireDamageHybrid"] = {
+			["1HWeapon"] = {
+				["max"] = 34,
+				["min"] = 27,
+			},
+			["2HWeapon"] = {
+				["max"] = 54,
+				["min"] = 44.5,
+			},
+			["Dagger"] = {
+				["max"] = 34,
+				["min"] = 27,
+			},
+			["Sceptre"] = {
+				["max"] = 34,
+				["min"] = 27,
+			},
+			["Staff"] = {
+				["max"] = 54,
+				["min"] = 44.5,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -24117,15 +25005,15 @@ return {
 		},
 		["1432_SpellAddedFireDamageTwoHand"] = {
 			["2HAxe"] = {
-				["max"] = 103.5,
+				["max"] = 193,
 				["min"] = 32,
 			},
 			["2HMace"] = {
-				["max"] = 103.5,
+				["max"] = 193,
 				["min"] = 32,
 			},
 			["2HSword"] = {
-				["max"] = 103.5,
+				["max"] = 193,
 				["min"] = 32,
 			},
 			["2HWeapon"] = {
@@ -24139,18 +25027,6 @@ return {
 			["Staff"] = {
 				["max"] = 193,
 				["min"] = 3,
-			},
-			["Two Handed Axe"] = {
-				["max"] = 193,
-				["min"] = 72,
-			},
-			["Two Handed Mace"] = {
-				["max"] = 193,
-				["min"] = 72,
-			},
-			["Two Handed Sword"] = {
-				["max"] = 193,
-				["min"] = 72,
 			},
 			["sign"] = "",
 			["specialCaseData"] = {
@@ -24190,6 +25066,14 @@ return {
 			},
 		},
 		["1432_TwoHandFireDamageWeaponPrefixAndFlat"] = {
+			["2HWeapon"] = {
+				["max"] = 37.5,
+				["min"] = 30.5,
+			},
+			["Staff"] = {
+				["max"] = 37.5,
+				["min"] = 30.5,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -24200,6 +25084,22 @@ return {
 			},
 		},
 		["1433_ColdDamageWeaponPrefixAndFlat"] = {
+			["1HWeapon"] = {
+				["max"] = 22.5,
+				["min"] = 18.5,
+			},
+			["Sceptre"] = {
+				["max"] = 22.5,
+				["min"] = 18.5,
+			},
+			["Shield"] = {
+				["max"] = 22.5,
+				["min"] = 18.5,
+			},
+			["Wand"] = {
+				["max"] = 22.5,
+				["min"] = 18.5,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -24211,15 +25111,15 @@ return {
 		},
 		["1433_SpellAddedColdDamage"] = {
 			["1HAxe"] = {
-				["max"] = 50,
+				["max"] = 93.5,
 				["min"] = 16,
 			},
 			["1HMace"] = {
-				["max"] = 50,
+				["max"] = 93.5,
 				["min"] = 16,
 			},
 			["1HSword"] = {
-				["max"] = 50,
+				["max"] = 93.5,
 				["min"] = 16,
 			},
 			["1HWeapon"] = {
@@ -24234,25 +25134,9 @@ return {
 				["max"] = 93.5,
 				["min"] = 1.5,
 			},
-			["One Handed Axe"] = {
-				["max"] = 93.5,
-				["min"] = 18.5,
-			},
-			["One Handed Mace"] = {
-				["max"] = 93.5,
-				["min"] = 18.5,
-			},
-			["One Handed Sword"] = {
-				["max"] = 93.5,
-				["min"] = 18.5,
-			},
 			["Sceptre"] = {
 				["max"] = 93.5,
 				["min"] = 1.5,
-			},
-			["Thrusting One Handed Sword"] = {
-				["max"] = 93.5,
-				["min"] = 18.5,
 			},
 			["Wand"] = {
 				["max"] = 93.5,
@@ -24268,6 +25152,26 @@ return {
 			},
 		},
 		["1433_SpellAddedColdDamageHybrid"] = {
+			["1HWeapon"] = {
+				["max"] = 27.5,
+				["min"] = 22.5,
+			},
+			["2HWeapon"] = {
+				["max"] = 49.5,
+				["min"] = 40.5,
+			},
+			["Dagger"] = {
+				["max"] = 27.5,
+				["min"] = 22.5,
+			},
+			["Sceptre"] = {
+				["max"] = 27.5,
+				["min"] = 22.5,
+			},
+			["Staff"] = {
+				["max"] = 49.5,
+				["min"] = 40.5,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -24313,15 +25217,15 @@ return {
 		},
 		["1433_SpellAddedColdDamageTwoHand"] = {
 			["2HAxe"] = {
-				["max"] = 95,
+				["max"] = 176,
 				["min"] = 28.5,
 			},
 			["2HMace"] = {
-				["max"] = 95,
+				["max"] = 176,
 				["min"] = 28.5,
 			},
 			["2HSword"] = {
-				["max"] = 95,
+				["max"] = 176,
 				["min"] = 28.5,
 			},
 			["2HWeapon"] = {
@@ -24335,18 +25239,6 @@ return {
 			["Staff"] = {
 				["max"] = 176,
 				["min"] = 2.5,
-			},
-			["Two Handed Axe"] = {
-				["max"] = 176,
-				["min"] = 34.5,
-			},
-			["Two Handed Mace"] = {
-				["max"] = 176,
-				["min"] = 34.5,
-			},
-			["Two Handed Sword"] = {
-				["max"] = 176,
-				["min"] = 34.5,
 			},
 			["sign"] = "",
 			["specialCaseData"] = {
@@ -24386,6 +25278,14 @@ return {
 			},
 		},
 		["1433_TwoHandColdDamageWeaponPrefixAndFlat"] = {
+			["2HWeapon"] = {
+				["max"] = 34.5,
+				["min"] = 28,
+			},
+			["Staff"] = {
+				["max"] = 34.5,
+				["min"] = 28,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -24396,6 +25296,22 @@ return {
 			},
 		},
 		["1434_LightningDamageWeaponPrefixAndFlat"] = {
+			["1HWeapon"] = {
+				["max"] = 30,
+				["min"] = 27,
+			},
+			["Sceptre"] = {
+				["max"] = 30,
+				["min"] = 27,
+			},
+			["Shield"] = {
+				["max"] = 30,
+				["min"] = 27,
+			},
+			["Wand"] = {
+				["max"] = 30,
+				["min"] = 27,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -24407,16 +25323,16 @@ return {
 		},
 		["1434_SpellAddedLightningDamage"] = {
 			["1HAxe"] = {
-				["max"] = 66.5,
-				["min"] = 22,
+				["max"] = 122.5,
+				["min"] = 11.5,
 			},
 			["1HMace"] = {
-				["max"] = 66.5,
-				["min"] = 22,
+				["max"] = 122.5,
+				["min"] = 11.5,
 			},
 			["1HSword"] = {
-				["max"] = 66.5,
-				["min"] = 22,
+				["max"] = 122.5,
+				["min"] = 11.5,
 			},
 			["1HWeapon"] = {
 				["max"] = 122.5,
@@ -24430,25 +25346,9 @@ return {
 				["max"] = 122.5,
 				["min"] = 2.5,
 			},
-			["One Handed Axe"] = {
-				["max"] = 122.5,
-				["min"] = 11.5,
-			},
-			["One Handed Mace"] = {
-				["max"] = 122.5,
-				["min"] = 11.5,
-			},
-			["One Handed Sword"] = {
-				["max"] = 122.5,
-				["min"] = 11.5,
-			},
 			["Sceptre"] = {
 				["max"] = 122.5,
 				["min"] = 2.5,
-			},
-			["Thrusting One Handed Sword"] = {
-				["max"] = 122.5,
-				["min"] = 11.5,
 			},
 			["Wand"] = {
 				["max"] = 122.5,
@@ -24464,6 +25364,26 @@ return {
 			},
 		},
 		["1434_SpellAddedLightningDamageHybrid"] = {
+			["1HWeapon"] = {
+				["max"] = 35.5,
+				["min"] = 32,
+			},
+			["2HWeapon"] = {
+				["max"] = 64.5,
+				["min"] = 58.5,
+			},
+			["Dagger"] = {
+				["max"] = 35.5,
+				["min"] = 32,
+			},
+			["Sceptre"] = {
+				["max"] = 35.5,
+				["min"] = 32,
+			},
+			["Staff"] = {
+				["max"] = 64.5,
+				["min"] = 58.5,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -24509,16 +25429,16 @@ return {
 		},
 		["1434_SpellAddedLightningDamageTwoHand"] = {
 			["2HAxe"] = {
-				["max"] = 124,
-				["min"] = 41,
+				["max"] = 230,
+				["min"] = 22,
 			},
 			["2HMace"] = {
-				["max"] = 124,
-				["min"] = 41,
+				["max"] = 230,
+				["min"] = 22,
 			},
 			["2HSword"] = {
-				["max"] = 124,
-				["min"] = 41,
+				["max"] = 230,
+				["min"] = 22,
 			},
 			["2HWeapon"] = {
 				["max"] = 230,
@@ -24531,18 +25451,6 @@ return {
 			["Staff"] = {
 				["max"] = 230,
 				["min"] = 4.5,
-			},
-			["Two Handed Axe"] = {
-				["max"] = 230,
-				["min"] = 22,
-			},
-			["Two Handed Mace"] = {
-				["max"] = 230,
-				["min"] = 22,
-			},
-			["Two Handed Sword"] = {
-				["max"] = 230,
-				["min"] = 22,
 			},
 			["sign"] = "",
 			["specialCaseData"] = {
@@ -24582,6 +25490,14 @@ return {
 			},
 		},
 		["1434_TwoHandLightningDamageWeaponPrefixAndFlat"] = {
+			["2HWeapon"] = {
+				["max"] = 45,
+				["min"] = 40.5,
+			},
+			["Staff"] = {
+				["max"] = 45,
+				["min"] = 40.5,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -24592,6 +25508,30 @@ return {
 			},
 		},
 		["1435_IncreasedCastSpeedAddedChaos"] = {
+			["1HWeapon"] = {
+				["max"] = 32,
+				["min"] = 26.5,
+			},
+			["2HWeapon"] = {
+				["max"] = 44.5,
+				["min"] = 36.5,
+			},
+			["Dagger"] = {
+				["max"] = 32,
+				["min"] = 26.5,
+			},
+			["Sceptre"] = {
+				["max"] = 32,
+				["min"] = 26.5,
+			},
+			["Staff"] = {
+				["max"] = 44.5,
+				["min"] = 36.5,
+			},
+			["Wand"] = {
+				["max"] = 32,
+				["min"] = 26.5,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -24602,6 +25542,14 @@ return {
 			},
 		},
 		["1435_PoisonDamageAddedChaosToSpells"] = {
+			["1HWeapon"] = {
+				["max"] = 32,
+				["min"] = 26.5,
+			},
+			["Dagger"] = {
+				["max"] = 32,
+				["min"] = 26.5,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -24650,6 +25598,26 @@ return {
 			},
 		},
 		["1435_SpellAddedChaosDamageHybrid"] = {
+			["1HWeapon"] = {
+				["max"] = 26,
+				["min"] = 21.5,
+			},
+			["2HWeapon"] = {
+				["max"] = 41.5,
+				["min"] = 34,
+			},
+			["Dagger"] = {
+				["max"] = 26,
+				["min"] = 21.5,
+			},
+			["Sceptre"] = {
+				["max"] = 26,
+				["min"] = 21.5,
+			},
+			["Staff"] = {
+				["max"] = 41.5,
+				["min"] = 34,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -24964,35 +25932,35 @@ return {
 		},
 		["1441_LocalIncreasedAttackSpeed"] = {
 			["1HAxe"] = {
-				["max"] = 27,
+				["max"] = 30,
 				["min"] = 5,
 			},
 			["1HMace"] = {
-				["max"] = 27,
+				["max"] = 30,
 				["min"] = 5,
 			},
 			["1HSword"] = {
-				["max"] = 27,
+				["max"] = 30,
 				["min"] = 5,
 			},
 			["1HWeapon"] = {
-				["max"] = 27,
+				["max"] = 30,
 				["min"] = 5,
 			},
 			["2HAxe"] = {
-				["max"] = 27,
+				["max"] = 30,
 				["min"] = 5,
 			},
 			["2HMace"] = {
-				["max"] = 27,
+				["max"] = 30,
 				["min"] = 5,
 			},
 			["2HSword"] = {
-				["max"] = 27,
+				["max"] = 30,
 				["min"] = 5,
 			},
 			["2HWeapon"] = {
-				["max"] = 27,
+				["max"] = 30,
 				["min"] = 5,
 			},
 			["Bow"] = {
@@ -25007,18 +25975,6 @@ return {
 				["max"] = 30,
 				["min"] = 5,
 			},
-			["One Handed Axe"] = {
-				["max"] = 30,
-				["min"] = 20,
-			},
-			["One Handed Mace"] = {
-				["max"] = 30,
-				["min"] = 20,
-			},
-			["One Handed Sword"] = {
-				["max"] = 30,
-				["min"] = 20,
-			},
 			["Sceptre"] = {
 				["max"] = 30,
 				["min"] = 5,
@@ -25026,22 +25982,6 @@ return {
 			["Staff"] = {
 				["max"] = 30,
 				["min"] = 5,
-			},
-			["Thrusting One Handed Sword"] = {
-				["max"] = 30,
-				["min"] = 20,
-			},
-			["Two Handed Axe"] = {
-				["max"] = 30,
-				["min"] = 20,
-			},
-			["Two Handed Mace"] = {
-				["max"] = 30,
-				["min"] = 20,
-			},
-			["Two Handed Sword"] = {
-				["max"] = 30,
-				["min"] = 20,
 			},
 			["Wand"] = {
 				["max"] = 19,
@@ -25058,6 +25998,58 @@ return {
 			},
 		},
 		["1441_LocalIncreasedAttackSpeedAddedChaos"] = {
+			["1HAxe"] = {
+				["max"] = 27,
+				["min"] = 26,
+			},
+			["1HMace"] = {
+				["max"] = 27,
+				["min"] = 26,
+			},
+			["1HSword"] = {
+				["max"] = 27,
+				["min"] = 26,
+			},
+			["1HWeapon"] = {
+				["max"] = 27,
+				["min"] = 14,
+			},
+			["2HAxe"] = {
+				["max"] = 27,
+				["min"] = 26,
+			},
+			["2HMace"] = {
+				["max"] = 27,
+				["min"] = 26,
+			},
+			["2HSword"] = {
+				["max"] = 27,
+				["min"] = 26,
+			},
+			["2HWeapon"] = {
+				["max"] = 27,
+				["min"] = 14,
+			},
+			["Bow"] = {
+				["max"] = 16,
+				["min"] = 14,
+			},
+			["Claw"] = {
+				["max"] = 27,
+				["min"] = 26,
+			},
+			["Dagger"] = {
+				["max"] = 27,
+				["min"] = 26,
+			},
+			["Sceptre"] = {
+				["max"] = 27,
+				["min"] = 26,
+			},
+			["Wand"] = {
+				["max"] = 16,
+				["min"] = 14,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 				["overrideModLine"] = "#% increased Attack Speed",
@@ -25702,15 +26694,15 @@ return {
 		},
 		["1474_IncreasedCastSpeed"] = {
 			["1HAxe"] = {
-				["max"] = 21,
+				["max"] = 32,
 				["min"] = 10,
 			},
 			["1HMace"] = {
-				["max"] = 21,
+				["max"] = 32,
 				["min"] = 10,
 			},
 			["1HSword"] = {
-				["max"] = 21,
+				["max"] = 32,
 				["min"] = 10,
 			},
 			["1HWeapon"] = {
@@ -25718,15 +26710,15 @@ return {
 				["min"] = 5,
 			},
 			["2HAxe"] = {
-				["max"] = 32,
+				["max"] = 49,
 				["min"] = 15,
 			},
 			["2HMace"] = {
-				["max"] = 32,
+				["max"] = 49,
 				["min"] = 15,
 			},
 			["2HSword"] = {
-				["max"] = 32,
+				["max"] = 49,
 				["min"] = 15,
 			},
 			["2HWeapon"] = {
@@ -25749,18 +26741,6 @@ return {
 				["max"] = 32,
 				["min"] = 5,
 			},
-			["One Handed Axe"] = {
-				["max"] = 32,
-				["min"] = 21,
-			},
-			["One Handed Mace"] = {
-				["max"] = 32,
-				["min"] = 21,
-			},
-			["One Handed Sword"] = {
-				["max"] = 32,
-				["min"] = 21,
-			},
 			["Ring"] = {
 				["max"] = 16,
 				["min"] = 5,
@@ -25777,22 +26757,6 @@ return {
 				["max"] = 49,
 				["min"] = 8,
 			},
-			["Thrusting One Handed Sword"] = {
-				["max"] = 32,
-				["min"] = 21,
-			},
-			["Two Handed Axe"] = {
-				["max"] = 49,
-				["min"] = 32,
-			},
-			["Two Handed Mace"] = {
-				["max"] = 49,
-				["min"] = 32,
-			},
-			["Two Handed Sword"] = {
-				["max"] = 49,
-				["min"] = 32,
-			},
 			["Wand"] = {
 				["max"] = 32,
 				["min"] = 5,
@@ -25807,6 +26771,30 @@ return {
 			},
 		},
 		["1474_IncreasedCastSpeedAddedChaos"] = {
+			["1HWeapon"] = {
+				["max"] = 32,
+				["min"] = 29,
+			},
+			["2HWeapon"] = {
+				["max"] = 49,
+				["min"] = 44,
+			},
+			["Dagger"] = {
+				["max"] = 32,
+				["min"] = 29,
+			},
+			["Sceptre"] = {
+				["max"] = 32,
+				["min"] = 29,
+			},
+			["Staff"] = {
+				["max"] = 49,
+				["min"] = 44,
+			},
+			["Wand"] = {
+				["max"] = 32,
+				["min"] = 29,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -26072,35 +27060,35 @@ return {
 		},
 		["1485_SpellCriticalStrikeChance"] = {
 			["1HAxe"] = {
-				["max"] = 69,
+				["max"] = 119,
 				["min"] = 50,
 			},
 			["1HMace"] = {
-				["max"] = 69,
+				["max"] = 119,
 				["min"] = 50,
 			},
 			["1HSword"] = {
-				["max"] = 69,
+				["max"] = 119,
 				["min"] = 50,
 			},
 			["1HWeapon"] = {
-				["max"] = 109,
+				["max"] = 119,
 				["min"] = 40,
 			},
 			["2HAxe"] = {
-				["max"] = 120,
+				["max"] = 179,
 				["min"] = 70,
 			},
 			["2HMace"] = {
-				["max"] = 120,
+				["max"] = 179,
 				["min"] = 70,
 			},
 			["2HSword"] = {
-				["max"] = 120,
+				["max"] = 179,
 				["min"] = 70,
 			},
 			["2HWeapon"] = {
-				["max"] = 164,
+				["max"] = 179,
 				["min"] = 60,
 			},
 			["Bow"] = {
@@ -26115,18 +27103,6 @@ return {
 				["max"] = 119,
 				["min"] = 40,
 			},
-			["One Handed Axe"] = {
-				["max"] = 119,
-				["min"] = 80,
-			},
-			["One Handed Mace"] = {
-				["max"] = 119,
-				["min"] = 80,
-			},
-			["One Handed Sword"] = {
-				["max"] = 119,
-				["min"] = 80,
-			},
 			["Sceptre"] = {
 				["max"] = 119,
 				["min"] = 40,
@@ -26138,22 +27114,6 @@ return {
 			["Staff"] = {
 				["max"] = 179,
 				["min"] = 60,
-			},
-			["Thrusting One Handed Sword"] = {
-				["max"] = 119,
-				["min"] = 80,
-			},
-			["Two Handed Axe"] = {
-				["max"] = 179,
-				["min"] = 80,
-			},
-			["Two Handed Mace"] = {
-				["max"] = 179,
-				["min"] = 80,
-			},
-			["Two Handed Sword"] = {
-				["max"] = 179,
-				["min"] = 80,
 			},
 			["Wand"] = {
 				["max"] = 119,
@@ -26479,18 +27439,6 @@ return {
 				["max"] = 38,
 				["min"] = 10,
 			},
-			["One Handed Axe"] = {
-				["max"] = 38,
-				["min"] = 20,
-			},
-			["One Handed Mace"] = {
-				["max"] = 38,
-				["min"] = 20,
-			},
-			["One Handed Sword"] = {
-				["max"] = 38,
-				["min"] = 20,
-			},
 			["Sceptre"] = {
 				["max"] = 38,
 				["min"] = 10,
@@ -26498,22 +27446,6 @@ return {
 			["Staff"] = {
 				["max"] = 38,
 				["min"] = 10,
-			},
-			["Thrusting One Handed Sword"] = {
-				["max"] = 38,
-				["min"] = 20,
-			},
-			["Two Handed Axe"] = {
-				["max"] = 38,
-				["min"] = 20,
-			},
-			["Two Handed Mace"] = {
-				["max"] = 38,
-				["min"] = 20,
-			},
-			["Two Handed Sword"] = {
-				["max"] = 38,
-				["min"] = 20,
 			},
 			["Wand"] = {
 				["max"] = 38,
@@ -27231,7 +28163,7 @@ return {
 			},
 		},
 		["1541_ReducedDamageFromCriticalStrikesPerEnduranceCharge"] = {
-			["Body Armour"] = {
+			["Chest"] = {
 				["max"] = 10,
 				["min"] = 10,
 			},
@@ -27616,10 +28548,6 @@ return {
 			},
 		},
 		["1566_LocalPhysicalDamageReductionRating"] = {
-			["Body Armour"] = {
-				["max"] = 475,
-				["min"] = 151,
-			},
 			["Boots"] = {
 				["max"] = 150,
 				["min"] = 6,
@@ -27999,10 +28927,6 @@ return {
 			},
 		},
 		["1574_LocalEvasionRating"] = {
-			["Body Armour"] = {
-				["max"] = 475,
-				["min"] = 64,
-			},
 			["Boots"] = {
 				["max"] = 150,
 				["min"] = 6,
@@ -28648,6 +29572,18 @@ return {
 			},
 		},
 		["1584_EnergyShieldAndPercent"] = {
+			["Amulet"] = {
+				["max"] = 47,
+				["min"] = 44,
+			},
+			["Belt"] = {
+				["max"] = 47,
+				["min"] = 44,
+			},
+			["Ring"] = {
+				["max"] = 47,
+				["min"] = 44,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -28658,6 +29594,18 @@ return {
 			},
 		},
 		["1584_EnergyShieldAndRegen"] = {
+			["Amulet"] = {
+				["max"] = 47,
+				["min"] = 44,
+			},
+			["Belt"] = {
+				["max"] = 47,
+				["min"] = 44,
+			},
+			["Ring"] = {
+				["max"] = 47,
+				["min"] = 44,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -28842,10 +29790,6 @@ return {
 			},
 		},
 		["1585_LocalEnergyShield"] = {
-			["Body Armour"] = {
-				["max"] = 95,
-				["min"] = 3,
-			},
 			["Boots"] = {
 				["max"] = 49,
 				["min"] = 3,
@@ -29005,6 +29949,18 @@ return {
 			},
 		},
 		["1587_EnergyShieldAndPercent"] = {
+			["Amulet"] = {
+				["max"] = 3,
+				["min"] = 3,
+			},
+			["Belt"] = {
+				["max"] = 3,
+				["min"] = 3,
+			},
+			["Ring"] = {
+				["max"] = 3,
+				["min"] = 3,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -29293,10 +30249,6 @@ return {
 				["max"] = 144,
 				["min"] = 3,
 			},
-			["Body Armour"] = {
-				["max"] = 174,
-				["min"] = 10,
-			},
 			["Boots"] = {
 				["max"] = 129,
 				["min"] = 3,
@@ -29343,6 +30295,22 @@ return {
 			},
 		},
 		["1595_IncreasedLifeAndPercent"] = {
+			["Amulet"] = {
+				["max"] = 79,
+				["min"] = 70,
+			},
+			["Belt"] = {
+				["max"] = 79,
+				["min"] = 70,
+			},
+			["Chest"] = {
+				["max"] = 119,
+				["min"] = 110,
+			},
+			["Ring"] = {
+				["max"] = 79,
+				["min"] = 70,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -29735,6 +30703,22 @@ return {
 			},
 		},
 		["1597_IncreasedLifeAndPercent"] = {
+			["Amulet"] = {
+				["max"] = 2,
+				["min"] = 2,
+			},
+			["Belt"] = {
+				["max"] = 2,
+				["min"] = 2,
+			},
+			["Chest"] = {
+				["max"] = 10,
+				["min"] = 8,
+			},
+			["Ring"] = {
+				["max"] = 2,
+				["min"] = 2,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -29955,6 +30939,18 @@ return {
 			},
 		},
 		["1600_LifeRegenerationAndPercent"] = {
+			["Amulet"] = {
+				["max"] = 40,
+				["min"] = 32,
+			},
+			["Belt"] = {
+				["max"] = 40,
+				["min"] = 32,
+			},
+			["Ring"] = {
+				["max"] = 40,
+				["min"] = 32,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -30161,10 +31157,6 @@ return {
 				["max"] = 68,
 				["min"] = 15,
 			},
-			["Body Armour"] = {
-				["max"] = 77,
-				["min"] = 55,
-			},
 			["Boots"] = {
 				["max"] = 77,
 				["min"] = 15,
@@ -30174,7 +31166,7 @@ return {
 				["min"] = 35,
 			},
 			["Chest"] = {
-				["max"] = 73,
+				["max"] = 77,
 				["min"] = 15,
 			},
 			["Claw"] = {
@@ -30247,6 +31239,10 @@ return {
 			},
 		},
 		["1606_IncreasedManaAndCostNew"] = {
+			["Ring"] = {
+				["max"] = 78,
+				["min"] = 74,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -30257,6 +31253,14 @@ return {
 			},
 		},
 		["1606_IncreasedManaAndDegenGracePeriod"] = {
+			["Amulet"] = {
+				["max"] = 78,
+				["min"] = 74,
+			},
+			["Ring"] = {
+				["max"] = 78,
+				["min"] = 74,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -30267,6 +31271,10 @@ return {
 			},
 		},
 		["1606_IncreasedManaAndOnHit"] = {
+			["Ring"] = {
+				["max"] = 78,
+				["min"] = 74,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -30277,6 +31285,22 @@ return {
 			},
 		},
 		["1606_IncreasedManaAndPercent"] = {
+			["Amulet"] = {
+				["max"] = 73,
+				["min"] = 69,
+			},
+			["Boots"] = {
+				["max"] = 73,
+				["min"] = 69,
+			},
+			["Gloves"] = {
+				["max"] = 73,
+				["min"] = 69,
+			},
+			["Helmet"] = {
+				["max"] = 73,
+				["min"] = 69,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -30288,11 +31312,11 @@ return {
 		},
 		["1606_IncreasedManaAndRegen"] = {
 			["Amulet"] = {
-				["max"] = 55,
+				["max"] = 78,
 				["min"] = 26,
 			},
 			["Ring"] = {
-				["max"] = 55,
+				["max"] = 78,
 				["min"] = 26,
 			},
 			["sign"] = "",
@@ -30305,6 +31329,10 @@ return {
 			},
 		},
 		["1606_IncreasedManaAndReservation"] = {
+			["Helmet"] = {
+				["max"] = 73,
+				["min"] = 69,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -30483,6 +31511,22 @@ return {
 			},
 		},
 		["1607_IncreasedManaAndPercent"] = {
+			["Amulet"] = {
+				["max"] = 10,
+				["min"] = 7,
+			},
+			["Boots"] = {
+				["max"] = 10,
+				["min"] = 7,
+			},
+			["Gloves"] = {
+				["max"] = 10,
+				["min"] = 7,
+			},
+			["Helmet"] = {
+				["max"] = 10,
+				["min"] = 7,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -30496,6 +31540,10 @@ return {
 			["AbyssJewel"] = {
 				["max"] = 30,
 				["min"] = 20,
+			},
+			["Amulet"] = {
+				["max"] = 15,
+				["min"] = 10,
 			},
 			["Chest"] = {
 				["max"] = 18,
@@ -30635,8 +31683,16 @@ return {
 				["max"] = 4,
 				["min"] = 1.1,
 			},
+			["Amulet"] = {
+				["max"] = 5,
+				["min"] = 3,
+			},
 			["Helmet"] = {
 				["max"] = 8,
+				["min"] = 3,
+			},
+			["Ring"] = {
+				["max"] = 5,
 				["min"] = 3,
 			},
 			["sign"] = "",
@@ -30702,11 +31758,11 @@ return {
 		},
 		["1609_IncreasedManaAndRegen"] = {
 			["Amulet"] = {
-				["max"] = 5.3,
+				["max"] = 7,
 				["min"] = 2,
 			},
 			["Ring"] = {
-				["max"] = 5.3,
+				["max"] = 7,
 				["min"] = 2,
 			},
 			["sign"] = "",
@@ -30743,6 +31799,14 @@ return {
 			},
 		},
 		["1610_IncreasedManaAndDegenGracePeriod"] = {
+			["Amulet"] = {
+				["max"] = 7,
+				["min"] = 5,
+			},
+			["Ring"] = {
+				["max"] = 7,
+				["min"] = 5,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -31599,10 +32663,6 @@ return {
 				["max"] = 48,
 				["min"] = 6,
 			},
-			["Body Armour"] = {
-				["max"] = 48,
-				["min"] = 12,
-			},
 			["Boots"] = {
 				["max"] = 48,
 				["min"] = 6,
@@ -31641,6 +32701,10 @@ return {
 			},
 		},
 		["1652_FireResistanceAilments"] = {
+			["Gloves"] = {
+				["max"] = 48,
+				["min"] = 46,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -31651,6 +32715,10 @@ return {
 			},
 		},
 		["1652_FireResistanceEnemyLeech"] = {
+			["Amulet"] = {
+				["max"] = 48,
+				["min"] = 46,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -31683,6 +32751,10 @@ return {
 			},
 		},
 		["1652_FireResistanceLeech"] = {
+			["Amulet"] = {
+				["max"] = 48,
+				["min"] = 46,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -31693,6 +32765,10 @@ return {
 			},
 		},
 		["1652_FireResistancePhysTakenAsFire"] = {
+			["Helmet"] = {
+				["max"] = 48,
+				["min"] = 46,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -31775,10 +32851,6 @@ return {
 				["max"] = 48,
 				["min"] = 6,
 			},
-			["Body Armour"] = {
-				["max"] = 48,
-				["min"] = 6,
-			},
 			["Boots"] = {
 				["max"] = 48,
 				["min"] = 6,
@@ -31817,6 +32889,10 @@ return {
 			},
 		},
 		["1658_ColdResistanceAilments"] = {
+			["Gloves"] = {
+				["max"] = 48,
+				["min"] = 46,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -31827,6 +32903,10 @@ return {
 			},
 		},
 		["1658_ColdResistanceEnemyLeech"] = {
+			["Amulet"] = {
+				["max"] = 48,
+				["min"] = 46,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -31859,6 +32939,10 @@ return {
 			},
 		},
 		["1658_ColdResistanceLeech"] = {
+			["Amulet"] = {
+				["max"] = 48,
+				["min"] = 46,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -31869,6 +32953,10 @@ return {
 			},
 		},
 		["1658_ColdResistancePhysTakenAsCold"] = {
+			["Helmet"] = {
+				["max"] = 48,
+				["min"] = 46,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -31951,10 +33039,6 @@ return {
 				["max"] = 48,
 				["min"] = 6,
 			},
-			["Body Armour"] = {
-				["max"] = 48,
-				["min"] = 18,
-			},
 			["Boots"] = {
 				["max"] = 48,
 				["min"] = 6,
@@ -31993,6 +33077,10 @@ return {
 			},
 		},
 		["1663_LightningResistanceAilments"] = {
+			["Gloves"] = {
+				["max"] = 48,
+				["min"] = 46,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -32003,6 +33091,10 @@ return {
 			},
 		},
 		["1663_LightningResistanceEnemyLeech"] = {
+			["Amulet"] = {
+				["max"] = 48,
+				["min"] = 46,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -32035,6 +33127,10 @@ return {
 			},
 		},
 		["1663_LightningResistanceLeech"] = {
+			["Amulet"] = {
+				["max"] = 48,
+				["min"] = 46,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -32045,6 +33141,10 @@ return {
 			},
 		},
 		["1663_LightningResistancePhysTakenAsLightning"] = {
+			["Helmet"] = {
+				["max"] = 48,
+				["min"] = 46,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -32101,10 +33201,6 @@ return {
 				["max"] = 35,
 				["min"] = 5,
 			},
-			["Body Armour"] = {
-				["max"] = 35,
-				["min"] = 21,
-			},
 			["Boots"] = {
 				["max"] = 35,
 				["min"] = 5,
@@ -32143,6 +33239,14 @@ return {
 			},
 		},
 		["1668_ChaosResistanceDamageOverTime"] = {
+			["Chest"] = {
+				["max"] = 35,
+				["min"] = 31,
+			},
+			["Shield"] = {
+				["max"] = 35,
+				["min"] = 31,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -32463,40 +33567,12 @@ return {
 				["max"] = 4.5,
 				["min"] = 2,
 			},
-			["One Handed Axe"] = {
-				["max"] = 4.4,
-				["min"] = 2,
-			},
-			["One Handed Mace"] = {
-				["max"] = 4.4,
-				["min"] = 2,
-			},
-			["One Handed Sword"] = {
-				["max"] = 4.4,
-				["min"] = 2,
-			},
 			["Sceptre"] = {
 				["max"] = 4.5,
 				["min"] = 2,
 			},
 			["Staff"] = {
 				["max"] = 4.5,
-				["min"] = 2,
-			},
-			["Thrusting One Handed Sword"] = {
-				["max"] = 4.4,
-				["min"] = 2,
-			},
-			["Two Handed Axe"] = {
-				["max"] = 4.4,
-				["min"] = 2,
-			},
-			["Two Handed Mace"] = {
-				["max"] = 4.4,
-				["min"] = 2,
-			},
-			["Two Handed Sword"] = {
-				["max"] = 4.4,
 				["min"] = 2,
 			},
 			["Wand"] = {
@@ -32786,7 +33862,7 @@ return {
 				["min"] = 0.3,
 			},
 			["Ring"] = {
-				["max"] = 0.2,
+				["max"] = 0.4,
 				["min"] = 0.2,
 			},
 			["sign"] = "",
@@ -32799,6 +33875,10 @@ return {
 			},
 		},
 		["1697_FireResistanceLeech"] = {
+			["Amulet"] = {
+				["max"] = 0.4,
+				["min"] = 0.4,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -32819,6 +33899,10 @@ return {
 			},
 		},
 		["1698_FireResistanceEnemyLeech"] = {
+			["Amulet"] = {
+				["max"] = 0.4,
+				["min"] = 0.4,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -32838,7 +33922,7 @@ return {
 				["min"] = 0.3,
 			},
 			["Ring"] = {
-				["max"] = 0.2,
+				["max"] = 0.4,
 				["min"] = 0.2,
 			},
 			["sign"] = "",
@@ -32851,6 +33935,10 @@ return {
 			},
 		},
 		["1702_ColdResistanceLeech"] = {
+			["Amulet"] = {
+				["max"] = 0.4,
+				["min"] = 0.4,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -32861,6 +33949,10 @@ return {
 			},
 		},
 		["1703_ColdResistanceEnemyLeech"] = {
+			["Amulet"] = {
+				["max"] = 0.4,
+				["min"] = 0.4,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -32890,7 +33982,7 @@ return {
 				["min"] = 0.3,
 			},
 			["Ring"] = {
-				["max"] = 0.2,
+				["max"] = 0.4,
 				["min"] = 0.2,
 			},
 			["sign"] = "",
@@ -32903,6 +33995,10 @@ return {
 			},
 		},
 		["1706_LightningResistanceLeech"] = {
+			["Amulet"] = {
+				["max"] = 0.4,
+				["min"] = 0.4,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -32923,6 +34019,10 @@ return {
 			},
 		},
 		["1707_LightningResistanceEnemyLeech"] = {
+			["Amulet"] = {
+				["max"] = 0.4,
+				["min"] = 0.4,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -32942,7 +34042,7 @@ return {
 				["min"] = 0.3,
 			},
 			["Ring"] = {
-				["max"] = 0.2,
+				["max"] = 0.4,
 				["min"] = 0.2,
 			},
 			["sign"] = "",
@@ -33400,6 +34500,10 @@ return {
 			},
 		},
 		["1771_IncreasedManaAndOnHit"] = {
+			["Ring"] = {
+				["max"] = 3,
+				["min"] = 2,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -33894,17 +34998,13 @@ return {
 				["max"] = 30,
 				["min"] = 13,
 			},
-			["Body Armour"] = {
-				["max"] = 30,
-				["min"] = 13,
-			},
 			["Boots"] = {
 				["max"] = 30,
 				["min"] = 13,
 			},
 			["Chest"] = {
 				["max"] = 30,
-				["min"] = 20,
+				["min"] = 13,
 			},
 			["Helmet"] = {
 				["max"] = 35,
@@ -34280,7 +35380,7 @@ return {
 		},
 		["1823_ProjectileSpeed"] = {
 			["1HWeapon"] = {
-				["max"] = 46,
+				["max"] = 52,
 				["min"] = 10,
 			},
 			["2HWeapon"] = {
@@ -34429,6 +35529,10 @@ return {
 			},
 		},
 		["1825_MovementVelocityDodge"] = {
+			["Boots"] = {
+				["max"] = 30,
+				["min"] = 30,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -34439,6 +35543,10 @@ return {
 			},
 		},
 		["1825_MovementVelocitySpeed"] = {
+			["Boots"] = {
+				["max"] = 30,
+				["min"] = 30,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -34449,6 +35557,10 @@ return {
 			},
 		},
 		["1825_MovementVelocitySpellDodge"] = {
+			["Boots"] = {
+				["max"] = 30,
+				["min"] = 30,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -35248,6 +36360,10 @@ return {
 			},
 		},
 		["1876_MovementVelocitySpellDodge"] = {
+			["Boots"] = {
+				["max"] = 15,
+				["min"] = 10,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -35728,6 +36844,10 @@ return {
 			},
 		},
 		["189_LocalIncreaseSocketedMinionGemLevel"] = {
+			["Boots"] = {
+				["max"] = 2,
+				["min"] = 2,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -35946,13 +37066,13 @@ return {
 				["max"] = 15,
 				["min"] = 7,
 			},
-			["Body Armour"] = {
-				["max"] = 25,
-				["min"] = 25,
-			},
 			["Bow"] = {
 				["max"] = 20,
 				["min"] = 5,
+			},
+			["Chest"] = {
+				["max"] = 25,
+				["min"] = 25,
 			},
 			["Quiver"] = {
 				["max"] = 15,
@@ -36135,6 +37255,10 @@ return {
 		},
 		["190_LocalIncreaseSocketedAuraLevel"] = {
 			["Helmet"] = {
+				["max"] = 2,
+				["min"] = 2,
+			},
+			["Shield"] = {
 				["max"] = 2,
 				["min"] = 2,
 			},
@@ -36590,6 +37714,10 @@ return {
 			},
 		},
 		["193_IncreaseSocketedCurseGemLevel"] = {
+			["Helmet"] = {
+				["max"] = 2,
+				["min"] = 2,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -36600,6 +37728,30 @@ return {
 			},
 		},
 		["1950_TrapCooldownRecoveryAndDuration"] = {
+			["1HWeapon"] = {
+				["max"] = 20,
+				["min"] = 17,
+			},
+			["2HWeapon"] = {
+				["max"] = 30,
+				["min"] = 26,
+			},
+			["Dagger"] = {
+				["max"] = 20,
+				["min"] = 17,
+			},
+			["Sceptre"] = {
+				["max"] = 20,
+				["min"] = 17,
+			},
+			["Staff"] = {
+				["max"] = 30,
+				["min"] = 26,
+			},
+			["Wand"] = {
+				["max"] = 20,
+				["min"] = 17,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -36610,6 +37762,30 @@ return {
 			},
 		},
 		["1951_MineDetonationSpeedAndDuration"] = {
+			["1HWeapon"] = {
+				["max"] = 20,
+				["min"] = 17,
+			},
+			["2HWeapon"] = {
+				["max"] = 30,
+				["min"] = 26,
+			},
+			["Dagger"] = {
+				["max"] = 20,
+				["min"] = 17,
+			},
+			["Sceptre"] = {
+				["max"] = 20,
+				["min"] = 17,
+			},
+			["Staff"] = {
+				["max"] = 30,
+				["min"] = 26,
+			},
+			["Wand"] = {
+				["max"] = 20,
+				["min"] = 17,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -36683,7 +37859,7 @@ return {
 				["min"] = 9,
 			},
 			["1HWeapon"] = {
-				["max"] = 15,
+				["max"] = 22,
 				["min"] = 9,
 			},
 			["2HAxe"] = {
@@ -36699,7 +37875,7 @@ return {
 				["min"] = 17,
 			},
 			["2HWeapon"] = {
-				["max"] = 23,
+				["max"] = 33,
 				["min"] = 17,
 			},
 			["Bow"] = {
@@ -36711,19 +37887,19 @@ return {
 				["min"] = 9,
 			},
 			["Dagger"] = {
-				["max"] = 15,
+				["max"] = 22,
 				["min"] = 9,
 			},
 			["Sceptre"] = {
-				["max"] = 15,
+				["max"] = 22,
 				["min"] = 9,
 			},
 			["Staff"] = {
-				["max"] = 23,
+				["max"] = 33,
 				["min"] = 17,
 			},
 			["Wand"] = {
-				["max"] = 15,
+				["max"] = 22,
 				["min"] = 9,
 			},
 			["sign"] = "",
@@ -36785,7 +37961,7 @@ return {
 				["min"] = 9,
 			},
 			["1HWeapon"] = {
-				["max"] = 15,
+				["max"] = 22,
 				["min"] = 9,
 			},
 			["2HAxe"] = {
@@ -36801,7 +37977,7 @@ return {
 				["min"] = 17,
 			},
 			["2HWeapon"] = {
-				["max"] = 23,
+				["max"] = 33,
 				["min"] = 17,
 			},
 			["Bow"] = {
@@ -36813,19 +37989,19 @@ return {
 				["min"] = 9,
 			},
 			["Dagger"] = {
-				["max"] = 15,
+				["max"] = 22,
 				["min"] = 9,
 			},
 			["Sceptre"] = {
-				["max"] = 15,
+				["max"] = 22,
 				["min"] = 9,
 			},
 			["Staff"] = {
-				["max"] = 23,
+				["max"] = 33,
 				["min"] = 17,
 			},
 			["Wand"] = {
-				["max"] = 15,
+				["max"] = 22,
 				["min"] = 9,
 			},
 			["sign"] = "",
@@ -37112,6 +38288,62 @@ return {
 			},
 		},
 		["1962_LocalPhysicalDamagePercentAddedAsChaos"] = {
+			["1HAxe"] = {
+				["max"] = 5,
+				["min"] = 3,
+			},
+			["1HMace"] = {
+				["max"] = 5,
+				["min"] = 3,
+			},
+			["1HSword"] = {
+				["max"] = 5,
+				["min"] = 3,
+			},
+			["1HWeapon"] = {
+				["max"] = 5,
+				["min"] = 3,
+			},
+			["2HAxe"] = {
+				["max"] = 5,
+				["min"] = 3,
+			},
+			["2HMace"] = {
+				["max"] = 5,
+				["min"] = 3,
+			},
+			["2HSword"] = {
+				["max"] = 5,
+				["min"] = 3,
+			},
+			["2HWeapon"] = {
+				["max"] = 5,
+				["min"] = 3,
+			},
+			["Bow"] = {
+				["max"] = 5,
+				["min"] = 3,
+			},
+			["Claw"] = {
+				["max"] = 5,
+				["min"] = 3,
+			},
+			["Dagger"] = {
+				["max"] = 5,
+				["min"] = 3,
+			},
+			["Sceptre"] = {
+				["max"] = 5,
+				["min"] = 3,
+			},
+			["Staff"] = {
+				["max"] = 5,
+				["min"] = 3,
+			},
+			["Wand"] = {
+				["max"] = 5,
+				["min"] = 3,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -37466,6 +38698,14 @@ return {
 			},
 		},
 		["196_IncreasedSocketedTrapOrMineGemLevel"] = {
+			["2HWeapon"] = {
+				["max"] = 2,
+				["min"] = 2,
+			},
+			["Staff"] = {
+				["max"] = 2,
+				["min"] = 2,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -37486,6 +38726,18 @@ return {
 			},
 		},
 		["1971_LifeRegenerationAndPercent"] = {
+			["Amulet"] = {
+				["max"] = 0.4,
+				["min"] = 0.4,
+			},
+			["Belt"] = {
+				["max"] = 0.4,
+				["min"] = 0.4,
+			},
+			["Ring"] = {
+				["max"] = 0.4,
+				["min"] = 0.4,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -37546,7 +38798,7 @@ return {
 			},
 		},
 		["1975_ChaosDamageOverTimeTaken"] = {
-			["Body Armour"] = {
+			["Chest"] = {
 				["max"] = 25,
 				["min"] = 25,
 			},
@@ -37560,6 +38812,14 @@ return {
 			},
 		},
 		["1975_ChaosResistanceDamageOverTime"] = {
+			["Chest"] = {
+				["max"] = 7,
+				["min"] = 5,
+			},
+			["Shield"] = {
+				["max"] = 7,
+				["min"] = 5,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -37610,6 +38870,10 @@ return {
 				["max"] = 25,
 				["min"] = 18,
 			},
+			["Ring"] = {
+				["max"] = 10,
+				["min"] = 10,
+			},
 			["Sceptre"] = {
 				["max"] = 30,
 				["min"] = 23,
@@ -37646,6 +38910,10 @@ return {
 			},
 		},
 		["1982_FireDamagePhysConvertedToFire"] = {
+			["Gloves"] = {
+				["max"] = 25,
+				["min"] = 25,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -37656,6 +38924,10 @@ return {
 			},
 		},
 		["1984_ColdDamagePhysConvertedToCold"] = {
+			["Gloves"] = {
+				["max"] = 25,
+				["min"] = 25,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -37705,6 +38977,10 @@ return {
 			["Quiver"] = {
 				["max"] = 25,
 				["min"] = 18,
+			},
+			["Ring"] = {
+				["max"] = 10,
+				["min"] = 10,
 			},
 			["Sceptre"] = {
 				["max"] = 30,
@@ -37762,6 +39038,10 @@ return {
 				["max"] = 25,
 				["min"] = 18,
 			},
+			["Ring"] = {
+				["max"] = 10,
+				["min"] = 10,
+			},
 			["Sceptre"] = {
 				["max"] = 30,
 				["min"] = 23,
@@ -37798,6 +39078,10 @@ return {
 			},
 		},
 		["1986_LightningDamagePhysConvertedToLightning"] = {
+			["Gloves"] = {
+				["max"] = 25,
+				["min"] = 25,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -38222,36 +39506,36 @@ return {
 		},
 		["2000_MinionDamageOnWeapon"] = {
 			["1HAxe"] = {
-				["max"] = 80,
-				["min"] = 25,
+				["max"] = 94,
+				["min"] = 20,
 			},
 			["1HMace"] = {
-				["max"] = 80,
-				["min"] = 25,
+				["max"] = 94,
+				["min"] = 20,
 			},
 			["1HSword"] = {
-				["max"] = 80,
-				["min"] = 25,
+				["max"] = 94,
+				["min"] = 20,
 			},
 			["1HWeapon"] = {
 				["max"] = 109,
 				["min"] = 10,
 			},
 			["2HAxe"] = {
-				["max"] = 130,
-				["min"] = 37,
+				["max"] = 144,
+				["min"] = 30,
 			},
 			["2HMace"] = {
-				["max"] = 130,
-				["min"] = 37,
+				["max"] = 144,
+				["min"] = 30,
 			},
 			["2HSword"] = {
-				["max"] = 130,
-				["min"] = 37,
+				["max"] = 144,
+				["min"] = 30,
 			},
 			["2HWeapon"] = {
-				["max"] = 130,
-				["min"] = 37,
+				["max"] = 144,
+				["min"] = 30,
 			},
 			["AbyssJewel"] = {
 				["max"] = 130,
@@ -38269,18 +39553,6 @@ return {
 				["max"] = 94,
 				["min"] = 20,
 			},
-			["One Handed Axe"] = {
-				["max"] = 94,
-				["min"] = 20,
-			},
-			["One Handed Mace"] = {
-				["max"] = 94,
-				["min"] = 20,
-			},
-			["One Handed Sword"] = {
-				["max"] = 94,
-				["min"] = 20,
-			},
 			["Sceptre"] = {
 				["max"] = 94,
 				["min"] = 20,
@@ -38290,22 +39562,6 @@ return {
 				["min"] = 10,
 			},
 			["Staff"] = {
-				["max"] = 144,
-				["min"] = 30,
-			},
-			["Thrusting One Handed Sword"] = {
-				["max"] = 94,
-				["min"] = 20,
-			},
-			["Two Handed Axe"] = {
-				["max"] = 144,
-				["min"] = 30,
-			},
-			["Two Handed Mace"] = {
-				["max"] = 144,
-				["min"] = 30,
-			},
-			["Two Handed Sword"] = {
 				["max"] = 144,
 				["min"] = 30,
 			},
@@ -38341,6 +39597,26 @@ return {
 			},
 		},
 		["2000_MinionDamageOnWeaponDoubleDamage"] = {
+			["1HWeapon"] = {
+				["max"] = 66,
+				["min"] = 50,
+			},
+			["2HWeapon"] = {
+				["max"] = 94,
+				["min"] = 85,
+			},
+			["Sceptre"] = {
+				["max"] = 66,
+				["min"] = 50,
+			},
+			["Staff"] = {
+				["max"] = 94,
+				["min"] = 85,
+			},
+			["Wand"] = {
+				["max"] = 66,
+				["min"] = 50,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -38650,15 +39926,15 @@ return {
 		},
 		["2051_LocalAccuracyRating"] = {
 			["1HAxe"] = {
-				["max"] = 624,
+				["max"] = 780,
 				["min"] = 80,
 			},
 			["1HMace"] = {
-				["max"] = 624,
+				["max"] = 780,
 				["min"] = 80,
 			},
 			["1HSword"] = {
-				["max"] = 624,
+				["max"] = 780,
 				["min"] = 80,
 			},
 			["1HWeapon"] = {
@@ -38666,15 +39942,15 @@ return {
 				["min"] = 80,
 			},
 			["2HAxe"] = {
-				["max"] = 624,
+				["max"] = 780,
 				["min"] = 80,
 			},
 			["2HMace"] = {
-				["max"] = 624,
+				["max"] = 780,
 				["min"] = 80,
 			},
 			["2HSword"] = {
-				["max"] = 624,
+				["max"] = 780,
 				["min"] = 80,
 			},
 			["2HWeapon"] = {
@@ -38693,18 +39969,6 @@ return {
 				["max"] = 780,
 				["min"] = 80,
 			},
-			["One Handed Axe"] = {
-				["max"] = 780,
-				["min"] = 131,
-			},
-			["One Handed Mace"] = {
-				["max"] = 780,
-				["min"] = 131,
-			},
-			["One Handed Sword"] = {
-				["max"] = 780,
-				["min"] = 131,
-			},
 			["Sceptre"] = {
 				["max"] = 780,
 				["min"] = 80,
@@ -38712,22 +39976,6 @@ return {
 			["Staff"] = {
 				["max"] = 780,
 				["min"] = 80,
-			},
-			["Thrusting One Handed Sword"] = {
-				["max"] = 780,
-				["min"] = 131,
-			},
-			["Two Handed Axe"] = {
-				["max"] = 780,
-				["min"] = 131,
-			},
-			["Two Handed Mace"] = {
-				["max"] = 780,
-				["min"] = 131,
-			},
-			["Two Handed Sword"] = {
-				["max"] = 780,
-				["min"] = 131,
 			},
 			["Wand"] = {
 				["max"] = 780,
@@ -40783,6 +42031,10 @@ return {
 				["max"] = 1,
 				["min"] = 1,
 			},
+			["Chest"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
 			["Helmet"] = {
 				["max"] = 1,
 				["min"] = 1,
@@ -40811,6 +42063,10 @@ return {
 			},
 		},
 		["2188_MaximumMinionCount"] = {
+			["Chest"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -40832,6 +42088,10 @@ return {
 		},
 		["2189_MaximumMinionCount"] = {
 			["Amulet"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
+			["Chest"] = {
 				["max"] = 1,
 				["min"] = 1,
 			},
@@ -40878,6 +42138,14 @@ return {
 		},
 		["2195_AdditionalCurseOnEnemies"] = {
 			["Chest"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
+			["Gloves"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
+			["Shield"] = {
 				["max"] = 1,
 				["min"] = 1,
 			},
@@ -41067,16 +42335,12 @@ return {
 				["max"] = 200,
 				["min"] = 1,
 			},
-			["Body Armour"] = {
-				["max"] = 200,
-				["min"] = 1,
-			},
 			["Boots"] = {
 				["max"] = 200,
 				["min"] = 1,
 			},
 			["Chest"] = {
-				["max"] = 50,
+				["max"] = 200,
 				["min"] = 1,
 			},
 			["Helmet"] = {
@@ -41145,6 +42409,10 @@ return {
 			},
 		},
 		["2252_CurseAreaOfEffect"] = {
+			["Ring"] = {
+				["max"] = 40,
+				["min"] = 25,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -41165,6 +42433,10 @@ return {
 			},
 		},
 		["2253_LifeReservationEfficiency"] = {
+			["Ring"] = {
+				["max"] = 10,
+				["min"] = 10,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -41191,7 +42463,7 @@ return {
 				["max"] = 3,
 				["min"] = 2,
 			},
-			["Body Armour"] = {
+			["Chest"] = {
 				["max"] = 10,
 				["min"] = 3,
 			},
@@ -41209,6 +42481,10 @@ return {
 			},
 		},
 		["2259_IncreasedManaAndReservation"] = {
+			["Helmet"] = {
+				["max"] = 10,
+				["min"] = 6,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -41301,6 +42577,10 @@ return {
 			},
 		},
 		["2269_FireDamageTaken"] = {
+			["Chest"] = {
+				["max"] = -4,
+				["min"] = -6,
+			},
 			["inverseKey"] = "reduced",
 			["specialCaseData"] = {
 			},
@@ -41325,6 +42605,10 @@ return {
 			},
 		},
 		["2270_ChaosDamageTakenPercentage"] = {
+			["Chest"] = {
+				["max"] = 6,
+				["min"] = 4,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -41615,6 +42899,10 @@ return {
 			},
 		},
 		["2476_FireResistancePhysTakenAsFire"] = {
+			["Helmet"] = {
+				["max"] = 5,
+				["min"] = 3,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -41677,6 +42965,10 @@ return {
 			},
 		},
 		["2477_ColdResistancePhysTakenAsCold"] = {
+			["Helmet"] = {
+				["max"] = 5,
+				["min"] = 3,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -41729,6 +43021,10 @@ return {
 			},
 		},
 		["2478_LightningResistancePhysTakenAsLightning"] = {
+			["Helmet"] = {
+				["max"] = 5,
+				["min"] = 3,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -41838,6 +43134,14 @@ return {
 			["BaseJewel"] = {
 				["max"] = 3,
 				["min"] = 2,
+			},
+			["Boots"] = {
+				["max"] = 8,
+				["min"] = 5,
+			},
+			["Helmet"] = {
+				["max"] = 8,
+				["min"] = 5,
 			},
 			["sign"] = "",
 			["specialCaseData"] = {
@@ -42352,6 +43656,10 @@ return {
 			},
 		},
 		["2519_BleedingDamageChance"] = {
+			["Gloves"] = {
+				["max"] = 25,
+				["min"] = 25,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -42891,6 +44199,10 @@ return {
 				["max"] = 12,
 				["min"] = 7,
 			},
+			["Gloves"] = {
+				["max"] = 10,
+				["min"] = 5,
+			},
 			["Sceptre"] = {
 				["max"] = 15,
 				["min"] = 8,
@@ -43042,13 +44354,13 @@ return {
 				["max"] = 40,
 				["min"] = 18,
 			},
-			["Body Armour"] = {
-				["max"] = 45,
-				["min"] = 21,
-			},
 			["Boots"] = {
 				["max"] = 40,
 				["min"] = 18,
+			},
+			["Chest"] = {
+				["max"] = 45,
+				["min"] = 21,
 			},
 			["sign"] = "",
 			["specialCaseData"] = {
@@ -43109,6 +44421,10 @@ return {
 			["Quiver"] = {
 				["max"] = 25,
 				["min"] = 25,
+			},
+			["Shield"] = {
+				["max"] = 25,
+				["min"] = 15,
 			},
 			["sign"] = "",
 			["specialCaseData"] = {
@@ -43527,6 +44843,18 @@ return {
 			},
 		},
 		["2676_EnergyShieldAndRegen"] = {
+			["Amulet"] = {
+				["max"] = 0.4,
+				["min"] = 0.4,
+			},
+			["Belt"] = {
+				["max"] = 0.4,
+				["min"] = 0.4,
+			},
+			["Ring"] = {
+				["max"] = 0.4,
+				["min"] = 0.4,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -44278,7 +45606,7 @@ return {
 			},
 		},
 		["2865_OnslaughtWhenHitForDuration"] = {
-			["Body Armour"] = {
+			["Chest"] = {
 				["max"] = 6,
 				["min"] = 6,
 			},
@@ -44514,7 +45842,7 @@ return {
 				["min"] = 10,
 			},
 			["1HWeapon"] = {
-				["max"] = 20,
+				["max"] = 28,
 				["min"] = 10,
 			},
 			["2HAxe"] = {
@@ -44530,7 +45858,7 @@ return {
 				["min"] = 19,
 			},
 			["2HWeapon"] = {
-				["max"] = 38,
+				["max"] = 40,
 				["min"] = 19,
 			},
 			["Bow"] = {
@@ -44546,15 +45874,15 @@ return {
 				["min"] = 10,
 			},
 			["Sceptre"] = {
-				["max"] = 20,
+				["max"] = 28,
 				["min"] = 10,
 			},
 			["Staff"] = {
-				["max"] = 38,
+				["max"] = 40,
 				["min"] = 19,
 			},
 			["Wand"] = {
-				["max"] = 20,
+				["max"] = 28,
 				["min"] = 10,
 			},
 			["sign"] = "",
@@ -44602,7 +45930,7 @@ return {
 				["min"] = 10,
 			},
 			["1HWeapon"] = {
-				["max"] = 20,
+				["max"] = 28,
 				["min"] = 10,
 			},
 			["2HAxe"] = {
@@ -44618,7 +45946,7 @@ return {
 				["min"] = 19,
 			},
 			["2HWeapon"] = {
-				["max"] = 38,
+				["max"] = 40,
 				["min"] = 19,
 			},
 			["Bow"] = {
@@ -44634,15 +45962,15 @@ return {
 				["min"] = 10,
 			},
 			["Sceptre"] = {
-				["max"] = 20,
+				["max"] = 28,
 				["min"] = 10,
 			},
 			["Staff"] = {
-				["max"] = 38,
+				["max"] = 40,
 				["min"] = 19,
 			},
 			["Wand"] = {
-				["max"] = 20,
+				["max"] = 28,
 				["min"] = 10,
 			},
 			["sign"] = "",
@@ -44655,9 +45983,17 @@ return {
 			},
 		},
 		["2948_MinionLifeLeech"] = {
+			["1HWeapon"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
 			["AbyssJewel"] = {
 				["max"] = 0.5,
 				["min"] = 0.3,
+			},
+			["Wand"] = {
+				["max"] = 1,
+				["min"] = 1,
 			},
 			["sign"] = "",
 			["specialCaseData"] = {
@@ -44999,36 +46335,36 @@ return {
 		},
 		["3019_FireResistancePenetration"] = {
 			["1HAxe"] = {
-				["max"] = 7,
-				["min"] = 5,
+				["max"] = 8,
+				["min"] = 4,
 			},
 			["1HMace"] = {
-				["max"] = 7,
-				["min"] = 5,
+				["max"] = 8,
+				["min"] = 4,
 			},
 			["1HSword"] = {
-				["max"] = 7,
-				["min"] = 5,
+				["max"] = 8,
+				["min"] = 4,
 			},
 			["1HWeapon"] = {
 				["max"] = 8,
-				["min"] = 5,
+				["min"] = 4,
 			},
 			["2HAxe"] = {
-				["max"] = 15,
-				["min"] = 12,
+				["max"] = 16,
+				["min"] = 7,
 			},
 			["2HMace"] = {
-				["max"] = 15,
-				["min"] = 12,
+				["max"] = 16,
+				["min"] = 7,
 			},
 			["2HSword"] = {
-				["max"] = 15,
-				["min"] = 12,
+				["max"] = 16,
+				["min"] = 7,
 			},
 			["2HWeapon"] = {
-				["max"] = 15,
-				["min"] = 10,
+				["max"] = 16,
+				["min"] = 7,
 			},
 			["AbyssJewel"] = {
 				["max"] = 15,
@@ -45058,39 +46394,11 @@ return {
 				["max"] = 8,
 				["min"] = 4,
 			},
-			["One Handed Axe"] = {
-				["max"] = 8,
-				["min"] = 4,
-			},
-			["One Handed Mace"] = {
-				["max"] = 8,
-				["min"] = 4,
-			},
-			["One Handed Sword"] = {
-				["max"] = 8,
-				["min"] = 4,
-			},
 			["Sceptre"] = {
 				["max"] = 8,
 				["min"] = 4,
 			},
 			["Staff"] = {
-				["max"] = 16,
-				["min"] = 7,
-			},
-			["Thrusting One Handed Sword"] = {
-				["max"] = 8,
-				["min"] = 4,
-			},
-			["Two Handed Axe"] = {
-				["max"] = 16,
-				["min"] = 7,
-			},
-			["Two Handed Mace"] = {
-				["max"] = 16,
-				["min"] = 7,
-			},
-			["Two Handed Sword"] = {
 				["max"] = 16,
 				["min"] = 7,
 			},
@@ -45143,36 +46451,36 @@ return {
 		},
 		["3021_ColdResistancePenetration"] = {
 			["1HAxe"] = {
-				["max"] = 7,
-				["min"] = 5,
+				["max"] = 8,
+				["min"] = 3,
 			},
 			["1HMace"] = {
-				["max"] = 7,
-				["min"] = 5,
+				["max"] = 8,
+				["min"] = 3,
 			},
 			["1HSword"] = {
-				["max"] = 7,
-				["min"] = 5,
+				["max"] = 8,
+				["min"] = 3,
 			},
 			["1HWeapon"] = {
 				["max"] = 8,
-				["min"] = 5,
+				["min"] = 3,
 			},
 			["2HAxe"] = {
-				["max"] = 15,
-				["min"] = 12,
+				["max"] = 16,
+				["min"] = 5,
 			},
 			["2HMace"] = {
-				["max"] = 15,
-				["min"] = 12,
+				["max"] = 16,
+				["min"] = 5,
 			},
 			["2HSword"] = {
-				["max"] = 15,
-				["min"] = 12,
+				["max"] = 16,
+				["min"] = 5,
 			},
 			["2HWeapon"] = {
-				["max"] = 15,
-				["min"] = 10,
+				["max"] = 16,
+				["min"] = 5,
 			},
 			["AbyssJewel"] = {
 				["max"] = 15,
@@ -45202,39 +46510,11 @@ return {
 				["max"] = 8,
 				["min"] = 3,
 			},
-			["One Handed Axe"] = {
-				["max"] = 8,
-				["min"] = 3,
-			},
-			["One Handed Mace"] = {
-				["max"] = 8,
-				["min"] = 3,
-			},
-			["One Handed Sword"] = {
-				["max"] = 8,
-				["min"] = 3,
-			},
 			["Sceptre"] = {
 				["max"] = 8,
 				["min"] = 3,
 			},
 			["Staff"] = {
-				["max"] = 16,
-				["min"] = 5,
-			},
-			["Thrusting One Handed Sword"] = {
-				["max"] = 8,
-				["min"] = 3,
-			},
-			["Two Handed Axe"] = {
-				["max"] = 16,
-				["min"] = 5,
-			},
-			["Two Handed Mace"] = {
-				["max"] = 16,
-				["min"] = 5,
-			},
-			["Two Handed Sword"] = {
 				["max"] = 16,
 				["min"] = 5,
 			},
@@ -45287,15 +46567,15 @@ return {
 		},
 		["3022_LightningResistancePenetration"] = {
 			["1HAxe"] = {
-				["max"] = 7,
+				["max"] = 8,
 				["min"] = 5,
 			},
 			["1HMace"] = {
-				["max"] = 7,
+				["max"] = 8,
 				["min"] = 5,
 			},
 			["1HSword"] = {
-				["max"] = 7,
+				["max"] = 8,
 				["min"] = 5,
 			},
 			["1HWeapon"] = {
@@ -45303,20 +46583,20 @@ return {
 				["min"] = 5,
 			},
 			["2HAxe"] = {
-				["max"] = 15,
-				["min"] = 12,
+				["max"] = 16,
+				["min"] = 9,
 			},
 			["2HMace"] = {
-				["max"] = 15,
-				["min"] = 12,
+				["max"] = 16,
+				["min"] = 9,
 			},
 			["2HSword"] = {
-				["max"] = 15,
-				["min"] = 12,
+				["max"] = 16,
+				["min"] = 9,
 			},
 			["2HWeapon"] = {
-				["max"] = 15,
-				["min"] = 10,
+				["max"] = 16,
+				["min"] = 9,
 			},
 			["AbyssJewel"] = {
 				["max"] = 15,
@@ -45346,39 +46626,11 @@ return {
 				["max"] = 8,
 				["min"] = 5,
 			},
-			["One Handed Axe"] = {
-				["max"] = 8,
-				["min"] = 5,
-			},
-			["One Handed Mace"] = {
-				["max"] = 8,
-				["min"] = 5,
-			},
-			["One Handed Sword"] = {
-				["max"] = 8,
-				["min"] = 5,
-			},
 			["Sceptre"] = {
 				["max"] = 8,
 				["min"] = 5,
 			},
 			["Staff"] = {
-				["max"] = 16,
-				["min"] = 9,
-			},
-			["Thrusting One Handed Sword"] = {
-				["max"] = 8,
-				["min"] = 5,
-			},
-			["Two Handed Axe"] = {
-				["max"] = 16,
-				["min"] = 9,
-			},
-			["Two Handed Mace"] = {
-				["max"] = 16,
-				["min"] = 9,
-			},
-			["Two Handed Sword"] = {
 				["max"] = 16,
 				["min"] = 9,
 			},
@@ -45558,6 +46810,10 @@ return {
 			},
 		},
 		["3053_IncreasedDamagePerCurse"] = {
+			["Amulet"] = {
+				["max"] = 10,
+				["min"] = 8,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -45568,6 +46824,14 @@ return {
 			},
 		},
 		["3062_MinionAreaOfEffect"] = {
+			["1HWeapon"] = {
+				["max"] = 30,
+				["min"] = 20,
+			},
+			["Wand"] = {
+				["max"] = 30,
+				["min"] = 20,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -45792,6 +47056,10 @@ return {
 			},
 		},
 		["3208_BleedingDamageChance"] = {
+			["Gloves"] = {
+				["max"] = 50,
+				["min"] = 30,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -45882,6 +47150,34 @@ return {
 			},
 		},
 		["3209_PoisonDurationChaosDamage"] = {
+			["1HSword"] = {
+				["max"] = 18,
+				["min"] = 13,
+			},
+			["1HWeapon"] = {
+				["max"] = 18,
+				["min"] = 13,
+			},
+			["2HSword"] = {
+				["max"] = 18,
+				["min"] = 13,
+			},
+			["2HWeapon"] = {
+				["max"] = 18,
+				["min"] = 13,
+			},
+			["Bow"] = {
+				["max"] = 18,
+				["min"] = 13,
+			},
+			["Claw"] = {
+				["max"] = 18,
+				["min"] = 13,
+			},
+			["Dagger"] = {
+				["max"] = 18,
+				["min"] = 13,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -45990,6 +47286,34 @@ return {
 			},
 		},
 		["3221_PoisonDamageAddedChaosToAttacks"] = {
+			["1HSword"] = {
+				["max"] = 35,
+				["min"] = 31,
+			},
+			["1HWeapon"] = {
+				["max"] = 35,
+				["min"] = 31,
+			},
+			["2HSword"] = {
+				["max"] = 35,
+				["min"] = 31,
+			},
+			["2HWeapon"] = {
+				["max"] = 35,
+				["min"] = 31,
+			},
+			["Bow"] = {
+				["max"] = 35,
+				["min"] = 31,
+			},
+			["Claw"] = {
+				["max"] = 35,
+				["min"] = 31,
+			},
+			["Dagger"] = {
+				["max"] = 35,
+				["min"] = 31,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -46000,6 +47324,14 @@ return {
 			},
 		},
 		["3221_PoisonDamageAddedChaosToSpells"] = {
+			["1HWeapon"] = {
+				["max"] = 35,
+				["min"] = 31,
+			},
+			["Dagger"] = {
+				["max"] = 35,
+				["min"] = 31,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -46380,6 +47712,10 @@ return {
 			},
 		},
 		["3283_MovementVelocitySpeed"] = {
+			["Boots"] = {
+				["max"] = 5,
+				["min"] = 5,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -46390,7 +47726,7 @@ return {
 			},
 		},
 		["3312_IncreasedStunThreshold"] = {
-			["Body Armour"] = {
+			["Chest"] = {
 				["max"] = 60,
 				["min"] = 31,
 			},
@@ -46899,17 +48235,13 @@ return {
 				["max"] = 10,
 				["min"] = 8,
 			},
-			["Body Armour"] = {
-				["max"] = 10,
-				["min"] = 6,
-			},
 			["Boots"] = {
 				["max"] = 10,
 				["min"] = 5,
 			},
 			["Chest"] = {
 				["max"] = 10,
-				["min"] = 8,
+				["min"] = 6,
 			},
 			["Quiver"] = {
 				["max"] = 10,
@@ -46951,17 +48283,13 @@ return {
 				["max"] = 10,
 				["min"] = 6,
 			},
-			["Body Armour"] = {
-				["max"] = 10,
-				["min"] = 5,
-			},
 			["Boots"] = {
 				["max"] = 10,
 				["min"] = 5,
 			},
 			["Chest"] = {
 				["max"] = 10,
-				["min"] = 6,
+				["min"] = 5,
 			},
 			["Quiver"] = {
 				["max"] = 10,
@@ -47003,17 +48331,13 @@ return {
 				["max"] = 10,
 				["min"] = 6,
 			},
-			["Body Armour"] = {
-				["max"] = 10,
-				["min"] = 4,
-			},
 			["Boots"] = {
 				["max"] = 10,
 				["min"] = 5,
 			},
 			["Chest"] = {
 				["max"] = 10,
-				["min"] = 6,
+				["min"] = 4,
 			},
 			["Quiver"] = {
 				["max"] = 10,
@@ -47135,6 +48459,10 @@ return {
 			},
 		},
 		["3428_LightningDamageTaken"] = {
+			["Chest"] = {
+				["max"] = 6,
+				["min"] = 4,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -47145,6 +48473,10 @@ return {
 			},
 		},
 		["3429_ColdDamageTakenPercentage"] = {
+			["Chest"] = {
+				["max"] = 6,
+				["min"] = 4,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -47362,6 +48694,30 @@ return {
 			},
 		},
 		["3501_TrapCooldownRecoveryAndDuration"] = {
+			["1HWeapon"] = {
+				["max"] = 15,
+				["min"] = 14,
+			},
+			["2HWeapon"] = {
+				["max"] = 22,
+				["min"] = 21,
+			},
+			["Dagger"] = {
+				["max"] = 15,
+				["min"] = 14,
+			},
+			["Sceptre"] = {
+				["max"] = 15,
+				["min"] = 14,
+			},
+			["Staff"] = {
+				["max"] = 22,
+				["min"] = 21,
+			},
+			["Wand"] = {
+				["max"] = 15,
+				["min"] = 14,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -47430,6 +48786,30 @@ return {
 			},
 		},
 		["3519_TrapAreaOfEffect"] = {
+			["1HWeapon"] = {
+				["max"] = 25,
+				["min"] = 22,
+			},
+			["2HWeapon"] = {
+				["max"] = 37,
+				["min"] = 33,
+			},
+			["Dagger"] = {
+				["max"] = 25,
+				["min"] = 22,
+			},
+			["Sceptre"] = {
+				["max"] = 25,
+				["min"] = 22,
+			},
+			["Staff"] = {
+				["max"] = 37,
+				["min"] = 33,
+			},
+			["Wand"] = {
+				["max"] = 25,
+				["min"] = 22,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -47595,6 +48975,10 @@ return {
 			},
 		},
 		["3607_AuraEffectOnEnemies"] = {
+			["Gloves"] = {
+				["max"] = 18,
+				["min"] = 12,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -47633,6 +49017,38 @@ return {
 			},
 		},
 		["3652_PowerFrenzyOrEnduranceChargeOnKill"] = {
+			["1HAxe"] = {
+				["max"] = 16,
+				["min"] = 16,
+			},
+			["1HMace"] = {
+				["max"] = 16,
+				["min"] = 16,
+			},
+			["1HSword"] = {
+				["max"] = 16,
+				["min"] = 16,
+			},
+			["1HWeapon"] = {
+				["max"] = 16,
+				["min"] = 16,
+			},
+			["2HAxe"] = {
+				["max"] = 16,
+				["min"] = 16,
+			},
+			["2HMace"] = {
+				["max"] = 16,
+				["min"] = 16,
+			},
+			["2HSword"] = {
+				["max"] = 16,
+				["min"] = 16,
+			},
+			["2HWeapon"] = {
+				["max"] = 16,
+				["min"] = 16,
+			},
 			["Amulet"] = {
 				["max"] = 10,
 				["min"] = 3,
@@ -47649,39 +49065,11 @@ return {
 				["max"] = 16,
 				["min"] = 16,
 			},
-			["One Handed Axe"] = {
-				["max"] = 16,
-				["min"] = 16,
-			},
-			["One Handed Mace"] = {
-				["max"] = 16,
-				["min"] = 16,
-			},
-			["One Handed Sword"] = {
-				["max"] = 16,
-				["min"] = 16,
-			},
 			["Sceptre"] = {
 				["max"] = 16,
 				["min"] = 16,
 			},
 			["Staff"] = {
-				["max"] = 16,
-				["min"] = 16,
-			},
-			["Thrusting One Handed Sword"] = {
-				["max"] = 16,
-				["min"] = 16,
-			},
-			["Two Handed Axe"] = {
-				["max"] = 16,
-				["min"] = 16,
-			},
-			["Two Handed Mace"] = {
-				["max"] = 16,
-				["min"] = 16,
-			},
-			["Two Handed Sword"] = {
 				["max"] = 16,
 				["min"] = 16,
 			},
@@ -47960,6 +49348,38 @@ return {
 			},
 		},
 		["3802_LocalFireDamageAndPen"] = {
+			["1HAxe"] = {
+				["max"] = 7,
+				["min"] = 5,
+			},
+			["1HMace"] = {
+				["max"] = 7,
+				["min"] = 5,
+			},
+			["1HSword"] = {
+				["max"] = 7,
+				["min"] = 5,
+			},
+			["1HWeapon"] = {
+				["max"] = 7,
+				["min"] = 5,
+			},
+			["Claw"] = {
+				["max"] = 7,
+				["min"] = 5,
+			},
+			["Dagger"] = {
+				["max"] = 7,
+				["min"] = 5,
+			},
+			["Sceptre"] = {
+				["max"] = 7,
+				["min"] = 5,
+			},
+			["Wand"] = {
+				["max"] = 7,
+				["min"] = 5,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -48036,6 +49456,30 @@ return {
 			},
 		},
 		["3802_LocalFireDamageTwoHandAndPen"] = {
+			["2HAxe"] = {
+				["max"] = 7,
+				["min"] = 5,
+			},
+			["2HMace"] = {
+				["max"] = 7,
+				["min"] = 5,
+			},
+			["2HSword"] = {
+				["max"] = 7,
+				["min"] = 5,
+			},
+			["2HWeapon"] = {
+				["max"] = 7,
+				["min"] = 5,
+			},
+			["Bow"] = {
+				["max"] = 7,
+				["min"] = 5,
+			},
+			["Staff"] = {
+				["max"] = 7,
+				["min"] = 5,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -48112,6 +49556,38 @@ return {
 			},
 		},
 		["3803_LocalColdDamageAndPen"] = {
+			["1HAxe"] = {
+				["max"] = 7,
+				["min"] = 5,
+			},
+			["1HMace"] = {
+				["max"] = 7,
+				["min"] = 5,
+			},
+			["1HSword"] = {
+				["max"] = 7,
+				["min"] = 5,
+			},
+			["1HWeapon"] = {
+				["max"] = 7,
+				["min"] = 5,
+			},
+			["Claw"] = {
+				["max"] = 7,
+				["min"] = 5,
+			},
+			["Dagger"] = {
+				["max"] = 7,
+				["min"] = 5,
+			},
+			["Sceptre"] = {
+				["max"] = 7,
+				["min"] = 5,
+			},
+			["Wand"] = {
+				["max"] = 7,
+				["min"] = 5,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -48188,6 +49664,30 @@ return {
 			},
 		},
 		["3803_LocalColdDamageTwoHandAndPen"] = {
+			["2HAxe"] = {
+				["max"] = 7,
+				["min"] = 5,
+			},
+			["2HMace"] = {
+				["max"] = 7,
+				["min"] = 5,
+			},
+			["2HSword"] = {
+				["max"] = 7,
+				["min"] = 5,
+			},
+			["2HWeapon"] = {
+				["max"] = 7,
+				["min"] = 5,
+			},
+			["Bow"] = {
+				["max"] = 7,
+				["min"] = 5,
+			},
+			["Staff"] = {
+				["max"] = 7,
+				["min"] = 5,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -48264,6 +49764,38 @@ return {
 			},
 		},
 		["3804_LocalLightningDamageAndPen"] = {
+			["1HAxe"] = {
+				["max"] = 7,
+				["min"] = 5,
+			},
+			["1HMace"] = {
+				["max"] = 7,
+				["min"] = 5,
+			},
+			["1HSword"] = {
+				["max"] = 7,
+				["min"] = 5,
+			},
+			["1HWeapon"] = {
+				["max"] = 7,
+				["min"] = 5,
+			},
+			["Claw"] = {
+				["max"] = 7,
+				["min"] = 5,
+			},
+			["Dagger"] = {
+				["max"] = 7,
+				["min"] = 5,
+			},
+			["Sceptre"] = {
+				["max"] = 7,
+				["min"] = 5,
+			},
+			["Wand"] = {
+				["max"] = 7,
+				["min"] = 5,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -48340,6 +49872,30 @@ return {
 			},
 		},
 		["3804_LocalLightningDamageTwoHandAndPen"] = {
+			["2HAxe"] = {
+				["max"] = 7,
+				["min"] = 5,
+			},
+			["2HMace"] = {
+				["max"] = 7,
+				["min"] = 5,
+			},
+			["2HSword"] = {
+				["max"] = 7,
+				["min"] = 5,
+			},
+			["2HWeapon"] = {
+				["max"] = 7,
+				["min"] = 5,
+			},
+			["Bow"] = {
+				["max"] = 7,
+				["min"] = 5,
+			},
+			["Staff"] = {
+				["max"] = 7,
+				["min"] = 5,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -48790,6 +50346,10 @@ return {
 			},
 		},
 		["4256_MovementVelocityDodge"] = {
+			["Boots"] = {
+				["max"] = 15,
+				["min"] = 10,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -50380,6 +51940,10 @@ return {
 				["max"] = 20,
 				["min"] = 13,
 			},
+			["Ring"] = {
+				["max"] = 10,
+				["min"] = 5,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -50988,6 +52552,26 @@ return {
 			},
 		},
 		["5104_MinionDuration"] = {
+			["1HWeapon"] = {
+				["max"] = 20,
+				["min"] = 17,
+			},
+			["2HWeapon"] = {
+				["max"] = 30,
+				["min"] = 27,
+			},
+			["Sceptre"] = {
+				["max"] = 20,
+				["min"] = 17,
+			},
+			["Staff"] = {
+				["max"] = 30,
+				["min"] = 27,
+			},
+			["Wand"] = {
+				["max"] = 20,
+				["min"] = 17,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -51475,6 +53059,10 @@ return {
 			},
 		},
 		["5489_CorruptedBloodImmunity"] = {
+			["Shield"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
 			["specialCaseData"] = {
 			},
 			["tradeMod"] = {
@@ -51930,19 +53518,19 @@ return {
 		},
 		["5743_DoubleDamageChance"] = {
 			["1HAxe"] = {
-				["max"] = 7,
+				["max"] = 10,
 				["min"] = 3,
 			},
 			["1HMace"] = {
-				["max"] = 7,
+				["max"] = 10,
 				["min"] = 3,
 			},
 			["1HSword"] = {
-				["max"] = 7,
+				["max"] = 10,
 				["min"] = 3,
 			},
 			["1HWeapon"] = {
-				["max"] = 7,
+				["max"] = 10,
 				["min"] = 3,
 			},
 			["2HAxe"] = {
@@ -51966,15 +53554,15 @@ return {
 				["min"] = 6,
 			},
 			["Claw"] = {
-				["max"] = 7,
+				["max"] = 10,
 				["min"] = 3,
 			},
 			["Dagger"] = {
-				["max"] = 7,
+				["max"] = 10,
 				["min"] = 3,
 			},
 			["Sceptre"] = {
-				["max"] = 7,
+				["max"] = 10,
 				["min"] = 3,
 			},
 			["Shield"] = {
@@ -51986,7 +53574,7 @@ return {
 				["min"] = 6,
 			},
 			["Wand"] = {
-				["max"] = 7,
+				["max"] = 10,
 				["min"] = 3,
 			},
 			["sign"] = "",
@@ -52598,6 +54186,10 @@ return {
 			},
 		},
 		["5884_ColdAilmentDuration"] = {
+			["Gloves"] = {
+				["max"] = 25,
+				["min"] = 15,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -52750,6 +54342,10 @@ return {
 			},
 		},
 		["6002_LightningResistanceAilments"] = {
+			["Gloves"] = {
+				["max"] = 60,
+				["min"] = 40,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -53318,6 +54914,10 @@ return {
 			},
 		},
 		["6162_ColdResistanceAilments"] = {
+			["Gloves"] = {
+				["max"] = 50,
+				["min"] = 30,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -54237,6 +55837,10 @@ return {
 				["max"] = 25,
 				["min"] = 18,
 			},
+			["Gloves"] = {
+				["max"] = 10,
+				["min"] = 5,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -54292,6 +55896,10 @@ return {
 			["Dagger"] = {
 				["max"] = 15,
 				["min"] = 8,
+			},
+			["Gloves"] = {
+				["max"] = 10,
+				["min"] = 5,
 			},
 			["sign"] = "",
 			["specialCaseData"] = {
@@ -55147,39 +56755,11 @@ return {
 				["max"] = 25,
 				["min"] = 12,
 			},
-			["One Handed Axe"] = {
-				["max"] = 25,
-				["min"] = 12,
-			},
-			["One Handed Mace"] = {
-				["max"] = 25,
-				["min"] = 12,
-			},
-			["One Handed Sword"] = {
-				["max"] = 25,
-				["min"] = 12,
-			},
 			["Sceptre"] = {
 				["max"] = 25,
 				["min"] = 12,
 			},
 			["Staff"] = {
-				["max"] = 38,
-				["min"] = 25,
-			},
-			["Thrusting One Handed Sword"] = {
-				["max"] = 25,
-				["min"] = 12,
-			},
-			["Two Handed Axe"] = {
-				["max"] = 38,
-				["min"] = 25,
-			},
-			["Two Handed Mace"] = {
-				["max"] = 38,
-				["min"] = 25,
-			},
-			["Two Handed Sword"] = {
 				["max"] = 38,
 				["min"] = 25,
 			},
@@ -55303,6 +56883,10 @@ return {
 			},
 		},
 		["7547_LightningAilmentEffect"] = {
+			["Gloves"] = {
+				["max"] = 25,
+				["min"] = 15,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -56057,6 +57641,38 @@ return {
 			},
 		},
 		["804_FireBurstOnHit"] = {
+			["1HAxe"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
+			["1HMace"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
+			["1HSword"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
+			["1HWeapon"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
+			["2HAxe"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
+			["2HMace"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
+			["2HSword"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
+			["2HWeapon"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
 			["Bow"] = {
 				["max"] = 1,
 				["min"] = 1,
@@ -56069,39 +57685,11 @@ return {
 				["max"] = 1,
 				["min"] = 1,
 			},
-			["One Handed Axe"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
-			["One Handed Mace"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
-			["One Handed Sword"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
 			["Sceptre"] = {
 				["max"] = 1,
 				["min"] = 1,
 			},
 			["Staff"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
-			["Thrusting One Handed Sword"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
-			["Two Handed Axe"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
-			["Two Handed Mace"] = {
-				["max"] = 1,
-				["min"] = 1,
-			},
-			["Two Handed Sword"] = {
 				["max"] = 1,
 				["min"] = 1,
 			},
@@ -56419,6 +58007,34 @@ return {
 			},
 		},
 		["8128_LocalChanceToPoisonOnHitChaosDamage"] = {
+			["1HSword"] = {
+				["max"] = 30,
+				["min"] = 30,
+			},
+			["1HWeapon"] = {
+				["max"] = 30,
+				["min"] = 30,
+			},
+			["2HSword"] = {
+				["max"] = 30,
+				["min"] = 30,
+			},
+			["2HWeapon"] = {
+				["max"] = 30,
+				["min"] = 30,
+			},
+			["Bow"] = {
+				["max"] = 30,
+				["min"] = 30,
+			},
+			["Claw"] = {
+				["max"] = 30,
+				["min"] = 30,
+			},
+			["Dagger"] = {
+				["max"] = 30,
+				["min"] = 30,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 				["overrideModLine"] = "#% chance to Poison on Hit",
@@ -57548,6 +59164,30 @@ return {
 			},
 		},
 		["9361_MineAreaOfEffect"] = {
+			["1HWeapon"] = {
+				["max"] = 25,
+				["min"] = 22,
+			},
+			["2HWeapon"] = {
+				["max"] = 37,
+				["min"] = 33,
+			},
+			["Dagger"] = {
+				["max"] = 25,
+				["min"] = 22,
+			},
+			["Sceptre"] = {
+				["max"] = 25,
+				["min"] = 22,
+			},
+			["Staff"] = {
+				["max"] = 37,
+				["min"] = 33,
+			},
+			["Wand"] = {
+				["max"] = 25,
+				["min"] = 22,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -57558,6 +59198,30 @@ return {
 			},
 		},
 		["9364_MineDetonationSpeedAndDuration"] = {
+			["1HWeapon"] = {
+				["max"] = 15,
+				["min"] = 14,
+			},
+			["2HWeapon"] = {
+				["max"] = 22,
+				["min"] = 21,
+			},
+			["Dagger"] = {
+				["max"] = 15,
+				["min"] = 14,
+			},
+			["Sceptre"] = {
+				["max"] = 15,
+				["min"] = 14,
+			},
+			["Staff"] = {
+				["max"] = 22,
+				["min"] = 21,
+			},
+			["Wand"] = {
+				["max"] = 15,
+				["min"] = 14,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -57896,6 +59560,26 @@ return {
 			},
 		},
 		["9423_MinionDamageOnWeaponDoubleDamage"] = {
+			["1HWeapon"] = {
+				["max"] = 5,
+				["min"] = 5,
+			},
+			["2HWeapon"] = {
+				["max"] = 5,
+				["min"] = 5,
+			},
+			["Sceptre"] = {
+				["max"] = 5,
+				["min"] = 5,
+			},
+			["Staff"] = {
+				["max"] = 5,
+				["min"] = 5,
+			},
+			["Wand"] = {
+				["max"] = 5,
+				["min"] = 5,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -58258,6 +59942,30 @@ return {
 			},
 		},
 		["9635_WeaponSpellDamageAddedAsChaos"] = {
+			["1HWeapon"] = {
+				["max"] = 5,
+				["min"] = 5,
+			},
+			["2HWeapon"] = {
+				["max"] = 5,
+				["min"] = 5,
+			},
+			["Dagger"] = {
+				["max"] = 5,
+				["min"] = 5,
+			},
+			["Sceptre"] = {
+				["max"] = 5,
+				["min"] = 5,
+			},
+			["Staff"] = {
+				["max"] = 5,
+				["min"] = 5,
+			},
+			["Wand"] = {
+				["max"] = 5,
+				["min"] = 5,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -58497,6 +60205,10 @@ return {
 			},
 		},
 		["9769_SpiritAndPhantasmRefreshOnUnique"] = {
+			["Gloves"] = {
+				["max"] = 5,
+				["min"] = 5,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -58948,6 +60660,10 @@ return {
 			},
 		},
 		["9958_SpiritAndPhantasmRefreshOnUnique"] = {
+			["Gloves"] = {
+				["max"] = 5,
+				["min"] = 5,
+			},
 			["sign"] = "",
 			["specialCaseData"] = {
 			},
@@ -59671,7 +61387,7 @@ return {
 				["min"] = 80,
 			},
 			["Dagger"] = {
-				["max"] = 45,
+				["max"] = 65,
 				["min"] = 40,
 			},
 			["Ring"] = {
@@ -61097,6 +62813,20 @@ return {
 				["type"] = "implicit",
 			},
 		},
+		["4423_TriggerFlameDashOnSocketedSkillUse"] = {
+			["Dagger"] = {
+				["max"] = 40,
+				["min"] = 20,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.stat_2308278768",
+				["text"] = "#% increased Cooldown Recovery Rate of Travel Skills",
+				["type"] = "implicit",
+			},
+		},
 		["4902_AttackCriticalStrikesIgnoreElementalResistances"] = {
 			["2HSword"] = {
 				["max"] = 1,
@@ -61564,6 +63294,20 @@ return {
 			["tradeMod"] = {
 				["id"] = "implicit.stat_1523888729",
 				["text"] = "Trigger Level # Fiery Impact on Melee Hit with this Weapon",
+				["type"] = "implicit",
+			},
+		},
+		["834_TriggerFlameDashOnSocketedSkillUse"] = {
+			["Dagger"] = {
+				["max"] = 30,
+				["min"] = 10,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.stat_1633778432",
+				["text"] = "Trigger Level # Flame Dash when you use a Socketed Skill",
 				["type"] = "implicit",
 			},
 		},
