@@ -436,6 +436,7 @@ local modNameList = {
 	["damage taken recouped as energy shield"] = "EnergyShieldRecoup",
 	["damage taken recouped as mana"] = "ManaRecoup",
 	["damage taken recouped as life, mana and energy shield"] = { "LifeRecoup", "EnergyShieldRecoup", "ManaRecoup" },
+	["recovery from recoup"] = "RecoupRecoveryAmount",
 	["missing unreserved life before being hit by an enemy"] = "MissingLifeBeforeEnemyHit",
 	["missing unreserved mana before being hit by an enemy"] = "MissingManaBeforeEnemyHit",
 	-- Stun/knockback modifiers
@@ -4732,6 +4733,7 @@ local specialModList = {
 	["recoup effects instead occur over 3 seconds"] = { flag("3SecondRecoup") },
 	["life recoup effects instead occur over 3 seconds"] = { flag("3SecondLifeRecoup") },
 	["recoup energy shield instead of life"] = { flag("EnergyShieldRecoupInsteadOfLife") },
+	["life recoup also recovers mana"] = { flag("AddLifeRecoupToManaRecoup") },
 	["damage taken recouped as (%a+) is also recouped as energy shield"] = function(_, type) return {
 		flag("Add"..firstToUpper(type).."RecoupToEnergyShieldRecoup"),
 	} end,

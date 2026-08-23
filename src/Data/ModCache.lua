@@ -5949,7 +5949,7 @@ c["50% less Lightning Resistance"]={{[1]={flags=0,keywordFlags=0,name="Lightning
 c["50% less Minimum Lightning Damage"]={{[1]={flags=0,keywordFlags=0,name="MinLightningDamage",type="MORE",value=-50}},nil}
 c["50% less Poison Duration"]={{[1]={flags=0,keywordFlags=0,name="EnemyPoisonDuration",type="MORE",value=-50}},nil}
 c["50% less maximum Total Life Recovery per Second from Leech"]={{[1]={flags=0,keywordFlags=0,name="MaxLifeLeechRate",type="MORE",value=-50}},nil}
-c["50% less recovery from Recoup"]={{[1]={flags=0,keywordFlags=0,name="FlaskLifeRecoveryLowLife",type="MORE",value=-50}},"  from Recoup "}
+c["50% less recovery from Recoup"]={{[1]={flags=0,keywordFlags=0,name="RecoupRecoveryAmount",type="MORE",value=-50}},nil}
 c["50% more Accuracy Rating against Marked Enemy"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Marked"},flags=0,keywordFlags=0,name="AccuracyVsEnemy",type="MORE",value=50}},nil}
 c["50% more Accuracy Rating at Close Range"]={{[1]={[1]={type="Condition",var="AtCloseRange"},flags=0,keywordFlags=0,name="AccuracyVsEnemy",type="MORE",value=50}},nil}
 c["50% more Critical Strike Chance while Insane"]={{[1]={[1]={type="Condition",var="Insane"},flags=0,keywordFlags=0,name="CritChance",type="MORE",value=50}},nil}
@@ -9748,8 +9748,7 @@ c["Life Leech from Exerted Attacks is instant Non-Exerted Attacks deal no Damage
 c["Life Leech from Hits with this Weapon is instant"]={{[1]={[1]={type="Condition",var="{Hand}Attack"},flags=0,keywordFlags=0,name="InstantLifeLeech",type="BASE",value=100}},nil}
 c["Life Leech from Melee Damage is Instant"]={{[1]={flags=256,keywordFlags=0,name="InstantLifeLeech",type="BASE",value=100}},nil}
 c["Life Recoup Effects instead occur over 3 seconds"]={{[1]={flags=0,keywordFlags=0,name="3SecondLifeRecoup",type="FLAG",value=true}},nil}
-c["Life Recoup also recovers Mana"]={nil,"Life Recoup also recovers Mana "}
-c["Life Recoup also recovers Mana 50% less recovery from Recoup"]={nil,"Life Recoup also recovers Mana 50% less recovery from Recoup "}
+c["Life Recoup also recovers Mana"]={{[1]={flags=0,keywordFlags=0,name="AddLifeRecoupToManaRecoup",type="FLAG",value=true}},nil}
 c["Life Recovery from Flasks also applies to Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="LifeFlaskAppliesToEnergyShield",type="FLAG",value=true}},nil}
 c["Life Recovery from Flasks also applies to Energy Shield during Effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="LifeFlaskAppliesToEnergyShield",type="FLAG",value=true}},nil}
 c["Life Recovery from Non-Instant Leech is not applied"]={{[1]={flags=0,keywordFlags=0,name="UnaffectedByNonInstantLifeLeech",type="FLAG",value=true}},nil}
