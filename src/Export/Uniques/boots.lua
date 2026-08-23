@@ -127,7 +127,7 @@ HasNoSockets
 CannotBeKnockedBack
 {variant:1}IncreasedLifeUniqueBootsStr2[120,150]
 {variant:2}IncreasedLifeUniqueBootsStr2
-KeystoneUnwaveringStanceUnique__1
+UnwaveringStance
 {variant:2}CannotBeSlowedBelowBaseUnique__1
 ]],[[
 Redblade Tramplers
