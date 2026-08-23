@@ -352,6 +352,7 @@ function TreeTabClass:RemoveTattooFromNode(node)
 	self.build.spec.tree.nodes[node.id].isTattoo = false
 	self.build.spec.hashOverrides[node.id] = nil
 	self.build.spec:ReplaceNode(node, self.build.spec.tree.nodes[node.id])
+	node.allMasteryOptions = false
 	self.build.spec:BuildAllDependsAndPaths()
 end
 
@@ -886,6 +887,9 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 		newTattooNode.id = selectedNode.id
 		self.build.spec.hashOverrides[selectedNode.id] = newTattooNode
 		self.build.spec:ReplaceNode(selectedNode, newTattooNode)
+		if selectedNode.type == "Mastery" then
+			selectedNode.allMasteryOptions = false
+		end
 		self.build.spec:BuildAllDependsAndPaths()
 	end
 

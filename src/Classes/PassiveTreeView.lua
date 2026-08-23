@@ -1581,7 +1581,8 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build, returnEarly)
 		end
 	end
 
-	if mNode.sd[1] and mNode.allMasteryOptions then
+	local isRunegraft = mNode.overrideType == "AlternateMastery"
+	if mNode.sd[1] and mNode.allMasteryOptions and not isRunegraft then
 		tooltip:AddSeparator(14)
 		tooltip:AddLine(14, "^7Available Mastery node options are:")
 		tooltip:AddLine(6, "")
@@ -1605,7 +1606,7 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build, returnEarly)
 	end
 
 	-- This stanza actives for both Mastery and non Mastery tooltips. Proof: add '"Blah "..' to addModInfoToTooltip
-	if mNode.sd[1] and not mNode.allMasteryOptions then
+	if mNode.sd[1] and (not mNode.allMasteryOptions or isRunegraft) then
 		tooltip:AddLine(16, "")
 		for i, line in ipairs(mNode.sd) do
 			addModInfoToTooltip(mNode, i, masteryColor..line)

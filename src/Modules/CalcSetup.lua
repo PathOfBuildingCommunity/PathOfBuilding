@@ -114,21 +114,22 @@ function calcs.initModDB(env, modDB)
 	modDB.conditions["Effective"] = env.mode_effective
 end
 
--- Recycle a modlist so that we do not allocate many tables for each node.
-local function resetModList(list)
-	for i = #list, 1, -1 do
-		list[i] = nil
-	end
-	list.multipliers = wipeTable(list.multipliers)
-	list.conditions = wipeTable(list.conditions)
-	list.actor = wipeTable(list.actor)
-	list.parent = false
-	return list
-end
-
 ---@param reuse table|nil A ModList to recycle instead of allocating. Only safe when the caller discards the result.
 function calcs.buildModListForNode(env, node, reuse)
-	local modList = reuse and resetModList(reuse) or new("ModList"):ModList()
+	local modList
+	if reuse then
+		-- Reset the scratch list so non-MAIN calculations can reuse it for each node
+		modList = reuse
+		for i = #modList, 1, -1 do
+			modList[i] = nil
+		end
+		modList.multipliers = wipeTable(modList.multipliers)
+		modList.conditions = wipeTable(modList.conditions)
+		modList.actor = wipeTable(modList.actor)
+		modList.parent = false
+	else
+		modList = new("ModList"):ModList()
+	end
 	if node.type == "Keystone" then
 		modList:AddMod(node.keystoneMod)
 	else

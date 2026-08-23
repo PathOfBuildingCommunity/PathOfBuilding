@@ -4164,7 +4164,6 @@ local function buildSpecForJewelComparison(itemsTab, compareSlot, replacementIte
 	else
 		spec.jewels[compareSlot.nodeId] = nil
 	end
-
 	local ok, err = xpcall(function()
 		spec:BuildAllDependsAndPaths()
 	end, debug.traceback)

@@ -76,25 +76,6 @@ local function getClass(className)
 	return class
 end
 
--- wrap constructor to check that the constructors for all parent and superparent classes have been called
-local function wrapConstructor(class, className, originalFunc)
-	return function(self, ...)
-		local ret = originalFunc(self, ...)
-		if class._parents then
-			for parent in pairs(class._superParents) do
-				if parent[parent._className] and not self._parentInit[parent] then
-					error("Parent class '" ..
-						parent._className .. "' of class '" .. className .. "' must be initialised")
-				end
-			end
-		end
-		if not ret then
-			error(string.format("Class %s constructor did not return a value", className))
-		end
-		return ret
-	end
-end
-
 ---@generic T
 ---@param className `T`
 ---@param ... string parent class names
@@ -113,7 +94,7 @@ function newClass(className, ...)
 	class._metaList = {}
 	class._className = className
 	local numVarArg = select("#", ...)
-	local parentIndex
+	local classMeta = { }
 	if numVarArg > 0 then
 		-- Build list of parent classes
 		class._parents = { }
@@ -124,7 +105,7 @@ function newClass(className, ...)
 		class._superParents = { }
 		addSuperParents(class, class)
 		-- Set up inheritance
-		function parentIndex(self, key)
+		classMeta.__index = function(self, key)
 			for _, parent in ipairs(class._parents) do
 				local val = parent[key]
 				if val ~= nil then
@@ -134,16 +115,29 @@ function newClass(className, ...)
 			end
 		end
 	end
-	setmetatable(class, {
-		__index = parentIndex,
-		__newindex = function(self, k, v)
-			if k == className then
-				-- Check that the constructors for all parent and superparent classes have been called
-				v = wrapConstructor(class, className, v)
+	classMeta.__newindex = function(self, k, v)
+		if k == className then
+			local constructor = v
+			-- Check that the constructors for all parent and superparent classes have been called
+			v = function(self, ...)
+				local ret = constructor(self, ...)
+				if class._parents then
+					for parent in pairs(class._superParents) do
+						if parent[parent._className] and not self._parentInit[parent] then
+							error("Parent class '" ..
+								parent._className .. "' of class '" .. className .. "' must be initialised")
+						end
+					end
+				end
+				if not ret then
+					error(string.format("Class %s constructor did not return a value", className))
+				end
+				return ret
 			end
-			rawset(self, k, v)
 		end
-	})
+		rawset(self, k, v)
+	end
+	setmetatable(class, classMeta)
 	class._unconstructedMeta = {
 		__index = function(obj, key)
 			if key == className then
@@ -156,46 +150,6 @@ function newClass(className, ...)
 		end,
 	}
 	return class
-end
-
--- avoid rebuilding metatables constantly. this is done by caching class-parent pair metatables
-local function getMeta(class, parent)
-	local metaList = rawget(class, "_metaList")
-	local meta = metaList[parent]
-	if not meta then
-		local parentName = parent._className
-		meta = {
-			__index = function(proxy, key)
-				local object = rawget(proxy, "_object")
-				local v = rawget(object, key)
-				if v ~= nil then
-					return v
-				else
-					return parent[key]
-				end
-			end,
-			__newindex = function(proxy, k, v)
-				local object = rawget(proxy, "_object")
-				object[k] = v
-			end,
-			__call = function(proxy, self, ...)
-				local object = rawget(proxy, "_object")
-				if not parent[parentName] then
-					error("Parent class '" .. parentName .. "' of class '" .. class._className .. "' has no constructor")
-				end
-				if object._parentInit[parent] then
-					error("Parent class '" .. parentName .. "' of class '" .. class._className .. "' has already been initialised")
-				end
-				if self ~= object then
-					error(string.format("Parent class %s constructor of class %s was not provided self. Are you perhaps calling it with self.%s instead of self:%s?", parentName, class._className, parentName, parentName))
-				end
-				parent[parent._className](self, ...)
-				object._parentInit[parent] = true
-			end,
-		}
-		metaList[parent] = meta
-	end
-	return meta
 end
 ---@generic T
 ---@param className `T`
@@ -215,8 +169,45 @@ function new(className, extraArg)
 	if class._parents then
 		-- Add parent and superparent class proxies
 		object._parentInit = { }
+		local metaList = rawget(class, "_metaList")
 		for parent in pairs(class._superParents) do
-			object[parent._className] = setmetatable({ _object = object }, getMeta(class, parent))
+			local meta = metaList[parent]
+			if not meta then
+				local proxyParent = parent
+				local parentName = parent._className
+				-- Cache one proxy metatable for each class-parent pair instead of rebuilding it for every object
+				meta = {
+					__index = function(proxy, key)
+						local proxyObject = rawget(proxy, "_object")
+						local value = rawget(proxyObject, key)
+						if value ~= nil then
+							return value
+						else
+							return proxyParent[key]
+						end
+					end,
+					__newindex = function(proxy, k, v)
+						local proxyObject = rawget(proxy, "_object")
+						proxyObject[k] = v
+					end,
+					__call = function(proxy, self, ...)
+						local proxyObject = rawget(proxy, "_object")
+						if not proxyParent[parentName] then
+							error("Parent class '" .. parentName .. "' of class '" .. class._className .. "' has no constructor")
+						end
+						if proxyObject._parentInit[proxyParent] then
+							error("Parent class '" .. parentName .. "' of class '" .. class._className .. "' has already been initialised")
+						end
+						if self ~= proxyObject then
+							error(string.format("Parent class %s constructor of class %s was not provided self. Are you perhaps calling it with self.%s instead of self:%s?", parentName, class._className, parentName, parentName))
+						end
+						proxyParent[parentName](self, ...)
+						proxyObject._parentInit[proxyParent] = true
+					end,
+				}
+				metaList[parent] = meta
+			end
+			object[parent._className] = setmetatable({ _object = object }, meta)
 		end
 	end
 	return object
@@ -551,7 +542,10 @@ function specCopy(env)
 	return modDB, enemyDB, minionDB
 end
 
--- Wipe all keys from the table and return it, or return a new table if no table provided
+-- Wipe all keys from the table and return it, or return a new table if no table
+-- provided. This is useful to avoid alllocations in hot paths if a table can be reused. Using LuaJIT's `table.clear()` is another alternative to this, but this performs similarly on small tables, or tables which are often already empty.
+---@param tbl table?
+---@return table tbl
 function wipeTable(tbl)
 	if not tbl then
 		return { }
