@@ -575,7 +575,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 	function self.controls.statBox.onClick(hoveredLine)
 		self:SetDisplayStat(hoveredLine, true)
 	end
-self.controls.warnings = new("Control"):Control({"TOPLEFT",self.controls.statBox,"BOTTOMLEFT",true}, {0, 0, 0, 18})
+	self.controls.warnings = new("Control"):Control({"TOPLEFT",self.controls.statBox,"BOTTOMLEFT",true}, {0, 0, 0, 18})
 	self.controls.warnings.lines = {}
 	self.controls.warnings.width = function(control)
 		return control.str and DrawStringWidth(16, "FIXED", control.str) + 8 or 0
@@ -1365,7 +1365,7 @@ function buildMode:SetDisplayStat(hovered, pin)
 		return
 	end
 
-	self.sidebarBreakdownData = self:GetSidebarBreakdown(key, hovered.line.modNames, hovered.line.ignoredSections)
+	self.sidebarBreakdownData = self:GetSidebarBreakdown(key, hovered.line.modNames, hovered.line.ignoredSections, hovered.line.actorName)
 	self.sidebarBreakdownData.x = hovered.x - 1
 	self.sidebarBreakdownData.y = hovered.y
 	self.sidebarBreakdownData.width = hovered.width
@@ -1802,8 +1802,12 @@ end
 ---@param key string A breakdown key
 ---@param modNames string[]? A modName key. Required if the mod name is different from the breakdown key. E.g. breakdown has Time while the mod has Speed
 ---@param ignoredSections table<string, boolean>?
-function buildMode:GetSidebarBreakdown(key, modNames, ignoredSections)
-	local entry = self:BuildBreakdownIndex()[key]
+---@param actorName string?
+function buildMode:GetSidebarBreakdown(key, modNames, ignoredSections, actorName)
+	local env = actorName and self.calcsTab.mainEnv[actorName]
+	local breakdownData = env and env.breakdown and env.breakdown[key]
+	local sourceKey = breakdownData and breakdownData.breakdownSource or key
+	local entry = self:BuildBreakdownIndex()[sourceKey]
 	if not entry then
 		local output = { { breakdown = key } }
 		-- it's possible for calc sections to not have a breakdown, while still
@@ -1816,7 +1820,11 @@ function buildMode:GetSidebarBreakdown(key, modNames, ignoredSections)
 	local displayData = {}
 	-- this will include all of the hover information for the selected breakdown
 	for _, cell in ipairs(entry.colData) do
-		t_insert(displayData, copyTable(cell))
+		local displayCell = copyTable(cell)
+		if displayCell.breakdown == sourceKey then
+			displayCell.breakdown = key
+		end
+		t_insert(displayData, displayCell)
 	end
 	-- sometimes the breakdown doesn't include the mod names. for
 	-- example life has its mod tables separated to the inc and more breakdowns.
@@ -1857,19 +1865,34 @@ function buildMode:GetStatBreakdownKey(statData, actorName)
 	if not breakdown then
 		return nil
 	end
-	-- note that this intentionally doesn't check if the breakdown exists so
-	-- that we can still display mod lists
-	if statData.breakdown then
-		return statData.breakdown
-	end
-	if statData.childStat then
+	local key
+	if statData.breakdown ~= nil then
+		key = statData.breakdown
+	elseif statData.childStat then
 		local parent = breakdown[statData.stat]
 		if parent and parent[statData.childStat] then
-			return statData.stat .. "." .. statData.childStat
+			key = statData.stat .. "." .. statData.childStat
 		end
+	elseif breakdown[statData.stat] then
+		key = statData.stat
 	end
-	if breakdown[statData.stat] then
-		return statData.stat
+	if key == nil then
+		return nil
+	end
+	-- Modifier-only popups do not require a calculated breakdown.
+	if statData.modNames then
+		return key
+	end
+	local namespace, name = key:match("^(%a+)%.(%a+)$")
+	local breakdownData = namespace and breakdown[namespace] and breakdown[namespace][name] or breakdown[key]
+	if breakdownData and (#breakdownData > 0
+		or breakdownData.radius
+		or breakdownData.rowList and #breakdownData.rowList > 0
+		or breakdownData.reservations and #breakdownData.reservations > 0
+		or breakdownData.damageTypes and #breakdownData.damageTypes > 0
+		or breakdownData.slots and #breakdownData.slots > 0
+		or breakdownData.modList and #breakdownData.modList > 0) then
+		return key
 	end
 	return nil
 end
