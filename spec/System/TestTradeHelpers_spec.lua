@@ -124,7 +124,7 @@ describe("TradeHelpers trade hash matching", function()
 		end)
 
 		it("picks the canonical stat when the descriptor orders values right to left", function()
-			-- Kitava's Thrist's vestigial implicit. its descriptor is "{1}% chance ... {0} Mana ...",
+			-- Kitava's Thirst's vestigial implicit. its descriptor is "{1}% chance ... {0} Mana ...",
 			-- so the canonical stat (2) is the first value in the text, not the second
 			local ids, value = tradeHelpers.findTradeHash(
 				"25% chance to Trigger Socketed Spells when you Spend at least 100 Mana on an\nUpfront Cost to Use or Trigger a Skill, with a 0.1 second Cooldown")
