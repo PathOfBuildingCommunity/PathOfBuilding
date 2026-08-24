@@ -1575,7 +1575,7 @@ return {
 } },
 { 1, "EnergyShield", 2, colorCodes.ES, {{ defaultCollapsed = false, label = "Energy Shield", data = {
 	extra = "{0:output:EnergyShield}",
-	{ label = "Base from Armours", { format = "{0:output:Gear:EnergyShield}", { breakdown = "EnergyShield", gearOnly = true }, }, },
+	{ label = "Base from Armours", { format = "{0:mod:1}", { modName = "EnergyShield", modType = "BASE", modSource = "Item" }, }, },
 	{ label = "Global Base", { format = "{0:mod:1}", { modName = "EnergyShield", modType = "BASE" }, }, },
 	{ label = "Inc. from Tree", { format = "{0:mod:1}%", { modName = "EnergyShield", modType = "INC", modSource = "Tree" }, }, },
 	{ label = "Total Increased", { format = "{0:mod:1}%", { modName = { "EnergyShield", "Defences" }, modType = "INC" }, }, },
@@ -1637,7 +1637,7 @@ return {
 } },
 { 1, "Ward", 2, colorCodes.WARD, {{ defaultCollapsed = false, label = "Ward", data = {
 	extra = "{0:output:Ward}",
-	{ label = "Base from Armours", { format = "{0:output:Gear:Ward}", { breakdown = "Ward", gearOnly = true }, }, },
+	{ label = "Base from Armours", { format = "{0:mod:1}", { modName = "Ward", modType = "BASE", modSource = "Item" }, }, },
 	{ label = "Global Base", { format = "{0:mod:1}", { modName = "Ward", modType = "BASE" }, }, },
 	{ label = "Inc. from Tree", { format = "{0:mod:1}%", { modName = "Ward", modType = "INC", modSource = "Tree" }, }, },
 	{ label = "Total Increased", { format = "{0:mod:1}%", { modName = { "Ward", "Defences" }, modType = "INC" }, }, },
@@ -1672,7 +1672,7 @@ return {
 } },
 { 1, "Armour", 3, colorCodes.ARMOUR, {{ defaultCollapsed = false, label = "Armour", data = {
 	extra = "{0:output:Armour}",
-	{ label = "Base from Armours", { format = "{0:output:Gear:Armour}", { breakdown = "Armour", gearOnly = true }, }, },
+	{ label = "Base from Armours", { format = "{0:mod:1}", { modName = {"Armour", "ArmourAndEvasion"}, modType = "BASE", modSource = "Item" }, }, },
 	{ label = "Global Base", { format = "{0:mod:1}", { modName = { "Armour", "ArmourAndEvasion" }, modType = "BASE" }, }, },
 	{ label = "Inc. from Tree", { format = "{0:mod:1}%", { modName = { "Armour", "ArmourAndEvasion" }, modType = "INC", modSource = "Tree", }, }, },
 	{ label = "Total Increased", { format = "{0:mod:1}%", { modName = { "Armour", "ArmourAndEvasion", "Defences" }, modType = "INC" }, }, },
@@ -1703,7 +1703,7 @@ return {
 } },
 { 1, "Evasion", 3, colorCodes.EVASION, {{ defaultCollapsed = false, label = "Evasion", data = {
 	extra = "{0:output:Evasion}",
-	{ label = "Base from Armours", { format = "{0:output:Gear:Evasion}", { breakdown = "Evasion", gearOnly = true }, }, },
+	{ label = "Base from Armours", { format = "{0:mod:1}", { modName = { "Evasion", "ArmourAndEvasion" }, modType = "BASE", modSource = "Item" }, }, },
 	{ label = "Global Base", { format = "{0:mod:1}", { modName = { "Evasion", "ArmourAndEvasion" }, modType = "BASE" }, }, },
 	{ label = "Inc. from Tree", { format = "{0:mod:1}%", { modName = { "Evasion", "ArmourAndEvasion" }, modType = "INC", modSource = "Tree" }, }, },
 	{ label = "Total Increased", { format = "{0:mod:1}%", { modName = { "Evasion", "ArmourAndEvasion", "Defences" }, modType = "INC" }, }, },
