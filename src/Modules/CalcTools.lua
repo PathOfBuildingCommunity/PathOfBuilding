@@ -91,6 +91,11 @@ function calcLib.canGrantedEffectSupportActiveSkill(grantedEffect, activeSkill, 
 		return false
 	end
 
+	-- Mana-Infused Staff cannot be supported by Arrogance in game
+	if grantedEffect.id == "SupportArrogance" and activeSkill.activeEffect.grantedEffect.id == "ManaInfusedStaff" then
+		return false
+	end
+
 	-- Special case for things like Forbidden Shako or Hungry Loop with  for example Prismatic Burst and another compatible support
 	if not appliesToGrantedSkills and grantedEffect.fromItem and grantedEffect.support and (activeSkill.activeEffect.grantedEffect.fromItem or activeSkill.activeEffect.grantedEffect.modSource:sub(1, #"Item") == "Item" or (activeSkill.activeEffect.srcInstance and activeSkill.activeEffect.srcInstance.fromItem)) then
 		return false
