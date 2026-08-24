@@ -10,10 +10,33 @@ local m_floor = math.floor
 local numberPattern = "%%d%+%%.%?%%d*"
 local statDescData
 local function getStatDescData()
+	-- this is not perfect. some currently known issues include:
+	-- death's oath chaos damage line: formatted as a # to # value on trade site which shows 3 to 450. nonsensical
+	-- life flask: immunity frozen/chill. probably caused by pob splitting the mods
 	if statDescData then return statDescData end
 	statDescData = LoadModule("Data/StatDescriptions/stat_descriptions")
 	for _, statDescEntry in ipairs(statDescData) do
 		for _, desc in ipairs(statDescEntry[1] or {}) do
+			-- stat descriptors don't necessarily have the stats ordered from
+			-- left to right. for example a text might have {2} {1}. in this
+			-- case if it also has a canonical stat defined, we need to keep
+			-- track of these group ids to know where the stat actually is. See
+			-- for example:
+			-- "{1}% chance to Trigger Socketed Spells when you Spend at least {0} Life on an\nUpfront Cost to Use or Trigger a Skill, with a 0.1 second Cooldown"
+			local groupIndexes = {}
+			local leftToRightIdx = 1
+			for valueGroup in desc.text:gmatch("{.-}") do
+				local groupIdx = valueGroup:match("{(%d+):?.*}")
+				if groupIdx then
+					table.insert(groupIndexes,
+						-- canonical stat is 1 indexed while group ids are zero indexed
+						tonumber(groupIdx) + 1)
+				else
+					table.insert(groupIndexes, leftToRightIdx)
+				end
+				leftToRightIdx = leftToRightIdx + 1
+			end
+			desc.groupIndexes = groupIndexes
 			-- pob doesn't parse this as a part of other mods
 			desc.text = desc.text:gsub("\nPassage", "")
 			desc.pat = desc.text
@@ -35,6 +58,7 @@ local function getStatDescData()
 					-- stats do require the plus sign to parse, but this simplifies handling reflected
 					-- mods
 					"%%%+%?(%%%-%?" .. numberPattern .. ")")
+			desc.pat = "^" .. desc.pat .. "$"
 		end
 	end
 	return statDescData
@@ -166,7 +190,9 @@ function M.findTradeIdOption(modLine, modType)
 		"commanded leadership over (%d+) warriors under (.+)",
 		"commissioned (%d+) coins to commemorate (.+)",
 		"denoted service of (%d+) dekhara in the akhara of (.+)",
-		"remembrancing (%d+) songworthy deeds by the line of (.+)" }
+		"remembrancing (%d+) songworthy deeds by the line of (.+)",
+		"subjugating (%d+) souls in the thrall of (.+)",
+		"binding (%d+) souls to phylacteries to sustain (.+)" }
 	for _, pat in ipairs(timelessPatterns) do
 		local value, conqueror = modLine:match(pat)
 		if conqueror then
@@ -195,6 +221,21 @@ function M.findTradeIdOption(modLine, modType)
 	end
 end
 
+-- some forms leave the trade site stat out of their text entirely, because that
+-- form is only used when the stat has a known value, which is recorded in the
+-- form's limits. this is for example common with % chance, where 100% chance
+-- omits the chance text
+---@return number? value
+local function impliedValue(statForm, canonical_stat)
+	local limit = statForm.limit and statForm.limit[canonical_stat or 1]
+	return limit and tonumber(limit[1])
+end
+
+local function insertUniqueHash(resultIds, tradeHash)
+	if not isValueInArray(resultIds, tradeHash) then
+		table.insert(resultIds, tradeHash)
+	end
+end
 -- Helper: find the trade stat ID for a mod line
 ---@param modLine  string
 ---@return table[] results Can include more than one result if the results are ambiguous
@@ -225,10 +266,9 @@ function M.findTradeHash(modLine)
 		end
 		-- by default, the trade site uses the first form listed in the stat descriptions, but there
 		-- can be a flag that says otherwise
-		-- local canonical_line = 1
 		-- the stat descriptions default to using the first stat for the trade site, but this
 		-- flag can define it to be another one
-		local canonical_stat = 1
+		local canonical_stat
 		local canonical_negated = false
 		for statFormIdx, statForm in ipairs(statDescriptions) do
 			local negate = false
@@ -255,27 +295,46 @@ function M.findTradeHash(modLine)
 			-- stat has no variables
 			if modLine == statForm.text:lower() then
 				local tradeHash = HashStats(statDescEntry.stats, extraStat)
-				table.insert(resultIds, tradeHash)
+				insertUniqueHash(resultIds, tradeHash)
 				shouldNegate = false
 				-- it's hard to know the correct value, but many stats have a form with no variables when the chance to do something is 100%. this should assign a value for those
-				value = tonumber(statForm.limit and statForm.limit[1] and statForm.limit[1][1])
+				value = impliedValue(statForm, canonical_stat)
 				goto continue
 			end
 			-- ensure no false positives by requiring a full line match. this is not possible in gmatch as it doesn't support ^
-			if modLine:match("^" .. statForm.pat .. "$") then
+			if modLine:match(statForm.pat) then
 				local idx = 1
-				for match in modLine:gmatch(statForm.pat) do
+				local matchedCanonical = false
+				local matches = { modLine:match(statForm.pat) }
+				for _, match in ipairs(matches) do
 					-- note that if the desired value isn't the first match and this is a # to #,
 					-- this will break as it contains two values. however, there is only a single
 					-- example where # to # are not the first two values currently
 					local number = tonumber(match) or M.modLineValue(match)
-					if number and idx == canonical_stat then
+					-- we assume that the desired trade value is either the
+					-- first value from the left, or defined by a canonical_stat
+					-- flag, which refers to the ids which are in the stat
+					-- descriptor, e.g. {2}
+					if number and (not canonical_stat) or (statForm.groupIndexes[idx] == canonical_stat) then
 						shouldNegate = negate ~= canonical_negated
 						local tradeHash = HashStats(statDescEntry.stats, extraStat)
-						table.insert(resultIds, tradeHash)
+						insertUniqueHash(resultIds, tradeHash)
 						value = number
+						matchedCanonical = true
+						break
 					end
 					idx = idx + 1
+				end
+				-- the canonical stat is missing from the form text: take it
+				-- from the limits. this can be e.g. 100% chance omitting the
+				-- chance.
+				if canonical_stat and not matchedCanonical then
+					local implied = impliedValue(statForm, canonical_stat)
+					if implied then
+						shouldNegate = negate ~= canonical_negated
+						insertUniqueHash(resultIds, HashStats(statDescEntry.stats, extraStat))
+						value = implied
+					end
 				end
 			end
 		end
