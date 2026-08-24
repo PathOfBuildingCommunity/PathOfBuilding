@@ -20006,8 +20006,8 @@ c["Skills Socketed in your Boots are Supported by level 20 Hextouch"]={{[1]={[1]
 c["Skills Socketed in your Boots are Supported by level 20 High-Impact Mine"]={{[1]={[1]={slotName="Boots",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={appliesToGrantedSkills=true,level=20,skillId="SupportHighImpactMine"}}},nil}
 c["Skills Socketed in your Boots are Supported by level 20 Hypothermia"]={{[1]={[1]={slotName="Boots",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={appliesToGrantedSkills=true,level=20,skillId="SupportHypothermia"}}},nil}
 c["Skills Socketed in your Boots are Supported by level 20 Ice Bite"]={{[1]={[1]={slotName="Boots",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={appliesToGrantedSkills=true,level=20,skillId="SupportIceBite"}}},nil}
-end)();(function()
 c["Skills Socketed in your Boots are Supported by level 20 Ignite Proliferation"]={{[1]={[1]={slotName="Boots",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={appliesToGrantedSkills=true,level=20,skillId="SupportIgniteProliferation"}}},nil}
+end)();(function()
 c["Skills Socketed in your Boots are Supported by level 20 Immolate"]={{[1]={[1]={slotName="Boots",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={appliesToGrantedSkills=true,level=20,skillId="SupportImmolate"}}},nil}
 c["Skills Socketed in your Boots are Supported by level 20 Impale"]={{[1]={[1]={slotName="Boots",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={appliesToGrantedSkills=true,level=20,skillId="SupportImpale"}}},nil}
 c["Skills Socketed in your Boots are Supported by level 20 Increased Area of Effect"]={{[1]={[1]={slotName="Boots",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={appliesToGrantedSkills=true,level=20,skillId="SupportIncreasedAreaOfEffect"}}},nil}
