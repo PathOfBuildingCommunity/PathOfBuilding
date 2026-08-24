@@ -117,7 +117,8 @@ function calcLib.canGrantedEffectSupportActiveSkill(grantedEffect, activeSkill, 
 	-- Special case for Sacred Wisps, i.e. Wisps Support has a weaponType of Wand so it should only match with Active Skills that at least have Wand as a weaponType.
 	-- Super special case for Varunastra, e.g. allow Nightblade to support Smite.
 	local actorHasAllOneHand = (activeSkill.actor.weaponData1 and activeSkill.actor.weaponData1.countsAsAll1H) or (activeSkill.actor.weaponData2 and activeSkill.actor.weaponData2.countsAsAll1H)
-	if grantedEffect.weaponTypes then
+	-- Skills granted by a support gem (e.g. Windburst) have no weapon types of their own; the weapon restriction applies to the skill that triggers them.
+	if grantedEffect.weaponTypes and not effectiveSkillTypes[SkillType.SkillGrantedBySupport] then
 		-- Build a lookup of the active skill's weapon types
 		local activeTypeLookup = { }
 		if activeSkill.activeEffect.grantedEffect.weaponTypes then
