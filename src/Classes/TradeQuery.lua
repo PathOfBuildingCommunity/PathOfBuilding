@@ -439,9 +439,17 @@ Highest Weight - Displays the order retrieved from trade]]
 		local function setLeagueDropList()
 			self.itemsTab.leagueDropList = copyTable(self.allLeagues[self.pbRealm])
 			self.controls.league:SetList(self.itemsTab.leagueDropList)
+			-- correct index as it might move when we fetch a new league list
+			local leagueIndex = self.pbLeagueIndex
+			for index, league in ipairs(self.itemsTab.leagueDropList) do
+				if league == self.pbLeague then
+					leagueIndex = index
+					break
+				end
+			end
 			-- invalidate selIndex to trigger select function call in the SetSel
 			self.controls.league.selIndex = nil
-			self.controls.league:SetSel(self.pbLeagueIndex)
+			self.controls.league:SetSel(leagueIndex)
 		end
 		if self.allLeagues[self.pbRealm] then
 			setLeagueDropList()
@@ -1245,47 +1253,46 @@ you can add them, copy the link here, and press "Price Item" to evaluate the ite
 	end
 	-- Whisper so we can copy to clipboard
 	controls["whisperButton" .. row_idx] = new("ButtonControl"):ButtonControl({ "TOPLEFT", controls["importButton" .. row_idx], "TOPRIGHT" }, { 8, 0, 155, row_height }, function()
-			local itemResult = self.itemIndexTbl[row_idx] and self.resultTbl[row_idx][self.itemIndexTbl[row_idx]]
+		local itemResult = self.itemIndexTbl[row_idx] and self.resultTbl[row_idx][self.itemIndexTbl[row_idx]]
 
-			if not itemResult then return "" end
+		if not itemResult then return "" end
 
-			local price = self.totalPrice[row_idx] and
-				self.totalPrice[row_idx].amount .. " " .. self.totalPrice[row_idx].currency
+		local price = self.totalPrice[row_idx] and
+			self.totalPrice[row_idx].amount .. " " .. self.totalPrice[row_idx].currency
 
-			-- we also check the price type so we can prefer instant buyout over
-			-- whisper
-			if itemResult.whisper and (itemResult.priceType ~= "~b/o") then
-				return price and "Whisper for " .. price or "Whisper"
-			else
-				return price and "Search for " .. price or "Search"
-			end
+		-- we also check the price type so we can prefer instant buyout over
+		-- whisper
+		if itemResult.whisper and (itemResult.priceType ~= "~b/o") then
+			return price and "Whisper for " .. price or "Whisper"
+		else
+			return price and "Search for " .. price or "Search"
+		end
+	end, function()
+		local itemResult = self.itemIndexTbl[row_idx] and self.resultTbl[row_idx][self.itemIndexTbl[row_idx]]
+		if itemResult.whisper and (itemResult.priceType ~= "~b/o") then
+			Copy(itemResult.whisper)
+		else
+			local exactQuery = dkjson.decode(self.lastQueries[row_idx])
+			-- use trade sum to get the specific item. both min and max
+			-- weight on site uses floats but only shows integer in the api
+			-- e.g. weight of 172.3 shows up as 172 in the api
+			exactQuery.query.stats[1].value = { min = floor(itemResult.weight, 1) - 1, max = round(itemResult.weight, 1) + 1 }
+			-- also apply trader name. this should make false positives
+			-- extremely unlikely. this doesn't seem to take up a filter slot
+			exactQuery.query.filters = exactQuery.query.filters or {}
+			exactQuery.query.filters.trade_filters = exactQuery.query.filters.trade_filters or { filters = {} }
+			exactQuery.query.filters.trade_filters.filters = exactQuery.query.filters.trade_filters.filters or {}
+			exactQuery.query.filters.trade_filters.filters.account = { input = itemResult.trader }
 
-		end, function()
-			local itemResult = self.itemIndexTbl[row_idx] and self.resultTbl[row_idx][self.itemIndexTbl[row_idx]]
-			if  itemResult.whisper and (itemResult.priceType ~= "~b/o") then
-				Copy(itemResult.whisper)
-			else
-				local exactQuery = dkjson.decode(self.lastQueries[row_idx])
-				-- use trade sum to get the specific item. both min and max
-				-- weight on site uses floats but only shows integer in the api
-				-- e.g. weight of 172.3 shows up as 172 in the api
-				exactQuery.query.stats[1].value = { min = floor(itemResult.weight, 1) - 1, max = round(itemResult.weight, 1) + 1 }
-				-- also apply trader name. this should make false positives
-				-- extremely unlikely. this doesn't seem to take up a filter slot
-				exactQuery.query.filters = exactQuery.query.filters or { }
-				exactQuery.query.filters.trade_filters = exactQuery.query.filters.trade_filters or { filters = { } }
-				exactQuery.query.filters.trade_filters.filters = exactQuery.query.filters.trade_filters.filters or { }
-				exactQuery.query.filters.trade_filters.filters.account = { input = itemResult.trader }
-
-				local exactQueryStr = dkjson.encode(exactQuery)
+			local exactQueryStr = dkjson.encode(exactQuery)
 
 			local realmPath = (self.pbRealm ~= "pc") and (self.pbRealm .. "/") or ""
-			local encodedUrl = s_format("https://www.pathofexile.com/trade/search/%s%s?q=%s", realmPath, self.pbLeague, urlEncode(exactQueryStr))
+			local encodedUrl = s_format("https://www.pathofexile.com/trade/search/%s%s?q=%s", realmPath, urlEncode(self.pbLeague), urlEncode(exactQueryStr))
 
-				Copy(encodedUrl)
-				OpenURL(encodedUrl)
-			end
-		end)
+			Copy(encodedUrl)
+			OpenURL(encodedUrl)
+		end
+	end)
 
 	controls["whisperButton" .. row_idx].tooltipFunc = function(tooltip)
 		tooltip:Clear()
@@ -1360,14 +1367,16 @@ function TradeQueryClass:UpdateRealms()
 	setRealmDropList()
 
 	-- perform a generic search to make sure the authorization is valid.
-	self.tradeQueryRequests:PerformSearch("pc", "Standard", [[{"query":{"status":{"option":"online"},"stats":[{"type":"and","filters":[]}]},"sort":{"price":"asc"}}]], function(response, errMsg)
-		if errMsg then
-			-- a 403 here likely means that the user has an outdated scope
-			if errMsg == "Response code: 403" then
-				main.api:ResetDetails()
-				errMsg = errMsg .. "\nPlease re-authenticate"
+	if main.api.authToken then
+		self.tradeQueryRequests:PerformSearch("pc", "Standard", [[{"query":{"status":{"option":"online"},"stats":[{"type":"and","filters":[]}]},"sort":{"price":"asc"}}]], function(response, errMsg)
+			if errMsg then
+				-- a 403 here likely means that the user has an outdated scope
+				if errMsg == "Response code: 403" then
+					main.api:ResetDetails()
+					errMsg = errMsg .. "\nPlease re-authenticate"
+				end
+				self:SetNotice(self.controls.pbNotice, "Error: " .. tostring(errMsg))
 			end
-			self:SetNotice(self.controls.pbNotice, "Error: " .. tostring(errMsg))
-		end
-	end)
+		end)
+	end
 end

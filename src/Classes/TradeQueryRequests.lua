@@ -521,6 +521,9 @@ function TradeQueryRequestsClass:FetchLeagues(realm, callback)
 				table.insert(leagues, value.id)
 				::skipLeague::
 			end
+			if #leagues == 0 then
+				return fetchStatic()
+			end
 			callback(leagues, err)
 		end)
 	else
