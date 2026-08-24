@@ -1968,7 +1968,14 @@ function calcs.perform(env, skipEHP)
 		breakdown.ManaReserved = { reservations = { } }
 	end
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
-		if (activeSkill.skillTypes[SkillType.HasReservation] or activeSkill.skillData.triggeredByAutoexertion ) and not activeSkill.skillTypes[SkillType.ReservationBecomesCost] then
+		-- Mana-Infused Staff does nothing unless it actually reserves mana
+		local noManaReservation = activeSkill.activeEffect.grantedEffect.id == "ManaInfusedStaff"
+			and (activeSkill.skillModList:Flag(activeSkill.skillCfg, "BloodMagicReserved") or (output.Mana or 0) == 0)
+		if noManaReservation then
+			activeSkill.skillFlags.disable = true
+			activeSkill.disableReason = "This skill requires reserving Mana"
+		end
+		if (activeSkill.skillTypes[SkillType.HasReservation] or activeSkill.skillData.triggeredByAutoexertion ) and not activeSkill.skillTypes[SkillType.ReservationBecomesCost] and not noManaReservation then
 			local skillModList = activeSkill.skillModList
 			local skillCfg = activeSkill.skillCfg
 			local mult = floor(skillModList:More(skillCfg, "SupportManaMultiplier"), 4)
