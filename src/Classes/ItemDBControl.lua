@@ -8,6 +8,7 @@ local ipairs = ipairs
 local t_insert = table.insert
 local m_max = math.max
 local m_floor = math.floor
+local itemSlotIcons = require("Modules.ItemSlotIcons")
 
 
 ---@class ItemDBControl: ListControl
@@ -345,6 +346,10 @@ function ItemDBClass:GetRowValue(column, index, item)
 	if item and column == 1 then
 		return colorCodes[item.rarity] .. item.name
 	end
+end
+
+function ItemDBClass:GetRowIcon(column, index, item)
+	return itemSlotIcons.Get(item:GetPrimarySlot())
 end
 
 function ItemDBClass:AddValueTooltip(tooltip, index, item)

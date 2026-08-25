@@ -7,6 +7,7 @@ local pairs = pairs
 local ipairs = ipairs
 local t_insert = table.insert
 local t_sort = table.sort
+local itemSlotIcons = require("Modules.ItemSlotIcons")
 
 local slotFilterList = { "Any Slot", "Weapon 1", "Weapon 2", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring", "Belt", "Graft", "Flask", "Jewel" }
 local raritySortOrder = { UNIQUE = 1, RELIC = 1, RARE = 2, MAGIC = 3, NORMAL = 4 }
@@ -451,6 +452,12 @@ function ItemListClass:GetRowValue(column, index, itemId)
 			used = "  ^9(Used in '" .. used .. "')"
 		end
 		return colorCodes[item.rarity] .. item.name .. used
+	end
+end
+
+function ItemListClass:GetRowIcon(column, index, itemId)
+	if not isGroupHeader(itemId) then
+		return itemSlotIcons.Get(self.itemsTab.items[itemId]:GetPrimarySlot())
 	end
 end
 

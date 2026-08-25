@@ -311,6 +311,13 @@ describe("ItemListControl", function()
 		assert.is_nil(control.selValue)
 	end)
 
+	it("shows slot icons for items but not loadout group headers", function()
+		local control = newItemListControl()
+
+		assert.is_not_nil(control:GetRowIcon(1, 1, 1))
+		assert.is_nil(control:GetRowIcon(1, 1, { groupHeader = "Boss" }))
+	end)
+
 	it("clears filters that hide a selected item", function()
 		local control = newItemListControl()
 		control.controls.slotFilter.selIndex = 4
