@@ -257,7 +257,7 @@ function DropDownClass:Draw(viewPort, noTooltip)
 	local border, fill = ui.SurfaceColors(enabled, mOver, self.dropped)
 	if self.borderFunc and enabled and not (mOver or self.dropped) then
 		local r, g, b = self.borderFunc()
-		border = { r, g, b }
+		border = ui.PackColor(r, g, b)
 	end
 	ui.DrawBox(x, y, width, height, radius, border, fill)
 	if self.dropped then

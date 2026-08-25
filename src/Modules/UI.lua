@@ -26,55 +26,59 @@ ui.radius = 5
 ui.radiusLarge = 8
 
 -- Colour tokens. Each entry is { red, green, blue } in the 0-1 range that SetDrawColor expects.
+-- Colour tokens, packed as 0xRRGGBB. They are plain numbers rather than {r, g, b} tables: the draw
+-- path runs every frame for every control, so a colour that has to be built there, or a table that
+-- has to be traced by the collector, adds up. Numbers are values in Lua, so passing one around or
+-- deriving one at draw time allocates nothing.
 ui.colors = {
 	-- Outlines
-	border = { 0.24, 0.24, 0.27 },
-	borderHover = { 0.45, 0.45, 0.50 },
-	borderActive = { 0.63, 0.63, 0.69 },
-	borderDisabled = { 0.16, 0.16, 0.18 },
+	border = 0x3D3D45,
+	borderHover = 0x737380,
+	borderActive = 0xA1A1B0,
+	borderDisabled = 0x29292E,
 
 	-- Control bodies. Item names, "(Unused)" notes and other body text use the game's own
 	-- palette, which is mixed for contrast against black, so anything holding text stays near
 	-- black and leans on the border for definition. Only the hover and pressed states lift far
 	-- enough to be felt.
-	surface = { 0.055, 0.055, 0.065 },
-	surfaceHover = { 0.115, 0.115, 0.135 },
-	surfaceActive = { 0.17, 0.17, 0.20 },
-	surfaceDisabled = { 0.035, 0.035, 0.04 },
+	surface = 0x0E0E11,
+	surfaceHover = 0x1D1D22,
+	surfaceActive = 0x2B2B33,
+	surfaceDisabled = 0x09090A,
 
 	-- Containers that float above the rest of the interface
-	popover = { 0.03, 0.03, 0.038 },
-	panel = { 0.042, 0.042, 0.05 },
+	popover = 0x08080A,
+	panel = 0x0B0B0D,
 
 	-- Window chrome, i.e. the top bar and the side bar the tab buttons sit on. It reads as raised
 	-- rather than recessed, so it is the one surface that sits above the controls it holds.
-	chrome = { 0.13, 0.13, 0.15 },
-	chromeBorder = { 0.30, 0.30, 0.34 },
+	chrome = 0x212126,
+	chromeBorder = 0x4C4C57,
 
 	-- Text entry bodies, which sit a little deeper than a button
-	input = { 0.022, 0.022, 0.028 },
-	inputHover = { 0.045, 0.045, 0.055 },
+	input = 0x060607,
+	inputHover = 0x0B0B0E,
 
 	-- Row highlights inside lists and drop downs
-	accent = { 0.17, 0.17, 0.20 },
-	accentSubtle = { 0.095, 0.095, 0.11 },
+	accent = 0x2B2B33,
+	accentSubtle = 0x18181C,
 
 	-- Filled emphasis, e.g. a ticked check box or a slider knob
-	primary = { 0.88, 0.88, 0.91 },
-	primaryHover = { 1, 1, 1 },
-	onPrimary = { 0.05, 0.05, 0.06 },
+	primary = 0xE0E0E8,
+	primaryHover = 0xFFFFFF,
+	onPrimary = 0x0D0D0F,
 
 	-- Text
-	text = { 0.98, 0.98, 0.98 },
-	textMuted = { 0.72, 0.72, 0.75 },
-	textDisabled = { 0.42, 0.42, 0.45 },
+	text = 0xFAFAFA,
+	textMuted = 0xB8B8BF,
+	textDisabled = 0x6B6B73,
 
 	-- Focus ring drawn just outside a focused control
-	ring = { 0.55, 0.55, 0.62 },
+	ring = 0x8C8C9E,
 
 	-- Drag and drop feedback
-	dropTarget = { 0.35, 0.75, 0.45 },
-	dropTargetSurface = { 0.05, 0.09, 0.06 },
+	dropTarget = 0x59BF73,
+	dropTargetSurface = 0x0D170F,
 }
 
 -- A white disc; each quadrant is used as a rounded corner, so a rounded rectangle is
@@ -87,11 +91,23 @@ roundImage:Load("Assets/ui_round.png", "CLAMP", "MIPMAP")
 local checkImage = NewImageHandle()
 checkImage:Load("Assets/ui_check.png", "CLAMP", "MIPMAP")
 
----Set the current draw colour from a token
----@param color number[]
+---Set the current draw colour from a packed 0xRRGGBB token
+---@param color integer
 ---@param alpha? number
 function ui.SetColor(color, alpha)
-	SetDrawColor(color[1], color[2], color[3], alpha or color[4] or 1)
+	SetDrawColor(
+		m_floor(color / 0x10000) / 255,
+		m_floor(color / 0x100) % 0x100 / 255,
+		color % 0x100 / 255,
+		alpha or 1
+	)
+end
+
+---Pack a colour that only exists at draw time, e.g. one a control's borderFunc returns, into the
+---same form the tokens use. Returns a number, so it costs no allocation.
+---@return integer
+function ui.PackColor(r, g, b)
+	return m_floor(r * 255 + 0.5) * 0x10000 + m_floor(g * 255 + 0.5) * 0x100 + m_floor(b * 255 + 0.5)
 end
 
 ---Draw a filled rectangle with rounded corners, using the current draw colour
@@ -131,8 +147,8 @@ function ui.DrawCheckMark(x, y, size)
 end
 
 ---Draw an outlined, filled rounded rectangle
----@param border? number[] outline colour, or nil for no outline
----@param fill? number[] body colour, or nil to leave the body untouched
+---@param border? integer outline colour, or nil for no outline
+---@param fill? integer body colour, or nil to leave the body untouched
 ---@param thickness? number outline thickness, defaults to 1
 function ui.DrawBox(x, y, width, height, radius, border, fill, thickness)
 	radius = radius or ui.radius
@@ -159,8 +175,8 @@ function ui.DrawFocusRing(x, y, width, height, radius, color, spread)
 end
 
 ---Pick the outline and body colours for an interactive control
----@return number[] border
----@return number[] fill
+---@return integer border
+---@return integer fill
 function ui.SurfaceColors(enabled, hover, active)
 	local colors = ui.colors
 	if not enabled then
