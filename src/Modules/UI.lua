@@ -13,6 +13,13 @@ local m_floor = math.floor
 
 local ui = { }
 
+-- TODO: remove this switch before merging upstream. It is here for the review only: not everyone
+-- wants rounded corners, and some exiles have said they prefer the sharp edges, so setting this
+-- to false squares everything off and makes the two looks easy to compare side by side.
+-- Honoured by the primitives rather than the tokens, so it also catches the places that derive
+-- their own radius, like the slider knob and the scroll bar thumb.
+ui.rounded = true
+
 -- Corner rounding used by the base controls
 ui.radiusSmall = 3
 ui.radius = 5
@@ -94,7 +101,7 @@ function ui.DrawRect(x, y, width, height, radius)
 		return
 	end
 	radius = m_floor(m_min(radius or ui.radius, width / 2, height / 2))
-	if radius < 1 then
+	if not ui.rounded or radius < 1 then
 		DrawImage(nil, x, y, width, height)
 		return
 	end
@@ -111,6 +118,10 @@ end
 
 ---Draw a filled circle of the given diameter, using the current draw colour
 function ui.DrawCircle(x, y, diameter)
+	if not ui.rounded then
+		DrawImage(nil, x, y, diameter, diameter)
+		return
+	end
 	DrawImage(roundImage, x, y, diameter, diameter)
 end
 
