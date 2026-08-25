@@ -9,6 +9,9 @@ local m_floor = math.floor
 local protected_replace = "*"
 local utf8 = require('lua-utf8')
 
+-- Matches the drop down inset so fields and selects sitting side by side line up
+local textInset = 6
+
 local function lastLine(str)
 	local lastLineIndex = 1
 	while true do
@@ -266,7 +269,7 @@ function EditClass:Draw(viewPort, noTooltip)
 		ui.DrawFocusRing(x, y, width, height, radius)
 	end
 	ui.DrawBox(x, y, width, height, radius, border, fill)
-	local textX = x + 2
+	local textX = x + 2 + textInset
 	local textY = y + 2
 	local textHeight = self.lineHeight or (height - 4)
 	if self.prompt then
@@ -490,7 +493,7 @@ function EditClass:OnKeyDown(key, doubleClick)
 			self.drag = true
 			local x, y = self:GetPos()
 			local width, height = self:GetSize()
-			local textX = x + 2
+			local textX = x + 2 + textInset
 			local textY = y + 2
 			local textHeight = self.lineHeight or (height - 4)
 			if self.prompt then

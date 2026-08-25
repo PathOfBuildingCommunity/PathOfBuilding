@@ -8,6 +8,9 @@ local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
 
+-- Text sits in from the left edge rather than against it, so the label has room to breathe
+local textInset = 6
+
 ---@class DropDownControl: Control, ControlHost, TooltipHost, SearchHost
 local DropDownClass = newClass("DropDownControl", "Control", "ControlHost", "TooltipHost", "SearchHost")
 
@@ -305,7 +308,7 @@ function DropDownClass:Draw(viewPort, noTooltip)
 		end
 	end
 	SetViewport(x + 2, y + 2, width - height, lineHeight)
-	DrawString(0, 0, "LEFT", lineHeight, "VAR", selLabel or "")
+	DrawString(textInset, 0, "LEFT", lineHeight, "VAR", selLabel or "")
 	if selDetail ~= nil then
 		local dx = DrawStringWidth(lineHeight, "VAR", selDetail)
 		ui.SetColor(fill)
@@ -374,7 +377,7 @@ function DropDownClass:Draw(viewPort, noTooltip)
 				else 
 					label = listVal
 				end
-				DrawString(0, y, "LEFT", lineHeight, "VAR", label)
+				DrawString(textInset, y, "LEFT", lineHeight, "VAR", label)
 				if detail ~= nil then
 					local detail = listVal.detail
 					local dx = DrawStringWidth(lineHeight, "VAR", detail)
@@ -394,12 +397,12 @@ function DropDownClass:Draw(viewPort, noTooltip)
 					end
 					DrawString(width - dx - 4 - 22, y, "LEFT", lineHeight, "VAR", detail)
 				end
-				self:DrawSearchHighlights(label, searchInfo, 0, y, width - 4, lineHeight)
+				self:DrawSearchHighlights(label, searchInfo, textInset, y, width - 4, lineHeight)
 			end
 		end
 		SetDrawColor(1, 1, 1)
 		if self:IsSearchActive() and self:GetMatchCount() == 0 then
-			DrawString(0, 0 , "LEFT", lineHeight, "VAR", "<No matches>")
+			DrawString(textInset, 0 , "LEFT", lineHeight, "VAR", "<No matches>")
 		end
 		SetViewport()
 		SetDrawLayer(nil, 0)
@@ -532,7 +535,7 @@ function DropDownClass:CheckDroppedWidth(enable)
 				line = line.label or ""
 			end
 			  -- +10 to stop clipping
-			dWidth = m_max(dWidth, DrawStringWidth(lineHeight, "VAR", line) + 10)
+			dWidth = m_max(dWidth, DrawStringWidth(lineHeight, "VAR", line) + 10 + textInset)
 		end
 		  -- no greater than self.maxDroppedWidth
 		self.droppedWidth = m_min(dWidth + scrollWidth, self.maxDroppedWidth)
@@ -543,7 +546,7 @@ function DropDownClass:CheckDroppedWidth(enable)
 			end
 			-- add 20 to account for the 'down arrow' in the box
 			local boxWidth
-			boxWidth = DrawStringWidth(lineHeight, "VAR", line or "") + 20
+			boxWidth = DrawStringWidth(lineHeight, "VAR", line or "") + 20 + textInset
 			self.width = m_max(m_min(boxWidth, 390), 190)
 		end
 		
