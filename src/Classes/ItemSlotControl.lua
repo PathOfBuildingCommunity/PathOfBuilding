@@ -12,7 +12,7 @@ local itemSlotHelper = require("Modules.ItemSlotHelper")
 local ItemSlotClass = newClass("ItemSlotControl", "DropDownControl")
 
 function ItemSlotClass:ItemSlotControl(anchor, x, y, itemsTab, slotName, slotLabel, nodeId)
-	self:DropDownControl(anchor, { x, y, 310, 20 }, {}, function(index, value)
+	self:DropDownControl(anchor, { x, y, 329, 20 }, {}, function(index, value)
 		if self.items[index] ~= self.selItemId then
 			self:SetSelItemId(self.items[index])
 			itemsTab:PopulateSlots()
@@ -120,16 +120,20 @@ function ItemSlotClass:CanReceiveDrag(type, value)
 end
 
 function ItemSlotClass:ReceiveDrag(type, value, source)
+	local newItem
 	if value.id and self.itemsTab.items[value.id] then
 		self:SetSelItemId(value.id)
 	else
-		local newItem = new("Item"):Item(value.raw)
+		newItem = new("Item"):Item(value.raw)
 		newItem:NormaliseQuality()
 		self.itemsTab:AddItem(newItem, true)
 		self:SetSelItemId(newItem.id)
 		self.itemsTab:AddForbiddenJewelCounterpart(newItem)
 	end
 	self.itemsTab:PopulateSlots()
+	if newItem then
+		self.itemsTab.controls.itemList:SelectItem(newItem.id)
+	end
 	self.itemsTab:AddUndoState()
 	self.itemsTab.build.buildFlag = true
 end

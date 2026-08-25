@@ -31,27 +31,29 @@ function ItemDBClass:ItemDBControl(anchor, rect, itemsTab, db, dbType)
 	self.typeList = { "Any type", "Armour", "Jewellery", "One Handed Melee", "Two Handed Melee" }
 	self.slotList = { "Any slot", "Weapon 1", "Weapon 2", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring", "Belt", "Jewel", "Flask", "Graft 1", "Graft 2" }
 	local baseY = dbType == "RARE" and -22 or -62
-	self.controls.slot = new("DropDownControl"):DropDownControl({"BOTTOMLEFT",self,"TOPLEFT"}, {0, baseY, 179, 18}, self.slotList, function(index, value)
+	local width = self:GetProperty("width")
+	local filterWidth = (width - 2) / 2
+	self.controls.slot = new("DropDownControl"):DropDownControl({"BOTTOMLEFT",self,"TOPLEFT"}, {0, baseY, filterWidth, 18}, self.slotList, function(index, value)
 		self.listBuildFlag = true
 	end)
-	self.controls.type = new("DropDownControl"):DropDownControl({"LEFT",self.controls.slot,"RIGHT"}, {2, 0, 179, 18}, self.typeList, function(index, value)
+	self.controls.type = new("DropDownControl"):DropDownControl({"LEFT",self.controls.slot,"RIGHT"}, {2, 0, filterWidth, 18}, self.typeList, function(index, value)
 		self.listBuildFlag = true
 	end)
 	if dbType == "UNIQUE" then
-		self.controls.sort = new("DropDownControl"):DropDownControl({"BOTTOMLEFT",self,"TOPLEFT"}, {0, baseY + 20, 179, 18}, self.sortDropList, function(index, value)
+		self.controls.sort = new("DropDownControl"):DropDownControl({"BOTTOMLEFT",self,"TOPLEFT"}, {0, baseY + 20, filterWidth, 18}, self.sortDropList, function(index, value)
 			self:SetSortMode(value.sortMode)
 		end)
-		self.controls.league = new("DropDownControl"):DropDownControl({"LEFT",self.controls.sort,"RIGHT"}, {2, 0, 179, 18}, self.leagueList, function(index, value)
+		self.controls.league = new("DropDownControl"):DropDownControl({"LEFT",self.controls.sort,"RIGHT"}, {2, 0, filterWidth, 18}, self.leagueList, function(index, value)
 			self.listBuildFlag = true
 		end)
-		self.controls.requirement = new("DropDownControl"):DropDownControl({"LEFT",self.controls.sort,"BOTTOMLEFT"}, {0, 11, 179, 18}, { "Any requirements", "Current level", "Current attributes", "Current useable" }, function(index, value)
+		self.controls.requirement = new("DropDownControl"):DropDownControl({"LEFT",self.controls.sort,"BOTTOMLEFT"}, {0, 11, filterWidth, 18}, { "Any requirements", "Current level", "Current attributes", "Current useable" }, function(index, value)
 			self.listBuildFlag = true
 		end)
-		self.controls.obtainable = new("DropDownControl"):DropDownControl({"LEFT",self.controls.requirement,"RIGHT"}, {2, 0, 179, 18}, { "Obtainable", "Any source", "Unobtainable", "Vendor Recipe", "Upgraded", "Boss Item", "Corruption", "Core Drop Pool"}, function(index, value)
+		self.controls.obtainable = new("DropDownControl"):DropDownControl({"LEFT",self.controls.requirement,"RIGHT"}, {2, 0, filterWidth, 18}, { "Obtainable", "Any source", "Unobtainable", "Vendor Recipe", "Upgraded", "Boss Item", "Corruption", "Core Drop Pool"}, function(index, value)
 			self.listBuildFlag = true
 		end)
 	end
-	self.controls.search = new("EditControl"):EditControl({"BOTTOMLEFT",self,"TOPLEFT"}, {0, -2, 258, 18}, "", "Search", "%c", 100, function()
+	self.controls.search = new("EditControl"):EditControl({"BOTTOMLEFT",self,"TOPLEFT"}, {0, -2, m_max(width - 102, 0), 18}, "", "Search", "%c", 100, function()
 		self.listBuildFlag = true
 	end, nil, nil, true)
 	self.controls.searchMode = new("DropDownControl"):DropDownControl({"LEFT",self.controls.search,"RIGHT"}, {2, 0, 100, 18}, { "Anywhere", "Names", "Modifiers" }, function(index, value)
@@ -291,6 +293,28 @@ function ItemDBClass:ListBuilder()
 end
 
 function ItemDBClass:Draw(viewPort)
+	local width = self:GetProperty("width")
+	local filterWidth = (width - 2) / 2
+	local widthChanged = self.controls.slot.width ~= filterWidth
+	self.controls.slot.width = filterWidth
+	self.controls.type.width = filterWidth
+	if self.dbType == "UNIQUE" then
+		self.controls.sort.width = filterWidth
+		self.controls.league.width = filterWidth
+		self.controls.requirement.width = filterWidth
+		self.controls.obtainable.width = filterWidth
+	end
+	self.controls.search.width = m_max(width - 102, 0)
+	if widthChanged then
+		self.controls.slot:CheckDroppedWidth(false)
+		self.controls.type:CheckDroppedWidth(false)
+		if self.dbType == "UNIQUE" then
+			self.controls.sort:CheckDroppedWidth(false)
+			self.controls.league:CheckDroppedWidth(false)
+			self.controls.requirement:CheckDroppedWidth(false)
+			self.controls.obtainable:CheckDroppedWidth(false)
+		end
+	end
 	if self.itemsTab.build.outputRevision ~= self.listOutputRevision then
 		self.listBuildFlag = true
 	end
@@ -364,6 +388,7 @@ function ItemDBClass:OnSelClick(index, item, doubleClick)
 		self.itemsTab:AddForbiddenJewelCounterpart(newItem)
 
 		self.itemsTab:PopulateSlots()
+		self.itemsTab.controls.itemList:SelectItem(newItem.id)
 		self.itemsTab:AddUndoState()
 		self.itemsTab.build.buildFlag = true
 	elseif doubleClick then
