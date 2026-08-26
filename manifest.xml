@@ -150,7 +150,7 @@
 	<File name="Classes/ItemListControl.lua" part="program" sha1="fcfdc29c1e1a69c5d8840286ff325886c91fc2ef" />
 	<File name="Classes/ItemSetListControl.lua" part="program" sha1="443038191a6ba3a17c3ce6683b96ab2797cf5d39" />
 	<File name="Classes/ItemSlotControl.lua" part="program" sha1="f353849939ff90f259110baaf59bced890b0994e" />
-	<File name="Classes/ItemsTab.lua" part="program" sha1="2369721be67531d5c81f200f0c61d6f1336da544" />
+	<File name="Classes/ItemsTab.lua" part="program" sha1="5330b7ae2f5f84d7be502ee7a8b0574c337eb57f" />
 	<File name="Classes/LabelControl.lua" part="program" sha1="b6c56903b054e14c302a5e4e60ed8e91764bc6a0" />
 	<File name="Classes/ListControl.lua" part="program" sha1="b51a294cd00391400bc5d0ad101319bb126dc6a0" />
 	<File name="Classes/MinionListControl.lua" part="program" sha1="b9324d7c16d20ac4d7508ecd151c2e9838fdb98c" />
@@ -162,7 +162,7 @@
 	<File name="Classes/NotesTab.lua" part="program" sha1="de067274e65a7d71940caead279c3a1f8d6fce3e" />
 	<File name="Classes/PartyTab.lua" part="program" sha1="a2763e12e81f8708d9e179e887bde63016e79d24" />
 	<File name="Classes/PassiveMasteryControl.lua" part="program" sha1="d26082d3fa6485b0813c3a988d180208fdd652ef" />
-	<File name="Classes/PassiveSpec.lua" part="program" sha1="cadafc285f3f79729baeaa44326e8ccc7b7453d2" />
+	<File name="Classes/PassiveSpec.lua" part="program" sha1="e4178911779ed63533f783da6d436f8924032e8e" />
 	<File name="Classes/PassiveSpecListControl.lua" part="program" sha1="694d7b088e895348857b97a78babb00d612469f8" />
 	<File name="Classes/PassiveTree.lua" part="program" sha1="3c1e123c7563640ddfe83e197dbee7a12ad33725" />
 	<File name="Classes/PassiveTreeView.lua" part="program" sha1="28e5dcdd5e470db6f04fd454957c36c791d87524" />
@@ -175,7 +175,7 @@
 	<File name="Classes/RadiusJewelData.lua" part="program" sha1="6d4607a936d51849913e99253c7d294a811a8121" />
 	<File name="Classes/RadiusJewelDetailListControl.lua" part="program" sha1="fc651bf47cc714d5460e2e2e36f341715bbb4039" />
 	<File name="Classes/RadiusJewelFinder.lua" part="program" sha1="c9d28c8a1c7e145952786aeb96ce52236cda7616" />
-	<File name="Classes/RadiusJewelItemActions.lua" part="program" sha1="c12f205eb1c0e44be51ae91c24341c42fbbb8d1d" />
+	<File name="Classes/RadiusJewelItemActions.lua" part="program" sha1="5fba2b7595c46e9217e1c20c47d8c818df9d07cb" />
 	<File name="Classes/RadiusJewelResultsListControl.lua" part="program" sha1="78bbfb0bf09739a76a88a119653a33fa27ab91de" />
 	<File name="Classes/RadiusJewelTooltipPlacement.lua" part="program" sha1="768fe21dcb1dff1809f4d6180d94b49374899082" />
 	<File name="Classes/RectangleOutlineControl.lua" part="program" sha1="4da285dbe76549deae46d3835e00c382c59c18b4" />
@@ -200,7 +200,7 @@
 	<File name="Classes/TradeQueryRateLimiter.lua" part="program" sha1="d7c4f5655b36e911ccf4597e8ab6a3c1e3a27ec5" />
 	<File name="Classes/TradeQueryRequests.lua" part="program" sha1="0f8342ef30c9240ce96028defbad5838b8a22306" />
 	<File name="Classes/TradeStatWeightMultiplierListControl.lua" part="program" sha1="df442a192fcaf26558e7485b9c31d2b4e79dc6fc" />
-	<File name="Classes/TreeTab.lua" part="program" sha1="66fe760b608234ef7c48b718c844486483b3a4d7" />
+	<File name="Classes/TreeTab.lua" part="program" sha1="616e02c2c89e6c509231b780d0966c3b9ff0a2ae" />
 	<File name="Classes/UndoHandler.lua" part="program" sha1="ce4835c384c834da0de47b0302b1e774c8300c6b" />
 	<File name="Data/Bases/amulet.lua" part="program" sha1="0c35de0a6731169f674fee440af79e5215ba627e" />
 	<File name="Data/Bases/axe.lua" part="program" sha1="0b7a87867c677b95ccf1bdd0937f0874857f35af" />
