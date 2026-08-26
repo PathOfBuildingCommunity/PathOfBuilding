@@ -342,11 +342,11 @@ function TimelessJewelListControlClass:OnSelClick(index, data, doubleClick)
 			local socketControl = socketId ~= -1 and itemsTab.sockets[socketId]
 			if socketControl and self.build.spec.allocNodes[socketId] and itemsTab:IsItemValidForSlot(item, socketControl.slotName) then
 				socketControl:SetSelItemId(item.id)
-				itemsTab:AddUndoState()
 				self.build.buildFlag = true
 			end
 		end
 		itemsTab:PopulateSlots()
+		itemsTab:AddUndoState()
 		self.list[index].label = "^xB2B2B2" .. self.list[index].label
 	end
 end
