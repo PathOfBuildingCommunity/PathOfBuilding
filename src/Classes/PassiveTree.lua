@@ -233,7 +233,7 @@ function PassiveTreeClass:PassiveTree(treeVersion)
 
 	if not self.assets then
 		self.assets = require("TreeData.3_19.Assets")
-		self.assets = self.assets.assets
+		self.assets = copyTable(self.assets.assets, true)
 		if self.alternate_ascendancies then
 			-- backgrounds
 			self.assets["ClassesPrimalist"] = {[0.3835]="https://web.poecdn.com/gen/image/WzIyLCJlMzIwYTYwYmNiZTY4ZmQ5YTc2NmE1ZmY4MzhjMDMyNCIseyJ0IjoyNywic3AiOjAuMzgzNX1d/3d68393250/ClassesPrimalist.png"}

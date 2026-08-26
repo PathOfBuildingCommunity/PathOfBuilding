@@ -1755,7 +1755,12 @@ function buildMode:FormatStat(statData, statVal, overCapStatVal, colorOverride)
 end
 
 -- lazily index the calcs tab sections so that we can look up the matching
--- sections by breakdown name
+-- sections by breakdown name. this function works by iterating through calc
+-- sections. it will link every breakdown key to the first found calc section
+-- column (basically, a box). the result will contain references to this column
+-- data and will also contain a set of mod names referred to by cells of said
+-- box. if a cell shouldn't be picked, the field `skipSideBarIndex` can be set
+-- on the cell.
 function buildMode:BuildBreakdownIndex()
 	if self.breakdownIndex then
 		return self.breakdownIndex
@@ -1768,10 +1773,12 @@ function buildMode:BuildBreakdownIndex()
 				-- cells for each mod name
 				local modSectionsByName = {}
 				local breakdownCells = {}
-				for _, row in ipairs(subSection.data) do
+				---@type CalcSectionData
+				local subSectionData = subSection.data
+				for _, row in ipairs(subSectionData) do
 					for _, colData in ipairs(row) do
 						for _, cell in ipairs(colData) do
-							if cell.breakdown and not breakdownCells[cell.breakdown] then
+							if not cell.skipSideBarIndex and cell.breakdown and not breakdownCells[cell.breakdown] then
 								breakdownCells[cell.breakdown] = colData
 							end
 							if cell.modName then

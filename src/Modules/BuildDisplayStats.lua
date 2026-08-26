@@ -13,6 +13,7 @@ local function maxHitSuffix(value, output)
 	return value == math.huge and "Immune" or output.GuardSkillActive and "Guard" or nil
 end
 
+local defenseIgnoredSections = { "Base from Gear", "Inc. from Tree" }
 ---@alias DisplayStatCondFunc fun(value: any, output: table):boolean? Show the row only when this returns truthy (usually receives the value and the actor output; the label-only variant receives output as its first arg)
 ---@alias DisplayStatWarnFunc fun(value: any, output: table):string|boolean|nil Returns a warning string to surface, or falsy for none
 
@@ -173,7 +174,7 @@ local displayStats = {
 	{ },
 	-- the breakdown for armour, es and ev doesn't have anything relevant, and
 	-- we are better off ignoring it and just showing relevant mods
-	{ stat = "EnergyShield", label = "Energy Shield", fmt = "d", compactValue = true, color = colorCodes.ES, compPercent = true, breakdown = "", modNames = { "EnergyShield", "Defences" } },
+	{ stat = "EnergyShield", label = "Energy Shield", fmt = "d", compactValue = true, color = colorCodes.ES, compPercent = true, modNames = { "EnergyShield", "Defences" }, ignoredSections = defenseIgnoredSections },
 	{ stat = "EnergyShieldRecoveryCap", label = "Recoverable ES", color = colorCodes.ES, fmt = "d", condFunc = function(v,o) return o.CappingES end },
 	{ stat = "Spec:EnergyShieldInc", label = "%Inc ES from Tree", color = colorCodes.ES, fmt = "d%%" },
 	{ stat = "EnergyShieldRegenRecovery", label = "ES Regen", color = colorCodes.ES, fmt = ".1f", condFunc = function(v,o) return o.EnergyShieldRecovery <= 0 and o.EnergyShieldRegenRecovery ~= 0 end },
@@ -181,7 +182,7 @@ local displayStats = {
 	{ stat = "EnergyShieldLeechGainRate", label = "ES Leech/On Hit Rate", color = colorCodes.ES, fmt = ".1f", compPercent = true },
 	{ stat = "EnergyShieldLeechGainPerHit", label = "ES Leech/Gain per Hit", color = colorCodes.ES, fmt = ".1f", compPercent = true },
 	{ },
-	{ stat = "Ward", label = "Ward", fmt = "d", compactValue = true, color = colorCodes.WARD, compPercent = true },
+	{ stat = "Ward", label = "Ward", fmt = "d", compactValue = true, color = colorCodes.WARD, compPercent = true, modNames = { "Ward" }, ignoredSections = defenseIgnoredSections },
 	{ },
 	{ stat = "Rage", label = "Rage", fmt = "d", color = colorCodes.RAGE, compPercent = true },
 	{ stat = "RageRegenRecovery", label = "Rage Regen", fmt = ".1f", color = colorCodes.RAGE, compPercent = true },
@@ -192,13 +193,13 @@ local displayStats = {
 	{ stat = "NetManaRegen", label = "Net Mana Recovery", fmt = "+.1f", color = colorCodes.MANA },
 	{ stat = "NetEnergyShieldRegen", label = "Net ES Recovery", fmt = "+.1f", color = colorCodes.ES },
 	{ },
-	{ stat = "Evasion", label = "Evasion rating", fmt = "d", color = colorCodes.EVASION, compPercent = true, breakdown = "", modNames = { "Evasion", "ArmourAndEvasion", "Defences" } },
+	{ stat = "Evasion", label = "Evasion rating", fmt = "d", color = colorCodes.EVASION, compPercent = true, modNames = { "Evasion", "ArmourAndEvasion", "Defences" }, ignoredSections = defenseIgnoredSections },
 	{ stat = "Spec:EvasionInc", label = "%Inc Evasion from Tree", color = colorCodes.EVASION, fmt = "d%%" },
 	{ stat = "MeleeEvadeChance", label = "Evade Chance", fmt = "d%%", color = colorCodes.EVASION, condFunc = function(v,o) return v > 0 and o.MeleeEvadeChance == o.ProjectileEvadeChance end },
 	{ stat = "MeleeEvadeChance", label = "Melee Evade Chance", fmt = "d%%", color = colorCodes.EVASION, condFunc = function(v,o) return v > 0 and o.MeleeEvadeChance ~= o.ProjectileEvadeChance end },
 	{ stat = "ProjectileEvadeChance", label = "Projectile Evade Chance", fmt = "d%%", color = colorCodes.EVASION, condFunc = function(v,o) return v > 0 and o.MeleeEvadeChance ~= o.ProjectileEvadeChance end },
 	{ },
-	{ stat = "Armour", label = "Armour", fmt = "d", compPercent = true, breakdown = "", modNames = { "Armour", "ArmourAndEvasion", "Defences" } },
+	{ stat = "Armour", label = "Armour", fmt = "d", compPercent = true, modNames = { "Armour", "ArmourAndEvasion", "Defences", "ArmourDefense" }, ignoredSections = defenseIgnoredSections },
 	{ stat = "Spec:ArmourInc", label = "%Inc Armour from Tree", fmt = "d%%" },
 	{ stat = "PhysicalDamageReduction", label = "Phys. Damage Reduction", fmt = "d%%", condFunc = function() return true end },
 	{ },
@@ -272,7 +273,7 @@ local minionDisplayStats = {
 	{ stat = "Life", label = "Total Life", fmt = ".1f", compactValue = true, color = colorCodes.LIFE, compPercent = true, modNames = { "Life" }, ignoredSections = { "Base from Gear", "Inc. from Tree" } },
 	{ stat = "LifeRegenRecovery", label = "Life Recovery", fmt = ".1f", color = colorCodes.LIFE },
 	{ stat = "LifeLeechGainRate", label = "Life Leech/On Hit Rate", fmt = ".1f", color = colorCodes.LIFE, compPercent = true },
-	{ stat = "EnergyShield", label = "Energy Shield", fmt = "d", compactValue = true, color = colorCodes.ES, compPercent = true },
+	{ stat = "EnergyShield", label = "Energy Shield", fmt = "d", compactValue = true, color = colorCodes.ES, compPercent = true, modNames = { "EnergyShield", "Defences" }, ignoredSections = defenseIgnoredSections },
 	{ stat = "EnergyShieldRegenRecovery", label = "ES Recovery", fmt = ".1f", color = colorCodes.ES },
 	{ stat = "EnergyShieldLeechGainRate", label = "ES Leech/On Hit Rate", fmt = ".1f", color = colorCodes.ES, compPercent = true },
 }
