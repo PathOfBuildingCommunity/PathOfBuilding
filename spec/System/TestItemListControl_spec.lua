@@ -154,7 +154,7 @@ describe("ItemListControl", function()
 		control:UpdateLoadoutList()
 		control:UpdateList()
 
-		assert.equal("Custom Order", control.controls.sortMode:GetSelValue())
+		assert.equal("Sort by Custom Order", control.controls.sortMode:GetSelValue())
 		assert.is_true(control.isMutable)
 		assert.is_true(rawequal(control.list, control.itemsTab.itemOrderList))
 		assert.are.same({ 1, 2, 3, 4 }, control.itemsTab.itemOrderList)

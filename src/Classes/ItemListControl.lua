@@ -33,7 +33,7 @@ function ItemListClass:ItemListControl(anchor, rect, itemsTab, forceTooltip)
 	self.controls.slotFilter = new("DropDownControl"):DropDownControl({"BOTTOMLEFT",self,"TOPLEFT"}, {0, -22, rowControlWidth, 18}, slotFilterList, function()
 		self:UpdateList()
 	end)
-	self.controls.sortMode = new("DropDownControl"):DropDownControl({"LEFT",self.controls.slotFilter,"RIGHT"}, {4, 0, rowControlWidth, 18}, { "Custom Order", "Sort by Item Slot", "Sort by Name", "Sort by Rarity", "Sort by Loadout" }, function()
+	self.controls.sortMode = new("DropDownControl"):DropDownControl({"LEFT",self.controls.slotFilter,"RIGHT"}, {4, 0, rowControlWidth, 18}, { "Sort by Custom Order", "Sort by Item Slot", "Sort by Name", "Sort by Rarity", "Sort by Loadout" }, function()
 		self:UpdateList()
 	end)
 	self.controls.loadoutFilter = new("DropDownControl"):DropDownControl({"LEFT",self.controls.sortMode,"RIGHT"}, {4, 0, rowControlWidth, 18}, nil, function()
@@ -287,8 +287,8 @@ function ItemListClass:UpdateList()
 			end
 		end
 	end
-	local sortMode = self.controls.sortMode.list[self.controls.sortMode.selIndex or 1] or "Custom Order"
-	if sortMode == "Custom Order" then
+	local sortMode = self.controls.sortMode.list[self.controls.sortMode.selIndex or 1] or "Sort by Custom Order"
+	if sortMode == "Sort by Custom Order" then
 		local unfiltered = loadoutFilterIndex == 1 and slotFilter == "Any Slot" and searchText == ""
 		self.list = unfiltered and self.itemsTab.itemOrderList or itemList
 		self.isMutable = unfiltered
