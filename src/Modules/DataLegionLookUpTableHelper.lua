@@ -3,7 +3,7 @@
 -- Module: Data Legion Look Up Table Helper
 -- Contains functions for managing the LUTs for the data module
 --
-local loadJewelFile = LoadModule("Modules/DataJewelFileLoader")
+local loadJewelFile = require("Modules.DataJewelFileLoader")
 
 -- lazy load a specific timeless jewel type
 -- valid values: "Glorious Vanity", "Lethal Pride", "Brutal Restraint", "Militant Faith", "Elegant Hubris"

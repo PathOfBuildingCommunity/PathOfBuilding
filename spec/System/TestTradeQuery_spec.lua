@@ -61,6 +61,68 @@ describe("TradeQuery", function()
 			assert.are.equal(0, #tooltip.lines)
 		end)
 	end)
+	describe("GetResultEvaluation", function()
+		it("uses the first visible ring for a Pearl result without a selected slot", function()
+			local tq = new("TradeQuery"):TradeQuery({ itemsTab = {} })
+			tq.statSortSelectionList = {}
+			tq.tradeQueryGenerator = new("TradeQueryGenerator"):TradeQueryGenerator({ itemsTab = {} })
+			tq.itemsTab.slots = {
+				["Ring 1"] = { slotName = "Ring 1", shown = function() return false end },
+				["Ring 2"] = { slotName = "Ring 2", shown = function() return true end },
+			}
+			tq.slotTables[1] = { slotName = "Pearl of Tsoatha", unique = true }
+			tq.resultTbl[1] = {
+				[1] = { item_string = "Rarity: RARE\nBehemoth Hold\nGold Ring" },
+			}
+			local evaluatedSlot
+
+			tq:GetResultEvaluation(1, 1, function(override)
+				evaluatedSlot = override.repSlotName
+				return {}
+			end, {})
+
+			assert.are.equal("Ring 2", evaluatedSlot)
+			assert.are.equal("Ring 2", tq.slotTables[1].selectedSlotName)
+		end)
+
+		it("evaluates a socketed Megalomaniac by node combination", function()
+			local slotTbl = {
+				slotName = "Megalomaniac", unique = true, alreadyCorrupted = true, selectedJewelNodeId = 12345,
+			}
+			local tq = new("TradeQuery"):TradeQuery({ itemsTab = {} })
+			tq.statSortSelectionList = {}
+			tq.tradeQueryGenerator = new("TradeQueryGenerator"):TradeQueryGenerator({ itemsTab = {} })
+			tq.itemsTab.build = {
+				spec = {
+					tree = {
+						clusterNodeMap = {
+							["Node One"] = { dn = "Node One" },
+							["Node Two"] = { dn = "Node Two" },
+							["Node Three"] = { dn = "Node Three" },
+						}
+					}
+				}
+			}
+			tq.slotTables[1] = slotTbl
+			tq.resultTbl[1] = {
+				[1] = {
+					item_string = table.concat({
+						"1 Added Passive Skill is Node One",
+						"1 Added Passive Skill is Node Two",
+						"1 Added Passive Skill is Node Three",
+					}, "\n")
+				}
+			}
+
+			local evaluation = tq:GetResultEvaluation(1, 1, function() return {} end, {})
+
+			assert.are.equal(4, #evaluation)
+			for _, entry in ipairs(evaluation) do
+				assert.is_table(entry.DNs)
+				assert.is_true(#entry.DNs >= 2)
+			end
+		end)
+	end)
 	describe("ReduceOutput", function()
 		it("preserves lower-is-better values for weighted result comparison", function()
 			local weights = {

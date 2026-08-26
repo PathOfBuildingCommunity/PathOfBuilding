@@ -113,7 +113,7 @@ function calcs.createActiveSkill(activeEffect, supportList, actor, socketGroup, 
 	for index, supportEffect in ipairs(supportList) do
 		-- Pass 1: Add skill types from compatible supports
 		if supportEffect.grantedEffect.support then
-			if calcLib.canGrantedEffectSupportActiveSkill(supportEffect.grantedEffect, activeSkill) then
+			if calcLib.canGrantedEffectSupportActiveSkill(supportEffect.grantedEffect, activeSkill, nil, supportEffect.appliesToGrantedSkills) then
 				for _, skillType in pairs(supportEffect.grantedEffect.addSkillTypes) do
 					activeSkill.skillTypes[skillType] = true
 				end
@@ -131,7 +131,7 @@ function calcs.createActiveSkill(activeEffect, supportList, actor, socketGroup, 
 		for index, supportEffectIndex in ipairs(rejectedSupportsIndices) do
 			local supportEffect = supportList[supportEffectIndex]
 			if supportEffect.grantedEffect.support then
-				if calcLib.canGrantedEffectSupportActiveSkill(supportEffect.grantedEffect, activeSkill) then
+				if calcLib.canGrantedEffectSupportActiveSkill(supportEffect.grantedEffect, activeSkill, nil, supportEffect.appliesToGrantedSkills) then
 					notAddedNewSupport = false
 					rejectedSupportsIndices[index] = nil
 					for _, skillType in pairs(supportEffect.grantedEffect.addSkillTypes) do
@@ -145,7 +145,7 @@ function calcs.createActiveSkill(activeEffect, supportList, actor, socketGroup, 
 	for _, supportEffect in ipairs(supportList) do
 		-- Pass 2: Add all compatible supports
 		if supportEffect.grantedEffect.support then
-			if calcLib.canGrantedEffectSupportActiveSkill(supportEffect.grantedEffect, activeSkill) then
+			if calcLib.canGrantedEffectSupportActiveSkill(supportEffect.grantedEffect, activeSkill, nil, supportEffect.appliesToGrantedSkills) then
 				t_insert(activeSkill.effectList, supportEffect)
 				if supportEffect.isSupporting and activeEffect.srcInstance then
 					supportEffect.isSupporting[activeEffect.srcInstance] = true
@@ -273,6 +273,12 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 		-- Skill requires a shield to be equipped
 		skillFlags.disable = true
 		activeSkill.disableReason = "This skill requires a Shield"
+	end
+
+	if skillTypes[SkillType.RequiresStaff] and not activeSkill.summonSkill and (not activeSkill.actor.itemList["Weapon 1"] or activeSkill.actor.itemList["Weapon 1"].type ~= "Staff") then
+		-- Skill requires a staff to be equipped
+		skillFlags.disable = true
+		activeSkill.disableReason = "This skill requires a Staff"
 	end
 
 	if skillFlags.shieldAttack then

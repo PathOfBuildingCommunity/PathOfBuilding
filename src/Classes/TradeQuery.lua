@@ -6,7 +6,7 @@
 
 
 local dkjson = require "dkjson"
-local itemSlotHelper = LoadModule("Modules/ItemSlotHelper")
+local itemSlotHelper = require("Modules.ItemSlotHelper")
 
 local get_time = os.time
 local t_insert = table.insert
@@ -37,6 +37,7 @@ function TradeQueryClass:TradeQuery(itemsTab)
 	self.lastComparedWeightList = { }
 
 	-- default set of trade item sort selection
+	---@type TradeQuerySlotTable[]
 	self.slotTables = { }
 	self.pbItemSortSelectionIndex = 1
 	-- for each realm and league, a table of values of each currency in div
@@ -312,7 +313,7 @@ function TradeQueryClass:PriceItem()
 				self.clickTime = nil
 				return "Not authenticated"
 			else
-				return "Logging in... (" .. left .. ") - URL copied to clipboard"
+				return "Logging in... (" .. left .. ")"
 			end
 		else
 			return colorCodes.WARNING.."Not authenticated"
@@ -532,6 +533,16 @@ Highest Weight - Displays the order retrieved from trade]]
 	end
 
 	-- Individual slot rows
+	---@class TradeQuerySlotTable
+	---@field slotName string Display name of the row, also the slot name for regular slots
+	---@field fullName string? Actual slot name for abyssal sockets, where slotName is the shortened label
+	---@field nodeId number? Passive tree node id for jewel socket rows
+	---@field unique boolean? Row targets a specific unique instead of a slot
+	---@field alreadyCorrupted boolean? The targeted unique only drops corrupted
+	---@field selectedJewelNodeId number? Jewel socket the unique row searches for
+	---@field selectedSlotName string? A slot name which was selected in the TradeQueryGenerator popup
+
+	---@type TradeQuerySlotTable[]
 	local slotTables = {}
 	for _, slotName in ipairs(baseSlots) do
 		if self.itemsTab.slots[slotName].shown() then
@@ -565,10 +576,12 @@ Highest Weight - Displays the order retrieved from trade]]
 	-- dynamically hide rows that are above or below the scrollBar
 	local hideRowFunc = function(self, index)
 		if scrollBarShown then
-			-- 22 items fit in the scrollBar "box" so as the offset moves, we need to dynamically show what is within the boundaries
-			if (index < 23 and (self.controls.scrollBar.offset < ((row_height + row_vertical_padding)*(index-1) + row_vertical_padding))) or
+			local rowWithPadding = row_height + row_vertical_padding
+			-- this many items fit in the scrollBar "box" so as the offset moves, we need to dynamically show what is within the boundaries
+			local maxItemsInView = math.floor(self.controls.scrollBar.height / rowWithPadding) - 2
+			if (index <= maxItemsInView and (self.controls.scrollBar.offset < (rowWithPadding * (index - 1) + row_vertical_padding))) or
 				-- the second and in this applies if we have more than 44 slots because we need to hide the next "page" of rows as they go above the line, e.g. #23 could be above or below the "box"
-				(index >= 23 and (self.controls.scrollBar.offset > (row_height + row_vertical_padding)*(index-22) and self.controls.scrollBar.offset < (row_height + row_vertical_padding)*(index-1))) then
+				(index >= maxItemsInView + 1 and (self.controls.scrollBar.offset > rowWithPadding * (index - maxItemsInView) and self.controls.scrollBar.offset < rowWithPadding * (index - 1))) then
 				return true
 			end
 		else
@@ -603,7 +616,15 @@ Highest Weight - Displays the order retrieved from trade]]
 	self.controls["name"..row_count].shown = function()
 		return hideRowFunc(self, row_count)
 	end
+	row_count = row_count + 1
 
+	-- Pearl of Tsoatha
+	self.slotTables[row_count] = { slotName = "Pearl of Tsoatha", unique = true }
+	self:PriceItemRowDisplay(row_count, top_pane_alignment_ref, row_vertical_padding, row_height)
+	self.controls["name" .. row_count].y = self.controls["name" .. row_count].y + (row_height + row_vertical_padding)
+	self.controls["name" .. row_count].shown = function()
+		return hideRowFunc(self, row_count)
+	end
 	-- fix case where the row count is reduced from the last time the popup was
 	-- opened, which would leave extra row controls in the menu
 	for k, v in pairs(self.controls) do
@@ -817,8 +838,7 @@ function TradeQueryClass:GetResultEvaluation(row_idx, result_index, calcFunc, ba
 	end
 	local slotTbl = self.slotTables[row_idx]
 	local jewelNodeId = slotTbl.nodeId or slotTbl.selectedJewelNodeId
-	local slotName = jewelNodeId and "Jewel " .. tostring(jewelNodeId) or slotTbl.slotName
-	if slotName == "Megalomaniac" then
+	if slotTbl.slotName == "Megalomaniac" then
 		local addedNodes = {}
 		for nodeName in (result.item_string.."\r\n"):gmatch("1 Added Passive Skill is (.-)\r?\n") do
 			t_insert(addedNodes, self.itemsTab.build.spec.tree.clusterNodeMap[nodeName])
@@ -840,6 +860,16 @@ function TradeQueryClass:GetResultEvaluation(row_idx, result_index, calcFunc, ba
 		}
 		table.sort(result.evaluation, function(a, b) return a.weight > b.weight end)
 	else
+		if slotTbl.slotName == "Pearl of Tsoatha" and not slotTbl.selectedSlotName then
+			for index = 1, 3 do
+				local ringSlot = self.itemsTab.slots["Ring " .. index]
+				if ringSlot and ringSlot.shown() then
+					slotTbl.selectedSlotName = ringSlot.slotName
+					break
+				end
+			end
+		end
+		local slotName = jewelNodeId and "Jewel " .. tostring(jewelNodeId) or slotTbl.selectedSlotName or slotTbl.slotName
 		local item = new("Item"):Item(result.item_string)
 
 		local output = self:ReduceOutput(calcFunc({ repSlotName = slotName, repItem = item }))
@@ -1148,13 +1178,18 @@ you can add them, copy the link here, and press "Price Item" to evaluate the ite
 				controls["priceButton"..row_idx].label = "Price Item"
 			end)
 		end)
+	local jewelUniques = {
+		Megalomaniac = true,
+		["Watcher's Eye"] = true,
+	}
 	controls["priceButton"..row_idx].enabled = function()
 		local isAuthorized = main.api.authToken ~= nil
 		local validURL = controls["uri"..row_idx].validURL
 		local isSearching = controls["priceButton"..row_idx].label == "Searching..."
+		local requiresJewelSlot = not slotTbl.unique or jewelUniques[slotTbl.slotName]
 		local selectedJewelSlot = slotTbl.selectedJewelNodeId and self.itemsTab.sockets[slotTbl.selectedJewelNodeId]
 		local hasRequiredJewelSlot = not slotTbl.unique or selectedJewelSlot and not selectedJewelSlot.inactive
-		return isAuthorized and validURL and not isSearching and hasRequiredJewelSlot
+		return isAuthorized and validURL and not isSearching and (hasRequiredJewelSlot or not requiresJewelSlot)
 	end
 	controls["priceButton"..row_idx].tooltipFunc = function(tooltip)
 		tooltip:Clear()
@@ -1162,7 +1197,7 @@ you can add them, copy the link here, and press "Price Item" to evaluate the ite
 			tooltip:AddLine(16, "You must log in to use the search feature")
 		elseif not controls["uri"..row_idx].validURL then
 			tooltip:AddLine(16, "Enter a valid trade URL")
-		elseif slotTbl.unique and (not slotTbl.selectedJewelNodeId or not self.itemsTab.sockets[slotTbl.selectedJewelNodeId] or self.itemsTab.sockets[slotTbl.selectedJewelNodeId].inactive) then
+		elseif jewelUniques[slotTbl.slotName] and (not slotTbl.selectedJewelNodeId or not self.itemsTab.sockets[slotTbl.selectedJewelNodeId] or self.itemsTab.sockets[slotTbl.selectedJewelNodeId].inactive) then
 			tooltip:AddLine(16, "Requires an active Jewel Socket")
 		end
 	end

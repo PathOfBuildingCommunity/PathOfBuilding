@@ -14,11 +14,20 @@ describe("Custom modifier controls", function()
 		end
 	end)
 
+	local configModBrowser = require("Modules.ConfigModBrowser")
+
 	local function openModBrowser()
 		local configTab = build.configTab
 		local blockData = configTab.configSets[configTab.activeConfigSetId].customModsList[1]
-		configTab:OpenAddModPopup(blockData)
+		configModBrowser.OpenAddModPopup(configTab, blockData)
 		return main.popups[1], blockData
+	end
+
+	local function getModTemplate(modText)
+		return modText
+			:gsub("([%+-]?)%((%-?%d+%.?%d*)%-(%-?%d+%.?%d*)%)", "%1#")
+			:gsub("%d+%.?%d*", "#")
+			:lower()
 	end
 
 	it("does not retain the modifier list focus after adding a mod", function()
@@ -31,31 +40,31 @@ describe("Custom modifier controls", function()
 
 		assert.is_nil(main.selControl)
 		assert.are_not.equal(popup, main.popups[1])
-		assert.are.equal(selectedMod, blockData.text)
+		assert.are.equal(selectedMod.text, blockData.text)
 	end)
 
-	it("collapses numeric tiers and imports the first range value", function()
+	it("collapses numeric tiers into a single entry and imports it", function()
 		local popup, blockData = openModBrowser()
 		local minionDamageEntries = { }
 		local minionDamageIndex
-		for index, modText in ipairs(popup.controls.listControl.list) do
-			if modText:match("^Minions deal .-%% increased Damage$") then
-				table.insert(minionDamageEntries, modText)
+		for index, mod in ipairs(popup.controls.listControl.list) do
+			if mod.text:match("^Minions deal .-%% increased Damage$") then
+				table.insert(minionDamageEntries, mod.text)
 				minionDamageIndex = index
 			end
 		end
 
-		assert.are.same({ "Minions deal 10% increased Damage" }, minionDamageEntries)
+		assert.are.same({ "Minions deal 12% increased Damage" }, minionDamageEntries)
 		popup.controls.listControl.selIndex = minionDamageIndex
 		popup.controls.save.onClick()
-		assert.are.equal("Minions deal 10% increased Damage", blockData.text)
+		assert.are.equal("Minions deal 12% increased Damage", blockData.text)
 	end)
 
 	it("orders modifiers alphabetically while ignoring numeric values", function()
 		local popup = openModBrowser()
 		local previousSortKey
-		for _, modText in ipairs(popup.controls.listControl.list) do
-			local sortKey = modText
+		for _, mod in ipairs(popup.controls.listControl.list) do
+			local sortKey = mod.text
 				:gsub("([%+-]?)%((%-?%d+%.?%d*)%-(%-?%d+%.?%d*)%)", "%1#")
 				:gsub("%d+%.?%d*", "#")
 				:lower()
@@ -86,13 +95,69 @@ describe("Custom modifier controls", function()
 		assert.is_false(controls.search.controls.buttonClear:IsShown())
 	end)
 
+	it("disables adding when no modifiers match the search", function()
+		local popup = openModBrowser()
+		local controls = popup.controls
+
+		controls.search:SetText("this modifier cannot possibly exist", true)
+
+		assert.are.equal("No matching modifiers found", controls.listControl.list[1].text)
+		assert.is_false(controls.save:IsEnabled())
+	end)
+
+	it("includes every supported tree modifier", function()
+		local popup = openModBrowser()
+		local displayedMods = { }
+		for _, mod in ipairs(popup.controls.listControl.list) do
+			displayedMods[mod.template] = mod
+		end
+
+		local tree = build.treeTab.specList[build.treeTab.activeSpec].tree
+		for _, node in pairs(tree.nodes) do
+			if node.type == "Mastery" and node.masteryEffects then
+				for _, masteryEffect in ipairs(node.masteryEffects) do
+					for _, statLine in ipairs(masteryEffect.stats) do
+						local modList, extra = modLib.parseMod(statLine)
+						if modList and not extra then
+							local displayed = displayedMods[getModTemplate(statLine)]
+							assert.is_not_nil(displayed, "Missing supported mastery modifier: " .. statLine)
+							assert.is_true(displayed.sources["Mastery Node"], "Missing mastery source: " .. statLine)
+						end
+					end
+				end
+			else
+				local i = 1
+				while node.stats[i] do
+					local combinedLine = node.stats[i]
+					while node.mods[i + 1] and node.mods[i + 1].combined do
+						combinedLine = combinedLine .. " " .. node.stats[i + 1]
+						i = i + 1
+					end
+					if node.mods[i].list and not node.mods[i].extra then
+						assert.is_not_nil(displayedMods[getModTemplate(combinedLine)], "Missing supported tree modifier: " .. combinedLine)
+					end
+					i = i + 1
+				end
+			end
+		end
+	end)
+
+	it("only lists modifier text accepted by the parser", function()
+		local popup = openModBrowser()
+		for _, mod in ipairs(popup.controls.listControl.list) do
+			local modList, extra = modLib.parseMod(mod.text)
+			assert.is_not_nil(modList, "Unsupported browser modifier: " .. mod.text)
+			assert.is_nil(extra, "Partially supported browser modifier: " .. mod.text)
+		end
+	end)
+
 	it("uses the expanded browser dimensions", function()
 		local popup = openModBrowser()
 		local listWidth, listHeight = popup.controls.listControl:GetSize()
 		local searchWidth = popup.controls.search:GetSize()
 
 		assert.are.equal(720, popup.width)
-		assert.are.equal(540, popup.height)
+		assert.are.equal(566, popup.height)
 		assert.are.equal(700, listWidth)
 		assert.are.equal(454, listHeight)
 		assert.are.equal(640, searchWidth)

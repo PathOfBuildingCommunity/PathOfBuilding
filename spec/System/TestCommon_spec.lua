@@ -5,7 +5,7 @@ describe("Common", function()
 			function ParentClass:ConstructorTestParentClass()
 				return self
 			end
-			local ChildClass = newClass("ConstructorTestProblemChildClass", "ConstructorTestParentClass")
+			local ChildClass = newClass("ConstructorTestProblemChild", "ConstructorTestParentClass")
 			function ChildClass:ConstructorTestProblemChild()
 				-- Intentionally does not call self:ConstructorTestParentClass()
 				return self
@@ -40,7 +40,7 @@ describe("Common", function()
 				return self
 			end
 
-			local ChildClass = newClass("ConstructorTestProblemChildClass", "ConstructorTestParentClass")
+			local ChildClass = newClass("ConstructorTestProblemChild", "ConstructorTestParentClass")
 			function ChildClass:ConstructorTestProblemChild()
 				self.ConstructorTestParentClass()
 				return self

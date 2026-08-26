@@ -82,7 +82,8 @@ function calcLib.doesTypeExpressionMatch(checkTypes, skillTypes, minionTypes)
 end
 
 -- Check if given support skill can support the given active skill
-function calcLib.canGrantedEffectSupportActiveSkill(grantedEffect, activeSkill, imbuedSupport)
+---@param appliesToGrantedSkills boolean? Generally modifiers which add support gems to the socketed skills don't work with granted skills, and this flag can be used to mark exceptions such as the Pearl of Tsoatha.
+function calcLib.canGrantedEffectSupportActiveSkill(grantedEffect, activeSkill, imbuedSupport, appliesToGrantedSkills)
 	if grantedEffect.unsupported or activeSkill.activeEffect.grantedEffect.cannotBeSupported then
 		return false
 	end
@@ -91,7 +92,7 @@ function calcLib.canGrantedEffectSupportActiveSkill(grantedEffect, activeSkill, 
 	end
 
 	-- Special case for things like Forbidden Shako or Hungry Loop with  for example Prismatic Burst and another compatible support
-	if grantedEffect.fromItem and grantedEffect.support and (activeSkill.activeEffect.grantedEffect.fromItem or activeSkill.activeEffect.grantedEffect.modSource:sub(1, #"Item") == "Item" or (activeSkill.activeEffect.srcInstance and activeSkill.activeEffect.srcInstance.fromItem)) then
+	if not appliesToGrantedSkills and grantedEffect.fromItem and grantedEffect.support and (activeSkill.activeEffect.grantedEffect.fromItem or activeSkill.activeEffect.grantedEffect.modSource:sub(1, #"Item") == "Item" or (activeSkill.activeEffect.srcInstance and activeSkill.activeEffect.srcInstance.fromItem)) then
 		return false
 	end
 
@@ -122,6 +123,14 @@ function calcLib.canGrantedEffectSupportActiveSkill(grantedEffect, activeSkill, 
 		if activeSkill.activeEffect.grantedEffect.weaponTypes then
 			for activeType in pairs(activeSkill.activeEffect.grantedEffect.weaponTypes) do
 				activeTypeLookup[activeType] = true
+			end
+		elseif effectiveSkillTypes[SkillType.SkillGrantedBySupport] then
+			-- Skills granted by supports do not have their own weaponTypes, so check the equipped weapons instead.
+			if activeSkill.actor.weaponData1.type then
+				activeTypeLookup[activeSkill.actor.weaponData1.type] = true
+			end
+			if activeSkill.actor.weaponData2.type then
+				activeTypeLookup[activeSkill.actor.weaponData2.type] = true
 			end
 		end
 		-- If the support expects a weapon type but the active skill doesn't have any (e.g. shield skills), it's not a match.

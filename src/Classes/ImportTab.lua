@@ -129,7 +129,8 @@ local function addOAuthControls(self)
 					self.controls.charSelectLeague:SetSel(i)
 				end
 			end
-		else
+		end
+		if not self.controls.charSelectLeague.selIndex then
 			self.controls.charSelectLeague:SetSel(1)
 		end
 	end
@@ -1637,7 +1638,7 @@ function ImportTabClass:ImportItem(itemData, slotName, ignoreWeaponSwap, itemSet
 		end
 	end
 	item.split = itemData.split
-	item.mirrored = itemData.mirrored
+	item.mirrored = itemData.duplicated or itemData.mirrored
 	item.corrupted = itemData.corrupted
 	item.fractured = itemData.fractured
 	item.synthesised = itemData.synthesised

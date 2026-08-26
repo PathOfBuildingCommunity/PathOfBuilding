@@ -243,7 +243,17 @@ function SkillsTabClass:SkillsTab(build)
 		local item = getSelectedItem()
 		return not not item
 	end
-	self.controls.optimiseSockets = new("ButtonControl"):ButtonControl({ "LEFT", self.controls.socketsLabel, "RIGHT" }, { 4, 0, 120, 18 }, "^7Optimise Sockets", function()
+	local function getSocketCounts(item)
+		local abyssalSocketCount = 0
+		for _, socket in ipairs(item.sockets) do
+			if socket.color == "A" then
+				abyssalSocketCount = abyssalSocketCount + 1
+			end
+		end
+		local maxSockets = (item.base.socketLimit or 0) - abyssalSocketCount
+		return maxSockets, abyssalSocketCount
+	end
+	self.controls.optimiseSockets = new("ButtonControl"):ButtonControl({ "LEFT", self.controls.socketsLabel, "RIGHT" }, { 4, 0, 120, 18 }, "Optimise Sockets", function()
 		local item, groupSlot = getSelectedItem()
 		if not item or not groupSlot or not item.base then
 			return
@@ -251,17 +261,10 @@ function SkillsTabClass:SkillsTab(build)
 
 		self.build.itemsTab:AddUndoState()
 
-		-- save count of abyssal sockets
-		local abyssalSocketCount = 0
-		for _, socket in ipairs(item.sockets) do
-			if socket.color == "A" then
-				abyssalSocketCount = abyssalSocketCount + 1
-			end
-		end
+		local maxSockets, abyssalSocketCount = getSocketCounts(item)
 
 		local groupCount = 0
 		item.sockets = {}
-		local maxSockets = (item.base.socketLimit or 0) - abyssalSocketCount
 		for _, group in ipairs(self.socketGroupList) do
 			local colours = { "R", "G", "B" }
 			if group.slot == groupSlot.slotName then
@@ -276,7 +279,6 @@ function SkillsTabClass:SkillsTab(build)
 				groupCount = groupCount + 1
 			end
 		end
-
 		for _ = 0, abyssalSocketCount - 1 do
 			groupCount = groupCount + 1
 			table.insert(item.sockets, { color = "A", group = groupCount })
@@ -288,6 +290,26 @@ function SkillsTabClass:SkillsTab(build)
 	self.controls.optimiseSockets.shown = function()
 		local item = getSelectedItem()
 		return item and (item.base.socketLimit ~= nil)
+	end
+	self.controls.optimiseSockets.enabled = function()
+		local item, groupSlot = getSelectedItem()
+		if not item or not groupSlot or not item.base then
+			return false
+		end
+		local maxSockets = getSocketCounts(item)
+		for _, group in ipairs(self.socketGroupList) do
+			if group.slot == groupSlot.slotName then
+				for _, gem in ipairs(group.gemList) do
+					if (gem.grantedEffect or (gem.gemData and gem.gemData.grantedEffect)) and maxSockets > 0 then
+						if not gem.matchesSocket then
+							return true
+						end
+						maxSockets = maxSockets - 1
+					end
+				end
+			end
+		end
+		return false
 	end
 	self.controls.optimiseSockets.tooltipText = "Rebuild the item's sockets to match the groups assigned to it."
 	-- self.imbuedSupportBySlot is used by CalcSetup to add an ExtraSupport mod of the selected gem
@@ -385,7 +407,7 @@ which comes from the following sources:]]
 			label = [[^7This is a special group created for the ']] .. activeGem.color .. (activeGem.grantedEffect and activeGem.grantedEffect.name or activeGem.nameSpec) .. [[^7' skill,
 which is being provided by ]] .. sourceName .. [[.
 You cannot delete this group, but it will disappear if you ]] .. (self.displayGroup.sourceNode and [[un-allocate the node.]] or [[un-equip the item.]])
-			if not self.displayGroup.noSupports then
+			if not self.displayGroup.noSupports and not self.displayGroup.sourceNode then
 				label = label .. "\n\n" .. [[You cannot add support gems to this group, but support gems in
 any other group socketed into ]] .. sourceName .. [[
 will automatically apply to the skill.]]
