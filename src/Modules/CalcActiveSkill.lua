@@ -273,6 +273,12 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 		activeSkill.disableReason = "This skill requires a Shield"
 	end
 
+	if skillTypes[SkillType.RequiresStaff] and not activeSkill.summonSkill and (not activeSkill.actor.itemList["Weapon 1"] or activeSkill.actor.itemList["Weapon 1"].type ~= "Staff") then
+		-- Skill requires a staff to be equipped
+		skillFlags.disable = true
+		activeSkill.disableReason = "This skill requires a Staff"
+	end
+
 	if skillFlags.shieldAttack then
 		-- Special handling for Spectral Shield Throw
 		skillFlags.weapon2Attack = true
