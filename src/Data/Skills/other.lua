@@ -2921,7 +2921,7 @@ skills["PactOfBeidat"] = {
 			mod("BeidatAdditionalCascades", "BASE", nil),
 		},
 		["pact_skill_damage_+%_final_with_hits_and_ailments_to_grant"] = {
-			mod("BeidatPactDamage", "LIST", { mod = mod("Damage", "MORE", nil, ModFlag.Spell, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment)) }),
+			mod("BeidatPactDamage", "LIST", { mod = mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment)) }),
 		},
 	},
 	baseFlags = {
