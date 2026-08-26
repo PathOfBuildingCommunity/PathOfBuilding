@@ -1359,7 +1359,7 @@ describe("TestAdvancedItemParse #item", function()
 			assert.equal(8, spellDamage())
 		end)
 		it("does not scale modifiers that grant skills", function()
-			local item = new("Item", [[
+			local item = new("Item"):Item([[
 				Item Class: Rings
 				Rarity: Rare
 				Plague Knuckle
