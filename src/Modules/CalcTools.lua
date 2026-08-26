@@ -124,6 +124,14 @@ function calcLib.canGrantedEffectSupportActiveSkill(grantedEffect, activeSkill, 
 			for activeType in pairs(activeSkill.activeEffect.grantedEffect.weaponTypes) do
 				activeTypeLookup[activeType] = true
 			end
+		elseif effectiveSkillTypes[SkillType.SkillGrantedBySupport] then
+			-- Skills granted by supports do not have their own weaponTypes, so check the equipped weapons instead.
+			if activeSkill.actor.weaponData1.type then
+				activeTypeLookup[activeSkill.actor.weaponData1.type] = true
+			end
+			if activeSkill.actor.weaponData2.type then
+				activeTypeLookup[activeSkill.actor.weaponData2.type] = true
+			end
 		end
 		-- If the support expects a weapon type but the active skill doesn't have any (e.g. shield skills), it's not a match.
 		if not next(activeTypeLookup) then

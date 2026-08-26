@@ -1005,6 +1005,7 @@ function buildMode:Load(xml, fileName)
 				idx = tonumber(child.attrib.fallbackWeightModeIdx)
 			}
 			self.timelessData.socketFilter = child.attrib.socketFilter == "true"
+			self.timelessData.socketAllocate = child.attrib.socketAllocate == "true"
 			self.timelessData.socketFilterDistance = tonumber(child.attrib.socketFilterDistance) or 0
 			self.timelessData.searchList = child.attrib.searchList
 			self.timelessData.searchListFallback = child.attrib.searchListFallback
@@ -1086,6 +1087,7 @@ function buildMode:Save(xml)
 			jewelSocketId = next(self.timelessData.jewelSocket) and tostring(self.timelessData.jewelSocket.id),
 			fallbackWeightModeIdx = next(self.timelessData.fallbackWeightMode) and tostring(self.timelessData.fallbackWeightMode.idx),
 			socketFilter = self.timelessData.socketFilter and "true",
+			socketAllocate = self.timelessData.socketAllocate and "true",
 			socketFilterDistance = self.timelessData.socketFilterDistance and tostring(self.timelessData.socketFilterDistance),
 			searchList = self.timelessData.searchList and tostring(self.timelessData.searchList),
 			searchListFallback = self.timelessData.searchListFallback and tostring(self.timelessData.searchListFallback)

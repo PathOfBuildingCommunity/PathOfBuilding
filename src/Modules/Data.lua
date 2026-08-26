@@ -1343,6 +1343,7 @@ for modId, mod in pairs(data.veiledMods) do
 	if mod.affix == "Chosen" then
 		veiledMods[modId] = mod
 		caneOfKulemakMods[modId] = mod
+		queensHungerMods[modId] = mod
 	elseif mod.affix == "Catarina's" then
 		caneOfKulemakMods[modId] = mod
 		queensHungerMods[modId] = mod

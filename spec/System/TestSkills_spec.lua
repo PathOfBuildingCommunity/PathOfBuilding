@@ -90,6 +90,29 @@ describe("TestSkills", function()
 		assert.True(build.calcsTab.mainOutput.MirageDPS ~= nil)
 	end)
 
+	it("checks equipped weapon types for support-granted attacks", function()
+		build.itemsTab:CreateDisplayItemFromRaw("Test Claw\nImperial Claw")
+		build.itemsTab:AddDisplayItem()
+		build.skillsTab:PasteSocketGroup("Cobra Lash 20/0  1\nWindburst 20/0  1\nNightblade 20/0  1\nSacred Wisps 20/0  1\n")
+		runCallback("OnFrame")
+
+		local windburst
+		for _, activeSkill in ipairs(build.calcsTab.mainEnv.player.activeSkillList) do
+			if activeSkill.activeEffect.grantedEffect.id == "TriggeredSupportWindburst" then
+				windburst = activeSkill
+				break
+			end
+		end
+		assert.is_not_nil(windburst)
+
+		local supports = { }
+		for _, effect in ipairs(windburst.effectList) do
+			supports[effect.grantedEffect.id] = true
+		end
+		assert.is_true(supports.SupportNightblade)
+		assert.is_nil(supports.SupportSacredWisps)
+	end)
+
 	it("keeps forced mana reservations on mana", function()
 		build.itemsTab:CreateDisplayItemFromRaw("Test Staff\nJudgement Staff")
 		build.itemsTab:AddDisplayItem()
