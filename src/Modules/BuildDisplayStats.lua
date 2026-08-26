@@ -273,7 +273,7 @@ local minionDisplayStats = {
 	{ stat = "Life", label = "Total Life", fmt = ".1f", compactValue = true, color = colorCodes.LIFE, compPercent = true, modNames = { "Life" }, ignoredSections = { "Base from Gear", "Inc. from Tree" } },
 	{ stat = "LifeRegenRecovery", label = "Life Recovery", fmt = ".1f", color = colorCodes.LIFE },
 	{ stat = "LifeLeechGainRate", label = "Life Leech/On Hit Rate", fmt = ".1f", color = colorCodes.LIFE, compPercent = true },
-	{ stat = "EnergyShield", label = "Energy Shield", fmt = "d", compactValue = true, color = colorCodes.ES, compPercent = true, modNames = { "EnergyShield", "Defences" } },
+	{ stat = "EnergyShield", label = "Energy Shield", fmt = "d", compactValue = true, color = colorCodes.ES, compPercent = true, modNames = { "EnergyShield", "Defences" }, ignoredSections = defenseIgnoredSections },
 	{ stat = "EnergyShieldRegenRecovery", label = "ES Recovery", fmt = ".1f", color = colorCodes.ES },
 	{ stat = "EnergyShieldLeechGainRate", label = "ES Leech/On Hit Rate", fmt = ".1f", color = colorCodes.ES, compPercent = true },
 }
