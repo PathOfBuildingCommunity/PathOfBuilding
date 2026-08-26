@@ -456,6 +456,7 @@ local function addBestSupport(supportEffect, appliedSupportList, mode)
 	end
 end
 
+---@alias CalcEnvMode "MAIN"|"CALCS"|"EFFECTIVE"|"COMBAT"|"BUFFED"|"CALCULATOR"
 -- Initialise environment:
 -- 1. Initialises the player and enemy modifier databases
 -- 2. Merges modifiers for all items
@@ -463,6 +464,14 @@ end
 -- 4. Merges modifiers for all allocated passive nodes
 -- 5. Builds a list of active skills and their supports (calcs.createActiveSkill)
 -- 6. Builds modifier lists for all active skills (calcs.buildActiveSkillModList)
+---@param build Build
+---@param mode CalcEnvMode
+---@param override CalcOverride?
+---@param specEnv any?
+---@return Env
+---@return ModDB? cachedPlayerDB
+---@return ModDB? cachedEnemyDB
+---@return ModDB? cachedMinionDB
 function calcs.initEnv(build, mode, override, specEnv)
 	ClearMatchKeywordFlagsCache()
 	-- accelerator variables
@@ -479,6 +488,8 @@ function calcs.initEnv(build, mode, override, specEnv)
 	local classStats = nil
 
 	if not env then
+		---@class Env
+		---@field minion Actor?
 		env = { }
 		env.build = build
 		env.data = build.data

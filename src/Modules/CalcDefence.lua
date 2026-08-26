@@ -148,6 +148,7 @@ end
 ---@param actor table actor (with output and modDB) for which to calculate the damage
 ---@return number, table sum of damages and a table of taken damage parts
 function calcs.takenHitFromDamage(rawDamage, damageType, actor)
+	---@class Output
 	local output = actor.output
 	local modDB = actor.modDB
 	local function damageMitigationMultiplierForType(damage, type)
@@ -187,6 +188,7 @@ end
 ---@param actor table actor (with output and modDB) for which to calculate the pools
 ---@return table pools reduced by damage
 function calcs.reducePoolsByDamage(poolTable, damageTable, actor)
+	---@class Output
 	local output = actor.output
 	local modDB = actor.modDB
 	local poolTbl = poolTable or { }
@@ -478,6 +480,7 @@ end
 -- Performs defensive calculations used by conditionals
 function calcs.defenceForConditionals(env, actor)
 	local modDB = actor.modDB
+	---@class Output
 	local output = actor.output
 
 	-- Armour defence types for conditionals
@@ -504,10 +507,21 @@ function calcs.defenceForConditionals(env, actor)
 	end
 end
 
+---@alias MinMaxTotalBreakdownResist [string, string, string]
 -- Performs resistance calculations
 function calcs.resistances(actor)
 	local modDB = actor.modDB
+	---@class Output
 	local output = actor.output
+	---@class Breakdown
+	---@field FireResist MinMaxTotalBreakdownResist?
+	---@field ColdResist MinMaxTotalBreakdownResist?
+	---@field LightningResist MinMaxTotalBreakdownResist?
+	---@field ChaosResist MinMaxTotalBreakdownResist?
+	---@field TotemFireResist MinMaxTotalBreakdownResist?
+	---@field TotemColdResist MinMaxTotalBreakdownResist?
+	---@field TotemLightningResist MinMaxTotalBreakdownResist?
+	---@field TotemChaosResist MinMaxTotalBreakdownResist?
 	local breakdown = actor.breakdown
 	output["PhysicalResist"] = 0
 	
@@ -638,7 +652,9 @@ function calcs.defence(env, actor)
 	---@type ModDB
 	local modDB = actor.modDB
 	local enemyDB = actor.enemy.modDB
+	---@class Output
 	local output = actor.output
+	---@class Breakdown
 	local breakdown = actor.breakdown
 
 	local condList = modDB.conditions
@@ -1658,7 +1674,9 @@ end
 function calcs.buildDefenceEstimations(env, actor)
 	local modDB = actor.modDB
 	local enemyDB = actor.enemy.modDB
+	---@class Output
 	local output = actor.output
+	---@class Breakdown
 	local breakdown = actor.breakdown
 
 	local condList = modDB.conditions

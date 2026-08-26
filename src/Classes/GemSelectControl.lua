@@ -18,8 +18,8 @@ local imbuedTooltipText = "\"Socketed in\" item must be set in order to add an i
 ---@class GemSelectControl: EditControl
 local GemSelectClass = newClass("GemSelectControl", "EditControl")
 
----@param anchor ControlAnchor
----@param rect ControlRect
+---@param anchor Anchor?
+---@param rect Rect?
 ---@param skillsTab SkillsTab
 ---@param index integer
 ---@param changeFunc fun(...)

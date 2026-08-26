@@ -17,8 +17,13 @@ local band = bit.band
 local bor = bit.bor
 
 ---@class PassiveSpec: UndoHandler
+---@field nodes table<integer, Node>
+---@field allocNodes table<integer, Node>
 local PassiveSpecClass = newClass("PassiveSpec", "UndoHandler")
 
+---@param build Build
+---@param treeVersion any
+---@param convert any
 function PassiveSpecClass:PassiveSpec(build, treeVersion, convert)
 	self:UndoHandler()
 
@@ -47,6 +52,7 @@ function PassiveSpecClass:Init(treeVersion, convert)
 	for _, treeNode in pairs(self.tree.nodes) do
 		-- Exclude proxy or groupless nodes, as well as expansion sockets
 		if treeNode.group and not treeNode.isProxy and not treeNode.group.isProxy and (not treeNode.expansionJewel or not treeNode.expansionJewel.parent) then
+			---@class Node
 			self.nodes[treeNode.id] = setmetatable({
 				linked = { },
 				power = { }

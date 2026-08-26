@@ -27,6 +27,13 @@ local conditionName = setmetatable({ }, { __index = function(t, var)
 	return t[var]
 end })
 
+-- TODO: very incomplete
+---@class ModCfg
+---@field flags number? bit mask
+---@field keywordFlags number?
+---@field skillName string?
+---@field source string?
+
 ---@class ModStore
 local ModStoreClass = newClass("ModStore")
 
@@ -151,6 +158,10 @@ function ModStoreClass:Combine(modType, cfg, ...)
 	end
 end
 
+---@param modType string
+---@param cfg? ModCfg
+---@param ... string
+---@return number
 function ModStoreClass:Sum(modType, cfg, ...)
 	local flags, keywordFlags = 0, 0
 	local source
@@ -162,6 +173,9 @@ function ModStoreClass:Sum(modType, cfg, ...)
 	return self:SumInternal(self, modType, cfg, flags, keywordFlags, source, ...)
 end
 
+---@param cfg? ModCfg
+---@param ... string
+---@return number
 function ModStoreClass:More(cfg, ...)
 	local flags, keywordFlags = 0, 0
 	local source
@@ -184,6 +198,9 @@ function ModStoreClass:Flag(cfg, ...)
 	return self:FlagInternal(self, cfg, flags, keywordFlags, source, ...)
 end
 
+---@param cfg? ModCfg
+---@param ... string
+---@return any
 function ModStoreClass:Override(cfg, ...)
 	local flags, keywordFlags = 0, 0
 	local source
@@ -195,6 +212,9 @@ function ModStoreClass:Override(cfg, ...)
 	return self:OverrideInternal(self, cfg, flags, keywordFlags, source, ...)
 end
 
+---@param cfg? ModCfg
+---@param ... string
+---@return any[]
 function ModStoreClass:List(cfg, ...)
 	local flags, keywordFlags = 0, 0
 	local source
@@ -208,6 +228,10 @@ function ModStoreClass:List(cfg, ...)
 	return result
 end
 
+---@param modType string
+---@param cfg? ModCfg
+---@param ... string
+---@return table[]
 function ModStoreClass:Tabulate(modType, cfg, ...)
 	local flags, keywordFlags = 0, 0
 	local source
@@ -262,14 +286,25 @@ function ModStoreClass:HasMod(modType, cfg, ...)
 	return self:HasModInternal(modType, flags, keywordFlags, source, ...)
 end
 
+---@param var string
+---@param cfg? ModCfg
+---@param noMod? boolean
+---@return boolean
 function ModStoreClass:GetCondition(var, cfg, noMod)
 	return self.conditions[var] or (self.parent and self.parent:GetCondition(var, cfg, true)) or (not noMod and self:Flag(cfg, conditionName[var]))
 end
 
+---@param var string
+---@param cfg? ModCfg
+---@param noMod? boolean
+---@return number
 function ModStoreClass:GetMultiplier(var, cfg, noMod)
 	return (not noMod and self:Override(cfg, multiplierName[var])) or (self.multipliers[var] or 0) + (self.parent and self.parent:GetMultiplier(var, cfg, true) or 0) + (not noMod and self:Sum("BASE", cfg, multiplierName[var]) or 0)
 end
 
+---@param stat string
+---@param cfg? ModCfg
+---@return number
 function ModStoreClass:GetStat(stat, cfg)
 	-- Checks if any buff in buffList matches
 	-- Was needed for skills that provide multiple buffs (e.g. Herald of Agony) and can't be accesses with `buffList[1]`
@@ -321,6 +356,10 @@ function ModStoreClass:GetStat(stat, cfg)
 	end
 end
 
+---@param mod Mod
+---@param cfg? ModCfg
+---@param globalLimits? table
+---@return any
 function ModStoreClass:EvalMod(mod, cfg, globalLimits)
 	local value = mod.value
 	local GetStat = self.GetStat

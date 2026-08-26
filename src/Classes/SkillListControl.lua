@@ -29,6 +29,9 @@ local slot_map = {
 ---@class SkillListControl: ListControl
 local SkillListClass = newClass("SkillListControl", "ListControl")
 
+---@param anchor Anchor?
+---@param rect Rect?
+---@param skillsTab SkillsTab
 function SkillListClass:SkillListControl(anchor, rect, skillsTab)
 	self:ListControl(anchor, rect, 16, "VERTICAL", true, skillsTab.socketGroupList)
 	self.skillsTab = skillsTab

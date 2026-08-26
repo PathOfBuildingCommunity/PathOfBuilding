@@ -56,12 +56,13 @@ end
 ---@field nodes string[]
 ---@field background any
 ---@field isProxy boolean?
+
 ---@class PassiveTree
 ---@field classes any[] A list of classes on the tree
 ---@field alternate_ascendancies any[]?
 ---@field tree "Default"|"DefaultAltAscendancies"
 ---@field groups PassiveTreeGroup[]
----@field nodes table<"root"|integer, any>
+---@field nodes table<"root"|integer, Node>
 ---@field jewelSlots integer[]
 ---@field min_x integer
 ---@field min_y integer
@@ -517,7 +518,9 @@ function PassiveTreeClass:PassiveTree(treeVersion)
 	self.sockets = { }
 	self.masteryEffects = { }
 	local nodeMap = { }
-	for _, node in pairs(self.nodes) do
+	for _, n in pairs(self.nodes) do
+		---@class Node
+		local node = n
 		-- Migration...
 		if versionNum < 3.10 then
 			-- To new format

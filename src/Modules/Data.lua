@@ -115,7 +115,7 @@ for k, v in pairs(miscData) do
 end
 
 ---@alias TransformFunc fun(in: number|string): (number|string)?
----@class StatTable
+---@class PowerStat
 ---@field stat? string stat ID
 ---@field label string A short description of the stat
 ---@field transform TransformFunc?: number|string A function to e.g. invert the value, if the stat represents something where lower is better
@@ -123,8 +123,9 @@ end
 ---@field ignoreForNodes? boolean
 ---@field ignoreForItems? boolean
 ---@field reverseSort? boolean
+---@field itemField string?
 
----@type StatTable[]
+---@type PowerStat[]
 data.powerStatList = {
 	{ stat=nil, label="Offence/Defence", combinedOffDef=true, ignoreForItems=true },
 	{ stat=nil, label="Name", itemField="Name", ignoreForNodes=true, reverseSort=true, transform=function(value) return value:gsub("^The ","") end},
@@ -179,7 +180,7 @@ data.powerStatList = {
 }
 
 ---@param output any Calc output
----@param statTable StatTable Table with stats as in data.powerStatList
+---@param statTable PowerStat Table with stats as in data.powerStatList
 ---@param skipTransform? boolean Whether the stat transform should be skipped. This is useful if you want to e.g. divide two less is better stats
 ---@return number
 function data.powerStatList.GetFromOutput(output, statTable, skipTransform)
@@ -252,7 +253,6 @@ data.misc = { -- magic numbers
 	FortifyBaseDuration = 6,
 	ManaRegenBase = data.characterConstants["mana_regeneration_rate_per_minute_%"] / 60 / 100,
 	EnergyShieldRechargeBase = data.characterConstants["energy_shield_recharge_rate_per_minute_%"] / 60 / 100,
-	EnergyShieldRechargeBase = 0.33,
 	EnergyShieldRechargeDelay = 2,
 	WardRechargeDelay = 2,
 	Transfiguration = 0.3,

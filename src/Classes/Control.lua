@@ -41,15 +41,17 @@ local rect = {
 ---@field shown          Prop<boolean>
 ---@field x              Prop<number>?
 ---@field y              Prop<number>?
+---@field width          Prop<number>?
+---@field height         Prop<number>?
 ---@field collapseY      number? An additional offset which is applied when this control uses a collapsed anchor.
 ---@field collapseX      number? An additional offset which is applied when this control uses a collapsed anchor.
 local ControlClass = newClass("Control")
 
----@alias ControlAnchor [AnchorPoint, Control|ControlHost, AnchorPoint, boolean|nil]
----@alias ControlRect [number|nil, number|nil, number|nil, number]
+---@alias Anchor [AnchorPoint, Control|ControlHost, AnchorPoint, boolean|nil]
+---@alias Rect [Prop<number>?,Prop<number>?, Prop<number>?, Prop<number>?]
 
----@param anchor? ControlAnchor
----@param rect? ControlRect
+---@param anchor? Anchor
+---@param rect? Rect
 function ControlClass:Control(anchor, rect)
 	self.rectStart = rect or {0, 0, 0, 0}
 	self.x, self.y, self.width, self.height = unpack(self.rectStart)

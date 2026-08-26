@@ -110,6 +110,7 @@ for _, curInfluenceInfo in ipairs(influenceInfo) do
 	influenceItemMap[curInfluenceInfo.display.." Item"] = curInfluenceInfo.key
 end
 
+---@enum (key) LineFlags
 local lineFlags = {
 	["crafted"] = true,
 	["crucible"] = true,
@@ -406,6 +407,19 @@ function ItemClass:NormaliseVariantSelections()
 	end
 end
 
+---@class ModLine A modifier line on an item. An in-game mod can translate to multiple ModLines.
+---@field modList Mod[]
+---@field line string The actual text for the line. This might describe a range of values, in which case applyRange() can be used with this and the range value to get a ranged line.
+---@field range number?
+---@field extra string?
+---@field valueScalar number?
+---@field [LineFlags] boolean?
+---@field modTags string[]?
+---@field variantList table<number, boolean>?
+---@field versionList table<number, boolean>?
+---@field variantGroupList table<number, boolean>?
+---@field modId string?
+
 -- Parse raw item data and extract item name, base type, quality, and modifiers
 function ItemClass:ParseRaw(raw, rarity, highQuality)
 	self.raw = raw
@@ -472,11 +486,16 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 	self.sockets = { }
 	self.classRequirementModLines = { }
 	self.buffModLines = { }
+	---@type ModLine[]
 	self.enchantModLines = { }
-	self.scourgeModLines = { }
-	self.implicitModLines = { }
-	self.explicitModLines = { }
-	self.crucibleModLines = { }
+	---@type ModLine[]
+	self.scourgeModLines = {}
+	---@type ModLine[]
+	self.implicitModLines = {}
+	---@type ModLine[]
+	self.explicitModLines = {}
+	---@type ModLine[]
+	self.crucibleModLines = {}
 	-- old items or trade-sourced items have increases to modifiers baked in to the item text, which
 	-- means that we can't add e.g. quality or mod magnitude effect to them during parsing. we will
 	-- assume an item to be an advanced copy format if either has mod roll information, a modifier
@@ -849,6 +868,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 				gameModeStage = "EXPLICIT"
 			end
 			if not specName or foundExplicit or foundImplicit then
+				---@type ModLine
 				local modLine = { modTags = {} }
 
 				line = line:gsub("{(%a*):?([^}]*)}", function(k,val)

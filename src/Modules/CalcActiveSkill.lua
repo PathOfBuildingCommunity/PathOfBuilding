@@ -81,6 +81,7 @@ end
 -- Create an active skill using the given active gem and list of support gems
 -- It will determine the base flag set, and check which of the support gems can support this skill
 function calcs.createActiveSkill(activeEffect, supportList, actor, socketGroup, summonSkill)
+	---@class ActiveSkill
 	local activeSkill = {
 		activeEffect = activeEffect,
 		supportList = supportList,
@@ -100,6 +101,7 @@ function calcs.createActiveSkill(activeEffect, supportList, actor, socketGroup, 
 	end
 
 	-- Initialise skill flag set ('attack', 'projectile', etc)
+	---@class SkillFlags
 	local skillFlags = copyTable(activeGrantedEffect.baseFlags)
 	activeSkill.skillFlags = skillFlags
 	skillFlags.hit = skillFlags.hit or activeSkill.skillTypes[SkillType.Attack] or activeSkill.skillTypes[SkillType.Damage] or activeSkill.skillTypes[SkillType.Projectile]
@@ -458,6 +460,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 	end
 
 	-- Build config structure for modifier searches
+	---@class ModCfg
 	activeSkill.skillCfg = {
 		flags = bor(skillModFlags, activeSkill.weapon1Flags or activeSkill.weapon2Flags or 0),
 		keywordFlags = skillKeywordFlags,

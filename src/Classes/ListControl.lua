@@ -30,9 +30,17 @@ local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
 
----@class ListControl: Control, ControlHost
+---@class ListControl<T>: Control, ControlHost
+---@field list T[]
 local ListClass = newClass("ListControl", "Control", "ControlHost")
 
+---@param anchor Anchor?
+---@param rect Rect?
+---@param rowHeight number
+---@param scroll "HORIZONTAL"|"VERTICAL"|boolean|nil
+---@param isMutable boolean?
+---@param list any[]?
+---@param forceTooltip any
 function ListClass:ListControl(anchor, rect, rowHeight, scroll, isMutable, list, forceTooltip)
 	self:Control(anchor, rect)
 	self:ControlHost()

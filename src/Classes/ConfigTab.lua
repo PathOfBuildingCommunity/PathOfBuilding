@@ -13,9 +13,14 @@ local varList = require("Modules.ConfigOptions")
 local configVisibility = require("Modules.ConfigVisibility")
 local configModBrowser = require("Modules.ConfigModBrowser")
 
----@class CustomModBlock: ControlHost, Control
+---@class CustomModBlockControl: ControlHost, Control
 local CustomModBlockClass = newClass("CustomModBlockControl", "ControlHost", "Control")
 
+---@param anchor Anchor?
+---@param rect Rect?
+---@param configTab ConfigTab
+---@param blockIndex integer
+---@param blockData any
 function CustomModBlockClass:CustomModBlockControl(anchor, rect, configTab, blockIndex, blockData)
 	self:Control(anchor, rect)
 	self:ControlHost()

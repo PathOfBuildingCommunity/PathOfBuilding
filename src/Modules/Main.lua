@@ -155,8 +155,10 @@ function main:Init()
 		self:ChangeUserPath(self.userPath, ignoreBuild)
 	end
 
-	self.uniqueDB = { list = { }, byTitle = {}, loading = true }
-	self.rareDB = { list = { }, loading = true }
+	---@type ItemDBData
+	self.uniqueDB = { list = { }, byTitle = { }, loading = true }
+	---@type ItemDBData
+	self.rareDB = { list = {}, loading = true }
 
 	local function loadItemDBs()
 		for type, typeList in pairsYield(data.uniques) do

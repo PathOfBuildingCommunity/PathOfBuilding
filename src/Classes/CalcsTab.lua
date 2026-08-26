@@ -467,8 +467,8 @@ function CalcsTabClass:BuildOutput()
 	end
 	
 	-- Retrieve calculator functions
-	self.nodeCalculator = { self.calcs.getNodeCalculator(self.build) }
-	self.miscCalculator = { self.calcs.getMiscCalculator(self.build) }
+	local miscCalcFunc, miscCalcBase = self.calcs.getMiscCalculator(self.build)
+	self.miscCalculator = { miscCalcFunc, miscCalcBase }
 end
 
 -- Controls the coroutine that calculates node power
@@ -757,12 +757,8 @@ function CalcsTabClass:CalculateCombinedOffDefStat(original, modified)
 	return dpsIncr / modifiedDps, defence
 end
 
-function CalcsTabClass:GetNodeCalculator()
-	return unpack(self.nodeCalculator)
-end
-
 function CalcsTabClass:GetMiscCalculator()
-	return unpack(self.miscCalculator)
+	return self.miscCalculator[1], self.miscCalculator[2]
 end
 
 function CalcsTabClass:CreateUndoState()

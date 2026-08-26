@@ -1109,7 +1109,7 @@ end
 
 
 --- @class CharacterPassives
---- @field mastery_effects table<string, int>
+--- @field mastery_effects table<string, integer>
 --- @field skill_overrides table<string, table>
 --- @field jewel_data table<string, table>
 --- @field hashes_ex integer[]
@@ -1120,10 +1120,10 @@ end
 --- @field alternate_ascendancy string | integer integer on website, string on oauth
 
 -- https://www.pathofexile.com/developer/docs/reference#type-Item
---- @alias Item any
+--- @alias GGGItem any
 
 --- @class CharacterPassivesData : CharacterBasicData
---- @field jewels Item[]
+--- @field jewels GGGItem[]
 --- @field passives CharacterPassives
 --- @param charData CharacterPassivesData
 --- @param deleteJewels boolean
@@ -1372,7 +1372,7 @@ function ImportTabClass:AssignGuardianItemSet(itemSetId)
 end
 
 --- @class CharacterItemsData : CharacterBasicData
---- @field equipment Item[]
+--- @field equipment GGGItem[]
 --- @param charData CharacterItemsData
 --- @param clearItems boolean
 --- @param clearSkills boolean

@@ -21,6 +21,7 @@ end
 ---@class NotableDBControl : ListControl
 local NotableDBClass = newClass("NotableDBControl", "ListControl")
 
+---@param itemsTab ItemsTab
 function NotableDBClass:NotableDBControl(anchor, rect, itemsTab, db, dbType)
 	self:ListControl(anchor, rect, 16, "VERTICAL", false)
 	self.itemsTab = itemsTab

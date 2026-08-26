@@ -4150,6 +4150,9 @@ local function cloneSpecForJewelComparison(spec)
 	return specCopy
 end
 
+---@param itemsTab ItemsTab
+---@param compareSlot ItemSlotControl
+---@param replacementItem Item
 local function buildSpecForJewelComparison(itemsTab, compareSlot, replacementItem)
 	local tempItemId
 	local spec = cloneSpecForJewelComparison(itemsTab.build.spec)
