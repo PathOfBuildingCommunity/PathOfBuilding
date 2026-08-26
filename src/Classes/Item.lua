@@ -11,6 +11,7 @@ local m_max = math.max
 local m_floor = math.floor
 
 local dmgTypeList = {"Physical", "Lightning", "Cold", "Fire", "Chaos"}
+local forbiddenNotableLen = 18
 local catalystList = {"Abrasive", "Accelerating", "Dextral", "Fertile", "Imbued", "Intrinsic", "Noxious", "Prismatic", "Sinistral", "Tempering", "Turbulent", "Unstable"}
 local catalystDescriptorList = {"Attack", "Speed", "Suffix", "Life and Mana", "Caster", "Attribute", "Physical and Chaos", "Resistance", "Prefix", "Defence", "Elemental", "Critical"}
 local catalystTags = {
@@ -1587,7 +1588,19 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 		self.title = self.title:gsub("[Ff]oulborn ", "")
 	end
 	if self.baseName and self.title then
-		self.name = self.title .. ", " .. self.baseName:gsub(" %(.+%)", "")
+		local title = self.title
+		if (self.title == "Forbidden Flame" or self.title == "Forbidden Flesh") and not (main.uniqueDB and main.uniqueDB.loading) then
+			-- Name the half by the notable it grants, so a pair is identifiable in the item list
+			for _, modLine in ipairs(self.explicitModLines) do
+				local notable = modLine.line:match("^Allocates (.+) if you have the matching modifiers? on Forbidden ")
+				if notable and self:CheckModLineVariant(modLine) then
+					title = self.title .. " (" .. (#notable > forbiddenNotableLen
+						and notable:sub(1, forbiddenNotableLen - 3) .. "..." or notable) .. ")"
+					break
+				end
+			end
+		end
+		self.name = title .. ", " .. self.baseName:gsub(" %(.+%)", "")
 	end
 	if not self.quality then
 		self:NormaliseQuality()
