@@ -112,6 +112,29 @@ describe("TestSkills", function()
 		assert.is_true(supports.SupportNightblade)
 		assert.is_nil(supports.SupportSacredWisps)
 	end)
+
+	it("keeps forced mana reservations on mana", function()
+		build.itemsTab:CreateDisplayItemFromRaw("Test Staff\nJudgement Staff")
+		build.itemsTab:AddDisplayItem()
+		build.skillsTab:PasteSocketGroup("Mana-Infused Staff 20/0  1\nArrogance 20/0  1\n")
+		runCallback("OnFrame")
+
+		local activeSkill = build.calcsTab.mainEnv.player.mainSkill
+		assert.are.equals("SupportArrogance", activeSkill.effectList[2].grantedEffect.id)
+		assert.is_nil(activeSkill.skillFlags.disable)
+		assert.are.equals(30, build.calcsTab.mainEnv.player.output.ManaReservedPercent)
+		assert.are.equals(0, build.calcsTab.mainEnv.player.output.LifeReserved)
+
+		build.configTab.input.customMods = "Removes all mana\nSkills Reserve Life instead of Mana"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		activeSkill = build.calcsTab.mainEnv.player.mainSkill
+		assert.is_true(activeSkill.skillFlags.disable)
+		assert.are.equals("This skill requires reserving Mana", activeSkill.disableReason)
+		assert.are.equals(0, activeSkill.skillData.ManaReservedBase)
+		assert.is_nil(activeSkill.skillData.LifeReservedBase)
+	end)
 	
 	it("Test Scorching ray applying exposure at max stages", function()
 		build.skillsTab:PasteSocketGroup("Scorching Ray 20/0  1\n")
