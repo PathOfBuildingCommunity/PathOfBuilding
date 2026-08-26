@@ -298,6 +298,13 @@ function TimelessJewelListControlClass:AddValueTooltip(tooltip, index, data)
 	if not self.noTooltip then
 		if self.list[index].label:match("B2B2B2") == nil then
 			tooltip:AddLine(16, "^7Double click to add this jewel to your build.")
+			if self.build.timelessData.socketAllocate then
+				if socket and self.build.spec.allocNodes[socketId] then
+					tooltip:AddLine(16, "^7It will be socketed into " .. (data.socketLabel or self.sharedList.socket.label or socketId) .. ".")
+				else
+					tooltip:AddLine(16, colorCodes.WARNING .. "That jewel socket is not allocated, so the jewel will only be added to your items.")
+				end
+			end
 		else
 			tooltip:AddLine(16, "^7" .. self.sharedList.type.label .. " " .. data.seed .. " was successfully added to your build.")
 		end
@@ -328,8 +335,18 @@ end
 function TimelessJewelListControlClass:OnSelClick(index, data, doubleClick)
 	if doubleClick and self.list[index].label:match("B2B2B2") == nil then
 		local item = self:GetJewelItem(data)
-		self.build.itemsTab:AddItem(item, true)
-		self.build.itemsTab:PopulateSlots()
+		local itemsTab = self.build.itemsTab
+		itemsTab:AddItem(item, true)
+		if self.build.timelessData.socketAllocate then
+			local socketId = data.socketId or self.sharedList.socket.id
+			local socketControl = socketId ~= -1 and itemsTab.sockets[socketId]
+			if socketControl and self.build.spec.allocNodes[socketId] and itemsTab:IsItemValidForSlot(item, socketControl.slotName) then
+				socketControl:SetSelItemId(item.id)
+				self.build.buildFlag = true
+			end
+		end
+		itemsTab:PopulateSlots()
+		itemsTab:AddUndoState()
 		self.list[index].label = "^xB2B2B2" .. self.list[index].label
 	end
 end

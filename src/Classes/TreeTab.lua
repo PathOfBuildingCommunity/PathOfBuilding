@@ -1670,6 +1670,20 @@ function TreeTabClass:FindTimelessJewel()
 	end
 	controls.socketFilter.state = timelessData.socketFilter
 
+	-- own row under the socket filter, so it never collides with the node distance slider
+	controls.socketAllocate = new("CheckBoxControl"):CheckBoxControl({"TOPLEFT", controls.socketFilter, "BOTTOMLEFT"}, {0, rowSpacing, rowHeight}, nil, function(value)
+		timelessData.socketAllocate = value
+		self.build.modFlag = true
+	end)
+	controls.socketAllocateLabel = new("LabelControl"):LabelControl({"RIGHT", controls.socketAllocate, "LEFT"}, {-labelSpacing, 0, 0, labelHeight}, "^7Socket Jewel:")
+	controls.socketAllocate.tooltipFunc = function(tooltip, mode, index, value)
+		tooltip:Clear()
+		tooltip:AddLine(16, "^7Double clicking a result also equips the jewel in its jewel socket.")
+		tooltip:AddLine(16, "^7The socket must be allocated on your current tree; if it isn't, the jewel is only added to your item list.")
+		tooltip:AddLine(16, "^7A jewel already in that socket is replaced.")
+	end
+	controls.socketAllocate.state = timelessData.socketAllocate
+
 	-- Protect notables that must not be replaced by Militant Faith or Reclaimed Malevolence.
 	controls.protectAllocatedLabel = new("LabelControl"):LabelControl({ "TOPLEFT", nil, "TOPLEFT" }, {
 		15,
@@ -1750,7 +1764,7 @@ function TreeTabClass:FindTimelessJewel()
 	local scrollWheelSpeedTbl2 = { ["SHIFT"] = 0.2, ["CTRL"] = 0.002, ["DEFAULT"] = 0.02 }
 
 	local nodeSliderStatLabel = "None"
-	controls.nodeSlider = new("SliderControl"):SliderControl({"TOPLEFT", controls.socketFilter, "BOTTOMLEFT"}, {0, rowSpacing, 200, rowHeight}, function(value)
+	controls.nodeSlider = new("SliderControl"):SliderControl({"TOPLEFT", controls.socketAllocate, "BOTTOMLEFT"}, {0, rowSpacing, 200, rowHeight}, function(value)
 		controls.nodeSliderValue.label = s_format("^7%.3f", value * 10)
 		parseSearchList(1, controls.searchListFallback and controls.searchListFallback.shown or false)
 	end, scrollWheelSpeedTbl)
@@ -2867,6 +2881,8 @@ function TreeTabClass:FindTimelessJewel()
 		end
 	end)
 
-	local panelHeight = 565
+	-- the settings column is top anchored and the results/trade block bottom anchored,
+	-- so the panel grows by a row for every row the settings column gains
+	local panelHeight = 565 + rowSpacing + rowHeight
 	main:OpenPopup(panelWidth, panelHeight, "Find a Timeless Jewel", controls)
 end
