@@ -1098,6 +1098,12 @@ local function computeImpossibleEscapeRepresentativeResults(self, request)
 	return bestResultByGroupKey
 end
 
+local function copyResultForSocket(result)
+	-- Nested plan and tooltip snapshots are immutable after construction;
+	-- socket fan-out only replaces top-level metadata.
+	return copyTable(result, true)
+end
+
 local function fanOutImpossibleEscapeResults(self, groupedOrder, bestResultByGroupKey)
 	local results = { }
 	for _, groupEntry in ipairs(groupedOrder) do
@@ -1105,7 +1111,7 @@ local function fanOutImpossibleEscapeResults(self, groupedOrder, bestResultByGro
 		if bestResult then
 			for _, socket in ipairs(groupEntry.sockets) do
 				local socketOccupancy = self:getSocketOccupancyInfo(socket.id)
-				local resultForSocket = copyTableSafe(bestResult, false, true)
+				local resultForSocket = copyResultForSocket(bestResult)
 				resultForSocket.impossibleEscapeGroupKey = groupEntry.groupKey
 				resultForSocket.socket = socket
 				resultForSocket.replacedItemLabel = socketOccupancy and socketOccupancy.replacedItemLabel or nil
@@ -1159,7 +1165,7 @@ local function addImpossibleEscapePlanDetails(self, request)
 			fullResult.impossibleEscapeGroupKey = groupEntry.groupKey
 			for i, result in ipairs(results) do
 				if result.impossibleEscapeGroupKey == groupEntry.groupKey then
-					local updated = copyTableSafe(fullResult, false, true)
+					local updated = copyResultForSocket(fullResult)
 					updated.socket = result.socket
 					updated.replacedItemLabel = result.replacedItemLabel
 					updated.storedUnallocatedItemLabel = result.storedUnallocatedItemLabel

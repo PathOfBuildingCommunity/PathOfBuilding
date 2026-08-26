@@ -171,7 +171,7 @@
 	<File name="Classes/PoEAPI.lua" part="program" sha1="8d2d4ac10133002f869fc0a2e157605ceba32ea4" />
 	<File name="Classes/PopupDialog.lua" part="program" sha1="f37b60b6589d4ff0c721c2418d78409f2dc69452" />
 	<File name="Classes/PowerReportListControl.lua" part="program" sha1="c9d51d41962a7d8d3a7508765758e10d3ebcb3c7" />
-	<File name="Classes/RadiusJewelCompute.lua" part="program" sha1="d8ee5b10355901155e8df01bafbcc0c967fd2594" />
+	<File name="Classes/RadiusJewelCompute.lua" part="program" sha1="2fc47abb521460c1adf3e2c27696f012ded6c68b" />
 	<File name="Classes/RadiusJewelData.lua" part="program" sha1="6d4607a936d51849913e99253c7d294a811a8121" />
 	<File name="Classes/RadiusJewelDetailListControl.lua" part="program" sha1="fc651bf47cc714d5460e2e2e36f341715bbb4039" />
 	<File name="Classes/RadiusJewelFinder.lua" part="program" sha1="c9d28c8a1c7e145952786aeb96ce52236cda7616" />

@@ -833,20 +833,22 @@ describe("RadiusJewelCompute #radius-jewel", function()
 			local function countCalculations(cacheKeyFunc)
 				finder.compute.getImpossibleEscapePlanCacheKey = cacheKeyFunc
 				calculationCount = 0
-				computeImpossibleEscape(finder.compute, {
+				local results = computeImpossibleEscape(finder.compute, {
 					sockets = sockets,
 					variants = { variant },
 					methodId = "fast",
 					maxTotalPoints = 2,
 					skipPlanSteps = true,
 				})
-				return calculationCount
+				return calculationCount, results
 			end
 
 			local sharedCount = countCalculations(originalCacheKey)
 			local socketScopedCount = countCalculations(function(_, statField, variantName, replacementContext)
 				return string.format("IE|%s|%s|%s", statField, variantName, replacementContext.socketNode.id)
 			end)
+			sockets[2].pathDist = sockets[1].pathDist
+			local _, sharedGroupResults = countCalculations(originalCacheKey)
 			build.calcsTab.GetMiscCalculator = originalGetMiscCalculator
 			finder.compute.collectDisconnectedPassiveCandidates = originalCollectCandidates
 			finder.compute.buildSocketReplacementOverride = originalBuildOverride
@@ -854,6 +856,9 @@ describe("RadiusJewelCompute #radius-jewel", function()
 
 			assert.is_true(sharedCount < socketScopedCount,
 				"expected shared cache to avoid repeated Impossible Escape calculations")
+			assert.are.equal(2, #sharedGroupResults)
+			assert.are_not.equal(sharedGroupResults[1], sharedGroupResults[2],
+				"each socket should receive its own result table")
 		end)
 
 		it("returns results for both methods without changing finder state", function()
