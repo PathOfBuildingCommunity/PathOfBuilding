@@ -5036,7 +5036,7 @@ local specialModList = {
 	["(%d+)%% increased armour per second you've been stationary, up to a maximum of (%d+)%%"] = function(num, _, limit) return {
 		mod("Armour", "INC", num, { type = "Multiplier", var = "StationarySeconds", limit = tonumber(limit / num) }, { type = "Condition", var = "Stationary" }),
 	} end,
-	["(%d+)%% of damage from hits is taken from your spectres' life before you"] = function(num) return { mod("takenFromSpectresBeforeYou", "BASE", num) } end,
+	["(%d+)%% of damage from hits is taken from your r?a?i?s?e?d? ?spectres' life before you"] = function(num) return { mod("takenFromSpectresBeforeYou", "BASE", num) } end,
 	["(%d+)%% of damage from hits is taken from your nearest totem's life before you"] = function(num) return { mod("takenFromTotemsBeforeYou", "BASE", num, { type = "Condition", var = "HaveTotem" }) } end,
 	["(%d+)%% of damage from hits is taken from void spawns' life before you per void spawn"] = function(num) return { mod("takenFromVoidSpawnBeforeYou", "BASE", num, { type = "PerStat", stat = "ActiveVoidSpawnLimit" }) } end,
 	["(%a+) resistance cannot be penetrated"] = function(_, res) return { flag("EnemyCannotPen"..(res:gsub("^%l", string.upper)).."Resistance") } end,

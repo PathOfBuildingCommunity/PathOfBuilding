@@ -758,7 +758,7 @@ data.itemTagSpecialExclusionPattern = {
 	["life"] = {
 		["amulet"] = {
 			"lower Life on Hit", -- The Eternal Struggle
-			"your Spectres' Life", -- The Jinxed Juju
+			"Spectres' Life", -- The Jinxed Juju
 			"when on Full Life",
 			"when on Low Life",
 			"^Allocates",
