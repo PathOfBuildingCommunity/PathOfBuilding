@@ -7,6 +7,7 @@
 
 local dkjson = require "dkjson"
 local itemSlotHelper = require("Modules.ItemSlotHelper")
+local tradeResistanceSwap = require("Classes.TradeResistanceSwap")
 
 local get_time = os.time
 local t_insert = table.insert
@@ -18,6 +19,121 @@ local m_ceil = math.ceil
 local s_format = string.format
 
 local baseSlots = { "Weapon 1", "Weapon 2", "Weapon 1 Swap", "Weapon 2 Swap", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring 1", "Ring 2", "Ring 3", "Belt", "Flask 1", "Flask 2", "Flask 3", "Flask 4", "Flask 5" }
+
+local function meetsResistanceCaps(output)
+	for _, resistanceType in ipairs({ "Fire", "Cold", "Lightning", "Chaos" }) do
+		local missing = output["Missing" .. resistanceType .. "Resist"]
+		if type(missing) ~= "number" or missing > 0 then
+			return false
+		end
+	end
+	return true
+end
+
+local function getTotalResistanceCapShortfall(output)
+	local shortfall = 0
+	for _, resistanceType in ipairs({ "Fire", "Cold", "Lightning", "Chaos" }) do
+		local missing = output["Missing" .. resistanceType .. "Resist"]
+		if type(missing) ~= "number" then
+			return math.huge
+		end
+		shortfall = shortfall + m_max(missing, 0)
+	end
+	return shortfall
+end
+
+local function getResistanceStateSnapshot(output)
+	local state = {}
+	for _, resistanceType in ipairs({ "Fire", "Cold", "Lightning", "Chaos" }) do
+		for _, suffix in ipairs({ "Resist", "ResistTotal", "Missing" .. resistanceType .. "Resist" }) do
+			local key = suffix:find("Missing", 1, true) and suffix or resistanceType .. suffix
+			state[key] = output[key]
+		end
+	end
+	return state
+end
+
+local function getMissingElementalResistanceTargets(output)
+	local targets = { }
+	for _, element in ipairs({ "Fire", "Cold", "Lightning" }) do
+		local missing = output["Missing" .. element .. "Resist"]
+		if type(missing) ~= "number" then
+			return nil
+		end
+		if missing > 0 then
+			targets[element] = true
+		end
+	end
+	return targets
+end
+
+local function assignmentTargetsMissingResistance(descriptors, assignment, missingTargets)
+	if not missingTargets then
+		return true
+	end
+	for index, target in ipairs(assignment.targets or { }) do
+		local source = descriptors[index].element
+		if target ~= source and missingTargets[target] then
+			return true
+		end
+	end
+	return false
+end
+
+local function isElementalResistanceStateFlag(value)
+	return type(value) == "string"
+		and (value:find("Uncapped", 1, true) or value:find("Overcapped", 1, true))
+		and (value:find("FireRes", 1, true)
+			or value:find("ColdRes", 1, true)
+			or value:find("LightningRes", 1, true))
+end
+
+local function isElementalResistanceStat(value)
+	return type(value) == "string" and (
+		value:find("FireResist", 1, true)
+		or value:find("ColdResist", 1, true)
+		or value:find("LightningResist", 1, true)
+	)
+end
+
+local function modUsesElementalResistanceState(mod)
+	for _, tag in ipairs(mod or { }) do
+		if type(tag) == "table" then
+			for _, value in pairs(tag) do
+				if isElementalResistanceStat(value) then
+					return true
+				end
+			end
+		end
+	end
+	return false
+end
+
+local function modStoreUsesElementalResistanceState(store, visited)
+	if type(store) ~= "table" or visited[store] then
+		return false
+	end
+	visited[store] = true
+	if store.mods then
+		for name, modList in pairs(store.mods) do
+			if isElementalResistanceStateFlag(name) then
+				return true
+			end
+			for _, mod in ipairs(modList) do
+				if modUsesElementalResistanceState(mod) then
+					return true
+				end
+			end
+		end
+	else
+		for _, mod in ipairs(store) do
+			if isElementalResistanceStateFlag(mod.name) or modUsesElementalResistanceState(mod) then
+				return true
+			end
+		end
+	end
+	return modStoreUsesElementalResistanceState(store.parent, visited)
+end
 
 ---@class TradeQuery
 local TradeQueryClass = newClass("TradeQuery")
@@ -32,10 +148,6 @@ function TradeQueryClass:TradeQuery(itemsTab)
 	self.resultTbl = { }
 	self.sortedResultTbl = { }
 	self.itemIndexTbl = { }
-	-- tooltip acceleration tables
-	self.onlyWeightedBaseOutput = { }
-	self.lastComparedWeightList = { }
-
 	-- default set of trade item sort selection
 	---@type TradeQuerySlotTable[]
 	self.slotTables = { }
@@ -60,6 +172,10 @@ function TradeQueryClass:TradeQuery(itemsTab)
 	self.backoffFinish = nil
 	-- last query for each row
 	self.lastQueries = {}
+	-- Each row has one active fetch or evaluation. The queue stores evaluation
+	-- contexts, so replaced work cannot resume or apply stale results.
+	self.resultProcessingByRow = {}
+	self.resultEvaluationQueue = {}
 
 	self.tradeQueryRequests = new("TradeQueryRequests"):TradeQueryRequests()
 	if not main.api then
@@ -445,7 +561,10 @@ on trade site to work on other leagues and realms)]]
 	self.controls.itemSortSelection = new("DropDownControl"):DropDownControl({"TOPRIGHT", self.controls.StatWeightMultipliersButton, "TOPLEFT"}, {-8, 0, 170, row_height}, self.itemSortSelectionList, function(index, value)
 		self.pbItemSortSelectionIndex = index
 		for row_idx, _ in pairs(self.resultTbl) do
-			self:UpdateControlsWithItems(row_idx)
+			local processing = self.resultProcessingByRow[row_idx]
+			if not (processing and processing.fetchToken) then
+				self:StartResultEvaluation(row_idx)
+			end
 		end
 	end)
 	self.controls.itemSortSelection.tooltipText =
@@ -676,6 +795,7 @@ Highest Weight - Displays the order retrieved from trade]]
 	end
 	main.onFrameFuncs["TradeQueryRequests"] = function()
 		self.tradeQueryRequests:ProcessQueue(onRateLimit)
+		self:ProcessResultEvaluations()
 		if self.countDown then
 			coroutine.resume(self.countDown)
 			if coroutine.status(self.countDown) == "dead" then
@@ -769,7 +889,10 @@ function TradeQueryClass:SetStatWeights(previousSelectionList)
 			self.statSortSelectionList = statSortSelectionList
 		end
 		for row_idx in pairs(self.resultTbl) do
-			self:UpdateControlsWithItems(row_idx)
+			local processing = self.resultProcessingByRow[row_idx]
+			if not (processing and processing.fetchToken) then
+				self:StartResultEvaluation(row_idx)
+			end
 		end
     end)
 	controls.cancel = new("ButtonControl"):ButtonControl({ "BOTTOM", nil, "BOTTOM" }, { 0, -10, 80, 20 }, "Cancel", function()
@@ -803,6 +926,116 @@ function TradeQueryClass:SetNotice(notice_control, msg)
 	notice_control.label = msg
 end
 
+function TradeQueryClass:SetResultEvaluationProgress(rowIdx, current, total)
+	local button = self.controls["priceButton" .. rowIdx]
+	if button then
+		button.label = current and s_format("Eval %d/%d...", current, total or 0) or "Price Item"
+	end
+end
+
+function TradeQueryClass:CancelResultProcessing(rowIdx)
+	self.resultProcessingByRow[rowIdx] = nil
+	self:SetResultEvaluationProgress(rowIdx)
+end
+
+function TradeQueryClass:StartResultFetch(rowIdx)
+	self:CancelResultProcessing(rowIdx)
+	local fetchToken = { }
+	self.resultProcessingByRow[rowIdx] = { fetchToken = fetchToken }
+	local button = self.controls["priceButton" .. rowIdx]
+	if button then
+		button.label = "Searching..."
+	end
+	return fetchToken
+end
+
+function TradeQueryClass:IsResultFetchCurrent(rowIdx, fetchToken)
+	local processing = self.resultProcessingByRow[rowIdx]
+	return processing and processing.fetchToken == fetchToken or false
+end
+
+function TradeQueryClass:FinishResultFetch(rowIdx, fetchToken)
+	if not self:IsResultFetchCurrent(rowIdx, fetchToken) then
+		return false
+	end
+	self.resultProcessingByRow[rowIdx] = nil
+	self:SetResultEvaluationProgress(rowIdx)
+	return true
+end
+
+function TradeQueryClass:StartResultEvaluation(rowIdx)
+	local processing = self.resultProcessingByRow[rowIdx]
+	if processing and processing.fetchToken then
+		return
+	end
+	local results = self.resultTbl[rowIdx] or { }
+	self.itemIndexTbl[rowIdx] = nil
+	self.sortedResultTbl[rowIdx] = nil
+	self.totalPrice[rowIdx] = nil
+	local dropdown = self.controls["resultDropdown" .. rowIdx]
+	if dropdown then
+		dropdown.selIndex = 1
+		dropdown:SetList({ })
+	end
+	if self.controls.fullPrice then
+		self.controls.fullPrice.label = "^7Total Price: " .. self:GetTotalPriceString()
+	end
+	local context = {
+		rowIdx = rowIdx,
+		total = #results,
+	}
+	context.co = coroutine.create(function()
+		self:UpdateControlsWithItems(rowIdx, function(current, total)
+			if self.resultProcessingByRow[rowIdx] ~= context then
+				return
+			end
+			self:SetResultEvaluationProgress(rowIdx, current, total)
+			coroutine.yield()
+		end)
+	end)
+	self.resultProcessingByRow[rowIdx] = context
+	self:SetResultEvaluationProgress(rowIdx, 0, context.total)
+	t_insert(self.resultEvaluationQueue, context)
+end
+
+function TradeQueryClass:ProcessResultEvaluations()
+	local context
+	repeat
+		context = t_remove(self.resultEvaluationQueue, 1)
+		if not context then
+			return
+		end
+	until self.resultProcessingByRow[context.rowIdx] == context
+	local rowIdx = context.rowIdx
+
+	local ok, errMsg = coroutine.resume(context.co)
+	if not ok then
+		if self.resultProcessingByRow[rowIdx] == context then
+			self.resultProcessingByRow[rowIdx] = nil
+			self:SetResultEvaluationProgress(rowIdx)
+			if self.controls.pbNotice then
+				self:SetNotice(self.controls.pbNotice, "Error while evaluating trade results: " .. tostring(errMsg))
+			end
+		end
+		ConPrintf("Trade result evaluation error: %s", errMsg)
+		return
+	end
+
+	if self.resultProcessingByRow[rowIdx] ~= context then
+		return
+	end
+	if coroutine.status(context.co) == "dead" then
+		self.resultProcessingByRow[rowIdx] = nil
+		self:SetResultEvaluationProgress(rowIdx)
+	else
+		t_insert(self.resultEvaluationQueue, context)
+	end
+end
+
+function TradeQueryClass:IsResistanceSwapPreviewActive()
+	return IsKeyDown("CTRL")
+end
+
 -- Method to reduce the full output to only the values that were 'weighted'
 function TradeQueryClass:ReduceOutput(output)
 	local smallOutput = {}
@@ -817,66 +1050,163 @@ function TradeQueryClass:ReduceOutput(output)
 	return smallOutput
 end
 
--- Method to evaluate a result by getting it's output and weight
-function TradeQueryClass:GetResultEvaluation(row_idx, result_index, calcFunc, baseOutput)
+-- True includes any uncertainty; false proves that elemental resistance swaps
+-- cannot affect the selected outputs, so cap-only pruning is safe.
+function TradeQueryClass:ResistanceSwapMayAffectOutput(item)
+	for _, stat in ipairs(self.statSortSelectionList or { }) do
+		if isElementalResistanceStat(stat.stat) then
+			return true
+		end
+	end
+	local visited = { }
+	if item and (modStoreUsesElementalResistanceState(item.modList, visited)
+		or modStoreUsesElementalResistanceState(item.baseModList, visited)) then
+		return true
+	end
+	for _, modList in pairs(item and item.slotModList or { }) do
+		if modStoreUsesElementalResistanceState(modList, visited) then
+			return true
+		end
+	end
+	local calcsTab = self.itemsTab.build and self.itemsTab.build.calcsTab
+	local env = calcsTab and calcsTab.mainEnv
+	local player = env and env.player
+	if not player or not player.modDB then
+		-- Without the calculated modifier graph, the resistance state cannot be proven irrelevant.
+		return true
+	end
+	if modStoreUsesElementalResistanceState(player.modDB, visited) then
+		return true
+	end
+	for _, activeSkill in ipairs(player.activeSkillList or { }) do
+		if modStoreUsesElementalResistanceState(activeSkill.skillModList, visited)
+			or modStoreUsesElementalResistanceState(activeSkill.modList, visited) then
+			return true
+		end
+	end
+	return false
+end
+
+-- Cache the best eligible item variant while the compared build outputs,
+-- selected weights, and resistance state remain unchanged.
+function TradeQueryClass:GetResultEvaluation(row_idx, result_index, calcFunc, baseOutput, yieldFunc)
 	local result = self.resultTbl[row_idx][result_index]
-	if not calcFunc then -- Always evaluate when calcFunc is given
+	if not calcFunc then
 		calcFunc, baseOutput = self.itemsTab.build.calcsTab:GetMiscCalculator()
-		local onlyWeightedBaseOutput = self:ReduceOutput(baseOutput)
-		if not self.onlyWeightedBaseOutput[row_idx] then
-			self.onlyWeightedBaseOutput[row_idx] = { }
-		end
-		if not self.lastComparedWeightList[row_idx] then
-			self.lastComparedWeightList[row_idx] = { }
-		end
-		-- If the interesting stats are the same (the build hasn't changed) and result has already been evaluated, then just return that
-		if result.evaluation and tableDeepEquals(onlyWeightedBaseOutput, self.onlyWeightedBaseOutput[row_idx][result_index]) and tableDeepEquals(self.statSortSelectionList, self.lastComparedWeightList[row_idx][result_index]) then
-			return result.evaluation
-		end
-		self.onlyWeightedBaseOutput[row_idx][result_index] = onlyWeightedBaseOutput
-		self.lastComparedWeightList[row_idx][result_index] = self.statSortSelectionList
+	end
+	local onlyWeightedBaseOutput = self:ReduceOutput(baseOutput)
+	local resistanceStateSnapshot = result.prioritiseResistanceCaps and getResistanceStateSnapshot(baseOutput)
+	local evaluationInputs = result.evaluationInputs
+	if result.evaluation and evaluationInputs
+		and tableDeepEquals(onlyWeightedBaseOutput, evaluationInputs.weightedBaseOutput)
+		and tableDeepEquals(self.statSortSelectionList, evaluationInputs.statWeights)
+		and (not result.prioritiseResistanceCaps or tableDeepEquals(resistanceStateSnapshot, evaluationInputs.resistanceState)) then
+		return result.evaluation
 	end
 	local slotTbl = self.slotTables[row_idx]
 	local jewelNodeId = slotTbl.nodeId or slotTbl.selectedJewelNodeId
+	if slotTbl.slotName == "Pearl of Tsoatha" and not slotTbl.selectedSlotName then
+		for index = 1, 3 do
+			local ringSlot = self.itemsTab.slots["Ring " .. index]
+			if ringSlot and ringSlot.shown() then
+				slotTbl.selectedSlotName = ringSlot.slotName
+				break
+			end
+		end
+	end
+	local slotName = jewelNodeId and "Jewel " .. tostring(jewelNodeId) or slotTbl.selectedSlotName or slotTbl.slotName
+	local evaluation
 	if slotTbl.slotName == "Megalomaniac" then
 		local addedNodes = {}
 		for nodeName in (result.item_string.."\r\n"):gmatch("1 Added Passive Skill is (.-)\r?\n") do
 			t_insert(addedNodes, self.itemsTab.build.spec.tree.clusterNodeMap[nodeName])
 		end
-		local output12  = self:ReduceOutput(calcFunc({ addNodes = { [addedNodes[1]] = true, [addedNodes[2]] = true } }))
-		local output13  = self:ReduceOutput(calcFunc({ addNodes = { [addedNodes[1]] = true, [addedNodes[3]] = true } }))
-		local output23  = self:ReduceOutput(calcFunc({ addNodes = { [addedNodes[2]] = true, [addedNodes[3]] = true } }))
-		local output123 = self:ReduceOutput(calcFunc({ addNodes = { [addedNodes[1]] = true, [addedNodes[2]] = true, [addedNodes[3]] = true } }))
+		local function calculateNodes(nodes)
+			local output = calcFunc({ addNodes = nodes })
+			if yieldFunc then
+				yieldFunc()
+			end
+			return self:ReduceOutput(output)
+		end
+		local output12  = calculateNodes({ [addedNodes[1]] = true, [addedNodes[2]] = true })
+		local output13  = calculateNodes({ [addedNodes[1]] = true, [addedNodes[3]] = true })
+		local output23  = calculateNodes({ [addedNodes[2]] = true, [addedNodes[3]] = true })
+		local output123 = calculateNodes({ [addedNodes[1]] = true, [addedNodes[2]] = true, [addedNodes[3]] = true })
 		-- Sometimes the third node is as powerful as a wet noodle, so use weight per point spent, including the jewel socket
 		local weight12  = self.tradeQueryGenerator.WeightedRatioOutputs(baseOutput, output12,  self.statSortSelectionList) / 4
 		local weight13  = self.tradeQueryGenerator.WeightedRatioOutputs(baseOutput, output13,  self.statSortSelectionList) / 4
 		local weight23  = self.tradeQueryGenerator.WeightedRatioOutputs(baseOutput, output23,  self.statSortSelectionList) / 4
 		local weight123 = self.tradeQueryGenerator.WeightedRatioOutputs(baseOutput, output123, self.statSortSelectionList) / 5
-		result.evaluation = {
+		evaluation = {
 			{ output = output12,  weight = weight12,  DNs = { addedNodes[1].dn, addedNodes[2].dn } },
 			{ output = output13,  weight = weight13,  DNs = { addedNodes[1].dn, addedNodes[3].dn } },
 			{ output = output23,  weight = weight23,  DNs = { addedNodes[2].dn, addedNodes[3].dn } },
 			{ output = output123, weight = weight123, DNs = { addedNodes[1].dn, addedNodes[2].dn, addedNodes[3].dn } },
 		}
-		table.sort(result.evaluation, function(a, b) return a.weight > b.weight end)
+		table.sort(evaluation, function(a, b) return a.weight > b.weight end)
 	else
-		if slotTbl.slotName == "Pearl of Tsoatha" and not slotTbl.selectedSlotName then
-			for index = 1, 3 do
-				local ringSlot = self.itemsTab.slots["Ring " .. index]
-				if ringSlot and ringSlot.shown() then
-					slotTbl.selectedSlotName = ringSlot.slotName
-					break
+		local item = new("Item"):Item(result.item_string)
+		local descriptors = result.resistanceSwapEnabled and result.resistanceSwapDescriptors
+		local assignments = descriptors and tradeResistanceSwap.itemMatchesSwapDescriptors(item, descriptors)
+			and tradeResistanceSwap.getAssignments(descriptors) or {}
+		local bestEvaluation
+		local bestSwapCount
+		local function evaluateVariant(variant)
+			local fullOutput = calcFunc({ repSlotName = slotName, repItem = variant })
+			if yieldFunc then
+				yieldFunc()
+			end
+			local output = self:ReduceOutput(fullOutput)
+			return {
+				output = output,
+				weight = self.tradeQueryGenerator.WeightedRatioOutputs(baseOutput, output, self.statSortSelectionList),
+				totalResistanceCapShortfall = result.prioritiseResistanceCaps
+					and getTotalResistanceCapShortfall(fullOutput) or 0,
+			}, fullOutput
+		end
+		local listedEvaluation, listedFullOutput = evaluateVariant(item)
+		bestEvaluation = listedEvaluation
+		bestSwapCount = 0
+		local function isBetterEvaluation(evaluation, swapCount)
+			if result.prioritiseResistanceCaps
+				and evaluation.totalResistanceCapShortfall ~= bestEvaluation.totalResistanceCapShortfall then
+				return evaluation.totalResistanceCapShortfall < bestEvaluation.totalResistanceCapShortfall
+		end
+			return evaluation.weight > bestEvaluation.weight
+				or evaluation.weight == bestEvaluation.weight and swapCount < bestSwapCount
+		end
+		local canPruneSwapsByResistanceCaps = result.prioritiseResistanceCaps
+			and not self:ResistanceSwapMayAffectOutput(item)
+		local skipSwaps = canPruneSwapsByResistanceCaps and meetsResistanceCaps(listedFullOutput)
+		local missingTargets = canPruneSwapsByResistanceCaps
+			and getMissingElementalResistanceTargets(listedFullOutput) or nil
+		for _, assignment in ipairs(assignments) do
+			if assignment.swaps > 0 and not skipSwaps
+				and assignmentTargetsMissingResistance(descriptors, assignment, missingTargets) then
+				local variant, swaps, swappedLineIndexes = tradeResistanceSwap.buildVariant(result.item_string, descriptors, assignment)
+				if variant then
+					local evaluation = evaluateVariant(variant)
+					if evaluation and isBetterEvaluation(evaluation, assignment.swaps) then
+						bestEvaluation = evaluation
+						bestSwapCount = assignment.swaps
+						bestEvaluation.estimatedResistanceSwap = {
+							swaps = swaps,
+							itemString = variant:BuildRaw(),
+							lineIndexes = swappedLineIndexes,
+						}
+					end
 				end
 			end
 		end
-		local slotName = jewelNodeId and "Jewel " .. tostring(jewelNodeId) or slotTbl.selectedSlotName or slotTbl.slotName
-		local item = new("Item"):Item(result.item_string)
-
-		local output = self:ReduceOutput(calcFunc({ repSlotName = slotName, repItem = item }))
-		local weight = self.tradeQueryGenerator.WeightedRatioOutputs(baseOutput, output, self.statSortSelectionList)
-		result.evaluation = {{ output = output, weight = weight }}
+		evaluation = { bestEvaluation }
 	end
-	return result.evaluation
+	result.evaluation = evaluation
+	result.evaluationInputs = {
+		weightedBaseOutput = onlyWeightedBaseOutput,
+		statWeights = self.statSortSelectionList,
+		resistanceState = resistanceStateSnapshot,
+	}
+	return evaluation
 end
 
 -- Method to update controls after a search is completed
@@ -897,6 +1227,7 @@ function TradeQueryClass:UpdateDropdownList(row_idx)
 	self.controls["resultDropdown".. row_idx]:SetList(dropdownLabels)
 end
 function TradeQueryClass:ResetResultRow(rowIdx)
+	self:CancelResultProcessing(rowIdx)
 	self.itemIndexTbl[rowIdx] = nil
 	self.sortedResultTbl[rowIdx] = nil
 	self.resultTbl[rowIdx] = nil
@@ -904,12 +1235,12 @@ function TradeQueryClass:ResetResultRow(rowIdx)
 	self:UpdateDropdownList(rowIdx)
 	self.controls.fullPrice.label = "^7Total Price: " .. self:GetTotalPriceString()
 end
-function TradeQueryClass:UpdateControlsWithItems(row_idx)
+function TradeQueryClass:UpdateControlsWithItems(row_idx, yieldFunc)
 	local sortMode = self.itemSortSelectionList[self.pbItemSortSelectionIndex]
-	local sortedItems, errMsg = self:SortFetchResults(row_idx, sortMode)
+	local sortedItems, errMsg = self:SortFetchResults(row_idx, sortMode, yieldFunc)
 	if errMsg == "MissingConversionRates" then
 		self:SetNotice(self.controls.pbNotice, "^4Currency rates unavailable. Falling back to Stat Value sort.")
-		sortedItems, errMsg = self:SortFetchResults(row_idx, self.sortModes.StatValue)
+		sortedItems, errMsg = self:SortFetchResults(row_idx, self.sortModes.StatValue, yieldFunc)
 	elseif errMsg then
 		self:SetNotice(self.controls.pbNotice, "Error: " .. errMsg)
 		return
@@ -946,17 +1277,37 @@ function TradeQueryClass:SetFetchResultReturn(row_idx, index)
 end
 
 -- Method to sort the fetched results
-function TradeQueryClass:SortFetchResults(row_idx, mode)
+function TradeQueryClass:SortFetchResults(row_idx, mode, yieldFunc)
 	local calcFunc, baseOutput
-	local function getResultWeight(result_index)
+	local evaluationsByResultIndex = { }
+	local function getResultEvaluation(result_index)
+		if evaluationsByResultIndex[result_index] then
+			return evaluationsByResultIndex[result_index]
+		end
 		if not calcFunc then
 			calcFunc, baseOutput = self.itemsTab.build.calcsTab:GetMiscCalculator()
 		end
+		local function yieldAfterCalculation()
+			if yieldFunc then
+				yieldFunc(result_index, #self.resultTbl[row_idx])
+			end
+		end
+		evaluationsByResultIndex[result_index] = self:GetResultEvaluation(
+			row_idx, result_index, calcFunc, baseOutput, yieldAfterCalculation)
+		return evaluationsByResultIndex[result_index]
+	end
+	local function getResultWeight(result_index)
 		local sum = 0
-		for _, eval in ipairs(self:GetResultEvaluation(row_idx, result_index)) do
+		for _, eval in ipairs(getResultEvaluation(result_index)) do
 			sum = sum + eval.weight
 		end
 		return sum
+	end
+	local function makeResultEntry(resultIndex, outputAttr)
+		return {
+			outputAttr = outputAttr,
+			index = resultIndex,
+		}
 	end
 	--- @return table<integer, number>?
 	local function getPriceTable()
@@ -975,15 +1326,16 @@ function TradeQueryClass:SortFetchResults(row_idx, mode)
 	end
 	local newTbl = {}
 	if mode == self.sortModes.Weight then
-		for index, _ in pairs(self.resultTbl[row_idx]) do
-			t_insert(newTbl, { outputAttr = index, index = index })
+		for index = 1, #self.resultTbl[row_idx] do
+			t_insert(newTbl, makeResultEntry(index, index))
 		end
+		table.sort(newTbl, function(a, b) return a.outputAttr < b.outputAttr end)
 		return newTbl
 	elseif mode == self.sortModes.StatValue  then
 		for result_index = 1, #self.resultTbl[row_idx] do
-			t_insert(newTbl, { outputAttr = getResultWeight(result_index), index = result_index })
+			t_insert(newTbl, makeResultEntry(result_index, getResultWeight(result_index)))
 		end
-		table.sort(newTbl, function(a,b) return a.outputAttr > b.outputAttr end)
+		table.sort(newTbl, function(a, b) return a.outputAttr > b.outputAttr end)
 	elseif mode == self.sortModes.StatValuePrice then
 		local priceTable = getPriceTable()
 		if priceTable == nil then
@@ -1001,20 +1353,19 @@ function TradeQueryClass:SortFetchResults(row_idx, mode)
 
 			-- scaling factor for price
 			local k = 0.1
-			t_insert(newTbl,
-				{ outputAttr = getResultWeight(result_index) - k * math.log(priceTable[result_index], 10), index =
-				result_index })
+			t_insert(newTbl, makeResultEntry(result_index,
+				getResultWeight(result_index) - k * math.log(priceTable[result_index], 10)))
 		end
-		table.sort(newTbl, function(a,b) return a.outputAttr > b.outputAttr end)
+		table.sort(newTbl, function(a, b) return a.outputAttr > b.outputAttr end)
 	elseif mode == self.sortModes.Price then
 		local priceTable = getPriceTable()
 		if priceTable == nil then
 			return nil, "MissingConversionRates"
 		end
-		for result_index, price in pairs(priceTable) do
-			t_insert(newTbl, { outputAttr = price, index = result_index })
+		for result_index, price in ipairs(priceTable) do
+			t_insert(newTbl, makeResultEntry(result_index, price))
 		end
-		table.sort(newTbl, function(a,b) return a.outputAttr < b.outputAttr end)
+		table.sort(newTbl, function(a, b) return a.outputAttr < b.outputAttr end)
 	else
 		return nil, "InvalidSort"
 	end
@@ -1035,6 +1386,28 @@ function TradeQueryClass:FilterToSafeItems(itemEntries, slotName)
 	end
 	return itemsSafe
 end
+
+function TradeQueryClass:SearchGeneratedQuery(queryOptions, query, callback, params)
+	local searchMethod = queryOptions and queryOptions.weightAdjustedSearch == false
+		and self.tradeQueryRequests.SearchWithQuery or self.tradeQueryRequests.SearchWithQueryWeightAdjusted
+	return searchMethod(self.tradeQueryRequests, self.pbRealm, self.pbLeague, query, callback, params)
+end
+
+function TradeQueryClass:BuildExactListingQuery(query, itemResult)
+	local exactQuery = dkjson.decode(query)
+	local firstStatGroup = exactQuery.query.stats and exactQuery.query.stats[1]
+	if firstStatGroup and firstStatGroup.type == "weight" then
+		-- Weight on site uses floats but only shows integers in the API.
+		firstStatGroup.value = { min = floor(itemResult.weight, 1) - 1, max = round(itemResult.weight, 1) + 1 }
+	end
+	-- The trader account narrows non-weighted searches and makes weighted false positives extremely unlikely.
+	exactQuery.query.filters = exactQuery.query.filters or { }
+	exactQuery.query.filters.trade_filters = exactQuery.query.filters.trade_filters or { filters = { } }
+	exactQuery.query.filters.trade_filters.filters = exactQuery.query.filters.trade_filters.filters or { }
+	exactQuery.query.filters.trade_filters.filters.account = { input = itemResult.trader }
+	return dkjson.encode(exactQuery)
+end
+
 -- Method to generate pane elements for each item slot
 function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, row_vertical_padding, row_height)
 	local controls = self.controls
@@ -1052,7 +1425,8 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 	local nameColor = slotTbl.unique and colorCodes.UNIQUE or "^7"
 	controls["name" .. row_idx] = new("LabelControl"):LabelControl(top_pane_alignment_ref, { 0, row_idx * (row_height + row_vertical_padding), 135, row_height - 4 }, nameColor .. slotTbl.slotName)
 	controls["bestButton" .. row_idx] = new("ButtonControl"):ButtonControl({ "LEFT", controls["name" .. row_idx], "LEFT" }, { 135 + 8, 0, 80, row_height }, "Find best", function()
-		self.tradeQueryGenerator:RequestQuery(activeSlot, { slotTbl = slotTbl, controls = controls, row_idx = row_idx }, self.statSortSelectionList, function(context, query, errMsg)
+		self:CancelResultProcessing(row_idx)
+		self.tradeQueryGenerator:RequestQuery(activeSlot, { slotTbl = slotTbl, controls = controls, row_idx = row_idx }, self.statSortSelectionList, function(context, query, errMsg, queryOptions)
 			if errMsg then
 				self:SetNotice(context.controls.pbNotice, colorCodes.NEGATIVE .. errMsg)
 				return
@@ -1065,13 +1439,15 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 				controls["uri"..context.row_idx]:SetText(url, true)
 				return
 			end
-			context.controls["priceButton"..context.row_idx].label = "Searching..."
+			local fetchToken = self:StartResultFetch(context.row_idx)
 			self.lastQueries[row_idx] = query
-			self.tradeQueryRequests:SearchWithQueryWeightAdjusted(self.pbRealm, self.pbLeague, query,
+			self:SearchGeneratedQuery(queryOptions, query,
 				function(items, errMsg)
+					if not self:FinishResultFetch(context.row_idx, fetchToken) then
+						return
+					end
 					if errMsg then
 						self:SetNotice(context.controls.pbNotice, colorCodes.NEGATIVE .. errMsg)
-						context.controls["priceButton"..context.row_idx].label =  "Price Item"
 						return
 					else
 						self:SetNotice(context.controls.pbNotice, "")
@@ -1096,14 +1472,18 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 							item.enchantModLines = {}
 						end
 						itemsSafe[i].item_string = item:BuildRaw()
+						itemsSafe[i].resistanceSwapEnabled = queryOptions and queryOptions.includeResistSwaps == true
+						itemsSafe[i].prioritiseResistanceCaps = queryOptions and queryOptions.includeResistCaps == true
 					end
 
 					self.resultTbl[context.row_idx] = itemsSafe
-					self:UpdateControlsWithItems(context.row_idx)
-					context.controls["priceButton"..context.row_idx].label =  "Price Item"
+					self:StartResultEvaluation(context.row_idx)
 				end,
 				{
 					callbackQueryId = function(queryId)
+						if not self:IsResultFetchCurrent(context.row_idx, fetchToken) then
+							return
+						end
 						local url = self.tradeQueryRequests:buildUrl(self.hostName .. "trade/search", self.pbRealm, self.pbLeague, queryId)
 						controls["uri"..context.row_idx]:SetText(url, true)
 					end
@@ -1113,7 +1493,7 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 	end)
 	controls["bestButton"..row_idx].shown = function() return not self.resultTbl[row_idx] end
 	controls["bestButton"..row_idx].enabled = function() return self.pbLeague end
-	controls["bestButton"..row_idx].tooltipText = [[Creates a weighted search to find the highest Stat Value items for this slot.
+	controls["bestButton"..row_idx].tooltipText = [[Creates a trade search to find high Stat Value items for this slot.
 Note that even if you are authenticated, you can click this button again to show the search link.
 If you have additional requirements that the trade tool doesn't cover (e.g. Adorned Magic jewels),
 you can add them, copy the link here, and press "Price Item" to evaluate the items.]]
@@ -1159,12 +1539,15 @@ you can add them, copy the link here, and press "Price Item" to evaluate the ite
 	end
 	controls["priceButton"..row_idx] = new("ButtonControl"):ButtonControl({ "TOPLEFT", controls["uri"..row_idx], "TOPRIGHT"}, {8, 0, 100, row_height}, "Price Item",
 		function()
-			controls["priceButton"..row_idx].label = "Searching..."
+			local fetchToken = self:StartResultFetch(row_idx)
 			local url = controls["uri" .. row_idx].buf
 			if not url:find("^https://") then
 				url = "https://" .. url
 			end
 			self.tradeQueryRequests:SearchWithURL(url, function(items, errMsg, query)
+				if not self:FinishResultFetch(row_idx, fetchToken) then
+					return
+				end
 				if errMsg then
 					self:SetNotice(controls.pbNotice, "Error: " .. errMsg)
 				else
@@ -1173,9 +1556,8 @@ you can add them, copy the link here, and press "Price Item" to evaluate the ite
 					local selectedSlot = getSelectedSlot()
 					local itemsSafe = self:FilterToSafeItems(items, selectedSlot and selectedSlot.slotName)
 					self.resultTbl[row_idx] = itemsSafe
-					self:UpdateControlsWithItems(row_idx)
+					self:StartResultEvaluation(row_idx)
 				end
-				controls["priceButton"..row_idx].label = "Price Item"
 			end)
 		end)
 	local jewelUniques = {
@@ -1185,11 +1567,14 @@ you can add them, copy the link here, and press "Price Item" to evaluate the ite
 	controls["priceButton"..row_idx].enabled = function()
 		local isAuthorized = main.api.authToken ~= nil
 		local validURL = controls["uri"..row_idx].validURL
-		local isSearching = controls["priceButton"..row_idx].label == "Searching..."
+		local processing = self.resultProcessingByRow[row_idx]
+		local isSearching = processing and processing.fetchToken ~= nil
+		local isEvaluating = processing and processing.co ~= nil
 		local requiresJewelSlot = not slotTbl.unique or jewelUniques[slotTbl.slotName]
 		local selectedJewelSlot = slotTbl.selectedJewelNodeId and self.itemsTab.sockets[slotTbl.selectedJewelNodeId]
 		local hasRequiredJewelSlot = not slotTbl.unique or selectedJewelSlot and not selectedJewelSlot.inactive
-		return isAuthorized and validURL and not isSearching and (hasRequiredJewelSlot or not requiresJewelSlot)
+		return isAuthorized and validURL and not isSearching and not isEvaluating
+			and (hasRequiredJewelSlot or not requiresJewelSlot)
 	end
 	controls["priceButton"..row_idx].tooltipFunc = function(tooltip)
 		tooltip:Clear()
@@ -1224,8 +1609,52 @@ you can add them, copy the link here, and press "Price Item" to evaluate the ite
 			for i = 2, #nodeDNs do
 				nodeCombo = nodeCombo .. " ^8+^7 " .. nodeDNs[i]
 			end
-			self.itemsTab.build:AddStatComparesToTooltip(tooltip, self.onlyWeightedBaseOutput[row_idx][result_index], evaluationEntry.output, "^8Allocating ^7"..nodeCombo.."^8 will give You:", #nodeDNs + 2)
+			local evaluationInputs = result.evaluationInputs or { }
+			self.itemsTab.build:AddStatComparesToTooltip(tooltip, evaluationInputs.weightedBaseOutput or { }, evaluationEntry.output, "^8Allocating ^7"..nodeCombo.."^8 will give You:", #nodeDNs + 2)
 		end
+	end
+	local function addResistanceSwapToTooltipIfApplicable(tooltip, result)
+		local evaluation = result.evaluation and result.evaluation[1]
+		local resistanceSwap = evaluation and evaluation.estimatedResistanceSwap
+		local swaps = resistanceSwap and resistanceSwap.swaps
+		if not swaps or #swaps == 0 then
+			return
+		end
+		local descriptions = {}
+		for _, swap in ipairs(swaps) do
+			table.insert(descriptions, string.format("%s -> %s", swap.from, swap.to))
+		end
+		local label = #swaps == 1 and "Estimated swap: " or "Estimated swaps: "
+		local rollNote = #swaps == 1 and " (roll may change)" or " (rolls may change)"
+		local compareHint = resistanceSwap.itemString and colorCodes.TIP .. " [Ctrl: compare]" or ""
+		tooltip:AddSeparator(10)
+		tooltip:AddLine(16, "^7" .. label .. table.concat(descriptions, ", ") .. "^8" .. rollNote .. compareHint)
+		return resistanceSwap
+	end
+	local function addResistanceSwapPreviewIfApplicable(tooltip, resistanceSwap, tooltipSlot)
+		if not resistanceSwap or not resistanceSwap.itemString or not self:IsResistanceSwapPreviewActive() then
+			return
+		end
+		local previewItem = new("Item"):Item(resistanceSwap.itemString)
+		local previewTooltip = tooltip.resistanceSwapPreviewTooltip or new("Tooltip"):Tooltip()
+		tooltip.resistanceSwapPreviewTooltip = previewTooltip
+		previewTooltip:Clear()
+		self.itemsTab:AddItemTooltip(previewTooltip, previewItem, tooltipSlot)
+		local swappedModLines = {}
+		for _, lineIndex in ipairs(resistanceSwap.lineIndexes or {}) do
+			local modLine = previewItem.explicitModLines[lineIndex]
+			if modLine then
+				swappedModLines[modLine] = true
+			end
+		end
+		for _, line in ipairs(previewTooltip.lines) do
+			if line.modLine and swappedModLines[line.modLine] and line.text then
+				line.text = colorCodes.WARNING .. "[Swap] " .. StripEscapes(line.text)
+			end
+		end
+		previewTooltip:AddSeparator(10)
+		previewTooltip:AddLine(14, colorCodes.TIP .. "Estimated after swap; rolls may change.")
+		tooltip.childTooltips = { previewTooltip }
 	end
 	controls["resultDropdown"..row_idx].tooltipFunc = function(tooltip, dropdown_mode, dropdown_index, dropdown_display_string)
 		local sortedRow = self.sortedResultTbl[row_idx]
@@ -1242,11 +1671,22 @@ you can add them, copy the link here, and press "Price Item" to evaluate the ite
 		local tooltipSlot = slotTbl.selectedJewelNodeId and self.itemsTab.sockets[slotTbl.selectedJewelNodeId] or activeSlot
 		self.itemsTab:AddItemTooltip(tooltip, item, tooltipSlot)
 		addMegalomaniacCompareToTooltipIfApplicable(tooltip, pb_index)
+		local resistanceSwap = addResistanceSwapToTooltipIfApplicable(tooltip, result)
+		addResistanceSwapPreviewIfApplicable(tooltip, resistanceSwap, tooltipSlot)
 		tooltip:AddSeparator(10)
 		tooltip:AddLine(16, string.format("^7Price: %s %s", result.amount, result.currency))
 	end
+	local function getSelectedResult()
+		local resultIndex = self.itemIndexTbl[row_idx]
+		local resultRow = self.resultTbl[row_idx]
+		return resultIndex and resultRow and resultRow[resultIndex]
+	end
 	controls["importButton"..row_idx] = new("ButtonControl"):ButtonControl({ "TOPLEFT", controls["resultDropdown"..row_idx], "TOPRIGHT"}, {8, 0, 100, row_height}, "Import Item", function()
-		self.itemsTab:CreateDisplayItemFromRaw(self.resultTbl[row_idx][self.itemIndexTbl[row_idx]].item_string)
+		local selectedResult = getSelectedResult()
+		if not selectedResult or not selectedResult.item_string then
+			return
+		end
+		self.itemsTab:CreateDisplayItemFromRaw(selectedResult.item_string)
 		local item = self.itemsTab.displayItem
 		-- pass "true" to not auto equip it as we will have our own logic
 		self.itemsTab:AddDisplayItem(true)
@@ -1262,21 +1702,23 @@ you can add them, copy the link here, and press "Price Item" to evaluate the ite
 	end)
 	controls["importButton"..row_idx].tooltipFunc = function(tooltip)
 		tooltip:Clear()
-		local selected_result_index = self.itemIndexTbl[row_idx]
-		local item_string = self.resultTbl[row_idx][selected_result_index].item_string
-		if selected_result_index and item_string then
-			local item = new("Item"):Item(item_string)
-			local tooltipSlot = slotTbl.selectedJewelNodeId and self.itemsTab.sockets[slotTbl.selectedJewelNodeId] or activeSlot
-			self.itemsTab:AddItemTooltip(tooltip, item, tooltipSlot, true)
-			addMegalomaniacCompareToTooltipIfApplicable(tooltip, selected_result_index)
+		local selectedResult = getSelectedResult()
+		if not selectedResult or not selectedResult.item_string then
+			return
 		end
+		local item = new("Item"):Item(selectedResult.item_string)
+		local tooltipSlot = slotTbl.selectedJewelNodeId and self.itemsTab.sockets[slotTbl.selectedJewelNodeId] or activeSlot
+		self.itemsTab:AddItemTooltip(tooltip, item, tooltipSlot, true)
+		addMegalomaniacCompareToTooltipIfApplicable(tooltip, self.itemIndexTbl[row_idx])
 	end
 	controls["importButton"..row_idx].enabled = function()
-		return self.itemIndexTbl[row_idx] and self.resultTbl[row_idx][self.itemIndexTbl[row_idx]].item_string ~= nil
+		local selectedResult = getSelectedResult()
+		return selectedResult and selectedResult.item_string ~= nil or false
 	end
 	-- Whisper so we can copy to clipboard
-	controls["whisperButton" .. row_idx] = new("ButtonControl"):ButtonControl({ "TOPLEFT", controls["importButton" .. row_idx], "TOPRIGHT" }, { 8, 0, 155, row_height }, function()
-			local itemResult = self.itemIndexTbl[row_idx] and self.resultTbl[row_idx][self.itemIndexTbl[row_idx]]
+	controls["whisperButton" .. row_idx] = new("ButtonControl"):ButtonControl(
+		{ "TOPLEFT", controls["importButton" .. row_idx], "TOPRIGHT" }, { 8, 0, 155, row_height }, function()
+			local itemResult = getSelectedResult()
 
 			if not itemResult then return "" end
 
@@ -1292,23 +1734,14 @@ you can add them, copy the link here, and press "Price Item" to evaluate the ite
 			end
 
 		end, function()
-			local itemResult = self.itemIndexTbl[row_idx] and self.resultTbl[row_idx][self.itemIndexTbl[row_idx]]
+			local itemResult = getSelectedResult()
+			if not itemResult then
+				return
+			end
 			if  itemResult.whisper and (itemResult.priceType ~= "~b/o") then
 				Copy(itemResult.whisper)
 			else
-				local exactQuery = dkjson.decode(self.lastQueries[row_idx])
-				-- use trade sum to get the specific item. both min and max
-				-- weight on site uses floats but only shows integer in the api
-				-- e.g. weight of 172.3 shows up as 172 in the api
-				exactQuery.query.stats[1].value = { min = floor(itemResult.weight, 1) - 1, max = round(itemResult.weight, 1) + 1 }
-				-- also apply trader name. this should make false positives
-				-- extremely unlikely. this doesn't seem to take up a filter slot
-				exactQuery.query.filters = exactQuery.query.filters or { }
-				exactQuery.query.filters.trade_filters = exactQuery.query.filters.trade_filters or { filters = { } }
-				exactQuery.query.filters.trade_filters.filters = exactQuery.query.filters.trade_filters.filters or { }
-				exactQuery.query.filters.trade_filters.filters.account = { input = itemResult.trader }
-
-				local exactQueryStr = dkjson.encode(exactQuery)
+				local exactQueryStr = self:BuildExactListingQuery(self.lastQueries[row_idx], itemResult)
 
 				local encodedUrl = s_format("https://www.pathofexile.com/trade/search/%s?q=%s", self.pbLeague, urlEncode(exactQueryStr))
 
@@ -1320,7 +1753,10 @@ you can add them, copy the link here, and press "Price Item" to evaluate the ite
 	controls["whisperButton" .. row_idx].tooltipFunc = function(tooltip)
 		tooltip:Clear()
 		tooltip.center = true
-		local itemResult = self.itemIndexTbl[row_idx] and self.resultTbl[row_idx][self.itemIndexTbl[row_idx]]
+		local itemResult = getSelectedResult()
+		if not itemResult then
+			return
+		end
 		local text = itemResult.whisper and "Copies the item purchase whisper to the clipboard" or
 			"Opens the search page to show the item"
 		tooltip:AddLine(16, text)

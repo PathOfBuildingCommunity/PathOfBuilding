@@ -9,8 +9,17 @@ local curl = require("lcurl.safe")
 local m_max = math.max
 local s_format = string.format
 local t_insert = table.insert
+local tradeResistanceGrouping = require("Classes.TradeResistanceGrouping")
 local tradeHelpers = require("Classes.TradeHelpers")
 local utils = require("Modules.Utils")
+
+local resistanceTypes = { "Fire", "Cold", "Lightning", "Chaos" }
+local resistancePseudoIds = {
+	Fire = "pseudo.pseudo_total_fire_resistance",
+	Cold = "pseudo.pseudo_total_cold_resistance",
+	Lightning = "pseudo.pseudo_total_lightning_resistance",
+	Chaos = "pseudo.pseudo_total_chaos_resistance",
+}
 
 -- a table which tells us what subtypes each category we can search for
 -- contains. the commented out lines are type-subtype combinations which don't
@@ -595,7 +604,8 @@ function TradeQueryGeneratorClass:GenerateModWeights(modsToTest)
 			local output = self.calcContext.calcFunc({ repSlotName = self.calcContext.slot.slotName, repItem = self.calcContext.testItem })
 			local meanStatDiff = TradeQueryGeneratorClass.WeightedRatioOutputs(self.calcContext.baseOutput, output, self.calcContext.options.statWeights) * 1000 - (self.calcContext.baseStatValue or 0)
 			if meanStatDiff > 0.01 then
-				t_insert(self.modWeights, { tradeModId = entry.tradeMod.id, weight = meanStatDiff / modValue, meanStatDiff = meanStatDiff, invert = entry.sign == "-" and true or false })
+				local weightEntry = { tradeModId = entry.tradeMod.id, weight = meanStatDiff / modValue, meanStatDiff = meanStatDiff, invert = entry.sign == "-" and true or false }
+				t_insert(self.modWeights, tradeResistanceGrouping.annotateResistanceWeight(weightEntry, entry.tradeMod.text))
 			end
 			self.alreadyWeightedMods[entry.tradeMod.id] = true
 
@@ -766,6 +776,8 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
 	-- Calculate base output with a blank item
 	local calcFunc, baseOutput = self.itemsTab.build.calcsTab:GetMiscCalculator()
 	local baseItemOutput = slot and calcFunc({ repSlotName = slot.slotName, repItem = testItem }) or baseOutput
+	local resistanceCapShortfallByType = tradeResistanceGrouping.getResistanceCapShortfallByType(
+		slot and not slot.slotName:find("Flask") and baseItemOutput or {})
 	-- make weights more human readable
 	local compStatValue = TradeQueryGeneratorClass.WeightedRatioOutputs(baseOutput, baseItemOutput, options.statWeights) * 1000
 
@@ -784,7 +796,8 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
 		options = options,
 		slot = slot,
 		requiredMods = options.requiredMods,
-		blockedMods = options.blockedMods
+		blockedMods = options.blockedMods,
+		resistanceCapShortfallByType = resistanceCapShortfallByType,
 	}
 
 	-- OnFrame will pick this up and begin the work
@@ -933,6 +946,7 @@ function TradeQueryGeneratorClass:FinishQuery()
 	if self.calcContext.options.includeAllWEMods then
 		self:addMoreWEMods()
 	end
+	self.modWeights = tradeResistanceGrouping.applyResistanceWeightOptions(self.modWeights, self.calcContext.options.includeResistSwaps, self.calcContext.options.includeResistCaps)
 
 	-- Sort by mean Stat diff rather than weight to more accurately prioritize stats that can contribute more
 	table.sort(self.modWeights, function(a, b)
@@ -946,7 +960,7 @@ function TradeQueryGeneratorClass:FinishQuery()
 	local megalomaniacSpecialMinWeight = self.calcContext.special.itemName == "Megalomaniac" and self.modWeights[#self.modWeights] * 3
 	-- This Stat diff value will generally be higher than the weighted sum of the same item, because the stats are all applied at once and can thus multiply off each other.
 	-- So apply a modifier to get a reasonable min and hopefully approximate that the query will start out with small upgrades.
-	local minWeight = megalomaniacSpecialMinWeight or currentStatDiff * 0.5
+	local minWeight = self.calcContext.options.includeResistCaps and 0 or megalomaniacSpecialMinWeight or currentStatDiff * 0.5
 
 	-- what the trade site API uses for instant buyout etc.
 	self.tradeTypes = {
@@ -1055,13 +1069,31 @@ function TradeQueryGeneratorClass:FinishQuery()
 
 		::weightContinue::
 	end
-
 	for k, v in pairs(self.calcContext.special.queryExtra or {}) do
 		complexityBudget = complexityBudget - 2
 		queryTable.query[k] = v
 	end
+	local options = self.calcContext.options
+	if options.includeResistCaps then
+		local shortfallByType = self.calcContext.resistanceCapShortfallByType or {}
+		local function addResistanceMinimum(id, minimum)
+			if minimum and minimum > 0 then
+				t_insert(andGroup.filters, { id = id, value = { min = minimum } })
+				complexityBudget = complexityBudget - 4
+			end
+		end
+		if options.includeResistSwaps then
+			local elementalMinimum = (shortfallByType.Fire or 0) + (shortfallByType.Cold or 0) + (shortfallByType.Lightning or 0)
+			addResistanceMinimum("pseudo.pseudo_total_elemental_resistance", elementalMinimum)
+			addResistanceMinimum(resistancePseudoIds.Chaos, shortfallByType.Chaos)
+		else
+			for _, resistanceType in ipairs(resistanceTypes) do
+				addResistanceMinimum(resistancePseudoIds[resistanceType], shortfallByType[resistanceType])
+			end
+		end
+	end
 
-	-- and filters specified by the user
+	-- and/not filters specified by the user
 	for _, entry in ipairs(requiredMods) do
 		complexityBudget = complexityBudget - 4
 		t_insert(andGroup.filters, { id = entry.tradeId, value = { min = entry.value } })
@@ -1070,7 +1102,6 @@ function TradeQueryGeneratorClass:FinishQuery()
 		complexityBudget = complexityBudget - 4
 		t_insert(notGroup.filters, { id = entry.tradeId, value = { min = entry.value } })
 	end
-	local options = self.calcContext.options
 	if not options.includeMirrored then
 		complexityBudget = complexityBudget - 3
 		queryTable.query.filters.misc_filters = {
@@ -1151,15 +1182,32 @@ function TradeQueryGeneratorClass:FinishQuery()
 		complexityBudget = complexityBudget - 4
 		t_insert(weightGroup.filters, entry)
 	end
+	local hasWeightedFilters = #weightGroup.filters > 0
+	local hasAndFilters = #andGroup.filters > 0
+	if not hasWeightedFilters and options.includeResistCaps then
+		table.remove(queryTable.query.stats, 1)
+		if #notGroup.filters == 0 then
+			table.remove(queryTable.query.stats, 2)
+		end
+		if not hasAndFilters then
+			table.remove(queryTable.query.stats, 1)
+		end
+		queryTable.sort = { price = "asc" }
+	end
+
 	local errMsg = nil
 	ConPrintf("filters: %d, budget: %d", #weightGroup.filters, complexityBudget)
-	if #weightGroup.filters == 0 then
+	if not hasWeightedFilters and (not options.includeResistCaps or not hasAndFilters) then
 		-- No mods to filter
 		errMsg = "Could not generate search, found no mods to search for"
 	end
 
 	local queryJson = dkjson.encode(queryTable)
-	self.requesterCallback(self.requesterContext, queryJson, errMsg)
+	self.requesterCallback(self.requesterContext, queryJson, errMsg, {
+		includeResistSwaps = options.includeResistSwaps == true,
+		includeResistCaps = options.includeResistCaps == true,
+		weightAdjustedSearch = hasWeightedFilters and not options.includeResistCaps,
+	})
 
 	-- Close blocker popup
 	main:ClosePopup()
@@ -1324,6 +1372,18 @@ Remove: %s will be removed from the search results.]], term, term, term)
 	controls.maxLevelLabel = new("LabelControl"):LabelControl({ "RIGHT", controls.maxLevel, "LEFT" }, { -5, 0, 0, 16 }, "^7Max Level:")
 	updateLastAnchor(controls.maxLevel)
 
+	if not context.slotTbl.unique then
+		controls.includeResistSwaps = new("CheckBoxControl"):CheckBoxControl({ "TOPLEFT", lastItemAnchor, "BOTTOMLEFT" }, { 0, 5, 18 }, "Resistance swaps:", function(state) end)
+		controls.includeResistSwaps.state = self.lastIncludeResistSwaps == true
+		controls.includeResistSwaps.tooltipText = "Searches Fire, Cold, and Lightning Resistance as one total.\nResults are sorted using the best estimated swap; rolls may change."
+		updateLastAnchor(controls.includeResistSwaps)
+
+		controls.includeResistCaps = new("CheckBoxControl"):CheckBoxControl({ "TOPLEFT", lastItemAnchor, "BOTTOMLEFT" }, { 0, 5, 18 }, "Resistance caps:", function(state) end)
+		controls.includeResistCaps.state = self.lastIncludeResistCaps == true
+		controls.includeResistCaps.tooltipText = "Targets the current Elemental and Chaos Resistance caps when searching and evaluating items.\nItems that still miss a cap remain visible, and the selected result sort is unchanged."
+		updateLastAnchor(controls.includeResistCaps)
+	end
+
 	-- basic filtering by slot for sockets and links, Megalomaniac does not have slot and Sockets use "Jewel nodeId"
 	if slot and not isJewelSlot and not isAbyssalJewelSlot and not slot.slotName:find("Flask") then
 		controls.sockets = new("EditControl"):EditControl({"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, {0, 5, 70, 18}, nil, nil, "%D")
@@ -1422,6 +1482,14 @@ Remove: %s will be removed from the search results.]], term, term, term)
 		end
 		if #notMods > 0 then
 			options.blockedMods = copyTable(notMods)
+		end
+		if controls.includeResistSwaps then
+			self.lastIncludeResistSwaps = controls.includeResistSwaps.state
+			options.includeResistSwaps = controls.includeResistSwaps.state
+		end
+		if controls.includeResistCaps then
+			self.lastIncludeResistCaps = controls.includeResistCaps.state
+			options.includeResistCaps = controls.includeResistCaps.state
 		end
 		options.statWeights = statWeights
 		if controls.jewelSlot then
