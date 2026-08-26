@@ -6,6 +6,19 @@
 local pairs = pairs
 local ipairs = ipairs
 local t_insert = table.insert
+local t_sort = table.sort
+local itemSlotIcons = require("Modules.ItemSlotIcons")
+
+local slotFilterList = { "Any Slot", "Weapon 1", "Weapon 2", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring", "Belt", "Graft", "Flask", "Jewel" }
+local raritySortOrder = { UNIQUE = 1, RELIC = 1, RARE = 2, MAGIC = 3, NORMAL = 4 }
+
+local function isGroupHeader(value)
+	return type(value) == "table" and value.groupHeader
+end
+
+local function getItemName(item)
+	return (item.name or item.title or ""):lower()
+end
 
 ---@class ItemListControl: ListControl
 local ItemListClass = newClass("ItemListControl", "ListControl")
@@ -15,15 +28,22 @@ function ItemListClass:ItemListControl(anchor, rect, itemsTab, forceTooltip)
 	self.itemsTab = itemsTab
 	self.defaultText = "^x7F7F7FThis is the list of items that have been added to this build.\nYou can add items to this list by dragging them from\none of the other lists, or by clicking 'Add to build' when\nviewing an item."
 	self.dragTargetList = { }
-	self.controls.loadoutFilter = new("DropDownControl"):DropDownControl({"BOTTOMLEFT",self,"TOPLEFT"}, {0, -2, 110, 18}, nil, function()
+	local width = self:GetProperty("width")
+	local rowControlWidth = (width - 8) / 3
+	self.controls.slotFilter = new("DropDownControl"):DropDownControl({"BOTTOMLEFT",self,"TOPLEFT"}, {0, -22, rowControlWidth, 18}, slotFilterList, function()
+		self:UpdateList()
+	end)
+	self.controls.sortMode = new("DropDownControl"):DropDownControl({"LEFT",self.controls.slotFilter,"RIGHT"}, {4, 0, rowControlWidth, 18}, { "Sort by Custom Order", "Sort by Item Slot", "Sort by Name", "Sort by Rarity", "Sort by Loadout" }, function()
+		self:UpdateList()
+	end)
+	self.controls.loadoutFilter = new("DropDownControl"):DropDownControl({"LEFT",self.controls.sortMode,"RIGHT"}, {4, 0, rowControlWidth, 18}, nil, function()
 		self:UpdateList()
 	end)
 	self.controls.loadoutFilter.enableDroppedWidth = true
-	self.controls.sort = new("ButtonControl"):ButtonControl({"LEFT",self.controls.loadoutFilter,"RIGHT"}, {4, 0, 42, 18}, "Sort", function()
-		itemsTab:SortItemList()
+	self.controls.search = new("EditControl"):EditControl({"BOTTOMLEFT",self,"TOPLEFT"}, {0, -2, width, 18}, "", "Search", "%c", 100, function()
 		self:UpdateList()
-	end)
-	self.controls.deleteUnused = new("ButtonControl"):ButtonControl({"LEFT",self.controls.sort,"RIGHT"}, {4, 0, 84, 18}, "Del Unused", function()
+	end, nil, nil, true)
+	self.controls.deleteUnused = new("ButtonControl"):ButtonControl({"BOTTOMLEFT",self,"TOPLEFT"}, {0, -50, rowControlWidth, 20}, "Delete Unused", function()
 		local delList = {}
 		for _, itemId in pairs(itemsTab.itemOrderList) do
 			if not itemsTab:GetEquippedSlotForItem(itemsTab.items[itemId]) and not self:FindEquippedAbyssJewel(itemId, false) and not self:FindSocketedJewel(itemId, false) then
@@ -44,9 +64,9 @@ function ItemListClass:ItemListControl(anchor, rect, itemsTab, forceTooltip)
 		self:UpdateList()
 	end)
 	self.controls.deleteUnused.enabled = function()
-		return #self.list > 0
+		return #itemsTab.itemOrderList > 0
 	end
-	self.controls.deleteAll = new("ButtonControl"):ButtonControl({"LEFT",self.controls.deleteUnused,"RIGHT"}, {4, 0, 58, 18}, "Del All", function()
+	self.controls.deleteAll = new("ButtonControl"):ButtonControl({"LEFT",self.controls.deleteUnused,"RIGHT"}, {4, 0, rowControlWidth, 20}, "Delete All", function()
 		main:OpenConfirmPopup("Delete All", "Are you sure you want to delete all items in this build?", "Delete", function()
 			for _, slot in pairs(itemsTab.slots) do
 				slot:SetSelItemId(0)
@@ -67,13 +87,13 @@ function ItemListClass:ItemListControl(anchor, rect, itemsTab, forceTooltip)
 		end)
 	end)
 	self.controls.deleteAll.enabled = function()
-		return #self.list > 0
+		return #itemsTab.itemOrderList > 0
 	end
-	self.controls.delete = new("ButtonControl"):ButtonControl({"LEFT",self.controls.deleteAll,"RIGHT"}, {4, 0, 50, 18}, "Delete", function()
+	self.controls.delete = new("ButtonControl"):ButtonControl({"LEFT",self.controls.deleteAll,"RIGHT"}, {4, 0, rowControlWidth, 20}, "Delete", function()
 		self:OnSelDelete(self.selIndex, self.selValue)
 	end)
 	self.controls.delete.enabled = function()
-		return self.selValue ~= nil
+		return type(self.selValue) == "number"
 	end
 	return self
 end
@@ -84,7 +104,7 @@ function ItemListClass:UpdateLoadoutList()
 	local build = self.itemsTab.build
 	if build and build.controls and build.controls.buildLoadouts then
 		for _, val in ipairs(build.controls.buildLoadouts.list) do
-			if val ~= "^7^7Loadouts:" and val ~= "^7^7-----" and val ~= "^7^7New Loadout" and val ~= "^7^7Sync" and val ~= "^7^7Help >>" then
+			if val ~= "No Loadouts" and val ~= "^7^7Loadouts:" and val ~= "^7^7-----" and val ~= "^7^7New Loadout" and val ~= "^7^7Sync" and val ~= "^7^7Help >>" then
 				if not listValues[val] then
 					t_insert(list, val)
 					listValues[val] = true
@@ -114,82 +134,208 @@ function ItemListClass:UpdateLoadoutList()
 	return true
 end
 
+function ItemListClass:GetLoadoutSetAndSpec(loadoutName)
+	local itemSet
+	local spec
+	local filterTitle = loadoutName:gsub("^%[[^%]]+%]%s*", "")
+	for _, itemSetId in ipairs(self.itemsTab.itemSetOrderList) do
+		local candidate = self.itemsTab.itemSets[itemSetId]
+		if (candidate.title or "Default") == filterTitle then
+			itemSet = candidate
+			break
+		end
+	end
+	local treeTab = self.itemsTab.build.treeTab
+	for _, candidate in ipairs(treeTab.specList) do
+		if (candidate.title or "Default") == filterTitle then
+			spec = candidate
+			break
+		end
+	end
+	local linkId = loadoutName:match("%{(%w+)%}")
+	local itemLink = linkId and self.itemsTab.build.itemListSpecialLinks and self.itemsTab.build.itemListSpecialLinks[linkId]
+	local treeLink = linkId and self.itemsTab.build.treeListSpecialLinks and self.itemsTab.build.treeListSpecialLinks[linkId]
+	itemSet = itemSet or #self.itemsTab.itemSetOrderList == 1 and self.itemsTab.itemSets[self.itemsTab.itemSetOrderList[1]] or itemLink and self.itemsTab.itemSets[itemLink.setId]
+	spec = spec or #treeTab.specList == 1 and treeTab.specList[1] or treeLink and treeTab.specList[treeLink.setId]
+	return itemSet or { }, spec
+end
+
+function ItemListClass:IsItemInLoadout(itemId, itemSet, spec)
+	for _, slot in pairs(itemSet) do
+		if type(slot) == "table" and slot.selItemId == itemId then
+			return true
+		end
+	end
+	if spec and spec.jewels then
+		for nodeId, jewelId in pairs(spec.jewels) do
+			if jewelId == itemId and spec.nodes[nodeId] and spec.nodes[nodeId].alloc then
+				return true
+			end
+		end
+	end
+	return false
+end
+
+function ItemListClass:SortItems(itemList, canonicalOrder, sortMode)
+	t_sort(itemList, function(a, b)
+		local itemA = self.itemsTab.items[a]
+		local itemB = self.itemsTab.items[b]
+		if sortMode == "Sort by Item Slot" then
+			local orderA = self.itemsTab.slotOrder[itemA:GetPrimarySlot()] or math.huge
+			local orderB = self.itemsTab.slotOrder[itemB:GetPrimarySlot()] or math.huge
+			if orderA ~= orderB then
+				return orderA < orderB
+			end
+		elseif sortMode == "Sort by Rarity" then
+			local orderA = raritySortOrder[itemA.rarity] or math.huge
+			local orderB = raritySortOrder[itemB.rarity] or math.huge
+			if orderA ~= orderB then
+				return orderA < orderB
+			end
+		end
+		local nameA = getItemName(itemA)
+		local nameB = getItemName(itemB)
+		return nameA == nameB and canonicalOrder[a] < canonicalOrder[b] or nameA < nameB
+	end)
+end
+
+function ItemListClass:BuildLoadoutSort(itemList, canonicalOrder)
+	local groups = { }
+	local currentGroup
+	local currentSpec = self.itemsTab.build.treeTab.specList[self.itemsTab.build.treeTab.activeSpec]
+	for index = 4, #self.controls.loadoutFilter.list do
+		local loadoutName = self.controls.loadoutFilter.list[index]
+		local itemSet, spec = self:GetLoadoutSetAndSpec(loadoutName)
+		local group = { label = loadoutName, itemSet = itemSet, spec = spec, items = { } }
+		t_insert(groups, group)
+		if itemSet == self.itemsTab.activeItemSet and spec == currentSpec then
+			currentGroup = group
+		end
+	end
+	local otherUsed = { }
+	local unused = { }
+	for _, itemId in ipairs(itemList) do
+		local assigned
+		if currentGroup and self:IsItemInLoadout(itemId, currentGroup.itemSet, currentGroup.spec) then
+			t_insert(currentGroup.items, itemId)
+			assigned = true
+		else
+			for _, group in ipairs(groups) do
+				if self:IsItemInLoadout(itemId, group.itemSet, group.spec) then
+					t_insert(group.items, itemId)
+					assigned = true
+					break
+				end
+			end
+		end
+		if not assigned then
+			local item = self.itemsTab.items[itemId]
+			if not self.itemsTab:GetEquippedSlotForItem(item) and not self:FindEquippedAbyssJewel(itemId, false) and not self:FindSocketedJewel(itemId, false) then
+				t_insert(unused, itemId)
+			else
+				t_insert(otherUsed, itemId)
+			end
+		end
+	end
+	local list = { }
+	local function addGroup(label, items)
+		if #items > 0 then
+			self:SortItems(items, canonicalOrder, "Sort by Name")
+			t_insert(list, { groupHeader = label })
+			for _, itemId in ipairs(items) do
+				t_insert(list, itemId)
+			end
+		end
+	end
+	for _, group in ipairs(groups) do
+		addGroup(group.label, group.items)
+	end
+	addGroup("Other Used Items", otherUsed)
+	addGroup("Unused Items", unused)
+	return list
+end
+
 function ItemListClass:UpdateList()
 	self:UpdateLoadoutList()
-	local selFilter = self.controls.loadoutFilter.selIndex or 1
-	local filterVal = self.controls.loadoutFilter.list[selFilter] or "Any Loadout"
-	local selectedItemId = self.selValue
-
-	if selFilter == 1 or filterVal == "Any Loadout" then
-		self.list = self.itemsTab.itemOrderList
-		self.isMutable = true
-	else
+	local loadoutFilterIndex = self.controls.loadoutFilter.selIndex or 1
+	local loadoutFilter = self.controls.loadoutFilter.list[loadoutFilterIndex] or "Any Loadout"
+	local slotFilter = self.controls.slotFilter.list[self.controls.slotFilter.selIndex or 1] or "Any Slot"
+	local searchText = self.controls.search.buf:lower()
+	local selectedItemId = type(self.selValue) == "number" and self.selValue
+	local filterItemSet
+	local filterSpec
+	if loadoutFilterIndex == 2 then
+		filterItemSet = self.itemsTab.activeItemSet
+		filterSpec = self.itemsTab.build.treeTab.specList[self.itemsTab.build.treeTab.activeSpec]
+	elseif loadoutFilterIndex > 3 then
+		filterItemSet, filterSpec = self:GetLoadoutSetAndSpec(loadoutFilter)
+	end
+	local itemList = { }
+	local canonicalOrder = { }
+	for index, itemId in ipairs(self.itemsTab.itemOrderList) do
+		canonicalOrder[itemId] = index
+		local item = self.itemsTab.items[itemId]
+		if item then
+			local matchesLoadout = loadoutFilterIndex == 1
+				or loadoutFilterIndex == 3 and not self.itemsTab:GetEquippedSlotForItem(item) and not self:FindEquippedAbyssJewel(itemId, false) and not self:FindSocketedJewel(itemId, false)
+				or filterItemSet and self:IsItemInLoadout(itemId, filterItemSet, filterSpec)
+			local primarySlot = item:GetPrimarySlot()
+			local matchesSlot = slotFilter == "Any Slot" or primarySlot == slotFilter or primarySlot:gsub(" %d$", "") == slotFilter
+			local matchesSearch = searchText == "" or getItemName(item):find(searchText, 1, true)
+			if matchesLoadout and matchesSlot and matchesSearch then
+				t_insert(itemList, itemId)
+			end
+		end
+	end
+	local sortMode = self.controls.sortMode.list[self.controls.sortMode.selIndex or 1] or "Sort by Custom Order"
+	if sortMode == "Sort by Custom Order" then
+		local unfiltered = loadoutFilterIndex == 1 and slotFilter == "Any Slot" and searchText == ""
+		self.list = unfiltered and self.itemsTab.itemOrderList or itemList
+		self.isMutable = unfiltered
+	elseif sortMode == "Sort by Loadout" then
+		self.list = self:BuildLoadoutSort(itemList, canonicalOrder)
 		self.isMutable = false
-		local filterItemSet
-		local filterSpec
-		if selFilter == 2 or filterVal == "Current Loadout" then
-			filterItemSet = self.itemsTab.activeItemSet
-			filterSpec = self.itemsTab.build.treeTab.specList[self.itemsTab.build.treeTab.activeSpec]
-		elseif selFilter ~= 3 and filterVal ~= "Unused Items" then
-			local filterTitle = filterVal:gsub("^%[[^%]]+%]%s*", "")
-			for _, itemSetId in ipairs(self.itemsTab.itemSetOrderList) do
-				local itemSet = self.itemsTab.itemSets[itemSetId]
-				if (itemSet.title or "Default") == filterTitle then
-					filterItemSet = itemSet
-					break
-				end
-			end
-			local treeTab = self.itemsTab.build.treeTab
-			for _, spec in ipairs(treeTab.specList) do
-				if (spec.title or "Default") == filterTitle then
-					filterSpec = spec
-					break
-				end
-			end
-			local linkId = filterVal:match("%{(%w+)%}")
-			local itemLink = linkId and self.itemsTab.build.itemListSpecialLinks and self.itemsTab.build.itemListSpecialLinks[linkId]
-			local treeLink = linkId and self.itemsTab.build.treeListSpecialLinks and self.itemsTab.build.treeListSpecialLinks[linkId]
-			filterItemSet = filterItemSet or #self.itemsTab.itemSetOrderList == 1 and self.itemsTab.itemSets[self.itemsTab.itemSetOrderList[1]] or itemLink and self.itemsTab.itemSets[itemLink.setId]
-			filterSpec = filterSpec or #treeTab.specList == 1 and treeTab.specList[1] or treeLink and treeTab.specList[treeLink.setId]
-		end
-		filterItemSet = filterItemSet or { }
-		local newList = {}
-		for _, itemId in ipairs(self.itemsTab.itemOrderList) do
-			local item = self.itemsTab.items[itemId]
-			if item then
-				if selFilter == 3 or filterVal == "Unused Items" then
-					if not self.itemsTab:GetEquippedSlotForItem(item) and not self:FindEquippedAbyssJewel(itemId, false) and not self:FindSocketedJewel(itemId, false) then
-						t_insert(newList, itemId)
-					end
-				else
-					local inLoadout = false
-					for _, slot in pairs(filterItemSet) do
-						if type(slot) == "table" and slot.selItemId == itemId then
-							inLoadout = true
-							break
-						end
-					end
-					if not inLoadout and filterSpec then
-						for nodeId, jewelId in pairs(filterSpec.jewels) do
-							if jewelId == itemId and filterSpec.nodes[nodeId] and filterSpec.nodes[nodeId].alloc then
-								inLoadout = true
-								break
-							end
-						end
-					end
-					if inLoadout then
-						t_insert(newList, itemId)
-					end
-				end
-			end
-		end
-		self.list = newList
+	else
+		self:SortItems(itemList, canonicalOrder, sortMode)
+		self.list = itemList
+		self.isMutable = false
 	end
 	self.selIndex = selectedItemId and isValueInArray(self.list, selectedItemId) or nil
 	self.selValue = self.selIndex and self.list[self.selIndex] or nil
 end
 
+function ItemListClass:SelectItem(itemId)
+	self:UpdateList()
+	local index = isValueInArray(self.list, itemId)
+	if not index then
+		self.controls.slotFilter.selIndex = 1
+		self.controls.loadoutFilter.selIndex = 1
+		self.controls.search.buf = ""
+		self:UpdateList()
+		index = isValueInArray(self.list, itemId)
+	end
+	if index then
+		self:SelectIndex(index)
+	end
+end
+
 function ItemListClass:Draw(viewPort)
+	local width = self:GetProperty("width")
+	local rowControlWidth = (width - 8) / 3
+	local widthChanged = self.controls.slotFilter.width ~= rowControlWidth
+	self.controls.slotFilter.width = rowControlWidth
+	self.controls.sortMode.width = rowControlWidth
+	self.controls.loadoutFilter.width = rowControlWidth
+	self.controls.search.width = width
+	self.controls.deleteUnused.y = main.portraitMode and -44 or -50
+	self.controls.deleteUnused.width = rowControlWidth
+	self.controls.deleteAll.width = rowControlWidth
+	self.controls.delete.width = rowControlWidth
+	if widthChanged then
+		self.controls.slotFilter:CheckDroppedWidth(false)
+		self.controls.sortMode:CheckDroppedWidth(false)
+		self.controls.loadoutFilter:CheckDroppedWidth(true)
+	end
 	local loadoutListChanged = self:UpdateLoadoutList()
 	local outputRevision = self.itemsTab.build and self.itemsTab.build.outputRevision
 	if loadoutListChanged or outputRevision ~= self.lastOutputRevision then
@@ -243,9 +389,57 @@ function ItemListClass:FindEquippedAbyssJewel(jewelId, excludeActiveSet)
 	return equipSet
 end
 
+function ItemListClass:OverrideSelectIndex(index)
+	if isGroupHeader(self.list[index]) then
+		self.selIndex = nil
+		self.selValue = nil
+		return true
+	end
+	return false
+end
+
+function ItemListClass:OnKeyDown(key, doubleClick)
+	if not self:IsShown() or not self:IsEnabled() then
+		return
+	end
+	local mouseOverControl = self:GetMouseOverControl()
+	if mouseOverControl and mouseOverControl.OnKeyDown then
+		return mouseOverControl:OnKeyDown(key)
+	end
+	if not self.selDragActive and #self.list > 0 and (key == "UP" or key == "DOWN" or key == "HOME" or key == "END") then
+		local step = (key == "UP" or key == "END") and -1 or 1
+		local index
+		if key == "HOME" then
+			index = 1
+		elseif key == "END" then
+			index = #self.list
+		elseif key == "UP" then
+			index = (self.selIndex or #self.list + 1) - 1
+		else
+			index = (self.selIndex or 0) + 1
+		end
+		for _ = 1, #self.list do
+			if index < 1 then
+				index = #self.list
+			elseif index > #self.list then
+				index = 1
+			end
+			if not isGroupHeader(self.list[index]) then
+				self:SelectIndex(index)
+				return self
+			end
+			index = index + step
+		end
+	end
+	return self.ListControl.OnKeyDown(self, key, doubleClick)
+end
+
 function ItemListClass:GetRowValue(column, index, itemId)
-	local item = self.itemsTab.items[itemId]
 	if column == 1 then
+		if isGroupHeader(itemId) then
+			return "^7" .. itemId.groupHeader
+		end
+		local item = self.itemsTab.items[itemId]
 		local used = self:FindEquippedAbyssJewel(itemId, true) or self:FindSocketedJewel(itemId, true) or ""
 		if used == "" then
 			local slot, itemSet = self.itemsTab:GetEquippedSlotForItem(item)
@@ -261,8 +455,14 @@ function ItemListClass:GetRowValue(column, index, itemId)
 	end
 end
 
+function ItemListClass:GetRowIcon(column, index, itemId)
+	if not isGroupHeader(itemId) then
+		return itemSlotIcons.Get(self.itemsTab.items[itemId]:GetPrimarySlot())
+	end
+end
+
 function ItemListClass:AddValueTooltip(tooltip, index, itemId)
-	if main.popups[1] then
+	if main.popups[1] or isGroupHeader(itemId) then
 		tooltip:Clear()
 		return
 	end
@@ -280,11 +480,11 @@ function ItemListClass:ReceiveDrag(type, value, source)
 	if type == "Item" then
 		local newItem = new("Item"):Item(value.raw)
 		newItem:NormaliseQuality()
-		self.itemsTab:AddItem(newItem, true, self.selDragIndex)
+		self.itemsTab:AddItem(newItem, true, self.isMutable and self.selDragIndex or nil)
 		self.itemsTab:AddForbiddenJewelCounterpart(newItem)
 		self.itemsTab:PopulateSlots()
 		self.itemsTab:AddUndoState()
-		self:UpdateList()
+		self:SelectItem(newItem.id)
 	end
 end
 
@@ -376,7 +576,7 @@ end
 function ItemListClass:OnHoverKeyUp(key)
 	if itemLib.wiki.matchesKey(key) then
 		local itemId = self.ListControl:GetHoverValue()
-		if itemId then
+		if itemId and not isGroupHeader(itemId) then
 			local item = self.itemsTab.items[itemId]
 			itemLib.wiki.openItem(item)
 		end
