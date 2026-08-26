@@ -157,10 +157,8 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 	self.controls.buildName.Draw = function(control)
 		local x, y = control:GetPos()
 		local width, height = control:GetSize()
-		SetDrawColor(0.5, 0.5, 0.5)
-		DrawImage(nil, x + 91, y, self.strWidth + 6, 20)
-		SetDrawColor(0, 0, 0)
-		DrawImage(nil, x + 92, y + 1, self.strWidth + 4, 18)
+		-- Read-only, so it is framed like a disabled button to match the rest of the top bar
+		ui.DrawBox(x + 91, y, self.strWidth + 6, 20, ui.radius, ui.colors.borderDisabled, ui.colors.surfaceDisabled)
 		SetDrawColor(1, 1, 1)
 		SetViewport(x, y + 2, self.strWidth + 94, 16)
 		DrawString(0, 0, "LEFT", 16, "VAR", "Current build:  "..self.buildName)
@@ -197,10 +195,8 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 	self.controls.pointDisplay.Draw = function(control)
 		local x, y = control:GetPos()
 		local width, height = control:GetSize()
-		SetDrawColor(1, 1, 1)
-		DrawImage(nil, x, y, width + 2, height)
-		SetDrawColor(0, 0, 0)
-		DrawImage(nil, x + 1, y + 1, width, height - 2)
+		-- Read-only, so it is framed like a disabled button to match the rest of the top bar
+		ui.DrawBox(x, y, width + 2, height, ui.radius, ui.colors.borderDisabled, ui.colors.surfaceDisabled)
 		SetDrawColor(1, 1, 1)
 		DrawString(x + 4, y + 2, "LEFT", 16, "FIXED", control.str)
 		if control:IsMouseInBounds() then
@@ -477,7 +473,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 	self.controls.modeCompare.locked = function() return self.viewMode == "COMPARE" end
 	-- Skills
 	self.controls.mainSkillLabel = new("LabelControl"):LabelControl({"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, {0, 80, 300, 16}, "^7Main Skill:")
-	self.controls.mainSocketGroup = new("DropDownControl"):DropDownControl({"TOPLEFT",self.controls.mainSkillLabel,"BOTTOMLEFT"}, {0, 2, 300, 18}, nil, function(index, value)
+	self.controls.mainSocketGroup = new("DropDownControl"):DropDownControl({"TOPLEFT",self.controls.mainSkillLabel,"BOTTOMLEFT"}, {0, 4, 300, 20}, nil, function(index, value)
 		self.mainSocketGroup = index
 		self.modFlag = true
 		self.buildFlag = true
@@ -489,44 +485,44 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 			self.skillsTab:AddSocketGroupTooltip(tooltip, socketGroup)
 		end
 	end
-	self.controls.mainSkill = new("DropDownControl"):DropDownControl({"TOPLEFT",self.controls.mainSocketGroup,"BOTTOMLEFT"}, {0, 2, 300, 18}, nil, function(index, value)
+	self.controls.mainSkill = new("DropDownControl"):DropDownControl({"TOPLEFT",self.controls.mainSocketGroup,"BOTTOMLEFT"}, {0, 4, 300, 20}, nil, function(index, value)
 		local mainSocketGroup = self.skillsTab.socketGroupList[self.mainSocketGroup]
 		mainSocketGroup.mainActiveSkill = index
 		self.modFlag = true
 		self.buildFlag = true
 	end)
-	self.controls.mainSkillPart = new("DropDownControl"):DropDownControl({"TOPLEFT",self.controls.mainSkill,"BOTTOMLEFT",true}, {0, 2, 300, 18}, nil, function(index, value)
+	self.controls.mainSkillPart = new("DropDownControl"):DropDownControl({"TOPLEFT",self.controls.mainSkill,"BOTTOMLEFT",true}, {0, 4, 300, 20}, nil, function(index, value)
 		local mainSocketGroup = self.skillsTab.socketGroupList[self.mainSocketGroup]
 		local srcInstance = mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeEffect.srcInstance
 		srcInstance.skillPart = index
 		self.modFlag = true
 		self.buildFlag = true
 	end)
-	self.controls.mainSkillStageCountLabel = new("LabelControl"):LabelControl({"TOPLEFT",self.controls.mainSkillPart,"BOTTOMLEFT",true}, {0, 3, 0, 16}, "^7Stages:") {
+	self.controls.mainSkillStageCountLabel = new("LabelControl"):LabelControl({"TOPLEFT",self.controls.mainSkillPart,"BOTTOMLEFT",true}, {0, 5, 0, 16}, "^7Stages:") {
 		shown = function()
 			return self.controls.mainSkillStageCount:IsShown()
 		end,
 	}
-	self.controls.mainSkillStageCount = new("EditControl"):EditControl({"LEFT",self.controls.mainSkillStageCountLabel,"RIGHT",true}, {2, 0, 60, 18}, nil, nil, "%D", nil, function(buf)
+	self.controls.mainSkillStageCount = new("EditControl"):EditControl({"LEFT",self.controls.mainSkillStageCountLabel,"RIGHT",true}, {2, 0, 60, 20}, nil, nil, "%D", nil, function(buf)
 		local mainSocketGroup = self.skillsTab.socketGroupList[self.mainSocketGroup]
 		local srcInstance = mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeEffect.srcInstance
 		srcInstance.skillStageCount = tonumber(buf)
 		self.modFlag = true
 		self.buildFlag = true
 	end)
-	self.controls.mainSkillMineCountLabel = new("LabelControl"):LabelControl({"TOPLEFT",self.controls.mainSkillStageCountLabel,"BOTTOMLEFT",true}, {0, 3, 0, 16}, "^7Active Mines:") {
+	self.controls.mainSkillMineCountLabel = new("LabelControl"):LabelControl({"TOPLEFT",self.controls.mainSkillStageCountLabel,"BOTTOMLEFT",true}, {0, 5, 0, 16}, "^7Active Mines:") {
 		shown = function()
 			return self.controls.mainSkillMineCount:IsShown()
 		end,
 	}
-	self.controls.mainSkillMineCount = new("EditControl"):EditControl({"LEFT",self.controls.mainSkillMineCountLabel,"RIGHT",true}, {2, 0, 60, 18}, nil, nil, "%D", nil, function(buf)
+	self.controls.mainSkillMineCount = new("EditControl"):EditControl({"LEFT",self.controls.mainSkillMineCountLabel,"RIGHT",true}, {2, 0, 60, 20}, nil, nil, "%D", nil, function(buf)
 		local mainSocketGroup = self.skillsTab.socketGroupList[self.mainSocketGroup]
 		local srcInstance = mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeEffect.srcInstance
 		srcInstance.skillMineCount = tonumber(buf)
 		self.modFlag = true
 		self.buildFlag = true
 	end)
-	self.controls.mainSkillMinion = new("DropDownControl"):DropDownControl({"TOPLEFT",self.controls.mainSkillMineCountLabel,"BOTTOMLEFT",true}, {0, 3, 178, 18}, nil, function(index, value)
+	self.controls.mainSkillMinion = new("DropDownControl"):DropDownControl({"TOPLEFT",self.controls.mainSkillMineCountLabel,"BOTTOMLEFT",true}, {0, 4, 178, 20}, nil, function(index, value)
 		local mainSocketGroup = self.skillsTab.socketGroupList[self.mainSocketGroup]
 		local srcInstance = mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeEffect.srcInstance
 		if value.itemSetId then
@@ -555,18 +551,21 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 			tooltip:AddLine(14, colorCodes.TIP.."Tip: You can drag items from the Items tab onto this dropdown to equip them onto the minion.")
 		end
 	end
-	self.controls.mainSkillMinionLibrary = new("ButtonControl"):ButtonControl({"LEFT",self.controls.mainSkillMinion,"RIGHT"}, {2, 0, 120, 18}, "Manage Spectres...", function()
+	self.controls.mainSkillMinionLibrary = new("ButtonControl"):ButtonControl({"LEFT",self.controls.mainSkillMinion,"RIGHT"}, {2, 0, 120, 20}, "Manage Spectres...", function()
 		self:OpenSpectreLibrary()
 	end)
-	self.controls.mainSkillMinionSkill = new("DropDownControl"):DropDownControl({"TOPLEFT",self.controls.mainSkillMinion,"BOTTOMLEFT",true}, {0, 2, 200, 16}, nil, function(index, value)
+	self.controls.mainSkillMinionSkill = new("DropDownControl"):DropDownControl({"TOPLEFT",self.controls.mainSkillMinion,"BOTTOMLEFT",true}, {0, 4, 200, 20}, nil, function(index, value)
 		local mainSocketGroup = self.skillsTab.socketGroupList[self.mainSocketGroup]
 		local srcInstance = mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeEffect.srcInstance
 		srcInstance.skillMinionSkill = index
 		self.modFlag = true
 		self.buildFlag = true
 	end)
-	self.controls.statBoxAnchor = new("Control"):Control({"TOPLEFT",self.controls.mainSkillMinionSkill,"BOTTOMLEFT",true}, {0, 2, 0, 0})
-	self.controls.statBox = new("TextListControl"):TextListControl({"TOPLEFT",self.controls.statBoxAnchor,"BOTTOMLEFT"}, {0, 2, 300, 0}, {{x=170,align="RIGHT_X"},{x=174,align="LEFT"}})
+	self.controls.statBoxAnchor = new("Control"):Control({"TOPLEFT",self.controls.mainSkillMinionSkill,"BOTTOMLEFT",true}, {0, 4, 0, 0})
+	-- Label and value are pinned to opposite edges rather than meeting in the middle, so both read
+	-- as columns and long labels have the whole width to run into
+	self.controls.statBox = new("TextListControl"):TextListControl({"TOPLEFT",self.controls.statBoxAnchor,"BOTTOMLEFT"}, {0, 2, 300, 0}, {{x=6,align="LEFT"},{x=268,align="RIGHT_X"}})
+	self.controls.statBox.grouped = true
 	self.controls.statBox.height = function(control)
 		local x, y = control:GetPos()
 		local warnHeight = main.showWarnings and #self.controls.warnings.lines > 0 and 18 or 0
@@ -1325,18 +1324,17 @@ function buildMode:OnFrame(inputEvents)
 
 	SetDrawLayer(5)
 
-	-- Draw top bar background
-	SetDrawColor(0.2, 0.2, 0.2)
-	DrawImage(nil, 0, 0, main.screenW, 28)
-	SetDrawColor(0.85, 0.85, 0.85)
-	DrawImage(nil, 0, 28, main.screenW, 4)
-	DrawImage(nil, main.screenW/2 - 2, 0, 4, 28)
+	-- Draw top bar background, closed off by a hairline rather than the old 4px rule
+	ui.SetColor(ui.colors.chrome)
+	DrawImage(nil, 0, 0, main.screenW, 31)
+	ui.SetColor(ui.colors.chromeBorder)
+	DrawImage(nil, 0, 31, main.screenW, 1)
 
 	-- Draw side bar background
-	SetDrawColor(0.1, 0.1, 0.1)
-	DrawImage(nil, 0, 32, sideBarWidth - 4, main.screenH - 32)
-	SetDrawColor(0.85, 0.85, 0.85)
-	DrawImage(nil, sideBarWidth - 4, 32, 4, main.screenH - 32)
+	ui.SetColor(ui.colors.chrome)
+	DrawImage(nil, 0, 32, sideBarWidth - 1, main.screenH - 32)
+	ui.SetColor(ui.colors.chromeBorder)
+	DrawImage(nil, sideBarWidth - 1, 32, 1, main.screenH - 32)
 
 
 	local hovered = self.controls.statBox and self.controls.statBox.hoveredLine
@@ -2081,7 +2079,7 @@ function buildMode:RefreshStatList()
 		end
 	end
 	if self.calcsTab.mainEnv.minion then
-		t_insert(statBoxList, { height = 18, "^7Minion:" })
+		t_insert(statBoxList, { height = 20, header = true, "^7Minion" })
 		if self.calcsTab.mainEnv.minion.mainSkill.infoMessage then
 			-- Split the line if too long
 			if #self.calcsTab.mainEnv.minion.mainSkill.infoMessage > 40 then
@@ -2097,7 +2095,7 @@ function buildMode:RefreshStatList()
 		end
 		self:AddDisplayStatList(self.minionDisplayStats, self.calcsTab.mainEnv.minion, "minion")
 		t_insert(statBoxList, { height = 10 })
-		t_insert(statBoxList, { height = 18, "^7Player:" })
+		t_insert(statBoxList, { height = 20, header = true, "^7Player" })
 	end
 	if self.calcsTab.mainEnv.player.mainSkill.skillFlags.disable then
 		t_insert(statBoxList, { height = 16, "^7Skill disabled:" })
