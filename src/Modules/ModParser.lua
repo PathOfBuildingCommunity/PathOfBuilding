@@ -2126,7 +2126,7 @@ local dmgTypes = {
 	["chaos"] = "Chaos",
 }
 -- List of special modifiers
----@type table<string, Mod[]|fun(num: number, ...: string): Mod|Mod[]>
+---@type table<string, Mod[]|fun(num: number, ...: string): Mod[]>
 local specialModList = {
 	-- Explode mods
 	["enemies you kill have a (%d+)%% chance to explode, dealing a (.+) of their maximum life as (.+) damage"] = function(chance, _, amount, type)	-- Obliteration, Unspeakable Gifts (chaos cluster), synth implicit mod, current crusader body mod, Ngamahu Warmonger tattoo
@@ -3066,6 +3066,9 @@ local specialModList = {
 	["%+1 ring slot"] = { flag("AdditionalRingSlot") },
 	["utility flasks are disabled"] = { flag("UtilityFlasksDoNotApplyToPlayer") },
 	-- Abyssal Bloodline
+	["totems have (%d+)%% more life per maximum number of summoned totems"] = function(n)
+		return { mod("TotemLife", "MORE", n, { type = "PerStat", stat = "ActiveTotemLimit" }) }
+	end,
 	["while you have at least (%d+) hypnotic eye jewels socketed: arcane surge also grants (%d+)%% of damage taken recouped as mana to you arcane surge also grants (%d+)%% increased mana cost efficiency to you"] = function(jewels, _, recoup, costEfficiency)
 		return {
 			mod("ArcaneSurgeAlsoManaRecoup", "BASE", tonumber(recoup), { type = "MultiplierThreshold", var = "HypnoticEyeJewel", threshold = jewels }),
