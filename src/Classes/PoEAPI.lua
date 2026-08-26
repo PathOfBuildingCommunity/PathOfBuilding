@@ -236,3 +236,9 @@ function PoEAPIClass:DownloadCharacter(realm, name, callback)
 	self:DownloadWithRateLimit("character-request-limit",
 		"/character" .. (realm == "pc" and "" or "/" .. realm) .. "/" .. name, callback)
 end
+
+---@param realm string Realm to fetch the leagues for
+---@param callback DownloadCallback
+function PoEAPIClass:FetchLeagues(realm, callback)
+	self:DownloadWithRateLimit("league-request-limit", "/account/leagues" .. ((realm == "pc") and "" or ("/" .. realm)), callback)
+end
