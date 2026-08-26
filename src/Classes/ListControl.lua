@@ -37,7 +37,7 @@ local ListClass = newClass("ListControl", "Control", "ControlHost")
 ---@param anchor Anchor?
 ---@param rect Rect?
 ---@param rowHeight number
----@param scroll "HORIZONTAL"|"VERTICAL"|nil
+---@param scroll "HORIZONTAL"|"VERTICAL"|boolean|nil
 ---@param isMutable boolean?
 ---@param list any[]?
 ---@param forceTooltip any

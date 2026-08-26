@@ -253,6 +253,7 @@ data.misc = { -- magic numbers
 	FortifyBaseDuration = 6,
 	ManaRegenBase = data.characterConstants["mana_regeneration_rate_per_minute_%"] / 60 / 100,
 	EnergyShieldRechargeBase = data.characterConstants["energy_shield_recharge_rate_per_minute_%"] / 60 / 100,
+	EnergyShieldRechargeBase = 0.33,
 	EnergyShieldRechargeDelay = 2,
 	WardRechargeDelay = 2,
 	Transfiguration = 0.3,

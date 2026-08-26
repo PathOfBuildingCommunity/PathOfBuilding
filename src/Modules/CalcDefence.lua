@@ -507,10 +507,7 @@ function calcs.defenceForConditionals(env, actor)
 	end
 end
 
----@class MinMaxTotalBreakdownResist
----@field min string min %
----@field max string max %
----@field total string total %
+---@alias MinMaxTotalBreakdownResist [string, string, string]
 -- Performs resistance calculations
 function calcs.resistances(actor)
 	local modDB = actor.modDB
