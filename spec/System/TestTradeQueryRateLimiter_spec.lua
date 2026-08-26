@@ -63,6 +63,18 @@ describe("TradeQueryRateLimiter", function()
 		end)
 	end)
 
+	describe("InsertRequest", function()
+		-- Pass: Full request lifecycle completes for a policy the limiter wasn't initialized with
+		-- Fail: Error indexing pendingRequests, breaking requests under new policies (e.g. the account API)
+		it("handles policies it was not initialized with", function()
+			local limiter = new("TradeQueryRateLimiter")
+			local now = os.time()
+			assert.are.equal(now, limiter:NextRequestTime("account-leagues-request-limit", now))
+			local requestId = limiter:InsertRequest("account-leagues-request-limit")
+			limiter:FinishRequest("account-leagues-request-limit", requestId)
+		end)
+	end)
+
 	describe("AgeOutRequests", function()
 		-- Pass: Removes old stamps, decrements to 1
 		-- Fail: Stale data persists, indicating aging bug, perpetual blocking
