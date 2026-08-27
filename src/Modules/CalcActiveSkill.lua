@@ -264,7 +264,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 		end
 		activeSkill.skillPartName = part.name
 		skillFlags.multiPart = #activeGemParts > 1
-	elseif activeEffect.srcInstance and not (activeEffect.gemData and activeEffect.gemData.secondaryGrantedEffect) then
+	elseif activeEffect.srcInstance and not (activeEffect.gemData and activeEffect.gemData.secondaryGrantedEffect and activeEffect.gemData.secondaryGrantedEffect.parts and #activeEffect.gemData.secondaryGrantedEffect.parts > 1) then
 		activeEffect.srcInstance.skillPart = nil
 		activeEffect.srcInstance.skillPartCalcs = nil
 	end
@@ -625,7 +625,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 			skillModList:NewMod("Multiplier:ActiveMineCount", "BASE", activeSkill.activeMineCount, "Base")
 			env.enemy.modDB.multipliers["ActiveMineCount"] = m_max(activeSkill.activeMineCount or 0, env.enemy.modDB.multipliers["ActiveMineCount"] or 0)
 		end
-	elseif activeEffect.srcInstance and not (activeEffect.gemData and activeEffect.gemData.secondaryGrantedEffect) then
+	elseif activeEffect.srcInstance and not (activeEffect.gemData and activeEffect.gemData.secondaryGrantedEffect and activeEffect.gemData.secondaryGrantedEffect.tags and activeEffect.gemData.secondaryGrantedEffect.tags.mine) then
 		activeEffect.srcInstance.skillMineCountCalcs = nil
 		activeEffect.srcInstance.skillMineCount = nil
 	end
@@ -744,7 +744,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 					end
 					minion.itemSet = env.build.itemsTab.itemSets[activeEffect.srcInstance.skillMinionItemSet]
 				end
-			elseif activeEffect.srcInstance and not (activeEffect.gemData and activeEffect.gemData.secondaryGrantedEffect) then
+			elseif activeEffect.srcInstance and not (activeEffect.gemData and activeEffect.gemData.secondaryGrantedEffect and activeEffect.gemData.secondaryGrantedEffect.minionHasItemSet) then
 				activeEffect.srcInstance.skillMinionItemSetCalcs = nil
 				activeEffect.srcInstance.skillMinionItemSet = nil
 			end
@@ -792,7 +792,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 				minion.weaponData1.AttackRate = env.player.weaponData1.AttackRate
 			end
 		end
-	elseif activeEffect.srcInstance and not (activeEffect.gemData and activeEffect.gemData.secondaryGrantedEffect) then
+	elseif activeEffect.srcInstance and not (activeEffect.gemData and activeEffect.gemData.secondaryGrantedEffect and activeEffect.gemData.secondaryGrantedEffect.skillTypes and activeEffect.gemData.secondaryGrantedEffect.skillTypes[SkillType.Minion]) then
 		activeEffect.srcInstance.skillMinionCalcs = nil
 		activeEffect.srcInstance.skillMinion = nil
 		activeEffect.srcInstance.skillMinionItemSetCalcs = nil
