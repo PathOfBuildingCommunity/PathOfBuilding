@@ -36,6 +36,13 @@ local function newlineCount(str)
 	end
 end
 
+local function drawMultilineText(textX, textY, textHeight, font, text)
+	for line in (text.."\n"):gmatch("([^\n]*)\n") do
+		DrawString(textX, textY, "LEFT", textHeight, font, line)
+		textY = textY + textHeight
+	end
+end
+
 ---@class EditControl: ControlHost, Control, UndoHandler, TooltipHost
 ---@field inactiveText (fun(buf: string?): string)|string
 local EditClass = newClass("EditControl", "ControlHost", "Control", "UndoHandler", "TooltipHost")
@@ -233,11 +240,27 @@ function EditClass:ScrollCaretIntoView()
 	end
 end
 
+function EditClass:GetCursorIndex(textHeight, cursorX, cursorY)
+	if not self.lineHeight then
+		return DrawStringCursorIndex(textHeight, self.font, self.buf, cursorX, cursorY)
+	end
+	local targetLine = m_max(m_floor(cursorY / textHeight), 0)
+	local lineStart, line = 1, ""
+	for s, textLine in (self.buf.."\n"):gmatch("()([^\n]*)\n") do
+		lineStart, line = s, textLine
+		if targetLine == 0 then
+			break
+		end
+		targetLine = targetLine - 1
+	end
+	return lineStart + DrawStringCursorIndex(textHeight, self.font, line, cursorX, 0) - 1
+end
+
 function EditClass:MoveCaretVertically(offset)
 	local pre = self.buf:sub(1, self.caret - 1)
 	local caretX = DrawStringWidth(self.lineHeight, self.font, lastLine(pre))
 	local caretY = newlineCount(pre) * self.lineHeight
-	self.caret = DrawStringCursorIndex(self.lineHeight, self.font, self.buf, caretX + 1, caretY + self.lineHeight/2 + offset)
+	self.caret = self:GetCursorIndex(self.lineHeight, caretX + 1, caretY + self.lineHeight/2 + offset)
 	self.lastUndoState.caret = self.caret
 	self:ScrollCaretIntoView()
 	self.blinkStart = GetTime()
@@ -296,20 +319,25 @@ function EditClass:Draw(viewPort, noTooltip)
 	local marginB = self.controls.scrollBarH:IsShown() and 14 or 0
 	SetViewport(textX, textY, width - 4 - marginL - marginR, height - 4 - marginB)
 	if not self.hasFocus then
+		local inactiveText
 		if self.buf == '' and self.placeholder then
 			SetDrawColor(self.disableCol)
-			DrawString(-self.controls.scrollBarH.offset, -self.controls.scrollBarV.offset, "LEFT", textHeight, self.font, self.placeholder)
+			inactiveText = self.placeholder
 		else
 			SetDrawColor(self.inactiveCol)
 			if self.inactiveText then
-				local inactiveText = type(self.inactiveText) == "string" and self.inactiveText or self.inactiveText(self.buf)
+				inactiveText = type(self.inactiveText) == "string" and self.inactiveText or self.inactiveText(self.buf)
 				---@cast inactiveText string
-				DrawString(-self.controls.scrollBarH.offset, -self.controls.scrollBarV.offset, "LEFT", textHeight, self.font, inactiveText)
 			elseif self.protected then
-				DrawString(-self.controls.scrollBarH.offset, -self.controls.scrollBarV.offset, "LEFT", textHeight, self.font, string.rep(protected_replace, #self.buf))
+				inactiveText = self.buf:gsub("[^\n]", protected_replace)
 			else
-				DrawString(-self.controls.scrollBarH.offset, -self.controls.scrollBarV.offset, "LEFT", textHeight, self.font, self.buf)
+				inactiveText = self.buf
 			end
+		end
+		if self.lineHeight then
+			drawMultilineText(-self.controls.scrollBarH.offset, -self.controls.scrollBarV.offset, textHeight, self.font, inactiveText)
+		else
+			DrawString(-self.controls.scrollBarH.offset, -self.controls.scrollBarV.offset, "LEFT", textHeight, self.font, inactiveText)
 		end
 		SetViewport()
 		self:DrawControls(viewPort, noTooltip and self)
@@ -320,7 +348,7 @@ function EditClass:Draw(viewPort, noTooltip)
 	end
 	if self.drag then
 		local cursorX, cursorY = GetCursorPos()
-		self.caret = DrawStringCursorIndex(textHeight, self.font, self.buf, cursorX - textX + self.controls.scrollBarH.offset, cursorY - textY + self.controls.scrollBarV.offset)
+		self.caret = self:GetCursorIndex(textHeight, cursorX - textX + self.controls.scrollBarH.offset, cursorY - textY + self.controls.scrollBarV.offset)
 		self.lastUndoState.caret = self.caret
 		self:ScrollCaretIntoView()
 	end
@@ -502,7 +530,7 @@ function EditClass:OnKeyDown(key, doubleClick)
 				textX = textX + DrawStringWidth(textHeight, self.font, self.prompt) + textHeight/2
 			end
 			local cursorX, cursorY = GetCursorPos()
-			self.caret = DrawStringCursorIndex(textHeight, self.font, self.buf, cursorX - textX + self.controls.scrollBarH.offset, cursorY - textY + self.controls.scrollBarV.offset)
+			self.caret = self:GetCursorIndex(textHeight, cursorX - textX + self.controls.scrollBarH.offset, cursorY - textY + self.controls.scrollBarV.offset)
 			self.sel = self.caret
 			self.lastUndoState.caret = self.caret
 			self:ScrollCaretIntoView()
