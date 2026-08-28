@@ -7,6 +7,7 @@
 
 local dkjson = require "dkjson"
 local itemSlotHelper = require("Modules.ItemSlotHelper")
+local WeightedScore = require("Modules.WeightedScore")
 
 local get_time = os.time
 local t_insert = table.insert
@@ -256,23 +257,24 @@ function TradeQueryClass:PullCXData()
 end
 
 local function initStatSortSelectionList(list)
-	t_insert(list,  {
-		label = "Full DPS",
-		stat = "FullDPS",
-		weightMult = 1.0,
-	})
-	t_insert(list,  {
-		label = "Effective Hit Pool",
-		stat = "TotalEHP",
-		weightMult = 0.5,
-	})
+	for _, weight in ipairs(WeightedScore.defaultWeights()) do
+		t_insert(list, weight)
+	end
 end
 
 -- we do not want to overwrite previous list if the new list is the default, e.g. hitting reset multiple times in a row
 local function isSameAsDefaultList(list)
-	return list and #list == 2
-		and list[1].stat == "FullDPS" and list[1].weightMult == 1.0
-		and list[2].stat == "TotalEHP" and list[2].weightMult == 0.5
+	local defaultWeights = WeightedScore.defaultWeights()
+	if not list or #list ~= #defaultWeights then
+		return false
+	end
+	for index, weight in ipairs(defaultWeights) do
+		local selectedWeight = list[index]
+		if selectedWeight.stat ~= weight.stat or selectedWeight.weightMult ~= weight.weightMult then
+			return false
+		end
+	end
+	return true
 end
 
 -- Opens the item pricing popup
@@ -688,8 +690,12 @@ Highest Weight - Displays the order retrieved from trade]]
 end
 
 -- Popup to set stat weight multipliers for sorting
-function TradeQueryClass:SetStatWeights(previousSelectionList)
+function TradeQueryClass:SetStatWeights(previousSelectionList, onSave)
 	previousSelectionList = previousSelectionList or {}
+	if not self.statSortSelectionList or (#self.statSortSelectionList) == 0 then
+		self.statSortSelectionList = { }
+		initStatSortSelectionList(self.statSortSelectionList)
+	end
 	local controls = { }
 	local statList = { }
 	local sliderController = { index = 1 }
@@ -703,7 +709,7 @@ function TradeQueryClass:SetStatWeights(previousSelectionList)
 		{ -410, 45, 400, listHeight }, statList, sliderController)
 
 	for _, stat in ipairs(data.powerStatList) do
-		if not stat.ignoreForItems and stat.label ~= "Name" then
+		if not stat.ignoreForItems and stat.label ~= "Name" and stat.stat ~= "WeightedScore" then
 			t_insert(statList, {
 				label = "0      :  "..stat.label,
 				stat = {
@@ -767,10 +773,12 @@ function TradeQueryClass:SetStatWeights(previousSelectionList)
 		if (#statSortSelectionList) > 0 then
 			--THIS SHOULD REALLY GIVE A WARNING NOT JUST USE PREVIOUS
 			self.statSortSelectionList = statSortSelectionList
+			self.itemsTab.modFlag = true
 		end
 		for row_idx in pairs(self.resultTbl) do
 			self:UpdateControlsWithItems(row_idx)
 		end
+		if onSave then onSave() end
     end)
 	controls.cancel = new("ButtonControl"):ButtonControl({ "BOTTOM", nil, "BOTTOM" }, { 0, -10, 80, 20 }, "Cancel", function()
 		if previousSelectionList and #previousSelectionList > 0 then
@@ -788,7 +796,7 @@ function TradeQueryClass:SetStatWeights(previousSelectionList)
 		self.statSortSelectionList = { }
 		initStatSortSelectionList(self.statSortSelectionList)
 		main:ClosePopup()
-		self:SetStatWeights(previousSelection)
+		self:SetStatWeights(previousSelection, onSave)
 	end)
 	main:OpenPopup(420, popupHeight, "Stat Weight Multipliers", controls)
 end

@@ -1,5 +1,6 @@
 local m_max = math.max
 local t_insert = table.insert
+local WeightedScore = require("Modules.WeightedScore")
 
 local M = {}
 
@@ -209,7 +210,7 @@ function M.AddImplicitToDisplayItem(itemsTab, displayItem)
 			t_insert(item.implicitModLines, modLine)
 		end
 	end
-	local function getSortValue(listMod, stat, calcFunc, slotName, useFullDPS)
+	local function getSortValue(listMod, stat, statEntry, calcFunc, calcBase, slotName, useFullDPS)
 		listMod.sortValues = listMod.sortValues or {}
 		if listMod.sortValues[stat] ~= nil then
 			return listMod.sortValues[stat]
@@ -219,7 +220,7 @@ function M.AddImplicitToDisplayItem(itemsTab, displayItem)
 		applyCandidateMod(item, listMod)
 		item:BuildAndParseRaw()
 		local output = calcFunc({ repSlotName = slotName, repItem = item }, useFullDPS)
-		local value = data.powerStatList.GetFromOutput(output, sortStats[stat])
+		local value = data.powerStatList.GetValue(output, statEntry, itemsTab.build, calcBase)
 		listMod.sortValues[stat] = value
 		return value
 	end
@@ -230,12 +231,14 @@ function M.AddImplicitToDisplayItem(itemsTab, displayItem)
 		local selectedGroup = not selectFirst and modGroups[controls.modGroupSelect.selIndex] or nil
 		local selectedMod = not selectFirst and controls.modSelect.list and controls.modSelect.list[controls.modSelect.selIndex] or nil
 		if stat then
+			local statEntry = sortStats[stat]
 			local slotName = displayItem:GetPrimarySlot()
 			local calcFunc = itemsTab.build.calcsTab:GetMiscCalculator()
-			local useFullDPS = stat == "FullDPS"
+			local useFullDPS = data.powerStatList.RequiresFullDPS(statEntry, itemsTab.build)
+			local calcBase = calcFunc({ repSlotName = slotName, repItem = displayItem }, useFullDPS)
 			for _, listMods in ipairs(modList) do
 				for _, listMod in ipairs(listMods) do
-					listMod.sortValue = getSortValue(listMod, stat, calcFunc, slotName, useFullDPS)
+					listMod.sortValue = getSortValue(listMod, stat, statEntry, calcFunc, calcBase, slotName, useFullDPS)
 				end
 				table.sort(listMods, function(a, b)
 					if a.sortValue ~= b.sortValue then
@@ -293,6 +296,17 @@ function M.AddImplicitToDisplayItem(itemsTab, displayItem)
 			controls.modSelect:SetSel(1, true)
 		end
 	end
+	local function clearSortValues()
+		for _, group in ipairs(modGroups) do
+			group.sortValue = nil
+		end
+		for _, listMods in ipairs(modList) do
+			for _, listMod in ipairs(listMods) do
+				listMod.sortValue = nil
+				listMod.sortValues = nil
+			end
+		end
+	end
 	local function addModifier()
 		local item = new("Item"):Item(displayItem:BuildRaw())
 		item.id = displayItem.id
@@ -327,9 +341,8 @@ function M.AddImplicitToDisplayItem(itemsTab, displayItem)
 	controls.sortLabel.shown = function()
 		return sourceList[controls.source.selIndex].sourceId ~= "CUSTOM"
 	end
-	controls.sort = new("DropDownControl"):DropDownControl({ "TOPLEFT", nil, "TOPLEFT" }, { 355, 20, 240, 18 }, sortList, function(index, value)
-		applySort(value.stat, true)
-	end)
+	controls.sort = new("DropDownControl"):DropDownControl({ "TOPLEFT", nil, "TOPLEFT" }, { 355, 20, 240, 18 }, sortList,
+		WeightedScore.createSortHandler(sortList, controls, itemsTab.build, applySort, clearSortValues))
 	controls.sort.shown = function()
 		return sourceList[controls.source.selIndex].sourceId ~= "CUSTOM"
 	end

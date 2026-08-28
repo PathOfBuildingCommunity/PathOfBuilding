@@ -495,7 +495,7 @@ end
 -- Estimate the offensive and defensive power of all unallocated nodes
 function CalcsTabClass:PowerBuilder()
 	-- local timer_start = GetTime()
-	local useFullDPS = self.powerStat and self.powerStat.stat == "FullDPS"
+	local useFullDPS = self.powerStat and data.powerStatList.RequiresFullDPS(self.powerStat, self.build)
 	local calcFunc, calcBase = self:GetMiscCalculator()
 	local cache = { }
 	local distanceMap = { }
@@ -740,8 +740,8 @@ function CalcsTabClass:PowerBuilder()
 end
 
 function CalcsTabClass:CalculatePowerStat(selection, original, modified)
-	local originalValue = data.powerStatList.GetFromOutput(original, selection)
-	local modifiedValue = data.powerStatList.GetFromOutput(modified, selection)
+	local originalValue = data.powerStatList.GetValue(original, selection, self.build, modified)
+	local modifiedValue = data.powerStatList.GetValue(modified, selection, self.build, modified)
 	return originalValue - modifiedValue
 end
 
