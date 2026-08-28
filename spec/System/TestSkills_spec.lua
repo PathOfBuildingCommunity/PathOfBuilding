@@ -132,8 +132,12 @@ describe("TestSkills", function()
 		activeSkill = build.calcsTab.mainEnv.player.mainSkill
 		assert.is_true(activeSkill.skillFlags.disable)
 		assert.are.equals("This skill requires reserving Mana", activeSkill.disableReason)
-		assert.are.equals(0, activeSkill.skillData.ManaReservedBase)
+		assert.is_nil(activeSkill.skillData.ManaReservedBase)
+		assert.is_nil(activeSkill.skillData.ManaReservedPercent)
 		assert.is_nil(activeSkill.skillData.LifeReservedBase)
+		assert.are.equals(0, build.calcsTab.mainEnv.player.reserved_ManaPercent)
+		assert.is_nil(build.calcsTab.mainEnv.player.output.ManaReservedPercent)
+		assert.are.equals(0, #build.calcsTab.mainEnv.player.breakdown.ManaReserved.reservations)
 	end)
 	
 	it("Test Scorching ray applying exposure at max stages", function()
