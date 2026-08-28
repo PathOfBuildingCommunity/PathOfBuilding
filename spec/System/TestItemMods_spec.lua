@@ -7,6 +7,50 @@ describe("TetsItemMods", function()
 		-- newBuild() takes care of resetting everything in setup()
 	end)
 
+	local function createCraftedRing()
+		build.itemsTab:CreateDisplayItemFromRaw([[Rarity: Rare
+			Test Ring
+			Amethyst Ring
+			Crafted: true
+			Prefix: None
+			Prefix: None
+			Prefix: None
+			Suffix: None
+			Suffix: None
+			Suffix: None
+			Quality: 12
+			Implicits: 0]])
+		return build.itemsTab.displayItem
+	end
+
+	it("clears catalyst quality when no catalyst is selected", function()
+		local item = createCraftedRing()
+		local controls = build.itemsTab.controls
+		local catalyst = controls.displayItemCatalyst
+		local catalystQuality = controls.displayItemCatalystQualityEdit
+
+		catalyst:SetSel(2)
+		assert.are.equals(1, item.catalyst)
+		assert.are.equals(20, item.catalystQuality)
+		catalystQuality:SetText("17", true)
+		assert.are.equals(17, item.catalystQuality)
+		assert.is_truthy(item:BuildRaw():match("Catalyst: Abrasive"))
+		assert.is_truthy(item:BuildRaw():match("CatalystQuality: 17"))
+
+		catalyst:SetSel(1)
+		assert.are.equals(0, item.catalyst)
+		assert.is_nil(item.catalystQuality)
+		assert.are.equals("0", catalystQuality.buf)
+		assert.is_nil(item:BuildRaw():match("Catalyst:"))
+		assert.is_nil(item:BuildRaw():match("CatalystQuality:"))
+
+		item.catalystQuality = 20
+		build.itemsTab:SetDisplayItem(item)
+		assert.is_nil(item.catalystQuality)
+		assert.are.equals("0", catalystQuality.buf)
+		assert.is_nil(item:BuildRaw():match("CatalystQuality:"))
+	end)
+
 	it("shows versioned reusable variant groups", function()
 		build.itemsTab:CreateDisplayItemFromRaw([[
 			Rarity: Unique
