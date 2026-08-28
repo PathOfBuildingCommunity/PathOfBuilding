@@ -76,16 +76,18 @@ describe("WeightedScore module", function()
 				label = "fallback",
 				base = { TotalDPS = 500, TotalDotDPS = 200, CombinedDPS = 300 },
 				candidate = { TotalDPS = 750, TotalDotDPS = 300, CombinedDPS = 450 },
+				expected = 1.5,
 			},
 			{
 				label = "direct FullDPS",
 				base = { FullDPS = 1000, TotalDPS = 500, TotalDotDPS = 200, CombinedDPS = 300 },
-				candidate = { FullDPS = 1500, TotalDPS = 750, TotalDotDPS = 300, CombinedDPS = 450 },
+				candidate = { FullDPS = 1250, TotalDPS = 750, TotalDotDPS = 300, CombinedDPS = 450 },
+				expected = 1.25,
 			},
 		}
 		local weights = { { stat = "FullDPS", weightMult = 1.0 } }
 		for _, case in ipairs(cases) do
-			assert.are.equal(1.5, WeightedScore.computeRatioScore(case.base, case.candidate, weights), case.label)
+			assert.are.equal(case.expected, WeightedScore.computeRatioScore(case.base, case.candidate, weights), case.label)
 		end
 	end)
 
