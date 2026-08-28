@@ -1976,6 +1976,11 @@ function calcs.perform(env, skipEHP)
 		breakdown.ManaReserved = { reservations = { } }
 	end
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
+		local forcedManaReservation = activeSkill.skillData.ManaReservationPercentForced
+		if forcedManaReservation and m_ceil((output.Mana or 0) * forcedManaReservation / 100) == 0 then
+			activeSkill.skillFlags.disable = true
+			activeSkill.disableReason = "This skill requires reserving Mana"
+		end
 		if (activeSkill.skillTypes[SkillType.HasReservation] or activeSkill.skillData.triggeredByAutoexertion ) and not activeSkill.skillTypes[SkillType.ReservationBecomesCost] and not activeSkill.skillFlags.disable then
 			local skillModList = activeSkill.skillModList
 			local skillCfg = activeSkill.skillCfg
@@ -2080,10 +2085,6 @@ function calcs.perform(env, skipEHP)
 				if skillModList:Flag(skillCfg, "HasUncancellableReservation") then
 					env.player["uncancellable_"..name.."Reservation"] = env.player["uncancellable_"..name.."Reservation"] + values.reservedPercent
 				end
-			end
-			if activeSkill.skillData.ManaReservationPercentForced and activeSkill.skillData.ManaReservedBase == 0 then
-				activeSkill.skillFlags.disable = true
-				activeSkill.disableReason = "This skill requires reserving Mana"
 			end
 		end
 	end
