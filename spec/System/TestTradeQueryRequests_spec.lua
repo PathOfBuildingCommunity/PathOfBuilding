@@ -281,6 +281,88 @@ Strict-Transport-Security: max-age=63115200; includeSubDomains; preload]]
 			assert.are.equal("42", itemsById.legacy.weight)
 			assert.are.equal("0", itemsById.empty.weight)
 		end)
+
+		it("reconstructs explicit and crafted affixes for bench craft replacement", function()
+			local function makeTradeApiMod(description, hash, tier, domain)
+				return {
+					description = description, domain = domain or "explicit", hash = "stat." .. hash,
+					mods = { { name = "Test Affix", tier = tier, level = 30 } },
+				}
+			end
+			local response = dkjson.encode({
+				result = { {
+					id = "affix-metadata",
+					listing = { price = { amount = 1, currency = "chaos", type = "~price" },
+						whisper = "hi", account = { name = "seller" } },
+					item = {
+						rarity = "Rare", name = "Test Band", typeLine = "Sapphire Ring",
+						explicitMods = {
+							makeTradeApiMod("+50 to maximum Life", "explicit.life", "P2"),
+							makeTradeApiMod("20% increased Armour", "explicit.armour", "P2"),
+							makeTradeApiMod("+30% to Fire Resistance", "explicit.fire", "S3"),
+							makeTradeApiMod("+30% to Cold Resistance", "explicit.cold", "S3"),
+							makeTradeApiMod("+20 to Dexterity", "crafted.dexterity", "S3", "crafted"),
+							makeTradeApiMod("10% increased Rarity of Items found", "crafted.rarity", "S3", "crafted"),
+						},
+						extended = { hashes = {
+							explicit = {
+								{ "explicit.life", { 0 } }, { "explicit.armour", { 0 } },
+								{ "explicit.fire", { 1 } }, { "explicit.cold", { 2 } },
+							},
+							crafted = { { "crafted.dexterity", { 0 } }, { "crafted.rarity", { 0 } } },
+						} },
+					},
+				} },
+			})
+			local fetchedItems
+			requests.requestQueue.fetch = { }
+			requests:FetchResultBlock("test", function(items) fetchedItems = items end)
+
+			local request = table.remove(requests.requestQueue.fetch, 1)
+			request.callback(response)
+
+			local item = new("Item"):Item(fetchedItems[1].item_string)
+			local modLines = item.explicitModLines
+			assert.are.same({ true, true }, { modLines[1].prefix, modLines[2].prefix })
+			assert.are.equal(modLines[1].modGroup, modLines[2].modGroup)
+			assert.are.same({ true, true, true, true },
+				{ modLines[3].suffix, modLines[4].suffix, modLines[5].suffix, modLines[6].suffix })
+			assert.are_not.equal(modLines[3].modGroup, modLines[4].modGroup)
+			assert.are.same({ true, true }, { modLines[5].crafted, modLines[6].crafted })
+			assert.are.equal(modLines[5].modGroup, modLines[6].modGroup)
+
+			local tradeQuery = new("TradeQuery"):TradeQuery({ itemsTab = { } })
+			local strippedItem = new("Item"):Item(item:BuildRaw())
+			for index = #strippedItem.explicitModLines, 1, -1 do
+				if strippedItem.explicitModLines[index].crafted then
+					table.remove(strippedItem.explicitModLines, index)
+				end
+			end
+			strippedItem = new("Item"):Item(strippedItem:BuildRaw())
+			assert.are.same({ Prefix = 2, Suffix = 1 }, tradeQuery:GetBenchCraftAvailability(strippedItem))
+
+			local availability, craftState = tradeQuery:GetBenchCraftAvailability(item)
+			assert.is_nil(availability)
+			assert.are.same({ count = 1, limit = 1 }, craftState)
+
+			local replacementCraft = { type = "Suffix", group = "Strength",
+				modTags = { "attribute" }, types = { Ring = true }, "+(21-25) to Strength" }
+			tradeQuery.tradeQueryGenerator = new("TradeQueryGenerator"):TradeQueryGenerator({ itemsTab = { } })
+			tradeQuery.itemsTab.build = { data = { masterMods = { replacementCraft } } }
+			tradeQuery.statSortSelectionList = { { stat = "Life", weightMult = 1 } }
+			tradeQuery.slotTables[1] = { slotName = "Ring 1", considerBenchCraft = true }
+			tradeQuery.resultTbl[1] = { fetchedItems[1] }
+			local evaluation = tradeQuery:GetResultEvaluation(1, 1, function(args)
+				local raw = args.repItem:BuildRaw()
+				local hasStrengthCraft = raw:find("{crafted}", 1, true) and raw:find("to Strength", 1, true)
+				return { Life = hasStrengthCraft and 150 or 100 }
+			end, { Life = 100 })[1]
+
+			assert.is_truthy(evaluation.benchCraft:find("to Strength", 1, true))
+			assert.is_truthy(evaluation.benchCraftReplaced:find("to Dexterity/10% increased Rarity", 1, true))
+			assert.is_nil(evaluation.benchCraftItemString:find("+20 to Dexterity", 1, true))
+			assert.is_nil(evaluation.benchCraftItemString:find("10% increased Rarity", 1, true))
+		end)
 	end)
 
 	describe("FetchResults", function()

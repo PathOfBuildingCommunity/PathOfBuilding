@@ -1306,6 +1306,29 @@ describe("TestAdvancedItemParse #item", function()
 			assert.are.equals(195, chaosDamageInc())
 		end)
 
+		it("calculates catalyst and magnitude scaling for a proposed explicit mod", function()
+			local item = new("Item"):Item([[
+			Rarity: RARE
+			Test Subject
+			Sapphire Ring
+			Catalyst: Intrinsic
+			CatalystQuality: 20
+			Implicits: 0
+			{range:0.5}50% increased effect of prefixes
+			]])
+			item.modMagnitudeMods = {
+				{ tags = { "prefix" }, multiplier = 2 },
+				{ tags = { "prefix" }, quality = 50 },
+			}
+			local attributePrefix = { modTags = { "attribute" }, prefix = true }
+			local attributeSuffix = { modTags = { "attribute" }, suffix = true }
+
+			assert.are.equals(2.9, item:GetModLineValueScalar(attributePrefix, "explicit"))
+			assert.are.equals(1.2, item:GetModLineValueScalar(attributeSuffix, "explicit"))
+			attributePrefix.unscalable = true
+			assert.are.equals(1, item:GetModLineValueScalar(attributePrefix, "explicit"))
+		end)
+
 		-- actually a ring so we don't have to allocate a socket
 		local realJewel = [[
 				Rarity: Rare
