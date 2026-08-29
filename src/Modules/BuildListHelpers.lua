@@ -34,6 +34,22 @@ local function ReadBuildHeader(fullFileName)
 	}
 end
 
+local function ReadBuild(subPath, fileName, modified)
+	local fullFileName = main.buildPath..subPath..fileName
+	local header = ReadBuildHeader(fullFileName)
+	if not header then return end
+	return {
+		fileName = fileName,
+		subPath = subPath,
+		fullFileName = fullFileName,
+		modified = modified,
+		buildName = fileName:gsub("%.xml$",""),
+		level = header.level,
+		className = header.className,
+		ascendClassName = header.ascendClassName,
+	}
+end
+
 local function MatchEntry(entry, terms)
 	for _, term in ipairs(terms) do
 		local termLower = term:lower()
@@ -66,19 +82,9 @@ local function ScanFolder(subPath)
 		local handle = NewFileSearch(main.buildPath..currentSubPath.."*.xml")
 		while handle do
 			local fileName = handle:GetFileName()
-			local fullFileName = main.buildPath..currentSubPath..fileName
-			local header = ReadBuildHeader(fullFileName)
-			if header then
-				t_insert(list, {
-					fileName = fileName,
-					subPath = currentSubPath,
-					fullFileName = fullFileName,
-					modified = handle:GetFileModifiedTime(),
-					buildName = fileName:gsub("%.xml$",""),
-					level = header.level,
-					className = header.className,
-					ascendClassName = header.ascendClassName,
-				})
+			local build = ReadBuild(currentSubPath, fileName, handle:GetFileModifiedTime())
+			if build then
+				t_insert(list, build)
 			end
 
 			if not handle:NextFile() then break end
@@ -108,6 +114,27 @@ local function ScanFolder(subPath)
 
 	scanDir(subPath)
 	return list
+end
+
+local function RefreshBuild(index, subPath, fileName)
+	local fullFileName = main.buildPath..subPath..fileName
+	local handle = NewFileSearch(fullFileName)
+	local build = handle and ReadBuild(subPath, fileName, handle:GetFileModifiedTime())
+	if handle and not build then return end
+
+	for buildIndex, entry in ipairs(index) do
+		if entry.fullFileName == fullFileName then
+			if build then
+				index[buildIndex] = build
+			else
+				table.remove(index, buildIndex)
+			end
+			return
+		end
+	end
+	if build then
+		t_insert(index, build)
+	end
 end
 
 -- Filtering the cached index avoids filesystem work on every keystroke.
@@ -196,6 +223,7 @@ return {
 	buildSortDropList = buildSortDropList,
 	CanMoveToSubPath = CanMoveToSubPath,
 	FilterList = FilterList,
+	RefreshBuild = RefreshBuild,
 	ScanFolder = ScanFolder,
 	SortList = SortList,
 }
