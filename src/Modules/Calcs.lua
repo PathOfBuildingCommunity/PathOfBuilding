@@ -139,6 +139,70 @@ local function getActiveSkillCount(activeSkill)
 	return 1, true
 end
 
+-- Lua tables compare by identity. Returning this same private key for each Totem
+-- source groups them into one global slot pool in the generic Count context.
+local fullDPSTotemPoolKey = { }
+local fullDPSTotemCountPolicy = {
+	getPoolKey = function(activeSkill, enabled)
+		-- Explosive Arrow Ballista occupies the same global slot pool as other Totem
+		-- skills even though its custom DPS function already models active Totems.
+		if enabled
+			and activeSkill.socketGroup
+			and activeSkill.socketGroup.includeInFullDPS
+			and activeSkill.skillFlags
+			and activeSkill.skillFlags.totem == true then
+			return fullDPSTotemPoolKey
+		end
+	end,
+	resolveCount = function(env, activeSkill, sourceCount)
+		-- TotemsSummoned / ActiveTotemLimit is a global slot pool. With more than one
+		-- participating source (including Explosive Arrow), allocating it to one skill
+		-- would be ambiguous, so the manual Count remains authoritative.
+		if not env.configInput.fullDPSAutoTotems
+			or sourceCount ~= 1
+			or activeSkill.activeEffect.grantedEffect.explosiveArrowFunc then
+			return
+		end
+		local output = env.player.output
+		return output.TotemsSummoned or output.ActiveTotemLimit
+	end,
+}
+
+-- A policy returns the same pool key for every source that shares a limited pool.
+-- resolveCount returns an automatic Count or nil to keep the manual Count. Policies
+-- are ordered; the first policy that returns a pool key owns the skill.
+local fullDPSCountPolicies = {
+	fullDPSTotemCountPolicy,
+}
+
+local function buildFullDPSCountContext(activeSkillList)
+	local context = { sourceCountByPoolKey = { } }
+	for _, activeSkill in ipairs(activeSkillList) do
+		local _, enabled = getActiveSkillCount(activeSkill)
+		for _, policy in ipairs(fullDPSCountPolicies) do
+			local poolKey = policy.getPoolKey(activeSkill, enabled)
+			if poolKey then
+				context.sourceCountByPoolKey[poolKey] = (context.sourceCountByPoolKey[poolKey] or 0) + 1
+				break
+			end
+		end
+	end
+	return context
+end
+
+local function resolveFullDPSCount(env, activeSkill, activeSkillCount, context)
+	if activeSkillCount ~= 1 then
+		return activeSkillCount
+	end
+	for _, policy in ipairs(fullDPSCountPolicies) do
+		local poolKey = policy.getPoolKey(activeSkill, true)
+		if poolKey then
+			return policy.resolveCount(env, activeSkill, context.sourceCountByPoolKey[poolKey] or 0) or activeSkillCount
+		end
+	end
+	return activeSkillCount
+end
+
 function calcs.calcFullDPS(build, mode, override, specEnv)
 	local fullEnv, cachedPlayerDB, cachedEnemyDB, cachedMinionDB = calcs.initEnv(build, mode, override, specEnv)
 	local usedEnv = nil
@@ -164,7 +228,9 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 	local igniteSource = ""
 	local burningGroundSource = ""
 	local causticGroundSource = ""
-	
+
+	local fullDPSCountContext = buildFullDPSCountContext(fullEnv.player.activeSkillList)
+
 	for _, activeSkill in ipairs(fullEnv.player.activeSkillList) do
 		if activeSkill.socketGroup and activeSkill.socketGroup.includeInFullDPS then
 			local activeSkillCount, enabled = getActiveSkillCount(activeSkill)
@@ -172,6 +238,7 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 				fullEnv.player.mainSkill = activeSkill
 				calcs.perform(fullEnv, true)
 				usedEnv = fullEnv
+				activeSkillCount = resolveFullDPSCount(fullEnv, activeSkill, activeSkillCount, fullDPSCountContext)
 				local minionName = nil
 				if activeSkill.minion or usedEnv.minion then
 					if usedEnv.minion.output.TotalDPS and usedEnv.minion.output.TotalDPS > 0 then
