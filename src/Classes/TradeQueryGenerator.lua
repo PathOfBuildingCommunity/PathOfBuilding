@@ -1391,7 +1391,7 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 	if supportsBenchCraft then
 		controls.considerBenchCraft = new("CheckBoxControl"):CheckBoxControl({ "TOPRIGHT", lastItemAnchor, "BOTTOMRIGHT" },
 			{ 0, 5, 18 }, "Bench Craft:", function(state) end,
-			"Searches for one empty affix and ranks each result using its best compatible bench craft or replacement.")
+			"Considers bench craft potential when searching for and ranking items.")
 		controls.considerBenchCraft.state = self.lastConsiderBenchCraft == true
 		updateLastAnchor(controls.considerBenchCraft)
 	end
