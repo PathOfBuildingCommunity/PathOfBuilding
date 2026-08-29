@@ -139,6 +139,8 @@ local function getActiveSkillCount(activeSkill)
 	return 1, true
 end
 
+-- Lua tables compare by identity. Returning this same private key for each Totem
+-- source groups them into one global slot pool in the generic Count context.
 local fullDPSTotemPoolKey = { }
 local fullDPSTotemCountPolicy = {
 	getPoolKey = function(activeSkill, enabled)
