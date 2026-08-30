@@ -77,6 +77,8 @@ function PassiveSpecClass:Init(treeVersion, convert)
 	self.ignoredNodes = { }
 	self.ignoreAllocatingSubgraph = false
 	self.checkNodeLinks = false
+	---@type table<number, Node[]> Nodes sorted by distance from the source of the graph
+	self.neighboursForNode = {}
 	local previousTreeNodes = { }
 	if convert then
 		previousTreeNodes = self.build.spec.nodes
@@ -927,8 +929,6 @@ function PassiveSpecClass:CountAllocNodes()
 	return used, ascUsed, secondaryAscUsed, sockets
 end
 
----@type table<number, Node[]> Nodes sorted by distance from the source of the graph
-local neighboursForNode = {}
 -- Attempt to find a class start node starting from the given node
 -- Unless noAscent == true it will also look for an ascendancy class start node
 function PassiveSpecClass:FindStartFromNode(node, visited, noAscend)
@@ -936,7 +936,7 @@ function PassiveSpecClass:FindStartFromNode(node, visited, noAscend)
 	node.visited = true
 	t_insert(visited, node)
 	local nodeAscendancy = node.ascendancyName
-	local neighbours = neighboursForNode[node.id] or node.linked
+	local neighbours = self.neighboursForNode[node.id] or node.linked
 	-- For each node which is connected to this one, check if...
 	for i = 1, #neighbours do
 		local other = neighbours[i]
@@ -1363,7 +1363,7 @@ function PassiveSpecClass:SortNodesByStartDist()
 			end
 			return a.id < b.id
 		end)
-		neighboursForNode[id] = sorted
+		self.neighboursForNode[id] = sorted
 	end
 end
 
