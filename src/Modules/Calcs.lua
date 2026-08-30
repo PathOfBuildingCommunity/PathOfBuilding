@@ -82,9 +82,13 @@ end
 ---@field conditions string[]?
 ---@field extraJewelFuncs ModList?
 
+---@class MiscCalculatorOptions
+---@field skipEHP boolean? Skip effective hit pool and maximum hit estimations.
+---@field skipFullDPS boolean? Skip the Full DPS roll-up.
+
 -- Get calculator for other changes (adding/removing nodes, items, gems, etc)
 ---@param build Build
----@return fun(override?: CalcOverride, useFullDPS?: boolean): Output calcFunc
+---@return fun(override?: CalcOverride, useFullDPS?: boolean, options?: MiscCalculatorOptions): Output calcFunc
 ---@return Output output
 function calcs.getMiscCalculator(build)
 	-- Run base calculation pass
@@ -97,10 +101,11 @@ function calcs.getMiscCalculator(build)
 		env.player.output.FullDPS = fullDPS.combinedDPS
 		env.player.output.FullDotDPS = fullDPS.TotalDotDPS
 	end
-	return function(override, useFullDPS)
+	return function(override, useFullDPS, options)
 		local env, cachedPlayerDB, cachedEnemyDB, cachedMinionDB = calcs.initEnv(build, "CALCULATOR", override)
-		calcs.perform(env)
-		if (useFullDPS ~= false or build.viewMode == "TREE") and usedFullDPS then
+		calcs.perform(env, options and options.skipEHP)
+		local calculateFullDPS = not (options and options.skipFullDPS) and (useFullDPS ~= false or build.viewMode == "TREE")
+		if calculateFullDPS and usedFullDPS then
 			-- prevent upcoming calculation from using Cached Data and thus forcing it to re-calculate new FullDPS roll-up 
 			-- without this, FullDPS increase/decrease when for node/item/gem comparison would be all 0 as it would be comparing
 			-- A with A (due to cache reuse) instead of A with B
