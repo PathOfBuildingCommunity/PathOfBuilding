@@ -2676,7 +2676,7 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 					local impact = self.primaryBuild.calcsTab:CalculatePowerStat(powerStat, output, calcBase)
 					local pathDist = pNode.pathDist or 0
 					if pathDist == 0 then
-						pathDist = #(pNode.path or {})
+						pathDist = pNode.pathLen or 0
 						if pathDist == 0 then pathDist = 1 end
 					end
 					local perPoint = impact / pathDist

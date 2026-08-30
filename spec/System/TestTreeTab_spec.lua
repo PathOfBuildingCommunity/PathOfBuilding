@@ -69,12 +69,11 @@ describe("TreeTab", function()
 				{ effect = 101 },
 				{ effect = 102 },
 			},
-			path = { parentNode, false },
+			pathParent = parentNode,
+			pathLen = 2,
 			x = 10,
 			y = 20,
 		}
-		masteryNode.path[2] = masteryNode
-
 		treeTab.build.displayStats = {
 			{ stat = "Damage", label = "Damage", fmt = ".1f" },
 		}
