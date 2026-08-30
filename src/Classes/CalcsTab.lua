@@ -534,10 +534,11 @@ function CalcsTabClass:PowerBuilder()
 		return not assignedNodeId or assignedNodeId == node.id
 	end
 
+	---@param node Node
 	local function calculateAddNodePower(power, distance, node, output, buildPathNodes)
 		if self.powerStat and self.powerStat.stat and not self.powerStat.ignoreForNodes then
 			power.singleStat = self:CalculatePowerStat(self.powerStat, output, calcBase)
-			if node.path and not node.ascendancyName then
+			if node.pathLen and not node.ascendancyName then
 				newPowerMax.singleStat = m_max(newPowerMax.singleStat, power.singleStat)
 				power.pathPower = power.singleStat
 				if distance > 1 then
@@ -547,7 +548,7 @@ function CalcsTabClass:PowerBuilder()
 		elseif not self.powerStat or not self.powerStat.ignoreForNodes then
 			power.offence, power.defence = self:CalculateCombinedOffDefStat(output, calcBase)
 			power.singleStat = power.offence
-			if node.path and not node.ascendancyName then
+			if node.pathLen and not node.ascendancyName then
 				newPowerMax.offence = m_max(newPowerMax.offence, power.offence)
 				newPowerMax.defence = m_max(newPowerMax.defence, power.defence)
 				newPowerMax.offencePerPoint = m_max(newPowerMax.offencePerPoint, power.offence / distance)
@@ -609,6 +610,7 @@ function CalcsTabClass:PowerBuilder()
 			break
 		end
 		for nodeId, node in pairs(nodes) do
+			---@cast node Node
 			if not node.alloc and node.modKey ~= "" and not self.mainEnv.grantedPassives[nodeId] then
 				if not cache[node.modKey] then
 					cache[node.modKey] = calcFunc({ addNodes = { [node] = true } }, useFullDPS)
@@ -616,8 +618,10 @@ function CalcsTabClass:PowerBuilder()
 				local output = cache[node.modKey]
 				calculateAddNodePower(node.power, distance, node, output, function()
 					local pathNodes = { }
-					for _, pathNode in pairs(node.path) do
-						pathNodes[pathNode] = true
+					local currentNode = node
+					while currentNode and currentNode.pathLen > 0 do
+						pathNodes[currentNode] = true
+						currentNode = currentNode.pathParent
 					end
 					return pathNodes
 				end)
@@ -679,10 +683,10 @@ function CalcsTabClass:PowerBuilder()
 							local pathNodes = {
 								[effectNode] = true
 							}
-							for _, pathNode in pairs(node.path) do
-								if pathNode ~= node then
-									pathNodes[pathNode] = true
-								end
+							local currentNode = node.pathParent
+							while currentNode and currentNode.pathLen > 0 do
+								pathNodes[currentNode] = true
+								currentNode = currentNode.pathParent
 							end
 							return pathNodes
 						end)

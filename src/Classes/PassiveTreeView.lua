@@ -299,6 +299,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		self.tracePath = nil
 	end
 
+	---@type Node?
 	local hoverNode
 	local hoverCompareNode -- Track compare-only node hover separately
 	if mOver then
@@ -334,17 +335,17 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 	self.hoverNode = hoverNode
 	-- If hovering over a node, find the path to it (if unallocated) or the list of dependent nodes (if allocated)
 	local hoverPath, hoverDep
+	-- Path tracing mode is enabled
 	if self.traceMode then
-		-- Path tracing mode is enabled
-		if hoverNode then
-			if not hoverNode.path then
+		-- Mastery nodes cannot be traced through as they are allocated through
+		-- a popup, and cannot be pathed out of
+		if hoverNode and hoverNode.type ~= "Mastery" then
+			if not hoverNode.pathLen then
 				-- Don't highlight the node if it can't be pathed to
 				hoverNode = nil
 			elseif not self.tracePath[1] then
 				-- Initialise the trace path using this node's path
-				for _, pathNode in ipairs(hoverNode.path) do
-					t_insert(self.tracePath, 1, pathNode)
-				end
+				self.tracePath = build.spec:WalkNodePathToArray(hoverNode, true)
 			else
 				local lastPathNode = self.tracePath[#self.tracePath]
 				if hoverNode ~= lastPathNode then
@@ -355,8 +356,6 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 							-- Node is already in the trace path, remove it first
 							t_remove(self.tracePath, index)
 							t_insert(self.tracePath, hoverNode)
-						elseif lastPathNode.type == "Mastery" then
-							hoverNode = nil
 						else
 							t_insert(self.tracePath, hoverNode)
 						end
@@ -371,12 +370,14 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		for _, pathNode in pairs(self.tracePath) do
 			hoverPath[pathNode] = true
 		end
-	elseif hoverNode and hoverNode.path then
+	elseif hoverNode and hoverNode.pathLen then
 		-- Use the node's own path and dependence list
 		hoverPath = { }
 		if #hoverNode.intuitiveLeapLikesAffecting == 0 then
-			for _, pathNode in pairs(hoverNode.path) do
-				hoverPath[pathNode] = true
+			local currentNode = hoverNode
+			while currentNode and currentNode.pathLen > 0 do
+				hoverPath[currentNode] = true
+				currentNode = currentNode.pathParent
 			end
 		end
 		hoverDep = { }
@@ -507,11 +508,11 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				end
 				
 				-- Normal node allocation (non-ascendancy or same ascendancy)
-				if hoverNode.path and not hoverNode.alloc then
+				if hoverNode.pathLen and not hoverNode.alloc then
 					if hoverNode.type == "Mastery" and hoverNode.masteryEffects then
 						build.treeTab:OpenMasteryPopup(hoverNode, viewPort)
 					else
-						spec:AllocNode(hoverNode, self.tracePath and hoverNode == self.tracePath[#self.tracePath] and self.tracePath)
+						spec:AllocNode(hoverNode, self.tracePath and hoverNode == self.tracePath[#self.tracePath] and self.tracePath or nil)
 						spec:AddUndoState()
 						build.buildFlag = true
 					end
@@ -1683,7 +1684,7 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build, returnEarly)
 	if self.showStatDifferences then
 		local calcFunc, calcBase = build.calcsTab:GetMiscCalculator(build)
 		tooltip:AddSeparator(14)
-		local path = (node.alloc and node.depends) or self.tracePath or node.path or { }
+		local path = (node.alloc and node.depends) or self.tracePath or build.spec:WalkNodePathToArray(node)
 		local pathLength = #path
 		local pathNodes = { }
 		for _, node in pairs(path) do
@@ -1735,14 +1736,14 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build, returnEarly)
 
 	-- Pathing distance
 	tooltip:AddSeparator(14)
-	if node.path and #node.path > 0 then
+	if node.pathLen and node.pathLen > 0 then
 		if self.traceMode and isValueInArray(self.tracePath, node) then
 			tooltip:AddLine(14, "^7"..#self.tracePath .. " nodes in trace path")
 			tooltip:AddLine(14, colorCodes.TIP)
 		else
 			tooltip:AddLine(14, "^7"..node.pathDist .. " points to node" .. (#node.intuitiveLeapLikesAffecting > 0 and " ^8(Can be allocated without pathing to it)" or ""))
 			tooltip:AddLine(14, colorCodes.TIP)
-			if #node.path > 1 then
+			if node.pathLen > 1 then
 				-- Handy hint!
 				tooltip:AddLine(14, "Tip: To reach this node by a different path, hold Shift, then trace the path and click this node")
 			end

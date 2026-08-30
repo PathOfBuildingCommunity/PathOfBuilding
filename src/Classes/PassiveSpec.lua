@@ -16,6 +16,41 @@ local b_rshift = bit.rshift
 local band = bit.band
 local bor = bit.bor
 
+-- Incomplete: tree data puts a lot more on a node than this
+---@class Node
+---@field id integer
+---@field type "Normal"|"Notable"|"Keystone"|"Mastery"|"Socket"|"ClassStart"|"AscendClassStart"
+---@field dn string
+---@field sd string[]
+---@field icon string
+---@field group table
+---@field x number
+---@field y number
+---@field rsq number
+---@field ascendancyName string?
+---@field linked Node[]
+---@field linkedId integer[]
+---@field mods table[]
+---@field modList ModList
+---@field modKey string
+---@field alloc boolean
+---@field visited boolean Used by BuildAllDependsAndPaths path finding
+---@field depends Node[] nodes that reach the tree only through this one
+---@field pathParent Node?
+---@field pathLen integer? Path length to the closest allocated node. Nil if the node cannot be pathed to
+---@field pathDist number Cost to allocate this node
+---@field distanceToClassStart number
+---@field connectedToStart boolean
+---@field intuitiveLeapLikesAffecting Node[] jewel sockets whose radius covers this node
+---@field isJewelSocket boolean
+---@field isMultipleChoiceOption boolean
+---@field isProxy boolean
+---@field isTattoo boolean
+---@field overrideType string?
+---@field expansionJewel table?
+---@field conqueredBy table?
+---@field masteryEffects table?
+---@field power table?
 ---@class PassiveSpec: UndoHandler
 ---@field nodes table<integer, Node>
 ---@field allocNodes table<integer, Node>
@@ -52,7 +87,6 @@ function PassiveSpecClass:Init(treeVersion, convert)
 	for _, treeNode in pairs(self.tree.nodes) do
 		-- Exclude proxy or groupless nodes, as well as expansion sockets
 		if treeNode.group and not treeNode.isProxy and not treeNode.group.isProxy and (not treeNode.expansionJewel or not treeNode.expansionJewel.parent) then
-			---@class Node
 			self.nodes[treeNode.id] = setmetatable({
 				linked = { },
 				power = { }
@@ -775,11 +809,29 @@ function PassiveSpecClass:ResetNodes()
 	wipeTable(self.masterySelections)
 end
 
+---@param node Node
+---@param rev boolean?
+---@return Node[] path Starting from the given node and ending at the closest allocated node
+function PassiveSpecClass:WalkNodePathToArray(node, rev)
+	local path = {}
+	local current = node
+	while current and current.pathLen and current.pathLen > 0 do
+		if rev then
+			table.insert(path, 1, current)
+		else
+			path[#path + 1] = current
+		end
+		current = current.pathParent
+	end
+	return path
+end
 -- Allocate the given node, if possible, and all nodes along the path to the node
 -- An alternate path to the node may be provided, otherwise the default path will be used
 -- The path must always contain the given node, as will be the case for the default path
+---@param node Node
+---@param altPath Node[]?
 function PassiveSpecClass:AllocNode(node, altPath)
-	if not node.path then
+	if not node.pathLen then
 		-- Node cannot be connected to the tree as there is no possible path
 		return
 	end
@@ -791,10 +843,20 @@ function PassiveSpecClass:AllocNode(node, altPath)
 		node.alloc = true
 		self.allocNodes[node.id] = node
 	else
-		for _, pathNode in ipairs(altPath or node.path) do
-			rebuildClusterJewelGraphs = rebuildClusterJewelGraphs or not pathNode.alloc and pathNode.expansionJewel ~= nil
-			pathNode.alloc = true
-			self.allocNodes[pathNode.id] = pathNode
+		if altPath then
+			for _, pathNode in ipairs(altPath) do
+				rebuildClusterJewelGraphs = rebuildClusterJewelGraphs or not pathNode.alloc and pathNode.expansionJewel ~= nil
+				pathNode.alloc = true
+				self.allocNodes[pathNode.id] = pathNode
+			end
+		else
+			local currentNode = node
+			while currentNode and currentNode.pathLen > 0 do
+				rebuildClusterJewelGraphs = rebuildClusterJewelGraphs or not currentNode.alloc and currentNode.expansionJewel ~= nil
+				currentNode.alloc = true
+				self.allocNodes[currentNode.id] = currentNode
+				currentNode = currentNode.pathParent
+			end
 		end
 	end
 
@@ -1308,10 +1370,11 @@ end
 -- Multi-source 0-1 BFS to find what other root (i.e., allocated) nodes each node is closest to
 ---@param roots Node[] A list of currently allocated, and other nodes which should be considered as the sources of distances.
 function PassiveSpecClass:BuildNodePathsToRootNodes(roots)
+	---@type Node[]
 	local queue = {}
 	for _, node in ipairs(roots) do
 		node.pathDist = 0
-		node.path = wipeTable(node.path)
+		node.pathLen = 0
 		t_insert(queue, node)
 	end
 	local queueStart = 1
@@ -1321,7 +1384,6 @@ function PassiveSpecClass:BuildNodePathsToRootNodes(roots)
 		queueStart = queueStart + 1
 		local linked = node.linked
 		local nodeDist = node.pathDist
-		local nodePath = node.path
 		for i = 1, #linked do
 			local other = linked[i]
 			local weight = other.alloc and 0 or 1
@@ -1343,12 +1405,8 @@ function PassiveSpecClass:BuildNodePathsToRootNodes(roots)
 				end
 
 				other.pathDist = distViaNode
-				local path = wipeTable(other.path)
-				path[1] = other
-				for pathIndex = 1, #nodePath do
-					path[pathIndex + 1] = nodePath[pathIndex]
-				end
-				other.path = path
+				other.pathLen = node.pathLen + 1
+				other.pathParent = node
 			end
 		end
 	end
@@ -1739,7 +1797,8 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 	-- Reset and rebuild all node paths
 	for _, node in pairs(self.nodes) do
 		node.pathDist = (node.alloc and #node.intuitiveLeapLikesAffecting == 0) and 0 or 1000
-		node.path = nil
+		node.pathParent = nil
+		node.pathLen = nil
 		if node.isJewelSocket or node.expansionJewel then
 			node.distanceToClassStart = 0
 		end
