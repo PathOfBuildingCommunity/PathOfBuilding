@@ -257,6 +257,11 @@ describe("TestOffence", function()
 
 		-- Arc is pure lightning, so the player can no longer deal damage with it
 		assert.are.equals(0, build.calcsTab.calcsOutput.LightningMax)
+		local lightningBreakdown = build.calcsTab.calcsEnv.player.breakdown.Lightning
+		assert.are.equals("You can't deal Lightning damage", lightningBreakdown[1])
+		assert.are.equals(1, #lightningBreakdown.modList)
+		assert.are.equals("DealNoLightning", lightningBreakdown.modList[1].mod.name)
+		assert.matches("^Item:%d+:New Item", lightningBreakdown.modList[1].mod.source)
 	end)
 
 	it("keeps deal no non-elemental damage as its own literal", function()
