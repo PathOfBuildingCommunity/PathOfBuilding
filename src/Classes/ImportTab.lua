@@ -11,8 +11,6 @@ local band = bit.band
 local m_max = math.max
 local dkjson = require "dkjson"
 
-
-
 local influenceInfo = itemLib.influenceInfo.all
 
 local realmList = {
@@ -1337,13 +1335,22 @@ local function applySocketGroupReimportState(socketGroup, state)
 	end
 end
 
+local function isAnimateGuardianGem(gem)
+	if not gem then
+		return false
+	end
+	local name = gem.nameSpec or (gem.gemData and gem.gemData.name) or (gem.grantedEffect and gem.grantedEffect.name)
+	return name == "Animate Guardian"
+end
+
 local GUARD_ITEM_SET = "Animate Guardian"
--- Locates AG's item set from the import
+
 function ImportTabClass:GetOrCreateGuardianItemSet()
 	local itemsTab = self.build.itemsTab
+	local activeItemSetId = itemsTab.activeItemSetId
 	for _, itemSetId in ipairs(itemsTab.itemSetOrderList) do
 		local itemSet = itemsTab.itemSets[itemSetId]
-		if itemSet.title == GUARD_ITEM_SET then
+		if itemSet and itemSet.title == GUARD_ITEM_SET and itemSet.id ~= activeItemSetId then
 			return itemSet
 		end
 	end
@@ -1353,12 +1360,11 @@ function ImportTabClass:GetOrCreateGuardianItemSet()
 	return itemSet
 end
 
--- Allocates AG's item set for the AG skill gem.
 function ImportTabClass:AssignGuardianItemSet(itemSetId)
 	local itemsTab = self.build.itemsTab
 	for _, socketGroup in ipairs(self.build.skillsTab.socketGroupList) do
 		for _, gem in ipairs(socketGroup.gemList) do
-			if gem.grantedEffect and gem.grantedEffect.name == "Animate Guardian" then
+			if isAnimateGuardianGem(gem) then
 				for _, suffix in ipairs({ "", "Calcs" }) do
 					local current = gem["skillMinionItemSet"..suffix]
 					local currentSet = current and itemsTab.itemSets[current]
@@ -1381,9 +1387,29 @@ end
 function ImportTabClass:ImportItemsAndSkills(charData, clearItems, clearSkills, ignoreWeaponSwap)
 	charData = copyTable(charData)
 	if clearItems then
-		for _, slot in pairs(self.build.itemsTab.slots) do
-			if slot.selItemId ~= 0 and not slot.nodeId then
-				self.build.itemsTab:DeleteItem(self.build.itemsTab.items[slot.selItemId])
+		local itemsTab = self.build.itemsTab
+		local preservedItemIds = { }
+		for _, itemSetId in ipairs(itemsTab.itemSetOrderList) do
+			if itemSetId ~= itemsTab.activeItemSetId then
+				local itemSet = itemsTab.itemSets[itemSetId]
+				for _, slot in pairs(itemSet) do
+					if type(slot) == "table" and slot.selItemId and slot.selItemId ~= 0 then
+						preservedItemIds[slot.selItemId] = true
+					end
+				end
+			end
+		end
+		for _, slot in ipairs(itemsTab.orderedSlots) do
+			if not slot.nodeId then
+				local itemSlot = itemsTab.activeItemSet[slot.slotName]
+				local itemId = itemSlot and itemSlot.selItemId or 0
+				if itemId ~= 0 then
+					if preservedItemIds[itemId] then
+						itemSlot.selItemId = 0
+					else
+						itemsTab:DeleteItem(itemsTab.items[itemId])
+					end
+				end
 			end
 		end
 	end
@@ -1415,8 +1441,10 @@ function ImportTabClass:ImportItemsAndSkills(charData, clearItems, clearSkills, 
 	for _, itemData in ipairs(charData.equipment) do
 		self:ImportItem(itemData, nil, ignoreWeaponSwap)
 	end
+	local guardianSetId
 	if charData.guardian and charData.guardian[1] then
 		local guardianSet = self:GetOrCreateGuardianItemSet()
+		guardianSetId = guardianSet.id
 		for _, itemData in ipairs(charData.guardian) do
 			self:ImportItem(itemData, nil, ignoreWeaponSwap, guardianSet.id)
 		end
@@ -1474,6 +1502,9 @@ function ImportTabClass:ImportItemsAndSkills(charData, clearItems, clearSkills, 
 		if restoredMainSocketGroup then
 			self.build.mainSocketGroup = restoredMainSocketGroup
 		end
+	end
+	if guardianSetId then
+		self:AssignGuardianItemSet(guardianSetId)
 	end
 	if mainSkillEmpty then
 		self.build.mainSocketGroup = self:GuessMainSocketGroup()
@@ -1812,10 +1843,13 @@ function ImportTabClass:ImportItem(itemData, slotName, ignoreWeaponSwap, itemSet
 		else
 			self.build.itemsTab:AddItem(item, true)
 		end
-		if itemSetId and itemSetId ~= self.build.itemsTab.activeItemSetId then
-			self.build.itemsTab.itemSets[itemSetId][slotName].selItemId = item.id
+		if itemSetId then
+			local itemSet = assert(self.build.itemsTab.itemSets[itemSetId], "Missing imported item set: "..tostring(itemSetId))
+			local targetSlotName = self.build.itemsTab:GetItemSetSlotName(slotName, itemSet)
+			local targetSlot = assert(itemSet[targetSlotName], "Missing imported item slot: "..targetSlotName)
+			targetSlot.selItemId = item.id
 		else
-			self.build.itemsTab.slots[slotName]:SetSelItemId(item.id)
+			self.build.itemsTab.slots[slotName]:SetSelItemId(item.id, self.build.itemsTab.activeItemSet)
 		end
 	end
 end

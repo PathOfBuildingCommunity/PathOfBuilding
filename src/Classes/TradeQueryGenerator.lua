@@ -11,6 +11,7 @@ local s_format = string.format
 local t_insert = table.insert
 local tradeHelpers = require("Classes.TradeHelpers")
 local utils = require("Modules.Utils")
+local MercenaryTools = require("Modules.MercenaryTools")
 
 -- a table which tells us what subtypes each category we can search for
 -- contains. the commented out lines are type-subtype combinations which don't
@@ -592,7 +593,12 @@ function TradeQueryGeneratorClass:GenerateModWeights(modsToTest)
 				logToFile("Failed to test %s mod: %s", self.calcContext.itemCategory, modLine)
 			end
 
-			local output = self.calcContext.calcFunc({ repSlotName = self.calcContext.slot.slotName, repItem = self.calcContext.testItem })
+			local output = self.calcContext.calcFunc(MercenaryTools.itemCalculationOverride(
+				self.calcContext.itemSetId,
+				self.calcContext.slot.slotName,
+				self.calcContext.testItem,
+				self.itemsTab
+			))
 			local meanStatDiff = TradeQueryGeneratorClass.WeightedRatioOutputs(self.calcContext.baseOutput, output, self.calcContext.options.statWeights) * 1000 - (self.calcContext.baseStatValue or 0)
 			if meanStatDiff > 0.01 then
 				t_insert(self.modWeights, { tradeModId = entry.tradeMod.id, weight = meanStatDiff / modValue, meanStatDiff = meanStatDiff, invert = entry.sign == "-" and true or false })
@@ -764,8 +770,23 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
 	local testItem = new("Item"):Item(itemRawStr)
 
 	-- Calculate base output with a blank item
-	local calcFunc, baseOutput = self.itemsTab.build.calcsTab:GetMiscCalculator()
-	local baseItemOutput = slot and calcFunc({ repSlotName = slot.slotName, repItem = testItem }) or baseOutput
+	local calcFunc, baseOutput, actorOutputs = self.itemsTab.build.calcsTab:GetMiscCalculator()
+	local itemSetId = options.itemSetId or self.itemsTab.viewItemSetId
+	local slotName = slot and slot.slotName
+	local comparisonActor = MercenaryTools.comparisonActorForSlot(slotName, itemSetId, self.itemsTab)
+	if itemSetId then
+		baseOutput = calcFunc({ itemSetId = itemSetId, comparisonActor = comparisonActor })
+	else
+		baseOutput = MercenaryTools.comparisonBaseOutput(baseOutput, actorOutputs, slotName)
+	end
+	if comparisonActor == "MERCENARY" and not MercenaryTools.mercenaryOutputAvailable(baseOutput) then
+		if self.requesterCallback then
+			self.requesterCallback(self.requesterContext, nil, "Mercenary calculation unavailable")
+			main:ClosePopup()
+		end
+		return
+	end
+	local baseItemOutput = slot and calcFunc(MercenaryTools.itemCalculationOverride(itemSetId, slotName, testItem, self.itemsTab)) or baseOutput
 	-- make weights more human readable
 	local compStatValue = TradeQueryGeneratorClass.WeightedRatioOutputs(baseOutput, baseItemOutput, options.statWeights) * 1000
 
@@ -781,6 +802,7 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
 		baseOutput = baseOutput,
 		baseStatValue = compStatValue,
 		calcFunc = calcFunc,
+		itemSetId = itemSetId,
 		options = options,
 		slot = slot,
 		requiredMods = options.requiredMods,
@@ -927,7 +949,12 @@ function TradeQueryGeneratorClass:FinishQuery()
 	end
 	self.calcContext.testItem:BuildAndParseRaw()
 
-	local originalOutput = originalItem and self.calcContext.calcFunc({ repSlotName = self.calcContext.slot.slotName, repItem = self.calcContext.testItem }) or self.calcContext.baseOutput
+	local originalOutput = originalItem and self.calcContext.calcFunc(MercenaryTools.itemCalculationOverride(
+		self.calcContext.itemSetId,
+		self.calcContext.slot.slotName,
+		self.calcContext.testItem,
+		self.itemsTab
+	)) or self.calcContext.baseOutput
 	local currentStatDiff = TradeQueryGeneratorClass.WeightedRatioOutputs(self.calcContext.baseOutput, originalOutput, self.calcContext.options.statWeights) * 1000 - (self.calcContext.baseStatValue or 0)
 	
 	if self.calcContext.options.includeAllWEMods then
@@ -1174,12 +1201,13 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 	local popupHeight = 110
 	local popupWidth = 480
 
-	local isJewelSlot = slot and slot.slotName:find("Jewel") ~= nil
-	local isAbyssalJewelSlot = slot and slot.slotName:find("Abyssal") ~= nil
-	local isAmuletSlot = slot and slot.slotName == "Amulet"
-	local isBeltSlot = slot and slot.slotName == "Belt"
-	local isWeaponSlot = slot and (slot.slotName == "Weapon 1" or slot.slotName == "Weapon 2")
-	local isEldritchModSlot = slot and eldritchModSlots[slot.slotName] == true
+	local slotName = slot and (MercenaryTools.baseItemSlotName(slot.slotName) or slot.slotName)
+	local isJewelSlot = slotName and slotName:find("Jewel") ~= nil
+	local isAbyssalJewelSlot = slotName and slotName:find("Abyssal") ~= nil
+	local isAmuletSlot = slotName == "Amulet"
+	local isBeltSlot = slotName == "Belt"
+	local isWeaponSlot = slotName == "Weapon 1" or slotName == "Weapon 2"
+	local isEldritchModSlot = eldritchModSlots[slotName] == true
 
 	local lastItemAnchor
 	local function updateLastAnchor(anchor, height)
@@ -1424,6 +1452,7 @@ Remove: %s will be removed from the search results.]], term, term, term)
 			options.blockedMods = copyTable(notMods)
 		end
 		options.statWeights = statWeights
+		options.itemSetId = context.slotTbl.itemSetId
 		if controls.jewelSlot then
 			slot = controls.jewelSlot:GetSelValue()
 			-- pass node id back to table so evaluation can use the correct socket instead of the unique pseudo slot

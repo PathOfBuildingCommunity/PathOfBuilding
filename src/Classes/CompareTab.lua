@@ -15,9 +15,55 @@ local calcsHelpers = require("Classes.CompareCalcsHelpers")
 local buildListHelpers = require("Modules.BuildListHelpers")
 local itemSlotHelper = require("Modules.ItemSlotHelper")
 local configVisibility = require("Modules.ConfigVisibility")
+local ConfigScope = require("Modules.ConfigScope")
+local MercenaryTools = require("Modules.MercenaryTools")
 
 -- Node IDs below this value are normal passive tree nodes; IDs at or above are cluster jewel nodes
 local CLUSTER_NODE_OFFSET = 65536
+
+local function getComparisonItemSet(itemsTab)
+	if not itemsTab then return end
+	return itemsTab:GetVisibleItemSet()
+end
+
+local function isMercenaryComparisonSet(itemsTab)
+	return MercenaryTools.comparisonActorForItemSet(itemsTab and itemsTab.viewItemSetId, itemsTab) == "MERCENARY"
+end
+
+local function getComparisonSlotName(itemsTab, slotName)
+	if not itemsTab then return slotName end
+	return itemsTab:GetItemSetSlotName(slotName, itemsTab:GetVisibleItemSet())
+end
+
+local function getActiveItemSetSlot(itemsTab, slotName)
+	return itemsTab and itemsTab:GetItemSetSlot(itemsTab:GetVisibleItemSet(), slotName)
+end
+
+local function getActiveItem(itemsTab, slotName)
+	local itemSlot = getActiveItemSetSlot(itemsTab, slotName)
+	return itemSlot and itemsTab.items and itemsTab.items[itemSlot.selItemId]
+end
+
+local function hasActiveAbyssalSocket(itemsTab, slotName, socketIndex)
+	if not itemsTab then return false end
+	local itemSet = itemsTab:GetVisibleItemSet()
+	local visibleSlotName = itemsTab:GetItemSetSlotName(slotName, itemSet)
+	local slot = itemsTab.slots and (itemsTab.slots[visibleSlotName] or itemsTab.slots[slotName])
+	if slot and slot.weaponSet and itemSet and slot.weaponSet ~= (itemSet.useSecondWeaponSet and 2 or 1) then
+		return false
+	end
+	local item = getActiveItem(itemsTab, slotName)
+	return item and (item.abyssalSocketCount or 0) >= socketIndex
+end
+
+local function getComparisonItemSetOrderList(itemsTab)
+	if not itemsTab then return { } end
+	return itemsTab.itemSetOrderList
+end
+
+local function getComparisonItemSetId(itemsTab)
+	return itemsTab and itemsTab.viewItemSetId
+end
 
 -- Wrap a string into lines for a given pixel width at font height 14 ("VAR").
 -- Breaks BEFORE a word that would exceed the width, so rendered lines never
@@ -173,6 +219,7 @@ function CompareTabClass:CompareTab(primaryBuild)
 	self.configControlList = {}     -- ordered list for layout
 	self.configNeedsRebuild = true  -- trigger initial build
 	self.configCompareId = nil      -- track which compare entry controls were built for
+	self.configViewActor = "player"
 	self.configToggle = false       -- show all / hide ineligible toggle
 	self.configSections = {}        -- section groups from ConfigOptions
 	self.configSectionLayout = {}   -- computed section layout for drawing
@@ -324,8 +371,9 @@ function CompareTabClass:InitControls()
 	self.controls.compareItemSetLabel.shown = setsEnabled
 	self.controls.compareItemSetSelect = new("DropDownControl"):DropDownControl({"LEFT", self.controls.compareItemSetLabel, "RIGHT"}, {2, 0, 150, 20}, {}, function(index, value)
 		local entry = self:GetActiveCompare()
-		if entry and entry.itemsTab and entry.itemsTab.itemSetOrderList[index] then
-			entry:SetActiveItemSet(entry.itemsTab.itemSetOrderList[index])
+		local itemSetOrderList = entry and getComparisonItemSetOrderList(entry.itemsTab)
+		if entry and itemSetOrderList and itemSetOrderList[index] then
+			entry:SetViewItemSet(itemSetOrderList[index], entry.itemsTab.viewComparisonActor)
 		end
 	end)
 	self.controls.compareItemSetSelect.enabled = setsEnabled
@@ -357,6 +405,7 @@ function CompareTabClass:InitControls()
 	self.controls.cmpSocketGroup = new("DropDownControl"):DropDownControl({"LEFT", self.controls.cmpSkillLabel, "RIGHT"}, {4, 0, 200, 20}, {}, function(index, value)
 		local entry = self:GetActiveCompare()
 		if entry then
+			if entry.calcsTab:IsMercenaryActor() then return end
 			entry:SetMainSocketGroup(index)
 		end
 	end)
@@ -369,6 +418,11 @@ function CompareTabClass:InitControls()
 	self.controls.cmpMainSkill = new("DropDownControl"):DropDownControl({"LEFT", self.controls.cmpSocketGroup, "RIGHT"}, {4, 0, 225, 20}, {}, function(index, value)
 		local entry = self:GetActiveCompare()
 		if entry then
+			if entry.calcsTab:IsMercenaryActor() then
+				if value and value.skillId then entry.mercenaryTab.profile.mainSkillId = value.skillId end
+				entry.mercenaryTab:Changed()
+				return
+			end
 			local mainSocketGroup = entry.skillsTab.socketGroupList[entry.mainSocketGroup]
 			if mainSocketGroup then
 				mainSocketGroup.mainActiveSkill = index
@@ -383,6 +437,11 @@ function CompareTabClass:InitControls()
 	self.controls.cmpSkillPart = new("DropDownControl"):DropDownControl({"LEFT", self.controls.cmpMainSkill, "RIGHT"}, {4, 0, 200, 20}, {}, function(index, value)
 		local entry = self:GetActiveCompare()
 		if entry then
+			if entry.calcsTab:IsMercenaryActor() then
+				local skill = entry.calcsTab:GetMercenaryCalcsSkill()
+				if skill then skill.skillPart = index; entry.mercenaryTab:Changed() end
+				return
+			end
 			local mainSocketGroup = entry.skillsTab.socketGroupList[entry.mainSocketGroup]
 			if mainSocketGroup then
 				local displaySkillList = mainSocketGroup.displaySkillList
@@ -404,6 +463,11 @@ function CompareTabClass:InitControls()
 	self.controls.cmpStageCount = new("EditControl"):EditControl({ "LEFT", self.controls.cmpStageCountLabel, "RIGHT" }, { 4, 0, 52, 20 }, "", nil, "%D", 5, function(buf)
 		local entry = self:GetActiveCompare()
 		if entry then
+			if entry.calcsTab:IsMercenaryActor() then
+				local skill = entry.calcsTab:GetMercenaryCalcsSkill()
+				if skill then skill.skillStageCount = tonumber(buf); entry.mercenaryTab:Changed() end
+				return
+			end
 			local mainSocketGroup = entry.skillsTab.socketGroupList[entry.mainSocketGroup]
 			if mainSocketGroup then
 				local displaySkillList = mainSocketGroup.displaySkillList
@@ -425,6 +489,11 @@ function CompareTabClass:InitControls()
 	self.controls.cmpMineCount = new("EditControl"):EditControl({ "LEFT", self.controls.cmpMineCountLabel, "RIGHT" }, { 4, 0, 52, 20 }, "", nil, "%D", 5, function(buf)
 		local entry = self:GetActiveCompare()
 		if entry then
+			if entry.calcsTab:IsMercenaryActor() then
+				local skill = entry.calcsTab:GetMercenaryCalcsSkill()
+				if skill then skill.skillMineCount = tonumber(buf); entry.mercenaryTab:Changed() end
+				return
+			end
 			local mainSocketGroup = entry.skillsTab.socketGroupList[entry.mainSocketGroup]
 			if mainSocketGroup then
 				local displaySkillList = mainSocketGroup.displaySkillList
@@ -468,6 +537,11 @@ function CompareTabClass:InitControls()
 	self.controls.cmpMinionSkill = new("DropDownControl"):DropDownControl({"LEFT", self.controls.cmpMinion, "RIGHT"}, {4, 0, 140, 20}, {}, function(index, value)
 		local entry = self:GetActiveCompare()
 		if entry then
+			if entry.calcsTab:IsMercenaryActor() then
+				local skill = entry.calcsTab:GetMercenaryCalcsSkill()
+				if skill then skill.skillMinionSkill = index; entry.mercenaryTab:Changed() end
+				return
+			end
 			local mainSocketGroup = entry.skillsTab.socketGroupList[entry.mainSocketGroup]
 			if mainSocketGroup then
 				local displaySkillList = mainSocketGroup.displaySkillList
@@ -493,6 +567,7 @@ function CompareTabClass:InitControls()
 	}
 	-- Primary build calcs skill controls
 	self.controls.primCalcsSocketGroup = new("DropDownControl"):DropDownControl(nil, {0, 0, 200, 18}, {}, function(index, value)
+		if self.primaryBuild.calcsTab:IsMercenaryActor() then return end
 		self.primaryBuild.calcsTab.input.skill_number = index
 		self.primaryBuild.buildFlag = true
 	end)
@@ -501,6 +576,11 @@ function CompareTabClass:InitControls()
 	self.controls.primCalcsSocketGroup.enableDroppedWidth = true
 
 	self.controls.primCalcsMainSkill = new("DropDownControl"):DropDownControl(nil, {0, 0, 200, 18}, {}, function(index, value)
+		if self.primaryBuild.calcsTab:IsMercenaryActor() then
+			if value and value.skillId then self.primaryBuild.mercenaryTab.profile.mainSkillId = value.skillId end
+			self.primaryBuild.mercenaryTab:Changed()
+			return
+		end
 		local mainSocketGroup = self.primaryBuild.skillsTab.socketGroupList[self.primaryBuild.calcsTab.input.skill_number]
 		if mainSocketGroup then
 			mainSocketGroup.mainActiveSkillCalcs = index
@@ -510,6 +590,11 @@ function CompareTabClass:InitControls()
 	self.controls.primCalcsMainSkill.shown = false
 
 	self.controls.primCalcsSkillPart = new("DropDownControl"):DropDownControl(nil, {0, 0, 150, 18}, {}, function(index, value)
+		if self.primaryBuild.calcsTab:IsMercenaryActor() then
+			local skill = self.primaryBuild.calcsTab:GetMercenaryCalcsSkill()
+			if skill then skill.skillPart = index; self.primaryBuild.mercenaryTab:Changed() end
+			return
+		end
 		local mainSocketGroup = self.primaryBuild.skillsTab.socketGroupList[self.primaryBuild.calcsTab.input.skill_number]
 		if mainSocketGroup then
 			local displaySkillList = mainSocketGroup.displaySkillListCalcs
@@ -523,6 +608,11 @@ function CompareTabClass:InitControls()
 	self.controls.primCalcsSkillPart.shown = false
 
 	self.controls.primCalcsStageCount = new("EditControl"):EditControl(nil, {0, 0, 52, 18}, "", nil, "%D", 5, function(buf)
+		if self.primaryBuild.calcsTab:IsMercenaryActor() then
+			local skill = self.primaryBuild.calcsTab:GetMercenaryCalcsSkill()
+			if skill then skill.skillStageCount = tonumber(buf); self.primaryBuild.mercenaryTab:Changed() end
+			return
+		end
 		local mainSocketGroup = self.primaryBuild.skillsTab.socketGroupList[self.primaryBuild.calcsTab.input.skill_number]
 		if mainSocketGroup then
 			local displaySkillList = mainSocketGroup.displaySkillListCalcs
@@ -536,6 +626,11 @@ function CompareTabClass:InitControls()
 	self.controls.primCalcsStageCount.shown = false
 
 	self.controls.primCalcsMineCount = new("EditControl"):EditControl(nil, {0, 0, 52, 18}, "", nil, "%D", 5, function(buf)
+		if self.primaryBuild.calcsTab:IsMercenaryActor() then
+			local skill = self.primaryBuild.calcsTab:GetMercenaryCalcsSkill()
+			if skill then skill.skillMineCount = tonumber(buf); self.primaryBuild.mercenaryTab:Changed() end
+			return
+		end
 		local mainSocketGroup = self.primaryBuild.skillsTab.socketGroupList[self.primaryBuild.calcsTab.input.skill_number]
 		if mainSocketGroup then
 			local displaySkillList = mainSocketGroup.displaySkillListCalcs
@@ -548,10 +643,10 @@ function CompareTabClass:InitControls()
 	end)
 	self.controls.primCalcsMineCount.shown = false
 
-	self.controls.primCalcsShowMinion = new("CheckBoxControl"):CheckBoxControl(nil, {0, 0, 18}, nil, function(state)
-		self.primaryBuild.calcsTab.input.showMinion = state
+	self.controls.primCalcsShowMinion = new("DropDownControl"):DropDownControl(nil, {0, 0, 140, 18}, {}, function(index, value)
+		self.primaryBuild.calcsTab.input.actor = value.actorId
 		self.primaryBuild.buildFlag = true
-	end, "Show stats for the minion instead of the player.")
+	end)
 	self.controls.primCalcsShowMinion.shown = false
 
 	self.controls.primCalcsMinion = new("DropDownControl"):DropDownControl(nil, {0, 0, 140, 18}, {}, function(index, value)
@@ -575,6 +670,11 @@ function CompareTabClass:InitControls()
 	self.controls.primCalcsMinion.shown = false
 
 	self.controls.primCalcsMinionSkill = new("DropDownControl"):DropDownControl(nil, {0, 0, 140, 18}, {}, function(index, value)
+		if self.primaryBuild.calcsTab:IsMercenaryActor() then
+			local skill = self.primaryBuild.calcsTab:GetMercenaryCalcsSkill()
+			if skill then skill.skillMinionSkillCalcs = index; self.primaryBuild.mercenaryTab:Changed() end
+			return
+		end
 		local mainSocketGroup = self.primaryBuild.skillsTab.socketGroupList[self.primaryBuild.calcsTab.input.skill_number]
 		if mainSocketGroup then
 			local displaySkillList = mainSocketGroup.displaySkillListCalcs
@@ -597,6 +697,7 @@ function CompareTabClass:InitControls()
 	self.controls.cmpCalcsSocketGroup = new("DropDownControl"):DropDownControl(nil, {0, 0, 200, 18}, {}, function(index, value)
 		local entry = self:GetActiveCompare()
 		if entry then
+			if entry.calcsTab:IsMercenaryActor() then return end
 			entry.calcsTab.input.skill_number = index
 			entry.buildFlag = true
 		end
@@ -608,6 +709,11 @@ function CompareTabClass:InitControls()
 	self.controls.cmpCalcsMainSkill = new("DropDownControl"):DropDownControl(nil, {0, 0, 200, 18}, {}, function(index, value)
 		local entry = self:GetActiveCompare()
 		if entry then
+			if entry.calcsTab:IsMercenaryActor() then
+				if value and value.skillId then entry.mercenaryTab.profile.mainSkillId = value.skillId end
+				entry.mercenaryTab:Changed()
+				return
+			end
 			local mainSocketGroup = entry.skillsTab.socketGroupList[entry.calcsTab.input.skill_number]
 			if mainSocketGroup then
 				mainSocketGroup.mainActiveSkillCalcs = index
@@ -620,6 +726,11 @@ function CompareTabClass:InitControls()
 	self.controls.cmpCalcsSkillPart = new("DropDownControl"):DropDownControl(nil, {0, 0, 150, 18}, {}, function(index, value)
 		local entry = self:GetActiveCompare()
 		if entry then
+			if entry.calcsTab:IsMercenaryActor() then
+				local skill = entry.calcsTab:GetMercenaryCalcsSkill()
+				if skill then skill.skillPart = index; entry.mercenaryTab:Changed() end
+				return
+			end
 			local mainSocketGroup = entry.skillsTab.socketGroupList[entry.calcsTab.input.skill_number]
 			if mainSocketGroup then
 				local displaySkillList = mainSocketGroup.displaySkillListCalcs
@@ -636,6 +747,11 @@ function CompareTabClass:InitControls()
 	self.controls.cmpCalcsStageCount = new("EditControl"):EditControl(nil, {0, 0, 52, 18}, "", nil, "%D", 5, function(buf)
 		local entry = self:GetActiveCompare()
 		if entry then
+			if entry.calcsTab:IsMercenaryActor() then
+				local skill = entry.calcsTab:GetMercenaryCalcsSkill()
+				if skill then skill.skillStageCount = tonumber(buf); entry.mercenaryTab:Changed() end
+				return
+			end
 			local mainSocketGroup = entry.skillsTab.socketGroupList[entry.calcsTab.input.skill_number]
 			if mainSocketGroup then
 				local displaySkillList = mainSocketGroup.displaySkillListCalcs
@@ -652,6 +768,11 @@ function CompareTabClass:InitControls()
 	self.controls.cmpCalcsMineCount = new("EditControl"):EditControl(nil, {0, 0, 52, 18}, "", nil, "%D", 5, function(buf)
 		local entry = self:GetActiveCompare()
 		if entry then
+			if entry.calcsTab:IsMercenaryActor() then
+				local skill = entry.calcsTab:GetMercenaryCalcsSkill()
+				if skill then skill.skillMineCount = tonumber(buf); entry.mercenaryTab:Changed() end
+				return
+			end
 			local mainSocketGroup = entry.skillsTab.socketGroupList[entry.calcsTab.input.skill_number]
 			if mainSocketGroup then
 				local displaySkillList = mainSocketGroup.displaySkillListCalcs
@@ -665,13 +786,13 @@ function CompareTabClass:InitControls()
 	end)
 	self.controls.cmpCalcsMineCount.shown = false
 
-	self.controls.cmpCalcsShowMinion = new("CheckBoxControl"):CheckBoxControl(nil, {0, 0, 18}, nil, function(state)
+	self.controls.cmpCalcsShowMinion = new("DropDownControl"):DropDownControl(nil, {0, 0, 140, 18}, {}, function(index, value)
 		local entry = self:GetActiveCompare()
 		if entry then
-			entry.calcsTab.input.showMinion = state
+			entry.calcsTab.input.actor = value.actorId
 			entry.buildFlag = true
 		end
-	end, "Show stats for the minion instead of the player.")
+	end)
 	self.controls.cmpCalcsShowMinion.shown = false
 
 	self.controls.cmpCalcsMinion = new("DropDownControl"):DropDownControl(nil, {0, 0, 140, 18}, {}, function(index, value)
@@ -700,6 +821,11 @@ function CompareTabClass:InitControls()
 	self.controls.cmpCalcsMinionSkill = new("DropDownControl"):DropDownControl(nil, {0, 0, 140, 18}, {}, function(index, value)
 		local entry = self:GetActiveCompare()
 		if entry then
+			if entry.calcsTab:IsMercenaryActor() then
+				local skill = entry.calcsTab:GetMercenaryCalcsSkill()
+				if skill then skill.skillMinionSkillCalcs = index; entry.mercenaryTab:Changed() end
+				return
+			end
 			local mainSocketGroup = entry.skillsTab.socketGroupList[entry.calcsTab.input.skill_number]
 			if mainSocketGroup then
 				local displaySkillList = mainSocketGroup.displaySkillListCalcs
@@ -784,9 +910,11 @@ function CompareTabClass:InitControls()
 	self.controls.primaryItemSetLabel = new("LabelControl"):LabelControl(nil, {0, 0, 0, 16}, "^7Item set:")
 	self.controls.primaryItemSetLabel.shown = itemsShown
 	self.controls.primaryItemSetSelect = new("DropDownControl"):DropDownControl(nil, {0, 0, 216, 20}, {}, function(index, value)
-		if self.primaryBuild.itemsTab and self.primaryBuild.itemsTab.itemSetOrderList[index] then
-			self.primaryBuild.itemsTab:SetActiveItemSet(self.primaryBuild.itemsTab.itemSetOrderList[index])
-			self.primaryBuild.itemsTab:AddUndoState()
+		local itemSetOrderList = getComparisonItemSetOrderList(self.primaryBuild.itemsTab)
+		if itemSetOrderList and itemSetOrderList[index] then
+			local itemsTab = self.primaryBuild.itemsTab
+			itemsTab:SetViewItemSet(itemSetOrderList[index], itemsTab.viewComparisonActor)
+			itemsTab:AddUndoState()
 		end
 	end)
 	self.controls.primaryItemSetSelect.enabled = itemsShown
@@ -797,8 +925,9 @@ function CompareTabClass:InitControls()
 	self.controls.compareItemSetLabel2.shown = itemsShown
 	self.controls.compareItemSetSelect2 = new("DropDownControl"):DropDownControl(nil, {0, 0, 216, 20}, {}, function(index, value)
 		local entry = self:GetActiveCompare()
-		if entry and entry.itemsTab and entry.itemsTab.itemSetOrderList[index] then
-			entry:SetActiveItemSet(entry.itemsTab.itemSetOrderList[index])
+		local itemSetOrderList = entry and getComparisonItemSetOrderList(entry.itemsTab)
+		if entry and itemSetOrderList and itemSetOrderList[index] then
+			entry:SetViewItemSet(itemSetOrderList[index], entry.itemsTab.viewComparisonActor)
 		end
 	end)
 	self.controls.compareItemSetSelect2.enabled = itemsShown
@@ -963,6 +1092,16 @@ function CompareTabClass:InitControls()
 		return #self.primaryBuild.configTab.configSetOrderList > 1
 	end
 
+	self.controls.configActorLabel = new("LabelControl"):LabelControl(nil, {0, 0, 0, 16}, "^7Actor:")
+	self.controls.configActorLabel.shown = configShown
+	self.controls.configActorSelect = new("DropDownControl"):DropDownControl(nil, {0, 0, 140, 20}, MercenaryTools.configActorList(self.primaryBuild), function(_, value)
+		if value then
+			self.configViewActor = value.id
+		end
+	end)
+	self.controls.configActorSelect.shown = configShown
+	self.controls.configActorSelect.enableDroppedWidth = true
+
 	-- ============================================================
 	-- Compare Power Report controls (Summary view)
 	-- ============================================================
@@ -1089,6 +1228,10 @@ function CompareTabClass:PopulateSetDropdown(tab, orderListField, setsField, act
 	local orderList = tab[orderListField]
 	local sets = tab[setsField]
 	local activeId = tab[activeIdField]
+	if orderListField == "itemSetOrderList" then
+		orderList = getComparisonItemSetOrderList(tab)
+		activeId = getComparisonItemSetId(tab)
+	end
 	if orderList then
 		for index, setId in ipairs(orderList) do
 			local set = sets[setId]
@@ -1130,12 +1273,12 @@ function CompareTabClass:NormalizeConfigVals(varData, pVal, cVal)
 end
 
 -- Create a single config control for a given varData, writing to the specified input/configTab/build
-local function makeConfigControl(varData, inputTable, configTab, buildObj, sourceControl)
+local function makeConfigControl(varData, getInput, configTab, buildObj, sourceControl, getViewActor)
 	local control
-	local pVal = inputTable[varData.var]
+	local pVal = getInput()[varData.var]
 	if varData.type == "check" then
 		control = new("CheckBoxControl"):CheckBoxControl(nil, {0, 0, 18}, nil, function(state)
-			inputTable[varData.var] = state
+			getInput()[varData.var] = state
 			configTab:UpdateControls()
 			configTab:BuildModList()
 			buildObj.buildFlag = true
@@ -1148,7 +1291,7 @@ local function makeConfigControl(varData, inputTable, configTab, buildObj, sourc
 		control = new("EditControl"):EditControl(nil, {0, 0, 90, 18},
 			tostring(pVal or ""), nil, filter, 7,
 			function(buf)
-				inputTable[varData.var] = tonumber(buf)
+				getInput()[varData.var] = tonumber(buf)
 				configTab:UpdateControls()
 				configTab:BuildModList()
 				buildObj.buildFlag = true
@@ -1156,7 +1299,7 @@ local function makeConfigControl(varData, inputTable, configTab, buildObj, sourc
 	elseif varData.type == "list" and varData.list then
 		control = new("DropDownControl"):DropDownControl(nil, {0, 0, 150, 18},
 			varData.list, function(index, value)
-				inputTable[varData.var] = value.val
+				getInput()[varData.var] = value.val
 				configTab:UpdateControls()
 				configTab:BuildModList()
 				buildObj.buildFlag = true
@@ -1165,11 +1308,24 @@ local function makeConfigControl(varData, inputTable, configTab, buildObj, sourc
 	end
 	if control then
 		control.shown = function() return false end
-		-- Reuse tooltip behavior from the source ConfigTab control so compare view
-		-- matches normal Config tab hover help (including dynamic tooltip funcs).
+		-- Copy help text only. The source ConfigTab tooltipFunc closes over that
+		-- tab's viewActor, so Compare must wrap comparison against getViewActor().
+		-- Invoke varData.tooltipFunc (bandit, pantheon, boss skills) rather than
+		-- the source control's wrapped closure.
 		if sourceControl then
 			control.tooltipText = sourceControl.tooltipText
-			control.tooltipFunc = sourceControl.tooltipFunc
+		end
+		control.tooltipFunc = function(tooltip, mode, index, value)
+			tooltip:Clear()
+			if varData.tooltipFunc then
+				varData.tooltipFunc(tooltip, mode, index, value)
+			else
+				local tooltipText = control:GetProperty("tooltipText")
+				if tooltipText and tooltipText ~= '' then
+					tooltip:AddLine(14, tooltipText)
+				end
+			end
+			configTab:AddOptionStatComparison(tooltip, varData, value, getViewActor(), true)
 		end
 	end
 	return control
@@ -1189,9 +1345,12 @@ function CompareTabClass:RebuildConfigControls(compareEntry)
 	if not compareEntry then return end
 
 	local configOptions = self.configOptions
-	local pInput = self.primaryBuild.configTab.input or {}
-	local cInput = compareEntry.configTab.input or {}
 	local primaryBuild = self.primaryBuild
+	local function getInput(configTab, var)
+		return function()
+			return self:ConfigInputTable(configTab, var)
+		end
+	end
 
 	local currentSection = nil
 	for _, varData in ipairs(configOptions) do
@@ -1206,8 +1365,8 @@ function CompareTabClass:RebuildConfigControls(compareEntry)
 		elseif currentSection and varData.var and varData.type ~= "text" then
 			local pSource = self.primaryBuild.configTab.varControls and self.primaryBuild.configTab.varControls[varData.var]
 			local cSource = compareEntry.configTab.varControls and compareEntry.configTab.varControls[varData.var]
-			local pCtrl = makeConfigControl(varData, pInput, self.primaryBuild.configTab, primaryBuild, pSource)
-			local cCtrl = makeConfigControl(varData, cInput, compareEntry.configTab, compareEntry, cSource)
+			local pCtrl = makeConfigControl(varData, getInput(self.primaryBuild.configTab, varData.var), self.primaryBuild.configTab, primaryBuild, pSource, function() return self:ConfigViewActor() end)
+			local cCtrl = makeConfigControl(varData, getInput(compareEntry.configTab, varData.var), compareEntry.configTab, compareEntry, cSource, function() return self:ConfigViewActor() end)
 
 			if pCtrl and cCtrl then
 				self.controls["cfg_p_" .. varData.var] = pCtrl
@@ -1231,14 +1390,33 @@ end
 function CompareTabClass:CopyCompareConfig()
 	local compareEntry = self:GetActiveCompare()
 	if not compareEntry then return end
-	local cInput = compareEntry.configTab.input
-	for k, v in pairs(cInput) do
-		self.primaryBuild.configTab.input[k] = v
+	local srcTab = compareEntry.configTab
+	local dstTab = self.primaryBuild.configTab
+	local srcSet = srcTab.configSets[srcTab.activeConfigSetId]
+	local dstSet = dstTab.configSets[dstTab.activeConfigSetId]
+	srcTab:EnsureActorConfig(srcSet)
+	dstTab:EnsureActorConfig(dstSet)
+	for k, v in pairs(srcTab.input) do
+		dstTab.input[k] = v
 	end
-	self.primaryBuild.configTab:UpdateControls()
-	self.primaryBuild.configTab:BuildModList()
+	for k, v in pairs(srcSet.actors.mercenary.input) do
+		dstSet.actors.mercenary.input[k] = v
+	end
+	dstTab:UpdateControls()
+	dstTab:BuildModList()
 	self.primaryBuild.buildFlag = true
 	self.configNeedsRebuild = true
+end
+
+function CompareTabClass:ConfigViewActor()
+	if self.configViewActor == "mercenary" and MercenaryTools.tabVisible(self.primaryBuild) then
+		return "mercenary"
+	end
+	return "player"
+end
+
+function CompareTabClass:ConfigInputTable(configTab, var)
+	return select(1, configTab:GetVarTablesForActor(var, self:ConfigViewActor()))
 end
 
 -- Import a comparison build from XML text
@@ -1375,6 +1553,9 @@ end
 -- Build a list of jewel comparison entries between the primary and compare builds.
 -- Returns a sorted list of { label, nodeId, pItem, cItem, pSlotName, cSlotName } records.
 function CompareTabClass:GetJewelComparisonSlots(compareEntry)
+	if isMercenaryComparisonSet(self.primaryBuild.itemsTab) or isMercenaryComparisonSet(compareEntry.itemsTab) then
+		return { }
+	end
 	local pSpec = self.primaryBuild.spec
 	local cSpec = compareEntry.spec
 	if not pSpec or not cSpec then return {} end
@@ -1442,19 +1623,20 @@ end
 
 -- Copy a compared build's item into the primary build
 function CompareTabClass:CopyCompareItemToPrimary(slotName, compareEntry, andUse)
-	local cSlot = compareEntry.itemsTab and compareEntry.itemsTab.slots and compareEntry.itemsTab.slots[slotName]
-	local cItem = cSlot and compareEntry.itemsTab.items and compareEntry.itemsTab.items[cSlot.selItemId]
+	local cItem = getActiveItem(compareEntry.itemsTab, slotName)
 	if not cItem or not cItem.raw then return end
 
 	local newItem = new("Item"):Item(cItem.raw)
 	newItem:NormaliseQuality()
 	local pItemsTab = self.primaryBuild.itemsTab
+	local primaryItemSet = getComparisonItemSet(pItemsTab)
 	pItemsTab:AddItem(newItem, true) -- true = noAutoEquip
 
 	if andUse then
-		local pSlot = pItemsTab.slots[slotName]
+		local targetSlotName = getComparisonSlotName(pItemsTab, slotName)
+		local pSlot = pItemsTab.slots[targetSlotName] or pItemsTab.slots[slotName]
 		if pSlot then
-			pSlot:SetSelItemId(newItem.id)
+			pSlot:SetSelItemId(newItem.id, primaryItemSet)
 		end
 	end
 
@@ -2055,12 +2237,10 @@ function CompareTabClass:LayoutConfigView(contentVP, compareEntry)
 	end
 
 	-- Sync control values with current input (in case changed from normal Config tab or externally)
-	local pInput = self.primaryBuild.configTab.input or {}
-	local cInput = compareEntry.configTab.input or {}
 	for var, ctrlInfo in pairs(self.configControls) do
 		local varData = ctrlInfo.varData
-		syncControlValue(ctrlInfo.primaryControl, varData, pInput[var])
-		syncControlValue(ctrlInfo.compareControl, varData, cInput[var])
+		syncControlValue(ctrlInfo.primaryControl, varData, self:ConfigInputTable(self.primaryBuild.configTab, var)[var])
+		syncControlValue(ctrlInfo.compareControl, varData, self:ConfigInputTable(compareEntry.configTab, var)[var])
 	end
 
 	-- Position header controls
@@ -2069,7 +2249,10 @@ function CompareTabClass:LayoutConfigView(contentVP, compareEntry)
 	local configHeaderLeftX = contentVP.x + 10
 	local configSetSelectX = contentVP.x + 80
 	local configSetSelectW = 225
-	local inputEndX = configSetSelectX + configSetSelectW
+	local actorLabelX = configSetSelectX + configSetSelectW + 12
+	local actorSelectX = actorLabelX + 46
+	local actorSelectW = 140
+	local inputEndX = actorSelectX + actorSelectW
 	local actionX = inputEndX + 10
 
 	self.controls.copyConfigBtn.x = actionX
@@ -2098,6 +2281,14 @@ function CompareTabClass:LayoutConfigView(contentVP, compareEntry)
 	self.controls.configPrimarySetSelect.width = configSetSelectW
 	self.controls.configPrimarySetSelect.y = row1Y
 
+	self.controls.configActorSelect:SetList(MercenaryTools.configActorList(self.primaryBuild))
+	self.controls.configActorSelect:SelByValue(self:ConfigViewActor(), "id")
+	self.controls.configActorLabel.x = actorLabelX
+	self.controls.configActorLabel.y = row1Y + 2
+	self.controls.configActorSelect.x = actorSelectX
+	self.controls.configActorSelect.width = actorSelectW
+	self.controls.configActorSelect.y = row1Y
+
 	-- Build section layout: multi-column grid, mirroring regular ConfigTab
 	local rowHeight = LAYOUT.configRowHeight
 	local sectionInnerPad = LAYOUT.configSectionInnerPad
@@ -2123,21 +2314,23 @@ function CompareTabClass:LayoutConfigView(contentVP, compareEntry)
 	end
 
 	-- First pass: compute rows and height for each section
+	local viewActor = self:ConfigViewActor()
 	local visibleSections = {}
 	for _, section in ipairs(self.configSections) do
 		local diffs = {}
 		local commons = {}
 		for _, ctrlInfo in ipairs(section.items) do
-			if searchMatch(ctrlInfo.varData) then
+			if searchMatch(ctrlInfo.varData) and not (ConfigScope.forVarData(ctrlInfo.varData) == "player" and viewActor == "mercenary") then
 				local pVal, cVal = self:NormalizeConfigVals(ctrlInfo.varData,
-					pInput[ctrlInfo.varData.var], cInput[ctrlInfo.varData.var])
+					self:ConfigInputTable(self.primaryBuild.configTab, ctrlInfo.varData.var)[ctrlInfo.varData.var],
+					self:ConfigInputTable(compareEntry.configTab, ctrlInfo.varData.var)[ctrlInfo.varData.var])
 				local isDiff = tostring(pVal) ~= tostring(cVal)
 				if isDiff then
 					t_insert(diffs, ctrlInfo)
 				else
 					local varData = ctrlInfo.varData
-					local relevant = configVisibility.isRelevantForBuild(varData, self.primaryBuild)
-							or configVisibility.isRelevantForBuild(varData, compareEntry)
+					local relevant = configVisibility.isRelevantForBuild(varData, self.primaryBuild, viewActor)
+							or configVisibility.isRelevantForBuild(varData, compareEntry, viewActor)
 					if relevant or (self.configToggle and not configVisibility.isShowAllExcluded(varData)) then
 						t_insert(commons, ctrlInfo)
 					end
@@ -2260,6 +2453,7 @@ end
 
 -- Refresh calcs skill detail controls for both builds.
 function CompareTabClass:RefreshCalcsSkillControls(compareEntry)
+	MercenaryTools.applyHiddenState(compareEntry)
 	-- Build control maps for RefreshSkillSelectControls
 	local primControls = {
 		mainSocketGroup = self.controls.primCalcsSocketGroup,
@@ -2271,12 +2465,17 @@ function CompareTabClass:RefreshCalcsSkillControls(compareEntry)
 		mainSkillMinionLibrary = { shown = false },
 		mainSkillMinionSkill = self.controls.primCalcsMinionSkill,
 	}
-	self.primaryBuild:RefreshSkillSelectControls(primControls, self.primaryBuild.calcsTab.input.skill_number, "Calcs")
+	if self.primaryBuild.calcsTab:IsMercenaryActor() then
+		self.primaryBuild.calcsTab:RefreshMercenarySkillSelectControls(primControls, "Calcs")
+	else
+		self.primaryBuild:RefreshSkillSelectControls(primControls, self.primaryBuild.calcsTab.input.skill_number, "Calcs")
+	end
 	self.controls.primCalcsSocketGroup.shown = true
 	self.controls.primCalcsMode.shown = true
 	self.controls.primCalcsMode:SelByValue(self.primaryBuild.calcsTab.input.misc_buffMode, "buffMode")
-	self.controls.primCalcsShowMinion.shown = self.controls.primCalcsMinion.shown == true
-	self.controls.primCalcsShowMinion.state = self.primaryBuild.calcsTab.input.showMinion and true or false
+	self.controls.primCalcsShowMinion.shown = true
+	self.controls.primCalcsShowMinion:SetList(MercenaryTools.filterCalculationActors(calcLib.calculationActorList, self.primaryBuild))
+	self.controls.primCalcsShowMinion:SelByValue(self.primaryBuild.calcsTab.input.actor, "actorId")
 
 	local cmpControls = {
 		mainSocketGroup = self.controls.cmpCalcsSocketGroup,
@@ -2288,12 +2487,17 @@ function CompareTabClass:RefreshCalcsSkillControls(compareEntry)
 		mainSkillMinionLibrary = { shown = false },
 		mainSkillMinionSkill = self.controls.cmpCalcsMinionSkill,
 	}
-	compareEntry:RefreshSkillSelectControls(cmpControls, compareEntry.calcsTab.input.skill_number, "Calcs")
+	if compareEntry.calcsTab:IsMercenaryActor() then
+		compareEntry.calcsTab:RefreshMercenarySkillSelectControls(cmpControls, "Calcs")
+	else
+		compareEntry:RefreshSkillSelectControls(cmpControls, compareEntry.calcsTab.input.skill_number, "Calcs")
+	end
 	self.controls.cmpCalcsSocketGroup.shown = true
 	self.controls.cmpCalcsMode.shown = true
 	self.controls.cmpCalcsMode:SelByValue(compareEntry.calcsTab.input.misc_buffMode, "buffMode")
-	self.controls.cmpCalcsShowMinion.shown = self.controls.cmpCalcsMinion.shown == true
-	self.controls.cmpCalcsShowMinion.state = compareEntry.calcsTab.input.showMinion and true or false
+	self.controls.cmpCalcsShowMinion.shown = true
+	self.controls.cmpCalcsShowMinion:SetList(MercenaryTools.filterCalculationActors(calcLib.calculationActorList, compareEntry))
+	self.controls.cmpCalcsShowMinion:SelByValue(compareEntry.calcsTab.input.actor, "actorId")
 
 	-- Wrap .shown booleans set by RefreshSkillSelectControls with a view-mode gate,
 	-- so controls auto-hide when not in CALCS mode (matching configShown pattern)
@@ -2518,7 +2722,11 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 	local useFullDPS = powerStat.stat == "FullDPS"
 
 	-- Get calculator for primary build
-	local calcFunc, calcBase = self.calcs.getMiscCalculator(self.primaryBuild)
+	local calcFunc, calcBase, actorOutputs = self.calcs.getMiscCalculator(self.primaryBuild)
+	local itemCalcBase = calcBase
+	if isMercenaryComparisonSet(self.primaryBuild.itemsTab) and MercenaryTools.mercenaryOutputAvailable(actorOutputs and actorOutputs.MERCENARY) then
+		itemCalcBase = actorOutputs.MERCENARY
+	end
 
 	-- Find display stat for formatting
 	local displayStat = nil
@@ -2559,8 +2767,7 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 		self:AddAbyssSockets(compareEntry, baseSlots, true)
 		
 		for _, slotName in ipairs(baseSlots) do
-			local cSlot = compareEntry.itemsTab and compareEntry.itemsTab.slots[slotName]
-			local cItem = cSlot and compareEntry.itemsTab.items[cSlot.selItemId]
+			local cItem = getActiveItem(compareEntry.itemsTab, slotName)
 			if cItem then
 				total = total + 1
 			end
@@ -2715,6 +2922,10 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 	-- Items
 	-- ==========================================
 	if categories.items then
+		local primaryItemSet = getComparisonItemSet(self.primaryBuild.itemsTab)
+		local primaryItemSetSlotName = function(slotName)
+			return getComparisonSlotName(self.primaryBuild.itemsTab, slotName)
+		end
 		local baseSlots = { "Weapon 1", "Weapon 2", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring 1", "Ring 2", "Belt", "Flask 1", "Flask 2", "Flask 3", "Flask 4", "Flask 5" }
 		if self:ShouldShowRing3(compareEntry) then
 			t_insert(baseSlots, 10, "Ring 3")
@@ -2724,10 +2935,8 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 		self:AddAbyssSockets(compareEntry, baseSlots, true)
 		
 		for _, slotName in ipairs(baseSlots) do
-			local cSlot = compareEntry.itemsTab and compareEntry.itemsTab.slots[slotName]
-			local cItem = cSlot and compareEntry.itemsTab.items[cSlot.selItemId]
-			local pSlot = self.primaryBuild.itemsTab and self.primaryBuild.itemsTab.slots[slotName]
-			local pItem = pSlot and self.primaryBuild.itemsTab.items[pSlot.selItemId]
+			local cItem = getActiveItem(compareEntry.itemsTab, slotName)
+			local pItem = getActiveItem(self.primaryBuild.itemsTab, slotName)
 			if cItem and cItem.raw and not (pItem and pItem.name == cItem.name) then
 				local newItem = new("Item"):Item(cItem.raw)
 				newItem:NormaliseQuality()
@@ -2740,12 +2949,14 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 				if newItem.abyssalSocketCount > 0 then
 					for idx = 1, newItem.abyssalSocketCount do
 						local abyssSlotName = string.format("%s Abyssal Socket %d", slotName, idx)
-						local cmpJewelSlot = compareEntry.itemsTab.slots[abyssSlotName]
+						local cmpJewelSlot = getActiveItemSetSlot(compareEntry.itemsTab, abyssSlotName)
 						-- save old id and unequip existing
-						local primaryJewelSlot = self.primaryBuild.itemsTab.slots[abyssSlotName]
-						oldEquipped[abyssSlotName] = primaryJewelSlot.selItemId
-						primaryJewelSlot:SetSelItemId(0)
-						if cmpJewelSlot.selItemId > 0 then
+						local primaryJewelSlot = getActiveItemSetSlot(self.primaryBuild.itemsTab, abyssSlotName)
+						oldEquipped[abyssSlotName] = primaryJewelSlot and primaryJewelSlot.selItemId or 0
+						local primarySlotName = primaryItemSetSlotName(abyssSlotName)
+						local primarySlot = self.primaryBuild.itemsTab.slots[primarySlotName] or self.primaryBuild.itemsTab.slots[abyssSlotName]
+						if primarySlot then primarySlot:SetSelItemId(0, primaryItemSet) end
+						if cmpJewelSlot and cmpJewelSlot.selItemId > 0 then
 							local cmpJewel = compareEntry.itemsTab.items[cmpJewelSlot.selItemId]
 							-- due to a previous bug where jewel slots didn't
 							-- get cleared when becoming inactive, so the item
@@ -2757,21 +2968,23 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 								self.primaryBuild.itemsTab:AddItem(itemCopy, false)
 
 								-- equip copied
-								self.primaryBuild.itemsTab.slots[abyssSlotName]:SetSelItemId(itemCopy.id)
+								if primarySlot then primarySlot:SetSelItemId(itemCopy.id, primaryItemSet) end
 							end
 						end
 					end
 				end
 
 
-				local output = calcFunc({ repSlotName = slotName, repItem = newItem }, useFullDPS)
-				local impact = self.primaryBuild.calcsTab:CalculatePowerStat(powerStat, output, calcBase)
+				local output = calcFunc(MercenaryTools.itemCalculationOverride(self.primaryBuild.itemsTab.viewItemSetId, primaryItemSetSlotName(slotName), newItem, self.primaryBuild.itemsTab), useFullDPS)
+				local impact = self.primaryBuild.calcsTab:CalculatePowerStat(powerStat, output, itemCalcBase)
 				local impactStr, impactVal, combinedImpactStr, impactPercent, impactIsZero = formatImpact(impact)
 
 				-- restore abyss jewel state
 				if newItem.abyssalSocketCount > 0 then
 					for k, v in pairs(oldEquipped) do
-						self.primaryBuild.itemsTab.slots[k]:SetSelItemId(v)
+						local primarySlotName = primaryItemSetSlotName(k)
+						local primarySlot = self.primaryBuild.itemsTab.slots[primarySlotName] or self.primaryBuild.itemsTab.slots[k]
+						if primarySlot then primarySlot:SetSelItemId(v, primaryItemSet) end
 					end
 					for _, item in ipairs(cmpJewels) do
 						self.primaryBuild.itemsTab:DeleteItem(item)
@@ -2845,14 +3058,14 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 
 				if jEntry.pNodeAllocated then
 					-- Socket is allocated in primary build, test directly in that socket
-					local output = calcFunc({ repSlotName = jEntry.cSlotName, repItem = newItem }, useFullDPS)
+					local output = calcFunc(MercenaryTools.itemCalculationOverride(self.primaryBuild.itemsTab.viewItemSetId, jEntry.cSlotName, newItem, self.primaryBuild.itemsTab), useFullDPS)
 					bestImpactVal = self.primaryBuild.calcsTab:CalculatePowerStat(powerStat, output, calcBase)
 				else
 					-- Socket is NOT allocated in primary build; try the jewel in every
 					-- jewel socket on the primary build's tree, temporarily allocating
 					-- unallocated sockets via addNodes so CalcSetup doesn't skip them
 					for _, socketInfo in ipairs(primaryJewelSockets) do
-						local override = { repSlotName = socketInfo.slotName, repItem = newItem }
+						local override = MercenaryTools.itemCalculationOverride(self.primaryBuild.itemsTab.viewItemSetId, socketInfo.slotName, newItem, self.primaryBuild.itemsTab)
 						if not socketInfo.allocated then
 							override.addNodes = { [socketInfo.node] = true }
 						end
@@ -3682,8 +3895,8 @@ function CompareTabClass:AddAbyssSockets(comparison, destTable, requireBothSides
 	for _, slot in ipairs(equipmentSlots) do
 		for number = 1, 6 do
 			local abyssalSocketName = string.format("%s Abyssal Socket %d", slot, number)
-			local mainHas = self.primaryBuild.itemsTab.slots[abyssalSocketName].shown()
-			local comparisonHas = comparison.itemsTab.slots[abyssalSocketName].shown()
+			local mainHas = hasActiveAbyssalSocket(self.primaryBuild.itemsTab, slot, number)
+			local comparisonHas = hasActiveAbyssalSocket(comparison.itemsTab, slot, number)
 			if (requireBothSides and mainHas and comparisonHas)
 				or ((not requireBothSides) and (mainHas or comparisonHas)) then
 				table.insert(destTable, abyssalSocketName)
@@ -3725,11 +3938,8 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 	if self.itemsExpandedMode then
 		-- Expanded mode: measure the widest rendered line of every primary item card
 		local widest = 0
-		local pItems = self.primaryBuild.itemsTab and self.primaryBuild.itemsTab.items
-		local pSlots = self.primaryBuild.itemsTab and self.primaryBuild.itemsTab.slots
 		for _, slotName in ipairs(baseSlots) do
-			local pSlot = pSlots and pSlots[slotName]
-			local pItem = pSlot and pItems and pItems[pSlot.selItemId]
+			local pItem = getActiveItem(self.primaryBuild.itemsTab, slotName)
 			if pItem then
 				local w = self:DrawItemExpanded(pItem, 0, 0, 0, nil, true) or 0
 				if w > widest then widest = w end
@@ -3748,10 +3958,6 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 	else
 		-- Compact mode
 		local maxDiffW = 0
-		local pItems = self.primaryBuild.itemsTab and self.primaryBuild.itemsTab.items
-		local pSlots = self.primaryBuild.itemsTab and self.primaryBuild.itemsTab.slots
-		local cItems = compareEntry.itemsTab and compareEntry.itemsTab.items
-		local cSlots = compareEntry.itemsTab and compareEntry.itemsTab.slots
 		local function measureDiff(pItem, cItem)
 			local lbl = tradeHelpers.getSlotDiffLabel(pItem, cItem)
 			if lbl and lbl ~= "" then
@@ -3760,10 +3966,8 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 			end
 		end
 		for _, slotName in ipairs(baseSlots) do
-			local pSlot = pSlots and pSlots[slotName]
-			local cSlot = cSlots and cSlots[slotName]
-			local pItem = pSlot and pItems and pItems[pSlot.selItemId]
-			local cItem = cSlot and cItems and cItems[cSlot.selItemId]
+			local pItem = getActiveItem(self.primaryBuild.itemsTab, slotName)
+			local cItem = getActiveItem(compareEntry.itemsTab, slotName)
 			measureDiff(pItem, cItem)
 		end
 		for _, jE in ipairs(jewelSlots) do
@@ -3914,13 +4118,11 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 
 	for _, slotName in ipairs(baseSlots) do
 		-- Get items from both builds
-		local pSlot = self.primaryBuild.itemsTab and self.primaryBuild.itemsTab.slots and self.primaryBuild.itemsTab.slots[slotName]
-		local cSlot = compareEntry.itemsTab and compareEntry.itemsTab.slots and compareEntry.itemsTab.slots[slotName]
-		local pItem = pSlot and self.primaryBuild.itemsTab.items and self.primaryBuild.itemsTab.items[pSlot.selItemId]
-		local cItem = cSlot and compareEntry.itemsTab and compareEntry.itemsTab.items and compareEntry.itemsTab.items[cSlot.selItemId]
+		local pItem = getActiveItem(self.primaryBuild.itemsTab, slotName)
+		local cItem = getActiveItem(compareEntry.itemsTab, slotName)
 
 		local slotMissing = slotName == "Ring 3" and not primaryHasRing3
-		drawSlotEntry(slotName, pItem, cItem, slotName, slotName, maxLabelW, nil, nil, slotMissing)
+		drawSlotEntry(slotName, pItem, cItem, slotName, getComparisonSlotName(self.primaryBuild.itemsTab, slotName), maxLabelW, nil, nil, slotMissing)
 	end
 
 	-- === TREE SET DROPDOWNS ===
@@ -3964,7 +4166,7 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 			local pWarn = (jEntry.pItem and not jEntry.pNodeAllocated) and colorCodes.WARNING .. "  (tree missing allocated node)" or ""
 			local cWarn = (jEntry.cItem and not jEntry.cNodeAllocated) and colorCodes.WARNING .. "  (tree missing allocated node)" or ""
 
-			drawSlotEntry(jEntry.label, jEntry.pItem, jEntry.cItem, jEntry.cSlotName, jEntry.pSlotName, maxLabelW, pWarn, cWarn, nil)
+			drawSlotEntry(jEntry.label, jEntry.pItem, jEntry.cItem, jEntry.cSlotName, getComparisonSlotName(self.primaryBuild.itemsTab, jEntry.pSlotName), maxLabelW, pWarn, cWarn, nil)
 		end
 	end
 
@@ -3995,18 +4197,19 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 	if not main.popups[1] and hoverEquipItem and hoverEquipSlotName and not hoverItem then
 		self.itemTooltip:Clear()
 		self.itemTooltip.maxWidth = maxTooltipWidth
-		local calcFunc, calcBase = self.calcs.getMiscCalculator(self.primaryBuild)
+		local calcFunc, calcBase, actorOutputs = self.calcs.getMiscCalculator(self.primaryBuild)
 		if calcFunc then
 			-- Create a fresh item to evaluate
 			local newItem = new("Item"):Item(hoverEquipItem.raw)
 			newItem:NormaliseQuality()
 
 			-- Determine what's currently in the target slot
-			local pSlot = self.primaryBuild.itemsTab.slots[hoverEquipSlotName]
-			local selItem = pSlot and self.primaryBuild.itemsTab.items[pSlot.selItemId]
+			local itemsTab = self.primaryBuild.itemsTab
+			local pSlot = itemsTab.slots[hoverEquipSlotName]
+			local selItem = getActiveItem(itemsTab, hoverEquipSlotName)
 
 			-- For jewel sockets that aren't allocated, temporarily allocate the node
-			local override = { repSlotName = hoverEquipSlotName, repItem = newItem }
+			local override = MercenaryTools.itemCalculationOverride(itemsTab.viewItemSetId, getComparisonSlotName(itemsTab, hoverEquipSlotName), newItem, itemsTab)
 			if pSlot and pSlot.nodeId then
 				local pSpec = self.primaryBuild.spec
 				if pSpec and pSpec.allocNodes and not pSpec.allocNodes[pSlot.nodeId] then
@@ -4025,7 +4228,11 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 			else
 				header = string.format("^7Equipping this item in %s will give you:", slotLabel)
 			end
-			local count = self.primaryBuild:AddStatComparesToTooltip(self.itemTooltip, calcBase, output, header)
+			local compareBase = calcBase
+			if isMercenaryComparisonSet(itemsTab) and MercenaryTools.mercenaryOutputAvailable(actorOutputs and actorOutputs.MERCENARY) then
+				compareBase = actorOutputs.MERCENARY
+			end
+			local count = self.primaryBuild:AddStatComparesToTooltip(self.itemTooltip, compareBase, output, header)
 			if count == 0 then
 				self.itemTooltip:AddLine(14, header)
 				self.itemTooltip:AddLine(14, "^7No changes.")
@@ -4557,8 +4764,8 @@ function CompareTabClass:DrawCalcsSkillHeader(vp, compareEntry, headerHeight, pr
 	if drawLabel("Mines", rightX, rightY, self.controls.cmpCalcsMineCount) then rightY = rightY + rowH end
 
 	-- Show Minion Stats
-	if drawLabel("Show Minion Stats", leftX, leftY, self.controls.primCalcsShowMinion) then leftY = leftY + rowH end
-	if drawLabel("Show Minion Stats", rightX, rightY, self.controls.cmpCalcsShowMinion) then rightY = rightY + rowH end
+	if drawLabel("Calculation Actor", leftX, leftY, self.controls.primCalcsShowMinion) then leftY = leftY + rowH end
+	if drawLabel("Calculation Actor", rightX, rightY, self.controls.cmpCalcsShowMinion) then rightY = rightY + rowH end
 
 	-- Minion
 	if drawLabel("Minion", leftX, leftY, self.controls.primCalcsMinion) then leftY = leftY + rowH end
@@ -4686,8 +4893,8 @@ function CompareTabClass:DrawCalcs(vp, compareEntry)
 	local primaryEnv = self.primaryBuild.calcsTab.calcsEnv
 	local compareEnv = compareEntry.calcsTab and compareEntry.calcsTab.calcsEnv
 	if not primaryEnv or not compareEnv then return end
-	local primaryActor = (self.primaryBuild.calcsTab.input.showMinion and primaryEnv.minion) or primaryEnv.player
-	local compareActor = (compareEntry.calcsTab.input.showMinion and compareEnv.minion) or compareEnv.player
+	local primaryActor = self.primaryBuild.calcsTab:GetDisplayActor(primaryEnv)
+	local compareActor = compareEntry.calcsTab:GetDisplayActor(compareEnv)
 	if not primaryActor or not compareActor then return end
 
 	-- Skill detail header height

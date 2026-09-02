@@ -54,10 +54,10 @@ describe("Custom modifier controls", function()
 			end
 		end
 
-		assert.are.same({ "Minions deal 12% increased Damage" }, minionDamageEntries)
+		assert.are.same({ "Minions deal 10% increased Damage" }, minionDamageEntries)
 		popup.controls.listControl.selIndex = minionDamageIndex
 		popup.controls.save.onClick()
-		assert.are.equal("Minions deal 12% increased Damage", blockData.text)
+		assert.are.equal("Minions deal 10% increased Damage", blockData.text)
 	end)
 
 	it("orders modifiers alphabetically while ignoring numeric values", function()

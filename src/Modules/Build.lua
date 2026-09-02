@@ -14,6 +14,7 @@ local m_huge = math.huge
 local m_floor = math.floor
 local m_abs = math.abs
 local s_format = string.format
+local MercenaryTools = require("Modules.MercenaryTools")
 
 ---@class Build: ControlHost
 ---@field spec PassiveSpec added by TreeTab
@@ -330,7 +331,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 				newSpec.title = loadout
 				t_insert(self.treeTab.specList, newSpec)
 
-				local itemSet = self.itemsTab:NewItemSet(#self.itemsTab.itemSets + 1)
+				local itemSet = self.itemsTab:NewItemSet()
 				t_insert(self.itemsTab.itemSetOrderList, itemSet.id)
 				itemSet.title = loadout
 
@@ -341,6 +342,8 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 				local configSet = self.configTab:NewConfigSet(#self.configTab.configSets + 1)
 				t_insert(self.configTab.configSetOrderList, configSet.id)
 				configSet.title = loadout
+				self.configTab:EnsureActorConfig(configSet)
+				configSet.actors.player.itemSetId = itemSet.id
 
 				self:SyncLoadouts()
 				self.modFlag = true
@@ -389,11 +392,12 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 		end
 
 		local oneSkill = self.skillsTab and #self.skillsTab.skillSetOrderList == 1
-		local oneItem = self.itemsTab and #self.itemsTab.itemSetOrderList == 1
+		local itemSetOrderList = self.itemsTab and self.itemsTab:GetPlayerItemSetOrderList() or { }
+		local oneItem = self.itemsTab and #itemSetOrderList == 1
 		local oneConfig = self.configTab and #self.configTab.configSetOrderList == 1
 
 		local newSpecId = findNamedSetId(self.treeTab:GetSpecList(), value, self.treeListSpecialLinks)
-		local newItemId = oneItem and 1 or findSetId(self.itemsTab.itemSetOrderList, value, self.itemsTab.itemSets, self.itemListSpecialLinks)
+		local newItemId = oneItem and itemSetOrderList[1] or findSetId(itemSetOrderList, value, self.itemsTab.itemSets, self.itemListSpecialLinks)
 		local newSkillId = oneSkill and 1 or findSetId(self.skillsTab.skillSetOrderList, value, self.skillsTab.skillSets, self.skillListSpecialLinks)
 		local newConfigId = oneConfig and 1 or findSetId(self.configTab.configSetOrderList, value, self.configTab.configSets, self.configListSpecialLinks)
 
@@ -405,14 +409,16 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 		if newSpecId ~= self.treeTab.activeSpec then
 			self.treeTab:SetActiveSpec(newSpecId)
 		end
+		if newConfigId ~= self.configTab.activeConfigSetId then
+			self.configTab:SetActiveConfigSet(newConfigId, nil, { player = false })
+		end
 		if newItemId ~= self.itemsTab.activeItemSetId then
 			self.itemsTab:SetActiveItemSet(newItemId)
+		else
+			self.configTab:SyncActorItemSet("player", newItemId)
 		end
 		if newSkillId ~= self.skillsTab.activeSkillSetId then
 			self.skillsTab:SetActiveSkillSet(newSkillId)
-		end
-		if newConfigId ~= self.configTab.activeConfigSetId then
-			self.configTab:SetActiveConfigSet(newConfigId)
 		end
 
 		self.controls.buildLoadouts:SelByValue(value)
@@ -432,6 +438,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 	self.displayStats = displayStatsModule.displayStats
 	self.minionDisplayStats = displayStatsModule.minionDisplayStats
 	self.extraSaveStats = displayStatsModule.extraSaveStats
+	self.mercenaryDisplayStats = displayStatsModule.mercenaryDisplayStats
 
 	-- Controls: Side bar
 	self.anchorSideBar = new("Control"):Control(nil, {4, 60, 0, 0})
@@ -452,22 +459,25 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 		self.viewMode = "CONFIG"
 	end)
 	self.controls.modeConfig.locked = function() return self.viewMode == "CONFIG" end
-	self.controls.modeTree = new("ButtonControl"):ButtonControl({"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, {0, 26, 72, 20}, "Tree", function()
+	self.controls.modeTree = new("ButtonControl"):ButtonControl({"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, {0, 26, 64, 20}, "Tree", function()
 		self.viewMode = "TREE"
 	end)
 	self.controls.modeTree.locked = function() return self.viewMode == "TREE" end
-	self.controls.modeSkills = new("ButtonControl"):ButtonControl({"LEFT",self.controls.modeTree,"RIGHT"}, {4, 0, 72, 20}, "Skills", function()
+	self.controls.modeSkills = new("ButtonControl"):ButtonControl({"LEFT",self.controls.modeTree,"RIGHT"}, {4, 0, 64, 20}, "Skills", function()
 		self.viewMode = "SKILLS"
 	end)
 	self.controls.modeSkills.locked = function() return self.viewMode == "SKILLS" end
-	self.controls.modeItems = new("ButtonControl"):ButtonControl({"LEFT",self.controls.modeSkills,"RIGHT"}, {4, 0, 72, 20}, "Items", function()
+	self.controls.modeItems = new("ButtonControl"):ButtonControl({"LEFT",self.controls.modeSkills,"RIGHT"}, {4, 0, 64, 20}, "Items", function()
 		self.viewMode = "ITEMS"
 	end)
 	self.controls.modeItems.locked = function() return self.viewMode == "ITEMS" end
-	self.controls.modeCalcs = new("ButtonControl"):ButtonControl({"LEFT",self.controls.modeItems,"RIGHT"}, {4, 0, 72, 20}, "Calcs", function()
-		self.viewMode = "CALCS"
+	self.controls.modeMercenary = new("ButtonControl"):ButtonControl({"LEFT",self.controls.modeItems,"RIGHT"}, {4, 0, 96, 20}, "Mercenary", function()
+		self.viewMode = "MERCENARY"
 	end)
-	self.controls.modeCalcs.locked = function() return self.viewMode == "CALCS" end
+	self.controls.modeMercenary.shown = function()
+		return MercenaryTools.tabVisible(self)
+	end
+	self.controls.modeMercenary.locked = function() return self.viewMode == "MERCENARY" end
 	self.controls.modeParty = new("ButtonControl"):ButtonControl({"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, {0, 52, 72, 20}, "Party", function()
 		self.viewMode = "PARTY"
 	end)
@@ -476,6 +486,10 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 		self.viewMode = "COMPARE"
 	end)
 	self.controls.modeCompare.locked = function() return self.viewMode == "COMPARE" end
+	self.controls.modeCalcs = new("ButtonControl"):ButtonControl({"LEFT",self.controls.modeCompare,"RIGHT"}, {4, 0, 72, 20}, "Calcs", function()
+		self.viewMode = "CALCS"
+	end)
+	self.controls.modeCalcs.locked = function() return self.viewMode == "CALCS" end
 	-- Skills
 	self.controls.mainSkillLabel = new("LabelControl"):LabelControl({"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, {0, 80, 300, 16}, "^7Main Skill:")
 	self.controls.mainSocketGroup = new("DropDownControl"):DropDownControl({"TOPLEFT",self.controls.mainSkillLabel,"BOTTOMLEFT"}, {0, 2, 300, 18}, nil, function(index, value)
@@ -612,6 +626,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 	self.itemsTab = new("ItemsTab"):ItemsTab(self)
 	self.treeTab = new("TreeTab"):TreeTab(self)
 	self.skillsTab = new("SkillsTab"):SkillsTab(self)
+	self.mercenaryTab = new("MercenaryTab"):MercenaryTab(self)
 	self.calcsTab = new("CalcsTab"):CalcsTab(self)
 	self.controls.breakdown = new("CalcBreakdownControl"):CalcBreakdownControl(self.calcsTab)
 	self.controls.breakdown.pinnedColour = hexToRGB(colorCodes.CUSTOM) or error("failed to set breakdown pin colour")
@@ -634,6 +649,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 		["TreeView"] = self.treeTab.viewer,
 		["Items"] = self.itemsTab,
 		["Skills"] = self.skillsTab,
+		["Mercenary"] = self.mercenaryTab,
 		["Calcs"] = self.calcsTab,
 		["Import"] = self.importTab,
 	}
@@ -780,7 +796,8 @@ function buildMode:SyncLoadouts()
 	self.treeListSpecialLinks, self.itemListSpecialLinks, self.skillListSpecialLinks, self.configListSpecialLinks = {}, {}, {}, {}
 
 	local oneSkill = self.skillsTab and #self.skillsTab.skillSetOrderList == 1
-	local oneItem = self.itemsTab and #self.itemsTab.itemSetOrderList == 1
+	local itemSetOrderList = self.itemsTab and self.itemsTab:GetPlayerItemSetOrderList() or { }
+	local oneItem = self.itemsTab and #itemSetOrderList == 1
 	local oneConfig = self.configTab and #self.configTab.configSetOrderList == 1
 
 	if self.treeTab ~= nil and self.itemsTab ~= nil and self.skillsTab ~= nil and self.configTab ~= nil then
@@ -838,7 +855,7 @@ function buildMode:SyncLoadouts()
 				end
 			end
 		end
-		identifyLinks(self.itemsTab.itemSetOrderList, self.itemsTab.itemSets, itemList, self.itemListSpecialLinks, self.treeListSpecialLinks)
+		identifyLinks(itemSetOrderList, self.itemsTab.itemSets, itemList, self.itemListSpecialLinks, self.treeListSpecialLinks)
 		identifyLinks(self.skillsTab.skillSetOrderList, self.skillsTab.skillSets, skillList, self.skillListSpecialLinks, self.treeListSpecialLinks)
 		identifyLinks(self.configTab.configSetOrderList, self.configTab.configSets, configList, self.configListSpecialLinks, self.treeListSpecialLinks)
 
@@ -1107,6 +1124,7 @@ function buildMode:ResetModFlags()
 	self.spec.modFlag = false
 	self.skillsTab.modFlag = false
 	self.itemsTab.modFlag = false
+	self.mercenaryTab.modFlag = false
 	self.calcsTab.modFlag = false
 end
 
@@ -1203,6 +1221,10 @@ function buildMode:OnFrame(inputEvents)
 					self.viewMode = "NOTES"
 				elseif event.key == "7" then
 					self.viewMode = "PARTY"
+				elseif event.key == "8" then
+					if MercenaryTools.tabVisible(self) then
+						self.viewMode = "MERCENARY"
+					end
 				end
 			end
 		end
@@ -1269,7 +1291,7 @@ function buildMode:OnFrame(inputEvents)
 			self.controls.breakdown:SetBreakdownData(unpack(self.breakdownInputs))
 		end
 		self:RefreshStatList()
-		self.configTab.calcFunc, self.configTab.calcBase = self.calcsTab:GetMiscCalculator()
+		self.configTab.calcFunc, self.configTab.calcBase, self.configTab.calcActorOutputs = self.calcsTab:GetMiscCalculator()
 	end
 	if main.showThousandsSeparators ~= self.lastShowThousandsSeparators then
 		self:RefreshStatList()
@@ -1289,6 +1311,7 @@ function buildMode:OnFrame(inputEvents)
 
 	-- Update contents of main skill dropdowns
 	self:RefreshSkillSelectControls(self.controls, self.mainSocketGroup, "")
+	self:SyncMercenaryUi()
 	-- Draw contents of current tab
 	local sideBarWidth = 312
 	local tabViewPort = {
@@ -1311,6 +1334,8 @@ function buildMode:OnFrame(inputEvents)
 		self.skillsTab:Draw(tabViewPort, inputEvents)
 	elseif self.viewMode == "ITEMS" then
 		self.itemsTab:Draw(tabViewPort, inputEvents)
+	elseif self.viewMode == "MERCENARY" then
+		self.mercenaryTab:Draw(tabViewPort, inputEvents)
 	elseif self.viewMode == "CALCS" then
 		self.calcsTab:Draw(tabViewPort, inputEvents)
 	elseif self.viewMode == "COMPARE" then
@@ -1324,7 +1349,7 @@ function buildMode:OnFrame(inputEvents)
 		end
 	end
 
-	self.unsaved = self.modFlag or self.notesTab.modFlag or self.partyTab.modFlag or self.configTab.modFlag or self.treeTab.modFlag or self.treeTab.searchFlag or self.spec.modFlag or self.skillsTab.modFlag or self.itemsTab.modFlag or self.calcsTab.modFlag
+	self.unsaved = self.modFlag or self.notesTab.modFlag or self.partyTab.modFlag or self.configTab.modFlag or self.treeTab.modFlag or self.treeTab.searchFlag or self.spec.modFlag or self.skillsTab.modFlag or self.itemsTab.modFlag or self.mercenaryTab.modFlag or self.calcsTab.modFlag
 
 	SetDrawLayer(5)
 
@@ -1678,7 +1703,7 @@ function buildMode:RefreshSkillSelectControls(controls, mainGroup, suffix)
 				if not activeSkill.skillFlags.disable and (activeEffect.grantedEffect.minionList or activeSkill.minionList[1]) then
 					wipeTable(controls.mainSkillMinion.list)
 					if activeEffect.grantedEffect.minionHasItemSet then
-						for _, itemSetId in ipairs(self.itemsTab.itemSetOrderList) do
+						for _, itemSetId in ipairs(self.itemsTab:GetMinionItemSetOrderList()) do
 							local itemSet = self.itemsTab.itemSets[itemSetId]
 							t_insert(controls.mainSkillMinion.list, {
 								label = itemSet.title or "Default Item Set",
@@ -2058,6 +2083,23 @@ function buildMode:AddDisplayStatList(statList, actor, actorName)
 	end
 end
 
+function buildMode:SyncMercenaryUi()
+	MercenaryTools.applyHiddenState(self)
+	local visible = MercenaryTools.tabVisible(self)
+	if visible == self.mercenaryUiVisible then
+		return
+	end
+	self.mercenaryUiVisible = visible
+	if visible then
+		self.controls.modeCalcs:SetAnchor("LEFT", self.controls.modeCompare, "RIGHT")
+		self.configTab:RefreshActorSelect()
+	else
+		self.controls.modeCalcs:SetAnchor("LEFT", self.controls.modeItems, "RIGHT")
+		self.configTab:UpdateControls()
+	end
+	self.calcsTab:SyncActorList()
+end
+
 function buildMode:InsertItemWarnings()
 	if self.calcsTab.mainEnv.itemWarnings.jewelLimitWarning then
 		for _, warning in ipairs(self.calcsTab.mainEnv.itemWarnings.jewelLimitWarning) do
@@ -2071,6 +2113,11 @@ function buildMode:InsertItemWarnings()
 	end
 	if self.calcsTab.mainEnv.itemWarnings.missingAnointWarning then
 		InsertIfNew(self.controls.warnings.lines, "You have eligible items missing an anoint: "..table.concat(self.calcsTab.mainEnv.itemWarnings.missingAnointWarning, ", "))
+	end
+	if MercenaryTools.includeInBuildWarnings(self) then
+		for _, errorText in ipairs(self.mercenaryTab:GetErrors()) do
+			InsertIfNew(self.controls.warnings.lines, "Mercenary: "..errorText)
+		end
 	end
 end
 
@@ -2106,6 +2153,14 @@ function buildMode:RefreshStatList()
 			end
 		end
 		self:AddDisplayStatList(self.minionDisplayStats, self.calcsTab.mainEnv.minion, "minion")
+		t_insert(statBoxList, { height = 10 })
+		if not self.calcsTab.mainEnv.mercenary then
+			t_insert(statBoxList, { height = 18, "^7Player:" })
+		end
+	end
+	if self.calcsTab.mainEnv.mercenary then
+		t_insert(statBoxList, { height = 18, "^7Mercenary Stats:" })
+		self:AddDisplayStatList(self.mercenaryDisplayStats, self.calcsTab.mainEnv.mercenary)
 		t_insert(statBoxList, { height = 10 })
 		t_insert(statBoxList, { height = 18, "^7Player:" })
 	end
@@ -2165,8 +2220,11 @@ end
 -- Compare values of all display stats between the two output tables, and add any changed stats to the tooltip
 -- Adds the provided header line before the first stat line, if any are added
 -- Returns the number of stat lines added
-function buildMode:AddStatComparesToTooltip(tooltip, baseOutput, compareOutput, header, nodeCount)
+function buildMode:AddStatComparesToTooltip(tooltip, baseOutput, compareOutput, header, nodeCount, actor)
 	local count = 0
+	if actor == "MERCENARY" and self.calcsTab.mainEnv.mercenary then
+		return self:CompareStatList(tooltip, self.mercenaryDisplayStats, self.calcsTab.mainEnv.mercenary, baseOutput, compareOutput, header, nodeCount)
+	end
 	if self.calcsTab.mainEnv.player.mainSkill.minion and baseOutput.Minion and compareOutput.Minion then
 		count = count + self:CompareStatList(tooltip, self.minionDisplayStats, self.calcsTab.mainEnv.minion, baseOutput.Minion, compareOutput.Minion, header.."\n^7Minion:", nodeCount)
 		if count > 0 then

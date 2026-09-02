@@ -29,7 +29,7 @@ describe("ItemDBControl", function()
 		}
 		local itemsTab = {
 			activeItemSet = { useSecondWeaponSet = false },
-			slots = { ["Body Armour"] = {} },
+			slots = { ["Body Armour"] = { slotName = "Body Armour", IsShown = function() return true end } },
 			build = {
 				calcsTab = {
 					GetMiscCalculator = function()
@@ -43,6 +43,9 @@ describe("ItemDBControl", function()
 				return item ~= invalidItem
 			end,
 		}
+		itemsTab.GetVisibleItemSet = function() return itemsTab.activeItemSet end
+		itemsTab.GetVisibleItemSlots = function() return { itemsTab.slots["Body Armour"] } end
+		itemsTab.GetVisibleSlotName = function(_, slotName) return slotName end
 		local control = new("ItemDBControl"):ItemDBControl(nil, { 0, 0, 100, 100 }, itemsTab, {
 			list = { invalidItem, betterItem, worseItem },
 		}, "RARE")

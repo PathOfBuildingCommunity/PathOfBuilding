@@ -31,6 +31,7 @@ local resistTypeList = { "Fire", "Cold", "Lightning", "Chaos" }
 
 -- Damage is shifted to external allies before Frost Shield, so this is also the order in which pools are drained.
 local allyLifePoolList = {
+	{ key = "mercenary", life = "TotalMercenaryLife", mitigation = "MercenaryAllyDamageMitigation", redirect = "takenFromMercenaryBeforeYou", label = "Mercenary Life" },
 	{ key = "minion", life = "TotalMinionLife", mitigation = "MinionAllyDamageMitigation", redirect = "takenFromMinionBeforeYou", fallback = "Multiplier:MinionLife", label = "Minion Life" },
 	{ key = "radianceSentinel", life = "TotalRadianceSentinelLife", mitigation = "RadianceSentinelAllyDamageMitigation", redirect = "takenFromRadianceSentinelBeforeYou", label = "Total Sentinel of Radiance Life" },
 	{ key = "spectres", life = "TotalSpectreLife", mitigation = "SpectreAllyDamageMitigation", redirect = "takenFromSpectresBeforeYou", label = "Total Spectre Life" },
@@ -670,7 +671,7 @@ function calcs.defence(env, actor)
 		end
 	end
 	-- Formless Inferno
-	if actor == env.minion then
+	if actor.minionData then
 		doActorLifeMana(actor)
 		doActorLifeManaReservation(actor)
 	end

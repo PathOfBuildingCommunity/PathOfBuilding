@@ -15,6 +15,8 @@ local m_modf = math.modf
 local band = bit.band
 local bor = bit.bor
 
+local ConfigScope = require("Modules.ConfigScope")
+
 local mod_createMod = modLib.createMod
 
 -- Magic tables for caching multiplier/condition modifier names
@@ -51,6 +53,27 @@ local function getActor(self, actorType)
 	else
 		return self.actor[actorType]
 	end
+end
+
+local function sourceOwnedDB(self, tag)
+	if not ConfigScope.isSourceOwnedEnemyTag(tag) then
+		return nil
+	end
+	if tag.sourceActor and tag.sourceActor.enemySourceDB then
+		return tag.sourceActor.enemySourceDB
+	end
+	return self.actor and self.actor.enemySourceDB
+end
+
+local function actorModDB(self, actorType, tag)
+	if actorType == "enemy" then
+		local sourceDB = sourceOwnedDB(self, tag)
+		if sourceDB then
+			return sourceDB
+		end
+	end
+	local actor = getActor(self, actorType)
+	return actor and actor.modDB
 end
 
 function ModStoreClass:ScaleAddMod(mod, scale, replace)
@@ -367,25 +390,21 @@ function ModStoreClass:EvalMod(mod, cfg, globalLimits)
 	local GetCondition = self.GetCondition
 	for _, tag in ipairs(mod) do
 		if tag.type == "Multiplier" then
-			local target = self
+			local target = sourceOwnedDB(self, tag) or self
 			local limitTarget = self
 
 			-- Allow limiting a self multiplier on a parent multiplier (eg. Agony Crawler on player virulence)
 			-- This explicit target is necessary because even though the GetMultiplier method does call self.parent.GetMultiplier, it does so with noMod = true,
 			-- disabling the summation (3rd part): (not noMod and self:Sum("BASE", cfg, multiplierName[var]) or 0)
 			if tag.limitActor then
-				local limitActor = getActor(self, tag.limitActor)
-				if limitActor then
-					limitTarget = limitActor.modDB
-				else
+				limitTarget = actorModDB(self, tag.limitActor, tag)
+				if not limitTarget then
 					return
 				end
 			end
 			if tag.actor then
-				local actor = getActor(self, tag.actor)
-				if actor then
-					target = actor.modDB
-				else
+				target = actorModDB(self, tag.actor, tag)
+				if not target then
 					return
 				end
 			end
@@ -448,21 +467,17 @@ function ModStoreClass:EvalMod(mod, cfg, globalLimits)
 				end
 			end
 		elseif tag.type == "MultiplierThreshold" then
-			local target = self
+			local target = sourceOwnedDB(self, tag) or self
 			local thresholdTarget = self
 			if tag.thresholdActor then
-				local thresholdActor = getActor(self, tag.thresholdActor)
-				if thresholdActor then
-					thresholdTarget = thresholdActor.modDB
-				else
+				thresholdTarget = actorModDB(self, tag.thresholdActor, tag)
+				if not thresholdTarget then
 					return
 				end
 			end
 			if tag.actor then
-				local actor = getActor(self, tag.actor)
-				if actor then
-					target = actor.modDB
-				else
+				target = actorModDB(self, tag.actor, tag)
+				if not target then
 					return
 				end
 			end
@@ -483,9 +498,9 @@ function ModStoreClass:EvalMod(mod, cfg, globalLimits)
 			local target = self
 			-- This functions similar to the above tagTypes in regard to which actor to use, but for PerStat
 			-- if the actor is 'parent', we don't want to return if we're already using 'parent', just keep using 'self'
-			local actor = getActor(self, tag.actor)
-			if actor then
-				target = actor.modDB
+			local perStatDB = actorModDB(self, tag.actor, tag)
+			if perStatDB then
+				target = perStatDB
 			end
 			if tag.statList then
 				base = 0
@@ -499,6 +514,9 @@ function ModStoreClass:EvalMod(mod, cfg, globalLimits)
 				tag.div = GetMultiplier(self, tag.divVar, cfg)
 			end
 			local mult = m_floor(base / (tag.div or 1) + 0.0001)
+			if tag.subtract then
+				mult = m_max(mult - tag.subtract, 0)
+			end
 			local limitTotal
 			if tag.limit or tag.limitVar then
 				local limit = tag.limit or GetMultiplier(self, tag.limitVar, cfg)
@@ -532,9 +550,9 @@ function ModStoreClass:EvalMod(mod, cfg, globalLimits)
 			local target = self
 			-- This functions similar to the above tagTypes in regard to which actor to use, but for PercentStat
 			-- if the actor is 'parent', we don't want to return if we're already using 'parent', just keep using 'self'
-			local actor = getActor(self, tag.actor)
-			if actor then
-				target = actor.modDB
+			local percentStatDB = actorModDB(self, tag.actor, tag)
+			if percentStatDB then
+				target = percentStatDB
 			end
 			if tag.statList then
 				base = 0
@@ -632,7 +650,8 @@ function ModStoreClass:EvalMod(mod, cfg, globalLimits)
 			value = m_min(value, tag.limit or self:GetMultiplier(tag.limitVar, cfg))
 		elseif tag.type == "Condition" then
 			local match = false
-			local allOneH = ((self.actor.weaponData1 and self.actor.weaponData1.countsAsAll1H) and self.actor.weaponData1) or ((self.actor.weaponData2 and self.actor.weaponData2.countsAsAll1H) and self.actor.weaponData2)
+			local condStore = sourceOwnedDB(self, tag) or self
+			local allOneH = ((condStore.actor.weaponData1 and condStore.actor.weaponData1.countsAsAll1H) and condStore.actor.weaponData1) or ((condStore.actor.weaponData2 and condStore.actor.weaponData2.countsAsAll1H) and condStore.actor.weaponData2)
 			if tag.varList then
 				for _, var in pairs(tag.varList) do
 					if tag.neg and allOneH and allOneH["Added"..var] ~= nil then
@@ -641,7 +660,7 @@ function ModStoreClass:EvalMod(mod, cfg, globalLimits)
 						if not allOneH["Added"..var] then
 							return
 						end
-					elseif GetCondition(self, var, cfg) or (cfg and cfg.skillCond and cfg.skillCond[var]) then
+					elseif GetCondition(condStore, var, cfg) or (cfg and cfg.skillCond and cfg.skillCond[var]) then
 						match = true
 						break
 					end
@@ -652,7 +671,7 @@ function ModStoreClass:EvalMod(mod, cfg, globalLimits)
 						return
 					end
 				else
-					match = GetCondition(self, tag.var, cfg) or (cfg and cfg.skillCond and cfg.skillCond[tag.var])
+					match = GetCondition(condStore, tag.var, cfg) or (cfg and cfg.skillCond and cfg.skillCond[tag.var])
 				end
 			end
 			if tag.neg then
@@ -665,8 +684,7 @@ function ModStoreClass:EvalMod(mod, cfg, globalLimits)
 			local match = false
 			local target = self
 			if tag.actor then
-				local actor = getActor(self, tag.actor)
-				target = actor and actor.modDB
+				target = actorModDB(self, tag.actor, tag)
 			end
 			if target and (tag.var or tag.varList) then
 				if tag.varList then

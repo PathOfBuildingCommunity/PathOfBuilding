@@ -17,6 +17,7 @@ describe("TradeQuery", function()
 			local tq = new("TradeQuery"):TradeQuery({ itemsTab = {} })
 			tq.itemsTab.activeItemSet = {}
 			tq.itemsTab.slots         = {}
+			tq.itemsTab.GetVisibleItemSet = function(itemsTab) return itemsTab.activeItemSet end
 			tq.slotTables[1] = { slotName = "Ring 1" }
 			if state.resultTbl       then tq.resultTbl       = state.resultTbl       end
 			if state.sortedResultTbl then tq.sortedResultTbl = state.sortedResultTbl end
@@ -59,6 +60,45 @@ describe("TradeQuery", function()
 				dropdown.tooltipFunc(tooltip, "DROP", 1, nil)
 			end)
 			assert.are.equal(0, #tooltip.lines)
+		end)
+
+		it("imports a result into the visible item set slot", function()
+			local visibleItemSet = { Helmet = { selItemId = 0 } }
+			local currentVisibleItemSet = visibleItemSet
+			local helmetSlot = {
+				slotName = "Helmet",
+				label = "Helmet",
+				selItemId = 0,
+				IsShown = function() return true end,
+				SetSelItemId = function(self, itemId, itemSet)
+					self.selItemId = itemId
+					itemSet[self.slotName].selItemId = itemId
+				end,
+			}
+			local tq = newTradeQuery({
+				resultTbl = { [1] = { [1] = { item_string = "Rarity: NORMAL\nIron Hat", amount = 1, currency = "chaos" } } },
+				sortedResultTbl = { [1] = { { index = 1 } } },
+			})
+			tq.itemsTab.viewItemSet = visibleItemSet
+			tq.itemsTab.GetVisibleItemSet = function() return currentVisibleItemSet end
+			tq.itemsTab.slots = { [helmetSlot.slotName] = helmetSlot }
+			tq.itemsTab.IsItemValidForSlot = function() return true end
+			tq.itemsTab.CreateDisplayItemFromRaw = function(itemsTab) itemsTab.displayItem = { id = 77 } end
+			tq.itemsTab.AddDisplayItem = function() end
+			tq.itemsTab.PopulateSlots = function() end
+			tq.itemsTab.AddUndoState = function() end
+			tq.itemsTab.build = { buildFlag = false }
+			tq.slotTables[1] = { slotName = helmetSlot.slotName }
+			tq.itemIndexTbl[1] = 1
+
+			buildRow1Dropdown(tq)
+			local nextVisibleItemSet = { Helmet = { selItemId = 0 } }
+			currentVisibleItemSet = nextVisibleItemSet
+			tq.controls.importButton1:Click()
+
+			assert.are.equal(77, helmetSlot.selItemId)
+			assert.are.equal(0, visibleItemSet.Helmet.selItemId)
+			assert.are.equal(77, nextVisibleItemSet.Helmet.selItemId)
 		end)
 	end)
 	describe("GetResultEvaluation", function()
@@ -121,6 +161,66 @@ describe("TradeQuery", function()
 				assert.is_table(entry.DNs)
 				assert.is_true(#entry.DNs >= 2)
 			end
+		end)
+		it("weights Mercenary slots against Mercenary output", function()
+			mock_tradeQuery.tradeQueryGenerator = mock_queryGen
+			mock_tradeQuery.itemsTab.build = { calcsTab = { GetMiscCalculator = function()
+				return function() return { Life = 200 } end, { Life = 10 }, {
+					PLAYER = { Life = 10 },
+					MERCENARY = { Life = 100 },
+				}
+			end } }
+			mock_tradeQuery.slotTables[1] = { slotName = "Mercenary Helmet" }
+			mock_tradeQuery.resultTbl[1] = { { item_string = "Rarity: NORMAL\nIron Hat" } }
+			mock_tradeQuery.statSortSelectionList = { { stat = "Life", weightMult = 1 } }
+
+			local evaluation = mock_tradeQuery:GetResultEvaluation(1, 1)
+			assert.are.equal(2, evaluation[1].weight)
+
+			mock_tradeQuery.itemsTab.build = { calcsTab = { GetMiscCalculator = function()
+				return function() return { Life = 200 } end, { Life = 10 }, {
+					PLAYER = { Life = 10 },
+				}
+			end } }
+			evaluation = mock_tradeQuery:GetResultEvaluation(1, 1)
+			assert.same({ }, evaluation)
+		end)
+	end)
+	describe("PriceItem slot rows", function()
+		it("only includes slots shown by the visible item set", function()
+			newBuild()
+			local itemsTab = build.itemsTab
+			local tradeQuery = itemsTab.tradeQuery
+			local originalOpenPopup = main.OpenPopup
+			local originalUpdateRealms = tradeQuery.UpdateRealms
+			local originalPullCXData = tradeQuery.PullCXData
+			local ok, err
+
+			itemsTab.activeItemSet.useSecondWeaponSet = false
+			itemsTab.build.spec.treeVersion = "3_26"
+			itemsTab.build.calcsTab.mainEnv = { modDB = { Flag = function() return false end } }
+			tradeQuery.pbRealm = "pc"
+			tradeQuery.UpdateRealms = function() end
+			tradeQuery.PullCXData = function() end
+			main.OpenPopup = function() end
+			ok, err = pcall(function() tradeQuery:PriceItem() end)
+
+			main.OpenPopup = originalOpenPopup
+			tradeQuery.UpdateRealms = originalUpdateRealms
+			tradeQuery.PullCXData = originalPullCXData
+			assert.is_true(ok, err)
+
+			local slotNames = { }
+			for _, slotTable in ipairs(tradeQuery.slotTables) do
+				if not slotTable.unique and not slotTable.nodeId then
+					slotNames[slotTable.slotName] = true
+				end
+			end
+			assert.is_true(slotNames["Weapon 1"])
+			assert.is_nil(slotNames["Weapon 1 Swap"])
+			assert.is_nil(slotNames["Weapon 2 Swap"])
+			assert.is_nil(slotNames["Ring 3"])
+			assert.is_nil(slotNames["Graft 1"])
 		end)
 	end)
 	describe("ReduceOutput", function()

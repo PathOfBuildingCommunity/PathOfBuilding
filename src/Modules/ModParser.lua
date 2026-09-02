@@ -1249,15 +1249,18 @@ local preFlagList = {
 	["^socketed vaal skills [hgd][ae][via][enl] "] = { addToSkill = { type = "SocketedIn", slotName = "{SlotName}", keyword = "vaal" } },
 	["^socketed projectile spells [hgdf][aei][viar][enl] "] = { addToSkill = { type = "SocketedIn", slotName = "{SlotName}" }, tagList = { { type = "SkillType", skillType= SkillType.Projectile }, { type = "SkillType", skillType = SkillType.Spell } } },
 	-- Enemy modifiers
-	["^enemies withered by you [th]a[vk]e "] = { tag = { type = "MultiplierThreshold", var = "WitheredStack", threshold = 1 }, applyToEnemy = true },
+	["^enemies withered by you [th]a[vk]e "] = { tag = { type = "MultiplierThreshold", var = "WitheredStack", threshold = 1, sourceOwned = true }, applyToEnemy = true },
 	["^enemies (%a+) by you take "] = function(cond)
-		return { tag = { type = "Condition", var = cond:gsub("^%a", string.upper) }, applyToEnemy = true, modSuffix = "Taken" }
+		return { tag = { type = "Condition", var = cond:gsub("^%a", string.upper), sourceOwned = true }, applyToEnemy = true, modSuffix = "Taken" }
 	end,
 	["^enemies (%a+) by "] = function(cond)
 		return { tag = { type = "Condition", var = cond:gsub("^%a", string.upper) }, applyToEnemy = true }
 	end,
 	["^enemies (%a+) by you have "] = function(cond)
-		return { tag = { type = "Condition", var = cond:gsub("^%a", string.upper) }, applyToEnemy = true }
+		return { tag = { type = "Condition", var = cond:gsub("^%a", string.upper), sourceOwned = true }, applyToEnemy = true }
+	end,
+	["^enemies (%a+) by you "] = function(cond)
+		return { tag = { type = "Condition", var = cond:gsub("^%a", string.upper), sourceOwned = true }, applyToEnemy = true }
 	end,
 	["^while a pinnacle atlas boss is in your presence, enemies you've hit recently have "] = function(cond)
 		return { playerTagList = { { type = "Condition", var = "HitRecently" }, { type = "ActorCondition", actor = "enemy", var = "PinnacleBoss" } }, applyToEnemy = true }
@@ -1269,12 +1272,12 @@ local preFlagList = {
 		return { playerTag = { type = "Condition", var = "HitRecently" }, applyToEnemy = true }
 	end,
 	["^hits against enemies (%a+) by you have "] = function(cond)
-		return { tag = { type = "ActorCondition", actor = "enemy", var = cond:gsub("^%a", string.upper) } }
+		return { tag = { type = "ActorCondition", actor = "enemy", var = cond:gsub("^%a", string.upper), sourceOwned = true } }
 	end,
-	["^enemies shocked or frozen by you take "] = { tag = { type = "Condition", varList = { "Shocked","Frozen" } }, applyToEnemy = true, modSuffix = "Taken" },
-	["^enemies affected by your spider's webs [thd][ae][avk][el] "] = { tag = { type = "MultiplierThreshold", var = "Spider's WebStack", threshold = 1 }, applyToEnemy = true },
-	["^enemies you curse take "] = { tag = { type = "Condition", var = "Cursed" }, applyToEnemy = true, modSuffix = "Taken" },
-	["^enemies you curse "] = { tag = { type = "Condition", var = "Cursed" }, applyToEnemy = true },
+	["^enemies shocked or frozen by you take "] = { tag = { type = "Condition", varList = { "Shocked","Frozen" }, sourceOwned = true }, applyToEnemy = true, modSuffix = "Taken" },
+	["^enemies affected by your spider's webs [thd][ae][avk][el] "] = { tag = { type = "MultiplierThreshold", var = "Spider's WebStack", threshold = 1, sourceOwned = true }, applyToEnemy = true },
+	["^enemies you curse take "] = { tag = { type = "Condition", var = "Cursed", sourceOwned = true }, applyToEnemy = true, modSuffix = "Taken" },
+	["^enemies you curse "] = { tag = { type = "Condition", var = "Cursed", sourceOwned = true }, applyToEnemy = true },
 	["^nearby enemies take "] = { modSuffix = "Taken", applyToEnemy = true },
 	["^nearby enemies have "] = { applyToEnemy = true },
 	["^nearby enemies deal "] = { applyToEnemy = true },
@@ -1309,7 +1312,7 @@ local preFlagList = {
 	["^blink arrow and mirror arrow have "] = { tag = { type = "SkillName", skillNameList = { "Blink Arrow", "Mirror Arrow" }, includeTransfigured = true } },
 	["attacks with energy blades "] = { flags = ModFlag.Attack, tag = { type = "Condition", var = "AffectedByEnergyBlade" } },
 	["^for each nearby corpse, "] = { tag = { type = "Multiplier", var = "NearbyCorpse" } },
-	["^enemies in your link beams have "] = { tag = { type = "Condition", var = "BetweenYouAndLinkedTarget" }, applyToEnemy = true },
+	["^enemies in your link beams have "] = { tag = { type = "Condition", var = "BetweenYouAndLinkedTarget", sourceOwned = true }, applyToEnemy = true },
 	["^consecrated ground you create a?l?s?o? ?grants "] = { tag = { type = "Condition", var = "OnConsecratedGround" } },
 	-- While in the presence of...
 	["^while a unique enemy is in your presence, "] = { tag = { type = "ActorCondition", actor = "enemy", var = "RareOrUnique" } },
@@ -2040,7 +2043,7 @@ end
 table.sort(skillIds)
 for _, id in ipairs(skillIds) do
     local grantedEffect = data.skills[id]
-	if not grantedEffect.hidden or grantedEffect.fromItem or grantedEffect.fromTree then
+	if not grantedEffect.mercenary and (not grantedEffect.hidden or grantedEffect.fromItem or grantedEffect.fromTree) then
 		gemIdLookup[grantedEffect.name:lower()] = grantedEffect.id
 	end
 end
@@ -2295,21 +2298,21 @@ local specialModList = {
 	["you cannot gain rage during soul gain prevention"] = { mod("RageRegen", "MORE", -100, { type = "Condition", var = "SoulGainPrevention" }) },
 	["hits that deal elemental damage remove exposure to those elements and inflict exposure to other elements exposure inflicted this way applies (%-%d+)%% to resistances"] = function(num) return {
 		flag("ElementalEquilibrium"),
-		mod("EnemyModifier", "LIST", { mod = mod("FireExposure", "BASE", num, { type = "Condition", varList={ "HitByColdDamage","HitByLightningDamage" } }) }),
-		mod("EnemyModifier", "LIST", { mod = mod("ColdExposure", "BASE", num, { type = "Condition", varList={ "HitByFireDamage","HitByLightningDamage" } }) }),
-		mod("EnemyModifier", "LIST", { mod = mod("LightningExposure", "BASE", num, { type = "Condition", varList={ "HitByFireDamage","HitByColdDamage" } }) }),
+		mod("EnemyModifier", "LIST", { mod = mod("FireExposure", "BASE", num, { type = "Condition", varList={ "HitByColdDamage","HitByLightningDamage" }, sourceOwned = true }) }),
+		mod("EnemyModifier", "LIST", { mod = mod("ColdExposure", "BASE", num, { type = "Condition", varList={ "HitByFireDamage","HitByLightningDamage" }, sourceOwned = true }) }),
+		mod("EnemyModifier", "LIST", { mod = mod("LightningExposure", "BASE", num, { type = "Condition", varList={ "HitByFireDamage","HitByColdDamage" }, sourceOwned = true }) }),
 	} end,
 	["enemies you hit with elemental damage temporarily get (%+%d+)%% resistance to those elements and (%-%d+)%% resistance to other elements"] = function(plus, _, minus)
 		minus = tonumber(minus)
 		return {
 			flag("ElementalEquilibrium"),
 			flag("ElementalEquilibriumLegacy"),
-			mod("EnemyModifier", "LIST", { mod = mod("FireResist", "BASE", plus, { type = "Condition", var = "HitByFireDamage" }) }),
-			mod("EnemyModifier", "LIST", { mod = mod("FireResist", "BASE", minus, { type = "Condition", var = "HitByFireDamage", neg = true }, { type = "Condition", varList={ "HitByColdDamage","HitByLightningDamage" } }) }),
-			mod("EnemyModifier", "LIST", { mod = mod("ColdResist", "BASE", plus, { type = "Condition", var = "HitByColdDamage" }) }),
-			mod("EnemyModifier", "LIST", { mod = mod("ColdResist", "BASE", minus, { type = "Condition", var = "HitByColdDamage", neg = true }, { type = "Condition", varList={ "HitByFireDamage","HitByLightningDamage" } }) }),
-			mod("EnemyModifier", "LIST", { mod = mod("LightningResist", "BASE", plus, { type = "Condition", var = "HitByLightningDamage" }) }),
-			mod("EnemyModifier", "LIST", { mod = mod("LightningResist", "BASE", minus, { type = "Condition", var = "HitByLightningDamage", neg = true }, { type = "Condition", varList={ "HitByFireDamage","HitByColdDamage" } }) }),
+			mod("EnemyModifier", "LIST", { mod = mod("FireResist", "BASE", plus, { type = "Condition", var = "HitByFireDamage", sourceOwned = true }) }),
+			mod("EnemyModifier", "LIST", { mod = mod("FireResist", "BASE", minus, { type = "Condition", var = "HitByFireDamage", neg = true, sourceOwned = true }, { type = "Condition", varList={ "HitByColdDamage","HitByLightningDamage" }, sourceOwned = true }) }),
+			mod("EnemyModifier", "LIST", { mod = mod("ColdResist", "BASE", plus, { type = "Condition", var = "HitByColdDamage", sourceOwned = true }) }),
+			mod("EnemyModifier", "LIST", { mod = mod("ColdResist", "BASE", minus, { type = "Condition", var = "HitByColdDamage", neg = true, sourceOwned = true }, { type = "Condition", varList={ "HitByFireDamage","HitByLightningDamage" }, sourceOwned = true }) }),
+			mod("EnemyModifier", "LIST", { mod = mod("LightningResist", "BASE", plus, { type = "Condition", var = "HitByLightningDamage", sourceOwned = true }) }),
+			mod("EnemyModifier", "LIST", { mod = mod("LightningResist", "BASE", minus, { type = "Condition", var = "HitByLightningDamage", neg = true, sourceOwned = true }, { type = "Condition", varList={ "HitByFireDamage","HitByColdDamage" }, sourceOwned = true }) }),
 		}
 	end,
 	["projectile attack hits deal up to 30%% more damage to targets at the start of their movement, dealing less damage to targets as the projectile travels farther"] = { flag("PointBlank") },
@@ -2593,7 +2596,7 @@ local specialModList = {
 	["you have your maximum fortification"] = { flag("Condition:Fortified"), flag("Condition:HaveMaxFortification") },
 	["you have (%d+) fortification"] = function(num) return { mod("MinimumFortification", "BASE", num) } end,
 	["nearby allies count as having fortification equal to yours"] = { mod("ExtraAura", "LIST", { onlyAllies = true, mod = mod("YourFortifyEqualToParent", "FLAG", true, { type = "GlobalEffect", effectType = "Global", unscalable = true } ) }) },
-	["enemies taunted by you cannot evade attacks"] = { mod("EnemyModifier", "LIST", { mod = flag("CannotEvade", { type = "Condition", var = "Taunted" }) }) },
+	["enemies taunted by you cannot evade attacks"] = { mod("EnemyModifier", "LIST", { mod = flag("CannotEvade", { type = "Condition", var = "Taunted", sourceOwned = true }) }) },
 	["if you've impaled an enemy recently, you and nearby allies have %+(%d+) to armour"] = function (num) return { mod("ExtraAura", "LIST", { mod = mod("Armour", "BASE", num) }, { type = "Condition", var = "ImpaledRecently" }) } end,
 	["your hits permanently intimidate enemies that are on full life"] = { mod("EnemyModifier", "LIST", { mod = flag("Condition:Intimidated", { type = "Condition", var = "ChampionIntimidate" }) }) },
 	["you and allies affected by your placed banners regenerate ([%d%.]+)%% of life per second for each stage"] = function(num) return {
@@ -3528,9 +3531,9 @@ local specialModList = {
 	["(%d+)%% of physical damage from hits with this weapon is converted to a random element"] = function(num) return { mod("PhysicalDamageConvertToRandom", "BASE", num, { type = "Condition", var = "{Hand}Attack" }) } end,
 	["(%d+)%% of physical damage converted to a random element"] = function(num) return { mod("PhysicalDamageConvertToRandom", "BASE", num ) } end,
 	["nearby enemies convert (%d+)%% of their (%a+) damage to (%a+)"] = function(num, _, damageFrom, damageTo) return { mod("EnemyModifier", "LIST", { mod = mod((damageFrom:gsub("^%l", string.upper)).."DamageConvertTo"..(damageTo:gsub("^%l", string.upper)), "BASE", num ) }), } end,
-	["enemies ignited by you have (%d+)%% of (%a+) damage they deal converted to (%a+)"] = function(num, _, damageFrom, damageTo) return { mod("EnemyModifier", "LIST", { mod = mod((damageFrom:gsub("^%l", string.upper)).."DamageConvertTo"..(damageTo:gsub("^%l", string.upper)), "BASE", num, { type = "Condition", var = "Ignited" }) }), } end,
-	["enemies shocked by you have (%d+)%% of (%a+) damage they deal converted to (%a+)"] = function(num, _, damageFrom, damageTo) return { mod("EnemyModifier", "LIST", { mod = mod((damageFrom:gsub("^%l", string.upper)).."DamageConvertTo"..(damageTo:gsub("^%l", string.upper)), "BASE", num, { type = "Condition", var = "Shocked" }) }), } end,
-	["enemies poisoned by you have (%d+)%% of (%a+) damage they deal converted to (%a+)"] = function(num, _, damageFrom, damageTo) return { mod("EnemyModifier", "LIST", { mod = mod((damageFrom:gsub("^%l", string.upper)).."DamageConvertTo"..(damageTo:gsub("^%l", string.upper)), "BASE", num, { type = "Condition", var = "Poisoned" }) }), } end,
+	["enemies ignited by you have (%d+)%% of (%a+) damage they deal converted to (%a+)"] = function(num, _, damageFrom, damageTo) return { mod("EnemyModifier", "LIST", { mod = mod((damageFrom:gsub("^%l", string.upper)).."DamageConvertTo"..(damageTo:gsub("^%l", string.upper)), "BASE", num, { type = "Condition", var = "Ignited", sourceOwned = true }) }), } end,
+	["enemies shocked by you have (%d+)%% of (%a+) damage they deal converted to (%a+)"] = function(num, _, damageFrom, damageTo) return { mod("EnemyModifier", "LIST", { mod = mod((damageFrom:gsub("^%l", string.upper)).."DamageConvertTo"..(damageTo:gsub("^%l", string.upper)), "BASE", num, { type = "Condition", var = "Shocked", sourceOwned = true }) }), } end,
+	["enemies poisoned by you have (%d+)%% of (%a+) damage they deal converted to (%a+)"] = function(num, _, damageFrom, damageTo) return { mod("EnemyModifier", "LIST", { mod = mod((damageFrom:gsub("^%l", string.upper)).."DamageConvertTo"..(damageTo:gsub("^%l", string.upper)), "BASE", num, { type = "Condition", var = "Poisoned", sourceOwned = true }) }), } end,
 	["shield crush and spectral shield throw do not gain added physical damage based on armour or evasion on shield"] = { flag("Condition:ShieldThrowCrushNoArmourEvasion", { type = "SkillName", skillNameList = { "Spectral Shield Throw", "Shield Crush" }, includeTransfigured = true })},
 	["shield crush and spectral shield throw gains (%d+) to (%d+) added lightning damage per (%d+) energy shield on shield"] = function(_, min, max, num) return {
 		mod("LightningMin", "BASE", min, 0, 0, { type = "Condition", var = "OffHandAttack" }, { type = "PerStat", stat = "EnergyShieldOnWeapon 2", div = num }, { type = "SkillName", skillNameList = { "Spectral Shield Throw", "Shield Crush" }, includeTransfigured = true }),
@@ -3589,7 +3592,7 @@ local specialModList = {
 	["on non%-channelling attack, set a life flask with greater than %d+%% of maximum charges remaining to (%d+)%% for each charge removed this way, that attack gains %+(%d+)%% to damage over time multiplier"] = function(chargesConsumedPercent, _, damage) return {
 		mod("DotMultiplier", "BASE", tonumber(damage), { type = "PercentStat", stat = "LifeFlaskCharges", percent = 100 - chargesConsumedPercent, floor = true }, { type = "SkillType", skillType = SkillType.Channel, neg = true }, { type = "SkillType", skillType = SkillType.Attack })
 	} end,
-	["enemies poisoned by you cannot deal critical strikes"] = { mod("EnemyModifier", "LIST", { mod = flag("NeverCrit", { type = "Condition", var = "Poisoned" }) }), mod("EnemyModifier", "LIST", { mod = flag("Condition:NeverCrit", { type = "Condition", var = "Poisoned" })}) },
+	["enemies poisoned by you cannot deal critical strikes"] = { mod("EnemyModifier", "LIST", { mod = flag("NeverCrit", { type = "Condition", var = "Poisoned", sourceOwned = true }) }), mod("EnemyModifier", "LIST", { mod = flag("Condition:NeverCrit", { type = "Condition", var = "Poisoned", sourceOwned = true })}) },
 	["marked enemy cannot deal critical strikes"] =  { mod("EnemyModifier", "LIST", { mod = flag("NeverCrit", { type = "Condition", var = "Marked" }) }), mod("EnemyModifier", "LIST", { mod = flag("Condition:NeverCrit", { type = "Condition", var = "Marked" })}) },
 	["marked enemy cannot evade attacks"] =  { mod("EnemyModifier", "LIST", { mod = flag("CannotEvade", { type = "Condition", var = "Marked" }) }) },
 	["hits against you cannot be critical strikes if you've been stunned recently"] =  { mod("EnemyModifier", "LIST", { mod = flag("NeverCrit") }, {type = "Condition", var = "StunnedRecently" }), mod("EnemyModifier", "LIST", { mod = flag("Condition:NeverCrit")}, {type = "Condition", var = "StunnedRecently" })},
@@ -3695,7 +3698,7 @@ local specialModList = {
 	},
 	["you can inflict up to (%d+) ignites on an enemy"] = function(num) return { flag("IgniteCanStack"), mod("IgniteStacks", "OVERRIDE", num) } end,
 	["you can inflict an additional ignite on [ea][an]c?h? enemy"] = { flag("IgniteCanStack"), mod("IgniteStacks", "BASE", 1) },
-	["enemies chilled by you take (%d+)%% increased burning damage"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("FireDamageTakenOverTime", "INC", num) }, { type = "ActorCondition", actor = "enemy", var = "Chilled" }) } end,
+	["enemies chilled by you take (%d+)%% increased burning damage"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("FireDamageTakenOverTime", "INC", num) }, { type = "ActorCondition", actor = "enemy", var = "Chilled", sourceOwned = true }) } end,
 	["damaging ailments deal damage (%d+)%% faster"] = function(num) return { mod("IgniteBurnFaster", "INC", num), mod("BleedFaster", "INC", num), mod("PoisonFaster", "INC", num) } end,
 	["damaging ailments you inflict deal damage (%d+)%% faster while affected by malevolence"] = function(num) return {
 		mod("IgniteBurnFaster", "INC", num, { type = "Condition", var = "AffectedByMalevolence" }),
@@ -3730,7 +3733,7 @@ local specialModList = {
 	["(%d+)%% chance for ignites inflicted with shock nova or storm call to deal (%d+)%% more damage"] = function(num, _, more) return {
 		mod("Damage", "MORE", tonumber(more) * num / 100, nil, 0, KeywordFlag.Ignite, { type = "SkillName", skillNameList = { "Shock Nova", "Storm Call" }, includeTransfigured = true}),
 	} end,
-	["enemies ignited by you during f?l?a?s?k? ?effect take (%d+)%% increased damage"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("DamageTaken", "INC", num) }, { type = "ActorCondition", actor = "enemy", var = "Ignited" }) } end,
+	["enemies ignited by you during f?l?a?s?k? ?effect take (%d+)%% increased damage"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("DamageTaken", "INC", num) }, { type = "ActorCondition", actor = "enemy", var = "Ignited", sourceOwned = true }) } end,
 	["enemies ignited by you take chaos damage instead of fire damage from ignite"] = { flag("IgniteToChaos") },
 	["enemies chilled by your hits are shocked"] = {
 		mod("ShockBase", "BASE", data.nonDamagingAilment["Shock"].default, { type = "ActorCondition", actor = "enemy", var = "ChilledByYourHits" }),
@@ -4032,10 +4035,10 @@ local specialModList = {
 		mod("CurseEffect", "INC", tonumber(num), { type = "Multiplier", actor = "enemy", var = "CurseDurationExpired", limit = tonumber(limit), limitTotal = true }, { type = "SkillType", skillType = SkillType.Aura, neg = true }, { type = "SkillType", skillType =  SkillType.Hex })
 	} end,
 	["enemies cursed by you have malediction if (%d+)%% of curse duration expired"] = function(num) return {
-		mod("EnemyModifier", "LIST", { mod = flag("HasMalediction", { type = "MultiplierThreshold", var = "CurseExpired", threshold = tonumber(num) }, { type = "ActorCondition", var = "Cursed" }) }),
+		mod("EnemyModifier", "LIST", { mod = flag("HasMalediction", { type = "MultiplierThreshold", var = "CurseExpired", threshold = tonumber(num) }, { type = "ActorCondition", actor = "enemy", var = "Cursed", sourceOwned = true }) }),
 	} end,
 	["enemies cursed by you are hindered if (%d+)%% of curse duration expired"] = function(num) return {
-		mod("EnemyModifier", "LIST", { mod = flag("Condition:Hindered", { type = "MultiplierThreshold", var = "CurseExpired", threshold = tonumber(num) }, { type = "ActorCondition", var = "Cursed" }) }),
+		mod("EnemyModifier", "LIST", { mod = flag("Condition:Hindered", { type = "MultiplierThreshold", var = "CurseExpired", threshold = tonumber(num) }, { type = "ActorCondition", actor = "enemy", var = "Cursed", sourceOwned = true }) }),
 	} end,
 	["excommunicate enemies on melee hit for (%d+) seconds"] = { flag("Condition:CanExcommunicate") },
 	["auras from your skills can only affect you"] = { flag("SelfAurasOnlyAffectYou") },
@@ -4098,7 +4101,7 @@ local specialModList = {
 		mod("EnemyModifier", "LIST", { mod = mod("ChaosResist", "BASE", num) }),
 	} end,
 	["enemies ignited or chilled by you have (%-%d+)%% to elemental resistances"] = function(num) return {
-		mod("EnemyModifier", "LIST", { mod = mod("ElementalResist", "BASE", num )}, { type = "ActorCondition", actor = "enemy", varList = { "Ignited", "Chilled" } })
+		mod("EnemyModifier", "LIST", { mod = mod("ElementalResist", "BASE", num )}, { type = "ActorCondition", actor = "enemy", varList = { "Ignited", "Chilled" }, sourceOwned = true })
 	} end,
 	["reserves (%d+)%% of nearby enemy monsters' life"] = function(num) return {mod("EnemyModifier", "LIST", { mod = mod("LifeReservationPercent", "BASE", num) })} end,
 	["nearby enemy monsters have at least (%d+)%% of life reserved"] = function(num) return {mod("EnemyModifier", "LIST", { mod = mod("LifeReservationPercent", "BASE", num) })} end,
@@ -4188,7 +4191,7 @@ local specialModList = {
 	["warcries count as having (%d+) additional nearby enemies"] = function(num) return {
 		mod("Multiplier:WarcryNearbyEnemies", "BASE", num),
 	} end,
-	["enemies taunted by your warcries take (%d+)%% increased damage"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("DamageTaken", "INC", num, { type = "Condition", var = "Taunted" }) }, { type = "Condition", var = "UsedWarcryRecently" }) } end,
+	["enemies taunted by your warcries take (%d+)%% increased damage"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("DamageTaken", "INC", num, { type = "Condition", var = "Taunted", sourceOwned = true }) }, { type = "Condition", var = "UsedWarcryRecently" }) } end,
 	["warcries have minimum of (%d+) power"] = { flag("CryWolfMinimumPower") },
 	["warcries have infinite power"] = { flag("WarcryInfinitePower") },
 	["your warcries do not grant buffs or charges to you"] = { flag("CannotGainWarcryBuffs") },
@@ -4361,7 +4364,7 @@ local specialModList = {
 	["gain adrenaline for 1 second when you change stance"] = { flag("Condition:Adrenaline", { type = "Condition", var = "StanceChangeLastSecond" }) },
 	["with a searching eye jewel socketed, maim enemies for (%d) seconds on hit with attacks"] = { mod("EnemyModifier", "LIST", { mod = flag("Condition:Maimed", nil, ModFlag.Attack) }, { type = "Condition", var = "HaveSearchingEyeJewelIn{SlotName}" }) },
 	["with a searching eye jewel socketed, blind enemies for (%d) seconds on hit with attacks"] = { mod("EnemyModifier", "LIST", { mod = flag("Condition:Blinded", nil, ModFlag.Attack) }, { type = "Condition", var = "HaveSearchingEyeJewelIn{SlotName}" }) },
-	["enemies maimed by you take (%d+)%% increased damage over time"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("DamageTakenOverTime", "INC", num) }, { type = "ActorCondition", actor = "enemy", var = "Maimed" }) } end,
+	["enemies maimed by you take (%d+)%% increased damage over time"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("DamageTakenOverTime", "INC", num) }, { type = "ActorCondition", actor = "enemy", var = "Maimed", sourceOwned = true }) } end,
 	["(%d+)%% increased defences while you have at least four linked targets"] = function(num) return { mod("Defences", "INC", num, { type = "MultiplierThreshold", var = "LinkedTargets", threshold = 4 }) } end,
 	["your movement speed is equal to the highest movement speed among linked players"] = { flag("MovementSpeedEqualHighestLinkedPlayers", { type = "MultiplierThreshold", var = "LinkedTargets", threshold = 1 }), },
 	["(%d+)%% increased movement speed while you have at least two linked targets"] = function(num) return { mod("MovementSpeed", "INC", num, { type = "MultiplierThreshold", var = "LinkedTargets", threshold = 2 }) } end,
@@ -5037,6 +5040,37 @@ local specialModList = {
 		mod("Armour", "INC", num, { type = "Multiplier", var = "StationarySeconds", limit = tonumber(limit / num) }, { type = "Condition", var = "Stationary" }),
 	} end,
 	["(%d+)%% of damage from hits is taken from your r?a?i?s?e?d? ?spectres' life before you"] = function(num) return { mod("takenFromSpectresBeforeYou", "BASE", num) } end,
+	-- The damage penalty this node's reminder text describes is not stated on the
+	-- node, so it is applied to the Mercenary actor by `calcs.initMercenary`
+	-- through `MercenaryTools.permanentDamageMore` rather than sourced from here.
+	["you can hire a mercenary permanently"] = { flag("CanHirePermanentMercenary") },
+	["your mercenary and their minions have (%d+)%% increased maximum life"] = function(num) return {
+		mod("MercenaryModifier", "LIST", { mod = mod("Life", "INC", num) }),
+		mod("MercenaryMinionModifier", "LIST", { mod = mod("Life", "INC", num) }),
+	} end,
+	["your mercenary and their minions deal (%d+)%% increased damage"] = function(num) return {
+		mod("MercenaryModifier", "LIST", { mod = mod("Damage", "INC", num) }),
+		mod("MercenaryMinionModifier", "LIST", { mod = mod("Damage", "INC", num) }),
+	} end,
+	["your mercenary taunts on hit"] = { flag("MercenaryTauntsOnHit") },
+	["your mercenary has (%d+)%% increased effect of non%-curse auras from skills"] = function(num) return {
+		-- Wiki: increases the effect of the Mercenary's own non-curse aura skills.
+		mod("MercenaryModifier", "LIST", { mod = mod("AuraEffect", "INC", num, { type = "SkillType", skillType = SkillType.Aura }, { type = "SkillType", skillType = SkillType.AppliesCurse, neg = true }) }),
+	} end,
+	["your mercenary can equip unique weapons, shields and quivers"] = { flag("MercenaryCanEquipUniqueArms") },
+	["your mercenary can equip unique helmets"] = { flag("MercenaryCanEquipUniqueHelmets") },
+	["your mercenary can equip unique gloves"] = { flag("MercenaryCanEquipUniqueGloves") },
+	["your mercenary can equip unique boots"] = { flag("MercenaryCanEquipUniqueBoots") },
+	["your mercenary can equip unique amulets"] = { flag("MercenaryCanEquipUniqueAmulets") },
+	["your mercenary can equip unique rings"] = { flag("MercenaryCanEquipUniqueRings") },
+	["your mercenary can equip unique belts"] = { flag("MercenaryCanEquipUniqueBelts") },
+	["your mercenary and their minions deal (%d+)%% more damage for each unique item they have equipped"] = function(num) return {
+		mod("MercenaryModifier", "LIST", { mod = mod("Damage", "MORE", num, { type = "Multiplier", var = "UniqueItem" }) }),
+		mod("MercenaryMinionModifier", "LIST", { mod = mod("Damage", "MORE", num, { type = "Multiplier", var = "UniqueItem" }) }),
+	} end,
+	["increases and reductions to light radius also apply to effect of your link skill buffs on your mercenary"] = { flag("LightRadiusAppliesToMercenaryLinkEffect") },
+	["if your mercenary's life is higher than your own, (%d+)%% of damage from hits is taken from your mercenary's life before you"] = function(num) return { mod("LoyalBodyguardRedirect", "BASE", num) } end,
+	["if your mercenary's life is lower than your own, (%d+)%% of damage they take is recouped as life"] = function(num) return { mod("MercenaryLifeRecoup", "BASE", num) } end,
 	["(%d+)%% of damage from hits is taken from your nearest totem's life before you"] = function(num) return { mod("takenFromTotemsBeforeYou", "BASE", num, { type = "Condition", var = "HaveTotem" }) } end,
 	["(%d+)%% of damage from hits is taken from void spawns' life before you per void spawn"] = function(num) return { mod("takenFromVoidSpawnBeforeYou", "BASE", num, { type = "PerStat", stat = "ActiveVoidSpawnLimit" }) } end,
 	["(%a+) resistance cannot be penetrated"] = function(_, res) return { flag("EnemyCannotPen"..(res:gsub("^%l", string.upper)).."Resistance") } end,
@@ -5067,7 +5101,7 @@ local specialModList = {
 	-- Intimidate
 	["permanently intimidate enemies on block"] = { mod("EnemyModifier", "LIST", { mod = flag("Condition:Intimidated") }, { type = "Condition", var = "BlockedRecently" }) },
 	["with a murderous eye jewel socketed, intimidate enemies for (%d) seconds on hit with attacks"] = { mod("EnemyModifier", "LIST", { mod = flag("Condition:Intimidated") }, { type = "Condition", var = "HaveMurderousEyeJewelIn{SlotName}" }) },
-	["enemies taunted by your warcries are intimidated"] = { mod("EnemyModifier", "LIST", { mod = flag("Condition:Intimidated", { type = "Condition", var = "Taunted" }) }, { type = "Condition", var = "UsedWarcryRecently" }) },
+	["enemies taunted by your warcries are intimidated"] = { mod("EnemyModifier", "LIST", { mod = flag("Condition:Intimidated", { type = "Condition", var = "Taunted", sourceOwned = true }) }, { type = "Condition", var = "UsedWarcryRecently" }) },
 	["intimidate enemies for (%d+) seconds on block while holding a shield"] = { mod("EnemyModifier", "LIST", { mod = flag("Condition:Intimidated") }, { type = "Condition", var = "BlockedRecently" }, { type = "Condition", var = "UsingShield" }) },
 	["intimidate enemies on hit if you've cast (.-) in the past (%d+) seconds"] = function (_, curse) return {
 		mod("EnemyModifier", "LIST", { mod = flag("Condition:Intimidated") }, nil,  ModFlag.Hit, { type = "Condition", var = "SelfCast"..curse:gsub("^%l", string.upper):gsub(" %l", string.upper):gsub(" ", "") })
@@ -5478,9 +5512,9 @@ local specialModList = {
 	["your hits can't be evaded by blinded enemies"] = { flag("CannotBeEvaded", { type = "ActorCondition", actor = "enemy", var = "Blinded" }) },
 	["blind does not affect your chance to hit"] = { flag("UnaffectedByBlind") },
 	["unaffected by blind"] = { flag("UnaffectedByBlind") },
-	["enemies blinded by you while you are blinded have malediction"] = { mod("EnemyModifier", "LIST", { mod = flag("HasMalediction", { type = "Condition", var = "Blinded" }) }, { type = "Condition", var = "Blinded" }, { type = "Condition", var = "CannotBeBlinded", neg = true }) },
-	["enemies blinded by you have malediction"] = { mod("EnemyModifier", "LIST", { mod = flag("HasMalediction", { type = "Condition", var = "Blinded" }) }) },
-	["enemies ignited by you during effect have malediction"] = { mod("EnemyModifier", "LIST", { mod = flag("HasMalediction", { type = "Condition", var = "Ignited" }) }) },
+	["enemies blinded by you while you are blinded have malediction"] = { mod("EnemyModifier", "LIST", { mod = flag("HasMalediction", { type = "Condition", var = "Blinded", sourceOwned = true }) }, { type = "Condition", var = "Blinded" }, { type = "Condition", var = "CannotBeBlinded", neg = true }) },
+	["enemies blinded by you have malediction"] = { mod("EnemyModifier", "LIST", { mod = flag("HasMalediction", { type = "Condition", var = "Blinded", sourceOwned = true }) }) },
+	["enemies ignited by you during effect have malediction"] = { mod("EnemyModifier", "LIST", { mod = flag("HasMalediction", { type = "Condition", var = "Ignited", sourceOwned = true }) }) },
 	["skills which throw traps have blood magic"] = { flag("CostLifeInsteadOfMana", { type = "SkillType", skillType = SkillType.Trapped }) },
 	["skills which throw traps cost life instead of mana"] = { flag("CostLifeInsteadOfMana", { type = "SkillType", skillType = SkillType.Trapped }) },
 	["strength provides no bonus to maximum life"] = { flag("NoStrBonusToLife") },
@@ -5957,6 +5991,11 @@ local unsupportedModList = {
 	["properties are doubled while in a breach"] = true,
 	["mirrored"] = true,
 	["split"] = true,
+	-- Link Skill buffs are modelled as always applied, so PoB has no attachment
+	-- duration for this to remove.
+	["link skills have infinite attachment duration"] = true,
+	-- PoB does not model either actor dying, so it has no death to prevent.
+	["if your linked mercenary dies, the link owner does not also die"] = true,
 }
 
 -- Special lookups used for various modifier forms
@@ -6996,6 +7035,7 @@ local unsupported = { }
 local count = 0
 --local foo = io.open("../unsupported.txt", "w")
 --foo:close()
+
 return {
 	parseMod = function(line, isComb)
 		if not cache[line] then
@@ -7017,5 +7057,5 @@ return {
 		end
 		return unpack(copyTable(cache[line]))
 	end,
-	parseModCache = cache
+	parseModCache = cache,
 }

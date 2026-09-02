@@ -131,17 +131,17 @@ end
 
 return {
 	-- Section: General options
-	{ section = "General", col = 1 },
-	{ var = "resistancePenalty", type = "list", label = "Resistance penalty:", list = {{val=0,label="None"},{val=-30,label="Act 5 (-30%)"},{val=-60,label="Act 10 (-60%)"}}, defaultIndex = 3 },
-	{ var = "bandit", type = "list", defaultIndex = 1, label = "Bandit quest:", tooltipFunc = banditTooltip, list = {{val="None",label="Kill all"},{val="Oak",label="Help Oak"},{val="Kraityn",label="Help Kraityn"},{val="Alira",label="Help Alira"}} },
-	{ var = "pantheonMajorGod", type = "list", defaultIndex = 1, label = "Major God:", tooltipFunc = applyPantheonDescription, list = {
+	{ section = "General", col = 1, scope = "actor" },
+	{ var = "resistancePenalty", scope = "player", type = "list", label = "Resistance penalty:", list = {{val=0,label="None"},{val=-30,label="Act 5 (-30%)"},{val=-60,label="Act 10 (-60%)"}}, defaultIndex = 3 },
+	{ var = "bandit", scope = "player", type = "list", defaultIndex = 1, label = "Bandit quest:", tooltipFunc = banditTooltip, list = {{val="None",label="Kill all"},{val="Oak",label="Help Oak"},{val="Kraityn",label="Help Kraityn"},{val="Alira",label="Help Alira"}} },
+	{ var = "pantheonMajorGod", scope = "player", type = "list", defaultIndex = 1, label = "Major God:", tooltipFunc = applyPantheonDescription, list = {
 		{ label = "Nothing", val = "None" },
 		{ label = "Soul of the Brine King", val = "TheBrineKing" },
 		{ label = "Soul of Lunaris", val = "Lunaris" },
 		{ label = "Soul of Solaris", val = "Solaris" },
 		{ label = "Soul of Arakaali", val = "Arakaali" },
 	} },
-	{ var = "pantheonMinorGod", type = "list", defaultIndex = 1, label = "Minor God:", tooltipFunc = applyPantheonDescription, list = {
+	{ var = "pantheonMinorGod", scope = "player", type = "list", defaultIndex = 1, label = "Minor God:", tooltipFunc = applyPantheonDescription, list = {
 		{ label = "Nothing", val = "None" },
 		{ label = "Soul of Gruthkul", val = "Gruthkul" },
 		{ label = "Soul of Yugul", val = "Yugul" },
@@ -245,15 +245,15 @@ return {
 	{ var = "EVBypass", type = "check", label = "Disable Emperor's Vigilance Bypass", ifCond = "EVBypass", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:EVBypass", "FLAG", true, "Config")
 	end },
-	{ var = "ignoreItemDisablers", type = "check", label = "Don't disable items", ifTagType = "DisablesItem", tooltip = "Ignore the effects of things which disable items, like Bringer of Rain" },
-	{ var = "ignoreJewelLimits", type = "check", label = "Ignore Jewel Limits", tooltip = "Ignore the limits on jewels" },
-	{ var = "overrideEmptyRedSockets", type = "count", label = "# of Empty ^xE05030Red^7 Sockets", ifMult = "EmptyRedSocketsInAnySlot",  tooltip = "This option allows you to override the default calculation for the number of Empty ^xE05030Red^7 Sockets.\nThe default calculation assumes enabled gems in skill socket groups fill the item in socket order disregarding gem colour.\nLeave blank for default calculation." },
-	{ var = "overrideEmptyGreenSockets", type = "count", label = "# of Empty ^x70FF70Green^7 Sockets", ifMult = "EmptyGreenSocketsInAnySlot", tooltip = "This option allows you to override the default calculation for the number of Empty ^x70FF70Green^7 Sockets.\nThe default calculation assumes enabled gems in skill socket groups fill the item in socket order disregarding gem colour.\nLeave blank for default calculation." },
-	{ var = "overrideEmptyBlueSockets", type = "count", label = "# of Empty ^x7070FFBlue^7 Sockets", ifMult = "EmptyBlueSocketsInAnySlot", tooltip = "This option allows you to override the default calculation for the number of Empty ^x7070FFBlue^7 Sockets.\nThe default calculation assumes enabled gems in skill socket groups fill the item in socket order disregarding gem colour.\nLeave blank for default calculation." },
-	{ var = "overrideEmptyWhiteSockets", type = "count", label = "# of Empty White Sockets", ifMult = "EmptyWhiteSocketsInAnySlot", tooltip = "This option allows you to override the default calculation for the number of Empty White Sockets.\nThe default calculation assumes enabled gems in skill socket groups fill the item in socket order disregarding gem colour.\nLeave blank for default calculation." },
+	{ var = "ignoreItemDisablers", scope = "player", type = "check", label = "Don't disable items", ifTagType = "DisablesItem", tooltip = "Ignore the effects of things which disable items, like Bringer of Rain" },
+	{ var = "ignoreJewelLimits", scope = "player", type = "check", label = "Ignore Jewel Limits", tooltip = "Ignore the limits on jewels" },
+	{ var = "overrideEmptyRedSockets", scope = "player", type = "count", label = "# of Empty ^xE05030Red^7 Sockets", ifMult = "EmptyRedSocketsInAnySlot",  tooltip = "This option allows you to override the default calculation for the number of Empty ^xE05030Red^7 Sockets.\nThe default calculation assumes enabled gems in skill socket groups fill the item in socket order disregarding gem colour.\nLeave blank for default calculation." },
+	{ var = "overrideEmptyGreenSockets", scope = "player", type = "count", label = "# of Empty ^x70FF70Green^7 Sockets", ifMult = "EmptyGreenSocketsInAnySlot", tooltip = "This option allows you to override the default calculation for the number of Empty ^x70FF70Green^7 Sockets.\nThe default calculation assumes enabled gems in skill socket groups fill the item in socket order disregarding gem colour.\nLeave blank for default calculation." },
+	{ var = "overrideEmptyBlueSockets", scope = "player", type = "count", label = "# of Empty ^x7070FFBlue^7 Sockets", ifMult = "EmptyBlueSocketsInAnySlot", tooltip = "This option allows you to override the default calculation for the number of Empty ^x7070FFBlue^7 Sockets.\nThe default calculation assumes enabled gems in skill socket groups fill the item in socket order disregarding gem colour.\nLeave blank for default calculation." },
+	{ var = "overrideEmptyWhiteSockets", scope = "player", type = "count", label = "# of Empty White Sockets", ifMult = "EmptyWhiteSocketsInAnySlot", tooltip = "This option allows you to override the default calculation for the number of Empty White Sockets.\nThe default calculation assumes enabled gems in skill socket groups fill the item in socket order disregarding gem colour.\nLeave blank for default calculation." },
 
 	-- Section: Skill-specific options
-	{ section = "Skill Options", col = 2 },
+	{ section = "Skill Options", col = 2, scope = "actor" },
 	{ label = "Arcane Cloak:", ifSkill = "Arcane Cloak"},
 	{ var = "arcaneCloakUsedRecentlyCheck", type = "check", label = "Include in ^x7070FFMana ^7spent Recently?", ifSkill = "Arcane Cloak", tooltip = "When enabled, the mana spent by Arcane Cloak used at full mana \nwill be added to the value provided in # of ^x7070FFMana ^7spent Recently.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:ArcaneCloakUsedRecently", "FLAG", true, "Config")
@@ -536,7 +536,7 @@ return {
 		modList:NewMod("Multiplier:MinionLife", "BASE", val, "Config")
 	end },
 	{ label = "Eldritch Blasphemy:", ifSkill = "Eldritch Blasphemy" },
-	{ var = "conditionEnemyMalignantMadness", type = "check", label = "Enemy has Malignant Madness?", ifSkill = "Eldritch Blasphemy", tooltip = "A debuff that applies:\n\tDeal 10% less Damage\n\t10% reduced Action Speed", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyMalignantMadness", scope = "shared", type = "check", label = "Enemy has Malignant Madness?", ifSkill = "Eldritch Blasphemy", tooltip = "A debuff that applies:\n\tDeal 10% less Damage\n\t10% reduced Action Speed", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:MalignantMadness", "FLAG", true, "Config")
 	end },
 	{ label = "Meat Shield:", ifSkill = "Meat Shield" },
@@ -544,7 +544,7 @@ return {
 		modList:NewMod("Condition:MeatShieldEnemyNearYou", "FLAG", true, "Config")
 	end },
 	{ label = "Misty Reflection:", ifSkill = "Misty Reflection" },
-	{ var = "enemyHitMistyReflection", type = "check", label = "Enemy hit by Misty Reflection?", ifSkill = "Misty Reflection", tooltip = "Misty Reflection debuff lasts 4 seconds and makes enemies have:\n\t30% increased Damage Taken\n\tDeal 30% less Damage", apply = function(val, modList, enemyModList)
+	{ var = "enemyHitMistyReflection", scope = "shared", type = "check", label = "Enemy hit by Misty Reflection?", ifSkill = "Misty Reflection", tooltip = "Misty Reflection debuff lasts 4 seconds and makes enemies have:\n\t30% increased Damage Taken\n\tDeal 30% less Damage", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:MistyReflection", "FLAG", true, "Config")
 	end },
 	{ label = "Momentum:", ifSkill = "Momentum" },
@@ -774,7 +774,7 @@ return {
 		modList:NewMod("SkillData", "LIST", { key = "VaalMoltenShellDamageMitigated", value = val }, "Config", { type = "SkillName", skillName = "Molten Shell" })
 	end },
 	{ label = "Multi-part area skills:", ifSkill = { "Seismic Trap", "Lightning Spire Trap", "Explosive Trap", "Molten Strike", "Ball Lightning" }, includeTransfigured = true },
-	{ var = "enemySizePreset", type = "list", label = "Enemy size preset:", ifSkill = { "Seismic Trap", "Lightning Spire Trap", "Explosive Trap", "Molten Strike", "Ball Lightning" }, includeTransfigured = true, defaultIndex = 2, tooltip = [[
+	{ var = "enemySizePreset", scope = "shared", type = "list", label = "Enemy size preset:", ifSkill = { "Seismic Trap", "Lightning Spire Trap", "Explosive Trap", "Molten Strike", "Ball Lightning" }, includeTransfigured = true, defaultIndex = 2, tooltip = [[
 Configure the radius of an enemy hitbox which is used in calculating some area multi-hitting (shotgunning) effects.
 
 Small sets the radius to 2.
@@ -799,7 +799,7 @@ Huge sets the radius to 11.
 			modList:NewMod("EnemyRadius", "BASE", 11, "Config")
 		end
 	end },
-	{ var = "enemyRadius", type = "integer", label = "Enemy radius:", ifSkill = { "Seismic Trap", "Lightning Spire Trap", "Explosive Trap", "Molten Strike", "Ball Lightning" }, includeTransfigured = true, tooltip = "Configure the radius of an enemy hitbox to calculate some area overlapping (shotgunning) effects.", apply = function(val, modList, enemyModList)
+	{ var = "enemyRadius", scope = "shared", type = "integer", label = "Enemy radius:", ifSkill = { "Seismic Trap", "Lightning Spire Trap", "Explosive Trap", "Molten Strike", "Ball Lightning" }, includeTransfigured = true, tooltip = "Configure the radius of an enemy hitbox to calculate some area overlapping (shotgunning) effects.", apply = function(val, modList, enemyModList)
 		modList:NewMod("EnemyRadius", "OVERRIDE", m_max(val, 1), "Config")
 	end },
 	{ var = "TotalMinionLife", type = "integer", label = "Minion Life override:", ifMod = "takenFromMinionBeforeYou", tooltip = "Overrides the automatically calculated Life of the minion supported by Companionship.", apply = function(val, modList, enemyModList)
@@ -834,7 +834,7 @@ Huge sets the radius to 11.
 	{ var = "balanceOfTerrorSelfCastTemporalChains", type = "check", label = "Temporal Chains self-only", ifSkill = "Temporal Chains", ifCond = "SelfCastTemporalChains", tooltip = "Counts Temporal Chains as self-cast for Balance of Terror without applying it to enemies." },
 	{ var = "balanceOfTerrorSelfCastVulnerability", type = "check", label = "Vulnerability self-only", ifSkill = "Vulnerability", ifCond = "SelfCastVulnerability", tooltip = "Counts Vulnerability as self-cast for Balance of Terror without applying it to enemies." },
 	-- Section: Map modifiers/curses
-	{ section = "Map Modifiers and Player Debuffs", col = 2 },
+	{ section = "Map Modifiers and Player Debuffs", col = 2, scope = "shared" },
 	{ var = "multiplierSextant", type = "count", label = "# of Sextants affecting the area", ifMult = "Sextant", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:Sextant", "BASE", m_min(val, 5), "Config")
 	end },
@@ -855,48 +855,48 @@ Huge sets the radius to 11.
 		modList:NewMod("HasPvpScaling", "FLAG", true, "Config")
 	end },
 	{ label = "Player is cursed by:" },
-	{ var = "playerCursedWithAssassinsMark", type = "count", label = "Assassin's Mark:", tooltip = "Sets the level of Assassin's Mark to apply to the player.", apply = function(val, modList, enemyModList)
+	{ var = "playerCursedWithAssassinsMark", scope = "actor", type = "count", label = "Assassin's Mark:", tooltip = "Sets the level of Assassin's Mark to apply to the player.", apply = function(val, modList, enemyModList)
 		modList:NewMod("ExtraCurse", "LIST", { skillId = "AssassinsMark", level = val, applyToPlayer = true })
 	end },
-	{ var = "playerCursedWithConductivity", type = "count", label = "Conductivity:", tooltip = "Sets the level of Conductivity to apply to the player.", apply = function(val, modList, enemyModList)
+	{ var = "playerCursedWithConductivity", scope = "actor", type = "count", label = "Conductivity:", tooltip = "Sets the level of Conductivity to apply to the player.", apply = function(val, modList, enemyModList)
 		modList:NewMod("ExtraCurse", "LIST", { skillId = "Conductivity", level = val, applyToPlayer = true })
 	end },
-	{ var = "playerCursedWithDespair", type = "count", label = "Despair:", tooltip = "Sets the level of Despair to apply to the player.", apply = function(val, modList, enemyModList)
+	{ var = "playerCursedWithDespair", scope = "actor", type = "count", label = "Despair:", tooltip = "Sets the level of Despair to apply to the player.", apply = function(val, modList, enemyModList)
 		modList:NewMod("ExtraCurse", "LIST", { skillId = "Despair", level = val, applyToPlayer = true })
 	end },
-	{ var = "playerCursedWithElementalWeakness", type = "count", label = "Elemental Weakness:", tooltip = "Sets the level of Elemental Weakness to apply to the player.\nIn mid tier maps, 'of Elemental Weakness' applies level 10.\nIn high tier maps, 'of Elemental Weakness' applies level 15.", apply = function(val, modList, enemyModList)
+	{ var = "playerCursedWithElementalWeakness", scope = "actor", type = "count", label = "Elemental Weakness:", tooltip = "Sets the level of Elemental Weakness to apply to the player.\nIn mid tier maps, 'of Elemental Weakness' applies level 10.\nIn high tier maps, 'of Elemental Weakness' applies level 15.", apply = function(val, modList, enemyModList)
 		modList:NewMod("ExtraCurse", "LIST", { skillId = "ElementalWeakness", level = val, applyToPlayer = true })
 	end },
-	{ var = "playerCursedWithEnfeeble", type = "count", label = "Enfeeble:", tooltip = "Sets the level of Enfeeble to apply to the player.\nIn mid tier maps, 'of Enfeeblement' applies level 10.\nIn high tier maps, 'of Enfeeblement' applies level 15.", apply = function(val, modList, enemyModList)
+	{ var = "playerCursedWithEnfeeble", scope = "actor", type = "count", label = "Enfeeble:", tooltip = "Sets the level of Enfeeble to apply to the player.\nIn mid tier maps, 'of Enfeeblement' applies level 10.\nIn high tier maps, 'of Enfeeblement' applies level 15.", apply = function(val, modList, enemyModList)
 		modList:NewMod("ExtraCurse", "LIST", { skillId = "Enfeeble", level = val, applyToPlayer = true })
 	end },
-	{ var = "playerCursedWithFlammability", type = "count", label = "Flammability:", tooltip = "Sets the level of Flammability to apply to the player.", apply = function(val, modList, enemyModList)
+	{ var = "playerCursedWithFlammability", scope = "actor", type = "count", label = "Flammability:", tooltip = "Sets the level of Flammability to apply to the player.", apply = function(val, modList, enemyModList)
 		modList:NewMod("ExtraCurse", "LIST", { skillId = "Flammability", level = val, applyToPlayer = true })
 	end },
-	{ var = "playerCursedWithFrostbite", type = "count", label = "Frostbite:", tooltip = "Sets the level of Frostbite to apply to the player.", apply = function(val, modList, enemyModList)
+	{ var = "playerCursedWithFrostbite", scope = "actor", type = "count", label = "Frostbite:", tooltip = "Sets the level of Frostbite to apply to the player.", apply = function(val, modList, enemyModList)
 		modList:NewMod("ExtraCurse", "LIST", { skillId = "Frostbite", level = val, applyToPlayer = true })
 	end },
-	{ var = "playerCursedWithPoachersMark", type = "count", label = "Poacher's Mark:", tooltip = "Sets the level of Poacher's Mark to apply to the player.", apply = function(val, modList, enemyModList)
+	{ var = "playerCursedWithPoachersMark", scope = "actor", type = "count", label = "Poacher's Mark:", tooltip = "Sets the level of Poacher's Mark to apply to the player.", apply = function(val, modList, enemyModList)
 		modList:NewMod("ExtraCurse", "LIST", { skillId = "PoachersMark", level = val, applyToPlayer = true })
 	end },
-	{ var = "playerCursedWithProjectileWeakness", type = "count", label = "Projectile Weakness:", tooltip = "Sets the level of Projectile Weakness to apply to the player.", apply = function(val, modList, enemyModList)
+	{ var = "playerCursedWithProjectileWeakness", scope = "actor", type = "count", label = "Projectile Weakness:", tooltip = "Sets the level of Projectile Weakness to apply to the player.", apply = function(val, modList, enemyModList)
 		modList:NewMod("ExtraCurse", "LIST", { skillId = "ProjectileWeakness", level = val, applyToPlayer = true })
 	end },
-	{ var = "playerCursedWithPunishment", type = "count", label = "Punishment:", tooltip = "Sets the level of Punishment to apply to the player.", apply = function(val, modList, enemyModList)
+	{ var = "playerCursedWithPunishment", scope = "actor", type = "count", label = "Punishment:", tooltip = "Sets the level of Punishment to apply to the player.", apply = function(val, modList, enemyModList)
 		modList:NewMod("ExtraCurse", "LIST", { skillId = "Punishment", level = val, applyToPlayer = true })
 	end },
-	{ var = "playerCursedWithTemporalChains", type = "count", label = "Temporal Chains:", tooltip = "Sets the level of Temporal Chains to apply to the player.\nIn mid tier maps, 'of Temporal Chains' applies level 10.\nIn high tier maps, 'of Temporal Chains' applies level 15.", apply = function(val, modList, enemyModList)
+	{ var = "playerCursedWithTemporalChains", scope = "actor", type = "count", label = "Temporal Chains:", tooltip = "Sets the level of Temporal Chains to apply to the player.\nIn mid tier maps, 'of Temporal Chains' applies level 10.\nIn high tier maps, 'of Temporal Chains' applies level 15.", apply = function(val, modList, enemyModList)
 		modList:NewMod("ExtraCurse", "LIST", { skillId = "TemporalChains", level = val, applyToPlayer = true })
 	end },
-	{ var = "playerCursedWithVulnerability", type = "count", label = "Vulnerability:", tooltip = "Sets the level of Vulnerability to apply to the player.\nIn mid tier maps, 'of Vulnerability' applies level 10.\nIn high tier maps, 'of Vulnerability' applies level 15.", apply = function(val, modList, enemyModList)
+	{ var = "playerCursedWithVulnerability", scope = "actor", type = "count", label = "Vulnerability:", tooltip = "Sets the level of Vulnerability to apply to the player.\nIn mid tier maps, 'of Vulnerability' applies level 10.\nIn high tier maps, 'of Vulnerability' applies level 15.", apply = function(val, modList, enemyModList)
 		modList:NewMod("ExtraCurse", "LIST", { skillId = "Vulnerability", level = val, applyToPlayer = true })
 	end },
-	{ var = "playerCursedWithWarlordsMark", type = "count", label = "Warlord's Mark:", tooltip = "Sets the level of Warlord's Mark to apply to the player.", apply = function(val, modList, enemyModList)
+	{ var = "playerCursedWithWarlordsMark", scope = "actor", type = "count", label = "Warlord's Mark:", tooltip = "Sets the level of Warlord's Mark to apply to the player.", apply = function(val, modList, enemyModList)
 		modList:NewMod("ExtraCurse", "LIST", { skillId = "WarlordsMark", level = val, applyToPlayer = true })
 	end },
 
 	-- Section: Combat options
-	{ section = "When In Combat", col = 1 },
+	{ section = "When In Combat", col = 1, scope = "actor" },
 	{ var = "usePowerCharges", type = "check", label = "Do you use Power Charges?", apply = function(val, modList, enemyModList)
 		modList:NewMod("UsePowerCharges", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
@@ -1235,7 +1235,7 @@ Huge sets the radius to 11.
 		modList:NewMod("Multiplier:NearbyEnemies", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 		modList:NewMod("Condition:OnlyOneNearbyEnemy", "FLAG", val == 1, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "multiplierNearbyRareOrUniqueEnemies", type = "countAllowZero", label = "# of nearby Rare or Unique Enemies:", ifMult = "NearbyRareOrUniqueEnemies", apply = function(val, modList, enemyModList)
+	{ var = "multiplierNearbyRareOrUniqueEnemies", type = "countAllowZero", label = "# of nearby Rare or Unique Enemies:", ifMult = "NearbyRareOrUniqueEnemies", scope = "shared", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:NearbyRareOrUniqueEnemies", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 		modList:NewMod("Multiplier:NearbyEnemies", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 		modList:NewMod("Condition:AtMostOneNearbyRareOrUniqueEnemy", "FLAG", val <= 1, "Config", { type = "Condition", var = "Combat" })
@@ -1483,7 +1483,7 @@ Huge sets the radius to 11.
 	{ var = "buffHerEmbrace", type = "check", label = "Are you in Her Embrace?", ifCond = "HerEmbrace", tooltip = "This option is specific to Oni-Goroshi.", apply = function(val, modList, enemyModList)
 		modList:NewMod("HerEmbrace", "FLAG", true, "Config", { type = "Condition", var = "Combat" }, { type = "Condition", var = "CanGainHerEmbrace" })
 	end },
-	{ var = "conditionChampionIntimidate", type = "check", label = "Is Champion's Intimidate active?", ifEnemyCond = "ChampionIntimidate", defaultState = true, apply = function(val, modList, enemyModList)
+	{ var = "conditionChampionIntimidate", type = "check", label = "Is Champion's Intimidate active?", ifEnemyCond = "ChampionIntimidate", enemyState = "source", defaultState = true, apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:ChampionIntimidate", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "conditionUsedSkillRecently", type = "check", label = "Have you used a Skill Recently?", ifCond = "UsedSkillRecently", apply = function(val, modList, enemyModList)
@@ -1648,13 +1648,13 @@ Huge sets the radius to 11.
 	{ var = "conditionImpaledRecently", type = "check", ifCond = "ImpaledRecently", label = "Impaled an enemy recently?", apply = function(val, modList, enemyModLIst)
 		modList:NewMod("Condition:ImpaledRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "multiplierImpalesOnEnemy", type = "countAllowZero", label = "# of Impales on enemy (if not maximum):", ifFlag = "impale", apply = function(val, modList, enemyModList)
+	{ var = "multiplierImpalesOnEnemy", scope = "shared", type = "countAllowZero", label = "# of Impales on enemy (if not maximum):", ifFlag = "impale", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Multiplier:ImpaleStacks", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "conditionCausedBleedingRecently", type = "check", label = "Have you caused ^xE05030Bleeding ^7Recently?", ifCond = "CausedBleedingRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:CausedBleedingRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "multiplierBleedsOnEnemy", type = "count", label = "# of Bleeds on enemy (if not maximum):", ifFlag = "Condition:HaveCrimsonDance", tooltip = "Sets current number of Bleeds on the enemy if using the Crimson Dance keystone.\nThis also implies that the enemy is Bleeding.", apply = function(val, modList, enemyModList)
+	{ var = "multiplierBleedsOnEnemy", scope = "shared", type = "count", label = "# of Bleeds on enemy (if not maximum):", ifFlag = "Condition:HaveCrimsonDance", tooltip = "Sets current number of Bleeds on the enemy if using the Crimson Dance keystone.\nThis also implies that the enemy is Bleeding.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Multiplier:BleedStacks", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 		enemyModList:NewMod("Condition:Bleeding", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
@@ -1776,7 +1776,7 @@ Huge sets the radius to 11.
 		modList:NewMod("Condition:BloodShrineOfBats", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	-- Section: Effective DPS options
-	{ section = "For Effective DPS", col = 1 },
+	{ section = "For Effective DPS", col = 1, scope = "actor" },
 	{ var = "skillForkCount", type = "count", label = "# of times Skill has Forked:", ifFlag = "forking", apply = function(val, modList, enemyModList)
 		modList:NewMod("ForkedCount", "BASE", val, "Config", { type = "Condition", var = "Effective" })
 	end },
@@ -1791,25 +1791,25 @@ Huge sets the radius to 11.
 	{ var = "conditionAtCloseRange", type = "check", label = "Is the enemy at Close Range?", ifCond = "AtCloseRange", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:AtCloseRange", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "enemyMultiplierEnemyPresenceSeconds", type = "count", label = "Enemy in Your Presence Duration", tooltip = "Number of seconds the enemy has been in your presence.", ifEnemyMult = "EnemyPresenceSeconds", apply = function(val, modList, enemyModList)
+	{ var = "enemyMultiplierEnemyPresenceSeconds", scope = "shared", type = "count", label = "Enemy in Your Presence Duration", tooltip = "Number of seconds the enemy has been in your presence.", ifEnemyMult = "EnemyPresenceSeconds", enemyState = "encounter", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Multiplier:EnemyPresenceSeconds", "BASE", val, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "conditionEnemyMoving", type = "check", label = "Is the enemy Moving?", ifMod = "BleedChance", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyMoving", scope = "shared", type = "check", label = "Is the enemy Moving?", ifMod = "BleedChance", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Moving", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "conditionEnemyFullLife", type = "check", label = "Is the enemy on Full ^xE05030Life?", ifEnemyCond = "FullLife", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyFullLife", scope = "shared", type = "check", label = "Is the enemy on Full ^xE05030Life?", ifEnemyCond = "FullLife", enemyState = "encounter", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:FullLife", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "conditionEnemyLowLife", type = "check", label = "Is the enemy on Low ^xE05030Life?", ifEnemyCond = "LowLife", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyLowLife", scope = "shared", type = "check", label = "Is the enemy on Low ^xE05030Life?", ifEnemyCond = "LowLife", enemyState = "encounter", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:LowLife", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "conditionEnemyCursed", type = "check", label = "Is the enemy Cursed?", ifEnemyCond = "Cursed", tooltip = "The enemy will automatically be considered to be Cursed if you have at least one curse enabled,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyCursed", scope = "shared", type = "check", label = "Is the enemy Cursed?", ifEnemyCond = "Cursed", enemyState = "encounter", tooltip = "The enemy will automatically be considered to be Cursed if you have at least one curse enabled,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Cursed", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "conditionEnemyStunned", type = "check", label = "Is the enemy Stunned?", ifEnemyCond = "Stunned", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyStunned", scope = "shared", type = "check", label = "Is the enemy Stunned?", ifEnemyCond = "Stunned", enemyState = "encounter", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Stunned", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "conditionEnemyBleeding", type = "check", label = "Is the enemy Bleeding?", ifEnemyCond = "Bleeding", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyBleeding", scope = "shared", type = "check", label = "Is the enemy Bleeding?", ifEnemyCond = "Bleeding", enemyState = "encounter", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Bleeding", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
 	{ var = "overrideBleedStackPotential", type = "count", label = "Bleed Stack Potential override:", ifOption = "conditionEnemyBleeding", tooltip = "Allows you to manually set the Stack Potential value for a skill.\nStack Potential equates to the number of times you are able to inflict a Bleed on an enemy before the duration of your first Bleed expires", apply = function(val, modList, enemyModList)
@@ -1818,177 +1818,177 @@ Huge sets the radius to 11.
 	{ var = "conditionSingleBleed", type = "check", label = "Cap to Single Bleed on enemy?", ifCond = "SingleBleed", tooltip = "This is for Blood Sap Tincture, but will limit you to only applying a single Bleed on the enemy", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:SingleBleed", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "multiplierRuptureStacks", type = "count", label = "# of Rupture stacks?", ifFlag = "Condition:CanInflictRupture", tooltip = "Rupture applies more bleed damage and faster bleeds for 3 seconds, up to 4 stacks", apply = function(val, modList, enemyModList)
+	{ var = "multiplierRuptureStacks", type = "count", label = "# of Rupture stacks?", ifFlag = "Condition:CanInflictRupture", scope = "shared", tooltip = "Rupture applies more bleed damage and faster bleeds for 3 seconds, up to 4 stacks", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Multiplier:RuptureStack", "BASE", val, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "conditionEnemyPoisoned", type = "check", label = "Is the enemy Poisoned?", ifEnemyCond = "Poisoned", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyPoisoned", scope = "shared", type = "check", label = "Is the enemy Poisoned?", ifEnemyCond = "Poisoned", enemyState = "encounter", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Poisoned", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "multiplierPoisonOnEnemy", type = "count", label = "# of Poison on enemy:", ifEnemyMult = "PoisonStack", implyCond = "Poisoned", apply = function(val, modList, enemyModList)
+	{ var = "multiplierPoisonOnEnemy", scope = "shared", type = "count", label = "# of Poison on enemy:", ifEnemyMult = "PoisonStack", enemyState = "encounter", implyCond = "Poisoned", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Multiplier:PoisonStack", "BASE", val, "Config", { type = "Condition", var = "Effective" })
 	end },
 	{ var = "conditionNonPoisonedOnly", type = "check", label = "Is the enemy non-Poisoned?", ifCond = "NonPoisonedOnly", tooltip = "This is for low tolerance, but will limit you to only applying poison a single time\n^8(Note that you can still apply multiple stacks via 'inflict additional poison' mods)^7", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:NonPoisonedOnly", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "multiplierCurseExpiredOnEnemy", type = "count", label = "#% of Curse Expired on enemy:", ifEnemyMult = "CurseExpired", apply = function(val, modList, enemyModList)
+	{ var = "multiplierCurseExpiredOnEnemy", scope = "shared", type = "count", label = "#% of Curse Expired on enemy:", ifEnemyMult = "CurseExpired", enemyState = "encounter", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Multiplier:CurseExpired", "BASE", val, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "multiplierCurseDurationExpiredOnEnemy", type = "count", label = "Curse Duration Expired on enemy:", ifEnemyMult = "CurseDurationExpired", apply = function(val, modList, enemyModList)
+	{ var = "multiplierCurseDurationExpiredOnEnemy", scope = "shared", type = "count", label = "Curse Duration Expired on enemy:", ifEnemyMult = "CurseDurationExpired", enemyState = "encounter", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Multiplier:CurseDurationExpired", "BASE", val, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "multiplierWitheredStackCount", type = "count", label = "# of Withered Stacks:", ifFlag = "Condition:CanWither", tooltip = "Withered applies 6% increased ^xD02090Chaos ^7Damage Taken to the enemy, up to 15 stacks.", apply = function(val, modList, enemyModList)
+	{ var = "multiplierWitheredStackCount", type = "count", label = "# of Withered Stacks:", ifFlag = "Condition:CanWither", scope = "shared", tooltip = "Withered applies 6% increased ^xD02090Chaos ^7Damage Taken to the enemy, up to 15 stacks.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Multiplier:WitheredStack", "BASE", val, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "multiplierCorrosionStackCount", type = "count", label = "# of Corrosion Stacks:", ifFlag = "Condition:CanCorrode", tooltip = "Each stack of Corrosion applies -5000 to total Armour and -1000 to total ^x33FF77Evasion Rating ^7to the enemy.\nCorrosion lasts 4 seconds and refreshes the duration of existing Corrosion stacks\nCorrosion has no stack limit", apply = function(val, modList, enemyModList)
+	{ var = "multiplierCorrosionStackCount", type = "count", label = "# of Corrosion Stacks:", ifFlag = "Condition:CanCorrode", scope = "shared", tooltip = "Each stack of Corrosion applies -5000 to total Armour and -1000 to total ^x33FF77Evasion Rating ^7to the enemy.\nCorrosion lasts 4 seconds and refreshes the duration of existing Corrosion stacks\nCorrosion has no stack limit", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Multiplier:CorrosionStack", "BASE", val, "Config", { type = "Condition", var = "Effective" })
 		enemyModList:NewMod("Armour", "BASE", -5000, "Corrosion", { type = "Multiplier", var = "CorrosionStack" }, { type = "ActorCondition", actor = "enemy", var = "CanCorrode" })
 		enemyModList:NewMod("Evasion", "BASE", -1000, "Corrosion", { type = "Multiplier", var = "CorrosionStack" }, { type = "ActorCondition", actor = "enemy", var = "CanCorrode" })
 	end },
-	{ var = "multiplierEnsnaredStackCount", type = "count", label = "# of Ensnare Stacks:", ifSkill = "Ensnaring Arrow", tooltip = "While ensnared, enemies take increased Projectile Damage from Attack Hits\nEnsnared enemies always count as moving, and have less movement speed while trying to break the snare.", apply = function(val, modList, enemyModList)
+	{ var = "multiplierEnsnaredStackCount", type = "count", label = "# of Ensnare Stacks:", ifSkill = "Ensnaring Arrow", scope = "shared", tooltip = "While ensnared, enemies take increased Projectile Damage from Attack Hits\nEnsnared enemies always count as moving, and have less movement speed while trying to break the snare.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:EnsnareStackCount", "BASE", val, "Config", { type = "Condition", var = "Effective" })
 		enemyModList:NewMod("Condition:Moving", "FLAG", true, "Config", { type = "MultiplierThreshold", actor = "enemy", var = "EnsnareStackCount", threshold = 1 })
 	end },
-	{ var = "conditionEnemyMaimed", type = "check", label = "Is the enemy Maimed?", ifEnemyCond = "Maimed", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyMaimed", scope = "shared", type = "check", label = "Is the enemy Maimed?", ifEnemyCond = "Maimed", enemyState = "encounter", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Maimed", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "conditionEnemyHindered", type = "check", label = "Is the enemy Hindered?", ifEnemyCond = "Hindered", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyHindered", scope = "shared", type = "check", label = "Is the enemy Hindered?", ifEnemyCond = "Hindered", enemyState = "encounter", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Hindered", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "conditionEnemyExcommunicated", type = "check", label = "Is the enemy Excommunicated?", ifFlag = "Condition:CanExcommunicate", tooltip = "Excommunicated Enemies cannot deal ^xD02090Chaos ^7Damage.", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyExcommunicated", scope = "shared", type = "check", label = "Is the enemy Excommunicated?", ifFlag = "Condition:CanExcommunicate", tooltip = "Excommunicated Enemies cannot deal ^xD02090Chaos ^7Damage.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Excommunicated", "FLAG", true, "Config", { type = "ActorCondition", actor = "enemy", var = "CanExcommunicate" })
 	end },
-	{ var = "conditionEnemyBlinded", type = "check", label = "Is the enemy Blinded?", tooltip = "In addition to allowing 'against Blinded Enemies' modifiers to apply,\n Blind applies the following effects.\n -20% Accuracy \n -20% ^x33FF77Evasion", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyBlinded", scope = "shared", type = "check", label = "Is the enemy Blinded?", tooltip = "In addition to allowing 'against Blinded Enemies' modifiers to apply,\n Blind applies the following effects.\n -20% Accuracy \n -20% ^x33FF77Evasion", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Blinded", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "overrideBuffBlinded", type = "count", label = "Effect of Blind (if not maximum):", ifOption = "conditionEnemyBlinded", tooltip = "If you have a guaranteed source of Blind, the strongest one will apply.", apply = function(val, modList, enemyModList)
+	{ var = "overrideBuffBlinded", type = "count", label = "Effect of Blind (if not maximum):", ifOption = "conditionEnemyBlinded", scope = "shared", tooltip = "If you have a guaranteed source of Blind, the strongest one will apply.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("BlindEffect", "OVERRIDE", val, "Config", {type = "GlobalEffect", effectType = "Buff" })
 	end },
-	{ var = "conditionEnemyTaunted", type = "check", label = "Is the enemy Taunted?", ifEnemyCond = "Taunted", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyTaunted", scope = "shared", type = "check", label = "Is the enemy Taunted?", ifEnemyCond = "Taunted", enemyState = "encounter", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Taunted", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "conditionEnemyDebilitated", type = "check", label = "Is the enemy Debilitated?", ifMod = "DebilitateChance", tooltip = "Debilitated enemies deal 10% less damage.", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyDebilitated", scope = "shared", type = "check", label = "Is the enemy Debilitated?", ifMod = "DebilitateChance", tooltip = "Debilitated enemies deal 10% less damage.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Debilitated", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "conditionEnemyPacified", type = "check", label = "Is the enemy Pacified?", ifSkill = "Pacify", tooltip = "Enemies are Pacified after 60% of Pacify's duration has expired", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyPacified", scope = "shared", type = "check", label = "Is the enemy Pacified?", ifSkill = "Pacify", tooltip = "Enemies are Pacified after 60% of Pacify's duration has expired", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Pacified", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "conditionEnemyBurning", type = "check", label = "Is the enemy ^xB97123Burning?", ifEnemyCond = "Burning", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyBurning", scope = "shared", type = "check", label = "Is the enemy ^xB97123Burning?", ifEnemyCond = "Burning", enemyState = "encounter", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Burning", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "conditionEnemyIgnited", type = "check", label = "Is the enemy ^xB97123Ignited?", ifEnemyCond = "Ignited", implyCond = "Burning", tooltip = "This also implies that the enemy is ^xB97123Burning.", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyIgnited", scope = "shared", type = "check", label = "Is the enemy ^xB97123Ignited?", ifEnemyCond = "Ignited", enemyState = "encounter", implyCond = "Burning", tooltip = "This also implies that the enemy is ^xB97123Burning.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Ignited", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
 	{ var = "overrideIgniteStackPotential", type = "count", label = "^xB97123Ignite^7 Stack Potential override:", ifOption = "conditionEnemyIgnited", tooltip = "Allows you to manually set the Stack Potential value for a skill.\nStack Potential equates to the number of times you are able to inflict an Ignite on an enemy before the duration of your first Ignite expires", apply = function(val, modList, enemyModList)
 		modList:NewMod("IgniteStackPotentialOverride", "OVERRIDE", val, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "conditionEnemyScorched", type = "check", ifFlag = "inflictScorch", label = "Is the enemy ^xB97123Scorched?", tooltip = "^xB97123Scorched ^7enemies have lowered elemental resistances, up to -30%.\nThis option will also allow you to input the effect of ^xB97123Scorched.", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyScorched", scope = "shared", type = "check", ifFlag = "inflictScorch", label = "Is the enemy ^xB97123Scorched?", tooltip = "^xB97123Scorched ^7enemies have lowered elemental resistances, up to -30%.\nThis option will also allow you to input the effect of ^xB97123Scorched.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Scorched", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 		enemyModList:NewMod("Condition:ScorchedConfig", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "conditionScorchedEffect", type = "count", label = "Effect of ^xB97123Scorched:", ifOption = "conditionEnemyScorched", tooltip = "This effect will only be applied while you can inflict ^xB97123Scorched.", apply = function(val, modList, enemyModList)
+	{ var = "conditionScorchedEffect", type = "count", label = "Effect of ^xB97123Scorched:", ifOption = "conditionEnemyScorched", scope = "shared", tooltip = "This effect will only be applied while you can inflict ^xB97123Scorched.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("ScorchVal", "BASE", val, "Config", { type = "Condition", var = "ScorchedConfig" })
 		enemyModList:NewMod("DesiredScorchVal", "BASE", val, "Scorch", { type = "Condition", var = "ScorchedConfig", neg = true })
 	end },
-	{ var = "ScorchStacks", type = "integer", label = "^xB97123Scorch ^7Stacks", ifFlag = "ScorchCanStack", ifOption = "conditionEnemyScorched", defaultPlaceholderState = 1, tooltip = "Amount of stacks of ^xB97123Scorch ^7applied to the enemy.", apply = function(val, modList, enemyModList)
+	{ var = "ScorchStacks", scope = "shared", type = "integer", label = "^xB97123Scorch ^7Stacks", ifFlag = "ScorchCanStack", ifOption = "conditionEnemyScorched", defaultPlaceholderState = 1, tooltip = "Amount of stacks of ^xB97123Scorch ^7applied to the enemy.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Multiplier:ScorchStacks", "BASE", val, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "conditionEnemyOnScorchedGround", type = "check", label = "Is the enemy on ^xB97123Scorched ^7Ground?", tooltip = "This also implies that the enemy is ^xB97123Scorched.", ifEnemyCond = "OnScorchedGround", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyOnScorchedGround", scope = "shared", type = "check", label = "Is the enemy on ^xB97123Scorched ^7Ground?", tooltip = "This also implies that the enemy is ^xB97123Scorched.", ifEnemyCond = "OnScorchedGround", enemyState = "encounter", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Scorched", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 		enemyModList:NewMod("Condition:OnScorchedGround", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "conditionEnemyChilled", type = "check", label = "Is the enemy ^x3F6DB3Chilled?", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyChilled", scope = "shared", type = "check", label = "Is the enemy ^x3F6DB3Chilled?", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Chilled", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 		enemyModList:NewMod("Condition:ChilledConfig", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "multiplierChilledByYouSeconds", type = "count", label = "Seconds of chill on enemy?", ifEnemyCond = "ChilledByYou", apply = function(val, modList, enemyModList)
+	{ var = "multiplierChilledByYouSeconds", type = "count", label = "Seconds of chill on enemy?", ifEnemyCond = "ChilledByYou", enemyState = "source", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Multiplier:ChilledByYouSeconds", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 		enemyModList:NewMod("Condition:ChilledByYou", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "conditionEnemyChilledEffect", type = "count", label = "Effect of ^x3F6DB3Chill:", ifOption = "conditionEnemyChilled", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyChilledEffect", scope = "shared", type = "count", label = "Effect of ^x3F6DB3Chill:", ifOption = "conditionEnemyChilled", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("ChillVal", "BASE", val, "Chill", { type = "Condition", var = "ChilledConfig" })
 		enemyModList:NewMod("DesiredChillVal", "BASE", val, "Chill", { type = "Condition", var = "ChilledConfig", neg = true })
 	end },
-	{ var = "conditionEnemyChilledByYourHits", type = "check", ifEnemyCond = "ChilledByYourHits", label = "Is the enemy ^x3F6DB3Chilled ^7by your Hits?", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyChilledByYourHits", type = "check", ifEnemyCond = "ChilledByYourHits", enemyState = "source", label = "Is the enemy ^x3F6DB3Chilled ^7by your Hits?", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Chilled", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 		enemyModList:NewMod("Condition:ChilledByYourHits", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "HoarfrostStacks", type = "count", label = "^x3F6DB3Hoarfrost ^7Stacks", ifFlag = "HitsCanInflictHoarfrost", tooltip = "Amount of stacks of ^x3F6DB3Hoarfrost ^7applied to the enemy.", apply = function(val, modList, enemyModList)
+	{ var = "HoarfrostStacks", type = "count", label = "^x3F6DB3Hoarfrost ^7Stacks", ifFlag = "HitsCanInflictHoarfrost", scope = "shared", tooltip = "Amount of stacks of ^x3F6DB3Hoarfrost ^7applied to the enemy.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("HoarfrostFreezeDuration", "INC", val * 20, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "multiplierBarnacleStacks", type = "count", label = "^x3F6DB3Barnacle ^7Stacks", ifFlag = "CanInflictBarnacles", tooltip = "Amount of stacks of ^x3F6DB3Barnacle ^7applied to the enemy.\n\n^8(Enemies affected by Barnacles Convert 5% of Physical Damage to Cold and have 5% increased duration of Chill and Freeze on them.\nEach instance of Barnacles lasts 30 seconds and can be inflicted up to 10 times)", apply = function(val, modList, enemyModList)
+	{ var = "multiplierBarnacleStacks", type = "count", label = "^x3F6DB3Barnacle ^7Stacks", ifFlag = "CanInflictBarnacles", scope = "shared", tooltip = "Amount of stacks of ^x3F6DB3Barnacle ^7applied to the enemy.\n\n^8(Enemies affected by Barnacles Convert 5% of Physical Damage to Cold and have 5% increased duration of Chill and Freeze on them.\nEach instance of Barnacles lasts 30 seconds and can be inflicted up to 10 times)", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Multiplier:BarnacleStack", "BASE", m_min(val, 10), "Config", { type = "Condition", var = "Effective" })
 		enemyModList:NewMod("SelfFreezeDuration", "INC", 5, "Config", { type = "Multiplier", var = "BarnacleStack" }, { type = "Condition", var = "Effective" } )
 		enemyModList:NewMod("SelfChillDuration", "INC", 5, "Config", { type = "Multiplier", var = "BarnacleStack" }, { type = "Condition", var = "Effective" } )
 		enemyModList:NewMod("PhysicalDamageConvertToCold", "BASE", 5, "Config", { type = "Multiplier", var = "BarnacleStack" }, { type = "Condition", var = "Effective" } )
 	end },
-	{ var = "conditionEnemyFrozen", type = "check", label = "Is the enemy ^x3F6DB3Frozen?", ifEnemyCond = "Frozen", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyFrozen", scope = "shared", type = "check", label = "Is the enemy ^x3F6DB3Frozen?", ifEnemyCond = "Frozen", enemyState = "encounter", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Frozen", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "multiplierFrozenByYouSeconds", type = "count", label = "Seconds of freeze on enemy?", ifEnemyCond = "FrozenByYou", apply = function(val, modList, enemyModList)
+	{ var = "multiplierFrozenByYouSeconds", type = "count", label = "Seconds of freeze on enemy?", ifEnemyCond = "FrozenByYou", enemyState = "source", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Multiplier:FrozenByYouSeconds", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 		enemyModList:NewMod("Condition:FrozenByYou", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "conditionEnemyBrittle", type = "check", ifFlag = "inflictBrittle", label = "Is the enemy ^x3F6DB3Brittle?", tooltip = "Hits against ^x3F6DB3Brittle ^7enemies have up to +6% Critical Strike Chance.\nThis option will also allow you to input the effect of ^x3F6DB3Brittle.", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyBrittle", scope = "shared", type = "check", ifFlag = "inflictBrittle", label = "Is the enemy ^x3F6DB3Brittle?", tooltip = "Hits against ^x3F6DB3Brittle ^7enemies have up to +6% Critical Strike Chance.\nThis option will also allow you to input the effect of ^x3F6DB3Brittle.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Brittle", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 		enemyModList:NewMod("Condition:BrittleConfig", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "conditionBrittleEffect", type = "count", label = "Effect of ^x3F6DB3Brittle:", ifOption = "conditionEnemyBrittle", tooltip = "This effect will only be applied while you can inflict ^x3F6DB3Brittle.", apply = function(val, modList, enemyModList)
+	{ var = "conditionBrittleEffect", type = "count", label = "Effect of ^x3F6DB3Brittle:", ifOption = "conditionEnemyBrittle", scope = "shared", tooltip = "This effect will only be applied while you can inflict ^x3F6DB3Brittle.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("BrittleVal", "BASE", val, "Config", { type = "Condition", var = "BrittleConfig" })
 		enemyModList:NewMod("DesiredBrittleVal", "BASE", val, "Brittle", { type = "Condition", var = "BrittleConfig", neg = true })
 	end },
-	{ var = "conditionEnemyOnBrittleGround", type = "check", label = "Is the enemy on ^xADAA47Brittle ^7Ground?", tooltip = "This also implies that the enemy is ^xADAA47Brittle.", ifEnemyCond = "OnBrittleGround", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyOnBrittleGround", scope = "shared", type = "check", label = "Is the enemy on ^xADAA47Brittle ^7Ground?", tooltip = "This also implies that the enemy is ^xADAA47Brittle.", ifEnemyCond = "OnBrittleGround", enemyState = "encounter", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Brittle", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 		enemyModList:NewMod("Condition:OnBrittleGround", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "conditionEnemyShocked", type = "check", label = "Is the enemy ^xADAA47Shocked?", tooltip = "In addition to allowing any 'against ^xADAA47Shocked ^7Enemies' modifiers to apply,\nthis will allow you to input the effect of the ^xADAA47Shock ^7applied to the enemy.", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyShocked", scope = "shared", type = "check", label = "Is the enemy ^xADAA47Shocked?", tooltip = "In addition to allowing any 'against ^xADAA47Shocked ^7Enemies' modifiers to apply,\nthis will allow you to input the effect of the ^xADAA47Shock ^7applied to the enemy.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Shocked", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 		enemyModList:NewMod("Condition:ShockedConfig", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "conditionShockEffect", type = "count", label = "Effect of ^xADAA47Shock:", ifOption = "conditionEnemyShocked", tooltip = "If you have a guaranteed source of ^xADAA47Shock^7,\nthe strongest one will apply instead unless this option would apply a stronger ^xADAA47Shock.", apply = function(val, modList, enemyModList)
+	{ var = "conditionShockEffect", type = "count", label = "Effect of ^xADAA47Shock:", ifOption = "conditionEnemyShocked", scope = "shared", tooltip = "If you have a guaranteed source of ^xADAA47Shock^7,\nthe strongest one will apply instead unless this option would apply a stronger ^xADAA47Shock.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("ShockVal", "BASE", val, "Shock", { type = "Condition", var = "ShockedConfig" })
 		enemyModList:NewMod("DesiredShockVal", "BASE", val, "Shock", { type = "Condition", var = "ShockedConfig", neg = true })
 	end },
-	{ var = "ShockStacks", type = "count", label = "^xADAA47Shock ^7Stacks", ifFlag = "ShockCanStack", ifOption = "conditionEnemyShocked", defaultPlaceholderState = 1, tooltip = "Amount of stacks of ^xADAA47Shock ^7applied to the enemy.", apply = function(val, modList, enemyModList)
+	{ var = "ShockStacks", scope = "shared", type = "count", label = "^xADAA47Shock ^7Stacks", ifFlag = "ShockCanStack", ifOption = "conditionEnemyShocked", defaultPlaceholderState = 1, tooltip = "Amount of stacks of ^xADAA47Shock ^7applied to the enemy.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Multiplier:ShockStacks", "BASE", val, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "conditionEnemyOnShockedGround", type = "check", label = "Is the enemy on ^xADAA47Shocked ^7Ground?", tooltip = "This also implies that the enemy is ^xADAA47Shocked.", ifEnemyCond = "OnShockedGround", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyOnShockedGround", scope = "shared", type = "check", label = "Is the enemy on ^xADAA47Shocked ^7Ground?", tooltip = "This also implies that the enemy is ^xADAA47Shocked.", ifEnemyCond = "OnShockedGround", enemyState = "encounter", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Shocked", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 		enemyModList:NewMod("Condition:OnShockedGround", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "conditionEnemySapped", type = "check", ifFlag = "inflictSap", label = "Is the enemy ^xADAA47Sapped?", tooltip = "^xADAA47Sapped ^7enemies deal less damage, up to 20%.", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemySapped", scope = "shared", type = "check", ifFlag = "inflictSap", label = "Is the enemy ^xADAA47Sapped?", tooltip = "^xADAA47Sapped ^7enemies deal less damage, up to 20%.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Sapped", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 		enemyModList:NewMod("Condition:SappedConfig", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "conditionSapEffect", type = "count", label = "Effect of ^xADAA47Sap:", ifOption = "conditionEnemySapped", tooltip = "If you have a guaranteed source of ^xADAA47Sap^7,\nthe strongest one will apply instead unless this option would apply a stronger ^xADAA47Sap.", apply = function(val, modList, enemyModList)
+	{ var = "conditionSapEffect", type = "count", label = "Effect of ^xADAA47Sap:", ifOption = "conditionEnemySapped", scope = "shared", tooltip = "If you have a guaranteed source of ^xADAA47Sap^7,\nthe strongest one will apply instead unless this option would apply a stronger ^xADAA47Sap.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("SapVal", "BASE", val, "Sap", { type = "Condition", var = "SappedConfig" })
 		enemyModList:NewMod("DesiredSapVal", "BASE", val, "Sap", { type = "Condition", var = "SappedConfig", neg = true })
 	end },
-	{ var = "conditionEnemyOnSappedGround", type = "check", label = "Is the enemy on ^xADAA47Sapped ^7Ground?", tooltip = "This also implies that the enemy is ^xADAA47Sapped.", ifEnemyCond = "OnSappedGround", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyOnSappedGround", scope = "shared", type = "check", label = "Is the enemy on ^xADAA47Sapped ^7Ground?", tooltip = "This also implies that the enemy is ^xADAA47Sapped.", ifEnemyCond = "OnSappedGround", enemyState = "encounter", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Sapped", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 		enemyModList:NewMod("Condition:OnSappedGround", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "multiplierFreezeShockIgniteOnEnemy", type = "count", label = "# of ^x3F6DB3Freeze ^7/ ^xADAA47Shock ^7/ ^xB97123Ignite ^7on enemy:", ifMult = "FreezeShockIgniteOnEnemy", apply = function(val, modList, enemyModList)
+	{ var = "multiplierFreezeShockIgniteOnEnemy", scope = "shared", type = "count", label = "# of ^x3F6DB3Freeze ^7/ ^xADAA47Shock ^7/ ^xB97123Ignite ^7on enemy:", ifMult = "FreezeShockIgniteOnEnemy", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:FreezeShockIgniteOnEnemy", "BASE", val, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "conditionEnemyFireExposure", type = "check", label = "Is the enemy Exposed to ^xB97123Fire?", ifFlag = "applyFireExposure", tooltip = "This applies -10% ^xB97123Fire Resistance ^7to the enemy.", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyFireExposure", scope = "shared", type = "check", label = "Is the enemy Exposed to ^xB97123Fire?", ifFlag = "applyFireExposure", tooltip = "This applies -10% ^xB97123Fire Resistance ^7to the enemy.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("FireExposure", "BASE", -10, "Config", { type = "Condition", var = "Effective" }, { type = "ActorCondition", actor = "enemy", var = "CanApplyFireExposure" })
 	end },
-	{ var = "conditionEnemyColdExposure", type = "check", label = "Is the enemy Exposed to ^x3F6DB3Cold?", ifFlag = "applyColdExposure", tooltip = "This applies -10% ^x3F6DB3Cold Resistance ^7to the enemy.", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyColdExposure", scope = "shared", type = "check", label = "Is the enemy Exposed to ^x3F6DB3Cold?", ifFlag = "applyColdExposure", tooltip = "This applies -10% ^x3F6DB3Cold Resistance ^7to the enemy.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("ColdExposure", "BASE", -10, "Config", { type = "Condition", var = "Effective" }, { type = "ActorCondition", actor = "enemy", var = "CanApplyColdExposure" })
 	end },
-	{ var = "conditionEnemyLightningExposure", type = "check", label = "Is the enemy Exposed to ^xADAA47Lightning?", ifFlag = "applyLightningExposure", tooltip = "This applies -10% ^xADAA47Lightning Resistance ^7to the enemy.", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyLightningExposure", scope = "shared", type = "check", label = "Is the enemy Exposed to ^xADAA47Lightning?", ifFlag = "applyLightningExposure", tooltip = "This applies -10% ^xADAA47Lightning Resistance ^7to the enemy.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("LightningExposure", "BASE", -10, "Config", { type = "Condition", var = "Effective" }, { type = "ActorCondition", actor = "enemy", var = "CanApplyLightningExposure" })
 	end },
-	{ var = "conditionEnemyIntimidated", type = "check", label = "Is the enemy Intimidated?", tooltip = "Intimidated enemies take 10% increased Attack Damage.", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyIntimidated", scope = "shared", type = "check", label = "Is the enemy Intimidated?", tooltip = "Intimidated enemies take 10% increased Attack Damage.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Intimidated", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "conditionEnemyCrushed", type = "check", label = "Is the enemy Crushed?", tooltip = "Crushed enemies have 15% reduced Physical Damage Reduction.", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyCrushed", scope = "shared", type = "check", label = "Is the enemy Crushed?", tooltip = "Crushed enemies have 15% reduced Physical Damage Reduction.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Crushed", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "conditionEnemyHallowingFlame", type = "check", label = "Is enemy affected by Hallowing Flame?", ifFlag = "Condition:CanInflictHallowingFlame", apply = function(val, modList, enemyModList, build)
+	{ var = "conditionEnemyHallowingFlame", scope = "shared", type = "check", label = "Is enemy affected by Hallowing Flame?", ifFlag = "Condition:CanInflictHallowingFlame", apply = function(val, modList, enemyModList, build)
 		enemyModList:NewMod("Condition:HallowingFlame", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "multiplierEnemyHallowingFlame", type = "count", label = "Hallowing Flame stacks", ifOption = "conditionEnemyHallowingFlame", defaultPlaceholderState = 1, tooltip = "Amount of Hallowing Flame stacks applied to the enemy.", apply = function(val, modList, enemyModList)
+	{ var = "multiplierEnemyHallowingFlame", type = "count", label = "Hallowing Flame stacks", ifOption = "conditionEnemyHallowingFlame", scope = "shared", defaultPlaceholderState = 1, tooltip = "Amount of Hallowing Flame stacks applied to the enemy.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Multiplier:HallowingFlame", "BASE", val, "Config", { type = "Condition", var = "Effective" })
 	end },
 	{ var = "multiplierHallowingFlameStacksRemovedByAlly", type = "countAllowZero", label = "Hallowing Flames removed by an ally recently", ifOption = "conditionEnemyHallowingFlame", ifMult = "HallowingFlameStacksRemovedByAlly", defaultPlaceholderState = 1, tooltip = "Amount of Hallowing Flame stacks removed from enemies by allies recently.", apply = function(val, modList, enemyModList)
@@ -1997,25 +1997,25 @@ Huge sets the radius to 11.
 	{ var = "conditionHallowingFlameMagnitude", type = "countAllowZero", label = "Inc. magnitude of Hallowing Flame stacks", ifOption = "conditionEnemyHallowingFlame", tooltip = "The magnitude of Hallowing Flame stacks applied to the enemy", apply = function(val, modList, enemyModList)
 		modList:NewMod("HallowingFlameMagnitude", "OVERRIDE", val, "Config")
 	end },
-	{ var = "conditionNearLinkedTarget", type = "check", label = "Is the enemy near you Linked target?", ifEnemyCond = "NearLinkedTarget", apply = function(val, modList, enemyModList)
+	{ var = "conditionNearLinkedTarget", type = "check", label = "Is the enemy near you Linked target?", ifEnemyCond = "NearLinkedTarget", enemyState = "source", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:NearLinkedTarget", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "conditionEnemyUnnerved", type = "check", label = "Is the enemy Unnerved?", tooltip = "Unnerved enemies take 10% increased Spell Damage.", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyUnnerved", scope = "shared", type = "check", label = "Is the enemy Unnerved?", tooltip = "Unnerved enemies take 10% increased Spell Damage.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Unnerved", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "conditionEnemyCoveredInAsh", type = "check", label = "Is the enemy covered in Ash?", tooltip = "Covered in Ash applies the following to the enemy:\n\t20% increased ^xB97123Fire ^7Damage taken\n\t20% less Movement Speed", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyCoveredInAsh", scope = "shared", type = "check", label = "Is the enemy covered in Ash?", tooltip = "Covered in Ash applies the following to the enemy:\n\t20% increased ^xB97123Fire ^7Damage taken\n\t20% less Movement Speed", apply = function(val, modList, enemyModList)
 		modList:NewMod("CoveredInAshEffect", "BASE", 20, "Covered in Ash")
 	end },
-	{ var = "conditionEnemyCoveredInFrost", type = "check", label = "Is the enemy covered in Frost?", tooltip = "Covered in Frost applies the following to the enemy:\n\t20% increased ^x3F6DB3Cold ^7Damage taken\n\t50% less Critical Strike Chance", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyCoveredInFrost", scope = "shared", type = "check", label = "Is the enemy covered in Frost?", tooltip = "Covered in Frost applies the following to the enemy:\n\t20% increased ^x3F6DB3Cold ^7Damage taken\n\t50% less Critical Strike Chance", apply = function(val, modList, enemyModList)
 		modList:NewMod("CoveredInFrostEffect", "BASE", 20, "Covered in Frost")
 	end },
-	{ var = "conditionEnemyOnConsecratedGround", type = "check", label = "Is the enemy on Consecrated Ground?", ifEnemyCond = "OnConsecratedGround", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyOnConsecratedGround", scope = "shared", type = "check", label = "Is the enemy on Consecrated Ground?", ifEnemyCond = "OnConsecratedGround", enemyState = "encounter", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:OnConsecratedGround", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "conditionEnemyHaveEnergyShield", type = "check", label = "Does the enemy have ^x88FFFFEnergy Shield^7?", ifEnemyCond = "HaveEnergyShield", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyHaveEnergyShield", scope = "shared", type = "check", label = "Does the enemy have ^x88FFFFEnergy Shield^7?", ifEnemyCond = "HaveEnergyShield", enemyState = "encounter", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:HaveEnergyShield", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "conditionEnemyOnProfaneGround", type = "check", label = "Is the enemy on Profane Ground?", ifFlag = "Condition:CreateProfaneGround", tooltip = "Enemies on Profane Ground receive the following modifiers:\n\t10% increased Effect of Curses\n\t100% increased chance to be Critically Hit", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyOnProfaneGround", scope = "shared", type = "check", label = "Is the enemy on Profane Ground?", ifFlag = "Condition:CreateProfaneGround", tooltip = "Enemies on Profane Ground receive the following modifiers:\n\t10% increased Effect of Curses\n\t100% increased chance to be Critically Hit", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:OnProfaneGround", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 		enemyModList:NewMod("CurseEffectOnSelf", "INC", 10, "Config", { type = "Condition", var = "OnProfaneGround" })
 		enemyModList:NewMod("SelfCritChance", "INC", 100, "Config", { type = "Condition", var = "OnProfaneGround" })
@@ -2023,10 +2023,10 @@ Huge sets the radius to 11.
 	{ var = "multiplierEnemyAffectedByGraspingVines", type = "count", label = "# of Grasping Vines affecting enemy:", ifMult = "GraspingVinesAffectingEnemy", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:GraspingVinesAffectingEnemy", "BASE", val, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "conditionEnemyOnFungalGround", type = "check", label = "Is the enemy on Fungal Ground?", ifCond = { "OnFungalGround", "CreateFungalGround" }, tooltip = "Enemies on your Fungal Ground have -10% to all Resistances", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyOnFungalGround", scope = "shared", type = "check", label = "Is the enemy on Fungal Ground?", ifCond = { "OnFungalGround", "CreateFungalGround" }, tooltip = "Enemies on your Fungal Ground have -10% to all Resistances", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:OnFungalGround", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "conditionEnemyOnBrineGround", type = "check", label = "Is the enemy on Brine Ground?", ifFlag = "CanCreateBrineGround", tooltip = "Enemies on your Brine Ground have \n30% increased effect of Lightning and Cold Ailments on them and \nhave 25% reduced Armour and Evasion Rating.", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyOnBrineGround", scope = "shared", type = "check", label = "Is the enemy on Brine Ground?", ifFlag = "CanCreateBrineGround", tooltip = "Enemies on your Brine Ground have \n30% increased effect of Lightning and Cold Ailments on them and \nhave 25% reduced Armour and Evasion Rating.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:OnBrineGround", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 		enemyModList:NewMod("SelfChillEffect", "INC", 30, "Config", { type = "Condition", var = "OnBrineGround" })
 		enemyModList:NewMod("SelfBrittleEffect", "INC", 30, "Config", { type = "Condition", var = "OnBrineGround" })
@@ -2036,41 +2036,41 @@ Huge sets the radius to 11.
 		enemyModList:NewMod("Evasion", "INC", -25, "Config", { type = "Condition", var = "OnBrineGround" })
 
 	end },
-	{ var = "conditionEnemyInChillingArea", type = "check", label = "Is the enemy in a ^x3F6DB3Chilling ^7area?", ifEnemyCond = "InChillingArea", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyInChillingArea", scope = "shared", type = "check", label = "Is the enemy in a ^x3F6DB3Chilling ^7area?", ifEnemyCond = "InChillingArea", enemyState = "encounter", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:InChillingArea", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "conditionEnemyInFrostGlobe", type = "check", label = "Is the enemy in the Frost Shield area?", ifEnemyCond = "EnemyInFrostGlobe", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyInFrostGlobe", scope = "shared", type = "check", label = "Is the enemy in the Frost Shield area?", ifEnemyCond = "EnemyInFrostGlobe", enemyState = "encounter", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:EnemyInFrostGlobe", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "conditionEnemyLifeHigherThanPlayer", type = "check", label = "Is the enemy ^xE05030Life^7% higher than yours?", ifEnemyCond = "HigherLifePercentThanPlayer", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyLifeHigherThanPlayer", type = "check", label = "Is the enemy ^xE05030Life^7% higher than yours?", ifEnemyCond = "HigherLifePercentThanPlayer", enemyState = "source", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:HigherLifePercentThanPlayer", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "enemyConditionHitByFireDamage", type = "check", label = "Enemy was Hit by ^xB97123Fire ^7Damage?", ifFlag = "ElementalEquilibrium", apply = function(val, modList, enemyModList)
+	{ var = "enemyConditionHitByFireDamage", type = "check", label = "Enemy was Hit by ^xB97123Fire ^7Damage?", ifFlag = "ElementalEquilibrium", enemyState = "source", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:HitByFireDamage", "FLAG", true, "Config")
 	end },
-	{ var = "enemyConditionHitByColdDamage", type = "check", label = "Enemy was Hit by ^x3F6DB3Cold ^7Damage?", ifFlag = "ElementalEquilibrium", apply = function(val, modList, enemyModList)
+	{ var = "enemyConditionHitByColdDamage", type = "check", label = "Enemy was Hit by ^x3F6DB3Cold ^7Damage?", ifFlag = "ElementalEquilibrium", enemyState = "source", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:HitByColdDamage", "FLAG", true, "Config")
 	end },
-	{ var = "enemyConditionHitByLightningDamage", type = "check", label = "Enemy was Hit by ^xADAA47Light. ^7Damage?", ifFlag = "ElementalEquilibrium", apply = function(val, modList, enemyModList)
+	{ var = "enemyConditionHitByLightningDamage", type = "check", label = "Enemy was Hit by ^xADAA47Light. ^7Damage?", ifFlag = "ElementalEquilibrium", enemyState = "source", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:HitByLightningDamage", "FLAG", true, "Config")
 	end },
-	{ var = "enemyInRFOrScorchingRay", type = "check", label = "Is the enemy in RF or Scorching Ray:", ifCond = "InRFOrScorchingRay", ifSkill = { "Righteous Fire", "Scorching Ray" }, includeTransfigured = true, apply = function(val, modList, enemyModList)
+	{ var = "enemyInRFOrScorchingRay", scope = "shared", type = "check", label = "Is the enemy in RF or Scorching Ray:", ifCond = "InRFOrScorchingRay", ifSkill = { "Righteous Fire", "Scorching Ray" }, includeTransfigured = true, apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:InRFOrScorchingRay", "FLAG", true, "Config")
 	end },
 	{ var = "EEIgnoreHitDamage", type = "check", label = "Ignore Skill Hit Damage?", ifFlag = "ElementalEquilibrium", tooltip = "This option prevents EE from being reset by the hit damage of your main skill." },
-	{ var = "conditionBetweenYouAndLinkedTarget", type = "check", label = "Is the enemy in your Link beams?", ifEnemyCond = "BetweenYouAndLinkedTarget", tooltip = "This option sets whether an enemy is between you and your linked target.", apply = function(val, modList, enemyModList)
+	{ var = "conditionBetweenYouAndLinkedTarget", type = "check", label = "Is the enemy in your Link beams?", ifEnemyCond = "BetweenYouAndLinkedTarget", enemyState = "source", tooltip = "This option sets whether an enemy is between you and your linked target.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:BetweenYouAndLinkedTarget", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "conditionEnemyFireResZero", type = "check", label = "Enemy hit you with ^xB97123Fire Damage^7?", ifFlag = "Condition:HaveTrickstersSmile", tooltip = "This option sets whether or not the enemy has hit you with ^xB97123Fire Damage^7 in the last 4 seconds.", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyFireResZero", scope = "shared", type = "check", label = "Enemy hit you with ^xB97123Fire Damage^7?", ifFlag = "Condition:HaveTrickstersSmile", tooltip = "This option sets whether or not the enemy has hit you with ^xB97123Fire Damage^7 in the last 4 seconds.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("FireResist", "OVERRIDE", 0, "Config", { type = "Condition", var = "Effective"}, { type = "ActorCondition", actor = "enemy", var = "HaveTrickstersSmile" })
 	end },
-	{ var = "conditionEnemyColdResZero", type = "check", label = "Enemy hit you with ^x3F6DB3Cold Damage^7?", ifFlag = "Condition:HaveTrickstersSmile", tooltip = "This option sets whether or not the enemy has hit you with ^x3F6DB3Cold Damage^7 in the last 4 seconds.", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyColdResZero", scope = "shared", type = "check", label = "Enemy hit you with ^x3F6DB3Cold Damage^7?", ifFlag = "Condition:HaveTrickstersSmile", tooltip = "This option sets whether or not the enemy has hit you with ^x3F6DB3Cold Damage^7 in the last 4 seconds.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("ColdResist", "OVERRIDE", 0, "Config", { type = "Condition", var = "Effective"}, { type = "ActorCondition", actor = "enemy", var = "HaveTrickstersSmile" })
 	end },
-	{ var = "conditionEnemyLightningResZero", type = "check", label = "Enemy hit you with ^xADAA47Light. Damage^7?", ifFlag = "Condition:HaveTrickstersSmile", tooltip = "This option sets whether or not the enemy has hit you with ^xADAA47Lightning Damage^7 in the last 4 seconds.", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyLightningResZero", scope = "shared", type = "check", label = "Enemy hit you with ^xADAA47Light. Damage^7?", ifFlag = "Condition:HaveTrickstersSmile", tooltip = "This option sets whether or not the enemy has hit you with ^xADAA47Lightning Damage^7 in the last 4 seconds.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("LightningResist", "OVERRIDE", 0, "Config", { type = "Condition", var = "Effective"}, { type = "ActorCondition", actor = "enemy", var = "HaveTrickstersSmile" })
 	end },
-	{ var = "maniaDebuffsCount", type = "countAllowZero", label = "# of Mania Stacks", ifFlag = "Condition:CanInflictMania", defaultState = 15, tooltip = "Mania Stacks apply:\n\t4% inc Damage Taken per stack\n\t2% reduced Action Speed per stack\n\t10% reduced ^xE05030Life ^7and ^x88FFFFEnergy Shield ^7Recovery Rate per stack", apply = function(val, modList, enemyModList)
+	{ var = "maniaDebuffsCount", type = "countAllowZero", label = "# of Mania Stacks", ifFlag = "Condition:CanInflictMania", scope = "shared", defaultState = 15, tooltip = "Mania Stacks apply:\n\t4% inc Damage Taken per stack\n\t2% reduced Action Speed per stack\n\t10% reduced ^xE05030Life ^7and ^x88FFFFEnergy Shield ^7Recovery Rate per stack", apply = function(val, modList, enemyModList)
 		val = m_min(val, 15)
 		enemyModList:NewMod("DamageTaken", "INC", val * 4, val.." Mania Stacks", { type = "GlobalEffect", effectType = "Debuff" }, { type = "Condition", var = "AfflictedByMania" })
 		enemyModList:NewMod("ActionSpeed", "INC", -val * 2, val.." Mania Stacks", { type = "GlobalEffect", effectType = "Debuff" }, { type = "Condition", var = "AfflictedByMania" })
@@ -2078,9 +2078,9 @@ Huge sets the radius to 11.
 		enemyModList:NewMod("EnergyShieldRecoveryRate", "INC", -val * 10, val.." Mania Stacks", { type = "GlobalEffect", effectType = "Debuff" }, { type = "Condition", var = "AfflictedByMania" })
 	end },
 	-- Section: Enemy Stats
-	{ section = "Enemy Stats", col = 3 },
+	{ section = "Enemy Stats", col = 3, scope = "shared" },
 	{ var = "enemyLevel", type = "count", label = "Enemy Level:", tooltip = "This overrides the default enemy level used to estimate your hit and ^x33FF77evade ^7chance.\n\nThe default level for normal enemies and standard bosses is 83.\nTheir default level is capped by your character level.\n\nThe default level for pinnacle bosses is 84, and the default level for uber pinnacle bosses is 85.\nTheir default level is not capped by your character level." },
-	{ var = "conditionEnemyRareOrUnique", type = "check", label = "Is the enemy Rare or Unique?", ifEnemyCond = "EnemyRareOrUnique", tooltip = "The enemy will automatically be considered to be Unique if they are a Boss,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
+	{ var = "conditionEnemyRareOrUnique", type = "check", label = "Is the enemy Rare or Unique?", ifEnemyCond = "EnemyRareOrUnique", enemyState = "encounter", tooltip = "The enemy will automatically be considered to be Unique if they are a Boss,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
 	{ var = "enemyIsBoss", type = "list", label = "Is the enemy a Boss?", defaultIndex = 3, tooltip = data.enemyIsBossTooltip, list = {{val="None",label="No"},{val="Boss",label="Standard Boss"},{val="Pinnacle",label="Guardian/Pinnacle Boss"},{val="Uber",label="Uber Pinnacle Boss"}}, apply = function(val, modList, enemyModList, build)
@@ -2376,5 +2376,5 @@ Huge sets the radius to 11.
 	{ var = "enemyChaosDamage", type = "countAllowZero", label = "Enemy Skill ^xD02090Chaos Damage:"},
 	
 	-- Section: Custom mods
-	{ section = "Custom Modifiers", col = 1 },
+	{ section = "Custom Modifiers", col = 1, scope = "actor" },
 }

@@ -111,6 +111,7 @@ function CompareEntryClass:LoadFromXML(xmlText)
 	self.partyTab = { enemyModList = new("ModList"):ModList(), actor = partyActor }
 	self.configTab = new("ConfigTab"):ConfigTab(self)
 	self.itemsTab = new("ItemsTab"):ItemsTab(self)
+	self.mercenaryTab = new("MercenaryTab"):MercenaryTab(self)
 	self.treeTab = new("TreeTab"):TreeTab(self)
 	self.skillsTab = new("SkillsTab"):SkillsTab(self)
 	self.calcsTab = new("CalcsTab"):CalcsTab(self)
@@ -118,6 +119,7 @@ function CompareEntryClass:LoadFromXML(xmlText)
 	-- Set up savers table
 	self.savers = {
 		["Config"] = self.configTab,
+		["Mercenary"] = self.mercenaryTab,
 		["Tree"] = self.treeTab,
 		["TreeView"] = self.treeTab.viewer,
 		["Items"] = self.itemsTab,
@@ -227,6 +229,7 @@ function CompareEntryClass:GetSpec()
 end
 
 function CompareEntryClass:SyncCalcsSkillSelection()
+	if self.calcsTab:IsMercenaryActor() then return end
 	self.calcsTab.input.skill_number = self.mainSocketGroup
 
 	local mainGroup = self.skillsTab and self.skillsTab.socketGroupList[self.mainSocketGroup]
@@ -269,6 +272,13 @@ function CompareEntryClass:SetActiveItemSet(id)
 	end
 end
 
+function CompareEntryClass:SetViewItemSet(id, comparisonActor)
+	if self.itemsTab and self.itemsTab.SetViewItemSet then
+		self.itemsTab:SetViewItemSet(id, comparisonActor)
+		self:Rebuild()
+	end
+end
+
 function CompareEntryClass:SetActiveSkillSet(id)
 	if self.skillsTab and self.skillsTab.SetActiveSkillSet then
 		self.skillsTab:SetActiveSkillSet(id)
@@ -289,6 +299,11 @@ end
 function CompareEntryClass:RefreshSkillSelectControls(controls, mainGroup, suffix)
 	-- Populate skill select controls
 	if not controls or not controls.mainSocketGroup then return end
+	if self.calcsTab:IsMercenaryActor() then
+		self.calcsTab:RefreshMercenarySkillSelectControls(controls, suffix)
+		return
+	end
+	controls.mainSocketGroup.enabled = true
 	controls.mainSocketGroup.selIndex = mainGroup
 	wipeTable(controls.mainSocketGroup.list)
 	for i, socketGroup in pairs(self.skillsTab.socketGroupList) do
@@ -379,7 +394,7 @@ end
 function CompareEntryClass:RefreshMinionControls(controls, activeSkill, activeEffect, suffix)
 	wipeTable(controls.mainSkillMinion.list)
 	if activeEffect.grantedEffect.minionHasItemSet then
-		for _, itemSetId in ipairs(self.itemsTab.itemSetOrderList) do
+		for _, itemSetId in ipairs(self.itemsTab:GetMinionItemSetOrderList()) do
 			local itemSet = self.itemsTab.itemSets[itemSetId]
 			t_insert(controls.mainSkillMinion.list, {
 				label = itemSet.title or "Default Item Set",

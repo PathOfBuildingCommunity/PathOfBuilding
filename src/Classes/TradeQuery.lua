@@ -7,11 +7,11 @@
 
 local dkjson = require "dkjson"
 local itemSlotHelper = require("Modules.ItemSlotHelper")
+local MercenaryTools = require("Modules.MercenaryTools")
 
 local get_time = os.time
 local t_insert = table.insert
 local t_remove = table.remove
-local t_sort = table.sort
 local m_max = math.max
 local m_min = math.min
 local m_ceil = math.ceil
@@ -288,6 +288,7 @@ function TradeQueryClass:PriceItem()
 	local top_pane_alignment_ref = nil
 	local pane_margins_horizontal = 16
 	local pane_margins_vertical = 16
+	local initialItemSetId = self.itemsTab.viewItemSetId or self.itemsTab.activeItemSetId
 
 	local newItemList = { }
 	for index, itemSetId in ipairs(self.itemsTab.itemSetOrderList) do
@@ -295,9 +296,16 @@ function TradeQueryClass:PriceItem()
 		t_insert(newItemList, itemSet.title or "Default")
 	end
 	self.controls.setSelect = new("DropDownControl"):DropDownControl({"TOPLEFT", nil, "TOPLEFT"}, {pane_margins_horizontal, pane_margins_vertical, 188, row_height}, newItemList, function(index, value)
-		self.itemsTab:SetActiveItemSet(self.itemsTab.itemSetOrderList[index])
+		local itemSetId = self.itemsTab.itemSetOrderList[index]
+		local itemSetChanged = itemSetId ~= initialItemSetId
+		self.itemsTab:SetViewItemSet(itemSetId)
 		self.itemsTab:AddUndoState()
+		if itemSetChanged then
+			main:ClosePopup()
+			self:PriceItem()
+		end
 	end)
+	self.controls.setSelect.selIndex = isValueInArray(self.itemsTab.itemSetOrderList, self.itemsTab.viewItemSetId or self.itemsTab.activeItemSetId) or 1
 	self.controls.setSelect.enableDroppedWidth = true
 	self.controls.setSelect.enabled = function()
 		return #self.itemsTab.itemSetOrderList > 1
@@ -517,21 +525,6 @@ Highest Weight - Displays the order retrieved from trade]]
 		self:UpdateRealms()
 	end
 
-	local activeAbyssalSockets = {
-		["Weapon 1"] = { }, ["Weapon 2"] = { }, ["Helmet"] = { }, ["Body Armour"] = { }, ["Gloves"] = { }, ["Boots"] = { }, ["Belt"] = { },
-	}
-	-- loop all slots, set any active abyssal sockets
-	for index, slot in pairs(self.itemsTab.slots) do
-		if index:find("Abyssal") and slot.shown() then
-			t_insert(activeAbyssalSockets[slot.parentSlot.slotName], slot)
-		end
-	end
-	for _, abyssal in pairs(activeAbyssalSockets) do -- sort Abyssal #1 > Abyssal #2 etc
-		t_sort(abyssal, function(a, b)
-			return a.label < b.label
-		end)
-	end
-
 	-- Individual slot rows
 	---@class TradeQuerySlotTable
 	---@field slotName string Display name of the row, also the slot name for regular slots
@@ -544,14 +537,29 @@ Highest Weight - Displays the order retrieved from trade]]
 
 	---@type TradeQuerySlotTable[]
 	local slotTables = {}
-	for _, slotName in ipairs(baseSlots) do
-		if self.itemsTab.slots[slotName].shown() then
-			t_insert(slotTables, { slotName = slotName })
+	local visibleSlots = self.itemsTab:GetVisibleItemSlots()
+	local visibleItemSet = self.itemsTab:GetVisibleItemSet()
+	local visibleItemSetId = visibleItemSet and visibleItemSet.id
+	local function isSlotShown(slot)
+		if slot.shown == nil then return true end
+		if type(slot.shown) == "function" then
+			return slot.shown()
 		end
-		-- add abyssal sockets to slotTables if exist for this slot
-		if activeAbyssalSockets[slotName] then
-			for _, abyssalSocket in pairs(activeAbyssalSockets[slotName]) do
-				t_insert(slotTables, { slotName = abyssalSocket.label, fullName = abyssalSocket.slotName }) -- actual slotName doesn't fit/excessive in slotName on popup but is needed for exact matching later
+		return slot.shown
+	end
+	for _, slot in ipairs(visibleSlots) do
+		if isSlotShown(slot) then
+			if not slot.nodeId and not slot.slotName:find("Abyssal") then
+				t_insert(slotTables, {
+					slotName = slot.slotName,
+					itemSetId = visibleItemSetId,
+				})
+			elseif slot.slotName:find("Abyssal") then
+				t_insert(slotTables, {
+					slotName = slot.label,
+					fullName = slot.slotName,
+					itemSetId = visibleItemSetId,
+				})
 			end
 		end
 	end
@@ -820,8 +828,22 @@ end
 -- Method to evaluate a result by getting it's output and weight
 function TradeQueryClass:GetResultEvaluation(row_idx, result_index, calcFunc, baseOutput)
 	local result = self.resultTbl[row_idx][result_index]
+	local slotTbl = self.slotTables[row_idx]
+	local jewelNodeId = slotTbl.nodeId or slotTbl.selectedJewelNodeId
+	local slotName = jewelNodeId and "Jewel " .. tostring(jewelNodeId) or slotTbl.fullName or slotTbl.slotName
+	local comparisonActor = MercenaryTools.comparisonActorForSlot(slotName, slotTbl.itemSetId, self.itemsTab)
 	if not calcFunc then -- Always evaluate when calcFunc is given
-		calcFunc, baseOutput = self.itemsTab.build.calcsTab:GetMiscCalculator()
+		local actorOutputs
+		calcFunc, baseOutput, actorOutputs = self.itemsTab.build.calcsTab:GetMiscCalculator()
+		if slotTbl.itemSetId then
+			baseOutput = calcFunc({ itemSetId = slotTbl.itemSetId, comparisonActor = comparisonActor })
+		else
+			baseOutput = MercenaryTools.comparisonBaseOutput(baseOutput, actorOutputs, slotName)
+		end
+		if comparisonActor == "MERCENARY" and not MercenaryTools.mercenaryOutputAvailable(baseOutput) then
+			result.evaluation = { }
+			return result.evaluation
+		end
 		local onlyWeightedBaseOutput = self:ReduceOutput(baseOutput)
 		if not self.onlyWeightedBaseOutput[row_idx] then
 			self.onlyWeightedBaseOutput[row_idx] = { }
@@ -836,8 +858,6 @@ function TradeQueryClass:GetResultEvaluation(row_idx, result_index, calcFunc, ba
 		self.onlyWeightedBaseOutput[row_idx][result_index] = onlyWeightedBaseOutput
 		self.lastComparedWeightList[row_idx][result_index] = self.statSortSelectionList
 	end
-	local slotTbl = self.slotTables[row_idx]
-	local jewelNodeId = slotTbl.nodeId or slotTbl.selectedJewelNodeId
 	if slotTbl.slotName == "Megalomaniac" then
 		local addedNodes = {}
 		for nodeName in (result.item_string.."\r\n"):gmatch("1 Added Passive Skill is (.-)\r?\n") do
@@ -872,7 +892,7 @@ function TradeQueryClass:GetResultEvaluation(row_idx, result_index, calcFunc, ba
 		local slotName = jewelNodeId and "Jewel " .. tostring(jewelNodeId) or slotTbl.selectedSlotName or slotTbl.slotName
 		local item = new("Item"):Item(result.item_string)
 
-		local output = self:ReduceOutput(calcFunc({ repSlotName = slotName, repItem = item }))
+		local output = self:ReduceOutput(calcFunc(MercenaryTools.itemCalculationOverride(slotTbl.itemSetId, slotName, item, self.itemsTab)))
 		local weight = self.tradeQueryGenerator.WeightedRatioOutputs(baseOutput, output, self.statSortSelectionList)
 		result.evaluation = {{ output = output, weight = weight }}
 	end
@@ -1029,7 +1049,7 @@ function TradeQueryClass:FilterToSafeItems(itemEntries, slotName)
 	local itemsSafe = {}
 	for _, entry in ipairs(itemEntries) do
 		local item = new("Item"):Item(entry.item_string)
-		if item.base and ((not slotName) or self.itemsTab:IsItemValidForSlot(item, slotName)) then
+		if item.base and ((not slotName) or self.itemsTab:IsItemValidForSlot(item, slotName, self.itemsTab:GetVisibleItemSet())) then
 			t_insert(itemsSafe, entry)
 		end
 	end
@@ -1039,7 +1059,9 @@ end
 function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, row_vertical_padding, row_height)
 	local controls = self.controls
 	local slotTbl = self.slotTables[row_idx]
-	local activeSlotRef = slotTbl.nodeId and self.itemsTab.activeItemSet[slotTbl.nodeId] or self.itemsTab.activeItemSet[slotTbl.slotName]
+	local function getVisibleItemSet()
+		return self.itemsTab:GetVisibleItemSet()
+	end
 	local nodeId = slotTbl.nodeId or slotTbl.selectedJewelNodeId
 	local activeSlot = nodeId and self.itemsTab.sockets[nodeId] or
 		slotTbl.slotName and (self.itemsTab.slots[slotTbl.slotName] or
@@ -1050,7 +1072,7 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 		return selectedNodeId and self.itemsTab.sockets[selectedNodeId] or activeSlot
 	end
 	local nameColor = slotTbl.unique and colorCodes.UNIQUE or "^7"
-	controls["name" .. row_idx] = new("LabelControl"):LabelControl(top_pane_alignment_ref, { 0, row_idx * (row_height + row_vertical_padding), 135, row_height - 4 }, nameColor .. slotTbl.slotName)
+	controls["name" .. row_idx] = new("LabelControl"):LabelControl(top_pane_alignment_ref, { 0, row_idx * (row_height + row_vertical_padding), 135, row_height - 4 }, nameColor .. (slotTbl.displayName or slotTbl.slotName))
 	controls["bestButton" .. row_idx] = new("ButtonControl"):ButtonControl({ "LEFT", controls["name" .. row_idx], "LEFT" }, { 135 + 8, 0, 80, row_height }, "Find best", function()
 		self.tradeQueryGenerator:RequestQuery(activeSlot, { slotTbl = slotTbl, controls = controls, row_idx = row_idx }, self.statSortSelectionList, function(context, query, errMsg)
 			if errMsg then
@@ -1142,9 +1164,10 @@ you can add them, copy the link here, and press "Price Item" to evaluate the ite
 		elseif buf == "" then
 			pbURL = ""
 		end
-		if not activeSlotRef and slotTbl.nodeId then
-			self.itemsTab.activeItemSet[slotTbl.nodeId] = { pbURL = "" }
-			activeSlotRef = self.itemsTab.activeItemSet[slotTbl.nodeId]
+		local currentItemSet = getVisibleItemSet()
+		local currentSlotRef = slotTbl.nodeId and currentItemSet[slotTbl.nodeId] or currentItemSet[slotTbl.fullName or slotTbl.slotName]
+		if not currentSlotRef and slotTbl.nodeId then
+			currentItemSet[slotTbl.nodeId] = { pbURL = "" }
 		end
 	end, nil)
 	controls["uri"..row_idx]:SetPlaceholder("Paste trade URL here...")
@@ -1252,9 +1275,10 @@ you can add them, copy the link here, and press "Price Item" to evaluate the ite
 		self.itemsTab:AddDisplayItem(true)
 		-- Autoequip it
 		local jewelNodeId = slotTbl.nodeId or slotTbl.selectedJewelNodeId
-		local slot = jewelNodeId and self.itemsTab.sockets[jewelNodeId] or self.itemsTab.slots[slotTbl.slotName]
-		if slot and (jewelNodeId or slotTbl.slotName == slot.label) and slot:IsShown() and self.itemsTab:IsItemValidForSlot(item, slot.slotName) then
-			slot:SetSelItemId(item.id)
+		local slotName = slotTbl.fullName or slotTbl.slotName
+		local slot = jewelNodeId and self.itemsTab.sockets[jewelNodeId] or self.itemsTab.slots[slotName]
+		if slot and slot:IsShown() and self.itemsTab:IsItemValidForSlot(item, slot.slotName, getVisibleItemSet()) then
+			slot:SetSelItemId(item.id, getVisibleItemSet())
 			self.itemsTab:PopulateSlots()
 			self.itemsTab:AddUndoState()
 			self.itemsTab.build.buildFlag = true

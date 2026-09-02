@@ -5,8 +5,8 @@
 --
 local t_insert = table.insert
 local t_remove = table.remove
+local ipairs = ipairs
 local m_max = math.max
-local s_format = string.format
 
 ---@class ItemSetListControl: ListControl
 local ItemSetListClass = newClass("ItemSetListControl", "ListControl")
@@ -30,7 +30,7 @@ function ItemSetListClass:ItemSetListControl(anchor, rect, itemsTab)
 		self:OnSelDelete(self.selIndex, self.selValue)
 	end)
 	self.controls.delete.enabled = function()
-		return self.selValue ~= nil and #self.list > 1
+		return self:CanDeleteItemSet(self.selValue)
 	end
 	self.controls.rename = new("ButtonControl"):ButtonControl({"BOTTOMRIGHT",self,"TOP"}, {-2, -4, 60, 18}, "Rename", function()
 		self:RenameSet(itemsTab.itemSets[self.selValue])
@@ -43,6 +43,14 @@ function ItemSetListClass:ItemSetListControl(anchor, rect, itemsTab)
 		self:RenameSet(newSet, true)
 	end)
 	return self
+end
+
+function ItemSetListClass:CanDeleteItemSet(itemSetId)
+	local itemSet = self.itemsTab.itemSets[itemSetId]
+	if not itemSet or self.itemsTab:IsItemSetReferenced(itemSetId) then
+		return false
+	end
+	return #self.list > 1
 end
 
 function ItemSetListClass:RenameSet(itemSet, addOnName)
@@ -76,7 +84,8 @@ end
 function ItemSetListClass:GetRowValue(column, index, itemSetId)
 	local itemSet = self.itemsTab.itemSets[itemSetId]
 	if column == 1 then
-		return (itemSet.title or "Default") .. (itemSetId == self.itemsTab.activeItemSetId and "  ^9(Current)" or "")
+		local title = itemSet.title or "Default"
+		return title .. (itemSetId == self.itemsTab.viewItemSetId and "  ^9(Visible)" or "") .. (itemSetId == self.itemsTab.activeItemSetId and "  ^9(Current player)" or "")
 	end
 end
 
@@ -98,11 +107,15 @@ function ItemSetListClass:ReceiveDrag(type, value, source)
 	if type == "SharedItemList" then
 		local itemSet = self.itemsTab:NewItemSet()
 		itemSet.title = value.title
-		for slotName, item in pairs(value.slots) do
-			local newItem = new("Item"):Item(item.raw)
-			newItem:NormaliseQuality()
-			self.itemsTab:AddItem(newItem, true)
-			itemSet[slotName].selItemId = newItem.id
+		for _, slot in ipairs(self.itemsTab.orderedSlots) do
+			local slotName = slot.slotName
+			local item = value.slots[slotName]
+			if item then
+				local newItem = new("Item"):Item(item.raw)
+				newItem:NormaliseQuality()
+				self.itemsTab:AddItem(newItem, true)
+				itemSet[slotName].selItemId = newItem.id
+			end
 		end
 		t_insert(self.list, self.selDragIndex or #self.list + 1, itemSet.id)
 		self.itemsTab:AddUndoState()
@@ -114,22 +127,32 @@ function ItemSetListClass:OnOrderChange()
 end
 
 function ItemSetListClass:OnSelClick(index, itemSetId, doubleClick)
-	if doubleClick and itemSetId ~= self.itemsTab.activeItemSetId then
-		self.itemsTab:SetActiveItemSet(itemSetId)
+	if doubleClick and itemSetId ~= self.itemsTab.viewItemSetId then
+		self.itemsTab:SetViewItemSet(itemSetId)
 		self.itemsTab:AddUndoState()
 	end
 end
 
 function ItemSetListClass:OnSelDelete(index, itemSetId)
 	local itemSet = self.itemsTab.itemSets[itemSetId]
-	if #self.list > 1 then
+	if self:CanDeleteItemSet(itemSetId) then
 		main:OpenConfirmPopup("Delete Item Set", "Are you sure you want to delete '"..(itemSet.title or "Default").."'?\nThis will not delete any items used by the set.", "Delete", function()
 			t_remove(self.list, index)
 			self.itemsTab.itemSets[itemSetId] = nil
 			self.selIndex = nil
 			self.selValue = nil
-			if itemSetId == self.itemsTab.activeItemSetId then 
-				self.itemsTab:SetActiveItemSet(self.list[m_max(1, index - 1)])
+			local replacementItemSetId = self.list[m_max(1, index)] or self.list[index - 1]
+			if itemSetId == self.itemsTab.activeItemSetId then
+				self.itemsTab:SetActiveItemSet(replacementItemSetId)
+			elseif itemSetId == self.itemsTab.viewItemSetId then
+				self.itemsTab:SetViewItemSet(self.list[m_max(1, index - 1)])
+			end
+			if self.itemsTab.build.configTab then
+				self.itemsTab.build.configTab:RemapItemSetId(itemSetId, replacementItemSetId)
+			end
+			local mercenaryTab = self.itemsTab.build.mercenaryTab
+			if mercenaryTab and mercenaryTab.auxiliaryItemSetId == itemSetId then
+				mercenaryTab.auxiliaryItemSetId = nil
 			end
 			self.itemsTab:AddUndoState()
 			self.itemsTab.build:SyncLoadouts()

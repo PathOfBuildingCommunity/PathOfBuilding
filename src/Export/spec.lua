@@ -7725,6 +7725,50 @@ return {
 			width=500
 		}
 	},
+	mercenarybuildextrastats={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=220
+		},
+		[2]={
+			list=false,
+			name="Stat",
+			refTo="Stats",
+			type="Key",
+			width=280
+		},
+		[3]={
+			list=false,
+			name="Value1",
+			refTo="",
+			type="Int",
+			width=80
+		},
+		[4]={
+			list=false,
+			name="Value2",
+			refTo="",
+			type="Int",
+			width=80
+		},
+		[5]={
+			list=false,
+			name="Value3",
+			refTo="",
+			type="Int",
+			width=80
+		},
+		[6]={
+			list=false,
+			name="Category",
+			refTo="MercenaryBuildStatsCategories",
+			type="Key",
+			width=160
+		}
+	},
 	mercenarybuilds={
 		[1]={
 			list=false,
@@ -7840,10 +7884,10 @@ return {
 		},
 		[17]={
 			list=false,
-			name="",
-			refTo="",
+			name="IdleSkill",
+			refTo="MercenarySkills",
 			type="Key",
-			width=20
+			width=150
 		},
 		[18]={
 			list=false,
@@ -7872,6 +7916,29 @@ return {
 			refTo="MercenaryWieldableTypes",
 			type="Key",
 			width=220
+		},
+		[22]={
+			list=true,
+			name="BuildStats",
+			refTo="MercenaryBuildExtraStats",
+			type="Key",
+			width=400
+		}
+	},
+	mercenarybuildstatscategories={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="Name",
+			refTo="",
+			type="String",
+			width=150
 		}
 	},
 	mercenaryclasses={
@@ -7951,6 +8018,27 @@ return {
 			refTo="MonsterVarieties",
 			type="Key",
 			width=420
+		},
+		[12]={
+			list=true,
+			name="HouseSpawnChanceStats",
+			refTo="Stats",
+			type="Key",
+			width=250
+		},
+		[13]={
+			list=true,
+			name="AttributeSpawnChanceStats",
+			refTo="Stats",
+			type="Key",
+			width=250
+		},
+		[14]={
+			list=false,
+			name="HouseName",
+			refTo="",
+			type="String",
+			width=150
 		}
 	},
 	mercenaryinventories={

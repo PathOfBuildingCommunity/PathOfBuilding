@@ -155,7 +155,20 @@ function M.OpenAddModPopup(configTab, blockData)
 	local tree = configTab.build.treeTab.specList[configTab.build.treeTab.activeSpec].tree
 	local modSet = {}
 
-	for _, node in pairs(tree.nodes) do
+	-- First supported line wins for a template, so walk nodes in a stable order.
+	local nodeIds = { }
+	for nodeId in pairs(tree.nodes) do
+		t_insert(nodeIds, nodeId)
+	end
+	table.sort(nodeIds, function(a, b)
+		local na, nb = tonumber(a), tonumber(b)
+		if na and nb then
+			return na < nb
+		end
+		return tostring(a) < tostring(b)
+	end)
+	for _, nodeId in ipairs(nodeIds) do
+		local node = tree.nodes[nodeId]
 		if node.type == "Mastery" and node.masteryEffects then
 			for _, masteryEffect in ipairs(node.masteryEffects) do
 				for _, statLine in ipairs(masteryEffect.stats) do

@@ -65,6 +65,49 @@ describe("TestSkills", function()
 		assert.True(build.calcsTab.mainOutput.MirageDPS ~= nil)
 
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate == build.calcsTab.mainOutput.Speed)
+		assert.is_true(not build.calcsTab.mainEnv.player.mainSkill.skillCfg.skillCond.usedByMirage)
+	end)
+
+	it("reports when a Mirage Archer skill cannot be copied", function()
+		build.itemsTab:CreateDisplayItemFromRaw([[+3 Bow
+		Thicket Bow
+		Crafted: true
+		Prefix: None
+		Prefix: None
+		Prefix: None
+		Suffix: None
+		Suffix: None
+		Suffix: None
+		Quality: 20
+		Sockets: G-G-G-G-G-G
+		LevelReq: 56
+		Implicits: 0]])
+		build.itemsTab:AddDisplayItem()
+		build.skillsTab:PasteSocketGroup("Mirage Archer 20/0  1\nRain of Arrows 20/0  1\n")
+		local calcs = build.calcsTab.calcs
+		local originalCopy = calcs.copyActiveSkill
+		calcs.copyActiveSkill = function() return nil end
+		runCallback("OnFrame")
+		calcs.copyActiveSkill = originalCopy
+		assert.matches("No Mirage Archer active skill found", build.calcsTab.mainEnv.player.mainSkill.infoMessage2 or "")
+	end)
+
+	it("calculates The Saviour Reflection mirages for a player sword attack", function()
+		build.itemsTab:CreateDisplayItemFromRaw([[Rarity: Unique
+The Saviour
+Legion Sword
+Implicits: 1
+40% increased Global Accuracy Rating
+Triggers Level 20 Reflection when Equipped
+(130-150)% increased Physical Damage
+Adds (16-22) to (40-45) Physical Damage
+(8-12)% increased Attack Speed
+(8-12)% increased Critical Strike Chance]])
+		build.itemsTab:AddDisplayItem()
+		build.skillsTab:PasteSocketGroup("Double Strike 20/0  1\n")
+		runCallback("OnFrame")
+		local player = build.calcsTab.mainEnv.player
+		assert.is_true(not player.mainSkill.skillCfg.skillCond.usedByMirage)
 	end)
 	
 	it("Test Sacred wisps using current skill", function()

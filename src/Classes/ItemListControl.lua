@@ -52,8 +52,13 @@ function ItemListClass:ItemListControl(anchor, rect, itemsTab, forceTooltip)
 	end
 	self.controls.deleteAll = new("ButtonControl"):ButtonControl({"LEFT",self.controls.deleteUnused,"RIGHT"}, {4, 0, 58, 18}, "Del All", function()
 		main:OpenConfirmPopup("Delete All", "Are you sure you want to delete all items in this build?", "Delete", function()
+			for _, itemSet in pairs(itemsTab.itemSets) do
+				for _, itemSlot in pairs(itemSet) do
+					if type(itemSlot) == "table" and itemSlot.selItemId then itemSlot.selItemId = 0 end
+				end
+			end
 			for _, slot in pairs(itemsTab.slots) do
-				slot:SetSelItemId(0)
+				if slot.nodeId then slot:SetSelItemId(0) end
 			end
 			for _, spec in pairs(itemsTab.build.treeTab.specList) do
 				for nodeId, itemId in pairs(spec.jewels) do
@@ -97,7 +102,8 @@ function ItemListClass:UpdateLoadoutList()
 		end
 	end
 	if self.itemsTab.itemSetOrderList then
-		for _, itemSetId in ipairs(self.itemsTab.itemSetOrderList) do
+		local itemSetOrderList = self.itemsTab:GetPlayerItemSetOrderList()
+		for _, itemSetId in ipairs(itemSetOrderList) do
 			local itemSet = self.itemsTab.itemSets[itemSetId]
 			local title = itemSet and (itemSet.title or "Default")
 			if title and not listValues[title] then
@@ -132,11 +138,12 @@ function ItemListClass:UpdateList()
 		local filterItemSet
 		local filterSpec
 		if selFilter == 2 or filterVal == "Current Loadout" then
-			filterItemSet = self.itemsTab.activeItemSet
+			filterItemSet = self.itemsTab:GetVisibleItemSet()
 			filterSpec = self.itemsTab.build.treeTab.specList[self.itemsTab.build.treeTab.activeSpec]
 		elseif selFilter ~= 3 and filterVal ~= "Unused Items" then
 			local filterTitle = filterVal:gsub("^%[[^%]]+%]%s*", "")
-			for _, itemSetId in ipairs(self.itemsTab.itemSetOrderList) do
+			local itemSetOrderList = self.itemsTab:GetPlayerItemSetOrderList()
+			for _, itemSetId in ipairs(itemSetOrderList) do
 				local itemSet = self.itemsTab.itemSets[itemSetId]
 				if (itemSet.title or "Default") == filterTitle then
 					filterItemSet = itemSet
@@ -153,7 +160,7 @@ function ItemListClass:UpdateList()
 			local linkId = filterVal:match("%{(%w+)%}")
 			local itemLink = linkId and self.itemsTab.build.itemListSpecialLinks and self.itemsTab.build.itemListSpecialLinks[linkId]
 			local treeLink = linkId and self.itemsTab.build.treeListSpecialLinks and self.itemsTab.build.treeListSpecialLinks[linkId]
-			filterItemSet = filterItemSet or #self.itemsTab.itemSetOrderList == 1 and self.itemsTab.itemSets[self.itemsTab.itemSetOrderList[1]] or itemLink and self.itemsTab.itemSets[itemLink.setId]
+			filterItemSet = filterItemSet or #itemSetOrderList == 1 and self.itemsTab.itemSets[itemSetOrderList[1]] or itemLink and self.itemsTab.itemSets[itemLink.setId]
 			filterSpec = filterSpec or #treeTab.specList == 1 and treeTab.specList[1] or treeLink and treeTab.specList[treeLink.setId]
 		end
 		filterItemSet = filterItemSet or { }
@@ -299,23 +306,24 @@ end
 function ItemListClass:OnSelClick(index, itemId, doubleClick)
 	local item = self.itemsTab.items[itemId]
 	if IsKeyDown("CTRL") then
-		local slotName = item:GetPrimarySlot()
+		local slotName = self.itemsTab:GetVisibleSlotName(item:GetPrimarySlot())
+		local visibleItemSet = self.itemsTab:GetVisibleItemSet()
 		if slotName and self.itemsTab.slots[slotName] then
-			if self.itemsTab.slots[slotName].weaponSet == 1 and self.itemsTab.activeItemSet.useSecondWeaponSet then
+			if self.itemsTab.slots[slotName].weaponSet == 1 and visibleItemSet.useSecondWeaponSet then
 				-- Redirect to second weapon set
 				slotName = slotName .. " Swap"
 			end
 			if IsKeyDown("SHIFT") then
 				-- Redirect to second slot if possible
 				local altSlot = slotName:gsub("1","2")
-				if self.itemsTab:IsItemValidForSlot(item, altSlot) then
+				if self.itemsTab:IsItemValidForSlot(item, altSlot, visibleItemSet) then
 					slotName = altSlot
 				end
 			end
 			if self.itemsTab.slots[slotName].selItemId == item.id then
-				self.itemsTab.slots[slotName]:SetSelItemId(0)
+				self.itemsTab.slots[slotName]:SetSelItemId(0, visibleItemSet)
 			else
-				self.itemsTab.slots[slotName]:SetSelItemId(item.id)
+				self.itemsTab.slots[slotName]:SetSelItemId(item.id, visibleItemSet)
 			end
 			self.itemsTab:PopulateSlots()
 			self.itemsTab:AddUndoState()

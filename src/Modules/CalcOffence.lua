@@ -341,6 +341,60 @@ function calcs.calcTotemLife(env, activeSkill)
 	return life, lifeMod
 end
 
+-- Character-sheet main-hand attack crit chance for Destructive Link.
+-- Uses the already-calculated main-hand PreEffective value when the actor
+-- actually attacked; otherwise the same number from weapon local crit plus
+-- global modifiers so aura/link owners still export a sheet value.
+-- NeverCrit / Resolute Technique stops the linker from dealing crits; it does
+-- not zero the chance stat the linked target uses.
+-- Does not include lucky rolls, accuracy, or enemy SelfCrit.
+function calcs.actorMainHandSheetCritChance(actor)
+	if not actor or not actor.modDB then
+		return 0
+	end
+	local weapon = actor.weaponData1
+	local info = weapon and data.weaponTypeInfo[weapon.type]
+	local flags = bor(ModFlag.Attack, ModFlag.Hit)
+	if info then
+		flags = bor(flags, ModFlag[info.flag] or 0)
+		if weapon.type ~= "None" then
+			flags = bor(flags, ModFlag.Weapon)
+			flags = bor(flags, info.oneHand and ModFlag.Weapon1H or ModFlag.Weapon2H)
+			flags = bor(flags, info.melee and ModFlag.WeaponMelee or ModFlag.WeaponRanged)
+		end
+	end
+	if weapon and weapon.countsAsAll1H then
+		flags = bor(flags, ModFlag.Axe, ModFlag.Claw, ModFlag.Dagger, ModFlag.Mace, ModFlag.Sword)
+	end
+	local cfg = {
+		flags = flags,
+		keywordFlags = KeywordFlag.Attack,
+		skillCond = { MainHandAttack = true },
+	}
+	-- Offence zeros PreEffective when NeverCrit; that is the linker's hit
+	-- outcome, not the sheet chance Destructive Link copies.
+	if not actor.modDB:Flag(cfg, "NeverCrit") and actor.output and actor.output.MainHand and actor.output.MainHand.PreEffectiveCritChance then
+		return actor.output.MainHand.PreEffectiveCritChance
+	end
+	if not weapon then
+		return 0
+	end
+	local override = actor.modDB:Override(cfg, "CritChance")
+	if override then
+		return override
+	end
+	local baseCrit = actor.modDB:Override(cfg, "WeaponBaseCritChance") or weapon.CritChance or 0
+	local base = actor.modDB:Sum("BASE", cfg, "CritChance")
+	local inc = actor.modDB:Sum("INC", cfg, "CritChance")
+	local more = actor.modDB:More(cfg, "CritChance")
+	local chance = round((baseCrit + base) * (1 + inc / 100) * more * 100) / 100
+	local cap = actor.modDB:Override(nil, "CritChanceCap") or actor.modDB:Sum("BASE", cfg, "CritChanceCap") or 100
+	if (baseCrit + base) > 0 then
+		chance = m_max(chance, 0)
+	end
+	return m_min(chance, cap)
+end
+
 -- Performs all offensive calculations
 ---@param env Env
 ---@param actor Actor
@@ -3074,11 +3128,11 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		else
 			local critOverride = skillModList:Override(cfg, "CritChance")
-			-- destructive link
+			-- Destructive Link copies the linker's character-sheet main-hand crit.
 			if skillModList:Flag(cfg, "MainHandCritIsEqualToParent") then
-				critOverride = actor.parent.output.MainHand and actor.parent.output.MainHand.CritChance or actor.parent.weaponData1.CritChance
+				critOverride = calcs.actorMainHandSheetCritChance(actor.parent)
 			elseif skillModList:Flag(cfg, "MainHandCritIsEqualToPartyMember") then
-				critOverride = actor.partyMembers.output.MainHand and actor.partyMembers.output.MainHand.CritChance or (actor.partyMembers.weaponData1 and actor.partyMembers.weaponData1.CritChance or 0)
+				critOverride = calcs.actorMainHandSheetCritChance(actor.partyMembers)
 			end
 			local baseCrit = critOverride or source.CritChance or 0
 
@@ -3147,7 +3201,8 @@ function calcs.offence(env, actor, activeSkill)
 				end
 				if breakdown and output.CritChance ~= baseCrit then
 					breakdown.CritChance = { }
-					local baseCritFromMainHandStr = baseCritFromMainHand and " from main weapon" or baseCritFromParentMainHand and " from parent main weapon" or ""
+					local fromLinkedMainHand = skillModList:Flag(cfg, "MainHandCritIsEqualToParent") or skillModList:Flag(cfg, "MainHandCritIsEqualToPartyMember")
+					local baseCritFromMainHandStr = baseCritFromMainHand and " from main weapon" or baseCritFromParentMainHand and " from parent main weapon" or fromLinkedMainHand and " from linked main hand" or ""
 					if base ~= 0 then
 						t_insert(breakdown.CritChance, s_format("(%g + %g) ^8(base%s)", baseCrit, base, baseCritFromMainHandStr))
 					else
@@ -3691,11 +3746,15 @@ function calcs.offence(env, actor, activeSkill)
 		output.TotalMin = totalHitMin
 		output.TotalMax = totalHitMax
 
-		if skillModList:Flag(skillCfg, "ElementalEquilibrium") and not env.configInput.EEIgnoreHitDamage and (output.FireHitAverage + output.ColdHitAverage + output.LightningHitAverage > 0) then
-			-- Update enemy hit-by-damage-type conditions
-			enemyDB.conditions.HitByFireDamage = output.FireHitAverage > 0
-			enemyDB.conditions.HitByColdDamage = output.ColdHitAverage > 0
-			enemyDB.conditions.HitByLightningDamage = output.LightningHitAverage > 0
+		local configInput = (actor.calcEnv and actor.calcEnv.configInput) or env.configInput
+		if skillModList:Flag(skillCfg, "ElementalEquilibrium") and not configInput.EEIgnoreHitDamage and (output.FireHitAverage + output.ColdHitAverage + output.LightningHitAverage > 0) then
+			-- Update this actor's hit-by-damage-type conditions
+			local sourceDB = actor.enemySourceDB
+			if sourceDB then
+				sourceDB.conditions.HitByFireDamage = output.FireHitAverage > 0
+				sourceDB.conditions.HitByColdDamage = output.ColdHitAverage > 0
+				sourceDB.conditions.HitByLightningDamage = output.LightningHitAverage > 0
+			end
 		end
 
 		local highestType = "Physical"

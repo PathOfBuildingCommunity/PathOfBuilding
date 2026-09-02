@@ -52,6 +52,8 @@ describe("ItemListControl", function()
 			PopulateSlots = function() end,
 			AddUndoState = function() end,
 		}
+		itemsTab.GetPlayerItemSetOrderList = function() return itemsTab.itemSetOrderList end
+		itemsTab.GetVisibleItemSet = function() return itemsTab.visibleItemSet or itemsTab.activeItemSet end
 		local control = new("ItemListControl"):ItemListControl(nil, { 0, 0, 360, 308 }, itemsTab, true)
 		return control, itemsTab, treeTab
 	end
@@ -74,6 +76,23 @@ describe("ItemListControl", function()
 		control:UpdateList()
 
 		assert.are.same({ 1, 3 }, control.list)
+	end)
+
+	it("uses the visible item set for the current loadout", function()
+		local control, itemsTab = newItemListControl()
+		local visibleItemSet = {
+			id = 3,
+			title = "Visible",
+			["Body Armour"] = { selItemId = 2 },
+		}
+		itemsTab.visibleItemSet = visibleItemSet
+		itemsTab.build.treeTab.specList[1].jewels = { }
+		control:UpdateLoadoutList()
+		control.controls.loadoutFilter.selIndex = 2
+
+		control:UpdateList()
+
+		assert.are.same({ 2 }, control.list)
 	end)
 
 	it("uses the selected item set and passive tree for named loadouts", function()
