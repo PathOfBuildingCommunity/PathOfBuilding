@@ -147,7 +147,8 @@ Implicits: 2
 {variant:1}+18% Chance to Block Attack Damage
 {variant:2}+20% Chance to Block Spell Damage
 +12% Chance to Block Attack Damage while wielding a Staff
-(100-200)% increased Fire Damage
+{variant:1}(100-200)% increased Fire Damage
+{variant:2}100% increased Fire Damage
 (5-10)% increased Attack Speed
 Curse Enemies with Flammability on Block
 Reflects (22-44) Fire Damage to Attackers on Block
@@ -248,7 +249,7 @@ Gain (10-20)% of Elemental Damage as Extra Chaos Damage
 +1% to Critical Strike Multiplier per 1% Chance to Block Attack Damage
 +60% to Critical Strike Multiplier if you've dealt a Non-Critical Strike Recently
 {variant:1,2}120% increased Spell Damage if you've dealt a Critical Strike Recently
-{variant:3,4}(120-150)% increased Spell Damage if you've dealt a Critical Strike Recently
+{variant:3,4,5}(120-150)% increased Spell Damage if you've dealt a Critical Strike Recently
 ]],[[
 Replica Duskdawn
 Maelström Staff

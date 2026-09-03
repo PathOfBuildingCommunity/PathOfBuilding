@@ -1086,7 +1086,6 @@ c["+22 to maximum Mana"]={{[1]={flags=0,keywordFlags=0,name="Mana",type="BASE",v
 c["+22% Chance to Block Attack Damage"]={{[1]={flags=0,keywordFlags=0,name="BlockChance",type="BASE",value=22}},nil}
 c["+22% Chance to Block Spell Damage"]={{[1]={flags=0,keywordFlags=0,name="SpellBlockChance",type="BASE",value=22}},nil}
 c["+22% to Chaos Damage over Time Multiplier"]={{[1]={flags=0,keywordFlags=0,name="ChaosDotMultiplier",type="BASE",value=22}},nil}
-c["+22% to Chaos Resistance"]={{[1]={flags=0,keywordFlags=0,name="ChaosResist",type="BASE",value=22}},nil}
 c["+22% to Cold Damage over Time Multiplier"]={{[1]={flags=0,keywordFlags=0,name="ColdDotMultiplier",type="BASE",value=22}},nil}
 c["+22% to Cold Resistance"]={{[1]={flags=0,keywordFlags=0,name="ColdResist",type="BASE",value=22}},nil}
 c["+22% to Critical Strike Multiplier with Bows"]={{[1]={flags=131076,keywordFlags=0,name="CritMultiplier",type="BASE",value=22}},nil}
@@ -5001,8 +5000,8 @@ c["14% increased Elemental Damage"]={{[1]={flags=0,keywordFlags=0,name="Elementa
 c["14% increased Elemental Weakness Curse Effect"]={{[1]={[1]={includeTransfigured=true,skillName="Elemental Weakness",type="SkillName"},flags=0,keywordFlags=0,name="CurseEffect",type="INC",value=14}},nil}
 c["14% increased Endurance Charge Duration"]={{[1]={flags=0,keywordFlags=0,name="EnduranceChargesDuration",type="INC",value=14}},nil}
 c["14% increased Energy Shield Recharge Rate"]={{[1]={flags=0,keywordFlags=0,name="EnergyShieldRecharge",type="INC",value=14}},nil}
-end)();(function()
 c["14% increased Energy Shield Recovery rate"]={{[1]={flags=0,keywordFlags=0,name="EnergyShieldRecoveryRate",type="INC",value=14}},nil}
+end)();(function()
 c["14% increased Enfeeble Curse Effect"]={{[1]={[1]={includeTransfigured=true,skillName="Enfeeble",type="SkillName"},flags=0,keywordFlags=0,name="CurseEffect",type="INC",value=14}},nil}
 c["14% increased Evasion Rating"]={{[1]={flags=0,keywordFlags=0,name="Evasion",type="INC",value=14}},nil}
 c["14% increased Evasion Rating and Armour"]={{[1]={flags=0,keywordFlags=0,name="ArmourAndEvasion",type="INC",value=14}},nil}
@@ -7362,7 +7361,6 @@ c["25% increased Attack Speed"]={{[1]={flags=1,keywordFlags=0,name="Speed",type=
 c["25% increased Attack Speed if you haven't Cast Dash recently"]={{[1]={[1]={neg=true,type="Condition",var="CastDashRecently"},flags=1,keywordFlags=0,name="Speed",type="INC",value=25}},nil}
 c["25% increased Attack Speed if you haven't gained a Frenzy Charge Recently"]={{[1]={[1]={neg=true,type="Condition",var="GainedFrenzyChargeRecently"},flags=1,keywordFlags=0,name="Speed",type="INC",value=25}},nil}
 c["25% increased Attack Speed if you've Killed Recently"]={{[1]={[1]={type="Condition",var="KilledRecently"},flags=1,keywordFlags=0,name="Speed",type="INC",value=25}},nil}
-c["25% increased Attack Speed if you've changed Stance Recently"]={{[1]={[1]={type="Condition",var="ChangedStanceRecently"},flags=1,keywordFlags=0,name="Speed",type="INC",value=25}},nil}
 c["25% increased Attack Speed when on Low Life"]={{[1]={[1]={type="Condition",var="LowLife"},flags=1,keywordFlags=0,name="Speed",type="INC",value=25}},nil}
 c["25% increased Attack and Cast Speed while at maximum Fortification"]={{[1]={[1]={type="Condition",var="HaveMaximumFortification"},flags=0,keywordFlags=0,name="Speed",type="INC",value=25}},nil}
 c["25% increased Battlemage's Cry Buff Effect"]={{[1]={[1]={includeTransfigured=true,skillName="Battlemage's Cry",type="SkillName"},flags=0,keywordFlags=0,name="BuffEffect",type="INC",value=25}},nil}
@@ -10003,9 +10001,9 @@ c["5% increased Poison Duration"]={{[1]={flags=0,keywordFlags=0,name="EnemyPoiso
 c["5% increased Poison Duration for each Poison you have inflicted Recently, up"]={{[1]={[1]={type="Multiplier",var="PoisonAppliedRecently"},flags=0,keywordFlags=0,name="EnemyPoisonDuration",type="INC",value=5}},"  , up "}
 c["5% increased Poison Duration for each Poison you have inflicted Recently, up to a maximum of 100%"]={{[1]={[1]={globalLimit=100,globalLimitKey="DurationPerPoisonRecently",type="Multiplier",var="PoisonAppliedRecently"},flags=0,keywordFlags=0,name="EnemyPoisonDuration",type="INC",value=5}},nil}
 c["5% increased Projectile Damage per Power Charge"]={{[1]={[1]={type="Multiplier",var="PowerCharge"},flags=1024,keywordFlags=0,name="Damage",type="INC",value=5}},nil}
-end)();(function()
 c["5% increased Projectile Speed"]={{[1]={flags=0,keywordFlags=0,name="ProjectileSpeed",type="INC",value=5}},nil}
 c["5% increased Projectile Speed per Frenzy Charge"]={{[1]={[1]={type="Multiplier",var="FrenzyCharge"},flags=0,keywordFlags=0,name="ProjectileSpeed",type="INC",value=5}},nil}
+end)();(function()
 c["5% increased Quantity of Gold Dropped by Slain Enemies"]={{}," Quantity of Gold Dropped by Slain Enemies "}
 c["5% increased Quantity of Items found"]={{[1]={flags=0,keywordFlags=0,name="LootQuantity",type="INC",value=5}},nil}
 c["5% increased Rarity of Items found"]={{[1]={flags=0,keywordFlags=0,name="LootRarity",type="INC",value=5}},nil}
@@ -15005,9 +15003,9 @@ c["Damage of Enemies Hitting you is Unlucky"]={nil,"Damage of Enemies Hitting yo
 c["Damage of Enemies Hitting you is Unlucky Damage with Hits is Unlucky"]={nil,"Damage of Enemies Hitting you is Unlucky Damage with Hits is Unlucky "}
 c["Damage of Enemies Hitting you is Unlucky while you are Cursed with Vulnerability"]={nil,"Damage of Enemies Hitting you is Unlucky while you are Cursed with Vulnerability "}
 c["Damage of Enemies Hitting you is Unlucky while you are Cursed with Vulnerability You count as on Full Life while you are Cursed with Vulnerability"]={nil,"Damage of Enemies Hitting you is Unlucky while you are Cursed with Vulnerability You count as on Full Life while you are Cursed with Vulnerability "}
-end)();(function()
 c["Damage of Enemies Hitting you is Unlucky while you are on Full Life"]={nil,"Damage of Enemies Hitting you is Unlucky while you are on Full Life "}
 c["Damage of Enemies Hitting you is Unlucky while you are on Low Life"]={nil,"Damage of Enemies Hitting you is Unlucky while you are on Low Life "}
+end)();(function()
 c["Damage of Enemies Hitting you is Unlucky while you have a Magic Ring Equipped"]={nil,"Damage of Enemies Hitting you is Unlucky while you have a Magic Ring Equipped "}
 c["Damage of Enemies Hitting you is Unlucky while you have a Magic Ring Equipped You are Hexproof if you have a Magic Ring in right slot"]={nil,"Damage of Enemies Hitting you is Unlucky while you have a Magic Ring Equipped You are Hexproof if you have a Magic Ring in right slot "}
 c["Damage of Hits against you is Lucky"]={nil,"Damage of Hits  is Lucky "}
@@ -17881,7 +17879,6 @@ c["Minions deal 3 to 7 additional Physical Damage"]={{[1]={flags=0,keywordFlags=
 c["Minions deal 3% increased Damage"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Damage",type="INC",value=3}}}},nil}
 c["Minions deal 30 to 58 additional Chaos Damage"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="ChaosMin",type="BASE",value=30}}},[2]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="ChaosMax",type="BASE",value=58}}}},nil}
 c["Minions deal 30 to 58 additional Cold Damage"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="ColdMin",type="BASE",value=30}}},[2]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="ColdMax",type="BASE",value=58}}}},nil}
-c["Minions deal 30 to 63 additional Cold Damage"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="ColdMin",type="BASE",value=30}}},[2]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="ColdMax",type="BASE",value=63}}}},nil}
 c["Minions deal 30% increased Damage"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Damage",type="INC",value=30}}}},nil}
 c["Minions deal 30% increased Damage if you've used a Minion Skill Recently"]={{[1]={[1]={type="Condition",var="UsedMinionSkillRecently"},flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Damage",type="INC",value=30}}}},nil}
 c["Minions deal 31% increased Damage"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Damage",type="INC",value=31}}}},nil}
@@ -18423,6 +18420,8 @@ c["Non-Aura Curses you inflict are not removed from Dying Enemies"]={nil,"Non-Au
 c["Non-Aura Curses you inflict are not removed from Dying Enemies Enemies near corpses affected by your Curses are Blinded"]={nil,"Non-Aura Curses you inflict are not removed from Dying Enemies Enemies near corpses affected by your Curses are Blinded "}
 c["Non-Aura Hexes expire upon reaching 200% of base Effect"]={nil,"Non-Aura Hexes expire upon reaching 200% of base Effect "}
 c["Non-Aura Hexes expire upon reaching 200% of base Effect Non-Aura Hexes gain 20% increased Effect per second"]={{[1]={[1]={actor="enemy",limit=200,limitTotal=true,type="Multiplier",var="CurseDurationExpired"},[2]={neg=true,skillType=39,type="SkillType"},[3]={skillType=97,type="SkillType"},flags=0,keywordFlags=0,name="CurseEffect",type="INC",value=20}},nil}
+c["Non-Aura Hexes expire upon reaching 220% of base Effect"]={nil,"Non-Aura Hexes expire upon reaching 220% of base Effect "}
+c["Non-Aura Hexes expire upon reaching 220% of base Effect Non-Aura Hexes gain 20% increased Effect per second"]={{[1]={[1]={actor="enemy",limit=220,limitTotal=true,type="Multiplier",var="CurseDurationExpired"},[2]={neg=true,skillType=39,type="SkillType"},[3]={skillType=97,type="SkillType"},flags=0,keywordFlags=0,name="CurseEffect",type="INC",value=20}},nil}
 c["Non-Aura Hexes gain 20% increased Effect per second"]={nil,"Non-Aura Hexes gain 20% increased Effect per second "}
 c["Non-Aura Vaal Skills require 20% reduced Souls Per Use"]={{[1]={[1]={neg=true,skillType=39,type="SkillType"},flags=0,keywordFlags=512,name="SoulCost",type="INC",value=-20}},nil}
 c["Non-Aura Vaal Skills require 25% reduced Souls Per Use during Effect"]={{[1]={[1]={neg=true,skillType=39,type="SkillType"},[2]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=512,name="SoulCost",type="INC",value=-25}},nil}
@@ -20007,8 +20006,8 @@ c["Skills Socketed in your Boots are Supported by level 20 High-Impact Mine"]={{
 c["Skills Socketed in your Boots are Supported by level 20 Hypothermia"]={{[1]={[1]={slotName="Boots",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={appliesToGrantedSkills=true,level=20,skillId="SupportHypothermia"}}},nil}
 c["Skills Socketed in your Boots are Supported by level 20 Ice Bite"]={{[1]={[1]={slotName="Boots",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={appliesToGrantedSkills=true,level=20,skillId="SupportIceBite"}}},nil}
 c["Skills Socketed in your Boots are Supported by level 20 Ignite Proliferation"]={{[1]={[1]={slotName="Boots",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={appliesToGrantedSkills=true,level=20,skillId="SupportIgniteProliferation"}}},nil}
-end)();(function()
 c["Skills Socketed in your Boots are Supported by level 20 Immolate"]={{[1]={[1]={slotName="Boots",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={appliesToGrantedSkills=true,level=20,skillId="SupportImmolate"}}},nil}
+end)();(function()
 c["Skills Socketed in your Boots are Supported by level 20 Impale"]={{[1]={[1]={slotName="Boots",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={appliesToGrantedSkills=true,level=20,skillId="SupportImpale"}}},nil}
 c["Skills Socketed in your Boots are Supported by level 20 Increased Area of Effect"]={{[1]={[1]={slotName="Boots",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={appliesToGrantedSkills=true,level=20,skillId="SupportIncreasedAreaOfEffect"}}},nil}
 c["Skills Socketed in your Boots are Supported by level 20 Increased Critical Damage"]={{[1]={[1]={slotName="Boots",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={appliesToGrantedSkills=true,level=20,skillId="SupportIncreasedCriticalDamage"}}},nil}
