@@ -599,7 +599,7 @@ Hubris Circlet
 Requires Level 69, 154 Int
 Implicits: 0
 Trigger Level 10 Void Gaze when you use a Skill
-(120-150)% increased Energy Shield
+(150-180)% increased Energy Shield
 +(50-80) to maximum Mana
 50% increased Stun and Block Recovery
 Gain (5-8)% of Elemental Damage as Extra Chaos Damage
