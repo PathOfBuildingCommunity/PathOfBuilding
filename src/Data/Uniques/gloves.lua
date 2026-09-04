@@ -34,7 +34,7 @@ League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 63, 100 Str
 +(60-80) to Intelligence
-(25-35)% increased Global Critical Strike Chance
+(40-60)% increased Global Critical Strike Chance
 (200-220)% increased Armour
 +(60-75) to maximum Life
 You have Perfect Agony if you've dealt a Critical Strike recently
@@ -55,7 +55,7 @@ The Celestial Brace
 Goliath Gauntlets
 Source: Drops from unique{The Searing Exarch} (Uber)
 Requires Level: 53, 77 Str
-(80-120)% increased Armour
+(100-150)% increased Armour
 1% increased Attack Speed per Fortification
 +(1-10) to maximum Fortification
 Melee Hits from Strike Skills Fortify
@@ -492,7 +492,7 @@ Adds 1 to 13 Lightning Damage to Attacks
 {variant:1}(18-24)% increased Quantity of Items found
 {variant:2}(12-16)% increased Quantity of Items found
 {variant:3}(5-10)% increased Quantity of Items found
-{variant:4}(10-15)% increased Rarity of Items found
+{variant:4}(5-15)% increased Rarity of Items found
 ]],[[
 Voidbringer
 Conjurer Gloves

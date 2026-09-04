@@ -276,7 +276,7 @@ LifeRegenerationBloodStanceUnique__1
 ProjectileDamageBloodStanceUnique__1
 EvasionRatingSandStanceUnique__1
 AreaOfEffectSandStanceUnique__1
-(20-30)% increased Attack Speed if you've changed Stance Recently
+AttackSpeedChangedStanceUnique__1
 ]],[[
 Skirmish
 Two-Point Arrow Quiver

@@ -33,7 +33,7 @@ Amber Amulet
 LevelReq: 49
 Implicits: 1
 {tags:attribute}+(20-30) to Strength
-{tags:critical}(40-50)% increased Global Critical Strike Chance
+{tags:critical}(30-50)% increased Global Critical Strike Chance
 {tags:resource}+(50-70) to maximum Life
 {tags:resistance}+(17-29)% to Chaos Resistance
 Every 10 seconds:
@@ -693,7 +693,7 @@ Implicits: 1
 {tags:resource}Regenerate (2-4) Life per second
 {tags:resource}Regenerate (3-5) Mana per second
 {tags:resource}(30-40)% increased Life Recovery from Flasks
-{tags:resource}(15-30)% increased Mana Recovery from Flasks
+{tags:resource}(20-30)% increased Mana Recovery from Flasks
 {tags:resource}Life Flasks used while on Low Life apply Recovery Instantly
 {tags:resource}Mana Flasks used while on Low Mana apply Recovery Instantly
 ]],[[
@@ -1059,7 +1059,7 @@ Implicits: 1
 {variant:4}Minions convert 50% of Physical Damage to Cold Damage
 {variant:1,2}Minions deal (10-15)% increased Damage
 {variant:3}{tags:elemental_damage}Minions deal (5-9) to (11-15) additional Cold Damage
-{variant:4}{tags:elemental_damage}Minions deal (25-35) to (60-65) additional Cold Damage
+{variant:4}{tags:elemental_damage}Minions deal (25-35) to (50-65) additional Cold Damage
 {variant:4}Minions deal no Non-Cold Damage
 {variant:2,3}{tags:resource}(10-15)% reduced Mana Cost of Minion Skills
 ]],[[

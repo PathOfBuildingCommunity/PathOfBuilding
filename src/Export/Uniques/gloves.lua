@@ -34,7 +34,7 @@ League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 63, 100 Str
 IntelligenceUniqueGlovesStr3
-CriticalStrikeChanceUniqueGlovesStr3[25,35]
+CriticalStrikeChanceUniqueGlovesStr3
 LocalIncreasedPhysicalDamageReductionRatingPercentUniqueGlovesStr3
 IncreasedLifeUniqueGlovesStr3
 PerfectAgonyIfCritRecentlyUnique__1
@@ -55,7 +55,7 @@ The Celestial Brace
 Goliath Gauntlets
 Source: Drops from unique{The Searing Exarch} (Uber)
 Requires Level: 53, 77 Str
-LocalIncreasedPhysicalDamageReductionRatingPercentUnique__19
+LocalIncreasedPhysicalDamageReductionRatingPercentUnique__19[100,150]
 AttackSpeedPerFortificationUnique__1
 MaximumFortificationUnique__1
 StrikeSkillsFortifyOnHitUnique__1
@@ -485,7 +485,7 @@ LocalIncreasedEnergyShieldUniqueGlovesInt1
 {variant:1}ItemFoundQuantityIncreaseUniqueGlovesInt1[18,24]
 {variant:2}ItemFoundQuantityIncreaseUniqueGlovesInt1[12,16]
 {variant:3}ItemFoundQuantityIncreaseUniqueGlovesInt1
-{variant:4}ItemFoundRarityIncreaseUnique__7[10,15]
+{variant:4}ItemFoundRarityIncreaseUnique__7
 ]],[[
 Voidbringer
 Conjurer Gloves
