@@ -30,10 +30,49 @@ describe("Player and mercenary configuration", function()
 		return configSet
 	end
 
+	local function calculateWithoutConfigRebuild()
+		build.spec.modFlag = true
+		build.buildFlag = true
+		runCallback("OnFrame")
+		runCallback("OnFrame")
+		return build.calcsTab.mainEnv
+	end
+
 	before_each(function()
 		newBuild()
 		selectScionLuminary()
 		configureMercenary()
+	end)
+
+	it("rebuilds actor configuration when a Mercenary is hired", function()
+		newBuild()
+		selectScionLuminary()
+		local configSet = actorConfig()
+		configSet.actors.mercenary.input.usePowerCharges = true
+		build.configTab:BuildModList()
+
+		configureMercenary()
+		local env = calculateWithoutConfigRebuild()
+		local mercenary = assert(env.mercenary, table.concat(env.mercenaryCalculationErrors or { }, "\n"))
+		assert.is_true(mercenary.modDB:Flag(nil, "UsePowerCharges"))
+	end)
+
+	it("restores player source configuration when a Mercenary is removed", function()
+		local configSet = actorConfig()
+		configSet.input.conditionEnemyChilledByYourHits = true
+		configSet.customModsList[1].text = "Enemies Chilled by your Hits are Shocked"
+		build.configTab:BuildModList()
+		local hired = calculateWithoutConfigRebuild()
+		assert.is_true(hired.enemyDB:GetCondition("Shocked") or hired.enemyDB:Flag(nil, "Condition:Shocked"))
+
+		build.mercenaryTab.profile.buildId = nil
+		build.mercenaryTab.profile.classId = nil
+		build.mercenaryTab.profile.mainSkillId = nil
+		build.mercenaryTab.profile.skills = { }
+		build.mercenaryTab:Changed()
+		local unhired = calculateWithoutConfigRebuild()
+		assert.is_nil(unhired.mercenary)
+		assert.is_true(unhired.enemyDB:GetCondition("Shocked") or unhired.enemyDB:Flag(nil, "Condition:Shocked"))
 	end)
 
 	it("scopes shared encounter config vs actor combat and custom mods", function()
@@ -522,6 +561,114 @@ describe("Player and mercenary configuration", function()
 		assert.is_not_true(env.player.enemySourceDB:GetCondition("HitByFireDamage"))
 		assert.is_true(env.mercenary.enemySourceDB:GetCondition("HitByFireDamage"))
 		assert.is_not_true(env.mercenary.enemySourceDB:GetCondition("HitByLightningDamage"))
+	end)
+
+	it("keeps Mercenary EE hit history on an overlay when config source mods are empty", function()
+		local calcs = require("Modules.CalcBase")
+		local configSet = actorConfig()
+		assert.is_nil(configSet.actors.mercenary.input.enemyConditionHitByFireDamage)
+		assert.is_nil(configSet.actors.mercenary.input.enemyConditionHitByColdDamage)
+		assert.is_nil(configSet.actors.mercenary.input.enemyConditionHitByLightningDamage)
+		configSet.actors.mercenary.customModsList[1].text = "Hits that deal Elemental Damage remove Exposure to those Elements and inflict Exposure to other Elements Exposure inflicted this way applies -25% to Resistances"
+		calculateBuild()
+		wipeTable(build.configTab.mercenaryEnemyModList)
+		assert.is_nil(build.configTab.mercenaryEnemyModList[1])
+		local env = calcs.initEnv(build, "MAIN")
+		calcs.perform(env)
+		assert.is_not_nil(env.mercenary, table.concat(env.mercenaryCalculationErrors or { }, "\n"))
+		assert.is_not_nil(env.mercenary.enemySourceDB)
+		assert.is_true(env.mercenary.enemySourceDB:GetCondition("HitByFireDamage"))
+		assert.is_not_true(env.mercenary.enemySourceDB:GetCondition("HitByColdDamage"))
+		assert.is_not_true(env.mercenary.enemySourceDB:GetCondition("HitByLightningDamage"))
+		assert.is_not_true(env.enemyDB:GetCondition("HitByFireDamage") or env.enemyDB:Flag(nil, "Condition:HitByFireDamage"))
+		assert.is_true(env.enemyDB:Flag(nil, "Condition:HasColdExposure") or env.enemy.modDB.conditions.HasColdExposure)
+		assert.is_true(env.enemyDB:Flag(nil, "Condition:HasLightningExposure") or env.enemy.modDB.conditions.HasLightningExposure)
+		assert.is_not_true(env.enemyDB:Flag(nil, "Condition:HasFireExposure") or env.enemy.modDB.conditions.HasFireExposure)
+	end)
+
+	it("scales each exposure with its inflictor before choosing the strongest", function()
+		local configSet = actorConfig()
+		build.skillsTab:PasteSocketGroup("Arc 20/0  1")
+		local exposure = "Nearby Enemies have Fire Exposure"
+		local bonus = "Exposure you inflict applies an extra -25% to the affected Resistance"
+		local function fireResistance()
+			return calculateBuild().enemyDB:Sum("BASE", nil, "FireResist")
+		end
+		local baseline = fireResistance()
+		for _, owner in ipairs({ "player", "mercenary" }) do
+			local source = owner == "player" and configSet or configSet.actors.mercenary
+			local other = owner == "player" and configSet.actors.mercenary or configSet
+			source.customModsList[1].text = exposure
+			other.customModsList[1].text = bonus
+			local env = calculateBuild()
+			assert.are.equal(baseline - 10, env.enemyDB:Sum("BASE", nil, "FireResist"))
+			assert.is_true(env[owner].modDB:Flag(nil, "Condition:AppliedExposureRecently"))
+			assert.is_not_true(env[owner == "player" and "mercenary" or "player"].modDB:Flag(nil, "Condition:AppliedExposureRecently"))
+			source.customModsList[1].text = exposure.."\n"..bonus
+			other.customModsList[1].text = exposure
+			assert.are.equal(baseline - 35, fireResistance())
+		end
+		configSet.customModsList[1].text = ""
+		configSet.actors.mercenary.customModsList[1].text = "100% chance to inflict Cold Exposure on Hit with Cold Damage\n"..bonus
+		configSet.input.conditionEnemyColdExposure = true
+		local env = calculateBuild()
+		assert.are.equal(-35, env.enemyDB:Sum("BASE", nil, "ColdResist") - baseline)
+		assert.is_not_true(env.player.modDB:Flag(nil, "Condition:AppliedExposureRecently"))
+	end)
+
+	it("keeps minion curses separate from both owners' by-you conditions", function()
+		local configSet = actorConfig()
+		build.skillsTab:PasteSocketGroup("Summon Skitterbots 20/0  1")
+		local profile = build.mercenaryTab.profile
+		for _, buildId in ipairs(build.data.mercenaries.buildOrder) do
+			local mercBuild = build.data.mercenaries.builds[buildId]
+			if isValueInArray(mercBuild.skillIds, "SummonSkitterbotsMercenary") then
+				profile.buildId, profile.classId = buildId, mercBuild.classId
+				break
+			end
+		end
+		profile.mainSkillId = "SummonSkitterbotsMercenary"
+		profile.skills = { { id = profile.mainSkillId, enabled = true, supports = { } } }
+		build.mercenaryTab:Changed()
+		configSet.customModsList[1].text = "Enemies you Curse take 20% increased Damage"
+		configSet.actors.mercenary.customModsList[1].text = "Enemies you Curse take 30% increased Damage"
+		build.configTab:BuildModList()
+		local calcs = require("Modules.CalcBase")
+		for _, owner in ipairs({ "player", "mercenary" }) do
+			local env = calcs.initEnv(build, "MAIN")
+			env[owner].modDB:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("ExtraCurse", "LIST", { skillId = "Enfeeble", level = 1 }, "Test") }, "Test")
+			calcs.perform(env)
+			assert.is_true(env.enemyDB:GetCondition("Cursed"))
+			assert.is_true(env[owner].mainSkill.minion.enemySourceDB:GetCondition("Cursed"))
+			assert.is_not_true(env.player.enemySourceDB:GetCondition("Cursed"))
+			assert.is_not_true(env.mercenary.enemySourceDB:GetCondition("Cursed"))
+		end
+	end)
+
+	it("preserves competing skill exposures through debuff merging", function()
+		local configSet = actorConfig()
+		local profile = build.mercenaryTab.profile
+		for _, buildId in ipairs(build.data.mercenaries.buildOrder) do
+			local mercBuild = build.data.mercenaries.builds[buildId]
+			if isValueInArray(mercBuild.skillIds, "FrostBombMercenary") then
+				profile.buildId, profile.classId = buildId, mercBuild.classId
+				break
+			end
+		end
+		profile.mainSkillId = "FrostBombMercenary"
+		profile.skills = { { id = profile.mainSkillId, enabled = true, includeInFullDPS = true, supports = { } } }
+		build.mercenaryTab:Changed()
+		build.skillsTab:PasteSocketGroup("Frost Bomb 20/0  1")
+		build.skillsTab.socketGroupList[1].includeInFullDPS = true
+		local baseline = calculateBuild().enemyDB:Sum("BASE", nil, "ColdResist")
+		for _, config in ipairs({ configSet, configSet.actors.mercenary }) do
+			config.customModsList[1].text = "Exposure you inflict applies an extra -25% to the affected Resistance"
+			local env = calculateBuild()
+			assert.are.equal(baseline - 25, env.enemyDB:Sum("BASE", nil, "ColdResist"))
+			local firstDPS = env.player.output.FullDPS
+			assert.are.equal(firstDPS, calculateBuild().player.output.FullDPS)
+			config.customModsList[1].text = ""
+		end
 	end)
 
 	it("hover comparisons use the viewed actor's output", function()

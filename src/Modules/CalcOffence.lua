@@ -3748,12 +3748,12 @@ function calcs.offence(env, actor, activeSkill)
 
 		local configInput = (actor.calcEnv and actor.calcEnv.configInput) or env.configInput
 		if skillModList:Flag(skillCfg, "ElementalEquilibrium") and not configInput.EEIgnoreHitDamage and (output.FireHitAverage + output.ColdHitAverage + output.LightningHitAverage > 0) then
-			-- Update this actor's hit-by-damage-type conditions
-			local sourceDB = actor.enemySourceDB
-			if sourceDB then
-				sourceDB.conditions.HitByFireDamage = output.FireHitAverage > 0
-				sourceDB.conditions.HitByColdDamage = output.ColdHitAverage > 0
-				sourceDB.conditions.HitByLightningDamage = output.LightningHitAverage > 0
+			-- Isolation overlay when a Mercenary is hired; otherwise origin writes the shared enemy.
+			local hitByStore = actor.enemySourceDB or (actor.enemy and actor.enemy.modDB)
+			if hitByStore then
+				hitByStore.conditions.HitByFireDamage = output.FireHitAverage > 0
+				hitByStore.conditions.HitByColdDamage = output.ColdHitAverage > 0
+				hitByStore.conditions.HitByLightningDamage = output.LightningHitAverage > 0
 			end
 		end
 

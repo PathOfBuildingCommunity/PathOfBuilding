@@ -107,14 +107,64 @@ function ConfigScope.isSourceOwnedEnemyMod(mod)
 	return var and isSourceOwnedName(var)
 end
 
+-- Encounter statuses that "by you" mods query by the shared ailment name.
+-- ModCache stamps sourceOwned on Condition:Ignited (etc.); the player overlay
+-- must still see the config checkbox. Mercenary overlays do not copy these.
+local ENCOUNTER_OVERLAY_VARS = {
+	Blinded = true,
+	Bleeding = true,
+	Burning = true,
+	Brittle = true,
+	Chilled = true,
+	ChillEffect = true,
+	Cursed = true,
+	CurseDurationExpired = true,
+	CurseExpired = true,
+	Debilitated = true,
+	Frozen = true,
+	Hindered = true,
+	Ignited = true,
+	ImpaleStacks = true,
+	Intimidated = true,
+	Maimed = true,
+	Marked = true,
+	Poisoned = true,
+	PoisonStack = true,
+	Sapped = true,
+	Scorched = true,
+	Shocked = true,
+	ShockEffect = true,
+	["Spider's WebStack"] = true,
+	Taunted = true,
+	Unnerved = true,
+	Withered = true,
+	WitheredStack = true,
+}
+
+function ConfigScope.shouldCopyEncounterOntoPlayerOverlay(mod)
+	if not mod or not mod.name then
+		return false
+	end
+	local var = mod.name:match("^Condition:(.+)$") or mod.name:match("^Multiplier:(.+)$")
+	if not var then
+		return false
+	end
+	return isSourceOwnedName(var) or ENCOUNTER_OVERLAY_VARS[var]
+end
+
 function ConfigScope.isSourceOwnedEnemyTag(tag)
 	if not (tag and SOURCE_OWNED_TAG_TYPES[tag.type]) then
 		return false
 	end
-	if tag.sourceOwned then
-		return true
+	-- Stamp the result on the tag. EvalMod hits this per Condition/Multiplier
+	-- tag; the classification never changes for a given tag table.
+	local cached = tag.sourceOwned
+	if cached ~= nil then
+		return cached
 	end
-	return anySourceOwned(tag.var or tag.varList)
+	local owned = anySourceOwned(tag.var or tag.varList)
+	tag.sourceOwned = owned
+	return owned
 end
 
 function ConfigScope.impliesChilledByYourHits(modName)

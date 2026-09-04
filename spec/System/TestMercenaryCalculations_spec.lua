@@ -127,6 +127,21 @@ describe("Permanent Mercenary calculations", function()
 		build.characterLevelAutoMode = false
 	end)
 
+	it("does not pin recycled Mercenary databases after unhire", function()
+		configure("TrapsMinesShadow", "TrapsMinesShadowLightning", "LightningTrapMercenary")
+		local env = calculate()
+		assert.is_not_nil(env.mercenary)
+		build.mercenaryTab.profile.buildId = nil
+		build.mercenaryTab.profile.classId = nil
+		build.mercenaryTab:Changed()
+		env = calculate()
+		assert.is_nil(env.mercenary)
+		assert.is_nil(env.recycledMercenaryModDB)
+		assert.is_nil(env.recycledMercenaryItemModDB)
+		assert.is_nil(env.recycledMercenaryEnemySourceDB)
+		assert.is_nil(env.player.enemySourceDB)
+	end)
+
 	it("fails closed on invalid Mercenary loadouts", function()
 		configure("TrapsMinesShadow", "TrapsMinesShadowLightning", "LightningTrapMercenary")
 		build.mercenaryTab.profile.skills[1].enabled = false
@@ -337,6 +352,7 @@ describe("Permanent Mercenary calculations", function()
 	end)
 
 	it("keeps independent loadouts and persists XML", function()
+		build.mercenaryTab:EnsureData()
 		build.mercenaryTab:Changed()
 		assert.are.equal(7, #build.mercenaryTab.controls.class.list)
 		assert.are.equal("Templar (Str / Int)", build.mercenaryTab.controls.class.list[1].label)
@@ -2473,6 +2489,45 @@ Sockets: G-G-G-G-G-G]])
 		fullDPS = calcs.calcFullDPS(build, "CALCULATOR", { })
 		assert.are.near(math.max(playerDecay, mercDecay), fullDPS.decayDPS, 10 ^ -6)
 		assert.are.near(mercDecay, namedDps(fullDPS.mercenarySkills, "Best Decay DPS"), 10 ^ -6)
+	end)
+
+	it("does not grow Mercenary Full DPS merely because extra Full DPS passes ran", function()
+		configure("TrapsMinesShadow", "TrapsMinesShadowLightning", "LightningTrapMercenary", { includeInFullDPS = true })
+		local configSet = build.configTab.configSets[build.configTab.activeConfigSetId]
+		build.configTab:EnsureActorConfig(configSet)
+		configSet.actors.mercenary.input.buffOnslaught = true
+		setMercenaryFullDPS({ "LightningTrapMercenary" })
+		local trapOnly = namedDps(calcs.calcFullDPS(build, "CALCULATOR", { }).mercenarySkills, "Lightning Trap")
+		setMercenaryFullDPS({ "LightningSpireTrapMercenary" })
+		local spireOnly = namedDps(calcs.calcFullDPS(build, "CALCULATOR", { }).mercenarySkills, "Lightning Spire Trap")
+		assert.is_true(trapOnly > 0)
+		assert.is_true(spireOnly > 0)
+		setMercenaryFullDPS({ "LightningTrapMercenary", "LightningSpireTrapMercenary" })
+		local both = calcs.calcFullDPS(build, "CALCULATOR", { })
+		assert.are.near(trapOnly, namedDps(both.mercenarySkills, "Lightning Trap"), 10 ^ -4)
+		assert.are.near(spireOnly, namedDps(both.mercenarySkills, "Lightning Spire Trap"), 10 ^ -4)
+	end)
+
+	it("does not rebuild after the final player Full DPS skill when the Mercenary is excluded", function()
+		configure("TrapsMinesShadow", "TrapsMinesShadowLightning", "LightningTrapMercenary")
+		build.skillsTab:PasteSocketGroup("Arc 20/0  1")
+		build.skillsTab.socketGroupList[#build.skillsTab.socketGroupList].includeInFullDPS = true
+		build.mainSocketGroup = #build.skillsTab.socketGroupList
+		calculate()
+
+		local originalInitEnv = calcs.initEnv
+		local initEnvCalls = 0
+		calcs.initEnv = function(...)
+			initEnvCalls = initEnvCalls + 1
+			return originalInitEnv(...)
+		end
+		local ok, fullDPS = pcall(calcs.calcFullDPS, build, "CALCULATOR", { })
+		calcs.initEnv = originalInitEnv
+
+		assert.is_true(ok, fullDPS)
+		assert.is_true(fullDPS.combinedDPS > 0)
+		assert.are.equal(0, #fullDPS.mercenarySkills)
+		assert.are.equal(1, initEnvCalls)
 	end)
 
 	it("uniques named generic DoTs across actors and still stacks count", function()

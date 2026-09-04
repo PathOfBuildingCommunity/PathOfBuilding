@@ -20,7 +20,6 @@ local skillTypes = {
 	"glove",
 	"minion",
 	"spectre",
-	"mercenary",
 	"sup_str",
 	"sup_dex",
 	"sup_int",
@@ -1028,11 +1027,10 @@ Uber Pinnacle Boss adds the following modifiers:
 	]]..tostring(data.misc.uberBossPen)..[[% penetration]]
 end
 
--- Load skills
+-- Load skills. Mercenary granted effects stay off the player/startup path;
+-- data.ensureMercenaries() loads Data/Skills/mercenary.lua and MercenaryStatMap.
 data.skills = { }
 data.skillStatMap = LoadModule("Data/SkillStatMap")(makeSkillMod, makeFlagMod, makeSkillDataMod)
-data.mercenaryStatData = LoadModule("Data/MercenaryStatMap")(makeSkillMod, makeFlagMod, makeSkillDataMod)
-data.mercenaryStatMap = data.mercenaryStatData.statMap
 data.skillStatMapMeta = {
 	__index = function(t, key)
 		local map = data.skillStatMap[key]
@@ -1053,14 +1051,87 @@ local orderedSkillIds = { }
 for skillId in pairs(data.skills) do t_insert(orderedSkillIds, skillId) end
 table.sort(orderedSkillIds)
 
--- Mercenary Granted Effects are exported as data only. Each one records the
--- player skill it was derived from, and reuses that skill's implementation for
--- anything GGG's data does not state directly. Inheriting from exactly the one
--- recorded skill is what keeps a display-name rename or a new transfigured
--- variant from silently changing Mercenary behaviour.
+local function finishGrantedEffect(skillId, grantedEffect)
+	grantedEffect.name = sanitiseText(grantedEffect.name)
+	grantedEffect.id = skillId
+	grantedEffect.modSource = "Skill:"..skillId
+	-- Add sources for skill mods, and check for global effects
+	for _, list in pairs({grantedEffect.baseMods, grantedEffect.qualityMods, grantedEffect.levelMods}) do
+		if list then
+			for _, mod in pairs(list) do
+				if mod.name then
+					processMod(grantedEffect, mod)
+				else
+					for _, nestedMod in ipairs(mod) do
+						processMod(grantedEffect, nestedMod)
+					end
+				end
+			end
+		end
+	end
+	-- Install stat map metatable
+	grantedEffect.statMap = grantedEffect.statMap or { }
+	setmetatable(grantedEffect.statMap, data.skillStatMapMeta)
+	grantedEffect.statMap._grantedEffect = grantedEffect
+	for name, map in pairs(grantedEffect.statMap) do
+		-- Some mods need different scalars for different stats, but the same value.  Putting them in a group allows this
+		for _, modOrGroup in ipairs(map) do
+			if modOrGroup.name then
+				processMod(grantedEffect, modOrGroup, name)
+			else
+				for _, nestedMod in ipairs(modOrGroup) do
+					processMod(grantedEffect, nestedMod, name)
+				end
+			end
+		end
+	end
+end
+
+-- Some mechanics are mapped on a specific player skill instead of the global
+-- stat map. Reuse those mappings only when every existing implementation is
+-- identical; conflicting meanings must receive an explicit Mercenary override.
+local sharedSkillStatMap, ambiguousSkillStats = { }, { }
 for _, skillId in ipairs(orderedSkillIds) do
 	local grantedEffect = data.skills[skillId]
-	if grantedEffect.mercenary then
+	for statId, map in pairs(grantedEffect.statMap or { }) do
+		if type(statId) == "string" and statId ~= "_grantedEffect" and not ambiguousSkillStats[statId] then
+			if sharedSkillStatMap[statId] and not tableDeepEquals(sharedSkillStatMap[statId], map) then
+				sharedSkillStatMap[statId] = nil
+				ambiguousSkillStats[statId] = true
+			else
+				sharedSkillStatMap[statId] = map
+			end
+		end
+	end
+end
+for _, skillId in ipairs(orderedSkillIds) do
+	finishGrantedEffect(skillId, data.skills[skillId])
+end
+
+data.knownUncalculatedSkillStats = { }
+data.knownUncalculatedMinionStats = { }
+
+local function ensureMercenarySkills()
+	if data.mercenaryStatData then
+		return
+	end
+	data.mercenaryStatData = LoadModule("Data/MercenaryStatMap")(makeSkillMod, makeFlagMod, makeSkillDataMod)
+	data.mercenaryStatMap = data.mercenaryStatData.statMap
+	LoadModule("Data/Skills/mercenary")(data.skills, makeSkillMod, makeFlagMod, makeSkillDataMod)
+	local mercenarySkillIds = { }
+	for skillId, grantedEffect in pairs(data.skills) do
+		if grantedEffect.mercenary then
+			t_insert(mercenarySkillIds, skillId)
+		end
+	end
+	table.sort(mercenarySkillIds)
+	-- Mercenary Granted Effects are exported as data only. Each one records the
+	-- player skill it was derived from, and reuses that skill's implementation for
+	-- anything GGG's data does not state directly. Inheriting from exactly the one
+	-- recorded skill is what keeps a display-name rename or a new transfigured
+	-- variant from silently changing Mercenary behaviour.
+	for _, skillId in ipairs(mercenarySkillIds) do
+		local grantedEffect = data.skills[skillId]
 		for _, statId in ipairs(grantedEffect.stats or { }) do
 			if statId == "base_is_projectile" then grantedEffect.baseFlags.projectile = true end
 			if statId == "is_area_damage" then grantedEffect.baseFlags.area = true end
@@ -1082,32 +1153,6 @@ for _, skillId in ipairs(orderedSkillIds) do
 		if data.mercenaryStatData.droppedPreDamageFuncs[skillId] then
 			grantedEffect.preDamageFunc = nil
 		end
-	end
-end
-
--- Some mechanics are mapped on a specific player skill instead of the global
--- stat map. Reuse those mappings only when every existing implementation is
--- identical; conflicting meanings must receive an explicit Mercenary override.
-local sharedSkillStatMap, ambiguousSkillStats = { }, { }
-for _, skillId in ipairs(orderedSkillIds) do
-	local grantedEffect = data.skills[skillId]
-	if not grantedEffect.mercenary then
-		for statId, map in pairs(grantedEffect.statMap or { }) do
-			if type(statId) == "string" and statId ~= "_grantedEffect" and not ambiguousSkillStats[statId] then
-				if sharedSkillStatMap[statId] and not tableDeepEquals(sharedSkillStatMap[statId], map) then
-					sharedSkillStatMap[statId] = nil
-					ambiguousSkillStats[statId] = true
-				else
-					sharedSkillStatMap[statId] = map
-				end
-			end
-		end
-	end
-end
-
-for _, skillId in ipairs(orderedSkillIds) do
-	local grantedEffect = data.skills[skillId]
-	if grantedEffect.mercenary then
 		grantedEffect.statMap = grantedEffect.statMap or { }
 		for _, statId in ipairs(grantedEffect.stats or { }) do
 			if not grantedEffect.statMap[statId] then
@@ -1127,53 +1172,21 @@ for _, skillId in ipairs(orderedSkillIds) do
 			for _, baseMod in ipairs(override.baseMods or { }) do t_insert(grantedEffect.baseMods, baseMod) end
 			if override.preDamageFunc then grantedEffect.preDamageFunc = override.preDamageFunc end
 		end
+		finishGrantedEffect(skillId, grantedEffect)
 	end
-	grantedEffect.name = sanitiseText(grantedEffect.name)
-	grantedEffect.id = skillId
-	grantedEffect.modSource = "Skill:"..skillId
-	-- Add sources for skill mods, and check for global effects
-	for _, list in pairs({grantedEffect.baseMods, grantedEffect.qualityMods, grantedEffect.levelMods}) do
-		for _, mod in pairs(list) do
-			if mod.name then
-				processMod(grantedEffect, mod)
-			else
-				for _, mod in ipairs(mod) do
-					processMod(grantedEffect, mod)
-				end
-			end
+	data.knownUncalculatedSkillStats = data.mercenaryStatData.knownUncalculatedStats
+	data.knownUncalculatedMinionStats = data.mercenaryStatData.knownUncalculatedMinionStats
+	-- Mercenary supports store raw stats instead of GrantedEffect references. Reuse
+	-- the deterministic stat implementations already exported for skills/supports.
+	data.mercenarySupportStatMap = { }
+	for statId, map in pairs(data.skillStatMap) do data.mercenarySupportStatMap[statId] = map end
+	for statId, map in pairs(data.mercenaryStatMap) do data.mercenarySupportStatMap[statId] = map end
+	-- Per-skill implementations are only borrowed where they are unambiguous, to the
+	-- same standard as the Mercenary skill fallback above.
+	for statId, map in pairs(sharedSkillStatMap) do
+		if not data.mercenarySupportStatMap[statId] then
+			data.mercenarySupportStatMap[statId] = map
 		end
-	end
-	-- Install stat map metatable
-	grantedEffect.statMap = grantedEffect.statMap or { }
-	setmetatable(grantedEffect.statMap, data.skillStatMapMeta)
-	grantedEffect.statMap._grantedEffect = grantedEffect
-	for name, map in pairs(grantedEffect.statMap) do
-		-- Some mods need different scalars for different stats, but the same value.  Putting them in a group allows this
-		for _, modOrGroup in ipairs(map) do
-			if modOrGroup.name then
-				processMod(grantedEffect, modOrGroup, name)
-			else
-				for _, mod in ipairs(modOrGroup) do
-					processMod(grantedEffect, mod, name)
-				end
-			end
-		end
-	end
-end
-
-data.knownUncalculatedSkillStats = data.mercenaryStatData.knownUncalculatedStats
-data.knownUncalculatedMinionStats = data.mercenaryStatData.knownUncalculatedMinionStats
-
--- Mercenary supports store raw stats instead of GrantedEffect references. Reuse
--- the deterministic stat implementations already exported for skills/supports.
-data.mercenarySupportStatMap = { }
-for statId, map in pairs(data.skillStatMap) do data.mercenarySupportStatMap[statId] = map end
-for statId, map in pairs(data.mercenaryStatMap) do data.mercenarySupportStatMap[statId] = map end
--- Per-skill implementations are only borrowed where they are unambiguous, to the
--- same standard as the Mercenary skill fallback above.
-for statId, map in pairs(sharedSkillStatMap) do
-	if not data.mercenarySupportStatMap[statId] then
-		data.mercenarySupportStatMap[statId] = map
 	end
 end
 
@@ -1250,10 +1263,6 @@ end
 
 -- Load minions
 data.minions = LoadModule("Data/Minions")(makeSkillMod, makeFlagMod)
-data.mercenaries = LoadModule("Data/Mercenaries")
--- How many supports each support-count name allows is not in GGG's data, so the
--- limits are hand-authored alongside the other Mercenary policy.
-data.mercenaries.supportCounts = data.mercenaryStatData.supportCounts
 local function addMercenaryMinionStatMods(minion, stat)
 	local map = data.mercenarySupportStatMap[stat.id]
 	if not map then return end
@@ -1275,23 +1284,40 @@ local function addMercenaryMinionStatMods(minion, stat)
 		end
 	end
 end
-for minionId, minion in pairs(data.mercenaries.minions or { }) do
-	minion.skillList = minion.skillIds
-	minion.noFallbackSkill = not minion.skillList[1]
-	minion.modList = { }
-	for _, stat in ipairs(minion.stats or { }) do addMercenaryMinionStatMods(minion, stat) end
-	data.minions[minionId] = minion
-end
-for skillId, minionId in pairs(data.mercenaries.summonedMinions or { }) do
-	local grantedEffect = data.skills[skillId]
-	if grantedEffect then
-		grantedEffect.minionList = { minionId }
-		grantedEffect.baseFlags.minion = true
-		grantedEffect.skillTypes[SkillType.Minion] = true
-		grantedEffect.skillTypes[SkillType.CreatesMinion] = true
-		grantedEffect.baseMods = grantedEffect.baseMods or { }
-		t_insert(grantedEffect.baseMods, makeSkillDataMod("minionLevelIsActorLevel", true))
+-- Builds, classes, and allied-monster tables are only needed once a Mercenary
+-- tab or actor exists. Keep them off the HeadlessWrapper / app-start path.
+function data.ensureMercenaries()
+	if data.mercenaries then
+		return data.mercenaries
 	end
+	ensureMercenarySkills()
+	local mercenaries = LoadModule("Data/Mercenaries")
+	mercenaries.supportCounts = data.mercenaryStatData.supportCounts
+	for minionId, minion in pairs(mercenaries.minions or { }) do
+		minion.skillList = minion.skillIds
+		minion.noFallbackSkill = not minion.skillList[1]
+		minion.modList = { }
+		for _, stat in ipairs(minion.stats or { }) do addMercenaryMinionStatMods(minion, stat) end
+		for _, mod in ipairs(minion.modList) do
+			mod.source = "Minion:"..minion.name
+		end
+		if not data.minions[minionId] then
+			data.minions[minionId] = minion
+		end
+	end
+	for skillId, minionId in pairs(mercenaries.summonedMinions or { }) do
+		local grantedEffect = data.skills[skillId]
+		if grantedEffect then
+			grantedEffect.minionList = { minionId }
+			grantedEffect.baseFlags.minion = true
+			grantedEffect.skillTypes[SkillType.Minion] = true
+			grantedEffect.skillTypes[SkillType.CreatesMinion] = true
+			grantedEffect.baseMods = grantedEffect.baseMods or { }
+			t_insert(grantedEffect.baseMods, makeSkillDataMod("minionLevelIsActorLevel", true))
+		end
+	end
+	data.mercenaries = mercenaries
+	return mercenaries
 end
 data.spectres = LoadModule("Data/Spectres")(makeSkillMod, makeFlagMod)
 for name, spectre in pairs(data.spectres) do

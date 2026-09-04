@@ -6,6 +6,7 @@
 ---@class Calcs
 local calcs = require("Modules.CalcBase")
 local MercenaryTools = require("Modules.MercenaryTools")
+local ConfigScope = require("Modules.ConfigScope")
 
 local pairs = pairs
 local ipairs = ipairs
@@ -18,11 +19,25 @@ local m_floor = math.floor
 
 local tempTable1 = { }
 
+local mercenarySupportEffectCache = { }
+
 local function mercenarySupportEffect(env, support, supportedEffect, errors)
 	if not support then
 		t_insert(errors, "Missing exported Mercenary support data")
 		return
 	end
+	local cacheKey = supportedEffect and supportedEffect.id and (support.id .. "\0" .. supportedEffect.id)
+	local cached = cacheKey and mercenarySupportEffectCache[cacheKey]
+	if cached then
+		return {
+			grantedEffect = cached,
+			level = 1,
+			quality = 0,
+			enabled = true,
+			isSupporting = { },
+		}
+	end
+	local errorCount = #errors
 	local constantStats = { }
 	local statMap = { }
 	for _, stat in ipairs(support.stats or { }) do
@@ -69,6 +84,9 @@ local function mercenarySupportEffect(env, support, supportedEffect, errors)
 	}
 	setmetatable(grantedEffect.statMap, env.data.skillStatMapMeta)
 	grantedEffect.statMap._grantedEffect = grantedEffect
+	if cacheKey and #errors == errorCount then
+		mercenarySupportEffectCache[cacheKey] = grantedEffect
+	end
 	return {
 		grantedEffect = grantedEffect,
 		level = 1,
@@ -181,6 +199,9 @@ local function addMercenaryMonsterStats(env, mercenary, monster, errors)
 	end
 end
 
+-- parseMod is not cheap; mercenary passives are rebuilt on every real initEnv.
+local mercenaryPassiveModCache = { }
+
 local function addMercenaryPassiveStats(mercenary, mercenaryBuild, errors)
 	mercenary.passiveStats = { }
 	for _, passive in ipairs(mercenaryBuild.passiveStats or { }) do
@@ -189,12 +210,23 @@ local function addMercenaryPassiveStats(mercenary, mercenaryBuild, errors)
 		local valueText = scaledValue == m_floor(scaledValue) and tostring(m_floor(scaledValue)) or tostring(scaledValue)
 		local line = passive.line or string.format(passive.format, valueText)
 		if not passive.line or value ~= 0 then
-			local modList, extra = modLib.parseMod(line)
-			if not modList or extra then
+			local cached = mercenaryPassiveModCache[line]
+			if cached == nil then
+				local parsed, extra = modLib.parseMod(line)
+				if not parsed or extra then
+					mercenaryPassiveModCache[line] = false
+					cached = false
+				else
+					mercenaryPassiveModCache[line] = parsed
+					cached = parsed
+				end
+			end
+			if not cached then
 				t_insert(errors, "Unsupported Mercenary passive stat "..passive.id..": "..line)
 			else
-				for _, mod in ipairs(modList) do
-					mercenary.modDB:AddMod(modLib.setSource(mod, "Mercenary Passive: "..passive.id))
+				local source = "Mercenary Passive: "..passive.id
+				for _, mod in ipairs(cached) do
+					mercenary.modDB:AddMod(modLib.setSource(copyTable(mod, true), source))
 				end
 			end
 		end
@@ -202,29 +234,73 @@ local function addMercenaryPassiveStats(mercenary, mercenaryBuild, errors)
 	end
 end
 
-local function attachEnemySourceDB(env, actor, sourceModList)
+function calcs.attachEnemySourceDB(env, actor, sourceModList)
 	if not actor then
 		return
 	end
-	local sourceDB = new("ModDB"):ModDB()
+	local hasSource = sourceModList and sourceModList[1] ~= nil
+	local encounterList = actor == env.player and env.build.configTab.enemyModList
+	local sourceDB = actor.enemySourceDB
+	if sourceDB then
+		wipeTable(sourceDB.mods)
+		wipeTable(sourceDB.conditions)
+		wipeTable(sourceDB.multipliers)
+	else
+		sourceDB = new("ModDB"):ModDB()
+		actor.enemySourceDB = sourceDB
+	end
 	sourceDB.actor = actor
 	sourceDB.conditions.Combat = env.mode_combat
 	sourceDB.conditions.Effective = env.mode_effective
-	if sourceModList then
+	if hasSource then
 		sourceDB:AddList(sourceModList)
 	end
 	-- Player "by you" mods that reuse encounter names (Ignited, WitheredStack, ...)
 	-- still honour the shared config checkboxes. Mercenary overlays do not copy
 	-- those predicates, so they cannot claim the player's ailments as their own.
 	if actor == env.player then
-		for _, mod in ipairs(env.build.configTab.enemyModList or { }) do
-			local name = mod.name or ""
-			if name:sub(1, 10) == "Condition:" or name:sub(1, 11) == "Multiplier:" then
+		for _, mod in ipairs(encounterList or { }) do
+			if ConfigScope.shouldCopyEncounterOntoPlayerOverlay(mod) then
 				sourceDB:AddMod(mod)
 			end
 		end
 	end
-	actor.enemySourceDB = sourceDB
+end
+
+local function recycleModDB(db)
+	if not db then
+		return nil
+	end
+	wipeTable(db.mods)
+	wipeTable(db.conditions)
+	wipeTable(db.multipliers)
+	db.parent = nil
+	-- The previous actor graph must not stay reachable from a parked overlay.
+	db.actor = nil
+	return db
+end
+
+local function dropRecycledMercenary(env)
+	env.recycledMercenaryModDB = nil
+	env.recycledMercenaryItemModDB = nil
+	env.recycledMercenaryEnemySourceDB = nil
+end
+
+local function parkRecycledMercenary(env, modDB, itemModDB, enemySourceDB)
+	env.recycledMercenaryModDB = recycleModDB(modDB)
+	env.recycledMercenaryItemModDB = recycleModDB(itemModDB)
+	env.recycledMercenaryEnemySourceDB = recycleModDB(enemySourceDB)
+end
+
+local function parkCurrentMercenary(env)
+	if env.mercenary then
+		parkRecycledMercenary(env, env.mercenary.modDB, env.mercenary.calcEnv and env.mercenary.calcEnv.itemModDB, env.mercenary.enemySourceDB)
+	else
+		dropRecycledMercenary(env)
+	end
+	env.mercenary = nil
+	env.mercenaryMinion = nil
+	env.mercenaryCalculationErrors = nil
 end
 
 -- Mercenary calculations reuse upstream actor-aware calculation functions, some of
@@ -314,14 +390,31 @@ end
 
 function calcs.initMercenary(env)
 	local tab = env.build.mercenaryTab
+	if not tab or not tab.profile or not tab.profile.buildId then
+		env.mercenary = nil
+		env.mercenaryMinion = nil
+		env.mercenaryCalculationErrors = nil
+		dropRecycledMercenary(env)
+		return
+	end
+	env.data.ensureMercenaries()
+	local recycledModDB = env.recycledMercenaryModDB
+	local recycledItemModDB = env.recycledMercenaryItemModDB
+	local recycledEnemySourceDB = env.recycledMercenaryEnemySourceDB
+	dropRecycledMercenary(env)
 	env.mercenary = nil
+	env.mercenaryMinion = nil
 	env.mercenaryCalculationErrors = nil
-	if not tab or not tab.profile.buildId then return end
+
+	local function abortInit(errors)
+		env.mercenaryCalculationErrors = errors
+		parkRecycledMercenary(env, recycledModDB, recycledItemModDB, recycledEnemySourceDB)
+	end
 
 	local profile = tab.profile
 	local profileErrors = MercenaryTools.validateProfile(profile, env.data.mercenaries)
 	if #profileErrors > 0 then
-		env.mercenaryCalculationErrors = profileErrors
+		abortInit(profileErrors)
 		return
 	end
 	local mercenaryBuild = env.data.mercenaries.builds[profile.buildId]
@@ -329,7 +422,7 @@ function calcs.initMercenary(env)
 	local monster = mercenaryClass and mercenaryClass.monster
 	local calculationErrors = { }
 	if not monster then
-		env.mercenaryCalculationErrors = { "Selected Mercenary has no allied MonsterVariety data" }
+		abortInit({ "Selected Mercenary has no allied MonsterVariety data" })
 		return
 	end
 	local itemsTab = env.build.itemsTab
@@ -339,7 +432,7 @@ function calcs.initMercenary(env)
 		itemSet = selectedItemSet
 	end
 	if not itemSet then
-		env.mercenaryCalculationErrors = { "No Mercenary item set is available" }
+		abortInit({ "No Mercenary item set is available" })
 		return
 	end
 	local equipmentErrors = MercenaryTools.equipmentErrors({
@@ -354,13 +447,14 @@ function calcs.initMercenary(env)
 		end,
 	})
 	if #equipmentErrors > 0 then
-		env.mercenaryCalculationErrors = equipmentErrors
+		abortInit(equipmentErrors)
 		return
 	end
 	-- Permanent hiring is a Luminary/Noble Blood capability. Keep the
 	-- configured profile for editing, but do not construct an actor that
 	-- would enter the player calculation graph.
 	if not env.modDB:Flag(nil, "CanHirePermanentMercenary") then
+		parkRecycledMercenary(env, recycledModDB, recycledItemModDB, recycledEnemySourceDB)
 		return
 	end
 	local mercenary = {
@@ -376,14 +470,15 @@ function calcs.initMercenary(env)
 		profile = profile,
 		monster = monster,
 	}
-	mercenary.modDB = new("ModDB"):ModDB()
+	mercenary.modDB = recycledModDB or new("ModDB"):ModDB()
 	mercenary.modDB.actor = mercenary
 	mercenary.modDB.multipliers.Level = mercenary.level
 	calcs.initModDB(env, mercenary.modDB)
 	if env.build.configTab.mercenaryModList then
 		mercenary.modDB:AddList(env.build.configTab.mercenaryModList)
 	end
-	attachEnemySourceDB(env, mercenary, env.build.configTab.mercenaryEnemyModList)
+	mercenary.enemySourceDB = recycledEnemySourceDB
+	calcs.attachEnemySourceDB(env, mercenary, env.build.configTab.mercenaryEnemyModList)
 	local baseStats = env.data.mercenaries.baseStats
 	mercenary.modDB:NewMod("Life", "BASE", baseStats.lifePerLevel * mercenary.level, "Base")
 	mercenary.modDB:NewMod("Mana", "BASE", env.data.monsterConstants.base_maximum_mana + baseStats.manaPerLevel * mercenary.level, "Base")
@@ -476,7 +571,10 @@ function calcs.initMercenary(env)
 	-- false (not nil) prevents __index from returning the player's minion.
 	local mercInput, mercPlaceholder = { }, { }
 	if env.build.configTab.GetActorConfigInput then
+		-- GetActorConfigInput reuses its merge buffers; snapshot before the next call.
 		mercInput, mercPlaceholder = env.build.configTab:GetActorConfigInput("mercenary")
+		mercInput = copyTable(mercInput)
+		mercPlaceholder = copyTable(mercPlaceholder)
 	end
 	local mercenaryEnv = calcs.createActorCalcEnv(env, {
 		modDB = mercenary.modDB,
@@ -485,7 +583,7 @@ function calcs.initMercenary(env)
 		minion = false,
 		configInput = mercInput,
 		configPlaceholder = mercPlaceholder,
-		itemModDB = new("ModDB"):ModDB(),
+		itemModDB = recycledItemModDB or new("ModDB"):ModDB(),
 		auxSkillList = { },
 		theIronMass = false,
 	})
@@ -880,6 +978,10 @@ function wipeEnv(env, accelerate)
 	end
 
 	if accelerate.everything then
+		-- Recycle allocations, but do not keep the dirty actor. perform() appends
+		-- combat mods onto mercenary.modDB; the next Full DPS skill must rebuild
+		-- from baseline input on those wiped databases.
+		parkCurrentMercenary(env)
 		return
 	end
 
@@ -936,6 +1038,7 @@ function wipeEnv(env, accelerate)
 		-- and modifiers that affect skill scaling (e.g., global buffs/effects)
 		wipeTable(env.auxSkillList)
 	end
+	parkCurrentMercenary(env)
 end
 
 local function applyGemMods(effect, modList)
@@ -1256,7 +1359,11 @@ function calcs.initEnv(build, mode, override, specEnv)
 		end
 	end
 
-	attachEnemySourceDB(env, env.player, env.build.configTab.playerEnemyModList)
+	if MercenaryTools.hasProfile(env.build) then
+		calcs.attachEnemySourceDB(env, env.player, env.build.configTab.playerEnemyModList)
+	elseif env.player then
+		env.player.enemySourceDB = nil
+	end
 
 	if override.conditions then
 		for _, flag in ipairs(override.conditions) do
@@ -1386,7 +1493,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 			elseif slot.nodeId then
 				item = build.itemsTab.items[env.spec.jewels[slot.nodeId]]
 			else
-				local itemSlot = build.itemsTab:GetItemSetSlot(build.itemsTab.activeItemSet, slotName)
+				local itemSlot = build.itemsTab.activeItemSet[slotName]
 				item = build.itemsTab.items[itemSlot and itemSlot.selItemId]
 			end
 			if item and item.grantedSkills then

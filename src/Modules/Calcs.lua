@@ -264,19 +264,21 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 	local causticGroundSource = ""
 	local decaySource = ""
 	local genericDots = { }
-	local mercenaryGenericDots = { }
-	local mercenaryTotals = {
-		direct = 0, poison = 0, impale = 0, decay = 0, dot = 0,
-		bleed = 0, corruptingBlood = 0, ignite = 0, burningGround = 0, causticGround = 0, culling = 0,
-		bleedSource = "", corruptingBloodSource = "", igniteSource = "", burningGroundSource = "", causticGroundSource = "", decaySource = "",
-	}
-	local function updateMercenaryMaximum(stat, value, source)
-		if value > mercenaryTotals[stat] then
-			mercenaryTotals[stat] = value
-			mercenaryTotals[stat.."Source"] = source
+	local remainingPlayerFullDPS = 0
+	for _, activeSkill in ipairs(fullEnv.player.activeSkillList) do
+		if activeSkill.socketGroup and activeSkill.socketGroup.includeInFullDPS then
+			local _, enabled = getActiveSkillCount(activeSkill)
+			if enabled then
+				remainingPlayerFullDPS = remainingPlayerFullDPS + 1
+			end
 		end
 	end
-	
+	local mercenaryFullDPSSkills = { }
+	for _, activeSkill in ipairs(fullEnv.mercenary and fullEnv.mercenary.activeSkillList or { }) do
+		if activeSkill.isMercenaryPrimary and activeSkill.mercenarySkill and activeSkill.mercenarySkill.includeInFullDPS then
+			t_insert(mercenaryFullDPSSkills, activeSkill.mercenarySkill)
+		end
+	end
 	for _, activeSkill in ipairs(fullEnv.player.activeSkillList) do
 		if activeSkill.socketGroup and activeSkill.socketGroup.includeInFullDPS then
 			local activeSkillCount, enabled = getActiveSkillCount(activeSkill)
@@ -397,23 +399,35 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 					fullDPS.cullingMulti = usedEnv.player.output.CullMultiplier
 				end
 
-				-- Re-Build env calculator for new run
-				local accelerationTbl = {
-					nodeAlloc = true,
-					requirementsItems = true,
-					requirementsGems = true,
-					skills = true,
-					everything = true,
-				}
-				fullEnv, _, _, _ = calcs.initEnv(build, mode, override, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = fullEnv, accelerate = accelerationTbl })
+				remainingPlayerFullDPS = remainingPlayerFullDPS - 1
+				-- Rebuild after the last player skill too when a Mercenary Full DPS
+				-- loop follows, so that loop does not inherit the last perform().
+				if remainingPlayerFullDPS > 0 or #mercenaryFullDPSSkills > 0 then
+					local accelerationTbl = {
+						nodeAlloc = true,
+						requirementsItems = true,
+						requirementsGems = true,
+						skills = true,
+						everything = true,
+					}
+					fullEnv, _, _, _ = calcs.initEnv(build, mode, override, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = fullEnv, accelerate = accelerationTbl })
+				end
 			end
 		end
 	end
 
-	local mercenaryFullDPSSkills = { }
-	for _, activeSkill in ipairs(fullEnv.mercenary and fullEnv.mercenary.activeSkillList or { }) do
-		if activeSkill.isMercenaryPrimary and activeSkill.mercenarySkill and activeSkill.mercenarySkill.includeInFullDPS then
-			t_insert(mercenaryFullDPSSkills, activeSkill.mercenarySkill)
+	local mercenaryGenericDots, mercenaryTotals
+	if fullEnv.mercenary then
+	mercenaryGenericDots = { }
+	mercenaryTotals = {
+		direct = 0, poison = 0, impale = 0, decay = 0, dot = 0,
+		bleed = 0, corruptingBlood = 0, ignite = 0, burningGround = 0, causticGround = 0, culling = 0,
+		bleedSource = "", corruptingBloodSource = "", igniteSource = "", burningGroundSource = "", causticGroundSource = "", decaySource = "",
+	}
+	local function updateMercenaryMaximum(stat, value, source)
+		if value > mercenaryTotals[stat] then
+			mercenaryTotals[stat] = value
+			mercenaryTotals[stat.."Source"] = source
 		end
 	end
 	for selectedIndex, selected in ipairs(mercenaryFullDPSSkills) do
@@ -525,6 +539,7 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 			end
 		end
 	end
+	end
 
 	-- Re-Add ailment DPS components
 	fullDPS.TotalDotDPS = 0
@@ -562,7 +577,6 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 		fullDPS.TotalDotDPS = fullDPS.TotalDotDPS + fullDPS.decayDPS
 	end
 	fullDPS.dotDPS = calcs.sumDotTotals(genericDots)
-	mercenaryTotals.dot = calcs.sumDotTotals(mercenaryGenericDots)
 	if fullDPS.dotDPS > 0 then
 		t_insert(fullDPS.skills, { name = "Full DoT DPS", dps = fullDPS.dotDPS, count = 1 })
 		fullDPS.TotalDotDPS = fullDPS.TotalDotDPS + fullDPS.dotDPS
@@ -574,6 +588,8 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 		t_insert(fullDPS.skills, { name = "Full Culling DPS", dps = fullDPS.cullingDPS, count = 1 })
 		fullDPS.combinedDPS = fullDPS.combinedDPS + fullDPS.cullingDPS
 	end
+	if mercenaryTotals then
+	mercenaryTotals.dot = calcs.sumDotTotals(mercenaryGenericDots)
 	local function addMercenaryDPS(name, dps, source)
 		if dps > 0 then
 			t_insert(fullDPS.mercenarySkills, { name = name, dps = dps, count = 1, source = source })
@@ -596,6 +612,7 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 		local cullingDPS = fullDPS.mercenaryDPS * (mercenaryTotals.culling - 1)
 		addMercenaryDPS("Full Culling DPS", cullingDPS)
 		fullDPS.mercenaryDPS = fullDPS.mercenaryDPS + cullingDPS
+	end
 	end
 
 	return fullDPS
@@ -718,8 +735,10 @@ function calcs.buildOutput(build, mode)
 		env.modsUsed = { }
 		env.actorUsage = {
 			player = { conditions = { }, multipliers = { }, mods = { }, perStats = { }, minionConditions = { }, enemyConditions = { }, enemyMultipliers = { }, enemyPerStats = { } },
-			mercenary = { conditions = { }, multipliers = { }, mods = { }, perStats = { }, minionConditions = { }, enemyConditions = { }, enemyMultipliers = { }, enemyPerStats = { } },
 		}
+		if env.mercenary then
+			env.actorUsage.mercenary = { conditions = { }, multipliers = { }, mods = { }, perStats = { }, minionConditions = { }, enemyConditions = { }, enemyMultipliers = { }, enemyPerStats = { } }
+		end
 		local function actorUsageFor(actor)
 			if actor == env.mercenary then
 				return env.actorUsage.mercenary

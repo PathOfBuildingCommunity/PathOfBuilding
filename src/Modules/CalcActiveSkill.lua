@@ -737,7 +737,6 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 			else
 				minion.parent = activeSkill.actor
 				minion.enemy = env.enemy
-				minion.enemySourceDB = activeSkill.actor.enemySourceDB
 			end
 			minion.player = env.player
 			minion.level = activeSkill.skillData.minionLevelIsActorLevel and activeSkill.actor.level or
@@ -910,6 +909,12 @@ function calcs.createMinionSkills(env, activeSkill)
 	local activeEffect = activeSkill.activeEffect
 	local minion = activeSkill.minion
 	local minionData = minion.minionData
+	-- Minions share the encounter, but their curses and hits are not their owner's.
+	if activeSkill.actor.enemySourceDB and not minion.hostile then
+		calcs.attachEnemySourceDB(env, minion)
+	else
+		minion.enemySourceDB = nil
+	end
 
 	minion.activeSkillList = { }
 	local skillIdList = { }

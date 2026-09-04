@@ -1315,16 +1315,34 @@ function ConfigTabClass:GetActorConfigInput(actor)
 	if actor ~= "mercenary" then
 		return configSet.input, configSet.placeholder
 	end
-	local input, placeholder = { }, { }
-	for k, v in pairs(configSet.input) do
-		if ConfigScope.tryForVar(k) == "shared" then
-			input[k] = v
+	local sharedCache = self.mercenarySharedConfigCache
+	if not (sharedCache and sharedCache.configSet == configSet) then
+		local sharedInput, sharedPlaceholder = { }, { }
+		for k, v in pairs(configSet.input) do
+			if ConfigScope.tryForVar(k) == "shared" then
+				sharedInput[k] = v
+			end
 		end
+		for k, v in pairs(configSet.placeholder) do
+			if ConfigScope.tryForVar(k) == "shared" then
+				sharedPlaceholder[k] = v
+			end
+		end
+		sharedCache = { configSet = configSet, input = sharedInput, placeholder = sharedPlaceholder }
+		self.mercenarySharedConfigCache = sharedCache
 	end
-	for k, v in pairs(configSet.placeholder) do
-		if ConfigScope.tryForVar(k) == "shared" then
-			placeholder[k] = v
-		end
+	-- Actor keys are live. Tests and the Config UI write mercenary.input
+	-- without always rebuilding the shared snapshot first.
+	-- Reuse the merge buffers; callers that persist the result must copy.
+	local input = wipeTable(self.mercenaryMergedInput)
+	local placeholder = wipeTable(self.mercenaryMergedPlaceholder)
+	self.mercenaryMergedInput = input
+	self.mercenaryMergedPlaceholder = placeholder
+	for k, v in pairs(sharedCache.input) do
+		input[k] = v
+	end
+	for k, v in pairs(sharedCache.placeholder) do
+		placeholder[k] = v
 	end
 	for k, v in pairs(configSet.actors.mercenary.input) do
 		input[k] = v
@@ -1489,24 +1507,58 @@ function ConfigTabClass:ApplyActorItemSets(opts)
 	end
 end
 
+local function reuseModList(list)
+	if list then
+		local multipliers = list.multipliers
+		local conditions = list.conditions
+		local actor = list.actor
+		wipeTable(list)
+		list.parent = false
+		list.actor = wipeTable(actor)
+		list.multipliers = wipeTable(multipliers)
+		list.conditions = wipeTable(conditions)
+		return list
+	end
+	return new("ModList"):ModList()
+end
+
+local function idleModList(list)
+	if list then
+		return reuseModList(list)
+	end
+	return nil
+end
+
 function ConfigTabClass:BuildModList()
 	local configSet = self.configSets[self.activeConfigSetId]
 	self:EnsureActorConfig(configSet)
-	local playerModList = new("ModList"):ModList()
-	local mercenaryModList = new("ModList"):ModList()
-	local enemyModList = new("ModList"):ModList()
-	local playerEnemyModList = new("ModList"):ModList()
-	local mercenaryEnemyModList = new("ModList"):ModList()
+	self.mercenarySharedConfigCache = nil
+	local hired = MercenaryTools.hasProfile(self.build)
+	local playerModList = reuseModList(self.modList)
+	local enemyModList = reuseModList(self.enemyModList)
 	self.modList = playerModList
-	self.mercenaryModList = mercenaryModList
 	self.enemyModList = enemyModList
-	self.playerEnemyModList = playerEnemyModList
-	self.mercenaryEnemyModList = mercenaryEnemyModList
+	local mercenaryModList, playerEnemyModList, mercenaryEnemyModList, tempEnemy
+	if hired then
+		mercenaryModList = reuseModList(self.mercenaryModList)
+		playerEnemyModList = reuseModList(self.playerEnemyModList)
+		mercenaryEnemyModList = reuseModList(self.mercenaryEnemyModList)
+		tempEnemy = reuseModList(self.tempEnemyModList)
+		self.mercenaryModList = mercenaryModList
+		self.playerEnemyModList = playerEnemyModList
+		self.mercenaryEnemyModList = mercenaryEnemyModList
+		self.tempEnemyModList = tempEnemy
+	else
+		self.mercenaryModList = idleModList(self.mercenaryModList)
+		self.playerEnemyModList = idleModList(self.playerEnemyModList)
+		self.mercenaryEnemyModList = idleModList(self.mercenaryEnemyModList)
+		self.mercenaryEncounterModList = idleModList(self.mercenaryEncounterModList)
+		self.tempEnemyModList = idleModList(self.tempEnemyModList)
+	end
 	local input = configSet.input
 	local placeholder = configSet.placeholder
 	self:UpdateLevel() -- enemy level handled here because it's needed to correctly set boss stats
 
-	local tempEnemy = new("ModList"):ModList()
 	local function applyPartitioned(varData, srcInput, srcPlaceholder, actorMods, sourceEnemy)
 		for i = #tempEnemy, 1, -1 do
 			tempEnemy[i] = nil
@@ -1520,14 +1572,14 @@ function ConfigTabClass:BuildModList()
 			end
 		end
 	end
-
-	local sharedMods = new("ModList"):ModList()
+	local sharedMods = reuseModList(self.sharedModsList)
+	self.sharedModsList = sharedMods
 	for _, varData in ipairs(varList) do
 		local scope = ConfigScope.forVarData(varData)
 		if scope == "shared" then
 			applyConfigVar(varData, input, placeholder, sharedMods, enemyModList, self.build)
 		elseif scope == "actor" or scope == "player" then
-			if ConfigScope.enemyStateForVarData(varData) == "source" then
+			if hired and ConfigScope.enemyStateForVarData(varData) == "source" then
 				applyPartitioned(varData, input, placeholder, playerModList, playerEnemyModList)
 			else
 				applyConfigVar(varData, input, placeholder, playerModList, enemyModList, self.build)
@@ -1535,23 +1587,35 @@ function ConfigTabClass:BuildModList()
 		end
 	end
 	playerModList:AddList(sharedMods)
-	mercenaryModList:AddList(sharedMods)
+	if hired then
+		mercenaryModList:AddList(sharedMods)
+	end
 
 	local mercenary = configSet.actors.mercenary
-	local mercenaryEnemyMods = new("ModList"):ModList()
-	for _, varData in ipairs(varList) do
-		if ConfigScope.forVarData(varData) == "actor" then
-			if ConfigScope.enemyStateForVarData(varData) == "source" then
-				applyPartitioned(varData, mercenary.input, mercenary.placeholder, mercenaryModList, mercenaryEnemyModList)
-			else
-				applyConfigVar(varData, mercenary.input, mercenary.placeholder, mercenaryModList, mercenaryEnemyMods, self.build)
+	if hired then
+		local mercenaryEnemyMods = reuseModList(self.mercenaryEncounterModList)
+		self.mercenaryEncounterModList = mercenaryEnemyMods
+		for _, varData in ipairs(varList) do
+			if ConfigScope.forVarData(varData) == "actor" then
+				if ConfigScope.enemyStateForVarData(varData) == "source" then
+					applyPartitioned(varData, mercenary.input, mercenary.placeholder, mercenaryModList, mercenaryEnemyModList)
+				else
+					applyConfigVar(varData, mercenary.input, mercenary.placeholder, mercenaryModList, mercenaryEnemyMods, self.build)
+				end
 			end
 		end
+		enemyModList:AddList(mercenaryEnemyMods)
+		applyCustomMods(mercenary.customModsList, mercenaryModList)
 	end
-	enemyModList:AddList(mercenaryEnemyMods)
 
 	applyCustomMods(configSet.customModsList, playerModList, input.customMods)
-	applyCustomMods(mercenary.customModsList, mercenaryModList)
+	self.modListHasMercenaryProfile = hired
+end
+
+function ConfigTabClass:EnsureMercenaryProfileModList()
+	if self.modListHasMercenaryProfile ~= MercenaryTools.hasProfile(self.build) then
+		self:BuildModList()
+	end
 end
 
 function ConfigTabClass:ImportCalcSettings()

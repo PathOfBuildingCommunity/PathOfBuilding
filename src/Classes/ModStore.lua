@@ -56,17 +56,24 @@ local function getActor(self, actorType)
 end
 
 local function sourceOwnedDB(self, tag)
-	if not ConfigScope.isSourceOwnedEnemyTag(tag) then
+	-- No overlay means a single actor: shared enemy is origin behaviour.
+	-- Skip classification entirely in that case.
+	local overlay = (tag.sourceActor and tag.sourceActor.enemySourceDB)
+		or (self.actor and self.actor.enemySourceDB)
+	if not overlay then
 		return nil
 	end
-	if tag.sourceActor and tag.sourceActor.enemySourceDB then
-		return tag.sourceActor.enemySourceDB
+	if tag.sourceOwned == false then
+		return nil
 	end
-	return self.actor and self.actor.enemySourceDB
+	if tag.sourceOwned ~= true and not ConfigScope.isSourceOwnedEnemyTag(tag) then
+		return nil
+	end
+	return overlay
 end
 
 local function actorModDB(self, actorType, tag)
-	if actorType == "enemy" then
+	if actorType == "enemy" and ((self.actor and self.actor.enemySourceDB) or (tag.sourceActor and tag.sourceActor.enemySourceDB)) then
 		local sourceDB = sourceOwnedDB(self, tag)
 		if sourceDB then
 			return sourceDB
@@ -388,9 +395,10 @@ function ModStoreClass:EvalMod(mod, cfg, globalLimits)
 	local GetStat = self.GetStat
 	local GetMultiplier = self.GetMultiplier
 	local GetCondition = self.GetCondition
+	local hasOverlay = self.actor and self.actor.enemySourceDB
 	for _, tag in ipairs(mod) do
 		if tag.type == "Multiplier" then
-			local target = sourceOwnedDB(self, tag) or self
+			local target = (hasOverlay or tag.sourceActor) and (sourceOwnedDB(self, tag) or self) or self
 			local limitTarget = self
 
 			-- Allow limiting a self multiplier on a parent multiplier (eg. Agony Crawler on player virulence)
@@ -467,7 +475,7 @@ function ModStoreClass:EvalMod(mod, cfg, globalLimits)
 				end
 			end
 		elseif tag.type == "MultiplierThreshold" then
-			local target = sourceOwnedDB(self, tag) or self
+			local target = (hasOverlay or tag.sourceActor) and (sourceOwnedDB(self, tag) or self) or self
 			local thresholdTarget = self
 			if tag.thresholdActor then
 				thresholdTarget = actorModDB(self, tag.thresholdActor, tag)
@@ -650,7 +658,7 @@ function ModStoreClass:EvalMod(mod, cfg, globalLimits)
 			value = m_min(value, tag.limit or self:GetMultiplier(tag.limitVar, cfg))
 		elseif tag.type == "Condition" then
 			local match = false
-			local condStore = sourceOwnedDB(self, tag) or self
+			local condStore = (hasOverlay or tag.sourceActor) and (sourceOwnedDB(self, tag) or self) or self
 			local allOneH = ((condStore.actor.weaponData1 and condStore.actor.weaponData1.countsAsAll1H) and condStore.actor.weaponData1) or ((condStore.actor.weaponData2 and condStore.actor.weaponData2.countsAsAll1H) and condStore.actor.weaponData2)
 			if tag.varList then
 				for _, var in pairs(tag.varList) do

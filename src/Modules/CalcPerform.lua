@@ -43,15 +43,22 @@ local function getCachedOutputValue(env, activeSkill, ...)
 	return unpack(tempValues)
 end
 
--- Merge an instance of a buff, taking the highest value of each modifier
-local function mergeBuff(src, destTable, destKey)
+local exposureStats = { FireExposure = true, ColdExposure = true, LightningExposure = true }
+
+-- Merge an instance of a buff, taking the highest value of each modifier.
+-- Keep exposure candidates separate until their inflictor's bonuses are applied.
+local function mergeBuff(src, destTable, destKey, sourceActor)
 	if not destTable[destKey] then
 		destTable[destKey] = new("ModList"):ModList()
 	end
 	local dest = destTable[destKey]
 	for _, mod in ipairs(src) do
+		if exposureStats[mod.name] and sourceActor then
+			mod = copyTable(mod, true)
+			mod.sourceActor = sourceActor
+		end
 		local match = false
-		if mod.type ~= "LIST" then
+		if mod.type ~= "LIST" and not exposureStats[mod.name] then
 			for index, destMod in ipairs(dest) do
 				if modLib.compareModParams(mod, destMod) then
 					if type(destMod.value) == "number" and mod.value > destMod.value then
@@ -756,6 +763,9 @@ local function bindSourceOwnedEnemyMod(mod, actor)
 	if not mod then
 		return nil
 	end
+	if not (actor and actor.enemySourceDB) then
+		return mod
+	end
 	local hasSource = false
 	for _, tag in ipairs(mod) do
 		if ConfigScope.isSourceOwnedEnemyTag(tag) then
@@ -765,9 +775,6 @@ local function bindSourceOwnedEnemyMod(mod, actor)
 	end
 	if not hasSource then
 		return mod
-	end
-	if not (actor and actor.enemySourceDB) then
-		return nil
 	end
 	local bound = copyTable(mod, true)
 	for i, tag in ipairs(bound) do
@@ -780,13 +787,17 @@ local function bindSourceOwnedEnemyMod(mod, actor)
 end
 
 local function actorHasChilledByHitsFlag(actor, flagName)
-	if not (actor and actor.modDB:Flag(nil, flagName) and actor.enemySourceDB) then
+	if not (actor and actor.modDB:Flag(nil, flagName)) then
+		return false
+	end
+	local sourceDB = actor.enemySourceDB or (actor.enemy and actor.enemy.modDB)
+	if not sourceDB then
 		return false
 	end
 	-- Player overlays copy shared Chilled from config; that is the same
 	-- back-compat as Ignited-by-you honouring the ignited checkbox.
-	return actor.enemySourceDB:GetCondition("ChilledByYourHits")
-		or actor.enemySourceDB:GetCondition("Chilled")
+	return sourceDB:GetCondition("ChilledByYourHits")
+		or sourceDB:GetCondition("Chilled")
 end
 
 local function anyActorHasChilledByHitsFlag(env, flagName)
@@ -804,6 +815,10 @@ local function applyEnemyModifiers(actor, clearCache)
 		if mod and not cache[mod] then
 			local bound = bindSourceOwnedEnemyMod(mod, actor)
 			if bound then
+				if exposureStats[bound.name] then
+					bound = copyTable(bound, true)
+					bound.sourceActor = actor
+				end
 				local source = bound.source or mod.source or value.mod.source
 				enemyDB:AddMod(modLib.setSource(bound, source))
 			end
@@ -2861,7 +2876,7 @@ function calcs.perform(env, skipEHP)
 							buffExports["Aura"][buff.name..(buffExports["Aura"][buff.name] and "_Debuff" or "")] = { effectMult = mult, modList = newModList }
 							srcList:ScaleAddList(buff.modList, mult)
 							srcList:ScaleAddList(extraAuraModList, mult)
-							mergeBuff(srcList, debuffs, buff.name)
+							mergeBuff(srcList, debuffs, buff.name, env.player)
 						end
 					end
 					if env.player.mainSkill.skillFlags.totem and not (modDB:Flag(nil, "SelfAurasCannotAffectAllies") or modDB:Flag(nil, "SelfAuraSkillsCannotAffectAllies")) then
@@ -2928,7 +2943,7 @@ function calcs.perform(env, skipEHP)
 							if allyBuffs["AuraDebuff"] and allyBuffs["AuraDebuff"][buff.name] and allyBuffs["AuraDebuff"][buff.name].effectMult / 100 > mult then
 								mult = 0
 							end
-							mergeBuff(newModList, debuffs, buff.name)
+							mergeBuff(newModList, debuffs, buff.name, env.player)
 						end
 					end
 				end
@@ -2997,7 +3012,7 @@ function calcs.perform(env, skipEHP)
 					if activeSkill.skillData.stackCount or buff.stackVar then
 						srcList:NewMod("Multiplier:"..buff.name.."Stack", "BASE", stackCount, buff.name)
 					end
-					mergeBuff(srcList, debuffs, buff.name)
+					mergeBuff(srcList, debuffs, buff.name, env.player)
 				end
 			elseif buff.type == "Curse" or buff.type == "CurseBuff" then
 				local mark = activeSkill.skillTypes[SkillType.Mark]
@@ -3368,7 +3383,7 @@ function calcs.perform(env, skipEHP)
 							if activeMinionSkill.skillData.stackCount or buff.stackVar then
 								srcList:NewMod("Multiplier:"..buff.name.."Stack", "BASE", activeMinionSkill.skillData.stackCount, buff.name)
 							end
-							mergeBuff(srcList, debuffs, buff.name)
+							mergeBuff(srcList, debuffs, buff.name, activeMinionSkill.actor)
 						end
 					end
 				end
@@ -3503,7 +3518,7 @@ function calcs.perform(env, skipEHP)
 					local names = buff.type == "AuraDebuff" and { "AuraEffect", "BuffEffect", "DebuffEffect" } or { "DebuffEffect" }
 				local srcList = new("ModList"):ModList()
 					srcList:ScaleAddList(buff.modList, calcLib.mod(skillModList, skillCfg, unpack(names)) * stackCount)
-					mergeBuff(srcList, debuffs, buff.name)
+					mergeBuff(srcList, debuffs, buff.name, mercenary)
 					if partyTabEnableExportBuffs and buff.type == "AuraDebuff" then
 						buffExports.Aura[buff.name.."_Debuff"] = { effectMult = calcLib.mod(skillModList, skillCfg, unpack(names)), modList = buff.modList }
 					end
@@ -3623,7 +3638,7 @@ function calcs.perform(env, skipEHP)
 					local effectStats = buff.type == "AuraDebuff" and { "AuraEffect", "BuffEffect", "DebuffEffect" } or { "DebuffEffect" }
 					local srcList = new("ModList"):ModList()
 					srcList:ScaleAddList(buff.modList, calcLib.mod(skillModList, skillCfg, unpack(effectStats)) * stackCount)
-					mergeBuff(srcList, debuffs, buff.name)
+					mergeBuff(srcList, debuffs, buff.name, env.mercenaryMinion)
 					if partyTabEnableExportBuffs and buff.type == "AuraDebuff" then
 						buffExports.Aura[buff.name.."_Debuff"] = { effectMult = calcLib.mod(skillModList, skillCfg, unpack(effectStats)), modList = buff.modList }
 					end
@@ -4422,8 +4437,11 @@ function calcs.perform(env, skipEHP)
 
 	local major, minor = env.spec.treeVersion:match("(%d+)_(%d+)")
 	local function actorHidesExposure(actor, cond)
-		return actor and actor.modDB:Flag(nil, "ElementalEquilibrium")
-			and actor.enemySourceDB and actor.enemySourceDB:GetCondition(cond)
+		if not (actor and actor.modDB:Flag(nil, "ElementalEquilibrium")) then
+			return false
+		end
+		local sourceDB = actor.enemySourceDB or (actor == env.player and enemyDB)
+		return sourceDB and sourceDB:GetCondition(cond)
 	end
 	local function applyElementalExposures()
 		for _, element in ipairs({"Fire", "Cold", "Lightning"}) do
@@ -4431,27 +4449,39 @@ function calcs.perform(env, skipEHP)
 				-- Already converted this calculation (config HitBy applies before offence).
 			elseif tonumber(major) <= 3 and tonumber(minor) <= 15
 				or not (actorHidesExposure(env.player, "HitBy"..element.."Damage")
-					or actorHidesExposure(env.mercenary, "HitBy"..element.."Damage")) then
+					or (env.mercenary and actorHidesExposure(env.mercenary, "HitBy"..element.."Damage"))) then
 				local min = math.huge
 				local source = ""
-				for _, mod in ipairs(enemyDB:Tabulate("BASE", nil, element.."Exposure")) do
-					if mod.value < min then
-						min = mod.value
+				local function considerExposure(mod, actor)
+					local value = mod.value
+					-- Unattributed encounter/party effects have no local inflictor to scale them.
+					if actor then
+						local sourceDB = actor.modDB
+						value = value + sourceDB:Sum("BASE", nil, "ExtraExposure", "Extra"..element.."Exposure")
+						value = value * (1 + sourceDB:Sum("INC", nil, "ExposureEffect", element.."ExposureEffect") / 100)
+						value = m_min(value, sourceDB:Override(nil, "ExposureMin"))
+						sourceDB:NewMod("Condition:AppliedExposureRecently", "FLAG", true, "")
+					end
+					if value < min then
+						min = value
 						source = mod.mod.source
 					end
 				end
+				for _, mod in ipairs(enemyDB:Tabulate("BASE", nil, element.."Exposure")) do
+					if mod.mod.source == "Config" and not mod.mod.sourceActor then
+						-- The encounter checkbox applies to every actor capable of inflicting it.
+						for _, actor in ipairs({ env.player, env.mercenary or false, env.minion or false, env.mercenaryMinion or false }) do
+							if actor and actor.modDB:GetCondition("CanApply"..element.."Exposure") then
+								considerExposure(mod, actor)
+							end
+						end
+					else
+						considerExposure(mod, mod.mod.sourceActor)
+					end
+				end
 				if min ~= math.huge then
-					for _, mod in ipairs(modDB:Tabulate("BASE", nil, "ExtraExposure", "Extra"..element.."Exposure")) do
-						min = min + mod.value
-					end
-					-- Scale the resulting magnitude by increased effect of Exposure you inflict
-					local exposureEffectInc = modDB:Sum("INC", nil, "ExposureEffect", element.."ExposureEffect")
-					if exposureEffectInc ~= 0 then
-						min = min * (1 + exposureEffectInc / 100)
-					end
 					enemyDB:NewMod("Condition:Has"..element.."Exposure", "FLAG", true, "")
-					enemyDB:NewMod(element.."Resist", "BASE", m_min(min, modDB:Override(nil, "ExposureMin")), source)
-					modDB:NewMod("Condition:AppliedExposureRecently", "FLAG", true, "")
+					enemyDB:NewMod(element.."Resist", "BASE", min, source)
 				end
 			end
 		end
@@ -4654,7 +4684,10 @@ function calcs.perform(env, skipEHP)
 	end
 
 	-- Hit-by-element conditions for EE are established during offence.
-	applyElementalExposures()
+	-- Empty-hire matches origin: exposure is applied once, before offence.
+	if env.mercenary then
+		applyElementalExposures()
+	end
 
 	 -- Export modifiers to enemy conditions and stats for party tab
 	if partyTabEnableExportBuffs then

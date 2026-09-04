@@ -142,6 +142,10 @@ function MercenaryTools.filterCalculationActors(actors, build)
 	return list
 end
 
+function MercenaryTools.hasProfile(build)
+	return build.mercenaryTab ~= nil and build.mercenaryTab.profile.buildId ~= nil
+end
+
 function MercenaryTools.includeInBuildWarnings(build)
 	if not MercenaryTools.tabVisible(build) then
 		return false
@@ -149,7 +153,7 @@ function MercenaryTools.includeInBuildWarnings(build)
 	if build.viewMode == "MERCENARY" then
 		return true
 	end
-	return build.mercenaryTab.profile.buildId ~= nil
+	return MercenaryTools.hasProfile(build)
 end
 
 function MercenaryTools.applyHiddenState(build)
@@ -208,7 +212,7 @@ function MercenaryTools.supportLimit(mercenaryData, skill)
 	if not skill then
 		return nil
 	end
-	local count = mercenaryData.supportCounts[skill.supportCountId]
+	local count = mercenaryData and mercenaryData.supportCounts and mercenaryData.supportCounts[skill.supportCountId]
 	if not count then
 		return nil
 	end

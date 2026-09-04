@@ -23,6 +23,22 @@ describe("Mercenary equipment validation", function()
 		mercenaryItemSet = tab:GetItemSet(true)
 	end
 
+	it("preserves user-created equipment sets with the auxiliary set's title", function()
+		newBuild()
+		selectScionLuminary()
+		local mercenaryTab = build.mercenaryTab
+		local userSet = build.itemsTab:NewItemSet()
+		userSet.title = "Mercenary Equipment"
+		table.insert(build.itemsTab.itemSetOrderList, userSet.id)
+		assert.is_true(mercenaryTab:SetItemSet(userSet.id, false))
+		local saved = { }
+		mercenaryTab:Save(saved)
+		mercenaryTab:Load(saved)
+		mercenaryTab:PostLoad()
+		assert.is_nil(mercenaryTab.auxiliaryItemSetId)
+		assert.is_truthy(isValueInArray(build.itemsTab:GetPlayerItemSetOrderList(), userSet.id))
+	end)
+
 	local function showMercenaryEquipment()
 		mercenaryItemSet = tab:GetItemSet(true)
 		build.itemsTab:SetViewItemSet(mercenaryItemSet.id)
@@ -882,6 +898,7 @@ Note: ~b/o 1 mirror
 		assert.are.equal(supportId, tab.profile.skills[1].supports[4].id)
 
 		freshBuild()
+		tab:EnsureData()
 		tab.profile.classId = "AurasMinionsTemplar"
 		tab:RefreshControls()
 		for _, entry in ipairs(tab.controls.class.list) do
@@ -1061,6 +1078,7 @@ Note: ~b/o 1 mirror
 		assert.are.equal(83, tab.profile.foundAreaLevel)
 
 		freshBuild()
+		tab:EnsureData()
 		local skillIds = { }
 		for _, skillId in ipairs(tab.data.builds.MeleeAOEMarauderFireSlam.skillIds) do
 			table.insert(skillIds, skillId)
@@ -1131,7 +1149,7 @@ Note: ~b/o 1 mirror
 				supports = { { tier = 3 } },
 			} },
 		}
-		local ok, validateErrors = pcall(MercenaryTools.validateProfile, profile, data.mercenaries)
+		local ok, validateErrors = pcall(MercenaryTools.validateProfile, profile, data.ensureMercenaries())
 		assert.is_true(ok)
 		assert.matches("Invalid support", table.concat(validateErrors, "\n"))
 

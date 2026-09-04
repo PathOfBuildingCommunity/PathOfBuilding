@@ -149,9 +149,12 @@ local function actorUsesSkill(actor, ifOption, includeTransfigured)
 end
 
 -- When the option has an input value and one of its implied conditions is currently used, treat gated predicates as passing.
-local function optionValue(configTab, var, viewActor)
+local function optionValue(configTab, var, viewActor, input)
+	if input then
+		return input[var]
+	end
 	if viewActor and configTab and configTab.GetActorConfigInput then
-		local input = configTab:GetActorConfigInput(viewActor)
+		input = configTab:GetActorConfigInput(viewActor)
 		return input and input[var]
 	end
 	if configTab and configTab.GetConfigValue then
@@ -161,11 +164,11 @@ local function optionValue(configTab, var, viewActor)
 	return activeSet and activeSet.input and activeSet.input[var]
 end
 
-local function implyCondActive(varData, build, viewActor)
+local function implyCondActive(varData, build, viewActor, input)
 	local configTab = build and build.configTab
 	if not configTab then return false end
 	viewActor = viewActor or (configTab.GetViewActor and configTab:GetViewActor()) or "player"
-	if not optionValue(configTab, varData.var, viewActor) then return false end
+	if not optionValue(configTab, varData.var, viewActor, input) then return false end
 	local mainEnv = build.calcsTab and build.calcsTab.mainEnv
 	if not mainEnv then return false end
 	local conditionsUsed = usedForVar(mainEnv, "conditionsUsed", varData, viewActor)
@@ -189,12 +192,17 @@ local function isRelevantForBuild(varData, build, viewActor)
 	if not mainEnv then return false end
 	local spec = build.spec
 	local configTab = build.configTab
-	local actorKeys = actorKeysForVar(varData, viewActor or "player")
+	viewActor = viewActor or "player"
+	local actorInput
+	if configTab and configTab.GetActorConfigInput then
+		actorInput = configTab:GetActorConfigInput(viewActor)
+	end
+	local actorKeys = actorKeysForVar(varData, viewActor)
 
 	local impliedCache
 	local function implied()
 		if impliedCache == nil then
-			impliedCache = implyCondActive(varData, build, viewActor or "player") or false
+			impliedCache = implyCondActive(varData, build, viewActor, actorInput) or false
 		end
 		return impliedCache
 	end
@@ -202,7 +210,7 @@ local function isRelevantForBuild(varData, build, viewActor)
 	for _, p in ipairs(SIMPLE_PREDICATES) do
 		local ifVal = varData[p.key]
 		if ifVal then
-			local envTable = usedForVar(mainEnv, p.env, varData, viewActor or "player")
+			local envTable = usedForVar(mainEnv, p.env, varData, viewActor)
 			if not anyIfValue(ifVal, function(opt)
 				return envTable[opt] or (p.canImply and implied())
 			end) then return false end
@@ -220,7 +228,7 @@ local function isRelevantForBuild(varData, build, viewActor)
 		end) then return false end
 	end
 	if varData.ifOption then
-		if not anyIfValue(varData.ifOption, function(opt) return optionValue(configTab, opt, viewActor or "player") end) then return false end
+		if not anyIfValue(varData.ifOption, function(opt) return optionValue(configTab, opt, viewActor, actorInput) end) then return false end
 	end
 	if varData.ifCondTrue then
 		if not anyIfValue(varData.ifCondTrue, function(opt)

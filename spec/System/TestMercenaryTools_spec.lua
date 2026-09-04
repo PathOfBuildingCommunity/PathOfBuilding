@@ -197,6 +197,7 @@ describe("Mercenary tools", function()
 	end)
 
 	it("imports a Warrant and rejects invalid input", function()
+		_G.data.ensureMercenaries()
 		local mercenaryData = LoadModule("Data/Mercenaries")
 		mercenaryData.supportCounts = _G.data.mercenaryStatData.supportCounts
 		local imported, err = tools.importWarrant([[
@@ -392,9 +393,9 @@ end)
 
 describe("Generated Mercenary data", function()
 	local tools = require("Modules.MercenaryTools")
+	local mercenaries = data.ensureMercenaries()
 
 	it("has deterministic orders and resolvable references", function()
-		local mercenaries = data.mercenaries
 		local classGroups = select(1, tools.classGroups(mercenaries))
 		local classLabels = { }
 		for _, group in ipairs(classGroups) do table.insert(classLabels, group.label) end

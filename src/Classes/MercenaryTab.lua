@@ -101,8 +101,8 @@ function MercenaryTabClass:MercenaryTab(build)
 	self:ControlHost()
 	self:Control()
 	self.build = build
-	self.data = build.data.mercenaries
-	self.classGroups, self.classGroupsByClassId = MercenaryTools.classGroups(self.data)
+	self.data = nil
+	self.classGroups, self.classGroupsByClassId = { }, { }
 	self.mercenarySets = { }
 	self.mercenarySetOrderList = { 1 }
 	self:NewMercenarySet(1)
@@ -259,6 +259,13 @@ function MercenaryTabClass:MercenaryTab(build)
 		return self.supportSortCoroutine and "^7Sorting "..self.supportSortStatus or ""
 	end)
 	self.supportControls = { }
+	self.skipEnsureData = true
+	self:RefreshControls()
+	self.skipEnsureData = nil
+	return self
+end
+
+function MercenaryTabClass:CreateSupportControls()
 	local function createSupportRow(index)
 		local y = 124 + (index - 1) * 22
 		local clear = new("ButtonControl"):ButtonControl({ "TOPLEFT", self.controls.skillDetailAnchor, "TOPLEFT" }, { 0, y, 20, 20 }, "x", function()
@@ -271,6 +278,8 @@ function MercenaryTabClass:MercenaryTab(build)
 		local control = new("DropDownControl"):DropDownControl({ "LEFT", clear, "RIGHT" }, { 2, 0, 380, 20 }, { }, function(_, value)
 			self:SetSupport(index, value and value.id)
 		end)
+		clear.shown = false
+		control.shown = false
 		control.tooltipFunc = function(tooltip, mode, _, value)
 			if tooltip:CheckForUpdate(mode, value, self.build.outputRevision, self.supportSortRevision, mercenaryLevel(self.build, self.profile.foundAreaLevel), self.selectedSkillIndex) then
 				tooltip:Clear()
@@ -293,9 +302,6 @@ function MercenaryTabClass:MercenaryTab(build)
 	for index = 1, MercenaryTools.maxSupportLimit(self.data) do
 		self.supportControls[index] = createSupportRow(index)
 	end
-
-	self:RefreshControls()
-	return self
 end
 
 local function makeMercenarySkillGem(build, skillData, actorLevel)
@@ -445,6 +451,7 @@ end
 function MercenaryTabClass:Changed()
 	self.modFlag = true
 	self.build.buildFlag = true
+	self.build.configTab:EnsureMercenaryProfileModList()
 	self:InvalidateSupportSort()
 	self:RefreshControls()
 end
@@ -529,7 +536,7 @@ end
 
 function MercenaryTabClass:RefreshSupportLists()
 	local selected = self.profile.skills[self.selectedSkillIndex]
-	local selectedData = selected and self.data.skills[selected.id]
+	local selectedData = selected and self.data and self.data.skills[selected.id]
 	local maxSupports = MercenaryTools.supportLimit(self.data, selectedData)
 	local missingPolicy = selectedData and maxSupports == nil
 	for index, control in ipairs(self.supportControls) do
@@ -629,7 +636,36 @@ function MercenaryTabClass:ProcessSupportSort()
 	end
 end
 
+function MercenaryTabClass:EnsureData()
+	if self.data then
+		return self.data
+	end
+	self.data = self.build.data.ensureMercenaries()
+	self:CreateSupportControls()
+	self.classGroups, self.classGroupsByClassId = MercenaryTools.classGroups(self.data)
+	if self.controls.class then
+		self.controls.class:SetList(self.classGroups)
+	end
+	return self.data
+end
+
+function MercenaryTabClass:anySetHasBuildId()
+	if self.profile and self.profile.buildId then
+		return true
+	end
+	for _, setId in ipairs(self.mercenarySetOrderList or { }) do
+		local profile = self.mercenarySets[setId]
+		if profile and profile.buildId then
+			return true
+		end
+	end
+	return false
+end
+
 function MercenaryTabClass:RefreshControls()
+	if not self.skipEnsureData and not self.data and self:anySetHasBuildId() then
+		self:EnsureData()
+	end
 	local setList = { }
 	for _, setId in ipairs(self.mercenarySetOrderList) do
 		local set = self.mercenarySets[setId]
@@ -653,7 +689,7 @@ function MercenaryTabClass:RefreshControls()
 
 	local builds = { }
 	for _, buildId in ipairs(classGroup and classGroup.buildIds or { }) do
-		local mercBuild = self.data.builds[buildId]
+		local mercBuild = self.data and self.data.builds[buildId]
 		t_insert(builds, { id = buildId, classId = mercBuild.classId, label = mercBuild.name })
 	end
 	self.controls.build:SetList(builds)
@@ -671,7 +707,7 @@ function MercenaryTabClass:RefreshControls()
 	self.controls.skillList.selValue = selected
 
 	local skillList = { { label = "<No skill>", id = nil } }
-	local mercBuild = self.data.builds[self.profile.buildId]
+	local mercBuild = self.data and self.data.builds[self.profile.buildId]
 	local currentSkillId = selected and selected.id
 	for _, skillId in ipairs(mercBuild and mercBuild.skillIds or { }) do
 		local skill = self.data.skills[skillId]
@@ -687,7 +723,7 @@ function MercenaryTabClass:RefreshControls()
 	self.controls.skillEnabled.state = selected and selected.enabled ~= false or false
 	self.controls.skillFullDPS.state = selected and selected.includeInFullDPS or false
 	self.controls.skillCount:SetText(tostring(selected and selected.count or 1), false)
-	local selectedData = selected and self.data.skills[selected.id]
+	local selectedData = selected and self.data and self.data.skills[selected.id]
 	local selectedEffect = selected and self.build.data.skills[selected.id]
 	local partList = { }
 	for index, part in ipairs(selectedEffect and selectedEffect.parts or { }) do
@@ -695,10 +731,11 @@ function MercenaryTabClass:RefreshControls()
 	end
 	if #partList == 0 then partList[1] = { index = 1, label = "Default" } end
 	self.controls.skillPart:SetList(partList)
-	self.controls.skillPart:SelByValue(selected and selected.skillPart or self.build.data.mercenaryStatData.defaultSkillParts[selected and selected.id] or 1, "index")
+	local defaultSkillParts = self.build.data.mercenaryStatData and self.build.data.mercenaryStatData.defaultSkillParts
+	self.controls.skillPart:SelByValue(selected and selected.skillPart or (defaultSkillParts and defaultSkillParts[selected and selected.id]) or 1, "index")
 	self.controls.skillPart.enabled = #partList > 1
 	local minionSkillList = { }
-	local minionId = selected and self.data.summonedMinions and self.data.summonedMinions[selected.id]
+	local minionId = selected and self.data and self.data.summonedMinions and self.data.summonedMinions[selected.id]
 	local minion = minionId and self.build.data.minions[minionId]
 	for _, skillId in ipairs(minion and minion.skillList or { }) do
 		local minionSkill = self.build.data.skills[skillId]
@@ -739,7 +776,7 @@ function MercenaryTabClass:NewMercenarySet(setId, title)
 	return set
 end
 
-function MercenaryTabClass:SetActiveMercenarySet(setId)
+function MercenaryTabClass:SetActiveMercenarySet(setId, init)
 	if not self.mercenarySetOrderList[1] then
 		self.mercenarySetOrderList[1] = 1
 		self:NewMercenarySet(1)
@@ -759,6 +796,9 @@ function MercenaryTabClass:SetActiveMercenarySet(setId)
 	self.selectedSkillIndex = 1
 	self.modFlag = true
 	self.build.buildFlag = true
+	if not init then
+		self.build.configTab:EnsureMercenaryProfileModList()
+	end
 	if self.controls.skillList then
 		self:RefreshControls()
 	end
@@ -775,6 +815,7 @@ end
 
 function MercenaryTabClass:SetSkill(index, skillId)
 	if skillId then
+		self:EnsureData()
 		local err = MercenaryTools.skillCandidateError(self.profile, self.data, index, skillId)
 		if err then
 			if self.controls.skillList then self:RefreshControls() end
@@ -807,6 +848,7 @@ function MercenaryTabClass:SetSupport(index, supportId)
 	local skill = self.profile.skills[self.selectedSkillIndex]
 	if not skill then return nil, "No selected Mercenary skill" end
 	if supportId then
+		self:EnsureData()
 		local err = MercenaryTools.supportCandidateError(self.profile, self.data, self.selectedSkillIndex, m_min(index, #skill.supports + 1), supportId)
 		if err then
 			if self.controls.skillList then self:RefreshControls() end
@@ -837,6 +879,7 @@ function MercenaryTabClass:ImportWarrant(text)
 end
 
 function MercenaryTabClass:OpenWarrantImportPopup()
+	self:EnsureData()
 	local controls = { }
 	local importError
 	controls.edit = new("EditControl"):EditControl(nil, { 0, 40, 600, 420 }, "", nil, "^%C\t\n", nil, nil, 14)
@@ -890,14 +933,20 @@ function MercenaryTabClass:PlayerFlag(flagName)
 end
 
 function MercenaryTabClass:GetErrors()
-	local errors = MercenaryTools.validateProfile(self.profile, self.data)
+	local errors = { }
 	if not self:PlayerFlag("CanHirePermanentMercenary") then
 		t_insert(errors, "Permanently hiring a Mercenary requires Noble Blood, from the Scion's Luminary ascendancy")
+	end
+	if self.profile.buildId then
+		self:EnsureData()
+	end
+	for _, errorText in ipairs(MercenaryTools.validateProfile(self.profile, self.data)) do
+		t_insert(errors, errorText)
 	end
 	if (self.profile.foundAreaLevel or 0) >= self.build.characterLevel + 20 then
 		t_insert(errors, "Character level is at least 20 below the found-area level")
 	end
-	local mercBuild = self.data.builds[self.profile.buildId]
+	local mercBuild = self.data and self.data.builds[self.profile.buildId]
 	if mercBuild and #mercBuild.weaponTypes == 0 then
 		t_insert(errors, "Selected build has no exported wieldable-type data")
 	end
@@ -905,7 +954,7 @@ function MercenaryTabClass:GetErrors()
 	local itemSet = self:GetItemSet(false)
 	if not itemSet then
 		if self.profile.buildId then t_insert(errors, "No Mercenary item set is available") end
-	else
+	elseif self.data then
 		for _, errorText in ipairs(MercenaryTools.equipmentErrors({
 			profile = self.profile,
 			mercenaryData = self.data,
@@ -954,8 +1003,11 @@ function MercenaryTabClass:Load(xml)
 		profile.importedWarrant = node.attrib.importedWarrant == "true"
 		profile.mainSkillId = node.attrib.mainSkillId
 		profile.lifeComparison = node.attrib.lifeComparison or "AUTO"
-		local mercBuild = self.data.builds[profile.buildId]
-		profile.classId = mercBuild and mercBuild.classId
+		if profile.buildId then
+			self:EnsureData()
+			local mercBuild = self.data.builds[profile.buildId]
+			profile.classId = mercBuild and mercBuild.classId
+		end
 		for _, child in ipairs(node) do
 			if child.elem == "Skill" then loadSkill(child, profile) end
 		end
@@ -982,18 +1034,12 @@ function MercenaryTabClass:Load(xml)
 			t_insert(self.mercenarySetOrderList, setId)
 		end
 	end
-	self:SetActiveMercenarySet(tonumber(xml.attrib.activeMercenarySet) or 1)
+	self:SetActiveMercenarySet(tonumber(xml.attrib.activeMercenarySet) or 1, true)
 	self.modFlag = false
 	self:RefreshControls()
 end
 
 function MercenaryTabClass:PostLoad()
-	if not self.auxiliaryItemSetId and self.itemSetId then
-		local itemSet = self.build.itemsTab and self.build.itemsTab.itemSets[self.itemSetId]
-		if itemSet and itemSet.title == "Mercenary Equipment" then
-			self.auxiliaryItemSetId = self.itemSetId
-		end
-	end
 	self:RefreshControls()
 	self.modFlag = false
 end
@@ -1046,6 +1092,7 @@ function MercenaryTabClass:Save(xml)
 end
 
 function MercenaryTabClass:Draw(viewPort, inputEvents)
+	self:EnsureData()
 	self.x, self.y, self.width, self.height = viewPort.x, viewPort.y, viewPort.width, viewPort.height
 	self:ProcessSupportSort()
 	self:ProcessControlsInput(inputEvents, viewPort)

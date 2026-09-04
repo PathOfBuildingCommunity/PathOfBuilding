@@ -38,10 +38,6 @@ local function calculateMirage(env, config)
 
 	if mirageSkill then
 		local newSkill, newEnv, fullEnv = calcs.copyActiveSkill(env, "CALCULATOR", mirageSkill)
-		if not newSkill then
-			config.mirageSkillNotFoundFunc(env, config)
-			return
-		end
 		newSkill.skillCfg.skillCond["usedByMirage"] = true
 		newSkill.skillFlags.multiPart = nil
 		newSkill.skillFlags.haveMinion = nil
