@@ -1103,4 +1103,22 @@ describe("TetsItemMods", function()
 		assert.is_not_nil(sentinel)
 		assert.are.equals(1, countSupport(sentinel, "SupportMinionDamage"))
 	end)
+	-- #10310
+	it("an item's own ExtraSupport for a support gem does not disable that support elsewhere", function()
+		addItem("Supporting Gloves\nSpiked Gloves\nGrants Level 20 Sunder")
+		build.skillsTab:PasteSocketGroup("Slot: Gloves\nFist of War 20/0  1\n")
+		runCallback("OnFrame")
+
+		local sunder = findActiveSkill("Sunder")
+		assert.is_not_nil(sunder)
+		assert.is_true(hasSupport(sunder, "SupportFistofWar"))
+
+		addItem("Breaking Body Armour\nSimple Robe\nSkills from Equipped Body Armour are Supported by Level 20 Fist of War")
+		build.skillsTab:PasteSocketGroup("Slot: Body Armour\nHeavy Strike 20/0  1\n")
+		runCallback("OnFrame")
+
+		sunder = findActiveSkill("Sunder")
+		assert.is_not_nil(sunder)
+		assert.is_true(hasSupport(sunder, "SupportFistofWar"))
+	end)
 end)

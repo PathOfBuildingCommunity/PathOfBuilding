@@ -1600,6 +1600,12 @@ function calcs.initEnv(build, mode, override, specEnv)
 		local supportLists = { }
 		local groupCfgList = { }
 		local processedSockets = {}
+		-- granted effects normally refer to the global tables in data.skills,
+		--which means that modifying them will do so permanently until the
+		--client is restarted. this avoids that by mapping from the original
+		--table to a modified table.
+		---@type table<table, table>
+		local fromItemReplacements = {}
 		-- Process support gems adding them to applicable support lists
 		for index, group in ipairs(build.skillsTab.socketGroupList) do
 			local slot = group.slot and build.itemsTab.slots[group.slot]
@@ -1634,7 +1640,12 @@ function calcs.initEnv(build, mode, override, specEnv)
 						grantedEffect = env.data.skills["Support"..value.skillId]
 					end
 					if value and grantedEffect then -- Only item ExtraSupport gems should be flagged as fromItem. Imbued gems do not pass this check
-						grantedEffect.fromItem = true
+						if not fromItemReplacements[grantedEffect] then
+							local taggedGrantedEffect = copyTable(grantedEffect, true)
+							taggedGrantedEffect.fromItem = true
+							fromItemReplacements[grantedEffect] = taggedGrantedEffect
+						end
+						grantedEffect = fromItemReplacements[grantedEffect]
 					end
 					if grantedEffect then
 						for _, targetList in ipairs(targetListList) do
