@@ -1601,9 +1601,9 @@ function calcs.initEnv(build, mode, override, specEnv)
 		local groupCfgList = { }
 		local processedSockets = {}
 		-- granted effects normally refer to the global tables in data.skills,
-		--which means that modifying them will do so permanently until the
-		--client is restarted. this avoids that by mapping from the original
-		--table to a modified table.
+		-- which means that modifying them will do so permanently until the
+		-- client is restarted. this avoids that by mapping from the original
+		-- table to a modified table.
 		---@type table<table, table>
 		local fromItemReplacements = {}
 		-- Process support gems adding them to applicable support lists
