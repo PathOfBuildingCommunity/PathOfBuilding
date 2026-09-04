@@ -33,7 +33,7 @@ Amber Amulet
 LevelReq: 49
 Implicits: 1
 StrengthImplicitAmulet1
-TalismanIncreasedCriticalChance
+CriticalStrikeChanceUnique__6
 IncreasedLifeUnique__119
 ChaosResistUniqueAmulet23
 RecoverLifeAlteratingUnique__1
@@ -690,7 +690,7 @@ Implicits: 1
 LifeRegenerationImplicitAmulet1
 AddedManaRegenerationUnique__3
 BeltFlaskLifeRecoveryUnique__1
-FlaskManaRecoveryUnique__1
+BeltFlaskManaRecoveryUnique__1
 LowLifeInstantLifeRecoveryUnique__1
 LowManaInstantManaRecoveryUnique__1
 ]],[[
@@ -1052,7 +1052,7 @@ MinionLifeUniqueAmulet3
 {variant:1,2,3}MinionRunSpeedUniqueAmulet3
 {variant:4}MinionPhysicalConvertToColdUnique__1
 {variant:3}MinionAddedColdDamageUnique__1[5,9][11,15]
-{variant:4}MinionAddedColdDamageUnique__1[25,35][60,65]
+{variant:4}MinionAddedColdDamageUnique__1
 {variant:1,2}MinionDamageUniqueAmulet3
 {variant:2,3}MinionSkillManaCostUnique__1_
 {variant:4}MinionOnlyDealColdDamageUnique__1
