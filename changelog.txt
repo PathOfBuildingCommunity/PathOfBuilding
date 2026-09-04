@@ -1,3 +1,81 @@
+VERSION[beta][2026/09/04]
+
+--- New to Path of Building ---
+* Add support for Chain Hook of Angling (LocalIdentity)
+* Add support for Rhex talisman damage conversion mod (vaisest)
+* Add respective Forbidden Flesh / Flame jewel when adding 1 of them to a build (cupkax)
+* Add proper Pearl of Tsoatha support (vaisest)
+* Add support for Baleful Dominion Keystone (vaisest)
+* Add support for Gaze of the Lich (vaisest)
+* Add Mercenary mods (vaisest)
+* Add support for adding vestigial implicits (vaisest)
+* Add support for corrupting with more than two modifiers (vaisest)
+* Add tree nodes to mod "browser", show support, and sources (vaisest)
+* Add breakdowns to the build side bar on mouseover (vaisest)
+* Add crafting support for Cane of Kulemak, Replic Paradoxica, Queen's Hunger and That Which was Taken (vaisest)
+* Improve timeless jewel finder UI (vaisest)
+* Add NOT filters to trader (vaisest)
+* Add support for Pantheon Aspect skills (cupkax)
+* Allow config tab sections to be collapsed and expanded (cupkax)
+* Implement Blood Shrines (moxaj)
+* Add option to allow auto-socketing timeless jewel (cupkax)
+* Improve buy similar matching and add abyss jewels (vaisest)
+
+--- Fixed Crashes ---
+* Fix Crash when hovering over the PvP toggle while having Shaper Beam (LocalIdentity)
+* Fix crash when last saved league doesn't exist anymore (vaisest)
+* Fix Megalomaniac trader crash (vaisest)
+* Fix crash when a custom mod has an invalid support gem in it (Trifall)
+* Fix invalid mod parsing for mods that grant skills (Trifall)
+
+--- User Interface ---
+* Fix Compare Config tab visual issues (LocalIdentity)
+* Add flavour text for Dread Captain's Cutlass and Subsume the Source (Blitz54)
+* Show augmented Armour/Evasion/Ward/Energy Shield in blue on item tooltip (Blitz54)
+* Change draw layer of calc popouts (Blitz54)
+
+--- Fixed Calculations ---
+* Fix Sirus Meteor not dealing Chaos Damage (LocalIdentity)
+* Fix skill Area of Effect rounding and minion skill AoE values (LocalIdentity)
+* Fix precision of Critical Strike Chance value (LocalIdentity)
+* Fix "x to Total Mana Cost" mods not working correctly with Life / ES cost conversion (LocalIdentity)
+* Fix Supreme Ego Reservation rounding (LocalIdentity)
+* Fix Mana cost efficiency rounding (LocalIdentity)
+* Fix rounding of scaled damage conversion percentages (LocalIdentity)
+* Fix Iron Grip double-dipping spell damage conversion for proj attacks (cupkax)
+* Fix Consecrated Ground not reducing curse effect (cupkax)
+* Fix Conjoined Spire totem life not working correctly (vaisest)
+* Fix Pact of Beidat not affecting ailment calc for Hit-based spells (cupkax)
+
+--- Fixed Behaviours ---
+* Fix Ball Lightning not using enemy radius selector (LocalIdentity)
+* Fix some mods not checking payable cost (LocalIdentity)
+* Fix allocated nodes appearing in unallocated power report list (mcagnion)
+* Fix compare tab not checking socket colours (vaisest)
+* Fix mirrored items missing "Mirrored" text when using API character import (AdamZ-8113)
+* Fix double click adding item twice (vaisest)
+* Fix keystone clusters not importing and unallocated subgraphs existing (vaisest)
+* Fix "Buy Similar" not working for items with 2 anoints (vaisest)
+* Fix retained text showing for non-cluster items (vaisest)
+* Remove corrupted jewel mods from Subsume the Source mod list (vaisest)
+* Only enable optimise sockets button when it will do something (vaisest)
+* Fix Toad's Price affecting non-utility flasks (cupkax)
+* Preserve influences on fetched trade items (mcagnion)
+* Fix custom item mod sections not hiding properly (Trifall)
+* Fix Mana-Infused Staff not respecting Staff requirements (cupkax)
+* Fix Nightblade support not working with Windburst (cupkax)
+* Fix Mana-Infused Staff incorrectly working if reserving Life (cupkax)
+* Fix Jinxed Juju's spectre mod support  (cupkax)
+
+--- Accuracy Improvements ---
+* Fix some unique wand implicits and last mod of Eclipse Solaris (zwglau)
+* Fix 3.27 Breachlord image (Blitz54)
+
+--- Other changes ---
+* Add drop-restricted delve and incursion mods to crafting and trader (vaisest)
+* Improve calc performance (vaisest)
+* Improve path finding and radius jewel performance (vaisest)
+
 VERSION[2.67.2][2026/08/07]
 
 --- Fixed Calculations ---
