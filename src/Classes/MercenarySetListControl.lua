@@ -14,7 +14,8 @@ function MercenarySetListClass:MercenarySetListControl(anchor, rect, mercenaryTa
 	self.mercenaryTab = mercenaryTab
 	self.controls.copy = new("ButtonControl"):ButtonControl({"BOTTOMLEFT", self, "TOP"}, {2, -4, 60, 18}, "Copy", function()
 		local set = mercenaryTab.mercenarySets[self.selValue]
-		local newSet = copyTable(set, true)
+		local newSet = copyTable(set)
+		newSet.importAssociation = nil
 		newSet.id = 1
 		while mercenaryTab.mercenarySets[newSet.id] do
 			newSet.id = newSet.id + 1

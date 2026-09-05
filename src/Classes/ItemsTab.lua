@@ -1632,6 +1632,11 @@ function ItemsTabClass:IsItemSetReferenced(itemSetId)
 	if mercenaryTab and mercenaryTab.itemSetId == itemSetId then
 		return true
 	end
+	for _, profile in pairs(mercenaryTab and mercenaryTab.mercenarySets or { }) do
+		if profile.itemSetId == itemSetId then
+			return true
+		end
+	end
 	for _, socketGroup in ipairs(self.build.skillsTab and self.build.skillsTab.socketGroupList or { }) do
 		for _, gem in ipairs(socketGroup.gemList or { }) do
 			if gem.skillMinionItemSet == itemSetId or gem.skillMinionItemSetCalcs == itemSetId then
@@ -5150,6 +5155,12 @@ end
 
 function ItemsTabClass:CreateUndoState()
 	local state = { }
+	if self.build.mercenaryTab then
+		state.mercenary = { }
+		local modFlag = self.build.mercenaryTab.modFlag
+		self.build.mercenaryTab:Save(state.mercenary)
+		self.build.mercenaryTab.modFlag = modFlag
+	end
 	state.activeItemSetId = self.activeItemSetId
 	state.viewItemSetId = self.viewItemSetId
 	state.viewComparisonActor = self.viewComparisonActor
@@ -5190,6 +5201,11 @@ function ItemsTabClass:RestoreUndoState(state)
 	self.viewItemSetId = viewItemSetId
 	self.viewItemSet = self.itemSets[self.viewItemSetId]
 	self.viewComparisonActor = state.viewComparisonActor
+	if state.mercenary and self.build.mercenaryTab then
+		self.build.mercenaryTab:Load(copyTable(state.mercenary))
+		self.build.configTab:SyncActorItemSet("mercenary", self.build.mercenaryTab.itemSetId)
+		self.build.mercenaryTab:Changed()
+	end
 	for slotName, selItemId in pairs(state.slotSelItemId) do
 		local slot = self.slots[slotName]
 		if slot and slot.nodeId then slot:SetSelItemId(selItemId) end

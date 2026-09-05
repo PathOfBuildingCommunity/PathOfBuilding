@@ -63,7 +63,7 @@ local function calculateMirage(env, config)
 		for _, entry in ipairs(restoredUsedByMirage) do
 			entry.cond.usedByMirage = entry.previous
 		end
-		if newEnv.player.isMercenary then newEnv.minion = fullEnv.mercenaryMinion end
+		if newEnv.player.isMercenary then newEnv.minion = fullEnv.mercenaryMinion or false end
 		config.postCalcFunc(env, newSkill, newEnv)
 	else
 		config.mirageSkillNotFoundFunc(env, config)

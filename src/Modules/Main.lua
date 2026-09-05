@@ -566,6 +566,7 @@ function main:LoadSettings(ignoreBuild)
 				self.lastToken = node.attrib.lastToken
 				self.lastRefreshToken = node.attrib.lastRefreshToken
 				self.tokenExpiry = tonumber(node.attrib.tokenExpiry)
+				self.grantedScopes = node.attrib.grantedScopes
 				for _, child in ipairs(node) do
 					if child.elem == "Account" then
 						self.gameAccounts[child.attrib.accountName] = {
@@ -759,7 +760,7 @@ function main:SaveSettings()
 		return true
 	end
 	t_insert(setXML, mode)
-	local accounts = { elem = "Accounts", attrib = { lastAccountName = self.lastAccountName, lastRealm = self.lastRealm, lastLeague = self.lastLeague, lastToken = self.lastToken, lastRefreshToken = self.lastRefreshToken, tokenExpiry = tostring(self.tokenExpiry) } }
+	local accounts = { elem = "Accounts", attrib = { lastAccountName = self.lastAccountName, lastRealm = self.lastRealm, lastLeague = self.lastLeague, lastToken = self.lastToken, lastRefreshToken = self.lastRefreshToken, tokenExpiry = tostring(self.tokenExpiry), grantedScopes = self.grantedScopes } }
 	for accountName, account in pairs(self.gameAccounts) do
 		t_insert(accounts, { elem = "Account", attrib = { accountName = accountName, sessionID = account.sessionID } })
 	end

@@ -1,0 +1,2064 @@
+{
+  "character": {
+    "level": 97,
+    "active_mercenary_index": 2
+  },
+  "league_account": {
+    "mercenaries": [
+      {
+        "name": "Ruktara, the Bullseye",
+        "level": 83,
+        "build": "EleBowRangerLightning",
+        "build_hash": 51927,
+        "skills": [
+          {
+            "id": "LightningArrowMercenary",
+            "hash": 41051,
+            "supports": [
+              {
+                "id": "LightningArrowSpecificAddedTargetsHigh",
+                "hash": 58471,
+                "tier": 3
+              },
+              {
+                "id": "LightningDamageLuckyHigh",
+                "hash": 24343,
+                "tier": 3
+              },
+              {
+                "id": "AttackSpeedMid",
+                "hash": 987,
+                "tier": 2
+              },
+              {
+                "id": "ProjectilesReturnHigh",
+                "hash": 5293,
+                "tier": 3
+              },
+              {
+                "id": "EleDamageWithAttacksHigh",
+                "hash": 28416,
+                "tier": 3
+              }
+            ]
+          },
+          {
+            "id": "AssassinsMarkMercenary",
+            "hash": 47406,
+            "supports": []
+          },
+          {
+            "id": "GalvanicArrowMercenary",
+            "hash": 27165,
+            "supports": [
+              {
+                "id": "MultipleProjectilesHigh",
+                "hash": 49419,
+                "tier": 3
+              },
+              {
+                "id": "LightningPenetrationMid",
+                "hash": 41256,
+                "tier": 2
+              },
+              {
+                "id": "AttackSpeedMid",
+                "hash": 987,
+                "tier": 2
+              },
+              {
+                "id": "ArrowNovaHigh",
+                "hash": 58429,
+                "tier": 3
+              }
+            ]
+          },
+          {
+            "id": "GigaLightningArrowMercenary",
+            "hash": 38993,
+            "supports": [
+              {
+                "id": "AddedLightningHigh",
+                "hash": 40533,
+                "tier": 3
+              },
+              {
+                "id": "EleDamageWithAttacksMid",
+                "hash": 44886,
+                "tier": 2
+              },
+              {
+                "id": "AttackSpeedMid",
+                "hash": 987,
+                "tier": 2
+              },
+              {
+                "id": "LightningDamageLuckyHigh",
+                "hash": 24343,
+                "tier": 3
+              },
+              {
+                "id": "LightningArrowSpecificAddedTargetsHigh",
+                "hash": 58471,
+                "tier": 3
+              }
+            ]
+          },
+          {
+            "id": "WrathMercenary",
+            "hash": 38326,
+            "supports": []
+          },
+          {
+            "id": "ActionSpeedAuraMercenary",
+            "hash": 38072,
+            "supports": [
+              {
+                "id": "CastSpeedMid",
+                "hash": 38851,
+                "tier": 2
+              },
+              {
+                "id": "IncreaseDurationMid",
+                "hash": 50222,
+                "tier": 2
+              }
+            ]
+          }
+        ],
+        "items": [
+          {
+            "sockets": [
+              {
+                "group": 0,
+                "attr": "G",
+                "sColour": "W"
+              },
+              {
+                "group": 0,
+                "attr": "G",
+                "sColour": "W"
+              }
+            ],
+            "name": "Honour Shroud",
+            "typeLine": "Supreme Leather",
+            "baseType": "Supreme Leather",
+            "ilvl": 83,
+            "properties": [
+              {
+                "name": "Evasion Rating",
+                "values": [
+                  [
+                    "2258",
+                    1
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 17
+              }
+            ],
+            "requirements": [
+              {
+                "name": "Level",
+                "values": [
+                  [
+                    "73",
+                    0
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 62
+              },
+              {
+                "name": "Dex",
+                "values": [
+                  [
+                    "222",
+                    0
+                  ]
+                ],
+                "displayMode": 1,
+                "type": 64
+              }
+            ],
+            "explicitMods": [
+              {
+                "description": "+416 to Evasion Rating"
+              },
+              {
+                "description": "69% increased Evasion Rating"
+              },
+              {
+                "description": "Regenerate 38.5 Life per second"
+              },
+              {
+                "description": "+20% to Lightning Resistance"
+              },
+              {
+                "description": "+25% to Chaos Resistance"
+              },
+              {
+                "description": "9% increased Stun and Block Recovery"
+              }
+            ],
+            "frameType": 2,
+            "inventoryId": "BodyArmour",
+            "socketedItems": [],
+            "id": "mercenary-fixture-item-1"
+          },
+          {
+            "sockets": [
+              {
+                "group": 0,
+                "attr": "G",
+                "sColour": "W"
+              },
+              {
+                "group": 0,
+                "attr": "G",
+                "sColour": "W"
+              },
+              {
+                "group": 0,
+                "attr": "G",
+                "sColour": "W"
+              },
+              {
+                "group": 0,
+                "attr": "G",
+                "sColour": "W"
+              }
+            ],
+            "name": "Kraken Volley",
+            "typeLine": "Assassin Bow",
+            "baseType": "Assassin Bow",
+            "ilvl": 83,
+            "properties": [
+              {
+                "name": "Bow",
+                "values": [],
+                "displayMode": 0
+              },
+              {
+                "name": "Physical Damage",
+                "values": [
+                  [
+                    "78-198",
+                    1
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 9
+              },
+              {
+                "name": "Critical Strike Chance",
+                "values": [
+                  [
+                    "8.10%",
+                    1
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 12
+              },
+              {
+                "name": "Attacks per Second",
+                "values": [
+                  [
+                    "1.46",
+                    1
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 13
+              }
+            ],
+            "requirements": [
+              {
+                "name": "Level",
+                "values": [
+                  [
+                    "62",
+                    0
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 62
+              },
+              {
+                "name": "Dex",
+                "values": [
+                  [
+                    "212",
+                    0
+                  ]
+                ],
+                "displayMode": 1,
+                "type": 64
+              }
+            ],
+            "implicitMods": [
+              {
+                "description": "+15% to Global Critical Strike Multiplier"
+              }
+            ],
+            "explicitMods": [
+              {
+                "description": "Adds 35 to 68 Physical Damage"
+              },
+              {
+                "description": "17% increased Attack Speed"
+              },
+              {
+                "description": "21% increased Critical Strike Chance"
+              },
+              {
+                "description": "+507 to Accuracy Rating"
+              }
+            ],
+            "frameType": 2,
+            "inventoryId": "Weapon",
+            "socketedItems": [],
+            "id": "mercenary-fixture-item-2"
+          },
+          {
+            "sockets": [
+              {
+                "group": 0,
+                "attr": "G",
+                "sColour": "W"
+              },
+              {
+                "group": 0,
+                "attr": "G",
+                "sColour": "W"
+              },
+              {
+                "group": 0,
+                "attr": "G",
+                "sColour": "W"
+              },
+              {
+                "group": 0,
+                "attr": "G",
+                "sColour": "W"
+              }
+            ],
+            "name": "Grim Halo",
+            "typeLine": "Lion Pelt",
+            "baseType": "Lion Pelt",
+            "ilvl": 83,
+            "properties": [
+              {
+                "name": "Evasion Rating",
+                "values": [
+                  [
+                    "534",
+                    1
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 17
+              }
+            ],
+            "requirements": [
+              {
+                "name": "Level",
+                "values": [
+                  [
+                    "70",
+                    0
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 62
+              },
+              {
+                "name": "Dex",
+                "values": [
+                  [
+                    "150",
+                    0
+                  ]
+                ],
+                "displayMode": 1,
+                "type": 64
+              }
+            ],
+            "explicitMods": [
+              {
+                "description": "13% increased Global Accuracy Rating"
+              },
+              {
+                "description": "39% increased Evasion Rating"
+              },
+              {
+                "description": "+90 to maximum Life"
+              },
+              {
+                "description": "+23% to Cold Resistance"
+              },
+              {
+                "description": "10% increased Light Radius"
+              }
+            ],
+            "frameType": 2,
+            "inventoryId": "Helm",
+            "socketedItems": [],
+            "id": "mercenary-fixture-item-3"
+          },
+          {
+            "name": "Oblivion Braid",
+            "typeLine": "Amber Amulet",
+            "baseType": "Amber Amulet",
+            "ilvl": 84,
+            "requirements": [
+              {
+                "name": "Level",
+                "values": [
+                  [
+                    "67",
+                    0
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 62
+              }
+            ],
+            "implicitMods": [
+              {
+                "description": "+30 to Strength"
+              }
+            ],
+            "explicitMods": [
+              {
+                "description": "Adds 7 to 12 Physical Damage to Attacks"
+              },
+              {
+                "description": "23% increased Lightning Damage"
+              },
+              {
+                "description": "27% increased Rarity of Items found"
+              },
+              {
+                "description": "+42% to Fire Resistance"
+              }
+            ],
+            "frameType": 2,
+            "inventoryId": "Amulet",
+            "id": "mercenary-fixture-item-4"
+          },
+          {
+            "name": "Behemoth Spiral",
+            "typeLine": "Gold Ring",
+            "baseType": "Gold Ring",
+            "ilvl": 85,
+            "requirements": [
+              {
+                "name": "Level",
+                "values": [
+                  [
+                    "67",
+                    0
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 62
+              }
+            ],
+            "implicitMods": [
+              {
+                "description": "11% increased Rarity of Items found"
+              }
+            ],
+            "explicitMods": [
+              {
+                "description": "+33 to Dexterity"
+              },
+              {
+                "description": "+33 to Intelligence"
+              },
+              {
+                "description": "Adds 10 to 20 Cold Damage to Attacks"
+              },
+              {
+                "description": "Adds 1 to 33 Lightning Damage to Attacks"
+              },
+              {
+                "description": "+47% to Lightning Resistance"
+              }
+            ],
+            "frameType": 2,
+            "inventoryId": "Ring",
+            "id": "mercenary-fixture-item-5"
+          },
+          {
+            "name": "Damnation Whorl",
+            "typeLine": "Bone Ring",
+            "baseType": "Bone Ring",
+            "ilvl": 85,
+            "requirements": [
+              {
+                "name": "Level",
+                "values": [
+                  [
+                    "59",
+                    0
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 62
+              }
+            ],
+            "implicitMods": [
+              {
+                "description": "Minions have +12% to all Elemental Resistances"
+              }
+            ],
+            "explicitMods": [
+              {
+                "description": "+48 to Dexterity"
+              },
+              {
+                "description": "Adds 1 to 33 Lightning Damage to Attacks"
+              },
+              {
+                "description": "+63 to Evasion Rating"
+              },
+              {
+                "description": "+112 to maximum Life"
+              }
+            ],
+            "frameType": 2,
+            "inventoryId": "Ring2",
+            "id": "mercenary-fixture-item-6"
+          },
+          {
+            "sockets": [
+              {
+                "group": 0,
+                "attr": "G",
+                "sColour": "W"
+              },
+              {
+                "group": 0,
+                "attr": "G",
+                "sColour": "W"
+              },
+              {
+                "group": 0,
+                "attr": "G",
+                "sColour": "W"
+              },
+              {
+                "group": 0,
+                "attr": "G",
+                "sColour": "W"
+              }
+            ],
+            "name": "Honour Fist",
+            "typeLine": "Shagreen Gloves",
+            "baseType": "Shagreen Gloves",
+            "ilvl": 83,
+            "properties": [
+              {
+                "name": "Evasion Rating",
+                "values": [
+                  [
+                    "332",
+                    1
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 17
+              }
+            ],
+            "requirements": [
+              {
+                "name": "Level",
+                "values": [
+                  [
+                    "54",
+                    0
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 62
+              },
+              {
+                "name": "Dex",
+                "values": [
+                  [
+                    "78",
+                    0
+                  ]
+                ],
+                "displayMode": 1,
+                "type": 64
+              }
+            ],
+            "explicitMods": [
+              {
+                "description": "+42 to Evasion Rating"
+              },
+              {
+                "description": "35% increased Evasion Rating"
+              },
+              {
+                "description": "+100 to maximum Life"
+              },
+              {
+                "description": "0.2% of Physical Attack Damage Leeched as Life"
+              },
+              {
+                "description": "14% increased Stun and Block Recovery"
+              }
+            ],
+            "frameType": 2,
+            "inventoryId": "Gloves",
+            "socketedItems": [],
+            "id": "mercenary-fixture-item-7"
+          },
+          {
+            "sockets": [
+              {
+                "group": 0,
+                "attr": "G",
+                "sColour": "W"
+              },
+              {
+                "group": 0,
+                "attr": "G",
+                "sColour": "W"
+              },
+              {
+                "group": 0,
+                "attr": "G",
+                "sColour": "W"
+              }
+            ],
+            "name": "Anarchy Stride",
+            "typeLine": "Shagreen Boots",
+            "baseType": "Shagreen Boots",
+            "ilvl": 85,
+            "properties": [
+              {
+                "name": "Evasion Rating",
+                "values": [
+                  [
+                    "229",
+                    1
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 17
+              }
+            ],
+            "requirements": [
+              {
+                "name": "Level",
+                "values": [
+                  [
+                    "59",
+                    0
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 62
+              },
+              {
+                "name": "Dex",
+                "values": [
+                  [
+                    "97",
+                    0
+                  ]
+                ],
+                "displayMode": 1,
+                "type": 64
+              }
+            ],
+            "explicitMods": [
+              {
+                "description": "+46 to Evasion Rating"
+              },
+              {
+                "description": "Regenerate 73.6 Life per second"
+              },
+              {
+                "description": "+20% to Cold Resistance"
+              },
+              {
+                "description": "15% increased Stun and Block Recovery"
+              }
+            ],
+            "frameType": 2,
+            "inventoryId": "Boots",
+            "socketedItems": [],
+            "id": "mercenary-fixture-item-8"
+          },
+          {
+            "name": "Victory Locket",
+            "typeLine": "Studded Belt",
+            "baseType": "Studded Belt",
+            "ilvl": 84,
+            "requirements": [
+              {
+                "name": "Level",
+                "values": [
+                  [
+                    "60",
+                    0
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 62
+              }
+            ],
+            "implicitMods": [
+              {
+                "description": "24% increased Stun Duration on Enemies"
+              }
+            ],
+            "explicitMods": [
+              {
+                "description": "+97 to maximum Life"
+              },
+              {
+                "description": "Regenerate 18 Life per second"
+              },
+              {
+                "description": "+65 to maximum Mana"
+              },
+              {
+                "description": "+26% to Cold Resistance"
+              },
+              {
+                "description": "+26% to Lightning Resistance"
+              },
+              {
+                "description": "17% increased Flask Mana Recovery rate"
+              }
+            ],
+            "frameType": 2,
+            "inventoryId": "Belt",
+            "id": "mercenary-fixture-item-9"
+          },
+          {
+            "name": "Plague Impaler",
+            "typeLine": "Serrated Arrow Quiver",
+            "baseType": "Serrated Arrow Quiver",
+            "ilvl": 85,
+            "requirements": [
+              {
+                "name": "Level",
+                "values": [
+                  [
+                    "57",
+                    0
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 62
+              }
+            ],
+            "implicitMods": [
+              {
+                "description": "Adds 1 to 4 Physical Damage to Attacks"
+              }
+            ],
+            "explicitMods": [
+              {
+                "description": "+21 to Dexterity"
+              },
+              {
+                "description": "Adds 25 to 41 Fire Damage to Attacks"
+              },
+              {
+                "description": "+350 to Accuracy Rating"
+              },
+              {
+                "description": "+45% to Fire Resistance"
+              }
+            ],
+            "frameType": 2,
+            "inventoryId": "Offhand",
+            "id": "mercenary-fixture-item-10"
+          }
+        ]
+      },
+      {
+        "name": "Vorneka Azrus",
+        "level": 83,
+        "build": "EleBowRangerClones",
+        "build_hash": 61428,
+        "skills": [
+          {
+            "id": "IceShotMercenary",
+            "hash": 11495,
+            "supports": [
+              {
+                "id": "ColdPenetrationMid",
+                "hash": 54628,
+                "tier": 2
+              },
+              {
+                "id": "HypothermiaMid",
+                "hash": 38571,
+                "tier": 2
+              },
+              {
+                "id": "EleDamageWithAttacksHigh",
+                "hash": 28416,
+                "tier": 3
+              },
+              {
+                "id": "IncreaseAreaOfEffectMid",
+                "hash": 53342,
+                "tier": 2
+              },
+              {
+                "id": "ProjectilesReturnHigh",
+                "hash": 5293,
+                "tier": 3
+              }
+            ]
+          },
+          {
+            "id": "VaalGraceMercenary",
+            "hash": 58425,
+            "supports": []
+          },
+          {
+            "id": "MirrorArrowMercenary",
+            "hash": 65447,
+            "supports": [
+              {
+                "id": "AdditionalChainsMid",
+                "hash": 31052,
+                "tier": 2
+              },
+              {
+                "id": "AddedCooldownCountHigh",
+                "hash": 50475,
+                "tier": 3
+              },
+              {
+                "id": "AddedColdMid",
+                "hash": 52758,
+                "tier": 2
+              },
+              {
+                "id": "PierceMid",
+                "hash": 56267,
+                "tier": 2
+              }
+            ]
+          },
+          {
+            "id": "VaalIceShotMercenary",
+            "hash": 16381,
+            "supports": [
+              {
+                "id": "PierceHigh",
+                "hash": 27970,
+                "tier": 3
+              },
+              {
+                "id": "IncreaseAreaOfEffectMid",
+                "hash": 53342,
+                "tier": 2
+              },
+              {
+                "id": "FreezeChanceHigh",
+                "hash": 12387,
+                "tier": 3
+              },
+              {
+                "id": "EleDamageWithAttacksMid",
+                "hash": 44886,
+                "tier": 2
+              },
+              {
+                "id": "MultipleProjectilesHigh",
+                "hash": 49419,
+                "tier": 3
+              }
+            ]
+          },
+          {
+            "id": "GraceMercenary",
+            "hash": 2792,
+            "supports": []
+          },
+          {
+            "id": "FrostBombMercenary",
+            "hash": 10557,
+            "supports": [
+              {
+                "id": "ReduceDurationMid",
+                "hash": 65114,
+                "tier": 2
+              },
+              {
+                "id": "SpellCascadeLow",
+                "hash": 65120,
+                "tier": 1
+              }
+            ]
+          }
+        ],
+        "items": [
+          {
+            "searing": true,
+            "tangled": true,
+            "sockets": [
+              {
+                "group": 0,
+                "attr": "S",
+                "sColour": "R"
+              },
+              {
+                "group": 1,
+                "attr": "G",
+                "sColour": "W"
+              },
+              {
+                "group": 2,
+                "attr": "G",
+                "sColour": "W"
+              },
+              {
+                "group": 3,
+                "attr": "A",
+                "sColour": "A"
+              }
+            ],
+            "name": "Spirit Horn",
+            "typeLine": "Lacquered Helmet",
+            "baseType": "Lacquered Helmet",
+            "ilvl": 83,
+            "properties": [
+              {
+                "name": "Quality",
+                "values": [
+                  [
+                    "+20%",
+                    1
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 6
+              },
+              {
+                "name": "Armour",
+                "values": [
+                  [
+                    "300",
+                    1
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 16
+              },
+              {
+                "name": "Evasion Rating",
+                "values": [
+                  [
+                    "300",
+                    1
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 17
+              },
+              {
+                "name": "[Intangibility|Intangibility]",
+                "values": [
+                  [
+                    "11%",
+                    0
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 110
+              }
+            ],
+            "requirements": [
+              {
+                "name": "Level",
+                "values": [
+                  [
+                    "60",
+                    0
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 62
+              },
+              {
+                "name": "Str",
+                "values": [
+                  [
+                    "57",
+                    0
+                  ]
+                ],
+                "displayMode": 1,
+                "type": 63
+              },
+              {
+                "name": "Dex",
+                "values": [
+                  [
+                    "57",
+                    0
+                  ]
+                ],
+                "displayMode": 1,
+                "type": 64
+              }
+            ],
+            "implicitMods": [
+              {
+                "description": "5% chance to Freeze"
+              },
+              {
+                "description": "8% increased Area of Effect"
+              }
+            ],
+            "explicitMods": [
+              {
+                "description": "Has 1 Abyssal Socket"
+              },
+              {
+                "description": "80% increased Armour and Evasion"
+              },
+              {
+                "description": "+131 to maximum Life"
+              },
+              {
+                "description": "13% increased Life Regeneration rate"
+              },
+              {
+                "description": "+10% to Fire Resistance"
+              },
+              {
+                "description": "+1 to Level of Socketed Projectile Gems",
+                "flags": {
+                  "crafted": true
+                }
+              },
+              {
+                "description": "Projectiles Pierce an additional Target",
+                "flags": {
+                  "crafted": true
+                }
+              }
+            ],
+            "frameType": 2,
+            "inventoryId": "Helm",
+            "socketedItems": [
+              {
+                "abyssJewel": true,
+                "name": "Morbid Stare",
+                "typeLine": "Searching Eye Jewel",
+                "baseType": "Searching Eye Jewel",
+                "ilvl": 80,
+                "properties": [
+                  {
+                    "name": "Abyss",
+                    "values": [],
+                    "displayMode": 0
+                  },
+                  {
+                    "name": "[Intangibility|Intangibility]",
+                    "values": [
+                      [
+                        "10%",
+                        0
+                      ]
+                    ],
+                    "displayMode": 0,
+                    "type": 110
+                  }
+                ],
+                "requirements": [
+                  {
+                    "name": "Level",
+                    "values": [
+                      [
+                        "40",
+                        0
+                      ]
+                    ],
+                    "displayMode": 0,
+                    "type": 62
+                  }
+                ],
+                "explicitMods": [
+                  {
+                    "description": "4% increased Attack Speed"
+                  },
+                  {
+                    "description": "7 to 15 Added Fire Damage with Bow Attacks"
+                  },
+                  {
+                    "description": "1 to 20 Added Lightning Damage with Bow Attacks"
+                  },
+                  {
+                    "description": "29% increased Critical Strike Chance if you haven't dealt a Critical Strike Recently"
+                  }
+                ],
+                "frameType": 2,
+                "socket": 3,
+                "id": "mercenary-fixture-item-12"
+              }
+            ],
+            "id": "mercenary-fixture-item-11"
+          },
+          {
+            "name": "Enmity's Embrace",
+            "typeLine": "Vermillion Ring",
+            "baseType": "Vermillion Ring",
+            "ilvl": 85,
+            "properties": [
+              {
+                "name": "Quality (Elemental Damage Modifiers)",
+                "values": [
+                  [
+                    "+3%",
+                    1
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 6
+              },
+              {
+                "name": "[Intangibility|Intangibility]",
+                "values": [
+                  [
+                    "12%",
+                    0
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 110
+              }
+            ],
+            "requirements": [
+              {
+                "name": "Level",
+                "values": [
+                  [
+                    "80",
+                    0
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 62
+              }
+            ],
+            "implicitMods": [
+              {
+                "description": "7% increased maximum Life"
+              }
+            ],
+            "explicitMods": [
+              {
+                "description": "+31 to Strength"
+              },
+              {
+                "description": "19% increased Fire Damage"
+              },
+              {
+                "description": "66% reduced Fire Resistance"
+              },
+              {
+                "description": "Take 331 Fire Damage when you Use a Skill"
+              },
+              {
+                "description": "Damage Penetrates Fire Resistance equal to your Overcapped Fire Resistance, up to a maximum of 200%"
+              }
+            ],
+            "frameType": 3,
+            "inventoryId": "Ring2",
+            "id": "mercenary-fixture-item-13"
+          },
+          {
+            "name": "Carrion Needle",
+            "typeLine": "Primal Arrow Quiver",
+            "baseType": "Primal Arrow Quiver",
+            "ilvl": 75,
+            "properties": [
+              {
+                "name": "[Intangibility|Intangibility]",
+                "values": [
+                  [
+                    "12%",
+                    0
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 110
+              }
+            ],
+            "requirements": [
+              {
+                "name": "Level",
+                "values": [
+                  [
+                    "66",
+                    0
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 62
+              }
+            ],
+            "implicitMods": [
+              {
+                "description": "30% increased Elemental Damage with Attack Skills"
+              }
+            ],
+            "explicitMods": [
+              {
+                "description": "Adds 18 to 30 Physical Damage to Attacks"
+              },
+              {
+                "description": "8% increased Attack Speed"
+              },
+              {
+                "description": "+37% to Critical Strike Multiplier with Bows"
+              },
+              {
+                "description": "+32% to Fire Resistance"
+              },
+              {
+                "description": "34% increased Damage with Bow Skills"
+              },
+              {
+                "description": "31% increased Elemental Damage with Attack Skills",
+                "flags": {
+                  "crafted": true
+                }
+              }
+            ],
+            "frameType": 2,
+            "inventoryId": "Offhand",
+            "id": "mercenary-fixture-item-14"
+          },
+          {
+            "searing": true,
+            "tangled": true,
+            "sockets": [
+              {
+                "group": 0,
+                "attr": "S",
+                "sColour": "R"
+              },
+              {
+                "group": 1,
+                "attr": "G",
+                "sColour": "W"
+              },
+              {
+                "group": 2,
+                "attr": "G",
+                "sColour": "W"
+              },
+              {
+                "group": 3,
+                "attr": "G",
+                "sColour": "W"
+              }
+            ],
+            "name": "Cataclysm Spark",
+            "typeLine": "Shackled Boots",
+            "baseType": "Shackled Boots",
+            "ilvl": 85,
+            "properties": [
+              {
+                "name": "Quality",
+                "values": [
+                  [
+                    "+20%",
+                    1
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 6
+              },
+              {
+                "name": "Evasion Rating",
+                "values": [
+                  [
+                    "101",
+                    1
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 17
+              },
+              {
+                "name": "Energy Shield",
+                "values": [
+                  [
+                    "25",
+                    1
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 18
+              }
+            ],
+            "requirements": [
+              {
+                "name": "Level",
+                "values": [
+                  [
+                    "68",
+                    0
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 62
+              },
+              {
+                "name": "Dex",
+                "values": [
+                  [
+                    "34",
+                    0
+                  ]
+                ],
+                "displayMode": 1,
+                "type": 64
+              },
+              {
+                "name": "Int",
+                "values": [
+                  [
+                    "34",
+                    0
+                  ]
+                ],
+                "displayMode": 1,
+                "type": 65
+              }
+            ],
+            "implicitMods": [
+              {
+                "description": "Gain 4% of Physical Damage as Extra Fire Damage"
+              },
+              {
+                "description": "Drops Brittle Ground while moving, lasting 2 seconds"
+              }
+            ],
+            "explicitMods": [
+              {
+                "description": "+15 to Evasion Rating"
+              },
+              {
+                "description": "+6 to maximum Energy Shield"
+              },
+              {
+                "description": "38% increased Energy Shield Recharge Rate"
+              },
+              {
+                "description": "+93 to maximum Life"
+              },
+              {
+                "description": "+38% to Fire Resistance"
+              },
+              {
+                "description": "27% increased Movement Speed"
+              },
+              {
+                "description": "28% increased Stun and Block Recovery"
+              },
+              {
+                "description": "15% chance to gain Onslaught for 4 seconds on Kill"
+              }
+            ],
+            "frameType": 2,
+            "inventoryId": "Boots",
+            "socketedItems": [],
+            "id": "mercenary-fixture-item-15"
+          },
+          {
+            "name": "The Untouched Soul",
+            "typeLine": "Gold Amulet",
+            "baseType": "Gold Amulet",
+            "ilvl": 85,
+            "corrupted": true,
+            "properties": [
+              {
+                "name": "Quality (Resistance Modifiers)",
+                "values": [
+                  [
+                    "+17%",
+                    1
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 6
+              }
+            ],
+            "requirements": [
+              {
+                "name": "Level",
+                "values": [
+                  [
+                    "48",
+                    0
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 62
+              }
+            ],
+            "enchantMods": [
+              "Allocates Lethality"
+            ],
+            "implicitMods": [
+              {
+                "description": "+18% to all Elemental Resistances"
+              }
+            ],
+            "explicitMods": [
+              {
+                "description": "+40 to maximum Life for each Empty Red Socket on any Equipped Item"
+              },
+              {
+                "description": "+225 to Accuracy Rating for each Empty Green Socket on any Equipped Item"
+              },
+              {
+                "description": "+40 to maximum Mana for each Empty Blue Socket on any Equipped Item"
+              },
+              {
+                "description": "+14% to all Elemental Resistances for each Empty White Socket on any Equipped Item"
+              }
+            ],
+            "frameType": 3,
+            "inventoryId": "Amulet",
+            "id": "mercenary-fixture-item-16"
+          },
+          {
+            "name": "The Taming",
+            "typeLine": "Prismatic Ring",
+            "baseType": "Prismatic Ring",
+            "ilvl": 33,
+            "requirements": [
+              {
+                "name": "Level",
+                "values": [
+                  [
+                    "30",
+                    0
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 62
+              }
+            ],
+            "implicitMods": [
+              {
+                "description": "+10% to all Elemental Resistances"
+              }
+            ],
+            "explicitMods": [
+              {
+                "description": "+30% to all Elemental Resistances"
+              },
+              {
+                "description": "10% chance to Freeze, Shock and Ignite"
+              },
+              {
+                "description": "35% increased Elemental Damage with Hits and Ailments for\neach type of Elemental Ailment on Enemy"
+              }
+            ],
+            "frameType": 3,
+            "inventoryId": "Ring",
+            "id": "mercenary-fixture-item-17"
+          },
+          {
+            "searing": true,
+            "tangled": true,
+            "fractured": true,
+            "sockets": [
+              {
+                "group": 0,
+                "attr": "G",
+                "sColour": "W"
+              },
+              {
+                "group": 1,
+                "attr": "G",
+                "sColour": "W"
+              },
+              {
+                "group": 1,
+                "attr": "G",
+                "sColour": "W"
+              },
+              {
+                "group": 1,
+                "attr": "G",
+                "sColour": "W"
+              }
+            ],
+            "name": "Skull Vise",
+            "typeLine": "Eelskin Gloves",
+            "baseType": "Eelskin Gloves",
+            "ilvl": 84,
+            "properties": [
+              {
+                "name": "Quality",
+                "values": [
+                  [
+                    "+20%",
+                    1
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 6
+              },
+              {
+                "name": "Evasion Rating",
+                "values": [
+                  [
+                    "223",
+                    1
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 17
+              },
+              {
+                "name": "[Intangibility|Intangibility]",
+                "values": [
+                  [
+                    "20%",
+                    0
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 110
+              }
+            ],
+            "requirements": [
+              {
+                "name": "Level",
+                "values": [
+                  [
+                    "65",
+                    0
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 62
+              },
+              {
+                "name": "Dex",
+                "values": [
+                  [
+                    "56",
+                    0
+                  ]
+                ],
+                "displayMode": 1,
+                "type": 64
+              }
+            ],
+            "implicitMods": [
+              {
+                "description": "0.2% of Cold Damage Leeched as Life"
+              },
+              {
+                "description": "15% chance to Intimidate Enemies for 4 seconds on Hit"
+              }
+            ],
+            "explicitMods": [
+              {
+                "description": "18% increased Attack Speed"
+              },
+              {
+                "description": "29% increased Evasion Rating"
+              },
+              {
+                "description": "+26 to maximum Life"
+              },
+              {
+                "description": "12% increased Stun and Block Recovery"
+              },
+              {
+                "description": "+15% to Fire and Chaos Resistances",
+                "flags": {
+                  "crafted": true
+                }
+              },
+              {
+                "description": "+45% to Fire Resistance",
+                "flags": {
+                  "fractured": true
+                }
+              }
+            ],
+            "frameType": 2,
+            "inventoryId": "Gloves",
+            "socketedItems": [],
+            "id": "mercenary-fixture-item-18"
+          },
+          {
+            "searing": true,
+            "tangled": true,
+            "fractured": true,
+            "sockets": [
+              {
+                "group": 0,
+                "attr": "G",
+                "sColour": "W"
+              },
+              {
+                "group": 1,
+                "attr": "G",
+                "sColour": "W"
+              },
+              {
+                "group": 1,
+                "attr": "G",
+                "sColour": "W"
+              },
+              {
+                "group": 1,
+                "attr": "G",
+                "sColour": "W"
+              },
+              {
+                "group": 2,
+                "attr": "G",
+                "sColour": "W"
+              },
+              {
+                "group": 2,
+                "attr": "G",
+                "sColour": "W"
+              }
+            ],
+            "name": "Cataclysm Shroud",
+            "typeLine": "Full Wyvernscale",
+            "baseType": "Full Wyvernscale",
+            "ilvl": 85,
+            "properties": [
+              {
+                "name": "Quality",
+                "values": [
+                  [
+                    "+20%",
+                    1
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 6
+              },
+              {
+                "name": "Armour",
+                "values": [
+                  [
+                    "1055",
+                    1
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 16
+              },
+              {
+                "name": "Evasion Rating",
+                "values": [
+                  [
+                    "1060",
+                    1
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 17
+              },
+              {
+                "name": "[Intangibility|Intangibility]",
+                "values": [
+                  [
+                    "11%",
+                    0
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 110
+              }
+            ],
+            "requirements": [
+              {
+                "name": "Level",
+                "values": [
+                  [
+                    "73",
+                    0
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 62
+              },
+              {
+                "name": "Str",
+                "values": [
+                  [
+                    "133",
+                    0
+                  ]
+                ],
+                "displayMode": 1,
+                "type": 63
+              },
+              {
+                "name": "Dex",
+                "values": [
+                  [
+                    "133",
+                    0
+                  ]
+                ],
+                "displayMode": 1,
+                "type": 64
+              }
+            ],
+            "implicitMods": [
+              {
+                "description": "+6% to all Elemental Resistances"
+              },
+              {
+                "description": "While a Unique Enemy is in your Presence, 27% increased Fire Damage"
+              }
+            ],
+            "explicitMods": [
+              {
+                "description": "+63 to Armour"
+              },
+              {
+                "description": "+66 to Evasion Rating"
+              },
+              {
+                "description": "42% increased Armour and Evasion"
+              },
+              {
+                "description": "+149 to maximum Life"
+              },
+              {
+                "description": "+18% to Fire and Chaos Resistances"
+              },
+              {
+                "description": "+19% to Fire and Cold Resistances",
+                "flags": {
+                  "crafted": true
+                }
+              },
+              {
+                "description": "+46% to Fire Resistance",
+                "flags": {
+                  "fractured": true
+                }
+              }
+            ],
+            "frameType": 2,
+            "inventoryId": "BodyArmour",
+            "socketedItems": [],
+            "id": "mercenary-fixture-item-19"
+          },
+          {
+            "sockets": [
+              {
+                "group": 0,
+                "attr": "A",
+                "sColour": "A"
+              }
+            ],
+            "name": "Death Clasp",
+            "typeLine": "Stygian Vise",
+            "baseType": "Stygian Vise",
+            "ilvl": 87,
+            "requirements": [
+              {
+                "name": "Level",
+                "values": [
+                  [
+                    "68",
+                    0
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 62
+              }
+            ],
+            "implicitMods": [
+              {
+                "description": "Has 1 Abyssal Socket"
+              }
+            ],
+            "explicitMods": [
+              {
+                "description": "+38 to maximum Energy Shield"
+              },
+              {
+                "description": "Regenerate 124.6 Life per second"
+              },
+              {
+                "description": "+33 to maximum Mana"
+              },
+              {
+                "description": "+43% to Fire Resistance"
+              },
+              {
+                "description": "49% increased Elemental Damage with Attack Skills"
+              },
+              {
+                "description": "+18% to Fire and Cold Resistances",
+                "flags": {
+                  "crafted": true
+                }
+              }
+            ],
+            "frameType": 2,
+            "inventoryId": "Belt",
+            "socketedItems": [
+              {
+                "abyssJewel": true,
+                "name": "Grim Glare",
+                "typeLine": "Searching Eye Jewel",
+                "baseType": "Searching Eye Jewel",
+                "ilvl": 83,
+                "corrupted": true,
+                "properties": [
+                  {
+                    "name": "Abyss",
+                    "values": [],
+                    "displayMode": 0
+                  },
+                  {
+                    "name": "[Intangibility|Intangibility]",
+                    "values": [
+                      [
+                        "8%",
+                        0
+                      ]
+                    ],
+                    "displayMode": 0,
+                    "type": 110
+                  }
+                ],
+                "requirements": [
+                  {
+                    "name": "Level",
+                    "values": [
+                      [
+                        "48",
+                        0
+                      ]
+                    ],
+                    "displayMode": 0,
+                    "type": 62
+                  }
+                ],
+                "explicitMods": [
+                  {
+                    "description": "5% increased Attack Speed"
+                  },
+                  {
+                    "description": "+29 to maximum Life"
+                  },
+                  {
+                    "description": "+14% to Fire Resistance"
+                  },
+                  {
+                    "description": "9 to 15 Added Cold Damage with Wand Attacks"
+                  },
+                  {
+                    "description": "17% increased Damage over Time while Dual Wielding"
+                  }
+                ],
+                "frameType": 2,
+                "socket": 0,
+                "id": "mercenary-fixture-item-21"
+              }
+            ],
+            "id": "mercenary-fixture-item-20"
+          },
+          {
+            "fractured": true,
+            "sockets": [
+              {
+                "group": 0,
+                "attr": "G",
+                "sColour": "W"
+              },
+              {
+                "group": 0,
+                "attr": "G",
+                "sColour": "W"
+              },
+              {
+                "group": 0,
+                "attr": "G",
+                "sColour": "W"
+              },
+              {
+                "group": 1,
+                "attr": "G",
+                "sColour": "W"
+              },
+              {
+                "group": 2,
+                "attr": "G",
+                "sColour": "W"
+              },
+              {
+                "group": 3,
+                "attr": "G",
+                "sColour": "W"
+              }
+            ],
+            "name": "Kraken Siege",
+            "typeLine": "Spine Bow",
+            "baseType": "Spine Bow",
+            "ilvl": 87,
+            "properties": [
+              {
+                "name": "Bow",
+                "values": [],
+                "displayMode": 0
+              },
+              {
+                "name": "Quality",
+                "values": [
+                  [
+                    "+20%",
+                    1
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 6
+              },
+              {
+                "name": "Physical Damage",
+                "values": [
+                  [
+                    "46-138",
+                    1
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 9
+              },
+              {
+                "name": "Elemental Damage",
+                "values": [
+                  [
+                    "108-186",
+                    4
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 10
+              },
+              {
+                "name": "Critical Strike Chance",
+                "values": [
+                  [
+                    "8.77%",
+                    1
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 12
+              },
+              {
+                "name": "Attacks per Second",
+                "values": [
+                  [
+                    "1.65",
+                    1
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 13
+              },
+              {
+                "name": "[Intangibility|Intangibility]",
+                "values": [
+                  [
+                    "25%",
+                    0
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 110
+              }
+            ],
+            "requirements": [
+              {
+                "name": "Level",
+                "values": [
+                  [
+                    "68",
+                    0
+                  ]
+                ],
+                "displayMode": 0,
+                "type": 62
+              },
+              {
+                "name": "Dex",
+                "values": [
+                  [
+                    "212",
+                    0
+                  ]
+                ],
+                "displayMode": 1,
+                "type": 64
+              }
+            ],
+            "explicitMods": [
+              {
+                "description": "Adds 108 to 186 Fire Damage"
+              },
+              {
+                "description": "18% increased Attack Speed"
+              },
+              {
+                "description": "35% increased Critical Strike Chance"
+              },
+              {
+                "description": "Attacks with this Weapon Penetrate 16% Elemental Resistances"
+              },
+              {
+                "description": "Gain 16% of Fire Damage as Extra Chaos Damage",
+                "flags": {
+                  "crafted": true
+                }
+              },
+              {
+                "description": "Bow Attacks fire 2 additional Arrows",
+                "flags": {
+                  "fractured": true
+                }
+              }
+            ],
+            "frameType": 2,
+            "inventoryId": "Weapon",
+            "socketedItems": [],
+            "id": "mercenary-fixture-item-22"
+          }
+        ]
+      }
+    ]
+  }
+}

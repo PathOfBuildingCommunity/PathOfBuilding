@@ -143,7 +143,15 @@ function MercenaryTools.filterCalculationActors(actors, build)
 end
 
 function MercenaryTools.hasProfile(build)
-	return build.mercenaryTab ~= nil and build.mercenaryTab.profile.buildId ~= nil
+	return build.mercenaryTab ~= nil and build.mercenaryTab.profile ~= nil and build.mercenaryTab.profile.buildId ~= nil
+end
+
+function MercenaryTools.firstEnabledSkillId(profile)
+	for _, skill in ipairs(profile and profile.skills or { }) do
+		if skill.enabled ~= false then
+			return skill.id
+		end
+	end
 end
 
 function MercenaryTools.includeInBuildWarnings(build)
@@ -412,8 +420,8 @@ end
 -- A Mercenary is as strong as the area it was found in, and levels up with the areas
 -- it is taken to, but stops gaining levels past the level of the highest-level
 -- non-endgame area (GGG patch notes: "up to a maximum of level 68"). Found-area
--- level itself is not limited by that ceiling — map Mercenaries keep their high
--- found-area level — but monster damage/armour/evasion tables only exist for 1–100.
+-- level itself is not limited by that ceiling: map Mercenaries keep their high
+-- found-area level, but monster damage/armour/evasion tables only exist for 1-100.
 local MERCENARY_AREA_SCALING_CAP = 68
 local MERCENARY_LEVEL_MAX = 100
 -- A Mercenary can equip an item requiring up to this fraction more than the level
@@ -636,7 +644,7 @@ function MercenaryTools.validateProfile(profile, mercenaryData)
 	end
 	local foundAreaLevel = tonumber(profile.foundAreaLevel)
 	if not foundAreaLevel or foundAreaLevel % 1 ~= 0 or foundAreaLevel < 1 or foundAreaLevel > 100 then
-		table.insert(errors, "Found-area level must be an integer between 1 and 100")
+		table.insert(errors, "Mercenary level must be an integer between 1 and 100")
 	end
 	if #(profile.skills or { }) > MAX_SKILLS then
 		table.insert(errors, "A Mercenary cannot have more than 6 inherent skills")
@@ -793,7 +801,7 @@ function MercenaryTools.validateEquippedItem(item, slotName, context)
 	end
 	local requiredFoundLevel = MercenaryTools.requiredFoundAreaLevel(item.requirements and item.requirements.level)
 	if (profile.foundAreaLevel or 0) < requiredFoundLevel then
-		return false, "requires found-area level "..requiredFoundLevel
+		return false, "requires Mercenary level "..requiredFoundLevel
 	end
 	if (item.rarity == "UNIQUE" or item.rarity == "RELIC") and not (item.type == "Jewel" and item.base and item.base.subType == "Abyss") then
 		local requiredFlag = UNIQUE_FLAG_BY_SLOT[slotName]

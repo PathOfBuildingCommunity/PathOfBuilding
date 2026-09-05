@@ -151,7 +151,7 @@ function MercenaryTabClass:MercenaryTab(build)
 		if value then self:GetItemSet(true) end
 		self:Changed()
 	end)
-	self.controls.levelLabel = new("LabelControl"):LabelControl({ "LEFT", self.controls.build, "RIGHT" }, { 20, 0, 0, 16 }, "^7Found-area level:")
+	self.controls.levelLabel = new("LabelControl"):LabelControl({ "LEFT", self.controls.build, "RIGHT" }, { 20, 0, 0, 16 }, "^7Mercenary level:")
 	self.controls.level = new("EditControl"):EditControl({ "LEFT", self.controls.levelLabel, "RIGHT" }, { 6, 0, 55, 20 }, "68", nil, "%D", 3, function(buf)
 		self.profile.foundAreaLevel = m_min(m_max(tonumber(buf) or 1, 1), 100)
 		self:Changed()
@@ -485,6 +485,7 @@ function MercenaryTabClass:EnsureItemSet()
 	itemSet.title = "Mercenary Equipment"
 	t_insert(itemsTab.itemSetOrderList, itemSet.id)
 	self.itemSetId = itemSet.id
+	self.profile.itemSetId = itemSet.id
 	self.auxiliaryItemSetId = itemSet.id
 	if self.build.configTab then
 		self.build.configTab:SyncActorItemSet("mercenary", itemSet.id)
@@ -504,6 +505,7 @@ function MercenaryTabClass:SetItemSet(itemSetId, changeView)
 	local itemSet = itemsTab.itemSets[itemSetId]
 	if not itemSet then return false end
 	self.itemSetId = itemSetId
+	self.profile.itemSetId = itemSetId
 	if changeView ~= false then
 		itemsTab:SetViewItemSet(itemSetId, "MERCENARY")
 	end
@@ -793,6 +795,13 @@ function MercenaryTabClass:SetActiveMercenarySet(setId, init)
 
 	self.activeMercenarySetId = setId
 	self.profile = self.mercenarySets[setId]
+	self.itemSetId = self.profile.itemSetId
+	if not init then
+		self.build.configTab:SyncActorItemSet("mercenary", self.itemSetId)
+		if self.build.itemsTab.viewComparisonActor == "MERCENARY" and self.itemSetId then
+			self.build.itemsTab:SetViewItemSet(self.itemSetId, "MERCENARY")
+		end
+	end
 	self.selectedSkillIndex = 1
 	self.modFlag = true
 	self.build.buildFlag = true
@@ -828,7 +837,7 @@ function MercenaryTabClass:SetSkill(index, skillId)
 	local wasMainSkill = existing and self.profile.mainSkillId == existing.id
 	if not skillId then
 		table.remove(self.profile.skills, index)
-		if wasMainSkill then self.profile.mainSkillId = nil end
+		if wasMainSkill then self.profile.mainSkillId = MercenaryTools.firstEnabledSkillId(self.profile) end
 		self.selectedSkillIndex = m_min(index, m_max(#self.profile.skills, 1))
 	else
 		self.profile.skills[index] = existing and existing.id == skillId and existing or {
@@ -913,6 +922,10 @@ function MercenaryTabClass:Reset()
 	end
 	if not hasConfiguredProfile then
 		self.itemSetId = nil
+		self.auxiliaryItemSetId = nil
+		if self.build.configTab then
+			self.build.configTab:SyncActorItemSet("mercenary", nil)
+		end
 		if self.build.itemsTab.viewItemSetId == itemSetId then
 			self.build.itemsTab:SetViewItemSet(self.build.itemsTab.activeItemSetId)
 		end
@@ -944,7 +957,7 @@ function MercenaryTabClass:GetErrors()
 		t_insert(errors, errorText)
 	end
 	if (self.profile.foundAreaLevel or 0) >= self.build.characterLevel + 20 then
-		t_insert(errors, "Character level is at least 20 below the found-area level")
+		t_insert(errors, "Character level is at least 20 below the Mercenary level")
 	end
 	local mercBuild = self.data and self.data.builds[self.profile.buildId]
 	if mercBuild and #mercBuild.weaponTypes == 0 then
@@ -998,15 +1011,20 @@ function MercenaryTabClass:Load(xml)
 		t_insert(profile.skills, skill)
 	end
 	local function loadProfile(node, profile)
+		profile.itemSetId = tonumber(node.attrib.itemSetId) or self.itemSetId
+		profile.importAssociation = node.attrib.importAssociation
 		profile.buildId = node.attrib.buildId
 		profile.foundAreaLevel = tonumber(node.attrib.foundAreaLevel)
 		profile.importedWarrant = node.attrib.importedWarrant == "true"
 		profile.mainSkillId = node.attrib.mainSkillId
 		profile.lifeComparison = node.attrib.lifeComparison or "AUTO"
+		profile.classId = node.attrib.classId
 		if profile.buildId then
 			self:EnsureData()
 			local mercBuild = self.data.builds[profile.buildId]
-			profile.classId = mercBuild and mercBuild.classId
+			if mercBuild then
+				profile.classId = mercBuild.classId
+			end
 		end
 		for _, child in ipairs(node) do
 			if child.elem == "Skill" then loadSkill(child, profile) end
@@ -1062,7 +1080,10 @@ function MercenaryTabClass:Save(xml)
 			local setNode = { elem = "MercenarySet", attrib = {
 				id = tostring(setId),
 				title = profile.title,
+				itemSetId = profile.itemSetId and tostring(profile.itemSetId),
+				importAssociation = profile.importAssociation,
 				buildId = profile.buildId,
+				classId = profile.classId,
 				foundAreaLevel = profile.foundAreaLevel and tostring(profile.foundAreaLevel),
 				importedWarrant = tostring(profile.importedWarrant == true),
 				mainSkillId = profile.mainSkillId,

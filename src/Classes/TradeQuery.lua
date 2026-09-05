@@ -63,7 +63,7 @@ function TradeQueryClass:TradeQuery(itemsTab)
 
 	self.tradeQueryRequests = new("TradeQueryRequests"):TradeQueryRequests()
 	if not main.api then
-		main.api = new("PoEAPI"):PoEAPI(main.lastToken, main.lastRefreshToken, main.tokenExpiry)
+		main.api = new("PoEAPI"):PoEAPI(main.lastToken, main.lastRefreshToken, main.tokenExpiry, main.grantedScopes)
 	end
 
 	self.hostName = "https://www.pathofexile.com/"

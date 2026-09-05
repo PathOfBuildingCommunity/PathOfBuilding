@@ -248,7 +248,8 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 		if socketGroup.includeInFullDPS then hasFullDPSSkill = true break end
 	end
 	if not hasFullDPSSkill then
-		for _, selected in ipairs(build.mercenaryTab and build.mercenaryTab.profile.skills or { }) do
+		local mercenarySkills = build.mercenaryTab and build.mercenaryTab.profile and build.mercenaryTab.profile.skills
+		for _, selected in ipairs(mercenarySkills or { }) do
 			if selected.enabled ~= false and selected.includeInFullDPS then hasFullDPSSkill = true break end
 		end
 	end

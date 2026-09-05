@@ -292,7 +292,122 @@ local function parkRecycledMercenary(env, modDB, itemModDB, enemySourceDB)
 	env.recycledMercenaryEnemySourceDB = recycleModDB(enemySourceDB)
 end
 
+local function dropCachedMercenary(env)
+	env.cachedMercenaryModDB = nil
+	env.cachedMercenaryEnemySourceDB = nil
+	env.cachedMercenaryItemModDB = nil
+	env.cachedMercenaryMinionModDBs = nil
+	env.cachedMercenaryMainSkill = nil
+	env.mercenaryFromCache = nil
+end
+
+local function copyModDB(db)
+	if not db then
+		return nil
+	end
+	local copy = new("ModDB"):ModDB()
+	copy:AddDB(db)
+	copy.conditions = copyTable(db.conditions)
+	copy.multipliers = copyTable(db.multipliers)
+	return copy
+end
+
+local function parentModDB(db, cached, actor)
+	if not db then
+		return
+	end
+	wipeTable(db.mods)
+	wipeTable(db.conditions)
+	wipeTable(db.multipliers)
+	db.parent = cached
+	db.actor = actor
+end
+
+local preservedSkillDataKeys = {
+	"manaReservationPercent", "cooldown", "storedUses", "CritChance",
+	"attackTime", "attackSpeedMultiplier", "totemLevel", "damageEffectiveness", "stagesMax",
+}
+
+local function resetActiveSkillData(modDB, activeSkill)
+	if not activeSkill then
+		return
+	end
+	local skillData = activeSkill.skillData or { }
+	activeSkill.skillData = { }
+	if modDB and activeSkill.skillCfg then
+		for _, value in ipairs(modDB:List(activeSkill.skillCfg, "SkillData")) do
+			activeSkill.skillData[value.key] = value.value
+		end
+	end
+	if activeSkill.skillModList and activeSkill.skillCfg then
+		for _, value in ipairs(activeSkill.skillModList:List(activeSkill.skillCfg, "SkillData")) do
+			activeSkill.skillData[value.key] = value.value
+		end
+	end
+	for _, key in ipairs(preservedSkillDataKeys) do
+		if skillData[key] ~= nil then
+			activeSkill.skillData[key] = skillData[key]
+		end
+	end
+	activeSkill.skillData.soulPreventionDuration = activeSkill.soulPreventionDuration or skillData.soulPreventionDuration
+	if activeSkill.skillCfg and activeSkill.skillCfg.skillCond then
+		activeSkill.skillCfg.skillCond.usedByMirage = nil
+	end
+end
+
+-- Snapshot taken after initMercenary and before perform(). Full DPS reuses it
+-- instead of reconstructing items/passives/skills on every player skill.
+local function cacheMercenaryBaseline(env)
+	dropCachedMercenary(env)
+	local mercenary = env.mercenary
+	if not mercenary then
+		return
+	end
+	env.cachedMercenaryModDB = copyModDB(mercenary.modDB)
+	env.cachedMercenaryEnemySourceDB = copyModDB(mercenary.enemySourceDB)
+	env.cachedMercenaryItemModDB = mercenary.calcEnv and copyModDB(mercenary.calcEnv.itemModDB)
+	env.cachedMercenaryMainSkill = mercenary.mainSkill
+	env.cachedMercenaryMinionModDBs = { }
+	for index, skill in ipairs(mercenary.activeSkillList) do
+		if skill.minion and skill.minion.modDB then
+			env.cachedMercenaryMinionModDBs[index] = copyModDB(skill.minion.modDB)
+		end
+	end
+end
+
+local function restoreCachedMercenary(env)
+	local mercenary = env.mercenary
+	if not mercenary or not env.cachedMercenaryModDB then
+		return false
+	end
+	parentModDB(mercenary.modDB, env.cachedMercenaryModDB, mercenary)
+	if mercenary.enemySourceDB then
+		parentModDB(mercenary.enemySourceDB, env.cachedMercenaryEnemySourceDB, mercenary)
+	end
+	if mercenary.calcEnv and mercenary.calcEnv.itemModDB then
+		parentModDB(mercenary.calcEnv.itemModDB, env.cachedMercenaryItemModDB, mercenary)
+	end
+	mercenary.mainSkill = env.cachedMercenaryMainSkill
+	env.mercenaryMinion = nil
+	if mercenary.calcEnv then
+		mercenary.calcEnv.minion = false
+	end
+	for index, skill in ipairs(mercenary.activeSkillList) do
+		resetActiveSkillData(mercenary.modDB, skill)
+		local minion = skill.minion
+		if minion and minion.modDB then
+			parentModDB(minion.modDB, env.cachedMercenaryMinionModDBs and env.cachedMercenaryMinionModDBs[index], minion)
+			for _, minionSkill in ipairs(minion.activeSkillList or { }) do
+				resetActiveSkillData(minion.modDB, minionSkill)
+			end
+		end
+	end
+	env.mercenaryFromCache = true
+	return true
+end
+
 local function parkCurrentMercenary(env)
+	dropCachedMercenary(env)
 	if env.mercenary then
 		parkRecycledMercenary(env, env.mercenary.modDB, env.mercenary.calcEnv and env.mercenary.calcEnv.itemModDB, env.mercenary.enemySourceDB)
 	else
@@ -395,6 +510,7 @@ function calcs.initMercenary(env)
 		env.mercenaryMinion = nil
 		env.mercenaryCalculationErrors = nil
 		dropRecycledMercenary(env)
+		dropCachedMercenary(env)
 		return
 	end
 	env.data.ensureMercenaries()
@@ -402,12 +518,14 @@ function calcs.initMercenary(env)
 	local recycledItemModDB = env.recycledMercenaryItemModDB
 	local recycledEnemySourceDB = env.recycledMercenaryEnemySourceDB
 	dropRecycledMercenary(env)
+	dropCachedMercenary(env)
 	env.mercenary = nil
 	env.mercenaryMinion = nil
 	env.mercenaryCalculationErrors = nil
 
 	local function abortInit(errors)
 		env.mercenaryCalculationErrors = errors
+		dropCachedMercenary(env)
 		parkRecycledMercenary(env, recycledModDB, recycledItemModDB, recycledEnemySourceDB)
 	end
 
@@ -978,10 +1096,11 @@ function wipeEnv(env, accelerate)
 	end
 
 	if accelerate.everything then
-		-- Recycle allocations, but do not keep the dirty actor. perform() appends
-		-- combat mods onto mercenary.modDB; the next Full DPS skill must rebuild
-		-- from baseline input on those wiped databases.
-		parkCurrentMercenary(env)
+		-- perform() appends combat mods onto mercenary.modDB. Restore the
+		-- pre-combat snapshot when we have one; otherwise park and rebuild.
+		if not restoreCachedMercenary(env) then
+			parkCurrentMercenary(env)
+		end
 		return
 	end
 
@@ -2643,7 +2762,12 @@ function calcs.initEnv(build, mode, override, specEnv)
 
 	-- Merge Requirements Tables
 	env.requirementsTable = tableConcat(env.requirementsTableItems, env.requirementsTableGems)
-	calcs.initMercenary(env)
+	if env.mercenaryFromCache then
+		env.mercenaryFromCache = nil
+	else
+		calcs.initMercenary(env)
+		cacheMercenaryBaseline(env)
+	end
 
 	return env, cachedPlayerDB, cachedEnemyDB, cachedMinionDB
 end

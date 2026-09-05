@@ -10,6 +10,8 @@ local b_rshift = bit.rshift
 local band = bit.band
 local m_max = math.max
 local dkjson = require "dkjson"
+local MercenaryImport = require("Modules.MercenaryImport")
+local MercenaryTools = require("Modules.MercenaryTools")
 
 local influenceInfo = itemLib.influenceInfo.all
 
@@ -89,7 +91,7 @@ local function addOAuthControls(self)
 	self.controls.characterImportAnchor = new("Control"):Control({ "TOPLEFT", self.controls.sectionOauthCharImport, "TOPLEFT" },
 		{ labelSpacing, 40, 200, 16 })
 	self.controls.sectionOauthCharImport.height = function()
-		return self.isAuthorized() and 200 or 60
+		return self.isAuthorized() and 228 or 60
 	end
 
 	-- realm select
@@ -140,6 +142,7 @@ local function addOAuthControls(self)
 		local function onResponse(body, err, timeNext)
 			if not err then
 				self.characterList[realm.realmCode] = body.characters
+				self.mercenaryRosterEmpty = { }
 				setLeaguesFromCharList()
 				self.oauthLoading = false
 				self.oauthErrCode = nil
@@ -196,6 +199,7 @@ local function addOAuthControls(self)
 
 	self.controls.accountRealm = new("DropDownControl"):DropDownControl({ "TOPLEFT", self.controls.charSelectHeader, "BOTTOMLEFT" },
 		{ 0, rowSpacing, 60, 20 }, realmList, function()
+			self:CancelMercenaryImport()
 			setLeaguesFromCharList()
 		end)
 	self.controls.accountRealm:SelByValue(main.lastRealm or "PC", "id")
@@ -214,6 +218,7 @@ local function addOAuthControls(self)
 	-- league select
 	--- @param newLeague string
 	local function onLeagueChange(_, newLeague)
+		self:CancelMercenaryImport()
 		local realm = self.controls.accountRealm:GetSelValue().realmCode
 		if newLeague == "Any" then
 			self:BuildCharacterList(realm, nil, self.characterList[realm], self.controls.charSelect)
@@ -228,7 +233,7 @@ local function addOAuthControls(self)
 		{ labelSpacing, 0, 150, 18 }, nil, onLeagueChange)
 	-- character select
 	self.controls.charSelect = new("DropDownControl"):DropDownControl({ "TOPLEFT", self.controls.charSelectLeagueLabel, "BOTTOMLEFT" },
-		{ 0, rowSpacing, 400, 18 }, nil)
+		{ 0, rowSpacing, 400, 18 }, nil, function() self:CancelMercenaryImport() end)
 	self.controls.charSelect.enabled = function()
 		return self.usingOauth and self.isAuthorized()
 	end
@@ -316,6 +321,25 @@ local function addOAuthControls(self)
 		{ 220, 0, 18 }, "Delete equipment:", nil, "Delete all equipped items when importing.", true)
 	self.controls.charImportItemsIgnoreWeaponSwap = new("CheckBoxControl"):CheckBoxControl({ "LEFT", self.controls.charImportItems,
 		"RIGHT" }, { 380, 0, 18 }, "Ignore weapon swap:", nil, "Ignore items and skills in weapon swap.", false)
+	self.controls.charImportMercenaries = new("ButtonControl"):ButtonControl({ "TOPLEFT", self.controls.charImportItems, "BOTTOMLEFT" },
+		{ 0, rowSpacing, 210, 20 }, function()
+			return main.api:HasScope("account:league_accounts") and "Mercenaries..." or "Authorize Mercenary access"
+		end, function() self:DownloadMercenaries() end)
+	self.controls.charImportMercenaries.enabled = function()
+		return self.usingOauth and self.isAuthorized() and self.controls.charSelect:GetSelValue()
+			and not self.oauthLoading and not self.oauthTimer and not self.rateLimitEndTime
+			and not self:SelectedCharacterHasNoMercenaries()
+	end
+	self.controls.charImportMercenaries.shown = function()
+		return self.usingOauth and self.isAuthorized()
+	end
+	self.controls.cancelMercenaryImport = new("ButtonControl"):ButtonControl({ "LEFT", self.controls.charImportMercenaries, "RIGHT" },
+		{ 6, 0, 90, 20 }, "Cancel", function()
+			self:CancelMercenaryImport()
+		end)
+	self.controls.cancelMercenaryImport.shown = function()
+		return self.mercenaryImportPending
+	end
 end
 local function addAccountNameControls(self)
 	self.charImportMode = "GETACCOUNTNAME"
@@ -479,7 +503,7 @@ function ImportTabClass:ImportTab(build)
 	self.build = build
 
 	if not main.api then
-		main.api = new("PoEAPI"):PoEAPI(main.lastToken, main.lastRefreshToken, main.tokenExpiry)
+		main.api = new("PoEAPI"):PoEAPI(main.lastToken, main.lastRefreshToken, main.tokenExpiry, main.grantedScopes)
 	end
 
 
@@ -1525,7 +1549,7 @@ local rarityMap = { [0] = "NORMAL", "MAGIC", "RARE", "UNIQUE", [9] = "RELIC", [1
 local slotMap = { ["Weapon"] = "Weapon 1", ["Offhand"] = "Weapon 2", ["Weapon2"] = "Weapon 1 Swap", ["Offhand2"] = "Weapon 2 Swap", ["Helm"] = "Helmet", ["BodyArmour"] = "Body Armour", ["Gloves"] = "Gloves", ["Boots"] = "Boots",
 				  ["Amulet"] = "Amulet", ["Ring"] = "Ring 1", ["Ring2"] = "Ring 2", ["Ring3"] = "Ring 3", ["Belt"] = "Belt",  ["BrequelGrafts"] = "Graft 1", ["BrequelGrafts2"] = "Graft 2", }
 
-function ImportTabClass:ImportItem(itemData, slotName, ignoreWeaponSwap, itemSetId)
+function ImportTabClass:ImportItem(itemData, slotName, ignoreWeaponSwap, itemSetId, context)
 	if not slotName then
 		if itemData.inventoryId == "PassiveJewels" then
 			slotName = "Jewel "..self.build.latestTree.jewelSlots[itemData.x + 1]
@@ -1544,7 +1568,7 @@ function ImportTabClass:ImportItem(itemData, slotName, ignoreWeaponSwap, itemSet
 
 	-- Determine rarity, display name and base type of the item
 	item.rarity = rarityMap[itemData.frameType]
-	if #itemData.name > 0 then
+	if #(itemData.name or "") > 0 then
 		item.title = sanitiseText(itemData.name)
 		item.baseName = sanitiseText(itemData.typeLine):gsub("Synthesised ", ""):gsub("^Vestigial ", "")
 		item.name = item.title .. ", " .. item.baseName
@@ -1612,7 +1636,7 @@ function ImportTabClass:ImportItem(itemData, slotName, ignoreWeaponSwap, itemSet
 	if itemData.tangled then
 		item.tangle = true
 	end
-	if itemData.ilvl > 0 then
+	if (itemData.ilvl or 0) > 0 then
 		item.itemLevel = itemData.ilvl
 	end
 	if item.base.weapon or item.base.armour or item.base.flask or item.base.tincture then
@@ -1678,7 +1702,7 @@ function ImportTabClass:ImportItem(itemData, slotName, ignoreWeaponSwap, itemSet
 		item.sockets = { }
 		for i, socket in pairs(itemData.sockets) do
 			if socket.sColour == "A" then
-				item.abyssalSocketCount = item.abyssalSocketCount or 0 + 1
+				item.abyssalSocketCount = (item.abyssalSocketCount or 0) + 1
 			end
 			item.sockets[i] = { group = socket.group, color = socket.sColour }
 		end
@@ -1687,7 +1711,7 @@ function ImportTabClass:ImportItem(itemData, slotName, ignoreWeaponSwap, itemSet
 		end
 	end
 	if itemData.socketedItems then
-		self:ImportSocketedItems(item, itemData.socketedItems, slotName)
+		self:ImportSocketedItems(item, itemData.socketedItems, slotName, itemSetId, context)
 	end
 	if itemData.requirements and (not itemData.socketedItems or not itemData.socketedItems[1]) then
 		-- Requirements cannot be trusted if there are socketed gems, as they may override the item's natural requirements
@@ -1825,6 +1849,17 @@ function ImportTabClass:ImportItem(itemData, slotName, ignoreWeaponSwap, itemSet
 
 	-- Add and equip the new item
 	item:BuildAndParseRaw()
+	if context and context.staged then
+		if not item.base then
+			error("Unsupported item in " .. slotName)
+		end
+		if context.staged[slotName] then
+			error("Duplicate equipment slot: " .. slotName)
+		end
+		item:BuildModList()
+		context.staged[slotName] = item
+		return item
+	end
 	--ConPrintf("%s", item.raw)
 	if item.base then
 		local repIndex, repItem
@@ -1854,15 +1889,18 @@ function ImportTabClass:ImportItem(itemData, slotName, ignoreWeaponSwap, itemSet
 	end
 end
 
-function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
+function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName, itemSetId, context)
 	-- Build socket group list
 	local itemSocketGroupList = { }
 	local abyssalSocketId = 1
 	for _, socketedItem in ipairs(socketedItems) do
 		if socketedItem.abyssJewel then
-			self:ImportItem(socketedItem, slotName .. " Abyssal Socket "..abyssalSocketId)
+			local imported = self:ImportItem(socketedItem, slotName .. " Abyssal Socket " .. abyssalSocketId, false, itemSetId, context)
+			if context and context.staged and not imported then
+				error("Unsupported Abyss jewel in " .. slotName)
+			end
 			abyssalSocketId = abyssalSocketId + 1
-		else
+		elseif not (context and context.actor == "MERCENARY") then
 			local normalizedBasename = sanitiseText(socketedItem.typeLine)
 			local gemId = self.build.data.gemForBaseName[normalizedBasename:lower()]
 			if socketedItem.hybrid then
@@ -1929,6 +1967,359 @@ function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 		end
 		self.build.skillsTab:ProcessSocketGroup(itemSocketGroup)
 	end
+end
+
+function ImportTabClass:CancelMercenaryImport()
+	self.mercenaryImportGeneration = (self.mercenaryImportGeneration or 0) + 1
+	if self.mercenaryImportPending then
+		self.oauthLoading = false
+	end
+	self.mercenaryImportPending = false
+end
+
+function ImportTabClass:SelectedCharacterHasNoMercenaries()
+	local realm = self.controls.accountRealm:GetSelValue()
+	local selected = self.controls.charSelect:GetSelValue()
+	local league = selected and selected.char and selected.char.league
+	return realm and league and self.mercenaryRosterEmpty and self.mercenaryRosterEmpty[realm.realmCode .. "\0" .. league]
+end
+
+function ImportTabClass:DownloadMercenaries()
+	local api = main.api
+	if not api:HasScope("account:league_accounts") then
+		self.oauthTimer = os.time()
+		api:FetchAuthToken(function(err)
+			if self.build.importTab ~= self then return end
+			self.oauthTimer = nil
+			self.oauthErrCode = err
+			if not err then
+				self.characterList = { }
+				self.controls.charSelect:SetList({ })
+				self.controls.charSelectLeague:SetList({ })
+				if not api:HasScope("account:league_accounts") then
+					self.oauthErrCode = "Mercenary access was not granted. Authorize again to retrieve Mercenaries."
+				end
+			end
+		end)
+		return
+	end
+	self:CancelMercenaryImport()
+	local generation = self.mercenaryImportGeneration
+	local authGeneration = api.authGeneration
+	local realm = self.controls.accountRealm:GetSelValue().realmCode
+	local character = self.controls.charSelect:GetSelValue()
+	if not character then
+		return
+	end
+	local spec, profile = self.build.spec, self.build.mercenaryTab.profile
+	local function current()
+		local valid = self.build.importTab == self and self.build.spec == spec and self.build.mercenaryTab.profile == profile
+			and main.api == api and api.authGeneration == authGeneration and api.authToken ~= nil
+			and self.mercenaryImportGeneration == generation and self.usingOauth
+			and self.controls.accountRealm:GetSelValue().realmCode == realm and self.controls.charSelect:GetSelValue() == character
+		if not valid and self.mercenaryImportGeneration == generation then
+			self:CancelMercenaryImport()
+		end
+		return valid
+	end
+	local function failure(err, timeNext)
+		self.mercenaryImportPending = false
+		self.oauthLoading = false
+		self.oauthErrCode = err
+		self.rateLimitEndTime = timeNext
+	end
+	self.mercenaryImportPending = true
+	self.oauthLoading = true
+	self.oauthErrCode = nil
+	api:DownloadCharacter(realm, character.label, function(body, err, timeNext)
+		if not current() then return end
+		local league = body and body.character and body.character.league
+		local activeIndex = body and body.character and body.character.active_mercenary_index
+		if err or not league then
+			failure(err or "Selected character has no league", timeNext)
+			return
+		end
+		-- Profile UUID is the account identity; character names and access tokens are not.
+		api:DownloadProfile(function(account, err, timeNext)
+			if not current() then return end
+			if err or not account or type(account.uuid) ~= "string" then
+				failure(err or "Could not identify the authorized account", timeNext)
+				return
+			end
+			api:DownloadLeagueAccount(realm, league, function(body, err, timeNext)
+				if not current() then return end
+				local roster = body and body.league_account
+				if err or type(roster) ~= "table" then
+					failure(err or "Missing league account response", timeNext)
+					return
+				end
+				roster.active_mercenary_index = activeIndex
+				if #(roster.mercenaries or { }) == 0 then
+					self.mercenaryRosterEmpty = self.mercenaryRosterEmpty or { }
+					self.mercenaryRosterEmpty[realm .. "\0" .. league] = true
+					failure("No Mercenaries found.")
+					return
+				end
+				if self.mercenaryRosterEmpty then
+					self.mercenaryRosterEmpty[realm .. "\0" .. league] = nil
+				end
+				failure(nil)
+				self:OpenMercenaryImportPopup(roster, { account = account.uuid, realm = realm, league = league }, current)
+			end)
+		end)
+	end)
+end
+
+function ImportTabClass:OpenMercenaryImportPopup(account, source, current)
+	if #(account.mercenaries or { }) == 0 then
+		return
+	end
+	local tab = self.build.mercenaryTab
+	local data = tab:EnsureData()
+	local controls, hires = { }, { }
+	local status = ""
+	local activeIndex = MercenaryImport.activeIndex(account)
+	for index, hire in ipairs(account.mercenaries or { }) do
+		local mercBuild = data.builds[hire.build]
+		t_insert(hires, {
+			hire = hire,
+			label = string.format("%s - %s%s", hire.name or "Unknown", mercBuild and mercBuild.name or "Unsupported build", index == activeIndex and " (Active)" or ""),
+		})
+	end
+	local function selectHire(_, selected)
+		status = ""
+		local destinations = { { id = 0, label = "Create new loadout: " .. selected.hire.name } }
+		local association = MercenaryImport.association(source.account, source.realm, source.league, selected.hire)
+		local matches, selectedIndex = 0, 1
+		for _, id in ipairs(tab.mercenarySetOrderList) do
+			local profile = tab.mercenarySets[id]
+			local matchesSource = profile.importAssociation == association
+			t_insert(destinations, { id = id, label = (profile.title or "Default") .. (matchesSource and " (Matches import)" or "") })
+			if matchesSource then
+				matches = matches + 1
+				selectedIndex = #destinations
+			end
+		end
+		if matches == 0 then
+			local unused = MercenaryImport.unusedEmptyId(tab.mercenarySets, tab.mercenarySetOrderList)
+			if unused then
+				for index, destination in ipairs(destinations) do
+					if destination.id == unused then
+						selectedIndex = index
+						break
+					end
+				end
+			end
+		end
+		controls.destination:SetList(destinations)
+		controls.destination.selIndex = selectedIndex
+		if matches > 1 then
+			controls.destination.selIndex = nil
+			status = "Multiple matching loadouts: select a destination."
+		end
+	end
+	controls.hire = new("DropDownControl"):DropDownControl(nil, { 0, 35, 690, 20 }, hires, selectHire)
+	controls.destinationLabel = new("LabelControl"):LabelControl(nil, { 0, 70, 0, 16 }, "Destination loadout (supplied skills, supports and equipment will be replaced):")
+	controls.destination = new("DropDownControl"):DropDownControl(nil, { 0, 95, 690, 20 }, { })
+	controls.status = new("LabelControl"):LabelControl(nil, { 0, 133, 0, 16 }, function()
+		if status ~= "" then
+			return status
+		end
+		if #hires == 0 then
+			return "No Mercenaries found."
+		end
+		if not controls.hire:GetSelValue() then
+			return "Select a Mercenary"
+		end
+		return ""
+	end)
+	controls.import = new("ButtonControl"):ButtonControl(nil, { -45, 173, 80, 20 }, "Import", function()
+		if current and not current() then
+			status = "Import context changed. Close and fetch Mercenaries again."
+			return
+		end
+		local selected, destination = controls.hire:GetSelValue(), controls.destination:GetSelValue()
+		if not selected or not destination then
+			return
+		end
+		local imported, message = self:ImportMercenary(selected.hire, source, destination.id)
+		if imported then
+			main:ClosePopup()
+			main:OpenMessagePopup("Mercenary Import", message)
+		else
+			status = message
+		end
+	end)
+	controls.import.enabled = function()
+		return controls.hire:GetSelValue() and controls.destination:GetSelValue()
+	end
+	controls.cancel = new("ButtonControl"):ButtonControl(nil, { 45, 173, 80, 20 }, "Cancel", function()
+		self:CancelMercenaryImport()
+		main:ClosePopup()
+	end)
+	if activeIndex then
+		controls.hire:SetSel(activeIndex)
+	end
+	local selected = controls.hire:GetSelValue()
+	if selected then
+		selectHire(controls.hire.selIndex, selected)
+	end
+	main:OpenPopup(730, 215, "Import Mercenaries", controls, "import", "hire", "cancel")
+end
+
+-- Parse the entire snapshot before assigning any build data.
+function ImportTabClass:ImportMercenary(hire, source, destinationId)
+	local tab, itemsTab = self.build.mercenaryTab, self.build.itemsTab
+	local profile, err = MercenaryImport.profile(hire, tab:EnsureData())
+	if not profile then
+		return nil, err
+	end
+	if type(hire.items) ~= "table" then
+		return nil, "Missing Mercenary equipment snapshot"
+	end
+	local association = MercenaryImport.association(source.account, source.realm, source.league, hire)
+	if destinationId == nil then
+		for _, id in ipairs(tab.mercenarySetOrderList) do
+			if tab.mercenarySets[id].importAssociation == association then
+				if destinationId then
+					return nil, "Multiple matching loadouts: select a destination"
+				end
+				destinationId = id
+			end
+		end
+		if destinationId == nil then
+			destinationId = MercenaryImport.unusedEmptyId(tab.mercenarySets, tab.mercenarySetOrderList)
+		end
+	end
+	local previous = destinationId and destinationId ~= 0 and tab.mercenarySets[destinationId]
+	if destinationId and destinationId ~= 0 and not previous then
+		return nil, "Destination loadout no longer exists"
+	end
+	local context = { actor = "MERCENARY", staged = { } }
+	local ok, parseError = pcall(function()
+		for _, itemData in ipairs(hire.items) do
+			local slotName = slotMap[itemData.inventoryId]
+			if not slotName or not MercenaryTools.isSlotSupported(slotName) then
+				error("Unsupported equipment slot: " .. tostring(itemData.inventoryId), 0)
+			end
+			if not self:ImportItem(copyTable(itemData), slotName, false, nil, context) then
+				error("Unsupported item in " .. slotName .. ": " .. tostring(itemData.typeLine), 0)
+			end
+		end
+	end)
+	if not ok then
+		return nil, "Could not import equipment: " .. tostring(parseError)
+	end
+	local seenItems = { }
+	for slotName, item in pairs(context.staged) do
+		if not itemsTab.slots[slotName] then
+			return nil, "Unsupported equipment slot: " .. slotName
+		end
+		if item.uniqueID and seenItems[item.uniqueID] then
+			return nil, "Duplicate item identifier in equipment snapshot"
+		end
+		if item.uniqueID then
+			seenItems[item.uniqueID] = true
+		end
+		local parent, socket = slotName:match("^(.-) Abyssal Socket (%d+)$")
+		if parent and (not context.staged[parent] or (context.staged[parent].abyssalSocketCount or 0) < tonumber(socket)) then
+			return nil, "Missing parent Abyss socket for " .. slotName
+		end
+	end
+	profile.importAssociation = association
+
+	-- A destination may have been deliberately shared with a player, Guardian or
+	-- another loadout. Replace its snapshot in a new set in that case.
+	local itemSet = previous and itemsTab.itemSets[previous.itemSetId]
+	local shared = itemSet and itemSet.id == itemsTab.activeItemSetId
+	for _, other in pairs(tab.mercenarySets) do
+		if itemSet and other ~= previous and other.itemSetId == itemSet.id then
+			shared = true
+		end
+	end
+	for _, group in ipairs(self.build.skillsTab.socketGroupList) do
+		for _, gem in ipairs(group.gemList) do
+			if itemSet and (gem.skillMinionItemSet == itemSet.id or gem.skillMinionItemSetCalcs == itemSet.id) then
+				shared = true
+			end
+		end
+	end
+	itemsTab:AddUndoState()
+	if not itemSet or shared then
+		itemSet = itemsTab:NewItemSet()
+		itemSet.title = hire.name
+		t_insert(itemsTab.itemSetOrderList, itemSet.id)
+	end
+	local oldItems, referenced = { }, { }
+	for _, slot in pairs(itemSet) do
+		if type(slot) == "table" and slot.selItemId and slot.selItemId ~= 0 then
+			oldItems[slot.selItemId] = true
+		end
+	end
+	for id, other in pairs(itemsTab.itemSets) do
+		if id ~= itemSet.id then
+			for _, slot in pairs(other) do
+				if type(slot) == "table" and slot.selItemId then
+					referenced[slot.selItemId] = true
+				end
+			end
+		end
+	end
+	for _, spec in pairs(self.build.treeTab.specList) do
+		for _, id in pairs(spec.jewels) do
+			referenced[id] = true
+		end
+	end
+	local reusable = { }
+	for id in pairs(oldItems) do
+		local item = itemsTab.items[id]
+		if item and item.uniqueID and not referenced[id] then
+			reusable[item.uniqueID] = id
+		end
+	end
+	for _, slot in pairs(itemSet) do
+		if type(slot) == "table" and slot.selItemId then
+			slot.selItemId = 0
+		end
+	end
+	local slotNames = { }
+	for name in pairs(context.staged) do
+		t_insert(slotNames, name)
+	end
+	table.sort(slotNames)
+	for _, name in ipairs(slotNames) do
+		local item = context.staged[name]
+		item.id = item.uniqueID and reusable[item.uniqueID]
+		itemsTab:AddItem(item, true)
+		itemSet[name].selItemId = item.id
+		oldItems[item.id] = nil
+	end
+	for id in pairs(oldItems) do
+		if not referenced[id] and itemsTab.items[id] then
+			itemsTab:DeleteItem(itemsTab.items[id], true)
+		end
+	end
+	if previous then
+		profile.id = previous.id
+	else
+		profile.id = tab:NewMercenarySet().id
+		t_insert(tab.mercenarySetOrderList, profile.id)
+	end
+	profile.itemSetId = itemSet.id
+	tab.mercenarySets[profile.id] = profile
+	-- SetActiveMercenarySet stores the outgoing profile; replace its pointer first.
+	if tab.activeMercenarySetId == profile.id then
+		tab.profile = profile
+	end
+	tab:SetActiveMercenarySet(profile.id)
+	tab:Changed()
+	itemsTab:PopulateSlots()
+	itemsTab:AddUndoState()
+	local supports = 0
+	for _, skill in ipairs(profile.skills) do
+		supports = supports + #skill.supports
+	end
+	return profile, string.format("Imported %d skills, %d supports, %d equipped items and %d Abyss jewels", #profile.skills, supports, #hire.items, #slotNames - #hire.items)
 end
 
 -- Return the index of the group with the most gems

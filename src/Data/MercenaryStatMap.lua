@@ -722,7 +722,7 @@ return {
 		set_use_melee_pattern_range = true,
 	},
 	-- MercenarySkills references one of four support counts by name, and
-	-- MercenarySupportCounts holds nothing but those names — the numbers are not in
+	-- MercenarySupportCounts holds nothing but those names; the numbers are not in
 	-- GGG's data at all. These maximums are hand-authored from in-game observation.
 	-- (Distribution across the 272 skill rows: High 151, Low 49, None 46, Medium 26.)
 	supportCounts = {

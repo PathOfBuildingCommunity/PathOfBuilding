@@ -671,7 +671,7 @@ Note: ~b/o 1 mirror
 		assert.are.equal("Kineticist", tab.data.builds[tab.profile.buildId].name)
 	end)
 
-	it("unlimited Mercenary loadouts stay independent while sharing one item set", function()
+	it("unlimited Mercenary loadouts stay independent", function()
 		selectBuild("MeleeAOEMarauderFireSlam")
 		local mercSet = showMercenaryEquipment()
 		local sharedHelmet = "Helmet"
@@ -1058,7 +1058,7 @@ Note: ~b/o 1 mirror
 			mainSkillId = "TectonicSlamFireMercenary",
 		})
 		assert.is_nil(tab.profile.foundAreaLevel)
-		assert.matches("Found%-area level", table.concat(tab:GetErrors(), "\n"))
+		assert.matches("Mercenary level", table.concat(tab:GetErrors(), "\n"))
 
 		loadSet({
 			id = "1",
@@ -1067,7 +1067,7 @@ Note: ~b/o 1 mirror
 			mainSkillId = "TectonicSlamFireMercenary",
 		})
 		assert.is_nil(tab.profile.foundAreaLevel)
-		assert.matches("Found%-area level", table.concat(tab:GetErrors(), "\n"))
+		assert.matches("Mercenary level", table.concat(tab:GetErrors(), "\n"))
 
 		loadSet({
 			id = "1",

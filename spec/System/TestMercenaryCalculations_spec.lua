@@ -265,7 +265,7 @@ describe("Permanent Mercenary calculations", function()
 		configure("TrapsMinesShadow", "TrapsMinesShadowLightning", "LightningTrapMercenary", { foundAreaLevel = 101 })
 		env = calculate(85)
 		assert.is_nil(env.mercenary)
-		assert.matches("Found%-area level must be an integer between 1 and 100", table.concat(env.mercenaryCalculationErrors or { }, "\n"))
+		assert.matches("Mercenary level must be an integer between 1 and 100", table.concat(env.mercenaryCalculationErrors or { }, "\n"))
 
 		resetBuild()
 		configure("ChaosMinionWitch", "ChaosMinionWitchInstability", "SSMMercenaryRelic")
@@ -369,6 +369,7 @@ describe("Permanent Mercenary calculations", function()
 		build.mercenaryTab.profile.buildId = "TrapsMinesShadowLightning"
 		build.mercenaryTab.profile.mainSkillId = "ZealotryMercenary"
 		build.mercenaryTab.profile.skills = { { id = "ZealotryMercenary", enabled = true, supports = { } } }
+		build.mercenaryTab:GetItemSet(true)
 		local secondEnv = calculate()
 		assert.are.equal("ZealotryMercenary", secondEnv.mercenary.mainSkill.activeEffect.grantedEffect.id)
 

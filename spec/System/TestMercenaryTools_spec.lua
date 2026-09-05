@@ -311,7 +311,7 @@ Can be used in a personal Map Device alongside a Map to have this previously fou
 			} },
 		}
 		local errors = table.concat(tools.validateProfile(profile, data), "\n")
-		assert.matches("Found%-area level", errors)
+		assert.matches("Mercenary level", errors)
 		assert.matches("Invalid tier", errors)
 		assert.matches("Duplicate support family", errors)
 		assert.matches("Selected Calcs skill", errors)
