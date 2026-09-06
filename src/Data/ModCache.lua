@@ -18716,7 +18716,7 @@ c["Projectiles created by this Graft that have Pierced deal 25% more Damage"]={n
 c["Projectiles deal 18% increased Damage with Hits and Ailments for each Enemy Pierced"]={{[1]={[1]={stat="PiercedCount",type="PerStat"},[2]={skillType=3,type="SkillType"},flags=0,keywordFlags=786432,name="Damage",type="INC",value=18}},nil}
 c["Projectiles deal 20% increased Damage with Hits and Ailments for"]={{[1]={flags=1024,keywordFlags=786432,name="Damage",type="INC",value=20}},"   for "}
 c["Projectiles deal 20% increased Damage with Hits and Ailments for each Enemy Pierced"]={{[1]={[1]={stat="PiercedCount",type="PerStat"},[2]={skillType=3,type="SkillType"},flags=0,keywordFlags=786432,name="Damage",type="INC",value=20}},nil}
-c["Projectiles deal 20% increased Damage with Hits and Ailments for each remaining Chain, up to a maximum of 100%"]={{[1]={[1]={stat="ChainRemaining",type="PerStat"},flags=1024,keywordFlags=786432,name="Damage",type="INC",value=20}},"   , up to a maximum of 100% "}
+c["Projectiles deal 20% increased Damage with Hits and Ailments for each remaining Chain, up to a maximum of 100%"]={{[1]={[1]={globalLimit=100,globalLimitKey="FollowThrough",stat="ChainRemaining",type="PerStat"},[2]={skillType=3,type="SkillType"},flags=0,keywordFlags=786432,name="Damage",type="INC",value=20}},nil}
 c["Projectiles deal 20% increased Damage with Hits and Ailments for each time they have Chained"]={{[1]={[1]={stat="Chain",type="PerStat"},[2]={skillType=3,type="SkillType"},flags=0,keywordFlags=786432,name="Damage",type="INC",value=20}},nil}
 c["Projectiles deal 23% increased Damage with Hits and Ailments for each Enemy Pierced"]={{[1]={[1]={stat="PiercedCount",type="PerStat"},[2]={skillType=3,type="SkillType"},flags=0,keywordFlags=786432,name="Damage",type="INC",value=23}},nil}
 c["Projectiles deal 23% increased Damage with Hits and Ailments for each time they have Chained"]={{[1]={[1]={stat="Chain",type="PerStat"},[2]={skillType=3,type="SkillType"},flags=0,keywordFlags=786432,name="Damage",type="INC",value=23}},nil}
@@ -23172,7 +23172,6 @@ c["be inflicted on a nearby Minion instead"]={nil,"be inflicted on a nearby Mini
 c["be inflicted on a nearby Minion instead Limited to 1 Runegraft of Loyalty"]={nil,"be inflicted on a nearby Minion instead Limited to 1 Runegraft of Loyalty "}
 c["each Herald affecting you, up to a maximum of 40%"]={nil,"each Herald affecting you, up to a maximum of 40% "}
 c["each Unique item they have equipped"]={nil,"each Unique item they have equipped "}
-c["each remaining Chain, up to a maximum of 100%"]={nil,"each remaining Chain, up to a maximum of 100% "}
 c["grant 100% increased Flask Charges"]={nil,"grant 100% increased Flask Charges "}
 c["has a 20% increased angle"]={nil,"has a 20% increased angle "}
 c["has a 20% increased angle With at least 40 Strength in Radius, Ground Slam"]={nil,"has a 20% increased angle With at least 40 Strength in Radius, Ground Slam "}
