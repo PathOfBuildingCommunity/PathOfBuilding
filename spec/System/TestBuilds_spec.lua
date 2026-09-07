@@ -1,3 +1,5 @@
+local lfs = require("lfs")
+
 local function fetchBuilds(path, buildList)
 	buildList = buildList or {}
 	for file in lfs.dir(path) do

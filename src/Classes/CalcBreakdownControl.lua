@@ -31,9 +31,7 @@ function CalcBreakdownClass:CalcBreakdownControl(calcsTab)
 	self.borderThickness = 2
 	self.controls.scrollBar = new("ScrollBarControl"):ScrollBarControl({ "RIGHT", self, "RIGHT" }, { -2, 0, 18, 0 }, 80,
 	"VERTICAL", true)
-	self.controls.scrollBar.x = function()
-		return -self.borderThickness
-	end
+	self.controls.scrollBar.x = -self.borderThickness
 	self.pinnedColour = { 0.25, 1, 0.25 }
 	self.borderColour = { 0.33, 0.66, 0.33 }
 	return self
@@ -435,13 +433,22 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 			-- Modifier is from a passive node, add node name, and add node ID (used to show node location)
 			local nodeId = row.mod.source:match("Tree:(%d+)")
 			local tattooNodeId = row.mod.source:match("Tree:(%w+)")
+			local tree = build.spec.tree
 			if nodeId then
 				local nodeIdNumber = tonumber(nodeId)
-				local node = build.spec.nodes[nodeIdNumber] or build.spec.tree.nodes[nodeIdNumber] or build.latestTree.nodes[nodeIdNumber]
-				row.sourceName = node.dn
-				row.sourceNameNode = node
-			elseif tattooNodeId then
-				row.sourceName = build.spec.tree.tattoo.idMap[tattooNodeId]
+				---@type table<integer, any>
+				local specNodes = build.spec.nodes
+				---@type table<integer, any>?
+				local treeNodes = tree and tree.nodes
+				---@type table<integer, any>?
+				local latestTreeNodes = build.latestTree and build.latestTree.nodes
+				local node = specNodes[nodeIdNumber] or (treeNodes and treeNodes[nodeIdNumber]) or (latestTreeNodes and latestTreeNodes[nodeIdNumber])
+				if node then
+					row.sourceName = node.dn
+					row.sourceNameNode = node
+				end
+			elseif tattooNodeId and tree and tree.tattoo then
+				row.sourceName = tree.tattoo.idMap[tattooNodeId]
 			end
 		elseif sourceType == "Skill" then
 			-- Extract skill name
@@ -629,16 +636,22 @@ function CalcBreakdownClass:DrawBreakdownTable(viewPort, x, y, section)
 						SetDrawColor(1, 1, 1)
 						DrawImage(nil, viewerX, viewerY, 304, 304)
 						local viewer = self.nodeViewer
+						---@cast viewer PassiveTreeView
 						viewer.zoom = 5
-						local scale = self.calcsTab.build.spec.tree.size / 1500
-						viewer.zoomX = -ttNode.x / scale
-						viewer.zoomY = -ttNode.y / scale
-						SetViewport(viewerX + 2, viewerY + 2, 300, 300)
-						viewer:Draw(self.calcsTab.build, { x = 0, y = 0, width = 300, height = 300 }, { })
-						SetDrawLayer(nil, 30)
-						SetDrawColor(1, 0, 0)
-						DrawImage(viewer.highlightRing, 135, 135, 30, 30)
-						SetViewport()
+						local tree = self.calcsTab.build.spec.tree
+						if tree then
+							local scale = tree.size / 1500
+							---@type number
+							viewer.zoomX = -ttNode.x / scale
+							---@type number
+							viewer.zoomY = -ttNode.y / scale
+							SetViewport(viewerX + 2, viewerY + 2, 300, 300)
+							viewer:Draw(self.calcsTab.build, { x = 0, y = 0, width = 300, height = 300 }, { })
+							SetDrawLayer(nil, 30)
+							SetDrawColor(1, 0, 0)
+							DrawImage(viewer.highlightRing, 135, 135, 30, 30)
+							SetViewport()
+						end
 					end
 					SetDrawLayer(nil, 10)
 				end
@@ -697,6 +710,7 @@ function CalcBreakdownClass:Draw(viewPort)
 		-- Content won't fit the screen height, so set the scrollbar
 		width = self.contentWidth + scrollBar.width
 		height = viewPort.height
+		---@cast scrollBar any
 		scrollBar.height = height - borderThickness * 2
 		scrollBar:SetContentDimension(self.contentHeight - borderThickness * 2, viewPort.height - borderThickness * 2)
 	else

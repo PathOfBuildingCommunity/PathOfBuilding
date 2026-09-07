@@ -734,7 +734,7 @@ function TradeQueryClass:SetStatWeights(previousSelectionList)
 		local sliderOffsetX = round(184 * (1 - controls.Slider.val))
 		local tooltipWidth, tooltipHeight = self:GetSize()
 		if main.screenW >= 1338 - sliderOffsetX then
-			return controls[stat.label.."Slider"].tooltip.realDraw(self, x - 8 - sliderOffsetX, y - 4 - tooltipHeight, width, height, viewPort)
+			return controls.Slider.tooltip.realDraw(self, x - 8 - sliderOffsetX, y - 4 - tooltipHeight, width, height, viewPort)
 		end
 		return controls.Slider.tooltip.realDraw(self, x, y, width, height, viewPort)
 	end

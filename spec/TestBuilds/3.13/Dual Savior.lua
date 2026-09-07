@@ -1061,7 +1061,7 @@ Triggers Level 20 Reflection when Equipped
 ["ManaLeechDuration"] = 0,
 ["EnergyShieldRecoveryRateMod"] = 1,
 ["ChaosResistOver75"] = 0,
-["EnergyShieldRegenPercent"] = nan,
+["EnergyShieldRegenPercent"] = 0 / 0,
 ["CurrentScorch"] = 0,
 ["SelfChillDuration"] = 100,
 ["BlockChance"] = 15,

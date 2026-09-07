@@ -2,9 +2,12 @@ describe("TestImport", function()
 	local dkjson = require "dkjson"
 
 	local sampleJson, err = io.open("../spec/System/SampleCharacter.json", "r")
-	if err then
-		ConPrintf("Failed to read sample character response: %s", err)
+	if not sampleJson then
+		local errMsg = err or "unknown error"
+		ConPrintf("Failed to read sample character response: %s", errMsg)
+		error(errMsg)
 	end
+	---@cast sampleJson -?
 	local sampleData = dkjson.decode(sampleJson:read("*a")).character
 	sampleJson:close()
 
@@ -131,6 +134,9 @@ describe("TestImport", function()
 
 		local itemId = build.itemsTab.slots.Gloves.selItemId
 		local item = build.itemsTab.items[itemId]
+		if not item then
+			error("Failed to import test item")
+		end
 		local explicitMods = { }
 		for _, modLine in ipairs(item.explicitModLines) do
 			explicitMods[modLine.line] = modLine

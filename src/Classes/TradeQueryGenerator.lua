@@ -330,7 +330,7 @@ function TradeQueryGeneratorClass:ProcessMod(modId, mod, tradeQueryStatsParsed, 
 		end
 
 		if #tokens ~= 0 and #tokens ~= 2 and #tokens ~= 4 then
-			logToFile("Unexpected # of tokens found for mod: %s", mod[i])
+			logToFile("Unexpected # of tokens found for mod: %s", modLine)
 			goto nextModLine
 		end
 

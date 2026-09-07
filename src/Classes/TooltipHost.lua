@@ -4,6 +4,10 @@
 -- Tooltip host
 --
 ---@class TooltipHost
+---@field tooltip Tooltip
+---@field tooltipText string?
+---@field tooltipFunc? fun(tooltip: Tooltip, ...: any)
+---@field Object Control
 local TooltipHostClass = newClass("TooltipHost")
 
 function TooltipHostClass:TooltipHost(tooltipText)

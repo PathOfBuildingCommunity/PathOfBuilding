@@ -1,0 +1,41 @@
+{
+  "runtime": {
+    "version": "LuaJIT",
+    "requirePattern": [
+      "?.lua",
+      "?/init.lua"
+    ],
+    "requireLikeFunction": [
+      "LoadModule",
+      "PLoadModule"
+    ],
+    "nonstandardSymbol": [
+      "+="
+    ]
+  },
+  "diagnostics": {
+    "severity": {
+      "global-in-non-module": "hint",
+      "inject-field": "hint",
+      "unnecessary-assert": "hint",
+      "unnecessary-if": "hint"
+    }
+  },
+  "workspace": {
+    "workspaceRoots": [
+      "./src",
+      "./spec"
+    ],
+    "library": [
+      "./runtime/lua",
+      "./types"
+    ],
+    "ignoreGlobs": [
+      "**/TreeData/**",
+      "**/Data/ModCache.lua",
+      "**/Data/Skills/**",
+      "**/Data/StatDescriptions/stat_descriptions.lua",
+      "**/Export/**"
+    ]
+  }
+}
