@@ -18,7 +18,7 @@ local function IsAnointableNode(node)
 	return node.recipe and #node.recipe >= 1
 end
 
----@class NotableDBControl : ListControl
+---@class NotableDBControl : ListControl<table>
 local NotableDBClass = newClass("NotableDBControl", "ListControl")
 
 ---@param itemsTab ItemsTab
@@ -290,5 +290,5 @@ end
 ---@param index number
 ---@param node table
 function NotableDBClass:OnSelCopy(index, node)
-	Copy(item.dn)
+	Copy(node.dn)
 end

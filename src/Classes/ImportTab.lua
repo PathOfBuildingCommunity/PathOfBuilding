@@ -885,7 +885,7 @@ function ImportTabClass:DownloadItems(realm)
 		end)
 end
 function ImportTabClass:DownloadSiteCharacterList(realm)
-	function FindMatchingStandardLeague(league)
+	local function FindMatchingStandardLeague(league)
 		-- Find a Standard league name for a given league name
 		-- Reference https://api.pathofexile.com/league?realm=pc
 		if string.find(league, "Hardcore") then
@@ -970,7 +970,6 @@ function ImportTabClass:DownloadSiteCharacterList(realm)
 					self.lastAccountHash = common.sha1(accountName)
 					main.lastAccountName = accountName
 					main.gameAccounts[accountName] = main.gameAccounts[accountName] or {}
-					main.gameAccounts[accountName].sessionID = sessionID
 					local leagueList = {}
 					for i, char in ipairs(charList) do
 						if not isValueInArray(leagueList, char.league) then

@@ -87,6 +87,7 @@ end
 
 ---@class ItemsTab: UndoHandler, ControlHost, Control
 ---@field displayItem Item?
+---@field items table<integer, Item>
 local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Control")
 
 ---@param build Build
