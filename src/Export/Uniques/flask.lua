@@ -99,7 +99,7 @@ FlaskLightRadiusUniqueFlask1
 ]],[[
 The Writhing Jar
 Hallowed Hybrid Flask
-FlaskChargesUsedUnique__11
+LocalFlaskChargesUsedUnique__2
 FlaskFullInstantRecoveryUnique__1
 SummonsWormsOnUse
 ]],
@@ -228,7 +228,7 @@ Variant: Pre 3.16.0
 Variant: Current
 LevelReq: 68
 {variant:2}FlaskChargesUsedUnique__4
-{variant:3,4}FlaskChargesUsedUnique___2
+{variant:3,4}FlaskChargesUsedUnique__5
 {variant:3}FlaskEffectDurationUnique__2[-60,-40]
 {variant:4}FlaskLessDurationUnique1
 {variant:1}FlaskIncreasedAreaOfEffectDuringEffectUnique__1_[30,30]
@@ -453,7 +453,7 @@ Variant: Current (Spells)
 Variant: Current (Attacks)
 LevelReq: 68
 {variant:5,6,7,8,9,10,11,12,13}FlaskChargesUsedUnique__6_
-{variant:14,15,16,17,18}FlaskChargesUsedUnique__5
+{variant:14,15,16,17,18}FlaskChargesUsedUnique___2
 ShockNearbyEnemiesDuringFlaskEffect___1
 ShockSelfDuringFlaskEffect__1
 {variant:1,5,11}LightningPenetrationDuringFlaskEffect__1[10,10]
@@ -510,7 +510,7 @@ Stibnite Flask
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 UtilityFlaskSmokeCloud
-FlaskChargesUsedUnique__10
+FlaskChargesUsedUnique__4
 VulnerabilityAuraDuringFlaskEffectUnique__1Alt
 ]],[[
 Wine of the Prophet

@@ -157,7 +157,7 @@ IntelligenceUniqueWand2
 {variant:3,4}MinionRunSpeedUniqueWand2
 {variant:1,2}MinionDamageUniqueWand2[10,30]
 {variant:3,4}MinionDamageUniqueWand2
-MaximumMinionCountUniqueWand2
+MaximumMinionCountUniqueWand2Updated
 ]],[[
 Replica Midnight Bargain
 {variant:1}Engraved Wand
@@ -196,7 +196,7 @@ SpellDamageUniqueWand1
 {variant:2,3}LocalIncreasedPhysicalDamagePercentUnique__26[175,175]
 {variant:4,5}LocalIncreasedPhysicalDamagePercentUniqueWand1
 LightningDamageUniqueWand1
-IncreasedCastSpeedImplicitMarakethWand1
+IncreasedCastSpeedUniqueWand1
 BlindingHitUniqueWand1
 ]],[[
 Mystic Refractor
@@ -209,7 +209,7 @@ IncreasedCastSpeedImplicitMarakethWand1
 AdditionalProjectilesUniqueWand_1
 {variant:1}ProjectileSpeedUnique__9[10,20]
 {variant:2}ProjectileSpeedUnique__9
-IncreasedProjectileDamageUnique__1
+IncreasedProjectileDamageUnique___12
 ProjectilesExpireOnHitUniqueWand_1
 ]],[[
 Obliteration
@@ -320,7 +320,7 @@ Variant: Pre 3.5.0
 Variant: Current
 Implicits: 1
 SpellDamageOnWeaponImplicitWand6
-ElementalDamagePercentAddedAsChaosUnique__3
+ElementalDamagePercentAddedAsChaosUnique__1
 CriticalStrikesDealNoDamageUnique__1
 {variant:1}SpellDamageIfYouHaveCritRecentlyUnique__1[120,120]
 {variant:2}SpellDamageIfYouHaveCritRecentlyUnique__1
@@ -338,7 +338,7 @@ Implicits: 2
 {variant:3}AddedLightningDamageSpellsAndAttacksImplicit3
 {variant:1,2,3}SpellDamageUniqueWand1
 {variant:1,2,3}SpellAddedLightningDamageUnique__5
-{variant:4}IncreasedMaximumPowerChargesUnique__5
+{variant:4}IncreasedMaximumPowerChargesUnique__6
 CriticalMultiplierPerPowerChargeUnique__1
 AdditionalCriticalStrikeChancePerPowerChargeUnique__1
 ChanceToBlockSpellsPerPowerChargeUnique__1
@@ -361,7 +361,7 @@ Implicits: 3
 LocalIncreasedPhysicalDamagePercentUnique__8
 LocalAddedLightningDamageUnique__2
 ManaRegenerationUnique__1
-IncreasedMaximumPowerChargesUniqueWand3
+IncreasedMaximumPowerChargesUnique__1
 PowerChargeOnKillChanceUnique__1
 ]],[[
 Tulborn
@@ -400,7 +400,7 @@ Implicits: 3
 {variant:3}AddedColdDamageSpellsAndAttacksImplicit3
 {variant:4}SpellDamageOnWeaponImplicitWand14
 {variant:1,2}IncreasedCastSpeedUniqueWand3[10,15]
-{variant:3,4}IncreasedCastSpeedUniqueWand3
+{variant:3,4}IncreasedCastSpeedUnique__8
 {variant:1}GainPowerChargeOnKillingFrozenEnemyUnique__1[50,50]
 {variant:2,3,4}GainPowerChargeOnKillingFrozenEnemyUnique__1
 {variant:1,2}AddedColdDamagePerPowerChargeUnique__2[15,15][25,25]
@@ -423,7 +423,7 @@ Implicits: 3
 {variant:2}AddedColdDamageSpellsAndAttacksImplicit3
 {variant:3}SpellDamageOnWeaponImplicitWand14
 IncreasedCastSpeedUnique__22
-LosePowerChargesOnMaxPowerChargesUnique__1
+LosePowerChargesOnMaxPowerChargesUnique__2
 WhenReachingMaxPowerChargesGainAFrenzyChargeUnique__1
 {variant:1,2}IncreasedColdDamagePerFrenzyChargeUnique__2[15,20]
 {variant:3}IncreasedColdDamagePerFrenzyChargeUnique__2
@@ -461,7 +461,7 @@ Implicits: 2
 {variant:2}KineticWandImplicit
 LocalIncreasedPhysicalDamagePercentUniqueWand9x
 LocalIncreasedAttackSpeedUniqueWand9
-LocalCriticalStrikeChanceUnique__22
+LocalCriticalStrikeChanceUnique__20
 AttackAdditionalProjectilesUnique__1
 ]],[[
 Unlight Extant

@@ -13,11 +13,11 @@ Implicits: 2
 {variant:2}LifeGainPerTargetImplicit2Claw8
 SocketedGemsSupportedByFortifyUnique____1
 AdditionalBlockUnique__2
-LocalIncreasedPhysicalDamagePercentUniqueClaw6
+LocalIncreasedPhysicalDamagePercentUnique__10
 IncreasedEvasionRatingUnique___1
 IncreasedEnergyShieldUnique__2
-IncreasedLifeUnique__11
-AttackerTakesDamageShieldImplicit7
+IncreasedLifeUnique__8
+AttackerTakesDamageUnique__1
 ]],[[
 Replica Advancing Fortress
 Gut Ripper
@@ -28,8 +28,8 @@ Implicits: 1
 LifeGainPerTargetImplicit2Claw8
 SupportedByCastOnDamageTakenUnique__1
 AdditionalBlockUnique__2
-LocalIncreasedPhysicalDamagePercentUniqueClaw6
-IncreasedLifeUnique__107
+LocalIncreasedPhysicalDamagePercentUnique__10
+IncreasedLifeUnique__8
 ShieldArmourIncreaseUnique__1
 AddedFireDamageIfBlockedRecentlyUnique__1
 ]],[[
@@ -43,7 +43,7 @@ LifeLeechPermyriadImplicitClaw2
 {variant:1}LocalIncreasedPhysicalDamagePercentUnique__1[80,100]
 {variant:2}LocalIncreasedPhysicalDamagePercentUnique__1
 LocalAddedPhysicalDamageUnique__1
-LocalIncreasedAttackSpeedUnique__16
+LocalIncreasedAttackSpeedUnique__2
 MovementSpeedWhilePhasedUnique__1
 {variant:1}GainPhasingOnVaalSkillUseUnique__1[3000,3000]
 {variant:2}GainPhasingOnVaalSkillUseUnique__1
@@ -57,7 +57,7 @@ Implicits: 1
 LifeLeechPermyriadImplicitClaw2
 LocalIncreasedPhysicalDamagePercentUnique__1
 LocalAddedPhysicalDamageUnique__1
-LocalIncreasedAttackSpeedUnique__16
+LocalIncreasedAttackSpeedUnique__2
 LifeGainedOnTauntingEnemyUnique__1
 OnslaughtOnKillingTauntedEnemyUnique__1
 TauntedEnemiesTakeIncreasedDamage_
@@ -84,7 +84,7 @@ LifeLeechPermyriadUniqueClaw6
 {variant:1,2,3,4}StunThresholdReductionUniqueClaw6
 {variant:6}WarcryTauntChaosExplosionUnique__1_
 {variant:5}WarcryEffectUnique__1[50,50]
-{variant:6}WarcryEffectUnique__1
+{variant:6}WarcryEffectUnique__2
 {variant:5,6}WarcryCooldownIs2SecondsUnique__1
 ]],[[
 Bloodseeker
@@ -200,7 +200,7 @@ Variant: Current
 Requires Level 68, 131 Dex, 95 Int
 Implicits: 2
 {variant:1}LifeGainPerTargetImplicit2Claw10[25,25]
-{variant:2,3,4,5}LifeGainPerTargetImplicit2Claw10
+{variant:2,3,4,5}LifeGainPerTargetImplicit2Claw13
 PercentageDexterityUnique__3
 PercentageIntelligenceUnique__3
 {variant:4,5}LifeLeechFromAttacksPermyriadUnique__1
@@ -230,9 +230,9 @@ PhysicalDamageWhileFrozenUnique___1
 Last Resort
 Nailed Fist
 Implicits: 1
-LifeGainPerTargetImplicitClaw1
+LifeGainPerTargetImplicit2Claw1
 IncreasedAttackSpeedWhenOnLowLifeUniqueClaw4
-LocalIncreasedPhysicalDamagePercentUniqueClaw5
+LocalIncreasedPhysicalDamagePercentUniqueClaw4
 LocalAddedPhysicalDamagePercentUniqueClaw4
 IncreasedClawDamageOnLowLifeUniqueClaw4
 IncreasedAccuracyWhenOnLowLifeUniqueClaw4
@@ -246,7 +246,7 @@ Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 1
 LifeGainPerTargetImplicit2Claw1
 {variant:1}IncreasedAttackSpeedWhenOnLowLifeUniqueClaw4[50,50]
-{variant:2}IncreasedAttackSpeedWhenOnLowLifeUniqueClaw4
+{variant:2}IncreasedAttackSpeedWhenOnLowLifeUnique__1
 LocalIncreasedPhysicalDamagePercentUniqueClaw4
 IncreasedAccuracyWhenOnLowLifeUniqueClaw4
 IncreasedClawDamageOnLowLifeUnique__1__
@@ -263,7 +263,7 @@ Implicits: 1
 LifeLeechPermyriadImplicitClaw1
 {variant:1}20% chance to Trigger Level 20 Summon Spectral Wolf on Critical Strike with this Weapon
 {variant:2}SummonWolfOnCritUnique__1
-LocalIncreasedAttackSpeedUnique__25
+LocalIncreasedAttackSpeedUnique__33
 LocalCriticalStrikeChanceUnique__17_
 CriticalMultiplierUnique__4____
 ]],[[
@@ -311,9 +311,9 @@ Terror Claw
 Requires Level 70, 113 Dex, 113 Int
 Implicits: 1
 LifeLeechPermyriadImplicitClaw2
-LocalIncreasedPhyiscalDamagePercentUnique__3
+LocalIncreasedPhysicalDamagePercentUnique__11_
 LocalAddedPhysicalDamageUnique__13
-CausesBleedingUnique__1
+CausesBleedingUnique__2Updated
 IncreasePhysicalDegenDamagePerDexterityUnique__1
 IncreaseBleedDurationPerIntelligenceUnique__1
 BleedingEnemiesFleeOnHitUnique__1
@@ -327,7 +327,7 @@ Implicits: 1
 LifeLeechPermyriadImplicitClaw2
 {variant:1}SummonWolfOnKillUnique__1
 LocalAddedPhysicalDamageUnique__23_
-LocalIncreasedAttackSpeedUniqueClaw9
+LocalIncreasedAttackSpeedUnique__17
 IncreasedMinionAttackSpeedUnique__1_
 MinionDamageAlsoAffectsYouUnique__1
 IncreasedMinionDamageIfYouHitEnemyUnique__1
@@ -339,10 +339,10 @@ Variant: Current
 Requires Level 68, 131 Dex, 95 Int
 Implicits: 2
 {variant:1}LifeGainPerTargetImplicit2Claw10[25,25]
-{variant:2}LifeGainPerTargetImplicit2Claw10
+{variant:2}LifeGainPerTargetImplicit2Claw13
 LocalAddedPhysicalDamageUnique__14
 ColdDamagePercentUnique__8
-LocalCriticalStrikeChanceUnique__10
+LocalCriticalStrikeChanceUnique__3
 ChanceToGainFrenzyChargeOnKillingFrozenEnemyUnique__1
 AdditionalChainWhileAtMaxFrenzyChargesUnique___1
 ChanceToFreezeUnique__3
@@ -374,7 +374,7 @@ Implicits: 2
 StrengthUniqueClaw9
 DexterityUniqueClaw9
 LocalAddedPhysicalDamageUniqueClaw9
-LocalIncreasedAttackSpeedUniqueClaw8
+LocalIncreasedAttackSpeedUniqueClaw9
 DamageWithMovementSkillsUniqueClaw9
 AttackSpeedWithMovementSkillsUniqueClaw9
 AccuracyPercentUniqueClaw9

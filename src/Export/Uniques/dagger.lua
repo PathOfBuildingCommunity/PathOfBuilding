@@ -56,7 +56,7 @@ Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 15, 30 Dex, 30 Int
 Implicits: 1
 CriticalStrikeChanceImplicitDagger1
-StrengthUnique__15
+StrengthUnique__20_
 LocalIncreasedPhysicalDamagePercentUniqueDagger12
 LocalAddedPhysicalDamageUniqueDagger12
 LocalChanceToBleedUniqueDagger12
@@ -69,7 +69,7 @@ Requires Level 62, 95 Dex, 131 Int
 Implicits: 1
 CriticalStrikeChanceImplicitDagger1
 GlobalPhysicalSpellGemsLevelUnique__1
-DealNoElementalDamageUnique__1
+DealNoElementalDamageUnique__2
 ]],[[
 Replica Cold Iron Point
 Ezomyte Dagger
@@ -191,7 +191,7 @@ SpellDamageOnWeaponUniqueDagger4
 {variant:1}ReducedEnergyShieldDelayUniqueBodyInt1
 {variant:2}ReducedEnergyShieldDelayUniqueDagger4
 {variant:1}IncreasedLifeUnique__123[40,50]
-{variant:2}IncreasedLifeUnique__123
+{variant:2}IncreasedLifeUnique__107
 ImpaleEffectUnique__1
 ChanceToImpaleWithSpellsUnique__1
 ]],[[
@@ -203,7 +203,7 @@ Requires Level 60, 113 Dex, 113 Int
 Implicits: 1
 CriticalStrikeChanceImplicitDagger1
 UniqueSecretBladeGrantHiddenBlade
-DexterityUnique__18
+DexterityUnique__20__
 LocalIncreasedPhysicalDamagePercentUnique__42
 ReducedAttackSpeedWhilePhasingUnique__1
 ]],[[
@@ -223,7 +223,7 @@ BlockWhileDualWieldingUniqueDagger9
 {variant:1,2,3}LocalReducedAttackSpeedUniqueDagger9[10,10]
 {variant:4}LocalReducedAttackSpeedUniqueDagger9
 {variant:4}LocalCriticalStrikeChanceUnique__23
-{variant:4}LocalCriticalMultiplierUniqueDagger4
+{variant:4}CriticalMultiplierUnique__8
 {variant:1,2,3}AllResistancesUniqueDagger9
 {variant:3,4}CauseseBleedingOnCritUniqueDagger9
 {variant:3,4}CausesPoisonOnCritUniqueDagger9
@@ -236,7 +236,7 @@ Requires Level 35, 73 Dex, 51 Int
 Implicits: 1
 CriticalStrikeChanceImplicitDagger1
 StrengthUniqueDagger2
-LocalIncreasedPhysicalDamagePercentUniqueDagger3
+LocalIncreasedPhysicalDamagePercentUniqueDagger2
 LocalAddedPhysicalDamageUniqueDagger2
 LifeGainPerTargetUniqueDagger2
 ]],[[
@@ -245,8 +245,8 @@ Ambusher
 Requires Level 60, 113 Dex, 113 Int
 Implicits: 1
 CriticalStrikeChanceImplicitDagger1
-LocalIncreasedPhysicalDamagePercentUnique__20
-LocalIncreasedAttackSpeedUnique__17
+LocalIncreasedPhysicalDamagePercentUnique__29
+LocalIncreasedAttackSpeedUnique__22
 PoisonDurationUnique__1_
 AttackDamageManaLeechAgainstPoisonedEnemiesUnique_2
 LifeLeechFromAttackDamageAgainstMaimedEnemiesUnique__1
@@ -264,7 +264,7 @@ CriticalStrikeChanceImplicitDagger1
 {variant:2}BlockWhileDualWieldingUniqueDagger3[20,20]
 {variant:1,3}BlockWhileDualWieldingUniqueDagger3
 DexterityUniqueDagger3
-LocalIncreasedPhysicalDamagePercentUniqueDagger2
+LocalIncreasedPhysicalDamagePercentUniqueDagger3
 AddedLightningDamageUniqueDagger3
 LocalIncreasedAttackSpeedUniqueDagger3
 CriticalStrikeChanceUniqueDagger3
@@ -278,8 +278,8 @@ Implicits: 1
 CriticalStrikeChanceImplicitDagger1
 BlockWhileDualWieldingUnique__2_
 DexterityUniqueDagger3
-LocalIncreasedAttackSpeedUniqueDagger12
-CriticalStrikeChanceImplicitDagger3
+LocalIncreasedAttackSpeedUniqueDagger3
+CriticalStrikeChanceUniqueDagger3
 ChanceToChillAttackersOnBlockUnique__2__
 ChanceToShockAttackersOnBlockUnique__2
 ]],[[
@@ -314,7 +314,7 @@ Requires Level 66, 95 Dex, 131 Int
 Implicits: 1
 CriticalStrikeChanceImplicitDaggerNew1
 LocalAddedColdDamageUnique__7
-LocalIncreasedAttackSpeedUnique__13
+LocalIncreasedAttackSpeedUnique__23
 {variant:1}IncreasedEvasionRatingUnique__3[300,400]
 {variant:2,3}IncreasedEvasionRatingUnique__3
 {variant:1}IncreasedColdDamageWhileOffhandIsEmpty_[100,100]
@@ -332,7 +332,7 @@ CriticalStrikeChanceImplicitDagger1
 {variant:1}LocalAddedPhysicalDamageUnique__8[15,25][35,45]
 {variant:2}LocalAddedPhysicalDamageUnique__8
 LocalCriticalStrikeChanceUnique__2
-LocalCriticalMultiplierUniqueDagger4
+CriticalMultiplierUnique__2
 CriticalChanceAgainstEnemiesOnFullLifeUnique__1
 CriticalStrikeAttackLifeLeechUnique__1
 ]],

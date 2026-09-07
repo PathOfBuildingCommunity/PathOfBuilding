@@ -9,7 +9,7 @@ LevelReq: 56
 Implicits: 1
 LifeGainPerTargetImplicitQuiver3New
 AddedColdDamageUnique__11
-ColdResistUnique__37
+ColdResistUnique__40
 EnemiesChilledIncreasedDamageTakenUnique__1
 QuiverChillAsThoughtDealingMoreDamageUnique__1
 ]],[[
@@ -24,7 +24,7 @@ Implicits: 2
 {variant:1,2}IncreasedAccuracyPercentImplicitQuiver7
 {variant:3}ProjectileSpeedImplicitQuiver4New
 {variant:2,3}GrantsFrostbiteUnique__1
-IncreasedAttackSpeedUniqueQuiver3
+IncreasedAttackSpeedUniqueQuiver5
 ColdResistUniqueQuiver5
 IncreasedChillDurationUniqueQuiver5
 ConvertPhysicalToColdUniqueQuiver5
@@ -49,7 +49,7 @@ Implicits: 3
 IncreasedAttackSpeedUniqueQuiver1
 {variant:1}IncreasedEvasionRatingUniqueQuiver3_[20,20]
 {variant:2,3,4}IncreasedEvasionRatingUniqueQuiver1
-IncreasedManaUniqueQuiver1
+IncreasedManaUniqueQuiver1a
 {variant:1,2}ConvertPhysicalToFireUniqueQuiver1_[30,50]
 {variant:3,4}ConvertPhysicalToFireUniqueQuiver1_
 {variant:3,4}AddedFireDamageUniqueQuiver1a
@@ -112,7 +112,7 @@ IncreasedAttackSpeedUniqueQuiver3
 IncreasedEvasionRatingUniqueQuiver3_
 IncreasedLifeUniqueQuiver3
 AddedPhysicalDamageUniqueQuiver3
-ArrowPierceAppliesToProjectileDamageUniqueQuiver3
+ArrowDamageAgainstPiercedTargetsUnique__1
 ]],[[
 The Fracturing Spinner
 Blunt Arrow Quiver
@@ -176,7 +176,7 @@ QuiverHasOneSocket
 HasTwoSocketsUnique__1
 TriggerBowSkillsOnBowAttackUnique__1
 IncreasedAttackSpeedUnique__4_
-IncreasedLifeUniqueQuiver9
+IncreasedLifeUnique__95
 AttacksBlindOnHitChanceUnique__1
 ]],[[
 Replica Maloney's Mechanism
@@ -189,7 +189,7 @@ QuiverHasOneSocket
 HasTwoSocketsUnique__1
 TriggerBowSkillsOnCastUnique__1
 IncreasedCastSpeedUnique__21
-IncreasedLifeUniqueQuiver9
+IncreasedLifeUnique__95
 AttacksBlindOnHitChanceUnique__1
 ]],[[
 Maloney's Nightfall
@@ -203,7 +203,7 @@ Implicits: 2
 {variant:1,2}StunDurationImplicitQuiver9
 {variant:3}PhysicalDamageAddedAsChaosImplicitQuiver11New
 {variant:1}IncreasedAttackSpeedImplicitQuiver10New
-{variant:2,3}IncreasedAttackSpeedUniqueQuiver1
+{variant:2,3}IncreasedAttackSpeedUniqueQuiver9
 IncreasedLifeUniqueQuiver9
 ChaosResistUniqueQuiver9
 {variant:1}AddedPhysicalDamageUniqueQuiver9[5,7][8,10]
@@ -224,7 +224,7 @@ Implicits: 2
 BlockPercentUniqueQuiver4
 SpellBlockPercentageUniqueQuiver4
 IncreasedPhysicalDamageReductionRatingUniqueQuiver4
-ProjectileSpeedImplicitQuiver4New
+ProjectileSpeedUniqueQuiver4
 StunRecoveryUniqueQuiver4
 IncreasedProjectileDamageUniqueQuiver4
 ]],[[
@@ -238,10 +238,10 @@ Requires Level 56
 Implicits: 1
 IncreasedAccuracyPercentImplicitQuiver7New
 FireResistUnique__3
-LightningResistImplicitRing1
+LightningResistUnique__2
 LifeGainPerTargetUnique__1
-ProjectileSpeedUniqueQuiver2
-IncreasedProjectileDamageUnique__1
+ProjectileSpeedUnique__3
+IncreasedProjectileDamageUnique___4
 {variant:1}Projectiles Fork
 {variant:2}ProjectilesForkUnique____1
 ]],[[
@@ -254,10 +254,10 @@ Requires Level 45
 Implicits: 2
 {variant:1}CriticalStrikeChanceImplicitQuiver8New
 {variant:2}ProjectileSpeedImplicitQuiver4New
-DexterityImplicitQuiver1
+DexterityUnique__2
 IncreasedCastSpeedUnique__5
-IncreasedLifeUnique__1
-LightningResistUnique__12
+IncreasedLifeUnique__16
+LightningResistUnique__5
 StunAvoidanceUnique___1
 IncreasedLightningDamagePer10IntelligenceUnique__1
 ]],[[
@@ -282,10 +282,10 @@ Skirmish
 Two-Point Arrow Quiver
 Requires Level 36
 Implicits: 1
-IncreasedAccuracyPercentImplicitQuiver7
-IntelligenceUniqueQuiver6
-IncreasedManaUnique__16
-ManaRegenerationImplicitAmulet1
+IncreasedAccuracyPercentImplicitQuiver7New
+IntelligenceUnique__3
+IncreasedManaUnique__7
+ManaRegenerationUnique__4
 ManaLeechPermyriadUnique__1
 Attack skills can have 1 additional Totem Summoned at a time
 ]],[[
@@ -313,7 +313,7 @@ Implicits: 1
 CriticalStrikeChanceImplicitQuiver8New
 DexterityUniqueQuiver7
 AddedChaosDamageUniqueQuiver7
-IncreasedAttackSpeedUniqueQuiver5
+IncreasedAttackSpeedUniqueQuiver7
 IncreasedEnergyShieldUniqueQuiver7
 ReducedEnergyShieldRegenerationRateUniqueQuiver7
 {variant:1}ReducedEnergyShieldDelayUniqueQuiver7[150,150]
@@ -353,7 +353,7 @@ Implicits: 2
 VoidShotOnSkillUseUnique__1_
 AddedColdDamageUnique__7
 IncreasedEnergyShieldUnique__7
-ColdResistUnique__1
+ColdResistUnique__22_
 {variant:1,2,3}ManaGainedFromEnemyDeathUnique__2
 {variant:1,2,3}ProjectileSpeedUnique__2
 {variant:1,4}MaximumVoidArrowsUnique__1
@@ -363,8 +363,8 @@ The Poised Prism
 Primal Arrow Quiver
 Implicits: 1
 WeaponElementalDamageImplicitQuiver13New
-FireResistUnique__24
-ColdResistUnique__19
+FireResistUnique__32
+ColdResistUnique__38
 LightningResistUnique__27
 ColdDamageToAttacksPerDexterityUnique__1
 FireDamageToAttacksPerStrengthUnique__1
