@@ -31,6 +31,26 @@ return {
 	[2]={
 		[1]={
 			[1]={
+				["gem_quality"]=true,
+				limit={
+					[1]={
+						[1]=1,
+						[2]=1
+					}
+				},
+				text="Beam Splits towards {0:+d} additional target"
+			},
+			[2]={
+				["gem_quality"]=true,
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Beam Splits towards {0:+d} additional targets"
+			},
+			[3]={
 				limit={
 					[1]={
 						[1]=1,
@@ -39,7 +59,7 @@ return {
 				},
 				text="Beam Splits towards {0} additional target"
 			},
-			[2]={
+			[4]={
 				limit={
 					[1]={
 						[1]="#",

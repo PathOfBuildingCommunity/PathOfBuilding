@@ -25,7 +25,7 @@ return {
 	},
 	[4] = {
 		keystone = {
-			[1] = "explicit.pseudo_timeless_jewel_avarius",  
+			[1] = "explicit.pseudo_timeless_jewel_avarius",
 			[2] = "explicit.pseudo_timeless_jewel_dominus",
 			[3] = "explicit.pseudo_timeless_jewel_maxarius"
 		},
@@ -44,7 +44,8 @@ return {
 			[12] = "explicit.stat_2042813020",
 			[13] = "explicit.stat_3293275880",
 			[14] = "explicit.stat_2585926696",
-			[15] = "explicit.stat_2803981661"
+			[15] = "explicit.stat_2803981661",
+			[16] = "explicit.stat_1355915086",
 		}
 	},
 	[5] = {
@@ -54,4 +55,16 @@ return {
 			[3] = "explicit.pseudo_timeless_jewel_caspiro"
 		}
 	},
+	[6] = {
+		keystone = {
+			[1] = "explicit.pseudo_timeless_jewel_vorana",
+			[2] = "explicit.pseudo_timeless_jewel_uhtred",
+			[3] = "explicit.pseudo_timeless_jewel_medved"
+		}
+	},
+	[7] = { keystone = { [1] = "explicit.pseudo_timeless_jewel_tecrod" } },
+	[8] = { keystone = { [1] = "explicit.pseudo_timeless_jewel_ulaman" } },
+	[9] = { keystone = { [1] = "explicit.pseudo_timeless_jewel_kurgal" } },
+	[10] = { keystone = { [1] = "explicit.pseudo_timeless_jewel_amanamu" } },
+	[11] = { keystone = { [1] = "explicit.pseudo_timeless_jewel_zorath" } },
 }

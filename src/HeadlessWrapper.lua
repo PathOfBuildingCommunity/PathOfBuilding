@@ -1,7 +1,11 @@
 #@
--- This wrapper allows the program to run headless
+---@diagnostic disable: lowercase-global
+-- This wrapper allows the program to run headless on any OS (in theory)
 -- It can be run using a standard lua interpreter, although LuaJIT is preferable
 
+-- define global SimpleGraphic API functions. some of these have dummy function
+-- bodies intended for headless use.
+dofile("_SimpleGraphic.def.lua")
 
 -- Callbacks
 local callbackTable = { }
@@ -51,29 +55,11 @@ end
 
 -- Rendering
 function RenderInit() end
-function GetScreenSize()
+function GetVirtualScreenSize()
 	return 1920, 1080
 end
-function SetClearColor(r, g, b, a) end
-function SetDrawLayer(layer, subLayer) end
-function SetViewport(x, y, width, height) end
-function SetDrawColor(r, g, b, a) end
-function DrawImage(imgHandle, left, top, width, height, tcLeft, tcTop, tcRight, tcBottom) end
-function DrawImageQuad(imageHandle, x1, y1, x2, y2, x3, y3, x4, y4, s1, t1, s2, t2, s3, t3, s4, t4) end
-function DrawString(left, top, align, height, font, text) end
-function DrawStringWidth(height, font, text)
-	return 1
-end
-function DrawStringCursorIndex(height, font, text, cursorX, cursorY)
-	return 0
-end
-function StripEscapes(text)
-	return text:gsub("%^%d",""):gsub("%^x%x%x%x%x%x%x","")
-end
-function GetAsyncCount()
-	return 0
-end
 
+<<<<<<< HEAD
 posix = require("posix")
 
 -- Search Handles
@@ -145,45 +131,24 @@ function LoadModule(fileName, ...)
 		return func(...)
 	else
 		error("LoadModule() error loading '"..fileName.."': "..err)
+
 	end
 end
-function PLoadModule(fileName, ...)
-	if not fileName:match("%.lua") then
-		fileName = fileName .. ".lua"
+-- Callbacks
+__callbackTable__ = { }
+
+function runCallback(name, ...)
+	if __callbackTable__[name] then
+		return __callbackTable__[name](...)
+	elseif __mainObject__ and __mainObject__[name] then
+		return __mainObject__[name](__mainObject__, ...)
 	end
-	local func, err = loadfile(fileName)
-	if func then
-		return PCall(func, ...)
-	else
-		error("PLoadModule() error loading '"..fileName.."': "..err)
-	end
 end
-function PCall(func, ...)
-	local ret = { pcall(func, ...) }
-	if ret[1] then
-		table.remove(ret, 1)
-		return nil, unpack(ret)
-	else
-		return ret[2]
-	end	
-end
-function ConPrintf(fmt, ...)
-	-- Optional
-	print(string.format(fmt, ...))
-end
-function ConPrintTable(tbl, noRecurse) end
-function ConExecute(cmd) end
-function ConClear() end
-function SpawnProcess(cmdName, args) end
-function OpenURL(url) end
-function SetProfiling(isEnabled) end
-function Restart() end
-function Exit() end
 
 dofile("Launch.lua")
 
 -- The CI env var will be true when run from github workflows but should be false for other tools using the headless wrapper 
-mainObject.continuousIntegrationMode = os.getenv("CI")
+__mainObject__.continuousIntegrationMode = os.getenv("CI")
 
 function launch:DownloadPage(url, callback, params)
 	params = params or {}
@@ -238,30 +203,34 @@ end
 runCallback("OnInit")
 runCallback("OnFrame") -- Need at least one frame for everything to initialise
 
-if mainObject.promptMsg then
+if __mainObject__.promptMsg then
 	-- Something went wrong during startup
-	print(mainObject.promptMsg)
+	print(__mainObject__.promptMsg)
 	io.read("*l")
 	return
 end
 
 -- The build module; once a build is loaded, you can find all the good stuff in here
-build = mainObject.main.modes["BUILD"]
+build = __mainObject__.main.modes["BUILD"]
 
 -- Here's some helpful helper functions to help you get started
 function newBuild()
-	mainObject.main:SetMode("BUILD", false, "Help, I'm stuck in Path of Building!")
+	__mainObject__.main:SetMode("BUILD", false, "Help, I'm stuck in Path of Building!")
 	runCallback("OnFrame")
 end
 function loadBuildFromXML(xmlText, name)
-	mainObject.main:SetMode("BUILD", false, name or "", xmlText)
+	__mainObject__.main:SetMode("BUILD", false, name or "", xmlText)
 	runCallback("OnFrame")
 end
-function loadBuildFromJSON(getItemsJSON, getPassiveSkillsJSON)
-	mainObject.main:SetMode("BUILD", false, "")
+function loadBuildFromJSON(characterJSON)
+	__mainObject__.main:SetMode("BUILD", false, "")
 	runCallback("OnFrame")
-	local charData = build.importTab:ImportItemsAndSkills(getItemsJSON)
-	build.importTab:ImportPassiveTreeAndJewels(getPassiveSkillsJSON, charData)
+	-- characterJSON could, for example, be the response from the PoE API:
+	-- https://www.pathofexile.com/developer/docs/reference#characters-get
+	local dkjson = require "dkjson"
+	local input = dkjson.decode(characterJSON)
+	local charData = build.importTab:ImportItemsAndSkills(input)
+	build.importTab:ImportPassiveTreeAndJewels(input)
 	-- You now have a build without a correct main skill selected, or any configuration options set
 	-- Good luck!
 end

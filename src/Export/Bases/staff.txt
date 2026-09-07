@@ -1,6 +1,5 @@
 -- Item data (c) Grinding Gear Games
-local itemBases = ...
-
+return function(itemBases)
 #type Staff
 #influenceBaseTag staff
 #socketLimit 6
@@ -11,3 +10,4 @@ local itemBases = ...
 #influenceBaseTag warstaff
 #socketLimit 6
 #baseMatch BaseType Metadata/Items/Weapons/TwoHandWeapons/Staves/AbstractWarstaff
+end

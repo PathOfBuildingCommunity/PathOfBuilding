@@ -23,6 +23,28 @@ return {
 			[1]="secondary_buff_effect_duration"
 		}
 	},
+	[2]={
+		[1]={
+			[1]={
+				[1]={
+					k="milliseconds_to_seconds_2dp",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Base Debuff Duration is {0} seconds"
+			}
+		},
+		name="base_secondary_duration_identifier",
+		stats={
+			[1]="base_secondary_skill_effect_duration"
+		}
+	},
+	["base_secondary_skill_effect_duration"]=2,
 	parent="buff_skill_stat_descriptions",
 	["secondary_buff_effect_duration"]=1
 }

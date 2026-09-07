@@ -1,0 +1,371 @@
+-- Item data (c) Grinding Gear Games
+
+return {
+-- Helmet
+#setBestBase Helmet, Armour, [ Prefix: LocalIncreasedPhysicalDamageReductionRating3, Prefix: LocalIncreasedPhysicalDamageReductionRatingPercent5, Prefix: IncreasedLife7]
+#setBestBase Helmet, Evasion, [ Prefix: LocalIncreasedEvasionRating3, Prefix: LocalIncreasedEvasionRatingPercent5, Prefix: IncreasedLife7, Suffix: ChanceToSuppressSpells2]
+#setBestBase Helmet, Energy Shield, [ Prefix: IncreasedLife7, Prefix: LocalIncreasedEnergyShieldPercent5, Prefix: LocalIncreasedEnergyShield7]
+#setBestBase Helmet, Armour/Evasion, [ Prefix: LocalBaseArmourAndEvasionRating3, Prefix: LocalIncreasedArmourAndEvasion5, Prefix: IncreasedLife7, Suffix: ChanceToSuppressSpells2]
+#setBase Penitent Mask, [ Prefix: LocalBaseArmourAndEvasionRating3, Prefix: LocalIncreasedArmourAndEvasion5, Prefix: IncreasedLife7, Suffix: ChanceToSuppressSpells2]
+#setBestBase Helmet, Armour/Energy Shield, [ Prefix: LocalBaseArmourAndEnergyShield3, Prefix: LocalIncreasedArmourAndEnergyShield5, Prefix: IncreasedLife7]
+#setBase Bone Helmet, Minion Helm, [ Prefix: GlobalIncreaseMinionSpellSkillGemLevel2, Prefix: IncreasedLife7]
+#setBase Archdemon Crown, [ Prefix: LocalBaseArmourAndEnergyShield3, Prefix: LocalIncreasedArmourAndEnergyShield5, Prefix: IncreasedLife7]
+#setBestBase Helmet, Evasion/Energy Shield, [ Prefix: LocalBaseEvasionRatingAndEnergyShield3, Prefix: LocalIncreasedEvasionAndEnergyShield5_, Prefix: IncreasedLife7, Suffix: ChanceToSuppressSpells2]
+#setBase Blizzard Crown, [ Prefix: LocalBaseEvasionRatingAndEnergyShield3, Prefix: LocalIncreasedEvasionAndEnergyShield5_, Prefix: IncreasedLife7, Suffix: ChanceToSuppressSpells2]
+#setBestBase Helmet, Ward, [ Prefix: LocalIncreasedWardPercent3, Prefix: LocalIncreasedWard5___, Prefix: IncreasedLife7]
+
+-- Gloves
+#setBestBase Gloves, Armour, [ Prefix: LocalIncreasedPhysicalDamageReductionRating2, Prefix: LocalIncreasedPhysicalDamageReductionRatingPercent5, Prefix: IncreasedLife6]
+#setBase Spiked Gloves, [ Prefix: LocalIncreasedPhysicalDamageReductionRating2, Prefix: LocalIncreasedPhysicalDamageReductionRatingPercent5, Prefix: IncreasedLife6]
+#setBase Thwarting Gauntlets, [ Prefix: LocalIncreasedPhysicalDamageReductionRating2, Prefix: LocalIncreasedPhysicalDamageReductionRatingPercent5, Prefix: IncreasedLife6]
+#setBestBase Gloves, Evasion, [ Prefix: LocalIncreasedEvasionRating2, Prefix: LocalIncreasedEvasionRatingPercent5, Prefix: IncreasedLife6, Suffix: ChanceToSuppressSpells2]
+#setBase Gripped Gloves, [ Prefix: LocalIncreasedEvasionRating2, Prefix: LocalIncreasedEvasionRatingPercent5, Prefix: IncreasedLife6, Suffix: ChanceToSuppressSpells2]
+#setBase Trapsetter Gloves, [ Prefix: LocalIncreasedEvasionRating2, Prefix: LocalIncreasedEvasionRatingPercent5, Prefix: IncreasedLife6, Suffix: ChanceToSuppressSpells2]
+#setBestBase Gloves, Energy Shield, [ Prefix: IncreasedLife6, Prefix: LocalIncreasedEnergyShieldPercent5, Prefix: LocalIncreasedEnergyShield6]
+#setBase Fingerless Silk Gloves, [ Prefix: IncreasedLife6, Prefix: LocalIncreasedEnergyShieldPercent5, Prefix: LocalIncreasedEnergyShield6]
+#setBase Nexus Gloves, [ Prefix: IncreasedLife6, Prefix: LocalIncreasedEnergyShieldPercent5, Prefix: LocalIncreasedEnergyShield6]
+#setBestBase Gloves, Armour/Evasion, [ Prefix: LocalBaseArmourAndEvasionRating2, Prefix: LocalIncreasedArmourAndEvasion5, Prefix: IncreasedLife6, Suffix: ChanceToSuppressSpells2]
+#setBestBase Gloves, Armour/Energy Shield, [ Prefix: LocalBaseArmourAndEnergyShield2_, Prefix: LocalIncreasedArmourAndEnergyShield5, Prefix: IncreasedLife6]
+#setBase Apothecary's Gloves, [ Prefix: LocalBaseArmourAndEnergyShield2_, Prefix: LocalIncreasedArmourAndEnergyShield5, Prefix: IncreasedLife6]
+#setBestBase Gloves, Evasion/Energy Shield, [ Prefix: LocalBaseEvasionRatingAndEnergyShield2, Prefix: LocalIncreasedEvasionAndEnergyShield5_, Prefix: IncreasedLife6, Suffix: ChanceToSuppressSpells2]
+#setBestBase Gloves, Ward, [ Prefix: LocalIncreasedWardPercent3, Prefix: LocalIncreasedWard5___, Prefix: IncreasedLife7]
+
+-- Body Armour
+#setBestBase Body Armour, Armour, Armour Chest, [ Prefix: LocalIncreasedPhysicalDamageReductionRating5, Prefix: LocalIncreasedPhysicalDamageReductionRatingPercent5, Prefix: IncreasedLife9]
+#setBase Astral Plate, Armour Chest, [ Prefix: LocalIncreasedPhysicalDamageReductionRating5, Prefix: LocalIncreasedPhysicalDamageReductionRatingPercent5, Prefix: IncreasedLife9]
+#setBase Royal Plate, Additional Curse Hunter Chest, [ Hunter Item, Crafted: true, Prefix: AdditionalCurseOnEnemiesInfluence1, Prefix: IncreasedLife9]
+#setBestBase Body Armour, Evasion, Evasion Chest, [ Prefix: LocalIncreasedEvasionRating5, Prefix: LocalIncreasedEvasionRatingPercent5, Prefix: IncreasedLife9, Suffix: ChanceToSuppressSpellsHigh2__]
+#setBase Assassin's Garb, Evasion Chest, [ Prefix: LocalIncreasedEvasionRating5, Prefix: LocalIncreasedEvasionRatingPercent5, Prefix: IncreasedLife9, Suffix: ChanceToSuppressSpellsHigh2__]
+#setBestBase Body Armour, Energy Shield, Energy Shield Chest, [ Prefix: IncreasedLife9, Prefix: LocalIncreasedEnergyShieldPercent5, Prefix: LocalIncreasedEnergyShield10]
+#setBestBase Body Armour, Armour/Evasion, Armour/Evasion Chest, [ Prefix: LocalBaseArmourAndEvasionRating5, Prefix: LocalIncreasedArmourAndEvasion5, Prefix: IncreasedLife9, Suffix: ChanceToSuppressSpellsHigh2__]
+#setBestBase Body Armour, Armour/Energy Shield, Armour/Energy Shield Chest, [ Prefix: LocalBaseArmourAndEnergyShield5, Prefix: LocalIncreasedArmourAndEnergyShield5, Prefix: IncreasedLife9]
+#setBestBase Body Armour, Evasion/Energy Shield, Evasion/Energy Shield Chest, [ Prefix: LocalBaseEvasionRatingAndEnergyShield5_, Prefix: LocalIncreasedEvasionAndEnergyShield5_, Prefix: IncreasedLife9, Suffix: ChanceToSuppressSpellsHigh2__]
+
+-- Boots
+#setBestBase Boots, Armour, [ Prefix: LocalIncreasedPhysicalDamageReductionRatingPercent5, Prefix: IncreasedLife6, Prefix: MovementVelocity5]
+#setBase Brimstone Treads, [ Prefix: LocalIncreasedPhysicalDamageReductionRatingPercent5, Prefix: IncreasedLife6, Prefix: MovementVelocity5]
+#setBestBase Boots, Evasion, [ Prefix: LocalIncreasedEvasionRatingPercent5, Prefix: IncreasedLife6, Prefix: MovementVelocity5, Suffix: ChanceToSuppressSpells2]
+#setBase Stormrider Boots, [ Prefix: LocalIncreasedEvasionRatingPercent5, Prefix: IncreasedLife6, Prefix: MovementVelocity5, Suffix: ChanceToSuppressSpells2]
+#setBestBase Boots, Energy Shield, [ Prefix: IncreasedLife6, Prefix: LocalIncreasedEnergyShieldPercent5, Prefix: MovementVelocity5]
+#setBase Dreamquest Slippers, [ Prefix: LocalIncreasedEnergyShieldPercent5, Prefix: IncreasedLife6, Prefix: MovementVelocity5]
+#setBestBase Boots, Armour/Evasion, [ Prefix: LocalIncreasedArmourAndEvasion5, Prefix: IncreasedLife6, Prefix: MovementVelocity5, Suffix: ChanceToSuppressSpells2]
+#setBase Two-Toned Boots (Armour/Evasion), [ Prefix: LocalIncreasedArmourAndEvasion5, Prefix: IncreasedLife6, Prefix: MovementVelocity5, Suffix: ChanceToSuppressSpells2]
+#setBestBase Boots, Armour/Energy Shield, [ Prefix: LocalIncreasedArmourAndEnergyShield5, Prefix: IncreasedLife6, Prefix: MovementVelocity5]
+#setBase Two-Toned Boots (Armour/Energy Shield), [ Prefix: LocalIncreasedArmourAndEnergyShield5, Prefix: IncreasedLife6, Prefix: MovementVelocity5]
+#setBestBase Boots, Evasion/Energy Shield, [ Prefix: LocalIncreasedEvasionAndEnergyShield5_, Prefix: IncreasedLife6, Prefix: MovementVelocity5, Suffix: ChanceToSuppressSpells2]
+#setBase Two-Toned Boots (Evasion/Energy Shield), [ Prefix: LocalIncreasedEvasionAndEnergyShield5_, Prefix: IncreasedLife6, Prefix: MovementVelocity5, Suffix: ChanceToSuppressSpells2]
+#setBase Fugitive Boots, [ Prefix: LocalIncreasedEvasionAndEnergyShield5_, Prefix: IncreasedLife6, Prefix: MovementVelocity5, Suffix: ChaosResist4]
+#setBestBase Boots, Ward, [ Prefix: LocalIncreasedWardPercent3, Prefix: LocalIncreasedWard5___, Prefix: IncreasedLife7]
+
+-- Shields
+#setBestBase Shield, Armour, [ Prefix: LocalIncreasedBlockPercentage5, Prefix: LocalIncreasedPhysicalDamageReductionRatingPercent5, Prefix: IncreasedLife8]
+#setBase Heat-attuned Tower Shield, [ Prefix: LocalIncreasedBlockPercentage5, Prefix: LocalIncreasedPhysicalDamageReductionRatingPercent5, Prefix: IncreasedLife8]
+#setBase Ezomyte Tower Shield, Shaper Gain On Block Shield, [ Shaper Item, Crafted: true, Prefix: LocalIncreasedBlockPercentage5, Prefix: IncreasedLife8, Suffix: RecoverLifePercentOnBlockUber1_]
+#setBestBase Shield, Evasion, [ Prefix: LocalIncreasedBlockPercentage5, Prefix: LocalIncreasedEvasionRatingPercent5, Prefix: IncreasedLife8, Suffix: ChanceToSuppressSpellsHigh2__]
+#setBase Cold-attuned Buckler, [ Prefix: LocalIncreasedBlockPercentage5, Prefix: LocalIncreasedEvasionRatingPercent5, Prefix: IncreasedLife8, Suffix: ChanceToSuppressSpellsHigh2__]
+#setBestBase Shield, Energy Shield, [ Prefix: LocalIncreasedBlockPercentage5, Prefix: LocalIncreasedEnergyShieldPercent5, Prefix: LocalIncreasedEnergyShield9]
+#setBase Transfer-attuned Spirit Shield, [ Prefix: LocalIncreasedBlockPercentage5, Prefix: LocalIncreasedEnergyShieldPercent5, Prefix: LocalIncreasedEnergyShield9]
+#setBase Titanium Spirit Shield, +Physical Shield, [ Prefix: GlobalPhysicalSpellGemsLevel1, Prefix: SpellDamageOnWeapon5, Suffix: SpellCriticalStrikeChance3]
+#setBase Titanium Spirit Shield, +Fire Shield, [ Prefix: GlobalFireSpellGemsLevel1_, Prefix: FireDamagePrefixOnWeapon5_, Suffix: SpellCriticalStrikeChance3]
+#setBase Titanium Spirit Shield, +Cold Shield, [ Prefix: GlobalColdSpellGemsLevel1_, Prefix: ColdDamagePrefixOnWeapon5_, Suffix: SpellCriticalStrikeChance3]
+#setBase Titanium Spirit Shield, +Lightning Shield, [ Prefix: GlobalLightningSpellGemsLevel1, Prefix: LightningDamagePrefixOnWeapon5, Suffix: SpellCriticalStrikeChance3]
+#setBase Titanium Spirit Shield, +Chaos Shield, [ Prefix: GlobalChaosSpellGemsLevel1, Prefix: SpellDamageOnWeapon5, Suffix: SpellCriticalStrikeChance3]
+#setBase Fossilised Spirit Shield, +Minion Shield, [ Prefix: MinionGemLevel1h1, Prefix: MinionDamageOnWeapon5, Suffix: MinionCriticalStrikeChanceIncrease3]
+#setBestBase Shield, Armour/Evasion, [ Prefix: LocalIncreasedBlockPercentage5, Prefix: LocalIncreasedArmourAndEvasion5, Prefix: IncreasedLife8, Suffix: ChanceToSuppressSpellsHigh2__]
+#setBestBase Shield, Armour/Energy Shield, [ Prefix: LocalIncreasedBlockPercentage5, Prefix: LocalIncreasedArmourAndEnergyShield5, Prefix: IncreasedLife8]
+#setBase Archon Kite Shield, [ Prefix: LocalIncreasedBlockPercentage5, Prefix: LocalIncreasedArmourAndEnergyShield5, Prefix: IncreasedLife8]
+#setBestBase Shield, Evasion/Energy Shield, [ Prefix: LocalIncreasedBlockPercentage5, Prefix: LocalIncreasedEvasionAndEnergyShield5_, Prefix: IncreasedLife8, Suffix: ChanceToSuppressSpellsHigh2__]
+
+-- Amulets
+#setBase Amber Amulet, [ Suffix: Strength5]
+#setBase Jade Amulet, [ Suffix: Dexterity5]
+#setBase Lapis Amulet, [ Suffix: Intelligence5]
+#setBase Onyx Amulet, [ Suffix: AllAttributes5]
+#setBase Agate Amulet, [ Suffix: Strength5, Suffix: Intelligence5]
+#setBase Turquoise Amulet, [ Suffix: Dexterity5, Suffix: Intelligence5]
+#setBase Citrine Amulet, [ Suffix: Dexterity5, Suffix: Strength5]
+#setBase Marble Amulet, [ ]
+#setBase Paua Amulet, Mana Amulet, [ Prefix: IncreasedMana7, Suffix: Intelligence5, Suffix: ManaRegeneration4]
+#setBase Blue Pearl Amulet, Mana Amulet, [ Prefix: IncreasedMana7, Suffix: Intelligence5, Suffix: ManaRegeneration4]
+#setBase Seaglass Amulet, Energy Shield Amulet, [ Prefix: IncreasedEnergyShield7, Prefix: IncreasedEnergyShieldPercent5, Suffix: Intelligence5]
+#setBase Astrolabe Amulet, Influence Amulet, [ ]
+#setBase Simplex Amulet, [ ]
+
+-- Rings
+#baseGroup Resistance Ring, [ Suffix: FireResist4, Suffix: ColdResist4, Suffix: LightningResist4]
+#setBase Coral Ring, Life Ring, [ Prefix: IncreasedLife4, Suffix: Strength6]
+#setBase Vermillion Ring, Life Ring, [ Prefix: IncreasedLife4, Suffix: Strength6 ]
+#setBase Paua Ring, Mana Ring, [ Prefix: IncreasedMana7, Suffix: Intelligence5, Suffix: ManaRegeneration4]
+#setBase Cerulean Ring, Mana Ring, [ Prefix: IncreasedMana7, Suffix: Intelligence5, Suffix: ManaRegeneration4]
+#setBase Moonstone Ring, Energy Shield Ring, [ Prefix: IncreasedEnergyShield6, Suffix: Intelligence5]
+#setBase Ruby Ring, Resistance Ring, [ ]
+#setBase Sapphire Ring, Resistance Ring, [ ]
+#setBase Topaz Ring, Resistance Ring, [ ]
+#setBase Two-Stone Ring, Resistance Ring, [ Variant: Fire and Cold, Variant: Cold and Lightning, Variant: Fire and Lightning, Crafted: true, Suffix: FireResist4, Suffix: ColdResist4, Suffix: LightningResist4, Implicits: 3, {variant:1}+(12-16)% to Fire and Cold Resistances, {variant:2}+(12-16)% to Cold and Lightning Resistances, {variant:3}+(12-16)% to Fire and Lightning Resistances]
+#setBase Prismatic Ring, Resistance Ring, [ ]
+#setBase Cogwork Ring, Resistance Ring, [ ]
+#setBase Amethyst Ring, Chaos Resistance Ring, [ Suffix: ChaosResist4]
+#setBase Unset Ring, [ Prefix: LocalIncreaseSocketedGemUnsetRing2]
+#setBase Diamond Ring, [ ]
+#setBase Steel Ring, [ Prefix: AddedPhysicalDamage4, Suffix: IncreasedAccuracyNew3, Suffix: IncreasedAttackSpeed1]
+#setBase Bone Ring, Minion Ring, [ Prefix: MinionDamagePercent3, Suffix: MinionAttackAndCastSpeed2]
+#setBase Iolite Ring, [ ]
+#setBase Opal Ring, [ ]
+#setBase Geodesic Ring, [ ]
+#setBase Helical Ring, [ ]
+#setBase Manifold Ring, [ ]
+#setBase Iron Ring, Synthesised Charge Ring, [ Variant: Endurance Charge, Variant: Frenzy Charge, Variant: Power Charge, Crafted: true, Implicits: 3, {variant:1}+1 to Maximum Endurance Charges, {variant:2}+1 to Maximum Frenzy Charges, {variant:3}+1 to Maximum Power Charges]
+#setBase Iron Ring, Synthesised Curse Ring, [ Variant: Vulnerability, Variant: Flammability, Variant: Frostbite, Variant: Conductivity, Variant: Elemental Weakness, Crafted: true, Implicits: 5, {variant:1}Curse Enemies with Vulnerability on Hit, {variant:2}Curse Enemies with Flammability on Hit, {variant:3}Curse Enemies with Frostbite on Hit, {variant:4}Curse Enemies with Conductivity on Hit, {variant:5}Curse Enemies with Elemental Weakness on Hit]
+
+
+-- Belts
+#setBase Heavy Belt, [ Prefix: IncreasedLife7, Suffix: Strength7]
+#setBase Leather Belt, [ Prefix: IncreasedLife7, Suffix: Strength7]
+#setBase Chain Belt, Energy Shield Belt, [ Prefix: IncreasedEnergyShield10]
+#setBase Crystal Belt, Energy Shield Belt, [ Prefix: IncreasedEnergyShield10]
+#setBase Vanguard Belt, [ Prefix: IncreasedPhysicalDamageReductionRating5, Prefix: IncreasedLife7]
+#setBase Rustic Sash, [ ]
+#setBase Stygian Vise, [ ]
+#setBase Micro-Distillery Belt, Flask Belt, [ Suffix: BeltReducedFlaskChargesUsed1, Suffix: BeltIncreasedFlaskDuration1]
+#setBase Mechanical Belt, [ ]
+
+-- Quivers
+#setBase Spike-Point Arrow Quiver, [ Prefix: AddedPhysicalDamage3, Prefix: IncreasedLife7, Prefix: WeaponElementalDamage3, Suffix: IncreasedAttackSpeed1, Suffix: CriticalStrikeChanceWithBows4, Suffix: CriticalMultiplierWithBows3]
+#setBase Artillery Quiver, [ Prefix: AddedPhysicalDamage3, Prefix: IncreasedLife7, Prefix: WeaponElementalDamage3, Suffix: IncreasedAttackSpeed1, Suffix: CriticalStrikeChanceWithBows4, Suffix: CriticalMultiplierWithBows3]
+
+-- Weapons
+#baseGroup Spell One Handed, [ Prefix: SpellDamageOnWeapon5, Prefix: SpellDamageAndManaOnWeapon4, Suffix: SpellCriticalStrikeChance3, Suffix: LocalCriticalMultiplier4]
+#baseGroup Physical One Handed, [ Prefix: LocalIncreasedPhysicalDamagePercent5, Prefix: LocalIncreasedPhysicalDamagePercentAndAccuracyRating5, Prefix: LocalAddedPhysicalDamage6, Suffix: LocalIncreasedAttackSpeed3, Suffix: LocalCriticalStrikeChance3, Suffix: LocalCriticalMultiplier4]
+#baseGroup Elemental One Handed, [ Prefix: LocalAddedFireDamage8, Prefix: LocalAddedColdDamage8, Prefix: LocalAddedLightningDamage8, Suffix: LocalIncreasedAttackSpeed3, Suffix: LocalCriticalStrikeChance3, Suffix: LocalCriticalMultiplier4]
+#baseGroup Physical Two Handed, [ Prefix: LocalIncreasedPhysicalDamagePercent5, Prefix: LocalIncreasedPhysicalDamagePercentAndAccuracyRating5, Prefix: LocalAddedPhysicalDamageTwoHand6, Suffix: LocalIncreasedAttackSpeed3, Suffix: LocalCriticalStrikeChance3, Suffix: LocalCriticalMultiplier4]
+#baseGroup Elemental Two Handed, [ Prefix: LocalAddedFireDamageTwoHand8_, Prefix: LocalAddedColdDamageTwoHand8, Prefix: LocalAddedLightningDamageTwoHand8, Suffix: LocalIncreasedAttackSpeed3, Suffix: LocalCriticalStrikeChance3, Suffix: LocalCriticalMultiplier4]
+#setBase Runic Hatchet, Physical %s, [ ]
+#setBase Vaal Hatchet, Elemental %s, [ ]
+#setBase Psychotic Axe, Physical %s, [ ]
+#setBase Psychotic Axe, Elemental %s, [ ]
+#setBase Fleshripper, Physical %s, [ ]
+#setBase Despot Axe, Elemental %s, [ ]
+#setBase Apex Cleaver, Physical %s, [ ]
+#setBase Apex Cleaver, Elemental %s, [ ]
+#setBase Harbinger Bow, Physical %s, [ Prefix: LocalIncreasedPhysicalDamagePercent5, Prefix: LocalIncreasedPhysicalDamagePercentAndAccuracyRating5, Prefix: LocalAddedPhysicalDamageTwoHand6, Suffix: LocalIncreasedAttackSpeed2, Suffix: LocalCriticalStrikeChance3, Suffix: LocalCriticalMultiplier4]
+#setBase Thicket Bow, Elemental %s, [ Prefix: LocalAddedFireDamageTwoHand8_, Prefix: LocalAddedColdDamageTwoHand8, Prefix: LocalAddedLightningDamageTwoHand8, Suffix: LocalIncreasedAttackSpeed2, Suffix: LocalCriticalStrikeChance3, Suffix: LocalCriticalMultiplier4]
+#setBase Solarine Bow, Fire %s, [ Prefix: LocalAddedFireDamageRanged6, Prefix: WeaponElementalDamageOnWeapons4, Suffix: LocalIncreasedAttackSpeed2, Suffix: LocalCriticalStrikeChance3, Suffix: LocalCriticalMultiplier4]
+#setBase Thicket Bow, +3 %s, [ Prefix: LocalIncreaseSocketedGemLevel1, Prefix: LocalIncreaseSocketedBowGemLevel2, Suffix: LocalIncreasedAttackSpeed2]
+#setBase Gemini Claw, Physical %s, [ ]
+#setBase Imperial Claw, Elemental %s, [ ]
+#setBase Void Fangs, Chaos %s, [ Prefix: LocalIncreasedPhysicalDamagePercent5, Prefix: LocalAddedChaosDamage1, Prefix: LocalAddedPhysicalDamage6, Suffix: LocalIncreasedAttackSpeed3, Suffix: LocalCriticalStrikeChance3, Suffix: LocalCriticalMultiplier4]
+#setBase Ambusher, Physical %s, [ ]
+#setBase Ambusher, Elemental %s, [ ]
+#setBase Platinum Kris, Spell %s, [ Prefix: SpellDamageOnWeapon5, Prefix: SpellDamageAndManaOnWeapon4, Suffix: LocalIncreasedAttackSpeed3, Suffix: SpellCriticalStrikeChance3, Suffix: LocalCriticalMultiplier4]
+#setBase Pneumatic Dagger, Physical %s, [ ]
+#setBase Pneumatic Dagger, Elemental %s, [ ]
+#setBase Infernal Blade, Spell %s, [ Prefix: SpellDamageOnWeapon5, Prefix: SpellDamageAndManaOnWeapon4, Suffix: LocalIncreasedAttackSpeed3, Suffix: SpellCriticalStrikeChance3, Suffix: LocalCriticalMultiplier4]
+#setBase Royal Skean, Vagan %s, [ Prefix: SpellDamageOnWeapon5, Suffix: LocalIncreasedAttackSpeed3, Suffix: LocalCriticalStrikeChance3, {custom}Hits can't be Evaded]
+#setBase Void Sceptre, Spell %s, [ ]
+#setBase Void Sceptre, Physical %s, [ ]
+#setBase Void Sceptre, Elemental %s, [ ]
+#setBase Oscillating Sceptre, Spell %s, [ ]
+#setBase Oscillating Sceptre, Elemental %s, [ ]
+#setBase Stabilising Sceptre, Spell %s, [ ]
+#setBase Stabilising Sceptre, Elemental %s, [ ]
+#setBase Alternating Sceptre, Spell %s, [ ]
+#setBase Alternating Sceptre, Physical %s, [ ]
+#setBase Alternating Sceptre, Elemental %s, [ ]
+#setBase Behemoth Mace, Physical %s, [ ]
+#setBase Behemoth Mace, Elemental %s, [ ]
+#setBase Boom Mace, Physical %s, [ ]
+#setBase Boom Mace, Elemental %s, [ ]
+#setBase Coronal Maul, Physical %s, [ ]
+#setBase Coronal Maul, Elemental %s, [ ]
+#setBase Impact Force Propagator, Physical %s, [ ]
+#setBase Impact Force Propagator, Elemental %s, [ ]
+#setBase Maelstrom Staff, Physical %s, [ ]
+#setBase Maelstrom Staff, Elemental %s, [ ]
+#setBase Eventuality Rod, Physical %s, [ ]
+#setBase Eventuality Rod, Elemental %s, [ ]
+#setBase Eclipse Staff, Spell %s, [ Prefix: SpellDamageOnTwoHandWeapon5, Prefix: SpellDamageAndManaOnTwoHandWeapon4, Suffix: SpellCriticalStrikeChance3, Suffix: LocalCriticalMultiplier4]
+#setBase Eclipse Staff, +5 Physical %s, [ Prefix: GlobalSpellGemsLevelTwoHand1, Prefix: GlobalPhysicalSpellGemsLevelTwoHand2_, Prefix: SpellDamageOnTwoHandWeapon5, Suffix: SpellCriticalStrikeChance3, Suffix: LocalCriticalMultiplier4]
+#setBase Eclipse Staff, +5 Fire %s, [ Prefix: GlobalSpellGemsLevelTwoHand1, Prefix: GlobalFireSpellGemsLevelTwoHand2, Prefix: SpellDamageOnTwoHandWeapon5, Suffix: SpellCriticalStrikeChance3, Suffix: LocalCriticalMultiplier4]
+#setBase Eclipse Staff, +5 Cold %s, [ Prefix: GlobalSpellGemsLevelTwoHand1, Prefix: GlobalColdSpellGemsLevelTwoHand2, Prefix: SpellDamageOnTwoHandWeapon5, Suffix: SpellCriticalStrikeChance3, Suffix: LocalCriticalMultiplier4]
+#setBase Eclipse Staff, +5 Lightning %s, [ Prefix: GlobalSpellGemsLevelTwoHand1, Prefix: GlobalLightningSpellGemsLevelTwoHand2, Prefix: SpellDamageOnTwoHandWeapon5, Suffix: SpellCriticalStrikeChance3, Suffix: LocalCriticalMultiplier4]
+#setBase Eclipse Staff, +5 Chaos %s, [ Prefix: GlobalSpellGemsLevelTwoHand1, Prefix: GlobalChaosSpellGemsLevelTwoHand2, Prefix: SpellDamageOnTwoHandWeapon5, Suffix: SpellCriticalStrikeChance3, Suffix: LocalCriticalMultiplier4]
+#setBase Battery Staff, Spell %s, [ Prefix: SpellDamageOnTwoHandWeapon5, Prefix: SpellDamageAndManaOnTwoHandWeapon4, Suffix: SpellCriticalStrikeChance3, Suffix: LocalCriticalMultiplier4]
+#setBase Battery Staff, +5 Physical %s, [ Prefix: GlobalSpellGemsLevelTwoHand1, Prefix: GlobalPhysicalSpellGemsLevelTwoHand2_, Prefix: SpellDamageOnTwoHandWeapon5, Suffix: SpellCriticalStrikeChance3, Suffix: LocalCriticalMultiplier4]
+#setBase Battery Staff, +5 Fire %s, [ Prefix: GlobalSpellGemsLevelTwoHand1, Prefix: GlobalFireSpellGemsLevelTwoHand2, Prefix: SpellDamageOnTwoHandWeapon5, Suffix: SpellCriticalStrikeChance3, Suffix: LocalCriticalMultiplier4]
+#setBase Battery Staff, +5 Cold %s, [ Prefix: GlobalSpellGemsLevelTwoHand1, Prefix: GlobalColdSpellGemsLevelTwoHand2, Prefix: SpellDamageOnTwoHandWeapon5, Suffix: SpellCriticalStrikeChance3, Suffix: LocalCriticalMultiplier4]
+#setBase Battery Staff, +5 Lightning %s, [ Prefix: GlobalSpellGemsLevelTwoHand1, Prefix: GlobalLightningSpellGemsLevelTwoHand2, Prefix: SpellDamageOnTwoHandWeapon5, Suffix: SpellCriticalStrikeChance3, Suffix: LocalCriticalMultiplier4]
+#setBase Battery Staff, +5 Chaos %s, [ Prefix: GlobalSpellGemsLevelTwoHand1, Prefix: GlobalChaosSpellGemsLevelTwoHand2, Prefix: SpellDamageOnTwoHandWeapon5, Suffix: SpellCriticalStrikeChance3, Suffix: LocalCriticalMultiplier4]
+#setBase Tiger Hook, Physical %s, [ ]
+#setBase Jewelled Foil, Physical %s, [ ]
+#setBase Eternal Sword, Elemental %s, [ ]
+#setBase Anarchic Spiritblade, Physical %s, [ ]
+#setBase Anarchic Spiritblade, Elemental %s, [ ]
+#setBase Jewelled Foil, Elemental %s, [ ]
+#setBase Exquisite Blade, Physical %s, [ ]
+#setBase Reaver Sword, Elemental %s, [ ]
+#setBase Banishing Blade, Elemental %s, [ ]
+#setBase Imbued Wand, Physical %s, [ Prefix: LocalIncreasedPhysicalDamagePercent5, Prefix: LocalIncreasedPhysicalDamagePercentAndAccuracyRating5, Prefix: LocalAddedPhysicalDamage6, Suffix: LocalIncreasedAttackSpeed2, Suffix: LocalCriticalStrikeChance3, Suffix: LocalCriticalMultiplier4]
+#setBase Imbued Wand, Elemental %s, [ Prefix: LocalAddedFireDamage8, Prefix: LocalAddedColdDamage8, Prefix: LocalAddedLightningDamage8, Suffix: LocalIncreasedAttackSpeed2, Suffix: LocalCriticalStrikeChance3, Suffix: LocalCriticalMultiplier4]
+#setBase Prophecy Wand, Spell %s, [ ]
+#setBase Accumulator Wand, Spell %s, [ ]
+#setBase Accumulator Wand, Physical %s, [ Prefix: LocalIncreasedPhysicalDamagePercent5, Prefix: LocalIncreasedPhysicalDamagePercentAndAccuracyRating5, Prefix: LocalAddedPhysicalDamage6, Suffix: LocalIncreasedAttackSpeed2, Suffix: LocalCriticalStrikeChance3, Suffix: LocalCriticalMultiplier4]
+#setBase Accumulator Wand, Elemental %s, [ Prefix: LocalAddedFireDamage8, Prefix: LocalAddedColdDamage8, Prefix: LocalAddedLightningDamage8, Suffix: LocalIncreasedAttackSpeed2, Suffix: LocalCriticalStrikeChance3, Suffix: LocalCriticalMultiplier4]
+#setBase Convoking Wand, Minion %s, [ Prefix: MinionGemLevel1h1, Prefix: MinionDamageOnWeapon6]
+
+-- Jewels
+#setBase Crimson Jewel, [ ]
+#setBase Viridian Jewel, [ ]
+#setBase Cobalt Jewel, [ ]
+#setBase Large Cluster Jewel, [ ]
+#setBase Medium Cluster Jewel, [ ]
+#setBase Small Cluster Jewel, [ ]
+#setBase Ghastly Eye Jewel, [ ]
+#setBase Hypnotic Eye Jewel, [ ]
+#setBase Murderous Eye Jewel, [ ]
+#setBase Searching Eye Jewel, [ ]
+
+-- Flasks
+-- Instant CB/Bleed immune Divine Life Flask
+[[
+Rarity: MAGIC
+Seething Divine Life Flask of Allaying
+Crafted: true
+Prefix: {range:0.5}FlaskFullInstantRecovery1
+Suffix: {range:0.028}FlaskBleedCorruptingBloodImmunity3______
+Quality: 20
+LevelReq: 60
+Implicits: 0
+66% reduced Amount Recovered
+Instant Recovery
+Grants Immunity to Bleeding for 12 seconds if used while Bleeding
+Grants Immunity to Corrupted Blood for 12 seconds if used while affected by Corrupted Blood
+]],
+-- Mageblood Flasks
+[[
+Rarity: MAGIC
+Alchemist's Diamond Flask
+Crafted: true
+Prefix: {range:0}FlaskEffectReducedDuration3
+Suffix: None
+Quality: 20
+LevelReq: 64
+Implicits: 2
+{crafted}{range:1}(60-70)% increased effect
+{crafted}Gains no Charges during Effect
+23% reduced Duration
+25% increased effect
+]],[[
+Rarity: MAGIC
+Alchemist's Granite Flask
+Crafted: true
+Prefix: {range:0}FlaskEffectReducedDuration3
+Suffix: None
+Quality: 20
+LevelReq: 64
+Implicits: 2
+{crafted}{range:1}(60-70)% increased effect
+{crafted}Gains no Charges during Effect
+23% reduced Duration
+25% increased effect
+]],[[
+Rarity: MAGIC
+Alchemist's Basalt Flask
+Crafted: true
+Prefix: {range:0}FlaskEffectReducedDuration3
+Suffix: None
+Quality: 20
+LevelReq: 64
+Implicits: 3
+{crafted}{range:1}(60-70)% increased effect
+{crafted}Gains no Charges during Effect
+{tags:flask}Taunts nearby Enemies on use
+23% reduced Duration
+25% increased effect
+]],[[
+Rarity: MAGIC
+Alchemist's Jade Flask
+Crafted: true
+Prefix: {range:0}FlaskEffectReducedDuration3
+Suffix: None
+Quality: 20
+LevelReq: 64
+Implicits: 2
+{crafted}{range:1}(60-70)% increased effect
+{crafted}Gains no Charges during Effect
+23% reduced Duration
+25% increased effect
+]],[[
+Rarity: MAGIC
+Alchemist's Stibnite Flask
+Crafted: true
+Prefix: {range:0}FlaskEffectReducedDuration3
+Suffix: None
+Quality: 20
+LevelReq: 64
+Implicits: 3
+{crafted}{range:1}(60-70)% increased effect
+{crafted}Gains no Charges during Effect
+{tags:flask}Creates a Smoke Cloud on Use
+23% reduced Duration
+25% increased effect
+]],
+-- Auto-use gain on hit Utility Flasks
+[[
+Rarity: MAGIC
+Flagellant's Basalt Flask
+Crafted: true
+Prefix: {range:1}FlaskFullRechargeOnHit5___
+Suffix: None
+Quality: 20
+LevelReq: 64
+Implicits: 2
+{crafted}Used when Charges reach full
+{tags:flask}Taunts nearby Enemies on use
+Gain 3 Charges when you are Hit by an Enemy
+]],[[
+Rarity: MAGIC
+Flagellant's Granite Flask
+Crafted: true
+Prefix: {range:1}FlaskFullRechargeOnHit5___
+Suffix: None
+Quality: 20
+LevelReq: 64
+Implicits: 1
+{crafted}Used when Charges reach full
+Gain 3 Charges when you are Hit by an Enemy
+]],[[
+Rarity: MAGIC
+Flagellant's Jade Flask
+Crafted: true
+Prefix: {range:1}FlaskFullRechargeOnHit5___
+Suffix: None
+Quality: 20
+LevelReq: 64
+Implicits: 1
+{crafted}Used when Charges reach full
+Gain 3 Charges when you are Hit by an Enemy
+]],[[
+Rarity: MAGIC
+Flagellant's Stibnite Flask
+Crafted: true
+Prefix: {range:1}FlaskFullRechargeOnHit5___
+Suffix: None
+Quality: 20
+LevelReq: 64
+Implicits: 2
+{crafted}Used when Charges reach full
+{tags:flask}Creates a Smoke Cloud on Use
+Gain 3 Charges when you are Hit by an Enemy
+]],[[
+Rarity: MAGIC
+Flagellant's Quicksilver Flask
+Crafted: true
+Prefix: {range:1}FlaskFullRechargeOnHit5___
+Suffix: None
+Quality: 20
+LevelReq: 64
+Implicits: 1
+{crafted}Used when Charges reach full
+Gain 3 Charges when you are Hit by an Enemy
+]]
+}

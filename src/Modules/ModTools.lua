@@ -15,8 +15,21 @@ local s_format = string.format
 local band = bit.band
 local bor = bit.bor
 
+---@diagnostic disable-next-line: lowercase-global
 modLib = { }
 
+--- "Flag" is only used with CanNotUseItem
+---@alias Doubled ["MORE", "OVERRIDE"]
+---@alias NumericModTypes "INC"|"MORE"|"BASE"|"OVERRIDE"|"MAX"|"CHANCE"|"DUMMY"|"Flag"|"MIN"|Doubled
+
+-- Massive discriminated union. Todo: probably has to be built with an LLM for a start
+---@class ModTag
+---@field type string
+
+---@overload fun(modName: string, modType: NumericModTypes, modVal?: number, sourceOrTag: string|ModTag?, flagsOrModTag: number|ModTag?, keywordFlagsOrModTag: number|ModTag?, ...: ModTag)
+---@overload fun(modName: string, modType: "FLAG", modVal: boolean, sourceOrModTag: string|ModTag?, flagsOrModTag: number|ModTag?, keywordFlagsOrModTag: number|ModTag?, ...: ModTag)
+---@overload fun(modName: string, modType: "LIST", modVal: any[]|any, sourceOrModTag: string|ModTag?, flagsOrModTag: number|ModTag?, keywordFlagsOrModTag: number|ModTag?, ...: ModTag)
+---@return Mod
 function modLib.createMod(modName, modType, modVal, ...)
 	local flags = 0
 	local keywordFlags = 0
@@ -34,6 +47,14 @@ function modLib.createMod(modName, modType, modVal, ...)
 		keywordFlags = select(3, ...)
 		tagStart = 4
 	end
+	---@class Mod
+	---@field name string
+	---@field type NumericModTypes|"FLAG"|"LIST"
+	---@field value number|boolean|any Number for numeric mod types, boolean for FLAG, any for LIST
+	---@field flags number
+	---@field keywordFlags number
+	---@field source? string
+	---@field [integer] ModTag
 	return {
 		name = modName,
 		type = modType,
@@ -44,8 +65,9 @@ function modLib.createMod(modName, modType, modVal, ...)
 		select(tagStart, ...)
 	}
 end
-
-modLib.parseMod, modLib.parseModCache = LoadModule("Modules/ModParser", launch)
+local modParserModule = LoadModule("Modules/ModParser")
+modLib.parseMod = modParserModule.parseMod
+modLib.parseModCache = modParserModule.parseModCache
 
 function modLib.parseTags(line)
 	if not line or line == "-" then
@@ -59,6 +81,10 @@ function modLib.parseTags(line)
 				if tag ~= "" then
 					local tagName, tagValue = tag:match("^(%a+)=(.+)")
 					if tagName then
+						-- list of all the tag parts that should be numbers
+						if ({threshold = true})[tagName] then
+							tagValue = tonumber(tagValue)
+						end
 						tagSet[tagName] = tagValue == "true" and true or tagValue
 					else
 						ConPrintf("Error tag invalid: "..tag)
@@ -216,4 +242,18 @@ function modLib.setSource(mod, source)
 		mod.value.mod.source = source
 	end
 	return mod
+end
+
+-- Merge keystone modifiers
+function modLib.mergeKeystones(env, modDB)
+	env.keystonesAdded = env.keystonesAdded or { }
+	for _, modObj in ipairs(modDB:Tabulate("LIST", nil, "Keystone")) do
+		if not env.keystonesAdded[modObj.value] and env.spec.tree.keystoneMap[modObj.value] then
+			env.keystonesAdded[modObj.value] = true
+			local fromTree = modObj.mod.source and not modObj.mod.source:lower():match("tree")
+			for _, mod in ipairs(env.spec.tree.keystoneMap[modObj.value].modList) do
+				modDB:AddMod(fromTree and modLib.setSource(mod, modObj.mod.source) or mod)
+			end
+		end
+	end
 end

@@ -28,26 +28,29 @@ local function getScope(scopeName)
 	end
 end
 
-local function matchLimit(lang, val) 
+local function matchLimit(lang, val, quality) 
 	for _, desc in ipairs(lang) do
-		local match = true
-		for i, limit in ipairs(desc.limit) do
-			if limit[1] == "!" then
-				if val[i].min == limit[2] then
+		if quality or not desc.gem_quality then -- Skip gem_quality lines for regular mods
+			local match = true
+			for i, limit in ipairs(desc.limit) do
+				if limit[1] == "!" then
+					if val[i].min == limit[2] then
+						match = false
+						break
+					end
+				elseif (limit[2] ~= "#" and val[i].min > limit[2]) or (limit[1] ~= "#" and val[i].min < limit[1]) then
 					match = false
 					break
 				end
-			elseif (limit[2] ~= "#" and val[i].min > limit[2]) or (limit[1] ~= "#" and val[i].min < limit[1]) then
-				match = false
-				break
 			end
-		end
-		if match then
-			return desc
+			if match then
+				return desc
+			end
 		end
 	end
 end
 
+local indexableNonActiveSupports = require("Data.PearlSupports")
 local function applySpecial(val, spec)
 	if spec.k == "negate" then
 		val[spec.v].max, val[spec.v].min = -val[spec.v].min, -val[spec.v].max
@@ -64,6 +67,10 @@ local function applySpecial(val, spec)
 	elseif spec.k == "divide_by_fifteen_0dp" then
 		val[spec.v].min = val[spec.v].min / 15
 		val[spec.v].max = val[spec.v].max / 15
+	elseif spec.k == "divide_by_four" then
+		val[spec.v].min = val[spec.v].min / 4
+		val[spec.v].max = val[spec.v].max / 4
+		val[spec.v].fmt = "g"
 	elseif spec.k == "divide_by_five" then
 		val[spec.v].min = val[spec.v].min / 5
 		val[spec.v].max = val[spec.v].max / 5
@@ -72,7 +79,7 @@ local function applySpecial(val, spec)
 		val[spec.v].min = val[spec.v].min / 6
 		val[spec.v].max = val[spec.v].max / 6
 		val[spec.v].fmt = "g"
-	elseif spec.k == "divide_by_ten_1dp_if_required" then
+	elseif spec.k == "divide_by_ten_1dp_if_required" or spec.k == "divide_by_ten_1dp" then
 		val[spec.v].min = round(val[spec.v].min / 10, 1)
 		val[spec.v].max = round(val[spec.v].max / 10, 1)
 		val[spec.v].fmt = "g"
@@ -110,6 +117,10 @@ local function applySpecial(val, spec)
 	elseif spec.k == "per_minute_to_per_second" then
 		val[spec.v].min = round(val[spec.v].min / 60, 1)
 		val[spec.v].max = round(val[spec.v].max / 60, 1)
+		val[spec.v].fmt = "g"
+	elseif spec.k == "permyriad_per_minute_to_%_per_second" then
+		val[spec.v].min = round(val[spec.v].min / 60 / 100, 1)
+		val[spec.v].max = round(val[spec.v].max / 60 / 100, 1)
 		val[spec.v].fmt = "g"
 	elseif spec.k == "per_minute_to_per_second_0dp" then
 		val[spec.v].min = val[spec.v].min / 60
@@ -178,13 +189,22 @@ local function applySpecial(val, spec)
 	elseif spec.k == "double" then
 		val[spec.v].min = val[spec.v].min * 2
 		val[spec.v].max = val[spec.v].max * 2
-	elseif spec.k == "reminderstring" or spec.k == "canonical_line" or spec.k == "_stat" then
+	elseif spec.k == "plus_two_hundred" then
+		val[spec.v].min = val[spec.v].min + 200
+		val[spec.v].max = val[spec.v].max + 200
+	elseif spec.k == "reminderstring" or spec.k == "canonical_line" or spec.k == "canonical_stat" or spec.k == "_stat" then
+	elseif spec.k == "display_indexable_non_active_support" then
+		local gem = indexableNonActiveSupports[val[spec.v].min]
+		local gemText = gem and gem.baseItemName and gem.baseItemName:gsub(" Support", "") or ""
+		val[spec.v].fmt = "s"
+		val[spec.v].min = gemText
+		val[spec.v].max = gemText
 	elseif spec.k then
 		ConPrintf("Unknown description function: %s", spec.k)
 	end
 end
 
-return function(stats, scopeName)
+return function(stats, scopeName, quality)
 	local rootScope = getScope(scopeName)
 
 	-- Figure out which descriptions we need, and identify them by the first stat that they describe
@@ -229,7 +249,7 @@ return function(stats, scopeName)
 			end
 			val[i].fmt = "d"
 		end
-		local desc = matchLimit(descriptor.description[1], val)
+		local desc = matchLimit(descriptor.description[1], val, quality)
 		if desc then
 			for _, spec in ipairs(desc) do
 				applySpecial(val, spec)

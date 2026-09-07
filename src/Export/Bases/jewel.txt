@@ -1,6 +1,5 @@
 -- Item data (c) Grinding Gear Games
-local itemBases = ...
-
+return function(itemBases)
 #type Jewel
 #base Metadata/Items/Jewels/JewelStr
 #base Metadata/Items/Jewels/JewelDex
@@ -12,6 +11,7 @@ local itemBases = ...
 #base Metadata/Items/Jewels/JewelAbyssCaster
 #base Metadata/Items/Jewels/JewelAbyssMelee
 #base Metadata/Items/Jewels/JewelAbyssRanged
+#base Metadata/Items/Jewels/JewelAbyssConglomerate
 
 #subType Cluster
 #base Metadata/Items/Jewels/JewelPassiveTreeExpansionLarge
@@ -25,3 +25,4 @@ local itemBases = ...
 #base Metadata/Items/AnimalCharms/StrAnimalCharm
 #base Metadata/Items/AnimalCharms/DexAnimalCharm
 #base Metadata/Items/AnimalCharms/IntAnimalCharm
+end

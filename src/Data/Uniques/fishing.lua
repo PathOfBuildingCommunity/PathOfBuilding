@@ -17,10 +17,11 @@ Glows while in an Area containing a Unique Fish
 Song of the Sirens
 Fishing Rod
 Requires 8 Str, 8 Dex
+Source: Fishing
 Implicits: 0
 Siren Worm Bait
-(50-40)% reduced Quantity of Fish Caught
 (50-60)% increased Rarity of Fish Caught
 You can catch Exotic Fish
+(50-40)% reduced Quantity of Fish Caught
 ]]
 }

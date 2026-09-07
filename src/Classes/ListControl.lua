@@ -16,7 +16,7 @@
 -- :OnDragSend(index, value, target)  [Called after a drag event]
 -- :OnOrderChange()  [Called after list order is changed through dragging]
 -- :OnSelect(index, value)  [Called when a list value is selected]
--- :OnSelClick(index, value, doubleClick)  [Called when a list value is clicked]
+-- :OnSelClick(index, value, doubleClick)  [Called when a list value is clicked; return false to release focus]
 -- :OnSelCopy(index, value)  [Called when Ctrl+C is pressed while a list value is selected]
 -- :OnSelDelete(index, value)  [Called when backspace or delete is pressed while a list value is selected]
 -- :OnSelKeyDown(index, value)  [Called when any other key is pressed while a list value is selected]
@@ -30,16 +30,27 @@ local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
 
-local ListClass = newClass("ListControl", "Control", "ControlHost", function(self, anchor, x, y, width, height, rowHeight, scroll, isMutable, list, forceTooltip)
-	self.Control(anchor, x, y, width, height)
-	self.ControlHost()
+---@class ListControl<T>: Control, ControlHost
+---@field list T[]
+local ListClass = newClass("ListControl", "Control", "ControlHost")
+
+---@param anchor Anchor?
+---@param rect Rect?
+---@param rowHeight number
+---@param scroll "HORIZONTAL"|"VERTICAL"|boolean|nil
+---@param isMutable boolean?
+---@param list any[]?
+---@param forceTooltip any
+function ListClass:ListControl(anchor, rect, rowHeight, scroll, isMutable, list, forceTooltip)
+	self:Control(anchor, rect)
+	self:ControlHost()
 	self.rowHeight = rowHeight
 	self.scroll = scroll
 	self.isMutable = isMutable
 	self.list = list or { }
 	self.forceTooltip = forceTooltip
 	self.colList = { { } }
-	self.tooltip = new("Tooltip")
+	self.tooltip = new("Tooltip"):Tooltip()
 	self.font = "VAR"
 	if self.scroll then
 		if self.scroll == "HORIZONTAL" then
@@ -48,7 +59,7 @@ local ListClass = newClass("ListControl", "Control", "ControlHost", function(sel
 			self.scrollH = false
 		end
 	end
-	self.controls.scrollBarH = new("ScrollBarControl", {"BOTTOM",self,"BOTTOM"}, -8, -1, 0, self.scroll and 16 or 0, rowHeight * 2, "HORIZONTAL") {
+	self.controls.scrollBarH = new("ScrollBarControl"):ScrollBarControl({"BOTTOM",self,"BOTTOM"}, {-8, -1, 0, self.scroll and 16 or 0}, rowHeight * 2, "HORIZONTAL") {
 		shown = function()
 			return self.scrollH
 		end,
@@ -57,7 +68,7 @@ local ListClass = newClass("ListControl", "Control", "ControlHost", function(sel
 			return width - 18
 		end
 	}
-	self.controls.scrollBarV = new("ScrollBarControl", {"RIGHT",self,"RIGHT"}, -1, 0, self.scroll and 16 or 0, 0, rowHeight * 2, "VERTICAL") {
+	self.controls.scrollBarV = new("ScrollBarControl"):ScrollBarControl({"RIGHT",self,"RIGHT"}, {-1, 0, self.scroll and 16 or 0, 0}, rowHeight * 2, "VERTICAL") {
 		y = function()
 			return (self.scrollH and -8 or 0)
 		end,
@@ -71,7 +82,9 @@ local ListClass = newClass("ListControl", "Control", "ControlHost", function(sel
 		self.controls.scrollBarV.shown = false
 	end
 	self.labelPositionOffset = {0, 0}
-end)
+	return self
+end
+
 
 function ListClass:SelectIndex(index)
 	self.selValue = self.list[index]
@@ -346,10 +359,12 @@ function ListClass:OnKeyDown(key, doubleClick)
 				newSelect = index
 			end
 		else
+			local scrollOffsetH = self.controls.scrollBarH.offset
 			for colIndex, column in ipairs(self.colList) do
 				local relX = cursorX - (x + 2)
 				local relY = cursorY - (y + 2)
-				local mOver = relX >= column._offset and relX <= column._offset + column._width and relY >= 0 and relY <= 18
+				local adjustedRelX = relX + scrollOffsetH
+				local mOver = adjustedRelX >= column._offset and adjustedRelX <= column._offset + column._width and relY >= 0 and relY <= 18
 				if self:GetColumnProperty(column, "sortable") and mOver and self.ReSort then
 					self:ReSort(colIndex)
 				end
@@ -364,7 +379,9 @@ function ListClass:OnKeyDown(key, doubleClick)
 				self.selDragActive = false
 			end
 			if self.OnSelClick then
-				self:OnSelClick(self.selIndex, self.selValue, doubleClick)
+				if self:OnSelClick(self.selIndex, self.selValue, doubleClick) == false then
+					return
+				end
 			end
 		end
 	elseif #self.list > 0 and not self.selDragActive then

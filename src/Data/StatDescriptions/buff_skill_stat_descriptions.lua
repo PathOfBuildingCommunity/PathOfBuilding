@@ -253,6 +253,36 @@ return {
 			[1]={
 				limit={
 					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Buff grants {0}% more Mana Cost of Skills"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Buff grants {0}% less Mana Cost of Skills"
+			}
+		},
+		name="mana_infused_staff_buff_mana_cost_final",
+		stats={
+			[1]="active_skill_buff_mana_cost_+%_final_to_grant"
+		}
+	},
+	[13]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
 						[1]="#",
 						[2]="#"
 					}
@@ -265,7 +295,37 @@ return {
 			[1]="shield_spell_block_%"
 		}
 	},
-	[13]={
+	[14]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Buff grants {0}% more Chance to Block Attack and Spell Damage"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Buff grants {0}% less Chance to Block Attack and Spell Damage"
+			}
+		},
+		name="mana_infused_staff_buff_block_chance_final",
+		stats={
+			[1]="active_skill_buff_block_chance_+%_final_to_grant"
+		}
+	},
+	[15]={
 		[1]={
 			[1]={
 				[1]={
@@ -286,7 +346,41 @@ return {
 			[1]="phase_through_objects"
 		}
 	},
-	[14]={
+	[16]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Buff grants {0:+d}% increased effect of Chill"
+			}
+		},
+		name="buff_chill_effect",
+		stats={
+			[1]="active_skill_buff_chill_effect_+%_to_grant"
+		}
+	},
+	[17]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Buff causes Damage to Penetrate {0}% of Cold Resistance against Chilled Enemies"
+			}
+		},
+		name="buff_cold_pen_vs_chilled",
+		stats={
+			[1]="active_skill_buff_cold_penetration_%_vs_chilled_enemies_to_grant"
+		}
+	},
+	[18]={
 		[1]={
 			[1]={
 				limit={
@@ -325,7 +419,7 @@ return {
 			[2]="quality_display_shock_chance_from_skill_is_gem"
 		}
 	},
-	[15]={
+	[19]={
 		[1]={
 			[1]={
 				limit={
@@ -355,7 +449,7 @@ return {
 			[1]="base_damage_taken_+%"
 		}
 	},
-	[16]={
+	[20]={
 		[1]={
 			[1]={
 				limit={
@@ -372,7 +466,7 @@ return {
 			[1]="base_immune_to_freeze"
 		}
 	},
-	[17]={
+	[21]={
 		[1]={
 			[1]={
 				limit={
@@ -402,7 +496,7 @@ return {
 			[1]="base_movement_velocity_+%"
 		}
 	},
-	[18]={
+	[22]={
 		[1]={
 			[1]={
 				limit={
@@ -419,7 +513,7 @@ return {
 			[1]="base_physical_damage_reduction_rating"
 		}
 	},
-	[19]={
+	[23]={
 		[1]={
 			[1]={
 				[1]={
@@ -440,7 +534,7 @@ return {
 			[1]="berserk_rage_effect_+%"
 		}
 	},
-	[20]={
+	[24]={
 		[1]={
 			[1]={
 				limit={
@@ -470,7 +564,7 @@ return {
 			[1]="berserk_spell_damage_+%_final"
 		}
 	},
-	[21]={
+	[25]={
 		[1]={
 			[1]={
 				limit={
@@ -492,7 +586,7 @@ return {
 			[2]="buff_added_spell_maximum_base_physical_damage_per_shield_quality"
 		}
 	},
-	[22]={
+	[26]={
 		[1]={
 			[1]={
 				limit={
@@ -509,7 +603,7 @@ return {
 			[1]="bulwark_link_grants_recover_X_life_on_block"
 		}
 	},
-	[23]={
+	[27]={
 		[1]={
 			[1]={
 				limit={
@@ -539,7 +633,7 @@ return {
 			[1]="bulwark_link_grants_stun_threshold_+%"
 		}
 	},
-	[24]={
+	[28]={
 		[1]={
 			[1]={
 				limit={
@@ -569,7 +663,7 @@ return {
 			[1]="critical_link_grants_accuracy_rating_+%"
 		}
 	},
-	[25]={
+	[29]={
 		[1]={
 			[1]={
 				limit={
@@ -586,7 +680,7 @@ return {
 			[1]="critical_link_grants_base_critical_strike_multiplier_+"
 		}
 	},
-	[26]={
+	[30]={
 		[1]={
 			[1]={
 				[1]={
@@ -607,7 +701,7 @@ return {
 			[1]="damage_taken_goes_to_mana_%"
 		}
 	},
-	[27]={
+	[31]={
 		[1]={
 			[1]={
 				limit={
@@ -624,7 +718,7 @@ return {
 			[1]="display_bulwark_link_overrides_attack_block_and_maximum_attack_block"
 		}
 	},
-	[28]={
+	[32]={
 		[1]={
 			[1]={
 				limit={
@@ -641,7 +735,7 @@ return {
 			[1]="display_critical_link_overrides_main_hand_critical_strike_chance"
 		}
 	},
-	[29]={
+	[33]={
 		[1]={
 			[1]={
 				limit={
@@ -658,7 +752,7 @@ return {
 			[1]="display_skill_buff_grants_bleeding_immunity"
 		}
 	},
-	[30]={
+	[34]={
 		[1]={
 			[1]={
 				[1]={
@@ -679,7 +773,7 @@ return {
 			[1]="energy_shield_lost_per_minute"
 		}
 	},
-	[31]={
+	[35]={
 		[1]={
 			[1]={
 				[1]={
@@ -700,7 +794,7 @@ return {
 			[1]="flame_link_grants_chance_to_ignite_%"
 		}
 	},
-	[32]={
+	[36]={
 		[1]={
 			[1]={
 				limit={
@@ -778,7 +872,7 @@ return {
 			[3]="cannot_recover_above_low_life_except_flasks"
 		}
 	},
-	[33]={
+	[37]={
 		[1]={
 			[1]={
 				limit={
@@ -795,7 +889,7 @@ return {
 			[1]="physical_damage_reduction_%_per_endurance_charge"
 		}
 	},
-	[34]={
+	[38]={
 		[1]={
 			[1]={
 				limit={
@@ -825,7 +919,7 @@ return {
 			[1]="physical_damage_reduction_rating_+%"
 		}
 	},
-	[35]={
+	[39]={
 		[1]={
 			[1]={
 				limit={
@@ -842,7 +936,7 @@ return {
 			[1]="life_leech_is_applied_to_remora_link_targets_instead"
 		}
 	},
-	[36]={
+	[40]={
 		[1]={
 			[1]={
 				limit={
@@ -872,7 +966,7 @@ return {
 			[1]="remora_link_grants_damage_+%_when_on_full_life"
 		}
 	},
-	[37]={
+	[41]={
 		[1]={
 			[1]={
 				[1]={
@@ -893,7 +987,7 @@ return {
 			[1]="remora_link_grants_maximum_life_leech_rate_%_per_minute"
 		}
 	},
-	[38]={
+	[42]={
 		[1]={
 			[1]={
 				limit={
@@ -910,7 +1004,7 @@ return {
 			[1]="resist_all_elements_%_per_endurance_charge"
 		}
 	},
-	[39]={
+	[43]={
 		[1]={
 			[1]={
 				limit={
@@ -927,7 +1021,7 @@ return {
 			[1]="resist_all_%"
 		}
 	},
-	[40]={
+	[44]={
 		[1]={
 			[1]={
 				limit={
@@ -957,7 +1051,7 @@ return {
 			[1]="skill_buff_effect_+%"
 		}
 	},
-	[41]={
+	[45]={
 		[1]={
 			[1]={
 				limit={
@@ -987,7 +1081,7 @@ return {
 			[1]="skill_buff_grants_attack_and_cast_speed_+%"
 		}
 	},
-	[42]={
+	[46]={
 		[1]={
 			[1]={
 				limit={
@@ -1004,7 +1098,7 @@ return {
 			[1]="skill_buff_grants_chance_to_freeze_%"
 		}
 	},
-	[43]={
+	[47]={
 		[1]={
 			[1]={
 				limit={
@@ -1034,7 +1128,7 @@ return {
 			[1]="skill_buff_grants_damage_+%"
 		}
 	},
-	[44]={
+	[48]={
 		[1]={
 			[1]={
 				limit={
@@ -1064,7 +1158,7 @@ return {
 			[1]="skill_buff_grants_shock_duration_+%"
 		}
 	},
-	[45]={
+	[49]={
 		[1]={
 			[1]={
 				limit={
@@ -1081,7 +1175,7 @@ return {
 			[1]="skill_display_buff_grants_shock_immunity"
 		}
 	},
-	[46]={
+	[50]={
 		[1]={
 			[1]={
 				[1]={
@@ -1102,7 +1196,7 @@ return {
 			[1]="skill_grants_life_cost_%_mana_cost_while_not_on_low_life"
 		}
 	},
-	[47]={
+	[51]={
 		[1]={
 			[1]={
 				limit={
@@ -1132,7 +1226,7 @@ return {
 			[1]="soul_link_grants_damage_taken_+%_final"
 		}
 	},
-	[48]={
+	[52]={
 		[1]={
 			[1]={
 				limit={
@@ -1162,7 +1256,7 @@ return {
 			[1]="soul_link_grants_mana_regeneration_+%"
 		}
 	},
-	[49]={
+	[53]={
 		[1]={
 			[1]={
 				limit={
@@ -1179,7 +1273,7 @@ return {
 			[1]="soul_link_grants_take_%_of_hit_damage_from_soul_link_source_energy_shield_before_you"
 		}
 	},
-	[50]={
+	[54]={
 		[1]={
 			[1]={
 				limit={
@@ -1209,7 +1303,7 @@ return {
 			[1]="spell_damage_+%"
 		}
 	},
-	[51]={
+	[55]={
 		[1]={
 			[1]={
 				limit={
@@ -1239,7 +1333,37 @@ return {
 			[1]="storm_blade_energy_shield_+%_final"
 		}
 	},
-	[52]={
+	[56]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]=1,
+						[2]="#"
+					}
+				},
+				text="Buff grants {0}% increased Attack Speed"
+			},
+			[2]={
+				[1]={
+					k="negate",
+					v=1
+				},
+				limit={
+					[1]={
+						[1]="#",
+						[2]=-1
+					}
+				},
+				text="Buff grants {0}% reduced Attack Speed"
+			}
+		},
+		name="storm_blade_buff_attack_speed",
+		stats={
+			[1]="storm_blade_global_attack_speed_+%"
+		}
+	},
+	[57]={
 		[1]={
 			[1]={
 				[1]={
@@ -1260,7 +1384,7 @@ return {
 			[1]="unaffected_by_temporal_chains"
 		}
 	},
-	[53]={
+	[58]={
 		[1]={
 			[1]={
 				limit={
@@ -1277,7 +1401,7 @@ return {
 			[1]="vaal_molten_shall_armour_+%_final"
 		}
 	},
-	[54]={
+	[59]={
 		[1]={
 			[1]={
 				limit={
@@ -1299,7 +1423,7 @@ return {
 			[2]="virtual_flame_link_maximum_fire_damage"
 		}
 	},
-	[55]={
+	[60]={
 		[1]={
 			[1]={
 				limit={
@@ -1321,7 +1445,7 @@ return {
 			[2]="virtual_storm_blade_maximum_lightning_damage"
 		}
 	},
-	[56]={
+	[61]={
 		[1]={
 			[1]={
 				limit={
@@ -1356,73 +1480,78 @@ return {
 			[2]="link_grace_period_8_second_override"
 		}
 	},
+	["active_skill_buff_block_chance_+%_final_to_grant"]=14,
+	["active_skill_buff_chill_effect_+%_to_grant"]=16,
+	["active_skill_buff_cold_penetration_%_vs_chilled_enemies_to_grant"]=17,
+	["active_skill_buff_mana_cost_+%_final_to_grant"]=12,
 	["attack_maximum_added_cold_damage"]=2,
 	["attack_maximum_added_fire_damage"]=1,
 	["attack_maximum_added_lightning_damage"]=4,
 	["attack_minimum_added_cold_damage"]=2,
 	["attack_minimum_added_fire_damage"]=1,
 	["attack_minimum_added_lightning_damage"]=4,
-	["base_chance_to_shock_%_from_skill"]=14,
-	["base_damage_taken_+%"]=15,
+	["base_chance_to_shock_%_from_skill"]=18,
+	["base_damage_taken_+%"]=19,
 	["base_energy_shield_regeneration_rate_per_minute"]=11,
-	["base_immune_to_freeze"]=16,
+	["base_immune_to_freeze"]=20,
 	["base_mana_regeneration_rate_per_minute"]=10,
-	["base_movement_velocity_+%"]=17,
-	["base_physical_damage_reduction_rating"]=18,
-	["berserk_rage_effect_+%"]=19,
-	["berserk_spell_damage_+%_final"]=20,
-	["buff_added_spell_maximum_base_physical_damage_per_shield_quality"]=21,
-	["buff_added_spell_minimum_base_physical_damage_per_shield_quality"]=21,
-	["bulwark_link_grants_recover_X_life_on_block"]=22,
-	["bulwark_link_grants_stun_threshold_+%"]=23,
-	["cannot_recover_above_low_life_except_flasks"]=32,
-	["critical_link_grants_accuracy_rating_+%"]=24,
-	["critical_link_grants_base_critical_strike_multiplier_+"]=25,
-	["damage_taken_goes_to_mana_%"]=26,
-	["display_bulwark_link_overrides_attack_block_and_maximum_attack_block"]=27,
-	["display_critical_link_overrides_main_hand_critical_strike_chance"]=28,
-	["display_link_stuff"]=56,
-	["display_skill_buff_grants_bleeding_immunity"]=29,
-	["energy_shield_lost_per_minute"]=30,
-	["flame_link_grants_chance_to_ignite_%"]=31,
+	["base_movement_velocity_+%"]=21,
+	["base_physical_damage_reduction_rating"]=22,
+	["berserk_rage_effect_+%"]=23,
+	["berserk_spell_damage_+%_final"]=24,
+	["buff_added_spell_maximum_base_physical_damage_per_shield_quality"]=25,
+	["buff_added_spell_minimum_base_physical_damage_per_shield_quality"]=25,
+	["bulwark_link_grants_recover_X_life_on_block"]=26,
+	["bulwark_link_grants_stun_threshold_+%"]=27,
+	["cannot_recover_above_low_life_except_flasks"]=36,
+	["critical_link_grants_accuracy_rating_+%"]=28,
+	["critical_link_grants_base_critical_strike_multiplier_+"]=29,
+	["damage_taken_goes_to_mana_%"]=30,
+	["display_bulwark_link_overrides_attack_block_and_maximum_attack_block"]=31,
+	["display_critical_link_overrides_main_hand_critical_strike_chance"]=32,
+	["display_link_stuff"]=61,
+	["display_skill_buff_grants_bleeding_immunity"]=33,
+	["energy_shield_lost_per_minute"]=34,
+	["flame_link_grants_chance_to_ignite_%"]=35,
 	["herald_of_ice_cold_damage_+%"]=7,
 	["herald_of_thunder_lightning_damage_+%"]=8,
-	["life_leech_is_applied_to_remora_link_targets_instead"]=35,
-	["link_grace_period_8_second_override"]=56,
+	["life_leech_is_applied_to_remora_link_targets_instead"]=39,
+	["link_grace_period_8_second_override"]=61,
 	parent="skill_stat_descriptions",
-	["petrified_blood_%_life_loss_below_half_from_hit_to_prevent"]=32,
-	["petrified_blood_%_prevented_life_loss_to_lose_over_time"]=32,
-	["phase_through_objects"]=13,
-	["physical_damage_reduction_%_per_endurance_charge"]=33,
-	["physical_damage_reduction_rating_+%"]=34,
-	["quality_display_shock_chance_from_skill_is_gem"]=14,
-	["remora_link_grants_damage_+%_when_on_full_life"]=36,
-	["remora_link_grants_maximum_life_leech_rate_%_per_minute"]=37,
-	["resist_all_%"]=39,
-	["resist_all_elements_%_per_endurance_charge"]=38,
-	["shield_spell_block_%"]=12,
-	["skill_buff_effect_+%"]=40,
-	["skill_buff_grants_attack_and_cast_speed_+%"]=41,
-	["skill_buff_grants_chance_to_freeze_%"]=42,
+	["petrified_blood_%_life_loss_below_half_from_hit_to_prevent"]=36,
+	["petrified_blood_%_prevented_life_loss_to_lose_over_time"]=36,
+	["phase_through_objects"]=15,
+	["physical_damage_reduction_%_per_endurance_charge"]=37,
+	["physical_damage_reduction_rating_+%"]=38,
+	["quality_display_shock_chance_from_skill_is_gem"]=18,
+	["remora_link_grants_damage_+%_when_on_full_life"]=40,
+	["remora_link_grants_maximum_life_leech_rate_%_per_minute"]=41,
+	["resist_all_%"]=43,
+	["resist_all_elements_%_per_endurance_charge"]=42,
+	["shield_spell_block_%"]=13,
+	["skill_buff_effect_+%"]=44,
+	["skill_buff_grants_attack_and_cast_speed_+%"]=45,
+	["skill_buff_grants_chance_to_freeze_%"]=46,
 	["skill_buff_grants_critical_strike_chance_+%"]=6,
-	["skill_buff_grants_damage_+%"]=43,
-	["skill_buff_grants_shock_duration_+%"]=44,
-	["skill_display_buff_grants_shock_immunity"]=45,
-	["skill_grants_life_cost_%_mana_cost_while_not_on_low_life"]=46,
-	["soul_link_grants_damage_taken_+%_final"]=47,
-	["soul_link_grants_mana_regeneration_+%"]=48,
-	["soul_link_grants_take_%_of_hit_damage_from_soul_link_source_energy_shield_before_you"]=49,
-	["spell_damage_+%"]=50,
+	["skill_buff_grants_damage_+%"]=47,
+	["skill_buff_grants_shock_duration_+%"]=48,
+	["skill_display_buff_grants_shock_immunity"]=49,
+	["skill_grants_life_cost_%_mana_cost_while_not_on_low_life"]=50,
+	["soul_link_grants_damage_taken_+%_final"]=51,
+	["soul_link_grants_mana_regeneration_+%"]=52,
+	["soul_link_grants_take_%_of_hit_damage_from_soul_link_source_energy_shield_before_you"]=53,
+	["spell_damage_+%"]=54,
 	["spell_maximum_added_cold_damage"]=3,
 	["spell_maximum_added_lightning_damage"]=5,
 	["spell_minimum_added_cold_damage"]=3,
 	["spell_minimum_added_lightning_damage"]=5,
 	["stealth_+%"]=9,
-	["storm_blade_energy_shield_+%_final"]=51,
-	["unaffected_by_temporal_chains"]=52,
-	["vaal_molten_shall_armour_+%_final"]=53,
-	["virtual_flame_link_maximum_fire_damage"]=54,
-	["virtual_flame_link_minimum_fire_damage"]=54,
-	["virtual_storm_blade_maximum_lightning_damage"]=55,
-	["virtual_storm_blade_minimum_lightning_damage"]=55
+	["storm_blade_energy_shield_+%_final"]=55,
+	["storm_blade_global_attack_speed_+%"]=56,
+	["unaffected_by_temporal_chains"]=57,
+	["vaal_molten_shall_armour_+%_final"]=58,
+	["virtual_flame_link_maximum_fire_damage"]=59,
+	["virtual_flame_link_minimum_fire_damage"]=59,
+	["virtual_storm_blade_maximum_lightning_damage"]=60,
+	["virtual_storm_blade_minimum_lightning_damage"]=60
 }

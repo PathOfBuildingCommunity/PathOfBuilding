@@ -61,3 +61,9 @@
 #*.PDF   diff=astextplain
 #*.rtf   diff=astextplain
 #*.RTF   diff=astextplain
+
+###############################################################################
+# Executable files - preserve execution permissions on Unix systems
+# (https://git-scm.com/docs/gitattributes#_executable)
+###############################################################################
+runtime/*.exe binary

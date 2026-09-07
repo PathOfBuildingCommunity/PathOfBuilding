@@ -23,7 +23,7 @@ local oldMethod = {
 	CleansingFireWall = { Fire = { 3304.677, 20 } },
 	GSConsumeBossDisintegrateBeam = { Lightning = { 3735.061, 50 } },
 	MavenSuperFireProjectileImpact = { Fire = { 4955.383, 0 }, SkillUberDamageMult = 201 },
-	MavenMemoryGame = { Physical = { 34505.376, 0 } },
+	MavenMemoryGame = { Physical = { 8626.344, 0 } },
 }
 
 -- exports and calculates the damage multipliers of the skill
@@ -521,7 +521,7 @@ directiveTable.skills.skill = function(state, args, out)
 		if additionalStats.base.count > 0 then
 			out:write('\n			base = {')
 				local count = 0
-				for stat, value in pairs(additionalStats.base) do
+				for stat, value in pairsSortByKey(additionalStats.base) do
 					if stat ~= "count" then
 						out:write((count > 0 and ',' or ''), '\n				', stat, ' = ', value)
 						count = count + 1
@@ -532,7 +532,7 @@ directiveTable.skills.skill = function(state, args, out)
 		if additionalStats.uber.count > 0 then
 			out:write((additionalStats.base.count > 0 and ',' or ''),'\n			uber = {')
 				local count = 0
-				for stat, value in pairs(additionalStats.uber) do
+				for stat, value in pairsSortByKey(additionalStats.uber) do
 					if stat ~= "count" then
 						out:write((count > 0 and ',' or ''), '\n				', stat, ' = ', value)
 						count = count + 1
@@ -554,13 +554,11 @@ end
 end
 
  -- #skillList
- directiveTable.skills.skillList = function(state, args, out)
-	out:write('},{\n')
+directiveTable.skills.skillList = function(state, args, out)
 	out:write('    { val = "None", label = "None" }')
 	for _, skillName in pairs(state.skillList) do
 		out:write(',\n    { val = "', skillName, '", label = "', skillName, '" }')
 	end
-	out:write('\n}')
 	state.boss = nil
 	state.skillList = nil
 end

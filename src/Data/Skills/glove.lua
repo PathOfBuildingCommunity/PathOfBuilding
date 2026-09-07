@@ -4,8 +4,7 @@
 -- Glove enchantment skills
 -- Skill data (c) Grinding Gear Games
 --
-local skills, mod, flag, skill = ...
-
+return function(skills, mod, flag, skill)
 skills["EnchantmentOfBladesOnHit"] = {
 	name = "Word of Blades",
 	hidden = true,
@@ -34,8 +33,12 @@ skills["EnchantmentOfBladesOnHit"] = {
 		"spell_uncastable_if_triggerable",
 		"damage_cannot_be_reflected",
 	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+	},
 	levels = {
-		[1] = { 1, 1.6000000238419, critChance = 7, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 5, levelRequirement = 32, statInterpolation = { 3, 3, }, },
+		[1] = { 1, 1.6000000238419, PvPDamageMultiplier = -80, cooldown = 5, critChance = 7, levelRequirement = 32, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["EnchantmentOfBladesOnHit2"] = {
@@ -66,8 +69,12 @@ skills["EnchantmentOfBladesOnHit2"] = {
 		"spell_uncastable_if_triggerable",
 		"damage_cannot_be_reflected",
 	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+	},
 	levels = {
-		[1] = { 1.5, 2.2999999523163, critChance = 7, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 5, levelRequirement = 53, statInterpolation = { 3, 3, }, },
+		[1] = { 1.5, 2.2999999523163, PvPDamageMultiplier = -80, cooldown = 5, critChance = 7, levelRequirement = 53, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["EnchantmentOfBladesOnHit3"] = {
@@ -98,8 +105,12 @@ skills["EnchantmentOfBladesOnHit3"] = {
 		"spell_uncastable_if_triggerable",
 		"damage_cannot_be_reflected",
 	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+	},
 	levels = {
-		[1] = { 2, 3, critChance = 7, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 5, levelRequirement = 66, statInterpolation = { 3, 3, }, },
+		[1] = { 2, 3, PvPDamageMultiplier = -80, cooldown = 5, critChance = 7, levelRequirement = 66, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["EnchantmentOfBladesOnHit4"] = {
@@ -130,8 +141,12 @@ skills["EnchantmentOfBladesOnHit4"] = {
 		"spell_uncastable_if_triggerable",
 		"damage_cannot_be_reflected",
 	},
+	notMinionStat = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+	},
 	levels = {
-		[1] = { 2.4000000953674, 3.7999999523163, critChance = 7, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 5, levelRequirement = 75, statInterpolation = { 3, 3, }, },
+		[1] = { 2.4000000953674, 3.7999999523163, PvPDamageMultiplier = -80, cooldown = 5, critChance = 7, levelRequirement = 75, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["EnchantmentOfFlamesOnHit"] = {
@@ -160,8 +175,12 @@ skills["EnchantmentOfFlamesOnHit"] = {
 		"spell_uncastable_if_triggerable",
 		"damage_cannot_be_reflected",
 	},
+	notMinionStat = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+	},
 	levels = {
-		[1] = { 1.2000000476837, 1.7999999523163, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 5, levelRequirement = 32, statInterpolation = { 3, 3, }, },
+		[1] = { 1.2000000476837, 1.7999999523163, PvPDamageMultiplier = -80, cooldown = 5, critChance = 5, levelRequirement = 32, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["EnchantmentOfFlamesOnHit2"] = {
@@ -190,8 +209,12 @@ skills["EnchantmentOfFlamesOnHit2"] = {
 		"spell_uncastable_if_triggerable",
 		"damage_cannot_be_reflected",
 	},
+	notMinionStat = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+	},
 	levels = {
-		[1] = { 1.7000000476837, 2.5, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 5, levelRequirement = 53, statInterpolation = { 3, 3, }, },
+		[1] = { 1.7000000476837, 2.5, PvPDamageMultiplier = -80, cooldown = 5, critChance = 5, levelRequirement = 53, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["EnchantmentOfFlamesOnHit3"] = {
@@ -220,8 +243,12 @@ skills["EnchantmentOfFlamesOnHit3"] = {
 		"spell_uncastable_if_triggerable",
 		"damage_cannot_be_reflected",
 	},
+	notMinionStat = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+	},
 	levels = {
-		[1] = { 2.2000000476837, 3.2000000476837, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 5, levelRequirement = 66, statInterpolation = { 3, 3, }, },
+		[1] = { 2.2000000476837, 3.2000000476837, PvPDamageMultiplier = -80, cooldown = 5, critChance = 5, levelRequirement = 66, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["EnchantmentOfFlamesOnHit4"] = {
@@ -250,8 +277,12 @@ skills["EnchantmentOfFlamesOnHit4"] = {
 		"spell_uncastable_if_triggerable",
 		"damage_cannot_be_reflected",
 	},
+	notMinionStat = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+	},
 	levels = {
-		[1] = { 2.5999999046326, 4, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 5, levelRequirement = 75, statInterpolation = { 3, 3, }, },
+		[1] = { 2.5999999046326, 4, PvPDamageMultiplier = -80, cooldown = 5, critChance = 5, levelRequirement = 75, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["EnchantmentOfForceOnHit"] = {
@@ -276,7 +307,7 @@ skills["EnchantmentOfForceOnHit"] = {
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { baseMultiplier = 1.35, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 1.35, cooldown = 5, levelRequirement = 32, },
+		[1] = { PvPDamageMultiplier = -80, baseMultiplier = 1.35, cooldown = 5, damageEffectiveness = 1.35, levelRequirement = 32, storedUses = 1, },
 	},
 }
 skills["EnchantmentOfForceOnHit2"] = {
@@ -301,7 +332,7 @@ skills["EnchantmentOfForceOnHit2"] = {
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { baseMultiplier = 1.89, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 1.89, cooldown = 5, levelRequirement = 53, },
+		[1] = { PvPDamageMultiplier = -80, baseMultiplier = 1.89, cooldown = 5, damageEffectiveness = 1.89, levelRequirement = 53, storedUses = 1, },
 	},
 }
 skills["EnchantmentOfForceOnHit3"] = {
@@ -326,7 +357,7 @@ skills["EnchantmentOfForceOnHit3"] = {
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { baseMultiplier = 2.43, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.43, cooldown = 5, levelRequirement = 66, },
+		[1] = { PvPDamageMultiplier = -80, baseMultiplier = 2.43, cooldown = 5, damageEffectiveness = 2.43, levelRequirement = 66, storedUses = 1, },
 	},
 }
 skills["EnchantmentOfForceOnHit4"] = {
@@ -351,7 +382,7 @@ skills["EnchantmentOfForceOnHit4"] = {
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { baseMultiplier = 2.97, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.97, cooldown = 5, levelRequirement = 75, },
+		[1] = { PvPDamageMultiplier = -80, baseMultiplier = 2.97, cooldown = 5, damageEffectiveness = 2.97, levelRequirement = 75, storedUses = 1, },
 	},
 }
 skills["EnchantmentOfFrostOnKill"] = {
@@ -382,8 +413,12 @@ skills["EnchantmentOfFrostOnKill"] = {
 		"spell_uncastable_if_triggerable",
 		"damage_cannot_be_reflected",
 	},
+	notMinionStat = {
+		"spell_minimum_base_cold_damage",
+		"spell_maximum_base_cold_damage",
+	},
 	levels = {
-		[1] = { 1, 1.6000000238419, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 5, levelRequirement = 32, statInterpolation = { 3, 3, }, },
+		[1] = { 1, 1.6000000238419, PvPDamageMultiplier = -80, cooldown = 5, critChance = 5, levelRequirement = 32, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["EnchantmentOfFrostOnKill2"] = {
@@ -414,8 +449,12 @@ skills["EnchantmentOfFrostOnKill2"] = {
 		"spell_uncastable_if_triggerable",
 		"damage_cannot_be_reflected",
 	},
+	notMinionStat = {
+		"spell_minimum_base_cold_damage",
+		"spell_maximum_base_cold_damage",
+	},
 	levels = {
-		[1] = { 1.5, 2.2999999523163, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 5, levelRequirement = 53, statInterpolation = { 3, 3, }, },
+		[1] = { 1.5, 2.2999999523163, PvPDamageMultiplier = -80, cooldown = 5, critChance = 5, levelRequirement = 53, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["EnchantmentOfFrostOnKill3"] = {
@@ -446,8 +485,12 @@ skills["EnchantmentOfFrostOnKill3"] = {
 		"spell_uncastable_if_triggerable",
 		"damage_cannot_be_reflected",
 	},
+	notMinionStat = {
+		"spell_minimum_base_cold_damage",
+		"spell_maximum_base_cold_damage",
+	},
 	levels = {
-		[1] = { 2, 3, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 5, levelRequirement = 66, statInterpolation = { 3, 3, }, },
+		[1] = { 2, 3, PvPDamageMultiplier = -80, cooldown = 5, critChance = 5, levelRequirement = 66, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["EnchantmentOfFrostOnKill4"] = {
@@ -478,8 +521,12 @@ skills["EnchantmentOfFrostOnKill4"] = {
 		"spell_uncastable_if_triggerable",
 		"damage_cannot_be_reflected",
 	},
+	notMinionStat = {
+		"spell_minimum_base_cold_damage",
+		"spell_maximum_base_cold_damage",
+	},
 	levels = {
-		[1] = { 2.4000000953674, 3.7999999523163, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 5, levelRequirement = 75, statInterpolation = { 3, 3, }, },
+		[1] = { 2.4000000953674, 3.7999999523163, PvPDamageMultiplier = -80, cooldown = 5, critChance = 5, levelRequirement = 75, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["EnchantmentOfFuryOnHit"] = {
@@ -490,19 +537,20 @@ skills["EnchantmentOfFuryOnHit"] = {
 	description = "Repeatedly fires a piercing projectile based on your weapon, converting some physical damage to fire. The projectiles form an arc in front of you.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.Projectile] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, [SkillType.Fire] = true, [SkillType.ProjectilesNotFromUser] = true, [SkillType.Cooldown] = true, [SkillType.InbuiltTrigger] = true, },
 	weaponTypes = {
-		["One Handed Mace"] = true,
-		["Sceptre"] = true,
-		["Thrusting One Handed Sword"] = true,
-		["Two Handed Sword"] = true,
-		["Dagger"] = true,
-		["Staff"] = true,
-		["Wand"] = true,
 		["Bow"] = true,
+		["Claw"] = true,
+		["Dagger"] = true,
+		["Fishing Rod"] = true,
+		["One Handed Axe"] = true,
+		["One Handed Mace"] = true,
+		["One Handed Sword"] = true,
+		["Sceptre"] = true,
+		["Staff"] = true,
+		["Thrusting One Handed Sword"] = true,
 		["Two Handed Axe"] = true,
 		["Two Handed Mace"] = true,
-		["One Handed Axe"] = true,
-		["Claw"] = true,
-		["One Handed Sword"] = true,
+		["Two Handed Sword"] = true,
+		["Wand"] = true,
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
@@ -528,7 +576,7 @@ skills["EnchantmentOfFuryOnHit"] = {
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { baseMultiplier = 1.5, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 1.5, cooldown = 5, levelRequirement = 32, },
+		[1] = { PvPDamageMultiplier = -80, baseMultiplier = 1.5, cooldown = 5, damageEffectiveness = 1.5, levelRequirement = 32, storedUses = 1, },
 	},
 }
 skills["EnchantmentOfFuryOnHit2"] = {
@@ -539,19 +587,20 @@ skills["EnchantmentOfFuryOnHit2"] = {
 	description = "Repeatedly fires a piercing projectile based on your weapon, converting some physical damage to fire. The projectiles form an arc in front of you.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.Projectile] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, [SkillType.Fire] = true, [SkillType.ProjectilesNotFromUser] = true, [SkillType.Cooldown] = true, [SkillType.InbuiltTrigger] = true, },
 	weaponTypes = {
-		["One Handed Mace"] = true,
-		["Sceptre"] = true,
-		["Thrusting One Handed Sword"] = true,
-		["Two Handed Sword"] = true,
-		["Dagger"] = true,
-		["Staff"] = true,
-		["Wand"] = true,
 		["Bow"] = true,
+		["Claw"] = true,
+		["Dagger"] = true,
+		["Fishing Rod"] = true,
+		["One Handed Axe"] = true,
+		["One Handed Mace"] = true,
+		["One Handed Sword"] = true,
+		["Sceptre"] = true,
+		["Staff"] = true,
+		["Thrusting One Handed Sword"] = true,
 		["Two Handed Axe"] = true,
 		["Two Handed Mace"] = true,
-		["One Handed Axe"] = true,
-		["Claw"] = true,
-		["One Handed Sword"] = true,
+		["Two Handed Sword"] = true,
+		["Wand"] = true,
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
@@ -577,7 +626,7 @@ skills["EnchantmentOfFuryOnHit2"] = {
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { baseMultiplier = 2.1, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.1, cooldown = 5, levelRequirement = 53, },
+		[1] = { PvPDamageMultiplier = -80, baseMultiplier = 2.1, cooldown = 5, damageEffectiveness = 2.1, levelRequirement = 53, storedUses = 1, },
 	},
 }
 skills["EnchantmentOfFuryOnHit3"] = {
@@ -588,19 +637,20 @@ skills["EnchantmentOfFuryOnHit3"] = {
 	description = "Repeatedly fires a piercing projectile based on your weapon, converting some physical damage to fire. The projectiles form an arc in front of you.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.Projectile] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, [SkillType.Fire] = true, [SkillType.ProjectilesNotFromUser] = true, [SkillType.Cooldown] = true, [SkillType.InbuiltTrigger] = true, },
 	weaponTypes = {
-		["One Handed Mace"] = true,
-		["Sceptre"] = true,
-		["Thrusting One Handed Sword"] = true,
-		["Two Handed Sword"] = true,
-		["Dagger"] = true,
-		["Staff"] = true,
-		["Wand"] = true,
 		["Bow"] = true,
+		["Claw"] = true,
+		["Dagger"] = true,
+		["Fishing Rod"] = true,
+		["One Handed Axe"] = true,
+		["One Handed Mace"] = true,
+		["One Handed Sword"] = true,
+		["Sceptre"] = true,
+		["Staff"] = true,
+		["Thrusting One Handed Sword"] = true,
 		["Two Handed Axe"] = true,
 		["Two Handed Mace"] = true,
-		["One Handed Axe"] = true,
-		["Claw"] = true,
-		["One Handed Sword"] = true,
+		["Two Handed Sword"] = true,
+		["Wand"] = true,
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
@@ -626,7 +676,7 @@ skills["EnchantmentOfFuryOnHit3"] = {
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { baseMultiplier = 2.7, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.7, cooldown = 5, levelRequirement = 66, },
+		[1] = { PvPDamageMultiplier = -80, baseMultiplier = 2.7, cooldown = 5, damageEffectiveness = 2.7, levelRequirement = 66, storedUses = 1, },
 	},
 }
 skills["EnchantmentOfFuryOnHit4"] = {
@@ -637,19 +687,20 @@ skills["EnchantmentOfFuryOnHit4"] = {
 	description = "Repeatedly fires a piercing projectile based on your weapon, converting some physical damage to fire. The projectiles form an arc in front of you.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.Projectile] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, [SkillType.Fire] = true, [SkillType.ProjectilesNotFromUser] = true, [SkillType.Cooldown] = true, [SkillType.InbuiltTrigger] = true, },
 	weaponTypes = {
-		["One Handed Mace"] = true,
-		["Sceptre"] = true,
-		["Thrusting One Handed Sword"] = true,
-		["Two Handed Sword"] = true,
-		["Dagger"] = true,
-		["Staff"] = true,
-		["Wand"] = true,
 		["Bow"] = true,
+		["Claw"] = true,
+		["Dagger"] = true,
+		["Fishing Rod"] = true,
+		["One Handed Axe"] = true,
+		["One Handed Mace"] = true,
+		["One Handed Sword"] = true,
+		["Sceptre"] = true,
+		["Staff"] = true,
+		["Thrusting One Handed Sword"] = true,
 		["Two Handed Axe"] = true,
 		["Two Handed Mace"] = true,
-		["One Handed Axe"] = true,
-		["Claw"] = true,
-		["One Handed Sword"] = true,
+		["Two Handed Sword"] = true,
+		["Wand"] = true,
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
@@ -675,7 +726,7 @@ skills["EnchantmentOfFuryOnHit4"] = {
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { baseMultiplier = 3.3, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 3.3, cooldown = 5, levelRequirement = 75, },
+		[1] = { PvPDamageMultiplier = -80, baseMultiplier = 3.3, cooldown = 5, damageEffectiveness = 3.3, levelRequirement = 75, storedUses = 1, },
 	},
 }
 skills["EnchantmentOfInfernoOnKill"] = {
@@ -708,8 +759,12 @@ skills["EnchantmentOfInfernoOnKill"] = {
 		"is_area_damage",
 		"damage_cannot_be_reflected",
 	},
+	notMinionStat = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+	},
 	levels = {
-		[1] = { 1, 1.6000000238419, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 10, levelRequirement = 32, statInterpolation = { 3, 3, }, },
+		[1] = { 1, 1.6000000238419, PvPDamageMultiplier = -80, cooldown = 10, critChance = 5, levelRequirement = 32, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["EnchantmentOfInfernoOnKill2"] = {
@@ -742,8 +797,12 @@ skills["EnchantmentOfInfernoOnKill2"] = {
 		"is_area_damage",
 		"damage_cannot_be_reflected",
 	},
+	notMinionStat = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+	},
 	levels = {
-		[1] = { 1.5, 2.2999999523163, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 10, levelRequirement = 53, statInterpolation = { 3, 3, }, },
+		[1] = { 1.5, 2.2999999523163, PvPDamageMultiplier = -80, cooldown = 10, critChance = 5, levelRequirement = 53, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["EnchantmentOfInfernoOnKill3"] = {
@@ -776,8 +835,12 @@ skills["EnchantmentOfInfernoOnKill3"] = {
 		"is_area_damage",
 		"damage_cannot_be_reflected",
 	},
+	notMinionStat = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+	},
 	levels = {
-		[1] = { 2, 3, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 10, levelRequirement = 66, statInterpolation = { 3, 3, }, },
+		[1] = { 2, 3, PvPDamageMultiplier = -80, cooldown = 10, critChance = 5, levelRequirement = 66, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["EnchantmentOfInfernoOnKill4"] = {
@@ -810,8 +873,12 @@ skills["EnchantmentOfInfernoOnKill4"] = {
 		"is_area_damage",
 		"damage_cannot_be_reflected",
 	},
+	notMinionStat = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+	},
 	levels = {
-		[1] = { 2.4000000953674, 3.7999999523163, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 10, levelRequirement = 75, statInterpolation = { 3, 3, }, },
+		[1] = { 2.4000000953674, 3.7999999523163, PvPDamageMultiplier = -80, cooldown = 10, critChance = 5, levelRequirement = 75, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["EnchantmentOfIreWhenHit"] = {
@@ -823,19 +890,20 @@ skills["EnchantmentOfIreWhenHit"] = {
 	description = "Release a lightning charged spinning copy of your weapon or its projectiles that rotates around a point, damaging enemies in an area.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Totemable] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, [SkillType.Lightning] = true, [SkillType.Cooldown] = true, },
 	weaponTypes = {
-		["One Handed Mace"] = true,
-		["Sceptre"] = true,
-		["Thrusting One Handed Sword"] = true,
-		["Two Handed Sword"] = true,
-		["Dagger"] = true,
-		["Staff"] = true,
-		["Wand"] = true,
 		["Bow"] = true,
+		["Claw"] = true,
+		["Dagger"] = true,
+		["Fishing Rod"] = true,
+		["One Handed Axe"] = true,
+		["One Handed Mace"] = true,
+		["One Handed Sword"] = true,
+		["Sceptre"] = true,
+		["Staff"] = true,
+		["Thrusting One Handed Sword"] = true,
 		["Two Handed Axe"] = true,
 		["Two Handed Mace"] = true,
-		["One Handed Axe"] = true,
-		["Claw"] = true,
-		["One Handed Sword"] = true,
+		["Two Handed Sword"] = true,
+		["Wand"] = true,
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.5,
@@ -859,7 +927,7 @@ skills["EnchantmentOfIreWhenHit"] = {
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { baseMultiplier = 0.6, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 0.6, cooldown = 10, levelRequirement = 32, },
+		[1] = { PvPDamageMultiplier = -80, baseMultiplier = 0.6, cooldown = 10, damageEffectiveness = 0.6, levelRequirement = 32, storedUses = 1, },
 	},
 }
 skills["EnchantmentOfIreWhenHit2"] = {
@@ -871,19 +939,20 @@ skills["EnchantmentOfIreWhenHit2"] = {
 	description = "Release a lightning charged spinning copy of your weapon or its projectiles that rotates around a point, damaging enemies in an area.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Totemable] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, [SkillType.Lightning] = true, [SkillType.Cooldown] = true, },
 	weaponTypes = {
-		["One Handed Mace"] = true,
-		["Sceptre"] = true,
-		["Thrusting One Handed Sword"] = true,
-		["Two Handed Sword"] = true,
-		["Dagger"] = true,
-		["Staff"] = true,
-		["Wand"] = true,
 		["Bow"] = true,
+		["Claw"] = true,
+		["Dagger"] = true,
+		["Fishing Rod"] = true,
+		["One Handed Axe"] = true,
+		["One Handed Mace"] = true,
+		["One Handed Sword"] = true,
+		["Sceptre"] = true,
+		["Staff"] = true,
+		["Thrusting One Handed Sword"] = true,
 		["Two Handed Axe"] = true,
 		["Two Handed Mace"] = true,
-		["One Handed Axe"] = true,
-		["Claw"] = true,
-		["One Handed Sword"] = true,
+		["Two Handed Sword"] = true,
+		["Wand"] = true,
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.5,
@@ -907,7 +976,7 @@ skills["EnchantmentOfIreWhenHit2"] = {
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { baseMultiplier = 0.9, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 0.9, cooldown = 10, levelRequirement = 53, },
+		[1] = { PvPDamageMultiplier = -80, baseMultiplier = 0.9, cooldown = 10, damageEffectiveness = 0.9, levelRequirement = 53, storedUses = 1, },
 	},
 }
 skills["EnchantmentOfIreWhenHit3"] = {
@@ -919,19 +988,20 @@ skills["EnchantmentOfIreWhenHit3"] = {
 	description = "Release a lightning charged spinning copy of your weapon or its projectiles that rotates around a point, damaging enemies in an area.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Totemable] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, [SkillType.Lightning] = true, [SkillType.Cooldown] = true, },
 	weaponTypes = {
-		["One Handed Mace"] = true,
-		["Sceptre"] = true,
-		["Thrusting One Handed Sword"] = true,
-		["Two Handed Sword"] = true,
-		["Dagger"] = true,
-		["Staff"] = true,
-		["Wand"] = true,
 		["Bow"] = true,
+		["Claw"] = true,
+		["Dagger"] = true,
+		["Fishing Rod"] = true,
+		["One Handed Axe"] = true,
+		["One Handed Mace"] = true,
+		["One Handed Sword"] = true,
+		["Sceptre"] = true,
+		["Staff"] = true,
+		["Thrusting One Handed Sword"] = true,
 		["Two Handed Axe"] = true,
 		["Two Handed Mace"] = true,
-		["One Handed Axe"] = true,
-		["Claw"] = true,
-		["One Handed Sword"] = true,
+		["Two Handed Sword"] = true,
+		["Wand"] = true,
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.5,
@@ -955,7 +1025,7 @@ skills["EnchantmentOfIreWhenHit3"] = {
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { baseMultiplier = 1.2, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 1.2, cooldown = 10, levelRequirement = 66, },
+		[1] = { PvPDamageMultiplier = -80, baseMultiplier = 1.2, cooldown = 10, damageEffectiveness = 1.2, levelRequirement = 66, storedUses = 1, },
 	},
 }
 skills["EnchantmentOfIreWhenHit4"] = {
@@ -967,19 +1037,20 @@ skills["EnchantmentOfIreWhenHit4"] = {
 	description = "Release a lightning charged spinning copy of your weapon or its projectiles that rotates around a point, damaging enemies in an area.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Totemable] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, [SkillType.Lightning] = true, [SkillType.Cooldown] = true, },
 	weaponTypes = {
-		["One Handed Mace"] = true,
-		["Sceptre"] = true,
-		["Thrusting One Handed Sword"] = true,
-		["Two Handed Sword"] = true,
-		["Dagger"] = true,
-		["Staff"] = true,
-		["Wand"] = true,
 		["Bow"] = true,
+		["Claw"] = true,
+		["Dagger"] = true,
+		["Fishing Rod"] = true,
+		["One Handed Axe"] = true,
+		["One Handed Mace"] = true,
+		["One Handed Sword"] = true,
+		["Sceptre"] = true,
+		["Staff"] = true,
+		["Thrusting One Handed Sword"] = true,
 		["Two Handed Axe"] = true,
 		["Two Handed Mace"] = true,
-		["One Handed Axe"] = true,
-		["Claw"] = true,
-		["One Handed Sword"] = true,
+		["Two Handed Sword"] = true,
+		["Wand"] = true,
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.5,
@@ -1003,7 +1074,7 @@ skills["EnchantmentOfIreWhenHit4"] = {
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { baseMultiplier = 1.5, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 1.5, cooldown = 10, levelRequirement = 75, },
+		[1] = { PvPDamageMultiplier = -80, baseMultiplier = 1.5, cooldown = 10, damageEffectiveness = 1.5, levelRequirement = 75, storedUses = 1, },
 	},
 }
 skills["EnchantmentOfLightWhenCrit"] = {
@@ -1031,7 +1102,7 @@ skills["EnchantmentOfLightWhenCrit"] = {
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { baseMultiplier = 1.35, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 1.35, cooldown = 5, levelRequirement = 32, },
+		[1] = { PvPDamageMultiplier = -80, baseMultiplier = 1.35, cooldown = 5, damageEffectiveness = 1.35, levelRequirement = 32, storedUses = 1, },
 	},
 }
 skills["EnchantmentOfLightWhenCrit2"] = {
@@ -1059,7 +1130,7 @@ skills["EnchantmentOfLightWhenCrit2"] = {
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { baseMultiplier = 1.89, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 1.89, cooldown = 5, levelRequirement = 53, },
+		[1] = { PvPDamageMultiplier = -80, baseMultiplier = 1.89, cooldown = 5, damageEffectiveness = 1.89, levelRequirement = 53, storedUses = 1, },
 	},
 }
 skills["EnchantmentOfLightWhenCrit3"] = {
@@ -1087,7 +1158,7 @@ skills["EnchantmentOfLightWhenCrit3"] = {
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { baseMultiplier = 2.43, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.43, cooldown = 5, levelRequirement = 66, },
+		[1] = { PvPDamageMultiplier = -80, baseMultiplier = 2.43, cooldown = 5, damageEffectiveness = 2.43, levelRequirement = 66, storedUses = 1, },
 	},
 }
 skills["EnchantmentOfLightWhenCrit4"] = {
@@ -1115,7 +1186,7 @@ skills["EnchantmentOfLightWhenCrit4"] = {
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { baseMultiplier = 2.97, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.97, cooldown = 5, levelRequirement = 75, },
+		[1] = { PvPDamageMultiplier = -80, baseMultiplier = 2.97, cooldown = 5, damageEffectiveness = 2.97, levelRequirement = 75, storedUses = 1, },
 	},
 }
 skills["EnchantmentOfReflectionWhenHit"] = {
@@ -1153,7 +1224,7 @@ skills["EnchantmentOfReflectionWhenHit"] = {
 	stats = {
 	},
 	levels = {
-		[1] = { storedUses = 1, PvPDamageMultiplier = -80, levelRequirement = 32, cooldown = 10, },
+		[1] = { PvPDamageMultiplier = -80, cooldown = 10, levelRequirement = 32, storedUses = 1, },
 	},
 }
 skills["EnchantmentOfReflectionWhenHit2"] = {
@@ -1191,7 +1262,7 @@ skills["EnchantmentOfReflectionWhenHit2"] = {
 	stats = {
 	},
 	levels = {
-		[1] = { storedUses = 1, PvPDamageMultiplier = -80, levelRequirement = 53, cooldown = 10, },
+		[1] = { PvPDamageMultiplier = -80, cooldown = 10, levelRequirement = 53, storedUses = 1, },
 	},
 }
 skills["EnchantmentOfReflectionWhenHit3"] = {
@@ -1229,7 +1300,7 @@ skills["EnchantmentOfReflectionWhenHit3"] = {
 	stats = {
 	},
 	levels = {
-		[1] = { storedUses = 1, PvPDamageMultiplier = -80, levelRequirement = 66, cooldown = 10, },
+		[1] = { PvPDamageMultiplier = -80, cooldown = 10, levelRequirement = 66, storedUses = 1, },
 	},
 }
 skills["EnchantmentOfReflectionWhenHit4"] = {
@@ -1267,7 +1338,7 @@ skills["EnchantmentOfReflectionWhenHit4"] = {
 	stats = {
 	},
 	levels = {
-		[1] = { storedUses = 1, PvPDamageMultiplier = -80, levelRequirement = 75, cooldown = 10, },
+		[1] = { PvPDamageMultiplier = -80, cooldown = 10, levelRequirement = 75, storedUses = 1, },
 	},
 }
 skills["EnchantmentOfSpiteWhenHit"] = {
@@ -1278,19 +1349,20 @@ skills["EnchantmentOfSpiteWhenHit"] = {
 	description = "Releases a circle of projectiles based on your weapon, leaving chilled ground in their wake.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.Projectile] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, [SkillType.ChillingArea] = true, [SkillType.Cold] = true, [SkillType.ProjectilesNotFromUser] = true, [SkillType.Cooldown] = true, [SkillType.InbuiltTrigger] = true, },
 	weaponTypes = {
-		["One Handed Mace"] = true,
-		["Sceptre"] = true,
-		["Thrusting One Handed Sword"] = true,
-		["Two Handed Sword"] = true,
-		["Dagger"] = true,
-		["Staff"] = true,
-		["Wand"] = true,
 		["Bow"] = true,
+		["Claw"] = true,
+		["Dagger"] = true,
+		["Fishing Rod"] = true,
+		["One Handed Axe"] = true,
+		["One Handed Mace"] = true,
+		["One Handed Sword"] = true,
+		["Sceptre"] = true,
+		["Staff"] = true,
+		["Thrusting One Handed Sword"] = true,
 		["Two Handed Axe"] = true,
 		["Two Handed Mace"] = true,
-		["One Handed Axe"] = true,
-		["Claw"] = true,
-		["One Handed Sword"] = true,
+		["Two Handed Sword"] = true,
+		["Wand"] = true,
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
@@ -1316,7 +1388,7 @@ skills["EnchantmentOfSpiteWhenHit"] = {
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { baseMultiplier = 1.5, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 1.5, cooldown = 5, levelRequirement = 32, },
+		[1] = { PvPDamageMultiplier = -80, baseMultiplier = 1.5, cooldown = 5, damageEffectiveness = 1.5, levelRequirement = 32, storedUses = 1, },
 	},
 }
 skills["EnchantmentOfSpiteWhenHit2"] = {
@@ -1327,19 +1399,20 @@ skills["EnchantmentOfSpiteWhenHit2"] = {
 	description = "Releases a circle of projectiles based on your weapon, leaving chilled ground in their wake.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.Projectile] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, [SkillType.ChillingArea] = true, [SkillType.Cold] = true, [SkillType.ProjectilesNotFromUser] = true, [SkillType.Cooldown] = true, [SkillType.InbuiltTrigger] = true, },
 	weaponTypes = {
-		["One Handed Mace"] = true,
-		["Sceptre"] = true,
-		["Thrusting One Handed Sword"] = true,
-		["Two Handed Sword"] = true,
-		["Dagger"] = true,
-		["Staff"] = true,
-		["Wand"] = true,
 		["Bow"] = true,
+		["Claw"] = true,
+		["Dagger"] = true,
+		["Fishing Rod"] = true,
+		["One Handed Axe"] = true,
+		["One Handed Mace"] = true,
+		["One Handed Sword"] = true,
+		["Sceptre"] = true,
+		["Staff"] = true,
+		["Thrusting One Handed Sword"] = true,
 		["Two Handed Axe"] = true,
 		["Two Handed Mace"] = true,
-		["One Handed Axe"] = true,
-		["Claw"] = true,
-		["One Handed Sword"] = true,
+		["Two Handed Sword"] = true,
+		["Wand"] = true,
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
@@ -1365,7 +1438,7 @@ skills["EnchantmentOfSpiteWhenHit2"] = {
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { baseMultiplier = 2.1, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.1, cooldown = 5, levelRequirement = 53, },
+		[1] = { PvPDamageMultiplier = -80, baseMultiplier = 2.1, cooldown = 5, damageEffectiveness = 2.1, levelRequirement = 53, storedUses = 1, },
 	},
 }
 skills["EnchantmentOfSpiteWhenHit3"] = {
@@ -1376,19 +1449,20 @@ skills["EnchantmentOfSpiteWhenHit3"] = {
 	description = "Releases a circle of projectiles based on your weapon, leaving chilled ground in their wake.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.Projectile] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, [SkillType.ChillingArea] = true, [SkillType.Cold] = true, [SkillType.ProjectilesNotFromUser] = true, [SkillType.Cooldown] = true, [SkillType.InbuiltTrigger] = true, },
 	weaponTypes = {
-		["One Handed Mace"] = true,
-		["Sceptre"] = true,
-		["Thrusting One Handed Sword"] = true,
-		["Two Handed Sword"] = true,
-		["Dagger"] = true,
-		["Staff"] = true,
-		["Wand"] = true,
 		["Bow"] = true,
+		["Claw"] = true,
+		["Dagger"] = true,
+		["Fishing Rod"] = true,
+		["One Handed Axe"] = true,
+		["One Handed Mace"] = true,
+		["One Handed Sword"] = true,
+		["Sceptre"] = true,
+		["Staff"] = true,
+		["Thrusting One Handed Sword"] = true,
 		["Two Handed Axe"] = true,
 		["Two Handed Mace"] = true,
-		["One Handed Axe"] = true,
-		["Claw"] = true,
-		["One Handed Sword"] = true,
+		["Two Handed Sword"] = true,
+		["Wand"] = true,
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
@@ -1414,7 +1488,7 @@ skills["EnchantmentOfSpiteWhenHit3"] = {
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { baseMultiplier = 2.7, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 2.7, cooldown = 5, levelRequirement = 66, },
+		[1] = { PvPDamageMultiplier = -80, baseMultiplier = 2.7, cooldown = 5, damageEffectiveness = 2.7, levelRequirement = 66, storedUses = 1, },
 	},
 }
 skills["EnchantmentOfSpiteWhenHit4"] = {
@@ -1425,19 +1499,20 @@ skills["EnchantmentOfSpiteWhenHit4"] = {
 	description = "Releases a circle of projectiles based on your weapon, leaving chilled ground in their wake.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.Projectile] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, [SkillType.ChillingArea] = true, [SkillType.Cold] = true, [SkillType.ProjectilesNotFromUser] = true, [SkillType.Cooldown] = true, [SkillType.InbuiltTrigger] = true, },
 	weaponTypes = {
-		["One Handed Mace"] = true,
-		["Sceptre"] = true,
-		["Thrusting One Handed Sword"] = true,
-		["Two Handed Sword"] = true,
-		["Dagger"] = true,
-		["Staff"] = true,
-		["Wand"] = true,
 		["Bow"] = true,
+		["Claw"] = true,
+		["Dagger"] = true,
+		["Fishing Rod"] = true,
+		["One Handed Axe"] = true,
+		["One Handed Mace"] = true,
+		["One Handed Sword"] = true,
+		["Sceptre"] = true,
+		["Staff"] = true,
+		["Thrusting One Handed Sword"] = true,
 		["Two Handed Axe"] = true,
 		["Two Handed Mace"] = true,
-		["One Handed Axe"] = true,
-		["Claw"] = true,
-		["One Handed Sword"] = true,
+		["Two Handed Sword"] = true,
+		["Wand"] = true,
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
@@ -1463,7 +1538,7 @@ skills["EnchantmentOfSpiteWhenHit4"] = {
 		"damage_cannot_be_reflected",
 	},
 	levels = {
-		[1] = { baseMultiplier = 3.3, PvPDamageMultiplier = -80, storedUses = 1, damageEffectiveness = 3.3, cooldown = 5, levelRequirement = 75, },
+		[1] = { PvPDamageMultiplier = -80, baseMultiplier = 3.3, cooldown = 5, damageEffectiveness = 3.3, levelRequirement = 75, storedUses = 1, },
 	},
 }
 skills["EnchantmentOfTempestOnHit"] = {
@@ -1493,8 +1568,12 @@ skills["EnchantmentOfTempestOnHit"] = {
 		"is_area_damage",
 		"damage_cannot_be_reflected",
 	},
+	notMinionStat = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+	},
 	levels = {
-		[1] = { 1, 1.6000000238419, critChance = 7, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 10, levelRequirement = 32, statInterpolation = { 3, 3, }, },
+		[1] = { 1, 1.6000000238419, PvPDamageMultiplier = -80, cooldown = 10, critChance = 7, levelRequirement = 32, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["EnchantmentOfTempestOnHit2"] = {
@@ -1524,8 +1603,12 @@ skills["EnchantmentOfTempestOnHit2"] = {
 		"is_area_damage",
 		"damage_cannot_be_reflected",
 	},
+	notMinionStat = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+	},
 	levels = {
-		[1] = { 1.5, 2.2999999523163, critChance = 7, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 10, levelRequirement = 53, statInterpolation = { 3, 3, }, },
+		[1] = { 1.5, 2.2999999523163, PvPDamageMultiplier = -80, cooldown = 10, critChance = 7, levelRequirement = 53, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["EnchantmentOfTempestOnHit3"] = {
@@ -1555,8 +1638,12 @@ skills["EnchantmentOfTempestOnHit3"] = {
 		"is_area_damage",
 		"damage_cannot_be_reflected",
 	},
+	notMinionStat = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+	},
 	levels = {
-		[1] = { 2, 3, critChance = 7, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 10, levelRequirement = 66, statInterpolation = { 3, 3, }, },
+		[1] = { 2, 3, PvPDamageMultiplier = -80, cooldown = 10, critChance = 7, levelRequirement = 66, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["EnchantmentOfTempestOnHit4"] = {
@@ -1586,8 +1673,12 @@ skills["EnchantmentOfTempestOnHit4"] = {
 		"is_area_damage",
 		"damage_cannot_be_reflected",
 	},
+	notMinionStat = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+	},
 	levels = {
-		[1] = { 2.4000000953674, 3.7999999523163, critChance = 7, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 10, levelRequirement = 75, statInterpolation = { 3, 3, }, },
+		[1] = { 2.4000000953674, 3.7999999523163, PvPDamageMultiplier = -80, cooldown = 10, critChance = 7, levelRequirement = 75, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["EnchantmentOfTheGraveOnKill"] = {
@@ -1621,7 +1712,7 @@ skills["EnchantmentOfTheGraveOnKill"] = {
 		"minions_cannot_taunt_enemies",
 	},
 	levels = {
-		[1] = { storedUses = 1, PvPDamageMultiplier = -80, levelRequirement = 32, cooldown = 5, },
+		[1] = { PvPDamageMultiplier = -80, cooldown = 5, levelRequirement = 32, storedUses = 1, },
 	},
 }
 skills["EnchantmentOfTheGraveOnKill2"] = {
@@ -1655,7 +1746,7 @@ skills["EnchantmentOfTheGraveOnKill2"] = {
 		"minions_cannot_taunt_enemies",
 	},
 	levels = {
-		[1] = { storedUses = 1, PvPDamageMultiplier = -80, levelRequirement = 53, cooldown = 5, },
+		[1] = { PvPDamageMultiplier = -80, cooldown = 5, levelRequirement = 53, storedUses = 1, },
 	},
 }
 skills["EnchantmentOfTheGraveOnKill3"] = {
@@ -1689,7 +1780,7 @@ skills["EnchantmentOfTheGraveOnKill3"] = {
 		"minions_cannot_taunt_enemies",
 	},
 	levels = {
-		[1] = { storedUses = 1, PvPDamageMultiplier = -80, levelRequirement = 66, cooldown = 5, },
+		[1] = { PvPDamageMultiplier = -80, cooldown = 5, levelRequirement = 66, storedUses = 1, },
 	},
 }
 skills["EnchantmentOfTheGraveOnKill4"] = {
@@ -1723,7 +1814,7 @@ skills["EnchantmentOfTheGraveOnKill4"] = {
 		"minions_cannot_taunt_enemies",
 	},
 	levels = {
-		[1] = { storedUses = 1, PvPDamageMultiplier = -80, levelRequirement = 75, cooldown = 5, },
+		[1] = { PvPDamageMultiplier = -80, cooldown = 5, levelRequirement = 75, storedUses = 1, },
 	},
 }
 skills["EnchantmentOfThunderOnKill"] = {
@@ -1752,8 +1843,12 @@ skills["EnchantmentOfThunderOnKill"] = {
 		"is_area_damage",
 		"damage_cannot_be_reflected",
 	},
+	notMinionStat = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+	},
 	levels = {
-		[1] = { 1, 1.6000000238419, critChance = 7, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 5, levelRequirement = 32, statInterpolation = { 3, 3, }, },
+		[1] = { 1, 1.6000000238419, PvPDamageMultiplier = -80, cooldown = 5, critChance = 7, levelRequirement = 32, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["EnchantmentOfThunderOnKill2"] = {
@@ -1782,8 +1877,12 @@ skills["EnchantmentOfThunderOnKill2"] = {
 		"is_area_damage",
 		"damage_cannot_be_reflected",
 	},
+	notMinionStat = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+	},
 	levels = {
-		[1] = { 1.5, 2.2999999523163, critChance = 7, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 5, levelRequirement = 53, statInterpolation = { 3, 3, }, },
+		[1] = { 1.5, 2.2999999523163, PvPDamageMultiplier = -80, cooldown = 5, critChance = 7, levelRequirement = 53, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["EnchantmentOfThunderOnKill3"] = {
@@ -1812,8 +1911,12 @@ skills["EnchantmentOfThunderOnKill3"] = {
 		"is_area_damage",
 		"damage_cannot_be_reflected",
 	},
+	notMinionStat = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+	},
 	levels = {
-		[1] = { 2, 3, critChance = 7, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 5, levelRequirement = 66, statInterpolation = { 3, 3, }, },
+		[1] = { 2, 3, PvPDamageMultiplier = -80, cooldown = 5, critChance = 7, levelRequirement = 66, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["EnchantmentOfThunderOnKill4"] = {
@@ -1842,8 +1945,12 @@ skills["EnchantmentOfThunderOnKill4"] = {
 		"is_area_damage",
 		"damage_cannot_be_reflected",
 	},
+	notMinionStat = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+	},
 	levels = {
-		[1] = { 2.4000000953674, 3.7999999523163, critChance = 7, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 5, levelRequirement = 75, statInterpolation = { 3, 3, }, },
+		[1] = { 2.4000000953674, 3.7999999523163, PvPDamageMultiplier = -80, cooldown = 5, critChance = 7, levelRequirement = 75, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["EnchantmentOfWarOnKill"] = {
@@ -1853,19 +1960,20 @@ skills["EnchantmentOfWarOnKill"] = {
 	description = "This attack is performed repeatedly by a ghostly imitation of your weapon.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.Duration] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, [SkillType.Cooldown] = true, },
 	weaponTypes = {
-		["One Handed Mace"] = true,
-		["Sceptre"] = true,
-		["Thrusting One Handed Sword"] = true,
-		["Two Handed Sword"] = true,
-		["Dagger"] = true,
-		["Staff"] = true,
-		["Wand"] = true,
 		["Bow"] = true,
+		["Claw"] = true,
+		["Dagger"] = true,
+		["Fishing Rod"] = true,
+		["One Handed Axe"] = true,
+		["One Handed Mace"] = true,
+		["One Handed Sword"] = true,
+		["Sceptre"] = true,
+		["Staff"] = true,
+		["Thrusting One Handed Sword"] = true,
 		["Two Handed Axe"] = true,
 		["Two Handed Mace"] = true,
-		["One Handed Axe"] = true,
-		["Claw"] = true,
-		["One Handed Sword"] = true,
+		["Two Handed Sword"] = true,
+		["Wand"] = true,
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
@@ -1884,7 +1992,7 @@ skills["EnchantmentOfWarOnKill"] = {
 	stats = {
 	},
 	levels = {
-		[1] = { storedUses = 1, PvPDamageMultiplier = -80, levelRequirement = 32, cooldown = 5, },
+		[1] = { PvPDamageMultiplier = -80, cooldown = 5, levelRequirement = 32, storedUses = 1, },
 	},
 }
 skills["EnchantmentOfWarOnKill2"] = {
@@ -1894,19 +2002,20 @@ skills["EnchantmentOfWarOnKill2"] = {
 	description = "This attack is performed repeatedly by a ghostly imitation of your weapon.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.Duration] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, [SkillType.Cooldown] = true, },
 	weaponTypes = {
-		["One Handed Mace"] = true,
-		["Sceptre"] = true,
-		["Thrusting One Handed Sword"] = true,
-		["Two Handed Sword"] = true,
-		["Dagger"] = true,
-		["Staff"] = true,
-		["Wand"] = true,
 		["Bow"] = true,
+		["Claw"] = true,
+		["Dagger"] = true,
+		["Fishing Rod"] = true,
+		["One Handed Axe"] = true,
+		["One Handed Mace"] = true,
+		["One Handed Sword"] = true,
+		["Sceptre"] = true,
+		["Staff"] = true,
+		["Thrusting One Handed Sword"] = true,
 		["Two Handed Axe"] = true,
 		["Two Handed Mace"] = true,
-		["One Handed Axe"] = true,
-		["Claw"] = true,
-		["One Handed Sword"] = true,
+		["Two Handed Sword"] = true,
+		["Wand"] = true,
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
@@ -1925,7 +2034,7 @@ skills["EnchantmentOfWarOnKill2"] = {
 	stats = {
 	},
 	levels = {
-		[1] = { storedUses = 1, PvPDamageMultiplier = -80, levelRequirement = 53, cooldown = 5, },
+		[1] = { PvPDamageMultiplier = -80, cooldown = 5, levelRequirement = 53, storedUses = 1, },
 	},
 }
 skills["EnchantmentOfWarOnKill3"] = {
@@ -1935,19 +2044,20 @@ skills["EnchantmentOfWarOnKill3"] = {
 	description = "This attack is performed repeatedly by a ghostly imitation of your weapon.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.Duration] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, [SkillType.Cooldown] = true, },
 	weaponTypes = {
-		["One Handed Mace"] = true,
-		["Sceptre"] = true,
-		["Thrusting One Handed Sword"] = true,
-		["Two Handed Sword"] = true,
-		["Dagger"] = true,
-		["Staff"] = true,
-		["Wand"] = true,
 		["Bow"] = true,
+		["Claw"] = true,
+		["Dagger"] = true,
+		["Fishing Rod"] = true,
+		["One Handed Axe"] = true,
+		["One Handed Mace"] = true,
+		["One Handed Sword"] = true,
+		["Sceptre"] = true,
+		["Staff"] = true,
+		["Thrusting One Handed Sword"] = true,
 		["Two Handed Axe"] = true,
 		["Two Handed Mace"] = true,
-		["One Handed Axe"] = true,
-		["Claw"] = true,
-		["One Handed Sword"] = true,
+		["Two Handed Sword"] = true,
+		["Wand"] = true,
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
@@ -1966,7 +2076,7 @@ skills["EnchantmentOfWarOnKill3"] = {
 	stats = {
 	},
 	levels = {
-		[1] = { storedUses = 1, PvPDamageMultiplier = -80, levelRequirement = 66, cooldown = 5, },
+		[1] = { PvPDamageMultiplier = -80, cooldown = 5, levelRequirement = 66, storedUses = 1, },
 	},
 }
 skills["EnchantmentOfWarOnKill4"] = {
@@ -1976,19 +2086,20 @@ skills["EnchantmentOfWarOnKill4"] = {
 	description = "This attack is performed repeatedly by a ghostly imitation of your weapon.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.Duration] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, [SkillType.Cooldown] = true, },
 	weaponTypes = {
-		["One Handed Mace"] = true,
-		["Sceptre"] = true,
-		["Thrusting One Handed Sword"] = true,
-		["Two Handed Sword"] = true,
-		["Dagger"] = true,
-		["Staff"] = true,
-		["Wand"] = true,
 		["Bow"] = true,
+		["Claw"] = true,
+		["Dagger"] = true,
+		["Fishing Rod"] = true,
+		["One Handed Axe"] = true,
+		["One Handed Mace"] = true,
+		["One Handed Sword"] = true,
+		["Sceptre"] = true,
+		["Staff"] = true,
+		["Thrusting One Handed Sword"] = true,
 		["Two Handed Axe"] = true,
 		["Two Handed Mace"] = true,
-		["One Handed Axe"] = true,
-		["Claw"] = true,
-		["One Handed Sword"] = true,
+		["Two Handed Sword"] = true,
+		["Wand"] = true,
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
@@ -2007,7 +2118,7 @@ skills["EnchantmentOfWarOnKill4"] = {
 	stats = {
 	},
 	levels = {
-		[1] = { storedUses = 1, PvPDamageMultiplier = -80, levelRequirement = 75, cooldown = 5, },
+		[1] = { PvPDamageMultiplier = -80, cooldown = 5, levelRequirement = 75, storedUses = 1, },
 	},
 }
 skills["EnchantmentOfWinterWhenHit"] = {
@@ -2037,8 +2148,12 @@ skills["EnchantmentOfWinterWhenHit"] = {
 		"base_is_projectile",
 		"damage_cannot_be_reflected",
 	},
+	notMinionStat = {
+		"spell_minimum_base_cold_damage",
+		"spell_maximum_base_cold_damage",
+	},
 	levels = {
-		[1] = { 1, 1.6000000238419, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 10, levelRequirement = 32, statInterpolation = { 3, 3, }, },
+		[1] = { 1, 1.6000000238419, PvPDamageMultiplier = -80, cooldown = 10, critChance = 5, levelRequirement = 32, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["EnchantmentOfWinterWhenHit2"] = {
@@ -2068,8 +2183,12 @@ skills["EnchantmentOfWinterWhenHit2"] = {
 		"base_is_projectile",
 		"damage_cannot_be_reflected",
 	},
+	notMinionStat = {
+		"spell_minimum_base_cold_damage",
+		"spell_maximum_base_cold_damage",
+	},
 	levels = {
-		[1] = { 1.5, 2.2999999523163, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 10, levelRequirement = 53, statInterpolation = { 3, 3, }, },
+		[1] = { 1.5, 2.2999999523163, PvPDamageMultiplier = -80, cooldown = 10, critChance = 5, levelRequirement = 53, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["EnchantmentOfWinterWhenHit3"] = {
@@ -2099,8 +2218,12 @@ skills["EnchantmentOfWinterWhenHit3"] = {
 		"base_is_projectile",
 		"damage_cannot_be_reflected",
 	},
+	notMinionStat = {
+		"spell_minimum_base_cold_damage",
+		"spell_maximum_base_cold_damage",
+	},
 	levels = {
-		[1] = { 2, 3, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 10, levelRequirement = 66, statInterpolation = { 3, 3, }, },
+		[1] = { 2, 3, PvPDamageMultiplier = -80, cooldown = 10, critChance = 5, levelRequirement = 66, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["EnchantmentOfWinterWhenHit4"] = {
@@ -2130,7 +2253,12 @@ skills["EnchantmentOfWinterWhenHit4"] = {
 		"base_is_projectile",
 		"damage_cannot_be_reflected",
 	},
+	notMinionStat = {
+		"spell_minimum_base_cold_damage",
+		"spell_maximum_base_cold_damage",
+	},
 	levels = {
-		[1] = { 2.4000000953674, 3.7999999523163, critChance = 5, PvPDamageMultiplier = -80, storedUses = 1, cooldown = 10, levelRequirement = 75, statInterpolation = { 3, 3, }, },
+		[1] = { 2.4000000953674, 3.7999999523163, PvPDamageMultiplier = -80, cooldown = 10, critChance = 5, levelRequirement = 75, storedUses = 1, statInterpolation = { 3, 3, }, },
 	},
 }
+end

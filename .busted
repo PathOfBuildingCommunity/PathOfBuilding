@@ -1,6 +1,6 @@
 return {
     _all = {
-        coverage = true,
+        coverage = false,
         verbose = true,
     },
     default = {

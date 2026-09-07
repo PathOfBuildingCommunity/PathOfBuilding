@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from __future__ import annotations
 
 import dataclasses
@@ -5,6 +6,7 @@ import json
 import logging
 import os
 import pathlib
+import re
 
 logging.basicConfig(level=logging.INFO)
 
@@ -39,9 +41,24 @@ NODE_GROUPS = {
     "Trickster": Point2D(10200, -3700),
     "Saboteur": Point2D(10200, -2200),
     "Ascendant": Point2D(-7800, 7200),
+	"Reliquarian": Point2D(-7800, 8900),
+    "Luminary": Point2D(-7800, 10600),
     "Warden": Point2D(8250, 8350),
     "Primalist": Point2D(7200, 9400),
     "Warlock": Point2D(9300, 7300),
+	"Aul": Point2D(-6750, 12000),
+	"Breachlord": Point2D(-5250, 12000),
+	"Catarina": Point2D(-3750, 12000),
+	"Trialmaster": Point2D(-2250, 12000),
+	"Delirious": Point2D(-750, 12000),
+	"Farrul": Point2D(750, 12000),
+	"Lycia": Point2D(2250, 12000),
+	"KingInTheMists": Point2D(3750, 12000),
+	"Olroth": Point2D(5250, 12000),
+	"Oshabi": Point2D(6750, 12000),
+	"Necromantic": Point2D(9750, 12000),
+    "Abyssal": Point2D(-750, 13600),
+    "Brinerot": Point2D(750, 13600)
 }
 EXTRA_NODES = {
 	"Necromancer": [{"Node": {"name": "Nine Lives", "icon": "Art/2DArt/SkillIcons/passives/Ascendants/Int.png", "isNotable": True, "skill" : 27602}, 
@@ -74,11 +91,18 @@ EXTRA_NODES_STATS = { # these should not be hardcoded here, but should be insert
 	"Searing Purity": {"stats": ["45% of Chaos Damage taken as Fire Damage", "45% of Chaos Damage taken as Lightning Damage"], "reminderText": []},
 	"Soul Drinker": {"stats": ["2% of Damage Leeched as Energy Shield", "20% increased Attack and Cast Speed while Leeching Energy Shield", "Energy Shield Leech effects are not removed when Energy Shield is Filled"], "reminderText": ["(Leeched Energy Shield is recovered over time. Multiple Leeches can occur simultaneously, up to a maximum rate)"]},
 	"Harness the Void": {"stats": ["27% chance to gain 25% of Non-Chaos Damage with Hits as Extra Chaos Damage", "13% chance to gain 50% of Non-Chaos Damage with Hits as Extra Chaos Damage", "7% chance to gain 100% of Non-Chaos Damage with Hits as Extra Chaos Damage"], "reminderText": []},
-	"Fury of Nature" : {"stats": ["Non-Damaging Elemental Ailments you inflict spread to nearby enemies in a radius of 20", "Non-Damaging Elemental Ailments you inflict have 100% more Effect"], "reminderText": ["(Elemental Ailments are Ignited, Scorched, Chilled, Frozen, Brittled, Shocked, and Sapped)"]},
+	"Fury of Nature" : {"stats": ["Non-Damaging Elemental Ailments you inflict spread to nearby enemies within 2 metres", "Non-Damaging Elemental Ailments you inflict have 100% more Effect"], "reminderText": ["(Elemental Ailments are Ignited, Scorched, Chilled, Frozen, Brittled, Shocked, and Sapped)"]},
 	"Fatal Flourish": {"stats": ["Final Repeat of Attack Skills deals 60% more Damage", "Non-Travel Attack Skills Repeat an additional Time"], "reminderText": []},
 	"Indomitable Resolve": {"stats": ["Deal 10% less Damage", "Take 25% less Damage"], "reminderText": []},
 	"Unleashed Potential" : {"stats": ["400% increased Endurance, Frenzy and Power Charge Duration", "25% chance to gain a Power, Frenzy or Endurance Charge on Kill", "+1 to Maximum Endurance Charges", "+1 to Maximum Frenzy Charges", "+1 to Maximum Power Charges"], "reminderText": []},
 }
+
+
+def escapeGGGString(text: str) -> str:
+    """Remove GGG keyword popup tags while preserving their displayed text."""
+    text = re.sub(r"<[^>]+>{([^}]+)}", r"\1", text)
+    text = re.sub(r"\[([^|\]]+)\]", r"\1", text)
+    return re.sub(r"\[[^|]+[|]([^|]+)\]", r"\1", text)
 
 
 def fix_ascendancy_positions(path: os.PathLike) -> None:
@@ -94,6 +118,10 @@ def fix_ascendancy_positions(path: os.PathLike) -> None:
     """
     with open(path, "rb") as f:
         data = json.load(f)
+    for node in data["nodes"].values():
+        for field in ("stats", "reminderText"):
+            if field in node:
+                node[field] = [escapeGGGString(line) for line in node[field]]
     ascendancy_groups = [
         (data["nodes"][group["nodes"][0]]["ascendancyName"], group)
         for group in data["groups"].values()
@@ -115,7 +143,7 @@ def fix_ascendancy_positions(path: os.PathLike) -> None:
                 print("GroupID already taken")
                 return
             node["Node"]["group"] = EXTRA_NODE_IDS[node["Node"]["name"]]["GroupID"]
-            data["groups"][node["Node"]["group"]] = {"x": NODE_GROUPS[ascendancy].x + node["offset"].x, "y": NODE_GROUPS[ascendancy].y + node["offset"].y, "orbits": [0], "nodes": [node["Node"]["skill"]]}
+            data["groups"][node["Node"]["group"]] = {"x": NODE_GROUPS[ascendancy].x + node["offset"].x, "y": NODE_GROUPS[ascendancy].y + node["offset"].y, "orbits": [0], "nodes": [str(node["Node"]["skill"])]}
             data["nodes"][node["Node"]["skill"]] = node["Node"] | {"ascendancyName": ascendancy, "orbit": 0, "orbitIndex": 0, "out": [], "in": [], "stats": [], "reminderText": []}
             if node["Node"]["name"] in EXTRA_NODES_STATS:
                 data["nodes"][node["Node"]["skill"]]["stats"] = EXTRA_NODES_STATS[node["Node"]["name"]]["stats"]

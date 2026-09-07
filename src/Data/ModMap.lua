@@ -217,7 +217,7 @@ return {
 			apply = function(val, mapModEffect, modList, enemyModList)
 				enemyModList:NewMod("CannotLeechLifeFromSelf", "FLAG", true, "Map mod of Congealment")
 				enemyModList:NewMod("CannotLeechManaFromSelf", "FLAG", true, "Map mod of Congealment")
-				--missing cannot leech es?
+				enemyModList:NewMod("CannotLeechEnergyShieldFromSelf", "FLAG", true, "Map mod of Congealment")
 			end
 		},
 		["of Drought"] = {

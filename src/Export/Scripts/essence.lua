@@ -30,7 +30,7 @@ for essence in dat("Essences"):Rows() do
 		out:write('\t["', essence.BaseItemType.Id, '"] = { name = "', essence.BaseItemType.Name, '", ')
 		out:write('type = ', essence.Type._rowIndex - 1, ', tier = ', essence.Tier, ', ')
 		out:write('mods = { ')
-		for type, col in pairs(colMap) do
+		for type, col in pairsSortByKey(colMap) do
 			out:write('["', type, '"] = "', essence[col].Id, '", ')
 		end
 		out:write('}, },\n')

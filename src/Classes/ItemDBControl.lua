@@ -10,8 +10,21 @@ local m_max = math.max
 local m_floor = math.floor
 
 
-local ItemDBClass = newClass("ItemDBControl", "ListControl", function(self, anchor, x, y, width, height, itemsTab, db, dbType)
-	self.ListControl(anchor, x, y, width, height, 16, "VERTICAL", false)
+---@class ItemDBControl: ListControl
+local ItemDBClass = newClass("ItemDBControl", "ListControl")
+
+---@class ItemDBData
+---@field list table<string, Item>
+---@field byTitle? table<string, Item>
+---@field loading boolean?
+
+---@param anchor Anchor?
+---@param rect Rect?
+---@param itemsTab ItemsTab
+---@param db ItemDBData
+---@param dbType "RARE"|"UNIQUE"
+function ItemDBClass:ItemDBControl(anchor, rect, itemsTab, db, dbType)
+	self:ListControl(anchor, rect, 16, "VERTICAL", false)
 	self.itemsTab = itemsTab
 	self.db = db
 	self.dbType = dbType
@@ -26,38 +39,38 @@ local ItemDBClass = newClass("ItemDBControl", "ListControl", function(self, anch
 	self.leaguesAndTypesLoaded = false
 	self.leagueList = { "Any league", "No league" }
 	self.typeList = { "Any type", "Armour", "Jewellery", "One Handed Melee", "Two Handed Melee" }
-	self.slotList = { "Any slot", "Weapon 1", "Weapon 2", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring", "Belt", "Jewel" }
+	self.slotList = { "Any slot", "Weapon 1", "Weapon 2", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring", "Belt", "Jewel", "Flask", "Graft 1", "Graft 2" }
 	local baseY = dbType == "RARE" and -22 or -62
-	self.controls.slot = new("DropDownControl", {"BOTTOMLEFT",self,"TOPLEFT"}, 0, baseY, 179, 18, self.slotList, function(index, value)
+	self.controls.slot = new("DropDownControl"):DropDownControl({"BOTTOMLEFT",self,"TOPLEFT"}, {0, baseY, 179, 18}, self.slotList, function(index, value)
 		self.listBuildFlag = true
 	end)
-	self.controls.type = new("DropDownControl", {"LEFT",self.controls.slot,"RIGHT"}, 2, 0, 179, 18, self.typeList, function(index, value)
+	self.controls.type = new("DropDownControl"):DropDownControl({"LEFT",self.controls.slot,"RIGHT"}, {2, 0, 179, 18}, self.typeList, function(index, value)
 		self.listBuildFlag = true
 	end)
 	if dbType == "UNIQUE" then
-		self.controls.sort = new("DropDownControl", {"BOTTOMLEFT",self,"TOPLEFT"}, 0, baseY + 20, 179, 18, self.sortDropList, function(index, value)
+		self.controls.sort = new("DropDownControl"):DropDownControl({"BOTTOMLEFT",self,"TOPLEFT"}, {0, baseY + 20, 179, 18}, self.sortDropList, function(index, value)
 			self:SetSortMode(value.sortMode)
-			GlobalCache.useFullDPS = value.sortMode == "FullDPS"
 		end)
-		self.controls.league = new("DropDownControl", {"LEFT",self.controls.sort,"RIGHT"}, 2, 0, 179, 18, self.leagueList, function(index, value)
+		self.controls.league = new("DropDownControl"):DropDownControl({"LEFT",self.controls.sort,"RIGHT"}, {2, 0, 179, 18}, self.leagueList, function(index, value)
 			self.listBuildFlag = true
 		end)
-		self.controls.requirement = new("DropDownControl", {"LEFT",self.controls.sort,"BOTTOMLEFT"}, 0, 11, 179, 18, { "Any requirements", "Current level", "Current attributes", "Current useable" }, function(index, value)
+		self.controls.requirement = new("DropDownControl"):DropDownControl({"LEFT",self.controls.sort,"BOTTOMLEFT"}, {0, 11, 179, 18}, { "Any requirements", "Current level", "Current attributes", "Current useable" }, function(index, value)
 			self.listBuildFlag = true
 		end)
-		self.controls.obtainable = new("DropDownControl", {"LEFT",self.controls.requirement,"RIGHT"}, 2, 0, 179, 18, { "Obtainable", "Any source", "Unobtainable", "Vendor Recipe", "Upgraded", "Boss Item", "Corruption"}, function(index, value)
+		self.controls.obtainable = new("DropDownControl"):DropDownControl({"LEFT",self.controls.requirement,"RIGHT"}, {2, 0, 179, 18}, { "Obtainable", "Any source", "Unobtainable", "Vendor Recipe", "Upgraded", "Boss Item", "Corruption", "Core Drop Pool"}, function(index, value)
 			self.listBuildFlag = true
 		end)
 	end
-	self.controls.search = new("EditControl", {"BOTTOMLEFT",self,"TOPLEFT"}, 0, -2, 258, 18, "", "Search", "%c", 100, function()
+	self.controls.search = new("EditControl"):EditControl({"BOTTOMLEFT",self,"TOPLEFT"}, {0, -2, 258, 18}, "", "Search", "%c", 100, function()
 		self.listBuildFlag = true
 	end, nil, nil, true)
-	self.controls.searchMode = new("DropDownControl", {"LEFT",self.controls.search,"RIGHT"}, 2, 0, 100, 18, { "Anywhere", "Names", "Modifiers" }, function(index, value)
+	self.controls.searchMode = new("DropDownControl"):DropDownControl({"LEFT",self.controls.search,"RIGHT"}, {2, 0, 100, 18}, { "Anywhere", "Names", "Modifiers" }, function(index, value)
 		self.listBuildFlag = true
 	end)
 	self:BuildSortOrder()
 	self.listBuildFlag = true
-end)
+	return self
+end
 
 function ItemDBClass:LoadLeaguesAndTypes()
 	local leagueFlag = { }
@@ -123,13 +136,15 @@ function ItemDBClass:DoesItemMatchFilters(item)
 			return false
 		elseif (self.controls.obtainable.selIndex == 7 and not (string.match(source, "Vaal Orb"))) then
 			return false
+		elseif (self.controls.obtainable.selIndex == 8) and item.source then
+			return false
 		end
 	end
 	if self.dbType == "UNIQUE" and self.controls.requirement.selIndex > 1 then
 		if (self.controls.requirement.selIndex == 2 or self.controls.requirement.selIndex == 4) and item.requirements.level and item.requirements.level > self.itemsTab.build.characterLevel then
 			return false
 		end
-		if self.controls.requirement.selIndex > 2 and item.requirements and (item.requirements.str > self.itemsTab.build.calcsTab.mainOutput.Str or item.requirements.dex > self.itemsTab.build.calcsTab.mainOutput.Dex or item.requirements.int > self.itemsTab.build.calcsTab.mainOutput.Int) then
+		if self.controls.requirement.selIndex > 2 and item.requirements and (item.requirements.strMod > self.itemsTab.build.calcsTab.mainOutput.Str or item.requirements.dexMod > self.itemsTab.build.calcsTab.mainOutput.Dex or item.requirements.intMod > self.itemsTab.build.calcsTab.mainOutput.Int) then
 			return false
 		end
 	end
@@ -138,7 +153,15 @@ function ItemDBClass:DoesItemMatchFilters(item)
 		local found = false
 		local mode = self.controls.searchMode.selIndex
 		if mode == 1 or mode == 2 then
-			local err, match = PCall(string.matchOrPattern, item.name:lower(), searchStr)
+			-- check if any explicit mods have a mutated line
+			local searchName = item.name:lower()
+			for _, modLine in ipairs(item.explicitModLines) do
+				if modLine.newModId then
+					searchName = "foulborn " .. searchName
+					break
+				end
+			end
+			local err, match = PCall(string.matchOrPattern, searchName, searchStr)
 			if not err and match then
 				found = true
 			end
@@ -159,7 +182,13 @@ function ItemDBClass:DoesItemMatchFilters(item)
 				end
 			end
 			for _, line in pairs(item.explicitModLines) do
-				local err, match = PCall(string.matchOrPattern, line.line:lower(), searchStr)
+				-- Include the other side of Foulborn transformations in modifier searches.
+				local newMod = line.newModId and (data.itemMods.ItemExclusive[line.newModId] or data.itemMods.Foulborn[line.newModId])
+				local searchLine = line.line:lower()
+				if newMod then
+					searchLine = searchLine .. table.concat(newMod, " "):lower()
+				end
+				local err, match = PCall(string.matchOrPattern, searchLine, searchStr)
 				if not err and match then
 					found = true
 					break
@@ -191,7 +220,7 @@ end
 
 function ItemDBClass:BuildSortOrder()
 	wipeTable(self.sortDropList)
-	for id,stat in pairs(data.powerStatList) do
+	for id, stat in ipairs(data.powerStatList) do
 		if not stat.ignoreForItems then
 			t_insert(self.sortDropList, {
 				label="Sort by "..stat.label,
@@ -224,19 +253,15 @@ function ItemDBClass:ListBuilder()
 	end
 
 	if self.sortDetail and self.sortDetail.stat then -- stat-based
+		local useFullDPS = self.sortDetail.stat == "FullDPS"
 		local start = GetTime()
 		local calcFunc, calcBase = self.itemsTab.build.calcsTab:GetMiscCalculator(self.build)
-		local storedGlobalCacheDPSView = GlobalCache.useFullDPS
-		GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
 		for itemIndex, item in ipairs(list) do
-			item.measuredPower = 0
+			item.measuredPower = -math.huge
 			for slotName, slot in pairs(self.itemsTab.slots) do
 				if self.itemsTab:IsItemValidForSlot(item, slotName) and not slot.inactive and (not slot.weaponSet or slot.weaponSet == (self.itemsTab.activeItemSet.useSecondWeaponSet and 2 or 1)) then
-					local output = calcFunc(item.base.flask and { toggleFlask = item } or item.base.tincture and { toggleTincture = item } or { repSlotName = slotName, repItem = item }, { nodeAlloc = true, requirementsGems = true })
-					local measuredPower = output.Minion and output.Minion[self.sortMode] or output[self.sortMode] or 0
-					if self.sortDetail.transform then
-						measuredPower = self.sortDetail.transform(measuredPower)
-					end
+					local output = calcFunc(item.base.flask and { toggleFlask = item } or item.base.tincture and { toggleTincture = item } or { repSlotName = slotName, repItem = item }, useFullDPS)
+					local measuredPower = data.powerStatList.GetFromOutput(output, self.sortDetail)
 					item.measuredPower = m_max(item.measuredPower, measuredPower)
 				end
 			end
@@ -247,7 +272,6 @@ function ItemDBClass:ListBuilder()
 				start = now
 			end
 		end
-		GlobalCache.useFullDPS = storedGlobalCacheDPSView
 	end
 
 	table.sort(list, function(a, b)
@@ -304,7 +328,7 @@ function ItemDBClass:Draw(viewPort)
 end
 
 function ItemDBClass:GetRowValue(column, index, item)
-	if column == 1 then
+	if item and column == 1 then
 		return colorCodes[item.rarity] .. item.name
 	end
 end
@@ -326,7 +350,7 @@ end
 function ItemDBClass:OnSelClick(index, item, doubleClick)
 	if IsKeyDown("CTRL") then
 		-- Add item
-		local newItem = new("Item", item.raw)
+		local newItem = new("Item"):Item(item.raw)
 		newItem:NormaliseQuality()
 		self.itemsTab:AddItem(newItem, true)
 
@@ -347,11 +371,18 @@ function ItemDBClass:OnSelClick(index, item, doubleClick)
 			self.itemsTab.slots[slotName]:SetSelItemId(newItem.id)
 		end
 
+		self.itemsTab:AddForbiddenJewelCounterpart(newItem)
+
 		self.itemsTab:PopulateSlots()
 		self.itemsTab:AddUndoState()
 		self.itemsTab.build.buildFlag = true
 	elseif doubleClick then
+		-- disallow dragging after double click since the window can jump when
+		-- the display item tooltip is created, which might cause the drag item
+		-- to get stuck to the cursor
+		self.selDragging = false
 		self.itemsTab:CreateDisplayItemFromRaw(item.raw, true)
+		return false
 	end
 end
 

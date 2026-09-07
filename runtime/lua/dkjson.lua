@@ -130,6 +130,26 @@ local function escapeutf8 (uchar)
   end
 end
 
+local function sortedkeys(tbl)
+  local keys = {}
+  for k in pairs(tbl) do
+    keys[#keys + 1] = k
+  end
+  table.sort(keys, function(a, b)
+    local ta, tb = type(a), type(b)
+    if ta == tb then
+      return a < b
+    end
+    if ta == "number" then
+      return true
+    elseif tb == "number" then
+      return false
+    end
+    return ta < tb
+  end)
+  return keys
+end
+
 local function fsub (str, pattern, repl)
   -- gsub always builds a new string in a buffer, even when no match
   -- exists. First using find should be more efficient when most strings
@@ -333,7 +353,10 @@ encode2 = function (value, indent, level, buffer, buflen, tables, globalorder, s
           end
         end
       else -- unordered
-        for k,v in pairs (value) do
+        local keys = sortedkeys(value)
+        for i = 1, #keys do
+          local k = keys[i]
+          local v = value[k]
           buflen, msg = addpair (k, v, prev, indent, level, buffer, buflen, tables, globalorder, state)
           if not buflen then return nil, msg end
           prev = true -- add a seperator before the next element

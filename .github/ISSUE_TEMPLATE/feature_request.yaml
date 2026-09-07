@@ -1,12 +1,13 @@
 name: Feature request
-description: Suggest an idea for this project
+description: Suggest an idea for Path of Building for PoE1.
 labels: [enhancement]
 body:
   - type: markdown
     attributes:
       value: |
-        Thank you for suggesting a feature.
-        Please try to fill in as much of the form below as you're able to. Some of the fields marked with an asterisk (*) are required.
+        Thank you for suggesting a feature for PoB-**PoE1**.
+        [Feature requests for PoB-PoE2 go here.](https://github.com/PathOfBuildingCommunity/PathOfBuilding-PoE2/issues).
+        Please try to fill in as much of the form below as you're able to. Fields marked with an asterisk (*) are required.
   - type: checkboxes
     id: duplicates
     attributes:

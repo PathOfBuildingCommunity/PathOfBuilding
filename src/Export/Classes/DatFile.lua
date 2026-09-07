@@ -21,8 +21,15 @@ local dataTypes = {
 			return bytesToInt(b, o)
 		end,
 	},
-	UInt = { 
-		size = 4, 
+	UInt16 = {
+		size = 2,
+		read = function(b, o, d)
+			if o > #b - 1 then return 1337 end
+			return bytesToUShort(b, o)
+		end,
+	},
+	UInt = {
+		size = 4,
 		read = function(b, o, d)
 			if o > #b - 3 then return 1337 end
 			return bytesToUInt(b, o)
@@ -69,7 +76,10 @@ local dataTypes = {
 	},
 }
 
-local DatFileClass = newClass("DatFile", function(self, name, raw)
+---@class DatFile
+local DatFileClass = newClass("DatFile")
+
+function DatFileClass:DatFile(name, raw)
 	self.name = name
 	self.raw = raw
 
@@ -109,7 +119,8 @@ local DatFileClass = newClass("DatFile", function(self, name, raw)
 	--ConPrintf("Loaded '%s': %d Rows at %d Bytes", self.name, self.rowCount, self.rowSize)
 
 	self:OnSpecChanged()
-end)
+	return self
+end
 
 function DatFileClass:OnSpecChanged()
 	wipeTable(self.cols)

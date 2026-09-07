@@ -7,6 +7,7 @@ local m_max = math.max
 local m_min = math.min
 local m_floor = math.floor
 local protected_replace = "*"
+local utf8 = require('lua-utf8')
 
 local function lastLine(str)
 	local lastLineIndex = 1
@@ -35,11 +36,15 @@ local function newlineCount(str)
 	end
 end
 
-local EditClass = newClass("EditControl", "ControlHost", "Control", "UndoHandler", "TooltipHost", function(self, anchor, x, y, width, height, init, prompt, filter, limit, changeFunc, lineHeight, allowZoom, clearable)
-	self.ControlHost()
-	self.Control(anchor, x, y, width, height)
-	self.UndoHandler()
-	self.TooltipHost()
+---@class EditControl: ControlHost, Control, UndoHandler, TooltipHost
+---@field inactiveText (fun(buf: string?): string)|string
+local EditClass = newClass("EditControl", "ControlHost", "Control", "UndoHandler", "TooltipHost")
+
+function EditClass:EditControl(anchor, rect, init, prompt, filter, limit, changeFunc, lineHeight, allowZoom, clearable)
+	self:ControlHost()
+	self:Control(anchor, rect)
+	self:UndoHandler()
+	self:TooltipHost()
 	self:SetText(init or "")
 	self.prompt = prompt
 	self.filter = filter or (main.unicode and "%c" or "^%w%p ")
@@ -63,24 +68,24 @@ local EditClass = newClass("EditControl", "ControlHost", "Control", "UndoHandler
 	if self.filter == "%D" or self.filter == "^%-%d" then
 		-- Add +/- buttons for integer number edits
 		self.isNumeric = true
-		self.controls.buttonDown = new("ButtonControl", {"RIGHT",self,"RIGHT"}, -2, 0, buttonSize, buttonSize, "-", function()
+		self.controls.buttonDown = new("ButtonControl"):ButtonControl({"RIGHT",self,"RIGHT"}, {-2, 0, buttonSize, buttonSize}, "-", function()
 			self:OnKeyUp("DOWN")
 		end)
-		self.controls.buttonUp = new("ButtonControl", {"RIGHT",self.controls.buttonDown,"LEFT"}, -1, 0, buttonSize, buttonSize, "+", function()
+		self.controls.buttonUp = new("ButtonControl"):ButtonControl({"RIGHT",self.controls.buttonDown,"LEFT"}, {-1, 0, buttonSize, buttonSize}, "+", function()
 			self:OnKeyUp("UP")
 		end)
 	elseif clearable then
-		self.controls.buttonClear = new("ButtonControl", {"RIGHT",self,"RIGHT"}, -2, 0, buttonSize, buttonSize, "x", function()
+		self.controls.buttonClear = new("ButtonControl"):ButtonControl({"RIGHT",self,"RIGHT"}, {-2, 0, buttonSize, buttonSize}, "x", function()
 			self:SetText("", true)
 		end)
 		self.controls.buttonClear.shown = function() return #self.buf > 0 and self:IsMouseInBounds() end
 	end
-	self.controls.scrollBarH = new("ScrollBarControl", {"BOTTOMLEFT",self,"BOTTOMLEFT"}, 1, -1, 0, 14, 60, "HORIZONTAL", true)
+	self.controls.scrollBarH = new("ScrollBarControl"):ScrollBarControl({"BOTTOMLEFT",self,"BOTTOMLEFT"}, {1, -1, 0, 14}, 60, "HORIZONTAL", true)
 	self.controls.scrollBarH.width = function()
 		local width, height = self:GetSize()
 		return width - (self.controls.scrollBarV.enabled and 16 or 2)
 	end
-	self.controls.scrollBarV = new("ScrollBarControl", {"TOPRIGHT",self,"TOPRIGHT"}, -1, 1, 14, 0, (lineHeight or 0) * 3, "VERTICAL", true)
+	self.controls.scrollBarV = new("ScrollBarControl"):ScrollBarControl({"TOPRIGHT",self,"TOPRIGHT"}, {-1, 1, 14, 0}, (lineHeight or 0) * 3, "VERTICAL", true)
 	self.controls.scrollBarV.height = function()
 		local width, height = self:GetSize()
 		return height - (self.controls.scrollBarH.enabled and 16 or 2)
@@ -90,7 +95,8 @@ local EditClass = newClass("EditControl", "ControlHost", "Control", "UndoHandler
 		self.controls.scrollBarV.shown = false
 	end
 	self.protected = false
-end)
+	return self
+end
 
 function EditClass:SetText(text, notify)
 	self.buf = tostring(text)
@@ -296,7 +302,8 @@ function EditClass:Draw(viewPort, noTooltip)
 		else
 			SetDrawColor(self.inactiveCol)
 			if self.inactiveText then
-				local inactiveText = type(inactiveText) == "string" and self.inactiveText or self.inactiveText(self.buf)
+				local inactiveText = type(self.inactiveText) == "string" and self.inactiveText or self.inactiveText(self.buf)
+				---@cast inactiveText string
 				DrawString(-self.controls.scrollBarH.offset, -self.controls.scrollBarV.offset, "LEFT", textHeight, self.font, inactiveText)
 			elseif self.protected then
 				DrawString(-self.controls.scrollBarH.offset, -self.controls.scrollBarV.offset, "LEFT", textHeight, self.font, string.rep(protected_replace, #self.buf))
@@ -400,6 +407,10 @@ function EditClass:Draw(viewPort, noTooltip)
 			DrawImage(nil, caretX, textY, 1, textHeight)
 		end
 	else
+		if self.buf == '' and self.placeholder then
+			SetDrawColor(self.disableCol)
+			DrawString(textX, textY, "LEFT", textHeight, self.font, self.placeholder)
+		end
 		local pre = self.textCol .. self.buf:sub(1, self.caret - 1)
 		local post = self.buf:sub(self.caret)
 		if self.protected then
@@ -541,18 +552,10 @@ function EditClass:OnKeyDown(key, doubleClick)
 		if self.caret > 1 then
 			if ctrl then
 			-- Skip leading space, then jump word
-				while self.buf:sub(self.caret-1, self.caret-1):match("[%s%p]") do
-					if self.caret > 1 then
-						self.caret = self.caret - 1
-					end
-				end
-				while self.buf:sub(self.caret-1, self.caret-1):match("%w") do
-					if self.caret > 1 then
-						self.caret = self.caret - 1
-					end
-				end
+				self.caret = self.caret - #utf8.match(self.buf:sub(1, self.caret-1), "[%s%p]*$")
+				self.caret = self.caret - #utf8.match(self.buf:sub(1, self.caret-1), "%w*$")
 			else
-				self.caret = self.caret - 1
+				self.caret = utf8.next(self.buf, self.caret, -1) or 0
 			end
 			self.lastUndoState.caret = self.caret
 			self:ScrollCaretIntoView()
@@ -562,19 +565,11 @@ function EditClass:OnKeyDown(key, doubleClick)
 		self.sel = shift and (self.sel or self.caret) or nil
 		if self.caret <= #self.buf then
 			if ctrl then
-			-- Jump word, then skip trailing space, 
-				while self.buf:sub(self.caret, self.caret):match("%w") do
-					if self.caret <= #self.buf then
-						self.caret = self.caret + 1
-					end
-				end
-				while self.buf:sub(self.caret, self.caret):match("[%s%p]") do
-					if self.caret <= #self.buf then
-						self.caret = self.caret + 1
-					end
-				end
+			-- Jump word, then skip trailing space,
+				self.caret = self.caret + #utf8.match(self.buf:sub(self.caret), "^%w*")
+				self.caret = self.caret + #utf8.match(self.buf:sub(self.caret), "^[%s%p]*")
 			else
-				self.caret = self.caret + 1
+				self.caret = utf8.next(self.buf, self.caret, 1) or #self.buf + 1
 			end
 			self.lastUndoState.caret = self.caret
 			self:ScrollCaretIntoView()
@@ -690,7 +685,7 @@ function EditClass:OnKeyUp(key)
 		end
 	elseif self.isNumeric then
 		local cur = tonumber(self.buf)
-		if key == "WHEELUP" or key == "UP" then
+		if (not main.disableScrollControlInteraction and (key == "WHEELUP")) or key == "UP" then
 			if cur then
 				self:SetText(tostring(cur + (self.numberInc or 1)), true)
 			else
@@ -700,7 +695,7 @@ function EditClass:OnKeyUp(key)
 					self:SetText("1", true)
 				end
 			end
-		elseif key == "WHEELDOWN" or key == "DOWN" then
+		elseif (not main.disableScrollControlInteraction and (key == "WHEELDOWN")) or key == "DOWN" then
 			if cur and (self.filter ~= "%D" or cur > 0)then
 				self:SetText(tostring(cur - (self.numberInc or 1)), true)
 			else

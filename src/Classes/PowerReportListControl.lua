@@ -8,9 +8,13 @@ local t_insert = table.insert
 local t_remove = table.remove
 local t_sort = table.sort
 
-local PowerReportListClass = newClass("PowerReportListControl", "ListControl", function(self, anchor, x, y, width, height, nodeSelectCallback)
-	self.ListControl(anchor, x, y, width, height-50, 16, "VERTICAL", false)
+---@class PowerReportListControl: ListControl
+local PowerReportListClass = newClass("PowerReportListControl", "ListControl")
 
+function PowerReportListClass:PowerReportListControl(anchor, rect, nodeSelectCallback)
+	self:ListControl(anchor, rect, 16, "VERTICAL", false)
+
+	local width = rect[3]
 	self.powerColumn = { width = width * 0.16, label = "", sortable = true }
 	self.colList = {
 		{ width = width * 0.15, label = "Type", sortable = true },
@@ -22,10 +26,11 @@ local PowerReportListClass = newClass("PowerReportListControl", "ListControl", f
 	self.colLabels = true
 	self.nodeSelectCallback = nodeSelectCallback
 	self.showClusters = false
+	self.showMasteries = true
 	self.allocated = false
 	self.label = "Building Tree..."
 	
-	self.controls.filterSelect = new("DropDownControl", { "BOTTOMRIGHT", self, "TOPRIGHT" }, 0, -2, 200, 20,
+	self.controls.filterSelect = new("DropDownControl"):DropDownControl({"BOTTOMRIGHT", self, "TOPRIGHT"}, {0, -2, 200, 20},
 		{ "Show Unallocated", "Show Unallocated & Clusters", "Show Allocated" },
 		function(index, value)
 			self.showClusters = index == 2
@@ -33,7 +38,13 @@ local PowerReportListClass = newClass("PowerReportListControl", "ListControl", f
 			self:ReList()
 			self:ReSort(3) -- Sort by power
 		end)
-end)
+	self.controls.masteryCheck = new("CheckBoxControl"):CheckBoxControl({"RIGHT", self.controls.filterSelect, "LEFT"}, {-120, 0, 18}, "Show Masteries:", function(state)
+		self.showMasteries = state
+		self:ReList()
+		self:ReSort(3) -- Sort by power
+	end, nil, true)
+	return self
+end
 
 function PowerReportListClass:SetReport(stat, report)
 	self.powerColumn.label = stat and stat.label or ""
@@ -101,6 +112,11 @@ function PowerReportListClass:ReList()
 		end
 		if self.allocated then
 			insert = item.allocated
+		elseif item.allocated then
+			insert = false
+		end
+		if not self.showMasteries and item.type == "Mastery" then
+			insert = false
 		end
 
 		if insert then
@@ -122,4 +138,16 @@ function PowerReportListClass:GetRowValue(column, index, report)
 		or column == 4 and (report.pathDist == 1000 and "Anoint" or report.pathDist)
 		or column == 5 and report.pathPowerStr
 		or ""
+end
+
+function PowerReportListClass:AddValueTooltip(tooltip, _, node)
+	if main.popups[1] then
+		tooltip:Clear()
+		return
+	end
+	if tooltip:CheckForUpdate(node) and node.sd then
+		for _, line in ipairs(node.sd) do
+			tooltip:AddLine(16, line)
+		end
+	end
 end

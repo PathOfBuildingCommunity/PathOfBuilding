@@ -1,4 +1,6 @@
 [*.lua]
 trim_trailing_whitespace = false
 indent_style = tab
-max_line_length = 120
+max_line_length = 360
+align_array_table = false
+align_continuous_rect_table_field = false

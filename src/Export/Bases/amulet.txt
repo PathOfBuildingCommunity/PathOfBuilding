@@ -1,6 +1,5 @@
 -- Item data (c) Grinding Gear Games
-local itemBases = ...
-
+return function(itemBases)
 #type Amulet
 #influenceBaseTag amulet
 
@@ -21,3 +20,4 @@ local itemBases = ...
 #base Metadata/Items/Amulets/Talismans/Talisman2_6_5 Avian Twins Talisman (Lightning-To-Cold)
 #base Metadata/Items/Amulets/Talismans/Talisman3_6_1 Monkey Paw Talisman (Power)
 #base Metadata/Items/Amulets/Talismans/Talisman3_6_2 Monkey Paw Talisman (Frenzy)
+end

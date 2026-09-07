@@ -7,6 +7,7 @@ local ipairs = ipairs
 local pairs = pairs
 local select = select
 local t_insert = table.insert
+local t_remove = table.remove
 local m_floor = math.floor
 local m_min = math.min
 local m_max = math.max
@@ -16,10 +17,14 @@ local bor = bit.bor
 
 local mod_createMod = modLib.createMod
 
-local ModDBClass = newClass("ModDB", "ModStore", function(self, parent)
-	self.ModStore(parent)
+---@class ModDB: ModStore
+local ModDBClass = newClass("ModDB", "ModStore")
+
+function ModDBClass:ModDB(parent)
+	self:ModStore(parent)
 	self.mods = { }
-end)
+	return self
+end
 
 function ModDBClass:AddMod(mod)
 	local name = mod.name
@@ -45,8 +50,9 @@ function ModDBClass:ReplaceModInternal(mod)
 	local modIndex = -1
 	for i = 1, #modList do
 		local curMod = modList[i]
-		if mod.name == curMod.name and mod.type == curMod.type and mod.flags == curMod.flags and mod.keywordFlags == curMod.keywordFlags and mod.source == curMod.source then
+		if mod.name == curMod.name and mod.type == curMod.type and mod.flags == curMod.flags and mod.keywordFlags == curMod.keywordFlags and mod.source == curMod.source and not curMod.replaced then
 			modIndex = i
+			mod.replaced = true
 			break;
 		end
 	end
@@ -61,6 +67,45 @@ function ModDBClass:ReplaceModInternal(mod)
 		return self.parent:ReplaceModInternal(mod)
 	end
 	
+	return false
+end
+
+---ConvertModInternal
+---  Converts an existing mod with oldName to a new mod with a different name.
+---  Moves the mod from the old name's bucket to the new name's bucket.
+---  If no matching mod exists, then the function returns false
+---@param oldName string @The name of the existing mod to find
+---@param mod table @The new mod to replace it with
+---@return boolean @Whether any mod was converted
+function ModDBClass:ConvertModInternal(oldName, mod)
+	if not self.mods[oldName] then
+		if self.parent then
+			return self.parent:ConvertModInternal(oldName, mod)
+		end
+		return false
+	end
+
+	local oldList = self.mods[oldName]
+	for i = 1, #oldList do
+		local curMod = oldList[i]
+		if oldName == curMod.name and mod.type == curMod.type and mod.flags == curMod.flags and mod.keywordFlags == curMod.keywordFlags and mod.source == curMod.source and not curMod.converted then
+			-- Remove from old name's bucket
+			t_remove(oldList, i)
+			-- Add to new name's bucket
+			local newName = mod.name
+			if not self.mods[newName] then
+				self.mods[newName] = { }
+			end
+			mod.converted = true
+			t_insert(self.mods[newName], mod)
+			return true
+		end
+	end
+
+	if self.parent then
+		return self.parent:ConvertModInternal(oldName, mod)
+	end
+
 	return false
 end
 
@@ -90,7 +135,7 @@ end
 
 function ModDBClass:SumInternal(context, modType, cfg, flags, keywordFlags, source, ...)
 	local result = 0
-	local globalLimits = { }
+	local globalLimits
 	for i = 1, select('#', ...) do
 		local modList = self.mods[select(i, ...)]
 		if modList then
@@ -98,14 +143,10 @@ function ModDBClass:SumInternal(context, modType, cfg, flags, keywordFlags, sour
 				local mod = modList[i]
 				if mod.type == modType and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or ( mod.source and mod.source:match("[^:]+") == source )) then
 					if mod[1] then
-						local value = context:EvalMod(mod, cfg) or 0
-						if mod[1].globalLimit and mod[1].globalLimitKey then
-							globalLimits[mod[1].globalLimitKey] = globalLimits[mod[1].globalLimitKey] or 0
-							if globalLimits[mod[1].globalLimitKey] + value > mod[1].globalLimit then
-								value = mod[1].globalLimit - globalLimits[mod[1].globalLimitKey]
-							end
-							globalLimits[mod[1].globalLimitKey] = globalLimits[mod[1].globalLimitKey] + value
+						if not globalLimits then
+							globalLimits = {}
 						end
+						local value = context:EvalMod(mod, cfg, globalLimits) or 0
 						result = result + value
 					else
 						result = result + mod.value
@@ -123,6 +164,7 @@ end
 function ModDBClass:MoreInternal(context, cfg, flags, keywordFlags, source, ...)
 	local result = 1
 	local modPrecision = nil
+	local globalLimits
 	for i = 1, select('#', ...) do
 		local modList = self.mods[select(i, ...)]
 		local modResult = 1 --The more multipliers for each mod are computed to the nearest percent then applied.
@@ -130,11 +172,16 @@ function ModDBClass:MoreInternal(context, cfg, flags, keywordFlags, source, ...)
 			for i = 1, #modList do
 				local mod = modList[i]
 				if mod.type == "MORE" and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.source:match("[^:]+") == source) then
+					local value
 					if mod[1] then
-						modResult = modResult * (1 + (context:EvalMod(mod, cfg) or 0) / 100)
+						if not globalLimits then
+							globalLimits = {}
+						end
+						value = context:EvalMod(mod, cfg, globalLimits) or 0
 					else
-						modResult = modResult * (1 + mod.value / 100)
+						value = mod.value or 0
 					end
+					modResult = modResult * (1 + value / 100)
 					if modPrecision then
 						modPrecision = m_max(modPrecision, (data.highPrecisionMods[mod.name] and data.highPrecisionMods[mod.name][mod.type]) or modPrecision)
 					else
@@ -229,7 +276,7 @@ function ModDBClass:ListInternal(context, result, cfg, flags, keywordFlags, sour
 end
 
 function ModDBClass:TabulateInternal(context, result, modType, cfg, flags, keywordFlags, source, ...)
-	local globalLimits = { }
+	local globalLimits
 	for i = 1, select('#', ...) do
 		local modName = select(i, ...)
 		local modList = self.mods[modName]
@@ -239,14 +286,10 @@ function ModDBClass:TabulateInternal(context, result, modType, cfg, flags, keywo
 				if (mod.type == modType or not modType) and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.source:match("[^:]+") == source) then
 					local value
 					if mod[1] then
-						value = context:EvalMod(mod, cfg) or 0
-						if mod[1].globalLimit and mod[1].globalLimitKey then
-							globalLimits[mod[1].globalLimitKey] = globalLimits[mod[1].globalLimitKey] or 0
-							if globalLimits[mod[1].globalLimitKey] + value > mod[1].globalLimit then
-								value = mod[1].globalLimit - globalLimits[mod[1].globalLimitKey]
-							end
-							globalLimits[mod[1].globalLimitKey] = globalLimits[mod[1].globalLimitKey] + value
+						if not globalLimits then
+							globalLimits = {}
 						end
+						value = context:EvalMod(mod, cfg, globalLimits)
 					else
 						value = mod.value
 					end

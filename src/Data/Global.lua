@@ -17,6 +17,7 @@ colorCodes = {
 	CUSTOM = "^x5CF0BB",
 	SOURCE = "^x88FFFF",
 	UNSUPPORTED = "^xF05050",
+	DISABLED = "^x7F7F7F",
 	WARNING = "^xFF9922",
 	TIP = "^x80A080",
 	FIRE = "^xB97123",
@@ -42,6 +43,7 @@ colorCodes = {
 	SHAPER = "^x55BBFF",
 	ELDER = "^xAA77CC",
 	FRACTURED = "^xA29160",
+	MUTATED = "^xCD2285",
 	ADJUDICATOR = "^xE9F831",
 	BASILISK = "^x00CB3A",
 	CRUSADER = "^x2946FC",
@@ -55,7 +57,11 @@ colorCodes = {
 	BRITTLEBG = "^x00122b",
 	SAPBG = "^x261500",
 	SCOURGE = "^xFF6E25",
-	CRUCIBLE = "^xFFA500"
+	CRUCIBLE = "^xFFA500",
+	SPLITPERSONALITY = "^xFFD62A",
+	VESTIGIAL = "^xCBA5F1",
+	INTANGIBILITY = "^x9BF4BD",
+	MEMORY = "^xBFE2FA",
 }
 colorCodes.STRENGTH = colorCodes.MARAUDER
 colorCodes.DEXTERITY = colorCodes.RANGER
@@ -81,8 +87,9 @@ function updateColorCode(code, color)
 end
 
 function hexToRGB(hex)
+	hex = hex:gsub("%^x", "") -- Remove "^x" prefix
 	hex = hex:gsub("0x", "") -- Remove "0x" prefix
-	hex = hex:gsub("#","") -- Remove '#' if present
+	hex = hex:gsub("#", "") -- Remove '#' if present
 	if #hex ~= 6 then
 		return nil
 	end
@@ -138,6 +145,7 @@ KeywordFlag.Lightning =	0x00000080
 KeywordFlag.Chaos =		0x00000100
 KeywordFlag.Vaal =		0x00000200
 KeywordFlag.Bow =		0x00000400
+KeywordFlag.Arrow =		0x00000800
 -- Skill types
 KeywordFlag.Trap =		0x00001000
 KeywordFlag.Mine =		0x00002000
@@ -165,17 +173,44 @@ KeywordFlag.MatchAll =	0x40000000
 -- Helper function to compare KeywordFlags
 local band = bit.band
 local MatchAllMask = bit.bnot(KeywordFlag.MatchAll)
+
+-- Two-level numeric-key cache to avoid building string keys or allocating tables per call.
+local matchKeywordFlagsCache = {}
+function ClearMatchKeywordFlagsCache()
+	-- cheap full reset without reallocating the outer table
+	for k in pairs(matchKeywordFlagsCache) do
+		matchKeywordFlagsCache[k] = nil
+	end
+end
+
 ---@param keywordFlags number The KeywordFlags to be compared to.
 ---@param modKeywordFlags number The KeywordFlags stored in the mod.
 ---@return boolean Whether the KeywordFlags in the mod are satisfied.
 function MatchKeywordFlags(keywordFlags, modKeywordFlags)
-	local matchAll = band(modKeywordFlags, KeywordFlag.MatchAll) ~= 0
-	modKeywordFlags = band(modKeywordFlags, MatchAllMask)
-	keywordFlags = band(keywordFlags, MatchAllMask)
-	if matchAll then
-		return band(keywordFlags, modKeywordFlags) == modKeywordFlags
+	-- Cache lookup
+	local row = matchKeywordFlagsCache[keywordFlags]
+	if row then
+		local cached = row[modKeywordFlags]
+		if cached ~= nil then
+			return cached
+		end
+	else
+		row = {}
+		matchKeywordFlagsCache[keywordFlags] = row
 	end
-	return modKeywordFlags == 0 or band(keywordFlags, modKeywordFlags) ~= 0
+	-- Not in cache, compute normally
+	local matchAll = band(modKeywordFlags, KeywordFlag.MatchAll) ~= 0
+	local modMasked = band(modKeywordFlags, MatchAllMask)
+	local keywordMasked = band(keywordFlags, MatchAllMask)
+
+	local matches
+	if matchAll then
+		matches = band(keywordMasked, modMasked) == modMasked
+	else
+		matches = (modMasked == 0) or (band(keywordMasked, modMasked) ~= 0)
+	end
+	row[modKeywordFlags] = matches -- Add to cache
+	return matches
 end
 
 -- Active skill types, used in ActiveSkills.dat and GrantedEffects.dat
@@ -186,140 +221,139 @@ SkillType = {
 	Projectile = 3, -- Specifically skills which fire projectiles
 	DualWieldOnly = 4, -- Attack requires dual wielding, only used on Dual Strike
 	Buff = 5,
-	Removed6 = 6, -- Now removed, was CanDualWield: Attack can be used while dual wielding
-	MainHandOnly = 7, -- Attack only uses the main hand; removed in 3.5 but still needed for 2.6
-	Removed8 = 8, -- Now removed, was only used on Cleave
-	Minion = 9,
-	Damage = 10, -- Skill hits (not used on attacks because all of them hit)
-	Area = 11,
-	Duration = 12,
-	RequiresShield = 13,
-	ProjectileSpeed = 14,
-	HasReservation = 15,
-	ReservationBecomesCost = 16,
-	Trappable = 17, -- Skill can be turned into a trap
-	Totemable = 18, -- Skill can be turned into a totem
-	Mineable = 19, -- Skill can be turned into a mine
-	ElementalStatus = 20, -- Causes elemental status effects, but doesn't hit (used on Herald of Ash to allow Elemental Proliferation to apply)
-	MinionsCanExplode = 21,
-	Removed22 = 22, -- Now removed, was AttackCanTotem
-	Chains = 23,
-	Melee = 24,
-	MeleeSingleTarget = 25,
-	Multicastable = 26, -- Spell can repeat via Spell Echo
-	TotemCastsAlone = 27,
-	Multistrikeable = 28, -- Attack can repeat via Multistrike
-	CausesBurning = 29, -- Deals burning damage
-	SummonsTotem = 30,
-	TotemCastsWhenNotDetached = 31,
-	Fire = 32,
-	Cold = 33,
-	Lightning = 34,
-	Triggerable = 35,
-	Trapped = 36,
-	Movement = 37,
-	Removed39 = 38, -- Now removed, was Cast
-	DamageOverTime = 39,
-	RemoteMined = 40,
-	Triggered = 41,
-	Vaal = 42,
-	Aura = 43,
-	Removed45 = 44, -- Now removed, was LightningSpell
-	CanTargetUnusableCorpse = 45, -- Doesn't appear to be used at all
-	Removed47 = 46, -- Now removed, was TriggeredAttack
-	RangedAttack = 47,
-	Removed49 = 48, -- Now removed, was MinionSpell
-	Chaos = 49,
-	FixedSpeedProjectile = 50, -- Not used by any skill
-	Removed52 = 51,
-	ThresholdJewelArea = 52, -- Allows Burning Arrow and Vigilant Strike to be supported by Inc AoE and Conc Effect
-	ThresholdJewelProjectile = 53,
-	ThresholdJewelDuration = 54, -- Allows Burning Arrow to be supported by Inc/Less Duration and Rapid Decay
-	ThresholdJewelRangedAttack = 55,
-	Removed57 = 56,
-	Channel = 57,
-	DegenOnlySpellDamage = 58, -- Allows Contagion, Blight and Scorching Ray to be supported by Controlled Destruction
-	Removed60 = 59, -- Now removed, was ColdSpell
-	InbuiltTrigger = 60, -- Skill granted by item that is automatically triggered, prevents trigger gems and trap/mine/totem from applying
-	Golem = 61,
-	Herald = 62,
-	AuraAffectsEnemies = 63, -- Used by Death Aura, added by Blasphemy
-	NoRuthless = 64,
-	ThresholdJewelSpellDamage = 65,
-	Cascadable = 66, -- Spell can cascade via Spell Cascade
-	ProjectilesFromUser = 67, -- Skill can be supported by Volley
-	MirageArcherCanUse = 68, -- Skill can be supported by Mirage Archer
-	ProjectileSpiral = 69, -- Excludes Volley from Vaal Fireball and Vaal Spark
-	SingleMainProjectile = 70, -- Excludes Volley from Spectral Shield Throw
-	MinionsPersistWhenSkillRemoved = 71, -- Excludes Summon Phantasm on Kill from Manifest Dancing Dervish
-	ProjectileNumber = 72, -- Allows LMP/GMP on Rain of Arrows and Toxic Rain
-	Warcry = 73, -- Warcry
-	Instant = 74, -- Instant cast skill
-	Brand = 75,
-	DestroysCorpse = 76, -- Consumes corpses on use
-	NonHitChill = 77,
-	ChillingArea = 78,
-	AppliesCurse = 79,
-	CanRapidFire = 80,
-	AuraDuration = 81,
-	AreaSpell = 82,
-	OR = 83,
-	AND = 84,
-	NOT = 85,
-	Physical = 86,
-	AppliesMaim = 87,
-	CreatesMinion = 88,
-	Guard = 89,
-	Travel = 90,
-	Blink = 91,
-	CanHaveBlessing = 92,
-	ProjectilesNotFromUser = 93,
-	AttackInPlaceIsDefault = 94,
-	Nova = 95,
-	InstantNoRepeatWhenHeld = 96,
-	InstantShiftAttackForLeftMouse = 97,
-	AuraNotOnCaster = 98,
-	Banner = 99,
-	Rain = 100,
-	Cooldown = 101,
-	ThresholdJewelChaining= 102,
-	Slam = 103,
-	Stance = 104,
-	NonRepeatable = 105, -- Blood and Sand + Flesh and Stone
-	OtherThingUsesSkill = 106,
-	Steel = 107,
-	Hex = 108,
-	Mark = 109,
-	Aegis = 110,
-	Orb = 111,
-	KillNoDamageModifiers = 112,
-	RandomElement = 113, -- means elements cannot repeat
-	LateConsumeCooldown = 114,
-	Arcane = 115, -- means it is reliant on amount of mana spent
-	FixedCastTime = 116,
-	RequiresOffHandNotWeapon = 117,
-	Link = 118,
-	Blessing = 119,
-	ZeroReservation = 120,
-	DynamicCooldown = 121,
-	Microtransaction = 122,
-	OwnerCannotUse = 123,
-	ProjectilesNotFired = 124,
-	TotemsAreBallistae = 125,
-	SkillGrantedBySupport = 126,
-	PreventHexTransfer = 127,
-	MinionsAreUndamageable = 128,
-	InnateTrauma = 129,
-	DualWieldRequiresDifferentTypes = 130,
-	NoVolley = 131,
-	Retaliation = 132,
-	NeverExertable = 133,
+	Minion = 6,
+	Damage = 7, -- Skill hits (not used on attacks because all of them hit)
+	Area = 8,
+	Duration = 9,
+	RequiresShield = 10,
+	ProjectileSpeed = 11,
+	HasReservation = 12,
+	ReservationBecomesCost = 13,
+	Trappable = 14, -- Skill can be turned into a trap
+	Totemable = 15, -- Skill can be turned into a totem
+	Mineable = 16, -- Skill can be turned into a mine
+	ElementalStatus = 17, -- Causes elemental status effects, but doesn't hit (used on Herald of Ash to allow Elemental Proliferation to apply)
+	MinionsCanExplode = 18,
+	Chains = 19,
+	Melee = 20,
+	MeleeSingleTarget = 21,
+	Multicastable = 22, -- Spell can repeat via Spell Echo
+	TotemCastsAlone = 23,
+	Multistrikeable = 24, -- Attack can repeat via Multistrike
+	CausesBurning = 25, -- Deals burning damage
+	SummonsTotem = 26,
+	TotemCastsWhenNotDetached = 27,
+	Physical = 28,
+	Fire = 29,
+	Cold = 30,
+	Lightning = 31,
+	Triggerable = 32,
+	Trapped = 33,
+	Movement = 34,
+	DamageOverTime = 35,
+	RemoteMined = 36,
+	Triggered = 37,
+	Vaal = 38,
+	Aura = 39,
+	CanTargetUnusableCorpse = 40, -- Doesn't appear to be used at all
+	RangedAttack = 41,
+	Chaos = 42,
+	FixedSpeedProjectile = 43, -- Not used by any skill
+	ThresholdJewelArea = 44, -- Allows Burning Arrow and Vigilant Strike to be supported by Inc AoE and Conc Effect
+	ThresholdJewelProjectile = 45,
+	ThresholdJewelDuration = 46, -- Allows Burning Arrow to be supported by Inc/Less Duration and Rapid Decay
+	ThresholdJewelRangedAttack = 47,
+	Channel = 48,
+	DegenOnlySpellDamage = 49, -- Allows Contagion, Blight and Scorching Ray to be supported by Controlled Destruction
+	InbuiltTrigger = 50, -- Skill granted by item that is automatically triggered, prevents trigger gems and trap/mine/totem from applying
+	Golem = 51,
+	Herald = 52,
+	AuraAffectsEnemies = 53, -- Used by Death Aura, added by Blasphemy
+	NoRuthless = 54,
+	ThresholdJewelSpellDamage = 55,
+	Cascadable = 56, -- Spell can cascade via Spell Cascade
+	ProjectilesFromUser = 57, -- Skill can be supported by Volley
+	MirageArcherCanUse = 58, -- Skill can be supported by Mirage Archer
+	ProjectileSpiral = 59, -- Excludes Volley from Vaal Fireball and Vaal Spark
+	SingleMainProjectile = 60, -- Excludes Volley from Spectral Shield Throw
+	MinionsPersistWhenSkillRemoved = 61, -- Excludes Summon Phantasm on Kill from Manifest Dancing Dervish
+	ProjectileNumber = 62, -- Allows LMP/GMP on Rain of Arrows and Toxic Rain
+	Warcry = 63, -- Warcry
+	Instant = 64, -- Instant cast skill
+	Brand = 65,
+	DestroysCorpse = 66, -- Consumes corpses on use
+	NonHitChill = 67,
+	ChillingArea = 68,
+	AppliesCurse = 69,
+	CanRapidFire = 70,
+	AuraDuration = 71,
+	AreaSpell = 72,
+	OR = 73,
+	AND = 74,
+	NOT = 75,
+	AppliesMaim = 76,
+	CreatesMinion = 77,
+	Guard = 78,
+	Travel = 79,
+	Blink = 80,
+	CanHaveBlessing = 81,
+	ProjectilesNotFromUser = 82,
+	AttackInPlaceIsDefault = 83,
+	Nova = 84,
+	InstantNoRepeatWhenHeld = 85,
+	InstantShiftAttackForLeftMouse = 86,
+	AuraNotOnCaster = 87,
+	Banner = 88,
+	Rain = 89,
+	Cooldown = 90,
+	ThresholdJewelChaining= 91,
+	Slam = 92,
+	Stance = 93,
+	NonRepeatable = 94, -- Blood and Sand + Flesh and Stone
+	OtherThingUsesSkill = 95,
+	Steel = 96,
+	Hex = 97,
+	Mark = 98,
+	Aegis = 99,
+	Orb = 100,
+	KillNoDamageModifiers = 101,
+	RandomElement = 102, -- means elements cannot repeat
+	LateConsumeCooldown = 103,
+	Arcane = 104, -- means it is reliant on amount of mana spent
+	FixedCastTime = 105,
+	RequiresOffHandNotWeapon = 106,
+	Link = 107,
+	Blessing = 108,
+	ZeroReservation = 109,
+	DynamicCooldown = 110,
+	Microtransaction = 111,
+	OwnerCannotUse = 112,
+	ProjectilesNumberModifiersNotApplied = 113,
+	TotemsAreBallistae = 114,
+	SkillGrantedBySupport = 115,
+	PreventHexTransfer = 116,
+	MinionsAreUndamagable = 117,
+	InnateTrauma = 118,
+	DualWieldRequiresDifferentTypes = 119,
+	NoVolley = 120,
+	Retaliation = 121,
+	NeverExertable = 122,
+	DisallowTriggerSupports = 123,
+	ProjectileCannotReturn = 124,
+	Offering = 125,
+	SupportedByBane = 126,
+	WandAttack = 127,
+	GainsIntensity = 128,
+	CreatesSentinelMinion = 129,
+	SupportedByAutoExertion = 130,
+	SupportedByCrabTotem = 131,
+	SupportedBySpellTotem = 132,
+	CreatesCorpse = 133,
+	RequiresStaff = 134,
+	Pact = 135,
 }
 
-GlobalCache = { 
-	cachedData = { MAIN = {}, CALCS = {}, CALCULATOR = {}, CACHE = {}, },
-	noCache = nil,
-	useFullDPS = false,
-	numActiveSkillInFullDPS = 0,
+GlobalCache = {
+	cachedData = { MAIN = {}, CALCS = {}, CALCULATOR = {} },
 }
 

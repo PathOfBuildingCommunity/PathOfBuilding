@@ -18,7 +18,6 @@ for crucible in dat("WeaponPassiveSkills"):Rows() do
 			end
 			out:write('tier = ', crucible.ModTier, ', ')
 			out:write('"', table.concat(stats, '", "'), '", ')
-			out:write('statOrderKey = "', table.concat(orders, ','), '", ')
 			out:write('statOrder = { ', table.concat(orders, ', '), ' }, ')
 			out:write('level = ', crucible.Mod.Level, ', group = "', crucible.Mod.Type.Id, '", ')
 			out:write('nodeType = "', crucible.Type.Id, '", ')
@@ -29,7 +28,27 @@ for crucible in dat("WeaponPassiveSkills"):Rows() do
 			end
 			out:write('}, ')
 			out:write('weightVal = { ', table.concat(crucible.Mod.SpawnWeights, ', '), ' }, ')
+			if crucible.Mod.GenerationWeightTags[1] then
+				out:write('weightMultiplierKey = { ')
+				for _, tag in ipairs(crucible.Mod.GenerationWeightTags) do
+					out:write('"', tag.Id, '", ')
+				end
+				out:write('}, ')
+				out:write('weightMultiplierVal = { ', table.concat(crucible.Mod.GenerationWeightValues, ', '), ' }, ')
+				if crucible.Mod.Tags[1] then
+					out:write('tags = { ')
+					for _, tag in ipairs(crucible.Mod.Tags) do
+						out:write('"', tag.Id, '", ')
+					end
+					out:write('}, ')
+				end
+			end
 			out:write('modTags = { ', stats.modTags, ' }, ')
+
+			-- -- trade hashes for crucible passives simply use the mod hash,
+			-- -- unlike other things which use stat hashes
+			-- out:write("tradeHash = ", crucible.Mod.Hash, ", ")
+
 			out:write('},\n')
 		else
 			print("Mod '"..crucible.Mod.Id.."' has no stats")

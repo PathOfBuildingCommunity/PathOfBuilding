@@ -82,7 +82,7 @@ function stringify(thing)
 		return ""..thing;
 	elseif type(thing) == 'table' then
 		local s = "{";
-		for k,v in pairs(thing) do
+		for k,v in pairsSortByKey(thing) do
 			s = s.."\n\t"
 			if type(k) == 'number' then
 				s = s.."["..k.."] = "
@@ -107,35 +107,34 @@ function stringify(thing)
 end
 
 function parseStats(datFileRow, legionPassive)
-	local descOrders = {}
-	for idx,statKey in pairs(datFileRow.StatsKeys) do
+	for idx,statKey in ipairs(datFileRow.StatsKeys) do
 		local refRow = type(statKey) == "number" and statKey + 1 or statKey._rowIndex
 		local statId = stats:ReadCell(refRow, 1)
 		local range = datFileRow["Stat"..idx]
 
-		local stat = {}
-		stat[statId] = {
+		local stat = {
 			["min"] = range[1],
 			["max"] = range[2],
 			["index"] = idx
 		}
-		-- Describing stats here to get the orders
-		local statLines, orders = describeStats(stat)
-		stat[statId].statOrder = orders[1]
-		legionPassive.stats[statId] = stat[statId]
-		for i, line in ipairs(statLines) do
-			table.insert(legionPassive.sd, line)
-			descOrders[line] = orders[i]
-		end
+		-- describeStats changes values while formatting them, so use a copy when only finding the order.
+		local _, orders = describeStats({ [statId] = { min = stat.min, max = stat.max } })
+		stat.statOrder = orders[1]
+		legionPassive.stats[statId] = stat
 	end
-	-- Have to re-sort since we described the stats earlier
-	table.sort(legionPassive.sd, function(a, b) return descOrders[a] < descOrders[b] end)
+	-- A description can combine several stats, such as minimum and maximum
+	-- added damage, so describe the complete set together.
+	legionPassive.sd = describeStats(legionPassive.stats)
 	local sortedStats = {}
-	for stat in pairs(legionPassive.stats) do
+	for stat in pairsSortByKey(legionPassive.stats) do
 		table.insert(sortedStats, stat)
 	end
 	-- Finally get what we want, sorted stats by order
-	table.sort(sortedStats, function(a, b) return legionPassive.stats[a].statOrder < legionPassive.stats[b].statOrder  end)
+	table.sort(sortedStats, function(a, b)
+		local statA, statB = legionPassive.stats[a], legionPassive.stats[b]
+		local orderA, orderB = statA.statOrder or math.huge, statB.statOrder or math.huge
+		return orderA < orderB or orderA == orderB and statA.index < statB.index
+	end)
 	legionPassive.sortedStats = sortedStats
 end
 
@@ -189,7 +188,7 @@ for i=1, alternatePassiveSkillDat.rowCount do
             [1] = "Energy Shield starts at zero",
             [2] = "Cannot Recharge or Regenerate Energy Shield",
             [3] = "Lose 5% of Energy Shield per second",
-            [4] = "Life Leech effects are not removed at Full Life",
+            [4] = "Life Leech effects are not removed when Unreserved Life is Filled",
             [5] = "Life Leech effects Recover Energy Shield instead while on Full Life"
         }
     end
@@ -218,7 +217,7 @@ data.groups[LEGION_PASSIVE_GROUP] = {
     ["n"] = {}
 }
 
-for k,v in pairs(data.nodes) do
+for k,v in ipairs(data.nodes) do
 	table.insert(data.groups[LEGION_PASSIVE_GROUP].n, k)
 end
 

@@ -5,16 +5,23 @@
 --
 local ipairs = ipairs
 local s_format = string.format
+local buildListHelpers = require("Modules.BuildListHelpers")
 
-local BuildListClass = newClass("BuildListControl", "ListControl", function(self, anchor, x, y, width, height, listMode)
-	self.ListControl(anchor, x, y, width, height, 20, "VERTICAL", false, listMode.list)
+---@class BuildListControl: ListControl
+local BuildListClass = newClass("BuildListControl", "ListControl")
+
+---@param anchor Anchor?
+---@param rect Rect?
+---@param listMode any
+function BuildListClass:BuildListControl(anchor, rect, listMode)
+	self:ListControl(anchor, rect, 20, "VERTICAL", false, listMode.list)
 	self.listMode = listMode
-	self.colList = { 
-		{ width = function() return self:GetProperty("width") - 172 end }, 
+	self.colList = {
+		{ width = function() return self:GetProperty("width") - 172 end },
 		{ },
 	}
 	self.showRowSeparators = true
-	self.controls.path = new("PathControl", {"BOTTOM",self,"TOP"}, 0, -2, width, 24, main.buildPath, listMode.subPath, function(subPath)
+	self.controls.path = new("PathControl"):PathControl({"BOTTOM",self,"TOP"}, {0, -2, self.width, 24}, main.buildPath, listMode.subPath, function(subPath)
 		listMode.subPath = subPath
 		listMode:BuildList()
 		self.selIndex = nil
@@ -29,35 +36,48 @@ local BuildListClass = newClass("BuildListControl", "ListControl", function(self
 	function self.controls.path:ReceiveDrag(type, build, source)
 		if type == "Build" then
 			for index, folder in ipairs(self.folderList) do
-				if index < #self.folderList and folder.button:IsMouseOver() then
-					if build.folderName then
-						main:MoveFolder(build.folderName, main.buildPath..build.subPath, main.buildPath..folder.path)
-					else
-						os.rename(build.fullFileName, listMode:GetDestName(folder.path, build.fileName))
+				if folder.button:IsMouseOver() then
+					if buildListHelpers.CanMoveToSubPath(build, folder.path) then
+						if build.folderName then
+							main:MoveFolder(build.folderName, main.buildPath..build.subPath, main.buildPath..folder.path)
+						else
+							local destPath = listMode:GetDestName(folder.path, build.fileName)
+							local res, msg = os.rename(build.fullFileName, destPath)
+							if not res then
+								main:OpenMessagePopup("Error", "Couldn't move '"..build.fullFileName.."' to '"..destPath.."': "..(msg or ""))
+								return
+							end
+						end
+						listMode:BuildList()
 					end
-					listMode:BuildList()
+					break
 				end
 			end
 		end
 	end
 	self.dragTargetList = { self.controls.path, self }
-	self.controls.path.width = function ()
+	self.controls.path.width = function()
 		return self.width()
 	end
-end)
+	return self
+end
 
-function BuildListClass:SelByFileName(selFileName)
-	for index, build in ipairs(self.list) do
-		if build.fileName == selFileName then
-			self:SelectIndex(index)
-			break
+function BuildListClass:SelByFullFileName(fullFileName)
+	if fullFileName then
+		for index, build in ipairs(self.list) do
+			if build.fullFileName == fullFileName then
+				self:SelectIndex(index)
+				return
+			end
 		end
 	end
+	self.selIndex = nil
+	self.selValue = nil
 end
 
 function BuildListClass:LoadBuild(build)
 	if build.folderName then
-		self.controls.path:SetSubPath(self.listMode.subPath .. build.folderName  .. "/")
+		self.controls.path:SetSubPath(build.subPath .. build.folderName  .. "/")
 	else
 		main:SetMode("BUILD", build.fullFileName, build.buildName)
 	end
@@ -74,8 +94,8 @@ end
 
 function BuildListClass:RenameBuild(build, copyOnName)
 	local controls = { }
-	controls.label = new("LabelControl", nil, 0, 20, 0, 16, "^7Enter the new name for this "..(build.folderName and "folder:" or "build:"))
-	controls.edit = new("EditControl", nil, 0, 40, 350, 20, build.folderName or build.buildName, nil, "\\/:%*%?\"<>|%c", 100, function(buf)
+	controls.label = new("LabelControl"):LabelControl(nil, {0, 20, 0, 16}, "^7Enter the new name for this "..(build.folderName and "folder:" or "build:"))
+	controls.edit = new("EditControl"):EditControl(nil, {0, 40, 350, 20}, build.folderName or build.buildName, nil, "\\/:%*%?\"<>|%c", 100, function(buf)
 		controls.save.enabled = false
 		if build.folderName then
 			if buf:match("%S") then
@@ -97,7 +117,7 @@ function BuildListClass:RenameBuild(build, copyOnName)
 			end
 		end
 	end)
-	controls.save = new("ButtonControl", nil, -45, 70, 80, 20, "Save", function()
+	controls.save = new("ButtonControl"):ButtonControl(nil, {-45, 70, 80, 20}, "Save", function()
 		local newBuildName = controls.edit.buf
 		if build.folderName then
 			if copyOnName then
@@ -126,13 +146,13 @@ function BuildListClass:RenameBuild(build, copyOnName)
 				end
 			end
 			self.listMode:BuildList()
-			self:SelByFileName(newFileName)
+			self:SelByFullFileName(main.buildPath..build.subPath..newFileName)
 		end
 		main:ClosePopup()
 		self.listMode:SelectControl(self)
 	end)
 	controls.save.enabled = false
-	controls.cancel = new("ButtonControl", nil, 45, 70, 80, 20, "Cancel", function()
+	controls.cancel = new("ButtonControl"):ButtonControl(nil, {45, 70, 80, 20}, "Cancel", function()
 		main:ClosePopup()
 		self.listMode:SelectControl(self)
 	end)
@@ -142,7 +162,12 @@ end
 function BuildListClass:DeleteBuild(build)
 	if build.folderName then
 		if NewFileSearch(build.fullFileName.."/*") or NewFileSearch(build.fullFileName.."/*", true) then
-			main:OpenMessagePopup("Delete Folder", "The folder is not empty.")
+			main:OpenConfirmPopup("Confirm Folder Delete", "The folder is not empty.\nAre you sure you want to delete folder:\n"..build.folderName.."\nThis cannot be undone.", "Delete", function()
+				RemoveDir(build.fullFileName, true)
+				self.listMode:BuildList()
+				self.selIndex = nil
+				self.selValue = nil
+			end)
 		else
 			local res, msg = RemoveDir(build.fullFileName)
 			if not res then
@@ -166,12 +191,21 @@ end
 function BuildListClass:GetRowValue(column, index, build)
 	if column == 1 then
 		local label
-		if build.folderName then
-			label = ">> " .. build.folderName
-		else
-			label = build.buildName or "?"
+		local subPathPrefix = ""
+		if build.subPath and self.listMode and self.listMode.subPath and build.subPath ~= self.listMode.subPath then
+			local baseSub = self.listMode.subPath
+			if build.subPath:sub(1, #baseSub) == baseSub then
+				subPathPrefix = build.subPath:sub(#baseSub + 1)
+			else
+				subPathPrefix = build.subPath
+			end
 		end
-		if self.cutBuild and self.cutBuild.buildName == build.buildName and self.cutBuild.folderName == build.folderName then
+		if build.folderName then
+			label = ">> " .. subPathPrefix .. build.folderName
+		else
+			label = subPathPrefix .. (build.buildName or "?")
+		end
+		if self.cutBuild and self.cutBuild.buildName == build.buildName and self.cutBuild.folderName == build.folderName and self.cutBuild.subPath == build.subPath then
 			return "^xC0B0B0"..label
 		else
 			return label
@@ -200,18 +234,26 @@ end
 function BuildListClass:ReceiveDrag(type, build, source)
 	if type == "Build" then
 		if self.hoverValue and self.hoverValue.folderName then
-			if build.folderName then
-				main:MoveFolder(build.folderName, main.buildPath..build.subPath, main.buildPath..self.hoverValue.subPath..self.hoverValue.folderName.."/")
-			else
-				os.rename(build.fullFileName, self.listMode:GetDestName(self.listMode.subPath..self.hoverValue.folderName.."/", build.fileName))
+			local targetSubPath = self.hoverValue.subPath .. self.hoverValue.folderName .. "/"
+			if buildListHelpers.CanMoveToSubPath(build, targetSubPath) then
+				if build.folderName then
+					main:MoveFolder(build.folderName, main.buildPath..build.subPath, main.buildPath..targetSubPath)
+				else
+					local destPath = self.listMode:GetDestName(targetSubPath, build.fileName)
+					local res, msg = os.rename(build.fullFileName, destPath)
+					if not res then
+						main:OpenMessagePopup("Error", "Couldn't move '"..build.fullFileName.."' to '"..destPath.."': "..(msg or ""))
+						return
+					end
+				end
+				self.listMode:BuildList()
 			end
-			self.listMode:BuildList()
 		end
 	end
 end
 
 function BuildListClass:CanDragToValue(index, build, source)
-	return build.folderName and source.selValue ~= build
+	return build.folderName and source.selValue ~= build and buildListHelpers.CanMoveToSubPath(source.selValue, build.subPath .. build.folderName .. "/")
 end
 
 function BuildListClass:OnSelClick(index, build, doubleClick)

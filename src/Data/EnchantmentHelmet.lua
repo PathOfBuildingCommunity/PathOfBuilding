@@ -608,16 +608,16 @@ return {
 			"15% increased Cyclone Attack Speed",
 		},
 	},
-	["Dark Pact"] = {
+	["Dark Bargain"] = {
 		["MERCILESS"] = {
-			"25% increased Dark Pact Damage",
-			"8% increased Dark Pact Cast Speed",
-			"16% increased Dark Pact Area of Effect",
+			"25% increased Dark Bargain Damage",
+			"8% increased Dark Bargain Cast Speed",
+			"16% increased Dark Bargain Area of Effect",
 		},
 		["ENDGAME"] = {
-			"40% increased Dark Pact Damage",
-			"12% increased Dark Pact Cast Speed",
-			"24% increased Dark Pact Area of Effect",
+			"40% increased Dark Bargain Damage",
+			"12% increased Dark Bargain Cast Speed",
+			"24% increased Dark Bargain Area of Effect",
 		},
 	},
 	["Dash"] = {
@@ -1398,6 +1398,18 @@ return {
 			"Consecrated Ground from Holy Flame Totem applies 9% increased Damage taken to Enemies",
 		},
 	},
+	["Holy Sweep"] = {
+		["MERCILESS"] = {
+			"25% increased Holy Sweep Damage",
+			"Holy Sweep has a 20% chance to grant an Endurance Charge on Hit",
+			"16% increased Holy Sweep Area of Effect",
+		},
+		["ENDGAME"] = {
+			"40% increased Holy Sweep Damage",
+			"Holy Sweep has a 30% chance to grant an Endurance Charge on Hit",
+			"24% increased Holy Sweep Area of Effect",
+		},
+	},
 	["Hydrosphere"] = {
 		["MERCILESS"] = {
 			"Hydrosphere deals 25% increased Damage",
@@ -1989,13 +2001,13 @@ return {
 	},
 	["Raise Spectre"] = {
 		["MERCILESS"] = {
-			"Spectres have 25% increased Damage",
-			"Spectres have 8% increased Attack and Cast Speed",
+			"Raised Spectres have 25% increased Damage",
+			"Raised Spectres have 8% increased Attack and Cast Speed",
 			"+24% to Raised Spectre Elemental Resistances",
 		},
 		["ENDGAME"] = {
-			"Spectres have 40% increased Damage",
-			"Spectres have 12% increased Attack and Cast Speed",
+			"Raised Spectres have 40% increased Damage",
+			"Raised Spectres have 12% increased Attack and Cast Speed",
 			"+36% to Raised Spectre Elemental Resistances",
 		},
 	},
@@ -2405,7 +2417,7 @@ return {
 			"25% increased Static Strike Damage",
 			"30% increased Static Strike Duration",
 			"16% increased Static Strike Area of Effect",
-			"Static Strike has +1 maximum Beam Targets",
+			"Static Strike has +1 maximum Beam Target",
 		},
 		["ENDGAME"] = {
 			"40% increased Static Strike Damage",
@@ -2475,7 +2487,7 @@ return {
 		["MERCILESS"] = {
 			"Stormbind has 16% increased Area of Effect",
 			"Stormbind deals 25% increased Damage",
-			"Rune Blast teleports you to the detonated Rune if you have not detonated Runes in the past 1 second",
+			"Rune Blast teleports you to the detonated Rune if you have not detonated Runes in the past 0.5 seconds",
 		},
 		["ENDGAME"] = {
 			"Stormbind has 24% increased Area of Effect",
@@ -2633,18 +2645,6 @@ return {
 			"Sunder has 40% increased Damage",
 			"Sunder has 24% increased Area of Effect",
 			"Sunder has 20% reduced delay between Areas in the Wave",
-		},
-	},
-	["Sweep"] = {
-		["MERCILESS"] = {
-			"25% increased Sweep Damage",
-			"Sweep has a 20% chance to grant an Endurance Charge on Hit",
-			"16% increased Sweep Area of Effect",
-		},
-		["ENDGAME"] = {
-			"40% increased Sweep Damage",
-			"Sweep has a 30% chance to grant an Endurance Charge on Hit",
-			"24% increased Sweep Area of Effect",
 		},
 	},
 	["Tectonic Slam"] = {

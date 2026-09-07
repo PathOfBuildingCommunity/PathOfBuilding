@@ -9,12 +9,131 @@ local m_max = math.max
 local m_floor = math.floor
 local s_upper = string.upper
 
-local varList = LoadModule("Modules/ConfigOptions")
+local varList = require("Modules.ConfigOptions")
+local configVisibility = require("Modules.ConfigVisibility")
+local configModBrowser = require("Modules.ConfigModBrowser")
 
-local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Control", function(self, build)
-	self.UndoHandler()
-	self.ControlHost()
-	self.Control()
+---@class CustomModBlockControl: ControlHost, Control
+local CustomModBlockClass = newClass("CustomModBlockControl", "ControlHost", "Control")
+
+---@param anchor Anchor?
+---@param rect Rect?
+---@param configTab ConfigTab
+---@param blockIndex integer
+---@param blockData any
+function CustomModBlockClass:CustomModBlockControl(anchor, rect, configTab, blockIndex, blockData)
+	self:Control(anchor, rect)
+	self:ControlHost()
+
+	self.configTab = configTab
+	self.blockIndex = blockIndex
+	self.blockData = blockData
+
+	self.controls.deleteBtn = new("ButtonControl"):ButtonControl({"TOPLEFT", self, "TOPLEFT"}, {0, 0, 20, 18}, "^1X", function()
+		local customModsList = configTab.configSets[configTab.activeConfigSetId].customModsList
+		table.remove(customModsList, blockIndex)
+		if #customModsList == 0 then
+			table.insert(customModsList, { title = "Default", enabled = true, text = "" })
+		end
+		configTab:UpdateCustomModsControls()
+		configTab:AddUndoState()
+		configTab:BuildModList()
+		configTab.build.buildFlag = true
+	end)
+
+	self.controls.titleEdit = new("EditControl"):EditControl({"LEFT", self.controls.deleteBtn, "RIGHT"}, {6, 0, 222, 18}, blockData.title or "", nil, nil, nil, function(buf)
+		blockData.title = buf
+		configTab:AddUndoState()
+		configTab:BuildModList()
+		configTab.build.buildFlag = true
+	end)
+
+	self.controls.addModBtn = new("ButtonControl"):ButtonControl({"LEFT", self.controls.titleEdit, "RIGHT"}, {6, 0, 58, 18}, "^7Add Mod", function()
+		configModBrowser.OpenAddModPopup(self.configTab, blockData)
+	end)
+
+	self.controls.enableCheck = new("CheckBoxControl"):CheckBoxControl({"TOPRIGHT", self, "TOPRIGHT"}, {0, 0, 18}, "", function(state)
+		blockData.enabled = state
+		configTab:AddUndoState()
+		configTab:BuildModList()
+		configTab.build.buildFlag = true
+	end)
+	self.controls.enableCheck.state = blockData.enabled ~= false
+	self.controls.enableCheck.tooltipFunc = function(tooltip)
+		if tooltip:CheckForUpdate(configTab.build.outputRevision, blockData) then
+			if configTab.build.calcsTab then
+				local calcFunc, calcBase = configTab.build.calcsTab:GetMiscCalculator(configTab.build)
+				if calcFunc then
+					local curState = blockData.enabled ~= false
+					blockData.enabled = not curState
+					configTab:BuildModList()
+					local output = calcFunc()
+					blockData.enabled = curState
+					configTab:BuildModList()
+					configTab.build:AddStatComparesToTooltip(tooltip, calcBase, output, curState and "^7Disabling this group will give you:" or "^7Enabling this group will give you:")
+				end
+			end
+		end
+	end
+
+	self.controls.textEdit = new("ResizableEditControl"):ResizableEditControl({"TOPLEFT", self, "TOPLEFT"}, {0, 22, 344, 80, 344, 40, 344, 600}, blockData.text or "", nil, "^%C\t\n", nil, function(buf)
+		blockData.text = buf
+		configTab:AddUndoState()
+		configTab:BuildModList()
+		configTab.build.buildFlag = true
+	end, 16)
+
+	self.controls.textEdit.inactiveText = function(val)
+		local inactiveText = ""
+		for line in val:gmatch("([^\n]*)\n?") do
+			local strippedLine = StripEscapes(line):match("^%s*(.-)%s*$")
+			local mods, extra = modLib.parseMod(strippedLine)
+			inactiveText = inactiveText .. ((mods and not extra) and colorCodes.MAGIC or colorCodes.UNSUPPORTED) .. (IsKeyDown("ALT") and strippedLine or line) .. "\n"
+		end
+		return inactiveText
+	end
+	return self
+end
+
+function CustomModBlockClass:GetSize()
+	local textHeight = self.controls.textEdit and self.controls.textEdit.height or 80
+	self.height = 22 + textHeight + 4
+	return 344, self.height
+end
+
+function CustomModBlockClass:IsMouseOver()
+	if not self:IsShown() then
+		return
+	end
+	return self:IsMouseInBounds() or self:GetMouseOverControl()
+end
+
+function CustomModBlockClass:OnKeyDown(key, doubleClick)
+	if not self:IsShown() or not self:IsEnabled() then
+		return
+	end
+	local mOverControl = self:GetMouseOverControl()
+	if mOverControl and mOverControl.OnKeyDown then
+		return mOverControl:OnKeyDown(key, doubleClick)
+	end
+end
+
+function CustomModBlockClass:Draw(viewPort)
+	if not self:IsShown() then
+		return
+	end
+	self:GetSize()
+	self:DrawControls(viewPort)
+end
+
+---@class ConfigTab: UndoHandler, ControlHost, Control
+local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Control")
+
+---@param build Build
+function ConfigTabClass:ConfigTab(build)
+	self:UndoHandler()
+	self:ControlHost()
+	self:Control()
 
 	self.build = build
 
@@ -27,18 +146,24 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 	self.configSetOrderList = { 1 }
 	self:NewConfigSet(1)
 	self:SetActiveConfigSet(1, true)
-	
+
 	self.enemyLevel = 1
 
 	self.sectionList = { }
 	self.varControls = { }
-	
+
 	self.toggleConfigs = false
 
-	self.controls.sectionAnchor = new("LabelControl", { "TOPLEFT", self, "TOPLEFT" }, 0, 20, 0, 0, "")
+	-- A misc calculator function which is updated by the build when it is rebuilt
+	---@type fun(): table
+	self.calcFunc = nil
+	-- A calculator base output matching the calcFunc which is updated by the build when it is rebuilt
+	---@type table
+	self.calcBase = nil
+	self.controls.sectionAnchor = new("LabelControl"):LabelControl({ "TOPLEFT", self, "TOPLEFT" }, { 0, 20, 0, 0 }, "")
 
 	-- Set selector
-	self.controls.setSelect = new("DropDownControl", { "TOPLEFT", self.controls.sectionAnchor, "TOPLEFT" }, 76, -12, 210, 20, nil, function(index, value)
+	self.controls.setSelect = new("DropDownControl"):DropDownControl({ "TOPLEFT", self.controls.sectionAnchor, "TOPLEFT" }, { 76, -12, 210, 20 }, nil, function(index, value)
 		self:SetActiveConfigSet(self.configSetOrderList[index])
 		self:AddUndoState()
 	end)
@@ -46,25 +171,30 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 	self.controls.setSelect.enabled = function()
 		return #self.configSetOrderList > 1
 	end
-	self.controls.setLabel = new("LabelControl", { "RIGHT", self.controls.setSelect, "LEFT" }, -2, 0, 0, 16, "^7Config set:")
-	self.controls.setManage = new("ButtonControl", { "LEFT", self.controls.setSelect, "RIGHT" }, 4, 0, 90, 20, "Manage...", function()
+	self.controls.setLabel = new("LabelControl"):LabelControl({ "RIGHT", self.controls.setSelect, "LEFT" }, { -2, 0, 0, 16 }, "^7Config set:")
+	self.controls.setManage = new("ButtonControl"):ButtonControl({ "LEFT", self.controls.setSelect, "RIGHT" }, { 4, 0, 90, 20 }, "Manage...", function()
 		self:OpenConfigSetManagePopup()
 	end)
 
-	self.controls.search = new("EditControl", { "TOPLEFT", self.controls.sectionAnchor, "TOPLEFT" }, 8, 15, 360, 20, "", "Search", "%c", 100, function()
+	self.controls.search = new("EditControl"):EditControl({ "TOPLEFT", self.controls.sectionAnchor, "TOPLEFT" }, { 8, 15, 360, 20 }, "", "Search", "%c", 100, function()
 		self:UpdateControls()
 	end, nil, nil, true)
-	self.controls.toggleConfigs = new("ButtonControl", { "LEFT", self.controls.search, "RIGHT" }, 10, 0, 200, 20, function()
+	self.controls.toggleConfigs = new("ButtonControl"):ButtonControl({ "LEFT", self.controls.search, "RIGHT" }, { 10, 0, 200, 20 }, function()
 		-- dynamic text
 		return self.toggleConfigs and "Hide Ineligible Configurations" or "Show All Configurations"
 	end, function()
 		self.toggleConfigs = not self.toggleConfigs
 	end)
 
+	local function isCollapsed(section)
+		return self:IsSectionCollapsed(section)
+	end
+
 	local function searchMatch(varData)
 		local searchStr = self.controls.search.buf:lower():gsub("[%-%.%+%[%]%$%^%%%?%*]", "%%%0")
 		if searchStr and searchStr:match("%S") then
-			local err, match = PCall(string.matchOrPattern, (varData.label or ""):lower(), searchStr)
+			local label = StripEscapes(varData.label or ""):lower()
+			local err, match = PCall(string.matchOrPattern, label, searchStr)
 			if not err and match then
 				return true
 			end
@@ -73,23 +203,9 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 		return true
 	end
 
-	-- blacklist for Show All Configurations
+	-- Override for Show All Configurations: when the toggle is on, show options that aren't on the shared exclusion list.
 	local function isShowAllConfig(varData)
-		local labelMatch = varData.label:lower()
-		local excludeKeywords = { "recently", "in the last", "in the past", "in last", "in past", "pvp" }
-
-		if not self.toggleConfigs then
-			return false
-		end
-		if varData.ifOption or varData.ifSkill or varData.ifSkillData or varData.ifSkillFlag or varData.legacy then
-			return false
-		end
-		for _, keyword in pairs(excludeKeywords) do
-			if labelMatch:find(keyword) then
-				return false
-			end
-		end
-		return true
+		return self.toggleConfigs and not configVisibility.isShowAllExcluded(varData)
 	end
 
 	local function implyCond(varData)
@@ -144,31 +260,49 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 	local lastSection
 	for _, varData in ipairs(varList) do
 		if varData.section then
-			lastSection = new("SectionControl", {"TOPLEFT",self.controls.search,"BOTTOMLEFT"}, 0, 0, 360, 0, varData.section)
+			lastSection = new("SectionControl"):SectionControl({"TOPLEFT",self.controls.search,"BOTTOMLEFT"}, {0, 0, 360, 0}, varData.section)
 			lastSection.varControlList = { }
 			lastSection.col = varData.col
-			lastSection.height = function(self)
+			lastSection.collapsed = false
+			lastSection.height = function(section)
+				if isCollapsed(section) then
+					return 16
+				end
 				local height = 20
-				for _, varControl in pairs(self.varControlList) do
+				for _, varControl in pairs(section.varControlList) do
 					if varControl:IsShown() then
-						height = height + m_max(varControl.height, 16) + 4
+						local _, ctrlHeight = varControl:GetSize()
+						height = height + m_max(ctrlHeight or varControl.height, 16) + 4
 					end
 				end
 				return m_max(height, 32)
 			end
+			-- Collapse toggle, matching the Calcs tab: right aligned, '-' when expanded, '+' when collapsed.
+			-- Sits on the section's top border, as the header label does, to clear the option controls below.
+			local section = lastSection
+			local toggle = new("ButtonControl"):ButtonControl({"TOPRIGHT",lastSection,"TOPRIGHT"}, {-6, -7, 16, 16}, function()
+				return section.collapsed and "+" or "-"
+			end, function()
+				section.collapsed = not section.collapsed
+			end)
+			-- Deliberately not in varControlList: it must not count towards the section's height or visibility
 			t_insert(self.sectionList, lastSection)
 			t_insert(self.controls, lastSection)
+			t_insert(self.controls, toggle)
+			if varData.section == "Custom Modifiers" then
+				self.customSection = lastSection
+			end
 		else
 			local control
 			if varData.type == "check" then
-				control = new("CheckBoxControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 18, varData.label, function(state)
+				control = new("CheckBoxControl"):CheckBoxControl({"TOPLEFT",lastSection,"TOPLEFT"}, {234, 0, 18}, varData.label, function(state)
 					self.configSets[self.activeConfigSetId].input[varData.var] = state
 					self:AddUndoState()
 					self:BuildModList()
 					self.build.buildFlag = true
 				end)
 			elseif varData.type == "count" or varData.type == "integer" or varData.type == "countAllowZero" or varData.type == "float" then
-				control = new("EditControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 90, 18, "", nil, (varData.type == "integer" and "^%-%d") or (varData.type == "float" and "^%d.") or "%D", 7, function(buf, placeholder)
+				control = new("EditControl"):EditControl({"TOPLEFT",lastSection,"TOPLEFT"}, {234, 0, 90, 18}, "", nil, ((varData.type == "integer" or varData.type == "countAllowZero") and "^%-%d") or (varData.type == "float" and "^%d.") or "%D", 10, function(buf, placeholder)
 					if placeholder then
 						self.configSets[self.activeConfigSetId].placeholder[varData.var] = tonumber(buf)
 					else
@@ -179,14 +313,14 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					self.build.buildFlag = true
 				end)
 			elseif varData.type == "list" then
-				control = new("DropDownControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 118, 16, varData.list, function(index, value)
+				control = new("DropDownControl"):DropDownControl({"TOPLEFT",lastSection,"TOPLEFT"}, {234, 0, 118, 16}, varData.list, function(index, value)
 					self.configSets[self.activeConfigSetId].input[varData.var] = value.val
 					self:AddUndoState()
 					self:BuildModList()
 					self.build.buildFlag = true
 				end)
 			elseif varData.type == "text" and not varData.resizable then
-				control = new("EditControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 8, 0, 344, 118, "", nil, "^%C\t\n", nil, function(buf, placeholder)
+				control = new("EditControl"):EditControl({"TOPLEFT",lastSection,"TOPLEFT"}, {8, 0, 344, 118}, "", nil, "^%C\t\n", nil, function(buf, placeholder)
 					if placeholder then
 						self.configSets[self.activeConfigSetId].placeholder[varData.var] = tostring(buf)
 					else
@@ -197,7 +331,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					self.build.buildFlag = true
 				end, 16)
 			elseif varData.type == "text" and varData.resizable then
-				control = new("ResizableEditControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 8, 0, nil, 344, nil, nil, 118, 118 + 16 * 40, "", nil, "^%C\t\n", nil, function(buf, placeholder)
+				control = new("ResizableEditControl"):ResizableEditControl({"TOPLEFT",lastSection,"TOPLEFT"}, {8, 0, 344, 118, nil, nil, nil, 118 + 16 * 40}, "", nil, "^%C\t\n", nil, function(buf, placeholder)
 					if placeholder then
 						self.configSets[self.activeConfigSetId].placeholder[varData.var] = tostring(buf)
 					else
@@ -208,7 +342,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					self.build.buildFlag = true
 				end, 16)
 			else
-				control = new("Control", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 16, 16)
+				control = new("Control"):Control({"TOPLEFT",lastSection,"TOPLEFT"}, {234, 0, 16, 16})
 			end
 
 			if varData.inactiveText then
@@ -327,6 +461,18 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					for _, mod in ipairs(mods) do
 						out = (out and out.."\n" or "") .. modLib.formatMod(mod) .. "|" .. mod.source
 					end
+					return out
+				end))
+			end
+			if varData.ifCondTrue then
+				t_insert(shownFuncs, listOrSingleIfOption(varData.ifCondTrue, function(ifOption)
+					return self.build.calcsTab.mainEnv.player.modDB.conditions[ifOption]
+				end))
+				t_insert(tooltipFuncs, listOrSingleIfTooltip(varData.ifCondTrue, function(ifOption)
+					if not launch.devModeAlt then
+						return
+					end
+					local out = "Condition state: " .. ifOption .. "=" .. tostring(self.build.calcsTab.mainEnv.player.modDB.conditions[ifOption])
 					return out
 				end))
 			end
@@ -520,7 +666,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 			end
 			local labelControl = control
 			if varData.label and varData.type ~= "check" then
-				labelControl = new("LabelControl", {"RIGHT",control,"LEFT"}, -4, 0, 0, DrawStringWidth(14, "VAR", varData.label) > 228 and 12 or 14, "^7"..varData.label)
+				labelControl = new("LabelControl"):LabelControl({"RIGHT",control,"LEFT"}, {-4, 0, 0, DrawStringWidth(14, "VAR", varData.label) > 228 and 12 or 14}, "^7"..varData.label)
 				t_insert(self.controls, labelControl)
 			end
 			if varData.var then
@@ -582,12 +728,14 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					end
 					return innerLabel
 				end
+				local outputCache = {}
+				local outputCacheRevision = nil
 				local innerTooltipFunc = control.tooltipFunc
-				control.tooltipFunc = function (tooltip, ...)
+				control.tooltipFunc = function(tooltip, mode, index, value)
 					tooltip:Clear()
 
 					if innerTooltipFunc then
-						innerTooltipFunc(tooltip, ...)
+						innerTooltipFunc(tooltip, mode, index, value)
 					else
 						local tooltipText = control:GetProperty("tooltipText")
 						if tooltipText and tooltipText ~= '' then
@@ -596,20 +744,97 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					end
 
 					local shown = type(innerShown) == "boolean" and innerShown or innerShown()
-					local cur = self.configSets[self.activeConfigSetId].input[varData.var]
+					local inputs = self.configSets[self.activeConfigSetId].input
+					local cur = inputs[varData.var]
 					local def = self:GetDefaultState(varData.var, type(cur))
 					if not shown and cur ~= nil and cur ~= def then
 						tooltip:AddLine(14, colorCodes.NEGATIVE.."This config option is conditional with missing source and is invalid.")
+					else
+						-- avoid adding comparisons for number inputs as the
+						-- input gets applied as soon as the user types, which
+						-- means comparisons don't make sense here
+						if not self.calcFunc then
+							self.calcFunc, self.calcBase = self.build.calcsTab:GetMiscCalculator(self.build)
+						end
+						if (varData.type == "check") or (varData.type == "list") then
+							local valueMapped
+							if varData.type == "check" then
+								valueMapped = not cur
+							else
+								valueMapped = type(value) == "table" and value.val or value
+							end
+							if (valueMapped ~= cur) then
+								local buildFlag = self.build.buildFlag
+								tooltip:AddSeparator(10)
+								-- clear cache if build has been edited
+								if outputCacheRevision ~= self.build.outputRevision then
+									outputCache = {}
+									outputCacheRevision = self.build.outputRevision
+								end
+								local key = string.format("%s:%s", tostring(valueMapped), tostring(cur))
+								if not outputCache[key] then
+									inputs[varData.var] = valueMapped
+									self:BuildModList()
+
+									outputCache[key] = self.calcFunc()
+
+									inputs[varData.var] = cur
+									self:BuildModList()
+								end
+								-- building the mod lists flags the build for a
+								-- rebuild, but we don't actually want that as
+								-- we restore the previous state if the user
+								-- hasn't actually clicked
+								self.build.buildFlag = buildFlag
+								local prefix = (varData.type == "check") and "^7Toggling this" or "^7Selecting this"
+								self.build:AddStatComparesToTooltip(tooltip, self.calcBase, outputCache[key], prefix .. " option will give you:")
+								-- clear tooltip if it only has our separator
+								if #tooltip.lines == 1 then
+									tooltip:Clear()
+								end
+							end
+						end
 					end
 				end
+			end
+
+			local ownSection = lastSection
+			local eligibleShown = control.shown
+			control.shown = function()
+				if isCollapsed(ownSection) then
+					return false
+				end
+				return type(eligibleShown) == "boolean" and eligibleShown or eligibleShown()
 			end
 
 			t_insert(self.controls, control)
 			t_insert(lastSection.varControlList, control)
 		end
 	end
-	self.controls.scrollBar = new("ScrollBarControl", {"TOPRIGHT",self,"TOPRIGHT"}, 0, 0, 18, 0, 50, "VERTICAL", true)
-end)
+	self.controls.scrollBar = new("ScrollBarControl"):ScrollBarControl({"TOPRIGHT",self,"TOPRIGHT"}, {0, 0, 18, 0}, 50, "VERTICAL", true)
+	if self.customSection then
+		self.controls.customModsAddBlock = new("ButtonControl"):ButtonControl({"TOPLEFT", self.customSection, "TOPLEFT"}, {8, 0, 120, 20}, "^7Add Mod Group", function()
+			local customModsList = self.configSets[self.activeConfigSetId].customModsList
+			t_insert(customModsList, { title = "Group " .. (#customModsList + 1), enabled = true, text = "" })
+			self:UpdateCustomModsControls()
+			self:AddUndoState()
+			self:BuildModList()
+			self.build.buildFlag = true
+		end)
+		self.controls.customModsAddBlock.shown = function()
+			return not isCollapsed(self.customSection)
+		end
+		self.customModsBlockControls = { }
+		self:UpdateCustomModsControls()
+	end
+
+	return self
+end
+
+-- A collapsed section hides its contents, unless a search is active
+function ConfigTabClass:IsSectionCollapsed(section)
+	return section.collapsed and not self.controls.search.buf:match("%S")
+end
 
 function ConfigTabClass:Load(xml, fileName)
 	self.activeConfigSetId = 1
@@ -665,14 +890,47 @@ function ConfigTabClass:Load(xml, fileName)
 			if not self.configSets[1] then
 				self:NewConfigSet(1, "Default")
 			end
-			setInputAndPlaceholder(node, 1)
+			if node.elem == "CustomModifierBlock" then
+				local block = {
+					title = node.attrib.title or "Default",
+					enabled = (node.attrib.enabled == "true" or node.attrib.enabled == nil),
+					text = node[1] or ""
+				}
+				t_insert(self.configSets[1].customModsList, block)
+			else
+				setInputAndPlaceholder(node, 1)
+			end
 		else
 			local configSetId = tonumber(node.attrib.id)
 			self:NewConfigSet(configSetId, node.attrib.title or "Default")
 			self.configSetOrderList[index] = configSetId
+			self.configSets[configSetId].customModsList = { }
 			for _, child in ipairs(node) do
-				setInputAndPlaceholder(child, configSetId)
+				if child.elem == "CustomModifierBlock" then
+					local block = {
+						title = child.attrib.title or "Default",
+						enabled = (child.attrib.enabled == "true" or child.attrib.enabled == nil),
+						text = child[1] or ""
+					}
+					t_insert(self.configSets[configSetId].customModsList, block)
+				else
+					setInputAndPlaceholder(child, configSetId)
+				end
 			end
+		end
+	end
+
+	-- Migration check for legacy builds
+	for _, configSetId in ipairs(self.configSetOrderList) do
+		local configSet = self.configSets[configSetId]
+		local legacyText = configSet.input and configSet.input.customMods or ""
+		if legacyText ~= "" and (not configSet.customModsList or #configSet.customModsList == 0 or (#configSet.customModsList == 1 and (configSet.customModsList[1].text or "") == "")) then
+			configSet.customModsList = { { title = "Default", enabled = true, text = legacyText } }
+		elseif not configSet.customModsList or #configSet.customModsList == 0 then
+			configSet.customModsList = { { title = "Default", enabled = true, text = "" } }
+		end
+		if configSet.input then
+			configSet.input.customMods = nil
 		end
 	end
 
@@ -731,6 +989,19 @@ function ConfigTabClass:Save(xml)
 			end
 			t_insert(child, node)
 		end
+		if configSet.customModsList then
+			for _, block in ipairs(configSet.customModsList) do
+				local blockNode = {
+					elem = "CustomModifierBlock",
+					attrib = {
+						title = block.title or "Default",
+						enabled = tostring(block.enabled ~= false)
+					},
+					[1] = block.text or ""
+				}
+				t_insert(child, blockNode)
+			end
+		end
 	end
 end
 
@@ -747,6 +1018,7 @@ function ConfigTabClass:UpdateControls()
 			control:SelByValue(self.configSets[self.activeConfigSetId].input[var] or self:GetDefaultState(var), "val")
 		end
 	end
+	self:UpdateCustomModsControls()
 end
 
 function ConfigTabClass:Draw(viewPort, inputEvents)
@@ -756,7 +1028,7 @@ function ConfigTabClass:Draw(viewPort, inputEvents)
 	self.height = viewPort.height
 
 	for _, event in ipairs(inputEvents) do
-		if event.type == "KeyDown" then	
+		if event.type == "KeyDown" then
 			if event.key == "z" and IsKeyDown("CTRL") then
 				self:Undo()
 				self.build.buildFlag = true
@@ -786,6 +1058,10 @@ function ConfigTabClass:Draw(viewPort, inputEvents)
 	for _, section in ipairs(self.sectionList) do
 		local y = 14
 		section.shown = true
+		-- Probe with the section expanded, so a collapsed section that still has
+		-- eligible options keeps its (clickable) header on screen
+		local collapsed = section.collapsed
+		section.collapsed = false
 		local doShow = false
 		for _, varControl in pairs(section.varControlList) do
 			if varControl:IsShown() then
@@ -796,6 +1072,7 @@ function ConfigTabClass:Draw(viewPort, inputEvents)
 				y = y + height + 4
 			end
 		end
+		section.collapsed = collapsed
 		section.shown = doShow
 		if doShow then
 			local width, height = section:GetSize()
@@ -818,7 +1095,7 @@ function ConfigTabClass:Draw(viewPort, inputEvents)
 			maxColY = m_max(maxColY, colY[col])
 		end
 	end
-	
+
 	local newSetList = { }
 	for index, configSetId in ipairs(self.configSetOrderList) do
 		local configSet = self.configSets[configSetId]
@@ -851,9 +1128,9 @@ function ConfigTabClass:UpdateLevel()
 end
 
 function ConfigTabClass:BuildModList()
-	local modList = new("ModList")
+	local modList = new("ModList"):ModList()
 	self.modList = modList
-	local enemyModList = new("ModList")
+	local enemyModList = new("ModList"):ModList()
 	self.enemyModList = enemyModList
 	local input = self.configSets[self.activeConfigSetId].input
 	local placeholder = self.configSets[self.activeConfigSetId].placeholder
@@ -877,6 +1154,48 @@ function ConfigTabClass:BuildModList()
 			elseif varData.type == "text" then
 				if input[varData.var] then
 					varData.apply(input[varData.var], modList, enemyModList, self.build)
+				end
+			end
+		end
+	end
+
+	-- Apply Custom Modifier groups
+	local customModsList = self.configSets[self.activeConfigSetId].customModsList
+	local hasBlockText = false
+	if customModsList then
+		for _, block in ipairs(customModsList) do
+			if block.enabled ~= false and block.text and #block.text > 0 then
+				hasBlockText = true
+				for line in block.text:gmatch("([^\n]*)\n?") do
+					local strippedLine = StripEscapes(line):match("^%s*(.-)%s*$")
+					local mods, extra = modLib.parseMod(strippedLine)
+					if mods and not extra then
+						local source = "Custom:" .. (block.title or "Default")
+						for i = 1, #mods do
+							local mod = mods[i]
+							if mod then
+								mod = modLib.setSource(mod, source)
+								modList:AddMod(mod)
+							end
+						end
+					end
+				end
+			end
+		end
+	end
+	-- Fallback for tests/headless
+	if not hasBlockText and input.customMods and #input.customMods > 0 then
+		for line in input.customMods:gmatch("([^\n]*)\n?") do
+			local strippedLine = StripEscapes(line):match("^%s*(.-)%s*$")
+			local mods, extra = modLib.parseMod(strippedLine)
+			if mods and not extra then
+				local source = "Custom"
+				for i = 1, #mods do
+					local mod = mods[i]
+					if mod then
+						mod = modLib.setSource(mod, source)
+						modList:AddMod(mod)
+					end
 				end
 			end
 		end
@@ -921,13 +1240,28 @@ function ConfigTabClass:ImportCalcSettings()
 end
 
 function ConfigTabClass:CreateUndoState()
-	return copyTable(self.configSets[self.activeConfigSetId].input)
+	local configSet = self.configSets[self.activeConfigSetId]
+	return {
+		input = copyTable(configSet.input),
+		customModsList = copyTable(configSet.customModsList)
+	}
 end
 
 function ConfigTabClass:RestoreUndoState(state)
-	wipeTable(self.configSets[self.activeConfigSetId].input)
-	for k, v in pairs(state) do
-		self.configSets[self.activeConfigSetId].input[k] = v
+	local configSet = self.configSets[self.activeConfigSetId]
+	if type(state) == "table" and state.input then
+		wipeTable(configSet.input)
+		for k, v in pairs(state.input) do
+			configSet.input[k] = v
+		end
+		if state.customModsList then
+			configSet.customModsList = copyTable(state.customModsList)
+		end
+	else
+		wipeTable(configSet.input)
+		for k, v in pairs(state) do
+			configSet.input[k] = v
+		end
 	end
 	self:UpdateControls()
 	self:BuildModList()
@@ -935,8 +1269,8 @@ end
 
 function ConfigTabClass:OpenConfigSetManagePopup()
 	main:OpenPopup(370, 290, "Manage Config Sets", {
-		new("ConfigSetListControl", nil, 0, 50, 350, 200, self),
-		new("ButtonControl", nil, 0, 260, 90, 20, "Done", function()
+		new("ConfigSetListControl"):ConfigSetListControl(nil, {0, 50, 350, 200}, self),
+		new("ButtonControl"):ButtonControl(nil, {0, 260, 90, 20}, "Done", function()
 			main:ClosePopup()
 		end),
 	})
@@ -944,7 +1278,7 @@ end
 
 -- Creates a new config set
 function ConfigTabClass:NewConfigSet(configSetId, title)
-	local configSet = { id = configSetId, title = title, input = { }, placeholder = { } }
+	local configSet = { id = configSetId, title = title, input = { }, placeholder = { }, customModsList = { { title = "Default", enabled = true, text = "" } } }
 	if not configSetId then
 		configSet.id = 1
 		while self.configSets[configSet.id] do
@@ -963,6 +1297,40 @@ function ConfigTabClass:NewConfigSet(configSetId, title)
 	end
 	self.configSets[configSet.id] = configSet
 	return configSet
+end
+
+function ConfigTabClass:UpdateCustomModsControls()
+	if not self.customSection then
+		return
+	end
+	local configSet = self.configSets[self.activeConfigSetId]
+	if not configSet then
+		return
+	end
+	if not configSet.customModsList then
+		configSet.customModsList = { }
+	end
+	if #configSet.customModsList == 0 then
+		t_insert(configSet.customModsList, { title = "Default", enabled = true, text = configSet.input and configSet.input.customMods or "" })
+	end
+
+	if self.customModsBlockControls then
+		for _, ctrl in ipairs(self.customModsBlockControls) do
+			ctrl.shown = false
+		end
+	end
+	self.customModsBlockControls = { }
+	self.customSection.varControlList = { self.controls.customModsAddBlock }
+
+	for index, block in ipairs(configSet.customModsList) do
+		local blockControl = new("CustomModBlockControl"):CustomModBlockControl({"TOPLEFT", self.customSection, "TOPLEFT"}, {8, 0, 344, 120}, self, index, block)
+		blockControl.shown = function()
+			return not self:IsSectionCollapsed(self.customSection)
+		end
+		t_insert(self.customModsBlockControls, blockControl)
+		t_insert(self.controls, blockControl)
+		t_insert(self.customSection.varControlList, blockControl)
+	end
 end
 
 -- Changes the active config set

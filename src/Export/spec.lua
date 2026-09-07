@@ -97,14 +97,14 @@ return {
 			name="Name",
 			refTo="",
 			type="String",
-			width=150
+			width=370
 		},
 		[2]={
 			list=false,
-			name="",
+			name="HASH16",
 			refTo="",
-			type="Int",
-			width=150
+			type="UInt16",
+			width=100
 		},
 		[3]={
 			list=false,
@@ -218,7 +218,7 @@ return {
 		[14]={
 			list=false,
 			name="SkillTotem",
-			refTo="SkillTotems",
+			refTo="",
 			type="Int",
 			width=80
 		},
@@ -331,11 +331,16 @@ return {
 			list=false,
 			name="RegularVersion",
 			refTo="ActiveSkills",
-			type="Key",
+			type="ShortKey",
+			width=150
+		},
+		[31]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
 			width=150
 		}
-	},
-	activeskilltargettypes={
 	},
 	activeskilltype={
 		[1]={
@@ -489,14 +494,14 @@ return {
 		},
 		[7]={
 			list=false,
-			name="",
+			name="ActiveBuff",
 			refTo="BuffDefinitions",
 			type="Key",
 			width=150
 		},
 		[8]={
 			list=false,
-			name="",
+			name="DepletedBuff",
 			refTo="BuffDefinitions",
 			type="Key",
 			width=150
@@ -510,15 +515,15 @@ return {
 		},
 		[10]={
 			list=false,
-			name="",
-			refTo="",
+			name="AnimatedEffect",
+			refTo="MiscAnimated",
 			type="Key",
 			width=150
 		},
 		[11]={
 			list=true,
-			name="",
-			refTo="",
+			name="MtxEffect",
+			refTo="MiscAnimated",
 			type="Key",
 			width=150
 		}
@@ -572,9 +577,9 @@ return {
 		[4]={
 			list=true,
 			name="StatsKeys",
-			refTo="",
-			type="UInt",
-			width=80
+			refTo="Stats",
+			type="Key",
+			width=200
 		},
 		[5]={
 			list=false,
@@ -701,7 +706,7 @@ return {
 			list=false,
 			name="ConquerorIndex",
 			refTo="",
-			type="UInt",
+			type="Int",
 			width=90
 		},
 		[14]={
@@ -729,21 +734,21 @@ return {
 			list=true,
 			name="AchievementItemsKeys",
 			refTo="",
-			type="UInt",
+			type="Key",
 			width=150
 		},
 		[18]={
 			list=false,
 			name="ConquerorVersion",
 			refTo="",
-			type="UInt",
+			type="Int",
 			width=150
 		},
 		[19]={
 			list=false,
 			name="ConquerorSpawnWeight",
 			refTo="",
-			type="UInt",
+			type="Int",
 			width=150
 		}
 	},
@@ -803,7 +808,7 @@ return {
 			list=false,
 			name="HASH16",
 			refTo="",
-			type="Int",
+			type="UInt16",
 			width=80
 		},
 		[9]={
@@ -821,16 +826,100 @@ return {
 			refTo="",
 			type="String",
 			width=270
+		},
+		[2]={
+			list=false,
+			name="Value",
+			refTo="",
+			type="Int",
+			width=80
+		},
+		[3]={
+			list=false,
+			name="ClientString",
+			refTo="ClientStrings",
+			type="Key",
+			width=260
+		},
+		[4]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=50
+		},
+		[5]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=50
+		},
+		[6]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=50
+		},
+		[7]={
+			list=true,
+			name="",
+			refTo="",
+			type="Int",
+			width=50
 		}
 	},
 	alternatetreeart={
+		[1]={
+			list=false,
+			name="TreeVersion",
+			refTo="AlternateTreeVersions",
+			type="Key",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="ConnectionArt",
+			refTo="PassiveSkillTreeConnectionArt",
+			type="Key",
+			width=180
+		},
+		[3]={
+			list=false,
+			name="KeystoneFrameArt",
+			refTo="PassiveSkillTreeNodeFrameArt",
+			type="Key",
+			width=180
+		},
+		[4]={
+			list=false,
+			name="RadiiArt",
+			refTo="PassiveJewelRadiiArt",
+			type="Key",
+			width=150
+		},
+		[5]={
+			list=false,
+			name="NotableFrameArt",
+			refTo="PassiveSkillTreeNodeFrameArt",
+			type="Key",
+			width=180
+		},
+		[6]={
+			list=false,
+			name="AscendancyFrameArt",
+			refTo="PassiveSkillTreeNodeFrameArt",
+			type="Key",
+			width=200
+		}
 	},
 	alternatetreepassivesizes={
 	},
 	alternatetreeversions={
 		[1]={
 			list=false,
-			name="ConquerorType",
+			name="Id",
 			refTo="",
 			type="String",
 			width=150
@@ -874,7 +963,7 @@ return {
 			list=false,
 			name="NotableReplacementSpawnWeight ",
 			refTo="",
-			type="UInt",
+			type="Int",
 			width=200
 		}
 	},
@@ -916,7 +1005,84 @@ return {
 			name="Id",
 			refTo="",
 			type="String",
+			width=210
+		},
+		[2]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=50
+		},
+		[3]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=50
+		},
+		[4]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=40
+		},
+		[5]={
+			list=false,
+			name="Mainhand",
+			refTo="Animation",
+			type="ShortKey",
 			width=150
+		},
+		[6]={
+			list=false,
+			name="Offhand",
+			refTo="Animation",
+			type="ShortKey",
+			width=150
+		},
+		[7]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=50
+		},
+		[8]={
+			list=false,
+			name="VariationStat",
+			refTo="Stats",
+			type="Key",
+			width=150
+		},
+		[9]={
+			list=false,
+			name="AnimationStart",
+			refTo="Animation",
+			type="ShortKey",
+			width=150
+		},
+		[10]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=50
+		},
+		[11]={
+			list=false,
+			name="AnimationEnd",
+			refTo="Animation",
+			type="ShortKey",
+			width=150
+		},
+		[12]={
+			list=true,
+			name="",
+			refTo="",
+			type="Int",
+			width=100
 		}
 	},
 	applydamagefunctions={
@@ -1209,77 +1375,77 @@ return {
 			name="ArmourMin",
 			refTo="",
 			type="Int",
-			width=150
+			width=80
 		},
 		[3]={
 			list=false,
 			name="ArmourMax",
 			refTo="",
 			type="Int",
-			width=150
+			width=80
 		},
 		[4]={
 			list=false,
 			name="EvasionMin",
 			refTo="",
 			type="Int",
-			width=150
+			width=80
 		},
 		[5]={
 			list=false,
 			name="EvasionMax",
 			refTo="",
 			type="Int",
-			width=150
+			width=80
 		},
 		[6]={
 			list=false,
 			name="EnergyShieldMin",
 			refTo="",
 			type="Int",
-			width=150
+			width=100
 		},
 		[7]={
 			list=false,
 			name="EnergyShieldMax",
 			refTo="",
 			type="Int",
-			width=150
+			width=100
 		},
 		[8]={
 			list=false,
 			name="MovementPenalty",
 			refTo="",
 			type="Int",
-			width=150
+			width=100
 		},
 		[9]={
 			list=false,
 			name="WardMin",
 			refTo="",
 			type="Int",
-			width=150
+			width=80
 		},
 		[10]={
 			list=false,
 			name="WardMax",
 			refTo="",
 			type="Int",
-			width=150
+			width=80
 		},
 		[11]={
 			list=false,
 			name="",
 			refTo="",
 			type="Int",
-			width=150
+			width=80
 		},
 		[12]={
 			list=false,
 			name="",
 			refTo="",
 			type="Int",
-			width=150
+			width=80
 		}
 	},
 	ascendancy={
@@ -1298,7 +1464,7 @@ return {
 			width=50
 		},
 		[3]={
-			list=true,
+			list=false,
 			name="Class",
 			refTo="Characters",
 			type="Key",
@@ -1363,6 +1529,55 @@ return {
 		[12]={
 			list=false,
 			name="BackgroundImage",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[13]={
+			list=false,
+			name="AlternateName",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[14]={
+			list=false,
+			name="AlternateFlavourText",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[15]={
+			list=false,
+			name="AlternateBackgroundImage",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[16]={
+			list=false,
+			name="AlternatePassiveTreeImage",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[17]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=20
+		},
+		[18]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=20
+		},
+		[19]={
+			list=false,
+			name="AlternateIcon",
 			refTo="",
 			type="String",
 			width=150
@@ -1466,14 +1681,14 @@ return {
 			name="",
 			refTo="",
 			type="Int",
-			width=150
+			width=50
 		},
 		[2]={
 			list=false,
 			name="",
 			refTo="",
 			type="Enum",
-			width=150
+			width=50
 		},
 		[3]={
 			list=false,
@@ -1490,17 +1705,17 @@ return {
 			width=260
 		},
 		[5]={
-			list=false,
-			name="",
-			refTo="",
-			type="ShortKey",
-			width=600
+			list=true,
+			name="Achievement",
+			refTo="AchievementItems",
+			type="Key",
+			width=200
 		},
 		[6]={
 			list=false,
 			name="",
 			refTo="",
-			type="Key",
+			type="Bool",
 			width=150
 		}
 	},
@@ -1674,7 +1889,7 @@ return {
 		},
 		[10]={
 			list=false,
-			name="",
+			name="SizeOnGround",
 			refTo="",
 			type="Int",
 			width=30
@@ -1702,80 +1917,80 @@ return {
 		},
 		[14]={
 			list=false,
-			name="Hidden",
-			refTo="",
-			type="Int",
-			width=50
-		},
-		[15]={
-			list=false,
 			name="ItemVisualIdentityKey",
 			refTo="ItemVisualIdentity",
 			type="Key",
 			width=150
 		},
-		[16]={
+		[15]={
 			list=false,
 			name="HASH32",
 			refTo="",
-			type="Int",
+			type="UInt",
 			width=100
 		},
-		[17]={
+		[16]={
 			list=true,
 			name="VendorRecipeAchievement",
 			refTo="AchievementItems",
 			type="Key",
 			width=180
 		},
-		[18]={
+		[17]={
 			list=false,
 			name="Inflection",
 			refTo="",
 			type="String",
 			width=80
 		},
-		[19]={
+		[18]={
 			list=false,
 			name="EquipAchievement",
 			refTo="AchievementItems",
 			type="Key",
 			width=150
 		},
-		[20]={
+		[19]={
 			list=false,
 			name="IsCorrupted",
 			refTo="",
 			type="Bool",
 			width=90
 		},
-		[21]={
+		[20]={
 			list=true,
 			name="IdentifyAchievement",
 			refTo="AchievementItems",
 			type="Key",
 			width=150
 		},
-		[22]={
+		[21]={
 			list=true,
 			name="IdentifyMagicAchievement",
 			refTo="AchievementItems",
 			type="Key",
 			width=150
 		},
-		[23]={
+		[22]={
 			list=false,
 			name="FragmentBaseItemTypesKey",
 			refTo="BaseItemTypes",
 			type="ShortKey",
 			width=150
 		},
-		[24]={
+		[23]={
 			list=false,
 			name="",
 			refTo="",
 			type="Bool",
 			width=50
+		},
+		[24]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=100
 		},
 		[25]={
 			list=false,
@@ -1788,57 +2003,78 @@ return {
 			list=false,
 			name="",
 			refTo="",
-			type="Key",
-			width=100
+			type="Bool",
+			width=150
 		},
 		[27]={
 			list=false,
 			name="",
 			refTo="",
 			type="Bool",
-			width=150
-		},
-		[28]={
-			list=false,
-			name="TradeMarketCategory",
-			refTo="TradeMarketCategory",
-			type="Key",
-			width=150
-		},
-		[29]={
-			list=false,
-			name="",
-			refTo="",
-			type="Bool",
 			width=50
 		},
-		[30]={
+		[28]={
 			list=true,
 			name="Achievement",
 			refTo="AchievementItems",
 			type="Key",
 			width=280
 		},
-		[31]={
+		[29]={
 			list=true,
 			name="Achievement2",
 			refTo="AchievementItems",
 			type="Key",
 			width=150
 		},
-		[32]={
+		[30]={
 			list=false,
 			name="IgnoreQuantBonus",
 			refTo="",
 			type="Bool",
 			width=150
 		},
-		[33]={
+		[31]={
 			list=false,
 			name="",
 			refTo="",
 			type="Bool",
-			width=50
+			width=150
+		},
+		[32]={
+			list=false,
+			name="ShopTag",
+			refTo="ShopTag",
+			type="Key",
+			width=150
+		},
+		[33]={
+			list=true,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[34]={
+			list=true,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[35]={
+			list=true,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[36]={
+			list=true,
+			name="EnchantMods",
+			refTo="Mods",
+			type="Key",
+			width=300
 		}
 	},
 	battlepasses={
@@ -1959,7 +2195,95 @@ return {
 	},
 	breachstoneupgrades={
 	},
-	buffcategories={
+	brequelgraftgrantedskilllevels={
+		[1]={
+			list=false,
+			name="AreaLevel",
+			refTo="",
+			type="Int",
+			width=100
+		},
+		[2]={
+			list=false,
+			name="SkillLevel",
+			refTo="",
+			type="Int",
+			width=100
+		},
+		[3]={
+			list=false,
+			name="LevelReq",
+			refTo="",
+			type="Int",
+			width=100
+		}
+	},
+	brequelgraftskillstats={
+		[1]={
+			list=false,
+			name="GraftStat",
+			refTo="Stats",
+			type="Key",
+			width=500
+		},
+		[2]={
+			list=false,
+			name="PlayerStat",
+			refTo="Stats",
+			type="Key",
+			width=500
+		}
+	},
+	brequelgrafttypes={
+		[1]={
+			list=false,
+			name="BaseItemType",
+			refTo="BaseItemTypes",
+			type="Key",
+			width=250
+		},
+		[2]={
+			list=false,
+			name="LeftArmAnimatedObject",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="RightArmAnimatedObject",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[4]={
+			list=false,
+			name="SkillGem",
+			refTo="SkillGems",
+			type="Key",
+			width=300
+		},
+		[5]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=50
+		},
+		[6]={
+			list=false,
+			name="AIScript",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[7]={
+			list=false,
+			name="Achievement",
+			refTo="AchievementItems",
+			type="Key",
+			width=200
+		}
 	},
 	buffdefinitions={
 		[1]={
@@ -2208,9 +2532,9 @@ return {
 			width=50
 		},
 		[36]={
-			list=false,
-			name="",
-			refTo="",
+			list=true,
+			name="MultiPartAchievement",
+			refTo="MultiPartAchievements",
 			type="Key",
 			width=150
 		},
@@ -2455,7 +2779,7 @@ return {
 			name="",
 			refTo="",
 			type="Int",
-			width=150
+			width=100
 		},
 		[4]={
 			list=true,
@@ -2469,28 +2793,77 @@ return {
 			name="",
 			refTo="",
 			type="String",
-			width=150
+			width=100
 		},
 		[6]={
 			list=false,
 			name="",
 			refTo="",
 			type="String",
-			width=150
+			width=100
 		},
 		[7]={
 			list=false,
 			name="",
 			refTo="",
 			type="String",
-			width=150
+			width=100
 		},
 		[8]={
 			list=false,
 			name="",
 			refTo="",
 			type="String",
+			width=100
+		},
+		[9]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=50
+		},
+		[10]={
+			list=false,
+			name="MonsterExpiredSound",
+			refTo="SoundEffects",
+			type="Key",
 			width=150
+		},
+		[11]={
+			list=false,
+			name="PlayerExpiredSound",
+			refTo="SoundEffects",
+			type="Key",
+			width=150
+		},
+		[12]={
+			list=false,
+			name="PlayerAcquiredSound",
+			refTo="SoundEffects",
+			type="Key",
+			width=150
+		},
+		[13]={
+			list=false,
+			name="",
+			refTo="SoundEffects",
+			type="Key",
+			width=50
+		},
+		[14]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=90
+		},
+		[15]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=20
 		}
 	},
 	buffvisualorbs={
@@ -2536,14 +2909,14 @@ return {
 			name="Id",
 			refTo="",
 			type="String",
-			width=150
+			width=200
 		},
 		[2]={
 			list=false,
 			name="",
 			refTo="",
 			type="Float",
-			width=70
+			width=50
 		},
 		[3]={
 			list=false,
@@ -2605,43 +2978,43 @@ return {
 			list=false,
 			name="",
 			refTo="",
-			type="Bool",
+			type="Float",
 			width=50
 		},
 		[12]={
 			list=false,
 			name="",
 			refTo="",
-			type="Float",
-			width=150
+			type="Int",
+			width=50
 		},
 		[13]={
 			list=false,
 			name="",
 			refTo="",
-			type="Int",
-			width=150
+			type="Float",
+			width=50
 		},
 		[14]={
 			list=false,
 			name="",
 			refTo="",
-			type="Float",
-			width=150
+			type="Bool",
+			width=50
 		},
 		[15]={
 			list=false,
 			name="",
 			refTo="",
-			type="Bool",
-			width=150
+			type="Float",
+			width=50
 		},
 		[16]={
 			list=false,
 			name="",
 			refTo="",
-			type="Float",
-			width=150
+			type="Int",
+			width=50
 		}
 	},
 	buffvisuals={
@@ -2675,8 +3048,8 @@ return {
 		},
 		[5]={
 			list=true,
-			name="",
-			refTo="",
+			name="PreloadGroup",
+			refTo="PreloadGroups",
 			type="Key",
 			width=150
 		},
@@ -2696,15 +3069,15 @@ return {
 		},
 		[8]={
 			list=false,
-			name="",
-			refTo="",
+			name="MiscAnimated",
+			refTo="MiscAnimated",
 			type="Key",
 			width=150
 		},
 		[9]={
 			list=false,
 			name="",
-			refTo="",
+			refTo="MiscAnimated",
 			type="Key",
 			width=150
 		},
@@ -2734,7 +3107,7 @@ return {
 			name="",
 			refTo="",
 			type="String",
-			width=150
+			width=410
 		},
 		[14]={
 			list=true,
@@ -2759,10 +3132,59 @@ return {
 		},
 		[17]={
 			list=false,
+			name="Animation",
+			refTo="MiscAnimated",
+			type="Key",
+			width=150
+		},
+		[18]={
+			list=false,
 			name="",
 			refTo="",
 			type="Key",
+			width=20
+		},
+		[19]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
 			width=150
+		},
+		[20]={
+			list=false,
+			name="",
+			refTo="",
+			type="Float",
+			width=50
+		},
+		[21]={
+			list=false,
+			name="",
+			refTo="",
+			type="Float",
+			width=50
+		},
+		[22]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=50
+		},
+		[23]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=50
+		},
+		[24]={
+			list=true,
+			name="",
+			refTo="",
+			type="String",
+			width=170
 		}
 	},
 	buffvisualsartvariations={
@@ -2817,8 +3239,6 @@ return {
 			type="Int",
 			width=80
 		}
-	},
-	buffvisualsets={
 	},
 	characteraudioevents={
 	},
@@ -2937,6 +3357,349 @@ return {
 			refTo="",
 			type="Int",
 			width=100
+		},
+		[16]={
+			list=true,
+			name="",
+			refTo="Stats",
+			type="String",
+			width=150
+		},
+		[17]={
+			list=false,
+			name="Description",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[18]={
+			list=false,
+			name="StartSkillGem",
+			refTo="SkillGems",
+			type="Key",
+			width=150
+		},
+		[19]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=20
+		},
+		[20]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=20
+		},
+		[21]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=20
+		},
+		[22]={
+			list=false,
+			name="CharacterSize",
+			refTo="",
+			type="Int",
+			width=80
+		},
+		[23]={
+			list=false,
+			name="IntroSoundFile",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[24]={
+			list=true,
+			name="StartWeapons",
+			refTo="BaseItemTypes",
+			type="Key",
+			width=150
+		},
+		[25]={
+			list=false,
+			name="Gender",
+			refTo="",
+			type="String",
+			width=80
+		},
+		[26]={
+			list=false,
+			name="TraitDescription",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[27]={
+			list=false,
+			name="",
+			refTo="GrantedEffectStatSets",
+			type="Key",
+			width=350
+		},
+		[28]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=310
+		},
+		[29]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=230
+		},
+		[30]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=230
+		},
+		[31]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[32]={
+			list=true,
+			name="",
+			refTo="",
+			type="Key",
+			width=320
+		},
+		[33]={
+			list=false,
+			name="PassiveTreeImage",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[34]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=80
+		},
+		[35]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=80
+		},
+		[36]={
+			list=false,
+			name="TencentVideo",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[37]={
+			list=false,
+			name="AttrsAsId",
+			refTo="",
+			type="String",
+			width=100
+		},
+		[38]={
+			list=false,
+			name="LoginScreen",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[39]={
+			list=false,
+			name="PlayerCritter",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[40]={
+			list=false,
+			name="PlayerEffect",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[41]={
+			list=false,
+			name="AfterImage",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[42]={
+			list=false,
+			name="Mirage",
+			refTo="MonsterVarieties",
+			type="Key",
+			width=150
+		},
+		[43]={
+			list=false,
+			name="CloneImmobile",
+			refTo="MonsterVarieties",
+			type="Key",
+			width=150
+		},
+		[44]={
+			list=false,
+			name="ReplicateClone",
+			refTo="MonsterVarieties",
+			type="Key",
+			width=150
+		},
+		[45]={
+			list=false,
+			name="LightningClone",
+			refTo="MonsterVarieties",
+			type="Key",
+			width=150
+		},
+		[46]={
+			list=false,
+			name="",
+			refTo="",
+			type="Float",
+			width=150
+		},
+		[47]={
+			list=false,
+			name="",
+			refTo="",
+			type="Float",
+			width=150
+		},
+		[48]={
+			list=false,
+			name="SkillTreeBackground",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[49]={
+			list=false,
+			name="Clone",
+			refTo="MonsterVarieties",
+			type="Key",
+			width=150
+		},
+		[50]={
+			list=false,
+			name="Double",
+			refTo="MonsterVarieties",
+			type="Key",
+			width=150
+		},
+		[51]={
+			list=false,
+			name="MirageWarrior",
+			refTo="MonsterVarieties",
+			type="Key",
+			width=150
+		},
+		[52]={
+			list=false,
+			name="DoubleTwo",
+			refTo="MonsterVarieties",
+			type="Key",
+			width=150
+		},
+		[53]={
+			list=false,
+			name="DarkExile",
+			refTo="MonsterVarieties",
+			type="Key",
+			width=150
+		},
+		[54]={
+			list=false,
+			name="Attr",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[55]={
+			list=false,
+			name="AttrLowercase",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[56]={
+			list=false,
+			name="Script",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[57]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=370
+		},
+		[58]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=50
+		},
+		[59]={
+			list=false,
+			name="RainOfArrowsClone",
+			refTo="MonsterVarieties",
+			type="Key",
+			width=150
+		},
+		[60]={
+			list=false,
+			name="ElementalShotClone",
+			refTo="MonsterVarieties",
+			type="Key",
+			width=400
+		},
+		[61]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=50
+		},
+		[62]={
+			list=false,
+			name="",
+			refTo="",
+			type="Float",
+			width=50
+		},
+		[63]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[64]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
 		}
 	},
 	characterstartitems={
@@ -2996,12 +3759,19 @@ return {
 			list=false,
 			name="HASH32",
 			refTo="",
-			type="Int",
+			type="UInt",
 			width=150
 		},
 		[6]={
 			list=false,
 			name="PlaystationText",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[7]={
+			list=false,
+			name="",
 			refTo="",
 			type="String",
 			width=150
@@ -3145,6 +3915,20 @@ return {
 			refTo="",
 			type="Int",
 			width=50
+		},
+		[4]={
+			list=false,
+			name="MaxRuthless",
+			refTo="",
+			type="Int",
+			width=100
+		},
+		[5]={
+			list=false,
+			name="PerUseRuthless",
+			refTo="",
+			type="Int",
+			width=100
 		}
 	},
 	componentweapon={
@@ -3192,6 +3976,27 @@ return {
 			refTo="",
 			type="Int",
 			width=50
+		},
+		[6]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[7]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[8]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
 		}
 	},
 	cosmeticsequippanelmode={
@@ -3377,137 +4182,116 @@ return {
 			width=60
 		},
 		[22]={
-			list=false,
-			name="UnlockCategories",
-			refTo="CraftingBenchUnlockCategories",
+			list=true,
+			name="",
+			refTo="",
 			type="Key",
 			width=150
 		},
 		[23]={
-			list=false,
-			name="UnveilsRequired",
-			refTo="",
-			type="Int",
-			width=100
+			list=true,
+			name="Achievement",
+			refTo="AchievementItems",
+			type="Key",
+			width=240
 		},
 		[24]={
 			list=false,
-			name="UnveilsRequired2",
+			name="",
 			refTo="",
 			type="Int",
-			width=100
+			width=150
 		},
 		[25]={
-			list=true,
+			list=false,
 			name="",
 			refTo="",
-			type="Key",
-			width=50
+			type="Int",
+			width=150
 		},
 		[26]={
-			list=true,
-			name="KalandraAchievement",
-			refTo="AchievementItems",
-			type="Key",
-			width=150
-		},
-		[27]={
-			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=150
-		},
-		[28]={
-			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=150
-		},
-		[29]={
-			list=false,
-			name="VeiledMods",
-			refTo="Mods",
-			type="Key",
-			width=470
-		},
-		[30]={
 			list=false,
 			name="AddEnchantment",
 			refTo="Mods",
 			type="Key",
 			width=150
 		},
-		[31]={
+		[27]={
 			list=false,
 			name="SortCategory",
 			refTo="CraftingBenchSortCategories",
 			type="Key",
 			width=150
 		},
-		[32]={
+		[28]={
 			list=false,
 			name="ModType",
 			refTo="ModType",
 			type="Key",
 			width=330
 		},
-		[33]={
+		[29]={
 			list=false,
 			name="",
 			refTo="",
 			type="Bool",
 			width=150
 		},
-		[34]={
+		[30]={
 			list=false,
 			name="",
 			refTo="",
 			type="Int",
 			width=150
 		},
-		[35]={
+		[31]={
 			list=false,
 			name="Stat1",
 			refTo="Stats",
 			type="Key",
 			width=150
 		},
-		[36]={
+		[32]={
 			list=false,
 			name="Stat2",
 			refTo="Stats",
 			type="Key",
 			width=150
 		},
-		[37]={
+		[33]={
 			list=false,
 			name="Stat3",
 			refTo="Stats",
 			type="Key",
 			width=150
 		},
-		[38]={
+		[34]={
 			list=false,
 			name="",
 			refTo="",
 			type="Bool",
 			width=150
 		},
-		[39]={
+		[35]={
 			list=true,
-			name="",
-			refTo="",
+			name="PassiveSkills",
+			refTo="PassiveSkills",
 			type="Key",
-			width=260
+			width=200
 		},
-		[40]={
+		[36]={
 			list=true,
 			name="Tags",
 			refTo="Tags",
 			type="Key",
 			width=150
+		},
+		[37]={
+			list=true,
+			name="",
+			refTo="",
+			type="Int",
+			width=60
 		}
 	},
 	craftingbenchsortcategories={
@@ -3530,6 +4314,13 @@ return {
 			name="IsVisible",
 			refTo="",
 			type="Bool",
+			width=150
+		},
+		[4]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
 			width=150
 		}
 	},
@@ -3647,6 +4438,64 @@ return {
 			width=150
 		},
 		[2]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=150
+		}
+	},
+	currencyexchange={
+		[1]={
+			list=false,
+			name="BaseItemType",
+			refTo="BaseItemTypes",
+			type="Key",
+			width=410
+		},
+		[2]={
+			list=false,
+			name="Category",
+			refTo="CurrencyExchangeCategories",
+			type="Key",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="SubCategory",
+			refTo="CurrencyExchangeCategories",
+			type="Key",
+			width=150
+		},
+		[4]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=150
+		},
+		[5]={
+			list=false,
+			name="EnabledInLeague",
+			refTo="",
+			type="Bool",
+			width=150
+		},
+		[6]={
+			list=false,
+			name="GoldFee",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[7]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=150
+		},
+		[8]={
 			list=false,
 			name="",
 			refTo="",
@@ -3798,6 +4647,13 @@ return {
 			refTo="",
 			type="Int",
 			width=110
+		},
+		[17]={
+			list=false,
+			name="MonsterPhysConversionMulti",
+			refTo="",
+			type="Int",
+			width=150
 		}
 	},
 	deliriumstashtablayout={
@@ -3894,6 +4750,22 @@ return {
 			refTo="MonsterVarieties",
 			type="Key",
 			width=400
+		}
+	},
+	divinationbufftemplates={
+		[1]={
+			list=false,
+			name="Buff",
+			refTo="BuffTemplates",
+			type="Key",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="DivCardArt",
+			refTo="DivinationCardArt",
+			type="Key",
+			width=150
 		}
 	},
 	divinationcardart={
@@ -4118,7 +4990,7 @@ return {
 		},
 		[24]={
 			list=false,
-			name="Unknown23",
+			name="HASH32",
 			refTo="",
 			type="UInt",
 			width=100
@@ -4160,49 +5032,49 @@ return {
 		},
 		[30]={
 			list=false,
-			name="",
+			name="WeaponMod",
 			refTo="Mods",
 			type="Key",
 			width=150
 		},
 		[31]={
 			list=false,
-			name="",
+			name="MeleeWeaponMod",
 			refTo="Mods",
 			type="Key",
 			width=150
 		},
 		[32]={
 			list=false,
-			name="",
+			name="OneHandWeaponMod",
 			refTo="Mods",
 			type="Key",
 			width=150
 		},
 		[33]={
 			list=false,
-			name="",
+			name="TwoHandWeaponMod",
 			refTo="Mods",
 			type="Key",
 			width=150
 		},
 		[34]={
 			list=false,
-			name="",
+			name="TwoHandMeleeMod",
 			refTo="Mods",
 			type="Key",
 			width=150
 		},
 		[35]={
 			list=false,
-			name="",
+			name="ArmourMod",
 			refTo="Mods",
 			type="Key",
 			width=150
 		},
 		[36]={
 			list=false,
-			name="",
+			name="RangedWeaponMod",
 			refTo="Mods",
 			type="Key",
 			width=150
@@ -4328,17 +5200,17 @@ return {
 		},
 		[54]={
 			list=false,
-			name="",
+			name="MonsterMod",
 			refTo="Mods",
 			type="Key",
 			width=150
 		},
 		[55]={
 			list=false,
-			name="",
+			name="ItemLevelRestriction",
 			refTo="Mods",
 			type="Int",
-			width=50
+			width=100
 		},
 		[56]={
 			list=false,
@@ -4363,7 +5235,7 @@ return {
 		},
 		[59]={
 			list=false,
-			name="",
+			name="JewelleryMod",
 			refTo="Mods",
 			type="Key",
 			width=150
@@ -4377,10 +5249,38 @@ return {
 		},
 		[61]={
 			list=false,
-			name="",
+			name="OtherItemMod",
 			refTo="Mods",
 			type="Key",
 			width=150
+		},
+		[62]={
+			list=false,
+			name="IsScreaming",
+			refTo="",
+			type="Bool",
+			width=80
+		},
+		[63]={
+			list=true,
+			name="MemoryLines",
+			refTo="Mods",
+			type="Key",
+			width=150
+		},
+		[64]={
+			list=true,
+			name="",
+			refTo="",
+			type="Int",
+			width=50
+		},
+		[65]={
+			list=true,
+			name="",
+			refTo="",
+			type="Int",
+			width=50
 		}
 	},
 	essencestashtablayout={
@@ -4410,9 +5310,9 @@ return {
 		[4]={
 			list=false,
 			name="",
-			refTo="",
+			refTo="Words",
 			type="Key",
-			width=150
+			width=50
 		},
 		[5]={
 			list=false,
@@ -4554,35 +5454,14 @@ return {
 		},
 		[9]={
 			list=false,
-			name="",
+			name="RecoveryTime2",
 			refTo="",
 			type="Int",
 			width=150
 		},
 		[10]={
-			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=150
-		},
-		[11]={
-			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=150
-		},
-		[12]={
-			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=150
-		},
-		[13]={
-			list=false,
-			name="",
+			list=true,
+			name="BuffMagnitude2",
 			refTo="",
 			type="Int",
 			width=150
@@ -4824,8 +5703,6 @@ return {
 	},
 	grandmasters={
 	},
-	grantedeffectgroups={
-	},
 	grantedeffectqualitystats={
 		[1]={
 			list=false,
@@ -4924,10 +5801,10 @@ return {
 		},
 		[9]={
 			list=false,
-			name="Hash",
+			name="Hash32",
 			refTo="",
 			type="UInt",
-			width=50
+			width=80
 		},
 		[10]={
 			list=true,
@@ -4990,7 +5867,7 @@ return {
 			name="Animation",
 			refTo="Animation",
 			type="Key",
-			width=100
+			width=210
 		},
 		[19]={
 			list=false,
@@ -5017,36 +5894,50 @@ return {
 			list=false,
 			name="PlusVersionOf",
 			refTo="GrantedEffects",
-			type="Key",
-			width=150
+			type="ShortKey",
+			width=140
 		},
 		[23]={
 			list=false,
 			name="",
 			refTo="",
 			type="Int",
-			width=50
+			width=150
 		},
 		[24]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=90
+		},
+		[25]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[26]={
 			list=false,
 			name="",
 			refTo="",
 			type="Bool",
 			width=50
 		},
-		[25]={
+		[27]={
 			list=false,
 			name="GrantedEffectStatSets",
 			refTo="GrantedEffectStatSets",
 			type="Key",
 			width=250
 		},
-		[26]={
+		[28]={
 			list=true,
-			name="",
-			refTo="",
+			name="GrantedEffectStatSets2",
+			refTo="GrantedEffectStatSets",
 			type="Key",
-			width=50
+			width=230
 		}
 	},
 	grantedeffectsperlevel={
@@ -5165,28 +6056,28 @@ return {
 			list=false,
 			name="ManaReservationFlat",
 			refTo="",
-			type="UInt",
+			type="Int",
 			width=150
 		},
 		[18]={
 			list=false,
 			name="ManaReservationPercent",
 			refTo="",
-			type="UInt",
+			type="Int",
 			width=150
 		},
 		[19]={
 			list=false,
 			name="LifeReservationFlat",
 			refTo="",
-			type="UInt",
+			type="Int",
 			width=150
 		},
 		[20]={
 			list=false,
 			name="LifeReservationPercent",
 			refTo="",
-			type="UInt",
+			type="Int",
 			width=150
 		},
 		[21]={
@@ -5317,7 +6208,7 @@ return {
 			name="GrantedEffect",
 			refTo="GrantedEffects",
 			type="Key",
-			width=190
+			width=150
 		},
 		[11]={
 			list=true,
@@ -5563,6 +6454,29 @@ return {
 	},
 	incursionuniqueupgrades={
 	},
+	indexablenonactivesupportgems={
+		[1]={
+			list=false,
+			name="Index",
+			refTo="",
+			type="Int",
+			width=70
+		},
+		[2]={
+			list=false,
+			name="SupportGem",
+			refTo="SkillGems",
+			type="Key",
+			width=400
+		},
+		[3]={
+			list=false,
+			name="Name",
+			refTo="",
+			type="String",
+			width=300
+		}
+	},
 	indexableskillgems={
 		[1]={
 			list=false,
@@ -5660,9 +6574,8 @@ return {
 	},
 	influencetypes={
 		[1]={
-			enumBase=0,
 			list=false,
-			name="Name",
+			name="Id",
 			refTo="",
 			type="String",
 			width=150
@@ -5722,143 +6635,143 @@ return {
 		},
 		[3]={
 			list=false,
-			name="TradeMarketCategory",
-			refTo="TradeMarketCategory",
-			type="Key",
-			width=120
-		},
-		[4]={
-			list=false,
 			name="ItemClassCategory",
 			refTo="ItemClassCategories",
 			type="Key",
 			width=150
 		},
-		[5]={
+		[4]={
 			list=false,
 			name="RemovedIfLeavesArea",
 			refTo="",
 			type="Bool",
 			width=150
 		},
-		[6]={
+		[5]={
 			list=true,
 			name="",
 			refTo="",
 			type="Key",
 			width=20
 		},
-		[7]={
+		[6]={
 			list=true,
 			name="Achievements",
 			refTo="AchievementItems",
 			type="Key",
 			width=150
 		},
-		[8]={
+		[7]={
 			list=false,
 			name="AllocateToMapOwner",
 			refTo="",
 			type="Bool",
 			width=130
 		},
-		[9]={
+		[8]={
 			list=false,
 			name="AlwaysAllocate",
 			refTo="",
 			type="Bool",
 			width=120
 		},
-		[10]={
+		[9]={
 			list=false,
 			name="CanHaveVeiledMods",
 			refTo="",
 			type="Bool",
 			width=130
 		},
-		[11]={
+		[10]={
 			list=false,
 			name="PickedUpQuest",
 			refTo="QuestFlags",
 			type="Key",
 			width=110
 		},
-		[12]={
+		[11]={
 			list=false,
 			name="",
 			refTo="",
 			type="Int",
 			width=150
 		},
-		[13]={
+		[12]={
 			list=false,
 			name="AlwaysShow",
 			refTo="",
 			type="Bool",
 			width=100
 		},
-		[14]={
+		[13]={
 			list=false,
 			name="CanBeCorrupted",
 			refTo="",
 			type="Bool",
 			width=100
 		},
-		[15]={
+		[14]={
 			list=false,
 			name="CanHaveIncubators",
 			refTo="",
 			type="Bool",
 			width=120
 		},
-		[16]={
+		[15]={
 			list=false,
 			name="CanHaveInfluence",
 			refTo="",
 			type="Bool",
 			width=120
 		},
-		[17]={
+		[16]={
 			list=false,
 			name="CanBeDoubleCorrupted",
 			refTo="",
 			type="Bool",
 			width=130
 		},
-		[18]={
+		[17]={
 			list=false,
 			name="CanHaveAspects",
 			refTo="",
 			type="Bool",
 			width=110
 		},
-		[19]={
+		[18]={
 			list=false,
 			name="CanTransferSkin",
 			refTo="",
 			type="Bool",
 			width=110
 		},
-		[20]={
+		[19]={
 			list=false,
 			name="ItemStance",
 			refTo="ItemStances",
 			type="Key",
-			width=90
+			width=160
 		},
-		[21]={
+		[20]={
 			list=false,
 			name="CanScourge",
 			refTo="",
 			type="Bool",
 			width=80
 		},
-		[22]={
+		[21]={
 			list=false,
 			name="CanUpgradeRarity",
 			refTo="",
 			type="Bool",
 			width=110
+		},
+		[22]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=80
 		},
 		[23]={
 			list=false,
@@ -5868,67 +6781,60 @@ return {
 			width=80
 		},
 		[24]={
-			list=false,
-			name="",
-			refTo="",
-			type="Bool",
-			width=80
-		},
-		[25]={
-			list=true,
-			name="MaxInventoryDimensions",
-			refTo="",
-			type="Int",
-			width=150
-		},
-		[26]={
 			list=true,
 			name="Flags",
 			refTo="",
 			type="Int",
-			width=80
+			width=150
 		},
-		[27]={
+		[25]={
 			list=false,
 			name="Unmodifiable",
 			refTo="",
 			type="Bool",
 			width=100
 		},
-		[28]={
+		[26]={
 			list=false,
 			name="CanBeFractured",
 			refTo="",
 			type="Bool",
 			width=100
 		},
-		[29]={
+		[27]={
 			list=false,
 			name="EquipAchievements",
 			refTo="AchievementItems",
 			type="Key",
 			width=120
 		},
-		[30]={
+		[28]={
 			list=false,
 			name="UsedInMapDevice",
 			refTo="",
 			type="Bool",
 			width=150
 		},
+		[29]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=50
+		},
+		[30]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=50
+		},
 		[31]={
 			list=false,
 			name="",
 			refTo="",
 			type="Bool",
-			width=80
-		},
-		[32]={
-			list=false,
-			name="",
-			refTo="",
-			type="Bool",
-			width=80
+			width=50
 		}
 	},
 	itemclassflags={
@@ -6012,6 +6918,13 @@ return {
 	itemshoptype={
 	},
 	itemstances={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=150
+		}
 	},
 	itemsynthesiscorruptedmods={
 		[1]={
@@ -6107,7 +7020,7 @@ return {
 			list=false,
 			name="Hash",
 			refTo="",
-			type="Int",
+			type="UInt16",
 			width=70
 		},
 		[6]={
@@ -6392,9 +7305,9 @@ return {
 		},
 		[46]={
 			list=true,
-			name="",
-			refTo="",
-			type="Int",
+			name="KalandaAchievement",
+			refTo="AchievementItems",
+			type="Key",
 			width=150
 		},
 		[47]={
@@ -6406,8 +7319,8 @@ return {
 		},
 		[48]={
 			list=true,
-			name="",
-			refTo="",
+			name="HeistAchievement",
+			refTo="AchievementItems",
 			type="Key",
 			width=150
 		},
@@ -6428,26 +7341,75 @@ return {
 		[51]={
 			list=false,
 			name="",
-			refTo="",
+			refTo="Stats",
 			type="Key",
 			width=150
 		},
 		[52]={
 			list=false,
 			name="",
-			refTo="",
+			refTo="Stats",
 			type="Key",
 			width=150
 		},
 		[53]={
 			list=false,
 			name="",
-			refTo="",
+			refTo="Stats",
 			type="Key",
 			width=150
 		},
 		[54]={
 			list=false,
+			name="",
+			refTo="Stats",
+			type="Key",
+			width=150
+		},
+		[55]={
+			list=true,
+			name="",
+			refTo="",
+			type="Key",
+			width=20
+		},
+		[56]={
+			list=true,
+			name="",
+			refTo="",
+			type="Key",
+			width=20
+		},
+		[57]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=50
+		},
+		[58]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
+			width=20
+		},
+		[59]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
+			width=20
+		},
+		[60]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
+			width=20
+		},
+		[61]={
+			list=true,
 			name="",
 			refTo="",
 			type="Key",
@@ -6517,6 +7479,27 @@ return {
 	leagueinfopanelversions={
 	},
 	leaguenames={
+		[1]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="Name",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
+			width=150
+		}
 	},
 	leagueprogressquestflags={
 	},
@@ -6616,10 +7599,604 @@ return {
 		}
 	},
 	melee={
+		[1]={
+			list=false,
+			name="ActiveSkill",
+			refTo="ActiveSkills",
+			type="Key",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="MiscAnimated",
+			refTo="MiscAnimated",
+			type="Key",
+			width=150
+		},
+		[4]={
+			list=false,
+			name="MeleeTrails1",
+			refTo="MeleeTrails",
+			type="Key",
+			width=150
+		},
+		[5]={
+			list=false,
+			name="MeleeTrails2",
+			refTo="MeleeTrails",
+			type="Key",
+			width=150
+		},
+		[6]={
+			list=false,
+			name="MeleeTrails3",
+			refTo="MeleeTrails",
+			type="Key",
+			width=150
+		},
+		[7]={
+			list=false,
+			name="MeleeTrails4",
+			refTo="MeleeTrails",
+			type="Key",
+			width=150
+		},
+		[8]={
+			list=false,
+			name="MeleeTrails5",
+			refTo="MeleeTrails",
+			type="Key",
+			width=150
+		},
+		[9]={
+			list=false,
+			name="MeleeTrails6",
+			refTo="MeleeTrails",
+			type="Key",
+			width=150
+		},
+		[10]={
+			list=false,
+			name="MeleeTrails7",
+			refTo="MeleeTrails",
+			type="Key",
+			width=150
+		},
+		[11]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=150
+		},
+		[12]={
+			list=false,
+			name="SurgeEPK",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[13]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[14]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
+			width=150
+		}
 	},
 	meleetrails={
 	},
 	memorylinetype={
+	},
+	mercenaryattributes={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="Name",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[3]={
+			list=true,
+			name="Tag",
+			refTo="Tags",
+			type="Key",
+			width=500
+		}
+	},
+	mercenarybuilds={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=280
+		},
+		[2]={
+			list=false,
+			name="Class",
+			refTo="MercenaryClasses",
+			type="Key",
+			width=150
+		},
+		[3]={
+			list=true,
+			name="Skill1",
+			refTo="MercenarySkills",
+			type="Key",
+			width=400
+		},
+		[4]={
+			list=false,
+			name="Skill1CountMax",
+			refTo="",
+			type="Int",
+			width=100
+		},
+		[5]={
+			list=true,
+			name="Skill2",
+			refTo="MercenarySkills",
+			type="Key",
+			width=400
+		},
+		[6]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=20
+		},
+		[7]={
+			list=true,
+			name="",
+			refTo="",
+			type="Key",
+			width=20
+		},
+		[8]={
+			list=false,
+			name="Skill2CountMax",
+			refTo="",
+			type="Int",
+			width=100
+		},
+		[9]={
+			list=true,
+			name="Skill3",
+			refTo="MercenarySkills",
+			type="Key",
+			width=400
+		},
+		[10]={
+			list=true,
+			name="",
+			refTo="",
+			type="Key",
+			width=20
+		},
+		[11]={
+			list=true,
+			name="Tags",
+			refTo="Tags",
+			type="Key",
+			width=150
+		},
+		[12]={
+			list=false,
+			name="AIFile",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[13]={
+			list=false,
+			name="HASH16",
+			refTo="",
+			type="UInt16",
+			width=150
+		},
+		[14]={
+			list=false,
+			name="BuildName",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[15]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=100
+		},
+		[16]={
+			list=false,
+			name="Infamous",
+			refTo="",
+			type="Bool",
+			width=70
+		},
+		[17]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=20
+		},
+		[18]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
+			width=20
+		},
+		[19]={
+			list=true,
+			name="",
+			refTo="",
+			type="String",
+			width=20
+		},
+		[20]={
+			list=true,
+			name="Achievement",
+			refTo="AchievementItems",
+			type="Key",
+			width=150
+		},
+		[21]={
+			list=true,
+			name="WeaponTypes",
+			refTo="MercenaryWieldableTypes",
+			type="Key",
+			width=220
+		}
+	},
+	mercenaryclasses={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="MonsterVariety",
+			refTo="MonsterVarieties",
+			type="Key",
+			width=350
+		},
+		[3]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=30
+		},
+		[4]={
+			list=false,
+			name="Terrain",
+			refTo="ExtraTerrainFeatures",
+			type="Key",
+			width=50
+		},
+		[5]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=30
+		},
+		[6]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=30
+		},
+		[7]={
+			list=false,
+			name="Icon",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[8]={
+			list=false,
+			name="HouseIcon",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[9]={
+			list=false,
+			name="Attribute",
+			refTo="MercenaryAttributes",
+			type="Key",
+			width=150
+		},
+		[10]={
+			list=false,
+			name="BuffIcon",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[11]={
+			list=false,
+			name="MonsterVarietyAllied",
+			refTo="MonsterVarieties",
+			type="Key",
+			width=420
+		}
+	},
+	mercenaryinventories={
+		[1]={
+			list=false,
+			name="Inventory",
+			refTo="Inventories",
+			type="Key",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="Int",
+			width=100
+		},
+		[3]={
+			list=false,
+			name="XOffset",
+			refTo="",
+			type="Int",
+			width=100
+		},
+		[4]={
+			list=false,
+			name="YOffset",
+			refTo="",
+			type="Int",
+			width=100
+		},
+		[5]={
+			list=false,
+			name="InventoryType",
+			refTo="",
+			type="Int",
+			width=100
+		}
+	},
+	mercenaryskillfamilies={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=150
+		}
+	},
+	mercenaryskills={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="GrantedEffects",
+			type="Key",
+			width=250
+		},
+		[2]={
+			list=false,
+			name="SupportCount",
+			refTo="MercenarySupportCounts",
+			type="Key",
+			width=150
+		},
+		[3]={
+			list=true,
+			name="PossibleSupports",
+			refTo="MercenarySupports",
+			type="Key",
+			width=750
+		},
+		[4]={
+			list=false,
+			name="SecondaryGrantedEffect",
+			refTo="GrantedEffects",
+			type="Key",
+			width=250
+		},
+		[5]={
+			list=false,
+			name="Name",
+			refTo="",
+			type="String",
+			width=250
+		},
+		[6]={
+			list=false,
+			name="Description",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[7]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=50
+		},
+		[8]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=50
+		},
+		[9]={
+			list=false,
+			name="SkillFamily",
+			refTo="MercenarySkillFamilies",
+			type="Key",
+			width=150
+		},
+		[10]={
+			list=false,
+			name="HASH16",
+			refTo="",
+			type="UInt16",
+			width=150
+		},
+		[11]={
+			list=false,
+			name="HouseSkillIcon",
+			refTo="",
+			type="String",
+			width=300
+		}
+	},
+	mercenarysupportcounts={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=150
+		}
+	},
+	mercenarysupportfamilies={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=200
+		}
+	},
+	mercenarysupports={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=350
+		},
+		[2]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=20
+		},
+		[3]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=20
+		},
+		[4]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=20
+		},
+		[5]={
+			list=true,
+			name="Stat",
+			refTo="Stats",
+			type="Key",
+			width=300
+		},
+		[6]={
+			list=true,
+			name="StatValues",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[7]={
+			list=false,
+			name="Name",
+			refTo="",
+			type="String",
+			width=200
+		},
+		[8]={
+			list=false,
+			name="SupportFamily",
+			refTo="MercenarySupportFamilies",
+			type="Key",
+			width=150
+		},
+		[9]={
+			list=false,
+			name="HASH16",
+			refTo="",
+			type="UInt16",
+			width=150
+		},
+		[10]={
+			list=false,
+			name="GemIcon",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[11]={
+			list=false,
+			name="Variant",
+			refTo="",
+			type="Int",
+			width=100
+		},
+		[12]={
+			list=true,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[13]={
+			list=true,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		}
+	},
+	mercenarywieldabletypes={
+		[1]={
+			list=false,
+			name="ItemClasses",
+			refTo="ItemClasses",
+			type="Key",
+			width=200
+		}
 	},
 	metamorphlifescalingperlevel={
 	},
@@ -6698,6 +8275,29 @@ return {
 	microtransactionsocialframevariations={
 	},
 	minimapicons={
+	},
+	miniondoublingstattypes={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="Int",
+			width=50
+		},
+		[2]={
+			list=false,
+			name="Stat",
+			refTo="Stats",
+			type="Key",
+			width=230
+		},
+		[3]={
+			list=false,
+			name="MinionType",
+			refTo="MinionType",
+			type="Key",
+			width=200
+		}
 	},
 	miniontype={
 		[1]={
@@ -6783,21 +8383,226 @@ return {
 			refTo="",
 			type="Bool",
 			width=70
+		},
+		[13]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=50
+		},
+		[14]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=50
 		}
 	},
 	miniqueststates={
 	},
 	miscanimated={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=200
+		},
+		[2]={
+			list=false,
+			name="AOFile",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[3]={
+			list=true,
+			name="PreloadGroup",
+			refTo="PreloadGroups",
+			type="Key",
+			width=150
+		},
+		[4]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[5]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[6]={
+			list=false,
+			name="HASH32",
+			refTo="",
+			type="UInt",
+			width=150
+		}
 	},
 	miscanimatedartvariations={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=250
+		},
+		[2]={
+			list=true,
+			name="MiscAnimated",
+			refTo="MiscAnimated",
+			type="Key",
+			width=300
+		},
+		[3]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=80
+		},
+		[4]={
+			list=false,
+			name="Variant",
+			refTo="",
+			type="Int",
+			width=80
+		},
+		[5]={
+			list=false,
+			name="Stat",
+			refTo="Stats",
+			type="Key",
+			width=300
+		}
 	},
 	miscbeams={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=250
+		},
+		[2]={
+			list=false,
+			name="MiscAnimated",
+			refTo="MiscAnimated",
+			type="Key",
+			width=250
+		},
+		[3]={
+			list=false,
+			name="",
+			refTo="",
+			type="Float",
+			width=150
+		},
+		[4]={
+			list=true,
+			name="PreloadGroup",
+			refTo="PreloadGroups",
+			type="Key",
+			width=150
+		},
+		[5]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		}
 	},
 	miscbeamsartvariations={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=250
+		},
+		[2]={
+			list=true,
+			name="MiscBeams",
+			refTo="MiscBeams",
+			type="Key",
+			width=300
+		},
+		[3]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=80
+		},
+		[4]={
+			list=false,
+			name="Variant",
+			refTo="",
+			type="Int",
+			width=80
+		},
+		[5]={
+			list=false,
+			name="Stat",
+			refTo="Stats",
+			type="Key",
+			width=150
+		}
 	},
 	misceffectpacks={
 	},
 	misceffectpacksartvariations={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=250
+		},
+		[2]={
+			list=true,
+			name="MiscEffectPack",
+			refTo="MiscEffectPacks",
+			type="Key",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="Variant",
+			refTo="",
+			type="Int",
+			width=80
+		}
+	},
+	miscobjectartvariations={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=250
+		},
+		[2]={
+			list=true,
+			name="MiscObject",
+			refTo="MiscObjects",
+			type="Key",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="Variant",
+			refTo="",
+			type="Int",
+			width=80
+		}
 	},
 	miscobjects={
 	},
@@ -6810,10 +8615,6 @@ return {
 	missiontimertypes={
 	},
 	missiontransitiontiles={
-	},
-	modauraflags={
-	},
-	moddomains={
 	},
 	modeffectstats={
 		[1]={
@@ -6832,10 +8633,10 @@ return {
 		},
 		[3]={
 			list=false,
-			name="",
+			name="ApplyToExplicit",
 			refTo="",
 			type="Bool",
-			width=80
+			width=90
 		},
 		[4]={
 			list=false,
@@ -6846,24 +8647,31 @@ return {
 		},
 		[5]={
 			list=false,
-			name="",
+			name="ApplyToImplicit",
 			refTo="",
 			type="Bool",
-			width=80
+			width=90
 		},
 		[6]={
 			list=false,
-			name="",
+			name="ApplyToPrefix",
 			refTo="",
 			type="Bool",
-			width=80
+			width=90
 		},
 		[7]={
 			list=false,
-			name="",
+			name="ApplyToSuffix",
 			refTo="",
 			type="Bool",
-			width=80
+			width=90
+		},
+		[8]={
+			list=false,
+			name="Multiplier",
+			refTo="",
+			type="Int",
+			width=60
 		}
 	},
 	modequivalencies={
@@ -6912,8 +8720,6 @@ return {
 			width=200
 		}
 	},
-	modgenerationtype={
-	},
 	mods={
 		[1]={
 			list=false,
@@ -6926,7 +8732,7 @@ return {
 			list=false,
 			name="Hash",
 			refTo="",
-			type="UInt",
+			type="UInt16",
 			width=60
 		},
 		[3]={
@@ -6975,7 +8781,7 @@ return {
 			list=false,
 			name="Domain",
 			refTo="ModDomains",
-			type="Enum",
+			type="Int",
 			width=60
 		},
 		[10]={
@@ -6989,7 +8795,7 @@ return {
 			list=false,
 			name="GenerationType",
 			refTo="ModGenerationType",
-			type="Enum",
+			type="Int",
 			width=100
 		},
 		[12]={
@@ -7316,7 +9122,7 @@ return {
 		},
 		[58]={
 			list=false,
-			name="BuffTemplate",
+			name="BuffTemplate1",
 			refTo="BuffTemplates",
 			type="Key",
 			width=150
@@ -7332,19 +9138,19 @@ return {
 			list=false,
 			name="HASH32",
 			refTo="",
-			type="Int",
+			type="UInt",
 			width=150
 		},
 		[61]={
 			list=true,
-			name="BuffTemplate",
+			name="BuffTemplate2",
 			refTo="BuffTemplates",
 			type="Key",
 			width=150
 		},
 		[62]={
 			list=false,
-			name="",
+			name="GameMode",
 			refTo="",
 			type="Int",
 			width=150
@@ -7354,6 +9160,13 @@ return {
 			name="RuthlessReplacement",
 			refTo="GrantedEffectsPerLevel",
 			type="Key",
+			width=150
+		},
+		[64]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
 			width=150
 		}
 	},
@@ -7380,12 +9193,19 @@ return {
 		},
 		[2]={
 			list=true,
+			name="Stat",
+			refTo="Stats",
+			type="Key",
+			width=610
+		},
+		[3]={
+			list=true,
 			name="ModSellPriceTypesKeys",
 			refTo="ModSellPriceTypes",
 			type="Key",
 			width=190
 		},
-		[3]={
+		[4]={
 			list=false,
 			name="",
 			refTo="",
@@ -7464,16 +9284,16 @@ return {
 		},
 		[8]={
 			list=true,
-			name="",
-			refTo="",
+			name="Tags",
+			refTo="Tags",
 			type="Key",
 			width=400
 		},
 		[9]={
 			list=true,
-			name="",
-			refTo="",
-			type="String",
+			name="NotTags",
+			refTo="Tags",
+			type="Key",
 			width=150
 		},
 		[10]={
@@ -7501,7 +9321,7 @@ return {
 			list=false,
 			name="HASH32",
 			refTo="",
-			type="Int",
+			type="UInt",
 			width=150
 		}
 	},
@@ -8261,7 +10081,7 @@ return {
 			list=false,
 			name="Hash",
 			refTo="",
-			type="Int",
+			type="UInt16",
 			width=50
 		},
 		[55]={
@@ -8532,10 +10352,10 @@ return {
 		},
 		[93]={
 			list=true,
-			name="",
+			name="AddonMonsterTypeIndex",
 			refTo="",
-			type="Int",
-			width=50
+			type="String",
+			width=300
 		},
 		[94]={
 			list=false,
@@ -8595,6 +10415,27 @@ return {
 		}
 	},
 	monstervarietiesartvariations={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=250
+		},
+		[2]={
+			list=false,
+			name="Variant",
+			refTo="",
+			type="Int",
+			width=80
+		},
+		[3]={
+			list=true,
+			name="MonsterVariety",
+			refTo="MonsterVarieties",
+			type="Key",
+			width=500
+		}
 	},
 	mousecursorsizesettings={
 	},
@@ -8626,11 +10467,32 @@ return {
 			name="Achievement",
 			refTo="AchievementItems",
 			type="Key",
-			width=210
+			width=250
 		},
 		[4]={
 			list=false,
 			name="Threshold",
+			refTo="",
+			type="Int",
+			width=80
+		},
+		[5]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=50
+		},
+		[6]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=50
+		},
+		[7]={
+			list=false,
+			name="",
 			refTo="",
 			type="Int",
 			width=50
@@ -8674,10 +10536,129 @@ return {
 	npcs={
 		[1]={
 			list=false,
-			name="",
+			name="Id",
 			refTo="",
 			type="String",
 			width=360
+		},
+		[2]={
+			list=false,
+			name="Name",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="Metadata",
+			refTo="",
+			type="String",
+			width=250
+		},
+		[4]={
+			list=false,
+			name="QuestFlag",
+			refTo="QuestFlags",
+			type="Key",
+			width=150
+		},
+		[5]={
+			list=false,
+			name="NPCMaster",
+			refTo="NPCMaster",
+			type="Key",
+			width=150
+		},
+		[6]={
+			list=false,
+			name="ShortName",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[7]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=50
+		},
+		[8]={
+			list=true,
+			name="NPCAudio1",
+			refTo="NPCAudio",
+			type="Key",
+			width=150
+		},
+		[9]={
+			list=true,
+			name="NPCAudio2",
+			refTo="NPCAudio",
+			type="Key",
+			width=150
+		},
+		[10]={
+			list=false,
+			name="HASH16",
+			refTo="",
+			type="UInt16",
+			width=100
+		},
+		[11]={
+			list=false,
+			name="",
+			refTo="NPCS",
+			type="ShortKey",
+			width=150
+		},
+		[12]={
+			list=false,
+			name="Portrait",
+			refTo="NPCPortraits",
+			type="Key",
+			width=100
+		},
+		[13]={
+			list=false,
+			name="DialogueStyle",
+			refTo="NPCDialogueStyles",
+			type="Key",
+			width=100
+		},
+		[14]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=100
+		},
+		[15]={
+			list=false,
+			name="",
+			refTo="NPCShopSets",
+			type="Key",
+			width=100
+		},
+		[16]={
+			list=false,
+			name="Gender",
+			refTo="",
+			type="String",
+			width=50
+		},
+		[17]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=50
+		},
+		[18]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=100
 		}
 	},
 	npcshop={
@@ -8879,22 +10860,22 @@ return {
 		},
 		[25]={
 			list=false,
-			name="QuestState1",
-			refTo="QuestStates",
+			name="DowngradeFlag1",
+			refTo="QuestFlags",
 			type="Key",
 			width=70
 		},
 		[26]={
 			list=false,
-			name="QuestState2",
-			refTo="QuestStates",
+			name="DowngradeFlag2",
+			refTo="QuestFlags",
 			type="Key",
 			width=70
 		},
 		[27]={
 			list=false,
-			name="QuestState3",
-			refTo="QuestStates",
+			name="DowngradeFlag3",
+			refTo="QuestFlags",
 			type="Key",
 			width=70
 		}
@@ -8906,7 +10887,7 @@ return {
 	passivejewelradii={
 		[1]={
 			list=false,
-			name="Name",
+			name="Id",
 			refTo="",
 			type="String",
 			width=100
@@ -8931,6 +10912,43 @@ return {
 			refTo="",
 			type="Int",
 			width=100
+		},
+		[5]={
+			list=false,
+			name="Name",
+			refTo="ClientStrings",
+			type="Key",
+			width=150
+		}
+	},
+	passivejewelradiiart={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=120
+		},
+		[2]={
+			list=false,
+			name="Circle1",
+			refTo="",
+			type="String",
+			width=450
+		},
+		[3]={
+			list=false,
+			name="Circle2",
+			refTo="",
+			type="String",
+			width=450
+		},
+		[4]={
+			list=false,
+			name="Glow",
+			refTo="",
+			type="String",
+			width=450
 		}
 	},
 	passivejewelslots={
@@ -8959,50 +10977,29 @@ return {
 			list=false,
 			name="Parent",
 			refTo="PassiveJewelSlots",
-			type="Enum",
+			type="ShortKey",
 			width=170
 		},
 		[5]={
-			list=false,
-			name="",
-			refTo="",
-			type="Enum",
-			width=150
-		},
-		[6]={
 			list=false,
 			name="Proxy",
 			refTo="PassiveSkills",
 			type="Key",
 			width=210
 		},
-		[7]={
+		[6]={
 			list=true,
 			name="StartIndices",
 			refTo="",
 			type="Int",
 			width=150
 		},
-		[8]={
+		[7]={
 			list=false,
 			name="",
 			refTo="",
-			type="Int",
-			width=150
-		},
-		[9]={
-			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=150
-		},
-		[10]={
-			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=150
+			type="Bool",
+			width=50
 		}
 	},
 	passiveoverridelimits={
@@ -9019,6 +11016,13 @@ return {
 			refTo="",
 			type="String",
 			width=200
+		},
+		[3]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=100
 		}
 	},
 	passiveskillbuffs={
@@ -9067,7 +11071,7 @@ return {
 			list=false,
 			name="Hash",
 			refTo="",
-			type="Int",
+			type="UInt16",
 			width=80
 		},
 		[3]={
@@ -9102,6 +11106,13 @@ return {
 			list=false,
 			name="AchievementItem",
 			refTo="AchievementItems",
+			type="Key",
+			width=150
+		},
+		[8]={
+			list=false,
+			name="",
+			refTo="",
 			type="Key",
 			width=150
 		}
@@ -9223,7 +11234,7 @@ return {
 		},
 		[9]={
 			list=false,
-			name="TattooType",
+			name="OverrideType",
 			refTo="passiveskilloverridetypes",
 			type="Key",
 			width=150
@@ -9255,6 +11266,13 @@ return {
 			refTo="PassiveSkills",
 			type="Key",
 			width=150
+		},
+		[14]={
+			list=true,
+			name="BlockingPassive",
+			refTo="PassiveSkills",
+			type="Key",
+			width=280
 		}
 	},
 	passiveskilloverridetypes={
@@ -9278,6 +11296,13 @@ return {
 			refTo="",
 			type="Bool",
 			width=150
+		},
+		[4]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=50
 		}
 	},
 	passiveskills={
@@ -9293,7 +11318,7 @@ return {
 			name="Icon",
 			refTo="",
 			type="String",
-			width=330
+			width=380
 		},
 		[3]={
 			list=true,
@@ -9334,7 +11359,7 @@ return {
 			list=false,
 			name="PassiveSkillNodeId",
 			refTo="",
-			type="Int",
+			type="UInt16",
 			width=100
 		},
 		[9]={
@@ -9410,9 +11435,9 @@ return {
 		[19]={
 			list=true,
 			name="ReminderTexts",
-			refTo="ClientStrings",
+			refTo="ReminderText",
 			type="Key",
-			width=150
+			width=660
 		},
 		[20]={
 			list=false,
@@ -9524,50 +11549,50 @@ return {
 			list=false,
 			name="",
 			refTo="",
-			type="Int",
+			type="Bool",
 			width=50
 		},
 		[36]={
 			list=false,
-			name="",
+			name="StatValue1",
 			refTo="",
 			type="Int",
-			width=50
+			width=70
 		},
 		[37]={
 			list=false,
-			name="",
+			name="StatValue2",
 			refTo="",
 			type="Int",
-			width=50
+			width=70
 		},
 		[38]={
 			list=false,
-			name="",
+			name="StatValue3",
 			refTo="",
 			type="Int",
-			width=50
+			width=70
 		},
 		[39]={
 			list=false,
-			name="",
+			name="StatValue4",
 			refTo="",
 			type="Int",
-			width=50
+			width=70
 		},
 		[40]={
 			list=false,
-			name="",
+			name="StatValue5",
 			refTo="",
-			type="Bool",
-			width=50
+			type="Int",
+			width=70
 		},
 		[41]={
 			list=true,
-			name="",
-			refTo="",
+			name="Stat",
+			refTo="Stats",
 			type="Key",
-			width=150
+			width=200
 		},
 		[42]={
 			list=false,
@@ -9578,10 +11603,10 @@ return {
 		},
 		[43]={
 			list=true,
-			name="",
-			refTo="",
+			name="BuffTemplate",
+			refTo="BuffTemplates",
 			type="Key",
-			width=50
+			width=200
 		},
 		[44]={
 			list=false,
@@ -9595,17 +11620,59 @@ return {
 			name="",
 			refTo="",
 			type="Key",
-			width=150
+			width=20
 		},
 		[46]={
+			list=false,
+			name="GrantedEffect",
+			refTo="GrantedEffectsPerLevel",
+			type="Key",
+			width=150
+		},
+		[47]={
 			list=false,
 			name="",
 			refTo="",
 			type="Key",
 			width=150
+		},
+		[48]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=50
+		},
+		[49]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=50
+		},
+		[50]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=50
 		}
 	},
 	passiveskillstatcategories={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="Name",
+			refTo="",
+			type="String",
+			width=150
+		}
 	},
 	passiveskilltattoos={
 		[1]={
@@ -9676,6 +11743,108 @@ return {
 			width=150
 		}
 	},
+	passiveskilltreeconnectionart={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=200
+		},
+		[2]={
+			list=false,
+			name="Normal",
+			refTo="",
+			type="String",
+			width=500
+		},
+		[3]={
+			list=false,
+			name="Intermediate2",
+			refTo="",
+			type="String",
+			width=500
+		},
+		[4]={
+			list=false,
+			name="Intermediate",
+			refTo="",
+			type="String",
+			width=500
+		},
+		[5]={
+			list=false,
+			name="Active",
+			refTo="",
+			type="String",
+			width=500
+		},
+		[6]={
+			list=false,
+			name="Mask",
+			refTo="",
+			type="String",
+			width=500
+		},
+		[7]={
+			list=false,
+			name="Ornament1",
+			refTo="",
+			type="String",
+			width=400
+		},
+		[8]={
+			list=false,
+			name="Ornament2",
+			refTo="",
+			type="String",
+			width=400
+		}
+	},
+	passiveskilltreenodeframeart={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=250
+		},
+		[2]={
+			list=false,
+			name="Normal",
+			refTo="",
+			type="String",
+			width=550
+		},
+		[3]={
+			list=false,
+			name="CanAllocate",
+			refTo="",
+			type="String",
+			width=550
+		},
+		[4]={
+			list=false,
+			name="Active",
+			refTo="",
+			type="String",
+			width=550
+		},
+		[5]={
+			list=false,
+			name="Mask",
+			refTo="",
+			type="String",
+			width=550
+		},
+		[6]={
+			list=false,
+			name="Header",
+			refTo="",
+			type="String",
+			width=450
+		}
+	},
 	passiveskilltrees={
 	},
 	passiveskilltreetutorial={
@@ -9685,7 +11854,7 @@ return {
 	passiveskilltypes={
 		[1]={
 			list=false,
-			name="Name",
+			name="Id",
 			refTo="",
 			type="String",
 			width=150
@@ -9831,6 +12000,13 @@ return {
 	preloadfromstats={
 	},
 	preloadgroups={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=200
+		}
 	},
 	preloadpriorities={
 	},
@@ -9890,10 +12066,10 @@ return {
 		},
 		[8]={
 			list=false,
-			name="",
+			name="RandomizeVisualRotationOnSpawn",
 			refTo="",
 			type="Bool",
-			width=50
+			width=200
 		},
 		[9]={
 			list=false,
@@ -9918,31 +12094,31 @@ return {
 		},
 		[12]={
 			list=false,
-			name="",
-			refTo="",
+			name="MiscAnimated",
+			refTo="MiscAnimated",
 			type="Key",
-			width=40
+			width=220
 		},
 		[13]={
 			list=false,
 			name="",
 			refTo="",
 			type="Int",
-			width=50
+			width=150
 		},
 		[14]={
 			list=false,
-			name="",
+			name="ApplyProjectileSpeedToAuxiliarySpeed",
 			refTo="",
 			type="Bool",
-			width=50
+			width=200
 		},
 		[15]={
 			list=false,
-			name="",
+			name="AuxiliarySpeedCannotBeBelowBase",
 			refTo="",
 			type="Bool",
-			width=50
+			width=190
 		},
 		[16]={
 			list=true,
@@ -9988,17 +12164,17 @@ return {
 		},
 		[22]={
 			list=false,
-			name="",
-			refTo="",
+			name="PrimaryAnimation",
+			refTo="MiscAnimated",
 			type="Key",
-			width=50
+			width=220
 		},
 		[23]={
 			list=false,
-			name="",
-			refTo="",
+			name="SecondaryAnimation",
+			refTo="MiscAnimated",
 			type="Key",
-			width=50
+			width=230
 		},
 		[24]={
 			list=false,
@@ -10065,6 +12241,41 @@ return {
 		}
 	},
 	projectilesartvariations={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=250
+		},
+		[2]={
+			list=false,
+			name="Variant",
+			refTo="",
+			type="Int",
+			width=80
+		},
+		[3]={
+			list=true,
+			name="Projectile",
+			refTo="Projectiles",
+			type="Key",
+			width=350
+		},
+		[4]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=80
+		},
+		[5]={
+			list=false,
+			name="Stat",
+			refTo="Stats",
+			type="Key",
+			width=150
+		}
 	},
 	projectilevariations={
 	},
@@ -10209,6 +12420,13 @@ return {
 			refTo="",
 			type="String",
 			width=1000
+		},
+		[3]={
+			list=false,
+			name="Text2",
+			refTo="",
+			type="String",
+			width=400
 		}
 	},
 	ritualbalanceperlevel={
@@ -10350,14 +12568,14 @@ return {
 			name="Timeout",
 			refTo="",
 			type="Int",
-			width=150
+			width=100
 		},
 		[3]={
 			list=false,
 			name="Shared",
 			refTo="",
 			type="Bool",
-			width=150
+			width=100
 		},
 		[4]={
 			list=false,
@@ -10368,17 +12586,17 @@ return {
 		},
 		[5]={
 			list=false,
-			name="",
+			name="Weighting",
 			refTo="",
 			type="Int",
-			width=150
+			width=100
 		},
 		[6]={
 			list=false,
-			name="",
+			name="MinLevel",
 			refTo="",
 			type="Int",
-			width=150
+			width=100
 		},
 		[7]={
 			list=false,
@@ -10406,28 +12624,28 @@ return {
 			name="",
 			refTo="",
 			type="Int",
-			width=150
+			width=100
 		},
 		[11]={
 			list=false,
 			name="Duration",
 			refTo="",
 			type="Int",
-			width=150
+			width=100
 		},
 		[12]={
 			list=false,
 			name="ShrineSounds",
 			refTo="ShrineSounds",
 			type="Key",
-			width=150
+			width=100
 		},
 		[13]={
 			list=false,
 			name="",
 			refTo="",
 			type="Bool",
-			width=150
+			width=100
 		},
 		[14]={
 			list=true,
@@ -10441,21 +12659,21 @@ return {
 			name="PVPOnly",
 			refTo="",
 			type="Bool",
-			width=150
+			width=100
 		},
 		[16]={
 			list=false,
 			name="",
 			refTo="",
 			type="Bool",
-			width=150
+			width=100
 		},
 		[17]={
 			list=false,
 			name="LesserShrine",
 			refTo="",
 			type="Bool",
-			width=150
+			width=100
 		},
 		[18]={
 			list=false,
@@ -10473,24 +12691,24 @@ return {
 		},
 		[20]={
 			list=false,
-			name="",
+			name="Royale",
 			refTo="",
 			type="Bool",
-			width=150
+			width=100
 		},
 		[21]={
 			list=false,
-			name="",
-			refTo="",
+			name="TouchedMod",
+			refTo="Mods",
 			type="Key",
-			width=150
+			width=200
 		},
 		[22]={
 			list=true,
-			name="",
-			refTo="",
+			name="MonsterPack",
+			refTo="MonsterPacks",
 			type="Key",
-			width=600
+			width=150
 		}
 	},
 	shrinesounds={
@@ -10502,6 +12720,104 @@ return {
 	singlegroundlaser={
 	},
 	skillartvariations={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=200
+		},
+		[2]={
+			list=true,
+			name="AnimatedArt",
+			refTo="MiscAnimatedArtVariations",
+			type="Key",
+			width=150
+		},
+		[3]={
+			list=true,
+			name="BeamArt",
+			refTo="MiscBeamsArtVariations",
+			type="Key",
+			width=150
+		},
+		[4]={
+			list=true,
+			name="EffectPacksArt",
+			refTo="MiscEffectPacksArtVariations",
+			type="Key",
+			width=150
+		},
+		[5]={
+			list=true,
+			name="ObjectArt",
+			refTo="MiscObjectsArtVariations",
+			type="Key",
+			width=150
+		},
+		[6]={
+			list=true,
+			name="Variants",
+			refTo="",
+			type="String",
+			width=260
+		},
+		[7]={
+			list=true,
+			name="BuffVisuals",
+			refTo="BuffVisualsArtVariations",
+			type="Key",
+			width=150
+		},
+		[8]={
+			list=true,
+			name="VariantID?",
+			refTo="",
+			type="Int",
+			width=250
+		},
+		[9]={
+			list=true,
+			name="ProjectileArt",
+			refTo="ProjectilesArtVariations",
+			type="Key",
+			width=150
+		},
+		[10]={
+			list=false,
+			name="Stat",
+			refTo="Stats",
+			type="Key",
+			width=150
+		},
+		[11]={
+			list=true,
+			name="MonsterVarietiesArt",
+			refTo="MonsterVarietiesArtVariations",
+			type="Key",
+			width=150
+		},
+		[12]={
+			list=true,
+			name="ActiveSkill",
+			refTo="ActiveSkills",
+			type="Key",
+			width=500
+		},
+		[13]={
+			list=true,
+			name="GrantedEffect",
+			refTo="GrantedEffects",
+			type="Key",
+			width=200
+		},
+		[14]={
+			list=true,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		}
 	},
 	skillgeminfo={
 	},
@@ -10603,39 +12919,44 @@ return {
 			list=false,
 			name="Awakened",
 			refTo="SkillGems",
-			type="Key",
+			type="ShortKey",
 			width=200
 		},
 		[15]={
+			list=false,
+			name="Regular",
+			refTo="SkillGems",
+			type="ShortKey",
+			width=390
+		},
+		[16]={
 			list=false,
 			name="GemColour",
 			refTo="",
 			type="Int",
 			width=100
 		},
-		[16]={
+		[17]={
 			list=false,
 			name="GemLevelProgression",
 			refTo="ItemExperienceTypes",
 			type="Key",
 			width=400
 		},
-		[17]={
+		[18]={
 			list=true,
 			name="MtxSlotType",
-			refTo="MtxSlotTypes: [MicrotransactionSkillGemEffectSlotTypes]",
+			refTo="MicrotransactionSkillGemEffectSlotTypes",
 			type="Key",
 			width=150
 		},
-		[18]={
+		[19]={
 			list=true,
 			name="GemVariants",
 			refTo="GemEffects",
 			type="Key",
 			width=600
 		}
-	},
-	skillmines={
 	},
 	skillminevariations={
 	},
@@ -10647,14 +12968,12 @@ return {
 	},
 	skillsurgeeffects={
 	},
-	skilltotems={
-	},
 	skilltotemvariations={
 		[1]={
 			list=false,
 			name="SkillTotem",
-			refTo="SkillTotems",
-			type="Enum",
+			refTo="",
+			type="Int",
 			width=60
 		},
 		[2]={
@@ -10706,6 +13025,13 @@ return {
 			refTo="",
 			type="Bool",
 			width=150
+		},
+		[5]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
+			width=150
 		}
 	},
 	spawnadditionalchestsorclusters={
@@ -10753,19 +13079,17 @@ return {
 	},
 	statdescriptionfunctions={
 	},
-	statinterpolationtypes={
-	},
 	stats={
 		[1]={
 			list=false,
 			name="Id",
 			refTo="",
 			type="String",
-			width=310
+			width=520
 		},
 		[2]={
 			list=false,
-			name="",
+			name="A",
 			refTo="",
 			type="Bool",
 			width=50
@@ -10793,66 +13117,66 @@ return {
 		},
 		[6]={
 			list=false,
-			name="Name",
-			refTo="",
-			type="String",
-			width=300
-		},
-		[7]={
-			list=false,
 			name="",
 			refTo="",
 			type="Bool",
-			width=50
+			width=80
 		},
-		[8]={
+		[7]={
 			list=false,
 			name="Virtual",
 			refTo="",
 			type="Bool",
 			width=50
 		},
-		[9]={
+		[8]={
 			list=false,
 			name="Main Hand Stat",
 			refTo="Stats",
 			type="ShortKey",
 			width=350
 		},
-		[10]={
+		[9]={
 			list=false,
 			name="Off Hand Stat",
 			refTo="Stats",
 			type="ShortKey",
 			width=350
 		},
-		[11]={
+		[10]={
 			list=false,
 			name="",
 			refTo="",
 			type="Bool",
 			width=50
 		},
-		[12]={
+		[11]={
 			list=false,
 			name="Hash",
 			refTo="",
 			type="UInt",
 			width=80
 		},
-		[13]={
+		[12]={
 			list=true,
 			name="Skills",
 			refTo="",
 			type="String",
 			width=150
 		},
-		[14]={
+		[13]={
 			list=false,
 			name="PassiveCategory",
 			refTo="PassiveSkillStatCategories",
 			type="Key",
 			width=110
+		},
+		[14]={
+			list=false,
+			name="CannotGrantToMinion",
+			refTo="",
+			type="Bool",
+			width=150
 		},
 		[15]={
 			list=false,
@@ -10863,26 +13187,19 @@ return {
 		},
 		[16]={
 			list=false,
-			name="",
-			refTo="",
-			type="Bool",
-			width=50
-		},
-		[17]={
-			list=false,
 			name="IsScalable",
 			refTo="",
 			type="Bool",
 			width=70
 		},
-		[18]={
+		[17]={
 			list=true,
 			name="ContextFlags",
 			refTo="VirtualStatContextFlags",
 			type="Key",
 			width=270
 		},
-		[19]={
+		[18]={
 			list=true,
 			name="DotFlag",
 			refTo="VirtualStatContextFlags",
@@ -10905,8 +13222,6 @@ return {
 			type="Int",
 			width=150
 		}
-	},
-	statsemantics={
 	},
 	statsets={
 	},
@@ -11440,91 +13755,6 @@ return {
 	},
 	tormentspirits={
 	},
-	trademarketcategory={
-		[1]={
-			list=false,
-			name="Id",
-			refTo="",
-			type="String",
-			width=200
-		},
-		[2]={
-			list=false,
-			name="Name",
-			refTo="",
-			type="String",
-			width=300
-		},
-		[3]={
-			list=false,
-			name="StyleFlag",
-			refTo="",
-			type="Enum",
-			width=150
-		},
-		[4]={
-			list=false,
-			name="Group",
-			refTo="TradeMarketCategoryGroups",
-			type="Key",
-			width=200
-		},
-		[5]={
-			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=150
-		},
-		[6]={
-			list=false,
-			name="",
-			refTo="",
-			type="Bool",
-			width=150
-		},
-		[7]={
-			list=false,
-			name="IsDisabled",
-			refTo="",
-			type="Bool",
-			width=150
-		}
-	},
-	trademarketcategorygroups={
-		[1]={
-			list=false,
-			name="Id",
-			refTo="",
-			type="String",
-			width=200
-		},
-		[2]={
-			list=false,
-			name="Name",
-			refTo="",
-			type="String",
-			width=200
-		}
-	},
-	trademarketcategorylistallclass={
-		[1]={
-			list=false,
-			name="TradeCategory",
-			refTo="TradeMarketCategory",
-			type="Key",
-			width=200
-		},
-		[2]={
-			list=false,
-			name="ItemClass",
-			refTo="ItemClasses",
-			type="Key",
-			width=200
-		}
-	},
-	trademarketcategorystyleflag={
-	},
 	trademarketimplicitmoddisplay={
 		[1]={
 			list=false,
@@ -11545,16 +13775,16 @@ return {
 		[1]={
 			list=false,
 			name="Item",
-			refTo="",
+			refTo="BaseItemTypes",
 			type="Key",
-			width=150
+			width=400
 		},
 		[2]={
 			list=false,
 			name="IndexAs",
-			refTo="",
+			refTo="BaseItemTypes",
 			type="Key",
-			width=150
+			width=400
 		}
 	},
 	treasurehuntermissions={
@@ -11603,7 +13833,7 @@ return {
 		[1]={
 			list=false,
 			name="WordsKey",
-			refTo="Word",
+			refTo="Words",
 			type="Key",
 			width=150
 		},
@@ -11765,6 +13995,57 @@ return {
 		}
 	},
 	userinterfacemodecondition={
+	},
+	villagebalanceperlevelshared={
+		[1]={
+			list=false,
+			name="Level",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[4]={
+			list=false,
+			name="GoldRespec",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[5]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[6]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[7]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		}
 	},
 	villageuniquedisenchantvalues={
 		[1]={
@@ -12061,14 +14342,14 @@ return {
 		},
 		[6]={
 			list=false,
-			name="",
+			name="Text2",
 			refTo="",
 			type="String",
 			width=150
 		},
 		[7]={
 			list=false,
-			name="",
+			name="Gender",
 			refTo="",
 			type="String",
 			width=150

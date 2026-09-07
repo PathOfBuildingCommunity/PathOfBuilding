@@ -8,16 +8,18 @@ local ipairs = ipairs
 local t_insert = table.insert
 local s_format = string.format
 local m_min = math.min
+local m_ceil = math.ceil
 
-local calcs = { }
-calcs.breakdownModule = "Modules/CalcBreakdown"
-LoadModule("Modules/CalcSetup", calcs)
-LoadModule("Modules/CalcPerform", calcs)
-LoadModule("Modules/CalcActiveSkill", calcs)
-LoadModule("Modules/CalcDefence", calcs)
-LoadModule("Modules/CalcOffence", calcs)
-LoadModule("Modules/CalcTriggers", calcs)
-LoadModule("Modules/CalcMirages.lua", calcs)
+---@class Calcs
+local calcs = require("Modules.CalcBase")
+calcs.breakdownModule = "Modules.CalcBreakdown"
+require("Modules.CalcSetup")
+require("Modules.CalcPerform")
+require("Modules.CalcActiveSkill")
+require("Modules.CalcDefence")
+require("Modules.CalcOffence")
+require("Modules.CalcTriggers")
+require("Modules.CalcMirages")
 
 -- Get the average value of a table -- note this is unused
 function math.average(t)
@@ -68,85 +70,47 @@ local function infoDump(env)
 	prettyPrintTable(env.player.output)
 end
 
--- Generate a function for calculating the effect of some modification to the environment
-local function getCalculator(build, fullInit, modFunc)
-	-- Initialise environment
-	local env, cachedPlayerDB, cachedEnemyDB, cachedMinionDB = calcs.initEnv(build, "CALCULATOR")
 
-	-- Run base calculation pass
-	calcs.perform(env)
-	local fullDPS = calcs.calcFullDPS(build, "CALCULATOR", {}, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = nil })
-	env.player.output.SkillDPS = fullDPS.skills
-	env.player.output.FullDPS = fullDPS.combinedDPS
-	env.player.output.FullDotDPS = fullDPS.TotalDotDPS
-	local baseOutput = env.player.output
-
-	env.modDB.parent = cachedPlayerDB
-	env.enemyDB.parent = cachedEnemyDB
-	if cachedMinionDB then
-		env.minion.modDB.parent = cachedMinionDB
-	end
-
-	return function(...)
-		-- Remove mods added during the last pass
-		wipeTable(env.modDB.mods)
-		wipeTable(env.modDB.conditions)
-		wipeTable(env.modDB.multipliers)
-		wipeTable(env.enemyDB.mods)
-		wipeTable(env.enemyDB.conditions)
-		wipeTable(env.enemyDB.multipliers)
-
-		-- Call function to make modifications to the environment
-		modFunc(env, ...)
-		
-		-- Run calculation pass
-		calcs.perform(env)
-		fullDPS = calcs.calcFullDPS(build, "CALCULATOR", {}, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = env})
-		env.player.output.SkillDPS = fullDPS.skills
-		env.player.output.FullDPS = fullDPS.combinedDPS
-		env.player.output.FullDotDPS = fullDPS.TotalDotDPS
-
-		return env.player.output
-	end, baseOutput	
-end
-
--- Get fast calculator for adding tree node modifiers
-function calcs.getNodeCalculator(build)
-	return getCalculator(build, true, function(env, nodeList)
-		-- Build and merge modifiers for these nodes
-		env.modDB:AddList(calcs.buildModListForNodeList(env, nodeList))
-	end)
-end
+---@class CalcOverride
+---@field spec PassiveSpec?
+---@field addNodes table<Node|number, boolean>? A set of passive nodes. Only keyed by node id for anointed nodes.
+---@field removeNodes table<Node|number, boolean>? A set of passive nodes. Only keyed by node id for anointed nodes.
+---@field repSlotName string? The name of the replaced item slot
+---@field repItem Item?
+---@field toggleFlask Item? Item object used as a table key.
+---@field toggleTincture Item? Item object used as a table key.
+---@field conditions string[]?
+---@field extraJewelFuncs ModList?
 
 -- Get calculator for other changes (adding/removing nodes, items, gems, etc)
+---@param build Build
+---@return fun(override?: CalcOverride, useFullDPS?: boolean): Output calcFunc
+---@return Output output
 function calcs.getMiscCalculator(build)
 	-- Run base calculation pass
 	local env, cachedPlayerDB, cachedEnemyDB, cachedMinionDB = calcs.initEnv(build, "CALCULATOR")
 	calcs.perform(env)
-	local fullDPS = calcs.calcFullDPS(build, "CALCULATOR", {}, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = env})
-	env.player.output.SkillDPS = fullDPS.skills
-	env.player.output.FullDPS = fullDPS.combinedDPS
-	env.player.output.FullDotDPS = fullDPS.TotalDotDPS
-
-	local baseOutput = env.player.output
-
-	return function(override, accelerate)
+	local fullDPS = calcs.calcFullDPS(build, "CALCULATOR", {}, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = nil})
+	local usedFullDPS = #fullDPS.skills > 0
+	if usedFullDPS then
+		env.player.output.SkillDPS = fullDPS.skills
+		env.player.output.FullDPS = fullDPS.combinedDPS
+		env.player.output.FullDotDPS = fullDPS.TotalDotDPS
+	end
+	return function(override, useFullDPS)
 		local env, cachedPlayerDB, cachedEnemyDB, cachedMinionDB = calcs.initEnv(build, "CALCULATOR", override)
-		-- we need to preserve the override somewhere for use by possible trigger-based build-outs with overrides
-		env.override = override
 		calcs.perform(env)
-		if GlobalCache.useFullDPS or build.viewMode == "TREE" then
+		if (useFullDPS ~= false or build.viewMode == "TREE") and usedFullDPS then
 			-- prevent upcoming calculation from using Cached Data and thus forcing it to re-calculate new FullDPS roll-up 
 			-- without this, FullDPS increase/decrease when for node/item/gem comparison would be all 0 as it would be comparing
 			-- A with A (due to cache reuse) instead of A with B
-			local fullDPS = calcs.calcFullDPS(build, "CALCULATOR", override, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = env, accelerate = accelerate })
-			-- reset cache usage
+			local fullDPS = calcs.calcFullDPS(build, "CALCULATOR", override, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = nil})
 			env.player.output.SkillDPS = fullDPS.skills
 			env.player.output.FullDPS = fullDPS.combinedDPS
 			env.player.output.FullDotDPS = fullDPS.TotalDotDPS
 		end
 		return env.player.output
-	end, baseOutput	
+	end, env.player.output
 end
 
 local function getActiveSkillCount(activeSkill)
@@ -183,7 +147,7 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 		combinedDPS = 0,
 		TotalDotDPS = 0,
 		skills = { },
-		poisonDPS = 0,
+		TotalPoisonDPS = 0,
 		causticGroundDPS = 0,
 		impaleDPS = 0,
 		igniteDPS = 0,
@@ -201,25 +165,12 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 	local burningGroundSource = ""
 	local causticGroundSource = ""
 	
-	-- calc defences extra part should only run on the last skill of FullDPS
-	local numActiveSkillInFullDPS = 0
 	for _, activeSkill in ipairs(fullEnv.player.activeSkillList) do
 		if activeSkill.socketGroup and activeSkill.socketGroup.includeInFullDPS then
 			local activeSkillCount, enabled = getActiveSkillCount(activeSkill)
 			if enabled then
-				numActiveSkillInFullDPS = numActiveSkillInFullDPS + 1
-			end
-		end
-	end
-	
-	GlobalCache.numActiveSkillInFullDPS = 0
-	for _, activeSkill in ipairs(fullEnv.player.activeSkillList) do
-		if activeSkill.socketGroup and activeSkill.socketGroup.includeInFullDPS then
-			local activeSkillCount, enabled = getActiveSkillCount(activeSkill)
-			if enabled then
-				GlobalCache.numActiveSkillInFullDPS = GlobalCache.numActiveSkillInFullDPS + 1
 				fullEnv.player.mainSkill = activeSkill
-				calcs.perform(fullEnv, (GlobalCache.numActiveSkillInFullDPS ~= numActiveSkillInFullDPS))
+				calcs.perform(fullEnv, true)
 				usedEnv = fullEnv
 				local minionName = nil
 				if activeSkill.minion or usedEnv.minion then
@@ -237,7 +188,7 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 						igniteSource = activeSkill.activeEffect.grantedEffect.name
 					end
 					if usedEnv.minion.output.PoisonDPS and usedEnv.minion.output.PoisonDPS > 0 then
-						fullDPS.poisonDPS = fullDPS.poisonDPS + usedEnv.minion.output.PoisonDPS * activeSkillCount
+						fullDPS.TotalPoisonDPS = fullDPS.TotalPoisonDPS + usedEnv.minion.output.TotalPoisonDPS * activeSkillCount
 					end
 					if usedEnv.minion.output.ImpaleDPS and usedEnv.minion.output.ImpaleDPS > 0 then
 						fullDPS.impaleDPS = fullDPS.impaleDPS + usedEnv.minion.output.ImpaleDPS * activeSkillCount
@@ -251,8 +202,10 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 					if usedEnv.minion.output.CullMultiplier and usedEnv.minion.output.CullMultiplier > 1 and usedEnv.minion.output.CullMultiplier > fullDPS.cullingMulti then
 						fullDPS.cullingMulti = usedEnv.minion.output.CullMultiplier
 					end
-					-- This is a fix to prevent Absolution spell hit from being counted multiple times when increasing minions count
-					if activeSkill.activeEffect.grantedEffect.name == "Absolution" and fullEnv.modDB:Flag(false, "Condition:AbsolutionSkillDamageCountedOnce") then
+					-- This is a fix to prevent skills such as Absolution or Dominating Blow from being counted multiple times when increasing minions count
+					if (activeSkill.activeEffect.grantedEffect.name:match("Absolution") and fullEnv.modDB:Flag(false, "Condition:AbsolutionSkillDamageCountedOnce"))
+						or (activeSkill.activeEffect.grantedEffect.name:match("Dominating Blow") and fullEnv.modDB:Flag(false, "Condition:DominatingBlowSkillDamageCountedOnce"))
+						or (activeSkill.activeEffect.grantedEffect.name:match("Holy Strike") and fullEnv.modDB:Flag(false, "Condition:HolyStrikeSkillDamageCountedOnce"))then
 						activeSkillCount = 1
 						activeSkill.infoMessage2 = "Skill Damage"
 					end
@@ -273,7 +226,7 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 						igniteSource = activeSkill.activeEffect.grantedEffect.name .. " (Mirage)"
 					end
 					if activeSkill.mirage.output.PoisonDPS and activeSkill.mirage.output.PoisonDPS > 0 then
-						fullDPS.poisonDPS = fullDPS.poisonDPS + activeSkill.mirage.output.PoisonDPS * mirageCount
+						fullDPS.TotalPoisonDPS = fullDPS.TotalPoisonDPS + activeSkill.mirage.output.TotalPoisonDPS * mirageCount
 					end
 					if activeSkill.mirage.output.ImpaleDPS and activeSkill.mirage.output.ImpaleDPS > 0 then
 						fullDPS.impaleDPS = fullDPS.impaleDPS + activeSkill.mirage.output.ImpaleDPS * mirageCount
@@ -318,7 +271,7 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 					burningGroundSource = activeSkill.activeEffect.grantedEffect.name
 				end
 				if usedEnv.player.output.PoisonDPS and usedEnv.player.output.PoisonDPS > 0 then
-					fullDPS.poisonDPS = fullDPS.poisonDPS + usedEnv.player.output.PoisonDPS * activeSkillCount
+					fullDPS.TotalPoisonDPS = fullDPS.TotalPoisonDPS + usedEnv.player.output.TotalPoisonDPS * activeSkillCount
 				end
 				if usedEnv.player.output.CausticGroundDPS and usedEnv.player.output.CausticGroundDPS > fullDPS.causticGroundDPS then
 					fullDPS.causticGroundDPS = usedEnv.player.output.CausticGroundDPS
@@ -368,10 +321,10 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 		t_insert(fullDPS.skills, { name = "Best Burning Ground DPS", dps = fullDPS.burningGroundDPS, count = 1, source = burningGroundSource })
 		fullDPS.TotalDotDPS = fullDPS.TotalDotDPS + fullDPS.burningGroundDPS
 	end
-	if fullDPS.poisonDPS > 0 then
-		fullDPS.poisonDPS = m_min(fullDPS.poisonDPS, data.misc.DotDpsCap)
-		t_insert(fullDPS.skills, { name = "Full Poison DPS", dps = fullDPS.poisonDPS, count = 1 })
-		fullDPS.TotalDotDPS = fullDPS.TotalDotDPS + fullDPS.poisonDPS
+	if fullDPS.TotalPoisonDPS > 0 then
+		fullDPS.TotalPoisonDPS = m_min(fullDPS.TotalPoisonDPS, data.misc.DotDpsCap)
+		t_insert(fullDPS.skills, { name = "Full Poison DPS", dps = fullDPS.TotalPoisonDPS, count = 1 })
+		fullDPS.TotalDotDPS = fullDPS.TotalDotDPS + fullDPS.TotalPoisonDPS
 	end
 	if fullDPS.causticGroundDPS > 0 then
 		t_insert(fullDPS.skills, { name = "Best Caustic Ground DPS", dps = fullDPS.causticGroundDPS, count = 1, source = causticGroundSource })
@@ -403,12 +356,23 @@ end
 -- Process active skill
 function calcs.buildActiveSkill(env, mode, skill, targetUUID, limitedProcessingFlags)
 	local fullEnv, _, _, _ = calcs.initEnv(env.build, mode, env.override)
+	fullEnv.buildBreakdown = false
+
+	-- env.limitedSkills contains a map of uuids that should be limited in calculation
+	-- this is in order to prevent infinite recursion loops
+	fullEnv.limitedSkills = fullEnv.limitedSkills or {}
+	for uuid, _ in pairs(env.limitedSkills or {}) do
+		fullEnv.limitedSkills[uuid] = true
+	end
+	for _, uuid in ipairs(limitedProcessingFlags or {}) do
+		fullEnv.limitedSkills[uuid] = true
+	end
+
 	targetUUID = targetUUID or cacheSkillUUID(skill, env)
 	for _, activeSkill in ipairs(fullEnv.player.activeSkillList) do
 		local activeSkillUUID = cacheSkillUUID(activeSkill, fullEnv)
 		if activeSkillUUID == targetUUID then
 			fullEnv.player.mainSkill = activeSkill
-			fullEnv.player.mainSkill.skillData.limitedProcessing = limitedProcessingFlags and limitedProcessingFlags[activeSkillUUID]
 			calcs.perform(fullEnv, true)
 			return
 		end
@@ -445,8 +409,16 @@ function calcs.buildOutput(build, mode)
 					if cachedCost then
 						local totalPool = (output.EnergyShieldProtectsMana and costResource == "ManaCost" and output["EnergyShield"] or 0) + (output[pool] or 0)
 						if totalPool < cachedCost then
-							output[costResource.."Warning"] = output[costResource.."Warning"] or {}
-							t_insert(output[costResource.."Warning"], skill.activeEffect.grantedEffect.name)
+							local rawPool = pool:gsub("Unreserved$", "")
+							local reservation = GlobalCache.cachedData[mode][uuid].Env.player.mainSkill and GlobalCache.cachedData[mode][uuid].Env.player.mainSkill.skillData[rawPool .. "ReservedPercent"]
+							-- Skill has both cost and reservation check if there's available pool for raw cost before reservation
+							if not reservation or (reservation and (totalPool + m_ceil((output[rawPool] or 0) * reservation / 100)) < cachedCost) then
+								if env.player.mainSkill and env.player.mainSkill.activeEffect.grantedEffect.name == skill.activeEffect.grantedEffect.name then
+									output[costResource.."Warning"] = true
+								end
+								output[costResource.."WarningList"] = output[costResource.."WarningList"] or {}
+								t_insert(output[costResource.."WarningList"], skill.activeEffect.grantedEffect.name)
+							end
 						end
 					end
 				end
@@ -454,8 +426,8 @@ function calcs.buildOutput(build, mode)
 					local cachedCost = GlobalCache.cachedData[mode][uuid].Env.player.output[costResource]
 					if cachedCost then
 						if (output[pool] or 0) < cachedCost then
-							output[costResource.."PercentCostWarning"] = output[costResource.."PercentCostWarning"] or {}
-							t_insert(output[costResource.."PercentCostWarning"], skill.activeEffect.grantedEffect.name)
+							output[costResource.."PercentCostWarningList"] = output[costResource.."PercentCostWarningList"] or {}
+							t_insert(output[costResource.."PercentCostWarningList"], skill.activeEffect.grantedEffect.name)
 						end
 					end
 				end
@@ -648,6 +620,9 @@ function calcs.buildOutput(build, mode)
 		if output.BrutalCharges > 0 then
 			t_insert(combatList, s_format("%d Brutal Charges", output.BrutalCharges))
 		end
+		if output.BrineCharges > 0 then
+			t_insert(combatList, s_format("%d Brine Charges", output.BrineCharges))
+		end
 		if output.SiphoningCharges > 0 then
 			t_insert(combatList, s_format("%d Siphoning Charges", output.SiphoningCharges))
 		end
@@ -671,6 +646,9 @@ function calcs.buildOutput(build, mode)
 		end
 		if build.calcsTab.mainEnv.multipliersUsed["SpiritCharge"] then
 			t_insert(combatList, s_format("%d Spirit Charges", output.SpiritCharges))
+		end
+		if build.calcsTab.mainEnv.multipliersUsed["SpiritInfusion"] then
+			t_insert(combatList, s_format("%d Spirit Infusions", output.SpiritInfusions))
 		end
 		if env.player.mainSkill.baseSkillModList:Flag(nil, "Cruelty") then
 			t_insert(combatList, "Cruelty")
@@ -699,17 +677,80 @@ function calcs.buildOutput(build, mode)
 		if env.modDB:Flag(nil, "HerEmbrace") then
 			t_insert(combatList, "Her Embrace")
 		end
-		if env.modDB:Flag(nil, "LesserMassiveShrine") then
-			t_insert(combatList, "Lesser Massive Shrine")
+		if env.modDB:Flag(nil, "AccelerationShrine") then
+			t_insert(combatList, "Acceleration Shrine")
 		end
-		if env.modDB:Flag(nil, "LesserBrutalShrine") then
-			t_insert(combatList, "Lesser Brutal Shrine")
+		if env.modDB:Flag(nil, "BrutalShrine") then
+			t_insert(combatList, "Brutal Shrine")
 		end
 		if env.modDB:Flag(nil, "DiamondShrine") then
 			t_insert(combatList, "Diamond Shrine")
 		end
+		if env.modDB:Flag(nil, "DivineShrine") then
+			t_insert(combatList, "Divine Shrine")
+		end
+		if env.modDB:Flag(nil, "EchoingShrine") then
+			t_insert(combatList, "Echoing Shrine")
+		end
+		if env.modDB:Flag(nil, "GloomShrine") then
+			t_insert(combatList, "Gloom Shrine")
+		end
+		if env.modDB:Flag(nil, "GreaterFreezingShrine") then
+			t_insert(combatList, "Greater Freezing Shrine")
+		end
+		if env.modDB:Flag(nil, "GreaterShockingShrine") then
+			t_insert(combatList, "Greater Shocking Shrine")
+		end
+		if env.modDB:Flag(nil, "GreaterSkeletalShrine") then
+			t_insert(combatList, "Greater Skeletal Shrine")
+		end
+		if env.modDB:Flag(nil, "ImpenetrableShrine") then
+			t_insert(combatList, "Impenetrable Shrine")
+		end
 		if env.modDB:Flag(nil, "MassiveShrine") then
 			t_insert(combatList, "Massive Shrine")
+		end
+		if env.modDB:Flag(nil, "ReplenishingShrine") then
+			t_insert(combatList, "Replenishing Shrine")
+		end
+		if env.modDB:Flag(nil, "ResistanceShrine") then
+			t_insert(combatList, "Resistance Shrine")
+		end
+		if env.modDB:Flag(nil, "ResonatingShrine") then
+			t_insert(combatList, "Resonating Shrine")
+		end
+		if env.modDB:Flag(nil, "LesserAccelerationShrine") then
+			t_insert(combatList, "Lesser Acceleration Shrine")
+		end
+		if env.modDB:Flag(nil, "LesserBrutalShrine") then
+			t_insert(combatList, "Lesser Brutal Shrine")
+		end
+		if env.modDB:Flag(nil, "LesserImpenetrableShrine") then
+			t_insert(combatList, "Lesser Impenetrable Shrine")
+		end
+		if env.modDB:Flag(nil, "LesserMassiveShrine") then
+			t_insert(combatList, "Lesser Massive Shrine")
+		end
+		if env.modDB:Flag(nil, "LesserReplenishingShrine") then
+			t_insert(combatList, "Lesser Replenishing Shrine")
+		end
+		if env.modDB:Flag(nil, "LesserResistanceShrine") then
+			t_insert(combatList, "Lesser Resistance Shrine")
+		end
+		if env.modDB:Flag(nil, "BloodShrineOfRats") then
+			t_insert(combatList, "Blood Shrine of Rats")
+		end
+		if env.modDB:Flag(nil, "BloodShrineOfLocusts") then
+			t_insert(combatList, "Blood Shrine of Locusts")
+		end
+		if env.modDB:Flag(nil, "BloodShrineOfToads") then
+			t_insert(combatList, "Blood Shrine of Toads")
+		end
+		if env.modDB:Flag(nil, "BloodShrineOfCrows") then
+			t_insert(combatList, "Blood Shrine of Crows")
+		end
+		if env.modDB:Flag(nil, "BloodShrineOfBats") then
+			t_insert(combatList, "Blood Shrine of Bats")
 		end
 		for name in pairs(env.buffs) do
 			t_insert(buffList, name)

@@ -59,11 +59,11 @@ local influenceTypes = {
 	"None"
 }
 
-writeEnum("influenceTypes.dat64", influenceTypes)
+writeEnum("influenceTypes.datc64", influenceTypes)
 
 -- passive Skills types
 local passiveSkillTypes  = {
 	"Passive Tree",
 	"Atlas Tree"
 }
-writeEnum("passiveSkillTypes.dat64", passiveSkillTypes)
+writeEnum("passiveSkillTypes.datc64", passiveSkillTypes)
