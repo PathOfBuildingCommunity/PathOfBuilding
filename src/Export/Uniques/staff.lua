@@ -147,7 +147,7 @@ Implicits: 2
 {variant:1}StaffBlockPercentImplicitStaff1[18,18]
 {variant:2}StaffSpellBlockPercentImplicitStaff__1
 StaffBlockPercentUniqueStaff9
-IncreasedFireDamgeIfHitRecentlyUnique__1
+FireDamagePercentUnique__12___
 LocalIncreasedAttackSpeedUniqueStaff9
 FlammabilityOnBlockChanceUnique__1
 ReflectFireDamageOnBlockUnique__1___
@@ -248,7 +248,7 @@ ElementalDamagePercentAddedAsChaosUnique__2
 CriticalMultiplierPerBlockChanceUnique__1
 CritMultiIfDealtNonCritRecentlyUnique__2
 {variant:1,2}SpellDamageIfYouHaveCritRecentlyUnique__2[120,120]
-{variant:3,4}SpellDamageIfYouHaveCritRecentlyUnique__2
+{variant:3,4,5}SpellDamageIfYouHaveCritRecentlyUnique__2
 ]],[[
 Replica Duskdawn
 Maelström Staff

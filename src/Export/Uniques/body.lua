@@ -987,7 +987,7 @@ Implicits: 0
 LocalIncreasedArmourAndEnergyShieldUnique__2
 {variant:1,2}IncreasedEnergyShieldUnique__5[70,80]
 {variant:3}IncreasedEnergyShieldUnique__5
-IncreasedLifeUniqueBodyDexInt1
+IncreasedLifeUniqueBodyDexInt1[60,70]
 AllResistancesUnique__3
 {variant:1}EnergyShieldPer5StrengthUnique__1[1,1][5,5]
 {variant:2,3}EnergyShieldPer5StrengthUnique__1
@@ -1324,7 +1324,7 @@ Variant: Two Abyssal Sockets (Current)
 Variant: One Abyssal Socket (Current)
 Implicits: 1
 IncreasedManaImplicitArmour1
-{variant:5}AbyssJewelSocketUnique__1[3,3]
+{variant:5}AbyssJewelSocketUnique__16
 {variant:1,3,6}AbyssJewelSocketUnique__1
 {variant:2,4,7}AbyssJewelSocketImplicit
 {variant:1,2}DisplaySupportedByElementalPenetrationUnique__1[20,20]

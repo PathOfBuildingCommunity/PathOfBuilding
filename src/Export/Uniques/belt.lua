@@ -718,7 +718,7 @@ LevelReq: 44
 Implicits: 1
 IncreasedPhysicalDamagePercentImplicitBelt1
 IncreasedLifeUnique__105
-ColdResistUniqueRing24
+ColdResistUniqueRing24[30,40]
 LifeLeechPermyriadUnique__3
 BeltIncreasedFlaskDurationUnique__1
 FlaskChargeRecoveryDuringFlaskEffectUnique__2

@@ -995,7 +995,7 @@ Implicits: 0
 (50-75)% increased Armour and Energy Shield
 {variant:1,2}+(70-80) to maximum Energy Shield
 {variant:3}+(30-40) to maximum Energy Shield
-+(50-70) to maximum Life
++(60-70) to maximum Life
 +(14-18)% to all Elemental Resistances
 {variant:1}+1 maximum Energy Shield per 5 Strength
 {variant:2,3}+2 maximum Energy Shield per 5 Strength

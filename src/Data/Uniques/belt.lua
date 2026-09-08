@@ -724,7 +724,7 @@ LevelReq: 44
 Implicits: 1
 {tags:physical_damage}(12-24)% increased Global Physical Damage
 {tags:resource}+(60-80) to maximum Life
-{tags:resistance}+(25-40)% to Cold Resistance
+{tags:resistance}+(30-40)% to Cold Resistance
 {tags:resource,attack}0.4% of Physical Attack Damage Leeched as Life
 60% increased Flask Effect Duration
 30% reduced Flask Charges gained during any Flask Effect
