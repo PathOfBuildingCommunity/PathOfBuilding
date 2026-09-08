@@ -44,41 +44,26 @@ function ButtonClass:Draw(viewPort, noTooltip)
 	local enabled = self:IsEnabled()
 	local mOver = self:IsMouseOver()
 	local locked = self:GetProperty("locked")
-	if not enabled then
-		SetDrawColor(0.33, 0.33, 0.33)
-	elseif mOver or locked then
-		SetDrawColor(1, 1, 1)
-	else
-		SetDrawColor(0.5, 0.5, 0.5)
+	local colors = ui.colors
+	local radius = ui.FitRadius(ui.radius, width, height)
+	local border, fill = ui.SurfaceColors(enabled, mOver or locked, self.clicked and mOver)
+	if locked and enabled then
+		border = colors.borderActive
 	end
-	DrawImage(nil, x, y, width, height)
-	if not enabled then
-		SetDrawColor(0, 0, 0)
-	elseif self.clicked and mOver then
-		SetDrawColor(0.5, 0.5, 0.5)
-	elseif mOver or locked then
-		SetDrawColor(0.33, 0.33, 0.33)
-	else
-		SetDrawColor(0, 0, 0)
-	end
-	DrawImage(nil, x + 1, y + 1, width - 2, height - 2)
+	ui.DrawBox(x, y, width, height, radius, border, fill)
 	if self.image then
 		if enabled then
 			SetDrawColor(1, 1, 1)
 		else
-			SetDrawColor(0.33, 0.33, 0.33)
+			SetDrawColor(0.4, 0.4, 0.4)
 		end
 		DrawImage(self.image, x + 2, y + 2, width - 4, height - 4)
 		if self.clicked and mOver then
-			SetDrawColor(1, 1, 1, 0.5)
-			DrawImage(nil, x + 1, y + 1, width - 2, height - 2)
+			SetDrawColor(1, 1, 1, 0.25)
+			ui.DrawRect(x + 1, y + 1, width - 2, height - 2, radius - 1)
 		end
 	end
-	if enabled then
-		SetDrawColor(1, 1, 1)
-	else
-		SetDrawColor(0.33, 0.33, 0.33)
-	end
+	ui.SetColor(enabled and colors.text or colors.textDisabled)
 	local label = self:GetProperty("label")
 	if label == "+" then
 		DrawImage(nil, x + width * 0.2, y + height * 0.45, width * 0.6, height * 0.1)
