@@ -5,6 +5,63 @@
 --
 local t_concat = table.concat
 
+-- Keep temporary and backup paths beside the cache so renames stay on one
+-- volume. A per-write suffix reduces collisions between concurrent writes.
+local function makeSiblingPaths(cachePath)
+	local allocationAddressToken = tostring({ }):match("0x(%x+)") or "unknown"
+	local suffix = os.time() .. "." .. allocationAddressToken
+	return cachePath .. ".tmp." .. suffix, cachePath .. ".backup." .. suffix
+end
+
+local function promoteCache(cachePath, temporaryPath, backupPath)
+	local promoted, promoteError = os.rename(temporaryPath, cachePath)
+	if promoted then
+		return true
+	end
+
+	-- Windows cannot rename over an existing file. Move the current cache aside
+	-- before retrying so a failed replacement can restore the previous data.
+	local backedUp, backupError = os.rename(cachePath, backupPath)
+	if not backedUp then
+		os.remove(temporaryPath)
+		return nil, promoteError or backupError
+	end
+
+	promoted, promoteError = os.rename(temporaryPath, cachePath)
+	if promoted then
+		local removed, removeError = os.remove(backupPath)
+		if not removed then
+			ConPrintf("Failed to remove jewel data cache backup " .. backupPath .. ": " .. tostring(removeError))
+		end
+		return true
+	end
+
+	local restored, restoreError = os.rename(backupPath, cachePath)
+	os.remove(temporaryPath)
+	if not restored then
+		return nil, tostring(promoteError) .. "; cache backup remains at " .. backupPath
+			.. " after restore failed: " .. tostring(restoreError)
+	end
+	return nil, promoteError
+end
+
+local function writeCache(cachePath, jewelData)
+	local temporaryPath, backupPath = makeSiblingPaths(cachePath)
+	local temporaryFile, openError = io.open(temporaryPath, "wb")
+	if not temporaryFile then
+		return nil, openError
+	end
+
+	local written, writeError = temporaryFile:write(jewelData)
+	local closed, closeError = temporaryFile:close()
+	if not written or not closed then
+		os.remove(temporaryPath)
+		return nil, writeError or closeError
+	end
+
+	return promoteCache(cachePath, temporaryPath, backupPath)
+end
+
 local function loadJewelFile(jewelTypeName, cacheUncompressed)
 	local jewelPath = "/Data/TimelessJewelData/" .. jewelTypeName
 	local scriptPath = GetScriptPath()
@@ -42,12 +99,12 @@ local function loadJewelFile(jewelTypeName, cacheUncompressed)
 	end
 
 	if uncompressedFileAttr.modified and uncompressedFileAttr.modified > (compressedFileAttr.modified or 0) then
-		ConPrintf("Uncompressed jewel data is up-to-date, loading " .. uncompressedFileAttr.fileName)
 		local uncompressedFile = io.open(scriptPath .. jewelPath .. ".bin", "rb")
 		if uncompressedFile then
 			local jewelData = uncompressedFile:read("*a")
 			uncompressedFile:close()
-			if jewelData then
+			if jewelData and jewelData ~= "" then
+				ConPrintf("Uncompressed jewel data is up-to-date, loading " .. uncompressedFileAttr.fileName)
 				return jewelData
 			end
 		end
@@ -82,11 +139,14 @@ local function loadJewelFile(jewelTypeName, cacheUncompressed)
 	end
 
 	local jewelData = Inflate(compressedData)
+	if not jewelData or jewelData == "" then
+		ConPrintf("Failed to inflate jewel data: " .. jewelTypeName)
+		return
+	end
 	if cacheUncompressed then
-		local uncompressedFile = io.open(scriptPath .. jewelPath .. ".bin", "wb+")
-		if uncompressedFile then
-			uncompressedFile:write(jewelData)
-			uncompressedFile:close()
+		local cached, cacheError = writeCache(scriptPath .. jewelPath .. ".bin", jewelData)
+		if not cached then
+			ConPrintf("Failed to cache jewel data " .. jewelTypeName .. ": " .. tostring(cacheError))
 		end
 	end
 	return jewelData
