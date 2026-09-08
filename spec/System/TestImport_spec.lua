@@ -200,4 +200,30 @@ Implicits: 0]])
 		end
 		assert.truthy(found)
 	end)
+
+	it("remembers the persisted sharing website across build initialization", function()
+		local previousWebsite = main.lastExportedWebsite
+		local previousSessionWebsite = main.lastExportWebsite
+		main.lastExportedWebsite = "POBBin"
+		main.lastExportWebsite = nil
+		newBuild()
+		local selected = build.importTab.controls.exportFrom:GetSelValue().id
+		local control = build.importTab.controls.exportFrom
+		for index, site in ipairs(control.list) do
+			if site.id == "PoBCodes" then
+				control:SetSel(index)
+				break
+			end
+		end
+		local savedWebsite = main.lastExportedWebsite
+		main.lastExportWebsite = nil
+		newBuild()
+		local restored = build.importTab.controls.exportFrom:GetSelValue().id
+		main.lastExportedWebsite = previousWebsite
+		main.lastExportWebsite = previousSessionWebsite
+		assert.are.equal("POBBin", selected)
+		assert.are.equal("PoBCodes", savedWebsite)
+		assert.are.equal("PoBCodes", restored)
+	end)
+
 end)
