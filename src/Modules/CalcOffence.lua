@@ -2275,6 +2275,10 @@ function calcs.offence(env, actor, activeSkill)
 			output.Speed = 0
 		elseif skillData.timeOverride then
 			output.Time = skillData.timeOverride
+			local cooldown = globalOutput.TrapCooldown or globalOutput.Cooldown
+			if cooldown then
+				output.Time = m_max(output.Time, cooldown)
+			end
 			output.Speed = 1 / output.Time
 		elseif skillData.fixedCastTime then
 			output.Time = activeSkill.activeEffect.grantedEffect.castTime
