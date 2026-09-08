@@ -663,9 +663,14 @@ holding Shift will put it in the second.]])
 		 "Prismatic (Resistance)","Sinistral (Prefix)","Tempering (Defense)","Turbulent (Elemental)","Unstable (Critical)"},
 		function(index, value)
 			self.displayItem.catalyst = index - 1
-			if not self.displayItem.catalystQuality then
-				self.displayItem.catalystQuality = 20
-				self.controls.displayItemCatalystQualityEdit:SetText(self.displayItem.catalystQuality)
+			if index > 1 then
+				if not self.displayItem.catalystQuality then
+					self.displayItem.catalystQuality = 20
+					self.controls.displayItemCatalystQualityEdit:SetText(self.displayItem.catalystQuality)
+				end
+			else
+				self.displayItem.catalystQuality = nil
+				self.controls.displayItemCatalystQualityEdit:SetText(0)
 			end
 			if self.displayItem.crafted then
 				for i = 1, self.displayItem.affixLimit do
@@ -2033,6 +2038,9 @@ end
 -- Sets the display item to the given item
 function ItemsTabClass:SetDisplayItem(item)
 	self.displayItem = item
+	if item and not (item.catalyst and item.catalyst > 0) then
+		item.catalystQuality = nil
+	end
 	if item then
 		-- Update the display item controls
 		self:UpdateDisplayItemTooltip()
