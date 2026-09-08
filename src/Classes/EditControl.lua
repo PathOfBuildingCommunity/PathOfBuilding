@@ -294,6 +294,25 @@ function EditClass:Draw(viewPort, noTooltip)
 	local marginL = textX - x - 2
 	local marginR = self.controls.scrollBarV:IsShown() and 14 or 0
 	local marginB = self.controls.scrollBarH:IsShown() and 14 or 0
+	-- Focusing a single-line field selects all of it. Typing would replace
+	-- that selection, so drop it as soon as an input method starts composing,
+	-- which also puts the caret where the composition belongs.
+	if self.hasFocus and main.imePreedit and main.imePreedit ~= "" and self.sel and self.sel ~= self.caret then
+		-- Collapse to the end of the selection: composed text is appended
+		-- there, so the caret and the candidate window belong there too.
+		self.caret = m_max(self.caret, self.sel)
+		self.sel = nil
+	end
+	local viewOriginX, viewOriginY = textX, textY
+	if self.hasFocus and SetIMECaretRect and not self.lineHeight then
+		-- Keep the input method informed even before composing starts,
+		-- otherwise the candidate window opens at a stale position. A
+		-- selection collapses to its end, which is where typing continues.
+		local caretPos = self.sel and m_max(self.caret, self.sel) or self.caret
+		local head = self.buf:sub(1, caretPos - 1)
+		SetIMECaretRect(viewOriginX + DrawStringWidth(textHeight, self.font, head) - self.controls.scrollBarH.offset,
+			viewOriginY, 1, textHeight)
+	end
 	SetViewport(textX, textY, width - 4 - marginL - marginR, height - 4 - marginB)
 	if not self.hasFocus then
 		if self.buf == '' and self.placeholder then
@@ -419,6 +438,22 @@ function EditClass:Draw(viewPort, noTooltip)
 			DrawString(textX, textY, "LEFT", textHeight, self.font, pre)
 		end
 		textX = textX + DrawStringWidth(textHeight, self.font, pre)
+		if self.hasFocus then
+			-- Text the input method is still composing sits at the caret,
+			-- underlined to show it isn't committed yet.
+			local preedit = main.imePreedit
+			if preedit and preedit ~= "" then
+				local preeditWidth = DrawStringWidth(textHeight, self.font, preedit)
+				DrawString(textX, textY, "LEFT", textHeight, self.font, self.textCol .. preedit)
+				SetDrawColor(self.textCol)
+				DrawImage(nil, textX, textY + textHeight - 1, preeditWidth, 1)
+				textX = textX + preeditWidth
+			end
+			if SetIMECaretRect then
+				-- Refine the position now that the composition width is known.
+				SetIMECaretRect(viewOriginX + textX, viewOriginY + textY, 1, textHeight)
+			end
+		end
 		if self.protected and #post > 0 then
 			DrawString(textX, textY, "LEFT", textHeight, self.font, string.rep(protected_replace, #post))
 		else
