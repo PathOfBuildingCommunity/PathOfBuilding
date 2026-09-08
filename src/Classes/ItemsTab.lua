@@ -3425,6 +3425,10 @@ function ItemsTabClass:CorruptDisplayItem()
 		"^7Source:")
 	controls.source = new("DropDownControl"):DropDownControl({ "TOPLEFT", nil, "TOPLEFT" }, { 100, 30, 150, 18 },
 		sourceList, function(index, value)
+			-- Clear selections without callbacks before the source changes; Implicit #5 has no Scourge pair.
+			for i = 1, maxImplicitNum do
+				controls[string.format("implicit%d", i)]:SetSel(1, true)
+			end
 			if value == "Scourge" then
 				currentModType = "ScourgeUpside"
 				buildImplicitList("ScourgeUpside")
@@ -3444,9 +3448,6 @@ function ItemsTabClass:CorruptDisplayItem()
 				applySort(controls.sort.list[controls.sort.selIndex].stat)
 			else
 				buildCorruptLists(currentModType)
-			end
-			for i = 1, maxImplicitNum do
-				controls[string.format("implicit%d", i)]:SetSel(1)
 			end
 		end)
 	controls.source.enabled = #sourceList > 1
