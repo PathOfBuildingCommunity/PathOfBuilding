@@ -119,4 +119,58 @@ Can be Anointed
 
 		assert.are.equals(0, fakeItemsTab:getMissingAnointCount(item))
 	end)
+
+	it("calculates corrupted requirements from generated modifier levels", function()
+		local item = setmetatable({
+			crafted = true,
+			rarity = "RARE",
+			base = { req = { level = 20 } },
+			affixes = { },
+			prefixes = { },
+			suffixes = { },
+			requirements = { level = 20 },
+		}, common.classes.Item)
+
+		assert.are.equals(60, item:CalculateCorruptedRequirement({ { level = 75 } }, 20))
+		assert.are.equals(64, item:CalculateCorruptedRequirement({ { level = 75 }, { level = 80 } }, 20))
+	end)
+
+	it("composes structured affix and conservative requirement floors", function()
+		local item = setmetatable({
+			crafted = true,
+			rarity = "RARE",
+			base = { req = { level = 20 } },
+			affixes = { HighAffix = { level = 85 } },
+			prefixes = { { modId = "HighAffix" } },
+			suffixes = { },
+			requirements = { level = 72 },
+		}, common.classes.Item)
+
+		assert.are.equals(68, item:CalculateCorruptedRequirement({ { level = 75 } }, 72))
+
+		item.prefixes[1].modId = "MissingAffix"
+		assert.are.equals(72, item:CalculateCorruptedRequirement({ { level = 75 } }, 72))
+
+		item.prefixes = { }
+		item.base.weapon = { }
+		item.base.req.level = 70
+		assert.are.equals(70, item:CalculateCorruptedRequirement({ { level = 75 } }, 72))
+	end)
+
+	it("does not lower unique or non-crafted item requirements", function()
+		local item = setmetatable({
+			crafted = true,
+			rarity = "UNIQUE",
+			base = { req = { level = 20 } },
+			affixes = { },
+			prefixes = { },
+			suffixes = { },
+			requirements = { level = 70 },
+		}, common.classes.Item)
+
+		assert.are.equals(70, item:CalculateCorruptedRequirement({ { level = 75 } }, 70))
+		item.rarity = "RARE"
+		item.crafted = false
+		assert.are.equals(70, item:CalculateCorruptedRequirement({ { level = 75 } }, 70))
+	end)
 end)
