@@ -1930,8 +1930,13 @@ function calcs.offence(env, actor, activeSkill)
 
 	-- Cache global damage disabling flags
 	local canDeal = { }
+	local damageDisableMods = breakdown and { }
 	for _, damageType in ipairs(dmgTypeList) do
-		canDeal[damageType] = not skillModList:Flag(skillCfg, "DealNo"..damageType, "DealNoDamage")
+		local damageDisabled = skillModList:Flag(skillCfg, "DealNo"..damageType, "DealNoDamage")
+		canDeal[damageType] = not damageDisabled
+		if damageDisableMods and damageDisabled then
+			damageDisableMods[damageType] = skillModList:Tabulate("FLAG", skillCfg, "DealNo"..damageType, "DealNoDamage")
+		end
 	end
 
 	-- Calculate damage conversion percentages
@@ -3640,7 +3645,8 @@ function calcs.offence(env, actor, activeSkill)
 				else
 					if breakdown then
 						breakdown[damageType] = {
-							"You can't deal "..damageType.." damage"
+							"You can't deal "..damageType.." damage",
+							modList = damageDisableMods[damageType],
 						}
 					end
 				end

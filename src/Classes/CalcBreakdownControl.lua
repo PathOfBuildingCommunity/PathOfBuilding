@@ -410,7 +410,7 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 			-- Multiple stat names specified, add this modifier's stat to the table
 			row.name = self:FormatModName(row.mod.name)
 		end
-		local sourceType = row.mod.source:match("[^:]+") or ""
+		local sourceType = row.mod.source and row.mod.source:match("[^:]+") or ""
 		row.source = sourceType
 		if not modList and not sectionData.modSource then
 			-- No modifier source specified, add the source type to the table
