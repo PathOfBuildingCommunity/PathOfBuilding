@@ -358,10 +358,23 @@ function itemLib.isModLineScalable(line, range, valueScalar)
 	return itemLib.applyRange(line, range, valueScalar, 1) ~= itemLib.applyRange(line, range, valueScalar, 2)
 end
 
-function itemLib.formatModLine(modLine, dbMode)
-	local shouldApplyRange = not dbMode and (modLine.range or modLine.corruptedRange)
+---@param effectMod number? Display-only effect multiplier; leaves stored rolls unchanged
+function itemLib.formatModLine(modLine, dbMode, effectMod)
+	local valueScalar = modLine.valueScalar
+	if effectMod and not dbMode and not modLine.unscalable and not modLine.extra then
+		-- The effect modifier itself must not be amplified, including crafted lines
+		-- which do not carry advanced-copy's unscalable marker.
+		for _, mod in ipairs(modLine.modList) do
+			if mod.name == "LocalEffect" or mod.name == "TinctureEffect" then
+				effectMod = 1
+				break
+			end
+		end
+		valueScalar = (valueScalar or 1) * effectMod
+	end
+	local shouldApplyRange = not dbMode and (modLine.range or modLine.corruptedRange or (effectMod and valueScalar))
 	local line = shouldApplyRange and itemLib.applyRange(modLine.line, modLine.range or main.defaultItemAffixQuality,
-		modLine.valueScalar, modLine.corruptedRange) or modLine.line
+		valueScalar, modLine.corruptedRange) or modLine.line
 	if line:match("^%+?0%%? ") or (line:match(" %+?0%%? ") and not line:match("0 to [1-9]")) or line:match(" 0%-0 ") or line:match(" 0 to 0 ") then -- Hack to hide 0-value modifiers
 		return
 	end
