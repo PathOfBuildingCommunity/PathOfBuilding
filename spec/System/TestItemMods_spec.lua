@@ -7,6 +7,117 @@ describe("TetsItemMods", function()
 		-- newBuild() takes care of resetting everything in setup()
 	end)
 
+	it("refreshes imported modifier ranges after crafting an affix", function()
+		local raw = [[
+			Item Class: Tinctures
+			Rarity: Magic
+			Potent Prismatic Tincture of Overpowering
+			--------
+			Quality: +24% (augmented)
+			Inflicts Mana Burn every 0.39 (augmented) Seconds
+			8 Second Cooldown when Deactivated
+			Intangibility: 5%
+			--------
+			Requirements:
+			Level: 68
+			--------
+			Item Level: 85
+			--------
+			{ Implicit Modifier — Damage, Elemental, Attack  — 67% Increased }
+			100(70-100)% increased Elemental Damage with Melee Weapons
+			--------
+			{ Prefix Modifier "Potent" (Tier: 3)  — 67% Increased }
+			35% increased effect — Unscalable Value
+			47(47-51)% increased Mana Burn rate
+			{ Suffix Modifier "of Overpowering" (Tier: 1) — Damage, Elemental, Attack  — 67% Increased }
+			Melee Weapon Damage Penetrates 19(17-19)% Elemental Resistances
+			--------
+			Right click to activate. Only one Tincture in your belt can be active at a time. Mana Burn causes you to lose 1% of your maximum Mana per stack per second. Can be deactivated manually, or will automatically deactivate when you reach 0 Mana.
+		]]
+		for _, edit in ipairs({ "slider", "dropdown" }) do
+			for _, hasImplicit in ipairs({ true, false }) do
+				local tab = build.itemsTab
+				tab:CreateDisplayItemFromRaw(raw)
+				if not hasImplicit then
+					wipeTable(tab.displayItem.implicitModLines)
+				end
+				-- Saved items can retain the separately ranged line from advanced copy.
+				tab:CreateDisplayItemFromRaw(tab.displayItem:BuildRaw())
+				local ranges = tab.controls.displayItemRangeLine
+				local count = hasImplicit and 2 or 1
+				assert.are.equals(count, #ranges.list)
+				local affix = tab.controls.displayItemAffix1
+				if edit == "slider" then
+					affix.slider:SetVal(0.1)
+				else
+					affix:SetSel(1)
+				end
+				assert.are.equals(count - 1, #tab.displayItem.rangeLineList)
+				assert.are.equals(count - 1, #ranges.list)
+				ranges:SetSel(2)
+				if hasImplicit then
+					assert.are.equals(1, ranges.selIndex)
+					tab.controls.displayItemRangeSlider:SetVal(0)
+					assert.are.equals(0, tab.displayItem.rangeLineList[1].range)
+				else
+					assert.falsy(ranges:IsShown())
+				end
+			end
+		end
+	end)
+
+	it("shows local tincture effect without changing base rolls or character scaling", function()
+		local tab = build.itemsTab
+		tab:CreateDisplayItemFromRaw([[
+			Rarity: Magic
+			Prismatic Tincture
+			Crafted: true
+			Prefix: {range:0}TinctureEffectFasterToxicity1
+			Suffix: {range:1}TinctureElementalPenetration5
+			Quality: 24
+			Implicits: 1
+			{range:1}(70-100)% increased Elemental Damage with Melee Weapons
+		]])
+		local item = tab.displayItem
+		item:Craft()
+		tab:SetDisplayItem(item)
+		for _, roll in ipairs({ { 0, 17, 28 }, { 0.5, 18, 30 }, { 1, 19, 31 } }) do
+			item.suffixes[1].range = roll[1]
+			item:Craft()
+			local raw = item:BuildRaw()
+			local tooltip = new("Tooltip"):Tooltip()
+			tab:AddItemTooltip(tooltip, item)
+			local text = { }
+			for _, line in ipairs(tooltip.lines) do
+				table.insert(text, line.text or "")
+			end
+			text = table.concat(text, "\n")
+			assert.is_truthy(text:find("Melee Weapon Damage Penetrates " .. roll[3] .. "%% Elemental Resistances"))
+			assert.is_truthy(text:find("167%% increased Elemental Damage with Melee Weapons"))
+			assert.is_truthy(text:find("35%% increased effect"))
+			assert.are.equals(raw, item:BuildRaw())
+			assert.is_truthy(raw:find("Melee Weapon Damage Penetrates " .. roll[2] .. "%% Elemental Resistances"))
+		end
+		tab:AddDisplayItem()
+		tab.slots["Flask 1"].active = true
+		runCallback("OnFrame")
+		assert.are.equals(31, build.calcsTab.mainEnv.player.modDB.mods.ElementalPenetration[1].value)
+		build.configTab.input.customMods = "Tinctures applied to you have 20% increased effect"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+		assert.are.equals(36, build.calcsTab.mainEnv.player.modDB.mods.ElementalPenetration[1].value)
+		local reloaded = new("Item"):Item(item:BuildRaw())
+		assert.are.equals(1.67, reloaded:GetTinctureEffect())
+		assert.are.equals(1.24, new("Item"):Item("Rarity: Magic\nPrismatic Tincture\nQuality: 24"):GetTinctureEffect())
+		assert.are.equals(1.35, new("Item"):Item("Rarity: Magic\nPrismatic Tincture\nQuality: 0\n35% increased effect"):GetTinctureEffect())
+		assert.are.equals(1.92, reloaded:GetTinctureEffect(20))
+		local penLine = reloaded.explicitModLines[3]
+		assert.is_truthy(itemLib.formatModLine(penLine):find("19%% Elemental Resistances"))
+		assert.is_truthy(itemLib.formatModLine(penLine, false, reloaded:GetTinctureEffect()):find("31%% Elemental Resistances"))
+		penLine.unscalable = true
+		assert.is_truthy(itemLib.formatModLine(penLine, false, reloaded:GetTinctureEffect()):find("19%% Elemental Resistances"))
+	end)
+
 	it("shows versioned reusable variant groups", function()
 		build.itemsTab:CreateDisplayItemFromRaw([[
 			Rarity: Unique

@@ -2046,6 +2046,13 @@ function ItemClass:BuildRaw()
 	return table.concat(rawLines, "\n")
 end
 
+-- The item preview uses local bonuses only; calculations also pass in character bonuses.
+---@param effectInc number? Character tincture effect, in percent
+---@return number
+function ItemClass:GetTinctureEffect(effectInc)
+	return m_floor((1 + (self.tinctureData.effectInc + (effectInc or 0)) / 100) * (1 + (self.quality or 0) / 100) * 100) / 100
+end
+
 function ItemClass:BuildAndParseRaw()
 	local raw = self:BuildRaw()
 	self:ParseRaw(raw)

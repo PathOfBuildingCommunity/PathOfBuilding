@@ -811,6 +811,7 @@ holding Shift will put it in the second.]])
 			self.displayItem:Craft()
 			self:UpdateDisplayItemTooltip()
 			self:UpdateAffixControls()
+			self:UpdateDisplayItemRangeLines()
 		end)
 		drop.y = function()
 			return i == 1 and 0 or 24 + (prev.slider:IsShown() and 18 or 0)
@@ -939,6 +940,7 @@ holding Shift will put it in the second.]])
 			affix.range = verifyRange(range, index, drop)
 			self.displayItem:Craft()
 			self:UpdateDisplayItemTooltip()
+			self:UpdateDisplayItemRangeLines()
 		end)
 		slider.width = function()
 			return slider.divCount and 300 or 100
@@ -2478,8 +2480,8 @@ end
 
 -- Updates the range line dropdown and range slider for the current display item
 function ItemsTabClass:UpdateDisplayItemRangeLines()
+	wipeTable(self.controls.displayItemRangeLine.list)
 	if self.displayItem and self.displayItem.rangeLineList[1] then
-		wipeTable(self.controls.displayItemRangeLine.list)
 		for _, modLine in ipairs(self.displayItem.rangeLineList) do
 			if (modLine.modId and modLine.newModId) or modLine.range then
 				t_insert(self.controls.displayItemRangeLine.list, { modLine = modLine, label = modLine.line })
@@ -4468,12 +4470,13 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode, maxWidth)
 		item.requirements.str or 0, item.requirements.dex or 0, item.requirements.int or 0)
 
 	-- Modifiers
+	local effectMod = base.tincture and item:GetTinctureEffect()
 	for _, modList in ipairs{item.enchantModLines, item.scourgeModLines, item.implicitModLines, item.explicitModLines, item.crucibleModLines} do
 		if modList[1] then
 			for _, modLine in ipairs(modList) do
 				local variantCount = item:GetModLineVariantCount(modLine)
 				if variantCount > 0 then
-					local formattedModLine = itemLib.formatModLine(modLine, dbMode)
+					local formattedModLine = itemLib.formatModLine(modLine, dbMode, effectMod)
 					if formattedModLine then
 						for _ = 1, variantCount do
 							tooltip:AddLine(fontSizeBig, formattedModLine, "FONTIN SC", modLine)
