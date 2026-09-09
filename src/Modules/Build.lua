@@ -2285,7 +2285,7 @@ function buildMode:SaveDB(fileName)
 	end
 
 	-- Call on all savers to save their data in their respective sections
-	for elem, saver in pairs(self.savers) do
+	for elem, saver in pairsSortByKey(self.savers) do
 		local node = { elem = elem }
 		saver:Save(node)
 		t_insert(dbXML, node)
