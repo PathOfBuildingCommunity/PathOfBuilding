@@ -2046,7 +2046,7 @@ function ItemClass:BuildRaw()
 	return table.concat(rawLines, "\n")
 end
 
--- Local quality/effect also applies to the item preview; character effect is optional.
+-- The item preview uses local bonuses only; calculations also pass in character bonuses.
 ---@param effectInc number? Character tincture effect, in percent
 ---@return number
 function ItemClass:GetTinctureEffect(effectInc)
