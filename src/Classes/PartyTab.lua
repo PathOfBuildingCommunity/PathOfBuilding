@@ -997,7 +997,7 @@ function PartyTabClass:exportBuffs(buffType)
 		return self.buffExports[buffType].string
 	end
 	local buf = ((buffType == "Curse") and ("--- Curse Limit ---\n" .. tostring(self.buffExports["CurseLimit"]))) or ""
-	for buffName, buff in pairs(self.buffExports[buffType]) do
+	for buffName, buff in pairsSortByKey(self.buffExports[buffType]) do
 		if buffName ~= "extraAura" or #buff.modList > 0 then
 			if #buf > 0 then
 				buf = buf.."\n"
@@ -1014,7 +1014,7 @@ function PartyTabClass:exportBuffs(buffType)
 				buf = buf.."\n"..tostring(buff.effectMult * 100)
 			end
 			if buffType == "Aura" and buffName == "otherEffects" then
-				for innerBuffName, innerBuff in pairs(buff) do
+				for innerBuffName, innerBuff in pairsSortByKey(buff) do
 					for _, mod in ipairs(innerBuff.modList) do
 						buf = buf.."\n"..innerBuffName.."|"..tostring(innerBuff.effectMult * 100).."|"..modLib.formatSourceMod(mod)
 					end
