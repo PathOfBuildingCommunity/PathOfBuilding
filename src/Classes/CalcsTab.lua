@@ -201,7 +201,7 @@ function CalcsTabClass:Load(xml, dbFileName)
 end
 
 function CalcsTabClass:Save(xml)
-	for k, v in pairs(self.input) do
+	for k, v in pairsSortByKey(self.input) do
 		local child = { elem = "Input", attrib = {name = k} }
 		if type(v) == "number" then
 			child.attrib.number = tostring(v)
