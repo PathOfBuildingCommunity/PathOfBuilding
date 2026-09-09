@@ -14013,7 +14013,11 @@ skills["PenanceBrandAltY"] = {
 	statDescriptionScope = "brand_skill_stat_descriptions",
 	castTime = 0.75,
 	preDamageFunc = function(activeSkill, output)
-		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100) / activeSkill.skillModList:More(activeSkill.skillCfg, "BrandActivationFrequency")
+		-- Activating only spreads energy; damage is dealt once, when the brand detaches at the end
+		-- of its attached duration, so this brand hits once per cast rather than once per activation
+		activeSkill.skillData.brandActivationTime = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100) / activeSkill.skillModList:More(activeSkill.skillCfg, "BrandActivationFrequency")
+		activeSkill.skillData.hitTimeOverride = output.Duration or 0
+		activeSkill.skillData.hitTimeCappedByCastTime = true
 	end,
 	baseFlags = {
 		spell = true,
