@@ -1019,12 +1019,16 @@ function calcs.initEnv(build, mode, override, specEnv)
 			end
 		end
 
+		env.itemSlotIndex = { }
 		-- Track which flask slot (1-5) each flask is in, for adjacency checks
 		env.flaskSlotMap = { }
 		env.flaskSlotOccupied = { }
 		for _, slot in ipairs(build.itemsTab.orderedSlots) do
 			local slotName = slot.slotName
 			local item = items[slotName]
+			if item then
+				env.itemSlotIndex[item] = tonumber(slotName:match("%d+")) or 0
+			end
 			if item and item.type == "Flask" then
 				env.itemModDB.conditions["Have"..item.baseName:gsub("%s+", "")] = true
 				if slot.active then
