@@ -1099,8 +1099,8 @@ end
 
 function buildMode:ResetModFlags()
 	self.modFlag = false
-	self.notesTab.modFlag = false
-	self.partyTab.modFlag = false
+	self.notesTab:ResetModFlags()
+	self.partyTab:ResetModFlags()
 	self.configTab.modFlag = false
 	self.treeTab.modFlag = false
 	self.treeTab.searchFlag = false

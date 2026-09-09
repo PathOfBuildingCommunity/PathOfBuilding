@@ -651,6 +651,14 @@ function PartyTabClass:Save(xml)
 		t_insert(child, exportString)
 		t_insert(xml, child)
 	end
+	xml.attrib = {
+		destination = self.controls.importCodeDestination.list[self.controls.importCodeDestination.selIndex],
+		append = tostring(self.controls.appendNotReplace.state),
+		ShowAdvanceTools = tostring(self.controls.ShowAdvanceTools.state)
+	}
+end
+
+function PartyTabClass:ResetModFlags()
 	self.lastContent.PartyMemberStats = self.controls.editPartyMemberStats.buf
 	self.lastContent.Aura = self.controls.editAuras.buf
 	self.lastContent.Curse = self.controls.editCurses.buf
@@ -659,12 +667,8 @@ function PartyTabClass:Save(xml)
 	self.lastContent.EnemyCond = self.controls.enemyCond.buf
 	self.lastContent.EnemyMods = self.controls.enemyMods.buf
 	self.lastContent.EnableExportBuffs = self.enableExportBuffs
-	xml.attrib = {
-		destination = self.controls.importCodeDestination.list[self.controls.importCodeDestination.selIndex],
-		append = tostring(self.controls.appendNotReplace.state),
-		ShowAdvanceTools = tostring(self.controls.ShowAdvanceTools.state)
-	}
 	self.lastContent.showAdvancedTools = self.controls.ShowAdvanceTools.state
+	self.modFlag = false
 end
 
 function PartyTabClass:Draw(viewPort, inputEvents)
