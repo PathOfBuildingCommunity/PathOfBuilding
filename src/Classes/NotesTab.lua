@@ -84,7 +84,11 @@ end
 function NotesTabClass:Save(xml)
 	self:SetShowColorCodes(false)
 	t_insert(xml, self.controls.edit.buf)
+end
+
+function NotesTabClass:ResetModFlags()
 	self.lastContent = self.controls.edit.buf
+	self.modFlag = false
 end
 
 function NotesTabClass:Draw(viewPort, inputEvents)
