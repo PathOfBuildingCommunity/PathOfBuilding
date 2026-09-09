@@ -519,7 +519,6 @@ function PassiveTreeClass:PassiveTree(treeVersion)
 	self.masteryEffects = { }
 	local nodeMap = { }
 	for _, n in pairs(self.nodes) do
-		---@class Node
 		local node = n
 		-- Migration...
 		if versionNum < 3.10 then

@@ -4146,6 +4146,7 @@ local function cloneSpecForJewelComparison(spec)
 	specCopy.allocSubgraphNodes = { }
 	specCopy.allocExtendedNodes = { }
 	specCopy.subGraphs = { }
+	specCopy.neighboursForNode = {}
 
 	return specCopy
 end

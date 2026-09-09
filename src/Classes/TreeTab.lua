@@ -1009,7 +1009,7 @@ function TreeTabClass:SaveMasteryPopup(node, listControl)
 		self.build.spec.tree:ProcessStats(node)
 		self.build.spec.masterySelections[node.id] = effect.id
 		if not node.alloc then
-			self.build.spec:AllocNode(node, self.viewer.tracePath and node == self.viewer.tracePath[#self.viewer.tracePath] and self.viewer.tracePath)
+		self.build.spec:AllocNode(node, self.viewer.tracePath and node == self.viewer.tracePath[#self.viewer.tracePath] and self.viewer.tracePath or nil)
 		end
 		self.build.spec:AddUndoState()
 		self.modFlag = true
@@ -1096,11 +1096,13 @@ function TreeTabClass:BuildPowerReportList(currentStat)
 		end
 		return powerStr
 	end
+	---@param node Node
+	---@param isAlloc boolean
 	local function getNodePathDist(node, isAlloc)
 		if isAlloc then
-			return #(node.depends or { }) == 0 and 1 or #node.depends
+			return (node.depends and #node.depends or 0) == 0 and 1 or #node.depends
 		end
-		return node.power.distance or #(node.path or {}) == 0 and 1 or #node.path
+		return node.power.distance or ((node.pathLen or 0) == 0 and 1 or node.pathLen)
 	end
 	local function addReportEntry(node, name, nodePower, pathPower, pathDist, isAlloc, pathPowerStr)
 		t_insert(report, {
