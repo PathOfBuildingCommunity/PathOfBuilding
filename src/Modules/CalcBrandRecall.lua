@@ -128,7 +128,10 @@ function calcs.recalledSkillRate(env, activeSkill)
 					local cached = GlobalCache.cachedData[env.mode][recallUUID]
 					if cached then
 						local recallOutput = cached.Env.player.output
-						local rate = recallOutput.Speed or (recallOutput.Cooldown and 1 / recallOutput.Cooldown or 0)
+						local rate = recallOutput.Speed
+						if not rate or rate <= 0 then
+							rate = recallOutput.Cooldown and recallOutput.Cooldown > 0 and 1 / recallOutput.Cooldown or 0
+						end
 						recallRate = recallRate + rate
 						local recallName = recall.socketGroup.label ~= "" and recall.socketGroup.label or recall.socketGroup.slot or "Brand Recall"
 						table.insert(lines, string.format("+ %.3f ^8(Recall activations/s: %s)", rate, recallName))
