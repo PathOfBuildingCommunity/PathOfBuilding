@@ -21,7 +21,7 @@ Source: Drops from unique{Ahuatotli, the Blind}
 Requires Level 49
 Implicits: 1
 FireResistImplicitRing1
-StrengthUnique__20_
+StrengthUnique__15
 IncreasedEnergyShieldPercentUnique__4
 MaximumLifeUnique__14
 ]],[[
@@ -43,15 +43,15 @@ Implicits: 1
 ItemFoundRarityIncreaseImplicitRing1
 DexterityUniqueRing3
 ItemFoundRarityIncreaseUniqueRing3
-AllResistancesUniqueRing25
+AllResistancesUniqueRing3
 ]],[[
 Astral Projector
 Topaz Ring
 Requires Level 40
 Implicits: 1
 LightningResistImplicitRing1
-IntelligenceUnique__22_
-SpellDamageUniqueRing35
+IntelligenceUnique__19
+SpellDamageUnique__12
 AvoidElementalAilmentsUnique__1_
 NovaSpellsAreaOfEffectUnique__1
 NovaSkillsTargetLocationUnique__1__
@@ -80,7 +80,7 @@ ColdAndLightningResistImplicitRing1
 {variant:2,3}AddedLightningDamageUniqueRing19
 IncreasedLifeUniqueRing19
 {variant:1}LifeLeechPermyriadOnFrozenEnemiesUniqueRing19
-{variant:2,3}LifeLeechPermyriadVsShockedEnemiesUniqueRing29
+{variant:2,3}LifeLeechPermyriadOnFrozenEnemiesUniqueRing19
 {variant:1,2}ManaLeechPermyriadOnShockedEnemiesUniqueRing19
 {variant:3}EnergyShieldLeechPermyriadOnFrozenEnemiesUniqueRing19
 ]],[[
@@ -141,7 +141,7 @@ AddedPhysicalDamageImplicitRing1
 {variant:2}AddedChaosDamageUniqueRing1
 {variant:1}IncreasedLifeImplicitRing1
 {variant:1}LifeRegenerationUniqueRing33[120,240]
-{variant:2}LifeRegenerationUniqueRing33
+{variant:2}LifeRegenerationUniqueRing1
 HitsCauseMonsterFleeUniqueRing1
 ]],[[
 Voidheart
@@ -187,7 +187,7 @@ IncreasedLifeImplicitRing1
 AddedFireDamageUniqueRing28
 AddedColdDamageUnique__6
 IncreasedLifeUniqueRing28
-ColdResistUnique__24
+ColdResistUnique__23
 MovementVelocityWhileIgnitedUnique__1
 EffectOfChillIsReversedUnique__1
 ]],[[
@@ -259,7 +259,7 @@ Selected Alt Variant: 2
 Has Alt Variant Two: true
 Selected Alt Variant Two: 3
 Implicits: 0
-AllAttributesUnique__29
+AllAttributesUnique__27
 AllResistancesUnique__33
 HeraldReservationEfficiencyUnique__1
 {variant:1}HeraldBonusThunderReservationEfficiency
@@ -303,11 +303,11 @@ Variant: Max Resistance
 Variant: Fire Resistance
 Implicits: 1
 FireResistImplicitRing1
-{fractured}StrengthUniqueRing8
+{fractured}StrengthUnique__16
 GlobalAddedFireDamageUnique__3_
-FireResistImplicitRing1
+FireResistUnique__21
 {variant:1}HeraldBonusAshReservation[30,40]
-{variant:2}HeraldBonusAshReservation
+{variant:2}HeraldBonusAshReservationEfficiency__
 {variant:3}HeraldBonusAshFireDamage
 {variant:4}HeraldBonusAshEffect[70,100]
 {variant:5}HeraldBonusAshEffect
@@ -329,11 +329,11 @@ Variant: Max Resistance
 Variant: Cold Resistance
 Implicits: 1
 ColdResistImplicitRing1
-{fractured}DexterityUnique__12
+{fractured}DexterityUnique__14
 GlobalAddedColdDamageUnique__3
-ColdResistImplicitRing1
+ColdResistUnique__28
 {variant:1}HeraldBonusIceReservation_[30,40]
-{variant:2}HeraldBonusIceReservation_
+{variant:2}HeraldBonusIceReservationEfficiency__
 {variant:3}HeraldBonusIceColdDamage
 {variant:4}HeraldBonusIceEffect_[70,100]
 {variant:5}HeraldBonusIceEffect_
@@ -355,11 +355,11 @@ Variant: Sentinel Damage
 Variant: Damage Reduction
 Implicits: 1
 AddedPhysicalDamageImplicitRing1
-{fractured}AllAttributesUnique__27
+{fractured}AllAttributesUnique__17_
 GlobalAddedPhysicalDamageUnique__2
 IncreasedPhysicalDamageReductionRatingUnique__4
 {variant:1}HeraldBonusPurityReservation_[30,40]
-{variant:2}HeraldBonusPurityReservation_
+{variant:2}HeraldBonusPurityReservationEfficiency_
 {variant:3}HeraldBonusPurityPhysicalDamage
 {variant:4}HeraldBonusPurityEffect[70,100]
 {variant:5}HeraldBonusPurityEffect
@@ -381,11 +381,11 @@ Variant: Agony Damage
 Variant: Chaos Resistance
 Implicits: 1
 ChaosResistImplicitRing1
-{fractured}AllAttributesUnique__25
+{fractured}AllAttributesUnique__17_
 GlobalAddedChaosDamageUnique__5_
-ChaosResistImplicitRing1
+ChaosResistUnique__13
 {variant:1}HeraldBonusAgonyReservation[30,40]
-{variant:2}HeraldBonusAgonyReservation
+{variant:2}HeraldBonusAgonyReservationEfficiency
 {variant:3}HeraldBonusAgonyChaosDamage_
 {variant:4}HeraldBonusAgonyEffect[70,100]
 {variant:5}HeraldBonusAgonyEffect
@@ -409,9 +409,9 @@ Implicits: 1
 LightningResistImplicitRing1
 {fractured}IntelligenceUnique__14
 GlobalAddedLightningDamageUnique__3
-LightningResistImplicitRing1
+LightningResistUnique__21
 {variant:1}HeraldBonusThunderReservation[30,40]
-{variant:2}HeraldBonusThunderReservation
+{variant:2}HeraldBonusThunderReservationEfficiency
 {variant:3}HeraldBonusThunderLightningDamage
 {variant:4}HeraldBonusThunderEffect[70,100]
 {variant:5}HeraldBonusThunderEffect
@@ -482,7 +482,7 @@ Implicits: 1
 ColdResistImplicitRing1
 MaximumManaUniqueRing5
 ManaRegenerationUniqueRing5
-{variant:2}ColdResistUnique__17
+{variant:2}ColdResistUnique__16
 {variant:1}CannotBeFrozen
 {variant:2}CannotBeFrozenOrChilledUnique__1
 ]],[[
@@ -534,7 +534,7 @@ Implicits: 1
 RingHasOneSocket
 LocalIncreaseSocketedAuraGemLevelUnique___1
 SocketedAurasReserveNoManaUnique__1
-IncreasedManaReservationsCostUnique__1
+ReservationEfficiencyUnique__1_
 ]],[[
 Fated End
 Paua Ring
@@ -584,10 +584,10 @@ Source: Created from 4 different unique{Grattus} family corpses in the normal{Ne
 Requires Level 64
 Implicits: 1
 CriticalStrikeChanceImplicitRing1
-IncreasedAttackSpeedUniqueRing37
-IncreasedCastSpeedUnique__15_
-IncreasedEnergyShieldUnique__13
-IncreasedLifeUnique__15
+IncreasedAttackSpeedUnique__6
+IncreasedCastSpeedUnique__26
+IncreasedEnergyShieldUnique__12
+IncreasedLifeUnique__123
 AttackCriticalStrikesUnnerveUnique__1
 SpellCriticalStrikesIntimidateUnique__1
 ]],[[
@@ -607,7 +607,7 @@ Moonstone Ring
 Requires Level 20
 Implicits: 1
 IncreasedEnergyShieldImplicitRing1
-LifeRegenerationUniqueRing1
+LifeRegenerationUniqueRing33
 ManaRegenerationUniqueRing33
 MinionLifeUniqueRing33
 MinonAreaOfEffectUniqueRing33
@@ -638,8 +638,8 @@ Moonstone Ring
 LevelReq: 49
 Implicits: 1
 IncreasedEnergyShieldImplicitRing1
-IntelligenceUnique__16
-IncreasedCastSpeedUniqueRing27
+IntelligenceUnique__30
+IncreasedCastSpeedUnique__23
 PowerChargeOnCurseUnique__1
 CurseLimitMaximumPowerChargesUnique__1
 ]],[[
@@ -654,7 +654,7 @@ ItemFoundRarityIncreaseImplicitRing1
 ItemFoundRarityIncreaseUnique__5
 {variant:2}LifeLeechAnyDamageUnique__1
 {variant:1}MovementVelocityUnique__4
-{variant:2}MovementVelocityUnique__33_
+{variant:2}MovementVelocityUnique__44
 {variant:1}StealChargesOnHitPercentUniqueGlovesStrDex6[25,25]
 {variant:1}DamageLeechWith5ChargesUnique__1
 {variant:2}StealChargesOnHitPercentUnique__1
@@ -686,7 +686,7 @@ Requires Level: 49
 League: Blight
 Implicits: 1
 AddedPhysicalDamageImplicitRing1
-DexterityUnique__1
+DexterityUnique__17
 ChanceToPoisonUnique__1_______
 PoisonDamageUnique__1
 ChilledWhilePoisonedUnique__1
@@ -745,7 +745,7 @@ Source: Drops from unique{The Eater of Worlds} (Uber)
 LevelReq: 48
 Implicits: 1
 LightningResistImplicitRing1
-DexterityUnique__3
+DexterityUnique__25
 IncreasedProjectileDamageUnique___11
 ReturningProjectilesUnique__1
 RandomProjectileDirectionUnique__1
@@ -789,7 +789,7 @@ Requires Level 5
 Implicits: 1
 RingHasOneSocket
 {variant:1}AllResistancesUniqueRing3[-25,-25]
-{variant:2}AllResistancesUniqueRing3
+{variant:2}AllResistancesUniqueRing25
 FireResistanceWhenSocketedWithRedGemUniqueRing25
 ColdResistanceWhenSocketedWithGreenGemUniqueRing25
 LightningResistanceWhenSocketedWithBlueGemUniqueRing25
@@ -825,8 +825,8 @@ Requires Level 80
 Implicits: 1
 AddedPhysicalDamageImplicitRing2
 AddedColdDamageUnique__5
-IncreasedEnergyShieldPercentUnique__5
-MaximumLifeUnique__16
+IncreasedEnergyShieldPercentUnique__3
+MaximumLifeUnique__11
 AttackDamageShaperItemUnique__1
 CannotBeStunnedByAttacksElderItemUnique__1
 TentacleSmashOnKillUnique__1_
@@ -975,8 +975,8 @@ Requires Level 80
 Implicits: 1
 ElementalDamagePercentImplicitAtlasRing_
 CriticalStrikeChanceUnique__5__
-FireResistUnique__9
-ColdResistUnique__15
+FireResistUnique__29
+ColdResistUnique__36_
 IncreasedAilmentDurationUnique__3_
 LeftRingCoveredInAshUnique__1_
 RightRingCoveredInFrostUnique__1
@@ -1001,8 +1001,8 @@ LevelReq: 52
 Implicits: 1
 RingHasOneSocket
 IncreaseSocketedCurseGemLevelUnique__2
-ColdResistImplicitRing1
-LightningResistImplicitRing1
+ColdResistUnique__32
+LightningResistUnique__22
 SupportSkitterBotAilmentAuraReplaceWithCurse____1
 ]],[[
 Putembo's Meadow
@@ -1076,7 +1076,7 @@ RingHasOneSocket
 {variant:1}LocalIncreaseSocketedGolemLevelUniqueRing36[2,2]
 {variant:2}LocalIncreaseSocketedGolemLevelUniqueRing36
 StrengthUniqueRing36
-{variant:2}IncreasedLifeUniqueRing19
+{variant:2}IncreasedLifeUnique__48
 {variant:1}AddedFireDamageUniqueRing36
 FireDamagePercentUniqueRing36
 {variant:1}DisplaySocketedGemsSupportedByLesserMultipleProjectilesUniqueRing36
@@ -1093,10 +1093,10 @@ Source: Drops from unique{Rigwald, the Wolven King} (Level 60+)
 Requires Level 49
 Implicits: 1
 FireAndColdResistImplicitRing1
-SummonWolfOnKillUnique__1
+SummonWolfOnKillUnique__1New
 {variant:1}FireDamagePercentUniqueRing36
 {variant:1}ColdDamagePercentUnique___11
-ManaRegenerationUnique__4
+ManaRegenerationUnique__2
 ]],[[
 Romira's Banquet
 Diamond Ring
@@ -1124,11 +1124,11 @@ Variant: Current
 Requires Level 56
 Implicits: 1
 RingHasOneSocket
-SupportedByBlasphemyUnique
+SocketedGemsSupportedByBlasphemyUnique__2__
 CurseAurasAffectYouUnique__1
 {variant:1}ReducedReservationForSocketedCurseGemsUnique__2[-50,-50]
 {variant:2}ReducedReservationForSocketedCurseGemsUnique__2
-IntelligenceUnique__12
+IntelligenceUnique__27
 ReducedCurseEffectUnique__1
 HitAndAilmentDamageCursedEnemiesUnique__1
 ]],[[
@@ -1199,7 +1199,7 @@ Implicits: 1
 ColdResistImplicitRing1
 {variant:1}ColdDamagePercentUnique__9
 {variant:2}SpellDamageUnique__11
-IncreasedCastSpeedUnique__15_
+IncreasedCastSpeedUnique__6
 {variant:1}AdditionalSpellProjectilesUnique__1
 {variant:2}LeftRingSpellProjectilesCannotChainUnique__1
 {variant:2}LeftRingSpellProjectilesForkUnique__1_
@@ -1212,7 +1212,7 @@ Paua Ring
 LevelReq: 44
 Implicits: 1
 IncreasedManaImplicitRing1
-AllAttributesUnique__17_
+AllAttributesUnique__24
 LinkSkillCastSpeedUnique__1
 LinkSkillEffectDurationUnique__1
 LinkTargetCannotDieUnique__1
@@ -1227,7 +1227,7 @@ Requires Level 80
 Implicits: 1
 ElementalDamagePercentImplicitAtlasRing_
 ManaRegenerationUnique__8
-FireAndLightningResistUnique__2
+FireAndLightningResistUnique__1
 {variant:1}BurningDamagePerEnemyShockedRecentlyUnique__1_[4,6][120,120]
 {variant:2,3}BurningDamagePerEnemyShockedRecentlyUnique__1_
 {variant:1,2}AddedLightningDamageAgainstIgnitedEnemiesUnique__1[1,3][62,70]
@@ -1240,7 +1240,7 @@ League: Harvest
 Requires Level 56
 Implicits: 1
 LightningResistImplicitRing1
-Intelligence__1
+IntelligenceUnique__20
 LightningDamagePercentUnique__7
 ChanceToShockUnique__4_
 ActivateHeraldOfThunderOnShockUnique__1
@@ -1297,7 +1297,7 @@ ColdResistImplicitRing1
 AddedColdDamageUnique__10
 IncreasedEvasionRatingUniqueRing30
 ColdDamageCannotFreeze
-ImmuneToChillUnique__2__
+ImmuneToChillUnique__1
 AddedColdDamageAgainstFrozenEnemiesUnique__2
 ]],[[
 Tawhanuku's Timing
@@ -1479,9 +1479,9 @@ Requires Level 38
 Implicits: 1
 IncreasedEnergyShieldImplicitRing1
 {variant:1}IncreasedEnergyShieldUniqueRing18[10,20]
-{variant:2}IncreasedEnergyShieldUniqueRing18
+{variant:2}IncreasedEnergyShieldUnique__5
 {variant:1}FireResistUnique__20_[20,30]
-{variant:2}FireResistUnique__20_
+{variant:2}FireResistUnique__8
 ColdResistUnique__9
 StunDurationBasedOnEnergyShieldUnique__1
 ]],[[
@@ -1491,7 +1491,7 @@ Requires Level: 49
 League: Blight
 Implicits: 1
 AddedPhysicalDamageImplicitRing1
-StrengthUniqueRing8
+StrengthUnique__17
 CausesBleedingUnique__1
 BleedDamageUnique__1_
 ChilledWhileBleedingUnique__1_
@@ -1544,7 +1544,7 @@ RingHasOneSocket
 LocalIncreaseSocketedAuraGemLevelUnique___2___
 {variant:1,2,3,4,5,6,7,8,9,10,11}Socketed Gems have 20% reduced Mana Reservation Efficiency
 {variant:13,14,15,16,17,18,19,20,21}SocketedItemsHaveIncreasedReservationUnique__1
-AllAttributesUnique__16_
+AllAttributesUnique__14
 LifeRegenPerUncorruptedItemUnique__1
 TotalManaCostPerCorruptedItemUnique__1
 {variant:1}FireAndChaosDamageResistanceUnique__1__[8,15]
@@ -1604,7 +1604,7 @@ Ruby Ring
 Requires Level 16
 Implicits: 1
 FireResistImplicitRing1
-StrengthUnique__32
+StrengthUnique__18
 MeleeDamageUnique__1
 AvoidStunUnique__1
 RingAttackSpeedUnique__1
@@ -1618,7 +1618,7 @@ Source: Drops from unique{The Elder} (Uber Uber)
 Requires Level 16
 Implicits: 1
 ColdResistImplicitRing1
-ColdResistImplicitRing1
+ColdResistUnique__37
 AllDamageCanChillUnique__1
 AllDamageTakenCanChillUnique__1
 ChillHitsCauseShatteringUnique__1
@@ -1638,8 +1638,8 @@ Implicits: 1
 AddedPhysicalDamageImplicitRing2
 DexterityUnique__33
 AllResistancesUnique_1
-ChaosResistUnique__18_
-MovementVelocityUnique__3
+ChaosResistUnique__32
+MovementVelocityUnique__58
 AdditionalPoisonChanceUnique__1
 ]],[[
 Coiling Whisper
@@ -1658,7 +1658,7 @@ Source: Drops from unique{Incarnation of Fear} in normal{Moment of Trauma}
 Requires Level 80
 Implicits: 1
 MaximumLifeImplicitAtlasRing
-StrengthUnique__27
+StrengthUnique__32
 FireDamagePercentUnique__13
 ReducedFireResistanceUnique__2
 FireDamageOnSkillUseUnique__1
@@ -1671,7 +1671,7 @@ Implicits: 1
 AddedPhysicalDamageImplicitRing1
 BlockPercentUnique__3
 StrengthUnique__31
-IncreasedLifeUnique__14
+MaximumLifeUnique__24
 ArmourFromShieldDoubledUnique__1
 GainNoArmourFromBodyArmourUnique__1
 ]],[[
@@ -1693,7 +1693,7 @@ Requires Level 42
 Implicits: 1
 FormlessBreachRingImplicit
 HeraldOfTheBreachUnique_1
-AllResistancesUnique__33
+AllResistancesUnique__37
 ChaosResistUnique__36
 ]],
 [[
@@ -1706,8 +1706,8 @@ ChayulaBreachRingImplicit
 AllAttributesUnique__31
 GlobalAddedChaosDamageUnique__7
 ChaosResistUnique__35
-AuraIncreasedIncreasedAreaOfEffectUnique_3
-ReservationEfficiencyUnique__6
+AuraIncreasedIncreasedAreaOfEffectUnique_6
+ReservationEfficiencyUnique__10
 ChaosDamageModsApplyToChaosAuraEffectAtPercentUnique_1
 ]],
 [[
@@ -1735,11 +1735,11 @@ Source: Drops from unique{It That Was Esh} and unique{It That Was Tul} in normal
 Requires Level 42
 Implicits: 1
 EshBreachRingImplicit
-IntelligenceUniqueRing34
+IntelligenceUnique__37
 GlobalAddedLightningDamageUnique__5
-LightningResistImplicitRing1
-AuraIncreasedIncreasedAreaOfEffectUnique_2
-ReservationEfficiencyUnique__10
+LightningResistUnique__33
+AuraIncreasedIncreasedAreaOfEffectUnique_4
+ReservationEfficiencyUnique__8
 LightningDamageModsApplyToLightningAuraEffectAtPercentUnique_1
 ]],
 [[
@@ -1751,9 +1751,9 @@ Implicits: 1
 TulBreachRingImplicit
 DexterityUnique__34
 GlobalAddedColdDamageUnique__5
-ColdResistImplicitRing1
+ColdResistUnique__43
 AuraIncreasedIncreasedAreaOfEffectUnique_2
-ReservationEfficiencyUnique__10
+ReservationEfficiencyUnique__6
 ColdDamageModsApplyToColdAuraEffectAtPercentUnique_1
 ]],
 [[
@@ -1763,11 +1763,11 @@ Source: Drops from unique{It That Was Esh} and unique{It That Was Tul} in normal
 Requires Level 42
 Implicits: 1
 UulNetolBreachRingImplicit
-StrengthUniqueRing31__
+StrengthUnique__34
 GlobalAddedPhysicalDamageUnique__3
 GlobalPhysicalDamageReductionRatingPercentUnique__2
-AuraIncreasedIncreasedAreaOfEffectUnique_2
-ReservationEfficiencyUnique__10
+AuraIncreasedIncreasedAreaOfEffectUnique_5
+ReservationEfficiencyUnique__9
 PhysicalDamageModsApplyToPhysicalAuraEffectAtPercentUnique_1
 ]],
 [[
@@ -1777,11 +1777,11 @@ Source: Drops from unique{It That Was Esh} and unique{It That Was Tul} in normal
 Requires Level 42
 Implicits: 1
 XophBreachRingImplicit
-StrengthUniqueRing31__
+StrengthUnique__33
 GlobalAddedFireDamageUnique__6
-FireResistImplicitRing1
-AuraIncreasedIncreasedAreaOfEffectUnique_2
-ReservationEfficiencyUnique__10
+FireResistUnique__37
+AuraIncreasedIncreasedAreaOfEffectUnique_3
+ReservationEfficiencyUnique__7
 FireDamageModsApplyToFireAuraEffectAtPercentUnique_1
 ]],
 [[

@@ -57,14 +57,14 @@ Requires Level 62, 212 Dex
 Implicits: 2
 {variant:6,7}CriticalMultiplierImplicitBow1
 {variant:2,3}WeaponElementalDamageImplicitBow3[6,12]
-DexterityUniqueBow4
+DexterityUniqueBow6
 {variant:1,2}LocalIncreasedPhysicalDamagePercentUniqueBow6[75,100]
 {variant:3,4}LocalIncreasedPhysicalDamagePercentUniqueBow6[150,180]
 {variant:5,6}LocalIncreasedPhysicalDamagePercentUniqueBow6[200,260]
 {variant:7}LocalIncreasedPhysicalDamagePercentUniqueBow6
 LocalAddedFireDamageUniqueBow6
 {variant:1,2}IncreasedAttackSpeedUniqueGlovesDex2
-{variant:3,4,5,6,7}LocalIncreasedAttackSpeedUniqueBow11
+{variant:3,4,5,6,7}LocalIncreasedAttackSpeedUniqueBow6
 {variant:1,2,3,4}PhysicalBowDamageCloseRangeUniqueBow6[100,100]
 {variant:5,6,7}PhysicalBowDamageCloseRangeUniqueBow6
 KnockbackCloseRangeUniqueBow6
@@ -130,7 +130,7 @@ Implicits: 1
 {variant:2,3,4,5,6,7}LocalCriticalStrikeChanceImplicitBow1
 {variant:1,2,3,4,5}LocalIncreasedPhysicalDamagePercentUniqueBow3[100,125]
 {variant:6,7}LocalIncreasedPhysicalDamagePercentUniqueBow3
-LocalIncreasedAttackSpeedUniqueBow2
+LocalIncreasedAttackSpeedUniqueBow3
 {variant:1,2,4}LocalCriticalMultiplierUniqueBow3[100,100]
 {variant:3}LocalCriticalMultiplierUniqueBow3[150,150]
 {variant:5,6,7}LocalCriticalMultiplierUniqueBow3
@@ -171,12 +171,12 @@ Implicits: 2
 {variant:3,4,5}WeaponElementalDamageImplicitBow1
 {variant:2,3}LocalAddedPhysicalDamageUniqueBow11[8,12][16,20]
 {variant:4,5}LocalAddedPhysicalDamageUniqueBow11
-LocalIncreasedAttackSpeedUniqueBow6
+LocalIncreasedAttackSpeedUniqueBow11
 {variant:1,2,3}CriticalStrikeChanceUniqueBow9
 ManaRegenerationUniqueBow11
 {variant:1,2,3}WeaponPhysicalDamageAddedAsRandomElementUniqueBow11[110,110]
 {variant:4}WeaponPhysicalDamageAddedAsRandomElementUniqueBow11
-{variant:5}LocalPhysicalDamageAddedAsEachElementTransformed2
+{variant:5}LocalPhysicalDamageAddedAsEachElementUnique__1
 ]],[[
 Doomfletch's Prism
 Royal Bow
@@ -214,7 +214,7 @@ The Gluttonous Tide
 Citadel Bow
 Source: Drops from unique{The Eater of Worlds}
 Requires Level 58, 185 Dex
-LocalIncreasedPhysicalDamagePercentUnique13
+LocalIncreasedPhysicalDamagePercentUnique__44
 LocalIncreasedAttackSpeedUnique__37___
 BowAttacksFrenzyChargesArrowsUnique__1
 CriticalStrikeMultiplierFrenzyChargesUnique__1
@@ -272,9 +272,9 @@ DexterityUniqueBow7
 {variant:1}LocalIncreasedPhysicalDamagePercentUniqueBow7[110,125]
 {variant:2}LocalIncreasedPhysicalDamagePercentUniqueBow7
 LocalAddedPhysicalDamageUniqueBow7
-MovementVelocityMarakethBowImplicit2
+MovementVelocityUniqueBow7
 IncreasedAccuracyUniqueBow7
-CannotLeechMana
+CannotLeechManaUnique__1_
 AttackProjectilesForkUnique__1
 AttackProjectilesForkExtraTimesUnique__1
 ]],[[
@@ -325,7 +325,7 @@ Implicits: 3
 {variant:6,7}LocalAddedPhysicalDamageUniqueBow1
 {variant:1,2,3,4,5,6}LocalIncreasedAttackSpeedUniqueBow1
 IncreasedManaUniqueBow1
-AlwaysHitsUnique__1
+AlwaysHits
 {variant:7}AttacksYouUseYourselfRepeatCountUnique__1
 {variant:7}AttacksYouUseYourselfAttackSpeedFinalUnique__1
 {variant:4,5,6,7}PlayerFarShotUnique__1
@@ -353,10 +353,10 @@ Variant: Current
 Requires Level 68, 212 Dex
 Implicits: 1
 LocalCriticalStrikeChanceImplicitBow1
-LocalReducedPhysicalDamagePercentUniqueBow8
+LocalReducedPhysicalDamagePercentUnique__1
 {variant:1,2}LocalAddedColdDamageUnique__4[120,140][180,210]
 {variant:3}LocalAddedColdDamageUnique__4
-LocalIncreasedAttackSpeedUniqueBow10
+LocalIncreasedAttackSpeedUnique__13
 LightRadiusUnique__2
 SpreadChilledGroundOnFreezeUnique__1
 SpreadConsecratedGroundOnShatterUnique__1
@@ -370,8 +370,8 @@ Variant: Pre 2.6.0
 Variant: Pre 3.9.0
 Variant: Current
 Requires Level 5, 26 Dex
-DexterityUniqueBow6
-{variant:2,3}LocalIncreasedPhysicalDamagePercentUniqueDescentBow1
+DexterityUniqueBow4
+{variant:2,3}LocalIncreasedPhysicalDamagePercentUnique__26
 LocalIncreasedAttackSpeedUniqueBow4
 {variant:2,3}ManaGainPerTargetUnique__2
 ProjectileSpeedUniqueBow4_
@@ -387,7 +387,7 @@ Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 5, 26 Dex
 SupportedByArrowNovaUnique__1
 DexterityUniqueBow4
-LocalIncreasedPhysicalDamagePercentUniqueDescentBow1
+LocalIncreasedPhysicalDamagePercentUnique__26
 LocalIncreasedAttackSpeedUnique__35
 ManaGainPerTargetUnique__2
 ProjectileSpeedUniqueBow4_
@@ -408,8 +408,8 @@ Variant: Current
 {variant:1}LocalAddedPhysicalDamageUnique__16_[25,40][100,115]
 {variant:2,3,4,5}LocalAddedPhysicalDamageUnique__16_[15,30][70,95]
 {variant:6}LocalAddedPhysicalDamageUnique__16_
-LocalIncreasedAttackSpeedUnique__9
-ProjectileSpeedUnique__3
+LocalIncreasedAttackSpeedUnique__16
+ProjectileSpeedUnique__4
 {variant:5,6}VolleyFirstPointPierceUnique__1_
 {variant:5,6}VolleySecondPointForkUnique__1
 {variant:5,6}VolleyThirdPointReturnUnique__1__
@@ -425,7 +425,7 @@ Variant: Current
 Requires Level 18, 71 Dex
 Implicits: 1
 {variant:2,3}CriticalMultiplierImplicitBow1
-LocalIncreasedPhysicalDamagePercentUniqueBow5
+LocalIncreasedPhyiscalDamagePercentUnique__3
 {variant:1,2}LocalIncreasedAttackSpeedUnique__1
 {variant:1,2}AdditionalChainUnique__1[1,1]
 {variant:3}AdditionalChainUnique__1
@@ -508,7 +508,7 @@ Variant: Current
 {variant:3,4}LocalAddedLightningDamageUniqueBow10
 LocalIncreasedAttackSpeedUniqueBow10
 {variant:1,2}ConvertLightningDamageToChaosUniqueBow10[60,60]
-{variant:3,4}ConvertLightningDamageToChaosUniqueBow10
+{variant:3,4}ConvertLightningDamageToChaosUniqueBow10Updated
 {variant:1,2}ChanceToShockUniqueBow10
 ChaosDamageCanShockUniqueBow10
 {variant:2,3}AttacksShockAsIfDealingMoreDamageUniqueBow10
@@ -552,9 +552,9 @@ Implicits: 1
 WeaponElementalDamageImplicitBow1
 AddedColdDamageUniqueBow9
 AddedLightningDamageUniqueBow9
-LocalIncreasedAttackSpeedUniqueBow10
-LocalCriticalStrikeChanceUniqueBow11
-FrozenMonstersTakeIncreasedDamage
+LocalIncreasedAttackSpeedUniqueBow9
+CriticalStrikeChanceUniqueBow9
+FrozenMonstersTakeIncreasedDamageUnique__1
 GainEnergyShieldOnKillShockedEnemyUnique__1_
 ]],[[
 Xoph's Inception
@@ -588,7 +588,7 @@ Requires Level 64, 185 Dex
 {variant:1,2,3}LocalIncreasedPhysicalDamagePercentUnique__38[250,300]
 {variant:4}LocalIncreasedPhysicalDamagePercentUnique__38
 ConvertPhysicalToFireUnique__1
-ChanceToIgniteUnique__2
+ChanceToIgniteUnique__3
 {variant:1}GlobalIgniteProlifUnique__1[12,12]
 {variant:2}GlobalIgniteProlifUnique__1
 GainLifeOnIgnitingEnemyUnique__1
@@ -603,8 +603,8 @@ WeaponElementalDamageImplicitBow1
 MainHandTriggerSocketedSpellOnFreezingHitUnique_1
 LocalAddedColdDamageUnique__11
 LocalAddedChaosDamageUnique__4
-LocalIncreasedAttackSpeedUnique__30
+LocalIncreasedAttackSpeedUnique__44
 ChaosDamageCanFreezeUnique_1
-BattlemageKeystoneUnique__1
+BattlemageKeystoneUnique__6
 ]],
 }

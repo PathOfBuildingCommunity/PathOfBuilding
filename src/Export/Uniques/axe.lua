@@ -24,7 +24,7 @@ LocalAddedFireDamageUniqueOneHandAxe7
 LocalIncreasedAttackSpeedUniqueOneHandAxe7
 FireResistUniqueOneHandAxe7_
 MovementVelocityUniqueOneHandAxe7
-FlammabilityOnHitUniqueOneHandAxe7
+FlammabilityOnHitUnique__1
 ]],[[
 Dreadsurge
 Cleaver
@@ -94,7 +94,7 @@ LocalAddedPhysicalDamageUniqueOneHandAxe5
 {variant:1}LocalIncreasedAttackSpeedUniqueOneHandAxe2
 {variant:1}LifeLeechPermyriadUniqueOneHandAxe6
 {variant:1}50% reduced total Recovery per second from Life Leech
-CausesBleedingUniqueOneHandAxe5
+CausesBleedingUniqueOneHandAxe5Updated_
 {variant:2}LocalBleedDamageOverTimeMultiplierUnique__1
 ]],[[
 Moonbender's Wing
@@ -121,7 +121,7 @@ LocalIncreasedPhysicalDamagePercentUniqueOneHandAxe6
 LocalAddedPhysicalDamageUniqueOneHandAxe6
 {variant:1}LifeLeechPermyriadUniqueOneHandAxe6[60,60]
 {variant:2}LifeLeechPermyriadUniqueOneHandAxe6
-CullingStrikeUnique__1
+CullingStrike
 GainOnslaughtWhenCullingEnemyUniqueOneHandAxe6
 CannotBeChilledWhenOnslaughtUniqueOneHandAxe6
 ]],[[
@@ -135,7 +135,7 @@ Variant: Current
 Implicits: 0
 LocalAddedPhysicalDamageUnique__7
 DualWieldingPhysicalDamageUnique__1
-LocalIncreasedAttackSpeedUniqueOneHandAxe2
+LocalIncreasedAttackSpeedUnique__7
 {variant:1}SwordPhysicalAttackSpeedUnique__1
 {variant:1}CausesBleedingUniqueOneHandAxe5
 {variant:2}MaxRagePerEquippedSwordUnique__1____[25,25]
@@ -158,7 +158,7 @@ Implicits: 0
 {variant:4,5}LocalIncreasedAttackSpeedUniqueOneHandAxe1
 ColdResistUniqueOneHandAxe1_
 MeleeAttacksUsableWithoutManaUniqueOneHandAxe1
-PhysicalDamageCanChillUniqueDescentOneHandAxe1
+PhysicalDamageCanChillUniqueOneHandAxe1
 {variant:5}GainSoulEaterStackOnRareOrUniqueKillWithWeaponUnique__1
 ]],[[
 Replica Soul Taker
@@ -178,7 +178,7 @@ Abyssal Axe
 Source: Drops from unique{Incarnation of Fear} in normal{Moment of Trauma}
 Requires Level 55, 128 Str, 60 Dex
 StarfellOnMeleeCriticalHitUnique__1
-AllAttributesUnique__17_
+AllAttributesUnique__29
 LocalIncreasedPhysicalDamagePercentUniqueTwoHandAxe10
 LocalCriticalStrikeChanceUniqueTwoHandAxe_1
 AreaOfEffectUnique_9
@@ -215,7 +215,7 @@ Implicits: 1
 {variant:2}LocalAddedPhysicalDamageUniqueTwoHandAxe7[205,220][250,270]
 {variant:3}LocalAddedPhysicalDamageUniqueTwoHandAxe7
 LocalIncreasedAttackSpeedUniqueTwoHandAxe7
-CausesBleedingUniqueOneHandAxe5Updated_
+CausesBleedingUniqueTwoHandAxe7Updated
 {variant:1,2}LocalIncreasedMeleeWeaponRangeUniqueTwoHandAxe7_[2,2]
 {variant:3}LocalIncreasedMeleeWeaponRangeUniqueTwoHandAxe7_
 ]],[[
@@ -232,7 +232,7 @@ IncreasedLifeUniqueTwoHandAxe4
 {variant:3}LifeRegenerationUniqueTwoHandAxe4
 LifeLeechPermyriadUniqueTwoHandAxe4
 ManaCostIncreaseUniqueTwoHandAxe4
-CausesBleedingUniqueTwoHandAxe4
+CausesBleedingUniqueTwoHandAxe4Updated
 ]],[[
 Debeon's Dirge
 Despot Axe
@@ -268,9 +268,9 @@ Variant: Current
 Implicits: 1
 {variant:2}LocalMaimOnHit2HImplicit_1
 {variant:1}LocalIncreasedPhysicalDamagePercentUniqueTwoHandAxe2[150,170]
-{variant:2}LocalIncreasedPhysicalDamagePercentUniqueTwoHandAxe2
+{variant:2}LocalIncreasedPhysicalDamagePercentUnique__2
 LocalAddedPhysicalDamage__1
-LifeLeechPermyriadUniqueTwoHandAxe4
+LifeLeechPermyriad__1
 {variant:2}AttackSpeedAfterSavageHitTakenUnique__1
 AttacksHaveBloodMagic__1
 ]],[[
@@ -289,8 +289,8 @@ Implicits: 0
 {variant:1,2}LocalAddedFireDamageUniqueTwoHandAxe1
 LifeGainedFromEnemyDeathUniqueTwoHandAxe1
 IncreasedAccuracyUniqueTwoHandAxe1
-CullingStrikeUnique__1
-{variant:5}RageOnMeleeHitE3
+CullingStrike
+{variant:5}RageOnMeleeHitUnique__1
 {variant:3,4}RageOnAttackCritUnique__1
 {variant:3,4,5}PhysicalAddedAsFirePerRageUnique__1
 ]],[[
@@ -310,11 +310,11 @@ Implicits: 0
 {variant:5}LocalIncreasedPhysicalDamagePercentUniqueTwoHandAxe9[190,240]
 {variant:6}LocalIncreasedPhysicalDamagePercentUniqueTwoHandAxe9
 LocalIncreasedAttackSpeedUniqueTwoHandAxe9
-{variant:2,3,4,5,6}CriticalStrikeChanceUniqueBow9
+{variant:2,3,4,5,6}LocalCriticalStrikeChanceUnique__9
 {variant:1}IncreasedManaUniqueTwoHandAxe9
 DisplayNearbyAlliesHaveIncreasedItemRarityUniqueTwoHandAxe9
 DisplayNearbyAlliesHaveCullingStrikeUniqueTwoHandAxe9
-{variant:2,3,4,5,6}MeleeAttacksUsableWithoutManaUniqueOneHandAxe1
+{variant:2,3,4,5,6}MeleeAttacksUsableWithoutManaUnique__1
 {variant:3,4,5,6}DisplayNearbyAlliesHaveCriticalStrikeMultiplierTwoHandAxe9
 {variant:3,4}DisplayNearbyAlliesHaveFortifyTwoHandAxe9[1,1]
 {variant:5,6}DisplayNearbyAlliesHaveFortifyTwoHandAxe9
@@ -329,7 +329,7 @@ SupportedByMeleeSplashUnique__1_
 {variant:1}LocalIncreasedPhysicalDamagePercentUnique__23[250,300]
 {variant:2}LocalIncreasedPhysicalDamagePercentUnique__23[265,330]
 {variant:3}LocalIncreasedPhysicalDamagePercentUnique__23
-LifeLeechPermyriadUniqueTwoHandAxe4
+LifeLeechPermyriadUnique__5
 ManaLeechPermyriadUnique__2
 RecoverPercentMaxLifeOnKillUnique__1
 EnemiesDestroyedOnKillUnique__1
@@ -344,7 +344,7 @@ LocalIncreaseSocketedStrengthGemLevelUniqueTwoHandAxe3
 StrengthUniqueTwoHandAxe3
 LocalIncreasedPhysicalDamagePercentUniqueTwoHandAxe3
 LocalAddedPhysicalDamageUniqueTwoHandAxe3
-CullingStrikeUnique__1
+CullingStrike
 ]],[[
 The Cauteriser
 Woodsplitter
@@ -368,8 +368,8 @@ Variant: Current
 Implicits: 0
 MoltenBurstOnMeleeHitUnique__1
 {variant:1}LocalIncreasedPhysicalDamagePercentUnique__17_[190,230]
-{variant:2}LocalIncreasedPhysicalDamagePercentUnique__17_
-LocalIncreasedAttackSpeedUnique__2
+{variant:2}LocalIncreasedPhysicalDamagePercentUnique__9
+LocalIncreasedAttackSpeedUnique__9
 {variant:1}DamageConversionFireUnique__1[50,50]
 {variant:2}DamageConversionFireUnique__1
 PenetrateEnemyFireResistUnique__1
@@ -381,7 +381,7 @@ LocalIncreasedPhysicalDamagePercentUniqueTwoHandAxe2
 ItemFoundRarityIncreaseUniqueTwoHandAxe2
 LifeGainedFromEnemyDeathUniqueTwoHandAxe2
 MovementVelocityOnFullLifeUniqueTwoHandAxe2
-CullingStrikeUnique__1
+CullingStrike
 AlwaysHits
 ]],[[
 Sinvicta's Mettle
@@ -391,10 +391,10 @@ Variant: Current
 Implicits: 0
 {variant:1}LocalIncreasedPhysicalDamagePercentUnique__33[200,212]
 {variant:2}LocalIncreasedPhysicalDamagePercentUnique__33
-IncreasedAttackSpeedUnique__5
+LocalIncreasedAttackSpeedUnique__28
 AreaOfEffectPer25RampageStacksUnique__1_
 FrenzyChargePer50RampageStacksUnique__1
-SimulatedRampageDexInt6
+SimulatedRampageUnique__3_
 ]],[[
 Spinesnatch
 Fleshripper
@@ -440,7 +440,7 @@ GrantsLevel20BoneNovaTriggerUnique__1
 LocalIncreasedPhysicalDamagePercentUnique__24
 LocalReducedAttackSpeedUnique__3
 {variant:1,2}AttacksCauseBleedingOnCursedEnemyHitUnique__1
-{variant:3}CausesBleedingUniqueTwoHandAxe7Updated
+{variant:3}LocalChanceToBleedUnique__1
 ]],[[
 Wideswing
 Poleaxe

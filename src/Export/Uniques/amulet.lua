@@ -35,7 +35,7 @@ Implicits: 1
 StrengthImplicitAmulet1
 TalismanIncreasedCriticalChance
 IncreasedLifeUnique__119
-ChaosResistUniqueAmulet23
+ChaosResistUnique__29
 RecoverLifeAlteratingUnique__1
 ]],[[
 Araku Tiki
@@ -46,8 +46,8 @@ Implicits: 1
 LifeRegenerationImplicitAmulet1
 {variant:1}EvasionOnLowLifeUniqueAmulet4[100,100]
 {variant:2}EvasionOnLowLifeUniqueAmulet4
-IncreasedLifeUniqueAmulet18
-FireResistImplicitAmulet1
+IncreasedLifeUniqueAmulet4
+FireResistUniqueAmulet4
 {variant:1}LifeRegenerationOnLowLifeUniqueAmulet4
 {variant:2}ElusiveOnLowLifeUnique__1
 {variant:2}PhasingOnLowLifeUnique__1
@@ -152,7 +152,7 @@ AllAttributesImplicitAmulet1
 {variant:6,7,8,9}GlobalEvasionRatingPercentUnique__1
 {variant:10,11,12,13,14,15,16}GlobalEnergyShieldPercentUnique__1
 {variant:17}AllAttributesUnique__10_
-IncreasedLifeUnique__114
+IncreasedLifeUnique__89
 {variant:1,2,3,4,5}NearbyEnemiesReducedStunRecoveryUnique__1
 {variant:6,7,8,9}NearbyEnemiesGrantIncreasedFlaskChargesUnique__1
 {variant:1,2,3,4,5}NearbyEnemiesReducedStunRecoveryUnique__1
@@ -183,9 +183,9 @@ Variant: Current
 Requires Level 32
 Implicits: 1
 HybridStrInt
-IncreasedLifeUniqueAmulet4
-IncreasedManaUnique__22__
-ChargeBonusMaximumPowerCharges
+IncreasedLifeUnique__4
+IncreasedManaUnique__3
+IncreasedMaximumPowerChargesUnique__2
 IncreasedManaRegenerationPerPowerChargeUnique__1
 {variant:2}IncreasedPowerChargeDurationUnique__1
 DamageTakeFromManaBeforeLifePerPowerChargeUnique__1
@@ -200,7 +200,7 @@ Source: Drops from unique{Lycia, Herald of the Scourge} in normal{The Beyond}
 LevelReq: 52
 Implicits: 1
 HybridStrInt
-IncreasedManaUniqueAmulet1
+IncreasedManaUnique__23
 ChaosResistUnique__27
 IncreasedMaximumResistsUnique__2
 ElementalDamageReductionChaosResistUnique__1
@@ -345,7 +345,7 @@ Variant: Current
 LevelReq: 49
 Implicits: 1
 ManaRegenerationImplicitAmulet1
-IncreasedLifeUnique__105
+IncreasedLifeUnique__121
 FireResistUnique__34
 ColdResistUnique__39
 LightningResistUnique__29
@@ -358,7 +358,7 @@ League: Heist
 Requires Level 68
 Implicits: 1
 IntelligenceImplicitAmulet1
-ManaRegenerationUnique__13
+ManaRegenerationUnique__12
 AllResistancesUnique__19
 CriticalStrikeMultiplierIfGainedPowerChargeUnique__1_
 GlobalAddedLightningDamagePerPowerChargeUnique__1
@@ -383,7 +383,7 @@ Lapis Amulet
 LevelReq: 24
 Implicits: 1
 IntelligenceImplicitAmulet1
-AllResistancesUnique__26
+AllResistancesUnique__27
 ChanceToFreezeShockIgniteUnique__2
 CursedEnemiesCannotInflictElementalAilmentsUnique__1
 ]],[[
@@ -394,7 +394,7 @@ Variant: Current
 Requires Level 16
 Implicits: 1
 HybridStrInt
-StrengthUnique__26
+StrengthUnique___2
 GrantEnemiesUnholyMightOnKillUnique__1
 GrantEnemiesOnslaughtOnKillUnique__1
 {variant:1}UnholyMightOnKillPercentChanceUnique__1[5,5][10,10]
@@ -411,7 +411,7 @@ Implicits: 1
 AllAttributesImplicitAmulet1
 MaximumLifeUniqueAmulet6
 ItemFoundRarityIncreaseUniqueAmulet6
-CannotBeStunnedUnique__1_
+CannotBeStunned
 ]],[[
 Presence of Chayula
 Onyx Amulet
@@ -420,7 +420,7 @@ Source: Upgraded from unique{Eye of Chayula} using currency{Blessing of Chayula}
 Requires Level 60
 Implicits: 1
 AllAttributesImplicitAmulet1
-ItemFoundRarityIncreaseUniqueAmulet6
+ItemFoundRarityIncreaseUnique__2
 ChaosResistUnique__5
 CannotBeStunned
 MaximumLifeConvertedToEnergyShieldUnique__1
@@ -519,7 +519,7 @@ Variant: Current
 Requires Level 61
 Implicits: 1
 HybridStrDex
-IntelligenceUnique__19
+IntelligenceUnique__22_
 IncreasedCastSpeedUnique__20
 AreaOfEffectUnique__6
 {variant:1,2}Curse25PercentHinderEnemyUnique__1
@@ -533,9 +533,9 @@ Requires Level 40
 Implicits: 1
 HybridDexInt
 IncreasedEvasionRatingPercentUnique__2
-AllResistancesUniqueAmulet14
+AllResistancesUnique__17
 AdditionalProjectilesUnique__1__
-ProjectileSpeedUnique__10
+ProjectileSpeedUnique__6
 ProjectileModifiersApplyToSplitsUnique__1
 ]],[[
 Gloomfang
@@ -566,7 +566,7 @@ DexterityImplicitAmulet1
 {variant:1}ColdDamagePercentUnique___10
 ColdResistUnique__11
 FreezeDurationUnique__1
-ChanceToFreezeUnique__3
+ChanceToFreezeUnique__4
 {variant:2}FreezeProliferationUnique__1
 IncreasedDamageIfFrozenRecentlyUnique__1
 ]],[[
@@ -577,7 +577,7 @@ Source: Upgraded from unique{The Halcyon} using currency{Blessing of Tul}
 Requires Level 64
 Implicits: 1
 DexterityImplicitAmulet1
-ColdDamagePercentUnique__7
+ColdDamagePercentUnique___11
 ColdResistUnique__11
 ChillEnemiesWhenHitUnique__1
 OnHitBlindChilledEnemiesUnique__1_
@@ -630,7 +630,7 @@ DexterityImplicitAmulet1
 {variant:3}CriticalMultiplierUnique__3__
 {variant:3}BowAttacksCullingStrikeUnique__1
 {variant:1,2}LifeLeechPermyriadUniqueAmulet9[80,100]
-{variant:1,2,3}PrecisionAuraBonusUnique__1
+{variant:1,2,3}PrecisionReservationEfficiencyUnique__1
 ]],[[
 Replica Hyrri's Truth
 Jade Amulet
@@ -666,8 +666,8 @@ ItemFoundRarityIncreaseImplicitAmulet1
 IncreasedAccuracyUniqueAmulet7
 IncreasedEvasionRatingUniqueAmulet7
 FireResistUniqueAmulet7
-{variant:2}LightRadiusUnique__3
-{variant:2}DisplayBlindAuraUnique__1
+{variant:2}LightRadiusUnique__8
+{variant:2}NearbyEnemiesAreBlindedUnique__1
 ]],[[
 The Effigon
 Gold Amulet
@@ -711,7 +711,7 @@ AllAttributesImplicitAmulet1
 {variant:3}GlobalAddedColdDamageUnique__1
 {variant:4}GlobalAddedLightningDamageUnique__1_
 {variant:5}GlobalAddedChaosDamageUnique__1
-IncreasedLifeUnique__113
+IncreasedLifeUnique__65
 {variant:1}IncreasedPhysicalDamageReductionRatingUniqueAmulet16
 {variant:2}LifeRegenerationRatePercentUnique__4_
 {variant:3}ManaRegenerationUnique__7
@@ -736,7 +736,7 @@ Variant: Current
 Requires Level 5
 Implicits: 1
 DexterityImplicitAmulet1
-StrengthImplicitAmulet1
+StrengthUniqueAmulet5
 IncreasedAccuracyUniqueAmulet5
 {variant:2}IncreasedProjectileDamageUnique__6
 ProjectileSpeedUniqueAmulet5
@@ -749,7 +749,7 @@ Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 5
 Implicits: 1
 DexterityImplicitAmulet1
-IntelligenceImplicitAmulet1
+IntelligenceUnique__23
 IncreasedAccuracyUniqueAmulet5
 MovementVelocityUniqueAmulet5
 AreaOfEffectUnique__7_
@@ -816,7 +816,7 @@ Turquoise Amulet
 Requires Level 20
 Implicits: 1
 HybridDexInt
-MaximumLifeUnique__4_
+MaximumLifeUnique__6
 GainFrenzyChargeOnKillVsEnemiesWith5PoisonsUnique__1
 GainPowerChargeOnKillVsEnemiesWithLessThan5PoisonsUnique__1
 PoisonDamagePerFrenzyChargeUnique__1
@@ -830,7 +830,7 @@ Variant: Current
 Requires Level 48
 Implicits: 1
 HybridStrDex
-IntelligenceUnique__15_
+IntelligenceUnique__16
 ChaosResistUnique__15
 {variant:1}CurseEffectivenessUnique__3_[10,15]
 {variant:2}CurseEffectivenessUnique__3_
@@ -886,7 +886,7 @@ Talisman Tier: 1
 Requires Level 12
 Implicits: 1
 AmuletHasOneSocket
-LocalIncreaseSocketedGemLevelUnique__8
+LocalIncreaseSocketedGemLevelUnique__1
 SocketedGemsHaveAddedChaosDamageUnique__1
 ItemActsAsSupportBlindUnique__1
 SupportedByCastOnStunUnique___1
@@ -918,7 +918,7 @@ GolemSizeUnique__1
 {variant:1}LessGolemLifeUnique__1[-35,-45]
 {variant:2}LessGolemLifeUnique__1
 GolemMovementSpeedUnique__1
-PrimordialJewelCountUnique__1
+PrimordialJewelCountUnique__4
 ]],[[
 Rashkaldor's Patience
 Jade Amulet
@@ -1068,7 +1068,7 @@ Implicits: 1
 AllAttributesImplicitAmulet1
 {variant:1}AllDamageUnique__4[20,25]
 {variant:2}AllDamageUnique__4
-IncreasedLifeUnique__110
+IncreasedLifeUnique__92_
 {variant:1}AddedManaRegenerationUnique__2[120,180]
 {variant:2}AddedManaRegenerationUnique__2
 TemporalChainsReservationCostUnique__1
@@ -1124,7 +1124,7 @@ Variant: Current
 Requires Level 54
 Implicits: 1
 LifeRegenerationImplicitAmulet1
-IntelligenceUnique__10
+IntelligenceUnique__15_
 MinionChaosResistanceUnique__3
 RagingSpiritDurationUnique__1
 {variant:1}RagingSpiritDamageUnique__2[60,80]
@@ -1137,8 +1137,8 @@ Tainted Pact
 Coral Amulet
 Implicits: 1
 LifeRegenerationImplicitAmulet1
-StrengthImplicitAmulet1
-LifeLeechPermyriadUnique__9
+StrengthUnique__23
+LifeLeechPermyriadUnique__8
 ManaLeechPermyriadUnique__3
 ChaosDamageOverTimeHealsLeechLifeUnique__1
 ]],[[
@@ -1288,7 +1288,7 @@ DexterityImplicitAmulet1
 PercentageStrengthUnique__4_
 PercentageDexterityUnique__5
 FireResistUnique__22_
-ColdResistUniqueAmulet13
+ColdResistUnique__30
 AlternateFortifyUnique__1_
 AttackAndCastSpeedFortifyUnique__1
 ]],[[
@@ -1299,8 +1299,8 @@ Variant: Current
 Requires Level 42
 Implicits: 1
 ItemFoundRarityIncreaseImplicitAmulet1
-DexterityImplicitAmulet1
-IncreasedLifeUnique__102
+DexterityUnique__1
+IncreasedLifeUnique___7
 ColdResistUnique__5
 CannotBeChilledUnique__1
 {variant:1}LifeRegenerationWhileFrozenUnique__1[1200,1200]
@@ -1313,7 +1313,7 @@ Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 42
 Implicits: 1
 ItemFoundRarityIncreaseImplicitAmulet1
-DexterityImplicitAmulet1
+DexterityUnique__1
 IncreasedEnergyShieldUnique__9
 LightningResistUnique__23_
 EnergyShieldRegenerationWhileShockedUnique__1
@@ -1329,10 +1329,10 @@ Upgrade: Upgrades to unique{Xoph's Blood} using currency{Blessing of Xoph}
 Requires Level 35
 Implicits: 1
 StrengthImplicitAmulet1
-StrengthImplicitAmulet1
+StrengthUnique__6
 FireDamagePercentUnique___7
 IncreasedLifeUnique__25
-FireResistUnique__29
+FireResistUnique__9
 {variant:1}CoverInAshWhenHitUnique__1
 {variant:2}NearbyEnemiesCoveredInAshUnique__1
 ]],[[
@@ -1344,7 +1344,7 @@ Requires Level 64
 Implicits: 1
 StrengthImplicitAmulet1
 MaximumLifeUnique__3
-FireResistUnique__25
+FireResistUnique__9
 PercentageStrengthUnique__3
 FirePenetrationUnique__1
 CoverInAshWhenHitUnique__1
@@ -1359,7 +1359,7 @@ Implicits: 1
 AllAttributesImplicitAmulet1
 FireResistUnique__15
 ColdResistUnique__21
-LightningResistUnique__3
+LightningResistUnique__12
 IncreasedAilmentDurationUnique__2
 ChanceToShockUnique__3
 {variant:1}EnemiesTakeIncreasedDamagePerAilmentTypeUnique__1[5,5]
@@ -1413,7 +1413,7 @@ Source: Drops from unique{Incarnation of Dread} in normal{Moment of Reverence}
 Requires Level 74
 Implicits: 1
 LifeRegenerationImplicitAmulet2
-AllAttributesUniqueAmulet22
+AllAttributesUnique__30
 GlobalIncreaseMinionSpellSkillGemLevelUnique__5
 AllResistancesReducedPerActiveNonVaalSkillMinionUnique_1
 GlobalDefensesIncreasedPerActiveNonVaalSkillMinionUnique_1
@@ -1425,11 +1425,11 @@ Source: Drops from unique{Uber Incarnation of Neglect} in normal{Moment of Lonel
 Requires Level 64
 Implicits: 1
 HybridDexInt
-ChanceToDodgeSpellsUnique__1
+ChanceToSuppressSpellsUnique__4
 SuppressedDamageBypassEnergyShieldUnique_1
 SuppressedDamageRecoupedAsEnergyShield_1
-DexterityAndIntelligenceUnique_2
-IncreasedEnergyShieldUnique__13
-IncreasedLifeUnique__71
+DexterityAndIntelligenceUnique_3
+LocalIncreasedEnergyShieldUnique__35
+MaximumLifeUnique__25
 ]],
 }

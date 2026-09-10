@@ -100,7 +100,7 @@ Implicits: 2
 UniqueStaffGrantQueensDemand___
 UniqueStaffTriggerAtziriStormFlameblast__1
 UniqueStaffTriggerAtziriStormCall__1____
-CannotBeStunned
+CannotBeStunnedUnique__1_
 DamageCannotBeReflectedUnique__1
 {variant:3}SpellCriticalStrikeChanceUnique__6
 ]],[[
@@ -118,9 +118,9 @@ LocalIncreasedPhysicalDamagePercentUnique__45
 {variant:1,2}CriticalMultiplierUnique__6[100,100]
 {variant:3}CriticalMultiplierUnique__6
 DamageConversionToRandomElementUnique__1
-PhysicalDamageConvertedToChaosUnique__1
+PhysicalDamageConvertToChaosUnique__1
 MaximumCritChanceIs50Unique__1
-NonCriticalStrikesDealNoDamageUnique__1
+NonCriticalStrikesDealNoDamageUnique__2
 ]],[[
 The Blood Thorn
 Gnarled Branch
@@ -132,7 +132,7 @@ Implicits: 3
 {variant:2}StaffBlockPercentImplicitStaff1[18,18]
 {variant:3}StaffSpellBlockPercentImplicitStaff__1
 StaffBlockPercentUniqueStaff9
-LocalIncreasedPhysicalDamagePercentUniqueDescentStaff1
+LocalIncreasedPhysicalDamagePercentUniqueStaff9
 LocalIncreasedAttackSpeedUniqueStaff9
 ReflectDamageToAttackersOnBlockUniqueStaff9
 VulnerabilityOnBlockUniqueStaff9
@@ -180,7 +180,7 @@ Implicits: 3
 {variant:2,3,4,5}ChaosNonAilmentDamageOverTimeMultiplierUnique__1
 {variant:1}IncreasedChaosDamageUnique__4_2[60,80]
 {variant:2,3,4}IncreasedChaosDamageUnique__4_2
-{variant:5}IncreasedMaximumPowerChargesUniqueStaff7
+{variant:5}IncreasedMaximumPowerChargesUnique__5
 {variant:1,2,3,4}IncreasedCastSpeedPerPowerChargeUnique__1[2,2]
 {variant:5}IncreasedCastSpeedPerPowerChargeUnique__1
 LocalIncreaseSocketedChaosGemLevelUnique__1
@@ -243,7 +243,7 @@ Implicits: 3
 {variant:1,2}StaffBlockPercentUnique__2_[4,4]
 {variant:3,4}StaffBlockPercentUnique__2_[10,10]
 {variant:5}StaffBlockPercentUnique__2_
-SpellCriticalStrikeChanceUnique__2
+SpellCriticalStrikeChanceUnique__3
 ElementalDamagePercentAddedAsChaosUnique__2
 CriticalMultiplierPerBlockChanceUnique__1
 CritMultiIfDealtNonCritRecentlyUnique__2
@@ -262,7 +262,7 @@ StaffBlockPercentImplicitStaff3
 {variant:1}StaffBlockPercentUnique__2_[10,10]
 {variant:2}StaffBlockPercentUnique__2_
 LocalCriticalStrikeChanceUnique__19
-ElementalDamagePercentAddedAsChaosUnique__1
+ElementalDamagePercentAddedAsChaosUnique__2
 CriticalMultiplierPerBlockChanceUnique__1
 CritMultiIfDealtNonCritRecentlyUnique__2
 ElementalDamageIfCritRecently
@@ -325,7 +325,7 @@ StaffBlockPercentUnique__4_
 {variant:3}CriticalBleedDotMultiplierUnique__1_
 {variant:1,2}LocalAddedPhysicalDamageUnique__28[160,185][200,225]
 {variant:3}LocalAddedPhysicalDamageUnique__28
-LocalCriticalStrikeChanceUnique__3
+LocalCriticalStrikeChanceUnique__10
 ]],[[
 Femurs of the Saints
 Primordial Staff
@@ -338,8 +338,8 @@ Implicits: 3
 {variant:4}StaffSpellBlockPercent3
 {variant:1}StaffBlockPercentImplicitStaff1[12,12]
 {variant:2,3}StaffBlockPercentImplicitStaff1[18,18]
-LocalIncreaseSocketedMinionGemLevelUnique__2_
-{variant:3,4}MinionDamageUnique__3_
+LocalIncreaseSocketedMinionGemLevelUnique__1
+{variant:3,4}MinionDamageUnique__7
 {variant:1,2}MinionLifeRegenerationPerRagingSpirit__1
 {variant:1,2}MinionAttackAndCastSpeedPerSkeleton__1
 {variant:1,2}MinionDurationPerZombie__1
@@ -386,7 +386,7 @@ Requires Level 58, 99 Str, 99 Int
 Implicits: 2
 {variant:2}StaffSpellBlockPercent3
 {variant:1}StaffBlockPercentImplicitStaff1[18,18]
-SocketedGemsGetBloodMagicUnique__1
+SocketedGemsSupportedByLifetapUnique__1
 IncreasedCastSpeedUnique__25
 LifeDegenerationGracePeriodUnique__1
 SpellAddedChaosDamageMaximumLifeUnique__1
@@ -437,11 +437,11 @@ Implicits: 3
 {variant:2}StaffSpellBlockPercentImplicitStaff__1
 {variant:1}StaffBlockPercentImplicitStaff3[18,18]
 {variant:3,4}StaffBlockPercentImplicitStaff3
-{variant:4}LocalDoubleImplicitMods
+{variant:4}LocalDoubleImplicitModsUnique__2
 HasNoSockets
 {variant:1,2,3}AllDamageUnique__3[250,300]
 {variant:4}AllDamageUnique__3
-LocalIncreasedAttackSpeedUnique__44
+LocalIncreasedAttackSpeedUnique__30
 {variant:1,2,3}IncreasedMaximumResistsUnique__1[1,4]
 {variant:4}IncreasedMaximumResistsUnique__1
 ]],[[
@@ -501,7 +501,7 @@ IncreasedCastSpeedUniqueStaff_1
 GlobalSpellGemsLevelUniqueStaff_1
 RemembranceGainedPerEnergyShieldUnique_1
 MaximumRemembranceUnique_1
-KeystoneEldritchBatteryUnique__2
+KeystoneEldritchBatteryUnique__3
 ]],[[
 Martyr of Innocence
 Highborn Staff
@@ -522,7 +522,7 @@ Implicits: 2
 {variant:3,4,5}LocalAddedFireDamageUnique__3
 FirePenetrationIfBlockedRecentlyUnique__1
 ImmuneToFreezeAndChillWhileIgnitedUnique__1
-BattlemageKeystoneUnique__4
+BattlemageKeystoneUnique__1
 ]],[[
 Pillar of the Caged God
 Iron Staff
@@ -620,7 +620,7 @@ Implicits: 3
 {variant:4,5,6,7}FireDamagePercentUniqueStaff1_
 {variant:1,2,3,4,5,6}IncreasedCastSpeedUniqueStaff1[10,10]
 {variant:7}IncreasedCastSpeedUniqueStaff1
-{variant:7}KeystoneFirePuristUnique__1
+{variant:7}KeystoneFirePuristUnique__2
 LocalIncreaseSocketedFireGemLevelUniqueStaff1
 {variant:1,2,3,4}BurnDamageUniqueStaff1
 ]],[[
@@ -721,7 +721,7 @@ IncreasedCastSpeedUniqueStaff2
 {variant:5}LocalIncreaseSocketedColdGemLevelUniqueStaff2
 {variant:1,2,3,4}ChanceToFreezeUniqueStaff2[8,8]
 {variant:5}ChanceToFreezeUniqueStaff2
-FrozenMonstersTakeIncreasedDamageUnique__1
+FrozenMonstersTakeIncreasedDamage
 ]],[[
 Tremor Rod
 Military Staff
@@ -798,7 +798,7 @@ Implicits: 2
 {variant:1}StaffBlockPercentUnique__1[18,18]
 {variant:2,3}StaffBlockPercentUnique__1[20,20]
 StaffBlockPercentUnique__1
-SpellDamageUnique__18
+SpellDamageUnique__2
 {variant:1,2}IncreasedEnergyShieldUnique__3[70,100]
 {variant:3}IncreasedEnergyShieldUnique__3
 LocalIncreaseSocketedGemLevelUnique___3
