@@ -416,6 +416,33 @@ will automatically apply to the skill.]]
 		return label
 	end
 
+	self.controls.brandRecallSourceLabel = new("LabelControl"):LabelControl({ "TOPLEFT", self.controls.imbuedSupportLabel, "BOTTOMLEFT" }, { 0, 12, 0, 16 }, "^7Recalled brand:")
+	self.controls.brandRecallSourceLabel.shown = function()
+		for _, gem in ipairs(self.displayGroup and self.displayGroup.gemList or {}) do
+			local effect = gem.grantedEffect or (gem.gemData and gem.gemData.grantedEffect)
+			if effect and effect.id == "BrandRecall" then
+				return true
+			end
+		end
+		return false
+	end
+	self.controls.brandRecallSource = new("DropDownControl"):DropDownControl({ "LEFT", self.controls.brandRecallSourceLabel, "RIGHT" }, { 8, 0, 300, 20 }, {}, function(index, value)
+		local source = value.group
+		if source and not source.brandRecallId then
+			-- Keep references stable when groups are reordered or removed. Include dangling
+			-- references when allocating IDs so a deleted source cannot be replaced silently.
+			local nextId = 1
+			for _, group in ipairs(self.socketGroupList) do
+				nextId = math.max(nextId, (group.brandRecallId or 0) + 1, (group.brandRecallSourceId or 0) + 1)
+			end
+			source.brandRecallId = nextId
+		end
+		self.displayGroup.brandRecallSourceId = source and source.brandRecallId
+		self:AddUndoState()
+		self.build.buildFlag = true
+	end)
+	self.controls.brandRecallSource.tooltipText = "Adds 20% of the selected brand's cost per active brand to Brand Recall's cost and uses that brand for recalled DPS."
+
 	-- Scroll bar
 	self.controls.scrollBarH = new("ScrollBarControl"):ScrollBarControl(nil, {0, 0, 0, 18}, 100, "HORIZONTAL", true)
 
@@ -447,6 +474,8 @@ function SkillsTabClass:LoadSkill(node, skillSetId)
 	socketGroup.enabled = node.attrib.active == "true" or node.attrib.enabled == "true"
 	socketGroup.includeInFullDPS = node.attrib.includeInFullDPS and node.attrib.includeInFullDPS == "true"
 	socketGroup.groupCount = tonumber(node.attrib.groupCount)
+	socketGroup.brandRecallId = tonumber(node.attrib.brandRecallId)
+	socketGroup.brandRecallSourceId = tonumber(node.attrib.brandRecallSourceId)
 	socketGroup.label = node.attrib.label
 	socketGroup.slot = node.attrib.slot
 	socketGroup.source = node.attrib.source
@@ -590,6 +619,8 @@ function SkillsTabClass:Save(xml)
 				enabled = tostring(socketGroup.enabled),
 				includeInFullDPS = tostring(socketGroup.includeInFullDPS),
 				groupCount = socketGroup.groupCount ~= nil and tostring(socketGroup.groupCount),
+				brandRecallId = socketGroup.brandRecallId and tostring(socketGroup.brandRecallId),
+				brandRecallSourceId = socketGroup.brandRecallSourceId and tostring(socketGroup.brandRecallSourceId),
 				label = socketGroup.label,
 				slot = socketGroup.slot,
 				source = socketGroup.source,
@@ -686,9 +717,34 @@ function SkillsTabClass:Draw(viewPort, inputEvents)
 		self.anchorGroupDetail:SetAnchor("TOPLEFT",self.controls.groupList,"TOPRIGHT", 20, 0)
 	end
 
+	self:UpdateBrandRecallSourceList()
 	self:UpdateGemSlots()
 
 	self:DrawControls(viewPort)
+end
+
+function SkillsTabClass:UpdateBrandRecallSourceList()
+	local list = { { label = "None" } }
+	local selected = 1
+	local sourceId = self.displayGroup and self.displayGroup.brandRecallSourceId
+	for index, group in ipairs(self.socketGroupList) do
+		for _, skill in ipairs(group.displaySkillList or {}) do
+			if skill.skillTypes[SkillType.Brand] and not skill.skillFlags.disable then
+				t_insert(list, { label = index .. ": " .. (group.displayLabel or skill.activeEffect.grantedEffect.name), group = group })
+				if sourceId and group.brandRecallId == sourceId then
+					selected = #list
+				end
+				break
+			end
+		end
+	end
+	if sourceId and selected == 1 then
+		t_insert(list, { label = "Selected brand group unavailable" })
+		selected = #list
+	end
+	self.controls.brandRecallSource:SetList(list)
+	self.controls.brandRecallSource.selIndex = selected
+	self.anchorGemSlots:SetAnchor("TOPLEFT", self.controls.imbuedSupportLabel, "BOTTOMLEFT", 0, self.controls.brandRecallSourceLabel:IsShown() and 62 or 30)
 end
 
 function SkillsTabClass:CopySocketGroup(socketGroup)

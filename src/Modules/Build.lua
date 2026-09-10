@@ -1655,23 +1655,23 @@ function buildMode:RefreshSkillSelectControls(controls, mainGroup, suffix)
 			local activeSkill = displaySkillList[mainActiveSkill]
 			local activeEffect = activeSkill.activeEffect
 			if activeEffect then
-				if activeEffect.grantedEffect.parts and #activeEffect.grantedEffect.parts > 1 then
+				if activeSkill.skillPartList and #activeSkill.skillPartList > 1 then
 					controls.mainSkillPart.shown = true
 					wipeTable(controls.mainSkillPart.list)
-					for i, part in ipairs(activeEffect.grantedEffect.parts) do
+					for i, part in ipairs(activeSkill.skillPartList) do
 						t_insert(controls.mainSkillPart.list, { val = i, label = part.name })
 					end
 					controls.mainSkillPart.selIndex = activeEffect.srcInstance["skillPart"..suffix] or 1
-					if activeEffect.grantedEffect.parts[controls.mainSkillPart.selIndex].stages then
+					if activeSkill.skillPartList[controls.mainSkillPart.selIndex].stages then
 						controls.mainSkillStageCount.shown = true
-						controls.mainSkillStageCount.buf = tostring(activeEffect.srcInstance["skillStageCount"..suffix] or activeSkill.skillData.stagesMax or activeEffect.grantedEffect.parts[controls.mainSkillPart.selIndex].stagesMin or 1)
+						controls.mainSkillStageCount.buf = tostring(activeEffect.srcInstance["skillStageCount"..suffix] or activeSkill.skillData.stagesMax or activeSkill.skillPartList[controls.mainSkillPart.selIndex].stagesMin or 1)
 					end
 				end
 				if activeSkill.skillFlags.mine then
 					controls.mainSkillMineCount.shown = true
 					controls.mainSkillMineCount.buf = tostring(activeEffect.srcInstance["skillMineCount"..suffix] or "")
 				end
-				if activeSkill.skillFlags.multiStage and not (activeEffect.grantedEffect.parts and #activeEffect.grantedEffect.parts > 1) then
+				if activeSkill.skillFlags.multiStage and not (activeSkill.skillPartList and #activeSkill.skillPartList > 1) then
 					controls.mainSkillStageCount.shown = true
 					controls.mainSkillStageCount.buf = tostring(activeEffect.srcInstance["skillStageCount"..suffix] or activeSkill.skillData.stagesMax or activeSkill.skillData.stagesMin or 1)
 				end
@@ -2027,6 +2027,12 @@ function buildMode:AddDisplayStatList(statList, actor, actorName)
 			end
 			line = line:sub(1, -3)
 			InsertIfNew(self.controls.warnings.lines, line)
+		end
+	end
+	for pool, warningFlag in pairs({["Life"] = "LifeCostChainWarningList", ["Mana"] = "ManaCostChainWarningList", ["Rage"] = "RageCostChainWarningList", ["Energy Shield"] = "ESCostChainWarningList", ["Unreserved Life %"] = "LifePercentCostChainWarningList", ["Unreserved Mana %"] = "ManaPercentCostChainWarningList"}) do
+		if actor.output[warningFlag] then
+			local resource = actor.output.EnergyShieldProtectsMana and pool == "Mana" and "Energy Shield and Mana" or pool
+			InsertIfNew(self.controls.warnings.lines, "Estimated total spending per use exceeds your available "..resource.." before recovery: "..table.concat(actor.output[warningFlag], ", "))
 		end
 	end
 	for pool, warningFlag in pairs({["Unreserved life"] = "LifePercentCostPercentCostWarningList", ["Unreserved Mana"] = "ManaPercentCostPercentCostWarningList"}) do

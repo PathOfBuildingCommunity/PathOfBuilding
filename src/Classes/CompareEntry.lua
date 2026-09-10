@@ -344,14 +344,14 @@ function CompareEntryClass:RefreshSkillSelectControls(controls, mainGroup, suffi
 	if not activeEffect then return end
 
 	-- Skill parts
-	if activeEffect.grantedEffect.parts and #activeEffect.grantedEffect.parts > 1 then
+	if activeSkill.skillPartList and #activeSkill.skillPartList > 1 then
 		controls.mainSkillPart.shown = true
 		wipeTable(controls.mainSkillPart.list)
-		for i, part in ipairs(activeEffect.grantedEffect.parts) do
+		for i, part in ipairs(activeSkill.skillPartList) do
 			t_insert(controls.mainSkillPart.list, { val = i, label = part.name })
 		end
 		controls.mainSkillPart.selIndex = activeEffect.srcInstance["skillPart"..suffix] or 1
-		local selectedPart = activeEffect.grantedEffect.parts[controls.mainSkillPart.selIndex]
+		local selectedPart = activeSkill.skillPartList[controls.mainSkillPart.selIndex]
 		if selectedPart and selectedPart.stages then
 			controls.mainSkillStageCount.shown = true
 			controls.mainSkillStageCount.buf = tostring(activeEffect.srcInstance["skillStageCount"..suffix] or selectedPart.stagesMin or 1)
@@ -365,7 +365,7 @@ function CompareEntryClass:RefreshSkillSelectControls(controls, mainGroup, suffi
 	end
 
 	-- Stage count (for multi-stage skills without parts)
-	if activeSkill.skillFlags and activeSkill.skillFlags.multiStage and not (activeEffect.grantedEffect.parts and #activeEffect.grantedEffect.parts > 1) then
+	if activeSkill.skillFlags and activeSkill.skillFlags.multiStage and not (activeSkill.skillPartList and #activeSkill.skillPartList > 1) then
 		controls.mainSkillStageCount.shown = true
 		controls.mainSkillStageCount.buf = tostring(activeEffect.srcInstance["skillStageCount"..suffix] or activeSkill.skillData.stagesMin or 1)
 	end

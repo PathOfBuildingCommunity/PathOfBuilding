@@ -246,6 +246,14 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 
 	-- Handle multipart skills
 	local activeGemParts = activeGrantedEffect.parts
+	local recalledParts = calcs.buildRecalledSkillParts(env, activeSkill)
+	if recalledParts then
+		activeGemParts = copyTable(activeGemParts or { { name = "Default" } })
+		for _, part in ipairs(recalledParts) do
+			table.insert(activeGemParts, part)
+		end
+	end
+	activeSkill.skillPartList = activeGemParts
 	if activeGemParts and #activeGemParts > 1 then
 		if env.mode == "CALCS" and activeSkill == env.player.mainSkill then
 			activeEffect.srcInstance.skillPartCalcs = m_min(#activeGemParts, activeEffect.srcInstance.skillPartCalcs or 1)
@@ -255,6 +263,8 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 			activeSkill.skillPart = activeEffect.srcInstance.skillPart
 		end
 		local part = activeGemParts[activeSkill.skillPart]
+		-- Recalled variants retain the original part index used by gem modifiers.
+		activeSkill.skillPart = part.originalPart or activeSkill.skillPart
 		for k, v in pairs(part) do
 			if v == true then
 				skillFlags[k] = true

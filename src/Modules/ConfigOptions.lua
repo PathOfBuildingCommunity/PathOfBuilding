@@ -328,7 +328,7 @@ return {
 		modList:NewMod("Condition:BloodSacramentReservationEHP", "FLAG", true, "Config")
 	end },
 	{ label = "Brand Skills:", ifSkill = { "Armageddon Brand", "Storm Brand", "Arcanist Brand", "Penance Brand", "Wintertide Brand" }, includeTransfigured = true }, -- I barely resisted the temptation to label this "Generic Brand:"
-	{ var = "ActiveBrands", type = "count", label = "# of active Brands:", ifSkill = { "Armageddon Brand", "Storm Brand", "Arcanist Brand", "Penance Brand", "Wintertide Brand" }, includeTransfigured = true , apply = function(val, modList, enemyModList)
+	{ var = "ActiveBrands", type = "count", label = "# of active Brands (if not maximum):", ifSkill = { "Armageddon Brand", "Storm Brand", "Arcanist Brand", "Penance Brand", "Wintertide Brand" }, includeTransfigured = true , apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:ConfigActiveBrands", "BASE", val, "Config")
 	end },
 	{ var = "BrandsAttachedToEnemy", type = "count", label = "# of Brands attached to enemy (if not maximum):", ifSkillFlag = "brand", apply = function(val, modList, enemyModList)
