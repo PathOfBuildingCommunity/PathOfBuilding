@@ -2029,6 +2029,12 @@ function buildMode:AddDisplayStatList(statList, actor, actorName)
 			InsertIfNew(self.controls.warnings.lines, line)
 		end
 	end
+	for pool, warningFlag in pairs({["Life"] = "LifeCostChainWarningList", ["Mana"] = "ManaCostChainWarningList", ["Rage"] = "RageCostChainWarningList", ["Energy Shield"] = "ESCostChainWarningList", ["Unreserved Life %"] = "LifePercentCostChainWarningList", ["Unreserved Mana %"] = "ManaPercentCostChainWarningList"}) do
+		if actor.output[warningFlag] then
+			local resource = actor.output.EnergyShieldProtectsMana and pool == "Mana" and "Energy Shield and Mana" or pool
+			InsertIfNew(self.controls.warnings.lines, "Estimated total spending per use exceeds your available "..resource.." before recovery: "..table.concat(actor.output[warningFlag], ", "))
+		end
+	end
 	for pool, warningFlag in pairs({["Unreserved life"] = "LifePercentCostPercentCostWarningList", ["Unreserved Mana"] = "ManaPercentCostPercentCostWarningList"}) do
 		if actor.output[warningFlag] then
 			local line = "You do not have enough ".. pool .."% to use: "

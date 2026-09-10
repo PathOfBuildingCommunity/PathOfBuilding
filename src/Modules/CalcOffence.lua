@@ -1894,6 +1894,100 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 	end
+	-- Recalling spends part of each brand's own cost, in addition to Recall's cost.
+	-- Apply this after Recall's cost modifiers so its supports and conversions do
+	-- not modify the cost already calculated for the brand's separate gem group.
+	local brandSourceId = activeSkill.socketGroup and activeSkill.socketGroup.brandRecallSourceId
+	local recallUUID = skillData.brandRecallCostPercent and cacheSkillUUID(activeSkill, env)
+	if brandSourceId and recallUUID and not (env.limitedSkills and env.limitedSkills[recallUUID]) then
+		for _, brand in ipairs(actor.activeSkillList) do
+			if brand.skillTypes[SkillType.Brand] and brand.socketGroup and brand.socketGroup.brandRecallId == brandSourceId
+				and brand.socketGroup.enabled and brand.socketGroup.slotEnabled ~= false and not brand.skillFlags.disable
+				and not brand.skillModList:Flag(brand.skillCfg, "Condition:CannotRecallBrand") then
+				local brandUUID = cacheSkillUUID(brand, env)
+				if not GlobalCache.cachedData[env.mode][brandUUID] or env.mode == "CALCULATOR" then
+					calcs.buildActiveSkill(env, env.mode, brand, brandUUID, { recallUUID, brandUUID })
+				end
+				local cached = GlobalCache.cachedData[env.mode][brandUUID]
+				if cached then
+					local brandOutput = cached.Env.player.output
+					local count = brandOutput.ActiveBrandLimit or 0
+					local configuredBrands = env.build.configTab.input.ActiveBrands
+					if configuredBrands ~= nil then
+						count = m_min(count, m_max(0, m_floor(configuredBrands)))
+					end
+					local linkedSpells = { }
+					if brand.activeEffect.grantedEffect.name == "Arcanist Brand" then
+						for _, spell in ipairs(actor.activeSkillList) do
+							if spell.socketGroup == brand.socketGroup and spell.skillData.triggeredByBrand and not spell.skillFlags.disable and spell ~= activeSkill then
+								local spellUUID = cacheSkillUUID(spell, env)
+								if not (env.limitedSkills and env.limitedSkills[spellUUID]) then
+									if not GlobalCache.cachedData[env.mode][spellUUID] or env.mode == "CALCULATOR" then
+										calcs.buildActiveSkill(env, env.mode, spell, spellUUID, { recallUUID, brandUUID, spellUUID })
+									end
+									local spellCache = GlobalCache.cachedData[env.mode][spellUUID]
+									if spellCache then
+										t_insert(linkedSpells, { name = spell.activeEffect.grantedEffect.name, output = spellCache.Env.player.output })
+									end
+								end
+							end
+						end
+					end
+					-- One linked spell triggers per brand activation. Average over a full
+					-- rotation if several spells are linked. Recall's own duplication is
+					-- already included in its trigger rate; only duplicate the child here.
+					local spellTriggers = actor.modDB:Flag(nil, "HaveTriggerBots") and 2 or 1
+					for _, resource in ipairs(costs.order) do
+						local val = costs[resource]
+						if val.upfront and resource ~= "Soul" then
+							local costName = resource.."Cost"
+							local brandCost = brandOutput[costName] or 0
+							local perBrand = brandCost * skillData.brandRecallCostPercent / 100
+							if not val.percent then
+								perBrand = m_floor(perBrand)
+							end
+							local addedCost = perBrand * count
+							local linkedCost = 0
+							for _, spell in ipairs(linkedSpells) do
+								linkedCost = linkedCost + (spell.output[costName] or 0) * spellTriggers * count / #linkedSpells
+							end
+							addedCost = addedCost + linkedCost
+							if addedCost > 0 then
+								local recallCost = output[costName] or 0
+								-- Keep the individual upfront cost intact for cost-based mechanics.
+								output[costName.."Total"] = recallCost + addedCost
+								output[resource.."HasCostTotal"] = true
+								if breakdown then
+									local totalCostName = costName.."Total"
+									breakdown[totalCostName] = copyTable(breakdown[costName] or { s_format("%g ^8(Brand Recall upfront cost)", recallCost) })
+									t_insert(breakdown[totalCostName], s_format("+ %g x %d ^8(%d%% of %s's %g %s cost per brand)", perBrand, count, skillData.brandRecallCostPercent, brand.activeEffect.grantedEffect.name, brandCost, val.text))
+									for _, spell in ipairs(linkedSpells) do
+										if (spell.output[costName] or 0) > 0 then
+											t_insert(breakdown[totalCostName], s_format("+ %g x %d x %d / %d ^8(%s cost x active brands x triggers per activation / linked spell rotation)", spell.output[costName], count, spellTriggers, #linkedSpells, spell.name))
+										end
+									end
+									t_insert(breakdown[totalCostName], s_format("= %g", output[totalCostName]))
+								end
+							end
+						end
+					end
+				end
+				break
+			end
+		end
+	end
+	-- Display and resource consumption use the total spending caused by a use.
+	-- For ordinary skills this is simply their own upfront cost.
+	for _, resource in ipairs(costs.order) do
+		if costs[resource].upfront then
+			local costName = resource.."Cost"
+			output[costName.."Total"] = output[costName.."Total"] or output[costName] or 0
+			output[resource.."HasCostTotal"] = output[resource.."HasCostTotal"] or output[resource.."HasCost"]
+			if breakdown then
+				breakdown[costName.."Total"] = breakdown[costName.."Total"] or breakdown[costName]
+			end
+		end
+	end
 	-- Eldritch Battery adds maximum Energy Shield to the Mana available for payable-cost damage.
 	output.ManaCostPayablePool = (output.ManaUnreserved or 0) + (modDB:Flag(nil, "EnergyShieldProtectsMana") and output.EnergyShield or 0)
 
@@ -5917,7 +6011,8 @@ function calcs.offence(env, actor, activeSkill)
 	for _, resource in ipairs(costs.order) do
 		local val = costs[resource]
 		local EB = env.modDB:Flag(nil, "EnergyShieldProtectsMana")
-		if(val.upfront and output[resource.."HasCost"] and output[resource.."Cost"] > 0 and not (output[resource.."PerSecondHasCost"] and not (EB and skillModList:Sum("BASE", skillCfg, "ManaCostAsEnergyShieldCost"))) and (output.Speed > 0 or output.Cooldown)) then
+		local totalCost = output[resource.."CostTotal"] or 0
+		if(val.upfront and output[resource.."HasCostTotal"] and totalCost > 0 and not (output[resource.."PerSecondHasCost"] and not (EB and skillModList:Sum("BASE", skillCfg, "ManaCostAsEnergyShieldCost"))) and (output.Speed > 0 or output.Cooldown)) then
 			local usedResource = resource
 
 			if EB and resource == "Mana" then
@@ -5945,10 +6040,10 @@ function calcs.offence(env, actor, activeSkill)
 			end
 
 			output[usedResource.."PerSecondHasCost"] = true
-			output[usedResource.."PerSecondCost"] = (output[usedResource.."PerSecondCost"] or 0)+ output[resource.."Cost"] * useSpeed
+			output[usedResource.."PerSecondCost"] = (output[usedResource.."PerSecondCost"] or 0)+ totalCost * useSpeed
 
 			if breakdown then
-				breakdown[usedResource.."PerSecondCost"] = copyTable(breakdown[resource.."Cost"])
+				breakdown[usedResource.."PerSecondCost"] = copyTable(breakdown[resource.."CostTotal"])
 				t_remove(breakdown[usedResource.."PerSecondCost"])
 				t_insert(breakdown[usedResource.."PerSecondCost"], s_format("x %.2f ^8("..timeType.." speed)", useSpeed))
 				t_insert(breakdown[usedResource.."PerSecondCost"], s_format("= %.2f per second", output[usedResource.."PerSecondCost"]))

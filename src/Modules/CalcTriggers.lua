@@ -810,6 +810,17 @@ local function defaultTriggerHandler(env, config)
 					end
 				elseif actor.mainSkill.skillFlags.globalTrigger and not config.triggeredSkillCond then -- Trigger does not use source rate breakpoints for one reason or another
 					output.SkillTriggerRate = output.EffectiveSourceRate
+					-- Cooldown-driven triggers such as Automation also trigger once per bot.
+					if actor.modDB:Flag(nil, "HaveTriggerBots") and actor.mainSkill.skillTypes[SkillType.Spell] then
+						output.SkillTriggerRate = 2 * output.SkillTriggerRate
+						if breakdown then
+							breakdown.SkillTriggerRate = {
+								s_format("%.2f ^8(Effective source rate)", output.EffectiveSourceRate),
+								"x 2 ^8(Trigger bots effectively cause the skill to trigger twice)",
+								s_format("= %.2f ^8per second", output.SkillTriggerRate),
+							}
+						end
+					end
 				else -- Triggers like Cast on Crit go through simulation to calculate the trigger rate of each skill in the trigger group
 					output.SkillTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, config.triggeredSkillCond and triggeredSkills or {packageSkillDataForSimulation(actor.mainSkill, env)}, output.EffectiveSourceRate, (not actor.mainSkill.skillData.triggeredByBrand and ( triggerCD or triggeredCD ) or 0), triggerChance, actor)
 					local triggerBotsEffective = actor.modDB:Flag(nil, "HaveTriggerBots") and actor.mainSkill.skillTypes[SkillType.Spell]
