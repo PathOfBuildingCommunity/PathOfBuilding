@@ -1,5 +1,5 @@
 ---
-name: Run Tests
+name: Run Build Diff Tests
 on:
   pull_request:
     branches:
