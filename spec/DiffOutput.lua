@@ -8,11 +8,13 @@ local function buildOutputMap(filecontent)
 	local playerOutput = {}
     local minionOutput = {}
 	for line in splitLines(filecontent) do
-		local key, val = line:match('PlayerStat stat="(.-)" value="(.-)"')
+		local stat = line:match('<PlayerStat%s+([^>]+)')
+		local key, val = stat and stat:match('stat="(.-)"'), stat and stat:match('value="(.-)"')
         if key then
 		    playerOutput[key] = val
 		else
-			local key,val = line:match('MinionStat stat="(.-)" value="(.-)"')
+			local stat = line:match('<MinionStat%s+([^>]+)')
+			local key, val = stat and stat:match('stat="(.-)"'), stat and stat:match('value="(.-)"')
 			if key then
 				minionOutput[key] = val
 			end

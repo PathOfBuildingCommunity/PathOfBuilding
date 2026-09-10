@@ -305,7 +305,7 @@ While both can be ran locally it's recommended to use the provided docker image 
 PoB uses the [Busted](https://lunarmodules.github.io/busted/) framework to run its tests. Tests are stored under `spec/System` and run automatically when a PR is modified.
 More tests can be added to this folder to test specific functionality, or new test builds can be added to ensure nothing changed that wasn't intended. 
 
-### Running tests
+To run the build difference tests run `docker compose up busted-diff`. `busted-diff` first downloads the build corpus from `https://api.pob.codes/test-builds/corpus` and computes it alongside `spec/TestBuilds/` using the current working changes. Then it uses git to checkout the branch specified by `DEVREF` or `dev` by default and computes the same builds. Lastly it finds the differences in the outputs generated from both, does some post processing, and prints all of the information out. The downloaded builds and list stay with the calculated `DEVREF` cache and are reused together until that cache changes.
 
 1. Install [Docker](https://www.docker.com/get-started)
 2. Run `docker-compose up` from the command line

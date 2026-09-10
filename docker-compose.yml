@@ -13,3 +13,28 @@ services:
     working_dir: /workdir
     volumes:
       - ./:/workdir:ro
+  busted-diff:
+    #build: .
+    image: ghcr.io/pathofbuildingcommunity/pathofbuilding-tests:latest
+    environment: #Where in the container the folders are stored
+      WORKDIR: /workdir
+      HOME: /tmp
+      DEVREF: ${DEVREF:-origin/dev}
+      HEADREF: $HEADREF
+      LUA_PATH: "/usr/share/lua/5.1/?.lua;/usr/share/lua/5.1/?/init.lua;;"
+      LUA_CPATH: "/usr/lib/lua/5.1/?.so;;"
+    container_name: busted-diff
+    tty: true
+    # Dependencies used by the existing build-diff scripts; the image provides LuaJIT.
+    command:
+      - /bin/sh
+      - -ec
+      - |
+        apk add --no-cache git parallel libxml2-utils lua5.1-posix lua5.1-curl zlib-dev
+        luarocks install lua-zlib 1.4-0
+        exec su -p nobody -s /bin/sh -c 'dos2unix < /workdir/spec/BuildDiff.sh | /bin/sh'
+    security_opt:
+      - no-new-privileges:true
+    working_dir: /workdir
+    volumes:
+      - ./:/workdir:ro

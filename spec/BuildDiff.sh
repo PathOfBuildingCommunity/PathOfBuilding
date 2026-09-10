@@ -1,4 +1,5 @@
 #!/bin/sh
+set -eo pipefail
 umask 0
 
 # If external cache dir has not been defined keep it inside the container
@@ -17,14 +18,21 @@ git config --global --add advice.detachedHead false
 if [[ ! -z "$HEADREF" ]]
 then
     git diff --no-color "$HEADREF" -- /tmp/workdir/.busted /tmp/workdir/src/HeadlessWrapper.lua /tmp/workdir/spec/ > /tmp/HeadPatch &&
-    git reset --hard "$HEADREF" && git clean -fd && git apply --allow-empty /tmp/HeadPatch
+    git reset --hard "$HEADREF" && git clean -fd && git apply --allow-empty --index /tmp/HeadPatch
 fi
 
 headsha=$(git rev-parse HEAD)
 devsha=$(git rev-parse "$DEVREF")
 
+# Keep the input corpus with the calculated base, as in the existing workflow.
+if [[ ! -f "$CACHEDIR/$devsha" ]]; then
+    curl --fail --show-error --silent https://api.pob.codes/test-builds/corpus -o "$CACHEDIR/corpus.json"
+    luajit spec/FetchTestBuilds.lua "$CACHEDIR"
+fi
+cp "$CACHEDIR/builds.txt" spec/builds.txt
+
 rm -rf /tmp/headsha && mkdir /tmp/headsha
-rm /tmp/workdir/src/Settings.xml
+rm -f /tmp/workdir/src/Settings.xml
 cat /tmp/workdir/spec/builds.txt | dos2unix | parallel --will-cite --ungroup --pipe -N50 'LINKSBATCH="$(mktemp){#}"; cat > $LINKSBATCH; BUILDLINKS="$LINKSBATCH" BUILDCACHEPREFIX="/tmp/headsha" busted --lua=luajit -r generate' && \
 BUILDCACHEPREFIX='/tmp/headsha' busted --lua=luajit -r generate && date > "/tmp/headsha/$headsha" && echo "[+] Build cache computed for $headsha (headsha)" || exit $?
 
@@ -34,7 +42,7 @@ then
 
     # Keep new changes to tests related files
     git diff --no-color "$DEVREF" -- /tmp/workdir/.busted /tmp/workdir/src/HeadlessWrapper.lua /tmp/workdir/spec/ > /tmp/DevPatch && \
-    git reset --hard "$DEVREF" && git clean -fd && git apply --allow-empty /tmp/DevPatch && \
+    git reset --hard "$DEVREF" && git clean -fd && git apply --allow-empty --index /tmp/DevPatch && \
     cat /tmp/workdir/spec/builds.txt | dos2unix | parallel --will-cite --ungroup --pipe -N50 'LINKSBATCH="$(mktemp){#}"; cat > $LINKSBATCH; BUILDLINKS="$LINKSBATCH" BUILDCACHEPREFIX="$CACHEDIR" busted --lua=luajit -r generate' && \
     BUILDCACHEPREFIX="$CACHEDIR" busted --lua=luajit -r generate && date > "$CACHEDIR/$devsha" && echo "[+] Build cache computed for $devsha (devsha)" || exit $?
 fi

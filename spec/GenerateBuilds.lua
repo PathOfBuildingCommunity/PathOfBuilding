@@ -8,16 +8,15 @@ local function fetchBuilds(path)
             fileHnd:close()
             for line in splitLines(fileText) do
                 if line ~= "" then
-                    for j = 1, #buildSites.websiteList do
-                        if line:match(buildSites.websiteList[j].matchURL) then
-                            local filename = line:gsub('%W', '')
-
-                            -- Load from cache if downloaded already
-                            local fileHnd = io.open( (os.getenv("CACHEDIR") or "/tmp") .. "/" .. filename .. ".xml", "r")
-                            if fileHnd then
-                                coroutine.yield({ xml = fileHnd:read("*a"), filename = filename, link = line })
-                                fileHnd:close()
-                            else
+                    local filename = line:gsub('%W', '')
+                    -- Check cached XML before matching a download provider.
+                    local fileHnd = io.open((os.getenv("CACHEDIR") or "/tmp") .. "/" .. filename .. ".xml", "r")
+                    if fileHnd then
+                        coroutine.yield({ xml = fileHnd:read("*a"), filename = filename, link = line })
+                        fileHnd:close()
+                    else
+                        for j = 1, #buildSites.websiteList do
+                            if line:match(buildSites.websiteList[j].matchURL) then
                                 -- Throttle build downloads to 15 per 10 seconds
                                 local timeSinceLastDL = GetTime() - lastDLtime
                                 if timeSinceLastDL < 666 then
@@ -35,10 +34,10 @@ local function fetchBuilds(path)
                                         print("Failed to download build: " .. line)
                                     end
                                 end)
+                                break
+                            elseif j == #buildSites.websiteList then
+                                print("Failed to match provider for: " .. line)
                             end
-                            break
-                        elseif j == #buildSites.websiteList then
-                            print("Failed to match provider for: " .. line)
                         end
                     end
                 end
