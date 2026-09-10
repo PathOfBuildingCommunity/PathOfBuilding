@@ -59,7 +59,6 @@ function GetVirtualScreenSize()
 	return 1920, 1080
 end
 
-<<<<<<< HEAD
 posix = require("posix")
 
 -- Search Handles
