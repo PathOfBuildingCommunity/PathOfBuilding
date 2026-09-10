@@ -441,7 +441,7 @@ will automatically apply to the skill.]]
 		self:AddUndoState()
 		self.build.buildFlag = true
 	end)
-	self.controls.brandRecallSource.tooltipText = "Add 20% of the selected brand's cost for each active brand to the cost of Brand Recall."
+	self.controls.brandRecallSource.tooltipText = "Adds 20% of the selected brand's cost per active brand to Brand Recall's cost and uses that brand for recalled DPS."
 
 	-- Scroll bar
 	self.controls.scrollBarH = new("ScrollBarControl"):ScrollBarControl(nil, {0, 0, 0, 18}, 100, "HORIZONTAL", true)
