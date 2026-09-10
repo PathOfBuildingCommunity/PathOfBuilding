@@ -18,6 +18,7 @@ require("Modules.CalcPerform")
 require("Modules.CalcActiveSkill")
 require("Modules.CalcDefence")
 require("Modules.CalcOffence")
+require("Modules.CalcBrandRecall")
 require("Modules.CalcTriggers")
 require("Modules.CalcMirages")
 
@@ -168,6 +169,10 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 	for _, activeSkill in ipairs(fullEnv.player.activeSkillList) do
 		if activeSkill.socketGroup and activeSkill.socketGroup.includeInFullDPS then
 			local activeSkillCount, enabled = getActiveSkillCount(activeSkill)
+			if activeSkill.skillFlags.recalled and activeSkill.skillTypes[SkillType.Brand] then
+				-- Recalled brand count is already included in the calculated damage.
+				activeSkillCount = 1
+			end
 			if enabled then
 				fullEnv.player.mainSkill = activeSkill
 				calcs.perform(fullEnv, true)

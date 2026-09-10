@@ -6278,8 +6278,7 @@ c["20% chance for Energy Shield Recharge to start when you Block 35% chance for 
 c["20% chance for Energy Shield Recharge to start when you Kill an Enemy"]={{[1]={[1]={type="Condition",var="KilledRecently"},flags=0,keywordFlags=0,name="EnergyShield",type="BASE",value=20}}," for  Recharge to start  "}
 c["20% chance for Energy Shield Recharge to start when you Kill an Enemy 40% less Energy Shield Recharge Rate"]={{[1]={[1]={type="Condition",var="KilledRecently"},flags=0,keywordFlags=0,name="EnergyShield",type="BASE",value=20}}," for  Recharge to start  40% less Energy Shield Recharge Rate "}
 c["20% chance for Poisons inflicted with this Weapon to deal 300% more Damage"]={{[1]={[1]={type="Condition",var="{Hand}Attack"},[2]={skillType=1,type="SkillType"},flags=0,keywordFlags=2097152,name="Damage",type="MORE",value=60}},nil}
-c["20% chance for Skills to not consume a Cooldown on use"]={{}," for Skills to not consume a Cooldown on use "}
-c["20% chance for Skills to not consume a Cooldown on use Limited to 1 Runegraft of Time"]={{}," for Skills to not consume a Cooldown on use Limited to 1 Runegraft of Time "}
+c["20% chance for Skills to not consume a Cooldown on use"]={{[1]={flags=0,keywordFlags=0,name="CooldownNotConsumedChance",type="BASE",value=20}},nil}
 c["20% chance for used Retaliation Skills to remain Usable and not consume a Cooldown Use"]={{[1]={flags=0,keywordFlags=0,name="AdditionalCooldownUses",type="BASE",value=20}}," for used Retaliation Skills to remain Usable and not consume a  "}
 c["20% chance on Hit to remove all Impales from Enemy"]={{},"  to remove all Impales from Enemy "}
 c["20% chance on Hit to remove all Impales from Enemy Impales removed this way multiply their Reflected Damage for this Hit by the number of Hits they have left"]={{[1]={flags=4,keywordFlags=0,name="Damage",type="BASE",value=20}},"  to remove all Impales from Enemy Impales removed this way multiply their Reflected  for this Hit by the number of Hits they have left "}
@@ -10003,8 +10002,8 @@ c["5% increased Poison Duration"]={{[1]={flags=0,keywordFlags=0,name="EnemyPoiso
 c["5% increased Poison Duration for each Poison you have inflicted Recently, up"]={{[1]={[1]={type="Multiplier",var="PoisonAppliedRecently"},flags=0,keywordFlags=0,name="EnemyPoisonDuration",type="INC",value=5}},"  , up "}
 c["5% increased Poison Duration for each Poison you have inflicted Recently, up to a maximum of 100%"]={{[1]={[1]={globalLimit=100,globalLimitKey="DurationPerPoisonRecently",type="Multiplier",var="PoisonAppliedRecently"},flags=0,keywordFlags=0,name="EnemyPoisonDuration",type="INC",value=5}},nil}
 c["5% increased Projectile Damage per Power Charge"]={{[1]={[1]={type="Multiplier",var="PowerCharge"},flags=1024,keywordFlags=0,name="Damage",type="INC",value=5}},nil}
-end)();(function()
 c["5% increased Projectile Speed"]={{[1]={flags=0,keywordFlags=0,name="ProjectileSpeed",type="INC",value=5}},nil}
+end)();(function()
 c["5% increased Projectile Speed per Frenzy Charge"]={{[1]={[1]={type="Multiplier",var="FrenzyCharge"},flags=0,keywordFlags=0,name="ProjectileSpeed",type="INC",value=5}},nil}
 c["5% increased Quantity of Gold Dropped by Slain Enemies"]={{}," Quantity of Gold Dropped by Slain Enemies "}
 c["5% increased Quantity of Items found"]={{[1]={flags=0,keywordFlags=0,name="LootQuantity",type="INC",value=5}},nil}
@@ -15005,8 +15004,8 @@ c["Damage of Enemies Hitting you is Unlucky"]={nil,"Damage of Enemies Hitting yo
 c["Damage of Enemies Hitting you is Unlucky Damage with Hits is Unlucky"]={nil,"Damage of Enemies Hitting you is Unlucky Damage with Hits is Unlucky "}
 c["Damage of Enemies Hitting you is Unlucky while you are Cursed with Vulnerability"]={nil,"Damage of Enemies Hitting you is Unlucky while you are Cursed with Vulnerability "}
 c["Damage of Enemies Hitting you is Unlucky while you are Cursed with Vulnerability You count as on Full Life while you are Cursed with Vulnerability"]={nil,"Damage of Enemies Hitting you is Unlucky while you are Cursed with Vulnerability You count as on Full Life while you are Cursed with Vulnerability "}
-end)();(function()
 c["Damage of Enemies Hitting you is Unlucky while you are on Full Life"]={nil,"Damage of Enemies Hitting you is Unlucky while you are on Full Life "}
+end)();(function()
 c["Damage of Enemies Hitting you is Unlucky while you are on Low Life"]={nil,"Damage of Enemies Hitting you is Unlucky while you are on Low Life "}
 c["Damage of Enemies Hitting you is Unlucky while you have a Magic Ring Equipped"]={nil,"Damage of Enemies Hitting you is Unlucky while you have a Magic Ring Equipped "}
 c["Damage of Enemies Hitting you is Unlucky while you have a Magic Ring Equipped You are Hexproof if you have a Magic Ring in right slot"]={nil,"Damage of Enemies Hitting you is Unlucky while you have a Magic Ring Equipped You are Hexproof if you have a Magic Ring in right slot "}
@@ -20007,8 +20006,8 @@ c["Skills Socketed in your Boots are Supported by level 20 High-Impact Mine"]={{
 c["Skills Socketed in your Boots are Supported by level 20 Hypothermia"]={{[1]={[1]={slotName="Boots",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={appliesToGrantedSkills=true,level=20,skillId="SupportHypothermia"}}},nil}
 c["Skills Socketed in your Boots are Supported by level 20 Ice Bite"]={{[1]={[1]={slotName="Boots",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={appliesToGrantedSkills=true,level=20,skillId="SupportIceBite"}}},nil}
 c["Skills Socketed in your Boots are Supported by level 20 Ignite Proliferation"]={{[1]={[1]={slotName="Boots",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={appliesToGrantedSkills=true,level=20,skillId="SupportIgniteProliferation"}}},nil}
-end)();(function()
 c["Skills Socketed in your Boots are Supported by level 20 Immolate"]={{[1]={[1]={slotName="Boots",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={appliesToGrantedSkills=true,level=20,skillId="SupportImmolate"}}},nil}
+end)();(function()
 c["Skills Socketed in your Boots are Supported by level 20 Impale"]={{[1]={[1]={slotName="Boots",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={appliesToGrantedSkills=true,level=20,skillId="SupportImpale"}}},nil}
 c["Skills Socketed in your Boots are Supported by level 20 Increased Area of Effect"]={{[1]={[1]={slotName="Boots",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={appliesToGrantedSkills=true,level=20,skillId="SupportIncreasedAreaOfEffect"}}},nil}
 c["Skills Socketed in your Boots are Supported by level 20 Increased Critical Damage"]={{[1]={[1]={slotName="Boots",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={appliesToGrantedSkills=true,level=20,skillId="SupportIncreasedCriticalDamage"}}},nil}

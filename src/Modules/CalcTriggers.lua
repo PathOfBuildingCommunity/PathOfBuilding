@@ -66,13 +66,14 @@ local function packageSkillDataForSimulation(skill, env)
 	return { uuid = cacheSkillUUID(skill, env), cd = skill.skillData.cooldown, cdOverride = skill.skillModList:Override(skill.skillCfg, "CooldownRecovery"), addsCastTime = processAddedCastTime(skill), icdr = calcLib.mod(skill.skillModList, skill.skillCfg, "CooldownRecovery"), addedCooldown = skill.skillModList:Sum("BASE", skill.skillCfg, "CooldownRecovery")}
 end
 
-local function defaultComparer(env, uuid, source, triggerRate)
-	local cachedSpeed = GlobalCache.cachedData[env.mode][uuid].HitSpeed or GlobalCache.cachedData[env.mode][uuid].Speed
+local function defaultComparer(env, uuid, source, triggerRate, useCastRate)
+	local cached = GlobalCache.cachedData[env.mode][uuid]
+	local cachedSpeed = useCastRate and cached.Speed or cached.HitSpeed or cached.Speed
 	return (not source and cachedSpeed) or (cachedSpeed and cachedSpeed > (triggerRate or 0))
 end
 
 -- Identify the trigger action skill for trigger conditions, take highest Attack Per Second
-local function findTriggerSkill(env, skill, source, triggerRate, comparer)
+local function findTriggerSkill(env, skill, source, triggerRate, comparer, useCastRate)
 	local comparer = comparer or defaultComparer
 
 	local uuid = cacheSkillUUID(skill, env)
@@ -80,8 +81,9 @@ local function findTriggerSkill(env, skill, source, triggerRate, comparer)
 		calcs.buildActiveSkill(env, env.mode, skill, uuid)
 	end
 
-	if GlobalCache.cachedData[env.mode][uuid] and comparer(env, uuid, source, triggerRate) and (skill.skillFlags and not skill.skillFlags.disable) and (skill.skillCfg and not skill.skillCfg.skillCond["usedByMirage"]) and not skill.skillTypes[SkillType.OtherThingUsesSkill] then
-		return skill, GlobalCache.cachedData[env.mode][uuid].HitSpeed or GlobalCache.cachedData[env.mode][uuid].Speed, uuid
+	if GlobalCache.cachedData[env.mode][uuid] and comparer(env, uuid, source, triggerRate, useCastRate) and (skill.skillFlags and not skill.skillFlags.disable) and (skill.skillCfg and not skill.skillCfg.skillCond["usedByMirage"]) and not skill.skillTypes[SkillType.OtherThingUsesSkill] then
+		local cached = GlobalCache.cachedData[env.mode][uuid]
+		return skill, useCastRate and cached.Speed or cached.HitSpeed or cached.Speed, uuid
 	end
 	return source, triggerRate, source and cacheSkillUUID(source, env)
 end
@@ -584,10 +586,15 @@ local function defaultTriggerHandler(env, config)
 			local actionCooldown = cooldownOverride or m_max((triggerCD or 0) + (output.addsCastTime or 0), (triggeredCD or 0) + (addedCooldown or 0))
 			local actionCooldownAdjusted = cooldownOverride or m_max(triggerCDAdjusted, triggeredCDAdjusted)
 			local actionCooldownTickRounded = cooldownOverride and (m_ceil(cooldownOverride * data.misc.ServerTickRate) / data.misc.ServerTickRate) or m_max(triggerCDTickRounded, triggeredCDTickRounded)
+			-- Brand activation frequency is represented as a trigger cooldown here,
+			-- but it is not a cooldown that the linked spell consumes.
+			local cooldownNotConsumedChance = actionCooldownTickRounded ~= 0 and not actor.mainSkill.skillData.triggeredByBrand and m_min(m_max(actor.mainSkill.skillModList:Sum("BASE", actor.mainSkill.skillCfg, "CooldownNotConsumedChance"), 0), 100) or 0
+			local cooldownConsumedChance = 1 - cooldownNotConsumedChance / 100
+			local cooldownNotConsumedMultiplier = cooldownConsumedChance > 0 and 1 / cooldownConsumedChance or m_huge
 
 			output.TriggerRateCap = source == actor.mainSkill and actor.mainSkill.skillData.triggerRateCapOverride or m_huge
 			if actionCooldownTickRounded ~= 0 then
-				output.TriggerRateCap = 1 / actionCooldownTickRounded
+				output.TriggerRateCap = 1 / actionCooldownTickRounded * cooldownNotConsumedMultiplier
 			end
 			if config.triggerName == "Doom Blast" and env.build.configTab.input["doomBlastSource"] == "expiration" then
 				local expirationRate = 1 / GlobalCache.cachedData[env.mode][uuid].Env.player.output.Duration
@@ -698,7 +705,10 @@ local function defaultTriggerHandler(env, config)
 				else
 					t_insert(breakdown.TriggerRateCap, "Trigger rate:")
 					t_insert(breakdown.TriggerRateCap, s_format("1 / %.3f", actionCooldownTickRounded))
-					t_insert(breakdown.TriggerRateCap, s_format("= %.2f ^8per second", output.TriggerRateCap))
+					if cooldownNotConsumedChance > 0 then
+						t_insert(breakdown.TriggerRateCap, s_format("/ %.2f ^8(%g%% chance to consume a cooldown)", cooldownConsumedChance, 100 - cooldownNotConsumedChance))
+					end
+					t_insert(breakdown.TriggerRateCap, s_format("= %.2f ^8%s", output.TriggerRateCap, cooldownNotConsumedChance > 0 and "expected uses per second" or "per second"))
 				end
 			end
 
@@ -796,17 +806,15 @@ local function defaultTriggerHandler(env, config)
 				-- If the current triggered skill ignores tick rate and is the only triggered skill by this trigger use charge based calcs
 				if actor.mainSkill.skillData.ignoresTickRate and ( not config.triggeredSkillCond or (triggeredSkills and #triggeredSkills == 1 and triggeredSkills[1] == packageSkillDataForSimulation(actor.mainSkill, env)) ) then
 					local overlaps = config.stagesAreOverlaps and env.player.mainSkill.skillPart == config.stagesAreOverlaps and env.player.mainSkill.activeEffect.srcInstance.skillStageCount or config.overlaps
-					output.SkillTriggerRate = m_min(output.TriggerRateCap, output.EffectiveSourceRate * (overlaps or 1))
+					local sourceRate = output.EffectiveSourceRate * (overlaps or 1)
+					local baseTriggerRate = m_min(output.TriggerRateCap / cooldownNotConsumedMultiplier, sourceRate)
+					output.SkillTriggerRate = cooldownNotConsumedChance > 0 and 1 / (cooldownConsumedChance / baseTriggerRate + (1 - cooldownConsumedChance) / sourceRate) or baseTriggerRate
 					if breakdown then
-						if overlaps then
-							breakdown.SkillTriggerRate = {
-								s_format("min(%.2f, %.2f *  %d) ^8(%d overlaps)", output.TriggerRateCap, output.EffectiveSourceRate, overlaps, overlaps)
-							}
-						else
-							breakdown.SkillTriggerRate = {
-								s_format("min(%.2f, %.2f)", output.TriggerRateCap, output.EffectiveSourceRate)
-							}
+						breakdown.SkillTriggerRate = { s_format("%.2f ^8(rate before cooldown preservation)", baseTriggerRate) }
+						if cooldownNotConsumedChance > 0 then
+							t_insert(breakdown.SkillTriggerRate, s_format("x %.3f ^8(expected effect of %g%% chance to not consume a cooldown)", output.SkillTriggerRate / baseTriggerRate, cooldownNotConsumedChance))
 						end
+						t_insert(breakdown.SkillTriggerRate, s_format("= %.2f ^8per second", output.SkillTriggerRate))
 					end
 				elseif actor.mainSkill.skillFlags.globalTrigger and not config.triggeredSkillCond then -- Trigger does not use source rate breakpoints for one reason or another
 					output.SkillTriggerRate = output.EffectiveSourceRate
@@ -823,6 +831,11 @@ local function defaultTriggerHandler(env, config)
 					end
 				else -- Triggers like Cast on Crit go through simulation to calculate the trigger rate of each skill in the trigger group
 					output.SkillTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, config.triggeredSkillCond and triggeredSkills or {packageSkillDataForSimulation(actor.mainSkill, env)}, output.EffectiveSourceRate, (not actor.mainSkill.skillData.triggeredByBrand and ( triggerCD or triggeredCD ) or 0), triggerChance, actor)
+					local simulatedTriggerRate = output.SkillTriggerRate
+					if cooldownNotConsumedChance > 0 and simulatedTriggerRate > 0 then
+						output.SkillTriggerRate = 1 / (cooldownConsumedChance / simulatedTriggerRate + (1 - cooldownConsumedChance) / output.EffectiveSourceRate)
+					end
+					local cooldownPreservationMultiplier = simulatedTriggerRate > 0 and output.SkillTriggerRate / simulatedTriggerRate or 1
 					local triggerBotsEffective = actor.modDB:Flag(nil, "HaveTriggerBots") and actor.mainSkill.skillTypes[SkillType.Spell]
 					if triggerBotsEffective then
 						output.SkillTriggerRate = 2 * output.SkillTriggerRate
@@ -834,9 +847,12 @@ local function defaultTriggerHandler(env, config)
 					if breakdown then
 						breakdown.SkillTriggerRate = {
 							s_format("%.2f ^8(%s)", output.EffectiveSourceRate, (actor.mainSkill.skillData.triggeredByBrand and s_format("%s activations per second", source.activeEffect.grantedEffect.name)) or (not trigRate and s_format("%s triggers per second", skillName)) or "Effective source rate"),
-							s_format("/ %.2f ^8(Estimated impact of skill rotation, cooldown alignment and trigger chance)", m_max(output.EffectiveSourceRate / output.SkillTriggerRate, 1)),
+							s_format("/ %.2f ^8(Estimated impact of skill rotation, cooldown alignment and trigger chance)", m_max(output.EffectiveSourceRate / simulatedTriggerRate, 1)),
 							s_format("= %.2f ^8per second", output.SkillTriggerRate),
 						}
+						if cooldownNotConsumedChance > 0 then
+							t_insert(breakdown.SkillTriggerRate, 3, s_format("x %.3f ^8(expected effect of %g%% chance to not consume a cooldown)", cooldownPreservationMultiplier, cooldownNotConsumedChance))
+						end
 						if triggerBotsEffective then
 							t_insert(breakdown.SkillTriggerRate, 3, "x 2 ^8(Trigger bots effectively cause the skill to trigger twice)")
 						end
@@ -1077,7 +1093,9 @@ local configTable = {
 			triggeredSkills = {}
 			for _, skill in ipairs(env.player.activeSkillList) do
 				if (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack] or skill.skillTypes[SkillType.Spell]) and not skill.skillFlags.aura and skill ~= env.player.mainSkill and not skill.skillData.triggeredByCraft and not skill.activeEffect.grantedEffect.fromItem and not isTriggered(skill) then
-					source, trigRate, uuid = findTriggerSkill(env, skill, source, trigRate)
+					-- The craft triggers on skill use; brand activations (including
+					-- recalled hits) do not count as additional casts.
+					source, trigRate, uuid = findTriggerSkill(env, skill, source, trigRate, nil, true)
 					if skill.skillFlags and (skill.skillFlags.totem or skill.skillFlags.golem or skill.skillFlags.banner or skill.skillFlags.ballista) and skill.activeEffect.grantedEffect.castTime then
 						if skill.activeEffect.grantedEffect.levels ~= nil then
 							trigRate = 1 / (skill.activeEffect.grantedEffect.castTime + (skill.activeEffect.grantedEffect.levels[skill.activeEffect.level].cooldown or 0))

@@ -1460,6 +1460,11 @@ function calcs.offence(env, actor, activeSkill)
 		output.BrandAttachmentRangeMetre = output.BrandAttachmentRange / 10
 		output.ActiveBrandLimit = skillModList:Sum("BASE", skillCfg, "ActiveBrandLimit")
 		output.AttachedBrandCount = skillData.attachedBrandCount
+		if skillFlags.recalled then
+			-- Recall's activation rate already includes every active brand.
+			output.AttachedBrandCount = 1
+			skillData.attachedBrandCount = 1
+		end
 		if breakdown then
 			breakdown.BrandAttachmentRange = { radius = output.BrandAttachmentRange }
 		end
@@ -2580,6 +2585,29 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 	end
+	local recalledRate = actor == env.player and calcs.recalledSkillRate(env, activeSkill)
+	if recalledRate ~= nil and recalledRate ~= false then
+		local rate = recalledRate
+		-- Preserve the selected skill's damage modifiers and hit-pattern multiplier,
+		-- but replace natural activations with activations caused by Recall alone.
+		if activeSkill.skillTypes[SkillType.Brand] then
+			output.AttachedBrandCount = 1
+			output.BrandTicks = nil
+			output.HitSpeed = rate
+			output.HitTime = rate > 0 and 1 / rate or math.huge
+			skillData.hitTimeOverride = output.HitTime
+		else
+			local hitsPerActivation = output.HitSpeed and output.Speed > 0 and output.HitSpeed / output.Speed or 1
+			output.Speed = rate
+			output.Time = rate > 0 and 1 / rate or math.huge
+			output.SkillTriggerRate = rate
+			output.HitSpeed = rate * hitsPerActivation
+			output.HitTime = output.HitSpeed > 0 and 1 / output.HitSpeed or math.huge
+		end
+		skillData.showAverage = false
+		skillFlags.showAverage = false
+		skillFlags.notAverage = true
+	end
 	-- Other Misc DPS multipliers (like custom source)
 	skillData.dpsMultiplier = ( skillData.dpsMultiplier or 1 ) * ( 1 + skillModList:Sum("INC", skillCfg, "DPS") / 100 ) * skillModList:More(skillCfg, "DPS")
 	if activeSkill.skillTypes[SkillType.Brand] and not skillData.countsAttachedBrandsInDamage then
@@ -2687,6 +2715,16 @@ function calcs.offence(env, actor, activeSkill)
 				t_insert(breakdown.HitSpeed, s_format("1 / %.2f ^8(hit time)", output.HitTime))
 			end
 			t_insert(breakdown.HitSpeed, s_format("= %.2f", output.HitSpeed))
+		end
+	end
+
+	if breakdown and recalledRate ~= nil and recalledRate ~= false then
+		breakdown.HitSpeed = copyTable(breakdown.RecalledSkillRate)
+		if output.HitSpeed ~= recalledRate then
+			t_insert(breakdown.HitSpeed, s_format("= %.3f ^8(hits per second after the skill's hit-pattern multiplier)", output.HitSpeed))
+		end
+		if skillData.triggeredByBrand then
+			breakdown.SkillTriggerRate = copyTable(breakdown.RecalledSkillRate)
 		end
 	end
 
@@ -6355,4 +6393,14 @@ function calcs.offence(env, actor, activeSkill)
 	output.CullingDPS = output.CombinedDPS * (bestCull - 1)
 	output.ReservationDPS = output.CombinedDPS * (output.ReservationDpsMultiplier - 1)
 	output.CombinedDPS = output.CombinedDPS * bestCull * output.ReservationDpsMultiplier
+	if recalledRate == 0 then
+		-- No Recall activations can apply hits, ailments or persistent damage.
+		-- Keep per-hit damage available, but exclude every DPS component.
+		for stat, value in pairs(output) do
+			if type(value) == "number" and stat:match("DPS$") then
+				output[stat] = 0
+			end
+		end
+		output.TotalDot = 0
+	end
 end
