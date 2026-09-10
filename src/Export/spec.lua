@@ -13333,17 +13333,17 @@ return {
 		},
 		[3]={
 			list=false,
-			name="",
+			name="GameObjectRegisterKey",
 			refTo="",
 			type="Int",
-			width=80
+			width=170
 		},
 		[4]={
 			list=false,
-			name="",
-			refTo="",
+			name="SummonEffect",
+			refTo="MiscAnimated",
 			type="Key",
-			width=80
+			width=170
 		},
 		[5]={
 			list=false,
@@ -13382,15 +13382,15 @@ return {
 		},
 		[10]={
 			list=false,
-			name="",
-			refTo="",
+			name="BuffDefinition",
+			refTo="BuffDefinitions",
 			type="Key",
 			width=80
 		},
 		[11]={
 			list=false,
-			name="",
-			refTo="",
+			name="BuffVisual",
+			refTo="BuffVisuals",
 			type="Key",
 			width=80
 		},
