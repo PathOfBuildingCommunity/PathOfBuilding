@@ -7,26 +7,6 @@
 -- bodies intended for headless use.
 dofile("_SimpleGraphic.def.lua")
 
--- Callbacks
-local callbackTable = { }
-local mainObject
-function runCallback(name, ...)
-	if callbackTable[name] then
-		return callbackTable[name](...)
-	elseif mainObject and mainObject[name] then
-		return mainObject[name](mainObject, ...)
-	end
-end
-function SetCallback(name, func)
-	callbackTable[name] = func
-end
-function GetCallback(name)
-	return callbackTable[name]
-end
-function SetMainObject(obj)
-	mainObject = obj
-end
-
 -- https://stackoverflow.com/questions/19326368/iterate-over-lines-including-blank-lines
 function splitLines(s)
 	if s:sub(-1)~="\n" then s=s.."\n" end
