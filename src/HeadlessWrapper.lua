@@ -146,9 +146,6 @@ end
 
 dofile("Launch.lua")
 
--- The CI env var will be true when run from github workflows but should be false for other tools using the headless wrapper 
-__mainObject__.continuousIntegrationMode = os.getenv("CI")
-
 function launch:DownloadPage(url, callback, params)
 	params = params or {}
 	local responseHeader = ""
@@ -164,7 +161,7 @@ function launch:DownloadPage(url, callback, params)
 		easy:setopt(curl.OPT_HTTPHEADER, header)
 	end
 	easy:setopt_url(url)
-	easy:setopt(curl.OPT_USERAGENT, "Headless Path of Building" .. (mainObject.continuousIntegrationMode and " CI" or "") .. "/"..launch.versionNumber)
+	easy:setopt(curl.OPT_USERAGENT, "Headless Path of Building" .. "/"..launch.versionNumber)
 	easy:setopt(curl.OPT_ACCEPT_ENCODING, "")
 	if params.body then
 		easy:setopt(curl.OPT_POST, true)
