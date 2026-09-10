@@ -302,7 +302,7 @@ Variant: Buff Effect (Current)
 Variant: Max Resistance
 Variant: Fire Resistance
 Implicits: 1
-FireResistUnique__21
+FireResistImplicitRing1
 {fractured}StrengthUnique__16
 GlobalAddedFireDamageUnique__3_
 FireResistUnique__21
@@ -328,7 +328,7 @@ Variant: Buff Effect (Current)
 Variant: Max Resistance
 Variant: Cold Resistance
 Implicits: 1
-ColdResistUnique__28
+ColdResistImplicitRing1
 {fractured}DexterityUnique__14
 GlobalAddedColdDamageUnique__3
 ColdResistUnique__28
@@ -380,7 +380,7 @@ Variant: Buff Effect (Current)
 Variant: Agony Damage
 Variant: Chaos Resistance
 Implicits: 1
-ChaosResistUnique__13
+ChaosResistImplicitRing1
 {fractured}AllAttributesUnique__17_
 GlobalAddedChaosDamageUnique__5_
 ChaosResistUnique__13
@@ -406,7 +406,7 @@ Variant: Buff Effect (Current)
 Variant: Max Resistance
 Variant: Lightning Resistance
 Implicits: 1
-LightningResistUnique__21
+LightningResistImplicitRing1
 {fractured}IntelligenceUnique__14
 GlobalAddedLightningDamageUnique__3
 LightningResistUnique__21
@@ -1618,7 +1618,7 @@ Source: Drops from unique{The Elder} (Uber Uber)
 Requires Level 16
 Implicits: 1
 ColdResistImplicitRing1
-ColdResistImplicitRing1
+ColdResistUnique__37
 AllDamageCanChillUnique__1
 AllDamageTakenCanChillUnique__1
 ChillHitsCauseShatteringUnique__1

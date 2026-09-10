@@ -28,7 +28,7 @@ Variant: Pre 3.0.0
 Variant: Pre 3.21.0
 Variant: Current
 Implicits: 1
-{variant:2,3}IncreasedLifeUnique__28[30,40]
+{variant:2,3}IncreasedLifeImplicitShield3[30,40]
 {variant:1,2}LocalIncreasedPhysicalDamageReductionRatingPercentUnique__4[120,160]
 {variant:3}LocalIncreasedPhysicalDamageReductionRatingPercentUnique__4
 IncreasedLifeUnique__28

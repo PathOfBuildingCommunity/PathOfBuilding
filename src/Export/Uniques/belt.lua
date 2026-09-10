@@ -216,7 +216,7 @@ Variant: Pre 3.21.0
 Variant: Current
 Implicits: 1
 AbyssJewelSocketImplicit
-AbyssJewelSocketUnique__3
+AbyssJewelSocketUnique__6_
 {variant:1}AbyssJewelEffectUnique__1[50,50]
 {variant:2}AbyssJewelEffectUnique__1[75,75]
 {variant:3}AbyssJewelEffectUnique__1

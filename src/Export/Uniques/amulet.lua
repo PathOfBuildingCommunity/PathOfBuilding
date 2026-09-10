@@ -1329,7 +1329,7 @@ Upgrade: Upgrades to unique{Xoph's Blood} using currency{Blessing of Xoph}
 Requires Level 35
 Implicits: 1
 StrengthImplicitAmulet1
-StrengthImplicitAmulet1
+StrengthUnique__6
 FireDamagePercentUnique___7
 IncreasedLifeUnique__25
 FireResistUnique__9
