@@ -235,6 +235,51 @@ describe("TradeQuery", function()
 			dropdown.tooltipFunc(tooltip, "DROP", 1, nil)
 			assert.is_nil(tooltip.childTooltips)
 		end)
+
+		it("preserves Trade line occurrences and craft highlighting in Ctrl previews", function()
+			local header = "Rarity: RARE\nBehemoth Hold\nGold Ring\nImplicits: 0\n"
+			local prefix = "{prefix}+40 to maximum Mana"
+			local fractured = "{fractured}{suffix}+37% to Global Critical Strike Multiplier"
+			local ordinaryCrit = "{suffix}+37% to Global Critical Strike Multiplier"
+			local oldCraft = "{crafted}{suffix}+20 to Dexterity"
+			local strength = "{range:0.5}{crafted}{suffix}+(21-25) to Strength"
+			local intelligence = "{range:0.5}{crafted}{suffix}+(21-25) to Intelligence"
+			local cases = {
+				{ name = "addition after trailing fracture", source = header .. prefix .. "\n" .. fractured,
+					preview = header .. prefix .. "\n" .. fractured .. "\n" .. strength, indexes = { 3 }, expected = {
+						{ "+40 to maximum Mana", false, false, false }, { "+37% to Global Critical Strike Multiplier", true, false, false }, { "+23 to Strength", false, true, true },
+					} },
+				{ name = "middle replacement expands to two lines", source = header .. prefix .. "\n" .. oldCraft .. "\n" .. fractured,
+					preview = header .. prefix .. "\n" .. fractured .. "\n" .. strength .. "\n" .. intelligence, indexes = { 3, 4 }, replaced = "+20 to Dexterity ^8(Suffix)", expected = {
+						{ "+40 to maximum Mana", false, false, false }, { "+23 to Strength", false, true, true }, { "+23 to Intelligence", false, true, true }, { "+37% to Global Critical Strike Multiplier", true, false, false },
+					} },
+				{ name = "ordinary and fractured duplicate text", source = header .. prefix .. "\n" .. ordinaryCrit .. "\n" .. fractured,
+					preview = header .. prefix .. "\n" .. ordinaryCrit .. "\n" .. fractured .. "\n" .. strength, indexes = { 4 }, expected = {
+						{ "+40 to maximum Mana", false, false, false }, { "+37% to Global Critical Strike Multiplier", false, false, false }, { "+37% to Global Critical Strike Multiplier", true, false, false }, { "+23 to Strength", false, true, true },
+					} },
+				{ name = "addition preserves existing craft", source = header .. prefix .. "\n" .. oldCraft .. "\n" .. fractured,
+					preview = header .. prefix .. "\n" .. oldCraft .. "\n" .. fractured .. "\n" .. strength, indexes = { 4 }, expected = {
+						{ "+40 to maximum Mana", false, false, false }, { "+20 to Dexterity", false, true, false }, { "+37% to Global Critical Strike Multiplier", true, false, false }, { "+23 to Strength", false, true, true },
+					} },
+			}
+			for _, case in ipairs(cases) do
+				local tq = newResultQuery({ benchCraft = "+(21-25) to Strength ^8(Suffix)", benchCraftReplaced = case.replaced,
+					benchCraftItemString = case.preview, benchCraftLineIndexes = case.indexes }, case.source)
+				tq.itemsTab.AddItemTooltip = addItemTooltip
+				tq.IsBenchCraftPreviewActive = function() return true end
+				local tooltip = new("Tooltip"):Tooltip()
+				buildResultDropdown(tq).tooltipFunc(tooltip, "DROP", 1, nil)
+				local actual = { }
+				for _, line in ipairs(tooltip.childTooltips[1].lines) do
+					if line.modLine then
+						local text = StripEscapes(line.text)
+						local crafted = text:find("^%[Craft%] ") ~= nil
+						actual[#actual + 1] = { text:gsub("^%[Craft%] ", ""), line.modLine.fractured == true, line.modLine.crafted == true, crafted }
+					end
+				end
+				assert.are.same(case.expected, actual, case.name)
+			end
+		end)
 	end)
 	describe("GetResultEvaluation", function()
 		it("uses the first visible ring for a Pearl result without a selected slot", function()

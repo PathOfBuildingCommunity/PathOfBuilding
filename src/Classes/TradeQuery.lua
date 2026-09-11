@@ -1701,15 +1701,11 @@ you can add them, copy the link here, and press "Price Item" to evaluate the ite
 		tooltip:AddLine(16, craftLabel .. evaluation.benchCraft .. compareHint)
 		return evaluation
 	end
-	local function addBenchCraftPreviewIfApplicable(tooltip, evaluation, tooltipSlot)
+	local function addBenchCraftPreviewIfApplicable(tooltip, evaluation, tooltipSlot, sourceItem)
 		if not evaluation or not evaluation.benchCraftItemString or not self:IsBenchCraftPreviewActive() then
 			return
 		end
 		local previewItem = new("Item"):Item(evaluation.benchCraftItemString)
-		local previewTooltip = tooltip.benchCraftPreviewTooltip or new("Tooltip"):Tooltip()
-		tooltip.benchCraftPreviewTooltip = previewTooltip
-		previewTooltip:Clear()
-		self.itemsTab:AddItemTooltip(previewTooltip, previewItem, tooltipSlot)
 		local craftedModLines = { }
 		for _, lineIndex in ipairs(evaluation.benchCraftLineIndexes or { }) do
 			local modLine = previewItem.explicitModLines[lineIndex]
@@ -1717,6 +1713,54 @@ you can add them, copy the link here, and press "Price Item" to evaluate the ite
 				craftedModLines[modLine] = true
 			end
 		end
+		local function lineKey(modLine)
+			return table.concat({ modLine.line or "", tostring(modLine.prefix), tostring(modLine.suffix),
+				tostring(modLine.fractured), tostring(modLine.crafted), modLine.modGroup or "" }, "\0")
+		end
+		local remaining = { }
+		for _, modLine in ipairs(previewItem.explicitModLines) do
+			t_insert(remaining, modLine)
+		end
+		local ordered = { }
+		local insertedReplacement = false
+		for _, sourceModLine in ipairs(sourceItem.explicitModLines) do
+			local sourceKey = lineKey(sourceModLine)
+			local matchedIndex
+			for index, previewModLine in ipairs(remaining) do
+				if not craftedModLines[previewModLine] and lineKey(previewModLine) == sourceKey then
+					matchedIndex = index
+					break
+				end
+			end
+			if matchedIndex then
+				local previewModLine = t_remove(remaining, matchedIndex)
+				t_insert(ordered, previewModLine)
+			elseif sourceModLine.crafted and evaluation.benchCraftReplaced and not insertedReplacement then
+				local replacementCraftLines = { }
+				for _, previewModLine in ipairs(remaining) do
+					if craftedModLines[previewModLine] then
+						t_insert(replacementCraftLines, previewModLine)
+					end
+				end
+				for index = #remaining, 1, -1 do
+					if craftedModLines[remaining[index]] then
+						t_remove(remaining, index)
+					end
+				end
+				for _, previewModLine in ipairs(replacementCraftLines) do
+					t_insert(ordered, previewModLine)
+				end
+				insertedReplacement = true
+			end
+		end
+		for _, previewModLine in ipairs(remaining) do
+			t_insert(ordered, previewModLine)
+		end
+		previewItem.explicitModLines = ordered
+		local previewTooltip = tooltip.benchCraftPreviewTooltip or new("Tooltip"):Tooltip()
+		tooltip.benchCraftPreviewTooltip = previewTooltip
+		previewTooltip:Clear()
+		self.itemsTab:AddItemTooltip(previewTooltip, previewItem, tooltipSlot)
 		for _, line in ipairs(previewTooltip.lines) do
 			if line.modLine and craftedModLines[line.modLine] and line.text then
 				line.text = colorCodes.WARNING .. "[Craft] " .. StripEscapes(line.text)
@@ -1743,7 +1787,7 @@ you can add them, copy the link here, and press "Price Item" to evaluate the ite
 		self.itemsTab:AddItemTooltip(tooltip, item, tooltipSlot)
 		addMegalomaniacCompareToTooltipIfApplicable(tooltip, pb_index)
 		local benchCraftEvaluation = addBenchCraftToTooltipIfApplicable(tooltip, result)
-		addBenchCraftPreviewIfApplicable(tooltip, benchCraftEvaluation, tooltipSlot)
+		addBenchCraftPreviewIfApplicable(tooltip, benchCraftEvaluation, tooltipSlot, item)
 		tooltip:AddSeparator(10)
 		tooltip:AddLine(16, string.format("^7Price: %s %s", result.amount, result.currency))
 	end
