@@ -2316,6 +2316,12 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize, importe
 		self.tree:ProcessNode(node)
 		if node.modList and jewelData.clusterJewelIncEffect and node.type == "Normal" then
 			node.modList:NewMod("PassiveSkillEffect", "INC", jewelData.clusterJewelIncEffect)
+			-- ProcessNode must parse the base values before the tooltip text is scaled,
+			-- otherwise PassiveSkillEffect would apply to the scaled values a second time.
+			local effectScalar = 1 + jewelData.clusterJewelIncEffect / 100
+			for index, line in ipairs(node.sd) do
+				node.sd[index] = itemLib.applyRange(line, 1, effectScalar)
+			end
 		end
 	end
 
