@@ -282,7 +282,7 @@ Strict-Transport-Security: max-age=63115200; includeSubDomains; preload]]
 			assert.are.equal("0", itemsById.empty.weight)
 		end)
 
-		it("reconstructs explicit and crafted affixes for bench craft replacement", function()
+		it("reconstructs explicit, crafted, and fractured affixes for bench craft replacement", function()
 			local function makeTradeApiMod(description, hash, tier, domain)
 				return {
 					description = description, domain = domain or "explicit", hash = "stat." .. hash,
@@ -298,6 +298,8 @@ Strict-Transport-Security: max-age=63115200; includeSubDomains; preload]]
 						rarity = "Rare", name = "Test Band", typeLine = "Sapphire Ring",
 						explicitMods = {
 							makeTradeApiMod("+50 to maximum Life", "explicit.life", "P2"),
+							{ description = "+25 to maximum Mana", domain = "fractured", hash = "stat.fractured.mana",
+								flags = { fractured = true }, mods = { { name = "Test Affix", tier = "P2", level = 30 } } },
 							makeTradeApiMod("20% increased Armour", "explicit.armour", "P2"),
 							makeTradeApiMod("+30% to Fire Resistance", "explicit.fire", "S3"),
 							makeTradeApiMod("+30% to Cold Resistance", "explicit.cold", "S3"),
@@ -310,6 +312,7 @@ Strict-Transport-Security: max-age=63115200; includeSubDomains; preload]]
 								{ "explicit.fire", { 1 } }, { "explicit.cold", { 2 } },
 							},
 							crafted = { { "crafted.dexterity", { 0 } }, { "crafted.rarity", { 0 } } },
+							fractured = { { "fractured.mana", { 0 } } },
 						} },
 					},
 				} },
@@ -323,13 +326,16 @@ Strict-Transport-Security: max-age=63115200; includeSubDomains; preload]]
 
 			local item = new("Item"):Item(fetchedItems[1].item_string)
 			local modLines = item.explicitModLines
-			assert.are.same({ true, true }, { modLines[1].prefix, modLines[2].prefix })
-			assert.are.equal(modLines[1].modGroup, modLines[2].modGroup)
+			assert.are.same({ true, true, true }, { modLines[1].prefix, modLines[2].prefix, modLines[3].prefix })
+			assert.are_not.equal(modLines[1].modGroup, modLines[2].modGroup)
+			assert.are.equal("trade:fractured:0", modLines[2].modGroup)
+			assert.is_true(modLines[2].fractured)
+			assert.are.equal(modLines[1].modGroup, modLines[3].modGroup)
 			assert.are.same({ true, true, true, true },
-				{ modLines[3].suffix, modLines[4].suffix, modLines[5].suffix, modLines[6].suffix })
-			assert.are_not.equal(modLines[3].modGroup, modLines[4].modGroup)
-			assert.are.same({ true, true }, { modLines[5].crafted, modLines[6].crafted })
-			assert.are.equal(modLines[5].modGroup, modLines[6].modGroup)
+				{ modLines[4].suffix, modLines[5].suffix, modLines[6].suffix, modLines[7].suffix })
+			assert.are_not.equal(modLines[4].modGroup, modLines[5].modGroup)
+			assert.are.same({ true, true }, { modLines[6].crafted, modLines[7].crafted })
+			assert.are.equal(modLines[6].modGroup, modLines[7].modGroup)
 
 			local tradeQuery = new("TradeQuery"):TradeQuery({ itemsTab = { } })
 			local strippedItem = new("Item"):Item(item:BuildRaw())
@@ -339,7 +345,7 @@ Strict-Transport-Security: max-age=63115200; includeSubDomains; preload]]
 				end
 			end
 			strippedItem = new("Item"):Item(strippedItem:BuildRaw())
-			assert.are.same({ Prefix = 2, Suffix = 1 }, tradeQuery:GetBenchCraftAvailability(strippedItem))
+			assert.are.same({ Prefix = 1, Suffix = 1 }, tradeQuery:GetBenchCraftAvailability(strippedItem))
 
 			local availability, craftState = tradeQuery:GetBenchCraftAvailability(item)
 			assert.is_nil(availability)
@@ -362,6 +368,78 @@ Strict-Transport-Security: max-age=63115200; includeSubDomains; preload]]
 			assert.is_truthy(evaluation.benchCraftReplaced:find("to Dexterity/10% increased Rarity", 1, true))
 			assert.is_nil(evaluation.benchCraftItemString:find("+20 to Dexterity", 1, true))
 			assert.is_nil(evaluation.benchCraftItemString:find("10% increased Rarity", 1, true))
+			local replacementItem = new("Item"):Item(evaluation.benchCraftItemString)
+			local fracturedManaLine
+			for _, modLine in ipairs(replacementItem.explicitModLines) do
+				if modLine.line == "+25 to maximum Mana" then
+					fracturedManaLine = modLine
+					break
+				end
+			end
+			assert.is_table(fracturedManaLine)
+			assert.is_true(fracturedManaLine.fractured)
+		end)
+
+		it("preserves fetched fractured suffix values in a bench craft preview", function()
+			local function apiMod(description, hash, tier, domain, flags)
+				return { description = description, domain = domain or "explicit", hash = "stat." .. hash,
+					flags = flags, mods = { { name = "Test Affix", tier = tier, level = 30 } } }
+			end
+			local response = dkjson.encode({ result = { {
+				id = "helical-preview", listing = { price = { amount = 1, currency = "chaos", type = "~price" }, whisper = "hi", account = { name = "seller" } },
+				item = { rarity = "Rare", name = "Preview Subject", typeLine = "Helical Ring", implicitMods = {
+					{ description = "-2 Prefix Modifiers allowed" }, { description = "+1 Suffix Modifier allowed" },
+					{ description = "Implicit Modifiers Cannot Be Changed" }, { description = "50% increased Suffix Modifier magnitudes" },
+				}, explicitMods = {
+					apiMod("+50 to maximum Life", "explicit.life", "P2"),
+					apiMod("+24% to all Elemental Resistances", "explicit.all-res", "S3"),
+					apiMod("+69% to Lightning Resistance", "explicit.lightning-res", "S3"),
+					apiMod("+37% to Global Critical Strike Multiplier", "fractured.crit", "S3", "fractured", { fractured = true }),
+				}, extended = { hashes = { explicit = { { "explicit.life", { 0 } }, { "explicit.all-res", { 1 } }, { "explicit.lightning-res", { 2 } } }, fractured = { { "fractured.crit", { 0 } } } } } },
+			} } })
+			requests.requestQueue.fetch = { }
+			local fetchedItems
+			requests:FetchResultBlock("test", function(items) fetchedItems = items end)
+			table.remove(requests.requestQueue.fetch, 1).callback(response)
+			local sourceItem = new("Item"):Item(fetchedItems[1].item_string)
+			local function findLine(item, text)
+				for _, modLine in ipairs(item.explicitModLines) do
+					if modLine.line == text then return modLine end
+				end
+			end
+			local function assertDisplayedValue(item, line, stored, displayed)
+				local modLine = assert(findLine(item, line))
+				assert.are.equal(stored, modLine.line)
+				assert.is_truthy(itemLib.formatModLine(modLine):find(displayed, 1, true))
+				return modLine
+			end
+			local sourceCrit = assertDisplayedValue(sourceItem, "+37% to Global Critical Strike Multiplier", "+37% to Global Critical Strike Multiplier", "+37%")
+			assert.is_true(sourceCrit.fractured)
+			assertDisplayedValue(sourceItem, "+24% to all Elemental Resistances", "+24% to all Elemental Resistances", "+24%")
+			assertDisplayedValue(sourceItem, "+69% to Lightning Resistance", "+69% to Lightning Resistance", "+69%")
+
+			local tradeQuery = new("TradeQuery"):TradeQuery({ itemsTab = { } })
+			local strengthCraft = { type = "Suffix", group = "Strength", modTags = { "attribute" }, types = { Ring = true }, "+(21-25) to Strength" }
+			tradeQuery.tradeQueryGenerator = new("TradeQueryGenerator"):TradeQueryGenerator({ itemsTab = { } })
+			tradeQuery.itemsTab.build = { data = { masterMods = { strengthCraft } } }
+			tradeQuery.statSortSelectionList = { { stat = "Life", weightMult = 1 } }
+			tradeQuery.slotTables[1] = { slotName = "Ring 1", considerBenchCraft = true }
+			tradeQuery.resultTbl[1] = { fetchedItems[1] }
+			local previousAffixQuality = main.defaultItemAffixQuality
+			main.defaultItemAffixQuality = 0.5
+			local evaluation = tradeQuery:GetResultEvaluation(1, 1, function(args)
+				return { Life = args.repItem:BuildRaw():find("to Strength", 1, true) and 150 or 100 }
+			end, { Life = 100 })[1]
+			main.defaultItemAffixQuality = previousAffixQuality
+			assert.is_truthy(evaluation.benchCraftItemString)
+			local previewItem = new("Item"):Item(evaluation.benchCraftItemString)
+			local previewCrit = assertDisplayedValue(previewItem, "+37% to Global Critical Strike Multiplier", "+37% to Global Critical Strike Multiplier", "+37%")
+			assert.is_true(previewCrit.fractured)
+			assertDisplayedValue(previewItem, "+24% to all Elemental Resistances", "+24% to all Elemental Resistances", "+24%")
+			assertDisplayedValue(previewItem, "+69% to Lightning Resistance", "+69% to Lightning Resistance", "+69%")
+			local previewStrength = assert(findLine(previewItem, "+(21-25) to Strength"))
+			assert.is_true(previewStrength.crafted)
+			assert.is_truthy(itemLib.formatModLine(previewStrength):find("+34 to Strength", 1, true))
 		end)
 	end)
 
