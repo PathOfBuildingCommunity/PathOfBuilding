@@ -2908,7 +2908,9 @@ function calcs.offence(env, actor, activeSkill)
 							local castTime = 1 / m_min(castRate, data.misc.ServerTickRate)
 							local count = value.skillModList:Sum("BASE", value.skillCfg, pactKey.."EmpoweredSpells")
 							local storedUses = value.skillData.storedUses + value.skillModList:Sum("BASE", value.skillCfg, "AdditionalCooldownUses")
-							local uptime = (globalOutput.Speed or 0) == 0 and 100 or m_min((count / globalOutput.Speed) / (cooldown + castTime), 1) * 100
+							-- Repeated spells retain the empowerment from the initial cast without consuming another use.
+							local empoweredUseRate = (globalOutput.Speed or 0) / (globalOutput.Repeats or 1)
+							local uptime = empoweredUseRate == 0 and 100 or m_min((count / empoweredUseRate) / (cooldown + castTime), 1) * 100
 							uptime = m_min(100, uptime * storedUses)
 							local effect = skillModList:Flag(nil, "Condition:PactMaxHit") and 100 or uptime
 							local effectMult = effect / 100
@@ -2921,7 +2923,7 @@ function calcs.offence(env, actor, activeSkill)
 							if globalBreakdown then
 								globalBreakdown[pactKey.."UpTimeRatio"] = {
 									s_format("(%.2f ^8(number of Empowered)", count),
-									s_format("/ %.2f) ^8(casts per second)", globalOutput.Speed or 0),
+									s_format("/ %.2f) ^8(non-repeated casts per second)", empoweredUseRate),
 									s_format("/ (%.2f ^8(pact cooldown)", cooldown),
 									s_format("+ %.2f) ^8(pact cast time)", castTime),
 									s_format("* %.2f ^8(stored uses)", storedUses),
