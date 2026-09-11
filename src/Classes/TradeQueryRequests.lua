@@ -349,7 +349,7 @@ function TradeQueryRequestsClass:FetchResultBlock(url, callback)
 				end
 
 				local groupsByDomain = { }
-				for _, domain in ipairs({ "explicit", "crafted" }) do
+				for _, domain in ipairs({ "explicit", "crafted", "fractured" }) do
 					local groupsByHash = { }
 					for _, entry in ipairs(item.extended and item.extended.hashes and item.extended.hashes[domain] or { }) do
 						if type(entry) == "table" and type(entry[1]) == "string" and type(entry[2]) == "table" then
@@ -401,6 +401,12 @@ function TradeQueryRequestsClass:FetchResultBlock(url, callback)
 
 				local function processLine(modLine, includeAffixMetadata)
 					local s = ""
+					-- Trade API descriptions already contain their live resolved values. A later
+					-- bench-craft preview makes the reconstructed item an advanced copy; retain
+					-- these fetched values instead of applying local magnitude modifiers again.
+					if includeAffixMetadata and not (modLine.flags and modLine.flags.unscalable) then
+						s = s .. "{unscalable}"
+					end
 					for flagName, flag in pairs(modLine.flags or {}) do
 						if flag then
 							s = s .. string.format("{%s}", flagName)
