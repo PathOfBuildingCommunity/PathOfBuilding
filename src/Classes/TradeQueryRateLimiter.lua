@@ -56,7 +56,8 @@ function TradeQueryRateLimiterClass:TradeQueryRateLimiter()
 		["trade-search-request-limit"] = {},
 		["trade-fetch-request-limit"] = {},
 		["character-list-request-limit"] = {},
-		["character-request-limit"] = {}
+		["character-request-limit"] = {},
+		["league-request-limit"] = {},
 	}
 	return self
 end
