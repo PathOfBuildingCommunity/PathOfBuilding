@@ -4068,7 +4068,8 @@ function ItemsTabClass:FormatItemSource(text)
 			   :gsub("prophecy{([^}]+)}",colorCodes.PROPHECY.."%1"..colorCodes.SOURCE)
 end
 
-local function itemChangesPassiveTree(item)
+-- Cluster Jewels use the separate comparison path that rebuilds cluster subgraphs.
+function ItemsTabClass:ItemNeedsMainTreeComparisonSpec(item)
 	return not not (item and item.type == "Jewel" and item.jewelData
 		and (item.jewelData.conqueredBy or item.jewelRadiusIndex
 			and (item.jewelData.intuitiveLeapLike or item.jewelData.impossibleEscapeKeystone)))
@@ -4097,7 +4098,7 @@ local sharedSpecKeysForJewelComparison = {
 	curSecondaryAscendClassName = true,
 }
 
-local function cloneSpecForJewelComparison(spec)
+local function cloneSpecForJewelComparison(spec, includeClusterSubgraphs)
 	local specCopy = setmetatable({ }, getmetatable(spec))
 	-- Share only immutable/scalar spec state. Tables that BuildAllDependsAndPaths
 	-- may mutate must be owned by the comparison spec.
@@ -4146,35 +4147,64 @@ local function cloneSpecForJewelComparison(spec)
 	specCopy.allocSubgraphNodes = { }
 	specCopy.allocExtendedNodes = { }
 	specCopy.subGraphs = { }
+	if includeClusterSubgraphs then
+		for id, subGraph in pairs(spec.subGraphs) do
+			local subGraphCopy = {
+				nodes = { },
+				parentSocket = specCopy.nodes[subGraph.parentSocket.id],
+				entranceNode = specCopy.nodes[subGraph.entranceNode.id],
+			}
+			for _, node in ipairs(subGraph.nodes) do
+				local nodeCopy = specCopy.nodes[node.id]
+				if nodeCopy then
+					t_insert(subGraphCopy.nodes, nodeCopy)
+				end
+			end
+			specCopy.subGraphs[id] = subGraphCopy
+		end
+	end
 
 	return specCopy
 end
 
----@param itemsTab ItemsTab
 ---@param compareSlot ItemSlotControl
 ---@param replacementItem Item
-local function buildSpecForJewelComparison(itemsTab, compareSlot, replacementItem)
+---@param allocateSocket? boolean
+---@param rebuildClusterJewelGraphs? boolean
+function ItemsTabClass:BuildSpecForJewelComparison(compareSlot, replacementItem, allocateSocket, rebuildClusterJewelGraphs)
 	local tempItemId
-	local spec = cloneSpecForJewelComparison(itemsTab.build.spec)
+	local spec = cloneSpecForJewelComparison(self.build.spec, rebuildClusterJewelGraphs)
 	if replacementItem then
-		if replacementItem.id and itemsTab.items[replacementItem.id] == replacementItem then
+		if replacementItem.id and self.items[replacementItem.id] == replacementItem then
 			spec.jewels[compareSlot.nodeId] = replacementItem.id
 		else
 			tempItemId = -1
-			while itemsTab.items[tempItemId] do
+			while self.items[tempItemId] do
 				tempItemId = tempItemId - 1
 			end
-			itemsTab.items[tempItemId] = replacementItem
+			self.items[tempItemId] = replacementItem
 			spec.jewels[compareSlot.nodeId] = tempItemId
 		end
 	else
 		spec.jewels[compareSlot.nodeId] = nil
 	end
+	if allocateSocket then
+		local socketNode = spec.nodes[compareSlot.nodeId]
+		if socketNode then
+			socketNode.alloc = true
+			spec.allocNodes[compareSlot.nodeId] = socketNode
+		end
+	end
+
 	local ok, err = xpcall(function()
-		spec:BuildAllDependsAndPaths()
+		if rebuildClusterJewelGraphs then
+			spec:BuildClusterJewelGraphs()
+		else
+			spec:BuildAllDependsAndPaths()
+		end
 	end, debug.traceback)
 	if tempItemId then
-		itemsTab.items[tempItemId] = nil
+		self.items[tempItemId] = nil
 	end
 	if not ok then
 		error(err, 0)
@@ -4920,8 +4950,11 @@ function ItemsTabClass:AddItemStatDifferences(tooltip, item, base, slot)
 		local function getReplacedItemAndOutput(compareSlot)
 			local selItem = self.items[compareSlot.selItemId]
 			local override = { repSlotName = compareSlot.slotName, repItem = item ~= selItem and item or nil }
-			if compareSlot.nodeId and (itemChangesPassiveTree(selItem) or itemChangesPassiveTree(item)) then
-				override.spec = buildSpecForJewelComparison(self, compareSlot, override.repItem)
+			if compareSlot.nodeId and (
+				self:ItemNeedsMainTreeComparisonSpec(selItem)
+				or self:ItemNeedsMainTreeComparisonSpec(item)
+			) then
+				override.spec = self:BuildSpecForJewelComparison(compareSlot, override.repItem)
 			end
 			local output = calcFunc(override)
 			return selItem, output
