@@ -199,6 +199,7 @@ function ListClass:Draw(viewPort, noTooltip)
 	end
 	DrawImage(nil, x + 1, y + 1, width - 2, height - 2)
 	self:DrawControls(viewPort, (noTooltip and not self.forceTooltip) and self)
+	local mouseOverControl = self:GetMouseOverControl()
 
 	SetViewport(x + 2, y + 2,  self.scroll and width - 20 or width, height - 4 - (self.scroll and self.scrollH and 16 or 0))
 	local textOffsetY = self.showRowSeparators and 2 or 0
@@ -227,7 +228,7 @@ function ListClass:Draw(viewPort, noTooltip)
 				text = text:sub(1, clipIndex - 1) .. "..."
 				textWidth = DrawStringWidth(textHeight, colFont, text)
 			end
-			if not scrollBarV.dragging and (not self.selDragActive or (self.CanDragToValue and self:CanDragToValue(index, value, self.otherDragSource))) then
+			if not mouseOverControl and not scrollBarV.dragging and (not self.selDragActive or (self.CanDragToValue and self:CanDragToValue(index, value, self.otherDragSource))) then
 				if relX >= colOffset and relX <  (self.scroll and width - 20 or width) and relY >= 0 and relY >= lineY and relY < height - 2 - (self.scroll and self.scrollH and 18 or 0) and relY < lineY + rowHeight then
 					ttIndex = index
 					ttValue = value
