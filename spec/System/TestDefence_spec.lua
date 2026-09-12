@@ -17,6 +17,71 @@ describe("TestDefence", function()
 		return build.calcsTab.calcs.reducePoolsByDamage(nil, takenDamages, build.calcsTab.calcsEnv.player)
 	end
 
+	it("attributes resistances inherited by minions to Bonemeld after loading a build", function()
+		build.skillsTab:PasteSocketGroup("Raise Zombie 20/0  1")
+		build.itemsTab:CreateDisplayItemFromRaw("Rarity: UNIQUE\nBonemeld\nMarble Amulet\nImplicits: 0\nMinions gain added Resistances equal to 50% of your Resistances")
+		build.itemsTab:AddDisplayItem()
+		build.configTab.input.customMods = "+135% to Fire Resistance\n+111% to Cold Resistance\n+59% to Lightning Resistance\n+39% to Chaos Resistance"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+		loadBuildFromXML(build:SaveDB("code"))
+
+		local env = build.calcsTab.calcsEnv
+		local source = env.player.modDB:Tabulate("BASE", nil, "ResistanceAddedToMinions")[1].mod.source
+		local breakdown = build.calcsTab.controls.breakdown
+		build.calcsTab.input.showMinion = true
+		for _, case in ipairs({
+			{ "Fire", 75, 37, 77 },
+			{ "Cold", 51, 25, 65 },
+			{ "Lightning", -1, -1, 39 },
+			{ "Chaos", -21, -11, 9 },
+		}) do
+			local elem, playerResist, addedResist, minionResist = unpack(case)
+			local mods = env.minion.modDB:Tabulate("BASE", { source = "Item" }, elem.."Resist")
+			assert.are.equal(1, #mods)
+			assert.are.equal(source, mods[1].mod.source)
+			assert.are.equal(addedResist, mods[1].value)
+			assert.are.equal(playerResist, env.player.output[elem.."Resist"])
+			assert.are.equal(minionResist, env.minion.output[elem.."ResistTotal"])
+			breakdown.sectionList = { }
+			breakdown:AddModSection({ modName = elem.."Resist", modSource = "Item" })
+			local row = breakdown.sectionList[1].rowList[1]
+			assert.are.equal("Item", row.source)
+			assert.is_truthy(row.sourceName:find("Bonemeld", 1, true))
+			assert.are.equal("function", type(row.sourceNameTooltip))
+		end
+	end)
+
+	it("lists each source of inherited minion resistances and rounds each contribution", function()
+		build.skillsTab:PasteSocketGroup("Raise Zombie 20/0  1")
+		build.itemsTab:CreateDisplayItemFromRaw("Rarity: UNIQUE\nBonemeld\nMarble Amulet\nImplicits: 0\nMinions gain added Resistances equal to 50% of your Resistances")
+		build.itemsTab:AddDisplayItem()
+		build.configTab.input.customMods = "+135% to Fire Resistance\n+59% to Lightning Resistance\nMinions gain added Resistances equal to 50% of your Resistances"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+		loadBuildFromXML(build:SaveDB("code"))
+
+		local env = build.calcsTab.calcsEnv
+		local sources = env.player.modDB:Tabulate("BASE", nil, "ResistanceAddedToMinions")
+		assert.are.equal(2, #sources)
+		for _, case in ipairs({ { "Fire", 37, 114 }, { "Lightning", -1, 38 } }) do
+			local elem, contribution, total = unpack(case)
+			local mods = env.minion.modDB:Tabulate("BASE", nil, elem.."Resist")
+			for _, source in ipairs(sources) do
+				local matches = 0
+				for _, entry in ipairs(mods) do
+					if entry.mod.source == source.mod.source then
+						matches = matches + 1
+						assert.are.equal(contribution, entry.value)
+					end
+				end
+				assert.are.equal(1, matches)
+			end
+			assert.are.equal(total, env.minion.output[elem.."ResistTotal"])
+			assert.are.equal(0, #env.minion.modDB:Tabulate("BASE", { source = "Player" }, elem.."Resist"))
+		end
+	end)
+
 	it("applies Consecrated Ground curse reduction to the player and minion", function()
 		build.skillsTab:PasteSocketGroup("Raise Zombie 20/0  1")
 		build.configTab.input.conditionOnConsecratedGround = true
