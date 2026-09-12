@@ -4074,6 +4074,39 @@ local function itemChangesPassiveTree(item)
 			and (item.jewelData.intuitiveLeapLike or item.jewelData.impossibleEscapeKeystone)))
 end
 
+-- An empty key part represents no replacement; replacement items without a stored ID
+-- return nil so their output is not cached.
+local function getJewelComparisonItemCacheKeyPart(itemsTab, item)
+	if not item then
+		return ""
+	end
+	local itemId = item.id
+	if itemId and itemsTab.items[itemId] == item then
+		return tostring(itemId)
+	end
+end
+
+local function getJewelComparisonOutputCache(itemsTab)
+	local outputRevision = itemsTab.build and itemsTab.build.outputRevision or 0
+	local cache = itemsTab.jewelComparisonOutputCache
+	if not cache or cache.outputRevision ~= outputRevision then
+		cache = {
+			outputRevision = outputRevision,
+			outputs = { },
+		}
+		itemsTab.jewelComparisonOutputCache = cache
+	end
+	return cache
+end
+
+local function getJewelComparisonOutputCacheKey(itemsTab, compareSlot, replacementItem)
+	local replacementItemKeyPart = getJewelComparisonItemCacheKeyPart(itemsTab, replacementItem)
+	if not replacementItemKeyPart then
+		return
+	end
+	return tostring(compareSlot.slotName) .. ":" .. tostring(compareSlot.nodeId or "") .. ":" .. tostring(compareSlot.selItemId or "") .. ":" .. replacementItemKeyPart
+end
+
 -- These jewels can replace passive nodes or disconnect allocated passives, so
 -- rebuild the passive tree before comparing their stats.
 -- Keep this list in sync with PassiveSpec's constructor, Init, and Select*
@@ -4110,7 +4143,7 @@ local function cloneSpecForJewelComparison(spec)
 		local nodeCopy = setmetatable({ }, getmetatable(node))
 		for key, value in pairs(node) do
 			if key ~= "linked" and key ~= "depends" and key ~= "intuitiveLeapLikesAffecting"
-			and key ~= "path" and key ~= "power" then
+			and key ~= "path" and key ~= "pathDist" and key ~= "distanceToClassStart" and key ~= "power" then
 				nodeCopy[key] = value
 			end
 		end
@@ -4171,7 +4204,10 @@ local function buildSpecForJewelComparison(itemsTab, compareSlot, replacementIte
 		spec.jewels[compareSlot.nodeId] = nil
 	end
 	local ok, err = xpcall(function()
-		spec:BuildAllDependsAndPaths()
+		-- These temporary specs only feed the misc calculator, which does not read regular
+		-- node paths or Split Personality highlight paths. Jewel socket distances are still
+		-- rebuilt for Split Personality modifier scaling.
+		spec:BuildAllDependsAndPaths(true)
 	end, debug.traceback)
 	if tempItemId then
 		itemsTab.items[tempItemId] = nil
@@ -4917,13 +4953,25 @@ function ItemsTabClass:AddItemStatDifferences(tooltip, item, base, slot)
 			end
 		end
 
-		local function getReplacedItemAndOutput(compareSlot)
-			local selItem = self.items[compareSlot.selItemId]
+		local function getReplacedItemAndOutput(compareSlot, selItem)
+			selItem = selItem or self.items[compareSlot.selItemId]
 			local override = { repSlotName = compareSlot.slotName, repItem = item ~= selItem and item or nil }
+			local outputCache
+			local outputCacheKey
 			if compareSlot.nodeId and (itemChangesPassiveTree(selItem) or itemChangesPassiveTree(item)) then
+				outputCacheKey = getJewelComparisonOutputCacheKey(self, compareSlot, override.repItem)
+				if outputCacheKey then
+					outputCache = getJewelComparisonOutputCache(self)
+					if outputCache.outputs[outputCacheKey] then
+						return selItem, outputCache.outputs[outputCacheKey]
+					end
+				end
 				override.spec = buildSpecForJewelComparison(self, compareSlot, override.repItem)
 			end
 			local output = calcFunc(override)
+			if outputCacheKey then
+				outputCache.outputs[outputCacheKey] = output
+			end
 			return selItem, output
 		end
 		local function addCompareForSlot(compareSlot, selItem, output)
@@ -4941,29 +4989,38 @@ function ItemsTabClass:AddItemStatDifferences(tooltip, item, base, slot)
 
 		-- if we have a specific slot to compare to, and the user has "Show
 		-- tooltips only for affected slots" checked, we can just compare that
-		-- one slot
+		-- one slot.
+		local compareOnlySlot = type(slot) ~= "string" and slot or self.slots[slot]
 		if main.slotOnlyTooltips and slot then
-			slot = type(slot) ~= "string" and slot or self.slots[slot]
-			if slot then addCompareForSlot(slot) end
+			if compareOnlySlot then addCompareForSlot(compareOnlySlot) end
 			return
 		end
 
-
-		local slots = {}
 		local isUnique = item.rarity == "UNIQUE" or item.rarity == "RELIC"
 		local currentSameUniqueCount = 0
+		local slotCandidates = {}
 		for _, compareSlot in ipairs(compareSlots) do
-			local selItem, output = getReplacedItemAndOutput(compareSlot)
+			local selItem = self.items[compareSlot.selItemId]
 			local isSameUnique = isUnique and selItem and item.name == selItem.name
 			if isUnique and isSameUnique and item.limit then
 				currentSameUniqueCount = currentSameUniqueCount + 1
 			end
-			table.insert(slots,
-				{ selItem = selItem, output = output, compareSlot = compareSlot, isSameUnique = isSameUnique })
+			table.insert(slotCandidates,
+				{ selItem = selItem, compareSlot = compareSlot, isSameUnique = isSameUnique })
+		end
+		local isLimitedUniqueAtLimit = (isUnique and item.limit and currentSameUniqueCount == item.limit) or false
+
+		local slots = {}
+		for _, slotEntry in ipairs(slotCandidates) do
+			if not isLimitedUniqueAtLimit or slotEntry.isSameUnique then
+				local _, output = getReplacedItemAndOutput(slotEntry.compareSlot, slotEntry.selItem)
+				slotEntry.output = output
+				table.insert(slots, slotEntry)
+			end
 		end
 
 		-- limited uniques: only compare to slots with the same item if more don't fit
-		if currentSameUniqueCount == item.limit then
+		if isLimitedUniqueAtLimit then
 			for _, slotEntry in ipairs(slots) do
 				if slotEntry.isSameUnique then
 					addCompareForSlot(slotEntry.compareSlot, slotEntry.selItem, slotEntry.output)
