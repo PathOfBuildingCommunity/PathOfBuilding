@@ -440,16 +440,25 @@ function ItemListClass:GetRowValue(column, index, itemId)
 			return "^7" .. itemId.groupHeader
 		end
 		local item = self.itemsTab.items[itemId]
-		local used = self:FindEquippedAbyssJewel(itemId, true) or self:FindSocketedJewel(itemId, true) or ""
-		if used == "" then
-			local slot, itemSet = self.itemsTab:GetEquippedSlotForItem(item)
-			if not slot then
-				used = "  ^9(Unused)"
-			elseif itemSet then
-				used = "  ^9(Used in '" .. (itemSet.title or "Default") .. "')"
+		local loadoutNames = { }
+		for loadoutIndex = 4, #self.controls.loadoutFilter.list do
+			local loadoutName = self.controls.loadoutFilter.list[loadoutIndex]
+			local itemSet, spec = self:GetLoadoutSetAndSpec(loadoutName)
+			if self:IsItemInLoadout(itemId, itemSet, spec) then
+				t_insert(loadoutNames, loadoutName)
 			end
+		end
+		local used = ""
+		if #loadoutNames > 0 then
+			used = "  ^9(" .. table.concat(loadoutNames, ", ") .. ")"
 		else
-			used = "  ^9(Used in '" .. used .. "')"
+			local otherUse = self:FindEquippedAbyssJewel(itemId, false) or self:FindSocketedJewel(itemId, false)
+			local slot, itemSet = self.itemsTab:GetEquippedSlotForItem(item)
+			if otherUse or itemSet then
+				used = "  ^9(" .. (otherUse or itemSet.title or "Default") .. ")"
+			elseif not slot then
+				used = "  ^9(Unused)"
+			end
 		end
 		return colorCodes[item.rarity] .. item.name .. used
 	end
