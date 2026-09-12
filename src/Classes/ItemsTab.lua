@@ -108,7 +108,7 @@ function ItemsTabClass:ItemsTab(build)
 	self.tradeQuery = new("TradeQuery"):TradeQuery(self)
 
 	-- Set selector
-	self.controls.setSelect = new("DropDownControl"):DropDownControl({"TOPLEFT",self,"TOPLEFT"}, {96, 8, 216, 20}, nil, function(index, value)
+	self.controls.setSelect = new("DropDownControl"):DropDownControl({"TOPLEFT",self,"TOPLEFT"}, {96, 8, 235, 20}, nil, function(index, value)
 		self:SetActiveItemSet(self.itemSetOrderList[index])
 		self:AddUndoState()
 	end)
@@ -128,7 +128,7 @@ function ItemsTabClass:ItemsTab(build)
 	end)
 
 	-- Price Items
-	self.controls.priceDisplayItem = new("ButtonControl"):ButtonControl({"TOPLEFT",self,"TOPLEFT"}, {96, 32, 310, 20}, "Trade for these items", function()
+	self.controls.priceDisplayItem = new("ButtonControl"):ButtonControl({"TOPLEFT",self,"TOPLEFT"}, {96, 32, 329, 20}, "Trade for these items", function()
 		self.tradeQuery:PriceItem()
 	end)
 	self.controls.priceDisplayItem.tooltipFunc = function(tooltip)
@@ -141,7 +141,7 @@ function ItemsTabClass:ItemsTab(build)
 	self.slots = { }
 	self.orderedSlots = { }
 	self.slotOrder = { }
-	self.slotAnchor = new("Control"):Control({"TOPLEFT",self,"TOPLEFT"}, {96, 76, 310, 0})
+	self.slotAnchor = new("Control"):Control({"TOPLEFT",self,"TOPLEFT"}, {96, 76, 329, 0})
 	local prevSlot = self.slotAnchor
 	local function addSlot(slot)
 		prevSlot = slot
@@ -202,7 +202,7 @@ function ItemsTabClass:ItemsTab(build)
 	end
 
 	-- Passive tree dropdown controls
-	self.controls.specSelect = new("DropDownControl"):DropDownControl({"TOPLEFT",prevSlot,"BOTTOMLEFT"}, {0, 8, 216, 20}, nil, function(index, value)
+	self.controls.specSelect = new("DropDownControl"):DropDownControl({"TOPLEFT",prevSlot,"BOTTOMLEFT"}, {0, 8, 235, 20}, nil, function(index, value)
 		if self.build.treeTab.specList[index] then
 			self.build.modFlag = true
 			self.build.treeTab:SetActiveSpec(index)
@@ -276,10 +276,12 @@ function ItemsTabClass:ItemsTab(build)
 	self.controls.weaponSwapLabel = new("LabelControl"):LabelControl({"RIGHT",self.controls.weaponSwap1,"LEFT"}, {-4, 0, 0, 14}, "^7Weapon Set:")
 
 	-- All items list
+	local function itemListWidth() return main.portraitMode and 360 or 450 end
+	local function itemListHeight() return main.portraitMode and 244 or 324 end
 	if main.portraitMode then
-		self.controls.itemList = new("ItemListControl"):ItemListControl({"TOPRIGHT",self.lastSlot,"BOTTOMRIGHT"}, {0, 0, 360, 308}, self, true)
+		self.controls.itemList = new("ItemListControl"):ItemListControl({"TOPRIGHT",self.lastSlot,"BOTTOMRIGHT"}, {0, 0, itemListWidth, itemListHeight}, self, true)
 	else
-		self.controls.itemList = new("ItemListControl"):ItemListControl({"TOPLEFT",self.controls.setManage,"TOPRIGHT"}, {20, 20, 360, 308}, self, true)
+		self.controls.itemList = new("ItemListControl"):ItemListControl({"TOPLEFT",self.controls.setManage,"TOPRIGHT"}, {20, 70, itemListWidth, itemListHeight}, self, true)
 	end
 
 	-- Database selector
@@ -290,24 +292,24 @@ function ItemsTabClass:ItemsTab(build)
 	self.controls.selectDB = new("DropDownControl"):DropDownControl({"LEFT",self.controls.selectDBLabel,"RIGHT"}, {4, 0, 150, 18}, { "Uniques", "Rare Templates" })
 
 	-- Unique database
-	self.controls.uniqueDB = new("ItemDBControl"):ItemDBControl({"TOPLEFT",self.controls.itemList,"BOTTOMLEFT"}, {0, 76, 360, function(c) return m_min(244, self.maxY - select(2, c:GetPos())) end}, self, main.uniqueDB, "UNIQUE")
+	self.controls.uniqueDB = new("ItemDBControl"):ItemDBControl({"TOPLEFT",self.controls.itemList,"BOTTOMLEFT"}, {0, 76, itemListWidth, function(c) return m_min(196, self.maxY - select(2, c:GetPos())) end}, self, main.uniqueDB, "UNIQUE")
 	self.controls.uniqueDB.y = function()
-		return self.controls.selectDBLabel:IsShown() and 118 or 96
+		return self.controls.selectDBLabel:IsShown() and 122 or 100
 	end
 	self.controls.uniqueDB.shown = function()
 		return not self.controls.selectDBLabel:IsShown() or self.controls.selectDB.selIndex == 1
 	end
 
 	-- Rare template database
-	self.controls.rareDB = new("ItemDBControl"):ItemDBControl({"TOPLEFT",self.controls.itemList,"BOTTOMLEFT"}, {0, 76, 360, function(c) return m_min(260, self.maxY - select(2, c:GetPos())) end}, self, main.rareDB, "RARE")
+	self.controls.rareDB = new("ItemDBControl"):ItemDBControl({"TOPLEFT",self.controls.itemList,"BOTTOMLEFT"}, {0, 76, itemListWidth, function(c) return m_min(196, self.maxY - select(2, c:GetPos())) end}, self, main.rareDB, "RARE")
 	self.controls.rareDB.y = function()
-		return self.controls.selectDBLabel:IsShown() and 78 or 396
+		return self.controls.selectDBLabel:IsShown() and 82 or 356
 	end
 	self.controls.rareDB.shown = function()
 		return not self.controls.selectDBLabel:IsShown() or self.controls.selectDB.selIndex == 2
 	end
 	-- Create/import item
-	self.controls.craftDisplayItem = new("ButtonControl"):ButtonControl({"TOPLEFT",main.portraitMode and self.controls.setManage or self.controls.itemList,"TOPRIGHT"}, {20, main.portraitMode and 0 or -20, 120, 20}, "Craft item...", function()
+	self.controls.craftDisplayItem = new("ButtonControl"):ButtonControl({"TOPLEFT",main.portraitMode and self.controls.setManage or self.controls.itemList,"TOPRIGHT"}, {20, main.portraitMode and 0 or -70, 120, 20}, "Craft item...", function()
 		self:CraftItem()
 	end)
 	self.controls.craftDisplayItem.shown = function()
@@ -317,24 +319,21 @@ function ItemsTabClass:ItemsTab(build)
 		self:EditDisplayItemText()
 	end)
 	self.controls.displayItemTip = new("LabelControl"):LabelControl({"TOPLEFT",self.controls.craftDisplayItem,"BOTTOMLEFT"}, {0, 8, 100, 16},
-[[^7Double-click an item from one of the lists,
-or copy and paste an item from in game
-(hover over the item and Ctrl+C) to view or edit
-the item and add it to your build. You can
-also clone an item within Path of Building by
-copying and pasting it with Ctrl+C and Ctrl+V.
+[[^7Double-click an item from one of the lists, or copy and paste an
+item from in game (hover over the item and Ctrl+C) to view or edit
+the item and add it to your build. You can also clone an item within
+Path of Building by copying and pasting it with Ctrl+C and Ctrl+V.
 
-You can Control + Click an item to equip it, or
-drag it onto the slot.  This will also add it to
-your build if it's from the unique/template list.
-If there's 2 slots an item can go in,
-holding Shift will put it in the second.]])
-	self.controls.sharedItemList = new("SharedItemListControl"):SharedItemListControl({"TOPLEFT",self.controls.craftDisplayItem, "BOTTOMLEFT"}, {0, 232, 340, 308}, self, true)
+You can Control + Click an item to equip it, or drag it onto the slot.
+This will also add it to your build if it's from the unique/template
+list. If there are 2 slots an item can go in, holding Shift will
+put it in the second.]])
+	self.controls.sharedItemList = new("SharedItemListControl"):SharedItemListControl({"TOPLEFT",self.controls.craftDisplayItem, "BOTTOMLEFT"}, {0, 232, 425, 308}, self, true)
 
 	-- Display item
 	self.displayItemTooltip = new("Tooltip"):Tooltip()
 	self.displayItemTooltip.maxWidth = 458
-	self.anchorDisplayItem = new("Control"):Control({"TOPLEFT",main.portraitMode and self.controls.setManage or self.controls.itemList,"TOPRIGHT"}, {20, main.portraitMode and 0 or -20, 0, 0})
+	self.anchorDisplayItem = new("Control"):Control({"TOPLEFT",main.portraitMode and self.controls.setManage or self.controls.itemList,"TOPRIGHT"}, {20, main.portraitMode and 0 or -70, 0, 0})
 	self.anchorDisplayItem.shown = function()
 		return self.displayItem ~= nil
 	end
@@ -1551,12 +1550,12 @@ function ItemsTabClass:Draw(viewPort, inputEvents)
 	self:UpdateSockets()
 
 	if main.portraitMode then
-		self.controls.itemList:SetAnchor("TOPRIGHT", self.lastSlot, "BOTTOMRIGHT", 0, 40)
+		self.controls.itemList:SetAnchor("TOPRIGHT", self.lastSlot, "BOTTOMRIGHT", 0, 84)
 	else
-		self.controls.itemList:SetAnchor("TOPLEFT", self.controls.setManage, "TOPRIGHT", 20, 20)
+		self.controls.itemList:SetAnchor("TOPLEFT", self.controls.setManage, "TOPRIGHT", 20, 70)
 	end
-	self.controls.craftDisplayItem:SetAnchor("TOPLEFT", main.portraitMode and self.controls.setManage or self.controls.itemList, "TOPRIGHT", 20, main.portraitMode and 0 or -20)
-	self.anchorDisplayItem:SetAnchor("TOPLEFT", main.portraitMode and self.controls.setManage or self.controls.itemList, "TOPRIGHT", 20, main.portraitMode and 0)
+	self.controls.craftDisplayItem:SetAnchor("TOPLEFT", main.portraitMode and self.controls.setManage or self.controls.itemList, "TOPRIGHT", 20, main.portraitMode and 0 or -70)
+	self.anchorDisplayItem:SetAnchor("TOPLEFT", main.portraitMode and self.controls.setManage or self.controls.itemList, "TOPRIGHT", 20, main.portraitMode and 0 or -70)
 
 	self:DrawControls(viewPort)
 	if self.controls.scrollBarH:IsShown() then
@@ -1620,6 +1619,7 @@ end
 function ItemsTabClass:EquipItemInSet(item, itemSetId)
 	local itemSet = self.itemSets[itemSetId]
 	local slotName = item:GetPrimarySlot()
+	local itemAdded
 	if self.slots[slotName].weaponSet == 1 and itemSet.useSecondWeaponSet then
 		-- Redirect to second weapon set
 		slotName = slotName .. " Swap"
@@ -1627,6 +1627,7 @@ function ItemsTabClass:EquipItemInSet(item, itemSetId)
 	if not item.id or not self.items[item.id] then
 		item = new("Item"):Item(item.raw)
 		self:AddItem(item, true)
+		itemAdded = true
 	end
 	local altSlot = slotName:gsub("1","2")
 	if IsKeyDown("SHIFT") then
@@ -1644,6 +1645,9 @@ function ItemsTabClass:EquipItemInSet(item, itemSetId)
 		end
 	end
 	self:PopulateSlots()
+	if itemAdded then
+		self.controls.itemList:SelectItem(item.id)
+	end
 	self:AddUndoState()
 	self.build.buildFlag = true
 end
@@ -1803,6 +1807,7 @@ end
 -- Adds the current display item to the build's item list
 function ItemsTabClass:AddDisplayItem(noAutoEquip)
 	local item = self.displayItem
+	local itemAdded = item and not item.id
 	local oldItem = item and item.id and self.items[item.id]
 	-- Add it to the list and clear the current display item
 	self:AddItem(item, noAutoEquip)
@@ -1812,45 +1817,11 @@ function ItemsTabClass:AddDisplayItem(noAutoEquip)
 	self:AddForbiddenJewelCounterpart(item)
 
 	self:PopulateSlots()
+	if itemAdded then
+		self.controls.itemList:SelectItem(item.id)
+	end
 	self:AddUndoState()
 	self.build.buildFlag = true
-end
-
--- Sorts the build's item list
-function ItemsTabClass:SortItemList()
-	table.sort(self.itemOrderList, function(a, b)
-		local itemA = self.items[a]
-		local itemB = self.items[b]
-		local primSlotA = itemA:GetPrimarySlot()
-		local primSlotB = itemB:GetPrimarySlot()
-		if primSlotA ~= primSlotB then
-			if not self.slotOrder[primSlotA] then
-				return false
-			elseif not self.slotOrder[primSlotB] then
-				return true
-			end
-			return self.slotOrder[primSlotA] < self.slotOrder[primSlotB]
-		end
-		local equipSlotA, equipSetA = self:GetEquippedSlotForItem(itemA)
-		local equipSlotB, equipSetB = self:GetEquippedSlotForItem(itemB)
-		if equipSlotA and equipSlotB then
-			if equipSlotA ~= equipSlotB then
-				return self.slotOrder[equipSlotA.slotName] < self.slotOrder[equipSlotB.slotName]
-			elseif equipSetA and not equipSetB then
-				return false
-			elseif not equipSetA and equipSetB then
-				return true
-			elseif equipSetA and equipSetB then
-				return isValueInArray(self.itemSetOrderList, equipSetA.id) < isValueInArray(self.itemSetOrderList, equipSetB.id)
-			end
-		elseif equipSlotA then
-			return true
-		elseif equipSlotB then
-			return false
-		end
-		return itemA.name < itemB.name
-	end)
-	self:AddUndoState()
 end
 
 -- Deletes an item
