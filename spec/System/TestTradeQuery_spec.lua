@@ -9,7 +9,7 @@ describe("TradeQuery", function()
 	describe("result dropdown tooltipFunc", function()
 		-- Builds a TradeQuery with the strict minimum needed for
 		-- PriceItemRowDisplay to construct row 1 without exploding. Only the
-		-- two itemsTab subtables read by the slot lookup at the top of
+		-- three itemsTab fields read by the slot lookup at the top of
 		-- PriceItemRowDisplay need to be created here; everything else either
 		-- lives behind a callback we never trigger, or is already initialized
 		-- by the TradeQuery constructor.
@@ -17,6 +17,7 @@ describe("TradeQuery", function()
 			local tq = new("TradeQuery"):TradeQuery({ itemsTab = {} })
 			tq.itemsTab.activeItemSet = {}
 			tq.itemsTab.slots         = {}
+			tq.itemsTab.sockets       = {}
 			tq.slotTables[1] = { slotName = "Ring 1" }
 			if state.resultTbl       then tq.resultTbl       = state.resultTbl       end
 			if state.sortedResultTbl then tq.sortedResultTbl = state.sortedResultTbl end
@@ -29,6 +30,15 @@ describe("TradeQuery", function()
 			tq:PriceItemRowDisplay(1, nil, 0, 20)
 			return tq.controls.resultDropdown1
 		end
+
+		it("constructs the Watcher's Eye row without an active jewel socket", function()
+			local tq = newTradeQuery({})
+			tq.slotTables[1] = { slotName = "Watcher's Eye", unique = true }
+
+			assert.has_no.errors(function()
+				buildRow1Dropdown(tq)
+			end)
+		end)
 
 		it("returns early when sortedResultTbl[row_idx] is missing", function()
 			-- No sorted results at all -> first guard must short-circuit.
@@ -60,6 +70,115 @@ describe("TradeQuery", function()
 			end)
 			assert.are.equal(0, #tooltip.lines)
 		end)
+
+		it("returns early from action button tooltips when filtering clears the selected result", function()
+			local tq = newTradeQuery({
+				resultTbl       = { [1] = { [1] = { item_string = "Rarity: RARE\nBehemoth Hold\nGold Ring", amount = 1, currency = "chaos" } } },
+				sortedResultTbl = { [1] = {} },
+			})
+			buildRow1Dropdown(tq)
+			local tooltip = new("Tooltip"):Tooltip()
+
+			assert.has_no.errors(function()
+				tq.controls.importButton1.tooltipFunc(tooltip)
+				tq.controls.whisperButton1.tooltipFunc(tooltip)
+			end)
+			assert.are.equal(0, #tooltip.lines)
+		end)
+	end)
+	describe("replacement slot resolution", function()
+		it("resolves normal, Abyssal, and selected jewel slots without stored row state", function()
+			local tq = new("TradeQuery"):TradeQuery({ itemsTab = {} })
+			tq.itemsTab.slots = {
+				["Ring 1"] = {},
+				["Body Armour Abyssal Socket 1"] = {},
+			}
+			tq.itemsTab.sockets = { [123] = {} }
+			tq.slotTables = {
+				{ slotName = "Ring 1" },
+				{ slotName = "Abyssal Socket 1", fullName = "Body Armour Abyssal Socket 1" },
+				{ slotName = "Jewel Socket", selectedJewelNodeId = 123 },
+				{ slotName = "Watcher's Eye", unique = true },
+			}
+
+			assert.are.equal("Ring 1", tq:GetReplacementSlotName(1))
+			assert.are.equal("Body Armour Abyssal Socket 1", tq:GetReplacementSlotName(2))
+			assert.are.equal("Jewel 123", tq:GetReplacementSlotName(3))
+			assert.is_nil(tq:GetReplacementSlotName(4))
+		end)
+	end)
+
+	describe("attribute requirement result filtering", function()
+		local function newTradeQueryWithOutput(output, slotTbl)
+			local calcCalls = 0
+			local lastCalcArgs
+			local tq = new("TradeQuery"):TradeQuery({ itemsTab = {} })
+			tq.slotTables[1] = slotTbl or { slotName = "Ring 1" }
+			tq.resultTbl = {
+				[1] = {
+					[1] = { item_string = "Rarity: RARE\nBehemoth Hold\nGold Ring", amount = 1, currency = "chaos" },
+				},
+			}
+			tq.sortModes = {
+				Weight = "(Highest) Weighted Sum",
+			}
+			tq.itemsTab.build = {
+				calcsTab = {
+					GetMiscCalculator = function()
+						return function(calcArgs)
+							calcCalls = calcCalls + 1
+							lastCalcArgs = calcArgs
+							return output
+						end, {}
+					end,
+				},
+			}
+			tq.itemsTab.slots = {
+				["Ring 1"] = {},
+			}
+			return tq, function() return calcCalls end, function() return lastCalcArgs end
+		end
+
+		it("filters fetched results that do not meet attribute requirements", function()
+			local tq, _, calcArgs = newTradeQueryWithOutput({ ReqStr = 50, Str = 40, ReqDex = 0, Dex = 0, ReqInt = 0, Int = 0 })
+			tq.hideResultsFailingAttributeRequirements = true
+			local sortedItems = tq:SortFetchResults(1, tq.sortModes.Weight)
+			assert.are.equal(0, #sortedItems)
+			assert.are.equal("Ring 1", calcArgs().repSlotName)
+			assert.are.equal("Behemoth Hold, Gold Ring", calcArgs().repItem.name)
+		end)
+
+		it("keeps fetched results that meet attribute requirements", function()
+			local tq = newTradeQueryWithOutput({ ReqStr = 50, Str = 60, ReqDex = 30, Dex = 30, ReqInt = 20, Int = 25 })
+			tq.hideResultsFailingAttributeRequirements = true
+			local sortedItems = tq:SortFetchResults(1, tq.sortModes.Weight)
+			assert.are.equal(1, #sortedItems)
+			assert.are.equal(1, sortedItems[1].index)
+		end)
+
+		it("filters fetched results that do not meet Omniscience requirements", function()
+			local tq = newTradeQueryWithOutput({ ReqOmni = 100, Omni = 80 })
+			tq.hideResultsFailingAttributeRequirements = true
+			local sortedItems = tq:SortFetchResults(1, tq.sortModes.Weight)
+			assert.are.equal(0, #sortedItems)
+		end)
+
+		it("keeps fetched results without recalculating by default", function()
+			local tq, calcCalls = newTradeQueryWithOutput({ ReqStr = 50, Str = 40, ReqDex = 0, Dex = 0, ReqInt = 0, Int = 0 })
+			local sortedItems = tq:SortFetchResults(1, tq.sortModes.Weight)
+			assert.are.equal(1, #sortedItems)
+			assert.are.equal(1, sortedItems[1].index)
+			assert.are.equal(0, calcCalls())
+		end)
+
+		it("does not apply equipment attribute filtering to rows without a replacement slot", function()
+			local tq, calcCalls = newTradeQueryWithOutput({ ReqStr = 50, Str = 40, ReqDex = 0, Dex = 0, ReqInt = 0, Int = 0 }, { slotName = "Megalomaniac", unique = true })
+			tq.hideResultsFailingAttributeRequirements = true
+			local sortedItems = tq:SortFetchResults(1, tq.sortModes.Weight)
+			assert.are.equal(1, #sortedItems)
+			assert.are.equal(1, sortedItems[1].index)
+			assert.are.equal(0, calcCalls())
+		end)
 	end)
 	describe("GetResultEvaluation", function()
 		it("uses the first visible ring for a Pearl result without a selected slot", function()
@@ -90,6 +209,7 @@ describe("TradeQuery", function()
 				slotName = "Megalomaniac", unique = true, alreadyCorrupted = true, selectedJewelNodeId = 12345,
 			}
 			local tq = new("TradeQuery"):TradeQuery({ itemsTab = {} })
+			tq.itemsTab.sockets = { [12345] = {} }
 			tq.statSortSelectionList = {}
 			tq.tradeQueryGenerator = new("TradeQueryGenerator"):TradeQueryGenerator({ itemsTab = {} })
 			tq.itemsTab.build = {

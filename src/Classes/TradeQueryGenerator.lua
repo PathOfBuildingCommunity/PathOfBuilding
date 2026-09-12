@@ -766,6 +766,11 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
 	-- Calculate base output with a blank item
 	local calcFunc, baseOutput = self.itemsTab.build.calcsTab:GetMiscCalculator()
 	local baseItemOutput = slot and calcFunc({ repSlotName = slot.slotName, repItem = testItem }) or baseOutput
+	-- Pre-fetch constraint: require the replacement to restore attributes lost with the current item.
+	local attributeRequirementShortfall = { Str = 0, Dex = 0, Int = 0 }
+	if slot and (not slot.slotName:find("Flask")) then
+		attributeRequirementShortfall = tradeHelpers.getAttributeRequirementShortfall(baseItemOutput)
+	end
 	-- make weights more human readable
 	local compStatValue = TradeQueryGeneratorClass.WeightedRatioOutputs(baseOutput, baseItemOutput, options.statWeights) * 1000
 
@@ -784,7 +789,8 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
 		options = options,
 		slot = slot,
 		requiredMods = options.requiredMods,
-		blockedMods = options.blockedMods
+		blockedMods = options.blockedMods,
+		attributeRequirementShortfall = attributeRequirementShortfall,
 	}
 
 	-- OnFrame will pick this up and begin the work
@@ -1061,6 +1067,24 @@ function TradeQueryGeneratorClass:FinishQuery()
 		queryTable.query[k] = v
 	end
 
+	local options = self.calcContext.options
+	-- If enabled, require the new item to provide enough attributes to meet build requirements.
+	if options.includeAttributeRequirementFilters and self.calcContext.attributeRequirementShortfall then
+		local need = self.calcContext.attributeRequirementShortfall
+		if need.Str and need.Str > 0 then
+			complexityBudget = complexityBudget - 4
+			t_insert(andGroup.filters, { id = "pseudo.pseudo_total_strength", value = { min = need.Str } })
+		end
+		if need.Dex and need.Dex > 0 then
+			complexityBudget = complexityBudget - 4
+			t_insert(andGroup.filters, { id = "pseudo.pseudo_total_dexterity", value = { min = need.Dex } })
+		end
+		if need.Int and need.Int > 0 then
+			complexityBudget = complexityBudget - 4
+			t_insert(andGroup.filters, { id = "pseudo.pseudo_total_intelligence", value = { min = need.Int } })
+		end
+	end
+
 	-- and filters specified by the user
 	for _, entry in ipairs(requiredMods) do
 		complexityBudget = complexityBudget - 4
@@ -1070,7 +1094,6 @@ function TradeQueryGeneratorClass:FinishQuery()
 		complexityBudget = complexityBudget - 4
 		t_insert(notGroup.filters, { id = entry.tradeId, value = { min = entry.value } })
 	end
-	local options = self.calcContext.options
 	if not options.includeMirrored then
 		complexityBudget = complexityBudget - 3
 		queryTable.query.filters.misc_filters = {
@@ -1324,6 +1347,12 @@ Remove: %s will be removed from the search results.]], term, term, term)
 	controls.maxLevelLabel = new("LabelControl"):LabelControl({ "RIGHT", controls.maxLevel, "LEFT" }, { -5, 0, 0, 16 }, "^7Max Level:")
 	updateLastAnchor(controls.maxLevel)
 
+	-- When enabled, the generated query asks for enough attributes on the new item
+	controls.includeAttributeRequirementFilters = new("CheckBoxControl"):CheckBoxControl({"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, {0, 5, 18}, "Attribute requirements:", function(state) end)
+	controls.includeAttributeRequirementFilters.state = self.lastIncludeAttributeRequirementFilters == nil or self.lastIncludeAttributeRequirementFilters == true
+	controls.includeAttributeRequirementFilters.tooltipText = "Add Str/Dex/Int pseudo filters when the current build is short on attributes.\nThis narrows the generated trade query before fetching results."
+	updateLastAnchor(controls.includeAttributeRequirementFilters)
+
 	-- basic filtering by slot for sockets and links, Megalomaniac does not have slot and Sockets use "Jewel nodeId"
 	if slot and not isJewelSlot and not isAbyssalJewelSlot and not slot.slotName:find("Flask") then
 		controls.sockets = new("EditControl"):EditControl({"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, {0, 5, 70, 18}, nil, nil, "%D")
@@ -1406,6 +1435,10 @@ Remove: %s will be removed from the search results.]], term, term, term)
 		if controls.maxLevel.buf then
 			options.maxLevel = tonumber(controls.maxLevel.buf)
 			self.lastMaxLevel = options.maxLevel
+		end
+		if controls.includeAttributeRequirementFilters then
+			self.lastIncludeAttributeRequirementFilters = controls.includeAttributeRequirementFilters.state
+			options.includeAttributeRequirementFilters = controls.includeAttributeRequirementFilters.state
 		end
 		if controls.sockets and controls.sockets.buf then
 			options.sockets = tonumber(controls.sockets.buf)
