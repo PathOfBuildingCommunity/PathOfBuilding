@@ -27,4 +27,10 @@ return {
 		"Used when you take a Savage Hit",
 		"Used when you use a Life Flask",
 	},
+	["HARVEST"] = {
+		"100% increased Duration. -1% to this value when used",
+		"50% increased effect. -1% to this value when used",
+		"+100 to Maximum Charges. -1 to this value when used",
+		"50% reduced Charges per use. -1% to this value when used",
+	},
 }
