@@ -134,7 +134,14 @@ Loadouts can be selected from the dropdown in the top middle of the screen. Sele
     3) If there is only one set for a set type (except passive tree), e.g. "Default" config set, it will be assigned to all existing loadouts.
 
 The "New Loadout" option allows the user to create all four sets from a single popup for convenience.
-The "Sync" option is a backup option to force the UI to update in case the user has changed this data behind the scenes.
+The "Manage Loadouts" option opens the loadout manager, which works like the set managers found on the Tree, Skills, Items, and Configuration tabs:
+    - "New" creates all four sets from a single popup, the same as the "New Loadout" option
+    - "Copy" duplicates all four sets of the selected loadout into a new loadout automatically
+    - "New/Copy Custom" creates a loadout from a mix of sets, choosing for each of the four whether to start fresh or copy an existing set. It defaults to the currently active sets, so saving straight away copies the active loadout
+    - "Rename" renames all four sets of the selected loadout, preserving any identifiers inside braces { }
+    - "Delete" deletes all four sets of the selected loadout; sets shared with other loadouts, or the last remaining set of a type, are kept
+    - Double-clicking a loadout activates it
+    - "Sync" is a backup option to force the UI to update in case the user has changed this data behind the scenes
 
 
 ---[Party Tab]
