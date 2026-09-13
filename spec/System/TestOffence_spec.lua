@@ -352,4 +352,17 @@ describe("TestOffence", function()
 			assert.are.equals(1, build.calcsTab.mainOutput[outputName])
 		end)
 	end
+	it("uses the final totem limit when scaling area of effect", function()
+		build.skillsTab:PasteSocketGroup("Searing Bond of Detonation 20/0  1")
+		build.configTab.input.customMods = [[
+		+3 to Maximum Power Charges
+		Skills used by Totems have 10% more Area of Effect per maximum number of Summoned Totems
+		]]
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		-- 1 base totem + 6 maximum power charges, so 70% more area of effect.
+		assert.are.equals(7, build.calcsTab.mainOutput.ActiveTotemLimit)
+		assert.are.equals(1.7, build.calcsTab.mainOutput.AreaOfEffectMod)
+	end)
 end)

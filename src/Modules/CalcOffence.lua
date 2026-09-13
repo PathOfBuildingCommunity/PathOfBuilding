@@ -1182,6 +1182,10 @@ function calcs.offence(env, actor, activeSkill)
 		end
 	end
 	if skillFlags.area or skillData.radius or (skillFlags.mine and activeSkill.skillTypes[SkillType.Aura]) then
+		-- add totem limit output early for conjoined spire
+		if skillFlags.totem then
+			output.ActiveTotemLimit = skillModList:Sum("BASE", skillCfg, "ActiveTotemLimit", "ActiveBallistaLimit")
+		end
 		calcAreaOfEffect(skillModList, skillCfg, skillData, skillFlags, output, breakdown)
 	end
 	if activeSkill.skillTypes[SkillType.Aura] then
