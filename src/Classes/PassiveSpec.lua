@@ -19,6 +19,7 @@ local bor = bit.bor
 ---@class PassiveSpec: UndoHandler
 ---@field nodes table<integer, Node>
 ---@field allocNodes table<integer, Node>
+---@field jewel_data table<integer, table>
 local PassiveSpecClass = newClass("PassiveSpec", "UndoHandler")
 
 ---@param build Build
@@ -82,6 +83,7 @@ function PassiveSpecClass:Init(treeVersion, convert)
 	-- Table of jewels equipped in this tree
 	-- Keys are node IDs, values are items
 	self.jewels = { }
+	self.jewel_data = { }
 
 	-- Tree graphs dynamically generated from cluster jewels
 	-- Keys are subgraph IDs, values are graphs

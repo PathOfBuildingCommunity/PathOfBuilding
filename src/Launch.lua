@@ -12,7 +12,51 @@ SetWindowTitle(APP_NAME)
 ConExecute("set vid_mode 8")
 ConExecute("set vid_resizable 3")
 
+---@class DownloadResponse
+---@field header string
+---@field body string
+
+---@class DownloadParams
+---@field header? string
+---@field body? string
+
 ---@diagnostic disable-next-line: lowercase-global
+---@class Launch
+---@field ApplyUpdate fun(...: any)
+---@field CanExit fun(...: any): boolean
+---@field CheckForUpdate fun(...: any)
+---@field DownloadPage fun(self: Launch, url: string, callback: fun(response: DownloadResponse, errMsg?: string), params?: DownloadParams)
+---@field DrawPopup fun(...: any)
+---@field OnChar fun(...: any)
+---@field OnExit fun(...: any)
+---@field OnFrame fun(...: any)
+---@field OnInit fun(...: any)
+---@field OnKeyDown fun(...: any)
+---@field OnKeyUp fun(...: any)
+---@field OnSubCall fun(...: any)
+---@field OnSubError fun(...: any)
+---@field OnSubFinished fun(...: any)
+---@field RegisterSubScript fun(...: any)
+---@field RunPromptFunc fun(...: any)
+---@field ShowErrMsg fun(...: any)
+---@field ShowPrompt fun(...: any)
+---@field StartEmmyDebugger fun(...: any)
+---@field [string] any
+---@field connectionProtocol? number
+---@field devMode boolean
+---@field installedMode boolean
+---@field main Main?
+---@field noSSL? boolean
+---@field proxyURL? string
+---@field subScripts table<SubScriptID, table>
+---@field updateAvailable? boolean
+---@field updateCheckBackground? boolean
+---@field updateCheckRunning? boolean
+---@field updateErrMsg? string
+---@field updateProgress? string
+---@field versionBranch string
+---@field versionNumber string
+---@field versionPlatform string
 launch = { }
 SetMainObject(launch)
 jit.opt.start('maxtrace=4000','maxmcode=8192')
@@ -69,7 +113,10 @@ function launch:OnInit()
 	RenderInit("DPI_AWARE")
 	ConPrintf("Loading main script...")
 	local errMsg
-	errMsg, self.main = PLoadModule("Modules/Main")
+	---@type Main?
+	local loadedMain
+	errMsg, loadedMain = PLoadModule("Modules/Main")
+	self.main = loadedMain
 	if errMsg then
 		self:ShowErrMsg("Error loading main script: %s", errMsg)
 	elseif not self.main then
@@ -254,7 +301,7 @@ end
 
 ---Download the given page in the background, and calls the provided callback function when done:
 ---@param url string
----@param callback fun(response:table, errMsg:string) @ response = { header, body }
+---@param callback fun(response: table, errMsg?: string) @ response = { header, body }
 ---@param params? table @ params = { header, body }
 function launch:DownloadPage(url, callback, params)
 	params = params or {}

@@ -109,16 +109,17 @@ end
 data = { }
 
 -- Misc data tables
+---@type MiscDataExport
 local miscData = LoadModule("Data/Misc")
 for k, v in pairs(miscData) do
 	data[k] = v
 end
 
----@alias TransformFunc fun(in: number|string): (number|string)?
+---@alias TransformFunc fun(value: number|string): number|string|nil
 ---@class PowerStat
 ---@field stat? string stat ID
 ---@field label string A short description of the stat
----@field transform TransformFunc?: number|string A function to e.g. invert the value, if the stat represents something where lower is better
+---@field transform? TransformFunc A function to e.g. invert the value, if the stat represents something where lower is better
 ---@field combinedOffDef? boolean
 ---@field ignoreForNodes? boolean
 ---@field ignoreForItems? boolean
@@ -1128,7 +1129,7 @@ for gemId, gem in pairs(data.gems) do
         if gem.vaalGem and data.skills[gem.secondaryGrantedEffectId..alt] then
 			data.gemGrantedEffectIdForVaalGemId[gem.secondaryGrantedEffectId..alt] = gemId..alt
 			data.gemVaalGemIdForBaseGemId[gemId..alt] = data.gemVaalGemIdForBaseGemId[gemId]..alt
-            local newGem = { name, gameId, variantId, grantedEffectId, secondaryGrantedEffectId, vaalGem, tags = {}, tagString, reqStr, reqDex, reqInt, naturalMaxLevel }
+			local newGem = { }
 			-- Hybrid gems (e.g. Vaal gems) use the display name of the active skill e.g. Vaal Summon Skeletons of Sorcery
             newGem.name = "Vaal " .. data.skills[gem.secondaryGrantedEffectId..alt].baseTypeName
             newGem.gameId = gem.gameId
@@ -1184,7 +1185,7 @@ end
 ---@field tags table<string, true> # e.g. { armour = true, helmet = true, str_armour = true }
 ---@field influenceTags? table<string, string> # influence -> mod tag, e.g. { shaper = "helmet_shaper" }
 ---@field implicit? string # implicit mod line(s), newline-separated
----@field implicitModTypes ModTypeList[] # per-implicit list of mod-type tags
+---@field implicitModTypes? ModTypeList[] # per-implicit list of mod-type tags
 ---@field implicitIds? string[] # per-implicit GGG mod id
 ---@field enchant? string # enchant mod line(s)
 ---@field enchantModTypes? ModTypeList[]

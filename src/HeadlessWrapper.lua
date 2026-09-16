@@ -50,6 +50,7 @@ if __mainObject__.promptMsg then
 end
 
 -- The build module; once a build is loaded, you can find all the good stuff in here
+---@type Build
 build = __mainObject__.main.modes["BUILD"]
 
 -- Here's some helpful helper functions to help you get started

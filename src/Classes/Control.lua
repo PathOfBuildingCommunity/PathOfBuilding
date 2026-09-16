@@ -65,7 +65,6 @@ function ControlClass:Control(anchor, rect)
 	return self
 end
 
----@generic T
 ---@alias Prop<T> (fun(self: self): T) | T
 
 ---@param name string

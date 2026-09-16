@@ -26,6 +26,8 @@ local function isAbyssConquered(node)
 end
 
 ---@class PassiveTreeView
+---@field zoomX number
+---@field zoomY number
 local PassiveTreeViewClass = newClass("PassiveTreeView")
 
 function PassiveTreeViewClass:PassiveTreeView()
@@ -72,7 +74,9 @@ function PassiveTreeViewClass:PassiveTreeView()
 
 	self.zoomLevel = 3
 	self.zoom = 1.2 ^ self.zoomLevel
+	---@type number
 	self.zoomX = 0
+	---@type number
 	self.zoomY = 0
 
 	self.searchStr = ""

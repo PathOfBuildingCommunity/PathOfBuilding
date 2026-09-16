@@ -120,7 +120,7 @@ end
 local function repairLUTs()
 	ConPrintf("Error NodeIndexMapping file empty")
 	local nodeIDList = {  }
-	GetScriptPath()
+	local scriptPath = GetScriptPath()
 	for _, jewelType in ipairs({2, 3, 4, 5, 6}) do
 		loadTimelessJewel(jewelType, 1)
 		local jewelTypeName = data.timelessJewelTypes[jewelType]:gsub("%s+", "")
@@ -141,7 +141,7 @@ local function repairLUTs()
 
 				--- Code for compressing existing data if it changed
 				local compressedFileData = Deflate(jewelData)
-				local file = assert(io.open(scriptPath .. "Data/TimelessJewelData/" .. jewelTypeName .. ".zip", "wb+"))
+				local file = assert(io.open(scriptPath .. "/Data/TimelessJewelData/" .. jewelTypeName .. ".zip", "wb+"))
 				file:write(compressedFileData)
 				file:close()
 				if jewelType == 1 then

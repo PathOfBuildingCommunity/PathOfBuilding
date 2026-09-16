@@ -7,7 +7,7 @@ local pairs = pairs
 local t_insert = table.insert
 local t_remove = table.remove
 
----@class SharedItemListControl: ListControl
+---@class SharedItemListControl: ListControl<Item>
 local SharedItemListClass = newClass("SharedItemListControl", "ListControl")
 
 ---@param anchor Anchor?

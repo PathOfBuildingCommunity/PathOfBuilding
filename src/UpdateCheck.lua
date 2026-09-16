@@ -7,9 +7,13 @@
 local connectionProtocol, proxyURL, noSSL = ...
 
 local xml = require("xml")
-local sha1 = require("sha1")
+local sha1 = require("sha1").sha1
 local curl = require("lcurl.safe")
 local lzip = require("lzip")
+
+---@type fun(format: string, current: integer, total: integer)?
+---@diagnostic disable-next-line: undefined-global dynamic subscript callback
+local updateProgress = UpdateProgress
 
 local globalRetryLimit = 10
 local function downloadFileText(source, file)
@@ -69,11 +73,15 @@ local function downloadFile(source, file, outName)
 			easy:setopt(curl.OPT_SSL_VERIFYHOST, 0)
 			ConPrintf("SSL verification disabled")
 		end
-		local file = io.open(outName, "wb+")
-		easy:setopt_writefunction(file)
+		local outputFile, openErr = io.open(outName, "wb+")
+		if not outputFile then
+			ConPrintf("Couldn't open '%s' for writing (%s)", outName, openErr)
+			return nil, openErr
+		end
+		easy:setopt_writefunction(outputFile)
 		local _, error = easy:perform()
 		easy:close()
-		file:close()
+		outputFile:close()
 		if not error then
 			return true
 		end
@@ -219,8 +227,8 @@ downloadFile(localSource, "changelog.txt", scriptPath.."/changelog.txt")
 local failedFile = false
 local zipFiles = { }
 for index, data in ipairs(updateFiles) do
-	if UpdateProgress then
-		UpdateProgress("Downloading %d/%d", index, #updateFiles)
+	if updateProgress then
+		updateProgress("Downloading %d/%d", index, #updateFiles)
 	end
 	local partSources = remoteSources[data.part]
 	local source = partSources[localPlatform] or partSources["any"]
@@ -235,13 +243,19 @@ for index, data in ipairs(updateFiles) do
 			downloadFile(source, "", zipFileName)
 			zipFiles[zipName] = lzip.open(zipFileName)
 		end
+		---@type LzipArchive?
 		local zip = zipFiles[zipName]
 		if zip then
 			local zippedFile = zip:OpenFile(data.name)
 			if zippedFile then
-				local file = io.open(fileName, "wb+")
-				file:write(zippedFile:Read("*a"))
-				file:close()
+				local outputFile, openErr = io.open(fileName, "wb+")
+				if outputFile then
+					outputFile:write(zippedFile:Read("*a"))
+					outputFile:close()
+				else
+					ConPrintf("Couldn't extract '%s' from '%s' (couldn't open output: %s)", data.name, zipName, openErr)
+					failedFile = true
+				end
 				zippedFile:Close()
 			else
 				ConPrintf("Couldn't extract '%s' from '%s' (extract failed)", data.name, zipName)
@@ -326,13 +340,19 @@ table.insert(ops, 'move "'..scriptPath..'/Update/manifest.xml" "'..scriptPath..'
 if updateMode == "basic" then
 	-- Update script will need to relaunch the normal environment after updating
 	table.insert(opsRuntime, 'start "'..runtimeExecutable..'"')
-	local opRuntimeFile = io.open(scriptPath.."/Update/opFileRuntime.txt", "w+")
+	local opRuntimeFile, opRuntimeErr = io.open(scriptPath.."/Update/opFileRuntime.txt", "w+")
+	if not opRuntimeFile then
+		return nil, "Couldn't write update operations.\nReason: "..(opRuntimeErr or "Unknown error")
+	end
 	opRuntimeFile:write(table.concat(opsRuntime, "\n"))
 	opRuntimeFile:close()
 end
 
 -- Write operations file
-local opFile = io.open(scriptPath.."/Update/opFile.txt", "w+")
+local opFile, opFileErr = io.open(scriptPath.."/Update/opFile.txt", "w+")
+if not opFile then
+	return nil, "Couldn't write update operations.\nReason: "..(opFileErr or "Unknown error")
+end
 opFile:write(table.concat(ops, "\n"))
 opFile:close()
 
