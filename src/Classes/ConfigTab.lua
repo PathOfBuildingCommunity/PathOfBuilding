@@ -12,6 +12,9 @@ local s_upper = string.upper
 local varList = require("Modules.ConfigOptions")
 local configVisibility = require("Modules.ConfigVisibility")
 local configModBrowser = require("Modules.ConfigModBrowser")
+local ConfigScope = require("Modules.ConfigScope")
+local MercenaryTools = require("Modules.MercenaryTools")
+ConfigScope.index(varList)
 
 ---@class CustomModBlockControl: ControlHost, Control
 local CustomModBlockClass = newClass("CustomModBlockControl", "ControlHost", "Control")
@@ -30,7 +33,7 @@ function CustomModBlockClass:CustomModBlockControl(anchor, rect, configTab, bloc
 	self.blockData = blockData
 
 	self.controls.deleteBtn = new("ButtonControl"):ButtonControl({"TOPLEFT", self, "TOPLEFT"}, {0, 0, 20, 18}, "^1X", function()
-		local customModsList = configTab.configSets[configTab.activeConfigSetId].customModsList
+		local customModsList = configTab:GetActorCustomModsList()
 		table.remove(customModsList, blockIndex)
 		if #customModsList == 0 then
 			table.insert(customModsList, { title = "Default", enabled = true, text = "" })
@@ -62,15 +65,15 @@ function CustomModBlockClass:CustomModBlockControl(anchor, rect, configTab, bloc
 	self.controls.enableCheck.tooltipFunc = function(tooltip)
 		if tooltip:CheckForUpdate(configTab.build.outputRevision, blockData) then
 			if configTab.build.calcsTab then
-				local calcFunc, calcBase = configTab.build.calcsTab:GetMiscCalculator(configTab.build)
+				local calcFunc, calcBase, actor = configTab:GetComparisonCalculator()
 				if calcFunc then
 					local curState = blockData.enabled ~= false
 					blockData.enabled = not curState
 					configTab:BuildModList()
-					local output = calcFunc()
+					local output = configTab:RunComparisonCalc(calcFunc, actor)
 					blockData.enabled = curState
 					configTab:BuildModList()
-					configTab.build:AddStatComparesToTooltip(tooltip, calcBase, output, curState and "^7Disabling this group will give you:" or "^7Enabling this group will give you:")
+					configTab.build:AddStatComparesToTooltip(tooltip, calcBase, output, curState and "^7Disabling this group will give you:" or "^7Enabling this group will give you:", nil, actor)
 				end
 			end
 		end
@@ -160,6 +163,7 @@ function ConfigTabClass:ConfigTab(build)
 	-- A calculator base output matching the calcFunc which is updated by the build when it is rebuilt
 	---@type table
 	self.calcBase = nil
+	self.calcActorOutputs = nil
 	self.controls.sectionAnchor = new("LabelControl"):LabelControl({ "TOPLEFT", self, "TOPLEFT" }, { 0, 20, 0, 0 }, "")
 
 	-- Set selector
@@ -176,7 +180,18 @@ function ConfigTabClass:ConfigTab(build)
 		self:OpenConfigSetManagePopup()
 	end)
 
-	self.controls.search = new("EditControl"):EditControl({ "TOPLEFT", self.controls.sectionAnchor, "TOPLEFT" }, { 8, 15, 360, 20 }, "", "Search", "%c", 100, function()
+	self.viewActor = "player"
+	self.controls.actorLabel = new("LabelControl"):LabelControl({ "TOPLEFT", self.controls.sectionAnchor, "TOPLEFT" }, { 0, 14, 0, 16 }, "^7Actor:")
+	self.controls.actorSelect = new("DropDownControl"):DropDownControl({ "LEFT", self.controls.actorLabel, "RIGHT" }, { 4, 0, 140, 20 }, {
+		{ id = "player", label = "Player" },
+		{ id = "mercenary", label = "Mercenary" },
+	}, function(_, value)
+		if value then
+			self:SetViewActor(value.id)
+		end
+	end)
+
+	self.controls.search = new("EditControl"):EditControl({ "TOPLEFT", self.controls.sectionAnchor, "TOPLEFT" }, { 8, 42, 360, 20 }, "", "Search", "%c", 100, function()
 		self:UpdateControls()
 	end, nil, nil, true)
 	self.controls.toggleConfigs = new("ButtonControl"):ButtonControl({ "LEFT", self.controls.search, "RIGHT" }, { 10, 0, 200, 20 }, function()
@@ -209,23 +224,7 @@ function ConfigTabClass:ConfigTab(build)
 	end
 
 	local function implyCond(varData)
-		local mainEnv = self.build.calcsTab.mainEnv
-		if self.configSets[self.activeConfigSetId].input[varData.var] then
-			if varData.implyCondList then
-				for _, implyCond in ipairs(varData.implyCondList) do
-					if (implyCond and mainEnv.conditionsUsed[implyCond]) then
-						return true
-					end
-				end
-			end
-			if (varData.implyCond and mainEnv.conditionsUsed[varData.implyCond]) or
-			   (varData.implyMinionCond and mainEnv.minionConditionsUsed[varData.implyMinionCond]) or
-			   (varData.implyEnemyCond and mainEnv.enemyConditionsUsed[varData.implyEnemyCond]) then
-				return true
-			end
-		end
-
-		return false
+		return configVisibility.implyCondActive(varData, self.build, self:GetViewActor())
 	end
 
 	local function listOrSingleIfOption(ifOption, ifFunc)
@@ -296,7 +295,7 @@ function ConfigTabClass:ConfigTab(build)
 			local control
 			if varData.type == "check" then
 				control = new("CheckBoxControl"):CheckBoxControl({"TOPLEFT",lastSection,"TOPLEFT"}, {234, 0, 18}, varData.label, function(state)
-					self.configSets[self.activeConfigSetId].input[varData.var] = state
+					self:SetConfigValue(varData.var, state)
 					self:AddUndoState()
 					self:BuildModList()
 					self.build.buildFlag = true
@@ -304,9 +303,9 @@ function ConfigTabClass:ConfigTab(build)
 			elseif varData.type == "count" or varData.type == "integer" or varData.type == "countAllowZero" or varData.type == "float" then
 				control = new("EditControl"):EditControl({"TOPLEFT",lastSection,"TOPLEFT"}, {234, 0, 90, 18}, "", nil, ((varData.type == "integer" or varData.type == "countAllowZero") and "^%-%d") or (varData.type == "float" and "^%d.") or "%D", 10, function(buf, placeholder)
 					if placeholder then
-						self.configSets[self.activeConfigSetId].placeholder[varData.var] = tonumber(buf)
+						self:SetConfigPlaceholder(varData.var, tonumber(buf))
 					else
-						self.configSets[self.activeConfigSetId].input[varData.var] = tonumber(buf)
+						self:SetConfigValue(varData.var, tonumber(buf))
 						self:AddUndoState()
 						self:BuildModList()
 					end
@@ -314,7 +313,7 @@ function ConfigTabClass:ConfigTab(build)
 				end)
 			elseif varData.type == "list" then
 				control = new("DropDownControl"):DropDownControl({"TOPLEFT",lastSection,"TOPLEFT"}, {234, 0, 118, 16}, varData.list, function(index, value)
-					self.configSets[self.activeConfigSetId].input[varData.var] = value.val
+					self:SetConfigValue(varData.var, value.val)
 					self:AddUndoState()
 					self:BuildModList()
 					self.build.buildFlag = true
@@ -322,9 +321,9 @@ function ConfigTabClass:ConfigTab(build)
 			elseif varData.type == "text" and not varData.resizable then
 				control = new("EditControl"):EditControl({"TOPLEFT",lastSection,"TOPLEFT"}, {8, 0, 344, 118}, "", nil, "^%C\t\n", nil, function(buf, placeholder)
 					if placeholder then
-						self.configSets[self.activeConfigSetId].placeholder[varData.var] = tostring(buf)
+						self:SetConfigPlaceholder(varData.var, tostring(buf))
 					else
-						self.configSets[self.activeConfigSetId].input[varData.var] = tostring(buf)
+						self:SetConfigValue(varData.var, tostring(buf))
 						self:AddUndoState()
 						self:BuildModList()
 					end
@@ -333,9 +332,9 @@ function ConfigTabClass:ConfigTab(build)
 			elseif varData.type == "text" and varData.resizable then
 				control = new("ResizableEditControl"):ResizableEditControl({"TOPLEFT",lastSection,"TOPLEFT"}, {8, 0, 344, 118, nil, nil, nil, 118 + 16 * 40}, "", nil, "^%C\t\n", nil, function(buf, placeholder)
 					if placeholder then
-						self.configSets[self.activeConfigSetId].placeholder[varData.var] = tostring(buf)
+						self:SetConfigPlaceholder(varData.var, tostring(buf))
 					else
-						self.configSets[self.activeConfigSetId].input[varData.var] = tostring(buf)
+						self:SetConfigValue(varData.var, tostring(buf))
 						self:AddUndoState()
 						self:BuildModList()
 					end
@@ -352,6 +351,9 @@ function ConfigTabClass:ConfigTab(build)
 			local shownFuncs = {}
 			control.shown = function()
 				if not searchMatch(varData) then
+					return false
+				end
+				if ConfigScope.forVarData(varData) == "player" and self:GetViewActor() == "mercenary" then
 					return false
 				end
 
@@ -395,7 +397,7 @@ function ConfigTabClass:ConfigTab(build)
 			end
 			if varData.ifOption then
 				t_insert(shownFuncs, listOrSingleIfOption(varData.ifOption, function(ifOption)
-					return self.configSets[self.activeConfigSetId].input[ifOption]
+					return self:GetConfigValue(ifOption)
 				end))
 			end
 			if varData.ifCond then
@@ -403,21 +405,13 @@ function ConfigTabClass:ConfigTab(build)
 					if implyCond(varData) then
 						return true
 					end
-					return self.build.calcsTab.mainEnv.conditionsUsed[ifOption]
+					return configVisibility.usedForVar(self.build.calcsTab.mainEnv, "conditionsUsed", varData, self:GetViewActor())[ifOption]
 				end))
 				t_insert(tooltipFuncs, listOrSingleIfTooltip(varData.ifCond, function(ifOption)
 					if not launch.devModeAlt then
 						return
 					end
-					local out
-					local mods = self.build.calcsTab.mainEnv.conditionsUsed[ifOption]
-					if not mods then
-						return out
-					end
-					for _, mod in ipairs(mods) do
-						out = (out and out.."\n" or "") .. modLib.formatMod(mod) .. "|" .. mod.source
-					end
-					return out
+					return configVisibility.formatUsedMods(self.build.calcsTab.mainEnv, "conditionsUsed", varData, self:GetViewActor(), ifOption)
 				end))
 			end
 			if varData.ifMinionCond then
@@ -425,21 +419,13 @@ function ConfigTabClass:ConfigTab(build)
 					if implyCond(varData) then
 						return true
 					end
-					return self.build.calcsTab.mainEnv.minionConditionsUsed[ifOption]
+					return configVisibility.usedForVar(self.build.calcsTab.mainEnv, "minionConditionsUsed", varData, self:GetViewActor())[ifOption]
 				end))
 				t_insert(tooltipFuncs, listOrSingleIfTooltip(varData.ifMinionCond, function(ifOption)
 					if not launch.devModeAlt then
 						return
 					end
-					local out
-					local mods = self.build.calcsTab.mainEnv.minionConditionsUsed[ifOption]
-					if not mods then
-						return out
-					end
-					for _, mod in ipairs(mods) do
-						out = (out and out.."\n" or "") .. modLib.formatMod(mod) .. "|" .. mod.source
-					end
-					return out
+					return configVisibility.formatUsedMods(self.build.calcsTab.mainEnv, "minionConditionsUsed", varData, self:GetViewActor(), ifOption)
 				end))
 			end
 			if varData.ifEnemyCond then
@@ -447,33 +433,26 @@ function ConfigTabClass:ConfigTab(build)
 					if implyCond(varData) then
 						return true
 					end
-					return self.build.calcsTab.mainEnv.enemyConditionsUsed[ifOption]
+					return configVisibility.usedForVar(self.build.calcsTab.mainEnv, "enemyConditionsUsed", varData, self:GetViewActor())[ifOption]
 				end))
 				t_insert(tooltipFuncs, listOrSingleIfTooltip(varData.ifEnemyCond, function(ifOption)
 					if not launch.devModeAlt then
 						return
 					end
-					local out
-					local mods = self.build.calcsTab.mainEnv.enemyConditionsUsed[ifOption]
-					if not mods then
-						return out
-					end
-					for _, mod in ipairs(mods) do
-						out = (out and out.."\n" or "") .. modLib.formatMod(mod) .. "|" .. mod.source
-					end
-					return out
+					return configVisibility.formatUsedMods(self.build.calcsTab.mainEnv, "enemyConditionsUsed", varData, self:GetViewActor(), ifOption)
 				end))
 			end
 			if varData.ifCondTrue then
 				t_insert(shownFuncs, listOrSingleIfOption(varData.ifCondTrue, function(ifOption)
-					return self.build.calcsTab.mainEnv.player.modDB.conditions[ifOption]
+					return configVisibility.anyPrimaryActor(self.build.calcsTab.mainEnv, function(actor)
+						return actor.modDB.conditions[ifOption]
+					end, configVisibility.actorKeysForVar(varData, self:GetViewActor()))
 				end))
 				t_insert(tooltipFuncs, listOrSingleIfTooltip(varData.ifCondTrue, function(ifOption)
 					if not launch.devModeAlt then
 						return
 					end
-					local out = "Condition state: " .. ifOption .. "=" .. tostring(self.build.calcsTab.mainEnv.player.modDB.conditions[ifOption])
-					return out
+					return configVisibility.formatCondTrue(self.build.calcsTab.mainEnv, varData, self:GetViewActor(), ifOption)
 				end))
 			end
 			if varData.ifMult then
@@ -481,21 +460,13 @@ function ConfigTabClass:ConfigTab(build)
 					if implyCond(varData) then
 						return true
 					end
-					return self.build.calcsTab.mainEnv.multipliersUsed[ifOption]
+					return configVisibility.usedForVar(self.build.calcsTab.mainEnv, "multipliersUsed", varData, self:GetViewActor())[ifOption]
 				end))
 				t_insert(tooltipFuncs, listOrSingleIfTooltip(varData.ifMult, function(ifOption)
 					if not launch.devModeAlt then
 						return
 					end
-					local out
-					local mods = self.build.calcsTab.mainEnv.multipliersUsed[ifOption]
-					if not mods then
-						return out
-					end
-					for _, mod in ipairs(mods) do
-						out = (out and out.."\n" or "") .. modLib.formatMod(mod) .. "|" .. mod.source
-					end
-					return out
+					return configVisibility.formatUsedMods(self.build.calcsTab.mainEnv, "multipliersUsed", varData, self:GetViewActor(), ifOption)
 				end))
 			end
 			if varData.ifEnemyMult then
@@ -503,21 +474,13 @@ function ConfigTabClass:ConfigTab(build)
 					if implyCond(varData) then
 						return true
 					end
-					return self.build.calcsTab.mainEnv.enemyMultipliersUsed[ifOption]
+					return configVisibility.usedForVar(self.build.calcsTab.mainEnv, "enemyMultipliersUsed", varData, self:GetViewActor())[ifOption]
 				end))
 				t_insert(tooltipFuncs, listOrSingleIfTooltip(varData.ifEnemyMult, function(ifOption)
 					if not launch.devModeAlt then
 						return
 					end
-					local out
-					local mods = self.build.calcsTab.mainEnv.enemyMultipliersUsed[ifOption]
-					if not mods then
-						return out
-					end
-					for _, mod in ipairs(mods) do
-						out = (out and out.."\n" or "") .. modLib.formatMod(mod) .. "|" .. mod.source
-					end
-					return out
+					return configVisibility.formatUsedMods(self.build.calcsTab.mainEnv, "enemyMultipliersUsed", varData, self:GetViewActor(), ifOption)
 				end))
 			end
 			if varData.ifStat then
@@ -525,24 +488,16 @@ function ConfigTabClass:ConfigTab(build)
 					if implyCond(varData) then
 						return true
 					end
-					return self.build.calcsTab.mainEnv.perStatsUsed[ifOption] or self.build.calcsTab.mainEnv.enemyMultipliersUsed[ifOption]
+					return configVisibility.usedForVar(self.build.calcsTab.mainEnv, "perStatsUsed", varData, self:GetViewActor())[ifOption] or configVisibility.usedForVar(self.build.calcsTab.mainEnv, "enemyMultipliersUsed", varData, self:GetViewActor())[ifOption]
 				end))
 				t_insert(tooltipFuncs, listOrSingleIfTooltip(varData.ifStat, function(ifOption)
 					if not launch.devModeAlt then
 						return
 					end
-					local out
-					local mods = self.build.calcsTab.mainEnv.perStatsUsed[ifOption]
-					if mods then
-						for _, mod in ipairs(mods) do
-							out = (out and out.."\n" or "") .. modLib.formatMod(mod) .. "|" .. mod.source
-						end
-					end
-					local mods2 = self.build.calcsTab.mainEnv.enemyMultipliersUsed[ifOption]
-					if mods2 then
-						for _, mod in ipairs(mods2) do
-							out = (out and out.."\n" or "") .. modLib.formatMod(mod) .. "|" .. mod.source
-						end
+					local out = configVisibility.formatUsedMods(self.build.calcsTab.mainEnv, "perStatsUsed", varData, self:GetViewActor(), ifOption)
+					local enemyMods = configVisibility.formatUsedMods(self.build.calcsTab.mainEnv, "enemyMultipliersUsed", varData, self:GetViewActor(), ifOption)
+					if enemyMods then
+						out = (out and out.."\n" or "") .. enemyMods
 					end
 					return out
 				end))
@@ -552,21 +507,13 @@ function ConfigTabClass:ConfigTab(build)
 					if implyCond(varData) then
 						return true
 					end
-					return self.build.calcsTab.mainEnv.enemyPerStatsUsed[ifOption]
+					return configVisibility.usedForVar(self.build.calcsTab.mainEnv, "enemyPerStatsUsed", varData, self:GetViewActor())[ifOption]
 				end))
 				t_insert(tooltipFuncs, listOrSingleIfTooltip(varData.ifEnemyStat, function(ifOption)
 					if not launch.devModeAlt then
 						return
 					end
-					local out
-					local mods = self.build.calcsTab.mainEnv.enemyPerStatsUsed[ifOption]
-					if not mods then
-						return out
-					end
-					for _, mod in ipairs(mods) do
-						out = (out and out.."\n" or "") .. modLib.formatMod(mod) .. "|" .. mod.source
-					end
-					return out
+					return configVisibility.formatUsedMods(self.build.calcsTab.mainEnv, "enemyPerStatsUsed", varData, self:GetViewActor(), ifOption)
 				end))
 			end
 			if varData.ifTagType then
@@ -593,10 +540,10 @@ function ConfigTabClass:ConfigTab(build)
 			end
 			if varData.ifFlag then
 				t_insert(shownFuncs, listOrSingleIfOption(varData.ifFlag, function(ifOption)
-					local skillModList = self.build.calcsTab.mainEnv.player.mainSkill.skillModList
-					local skillFlags = self.build.calcsTab.mainEnv.player.mainSkill.skillFlags
-					-- Check both the skill mods for flags and flags that are set via calcPerform
-					return skillFlags[ifOption] or skillModList:Flag(nil, ifOption)
+					return configVisibility.anyMainSkill(self.build.calcsTab.mainEnv, function(mainSkill)
+						-- Check both the skill mods for flags and flags that are set via calcPerform
+						return mainSkill.skillFlags[ifOption] or mainSkill.skillModList:Flag(nil, ifOption)
+					end, configVisibility.actorKeysForVar(varData, self:GetViewActor()))
 				end))
 			end
 			if varData.ifMod then
@@ -604,60 +551,34 @@ function ConfigTabClass:ConfigTab(build)
 					if implyCond(varData) then
 						return true
 					end
-					return self.build.calcsTab.mainEnv.modsUsed[ifOption]
+					return configVisibility.usedForVar(self.build.calcsTab.mainEnv, "modsUsed", varData, self:GetViewActor())[ifOption]
 				end))
 				t_insert(tooltipFuncs, listOrSingleIfTooltip(varData.ifMod, function(ifOption)
 					if not launch.devModeAlt then
 						return
 					end
-					local out
-					local mods = self.build.calcsTab.mainEnv.modsUsed[ifOption]
-					if not mods then
-						return out
-					end
-					for _, mod in ipairs(mods) do
-						out = (out and out.."\n" or "") .. modLib.formatMod(mod) .. "|" .. mod.source
-					end
-					return out
+					return configVisibility.formatUsedMods(self.build.calcsTab.mainEnv, "modsUsed", varData, self:GetViewActor(), ifOption)
 				end))
 			end
 			if varData.ifSkill then
-				if varData.includeTransfigured then
-					t_insert(shownFuncs, listOrSingleIfOption(varData.ifSkill, function(ifOption)
-						if not calcLib.getGameIdFromGemName(ifOption, true) then
-							return false
-						end
-						for skill,_ in pairs(self.build.calcsTab.mainEnv.skillsUsed) do
-							if calcLib.isGemIdSame(skill, ifOption, true) then
-								return true
-							end
-						end
-						return false
-					end))
-				else
-					t_insert(shownFuncs, listOrSingleIfOption(varData.ifSkill, function(ifOption)
-						return self.build.calcsTab.mainEnv.skillsUsed[ifOption]
-					end))
-				end
+				t_insert(shownFuncs, listOrSingleIfOption(varData.ifSkill, function(ifOption)
+					return configVisibility.anyPrimaryActor(self.build.calcsTab.mainEnv, function(actor)
+						return configVisibility.actorUsesSkill(actor, ifOption, varData.includeTransfigured)
+					end, configVisibility.actorKeysForVar(varData, self:GetViewActor()))
+				end))
 			end
 			if varData.ifSkillFlag then
 				t_insert(shownFuncs, listOrSingleIfOption(varData.ifSkillFlag, function(ifOption)
-					for _, activeSkill in ipairs(self.build.calcsTab.mainEnv.player.activeSkillList) do
-						if activeSkill.skillFlags[ifOption] then
-							return true
-						end
-					end
-					return false
+					return configVisibility.anyActiveSkill(self.build.calcsTab.mainEnv, function(activeSkill)
+						return activeSkill.skillFlags[ifOption]
+					end, configVisibility.actorKeysForVar(varData, self:GetViewActor()))
 				end))
 			end
 			if varData.ifSkillData then
 				t_insert(shownFuncs, listOrSingleIfOption(varData.ifSkillData, function(ifOption)
-					for _, activeSkill in ipairs(self.build.calcsTab.mainEnv.player.activeSkillList) do
-						if activeSkill.skillData[ifOption] then
-							return true
-						end
-					end
-					return false
+					return configVisibility.anyActiveSkill(self.build.calcsTab.mainEnv, function(activeSkill)
+						return activeSkill.skillData[ifOption]
+					end, configVisibility.actorKeysForVar(varData, self:GetViewActor()))
 				end))
 			end
 
@@ -696,7 +617,7 @@ function ConfigTabClass:ConfigTab(build)
 			if not varData.doNotHighlight then
 				control.borderFunc = function()
 					local shown = type(innerShown) == "boolean" and innerShown or innerShown()
-					local cur = self.configSets[self.activeConfigSetId].input[varData.var]
+					local cur = self:GetConfigValue(varData.var)
 					local def = self:GetDefaultState(varData.var, type(cur))
 					if cur ~= nil and cur ~= def then
 						if not shown then
@@ -713,23 +634,24 @@ function ConfigTabClass:ConfigTab(build)
 					if not searchMatch(varData) then
 						return false
 					end
+					if ConfigScope.forVarData(varData) == "player" and self:GetViewActor() == "mercenary" then
+						return false
+					end
 					local shown = type(innerShown) == "boolean" and innerShown or innerShown()
-					local cur = self.configSets[self.activeConfigSetId].input[varData.var]
+					local cur = self:GetConfigValue(varData.var)
 					local def = self:GetDefaultState(varData.var, type(cur))
 					return not shown and cur ~= nil and cur ~= def or shown
 				end
 				local innerLabel = labelControl.label
 				labelControl.label = function()
 					local shown = type(innerShown) == "boolean" and innerShown or innerShown()
-					local cur = self.configSets[self.activeConfigSetId].input[varData.var]
+					local cur = self:GetConfigValue(varData.var)
 					local def = self:GetDefaultState(varData.var, type(cur))
 					if not shown and cur ~= nil and cur ~= def then
 						return colorCodes.NEGATIVE..StripEscapes(innerLabel)
 					end
 					return innerLabel
 				end
-				local outputCache = {}
-				local outputCacheRevision = nil
 				local innerTooltipFunc = control.tooltipFunc
 				control.tooltipFunc = function(tooltip, mode, index, value)
 					tooltip:Clear()
@@ -744,57 +666,7 @@ function ConfigTabClass:ConfigTab(build)
 					end
 
 					local shown = type(innerShown) == "boolean" and innerShown or innerShown()
-					local inputs = self.configSets[self.activeConfigSetId].input
-					local cur = inputs[varData.var]
-					local def = self:GetDefaultState(varData.var, type(cur))
-					if not shown and cur ~= nil and cur ~= def then
-						tooltip:AddLine(14, colorCodes.NEGATIVE.."This config option is conditional with missing source and is invalid.")
-					else
-						-- avoid adding comparisons for number inputs as the
-						-- input gets applied as soon as the user types, which
-						-- means comparisons don't make sense here
-						if not self.calcFunc then
-							self.calcFunc, self.calcBase = self.build.calcsTab:GetMiscCalculator(self.build)
-						end
-						if (varData.type == "check") or (varData.type == "list") then
-							local valueMapped
-							if varData.type == "check" then
-								valueMapped = not cur
-							else
-								valueMapped = type(value) == "table" and value.val or value
-							end
-							if (valueMapped ~= cur) then
-								local buildFlag = self.build.buildFlag
-								tooltip:AddSeparator(10)
-								-- clear cache if build has been edited
-								if outputCacheRevision ~= self.build.outputRevision then
-									outputCache = {}
-									outputCacheRevision = self.build.outputRevision
-								end
-								local key = string.format("%s:%s", tostring(valueMapped), tostring(cur))
-								if not outputCache[key] then
-									inputs[varData.var] = valueMapped
-									self:BuildModList()
-
-									outputCache[key] = self.calcFunc()
-
-									inputs[varData.var] = cur
-									self:BuildModList()
-								end
-								-- building the mod lists flags the build for a
-								-- rebuild, but we don't actually want that as
-								-- we restore the previous state if the user
-								-- hasn't actually clicked
-								self.build.buildFlag = buildFlag
-								local prefix = (varData.type == "check") and "^7Toggling this" or "^7Selecting this"
-								self.build:AddStatComparesToTooltip(tooltip, self.calcBase, outputCache[key], prefix .. " option will give you:")
-								-- clear tooltip if it only has our separator
-								if #tooltip.lines == 1 then
-									tooltip:Clear()
-								end
-							end
-						end
-					end
+					self:AddOptionStatComparison(tooltip, varData, value, self:GetViewActor(), shown)
 				end
 			end
 
@@ -814,7 +686,7 @@ function ConfigTabClass:ConfigTab(build)
 	self.controls.scrollBar = new("ScrollBarControl"):ScrollBarControl({"TOPRIGHT",self,"TOPRIGHT"}, {0, 0, 18, 0}, 50, "VERTICAL", true)
 	if self.customSection then
 		self.controls.customModsAddBlock = new("ButtonControl"):ButtonControl({"TOPLEFT", self.customSection, "TOPLEFT"}, {8, 0, 120, 20}, "^7Add Mod Group", function()
-			local customModsList = self.configSets[self.activeConfigSetId].customModsList
+			local customModsList = self:GetActorCustomModsList()
 			t_insert(customModsList, { title = "Group " .. (#customModsList + 1), enabled = true, text = "" })
 			self:UpdateCustomModsControls()
 			self:AddUndoState()
@@ -841,26 +713,25 @@ function ConfigTabClass:Load(xml, fileName)
 	self.configSets = { }
 	self.configSetOrderList = { 1 }
 
-	local function setInputAndPlaceholder(node, configSetId)
+	local function applyNode(node, input, placeholder)
 		if node.elem == "Input" then
 			if not node.attrib.name then
 				launch:ShowErrMsg("^1Error parsing '%s': 'Input' element missing name attribute", fileName)
 				return true
 			end
 			if node.attrib.number then
-				self.configSets[configSetId].input[node.attrib.name] = tonumber(node.attrib.number)
+				input[node.attrib.name] = tonumber(node.attrib.number)
 			elseif node.attrib.string then
 				if node.attrib.name == "enemyIsBoss" then
-					self.configSets[configSetId].input[node.attrib.name] = node.attrib.string:lower():gsub("(%l)(%w*)", function(a,b) return s_upper(a)..b end)
+					input[node.attrib.name] = node.attrib.string:lower():gsub("(%l)(%w*)", function(a,b) return s_upper(a)..b end)
 					:gsub("Uber Atziri", "Boss"):gsub("Shaper", "Pinnacle"):gsub("Sirus", "Pinnacle")
-				-- backwards compat <=3.20, Uber Atziri Flameblast -> Atziri Flameblast
 				elseif node.attrib.name == "presetBossSkills" then
-					self.configSets[configSetId].input[node.attrib.name] = node.attrib.string:gsub("^Uber ", "")
+					input[node.attrib.name] = node.attrib.string:gsub("^Uber ", "")
 				else
-					self.configSets[configSetId].input[node.attrib.name] = node.attrib.string
+					input[node.attrib.name] = node.attrib.string
 				end
 			elseif node.attrib.boolean then
-				self.configSets[configSetId].input[node.attrib.name] = node.attrib.boolean == "true"
+				input[node.attrib.name] = node.attrib.boolean == "true"
 			else
 				launch:ShowErrMsg("^1Error parsing '%s': 'Input' element missing number, string or boolean attribute", fileName)
 				return true
@@ -871,13 +742,53 @@ function ConfigTabClass:Load(xml, fileName)
 				return true
 			end
 			if node.attrib.number then
-				self.configSets[configSetId].placeholder[node.attrib.name] = tonumber(node.attrib.number)
+				placeholder[node.attrib.name] = tonumber(node.attrib.number)
 			elseif node.attrib.string then
-				self.configSets[configSetId].input[node.attrib.name] = node.attrib.string
+				input[node.attrib.name] = node.attrib.string
 			else
 				launch:ShowErrMsg("^1Error parsing '%s': 'Placeholder' element missing number", fileName)
 				return true
 			end
+		end
+	end
+
+	local function setInputAndPlaceholder(node, configSetId)
+		local configSet = self.configSets[configSetId]
+		return applyNode(node, configSet.input, configSet.placeholder)
+	end
+
+	local function loadCustomBlock(node)
+		return {
+			title = node.attrib.title or "Default",
+			enabled = (node.attrib.enabled == "true" or node.attrib.enabled == nil),
+			text = node[1] or ""
+		}
+	end
+
+	local function loadActor(actorNode, configSet)
+		local actorId = actorNode.attrib.id
+		if actorId ~= "player" and actorId ~= "mercenary" then
+			return
+		end
+		self:EnsureActorConfig(configSet)
+		local actor = configSet.actors[actorId]
+		actor.customModsList = { }
+		if actorId == "player" then
+			configSet.customModsList = actor.customModsList
+		end
+		local input, placeholder = configSet.input, configSet.placeholder
+		if actorId == "mercenary" then
+			input, placeholder = actor.input, actor.placeholder
+		end
+		for _, child in ipairs(actorNode) do
+			if child.elem == "CustomModifierBlock" then
+				t_insert(actor.customModsList, loadCustomBlock(child))
+			else
+				applyNode(child, input, placeholder)
+			end
+		end
+		if #actor.customModsList == 0 then
+			t_insert(actor.customModsList, { title = "Default", enabled = true, text = "" })
 		end
 	end
 
@@ -905,8 +816,12 @@ function ConfigTabClass:Load(xml, fileName)
 			self:NewConfigSet(configSetId, node.attrib.title or "Default")
 			self.configSetOrderList[index] = configSetId
 			self.configSets[configSetId].customModsList = { }
+			-- Validated in MercenaryTab:PostLoad once mercenarySets exist.
+			self.configSets[configSetId].mercenarySetId = tonumber(node.attrib.mercenarySetId)
 			for _, child in ipairs(node) do
-				if child.elem == "CustomModifierBlock" then
+				if child.elem == "Actor" then
+					loadActor(child, self.configSets[configSetId])
+				elseif child.elem == "CustomModifierBlock" then
 					local block = {
 						title = child.attrib.title or "Default",
 						enabled = (child.attrib.enabled == "true" or child.attrib.enabled == nil),
@@ -934,13 +849,19 @@ function ConfigTabClass:Load(xml, fileName)
 		end
 	end
 
-	self:SetActiveConfigSet(tonumber(xml.attrib.activeConfigSet) or 1)
+	self:SetActiveConfigSet(tonumber(xml.attrib.activeConfigSet) or 1, true)
 	self:ResetUndo()
 end
 
+function ConfigTabClass:PostLoad()
+	self:UpdateControls()
+	self:BuildModList()
+end
+
 function ConfigTabClass:GetDefaultState(var, varType)
-	if self.configSets[self.activeConfigSetId].placeholder[var] ~= nil then
-		return self.configSets[self.activeConfigSetId].placeholder[var]
+	local _, placeholder = self:GetVarTables(var)
+	if placeholder[var] ~= nil then
+		return placeholder[var]
 	end
 
 	if self.defaultState[var] ~= nil then
@@ -962,60 +883,102 @@ function ConfigTabClass:Save(xml)
 	xml.attrib = {
 		activeConfigSet = tostring(self.activeConfigSetId)
 	}
-	for _, configSetId in ipairs(self.configSetOrderList) do
-		local configSet = self.configSets[configSetId]
-		local child = { elem = "ConfigSet", attrib = { id = tostring(configSetId), title = configSet.title } }
-		t_insert(xml, child)
-
-		for k, v in pairs(configSet.input) do
-			if v ~= self:GetDefaultState(k, type(v)) then
-				local node = { elem = "Input", attrib = { name = k } }
-				if type(v) == "number" then
-					node.attrib.number = tostring(v)
-				elseif type(v) == "boolean" then
-					node.attrib.boolean = tostring(v)
-				else
-					node.attrib.string = tostring(v)
-				end
-				t_insert(child, node)
-			end
+	local function writeValueNode(parent, elem, name, value)
+		local node = { elem = elem, attrib = { name = name } }
+		if type(value) == "number" then
+			node.attrib.number = tostring(value)
+		elseif type(value) == "boolean" then
+			node.attrib.boolean = tostring(value)
+		else
+			node.attrib.string = tostring(value)
 		end
-		for k, v in pairs(configSet.placeholder) do
-			local node = { elem = "Placeholder", attrib = { name = k } }
-			if type(v) == "number" then
-				node.attrib.number = tostring(v)
-			else
-				node.attrib.string = tostring(v)
-			end
-			t_insert(child, node)
+		t_insert(parent, node)
+	end
+	local function defaultFor(var, value, placeholder)
+		if placeholder and placeholder[var] ~= nil then
+			return placeholder[var]
 		end
-		if configSet.customModsList then
-			for _, block in ipairs(configSet.customModsList) do
-				local blockNode = {
-					elem = "CustomModifierBlock",
-					attrib = {
-						title = block.title or "Default",
-						enabled = tostring(block.enabled ~= false)
-					},
-					[1] = block.text or ""
-				}
-				t_insert(child, blockNode)
+		if self.defaultState[var] ~= nil then
+			return self.defaultState[var]
+		end
+		if type(value) == "number" then
+			return 0
+		elseif type(value) == "boolean" then
+			return false
+		elseif type(value) == "string" then
+			return ""
+		end
+		return nil
+	end
+	local function writeInputs(parent, input, placeholder)
+		for k, v in pairs(input) do
+			if v ~= defaultFor(k, v, placeholder) then
+				writeValueNode(parent, "Input", k, v)
 			end
 		end
 	end
+	local function writePlaceholders(parent, placeholder)
+		for k, v in pairs(placeholder) do
+			writeValueNode(parent, "Placeholder", k, v)
+		end
+	end
+	local function writeCustomMods(parent, customModsList)
+		for _, block in ipairs(customModsList) do
+			t_insert(parent, {
+				elem = "CustomModifierBlock",
+				attrib = {
+					title = block.title or "Default",
+					enabled = tostring(block.enabled ~= false)
+				},
+				[1] = block.text or ""
+			})
+		end
+	end
+	for _, configSetId in ipairs(self.configSetOrderList) do
+		local configSet = self.configSets[configSetId]
+		self:EnsureActorConfig(configSet)
+		local child = { elem = "ConfigSet", attrib = { id = tostring(configSetId), title = configSet.title } }
+		if configSet.mercenarySetId then
+			child.attrib.mercenarySetId = tostring(configSet.mercenarySetId)
+		end
+		t_insert(xml, child)
+
+		-- Player and shared values keep the upstream layout so clients without
+		-- Mercenary support still read them. Only Mercenary-owned values go under
+		-- an Actor node, which those clients ignore.
+		writeInputs(child, configSet.input, configSet.placeholder)
+		writePlaceholders(child, configSet.placeholder)
+		writeCustomMods(child, configSet.customModsList)
+		local mercenary = configSet.actors.mercenary
+		local actorNode = { elem = "Actor", attrib = { id = "mercenary" } }
+		writeInputs(actorNode, mercenary.input, mercenary.placeholder)
+		writePlaceholders(actorNode, mercenary.placeholder)
+		writeCustomMods(actorNode, mercenary.customModsList)
+		t_insert(child, actorNode)
+	end
+end
+
+function ConfigTabClass:RefreshActorSelect()
+	if not MercenaryTools.tabVisible(self.build) and self:GetViewActor() == "mercenary" then
+		self.viewActor = "player"
+	end
+	self.controls.actorSelect:SetList(MercenaryTools.configActorList(self.build))
+	self.controls.actorSelect:SelByValue(self:GetViewActor(), "id")
 end
 
 function ConfigTabClass:UpdateControls()
+	self:RefreshActorSelect()
 	for var, control in pairs(self.varControls) do
+		local input, placeholder = self:GetVarTables(var)
 		if control._className == "EditControl" or control._className == "ResizableEditControl" then
-			control:SetText(tostring(self.configSets[self.activeConfigSetId].input[var] or ""))
-			if self.configSets[self.activeConfigSetId].placeholder[var] then
-				control:SetPlaceholder(tostring(self.configSets[self.activeConfigSetId].placeholder[var]))
+			control:SetText(tostring(input[var] or ""))
+			if placeholder[var] then
+				control:SetPlaceholder(tostring(placeholder[var]))
 			end
 		elseif control._className == "CheckBoxControl" then
-			control.state = self.configSets[self.activeConfigSetId].input[var]
+			control.state = input[var]
 		elseif control._className == "DropDownControl" then
-			control:SelByValue(self.configSets[self.activeConfigSetId].input[var] or self:GetDefaultState(var), "val")
+			control:SelByValue(input[var] or self:GetDefaultState(var), "val")
 		end
 	end
 	self:UpdateCustomModsControls()
@@ -1127,40 +1090,28 @@ function ConfigTabClass:UpdateLevel()
 	end
 end
 
-function ConfigTabClass:BuildModList()
-	local modList = new("ModList"):ModList()
-	self.modList = modList
-	local enemyModList = new("ModList"):ModList()
-	self.enemyModList = enemyModList
-	local input = self.configSets[self.activeConfigSetId].input
-	local placeholder = self.configSets[self.activeConfigSetId].placeholder
-	self:UpdateLevel() -- enemy level handled here because it's needed to correctly set boss stats
-	for _, varData in ipairs(varList) do
-		if varData.apply then
-			if varData.type == "check" then
-				if input[varData.var] then
-					varData.apply(true, modList, enemyModList, self.build)
-				end
-			elseif varData.type == "count" or varData.type == "integer" or varData.type == "countAllowZero" or varData.type == "float" then
-				if input[varData.var] and (input[varData.var] ~= 0 or varData.type == "countAllowZero") then
-					varData.apply(input[varData.var], modList, enemyModList, self.build)
-				elseif placeholder[varData.var] and (placeholder[varData.var] ~= 0 or varData.type == "countAllowZero") then
-					varData.apply(placeholder[varData.var], modList, enemyModList, self.build)
-				end
-			elseif varData.type == "list" then
-				if input[varData.var] then
-					varData.apply(input[varData.var], modList, enemyModList, self.build)
-				end
-			elseif varData.type == "text" then
-				if input[varData.var] then
-					varData.apply(input[varData.var], modList, enemyModList, self.build)
-				end
-			end
+local function applyConfigVar(varData, input, placeholder, modList, enemyModList, build)
+	if not varData.apply or not varData.var then
+		return
+	end
+	if varData.type == "check" then
+		if input[varData.var] then
+			varData.apply(true, modList, enemyModList, build)
+		end
+	elseif varData.type == "count" or varData.type == "integer" or varData.type == "countAllowZero" or varData.type == "float" then
+		if input[varData.var] and (input[varData.var] ~= 0 or varData.type == "countAllowZero") then
+			varData.apply(input[varData.var], modList, enemyModList, build)
+		elseif placeholder[varData.var] and (placeholder[varData.var] ~= 0 or varData.type == "countAllowZero") then
+			varData.apply(placeholder[varData.var], modList, enemyModList, build)
+		end
+	elseif varData.type == "list" or varData.type == "text" then
+		if input[varData.var] then
+			varData.apply(input[varData.var], modList, enemyModList, build)
 		end
 	end
+end
 
-	-- Apply Custom Modifier groups
-	local customModsList = self.configSets[self.activeConfigSetId].customModsList
+local function applyCustomMods(customModsList, modList, fallbackText)
 	local hasBlockText = false
 	if customModsList then
 		for _, block in ipairs(customModsList) do
@@ -1174,8 +1125,7 @@ function ConfigTabClass:BuildModList()
 						for i = 1, #mods do
 							local mod = mods[i]
 							if mod then
-								mod = modLib.setSource(mod, source)
-								modList:AddMod(mod)
+								modList:AddMod(modLib.setSource(mod, source))
 							end
 						end
 					end
@@ -1183,22 +1133,341 @@ function ConfigTabClass:BuildModList()
 			end
 		end
 	end
-	-- Fallback for tests/headless
-	if not hasBlockText and input.customMods and #input.customMods > 0 then
-		for line in input.customMods:gmatch("([^\n]*)\n?") do
+	if not hasBlockText and fallbackText and #fallbackText > 0 then
+		for line in fallbackText:gmatch("([^\n]*)\n?") do
 			local strippedLine = StripEscapes(line):match("^%s*(.-)%s*$")
 			local mods, extra = modLib.parseMod(strippedLine)
 			if mods and not extra then
-				local source = "Custom"
 				for i = 1, #mods do
 					local mod = mods[i]
 					if mod then
-						mod = modLib.setSource(mod, source)
-						modList:AddMod(mod)
+						modList:AddMod(modLib.setSource(mod, "Custom"))
 					end
 				end
 			end
 		end
+	end
+end
+
+function ConfigTabClass:GetViewActor()
+	return self.viewActor or "player"
+end
+
+function ConfigTabClass:ComparisonActorFor(viewActor)
+	return (viewActor or self:GetViewActor()) == "mercenary" and "MERCENARY" or nil
+end
+
+function ConfigTabClass:ComparisonBase(playerBase, actorOutputs, viewActor)
+	local actor = self:ComparisonActorFor(viewActor)
+	if actor and actorOutputs then
+		return actorOutputs[actor], actor
+	end
+	return playerBase, actor
+end
+
+function ConfigTabClass:GetComparisonCalculator(viewActor)
+	local calcFunc, playerBase, actorOutputs = self.build.calcsTab:GetMiscCalculator(self.build)
+	local calcBase, actor = self:ComparisonBase(playerBase, actorOutputs, viewActor)
+	return calcFunc, calcBase, actor
+end
+
+function ConfigTabClass:RunComparisonCalc(calcFunc, actor)
+	return calcFunc(actor and { comparisonActor = actor } or nil)
+end
+
+-- Preview toggling a check/list option against viewActor's output.
+-- optionShown is the control's eligibility; hidden-but-set values are flagged invalid.
+function ConfigTabClass:AddOptionStatComparison(tooltip, varData, value, viewActor, optionShown)
+	viewActor = viewActor or self:GetViewActor()
+	local inputs = select(1, self:GetVarTablesForActor(varData.var, viewActor))
+	local cur = inputs[varData.var]
+	local def = self:GetDefaultState(varData.var, type(cur))
+	if not optionShown and cur ~= nil and cur ~= def then
+		tooltip:AddLine(14, colorCodes.NEGATIVE.."This config option is conditional with missing source and is invalid.")
+		return
+	end
+	-- Number inputs apply as the user types, so a hover delta is meaningless.
+	if varData.type ~= "check" and varData.type ~= "list" then
+		return
+	end
+	local valueMapped
+	if varData.type == "check" then
+		valueMapped = not cur
+	else
+		valueMapped = type(value) == "table" and value.val or value
+	end
+	if valueMapped == cur then
+		return
+	end
+	local calcFunc, playerBase, actorOutputs = self.build.calcsTab:GetMiscCalculator(self.build)
+	if not calcFunc then
+		return
+	end
+	local calcBase, actor = self:ComparisonBase(playerBase, actorOutputs, viewActor)
+	if self.optionComparisonCacheRevision ~= self.build.outputRevision then
+		self.optionComparisonCache = { }
+		self.optionComparisonCacheRevision = self.build.outputRevision
+	end
+	self.optionComparisonCache = self.optionComparisonCache or { }
+	local key = string.format("%s:%s:%s:%s", varData.var, tostring(valueMapped), tostring(cur), tostring(actor or "PLAYER"))
+	if not self.optionComparisonCache[key] then
+		local buildFlag = self.build.buildFlag
+		inputs[varData.var] = valueMapped
+		self:BuildModList()
+		self.optionComparisonCache[key] = self:RunComparisonCalc(calcFunc, actor)
+		inputs[varData.var] = cur
+		self:BuildModList()
+		self.build.buildFlag = buildFlag
+	end
+	tooltip:AddSeparator(10)
+	local prefix = (varData.type == "check") and "^7Toggling this" or "^7Selecting this"
+	self.build:AddStatComparesToTooltip(tooltip, calcBase, self.optionComparisonCache[key], prefix .. " option will give you:", nil, actor)
+	if #tooltip.lines == 1 then
+		tooltip:Clear()
+	end
+end
+
+function ConfigTabClass:SetViewActor(actor)
+	if actor ~= "mercenary" then
+		actor = "player"
+	end
+	self.viewActor = actor
+	if self.controls.actorSelect then
+		self.controls.actorSelect:SelByValue(actor, "id")
+	end
+	self:UpdateControls()
+	self:UpdateCustomModsControls()
+end
+
+function ConfigTabClass:GetVarTablesForActor(var, actor)
+	local configSet = self.configSets[self.activeConfigSetId]
+	self:EnsureActorConfig(configSet)
+	-- Skill-option headers have a label and ifSkill but no var. Draw still
+	-- asks for their current value when deciding whether to highlight them.
+	if var and ConfigScope.forVar(var) == "actor" and actor == "mercenary" then
+		return configSet.actors.mercenary.input, configSet.actors.mercenary.placeholder
+	end
+	return configSet.input, configSet.placeholder
+end
+
+function ConfigTabClass:GetVarTables(var)
+	return self:GetVarTablesForActor(var, self:GetViewActor())
+end
+
+function ConfigTabClass:GetConfigValue(var)
+	local input = self:GetVarTables(var)
+	return input[var]
+end
+
+function ConfigTabClass:GetActorConfigInput(actor)
+	local configSet = self.configSets[self.activeConfigSetId]
+	self:EnsureActorConfig(configSet)
+	if actor ~= "mercenary" then
+		return configSet.input, configSet.placeholder
+	end
+	local sharedCache = self.mercenarySharedConfigCache
+	if not (sharedCache and sharedCache.configSet == configSet) then
+		local sharedInput, sharedPlaceholder = { }, { }
+		for k, v in pairs(configSet.input) do
+			if ConfigScope.tryForVar(k) == "shared" then
+				sharedInput[k] = v
+			end
+		end
+		for k, v in pairs(configSet.placeholder) do
+			if ConfigScope.tryForVar(k) == "shared" then
+				sharedPlaceholder[k] = v
+			end
+		end
+		sharedCache = { configSet = configSet, input = sharedInput, placeholder = sharedPlaceholder }
+		self.mercenarySharedConfigCache = sharedCache
+	end
+	-- Actor keys are live. Tests and the Config UI write mercenary.input
+	-- without always rebuilding the shared snapshot first.
+	-- Reuse the merge buffers; callers that persist the result must copy.
+	local input = wipeTable(self.mercenaryMergedInput)
+	local placeholder = wipeTable(self.mercenaryMergedPlaceholder)
+	self.mercenaryMergedInput = input
+	self.mercenaryMergedPlaceholder = placeholder
+	for k, v in pairs(sharedCache.input) do
+		input[k] = v
+	end
+	for k, v in pairs(sharedCache.placeholder) do
+		placeholder[k] = v
+	end
+	for k, v in pairs(configSet.actors.mercenary.input) do
+		input[k] = v
+	end
+	for k, v in pairs(configSet.actors.mercenary.placeholder) do
+		placeholder[k] = v
+	end
+	return input, placeholder
+end
+
+function ConfigTabClass:SetConfigValue(var, value)
+	local input = self:GetVarTables(var)
+	input[var] = value
+end
+
+function ConfigTabClass:SetConfigPlaceholder(var, value)
+	local _, placeholder = self:GetVarTables(var)
+	placeholder[var] = value
+end
+
+function ConfigTabClass:GetActorCustomModsList(configSet)
+	configSet = configSet or self.configSets[self.activeConfigSetId]
+	self:EnsureActorConfig(configSet)
+	if self:GetViewActor() == "mercenary" then
+		return configSet.actors.mercenary.customModsList
+	end
+	return configSet.customModsList
+end
+
+function ConfigTabClass:EnsureActorConfig(configSet)
+	if not configSet then
+		return
+	end
+	if not configSet.actors then
+		configSet.actors = { }
+	end
+	if not configSet.actors.player then
+		configSet.actors.player = {
+			customModsList = configSet.customModsList,
+		}
+	end
+	if configSet.customModsList then
+		configSet.actors.player.customModsList = configSet.customModsList
+	elseif not configSet.actors.player.customModsList then
+		configSet.actors.player.customModsList = { { title = "Default", enabled = true, text = "" } }
+		configSet.customModsList = configSet.actors.player.customModsList
+	end
+	if not configSet.actors.mercenary then
+		local mercenaryInput, mercenaryPlaceholder = { }, { }
+		for _, varData in ipairs(varList) do
+			if varData.var and ConfigScope.forVarData(varData) == "actor" then
+				mercenaryInput[varData.var] = varData.defaultState
+				mercenaryPlaceholder[varData.var] = varData.defaultPlaceholderState
+				if varData.defaultIndex then
+					mercenaryInput[varData.var] = varData.list[varData.defaultIndex].val
+				end
+			end
+		end
+		configSet.actors.mercenary = {
+			input = mercenaryInput,
+			placeholder = mercenaryPlaceholder,
+			customModsList = { { title = "Default", enabled = true, text = "" } },
+		}
+	end
+end
+
+local function reuseModList(list)
+	if list then
+		local multipliers = list.multipliers
+		local conditions = list.conditions
+		local actor = list.actor
+		wipeTable(list)
+		list.parent = false
+		list.actor = wipeTable(actor)
+		list.multipliers = wipeTable(multipliers)
+		list.conditions = wipeTable(conditions)
+		return list
+	end
+	return new("ModList"):ModList()
+end
+
+local function idleModList(list)
+	if list then
+		return reuseModList(list)
+	end
+	return nil
+end
+
+function ConfigTabClass:BuildModList()
+	local configSet = self.configSets[self.activeConfigSetId]
+	self:EnsureActorConfig(configSet)
+	self.mercenarySharedConfigCache = nil
+	local hired = MercenaryTools.isHired(self.build)
+	local playerModList = reuseModList(self.modList)
+	local enemyModList = reuseModList(self.enemyModList)
+	self.modList = playerModList
+	self.enemyModList = enemyModList
+	local mercenaryModList, playerEnemyModList, mercenaryEnemyModList, tempEnemy
+	if hired then
+		mercenaryModList = reuseModList(self.mercenaryModList)
+		playerEnemyModList = reuseModList(self.playerEnemyModList)
+		mercenaryEnemyModList = reuseModList(self.mercenaryEnemyModList)
+		tempEnemy = reuseModList(self.tempEnemyModList)
+		self.mercenaryModList = mercenaryModList
+		self.playerEnemyModList = playerEnemyModList
+		self.mercenaryEnemyModList = mercenaryEnemyModList
+		self.tempEnemyModList = tempEnemy
+	else
+		self.mercenaryModList = idleModList(self.mercenaryModList)
+		self.playerEnemyModList = idleModList(self.playerEnemyModList)
+		self.mercenaryEnemyModList = idleModList(self.mercenaryEnemyModList)
+		self.mercenaryEncounterModList = idleModList(self.mercenaryEncounterModList)
+		self.tempEnemyModList = idleModList(self.tempEnemyModList)
+	end
+	local input = configSet.input
+	local placeholder = configSet.placeholder
+	self:UpdateLevel() -- enemy level handled here because it's needed to correctly set boss stats
+
+	local function applyPartitioned(varData, srcInput, srcPlaceholder, actorMods, sourceEnemy)
+		for i = #tempEnemy, 1, -1 do
+			tempEnemy[i] = nil
+		end
+		applyConfigVar(varData, srcInput, srcPlaceholder, actorMods, tempEnemy, self.build)
+		for _, mod in ipairs(tempEnemy) do
+			if ConfigScope.isSourceOwnedEnemyMod(mod) then
+				sourceEnemy:AddMod(mod)
+			else
+				enemyModList:AddMod(mod)
+			end
+		end
+	end
+	local sharedMods = reuseModList(self.sharedModsList)
+	self.sharedModsList = sharedMods
+	for _, varData in ipairs(varList) do
+		local scope = ConfigScope.forVarData(varData)
+		if scope == "shared" then
+			applyConfigVar(varData, input, placeholder, sharedMods, enemyModList, self.build)
+		elseif scope == "actor" or scope == "player" then
+			if hired and ConfigScope.enemyStateForVarData(varData) == "source" then
+				applyPartitioned(varData, input, placeholder, playerModList, playerEnemyModList)
+			else
+				applyConfigVar(varData, input, placeholder, playerModList, enemyModList, self.build)
+			end
+		end
+	end
+	playerModList:AddList(sharedMods)
+	if hired then
+		-- Copy so ModStore tag.div writes cannot leak between actors.
+		mercenaryModList:CopyList(sharedMods)
+	end
+
+	local mercenary = configSet.actors.mercenary
+	if hired then
+		local mercenaryEnemyMods = reuseModList(self.mercenaryEncounterModList)
+		self.mercenaryEncounterModList = mercenaryEnemyMods
+		for _, varData in ipairs(varList) do
+			if ConfigScope.forVarData(varData) == "actor" then
+				if ConfigScope.enemyStateForVarData(varData) == "source" then
+					applyPartitioned(varData, mercenary.input, mercenary.placeholder, mercenaryModList, mercenaryEnemyModList)
+				else
+					applyConfigVar(varData, mercenary.input, mercenary.placeholder, mercenaryModList, mercenaryEnemyMods, self.build)
+				end
+			end
+		end
+		enemyModList:AddList(mercenaryEnemyMods)
+		applyCustomMods(mercenary.customModsList, mercenaryModList)
+	end
+
+	applyCustomMods(configSet.customModsList, playerModList, input.customMods)
+	self.modListHasHiredMercenary = hired
+end
+
+function ConfigTabClass:EnsureHiredMercenaryModList()
+	if self.modListHasHiredMercenary ~= MercenaryTools.isHired(self.build) then
+		self:BuildModList()
 	end
 end
 
@@ -1241,9 +1510,12 @@ end
 
 function ConfigTabClass:CreateUndoState()
 	local configSet = self.configSets[self.activeConfigSetId]
+	self:EnsureActorConfig(configSet)
 	return {
 		input = copyTable(configSet.input),
-		customModsList = copyTable(configSet.customModsList)
+		placeholder = copyTable(configSet.placeholder),
+		customModsList = copyTable(configSet.customModsList),
+		actors = copyTable(configSet.actors),
 	}
 end
 
@@ -1254,8 +1526,14 @@ function ConfigTabClass:RestoreUndoState(state)
 		for k, v in pairs(state.input) do
 			configSet.input[k] = v
 		end
+		if state.placeholder then
+			configSet.placeholder = copyTable(state.placeholder)
+		end
 		if state.customModsList then
 			configSet.customModsList = copyTable(state.customModsList)
+		end
+		if state.actors then
+			configSet.actors = copyTable(state.actors)
 		end
 	else
 		wipeTable(configSet.input)
@@ -1296,6 +1574,7 @@ function ConfigTabClass:NewConfigSet(configSetId, title)
 		end
 	end
 	self.configSets[configSet.id] = configSet
+	self:EnsureActorConfig(configSet)
 	return configSet
 end
 
@@ -1307,11 +1586,17 @@ function ConfigTabClass:UpdateCustomModsControls()
 	if not configSet then
 		return
 	end
-	if not configSet.customModsList then
-		configSet.customModsList = { }
+	local customModsList = self:GetActorCustomModsList(configSet)
+	if not customModsList then
+		customModsList = { }
+		if self:GetViewActor() == "mercenary" then
+			configSet.actors.mercenary.customModsList = customModsList
+		else
+			configSet.customModsList = customModsList
+		end
 	end
-	if #configSet.customModsList == 0 then
-		t_insert(configSet.customModsList, { title = "Default", enabled = true, text = configSet.input and configSet.input.customMods or "" })
+	if #customModsList == 0 then
+		t_insert(customModsList, { title = "Default", enabled = true, text = configSet.input and configSet.input.customMods or "" })
 	end
 
 	if self.customModsBlockControls then
@@ -1322,7 +1607,7 @@ function ConfigTabClass:UpdateCustomModsControls()
 	self.customModsBlockControls = { }
 	self.customSection.varControlList = { self.controls.customModsAddBlock }
 
-	for index, block in ipairs(configSet.customModsList) do
+	for index, block in ipairs(customModsList) do
 		local blockControl = new("CustomModBlockControl"):CustomModBlockControl({"TOPLEFT", self.customSection, "TOPLEFT"}, {8, 0, 344, 120}, self, index, block)
 		blockControl.shown = function()
 			return not self:IsSectionCollapsed(self.customSection)
@@ -1333,7 +1618,6 @@ function ConfigTabClass:UpdateCustomModsControls()
 	end
 end
 
--- Changes the active config set
 function ConfigTabClass:SetActiveConfigSet(configSetId, init)
 	-- Initialize config sets if needed
 	if not self.configSetOrderList[1] then

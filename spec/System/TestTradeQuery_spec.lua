@@ -2,9 +2,33 @@ describe("TradeQuery", function()
 	local mock_tradeQuery
 	local mock_queryGen
 
+	local function stubItemsTab(itemsTab)
+		itemsTab = itemsTab or { }
+		function itemsTab:ComparisonActorForSlot(slotName, itemSetId)
+			if type(slotName) == "string" and slotName:match("^Jewel ") then
+				return "PLAYER"
+			end
+			if type(slotName) == "string" and slotName:match("^Mercenary ") then
+				return "MERCENARY"
+			end
+			return "PLAYER"
+		end
+		function itemsTab:ItemCalculationOverride(slotName, item, itemSetId)
+			itemSetId = itemSetId or self.viewItemSetId
+			local isTreeJewel = type(slotName) == "string" and slotName:match("^Jewel ") ~= nil
+			return {
+				itemSetId = (not isTreeJewel) and itemSetId or nil,
+				comparisonActor = self:ComparisonActorForSlot(slotName, itemSetId),
+				repSlotName = slotName,
+				repItem = item,
+			}
+		end
+		return itemsTab
+	end
+
 	before_each(function()
-		mock_tradeQuery = new("TradeQuery"):TradeQuery({ itemsTab = {} })
-		mock_queryGen = new("TradeQueryGenerator"):TradeQueryGenerator({ itemsTab = {} })
+		mock_tradeQuery = new("TradeQuery"):TradeQuery(stubItemsTab())
+		mock_queryGen = new("TradeQueryGenerator"):TradeQueryGenerator({ itemsTab = stubItemsTab() })
 	end)
 	describe("result dropdown tooltipFunc", function()
 		-- Builds a TradeQuery with the strict minimum needed for
@@ -14,9 +38,10 @@ describe("TradeQuery", function()
 		-- lives behind a callback we never trigger, or is already initialized
 		-- by the TradeQuery constructor.
 		local function newTradeQuery(state)
-			local tq = new("TradeQuery"):TradeQuery({ itemsTab = {} })
+			local tq = new("TradeQuery"):TradeQuery(stubItemsTab())
 			tq.itemsTab.activeItemSet = {}
 			tq.itemsTab.slots         = {}
+			tq.itemsTab.GetVisibleItemSet = function(itemsTab) return itemsTab.activeItemSet end
 			tq.slotTables[1] = { slotName = "Ring 1" }
 			if state.resultTbl       then tq.resultTbl       = state.resultTbl       end
 			if state.sortedResultTbl then tq.sortedResultTbl = state.sortedResultTbl end
@@ -60,12 +85,51 @@ describe("TradeQuery", function()
 			end)
 			assert.are.equal(0, #tooltip.lines)
 		end)
+
+		it("imports a result into the visible item set slot", function()
+			local visibleItemSet = { Helmet = { selItemId = 0 } }
+			local currentVisibleItemSet = visibleItemSet
+			local helmetSlot = {
+				slotName = "Helmet",
+				label = "Helmet",
+				selItemId = 0,
+				IsShown = function() return true end,
+				SetSelItemId = function(self, itemId, itemSet)
+					self.selItemId = itemId
+					itemSet[self.slotName].selItemId = itemId
+				end,
+			}
+			local tq = newTradeQuery({
+				resultTbl = { [1] = { [1] = { item_string = "Rarity: NORMAL\nIron Hat", amount = 1, currency = "chaos" } } },
+				sortedResultTbl = { [1] = { { index = 1 } } },
+			})
+			tq.itemsTab.viewItemSet = visibleItemSet
+			tq.itemsTab.GetVisibleItemSet = function() return currentVisibleItemSet end
+			tq.itemsTab.slots = { [helmetSlot.slotName] = helmetSlot }
+			tq.itemsTab.IsItemValidForSlot = function() return true end
+			tq.itemsTab.CreateDisplayItemFromRaw = function(itemsTab) itemsTab.displayItem = { id = 77 } end
+			tq.itemsTab.AddDisplayItem = function() end
+			tq.itemsTab.PopulateSlots = function() end
+			tq.itemsTab.AddUndoState = function() end
+			tq.itemsTab.build = { buildFlag = false }
+			tq.slotTables[1] = { slotName = helmetSlot.slotName }
+			tq.itemIndexTbl[1] = 1
+
+			buildRow1Dropdown(tq)
+			local nextVisibleItemSet = { Helmet = { selItemId = 0 } }
+			currentVisibleItemSet = nextVisibleItemSet
+			tq.controls.importButton1:Click()
+
+			assert.are.equal(77, helmetSlot.selItemId)
+			assert.are.equal(0, visibleItemSet.Helmet.selItemId)
+			assert.are.equal(77, nextVisibleItemSet.Helmet.selItemId)
+		end)
 	end)
 	describe("GetResultEvaluation", function()
 		it("uses the first visible ring for a Pearl result without a selected slot", function()
-			local tq = new("TradeQuery"):TradeQuery({ itemsTab = {} })
+			local tq = new("TradeQuery"):TradeQuery(stubItemsTab())
 			tq.statSortSelectionList = {}
-			tq.tradeQueryGenerator = new("TradeQueryGenerator"):TradeQueryGenerator({ itemsTab = {} })
+			tq.tradeQueryGenerator = new("TradeQueryGenerator"):TradeQueryGenerator({ itemsTab = stubItemsTab() })
 			tq.itemsTab.slots = {
 				["Ring 1"] = { slotName = "Ring 1", shown = function() return false end },
 				["Ring 2"] = { slotName = "Ring 2", shown = function() return true end },
@@ -89,9 +153,9 @@ describe("TradeQuery", function()
 			local slotTbl = {
 				slotName = "Megalomaniac", unique = true, alreadyCorrupted = true, selectedJewelNodeId = 12345,
 			}
-			local tq = new("TradeQuery"):TradeQuery({ itemsTab = {} })
+			local tq = new("TradeQuery"):TradeQuery(stubItemsTab())
 			tq.statSortSelectionList = {}
-			tq.tradeQueryGenerator = new("TradeQueryGenerator"):TradeQueryGenerator({ itemsTab = {} })
+			tq.tradeQueryGenerator = new("TradeQueryGenerator"):TradeQueryGenerator({ itemsTab = stubItemsTab() })
 			tq.itemsTab.build = {
 				spec = {
 					tree = {
@@ -121,6 +185,66 @@ describe("TradeQuery", function()
 				assert.is_table(entry.DNs)
 				assert.is_true(#entry.DNs >= 2)
 			end
+		end)
+		it("weights Mercenary slots against Mercenary output", function()
+			mock_tradeQuery.tradeQueryGenerator = mock_queryGen
+			mock_tradeQuery.itemsTab.build = { calcsTab = { GetMiscCalculator = function()
+				return function() return { Life = 200 } end, { Life = 10 }, {
+					PLAYER = { Life = 10 },
+					MERCENARY = { Life = 100 },
+				}
+			end } }
+			mock_tradeQuery.slotTables[1] = { slotName = "Mercenary Helmet" }
+			mock_tradeQuery.resultTbl[1] = { { item_string = "Rarity: NORMAL\nIron Hat" } }
+			mock_tradeQuery.statSortSelectionList = { { stat = "Life", weightMult = 1 } }
+
+			local evaluation = mock_tradeQuery:GetResultEvaluation(1, 1)
+			assert.are.equal(2, evaluation[1].weight)
+
+			mock_tradeQuery.itemsTab.build = { calcsTab = { GetMiscCalculator = function()
+				return function() return { Life = 200 } end, { Life = 10 }, {
+					PLAYER = { Life = 10 },
+				}
+			end } }
+			evaluation = mock_tradeQuery:GetResultEvaluation(1, 1)
+			assert.same({ }, evaluation)
+		end)
+	end)
+	describe("PriceItem slot rows", function()
+		it("only includes slots shown by the visible item set", function()
+			newBuild()
+			local itemsTab = build.itemsTab
+			local tradeQuery = itemsTab.tradeQuery
+			local originalOpenPopup = main.OpenPopup
+			local originalUpdateRealms = tradeQuery.UpdateRealms
+			local originalPullCXData = tradeQuery.PullCXData
+			local ok, err
+
+			itemsTab.activeItemSet.useSecondWeaponSet = false
+			itemsTab.build.spec.treeVersion = "3_26"
+			itemsTab.build.calcsTab.mainEnv = { modDB = { Flag = function() return false end } }
+			tradeQuery.pbRealm = "pc"
+			tradeQuery.UpdateRealms = function() end
+			tradeQuery.PullCXData = function() end
+			main.OpenPopup = function() end
+			ok, err = pcall(function() tradeQuery:PriceItem() end)
+
+			main.OpenPopup = originalOpenPopup
+			tradeQuery.UpdateRealms = originalUpdateRealms
+			tradeQuery.PullCXData = originalPullCXData
+			assert.is_true(ok, err)
+
+			local slotNames = { }
+			for _, slotTable in ipairs(tradeQuery.slotTables) do
+				if not slotTable.unique and not slotTable.nodeId then
+					slotNames[slotTable.slotName] = true
+				end
+			end
+			assert.is_true(slotNames["Weapon 1"])
+			assert.is_nil(slotNames["Weapon 1 Swap"])
+			assert.is_nil(slotNames["Weapon 2 Swap"])
+			assert.is_nil(slotNames["Ring 3"])
+			assert.is_nil(slotNames["Graft 1"])
 		end)
 	end)
 	describe("ReduceOutput", function()
@@ -175,5 +299,156 @@ describe("TradeQuery", function()
 
 			assert.are.equals(1.2, result)
 		end)
+	end)
+end)
+
+describe("Light Radius integration", function()
+	local MercenaryTest = dofile("../spec/System/MercenaryTestHelpers.lua")
+
+	local function configureMercenary()
+		local profile = build.mercenaryTab.profile
+		profile.classId = "TrapsMinesShadow"
+		profile.buildId = "TrapsMinesShadowLightning"
+		profile.foundAreaLevel = 83
+		profile.mainSkillId = "LightningTrapMercenary"
+		profile.skills = { {
+			id = profile.mainSkillId,
+			enabled = true,
+			includeInFullDPS = true,
+			count = 1,
+			supports = { },
+		} }
+		build.mercenaryTab:Changed()
+	end
+
+	local function equipRings()
+		local itemsTab = build.itemsTab
+		local playerRing = new("Item"):Item("Rarity: Normal\nPaua Ring")
+		local mercenaryRing = new("Item"):Item("Rarity: Normal\nPaua Ring")
+		itemsTab:AddItem(playerRing, true)
+		itemsTab:AddItem(mercenaryRing, true)
+		itemsTab.activeItemSet["Ring 1"].selItemId = playerRing.id
+		local mercenaryItemSet = assert(build.mercenaryTab:GetItemSet(true))
+		mercenaryItemSet["Ring 1"].selItemId = mercenaryRing.id
+		return mercenaryItemSet
+	end
+
+	local function tradeOptions(statWeights)
+		return {
+			influence1 = 1,
+			influence2 = 1,
+			includeTalisman = false,
+			includeCorrupted = false,
+			includeScourge = false,
+			includeEldritch = false,
+			includeMirrored = false,
+			statWeights = statWeights,
+			requiredMods = { },
+		}
+	end
+
+	local function lightRadiusStat()
+		for _, stat in ipairs(data.powerStatList) do
+			if stat.stat == "LightRadiusMod" then return stat end
+		end
+		return assert(nil, "LightRadiusMod is missing from the power stat list")
+	end
+
+	local function findRingLightRadiusMod(queryGenerator)
+		for _, mod in pairs(queryGenerator.modData.Explicit) do
+			if mod.tradeMod and mod.tradeMod.id == "explicit.stat_1263695895" and mod.Ring then
+				return mod
+			end
+		end
+		return assert(nil, "Light Radius ring trade modifier is missing")
+	end
+
+	local function generateLightRadiusQuery(slotName, expectedBaseLightRadius)
+		local stat = lightRadiusStat()
+		local slot = assert(build.itemsTab.slots[slotName])
+		local queryGenerator = new("TradeQueryGenerator"):TradeQueryGenerator(build.itemsTab.tradeQuery)
+		local queryJson, queryError
+		queryGenerator.tradeTypeIndex = 1
+		queryGenerator.requesterCallback = function(_, json, errMsg)
+			queryJson, queryError = json, errMsg
+		end
+		queryGenerator:StartQuery(slot, tradeOptions({ { stat = stat.stat, weightMult = 1 } }))
+		queryGenerator.calcContext.co = nil
+
+		local function calculationOverride(item)
+			return {
+				itemSetId = queryGenerator.calcContext.itemSetId,
+				comparisonActor = build.itemsTab:ComparisonActorForSlot(slot.slotName, queryGenerator.calcContext.itemSetId),
+				repSlotName = slot.slotName,
+				repItem = item,
+			}
+		end
+		local baseOutput = assert(queryGenerator.calcContext.baseOutput)
+		assert.are.near(expectedBaseLightRadius, baseOutput.LightRadiusMod, 10 ^ -9)
+		local blankOutput = queryGenerator.calcContext.calcFunc(calculationOverride(queryGenerator.calcContext.testItem))
+		assert.are.near(expectedBaseLightRadius, blankOutput.LightRadiusMod, 10 ^ -9)
+
+		local lightRadiusMod = findRingLightRadiusMod(queryGenerator)
+		queryGenerator.modWeights = { }
+		queryGenerator.alreadyWeightedMods = { }
+		queryGenerator:GenerateModWeights({ LightRadius = lightRadiusMod })
+		assert.are.equal(1, #queryGenerator.modWeights)
+		local generatedWeight = queryGenerator.modWeights[1]
+		assert.are.equal("explicit.stat_1263695895", generatedWeight.tradeModId)
+		assert.is_false(generatedWeight.invert)
+		local weightedOutput = queryGenerator.calcContext.calcFunc(calculationOverride(queryGenerator.calcContext.testItem))
+		local modValue = tonumber(queryGenerator.calcContext.testItem.explicitModLines[1].line:match("^(%d+)%% increased Light Radius$"))
+		assert.is_number(modValue)
+		local expectedWeight = (
+			weightedOutput.LightRadiusMod / baseOutput.LightRadiusMod
+			- blankOutput.LightRadiusMod / baseOutput.LightRadiusMod
+		) * 1000 / modValue
+		assert.are.near(expectedWeight, generatedWeight.weight, 10 ^ -9)
+
+		queryGenerator:FinishQuery()
+		assert.is_nil(queryError)
+		local query = assert(require("dkjson").decode(queryJson))
+		assert.are.equal("accessory.ring", query.query.filters.type_filters.filters.category.option)
+		assert.are.equal("securable", query.query.status.option)
+		assert.are.equal("explicit.stat_1263695895", query.query.stats[1].filters[1].id)
+		assert.are.near(generatedWeight.weight, query.query.stats[1].filters[1].value.weight, 10 ^ -9)
+	end
+
+	before_each(function()
+		newBuild()
+		MercenaryTest.allocatePermanentHire()
+		build.characterLevel = 90
+		build.characterLevelAutoMode = false
+		configureMercenary()
+		equipRings()
+	end)
+
+	it("calculates Light Radius from programmatic equipment and selected-actor trade weights", function()
+		build.configTab.input.customMods = "100% increased Light Radius"
+		local baseline = MercenaryTest.calculateBuild()
+		generateLightRadiusQuery("Ring 1", baseline.player.output.LightRadiusMod)
+		build.itemsTab:SetViewItemSet(assert(build.mercenaryTab:GetItemSet(true)).id)
+		generateLightRadiusQuery("Ring 1", baseline.mercenary.output.LightRadiusMod)
+
+		local baselinePlayerLightRadiusInc = baseline.player.modDB:Sum("INC", nil, "LightRadius")
+		local baselineMercenaryLightRadiusInc = baseline.mercenary.modDB:Sum("INC", nil, "LightRadius")
+		local baselinePlayerLightRadius = baseline.player.output.LightRadiusMod
+		local baselineMercenaryLightRadius = baseline.mercenary.output.LightRadiusMod
+		local mercenaryItemSet = assert(build.mercenaryTab:GetItemSet(true))
+		local lightRadiusRing = new("Item"):Item([[Rarity: Rare
+Mercenary Light Radius Test
+Paua Ring
+--------
+100% increased Light Radius]])
+		build.itemsTab:AddItem(lightRadiusRing, true)
+		mercenaryItemSet["Ring 1"].selItemId = lightRadiusRing.id
+
+		local env = MercenaryTest.calculateBuild()
+		assert.are.equal(baselinePlayerLightRadiusInc, env.player.modDB:Sum("INC", nil, "LightRadius"))
+		assert.are.equal(baselineMercenaryLightRadiusInc + 100, env.mercenary.modDB:Sum("INC", nil, "LightRadius"))
+		assert.are.near(baselinePlayerLightRadius, env.player.output.LightRadiusMod, 10 ^ -9)
+		assert.are.near(baselineMercenaryLightRadius + 1, env.mercenary.output.LightRadiusMod, 10 ^ -9)
+		assert.is_true(env.mercenary.output.FullDPS > 0)
+		assert.are.near(env.mercenary.output.FullDPS, env.player.output.FullDPS, 10 ^ -6)
 	end)
 end)

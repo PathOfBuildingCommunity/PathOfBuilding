@@ -144,7 +144,7 @@ end
 ---@param build Build
 function M.GetBreakdownLines(sectionData, build)
 	if not sectionData.breakdown then return nil end
-	local calcsActor = build.calcsTab and build.calcsTab.calcsEnv and build.calcsTab.calcsEnv.player
+	local calcsActor = build.calcsTab and build.calcsTab:GetDisplayActor(build.calcsTab.calcsEnv)
 	if not calcsActor or not calcsActor.breakdown then return nil end
 
 	local breakdown
@@ -173,13 +173,11 @@ end
 function M.DrawCalcsTooltip(tooltip, primaryBuild, primaryLabel, colData, rowLabel, rowX, rowY, rowW, rowH, vp, compareEntry)
 	if tooltip:CheckForUpdate(colData, rowLabel) then
 		-- Get calcsEnv actors (these have breakdown data populated)
-		local primaryCalcsActor = primaryBuild.calcsTab and primaryBuild.calcsTab.calcsEnv
-			and primaryBuild.calcsTab.calcsEnv.player
-		local compareCalcsActor = compareEntry.calcsTab and compareEntry.calcsTab.calcsEnv
-			and compareEntry.calcsTab.calcsEnv.player
+		local primaryCalcsActor = primaryBuild.calcsTab and primaryBuild.calcsTab:GetDisplayActor(primaryBuild.calcsTab.calcsEnv)
+		local compareCalcsActor = compareEntry.calcsTab and compareEntry.calcsTab:GetDisplayActor(compareEntry.calcsTab.calcsEnv)
 
-		local primaryActor = primaryCalcsActor or (primaryBuild.calcsTab.mainEnv and primaryBuild.calcsTab.mainEnv.player)
-		local compareActor = compareCalcsActor or (compareEntry.calcsTab.mainEnv and compareEntry.calcsTab.mainEnv.player)
+		local primaryActor = primaryCalcsActor or (primaryBuild.calcsTab.mainEnv and primaryBuild.calcsTab:GetDisplayActor(primaryBuild.calcsTab.mainEnv))
+		local compareActor = compareCalcsActor or (compareEntry.calcsTab.mainEnv and compareEntry.calcsTab:GetDisplayActor(compareEntry.calcsTab.mainEnv))
 
 		if not primaryActor and not compareActor then
 			return
@@ -362,11 +360,10 @@ end
 -- Draw a breakdown panel for a single build's SkillBuffs or SkillDebuffs,
 ---@param build Build
 function M.DrawSkillBreakdownPanel(build, breakdownKey, label, cellX, cellY, cellW, cellH, vp)
-	local player = build.calcsTab and build.calcsTab.calcsEnv
-		and build.calcsTab.calcsEnv.player
-	if not player or not player.breakdown then return end
+	local actor = build.calcsTab and build.calcsTab:GetDisplayActor(build.calcsTab.calcsEnv)
+	if not actor or not actor.breakdown then return end
 
-	local breakdown = player.breakdown[breakdownKey]
+	local breakdown = actor.breakdown[breakdownKey]
 	if not breakdown or not breakdown.modList or #breakdown.modList == 0 then return end
 
 	local modList = breakdown.modList

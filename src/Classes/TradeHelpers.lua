@@ -4,6 +4,7 @@
 -- Stateless trade mod lookup/matching and item display helper functions
 --
 local m_floor = math.floor
+local MercenaryTools = require("Modules.MercenaryTools")
 
 -- The stat description data is big and is only needed once a trade lookup actually runs,
 -- so it and its precalculated patterns are built lazily
@@ -350,6 +351,7 @@ end
 --- @param item table
 function M.getTradeCategory(slotName, item)
 	if not slotName then return nil, nil end
+	slotName = MercenaryTools.baseItemSlotName(slotName) or slotName
 	local itemType = item and (item.type or (item.base and item.base.type))
 	if slotName:find("^Weapon %d") then
 		if not itemType then return "weapon.one", "1HWeapon" end

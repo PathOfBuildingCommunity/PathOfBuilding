@@ -12,6 +12,14 @@ local m_max = math.max
 
 calcLib = { }
 
+-- The actors a build can display calculations for, in the order they are offered.
+calcLib.calculationActorList = {
+	{ label = "Player", actorId = "PLAYER" },
+	{ label = "Player Minion", actorId = "PLAYER_MINION" },
+	{ label = "Mercenary", actorId = "MERCENARY" },
+	{ label = "Mercenary Minion", actorId = "MERCENARY_MINION" },
+}
+
 -- Calculate and combine INC/MORE modifiers for the given modifier names
 function calcLib.mod(modStore, cfg, ...)
 	return (1 + (modStore:Sum("INC", cfg, ...)) / 100) * modStore:More(cfg, ...)
@@ -94,6 +102,10 @@ function calcLib.canGrantedEffectSupportActiveSkill(grantedEffect, activeSkill, 
 	-- Special case for things like Forbidden Shako or Hungry Loop with  for example Prismatic Burst and another compatible support
 	if not appliesToGrantedSkills and grantedEffect.fromItem and grantedEffect.support and (activeSkill.activeEffect.grantedEffect.fromItem or activeSkill.activeEffect.grantedEffect.modSource:sub(1, #"Item") == "Item" or (activeSkill.activeEffect.srcInstance and activeSkill.activeEffect.srcInstance.fromItem)) then
 		return false
+	end
+	if grantedEffect.mercenarySupportId then
+		-- MercenarySkills.PossibleSupports is the game's explicit compatibility list.
+		return activeSkill.mercenaryPossibleSupportIds and isValueInArray(activeSkill.mercenaryPossibleSupportIds, grantedEffect.mercenarySupportId) ~= nil
 	end
 
 	local effectiveSkillTypes

@@ -75,6 +75,7 @@ Can be Anointed
 		local overrides = { }
 		local fakeItemsTab = setmetatable({
 			displayItem = item,
+			actorItemSetIds = { },
 			build = {
 				spec = { allocNodes = { } },
 				calcsTab = {

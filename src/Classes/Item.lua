@@ -484,6 +484,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 	end
 	self.checkSection = false
 	self.sockets = { }
+	self.socketedGems = { }
 	self.classRequirementModLines = { }
 	self.buffModLines = { }
 	---@type ModLine[]
@@ -686,6 +687,20 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 						elseif c == " " then
 							group = group + 1
 						end
+					end
+				elseif specName == "Socketed Gem" then
+					local socketIndex, nameSpec, level, quality = specVal:match("^(%d+) (.+) (%d+)/(%d+)$")
+					if not socketIndex then
+						socketIndex, nameSpec = specVal:match("^(%d+) (.+)$")
+					end
+					if socketIndex and nameSpec then
+						local gemId = data.gemForBaseName and data.gemForBaseName[nameSpec:lower()]
+						self.socketedGems[tonumber(socketIndex)] = {
+							nameSpec = nameSpec,
+							gemId = gemId,
+							level = tonumber(level) or 20,
+							quality = tonumber(quality) or 0,
+						}
 					end
 				elseif specName == "Radius" and self.type == "Jewel" then
 					self.jewelRadiusLabel = specVal:match("^[%a ]+")
@@ -1996,6 +2011,21 @@ function ItemClass:BuildRaw()
 			end
 		end
 		t_insert(rawLines, line)
+	end
+	if self.socketedGems then
+		local indices = { }
+		for index in pairs(self.socketedGems) do
+			if type(index) == "number" then
+				t_insert(indices, index)
+			end
+		end
+		table.sort(indices)
+		for _, index in ipairs(indices) do
+			local gem = self.socketedGems[index]
+			if gem and gem.nameSpec then
+				t_insert(rawLines, "Socketed Gem: "..index.." "..gem.nameSpec.." "..(gem.level or 20).."/"..(gem.quality or 0))
+			end
+		end
 	end
 	if self.requirements and self.requirements.level then
 		t_insert(rawLines, "LevelReq: " .. self.requirements.level)
