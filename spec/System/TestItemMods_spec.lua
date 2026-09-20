@@ -7,6 +7,776 @@ describe("TetsItemMods", function()
 		-- newBuild() takes care of resetting everything in setup()
 	end)
 
+	local function createBaseChangeRing()
+		build.itemsTab:CreateDisplayItemFromRaw([[
+			Rarity: Rare
+			Test Ring
+			Coral Ring
+			Crafted: true
+			Prefix: None
+			Prefix: None
+			Prefix: None
+			Suffix: None
+			Suffix: None
+			Suffix: None
+			Implicits: 1
+			+(20-30) to maximum Life
+		]])
+	end
+
+	it("removes structured affixes that cannot spawn on a changed base", function()
+		build.itemsTab:CreateDisplayItemFromRaw([[
+			Rarity: Rare
+			Test Boots
+			Sorcerer Boots
+			Crafted: true
+			Prefix: {range:0.25}LocalIncreasedEnergyShield6
+			Prefix: {range:0.75}IncreasedLife6
+			Prefix: None
+			Suffix: None
+			Suffix: None
+			Suffix: None
+			Quality: 20
+			Sockets: B-B-B-B
+			LevelReq: 67
+			Implicits: 0
+			+33 to maximum Energy Shield
+			+72 to maximum Life
+		]])
+		local source = build.itemsTab.displayItem
+		local targetBase = { name = "Iron Greaves", base = build.data.itemBases["Iron Greaves"] }
+		local candidate, removedAffixes = build.itemsTab:CreateBaseChangeCandidate(source, targetBase)
+
+		assert.is_not_nil(candidate)
+		assert.are.equals("Iron Greaves", candidate.baseName)
+		assert.are.equals(1, #removedAffixes)
+		assert.is_truthy(removedAffixes[1].label:find("maximum Energy Shield", 1, true))
+		assert.are.equals("None", candidate.prefixes[1].modId)
+		assert.are.equals("IncreasedLife6", candidate.prefixes[2].modId)
+		assert.are.equals(0.75, candidate.prefixes[2].range)
+		assert.is_nil(candidate.armourData.EnergyShieldBasePercentile)
+		assert.are.equals(0, candidate.armourData.EnergyShield)
+		assert.is_true(candidate.armourData.Armour > 0)
+	end)
+
+	it("refreshes compatibility and applies an unsaved item when changing armour subtype", function()
+		build.itemsTab:CreateDisplayItemFromRaw([[
+			Rarity: Rare
+			New Item
+			Conquest Lamellar
+			Crafted: true
+			Prefix: {range:0.5}LocalBaseArmourAndEvasionRating5
+			Prefix: {range:1}LocalIncreasedArmourAndEvasion4
+			Prefix: {range:1}LocalBaseArmourAndLife2
+			Suffix: {range:0.5}Dexterity5
+			Suffix: {range:0.5}Strength5
+			Suffix: {range:0.5}ChanceToSuppressSpellsHigh3
+			Quality: 20
+			Sockets: G=G=G=G=G=G
+			LevelReq: 84
+			Implicits: 0
+			+116 to Armour
+			+116 to Evasion Rating
+			67% increased Armour and Evasion
+			+48 to Armour
+			+28 to maximum Life
+			+30 to Dexterity
+			+30 to Strength
+			+15% chance to Suppress Spell Damage
+		]])
+		local source = build.itemsTab.displayItem
+		build.itemsTab:ChangeDisplayItemBase()
+		local popup = main.popups[1]
+		local controls = popup.controls
+		local initialPopupY = popup:GetProperty("y")
+		local initialPopupHeight = popup:GetProperty("height")
+		local energyShieldTypeIndex
+		for index, typeName in ipairs(controls.type.list) do
+			if typeName == "Body Armour: Energy Shield" then
+				energyShieldTypeIndex = index
+				break
+			end
+		end
+
+		assert.is_not_nil(energyShieldTypeIndex)
+		local typeCount = #controls.type.list
+		local selectedType = controls.type.selValue
+		controls.search:SetText("Regalia", true)
+		assert.are.equals(typeCount, #controls.type.list)
+		assert.are.equals(selectedType, controls.type.selValue)
+		assert.are.equals(0, #controls.base.list)
+		assert.are.equals("^x7F7F7F<No Matches>", controls.base.defaultText)
+		assert.is_truthy(controls.status:GetProperty("label"):find("Select a base", 1, true))
+		assert.is_false(controls.otherStatus:IsShown())
+		assert.is_falsy(controls.save:IsEnabled())
+		controls.type:SelectIndex(energyShieldTypeIndex)
+		assert.is_true(#controls.base.list > 1)
+		for _, baseEntry in ipairs(controls.base.list) do
+			assert.is_truthy(baseEntry.name:find("Regalia", 1, true))
+		end
+		controls.search:SetText("", true)
+		assert.are.equals("Body Armour: Energy Shield", controls.type.selValue)
+		assert.are.equals("Twilight Regalia", controls.base.selValue.name)
+		assert.is_false(controls.implicitStatus:IsShown())
+		assert.is_truthy(controls.status:GetProperty("label"):find("Explicits:", 1, true))
+		assert.is_truthy(controls.status:GetProperty("label"):find("6 incompatible modifiers will be removed", 1, true))
+		assert.is_truthy(controls.removedAffix1:GetProperty("label"):find("(Prefix)", 1, true))
+		assert.is_truthy(controls.removedAffix6:GetProperty("label"):find("(Suffix)", 1, true))
+		assert.is_truthy(controls.otherStatus:GetProperty("label"):find("Other:", 1, true))
+		local baseX = controls.base:GetPos()
+		local explicitStatusX = controls.status:GetPos()
+		local otherStatusX = controls.otherStatus:GetPos()
+		local removedAffixX = controls.removedAffix1:GetPos()
+		assert.are.equals(baseX, explicitStatusX)
+		assert.are.equals(baseX, otherStatusX)
+		assert.are.equals(baseX + 15, removedAffixX)
+		assert.are.equals(initialPopupY, popup:GetProperty("y"))
+		assert.is_true(popup:GetProperty("height") > initialPopupHeight)
+
+		local originalWrapString = main.WrapString
+		finally(function()
+			main.WrapString = originalWrapString
+		end)
+		local wrapCalls = 0
+		main.WrapString = function(self, text, height, width)
+			wrapCalls = wrapCalls + 1
+			local splitIndex = text:find(" ", math.floor(#text / 2))
+			return splitIndex and { text:sub(1, splitIndex - 1), text:sub(splitIndex + 1) } or { text }
+		end
+		controls.base:SelectIndex(controls.base.selIndex)
+		local preparedWrapCalls = wrapCalls
+		popup:Draw({ x = 0, y = 0, width = 1920, height = 1080 })
+		popup:Draw({ x = 0, y = 0, width = 1920, height = 1080 })
+		assert.are.equals(preparedWrapCalls, wrapCalls)
+		local wrappedLabel = controls.removedAffix1:GetProperty("label")
+		local firstAffixY = controls.removedAffix1:GetProperty("y")
+		local secondAffixY = controls.removedAffix2:GetProperty("y")
+		local expandedPopupHeight = popup:GetProperty("height")
+		main.WrapString = originalWrapString
+
+		assert.is_truthy(wrappedLabel:find("\n", 1, true))
+		assert.is_true(secondAffixY > firstAffixY + 20)
+		assert.is_true(expandedPopupHeight > 310)
+		assert.are.equals(initialPopupY, popup:GetProperty("y"))
+		assert.is_true(controls.save:IsEnabled())
+		controls.save.onClick()
+
+		assert.are.equals("Twilight Regalia", build.itemsTab.displayItem.baseName)
+		assert.are.equals("Energy Shield", build.itemsTab.displayItem.base.subType)
+		for index = 1, 3 do
+			assert.are.equals("None", build.itemsTab.displayItem.prefixes[index].modId)
+			assert.are.equals("None", build.itemsTab.displayItem.suffixes[index].modId)
+		end
+		assert.are.equals("Conquest Lamellar", source.baseName)
+	end)
+
+	it("shows type, base, and implicit columns with shared base scrolling", function()
+		createBaseChangeRing()
+		build.itemsTab:ChangeDisplayItemBase()
+		local popup = main.popups[1]
+		local controls = popup.controls
+
+		assert.are.equals("Type", controls.type.colList[1].label)
+		assert.are.equals("Base", controls.base.colList[1].label)
+		assert.are.equals("Implicit", controls.base.colList[2].label)
+
+		local implicitBaseIndex
+		for index, baseEntry in ipairs(controls.base.list) do
+			if baseEntry.base.implicit then
+				implicitBaseIndex = index
+				break
+			end
+		end
+		assert.is_not_nil(implicitBaseIndex)
+		local baseEntry = controls.base.list[implicitBaseIndex]
+		assert.are.equals(baseEntry.name, controls.base:GetRowValue(1, implicitBaseIndex, baseEntry))
+		assert.are.equals(baseEntry.base.implicit:gsub("\n", " / "), controls.base:GetRowValue(2, implicitBaseIndex, baseEntry))
+
+		controls.search:SetText("Ruby Ring", true)
+		assert.are.equals(1, #controls.base.list)
+		assert.are.equals("Ruby Ring", controls.base.selValue.name)
+		controls.search:SetText("Fire Resistance", true)
+		assert.is_true(#controls.base.list > 0)
+		for _, filteredBase in ipairs(controls.base.list) do
+			assert.is_truthy((filteredBase.base.implicit or ""):find("Fire Resistance", 1, true))
+		end
+		controls.search:SetText("", true)
+
+		popup:SelectControl(controls.base)
+		local originalIsKeyDown = IsKeyDown
+		finally(function()
+			_G.IsKeyDown = originalIsKeyDown
+		end)
+		_G.IsKeyDown = function(key)
+			return key == "CTRL"
+		end
+		popup:ProcessInput({ { type = "KeyDown", key = "f" } }, { x = 0, y = 0, width = 1920, height = 1080 })
+		assert.are.equal(controls.search, popup.selControl)
+		assert.is_true(controls.search.hasFocus)
+		_G.IsKeyDown = originalIsKeyDown
+
+		local selectedType = controls.type.selValue
+		for _, filteredBase in ipairs(controls.base.list) do
+			local belongsToSelectedType = false
+			for _, typeBase in ipairs(build.data.itemBaseLists[selectedType]) do
+				if filteredBase == typeBase then
+					belongsToSelectedType = true
+					break
+				end
+			end
+			assert.is_true(belongsToSelectedType)
+		end
+		main:ClosePopup()
+	end)
+
+	it("keeps the damage search applied across consecutive shield type clicks", function()
+		build.itemsTab:CreateDisplayItemFromRaw([[
+			Rarity: Rare
+			Test Shield
+			Titanium Spirit Shield
+			Crafted: true
+			Implicits: 0
+		]])
+		build.itemsTab:ChangeDisplayItemBase()
+		local popup = main.popups[1]
+		local controls = popup.controls
+		local viewPort = { x = 0, y = 0, width = 1920, height = 1080 }
+		local originalGetCursorPos = GetCursorPos
+		finally(function()
+			_G.GetCursorPos = originalGetCursorPos
+			main:ClosePopup()
+		end)
+		assert.are.equals("Shield: Energy Shield", controls.type.selValue)
+		controls.search:SetText("damage", true)
+		for _, subType in ipairs({ "Evasion", "Evasion/Energy Shield", "Evasion" }) do
+			local index = isValueInArray(controls.type.list, "Shield: " .. subType)
+			assert.is_not_nil(index)
+			local x, y = controls.type:GetPos()
+			local rowRegion = controls.type:GetRowRegion()
+			_G.GetCursorPos = function()
+				return x + rowRegion.x + 10, y + rowRegion.y + (index - 0.5) * controls.type.rowHeight - controls.type.controls.scrollBarV.offset
+			end
+			popup:ProcessInput({ { type = "KeyDown", key = "LEFTBUTTON" }, { type = "KeyUp", key = "LEFTBUTTON" } }, viewPort)
+			assert.are.equals("Shield: " .. subType, controls.type.selValue)
+			assert.is_true(#controls.base.list > 0)
+			for _, entry in ipairs(controls.base.list) do
+				assert.are.equals(subType, entry.base.subType)
+				assert.is_truthy(entry.base.implicit:lower():find("damage", 1, true))
+			end
+		end
+		assert.are.equals(controls.type, popup.selControl)
+	end)
+
+	it("scrolls the hovered base once regardless of focus and keeps page keys on the focused list", function()
+		createBaseChangeRing()
+		build.itemsTab:ChangeDisplayItemBase()
+		local popup = main.popups[1]
+		local list = popup.controls.base
+		local scrollBar = list.controls.scrollBarV
+		local x, y = list:GetPos()
+		local originalGetCursorPos = GetCursorPos
+		finally(function()
+			_G.GetCursorPos = originalGetCursorPos
+			main:ClosePopup()
+		end)
+		_G.GetCursorPos = function() return x + 30, y + 40 end
+		local viewPort = { x = 0, y = 0, width = 1920, height = 1080 }
+		list:Draw(viewPort, true)
+		for _, focus in ipairs({ "search", "base", "none" }) do
+			popup:SelectControl(popup.controls[focus])
+			for _, key in ipairs({ "WHEELDOWN", "WHEELUP" }) do
+				scrollBar:SetOffset(80)
+				popup:ProcessInput({ { type = "KeyUp", key = key } }, viewPort)
+				assert.are.equals(key == "WHEELDOWN" and 120 or 40, scrollBar.offset, focus)
+			end
+		end
+		popup:SelectControl(list)
+		_G.GetCursorPos = function() return 0, 0 end
+		popup:ProcessInput({ { type = "KeyUp", key = "PAGEDOWN" } }, viewPort)
+		assert.are.equals(80, scrollBar.offset)
+	end)
+
+	it("replaces native implicits while preserving custom modifier text", function()
+		build.itemsTab:CreateDisplayItemFromRaw([[
+			Rarity: Rare
+			Test Ring
+			Coral Ring
+			Unique ID: imported-item-id
+			Crafted: true
+			Prefix: None
+			Prefix: None
+			Prefix: None
+			Suffix: None
+			Suffix: None
+			Suffix: None
+			Item Level: 84
+			Implicits: 2
+			+(20-30) to maximum Life
+			{custom}+1 to Maximum Power Charges
+			{custom}+10 to Intelligence
+		]])
+		local source = build.itemsTab.displayItem
+		source.id = 42
+		local targetBase = { name = "Ruby Ring", base = build.data.itemBases["Ruby Ring"] }
+		build.itemsTab:ChangeDisplayItemBase()
+		local controls = main.popups[1].controls
+		assert.is_false(controls.implicitStatus:IsShown())
+		main:ClosePopup()
+		local candidate, removedAffixes, removedInfluences, removedOtherMods = build.itemsTab:CreateBaseChangeCandidate(source, targetBase)
+
+		assert.is_not_nil(candidate)
+		assert.are.equals("Ruby Ring", candidate.baseName)
+		assert.are.equals(42, candidate.id)
+		assert.are.equals(0, #removedAffixes)
+		assert.are.equals(0, #removedInfluences)
+		assert.are.equals(0, #removedOtherMods)
+		assert.is_nil(candidate.uniqueID)
+		assert.are.equals("+(20-30)% to Fire Resistance", candidate.implicitModLines[1].line)
+		assert.are.equals(2, #candidate.implicitModLines)
+		assert.are.equals("+1 to Maximum Power Charges", candidate.implicitModLines[2].line)
+		assert.is_true(candidate.implicitModLines[2].custom)
+		assert.are.equals("+10 to Intelligence", candidate.explicitModLines[1].line)
+		assert.is_true(candidate.explicitModLines[1].custom)
+	end)
+
+	it("replaces native base implicits only when retaining Eldritch implicits", function()
+		local exarch = "{exarch}{range:0.25}Bone Offering has (6-7)% increased Effect"
+		local eater = "{eater}Regenerate 0.2% of Life per second per Endurance Charge"
+		local targetName = "Two-Toned Boots (Armour/Energy Shield)"
+		local target = { name = targetName, base = build.data.itemBases[targetName] }
+		for _, implicits in ipairs({ { }, { exarch }, { eater }, { exarch, eater } }) do
+			build.itemsTab:CreateDisplayItemFromRaw("Rarity: Rare\nTest Boots\nSorcerer Boots\nCrafted: true\nSearing Exarch Item\nEater of Worlds Item\nImplicits: " .. #implicits .. "\n" .. table.concat(implicits, "\n"))
+			local source = build.itemsTab.displayItem
+			local sourceRaw = source:BuildRaw()
+			local candidate = build.itemsTab:CreateBaseChangeCandidate(source, target)
+			assert.is_not_nil(candidate)
+			assert.are.equals(math.max(#implicits, 1), #candidate.implicitModLines)
+			if #implicits == 0 then
+				assert.are.equals(target.base.implicit, candidate.implicitModLines[1].line)
+			else
+				for index, implicit in ipairs(source.implicitModLines) do
+					local retained = candidate.implicitModLines[index]
+					assert.are.equals(implicit.line, retained.line)
+					assert.are.equals(implicit.range, retained.range)
+					assert.are.equals(implicit.exarch, retained.exarch)
+					assert.are.equals(implicit.eater, retained.eater)
+				end
+				local reloaded = new("Item"):Item(candidate:BuildRaw())
+				local roundTrip = build.itemsTab:CreateBaseChangeCandidate(reloaded, { name = source.baseName, base = source.base })
+				assert.is_not_nil(roundTrip)
+				assert.are.equals(#implicits, #roundTrip.implicitModLines)
+				-- A previously crafted item may still contain the old additive combination.
+				table.insert(reloaded.implicitModLines, 1, { line = target.base.implicit })
+				reloaded:BuildAndParseRaw()
+				local corrected = build.itemsTab:CreateBaseChangeCandidate(reloaded, target)
+				assert.is_not_nil(corrected)
+				assert.are.equals(#implicits, #corrected.implicitModLines)
+				assert.are.equals(candidate:BuildRaw(), corrected:BuildRaw())
+			end
+			assert.are.equals(sourceRaw, source:BuildRaw())
+		end
+	end)
+
+	it("shows the implicit replacement notice only for a selected base with native implicits", function()
+		build.itemsTab:CreateDisplayItemFromRaw([[
+			Rarity: Rare
+			Test Boots
+			Sorcerer Boots
+			Crafted: true
+			Searing Exarch Item
+			Eater of Worlds Item
+			Implicits: 2
+			{exarch}Bone Offering has (6-7)% increased Effect
+			{eater}Regenerate 0.2% of Life per second per Endurance Charge
+		]])
+		build.itemsTab:ChangeDisplayItemBase()
+		local controls = main.popups[1].controls
+		finally(function() main:ClosePopup() end)
+		assert.is_false(controls.implicitStatus:IsShown())
+		controls.type:SelectIndex(isValueInArray(controls.type.list, "Boots: Armour/Energy Shield"))
+		for _, name in ipairs({ "Two-Toned Boots (Armour/Energy Shield)", "Soldier Boots", "Two-Toned Boots (Armour/Energy Shield)" }) do
+			for index, entry in ipairs(controls.base.list) do
+				if entry.name == name then
+					controls.base:SelectIndex(index)
+					break
+				end
+			end
+			assert.are.equals(name, controls.base.selValue.name)
+			assert.are.equals(name ~= "Soldier Boots", controls.implicitStatus:IsShown())
+		end
+		controls.search:SetText("no matching boots", true)
+		assert.is_false(controls.implicitStatus:IsShown())
+		controls.search:SetText("Two-Toned", true)
+		controls.save.onClick()
+		assert.are.equals(2, #build.itemsTab.displayItem.implicitModLines)
+		build.itemsTab:ChangeDisplayItemBase()
+		assert.is_false(main.popups[1].controls.implicitStatus:IsShown())
+	end)
+
+	it("removes every structured affix affected by special base rules", function()
+		build.itemsTab:CreateDisplayItemFromRaw([[
+			Rarity: Rare
+			Test Ring
+			Coral Ring
+			Crafted: true
+			Prefix: {range:0.5}IncreasedLife6
+			Prefix: None
+			Prefix: None
+			Suffix: {range:0.5}FireResist6
+			Suffix: None
+			Suffix: None
+			Implicits: 1
+			+(20-30) to maximum Life
+			+92 to maximum Life
+			+39% to Fire Resistance
+		]])
+		local ratchetingBase = { name = "Ratcheting Ring", base = build.data.itemBases["Ratcheting Ring"] }
+		local candidate, removedAffixes, _, removedOtherMods = build.itemsTab:CreateBaseChangeCandidate(build.itemsTab.displayItem, ratchetingBase)
+
+		assert.is_true(removedAffixes.resetPrefixes)
+		assert.is_true(removedAffixes.resetSuffixes)
+		assert.are.equals(2, #removedAffixes)
+		assert.are.equals(0, #removedOtherMods)
+		assert.is_truthy(removedAffixes[1].label:find("(Prefix)", 1, true))
+		assert.is_truthy(removedAffixes[2].label:find("(Suffix)", 1, true))
+		assert.are.equals(0, #candidate.explicitModLines)
+		assert.are.equals(0, #candidate.prefixes)
+		assert.are.equals(6, #candidate.suffixes)
+		build.itemsTab:SetDisplayItem(candidate)
+		assert.is_true(build.itemsTab.controls.displayItemChangeBase:IsShown())
+
+		build.itemsTab:CreateDisplayItemFromRaw([[
+			Rarity: Rare
+			Test Ring
+			Ratcheting Ring
+			Crafted: true
+			Suffix: {range:0.5}Strength5
+			Suffix: None
+			Suffix: None
+			Suffix: None
+			Suffix: None
+			Suffix: None
+			Implicits: 3
+			-3 Prefix Modifiers allowed
+			+3 Suffix Modifiers allowed
+			Implicit Modifiers Cannot Be Changed
+			+30 to Strength
+		]])
+		local coralBase = { name = "Coral Ring", base = build.data.itemBases["Coral Ring"] }
+		candidate, removedAffixes = build.itemsTab:CreateBaseChangeCandidate(build.itemsTab.displayItem, coralBase)
+
+		assert.is_true(removedAffixes.resetPrefixes)
+		assert.is_true(removedAffixes.resetSuffixes)
+		assert.are.equals(1, #removedAffixes)
+		assert.are.equals(0, #candidate.explicitModLines)
+	end)
+
+	it("shows special base slot resets as two status lines", function()
+		createBaseChangeRing()
+		build.itemsTab:ChangeDisplayItemBase()
+		local controls = main.popups[1].controls
+		for index, baseEntry in ipairs(controls.base.list) do
+			if baseEntry.name == "Ratcheting Ring" then
+				controls.base:SelectIndex(index)
+				break
+			end
+		end
+
+		local status = controls.status:GetProperty("label")
+		assert.is_truthy(status:find("The new base changes prefix and suffix rules. All modifiers will be reset.\nThere are no modifiers in the affected slots.", 1, true))
+		main:ClosePopup()
+	end)
+
+	it("resets carried influences when either base grants influence", function()
+		build.itemsTab:CreateDisplayItemFromRaw([[
+			Rarity: Rare
+			Test Amulet
+			Astrolabe Amulet
+			Crafted: true
+			Prefix: None
+			Prefix: None
+			Prefix: None
+			Suffix: None
+			Suffix: None
+			Suffix: None
+			Implicits: 2
+			Implicit Modifiers Cannot Be Changed
+			Has Elder, Shaper and all Conqueror Influences
+		]])
+		local amberBase = { name = "Amber Amulet", base = build.data.itemBases["Amber Amulet"] }
+		local candidate, _, removedInfluences = build.itemsTab:CreateBaseChangeCandidate(build.itemsTab.displayItem, amberBase)
+
+		assert.is_true(removedInfluences.reset)
+		assert.are.equals(6, #removedInfluences)
+		for _, influence in ipairs(itemLib.influenceInfo.default) do
+			assert.is_falsy(candidate[influence.key])
+		end
+
+		build.itemsTab:CreateDisplayItemFromRaw([[
+			Rarity: Rare
+			Test Amulet
+			Amber Amulet
+			Searing Exarch Item
+			Crafted: true
+			Prefix: None
+			Prefix: None
+			Prefix: None
+			Suffix: None
+			Suffix: None
+			Suffix: None
+			Implicits: 1
+			+(20-30) to Strength
+		]])
+		local astrolabeBase = { name = "Astrolabe Amulet", base = build.data.itemBases["Astrolabe Amulet"] }
+		candidate, _, removedInfluences = build.itemsTab:CreateBaseChangeCandidate(build.itemsTab.displayItem, astrolabeBase)
+
+		assert.is_true(removedInfluences.reset)
+		assert.are.equals(1, #removedInfluences)
+		assert.are.equals("Searing Exarch", removedInfluences[1])
+		assert.is_falsy(candidate.cleansing)
+		for _, influence in ipairs(itemLib.influenceInfo.default) do
+			assert.is_true(candidate[influence.key])
+		end
+
+		build.itemsTab:CreateDisplayItemFromRaw([[
+			Rarity: Rare
+			Test Amulet
+			Amber Amulet
+			Crafted: true
+			Prefix: None
+			Prefix: None
+			Prefix: None
+			Suffix: None
+			Suffix: None
+			Suffix: None
+			Implicits: 1
+			+(20-30) to Strength
+		]])
+		build.itemsTab:ChangeDisplayItemBase()
+		local controls = main.popups[1].controls
+		for index, baseEntry in ipairs(controls.base.list) do
+			if baseEntry.name == "Astrolabe Amulet" then
+				controls.base:SelectIndex(index)
+				break
+			end
+		end
+		assert.is_false(controls.otherStatus:IsShown())
+		assert.is_false(controls.otherStatus2:IsShown())
+		assert.is_false(controls.otherStatus3:IsShown())
+		main:ClosePopup()
+	end)
+
+	it("reports and removes unclassified explicit modifier text", function()
+		build.itemsTab:CreateDisplayItemFromRaw([[
+			Rarity: Rare
+			Test Ring
+			Coral Ring
+			Crafted: true
+			Prefix: None
+			Prefix: None
+			Prefix: None
+			Suffix: None
+			Suffix: None
+			Suffix: None
+			Implicits: 1
+			+(20-30) to maximum Life
+			10% increased Damage
+			{custom}+10 to Intelligence
+		]])
+		local rubyBase = { name = "Ruby Ring", base = build.data.itemBases["Ruby Ring"] }
+		local candidate, removedAffixes, _, removedOtherMods = build.itemsTab:CreateBaseChangeCandidate(build.itemsTab.displayItem, rubyBase)
+
+		assert.are.equals(0, #removedAffixes)
+		assert.are.same({ "10% increased Damage" }, removedOtherMods)
+		assert.are.equals(1, #candidate.explicitModLines)
+
+		build.itemsTab:ChangeDisplayItemBase()
+		local controls = main.popups[1].controls
+		for index, baseEntry in ipairs(controls.base.list) do
+			if baseEntry.name == "Ruby Ring" then
+				controls.base:SelectIndex(index)
+				break
+			end
+		end
+		local otherStatus = controls.otherStatus:GetProperty("label")
+		local additionalOtherStatus = controls.otherStatus2:GetProperty("label")
+		assert.is_truthy(otherStatus:find("1 unclassified explicit modifier will be removed:\n", 1, true))
+		assert.is_truthy(otherStatus:find("10% increased Damage", 1, true))
+		assert.is_truthy(additionalOtherStatus:find("Modifiers added via 'Add Modifier' persist, but are not checked", 1, true))
+		local _, otherStatusY = controls.otherStatus:GetPos()
+		local _, additionalOtherStatusY = controls.otherStatus2:GetPos()
+		assert.are.equals(otherStatusY + 2 * 20 + 7, additionalOtherStatusY)
+		main:ClosePopup()
+	end)
+
+	it("hides base changing for unsupported, unique, hidden, and over-capacity items", function()
+		for _, baseName in ipairs({ "Small Life Flask", "Cobalt Jewel", "Prismatic Tincture", "Battering Uulgraft", "Cured Quiver" }) do
+			build.itemsTab:CreateDisplayItemFromRaw("Rarity: Rare\nTest Item\n" .. baseName .. "\nCrafted: true\nImplicits: 0")
+			assert.is_false(build.itemsTab.controls.displayItemChangeBase:IsShown(), baseName)
+		end
+
+		build.itemsTab:CreateDisplayItemFromRaw([[
+			Rarity: Unique
+			Test Ring
+			Coral Ring
+			Crafted: true
+			Implicits: 1
+			+(20-30) to maximum Life
+		]])
+		assert.is_false(build.itemsTab.controls.displayItemChangeBase:IsShown())
+
+		build.itemsTab:CreateDisplayItemFromRaw([[
+			Rarity: Rare
+			Test Ring
+			Coral Ring
+			Crafted: true
+			Prefix: None
+			Prefix: None
+			Prefix: None
+			Suffix: None
+			Suffix: None
+			Suffix: None
+			Implicits: 1
+			+(20-30) to maximum Life
+			{custom}+1 Prefix Modifier allowed
+		]])
+		assert.is_false(build.itemsTab.controls.displayItemChangeBase:IsShown())
+	end)
+
+	it("rebuilds base-granted sockets when changing ring bases", function()
+		build.itemsTab:CreateDisplayItemFromRaw([[
+			Rarity: Rare
+			Test Ring
+			Unset Ring
+			Crafted: true
+			Prefix: None
+			Prefix: None
+			Prefix: None
+			Suffix: None
+			Suffix: None
+			Suffix: None
+			Sockets: B
+			Implicits: 1
+			Has 1 Socket
+		]])
+		local coralBase = { name = "Coral Ring", base = build.data.itemBases["Coral Ring"] }
+		local unsetBase = { name = "Unset Ring", base = build.data.itemBases["Unset Ring"] }
+		local coralRing = build.itemsTab:CreateBaseChangeCandidate(build.itemsTab.displayItem, coralBase)
+		local unsetRing = build.itemsTab:CreateBaseChangeCandidate(coralRing, unsetBase)
+
+		assert.are.equals(0, #coralRing.sockets)
+		assert.are.equals(1, #unsetRing.sockets)
+	end)
+
+	it("does not mutate the display item while the change-base popup is open", function()
+		createBaseChangeRing()
+		local source = build.itemsTab.displayItem
+		local sourceRaw = source:BuildRaw()
+
+		assert.is_true(build.itemsTab.controls.displayItemChangeBase:IsShown())
+		assert.are.equal(build.itemsTab.controls.displayItemAddCustom, build.itemsTab.controls.displayItemChangeBase.anchor.other)
+		assert.are.equals("TOPRIGHT", build.itemsTab.controls.displayItemChangeBase.anchor.otherPoint)
+		build.itemsTab:ChangeDisplayItemBase()
+		assert.is_not_nil(main.popups[1])
+		main.popups[1].controls.cancel.onClick()
+
+		assert.are.equal(source, build.itemsTab.displayItem)
+		assert.are.equals(sourceRaw, build.itemsTab.displayItem:BuildRaw())
+		build.itemsTab:ChangeDisplayItemBase()
+		local controls = main.popups[1].controls
+		controls.search:SetText("Ruby Ring", true)
+		source.itemLevel = 99
+		controls.save.onClick()
+		assert.are.equal(source, build.itemsTab.displayItem)
+		assert.is_falsy(controls.save:IsEnabled())
+		assert.is_truthy(controls.status:GetProperty("label"):find("item changed", 1, true))
+		main:ClosePopup()
+	end)
+
+	it("builds each hovered base preview only once", function()
+		createBaseChangeRing()
+		build.itemsTab:ChangeDisplayItemBase()
+		local controls = main.popups[1].controls
+		local rubyRingIndex
+		for index, baseEntry in ipairs(controls.base.list) do
+			if baseEntry.name == "Ruby Ring" then
+				rubyRingIndex = index
+				break
+			end
+		end
+		assert.is_not_nil(rubyRingIndex)
+
+		local originalCreateCandidate = build.itemsTab.CreateBaseChangeCandidate
+		local candidateBuildCount = 0
+		finally(function()
+			build.itemsTab.CreateBaseChangeCandidate = originalCreateCandidate
+		end)
+		build.itemsTab.CreateBaseChangeCandidate = function(self, ...)
+			candidateBuildCount = candidateBuildCount + 1
+			return originalCreateCandidate(self, ...)
+		end
+		local tooltip = new("Tooltip"):Tooltip()
+		local rubyRing = controls.base.list[rubyRingIndex]
+		controls.base:AddValueTooltip(tooltip, rubyRingIndex, rubyRing)
+		controls.base:AddValueTooltip(tooltip, rubyRingIndex, rubyRing)
+
+		assert.are.equals(1, candidateBuildCount)
+		main:ClosePopup()
+	end)
+
+	it("keeps base changes isolated until save and preserves identity through undo and reload", function()
+		createBaseChangeRing()
+		local storedItem = build.itemsTab.displayItem
+		build.itemsTab:AddDisplayItem()
+		local itemId = storedItem.id
+		local source = new("Item"):Item(storedItem:BuildRaw())
+		source.id = itemId
+		build.itemsTab:SetDisplayItem(source)
+		local sourceRaw = source:BuildRaw()
+		build.itemsTab:ChangeDisplayItemBase()
+		local controls = main.popups[1].controls
+		local rubyRingIndex
+		for index, baseEntry in ipairs(controls.base.list) do
+			if baseEntry.name == "Ruby Ring" then
+				rubyRingIndex = index
+				break
+			end
+		end
+
+		assert.is_not_nil(rubyRingIndex)
+		controls.base:SelectIndex(rubyRingIndex)
+		assert.is_true(controls.save:IsEnabled())
+		controls.save.onClick()
+
+		assert.are.equals("Coral Ring", build.itemsTab.items[itemId].baseName)
+		assert.are.equals("Ruby Ring", build.itemsTab.displayItem.baseName)
+		assert.is_true(build.itemsTab.controls.displayItemChangeBase:IsShown())
+		assert.are.equals("Coral Ring", source.baseName)
+		assert.are.equals(sourceRaw, source:BuildRaw())
+
+		build.itemsTab:ChangeDisplayItemBase()
+		controls = main.popups[1].controls
+		for index, baseEntry in ipairs(controls.base.list) do
+			if baseEntry.name == "Sapphire Ring" then
+				controls.base:SelectIndex(index)
+				break
+			end
+		end
+		controls.save.onClick()
+		assert.are.equals("Sapphire Ring", build.itemsTab.displayItem.baseName)
+		assert.is_true(build.itemsTab.controls.displayItemChangeBase:IsShown())
+		build.itemsTab:AddDisplayItem()
+		assert.are.equals("Sapphire Ring", build.itemsTab.items[itemId].baseName)
+		assert.are.equals(itemId, build.itemsTab.slots["Ring 1"].selItemId)
+		build.itemsTab:Undo()
+		assert.are.equals("Coral Ring", build.itemsTab.items[itemId].baseName)
+		build.itemsTab:Redo()
+		assert.are.equals("Sapphire Ring", build.itemsTab.items[itemId].baseName)
+		loadBuildFromXML(build:SaveDB("code"))
+		assert.are.equals("Sapphire Ring", build.itemsTab.items[itemId].baseName)
+		assert.are.equals(itemId, build.itemsTab.slots["Ring 1"].selItemId)
+	end)
+
 	it("shows versioned reusable variant groups", function()
 		build.itemsTab:CreateDisplayItemFromRaw([[
 			Rarity: Unique

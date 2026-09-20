@@ -85,6 +85,277 @@ local function buildModSortList()
 	return sortList, sortStats
 end
 
+-- Families with dedicated affix pools or special state need their own conversion contract.
+-- Keep this list in sync if a future item family stops using the shared Item affix pool.
+local baseChangeUnsupportedTypes = {
+	Flask = true,
+	Graft = true,
+	Jewel = true,
+	Tincture = true,
+}
+
+local armourBaseTypes = {
+	{ key = "Armour", min = "ArmourBaseMin", max = "ArmourBaseMax" },
+	{ key = "Evasion", min = "EvasionBaseMin", max = "EvasionBaseMax" },
+	{ key = "EnergyShield", min = "EnergyShieldBaseMin", max = "EnergyShieldBaseMax" },
+	{ key = "Ward", min = "WardBaseMin", max = "WardBaseMax" },
+}
+
+local function getBaseImplicitLines(base)
+	local lines = { }
+	if base and base.implicit then
+		for line in base.implicit:gmatch("[^\n]+") do
+			t_insert(lines, line)
+		end
+	end
+	return lines
+end
+
+local function getBaseChangeImplicitInfo(item)
+	local hasEldritchImplicits
+	for _, modLine in ipairs(item.implicitModLines) do
+		if modLine.exarch or modLine.eater then
+			hasEldritchImplicits = true
+			break
+		end
+	end
+	local nativeCount = 0
+	for index, line in ipairs(getBaseImplicitLines(item.base)) do
+		local modLine = item.implicitModLines[index]
+		if not modLine or modLine.line ~= line or modLine.exarch or modLine.eater then
+			-- Eldritch implicits replace native ones; older crafted items may still have both.
+			return hasEldritchImplicits and nativeCount or nil, hasEldritchImplicits
+		end
+		nativeCount = index
+	end
+	return nativeCount, hasEldritchImplicits
+end
+
+local function filterItemBaseLists(typeList, baseLists, searchText)
+	local search = searchText:lower():match("^%s*(.-)%s*$")
+	if search == "" then
+		return baseLists
+	end
+
+	local filteredBaseLists = { }
+	for _, typeName in ipairs(typeList) do
+		local matchingBases = { }
+		for _, baseEntry in ipairs(baseLists[typeName]) do
+			local implicitLines = getBaseImplicitLines(baseEntry.base)
+			local implicitText = #implicitLines > 0 and table.concat(implicitLines, " / ") or "None"
+			if baseEntry.name:lower():find(search, 1, true) or implicitText:lower():find(search, 1, true) then
+				t_insert(matchingBases, baseEntry)
+			end
+		end
+		filteredBaseLists[typeName] = matchingBases
+	end
+	return filteredBaseLists
+end
+
+local function buildBaseImplicitModLines(base, sourceItem)
+	local sourceImplicitById = { }
+	if sourceItem and sourceItem.base and sourceItem.base.implicitIds then
+		for index, modId in ipairs(sourceItem.base.implicitIds) do
+			sourceImplicitById[modId] = sourceItem.implicitModLines[index]
+		end
+	end
+
+	local implicitModLines = { }
+	for implicitIndex, line in ipairs(getBaseImplicitLines(base)) do
+		local modList, extra = modLib.parseMod(line)
+		local modLine = {
+			line = line,
+			extra = extra,
+			modList = modList or { },
+			modTags = base.implicitModTypes and base.implicitModTypes[implicitIndex] or { },
+		}
+		local modId = base.implicitIds and base.implicitIds[implicitIndex]
+		local sourceImplicit = modId and sourceImplicitById[modId]
+		if sourceImplicit then
+			modLine.range = type(sourceImplicit.range) == "table" and copyTable(sourceImplicit.range) or sourceImplicit.range
+			modLine.valueScalar = sourceImplicit.valueScalar
+			modLine.corruptedRange = sourceImplicit.corruptedRange
+			modLine.disabled = sourceImplicit.disabled
+		end
+		t_insert(implicitModLines, modLine)
+	end
+	return implicitModLines
+end
+
+local function baseHasArmourType(base, armourType)
+	return base and base.armour and ((base.armour[armourType.min] or 0) > 0 or (base.armour[armourType.max] or 0) > 0)
+end
+
+local function getBaseAffixPool(base)
+	return base and ((base.subType and data.itemMods[base.type .. base.subType]) or data.itemMods[base.type] or data.itemMods.Item)
+end
+
+local function getSpecialBaseChangeRules(base)
+	local rules = { resetPrefixes = false, resetSuffixes = false, resetInfluences = false }
+	for _, line in ipairs(getBaseImplicitLines(base)) do
+		local lineLower = line:lower()
+		if lineLower:match("prefix modifiers? allowed") or lineLower:match("prefix modifier magnitudes") or lineLower:match("effect of prefixes") then
+			rules.resetPrefixes = true
+		end
+		if lineLower:match("suffix modifiers? allowed") or lineLower:match("suffix modifier magnitudes") or lineLower:match("effect of suffixes") then
+			rules.resetSuffixes = true
+		end
+		if lineLower:match("explicit modifier magnitudes") then
+			rules.resetPrefixes = true
+			rules.resetSuffixes = true
+		end
+		if lineLower == "has elder, shaper and all conqueror influences" then
+			rules.resetInfluences = true
+		end
+	end
+	return rules
+end
+
+local function isSupportedBaseChangeTarget(sourceItem, targetBase)
+	return targetBase
+		and sourceItem.base.type == targetBase.type
+		and not baseChangeUnsupportedTypes[targetBase.type]
+		and not targetBase.hidden
+		and not targetBase.enchant
+		and not targetBase.cannotBeAnointed
+		and sourceItem.affixes == getBaseAffixPool(targetBase)
+end
+
+local function hasAlternativeBaseChangeTarget(item, itemData)
+	if not itemData then
+		return true
+	end
+	local sourceAvailable
+	local alternativeAvailable
+	for _, typeName in ipairs(itemData.itemBaseTypeList) do
+		for _, baseEntry in ipairs(itemData.itemBaseLists[typeName]) do
+			if isSupportedBaseChangeTarget(item, baseEntry.base) then
+				if baseEntry.name == item.baseName then
+					sourceAvailable = true
+				else
+					alternativeAvailable = true
+				end
+				if sourceAvailable and alternativeAvailable then
+					return true
+				end
+			end
+		end
+	end
+	return false
+end
+
+local function getBaseChangeEligibility(item, itemData)
+	if not item or not item.base or not item.baseName then
+		return false, "The item does not have a supported base."
+	elseif not item.crafted or (item.rarity ~= "MAGIC" and item.rarity ~= "RARE") then
+		return false, "Base changing is available for PoB-crafted Magic and Rare items."
+	elseif item.isUnique or item.rareLikeUnique or item.foilType or item.variantList or item.usesVariantGroups then
+		return false, "Unique and variant-driven items cannot change base."
+	elseif baseChangeUnsupportedTypes[item.type] then
+		return false, "This item family needs special base-conversion rules."
+	elseif item.base.hidden then
+		return false, "Legacy bases that are not in the base selector cannot change base."
+	elseif (item.affixLimit or 0) > 6 or #(item.prefixes or { }) + #(item.suffixes or { }) > 6 then
+		return false, "Items with more than six structured modifier slots cannot change base."
+	elseif item.corrupted or item.scourge or item.mirrored or item.split or item.synthesised or item.vestigial or item.foulborn then
+		return false, "Corrupted, mirrored, split, synthesised, vestigial, and foulborn items cannot change base."
+	elseif item.base.enchant or item.base.cannotBeAnointed then
+		return false, "Bases with built-in enchantment rules cannot change base."
+	end
+
+	if getBaseChangeImplicitInfo(item) == nil then
+		return false, "The item's native implicit modifiers cannot be identified safely."
+	end
+	if not hasAlternativeBaseChangeTarget(item, itemData) then
+		return false, "No compatible replacement bases are available."
+	end
+	return true
+end
+
+local function getAffixExtraTags(item, outputTable, outputIndex)
+	local extraTags = { }
+	for _, tableName in ipairs({ "prefixes", "suffixes" }) do
+		local list = item[tableName]
+		for index = 1, (list.limit or (item.affixLimit / 2)) do
+			if tableName ~= outputTable or index ~= outputIndex then
+				local affix = list[index]
+				local mod = affix and item.affixes[affix.modId]
+				if mod and mod.tags then
+					for _, tag in ipairs(mod.tags) do
+						extraTags[tag] = true
+					end
+				end
+			end
+		end
+	end
+	return extraTags
+end
+
+local function describeBaseChangeAffix(item, tableName, affix)
+	local mod = item.affixes and item.affixes[affix.modId]
+	local lines = { }
+	if mod then
+		for _, line in ipairs(mod) do
+			t_insert(lines, itemLib.applyRange(line, affix.range or 0.5))
+		end
+	else
+		t_insert(lines, affix.modId)
+	end
+	return {
+		modId = affix.modId,
+		label = "(" .. (affix.fractured and "Fractured " or "") .. (tableName == "prefixes" and "Prefix" or "Suffix") .. ") " .. table.concat(lines, " / "),
+	}
+end
+
+local function getUnclassifiedExplicitLines(item)
+	local normalizedItem = new("Item"):Item(item:BuildRaw())
+	normalizedItem:Craft()
+	local structuredLineCounts = { }
+	for _, modLine in ipairs(normalizedItem.explicitModLines) do
+		if not modLine.custom and not modLine.crafted then
+			structuredLineCounts[modLine.line] = (structuredLineCounts[modLine.line] or 0) + 1
+		end
+	end
+
+	local unclassifiedLines = { }
+	for _, modLine in ipairs(item.explicitModLines) do
+		if not modLine.custom and not modLine.crafted then
+			local lineCount = structuredLineCounts[modLine.line] or 0
+			if lineCount > 0 then
+				structuredLineCounts[modLine.line] = lineCount - 1
+			else
+				t_insert(unclassifiedLines, modLine.line)
+			end
+		end
+	end
+	return unclassifiedLines
+end
+
+local function removeStructuredAffixes(sourceItem, item, tableName, removedAffixes)
+	for index, affix in ipairs(sourceItem[tableName]) do
+		if affix.modId ~= "None" then
+			t_insert(removedAffixes, describeBaseChangeAffix(sourceItem, tableName, affix))
+		end
+		item[tableName][index] = { modId = "None" }
+	end
+end
+
+local function layoutBaseChangeLabel(control, text, width, y, color)
+	control.shown = text ~= nil
+	if not text then
+		return y
+	end
+	local lines = { }
+	for sourceLine in text:gmatch("[^\n]+") do
+		for _, line in ipairs(main:WrapString(sourceLine, 16, width)) do
+			t_insert(lines, (color or "") .. line)
+		end
+	end
+	control.label = table.concat(lines, "\n")
+	control.y = y
+	return y + m_max(#lines, 1) * 20
+end
+
 ---@class ItemsTab: UndoHandler, ControlHost, Control
 ---@field displayItem Item?
 local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Control")
@@ -984,9 +1255,9 @@ holding Shift will put it in the second.]])
 	end
 
 	-- Section: Custom modifiers
-	-- if either Custom or Crucible mod buttons are shown, create the control for the list of mods
+	-- if any customisation button is shown, create the control for the list of mods
 	self.controls.displayItemSectionCustom = new("Control"):Control({"TOPLEFT",self.controls.displayItemSectionAffix,"BOTTOMLEFT",true}, {0, 0, 0, function()
-		return (self.controls.displayItemAddCustom:IsShown() or self.controls.displayItemAddCrucible:IsShown()) and 28 + self.displayItem.customCount * 22 or 0
+		return (self.controls.displayItemAddCustom:IsShown() or self.controls.displayItemChangeBase:IsShown() or self.controls.displayItemAddCrucible:IsShown()) and 28 + self.displayItem.customCount * 22 or 0
 	end})
 	self.controls.displayItemSectionCustom.shown = function()
 		return self.displayItem ~= nil
@@ -997,11 +1268,22 @@ holding Shift will put it in the second.]])
 	self.controls.displayItemAddCustom.shown = function()
 		return self.displayItem and (self.displayItem.rarity == "MAGIC" or self.displayItem.rarity == "RARE" or (self.displayItem.rareLikeUnique and self.displayItem.rareLikeUnique.supportsCustomModifiers))
 	end
+	self.controls.displayItemChangeBase = new("ButtonControl"):ButtonControl({"TOPLEFT",self.controls.displayItemAddCustom,"TOPRIGHT",true}, {8, 0, 120, 20}, "Change base...", function()
+		self:ChangeDisplayItemBase()
+	end)
+	self.controls.displayItemChangeBase.shown = function()
+		return getBaseChangeEligibility(self.displayItem, self.build.data)
+	end
+	self.controls.displayItemChangeBase.tooltipFunc = function(tooltip)
+		tooltip:Clear()
+		tooltip:AddLine(16, "^7Change this item's base while retaining compatible modifiers.")
+	end
 
 	-- Section: Crucible modifiers
-	-- if the Add modifier button is not shown, take its place, otherwise move it to the right of it
+	-- Move to the right of the customisation buttons that are currently shown.
 	self.controls.displayItemAddCrucible = new("ButtonControl"):ButtonControl({"TOPLEFT",self.controls.displayItemSectionCustom,"TOPLEFT"}, {function()
-		return (self.controls.displayItemAddCustom:IsShown() and 128) or 0
+		local x = self.controls.displayItemAddCustom:IsShown() and 128 or 0
+		return x + (self.controls.displayItemChangeBase:IsShown() and 128 or 0)
 	end, 0, 150, 20}, "Add Crucible mod...", function()
 		self:AddCrucibleModifierToDisplayItem()
 	end)
@@ -2216,7 +2498,7 @@ function ItemsTabClass:UpdateAffixControls()
 end
 
 function ItemsTabClass:UpdateAffixControl(control, item, affixType, outputTable, outputIndex, powerCache)
-	local extraTags = { }
+	local extraTags = getAffixExtraTags(item, outputTable, outputIndex)
 	local excludeGroups = { }
 	local allowDuplicateGroups = item.rareLikeUnique and item.rareLikeUnique.allowDuplicateGroups
 	for _, table in ipairs({"prefixes","suffixes"}) do
@@ -2226,11 +2508,6 @@ function ItemsTabClass:UpdateAffixControl(control, item, affixType, outputTable,
 				if mod then
 					if mod.group and not allowDuplicateGroups then
 						excludeGroups[mod.group] = true
-					end
-					if mod.tags then
-						for _, tag in ipairs(mod.tags) do
-							extraTags[tag] = true
-						end
 					end
 				end
 			end
@@ -2618,6 +2895,363 @@ function ItemsTabClass:OpenItemSetManagePopup()
 	main:OpenPopup(630, 290, "Manage Item Sets", controls)
 end
 
+function ItemsTabClass:CreateBaseChangeCandidate(sourceItem, targetBaseEntry)
+	local eligible, reason = getBaseChangeEligibility(sourceItem, self.build.data)
+	if not eligible then
+		return nil, nil, nil, nil, reason
+	elseif not targetBaseEntry or not isSupportedBaseChangeTarget(sourceItem, targetBaseEntry.base) then
+		return nil, nil, nil, nil, "The selected base is not compatible with this item."
+	end
+
+	local targetBase = targetBaseEntry.base
+	local sourceBaseImplicitCount, hasEldritchImplicits = getBaseChangeImplicitInfo(sourceItem)
+	local sourceRules = getSpecialBaseChangeRules(sourceItem.base)
+	local targetRules = getSpecialBaseChangeRules(targetBase)
+	local resetPrefixes = sourceRules.resetPrefixes or targetRules.resetPrefixes
+	local resetSuffixes = sourceRules.resetSuffixes or targetRules.resetSuffixes
+	local resetInfluences = sourceRules.resetInfluences or targetRules.resetInfluences
+	local item = new("Item"):Item(sourceItem:BuildRaw())
+	item.uniqueID = nil
+	local removedAffixes = { resetPrefixes = resetPrefixes, resetSuffixes = resetSuffixes }
+	if resetPrefixes then
+		removeStructuredAffixes(sourceItem, item, "prefixes", removedAffixes)
+	end
+	if resetSuffixes then
+		removeStructuredAffixes(sourceItem, item, "suffixes", removedAffixes)
+	end
+	local removedOtherMods = getUnclassifiedExplicitLines(sourceItem)
+	item.baseName = targetBaseEntry.name
+	item.implicitModLines = hasEldritchImplicits and { } or buildBaseImplicitModLines(targetBase, sourceItem)
+	for index = sourceBaseImplicitCount + 1, #sourceItem.implicitModLines do
+		t_insert(item.implicitModLines, copyTable(sourceItem.implicitModLines[index]))
+	end
+
+	local removedInfluences = { reset = resetInfluences }
+	for _, curInfluenceInfo in ipairs(influenceInfo) do
+		if item[curInfluenceInfo.key] and (resetInfluences or not targetBase.influenceTags or not targetBase.influenceTags[curInfluenceInfo.key]) then
+			item[curInfluenceInfo.key] = false
+			t_insert(removedInfluences, curInfluenceInfo.display)
+		end
+	end
+
+	local sockets = { }
+	local socketLimit = targetBase.socketLimit or 0
+	for index = 1, m_min(#sourceItem.sockets, socketLimit) do
+		t_insert(sockets, copyTable(sourceItem.sockets[index]))
+	end
+	item.sockets = sockets
+	-- Absolute defence values belong to the old base; shared percentiles are restored after crafting.
+	item.armourData = { }
+	item = new("Item"):Item(item:BuildRaw())
+	-- A capacity-changing base can leave source-side None slots beyond the new limits.
+	for _, list in ipairs({ item.prefixes, item.suffixes }) do
+		local limit = list.limit or (item.affixLimit / 2)
+		for index = #list, limit + 1, -1 do
+			list[index] = nil
+		end
+	end
+
+	local removedInPass
+	repeat
+		removedInPass = false
+		for _, tableName in ipairs({ "prefixes", "suffixes" }) do
+			local expectedType = tableName == "prefixes" and "Prefix" or "Suffix"
+			local list = item[tableName]
+			for index = 1, (list.limit or (item.affixLimit / 2)) do
+				local affix = list[index]
+				if affix and affix.modId ~= "None" then
+					local mod = item.affixes[affix.modId]
+					local valid = mod and mod.type == expectedType and item:CanHaveMod(mod, getAffixExtraTags(item, tableName, index))
+					if not valid then
+						t_insert(removedAffixes, describeBaseChangeAffix(sourceItem, tableName, affix))
+						list[index] = { modId = "None" }
+						removedInPass = true
+					end
+				end
+			end
+		end
+	until not removedInPass
+
+	item:Craft()
+	if targetBase.armour then
+		item.armourData = { }
+		for _, armourType in ipairs(armourBaseTypes) do
+			if baseHasArmourType(targetBase, armourType) then
+				local percentile = 1
+				if baseHasArmourType(sourceItem.base, armourType) and sourceItem.armourData then
+					percentile = sourceItem.armourData[armourType.key .. "BasePercentile"] or 1
+				end
+				item.armourData[armourType.key .. "BasePercentile"] = percentile
+			end
+		end
+		item:BuildModList()
+		item = new("Item"):Item(item:BuildRaw())
+	end
+	item.id = sourceItem.id
+	item.note = sourceItem.note
+	item.source = sourceItem.source
+	return item, removedAffixes, removedInfluences, removedOtherMods
+end
+
+function ItemsTabClass:ChangeDisplayItemBase()
+	local sourceItem = self.displayItem
+	local eligible = getBaseChangeEligibility(sourceItem, self.build.data)
+	if not eligible then
+		return
+	end
+
+	local sourceRaw = sourceItem:BuildRaw()
+	local sourceId = sourceItem.id
+	local sourceBaseName = sourceItem.baseName
+	local _, hasEldritchImplicits = getBaseChangeImplicitInfo(sourceItem)
+	local hasOtherMods = #sourceItem.enchantModLines > 0
+		or #sourceItem.scourgeModLines > 0
+		or #sourceItem.classRequirementModLines > 0
+		or #sourceItem.buffModLines > 0
+		or #sourceItem.crucibleModLines > 0
+	for _, modLine in ipairs(sourceItem.explicitModLines) do
+		if modLine.custom or modLine.crafted then
+			hasOtherMods = true
+			break
+		end
+	end
+	local baseLists = { }
+	local typeList = { }
+	local sourceTypeIndex
+	local sourceBaseIndex
+	for _, typeName in ipairs(self.build.data.itemBaseTypeList) do
+		local filteredList = { }
+		for _, baseEntry in ipairs(self.build.data.itemBaseLists[typeName]) do
+			if isSupportedBaseChangeTarget(sourceItem, baseEntry.base) then
+				t_insert(filteredList, baseEntry)
+			end
+		end
+		if #filteredList > 0 then
+			t_insert(typeList, typeName)
+			baseLists[typeName] = filteredList
+			for index, baseEntry in ipairs(filteredList) do
+				if baseEntry.name == sourceBaseName then
+					sourceTypeIndex = #typeList
+					sourceBaseIndex = index
+				end
+			end
+		end
+	end
+	if not sourceTypeIndex then
+		return
+	end
+
+	local controls = { }
+	local state = {
+		candidate = nil,
+		error = nil,
+		removedAffixes = { },
+		removedInfluences = { },
+		removedOtherMods = { },
+	}
+	local function getSelectedBase()
+		return controls.base and controls.base.selValue
+	end
+
+	local popupWidth = 900
+	local searchWidth = 350
+	local searchY = 20
+	local selectorY = 50
+	local selectorRowHeight = 20
+	local selectorHeaderHeight = 20
+	local selectorHeight = selectorRowHeight * 10 + selectorHeaderHeight + 4
+	local selectorLeft = 20
+	local typeListWidth = 245
+	local selectorGap = 10
+	local baseListX = selectorLeft + typeListWidth + selectorGap
+	local baseListWidth = popupWidth - baseListX - 20
+	local baseColumnWidth = 200
+	local filteredBaseLists = baseLists
+
+	local statusX = baseListX
+	local removedAffixX = statusX + 15
+	local statusTextWidth = popupWidth - statusX - 20
+	local affixTextWidth = popupWidth - removedAffixX - 20
+	local statusSectionGap = 7
+	local statusStartY = selectorY + selectorHeight + 18
+	local function getImplicitStatusText()
+		local targetBaseEntry = getSelectedBase()
+		if not hasEldritchImplicits or not state.candidate or not targetBaseEntry or targetBaseEntry.name == sourceBaseName or not targetBaseEntry.base.implicit then
+			return
+		end
+		local lines = { }
+		for _, modLine in ipairs(state.candidate.implicitModLines) do
+			t_insert(lines, modLine.line)
+		end
+		return "^7Implicits: ^x80FF80Existing Eldritch implicits replace the new base's implicits:", table.concat(lines, "\n")
+	end
+	local function getExplicitStatusText()
+		local targetBaseEntry = getSelectedBase()
+		if not targetBaseEntry then
+			return "^7Explicits: ^x7F7F7FSelect a base."
+		elseif state.error then
+			return "^7Explicits: " .. colorCodes.NEGATIVE .. state.error
+		elseif targetBaseEntry and targetBaseEntry.name == sourceBaseName then
+			return "^7Explicits: ^x7F7F7FSelect a different base."
+		elseif state.removedAffixes.resetPrefixes or state.removedAffixes.resetSuffixes then
+			local category = state.removedAffixes.resetPrefixes and state.removedAffixes.resetSuffixes and "prefix and suffix" or state.removedAffixes.resetPrefixes and "prefix" or "suffix"
+			local removalCount = #state.removedAffixes
+			local removalText = removalCount > 0 and removalCount .. " modifier" .. (removalCount == 1 and "" or "s") .. " will be removed:" or "There are no modifiers in the affected slots."
+			return "^7Explicits: " .. colorCodes.NEGATIVE .. "The new base changes " .. category .. " rules. All modifiers will be reset.\n" .. removalText
+		elseif #state.removedAffixes == 0 then
+			return "^7Explicits: ^x80FF80All prefix and suffix modifiers are compatible."
+		else
+			return "^7Explicits: " .. colorCodes.NEGATIVE .. #state.removedAffixes .. " incompatible modifier" .. (#state.removedAffixes == 1 and "" or "s") .. " will be removed:"
+		end
+	end
+	local function getOtherStatusMessages()
+		local targetBaseEntry = getSelectedBase()
+		if not targetBaseEntry or targetBaseEntry.name == sourceBaseName then
+			return { }
+		end
+		local messages = { }
+		if state.removedInfluences.reset then
+			if #state.removedInfluences > 0 then
+				t_insert(messages, colorCodes.NEGATIVE .. "These influences will be removed: " .. table.concat(state.removedInfluences, ", ") .. ".")
+			end
+		elseif #state.removedInfluences > 0 then
+			t_insert(messages, colorCodes.NEGATIVE .. "Unsupported influences will be removed: " .. table.concat(state.removedInfluences, ", ") .. ".")
+		end
+		if #state.removedOtherMods > 0 then
+			local removedOtherModLines = { colorCodes.NEGATIVE .. #state.removedOtherMods .. " unclassified explicit modifier" .. (#state.removedOtherMods == 1 and "" or "s") .. " will be removed:" }
+			for _, modLine in ipairs(state.removedOtherMods) do
+				t_insert(removedOtherModLines, colorCodes.NEGATIVE .. "  " .. modLine)
+			end
+			t_insert(messages, table.concat(removedOtherModLines, "\n"))
+		end
+		if hasOtherMods then
+			t_insert(messages, "^xFFB040Modifiers added via 'Add Modifier' persist, but are not checked for in-game compatibility")
+		end
+		return messages
+	end
+	local popup
+	local function updateLayout()
+		local y = statusStartY
+		local implicitStatus, implicitLines = getImplicitStatusText()
+		y = layoutBaseChangeLabel(controls.implicitStatus, implicitStatus, statusTextWidth, y)
+		y = layoutBaseChangeLabel(controls.implicitMods, implicitLines, affixTextWidth, y, "^x80FF80")
+		if implicitStatus then
+			y = y + 2
+		end
+		y = layoutBaseChangeLabel(controls.status, getExplicitStatusText(), statusTextWidth, y) + 2
+		for index = 1, 6 do
+			local affix = state.removedAffixes[index]
+			y = layoutBaseChangeLabel(controls["removedAffix" .. index], affix and affix.label, affixTextWidth, y, colorCodes.NEGATIVE)
+		end
+		local messages = getOtherStatusMessages()
+		if #messages > 0 then
+			y = y + 5
+		end
+		for index = 1, 3 do
+			local message = messages[index]
+			if message and index > 1 then
+				y = y + statusSectionGap
+			end
+			y = layoutBaseChangeLabel(controls[index == 1 and "otherStatus" or "otherStatus" .. index],
+				message and (index == 1 and "^7Other: " or "") .. message, statusTextWidth, y)
+		end
+		controls.save.y = y + 11
+		controls.cancel.y = y + 11
+		if popup then
+			popup.height = y + 46
+		end
+	end
+
+	local function updateCandidate()
+		local targetBaseEntry = getSelectedBase()
+		if not targetBaseEntry then
+			state.candidate = nil
+			state.error = nil
+			state.removedAffixes = { }
+			state.removedInfluences = { }
+			state.removedOtherMods = { }
+		else
+			state.candidate, state.removedAffixes, state.removedInfluences, state.removedOtherMods, state.error = self:CreateBaseChangeCandidate(sourceItem, targetBaseEntry)
+			state.removedAffixes = state.removedAffixes or { }
+			state.removedInfluences = state.removedInfluences or { }
+			state.removedOtherMods = state.removedOtherMods or { }
+		end
+		updateLayout()
+	end
+
+	local function addBaseTooltip(tooltip, value)
+		if not value then
+			tooltip:Clear(true)
+		elseif tooltip:CheckForUpdate(value) then
+			tooltip:Clear()
+			local candidate = value == getSelectedBase() and state.candidate or self:CreateBaseChangeCandidate(sourceItem, value)
+			if candidate then
+				self:AddItemTooltip(tooltip, candidate, nil, true)
+			end
+		end
+	end
+	controls.type = new("ItemBaseListControl"):ItemBaseListControl({"TOPLEFT",nil,"TOPLEFT"}, {selectorLeft, selectorY, typeListWidth, selectorHeight}, typeList, "TYPE", nil, function(_, value)
+		controls.base:SetList(filteredBaseLists[value] or { })
+		if not controls.base:SelectIndex(1) then
+			updateCandidate()
+		end
+	end)
+	controls.base = new("ItemBaseListControl"):ItemBaseListControl({"TOPLEFT",nil,"TOPLEFT"}, {baseListX, selectorY, baseListWidth, selectorHeight}, filteredBaseLists[typeList[sourceTypeIndex]], "BASE", baseColumnWidth, function()
+		updateCandidate()
+	end, function(tooltip, _, value)
+		addBaseTooltip(tooltip, value)
+	end)
+	local function updateSearch(searchText)
+		local selectedType = controls.type.selValue
+		local selectedBase = controls.base.selValue
+		filteredBaseLists = filterItemBaseLists(typeList, baseLists, searchText)
+		controls.base:SetList(filteredBaseLists[selectedType] or { })
+		local selectedBaseIndex = isValueInArray(controls.base.list, selectedBase)
+		if not (selectedBaseIndex and controls.base:SelectIndex(selectedBaseIndex)) and not controls.base:SelectIndex(1) then
+			updateCandidate()
+		end
+	end
+	controls.search = new("EditControl"):EditControl({"TOP",nil,"TOP"}, {0, searchY, searchWidth, 20}, "", nil, "%c", 100, updateSearch, nil, nil, true)
+	controls.search:SetPlaceholder("Search base or implicit")
+
+	controls.implicitStatus = new("LabelControl"):LabelControl({"TOPLEFT",nil,"TOPLEFT"}, {statusX, 0, 0, 16}, "")
+	controls.implicitMods = new("LabelControl"):LabelControl({"TOPLEFT",nil,"TOPLEFT"}, {removedAffixX, 0, 0, 16}, "")
+	controls.status = new("LabelControl"):LabelControl({"TOPLEFT",nil,"TOPLEFT"}, {statusX, 0, 0, 16}, "")
+	for index = 1, 6 do
+		controls["removedAffix" .. index] = new("LabelControl"):LabelControl({"TOPLEFT",nil,"TOPLEFT"}, {removedAffixX, 0, 0, 16}, "")
+	end
+	for index = 1, 3 do
+		controls[index == 1 and "otherStatus" or "otherStatus" .. index] = new("LabelControl"):LabelControl({"TOPLEFT",nil,"TOPLEFT"}, {statusX, 0, 0, 16}, "")
+	end
+	controls.save = new("ButtonControl"):ButtonControl(nil, {-55, 0, 100, 20}, "Change base", function()
+		if self.displayItem ~= sourceItem or self.displayItem.id ~= sourceId or self.displayItem.baseName ~= sourceBaseName or self.displayItem:BuildRaw() ~= sourceRaw then
+			state.error = "The item changed while this dialog was open. Reopen Change base."
+			state.candidate = nil
+			updateLayout()
+			return
+		end
+		local targetBaseEntry = getSelectedBase()
+		if state.candidate and targetBaseEntry and targetBaseEntry.name ~= sourceBaseName then
+			self:SetDisplayItem(state.candidate)
+			main:ClosePopup()
+		end
+	end)
+	controls.save.enabled = function()
+		local targetBaseEntry = getSelectedBase()
+		return state.candidate and not state.error and targetBaseEntry and targetBaseEntry.name ~= sourceBaseName
+	end
+	controls.cancel = new("ButtonControl"):ButtonControl(nil, {55, 0, 100, 20}, "Cancel", function()
+		main:ClosePopup()
+	end)
+	controls.type:SelectIndex(sourceTypeIndex)
+	controls.base:SelectIndex(sourceBaseIndex)
+	local initialPopupHeight = controls.save.y + 35
+	local popupTop = m_floor((main.screenH - initialPopupHeight) / 2)
+	popup = main:OpenPopup(popupWidth, initialPopupHeight, "Change Item Base", controls, nil, "search")
+	popup:SetFindControl(controls.search)
+	popup.y = popupTop
+end
+
 -- Opens the item crafting popup
 function ItemsTabClass:CraftItem()
 	local controls = { }
@@ -2654,14 +3288,7 @@ function ItemsTabClass:CraftItem()
 		if raritySel >= 3 then
 			item.title = controls.title.buf:match("%S") and controls.title.buf or "New Item"
 		end
-		if base.base.implicit then
-			local implicitIndex = 1
-			for line in base.base.implicit:gmatch("[^\n]+") do
-				local modList, extra = modLib.parseMod(line)
-				t_insert(item.implicitModLines, { line = line, extra = extra, modList = modList or { }, modTags = base.base.implicitModTypes and base.base.implicitModTypes[implicitIndex] or { } })
-				implicitIndex = implicitIndex + 1
-			end
-		end
+		item.implicitModLines = buildBaseImplicitModLines(base.base)
 		item:NormaliseQuality()
 		item:BuildAndParseRaw()
 		return item

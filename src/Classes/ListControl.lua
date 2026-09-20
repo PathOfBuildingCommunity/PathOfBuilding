@@ -5,6 +5,9 @@
 --
 -- This is an abstract base class; derived classes can supply these properties and methods to configure the list control:
 -- .label  [Adds a label above the top left corner]
+-- .colList  [Column definitions; fontSize, headerFontSize, and textOffset customize text rendering]
+-- .colLabelHeight  [Overrides the default 18-unit column header height]
+-- .tooltipAnchorFullRow  [Positions value tooltips outside the full visible row instead of the hovered column text]
 -- .dragTargetList  [List of controls that can receive drag events from this list control]
 -- .showRowSeparators  [Shows separators between rows]
 -- :GetRowValue(column, index, value)  [Required; called to retrieve the text for the given column of the given list value]
@@ -125,11 +128,12 @@ end
 
 function ListClass:GetRowRegion()
 	local width, height = self:GetSize()
+	local colLabelHeight = self.colLabels and (self.colLabelHeight or 18) or 0
 	return {
 		x = 2,
-		y = self.colLabels and 20 or 2,
+		y = 2 + colLabelHeight,
 		width = self.scroll and width - 20 or width,
-		height = height - 4 - (self.scroll and self.scrollH and 16 or 0) - (self.colLabels and 18 or 0),
+		height = height - 4 - (self.scroll and self.scrollH and 16 or 0) - colLabelHeight,
 	}
 end
 
@@ -137,6 +141,7 @@ function ListClass:Draw(viewPort, noTooltip)
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()
 	local rowHeight = self.rowHeight
+	local colLabelHeight = self.colLabels and (self.colLabelHeight or 18) or 0
 	local list = self.list
 
 	local colOffset = 0
@@ -216,32 +221,40 @@ function ListClass:Draw(viewPort, noTooltip)
 	local maxIndex = m_min(m_floor((scrollOffsetV + height) / rowHeight + 1), #list)
 	for colIndex, column in ipairs(self.colList) do
 		local colFont = self:GetColumnProperty(column, "font") or "VAR"
-		local clipWidth = DrawStringWidth(textHeight, colFont, "...")
+		local colFontSize = self:GetColumnProperty(column, "fontSize") or textHeight
+		local textOffsetX = self:GetColumnProperty(column, "textOffset") or 0
+		local colTextOffsetY = m_floor((rowHeight - colFontSize) / 2)
+		local clipWidth = DrawStringWidth(colFontSize, colFont, "...")
 		colOffset = column._offset - scrollOffsetH
 		local colWidth = column._width
 		local relX = cursorX - (x + 2)
 		local relY = cursorY - (y + 2)
 		for index = minIndex, maxIndex do
-			local lineY = rowHeight * (index - 1) - scrollOffsetV + (self.colLabels and 18 or 0)
+			local lineY = rowHeight * (index - 1) - scrollOffsetV + colLabelHeight
 			local value = list[index]
 			local text = self:GetRowValue(colIndex, index, value)
 			local icon = nil
 			if self.GetRowIcon then 
 				icon = self:GetRowIcon(colIndex, index, value)
 			end
-			local textWidth = DrawStringWidth(textHeight, colFont, text)
-			if textWidth > colWidth - 2 then
-				local clipIndex = DrawStringCursorIndex(textHeight, colFont, text, colWidth - clipWidth - 2, 0)
+			local textWidth = DrawStringWidth(colFontSize, colFont, text)
+			if textWidth > colWidth - textOffsetX - 2 then
+				local clipIndex = DrawStringCursorIndex(colFontSize, colFont, text, colWidth - textOffsetX - clipWidth - 2, 0)
 				text = text:sub(1, clipIndex - 1) .. "..."
-				textWidth = DrawStringWidth(textHeight, colFont, text)
+				textWidth = DrawStringWidth(colFontSize, colFont, text)
 			end
 			if not scrollBarV.dragging and (not self.selDragActive or (self.CanDragToValue and self:CanDragToValue(index, value, self.otherDragSource))) then
 				if relX >= colOffset and relX <  (self.scroll and width - 20 or width) and relY >= 0 and relY >= lineY and relY < height - 2 - (self.scroll and self.scrollH and 18 or 0) and relY < lineY + rowHeight then
 					ttIndex = index
 					ttValue = value
-					ttX = x + 2 + colOffset
 					ttY = lineY + y + 2
-					ttWidth = m_max(textWidth + 8, relX - colOffset)
+					if self.tooltipAnchorFullRow then
+						ttX = x + rowRegion.x
+						ttWidth = rowRegion.width
+					else
+						ttX = x + 2 + colOffset
+						ttWidth = m_max(textWidth + 8, relX - colOffset)
+					end
 				end
 			end
 			if self.showRowSeparators then
@@ -284,35 +297,37 @@ function ListClass:Draw(viewPort, noTooltip)
 			end
 			-- TODO: handle icon size properly, for now assume they are 16x16
 			if icon == nil then
-				DrawString(colOffset, lineY + textOffsetY, "LEFT", textHeight, colFont, text)
+				DrawString(colOffset + textOffsetX, lineY + colTextOffsetY, "LEFT", colFontSize, colFont, text)
 			else
-				DrawImage(icon, colOffset, lineY, 16, 16)
-				DrawString(colOffset + 16 + 2, lineY + textOffsetY, "LEFT", textHeight, colFont, text)
+				DrawImage(icon, colOffset + textOffsetX, lineY, 16, 16)
+				DrawString(colOffset + textOffsetX + 16 + 2, lineY + colTextOffsetY, "LEFT", colFontSize, colFont, text)
 			end
 		end
 		if self.colLabels then
-			local mOver = relX >= colOffset and relX <= colOffset + colWidth and relY >= 0 and relY <= 18
+			local mOver = relX >= colOffset and relX <= colOffset + colWidth and relY >= 0 and relY <= colLabelHeight
 			if mOver and self:GetColumnProperty(column, "sortable") then
 				SetDrawColor(1, 1, 1)
-				DrawImage(nil, colOffset, 1, colWidth, 18)
+				DrawImage(nil, colOffset, 1, colWidth, colLabelHeight)
 				SetDrawColor(0.33, 0.33, 0.33)
-				DrawImage(nil, colOffset + 1, 2, colWidth - 2, 16)
+				DrawImage(nil, colOffset + 1, 2, colWidth - 2, colLabelHeight - 2)
 			else
 				SetDrawColor(0.5, 0.5, 0.5)
-				DrawImage(nil, colOffset, 1, colWidth, 18)
+				DrawImage(nil, colOffset, 1, colWidth, colLabelHeight)
 				SetDrawColor(0.15, 0.15, 0.15)
-				DrawImage(nil, colOffset + 1, 2, colWidth - 2, 16)
+				DrawImage(nil, colOffset + 1, 2, colWidth - 2, colLabelHeight - 2)
 			end
 			local label = self:GetColumnProperty(column, "label")
 			if label and #label > 0 then
+				local headerFontSize = self:GetColumnProperty(column, "headerFontSize") or 12
+				local headerTextY = m_floor((colLabelHeight - headerFontSize) / 2) + 1
 				SetDrawColor(1, 1, 1)
-				DrawString(colOffset + colWidth/2, 4, "CENTER_X", 12, "VAR", label)
+				DrawString(colOffset + colWidth/2, headerTextY, "CENTER_X", headerFontSize, "VAR", label)
 			end
 		end
 	end
 	if #self.list == 0 and self.defaultText then
 		SetDrawColor(1, 1, 1)
-		DrawString(2, 2, "LEFT", 14, self.font, self.defaultText)
+		DrawString(2, 2 + colLabelHeight, "LEFT", 14, self.font, self.defaultText)
 	end
 	if self.selDragIndex then
 		local lineY = rowHeight * (self.selDragIndex - 1) - scrollOffsetV

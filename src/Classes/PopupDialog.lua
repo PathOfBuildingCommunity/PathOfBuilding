@@ -6,6 +6,7 @@
 local m_floor = math.floor
 
 ---@class PopupDialog: ControlHost, Control
+---@field findControl? Control
 local PopupDialogClass = newClass("PopupDialog", "ControlHost", "Control")
 
 function PopupDialogClass:PopupDialog(width, height, title, controls, enterControl, defaultControl,
@@ -69,7 +70,22 @@ function PopupDialogClass:Draw(viewPort)
 	self:DrawControls(viewPort)
 end
 
+---@param control Control
+---@return PopupDialog
+function PopupDialogClass:SetFindControl(control)
+	self.findControl = control
+	return self
+end
+
 function PopupDialogClass:ProcessInput(inputEvents, viewPort)
+	if self.findControl then
+		for _, event in ipairs(inputEvents) do
+			if event.type == "KeyDown" and event.key == "f" and IsKeyDown("CTRL") then
+				self:SelectControl(self.findControl)
+				break
+			end
+		end
+	end
 	self:ProcessControlsInput(inputEvents, viewPort)
 	for id, event in ipairs(inputEvents) do
 		if event.type == "KeyDown" then
