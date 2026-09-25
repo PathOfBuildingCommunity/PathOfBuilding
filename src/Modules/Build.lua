@@ -869,7 +869,8 @@ function buildMode:SyncLoadouts()
 	return treeList, itemList, skillList, configList
 end
 
--- Creates a new loadout: a passive tree, item set, skill set and config set sharing the given name
+-- Creates a new loadout: a passive tree, item set, skill set and config set sharing the given name.
+-- Returns the index of the new passive tree
 function buildMode:NewLoadout(loadoutName)
 	local newSpec = new("PassiveSpec"):PassiveSpec(self, latestTreeVersion)
 	newSpec.title = loadoutName
@@ -889,18 +890,22 @@ function buildMode:NewLoadout(loadoutName)
 
 	self:SyncLoadouts()
 	self.modFlag = true
+	return #self.treeTab.specList
 end
 
--- Opens the naming popup for a new loadout
-function buildMode:OpenLoadoutNamePopup()
+-- Opens the naming popup for a new loadout, passing the new passive tree's index to onCreate if given
+function buildMode:OpenLoadoutNamePopup(onCreate)
 	local controls = { }
 	controls.label = new("LabelControl"):LabelControl(nil, {0, 20, 0, 16}, "^7Enter name for this loadout:")
 	controls.edit = new("EditControl"):EditControl(nil, {0, 40, 350, 20}, "New Loadout", nil, nil, 100, function(buf)
 		controls.save.enabled = buf:match("%S")
 	end)
 	controls.save = new("ButtonControl"):ButtonControl(nil, {-45, 70, 80, 20}, "Save", function()
-		self:NewLoadout(controls.edit.buf)
+		local specId = self:NewLoadout(controls.edit.buf)
 		main:ClosePopup()
+		if onCreate then
+			onCreate(specId)
+		end
 	end)
 	controls.save.enabled = false
 	controls.cancel = new("ButtonControl"):ButtonControl(nil, {45, 70, 80, 20}, "Cancel", function()
@@ -911,12 +916,18 @@ end
 
 -- Opens the loadout manager
 function buildMode:OpenLoadoutManagePopup()
+	local loadoutList = new("LoadoutListControl"):LoadoutListControl(nil, {0, 50, 450, 200}, self)
 	local syncButton = new("ButtonControl"):ButtonControl(nil, {-50, 260, 90, 20}, "Sync", function()
+		local selected = loadoutList.selValue
 		self:SyncLoadouts()
+		-- Syncing rebuilds every row, so move the selection onto the new row for the same loadout
+		if selected then
+			loadoutList:SelectLoadout(selected.specId, selected.linkId)
+		end
 	end)
 	syncButton.tooltipText = "Force the loadout list to update in case sets have been changed behind the scenes."
 	main:OpenPopup(470, 290, "Manage Loadouts", {
-		new("LoadoutListControl"):LoadoutListControl(nil, {0, 50, 450, 200}, self),
+		loadoutList,
 		syncButton,
 		new("ButtonControl"):ButtonControl(nil, {50, 260, 90, 20}, "Done", function()
 			main:ClosePopup()

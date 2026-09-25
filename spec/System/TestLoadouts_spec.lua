@@ -1,4 +1,13 @@
 describe("TestLoadouts", function()
+	-- Returns the loadout with the given name and its index in the loadout list
+	local function findLoadout(name)
+		for index, loadout in ipairs(build.loadoutList) do
+			if loadout.name == name then
+				return loadout, index
+			end
+		end
+	end
+
 	before_each(function()
 		newBuild()
 	end)
@@ -196,5 +205,50 @@ describe("TestLoadouts", function()
 		assert.is_not_nil(loadout)
 		assert.are.equals(1, loadout.specId)
 		assert.are.equals(build.itemsTab.itemSetOrderList[1], loadout.itemSetId)
+	end)
+
+	it("keeps a linked loadout selected when its tree has several identifiers", function()
+		-- One tree shared by two loadouts, each with its own item, skill and config set
+		local listControl = new("LoadoutListControl"):LoadoutListControl(nil, {0, 0, 450, 200}, build)
+		build.treeTab.specList[1].title = "Linked {A,B}"
+		build.itemsTab.itemSets[build.itemsTab.itemSetOrderList[1]].title = "Items {A}"
+		build.skillsTab.skillSets[build.skillsTab.skillSetOrderList[1]].title = "Skills {A}"
+		build.configTab.configSets[build.configTab.configSetOrderList[1]].title = "Config {A}"
+		listControl:AddItemSet(nil, "Items {B}")
+		listControl:AddSkillSet(nil, "Skills {B}")
+		listControl:AddConfigSet(nil, "Config {B}")
+		build:SyncLoadouts()
+		local loadoutB, index = findLoadout("Linked {B}")
+		assert.is_not_nil(loadoutB)
+
+		listControl:SelectIndex(index)
+		listControl:OnSelClick(index, loadoutB, true)
+
+		assert.are.equals("Linked {B}", listControl.selValue.name)
+		assert.is_true(listControl:IsActiveLoadout(listControl.selValue))
+	end)
+
+	it("keeps the manager's selection on a current row after Sync and New", function()
+		build:NewLoadout("First")
+		build:OpenLoadoutManagePopup()
+		local manager = main.popups[1]
+		local listControl = manager.controls[1]
+		listControl:SelectIndex(select(2, findLoadout("First")))
+
+		-- Sync rebuilds every row, so the selection has to follow the loadout to its new row
+		manager.controls[2]:Click()
+		assert.are.equals("First", listControl.selValue.name)
+		assert.are.equals(listControl.list[listControl.selIndex], listControl.selValue)
+		listControl:DeleteLoadout(listControl.selValue)
+		assert.is_nil(findLoadout("First"))
+
+		-- New selects the loadout it creates, like Copy and New/Copy Custom do
+		listControl.controls.new:Click()
+		local controls = main.popups[1].controls
+		controls.edit:SetText("Second", true)
+		controls.save:Click()
+		assert.are.equals("Second", listControl.selValue.name)
+		assert.are.equals(listControl.list[listControl.selIndex], listControl.selValue)
+		main:ClosePopup()
 	end)
 end)

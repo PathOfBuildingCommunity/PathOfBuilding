@@ -18,7 +18,9 @@ function LoadoutListClass:LoadoutListControl(anchor, rect, build)
 	local buttonWidth, buttonGap = 78, 4
 	local customWidth = rect[3] - buttonWidth * 4 - buttonGap * 4
 	self.controls.new = new("ButtonControl"):ButtonControl({"BOTTOMLEFT",self,"TOPLEFT"}, {0, -4, buttonWidth, 18}, "New", function()
-		build:OpenLoadoutNamePopup()
+		build:OpenLoadoutNamePopup(function(specId)
+			self:SelectLoadout(specId)
+		end)
 	end)
 	self.controls.rename = new("ButtonControl"):ButtonControl({"LEFT",self.controls.new,"RIGHT"}, {buttonGap, 0, buttonWidth, 18}, "Rename", function()
 		self:RenameLoadout(self.selValue)
@@ -63,12 +65,13 @@ function LoadoutListClass:NameInUse(name)
 	return false
 end
 
--- Re-selects the loadout owning the given passive tree after the list has been rebuilt
-function LoadoutListClass:SelectLoadoutBySpecId(specId)
+-- Re-selects the loadout using the given passive tree after the list has been rebuilt. A tree with
+-- several link identifiers has a row for each, so the identifier picks between them when given
+function LoadoutListClass:SelectLoadout(specId, linkId)
 	self.selIndex = nil
 	self.selValue = nil
 	for index, loadout in ipairs(self.list) do
-		if loadout.specId == specId then
+		if loadout.specId == specId and (not linkId or loadout.linkId == linkId) then
 			self.selIndex = index
 			self.selValue = loadout
 			break
@@ -185,7 +188,7 @@ function LoadoutListClass:CreateLoadout(name, specId, itemSetId, skillSetId, con
 	self.build.modFlag = true
 	self:UpdateItemsTabPassiveTreeDropdown()
 	self.build:SyncLoadouts()
-	self:SelectLoadoutBySpecId(specIndex)
+	self:SelectLoadout(specIndex)
 end
 
 -- Copies all four sets of the given loadout into a new loadout
@@ -284,7 +287,7 @@ function LoadoutListClass:RenameLoadout(loadout)
 		build.configTab:AddUndoState()
 		self:UpdateItemsTabPassiveTreeDropdown()
 		build:SyncLoadouts()
-		self:SelectLoadoutBySpecId(loadout.specId)
+		self:SelectLoadout(loadout.specId, loadout.linkId)
 		main:ClosePopup()
 	end)
 	controls.save.enabled = false
@@ -324,7 +327,7 @@ function LoadoutListClass:OnSelClick(index, loadout, doubleClick)
 			build.configTab:SetActiveConfigSet(loadout.configSetId)
 		end
 		build:SyncLoadouts()
-		self:SelectLoadoutBySpecId(loadout.specId)
+		self:SelectLoadout(loadout.specId, loadout.linkId)
 	end
 end
 
