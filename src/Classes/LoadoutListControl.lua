@@ -227,15 +227,18 @@ function LoadoutListClass:CreateCustomLoadoutPopup()
 	controls.configSelect = new("DropDownControl"):DropDownControl(nil, {0, 240, 350, 20}, buildSetList(build.configTab.configSetOrderList, build.configTab.configSets))
 	controls.configLabel = new("LabelControl"):LabelControl({"BOTTOMLEFT",controls.configSelect,"TOPLEFT"}, {0, -4, 0, 16}, "^7Copy from Config Set:")
 
-	-- Every set defaults to "New"; if a loadout is selected in the manager, its sets are
-	-- preselected instead so they can be kept or swapped out one at a time
-	local selected = self.selValue
-	if selected then
-		controls.treeSelect:SelByValue(selected.specId, "id")
-		controls.skillSelect:SelByValue(selected.skillSetId, "id")
-		controls.itemSelect:SelByValue(selected.itemSetId, "id")
-		controls.configSelect:SelByValue(selected.configSetId, "id")
-	end
+	-- The sets of the loadout selected in the manager are preselected, or the active sets if none is
+	-- selected, so saving straight away copies that loadout and each set can be swapped out one at a time
+	local source = self.selValue or {
+		specId = build.treeTab.activeSpec,
+		itemSetId = build.itemsTab.activeItemSetId,
+		skillSetId = build.skillsTab.activeSkillSetId,
+		configSetId = build.configTab.activeConfigSetId,
+	}
+	controls.treeSelect:SelByValue(source.specId, "id")
+	controls.skillSelect:SelByValue(source.skillSetId, "id")
+	controls.itemSelect:SelByValue(source.itemSetId, "id")
+	controls.configSelect:SelByValue(source.configSetId, "id")
 
 	controls.save = new("ButtonControl"):ButtonControl(nil, {-45, 275, 80, 20}, "Save", function()
 		self:CreateLoadout(controls.edit.buf,
