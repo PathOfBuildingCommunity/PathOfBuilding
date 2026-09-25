@@ -56,15 +56,6 @@ function LoadoutListClass:IsSetShared(field, setId, loadout)
 	return false
 end
 
-function LoadoutListClass:NameInUse(name)
-	for _, loadout in ipairs(self.build.loadoutList) do
-		if loadout.name == name then
-			return true
-		end
-	end
-	return false
-end
-
 -- Re-selects the loadout using the given passive tree after the list has been rebuilt. A tree with
 -- several link identifiers has a row for each, so the identifier picks between them when given
 function LoadoutListClass:SelectLoadout(specId, linkId)
@@ -83,7 +74,7 @@ end
 function LoadoutListClass:UniqueName(baseName, copySuffix)
 	local newName = baseName .. (copySuffix and " (copy)" or "")
 	local suffix = 1
-	while self:NameInUse(newName) do
+	while self.build:LoadoutNameInUse(newName) do
 		suffix = suffix + 1
 		newName = baseName .. (copySuffix and (" (copy " .. suffix .. ")") or (" " .. suffix))
 	end
@@ -223,7 +214,9 @@ function LoadoutListClass:CreateCustomLoadoutPopup()
 
 	controls.label = new("LabelControl"):LabelControl(nil, {0, 20, 0, 16}, "^7Enter name for this loadout:")
 	controls.edit = new("EditControl"):EditControl(nil, {0, 40, 350, 20}, self:UniqueName("New Loadout Custom"), nil, nil, 100, function(buf)
-		controls.save.enabled = buf:match("%S")
+		local nameInUse = build:LoadoutNameInUse(buf)
+		controls.save.enabled = buf:match("%S") and not nameInUse
+		controls.save.tooltipText = nameInUse and "This name is already used by another loadout or set." or nil
 	end)
 	controls.treeSelect = new("DropDownControl"):DropDownControl(nil, {0, 90, 350, 20}, treeList)
 	controls.treeLabel = new("LabelControl"):LabelControl({"BOTTOMLEFT",controls.treeSelect,"TOPLEFT"}, {0, -4, 0, 16}, "^7Copy from Tree:")
@@ -265,7 +258,10 @@ function LoadoutListClass:RenameLoadout(loadout)
 	local currentName = ((spec.title or "Default"):gsub("%s*%{[%w,]+%}", ""))
 	controls.label = new("LabelControl"):LabelControl(nil, {0, 20, 0, 16}, "^7Enter new name for this loadout:")
 	controls.edit = new("EditControl"):EditControl(nil, {0, 40, 350, 20}, currentName, nil, nil, 100, function(buf)
-		controls.save.enabled = buf:match("%S")
+		-- Linked loadouts are tied to their sets by identifier rather than by name, so their names can't clash
+		local nameInUse = not loadout.linkId and build:LoadoutNameInUse(buf, loadout)
+		controls.save.enabled = buf:match("%S") and not nameInUse
+		controls.save.tooltipText = nameInUse and "This name is already used by another loadout or set." or nil
 	end)
 	controls.save = new("ButtonControl"):ButtonControl(nil, {-45, 70, 80, 20}, "Save", function()
 		local newName = controls.edit.buf

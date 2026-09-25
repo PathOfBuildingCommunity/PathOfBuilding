@@ -869,6 +869,27 @@ function buildMode:SyncLoadouts()
 	return treeList, itemList, skillList, configList
 end
 
+-- Returns true if a passive tree, item set, skill set or config set, other than those of the given loadout,
+-- already has this name. Loadouts are matched to their sets by name, so reusing one can tie a loadout to the wrong sets
+function buildMode:LoadoutNameInUse(name, loadout)
+	for specId, spec in ipairs(self.treeTab.specList) do
+		if (spec.title or "Default") == name and not (loadout and loadout.specId == specId) then
+			return true
+		end
+	end
+	local function setNameInUse(orderList, sets, ownSetId)
+		for _, setId in ipairs(orderList) do
+			if (sets[setId].title or "Default") == name and setId ~= ownSetId then
+				return true
+			end
+		end
+		return false
+	end
+	return setNameInUse(self.itemsTab.itemSetOrderList, self.itemsTab.itemSets, loadout and loadout.itemSetId)
+		or setNameInUse(self.skillsTab.skillSetOrderList, self.skillsTab.skillSets, loadout and loadout.skillSetId)
+		or setNameInUse(self.configTab.configSetOrderList, self.configTab.configSets, loadout and loadout.configSetId)
+end
+
 -- Creates a new loadout: a passive tree, item set, skill set and config set sharing the given name.
 -- Returns the index of the new passive tree
 function buildMode:NewLoadout(loadoutName)
@@ -898,7 +919,9 @@ function buildMode:OpenLoadoutNamePopup(onCreate)
 	local controls = { }
 	controls.label = new("LabelControl"):LabelControl(nil, {0, 20, 0, 16}, "^7Enter name for this loadout:")
 	controls.edit = new("EditControl"):EditControl(nil, {0, 40, 350, 20}, "New Loadout", nil, nil, 100, function(buf)
-		controls.save.enabled = buf:match("%S")
+		local nameInUse = self:LoadoutNameInUse(buf)
+		controls.save.enabled = buf:match("%S") and not nameInUse
+		controls.save.tooltipText = nameInUse and "This name is already used by another loadout or set." or nil
 	end)
 	controls.save = new("ButtonControl"):ButtonControl(nil, {-45, 70, 80, 20}, "Save", function()
 		local specId = self:NewLoadout(controls.edit.buf)

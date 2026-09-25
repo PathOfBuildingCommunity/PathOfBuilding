@@ -251,4 +251,69 @@ describe("TestLoadouts", function()
 		assert.are.equals(listControl.list[listControl.selIndex], listControl.selValue)
 		main:ClosePopup()
 	end)
+
+	it("rejects renaming a loadout to a name already in use", function()
+		build:NewLoadout("First")
+		build:NewLoadout("Second")
+		local listControl = new("LoadoutListControl"):LoadoutListControl(nil, {0, 0, 450, 200}, build)
+		listControl:RenameLoadout(findLoadout("Second"))
+		local controls = main.popups[1].controls
+		controls.edit:SetText("First", true)
+		assert.is_falsy(controls.save:IsEnabled())
+		-- Keeping the current name is allowed, as is a free one
+		controls.edit:SetText("Second", true)
+		assert.is_truthy(controls.save:IsEnabled())
+		controls.edit:SetText("Third", true)
+		assert.is_truthy(controls.save:IsEnabled())
+		main:ClosePopup()
+	end)
+
+	it("allows renaming a linked loadout to the name of an unlinked one", function()
+		build:NewLoadout("First")
+		build.treeTab.specList[1].title = "Linked {A}"
+		build.itemsTab.itemSets[build.itemsTab.itemSetOrderList[1]].title = "Items {A}"
+		build.skillsTab.skillSets[build.skillsTab.skillSetOrderList[1]].title = "Skills {A}"
+		build.configTab.configSets[build.configTab.configSetOrderList[1]].title = "Config {A}"
+		build:SyncLoadouts()
+		local listControl = new("LoadoutListControl"):LoadoutListControl(nil, {0, 0, 450, 200}, build)
+		local first = findLoadout("First")
+		listControl:RenameLoadout(findLoadout("Linked {A}"))
+		local controls = main.popups[1].controls
+		controls.edit:SetText("First", true)
+		assert.is_truthy(controls.save:IsEnabled())
+		controls.save:Click()
+
+		-- The sets are tied together by the identifier, so both loadouts keep their own sets
+		local renamed = findLoadout("First {A}")
+		assert.is_not_nil(renamed)
+		assert.are.equals(first.itemSetId, findLoadout("First").itemSetId)
+		assert.are_not.equals(first.itemSetId, renamed.itemSetId)
+	end)
+
+	it("rejects new loadouts named after an existing passive tree or set", function()
+		build:NewLoadout("First")
+		-- A tree without matching sets is not a loadout, but one of the same name would still clash with it
+		build.treeTab.specList[1].title = "Unmatched"
+		build:SyncLoadouts()
+		assert.is_nil(findLoadout("Unmatched"))
+		local listControl = new("LoadoutListControl"):LoadoutListControl(nil, {0, 0, 450, 200}, build)
+
+		listControl:CreateCustomLoadoutPopup()
+		local controls = main.popups[1].controls
+		controls.edit:SetText("First", true)
+		assert.is_falsy(controls.save:IsEnabled())
+		controls.edit:SetText("Unmatched", true)
+		assert.is_falsy(controls.save:IsEnabled())
+		controls.edit:SetText("Third", true)
+		assert.is_truthy(controls.save:IsEnabled())
+		main:ClosePopup()
+
+		build:OpenLoadoutNamePopup()
+		controls = main.popups[1].controls
+		controls.edit:SetText("First", true)
+		assert.is_falsy(controls.save:IsEnabled())
+		controls.edit:SetText("Third", true)
+		assert.is_truthy(controls.save:IsEnabled())
+		main:ClosePopup()
+	end)
 end)
