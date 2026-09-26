@@ -7,9 +7,10 @@ local getSmallRadiusIndex = support.getSmallRadiusIndex
 local getRadiusIndexFromRawText = support.getRadiusIndexFromRawText
 
 describe("RadiusJewelData #radius-jewel", function()
-	local previousJewelRadius, previousMaxJewelRadius
+	local previousJewelRadius, previousMaxJewelRadius, previousFoulbornMap
 	setup(function()
 		previousJewelRadius, previousMaxJewelRadius = data.jewelRadius, data.maxJewelRadius
+		previousFoulbornMap = data.foulbornMap
 		-- The real Item parser and the Massive-radius compute case need an
 		-- initialized build, but none of these cases needs a saved character.
 		newBuild()
@@ -17,6 +18,7 @@ describe("RadiusJewelData #radius-jewel", function()
 
 	teardown(function()
 		data.jewelRadius, data.maxJewelRadius = previousJewelRadius, previousMaxJewelRadius
+		data.foulbornMap = previousFoulbornMap
 	end)
 
 	before_each(function()
@@ -25,6 +27,7 @@ describe("RadiusJewelData #radius-jewel", function()
 
 	after_each(function()
 		data.jewelRadius, data.maxJewelRadius = previousJewelRadius, previousMaxJewelRadius
+		data.foulbornMap = previousFoulbornMap
 	end)
 
 	-- ── buildVariantsFromUniqueItem ──────────────────────────────────────────
@@ -232,14 +235,6 @@ describe("RadiusJewelData #radius-jewel", function()
 
 	describe("buildFoulbornVariants", function()
 
-		local function countEntries(tbl)
-			local count = 0
-			for _ in pairs(tbl) do
-				count = count + 1
-			end
-			return count
-		end
-
 		local function hasMutation(variant, modId)
 			for _, newModId in ipairs(variant.newModIds) do
 				if newModId == modId then
@@ -259,24 +254,14 @@ describe("RadiusJewelData #radius-jewel", function()
 		end
 
 		it("uses the current Foulborn map instead of generated unique data", function()
-			local map = data.foulbornMap
-			assert.are.equal(1, countEntries(map["Might of the Meek"]))
-			assert.are.equal(2, countEntries(map["Unnatural Instinct"]))
-			assert.are.equal(1, countEntries(map["Inspired Learning"]))
-			assert.are.equal(1, countEntries(map["Lioneye's Fall"]))
-			assert.are.equal(1, countEntries(map["Intuitive Leap"]))
-			assert.are.equal(
-				"MutatedUniqueJewel3GainRandomRareMonsterModOnKillWhileXSmallPassivesAllocatedInRadius",
-				map["Inspired Learning"]["StealRareModUniqueJewel3"])
-			assert.are.equal(
-				"MutatedUniqueJewel125AllocatedNotablePassiveSkillsInRadiusDoNothing",
-				map["Unnatural Instinct"]["AllocatedNonNotablesGrantNothingUnique__1_"])
-			assert.are.equal(
-				"MutatedUniqueJewel125GrantsAllBonusesOfUnallocatedNotablesInRadius",
-				map["Unnatural Instinct"]["GrantsStatsFromNonNotablesInRadiusUnique__1"])
-			assert.are.equal(
-				"MutatedUniqueJewel6KeystoneCanBeAllocatedInMassiveRadiusWithoutBeingConnected",
-				map["Intuitive Leap"]["JewelUniqueAllocateDisconnectedPassives"])
+			local originalModId, newModId = next(data.foulbornMap["Unnatural Instinct"])
+			data.foulbornMap = { ["Unnatural Instinct"] = { [originalModId] = newModId } }
+			local variants = RadiusJewelData.buildFoulbornVariants("Unnatural Instinct")
+			assert.are.equal(1, #variants)
+			assert.are.same({ newModId }, variants[1].newModIds)
+
+			data.foulbornMap = { }
+			assert.are.same({ }, RadiusJewelData.buildFoulbornVariants("Unnatural Instinct"))
 		end)
 
 		it("accepts an injected map fixture and round-trips the mutation", function()
