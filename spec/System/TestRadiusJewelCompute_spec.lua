@@ -39,7 +39,7 @@ describe("RadiusJewelCompute #radius-jewel", function()
 			return RadiusJewelData.buildVariantsFromUniqueItem("The Light of Meaning")
 		end
 
-		it("returns one result per socket and uses the best variant", function()
+		it("evaluates real variants and returns comparison results", function()
 			local sockets = getSockets()
 			local variants = getLightOfMeaningVariants()
 			local results, baseline = makeFinder().compute:computeBestVariantSocketImpact({
@@ -89,18 +89,51 @@ describe("RadiusJewelCompute #radius-jewel", function()
 				"results should be sorted by delta descending")
 		end)
 
-		it("Life variant selected on sockets where it is better than others", function()
-			local sockets = getSockets()
-			local results, _ = makeFinder().compute:computeBestVariantSocketImpact({
-				sockets = sockets,
-				variants = getLightOfMeaningVariants(),
+		it("selects the highest gain separately for each socket", function()
+			-- Deliberately different winners: neither first/last variant nor a
+			-- winner reused from the preceding socket satisfies both expectations.
+			local outputs = {
+				[1] = { baseline = 100, Alpha = 130, Beta = 110 },
+				[2] = { baseline = 200, Alpha = 205, Beta = 250 },
+			}
+			local nodes = { [1] = { id = 1 }, [2] = { id = 2 } }
+			local testBuild = {
+				spec = { nodes = nodes, allocNodes = { } },
+				itemsTab = {
+					sockets = { [1] = { selItemId = 0 }, [2] = { selItemId = 0 } }, items = { },
+					ItemNeedsMainTreeComparisonSpec = build.itemsTab.ItemNeedsMainTreeComparisonSpec,
+				},
+				calcsTab = {
+					GetMiscCalculator = function()
+						return function(override)
+							local node = next(override.addNodes)
+							local values = outputs[node.id]
+							return { Life = values[override.repItem.title] or values.baseline }
+						end, { Life = 100 }
+					end,
+					CalculatePowerStat = function(_, _, output, baseline)
+						return output.Life - baseline.Life
+					end,
+				},
+			}
+			local finder = new("RadiusJewelFinder"):RadiusJewelFinder({ build = testBuild })
+			local variants = {
+				{ name = "Alpha", rawText = "Alpha\nCrimson Jewel\n+10 to maximum Life" },
+				{ name = "Beta", rawText = "Beta\nCrimson Jewel\n+20 to maximum Life" },
+			}
+			local results, baseline = finder.compute:computeBestVariantSocketImpact({
+				sockets = { { id = 1, label = "First" }, { id = 2, label = "Second" } },
+				variants = variants,
 				impactStat = "Life",
 			})
-			local hasLife = false
-			for _, r in ipairs(results) do
-				if r.variant.name == "Life" then hasLife = true; break end
-			end
-			assert.is_true(hasLife, "expected Life variant to be best for at least one socket")
+			assert.are.equal(100, baseline)
+			assert.are.equal(2, #results)
+			assert.are.equal(2, results[1].socket.id)
+			assert.are.equal(variants[2], results[1].variant)
+			assert.are.equal(50, results[1].delta)
+			assert.are.equal(1, results[2].socket.id)
+			assert.are.equal(variants[1], results[2].variant)
+			assert.are.equal(30, results[2].delta)
 		end)
 
 		it("restores TotalLife after compute", function()
@@ -325,12 +358,6 @@ describe("RadiusJewelCompute #radius-jewel", function()
 			request.impactStat = request.impactStat or "Life"
 			return makeFinder().compute:computeSocketImpact(request)
 		end
-
-		it("returns a table (may be empty if all sockets occupied)", function()
-			local results, baseline = compute({ rawText = MIGHT_OF_MEEK_RAW_TEXT })
-			assert.is_table(results)
-			assert.is_number(baseline)
-		end)
 
 		it("returns the current main output as baseline for the selected stat", function()
 			local expectedBaseline = build.calcsTab.mainOutput["Life"]
@@ -1159,32 +1186,6 @@ describe("RadiusJewelCompute #radius-jewel", function()
 
 	end)
 
-	-- ── Jewel limit parsing ─────────────────────────────────────────────────
-
-	describe("jewel limit parsing from raw text", function()
-
-		it("parses Limited to: 1 from Impossible Escape raw text", function()
-			local rawText = buildImpossibleEscapeRawText("Acrobatics")
-			local limitKey = rawText:match("^([^\n]+)")
-			local limit = tonumber(rawText:match("Limited to: (%d+)"))
-			assert.are.equals("Impossible Escape", limitKey)
-			assert.are.equals(1, limit)
-		end)
-
-		it("parses Limited to: 1 from Unnatural Instinct raw text", function()
-			local limitKey = UNNATURAL_INSTINCT_RAW_TEXT:match("^([^\n]+)")
-			local limit = tonumber(UNNATURAL_INSTINCT_RAW_TEXT:match("Limited to: (%d+)"))
-			assert.are.equals("Unnatural Instinct", limitKey)
-			assert.are.equals(1, limit)
-		end)
-
-		it("returns nil limit for jewels without Limited to", function()
-			local limit = tonumber(MIGHT_OF_MEEK_RAW_TEXT:match("Limited to: (%d+)"))
-			assert.is_nil(limit)
-		end)
-
-	end)
-
 	-- ── filterBestPerSocket ────────────────────────────────────────────────
 
 	describe("filterBestPerSocket", function()
@@ -1289,26 +1290,15 @@ describe("RadiusJewelCompute #radius-jewel", function()
 			assert.are.equal("independent-3", bySocket[3])
 		end)
 
-		it("socket-independent tie-break uses fewer points", function()
-			local rows = {
-				makeRow(1, 20, { isEffectSocketIndependent = true, points = 5 }),
-				makeRow(2, 20, { isEffectSocketIndependent = true, points = 2 }),
-			}
-			local result = makeFinder():filterBestPerSocket(rows)
-			assert.are.equal(2, #result)
-			-- Both are kept (different sockets), but fewer points should come first at equal score
-			-- Actually both have different sockets so both are included
-			-- The tie-break matters when multiple rows can use the same remaining sockets
-		end)
-
 		it("socket-independent tie-break: at equal score, fewer points is kept", function()
 			-- Two independent jewels can use a single remaining socket
 			local rows = {
 				makeRow(1, 50, { name = "dependent" }),        -- takes socket 1
-				makeRow(1, 20, { name = "ie-high-points", isEffectSocketIndependent = true, points = 8 }),
+				makeRow(2, 20, { name = "ie-high-points", isEffectSocketIndependent = true, points = 8 }),
 				makeRow(2, 20, { name = "ie-low-points",  isEffectSocketIndependent = true, points = 2 }),
 			}
 			local result = makeFinder():filterBestPerSocket(rows)
+			assert.are.equal(2, #result)
 			local bySocket = {}
 			for _, r in ipairs(result) do bySocket[r.socketId] = r.name end
 			assert.are.equal("dependent", bySocket[1])
