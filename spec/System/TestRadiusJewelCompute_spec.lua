@@ -23,13 +23,15 @@ end
 
 describe("RadiusJewelCompute #radius-jewel", function()
 
-	before_each(function()
+	local function loadSavedBuild()
 		loadBuildFromXML(occVortex.xml, "OccVortex")
-	end)
+		return build
+	end
 
 	-- ── computeBestVariantSocketImpact (The Light of Meaning) ────────────────
 
 	describe("computeBestVariantSocketImpact (The Light of Meaning)", function()
+		before_each(loadSavedBuild)
 
 		local function getSockets()
 			return makeFinder():buildJewelSockets(getLargeRadiusIndex())
@@ -173,6 +175,7 @@ describe("RadiusJewelCompute #radius-jewel", function()
 	end)
 
 	describe("historic jewel replacements", function()
+		before_each(loadSavedBuild)
 
 		local function newHistoricJewel()
 			return new("Item"):Item("Rarity: UNIQUE\n"
@@ -348,6 +351,7 @@ describe("RadiusJewelCompute #radius-jewel", function()
 	-- ── computeSocketImpact (MoM / UI / AK) ────────────────────────────────
 
 	describe("computeSocketImpact", function()
+		before_each(loadSavedBuild)
 
 		local function getSockets()
 			return makeFinder():buildJewelSockets(getLargeRadiusIndex())
@@ -491,6 +495,7 @@ describe("RadiusJewelCompute #radius-jewel", function()
 	end)
 
 	describe("disconnected passive max total points", function()
+		before_each(loadSavedBuild)
 
 		local function getSockets()
 			return makeFinder():buildJewelSockets(getLargeRadiusIndex())
@@ -547,6 +552,7 @@ describe("RadiusJewelCompute #radius-jewel", function()
 	end)
 
 	describe("computeDisconnectedPassiveFastPlan", function()
+		before_each(loadSavedBuild)
 
 		it("does not treat individual gains as a bound for combined interactions", function()
 			local finder = makeFinder()
@@ -593,6 +599,7 @@ describe("RadiusJewelCompute #radius-jewel", function()
 	end)
 
 	describe("computeSplitPersonalitySocketImpact", function()
+		before_each(loadSavedBuild)
 
 		local function getSockets()
 			return makeFinder():buildJewelSockets(getLargeRadiusIndex())
@@ -776,6 +783,7 @@ describe("RadiusJewelCompute #radius-jewel", function()
 	end)
 
 	describe("computeImpossibleEscapeSocketImpact", function()
+		before_each(loadSavedBuild)
 
 		local function getSockets()
 			return makeFinder():buildJewelSockets(getLargeRadiusIndex())
@@ -1015,6 +1023,7 @@ describe("RadiusJewelCompute #radius-jewel", function()
 	end)
 
 	describe("computeThreadOfHopeSocketImpact", function()
+		before_each(loadSavedBuild)
 
 		local function getSockets()
 			return makeFinder():buildJewelSockets(getLargeRadiusIndex())
@@ -1189,6 +1198,9 @@ describe("RadiusJewelCompute #radius-jewel", function()
 	-- ── filterBestPerSocket ────────────────────────────────────────────────
 
 	describe("filterBestPerSocket", function()
+		local function makeFinder()
+			return new("RadiusJewelFinder"):RadiusJewelFinder({ build = { } })
+		end
 
 		local function makeRow(socketId, score, options)
 			options = options or {}
@@ -1346,6 +1358,43 @@ describe("RadiusJewelCompute #radius-jewel", function()
 	describe("move-aware compute helpers", function()
 
 		local ALLOC_SOCKET_IDS = { 36634, 61419, 41263 }
+		if not common.classes.ItemsTab then
+			LoadModule("Classes/ItemsTab")
+		end
+		local itemNeedsMainTreeComparisonSpec = common.classes.ItemsTab.ItemNeedsMainTreeComparisonSpec
+		local build
+
+		local function makeFinder()
+			return new("RadiusJewelFinder"):RadiusJewelFinder({ build = build })
+		end
+
+		before_each(function()
+			local nodes, slots, jewels, allocated = { }, { }, { }, { }
+			local isolated = { id = 10, type = "Normal", linked = { } }
+			local connected = { id = 11, type = "Normal", linked = { } }
+			local outside = { id = 12, type = "Normal", linked = { } }
+			connected.linked = { outside }
+			outside.linked = { connected }
+			local radius = { [10] = isolated, [11] = connected }
+			local radii = { [getLargeRadiusIndex()] = radius, [getSmallRadiusIndex()] = radius }
+			for _, id in ipairs({ 36634, 61419, 41263, 90001 }) do
+				nodes[id] = { id = id, name = "Socket", isJewelSocket = true, type = "Socket", linked = { }, nodesInRadius = radii }
+				slots[id], jewels[id] = { selItemId = 0 }, 0
+				if id ~= 90001 then allocated[id] = nodes[id] end
+			end
+			nodes[10], nodes[11], nodes[12] = isolated, connected, outside
+			-- Connectivity belongs to spec.nodes, not the shared tree data.
+			local treeNodes = { }
+			for id, node in pairs(nodes) do
+				treeNodes[id] = { id = id, type = node.type, nodesInRadius = node.nodesInRadius }
+			end
+			build = {
+				spec = { nodes = nodes, allocNodes = allocated, jewels = jewels,
+					tree = { nodes = treeNodes, keystoneMap = { Acrobatics = { nodesInRadius = radii } } } },
+				itemsTab = { sockets = slots, items = { },
+					ItemNeedsMainTreeComparisonSpec = itemNeedsMainTreeComparisonSpec },
+			}
+		end)
 
 		local function findUnallocatedSocketId()
 			for socketId, socketData in pairs(build.spec.nodes) do
@@ -1373,65 +1422,6 @@ describe("RadiusJewelCompute #radius-jewel", function()
 
 		local function getTestRadiusIndex()
 			return getLargeRadiusIndex()
-		end
-
-		-- Find a jewel socket whose radius contains at least one unallocated node
-		-- with NO allocated linked nodes outside the radius ("isolated").
-		-- Note: `linked` is on spec.nodes, not spec.tree.nodes.
-		local function findIsolatedRadiusNode(radiusIndex)
-			local treeData = build.spec.tree
-			for socketId, socketData in pairs(build.spec.nodes) do
-				if socketData.isJewelSocket then
-					local socketNode = treeData.nodes[socketId]
-					if socketNode and socketNode.nodesInRadius and socketNode.nodesInRadius[radiusIndex] then
-						local radiusNodes = socketNode.nodesInRadius[radiusIndex]
-						for nodeId, _ in pairs(radiusNodes) do
-							if not build.spec.allocNodes[nodeId] then
-								local specNode = build.spec.nodes[nodeId]
-								local isolated = true
-								if specNode and specNode.linked then
-									for _, other in ipairs(specNode.linked) do
-										if build.spec.allocNodes[other.id] and not radiusNodes[other.id] then
-											isolated = false
-											break
-										end
-									end
-								end
-								if isolated then
-									return socketId, nodeId
-								end
-							end
-						end
-					end
-				end
-			end
-		end
-
-		-- Find an unallocated radius node that has at least one linked node
-		-- OUTSIDE the radius.  Returns socketId, nodeId, outsideLinkedNodeId.
-		-- Note: `linked` is on spec.nodes, not spec.tree.nodes.
-		local function findRadiusNodeWithOutsideLinkedNode(radiusIndex)
-			local treeData = build.spec.tree
-			for socketId, socketData in pairs(build.spec.nodes) do
-				if socketData.isJewelSocket then
-					local socketNode = treeData.nodes[socketId]
-					if socketNode and socketNode.nodesInRadius and socketNode.nodesInRadius[radiusIndex] then
-						local radiusNodes = socketNode.nodesInRadius[radiusIndex]
-						for nodeId, _ in pairs(radiusNodes) do
-							if not build.spec.allocNodes[nodeId] then
-								local specNode = build.spec.nodes[nodeId]
-								if specNode and specNode.linked then
-									for _, other in ipairs(specNode.linked) do
-										if not radiusNodes[other.id] then
-											return socketId, nodeId, other.id
-										end
-									end
-								end
-							end
-						end
-					end
-				end
-			end
 		end
 
 		-- ── findEquippedJewelSockets ────────────────────────────────────
@@ -1580,22 +1570,26 @@ describe("RadiusJewelCompute #radius-jewel", function()
 
 		end)
 
-		it("computeSocketImpact treats jewels stored in unallocated sockets as free sockets", function()
-			local socketId = findUnallocatedSocketId()
-			equipFakeJewel(socketId, "Unnatural Instinct", 1)
-			local finder = makeFinder()
-			local results = finder.compute:computeSocketImpact({
-				sockets = {
-					{ id = socketId, label = "Test socket", pathDist = 7 },
-				},
-				rawText = MIGHT_OF_MEEK_RAW_TEXT,
-				impactStat = "Life",
-				occupiedMode = { id = "free" },
-			})
+		describe("computeSocketImpact with a saved build", function()
+			before_each(function() build = loadSavedBuild() end)
 
-			assert.are.equal(1, #results)
-			assert.is_nil(results[1].replacedItemLabel)
-			assert.are.equal("Unnatural Instinct", results[1].storedUnallocatedItemLabel)
+			it("computeSocketImpact treats jewels stored in unallocated sockets as free sockets", function()
+				local socketId = findUnallocatedSocketId()
+				equipFakeJewel(socketId, "Unnatural Instinct", 1)
+				local finder = makeFinder()
+				local results = finder.compute:computeSocketImpact({
+					sockets = {
+						{ id = socketId, label = "Test socket", pathDist = 7 },
+					},
+					rawText = MIGHT_OF_MEEK_RAW_TEXT,
+					impactStat = "Life",
+					occupiedMode = { id = "free" },
+				})
+
+				assert.are.equal(1, #results)
+				assert.is_nil(results[1].replacedItemLabel)
+				assert.are.equal("Unnatural Instinct", results[1].storedUnallocatedItemLabel)
+			end)
 		end)
 
 		-- ── findDisconnectedPassiveDependentNodes ─────────────────────────────
@@ -1614,36 +1608,14 @@ describe("RadiusJewelCompute #radius-jewel", function()
 			end)
 
 			it("returns empty when no nodes are allocated in radius", function()
-				local treeData = build.spec.tree
-				local smallRI = getTestRadiusIndex()
-				local testSocketId
-				for socketId, _ in pairs(build.itemsTab.sockets) do
-					local node = treeData.nodes[socketId]
-					if node and node.nodesInRadius and node.nodesInRadius[smallRI]
-							and next(node.nodesInRadius[smallRI]) then
-						local hasAllocated = false
-						for nodeId, _ in pairs(node.nodesInRadius[smallRI]) do
-							if build.spec.allocNodes[nodeId] then
-								hasAllocated = true
-								break
-							end
-						end
-						if not hasAllocated then
-							testSocketId = socketId
-							break
-						end
-					end
-				end
-				if not testSocketId then pending("no empty radius socket found") end
-				local item = { jewelRadiusIndex = smallRI }
-				local result = makeFinder():findDisconnectedPassiveDependentNodes(testSocketId, item)
+				local item = { jewelRadiusIndex = getTestRadiusIndex() }
+				local result = makeFinder():findDisconnectedPassiveDependentNodes(ALLOC_SOCKET_IDS[1], item)
 				assert.are.equal(0, #result)
 			end)
 
 			it("returns isolated allocated nodes in radius as dependent", function()
 				local smallRI = getTestRadiusIndex()
-				local testSocketId, testNodeId = findIsolatedRadiusNode(smallRI)
-				if not testSocketId then pending("no isolated radius node found") end
+				local testSocketId, testNodeId = ALLOC_SOCKET_IDS[1], 10
 
 				build.spec.allocNodes[testNodeId] = build.spec.tree.nodes[testNodeId]
 
@@ -1661,8 +1633,7 @@ describe("RadiusJewelCompute #radius-jewel", function()
 			it("excludes nodes connected from outside the radius", function()
 				local treeData = build.spec.tree
 				local ri = getTestRadiusIndex()
-				local testSocketId, testNodeId, outsideLinkedNodeId = findRadiusNodeWithOutsideLinkedNode(ri)
-				if not testSocketId then pending("no radius node with outside linked node found") end
+				local testSocketId, testNodeId, outsideLinkedNodeId = ALLOC_SOCKET_IDS[1], 11, 12
 
 				-- Allocate both the radius node and its outside linked node
 				build.spec.allocNodes[testNodeId] = treeData.nodes[testNodeId]
@@ -1679,15 +1650,13 @@ describe("RadiusJewelCompute #radius-jewel", function()
 			end)
 
 			it("handles IE keystoneMap path", function()
-				local variant = makeImpossibleEscapeTestVariant()
-				if not variant then pending("no IE keystone variant found") end
-
 				local item = {
-					jewelData = { impossibleEscapeKeystones = { [variant.keystoneName] = true } },
+					jewelData = { impossibleEscapeKeystones = { Acrobatics = true } },
 				}
-				-- Should return empty since no extra nodes are allocated in the keystone radius
-				local result = makeFinder():findDisconnectedPassiveDependentNodes(ALLOC_SOCKET_IDS[1], item)
-				assert.is_table(result)
+				local finder = makeFinder()
+				assert.are.same({ }, finder:findDisconnectedPassiveDependentNodes(ALLOC_SOCKET_IDS[1], item))
+				build.spec.allocNodes[10] = build.spec.nodes[10]
+				assert.are.same({ 10 }, finder:findDisconnectedPassiveDependentNodes(ALLOC_SOCKET_IDS[1], item))
 			end)
 
 		end)
@@ -1737,8 +1706,7 @@ describe("RadiusJewelCompute #radius-jewel", function()
 
 			it("remove clears dependent disconnected passive nodes from allocNodes", function()
 				local smallRI = getTestRadiusIndex()
-				local testSocketId, testNodeId = findIsolatedRadiusNode(smallRI)
-				if not testSocketId then pending("no isolated radius node found") end
+				local testSocketId, testNodeId = ALLOC_SOCKET_IDS[1], 10
 
 				-- Allocate the isolated node as a disconnected passive jewel would.
 				build.spec.allocNodes[testSocketId] = build.spec.tree.nodes[testSocketId]
@@ -1764,8 +1732,7 @@ describe("RadiusJewelCompute #radius-jewel", function()
 			it("remove preserves nodes connected from outside the radius", function()
 				local treeData = build.spec.tree
 				local ri = getTestRadiusIndex()
-				local testSocketId, testNodeId, outsideLinkedNodeId = findRadiusNodeWithOutsideLinkedNode(ri)
-				if not testSocketId then pending("no radius node with outside linked node found") end
+				local testSocketId, testNodeId, outsideLinkedNodeId = ALLOC_SOCKET_IDS[1], 11, 12
 
 				build.spec.allocNodes[testSocketId] = treeData.nodes[testSocketId]
 				build.spec.allocNodes[testNodeId] = treeData.nodes[testNodeId]

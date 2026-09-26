@@ -15,17 +15,26 @@ describe("RadiusJewelFinder #radius-jewel", function()
 
 	describe("buildJewelSockets", function()
 
-		it("returns a non-empty list", function()
+		it("lists occupied and empty sockets with allocation labels in alphabetical order", function()
 			local sockets = makeFinder():buildJewelSockets(getLargeRadiusIndex())
 			assert.is_true(#sockets > 0, "expected at least one jewel socket")
-		end)
-
-		it("each entry has id (number) and label (string)", function()
-			local sockets = makeFinder():buildJewelSockets(getLargeRadiusIndex())
-			for _, s in ipairs(sockets) do
-				assert.is_number(s.id)
-				assert.is_string(s.label)
+			local seenIds = { }
+			local allocIds = { [36634] = true, [61419] = true, [41263] = true }
+			for index, socket in ipairs(sockets) do
+				assert.is_number(socket.id)
+				assert.is_string(socket.label)
+				seenIds[socket.id] = true
+				assert.are.equal(not not allocIds[socket.id], socket.label:sub(1, 2) == "# ",
+					"allocation prefix for socket " .. socket.id)
+				if index > 1 then
+					assert.is_true(sockets[index - 1].label <= socket.label,
+						"sockets not sorted at index " .. index)
+				end
 			end
+			assert.is_true(seenIds[36634], "expected occupied socket 36634 to be present")
+			assert.is_true(seenIds[61419], "expected occupied socket 61419 to be present")
+			assert.is_true(seenIds[41263], "expected occupied socket 41263 to be present")
+			assert.is_true(seenIds[33631], "expected empty socket 33631 to be present")
 		end)
 
 		it("uses the standard zone labels for sockets without nearby Keystones", function()
@@ -36,49 +45,6 @@ describe("RadiusJewelFinder #radius-jewel", function()
 			for socketId, expectedLabel in pairs({ [26725] = "Marauder", [54127] = "Duelist", [7960] = "Templar/Witch" }) do
 				assert.matches("^" .. expectedLabel .. " %(" .. socketId .. "%)", socketsById[socketId].label)
 			end
-		end)
-
-		it("marks the 3 allocated sockets with # prefix", function()
-			local sockets = makeFinder():buildJewelSockets(getLargeRadiusIndex())
-			local allocIds = { [36634] = true, [61419] = true, [41263] = true }
-			for _, s in ipairs(sockets) do
-				if allocIds[s.id] then
-					assert.is_true(s.label:sub(1, 2) == "# ",
-						"socket " .. s.id .. " should start with '# ', was: " .. s.label)
-				end
-			end
-		end)
-
-		it("unallocated sockets without # prefix", function()
-			local sockets = makeFinder():buildJewelSockets(getLargeRadiusIndex())
-			local allocIds = { [36634] = true, [61419] = true, [41263] = true }
-			for _, s in ipairs(sockets) do
-				if not allocIds[s.id] then
-					assert.is_false(s.label:sub(1, 2) == "# ",
-						"socket " .. s.id .. " should NOT start with '# '")
-				end
-			end
-		end)
-
-		it("list is sorted alphabetically by label", function()
-			local sockets = makeFinder():buildJewelSockets(getLargeRadiusIndex())
-			for i = 2, #sockets do
-				assert.is_true(sockets[i - 1].label <= sockets[i].label,
-					"sockets not sorted at index " .. i)
-			end
-		end)
-
-		it("includes known occupied and empty sockets from the fixture build", function()
-			local sockets = makeFinder():buildJewelSockets(getLargeRadiusIndex())
-			local seenIds = {}
-			for _, socket in ipairs(sockets) do
-				seenIds[socket.id] = true
-			end
-
-			assert.is_true(seenIds[36634], "expected occupied socket 36634 to be present")
-			assert.is_true(seenIds[61419], "expected occupied socket 61419 to be present")
-			assert.is_true(seenIds[41263], "expected occupied socket 41263 to be present")
-			assert.is_true(seenIds[33631], "expected empty socket 33631 to be present")
 		end)
 
 	end)

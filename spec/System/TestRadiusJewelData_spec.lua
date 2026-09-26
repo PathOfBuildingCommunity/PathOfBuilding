@@ -1,16 +1,30 @@
 -- Data and variant tests for RadiusJewelData.
 
 local support = LoadModule("../spec/System/RadiusJewelFinderTestSupport.lua")
-local occVortex = support.occVortex
 local RadiusJewelData = support.RadiusJewelData
 local makeFinder = support.makeFinder
 local getSmallRadiusIndex = support.getSmallRadiusIndex
 local getRadiusIndexFromRawText = support.getRadiusIndexFromRawText
 
 describe("RadiusJewelData #radius-jewel", function()
+	local previousJewelRadius, previousMaxJewelRadius
+	setup(function()
+		previousJewelRadius, previousMaxJewelRadius = data.jewelRadius, data.maxJewelRadius
+		-- The real Item parser and the Massive-radius compute case need an
+		-- initialized build, but none of these cases needs a saved character.
+		newBuild()
+	end)
+
+	teardown(function()
+		data.jewelRadius, data.maxJewelRadius = previousJewelRadius, previousMaxJewelRadius
+	end)
 
 	before_each(function()
-		loadBuildFromXML(occVortex.xml, "OccVortex")
+		data.setJewelRadiiGlobally("3_13")
+	end)
+
+	after_each(function()
+		data.jewelRadius, data.maxJewelRadius = previousJewelRadius, previousMaxJewelRadius
 	end)
 
 	-- ── buildVariantsFromUniqueItem ──────────────────────────────────────────
@@ -360,8 +374,6 @@ describe("RadiusJewelData #radius-jewel", function()
 		end)
 
 		it("marks Foulborn Intuitive Leap as Massive Radius keystone-only in preview and compute", function()
-			local previousJewelRadius = data.jewelRadius
-			local previousMaxJewelRadius = data.maxJewelRadius
 			data.setJewelRadiiGlobally("3_29")
 			local variants = RadiusJewelData.buildFoulbornVariants("Intuitive Leap")
 			assert.are.equal(1, #variants)
@@ -424,8 +436,6 @@ describe("RadiusJewelData #radius-jewel", function()
 			}
 			local candidates = finder.compute:collectDisconnectedPassiveCandidates(syntheticSocket, capturedOptions)
 			assert.are.same({ massiveKeystone }, candidates)
-			data.jewelRadius = previousJewelRadius
-			data.maxJewelRadius = previousMaxJewelRadius
 		end)
 
 		it("compares Intuitive Leap normal and Foulborn variants while retaining the winner", function()
