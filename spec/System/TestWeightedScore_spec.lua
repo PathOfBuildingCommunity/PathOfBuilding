@@ -120,13 +120,13 @@ describe("WeightedScore module", function()
 	end)
 end)
 
-describe("WeightedScore — TradeQueryGenerator delegation", function()
+describe("WeightedScore — TradeQueryGenerator scoring", function()
 	local mock_queryGen = new("TradeQueryGenerator"):TradeQueryGenerator({
 		itemsTab = {},
 		GetTradeStatusOption = function() return "online" end,
 	})
 
-	it("WeightedRatioOutputs delegates ratio calculation", function()
+	it("WeightedRatioOutputs preserves every configured weight", function()
 		local savedMax = data.misc.maxStatIncrease
 		data.misc.maxStatIncrease = 2
 
@@ -229,8 +229,12 @@ describe("WeightedScore — tree integration", function()
 		local baseValue = data.powerStatList.GetValue(baseOutput, weightedScore, build, baseOutput)
 		local betterValue = data.powerStatList.GetValue(betterOutput, weightedScore, build, baseOutput)
 		local delta = build.calcsTab:CalculatePowerStat(weightedScore, betterOutput, baseOutput)
+		local calcFunc = build.calcsTab:GetMiscCalculator(build)
+		local currentOutput = calcFunc()
+		local currentValue = data.powerStatList.GetValue(currentOutput, weightedScore, build)
 		assert.is_true(math.abs(baseValue - 1500) < 0.0001)
 		assert.is_true(math.abs(betterValue - 1700) < 0.0001)
+		assert.is_true(math.abs(currentValue - 1500) < 0.0001)
 		assert.is_true(betterValue > baseValue)
 		assert.is_true(math.abs(delta - 200) < 0.0001)
 		assert.is_true(math.abs(delta / baseValue - 2 / 15) < 0.0001)
@@ -260,15 +264,6 @@ describe("WeightedScore — tree integration", function()
 
 		assert.are.equal(0, getMiscCalculatorCalls)
 		assert.is_true(score > 0)
-	end)
-
-	it("getValue on WeightedScore entry returns non-zero score for current build output", function()
-		local stat = findStat("WeightedScore")
-		assert.is_not_nil(stat)
-		local calcFunc = build.calcsTab:GetMiscCalculator(build)
-		local baseOutput = calcFunc()
-		local score = stat.getValue(baseOutput, build)
-		assert.is_true(score ~= 0)
 	end)
 
 	local function buildWithWeightEditor(openEditor)
