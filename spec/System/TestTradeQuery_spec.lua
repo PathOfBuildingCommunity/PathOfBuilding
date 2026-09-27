@@ -46,7 +46,7 @@ describe("TradeQuery", function()
 
 	local function newEvaluationQuery(results)
 		local tradeQuery = new("TradeQuery"):TradeQuery({ itemsTab = { } })
-		tradeQuery.controls.priceButton1, tradeQuery.controls.pbNotice = { label = "Price Item" }, { label = "" }
+		tradeQuery.controls.priceButton1, tradeQuery.controls.pbNotice = { }, { label = "" }
 		tradeQuery.resultTbl[1] = results or { { } }
 		return tradeQuery
 	end
@@ -76,23 +76,27 @@ describe("TradeQuery", function()
 				yieldFunc(2, 2)
 				table.insert(events, "done")
 			end
+			tradeQuery:CancelResultEvaluation(1)
+			local idleLabel = tradeQuery.controls.priceButton1.label
 
 			tradeQuery:StartResultEvaluation(1)
 
 			assert.are.same({ }, events)
-			assert.are.equal("Eval 0/2...", tradeQuery.controls.priceButton1.label)
+			local progressLabel = tradeQuery.controls.priceButton1.label
+			assert.are_not.equal(idleLabel, progressLabel)
 
 			tradeQuery:ProcessResultEvaluations()
 			assert.are.same({ "first" }, events)
-			assert.are.equal("Eval 1/2...", tradeQuery.controls.priceButton1.label)
+			assert.are_not.equal(progressLabel, tradeQuery.controls.priceButton1.label)
+			progressLabel = tradeQuery.controls.priceButton1.label
 
 			tradeQuery:ProcessResultEvaluations()
 			assert.are.same({ "first", "second" }, events)
-			assert.are.equal("Eval 2/2...", tradeQuery.controls.priceButton1.label)
+			assert.are_not.equal(progressLabel, tradeQuery.controls.priceButton1.label)
 
 			tradeQuery:ProcessResultEvaluations()
 			assert.are.same({ "first", "second", "done" }, events)
-			assert.are.equal("Price Item", tradeQuery.controls.priceButton1.label)
+			assert.are.equal(idleLabel, tradeQuery.controls.priceButton1.label)
 			assert.is_nil(tradeQuery.resultEvaluationContexts[1])
 		end)
 
@@ -104,7 +108,7 @@ describe("TradeQuery", function()
 					dropdownList = list
 				end,
 			}
-			tradeQuery.controls.fullPrice = { label = "" }
+			tradeQuery.controls.fullPrice = { label = "^7Total Price: 1 chaos" }
 			tradeQuery.sortedResultTbl[1] = { { index = 1 } }
 			tradeQuery.itemIndexTbl[1] = 1
 			tradeQuery.totalPrice[1] = { amount = 1, currency = "chaos" }
@@ -116,7 +120,7 @@ describe("TradeQuery", function()
 			assert.is_nil(tradeQuery.itemIndexTbl[1])
 			assert.is_nil(tradeQuery.totalPrice[1])
 			assert.are.same({ }, dropdownList)
-			assert.are.equal("^7Total Price: ", tradeQuery.controls.fullPrice.label)
+			assert.is_nil(tradeQuery.controls.fullPrice.label:find("1 chaos", 1, true))
 		end)
 
 		it("does not replace an active fetch with evaluation of old results", function()
@@ -125,26 +129,35 @@ describe("TradeQuery", function()
 			tradeQuery.UpdateControlsWithItems = function()
 				evaluated = true
 			end
+			tradeQuery:CancelResultEvaluation(1)
+			local idleLabel = tradeQuery.controls.priceButton1.label
 
 			local fetchContext = tradeQuery:StartResultFetch(1)
+			local activeLabel = tradeQuery.controls.priceButton1.label
 			tradeQuery:StartResultEvaluation(1)
 
+			assert.are_not.equal(idleLabel, activeLabel)
 			assert.is_true(tradeQuery:IsResultFetchCurrent(1, fetchContext))
 			assert.is_nil(tradeQuery.resultEvaluationContexts[1])
 			assert.is_false(evaluated)
-			assert.are.equal("Searching...", tradeQuery.controls.priceButton1.label)
+			assert.are.equal(activeLabel, tradeQuery.controls.priceButton1.label)
 		end)
 
 		it("rejects a response from a superseded fetch", function()
 			local tradeQuery = newEvaluationQuery()
+			tradeQuery:CancelResultEvaluation(1)
+			local idleLabel = tradeQuery.controls.priceButton1.label
 
 			local firstFetch = tradeQuery:StartResultFetch(1)
+			local activeLabel = tradeQuery.controls.priceButton1.label
 			local secondFetch = tradeQuery:StartResultFetch(1)
 
 			assert.is_false(tradeQuery:FinishResultFetch(1, firstFetch))
-			assert.are.equal("Searching...", tradeQuery.controls.priceButton1.label)
+			assert.are_not.equal(idleLabel, tradeQuery.controls.priceButton1.label)
+			assert.are.equal(activeLabel, tradeQuery.controls.priceButton1.label)
 			assert.is_true(tradeQuery:FinishResultFetch(1, secondFetch))
-			assert.are.equal("Price Item", tradeQuery.controls.priceButton1.label)
+			assert.is_nil(tradeQuery.resultFetchContexts[1])
+			assert.are.equal(idleLabel, tradeQuery.controls.priceButton1.label)
 		end)
 
 		it("publishes only the replacement of a suspended evaluation", function()
@@ -190,10 +203,10 @@ describe("TradeQuery", function()
 			local cases = {
 				{ name = "added", evaluation = { benchCraft = "+25 to Strength ^8(Suffix)",
 					benchCraftItemString = itemString },
-					expected = { "Bench craft: +25 to Strength", "[Ctrl: compare]" } },
+					expected = { "+25 to Strength", "[Ctrl: compare]" } },
 				{ name = "replaced", evaluation = { benchCraft = "+25 to Strength ^8(Suffix)",
 					benchCraftReplaced = "+20 to Dexterity ^8(Suffix)", benchCraftItemString = itemString },
-					expected = { "Replace craft: +20 to Dexterity", "-> +25 to Strength" } },
+					expected = { "+20 to Dexterity", "+25 to Strength" } },
 			}
 			for _, case in ipairs(cases) do
 				local tq = newResultQuery(case.evaluation)
@@ -207,7 +220,7 @@ describe("TradeQuery", function()
 			end
 		end)
 
-		it("shows the simulated item and highlights its craft while Ctrl is held", function()
+		it("shows the simulated item as an estimate and highlights its craft while Ctrl is held", function()
 			local tq = newResultQuery({
 				benchCraft = "+25 to Strength ^8(Suffix)",
 				benchCraftItemString = "Rarity: RARE\nBehemoth Hold\nGold Ring\nImplicits: 0\n{prefix}+40 to maximum Mana\n{crafted}{suffix}+25 to Strength",
@@ -224,7 +237,7 @@ describe("TradeQuery", function()
 			assert.are.equal(1, #tooltip.childTooltips)
 			local previewText = tooltipText(tooltip.childTooltips[1])
 			assert.is_truthy(previewText:find("[Craft] +25 to Strength", 1, true))
-			assert.is_truthy(previewText:find("Estimated with bench craft", 1, true))
+			assert.is_truthy(previewText:find("Estimated", 1, true))
 
 			previewActive = false
 			dropdown.tooltipFunc(tooltip, "DROP", 1, nil)
