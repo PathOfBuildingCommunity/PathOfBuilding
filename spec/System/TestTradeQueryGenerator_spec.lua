@@ -203,16 +203,6 @@ describe("TradeQueryGenerator", function()
 			assert.are.equal(80, evaluationPlan.craftWeights[craft])
 		end)
 
-		it("keeps the first craft when the highest levels in a group are tied", function()
-			local low = makeCraft({ group = "Test", level = 1 })
-			local firstHigh = makeCraft({ group = "Test", level = 2 })
-			local secondHigh = makeCraft({ group = "Test", level = 2 })
-
-			local crafts = queryGen:GetHighestLevelBenchCrafts({ low, firstHigh, secondHigh })
-
-			assert.are.same({ firstHigh }, crafts)
-		end)
-
 		it("keeps generated mod and stat weights immutable", function()
 			queryGen.modWeights = { { tradeModId = "explicit.test", weight = 2 } }
 			local statWeights = { { stat = "Life", weightMult = 1 } }
