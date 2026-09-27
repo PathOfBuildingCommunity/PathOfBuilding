@@ -61,6 +61,40 @@ local function getCatalystScalar(catalystId, mod, quality)
 	return 1
 end
 
+local function modMatchesMagnitude(mod, modType, magnitudeMod)
+	if magnitudeMod.modType and magnitudeMod.modType ~= modType then
+		return false
+	end
+	local tagLookup = { }
+	for _, tag in ipairs(mod.modTags or { }) do
+		tagLookup[tag] = true
+	end
+	-- These are not actual mod tags, but do appear in modifier magnitude mods.
+	for _, lineFlag in ipairs({ "unveiled", "prefix", "suffix" }) do
+		if mod[lineFlag] then
+			tagLookup[lineFlag] = true
+		end
+	end
+	for _, tag in ipairs(magnitudeMod.tags or { }) do
+		if not tagLookup[tag] then
+			return false
+		end
+	end
+	if magnitudeMod.anyTags then
+		local anyTagMatches = false
+		for _, tag in ipairs(magnitudeMod.anyTags) do
+			if tagLookup[tag] then
+				anyTagMatches = true
+				break
+			end
+		end
+		if not anyTagMatches then
+			return false
+		end
+	end
+	return true
+end
+
 local function normaliseModLine(line)
 	return line:gsub("%d+%.?%d*", "#")
 		:gsub("%(%-?#%-#%)", "#"):lower()
@@ -96,6 +130,39 @@ function ItemClass:Item(raw, rarity, highQuality)
 		self:ParseRaw(sanitiseText(raw), rarity, highQuality)
 	end
 	return self
+end
+
+-- Accepts parsed lines and proposed mods; modType selects applicable modifier-magnitude effects.
+function ItemClass:GetModLineValueScalar(mod, modType)
+	local valueScalar = getCatalystScalar(self.catalyst, mod, self.catalystQuality)
+	if mod.unscalable then
+		return valueScalar
+	end
+	-- Modifiers that grant skills are not affected by modifier magnitude.
+	local grantsSkill = false
+	for _, parsedMod in ipairs(mod.modList or { }) do
+		if parsedMod.name == "ExtraSkill" then
+			grantsSkill = true
+			break
+		end
+	end
+	if mod.extra and not grantsSkill and mod.line then
+		local line = mod.line:lower()
+		grantsSkill = line:match("^grants level %d+ ") or line:match("^grants %D+$")
+	end
+	if grantsSkill then
+		return valueScalar
+	end
+	for _, magnitudeMod in ipairs(self.modMagnitudeMods or { }) do
+		if modMatchesMagnitude(mod, modType, magnitudeMod) then
+			if magnitudeMod.multiplier then
+				valueScalar = valueScalar * magnitudeMod.multiplier
+			else
+				valueScalar = valueScalar + magnitudeMod.quality / 100
+			end
+		end
+	end
+	return valueScalar
 end
 
 -- Reset all influence keys to false
@@ -1401,59 +1468,16 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 	if self.advancedCopy or self.crafted then
 		-- apply mod magnitude boost to matching mods
 		if #self.modMagnitudeMods > 0 then
-			for _, modMagnitudeMod in ipairs(self.modMagnitudeMods) do
-				local modLists
-				if modMagnitudeMod.modType then
-					modLists = { self[modMagnitudeMod.modType .. "ModLines"] }
-				else
-					modLists = { self.implicitModLines, self.explicitModLines, self.enchantModLines }
-				end
-				for _, mods in ipairs(modLists) do
-					for _, mod in ipairs(mods or {}) do
-						-- avoid scaling variant lines which are not active
-						if mod.variantList and (self:GetModLineVariantCount(mod) == 0) then
-							goto modMagnitudeContinue
-						end
-						-- Modifiers that grant skills are not affected by modifier magnitude.
-						local grantsSkill = false
-						for _, parsedMod in ipairs(mod.modList) do
-							if parsedMod.name == "ExtraSkill" then
-								grantsSkill = true
-								break
-							end
-						end
-						if mod.extra and not grantsSkill then
-							local line = mod.line:lower()
-							grantsSkill = line:match("^grants level %d+ ") or line:match("^grants %D+$")
-						end
-						-- Create a fast lookup table for all provided tags
-						local tagLookup = {}
-						for _, curTag in ipairs(mod.modTags) do
-							tagLookup[curTag] = true;
-						end
-						-- these aren't actual mod tags but do appear in mod magnitude mods
-						for _, lineFlag in ipairs({ "unveiled", "prefix", "suffix" }) do
-							if mod[lineFlag] then
-								tagLookup[lineFlag] = true
-							end
-						end
-						local match = true
-						for _, magnitudeTag in ipairs(modMagnitudeMod.tags) do
-							if not tagLookup[magnitudeTag] then
-								match = false
-							end
-						end
-						if modMagnitudeMod.anyTags and not (tagLookup[modMagnitudeMod.anyTags[1]] or tagLookup[modMagnitudeMod.anyTags[2]]) then
-							match = false
-						end
-						if match and not mod.unscalable and not grantsSkill then
-							if modMagnitudeMod.multiplier then
-								mod.valueScalar = (mod.valueScalar or 1) * modMagnitudeMod.multiplier
-							else
-								mod.valueScalar = (mod.valueScalar or 1) + (modMagnitudeMod.quality / 100)
-							end
-						end
-						if mod.valueScalar and mod.valueScalar ~= 1 then
+			for _, entry in ipairs({
+				{ modType = "implicit", mods = self.implicitModLines },
+				{ modType = "explicit", mods = self.explicitModLines },
+				{ modType = "enchant", mods = self.enchantModLines },
+			}) do
+				for _, mod in ipairs(entry.mods or { }) do
+					-- Avoid scaling variant lines which are not active.
+					if not mod.variantList or self:GetModLineVariantCount(mod) > 0 then
+						mod.valueScalar = self:GetModLineValueScalar(mod, entry.modType)
+						if mod.valueScalar ~= 1 then
 							local rangedLine = itemLib.applyRange(mod.line, mod.range or 1, mod.valueScalar, 1)
 							local modList, extra = modLib.parseMod(rangedLine)
 							if modList then
@@ -1462,7 +1486,6 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 								mod.extra = extra
 							end
 						end
-						::modMagnitudeContinue::
 					end
 				end
 			end
