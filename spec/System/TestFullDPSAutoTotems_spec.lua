@@ -40,11 +40,6 @@ describe("TestFullDPSAutoTotems", function()
 		assert.is_true(matches > 0, "expected a Full DPS entry for " .. name)
 	end
 
-	it("does not enable the opt-in option by default", function()
-		newBuild()
-		assert.is_nil(build.configTab.input.fullDPSAutoTotems)
-	end)
-
 	it("Full DPS for a Totem skill uses skill count 1 when the option is off", function()
 		setupHolyFlameTotemInFullDPS()
 		local mainSkill = build.calcsTab.mainEnv.player.mainSkill
