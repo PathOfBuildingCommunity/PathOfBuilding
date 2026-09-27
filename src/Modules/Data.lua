@@ -6,6 +6,7 @@
 local dkjson = require("dkjson")
 LoadModule("Data/Global")
 
+local WeightedScore = LoadModule("Modules/WeightedScore")
 local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
@@ -124,12 +125,14 @@ end
 ---@field ignoreForItems? boolean
 ---@field reverseSort? boolean
 ---@field itemField string?
+---@field requiresFullDPS? boolean|fun(build?: table): boolean
+---@field getValue? fun(output: any, build?: table, calcBase?: table): number
 
 ---@type PowerStat[]
 data.powerStatList = {
 	{ stat=nil, label="Offence/Defence", combinedOffDef=true, ignoreForItems=true },
 	{ stat=nil, label="Name", itemField="Name", ignoreForNodes=true, reverseSort=true, transform=function(value) return value:gsub("^The ","") end},
-	{ stat="FullDPS", label="Full DPS" },
+	{ stat="FullDPS", label="Full DPS", requiresFullDPS=true },
 	{ stat="CombinedDPS", label="Combined DPS" },
 	{ stat="TotalDPS", label="Hit DPS" },
 	{ stat="WithImpaleDPS", label="Impale + Hit DPS" },
@@ -211,6 +214,28 @@ function data.powerStatList.GetFromOutput(output, statTable, skipTransform)
 	return getEntry()
 end
 
+---@param output any Calc output
+---@param statTable PowerStat Table with stats as in data.powerStatList
+---@param build? table Build that owns the candidate calculation
+---@param calcBase? table Output of the baseline calculation
+---@return number
+function data.powerStatList.GetValue(output, statTable, build, calcBase)
+	if statTable.getValue then
+		return statTable.getValue(output, build, calcBase)
+	end
+	return data.powerStatList.GetFromOutput(output, statTable)
+end
+
+---@param statTable PowerStat Table with stats as in data.powerStatList
+---@param build? table Build that owns the candidate calculation
+---@return boolean
+function data.powerStatList.RequiresFullDPS(statTable, build)
+	if type(statTable.requiresFullDPS) == "function" then
+		return statTable.requiresFullDPS(build)
+	end
+	return statTable.requiresFullDPS == true
+end
+
 -- these stats don't exist on minions or generally don't exist on both player and minion
 local minionNonApplicableStats = {
 	AverageDamage = true,
@@ -224,7 +249,7 @@ local minionNonApplicableStats = {
 }
 for i = 1, #data.powerStatList do
 	local statEntry = data.powerStatList[i]
-	if (not statEntry.stat) or statEntry.stat:match("DPS") or minionNonApplicableStats[statEntry.stat] then
+	if (not statEntry.stat) or statEntry.stat == "WeightedScore" or statEntry.stat:match("DPS") or minionNonApplicableStats[statEntry.stat] then
 		goto statContinue
 	end
 	local minionStat = copyTable(statEntry)
@@ -233,6 +258,24 @@ for i = 1, #data.powerStatList do
 	t_insert(data.powerStatList, minionStat)
 	::statContinue::
 end
+t_insert(data.powerStatList, {
+	stat="WeightedScore",
+	label="Weighted Score",
+	requiresFullDPS=function(build)
+		return WeightedScore.weightsRequireFullDPS(WeightedScore.getWeights(build))
+	end,
+	getValue=function(output, build, calcBase)
+		local weights = WeightedScore.getWeights(build)
+		local baselineOutput = calcBase
+		if not baselineOutput then
+			local _, cachedBaselineOutput = build.calcsTab:GetMiscCalculator()
+			baselineOutput = cachedBaselineOutput
+		end
+		-- Trader multiplies ratio scores by 1000 to create weight points. Reuse it so
+		-- Calcs/Compare deltas and every ranking or normalization preserve one scale.
+		return WeightedScore.computeRatioScore(baselineOutput, output, weights) * 1000
+	end,
+})
 data.misc = { -- magic numbers
 	ServerTickTime = 0.033,
 	ServerTickRate = 1 / 0.033,

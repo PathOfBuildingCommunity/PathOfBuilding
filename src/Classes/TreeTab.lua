@@ -15,6 +15,7 @@ local m_min = math.min
 local m_floor = math.floor
 local m_abs = math.abs
 local s_format = string.format
+local WeightedScore = LoadModule("Modules/WeightedScore")
 local s_gsub = string.gsub
 local s_byte = string.byte
 local dkjson = require "dkjson"
@@ -254,7 +255,14 @@ function TreeTabClass:TreeTab(build)
 
 	-- Control for selecting the power stat to sort by (Defense, DPS, etc)
 	self.controls.treeHeatMapStatSelect = new("DropDownControl"):DropDownControl({ "LEFT", self.controls.nodePowerMaxDepthSelect, "RIGHT" }, { 8, 0, 150, 20 }, nil, function(index, value)
-		self:SetPowerCalc(value)
+		if value.action then
+			value.action()
+			if self.build.calcsTab.powerStat then
+				self.controls.treeHeatMapStatSelect:SelByValue(self.build.calcsTab.powerStat.stat, "stat")
+			end
+		else
+			self:SetPowerCalc(value)
+		end
 	end)
 	self.controls.treeHeatMap.tooltipText = function()
 		local offCol, defCol = main.nodePowerTheme:match("(%a+)/(%a+)")
@@ -267,6 +275,9 @@ function TreeTabClass:TreeTab(build)
 			t_insert(self.powerStatList, stat)
 		end
 	end
+	WeightedScore.appendEditWeightsAction(self.powerStatList, function()
+		WeightedScore.editWeights(self.build, function() self:SetPowerCalc(self.build.calcsTab.powerStat) end)
+	end)
 
 	-- Show/Hide Power Report Button
 	self.controls.powerReport = new("ButtonControl"):ButtonControl({ "LEFT", self.controls.treeHeatMapStatSelect, "RIGHT" }, { 8, 0, 150, 20 },
@@ -1951,16 +1962,23 @@ function TreeTabClass:FindTimelessJewel()
 
 	local function generateFallbackWeights(nodes, powerStat)
 		local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator(self.build)
+		local useFullDPS = data.powerStatList.RequiresFullDPS(powerStat, self.build)
+		if useFullDPS then
+			calcBase = calcFunc(nil, true)
+		end
 		local newList = { }
-		local basePower = data.powerStatList.GetFromOutput(calcBase, powerStat)
+		local function getStatValue(output)
+			return data.powerStatList.GetValue(output, powerStat, self.build, calcBase)
+		end
+		local basePower = getStatValue(calcBase)
 		for _, newNode in ipairs(nodes) do
 			local powerEntry = { id = newNode.id }
 			-- nodes that have multiple lines are represented as a list in newNode.node
 			local nodeLines = newNode.node or { newNode }
 			for i = 1, #nodeLines do
 				local node = nodeLines[i]
-				local nodeOutput = calcFunc({ addNodes = { [node] = true } })
-				local nodePower = data.powerStatList.GetFromOutput(nodeOutput, powerStat)
+				local nodeOutput = calcFunc({ addNodes = { [node] = true } }, useFullDPS)
+				local nodePower = getStatValue(nodeOutput)
 				-- avoid infinity
 				if basePower == 0 then
 					powerEntry["weight" .. i] = 0
@@ -2120,18 +2138,31 @@ function TreeTabClass:FindTimelessJewel()
 	local fallbackWeightsList = { }
 	for _, stat in ipairs(data.powerStatList) do
 		if not stat.ignoreForItems and stat.label ~= "Name" then
-			t_insert(fallbackWeightsList, {
-				label = "Sort by " .. stat.label,
-				stat = stat.stat,
-				transform = stat.transform,
-			})
+			local fallbackWeight = copyTable(stat)
+			fallbackWeight.label = "Sort by " .. stat.label
+			t_insert(fallbackWeightsList, fallbackWeight)
 		end
 	end
-	controls.fallbackWeightsList = new("DropDownControl"):DropDownControl({"TOPLEFT", controls.nodeSelect, "BOTTOMLEFT"}, {0, rowSpacing, 200, rowHeight}, fallbackWeightsList, function(index)
-		timelessData.fallbackWeightMode.idx = index
+	local selectedFallbackStatIndex = timelessData.fallbackWeightMode.idx or 1
+	if not fallbackWeightsList[selectedFallbackStatIndex] then
+		selectedFallbackStatIndex = 1
+	end
+	local selectedFallbackStat = fallbackWeightsList[selectedFallbackStatIndex]
+	WeightedScore.appendEditWeightsAction(fallbackWeightsList, function()
+		controls.fallbackWeightsList:SelByValue(selectedFallbackStat.stat, "stat")
+		WeightedScore.editWeights(self.build)
+	end)
+	controls.fallbackWeightsList = new("DropDownControl"):DropDownControl({"TOPLEFT", controls.nodeSelect, "BOTTOMLEFT"}, {0, rowSpacing, 200, rowHeight}, fallbackWeightsList, function(index, value)
+		if value.action then
+			value.action()
+		else
+			selectedFallbackStatIndex = index
+			selectedFallbackStat = value
+			timelessData.fallbackWeightMode.idx = index
+		end
 	end)
 	controls.fallbackWeightsLabel = new("LabelControl"):LabelControl({"RIGHT", controls.fallbackWeightsList, "LEFT"}, {-labelSpacing, 0, 0, labelHeight}, "^7Fallback Weight Mode:")
-	controls.fallbackWeightsList.selIndex = timelessData.fallbackWeightMode.idx or 1
+	controls.fallbackWeightsList.selIndex = selectedFallbackStatIndex
 	controls.fallbackWeightsButton = new("ButtonControl"):ButtonControl({"LEFT", controls.fallbackWeightsList, "RIGHT"}, {5, 0, 66, 18}, "Generate", function()
 		setupFallbackWeights()
 		controls.searchListFallbackButton.label = "^4Fallback Nodes"
