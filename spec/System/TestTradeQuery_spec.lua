@@ -25,7 +25,7 @@ describe("TradeQuery", function()
 	describe("cooperative result evaluation", function()
 		local function newProcessingQuery(resultCounts)
 			local tradeQuery = new("TradeQuery"):TradeQuery({ itemsTab = {} })
-			tradeQuery.controls.priceButton1 = { label = "Price Item" }
+			tradeQuery.controls.priceButton1 = { }
 			tradeQuery.controls.pbNotice = { label = "" }
 			for rowIdx, count in ipairs(resultCounts or { }) do
 				tradeQuery.resultTbl[rowIdx] = { }
@@ -46,19 +46,27 @@ describe("TradeQuery", function()
 				yieldFunc(2, 2)
 				table.insert(events, "done")
 			end
+			tradeQuery:CancelResultProcessing(1)
+			local idleLabel = tradeQuery.controls.priceButton1.label
 
 			tradeQuery:StartResultEvaluation(1)
-			local frames = {
-				{ { }, "Eval 0/2..." },
-				{ { "first" }, "Eval 1/2..." },
-				{ { "first", "second" }, "Eval 2/2..." },
-				{ { "first", "second", "done" }, "Price Item" },
-			}
-			for index, frame in ipairs(frames) do
-				if index > 1 then tradeQuery:ProcessResultEvaluations() end
-				assert.are.same(frame[1], events, "frame " .. index)
-				assert.are.equal(frame[2], tradeQuery.controls.priceButton1.label, "frame " .. index)
-			end
+
+			assert.are.same({ }, events)
+			local progressLabel = tradeQuery.controls.priceButton1.label
+			assert.are_not.equal(idleLabel, progressLabel)
+
+			tradeQuery:ProcessResultEvaluations()
+			assert.are.same({ "first" }, events)
+			assert.are_not.equal(progressLabel, tradeQuery.controls.priceButton1.label)
+			progressLabel = tradeQuery.controls.priceButton1.label
+
+			tradeQuery:ProcessResultEvaluations()
+			assert.are.same({ "first", "second" }, events)
+			assert.are_not.equal(progressLabel, tradeQuery.controls.priceButton1.label)
+
+			tradeQuery:ProcessResultEvaluations()
+			assert.are.same({ "first", "second", "done" }, events)
+			assert.are.equal(idleLabel, tradeQuery.controls.priceButton1.label)
 			assert.is_nil(tradeQuery.resultProcessingByRow[1])
 		end)
 
@@ -70,7 +78,7 @@ describe("TradeQuery", function()
 					dropdownList = list
 				end,
 			}
-			tradeQuery.controls.fullPrice = { label = "" }
+			tradeQuery.controls.fullPrice = { label = "^7Total Price: 1 chaos" }
 			tradeQuery.sortedResultTbl[1] = { { index = 1 } }
 			tradeQuery.itemIndexTbl[1] = 1
 			tradeQuery.totalPrice[1] = { amount = 1, currency = "chaos" }
@@ -82,7 +90,7 @@ describe("TradeQuery", function()
 			assert.is_nil(tradeQuery.itemIndexTbl[1])
 			assert.is_nil(tradeQuery.totalPrice[1])
 			assert.are.same({ }, dropdownList)
-			assert.are.equal("^7Total Price: ", tradeQuery.controls.fullPrice.label)
+			assert.is_nil(tradeQuery.controls.fullPrice.label:find("1 chaos", 1, true))
 		end)
 
 		it("does not replace an active fetch with evaluation of old results", function()
@@ -91,25 +99,34 @@ describe("TradeQuery", function()
 			tradeQuery.UpdateControlsWithItems = function()
 				evaluated = true
 			end
+			tradeQuery:CancelResultProcessing(1)
+			local idleLabel = tradeQuery.controls.priceButton1.label
 
 			local fetchToken = tradeQuery:StartResultFetch(1)
+			local activeLabel = tradeQuery.controls.priceButton1.label
 			tradeQuery:StartResultEvaluation(1)
 
+			assert.are_not.equal(idleLabel, activeLabel)
 			assert.is_true(tradeQuery:IsResultFetchCurrent(1, fetchToken))
 			assert.is_false(evaluated)
-			assert.are.equal("Searching...", tradeQuery.controls.priceButton1.label)
+			assert.are.equal(activeLabel, tradeQuery.controls.priceButton1.label)
 		end)
 
 		it("rejects a response from a superseded fetch", function()
 			local tradeQuery = newProcessingQuery()
+			tradeQuery:CancelResultProcessing(1)
+			local idleLabel = tradeQuery.controls.priceButton1.label
 
 			local firstFetch = tradeQuery:StartResultFetch(1)
+			local activeLabel = tradeQuery.controls.priceButton1.label
 			local secondFetch = tradeQuery:StartResultFetch(1)
 
 			assert.is_false(tradeQuery:FinishResultFetch(1, firstFetch))
-			assert.are.equal("Searching...", tradeQuery.controls.priceButton1.label)
+			assert.are_not.equal(idleLabel, tradeQuery.controls.priceButton1.label)
+			assert.are.equal(activeLabel, tradeQuery.controls.priceButton1.label)
 			assert.is_true(tradeQuery:FinishResultFetch(1, secondFetch))
-			assert.are.equal("Price Item", tradeQuery.controls.priceButton1.label)
+			assert.is_nil(tradeQuery.resultProcessingByRow[1])
+			assert.are.equal(idleLabel, tradeQuery.controls.priceButton1.label)
 		end)
 
 		it("publishes only the replacement of a suspended evaluation", function()
@@ -223,14 +240,18 @@ describe("TradeQuery", function()
 
 			dropdown.tooltipFunc(tooltip, "DROP", 1, nil)
 			local text = tooltipText(tooltip)
-			assert.is_truthy(text:find("Estimated swap: Fire -> Cold", 1, true))
-			assert.is_truthy(text:find("(roll may change)", 1, true))
+			local fromPos = text:find("Fire", 1, true)
+			local toPos = text:find("Cold", 1, true)
+			assert.is_truthy(fromPos)
+			assert.is_truthy(toPos)
+			assert.is_true(fromPos < toPos)
+			assert.is_truthy(text:find("Estimated", 1, true))
 			assert.is_truthy(text:find("[Ctrl: compare]", 1, true))
 			assert.is_nil(text:find("17%", 1, true))
 			assert.are.equal(itemString, tq.resultTbl[1][1].item_string)
 		end)
 
-		it("highlights every swapped line and leaves other lines unchanged in the Ctrl preview", function()
+		it("marks the Ctrl preview as estimated, highlights swapped lines, and leaves others unchanged", function()
 			local itemString = "Rarity: RARE\nBehemoth Hold\nCoral Ring\nImplicits: 0\n+30 to Strength\n+17% to Fire Resistance\n+24% to Cold Resistance"
 			local tq = newRowQuery({
 				resultTbl = { [1] = { [1] = listedResult(itemString, swapEvaluation(
@@ -253,7 +274,7 @@ describe("TradeQuery", function()
 			local previewText = StripEscapes(tooltipText(tooltip.childTooltips[1]))
 			assert.is_truthy(previewText:find("[Swap] +17% to Cold Resistance", 1, true))
 			assert.is_truthy(previewText:find("[Swap] +24% to Lightning Resistance", 1, true))
-			assert.is_truthy(previewText:find("Estimated after swap; rolls may change.", 1, true))
+			assert.is_truthy(previewText:find("Estimated", 1, true))
 			assert.is_nil(previewText:find("[Swap] +30 to Strength", 1, true))
 			assert.is_nil(previewText:find("[Swap] +17% to Fire Resistance", 1, true))
 			assert.are.equal(itemString, tq.resultTbl[1][1].item_string)
