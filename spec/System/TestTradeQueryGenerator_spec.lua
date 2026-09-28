@@ -363,7 +363,8 @@ describe("TradeQueryGenerator", function()
 				assert.are.equal(1, #query.query.stats[1].filters, case.label)
 				assert.are.equal("explicit.life", query.query.stats[1].filters[1].id, case.label)
 				assert.are.equal(0, query.query.stats[1].value.min, case.label)
-				assert.is_false(queryOptions.weightAdjustedSearch, case.label)
+				-- Clipped searches still need threshold refinement to return the global weight top.
+				assert.is_true(queryOptions.weightAdjustedSearch, case.label)
 			end
 		end)
 

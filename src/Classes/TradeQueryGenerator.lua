@@ -960,6 +960,8 @@ function TradeQueryGeneratorClass:FinishQuery()
 	local megalomaniacSpecialMinWeight = self.calcContext.special.itemName == "Megalomaniac" and self.modWeights[#self.modWeights] * 3
 	-- This Stat diff value will generally be higher than the weighted sum of the same item, because the stats are all applied at once and can thus multiply off each other.
 	-- So apply a modifier to get a reasonable min and hopefully approximate that the query will start out with small upgrades.
+	-- With resistance caps, currentStatDiff still counts the resistances that caps turn into minimums, so the
+	-- search starts at 0 and relies on weight-adjusted refinement to narrow clipped result sets.
 	local minWeight = self.calcContext.options.includeResistCaps and 0 or megalomaniacSpecialMinWeight or currentStatDiff * 0.5
 
 	-- what the trade site API uses for instant buyout etc.
@@ -1206,7 +1208,7 @@ function TradeQueryGeneratorClass:FinishQuery()
 	self.requesterCallback(self.requesterContext, queryJson, errMsg, {
 		includeResistSwaps = options.includeResistSwaps == true,
 		includeResistCaps = options.includeResistCaps == true,
-		weightAdjustedSearch = hasWeightedFilters and not options.includeResistCaps,
+		weightAdjustedSearch = hasWeightedFilters,
 	})
 
 	-- Close blocker popup

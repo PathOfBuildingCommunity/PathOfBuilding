@@ -131,11 +131,14 @@ function TradeQueryRequestsClass:SearchWithQueryWeightAdjusted(realm, league, qu
 		if params.callbackQueryId and response and response.id then
 			params.callbackQueryId(response.id)
 		end
-		if errMsg and ((errMsg == "No Matching Results Found" and currentRecursion >= maxRecursion) or errMsg ~= "No Matching Results Found") then
+		-- Halving a zero threshold would only repeat the same search
+		local canLowerWeight = dkjson.decode(query).query.stats[1].value.min > 0
+		if errMsg and ((errMsg == "No Matching Results Found" and (currentRecursion >= maxRecursion or not canLowerWeight)) or errMsg ~= "No Matching Results Found") then
 			return callback(nil, errMsg)
 		end
-		if (response.total > self.maxFetchPerSearch and response.total < 10000) or currentRecursion >= maxRecursion then
-			-- Search not clipped or max recursion reached, fetch results and finalize
+		if (response.total > self.maxFetchPerSearch and response.total < 10000) or currentRecursion >= maxRecursion
+			or (response.total < self.maxFetchPerSearch and not canLowerWeight) then
+			-- Search not clipped, max recursion reached, or threshold already zero, fetch results and finalize
 			if previousSearchItems and self.maxFetchPerSearch > response.total then
 				-- Not enough items in the last search, fill results from previous search
 				self:FetchResults(response.result, response.id, function(items, errMsg)

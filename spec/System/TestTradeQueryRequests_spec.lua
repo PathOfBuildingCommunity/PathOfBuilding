@@ -191,6 +191,53 @@ Strict-Transport-Security: max-age=63115200; includeSubDomains; preload]]
 			requests.PerformSearch = orig_perform
 			requests.FetchResultBlock = orig_fetchBlock
 		end)
+
+		-- Pass: A zero threshold cannot be lowered, so a short result list is fetched after one search
+		-- Fail: Repeats the identical search up to the recursion limit, wasting rate-limited requests
+		it("does not repeat a search whose weight threshold is already zero", function()
+			local cases = {
+				{ label = "fewer results than the window", response = { total = 3, result = { "a", "b", "c" }, id = "id" }, expectedIds = { "a", "b", "c" } },
+				{ label = "no matching results", response = { total = 0, result = { }, id = "id" }, errMsg = "No Matching Results Found" },
+			}
+			local orig_perform = requests.PerformSearch
+			local orig_fetchBlock = requests.FetchResultBlock
+			local orig_maxFetch = requests.maxFetchPerSearch
+			finally(function()
+				requests.PerformSearch = orig_perform
+				requests.FetchResultBlock = orig_fetchBlock
+				requests.maxFetchPerSearch = orig_maxFetch
+			end)
+			requests.maxFetchPerSearch = 20
+			requests.FetchResultBlock = function(self, url, callback)
+				local items = { }
+				for hash in (url:match("fetch/([^?]+)") or ""):gmatch("[^,]+") do
+					table.insert(items, { id = hash, weight = "1" })
+				end
+				callback(items)
+			end
+			for _, case in ipairs(cases) do
+				local searchCount = 0
+				local receivedItems, receivedError
+				requests.PerformSearch = function(self, realm, league, query, callback)
+					searchCount = searchCount + 1
+					callback(case.response, case.errMsg)
+				end
+				requests:SearchWithQueryWeightAdjusted("pc", "league", [[{"query":{"stats":[{"type":"weight","value":{"min":0}}]}}]], function(items, errMsg)
+					receivedItems, receivedError = items, errMsg
+				end, {})
+				assert.are.equal(1, searchCount, case.label)
+				if case.expectedIds then
+					local ids = { }
+					for _, item in ipairs(receivedItems) do
+						table.insert(ids, item.id)
+					end
+					assert.are.same(case.expectedIds, ids, case.label)
+				else
+					assert.is_nil(receivedItems, case.label)
+					assert.are.equal(case.errMsg, receivedError, case.label)
+				end
+			end
+		end)
 	end)
 
 	describe("FetchResultBlock", function()
