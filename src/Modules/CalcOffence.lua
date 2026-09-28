@@ -1905,6 +1905,18 @@ function calcs.offence(env, actor, activeSkill)
 		skillModList:NewMod("PhysicalMax", "BASE", m_floor(output.ManaCost * multiplier), "Sacrificial Zeal", ModFlag.Spell)
 	end
 
+	if skillData.sacrificeLifePercent then
+		local life
+		if skillFlags.totem then
+			life = output.TotemLife
+		else
+			life = output.LifeUnreserved
+		end
+		local add = m_floor(life * skillData.sacrificeLifePercent / 100 * (skillData.sacrificeLifeAsChaos / 100))
+		skillModList:NewMod("ChaosMin", "BASE", add, "Sacrifice Support")
+		skillModList:NewMod("ChaosMax", "BASE", add, "Sacrifice Support")
+	end
+
 	runSkillFunc("preDamageFunc")
 
 	if activeSkill.skillTypes[SkillType.Brand] then
