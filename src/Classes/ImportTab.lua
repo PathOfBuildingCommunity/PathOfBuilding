@@ -19,6 +19,7 @@ local checkBoxSpacing = 13
 local NARROW_VIEWPORT_WIDTH = 756
 local OAUTH_SECTION_HEIGHT = 210
 local NARROW_OAUTH_SECTION_HEIGHT = 244
+local OAUTH_ERROR_ROW_HEIGHT = 24
 local NARROW_SITE_SECTION_HEIGHT = 260
 local OAUTH_ACTION_BUTTON_WIDTH = 220
 local OAUTH_REALM_WIDTH = 60
@@ -108,7 +109,8 @@ local function addOAuthControls(self)
 	self.controls.characterImportAnchor = new("Control"):Control({ "TOPLEFT", self.controls.sectionOauthCharImport, "TOPLEFT" },
 		{ labelSpacing, 38, 200, 20 })
 	self.controls.sectionOauthCharImport.height = function()
-		return self.isAuthorized() and (self.narrowLayout and NARROW_OAUTH_SECTION_HEIGHT or OAUTH_SECTION_HEIGHT) or 68
+		local height = self.isAuthorized() and (self.narrowLayout and NARROW_OAUTH_SECTION_HEIGHT or OAUTH_SECTION_HEIGHT) or 68
+		return height + (self.oauthErrCode and OAUTH_ERROR_ROW_HEIGHT or 0)
 	end
 
 	-- realm select
@@ -207,11 +209,14 @@ local function addOAuthControls(self)
 		return self.usingOauth and self.isAuthorized()
 	end
 
-	self.controls.oauthErrorLabel = new("LabelControl"):LabelControl({ "TOPRIGHT", self.controls.sectionOauthCharImport, "TOPRIGHT" },
-		{ -8, 40, 0, 16 })
+	self.controls.oauthErrorLabel = new("LabelControl"):LabelControl({ "BOTTOMLEFT", self.controls.sectionOauthCharImport, "BOTTOMLEFT" },
+		{ 8, -8, 0, 16 })
 	self.controls.oauthErrorLabel.label = function()
 		local text = self.oauthErrCode and string.format("%sError: %s", colorCodes.NEGATIVE, self.oauthErrCode) or ""
 		return text
+	end
+	self.controls.oauthErrorLabel.shown = function()
+		return self.oauthErrCode ~= nil
 	end
 
 	self.controls.accountRealm = new("DropDownControl"):DropDownControl({ "TOPLEFT", self.controls.logoutApiButton, "BOTTOMLEFT" },
@@ -441,14 +446,14 @@ local function addAccountNameControls(self)
 		tooltip:AddLine(16, "^7Removes account from the dropdown list")
 	end
 
-	self.controls.siteAccountNameMissingDiscriminator = new("LabelControl"):LabelControl({ "TOPLEFT", self.controls.siteAccountName, "BOTTOMLEFT" }, { 0, 8, 0, 16 }, "^1Missing discriminator e.g. #1234")
-	self.controls.siteAccountNameMissingDiscriminator.shown = function()
-		return not self.controls.siteAccountName.buf:match("[#%-]%d%d%d%d$") and self.controls.siteAccountName.buf ~= ""
-	end
-
 	self.controls.siteAccountNameUnicode = new("LabelControl"):LabelControl({ "TOPLEFT", self.controls.siteAccountRealm, "BOTTOMLEFT" },
 		{ 0, 4, 0, 14 },
 		colorCodes.DISABLED .. "Note: Account names containing non-ASCII characters must be pasted, not typed manually.")
+	self.controls.siteAccountNameMissingDiscriminator = new("LabelControl"):LabelControl({ "TOPLEFT", self.controls.siteAccountNameUnicode, "BOTTOMLEFT" },
+		{ 0, 4, 0, 16 }, "^1Missing discriminator e.g. #1234")
+	self.controls.siteAccountNameMissingDiscriminator.shown = function()
+		return not self.controls.siteAccountName.buf:match("[#%-]%d%d%d%d$") and self.controls.siteAccountName.buf ~= ""
+	end
 
 	-- Stage: select character and import data
 	self.controls.siteCharSelectHeader = new("LabelControl"):LabelControl({ "TOPLEFT", self.controls.siteCharImportStatusLabel, "BOTTOMLEFT" },
@@ -828,7 +833,6 @@ function ImportTabClass:ApplyLayout(viewPort)
 		self.controls.charImportItemsIgnoreWeaponSwap:SetAnchor("LEFT", self.controls.charImportAll, "RIGHT", checkBoxLabelWidth("Ignore weapon swap:") + checkBoxSpacing, 0)
 
 		self.controls.siteAccountHistory:SetAnchor("TOPLEFT", self.controls.siteAccountName, "BOTTOMLEFT", 0, 6)
-		self.controls.siteAccountNameMissingDiscriminator:SetAnchor("TOPLEFT", self.controls.siteAccountHistory, "BOTTOMLEFT", 0, 8)
 		self.controls.siteAccountNameUnicode:SetAnchor("TOPLEFT", self.controls.siteAccountRealm, "BOTTOMLEFT", 0, 30)
 
 		self.controls.siteCharSelect:SetAnchor("TOPLEFT", self.controls.siteCharSelectLeague, "BOTTOMLEFT", 0, 4)
@@ -853,7 +857,6 @@ function ImportTabClass:ApplyLayout(viewPort)
 		self.controls.charImportItemsIgnoreWeaponSwap:SetAnchor("LEFT", self.controls.charImportItems, "RIGHT", self.wideCharImportItemsIgnoreWeaponSwapX, 0)
 
 		self.controls.siteAccountHistory:SetAnchor("LEFT", self.controls.siteAccountNameGo, "RIGHT", 8, 0)
-		self.controls.siteAccountNameMissingDiscriminator:SetAnchor("TOPLEFT", self.controls.siteAccountName, "BOTTOMLEFT", 0, 8)
 		self.controls.siteAccountNameUnicode:SetAnchor("TOPLEFT", self.controls.siteAccountRealm, "BOTTOMLEFT", 0, 4)
 
 		self.controls.siteCharSelect:SetAnchor("LEFT", self.controls.siteCharSelectLeague, "RIGHT", 8, 0)
