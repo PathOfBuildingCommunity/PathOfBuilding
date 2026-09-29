@@ -620,4 +620,23 @@ function M.newPlainNumericEdit(anchor, rect, init, prompt, limit, integer, chang
 	end
 	return ctrl
 end
+
+
+---@param str string String which will be encoded
+---@return string? result The given string, gzipped and then Base64URL encoded
+function M.B64GzipEncode(str)
+	local b64 = require("base64")
+	local deflated = Deflate(str, true)
+	if not deflated then return end
+	return b64.encode(deflated):gsub("%+", "-"):gsub("/", "_")
+end
+
+---@param str string String which will be decoded
+---@return string? result The given string, Base64URL decoded and the ungzipped
+function M.B64GzipDecode(str)
+	local b64 = require("base64")
+	local data = b64.decode(str:gsub("%-", "+"):gsub("_", "/"))
+	if not data then return end
+	return Inflate(data)
+end
 return M

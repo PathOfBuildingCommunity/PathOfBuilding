@@ -1052,7 +1052,8 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 	local nameColor = slotTbl.unique and colorCodes.UNIQUE or "^7"
 	controls["name" .. row_idx] = new("LabelControl"):LabelControl(top_pane_alignment_ref, { 0, row_idx * (row_height + row_vertical_padding), 135, row_height - 4 }, nameColor .. slotTbl.slotName)
 	controls["bestButton" .. row_idx] = new("ButtonControl"):ButtonControl({ "LEFT", controls["name" .. row_idx], "LEFT" }, { 135 + 8, 0, 80, row_height }, "Find best", function()
-		self.tradeQueryGenerator:RequestQuery(activeSlot, { slotTbl = slotTbl, controls = controls, row_idx = row_idx }, self.statSortSelectionList, function(context, query, errMsg)
+		---@param query table A table of filters
+		local function requestQueryHandler(context, query, errMsg)
 			if errMsg then
 				self:SetNotice(context.controls.pbNotice, colorCodes.NEGATIVE .. errMsg)
 				return
@@ -1109,7 +1110,8 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 					end
 				}
 			)
-		end)
+		end
+		self.tradeQueryGenerator:RequestQuery(activeSlot, { slotTbl = slotTbl, controls = controls, row_idx = row_idx }, self.statSortSelectionList, requestQueryHandler)
 	end)
 	controls["bestButton"..row_idx].shown = function() return not self.resultTbl[row_idx] end
 	controls["bestButton"..row_idx].enabled = function() return self.pbLeague end
@@ -1300,7 +1302,9 @@ you can add them, copy the link here, and press "Price Item" to evaluate the ite
 				-- use trade sum to get the specific item. both min and max
 				-- weight on site uses floats but only shows integer in the api
 				-- e.g. weight of 172.3 shows up as 172 in the api
-				exactQuery.query.stats[1].value = { min = floor(itemResult.weight, 1) - 1, max = round(itemResult.weight, 1) + 1 }
+				if exactQuery.query.stats[1].type == "weight" then
+					exactQuery.query.stats[1].value = { min = floor(itemResult.weight, 1) - 1, max = round(itemResult.weight, 1) + 1 }
+				end
 				-- also apply trader name. this should make false positives
 				-- extremely unlikely. this doesn't seem to take up a filter slot
 				exactQuery.query.filters = exactQuery.query.filters or { }

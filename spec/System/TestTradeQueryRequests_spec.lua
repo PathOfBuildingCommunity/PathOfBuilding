@@ -283,6 +283,158 @@ Strict-Transport-Security: max-age=63115200; includeSubDomains; preload]]
 		end)
 	end)
 
+	describe("SearchWithURL", function()
+		local dkjson = require "dkjson"
+		local tradeHelpers = require "Classes.TradeHelpers"
+		local originalDecode, urlRequests, decodedQuery
+		local url = "https://www.pathofexile.com/trade2/search/poe2/Standard/encoded"
+
+		before_each(function()
+			urlRequests = new("TradeQueryRequests"):TradeQueryRequests(mock_limiter)
+			originalDecode = tradeHelpers.B64GzipDecode
+			-- Compression is provided by SimpleGraphic, which the headless wrapper stubs.
+			tradeHelpers.B64GzipDecode = function() return decodedQuery end
+		end)
+
+		after_each(function()
+			tradeHelpers.B64GzipDecode = originalDecode
+		end)
+
+		it("fetches ordinary searches by price and returns their query", function()
+			decodedQuery = [[{"stats":[{"type":"and","filters":[{"id":"explicit.stat_3299347043","value":{"min":1}}]}]}]]
+			local expectedQuery = dkjson.decode(decodedQuery)
+			local fetchedItems = { { id = "item1" } }
+			urlRequests.FetchResults = function(_, ids, queryId, callback)
+				assert.same({ "item1" }, ids)
+				assert.are.equal("searchId", queryId)
+				callback(fetchedItems)
+			end
+			local calls = 0
+			urlRequests:SearchWithURL(url, function(items, err, query)
+				calls = calls + 1
+				assert.is_nil(err)
+				assert.same(fetchedItems, items)
+				assert.same({ query = expectedQuery, sort = { price = "asc" } }, dkjson.decode(query))
+			end)
+			local search = table.remove(urlRequests.requestQueue.search, 1)
+			assert.are.equal("https://www.pathofexile.com/api/trade2/search/poe2/Standard", search.url)
+			search.callback([[{"total":1,"result":["item1"],"id":"searchId"}]])
+			assert.are.equal(1, calls)
+			assert.are.equal(0, #urlRequests.requestQueue.search)
+		end)
+
+		it("relays ordinary search errors to the caller", function()
+			decodedQuery = [[{"stats":[{"type":"and","filters":[]}]}]]
+			local calls = 0
+			urlRequests:SearchWithURL(url, function(items, err, query)
+				calls = calls + 1
+				assert.is_nil(items)
+				assert.are.equal("Response code: 403", err)
+				assert.is_table(dkjson.decode(query).query)
+			end)
+			table.remove(urlRequests.requestQueue.search, 1).callback(nil, "Response code: 403")
+			assert.are.equal(1, calls)
+		end)
+
+		it("moves a later weighted group first while retaining the other filters", function()
+			decodedQuery = [[{"stats":[{"type":"count","value":{"min":1},"filters":[]},{"type":"weight","value":{"min":10},"filters":[]}]}]]
+			urlRequests:SearchWithURL(url, function() end)
+			local query = dkjson.decode(urlRequests.requestQueue.search[1].body)
+			assert.same({ ["statgroup.0"] = "desc" }, query.sort)
+			assert.are.equal("weight", query.query.stats[1].type)
+			assert.are.equal(10, query.query.stats[1].value.min)
+			assert.are.equal("count", query.query.stats[2].type)
+			assert.are.equal(1, query.query.stats[2].value.min)
+		end)
+
+		for _, case in ipairs({
+			{ name = "an explicit minimum with only five matches", bounds = { min = 2000 }, weight = 2100, total = 5 },
+			{ name = "negative weights with a maximum-only bound", bounds = { max = -50 }, weight = -60, total = 10000 },
+			{ name = "negative weights without bounds", weight = -60, total = 10000 },
+			{ name = "both bounds with exactly the fetch limit", bounds = { min = 100, max = 200 }, weight = 150, total = 10 },
+		}) do
+			it("fetches pasted searches once, preserving " .. case.name, function()
+				local filters = { { id = "explicit.stat_3299347043", value = { weight = case.weight < 0 and -1 or 1 } } }
+				local suppliedQuery = { stats = { { type = "weight", filters = filters, value = case.bounds } } }
+				decodedQuery = dkjson.encode(suppliedQuery)
+				local fetchedItems = { { id = "item1", weight = tostring(case.weight) } }
+				local fetchCalls, callbackCalls = 0, 0
+				urlRequests.FetchResults = function(_, ids, queryId, callback)
+					fetchCalls = fetchCalls + 1
+					assert.same({ "item1" }, ids)
+					assert.are.equal("searchId", queryId)
+					callback(fetchedItems)
+				end
+				urlRequests:SearchWithURL(url, function(items, err, query)
+					callbackCalls = callbackCalls + 1
+					assert.is_nil(err)
+					assert.same(fetchedItems, items)
+					assert.same({ query = suppliedQuery, sort = { ["statgroup.0"] = "desc" } }, dkjson.decode(query))
+				end)
+				assert.are.equal(1, #urlRequests.requestQueue.search)
+				local search = table.remove(urlRequests.requestQueue.search, 1)
+				assert.same(suppliedQuery, dkjson.decode(search.body).query)
+				search.callback(dkjson.encode({ total = case.total, result = { "item1" }, id = "searchId" }))
+				assert.are.equal(1, fetchCalls)
+				assert.are.equal(1, callbackCalls)
+				assert.are.equal(0, #urlRequests.requestQueue.search)
+			end)
+		end
+
+		it("reports no matches without relaxing a pasted minimum", function()
+			decodedQuery = [[{"stats":[{"type":"weight","value":{"min":2000},"filters":[]}]}]]
+			local calls = 0
+			urlRequests:SearchWithURL(url, function(items, err, query)
+				calls = calls + 1
+				assert.is_nil(items)
+				assert.are.equal("No Matching Results Found", err)
+				assert.are.equal(2000, dkjson.decode(query).query.stats[1].value.min)
+			end)
+			table.remove(urlRequests.requestQueue.search, 1).callback([[{"total":0,"result":[],"id":"emptySearch"}]])
+			assert.are.equal(1, calls)
+			assert.are.equal(0, #urlRequests.requestQueue.search)
+		end)
+
+		for _, malformed in ipairs({
+			[[{"stats":[]}]],
+			[[{"stats":[{"type":"and"},false]}]],
+			[[{"stats":[{}]}]],
+			[[42]],
+			[[not JSON]],
+		}) do
+			it("rejects malformed query " .. malformed .. " through the callback", function()
+				decodedQuery = malformed
+				local calls = 0
+				urlRequests:SearchWithURL(url, function(items, err)
+					calls = calls + 1
+					assert.is_nil(items)
+					assert.are.equal("URL is malformed", err)
+				end)
+				assert.are.equal(1, calls)
+				assert.are.equal(0, #urlRequests.requestQueue.search)
+			end)
+		end
+
+		it("rejects failed decompression through the callback", function()
+			decodedQuery = nil
+			local calls = 0
+			urlRequests:SearchWithURL(url, function(_, err)
+				calls = calls + 1
+				assert.are.equal("URL is malformed", err)
+			end)
+			assert.are.equal(1, calls)
+		end)
+
+		it("rejects an unrelated URL through the callback", function()
+			local calls = 0
+			urlRequests:SearchWithURL("https://example.com/", function(_, err)
+				calls = calls + 1
+				assert.are.equal("Invalid URL", err)
+			end)
+			assert.are.equal(1, calls)
+		end)
+	end)
+
 	describe("FetchResults", function()
 		-- Pass: Fetches exactly 10 from 11, in 1 block
 		-- Fail: Fetches wrong count/blocks, indicating batch limit violation, triggering rate limits

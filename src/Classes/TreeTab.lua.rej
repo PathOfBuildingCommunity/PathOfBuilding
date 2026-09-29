@@ -1,0 +1,52 @@
+diff a/src/Classes/TreeTab.lua b/src/Classes/TreeTab.lua	(rejected hunks)
+@@ -18,6 +18,7 @@ local m_abs = math.abs
+ local s_format = string.format
+ local s_gsub = string.gsub
+ local s_byte = string.byte
++local tradeHelpers = require("Classes.TradeHelpers")
+ local dkjson = require "dkjson"
+ 
+ -- Helper function to find toast index by content pattern
+@@ -2012,22 +2013,17 @@ function TreeTabClass:FindTimelessJewel()
+ 		end
+ 
+ 		local search = {
+-			query = {
+-				status = {
+-					option = "available"
+-				},
+-				stats = {
+-					{
+-						filters = seedTrades,
+-						type = "count",
+-						value = {
+-							min = 1
+-						}
++			status = {
++				option = "available"
++			},
++			stats = {
++				{
++					filters = seedTrades,
++					type = "count",
++					value = {
++						min = 1
+ 					}
+ 				}
+-			},
+-			sort = {
+-				price = "asc"
+ 			}
+ 		}
+ 
+@@ -2050,9 +2046,7 @@ function TreeTabClass:FindTimelessJewel()
+ 		-- if the league was not selected via dropdown, then default to the first league in the dropdown or "" if the leagues could not be read
+ 		self.timelessJewelLeagueSelect = self.timelessJewelLeagueSelect or (self.tradeLeaguesList and #self.tradeLeaguesList > 0 and self.tradeLeaguesList[1]) or ""
+ 
+-		Copy("https://www.pathofexile.com/trade/search/"..(self.timelessJewelLeagueSelect).."/?q=" .. (s_gsub(dkjson.encode(search), "[^a-zA-Z0-9]", function(a)
+-			return s_format("%%%02X", s_byte(a))
+-		end)))
++		Copy("https://www.pathofexile.com/trade/search/" .. (self.timelessJewelLeagueSelect) .. "/" .. tradeHelpers.B64GzipEncode(dkjson.encode(search)))
+ 
+ 		controls.searchTradeButton.label = "Copy Next Trade URL"
+ 	end)

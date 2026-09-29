@@ -1,0 +1,13 @@
+diff a/src/Classes/TradeQuery.lua b/src/Classes/TradeQuery.lua	(rejected hunks)
+@@ -1391,9 +1393,9 @@ you can add them, copy the link here, and press "Price Item" to evaluate the ite
+ 				exactQuery.query.filters.trade_filters.filters = exactQuery.query.filters.trade_filters.filters or { }
+ 				exactQuery.query.filters.trade_filters.filters.account = { input = itemResult.trader }
+ 
+-			local exactQueryStr = dkjson.encode(exactQuery.query)
++				local exactQueryStr = dkjson.encode(exactQuery.query)
+ 
+-			local encodedUrl = s_format("https://www.pathofexile.com/trade2/search/%s/%s", self.pbLeague, tradeHelpers.B64GzipEncode(exactQueryStr))
++				local encodedUrl = s_format("https://www.pathofexile.com/trade2/search/%s/%s", self.pbLeague, tradeHelpers.B64GzipEncode(exactQueryStr))
+ 
+ 				Copy(encodedUrl)
+ 				OpenURL(encodedUrl)

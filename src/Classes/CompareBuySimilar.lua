@@ -60,16 +60,13 @@ local function buildURL(item, slotName, controls, modEntries, defenceEntries, is
 
 	-- Build query
 	local queryTable = {
-		query = {
-			status = { option = listedApiValue },
-			stats = {
-				{
-					type = "and",
-					filters = {}
-				}
-			},
+		status = { option = listedApiValue },
+		stats = {
+			{
+				type = "and",
+				filters = {}
+			}
 		},
-		sort = { price = "asc" }
 	}
 	local queryFilters = {}
 
@@ -101,7 +98,7 @@ local function buildURL(item, slotName, controls, modEntries, defenceEntries, is
 
 		-- Base type filter
 		if controls.baseTypeCheck and controls.baseTypeCheck.state then
-			queryTable.query.type = item.baseName
+			queryTable.type = item.baseName
 		end
 
 		-- Item level filter
@@ -173,21 +170,21 @@ local function buildURL(item, slotName, controls, modEntries, defenceEntries, is
 		if controls[prefix .. "Check"] and controls[prefix .. "Check"].state then
 			if #entry.tradeIds == 1 then
 				-- 1 id entries are added to the stat filters section
-				t_insert(queryTable.query.stats[1].filters, getFilter(entry.tradeIds[1]))
+				t_insert(queryTable.stats[1].filters, getFilter(entry.tradeIds[1]))
 			elseif #entry.tradeIds > 1 then
 				-- ambiguous entries are added as a separate count filter
 				local countFilter = { type = "count", value = { min = 1 }, filters = {} }
 				for _, tradeId in ipairs(entry.tradeIds) do
 					t_insert(countFilter.filters, getFilter(tradeId))
 				end
-				t_insert(queryTable.query.stats, countFilter)
+				t_insert(queryTable.stats, countFilter)
 			end
 		end
 	end
 
 	-- Only include filters if we have any
 	if next(queryFilters) then
-		queryTable.query.filters = queryFilters
+		queryTable.filters = queryFilters
 	end
 
 	-- Build URL
@@ -199,8 +196,8 @@ local function buildURL(item, slotName, controls, modEntries, defenceEntries, is
 	local encodedLeague = league:gsub("[^%w%-%.%_%~]", function(c)
 		return string.format("%%%02X", string.byte(c))
 	end):gsub(" ", "+")
-	url = url .. "/" .. encodedLeague
-	url = url .. "?q=" .. urlEncode(queryJson)
+	url ..= "/" .. encodedLeague
+	url ..= "/" .. tradeHelpers.B64GzipEncode(queryJson)
 
 	return url
 end
