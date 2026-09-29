@@ -368,6 +368,70 @@ describe("TradeQueryGenerator", function()
 			end
 		end)
 
+		it("swaps only the largest elemental shortfall from an already capped element", function()
+			local function sourceFilters(minimum, hashes)
+				local filters = { }
+				for _, hash in ipairs(hashes) do
+					table.insert(filters, { id = "explicit.stat_" .. hash, value = { min = minimum } })
+					table.insert(filters, { id = "crafted.stat_" .. hash, value = { min = minimum } })
+				end
+				return filters
+			end
+			local fireHash, coldHash = "3372524247", "4220027924"
+			local cases = {
+				{ label = "one shortfall", shortfalls = { Lightning = 28, Chaos = 15 },
+					minimums = { ["pseudo.pseudo_total_chaos_resistance"] = 15 },
+					swapped = { id = "pseudo.pseudo_total_lightning_resistance", min = 28 }, sources = { fireHash, coldHash } },
+				{ label = "two shortfalls", shortfalls = { Cold = 7, Lightning = 39, Chaos = 51 },
+					minimums = { ["pseudo.pseudo_total_cold_resistance"] = 7, ["pseudo.pseudo_total_chaos_resistance"] = 51 },
+					swapped = { id = "pseudo.pseudo_total_lightning_resistance", min = 39 }, sources = { fireHash } },
+				{ label = "tied shortfalls", shortfalls = { Cold = 19, Lightning = 19 },
+					minimums = { ["pseudo.pseudo_total_lightning_resistance"] = 19 },
+					swapped = { id = "pseudo.pseudo_total_cold_resistance", min = 19 }, sources = { fireHash } },
+			}
+			for _, case in ipairs(cases) do
+				local query, _, queryOptions = finishQuery({
+					includeResistCaps = true,
+					includeResistSwaps = true,
+					resistanceCapShortfallByType = case.shortfalls,
+				}, { weight("explicit.life", 6) })
+				local countGroups = { }
+				for _, group in ipairs(query.query.stats) do
+					if group.type == "count" then
+						table.insert(countGroups, group)
+					end
+				end
+				local expectedFilters = { { id = case.swapped.id, value = { min = case.swapped.min } } }
+				for _, filter in ipairs(sourceFilters(case.swapped.min, case.sources)) do
+					table.insert(expectedFilters, filter)
+				end
+
+				assert.are.same(case.minimums, minimumsById(query), case.label)
+				assert.are.equal(1, #countGroups, case.label)
+				assert.are.same({ min = 1 }, countGroups[1].value, case.label)
+				assert.are.same(expectedFilters, countGroups[1].filters, case.label)
+				assert.are.equal("explicit.life", query.query.stats[1].filters[1].id, case.label)
+				assert.is_true(queryOptions.weightAdjustedSearch, case.label)
+			end
+		end)
+
+		it("keeps the swapped-shortfall group when caps remove every weighted filter", function()
+			local query, _, queryOptions, queryError = finishQuery({
+				includeResistCaps = true,
+				includeResistSwaps = true,
+				resistanceCapShortfallByType = { Fire = 25 },
+			}, {
+				annotatedWeight("explicit.fire_resistance", "+#% to Fire Resistance", 10, 10),
+			})
+
+			assert.are.equal(1, #query.query.stats)
+			assert.are.equal("count", query.query.stats[1].type)
+			assert.are.equal("pseudo.pseudo_total_fire_resistance", query.query.stats[1].filters[1].id)
+			assert.are.same({ price = "asc" }, query.sort)
+			assert.is_false(queryOptions.weightAdjustedSearch)
+			assert.is_nil(queryError)
+		end)
+
 		it("builds an AND-only price-sorted query when caps remove every weighted filter", function()
 			local query, _, queryOptions = finishQuery({
 				includeResistCaps = true,

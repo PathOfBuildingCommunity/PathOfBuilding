@@ -1076,6 +1076,7 @@ function TradeQueryGeneratorClass:FinishQuery()
 		queryTable.query[k] = v
 	end
 	local options = self.calcContext.options
+	local swapCoverage
 	if options.includeResistCaps then
 		local shortfallByType = self.calcContext.resistanceCapShortfallByType or {}
 		local function addResistanceMinimum(id, minimum)
@@ -1085,8 +1086,43 @@ function TradeQueryGeneratorClass:FinishQuery()
 			end
 		end
 		if options.includeResistSwaps then
-			local elementalMinimum = (shortfallByType.Fire or 0) + (shortfallByType.Cold or 0) + (shortfallByType.Lightning or 0)
-			addResistanceMinimum("pseudo.pseudo_total_elemental_resistance", elementalMinimum)
+			local deficient, capped = { }, { }
+			for _, element in ipairs({ "Fire", "Cold", "Lightning" }) do
+				t_insert((shortfallByType[element] or 0) > 0 and deficient or capped, element)
+			end
+			if #deficient == 0 or #capped == 0 then
+				local elementalMinimum = (shortfallByType.Fire or 0) + (shortfallByType.Cold or 0) + (shortfallByType.Lightning or 0)
+				addResistanceMinimum("pseudo.pseudo_total_elemental_resistance", elementalMinimum)
+			else
+				-- A swapped affix covers one element only, so a total minimum admits listings whose
+				-- resistances cannot all be repaired. Only the largest shortfall may come from a swap,
+				-- and only from an element that is already capped; other shortfalls stay listed minimums.
+				-- Equal shortfalls keep the Fire, Cold, Lightning order.
+				local swapped
+				for _, element in ipairs(deficient) do
+					if not swapped or shortfallByType[element] > shortfallByType[swapped] then
+						swapped = element
+					end
+				end
+				for _, element in ipairs(deficient) do
+					if element ~= swapped then
+						addResistanceMinimum(resistancePseudoIds[element], shortfallByType[element])
+					end
+				end
+				local minimum = shortfallByType[swapped]
+				swapCoverage = { type = "count", value = { min = 1 }, filters = { { id = resistancePseudoIds[swapped], value = { min = minimum } } } }
+				local statHashByPseudoId = { }
+				for hash, pseudoId in pairs(pseudoMap) do
+					statHashByPseudoId[pseudoId] = hash
+				end
+				for _, element in ipairs(capped) do
+					local hash = statHashByPseudoId[resistancePseudoIds[element]]
+					t_insert(swapCoverage.filters, { id = "explicit.stat_" .. hash, value = { min = minimum } })
+					t_insert(swapCoverage.filters, { id = "crafted.stat_" .. hash, value = { min = minimum } })
+				end
+				complexityBudget = complexityBudget - 4 * (#swapCoverage.filters + 1)
+				t_insert(queryTable.query.stats, swapCoverage)
+			end
 			addResistanceMinimum(resistancePseudoIds.Chaos, shortfallByType.Chaos)
 		else
 			for _, resistanceType in ipairs(resistanceTypes) do
@@ -1186,6 +1222,7 @@ function TradeQueryGeneratorClass:FinishQuery()
 	end
 	local hasWeightedFilters = #weightGroup.filters > 0
 	local hasAndFilters = #andGroup.filters > 0
+	local hasRequiredFilters = hasAndFilters or swapCoverage ~= nil
 	if not hasWeightedFilters and options.includeResistCaps then
 		table.remove(queryTable.query.stats, 1)
 		if #notGroup.filters == 0 then
@@ -1199,7 +1236,7 @@ function TradeQueryGeneratorClass:FinishQuery()
 
 	local errMsg = nil
 	ConPrintf("filters: %d, budget: %d", #weightGroup.filters, complexityBudget)
-	if not hasWeightedFilters and (not options.includeResistCaps or not hasAndFilters) then
+	if not hasWeightedFilters and (not options.includeResistCaps or not hasRequiredFilters) then
 		-- No mods to filter
 		errMsg = "Could not generate search, found no mods to search for"
 	end
@@ -1377,7 +1414,7 @@ Remove: %s will be removed from the search results.]], term, term, term)
 	if not context.slotTbl.unique then
 		controls.includeResistSwaps = new("CheckBoxControl"):CheckBoxControl({ "TOPLEFT", lastItemAnchor, "BOTTOMLEFT" }, { 0, 5, 18 }, "Resistance swaps:", function(state) end)
 		controls.includeResistSwaps.state = self.lastIncludeResistSwaps == true
-		controls.includeResistSwaps.tooltipText = "Searches Fire, Cold, and Lightning Resistance as one total.\nResults are sorted using the best estimated swap; rolls may change."
+		controls.includeResistSwaps.tooltipText = "Searches Fire, Cold, and Lightning Resistance as one total.\nWith Resistance caps, only the largest missing resistance can come from a swap, using a resistance that is already capped.\nResults are sorted using the best estimated swap; rolls may change."
 		updateLastAnchor(controls.includeResistSwaps)
 
 		controls.includeResistCaps = new("CheckBoxControl"):CheckBoxControl({ "TOPLEFT", lastItemAnchor, "BOTTOMLEFT" }, { 0, 5, 18 }, "Resistance caps:", function(state) end)
