@@ -1,0 +1,10 @@
+diff a/src/Classes/GemTooltip.lua b/src/Classes/GemTooltip.lua	(rejected hunks)
+@@ -116,7 +116,7 @@ local function addGrantedEffectInfo(tooltip, build, gemInstance, grantedEffect,
+ 		local gemQuality = gemInstance.quality
+ 		if gemQuality > 0
+ 		then
+-			tooltip:AddLine(fontSizeBig, colorCodes.GEMINFO .. "   Quality: ^7" .. colorCodes.MAGIC .. gemQuality .. "%", "FONTIN SC")
++			tooltip:AddLine(fontSizeBig, colorCodes.GEMINFO .. "   Quality: ^7" .. colorCodes.MAGIC .. "+".. gemQuality .. "%", "FONTIN SC")
+ 		end
+ 		if totalGlobalQuality > 0 then
+ 			tooltip:AddLine(fontSizeBig, colorCodes.MAGIC .. "   +" .. totalGlobalQuality .. "% Quality from Global Modifiers", "FONTIN SC")

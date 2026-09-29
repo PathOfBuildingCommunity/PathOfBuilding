@@ -570,7 +570,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 
 	for _, gemProperty  in ipairs((activeSkill.activeEffect.gemPropertyInfo or {})) do
 		local value =  gemProperty.value
-		skillModList:NewMod("GemItem".. value.key:gsub("^%l", string.upper), "BASE", value.value, gemProperty.mod.source, #gemProperty.mod > 0 and gemProperty.mod[1] or nil)
+		skillModList:NewMod("GemGlobal" .. value.key:gsub("^%l", string.upper), "BASE", value.value, gemProperty.mod.source, #gemProperty.mod > 0 and gemProperty.mod[1] or nil)
 	end
 
 	-- Add active gem modifiers

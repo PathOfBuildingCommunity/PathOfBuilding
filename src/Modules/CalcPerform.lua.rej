@@ -1,0 +1,10 @@
+diff a/src/Modules/CalcPerform.lua b/src/Modules/CalcPerform.lua	(rejected hunks)
+@@ -3695,7 +3695,7 @@ function calcs.perform(env, skipEHP)
+ 					t_insert(env.player.breakdown.GemQuality, s_format("+ %d ^8(quality from supports)", totalSupportQuality))
+ 				end
+ 				if totalGlobalQuality > 0 then
+-					t_insert(env.player.breakdown.GemQuality, s_format("+ %d ^8(quality from items and tree)", totalGlobalQuality))
++					t_insert(env.player.breakdown.GemQuality, s_format("+ %d ^8(quality from global modifiers)", totalGlobalQuality))
+ 				end
+ 				t_insert(env.player.breakdown.GemQuality, s_format("= %d", output.GemQuality))
+ 			end
