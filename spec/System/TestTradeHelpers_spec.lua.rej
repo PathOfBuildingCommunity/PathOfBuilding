@@ -1,0 +1,20 @@
+diff a/spec/System/TestTradeHelpers_spec.lua b/spec/System/TestTradeHelpers_spec.lua	(rejected hunks)
+@@ -169,18 +169,4 @@ describe("TradeHelpers trade hash matching", function()
+ 			assert.is_nil(tradeHelpers.findTradeIdOption("+100 to IQ", "explicit"))
+ 		end)
+ 	end)
+-	-- disabled for now since the headless wrapper has no zlib bindings
+-	-- it("gzip decode", function()
+-	-- 	local sampleText = "Test string please ignore"
+-	-- 	local gzipped = tradeHelpers.B64GzipEncode(sampleText)
+-	-- 	local roundTrip = tradeHelpers.B64GzipDecode(gzipped)
+-
+-	-- 	assert.are.Equal(sampleText, roundTrip)
+-	-- 	assert.are_not_equal(sampleText, gzipped)
+-
+-	-- 	local longText = string.rep("12345678", 4096)
+-	-- 	local gzippedLong = tradeHelpers.B64GzipEncode(longText)
+-	-- 	local longRoundTrip = tradeHelpers.B64GzipDecode(gzippedLong)
+-	-- 	assert.are.Equal(longText, longRoundTrip)
+-	-- end)
+ end)

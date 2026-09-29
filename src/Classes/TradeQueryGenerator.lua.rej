@@ -1,0 +1,24 @@
+diff a/src/Classes/TradeQueryGenerator.lua b/src/Classes/TradeQueryGenerator.lua	(rejected hunks)
+@@ -1093,11 +1089,11 @@ function TradeQueryGeneratorClass:FinishQuery()
+ 
+ 	if options.account then
+ 		complexityBudget = complexityBudget - 3
+-		queryTable.query.filters.trade_filters.filters.account = { input = options.account }
++		queryTable.filters.trade_filters.filters.account = { input = options.account }
+ 	end
+ 	if options.maxLevel and options.maxLevel > 0 then
+ 		complexityBudget = complexityBudget - 3
+-		queryTable.query.filters.req_filters = {
++		queryTable.filters.req_filters = {
+ 			disabled = false,
+ 			filters = {
+ 				lvl = {
+@@ -1109,7 +1105,7 @@ function TradeQueryGeneratorClass:FinishQuery()
+ 
+ 	if options.sockets and options.sockets > 0 then
+ 		complexityBudget = complexityBudget - 3
+-		queryTable.query.filters.equipment_filters = {
++		queryTable.filters.equipment_filters = {
+ 			disabled = false,
+ 			filters = {
+ 				rune_sockets = {

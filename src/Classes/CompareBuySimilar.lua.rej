@@ -1,0 +1,12 @@
+diff a/src/Classes/CompareBuySimilar.lua b/src/Classes/CompareBuySimilar.lua	(rejected hunks)
+@@ -75,8 +72,8 @@ local function buildURL(item, slotName, controls, modEntries, defenceEntries, is
+ 		-- Search by unique name
+ 		-- Strip "Foulborn" prefix from unique name for trade search
+ 		local tradeName = (item.title or item.name):gsub("^Foulborn%s+", "")
+-		queryTable.query.name = tradeName
+-		queryTable.query.type = item.baseName
++		queryTable.name = tradeName
++		queryTable.type = item.baseName
+ 		-- If item is Foulborn, add the foulborn_item filter
+ 		if item.foulborn then
+ 			queryFilters.misc_filters = queryFilters.misc_filters or { filters = {} }
