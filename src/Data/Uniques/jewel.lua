@@ -124,7 +124,7 @@ Increases and Reductions to Physical Damage in Radius are Transformed to apply t
 Increases and Reductions to Cold Damage in Radius are Transformed to apply to Physical Damage
 ]],[[
 Dissolution of the Flesh
-Prismatic Jewel
+Crimson Jewel
 Source: Drops from unique{The Searing Exarch}
 Limited to: 1
 Removes all Energy Shield
