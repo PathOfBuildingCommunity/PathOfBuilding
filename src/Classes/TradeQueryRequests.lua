@@ -114,7 +114,7 @@ end
 ---the search to fetch more items when the search cap (10k items) is reached
 ---@param league string
 ---@param query string
----@param callback fun(items:table, errMsg:string)
+---@param callback fun(items: table, errMsg: string, query: string)
 ---@param params table @ params = { callbackQueryId = fun(queryId:string) }
 function TradeQueryRequestsClass:SearchWithQueryWeightAdjusted(realm, league, query, callback, params)
 	params = params or {}
@@ -125,13 +125,17 @@ function TradeQueryRequestsClass:SearchWithQueryWeightAdjusted(realm, league, qu
 	-- Each repeat is a leap of 10k items, normally we shouldn't need more than 1-2 steps anyways
 	local maxRecursion = 5
 	local currentRecursion = 0
+	-- the query is adjusted as the search repeats, so return the final query
+	local function resultCallback(items, errMsg)
+		return callback(items, errMsg, query)
+	end
 	local function performSearchCallback(response, errMsg)
 		currentRecursion = currentRecursion + 1
 		if params.callbackQueryId and response and response.id then
 			params.callbackQueryId(response.id)
 		end
 		if errMsg and ((errMsg == "No Matching Results Found" and currentRecursion >= maxRecursion) or errMsg ~= "No Matching Results Found") then
-			return callback(nil, errMsg)
+			return resultCallback(nil, errMsg)
 		end
 		if (response.total > self.maxFetchPerSearch and response.total < 10000) or currentRecursion >= maxRecursion then
 			-- Search not clipped or max recursion reached, fetch results and finalize
@@ -139,7 +143,7 @@ function TradeQueryRequestsClass:SearchWithQueryWeightAdjusted(realm, league, qu
 				-- Not enough items in the last search, fill results from previous search
 				self:FetchResults(response.result, response.id, function(items, errMsg)
 					if errMsg then
-						return callback(nil, errMsg)
+						return resultCallback(nil, errMsg)
 					end
 					local fetchedItemIds = {}
 					local idSet = {}
@@ -172,23 +176,26 @@ function TradeQueryRequestsClass:SearchWithQueryWeightAdjusted(realm, league, qu
 						end
 						self:FetchResults(unfetchedItemIds, previousSearchId, function(newItems, errMsg)
 							if errMsg then
-								return callback(nil, errMsg)
+								return resultCallback(nil, errMsg)
 							end
 							items = tableConcat(items, newItems)
-							callback(items, errMsg)
+							resultCallback(items, errMsg)
 						end)
 					else
-						callback(items, errMsg)
+						resultCallback(items, errMsg)
 					end
 				end)
 			else
 				-- Search not clipped and result count satisfy maxFetchPerSearch, proceed normally
-				self:FetchResults(response.result, response.id,  callback)
+				self:FetchResults(response.result, response.id, resultCallback)
 			end
 		else
 			if response.total < self.maxFetchPerSearch then -- Less than maximum items retrieved lower weight to try and get more.
 				local queryJson = dkjson.decode(query)
-				queryJson.query.stats[1].value.min = queryJson.query.stats[1].value.min / 2
+				if not queryJson.query.stats[1].value then
+					queryJson.query.stats[1].value = { min = 0 }
+				end
+				queryJson.query.stats[1].value.min = (queryJson.query.stats[1].value.min or 0) / 2
 				query = dkjson.encode(queryJson)
 				self:PerformSearch(realm, league, query, performSearchCallback)
 			else -- Search clipped, fetch highest weight item, update query weight and repeat search
@@ -197,12 +204,15 @@ function TradeQueryRequestsClass:SearchWithQueryWeightAdjusted(realm, league, qu
 				local firstResultBatch = {unpack(response.result, 1, math.min(#response.result, 10))}
 				self:FetchResults(firstResultBatch, response.id, function(items, errMsg)
 					if errMsg then
-						return callback(nil, errMsg)
+						return resultCallback(nil, errMsg)
 					end
 					previousSearchItems = items
 					local highestWeight = items[1].weight
 					local queryJson = dkjson.decode(query)
-					queryJson.query.stats[1].value.min = (tonumber(highestWeight) + queryJson.query.stats[1].value.min) / 2
+					if not queryJson.query.stats[1].value then
+						queryJson.query.stats[1].value = { min = 0 }
+					end
+					queryJson.query.stats[1].value.min = (tonumber(highestWeight) + (queryJson.query.stats[1].value.min or 0)) / 2
 					query = dkjson.encode(queryJson)
 					self:PerformSearch(realm, league, query, performSearchCallback)
 				end)
