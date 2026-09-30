@@ -133,7 +133,7 @@ function TradeQueryRequestsClass:SearchWithQueryWeightAdjusted(realm, league, qu
 		if errMsg and ((errMsg == "No Matching Results Found" and currentRecursion >= maxRecursion) or errMsg ~= "No Matching Results Found") then
 			return callback(nil, errMsg)
 		end
-		if (response.total > self.maxFetchPerSearch and response.total < 10000) or currentRecursion >= maxRecursion then
+		if (response.total >= self.maxFetchPerSearch and response.total < 10000) or currentRecursion >= maxRecursion then
 			-- Search not clipped or max recursion reached, fetch results and finalize
 			if previousSearchItems and self.maxFetchPerSearch > response.total then
 				-- Not enough items in the last search, fill results from previous search
