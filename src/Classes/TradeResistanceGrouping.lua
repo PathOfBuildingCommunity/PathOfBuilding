@@ -37,20 +37,36 @@ end
 function M.classifyResistanceMod(modText)
 	local resistanceElement = modText:match("^%+#%% to (%a+) Resistance$")
 	if isElement(resistanceElement) then
-		return { resistTag = { elemental = true }, normalisationFactor = 1, group = "elemental" }
+		return { resistTag = { elemental = true }, normalisationFactor = 1, group = "elemental", resistanceTypes = { resistanceElement } }
 	elseif resistanceElement == "Chaos" then
-		return { resistTag = { chaos = true }, normalisationFactor = 1, group = "chaos" }
+		return { resistTag = { chaos = true }, normalisationFactor = 1, group = "chaos", resistanceTypes = { "Chaos" } }
 	end
 
 	if modText == "+#% to all Elemental Resistances" then
-		return { resistTag = { elemental = true }, normalisationFactor = 3, group = "elemental" }
+		return { resistTag = { elemental = true }, normalisationFactor = 3, group = "elemental", resistanceTypes = { "Fire", "Cold", "Lightning" } }
 	end
 	local firstElement, secondElement = modText:match("^%+#%% to (%a+) and (%a+) Resistances$")
 	if isElement(firstElement) and isElement(secondElement) then
-		return { resistTag = { elemental = true }, normalisationFactor = 2, group = "elemental" }
+		return { resistTag = { elemental = true }, normalisationFactor = 2, group = "elemental", resistanceTypes = { firstElement, secondElement } }
 	elseif isElement(firstElement) and secondElement == "Chaos" then
-		return { resistTag = { elemental = true, chaos = true } }
+		return { resistTag = { elemental = true, chaos = true }, resistanceTypes = { firstElement, "Chaos" } }
 	end
+end
+
+-- Returns the resistance types that at least one mod of the item category can roll.
+-- Every mod source counts, independently of the sources selected for weights,
+-- because a listing can carry any of them.
+function M.getRollableResistanceTypes(modData, itemCategory)
+	local rollable = {}
+	for _, mods in pairs(modData) do
+		for _, entry in pairs(mods) do
+			local classification = entry[itemCategory] and M.classifyResistanceMod(entry.tradeMod.text)
+			for _, resistanceType in ipairs(classification and classification.resistanceTypes or {}) do
+				rollable[resistanceType] = true
+			end
+		end
+	end
+	return rollable
 end
 
 function M.annotateResistanceWeight(weightEntry, modText)
