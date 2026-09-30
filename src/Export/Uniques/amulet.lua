@@ -954,7 +954,7 @@ BlindReflectedToSelfUnique__1
 ]],[[
 Rigwald's Curse
 {variant:1,2}Wereclaw Talisman
-{variant:3} Wolf Alpha Talisman
+{variant:3}Wolf Alpha Talisman
 League: Talisman Standard
 Variant: Pre 2.2.0
 Variant: Pre 3.29.0

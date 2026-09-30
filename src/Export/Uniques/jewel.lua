@@ -119,7 +119,7 @@ Radius: Large
 ColdAndPhysicalNodesInRadiusSwapPropertiesUniqueJewel48_
 ]],[[
 Dissolution of the Flesh
-Prismatic Jewel
+Crimson Jewel
 Source: Drops from unique{The Searing Exarch}
 Limited to: 1
 GlobalNoEnergyShieldUnique__1
