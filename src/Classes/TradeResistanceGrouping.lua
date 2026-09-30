@@ -18,6 +18,10 @@ function M.getResistanceCapShortfallByType(output)
 	for _, resistanceType in ipairs(resistanceTypes) do
 		shortfall[resistanceType] = math.max(0, output["Missing" .. resistanceType .. "Resist"] or 0)
 	end
+	-- Chaos Inoculation makes the build immune to chaos damage, so its Chaos cap is not a search target.
+	if output.ChaosInoculation then
+		shortfall.Chaos = 0
+	end
 	return shortfall
 end
 

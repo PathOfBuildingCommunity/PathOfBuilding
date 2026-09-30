@@ -177,6 +177,17 @@ describe("TradeQueryGenerator", function()
 				}))
 		end)
 
+		it("ignores the Chaos shortfall of a build immune to chaos damage", function()
+			assert.are.same({ Fire = 0, Cold = 0, Lightning = 5, Chaos = 0 },
+				tradeResistanceGrouping.getResistanceCapShortfallByType({
+					MissingFireResist = 0,
+					MissingColdResist = 0,
+					MissingLightningResist = 5,
+					MissingChaosResist = 98,
+					ChaosInoculation = true,
+				}))
+		end)
+
 		it("annotates weights through the real GenerateModWeights method", function()
 			local queryGen = new("TradeQueryGenerator"):TradeQueryGenerator({ itemsTab = {} })
 			queryGen.modWeights = {}
