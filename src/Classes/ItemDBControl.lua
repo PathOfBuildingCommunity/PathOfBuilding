@@ -259,7 +259,7 @@ function ItemDBClass:ListBuilder()
 		for itemIndex, item in ipairs(list) do
 			item.measuredPower = -math.huge
 			for slotName, slot in pairs(self.itemsTab.slots) do
-				if self.itemsTab:IsItemValidForSlot(item, slotName) and not slot.inactive and (not slot.weaponSet or slot.weaponSet == (self.itemsTab.activeItemSet.useSecondWeaponSet and 2 or 1)) then
+				if self.itemsTab:IsItemValidForSlot(item, slotName) and not slot.inactive and (not slot.weaponSet or slot.weaponSet == (self.itemsTab.activeItemSet.useSecondWeaponSet and 2 or 1)) and slot.shown() then
 					local output = calcFunc(item.base.flask and { toggleFlask = item } or item.base.tincture and { toggleTincture = item } or { repSlotName = slotName, repItem = item }, useFullDPS)
 					local measuredPower = data.powerStatList.GetFromOutput(output, self.sortDetail)
 					item.measuredPower = m_max(item.measuredPower, measuredPower)
