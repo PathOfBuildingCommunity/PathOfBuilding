@@ -222,8 +222,10 @@ describe("TradeQueryGenerator", function()
 			local queryGen = new("TradeQueryGenerator"):TradeQueryGenerator({ itemsTab = {} })
 			queryGen.tradeTypeIndex = 4
 			queryGen.modWeights = weights
+			queryGen.modData = options.modData or queryGen.modData
 			queryGen.calcContext = {
 				itemCategoryQueryStr = "accessory.ring",
+				itemCategory = options.itemCategory or "Ring",
 				special = {},
 				testItem = new("Item"):Item("Rarity: RARE\nTest Ring\nCoral Ring\nImplicits: 0"),
 				baseOutput = { Life = 100 },
@@ -423,6 +425,54 @@ describe("TradeQueryGenerator", function()
 				assert.are.same(expectedFilters, countGroups[1].filters, case.label)
 				assert.are.equal("explicit.life", query.query.stats[1].filters[1].id, case.label)
 				assert.is_true(queryOptions.weightAdjustedSearch, case.label)
+			end
+		end)
+
+		it("only requires resistances the item class can roll", function()
+			local modData = {
+				Explicit = {
+					fireResistance = {
+						Belt = { min = 10, max = 40 },
+						tradeMod = { id = "explicit.stat_3372524247", text = "+#% to Fire Resistance" },
+					},
+					life = {
+						Wand = { min = 10, max = 40 },
+						tradeMod = { id = "explicit.stat_3299347043", text = "+# to maximum Life" },
+					},
+				},
+				Implicit = {
+					coldLightningResistance = {
+						Belt = { min = 10, max = 20 },
+						tradeMod = { id = "implicit.stat_4277795662", text = "+#% to Cold and Lightning Resistances" },
+					},
+				},
+			}
+			local shortfalls = { Fire = 10, Cold = 0, Lightning = 30, Chaos = 40 }
+			local cases = {
+				{ label = "weapon caps", itemCategory = "Wand", options = { includeResistCaps = true }, minimums = { }, countGroups = 0 },
+				{ label = "weapon caps with swaps", itemCategory = "Wand", options = { includeResistCaps = true, includeResistSwaps = true }, minimums = { }, countGroups = 0 },
+				{ label = "belt caps", itemCategory = "Belt", options = { includeResistCaps = true }, minimums = {
+					["pseudo.pseudo_total_fire_resistance"] = 10,
+					["pseudo.pseudo_total_lightning_resistance"] = 30,
+				}, countGroups = 0 },
+				{ label = "belt caps with swaps", itemCategory = "Belt", options = { includeResistCaps = true, includeResistSwaps = true }, minimums = {
+					["pseudo.pseudo_total_fire_resistance"] = 10,
+				}, countGroups = 1 },
+			}
+			for _, case in ipairs(cases) do
+				case.options.itemCategory = case.itemCategory
+				case.options.modData = modData
+				case.options.resistanceCapShortfallByType = shortfalls
+				local query, _, _, queryError = finishQuery(case.options, { weight("explicit.life", 6) })
+				local countGroups = 0
+				for _, group in ipairs(query.query.stats) do
+					countGroups = countGroups + (group.type == "count" and 1 or 0)
+				end
+
+				assert.are.same(case.minimums, minimumsById(query), case.label)
+				assert.are.equal(case.countGroups, countGroups, case.label)
+				assert.are.equal("explicit.life", query.query.stats[1].filters[1].id, case.label)
+				assert.is_nil(queryError, case.label)
 			end
 		end)
 

@@ -1078,7 +1078,13 @@ function TradeQueryGeneratorClass:FinishQuery()
 	local options = self.calcContext.options
 	local swapCoverage
 	if options.includeResistCaps then
-		local shortfallByType = self.calcContext.resistanceCapShortfallByType or {}
+		-- A resistance the item class cannot roll (e.g. on weapons) cannot close its shortfall,
+		-- so requiring it would only return no results.
+		local rollable = tradeResistanceGrouping.getRollableResistanceTypes(self.modData, self.calcContext.itemCategory)
+		local shortfallByType = { }
+		for resistanceType, shortfall in pairs(self.calcContext.resistanceCapShortfallByType or {}) do
+			shortfallByType[resistanceType] = rollable[resistanceType] and shortfall or 0
+		end
 		local function addResistanceMinimum(id, minimum)
 			if minimum and minimum > 0 then
 				t_insert(andGroup.filters, { id = id, value = { min = minimum } })
