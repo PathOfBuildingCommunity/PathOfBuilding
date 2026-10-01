@@ -71,6 +71,8 @@ end
 ---@field influenceHeader2? string
 ---@field foilType? string
 ---@field _bgHandles? table<string, ImageHandle>
+---@field Draw? fun(self: Tooltip, x: number, y: number, width: number, height: number, viewPort: Viewport)
+---@field realDraw? fun(self: Tooltip, x: number, y: number, width: number, height: number, viewPort: Viewport)
 local TooltipClass = newClass("Tooltip")
 
 ---@return Tooltip

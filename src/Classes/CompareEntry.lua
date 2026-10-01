@@ -10,6 +10,7 @@ local m_min = math.min
 local m_max = math.max
 
 ---@class CompareEntry: ControlHost
+---@field spec? PassiveSpec
 ---@field label string
 ---@field buildName string
 ---@field xmlText string

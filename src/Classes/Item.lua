@@ -170,6 +170,7 @@ local influenceInfo = itemLib.influenceInfo.all
 ---@field base? ItemBase
 ---@field baseName string
 ---@field itemLevel integer
+---@field matchesSocket? boolean
 ---@field quality integer
 ---@field corrupted boolean
 ---@field crafted boolean

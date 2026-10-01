@@ -40,7 +40,13 @@ local function newlineCount(str)
 	end
 end
 
+---@class EditControlControls: table<string, Control>
+---@field scrollBarH ScrollBarControl
+---@field scrollBarV ScrollBarControl
+
 ---@class EditControl: ControlHost, Control, UndoHandler, TooltipHost
+---@field controls EditControlControls
+---@field SetText fun(self: EditControl, text: string, notify?: boolean)
 ---@field inactiveText (fun(buf: string?): string)|string
 ---@field buf string
 ---@field caret integer

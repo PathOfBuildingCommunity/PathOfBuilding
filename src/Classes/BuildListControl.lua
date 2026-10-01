@@ -20,6 +20,7 @@ local buildListHelpers = require("Modules.BuildListHelpers")
 ---@class BuildListMode: ControlHost
 ---@field subPath string
 ---@field list BuildListEntry[]
+---@field BuildList fun(self: BuildListMode)
 
 ---@class BuildListControl: ListControl<BuildListEntry>
 ---@field listMode BuildListMode

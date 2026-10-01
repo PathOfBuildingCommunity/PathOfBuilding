@@ -52,6 +52,14 @@ local M = {}
 ---@field value? string|number
 ---@field needsExactValue? boolean
 
+---@class CompareBuySimilarControls: table<string, Control>
+---@field ilvlMin EditControl
+---@field ilvlMax EditControl
+---@field baseTypeCheck CheckBoxControl
+---@field listedDrop DropDownControl<any>
+---@field realmDrop DropDownControl<any>
+---@field leagueDrop DropDownControl<any>
+
 -- Realm display name to API id mapping
 local REALM_API_IDS = {
 	["PC"]   = "pc",
@@ -75,7 +83,7 @@ end
 -- Build the trade search URL based on popup selections
 ---@param item Item
 ---@param slotName string
----@param controls table<string, Control>
+---@param controls CompareBuySimilarControls
 ---@param modEntries CompareBuySimilarModEntry[]
 ---@param defenceEntries CompareBuySimilarDefenceEntry[]
 ---@param isUnique boolean

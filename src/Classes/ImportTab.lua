@@ -22,6 +22,17 @@ local influenceInfo = itemLib.influenceInfo.all
 ---@field hostName string
 ---@field profileURL string
 
+---@class ImportTabControls: table<string, Control>
+---@field accountRealm DropDownControl<RealmInfo>
+---@field charSelectLeague DropDownControl<string>
+---@field siteAccountName EditControl
+---@field siteAccountHistory DropDownControl<string>
+---@field siteCharSelectLeague DropDownControl<table>
+---@field generateCodeOut EditControl
+---@field exportFrom DropDownControl<table>
+---@field importCodeIn EditControl
+---@field importCodeMode DropDownControl<string>
+
 ---@type RealmInfo[]
 local realmList = {
 	{ label = "PC",      id = "PC",   realmCode = "pc",   hostName = "https://www.pathofexile.com/", profileURL = "account/view-profile/" },
@@ -505,6 +516,10 @@ local function addAccountNameControls(self)
 end
 
 ---@class ImportTab: ControlHost, Control
+---@field isAuthorized? fun(): boolean
+---@field usingOauth? boolean
+---@field characterList? table<string, table[]>
+---@field controls ImportTabControls
 ---@field build Build
 ---@field modFlag boolean
 ---@field [string] unknown

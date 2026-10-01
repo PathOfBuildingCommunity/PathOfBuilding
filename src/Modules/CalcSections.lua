@@ -94,6 +94,7 @@ local rageCost = {
 
 ---@class CalcSectionSubsection
 ---@field defaultCollapsed boolean
+---@field collapsed? boolean
 ---@field label string
 ---@field data CalcSectionData
 

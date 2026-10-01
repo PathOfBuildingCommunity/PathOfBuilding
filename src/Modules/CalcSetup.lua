@@ -6,6 +6,39 @@
 ---@class Calcs
 local calcs = require("Modules.CalcBase")
 
+---@class Env
+---@field build Build
+---@field data Data
+---@field configInput table<string, any>
+---@field configPlaceholder table<string, any>
+---@field calcsInput table<string, any>
+---@field mode string
+---@field mode_effective boolean
+---@field buildBreakdown boolean
+---@field spec PassiveSpec
+---@field override CalcOverride
+---@field classId integer
+---@field modDB ModDB
+---@field enemyDB ModDB
+---@field itemModDB ModDB
+---@field player Actor
+---@field enemy Actor
+---@field minion Actor?
+---@field enemyLevel integer
+---@field requirementsTableItems table
+---@field requirementsTableGems table
+---@field radiusJewelList table
+---@field extraRadiusNodeList table
+---@field grantedSkills table
+---@field grantedSkillsNodes table
+---@field grantedSkillsItems table
+---@field explodeSources table
+---@field itemWarnings table
+---@field flasks table
+---@field tinctures table
+---@field grantedPassives table<integer, boolean>
+---@field auxSkillList ActiveSkill[]
+
 local pairs = pairs
 local ipairs = ipairs
 local t_insert = table.insert
@@ -488,9 +521,6 @@ function calcs.initEnv(build, mode, override, specEnv)
 	local classStats = nil
 
 	if not env then
-		---@class Env
-		---@field minion Actor?
-		---@field grantedPassives table<integer, boolean>
 		env = { }
 		env.build = build
 		env.data = build.data
@@ -512,11 +542,13 @@ function calcs.initEnv(build, mode, override, specEnv)
 		env.enemyLevel = build.configTab.enemyLevel or m_min(data.misc.MaxEnemyLevel, build.characterLevel)
 
 		-- Create player/enemy actors
+		---@type Actor
 		env.player = {
 			modDB = env.modDB,
 			level = build.characterLevel,
 		}
 		env.modDB.actor = env.player
+		---@type Actor
 		env.enemy = {
 			modDB = env.enemyDB,
 			level = env.enemyLevel,

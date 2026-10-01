@@ -15,6 +15,8 @@ local itemSlotHelper = require("Modules.ItemSlotHelper")
 ---@field nodeId? integer
 ---@field selItemId integer
 ---@field active boolean
+---@field inactive? boolean
+---@field weaponSet? integer
 ---@field items table<integer, Item>
 local ItemSlotClass = newClass("ItemSlotControl", "DropDownControl")
 

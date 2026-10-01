@@ -97,6 +97,7 @@ end
 ---@field connectedToStart? boolean
 ---@field name string
 ---@field ascendancyName? string
+---@field reminderText? string[]
 ---@field classStartIndex? integer
 ---@field masteryCache? Node
 ---@field isAscendancyStart? boolean

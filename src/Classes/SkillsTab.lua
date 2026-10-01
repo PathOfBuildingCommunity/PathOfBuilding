@@ -87,7 +87,18 @@ local sortGemTypeList = {
 ---@field activeSocketGroup integer?
 ---@field activeSocketGroup2 integer?
 
+---@class SkillsTabControls: table<string, Control>
+---@field setSelect DropDownControl<any>
+---@field defaultLevel DropDownControl<any>
+---@field defaultQuality EditControl
+---@field showSupportGemTypes DropDownControl<any>
+---@field groupLabel EditControl
+---@field groupSlot DropDownControl<any>
+---@field groupCount EditControl
+---@field scrollBarH ScrollBarControl
+
 ---@class SkillsTab: UndoHandler, ControlHost, Control
+---@field controls SkillsTabControls
 ---@field build Build
 ---@field socketGroupList table[]
 ---@field skillSets table<integer, SkillSet>

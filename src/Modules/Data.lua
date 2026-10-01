@@ -105,8 +105,15 @@ end
 
 ---@diagnostic disable-next-line: lowercase-global
 ---@class Data : MiscDataExport
+---@field characterConstants table<string, number>
+---@field monsterConstants table<string, number>
+---@field misc table<string, number>
+---@field powerStatList PowerStatList
 ---@field bosses BossData
 data = { }
+
+---@class PowerStatList: PowerStat[]
+---@field GetFromOutput fun(self: PowerStatList, output: Output, statTable: PowerStat, skipTransform?: boolean): number?
 
 -- Misc data tables
 local miscData = LoadModule("Data/Misc")

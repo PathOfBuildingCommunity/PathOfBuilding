@@ -26,6 +26,23 @@ modLib = { }
 ---@class ModTag
 ---@field type string
 
+---@class (partial) Mod
+---@field [string] any
+---@field actor? Actor
+---@field neg? boolean
+---@field var? string
+---@field varList? table
+---@field base? number
+---@field ramp? number
+---@field partyMembers? table
+---@field newModId? string
+---@field modList? ModList
+---@field limitVar? string
+---@field reservedPercent? number
+---@field efficiency? number
+---@field efficiencyMore? number
+---@field inc? number
+
 ---@overload fun(modName: string, modType: NumericModTypes, modVal?: number, sourceOrTag: string|ModTag?, flagsOrModTag: number|ModTag?, keywordFlagsOrModTag: number|ModTag?, ...: ModTag)
 ---@overload fun(modName: string, modType: "FLAG", modVal: boolean, sourceOrModTag: string|ModTag?, flagsOrModTag: number|ModTag?, keywordFlagsOrModTag: number|ModTag?, ...: ModTag)
 ---@overload fun(modName: string, modType: "LIST", modVal: any[]|any, sourceOrModTag: string|ModTag?, flagsOrModTag: number|ModTag?, keywordFlagsOrModTag: number|ModTag?, ...: ModTag)
@@ -54,6 +71,16 @@ function modLib.createMod(modName, modType, modVal, ...)
 	---@field flags number
 	---@field keywordFlags number
 	---@field source? string
+	---@field neg? boolean
+	---@field var? string
+	---@field base? number
+	---@field ramp? number
+	---@field limitVar? string
+	---@field reservedPercent? number
+	---@field partyMembers? table
+	---@field newModId? string
+	---@field modList? ModList
+	---@field limit? number
 	---@field [integer] ModTag
 	return {
 		name = modName,

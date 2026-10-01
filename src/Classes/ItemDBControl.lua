@@ -11,6 +11,7 @@ local m_floor = math.floor
 
 
 ---@class ItemDBControl: ListControl<Item>
+---@field controls ItemDBControls
 ---@field itemsTab ItemsTab
 ---@field db ItemDBData
 ---@field dbType "RARE"|"UNIQUE"
@@ -32,8 +33,21 @@ local ItemDBClass = newClass("ItemDBControl", "ListControl")
 ---@field byTitle? table<string, Item>
 ---@field loading boolean?
 
----@param anchor Anchor?
----@param rect Rect?
+---@class UniqueItemDBData: ItemDBData
+---@field byTitle table<string, Item>
+
+---@class ItemDBControls: ListControlControls
+---@field slot DropDownControl<string>
+---@field type DropDownControl<string>
+---@field league? DropDownControl<string>
+---@field requirement? DropDownControl<string>
+---@field obtainable? DropDownControl<string>
+---@field sort? DropDownControl<table>
+---@field search EditControl
+---@field searchMode DropDownControl<string>
+
+---@param anchor? Anchor
+---@param rect? Rect
 ---@param itemsTab ItemsTab
 ---@param db ItemDBData
 ---@param dbType "RARE"|"UNIQUE"

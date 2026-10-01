@@ -15,11 +15,15 @@ local gemTooltip = require("Classes.GemTooltip")
 local toolTipText = "Prefix tag searches with a colon and exclude tags with a dash. e.g. :fire:lightning:-cold:area"
 local imbuedTooltipText = "\"Socketed in\" item must be set in order to add an imbued support.\nOnly one imbued support is allowed per item."
 
+---@class GemSelectEntry
+---@field name string
+---@field grantedEffect table
+
 ---@class GemSelectControl: EditControl
 ---@field skillsTab SkillsTab
 ---@field index integer
 ---@field imbuedSelect boolean
----@field gems table<string, table>
+---@field gems table<string, GemSelectEntry>
 ---@field list string[]
 ---@field mode string
 ---@field forceTooltip? boolean

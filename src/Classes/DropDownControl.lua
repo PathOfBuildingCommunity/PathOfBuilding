@@ -8,7 +8,11 @@ local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
 
+---@class DropDownControlControls: table<string, Control>
+---@field scrollBar ScrollBarControl
+
 ---@class DropDownControl<T>: Control, ControlHost, TooltipHost, SearchHost
+---@field controls DropDownControlControls
 ---@field list T[]
 ---@field selFunc? fun(index: integer, data: T, doubleClick?: boolean)
 ---@field selIndex? integer

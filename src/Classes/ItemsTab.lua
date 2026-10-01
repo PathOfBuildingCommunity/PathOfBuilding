@@ -43,6 +43,24 @@ local forbiddenJewelCounterpart = {
 
 local influenceInfo = itemLib.influenceInfo.all
 
+---@class ItemsTabControls: table<string, Control>
+---@field setSelect DropDownControl<any>
+---@field specSelect DropDownControl<any>
+---@field selectDB DropDownControl<string>
+---@field itemList ItemListControl
+---@field displayItemVersion DropDownControl<string>
+---@field displayItemVariant DropDownControl<string>
+---@field displayItemAltVariant DropDownControl<string>
+---@field displayItemAltVariant2 DropDownControl<string>
+---@field displayItemAltVariant3 DropDownControl<string>
+---@field displayItemAltVariant4 DropDownControl<string>
+---@field displayItemAltVariant5 DropDownControl<string>
+---@field displayItemInfluence DropDownControl<any>
+---@field displayItemInfluence2 DropDownControl<any>
+---@field displayItemRangeLine DropDownControl<any>
+---@field scrollBarH ScrollBarControl
+---@field scrollBarV ScrollBarControl
+
 ---@type string[]
 local catalystQualityFormat = {
 	"^x7F7F7FQuality (Attack Modifiers): "..colorCodes.MAGIC.."+%d%% (augmented)",
@@ -91,6 +109,7 @@ local function buildModSortList()
 end
 
 ---@class ItemsTab: UndoHandler, ControlHost, Control
+---@field controls ItemsTabControls
 ---@field build Build
 ---@field modFlag boolean
 ---@field socketViewer PassiveTreeView

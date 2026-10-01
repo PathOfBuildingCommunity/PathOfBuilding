@@ -206,7 +206,32 @@ end
 ---@field y number
 ---@field group? CompareSocketGroup
 
+---@class CompareTabControls: table<string, Control>
+---@field cmpStageCount EditControl
+---@field cmpMineCount EditControl
+---@field primCalcsStageCount EditControl
+---@field primCalcsMineCount EditControl
+---@field cmpCalcsStageCount EditControl
+---@field cmpCalcsMineCount EditControl
+---@field overlayTreeSearch EditControl
+---@field leftTreeSearch EditControl
+---@field rightTreeSearch EditControl
+---@field configSearchEdit EditControl
+---@field calcsScrollBar ScrollBarControl
+---@field viewScrollBar ScrollBarControl
+---@field itemsHScrollBar ScrollBarControl
+---@field skillsHScrollBar ScrollBarControl
+---@field cmpSocketGroup DropDownControl<any>
+---@field cmpMainSkill DropDownControl<any>
+---@field cmpSkillPart DropDownControl<any>
+---@field cmpMinion DropDownControl<any>
+---@field cmpMinionSkill DropDownControl<any>
+---@field primCalcsMode DropDownControl<any>
+---@field cmpCalcsMode DropDownControl<any>
+---@field comparePowerStatSelect DropDownControl<any>
+
 ---@class CompareTab: ControlHost, Control
+---@field controls CompareTabControls
 ---@field build Build
 ---@field primaryBuild Build
 ---@field compareEntries CompareEntry[]
@@ -2060,7 +2085,7 @@ end
 
 -- Pre-draw tree header/footer backgrounds and position tree controls.
 -- Must run before ProcessControlsInput so controls render on top of backgrounds.
----@param contentVP Rect
+---@param contentVP Viewport
 ---@param compareEntry CompareEntry
 function CompareTabClass:LayoutTreeView(contentVP, compareEntry)
 	self.treeLayout = nil
@@ -2227,7 +2252,7 @@ local function syncControlValue(ctrl, varData, val)
 end
 
 -- Position config controls and build section-grouped display when in CONFIG view.
----@param contentVP Rect
+---@param contentVP Viewport
 ---@param compareEntry CompareEntry
 function CompareTabClass:LayoutConfigView(contentVP, compareEntry)
 	if self.compareViewMode ~= "CONFIG" or not compareEntry then return end
@@ -2606,7 +2631,7 @@ local function layoutRow(control, x, currentY, width)
 end
 
 -- Handle scroll events for scrollable views.
----@param contentVP Rect
+---@param contentVP Viewport
 ---@param inputEvents InputEvent[]
 function CompareTabClass:HandleScrollInput(contentVP, inputEvents)
 	local cursorX, cursorY = GetCursorPos()

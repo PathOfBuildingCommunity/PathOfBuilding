@@ -12,6 +12,7 @@ local s_format = string.format
 ---@field id integer
 ---@field title? string
 ---@field slots? table<string, Item>
+---@field useSecondWeaponSet boolean
 
 ---@class ItemSetListControl: ListControl<integer>
 ---@field itemsTab ItemsTab

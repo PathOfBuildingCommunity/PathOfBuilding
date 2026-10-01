@@ -9,6 +9,8 @@ local m_ceil = math.ceil
 local m_floor = math.floor
 
 ---@class ScrollBarControl: Control
+---@field Scroll fun(self: ScrollBarControl, mult: number)
+---@field SetContentDimension fun(self: ScrollBarControl, conDim: number, viewDim: number)
 ---@field step number
 ---@field dir "HORIZONTAL"|"VERTICAL"
 ---@field offset number

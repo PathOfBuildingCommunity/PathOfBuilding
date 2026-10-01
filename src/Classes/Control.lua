@@ -36,6 +36,25 @@ local rect = {
 
 ---@class Control
 ---@field enabled        Prop<boolean>
+---@field state          boolean?
+---@field list           table?
+---@field selValue       any
+---@field selIndex       integer?
+---@field offset         number?
+---@field labelWidth     number?
+---@field realDraw       fun(self: Control, x: number, y: number, width: number, height: number, viewPort: Viewport)?
+---@field IsMouseOver?   fun(self: Control): boolean
+---@field lines          table
+---@field onClick?      fun(...)
+---@field buf           string
+---@field dropped       boolean
+---@field Click?        fun(self: Control, ...)
+---@field IsScrollDownKey? fun(key: string): boolean
+---@field IsScrollUpKey? fun(key: string): boolean
+---@field SelectIndex?  fun(self: Control, index: integer): boolean?
+---@field CanDragToValue? fun(self: Control, index: integer, value: any, source: Control): boolean
+---@field SetBreakdownData? fun(self: Control, displayData?: table, pinned?: boolean, forceActor?: Actor)
+---@field GetColumnProperty? fun(self: Control, column: table, property: string): any
 ---@field anchor         AnchorState
 ---@field rectStart      Rect
 ---@field hasFocus?      boolean
@@ -48,6 +67,14 @@ local rect = {
 ---@field y              Prop<number>?
 ---@field width          Prop<number>?
 ---@field height         Prop<number>?
+---@field Draw?          fun(self: Control, viewPort: Viewport, noTooltip?: boolean)
+---@field OnKeyUp?       fun(self: Control, key: string): Control?
+---@field SetText?       fun(self: Control, text: string, notify?: boolean)
+---@field SetList?       fun(self: Control, textList: table)
+---@field SetSel?        fun(self: Control, newSel: integer, noCallSelFunc?: boolean)
+---@field SelByValue?    fun(self: Control, value: any, key?: string): integer?
+---@field Scroll?        fun(self: Control, mult: number)
+---@field SetContentDimension? fun(self: Control, conDim: number, viewDim: number)
 ---@field collapseY      number? An additional offset which is applied when this control uses a collapsed anchor.
 ---@field collapseX      number? An additional offset which is applied when this control uses a collapsed anchor.
 local ControlClass = newClass("Control")

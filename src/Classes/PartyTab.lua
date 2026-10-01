@@ -22,7 +22,19 @@ local m_max = math.max
 ---@field EnableExportBuffs boolean
 ---@field showAdvancedTools boolean
 
+---@class PartyTabControls: table<string, Control>
+---@field importCodeIn EditControl
+---@field importCodeDestination DropDownControl<string>
+---@field editAuras EditControl
+---@field editCurses EditControl
+---@field editWarcries EditControl
+---@field editLinks EditControl
+---@field editPartyMemberStats EditControl
+---@field enemyCond EditControl
+---@field enemyMods EditControl
+
 ---@class PartyTab: ControlHost, Control
+---@field controls PartyTabControls
 ---@field build Build
 ---@field actor table
 ---@field enemyModList ModList

@@ -30,7 +30,14 @@ local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
 
+---@class ListControlControls: table<string, Control>
+---@field scrollBar? ScrollBarControl
+---@field scrollBarH? ScrollBarControl
+---@field scrollBarV? ScrollBarControl
+
 ---@class ListControl<T>: Control, ControlHost
+---@field controls ListControlControls
+---@field ListControl fun(self: ListControl<T>, anchor?: Anchor, rect?: Rect, rowHeight: number, scroll?: string|boolean, isMutable?: boolean, list?: T[], forceTooltip?: boolean): ListControl<T>
 ---@field list T[]
 ---@field rowHeight number
 ---@field scroll "HORIZONTAL"|"VERTICAL"|boolean|nil

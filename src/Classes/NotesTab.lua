@@ -5,7 +5,11 @@
 --
 local t_insert = table.insert
 
+---@class NotesTabControls: table<string, Control>
+---@field edit EditControl
+
 ---@class NotesTab: ControlHost, Control
+---@field controls NotesTabControls
 ---@field build Build
 ---@field modFlag boolean
 ---@field lastContent? string
