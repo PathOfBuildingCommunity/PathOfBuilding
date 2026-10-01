@@ -2702,10 +2702,10 @@ function calcs.buildDefenceEstimations(env, actor)
 					poolTable.EnergyShield = m_min(poolTable.EnergyShield + DamageIn.EnergyShieldWhenHit * (gainMult - 1), gainMult * output.EnergyShieldRecoveryCap)
 				end
 			end
-			if DamageIn.MissingLifeBeforeEnemyHit and poolTable.Life > 0 then
+			if (DamageIn.MissingLifeBeforeEnemyHit or 0) ~= 0 and poolTable.Life > 0 then
 				poolTable.Life = m_min(poolTable.Life + DamageIn.MissingLifeBeforeEnemyHit * ((output.LifeUnreserved or 0) - poolTable.Life) / 100, output.LifeRecoverable or 0)
 			end
-			if DamageIn.MissingManaBeforeEnemyHit and poolTable.Mana > 0 then
+			if (DamageIn.MissingManaBeforeEnemyHit or 0) ~= 0 and poolTable.Mana > 0 then
 				poolTable.Mana = m_min(poolTable.Mana + DamageIn.MissingManaBeforeEnemyHit * ((output.ManaUnreserved or 0) - poolTable.Mana) / 100, output.ManaUnreserved or 0)
 			end
 			poolTable = calcs.reducePoolsByDamage(poolTable, Damage, actor)
