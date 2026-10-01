@@ -21,7 +21,7 @@ local buildListHelpers = require("Modules.BuildListHelpers")
 ---@field subPath string
 ---@field list BuildListEntry[]
 
----@class BuildListControl: ListControl
+---@class BuildListControl: ListControl<BuildListEntry>
 ---@field listMode BuildListMode
 local BuildListClass = newClass("BuildListControl", "ListControl")
 
@@ -54,7 +54,7 @@ function BuildListClass:BuildListControl(anchor, rect, listMode)
 	end
 	---@param type string
 	---@param build BuildListEntry
-	---@param source ListControl
+	---@param source ListControl<unknown>
 	function self.controls.path:ReceiveDrag(type, build, source)
 		if type == "Build" then
 			for index, folder in ipairs(self.folderList) do
@@ -271,7 +271,7 @@ end
 
 ---@param type string
 ---@param build BuildListEntry
----@param source? ListControl
+---@param source? ListControl<unknown>
 function BuildListClass:ReceiveDrag(type, build, source)
 	if type == "Build" then
 		if self.hoverValue and self.hoverValue.folderName then
@@ -295,7 +295,7 @@ end
 
 ---@param index integer
 ---@param build BuildListEntry
----@param source? ListControl
+---@param source? ListControl<unknown>
 ---@return boolean
 function BuildListClass:CanDragToValue(index, build, source)
 	return build.folderName and source.selValue ~= build and buildListHelpers.CanMoveToSubPath(source.selValue, build.subPath .. build.folderName .. "/")

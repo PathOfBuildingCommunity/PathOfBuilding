@@ -204,7 +204,7 @@ function CalcSectionClass:UpdatePos()
 	end
 end
 
----@param viewPort Rect
+---@param viewPort Viewport
 ---@param noTooltip? boolean
 function CalcSectionClass:Draw(viewPort, noTooltip)
 	local x, y = self:GetPos()
@@ -400,7 +400,7 @@ function CalcSectionClass:HandleOverlayRelease(key)
 	end
 end
 
----@param viewPort Rect
+---@param viewPort Viewport
 ---@param inputEvents InputEvent[]
 function CalcSectionClass:DrawOverlay(viewPort, inputEvents)
 	local cursorX, cursorY = GetCursorPos()
@@ -475,7 +475,7 @@ end
 ---@param startLineY number
 ---@param drawWidth number
 ---@param actor Actor
----@param viewPort Rect
+---@param viewPort Viewport
 ---@param isOverlay boolean
 ---@param noTooltip? boolean
 function CalcSectionClass:DrawContent(drawX, startLineY, drawWidth, actor, viewPort, isOverlay, noTooltip)

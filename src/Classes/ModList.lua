@@ -17,6 +17,7 @@ local bor = bit.bor
 local mod_createMod = modLib.createMod
 
 ---@class ModList: ModStore
+---@field [integer] Mod
 local ModListClass = newClass("ModList", "ModStore")
 
 ---@param parent? ModStore
@@ -114,12 +115,14 @@ end
 ---@param ... string
 ---@return number
 function ModListClass:SumInternal(context, modType, cfg, flags, keywordFlags, source, ...)
+	---@type number
 	local result = 0
 	for i = 1, select('#', ...) do
 		local modName = select(i, ...)
 		for i = 1, #self do
+			---@type Mod
 			local mod = self[i]
-			if mod.name == modName and mod.type == modType and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.source:match("[^:]+") == source) then
+			if mod.name == modName and mod.type == modType and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or (mod.source and mod.source:match("[^:]+") == source)) then
 				if mod[1] then
 					result = result + (context:EvalMod(mod, cfg) or 0)
 				else
@@ -142,14 +145,17 @@ end
 ---@param ... string
 ---@return number
 function ModListClass:MoreInternal(context, cfg, flags, keywordFlags, source, ...)
+	---@type number
 	local result = 1
 	local modPrecision = nil
 	for i = 1, select('#', ...) do
+		---@type number
 		local modResult = 1 --The more multipliers for each mod are computed to the nearest percent then applied.
 		local modName = select(i, ...)
 		for i = 1, #self do
+			---@type Mod
 			local mod = self[i]
-			if mod.name == modName and mod.type == "MORE" and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.source:match("[^:]+") == source) then
+			if mod.name == modName and mod.type == "MORE" and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or (mod.source and mod.source:match("[^:]+") == source)) then
 				if mod[1] then
 					modResult = modResult * (1 + (context:EvalMod(mod, cfg) or 0) / 100)
 				else
@@ -186,8 +192,9 @@ function ModListClass:FlagInternal(context, cfg, flags, keywordFlags, source, ..
 	for i = 1, select('#', ...) do
 		local modName = select(i, ...)
 		for i = 1, #self do
+			---@type Mod
 			local mod = self[i]
-			if mod.name == modName and mod.type == "FLAG" and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.source:match("[^:]+") == source) then
+			if mod.name == modName and mod.type == "FLAG" and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or (mod.source and mod.source:match("[^:]+") == source)) then
 				if mod[1] then
 					if context:EvalMod(mod, cfg) then
 						return true
@@ -214,8 +221,9 @@ function ModListClass:OverrideInternal(context, cfg, flags, keywordFlags, source
 	for i = 1, select('#', ...) do
 		local modName = select(i, ...)
 		for i = 1, #self do
+			---@type Mod
 			local mod = self[i]
-			if mod.name == modName and mod.type == "OVERRIDE" and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.source:match("[^:]+") == source) then
+			if mod.name == modName and mod.type == "OVERRIDE" and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or (mod.source and mod.source:match("[^:]+") == source)) then
 				if mod[1] then
 					local value = context:EvalMod(mod, cfg)
 					if value then
@@ -243,8 +251,9 @@ function ModListClass:ListInternal(context, result, cfg, flags, keywordFlags, so
 	for i = 1, select('#', ...) do
 		local modName = select(i, ...)
 		for i = 1, #self do
+			---@type Mod
 			local mod = self[i]
-			if mod.name == modName and mod.type == "LIST" and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.source:match("[^:]+") == source) then
+			if mod.name == modName and mod.type == "LIST" and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or (mod.source and mod.source:match("[^:]+") == source)) then
 				local value
 				if mod[1] then
 					local value = context:EvalMod(mod, cfg) or nullValue
@@ -274,8 +283,9 @@ function ModListClass:TabulateInternal(context, result, modType, cfg, flags, key
 	for i = 1, select('#', ...) do
 		local modName = select(i, ...)
 		for i = 1, #self do
+			---@type Mod
 			local mod = self[i]
-			if mod.name == modName and (mod.type == modType or not modType) and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.source:match("[^:]+") == source) then
+			if mod.name == modName and (mod.type == modType or not modType) and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or (mod.source and mod.source:match("[^:]+") == source)) then
 				local value
 				if mod[1] then
 					value = context:EvalMod(mod, cfg)

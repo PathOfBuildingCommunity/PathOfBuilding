@@ -27,6 +27,7 @@ local m_floor = math.floor
 ---@field holdTime? number
 ---@field holdPauseTime? number
 ---@field holdRepeating? boolean
+---@overload fun(mix: table): ScrollBarControl
 local ScrollBarClass = newClass("ScrollBarControl", "Control")
 
 ---@param anchor? Anchor

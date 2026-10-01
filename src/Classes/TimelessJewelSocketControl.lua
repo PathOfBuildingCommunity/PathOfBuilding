@@ -8,8 +8,10 @@ local m_min = math.min
 
 ---@class TimelessJewelSocket
 ---@field id integer
+---@field label string
+---@field keystone string
 
----@class TimelessJewelSocketControl: DropDownControl
+---@class TimelessJewelSocketControl: DropDownControl<TimelessJewelSocket>
 ---@field build Build
 ---@field socketViewer PassiveTreeView
 local TimelessJewelSocketClass = newClass("TimelessJewelSocketControl", "DropDownControl")
@@ -28,7 +30,7 @@ function TimelessJewelSocketClass:TimelessJewelSocketControl(anchor, rect, list,
 	return self
 end
 
----@param viewPort Rect
+---@param viewPort Viewport
 ---@param noTooltip? boolean
 function TimelessJewelSocketClass:Draw(viewPort, noTooltip)
 	local x, y = self:GetPos()

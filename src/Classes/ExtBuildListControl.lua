@@ -288,7 +288,7 @@ function ExtBuildListControlClass:DrawString(left, top, align, height, font, tex
 	end
 end
 
----@param viewPort Rect
+---@param viewPort Viewport
 ---@param noTooltip? boolean
 function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 	if self.activeListProvider == nil then

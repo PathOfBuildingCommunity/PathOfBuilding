@@ -57,7 +57,7 @@ end
 ---@field doubleClick? boolean
 
 ---@param inputEvents InputEvent[]
----@param viewPort Rect
+---@param viewPort Viewport
 function ControlHostClass:ProcessControlsInput(inputEvents, viewPort)
 	local processedImbuedControl
 	for id, event in ipairs(inputEvents) do
@@ -118,8 +118,8 @@ function ControlHostClass:ProcessControlsInput(inputEvents, viewPort)
 	end	
 end
 
----@param viewPort Rect
----@param selControl? Control
+---@param viewPort Viewport
+---@param selControl? Control|false
 function ControlHostClass:DrawControls(viewPort, selControl)
 	for _, control in pairs(self.controls) do
 		if control:IsShown() and control.Draw then

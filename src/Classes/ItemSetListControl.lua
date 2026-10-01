@@ -13,7 +13,7 @@ local s_format = string.format
 ---@field title? string
 ---@field slots? table<string, Item>
 
----@class ItemSetListControl: ListControl
+---@class ItemSetListControl: ListControl<integer>
 ---@field itemsTab ItemsTab
 ---@field selIndex? integer
 ---@field selValue? integer
@@ -124,7 +124,7 @@ end
 
 ---@param type string
 ---@param value SharedItemSet
----@param source? ListControl
+---@param source? ListControl<unknown>
 function ItemSetListClass:ReceiveDrag(type, value, source)
 	if type == "SharedItemList" then
 		local itemSet = self.itemsTab:NewItemSet()

@@ -34,6 +34,7 @@ function PoBArchivesProviderClass:GetApiUrl()
 	if self.importCode then
 		return archivesUrl .. '/api/' .. 'recommendations'
 	else
+		---@cast self.activeList string
 		return archivesUrl .. '/api/builds?q=' .. string.lower(self.activeList)
 	end
 end
@@ -145,6 +146,7 @@ function PoBArchivesProviderClass:GetBuilds()
 
 
 	if self.mode == 'similar' then
+		---@cast self.importCode string
 		self:GetRecommendations(self.importCode,self:GetApiUrl())
 		return
 	else

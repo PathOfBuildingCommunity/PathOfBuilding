@@ -7,7 +7,7 @@ local t_insert = table.insert
 local t_remove = table.remove
 local m_max = math.max
 
----@class PassiveSpecListControl: ListControl
+---@class PassiveSpecListControl: ListControl<PassiveSpec>
 ---@field treeTab TreeTab
 ---@field selIndex? integer
 ---@field selValue? PassiveSpec

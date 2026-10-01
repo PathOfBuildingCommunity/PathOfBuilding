@@ -447,6 +447,7 @@ end
 ---@return unknown? callbackResult
 function TradeQueryRequestsClass:SearchWithURL(url, callback)
 	local subpath = url:match(self.hostNamePattern .. "trade/search/(.+)$")
+	---@cast subpath string
 	local paths = {}
 	for path in subpath:gmatch("[^/]+") do
 		table.insert(paths, path)

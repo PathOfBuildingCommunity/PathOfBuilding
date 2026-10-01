@@ -57,12 +57,13 @@ local m_floor = math.floor
 ---@field otherDragSource? ListControl<unknown>
 ---@field otherDragTargeting? boolean
 
----@class ListColumn<T>
+---@class (partial) ListColumn<T>
 ---@field label? string
 ---@field width? Prop<number>|fun(list: ListControl<T>, column: ListColumn<T>): number
 ---@field align? "LEFT"|"RIGHT"|"CENTER_X"
 ---@field _offset? number
 ---@field _width? number
+local _ListColumn = { }
 local ListClass = newClass("ListControl", "Control", "ControlHost")
 
 ---@generic T
@@ -179,7 +180,7 @@ function ListClass:GetRowRegion()
 	}
 end
 
----@param viewPort Rect
+---@param viewPort Viewport
 ---@param noTooltip? boolean
 function ListClass:Draw(viewPort, noTooltip)
 	local x, y = self:GetPos()
@@ -187,6 +188,7 @@ function ListClass:Draw(viewPort, noTooltip)
 	local rowHeight = self.rowHeight
 	local list = self.list
 
+	---@type number
 	local colOffset = 0
 	for index, column in ipairs(self.colList) do
 		column._offset = colOffset
@@ -267,16 +269,19 @@ function ListClass:Draw(viewPort, noTooltip)
 		local clipWidth = DrawStringWidth(textHeight, colFont, "...")
 		colOffset = column._offset - scrollOffsetH
 		local colWidth = column._width
+		---@cast colWidth number
 		local relX = cursorX - (x + 2)
 		local relY = cursorY - (y + 2)
 		for index = minIndex, maxIndex do
 			local lineY = rowHeight * (index - 1) - scrollOffsetV + (self.colLabels and 18 or 0)
 			local value = list[index]
-			local text = self:GetRowValue(colIndex, index, value)
+			local text = self:GetRowValue(colIndex, index, value) or ""
+			---@cast text string
 			local icon = nil
 			if self.GetRowIcon then 
 				icon = self:GetRowIcon(colIndex, index, value)
 			end
+			---@cast icon ImageHandle?
 			local textWidth = DrawStringWidth(textHeight, colFont, text)
 			if textWidth > colWidth - 2 then
 				local clipIndex = DrawStringCursorIndex(textHeight, colFont, text, colWidth - clipWidth - 2, 0)
@@ -378,6 +383,9 @@ function ListClass:Draw(viewPort, noTooltip)
 	self.hoverIndex = ttIndex
 	self.hoverValue = ttValue
 	if ttIndex and self.AddValueTooltip and (not noTooltip or self.forceTooltip) then
+		---@cast ttX number
+		---@cast ttY number
+		---@cast ttWidth number
 		SetDrawLayer(nil, 100)
 		self:AddValueTooltip(self.tooltip, ttIndex, ttValue)
 		self.tooltip:Draw(ttX, ttY, ttWidth, rowHeight, viewPort)

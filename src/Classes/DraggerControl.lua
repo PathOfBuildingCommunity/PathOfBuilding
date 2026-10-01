@@ -3,15 +3,15 @@
 -- Class: Dragger Button Control
 -- Dragger button control.
 --
----@class CursorPosition
+---@class DraggerPosition
 ---@field X number
 ---@field Y number
 
 ---@class DraggerControl: Control, TooltipHost
 ---@field label Prop<string>
----@field onKeyDown? fun(position: CursorPosition)
----@field onKeyUp? fun(offset: CursorPosition)
----@field onRightClick? fun(position: CursorPosition)
+---@field onKeyDown? fun(position: DraggerPosition)
+---@field onKeyUp? fun(offset: DraggerPosition)
+---@field onRightClick? fun(position: DraggerPosition)
 ---@field onHover? fun(): Control?
 ---@field forceTooltip? boolean
 ---@field image? ImageHandle
@@ -24,9 +24,9 @@ local DraggerClass = newClass("DraggerControl", "Control", "TooltipHost")
 ---@param anchor? Anchor
 ---@param rect? Rect
 ---@param label Prop<string>
----@param onKeyDown? fun(position: CursorPosition)
----@param onKeyUp? fun(offset: CursorPosition)
----@param onRightClick? fun(position: CursorPosition)
+---@param onKeyDown? fun(position: DraggerPosition)
+---@param onKeyUp? fun(offset: DraggerPosition)
+---@param onRightClick? fun(position: DraggerPosition)
 ---@param onHover? fun(): Control?
 ---@param forceTooltip? boolean
 ---@return DraggerControl
@@ -62,7 +62,7 @@ function DraggerClass:IsMouseOver()
 	return self:IsMouseInBounds()
 end
 
----@param viewPort Rect
+---@param viewPort Viewport
 ---@param noTooltip? boolean
 ---@return Control?
 function DraggerClass:Draw(viewPort, noTooltip)

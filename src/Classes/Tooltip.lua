@@ -42,10 +42,11 @@ end
 
 ---@class TooltipLine
 ---@field size number
----@field text string|boolean
+---@field text? string
 ---@field font Font
 ---@field modLine? ModLine
----@field background? number[]
+---@field background? number[]|string|ImageHandle
+---@field bounds? { x: number, y: number, width: number, height: number }
 
 ---@class Tooltip
 ---@field lines TooltipLine[]
@@ -121,10 +122,10 @@ function TooltipClass:CheckForUpdate(...)
 end
 
 ---@param size number
----@param text string|boolean
+---@param text string|boolean|nil
 ---@param font? Font
 ---@param modLine? ModLine
----@param background? number[]
+---@param background? number[]|string|ImageHandle
 function TooltipClass:AddLine(size, text, font, modLine, background)
 	if text then
 		local fontToUse
@@ -201,6 +202,7 @@ end
 ---@return number width
 ---@return number height
 function TooltipClass:GetSize()
+	---@type number, number
 	local ttW, ttH = 0, 0
 	for i, data in ipairs(self.lines) do
 		if data.text or (self.lines[i - 1] and self.lines[i + 1] and self.lines[i + 1].text) then
@@ -231,7 +233,7 @@ function TooltipClass:GetSize()
 	return ttW + H_PAD, ttH + V_PAD
 end
 
----@param viewPort Rect
+---@param viewPort Viewport
 ---@return number width
 ---@return number height
 function TooltipClass:GetDynamicSize(viewPort)
@@ -250,7 +252,7 @@ end
 ---@param ttX number Base x-coordinate for the tooltip content
 ---@param ttH number The total estimated height of the tooltip content, used to determine column breakpoints
 ---@param ttW number The pixel width of the primary (first) tooltip column
----@param viewPort Rect Active screen boundaries
+---@param viewPort Viewport Active screen boundaries
 ---@return number columns The total number of layout columns generated
 ---@return number maxColumnHeight The maximum pixel height reached across all formatted columns
 ---@return table[] drawStack An array of sequential rendering instructions (texts, images, separators, and their coordinates)
@@ -417,7 +419,7 @@ end
 ---@param y number y-coordinate to draw the tooltip at
 ---@param w? number optional width of the UI element being hovered over. Tooltip will position itself outside this box (if possible)
 ---@param h? number optional height of the UI element being hovered over. Needs to be provided alongside `w`
----@param viewPort Rect Active screen boundaries
+---@param viewPort Viewport Active screen boundaries
 ---@return number? width
 ---@return number? height
 function TooltipClass:Draw(x, y, w, h, viewPort)

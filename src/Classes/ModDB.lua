@@ -148,6 +148,7 @@ end
 ---@param ... string
 ---@return number
 function ModDBClass:SumInternal(context, modType, cfg, flags, keywordFlags, source, ...)
+	---@type number
 	local result = 0
 	local globalLimits
 	for i = 1, select('#', ...) do
@@ -183,16 +184,18 @@ end
 ---@param ... string
 ---@return number
 function ModDBClass:MoreInternal(context, cfg, flags, keywordFlags, source, ...)
+	---@type number
 	local result = 1
 	local modPrecision = nil
 	local globalLimits
 	for i = 1, select('#', ...) do
 		local modList = self.mods[select(i, ...)]
+		---@type number
 		local modResult = 1 --The more multipliers for each mod are computed to the nearest percent then applied.
 		if modList then
 			for i = 1, #modList do
 				local mod = modList[i]
-				if mod.type == "MORE" and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.source:match("[^:]+") == source) then
+				if mod.type == "MORE" and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or (mod.source and mod.source:match("[^:]+") == source)) then
 					local value
 					if mod[1] then
 						if not globalLimits then
@@ -237,7 +240,7 @@ function ModDBClass:FlagInternal(context, cfg, flags, keywordFlags, source, ...)
 		if modList then
 			for i = 1, #modList do
 				local mod = modList[i]
-				if mod.type == "FLAG" and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.source:match("[^:]+") == source) then
+				if mod.type == "FLAG" and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or (mod.source and mod.source:match("[^:]+") == source)) then
 					if mod[1] then
 						if context:EvalMod(mod, cfg) then
 							return true
@@ -267,7 +270,7 @@ function ModDBClass:OverrideInternal(context, cfg, flags, keywordFlags, source, 
 		if modList then
 			for i = 1, #modList do
 				local mod = modList[i]
-				if mod.type == "OVERRIDE" and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.source:match("[^:]+") == source) then
+				if mod.type == "OVERRIDE" and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or (mod.source and mod.source:match("[^:]+") == source)) then
 					if mod[1] then
 						local value = context:EvalMod(mod, cfg)
 						if value then
@@ -298,7 +301,7 @@ function ModDBClass:ListInternal(context, result, cfg, flags, keywordFlags, sour
 		if modList then
 			for i = 1, #modList do
 				local mod = modList[i]
-				if mod.type == "LIST" and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.source:match("[^:]+") == source) then
+				if mod.type == "LIST" and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or (mod.source and mod.source:match("[^:]+") == source)) then
 					local value
 					if mod[1] then
 						local value = context:EvalMod(mod, cfg) or nullValue
@@ -333,7 +336,7 @@ function ModDBClass:TabulateInternal(context, result, modType, cfg, flags, keywo
 		if modList then
 			for i = 1, #modList do
 				local mod = modList[i]
-				if (mod.type == modType or not modType) and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.source:match("[^:]+") == source) then
+				if (mod.type == modType or not modType) and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or (mod.source and mod.source:match("[^:]+") == source)) then
 					local value
 					if mod[1] then
 						if not globalLimits then
@@ -369,7 +372,7 @@ function ModDBClass:HasModInternal(modType, flags, keywordFlags, source, ...)
 		if modList then
 			for i = 1, #modList do
 				local mod = modList[i]
-				if mod.type == modType and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.source:match("[^:]+") == source) then
+				if mod.type == modType and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or (mod.source and mod.source:match("[^:]+") == source)) then
 					return true
 				end
 			end

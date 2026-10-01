@@ -26,7 +26,7 @@ local slot_map = {
 	["Belt"] 			= { icon = NewImageHandle(), path = "Assets/icon_belt.png" },
 }
 
----@class SkillListControl: ListControl
+---@class SkillListControl: ListControl<table>
 ---@field skillsTab SkillsTab
 ---@field label string
 ---@field selIndex? integer
@@ -255,7 +255,7 @@ function SkillListClass:OnHoverKeyUp(key)
 end
 
 
----@param viewPort Rect
+---@param viewPort Viewport
 function SkillListClass:Draw(viewPort)
 	self.ListControl.Draw(self, viewPort)
 end

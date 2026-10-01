@@ -38,7 +38,7 @@ function TextListClass:IsMouseOver()
 	return self:IsMouseInBounds() or self:GetMouseOverControl()
 end
 
----@param viewPort Rect
+---@param viewPort Viewport
 function TextListClass:Draw(viewPort)
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()

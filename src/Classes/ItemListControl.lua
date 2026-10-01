@@ -7,10 +7,10 @@ local pairs = pairs
 local ipairs = ipairs
 local t_insert = table.insert
 
----@class ItemListControl: ListControl
+---@class ItemListControl: ListControl<integer>
 ---@field itemsTab ItemsTab
 ---@field defaultText string
----@field dragTargetList ListControl[]
+---@field dragTargetList ListControl<unknown>[]
 ---@field isMutable boolean
 ---@field loadoutListKey? string
 ---@field lastOutputRevision? integer
@@ -201,7 +201,7 @@ function ItemListClass:UpdateList()
 	self.selValue = self.selIndex and self.list[self.selIndex] or nil
 end
 
----@param viewPort Rect
+---@param viewPort Viewport
 function ItemListClass:Draw(viewPort)
 	local loadoutListChanged = self:UpdateLoadoutList()
 	local outputRevision = self.itemsTab.build and self.itemsTab.build.outputRevision
@@ -308,7 +308,7 @@ end
 
 ---@param type string
 ---@param value Item
----@param source? ListControl
+---@param source? ListControl<unknown>
 function ItemListClass:ReceiveDrag(type, value, source)
 	if type == "Item" then
 		local newItem = new("Item"):Item(value.raw)

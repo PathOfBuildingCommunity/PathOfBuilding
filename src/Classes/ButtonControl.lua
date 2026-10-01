@@ -55,7 +55,7 @@ function ButtonClass:IsMouseOver()
 	return self:IsMouseInBounds()
 end
 
----@param viewPort Rect
+---@param viewPort Viewport
 ---@param noTooltip? boolean
 ---@return Control?
 function ButtonClass:Draw(viewPort, noTooltip)

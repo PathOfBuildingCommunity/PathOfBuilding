@@ -1218,7 +1218,7 @@ end
 ---@param orderListField string
 ---@param setsField string
 ---@param activeIdField string
----@param control DropDownControl
+---@param control DropDownControl<unknown>
 function CompareTabClass:PopulateSetDropdown(tab, orderListField, setsField, activeIdField, control)
 	local list = {}
 	local orderList = tab[orderListField]
@@ -1819,7 +1819,7 @@ end
 -- ============================================================
 -- DRAW - Main render method
 -- ============================================================
----@param viewPort Rect
+---@param viewPort Viewport
 ---@param inputEvents InputEvent[]
 function CompareTabClass:Draw(viewPort, inputEvents)
 	main:DrawBackground(viewPort)
@@ -1886,6 +1886,7 @@ function CompareTabClass:Draw(viewPort, inputEvents)
 	if compareEntry and mode ~= "TREE" and mode ~= "CALCS" then
 		local topReserve = 0
 		local bottomReserve = 0
+		---@type number
 		local contentHeight = 0
 		if mode == "SUMMARY" then
 			topReserve = LAYOUT.summaryHeaderHeight
@@ -1903,6 +1904,7 @@ function CompareTabClass:Draw(viewPort, inputEvents)
 			contentHeight = self.skillsTotalContentHeight or 0
 		end
 		local viewHeight = m_max(contentVP.height - topReserve - bottomReserve, 0)
+		---@cast viewHeight number
 		viewScrollBar.x = contentVP.x + contentVP.width - 18
 		viewScrollBar.y = contentVP.y + topReserve
 		viewScrollBar.height = viewHeight
@@ -2043,7 +2045,7 @@ end
 -- DRAW HELPERS
 -- ============================================================
 
----@param viewPort Rect
+---@param viewPort Viewport
 ---@param controls Control[]
 function CompareTabClass:DrawControlList(viewPort, controls)
 	local noTooltip = function(control)
@@ -2505,7 +2507,7 @@ function CompareTabClass:RefreshCalcsSkillControls(compareEntry)
 end
 
 -- Layout calcs skill detail controls into a two-column header area
----@param vp Rect
+---@param vp Viewport
 ---@param compareEntry CompareEntry
 ---@return number headerHeight
 function CompareTabClass:LayoutCalcsSkillControls(vp, compareEntry)
@@ -2631,6 +2633,7 @@ function CompareTabClass:HandleScrollInput(contentVP, inputEvents)
 				self.scrollY = self.controls.viewScrollBar.offset
 				inputEvents[id] = nil
 			elseif event.key == "WHEELDOWN" and self.compareViewMode ~= "TREE" and not mouseOverViewScrollBar then
+				---@type number
 				local maxScroll = 0
 				local viewportH = contentVP.height
 				if self.compareViewMode == "CONFIG" and self.configTotalContentHeight then
@@ -2850,6 +2853,7 @@ local function formatImpact(impact)
 		local str = color .. sign .. numStr
 
 		-- Compute percentage change
+		---@type number
 		local percent = 0
 		if baseStatValue ~= 0 then
 			percent = (impact / math.abs(baseStatValue)) * 100
@@ -3374,7 +3378,7 @@ end
 -- ============================================================
 -- SUMMARY VIEW
 -- ============================================================
----@param vp Rect
+---@param vp Viewport
 ---@param compareEntry CompareEntry
 function CompareTabClass:DrawSummary(vp, compareEntry)
 	local primaryCalcs = self.primaryBuild.calcsTab
@@ -3412,6 +3416,7 @@ function CompareTabClass:DrawSummary(vp, compareEntry)
 	local minCol3R = col2R + compareNameW + 16
 	local maxCol3R = vp.width - 200
 	local col3R = m_min(m_max(LAYOUT.summaryCol3Right, minCol3R), maxCol3R)
+	---@cast col3R number
 	local col4 = col3R + 20
 
 	SetViewport(vp.x, vp.y, vp.width, headerReserve)
@@ -3611,10 +3616,12 @@ function CompareTabClass:DrawStatList(drawY, displayStats, primaryOutput, compar
 		elseif statData.label and statData.condFunc then
 			-- Label-only stat (e.g. "Chaos Resistance: Immune")
 			local labelColor = statData.color or "^7"
-			if statData.condFunc(primaryOutput) or statData.condFunc(compareOutput) then
+			---@type fun(output: Output): boolean
+			local labelCondFunc = statData.condFunc
+			if labelCondFunc(primaryOutput) or labelCondFunc(compareOutput) then
 				local valStr = statData.val or ""
-				local primaryShown = statData.condFunc(primaryOutput)
-				local compareShown = statData.condFunc(compareOutput)
+				local primaryShown = labelCondFunc(primaryOutput)
+				local compareShown = labelCondFunc(compareOutput)
 				DrawString(col1, drawY, "LEFT", lineHeight, "VAR", labelColor .. statData.label)
 				DrawString(col2R, drawY, "RIGHT_X", lineHeight, "VAR", "^7" .. (primaryShown and valStr or "-"))
 				DrawString(col3R, drawY, "RIGHT_X", lineHeight, "VAR", colorCodes.WARNING .. (compareShown and valStr or "-"))
@@ -3628,7 +3635,7 @@ end
 -- ============================================================
 -- TREE VIEW (overlay + side-by-side)
 -- ============================================================
----@param vp Rect
+---@param vp Viewport
 ---@param inputEvents InputEvent[]
 ---@param compareEntry CompareEntry
 function CompareTabClass:DrawTree(vp, inputEvents, compareEntry)
@@ -3708,7 +3715,10 @@ function CompareTabClass:DrawTree(vp, inputEvents, compareEntry)
 			return x - rightAbsX, y - rightAbsY
 		end
 		local rightTreeVP = { x = 0, y = 0, width = halfWidth, height = treeHeight }
-		compareEntry.treeTab.viewer:Draw(compareEntry, rightTreeVP, leftHasInput and {} or inputEvents)
+		local compareEntryAsBuild = compareEntry
+		---@diagnostic disable-next-line: cast-type-mismatch
+		---@cast compareEntryAsBuild Build
+		compareEntry.treeTab.viewer:Draw(compareEntryAsBuild, rightTreeVP, leftHasInput and {} or inputEvents)
 		SetViewport()
 	end
 
@@ -3938,7 +3948,7 @@ function CompareTabClass:AddAbyssSockets(comparison, destTable, requireBothSides
 	end
 end
 
----@param vp Rect
+---@param vp Viewport
 ---@param compareEntry CompareEntry
 ---@param inputEvents InputEvent[]
 function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
@@ -3973,6 +3983,7 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 	local primaryContentW
 	if self.itemsExpandedMode then
 		-- Expanded mode: measure the widest rendered line of every primary item card
+		---@type number
 		local widest = 0
 		local pItems = self.primaryBuild.itemsTab and self.primaryBuild.itemsTab.items
 		local pSlots = self.primaryBuild.itemsTab and self.primaryBuild.itemsTab.slots
@@ -4049,7 +4060,9 @@ local function measureDiff(pItem, cItem)
 	cursorX = cursorX - vp.x
 	cursorY = cursorY - (vp.y + checkboxOffset)
 	local hoverItem = nil
+	---@type number, number
 	local hoverX, hoverY = 0, 0
+	---@type number, number
 	local hoverW, hoverH = 0, 0
 	local hoverItemsTab = nil
 
@@ -4062,7 +4075,9 @@ local function measureDiff(pItem, cItem)
 	-- Track Equip button hover for stat comparison tooltip
 	local hoverEquipItem = nil
 	local hoverEquipSlotName = nil
+	---@type number, number
 	local hoverEquipBtnX, hoverEquipBtnY = 0, 0
+	---@type number, number
 	local hoverEquipBtnW, hoverEquipBtnH = 0, 0
 
 	-- Helper: process copy/buy button hover state and click events for a slot.
@@ -4316,7 +4331,7 @@ end
 -- ============================================================
 -- SKILLS VIEW
 -- ============================================================
----@param vp Rect
+---@param vp Viewport
 ---@param compareEntry CompareEntry
 function CompareTabClass:DrawSkills(vp, compareEntry)
 	local lineHeight = 18
@@ -4676,7 +4691,9 @@ local function drawGroupHeader(skillsTab, group, idx, x, y)
 		DrawString(textX, y, "LEFT", 18, "VAR", "^7" .. getGroupLabel(group, idx))
 	end
 
+	---@type table<integer, { p: CompareGemDisplayEntry[], c: CompareGemDisplayEntry[] }>
 	local displayListsByPair = {}
+	---@type number
 	local maxPrimaryW = 0
 	for idx, pair in ipairs(renderPairs) do
 		local pSet = pair.pIdx and pSets[pair.pIdx] or {}
@@ -4823,7 +4840,7 @@ end
 ---@param rowY number
 ---@param rowW number
 ---@param rowH number
----@param vp Rect
+---@param vp Viewport
 ---@param compareEntry CompareEntry
 function CompareTabClass:DrawCalcsTooltip(colData, rowLabel, rowX, rowY, rowW, rowH, vp, compareEntry)
 	local primaryLabel = self:GetShortBuildName(self.primaryBuild.buildName)
@@ -4838,7 +4855,7 @@ end
 -- ============================================================
 
 -- Draw the skill detail header area with labels for controls and text info lines
----@param vp Rect
+---@param vp Viewport
 ---@param compareEntry CompareEntry
 ---@param headerHeight number
 ---@param primaryEnv table
@@ -5033,7 +5050,7 @@ local function subSectionExtraMatches(subSecData, primaryActor, compareActor)
 	return primaryExtraOk and compareExtraOk and tostring(primaryExtraText or "") == tostring(compareExtraText or "")
 end
 
----@param vp Rect
+---@param vp Viewport
 ---@param compareEntry CompareEntry
 function CompareTabClass:DrawCalcs(vp, compareEntry)
 	-- Use calcsEnv for both values and tooltips (has breakdown data + respects Calcs skill selection)
@@ -5059,6 +5076,7 @@ function CompareTabClass:DrawCalcs(vp, compareEntry)
 	-- Card dimensions
 	-- Layout: [2px border | 130px label | 2px gap | 2px sep | valW | 2px sep | valW | 2px border]
 	local cardWidth = m_min(LAYOUT.calcsMaxCardWidth, gridWidth - 16)
+	---@cast cardWidth number
 	local labelWidth = LAYOUT.calcsLabelWidth
 	local sepW = LAYOUT.calcsSepW
 	local valColWidth = m_floor((cardWidth - 140) / 2)
@@ -5287,7 +5305,7 @@ end
 -- ============================================================
 -- CONFIG VIEW
 -- ============================================================
----@param vp Rect
+---@param vp Viewport
 ---@param compareEntry CompareEntry
 ---@param headerOnly boolean?
 function CompareTabClass:DrawConfig(vp, compareEntry, headerOnly)

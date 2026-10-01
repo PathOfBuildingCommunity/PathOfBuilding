@@ -8,7 +8,7 @@ local t_insert = table.insert
 local t_remove = table.remove
 local t_sort = table.sort
 
----@class PowerReportListControl: ListControl
+---@class PowerReportListControl: ListControl<Node>
 ---@field nodeSelectCallback fun(node: Node)
 ---@field originalList Node[]
 ---@field powerColumn ListColumn<Node>

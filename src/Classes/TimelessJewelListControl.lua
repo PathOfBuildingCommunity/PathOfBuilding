@@ -9,7 +9,7 @@ local m_min = math.min
 local m_max = math.max
 local t_concat = table.concat
 
----@class TimelessJewelListControl: ListControl
+---@class TimelessJewelListControl: ListControl<table>
 ---@field build Build
 ---@field list table
 ---@field noTooltip? boolean
@@ -31,7 +31,7 @@ function TimelessJewelListControlClass:TimelessJewelListControl(anchor, rect, bu
 	return self
 end
 
----@param viewPort Rect
+---@param viewPort Viewport
 ---@param noTooltip? boolean
 function TimelessJewelListControlClass:Draw(viewPort, noTooltip)
 	self.noTooltip = noTooltip

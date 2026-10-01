@@ -526,7 +526,7 @@ function GemSelectClass:IsMouseOver()
 	return mOver, mOverComp
 end
 
----@param viewPort Rect
+---@param viewPort Viewport
 ---@param noTooltip? boolean
 function GemSelectClass:Draw(viewPort, noTooltip)
 	self.sortPercentage = self.sortPercentage or ""

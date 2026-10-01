@@ -14,7 +14,7 @@
 ---@field Slider SliderControl
 ---@field SliderValue LabelControl
 
----@class TradeStatWeightMultiplierListControl: ListControl
+---@class TradeStatWeightMultiplierListControl: ListControl<TradeStatWeightMultiplier>
 ---@field list TradeStatWeightMultiplier[]
 ---@field indexController TradeStatWeightMultiplierIndexController
 ---@field selIndex? integer
@@ -34,7 +34,7 @@ function TradeStatWeightMultiplierListControlClass:TradeStatWeightMultiplierList
 	return self
 end
 
----@param viewPort Rect
+---@param viewPort Viewport
 ---@param noTooltip? boolean
 function TradeStatWeightMultiplierListControlClass:Draw(viewPort, noTooltip)
 	self.noTooltip = noTooltip

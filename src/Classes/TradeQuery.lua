@@ -846,9 +846,9 @@ end
 -- Method to evaluate a result by getting it's output and weight
 ---@param row_idx integer
 ---@param result_index integer
----@param calcFunc fun(item: Item): Output
+---@param calcFunc fun(adjustments?: table): Output
 ---@param baseOutput Output
----@return table?
+---@return table[]
 function TradeQueryClass:GetResultEvaluation(row_idx, result_index, calcFunc, baseOutput)
 	local result = self.resultTbl[row_idx][result_index]
 	if not calcFunc then -- Always evaluate when calcFunc is given
@@ -1065,9 +1065,9 @@ end
 
 -- ensure we only take in items that parse properly to avoid crash issues and fit in the
 -- provided slotName
----@param itemEntries table[]
+---@param itemEntries TradeQueryItem[]
 ---@param slotName? string
----@return table[]
+---@return TradeQueryItem[]
 function TradeQueryClass:FilterToSafeItems(itemEntries, slotName)
 	local itemsSafe = {}
 	for _, entry in ipairs(itemEntries) do
@@ -1108,6 +1108,7 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 				self:SetNotice(context.controls.pbNotice, "")
 			end
 			if main.api.authToken == nil then
+				---@cast self.pbLeague string
 				local url = self.tradeQueryRequests:buildUrl(self.hostName .. "trade/search", self.pbRealm, self.pbLeague)
 				url = url .. "?q=" .. urlEncode(query)
 				controls["uri"..context.row_idx]:SetText(url, true)
@@ -1115,6 +1116,7 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 			end
 			context.controls["priceButton"..context.row_idx].label = "Searching..."
 			self.lastQueries[row_idx] = query
+			---@cast self.pbLeague string
 			self.tradeQueryRequests:SearchWithQueryWeightAdjusted(self.pbRealm, self.pbLeague, query,
 				function(items, errMsg)
 					if errMsg then
@@ -1152,6 +1154,7 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 				end,
 				{
 					callbackQueryId = function(queryId)
+						---@cast self.pbLeague string
 						local url = self.tradeQueryRequests:buildUrl(self.hostName .. "trade/search", self.pbRealm, self.pbLeague, queryId)
 						controls["uri"..context.row_idx]:SetText(url, true)
 					end
@@ -1171,6 +1174,7 @@ you can add them, copy the link here, and press "Price Item" to evaluate the ite
 		local buttonWidth, _ = button:GetSize()
 		local nodeId = slotTbl.nodeId
 		if not nodeId then return end
+		---@cast nodeId integer
 		local boxSize = 250
 		-- anchor bottom to top of button
 		local viewerY = y - boxSize - 4
@@ -1298,6 +1302,7 @@ you can add them, copy the link here, and press "Price Item" to evaluate the ite
 	controls["importButton"..row_idx] = new("ButtonControl"):ButtonControl({ "TOPLEFT", controls["resultDropdown"..row_idx], "TOPRIGHT"}, {8, 0, 100, row_height}, "Import Item", function()
 		self.itemsTab:CreateDisplayItemFromRaw(self.resultTbl[row_idx][self.itemIndexTbl[row_idx]].item_string)
 		local item = self.itemsTab.displayItem
+		---@cast item Item
 		-- pass "true" to not auto equip it as we will have our own logic
 		self.itemsTab:AddDisplayItem(true)
 		-- Autoequip it

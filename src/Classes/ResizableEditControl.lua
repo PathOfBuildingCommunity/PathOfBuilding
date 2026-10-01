@@ -45,7 +45,7 @@ function ResizableEditClass:ResizableEditControl(anchor, rect, init, prompt, fil
 	return self
 end
 
----@param viewPort Rect
+---@param viewPort Viewport
 ---@param noTooltip? boolean
 function ResizableEditClass:Draw(viewPort, noTooltip)
     self:SetBoundedDrag(self)

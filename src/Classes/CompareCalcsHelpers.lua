@@ -52,7 +52,7 @@ end
 
 -- Resolve a modifier's source to a human-readable name
 ---@param mod Mod
----@param build Build
+---@param build Build|CompareEntry
 ---@return string
 function M.ResolveSourceName(mod, build)
 	if not mod.source then return "" end
@@ -88,7 +88,7 @@ function M.ResolveSourceName(mod, build)
 end
 
 -- Get the modDB and config for a sectionData entry and actor
----@param sectionData CalcSectionData
+---@param sectionData CalcSectionData|CalcSectionEntry
 ---@param actor Actor
 ---@return ModStore?
 ---@return ModCfg?
@@ -112,18 +112,22 @@ function M.GetModStoreAndCfg(sectionData, actor)
 end
 
 -- Tabulate modifiers for a sectionData entry and actor
----@param sectionData CalcSectionData
+---@param sectionData CalcSectionData|CalcSectionEntry
 ---@param actor Actor
 ---@return CompareCalcModRow[]
 function M.TabulateMods(sectionData, actor)
 	local modStore, cfg = M.GetModStoreAndCfg(sectionData, actor)
 	if not modStore then return {} end
+	local modType = sectionData.modType
+	if not modType then return {} end
+	local modName = sectionData.modName
+	if not modName then return {} end
 
 	local rowList
-	if type(sectionData.modName) == "table" then
-		rowList = modStore:Tabulate(sectionData.modType, cfg, unpack(sectionData.modName))
+	if type(modName) == "table" then
+		rowList = modStore:Tabulate(modType, cfg, unpack(modName))
 	else
-		rowList = modStore:Tabulate(sectionData.modType, cfg, sectionData.modName)
+		rowList = modStore:Tabulate(modType, cfg, modName)
 	end
 	return rowList or {}
 end
@@ -143,8 +147,8 @@ end
 
 -- Format a single modifier row as a tooltip line
 ---@param row CompareCalcModRow
----@param sectionData CalcSectionData
----@param build Build
+---@param sectionData CalcSectionData|CalcSectionEntry
+---@param build Build|CompareEntry
 ---@return string displayValue
 ---@return string sourceType
 ---@return string sourceName
@@ -168,8 +172,8 @@ function M.FormatModRow(row, sectionData, build)
 end
 
 -- Get breakdown text lines for a build's actor
----@param sectionData CalcSectionData
----@param build Build
+---@param sectionData CalcSectionData|CalcSectionEntry
+---@param build Build|CompareEntry
 ---@return string[]?
 function M.GetBreakdownLines(sectionData, build)
 	if not sectionData.breakdown then return nil end
@@ -206,7 +210,7 @@ end
 ---@param rowY number
 ---@param rowW number
 ---@param rowH number
----@param vp Rect
+---@param vp Viewport
 ---@param compareEntry CompareEntry
 function M.DrawCalcsTooltip(tooltip, primaryBuild, primaryLabel, colData, rowLabel, rowX, rowY, rowW, rowH, vp, compareEntry)
 	if tooltip:CheckForUpdate(colData, rowLabel) then
@@ -368,6 +372,7 @@ end
 ---@return string sourceName
 local function resolveModSource(mod, build)
 	local sourceType = mod.source and mod.source:match("[^:]+") or "?"
+	---@cast mod.source string
 	local sourceName = ""
 	if sourceType == "Item" then
 		local itemId = mod.source:match("Item:(%d+):.+")
@@ -407,7 +412,7 @@ end
 ---@param cellY number
 ---@param cellW number
 ---@param cellH number
----@param vp Rect
+---@param vp Viewport
 function M.DrawSkillBreakdownPanel(build, breakdownKey, label, cellX, cellY, cellW, cellH, vp)
 	local player = build.calcsTab and build.calcsTab.calcsEnv
 		and build.calcsTab.calcsEnv.player

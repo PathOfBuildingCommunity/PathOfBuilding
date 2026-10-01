@@ -461,9 +461,8 @@ function PLoadModule(modName, ...)
 	end
 end
 
----@generic T
 ---@generic R
----@param func fun(...: T): R
+---@param func fun(...: any): R
 ---@param ...  any
 ---@return any? err
 ---@return R? retVal

@@ -11,7 +11,7 @@ local t_insert = table.insert
 ---@field fullFileName string
 ---@field modified integer
 
----@class FolderListControl: ListControl
+---@class FolderListControl: ListControl<FolderListEntry>
 ---@field subPath string
 ---@field sortMode "NAME"|"EDITED"
 ---@field onChangeCallback? fun(newSubPath: string)

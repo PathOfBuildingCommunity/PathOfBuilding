@@ -692,7 +692,7 @@ function PartyTabClass:Save(xml)
 	self.lastContent.showAdvancedTools = self.controls.ShowAdvanceTools.state
 end
 
----@param viewPort Rect
+---@param viewPort Viewport
 ---@param inputEvents InputEvent[]
 function PartyTabClass:Draw(viewPort, inputEvents)
 	self.x = viewPort.x
@@ -803,6 +803,7 @@ function PartyTabClass:ParseBuffs(list, buf, buffType, label)
 						label[k1][k2] = tonumber(v)
 					elseif line:match("|") then
 						local k, tags, v = line:match("([%w ]-%w+)|(.+)=(.+)")
+						---@cast tags string
 						v = tonumber(v)
 						for tag in tags:gmatch("([^|]*)|?") do
 							if tag == "percent" then
@@ -895,6 +896,7 @@ function PartyTabClass:ParseBuffs(list, buf, buffType, label)
 							end
 						end
 						if currentName ~= "SKIP" then
+							---@cast mod.source string
 							if mod.source:match("Item") then
 								local oldItem
 								oldItem, mod.source = mod.source:match("Item:(%d+):(.+)")
@@ -912,6 +914,7 @@ function PartyTabClass:ParseBuffs(list, buf, buffType, label)
 								end
 							end
 							if buffType == "Link" then
+								---@cast mod.name string
 								mod.name = mod.name:gsub("Parent", "PartyMember")
 								for _, modTag in ipairs(mod) do
 									if modTag.actor and modTag.actor == "parent" then

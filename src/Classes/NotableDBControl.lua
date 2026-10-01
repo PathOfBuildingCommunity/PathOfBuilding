@@ -18,11 +18,11 @@ local function IsAnointableNode(node)
 	return node.recipe and #node.recipe >= 1
 end
 
----@class NotableDBControl : ListControl
+---@class NotableDBControl : ListControl<Node>
 ---@field itemsTab ItemsTab
----@field db table<integer, Node>
+---@field db table<"root"|integer, Node>
 ---@field dbType string
----@field dragTargetList ListControl[]
+---@field dragTargetList ListControl<unknown>[]
 ---@field sortControl table<string, table>
 ---@field sortDropList table[]
 ---@field sortMode string
@@ -37,7 +37,7 @@ local NotableDBClass = newClass("NotableDBControl", "ListControl")
 ---@param anchor? Anchor
 ---@param rect? Rect
 ---@param itemsTab ItemsTab
----@param db table<integer, Node>
+---@param db table<"root"|integer, Node>
 ---@param dbType string
 ---@return NotableDBControl
 function NotableDBClass:NotableDBControl(anchor, rect, itemsTab, db, dbType)
@@ -211,7 +211,7 @@ function NotableDBClass:ListBuilder()
 	self.defaultText = "^7No notables found that match those filters."
 end
 
----@param viewPort Rect
+---@param viewPort Viewport
 function NotableDBClass:Draw(viewPort)
 	if self.itemsTab.build.outputRevision ~= self.listOutputRevision then
 		self.listBuildFlag = true

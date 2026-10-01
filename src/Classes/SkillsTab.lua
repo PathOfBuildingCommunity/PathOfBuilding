@@ -669,7 +669,7 @@ function SkillsTabClass:Save(xml)
 	end
 end
 
----@param viewPort Rect
+---@param viewPort Viewport
 ---@param inputEvents InputEvent[]
 function SkillsTabClass:Draw(viewPort, inputEvents)
 	self.x = viewPort.x

@@ -174,7 +174,10 @@ end
 
 ---@return string
 function EditClass:GetSelText()
+	---@cast self.sel integer
+	---@type integer
 	local left = m_min(self.caret, self.sel)
+	---@type integer
 	local right = m_max(self.caret, self.sel)
 	local newBuf = self.buf:sub(left, right - 1)
 	return newBuf
@@ -186,7 +189,10 @@ function EditClass:ReplaceSel(text)
 	if text:match(self.filterPattern) then
 		return
 	end
+	---@cast self.sel integer
+	---@type integer
 	local left = m_min(self.caret, self.sel)
+	---@type integer
 	local right = m_max(self.caret, self.sel)
 	local newBuf = self.buf:sub(1, left - 1) .. text .. self.buf:sub(right)
 	if self.limit and #newBuf > self.limit then
@@ -226,7 +232,7 @@ function EditClass:Insert(text)
 	self:AddUndoState()
 end
 
----@param zoom number
+---@param zoom "+"|"-"|"0"
 function EditClass:ZoomText(zoom)
 	if not self.allowZoom or not self.lineHeight then
 		return
@@ -274,8 +280,9 @@ function EditClass:ScrollCaretIntoView()
 	end
 end
 
----@param offset integer
+---@param offset number
 function EditClass:MoveCaretVertically(offset)
+	---@cast self.lineHeight number
 	local pre = self.buf:sub(1, self.caret - 1)
 	local caretX = DrawStringWidth(self.lineHeight, self.font, lastLine(pre))
 	local caretY = newlineCount(pre) * self.lineHeight
@@ -285,7 +292,7 @@ function EditClass:MoveCaretVertically(offset)
 	self.blinkStart = GetTime()
 end
 
----@param viewPort Rect
+---@param viewPort Viewport
 ---@param noTooltip? boolean
 function EditClass:Draw(viewPort, noTooltip)
 	local x, y = self:GetPos()
@@ -315,7 +322,9 @@ function EditClass:Draw(viewPort, noTooltip)
 		SetDrawColor(0, 0, 0)
 	end
 	DrawImage(nil, x + 1, y + 1, width - 2, height - 2)
+	---@type number
 	local textX = x + 2
+	---@type number
 	local textY = y + 2
 	local textHeight = self.lineHeight or (height - 4)
 	if self.prompt then
@@ -370,13 +379,20 @@ function EditClass:Draw(viewPort, noTooltip)
 	end
 	textX = -self.controls.scrollBarH.offset
 	textY = -self.controls.scrollBarV.offset
+	---@cast textX number
+	---@cast textY number
 	if self.lineHeight then
 		local left = m_min(self.caret, self.sel or self.caret)
 		local right = m_max(self.caret, self.sel or self.caret)
-		local caretX
+		local caretX, caretY
 		SetDrawColor(self.textCol)
 		for s, line, e in (self.buf.."\n"):gmatch("()([^\n]*)\n()") do
+			---@diagnostic disable-next-line: cast-type-mismatch
+			---@cast s integer
+			---@diagnostic disable-next-line: cast-type-mismatch
+			---@cast e integer
 			textX = -self.controls.scrollBarH.offset
+			---@cast textX number
 			if left >= e or right <= s then
 				DrawString(textX, textY, "LEFT", textHeight, self.font, line)
 			end

@@ -19,7 +19,7 @@ local buffModeDropList = {
 ---@class CalcsTab: UndoHandler, ControlHost, Control
 ---@field build Build
 ---@field modFlag boolean
----@field displayData? table
+---@field displayData? CalcSectionColumn
 ---@field powerStat PowerStat?
 ---@field nodePowerMaxDepth integer? Maximum distance for power report
 local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Control")
@@ -231,7 +231,7 @@ function CalcsTabClass:Save(xml)
 	end
 end
 
----@param viewPort Rect
+---@param viewPort Viewport
 ---@param inputEvents InputEvent[]
 function CalcsTabClass:Draw(viewPort, inputEvents)
 	self.x = viewPort.x
@@ -392,7 +392,7 @@ function CalcsTabClass:ClearDisplayStat()
 	self.controls.breakdown:SetBreakdownData()
 end
 
----@param displayData table
+---@param displayData CalcSectionColumn
 ---@param pin? boolean
 function CalcsTabClass:SetDisplayStat(displayData, pin)
 	if not displayData or (not pin and self.displayPinned) then
@@ -408,8 +408,8 @@ function CalcsTabClass:SetDisplayStat(displayData, pin)
 end
 
 ---@param obj table
----@param actor Actor
----@param player Actor
+---@param actor? Actor
+---@param player? Actor
 ---@return boolean
 function CalcsTabClass:CheckFlag(obj, actor, player)
 	actor = actor or (self.input.showMinion and self.calcsEnv.minion or self.calcsEnv.player)
@@ -564,7 +564,7 @@ function CalcsTabClass:PowerBuilder()
 	---@param distance number
 	---@param node Node
 	---@param output Output
-	---@param buildPathNodes table<integer, boolean>
+	---@param buildPathNodes fun(): table<integer, boolean>
 	local function calculateAddNodePower(power, distance, node, output, buildPathNodes)
 		if self.powerStat and self.powerStat.stat and not self.powerStat.ignoreForNodes then
 			power.singleStat = self:CalculatePowerStat(self.powerStat, output, calcBase)

@@ -9,7 +9,7 @@ local t_insert = table.insert
 ---@class PathFolder
 ---@field label string
 ---@field path string
----@field button ButtonControl
+---@field button? ButtonControl
 
 ---@class PathControl: Control, ControlHost, UndoHandler
 ---@field basePath string
@@ -90,7 +90,7 @@ function PathClass:IsMouseOver()
 	return self:IsMouseInBounds() or self:GetMouseOverControl()
 end
 
----@param viewPort Rect
+---@param viewPort Viewport
 function PathClass:Draw(viewPort)
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()

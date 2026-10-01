@@ -8,10 +8,10 @@ local t_insert = table.insert
 local t_remove = table.remove
 local s_format = string.format
 
----@class MinionListControl: ListControl
+---@class MinionListControl: ListControl<string>
 ---@field data Data
 ---@field dest? MinionListControl
----@field dragTargetList? ListControl[]
+---@field dragTargetList? ListControl<unknown>[]
 ---@field label string
 ---@field selIndex? integer
 ---@field selValue? string
@@ -116,7 +116,7 @@ end
 
 ---@param type string
 ---@param value string
----@param source? ListControl
+---@param source? ListControl<unknown>
 function MinionListClass:ReceiveDrag(type, value, source)
 	t_insert(self.list, self.selDragIndex or #self.list + 1, value)
 end

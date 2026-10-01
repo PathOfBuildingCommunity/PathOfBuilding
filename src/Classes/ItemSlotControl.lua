@@ -8,7 +8,7 @@ local t_insert = table.insert
 local m_min = math.min
 
 local itemSlotHelper = require("Modules.ItemSlotHelper")
----@class ItemSlotControl: DropDownControl
+---@class ItemSlotControl: DropDownControl<string>
 ---@field itemsTab ItemsTab
 ---@field slotName string
 ---@field slotNum integer
@@ -140,7 +140,7 @@ end
 
 ---@param type string
 ---@param value Item
----@param source? ListControl
+---@param source? ListControl<unknown>
 function ItemSlotClass:ReceiveDrag(type, value, source)
 	if value.id and self.itemsTab.items[value.id] then
 		self:SetSelItemId(value.id)
@@ -156,7 +156,7 @@ function ItemSlotClass:ReceiveDrag(type, value, source)
 	self.itemsTab.build.buildFlag = true
 end
 
----@param viewPort Rect
+---@param viewPort Viewport
 function ItemSlotClass:Draw(viewPort)
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()

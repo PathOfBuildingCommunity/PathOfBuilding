@@ -8,7 +8,7 @@ local t_remove = table.remove
 local m_max = math.max
 local s_format = string.format
 
----@class SkillSetListControl: ListControl
+---@class SkillSetListControl: ListControl<integer>
 ---@field skillsTab SkillsTab
 ---@field selIndex? integer
 ---@field selValue? integer

@@ -97,7 +97,7 @@ function NotesTabClass:Save(xml)
 	self.lastContent = self.controls.edit.buf
 end
 
----@param viewPort Rect
+---@param viewPort Viewport
 ---@param inputEvents InputEvent[]
 function NotesTabClass:Draw(viewPort, inputEvents)
 	self.x = viewPort.x

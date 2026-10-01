@@ -87,6 +87,7 @@ return calcs
 ---@field modDB ModDB
 ---@field enemy Actor?
 ---@field breakdown? Breakdown?
+---@field activeSkillList? ActiveSkill[]
 
 ---@class ActiveSkill
 ---@field skillModList ModList

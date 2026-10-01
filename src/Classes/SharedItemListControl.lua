@@ -7,10 +7,10 @@ local pairs = pairs
 local t_insert = table.insert
 local t_remove = table.remove
 
----@class SharedItemListControl: ListControl
+---@class SharedItemListControl: ListControl<Item>
 ---@field itemsTab ItemsTab
 ---@field defaultText string
----@field dragTargetList ListControl[]
+---@field dragTargetList ListControl<unknown>[]
 ---@field label string
 ---@field selDragging? boolean
 ---@field selIndex? integer
@@ -70,7 +70,7 @@ end
 
 ---@param type string
 ---@param value Item
----@param source? ListControl
+---@param source? ListControl<unknown>
 function SharedItemListClass:ReceiveDrag(type, value, source)
 	if type == "Item" then
 		local rawItem = { raw = value:BuildRaw() }

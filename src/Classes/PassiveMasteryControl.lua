@@ -9,7 +9,7 @@ local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
 
----@class PassiveMasteryControl: ListControl
+---@class PassiveMasteryControl: ListControl<MasterListElem>
 ---@field list MasterListElem[]
 ---@field treeTab TreeTab
 ---@field treeView PassiveTreeView
@@ -45,7 +45,7 @@ function PassiveMasteryControlClass:PassiveMasteryControl(anchor, rect, list, tr
 	return self
 end
 
----@param viewPort Rect
+---@param viewPort Viewport
 function PassiveMasteryControlClass:Draw(viewPort)
 	self.ListControl.Draw(self, viewPort)
 end

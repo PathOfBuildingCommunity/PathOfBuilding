@@ -81,7 +81,7 @@ function M.getRarityColor(item)
 end
 
 -- Helper: normalize a mod line by replacing numbers with "#" for template matching
----@param line ModLine
+---@param line string
 ---@return string template
 ---@return integer replacements
 function M.modLineTemplate(line)
@@ -91,7 +91,7 @@ end
 
 -- Helper: extract the first number from a mod line for value comparison, or in the case of # to #
 -- mods, the midpoint of that range
----@param line ModLine
+---@param line string
 ---@param onlyFromTo? boolean @Whether to only check for # to # matches.
 ---@return number? value
 function M.modLineValue(line, onlyFromTo)
@@ -163,8 +163,8 @@ M.sourceTypeToCategory = {
 }
 
 -- inverses a mod. e.g. more x -> less x
----@param modLine ModLine
----@return ModLine modLine
+---@param modLine string
+---@return string modLine
 ---@return string? inverseKey
 function M.swapInverse(modLine)
 	local priorStr = modLine
@@ -192,7 +192,7 @@ function M.swapInverse(modLine)
 end
 
 
----@param modLine ModLine
+---@param modLine string
 ---@param modType string
 ---@return string? tradeId
 ---@return TradeOptionValue? value @Only returned when applicable (primarily timeless jewels).
@@ -257,7 +257,7 @@ local function insertUniqueHash(resultIds, tradeHash)
 	end
 end
 -- Helper: find the trade stat ID for a mod line
----@param modLine ModLine
+---@param modLine string
 ---@return string[] resultIds @Can include more than one result if the results are ambiguous.
 ---@return number? value @Might be nil if the line has no sensible number value.
 ---@return boolean? shouldNegate @Whether the mod needs to be negated when given to the trade site.
@@ -676,6 +676,7 @@ function M.drawCompactSlotRow(drawY, slotLabel, pItem, cItem,
 	-- Determine hovered item and tooltip anchor position
 	local hoverItem = nil
 	local hoverItemsTab = nil
+	---@type number, number, number, number
 	local hoverBoxX, hoverBoxY, hoverBoxW, hoverBoxH = 0, 0, 0, 0
 	if pHover then
 		hoverItem = pItem

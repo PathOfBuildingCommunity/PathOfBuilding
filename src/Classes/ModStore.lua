@@ -342,7 +342,7 @@ function ModStoreClass:GetStat(stat, cfg)
 	-- Checks if any buff in buffList matches
 	-- Was needed for skills that provide multiple buffs (e.g. Herald of Agony) and can't be accesses with `buffList[1]`
 	---@param buffList { name: string }[]
-	---@param name string
+	---@param name? string
 	---@return boolean
 	local function isNameInBuffList(buffList, name)
 		for _, buff in ipairs(buffList) do
@@ -355,7 +355,7 @@ function ModStoreClass:GetStat(stat, cfg)
 		-- Check if mana is 0 (i.e. from Blood Magic) to avoid division by 0.
 		local totalMana = self.actor.output["Mana"]
 		if totalMana == 0 then return 0 else
-			for _, activeSkill in ipairs(self.actor.activeSkillList) do
+			for _, activeSkill in ipairs(self.actor.activeSkillList or {}) do
 				if (activeSkill.skillTypes[SkillType.HasReservation] and not activeSkill.skillFlags.disable and activeSkill.buffList and activeSkill.buffList[1] and cfg and (isNameInBuffList(activeSkill.buffList, cfg.skillName) or isNameInBuffList(activeSkill.buffList, cfg.summonSkillName)) ) then
 					local manaBase = activeSkill.skillData["ManaReservedBase"] or 0
 					reservedPercentMana = m_floor(manaBase / totalMana * 100)
@@ -369,7 +369,7 @@ function ModStoreClass:GetStat(stat, cfg)
 		local reservedPercentLife = 0
 		local totalLife = self.actor.output["Life"]
 		if totalLife == 0 then return 0 else
-			for _, activeSkill in ipairs(self.actor.activeSkillList) do
+			for _, activeSkill in ipairs(self.actor.activeSkillList or {}) do
 				if (activeSkill.skillTypes[SkillType.HasReservation] and not activeSkill.skillFlags.disable and activeSkill.buffList and activeSkill.buffList[1] and cfg and (isNameInBuffList(activeSkill.buffList, cfg.skillName) or isNameInBuffList(activeSkill.buffList, cfg.summonSkillName)) ) then
 					local lifeBase = activeSkill.skillData["LifeReservedBase"] or 0
 					reservedPercentLife = m_floor(lifeBase / totalLife * 100)
@@ -425,6 +425,7 @@ function ModStoreClass:EvalMod(mod, cfg, globalLimits)
 					return
 				end
 			end
+			---@type number
 			local base = 0
 			if tag.varList then
 				for _, var in pairs(tag.varList) do
@@ -436,6 +437,7 @@ function ModStoreClass:EvalMod(mod, cfg, globalLimits)
 			if tag.divVar then
 				tag.div = GetMultiplier(self, tag.divVar, cfg)
 			end
+			---@type number
 			local mult = m_floor(base / (tag.div or 1) + 0.0001)
 			if tag.noFloor then
 				mult = base / (tag.div or 1)
@@ -456,6 +458,7 @@ function ModStoreClass:EvalMod(mod, cfg, globalLimits)
 				mult = 1 / mult
 			end
 			if type(value) == "table" then
+				---@cast value table
 				value = copyTable(value)
 				if value.mod then
 					value.mod.value = value.mod.value * mult + (tag.base or 0)
@@ -475,6 +478,7 @@ function ModStoreClass:EvalMod(mod, cfg, globalLimits)
 					end
 				end
 			else
+				---@cast value number
 				value = value * mult + (tag.base or 0)
 				if limitTotal then
 					value = m_min(value, limitTotal)
@@ -502,6 +506,7 @@ function ModStoreClass:EvalMod(mod, cfg, globalLimits)
 					return
 				end
 			end
+			---@type number
 			local mult = 0
 			if tag.varList then
 				for _, var in pairs(tag.varList) do
@@ -534,6 +539,7 @@ function ModStoreClass:EvalMod(mod, cfg, globalLimits)
 			if tag.divVar then
 				tag.div = GetMultiplier(self, tag.divVar, cfg)
 			end
+			---@type number
 			local mult = m_floor(base / (tag.div or 1) + 0.0001)
 			local limitTotal
 			if tag.limit or tag.limitVar then
@@ -729,7 +735,7 @@ function ModStoreClass:EvalMod(mod, cfg, globalLimits)
 			local itemSlot = tag.itemSlot:lower():gsub("(%l)(%w*)", function(a,b) return string.upper(a)..b end):gsub('^%s*(.-)%s*$', '%1')
 			local items = {}
 			if tag.allSlots then
-				items = self.actor.itemList
+				items = self.actor.itemList or {}
 			elseif self.actor.itemList then
 				if tag.bothSlots then
 					local itemSlot1 = self.actor.itemList[itemSlot .. " 1"]

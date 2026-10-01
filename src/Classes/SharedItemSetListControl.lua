@@ -12,7 +12,7 @@ local s_format = string.format
 ---@field title? string
 ---@field slots table<string, Item>
 
----@class SharedItemSetListControl: ListControl
+---@class SharedItemSetListControl: ListControl<SharedItemSet>
 ---@field itemsTab ItemsTab
 ---@field defaultText string
 ---@field selIndex? integer
@@ -104,7 +104,7 @@ end
 
 ---@param type string
 ---@param value ItemSet
----@param source? ListControl
+---@param source? ListControl<unknown>
 function SharedItemSetListClass:ReceiveDrag(type, value, source)
 	if type == "ItemList" then
 		local sharedItemList = { title = value.title, slots = { } }

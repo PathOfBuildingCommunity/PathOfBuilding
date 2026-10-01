@@ -7,7 +7,7 @@ local t_insert = table.insert
 local t_remove = table.remove
 local m_max = math.max
 
----@class ConfigSetListControl: ListControl
+---@class ConfigSetListControl: ListControl<integer>
 ---@field configTab ConfigTab
 ---@field selIndex? integer
 ---@field selValue? integer

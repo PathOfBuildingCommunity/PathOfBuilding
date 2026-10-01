@@ -148,14 +148,7 @@ local function logToFile(...)
 	ConPrintf(...)
 end
 
----@class TradeQueryGeneratorMod
----@field type string
----@field group? string
----@field statOrder integer[]
----@field types? table<string, boolean>
----@field weightKey? string[]
----@field modTags? string[]
----@field [integer] string
+---@alias TradeQueryGeneratorMod ItemDataMod
 
 ---@class TradeQuerySelectorOption
 ---@field label string
@@ -208,11 +201,12 @@ function TradeQueryGeneratorClass:TradeQueryGenerator(queryTab)
 	self.lastMaxLevel = nil
 	return self
 end
----@param baseOutput Output
----@param newOutput Output
+---@param baseOutput Output|table<string, number|string|boolean>
+---@param newOutput Output|table<string, number|string|boolean>
 ---@param statWeights WeightedPowerStat[]
 ---@return number
 function TradeQueryGeneratorClass.WeightedRatioOutputs(baseOutput, newOutput, statWeights)
+	---@type number
 	local meanStatDiff = 0
 	---@return number
 	local function ratioModSums(...)
@@ -305,6 +299,7 @@ function TradeQueryGeneratorClass:ProcessMod(modId, mod, tradeQueryStatsParsed, 
 		if self.modData[modType][uniqueIndex] == nil then
 			local tradeMod = nil
 			-- Try to match to a local mod fallback to global if no match
+			---@cast mod.group string
 			if mod.group:match("Local") then
 				local matchLocalStr = (modLine .. " (Local)"):gsub("[#()0-9%-%+%.]","")
 				for _, entry in pairs(getStatEntries(modType) or {}) do
@@ -348,6 +343,7 @@ function TradeQueryGeneratorClass:ProcessMod(modId, mod, tradeQueryStatsParsed, 
 
 		-- tokenize the numerical variables for this mod and store the sign if there is one
 		local tokens = { }
+		---@type number, number
 		local poundPos, tokenizeOffset = 0, 0
 		while true do
 			poundPos = self.modData[modType][uniqueIndex].tradeMod.text:find("#", poundPos + 1)
@@ -1242,6 +1238,7 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 
 	local controls = { }
 	local options = { }
+	---@type number
 	local popupHeight = 110
 	local popupWidth = 480
 

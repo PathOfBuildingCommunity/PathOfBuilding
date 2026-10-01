@@ -42,6 +42,7 @@ local rect = {
 ---@field tabOrder?      Control[]
 ---@field OnFocusGained? fun()
 ---@field OnFocusLost?   fun()
+---@field OnKeyDown?     fun(...: any): any
 ---@field shown          Prop<boolean>
 ---@field x              Prop<number>?
 ---@field y              Prop<number>?
@@ -51,8 +52,14 @@ local rect = {
 ---@field collapseX      number? An additional offset which is applied when this control uses a collapsed anchor.
 local ControlClass = newClass("Control")
 
----@alias Anchor [AnchorPoint, Control|ControlHost, AnchorPoint, boolean|nil]
+---@alias Anchor [AnchorPoint, (Control|ControlHost)?, AnchorPoint, boolean|nil]
 ---@alias Rect [Prop<number>?, Prop<number>?, Prop<number>?, Prop<number>?]
+
+---@class Viewport A resolved, absolute drawing region, as passed to :Draw() methods (distinct from the positional Rect tuple used for anchoring).
+---@field x number
+---@field y number
+---@field width number
+---@field height number
 
 ---@class AnchorState
 ---@field point? AnchorPoint
@@ -76,8 +83,7 @@ function ControlClass:Control(anchor, rect)
 	return self
 end
 
----@generic T
----@alias Prop<T> (fun(self: self): T) | T
+---@alias Prop<T> (fun(...: any): T) | T
 
 ---@param name string
 ---@return unknown value
@@ -119,7 +125,9 @@ function ControlClass:GetPos()
 	local y = self:GetProperty("y")
 	if self.anchor.other then
 		local otherX, otherY = self.anchor.other:GetPos()
+		---@type number, number
 		local otherW, otherH = 0, 0
+		---@type number, number
 		local width, height = 0, 0
 		local otherPos = anchorPos[self.anchor.otherPoint]
 		assert(otherPos, "invalid anchor position '"..tostring(self.anchor.otherPoint).."'")

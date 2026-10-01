@@ -20,7 +20,7 @@ local JEWEL_RADIUS_TINT_COMPARE_ONLY = { 0, 1, 0, 0.7 }
 
 local gemTooltip = require("Classes.GemTooltip")
 
----@param node Node
+---@param node Node|JewelData
 ---@return string?
 local function isAbyssConquered(node)
 	local conqueror = node and node.conqueredBy and node.conqueredBy.conqueror
@@ -248,7 +248,7 @@ function PassiveTreeViewClass:GetCompareNodeColor(node, compareNode, spec, build
 end
 
 ---@param build Build
----@param viewPort Rect
+---@param viewPort Viewport
 ---@param inputEvents InputEvent[]
 function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 	local spec = build.spec
@@ -400,6 +400,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 	-- If hovering over a node, find the path to it (if unallocated) or the list of dependent nodes (if allocated)
 	local hoverPath, hoverDep
 	if self.traceMode then
+		---@cast self.tracePath Node[]
 		-- Path tracing mode is enabled
 		if hoverNode then
 			if not hoverNode.path then
@@ -524,6 +525,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 								end
 								
 								if targetBaseClassId then
+									---@cast targetAscendClassId integer
 									local used = spec:CountAllocNodes()
 									local clickedAscendNodeId = hoverNode and hoverNode.id
 									local function allocateClickedAscendancy()
@@ -733,6 +735,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		end
 	end
 
+	---@type number[]
 	local connectorColor = { 1, 1, 1 }
 	---@param r number
 	---@param g number
@@ -798,7 +801,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			-- Fade out lines in ascendancy classes other than the current one
 			setConnectorColor(0.75, 0.75, 0.75)
 		end
-		SetDrawColor(unpack(connectorColor))
+		SetDrawColor(connectorColor[1], connectorColor[2], connectorColor[3])
 		local assetName = connector.type .. state
 		-- The game uses Abyss connector art only when both connected nodes are conquered.
 		if isAbyssConquered(node1) and isAbyssConquered(node2) then
@@ -1021,6 +1024,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 					end
 				end
 			else
+				---@diagnostic disable-next-line: param-type-mismatch
 				SetDrawColor(self:GetCompareNodeColor(node, compareNode, spec, build, nodeDefaultColor))
 			end
 		elseif launch.devModeAlt then
@@ -1033,6 +1037,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				SetDrawColor(0, 0, 0)
 			end
 		else
+			---@diagnostic disable-next-line: param-type-mismatch
 			SetDrawColor(self:GetCompareNodeColor(node, compareNode, spec, build, nodeDefaultColor))
 		end
 
@@ -1146,8 +1151,10 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 
 			-- main tooltip is anchored from top left to the node
 			local nodeX = m_floor(scrX + size)
+			---@type number
 			local ttX = m_floor(scrX + size)
 			local nodeY = m_floor(scrY - size)
+			---@type number
 			local ttY = m_floor(scrY - size)
 
 
@@ -1255,6 +1262,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		local radData = build.data.jewelRadius[jewel.jewelRadiusIndex]
 		local outerSize = radData.outer * scale
 		local innerSize = radData.inner * scale * 1.06
+		---@cast tint { [1]: number, [2]: number, [3]: number, [4]: number? }
 		SetDrawColor(tint[1], tint[2], tint[3], tint[4])
 		if jewel.title:match("Impossible Escape") then
 			-- Impossible Escape ring shows on the allocated Keystone
@@ -1333,6 +1341,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 					drawJewelRadius(jewel, scrX, scrY, tint)
 				end
 				if cHasRadius and not sameJewel then
+					---@cast cJewel Item
 					drawJewelRadius(cJewel, scrX, scrY, JEWEL_RADIUS_TINT_COMPARE_ONLY)
 				end
 			end
@@ -1400,7 +1409,7 @@ end
 
 -- Zoom the tree in or out
 ---@param level number
----@param viewPort Rect
+---@param viewPort Viewport
 function PassiveTreeViewClass:Zoom(level, viewPort)
 	-- Calculate new zoom level and zoom factor
 	self.zoomLevel = m_max(0, m_min(12, self.zoomLevel + level))
@@ -1418,7 +1427,7 @@ end
 
 ---@param x number
 ---@param y number
----@param viewPort Rect
+---@param viewPort Viewport
 ---@param build Build
 function PassiveTreeViewClass:Focus(x, y, viewPort, build)
 	self.zoomLevel = 12
@@ -1703,6 +1712,7 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build, returnEarly)
 			end
 		end
 	end
+	---@cast mNode Node
 
 	local isRunegraft = mNode.overrideType == "AlternateMastery"
 	if mNode.sd[1] and mNode.allMasteryOptions and not isRunegraft then

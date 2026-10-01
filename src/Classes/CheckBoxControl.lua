@@ -13,7 +13,7 @@
 ---@field borderFunc? fun(): number, number, number
 local CheckBoxClass = newClass("CheckBoxControl", "Control", "TooltipHost")
 
----@param anchor Anchor
+---@param anchor? Anchor
 ---@param rect Rect
 ---@param label? Prop<string>
 ---@param changeFunc? fun(state: boolean)
@@ -52,7 +52,7 @@ function CheckBoxClass:IsMouseOver()
 	return cursorX >= x and cursorY >= y and cursorX < x + width and cursorY < y + height
 end
 
----@param viewPort Rect
+---@param viewPort Viewport
 ---@param noTooltip? boolean
 function CheckBoxClass:Draw(viewPort, noTooltip)
 	local x, y = self:GetPos()

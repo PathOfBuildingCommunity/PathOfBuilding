@@ -268,11 +268,15 @@ local function addOAuthControls(self)
 	self.controls.charImportTree = new("ButtonControl"):ButtonControl({ "LEFT", self.controls.charImportHeader, "RIGHT" },
 		{ labelSpacing, 0, 170, 20 }, "Passive Tree and Jewels", function()
 			local realm = self.controls.accountRealm:GetSelValue()
+			---@cast realm RealmInfo
 			local league = self.controls.charSelectLeague:GetSelValue()
+			---@cast league string
 			local selectedName = self.controls.charSelect:GetSelValue().label
+			---@cast selectedName string
 
 			saveDetails(realm.id, league, selectedName)
 			local deleteJewels = self.controls.charImportTreeClearJewels.state
+			---@cast deleteJewels boolean
 			---@param data table?
 			---@param errMsg string?
 			local function importHandler(data, errMsg)
@@ -307,14 +311,18 @@ local function addOAuthControls(self)
 	self.controls.charImportItems = new("ButtonControl"):ButtonControl({ "TOPLEFT", self.controls.charImportTree, "BOTTOMLEFT" },
 		{ 0, rowSpacing, 110, 20 }, "Items and Skills", function()
 			local realm = self.controls.accountRealm:GetSelValue()
+			---@cast realm RealmInfo
 			local league = self.controls.charSelectLeague:GetSelValue()
+			---@cast league string
 			local selectedName = self.controls.charSelect:GetSelValue().label
+			---@cast selectedName string
 
 			saveDetails(realm.id, league, selectedName)
 
 			self.oauthLoading = true
 			main.api:DownloadCharacter(realm.realmCode, selectedName, function(data, errMsg)
 				local clearItems = self.controls.charImportItemsClearItems.state
+				---@cast clearItems boolean
 				local clearSkills = self.controls.charImportItemsClearSkills.state
 				local ignoreWeaponSwap = self.controls.charImportItemsIgnoreWeaponSwap.state
 				if data and data.character then
@@ -385,6 +393,7 @@ local function addAccountNameControls(self)
 	self.controls.siteAccountNameGo = new("ButtonControl"):ButtonControl({ "LEFT", self.controls.siteAccountName, "RIGHT" }, { 8, 0, 60, 20 },
 		"Start", function()
 			local realm = self.controls.siteAccountRealm:GetSelValue()
+			---@cast realm RealmInfo
 			self:DownloadSiteCharacterList(realm)
 		end)
 	self.controls.siteAccountNameGo.enabled = function()
@@ -439,6 +448,7 @@ local function addAccountNameControls(self)
 	self.controls.siteCharSelectLeague = new("DropDownControl"):DropDownControl({ "LEFT", self.controls.siteCharSelectLeagueLabel, "RIGHT" },
 		{ 4, 0, 150, 18 }, nil, function(index, value)
 			local realm = self.controls.siteAccountRealm:GetSelValue()
+			---@cast realm RealmInfo
 			self:BuildCharacterList(realm.realmCode, value.league, self.lastCharList, self.controls.siteCharSelect)
 		end)
 	self.controls.siteCharSelect = new("DropDownControl"):DropDownControl({ "TOPLEFT", self.controls.siteCharSelectHeader, "BOTTOMLEFT" },
@@ -451,6 +461,7 @@ local function addAccountNameControls(self)
 	self.controls.siteCharImportTree = new("ButtonControl"):ButtonControl({ "LEFT", self.controls.siteCharImportHeader, "RIGHT" },
 		{ 8, 0, 170, 20 }, "Passive Tree and Jewels", function()
 			local realm = self.controls.siteAccountRealm:GetSelValue()
+			---@cast realm RealmInfo
 			if self.build.spec:CountAllocNodes() > 0 then
 				main:OpenConfirmPopup("Character Import", "Importing the passive tree will overwrite your current tree.",
 					"Import", function()
@@ -469,6 +480,7 @@ local function addAccountNameControls(self)
 	self.controls.siteCharImportItems = new("ButtonControl"):ButtonControl({ "LEFT", self.controls.siteCharImportTree, "LEFT" },
 		{ 0, 36, 110, 20 }, "Items and Skills", function()
 			local realm = self.controls.siteAccountRealm:GetSelValue()
+			---@cast realm RealmInfo
 			self:DownloadItems(realm)
 			self:SetPredefinedBuildName()
 		end)
@@ -564,6 +576,7 @@ function ImportTabClass:ImportTab(build)
 	self.controls.exportFrom:SelByValue(self.exportWebsiteSelected or main.lastExportWebsite or "Pastebin", "id")
 	self.controls.generateCodeByLink = new("ButtonControl"):ButtonControl({ "LEFT", self.controls.exportFrom, "RIGHT" }, { 8, 0, 100, 20 }, "Share", function()
 		local exportWebsite = exportWebsitesList[self.controls.exportFrom.selIndex]
+		if not exportWebsite then return end
 		local subScriptId = buildSites.UploadBuild(self.controls.generateCodeOut.buf, exportWebsite)
 		if subScriptId then
 			self.controls.generateCodeOut:SetText("")
@@ -801,7 +814,7 @@ function ImportTabClass:Save(xml)
 	xml.attrib.importLink = (xml.attrib.importLink and xml.attrib.importLink:len() < 100) and xml.attrib.importLink or nil
 end
 
----@param viewPort Rect
+---@param viewPort Viewport
 ---@param inputEvents InputEvent[]
 function ImportTabClass:Draw(viewPort, inputEvents)
 	self.x = viewPort.x
@@ -849,6 +862,7 @@ function ImportTabClass:DownloadPassiveTree(realm)
 	self.charImportMode = "IMPORTING"
 	self.charImportStatus = "Retrieving character passive tree..."
 	local accountName = self.controls.siteAccountName.buf
+	---@cast accountName string
 	local charSelect = self.controls.siteCharSelect
 	local charListData = charSelect.list[charSelect.selIndex].char
 	launch:DownloadPage(
@@ -879,6 +893,7 @@ function ImportTabClass:DownloadPassiveTree(realm)
 			charData.passives = responseLua
 			charData.jewels = responseLua.items
 			local deleteJewels = self.controls.siteCharImportTreeClearJewels.state
+			---@cast deleteJewels boolean
 			self:ImportPassiveTreeAndJewels(charData, deleteJewels)
 		end)
 end
@@ -888,6 +903,7 @@ function ImportTabClass:DownloadItems(realm)
 	self.charImportMode = "IMPORTING"
 	self.charImportStatus = "Retrieving character items..."
 	local accountName = self.controls.siteAccountName.buf
+	---@cast accountName string
 	local charSelect = self.controls.siteCharSelect
 	local charListData = charSelect.list[charSelect.selIndex].char
 	launch:DownloadPage(
@@ -914,6 +930,7 @@ function ImportTabClass:DownloadItems(realm)
 			charData.equipment = responseLua.items
 			charData.guardian = responseLua.guardian
 			local clearItems = self.controls.siteCharImportItemsClearItems.state
+			---@cast clearItems boolean
 			local clearSkills = self.controls.siteCharImportItemsClearSkills.state
 			local ignoreWeaponSwap = self.controls.siteCharImportItemsIgnoreWeaponSwap.state
 			self:ImportItemsAndSkills(charData, clearItems, clearSkills, ignoreWeaponSwap)
@@ -942,6 +959,7 @@ function ImportTabClass:DownloadSiteCharacterList(realm)
 
 	self.charImportMode = "DOWNLOADCHARLIST"
 	self.charImportStatus = "Retrieving character list..."
+	---@type string
 	local accountName
 	-- Handle spaces in the account name
 	if realm.realmCode == "pc" then
@@ -1059,7 +1077,7 @@ function ImportTabClass:DownloadSiteCharacterList(realm)
 end
 
 --- @param realm string
---- @param league string
+--- @param league? string
 --- @param characters table?
 --- @param control table
 function ImportTabClass:BuildCharacterList(realm, league, characters, control)
@@ -1267,7 +1285,7 @@ function ImportTabClass:ImportPassiveTreeAndJewels(charData, deleteJewels)
 	end
 	self.build.configTab.varControls["resistancePenalty"]:SetSel(resistancePenaltyIndex)
 
-	---@param dropdown DropDownControl
+	---@param dropdown DropDownControl<unknown>
 	---@param val string
 	local function setSelByVal(dropdown, val)
 		for i, v in ipairs(dropdown.list) do

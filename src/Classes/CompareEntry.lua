@@ -52,7 +52,9 @@ function CompareEntryClass:CompareEntry(xmlText, label)
 
 	-- Default build properties
 	self.viewMode = "TREE"
-	self.characterLevel = m_min(m_max(main.defaultCharLevel or 1, 1), 100)
+	local defaultCharacterLevel = m_min(m_max(main.defaultCharLevel or 1, 1), 100)
+	---@cast defaultCharacterLevel integer
+	self.characterLevel = defaultCharacterLevel
 	self.targetVersion = liveTargetVersion
 	self.bandit = "None"
 	self.pantheonMajorGod = "None"
@@ -142,11 +144,14 @@ function CompareEntryClass:LoadFromXML(xmlText)
 	local partyActor = { Aura = {}, Curse = {}, Warcry = {}, Link = {}, modDB = new("ModDB"):ModDB(), output = {} }
 	partyActor.modDB.actor = partyActor
 	self.partyTab = { enemyModList = new("ModList"):ModList(), actor = partyActor }
-	self.configTab = new("ConfigTab"):ConfigTab(self)
-	self.itemsTab = new("ItemsTab"):ItemsTab(self)
-	self.treeTab = new("TreeTab"):TreeTab(self)
-	self.skillsTab = new("SkillsTab"):SkillsTab(self)
-	self.calcsTab = new("CalcsTab"):CalcsTab(self)
+	local selfAsBuild = self
+	---@diagnostic disable-next-line: cast-type-mismatch
+	---@cast selfAsBuild Build
+	self.configTab = new("ConfigTab"):ConfigTab(selfAsBuild)
+	self.itemsTab = new("ItemsTab"):ItemsTab(selfAsBuild)
+	self.treeTab = new("TreeTab"):TreeTab(selfAsBuild)
+	self.skillsTab = new("SkillsTab"):SkillsTab(selfAsBuild)
+	self.calcsTab = new("CalcsTab"):CalcsTab(selfAsBuild)
 
 	-- Set up savers table
 	self.savers = {
@@ -225,12 +230,16 @@ function CompareEntryClass:LoadBuildSection(xml)
 	if xml.attrib.viewMode then
 		self.viewMode = xml.attrib.viewMode
 	end
-	self.characterLevel = tonumber(xml.attrib.level) or 1
+	local levelAttrib = tonumber(xml.attrib.level) or 1
+	---@cast levelAttrib integer
+	self.characterLevel = levelAttrib
 	self.characterLevelAutoMode = xml.attrib.characterLevelAutoMode == "true"
 	for _, diff in pairs({ "bandit", "pantheonMajorGod", "pantheonMinorGod" }) do
 		self[diff] = xml.attrib[diff] or "None"
 	end
-	self.mainSocketGroup = tonumber(xml.attrib.mainSkillIndex) or tonumber(xml.attrib.mainSocketGroup) or 1
+	local mainSkillIndexAttrib = tonumber(xml.attrib.mainSkillIndex) or tonumber(xml.attrib.mainSocketGroup) or 1
+	---@cast mainSkillIndexAttrib integer
+	self.mainSocketGroup = mainSkillIndexAttrib
 	wipeTable(self.spectreList)
 	for _, child in ipairs(xml) do
 		if child.elem == "Spectre" then
@@ -588,6 +597,7 @@ do
 		end
 		if self.calcsTab.mainEnv.modDB:Flag(nil, "OmniscienceRequirements") then
 			local omniSatisfy = self.calcsTab.mainEnv.modDB:Sum("INC", nil, "OmniAttributeRequirements")
+			---@type number
 			local highestAttribute = 0
 			for i, stat in ipairs({str, dex, int}) do
 				if((stat or 0) > highestAttribute) then

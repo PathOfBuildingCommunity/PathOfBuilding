@@ -7,7 +7,21 @@
 local t_insert = table.insert
 local t_sort = table.sort
 
----@class ComparePowerReportListControl: ListControl
+---@class ComparePowerReportEntry
+---@field category string
+---@field categoryColor? string
+---@field name string
+---@field nameColor? string
+---@field impact number
+---@field impactStr? string
+---@field combinedImpactStr? string
+---@field pathDist? number
+---@field perPoint number
+---@field perPointStr? string
+---@field nodeId? integer
+---@field itemObj? Item
+
+---@class ComparePowerReportListControl: ListControl<ComparePowerReportEntry>
 ---@field reportData table
 ---@field impactColumn? ListColumn<table>
 ---@field lastTooltipIndex? integer
@@ -63,7 +77,7 @@ function ComparePowerReportListClass:SetProgress(progress)
 	end
 end
 
----@param viewPort Rect
+---@param viewPort Viewport
 ---@param noTooltip? boolean
 function ComparePowerReportListClass:Draw(viewPort, noTooltip)
 	if self.hoverIndex ~= self.lastTooltipIndex then

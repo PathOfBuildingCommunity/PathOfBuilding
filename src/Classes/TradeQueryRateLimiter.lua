@@ -169,6 +169,7 @@ function TradeQueryRateLimiterClass:UpdateFromHeader(headerString, policy)
 			self.policies[policyKey] = policyValue
 		else
 			for rule, ruleValue in pairs(policyValue) do
+				---@cast ruleValue TradeRateRule
 				for window, state in pairs(ruleValue.state) do
 					local oldState = self.policies[policyKey][rule]["state"][window]
 					if state.request > oldState.request then
@@ -181,6 +182,7 @@ function TradeQueryRateLimiterClass:UpdateFromHeader(headerString, policy)
 		-- calculate maxWindow sizes for requestHistory tables
 		local maxWindow = 0
 		for _, rule in pairs(policyValue) do
+			---@cast rule TradeRateRule
 			for window, _ in pairs(rule.limits) do
 				maxWindow = math.max(maxWindow, window)
 			end
@@ -211,6 +213,7 @@ function TradeQueryRateLimiterClass:NextRequestTime(policy, time)
 	end
 	self:AgeOutRequests(policy)
 	for _, rule in pairs(self.policies[policy]) do
+		---@cast rule TradeRateRule
 		for window, _ in pairs(rule.limits) do
 			if rule.state[window].timeout > 0 then
 				--an extra second is added to the time calculations here and below in order to avoid problems caused by the low resolution of os.time()
@@ -233,6 +236,7 @@ function TradeQueryRateLimiterClass:NextRequestTime(policy, time)
 				else
 					-- the expiration time of oldest timestamp in the window
 					local nextAvailableTime = self.requestHistory[policy].timestamps[oldestRequestIdx] + window + 1
+					---@cast nextAvailableTime integer
 					nextTime = math.max(nextTime, nextAvailableTime)
 				end
 			end
@@ -261,6 +265,7 @@ function TradeQueryRateLimiterClass:InsertRequest(policy, timestamp, time)
 	table.insert(self.requestHistory[policy].timestamps, insertIndex, timestamp)
 	if self.policies[policy] then
 		for _, rule in pairs(self.policies[policy]) do
+			---@cast rule TradeRateRule
 			for _, window in pairs(rule.state) do
 				window.request = window.request + 1
 			end
@@ -297,6 +302,7 @@ function TradeQueryRateLimiterClass:AgeOutRequests(policy, time)
 	for i = #requestHistory.timestamps, 1 , -1 do
 		local timestamp = requestHistory.timestamps[i]
 		for _, rule in pairs(self.policies[policy]) do
+			---@cast rule TradeRateRule
 			for window, windowValue in pairs(rule.state) do
 				if timestamp >= (requestHistory.lastCheck - window) and timestamp < (now - window) then
 					-- timestamp that used to be in the window on last check
@@ -313,6 +319,7 @@ function TradeQueryRateLimiterClass:AgeOutRequests(policy, time)
 	end
 	-- Reset flags after processing
 	for _, rule in pairs(self.policies[policy]) do
+		---@cast rule TradeRateRule
 		for window, windowValue in pairs(rule.state) do
 			windowValue.decremented = nil
 		end
@@ -327,6 +334,7 @@ end
 function TradeQueryRateLimiterClass:ReduceLimits(margin, policies)
 	for _, policy in pairs(policies) do
 		for _, rule in pairs(policy) do
+			---@cast rule TradeRateRule
 			for _, window in pairs(rule.limits) do
 				window.request = math.max(window.request - margin, 1)
 			end

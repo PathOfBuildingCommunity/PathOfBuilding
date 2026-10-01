@@ -97,7 +97,7 @@ function SliderClass:GetKnobXForVal()
 	return knobTravel * self.val
 end
 
----@param viewPort Rect
+---@param viewPort Viewport
 function SliderClass:Draw(viewPort)
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()

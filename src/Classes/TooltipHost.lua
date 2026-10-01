@@ -22,7 +22,7 @@ end
 ---@param y number
 ---@param width number
 ---@param height number
----@param viewPort Rect
+---@param viewPort Viewport
 ---@param ... unknown
 function TooltipHostClass:DrawTooltip(x, y, width, height, viewPort, ...)
 	if self.tooltipFunc then

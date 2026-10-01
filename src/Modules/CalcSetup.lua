@@ -490,6 +490,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 	if not env then
 		---@class Env
 		---@field minion Actor?
+		---@field grantedPassives table<integer, boolean>
 		env = { }
 		env.build = build
 		env.data = build.data

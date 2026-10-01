@@ -10,7 +10,7 @@ local m_max = math.max
 local m_floor = math.floor
 
 
----@class ItemDBControl: ListControl
+---@class ItemDBControl: ListControl<Item>
 ---@field itemsTab ItemsTab
 ---@field db ItemDBData
 ---@field dbType "RARE"|"UNIQUE"
@@ -318,7 +318,7 @@ function ItemDBClass:ListBuilder()
 	self.defaultText = "^7No items found that match those filters."
 end
 
----@param viewPort Rect
+---@param viewPort Viewport
 function ItemDBClass:Draw(viewPort)
 	if self.itemsTab.build.outputRevision ~= self.listOutputRevision then
 		self.listBuildFlag = true

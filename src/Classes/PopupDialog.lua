@@ -56,7 +56,7 @@ function PopupDialogClass:PopupDialog(width, height, title, controls, enterContr
 	return self
 end
 
----@param viewPort Rect
+---@param viewPort Viewport
 function PopupDialogClass:Draw(viewPort)
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()
@@ -86,7 +86,7 @@ function PopupDialogClass:Draw(viewPort)
 end
 
 ---@param inputEvents InputEvent[]
----@param viewPort Rect
+---@param viewPort Viewport
 function PopupDialogClass:ProcessInput(inputEvents, viewPort)
 	self:ProcessControlsInput(inputEvents, viewPort)
 	for id, event in ipairs(inputEvents) do

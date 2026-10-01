@@ -22,12 +22,13 @@ local m_floor = math.floor
 ---@field hoverSel? integer
 ---@field hoverSelDrop? integer
 ---@field tag? string
+---@overload fun(mix: table): DropDownControl<any>
 local DropDownClass = newClass("DropDownControl", "Control", "ControlHost", "TooltipHost", "SearchHost")
 
 ---@generic T
 ---@param anchor? Anchor
 ---@param rect? Rect
----@param list T[]
+---@param list? T[]
 ---@param selFunc? fun(index: integer, data: T, doubleClick?: boolean)
 ---@param tooltipText? Prop<string>
 ---@param ignoreSearchOrder? boolean
@@ -51,7 +52,7 @@ function DropDownClass:DropDownControl(anchor, rect, list, selFunc, tooltipText,
 						return StripEscapes(listVal.label)
 					end
 				end
-				return StripEscapes(listVal)
+				return StripEscapes(tostring(listVal))
 		end,
 		ignoreSearchOrder
 	)
@@ -145,7 +146,9 @@ end
 ---@param height number
 function DropDownClass:DrawSearchHighlights(label, searchInfo, x, y, width, height)
 	if searchInfo and searchInfo.matches then
+		---@type number
 		local startX = 0
+		---@type number
 		local endX = 0
 		local last = 0
 		SetDrawColor(1, 1, 0, 0.2)
@@ -165,7 +168,7 @@ function DropDownClass:DrawSearchHighlights(label, searchInfo, x, y, width, heig
 	end
 end
 
----@param value T
+---@param value unknown
 ---@param key? string
 function DropDownClass:SelByValue(value, key)
 	for index, listVal in ipairs(self.list) do
@@ -186,17 +189,22 @@ end
 ---@param key string
 ---@return T?
 function DropDownClass:GetSelValueByKey(key)
+	---@cast self.selIndex integer
 	return self.list[self.selIndex][key]
 end
 
 ---@return T?
 function DropDownClass:GetSelValue()
+	---@cast self.selIndex integer
 	return self.list[self.selIndex]
 end
 
 ---@param newSel integer?
 ---@param noCallSelFunc? boolean
 function DropDownClass:SetSel(newSel, noCallSelFunc)
+	if not newSel then
+		return
+	end
 	newSel = m_max(1, m_min(self:GetDropCount(), newSel))
 	newSel = self:DropIndexToListIndex(newSel)
 	if newSel and newSel ~= self.selIndex then
@@ -210,6 +218,7 @@ end
 function DropDownClass:ScrollSelIntoView()
 	local width, height = self:GetSize()
 	local scrollBar = self.controls.scrollBar
+	---@cast self.selIndex integer
 	scrollBar:SetContentDimension((height - 4) * self:GetDropCount(), self.dropHeight)
 	scrollBar:ScrollIntoView((self:ListIndexToDropIndex(self.selIndex, 1) - 2) * (height - 4), 3 * (height - 4))
 end
@@ -229,6 +238,7 @@ function DropDownClass:IsMouseOver()
 	local mOver
 
 	if self.dropped then
+		---@cast self.droppedWidth number
 		width = m_max(width, self.droppedWidth)
 		if self.dropUp then
 			mOver = cursorX >= x and cursorY >= y - dropExtra and cursorX < x + width and cursorY < y + height
@@ -249,7 +259,7 @@ function DropDownClass:IsMouseOver()
 	return mOver, mOverComp
 end
 
----@param viewPort Rect
+---@param viewPort Viewport
 ---@param noTooltip? boolean
 function DropDownClass:Draw(viewPort, noTooltip)
 	local x, y = self:GetPos()
@@ -388,6 +398,7 @@ function DropDownClass:Draw(viewPort, noTooltip)
 	if self.dropped then
 		SetDrawLayer(nil, 5)
 		self:DrawControls(viewPort)
+		---@cast self.droppedWidth number
 		width = self.droppedWidth
 
 		-- draw tooltip for hovered item
@@ -436,7 +447,7 @@ function DropDownClass:Draw(viewPort, noTooltip)
 				else 
 					label = listVal
 				end
-				DrawString(0, y, "LEFT", lineHeight, "VAR", label)
+				DrawString(0, y, "LEFT", lineHeight, "VAR", label or "")
 				if detail ~= nil then
 					local detail = listVal.detail
 					local dx = DrawStringWidth(lineHeight, "VAR", detail)
@@ -454,7 +465,7 @@ function DropDownClass:Draw(viewPort, noTooltip)
 					end
 					DrawString(width - dx - 4 - 22, y, "LEFT", lineHeight, "VAR", detail)
 				end
-				self:DrawSearchHighlights(label, searchInfo, 0, y, width - 4, lineHeight)
+				self:DrawSearchHighlights(label or "", searchInfo, 0, y, width - 4, lineHeight)
 			end
 		end
 		SetDrawColor(1, 1, 1)
@@ -588,6 +599,7 @@ end
 ---@param enable boolean
 function DropDownClass:CheckDroppedWidth(enable)
 	self.enableDroppedWidth = enable
+	---@cast self.maxDroppedWidth number
 	if self.enableDroppedWidth and self.list then
 		local scrollWidth = 0
 		if self.dropped and self.controls.scrollBar.enabled then
@@ -602,7 +614,7 @@ function DropDownClass:CheckDroppedWidth(enable)
 				line = line.label or ""
 			end
 			  -- +10 to stop clipping
-			dWidth = m_max(dWidth, DrawStringWidth(lineHeight, "VAR", line) + 10)
+			dWidth = m_max(dWidth, DrawStringWidth(lineHeight, "VAR", line or "") + 10)
 		end
 		  -- no greater than self.maxDroppedWidth
 		self.droppedWidth = m_min(dWidth + scrollWidth, self.maxDroppedWidth)

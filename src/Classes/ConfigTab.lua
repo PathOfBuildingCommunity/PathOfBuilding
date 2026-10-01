@@ -94,7 +94,7 @@ function CustomModBlockClass:CustomModBlockControl(anchor, rect, configTab, bloc
 
 	self.controls.textEdit.inactiveText = function(val)
 		local inactiveText = ""
-		for line in val:gmatch("([^\n]*)\n?") do
+		for line in (val or ""):gmatch("([^\n]*)\n?") do
 			local strippedLine = StripEscapes(line):match("^%s*(.-)%s*$")
 			local mods, extra = modLib.parseMod(strippedLine)
 			inactiveText = inactiveText .. ((mods and not extra) and colorCodes.MAGIC or colorCodes.UNSUPPORTED) .. (IsKeyDown("ALT") and strippedLine or line) .. "\n"
@@ -133,7 +133,7 @@ function CustomModBlockClass:OnKeyDown(key, doubleClick)
 	end
 end
 
----@param viewPort Rect
+---@param viewPort Viewport
 function CustomModBlockClass:Draw(viewPort)
 	if not self:IsShown() then
 		return
@@ -145,7 +145,7 @@ end
 ---@alias ConfigValue string|number|boolean
 ---@alias ConfigConditionalOption string|integer
 
----@class ConfigSet
+---@class (partial) ConfigSet
 ---@field id integer
 ---@field title? string
 ---@field input table<string, ConfigValue>
@@ -757,9 +757,17 @@ function ConfigTabClass:ConfigTab(build)
 			end
 
 			local innerShown = control.shown
+			---@param prop Prop<boolean>
+			---@return boolean
+			local function resolveInnerShown(prop)
+				if type(prop) == "boolean" then
+					return prop
+				end
+				return prop()
+			end
 			if not varData.doNotHighlight then
 				control.borderFunc = function()
-					local shown = type(innerShown) == "boolean" and innerShown or innerShown()
+					local shown = resolveInnerShown(innerShown)
 					local cur = self.configSets[self.activeConfigSetId].input[varData.var]
 					local def = self:GetDefaultState(varData.var, type(cur))
 					if cur ~= nil and cur ~= def then
@@ -777,14 +785,14 @@ function ConfigTabClass:ConfigTab(build)
 					if not searchMatch(varData) then
 						return false
 					end
-					local shown = type(innerShown) == "boolean" and innerShown or innerShown()
+					local shown = resolveInnerShown(innerShown)
 					local cur = self.configSets[self.activeConfigSetId].input[varData.var]
 					local def = self:GetDefaultState(varData.var, type(cur))
 					return not shown and cur ~= nil and cur ~= def or shown
 				end
 				local innerLabel = labelControl.label
 				labelControl.label = function()
-					local shown = type(innerShown) == "boolean" and innerShown or innerShown()
+					local shown = resolveInnerShown(innerShown)
 					local cur = self.configSets[self.activeConfigSetId].input[varData.var]
 					local def = self:GetDefaultState(varData.var, type(cur))
 					if not shown and cur ~= nil and cur ~= def then
@@ -807,7 +815,7 @@ function ConfigTabClass:ConfigTab(build)
 						end
 					end
 
-					local shown = type(innerShown) == "boolean" and innerShown or innerShown()
+					local shown = resolveInnerShown(innerShown)
 					local inputs = self.configSets[self.activeConfigSetId].input
 					local cur = inputs[varData.var]
 					local def = self:GetDefaultState(varData.var, type(cur))
@@ -868,7 +876,7 @@ function ConfigTabClass:ConfigTab(build)
 				if isCollapsed(ownSection) then
 					return false
 				end
-				return type(eligibleShown) == "boolean" and eligibleShown or eligibleShown()
+				return resolveInnerShown(eligibleShown)
 			end
 
 			t_insert(self.controls, control)
@@ -1096,7 +1104,7 @@ function ConfigTabClass:UpdateControls()
 	self:UpdateCustomModsControls()
 end
 
----@param viewPort Rect
+---@param viewPort Viewport
 ---@param inputEvents InputEvent[]
 function ConfigTabClass:Draw(viewPort, inputEvents)
 	self.x = viewPort.x
@@ -1195,10 +1203,14 @@ end
 function ConfigTabClass:UpdateLevel()
 	local input = self.configSets[self.activeConfigSetId].input
 	local placeholder = self.configSets[self.activeConfigSetId].placeholder
-	if input.enemyLevel and input.enemyLevel > 0 then
-		self.enemyLevel = m_min(data.misc.MaxEnemyLevel, input.enemyLevel)
-	elseif placeholder.enemyLevel and placeholder.enemyLevel > 0 then
-		self.enemyLevel = m_min(data.misc.MaxEnemyLevel, placeholder.enemyLevel)
+	local inputEnemyLevel = input.enemyLevel
+	local placeholderEnemyLevel = placeholder.enemyLevel
+	if inputEnemyLevel and inputEnemyLevel > 0 then
+		---@cast inputEnemyLevel integer
+		self.enemyLevel = m_min(data.misc.MaxEnemyLevel, inputEnemyLevel)
+	elseif placeholderEnemyLevel and placeholderEnemyLevel > 0 then
+		---@cast placeholderEnemyLevel integer
+		self.enemyLevel = m_min(data.misc.MaxEnemyLevel, placeholderEnemyLevel)
 	else
 		self.enemyLevel = m_min(data.misc.MaxEnemyLevel, self.build.characterLevel)
 	end
