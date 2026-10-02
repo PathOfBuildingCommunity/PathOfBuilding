@@ -501,6 +501,9 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 	-- assume an item to be an advanced copy format if either has mod roll information, a modifier
 	-- line with a range, or advanced copy lines
 	self.advancedCopy = false
+	-- Only in-game advanced copy text (with "{ ... }" modifier headers) is re-sorted into stat order.
+	-- Text written by PoB keeps its line order, which the ModRange entries of saved builds refer to.
+	local hasModifierHeaders = false
 	self.modMagnitudeMods = {}
 	local implicitLines = 0
 	self.variantList = nil
@@ -574,6 +577,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 		elseif line:match("^{ ") then
 			-- We're parsing advanced copy/paste format
 			self.advancedCopy = true
+			hasModifierHeaders = true
 			linePrefix = ""
 			linePostfix = ""
 			self.crafted = true
@@ -1357,7 +1361,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 		::continue::
 		l = l + 1
 	end
-	if self.advancedCopy and (self.rarity == "UNIQUE" or self.rarity == "RELIC") then
+	if hasModifierHeaders and (self.rarity == "UNIQUE" or self.rarity == "RELIC") then
 		if not uniqueModStatOrder then
 			uniqueModStatOrder = { exact = { }, normalised = { } }
 			for _, mod in pairs(data.itemMods.ItemExclusive) do
@@ -1468,7 +1472,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 			end
 		end
 	end
-	if self.advancedCopy and #self.explicitModLines > 1 then
+	if hasModifierHeaders and #self.explicitModLines > 1 then
 		sortCraftedModLines(self.explicitModLines)
 	end
 	self.affixLimit = 0

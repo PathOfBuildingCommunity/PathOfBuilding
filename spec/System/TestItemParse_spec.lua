@@ -930,6 +930,32 @@ describe("TestAdvancedItemParse #item", function()
 		}, lines(item.explicitModLines))
 	end)
 
+	it("keeps saved rolls on their lines for a unique saved out of stat order", function()
+		loadBuildFromXML([[
+<PathOfBuilding>
+	<Build level="1" targetVersion="3_0" className="Scion" ascendClassName="None" mainSocketGroup="1"/>
+	<Items activeItemSet="1">
+		<Item id="1">
+Rarity: UNIQUE
+Geofri's Sanctuary
+Elegant Ringmail
+Implicits: 0
+{range:0.2}+(60-70) to maximum Life
+{range:0.9}(50-75)% increased Armour and Energy Shield
+			<ModRange id="1" range="0.2"/>
+			<ModRange id="2" range="0.9"/>
+		</Item>
+		<ItemSet id="1"/>
+	</Items>
+</PathOfBuilding>]])
+
+		local ranges = { }
+		for _, modLine in ipairs(build.itemsTab.items[1].explicitModLines) do
+			ranges[modLine.line] = modLine.range
+		end
+		assert.are.equals(0.9, ranges["(50-75)% increased Armour and Energy Shield"])
+	end)
+
 	it("keeps the selected value from advanced-copy enum ranges", function()
 		local item = new("Item"):Item([[
 			Rarity: Unique
