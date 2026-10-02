@@ -1257,7 +1257,10 @@ function ItemsTabClass:Load(xml, dbFileName)
 						-- Enchants added from the base data were not in the saved item text, so saved ids skip them
 						local savedLineCount = list[1] and list[1].addedFromBase and 0 or #list
 						if id <= savedLineCount then
-							list[id].range = range
+							-- Versions that could not parse "value(min-max)" lines saved them as is with a default ModRange
+							if not list[id].rangeFromValue then
+								list[id].range = range
+							end
 							break
 						end
 						id = id - savedLineCount

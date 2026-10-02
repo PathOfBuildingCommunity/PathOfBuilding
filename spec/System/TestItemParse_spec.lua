@@ -930,6 +930,26 @@ describe("TestAdvancedItemParse #item", function()
 		assert.are.equals("Commissioned 150720 coins to commemorate Chitus", seedLine)
 	end)
 
+	it("keeps the roll written in a saved value(min-max) line over its ModRange", function()
+		loadBuildFromXML([[
+<PathOfBuilding>
+	<Build level="1" targetVersion="3_0" className="Scion" ascendClassName="None" mainSocketGroup="1"/>
+	<Items activeItemSet="1">
+		<Item id="1">
+Rarity: UNIQUE
+Crown of the Inward Eye
+Prophet Crown
+Implicits: 0
+{range:0.5}14(9-21)% increased maximum Life, Mana and Global Energy Shield
+			<ModRange id="1" range="0.5"/>
+		</Item>
+		<ItemSet id="1"/>
+	</Items>
+</PathOfBuilding>]])
+
+		assert.are.equals(0.416667, build.itemsTab.items[1].explicitModLines[1].range)
+	end)
+
 	it("preserves independently rolled values on the same modifier line", function()
 		local item = new("Item"):Item([[
 			Rarity: Unique

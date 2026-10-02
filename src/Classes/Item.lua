@@ -1181,6 +1181,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 						line = advancedCopyLine:gsub("(%-?%d+%.?%d*)%(%-?%d+%.?%d*%-%-?%d+%.?%d*%)", "%1")
 					elseif bestPrecisionRange <= 1 and bestPrecisionRange >= 0 then
 						modLine.range = bestPrecisionRange
+						modLine.rangeFromValue = true
 					end
 				end
 				local rangedLine = itemLib.applyRange(line, 1, catalystScalar, modLine.corruptedRange)
