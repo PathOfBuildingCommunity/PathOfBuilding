@@ -1218,6 +1218,11 @@ function ItemsTabClass:Load(xml, dbFileName)
 	self.itemSets = { }
 	self.itemSetOrderList = { }
 	self.tradeQuery.statSortSelectionList = { }
+	-- Enchants from the base data are only added to an item text without enchants and were not in the saved text,
+	-- so saved ModRange ids skip the whole list
+	local function countSavedModLines(modLines)
+		return modLines[1] and modLines[1].addedFromBase and 0 or #modLines
+	end
 	for _, node in ipairs(xml) do
 		if node.elem == "Item" then
 			local item = new("Item"):Item("")
@@ -1243,10 +1248,21 @@ function ItemsTabClass:Load(xml, dbFileName)
 				item.hasAltVariant5 = true
 				item.variantAlt5 = tonumber(node.attrib.variantAlt5)
 			end
+			local modRangeCount = 0
+			for _, child in ipairs(node) do
+				if type(child) == "table" and child.elem == "ModRange" then
+					modRangeCount = modRangeCount + 1
+				end
+			end
+			local ignoreModRanges
 			for _, child in ipairs(node) do
 				if type(child) == "string" then
 					item:ParseRaw(child)
-				elseif child.elem == "ModRange" then
+					-- Save writes at most one ModRange per mod line. More entries than lines means some saved lines are
+					-- no longer mod lines (e.g. Intangibility before 2.67), so the ids no longer match their lines and the
+					-- {range:} tags of the item text are kept instead
+					ignoreModRanges = modRangeCount > countSavedModLines(item.enchantModLines) + #item.scourgeModLines + #item.implicitModLines + #item.explicitModLines + #item.crucibleModLines
+				elseif child.elem == "ModRange" and not ignoreModRanges then
 					local id = tonumber(child.attrib.id) or 0
 					local range = tonumber(child.attrib.range) or 1
 					-- This is garbage, but needed due to change to separate mod line lists
@@ -1254,8 +1270,7 @@ function ItemsTabClass:Load(xml, dbFileName)
 					-- Maybe it is? Maybe it isn't? Maybe up is down? Maybe good is bad? AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 					-- Sorry, cluster jewels are making me crazy(-ier)
 					for _, list in ipairs{item.buffModLines, item.enchantModLines, item.scourgeModLines, item.implicitModLines, item.explicitModLines, item.crucibleModLines} do
-						-- Enchants added from the base data were not in the saved item text, so saved ids skip them
-						local savedLineCount = list[1] and list[1].addedFromBase and 0 or #list
+						local savedLineCount = countSavedModLines(list)
 						if id <= savedLineCount then
 							-- Versions that could not parse "value(min-max)" lines saved them as is with a default ModRange
 							if not list[id].rangeFromValue then
