@@ -1618,19 +1618,28 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 		end
 	end
 	if self.base and self.base.enchant and #self.enchantModLines == 0 then
+		-- Items saved before their base gained this enchant carry it as an implicit (Black Maw Talisman)
+		local activeImplicitLines = { }
+		for _, modLine in ipairs(self.implicitModLines) do
+			if self:CheckModLineVariant(modLine) then
+				activeImplicitLines[modLine.line] = true
+			end
+		end
 		local enchantIndex = 1
 		for line in self.base.enchant:gmatch("[^\n]+") do
-			local modList, extra = modLib.parseMod(line)
-			t_insert(self.enchantModLines, {
-				line = line,
-				crafted = true,
-				implicit = true,
-				enchant = true,
-				addedFromBase = true,
-				extra = extra,
-				modList = modList or { },
-				modTags = self.base.enchantModTypes and self.base.enchantModTypes[enchantIndex] or { },
-			})
+			if not activeImplicitLines[line] then
+				local modList, extra = modLib.parseMod(line)
+				t_insert(self.enchantModLines, {
+					line = line,
+					crafted = true,
+					implicit = true,
+					enchant = true,
+					addedFromBase = true,
+					extra = extra,
+					modList = modList or { },
+					modTags = self.base.enchantModTypes and self.base.enchantModTypes[enchantIndex] or { },
+				})
+			end
 			enchantIndex = enchantIndex + 1
 		end
 	end

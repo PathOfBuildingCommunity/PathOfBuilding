@@ -83,6 +83,21 @@ Implicits: 1
 		assert.are.equals(1, build.itemsTab.items[1].implicitModLines[1].range)
 	end)
 
+	it("does not add a talisman base enchant already saved as an implicit", function()
+		local baseName = "Test Talisman"
+		data.itemBases[baseName] = {
+			type = "Amulet",
+			subType = "Talisman",
+			tags = { amulet = true, talisman = true },
+			req = { },
+			enchant = "+10 to Strength",
+		}
+		local item = new("Item"):Item("Rarity: Normal\n" .. baseName .. "\nImplicits: 1\n+10 to Strength")
+		data.itemBases[baseName] = nil
+
+		assert.are.equals(0, #item.enchantModLines)
+	end)
+
 	it("Two-Toned Boots", function()
 		local item = new("Item"):Item(raw("", "Two-Toned Boots"))
 		assert.are.equals("Two-Toned Boots (Armour/Energy Shield)", item.baseName)
