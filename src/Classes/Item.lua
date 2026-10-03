@@ -1702,7 +1702,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 			---@param modId string
 			---@param newModId string
 			---@param mutated? boolean
-			---@return boolean
+			---@return boolean?
 			local function checkMod(modId, newModId, mutated)
 				local originalMod = mutated and data.itemMods.Foulborn[modId] or data.itemMods.ItemExclusive[modId]
 				if not originalMod then
@@ -1869,7 +1869,7 @@ function ItemClass:GetModSpawnWeight(mod, includeTags, excludeTags, baseTags)
 		end
 
 		---@param modAffix? string
-		---@return boolean
+		---@return string|false
 		local function HasMavenInfluence(modAffix)
 			return modAffix and modAffix:match("Elevated") or false
 		end
@@ -2010,7 +2010,6 @@ function ItemClass:BuildRaw()
 		t_insert(rawLines, "Memory Strands: " .. self.memoryStrands)
 	end
 	---@param modLine ModLine
-	---@return string
 	local function writeModLine(modLine)
 		local line = modLine.line
 		---@param prefix string
@@ -2403,7 +2402,7 @@ end
 -- Build list of modifiers in a given slot number while applying local modifiers and adding quality
 ---@param baseList ModList
 ---@param slotNum integer
----@return ModList
+---@return Mod[]
 function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 	local slotName = self:GetPrimarySlot() or ""
 	if slotNum ~= 1 then
@@ -2711,7 +2710,7 @@ end
 
 ---@param item Item
 ---@param modLine ModLine
----@return Mod[]
+---@return Mod[]?
 local function getRangedModList(item, modLine)
 	if not modLine.range or not modLine.line:find("%((%-?%d+%.?%d*)%-(%-?%d+%.?%d*)%)") then
 		return

@@ -86,7 +86,8 @@ end
 ---@return integer replacements
 function M.modLineTemplate(line)
 	-- Replace decimal numbers first (e.g. "1.5"), then integers
-	return line:gsub("%-?[%d]+%.?[%d]*", "#")
+	local template, replacements = line:gsub("%-?[%d]+%.?[%d]*", "#")
+	return template, replacements
 end
 
 -- Helper: extract the first number from a mod line for value comparison, or in the case of # to #
@@ -589,15 +590,15 @@ local ITEM_BOX_H = 20
 ---@param equipBtnW number
 ---@param xOffset? number
 ---@param shouldUnderlineLabel? boolean
----@return boolean pHover
----@return boolean cHover
----@return boolean copyHovered
----@return boolean equipHovered
----@return boolean buyHovered
----@return number equipBtnX
----@return number equipBtnY
----@return number equipBtnW
----@return number equipBtnH
+---@return boolean? pHover
+---@return boolean? cHover
+---@return boolean? copyHovered
+---@return boolean? equipHovered
+---@return boolean? buyHovered
+---@return number? equipBtnX
+---@return number? equipBtnY
+---@return number? equipBtnW
+---@return number? equipBtnH
 ---@return Item? hoverItem
 ---@return ItemsTab? hoverItemsTab
 ---@return number hoverX

@@ -139,6 +139,7 @@ function PoBArchivesProviderClass:ParseBuilds(message)
 	end
 end
 
+---@return nil
 function PoBArchivesProviderClass:GetBuilds()
 	self.statusMsg = "Loading.."
 	wipeTable(self.buildList)
@@ -148,12 +149,12 @@ function PoBArchivesProviderClass:GetBuilds()
 	if self.mode == 'similar' then
 		---@cast self.importCode string
 		self:GetRecommendations(self.importCode,self:GetApiUrl())
-		return
+		return nil
 	else
 		launch:DownloadPage(self:GetApiUrl(), function(response, errMsg)
 			if errMsg then
 				self.statusMsg = errMsg
-				return
+				return nil
 			end
 
 			self:ParseBuilds(response.body)

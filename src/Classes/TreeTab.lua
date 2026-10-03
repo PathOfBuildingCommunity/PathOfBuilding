@@ -1204,7 +1204,7 @@ function TreeTabClass:BuildPowerReportList(currentStat)
 		if isAlloc then
 			return #(node.depends or { }) == 0 and 1 or #node.depends
 		end
-		return node.power.distance or #(node.path or {}) == 0 and 1 or #node.path
+		return math.floor(node.power.distance or (#(node.path or { }) == 0 and 1 or #node.path)) or 0
 	end
 	---@param node Node
 	---@param name string

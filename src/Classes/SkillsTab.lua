@@ -1520,7 +1520,7 @@ end
 ---@param skillSetId? integer
 ---@return SkillSet
 function SkillsTabClass:NewSkillSet(skillSetId)
-	local skillSet = { id = skillSetId, socketGroupList = {} }
+	local skillSet = { id = skillSetId or 1, socketGroupList = {} }
 	if not skillSetId then
 		skillSet.id = 1
 		while self.skillSets[skillSet.id] do

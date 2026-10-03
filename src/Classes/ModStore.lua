@@ -382,7 +382,11 @@ end
 ---@param noMod? boolean
 ---@return number
 function ModStoreClass:GetMultiplier(var, cfg, noMod)
-	return (not noMod and self:Override(cfg, multiplierName[var])) or (self.multipliers[var] or 0) + (self.parent and self.parent:GetMultiplier(var, cfg, true) or 0) + (not noMod and self:Sum("BASE", cfg, multiplierName[var]) or 0)
+	local override = not noMod and self:Override(cfg, multiplierName[var])
+	if override ~= nil then
+		return tonumber(override) or 0
+	end
+	return (self.multipliers[var] or 0) + (self.parent and self.parent:GetMultiplier(var, cfg, true) or 0) + (not noMod and self:Sum("BASE", cfg, multiplierName[var]) or 0)
 end
 
 ---@param stat string
@@ -432,7 +436,7 @@ function ModStoreClass:GetStat(stat, cfg)
 	-- if ReservationEfficiency is -100, ManaUnreserved is nan which breaks everything if Arcane Cloak is enabled
 	if stat == "ManaUnreserved" and self.actor.output[stat] ~= self.actor.output[stat] then
 		-- 0% reserved = total mana
-		return self.actor.output["Mana"]
+		return tonumber(self.actor.output["Mana"]) or 0
 	elseif stat == "ManaUnreserved" and self.actor.output[stat] ~= nil and self.actor.output[stat] < 0 then
 		-- This reverse engineers how much mana is unreserved before efficiency for accurate Arcane Cloak calcs
 		local reservedPercentBeforeEfficiency = (math.abs(self.actor.output["ManaUnreservedPercent"]) + 100) * ((100 + self.actor["ManaEfficiency"]) / 100)

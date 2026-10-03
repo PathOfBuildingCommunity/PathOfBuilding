@@ -178,7 +178,7 @@ function ControlClass:GetSize()
 	return self:GetProperty("width"), self:GetProperty("height")
 end
 
----@return boolean
+---@return boolean?
 function ControlClass:IsShown()
 	return (not self.anchor.other or self.anchor.collapse or self.anchor.other:IsShown()) and self:GetProperty("shown")
 end
@@ -219,7 +219,7 @@ function ControlClass:AddToTabGroup(master)
 end
 
 ---@param step integer
----@return Control
+---@return Control?
 function ControlClass:TabAdvance(step)
 	if self.tabOrder then
 		local index = isValueInArray(self.tabOrder, self)

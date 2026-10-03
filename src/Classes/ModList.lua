@@ -132,9 +132,9 @@ function ModListClass:SumInternal(context, modType, cfg, flags, keywordFlags, so
 		end
 	end
 	if self.parent then
-		result = result + self.parent:SumInternal(context, modType, cfg, flags, keywordFlags, source, ...)
+		result = result + (self.parent:SumInternal(context, modType, cfg, flags, keywordFlags, source, ...) or 0)
 	end
-	return result
+	return tonumber(result) or 0
 end
 
 ---@param context ModStore
@@ -176,9 +176,9 @@ function ModListClass:MoreInternal(context, cfg, flags, keywordFlags, source, ..
 		end
 	end
 	if self.parent then
-		result = result * self.parent:MoreInternal(context, cfg, flags, keywordFlags, source, ...)
+		result = result * (self.parent:MoreInternal(context, cfg, flags, keywordFlags, source, ...) or 1)
 	end
-	return result
+	return tonumber(result) or 1
 end
 
 ---@param context ModStore

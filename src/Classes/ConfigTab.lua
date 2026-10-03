@@ -444,6 +444,7 @@ function ConfigTabClass:ConfigTab(build)
 			end
 
 			if varData.ifNode then
+				---@return boolean?
 				t_insert(shownFuncs, listOrSingleIfOption(varData.ifNode, function(ifOption)
 					if self.build.spec.allocNodes[ifOption] then
 						return true
@@ -452,6 +453,7 @@ function ConfigTabClass:ConfigTab(build)
 					if node and node.type == "Keystone" then
 						return self.build.calcsTab.mainEnv.keystonesAdded[node.dn]
 					end
+					return false
 				end))
 				t_insert(tooltipFuncs, listOrSingleIfTooltip(varData.ifNode, function(ifOption)
 					return "This option is specific to '"..self.build.spec.nodes[ifOption].dn.."'."
@@ -1374,7 +1376,7 @@ end
 ---@param title? string
 ---@return ConfigSet
 function ConfigTabClass:NewConfigSet(configSetId, title)
-	local configSet = { id = configSetId, title = title, input = { }, placeholder = { }, customModsList = { { title = "Default", enabled = true, text = "" } } }
+	local configSet = { id = configSetId or 1, title = title, input = { }, placeholder = { }, customModsList = { { title = "Default", enabled = true, text = "" } } }
 	if not configSetId then
 		configSet.id = 1
 		while self.configSets[configSet.id] do

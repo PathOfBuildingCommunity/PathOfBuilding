@@ -161,7 +161,7 @@ function M.FormatModRow(row, sectionData, build)
 	end
 
 	local sourceType = row.mod.source and row.mod.source:match("[^:]+") or "?"
-	local sourceName = M.ResolveSourceName(row.mod, build)
+	local sourceName = M.ResolveSourceName(row.mod, build) or ""
 	local modName = ""
 	if type(sectionData.modName) == "table" then
 		modName = "  " .. M.FormatCalcModName(row.mod.name)

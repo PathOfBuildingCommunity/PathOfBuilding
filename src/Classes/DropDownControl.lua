@@ -109,7 +109,7 @@ end
 -- maps the original (unfiltered) list index to the actual dropdown row index (after eventual filtering)
 ---@param listIndex integer
 ---@param default? integer
----@return integer
+---@return integer?
 function DropDownClass:ListIndexToDropIndex(listIndex, default)
 	-- 1:1
 	if not self:IsSearchActive() then
@@ -491,7 +491,7 @@ function DropDownClass:OnChar(key)
 end
 
 ---@param key string
----@return DropDownControl<T>?
+---@return DropDownControl<T>|false?
 function DropDownClass:OnKeyDown(key)
 	if not self:IsShown() or not self:IsEnabled() then
 		return
@@ -525,7 +525,7 @@ function DropDownClass:OnKeyDown(key)
 end
 
 ---@param key string
----@return Control?
+---@return Control|false?
 function DropDownClass:OnKeyUp(key)
 	if not self:IsShown() or not self:IsEnabled() then
 		return

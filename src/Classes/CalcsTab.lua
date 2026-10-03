@@ -410,7 +410,7 @@ end
 ---@param obj table
 ---@param actor? Actor
 ---@param player? Actor
----@return boolean
+---@return boolean?
 function CalcsTabClass:CheckFlag(obj, actor, player)
 	actor = actor or (self.input.showMinion and self.calcsEnv.minion or self.calcsEnv.player)
 	local skillFlags = actor.mainSkill.skillFlags
@@ -543,6 +543,10 @@ function CalcsTabClass:PowerBuilder()
 			id = node.id,
 			type = node.type,
 			name = node.name,
+			linked = node.linked,
+			linkedId = node.linkedId,
+			oidx = node.oidx,
+			intuitiveLeapLikesAffecting = node.intuitiveLeapLikesAffecting,
 			sd = { },
 		}
 		for i, sd in ipairs(effect.sd or { }) do

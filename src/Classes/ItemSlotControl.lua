@@ -135,7 +135,7 @@ end
 
 ---@param type string
 ---@param value Item
----@return boolean
+---@return boolean?
 function ItemSlotClass:CanReceiveDrag(type, value)
 	return type == "Item" and self.itemsTab:IsItemValidForSlot(value, self.slotName)
 end

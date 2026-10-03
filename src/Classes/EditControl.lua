@@ -508,7 +508,7 @@ end
 
 ---@param key string
 ---@param doubleClick? boolean
----@return EditControl?
+---@return EditControl|false?
 function EditClass:OnKeyDown(key, doubleClick)
 	if not self:IsShown() or not self:IsEnabled() then
 		return
@@ -735,7 +735,7 @@ function EditClass:OnKeyDown(key, doubleClick)
 end
 
 ---@param key string
----@return EditControl?
+---@return EditControl|false?
 function EditClass:OnKeyUp(key)
 	if not self:IsShown() or not self:IsEnabled() then
 		return
@@ -813,7 +813,7 @@ function EditClass:OnChar(key)
 	return self
 end
 
----@return string
+---@return { buf: string, caret: integer }
 function EditClass:CreateUndoState()
 	local state = {
 		buf = self.buf,

@@ -87,7 +87,7 @@ for _, entry in pairs(data.flavourText) do
 end
 
 ---@param item? Item
----@return boolean
+---@return boolean?
 local function isAnointable(item)
 	return item and item.base and not item.base.cannotBeAnointed
 	    and item.base.subType ~= "Talisman"
@@ -1660,7 +1660,7 @@ end
 ---@param itemSetId? integer
 ---@return ItemSet
 function ItemsTabClass:NewItemSet(itemSetId)
-	local itemSet = { id = itemSetId }
+	local itemSet = { id = itemSetId or 1, useSecondWeaponSet = false }
 	if not itemSetId then
 		itemSet.id = 1
 		while self.itemSets[itemSet.id] do
@@ -2449,7 +2449,7 @@ function ItemsTabClass:UpdateAffixControl(control, item, affixType, outputTable,
 			controlPowerCache = { }
 		end
 		---@param modList string[]
-		---@return string
+		---@return string?
 		local function pickModifierFromList(modList)
 			-- pick mid tier modifier from a group
 			if #modList == 1 then
@@ -2510,7 +2510,7 @@ function ItemsTabClass:UpdateAffixControl(control, item, affixType, outputTable,
 				end
 			end
 			controlPowerCache[modId] = power
-			return power
+			return power or 0
 		end
 		table.sort(control.list, function(a, b)
 			-- keep "None" as the first option
@@ -2689,7 +2689,7 @@ function ItemsTabClass:GetEquippedSlotForItem(item)
 end
 
 ---@param item Item
----@return string
+---@return string?
 function ItemsTabClass:GetComparisonSlotNameForItem(item)
 	local equippedSlot = self:GetEquippedSlotForItem(item)
 	if equippedSlot then
@@ -4294,10 +4294,11 @@ end
 ---@return string formattedText
 ---@return integer replacementCount
 function ItemsTabClass:FormatItemSource(text)
-	return text:gsub("unique{([^}]+)}",colorCodes.UNIQUE.."%1"..colorCodes.SOURCE)
-			   :gsub("normal{([^}]+)}",colorCodes.NORMAL.."%1"..colorCodes.SOURCE)
-			   :gsub("currency{([^}]+)}",colorCodes.CURRENCY.."%1"..colorCodes.SOURCE)
-			   :gsub("prophecy{([^}]+)}",colorCodes.PROPHECY.."%1"..colorCodes.SOURCE)
+	local formattedText, replacementCount = text:gsub("unique{([^}]+)}", colorCodes.UNIQUE.."%1"..colorCodes.SOURCE)
+	formattedText = formattedText:gsub("normal{([^}]+)}", colorCodes.NORMAL.."%1"..colorCodes.SOURCE)
+	formattedText = formattedText:gsub("currency{([^}]+)}", colorCodes.CURRENCY.."%1"..colorCodes.SOURCE)
+	formattedText, replacementCount = formattedText:gsub("prophecy{([^}]+)}", colorCodes.PROPHECY.."%1"..colorCodes.SOURCE)
+	return formattedText, replacementCount
 end
 
 ---@param item? Item
