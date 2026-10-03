@@ -305,7 +305,7 @@ function ModStoreClass:List(cfg, ...)
 	return result
 end
 
----@param modType NumericModTypes|string
+---@param modType? NumericModTypes|string
 ---@param cfg? ModCfg
 ---@param ... string
 ---@return { value: unknown, mod: Mod }[]

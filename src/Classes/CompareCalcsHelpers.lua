@@ -119,7 +119,6 @@ function M.TabulateMods(sectionData, actor)
 	local modStore, cfg = M.GetModStoreAndCfg(sectionData, actor)
 	if not modStore then return {} end
 	local modType = sectionData.modType
-	if not modType then return {} end
 	local modName = sectionData.modName
 	if not modName then return {} end
 
