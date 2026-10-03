@@ -4,8 +4,23 @@
 -- Basic button control.
 --
 ---@class ButtonControl: Control, TooltipHost
+---@field label Prop<string>
+---@field onClick fun(): Control?
+---@field onHover? fun(): Control?
+---@field forceTooltip? boolean
+---@field image? ImageHandle
+---@field clicked? boolean
+---@field locked? Prop<boolean>
+---@field enterFunc? fun()
 local ButtonClass = newClass("ButtonControl", "Control", "TooltipHost")
 
+---@param anchor? Anchor
+---@param rect? Rect
+---@param label Prop<string>
+---@param onClick fun(): Control?
+---@param onHover? fun(): Control?
+---@param forceTooltip? boolean
+---@return ButtonControl
 function ButtonClass:ButtonControl(anchor, rect, label, onClick, onHover, forceTooltip)
 	self:Control(anchor, rect)
 	self:TooltipHost()
@@ -22,6 +37,7 @@ function ButtonClass:Click()
 	end
 end
 
+---@param path? string
 function ButtonClass:SetImage(path)
 	if path then
 		self.image = NewImageHandle()
@@ -31,6 +47,7 @@ function ButtonClass:SetImage(path)
 	end
 end
 
+---@return boolean
 function ButtonClass:IsMouseOver()
 	if not self:IsShown() then
 		return false
@@ -38,6 +55,9 @@ function ButtonClass:IsMouseOver()
 	return self:IsMouseInBounds()
 end
 
+---@param viewPort Viewport
+---@param noTooltip? boolean
+---@return Control?
 function ButtonClass:Draw(viewPort, noTooltip)
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()
@@ -104,6 +124,8 @@ function ButtonClass:Draw(viewPort, noTooltip)
 	end
 end
 
+---@param key string
+---@return ButtonControl?
 function ButtonClass:OnKeyDown(key)
 	if not self:IsShown() or not self:IsEnabled() then
 		return
@@ -116,6 +138,8 @@ function ButtonClass:OnKeyDown(key)
 	return self
 end
 
+---@param key string
+---@return Control?
 function ButtonClass:OnKeyUp(key)
 	if not self:IsShown() or not self:IsEnabled() then
 		return

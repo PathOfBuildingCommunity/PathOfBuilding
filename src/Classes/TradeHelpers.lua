@@ -9,6 +9,7 @@ local m_floor = math.floor
 -- so it and its precalculated patterns are built lazily
 local numberPattern = "%%d%+%%.%?%%d*"
 local statDescData
+---@return table
 local function getStatDescData()
 	-- this is not perfect. some currently known issues include:
 	-- death's oath chaos damage line: formatted as a # to # value on trade site which shows 3 to 450. nonsensical
@@ -64,10 +65,12 @@ local function getStatDescData()
 	return statDescData
 end
 
+---@class TradeHelpers
 local M = {}
 
 -- Helper: get rarity color code for an item
---- @param item table
+---@param item Item?
+---@return string
 function M.getRarityColor(item)
 	if not item then return "^7" end
 	if item.rarity and colorCodes[item.rarity] then
@@ -78,16 +81,20 @@ function M.getRarityColor(item)
 end
 
 -- Helper: normalize a mod line by replacing numbers with "#" for template matching
---- @param line string
+---@param line string
+---@return string template
+---@return integer replacements
 function M.modLineTemplate(line)
 	-- Replace decimal numbers first (e.g. "1.5"), then integers
-	return line:gsub("%-?[%d]+%.?[%d]*", "#")
+	local template, replacements = line:gsub("%-?[%d]+%.?[%d]*", "#")
+	return template, replacements
 end
 
 -- Helper: extract the first number from a mod line for value comparison, or in the case of # to #
 -- mods, the midpoint of that range
---- @param line string
---- @param onlyFromTo? boolean whether we should only check for # to # matches
+---@param line string
+---@param onlyFromTo? boolean @Whether to only check for # to # matches.
+---@return number? value
 function M.modLineValue(line, onlyFromTo)
 	local low, high = line:match("(%-?%d+%.?%d*) to (%-?%d+%.?%d*)")
 	if low and high then
@@ -98,15 +105,21 @@ function M.modLineValue(line, onlyFromTo)
 	return tonumber(line:match("%-?[%d]+%.?[%d]*"))
 end
 
----@return table? tradeStats
+---@return table[] tradeStats
 function M.getTradeStats()
 	return require("Data.TradeSiteStats")
 end
 
 local _optionTradeStatMap
 
----@param tradeStats table table of data from https://www.pathofexile.com/api/trade2/data/stats
----@return table optionTradeStatMap table containing helper data for matching trade option filters
+---@alias TradeOptionValue number|string
+
+---@class TradeHelpersOptionTradeStatMap
+---@field exact table<string, { tradeId: string, value: TradeOptionValue }>
+---@field patterns table<string, { type: string, options: table[], tradeId: string }>
+
+---@param tradeStats table[] @Table of data from https://www.pathofexile.com/api/trade2/data/stats.
+---@return TradeHelpersOptionTradeStatMap optionTradeStatMap @Helper data for matching trade option filters.
 local function getOptionTradeStatMap(tradeStats)
 	if _optionTradeStatMap then return _optionTradeStatMap end
 	local optionTradeStatMap = {
@@ -151,7 +164,9 @@ M.sourceTypeToCategory = {
 }
 
 -- inverses a mod. e.g. more x -> less x
---- @param modLine string
+---@param modLine string
+---@return string modLine
+---@return string? inverseKey
 function M.swapInverse(modLine)
 	local priorStr = modLine
 	local inverseKey
@@ -178,8 +193,10 @@ function M.swapInverse(modLine)
 end
 
 
+---@param modLine string
+---@param modType string
 ---@return string? tradeId
----@return number? value Only returned when applicable (primarily timeless jewels)
+---@return TradeOptionValue? value @Only returned when applicable (primarily timeless jewels).
 function M.findTradeIdOption(modLine, modType)
 	-- match stringify() behaviour and ignore casing
 	modLine = modLine:gsub("\n", " "):lower()
@@ -225,22 +242,26 @@ end
 -- form is only used when the stat has a known value, which is recorded in the
 -- form's limits. this is for example common with % chance, where 100% chance
 -- omits the chance text
+---@param statForm table
+---@param canonical_stat? integer
 ---@return number? value
 local function impliedValue(statForm, canonical_stat)
 	local limit = statForm.limit and statForm.limit[canonical_stat or 1]
 	return limit and tonumber(limit[1])
 end
 
+---@param resultIds string[]
+---@param tradeHash string
 local function insertUniqueHash(resultIds, tradeHash)
 	if not isValueInArray(resultIds, tradeHash) then
 		table.insert(resultIds, tradeHash)
 	end
 end
 -- Helper: find the trade stat ID for a mod line
----@param modLine  string
----@return table[] results Can include more than one result if the results are ambiguous
----@return number? value Might be nil if the line has no sensible number value
----@return boolean shouldNegate whether the mod needs to be negated when given to the trade site
+---@param modLine string
+---@return string[] resultIds @Can include more than one result if the results are ambiguous.
+---@return number? value @Might be nil if the line has no sensible number value.
+---@return boolean? shouldNegate @Whether the mod needs to be negated when given to the trade site.
 function M.findTradeHash(modLine)
 	modLine = modLine:lower()
 	local resultIds = {}
@@ -346,8 +367,10 @@ end
 -- Map slot name + item type to (trade API category string, itemCategoryTags key).
 -- queryStr:      e.g. "armour.shield", "weapon.onemace"
 -- categoryLabel: e.g. "Shield", "1HMace", "1HWeapon" (nil for flask / generic jewel / unsupported)
---- @param slotName string
---- @param item table
+---@param slotName string
+---@param item Item?
+---@return string? queryStr
+---@return string? categoryLabel
 function M.getTradeCategory(slotName, item)
 	if not slotName then return nil, nil end
 	local itemType = item and (item.type or (item.base and item.base.type))
@@ -388,7 +411,9 @@ end
 
 
 -- Helper: get a display-friendly category name from slot name
---- @param item table
+---@param slotName string
+---@param item Item?
+---@return string
 function M.getTradeCategoryLabel(slotName, item)
 	if not item or not item.base then return "Item" end
 	local baseType = item.base.type or item.type
@@ -397,7 +422,8 @@ end
 
 -- Helper: build a mod comparison map from an item.
 -- Returns a table keyed by template string → { line = original text, value = first number }
---- @param item table
+---@param item Item?
+---@return table<string, { line: string, value: number? }>
 function M.buildModMap(item)
 	local modMap = {}
 	if not item then return modMap end
@@ -416,8 +442,9 @@ function M.buildModMap(item)
 end
 
 -- Helper: get diff label string for an item slot comparison
---- @param pItem table
---- @param cItem table
+---@param pItem Item?
+---@param cItem Item?
+---@return string
 function M.getSlotDiffLabel(pItem, cItem)
 	if not pItem and not cItem then
 		return "^8(both empty)"
@@ -437,6 +464,22 @@ end
 -- btnStartX is the left edge where the first button (Buy) should appear.
 -- copyBtnW, copyBtnH, buyBtnW are button dimensions (passed from LAYOUT by caller).
 -- Returns copyHovered, equipHovered, buyHovered booleans.
+---@param cursorX number
+---@param cursorY number
+---@param btnStartX number
+---@param btnY number
+---@param slotMissing boolean
+---@param copyBtnW number
+---@param copyBtnH number
+---@param buyBtnW number
+---@param equipBtnW number
+---@return boolean copyHovered
+---@return boolean equipHovered
+---@return boolean buyHovered
+---@return number equipBtnX
+---@return number equipBtnY
+---@return number equipBtnW
+---@return number equipBtnH
 function M.drawCopyButtons(cursorX, cursorY, btnStartX, btnY, slotMissing, copyBtnW, copyBtnH, buyBtnW, equipBtnW)
 	local btnW     = copyBtnW
 	local btnH     = copyBtnH
@@ -446,6 +489,10 @@ function M.drawCopyButtons(cursorX, cursorY, btnStartX, btnY, slotMissing, copyB
 	local btn1X = btn3X + buyW + 4
 	local btn2X = btn1X + btnW + 4
 
+	---@param x number
+	---@param w number
+	---@param hover boolean
+	---@param label string
 	local function drawBtn(x, w, hover, label)
 		local pressed = hover and IsKeyDown("LEFTBUTTON")
 		-- Outer border
@@ -496,6 +543,10 @@ function M.drawCopyButtons(cursorX, cursorY, btnStartX, btnY, slotMissing, copyB
 end
 
 -- Helper: fit a colored item name within maxW pixels, truncating with "..." if needed.
+---@param colorCode string
+---@param name string
+---@param maxW number
+---@return string
 local function fitItemName(colorCode, name, maxW)
 	local display = colorCode .. name
 	if DrawStringWidth(16, "VAR", display) <= maxW then
@@ -520,6 +571,40 @@ local ITEM_BOX_W = 310
 M.ITEM_BOX_W = ITEM_BOX_W
 local ITEM_BOX_H = 20
 
+---@param drawY number
+---@param slotLabel string
+---@param pItem Item?
+---@param cItem Item?
+---@param colWidth number
+---@param cursorX number
+---@param cursorY number
+---@param maxLabelW number
+---@param primaryItemsTab ItemsTab
+---@param compareItemsTab ItemsTab
+---@param pWarn? string
+---@param cWarn? string
+---@param slotMissing boolean
+---@param copyBtnW number
+---@param copyBtnH number
+---@param buyBtnW number
+---@param equipBtnW number
+---@param xOffset? number
+---@param shouldUnderlineLabel? boolean
+---@return boolean? pHover
+---@return boolean? cHover
+---@return boolean? copyHovered
+---@return boolean? equipHovered
+---@return boolean? buyHovered
+---@return number? equipBtnX
+---@return number? equipBtnY
+---@return number? equipBtnW
+---@return number? equipBtnH
+---@return Item? hoverItem
+---@return ItemsTab? hoverItemsTab
+---@return number hoverX
+---@return number hoverY
+---@return number hoverW
+---@return number hoverH
 function M.drawCompactSlotRow(drawY, slotLabel, pItem, cItem,
 	colWidth, cursorX, cursorY, maxLabelW, primaryItemsTab, compareItemsTab, pWarn, cWarn, slotMissing,
 	copyBtnW, copyBtnH, buyBtnW, equipBtnW, xOffset, shouldUnderlineLabel)
@@ -592,6 +677,7 @@ function M.drawCompactSlotRow(drawY, slotLabel, pItem, cItem,
 	-- Determine hovered item and tooltip anchor position
 	local hoverItem = nil
 	local hoverItemsTab = nil
+	---@type number, number, number, number
 	local hoverBoxX, hoverBoxY, hoverBoxW, hoverBoxH = 0, 0, 0, 0
 	if pHover then
 		hoverItem = pItem
@@ -609,6 +695,14 @@ end
 
 -- Helper: create a numeric EditControl without +/- spinner buttons, and
 -- with a preset changeFunc intended for mod values
+---@param anchor? Anchor
+---@param rect? Rect
+---@param init number
+---@param prompt? string
+---@param limit? integer
+---@param integer? boolean
+---@param changeFunc? fun(value: number)
+---@return EditControl
 function M.newPlainNumericEdit(anchor, rect, init, prompt, limit, integer, changeFunc)
 	local format = integer and "%D" or "^%d."
 	local ctrl = new("EditControl"):EditControl(anchor, rect, init, prompt, format, limit, changeFunc)

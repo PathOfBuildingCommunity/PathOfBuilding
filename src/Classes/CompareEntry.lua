@@ -10,8 +10,40 @@ local m_min = math.min
 local m_max = math.max
 
 ---@class CompareEntry: ControlHost
+---@field spec? PassiveSpec
+---@field label string
+---@field buildName string
+---@field xmlText string
+---@field viewMode string
+---@field characterLevel integer
+---@field targetVersion string
+---@field bandit string
+---@field pantheonMajorGod string
+---@field pantheonMinorGod string
+---@field characterLevelAutoMode boolean
+---@field mainSocketGroup integer
+---@field notesText string
+---@field spectreList table
+---@field timelessData table
+---@field latestTree PassiveTree
+---@field data table
+---@field buildFlag boolean
+---@field outputRevision integer
+---@field displayStats table
+---@field minionDisplayStats table
+---@field extraSaveStats table
+---@field importLink? string
+---@field xmlSectionList table[]
+---@field partyTab table
+---@field configTab ConfigTab
+---@field itemsTab ItemsTab
+---@field treeTab TreeTab
+---@field calcsTab CalcsTab
 local CompareEntryClass = newClass("CompareEntry", "ControlHost")
 
+---@param xmlText string
+---@param label? string
+---@return CompareEntry
 function CompareEntryClass:CompareEntry(xmlText, label)
 	self:ControlHost()
 
@@ -21,7 +53,9 @@ function CompareEntryClass:CompareEntry(xmlText, label)
 
 	-- Default build properties
 	self.viewMode = "TREE"
-	self.characterLevel = m_min(m_max(main.defaultCharLevel or 1, 1), 100)
+	local defaultCharacterLevel = m_min(m_max(main.defaultCharLevel or 1, 1), 100)
+	---@cast defaultCharacterLevel integer
+	self.characterLevel = defaultCharacterLevel
 	self.targetVersion = liveTargetVersion
 	self.bandit = "None"
 	self.pantheonMajorGod = "None"
@@ -60,6 +94,8 @@ function CompareEntryClass:CompareEntry(xmlText, label)
 	return self
 end
 
+---@param xmlText string
+---@return boolean?
 function CompareEntryClass:LoadFromXML(xmlText)
 	-- Parse the XML
 	local dbXML, errMsg = common.xml.ParseXML(xmlText)
@@ -109,11 +145,14 @@ function CompareEntryClass:LoadFromXML(xmlText)
 	local partyActor = { Aura = {}, Curse = {}, Warcry = {}, Link = {}, modDB = new("ModDB"):ModDB(), output = {} }
 	partyActor.modDB.actor = partyActor
 	self.partyTab = { enemyModList = new("ModList"):ModList(), actor = partyActor }
-	self.configTab = new("ConfigTab"):ConfigTab(self)
-	self.itemsTab = new("ItemsTab"):ItemsTab(self)
-	self.treeTab = new("TreeTab"):TreeTab(self)
-	self.skillsTab = new("SkillsTab"):SkillsTab(self)
-	self.calcsTab = new("CalcsTab"):CalcsTab(self)
+	local selfAsBuild = self
+	---@diagnostic disable-next-line: cast-type-mismatch
+	---@cast selfAsBuild Build
+	self.configTab = new("ConfigTab"):ConfigTab(selfAsBuild)
+	self.itemsTab = new("ItemsTab"):ItemsTab(selfAsBuild)
+	self.treeTab = new("TreeTab"):TreeTab(selfAsBuild)
+	self.skillsTab = new("SkillsTab"):SkillsTab(selfAsBuild)
+	self.calcsTab = new("CalcsTab"):CalcsTab(selfAsBuild)
 
 	-- Set up savers table
 	self.savers = {
@@ -186,17 +225,22 @@ function CompareEntryClass:LoadFromXML(xmlText)
 end
 
 -- Load build section attributes
+---@param xml table
 function CompareEntryClass:LoadBuildSection(xml)
 	self.targetVersion = xml.attrib.targetVersion or legacyTargetVersion
 	if xml.attrib.viewMode then
 		self.viewMode = xml.attrib.viewMode
 	end
-	self.characterLevel = tonumber(xml.attrib.level) or 1
+	local levelAttrib = tonumber(xml.attrib.level) or 1
+	---@cast levelAttrib integer
+	self.characterLevel = levelAttrib
 	self.characterLevelAutoMode = xml.attrib.characterLevelAutoMode == "true"
 	for _, diff in pairs({ "bandit", "pantheonMajorGod", "pantheonMinorGod" }) do
 		self[diff] = xml.attrib[diff] or "None"
 	end
-	self.mainSocketGroup = tonumber(xml.attrib.mainSkillIndex) or tonumber(xml.attrib.mainSocketGroup) or 1
+	local mainSkillIndexAttrib = tonumber(xml.attrib.mainSkillIndex) or tonumber(xml.attrib.mainSocketGroup) or 1
+	---@cast mainSkillIndexAttrib integer
+	self.mainSocketGroup = mainSkillIndexAttrib
 	wipeTable(self.spectreList)
 	for _, child in ipairs(xml) do
 		if child.elem == "Spectre" then
@@ -218,10 +262,12 @@ function CompareEntryClass:LoadBuildSection(xml)
 	end
 end
 
+---@return Output?
 function CompareEntryClass:GetOutput()
 	return self.calcsTab.mainOutput
 end
 
+---@return PassiveSpec?
 function CompareEntryClass:GetSpec()
 	return self.spec
 end
@@ -255,6 +301,7 @@ function CompareEntryClass:Rebuild()
 	self.buildFlag = false
 end
 
+---@param index integer
 function CompareEntryClass:SetActiveSpec(index)
 	if self.treeTab and self.treeTab.SetActiveSpec then
 		self.treeTab:SetActiveSpec(index)
@@ -262,6 +309,7 @@ function CompareEntryClass:SetActiveSpec(index)
 	end
 end
 
+---@param id integer
 function CompareEntryClass:SetActiveItemSet(id)
 	if self.itemsTab and self.itemsTab.SetActiveItemSet then
 		self.itemsTab:SetActiveItemSet(id)
@@ -269,6 +317,7 @@ function CompareEntryClass:SetActiveItemSet(id)
 	end
 end
 
+---@param id integer
 function CompareEntryClass:SetActiveSkillSet(id)
 	if self.skillsTab and self.skillsTab.SetActiveSkillSet then
 		self.skillsTab:SetActiveSkillSet(id)
@@ -281,11 +330,15 @@ function CompareEntryClass:RefreshStatList()
 	-- No sidebar to refresh in comparison entry
 end
 
+---@param index integer
 function CompareEntryClass:SetMainSocketGroup(index)
 	self.mainSocketGroup = index
 	self.buildFlag = true
 end
 
+---@param controls table
+---@param mainGroup? table
+---@param suffix string
 function CompareEntryClass:RefreshSkillSelectControls(controls, mainGroup, suffix)
 	-- Populate skill select controls
 	if not controls or not controls.mainSocketGroup then return end
@@ -376,6 +429,10 @@ function CompareEntryClass:RefreshSkillSelectControls(controls, mainGroup, suffi
 	end
 end
 
+---@param controls table
+---@param activeSkill? table
+---@param activeEffect? table
+---@param suffix string
 function CompareEntryClass:RefreshMinionControls(controls, activeSkill, activeEffect, suffix)
 	wipeTable(controls.mainSkillMinion.list)
 	if activeEffect.grantedEffect.minionHasItemSet then
@@ -424,6 +481,12 @@ function CompareEntryClass:OpenSpectreLibrary()
 	-- No spectre library in comparison entry
 end
 
+---@param tooltip Tooltip
+---@param baseOutput Output
+---@param compareOutput Output
+---@param header string
+---@param nodeCount integer
+---@return integer
 function CompareEntryClass:AddStatComparesToTooltip(tooltip, baseOutput, compareOutput, header, nodeCount)
 	-- Reuse the stat comparison logic
 	local count = 0
@@ -442,6 +505,14 @@ function CompareEntryClass:AddStatComparesToTooltip(tooltip, baseOutput, compare
 end
 
 -- Stat comparison
+---@param tooltip Tooltip
+---@param statList table
+---@param actor Actor
+---@param baseOutput Output
+---@param compareOutput Output
+---@param header string
+---@param nodeCount integer
+---@return integer
 function CompareEntryClass:CompareStatList(tooltip, statList, actor, baseOutput, compareOutput, header, nodeCount)
 	local s_format = string.format
 	local count = 0
@@ -513,12 +584,21 @@ end
 -- Add requirements to tooltip
 do
 	local req = { }
+	---@param tooltip Tooltip
+	---@param level number
+	---@param str number
+	---@param dex number
+	---@param int number
+	---@param strBase number
+	---@param dexBase number
+	---@param intBase number
 	function CompareEntryClass:AddRequirementsToTooltip(tooltip, level, str, dex, int, strBase, dexBase, intBase)
 		if level and level > 0 then
 			t_insert(req, s_format("^x7F7F7FLevel %s%d", main:StatColor(level, nil, self.characterLevel), level))
 		end
 		if self.calcsTab.mainEnv.modDB:Flag(nil, "OmniscienceRequirements") then
 			local omniSatisfy = self.calcsTab.mainEnv.modDB:Sum("INC", nil, "OmniAttributeRequirements")
+			---@type number
 			local highestAttribute = 0
 			for i, stat in ipairs({str, dex, int}) do
 				if((stat or 0) > highestAttribute) then

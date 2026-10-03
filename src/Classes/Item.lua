@@ -28,6 +28,10 @@ local catalystTags = {
 	{ "critical" },
 }
 
+---@param catalystId? integer
+---@param mod ModLine
+---@param quality? number
+---@return number
 local function getCatalystScalar(catalystId, mod, quality)
 	if mod.unscalable then
 		return 1
@@ -61,6 +65,8 @@ local function getCatalystScalar(catalystId, mod, quality)
 	return 1
 end
 
+---@param line string
+---@return string
 local function normaliseModLine(line)
 	return line:gsub("%d+%.?%d*", "#")
 		:gsub("%(%-?#%-#%)", "#"):lower()
@@ -69,6 +75,7 @@ end
 
 local uniqueModStatOrder
 
+---@param modLines ModLine[]
 local function sortCraftedModLines(modLines)
 	local sourceOrder = { }
 	for index, modLine in ipairs(modLines) do
@@ -88,9 +95,121 @@ end
 
 local influenceInfo = itemLib.influenceInfo.all
 
+---@class ItemDataMod An item modifier definition sourced from static data (crucible/veiled/necropolis/master mod tables); distinct from the runtime calc-engine `Mod` class.
+---@field [integer] string The mod's text lines
+---@field type string
+---@field affix? string
+---@field statOrder integer[]
+---@field level integer
+---@field group string
+---@field weightKey string[]
+---@field weightVal number[]
+---@field modTags string[]
+---@field types? table<string, boolean>
+---@field nodeLocation? integer[]
+---@field nodeType? string
+---@field tier? integer
+---@field tradeHashes? table<integer, string[]>
+
+---@class Conqueror
+---@field type string
+---@field id string|integer
+
+---@class ConqueredBy
+---@field id integer|string
+---@field conqueror Conqueror
+---@field modification? table
+
+---@class ClusterJewelSkill
+---@field name string
+---@field icon string
+---@field tag string
+---@field stats string[]
+---@field enchant string[]
+
+---@class ClusterJewelInfo Static data describing a cluster jewel's structure, stored on the `Item` as `item.clusterJewel`.
+---@field size string
+---@field sizeIndex integer
+---@field minNodes integer
+---@field maxNodes integer
+---@field smallIndicies integer[]
+---@field notableIndicies integer[]
+---@field socketIndicies integer[]
+---@field totalIndicies integer
+---@field skills table<string, ClusterJewelSkill>
+
+---@class JewelData A timeless/cluster jewel's computed data, stored on the `Item` as `item.jewelData`.
+---@field conqueredBy? ConqueredBy
+---@field funcList? table
+---@field impossibleEscapeKeystone? unknown
+---@field impossibleEscapeKeystones? table
+---@field intuitiveLeapKeystoneOnly? boolean
+---@field intuitiveLeapLike? boolean
+---@field limitDisabled? boolean
+---@field radiusIndex? integer
+---@field clusterJewelValid? boolean
+---@field clusterJewelSkill? string
+---@field clusterJewelKeystone? unknown
+---@field clusterJewelNotables string[]
+---@field clusterJewelAddedMods string[]
+---@field clusterJewelIncEffect? number
+---@field clusterJewelNodeCount? integer
+---@field clusterJewelNothingnessCount? integer
+---@field clusterJewelSmallsAreNothingness? boolean
+---@field clusterJewelSocketCount? integer
+---@field clusterJewelSocketCountOverride? integer
+---@field jewelIncEffectFromClassStart? number
+
 ---@class Item
+---@field raw string
+---@field rawLines string[]
+---@field name string
+---@field namePrefix string
+---@field nameSuffix string
+---@field rarity string
+---@field base? ItemBase
+---@field baseName string
+---@field itemLevel integer
+---@field matchesSocket? boolean
+---@field quality integer
+---@field corrupted boolean
+---@field crafted boolean
+---@field implicit boolean
+---@field fractured boolean
+---@field synthesised boolean
+---@field advancedCopy boolean
+---@field allowDuplicateVariants boolean
+---@field mutatedLines? table<string, string>
+---@field classRequirementModLines ModLine[]
+---@field explicitModLines ModLine[]
+---@field implicitModLines ModLine[]
+---@field enchantModLines ModLine[]
+---@field craftedModLines ModLine[]
+---@field scourgeModLines ModLine[]
+---@field crucibleModLines ModLine[]
+---@field buffModLines ModLine[]
+---@field modMagnitudeMods table
+---@field affixes? table<string, ItemDataMod>
+---@field jewelData? JewelData
+---@field clusterJewel? ClusterJewelInfo
+---@field clusterJewelSkill? string
+---@field variantList? string[]
+---@field versionList? string[]
+---@field baseModList ModList
+---@field modList ModList
+---@field slotModList table<integer, ModList>
+---@field variantGroupSelections table<string, integer>
+---@field sockets table[]
+---@field isUnique boolean
+---@field affixLimit number
+---@field abyssalSocketCount number
+---@field selectableSocketCount number
 local ItemClass = newClass("Item")
 
+---@param raw? string
+---@param rarity? string
+---@param highQuality? boolean
+---@return Item
 function ItemClass:Item(raw, rarity, highQuality)
 	if raw then
 		self:ParseRaw(sanitiseText(raw), rarity, highQuality)
@@ -139,6 +258,8 @@ local lineFlags = {
 -- uncommented
 local specialModifierFoundList = {}
 local inverseModifierFoundList = {}
+---@param tagName string
+---@param itemSlotName string
 local function getTagBasedModifiers(tagName, itemSlotName)
 	local tag_name = tagName:lower()
 	local slot_name = itemSlotName:lower():gsub(" ", "_")
@@ -286,6 +407,9 @@ local function getTagBasedModifiers(tagName, itemSlotName)
 end
 
 -- Iterate over modifiers to see if specific substring is found (for conditional checking)
+---@param substring string
+---@param itemSlotName string
+---@return boolean
 function ItemClass:FindModifierSubstring(substring, itemSlotName)
 	local modLines = {}
 	local substring, explicit = substring:gsub("explicit ", "")
@@ -332,17 +456,25 @@ function ItemClass:FindModifierSubstring(substring, itemSlotName)
 	return false
 end
 
+---@param s string
+---@return number?
 local function specToNumber(s)
 	local n = s:match("^([%+%-]?[%d%.]+)")
 	return n and tonumber(n)
 end
 
+---@param groupId string
+---@param variantId integer
+---@return boolean
 function ItemClass:IsVariantGroupOptionEligible(groupId, variantId)
 	local group = self.variantGroups and self.variantGroups[groupId]
 	local versions = group and group[variantId]
 	return versions and (versions[0] or self.selectedVersion and versions[self.selectedVersion]) or false
 end
 
+---@param groupId string
+---@param excludeSelected? boolean
+---@return integer[]
 function ItemClass:GetVariantGroupOptions(groupId, excludeSelected)
 	local options = { }
 	if not self.variantGroups or not self.variantGroups[groupId] then
@@ -407,7 +539,7 @@ function ItemClass:NormaliseVariantSelections()
 	end
 end
 
----@class ModLine A modifier line on an item. An in-game mod can translate to multiple ModLines.
+---@class (partial) ModLine A modifier line on an item. An in-game mod can translate to multiple ModLines.
 ---@field modList Mod[]
 ---@field line string The actual text for the line. This might describe a range of values, in which case applyRange() can be used with this and the range value to get a ranged line.
 ---@field range number?
@@ -421,6 +553,9 @@ end
 ---@field modId string?
 
 -- Parse raw item data and extract item name, base type, quality, and modifiers
+---@param raw string
+---@param rarity? string
+---@param highQuality? boolean
 function ItemClass:ParseRaw(raw, rarity, highQuality)
 	self.raw = raw
 	self.name = "?"
@@ -502,6 +637,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 	-- line with a range, or advanced copy lines
 	self.advancedCopy = false
 	self.modMagnitudeMods = {}
+	---@type number
 	local implicitLines = 0
 	self.variantList = nil
 	self.versionList = nil
@@ -584,6 +720,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 			if not fullModName then
 				fullModName = line:match("^{ (.-) }$")
 			end
+			---@cast fullModName string
 			local modName = fullModName:match("^.*Modifier \"(.*)\"")
 			if modName and modName ~= "" and self.affixes then
 				self.pendingAffixList = { }
@@ -661,6 +798,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 				specName, specVal = line:match("^(Requires %a+) (.+)$")
 			end
 			if specName then
+				---@cast specVal string
 				if specName == "Unique ID" then
 					self.uniqueID = specVal
 				elseif specName == "Item Level" then
@@ -670,7 +808,8 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 				elseif specName == "Requires Class" then
 					self.classRestriction = specVal
 				elseif specName:match("Quality %([%a%s]+ Modifiers%)") then
-					self.catalystQuality = specToNumber(specVal:match("(%d+)%%"))
+					local qualityMatch = specVal:match("(%d+)%%")
+					self.catalystQuality = qualityMatch and specToNumber(qualityMatch)
 					for i=1, #catalystDescriptorList do
 						if specName:match("Quality %(([%a%s]+) Modifiers%)") == catalystDescriptorList[i] then
 							self.catalyst = i
@@ -706,12 +845,14 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					if not self.versionList then
 						self.versionList = { }
 					end
+					---@cast self.versionList string[]
 					t_insert(self.versionList, specVal)
 					self.usesVariantGroups = true
 				elseif specName == "Variant" then
 					if not self.variantList then
 						self.variantList = { }
 					end
+					---@cast self.variantList string[]
 					-- This has to be kept for backwards compatibility
 					local ver, name = specVal:match("{([%w_]+)}(.+)")
 					if ver then
@@ -869,7 +1010,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 			end
 			if not specName or foundExplicit or foundImplicit then
 				---@type ModLine
-				local modLine = { modTags = {} }
+				local modLine = { line = "", modList = {}, modTags = {} }
 
 				line = line:gsub("{(%a*):?([^}]*)}", function(k,val)
 					if k == "variant" then
@@ -893,6 +1034,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 						end
 						self.usesVariantGroups = true
 					elseif k == "tags" then
+						modLine.modTags = modLine.modTags or { }
 						for tag in val:gmatch("[%a_]+") do
 							t_insert(modLine.modTags, tag)
 						end
@@ -1079,6 +1221,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					foundImplicit = true
 					gameModeStage = "IMPLICIT"
 				end
+				---@type number
 				local catalystScalar = 1
 				if line:match(" %- Unscalable Value$") then
 					line = line:gsub(" %- Unscalable Value$", "")
@@ -1115,7 +1258,9 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 						self.pendingAffixList = { exactAffix or fallbackAffix or self.pendingAffixList[1] }
 					end
 					-- Use rolling Delta/Range in case one range is 1-3 and another is 1-100 so we get the finest precision possible
+					---@type number
 					local bestPrecisionDelta = -1
+					---@type number
 					local bestPrecisionRange = -1
 					local rollRanges = { }
 					local affixMod = self.affixes[self.pendingAffixList[1].modId]
@@ -1142,7 +1287,9 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					})
 					self.pendingAffixList = {}
 				else
+					---@type number
 					local bestPrecisionDelta = -1
+					---@type number
 					local bestPrecisionRange = -1
 					local firstRollRange
 					local hasIndependentRolls
@@ -1185,13 +1332,13 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 				end
 				local rangedLine = itemLib.applyRange(line, 1, catalystScalar, modLine.corruptedRange)
 				local modList, extra = modLib.parseMod(rangedLine)
-				local nextModGroup = self.rawLines[l + 1]
-					and self.rawLines[l + 1]:match("{modGroup:([^}]+)}")
+				local rawNextLine = self.rawLines[l + 1]
+				local nextModGroup = rawNextLine and rawNextLine:match("{modGroup:([^}]+)}")
 				-- Only combine generated lines that came from the same modifier.
-				if (not modList or extra) and self.rawLines[l + 1]
+				if (not modList or extra) and rawNextLine
 					and modLine.modGroup == nextModGroup then
 					-- Try to combine it with the next line
-					local nextLine = self.rawLines[l+1]:gsub("%b{}", ""):gsub(" ?%(%l+%)","")
+					local nextLine = rawNextLine:gsub("%b{}", ""):gsub(" ?%(%l+%)","")
 					local combLine = line.." "..nextLine
 					rangedLine = itemLib.applyRange(combLine, 1, catalystScalar, modLine.corruptedRange)
 					modList, extra = modLib.parseMod(rangedLine, true)
@@ -1402,6 +1549,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 		-- apply mod magnitude boost to matching mods
 		if #self.modMagnitudeMods > 0 then
 			for _, modMagnitudeMod in ipairs(self.modMagnitudeMods) do
+				---@type ModLine[][]
 				local modLists
 				if modMagnitudeMod.modType then
 					modLists = { self[modMagnitudeMod.modType .. "ModLines"] }
@@ -1503,7 +1651,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 					if not list[i] then
 						list[i] = { modId = "None" }
 					elseif list[i].modId ~= "None" and not self.affixes[list[i].modId] then
-						for modId, mod in pairs(self.affixes) do
+						for modId, mod in pairs(self.affixes or {}) do
 							if list[i].modId == mod.affix then
 								list[i].modId = modId
 								break
@@ -1551,12 +1699,18 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 	if self.mutatedLines then
 		-- Match both sides so the same checkbox can apply or revert the transformation.
 		for origModId, foulModId in pairs(self.mutatedLines) do
+			---@param modId string
+			---@param newModId string
+			---@param mutated? boolean
+			---@return boolean?
 			local function checkMod(modId, newModId, mutated)
 				local originalMod = mutated and data.itemMods.Foulborn[modId] or data.itemMods.ItemExclusive[modId]
 				if not originalMod then
 					ConPrintf("mod not found while testing mutated mods %s, %s", modId, mutated)
 					return
 				end
+				---@param lines string[]
+				---@return ModLine[]|false
 				local function findMatchingLines(lines)
 					local matchingLines = {}
 					local matchedLines = {}
@@ -1639,10 +1793,9 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 	end
 	self.isUnique = self.rarity == "UNIQUE" or self.rarity == "RELIC"
 end
-
 ---@param modId string The id which will be present on the removed mod lines
 ---@param newModId string Id of the new mod which is used to get the new mod lines
----@param mutatedValue boolean? Whether the new mod is a mutated line. Also determines what table the new mod is taken from.
+---@param mutatedValue? boolean Whether the new mod is a mutated line. Also determines what table the new mod is taken from.
 function ItemClass:MutateMod(modId, newModId, mutatedValue)
 	local newMod = mutatedValue and data.itemMods.Foulborn[newModId] or data.itemMods.ItemExclusive[newModId]
 	if not newMod then
@@ -1669,6 +1822,9 @@ function ItemClass:MutateMod(modId, newModId, mutatedValue)
 			i = i + 1
 		end
 	end
+	if not insertIdx then
+		return
+	end
 	table.insert(self.explicitModLines, insertIdx, {
 		line = table.concat(newMod, "\n"),
 		modTags = newMod.modTags,
@@ -1690,10 +1846,17 @@ function ItemClass:NormaliseQuality()
 	end
 end
 
+---@param mod ItemDataMod
+---@param includeTags? table<string, boolean>
+---@param excludeTags? table<string, boolean>
+---@param baseTags? table<string, boolean>
+---@return number
 function ItemClass:GetModSpawnWeight(mod, includeTags, excludeTags, baseTags)
 	local weight = 0
 	if self.base then
 		baseTags = baseTags or self.base.tags
+		---@param key string
+		---@return boolean
 		local function HasInfluenceTag(key)
 			if self.base.influenceTags then
 				for _, curInfluenceInfo in ipairs(influenceInfo) do
@@ -1705,8 +1868,10 @@ function ItemClass:GetModSpawnWeight(mod, includeTags, excludeTags, baseTags)
 			return false
 		end
 
+		---@param modAffix? string
+		---@return string|false
 		local function HasMavenInfluence(modAffix)
-			return modAffix:match("Elevated")
+			return modAffix and modAffix:match("Elevated") or false
 		end
 		if self.restrictTag then
 			for _, key in ipairs(mod.modTags) do
@@ -1751,6 +1916,8 @@ function ItemClass:GetModSpawnWeight(mod, includeTags, excludeTags, baseTags)
 	return weight
 end
 
+---@param mod ItemDataMod
+---@return number
 function ItemClass:GetNecropolisModSpawnWeight(mod)
 	local weight = 0
 	if self.base then
@@ -1764,11 +1931,14 @@ function ItemClass:GetNecropolisModSpawnWeight(mod)
 	return weight
 end
 
+---@param mod ItemDataMod
+---@return boolean
 function ItemClass:CheckIfModIsDelve(mod)
 	return mod.affix == "Subterranean" or mod.affix == "of the Underground"
 end
 
 
+---@return string
 function ItemClass:BuildRaw()
 	local rawLines = { }
 	t_insert(rawLines, "Rarity: " .. self.rarity)
@@ -1839,11 +2009,15 @@ function ItemClass:BuildRaw()
 	if self.memoryStrands then
 		t_insert(rawLines, "Memory Strands: " .. self.memoryStrands)
 	end
+	---@param modLine ModLine
 	local function writeModLine(modLine)
 		local line = modLine.line
+		---@param prefix string
 		local function prependToAllLines(prefix)
 			line = prefix .. line:gsub("\n", "\n" .. prefix)
 		end
+		---@param idList table<number, boolean>
+		---@return string
 		local function makeIdSpec(idList)
 			local ids = { }
 			for id in pairsSortByKey(idList) do
@@ -2117,6 +2291,8 @@ function ItemClass:Craft()
 	self:BuildAndParseRaw()
 end
 
+---@param modLine ModLine
+---@return boolean
 function ItemClass:CheckModLineVariant(modLine)
 	if self.usesVariantGroups then
 		if modLine.versionList and (not self.selectedVersion or not modLine.versionList[self.selectedVersion]) then
@@ -2145,6 +2321,8 @@ function ItemClass:CheckModLineVariant(modLine)
 		or (self.hasAltVariant5 and modLine.variantList[self.variantAlt5])
 end
 
+---@param modLine ModLine
+---@return integer
 function ItemClass:GetModLineVariantCount(modLine)
 	if not self.allowDuplicateVariants or not modLine.variantList then
 		return self:CheckModLineVariant(modLine) and 1 or 0
@@ -2163,6 +2341,7 @@ function ItemClass:GetModLineVariantCount(modLine)
 	return count
 end
 -- Return the name of the slot this item is equipped in
+---@return string?
 function ItemClass:GetPrimarySlot()
 	if self.base.weapon then
 		return "Weapon 1"
@@ -2184,11 +2363,13 @@ end
 -- Calculate local modifiers, and removes them from the modifier list
 -- To be considered local, a modifier must be an exact flag match, and cannot have any tags (e.g. conditions, multipliers)
 -- Only the InSlot tag is allowed (for Adds x to x X Damage in X Hand modifiers)
----@param modList any
+---@param modList ModList
 ---@param name string
----@param type "FLAG"|"MORE"|"BASE"|"INC" other mod types not handled
+---@param type "FLAG"|"MORE"|"BASE"|"INC"
 ---@param flags integer
 ---@return boolean|number
+---@overload fun(modList: ModList, name: string, type: "FLAG", flags: integer): boolean
+---@overload fun(modList: ModList, name: string, type: "MORE"|"BASE"|"INC", flags: integer): number
 local function calcLocal(modList, name, type, flags)
 	local result
 	if type == "FLAG" then
@@ -2219,8 +2400,11 @@ local function calcLocal(modList, name, type, flags)
 end
 
 -- Build list of modifiers in a given slot number while applying local modifiers and adding quality
+---@param baseList ModList
+---@param slotNum integer
+---@return Mod[]
 function ItemClass:BuildModListForSlotNum(baseList, slotNum)
-	local slotName = self:GetPrimarySlot()
+	local slotName = self:GetPrimarySlot() or ""
 	if slotNum ~= 1 then
 		slotName = slotName:gsub("1", tostring(slotNum))
 	end
@@ -2272,9 +2456,12 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 		modList:NewMod("Multiplier:UnlinkedSocketIn"..slotName, "BASE", unlinkedSockets, "Unlinked Item Sockets")
 	end
 	local craftedQuality = calcLocal(modList,"Quality","BASE",0) or 0
+	---@cast craftedQuality number
 	if craftedQuality ~= self.craftedQuality then
 		if self.craftedQuality then
-			self.quality = (self.quality or 0) - self.craftedQuality + craftedQuality
+			local newQuality = (self.quality or 0) - self.craftedQuality + craftedQuality
+			---@cast newQuality integer
+			self.quality = newQuality
 		end
 		self.craftedQuality = craftedQuality
 	end
@@ -2338,6 +2525,7 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 				t_insert(mod, { type = "Condition", var = (slotNum == 1) and "MainHandAttack" or "OffHandAttack" })
 			end
 		end
+		---@type number
 		weaponData.TotalDPS = 0
 		for _, dmgType in ipairs(dmgTypeList) do
 			weaponData.TotalDPS = weaponData.TotalDPS + (weaponData[dmgType.."DPS"] or 0)
@@ -2465,6 +2653,7 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 	elseif self.type == "Jewel" then
 		if self.name:find("Grand Spectrum") then
 			local spectrumMod = modLib.createMod("Multiplier:GrandSpectrum", "BASE", 1, self.name)
+			---@cast spectrumMod Mod
 			modList:AddMod(spectrumMod)
 			modList:NewMod("MinionModifier", "LIST", { mod = spectrumMod }, self.name)
 		end
@@ -2519,6 +2708,9 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 	return { unpack(modList) }
 end
 
+---@param item Item
+---@param modLine ModLine
+---@return Mod[]?
 local function getRangedModList(item, modLine)
 	if not modLine.range or not modLine.line:find("%((%-?%d+%.?%d*)%-(%-?%d+%.?%d*)%)") then
 		return
@@ -2560,6 +2752,7 @@ function ItemClass:BuildModList()
 			end
 		end
 	end
+	---@param modLine ModLine
 	local function processModLine(modLine)
 		if modLine.disabled then
 			return
@@ -2703,6 +2896,9 @@ function ItemClass:BuildModList()
 	end
 end
 
+---@param mod ItemDataMod
+---@param includeTags? table<string, boolean>
+---@return boolean
 function ItemClass:CanHaveMod(mod, includeTags)
 	local keyMap = { }
 	includeTags = includeTags or { }

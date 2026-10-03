@@ -6,9 +6,24 @@
 local ipairs = ipairs
 local t_insert = table.insert
 
----@class FolderListControl: ListControl
+---@class FolderListEntry
+---@field name string
+---@field fullFileName string
+---@field modified integer
+
+---@class FolderListControl: ListControl<FolderListEntry>
+---@field subPath string
+---@field sortMode "NAME"|"EDITED"
+---@field onChangeCallback? fun(newSubPath: string)
+---@field selIndex? integer
+---@field selValue? FolderListEntry
 local FolderListClass = newClass("FolderListControl", "ListControl")
 
+---@param anchor? Anchor
+---@param rect? Rect
+---@param subPath? string
+---@param onChange? fun()
+---@return FolderListControl
 function FolderListClass:FolderListControl(anchor, rect, subPath, onChange)
 	self:ListControl(anchor, rect, 16, "VERTICAL", false, { })
 	self.subPath = subPath or ""
@@ -67,22 +82,29 @@ function FolderListClass:BuildList()
 	if self.Redraw then self:Redraw() end
 end
 
+---@param folderName string
 function FolderListClass:OpenFolder(folderName)
 	self.controls.path:SetSubPath(self.subPath .. folderName  .. "/")
 end
-
+---@param column integer
+---@param index integer
+---@param folder FolderListEntry
+---@return string?
 function FolderListClass:GetRowValue(column, index, folder)
 	if column == 1 then
 		return folder.name
 	end
 end
-
+---@param index integer
+---@param folder FolderListEntry
+---@param doubleClick? boolean
 function FolderListClass:OnSelClick(index, folder, doubleClick)
 	if doubleClick then
 		self:OpenFolder(folder.name)
 	end
 end
-
+---@param index integer
+---@param folder FolderListEntry
 function FolderListClass:OnSelDelete(index, folder)
 	if NewFileSearch(folder.fullFileName.."/*") or NewFileSearch(folder.fullFileName.."/*", true) then
 		main:OpenMessagePopup("Delete Folder", "The folder is not empty.")

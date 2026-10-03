@@ -8,12 +8,16 @@ local t_remove = table.remove
 local m_max = math.max
 local s_format = string.format
 
----@class SkillSetListControl: ListControl
+---@class SkillSetListControl: ListControl<integer>
+---@field skillsTab SkillsTab
+---@field selIndex? integer
+---@field selValue? integer
 local SkillSetListClass = newClass("SkillSetListControl", "ListControl")
 
 ---@param anchor Anchor?
 ---@param rect Rect?
 ---@param skillsTab SkillsTab
+---@return SkillSetListControl
 function SkillSetListClass:SkillSetListControl(anchor, rect, skillsTab)
 	self:ListControl(anchor, rect, 16, "VERTICAL", true, skillsTab.skillSetOrderList)
 	self.skillsTab = skillsTab
@@ -57,6 +61,8 @@ function SkillSetListClass:SkillSetListControl(anchor, rect, skillsTab)
 	return self
 end
 
+---@param skillSet table
+---@param addOnName? boolean
 function SkillSetListClass:RenameSet(skillSet, addOnName)
 	local controls = { }
 	controls.label = new("LabelControl"):LabelControl(nil, {0, 20, 0, 16}, "^7Enter name for this skill set:")
@@ -85,6 +91,10 @@ function SkillSetListClass:RenameSet(skillSet, addOnName)
 	main:OpenPopup(370, 100, skillSet.title and "Rename" or "Set Name", controls, "save", "edit", "cancel")
 end
 
+---@param column integer
+---@param index integer
+---@param skillSetId integer
+---@return string?
 function SkillSetListClass:GetRowValue(column, index, skillSetId)
 	local skillSet = self.skillsTab.skillSets[skillSetId]
 	if column == 1 then
@@ -96,6 +106,9 @@ function SkillSetListClass:OnOrderChange()
 	self.skillsTab.modFlag = true
 end
 
+---@param index integer
+---@param skillSetId integer
+---@param doubleClick? boolean
 function SkillSetListClass:OnSelClick(index, skillSetId, doubleClick)
 	if doubleClick and skillSetId ~= self.skillsTab.activeSkillSetId then
 		self.skillsTab:SetActiveSkillSet(skillSetId)
@@ -103,6 +116,8 @@ function SkillSetListClass:OnSelClick(index, skillSetId, doubleClick)
 	end
 end
 
+---@param index integer
+---@param skillSetId integer
 function SkillSetListClass:OnSelDelete(index, skillSetId)
 	local skillSet = self.skillsTab.skillSets[skillSetId]
 	if #self.list > 1 then
@@ -120,6 +135,9 @@ function SkillSetListClass:OnSelDelete(index, skillSetId)
 	end
 end
 
+---@param index integer
+---@param skillSetId integer
+---@param key string
 function SkillSetListClass:OnSelKeyDown(index, skillSetId, key)
 	if key == "F2" then
 		self:RenameSet(self.skillsTab.skillSets[skillSetId])

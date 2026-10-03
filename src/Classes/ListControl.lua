@@ -30,17 +30,58 @@ local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
 
+---@class ListControlControls: table<string, Control>
+---@field scrollBar? ScrollBarControl
+---@field scrollBarH? ScrollBarControl
+---@field scrollBarV? ScrollBarControl
+
 ---@class ListControl<T>: Control, ControlHost
+---@field controls ListControlControls
+---@field ListControl fun(self: ListControl<T>, anchor?: Anchor, rect?: Rect, rowHeight: number, scroll?: string|boolean, isMutable?: boolean, list?: T[], forceTooltip?: boolean): ListControl<T>
 ---@field list T[]
+---@field rowHeight number
+---@field scroll "HORIZONTAL"|"VERTICAL"|boolean|nil
+---@field scrollH? boolean
+---@field isMutable? boolean
+---@field forceTooltip? boolean
+---@field colList ListColumn<T>[]
+---@field tooltip Tooltip
+---@field font Font
+---@field labelPositionOffset [number, number]
+---@field selIndex? integer
+---@field selValue? T
+---@field selDragging? boolean
+---@field selDragActive? boolean
+---@field selDragIndex? integer
+---@field selCX? number
+---@field selCY? number
+---@field hoverIndex? integer
+---@field hoverValue? T
+---@field dragTargetList? ListControl<unknown>[]
+---@field dragTarget? ListControl<unknown>
+---@field dragType? string
+---@field dragValue? unknown
+---@field otherDragSource? ListControl<unknown>
+---@field otherDragTargeting? boolean
+
+---@class (partial) ListColumn<T>
+---@field label? string
+---@field width? Prop<number>|fun(list: ListControl<T>, column: ListColumn<T>): number
+---@field align? "LEFT"|"RIGHT"|"CENTER_X"
+---@field _offset? number
+---@field _width? number
+local _ListColumn = { }
 local ListClass = newClass("ListControl", "Control", "ControlHost")
 
+---@generic T
 ---@param anchor Anchor?
 ---@param rect Rect?
 ---@param rowHeight number
 ---@param scroll "HORIZONTAL"|"VERTICAL"|boolean|nil
 ---@param isMutable boolean?
----@param list any[]?
----@param forceTooltip any
+---@param list T[]?
+---@param forceTooltip? boolean
+---@return ListControl<T>
 function ListClass:ListControl(anchor, rect, rowHeight, scroll, isMutable, list, forceTooltip)
 	self:Control(anchor, rect)
 	self:ControlHost()
@@ -85,7 +126,8 @@ function ListClass:ListControl(anchor, rect, rowHeight, scroll, isMutable, list,
 	return self
 end
 
-
+---@param index integer
+---@return boolean
 function ListClass:SelectIndex(index)
 	self.selValue = self.list[index]
 	if not self.selValue then
@@ -108,6 +150,10 @@ function ListClass:SelectIndex(index)
 	return true
 end
 
+---@generic T
+---@param column ListColumn<T>
+---@param property string
+---@return unknown
 function ListClass:GetColumnProperty(column, property)
 	if type(column[property]) == "function" then
 		return column[property](self, column)
@@ -116,6 +162,7 @@ function ListClass:GetColumnProperty(column, property)
 	end
 end
 
+---@return boolean|Control?
 function ListClass:IsMouseOver()
 	if not self:IsShown() then
 		return
@@ -123,6 +170,13 @@ function ListClass:IsMouseOver()
 	return self:IsMouseInBounds() or self:GetMouseOverControl()
 end
 
+---@class ListRegion
+---@field x number
+---@field y number
+---@field width number
+---@field height number
+
+---@return ListRegion
 function ListClass:GetRowRegion()
 	local width, height = self:GetSize()
 	return {
@@ -133,12 +187,15 @@ function ListClass:GetRowRegion()
 	}
 end
 
+---@param viewPort Viewport
+---@param noTooltip? boolean
 function ListClass:Draw(viewPort, noTooltip)
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()
 	local rowHeight = self.rowHeight
 	local list = self.list
 
+	---@type number
 	local colOffset = 0
 	for index, column in ipairs(self.colList) do
 		column._offset = colOffset
@@ -219,16 +276,19 @@ function ListClass:Draw(viewPort, noTooltip)
 		local clipWidth = DrawStringWidth(textHeight, colFont, "...")
 		colOffset = column._offset - scrollOffsetH
 		local colWidth = column._width
+		---@cast colWidth number
 		local relX = cursorX - (x + 2)
 		local relY = cursorY - (y + 2)
 		for index = minIndex, maxIndex do
 			local lineY = rowHeight * (index - 1) - scrollOffsetV + (self.colLabels and 18 or 0)
 			local value = list[index]
-			local text = self:GetRowValue(colIndex, index, value)
+			local text = self:GetRowValue(colIndex, index, value) or ""
+			---@cast text string
 			local icon = nil
 			if self.GetRowIcon then 
 				icon = self:GetRowIcon(colIndex, index, value)
 			end
+			---@cast icon ImageHandle?
 			local textWidth = DrawStringWidth(textHeight, colFont, text)
 			if textWidth > colWidth - 2 then
 				local clipIndex = DrawStringCursorIndex(textHeight, colFont, text, colWidth - clipWidth - 2, 0)
@@ -330,6 +390,9 @@ function ListClass:Draw(viewPort, noTooltip)
 	self.hoverIndex = ttIndex
 	self.hoverValue = ttValue
 	if ttIndex and self.AddValueTooltip and (not noTooltip or self.forceTooltip) then
+		---@cast ttX number
+		---@cast ttY number
+		---@cast ttWidth number
 		SetDrawLayer(nil, 100)
 		self:AddValueTooltip(self.tooltip, ttIndex, ttValue)
 		self.tooltip:Draw(ttX, ttY, ttWidth, rowHeight, viewPort)
@@ -337,6 +400,9 @@ function ListClass:Draw(viewPort, noTooltip)
 	end
 end
 
+---@param key string
+---@param doubleClick? boolean
+---@return Control?
 function ListClass:OnKeyDown(key, doubleClick)
 	if not self:IsShown() or not self:IsEnabled() then
 		return
@@ -416,7 +482,8 @@ function ListClass:OnKeyDown(key, doubleClick)
 	end
 	return self
 end
-
+---@param key string
+---@return ListControl<T>?
 function ListClass:OnKeyUp(key)
 	if not self:IsShown() or not self:IsEnabled() then
 		return
@@ -470,6 +537,7 @@ function ListClass:OnKeyUp(key)
 	return self
 end
 
+---@return integer?
 function ListClass:GetHoverIndex()
 	local x, y = self:GetPos()
 	local cursorX, cursorY = GetCursorPos()
@@ -482,6 +550,8 @@ function ListClass:GetHoverIndex()
 	end
 end
 
+---@param key? string
+---@return T?
 function ListClass:GetHoverValue(key)
 	local index = self:GetHoverIndex()
 	if index then

@@ -10,9 +10,32 @@ local m_max = math.max
 local m_min = math.min
 local dkjson = require "dkjson"
 
+---@class ExtBuildListProviderOption
+---@field name string
+---@field impl ExtBuildListProvider
+
 ---@class ExtBuildListControl: ControlHost, Control
+---@field importCode? string
+---@field rowHeight integer
+---@field scroll string
+---@field forceTooltip boolean
+---@field font Font
+---@field importButtons ButtonControl[]
+---@field previewButtons ButtonControl[]
+---@field inTransition boolean
+---@field contentHeight number
+---@field tabs ButtonControl[]
+---@field activeListProvider? ExtBuildListProvider
+---@field buildProviders ExtBuildListProviderOption[]
+---@field buildProvidersList string[]
+---@field providerMaxLength number
+---@field scrollOffsetV? number
 local ExtBuildListControlClass = newClass("ExtBuildListControl", "ControlHost", "Control")
 
+---@param anchor? Anchor
+---@param rect? Rect
+---@param providers ExtBuildListProviderOption[]
+---@return ExtBuildListControl
 function ExtBuildListControlClass:ExtBuildListControl(anchor, rect, providers)
 	self:Control(anchor, rect)
 	self:ControlHost()
@@ -38,6 +61,7 @@ function ExtBuildListControlClass:ExtBuildListControl(anchor, rect, providers)
 	return self
 end
 
+---@param providerName string
 function ExtBuildListControlClass:Init(providerName)
 	wipeTable(self.controls)
 	wipeTable(self.tabs)
@@ -136,10 +160,12 @@ function ExtBuildListControlClass:Init(providerName)
 	end
 end
 
+---@param importCode string
 function ExtBuildListControlClass:SetImportCode(importCode)
 	self.importCode = importCode
 end
 
+---@return boolean|Control?
 function ExtBuildListControlClass:IsMouseOver()
 	if not self:IsShown() then
 		return
@@ -147,6 +173,9 @@ function ExtBuildListControlClass:IsMouseOver()
 	return self:IsMouseInBounds() or self:GetMouseOverControl()
 end
 
+---@param key string
+---@param doubleClick? boolean
+---@return Control?
 function ExtBuildListControlClass:OnKeyDown(key, doubleClick)
 	if not self:IsShown() or not self:IsEnabled() then
 		return
@@ -160,6 +189,7 @@ function ExtBuildListControlClass:OnKeyDown(key, doubleClick)
 	end
 end
 
+---@param key string
 function ExtBuildListControlClass:OnKeyUp(key)
 	if not self:IsShown() or not self:IsEnabled() then
 		return
@@ -172,6 +202,7 @@ function ExtBuildListControlClass:OnKeyUp(key)
 	end
 end
 
+---@param build ExtBuildListEntry
 function ExtBuildListControlClass:importBuild(build)
 	if not (build.buildLink) then
 		print("Build link is not provided.")
@@ -186,6 +217,8 @@ function ExtBuildListControlClass:importBuild(build)
 	end)
 end
 
+---@param ascendancy string
+---@return ImageHandle?
 function ExtBuildListControlClass:GetAscendancyImageHandle(ascendancy)
 	if ascendancy then
 		local fileName = s_format('Assets/ascendants/%s.jpeg', (ascendancy:gsub("^%l", string.lower)))
@@ -203,6 +236,10 @@ function ExtBuildListControlClass:GetAscendancyImageHandle(ascendancy)
 end
 
 -- splits strings by word and maxWidth
+---@param str string
+---@param maxWidth number
+---@param font Font
+---@return string[]
 function ExtBuildListControlClass:splitStringByWidth(str, maxWidth, font)
 	local words = {}
 	for word in str:gmatch("%S+") do
@@ -226,6 +263,11 @@ function ExtBuildListControlClass:splitStringByWidth(str, maxWidth, font)
 end
 
 -- wrappers for Drawing tools to apply scrolling
+---@param imgHandle ImageHandle?
+---@param left number
+---@param top number
+---@param width number
+---@param height number
 function ExtBuildListControlClass:DrawImage(imgHandle, left, top, width, height)
 	local _, y = self:GetPos()
 	if top - self.controls.scrollBarV.offset >= y and top + height - self.controls.scrollBarV.offset < self.height() + y then
@@ -233,6 +275,12 @@ function ExtBuildListControlClass:DrawImage(imgHandle, left, top, width, height)
 	end
 end
 
+---@param left number
+---@param top number
+---@param align string
+---@param height number
+---@param font Font
+---@param text string
 function ExtBuildListControlClass:DrawString(left, top, align, height, font, text)
 	local _, y = self:GetPos()
 	if top - self.controls.scrollBarV.offset >= y and top + height - self.controls.scrollBarV.offset < self.height() + y then
@@ -240,6 +288,8 @@ function ExtBuildListControlClass:DrawString(left, top, align, height, font, tex
 	end
 end
 
+---@param viewPort Viewport
+---@param noTooltip? boolean
 function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 	if self.activeListProvider == nil then
 		return
@@ -288,6 +338,9 @@ function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 		end
 	end
 
+---@param y number
+---@param fillH number
+---@return number
 	local function addSeparator(y, fillH)
 		y = y + 4
 		SetDrawColor(0.5, 0.5, 0.5)

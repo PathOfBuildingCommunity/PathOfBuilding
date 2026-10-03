@@ -1657,6 +1657,16 @@ function main:CopyFolder(srcName, dstName)
 	end
 end
 
+---@param width number
+---@param height number
+---@param title Prop<string>
+---@param controls table<string, Control>
+---@param enterControl? string
+---@param defaultControl? string
+---@param escapeControl? string
+---@param scrollBarFunc? fun()
+---@param resizeFunc? fun()
+---@return PopupDialog
 function main:OpenPopup(width, height, title, controls, enterControl, defaultControl, escapeControl, scrollBarFunc, resizeFunc)
 	local popup = new("PopupDialog"):PopupDialog(width, height, title, controls, enterControl, defaultControl, escapeControl, scrollBarFunc, resizeFunc)
 	t_insert(self.popups, 1, popup)

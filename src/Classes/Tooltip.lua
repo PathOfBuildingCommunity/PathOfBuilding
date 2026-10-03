@@ -40,9 +40,42 @@ for _, recipeName in pairs(recipeNames) do
 	recipeImages[recipeName]:Load("TreeData/" .. recipeName .. ".png", "CLAMP")
 end
 
+---@class TooltipLine
+---@field size number
+---@field text? string
+---@field font Font
+---@field modLine? ModLine
+---@field background? number[]|string|ImageHandle
+---@field bounds? { x: number, y: number, width: number, height: number }
+
 ---@class Tooltip
+---@field lines TooltipLine[]
+---@field blocks table[]
+---@field childTooltips? Tooltip[]
+---@field updateParams? unknown[]
+---@field maxWidth? number
+---@field recipe? string[]
+---@field tooltipHeader string|boolean
+---@field titleYOffset number
+---@field center boolean
+---@field color string|number[]
+---@field separatorImage? ImageHandle
+---@field separatorImagePath? string
+---@field headerLeft? ImageHandle
+---@field headerLeftPath? string
+---@field headerMiddle? ImageHandle
+---@field headerMiddlePath? string
+---@field headerRight? ImageHandle
+---@field headerRightPath? string
+---@field influenceHeader1? string
+---@field influenceHeader2? string
+---@field foilType? string
+---@field _bgHandles? table<string, ImageHandle>
+---@field Draw? fun(self: Tooltip, x: number, y: number, width: number, height: number, viewPort: Viewport)
+---@field realDraw? fun(self: Tooltip, x: number, y: number, width: number, height: number, viewPort: Viewport)
 local TooltipClass = newClass("Tooltip")
 
+---@return Tooltip
 function TooltipClass:Tooltip()
 	self.lines = { }
 	self.blocks = { }
@@ -51,6 +84,7 @@ function TooltipClass:Tooltip()
 	return self
 end
 
+---@param clearUpdateParams? boolean
 function TooltipClass:Clear(clearUpdateParams)
 	wipeTable(self.lines)
 	wipeTable(self.blocks)
@@ -67,7 +101,8 @@ function TooltipClass:Clear(clearUpdateParams)
 	self.color = { 0.5, 0.3, 0 }
 	t_insert(self.blocks, { height = 0 })
 end
-
+---@param ... unknown
+---@return boolean?
 function TooltipClass:CheckForUpdate(...)
 	local doUpdate = false
 	if not self.updateParams then
@@ -88,6 +123,11 @@ function TooltipClass:CheckForUpdate(...)
 	end
 end
 
+---@param size number
+---@param text string|boolean|nil
+---@param font? Font
+---@param modLine? ModLine
+---@param background? number[]|string|ImageHandle
 function TooltipClass:AddLine(size, text, font, modLine, background)
 	if text then
 		local fontToUse
@@ -113,10 +153,12 @@ function TooltipClass:AddLine(size, text, font, modLine, background)
 	end
 end
 
+---@param recipe string[]
 function TooltipClass:SetRecipe(recipe)
 	self.recipe = recipe
 end
 
+---@param size? number
 function TooltipClass:AddSeparator(size)
 	size = size or 10
 
@@ -159,8 +201,10 @@ function TooltipClass:AddSeparator(size)
 	})
 end
 
-
+---@return number width
+---@return number height
 function TooltipClass:GetSize()
+	---@type number, number
 	local ttW, ttH = 0, 0
 	for i, data in ipairs(self.lines) do
 		if data.text or (self.lines[i - 1] and self.lines[i + 1] and self.lines[i + 1].text) then
@@ -191,6 +235,9 @@ function TooltipClass:GetSize()
 	return ttW + H_PAD, ttH + V_PAD
 end
 
+---@param viewPort Viewport
+---@return number width
+---@return number height
 function TooltipClass:GetDynamicSize(viewPort)
 	local staticttW, staticttH = self:GetSize()
 	local columns, ttH, _, extraColumnWidth = self:CalculateColumns(0, 0, staticttH, staticttW, viewPort)
@@ -201,17 +248,16 @@ function TooltipClass:GetDynamicSize(viewPort)
 
 	return ttW + H_PAD, ttH + V_PAD
 end
-
 --- Calculates the column breaks, layout heights, and individual rendering instructions for tooltip lines.
 --- By default, items exceeding window height will wrap to a new column.
 ---@param ttY number Base y-coordinate for the tooltip content
 ---@param ttX number Base x-coordinate for the tooltip content
 ---@param ttH number The total estimated height of the tooltip content, used to determine column breakpoints
 ---@param ttW number The pixel width of the primary (first) tooltip column
----@param viewPort table A table `{x, y, width, height}` containing active screen boundaries
+---@param viewPort Viewport Active screen boundaries
 ---@return number columns The total number of layout columns generated
 ---@return number maxColumnHeight The maximum pixel height reached across all formatted columns
----@return table drawStack An array of sequential rendering instructions (texts, images, separators, and their coordinates)
+---@return table[] drawStack An array of sequential rendering instructions (texts, images, separators, and their coordinates)
 ---@return number extraColumnWidth The required dynamic pixel width calculated for any additional columns beyond the first
 function TooltipClass:CalculateColumns(ttY, ttX, ttH, ttW, viewPort)
 	local y = ttY + 2 * BORDER_WIDTH
@@ -373,9 +419,11 @@ end
 --- Draws tooltip to screen
 ---@param x number x-coordinate to draw the tooltip at
 ---@param y number y-coordinate to draw the tooltip at
----@param w number|nil optional width of the UI element being hovered over. Tooltip will position itself outside this box (if possible)
----@param h number|nil optional height of the UI element being hovered over. Needs to be provided alongside `w`
----@param viewPort table A table `{x, y, width, height}` contains active screen boundaries
+---@param w? number optional width of the UI element being hovered over. Tooltip will position itself outside this box (if possible)
+---@param h? number optional height of the UI element being hovered over. Needs to be provided alongside `w`
+---@param viewPort Viewport Active screen boundaries
+---@return number? width
+---@return number? height
 function TooltipClass:Draw(x, y, w, h, viewPort)
 	if #self.lines == 0 then
 		return

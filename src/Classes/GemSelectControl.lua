@@ -15,7 +15,21 @@ local gemTooltip = require("Classes.GemTooltip")
 local toolTipText = "Prefix tag searches with a colon and exclude tags with a dash. e.g. :fire:lightning:-cold:area"
 local imbuedTooltipText = "\"Socketed in\" item must be set in order to add an imbued support.\nOnly one imbued support is allowed per item."
 
+---@class GemSelectEntry
+---@field name string
+---@field grantedEffect table
+
 ---@class GemSelectControl: EditControl
+---@field skillsTab SkillsTab
+---@field index integer
+---@field imbuedSelect boolean
+---@field gems table<string, GemSelectEntry>
+---@field list string[]
+---@field mode string
+---@field forceTooltip? boolean
+---@field gemChangeFunc fun(gemId: string|table?, addUndo?: boolean, focusLost?: boolean, bufMatchesGem?: boolean, slotName?: string)
+---@field dpsBuildFlag boolean
+---@field sortCache? table
 local GemSelectClass = newClass("GemSelectControl", "EditControl")
 
 ---@param anchor Anchor?
@@ -23,8 +37,9 @@ local GemSelectClass = newClass("GemSelectControl", "EditControl")
 ---@param skillsTab SkillsTab
 ---@param index integer
 ---@param changeFunc fun(...)
----@param forceTooltip boolean
----@param imbued boolean
+---@param forceTooltip? boolean
+---@param imbued? boolean
+---@return GemSelectControl
 function GemSelectClass:GemSelectControl(anchor, rect, skillsTab, index, changeFunc, forceTooltip, imbued)
 	self:EditControl(anchor, rect, nil, nil, "^ %a':-")
 	self.controls.scrollBar = new("ScrollBarControl"):ScrollBarControl({ "TOPRIGHT", self, "TOPRIGHT" }, {-1, 0, 18, 0}, (self.height - 4) * 4)
@@ -67,6 +82,11 @@ function GemSelectClass:GemSelectControl(anchor, rect, skillsTab, index, changeF
 	return self
 end
 
+---@param calcFunc fun(adjustments?: table, useFullDPS?: boolean): Output
+---@param gemData table
+---@param useFullDPS? boolean
+---@return Output output
+---@return table gemInstance
 function GemSelectClass:CalcOutputWithThisGem(calcFunc, gemData, useFullDPS)
 	local gemList = self.skillsTab.displayGroup.gemList
 	local displayGemList = self.skillsTab.displayGroup.displayGemList
@@ -145,6 +165,9 @@ function GemSelectClass:PopulateGemList()
 	end
 end
 
+---@param gemId string
+---@param gemData table
+---@return boolean
 function GemSelectClass:FilterSupport(gemId, gemData)
 	local showSupportTypes = self.skillsTab.showSupportGemTypes
 	local isLegacyAwakened = (gemData.grantedEffect.legacy and gemData.grantedEffect.plusVersionOf)
@@ -162,6 +185,7 @@ function GemSelectClass:FilterSupport(gemId, gemData)
 		or (showSupportTypes == "EXCEPTIONAL" and (isLegacyAwakened or gemData.tagString:match("Exceptional"))))
 end
 
+---@param buf string
 function GemSelectClass:BuildList(buf)
 	local searchTerm = ""
 	local tagsList = {}
@@ -372,6 +396,7 @@ function GemSelectClass:UpdateSortCache()
 	self.dpsBuildFlag = true
 end
 
+---@param gemList string[]
 function GemSelectClass:SortGemList(gemList)
 	local sortCache = self.sortCache
 	local gems = self.gems
@@ -451,6 +476,9 @@ function GemSelectClass:DPSBuilder()
 	sortCache.pendingGems = nil
 end
 
+---@param setText? boolean
+---@param addUndo? boolean
+---@param focusLost? boolean
 function GemSelectClass:UpdateGem(setText, addUndo, focusLost)
 	local gemId = self.list[m_max(self.selIndex, 1)]
 	-- don't process unless the buffer equals an actual gem, whether typed, clicked, or navigated with arrows
@@ -477,6 +505,8 @@ function GemSelectClass:ScrollSelIntoView()
 	scrollBar:ScrollIntoView((self.selIndex - 2) * (height - 4), 3 * (height - 4))
 end
 
+---@return boolean mouseOver
+---@return "BODY"|"DROP"? mouseOverComponent
 function GemSelectClass:IsMouseOver()
 	if not self:IsShown() then
 		return false
@@ -500,6 +530,8 @@ function GemSelectClass:IsMouseOver()
 	return mOver, mOverComp
 end
 
+---@param viewPort Viewport
+---@param noTooltip? boolean
 function GemSelectClass:Draw(viewPort, noTooltip)
 	self.sortPercentage = self.sortPercentage or ""
 	if self.dpsBuildFlag then
@@ -698,11 +730,15 @@ function GemSelectClass:Draw(viewPort, noTooltip)
 	end
 end
 
+---@param gemA table
+---@param gemB table
+---@return boolean
 function GemSelectClass:CheckSupporting(gemA, gemB)
 	return (gemA.gemData.grantedEffect.support and not gemB.gemData.grantedEffect.support and gemA.supportEffect and gemA.supportEffect.isSupporting and gemA.supportEffect.isSupporting[gemB]) or
 		(gemA.gemData.secondaryGrantedEffect and gemA.gemData.secondaryGrantedEffect.support and not gemB.gemData.grantedEffect.support and gemA.supportEffect and gemA.supportEffect.isSupporting and gemA.supportEffect.isSupporting[gemB])
 end
 
+---@param gemInstance table
 function GemSelectClass:AddGemTooltip(gemInstance)
 	gemTooltip.AddGemTooltip(self.tooltip, self.skillsTab.build, gemInstance)
 end
@@ -730,6 +766,9 @@ function GemSelectClass:OnFocusLost()
 	end
 end
 
+---@param key string
+---@param doubleClick? boolean
+---@return Control?
 function GemSelectClass:OnKeyDown(key, doubleClick)
 	if not self:IsShown() or not self:IsEnabled() then
 		return
@@ -818,6 +857,8 @@ function GemSelectClass:OnKeyDown(key, doubleClick)
 	return newSel == self.EditControl and self or newSel
 end
 
+---@param key string
+---@return Control?
 function GemSelectClass:OnKeyUp(key)
 	if not self:IsShown() or not self:IsEnabled() then
 		return

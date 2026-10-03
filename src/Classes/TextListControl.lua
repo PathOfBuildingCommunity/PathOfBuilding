@@ -4,8 +4,18 @@
 -- Simple list control for displaying a block of text
 --
 ---@class TextListControl: Control, ControlHost
+---@field columns table[]
+---@field list string[]
+---@field sectionHeights number[]
+---@field hoveredLine? integer
 local TextListClass = newClass("TextListControl", "Control", "ControlHost")
 
+---@param anchor? Anchor
+---@param rect? Rect
+---@param columns table[]
+---@param list string[]
+---@param sectionHeights? number[]
+---@return TextListControl
 function TextListClass:TextListControl(anchor, rect, columns, list, sectionHeights)
 	self:Control(anchor, rect)
 	self:ControlHost()
@@ -20,6 +30,7 @@ function TextListClass:TextListControl(anchor, rect, columns, list, sectionHeigh
 	return self
 end
 
+---@return boolean|Control?
 function TextListClass:IsMouseOver()
 	if not self:IsShown() then
 		return
@@ -27,6 +38,7 @@ function TextListClass:IsMouseOver()
 	return self:IsMouseInBounds() or self:GetMouseOverControl()
 end
 
+---@param viewPort Viewport
 function TextListClass:Draw(viewPort)
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()
@@ -80,6 +92,9 @@ function TextListClass:Draw(viewPort)
 	SetViewport()
 end
 
+---@param key string
+---@param doubleClick? boolean
+---@return TextListControl?
 function TextListClass:OnKeyDown(key, doubleClick)
 	if not self:IsShown() or not self:IsEnabled() then
 		return
@@ -93,6 +108,8 @@ function TextListClass:OnKeyDown(key, doubleClick)
 	end
 end
 
+---@param key string
+---@return TextListControl?
 function TextListClass:OnKeyUp(key)
 	if not self:IsShown() or not self:IsEnabled() then
 		return

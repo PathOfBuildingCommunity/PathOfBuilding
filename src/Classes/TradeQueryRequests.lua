@@ -18,9 +18,44 @@ local tradeInfluenceApiKeys = {
 	tangle = "tangled",
 }
 
+---@class TradeQueryRequest
+---@field url string
+---@field body? string
+---@field callback fun(response: string, errMsg: string?, ...: unknown)
+---@field callbackParams? unknown[]
+---@field retryTime? integer
+---@field attempts? integer
+
+---@class TradeQuerySearchError
+---@field code? integer|string
+---@field message? string
+
+---@class TradeQuerySearchResponse
+---@field id string
+---@field result string[]
+---@field total integer
+---@field error? TradeQuerySearchError|string|table
+
+---@class TradeQueryItem
+---@field amount number
+---@field currency string
+---@field priceType string
+---@field item_string string
+---@field whisper string
+---@field trader string
+---@field weight string
+---@field id string
+
 ---@class TradeQueryRequests
+---@field rateLimiter TradeQueryRateLimiter
+---@field requestQueue table<"search"|"fetch", TradeQueryRequest[]>
+---@field hostName string
+---@field hostNamePattern string
+---@field maxFetchPerSearch integer
 local TradeQueryRequestsClass = newClass("TradeQueryRequests")
 
+---@param rateLimiter? TradeQueryRateLimiter
+---@return TradeQueryRequests
 function TradeQueryRequestsClass:TradeQueryRequests(rateLimiter)
 	self.maxFetchPerSearch = 10
 	self.rateLimiter = rateLimiter or new("TradeQueryRateLimiter"):TradeQueryRateLimiter()
@@ -34,7 +69,7 @@ function TradeQueryRequestsClass:TradeQueryRequests(rateLimiter)
 end
 
 ---Main routine for processing request queue
---- @param onRateLimit fun(integer)?
+---@param onRateLimit? fun(backoff: integer)
 function TradeQueryRequestsClass:ProcessQueue(onRateLimit)
 	for key, queue in pairs(self.requestQueue) do
 		if #queue > 0 then
@@ -92,10 +127,11 @@ function TradeQueryRequestsClass:ProcessQueue(onRateLimit)
 end
 
 ---Performs search and fetches results
+---@param realm? string
 ---@param league string
 ---@param query string
----@param callback fun(items:table, errMsg:string)
----@param params table @ params = { callbackQueryId = fun(queryId:string) }
+---@param callback fun(items: TradeQueryItem[]?, errMsg: string?)
+---@param params? { callbackQueryId?: fun(queryId: string) }
 function TradeQueryRequestsClass:SearchWithQuery(realm, league, query, callback, params)
 	params = params or {}
 	--ConPrintf("Query json: %s", query)
@@ -112,10 +148,11 @@ end
 
 ---Performs search and fetches results, adjusting the query weight and repeating
 ---the search to fetch more items when the search cap (10k items) is reached
+---@param realm? string
 ---@param league string
 ---@param query string
----@param callback fun(items:table, errMsg:string)
----@param params table @ params = { callbackQueryId = fun(queryId:string) }
+---@param callback fun(items: TradeQueryItem[]?, errMsg: string?)
+---@param params? { callbackQueryId?: fun(queryId: string) }
 function TradeQueryRequestsClass:SearchWithQueryWeightAdjusted(realm, league, query, callback, params)
 	params = params or {}
 	local previousSearchId = nil
@@ -125,6 +162,9 @@ function TradeQueryRequestsClass:SearchWithQueryWeightAdjusted(realm, league, qu
 	-- Each repeat is a leap of 10k items, normally we shouldn't need more than 1-2 steps anyways
 	local maxRecursion = 5
 	local currentRecursion = 0
+---@param response? TradeQuerySearchResponse
+---@param errMsg? string
+---@return unknown? callbackResult
 	local function performSearchCallback(response, errMsg)
 		currentRecursion = currentRecursion + 1
 		if params.callbackQueryId and response and response.id then
@@ -213,11 +253,11 @@ function TradeQueryRequestsClass:SearchWithQueryWeightAdjusted(realm, league, qu
 end
 
 ---Perform search and run callback function on returned item hashes.
----Item info has to be fetched separately 
----@param realm string
+---Item info has to be fetched separately
+---@param realm? string
 ---@param league string
 ---@param query string
----@param callback fun(response:table, errMsg:string)
+---@param callback fun(response: TradeQuerySearchResponse?, errMsg: string?)
 function TradeQueryRequestsClass:PerformSearch(realm, league, query, callback)
 	table.insert(self.requestQueue["search"], {
 		url = self:buildUrl(self.hostName .. "api/trade/search", realm, league),
@@ -258,7 +298,7 @@ end
 ---Fetch item details for itemHashes
 ---@param itemHashes string[]
 ---@param queryId string
----@param callback fun(items:table, errMsg:string)
+---@param callback fun(items: TradeQueryItem[]?, errMsg: string?)
 function TradeQueryRequestsClass:FetchResults(itemHashes, queryId, callback)
 	local quantity_found = math.min(#itemHashes, self.maxFetchPerSearch)
 	local max_block_size = 10
@@ -284,7 +324,7 @@ end
 
 ---Fetch details for paginated items
 ---@param url string
----@param callback fun(items: table, errMsg:string)
+---@param callback fun(items: TradeQueryItem[]?, errMsg: string?)
 function TradeQueryRequestsClass:FetchResultBlock(url, callback)
 	table.insert(self.requestQueue["fetch"], {
 		url = url,
@@ -348,6 +388,8 @@ function TradeQueryRequestsClass:FetchResultBlock(url, callback)
 					end
 				end
 
+---@param modLine { flags?: table<string, boolean>, description: string }
+---@return string
 				local function processLine(modLine)
 					local s = ""
 					for flagName, flag in pairs(modLine.flags or {}) do
@@ -400,9 +442,12 @@ function TradeQueryRequestsClass:FetchResultBlock(url, callback)
 	})
 end
 
----@param callback fun(items:table, errMsg:string, query: string?)
+---@param url string
+---@param callback fun(items: TradeQueryItem[]?, errMsg: string?, query: string?): unknown?
+---@return unknown? callbackResult
 function TradeQueryRequestsClass:SearchWithURL(url, callback)
 	local subpath = url:match(self.hostNamePattern .. "trade/search/(.+)$")
+	---@cast subpath string
 	local paths = {}
 	for path in subpath:gmatch("[^/]+") do
 		table.insert(paths, path)
@@ -442,9 +487,10 @@ function TradeQueryRequestsClass:SearchWithURL(url, callback)
 end
 
 ---Fetch query data needed to perform the search
----@param queryId string
+---@param realm? string
 ---@param league string
----@param callback fun(query:string, errMsg:string)
+---@param queryId string
+---@param callback fun(query: string?, errMsg: string?)
 function TradeQueryRequestsClass:FetchSearchQuery(realm, league, queryId, callback)
 	local url = self:buildUrl(self.hostName .. "api/trade/search", realm, league, queryId)
 	table.insert(self.requestQueue["search"], {
@@ -464,7 +510,7 @@ end
 
 --- Fetches the list of all available leagues using trade league API
 ---@param realm string
----@param callback fun(query:table, errMsg:string)
+---@param callback fun(leagues: string[], errMsg: string?)
 function TradeQueryRequestsClass:FetchLeagues(realm, callback)
 	local header = "Authorization: Bearer " .. (main.api.authToken or "")
 	launch:DownloadPage(
@@ -496,9 +542,10 @@ end
 
 --- Build search and trade URLs with proper encoding
 ---@param root string
----@param realm string
+---@param realm? string
 ---@param league string
----@param queryId string
+---@param queryId? string
+---@return string
 function TradeQueryRequestsClass:buildUrl(root, realm, league, queryId)
 	local result = root
 	if realm and realm ~='pc' then

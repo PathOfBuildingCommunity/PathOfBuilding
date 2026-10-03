@@ -22,6 +22,9 @@ local CLUSTER_NODE_OFFSET = 65536
 -- Wrap a string into lines for a given pixel width at font height 14 ("VAR").
 -- Breaks BEFORE a word that would exceed the width, so rendered lines never
 -- overshoot into the next column.
+---@param str string
+---@param width number
+---@return string[] lines
 local function wrapInfoLine(str, width)
 	local lines = {}
 	if not str or str == "" or width <= 0 then
@@ -98,6 +101,10 @@ local LAYOUT = {
 }
 
 -- Flag matching for stat filtering
+---@param reqFlags string|string[]?
+---@param notFlags string|string[]?
+---@param flags table<string, boolean>
+---@return boolean?
 local function matchFlags(reqFlags, notFlags, flags)
 	if type(reqFlags) == "string" then
 		reqFlags = { reqFlags }
@@ -122,10 +129,156 @@ local function matchFlags(reqFlags, notFlags, flags)
 	return true
 end
 
+---@class ComparePowerCategories
+---@field treeNodes boolean
+---@field items boolean
+---@field skillGems boolean
+---@field supportGems boolean
+---@field config boolean
+
+---@class ComparePowerResult
+---@field category string
+---@field categoryColor string
+---@field nameColor string
+---@field name string
+---@field impact number
+---@field impactStr string
+---@field impactPercent number
+---@field combinedImpactStr string
+---@field pathDist? number
+---@field perPoint? number
+---@field perPointStr? string
+---@field nodeId? integer
+---@field itemObj? Item
+---@field slotName? string
+
+---@class CompareJewelComparisonSlot
+---@field label string
+---@field nodeId integer
+---@field pItem Item?
+---@field cItem Item?
+---@field pSlotName string
+---@field cSlotName string
+---@field pNodeAllocated boolean
+---@field cNodeAllocated boolean
+
+---@class CompareTabConfigControlInfo
+---@field primaryControl Control
+---@field compareControl Control
+---@field varData table
+---@field visible boolean
+
+---@class CompareTabConfigSection
+---@field name string
+---@field col? integer
+---@field items CompareTabConfigControlInfo[]
+---@field rows? { ctrlInfo: CompareTabConfigControlInfo, isDiff: boolean }[]
+---@field height? number
+---@field diffCount? integer
+---@field x? number
+---@field y? number
+
+---@class CompareGem
+---@field grantedEffect? table
+---@field gemData? table
+---@field nameSpec? string
+---@field level? integer
+---@field quality? integer
+---@field color? string
+---@field isImbuedSupport? boolean
+---@field supportEffect? table
+
+---@class CompareSocketGroup
+---@field gemList CompareGem[]
+---@field displayLabel? string
+---@field label? string
+---@field slot? string
+---@field imbuedSupport? string
+
+---@class CompareGemDisplayEntry
+---@field gem? CompareGem
+---@field name string
+---@field status "common"|"additional"|"missing"
+
+---@class CompareGemHoverEntry
+---@field gem CompareGem
+---@field x number
+---@field y number
+---@field group? CompareSocketGroup
+
+---@class CompareTabControls: table<string, Control>
+---@field cmpStageCount EditControl
+---@field cmpMineCount EditControl
+---@field primCalcsStageCount EditControl
+---@field primCalcsMineCount EditControl
+---@field cmpCalcsStageCount EditControl
+---@field cmpCalcsMineCount EditControl
+---@field overlayTreeSearch EditControl
+---@field leftTreeSearch EditControl
+---@field rightTreeSearch EditControl
+---@field configSearchEdit EditControl
+---@field calcsScrollBar ScrollBarControl
+---@field viewScrollBar ScrollBarControl
+---@field itemsHScrollBar ScrollBarControl
+---@field skillsHScrollBar ScrollBarControl
+---@field cmpSocketGroup DropDownControl<any>
+---@field cmpMainSkill DropDownControl<any>
+---@field cmpSkillPart DropDownControl<any>
+---@field cmpMinion DropDownControl<any>
+---@field cmpMinionSkill DropDownControl<any>
+---@field primCalcsMode DropDownControl<any>
+---@field cmpCalcsMode DropDownControl<any>
+---@field comparePowerStatSelect DropDownControl<any>
+
 ---@class CompareTab: ControlHost, Control
+---@field controls CompareTabControls
+---@field build Build
+---@field primaryBuild Build
+---@field compareEntries CompareEntry[]
+---@field activeCompareIndex integer
+---@field compareViewMode string
+---@field scrollY number
+---@field itemsScrollX number
+---@field skillsScrollX number
+---@field summaryTotalContentHeight number
+---@field itemsTotalContentHeight number
+---@field skillsTotalContentHeight number
+---@field treeLayout? table
+---@field treeSearchNeedsSync boolean
+---@field treeOverlayMode boolean
+---@field itemTooltip Tooltip
+---@field itemsExpandedMode boolean
+---@field calcsTooltip Tooltip
+---@field calcsShowOnlyDifferences boolean
+---@field configControls table<string, CompareTabConfigControlInfo>
+---@field configControlList CompareTabConfigControlInfo[]
+---@field configNeedsRebuild boolean
+---@field configCompareId? integer
+---@field configToggle boolean
+---@field configSections CompareTabConfigSection[]
+---@field configSectionLayout CompareTabConfigSection[]
+---@field configTotalContentHeight number
+---@field comparePowerStat? PowerStat
+---@field comparePowerCategories ComparePowerCategories
+---@field comparePowerResults? ComparePowerResult[]
+---@field comparePowerCoroutine? thread
+---@field comparePowerProgress number
+---@field comparePowerDirty boolean
+---@field comparePowerCompareId? CompareEntry
+---@field configOptions table[]
+---@field calcSections CalcSection[]
+---@field calcs table
+---@field treeVersionDropdownList table[]
+---@field comparePowerListSynced boolean
+---@field calcsSkillHeaderHeight? number
+---@field itemsColWidth? number
+---@field calcsSkillHeaderHover? table
+---@field modFlag boolean
+---@field [string] unknown
 local CompareTabClass = newClass("CompareTab", "ControlHost", "Control")
 
 ---@param primaryBuild Build
+---@return CompareTab
 function CompareTabClass:CompareTab(primaryBuild)
 	self:ControlHost()
 	self:Control()
@@ -1071,6 +1224,8 @@ function CompareTabClass:InitControls()
 end
 
 -- Get a short display name from a build name (strips "AccountName - " prefix)
+---@param fullName string?
+---@return string
 function CompareTabClass:GetShortBuildName(fullName)
 	if not fullName then return "Your Build" end
 	local dashPos = fullName:find(" %- ")
@@ -1084,6 +1239,11 @@ end
 -- tab: the tab object (e.g. itemsTab, skillsTab, configTab)
 -- orderListField/setsField/activeIdField: string keys on tab
 -- control: the DropDownControl to populate
+---@param tab SkillsTab|ItemsTab|ConfigTab
+---@param orderListField string
+---@param setsField string
+---@param activeIdField string
+---@param control DropDownControl<unknown>
 function CompareTabClass:PopulateSetDropdown(tab, orderListField, setsField, activeIdField, control)
 	local list = {}
 	local orderList = tab[orderListField]
@@ -1102,6 +1262,9 @@ function CompareTabClass:PopulateSetDropdown(tab, orderListField, setsField, act
 end
 
 -- Format a config value for read-only display
+---@param varData table
+---@param val ConfigValue?
+---@return string
 function CompareTabClass:FormatConfigValue(varData, val)
 	if val == nil then return "^8(not set)" end
 	if varData.type == "check" then
@@ -1120,6 +1283,11 @@ end
 
 -- Normalize config values so that functionally equivalent states compare equal
 -- (nil/false for checks, nil/0 for counts/integers/floats)
+---@param varData table
+---@param pVal ConfigValue?
+---@param cVal ConfigValue?
+---@return ConfigValue? primaryValue
+---@return ConfigValue? compareValue
 function CompareTabClass:NormalizeConfigVals(varData, pVal, cVal)
 	if varData.type == "check" then
 		return pVal or false, cVal or false
@@ -1130,6 +1298,12 @@ function CompareTabClass:NormalizeConfigVals(varData, pVal, cVal)
 end
 
 -- Create a single config control for a given varData, writing to the specified input/configTab/build
+---@param varData table
+---@param inputTable table<string, ConfigValue>
+---@param configTab ConfigTab
+---@param buildObj Build|CompareEntry
+---@param sourceControl Control?
+---@return Control?
 local function makeConfigControl(varData, inputTable, configTab, buildObj, sourceControl)
 	local control
 	local pVal = inputTable[varData.var]
@@ -1176,6 +1350,7 @@ local function makeConfigControl(varData, inputTable, configTab, buildObj, sourc
 end
 
 -- Rebuild interactive config controls for all config options (both primary and compare builds)
+---@param compareEntry CompareEntry
 function CompareTabClass:RebuildConfigControls(compareEntry)
 	-- Remove old config controls
 	for var, _ in pairs(self.configControls) do
@@ -1242,6 +1417,9 @@ function CompareTabClass:CopyCompareConfig()
 end
 
 -- Import a comparison build from XML text
+---@param xmlText string
+---@param label string?
+---@return boolean
 function CompareTabClass:ImportBuild(xmlText, label)
 	local entry = new("CompareEntry"):CompareEntry(xmlText, label)
 	if entry and entry.calcsTab and entry.calcsTab.mainOutput then
@@ -1258,6 +1436,8 @@ function CompareTabClass:ImportBuild(xmlText, label)
 end
 
 -- Import a comparison build from a build code (base64-encoded)
+---@param code string
+---@return boolean
 function CompareTabClass:ImportFromCode(code)
 	local xmlText = Inflate(common.base64.decode(code:gsub("-","+"):gsub("_","/")))
 	if not xmlText then
@@ -1270,6 +1450,7 @@ function CompareTabClass:ImportFromCode(code)
 end
 
 -- Remove a comparison build
+---@param index integer
 function CompareTabClass:RemoveBuild(index)
 	if index >= 1 and index <= #self.compareEntries then
 		t_remove(self.compareEntries, index)
@@ -1325,6 +1506,7 @@ function CompareTabClass:UpdateBuildSelector()
 end
 
 -- Get the active comparison entry
+---@return CompareEntry?
 function CompareTabClass:GetActiveCompare()
 	if self.activeCompareIndex > 0 and self.activeCompareIndex <= #self.compareEntries then
 		return self.compareEntries[self.activeCompareIndex]
@@ -1333,6 +1515,7 @@ function CompareTabClass:GetActiveCompare()
 end
 
 -- Copy the compared build's currently selected tree spec into the primary build
+---@param andUse boolean?
 function CompareTabClass:CopyCompareSpecToPrimary(andUse)
 	local entry = self:GetActiveCompare()
 	if not entry or not entry.treeTab then return end
@@ -1374,6 +1557,8 @@ end
 
 -- Build a list of jewel comparison entries between the primary and compare builds.
 -- Returns a sorted list of { label, nodeId, pItem, cItem, pSlotName, cSlotName } records.
+---@param compareEntry CompareEntry
+---@return CompareJewelComparisonSlot[]
 function CompareTabClass:GetJewelComparisonSlots(compareEntry)
 	local pSpec = self.primaryBuild.spec
 	local cSpec = compareEntry.spec
@@ -1441,6 +1626,9 @@ function CompareTabClass:GetJewelComparisonSlots(compareEntry)
 end
 
 -- Copy a compared build's item into the primary build
+---@param slotName string
+---@param compareEntry CompareEntry
+---@param andUse boolean?
 function CompareTabClass:CopyCompareItemToPrimary(slotName, compareEntry, andUse)
 	local cSlot = compareEntry.itemsTab and compareEntry.itemsTab.slots and compareEntry.itemsTab.slots[slotName]
 	local cItem = cSlot and compareEntry.itemsTab.items and compareEntry.itemsTab.items[cSlot.selItemId]
@@ -1560,12 +1748,14 @@ function CompareTabClass:OpenImportFolderPopup()
 			controls.buildList:SelByFullFileName(selectedFullFileName)
 		end
 	end
-	function listHost:SelectControl(control)
+---@param control Control
+function listHost:SelectControl(control)
 		-- Focus is managed by the popup's ControlHost; this is a no-op for the popup list.
 	end
 
 	-- Import the given build entry (xml file on disk) as a comparison.
-	local function importBuildEntry(build)
+---@param build BuildListEntry
+local function importBuildEntry(build)
 		local fileHnd = io.open(build.fullFileName, "r")
 		if not fileHnd then
 			main:OpenMessagePopup("Import Error", "Couldn't open '"..build.fullFileName.."'.")
@@ -1604,28 +1794,35 @@ function CompareTabClass:OpenImportFolderPopup()
 
 	-- Override instance methods on the BuildListControl to tailor it for the popup:
 	-- navigate folders, import builds, and suppress rename/delete/drag behaviors.
-	function controls.buildList:LoadBuild(build)
+---@param build BuildListEntry
+function controls.buildList:LoadBuild(build)
 		if build.folderName then
 			self.controls.path:SetSubPath(build.subPath .. build.folderName .. "/")
 		else
 			importBuildEntry(build)
 		end
 	end
-	function controls.buildList:OnSelKeyDown(index, build, key)
+---@param index integer
+---@param build BuildListEntry
+---@param key string
+function controls.buildList:OnSelKeyDown(index, build, key)
 		if key == "RETURN" then
 			self:LoadBuild(build)
 		end
 	end
-	function controls.buildList:OnHoverKeyUp(key)
+---@param key string
+function controls.buildList:OnHoverKeyUp(key)
 		if self.controls.scrollBarV:IsScrollDownKey(key) or self.controls.scrollBarV:IsScrollUpKey(key) then
 			self:OnKeyUp(key)
 		end
 	end
-	function controls.buildList:CanReceiveDrag() return false end
+---@return boolean
+function controls.buildList:CanReceiveDrag() return false end
 	function controls.buildList:OnSelCopy() end
 	function controls.buildList:OnSelCut() end
 	function controls.buildList:OnSelDelete() end
-	function controls.buildList.controls.path:CanReceiveDrag() return false end
+---@return boolean
+function controls.buildList.controls.path:CanReceiveDrag() return false end
 
 	-- Populate the initial list now that the control (and its path control) exist.
 	listHost:BuildList()
@@ -1647,6 +1844,8 @@ end
 -- ============================================================
 -- DRAW - Main render method
 -- ============================================================
+---@param viewPort Viewport
+---@param inputEvents InputEvent[]
 function CompareTabClass:Draw(viewPort, inputEvents)
 	main:DrawBackground(viewPort)
 	-- Position top-bar controls
@@ -1712,6 +1911,7 @@ function CompareTabClass:Draw(viewPort, inputEvents)
 	if compareEntry and mode ~= "TREE" and mode ~= "CALCS" then
 		local topReserve = 0
 		local bottomReserve = 0
+		---@type number
 		local contentHeight = 0
 		if mode == "SUMMARY" then
 			topReserve = LAYOUT.summaryHeaderHeight
@@ -1729,6 +1929,7 @@ function CompareTabClass:Draw(viewPort, inputEvents)
 			contentHeight = self.skillsTotalContentHeight or 0
 		end
 		local viewHeight = m_max(contentVP.height - topReserve - bottomReserve, 0)
+		---@cast viewHeight number
 		viewScrollBar.x = contentVP.x + contentVP.width - 18
 		viewScrollBar.y = contentVP.y + topReserve
 		viewScrollBar.height = viewHeight
@@ -1869,6 +2070,8 @@ end
 -- DRAW HELPERS
 -- ============================================================
 
+---@param viewPort Viewport
+---@param controls Control[]
 function CompareTabClass:DrawControlList(viewPort, controls)
 	local noTooltip = function(control)
 		return self.selControl and self.selControl.hasFocus and self.selControl ~= control
@@ -1882,6 +2085,8 @@ end
 
 -- Pre-draw tree header/footer backgrounds and position tree controls.
 -- Must run before ProcessControlsInput so controls render on top of backgrounds.
+---@param contentVP Viewport
+---@param compareEntry CompareEntry
 function CompareTabClass:LayoutTreeView(contentVP, compareEntry)
 	self.treeLayout = nil
 	if self.compareViewMode ~= "TREE" or not compareEntry then return end
@@ -2028,6 +2233,9 @@ function CompareTabClass:LayoutTreeView(contentVP, compareEntry)
 end
 
 -- Sync a single control's displayed value with the actual input value
+---@param ctrl Control
+---@param varData table
+---@param val ConfigValue?
 local function syncControlValue(ctrl, varData, val)
 	if varData.type == "check" then
 		ctrl.state = val or false
@@ -2044,6 +2252,8 @@ local function syncControlValue(ctrl, varData, val)
 end
 
 -- Position config controls and build section-grouped display when in CONFIG view.
+---@param contentVP Viewport
+---@param compareEntry CompareEntry
 function CompareTabClass:LayoutConfigView(contentVP, compareEntry)
 	if self.compareViewMode ~= "CONFIG" or not compareEntry then return end
 
@@ -2116,7 +2326,9 @@ function CompareTabClass:LayoutConfigView(contentVP, compareEntry)
 	-- Search filter: match config labels against search text
 	local searchStr = self.controls.configSearchEdit.buf:lower():gsub("[%-%.%+%[%]%$%^%%%?%*]", "%%%0")
 	local hasSearch = searchStr and searchStr:match("%S")
-	local function searchMatch(varData)
+---@param varData table
+---@return boolean
+local function searchMatch(varData)
 		if not hasSearch then return true end
 		local err, match = PCall(string.matchOrPattern, (varData.label or ""):lower(), searchStr)
 		return not err and match
@@ -2225,6 +2437,7 @@ function CompareTabClass:LayoutConfigView(contentVP, compareEntry)
 end
 
 -- Update comparison build set selectors (spec, skill set, item set, skill controls).
+---@param compareEntry CompareEntry
 function CompareTabClass:UpdateSetSelectors(compareEntry)
 	-- Tree spec list (reuse GetSpecList from TreeTab)
 	if compareEntry.treeTab then
@@ -2259,6 +2472,7 @@ function CompareTabClass:UpdateSetSelectors(compareEntry)
 end
 
 -- Refresh calcs skill detail controls for both builds.
+---@param compareEntry CompareEntry
 function CompareTabClass:RefreshCalcsSkillControls(compareEntry)
 	-- Build control maps for RefreshSkillSelectControls
 	local primControls = {
@@ -2318,6 +2532,9 @@ function CompareTabClass:RefreshCalcsSkillControls(compareEntry)
 end
 
 -- Layout calcs skill detail controls into a two-column header area
+---@param vp Viewport
+---@param compareEntry CompareEntry
+---@return number headerHeight
 function CompareTabClass:LayoutCalcsSkillControls(vp, compareEntry)
 	if self.compareViewMode ~= "CALCS" or not compareEntry then return 0 end
 
@@ -2332,7 +2549,12 @@ function CompareTabClass:LayoutCalcsSkillControls(vp, compareEntry)
 	local y = vp.y + 4
 
 	-- Helper to position a row of label + control
-	local function layoutRow(control, x, currentY, width)
+---@param control Control
+---@param x number
+---@param currentY number
+---@param width number?
+---@return boolean
+local function layoutRow(control, x, currentY, width)
 		if control.shown == false or (type(control.shown) == "function" and not control:IsShown()) then
 			return false
 		end
@@ -2409,6 +2631,8 @@ function CompareTabClass:LayoutCalcsSkillControls(vp, compareEntry)
 end
 
 -- Handle scroll events for scrollable views.
+---@param contentVP Viewport
+---@param inputEvents InputEvent[]
 function CompareTabClass:HandleScrollInput(contentVP, inputEvents)
 	local cursorX, cursorY = GetCursorPos()
 	local mouseInContent = cursorX >= contentVP.x and cursorX < contentVP.x + contentVP.width
@@ -2434,6 +2658,7 @@ function CompareTabClass:HandleScrollInput(contentVP, inputEvents)
 				self.scrollY = self.controls.viewScrollBar.offset
 				inputEvents[id] = nil
 			elseif event.key == "WHEELDOWN" and self.compareViewMode ~= "TREE" and not mouseOverViewScrollBar then
+				---@type number
 				local maxScroll = 0
 				local viewportH = contentVP.height
 				if self.compareViewMode == "CONFIG" and self.configTotalContentHeight then
@@ -2465,6 +2690,8 @@ end
 -- ============================================================
 
 -- Resolve the granted effect for a gem instance
+---@param gem CompareGem
+---@return table?
 function CompareTabClass:GetGemGrantedEffect(gem)
 	if gem.gemData and gem.gemData.grantedEffect then
 		return gem.gemData.grantedEffect
@@ -2473,6 +2700,8 @@ function CompareTabClass:GetGemGrantedEffect(gem)
 end
 
 -- Build a signature string for a socket group (sorted gem names)
+---@param group CompareSocketGroup
+---@return string
 function CompareTabClass:GetSocketGroupSignature(group)
 	local names = {}
 	for _, gem in ipairs(group.gemList or {}) do
@@ -2486,6 +2715,8 @@ function CompareTabClass:GetSocketGroupSignature(group)
 end
 
 -- Get a display label for a socket group (active skills only)
+---@param group CompareSocketGroup
+---@return string
 function CompareTabClass:GetSocketGroupLabel(group)
 	local names = {}
 	for _, gem in ipairs(group.gemList or {}) do
@@ -2513,6 +2744,9 @@ function CompareTabClass:GetSocketGroupLabel(group)
 end
 
 -- Coroutine: calculate power of compared build elements against primary build
+---@param compareEntry CompareEntry
+---@param powerStat PowerStat
+---@param categories ComparePowerCategories
 function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories)
 	local results = {}
 	local useFullDPS = powerStat.stat == "FullDPS"
@@ -2624,7 +2858,13 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 	local baseStatValue = data.powerStatList.GetFromOutput(calcBase, powerStat)
 
 	-- Helper to format an impact value and compute percentage
-	local function formatImpact(impact)
+---@param impact number
+---@return string impactStr
+---@return number impactValue
+---@return string combinedImpactStr
+---@return number impactPercent
+---@return boolean impactIsZero
+local function formatImpact(impact)
 		local displayVal = impact * ((displayStat.pc or displayStat.mod) and 100 or 1)
 		local rawNumStr = s_format("%" .. displayStat.fmt, displayVal)
 		local isZero = (tonumber(rawNumStr) == 0)
@@ -2638,6 +2878,7 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 		local str = color .. sign .. numStr
 
 		-- Compute percentage change
+		---@type number
 		local percent = 0
 		if baseStatValue ~= 0 then
 			percent = (impact / math.abs(baseStatValue)) * 100
@@ -3049,7 +3290,9 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 		local pInput = self.primaryBuild.configTab.input
 		local cInput = compareEntry.configTab.input or {}
 
-		local function stripColors(s)
+---@param s string
+---@return string
+local function stripColors(s)
 			return s:gsub("%^%x", ""):gsub("%^x%x%x%x%x%x%x", "")
 		end
 
@@ -3126,6 +3369,7 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 end
 
 -- Drive the compare power report coroutine
+---@param compareEntry CompareEntry
 function CompareTabClass:RunComparePowerReport(compareEntry)
 	-- Invalidate if compare entry changed
 	if self.comparePowerCompareId ~= compareEntry then
@@ -3159,6 +3403,8 @@ end
 -- ============================================================
 -- SUMMARY VIEW
 -- ============================================================
+---@param vp Viewport
+---@param compareEntry CompareEntry
 function CompareTabClass:DrawSummary(vp, compareEntry)
 	local primaryCalcs = self.primaryBuild.calcsTab
 	local compareCalcs = compareEntry.calcsTab
@@ -3195,6 +3441,7 @@ function CompareTabClass:DrawSummary(vp, compareEntry)
 	local minCol3R = col2R + compareNameW + 16
 	local maxCol3R = vp.width - 200
 	local col3R = m_min(m_max(LAYOUT.summaryCol3Right, minCol3R), maxCol3R)
+	---@cast col3R number
 	local col4 = col3R + 20
 
 	SetViewport(vp.x, vp.y, vp.width, headerReserve)
@@ -3306,6 +3553,17 @@ function CompareTabClass:DrawSummary(vp, compareEntry)
 end
 
 
+---@param drawY number
+---@param displayStats DisplayStat[]
+---@param primaryOutput Output
+---@param compareOutput Output
+---@param primaryActor Actor
+---@param compareActor Actor
+---@param col1 number
+---@param col4 number
+---@param col2R number
+---@param col3R number
+---@return number drawY
 function CompareTabClass:DrawStatList(drawY, displayStats, primaryOutput, compareOutput, primaryActor, compareActor, col1, col4, col2R, col3R)
 	local lineHeight = 16
 
@@ -3383,10 +3641,12 @@ function CompareTabClass:DrawStatList(drawY, displayStats, primaryOutput, compar
 		elseif statData.label and statData.condFunc then
 			-- Label-only stat (e.g. "Chaos Resistance: Immune")
 			local labelColor = statData.color or "^7"
-			if statData.condFunc(primaryOutput) or statData.condFunc(compareOutput) then
+			---@type fun(output: Output): boolean
+			local labelCondFunc = statData.condFunc
+			if labelCondFunc(primaryOutput) or labelCondFunc(compareOutput) then
 				local valStr = statData.val or ""
-				local primaryShown = statData.condFunc(primaryOutput)
-				local compareShown = statData.condFunc(compareOutput)
+				local primaryShown = labelCondFunc(primaryOutput)
+				local compareShown = labelCondFunc(compareOutput)
 				DrawString(col1, drawY, "LEFT", lineHeight, "VAR", labelColor .. statData.label)
 				DrawString(col2R, drawY, "RIGHT_X", lineHeight, "VAR", "^7" .. (primaryShown and valStr or "-"))
 				DrawString(col3R, drawY, "RIGHT_X", lineHeight, "VAR", colorCodes.WARNING .. (compareShown and valStr or "-"))
@@ -3400,6 +3660,9 @@ end
 -- ============================================================
 -- TREE VIEW (overlay + side-by-side)
 -- ============================================================
+---@param vp Viewport
+---@param inputEvents InputEvent[]
+---@param compareEntry CompareEntry
 function CompareTabClass:DrawTree(vp, inputEvents, compareEntry)
 	local layout = self.treeLayout
 	if not layout then return end
@@ -3477,7 +3740,10 @@ function CompareTabClass:DrawTree(vp, inputEvents, compareEntry)
 			return x - rightAbsX, y - rightAbsY
 		end
 		local rightTreeVP = { x = 0, y = 0, width = halfWidth, height = treeHeight }
-		compareEntry.treeTab.viewer:Draw(compareEntry, rightTreeVP, leftHasInput and {} or inputEvents)
+		local compareEntryAsBuild = compareEntry
+		---@diagnostic disable-next-line: cast-type-mismatch
+		---@cast compareEntryAsBuild Build
+		compareEntry.treeTab.viewer:Draw(compareEntryAsBuild, rightTreeVP, leftHasInput and {} or inputEvents)
 		SetViewport()
 	end
 
@@ -3492,12 +3758,25 @@ end
 -- Draw a single item's full details at (x, startY) within colWidth.
 -- otherModMap: optional table from buildModMap() of the other item for diff highlighting.
 -- Returns the total height consumed.
+---@param item Item?
+---@param x number
+---@param startY number
+---@param colWidth number
+---@param otherModMap table<string, { line: string, value: number? }>?
+---@param measureMode boolean?
+---@return number
 function CompareTabClass:DrawItemExpanded(item, x, startY, colWidth, otherModMap, measureMode)
 	local lineHeight = 16
 	local fontSize = 14
 	local drawY = startY
 	local maxLineW = 0
-	local function emit(lx, ly, align, fs, fStyle, str)
+---@param lx number
+---@param ly number
+---@param align string
+---@param fs number
+---@param fStyle string
+---@param str string
+local function emit(lx, ly, align, fs, fStyle, str)
 		if measureMode then
 			local w = DrawStringWidth(fs, fStyle, str)
 			if w > maxLineW then maxLineW = w end
@@ -3665,6 +3944,8 @@ function CompareTabClass:DrawItemExpanded(item, x, startY, colWidth, otherModMap
 	return drawY - startY
 end
 
+---@param compareEntry CompareEntry
+---@return boolean?
 function CompareTabClass:ShouldShowRing3(compareEntry)
 	local primaryEnv = self.primaryBuild.calcsTab and self.primaryBuild.calcsTab.mainEnv
 	local compareEnv = compareEntry.calcsTab and compareEntry.calcsTab.mainEnv
@@ -3673,9 +3954,9 @@ function CompareTabClass:ShouldShowRing3(compareEntry)
 	return primaryHas or compareHas
 end
 
---- @param comparison table
---- @param destTable string[]
---- @param requireBothSides boolean
+---@param comparison CompareEntry
+---@param destTable string[]
+---@param requireBothSides boolean
 function CompareTabClass:AddAbyssSockets(comparison, destTable, requireBothSides)
 	local equipmentSlots = { "Weapon 1", "Weapon 2", "Weapon 1 Swap", "Weapon 2 Swap", "Helmet", "Body Armour", "Gloves",
 		"Boots", "Belt" }
@@ -3692,6 +3973,9 @@ function CompareTabClass:AddAbyssSockets(comparison, destTable, requireBothSides
 	end
 end
 
+---@param vp Viewport
+---@param compareEntry CompareEntry
+---@param inputEvents InputEvent[]
 function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 	local baseSlots = { "Weapon 1", "Weapon 2", "Weapon 1 Swap", "Weapon 2 Swap", "Helmet", "Body Armour", "Gloves",
 		"Boots", "Amulet", "Ring 1", "Ring 2", "Belt", "Flask 1", "Flask 2", "Flask 3", "Flask 4", "Flask 5" }
@@ -3724,6 +4008,7 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 	local primaryContentW
 	if self.itemsExpandedMode then
 		-- Expanded mode: measure the widest rendered line of every primary item card
+		---@type number
 		local widest = 0
 		local pItems = self.primaryBuild.itemsTab and self.primaryBuild.itemsTab.items
 		local pSlots = self.primaryBuild.itemsTab and self.primaryBuild.itemsTab.slots
@@ -3752,7 +4037,9 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 		local pSlots = self.primaryBuild.itemsTab and self.primaryBuild.itemsTab.slots
 		local cItems = compareEntry.itemsTab and compareEntry.itemsTab.items
 		local cSlots = compareEntry.itemsTab and compareEntry.itemsTab.slots
-		local function measureDiff(pItem, cItem)
+---@param pItem Item?
+---@param cItem Item?
+local function measureDiff(pItem, cItem)
 			local lbl = tradeHelpers.getSlotDiffLabel(pItem, cItem)
 			if lbl and lbl ~= "" then
 				local w = DrawStringWidth(14, "VAR", lbl)
@@ -3798,7 +4085,9 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 	cursorX = cursorX - vp.x
 	cursorY = cursorY - (vp.y + checkboxOffset)
 	local hoverItem = nil
+	---@type number, number
 	local hoverX, hoverY = 0, 0
+	---@type number, number
 	local hoverW, hoverH = 0, 0
 	local hoverItemsTab = nil
 
@@ -3811,12 +4100,24 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 	-- Track Equip button hover for stat comparison tooltip
 	local hoverEquipItem = nil
 	local hoverEquipSlotName = nil
+	---@type number, number
 	local hoverEquipBtnX, hoverEquipBtnY = 0, 0
+	---@type number, number
 	local hoverEquipBtnW, hoverEquipBtnH = 0, 0
 
 	-- Helper: process copy/buy button hover state and click events for a slot.
 	-- Closes over hoverEquip*/clicked* locals above.
-	local function processSlotButtons(b1Hover, b2Hover, b3Hover, b2X, b2Y, b2W, b2H, cItem, copySlotName, equipSlotName)
+---@param b1Hover boolean
+---@param b2Hover boolean
+---@param b3Hover boolean
+---@param b2X number
+---@param b2Y number
+---@param b2W number
+---@param b2H number
+---@param cItem Item?
+---@param copySlotName string
+---@param equipSlotName string
+local function processSlotButtons(b1Hover, b2Hover, b3Hover, b2X, b2Y, b2W, b2H, cItem, copySlotName, equipSlotName)
 		if b2Hover and cItem then
 			hoverEquipItem = cItem
 			hoverEquipSlotName = equipSlotName
@@ -3844,7 +4145,16 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 
 	-- Helper: draw a single slot entry (expanded or compact mode).
 	-- Closes over drawY, colWidth, cursorX/Y, vp, self, compareEntry, hoverItem/hoverX/Y/W/H/hoverItemsTab.
-	local function drawSlotEntry(label, pItem, cItem, copySlotName, equipSlotName, labelW, pWarn, cWarn, slotMissing)
+---@param label string
+---@param pItem Item?
+---@param cItem Item?
+---@param copySlotName string
+---@param equipSlotName string
+---@param labelW number
+---@param pWarn string?
+---@param cWarn string?
+---@param slotMissing boolean?
+local function drawSlotEntry(label, pItem, cItem, copySlotName, equipSlotName, labelW, pWarn, cWarn, slotMissing)
 		if self.itemsExpandedMode then
 			-- === EXPANDED MODE ===
 			SetDrawColor(1, 1, 1)
@@ -4046,6 +4356,8 @@ end
 -- ============================================================
 -- SKILLS VIEW
 -- ============================================================
+---@param vp Viewport
+---@param compareEntry CompareEntry
 function CompareTabClass:DrawSkills(vp, compareEntry)
 	local lineHeight = 18
 
@@ -4058,7 +4370,10 @@ function CompareTabClass:DrawSkills(vp, compareEntry)
 	-- Imbued supports live on socketGroup.imbuedSupport (a name string) rather than in gemList,
 	-- so synthesize a minimal gem-like entry that the rendering can treat like any other gem
 	local imbuedGemCache = {}
-	local function getImbuedGem(group, skillsTab)
+---@param group CompareSocketGroup?
+---@param skillsTab SkillsTab?
+---@return CompareGem?
+local function getImbuedGem(group, skillsTab)
 		if not group or not group.imbuedSupport then return nil end
 		if imbuedGemCache[group] then return imbuedGemCache[group] end
 		-- Prefer the grantedEffect cached on skillsTab; fall back to a direct data lookup
@@ -4081,7 +4396,10 @@ function CompareTabClass:DrawSkills(vp, compareEntry)
 	end
 
 	-- Helper: get the set of gem names in a socket group
-	local function getGemNameSet(group, skillsTab)
+---@param group CompareSocketGroup
+---@param skillsTab SkillsTab?
+---@return table<string, boolean>
+local function getGemNameSet(group, skillsTab)
 		local set = {}
 		for _, gem in ipairs(group.gemList or {}) do
 			local name = gem.grantedEffect and gem.grantedEffect.name or gem.nameSpec
@@ -4100,7 +4418,10 @@ function CompareTabClass:DrawSkills(vp, compareEntry)
 	end
 
 	-- Helper: compute Jaccard similarity between two gem name sets
-	local function groupSimilarity(setA, setB)
+---@param setA table<string, boolean>
+---@param setB table<string, boolean>
+---@return number
+local function groupSimilarity(setA, setB)
 		local intersection = 0
 		local union = 0
 		local allKeys = {}
@@ -4166,7 +4487,10 @@ function CompareTabClass:DrawSkills(vp, compareEntry)
 	end
 
 	-- Helper: check if gemA supports gemB (mirrors GemSelectControl:CheckSupporting)
-	local function checkSupporting(gemA, gemB)
+---@param gemA CompareGem
+---@param gemB CompareGem
+---@return boolean
+local function checkSupporting(gemA, gemB)
 		-- Synthesized imbued-support entries lack gemData/supportEffect wiring, but by definition
 		-- they support any active (non-support) gem in the group.
 		if gemA.isImbuedSupport then
@@ -4189,7 +4513,9 @@ function CompareTabClass:DrawSkills(vp, compareEntry)
 	local gemLineHeight = 18
 
 	-- Helper: build the exact string drawGemList will render (used for both drawing and width measurement)
-	local function buildGemDisplayString(entry)
+---@param entry CompareGemDisplayEntry
+---@return string
+local function buildGemDisplayString(entry)
 		if entry.status == "missing" then
 			return colorCodes.NEGATIVE .. "- " .. entry.name .. "^7"
 		elseif entry.gem then
@@ -4208,12 +4534,17 @@ function CompareTabClass:DrawSkills(vp, compareEntry)
 
 	-- Helper: build aligned display lists for a matched pair of groups
 	-- Common gems appear first, then additional, then missing
-	local function getGemName(gem)
+---@param gem CompareGem
+---@return string?
+local function getGemName(gem)
 		return gem.grantedEffect and gem.grantedEffect.name or gem.nameSpec
 	end
 
 	-- Helper: build an iterable gem list for a group that appends its imbued support (if any)
-	local function getGemsWithImbued(group, skillsTab)
+---@param group CompareSocketGroup?
+---@param skillsTab SkillsTab?
+---@return CompareGem[]
+local function getGemsWithImbued(group, skillsTab)
 		if not group then return {} end
 		local gems = {}
 		for _, gem in ipairs(group.gemList or {}) do
@@ -4226,7 +4557,13 @@ function CompareTabClass:DrawSkills(vp, compareEntry)
 		return gems
 	end
 
-	local function buildAlignedGemLists(pGroup, cGroup, pSet, cSet)
+---@param pGroup CompareSocketGroup?
+---@param cGroup CompareSocketGroup?
+---@param pSet table<string, boolean>
+---@param cSet table<string, boolean>
+---@return CompareGemDisplayEntry[] primaryDisplay
+---@return CompareGemDisplayEntry[] compareDisplay
+local function buildAlignedGemLists(pGroup, cGroup, pSet, cSet)
 		local pDisplay = {}
 		local cDisplay = {}
 
@@ -4291,7 +4628,13 @@ function CompareTabClass:DrawSkills(vp, compareEntry)
 	end
 
 	-- Helper: collect gem positions from a display list into gemEntries for hit-testing
-	local function collectGemEntries(gemEntries, displayList, xOffset, startY, group)
+---@param gemEntries CompareGemHoverEntry[]
+---@param displayList CompareGemDisplayEntry[]
+---@param xOffset number
+---@param startY number
+---@param group CompareSocketGroup?
+---@return number y
+local function collectGemEntries(gemEntries, displayList, xOffset, startY, group)
 		local y = startY
 		for _, entry in ipairs(displayList) do
 			if entry.gem then
@@ -4303,7 +4646,13 @@ function CompareTabClass:DrawSkills(vp, compareEntry)
 	end
 
 	-- Helper: draw a list of gems (common, additional, missing) at a given x offset
-	local function drawGemList(displayList, xOffset, startY, highlightSet, gemTextWidth)
+---@param displayList CompareGemDisplayEntry[]
+---@param xOffset number
+---@param startY number
+---@param highlightSet table<CompareGem, boolean>
+---@param gemTextWidth number
+---@return number y
+local function drawGemList(displayList, xOffset, startY, highlightSet, gemTextWidth)
 		local y = startY
 		for _, entry in ipairs(displayList) do
 			if entry.gem and highlightSet[entry.gem] then
@@ -4320,14 +4669,21 @@ function CompareTabClass:DrawSkills(vp, compareEntry)
 	end
 
 	-- Build display lists once and measure widest primary-side content
-	local function getGroupLabel(group, idx)
+---@param group CompareSocketGroup
+---@param idx integer
+---@return string
+local function getGroupLabel(group, idx)
 		local groupLabel = group.displayLabel or group.label or ("Group " .. idx)
 		if group.slot then
 			groupLabel = groupLabel .. " (" .. group.slot .. ")"
 		end
 		return groupLabel
 	end
-	local function getGroupSlotIcon(skillsTab, idx, group)
+---@param skillsTab SkillsTab?
+---@param idx integer
+---@param group CompareSocketGroup?
+---@return unknown
+local function getGroupSlotIcon(skillsTab, idx, group)
 		local groupList = skillsTab and skillsTab.controls and skillsTab.controls.groupList
 		if not groupList or not groupList.GetRowIcon or not group then
 			return nil
@@ -4339,10 +4695,18 @@ function CompareTabClass:DrawSkills(vp, compareEntry)
 	local groupHeaderIconGap = 2
 	local groupHeaderTextIndent = groupHeaderIconSize + groupHeaderIconGap
 	local groupHeaderTextX = groupHeaderX + groupHeaderTextIndent
-	local function getGroupHeaderWidth(group, idx)
+---@param group CompareSocketGroup
+---@param idx integer
+---@return number
+local function getGroupHeaderWidth(group, idx)
 		return groupHeaderTextX + DrawStringWidth(18, "VAR", "^7" .. getGroupLabel(group, idx))
 	end
-	local function drawGroupHeader(skillsTab, group, idx, x, y)
+---@param skillsTab SkillsTab?
+---@param group CompareSocketGroup
+---@param idx integer
+---@param x number
+---@param y number
+local function drawGroupHeader(skillsTab, group, idx, x, y)
 		local icon = getGroupSlotIcon(skillsTab, idx, group)
 		local textX = x + groupHeaderTextIndent
 		if icon then
@@ -4352,7 +4716,9 @@ function CompareTabClass:DrawSkills(vp, compareEntry)
 		DrawString(textX, y, "LEFT", 18, "VAR", "^7" .. getGroupLabel(group, idx))
 	end
 
+	---@type table<integer, { p: CompareGemDisplayEntry[], c: CompareGemDisplayEntry[] }>
 	local displayListsByPair = {}
+	---@type number
 	local maxPrimaryW = 0
 	for idx, pair in ipairs(renderPairs) do
 		local pSet = pair.pIdx and pSets[pair.pIdx] or {}
@@ -4493,6 +4859,14 @@ end
 -- ============================================================
 -- CALCS TOOLTIP HELPERS (delegated to CompareCalcsHelpers)
 -- ============================================================
+---@param colData CalcSectionColumn
+---@param rowLabel string?
+---@param rowX number
+---@param rowY number
+---@param rowW number
+---@param rowH number
+---@param vp Viewport
+---@param compareEntry CompareEntry
 function CompareTabClass:DrawCalcsTooltip(colData, rowLabel, rowX, rowY, rowW, rowH, vp, compareEntry)
 	local primaryLabel = self:GetShortBuildName(self.primaryBuild.buildName)
 	calcsHelpers.DrawCalcsTooltip(
@@ -4506,6 +4880,11 @@ end
 -- ============================================================
 
 -- Draw the skill detail header area with labels for controls and text info lines
+---@param vp Viewport
+---@param compareEntry CompareEntry
+---@param headerHeight number
+---@param primaryEnv table
+---@param compareEnv table
 function CompareTabClass:DrawCalcsSkillHeader(vp, compareEntry, headerHeight, primaryEnv, compareEnv)
 	local colWidth = m_floor((vp.width - 20) / 2)
 	local leftX = vp.x + 4
@@ -4523,7 +4902,12 @@ function CompareTabClass:DrawCalcsSkillHeader(vp, compareEntry, headerHeight, pr
 	y = y + rowH
 
 	-- Draw labels next to each control row
-	local function drawLabel(label, x, cy, control)
+---@param label string
+---@param x number
+---@param cy number
+---@param control Control
+---@return boolean
+local function drawLabel(label, x, cy, control)
 		if control.shown == false or (type(control.shown) == "function" and not control:IsShown()) then
 			return false
 		end
@@ -4636,6 +5020,12 @@ function CompareTabClass:DrawCalcsSkillHeader(vp, compareEntry, headerHeight, pr
 	DrawImage(nil, vp.x + 2, vp.y + headerHeight - 2, vp.width - 4, 2)
 end
 
+---@param self CompareTab
+---@param colData CalcSectionColumn?
+---@param primaryActor Actor
+---@param compareActor Actor
+---@param compareEntry CompareEntry
+---@return boolean
 local function calcRowMatchesBetweenBuilds(self, colData, primaryActor, compareActor, compareEntry)
 	if not colData or not colData.format then return false end
 	local primaryFormatOk, primaryFormattedValue = pcall(formatCalcStr, colData.format, primaryActor, colData)
@@ -4674,6 +5064,10 @@ local function calcRowMatchesBetweenBuilds(self, colData, primaryActor, compareA
 	return true
 end
 
+---@param subSecData CalcSectionData?
+---@param primaryActor Actor
+---@param compareActor Actor
+---@return boolean
 local function subSectionExtraMatches(subSecData, primaryActor, compareActor)
 	if not subSecData or not subSecData.extra then return true end
 	local primaryExtraOk, primaryExtraText = pcall(formatCalcStr, subSecData.extra, primaryActor)
@@ -4681,6 +5075,8 @@ local function subSectionExtraMatches(subSecData, primaryActor, compareActor)
 	return primaryExtraOk and compareExtraOk and tostring(primaryExtraText or "") == tostring(compareExtraText or "")
 end
 
+---@param vp Viewport
+---@param compareEntry CompareEntry
 function CompareTabClass:DrawCalcs(vp, compareEntry)
 	-- Use calcsEnv for both values and tooltips (has breakdown data + respects Calcs skill selection)
 	local primaryEnv = self.primaryBuild.calcsTab.calcsEnv
@@ -4705,6 +5101,7 @@ function CompareTabClass:DrawCalcs(vp, compareEntry)
 	-- Card dimensions
 	-- Layout: [2px border | 130px label | 2px gap | 2px sep | valW | 2px sep | valW | 2px border]
 	local cardWidth = m_min(LAYOUT.calcsMaxCardWidth, gridWidth - 16)
+	---@cast cardWidth number
 	local labelWidth = LAYOUT.calcsLabelWidth
 	local sepW = LAYOUT.calcsSepW
 	local valColWidth = m_floor((cardWidth - 140) / 2)
@@ -4933,6 +5330,9 @@ end
 -- ============================================================
 -- CONFIG VIEW
 -- ============================================================
+---@param vp Viewport
+---@param compareEntry CompareEntry
+---@param headerOnly boolean?
 function CompareTabClass:DrawConfig(vp, compareEntry, headerOnly)
 	local rowHeight = LAYOUT.configRowHeight
 	local columnHeaderHeight = LAYOUT.configColumnHeaderHeight

@@ -8,9 +8,21 @@ local t_remove = table.remove
 local m_max = math.max
 local s_format = string.format
 
----@class SharedItemSetListControl: ListControl
+---@class SharedItemSet
+---@field title? string
+---@field slots table<string, Item>
+
+---@class SharedItemSetListControl: ListControl<SharedItemSet>
+---@field itemsTab ItemsTab
+---@field defaultText string
+---@field selIndex? integer
+---@field selValue? SharedItemSet
 local SharedItemSetListClass = newClass("SharedItemSetListControl", "ListControl")
 
+---@param anchor? Anchor
+---@param rect? Rect
+---@param itemsTab ItemsTab
+---@return SharedItemSetListControl
 function SharedItemSetListClass:SharedItemSetListControl(anchor, rect, itemsTab)
 	self:ListControl(anchor, rect, 16, "VERTICAL", true, main.sharedItemSetList)
 	self.itemsTab = itemsTab
@@ -30,6 +42,7 @@ function SharedItemSetListClass:SharedItemSetListControl(anchor, rect, itemsTab)
 	return self
 end
 
+---@param sharedItemSet SharedItemSet
 function SharedItemSetListClass:RenameSet(sharedItemSet)
 	local controls = { }
 	controls.label = new("LabelControl"):LabelControl(nil, {0, 20, 0, 16}, "^7Enter name for this item set:")
@@ -48,12 +61,19 @@ function SharedItemSetListClass:RenameSet(sharedItemSet)
 	main:OpenPopup(370, 100, sharedItemSet.title and "Rename" or "Set Name", controls, "save", "edit")
 end
 
+---@param column integer
+---@param index integer
+---@param sharedItemSet SharedItemSet
+---@return string?
 function SharedItemSetListClass:GetRowValue(column, index, sharedItemSet)
 	if column == 1 then
 		return sharedItemSet.title or "Default"
 	end
 end
 
+---@param tooltip Tooltip
+---@param index integer
+---@param sharedItemSet SharedItemSet
 function SharedItemSetListClass:AddValueTooltip(tooltip, index, sharedItemSet)
 	tooltip:Clear()
 	for _, slot in ipairs(self.itemsTab.orderedSlots) do
@@ -67,14 +87,24 @@ function SharedItemSetListClass:AddValueTooltip(tooltip, index, sharedItemSet)
 	end
 end
 
+---@param index integer
+---@param value SharedItemSet
+---@return string dragType
+---@return SharedItemSet dragValue
 function SharedItemSetListClass:GetDragValue(index, value)
 	return "SharedItemList", value
 end
 
+---@param type string
+---@param value SharedItemSet
+---@return boolean
 function SharedItemSetListClass:CanReceiveDrag(type, value)
 	return type == "ItemList"
 end
 
+---@param type string
+---@param value ItemSet
+---@param source? ListControl<unknown>
 function SharedItemSetListClass:ReceiveDrag(type, value, source)
 	if type == "ItemList" then
 		local sharedItemList = { title = value.title, slots = { } }
@@ -98,6 +128,8 @@ function SharedItemSetListClass:ReceiveDrag(type, value, source)
 	end
 end
 
+---@param index integer
+---@param sharedItemSet SharedItemSet
 function SharedItemSetListClass:OnSelDelete(index, sharedItemSet)
 	main:OpenConfirmPopup("Delete Item Set", "Are you sure you want to delete '"..(sharedItemSet.title or "Default").."' from the shared item set list?", "Delete", function()
 		t_remove(self.list, index)
@@ -106,6 +138,9 @@ function SharedItemSetListClass:OnSelDelete(index, sharedItemSet)
 	end)
 end
 
+---@param index integer
+---@param sharedItemSet SharedItemSet
+---@param key string
 function SharedItemSetListClass:OnSelKeyDown(index, sharedItemSet, key)
 	if key == "F2" then
 		self:RenameSet(sharedItemSet)

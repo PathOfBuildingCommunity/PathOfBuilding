@@ -5,9 +5,37 @@
 -- https://www.pathofexile.com/forum/view-thread/2079853
 --
 
+---@class TradeRateLimitBucket
+---@field request integer
+---@field timeout integer
+---@field decremented? boolean
+
+---@class TradeRateRule
+---@field limits table<integer, TradeRateLimitBucket>
+---@field state table<integer, TradeRateLimitBucket>
+
+---@class TradeRatePolicy
+---@field retryAfter? integer
+---@field [string] TradeRateRule
+
+---@class TradeRateRequestHistory
+---@field timestamps integer[]
+---@field maxWindow? integer
+---@field lastCheck? integer
+
 ---@class TradeQueryRateLimiter
+---@field policies table<string, TradeRatePolicy>
+---@field policyNames table<string, string>
+---@field requestHistory table<string, TradeRateRequestHistory>
+---@field pendingRequests table<string, integer[]>
+---@field requestId integer
+---@field retryAfter table<string, integer>
+---@field delayCache table<string, integer>
+---@field lastUpdate table<string, integer>
+---@field limitMargin number
 local TradeQueryRateLimiterClass = newClass("TradeQueryRateLimiter")
 
+---@return TradeQueryRateLimiter
 function TradeQueryRateLimiterClass:TradeQueryRateLimiter()
 	-- policies_sample = {
 	-- --	label: policy
@@ -61,10 +89,14 @@ function TradeQueryRateLimiterClass:TradeQueryRateLimiter()
 	return self
 end
 
+---@param key string
+---@return string
 function TradeQueryRateLimiterClass:GetPolicyName(key)
 	return self.policyNames[key]
 end
 
+---@param headerString string
+---@return table<string, string>
 function TradeQueryRateLimiterClass:ParseHeader(headerString)
 	local headers = {}
 	for k, v in headerString:gmatch("([%a%d%-]+): ([%g ]+)") do
@@ -74,7 +106,10 @@ function TradeQueryRateLimiterClass:ParseHeader(headerString)
 	return headers
 end
 
-function TradeQueryRateLimiterClass:ParsePolicy(headerString, policy) 
+---@param headerString string
+---@param policy string
+---@return table<string, TradeRatePolicy>
+function TradeQueryRateLimiterClass:ParsePolicy(headerString, policy)
 	local policies = {}
 	local headers = self:ParseHeader(headerString)
 	local policyName = headers["x-rate-limit-policy"] or policy
@@ -112,6 +147,8 @@ function TradeQueryRateLimiterClass:ParsePolicy(headerString, policy)
 	return policies
 end
 
+---@param headerString string
+---@param policy string
 function TradeQueryRateLimiterClass:UpdateFromHeader(headerString, policy)
 	local newPolicies = self:ParsePolicy(headerString, policy)
 	if not newPolicies then
@@ -132,6 +169,7 @@ function TradeQueryRateLimiterClass:UpdateFromHeader(headerString, policy)
 			self.policies[policyKey] = policyValue
 		else
 			for rule, ruleValue in pairs(policyValue) do
+				---@cast ruleValue TradeRateRule
 				for window, state in pairs(ruleValue.state) do
 					local oldState = self.policies[policyKey][rule]["state"][window]
 					if state.request > oldState.request then
@@ -144,6 +182,7 @@ function TradeQueryRateLimiterClass:UpdateFromHeader(headerString, policy)
 		-- calculate maxWindow sizes for requestHistory tables
 		local maxWindow = 0
 		for _, rule in pairs(policyValue) do
+			---@cast rule TradeRateRule
 			for window, _ in pairs(rule.limits) do
 				maxWindow = math.max(maxWindow, window)
 			end
@@ -152,6 +191,9 @@ function TradeQueryRateLimiterClass:UpdateFromHeader(headerString, policy)
 	end
 end
 
+---@param policy string
+---@param time? integer
+---@return integer
 function TradeQueryRateLimiterClass:NextRequestTime(policy, time)
 	local now = time or os.time()
 	local nextTime = now
@@ -171,6 +213,7 @@ function TradeQueryRateLimiterClass:NextRequestTime(policy, time)
 	end
 	self:AgeOutRequests(policy)
 	for _, rule in pairs(self.policies[policy]) do
+		---@cast rule TradeRateRule
 		for window, _ in pairs(rule.limits) do
 			if rule.state[window].timeout > 0 then
 				--an extra second is added to the time calculations here and below in order to avoid problems caused by the low resolution of os.time()
@@ -193,6 +236,7 @@ function TradeQueryRateLimiterClass:NextRequestTime(policy, time)
 				else
 					-- the expiration time of oldest timestamp in the window
 					local nextAvailableTime = self.requestHistory[policy].timestamps[oldestRequestIdx] + window + 1
+					---@cast nextAvailableTime integer
 					nextTime = math.max(nextTime, nextAvailableTime)
 				end
 			end
@@ -201,6 +245,10 @@ function TradeQueryRateLimiterClass:NextRequestTime(policy, time)
 	return nextTime
 end
 
+---@param policy string
+---@param timestamp? integer
+---@param time? integer
+---@return integer requestId
 function TradeQueryRateLimiterClass:InsertRequest(policy, timestamp, time)
 	local now = time or os.time()
 	timestamp = timestamp or now
@@ -217,6 +265,7 @@ function TradeQueryRateLimiterClass:InsertRequest(policy, timestamp, time)
 	table.insert(self.requestHistory[policy].timestamps, insertIndex, timestamp)
 	if self.policies[policy] then
 		for _, rule in pairs(self.policies[policy]) do
+			---@cast rule TradeRateRule
 			for _, window in pairs(rule.state) do
 				window.request = window.request + 1
 			end
@@ -229,6 +278,8 @@ function TradeQueryRateLimiterClass:InsertRequest(policy, timestamp, time)
 	return requestId 
 end
 
+---@param policy string
+---@param requestId integer
 function TradeQueryRateLimiterClass:FinishRequest(policy, requestId)
 	if self.pendingRequests[policy] then
 		for index, value in ipairs(self.pendingRequests[policy]) do
@@ -239,6 +290,8 @@ function TradeQueryRateLimiterClass:FinishRequest(policy, requestId)
 	end
 end
 
+---@param policy string
+---@param time? integer
 function TradeQueryRateLimiterClass:AgeOutRequests(policy, time)
 	local now = time or os.time()
 	local requestHistory = self.requestHistory[policy]
@@ -249,6 +302,7 @@ function TradeQueryRateLimiterClass:AgeOutRequests(policy, time)
 	for i = #requestHistory.timestamps, 1 , -1 do
 		local timestamp = requestHistory.timestamps[i]
 		for _, rule in pairs(self.policies[policy]) do
+			---@cast rule TradeRateRule
 			for window, windowValue in pairs(rule.state) do
 				if timestamp >= (requestHistory.lastCheck - window) and timestamp < (now - window) then
 					-- timestamp that used to be in the window on last check
@@ -265,6 +319,7 @@ function TradeQueryRateLimiterClass:AgeOutRequests(policy, time)
 	end
 	-- Reset flags after processing
 	for _, rule in pairs(self.policies[policy]) do
+		---@cast rule TradeRateRule
 		for window, windowValue in pairs(rule.state) do
 			windowValue.decremented = nil
 		end
@@ -273,9 +328,13 @@ function TradeQueryRateLimiterClass:AgeOutRequests(policy, time)
 end
 
 -- Reduce limits visible to pob so the user can safely interact with the trade site
+---@param margin number
+---@param policies table<string, TradeRatePolicy>
+---@return table<string, TradeRatePolicy>
 function TradeQueryRateLimiterClass:ReduceLimits(margin, policies)
 	for _, policy in pairs(policies) do
 		for _, rule in pairs(policy) do
+			---@cast rule TradeRateRule
 			for _, window in pairs(rule.limits) do
 				window.request = math.max(window.request - margin, 1)
 			end

@@ -10,10 +10,14 @@ local t_insert = table.insert
 local t_remove = table.remove
 
 ---@class UndoHandler
----@field CreateUndoState fun() Must be manually defined. Creates a state that can be restored
----@field RestoreUndoState fun(state: any) Must be manually defined. Restores a state created by calling CreateUndoState()
+---@field CreateUndoState fun(): unknown Must be manually defined. Creates a state that can be restored
+---@field RestoreUndoState fun(state: unknown) Must be manually defined. Restores a state created by calling CreateUndoState()
+---@field undo unknown[]
+---@field redo unknown[]
+---@field modFlag? boolean
 local UndoHandlerClass = newClass("UndoHandler")
 
+---@return UndoHandler
 function UndoHandlerClass:UndoHandler()
 	self.undo = { }
 	self.redo = { }

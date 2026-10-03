@@ -7,9 +7,16 @@ local t_insert = table.insert
 local t_remove = table.remove
 local m_max = math.max
 
----@class ConfigSetListControl: ListControl
+---@class ConfigSetListControl: ListControl<integer>
+---@field configTab ConfigTab
+---@field selIndex? integer
+---@field selValue? integer
 local ConfigSetListClass = newClass("ConfigSetListControl", "ListControl")
 
+---@param anchor? Anchor
+---@param rect? Rect
+---@param configTab ConfigTab
+---@return ConfigSetListControl
 function ConfigSetListClass:ConfigSetListControl(anchor, rect, configTab)
 	self:ListControl(anchor, rect, 16, "VERTICAL", true, configTab.configSetOrderList)
 	self.configTab = configTab
@@ -44,6 +51,8 @@ function ConfigSetListClass:ConfigSetListControl(anchor, rect, configTab)
 	return self
 end
 
+---@param configSet ConfigSet
+---@param addOnName? boolean
 function ConfigSetListClass:RenameSet(configSet, addOnName)
 	local controls = { }
 	controls.label = new("LabelControl"):LabelControl(nil, {0, 20, 0, 16}, "^7Enter name for this config set:")
@@ -72,6 +81,10 @@ function ConfigSetListClass:RenameSet(configSet, addOnName)
 	main:OpenPopup(370, 100, configSet.title and "Rename" or "Set Name", controls, "save", "edit", "cancel")
 end
 
+---@param column integer
+---@param index integer
+---@param configSetId integer
+---@return string?
 function ConfigSetListClass:GetRowValue(column, index, configSetId)
 	local configSet = self.configTab.configSets[configSetId]
 	if column == 1 then
@@ -83,6 +96,9 @@ function ConfigSetListClass:OnOrderChange()
 	self.configTab.modFlag = true
 end
 
+---@param index integer
+---@param configSetId integer
+---@param doubleClick? boolean
 function ConfigSetListClass:OnSelClick(index, configSetId, doubleClick)
 	if doubleClick and configSetId ~= self.configTab.activeConfigSetId then
 		self.configTab:SetActiveConfigSet(configSetId)
@@ -90,6 +106,8 @@ function ConfigSetListClass:OnSelClick(index, configSetId, doubleClick)
 	end
 end
 
+---@param index integer
+---@param configSetId integer
 function ConfigSetListClass:OnSelDelete(index, configSetId)
 	local configSet = self.configTab.configSets[configSetId]
 	if #self.list > 1 then
@@ -107,6 +125,9 @@ function ConfigSetListClass:OnSelDelete(index, configSetId)
 	end
 end
 
+---@param index integer
+---@param configSetId integer
+---@param key string
 function ConfigSetListClass:OnSelKeyDown(index, configSetId, key)
 	if key == "F2" then
 		self:RenameSet(self.configTab.configSets[configSetId])

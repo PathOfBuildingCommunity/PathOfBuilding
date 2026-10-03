@@ -9,10 +9,19 @@ local m_min = math.min
 local m_max = math.max
 local t_concat = table.concat
 
----@class TimelessJewelListControl: ListControl
+---@class TimelessJewelListControl: ListControl<table>
+---@field build Build
+---@field list table
+---@field noTooltip? boolean
+---@field selIndex? integer
+---@field highlightIndex? integer
+---@field sharedList table
 local TimelessJewelListControlClass = newClass("TimelessJewelListControl", "ListControl")
 
+---@param anchor? Anchor
+---@param rect? Rect
 ---@param build Build
+---@return TimelessJewelListControl
 function TimelessJewelListControlClass:TimelessJewelListControl(anchor, rect, build)
 	self.build = build
 	self.sharedList = self.build.timelessData.sharedResults or { }
@@ -22,11 +31,16 @@ function TimelessJewelListControlClass:TimelessJewelListControl(anchor, rect, bu
 	return self
 end
 
+---@param viewPort Viewport
+---@param noTooltip? boolean
 function TimelessJewelListControlClass:Draw(viewPort, noTooltip)
 	self.noTooltip = noTooltip
 	self.ListControl.Draw(self, viewPort)
 end
 
+---@param index integer
+---@param value table
+---@return boolean
 function TimelessJewelListControlClass:SetHighlightColor(index, value)
 	if not self.highlightIndex or not self.selIndex then
 		return false
@@ -46,12 +60,15 @@ function TimelessJewelListControlClass:SetHighlightColor(index, value)
 	return false
 end
 
+---@param index integer
 function TimelessJewelListControlClass:ScrollToIndex(index)
 	if self.scroll then
 		self.controls.scrollBarV:SetOffset((index - 1) * self.rowHeight)
 	end
 end
 
+---@param index integer
+---@return boolean
 function TimelessJewelListControlClass:OverrideSelectIndex(index)
 	if IsKeyDown("SHIFT") and self.selIndex then
 		self.highlightIndex = index
@@ -63,12 +80,17 @@ function TimelessJewelListControlClass:OverrideSelectIndex(index)
 	return false
 end
 
+---@param column integer
+---@param index integer
+---@param data table
+---@return string?
 function TimelessJewelListControlClass:GetRowValue(column, index, data)
 	if column == 1 then
 		return data.label
 	end
 end
 
+---@param data table
 ---@return Item item
 function TimelessJewelListControlClass:GetJewelItem(data)
 	local socketInfo = data.socketLabel or (self.sharedList.socket and self.sharedList.socket.keystone) or "Unknown"
@@ -286,8 +308,8 @@ Historic
 end
 
 ---@param tooltip Tooltip
----@param index any
----@param data any
+---@param index integer
+---@param data table
 function TimelessJewelListControlClass:AddValueTooltip(tooltip, index, data)
 	local socketId = data.socketId or self.sharedList.socket.id
 	local socket = socketId and socketId ~= -1 and self.build.itemsTab:GetSocketAndJewelForNodeID(socketId)
@@ -332,6 +354,9 @@ function TimelessJewelListControlClass:AddValueTooltip(tooltip, index, data)
 	end
 end
 
+---@param index integer
+---@param data table
+---@param doubleClick? boolean
 function TimelessJewelListControlClass:OnSelClick(index, data, doubleClick)
 	if doubleClick and self.list[index].label:match("B2B2B2") == nil then
 		local item = self:GetJewelItem(data)

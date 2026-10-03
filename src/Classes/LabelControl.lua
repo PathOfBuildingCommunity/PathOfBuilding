@@ -4,11 +4,13 @@
 -- Simple text label.
 --
 ---@class LabelControl: Control
+---@field label? Prop<string>
 local LabelClass = newClass("LabelControl", "Control")
 
 ---@param anchor? Anchor
 ---@param rect? Rect
----@param label Prop<string>
+---@param label? Prop<string>
+---@return LabelControl
 function LabelClass:LabelControl(anchor, rect, label)
 	self:Control(anchor, rect)
 	self.label = label

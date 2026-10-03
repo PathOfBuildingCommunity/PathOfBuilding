@@ -17,11 +17,15 @@ local buffModeDropList = {
 }
 
 ---@class CalcsTab: UndoHandler, ControlHost, Control
+---@field build Build
+---@field modFlag boolean
+---@field displayData? CalcSectionColumn
 ---@field powerStat PowerStat?
 ---@field nodePowerMaxDepth integer? Maximum distance for power report
 local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Control")
 
 ---@param build Build
+---@return CalcsTab
 function CalcsTabClass:CalcsTab(build)
 	self:UndoHandler()
 	self:ControlHost()
@@ -160,6 +164,9 @@ Effective DPS: Curses and enemy properties (such as resistances and status condi
 	return self
 end
 
+---@param xml table
+---@param dbFileName string
+---@return boolean? loadError @True if loading failed.
 function CalcsTabClass:Load(xml, dbFileName)
 	for _, node in ipairs(xml) do
 		if type(node) == "table" then
@@ -200,6 +207,7 @@ function CalcsTabClass:Load(xml, dbFileName)
 	self:ResetUndo()
 end
 
+---@param xml table
 function CalcsTabClass:Save(xml)
 	for k, v in pairs(self.input) do
 		local child = { elem = "Input", attrib = {name = k} }
@@ -223,6 +231,8 @@ function CalcsTabClass:Save(xml)
 	end
 end
 
+---@param viewPort Viewport
+---@param inputEvents InputEvent[]
 function CalcsTabClass:Draw(viewPort, inputEvents)
 	self.x = viewPort.x
 	self.y = viewPort.y
@@ -367,6 +377,8 @@ function CalcsTabClass:Draw(viewPort, inputEvents)
 	end
 end
 
+---@param width number
+---@param ... unknown
 function CalcsTabClass:NewSection(width, ...)
 	local section = new("CalcSectionControl"):CalcSectionControl(self, width * self.colWidth + 8 * (width - 1), ...)
 	section.widthCols = width
@@ -380,6 +392,8 @@ function CalcsTabClass:ClearDisplayStat()
 	self.controls.breakdown:SetBreakdownData()
 end
 
+---@param displayData CalcSectionColumn
+---@param pin? boolean
 function CalcsTabClass:SetDisplayStat(displayData, pin)
 	if not displayData or (not pin and self.displayPinned) then
 		return
@@ -393,6 +407,10 @@ function CalcsTabClass:SetDisplayStat(displayData, pin)
 	self.controls.breakdown:SetBreakdownData(displayData, pin)
 end
 
+---@param obj table
+---@param actor? Actor
+---@param player? Actor
+---@return boolean?
 function CalcsTabClass:CheckFlag(obj, actor, player)
 	actor = actor or (self.input.showMinion and self.calcsEnv.minion or self.calcsEnv.player)
 	local skillFlags = actor.mainSkill.skillFlags
@@ -432,6 +450,8 @@ function CalcsTabClass:CheckFlag(obj, actor, player)
 	return true
 end
 
+---@param txt string
+---@return boolean
 function CalcsTabClass:SearchMatch(txt)
 	local searchStr = self.controls.search.buf:lower()
 	return string.len(searchStr) > 0 and txt:lower():find(searchStr)
@@ -515,11 +535,18 @@ function CalcsTabClass:PowerBuilder()
 		coroutine.yield()
 	end
 
+	---@param node Node
+	---@param effect table
+	---@return Node
 	local function buildMasteryEffectNode(node, effect)
 		local effectNode = {
 			id = node.id,
 			type = node.type,
 			name = node.name,
+			linked = node.linked,
+			linkedId = node.linkedId,
+			oidx = node.oidx,
+			intuitiveLeapLikesAffecting = node.intuitiveLeapLikesAffecting,
 			sd = { },
 		}
 		for i, sd in ipairs(effect.sd or { }) do
@@ -529,11 +556,19 @@ function CalcsTabClass:PowerBuilder()
 		return effectNode
 	end
 
+	---@param node Node
+	---@param masteryEffect table
+	---@return boolean
 	local function masteryEffectCanBeAssignedToNode(node, masteryEffect)
 		local assignedNodeId = isValueInTable(self.build.spec.masterySelections, masteryEffect.effect)
 		return not assignedNodeId or assignedNodeId == node.id
 	end
 
+	---@param power number
+	---@param distance number
+	---@param node Node
+	---@param output Output
+	---@param buildPathNodes fun(): table<integer, boolean>
 	local function calculateAddNodePower(power, distance, node, output, buildPathNodes)
 		if self.powerStat and self.powerStat.stat and not self.powerStat.ignoreForNodes then
 			power.singleStat = self:CalculatePowerStat(self.powerStat, output, calcBase)
@@ -739,12 +774,20 @@ function CalcsTabClass:PowerBuilder()
 	-- ConPrintf("Power Build time: %d ms", GetTime() - timer_start)
 end
 
+---@param selection table
+---@param original Output
+---@param modified Output
+---@return number
 function CalcsTabClass:CalculatePowerStat(selection, original, modified)
 	local originalValue = data.powerStatList.GetFromOutput(original, selection)
 	local modifiedValue = data.powerStatList.GetFromOutput(modified, selection)
 	return originalValue - modifiedValue
 end
 
+---@param original Output
+---@param modified Output
+---@return number offence
+---@return number defence
 function CalcsTabClass:CalculateCombinedOffDefStat(original, modified)
 	local defence = (original.LifeUnreserved - modified.LifeUnreserved) / m_max(3000, modified.Life) +
 					(original.Armour - modified.Armour) / m_max(10000, modified.Armour) +
@@ -757,14 +800,18 @@ function CalcsTabClass:CalculateCombinedOffDefStat(original, modified)
 	return dpsIncr / modifiedDps, defence
 end
 
+---@return fun(adjustments?: table, useFullDPS?: boolean): Output calcFunc
+---@return Output calcBase
 function CalcsTabClass:GetMiscCalculator()
 	return self.miscCalculator[1], self.miscCalculator[2]
 end
 
+---@return table
 function CalcsTabClass:CreateUndoState()
 	return copyTable(self.input)
 end
 
+---@param state table
 function CalcsTabClass:RestoreUndoState(state)
 	wipeTable(self.input)
 	for k, v in pairs(state) do

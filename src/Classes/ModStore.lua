@@ -29,14 +29,70 @@ end })
 
 -- TODO: very incomplete
 ---@class ModCfg
----@field flags number? bit mask
----@field keywordFlags number?
+---@field [string] any
+---@field flags integer? bit mask
+---@field keywordFlags integer?
 ---@field skillName string?
+---@field summonSkillName string?
+---@field skillGem any?
+---@field skillGrantedEffect any?
+---@field grantedEffect? table
+---@field srcInstance? table
+---@field matchesSocket? boolean
+---@field skillPart integer?
+---@field skillTypes table?
+---@field skillCond table<string, boolean>?
+---@field skillDist number?
+---@field slotName string?
+---@field socketColor any?
+---@field socketNum integer?
 ---@field source string?
+---@field actor string?
+---@field skillStats table<string, number>?
+---@field baseFlags table?
+---@field dexterityGems integer?
+---@field intelligenceGems integer?
+---@field strengthGems integer?
+---@field neg? boolean
+---@field var? string
+---@field varList? table
+---@field base? number
+---@field ramp? number
+---@field limitVar? string
+---@field reservedPercent? number
+---@field reservedFlat? number
+---@field efficiency? number
+---@field corruptedRange? number
+---@field newModId? string
+---@field modList? ModList
+---@field sockets? table
+---@field minionData? table
+---@field globalLimitKey? string
+---@field partyMembers? table
+---@field item Item?
+---@field varList table?
+---@field sockets table?
+---@field minionData table?
+---@field globalLimitKey string?
+
+---@class SkillCfg: ModCfg
+---@field flags integer
+---@field keywordFlags integer
+---@field skillName string
+---@field skillGrantedEffect any
+---@field skillPart integer
+---@field skillTypes table
+---@field skillCond table<string, boolean>
 
 ---@class ModStore
+---@field parent? ModStore
+---@field actor? Actor
+---@field multipliers table<string, number>
+---@field conditions table<string, boolean>
 local ModStoreClass = newClass("ModStore")
 
+---@param parent? ModStore
+---@return ModStore
 function ModStoreClass:ModStore(parent)
 	self.parent = parent or false
 	self.actor = parent and parent.actor or { }
@@ -45,6 +101,9 @@ function ModStoreClass:ModStore(parent)
 	return self
 end
 
+---@param self ModStore
+---@param actorType? "enemy"|"minion"|"player"
+---@return Actor?
 local function getActor(self, actorType)
 	if actorType == "player" then
 		return self.actor.player or (self.actor.parent and self.actor.parent.player) or (self.actor.enemy and self.actor.enemy.player)
@@ -53,6 +112,9 @@ local function getActor(self, actorType)
 	end
 end
 
+---@param mod Mod
+---@param scale number
+---@param replace? boolean
 function ModStoreClass:ScaleAddMod(mod, scale, replace)
 	local unscalable = false
 	for _, effects in ipairs(mod) do
@@ -90,12 +152,16 @@ function ModStoreClass:ScaleAddMod(mod, scale, replace)
 	end
 end
 
+---@param modList Mod[]
 function ModStoreClass:CopyList(modList)
 	for i = 1, #modList do
 		self:AddMod(copyTable(modList[i]))
 	end
 end
 
+---@param modList Mod[]?
+---@param scale number
+---@param replace? boolean
 function ModStoreClass:ScaleAddList(modList, scale, replace)
 	if scale == 1 then
 		self:AddList(modList)
@@ -106,6 +172,7 @@ function ModStoreClass:ScaleAddList(modList, scale, replace)
 	end
 end
 
+---@param ... unknown
 function ModStoreClass:NewMod(...)
 	self:AddMod(mod_createMod(...))
 end
@@ -121,7 +188,7 @@ end
 ---    3 (number): value
 ---    4 (string): source
 ---    5+ (optional, varies): additional options
----@param ... any @Parameters to be passed along to the modLib.createMod function
+---@param ... unknown @Arguments to pass to modLib.createMod.
 function ModStoreClass:ReplaceMod(...)
 	local mod = mod_createMod(...)
 	if not self:ReplaceModInternal(mod) then
@@ -134,7 +201,7 @@ end
 ---  Finds a mod matching oldName with the same type, flags, keywordFlags, and source as the new mod.
 ---  If no matching mod exists, the new mod is added instead.
 ---@param oldName string @The name of the existing mod to convert
----@param ... any @Parameters to be passed along to the modLib.createMod function (new name, type, value, source, ...)
+---@param ... unknown @Arguments to pass to modLib.createMod (new name, type, value, source, ...).
 function ModStoreClass:ConvertMod(oldName, ...)
 	local mod = mod_createMod(...)
 	if not self:ConvertModInternal(oldName, mod) then
@@ -142,6 +209,13 @@ function ModStoreClass:ConvertMod(oldName, ...)
 	end
 end
 
+---@overload fun(self: ModStore, modType: "FLAG", cfg?: ModCfg, ...: string): boolean?
+---@overload fun(self: ModStore, modType: "LIST", cfg?: ModCfg, ...: string): unknown[]
+---@overload fun(self: ModStore, modType: "OVERRIDE", cfg?: ModCfg, ...: string): unknown
+---@param modType NumericModTypes|string
+---@param cfg? ModCfg
+---@param ... string
+---@return unknown
 function ModStoreClass:Combine(modType, cfg, ...)
 	if modType == "MORE" then
 		return self:More(cfg, ...)
@@ -158,7 +232,7 @@ function ModStoreClass:Combine(modType, cfg, ...)
 	end
 end
 
----@param modType string
+---@param modType NumericModTypes|string
 ---@param cfg? ModCfg
 ---@param ... string
 ---@return number
@@ -187,6 +261,9 @@ function ModStoreClass:More(cfg, ...)
 	return self:MoreInternal(self, cfg, flags, keywordFlags, source, ...)
 end
 
+---@param cfg? ModCfg
+---@param ... string
+---@return boolean?
 function ModStoreClass:Flag(cfg, ...)
 	local flags, keywordFlags = 0, 0
 	local source
@@ -200,7 +277,7 @@ end
 
 ---@param cfg? ModCfg
 ---@param ... string
----@return any
+---@return unknown
 function ModStoreClass:Override(cfg, ...)
 	local flags, keywordFlags = 0, 0
 	local source
@@ -214,7 +291,7 @@ end
 
 ---@param cfg? ModCfg
 ---@param ... string
----@return any[]
+---@return unknown[]
 function ModStoreClass:List(cfg, ...)
 	local flags, keywordFlags = 0, 0
 	local source
@@ -228,10 +305,10 @@ function ModStoreClass:List(cfg, ...)
 	return result
 end
 
----@param modType string
+---@param modType? NumericModTypes|string
 ---@param cfg? ModCfg
 ---@param ... string
----@return table[]
+---@return { value: unknown, mod: Mod }[]
 function ModStoreClass:Tabulate(modType, cfg, ...)
 	local flags, keywordFlags = 0, 0
 	local source
@@ -245,6 +322,9 @@ function ModStoreClass:Tabulate(modType, cfg, ...)
 	return result
 end
 
+---@param cfg? ModCfg
+---@param ... string
+---@return number?
 function ModStoreClass:Max(cfg, ...)
 	local max
 	for _, value in ipairs(self:Tabulate("MAX", cfg, ...)) do
@@ -256,6 +336,9 @@ function ModStoreClass:Max(cfg, ...)
 	return max		
 end
 
+---@param cfg? ModCfg
+---@param ... string
+---@return number?
 function ModStoreClass:Min(cfg, ...)
 	local min
 	for _, value in ipairs(self:Tabulate("MIN", cfg, ...)) do
@@ -271,10 +354,10 @@ end
 ---  Checks if a mod exists with the given properties.
 ---  Useful for determining if the other aggregate functions will find
 ---  anything to aggregate.
----@param modType string @Mod type to match
----@param cfg table @Optional configuration to use - contains flags, keywordFlags, and source to match
+---@param modType NumericModTypes|string @Mod type to match.
+---@param cfg? ModCfg @Optional configuration to use; contains flags, keywordFlags, and source to match.
 ---@param ... string @Mod name(s) to check for.
----@return boolean @true if the mod is found, false otherwise.
+---@return boolean? @True when a matching mod is found.
 function ModStoreClass:HasMod(modType, cfg, ...)
 	local flags, keywordFlags = 0, 0
 	local source
@@ -289,7 +372,7 @@ end
 ---@param var string
 ---@param cfg? ModCfg
 ---@param noMod? boolean
----@return boolean
+---@return boolean?
 function ModStoreClass:GetCondition(var, cfg, noMod)
 	return self.conditions[var] or (self.parent and self.parent:GetCondition(var, cfg, true)) or (not noMod and self:Flag(cfg, conditionName[var]))
 end
@@ -299,7 +382,11 @@ end
 ---@param noMod? boolean
 ---@return number
 function ModStoreClass:GetMultiplier(var, cfg, noMod)
-	return (not noMod and self:Override(cfg, multiplierName[var])) or (self.multipliers[var] or 0) + (self.parent and self.parent:GetMultiplier(var, cfg, true) or 0) + (not noMod and self:Sum("BASE", cfg, multiplierName[var]) or 0)
+	local override = not noMod and self:Override(cfg, multiplierName[var])
+	if override ~= nil then
+		return tonumber(override) or 0
+	end
+	return (self.multipliers[var] or 0) + (self.parent and self.parent:GetMultiplier(var, cfg, true) or 0) + (not noMod and self:Sum("BASE", cfg, multiplierName[var]) or 0)
 end
 
 ---@param stat string
@@ -308,6 +395,9 @@ end
 function ModStoreClass:GetStat(stat, cfg)
 	-- Checks if any buff in buffList matches
 	-- Was needed for skills that provide multiple buffs (e.g. Herald of Agony) and can't be accesses with `buffList[1]`
+	---@param buffList { name: string }[]
+	---@param name? string
+	---@return boolean
 	local function isNameInBuffList(buffList, name)
 		for _, buff in ipairs(buffList) do
 			if buff.name == name then return true end
@@ -319,7 +409,7 @@ function ModStoreClass:GetStat(stat, cfg)
 		-- Check if mana is 0 (i.e. from Blood Magic) to avoid division by 0.
 		local totalMana = self.actor.output["Mana"]
 		if totalMana == 0 then return 0 else
-			for _, activeSkill in ipairs(self.actor.activeSkillList) do
+			for _, activeSkill in ipairs(self.actor.activeSkillList or {}) do
 				if (activeSkill.skillTypes[SkillType.HasReservation] and not activeSkill.skillFlags.disable and activeSkill.buffList and activeSkill.buffList[1] and cfg and (isNameInBuffList(activeSkill.buffList, cfg.skillName) or isNameInBuffList(activeSkill.buffList, cfg.summonSkillName)) ) then
 					local manaBase = activeSkill.skillData["ManaReservedBase"] or 0
 					reservedPercentMana = m_floor(manaBase / totalMana * 100)
@@ -333,7 +423,7 @@ function ModStoreClass:GetStat(stat, cfg)
 		local reservedPercentLife = 0
 		local totalLife = self.actor.output["Life"]
 		if totalLife == 0 then return 0 else
-			for _, activeSkill in ipairs(self.actor.activeSkillList) do
+			for _, activeSkill in ipairs(self.actor.activeSkillList or {}) do
 				if (activeSkill.skillTypes[SkillType.HasReservation] and not activeSkill.skillFlags.disable and activeSkill.buffList and activeSkill.buffList[1] and cfg and (isNameInBuffList(activeSkill.buffList, cfg.skillName) or isNameInBuffList(activeSkill.buffList, cfg.summonSkillName)) ) then
 					local lifeBase = activeSkill.skillData["LifeReservedBase"] or 0
 					reservedPercentLife = m_floor(lifeBase / totalLife * 100)
@@ -346,7 +436,7 @@ function ModStoreClass:GetStat(stat, cfg)
 	-- if ReservationEfficiency is -100, ManaUnreserved is nan which breaks everything if Arcane Cloak is enabled
 	if stat == "ManaUnreserved" and self.actor.output[stat] ~= self.actor.output[stat] then
 		-- 0% reserved = total mana
-		return self.actor.output["Mana"]
+		return tonumber(self.actor.output["Mana"]) or 0
 	elseif stat == "ManaUnreserved" and self.actor.output[stat] ~= nil and self.actor.output[stat] < 0 then
 		-- This reverse engineers how much mana is unreserved before efficiency for accurate Arcane Cloak calcs
 		local reservedPercentBeforeEfficiency = (math.abs(self.actor.output["ManaUnreservedPercent"]) + 100) * ((100 + self.actor["ManaEfficiency"]) / 100)
@@ -358,8 +448,8 @@ end
 
 ---@param mod Mod
 ---@param cfg? ModCfg
----@param globalLimits? table
----@return any
+---@param globalLimits? table<string, number>
+---@return unknown
 function ModStoreClass:EvalMod(mod, cfg, globalLimits)
 	local value = mod.value
 	local GetStat = self.GetStat
@@ -389,6 +479,7 @@ function ModStoreClass:EvalMod(mod, cfg, globalLimits)
 					return
 				end
 			end
+			---@type number
 			local base = 0
 			if tag.varList then
 				for _, var in pairs(tag.varList) do
@@ -400,6 +491,7 @@ function ModStoreClass:EvalMod(mod, cfg, globalLimits)
 			if tag.divVar then
 				tag.div = GetMultiplier(self, tag.divVar, cfg)
 			end
+			---@type number
 			local mult = m_floor(base / (tag.div or 1) + 0.0001)
 			if tag.noFloor then
 				mult = base / (tag.div or 1)
@@ -420,6 +512,7 @@ function ModStoreClass:EvalMod(mod, cfg, globalLimits)
 				mult = 1 / mult
 			end
 			if type(value) == "table" then
+				---@cast value table
 				value = copyTable(value)
 				if value.mod then
 					value.mod.value = value.mod.value * mult + (tag.base or 0)
@@ -439,6 +532,7 @@ function ModStoreClass:EvalMod(mod, cfg, globalLimits)
 					end
 				end
 			else
+				---@cast value number
 				value = value * mult + (tag.base or 0)
 				if limitTotal then
 					value = m_min(value, limitTotal)
@@ -466,6 +560,7 @@ function ModStoreClass:EvalMod(mod, cfg, globalLimits)
 					return
 				end
 			end
+			---@type number
 			local mult = 0
 			if tag.varList then
 				for _, var in pairs(tag.varList) do
@@ -498,6 +593,7 @@ function ModStoreClass:EvalMod(mod, cfg, globalLimits)
 			if tag.divVar then
 				tag.div = GetMultiplier(self, tag.divVar, cfg)
 			end
+			---@type number
 			local mult = m_floor(base / (tag.div or 1) + 0.0001)
 			local limitTotal
 			if tag.limit or tag.limitVar then
@@ -693,7 +789,7 @@ function ModStoreClass:EvalMod(mod, cfg, globalLimits)
 			local itemSlot = tag.itemSlot:lower():gsub("(%l)(%w*)", function(a,b) return string.upper(a)..b end):gsub('^%s*(.-)%s*$', '%1')
 			local items = {}
 			if tag.allSlots then
-				items = self.actor.itemList
+				items = self.actor.itemList or {}
 			elseif self.actor.itemList then
 				if tag.bothSlots then
 					local itemSlot1 = self.actor.itemList[itemSlot .. " 1"]
@@ -763,6 +859,9 @@ function ModStoreClass:EvalMod(mod, cfg, globalLimits)
 			if not cfg or (not tag.slotName and not tag.keyword and not tag.socketColor) then
 				return
 			else
+				---@param sockets integer[]
+				---@param targetSocket integer
+				---@return boolean
 				local function isValidSocket(sockets, targetSocket)
 					for _, val in ipairs(sockets) do
 						if val == targetSocket then

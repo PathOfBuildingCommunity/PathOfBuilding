@@ -3,9 +3,33 @@
 -- Class: Dragger Button Control
 -- Dragger button control.
 --
+---@class DraggerPosition
+---@field X number
+---@field Y number
+
 ---@class DraggerControl: Control, TooltipHost
+---@field label Prop<string>
+---@field onKeyDown? fun(position: DraggerPosition)
+---@field onKeyUp? fun(offset: DraggerPosition)
+---@field onRightClick? fun(position: DraggerPosition)
+---@field onHover? fun(): Control?
+---@field forceTooltip? boolean
+---@field image? ImageHandle
+---@field clicked? boolean
+---@field dragging? boolean
+---@field cursorX number
+---@field cursorY number
 local DraggerClass = newClass("DraggerControl", "Control", "TooltipHost")
 
+---@param anchor? Anchor
+---@param rect? Rect
+---@param label Prop<string>
+---@param onKeyDown? fun(position: DraggerPosition)
+---@param onKeyUp? fun(offset: DraggerPosition)
+---@param onRightClick? fun(position: DraggerPosition)
+---@param onHover? fun(): Control?
+---@param forceTooltip? boolean
+---@return DraggerControl
 function DraggerClass:DraggerControl(anchor, rect, label, onKeyDown, onKeyUp, onRightClick, onHover, forceTooltip)
 	self:Control(anchor, rect)
 	self:TooltipHost()
@@ -20,6 +44,7 @@ function DraggerClass:DraggerControl(anchor, rect, label, onKeyDown, onKeyUp, on
 	return self
 end
 
+---@param path? string
 function DraggerClass:SetImage(path)
 	if path then
 		self.image = NewImageHandle()
@@ -29,6 +54,7 @@ function DraggerClass:SetImage(path)
 	end
 end
 
+---@return boolean
 function DraggerClass:IsMouseOver()
 	if not self:IsShown() then
 		return false
@@ -36,6 +62,9 @@ function DraggerClass:IsMouseOver()
 	return self:IsMouseInBounds()
 end
 
+---@param viewPort Viewport
+---@param noTooltip? boolean
+---@return Control?
 function DraggerClass:Draw(viewPort, noTooltip)
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()
@@ -108,6 +137,8 @@ function DraggerClass:Draw(viewPort, noTooltip)
 	end
 end
 
+---@param key string
+---@return DraggerControl?
 function DraggerClass:OnKeyDown(key)
 	if not self:IsShown() or not self:IsEnabled() or self:GetProperty("locked") then
 		return
@@ -126,6 +157,9 @@ function DraggerClass:OnKeyDown(key)
 	end
 	return self
 end
+
+---@param key string
+---@return DraggerControl?
 function DraggerClass:OnKeyUp(key)
 	if not self:IsShown() or not self:IsEnabled() or self:GetProperty("locked") then
 		return

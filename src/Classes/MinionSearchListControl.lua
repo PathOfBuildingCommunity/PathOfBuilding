@@ -9,8 +9,17 @@ local t_remove = table.remove
 local s_format = string.format
 
 ---@class MinionSearchListControl: MinionListControl
+---@field isMutable boolean
+---@field labelPositionOffset number
+---@field unfilteredList string[]
 local MinionSearchListClass = newClass("MinionSearchListControl", "MinionListControl")
 
+---@param anchor? Anchor
+---@param rect? Rect
+---@param data Data
+---@param list string[]
+---@param dest string[]
+---@return MinionSearchListControl
 function MinionSearchListClass:MinionSearchListControl(anchor, rect, data, list, dest)
 	self:MinionListControl(anchor, rect, data, list, dest)
 	self.unfilteredList = copyTable(list)
@@ -34,6 +43,10 @@ function MinionSearchListClass:MinionSearchListControl(anchor, rect, data, list,
 	return self
 end
 
+---@param searchStr string
+---@param minionId string
+---@param filterMode integer
+---@return boolean
 function MinionSearchListClass:DoesEntryMatchFilters(searchStr, minionId, filterMode)
 	if filterMode == 1 or filterMode == 3 then
 		local err, match = PCall(string.matchOrPattern, self.data.minions[minionId].name:lower(), searchStr)
@@ -54,6 +67,8 @@ function MinionSearchListClass:DoesEntryMatchFilters(searchStr, minionId, filter
 	return false
 end
 
+---@param buf string
+---@param filterMode integer
 function MinionSearchListClass:ListFilterChanged(buf, filterMode)
 	local searchStr = buf:lower():gsub("[%-%.%+%[%]%$%^%%%?%*]", "%%%0")
 	if searchStr:match("%S") then

@@ -105,8 +105,15 @@ end
 
 ---@diagnostic disable-next-line: lowercase-global
 ---@class Data : MiscDataExport
+---@field characterConstants table<string, number>
+---@field monsterConstants table<string, number>
+---@field misc table<string, number>
+---@field powerStatList PowerStatList
 ---@field bosses BossData
 data = { }
+
+---@class PowerStatList: PowerStat[]
+---@field GetFromOutput fun(self: PowerStatList, output: Output, statTable: PowerStat, skipTransform?: boolean): number?
 
 -- Misc data tables
 local miscData = LoadModule("Data/Misc")
@@ -924,6 +931,7 @@ data.timelessJewelTypes = {
 	[10] = "Abyss Amanamu",
 	[11] = "Abyss Zorath",
 }
+---@type table<integer, number>
 data.timelessJewelSeedMin = {
 	[1] = 100,
 	[2] = 10000,
@@ -937,6 +945,7 @@ data.timelessJewelSeedMin = {
 	[10] = 100,
 	[11] = 100,
 }
+---@type table<integer, number>
 data.timelessJewelSeedMax = {
 	[1] = 8000,
 	[2] = 18000,

@@ -7,9 +7,16 @@ local t_insert = table.insert
 local t_remove = table.remove
 local m_max = math.max
 
----@class PassiveSpecListControl: ListControl
+---@class PassiveSpecListControl: ListControl<PassiveSpec>
+---@field treeTab TreeTab
+---@field selIndex? integer
+---@field selValue? PassiveSpec
 local PassiveSpecListClass = newClass("PassiveSpecListControl", "ListControl")
 
+---@param anchor? Anchor
+---@param rect? Rect
+---@param treeTab TreeTab
+---@return PassiveSpecListControl
 function PassiveSpecListClass:PassiveSpecListControl(anchor, rect, treeTab)
 	self:ListControl(anchor, rect, 16, "VERTICAL", true, treeTab.specList)
 	self.treeTab = treeTab
@@ -47,6 +54,9 @@ function PassiveSpecListClass:PassiveSpecListControl(anchor, rect, treeTab)
 	return self
 end
 
+---@param spec PassiveSpec
+---@param title? string
+---@param addOnName? boolean
 function PassiveSpecListClass:RenameSpec(spec, title, addOnName)
 	local controls = { }
 	controls.label = new("LabelControl"):LabelControl(nil, {0, 20, 0, 16}, "^7Enter name for this passive tree:")
@@ -73,6 +83,10 @@ function PassiveSpecListClass:RenameSpec(spec, title, addOnName)
 	main:OpenPopup(370, 100, title, controls, "save", "edit")
 end
 
+---@param column integer
+---@param index integer
+---@param spec PassiveSpec
+---@return string?
 function PassiveSpecListClass:GetRowValue(column, index, spec)
 	if column == 1 then
 		local used = spec:CountAllocNodes()
@@ -90,12 +104,17 @@ function PassiveSpecListClass:OnOrderChange()
 	self.treeTab.build:SyncLoadouts()
 end
 
+---@param index integer
+---@param spec PassiveSpec
+---@param doubleClick? boolean
 function PassiveSpecListClass:OnSelClick(index, spec, doubleClick)
 	if doubleClick and index ~= self.treeTab.activeSpec then
 		self.treeTab:SetActiveSpec(index)
 	end
 end
 
+---@param index integer
+---@param spec PassiveSpec
 function PassiveSpecListClass:OnSelDelete(index, spec)
 	if #self.list > 1 then
 		main:OpenConfirmPopup("Delete Tree", "Are you sure you want to delete '"..(spec.title or "Default").."'?", "Delete", function()
@@ -114,6 +133,9 @@ function PassiveSpecListClass:OnSelDelete(index, spec)
 	end
 end
 
+---@param index integer
+---@param spec PassiveSpec
+---@param key string
 function PassiveSpecListClass:OnSelKeyDown(index, spec, key)
 	if key == "F2" then
 		self:RenameSpec(spec, "Rename Tree")

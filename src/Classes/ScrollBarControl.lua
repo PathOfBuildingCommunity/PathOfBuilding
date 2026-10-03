@@ -9,8 +9,35 @@ local m_ceil = math.ceil
 local m_floor = math.floor
 
 ---@class ScrollBarControl: Control
+---@field Scroll fun(self: ScrollBarControl, mult: number)
+---@field SetContentDimension fun(self: ScrollBarControl, conDim: number, viewDim: number)
+---@field step number
+---@field dir "HORIZONTAL"|"VERTICAL"
+---@field offset number
+---@field conDim number
+---@field viewDim number
+---@field offsetMax number
+---@field knobDim number
+---@field knobTravel number
+---@field autoHide? boolean
+---@field dragging? boolean
+---@field dragCX? number
+---@field dragCY? number
+---@field dragKnobPos? number
+---@field holdComp? "UP"|"DOWN"
+---@field holdBase? number
+---@field holdTime? number
+---@field holdPauseTime? number
+---@field holdRepeating? boolean
+---@overload fun(mix: table): ScrollBarControl
 local ScrollBarClass = newClass("ScrollBarControl", "Control")
 
+---@param anchor? Anchor
+---@param rect? Rect
+---@param step? number
+---@param dir? "HORIZONTAL"|"VERTICAL"
+---@param autoHide? boolean
+---@return ScrollBarControl
 function ScrollBarClass:ScrollBarControl(anchor, rect, step, dir, autoHide)
 	self:Control(anchor, rect)
 	self.step = step or self.width * 2
@@ -25,6 +52,8 @@ function ScrollBarClass:ScrollBarControl(anchor, rect, step, dir, autoHide)
 	return self
 end
 
+---@param conDim number
+---@param viewDim number
 function ScrollBarClass:SetContentDimension(conDim, viewDim)
 	self.conDim = conDim
 	self.viewDim = viewDim
@@ -47,14 +76,18 @@ function ScrollBarClass:SetContentDimension(conDim, viewDim)
 	end
 end
 
+---@param offset number
 function ScrollBarClass:SetOffset(offset)
 	self.offset = m_floor(m_max(0, m_min(self.offsetMax or 0, offset)))
 end
 
+---@param mult number
 function ScrollBarClass:Scroll(mult)
 	self:SetOffset(self.offset + self.step * mult)
 end
 
+---@param minDim number
+---@param size number
 function ScrollBarClass:ScrollIntoView(minDim, size)
 	if self.offset > minDim then
 		self:SetOffset(minDim)
@@ -63,14 +96,18 @@ function ScrollBarClass:ScrollIntoView(minDim, size)
 	end
 end
 
+---@param knobPos number
 function ScrollBarClass:SetOffsetFromKnobPos(knobPos)
 	self:SetOffset(self.offsetMax * (knobPos / self.knobTravel))
 end
 
+---@return number
 function ScrollBarClass:GetKnobPosForOffset()
 	return self.knobTravel * (self.offset / self.offsetMax)
 end
 
+---@return boolean mouseOver
+---@return "UP"|"DOWN"|"SLIDEUP"|"SLIDEDOWN"|"KNOB"? mouseOverComponent
 function ScrollBarClass:IsMouseOver()
 	if not self:IsShown() then
 		return false
@@ -256,6 +293,8 @@ function ScrollBarClass:Draw()
 	end
 end
 
+---@param key string
+---@return ScrollBarControl?
 function ScrollBarClass:OnKeyDown(key)
 	if not self:IsShown() or not self:IsEnabled() or self:GetProperty("locked") then
 		return
@@ -292,6 +331,7 @@ function ScrollBarClass:OnKeyDown(key)
 	return self
 end
 
+---@param key string
 function ScrollBarClass:OnKeyUp(key)
 	if not self:IsShown() or not self:IsEnabled() or self:GetProperty("locked") then
 		return
@@ -319,9 +359,14 @@ function ScrollBarClass:OnKeyUp(key)
 end
 
 -- Centralize inputs allowed to keep consistent scroll behavior for all scrollBars
+---@param key string
+---@return boolean
 function ScrollBarClass:IsScrollDownKey(key)
 	return isValueInTable({"WHEELDOWN", "PAGEDOWN"}, key)
 end
+
+---@param key string
+---@return boolean
 function ScrollBarClass:IsScrollUpKey(key)
 	return isValueInTable({"WHEELUP", "PAGEUP"}, key)
 end

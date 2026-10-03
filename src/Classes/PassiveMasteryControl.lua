@@ -9,7 +9,14 @@ local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
 
----@class PassiveMasteryControl: ListControl
+---@class PassiveMasteryControl: ListControl<MasterListElem>
+---@field list MasterListElem[]
+---@field treeTab TreeTab
+---@field treeView PassiveTreeView
+---@field node Node
+---@field saveButton ButtonControl
+---@field selIndex? integer
+---@field selValue? MasterListElem
 local PassiveMasteryControlClass = newClass("PassiveMasteryControl", "ListControl")
 
 ---@class MasterListElem
@@ -22,6 +29,7 @@ local PassiveMasteryControlClass = newClass("PassiveMasteryControl", "ListContro
 ---@param treeTab TreeTab
 ---@param node Node
 ---@param saveButton ButtonControl
+---@return PassiveMasteryControl
 function PassiveMasteryControlClass:PassiveMasteryControl(anchor, rect, list, treeTab, node, saveButton)
 	self.list = list or { }
 	-- automagical width
@@ -37,16 +45,24 @@ function PassiveMasteryControlClass:PassiveMasteryControl(anchor, rect, list, tr
 	return self
 end
 
+---@param viewPort Viewport
 function PassiveMasteryControlClass:Draw(viewPort)
 	self.ListControl.Draw(self, viewPort)
 end
 
+---@param column integer
+---@param index integer
+---@param effect MasterListElem
+---@return string?
 function PassiveMasteryControlClass:GetRowValue(column, index, effect)
 	if column == 1 then
 		return effect.label
 	end
 end
 
+---@param tooltip Tooltip
+---@param index integer
+---@param effect MasterListElem
 function PassiveMasteryControlClass:AddValueTooltip(tooltip, index, effect)
 	tooltip:Clear()
 	self.node.sd = self.treeTab.build.spec.tree.masteryEffects[effect.id].sd
@@ -55,6 +71,9 @@ function PassiveMasteryControlClass:AddValueTooltip(tooltip, index, effect)
 	self.treeView:AddNodeTooltip(tooltip, self.node, self.treeTab.build)
 end
 
+---@param index integer
+---@param mastery MasterListElem
+---@param doubleClick? boolean
 function PassiveMasteryControlClass:OnSelClick(index, mastery, doubleClick)
 	self.treeTab:SaveMasteryPopup(self.node, self)
 end

@@ -12,8 +12,20 @@ local scopesOAuth = {
 local filename = "poe_api_response.json"
 
 ---@class PoEAPI
+---@field retries integer
+---@field authToken? string
+---@field refreshToken? string
+---@field tokenExpiry? integer
+---@field baseUrl string
+---@field rateLimiter TradeQueryRateLimiter
+---@field tokenHasBeenValidated boolean
+---@field ERROR_NO_AUTH string
 local PoEAPIClass = newClass("PoEAPI")
 
+---@param authToken? string
+---@param refreshToken? string
+---@param tokenExpiry? integer
+---@return PoEAPI
 function PoEAPIClass:PoEAPI(authToken, refreshToken, tokenExpiry)
 	self.retries = 0
 	self.authToken = authToken
@@ -30,7 +42,7 @@ end
 -- performs a basic check on the validity of the current login by refreshing the
 -- token if necessary. if a refresh is attempted and fails, the login details
 -- will be reset.
---- @param callback fun(valid: boolean, errMsg: string?)
+---@param callback fun(valid: boolean, errMsg: string?)
 function PoEAPIClass:ValidateAuth(callback)
 	if self.authToken and self.refreshToken and self.tokenExpiry then
 		ConPrintf("Validating auth token")
@@ -67,8 +79,8 @@ function PoEAPIClass:ValidateAuth(callback)
 		callback(false)
 	end
 end
-
---- @param secret string
+---@param secret string
+---@return string
 local function base64_encode(secret)
 	return base64.encode(secret):gsub("+", "-"):gsub("/", "_"):gsub("=$", "")
 end
@@ -88,8 +100,7 @@ function PoEAPIClass:UpdateMain()
 	main.tokenExpiry = self.tokenExpiry
 	main:SaveSettings()
 end
-
---- @param callback fun(errCode: string?)
+---@param callback fun(errCode: string?)
 function PoEAPIClass:FetchAuthToken(callback)
 	math.randomseed(os.time())
 	local secret = math.random(2 ^ 32 - 1)
@@ -152,9 +163,8 @@ function PoEAPIClass:FetchAuthToken(callback)
 		}
 	end
 end
-
---- @param endpoint string
---- @param callback fun(response: table?, errorMsg: string)
+---@param endpoint string
+---@param callback fun(response: table?, errMsg: string?)
 function PoEAPIClass:DownloadWithRefresh(endpoint, callback)
 	self:ValidateAuth(function(valid, validationErrMsg)
 		if not valid then
@@ -188,11 +198,10 @@ function PoEAPIClass:DownloadWithRefresh(endpoint, callback)
 		end, { header = "Authorization: Bearer " .. self.authToken })
 	end)
 end
-
---- @alias DownloadCallback fun(body: table?, err: string?, timeout: integer?)
---- @param policy string
---- @param url string
---- @param callback DownloadCallback
+---@alias DownloadCallback fun(body: table?, err: string?, timeout: integer?)
+---@param policy string
+---@param url string
+---@param callback DownloadCallback
 function PoEAPIClass:DownloadWithRateLimit(policy, url, callback)
 	local now = os.time()
 	local timeNext = self.rateLimiter:NextRequestTime(policy, now)

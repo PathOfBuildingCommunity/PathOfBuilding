@@ -5,10 +5,19 @@
 --
 local t_insert = table.insert
 
+---@class NotesTabControls: table<string, Control>
+---@field edit EditControl
+
 ---@class NotesTab: ControlHost, Control
+---@field controls NotesTabControls
+---@field build Build
+---@field modFlag boolean
+---@field lastContent? string
+---@field showColorCodes boolean
 local NotesTabClass = newClass("NotesTab", "ControlHost", "Control")
 
 ---@param build Build
+---@return NotesTab
 function NotesTabClass:NotesTab(build)
 	self:ControlHost()
 	self:Control()
@@ -50,6 +59,7 @@ Below are some common color codes PoB uses:	]]
 	return self
 end
 
+---@param setting boolean
 function NotesTabClass:SetShowColorCodes(setting)
 	self.showColorCodes = setting
 	if setting then
@@ -61,6 +71,7 @@ function NotesTabClass:SetShowColorCodes(setting)
 	end
 end
 
+---@param color string
 function NotesTabClass:SetColor(color)
 	local text = color
 	if self.showColorCodes then text = color:gsub("%^x(%x%x%x%x%x%x)","^_x%1"):gsub("%^(%d)","^_%1") end
@@ -72,6 +83,8 @@ function NotesTabClass:SetColor(color)
 	end
 end
 
+---@param xml table
+---@param fileName string
 function NotesTabClass:Load(xml, fileName)
 	for _, node in ipairs(xml) do
 		if type(node) == "string" then
@@ -81,12 +94,15 @@ function NotesTabClass:Load(xml, fileName)
 	self.lastContent = self.controls.edit.buf
 end
 
+---@param xml table
 function NotesTabClass:Save(xml)
 	self:SetShowColorCodes(false)
 	t_insert(xml, self.controls.edit.buf)
 	self.lastContent = self.controls.edit.buf
 end
 
+---@param viewPort Viewport
+---@param inputEvents InputEvent[]
 function NotesTabClass:Draw(viewPort, inputEvents)
 	self.x = viewPort.x
 	self.y = viewPort.y

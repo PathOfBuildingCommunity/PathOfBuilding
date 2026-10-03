@@ -6,9 +6,26 @@
 local ipairs = ipairs
 local t_insert = table.insert
 
----@class PathControl
+---@class PathFolder
+---@field label string
+---@field path string
+---@field button? ButtonControl
+
+---@class PathControl: Control, ControlHost, UndoHandler
+---@field basePath string
+---@field baseName string
+---@field subPath string
+---@field folderList PathFolder[]
+---@field onChange? fun(subPath: string)
+---@field otherDragSource? unknown
 local PathClass = newClass("PathControl", "Control", "ControlHost", "UndoHandler")
 
+---@param anchor? Anchor
+---@param rect? Rect
+---@param basePath string
+---@param subPath? string
+---@param onChange? fun(subPath: string)
+---@return PathControl
 function PathClass:PathControl(anchor, rect, basePath, subPath, onChange)
 	self:Control(anchor, rect)
 	self:ControlHost()
@@ -21,6 +38,8 @@ function PathClass:PathControl(anchor, rect, basePath, subPath, onChange)
 	return self
 end
 
+---@param subPath string
+---@param noUndo? boolean
 function PathClass:SetSubPath(subPath, noUndo)
 	if subPath == self.subPath then
 		return
@@ -63,6 +82,7 @@ function PathClass:SetSubPath(subPath, noUndo)
 	end
 end
 
+---@return boolean|Control?
 function PathClass:IsMouseOver()
 	if not self:IsShown() then
 		return
@@ -70,6 +90,7 @@ function PathClass:IsMouseOver()
 	return self:IsMouseInBounds() or self:GetMouseOverControl()
 end
 
+---@param viewPort Viewport
 function PathClass:Draw(viewPort)
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()
@@ -90,6 +111,9 @@ function PathClass:Draw(viewPort)
 	end
 end
 
+---@param key string
+---@param doubleClick? boolean
+---@return Control?
 function PathClass:OnKeyDown(key, doubleClick)
 	if not self:IsShown() or not self:IsEnabled() then
 		return
@@ -100,11 +124,12 @@ function PathClass:OnKeyDown(key, doubleClick)
 	end
 end
 
+---@return string
 function PathClass:CreateUndoState()
 	return self.subPath
 end
 
+---@param state string
 function PathClass:RestoreUndoState(state)
 	self:SetSubPath(state, true)
 end
-

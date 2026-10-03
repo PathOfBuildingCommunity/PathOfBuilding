@@ -5,14 +5,18 @@
 --
 
 ---@class SectionControl: Control
+---@field label Prop<string>
 local SectionClass = newClass("SectionControl", "Control")
 
+---@param anchor? Anchor
+---@param rect? Rect
+---@param label Prop<string>
+---@return SectionControl
 function SectionClass:SectionControl(anchor, rect, label)
 	self:Control(anchor, rect)
 	self.label = label
 	return self
 end
-
 function SectionClass:Draw()
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()

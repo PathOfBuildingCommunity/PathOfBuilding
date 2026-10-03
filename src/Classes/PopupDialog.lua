@@ -6,8 +6,23 @@
 local m_floor = math.floor
 
 ---@class PopupDialog: ControlHost, Control
+---@field title Prop<string>
+---@field enterControl? string
+---@field escapeControl? string
+---@field scrollBarFunc? fun()
+---@field resizeFunc? fun()
 local PopupDialogClass = newClass("PopupDialog", "ControlHost", "Control")
 
+---@param width number
+---@param height number
+---@param title Prop<string>
+---@param controls table<string, Control>
+---@param enterControl? string
+---@param defaultControl? string
+---@param escapeControl? string
+---@param scrollBarFunc? fun()
+---@param resizeFunc? fun()
+---@return PopupDialog
 function PopupDialogClass:PopupDialog(width, height, title, controls, enterControl, defaultControl,
 									escapeControl, scrollBarFunc, resizeFunc)
 	self:ControlHost()
@@ -41,6 +56,7 @@ function PopupDialogClass:PopupDialog(width, height, title, controls, enterContr
 	return self
 end
 
+---@param viewPort Viewport
 function PopupDialogClass:Draw(viewPort)
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()
@@ -69,6 +85,8 @@ function PopupDialogClass:Draw(viewPort)
 	self:DrawControls(viewPort)
 end
 
+---@param inputEvents InputEvent[]
+---@param viewPort Viewport
 function PopupDialogClass:ProcessInput(inputEvents, viewPort)
 	self:ProcessControlsInput(inputEvents, viewPort)
 	for id, event in ipairs(inputEvents) do

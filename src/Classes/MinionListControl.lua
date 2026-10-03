@@ -8,9 +8,21 @@ local t_insert = table.insert
 local t_remove = table.remove
 local s_format = string.format
 
----@class MinionListControl: ListControl
+---@class MinionListControl: ListControl<string>
+---@field data Data
+---@field dest? MinionListControl
+---@field dragTargetList? ListControl<unknown>[]
+---@field label string
+---@field selIndex? integer
+---@field selValue? string
 local MinionListClass = newClass("MinionListControl", "ListControl")
 
+---@param anchor? Anchor
+---@param rect? Rect
+---@param data Data
+---@param list string[]
+---@param dest? MinionListControl
+---@return MinionListControl
 function MinionListClass:MinionListControl(anchor, rect, data, list, dest)
 	self:ListControl(anchor, rect, 16, "VERTICAL", not dest, list)
 	self.data = data
@@ -42,6 +54,10 @@ function MinionListClass:AddSel()
 	end
 end
 
+---@param column integer
+---@param index integer
+---@param minionId string
+---@return string?
 function MinionListClass:GetRowValue(column, index, minionId)
 	local minion = self.data.minions[minionId]
 	if column == 1 then
@@ -49,6 +65,9 @@ function MinionListClass:GetRowValue(column, index, minionId)
 	end
 end
 
+---@param tooltip Tooltip
+---@param index integer
+---@param minionId string
 function MinionListClass:AddValueTooltip(tooltip, index, minionId)
 	if tooltip:CheckForUpdate(minionId) then
 		local minion = self.data.minions[minionId]
@@ -80,24 +99,39 @@ function MinionListClass:AddValueTooltip(tooltip, index, minionId)
 	end
 end
 
+---@param index integer
+---@param value string
+---@return string dragType
+---@return string minionId
 function MinionListClass:GetDragValue(index, value)
 	return "MinionId", value
 end
 
+---@param type string
+---@param value string
+---@return boolean
 function MinionListClass:CanReceiveDrag(type, value)
 	return type == "MinionId" and not isValueInArray(self.list, value)
 end
 
+---@param type string
+---@param value string
+---@param source? ListControl<unknown>
 function MinionListClass:ReceiveDrag(type, value, source)
 	t_insert(self.list, self.selDragIndex or #self.list + 1, value)
 end
 
+---@param index integer
+---@param minionId string
+---@param doubleClick? boolean
 function MinionListClass:OnSelClick(index, minionId, doubleClick)
 	if doubleClick and self.dest then
 		self:AddSel()
 	end
 end
 
+---@param index integer
+---@param minionId string
 function MinionListClass:OnSelDelete(index, minionId)
 	if not self.dest then
 		t_remove(self.list, index)

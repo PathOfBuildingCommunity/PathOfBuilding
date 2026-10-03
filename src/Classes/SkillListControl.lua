@@ -26,12 +26,17 @@ local slot_map = {
 	["Belt"] 			= { icon = NewImageHandle(), path = "Assets/icon_belt.png" },
 }
 
----@class SkillListControl: ListControl
+---@class SkillListControl: ListControl<table>
+---@field skillsTab SkillsTab
+---@field label string
+---@field selIndex? integer
+---@field selValue? table
 local SkillListClass = newClass("SkillListControl", "ListControl")
 
 ---@param anchor Anchor?
 ---@param rect Rect?
 ---@param skillsTab SkillsTab
+---@return SkillListControl
 function SkillListClass:SkillListControl(anchor, rect, skillsTab)
 	self:ListControl(anchor, rect, 16, "VERTICAL", true, skillsTab.socketGroupList)
 	self.skillsTab = skillsTab
@@ -76,6 +81,10 @@ function SkillListClass:SkillListControl(anchor, rect, skillsTab)
 	return self
 end
 
+---@param column integer
+---@param index integer
+---@param socketGroup table
+---@return string?
 function SkillListClass:GetRowValue(column, index, socketGroup)
 	if column == 1 then
 		local label = socketGroup.displayLabel or "?"
@@ -117,6 +126,9 @@ function SkillListClass:GetRowValue(column, index, socketGroup)
 	end
 end
 
+---@param tooltip Tooltip
+---@param index integer
+---@param socketGroup table
 function SkillListClass:AddValueTooltip(tooltip, index, socketGroup)
 	if not socketGroup.displaySkillList then
 		tooltip:Clear()
@@ -127,6 +139,8 @@ function SkillListClass:AddValueTooltip(tooltip, index, socketGroup)
 	end
 end
 
+---@param selIndex integer
+---@param selDragIndex integer
 function SkillListClass:OnOrderChange(selIndex, selDragIndex)
 	local skillsTabIndex = self.skillsTab.build.mainSocketGroup
 	if skillsTabIndex == selIndex then
@@ -148,16 +162,22 @@ function SkillListClass:OnOrderChange(selIndex, selDragIndex)
 	self.skillsTab.build.buildFlag = true
 end
 
+---@param index integer
+---@param socketGroup table
 function SkillListClass:OnSelect(index, socketGroup)
 	self.skillsTab:SetDisplayGroup(socketGroup)
 end
 
+---@param index integer
+---@param socketGroup table
 function SkillListClass:OnSelCopy(index, socketGroup)
 	if not socketGroup.source then	
 		self.skillsTab:CopySocketGroup(socketGroup)
 	end
 end
 
+---@param index integer
+---@param socketGroup table
 function SkillListClass:OnSelDelete(index, socketGroup)
 	local function updateActiveSocketGroupIndex()
 		local skillsTabIndex = self.skillsTab.build.mainSocketGroup
@@ -196,6 +216,7 @@ function SkillListClass:OnSelDelete(index, socketGroup)
 	end
 end
 
+---@param key string
 function SkillListClass:OnHoverKeyUp(key)
 	local item = self.ListControl:GetHoverValue()
 	if item then
@@ -234,10 +255,15 @@ function SkillListClass:OnHoverKeyUp(key)
 end
 
 
+---@param viewPort Viewport
 function SkillListClass:Draw(viewPort)
 	self.ListControl.Draw(self, viewPort)
 end
 
+---@param column integer
+---@param index integer
+---@param socketGroup table
+---@return ImageHandle?
 function SkillListClass:GetRowIcon(column, index, socketGroup)
 	if column == 1 then
 		local slot = socketGroup.slot

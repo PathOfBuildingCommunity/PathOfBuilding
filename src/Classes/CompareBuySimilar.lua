@@ -10,6 +10,7 @@ local tradeHelpers = require("Classes.TradeHelpers")
 
 -- used to check what stats actually exist on the trade site
 local _existingStats
+---@return table<string, boolean>
 local function getStats()
 	if _existingStats then return _existingStats end
 	_existingStats = {}
@@ -21,7 +22,43 @@ local function getStats()
 	return _existingStats
 end
 
+---@class CompareBuySimilar
 local M = {}
+
+---@class CompareBuySimilarTradeFilterValue
+---@field min? number
+---@field max? number
+---@field option? string|number
+
+---@class CompareBuySimilarTradeFilter
+---@field id string
+---@field value? CompareBuySimilarTradeFilterValue
+
+---@class CompareBuySimilarDefenceEntry
+---@field label string
+---@field value number
+---@field tradeKey string
+
+---@class CompareBuySimilarModTypeSource
+---@field list? ModLine[]
+---@field type string
+
+---@class CompareBuySimilarModEntry
+---@field formattedLines string[]
+---@field type string
+---@field isOption boolean
+---@field invert boolean
+---@field tradeIds string[]
+---@field value? string|number
+---@field needsExactValue? boolean
+
+---@class CompareBuySimilarControls: table<string, Control>
+---@field ilvlMin EditControl
+---@field ilvlMax EditControl
+---@field baseTypeCheck CheckBoxControl
+---@field listedDrop DropDownControl<any>
+---@field realmDrop DropDownControl<any>
+---@field leagueDrop DropDownControl<any>
 
 -- Realm display name to API id mapping
 local REALM_API_IDS = {
@@ -44,6 +81,13 @@ end
 
 
 -- Build the trade search URL based on popup selections
+---@param item Item
+---@param slotName string
+---@param controls CompareBuySimilarControls
+---@param modEntries CompareBuySimilarModEntry[]
+---@param defenceEntries CompareBuySimilarDefenceEntry[]
+---@param isUnique boolean
+---@return string
 local function buildURL(item, slotName, controls, modEntries, defenceEntries, isUnique)
 	-- Determine realm and league from the popup's dropdowns
 	local realmDisplayValue = controls.realmDrop and controls.realmDrop:GetSelValue() or "PC"
@@ -143,6 +187,8 @@ local function buildURL(item, slotName, controls, modEntries, defenceEntries, is
 	-- Mod filters
 	for i, entry in ipairs(modEntries) do
 		local prefix = "mod" .. i
+		---@param tradeId string
+		---@return CompareBuySimilarTradeFilter
 		local function getFilter(tradeId)
 			local filter = { id = tradeId }
 			if entry.isOption then
@@ -205,15 +251,16 @@ local function buildURL(item, slotName, controls, modEntries, defenceEntries, is
 	return url
 end
 
----@param item any
----@param modTypeSources ModTypeSources
----@return table[] entries mod entries used in buy similar popup
+---@param item Item
+---@param modTypeSources CompareBuySimilarModTypeSource[]
+---@return CompareBuySimilarModEntry[] entries mod entries used in buy similar popup
 function M.addModEntries(item, modTypeSources)
 	local modEntries = {}
 	-- this adds a single aggregated entry for matching stats (e.g. transformed flat dmg mods) which
 	-- avoids issues with confusing results. mods with different types are not summed as e.g.
 	-- implicit and explicit mods are separate in the search. options are also avoided as they don't
 	-- represent values that can be added combined
+	---@param entry CompareBuySimilarModEntry
 	local function insertOrAddToExisting(entry)
 		for _, existingFilter in ipairs(modEntries) do
 			-- check if all result trade ids are equal
@@ -282,6 +329,9 @@ function M.addModEntries(item, modTypeSources)
 	return modEntries
 end
 -- Open the Buy Similar popup for a compared item
+---@param item Item
+---@param slotName string
+---@param primaryBuild Build
 function M.openPopup(item, slotName, primaryBuild)
 	if not item then return end
 
@@ -297,7 +347,7 @@ function M.openPopup(item, slotName, primaryBuild)
 	local fieldH = 20
 	local checkboxSize = 20
 
-	---@class ModTypeSources
+	---@type CompareBuySimilarModTypeSource[]
 	local modTypeSources = {
 		{ list = item.enchantModLines,  type = "enchant" },
 		{ list = item.implicitModLines, type = "implicit" },
@@ -347,6 +397,7 @@ function M.openPopup(item, slotName, primaryBuild)
 		uri = result
 	end
 	-- Helper to fetch and populate leagues for a given realm API id
+	---@param realmApiId string
 	local function fetchLeaguesForRealm(realmApiId)
 		local lastLeague = M.lastLeagueByRealm and M.lastLeagueByRealm[realmApiId]
 		controls.leagueDrop:SetList({"Loading..."})

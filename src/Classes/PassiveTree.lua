@@ -36,6 +36,8 @@ local legacyOrbitRadii = { 0, 82, 162, 335, 493 }
 -- Retrieve the file at the given URL
 -- This is currently disabled as it does not work due to issues
 -- its possible to fix this but its never used due to us performing preprocessing on tree
+---@param URL string
+---@return string|false
 local function getFile(URL)
 	local page = ""
 	local easy = common.curl.easy()
@@ -57,9 +59,108 @@ end
 ---@field background any
 ---@field isProxy boolean?
 
+---@class PassiveTreeSpriteSheet
+---@field handle ImageHandle
+---@field width number
+---@field height number
+
+---@class MasteryEffect
+---@field effect integer
+---@field stats string[]
+---@field reminderText? string[]
+---@field sd? string[]
+
+---@class (partial) Node A passive tree node. Declared across PassiveTree.lua/PassiveSpec.lua with `(partial)`, so declarations merge.
+---@field id integer
+---@field dn string Display name
+---@field sd string[] Stat description lines
+---@field type "ClassStart"|"AscendClassStart"|"Mastery"|"Socket"|"Keystone"|"Notable"|"Normal"
+---@field g? integer Raw group id (pre-migration; use `group` afterwards)
+---@field o integer Orbit index
+---@field oidx integer Index within the orbit
+---@field group? PassiveTreeGroup
+---@field x? number
+---@field y? number
+---@field angle? number
+---@field alloc? boolean
+---@field linked Node[]
+---@field linkedId integer[]
+---@field power table<unknown, unknown>
+---@field mods? table<integer, { list: table, extra?: boolean, combined?: boolean }>
+---@field modList? ModList
+---@field modKey? string
+---@field depends Node[]
+---@field path? Node[]
+---@field pathDist? number
+---@field distanceToClassStart? number
+---@field visited? boolean
+---@field connectedToStart? boolean
+---@field name string
+---@field ascendancyName? string
+---@field reminderText? string[]
+---@field classStartIndex? integer
+---@field masteryCache? Node
+---@field isAscendancyStart? boolean
+---@field isMastery? boolean
+---@field isMultipleChoiceOption? boolean
+---@field isJewelSocket? boolean
+---@field isProxy? boolean
+---@field isTattoo? boolean
+---@field isKeystone? boolean
+---@field isNotable? boolean
+---@field isSocket? boolean
+---@field isBlighted? boolean
+---@field m? boolean
+---@field masteryEffects? MasteryEffect[]
+---@field allMasteryOptions? boolean
+---@field overrideType? string
+---@field recipe? string[]
+---@field icon? string
+---@field activeIcon? string
+---@field inactiveIcon? string
+---@field startArt? string
+---@field overlay? table
+---@field rsq? number
+---@field size? number
+---@field sprites? table
+---@field masterySprites? table
+---@field effectSprites? table
+---@field activeEffectImage? string
+---@field bloodlineOverlayPrefix? string
+---@field expansionJewel? { parent?: integer, size: integer, index: integer, proxy: string|integer }
+---@field conqueredBy? ConqueredBy
+---@field attrib? table
+---@field elem? unknown
+---@field extra? unknown
+---@field charmSocket? boolean
+---@field flavourText? string[]
+---@field keystoneMod? unknown
+---@field ks? unknown
+---@field skill? integer
+---@field spc? table<integer, integer>
+---@field orbit? integer
+---@field orbitIndex? integer
+---@field passivePointsGranted? integer
+---@field grantedPassivePoints? integer
+---@field stats? string[]
+---@field expansionSkill? boolean
+---@field targetType? string
+---@field targetValue? unknown
+---@field modKey2? string
+---@field nodesInRadius? table
+---@field weight2? number
+---@field sortedStats? table
+---@field modList2? table
+---@field __index? table
+---@field unknown? unknown
+---@field out? unknown
+---@field MinimumConnected? unknown
+---@field divisor? number
+---@field intuitiveLeapLikesAffecting Node[]
+
 ---@class PassiveTree
----@field classes any[] A list of classes on the tree
----@field alternate_ascendancies any[]?
+---@field classes table[] A list of classes on the tree
+---@field alternate_ascendancies table[]?
 ---@field tree "Default"|"DefaultAltAscendancies"
 ---@field groups PassiveTreeGroup[]
 ---@field nodes table<"root"|integer, Node>
@@ -68,10 +169,30 @@ end
 ---@field min_y integer
 ---@field max_x integer
 ---@field max_y integer
----@field constants table<string, any>
+---@field constants table<string, unknown>
 ---@field points table<string, integer>
+---@field treeVersion string
+---@field size number
+---@field sockets table<integer, Node>
+---@field connectors table[]
+---@field orbitRadii number[]
+---@field skillsPerOrbit integer[]
+---@field masteryEffects table<integer, Node>
+---@field assets table<string, unknown>
+---@field legion table
+---@field tattoo table
+---@field classNameMap table<string, integer>
+---@field ascendNameMap table<string, table>
+---@field secondaryAscendNameMap? table<string, table>
+---@field internalAscendNameMap table<string, table>
+---@field classNotables table
+---@field orbitAnglesByOrbit table<integer, number[]>
+---@field spriteMap table<string, table>
+---@field bloodlineSpritePrefixes? table<string, string>
 local PassiveTreeClass = newClass("PassiveTree")
 
+---@param treeVersion string
+---@return PassiveTree
 function PassiveTreeClass:PassiveTree(treeVersion)
 	self.treeVersion = treeVersion
 	local versionNum = treeVersions[treeVersion].num
@@ -388,6 +509,8 @@ function PassiveTreeClass:PassiveTree(treeVersion)
 
 	-- Load legion sprite sheets and build sprite map
 	local legionSprites = require("TreeData.legion.tree-legion")
+	---@param data { filename: string }
+	---@return PassiveTreeSpriteSheet
 	local function loadLegionSheet(data)
 		local sheet = spriteSheets[data.filename]
 		if not sheet then
@@ -519,7 +642,6 @@ function PassiveTreeClass:PassiveTree(treeVersion)
 	self.masteryEffects = { }
 	local nodeMap = { }
 	for _, n in pairs(self.nodes) do
-		---@class Node
 		local node = n
 		-- Migration...
 		if versionNum < 3.10 then
@@ -558,7 +680,8 @@ function PassiveTreeClass:PassiveTree(treeVersion)
 			if node.masteryEffects then
 				for _, effect in pairs(node.masteryEffects) do
 					if not self.masteryEffects[effect.effect] then
-						self.masteryEffects[effect.effect] = { id = effect.effect, sd = effect.stats }
+						---@diagnostic disable-next-line: missing-fields
+						self.masteryEffects[effect.effect] = { id = effect.effect, sd = effect.stats } --[[@as Node]] -- minimal stand-in; only sd/mods/modList/modKey are used by ProcessStats
 						self:ProcessStats(self.masteryEffects[effect.effect])
 					else
 						-- Copy multiline stats from an earlier ProcessStats call
@@ -792,6 +915,8 @@ function PassiveTreeClass:PassiveTree(treeVersion)
 	return self
 end
 
+---@param node Node
+---@param startIndex? integer
 function PassiveTreeClass:ProcessStats(node, startIndex)
 	startIndex = startIndex or 1
 	if startIndex == 1 then
@@ -872,6 +997,7 @@ function PassiveTreeClass:ProcessStats(node, startIndex)
 end
 
 -- Common processing code for nodes (used for both real tree nodes and subgraph nodes)
+---@param node Node
 function PassiveTreeClass:ProcessNode(node)
 	-- Assign node artwork assets
 	if node.type == "Mastery" and node.masteryEffects then
@@ -906,6 +1032,10 @@ function PassiveTreeClass:ProcessNode(node)
 end
 
 -- Checks if a given image is present and downloads it from the given URL if it isn't there
+---@param imgName string
+---@param url string
+---@param data table<number|string, unknown> @Asset metadata table updated with handle, width, and height fields.
+---@param ... unknown
 function PassiveTreeClass:LoadImage(imgName, url, data, ...)
 	local imgFile = io.open("TreeData/"..imgName, "r")
 	if imgFile then
@@ -933,6 +1063,9 @@ function PassiveTreeClass:LoadImage(imgName, url, data, ...)
 end
 
 -- Generate the quad used to render the line between the two given nodes
+---@param node1 Node
+---@param node2 Node
+---@return table[]
 function PassiveTreeClass:BuildConnector(node1, node2)
 	local connector = {
 		ascendancyName = node1.ascendancyName,
@@ -996,6 +1129,10 @@ function PassiveTreeClass:BuildConnector(node1, node2)
 	return { connector }
 end
 
+---@param arcAngle number
+---@param node1 Node
+---@param connector table
+---@param isMirroredArc? boolean
 function PassiveTreeClass:BuildArc(arcAngle, node1, connector, isMirroredArc)
 	connector.type = "Orbit" .. node1.o
 	-- This is an arc texture mapped onto a kite-shaped quad
@@ -1038,6 +1175,8 @@ function PassiveTreeClass:BuildArc(arcAngle, node1, connector, isMirroredArc)
 	connector.c[15], connector.c[16] = p, 0
 end
 
+---@param nodesInOrbit integer
+---@return number[]
 function PassiveTreeClass:CalcOrbitAngles(nodesInOrbit)
 	local orbitAngles = {}
 

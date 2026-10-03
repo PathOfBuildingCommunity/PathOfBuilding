@@ -12,16 +12,34 @@ local m_floor = math.floor
 local m_huge = math.huge
 local s_format = string.format
 
----@param node table
----@return boolean
+---@param node Node
+---@return boolean?
 local function IsAnointableNode(node)
 	return node.recipe and #node.recipe >= 1
 end
 
----@class NotableDBControl : ListControl
+---@class NotableDBControl : ListControl<Node>
+---@field itemsTab ItemsTab
+---@field db table<"root"|integer, Node>
+---@field dbType string
+---@field dragTargetList ListControl<unknown>[]
+---@field sortControl table<string, table>
+---@field sortDropList table[]
+---@field sortMode string
+---@field sortOrder table[]
+---@field sortMaxPower number
+---@field sortDetail? PowerStat|table
+---@field listBuildFlag boolean
+---@field listBuilder? thread
+---@field listOutputRevision? integer
 local NotableDBClass = newClass("NotableDBControl", "ListControl")
 
+---@param anchor? Anchor
+---@param rect? Rect
 ---@param itemsTab ItemsTab
+---@param db table<"root"|integer, Node>
+---@param dbType string
+---@return NotableDBControl
 function NotableDBClass:NotableDBControl(anchor, rect, itemsTab, db, dbType)
 	self:ListControl(anchor, rect, 16, "VERTICAL", false)
 	self.itemsTab = itemsTab
@@ -49,7 +67,7 @@ function NotableDBClass:NotableDBControl(anchor, rect, itemsTab, db, dbType)
 	return self
 end
 
----@param node table @The notable node to check
+---@param node Node @The notable node to check
 ---@return boolean @Whether the notable matches the type and search filters.
 function NotableDBClass:DoesNotableMatchFilters(node)
 	if not IsAnointableNode(node) then
@@ -82,7 +100,7 @@ function NotableDBClass:DoesNotableMatchFilters(node)
 	return true
 end
 
----@param sortMode table
+---@param sortMode string
 function NotableDBClass:SetSortMode(sortMode)
 	self.sortMode = sortMode
 	self:BuildSortOrder()
@@ -114,6 +132,10 @@ function NotableDBClass:BuildSortOrder()
 	t_insert(self.sortOrder, self.sortControl.NAME)
 end
 
+---@param selection PowerStat
+---@param original number
+---@param modified number
+---@return number
 function NotableDBClass:CalculatePowerStat(selection, original, modified)
 	local originalValue = data.powerStatList.GetFromOutput(original, selection)
 	local modifiedValue = data.powerStatList.GetFromOutput(modified, selection)
@@ -189,7 +211,7 @@ function NotableDBClass:ListBuilder()
 	self.defaultText = "^7No notables found that match those filters."
 end
 
----@param viewPort table<string, number>
+---@param viewPort Viewport
 function NotableDBClass:Draw(viewPort)
 	if self.itemsTab.build.outputRevision ~= self.listOutputRevision then
 		self.listBuildFlag = true
@@ -212,10 +234,10 @@ function NotableDBClass:Draw(viewPort)
 	self.ListControl.Draw(self, viewPort)
 end
 
----@param column number
----@param index number
----@param node table
----@return string
+---@param column integer
+---@param index integer
+---@param node Node
+---@return string?
 function NotableDBClass:GetRowValue(column, index, node)
 	if column == 1 then
 		if self.sortDetail and self.sortDetail.stat then
@@ -234,8 +256,8 @@ function NotableDBClass:GetRowValue(column, index, node)
 end
 
 ---@param tooltip Tooltip
----@param index number
----@param node table
+---@param index integer
+---@param node Node
 function NotableDBClass:AddValueTooltip(tooltip, index, node)
 	local dropdownDropped = self.controls.type and self.controls.type.dropped or self.controls.sort.dropped or self.controls.searchMode.dropped
 	if dropdownDropped or (main.popups[1] and main.popups[1].title ~= "Anoint Item") then
@@ -274,21 +296,23 @@ function NotableDBClass:AddValueTooltip(tooltip, index, node)
 	end
 end
 
----@param index number
----@param node table
+---@param index integer
+---@param node Node
+---@return string
+---@return Node
 function NotableDBClass:GetDragValue(index, node)
 	return "Node", node
 end
 
----@param index number
----@param node table
----@param doubleClick boolean
+---@param index integer
+---@param node Node
+---@param doubleClick? boolean
 function NotableDBClass:OnSelClick(index, node, doubleClick)
 	-- Do nothing
 end
 
----@param index number
----@param node table
+---@param index integer
+---@param node Node
 function NotableDBClass:OnSelCopy(index, node)
-	Copy(item.dn)
+	Copy(node.dn)
 end

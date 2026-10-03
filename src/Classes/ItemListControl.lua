@@ -7,13 +7,20 @@ local pairs = pairs
 local ipairs = ipairs
 local t_insert = table.insert
 
----@class ItemListControl: ListControl
+---@class ItemListControl: ListControl<integer>
+---@field itemsTab ItemsTab
+---@field defaultText string
+---@field dragTargetList ListControl<unknown>[]
+---@field isMutable boolean
+---@field loadoutListKey? string
+---@field lastOutputRevision? integer
 local ItemListClass = newClass("ItemListControl", "ListControl")
 
 ---@param anchor Anchor?
 ---@param rect Rect?
 ---@param itemsTab ItemsTab
----@param forceTooltip boolean?
+---@param forceTooltip? boolean
+---@return ItemListControl
 function ItemListClass:ItemListControl(anchor, rect, itemsTab, forceTooltip)
 	self:ListControl(anchor, rect, 16, "VERTICAL", true, itemsTab.itemOrderList, forceTooltip)
 	self.itemsTab = itemsTab
@@ -82,6 +89,7 @@ function ItemListClass:ItemListControl(anchor, rect, itemsTab, forceTooltip)
 	return self
 end
 
+---@return boolean changed
 function ItemListClass:UpdateLoadoutList()
 	local list = { "Any Loadout", "Current Loadout", "Unused Items" }
 	local listValues = { ["Any Loadout"] = true, ["Current Loadout"] = true, ["Unused Items"] = true }
@@ -193,6 +201,7 @@ function ItemListClass:UpdateList()
 	self.selValue = self.selIndex and self.list[self.selIndex] or nil
 end
 
+---@param viewPort Viewport
 function ItemListClass:Draw(viewPort)
 	local loadoutListChanged = self:UpdateLoadoutList()
 	local outputRevision = self.itemsTab.build and self.itemsTab.build.outputRevision
@@ -203,6 +212,9 @@ function ItemListClass:Draw(viewPort)
 	self.ListControl.Draw(self, viewPort)
 end
 
+---@param jewelId integer
+---@param excludeActiveSpec? boolean
+---@return string?
 function ItemListClass:FindSocketedJewel(jewelId, excludeActiveSpec)
 	if not self.itemsTab.items[jewelId] or self.itemsTab.items[jewelId].type ~= "Jewel" then
 		return nil
@@ -226,6 +238,9 @@ function ItemListClass:FindSocketedJewel(jewelId, excludeActiveSpec)
 	return equipTree
 end
 
+---@param jewelId integer
+---@param excludeActiveSet? boolean
+---@return string?
 function ItemListClass:FindEquippedAbyssJewel(jewelId, excludeActiveSet)
 	if not self.itemsTab.items[jewelId] or self.itemsTab.items[jewelId].base.subType ~= "Abyss" then
 		return nil
@@ -247,6 +262,10 @@ function ItemListClass:FindEquippedAbyssJewel(jewelId, excludeActiveSet)
 	return equipSet
 end
 
+---@param column integer
+---@param index integer
+---@param itemId integer
+---@return string?
 function ItemListClass:GetRowValue(column, index, itemId)
 	local item = self.itemsTab.items[itemId]
 	if column == 1 then
@@ -265,6 +284,9 @@ function ItemListClass:GetRowValue(column, index, itemId)
 	end
 end
 
+---@param tooltip Tooltip
+---@param index integer
+---@param itemId integer
 function ItemListClass:AddValueTooltip(tooltip, index, itemId)
 	if main.popups[1] then
 		tooltip:Clear()
@@ -276,10 +298,17 @@ function ItemListClass:AddValueTooltip(tooltip, index, itemId)
 	end
 end
 
+---@param index integer
+---@param itemId integer
+---@return string
+---@return Item?
 function ItemListClass:GetDragValue(index, itemId)
 	return "Item", self.itemsTab.items[itemId]
 end
 
+---@param type string
+---@param value Item
+---@param source? ListControl<unknown>
 function ItemListClass:ReceiveDrag(type, value, source)
 	if type == "Item" then
 		local newItem = new("Item"):Item(value.raw)
@@ -296,6 +325,10 @@ function ItemListClass:OnOrderChange()
 	self.itemsTab:AddUndoState()
 end
 
+---@param index integer
+---@param itemId integer
+---@param doubleClick? boolean
+---@return boolean?
 function ItemListClass:OnSelClick(index, itemId, doubleClick)
 	local item = self.itemsTab.items[itemId]
 	if IsKeyDown("CTRL") then
@@ -332,11 +365,15 @@ function ItemListClass:OnSelClick(index, itemId, doubleClick)
 	end
 end
 
+---@param index integer
+---@param itemId integer
 function ItemListClass:OnSelCopy(index, itemId)
 	local item = self.itemsTab.items[itemId]
 	Copy(item:BuildRaw():gsub("\n", "\r\n"))
 end
 
+---@param index integer
+---@param itemId integer
 function ItemListClass:OnSelDelete(index, itemId)
 	local item = self.itemsTab.items[itemId]
 	local equipSlot, equipSet = self.itemsTab:GetEquippedSlotForItem(item)
@@ -377,6 +414,7 @@ function ItemListClass:OnSelDelete(index, itemId)
 	end
 end
 
+---@param key string
 function ItemListClass:OnHoverKeyUp(key)
 	if itemLib.wiki.matchesKey(key) then
 		local itemId = self.ListControl:GetHoverValue()

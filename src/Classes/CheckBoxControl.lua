@@ -4,8 +4,22 @@
 -- Basic check box control.
 --
 ---@class CheckBoxControl: Control, TooltipHost
+---@field label? Prop<string>
+---@field labelWidth number
+---@field labelRight boolean
+---@field changeFunc? fun(state: boolean)
+---@field state boolean
+---@field clicked? boolean
+---@field borderFunc? fun(): number, number, number
 local CheckBoxClass = newClass("CheckBoxControl", "Control", "TooltipHost")
 
+---@param anchor? Anchor
+---@param rect Rect
+---@param label? Prop<string>
+---@param changeFunc? fun(state: boolean)
+---@param tooltipText? Prop<string>
+---@param initialState? boolean
+---@return CheckBoxControl
 function CheckBoxClass:CheckBoxControl(anchor, rect, label, changeFunc, tooltipText, initialState)
 	rect[4] = rect[3] or 0
 	self:Control(anchor, rect)
@@ -18,6 +32,7 @@ function CheckBoxClass:CheckBoxControl(anchor, rect, label, changeFunc, tooltipT
 	return self
 end
 
+---@return boolean
 function CheckBoxClass:IsMouseOver()
 	if not self:IsShown() then
 		return false
@@ -37,6 +52,8 @@ function CheckBoxClass:IsMouseOver()
 	return cursorX >= x and cursorY >= y and cursorX < x + width and cursorY < y + height
 end
 
+---@param viewPort Viewport
+---@param noTooltip? boolean
 function CheckBoxClass:Draw(viewPort, noTooltip)
 	local x, y = self:GetPos()
 	local size = self.width
@@ -91,6 +108,8 @@ function CheckBoxClass:Draw(viewPort, noTooltip)
 	end
 end
 
+---@param key string
+---@return CheckBoxControl?
 function CheckBoxClass:OnKeyDown(key)
 	if not self:IsShown() or not self:IsEnabled() then
 		return
@@ -101,6 +120,7 @@ function CheckBoxClass:OnKeyDown(key)
 	return self
 end
 
+---@param key string
 function CheckBoxClass:OnKeyUp(key)
 	if not self:IsShown() or not self:IsEnabled() then
 		return

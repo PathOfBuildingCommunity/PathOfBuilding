@@ -18,14 +18,18 @@ local bor = bit.bor
 local mod_createMod = modLib.createMod
 
 ---@class ModDB: ModStore
+---@field mods table<string, Mod[]>
 local ModDBClass = newClass("ModDB", "ModStore")
 
+---@param parent? ModStore
+---@return ModDB
 function ModDBClass:ModDB(parent)
 	self:ModStore(parent)
 	self.mods = { }
 	return self
 end
 
+---@param mod Mod
 function ModDBClass:AddMod(mod)
 	local name = mod.name
 	if not self.mods[name] then
@@ -37,7 +41,7 @@ end
 ---ReplaceModInternal
 ---  Replaces an existing matching mod with a new mod.
 ---  If no matching mod exists, then the function returns false
----@param mod table
+---@param mod Mod
 ---@return boolean @Whether any mod was replaced
 function ModDBClass:ReplaceModInternal(mod)
 	local name = mod.name
@@ -75,7 +79,7 @@ end
 ---  Moves the mod from the old name's bucket to the new name's bucket.
 ---  If no matching mod exists, then the function returns false
 ---@param oldName string @The name of the existing mod to find
----@param mod table @The new mod to replace it with
+---@param mod Mod @The new mod to replace it with
 ---@return boolean @Whether any mod was converted
 function ModDBClass:ConvertModInternal(oldName, mod)
 	if not self.mods[oldName] then
@@ -109,6 +113,7 @@ function ModDBClass:ConvertModInternal(oldName, mod)
 	return false
 end
 
+---@param modList Mod[]
 function ModDBClass:AddList(modList)
 	local mods = self.mods
 	for i, mod in ipairs(modList) do
@@ -120,6 +125,7 @@ function ModDBClass:AddList(modList)
 	end
 end
 
+---@param modDB ModDB|ModList
 function ModDBClass:AddDB(modDB)
 	local mods = self.mods
 	for modName, modList in pairs(modDB.mods) do
@@ -133,7 +139,16 @@ function ModDBClass:AddDB(modDB)
 	end
 end
 
+---@param context ModStore
+---@param modType NumericModTypes|string
+---@param cfg? ModCfg
+---@param flags integer
+---@param keywordFlags integer
+---@param source? string
+---@param ... string
+---@return number
 function ModDBClass:SumInternal(context, modType, cfg, flags, keywordFlags, source, ...)
+	---@type number
 	local result = 0
 	local globalLimits
 	for i = 1, select('#', ...) do
@@ -156,22 +171,31 @@ function ModDBClass:SumInternal(context, modType, cfg, flags, keywordFlags, sour
 		end
 	end
 	if self.parent then
-		result = result + self.parent:SumInternal(context, modType, cfg, flags, keywordFlags, source, ...)
+		result = result + (self.parent:SumInternal(context, modType, cfg, flags, keywordFlags, source, ...) or 0)
 	end
-	return result
+	return tonumber(result) or 0
 end
 
+---@param context ModStore
+---@param cfg? ModCfg
+---@param flags integer
+---@param keywordFlags integer
+---@param source? string
+---@param ... string
+---@return number
 function ModDBClass:MoreInternal(context, cfg, flags, keywordFlags, source, ...)
+	---@type number
 	local result = 1
 	local modPrecision = nil
 	local globalLimits
 	for i = 1, select('#', ...) do
 		local modList = self.mods[select(i, ...)]
+		---@type number
 		local modResult = 1 --The more multipliers for each mod are computed to the nearest percent then applied.
 		if modList then
 			for i = 1, #modList do
 				local mod = modList[i]
-				if mod.type == "MORE" and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.source:match("[^:]+") == source) then
+				if mod.type == "MORE" and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or (mod.source and mod.source:match("[^:]+") == source)) then
 					local value
 					if mod[1] then
 						if not globalLimits then
@@ -198,18 +222,25 @@ function ModDBClass:MoreInternal(context, cfg, flags, keywordFlags, source, ...)
 		end
 	end
 	if self.parent then
-		result = result * self.parent:MoreInternal(context, cfg, flags, keywordFlags, source, ...)
+		result = result * (self.parent:MoreInternal(context, cfg, flags, keywordFlags, source, ...) or 1)
 	end
-	return result
+	return tonumber(result) or 1
 end
 
+---@param context ModStore
+---@param cfg? ModCfg
+---@param flags integer
+---@param keywordFlags integer
+---@param source? string
+---@param ... string
+---@return boolean?
 function ModDBClass:FlagInternal(context, cfg, flags, keywordFlags, source, ...)
 	for i = 1, select('#', ...) do
 		local modList = self.mods[select(i, ...)]
 		if modList then
 			for i = 1, #modList do
 				local mod = modList[i]
-				if mod.type == "FLAG" and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.source:match("[^:]+") == source) then
+				if mod.type == "FLAG" and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or (mod.source and mod.source:match("[^:]+") == source)) then
 					if mod[1] then
 						if context:EvalMod(mod, cfg) then
 							return true
@@ -226,13 +257,20 @@ function ModDBClass:FlagInternal(context, cfg, flags, keywordFlags, source, ...)
 	end
 end
 
+---@param context ModStore
+---@param cfg? ModCfg
+---@param flags integer
+---@param keywordFlags integer
+---@param source? string
+---@param ... string
+---@return unknown
 function ModDBClass:OverrideInternal(context, cfg, flags, keywordFlags, source, ...)
 	for i = 1, select('#', ...) do
 		local modList = self.mods[select(i, ...)]
 		if modList then
 			for i = 1, #modList do
 				local mod = modList[i]
-				if mod.type == "OVERRIDE" and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.source:match("[^:]+") == source) then
+				if mod.type == "OVERRIDE" and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or (mod.source and mod.source:match("[^:]+") == source)) then
 					if mod[1] then
 						local value = context:EvalMod(mod, cfg)
 						if value then
@@ -250,13 +288,20 @@ function ModDBClass:OverrideInternal(context, cfg, flags, keywordFlags, source, 
 	end
 end
 
+---@param context ModStore
+---@param result unknown[]
+---@param cfg? ModCfg
+---@param flags integer
+---@param keywordFlags integer
+---@param source? string
+---@param ... string
 function ModDBClass:ListInternal(context, result, cfg, flags, keywordFlags, source, ...)
 	for i = 1, select('#', ...) do
 		local modList = self.mods[select(i, ...)]
 		if modList then
 			for i = 1, #modList do
 				local mod = modList[i]
-				if mod.type == "LIST" and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.source:match("[^:]+") == source) then
+				if mod.type == "LIST" and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or (mod.source and mod.source:match("[^:]+") == source)) then
 					local value
 					if mod[1] then
 						local value = context:EvalMod(mod, cfg) or nullValue
@@ -275,6 +320,14 @@ function ModDBClass:ListInternal(context, result, cfg, flags, keywordFlags, sour
 	end
 end
 
+---@param context ModStore
+---@param result { value: unknown, mod: Mod }[]
+---@param modType? NumericModTypes|string
+---@param cfg? ModCfg
+---@param flags integer
+---@param keywordFlags integer
+---@param source? string
+---@param ... string
 function ModDBClass:TabulateInternal(context, result, modType, cfg, flags, keywordFlags, source, ...)
 	local globalLimits
 	for i = 1, select('#', ...) do
@@ -283,7 +336,7 @@ function ModDBClass:TabulateInternal(context, result, modType, cfg, flags, keywo
 		if modList then
 			for i = 1, #modList do
 				local mod = modList[i]
-				if (mod.type == modType or not modType) and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.source:match("[^:]+") == source) then
+				if (mod.type == modType or not modType) and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or (mod.source and mod.source:match("[^:]+") == source)) then
 					local value
 					if mod[1] then
 						if not globalLimits then
@@ -307,18 +360,19 @@ end
 
 ---HasModInternal
 ---  Checks if a mod exists with the given properties
----@param modType string @The type of the mod, e.g. "BASE"
----@param flags number @The mod flags to match
----@param keywordFlags number @The mod keyword flags to match
----@param source string @The mod source to match
----@return boolean @true if the mod is found, false otherwise.
+---@param modType NumericModTypes|string @The type of the mod, e.g. "BASE"
+---@param flags integer @The mod flags to match
+---@param keywordFlags integer @The mod keyword flags to match
+---@param source? string @The mod source to match
+---@param ... string
+---@return boolean @True if a matching mod is found, false otherwise.
 function ModDBClass:HasModInternal(modType, flags, keywordFlags, source, ...)
 	for i = 1, select('#', ...) do
 		local modList = self.mods[select(i, ...)]
 		if modList then
 			for i = 1, #modList do
 				local mod = modList[i]
-				if mod.type == modType and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or mod.source:match("[^:]+") == source) then
+				if mod.type == modType and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or (mod.source and mod.source:match("[^:]+") == source)) then
 					return true
 				end
 			end
