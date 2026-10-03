@@ -1626,6 +1626,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 				crafted = true,
 				implicit = true,
 				enchant = true,
+				addedFromBase = true,
 				extra = extra,
 				modList = modList or { },
 				modTags = self.base.enchantModTypes and self.base.enchantModTypes[enchantIndex] or { },

@@ -1254,11 +1254,13 @@ function ItemsTabClass:Load(xml, dbFileName)
 					-- Maybe it is? Maybe it isn't? Maybe up is down? Maybe good is bad? AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 					-- Sorry, cluster jewels are making me crazy(-ier)
 					for _, list in ipairs{item.buffModLines, item.enchantModLines, item.scourgeModLines, item.implicitModLines, item.explicitModLines, item.crucibleModLines} do
-						if id <= #list then
+						-- Enchants added from the base data were not in the saved item text, so saved ids skip them
+						local savedLineCount = list[1] and list[1].addedFromBase and 0 or #list
+						if id <= savedLineCount then
 							list[id].range = range
 							break
 						end
-						id = id - #list
+						id = id - savedLineCount
 					end
 				end
 			end
