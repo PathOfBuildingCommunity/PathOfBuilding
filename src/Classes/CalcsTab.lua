@@ -492,9 +492,10 @@ function CalcsTabClass:BuildPower()
 	end
 end
 
--- Nodes with the same modKey can still calculate differently, as radius jewels only apply to the nodes in their radius
+-- Nodes with the same modKey can still calculate differently: radius jewels only apply to the nodes in their radius,
+-- and tattoos are counted by type and boosted by jewels such as Warrior's Tale
 local function powerCacheKey(env, node)
-	local key = node.modKey .. "|" .. node.type
+	local key = node.modKey .. "|" .. node.type .. (node.isTattoo and "|" .. tostring(node.overrideType) or "")
 	for index, rad in ipairs(env.radiusJewelList) do
 		if rad.nodes[node.id] then
 			key = key .. "|" .. index
