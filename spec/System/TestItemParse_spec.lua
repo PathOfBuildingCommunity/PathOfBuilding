@@ -54,6 +54,50 @@ describe("TestItemParse", function()
 		data.itemBases[baseName] = nil
 	end)
 
+	it("keeps saved rolls on their lines for a talisman saved before its base enchant", function()
+		local baseName = "Test Talisman"
+		data.itemBases[baseName] = {
+			type = "Amulet",
+			subType = "Talisman",
+			tags = { amulet = true, talisman = true },
+			req = { },
+			enchant = "+10 to Strength",
+		}
+		loadBuildFromXML([[
+<PathOfBuilding>
+	<Build level="1" targetVersion="3_0" className="Scion" ascendClassName="None" mainSocketGroup="1"/>
+	<Items activeItemSet="1">
+		<Item id="1">
+Rarity: RARE
+Old Save
+Test Talisman
+Implicits: 1
++(10-20) to Dexterity
+			<ModRange id="1" range="1"/>
+		</Item>
+		<ItemSet id="1"/>
+	</Items>
+</PathOfBuilding>]])
+		data.itemBases[baseName] = nil
+
+		assert.are.equals(1, build.itemsTab.items[1].implicitModLines[1].range)
+	end)
+
+	it("does not add a talisman base enchant already saved as an implicit", function()
+		local baseName = "Test Talisman"
+		data.itemBases[baseName] = {
+			type = "Amulet",
+			subType = "Talisman",
+			tags = { amulet = true, talisman = true },
+			req = { },
+			enchant = "+10 to Strength",
+		}
+		local item = new("Item"):Item("Rarity: Normal\n" .. baseName .. "\nImplicits: 1\n+10 to Strength")
+		data.itemBases[baseName] = nil
+
+		assert.are.equals(0, #item.enchantModLines)
+	end)
+
 	it("Two-Toned Boots", function()
 		local item = new("Item"):Item(raw("", "Two-Toned Boots"))
 		assert.are.equals("Two-Toned Boots (Armour/Energy Shield)", item.baseName)
@@ -886,6 +930,26 @@ describe("TestAdvancedItemParse #item", function()
 		assert.are.equals("Commissioned 150720 coins to commemorate Chitus", seedLine)
 	end)
 
+	it("keeps the roll written in a saved value(min-max) line over its ModRange", function()
+		loadBuildFromXML([[
+<PathOfBuilding>
+	<Build level="1" targetVersion="3_0" className="Scion" ascendClassName="None" mainSocketGroup="1"/>
+	<Items activeItemSet="1">
+		<Item id="1">
+Rarity: UNIQUE
+Crown of the Inward Eye
+Prophet Crown
+Implicits: 0
+{range:0.5}14(9-21)% increased maximum Life, Mana and Global Energy Shield
+			<ModRange id="1" range="0.5"/>
+		</Item>
+		<ItemSet id="1"/>
+	</Items>
+</PathOfBuilding>]])
+
+		assert.are.equals(0.416667, build.itemsTab.items[1].explicitModLines[1].range)
+	end)
+
 	it("preserves independently rolled values on the same modifier line", function()
 		local item = new("Item"):Item([[
 			Rarity: Unique
@@ -987,6 +1051,28 @@ describe("TestAdvancedItemParse #item", function()
 		item:BuildAndParseRaw()
 		assert.are.equals(70, item.memoryStrands)
 		assert.are.equals(1, #item.explicitModLines)
+	end)
+
+	it("keeps saved rolls when a property was saved among the modifier lines", function()
+		loadBuildFromXML([[
+<PathOfBuilding>
+	<Build level="1" targetVersion="3_0" className="Scion" ascendClassName="None" mainSocketGroup="1"/>
+	<Items activeItemSet="1">
+		<Item id="1">
+Rarity: RARE
+Pain Shell
+Vaal Regalia
+Implicits: 0
+Intangibility: 7%
+{range:0}+(10-13) to all Attributes
+			<ModRange id="1" range="0.5"/>
+			<ModRange id="2" range="0"/>
+		</Item>
+		<ItemSet id="1"/>
+	</Items>
+</PathOfBuilding>]])
+
+		assert.are.equals(0, build.itemsTab.items[1].explicitModLines[1].range)
 	end)
 
 	it("preserves cluster jewel enchants from advanced copy", function()
