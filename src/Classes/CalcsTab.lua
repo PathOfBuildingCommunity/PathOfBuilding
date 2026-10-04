@@ -492,6 +492,17 @@ function CalcsTabClass:BuildPower()
 	end
 end
 
+-- Nodes with the same modKey can still calculate differently, as radius jewels only apply to the nodes in their radius
+local function powerCacheKey(env, node)
+	local key = node.modKey .. "|" .. node.type
+	for index, rad in ipairs(env.radiusJewelList) do
+		if rad.nodes[node.id] then
+			key = key .. "|" .. index
+		end
+	end
+	return key
+end
+
 -- Estimate the offensive and defensive power of all unallocated nodes
 function CalcsTabClass:PowerBuilder()
 	-- local timer_start = GetTime()
@@ -610,10 +621,11 @@ function CalcsTabClass:PowerBuilder()
 		end
 		for nodeId, node in pairs(nodes) do
 			if not node.alloc and node.modKey ~= "" and not self.mainEnv.grantedPassives[nodeId] then
-				if not cache[node.modKey] then
-					cache[node.modKey] = calcFunc({ addNodes = { [node] = true } }, useFullDPS)
+				local key = powerCacheKey(self.mainEnv, node)
+				if not cache[key] then
+					cache[key] = calcFunc({ addNodes = { [node] = true } }, useFullDPS)
 				end
-				local output = cache[node.modKey]
+				local output = cache[key]
 				calculateAddNodePower(node.power, distance, node, output, function()
 					local pathNodes = { }
 					for _, pathNode in pairs(node.path) do
@@ -622,10 +634,11 @@ function CalcsTabClass:PowerBuilder()
 					return pathNodes
 				end)
 			elseif node.alloc and node.modKey ~= "" and not self.mainEnv.grantedPassives[nodeId] then
-				if not cache[node.modKey.."_remove"] then
-					cache[node.modKey.."_remove"] = calcFunc({ removeNodes = { [node] = true } }, useFullDPS)
+				local key = powerCacheKey(self.mainEnv, node).."_remove"
+				if not cache[key] then
+					cache[key] = calcFunc({ removeNodes = { [node] = true } }, useFullDPS)
 				end
-				local output = cache[node.modKey.."_remove"]
+				local output = cache[key]
 				if self.powerStat and self.powerStat.stat and not self.powerStat.ignoreForNodes then
 					node.power.singleStat = self:CalculatePowerStat(self.powerStat, output, calcBase)
 					if node.depends and not node.ascendancyName then
