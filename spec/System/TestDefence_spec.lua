@@ -1723,4 +1723,32 @@ describe("TestDefence", function()
 		assertClose(block.EffectiveBlockChance, 10)
 		assert.is_true(block.TotalEHP > base.TotalEHP)
 	end)
+
+	it("does not lower EHP with life gained on block when resistance increases", function()
+		local function calcEHP(coldResist)
+			newBuild()
+			build.configTab.input.enemyDamageType = "Melee"
+			build.configTab.input.enemyPhysicalDamage = "0"
+			build.configTab.input.enemyFireDamage = "0"
+			build.configTab.input.enemyColdDamage = "600"
+			build.configTab.input.enemyLightningDamage = "0"
+			build.configTab.input.enemyChaosDamage = "0"
+			build.configTab.input.customMods = [[
+				+1000 to maximum Life
+				+75% chance to Block Attack Damage
+				+100 Life gained when you Block
+			]] .. "+" .. coldResist .. "% to Cold Resistance\n"
+			build.configTab:BuildModList()
+			runCallback("OnFrame")
+			return build.calcsTab.calcsOutput.TotalEHP
+		end
+
+		local lowerResistEHP = calcEHP(30)
+		local higherResistEHP = calcEHP(33)
+
+		newBuild()
+
+		assert.is_true(higherResistEHP >= lowerResistEHP,
+			string.format("EHP fell from %.1f to %.1f", lowerResistEHP, higherResistEHP))
+	end)
 end)
