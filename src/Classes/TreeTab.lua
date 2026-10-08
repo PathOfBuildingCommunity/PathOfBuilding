@@ -198,7 +198,6 @@ function TreeTabClass:TreeTab(build)
 	-- Show Node Power Checkbox
 	self.controls.treeHeatMap = new("CheckBoxControl"):CheckBoxControl({ "LEFT", self.controls.findTimelessJewel, "RIGHT" }, { 0, 0, 20 }, "Show Node Power:", function(state)
 		self.viewer.showHeatMap = state
-		self.controls.treeHeatMapStatSelect.shown = state
 
 		if state == false and ToastNotification:Exists(self.powerBuilderToastId) then
 			self.controls.powerReportList.shown = false 
@@ -275,6 +274,9 @@ function TreeTabClass:TreeTab(build)
 		function() return self.controls.powerReportList.shown and "Hide Power Report" or "Show Power Report" end, function()
 		self.controls.powerReportList.shown = not self.controls.powerReportList.shown
 	end)
+	self.controls.powerReport.enabled = function()
+		return self.viewer.showHeatMap
+	end
 
 	-- Power Report List
 	local yPos = self.controls.treeHeatMap.y == 0 and self.controls.specSelect.height + 4 or self.controls.specSelect.height * 2 + 8
@@ -408,8 +410,8 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 									+ self.controls.treeHeatMap.width + self.treeHeatMapOffset
 									+ self.controls.nodePowerMaxDepthSelect.width + self.controls.nodePowerMaxDepthSelect.x
 									+ (self.isCustomMaxDepth and (self.controls.nodePowerMaxDepthCustom.width + self.controls.nodePowerMaxDepthCustom.x) or 0)
-									+ (self.viewer.showHeatMap and (self.controls.treeHeatMapStatSelect.width + self.controls.treeHeatMapStatSelect.x 
-																	+ self.controls.powerReport.width + self.controls.powerReport.x) or 0)
+									+ self.controls.treeHeatMapStatSelect.width + self.controls.treeHeatMapStatSelect.x
+									+ self.controls.powerReport.width + self.controls.powerReport.x
 	
 	-- Check first line
 	if viewPort.width >= widthFirstLineControls + widthSecondLineControls + rightMargin then
@@ -465,7 +467,6 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 	end
 
 	self.controls.treeHeatMap.state = self.viewer.showHeatMap
-	self.controls.treeHeatMapStatSelect.shown = self.viewer.showHeatMap
 	self.controls.treeHeatMapStatSelect.list = self.powerStatList
 	self.controls.treeHeatMapStatSelect.selIndex = 1
 	self.controls.treeHeatMapStatSelect:CheckDroppedWidth(true)
