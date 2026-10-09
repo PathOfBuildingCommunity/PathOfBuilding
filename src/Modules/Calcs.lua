@@ -20,6 +20,7 @@ require("Modules.CalcDefence")
 require("Modules.CalcOffence")
 require("Modules.CalcTriggers")
 require("Modules.CalcMirages")
+require("Modules.CalcRelevance")
 
 -- Get the average value of a table -- note this is unused
 function math.average(t)
@@ -82,9 +83,14 @@ end
 ---@field conditions string[]?
 ---@field extraJewelFuncs ModList?
 
+---@class MiscCalculatorOptions
+---@field queryObserver table? Private execution-scoped modifier observer.
+---@field skipEHP boolean? Skip effective hit pool and maximum hit estimations.
+---@field skipFullDPS boolean? Skip the Full DPS roll-up.
+
 -- Get calculator for other changes (adding/removing nodes, items, gems, etc)
 ---@param build Build
----@return fun(override?: CalcOverride, useFullDPS?: boolean): Output calcFunc
+---@return fun(override?: CalcOverride, useFullDPS?: boolean, options?: MiscCalculatorOptions): Output calcFunc
 ---@return Output output
 function calcs.getMiscCalculator(build)
 	-- Run base calculation pass
@@ -97,17 +103,21 @@ function calcs.getMiscCalculator(build)
 		env.player.output.FullDPS = fullDPS.combinedDPS
 		env.player.output.FullDotDPS = fullDPS.TotalDotDPS
 	end
-	return function(override, useFullDPS)
-		local env, cachedPlayerDB, cachedEnemyDB, cachedMinionDB = calcs.initEnv(build, "CALCULATOR", override)
-		calcs.perform(env)
-		if (useFullDPS ~= false or build.viewMode == "TREE") and usedFullDPS then
+	return function(override, useFullDPS, options)
+		local env, cachedPlayerDB, cachedEnemyDB, cachedMinionDB = calcs.initEnv(build, "CALCULATOR", override, nil, options and options.queryObserver)
+		calcs.perform(env, options and options.skipEHP)
+		local calculateFullDPS = not (options and options.skipFullDPS) and (useFullDPS ~= false or build.viewMode == "TREE")
+		if calculateFullDPS and usedFullDPS then
 			-- prevent upcoming calculation from using Cached Data and thus forcing it to re-calculate new FullDPS roll-up 
 			-- without this, FullDPS increase/decrease when for node/item/gem comparison would be all 0 as it would be comparing
 			-- A with A (due to cache reuse) instead of A with B
-			local fullDPS = calcs.calcFullDPS(build, "CALCULATOR", override, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = nil})
+			local fullDPS = calcs.calcFullDPS(build, "CALCULATOR", override, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = nil}, options and options.queryObserver)
 			env.player.output.SkillDPS = fullDPS.skills
 			env.player.output.FullDPS = fullDPS.combinedDPS
 			env.player.output.FullDotDPS = fullDPS.TotalDotDPS
+		end
+		if options and options.queryObserver then
+			options.queryObserver.recorded = true
 		end
 		return env.player.output
 	end, env.player.output
@@ -139,8 +149,8 @@ local function getActiveSkillCount(activeSkill)
 	return 1, true
 end
 
-function calcs.calcFullDPS(build, mode, override, specEnv)
-	local fullEnv, cachedPlayerDB, cachedEnemyDB, cachedMinionDB = calcs.initEnv(build, mode, override, specEnv)
+function calcs.calcFullDPS(build, mode, override, specEnv, queryObserver)
+	local fullEnv, cachedPlayerDB, cachedEnemyDB, cachedMinionDB = calcs.initEnv(build, mode, override, specEnv, queryObserver)
 	local usedEnv = nil
 
 	local fullDPS = {
@@ -298,7 +308,7 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 					skills = true,
 					everything = true,
 				}
-				fullEnv, _, _, _ = calcs.initEnv(build, mode, override, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = fullEnv, accelerate = accelerationTbl })
+				fullEnv, _, _, _ = calcs.initEnv(build, mode, override, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = fullEnv, accelerate = accelerationTbl }, queryObserver)
 			end
 		end
 	end
@@ -355,7 +365,7 @@ end
 
 -- Process active skill
 function calcs.buildActiveSkill(env, mode, skill, targetUUID, limitedProcessingFlags)
-	local fullEnv, _, _, _ = calcs.initEnv(env.build, mode, env.override)
+	local fullEnv, _, _, _ = calcs.initEnv(env.build, mode, env.override, nil, env.queryObserver)
 	fullEnv.buildBreakdown = false
 
 	-- env.limitedSkills contains a map of uuids that should be limited in calculation

@@ -522,11 +522,11 @@ function mergeDB(srcDB, modDB)
 end
 
 function specCopy(env)
-	local modDB = new("ModDB"):ModDB()
+	local modDB = new("ModDB"):ModDB(nil, env.queryObserver)
 	modDB:AddDB(env.modDB)
 	modDB.conditions = copyTable(env.modDB.conditions)
 	modDB.multipliers = copyTable(env.modDB.multipliers)
-	local enemyDB = new("ModDB"):ModDB()
+	local enemyDB = new("ModDB"):ModDB(nil, env.queryObserver)
 	if env.enemyDB then
 		enemyDB:AddDB(env.enemyDB)
 		enemyDB.conditions = copyTable(env.enemyDB.conditions)
@@ -534,7 +534,7 @@ function specCopy(env)
 	end
 	local minionDB = nil
 	if env.minion then
-		minionDB = new("ModDB"):ModDB()
+		minionDB = new("ModDB"):ModDB(nil, env.queryObserver)
 		minionDB:AddDB(env.minion.modDB)
 		minionDB.conditions = copyTable(env.minion.modDB.conditions)
 		minionDB.multipliers = copyTable(env.minion.modDB.multipliers)

@@ -124,6 +124,9 @@ function calcs.mirages(env)
 			compareFunc = function(skill, env, config, mirageSkill)
 				if skill ~= env.player.mainSkill and skill.skillTypes[SkillType.Attack] and not skill.skillTypes[SkillType.Totem] and not skill.skillTypes[SkillType.SummonsTotem] and band(skill.skillCfg.flags, bor(ModFlag.Sword, ModFlag.Weapon1H)) == bor(ModFlag.Sword, ModFlag.Weapon1H) and not skill.skillCfg.skillCond["usedByMirage"] then
 					local uuid = cacheSkillUUID(skill, env)
+					if env.queryObserver and env.mode == "CALCULATOR" and GlobalCache.cachedData[env.mode][uuid] then
+						env.queryObserver.unsafe = "cached calculation"
+					end
 					if not GlobalCache.cachedData[env.mode][uuid] then
 						calcs.buildActiveSkill(env, env.mode, skill, uuid)
 					end
