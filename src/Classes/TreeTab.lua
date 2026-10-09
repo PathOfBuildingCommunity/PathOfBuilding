@@ -1048,7 +1048,6 @@ function TreeTabClass:OpenMasteryPopup(node, viewPort)
 end
 
 function TreeTabClass:SetPowerCalc(powerStat)
-	self.viewer.showHeatMap = true
 	self.build.buildFlag = true
 	self.build.calcsTab.powerBuildFlag = true
 	self.build.calcsTab.powerStat = powerStat
