@@ -2,24 +2,35 @@ describe("TradeQuery", function()
 	local mock_tradeQuery
 	local mock_queryGen
 
-	local function newTradeQuery(state)
-		local tq = new("TradeQuery"):TradeQuery({ activeItemSet = {}, slots = {}, sockets = {} })
-		tq.slotTables[1] = { slotName = "Ring 1" }
-		tq.resultTbl = state.resultTbl or {}
-		tq.sortedResultTbl = state.sortedResultTbl or {}
-		return tq
-	end
-
-	local function buildRow1Dropdown(tq)
-		tq:PriceItemRowDisplay(1, nil, 0, 20)
-		return tq.controls.resultDropdown1
-	end
-
 	before_each(function()
 		mock_tradeQuery = new("TradeQuery"):TradeQuery({ itemsTab = {} })
 		mock_queryGen = new("TradeQueryGenerator"):TradeQueryGenerator({ itemsTab = {} })
 	end)
 	describe("result dropdown tooltipFunc", function()
+		-- Builds a TradeQuery with the strict minimum needed for
+		-- PriceItemRowDisplay to construct row 1 without exploding. Only the
+		-- three itemsTab fields read by the slot lookup at the top of
+		-- PriceItemRowDisplay need to be created here; everything else either
+		-- lives behind a callback we never trigger, or is already initialized
+		-- by the TradeQuery constructor.
+		local function newTradeQuery(state)
+			local tq = new("TradeQuery"):TradeQuery({ itemsTab = {} })
+			tq.itemsTab.activeItemSet = {}
+			tq.itemsTab.slots         = {}
+			tq.itemsTab.sockets       = {}
+			tq.slotTables[1] = { slotName = "Ring 1" }
+			if state.resultTbl       then tq.resultTbl       = state.resultTbl       end
+			if state.sortedResultTbl then tq.sortedResultTbl = state.sortedResultTbl end
+			return tq
+		end
+
+		-- Builds row 1 of the trader UI and returns the dropdown that owns the
+		-- tooltipFunc we want to exercise.
+		local function buildRow1Dropdown(tq)
+			tq:PriceItemRowDisplay(1, nil, 0, 20)
+			return tq.controls.resultDropdown1
+		end
+
 		it("constructs the Watcher's Eye row without an active jewel socket", function()
 			local tq = newTradeQuery({})
 			tq.slotTables[1] = { slotName = "Watcher's Eye", unique = true }
@@ -62,7 +73,7 @@ describe("TradeQuery", function()
 	end)
 	describe("replacement slot resolution", function()
 		it("resolves normal, Abyssal, and selected jewel slots without stored row state", function()
-			local tq = newTradeQuery({})
+			local tq = new("TradeQuery"):TradeQuery({ itemsTab = {} })
 			tq.itemsTab.slots = {
 				["Ring 1"] = {},
 				["Body Armour Abyssal Socket 1"] = {},
@@ -85,7 +96,7 @@ describe("TradeQuery", function()
 	describe("attribute requirement result filtering", function()
 		local function newTradeQueryWithOutput(output, slotTbl)
 			local calcCalls = 0
-			local tq = newTradeQuery({})
+			local tq = new("TradeQuery"):TradeQuery({ activeItemSet = {}, slots = {}, sockets = {} })
 			tq.slotTables[1] = slotTbl or { slotName = "Ring 1" }
 			tq.resultTbl = {
 				[1] = {
@@ -140,7 +151,8 @@ describe("TradeQuery", function()
 
 		it("clears the visible selection and price when postfiltering removes every result", function()
 			local tq = newTradeQueryWithOutput({ ReqStr = 50, Str = 40 })
-			local dropdown = buildRow1Dropdown(tq)
+			tq:PriceItemRowDisplay(1, nil, 0, 20)
+			local dropdown = tq.controls.resultDropdown1
 			tq.controls.fullPrice = new("LabelControl"):LabelControl(nil, { 0, 0, 100, 20 }, "")
 			tq.controls.pbNotice = new("LabelControl"):LabelControl(nil, { 0, 0, 100, 20 }, "")
 			-- Populate the row through the same path first, so stale state can be detected.
