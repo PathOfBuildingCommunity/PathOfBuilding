@@ -492,20 +492,45 @@ function CalcsTabClass:BuildPower()
 	end
 end
 
+local function nodePowerCacheKey(node, radiusNodes)
+	if radiusNodes[node.id] or node.conqueredBy or node.isTattoo or node.overrideType
+		or (node.type ~= "Normal" and node.type ~= "Notable" and node.type ~= "Mastery") then
+		return node
+	end
+	local key = { node.alloc and "remove" or "add", node.type, node.type == "Mastery" and node.name or "" }
+	for _, mod in ipairs(node.modList) do
+		-- Granted skills and other structured effects can depend on their source node.
+		if mod.type == "LIST" then
+			return node
+		end
+		-- modKey omits modifiers added later, such as cluster small-passive effect.
+		t_insert(key, "[" .. modLib.formatMod(mod) .. "]")
+	end
+	return table.concat(key, "|")
+end
+
 -- Estimate the offensive and defensive power of all unallocated nodes
 function CalcsTabClass:PowerBuilder()
 	-- local timer_start = GetTime()
 	local useFullDPS = self.powerStat and self.powerStat.requiresFullDPS or false
+	local useClusterPower = self.powerStat and self.powerStat.stat and not self.powerStat.ignoreForNodes
 	local calcOptions = {
 		skipEHP = not (self.powerStat and self.powerStat.requiresEHP),
 		skipFullDPS = not useFullDPS,
 	}
-	local useClusterPower = self.powerStat and self.powerStat.stat and not self.powerStat.ignoreForNodes
 	local calcFunc, calcBase = self:GetMiscCalculator()
 	local function calcPower(override)
 		return calcFunc(override, useFullDPS, calcOptions)
 	end
 	local cache = { }
+	local radiusNodes = { }
+	for _, jewel in ipairs(self.mainEnv.radiusJewelList) do
+		for nodeId, node in pairs(jewel.nodes) do
+			if node.type ~= "Mastery" then
+				radiusNodes[nodeId] = true
+			end
+		end
+	end
 	local distanceMap = { }
 	local distanceList = { }
 	local masteryNodeList = { }
@@ -620,10 +645,11 @@ function CalcsTabClass:PowerBuilder()
 		end
 		for nodeId, node in pairs(nodes) do
 			if not node.alloc and node.modKey ~= "" and not self.mainEnv.grantedPassives[nodeId] then
-				if not cache[node.modKey] then
-					cache[node.modKey] = calcPower({ addNodes = { [node] = true } })
+				local key = nodePowerCacheKey(node, radiusNodes)
+				if not cache[key] then
+					cache[key] = calcPower({ addNodes = { [node] = true } })
 				end
-				local output = cache[node.modKey]
+				local output = cache[key]
 				calculateAddNodePower(node.power, distance, node, output, function()
 					local pathNodes = { }
 					for _, pathNode in pairs(node.path) do
@@ -632,10 +658,11 @@ function CalcsTabClass:PowerBuilder()
 					return pathNodes
 				end)
 			elseif node.alloc and node.modKey ~= "" and not self.mainEnv.grantedPassives[nodeId] then
-				if not cache[node.modKey.."_remove"] then
-					cache[node.modKey.."_remove"] = calcPower({ removeNodes = { [node] = true } })
+				local key = nodePowerCacheKey(node, radiusNodes)
+				if not cache[key] then
+					cache[key] = calcPower({ removeNodes = { [node] = true } })
 				end
-				local output = cache[node.modKey.."_remove"]
+				local output = cache[key]
 				if self.powerStat and self.powerStat.stat and not self.powerStat.ignoreForNodes then
 					node.power.singleStat = self:CalculatePowerStat(self.powerStat, output, calcBase)
 					if node.depends and not node.ascendancyName then
@@ -679,10 +706,11 @@ function CalcsTabClass:PowerBuilder()
 				if effect then
 					local effectNode = buildMasteryEffectNode(node, effect)
 					if effectNode.modKey ~= "" then
-						if not cache[effectNode.modKey] then
-							cache[effectNode.modKey] = calcPower({ addNodes = { [effectNode] = true } })
+						local key = nodePowerCacheKey(effectNode, radiusNodes)
+						if not cache[key] then
+							cache[key] = calcPower({ addNodes = { [effectNode] = true } })
 						end
-						local output = cache[effectNode.modKey]
+						local output = cache[key]
 						node.power.masteryEffects[effect.id] = { }
 						local effectPower = node.power.masteryEffects[effect.id]
 						calculateAddNodePower(effectPower, node.pathDist, node, output, function()
@@ -727,10 +755,11 @@ function CalcsTabClass:PowerBuilder()
 		end
 		wipeTable(node.power)
 		if useClusterPower and not node.alloc and node.modKey ~= "" and not self.mainEnv.grantedPassives[node.id] then
-			if not cache[node.modKey] then
-				cache[node.modKey] = calcPower({ addNodes = { [node] = true } })
+			local key = nodePowerCacheKey(node, radiusNodes)
+			if not cache[key] then
+				cache[key] = calcPower({ addNodes = { [node] = true } })
 			end
-			local output = cache[node.modKey]
+			local output = cache[key]
 			node.power.singleStat = self:CalculatePowerStat(self.powerStat, output, calcBase)
 			nodeIndex = nodeIndex + 1
 			if coroutine.running() and GetTime() - start > 100 then
