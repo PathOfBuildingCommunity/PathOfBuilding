@@ -196,9 +196,8 @@ function TreeTabClass:TreeTab(build)
 	self.defaultTattoo = { }
 
 	-- Show Node Power Checkbox
-	self.controls.treeHeatMap = new("CheckBoxControl"):CheckBoxControl({ "LEFT", self.controls.findTimelessJewel, "RIGHT" }, { 130, 0, 20 }, "Show Node Power:", function(state)
+	self.controls.treeHeatMap = new("CheckBoxControl"):CheckBoxControl({ "LEFT", self.controls.findTimelessJewel, "RIGHT" }, { 0, 0, 20 }, "Show Node Power:", function(state)
 		self.viewer.showHeatMap = state
-		self.controls.treeHeatMapStatSelect.shown = state
 
 		if state == false and ToastNotification:Exists(self.powerBuilderToastId) then
 			self.controls.powerReportList.shown = false 
@@ -207,6 +206,8 @@ function TreeTabClass:TreeTab(build)
 			self.controls.powerReportList.shown = false 
 		end
 	end)
+	self.treeHeatMapOffset = self.controls.treeHeatMap.labelWidth + 8
+	self.controls.treeHeatMap.x = self.treeHeatMapOffset
 
 	-- Control for setting max node depth to limit calculation time of the heat map
 	self.controls.nodePowerMaxDepthSelect = new("DropDownControl"):DropDownControl({ "LEFT", self.controls.treeHeatMap, "RIGHT" }, { 8, 0, 55, 20 }, { "All", 5, 10, 15, "Custom" }, function(index, value)
@@ -273,6 +274,9 @@ function TreeTabClass:TreeTab(build)
 		function() return self.controls.powerReportList.shown and "Hide Power Report" or "Show Power Report" end, function()
 		self.controls.powerReportList.shown = not self.controls.powerReportList.shown
 	end)
+	self.controls.powerReport.enabled = function()
+		return self.viewer.showHeatMap
+	end
 
 	-- Power Report List
 	local yPos = self.controls.treeHeatMap.y == 0 and self.controls.specSelect.height + 4 or self.controls.specSelect.height * 2 + 8
@@ -403,11 +407,11 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 	
 	local widthSecondLineControls = self.controls.treeSearch.width + 8
 									+ self.controls.findTimelessJewel.width + self.controls.findTimelessJewel.x
-									+ self.controls.treeHeatMap.width + 130
+									+ self.controls.treeHeatMap.width + self.treeHeatMapOffset
 									+ self.controls.nodePowerMaxDepthSelect.width + self.controls.nodePowerMaxDepthSelect.x
 									+ (self.isCustomMaxDepth and (self.controls.nodePowerMaxDepthCustom.width + self.controls.nodePowerMaxDepthCustom.x) or 0)
-									+ (self.viewer.showHeatMap and (self.controls.treeHeatMapStatSelect.width + self.controls.treeHeatMapStatSelect.x 
-																	+ self.controls.powerReport.width + self.controls.powerReport.x) or 0)
+									+ self.controls.treeHeatMapStatSelect.width + self.controls.treeHeatMapStatSelect.x
+									+ self.controls.powerReport.width + self.controls.powerReport.x
 	
 	-- Check first line
 	if viewPort.width >= widthFirstLineControls + widthSecondLineControls + rightMargin then
@@ -421,7 +425,7 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 
 	-- Check second line
 	if viewPort.width >= widthSecondLineControls + rightMargin then
-		self.controls.treeHeatMap:SetAnchor("LEFT", self.controls.findTimelessJewel, "RIGHT", 130, 0)
+		self.controls.treeHeatMap:SetAnchor("LEFT", self.controls.findTimelessJewel, "RIGHT", self.treeHeatMapOffset, 0)
 	else
 		linesHeight = linesHeight * 2
 		self.controls.treeHeatMap:SetAnchor("TOPLEFT", self.controls.treeSearch, "BOTTOMLEFT", 124, 4)
@@ -463,7 +467,6 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 	end
 
 	self.controls.treeHeatMap.state = self.viewer.showHeatMap
-	self.controls.treeHeatMapStatSelect.shown = self.viewer.showHeatMap
 	self.controls.treeHeatMapStatSelect.list = self.powerStatList
 	self.controls.treeHeatMapStatSelect.selIndex = 1
 	self.controls.treeHeatMapStatSelect:CheckDroppedWidth(true)
@@ -474,7 +477,7 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 	SetDrawLayer(1)
 
 	SetDrawColor(0.05, 0.05, 0.05)
-	DrawImage(nil, viewPort.x, viewPort.y + viewPort.height - (30 + bottomDrawerHeight + linesHeight), viewPort.width, 30 + bottomDrawerHeight + linesHeight)
+	DrawImage(nil, viewPort.x, viewPort.y + viewPort.height - (30 + bottomDrawerHeight + linesHeight), viewPort.width, 34 + bottomDrawerHeight + linesHeight)
 	if self.showConvert then
 		local height = viewPort.width < convertMaxWidth and (bottomDrawerHeight + linesHeight) or 0
 		SetDrawColor(0.05, 0.05, 0.05)
@@ -1045,7 +1048,6 @@ function TreeTabClass:OpenMasteryPopup(node, viewPort)
 end
 
 function TreeTabClass:SetPowerCalc(powerStat)
-	self.viewer.showHeatMap = true
 	self.build.buildFlag = true
 	self.build.calcsTab.powerBuildFlag = true
 	self.build.calcsTab.powerStat = powerStat

@@ -35,7 +35,8 @@ function CalcsTabClass:CalcsTab(build)
 	self.input.skill_number = 1
 	self.input.misc_buffMode = "EFFECTIVE"
 
-	self.colWidth = 230
+	self.colWidth = 260
+	self.rowLabelWidth = 145
 	self.sectionList = { }
 
 	self.controls.search = new("EditControl"):EditControl({"TOPLEFT",self,"TOPLEFT"}, {4, 5, 260, 20}, "", "Search", "%c", 100, nil, nil, nil, true)
@@ -229,6 +230,11 @@ function CalcsTabClass:Draw(viewPort, inputEvents)
 	self.width = viewPort.width
 	self.height = viewPort.height
 
+	-- Use the dev layout when three wider columns would overlap the scrollbar or window edge.
+	self.compactLayout = viewPort.width - self.controls.scrollBar.width < 3 * (260 + 8)
+	self.colWidth = self.compactLayout and 230 or 260
+	self.rowLabelWidth = self.compactLayout and 134 or 145
+
 	-- Arrange the sections
 	local baseX = viewPort.x + 4
 	local baseY = viewPort.y + 30
@@ -237,6 +243,8 @@ function CalcsTabClass:Draw(viewPort, inputEvents)
 	local colY = { }
 	local maxY = 0
 	for _, section in ipairs(self.sectionList) do
+		section.width = section.widthCols * self.colWidth + 8 * (section.widthCols - 1)
+		section.rowLabelWidth = self.rowLabelWidth
 		section:UpdateSize()
 		if section.enabled and not section.isOverlay then
 			local col
@@ -263,11 +271,17 @@ function CalcsTabClass:Draw(viewPort, inputEvents)
 				if maxCol >= 4 then
 					col = 4
 				end
-			elseif section.group == 3 then
+			elseif section.group == 3 or self.compactLayout and section.group == 4 then
 				-- Group 3: Defense (the remaining sections)
 				-- This group is put into a 5th column if there's room for one, otherwise they are handled separately
 				if maxCol >= 5 then
 					col = 5
+				end
+			elseif section.group == 4 then
+				-- Group 4: Miscellaneous defenses
+				-- This group is put into a 6th column if there's room for one, otherwise it is handled separately
+				if maxCol >= 6 then
+					col = 6
 				end
 			end
 			if col then
@@ -287,10 +301,31 @@ function CalcsTabClass:Draw(viewPort, inputEvents)
 			colY[c] = m_max(colY[1], colY[2], colY[3])
 		end
 		for _, section in ipairs(self.sectionList) do
-			if section.enabled and not section.isOverlay and (main.portraitMode and section.group == 2 or section.group == 3) then
+			if section.enabled and not section.isOverlay and (maxCol < 4 and section.group == 2 or section.group == 3 or self.compactLayout and section.group == 4) then
 				local col = 3
 				if colY[col] + section.height + 4 >= m_max(viewPort.y + viewPort.height, maxY) then
 					-- No room in the 4th column, find the highest available location in columns 1-4
+					local minY = colY[col]
+					for c = 3, 1, -1 do
+						if colY[c] < minY then
+							col = c
+							minY = colY[c]
+						end
+					end
+				end
+				section.x = baseX + (self.colWidth + 8) * (col - 1)
+				section.y = colY[col]
+				colY[col] = section.y + section.height + 8
+				maxY = m_max(maxY, colY[col])
+			end
+		end
+	end
+	if not self.compactLayout and maxCol < 6 then
+		-- There's no room for a 6th column, so miscellaneous defenses retain their previous fallback placement
+		for _, section in ipairs(self.sectionList) do
+			if section.enabled and not section.isOverlay and section.group == 4 then
+				local col = maxCol >= 5 and 5 or 3
+				if maxCol < 5 then
 					local minY = colY[col]
 					for c = 3, 1, -1 do
 						if colY[c] < minY then

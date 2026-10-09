@@ -213,10 +213,10 @@ function EditClass:UpdateScrollBars()
 	local width, height = self:GetSize()
 	local textHeight = self.lineHeight or (height - 4)
 	if self.lineHeight then
-		self.controls.scrollBarH:SetContentDimension(DrawStringWidth(textHeight, self.font, self.buf) + 2, width - 18)
+		self.controls.scrollBarH:SetContentDimension(DrawStringWidth(textHeight, self.font, self.buf) + 2, width - 22)
 		self.controls.scrollBarV:SetContentDimension(newlineCount(self.buf.."\n") * textHeight, height - (self.controls.scrollBarH.enabled and 18 or 4))
 	else
-		self.controls.scrollBarH:SetContentDimension(DrawStringWidth(textHeight, self.font, self.buf) + 2, width - 4 - (self.prompt and DrawStringWidth(textHeight, self.font, self.prompt) + textHeight/2 or 0))
+		self.controls.scrollBarH:SetContentDimension(DrawStringWidth(textHeight, self.font, self.buf) + 2, width - 8 - (self.prompt and DrawStringWidth(textHeight, self.font, self.prompt) + textHeight/2 or 0))
 	end
 end
 
@@ -271,7 +271,7 @@ function EditClass:Draw(viewPort, noTooltip)
 		SetDrawColor(0, 0, 0)
 	end
 	DrawImage(nil, x + 1, y + 1, width - 2, height - 2)
-	local textX = x + 2
+	local textX = x + 4
 	local textY = y + 2
 	local textHeight = self.lineHeight or (height - 4)
 	if self.prompt then
@@ -291,10 +291,10 @@ function EditClass:Draw(viewPort, noTooltip)
 		SetDrawLayer(nil, 0)
 	end
 	self:UpdateScrollBars()
-	local marginL = textX - x - 2
+	local marginL = textX - x - 4
 	local marginR = self.controls.scrollBarV:IsShown() and 14 or 0
 	local marginB = self.controls.scrollBarH:IsShown() and 14 or 0
-	SetViewport(textX, textY, width - 4 - marginL - marginR, height - 4 - marginB)
+	SetViewport(textX, textY, width - 8 - marginL - marginR, height - 4 - marginB)
 	if not self.hasFocus then
 		if self.buf == '' and self.placeholder then
 			SetDrawColor(self.disableCol)
@@ -495,7 +495,7 @@ function EditClass:OnKeyDown(key, doubleClick)
 			self.drag = true
 			local x, y = self:GetPos()
 			local width, height = self:GetSize()
-			local textX = x + 2
+			local textX = x + 4
 			local textY = y + 2
 			local textHeight = self.lineHeight or (height - 4)
 			if self.prompt then

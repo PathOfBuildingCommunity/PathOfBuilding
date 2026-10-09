@@ -7,6 +7,123 @@ describe("TestSkills", function()
 		-- newBuild() takes care of resetting everything in setup()
 	end)
 
+	local function equipSocketedItem(base, slot)
+		build.itemsTab:CreateDisplayItemFromRaw("Rarity: Normal\n" .. base .. "\nSockets: R-G B")
+		build.itemsTab:AddDisplayItem()
+		build.skillsTab:PasteSocketGroup("Slot: " .. slot .. "\nFireball 20/0  1\n")
+		runCallback("OnFrame")
+		return build.itemsTab.slots[slot].selItemId
+	end
+
+	it("preserves Skills socket edits through Items undo and build reload", function()
+		local id = equipSocketedItem("Plate Vest", "Body Armour")
+		local itemsTab = build.itemsTab
+		local controls = build.skillsTab.controls
+		controls.displayItemLink2.changeFunc(true)
+		controls.displayItemSocket2:SetSel(3)
+		itemsTab:Undo()
+		assert.are.equal("G", itemsTab.items[id].sockets[2].color)
+		itemsTab:Redo()
+		loadBuildFromXML(build:SaveDB("test"))
+		local sockets = build.itemsTab.items[id].sockets
+		assert.are.equal("B", sockets[2].color)
+		assert.are.equal(sockets[1].group, sockets[3].group)
+	end)
+
+	it("undoes socket and skill edits in order without undoing unrelated Items changes", function()
+		local itemsTab = build.itemsTab
+		local bodyId = equipSocketedItem("Plate Vest", "Body Armour")
+		local glovesId = equipSocketedItem("Iron Gauntlets", "Gloves")
+		local tab = build.skillsTab
+		tab:SetDisplayGroup(tab.socketGroupList[1])
+		tab.controls.groupLabel:SetText("Before socket edits", true)
+		tab.controls.displayItemSocket1:SetSel(3)
+		tab.controls.groupLabel:SetText("Between socket edits", true)
+		tab:SetDisplayGroup(tab.socketGroupList[2])
+		tab.controls.displayItemSocket1:SetSel(4)
+		itemsTab:CreateDisplayItemFromRaw("Rarity: Normal\nPaua Amulet")
+		itemsTab:AddDisplayItem()
+		local amuletId = itemsTab.slots.Amulet.selItemId
+
+		tab:Undo()
+		assert.are.equal("R", itemsTab.items[glovesId].sockets[1].color)
+		assert.are.equal("B", itemsTab.items[bodyId].sockets[1].color)
+		assert.are.equal("Between socket edits", tab.socketGroupList[1].label)
+		tab:Undo()
+		assert.are.equal("Before socket edits", tab.socketGroupList[1].label)
+		assert.are.equal("B", itemsTab.items[bodyId].sockets[1].color)
+		tab:Undo()
+		assert.are.equal("R", itemsTab.items[bodyId].sockets[1].color)
+		assert.are.equal("Before socket edits", tab.socketGroupList[1].label)
+		tab:Redo()
+		assert.are.equal("B", itemsTab.items[bodyId].sockets[1].color)
+		tab:Redo()
+		assert.are.equal("Between socket edits", tab.socketGroupList[1].label)
+		tab:Redo()
+		assert.are.equal("W", itemsTab.items[glovesId].sockets[1].color)
+		assert.are.equal(amuletId, itemsTab.slots.Amulet.selItemId)
+		assert.is_not_nil(itemsTab.items[amuletId])
+		itemsTab:Undo()
+		assert.are.equal("R", itemsTab.items[glovesId].sockets[1].color)
+		assert.are.equal(amuletId, itemsTab.slots.Amulet.selItemId)
+	end)
+
+	it("leaves later Items changes intact when Skills socket history becomes stale", function()
+		for _, change in ipairs({ "undo", "sockets", "delete", "replace" }) do
+			newBuild()
+			local itemsTab = build.itemsTab
+			local id = equipSocketedItem("Plate Vest", "Body Armour")
+			local tab = build.skillsTab
+			tab.controls.groupLabel:SetText("Keep this label", true)
+			tab.controls.displayItemSocket1:SetSel(3)
+			if change == "undo" then
+				itemsTab:Undo()
+			elseif change == "sockets" then
+				local item = itemsTab.items[id]
+				item.sockets = copyTable(item.sockets)
+				item.sockets[1].color = "G"
+				item:BuildAndParseRaw()
+				itemsTab:AddUndoState()
+			else
+				itemsTab:DeleteItem(itemsTab.items[id])
+				if change == "replace" then
+					itemsTab:AddItem(new("Item"):Item("Rarity: Normal\nPlate Vest\nSockets: B-G B"))
+					itemsTab:AddUndoState()
+				end
+			end
+			local item = itemsTab.items[id]
+			local raw = item and item:BuildRaw()
+			tab:Undo()
+			assert.are.equal("Keep this label", tab.socketGroupList[1].label)
+			assert.are.equal(item, itemsTab.items[id])
+			assert.are.equal(raw, item and item:BuildRaw())
+			tab:Redo()
+			assert.are.equal(item, itemsTab.items[id])
+			assert.are.equal(raw, item and item:BuildRaw())
+		end
+	end)
+
+	it("undoes socket optimization and resets socket history when loading a build", function()
+		local id = equipSocketedItem("Plate Vest", "Body Armour")
+		local tab = build.skillsTab
+		tab.controls.optimiseSockets:Click()
+		assert.are.equal(1, #build.itemsTab.items[id].sockets)
+		tab:Undo()
+		assert.are.equal(3, #build.itemsTab.items[id].sockets)
+		assert.are.equal("R", build.itemsTab.items[id].sockets[1].color)
+		tab:Redo()
+		assert.are.equal(1, #build.itemsTab.items[id].sockets)
+		assert.are.equal("B", build.itemsTab.items[id].sockets[1].color)
+		loadBuildFromXML(build:SaveDB("test"))
+		tab = build.skillsTab
+		tab:SetDisplayGroup(tab.socketGroupList[1])
+		tab:Undo()
+		assert.are.equal("B", build.itemsTab.items[id].sockets[1].color)
+		tab.controls.displayItemSocket1:SetSel(1)
+		tab:Undo()
+		assert.are.equal("B", build.itemsTab.items[id].sockets[1].color)
+	end)
+
 	it("adds envy, ensures +1 level keeps level 25 Envy", function()
 		build.itemsTab:CreateDisplayItemFromRaw("New Item\nAssassin Bow\nGrants Level 1 Summon Raging Spirit\nGrants Level 25 Envy Skill")
 		build.itemsTab:AddDisplayItem()

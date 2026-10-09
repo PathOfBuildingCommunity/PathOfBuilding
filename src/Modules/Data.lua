@@ -635,11 +635,11 @@ data.enchantmentSource = {
 	{ name = "RUNESMITH", label = "Runecraft Bench" },
 	{ name = "HEIST", label = "Heist" },
 	{ name = "HARVEST", label = "Harvest" },
-	{ name = "DEDICATION", label = "Dedication to the Goddess" },
-	{ name = "ENDGAME", label = "Eternal Labyrinth" },
-	{ name = "MERCILESS", label = "Merciless Labyrinth" },
-	{ name = "CRUEL", label = "Cruel Labyrinth" },
-	{ name = "NORMAL", label = "Normal Labyrinth" },
+	{ name = "DEDICATION", label = "Dedication to the Goddess (Legacy)" },
+	{ name = "ENDGAME", label = "Eternal Labyrinth (Legacy)" },
+	{ name = "MERCILESS", label = "Merciless Labyrinth (Legacy)" },
+	{ name = "CRUEL", label = "Cruel Labyrinth (Legacy)" },
+	{ name = "NORMAL", label = "Normal Labyrinth (Legacy)" },
 }
 
 -- Stat descriptions

@@ -628,7 +628,7 @@ function GemSelectClass:Draw(viewPort, noTooltip)
 		else
 			hoverControl = self.skillsTab:GetMouseOverControl()
 		end
-		if hoverControl and hoverControl._className == "GemSelectControl" then
+		if not self.imbuedSelect and hoverControl and hoverControl._className == "GemSelectControl" and not hoverControl.imbuedSelect then
 			local thisGem = self.skillsTab.displayGroup.gemList[self.index]
 			local hoverGem = self.skillsTab.displayGroup.gemList[hoverControl.index]
 			if thisGem and hoverGem and thisGem.enabled and hoverGem.enabled and thisGem.gemData and hoverGem.gemData and

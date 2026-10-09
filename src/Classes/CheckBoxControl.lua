@@ -4,6 +4,7 @@
 -- Basic check box control.
 --
 ---@class CheckBoxControl: Control, TooltipHost
+---@field linkStyle? boolean Draw borderless parallel bars instead of a check mark.
 local CheckBoxClass = newClass("CheckBoxControl", "Control", "TooltipHost")
 
 function CheckBoxClass:CheckBoxControl(anchor, rect, label, changeFunc, tooltipText, initialState)
@@ -42,36 +43,53 @@ function CheckBoxClass:Draw(viewPort, noTooltip)
 	local size = self.width
 	local enabled = self:IsEnabled()
 	local mOver = self:IsMouseOver()
-	if not enabled then
-		SetDrawColor(0.33, 0.33, 0.33)
-	elseif mOver then
-		SetDrawColor(1, 1, 1)
-	elseif self.borderFunc then
-		local r, g, b = self.borderFunc()
-		SetDrawColor(r, g, b)
+	if self.linkStyle then
+		if mOver and enabled then
+			local shade = self.clicked and 0.5 or 0.2
+			SetDrawColor(shade, shade, shade)
+			DrawImage(nil, x, y, size, self.height)
+		end
 	else
-		SetDrawColor(0.5, 0.5, 0.5)
-	end
-	DrawImage(nil, x, y, size, size)
-	if not enabled then
-		SetDrawColor(0, 0, 0)
-	elseif self.clicked and mOver then
-		SetDrawColor(0.5, 0.5, 0.5)
-	elseif mOver then
-		SetDrawColor(0.33, 0.33, 0.33)
-	else
-		SetDrawColor(0, 0, 0)
-	end
-	DrawImage(nil, x + 1, y + 1, size - 2, size - 2)
-	if self.state then
 		if not enabled then
 			SetDrawColor(0.33, 0.33, 0.33)
 		elseif mOver then
 			SetDrawColor(1, 1, 1)
+		elseif self.borderFunc then
+			local r, g, b = self.borderFunc()
+			SetDrawColor(r, g, b)
+		else
+			SetDrawColor(0.5, 0.5, 0.5)
+		end
+		DrawImage(nil, x, y, size, size)
+		if not enabled then
+			SetDrawColor(0, 0, 0)
+		elseif self.clicked and mOver then
+			SetDrawColor(0.5, 0.5, 0.5)
+		elseif mOver then
+			SetDrawColor(0.33, 0.33, 0.33)
+		else
+			SetDrawColor(0, 0, 0)
+		end
+		DrawImage(nil, x + 1, y + 1, size - 2, size - 2)
+	end
+	if self.state or self.linkStyle then
+		if self.linkStyle and not self.state and not mOver then
+			SetDrawColor(0.2, 0.2, 0.2)
+		elseif not enabled or not self.state then
+			SetDrawColor(0.33, 0.33, 0.33)
+		elseif mOver then
+			SetDrawColor(1, 1, 1)
+		elseif self.linkStyle then
+			SetDrawColor(0.8, 0.8, 0.8)
 		else
 			SetDrawColor(0.75, 0.75, 0.75)
 		end
-		main:DrawCheckMark(x + size/2, y + size/2, size * 0.8)
+		if self.linkStyle then
+			DrawImage(nil, x, y + self.height/2 - 3, size, 2)
+			DrawImage(nil, x, y + self.height/2 + 1, size, 2)
+		else
+			main:DrawCheckMark(x + size/2, y + size/2, size * 0.8)
+		end
 	end
 	if enabled then
 		SetDrawColor(1, 1, 1)
@@ -86,7 +104,7 @@ function CheckBoxClass:Draw(viewPort, noTooltip)
 	end
 	if mOver and not noTooltip then
 		SetDrawLayer(nil, 100)
-		self:DrawTooltip(x, y, size, size, viewPort, self.state)
+		self:DrawTooltip(x, y, size, self.height, viewPort, self.state)
 		SetDrawLayer(nil, 0)
 	end
 end

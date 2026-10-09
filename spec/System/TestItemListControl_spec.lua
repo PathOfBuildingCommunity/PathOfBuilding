@@ -52,6 +52,10 @@ describe("ItemListControl", function()
 			PopulateSlots = function() end,
 			AddUndoState = function() end,
 		}
+		for id, item in pairs(itemsTab.items) do
+			item.name = item.type .. " " .. id
+			item.GetPrimarySlot = function(self) return self.type end
+		end
 		local control = new("ItemListControl"):ItemListControl(nil, { 0, 0, 360, 308 }, itemsTab, true)
 		return control, itemsTab, treeTab
 	end
@@ -64,6 +68,48 @@ describe("ItemListControl", function()
 	after_each(function()
 		main.OpenConfirmPopup = originalOpenConfirmPopup
 		GetCursorPos = originalGetCursorPos
+	end)
+
+	it("sorts and filters without overwriting custom order or using sorted drop positions", function()
+		local control, itemsTab = newItemListControl()
+		itemsTab.items[1].name = "Z Armour"
+		control.controls.sortMode:SelByValue("Sort by Name")
+		control:UpdateList()
+		assert.are.same({ 2, 3, 4, 1 }, control.list)
+		assert.is_false(control.isMutable)
+		control.controls.search.buf = "armour"
+		control:UpdateList()
+		assert.are.same({ 2, 1 }, control.list)
+		assert.are.same({ 1, 2, 3, 4 }, itemsTab.itemOrderList)
+
+		itemsTab.AddItem = function(self, item, _, index)
+			assert.is_nil(index)
+			item.id = 5
+			self.items[item.id] = item
+			table.insert(self.itemOrderList, item.id)
+		end
+		itemsTab.AddForbiddenJewelCounterpart = function() end
+		control.selDragIndex = 2
+		control:ReceiveDrag("Item", { raw = "Rarity: Normal\nPlate Vest" })
+		control.controls.search.buf = ""
+		control.controls.sortMode:SelByValue("Custom Order")
+		control:UpdateList()
+		assert.are.same({ 1, 2, 3, 4, 5 }, control.list)
+		assert.equal(itemsTab.itemOrderList, control.list)
+	end)
+
+	it("skips non-item group headers during selection and keyboard navigation", function()
+		local control = newItemListControl()
+		control.controls.sortMode:SelByValue("Sort by Loadout")
+		control:UpdateList()
+		assert.is_false(control:SelectIndex(1))
+		assert.is_nil(control.selValue)
+		control:OnKeyDown("HOME")
+		assert.equal(1, control.selValue)
+		control:OnKeyDown("DOWN")
+		assert.equal(3, control.selValue)
+		control:OnKeyDown("DOWN")
+		assert.equal(2, control.selValue)
 	end)
 
 	it("only shows items from the active item set and passive tree", function()

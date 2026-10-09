@@ -23,6 +23,20 @@ describe("TestGemSocketQuality", function()
 		end
 	end
 
+	it("requires a physical socket for Dialla's 'always matches' mod", function()
+		equipBody("R", "Gems Socketed always have the Quality bonus from Socket Colour\n")
+		build.skillsTab:PasteSocketGroup("Slot: Body Armour\nFireball 20/0  1\nFireball 20/0  1\n")
+		runCallback("OnFrame")
+
+		local group = groupForSlot("Body Armour")
+		assert.is_true(group.gemList[1].matchesSocket)
+		assert.is_false(group.gemList[2].matchesSocket)
+		group.mainActiveSkill = 2
+		build.buildFlag = true
+		runCallback("OnFrame")
+		assert.are.equals(0, build.calcsTab.mainOutput.GemQuality)
+	end)
+
 	it("grants +10% quality to a gem in a matching colour socket", function()
 		equipBody("B-B-B")
 		build.skillsTab:PasteSocketGroup("Slot: Body Armour\nFireball 20/0  1\n")

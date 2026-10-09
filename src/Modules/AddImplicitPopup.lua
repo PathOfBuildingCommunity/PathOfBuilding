@@ -25,6 +25,18 @@ function M.AddImplicitToDisplayItem(itemsTab, displayItem)
 	local modGroups = {}
 	local sortList, sortStats = buildModSortList()
 	if not displayItem then return end
+	local popupWidth = 710
+	local padding = 12
+	local gap = 8
+	local controlHeight = 20
+	local rowHeight = controlHeight + gap
+	local contentY = 24
+	local fieldX = padding + DrawStringWidth(16, "VAR", "Modifier:") + gap
+	local fieldWidth = popupWidth - fieldX - padding
+	local function popupHeight(sourceId)
+		local rowCount = (sourceId == "EXARCH" or sourceId == "EATER") and 3 or 2
+		return contentY + (rowCount - 1) * rowHeight + controlHeight * 2 + padding * 2
+	end
 	-- these closures should probably be refactored to be outside this function
 	-- at some point
 	local function setDefaultSortOrder()
@@ -307,10 +319,8 @@ function M.AddImplicitToDisplayItem(itemsTab, displayItem)
 		item:BuildAndParseRaw()
 		return item
 	end
-	controls.sourceLabel = new("LabelControl"):LabelControl({ "TOPRIGHT", nil, "TOPLEFT" }, { 95, 20, 0, 16 }, "^7Source:")
-	controls.source = new("DropDownControl"):DropDownControl({ "TOPLEFT", nil, "TOPLEFT" }, { 100, 20, 150, 18 }, sourceList, function(index, value)
+	controls.source = new("DropDownControl"):DropDownControl({ "TOPLEFT", nil, "TOPLEFT" }, { fieldX, contentY, 150, controlHeight }, sourceList, function(index, value)
 		if value.sourceId ~= "CUSTOM" then
-			controls.modSelectLabel.y = 70
 			buildMods(value.sourceId)
 			controls.modGroupSelect:SetSel(1)
 			controls.modSelect.list = modList[modGroups[1].modListIndex]
@@ -318,38 +328,32 @@ function M.AddImplicitToDisplayItem(itemsTab, displayItem)
 			if controls.sort then
 				applySort(controls.sort.list[controls.sort.selIndex].stat, true)
 			end
-		else
-			controls.modSelectLabel.y = 45
 		end
+		main.popups[1].height = popupHeight(value.sourceId)
 	end)
+	controls.source.fontSize = 14
+	controls.sourceLabel = new("LabelControl"):LabelControl({ "RIGHT", controls.source, "LEFT" }, { -gap, 0, 0, 16 }, "^7Source:")
 	controls.source.enabled = #sourceList > 1
-	controls.sortLabel = new("LabelControl"):LabelControl({ "TOPRIGHT", nil, "TOPLEFT" }, { 350, 20, 0, 16 }, "^7Sort by:")
-	controls.sortLabel.shown = function()
-		return sourceList[controls.source.selIndex].sourceId ~= "CUSTOM"
-	end
-	controls.sort = new("DropDownControl"):DropDownControl({ "TOPLEFT", nil, "TOPLEFT" }, { 355, 20, 240, 18 }, sortList, function(index, value)
+	controls.sort = new("DropDownControl"):DropDownControl({ "TOPRIGHT", nil, "TOPRIGHT" }, { -padding, contentY, 240, controlHeight }, sortList, function(index, value)
 		applySort(value.stat, true)
 	end)
+	controls.sort.fontSize = 14
+	controls.sortLabel = new("LabelControl"):LabelControl({ "RIGHT", controls.sort, "LEFT" }, { -gap, 0, 0, 16 }, "^7Sort by:")
 	controls.sort.shown = function()
 		return sourceList[controls.source.selIndex].sourceId ~= "CUSTOM"
 	end
-	controls.modGroupSelectLabel = new("LabelControl"):LabelControl({ "TOPRIGHT", nil, "TOPLEFT" }, { 95, 45, 0, 16 }, function()
+	controls.modGroupSelect = new("DropDownControl"):DropDownControl({ "TOPLEFT", nil, "TOPLEFT" }, { fieldX, contentY + rowHeight, fieldWidth, controlHeight }, modGroups, function(index, value)
+		controls.modSelect.list = modList[value.modListIndex]
+		controls.modSelect:SetSel(1)
+	end)
+	controls.modGroupSelect.fontSize = 14
+	controls.modGroupSelectLabel = new("LabelControl"):LabelControl({ "RIGHT", controls.modGroupSelect, "LEFT" }, { -gap, 0, 0, 16 }, function()
 		if controls.modSelect:IsShown() then
 			return "^7Type:"
 		else
 			return "^7Modifier:"
 		end
 	end)
-	controls.modGroupSelect = new("DropDownControl"):DropDownControl({ "TOPLEFT", nil, "TOPLEFT" }, { 100, 45, 600, 18 }, modGroups, function(index, value)
-		controls.modSelect.list = modList[value.modListIndex]
-		controls.modSelect:SetSel(1)
-	end)
-	controls.modGroupSelectLabel.shown = function()
-		if sourceList[controls.source.selIndex].sourceId == "CUSTOM" then
-			controls.modSelectLabel.y = 45
-		end
-		return sourceList[controls.source.selIndex].sourceId ~= "CUSTOM"
-	end
 	controls.modGroupSelect.shown = function()
 		return sourceList[controls.source.selIndex].sourceId ~= "CUSTOM"
 	end
@@ -365,8 +369,9 @@ function M.AddImplicitToDisplayItem(itemsTab, displayItem)
 			itemsTab:AddModComparisonTooltip(tooltip, value.mod, value.type == "vestigial")
 		end
 	end
-	controls.modSelectLabel = new("LabelControl"):LabelControl({ "TOPRIGHT", nil, "TOPLEFT" }, { 95, 70, 0, 16 }, "^7Modifier:")
-	controls.modSelect = new("DropDownControl"):DropDownControl({ "TOPLEFT", nil, "TOPLEFT" }, { 100, 70, 600, 18 }, sourceList[controls.source.selIndex].sourceId ~= "CUSTOM" and modList[modGroups[1].modListIndex] or {})
+	controls.modSelect = new("DropDownControl"):DropDownControl({ "TOPLEFT", nil, "TOPLEFT" }, { fieldX, contentY + rowHeight * 2, fieldWidth, controlHeight }, sourceList[controls.source.selIndex].sourceId ~= "CUSTOM" and modList[modGroups[1].modListIndex] or {})
+	controls.modSelect.fontSize = 14
+	controls.modSelectLabel = new("LabelControl"):LabelControl({ "RIGHT", controls.modSelect, "LEFT" }, { -gap, 0, 0, 16 }, "^7Modifier:")
 	local modSelectHidden = {
 		CUSTOM = true,
 		-- vestigial implicits aren't grouped together, and the type selector
@@ -376,7 +381,6 @@ function M.AddImplicitToDisplayItem(itemsTab, displayItem)
 	controls.modSelect.shown = function()
 		return not modSelectHidden[sourceList[controls.source.selIndex].sourceId]
 	end
-	controls.modSelectLabel.shown = controls.modSelect.shown
 	controls.modSelect.tooltipFunc = function(tooltip, mode, index, value)
 		tooltip:Clear()
 		if mode ~= "OUT" and value then
@@ -389,11 +393,12 @@ function M.AddImplicitToDisplayItem(itemsTab, displayItem)
 			itemsTab:AddModComparisonTooltip(tooltip, value.mod)
 		end
 	end
-	controls.custom = new("EditControl"):EditControl({ "TOPLEFT", nil, "TOPLEFT" }, { 100, 45, 440, 18 })
+	controls.custom = new("EditControl"):EditControl({ "TOPLEFT", nil, "TOPLEFT" }, { fieldX, contentY + rowHeight, fieldWidth, controlHeight })
+	controls.customLabel = new("LabelControl"):LabelControl({ "RIGHT", controls.custom, "LEFT" }, { -gap, 0, 0, 16 }, "^7Modifier:")
 	controls.custom.shown = function()
 		return sourceList[controls.source.selIndex].sourceId == "CUSTOM"
 	end
-	controls.save = new("ButtonControl"):ButtonControl({ "BOTTOMRIGHT", nil, "BOTTOM" }, { -4, -8, 80, 20 }, "Add", function()
+	controls.save = new("ButtonControl"):ButtonControl({ "BOTTOMRIGHT", nil, "BOTTOM" }, { -gap / 2, -padding, 80, controlHeight }, "Add", function()
 		itemsTab:SetDisplayItem(addModifier())
 		main:ClosePopup()
 	end)
@@ -401,14 +406,10 @@ function M.AddImplicitToDisplayItem(itemsTab, displayItem)
 		tooltip:Clear()
 		itemsTab:AddItemTooltip(tooltip, addModifier())
 	end
-	controls.close = new("ButtonControl"):ButtonControl({ "BOTTOMLEFT", nil, "BOTTOM" }, { 4, -8, 80, 20 }, "Cancel", function()
+	controls.close = new("ButtonControl"):ButtonControl({ "BOTTOMLEFT", nil, "BOTTOM" }, { gap / 2, -padding, 80, controlHeight }, "Cancel", function()
 		main:ClosePopup()
 	end)
-	local popupHeight = 130
-	if not controls.modSelect.shown() then
-		popupHeight = popupHeight - 20
-	end
-	main:OpenPopup(710, popupHeight, "Add Implicit to Item", controls, "save", sourceList[controls.source.selIndex].sourceId == "CUSTOM" and "custom")
+	main:OpenPopup(popupWidth, popupHeight(sourceList[controls.source.selIndex].sourceId), "Add Implicit to Item", controls, "save", sourceList[controls.source.selIndex].sourceId == "CUSTOM" and "custom")
 end
 
 return M

@@ -7,6 +7,133 @@ describe("TetsItemMods", function()
 		-- newBuild() takes care of resetting everything in setup()
 	end)
 
+	it("keeps catalyst edits separate from ordinary quality through serialization", function()
+		build.itemsTab:CreateDisplayItemFromRaw([[Rarity: Rare
+			Test Ring
+			Amethyst Ring
+			Crafted: true
+			Prefix: None
+			Prefix: None
+			Prefix: None
+			Suffix: None
+			Suffix: None
+			Suffix: None
+			Quality: 12
+			Implicits: 0]])
+		local item = build.itemsTab.displayItem
+		local controls = build.itemsTab.controls
+		controls.displayItemCatalyst:SetSel(2)
+		controls.displayItemQualityEdit:SetText("17", true)
+		controls.displayItemCatalyst:SetSel(3)
+		local restored = new("Item"):Item(item:BuildRaw())
+		assert.are.equal(2, restored.catalyst)
+		assert.are.equal(17, restored.catalystQuality)
+		assert.are.equal(12, restored.quality)
+		controls.displayItemCatalyst:SetSel(1)
+		restored = new("Item"):Item(item:BuildRaw())
+		assert.is_nil(restored.catalystQuality)
+		assert.are.equal(12, restored.quality)
+		controls.displayItemQualityEdit:SetText("17", true)
+		controls.displayItemCatalyst:SetSel(2)
+		assert.are.equal(17, item.catalystQuality)
+	end)
+
+	it("reapplies bulk socket edits after individual overrides and serializes both", function()
+		build.itemsTab:CreateDisplayItemFromRaw("Rarity: Normal\nPlate Vest\nSockets: R-G B")
+		local controls = build.itemsTab.controls
+		local item = build.itemsTab.displayItem
+		controls.displayItemSetColors:SetSel(2)
+		controls.displayItemSocket2:SetSel(2)
+		local restored = new("Item"):Item(item:BuildRaw())
+		assert.are.equal("W", restored.sockets[1].color)
+		assert.are.equal("G", restored.sockets[2].color)
+		assert.are.equal(restored.sockets[1].group, restored.sockets[2].group)
+		assert.are_not.equal(restored.sockets[2].group, restored.sockets[3].group)
+		controls.displayItemSetColors:SetSel(2)
+		controls.displayItemSetLinks:SetSel(4)
+		controls.displayItemLink2.changeFunc(false)
+		assert.are_not.equal(item.sockets[2].group, item.sockets[3].group)
+		controls.displayItemSetLinks:SetSel(4)
+		restored = new("Item"):Item(item:BuildRaw())
+		assert.are.equal(3, #restored.sockets)
+		for _, socket in ipairs(restored.sockets) do
+			assert.are.equal("W", socket.color)
+			assert.are.equal(restored.sockets[1].group, socket.group)
+		end
+	end)
+
+	describe("Crucible modifier source", function()
+		local popupCount
+
+		before_each(function()
+			popupCount = #main.popups
+		end)
+
+		after_each(function()
+			while #main.popups > popupCount do
+				main:ClosePopup()
+			end
+		end)
+
+		local function selectSource(controls, sourceId)
+			for index, source in ipairs(controls.source.list) do
+				if source.sourceId == sourceId then
+					controls.source:SetSel(index)
+					return
+				end
+			end
+			error("Missing modifier source: " .. sourceId)
+		end
+
+		it("switches sources and round-trips legacy nodes without replacing explicit modifiers", function()
+			local itemsTab = build.itemsTab
+			itemsTab:CreateDisplayItemFromRaw("Rarity: Rare\nTest Axe\nRusted Hatchet\nImplicits: 0\n+10 to Strength")
+			itemsTab:AddCustomModifierToDisplayItem()
+			local popup = main.popups[1]
+			local controls = popup.controls
+			local originalSource = controls.source:GetSelValue().sourceId
+			selectSource(controls, "CRUCIBLE")
+			local node = controls.modSelectNode1
+			local selectedMod
+			for index, entry in ipairs(node.list) do
+				if entry ~= "None" and #entry.mod == 2 then
+					node:SetSel(index)
+					selectedMod = entry
+					break
+				end
+			end
+			assert.is_not_nil(selectedMod)
+			selectSource(controls, originalSource)
+			selectSource(controls, "CRUCIBLE")
+			assert.are.equals(selectedMod, node:GetSelValue())
+			controls.save:Click()
+			assert.are.equals("+10 to Strength", itemsTab.displayItem.explicitModLines[1].line)
+			assert.are.equals(2, #itemsTab.displayItem.crucibleModLines)
+
+			itemsTab:CreateDisplayItemFromRaw(itemsTab.displayItem:BuildRaw())
+			itemsTab:AddCustomModifierToDisplayItem()
+			controls = main.popups[1].controls
+			selectSource(controls, "CRUCIBLE")
+			assert.are.equals(selectedMod.defaultOrder, controls.modSelectNode1:GetSelValue().defaultOrder)
+			controls.modSelectNode1:SetSel(1)
+			selectSource(controls, "CUSTOM")
+			controls.custom:SetText("+20 to maximum Life")
+			controls.save:Click()
+			assert.are.equals(2, #itemsTab.displayItem.crucibleModLines)
+			assert.are.equals("+20 to maximum Life", itemsTab.displayItem.explicitModLines[2].line)
+
+			itemsTab:AddCustomModifierToDisplayItem()
+			controls = main.popups[1].controls
+			selectSource(controls, "CRUCIBLE")
+			for i = 1, 5 do
+				controls["modSelectNode" .. i]:SetSel(1)
+			end
+			controls.save:Click()
+			assert.are.equals(0, #itemsTab.displayItem.crucibleModLines)
+			assert.are.equals(2, #itemsTab.displayItem.explicitModLines)
+		end)
+	end)
+
 	it("shows versioned reusable variant groups", function()
 		build.itemsTab:CreateDisplayItemFromRaw([[
 			Rarity: Unique

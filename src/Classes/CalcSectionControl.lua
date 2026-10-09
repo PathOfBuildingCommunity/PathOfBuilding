@@ -25,6 +25,7 @@ function CalcSectionClass:CalcSectionControl(calcsTab, width, id, group, colour,
 	self.group = group
 	self.colour = colour
 	self.width = width
+	self.rowLabelWidth = calcsTab.rowLabelWidth
 	self.subSection = subSection
 	self.flag = subSection[1].data.flag
 	self.notFlag = subSection[1].data.notFlag
@@ -125,16 +126,24 @@ function CalcSectionClass:UpdateSize()
 	for i, subSec in ipairs(self.subSection) do
 		self.controls["toggle"..i].y = yOffset + 3
 		local tempHeight = 0
+		local fixedColWidth = subSec.data.colWidth
+		if fixedColWidth and not self.calcsTab.compactLayout then
+			local maxColumns = 0
+			for _, rowData in ipairs(subSec.data) do
+				maxColumns = m_max(maxColumns, #rowData)
+			end
+			fixedColWidth = (width - self.rowLabelWidth - 2) / maxColumns
+		end
 		yOffset = yOffset + 22
 		for _, rowData in ipairs(subSec.data) do
 			rowData.enabled = self.calcsTab:CheckFlag(rowData)
 			if rowData.enabled then
 				self.enabled = true
-				local xOffset = 134
+				local xOffset = self.rowLabelWidth
 				for colour, colData in ipairs(rowData) do
 					colData.xOffset = xOffset
 					colData.yOffset = yOffset
-					colData.width = subSec.data.colWidth or width - 136
+					colData.width = fixedColWidth or width - self.rowLabelWidth - 2
 					colData.height = 18
 					xOffset = xOffset + colData.width
 				end
@@ -335,8 +344,8 @@ function CalcSectionClass:HandleOverlayClick(key, cursorX, cursorY)
 			for _, rowData in ipairs(subSec.data) do
 				if self.calcsTab:CheckFlag(rowData) then
 					for _, colData in ipairs(rowData) do
-						local cellX = x + (colData.xOffset or 134)
-						local cellW = colData.width or (overlayWidth - 136)
+						local cellX = x + (colData.xOffset or self.rowLabelWidth)
+						local cellW = colData.width or (overlayWidth - self.rowLabelWidth - 2)
 						if cursorX >= cellX and cursorX <= cellX + cellW and cursorY >= lineY + 2 and cursorY <= lineY + 19 then
 							if colData.format and self.calcsTab:CheckFlag(colData) then
 								self.calcsTab:SetDisplayStat(colData, true)
@@ -424,7 +433,7 @@ function CalcSectionClass:DrawOverlay(viewPort, inputEvents)
 	if self.calcsTab.displayData and (self.overlayBreakdownCell or (self.calcsTab.displayPinned and self.calcsTab.displayData.calcSection == self)) then
 		local cd = self.calcsTab.displayData
 		local origX, origY = cd.x, cd.y
-		cd.x = x + (cd.xOffset or 134)
+		cd.x = x + (cd.xOffset or self.rowLabelWidth)
 		cd.y = y + 26 + (cd.yOffset or 0)
 		self.calcsTab.controls.breakdown:Draw(viewPort)
 		cd.x, cd.y = origX, origY
@@ -494,18 +503,18 @@ function CalcSectionClass:DrawContent(drawX, startLineY, drawWidth, actor, viewP
 						local textColor = rowData.color or "^7"
 						if rowData.label then
 							SetDrawColor(rowData.bgCol or "^0")
-							DrawImage(nil, drawX + 2, lineY + 2, 130, 18)
+							DrawImage(nil, drawX + 2, lineY + 2, self.rowLabelWidth - 4, 18)
 							if self.calcsTab:SearchMatch(rowData.label) then
 								textColor = colorCodes.HIGHLIGHT
 							end
-							DrawString(drawX + 132, lineY + 2, "RIGHT_X", 16, "VAR", textColor..rowData.label.."^7:")
+							DrawString(drawX + self.rowLabelWidth - 2, lineY + 2, "RIGHT_X", 16, "VAR", textColor..rowData.label.."^7:")
 						end
 					elseif rowData.label then
-						DrawString(drawX + 132, lineY + 2, "RIGHT_X", 16, "VAR", "^7"..rowData.label.."^7:")
+						DrawString(drawX + self.rowLabelWidth - 2, lineY + 2, "RIGHT_X", 16, "VAR", "^7"..rowData.label.."^7:")
 					end
 					for colour, colData in ipairs(rowData) do
-						local cellX = isOverlay and (drawX + (colData.xOffset or 134)) or colData.x
-						local cellW = isOverlay and (colData.width or (drawWidth - 136)) or colData.width
+						local cellX = isOverlay and (drawX + (colData.xOffset or self.rowLabelWidth)) or colData.x
+						local cellW = isOverlay and (colData.width or (drawWidth - self.rowLabelWidth - 2)) or colData.width
 						local cellY = isOverlay and lineY + 2 or colData.y
 						local cellH = colData.height or 18
 

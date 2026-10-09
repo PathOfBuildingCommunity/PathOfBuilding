@@ -12,6 +12,90 @@ describe("TestImport", function()
 		newBuild()
 	end)
 
+	describe("account-name overwrite import", function()
+		local downloadPage, requests, imports, tab
+		local realm = { hostName = "https://example.invalid/", realmCode = "pc" }
+
+		before_each(function()
+			tab = build.importTab
+			tab.controls.siteAccountName:SetText("First#0001")
+			tab.controls.siteCharSelect.list = { { char = { name = "FirstCharacter", league = "Standard" } } }
+			tab.controls.siteCharSelect.selIndex = 1
+			tab.lastLeague = "Standard"
+			requests, imports = { }, { }
+			downloadPage = launch.DownloadPage
+			launch.DownloadPage = function(_, url, callback)
+				table.insert(requests, { url = url, callback = callback })
+			end
+			tab.ImportItemsAndSkills = function(_, character)
+				table.insert(imports, { "items", character.name })
+			end
+			tab.ImportPassiveTreeAndJewels = function(_, character)
+				table.insert(imports, { "tree", character.name })
+			end
+		end)
+
+		after_each(function()
+			launch.DownloadPage = downloadPage
+		end)
+
+		it("keeps both requests tied to the original account and character", function()
+			tab:DownloadItems(realm, true)
+			tab.controls.siteAccountName:SetText("Second#0002")
+			tab.controls.siteCharSelect.list = { { char = { name = "SecondCharacter", league = "Standard" } } }
+			requests[1].callback({ body = '{"items":[]}' })
+			assert.matches("accountName=First%%230001&character=FirstCharacter&realm=pc", requests[2].url)
+			assert.same({ }, imports)
+			requests[2].callback({ body = '{"items":[]}' })
+			assert.same({ { "items", "FirstCharacter" }, { "tree", "FirstCharacter" } }, imports)
+		end)
+
+		for _, phase in ipairs({ "items", "tree" }) do
+			it("ignores a cancelled " .. phase .. " response after reopening import", function()
+				tab:DownloadItems(realm, true)
+				if phase == "tree" then
+					requests[1].callback({ body = '{"items":[]}' })
+				end
+				local pending = requests[#requests]
+				tab.controls.siteCharClose.onClick()
+				tab.charImportMode = "SELECTCHAR"
+				tab.charImportStatus = "New character selection"
+				pending.callback({ body = '{"items":[]}' })
+				assert.same({ }, imports)
+				assert.equal("New character selection", tab.charImportStatus)
+				assert.equal(pending, requests[#requests])
+			end)
+		end
+
+		it("ignores an older request without interrupting a newer import", function()
+			tab:DownloadItems(realm, true)
+			tab:DownloadItems(realm, true)
+			requests[1].callback({ body = '{"items":[]}' })
+			assert.equal(2, #requests)
+			assert.equal("IMPORTING", tab.charImportMode)
+			requests[2].callback({ body = '{"items":[]}' })
+			requests[3].callback({ body = '{"items":[]}' })
+			assert.same({ { "items", "FirstCharacter" }, { "tree", "FirstCharacter" } }, imports)
+		end)
+
+		it("leaves the build untouched if the second download fails", function()
+			tab:DownloadItems(realm, true)
+			requests[1].callback({ body = '{"items":[]}' })
+			requests[2].callback(nil, "Download failed")
+			assert.same({ }, imports)
+			assert.equal("SELECTCHAR", tab.charImportMode)
+			assert.matches("Download failed", tab.charImportStatus)
+		end)
+
+		it("ignores responses after switching to another build", function()
+			tab:DownloadItems(realm, true)
+			newBuild()
+			requests[1].callback({ body = '{"items":[]}' })
+			assert.same({ }, imports)
+			assert.equal(1, #requests)
+		end)
+	end)
+
 	it("imports with correct tree", function()
 		build.importTab:ImportPassiveTreeAndJewels(sampleData, true)
 		runCallback("OnFrame")

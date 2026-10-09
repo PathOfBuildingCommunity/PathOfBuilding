@@ -221,7 +221,7 @@ function main:Init()
 		self.defaultItemAffixQuality = saved
 	end
 
-	self.anchorMain = new("Control"):Control(nil, {4, 0, 0, 0})
+	self.anchorMain = new("Control"):Control(nil, {6, 0, 0, 0})
 	self.anchorMain.y = function()
 		return self.screenH - 4
 	end
@@ -249,11 +249,11 @@ function main:Init()
 	self.controls.checkUpdate.enabled = function()
 		return not launch.updateCheckRunning
 	end
-	self.controls.forkLabel = new("LabelControl"):LabelControl({"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, {148, -26, 0, 16}, "")
+	self.controls.forkLabel = new("LabelControl"):LabelControl({"BOTTOMRIGHT",self.anchorMain,"BOTTOMLEFT"}, {306, -26, 0, 16}, "")
 	self.controls.forkLabel.label = function()
 		return "^8PoB Community Fork"
 	end
-	self.controls.versionLabel = new("LabelControl"):LabelControl({"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, {148, -2, 0, 16}, "")
+	self.controls.versionLabel = new("LabelControl"):LabelControl({"BOTTOMRIGHT",self.anchorMain,"BOTTOMLEFT"}, {306, -2, 0, 16}, "")
 	self.controls.versionLabel.label = function()
 		return "^8" .. (launch.versionBranch == "beta" and "Beta: " or "Version: ") .. launch.versionNumber .. (launch.versionBranch == "dev" and " (Dev)" or "")
 	end
@@ -429,9 +429,9 @@ function main:OnFrame()
 
 	-- Draw main controls
 	SetDrawColor(0.85, 0.85, 0.85)
-	DrawImage(nil, 0, self.screenH - 58, 312, 58)
+	DrawImage(nil, 0, self.screenH - 58, 322, 58)
 	SetDrawColor(0.1, 0.1, 0.1)
-	DrawImage(nil, 0, self.screenH - 54, 308, 54)
+	DrawImage(nil, 0, self.screenH - 54, 318, 55)
 	self:DrawControls(self.viewPort)
 
 	if self.popups[1] then

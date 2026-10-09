@@ -25,6 +25,7 @@ local ItemDBClass = newClass("ItemDBControl", "ListControl")
 ---@param dbType "RARE"|"UNIQUE"
 function ItemDBClass:ItemDBControl(anchor, rect, itemsTab, db, dbType)
 	self:ListControl(anchor, rect, 16, "VERTICAL", false)
+	self.rowTextInset = 2
 	self.itemsTab = itemsTab
 	self.db = db
 	self.dbType = dbType
@@ -41,27 +42,29 @@ function ItemDBClass:ItemDBControl(anchor, rect, itemsTab, db, dbType)
 	self.typeList = { "Any type", "Armour", "Jewellery", "One Handed Melee", "Two Handed Melee" }
 	self.slotList = { "Any slot", "Weapon 1", "Weapon 2", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring", "Belt", "Jewel", "Flask", "Graft 1", "Graft 2" }
 	local baseY = dbType == "RARE" and -22 or -62
-	self.controls.slot = new("DropDownControl"):DropDownControl({"BOTTOMLEFT",self,"TOPLEFT"}, {0, baseY, 179, 18}, self.slotList, function(index, value)
-		self.listBuildFlag = true
+	local width = self:GetProperty("width")
+	local filterWidth = (width - 2) / 2
+	self.controls.slot = new("DropDownControl"):DropDownControl({"BOTTOMLEFT",self,"TOPLEFT"}, {0, baseY, filterWidth, 18}, self.slotList, function(index, value)
+		self:UpdateTypeList()
 	end)
-	self.controls.type = new("DropDownControl"):DropDownControl({"LEFT",self.controls.slot,"RIGHT"}, {2, 0, 179, 18}, self.typeList, function(index, value)
+	self.controls.type = new("DropDownControl"):DropDownControl({"LEFT",self.controls.slot,"RIGHT"}, {2, 0, filterWidth, 18}, copyTable(self.typeList), function(index, value)
 		self.listBuildFlag = true
 	end)
 	if dbType == "UNIQUE" then
-		self.controls.sort = new("DropDownControl"):DropDownControl({"BOTTOMLEFT",self,"TOPLEFT"}, {0, baseY + 20, 179, 18}, self.sortDropList, function(index, value)
+		self.controls.sort = new("DropDownControl"):DropDownControl({"BOTTOMLEFT",self,"TOPLEFT"}, {0, baseY + 20, filterWidth, 18}, self.sortDropList, function(index, value)
 			self:SetSortMode(value.sortMode)
 		end)
-		self.controls.league = new("DropDownControl"):DropDownControl({"LEFT",self.controls.sort,"RIGHT"}, {2, 0, 179, 18}, self.leagueList, function(index, value)
+		self.controls.league = new("DropDownControl"):DropDownControl({"LEFT",self.controls.sort,"RIGHT"}, {2, 0, filterWidth, 18}, self.leagueList, function(index, value)
 			self.listBuildFlag = true
 		end)
-		self.controls.requirement = new("DropDownControl"):DropDownControl({"LEFT",self.controls.sort,"BOTTOMLEFT"}, {0, 11, 179, 18}, { "Any requirements", "Current level", "Current attributes", "Current useable" }, function(index, value)
+		self.controls.requirement = new("DropDownControl"):DropDownControl({"LEFT",self.controls.sort,"BOTTOMLEFT"}, {0, 11, filterWidth, 18}, { "Any requirements", "Current level", "Current attributes", "Current useable" }, function(index, value)
 			self.listBuildFlag = true
 		end)
-		self.controls.obtainable = new("DropDownControl"):DropDownControl({"LEFT",self.controls.requirement,"RIGHT"}, {2, 0, 179, 18}, { "Obtainable", "Any source", "Unobtainable", "Vendor Recipe", "Upgraded", "Boss Item", "Corruption", "Core Drop Pool"}, function(index, value)
+		self.controls.obtainable = new("DropDownControl"):DropDownControl({"LEFT",self.controls.requirement,"RIGHT"}, {2, 0, filterWidth, 18}, { "Obtainable", "Any source", "Unobtainable", "Vendor Recipe", "Upgraded", "Boss Item", "Corruption", "Core Drop Pool"}, function(index, value)
 			self.listBuildFlag = true
 		end)
 	end
-	self.controls.search = new("EditControl"):EditControl({"BOTTOMLEFT",self,"TOPLEFT"}, {0, -2, 258, 18}, "", "Search", "%c", 100, function()
+	self.controls.search = new("EditControl"):EditControl({"BOTTOMLEFT",self,"TOPLEFT"}, {0, -2, m_max(width - 102, 0), 18}, "", "Search", "%c", 100, function()
 		self.listBuildFlag = true
 	end, nil, nil, true)
 	self.controls.searchMode = new("DropDownControl"):DropDownControl({"LEFT",self.controls.search,"RIGHT"}, {2, 0, 100, 18}, { "Anywhere", "Names", "Modifiers" }, function(index, value)
@@ -90,33 +93,62 @@ function ItemDBClass:LoadLeaguesAndTypes()
 		t_insert(self.typeList, type)
 	end
 	self.leaguesAndTypesLoaded = true
+	self:UpdateTypeList()
+end
+
+function ItemDBClass:DoesItemMatchSlot(item)
+	local slotName = self.controls.slot:GetSelValue()
+	if slotName == "Any slot" then
+		return true
+	elseif slotName == "Jewel" then
+		-- The database filter does not select a particular passive tree socket.
+		return item.type == "Jewel"
+	elseif (slotName == "Weapon 1" or slotName == "Weapon 2") and self.itemsTab.activeItemSet.useSecondWeaponSet then
+		slotName = slotName .. " Swap"
+	end
+	return self.itemsTab:IsItemValidForSlot(item, slotName)
+end
+
+function ItemDBClass:DoesItemMatchType(item, itemType)
+	if itemType == "Any type" then
+		return true
+	elseif itemType == "Armour" then
+		return item.base.armour ~= nil
+	elseif itemType == "Jewellery" then
+		return item.type == "Amulet" or item.type == "Ring" or item.type == "Belt"
+	elseif itemType == "One Handed Melee" or itemType == "Two Handed Melee" then
+		local weaponInfo = self.itemsTab.build.data.weaponTypeInfo[item.type]
+		return weaponInfo and weaponInfo.melee and ((itemType == "One Handed Melee" and weaponInfo.oneHand) or (itemType == "Two Handed Melee" and not weaponInfo.oneHand))
+	end
+	return item.type == itemType
+end
+
+function ItemDBClass:UpdateTypeList()
+	local selectedType = self.controls.type:GetSelValue()
+	local typeList = { }
+	for _, itemType in ipairs(self.typeList) do
+		local valid = itemType == "Any type" or self.controls.slot.selIndex == 1
+		if not valid then
+			for _, item in pairs(self.db.list) do
+				if self:DoesItemMatchSlot(item) and self:DoesItemMatchType(item, itemType) then
+					valid = true
+					break
+				end
+			end
+		end
+		if valid then
+			t_insert(typeList, itemType)
+		end
+	end
+	self.controls.type.selIndex = 1
+	self.controls.type:SetList(typeList)
+	self.controls.type:SelByValue(selectedType)
+	self.listBuildFlag = true
 end
 
 function ItemDBClass:DoesItemMatchFilters(item)
-	if self.controls.slot.selIndex > 1 then
-		local primarySlot = item:GetPrimarySlot()
-		if primarySlot ~= self.slotList[self.controls.slot.selIndex] and primarySlot:gsub(" %d","") ~= self.slotList[self.controls.slot.selIndex] then
-			return false
-		end
-	end
-	local typeSel = self.controls.type.selIndex
-	if typeSel > 1 then
-		if typeSel == 2 then
-			if not item.base.armour then
-				return false
-			end
-		elseif typeSel == 3 then
-			if not (item.type == "Amulet" or item.type == "Ring" or item.type == "Belt") then
-				return false
-			end
-		elseif typeSel == 4 or typeSel == 5 then
-			local weaponInfo = self.itemsTab.build.data.weaponTypeInfo[item.type]
-			if not (weaponInfo and weaponInfo.melee and ((typeSel == 4 and weaponInfo.oneHand) or (typeSel == 5 and not weaponInfo.oneHand))) then 
-				return false
-			end
-		elseif item.type ~= self.typeList[typeSel] then
-			return false
-		end
+	if not self:DoesItemMatchSlot(item) or not self:DoesItemMatchType(item, self.controls.type:GetSelValue()) then
+		return false
 	end
 	if self.dbType == "UNIQUE" and self.controls.league.selIndex > 1 then
 		if (self.controls.league.selIndex == 2 and item.league) or (self.controls.league.selIndex > 2 and (not item.league or not item.league:match(self.leagueList[self.controls.league.selIndex]))) then
@@ -301,8 +333,30 @@ function ItemDBClass:ListBuilder()
 end
 
 function ItemDBClass:Draw(viewPort)
+	local width = self:GetProperty("width")
+	local filterWidth = (width - 2) / 2
+	local widthChanged = self.controls.slot.width ~= filterWidth
+	self.controls.slot.width = filterWidth
+	self.controls.type.width = filterWidth
+	if self.dbType == "UNIQUE" then
+		self.controls.sort.width = filterWidth
+		self.controls.league.width = filterWidth
+		self.controls.requirement.width = filterWidth
+		self.controls.obtainable.width = filterWidth
+	end
+	self.controls.search.width = m_max(width - 102, 0)
+	if widthChanged then
+		self.controls.slot:CheckDroppedWidth(false)
+		self.controls.type:CheckDroppedWidth(false)
+		if self.dbType == "UNIQUE" then
+			self.controls.sort:CheckDroppedWidth(false)
+			self.controls.league:CheckDroppedWidth(false)
+			self.controls.requirement:CheckDroppedWidth(false)
+			self.controls.obtainable:CheckDroppedWidth(false)
+		end
+	end
 	if self.itemsTab.build.outputRevision ~= self.listOutputRevision then
-		self.listBuildFlag = true
+		self:UpdateTypeList()
 	end
 	if self.listBuildFlag then
 		self.listBuildFlag = false
@@ -341,6 +395,7 @@ function ItemDBClass:AddValueTooltip(tooltip, index, item)
 	if tooltip:CheckForUpdate(item, IsKeyDown("SHIFT"), launch.devModeAlt, self.itemsTab.build.outputRevision) then
 		self.itemsTab:AddItemTooltip(tooltip, item, nil, true)
 	end
+	tooltip.minX = self:GetPos() + self:GetSize() + 5
 end
 
 function ItemDBClass:GetDragValue(index, item)
@@ -374,6 +429,7 @@ function ItemDBClass:OnSelClick(index, item, doubleClick)
 		self.itemsTab:AddForbiddenJewelCounterpart(newItem)
 
 		self.itemsTab:PopulateSlots()
+		self.itemsTab.controls.itemList:SelectItem(newItem.id)
 		self.itemsTab:AddUndoState()
 		self.itemsTab.build.buildFlag = true
 	elseif doubleClick then
@@ -382,6 +438,7 @@ function ItemDBClass:OnSelClick(index, item, doubleClick)
 		-- to get stuck to the cursor
 		self.selDragging = false
 		self.itemsTab:CreateDisplayItemFromRaw(item.raw, true)
+		self.itemsTab.snapHScroll = "ITEM"
 		return false
 	end
 end

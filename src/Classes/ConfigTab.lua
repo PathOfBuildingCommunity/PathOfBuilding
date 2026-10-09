@@ -41,7 +41,7 @@ function CustomModBlockClass:CustomModBlockControl(anchor, rect, configTab, bloc
 		configTab.build.buildFlag = true
 	end)
 
-	self.controls.titleEdit = new("EditControl"):EditControl({"LEFT", self.controls.deleteBtn, "RIGHT"}, {6, 0, 222, 18}, blockData.title or "", nil, nil, nil, function(buf)
+	self.controls.titleEdit = new("EditControl"):EditControl({"LEFT", self.controls.deleteBtn, "RIGHT"}, {6, 0, self.width - 122, 18}, blockData.title or "", nil, nil, nil, function(buf)
 		blockData.title = buf
 		configTab:AddUndoState()
 		configTab:BuildModList()
@@ -76,7 +76,7 @@ function CustomModBlockClass:CustomModBlockControl(anchor, rect, configTab, bloc
 		end
 	end
 
-	self.controls.textEdit = new("ResizableEditControl"):ResizableEditControl({"TOPLEFT", self, "TOPLEFT"}, {0, 22, 344, 80, 344, 40, 344, 600}, blockData.text or "", nil, "^%C\t\n", nil, function(buf)
+	self.controls.textEdit = new("ResizableEditControl"):ResizableEditControl({"TOPLEFT", self, "TOPLEFT"}, {0, 22, self.width, 240, self.width, 40, self.width, 600}, blockData.text or "", nil, "^%C\t\n", nil, function(buf)
 		blockData.text = buf
 		configTab:AddUndoState()
 		configTab:BuildModList()
@@ -96,9 +96,17 @@ function CustomModBlockClass:CustomModBlockControl(anchor, rect, configTab, bloc
 end
 
 function CustomModBlockClass:GetSize()
-	local textHeight = self.controls.textEdit and self.controls.textEdit.height or 80
+	local width = self.configTab.customSection.width - 16
+	if self.width ~= width then
+		self.width = width
+		self.controls.titleEdit.width = width - 122
+		self.controls.textEdit.minWidth = width
+		self.controls.textEdit.maxWidth = width
+		self.controls.textEdit:SetWidth(width)
+	end
+	local textHeight = self.controls.textEdit and self.controls.textEdit.height or 240
 	self.height = 22 + textHeight + 4
-	return 344, self.height
+	return self.width, self.height
 end
 
 function CustomModBlockClass:IsMouseOver()
@@ -163,7 +171,9 @@ function ConfigTabClass:ConfigTab(build)
 	self.controls.sectionAnchor = new("LabelControl"):LabelControl({ "TOPLEFT", self, "TOPLEFT" }, { 0, 20, 0, 0 }, "")
 
 	-- Set selector
-	self.controls.setSelect = new("DropDownControl"):DropDownControl({ "TOPLEFT", self.controls.sectionAnchor, "TOPLEFT" }, { 76, -12, 210, 20 }, nil, function(index, value)
+	self.controls.setLabel = new("LabelControl"):LabelControl({ "TOPLEFT", self.controls.sectionAnchor, "TOPLEFT" }, { 18, -10, 0, 16 }, "^7Config Set:")
+	local setLabelWidth = self.controls.setLabel:GetSize()
+	self.controls.setSelect = new("DropDownControl"):DropDownControl({ "LEFT", self.controls.setLabel, "RIGHT" }, { 4, 0, 380 - setLabelWidth - 4, 20 }, nil, function(index, value)
 		self:SetActiveConfigSet(self.configSetOrderList[index])
 		self:AddUndoState()
 	end)
@@ -171,15 +181,15 @@ function ConfigTabClass:ConfigTab(build)
 	self.controls.setSelect.enabled = function()
 		return #self.configSetOrderList > 1
 	end
-	self.controls.setLabel = new("LabelControl"):LabelControl({ "RIGHT", self.controls.setSelect, "LEFT" }, { -2, 0, 0, 16 }, "^7Config set:")
-	self.controls.setManage = new("ButtonControl"):ButtonControl({ "LEFT", self.controls.setSelect, "RIGHT" }, { 4, 0, 90, 20 }, "Manage...", function()
+	self.controls.setManage = new("ButtonControl"):ButtonControl({ "LEFT", self.controls.setSelect, "RIGHT" }, { 11, 0, 90, 20 }, "Manage...", function()
 		self:OpenConfigSetManagePopup()
 	end)
 
-	self.controls.search = new("EditControl"):EditControl({ "TOPLEFT", self.controls.sectionAnchor, "TOPLEFT" }, { 8, 15, 360, 20 }, "", "Search", "%c", 100, function()
+	self.controls.searchLabel = new("LabelControl"):LabelControl({ "TOPLEFT", self.controls.setLabel, "TOPLEFT" }, { 0, 27, 0, 16 }, "^7Search:")
+	self.controls.search = new("EditControl"):EditControl({ "TOPLEFT", self.controls.setSelect, "BOTTOMLEFT" }, { 0, 7, self.controls.setSelect.width, 20 }, "", nil, "%c", 100, function()
 		self:UpdateControls()
 	end, nil, nil, true)
-	self.controls.toggleConfigs = new("ButtonControl"):ButtonControl({ "LEFT", self.controls.search, "RIGHT" }, { 10, 0, 200, 20 }, function()
+	self.controls.toggleConfigs = new("ButtonControl"):ButtonControl({ "LEFT", self.controls.search, "RIGHT" }, { 11, 0, 200, 20 }, function()
 		-- dynamic text
 		return self.toggleConfigs and "Hide Ineligible Configurations" or "Show All Configurations"
 	end, function()
@@ -260,7 +270,7 @@ function ConfigTabClass:ConfigTab(build)
 	local lastSection
 	for _, varData in ipairs(varList) do
 		if varData.section then
-			lastSection = new("SectionControl"):SectionControl({"TOPLEFT",self.controls.search,"BOTTOMLEFT"}, {0, 0, 360, 0}, varData.section)
+			lastSection = new("SectionControl"):SectionControl({"TOPLEFT",self.controls.sectionAnchor,"TOPLEFT"}, {0, 0, 380, 0}, varData.section)
 			lastSection.varControlList = { }
 			lastSection.col = varData.col
 			lastSection.collapsed = false
@@ -291,18 +301,19 @@ function ConfigTabClass:ConfigTab(build)
 			t_insert(self.controls, toggle)
 			if varData.section == "Custom Modifiers" then
 				self.customSection = lastSection
+				self.customSection.width = 450
 			end
 		else
 			local control
 			if varData.type == "check" then
-				control = new("CheckBoxControl"):CheckBoxControl({"TOPLEFT",lastSection,"TOPLEFT"}, {234, 0, 18}, varData.label, function(state)
+				control = new("CheckBoxControl"):CheckBoxControl({"TOPLEFT",lastSection,"TOPLEFT"}, {230, 0, 18}, varData.label, function(state)
 					self.configSets[self.activeConfigSetId].input[varData.var] = state
 					self:AddUndoState()
 					self:BuildModList()
 					self.build.buildFlag = true
 				end)
 			elseif varData.type == "count" or varData.type == "integer" or varData.type == "countAllowZero" or varData.type == "float" then
-				control = new("EditControl"):EditControl({"TOPLEFT",lastSection,"TOPLEFT"}, {234, 0, 90, 18}, "", nil, ((varData.type == "integer" or varData.type == "countAllowZero") and "^%-%d") or (varData.type == "float" and "^%d.") or "%D", 10, function(buf, placeholder)
+				control = new("EditControl"):EditControl({"TOPLEFT",lastSection,"TOPLEFT"}, {230, 0, 114, 18}, "", nil, ((varData.type == "integer" or varData.type == "countAllowZero") and "^%-%d") or (varData.type == "float" and "^%d.") or "%D", 10, function(buf, placeholder)
 					if placeholder then
 						self.configSets[self.activeConfigSetId].placeholder[varData.var] = tonumber(buf)
 					else
@@ -313,14 +324,14 @@ function ConfigTabClass:ConfigTab(build)
 					self.build.buildFlag = true
 				end)
 			elseif varData.type == "list" then
-				control = new("DropDownControl"):DropDownControl({"TOPLEFT",lastSection,"TOPLEFT"}, {234, 0, 118, 16}, varData.list, function(index, value)
+				control = new("DropDownControl"):DropDownControl({"TOPLEFT",lastSection,"TOPLEFT"}, {230, 0, 142, 18}, varData.list, function(index, value)
 					self.configSets[self.activeConfigSetId].input[varData.var] = value.val
 					self:AddUndoState()
 					self:BuildModList()
 					self.build.buildFlag = true
 				end)
 			elseif varData.type == "text" and not varData.resizable then
-				control = new("EditControl"):EditControl({"TOPLEFT",lastSection,"TOPLEFT"}, {8, 0, 344, 118}, "", nil, "^%C\t\n", nil, function(buf, placeholder)
+				control = new("EditControl"):EditControl({"TOPLEFT",lastSection,"TOPLEFT"}, {28, 0, 344, 118}, "", nil, "^%C\t\n", nil, function(buf, placeholder)
 					if placeholder then
 						self.configSets[self.activeConfigSetId].placeholder[varData.var] = tostring(buf)
 					else
@@ -331,7 +342,7 @@ function ConfigTabClass:ConfigTab(build)
 					self.build.buildFlag = true
 				end, 16)
 			elseif varData.type == "text" and varData.resizable then
-				control = new("ResizableEditControl"):ResizableEditControl({"TOPLEFT",lastSection,"TOPLEFT"}, {8, 0, 344, 118, nil, nil, nil, 118 + 16 * 40}, "", nil, "^%C\t\n", nil, function(buf, placeholder)
+				control = new("ResizableEditControl"):ResizableEditControl({"TOPLEFT",lastSection,"TOPLEFT"}, {28, 0, 344, 118, nil, nil, nil, 118 + 16 * 40}, "", nil, "^%C\t\n", nil, function(buf, placeholder)
 					if placeholder then
 						self.configSets[self.activeConfigSetId].placeholder[varData.var] = tostring(buf)
 					else
@@ -342,7 +353,7 @@ function ConfigTabClass:ConfigTab(build)
 					self.build.buildFlag = true
 				end, 16)
 			else
-				control = new("Control"):Control({"TOPLEFT",lastSection,"TOPLEFT"}, {234, 0, 16, 16})
+				control = new("Control"):Control({"TOPLEFT",lastSection,"TOPLEFT"}, {230, 0, 16, 16})
 			end
 
 			if varData.inactiveText then
@@ -1052,9 +1063,34 @@ function ConfigTabClass:Draw(viewPort, inputEvents)
 		end
 	end
 
-	local maxCol = m_floor((viewPort.width - 10) / 370)
-	local maxColY = 0
-	local colY = { 0 }
+	-- Stack Custom Modifiers above the settings when the two panels no longer fit side by side.
+	local stackedLayout = viewPort.width < 756
+	local availableWidth = viewPort.width - 28
+	local maxCol = stackedLayout and 1 or m_max(1, m_floor((availableWidth - 18 - 320) / 390))
+	local customX = stackedLayout and 18 or 18 + maxCol * 390
+	self.customSection.width = stackedLayout and m_min(450, availableWidth - customX) or m_max(320, m_min(450, availableWidth - customX))
+	for _, blockControl in ipairs(self.customModsBlockControls) do
+		if blockControl.stackedLayout ~= stackedLayout then
+			local textEdit = blockControl.controls.textEdit
+			if stackedLayout then
+				blockControl.wideTextHeight = textEdit.height
+				textEdit:SetHeight(blockControl.stackedTextHeight or 120)
+			else
+				if blockControl.stackedLayout ~= nil then
+					blockControl.stackedTextHeight = textEdit.height
+				end
+				textEdit:SetHeight(blockControl.wideTextHeight or textEdit.height)
+			end
+			blockControl.stackedLayout = stackedLayout
+		end
+	end
+	local stackedCustomHeight = 0
+	if stackedLayout then
+		local _, customHeight = self.customSection:GetSize()
+		stackedCustomHeight = customHeight
+	end
+	local maxColY = stackedCustomHeight + (stackedLayout and 18 or 0)
+	local colY = { maxColY }
 	for _, section in ipairs(self.sectionList) do
 		local y = 14
 		section.shown = true
@@ -1074,10 +1110,15 @@ function ConfigTabClass:Draw(viewPort, inputEvents)
 		end
 		section.collapsed = collapsed
 		section.shown = doShow
-		if doShow then
+		if doShow and section == self.customSection then
+			local _, height = section:GetSize()
+			section.x = customX
+			section.y = 53
+			maxColY = m_max(maxColY, height + 18)
+		elseif doShow then
 			local width, height = section:GetSize()
 			local col
-			if section.col and (colY[section.col] or 0) + height + 28 <= viewPort.height and 10 + section.col * 370 <= viewPort.width then
+			if section.col and section.col <= maxCol and (colY[section.col] or 0) + height + 28 <= viewPort.height then
 				col = section.col
 			else
 				col = 1
@@ -1089,8 +1130,8 @@ function ConfigTabClass:Draw(viewPort, inputEvents)
 				end
 			end
 			colY[col] = colY[col] or 0
-			section.x = 10 + (col - 1) * 370
-			section.y = colY[col] + 18
+			section.x = 18 + (col - 1) * 390
+			section.y = colY[col] + 53
 			colY[col] = colY[col] + height + 18
 			maxColY = m_max(maxColY, colY[col])
 		end
@@ -1113,6 +1154,9 @@ function ConfigTabClass:Draw(viewPort, inputEvents)
 	main:DrawBackground(viewPort)
 
 	self:DrawControls(viewPort)
+	if self.controls.scrollBar:IsShown() then
+		self.controls.scrollBar:Draw(viewPort)
+	end
 end
 
 function ConfigTabClass:UpdateLevel()
@@ -1323,7 +1367,7 @@ function ConfigTabClass:UpdateCustomModsControls()
 	self.customSection.varControlList = { self.controls.customModsAddBlock }
 
 	for index, block in ipairs(configSet.customModsList) do
-		local blockControl = new("CustomModBlockControl"):CustomModBlockControl({"TOPLEFT", self.customSection, "TOPLEFT"}, {8, 0, 344, 120}, self, index, block)
+		local blockControl = new("CustomModBlockControl"):CustomModBlockControl({"TOPLEFT", self.customSection, "TOPLEFT"}, {8, 0, self.customSection.width - 16, 266}, self, index, block)
 		blockControl.shown = function()
 			return not self:IsSectionCollapsed(self.customSection)
 		end

@@ -264,10 +264,8 @@ function M.OpenAddModPopup(configTab, blockData)
 	end
 
 	updateDisplayList(controls, displayList, supportedList)
-	local helpSize = 24
-	controls.whatDoesItDo = new("ButtonControl"):ButtonControl({ "BOTTOM", nil, "BOTTOM" }, { 0, -10, helpSize, helpSize }, "?", function() end)
+	controls.whatDoesItDo = new("ButtonControl"):ButtonControl({ "BOTTOMRIGHT", nil, "BOTTOMRIGHT" }, { -8, -8, 24, 24 }, "?", function() end)
 	controls.whatDoesItDo.forceTooltip = true
-
 	controls.whatDoesItDo.tooltipText = table.concat(
 		main:WrapString(
 			[[This menu currently contains supported mod lines from tree nodes and item modifiers only.
@@ -277,7 +275,7 @@ This menu is not a representation of what PoB can parse, and this is only a limi
 A mod being supported does not necessarily mean that it will be included in calculations, and only means that the mod parser accepts it.]],
 			16, 270), "\n")
 
-	controls.save = new("ButtonControl"):ButtonControl({ "BOTTOMRIGHT", controls.whatDoesItDo, "TOP" }, { -2, -4, 80, 20 }, "Add", function()
+	controls.save = new("ButtonControl"):ButtonControl({ "BOTTOMRIGHT", nil, "BOTTOM" }, { -4, -8, 80, 20 }, "Add", function()
 		local selIndex = controls.listControl.selIndex or 1
 		local selected = displayList[selIndex]
 		if selected and selected.text ~= NO_MATCH_TEXT then
@@ -299,13 +297,11 @@ A mod being supported does not necessarily mean that it will be included in calc
 	end
 
 
-	controls.close = new("ButtonControl"):ButtonControl({ "BOTTOMLEFT", controls.whatDoesItDo, "TOP" }, { 2, -4, 80, 20 }, "Cancel", function()
+	controls.close = new("ButtonControl"):ButtonControl({ "BOTTOMLEFT", nil, "BOTTOM" }, { 4, -8, 80, 20 }, "Cancel", function()
 		main:ClosePopup()
 	end)
 
-	local popupHeight = controls.search.y + controls.search.height + helpSize - controls.whatDoesItDo.y - controls.close.y + controls.close.height + 8
-
-	main:OpenPopup(720, popupHeight, "Mod Browser", controls, "save", "search", "close")
+	main:OpenPopup(720, 566, "Mod Browser", controls, "save", "search", "close")
 end
 
 return M

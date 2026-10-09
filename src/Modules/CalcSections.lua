@@ -1820,7 +1820,7 @@ return {
 	{ label = "Cooldown Recovery", { format = "{0:mod:1}%", { modName = "TinctureCooldownRecovery", modType = "INC", actor = "player"}, }, },
 } }
 } },
-{ 1, "Rage", 3, colorCodes.RAGE, {{ defaultCollapsed = true, label = "Rage", data = {
+{ 1, "Rage", 4, colorCodes.RAGE, {{ defaultCollapsed = false, label = "Rage", data = {
 	extra = "{0:output:Rage} ({1:output:RageEffect})",
 	{ label = "Total", { format = "{0:output:Rage}", }, },
 	{ label = "Rage Effect", { format = "{1:output:RageEffect}", { modName = "RageEffect" }, }, },
@@ -1836,7 +1836,7 @@ return {
 	{ label = "Inherent Rage Loss", { format = "{1:output:InherentRageLoss} /s", { modName = "InherentRageLoss" }, { modName = { "InherentRageLossIsPrevented" } }, }, },
 } }
 } },
-{ 1, "Charges", 3, colorCodes.NORMAL, {{ defaultCollapsed = true, label = "Charges", data = {
+{ 1, "Charges", 4, colorCodes.NORMAL, {{ defaultCollapsed = false, label = "Charges", data = {
 	extra = colorCodes.RAGE.."{0:output:EnduranceCharges}^7, "..colorCodes.EVASION.."{0:output:FrenzyCharges}^7, "..colorCodes.MANA.."{0:output:PowerCharges}",} },
 	{ defaultCollapsed = true, label = "Endurance", haveOutput="UseEnduranceCharges", data = {
 	extra = colorCodes.RAGE.."{0:output:EnduranceCharges} ^7/ "..colorCodes.RAGE.."{0:output:EnduranceChargesMax}",
@@ -1861,7 +1861,7 @@ return {
 	} },
 } },
 -- misc defense
-{ 1, "MiscDefences", 3, colorCodes.DEFENCE, {{ defaultCollapsed = false, label = "Other Defences", data = {
+{ 1, "MiscDefences", 4, colorCodes.DEFENCE, {{ defaultCollapsed = false, label = "Other Defences", data = {
 	{ label = "Movement Speed", { format = "x {2:output:EffectiveMovementSpeedMod}", { breakdown = "EffectiveMovementSpeedMod" }, { modName = { "MovementSpeed", "MovementSpeedEqualHighestLinkedPlayers" } }, }, },
 	{ label = "Effect of Elusive", haveOutput = "ElusiveEffectMod", { format = "{0:output:ElusiveEffectMod}%", { breakdown = "ElusiveEffectMod" }, { modName = { "ElusiveEffect", "BuffEffectOnSelf", "NightbladeSupportedElusiveEffect" }, }, } },
 	{ label = "Light Radius Mod", { format = "x {2:output:LightRadiusMod}", { breakdown = "LightRadiusMod" }, { modName = "LightRadius" }, }, },
@@ -1887,7 +1887,7 @@ return {
 		{ breakdown = "BlockDuration" },
 		{ modName = { "StunDuration", "StunRecovery", "BlockRecovery" }, }, 
 	}, },
-} }, { defaultCollapsed = true, label = "Other Avoidance", data = {
+} }, { defaultCollapsed = false, label = "Other Avoidance", data = {
 	{ label = "Blind Avoid Ch.", haveOutput = "BlindAvoidChance", { format = "{0:output:BlindAvoidChance}%", { modName = { "AvoidBlind", "BlindImmune" } }, }, },
 	{ label = "Shock Avoid Ch.", haveOutput = "ShockAvoidChance", { format = "{0:output:ShockAvoidChance}%", { modName = { "AvoidShock", "AvoidElementalAilments", "AvoidAilments", "ShockImmune", "ElementalAilmentImmune" } }, }, },
 	{ label = "Freeze Avoid Ch.", haveOutput = "FreezeAvoidChance", { format = "{0:output:FreezeAvoidChance}%", { modName = { "AvoidFreeze", "AvoidElementalAilments", "AvoidAilments", "AvoidShockAppliesToElementalAilments", "FreezeImmune", "ElementalAilmentImmune" } }, }, },
@@ -1907,7 +1907,7 @@ return {
 	{ label = "Hinder Immune", haveOutput = "HinderImmunity", { format = "True", { modName = "HinderImmune" }, }, },
 	{ label = "Knockback Immune", haveOutput = "KnockbackImmunity", { format = "True", { modName = "KnockbackImmune" }, }, },
 	{ label = "Blind Duration", haveOutput = "SelfBlindDuration", { format = "{0:output:SelfBlindDuration}%", { modName = "SelfBlindDuration" }, }, },
-} }, { defaultCollapsed = true, label = "Other Ailment Defences", data = {
+} }, { defaultCollapsed = false, label = "Other Ailment Defences", data = {
 	{ label = "Freeze Duration", { format = "{1:output:SelfFreezeDuration}%", { modName = { "SelfFreezeDuration", "SelfDebuffExpirationRate", "SelfFreezeDebuffExpirationRate", "SelfAilmentDuration", "SelfElementalAilmentDuration", "SelfIgniteDurationToElementalAilments" }, }, }, },
 	{ label = "Chill Duration", { format = "{1:output:SelfChillDuration}%", { modName = { "SelfChillDuration", "SelfDebuffExpirationRate", "SelfChillDebuffExpirationRate", "SelfAilmentDuration", "SelfElementalAilmentDuration", "SelfIgniteDurationToElementalAilments" }, }, }, },
 	{ label = "Shock Duration", { format = "{1:output:SelfShockDuration}%", { modName = { "SelfShockDuration", "SelfDebuffExpirationRate", "SelfShockDebuffExpirationRate", "SelfAilmentDuration", "SelfElementalAilmentDuration", "SelfIgniteDurationToElementalAilments" }, }, }, },

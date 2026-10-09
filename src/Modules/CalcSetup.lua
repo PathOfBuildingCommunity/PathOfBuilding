@@ -1893,19 +1893,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 			end
 
 			if env.mode == "MAIN" then
-				-- Create display label for the socket group if the user didn't specify one
-				if group.label and group.label:match("%S") then
-					group.displayLabel = group.label
-				else
-					group.displayLabel = nil
-					for _, gemInstance in ipairs(group.gemList) do
-						local grantedEffect = gemInstance.gemData and gemInstance.gemData.grantedEffect or gemInstance.grantedEffect
-						if grantedEffect and not grantedEffect.support and gemInstance.enabled then
-							group.displayLabel = (group.displayLabel and group.displayLabel..", " or "") .. grantedEffect.name
-						end
-					end
-					group.displayLabel = group.displayLabel or "<No active skills>"
-				end
+				build.skillsTab:UpdateGroupLabel(group)
 
 				-- Save the active skill list for display in the socket group tooltip
 				group.displaySkillList = socketGroupSkillList

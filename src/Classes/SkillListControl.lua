@@ -6,6 +6,8 @@
 local ipairs = ipairs
 local t_insert = table.insert
 local t_remove = table.remove
+local m_ceil = math.ceil
+local m_floor = math.floor
 local slot_map = {
 	["Weapon 1"] 		= { icon = NewImageHandle(), path = "Assets/icon_weapon.png" },
 	["Weapon 2"] 		= { icon = NewImageHandle(), path = "Assets/icon_weapon_2.png" },
@@ -36,13 +38,20 @@ function SkillListClass:SkillListControl(anchor, rect, skillsTab)
 	self:ListControl(anchor, rect, 16, "VERTICAL", true, skillsTab.socketGroupList)
 	self.skillsTab = skillsTab
 	self.label = "^7Socket Groups:"
-	self.controls.delete = new("ButtonControl"):ButtonControl({"BOTTOMRIGHT",self,"TOPRIGHT"}, {0, -2, 60, 18}, "Delete", function()
+	self.labelPositionOffset[2] = -4
+	local buttonGap = 4
+	local buttonRowWidth = self:GetSize() - m_ceil(DrawStringWidth(16, "VAR", self.label)) - 6 - buttonGap * 2
+	local buttonWidth = m_floor(buttonRowWidth / 3)
+	local buttonWidthRemainder = buttonRowWidth - buttonWidth * 3
+	local newButtonWidth = buttonWidth + (buttonWidthRemainder >= 1 and 1 or 0)
+	local deleteAllButtonWidth = buttonWidth + (buttonWidthRemainder >= 2 and 1 or 0)
+	self.controls.delete = new("ButtonControl"):ButtonControl({"BOTTOMRIGHT",self,"TOPRIGHT"}, {0, -6, buttonWidth, 20}, "Delete", function()
 		self:OnSelDelete(self.selIndex, self.selValue)
 	end)
 	self.controls.delete.enabled = function()
 		return self.selValue ~= nil and self.selValue.source == nil
 	end
-	self.controls.deleteAll = new("ButtonControl"):ButtonControl({"RIGHT",self.controls.delete,"LEFT"}, {-4, 0, 70, 18}, "Delete All", function()
+	self.controls.deleteAll = new("ButtonControl"):ButtonControl({"RIGHT",self.controls.delete,"LEFT"}, {-buttonGap, 0, deleteAllButtonWidth, 20}, "Delete All", function()
 		main:OpenConfirmPopup("Delete All", "Are you sure you want to delete all socket groups in this build?", "Delete", function()
 			wipeTable(self.list)
 			skillsTab:RebuildImbuedSupportBySlot()
@@ -56,7 +65,7 @@ function SkillListClass:SkillListControl(anchor, rect, skillsTab)
 	self.controls.deleteAll.enabled = function()
 		return #self.list > 0 
 	end
-	self.controls.new = new("ButtonControl"):ButtonControl({"RIGHT",self.controls.deleteAll,"LEFT"}, {-4, 0, 60, 18}, "New", function()
+	self.controls.new = new("ButtonControl"):ButtonControl({"RIGHT",self.controls.deleteAll,"LEFT"}, {-buttonGap, 0, newButtonWidth, 20}, "New", function()
 		local newGroup = {
 			label = "",
 			enabled = true,

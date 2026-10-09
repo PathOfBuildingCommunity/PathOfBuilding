@@ -41,6 +41,7 @@ for _, recipeName in pairs(recipeNames) do
 end
 
 ---@class Tooltip
+---@field minX? number Minimum left edge for hover tooltips, allowing overflow to the right.
 local TooltipClass = newClass("Tooltip")
 
 function TooltipClass:Tooltip()
@@ -63,6 +64,7 @@ function TooltipClass:Clear(clearUpdateParams)
 	self.recipe = nil
 	self.center = false
 	self.maxWidth = nil
+	self.minX = nil
 	---@type string|[number, number, number]
 	self.color = { 0.5, 0.3, 0 }
 	t_insert(self.blocks, { height = 0 })
@@ -103,13 +105,54 @@ function TooltipClass:AddLine(size, text, font, modLine, background)
 				self.blocks[#self.blocks].height = self.blocks[#self.blocks].height + size + 2
 			end
 			if self.maxWidth then
-				for _, wrappedLine in ipairs(main:WrapString(line, size, self.maxWidth - H_PAD)) do
-					t_insert(self.lines, { size = size, text = wrappedLine, block = #self.blocks, font = fontToUse, center = self.center, modLine = modLine, background = background })
+				local wrappedLines = main:WrapString(line, size, self.maxWidth - H_PAD)
+				local color = ""
+				for _, wrappedLine in ipairs(wrappedLines) do
+					t_insert(self.lines, { size = size, text = color .. wrappedLine, block = #self.blocks, font = fontToUse, center = self.center, modLine = modLine, background = background })
+					-- Continuation lines retain the last inline colour, including unsupported-mod warnings.
+					for pos, marker in wrappedLine:gmatch("()%^([%dx])") do
+						color = wrappedLine:sub(pos, pos + (marker == "x" and 7 or 1))
+					end
 				end
+				self.blocks[#self.blocks].height = self.blocks[#self.blocks].height + (#wrappedLines - 1) * (size + 2)
 			else
 				t_insert(self.lines, { size = size, text = line, block = #self.blocks, font = fontToUse, center = self.center, modLine = modLine, background = background })
 			end
 		end
+	end
+end
+
+-- Use the same column padding, type sizes and row heights as Calcs breakdown tables.
+---@param colList table[] Columns with label, key, and optional right alignment
+---@param rowList table[] Rows indexed by the column keys
+---@param fullWidth boolean? Extend the first column and grid to the tooltip edges
+function TooltipClass:AddTable(colList, rowList, fullWidth)
+	local width = 4
+	for _, col in ipairs(colList) do
+		col.width = DrawStringWidth(16, "VAR", col.label) + 6
+		for _, row in ipairs(rowList) do
+			col.width = m_max(col.width, DrawStringWidth(12, "VAR", tostring(row[col.key] or "")) + 6)
+		end
+		width = width + col.width
+	end
+	for index = 0, #rowList do
+		local cells = { }
+		for _, col in ipairs(colList) do
+			t_insert(cells, index == 0 and col.label or tostring(rowList[index][col.key] or ""))
+		end
+		local size = index == 0 and 18 or 12
+		t_insert(self.lines, {
+			text = table.concat(cells, "\t"),
+			size = size,
+			font = "VAR",
+			block = #self.blocks,
+			width = width,
+			cells = cells,
+			colList = colList,
+			fullWidth = fullWidth,
+			header = index == 0,
+		})
+		self.blocks[#self.blocks].height = self.blocks[#self.blocks].height + size + 2
 	end
 end
 
@@ -167,7 +210,7 @@ function TooltipClass:GetSize()
 			ttH = ttH + data.size + 2
 		end
 		if data.text then
-			ttW = m_max(ttW, DrawStringWidth(data.size, data.font, data.text))
+			ttW = m_max(ttW, data.width or DrawStringWidth(data.size, data.font, data.text))
 		end
 	end
 
@@ -298,18 +341,48 @@ function TooltipClass:CalculateColumns(ttY, ttX, ttH, ttW, viewPort)
 			local lineX = lineCentered and (x + ttW / 2) or (x + (H_PAD / 2))
 			local lineAlign = lineCentered and "CENTER_X" or "LEFT"
 			
-			local stackEntry = {lineX, y, lineAlign, data.size, font, data.text}
-			if data.modLine and data.modLine.disabled then
-				stackEntry.strikethrough = true
+			if data.cells then
+				local tableWidth = data.fullWidth and ttW or data.width
+				local colX = x + (data.fullWidth and 0 or H_PAD / 2) + 4
+				local gridY, gridHeight = y, data.size + 2
+				if data.fullWidth then
+					-- Extend dividers through section padding to meet the surrounding borders.
+					local prevLine, nextLine = self.lines[i - 1], self.lines[i + 1]
+					if data.header then
+						local topPad = y == ttY + 2 * BORDER_WIDTH and BORDER_WIDTH or prevLine and not prevLine.text and not prevLine.separatorImage and prevLine.size / 2 + 1 or 0
+						gridY, gridHeight = gridY - topPad, gridHeight + topPad
+					end
+					if not nextLine or nextLine.colList ~= data.colList then
+						local bottomPad = nextLine and not nextLine.text and not nextLine.separatorImage and self.lines[i + 2] and self.lines[i + 2].text and nextLine.size / 2 - 1 or BORDER_WIDTH
+						gridHeight = gridHeight + bottomPad
+					end
+				end
+				if not data.header then
+					t_insert(drawStack, {nil, data.fullWidth and x + BORDER_WIDTH or colX - 2, y - 1, data.fullWidth and ttW - 2 * BORDER_WIDTH or tableWidth - 4, 1, color = { 0.5, 0.5, 0.5 }, tableGrid = true})
+				end
+				for index, col in ipairs(data.colList) do
+					local colWidth = col.width + (index == 1 and tableWidth - data.width or 0)
+					if index > 1 then
+						t_insert(drawStack, {nil, colX - 2, gridY, 1, gridHeight, color = { 0.5, 0.5, 0.5 }, tableGrid = true})
+					end
+					local right = not data.header and col.right
+					t_insert(drawStack, {right and colX + colWidth - 4 or colX, y + (data.header and 2 or 1), right and "RIGHT_X" or "LEFT", data.header and 16 or 12, "VAR", "^7" .. data.cells[index]})
+					colX = colX + colWidth
+				end
+			else
+				local stackEntry = {lineX, y, lineAlign, data.size, font, data.text}
+				if data.modLine and data.modLine.disabled then
+					stackEntry.strikethrough = true
+				end
+				stackEntry.background = data.background
+				t_insert(drawStack, stackEntry)
 			end
-			stackEntry.background = data.background
-			t_insert(drawStack, stackEntry)
 			data.bounds = { x = x + (H_PAD / 2), y = y, width = ttW - H_PAD, height = data.size + 2 }
 			y = y + data.size + 2
 
 			-- track max width for extra columns
 			if columns > 1 then
-				extraColumnWidth = m_max(extraColumnWidth, DrawStringWidth(data.size, font, data.text) + H_PAD)
+				extraColumnWidth = m_max(extraColumnWidth, data.fullWidth and ttW or (data.width or DrawStringWidth(data.size, font, data.text)) + H_PAD)
 			end
 
 		elseif data.separatorImage and main.showFlavourText then
@@ -356,7 +429,7 @@ function TooltipClass:CalculateColumns(ttY, ttX, ttH, ttW, viewPort)
 				end
 
 				-- Resize separators/dividers (technically unlikely to appear in extra columns, but just in case)
-				if not isText then
+				if not isText and not line.tableGrid then
 					-- separator images have `width` value at index 4
 					if line[1] and type(line[1]) == "table" and line[1].isSeparator then
 						line[4] = extraColumnWidth - H_PAD -- "fancy" separators get extra padding
@@ -435,7 +508,9 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 	local isHoverToolTip = w and h -- `w` and `h` typically only provided for hover tooltips
 	if isHoverToolTip then
 		ttX = ttX + w + 5
-		if ttX + ttW > viewPort.x + viewPort.width then
+		if self.minX then
+			ttX = m_max(ttX, self.minX)
+		elseif ttX + ttW > viewPort.x + viewPort.width then
 			ttX = m_max(viewPort.x, x - 5 - ttW)
 			if ttX + ttW > x then
 				ttY = ttY + h
@@ -454,7 +529,7 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 
 	-- If hover tooltip and extra columns don't fit, shift to left and adjust drawStack (because hover tooltips can't scroll)
 	if columns > 1 and isHoverToolTip and totalDrawWidth + ttX >= viewPort.x + viewPort.width then
-		local newX = m_max(viewPort.x, viewPort.x + viewPort.width - totalDrawWidth)
+		local newX = m_max(self.minX or viewPort.x, viewPort.x + viewPort.width - totalDrawWidth)
 		local offsetX = newX - ttX
 		ttX = newX
 
@@ -588,6 +663,8 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 				else
 					SetDrawColor(1, 1, 1)
 				end
+			elseif line.color then
+				SetDrawColor(unpack(line.color))
 			elseif type(self.color) == "string" then
 				SetDrawColor(self.color)
 			else

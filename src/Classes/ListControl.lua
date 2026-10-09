@@ -32,6 +32,7 @@ local m_floor = math.floor
 
 ---@class ListControl<T>: Control, ControlHost
 ---@field list T[]
+---@field rowTextInset? number Leading inset for row text and icons; defaults to zero.
 local ListClass = newClass("ListControl", "Control", "ControlHost")
 
 ---@param anchor Anchor?
@@ -207,8 +208,10 @@ function ListClass:Draw(viewPort, noTooltip)
 	end
 	DrawImage(nil, x + 1, y + 1, width - 2, height - 2)
 	self:DrawControls(viewPort, (noTooltip and not self.forceTooltip) and self)
+	local mouseOverControl = self:GetMouseOverControl()
 
 	SetViewport(x + 2, y + 2,  self.scroll and width - 20 or width, height - 4 - (self.scroll and self.scrollH and 16 or 0))
+	local textOffsetX = self.rowTextInset or 0
 	local textOffsetY = self.showRowSeparators and 2 or 0
 	local textHeight = rowHeight - textOffsetY * 2
 	local ttIndex, ttValue, ttX, ttY, ttWidth
@@ -230,12 +233,12 @@ function ListClass:Draw(viewPort, noTooltip)
 				icon = self:GetRowIcon(colIndex, index, value)
 			end
 			local textWidth = DrawStringWidth(textHeight, colFont, text)
-			if textWidth > colWidth - 2 then
-				local clipIndex = DrawStringCursorIndex(textHeight, colFont, text, colWidth - clipWidth - 2, 0)
+			if textWidth > colWidth - textOffsetX - 2 then
+				local clipIndex = DrawStringCursorIndex(textHeight, colFont, text, colWidth - textOffsetX - clipWidth - 2, 0)
 				text = text:sub(1, clipIndex - 1) .. "..."
 				textWidth = DrawStringWidth(textHeight, colFont, text)
 			end
-			if not scrollBarV.dragging and (not self.selDragActive or (self.CanDragToValue and self:CanDragToValue(index, value, self.otherDragSource))) then
+			if not mouseOverControl and not scrollBarV.dragging and (not self.selDragActive or (self.CanDragToValue and self:CanDragToValue(index, value, self.otherDragSource))) then
 				if relX >= colOffset and relX <  (self.scroll and width - 20 or width) and relY >= 0 and relY >= lineY and relY < height - 2 - (self.scroll and self.scrollH and 18 or 0) and relY < lineY + rowHeight then
 					ttIndex = index
 					ttValue = value
@@ -284,10 +287,10 @@ function ListClass:Draw(viewPort, noTooltip)
 			end
 			-- TODO: handle icon size properly, for now assume they are 16x16
 			if icon == nil then
-				DrawString(colOffset, lineY + textOffsetY, "LEFT", textHeight, colFont, text)
+				DrawString(colOffset + textOffsetX, lineY + textOffsetY, "LEFT", textHeight, colFont, text)
 			else
-				DrawImage(icon, colOffset, lineY, 16, 16)
-				DrawString(colOffset + 16 + 2, lineY + textOffsetY, "LEFT", textHeight, colFont, text)
+				DrawImage(icon, colOffset + textOffsetX, lineY, 16, 16)
+				DrawString(colOffset + textOffsetX + 16 + 2, lineY + textOffsetY, "LEFT", textHeight, colFont, text)
 			end
 		end
 		if self.colLabels then
