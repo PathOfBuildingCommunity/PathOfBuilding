@@ -37,7 +37,9 @@ end })
 ---@class ModStore
 local ModStoreClass = newClass("ModStore")
 
-function ModStoreClass:ModStore(parent)
+---@field queryObserver table? Calculation-local, sealed after observation.
+function ModStoreClass:ModStore(parent, queryObserver)
+	self.queryObserver = queryObserver or (parent and parent.queryObserver) or false
 	self.parent = parent or false
 	self.actor = parent and parent.actor or { }
 	self.multipliers = { }
@@ -170,6 +172,9 @@ function ModStoreClass:Sum(modType, cfg, ...)
 		keywordFlags = cfg.keywordFlags or 0
 		source = cfg.source
 	end
+	if self.queryObserver and self.queryObserver.active then
+		self.queryObserver:Query(modType, flags, keywordFlags, source, ...)
+	end
 	return self:SumInternal(self, modType, cfg, flags, keywordFlags, source, ...)
 end
 
@@ -184,6 +189,9 @@ function ModStoreClass:More(cfg, ...)
 		keywordFlags = cfg.keywordFlags or 0
 		source = cfg.source
 	end
+	if self.queryObserver and self.queryObserver.active then
+		self.queryObserver:Query("MORE", flags, keywordFlags, source, ...)
+	end
 	return self:MoreInternal(self, cfg, flags, keywordFlags, source, ...)
 end
 
@@ -194,6 +202,9 @@ function ModStoreClass:Flag(cfg, ...)
 		flags = cfg.flags or 0
 		keywordFlags = cfg.keywordFlags or 0
 		source = cfg.source
+	end
+	if self.queryObserver and self.queryObserver.active then
+		self.queryObserver:Query("FLAG", flags, keywordFlags, source, ...)
 	end
 	return self:FlagInternal(self, cfg, flags, keywordFlags, source, ...)
 end
@@ -209,6 +220,9 @@ function ModStoreClass:Override(cfg, ...)
 		keywordFlags = cfg.keywordFlags or 0
 		source = cfg.source
 	end
+	if self.queryObserver and self.queryObserver.active then
+		self.queryObserver:Query("OVERRIDE", flags, keywordFlags, source, ...)
+	end
 	return self:OverrideInternal(self, cfg, flags, keywordFlags, source, ...)
 end
 
@@ -222,6 +236,9 @@ function ModStoreClass:List(cfg, ...)
 		flags = cfg.flags or 0
 		keywordFlags = cfg.keywordFlags or 0
 		source = cfg.source
+	end
+	if self.queryObserver and self.queryObserver.active then
+		self.queryObserver:Query("LIST", flags, keywordFlags, source, ...)
 	end
 	local result = { }
 	self:ListInternal(self, result, cfg, flags, keywordFlags, source, ...)
@@ -239,6 +256,9 @@ function ModStoreClass:Tabulate(modType, cfg, ...)
 		flags = cfg.flags or 0
 		keywordFlags = cfg.keywordFlags or 0
 		source = cfg.source
+	end
+	if self.queryObserver and self.queryObserver.active then
+		self.queryObserver:Query(modType, flags, keywordFlags, source, ...)
 	end
 	local result = { }
 	self:TabulateInternal(self, result, modType, cfg, flags, keywordFlags, source, ...)
@@ -282,6 +302,9 @@ function ModStoreClass:HasMod(modType, cfg, ...)
 		flags = cfg.flags or 0
 		keywordFlags = cfg.keywordFlags or 0
 		source = cfg.source
+	end
+	if self.queryObserver and self.queryObserver.active then
+		self.queryObserver:Query(modType, flags, keywordFlags, source, ...)
 	end
 	return self:HasModInternal(modType, flags, keywordFlags, source, ...)
 end

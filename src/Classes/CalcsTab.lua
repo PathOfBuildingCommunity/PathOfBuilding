@@ -510,7 +510,8 @@ local function nodePowerCacheKey(node, radiusNodes)
 end
 
 -- Estimate the offensive and defensive power of all unallocated nodes
-function CalcsTabClass:PowerBuilder()
+---@param disableRelevance boolean? Private validation opt-out; never persisted.
+function CalcsTabClass:PowerBuilder(disableRelevance)
 	-- local timer_start = GetTime()
 	local useFullDPS = self.powerStat and self.powerStat.requiresFullDPS or false
 	local useClusterPower = self.powerStat and self.powerStat.stat and not self.powerStat.ignoreForNodes
@@ -519,7 +520,11 @@ function CalcsTabClass:PowerBuilder()
 		skipFullDPS = not useFullDPS,
 	}
 	local calcFunc, calcBase = self:GetMiscCalculator()
+	local relevance
 	local function calcPower(override)
+		if relevance and relevance:CanSkip(override) then
+			return relevance.output
+		end
 		return calcFunc(override, useFullDPS, calcOptions)
 	end
 	local cache = { }
@@ -546,6 +551,18 @@ function CalcsTabClass:PowerBuilder()
 	end
 	if coroutine.running() then
 		coroutine.yield()
+	end
+
+	if not disableRelevance then
+		local observation = self.calcs.newQueryObserver()
+		calcOptions.queryObserver = observation
+		local ok, nullOutput = pcall(calcPower, { })
+		observation:Seal()
+		calcOptions.queryObserver = nil
+		if not ok then
+			error(nullOutput, 0)
+		end
+		relevance = self.calcs.newNodeRelevance(self.mainEnv, observation, nullOutput)
 	end
 
 	local function buildMasteryEffectNode(node, effect)

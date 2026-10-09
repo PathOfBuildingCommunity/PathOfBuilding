@@ -217,7 +217,7 @@ describe("PowerBuilder calculation options", function()
 				return output
 			end, baseOutput }
 
-			build.calcsTab:PowerBuilder()
+			build.calcsTab:PowerBuilder(true)
 			assert.is_true(callCount > 0)
 		end
 
@@ -361,6 +361,27 @@ describe("Power report cluster calculations", function()
 		calcsTab:BuildPower()
 		assert.are.equal(1, completions)
 	end)
+
+	it("applies a depth decrease to the running builder without replacing it", function()
+		local clock = 0
+		_G.GetTime = function() clock = clock + 101; return clock end
+		calcsTab.miscCalculator[1] = function() return calcsTab.miscCalculator[2] end
+		calcsTab.nodePowerMaxDepth = 10
+		calcsTab.powerStat = data.powerStatList[1]
+		calcsTab.powerBuildFlag = true
+		calcsTab:BuildPower()
+		local builder = calcsTab.powerBuilder
+		calcsTab:BuildPower()
+		calcsTab.nodePowerMaxDepth = 1
+		for _ = 1, 10000 do
+			if not calcsTab.powerBuilder then break end
+			assert.are.equal(builder, calcsTab.powerBuilder)
+			calcsTab:BuildPower()
+		end
+		assert.is_nil(calcsTab.powerBuilder)
+		assert.are.equal("dead", coroutine.status(builder))
+	end)
+
 end)
 
 describe("Power report candidate context", function()
@@ -464,5 +485,185 @@ Passive Skills in Radius also grant +5 to maximum Life
 		tab:PowerBuilder()
 		assert.are.equal(10, plain.power.singleStat)
 		assert.are.equal(20, scaled.power.singleStat)
+	end)
+end)
+
+
+describe("Power report relevance", function()
+	before_each(function()
+		newBuild()
+		runCallback("OnFrame")
+	end)
+
+	it("records absent public queries and seals inherited observers", function()
+		local calcs = build.calcsTab.calcs
+		local observation = calcs.newQueryObserver()
+		local parent = new("ModDB"):ModDB(nil, observation)
+		local child = new("ModList"):ModList(parent)
+		child:Sum("BASE", nil, "Absent", nil)
+		child:More(nil, "MoreAbsent")
+		child:Flag(nil, "FlagAbsent")
+		child:Override(nil, "OverrideAbsent")
+		child:List(nil, "ListAbsent")
+		child:Tabulate(nil, nil, "WildcardAbsent")
+		parent:HasMod("INC", nil, "HasAbsent")
+		for _, name in ipairs({ "Absent", "MoreAbsent", "FlagAbsent", "OverrideAbsent", "ListAbsent", "WildcardAbsent", "HasAbsent" }) do
+			assert.is_not_nil(observation.queries[name])
+		end
+		observation:Seal()
+		child:Sum("BASE", nil, "AfterSeal")
+		assert.is_nil(observation.queries.AfterSeal)
+	end)
+
+	local function assertReportParity()
+		local tab = build.calcsTab
+		tab.powerStat = findPowerStat("TotalDPS")
+		tab.nodePowerMaxDepth = 1
+		local function snapshot()
+			local result = { nodes = { }, clusters = { }, maximum = copyTable(tab.powerMax) }
+			for id, node in pairs(build.spec.nodes) do result.nodes[id] = copyTable(node.power) end
+			for id, node in pairs(build.spec.tree.clusterNodeMap) do result.clusters[id] = copyTable(node.power) end
+			return result
+		end
+		tab:PowerBuilder(true)
+		local expected = snapshot()
+		tab:PowerBuilder()
+		local actual = snapshot()
+		for group, values in pairs(expected) do
+			for key, value in pairs(values) do
+				assert.same(value, actual[group][key], group .. ":" .. tostring(key))
+			end
+		end
+	end
+
+
+	local function auditedRecording()
+		local calcs = build.calcsTab.calcs
+		local calc = calcs.getMiscCalculator(build)
+		local observation = calcs.newQueryObserver()
+		local originals, missing = { }, { }
+		local observed = 0
+		for _, className in ipairs({ "ModDB", "ModList" }) do
+			local store = common.classes[className]
+			originals[store] = { }
+			for _, method in ipairs({ "Sum", "More", "Flag", "Override", "List", "Tabulate", "HasMod" }) do
+				local original = store[method]
+				originals[store][method] = original
+				store[method] = function(self, ...)
+					if self.queryObserver ~= observation then
+						missing[debug.traceback(method, 2)] = true
+					else
+						observed = observed + 1
+					end
+					return original(self, ...)
+				end
+			end
+		end
+		local ok, err = pcall(calc, { }, true, { skipEHP = false, skipFullDPS = false, queryObserver = observation })
+		for store, methods in pairs(originals) do
+			for method, original in pairs(methods) do store[method] = original end
+		end
+		assert(ok, tostring(err))
+		local failures = { }
+		for trace in pairs(missing) do table.insert(failures, trace) end
+		assert.are.equal(0, #failures, table.concat(failures, "\n"))
+		assert.is_true(observed > 0)
+		assert.is_true(observation.recorded)
+		assert.is_not_nil(observation.queries.Dex)
+		observation:Seal()
+		local queries = copyTable(observation.queries)
+		calc({ }, false, { skipEHP = false, skipFullDPS = false })
+		assert.same(queries, observation.queries)
+		return observation
+	end
+
+	it("audits every queried store during a recording and isolates the next execution", function()
+		auditedRecording()
+	end)
+
+	it("observes nested minion and Full DPS calculations", function()
+		build.skillsTab:PasteSocketGroup("Summon Raging Spirit 20/0  1\nMinion Damage 20/0  1")
+		for _, group in ipairs(build.skillsTab.socketGroupList) do group.includeInFullDPS = true end
+		build.buildFlag = true
+		runCallback("OnFrame")
+		assert.is_not_nil(build.calcsTab.mainOutput.Minion)
+		local observation = auditedRecording()
+		assert.is_not_nil(observation.queries.Damage)
+		assertReportParity()
+	end)
+
+	it("disables pruning when Manaforged reuses a calculated skill", function()
+		build.itemsTab:CreateDisplayItemFromRaw("Rarity: RARE\nTest Bow\nThicket Bow\nImplicits: 0")
+		build.itemsTab:AddDisplayItem()
+		build.skillsTab:PasteSocketGroup("Frenzy 20/0  1\nManaforged Arrows 20/0  1")
+		build.skillsTab:PasteSocketGroup("Rain of Arrows 20/0  1")
+		runCallback("OnFrame")
+		assert.is_not_nil(build.calcsTab.mainOutput.SkillTriggerRate)
+		local observation = auditedRecording()
+		assert.are.equal("cached calculation", observation.unsafe)
+		assertReportParity()
+	end)
+
+	it("disables pruning when Reflection reuses a calculated active skill", function()
+		build.itemsTab:CreateDisplayItemFromRaw("Rarity: UNIQUE\nThe Saviour\nLegion Sword\nImplicits: 0\nTriggers Level 20 Reflection when Equipped")
+		build.itemsTab:AddDisplayItem()
+		build.skillsTab:PasteSocketGroup("Cyclone 20/0  1")
+		runCallback("OnFrame")
+		for index, group in ipairs(build.skillsTab.socketGroupList) do
+			if group.gemList[1] and group.gemList[1].skillId == "UniqueMirageWarriors" then
+				build.mainSocketGroup = index
+			end
+		end
+		build.buildFlag = true
+		runCallback("OnFrame")
+		assert.are.equal("UniqueMirageWarriors", build.skillsTab.socketGroupList[build.mainSocketGroup].gemList[1].skillId)
+		local observation = auditedRecording()
+		assert.are.equal("cached calculation", observation.unsafe)
+		assertReportParity()
+	end)
+
+	it("keeps probes immutable and requires complete add-only path evidence", function()
+		local calcs = build.calcsTab.calcs
+		local observation = calcs.newQueryObserver()
+		observation:Query("BASE", 0, 0, nil, "Life")
+		observation.recorded = true
+		observation:Seal()
+		local relevance = calcs.newNodeRelevance(build.calcsTab.mainEnv, observation, { })
+		local node = { id = -1, type = "Normal", modList = { modLib.createMod("Unused", "BASE", 1) }, grantedSkills = { "untouched" } }
+		local matching = { id = -1, type = "Normal", modList = { modLib.createMod("Life", "BASE", 0) } }
+		local before = copyTable(node)
+		assert.is_true(relevance:CanSkip({ addNodes = { [node] = true } }))
+		assert.same(before, node)
+		assert.is_false(relevance:CanSkip({ addNodes = { [node] = true, [matching] = true } }))
+		assert.is_false(relevance:CanSkip({ addNodes = { } }))
+		assert.is_false(relevance:CanSkip({ addNodes = { [123] = true } }))
+		assert.is_false(relevance:CanSkip({ addNodes = { [node] = true }, removeNodes = { } }))
+		local allocation = { }
+		local observedIDs = calcs.newQueryObserver()
+		observedIDs:ObserveNodes(allocation)
+		assert.is_nil(allocation[node.id])
+		observedIDs.recorded = true
+		observedIDs:Seal()
+		assert.is_false(calcs.newNodeRelevance(build.calcsTab.mainEnv, observedIDs, { }):IsIrrelevant(node))
+		local radiusEnv = { radiusJewelList = { { nodes = { [node.id] = node } } }, extraRadiusNodeList = { } }
+		assert.is_false(calcs.newNodeRelevance(radiusEnv, observation, { }):IsIrrelevant(node))
+		for _, mod in ipairs({
+			modLib.createMod("ExtraSkill", "LIST", { name = "Fireball", skillId = "Fireball", level = 1 }),
+			modLib.createMod("CanExplode", "FLAG", true),
+		}) do
+			local product = { id = -2, type = "Normal", modList = { mod } }
+			assert.is_false(relevance:IsIrrelevant(product))
+		end
+		local countObserver = calcs.newQueryObserver()
+		countObserver:Query("BASE", 0, 0, nil, "Multiplier:AllocatedNotable")
+		countObserver.recorded = true
+		countObserver:Seal()
+		assert.is_false(calcs.newNodeRelevance(build.calcsTab.mainEnv, countObserver, { }):IsIrrelevant({ id = -3, type = "Notable", modList = { } }))
+		observation.unsafe = "cached calculation"
+		assert.is_false(calcs.newNodeRelevance(build.calcsTab.mainEnv, observation, { }):CanSkip({ addNodes = { [node] = true } }))
+	end)
+
+	it("preserves every node, mastery, cluster and maximum in a synchronous report", function()
+		assertReportParity()
 	end)
 end)
