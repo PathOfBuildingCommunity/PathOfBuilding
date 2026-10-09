@@ -2,35 +2,24 @@ describe("TradeQuery", function()
 	local mock_tradeQuery
 	local mock_queryGen
 
+	local function newTradeQuery(state)
+		local tq = new("TradeQuery"):TradeQuery({ activeItemSet = {}, slots = {}, sockets = {} })
+		tq.slotTables[1] = { slotName = "Ring 1" }
+		tq.resultTbl = state.resultTbl or {}
+		tq.sortedResultTbl = state.sortedResultTbl or {}
+		return tq
+	end
+
+	local function buildRow1Dropdown(tq)
+		tq:PriceItemRowDisplay(1, nil, 0, 20)
+		return tq.controls.resultDropdown1
+	end
+
 	before_each(function()
 		mock_tradeQuery = new("TradeQuery"):TradeQuery({ itemsTab = {} })
 		mock_queryGen = new("TradeQueryGenerator"):TradeQueryGenerator({ itemsTab = {} })
 	end)
 	describe("result dropdown tooltipFunc", function()
-		-- Builds a TradeQuery with the strict minimum needed for
-		-- PriceItemRowDisplay to construct row 1 without exploding. Only the
-		-- three itemsTab fields read by the slot lookup at the top of
-		-- PriceItemRowDisplay need to be created here; everything else either
-		-- lives behind a callback we never trigger, or is already initialized
-		-- by the TradeQuery constructor.
-		local function newTradeQuery(state)
-			local tq = new("TradeQuery"):TradeQuery({ itemsTab = {} })
-			tq.itemsTab.activeItemSet = {}
-			tq.itemsTab.slots         = {}
-			tq.itemsTab.sockets       = {}
-			tq.slotTables[1] = { slotName = "Ring 1" }
-			if state.resultTbl       then tq.resultTbl       = state.resultTbl       end
-			if state.sortedResultTbl then tq.sortedResultTbl = state.sortedResultTbl end
-			return tq
-		end
-
-		-- Builds row 1 of the trader UI and returns the dropdown that owns the
-		-- tooltipFunc we want to exercise.
-		local function buildRow1Dropdown(tq)
-			tq:PriceItemRowDisplay(1, nil, 0, 20)
-			return tq.controls.resultDropdown1
-		end
-
 		it("constructs the Watcher's Eye row without an active jewel socket", function()
 			local tq = newTradeQuery({})
 			tq.slotTables[1] = { slotName = "Watcher's Eye", unique = true }
@@ -70,25 +59,10 @@ describe("TradeQuery", function()
 			end)
 			assert.are.equal(0, #tooltip.lines)
 		end)
-
-		it("returns early from action button tooltips when filtering clears the selected result", function()
-			local tq = newTradeQuery({
-				resultTbl       = { [1] = { [1] = { item_string = "Rarity: RARE\nBehemoth Hold\nGold Ring", amount = 1, currency = "chaos" } } },
-				sortedResultTbl = { [1] = {} },
-			})
-			buildRow1Dropdown(tq)
-			local tooltip = new("Tooltip"):Tooltip()
-
-			assert.has_no.errors(function()
-				tq.controls.importButton1.tooltipFunc(tooltip)
-				tq.controls.whisperButton1.tooltipFunc(tooltip)
-			end)
-			assert.are.equal(0, #tooltip.lines)
-		end)
 	end)
 	describe("replacement slot resolution", function()
 		it("resolves normal, Abyssal, and selected jewel slots without stored row state", function()
-			local tq = new("TradeQuery"):TradeQuery({ itemsTab = {} })
+			local tq = newTradeQuery({})
 			tq.itemsTab.slots = {
 				["Ring 1"] = {},
 				["Body Armour Abyssal Socket 1"] = {},
@@ -111,8 +85,7 @@ describe("TradeQuery", function()
 	describe("attribute requirement result filtering", function()
 		local function newTradeQueryWithOutput(output, slotTbl)
 			local calcCalls = 0
-			local lastCalcArgs
-			local tq = new("TradeQuery"):TradeQuery({ itemsTab = {} })
+			local tq = newTradeQuery({})
 			tq.slotTables[1] = slotTbl or { slotName = "Ring 1" }
 			tq.resultTbl = {
 				[1] = {
@@ -120,40 +93,82 @@ describe("TradeQuery", function()
 				},
 			}
 			tq.sortModes = {
-				Weight = "(Highest) Weighted Sum",
+				Weight = "Weight", StatValue = "StatValue", StatValuePrice = "StatValuePrice", Price = "Price",
 			}
+			tq.itemSortSelectionList = { tq.sortModes.Weight }
+			tq.statSortSelectionList = { { stat = "Life", weightMult = 1 } }
+			tq.tradeQueryGenerator = mock_queryGen
+			tq.pbLeague = "Test League"
+			tq.pbCurrencyConversion = { [tq.pbRealm] = { [tq.pbLeague] = { chaos = 1 } } }
 			tq.itemsTab.build = {
 				calcsTab = {
 					GetMiscCalculator = function()
 						return function(calcArgs)
 							calcCalls = calcCalls + 1
-							lastCalcArgs = calcArgs
-							return output
-						end, {}
+							return type(output) == "function" and output(calcArgs) or output
+						end, { Life = 100 }
 					end,
 				},
 			}
 			tq.itemsTab.slots = {
 				["Ring 1"] = {},
 			}
-			return tq, function() return calcCalls end, function() return lastCalcArgs end
+			return tq, function() return calcCalls end
 		end
 
-		it("filters fetched results that do not meet attribute requirements", function()
-			local tq, _, calcArgs = newTradeQueryWithOutput({ ReqStr = 50, Str = 40, ReqDex = 0, Dex = 0, ReqInt = 0, Int = 0 })
-			tq.hideResultsFailingAttributeRequirements = true
-			local sortedItems = tq:SortFetchResults(1, tq.sortModes.Weight)
-			assert.are.equal(0, #sortedItems)
-			assert.are.equal("Ring 1", calcArgs().repSlotName)
-			assert.are.equal("Behemoth Hold, Gold Ring", calcArgs().repItem.name)
-		end)
+		for _, mode in ipairs({ "Weight", "StatValue", "StatValuePrice", "Price" }) do
+			it("postfilters mixed fetched results in " .. mode .. " mode", function()
+				local tq = newTradeQueryWithOutput(function(calcArgs)
+					assert.are.equal("Ring 1", calcArgs.repSlotName)
+					if calcArgs.repItem.name == "Behemoth Hold, Gold Ring" then
+						return { ReqStr = 50, Str = 40, Life = 400 }
+					end
+					assert.are.equal("Survivor Hold, Gold Ring", calcArgs.repItem.name)
+					return { ReqStr = 50, Str = 60, ReqDex = 30, Dex = 30, ReqInt = 20, Int = 25, Life = 120 }
+				end)
+				-- The rejected result arrives first, costs less, and has more Life.
+				local survivor = { item_string = "Rarity: RARE\nSurvivor Hold\nGold Ring", amount = 7, currency = "chaos" }
+				tq.resultTbl[1][2] = survivor
+				tq.hideResultsFailingAttributeRequirements = true
+				local sortedItems, err = tq:SortFetchResults(1, tq.sortModes[mode])
+				assert.is_nil(err)
+				assert.are.equal(1, #sortedItems)
+				assert.are.equal(2, sortedItems[1].index)
+				assert.are.equal(survivor, tq.resultTbl[1][sortedItems[1].index])
+			end)
+		end
 
-		it("keeps fetched results that meet attribute requirements", function()
-			local tq = newTradeQueryWithOutput({ ReqStr = 50, Str = 60, ReqDex = 30, Dex = 30, ReqInt = 20, Int = 25 })
+		it("clears the visible selection and price when postfiltering removes every result", function()
+			local tq = newTradeQueryWithOutput({ ReqStr = 50, Str = 40 })
+			local dropdown = buildRow1Dropdown(tq)
+			tq.controls.fullPrice = new("LabelControl"):LabelControl(nil, { 0, 0, 100, 20 }, "")
+			tq.controls.pbNotice = new("LabelControl"):LabelControl(nil, { 0, 0, 100, 20 }, "")
+			-- Populate the row through the same path first, so stale state can be detected.
+			tq:UpdateControlsWithItems(1)
+			assert.is_not_nil(dropdown:GetSelValue())
+			assert.are.equal(1, tq.itemIndexTbl[1])
+			assert.are.equal("1 chaos", tq:GetTotalPriceString())
+			assert.is_true(tq.controls.importButton1:IsEnabled())
+			local populatedPriceLabel = tq.controls.fullPrice.label
+
 			tq.hideResultsFailingAttributeRequirements = true
-			local sortedItems = tq:SortFetchResults(1, tq.sortModes.Weight)
-			assert.are.equal(1, #sortedItems)
-			assert.are.equal(1, sortedItems[1].index)
+			tq:UpdateControlsWithItems(1)
+			assert.are.equal(0, dropdown:GetDropCount())
+			assert.is_nil(dropdown:GetSelValue())
+			assert.are.equal(0, #tq.sortedResultTbl[1])
+			assert.is_nil(tq.itemIndexTbl[1])
+			assert.is_nil(tq.totalPrice[1])
+			assert.are.equal("", tq:GetTotalPriceString())
+			assert.are_not.equal(populatedPriceLabel, tq.controls.fullPrice.label)
+			assert.not_matches("chaos", tq.controls.fullPrice.label, 1, true)
+			assert.matches("attribute requirements", tq.controls.pbNotice.label, 1, true)
+			assert.is_falsy(tq.controls.importButton1:IsEnabled())
+			assert.are.equal("", tq.controls.whisperButton1:GetProperty("label"))
+			local tooltip = new("Tooltip"):Tooltip()
+			for _, control in ipairs({ dropdown, tq.controls.importButton1, tq.controls.whisperButton1 }) do
+				control.tooltipFunc(tooltip, "DROP", 1, nil)
+				assert.are.equal(0, #tooltip.lines)
+			end
 		end)
 
 		it("filters fetched results that do not meet Omniscience requirements", function()
