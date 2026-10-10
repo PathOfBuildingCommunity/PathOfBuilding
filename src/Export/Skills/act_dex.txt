@@ -473,7 +473,7 @@ return function(skills, mod, flag, skill)
 #mods
 
 #skill Bladefall
-#flags spell area
+#flags spell area duration
 	statMap = {
 		["quality_display_bladefall_is_gem"] = {
 			--Display only
@@ -513,7 +513,7 @@ return function(skills, mod, flag, skill)
 #mods
 
 #skill BladefallAltZ
-#flags spell area
+#flags spell area duration
 	preDamageFunc = function(activeSkill, output)
 		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.hitFrequency / (1 + activeSkill.skillData.incVolleyFrequency / 100)
 	end,
@@ -2933,7 +2933,7 @@ return function(skills, mod, flag, skill)
 #mods
 
 #skill SmokeMine
-#flags spell mine area buff
+#flags spell mine area buff duration
 	statMap = {
 		["base_movement_velocity_+%"] = {
 			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
