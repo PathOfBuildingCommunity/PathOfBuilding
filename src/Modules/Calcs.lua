@@ -84,7 +84,7 @@ end
 
 -- Get calculator for other changes (adding/removing nodes, items, gems, etc)
 ---@param build Build
----@return fun(override?: CalcOverride, useFullDPS?: boolean): Output calcFunc
+---@return fun(override?: CalcOverride, useFullDPS?: boolean): Output, ModDB calcFunc
 ---@return Output output
 function calcs.getMiscCalculator(build)
 	-- Run base calculation pass
@@ -109,7 +109,7 @@ function calcs.getMiscCalculator(build)
 			env.player.output.FullDPS = fullDPS.combinedDPS
 			env.player.output.FullDotDPS = fullDPS.TotalDotDPS
 		end
-		return env.player.output
+		return env.player.output, env.modDB
 	end, env.player.output
 end
 

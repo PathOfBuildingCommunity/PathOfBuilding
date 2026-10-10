@@ -3,17 +3,17 @@ local dkjson = require "dkjson"
 describe("TradeQueryGenerator", function()
 	local mock_queryGen = new("TradeQueryGenerator"):TradeQueryGenerator({ itemsTab = {} })
 
-	local function findStatFilter(queryTable, id)
+	local function findStatFilter(queryTable, id, groupType)
 		for _, group in ipairs(queryTable.query.stats) do
 			for _, filter in ipairs(group.filters) do
-				if filter.id == id then
+				if filter.id == id and (not groupType or group.type == groupType) then
 					return filter
 				end
 			end
 		end
 	end
 
-	local function finishQueryWithAttributeShortfall(shortfall, includeAttributeRequirementFilters)
+	local function finishQueryWithAttributeMinimums(minimums, includeAttributeRequirementFilters)
 		local queryGen = new("TradeQueryGenerator"):TradeQueryGenerator({ itemsTab = {} })
 		local queryTable, errMsg
 		queryGen.modWeights = {
@@ -34,7 +34,7 @@ describe("TradeQueryGenerator", function()
 				includeAttributeRequirementFilters = includeAttributeRequirementFilters,
 				includeMirrored = true,
 			},
-			attributeRequirementShortfall = shortfall,
+			attributeRequirementMinimums = minimums,
 		}
 
 		local previousClosePopup = main.ClosePopup
@@ -251,8 +251,42 @@ describe("TradeQueryGenerator", function()
 	end)
 
 	describe("attribute requirement filters", function()
-		it("calculates the shortfall from the blank replacement output", function()
+		for _, case in ipairs({
+			{ name = "admits an equipped candidate whose Strength is amplified", customMods = "+50 to Strength\n100% increased Strength", originalStrength = 30, candidateMods = "+26 to Strength", strength = 192, minimum = 26 },
+			{ name = "does not tighten the filter when a candidate increases reduced Strength", customMods = "+150 to Strength\n10% reduced Strength", originalStrength = 50, candidateMods = "+38 to Strength\n6% increased Strength", strength = 200, minimum = 38 },
+		}) do
+			it(case.name, function()
+				newBuild()
+				build.characterLevel, build.characterLevelAutoMode = 100, false
+				build.configTab.input.customMods = case.customMods
+				build.configTab:BuildModList()
+				build.itemsTab:AddItem(new("Item"):Item("Rarity: RARE\nRequirement Anchor\nGlorious Plate\nImplicits: 0"))
+				build.itemsTab:AddItem(new("Item"):Item("Rarity: RARE\nOriginal Ring\nGold Ring\nImplicits: 0\n+" .. case.originalStrength .. " to Strength"))
+				build.modFlag, build.buildFlag = true, true
+				runCallback("OnFrame")
+				local candidate = new("Item"):Item("Rarity: RARE\nCandidate Ring\nGold Ring\nImplicits: 0\n" .. case.candidateMods)
+				local calc = build.calcsTab:GetMiscCalculator()
+				local equipped = calc({ repSlotName = "Ring 1", repItem = candidate })
+				assert.are.equal(case.strength, equipped.Str)
+				assert.are.equal(191, equipped.ReqStr)
+				local queryGen = new("TradeQueryGenerator"):TradeQueryGenerator({ itemsTab = build.itemsTab })
+				local query
+				queryGen.requesterCallback = function(_, queryJSON) query = dkjson.decode(queryJSON) end
+				queryGen:StartQuery(build.itemsTab.slots["Ring 1"], {
+					statWeights = { { stat = "Life", weightMult = 1 } },
+					includeAttributeRequirementFilters = true, includeMirrored = true,
+				})
+				while queryGen.calcContext.co do queryGen:OnFrame() end
+				assert.are.equal(case.minimum, findStatFilter(query, "pseudo.pseudo_total_strength", "and").value.min)
+			end)
+		end
+
+		it("calculates attribute minimums from the blank replacement output", function()
 			local calcArgs
+			local modDB = new("ModDB"):ModDB()
+			for attribute, value in pairs({ Str = 40, Dex = 35, Int = 20 }) do
+				modDB:NewMod(attribute, "BASE", value, "Fixture")
+			end
 			local calcsTab = {
 				GetMiscCalculator = function()
 					return function(args)
@@ -262,7 +296,7 @@ describe("TradeQueryGenerator", function()
 							ReqStr = 50, Str = 40,
 							ReqDex = 30, Dex = 35,
 							ReqInt = 25, Int = 20,
-						}
+						}, modDB
 					end, { TotalDPS = 100 }
 				end,
 			}
@@ -283,11 +317,11 @@ describe("TradeQueryGenerator", function()
 			assert.is_true(ok, startError)
 			assert.are.equal("Ring 1", calcArgs.repSlotName)
 			assert.are.equal("Gold Ring", calcArgs.repItem.baseName)
-			assert.same({ Str = 10, Dex = 0, Int = 5 }, queryGen.calcContext.attributeRequirementShortfall)
+			assert.same({ Str = 10, Dex = 0, Int = 5 }, queryGen.calcContext.attributeRequirementMinimums)
 		end)
 
 		it("adds needed attribute pseudo filters to the generated query", function()
-			local queryTable, errMsg = finishQueryWithAttributeShortfall({ Str = 12, Dex = 34, Int = 56 }, true)
+			local queryTable, errMsg = finishQueryWithAttributeMinimums({ Str = 12, Dex = 34, Int = 56 }, true)
 			assert.is_nil(errMsg)
 			assert.are.equal(12, findStatFilter(queryTable, "pseudo.pseudo_total_strength").value.min)
 			assert.are.equal(34, findStatFilter(queryTable, "pseudo.pseudo_total_dexterity").value.min)
@@ -295,8 +329,8 @@ describe("TradeQueryGenerator", function()
 		end)
 
 		it("omits attribute pseudo filters when disabled or no shortfall exists", function()
-			local disabledQuery = finishQueryWithAttributeShortfall({ Str = 12, Dex = 34, Int = 56 }, false)
-			local zeroQuery = finishQueryWithAttributeShortfall({ Str = 0, Dex = 0, Int = 0 }, true)
+			local disabledQuery = finishQueryWithAttributeMinimums({ Str = 12, Dex = 34, Int = 56 }, false)
+			local zeroQuery = finishQueryWithAttributeMinimums({ Str = 0, Dex = 0, Int = 0 }, true)
 			assert.is_nil(findStatFilter(disabledQuery, "pseudo.pseudo_total_strength"))
 			assert.is_nil(findStatFilter(disabledQuery, "pseudo.pseudo_total_dexterity"))
 			assert.is_nil(findStatFilter(disabledQuery, "pseudo.pseudo_total_intelligence"))
