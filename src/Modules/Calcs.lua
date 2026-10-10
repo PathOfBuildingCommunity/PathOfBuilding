@@ -650,7 +650,8 @@ function calcs.buildOutput(build, mode)
 		if build.calcsTab.mainEnv.multipliersUsed["SpiritInfusion"] then
 			t_insert(combatList, s_format("%d Spirit Infusions", output.SpiritInfusions))
 		end
-		if env.player.mainSkill.baseSkillModList:Flag(nil, "Cruelty") then
+		local mainSkillFlags = env.player.mainSkill.skillFlags
+		if env.player.mainSkill.baseSkillModList:Flag(nil, "Cruelty") and not mainSkillFlags.totem and not mainSkillFlags.trap and not mainSkillFlags.mine then
 			t_insert(combatList, "Cruelty")
 		end
 		if env.modDB:Flag(nil, "Fortify") then

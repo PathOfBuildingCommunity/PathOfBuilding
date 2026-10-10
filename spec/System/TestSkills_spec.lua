@@ -727,4 +727,17 @@ describe("TestSkills", function()
 		assert.are.equals("SupportBarrage", barrage.grantedEffect.id)
 		assert.are.equals(20, barrage.level)
 	end)
+
+	it("does not grant Cruelty to Totem, Trap or Mine skills", function()
+		build.skillsTab:PasteSocketGroup("Cold Snap 20/0  1\nCruelty 20/0  1")
+		runCallback("OnFrame")
+		assert.are.equals(40, build.calcsTab.mainEnv.player.modDB.multipliers["Cruelty"])
+
+		for _, proxySupport in ipairs({ "Spell Totem", "Trap", "Blastchain Mine" }) do
+			newBuild()
+			build.skillsTab:PasteSocketGroup("Cold Snap 20/0  1\nCruelty 20/0  1\n"..proxySupport.." 20/0  1")
+			runCallback("OnFrame")
+			assert.is_nil(build.calcsTab.mainEnv.player.modDB.multipliers["Cruelty"])
+		end
+	end)
 end)
