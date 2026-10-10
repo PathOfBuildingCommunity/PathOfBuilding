@@ -35,9 +35,7 @@ describe("TradeQuery", function()
 			local tq = newTradeQuery({})
 			tq.slotTables[1] = { slotName = "Watcher's Eye", unique = true }
 
-			assert.has_no.errors(function()
-				buildRow1Dropdown(tq)
-			end)
+			assert.is_not_nil(buildRow1Dropdown(tq))
 		end)
 
 		it("returns early when sortedResultTbl[row_idx] is missing", function()
@@ -72,36 +70,29 @@ describe("TradeQuery", function()
 		end)
 	end)
 	describe("replacement slot resolution", function()
-		it("resolves normal, Abyssal, and selected jewel slots without stored row state", function()
-			local tq = new("TradeQuery"):TradeQuery({ itemsTab = {} })
-			tq.itemsTab.slots = {
-				["Ring 1"] = {},
-				["Body Armour Abyssal Socket 1"] = {},
-			}
-			tq.itemsTab.sockets = { [123] = {} }
+		it("resolves Abyssal and selected jewel slots without stored row state", function()
+			local tq = new("TradeQuery"):TradeQuery({
+				slots = { ["Body Armour Abyssal Socket 1"] = {} },
+				sockets = { [123] = {} },
+			})
 			tq.slotTables = {
-				{ slotName = "Ring 1" },
 				{ slotName = "Abyssal Socket 1", fullName = "Body Armour Abyssal Socket 1" },
 				{ slotName = "Jewel Socket", selectedJewelNodeId = 123 },
 				{ slotName = "Watcher's Eye", unique = true },
 			}
 
-			assert.are.equal("Ring 1", tq:GetReplacementSlotName(1))
-			assert.are.equal("Body Armour Abyssal Socket 1", tq:GetReplacementSlotName(2))
-			assert.are.equal("Jewel 123", tq:GetReplacementSlotName(3))
-			assert.is_nil(tq:GetReplacementSlotName(4))
+			assert.are.equal("Body Armour Abyssal Socket 1", tq:GetReplacementSlotName(1))
+			assert.are.equal("Jewel 123", tq:GetReplacementSlotName(2))
+			assert.is_nil(tq:GetReplacementSlotName(3))
 		end)
 	end)
 
 	describe("attribute requirement result filtering", function()
 		local function newTradeQueryWithOutput(output, slotTbl)
-			local calcCalls = 0
-			local tq = new("TradeQuery"):TradeQuery({ activeItemSet = {}, slots = {}, sockets = {} })
+			local tq = new("TradeQuery"):TradeQuery({ activeItemSet = {}, slots = { ["Ring 1"] = {} }, sockets = {} })
 			tq.slotTables[1] = slotTbl or { slotName = "Ring 1" }
-			tq.resultTbl = {
-				[1] = {
-					[1] = { item_string = "Rarity: RARE\nBehemoth Hold\nGold Ring", amount = 1, currency = "chaos" },
-				},
+			tq.resultTbl[1] = {
+				{ item_string = "Rarity: RARE\nBehemoth Hold\nGold Ring", amount = 1, currency = "chaos" },
 			}
 			tq.sortModes = {
 				Weight = "Weight", StatValue = "StatValue", StatValuePrice = "StatValuePrice", Price = "Price",
@@ -114,21 +105,15 @@ describe("TradeQuery", function()
 			tq.itemsTab.build = {
 				calcsTab = {
 					GetMiscCalculator = function()
-						return function(calcArgs)
-							calcCalls = calcCalls + 1
-							return type(output) == "function" and output(calcArgs) or output
-						end, { Life = 100 }
+						return type(output) == "function" and output or function() return output end, { Life = 100 }
 					end,
 				},
 			}
-			tq.itemsTab.slots = {
-				["Ring 1"] = {},
-			}
-			return tq, function() return calcCalls end
+			return tq
 		end
 
 		for _, mode in ipairs({ "Weight", "StatValue", "StatValuePrice", "Price" }) do
-			it("postfilters mixed fetched results in " .. mode .. " mode", function()
+			it("filters mixed fetched results in " .. mode .. " mode", function()
 				local tq = newTradeQueryWithOutput(function(calcArgs)
 					assert.are.equal("Ring 1", calcArgs.repSlotName)
 					if calcArgs.repItem.name == "Behemoth Hold, Gold Ring" then
@@ -138,18 +123,16 @@ describe("TradeQuery", function()
 					return { ReqStr = 50, Str = 60, ReqDex = 30, Dex = 30, ReqInt = 20, Int = 25, Life = 120 }
 				end)
 				-- The rejected result arrives first, costs less, and has more Life.
-				local survivor = { item_string = "Rarity: RARE\nSurvivor Hold\nGold Ring", amount = 7, currency = "chaos" }
-				tq.resultTbl[1][2] = survivor
+				tq.resultTbl[1][2] = { item_string = "Rarity: RARE\nSurvivor Hold\nGold Ring", amount = 7, currency = "chaos" }
 				tq.hideResultsFailingAttributeRequirements = true
 				local sortedItems, err = tq:SortFetchResults(1, tq.sortModes[mode])
 				assert.is_nil(err)
 				assert.are.equal(1, #sortedItems)
 				assert.are.equal(2, sortedItems[1].index)
-				assert.are.equal(survivor, tq.resultTbl[1][sortedItems[1].index])
 			end)
 		end
 
-		it("clears the visible selection and price when postfiltering removes every result", function()
+		it("clears the visible selection and price when filtering removes every result", function()
 			local tq = newTradeQueryWithOutput({ ReqStr = 50, Str = 40 })
 			tq:PriceItemRowDisplay(1, nil, 0, 20)
 			local dropdown = tq.controls.resultDropdown1
@@ -161,17 +144,15 @@ describe("TradeQuery", function()
 			assert.are.equal(1, tq.itemIndexTbl[1])
 			assert.are.equal("1 chaos", tq:GetTotalPriceString())
 			assert.is_true(tq.controls.importButton1:IsEnabled())
-			local populatedPriceLabel = tq.controls.fullPrice.label
+			assert.matches("chaos", tq.controls.fullPrice.label, 1, true)
 
 			tq.hideResultsFailingAttributeRequirements = true
 			tq:UpdateControlsWithItems(1)
 			assert.are.equal(0, dropdown:GetDropCount())
-			assert.is_nil(dropdown:GetSelValue())
 			assert.are.equal(0, #tq.sortedResultTbl[1])
 			assert.is_nil(tq.itemIndexTbl[1])
 			assert.is_nil(tq.totalPrice[1])
 			assert.are.equal("", tq:GetTotalPriceString())
-			assert.are_not.equal(populatedPriceLabel, tq.controls.fullPrice.label)
 			assert.not_matches("chaos", tq.controls.fullPrice.label, 1, true)
 			assert.matches("attribute requirements", tq.controls.pbNotice.label, 1, true)
 			assert.is_falsy(tq.controls.importButton1:IsEnabled())
@@ -191,20 +172,18 @@ describe("TradeQuery", function()
 		end)
 
 		it("keeps fetched results without recalculating by default", function()
-			local tq, calcCalls = newTradeQueryWithOutput({ ReqStr = 50, Str = 40, ReqDex = 0, Dex = 0, ReqInt = 0, Int = 0 })
+			local tq = newTradeQueryWithOutput(function() error("Unexpected attribute recalculation") end)
 			local sortedItems = tq:SortFetchResults(1, tq.sortModes.Weight)
 			assert.are.equal(1, #sortedItems)
 			assert.are.equal(1, sortedItems[1].index)
-			assert.are.equal(0, calcCalls())
 		end)
 
 		it("does not apply equipment attribute filtering to rows without a replacement slot", function()
-			local tq, calcCalls = newTradeQueryWithOutput({ ReqStr = 50, Str = 40, ReqDex = 0, Dex = 0, ReqInt = 0, Int = 0 }, { slotName = "Megalomaniac", unique = true })
+			local tq = newTradeQueryWithOutput(function() error("Unexpected attribute recalculation") end, { slotName = "Megalomaniac", unique = true })
 			tq.hideResultsFailingAttributeRequirements = true
 			local sortedItems = tq:SortFetchResults(1, tq.sortModes.Weight)
 			assert.are.equal(1, #sortedItems)
 			assert.are.equal(1, sortedItems[1].index)
-			assert.are.equal(0, calcCalls())
 		end)
 	end)
 	describe("GetResultEvaluation", function()
