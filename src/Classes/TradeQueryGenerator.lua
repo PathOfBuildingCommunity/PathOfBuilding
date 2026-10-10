@@ -7,6 +7,7 @@
 local dkjson = require "dkjson"
 local curl = require("lcurl.safe")
 local m_max = math.max
+local m_min = math.min
 local s_format = string.format
 local t_insert = table.insert
 local tradeHelpers = require("Classes.TradeHelpers")
@@ -765,11 +766,24 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
 
 	-- Calculate base output with a blank item
 	local calcFunc, baseOutput = self.itemsTab.build.calcsTab:GetMiscCalculator()
-	local baseItemOutput = slot and calcFunc({ repSlotName = slot.slotName, repItem = testItem }) or baseOutput
-	-- Pre-fetch constraint: require the replacement to restore attributes lost with the current item.
-	local attributeRequirementShortfall = { Str = 0, Dex = 0, Int = 0 }
+	local baseItemOutput, baseItemModDB = baseOutput
+	if slot then
+		baseItemOutput, baseItemModDB = calcFunc({ repSlotName = slot.slotName, repItem = testItem })
+	end
+	-- Pre-fetch constraint: conservatively narrow the replacement's raw attributes.
+	local attributeRequirementMinimums = { Str = 0, Dex = 0, Int = 0 }
 	if slot and (not slot.slotName:find("Flask")) then
-		attributeRequirementShortfall = tradeHelpers.getAttributeRequirementShortfall(baseItemOutput)
+		attributeRequirementMinimums = tradeHelpers.getAttributeRequirementShortfall(baseItemOutput)
+		for _, attribute in ipairs({ "Str", "Dex", "Int" }) do
+			if (attributeRequirementMinimums[attribute] or 0) > 0 then
+				local multiplier = calcLib.mod(baseItemModDB, nil, attribute)
+				-- Trade counts raw item attributes; PoB rounds the amplified build total.
+				-- Cap at the final shortfall: the candidate can increase attribute scaling.
+				attributeRequirementMinimums[attribute] = multiplier > 0 and m_min(attributeRequirementMinimums[attribute], m_max(0,
+					math.ceil((baseItemOutput["Req" .. attribute] - 0.5) / multiplier
+						- baseItemModDB:Sum("BASE", nil, attribute)))) or 0
+			end
+		end
 	end
 	-- make weights more human readable
 	local compStatValue = TradeQueryGeneratorClass.WeightedRatioOutputs(baseOutput, baseItemOutput, options.statWeights) * 1000
@@ -790,7 +804,7 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
 		slot = slot,
 		requiredMods = options.requiredMods,
 		blockedMods = options.blockedMods,
-		attributeRequirementShortfall = attributeRequirementShortfall,
+		attributeRequirementMinimums = attributeRequirementMinimums,
 	}
 
 	-- OnFrame will pick this up and begin the work
@@ -1064,9 +1078,9 @@ function TradeQueryGeneratorClass:FinishQuery()
 	end
 
 	local options = self.calcContext.options
-	-- If enabled, require the new item to provide enough attributes to meet build requirements.
-	if options.includeAttributeRequirementFilters and self.calcContext.attributeRequirementShortfall then
-		local need = self.calcContext.attributeRequirementShortfall
+	-- Add the conservative raw-attribute minimums when enabled.
+	if options.includeAttributeRequirementFilters and self.calcContext.attributeRequirementMinimums then
+		local need = self.calcContext.attributeRequirementMinimums
 		if need.Str and need.Str > 0 then
 			complexityBudget = complexityBudget - 4
 			t_insert(andGroup.filters, { id = "pseudo.pseudo_total_strength", value = { min = need.Str } })
