@@ -122,6 +122,35 @@ local function setupAllocatedSocket()
 	return spec, socketNode
 end
 
+local function setupAllocatedSockets(count)
+	local spec = build.spec
+	local sockets = { }
+	local sortedSockets = { }
+	for _, node in pairs(spec.nodes) do
+		if node.isJewelSocket then
+			sortedSockets[#sortedSockets + 1] = node
+		end
+	end
+	table.sort(sortedSockets, function(a, b)
+		return a.id < b.id
+	end)
+	for _, socketNode in ipairs(sortedSockets) do
+		if allocatePathToNode(spec, socketNode) then
+			sockets[#sockets + 1] = socketNode
+			if #sockets >= count then
+				break
+			end
+		end
+	end
+	if #sockets < count then
+		pending("Could not allocate the requested number of jewel sockets for this tree layout")
+		return spec, sockets
+	end
+	spec:BuildAllDependsAndPaths()
+	runCallback("OnFrame")
+	return spec, sockets
+end
+
 local function rebuildBuild()
 	build.buildFlag = true
 	runCallback("OnFrame")
@@ -170,6 +199,20 @@ local function newPlainJewel()
 		"Plain Spark\n" ..
 		"Crimson Jewel\n" ..
 		"Implicits: 0\n")
+end
+
+local function newStatJewel(name, modifier)
+	return new("Item"):Item("Rarity: RARE\n" ..
+		name .. "\nCrimson Jewel\nImplicits: 0\n" .. modifier .. "\n")
+end
+
+local function newSplitPersonality()
+	return new("Item"):Item("Rarity: UNIQUE\n" ..
+		"Split Personality\n" ..
+		"Crimson Jewel\n" ..
+		"Implicits: 0\n" ..
+		"+5 to Strength\n" ..
+		"This Jewel's Socket has 25% increased effect per Allocated Passive Skill between it and your Class' starting location\n")
 end
 
 -- Helper: minimal Impossible Escape item. Uses "Radius: Small" and targets
@@ -269,6 +312,16 @@ local function tooltipContainsNegativeStat(tooltip, label)
 	return false
 end
 
+local function tooltipContainsPositiveStat(tooltip, label)
+	for _, line in ipairs(tooltip.lines) do
+		local text = line.text or ""
+		if text:find(colorCodes.POSITIVE, 1, true) and text:find(label, 1, true) then
+			return true
+		end
+	end
+	return false
+end
+
 local function sortedNodeIds(nodeMap)
 	local nodeIds = { }
 	for nodeId in pairs(nodeMap or { }) do
@@ -308,6 +361,45 @@ local function findLeapOverlapCandidates(spec, radiusIndex)
 		end
 	end
 	return candidates
+end
+
+-- Busted supplies finally in the test's environment, so pass it from each caller.
+local function trackJewelComparisons(slotOnly, finally)
+	local specClass = getmetatable(build.spec)
+	local originalMethods = { }
+	local originalCalculator = build.calcsTab.GetMiscCalculator
+	local originalSlotOnly = main.slotOnlyTooltips
+	local calls = { calcCalls = 0 }
+	finally(function()
+		for method, original in pairs(originalMethods) do
+			specClass[method] = original
+		end
+		build.calcsTab.GetMiscCalculator = originalCalculator
+		main.slotOnlyTooltips = originalSlotOnly
+	end)
+	main.slotOnlyTooltips = slotOnly
+	build.itemsTab.jewelComparisonOutputCache = nil
+	for method, counter in pairs({
+		BuildAllDependsAndPaths = "rebuilds",
+		SetNodeDistanceToClassStart = "distanceCalls",
+		BuildSplitPersonalityPath = "splitPersonalityPathCalls",
+	}) do
+		local original = specClass[method]
+		originalMethods[method] = original
+		calls[counter] = 0
+		specClass[method] = function(self, ...)
+			calls[counter] = calls[counter] + 1
+			return original(self, ...)
+		end
+	end
+	build.calcsTab.GetMiscCalculator = function(self, ...)
+		local calcFunc, calcBase = originalCalculator(self, ...)
+		return function(...)
+			calls.calcCalls = calls.calcCalls + 1
+			return calcFunc(...)
+		end, calcBase
+	end
+	return calls
 end
 
 describe("TestRadiusJewelStatDiff", function()
@@ -598,6 +690,179 @@ describe("TestRadiusJewelStatDiff", function()
 
 		assert.is_true(tooltipContains(tooltip, "Removing this item"),
 			"tooltip should contain a 'Removing this item' comparison header")
+	end)
+
+	it("AddItemTooltip avoids rebuilding unused limited-unique socket comparisons without a target slot", function()
+		local spec, sockets = setupAllocatedSockets(2)
+
+		local item = newThreadOfHope()
+		item.limit = 1
+		equipJewelInSocket(item, sockets[1])
+		spec:BuildAllDependsAndPaths()
+		runCallback("OnFrame")
+
+		local calls = trackJewelComparisons(main.slotOnlyTooltips, finally)
+		local tooltip = new("Tooltip"):Tooltip()
+		build.itemsTab:AddItemTooltip(tooltip, item)
+
+		assert.are.equals(1, calls.rebuilds,
+			"limited unique radius jewels should rebuild only the same-unique slot that will be displayed")
+	end)
+
+	it("AddItemTooltip caches only stored slot-only radius jewel outputs until output changes", function()
+		local spec, socketNode = setupAllocatedSocket()
+
+		local item = newCustomLeapJewel("Cached Leap")
+		local slot = equipJewelInSocket(item, socketNode)
+		local lifeJewel = newStatJewel("Life Spark", "+37 to maximum Life")
+		local manaJewel = newStatJewel("Mana Spark", "+83 to maximum Mana")
+		build.itemsTab:AddItem(lifeJewel, true)
+		build.itemsTab:AddItem(manaJewel, true)
+		spec:BuildAllDependsAndPaths()
+		runCallback("OnFrame")
+
+		local calls = trackJewelComparisons(true, finally)
+		local tooltip = new("Tooltip"):Tooltip()
+		build.itemsTab:AddItemTooltip(tooltip, item, slot)
+		local firstPassTooltipText = tooltipText(tooltip)
+		local firstPassCalcCalls = calls.calcCalls
+		assert.is_true(firstPassCalcCalls > 0,
+			"slot-only radius jewel hover should calculate its output on first pass")
+		tooltip = new("Tooltip"):Tooltip()
+		build.itemsTab:AddItemTooltip(tooltip, item, slot)
+		assert.are.equals(firstPassTooltipText, tooltipText(tooltip),
+			"cached slot-only radius output should preserve tooltip content")
+		assert.are.equals(1, calls.rebuilds,
+			"slot-only radius jewel hover should reuse its cached comparison output")
+		assert.are.equals(firstPassCalcCalls, calls.calcCalls,
+			"slot-only radius jewel hover should not recalculate a cached output")
+
+		build.outputRevision = build.outputRevision + 1
+		tooltip = new("Tooltip"):Tooltip()
+		build.itemsTab:AddItemTooltip(tooltip, item, slot)
+		assert.are.equals(2, calls.rebuilds,
+			"slot-only radius jewel output cache should reset when output changes")
+		assert.is_true(calls.calcCalls > firstPassCalcCalls,
+			"slot-only radius jewel comparison should recalculate after output changes")
+
+		local beforeReplacementCalls = calls.calcCalls
+		for pass = 1, 2 do
+			for _, replacement in ipairs({ { lifeJewel, "Life", "Mana" }, { manaJewel, "Mana", "Life" } }) do
+				tooltip = new("Tooltip"):Tooltip()
+				build.itemsTab:AddItemTooltip(tooltip, replacement[1], slot)
+				-- Stat differences distinguish calculated outputs; raw item text does not.
+				assert.is_true(tooltipContainsPositiveStat(tooltip, replacement[2]))
+				assert.is_false(tooltipContainsPositiveStat(tooltip, replacement[3]), tooltipText(tooltip))
+			end
+			assert.are.equals(beforeReplacementCalls + 2, calls.calcCalls,
+				pass == 1 and "distinct replacements must calculate distinct outputs"
+				or "revisiting either replacement must reuse its own output")
+		end
+
+		local transientJewel = newStatJewel("Transient Mana", "+83 to maximum Mana")
+		assert.is_nil(transientJewel.id)
+		for pass = 1, 4 do
+			-- A copied ID is still transient unless the items table owns this object.
+			if pass == 3 then
+				transientJewel.id = lifeJewel.id
+			end
+			local beforeCalcCalls = calls.calcCalls
+			tooltip = new("Tooltip"):Tooltip()
+			build.itemsTab:AddItemTooltip(tooltip, transientJewel, slot)
+			assert.is_true(tooltipContainsPositiveStat(tooltip, "Mana"))
+			assert.is_false(tooltipContainsPositiveStat(tooltip, "Life"))
+			assert.are.equals(beforeCalcCalls + 1, calls.calcCalls,
+				"each transient hover must calculate without reading or populating the cache")
+			local cacheEntries = 0
+			for _ in pairs(build.itemsTab.jewelComparisonOutputCache.outputs) do
+				cacheEntries = cacheEntries + 1
+			end
+			assert.are.equals(3, cacheEntries, "only the removal and two stored replacement outputs may remain cached")
+		end
+	end)
+
+	it("AddItemTooltip skips UI path rebuilds for temporary radius jewel specs", function()
+		local spec, sockets = setupAllocatedSockets(2)
+
+		local radiusItem = newThreadOfHope()
+		local radiusSlot = equipJewelInSocket(radiusItem, sockets[1])
+		local splitItem = newSplitPersonality()
+		equipJewelInSocket(splitItem, sockets[2])
+		spec:BuildAllDependsAndPaths()
+		runCallback("OnFrame")
+
+		assert.is_true((spec.nodes[sockets[2].id].distanceToClassStart or 0) > 0,
+			"Split Personality socket should have a class-start distance in the base spec")
+
+		local specClass = getmetatable(spec)
+		local originalBuildAllDependsAndPaths = specClass.BuildAllDependsAndPaths
+		local calls = trackJewelComparisons(true, finally)
+		local trackedRebuild = specClass.BuildAllDependsAndPaths
+		local calculationOnlySpec
+		specClass.BuildAllDependsAndPaths = function(self, calculationOnly, ...)
+			local result = trackedRebuild(self, calculationOnly, ...)
+			if calculationOnly then
+				calculationOnlySpec = self
+			end
+			return result
+		end
+
+		local tooltip = new("Tooltip"):Tooltip()
+		build.itemsTab:AddItemTooltip(tooltip, radiusItem, radiusSlot)
+		local calculationOnlyTooltipText = tooltipText(tooltip)
+		assert.is_truthy(calculationOnlySpec,
+			"temporary tooltip specs should use the calculation-only path")
+		for _, node in pairs(calculationOnlySpec.nodes) do
+			assert.is_nil(node.path, "calculation-only tooltip specs should not retain UI node paths")
+			assert.is_nil(node.pathDist, "calculation-only tooltip specs should not retain UI path distances")
+		end
+		assert.is_true(calls.distanceCalls > 0,
+			"calculation-only tooltip specs should refresh jewel socket distances used by calc")
+		assert.are.equals(0, calls.splitPersonalityPathCalls,
+			"calculation-only tooltip specs should not rebuild Split Personality highlight paths")
+
+		build.itemsTab.jewelComparisonOutputCache = nil
+		specClass.BuildAllDependsAndPaths = function(self)
+			return originalBuildAllDependsAndPaths(self)
+		end
+		local fullRebuildTooltip = new("Tooltip"):Tooltip()
+		build.itemsTab:AddItemTooltip(fullRebuildTooltip, radiusItem, radiusSlot)
+		assert.are.equals(calculationOnlyTooltipText, tooltipText(fullRebuildTooltip),
+			"calculation-only radius jewel specs should preserve full-rebuild tooltip output")
+		assert.is_true(calls.splitPersonalityPathCalls > 0,
+			"the full-rebuild comparison should exercise Split Personality highlight paths")
+	end)
+
+	it("AddItemTooltip reuses full radius jewel comparison outputs until output changes", function()
+		local spec, sockets = setupAllocatedSockets(2)
+
+		local item = newCustomLeapJewel("Cached Full Leap")
+		local slot = equipJewelInSocket(item, sockets[1])
+		spec:BuildAllDependsAndPaths()
+		runCallback("OnFrame")
+
+		local calls = trackJewelComparisons(false, finally)
+		local tooltip = new("Tooltip"):Tooltip()
+		build.itemsTab:AddItemTooltip(tooltip, item, slot)
+		local firstPassCalcCalls = calls.calcCalls
+		local firstPassTooltipText = tooltipText(tooltip)
+		assert.is_true(firstPassCalcCalls > 0,
+			"full radius jewel tooltip should calculate outputs on first pass")
+
+		tooltip = new("Tooltip"):Tooltip()
+		build.itemsTab:AddItemTooltip(tooltip, item, slot)
+		assert.are.equals(firstPassTooltipText, tooltipText(tooltip),
+			"cached radius outputs should preserve tooltip content")
+		local secondPassCalcCalls = calls.calcCalls - firstPassCalcCalls
+		assert.is_true(secondPassCalcCalls < firstPassCalcCalls,
+			"full radius jewel tooltip should reuse cached radius outputs on second pass")
+
+		build.outputRevision = build.outputRevision + 1
+		local beforeInvalidationCalcCalls = calls.calcCalls
+		tooltip = new("Tooltip"):Tooltip()
+		build.itemsTab:AddItemTooltip(tooltip, item, slot)
+		assert.is_true(calls.calcCalls - beforeInvalidationCalcCalls > secondPassCalcCalls,
+			"full radius jewel output cache should reset when output changes")
 	end)
 
 end)
