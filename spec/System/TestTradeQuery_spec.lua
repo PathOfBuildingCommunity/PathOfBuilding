@@ -9,7 +9,7 @@ describe("TradeQuery", function()
 	describe("result dropdown tooltipFunc", function()
 		-- Builds a TradeQuery with the strict minimum needed for
 		-- PriceItemRowDisplay to construct row 1 without exploding. Only the
-		-- two itemsTab subtables read by the slot lookup at the top of
+		-- three itemsTab fields read by the slot lookup at the top of
 		-- PriceItemRowDisplay need to be created here; everything else either
 		-- lives behind a callback we never trigger, or is already initialized
 		-- by the TradeQuery constructor.
@@ -17,6 +17,7 @@ describe("TradeQuery", function()
 			local tq = new("TradeQuery"):TradeQuery({ itemsTab = {} })
 			tq.itemsTab.activeItemSet = {}
 			tq.itemsTab.slots         = {}
+			tq.itemsTab.sockets       = {}
 			tq.slotTables[1] = { slotName = "Ring 1" }
 			if state.resultTbl       then tq.resultTbl       = state.resultTbl       end
 			if state.sortedResultTbl then tq.sortedResultTbl = state.sortedResultTbl end
@@ -29,6 +30,13 @@ describe("TradeQuery", function()
 			tq:PriceItemRowDisplay(1, nil, 0, 20)
 			return tq.controls.resultDropdown1
 		end
+
+		it("constructs the Watcher's Eye row without an active jewel socket", function()
+			local tq = newTradeQuery({})
+			tq.slotTables[1] = { slotName = "Watcher's Eye", unique = true }
+
+			assert.is_not_nil(buildRow1Dropdown(tq))
+		end)
 
 		it("returns early when sortedResultTbl[row_idx] is missing", function()
 			-- No sorted results at all -> first guard must short-circuit.
@@ -61,6 +69,123 @@ describe("TradeQuery", function()
 			assert.are.equal(0, #tooltip.lines)
 		end)
 	end)
+	describe("replacement slot resolution", function()
+		it("resolves Abyssal and selected jewel slots without stored row state", function()
+			local tq = new("TradeQuery"):TradeQuery({
+				slots = { ["Body Armour Abyssal Socket 1"] = {} },
+				sockets = { [123] = {} },
+			})
+			tq.slotTables = {
+				{ slotName = "Abyssal Socket 1", fullName = "Body Armour Abyssal Socket 1" },
+				{ slotName = "Jewel Socket", selectedJewelNodeId = 123 },
+				{ slotName = "Watcher's Eye", unique = true },
+			}
+
+			assert.are.equal("Body Armour Abyssal Socket 1", tq:GetReplacementSlotName(1))
+			assert.are.equal("Jewel 123", tq:GetReplacementSlotName(2))
+			assert.is_nil(tq:GetReplacementSlotName(3))
+		end)
+	end)
+
+	describe("attribute requirement result filtering", function()
+		local function newTradeQueryWithOutput(output, slotTbl)
+			local tq = new("TradeQuery"):TradeQuery({ activeItemSet = {}, slots = { ["Ring 1"] = {} }, sockets = {} })
+			tq.slotTables[1] = slotTbl or { slotName = "Ring 1" }
+			tq.resultTbl[1] = {
+				{ item_string = "Rarity: RARE\nBehemoth Hold\nGold Ring", amount = 1, currency = "chaos" },
+			}
+			tq.sortModes = {
+				Weight = "Weight", StatValue = "StatValue", StatValuePrice = "StatValuePrice", Price = "Price",
+			}
+			tq.itemSortSelectionList = { tq.sortModes.Weight }
+			tq.statSortSelectionList = { { stat = "Life", weightMult = 1 } }
+			tq.tradeQueryGenerator = mock_queryGen
+			tq.pbLeague = "Test League"
+			tq.pbCurrencyConversion = { [tq.pbRealm] = { [tq.pbLeague] = { chaos = 1 } } }
+			tq.itemsTab.build = {
+				calcsTab = {
+					GetMiscCalculator = function()
+						return type(output) == "function" and output or function() return output end, { Life = 100 }
+					end,
+				},
+			}
+			return tq
+		end
+
+		for _, mode in ipairs({ "Weight", "StatValue", "StatValuePrice", "Price" }) do
+			it("filters mixed fetched results in " .. mode .. " mode", function()
+				local tq = newTradeQueryWithOutput(function(calcArgs)
+					assert.are.equal("Ring 1", calcArgs.repSlotName)
+					if calcArgs.repItem.name == "Behemoth Hold, Gold Ring" then
+						return { ReqStr = 50, Str = 40, Life = 400 }
+					end
+					assert.are.equal("Survivor Hold, Gold Ring", calcArgs.repItem.name)
+					return { ReqStr = 50, Str = 60, ReqDex = 30, Dex = 30, ReqInt = 20, Int = 25, Life = 120 }
+				end)
+				-- The rejected result arrives first, costs less, and has more Life.
+				tq.resultTbl[1][2] = { item_string = "Rarity: RARE\nSurvivor Hold\nGold Ring", amount = 7, currency = "chaos" }
+				tq.hideResultsFailingAttributeRequirements = true
+				local sortedItems, err = tq:SortFetchResults(1, tq.sortModes[mode])
+				assert.is_nil(err)
+				assert.are.equal(1, #sortedItems)
+				assert.are.equal(2, sortedItems[1].index)
+			end)
+		end
+
+		it("clears the visible selection and price when filtering removes every result", function()
+			local tq = newTradeQueryWithOutput({ ReqStr = 50, Str = 40 })
+			tq:PriceItemRowDisplay(1, nil, 0, 20)
+			local dropdown = tq.controls.resultDropdown1
+			tq.controls.fullPrice = new("LabelControl"):LabelControl(nil, { 0, 0, 100, 20 }, "")
+			tq.controls.pbNotice = new("LabelControl"):LabelControl(nil, { 0, 0, 100, 20 }, "")
+			-- Populate the row through the same path first, so stale state can be detected.
+			tq:UpdateControlsWithItems(1)
+			assert.is_not_nil(dropdown:GetSelValue())
+			assert.are.equal(1, tq.itemIndexTbl[1])
+			assert.are.equal("1 chaos", tq:GetTotalPriceString())
+			assert.is_true(tq.controls.importButton1:IsEnabled())
+			assert.matches("chaos", tq.controls.fullPrice.label, 1, true)
+
+			tq.hideResultsFailingAttributeRequirements = true
+			tq:UpdateControlsWithItems(1)
+			assert.are.equal(0, dropdown:GetDropCount())
+			assert.are.equal(0, #tq.sortedResultTbl[1])
+			assert.is_nil(tq.itemIndexTbl[1])
+			assert.is_nil(tq.totalPrice[1])
+			assert.are.equal("", tq:GetTotalPriceString())
+			assert.not_matches("chaos", tq.controls.fullPrice.label, 1, true)
+			assert.matches("attribute requirements", tq.controls.pbNotice.label, 1, true)
+			assert.is_falsy(tq.controls.importButton1:IsEnabled())
+			assert.are.equal("", tq.controls.whisperButton1:GetProperty("label"))
+			local tooltip = new("Tooltip"):Tooltip()
+			for _, control in ipairs({ dropdown, tq.controls.importButton1, tq.controls.whisperButton1 }) do
+				control.tooltipFunc(tooltip, "DROP", 1, nil)
+				assert.are.equal(0, #tooltip.lines)
+			end
+		end)
+
+		it("filters fetched results that do not meet Omniscience requirements", function()
+			local tq = newTradeQueryWithOutput({ ReqOmni = 100, Omni = 80 })
+			tq.hideResultsFailingAttributeRequirements = true
+			local sortedItems = tq:SortFetchResults(1, tq.sortModes.Weight)
+			assert.are.equal(0, #sortedItems)
+		end)
+
+		it("keeps fetched results without recalculating by default", function()
+			local tq = newTradeQueryWithOutput(function() error("Unexpected attribute recalculation") end)
+			local sortedItems = tq:SortFetchResults(1, tq.sortModes.Weight)
+			assert.are.equal(1, #sortedItems)
+			assert.are.equal(1, sortedItems[1].index)
+		end)
+
+		it("does not apply equipment attribute filtering to rows without a replacement slot", function()
+			local tq = newTradeQueryWithOutput(function() error("Unexpected attribute recalculation") end, { slotName = "Megalomaniac", unique = true })
+			tq.hideResultsFailingAttributeRequirements = true
+			local sortedItems = tq:SortFetchResults(1, tq.sortModes.Weight)
+			assert.are.equal(1, #sortedItems)
+			assert.are.equal(1, sortedItems[1].index)
+		end)
+	end)
 	describe("GetResultEvaluation", function()
 		it("uses the first visible ring for a Pearl result without a selected slot", function()
 			local tq = new("TradeQuery"):TradeQuery({ itemsTab = {} })
@@ -90,6 +215,7 @@ describe("TradeQuery", function()
 				slotName = "Megalomaniac", unique = true, alreadyCorrupted = true, selectedJewelNodeId = 12345,
 			}
 			local tq = new("TradeQuery"):TradeQuery({ itemsTab = {} })
+			tq.itemsTab.sockets = { [12345] = {} }
 			tq.statSortSelectionList = {}
 			tq.tradeQueryGenerator = new("TradeQueryGenerator"):TradeQueryGenerator({ itemsTab = {} })
 			tq.itemsTab.build = {
