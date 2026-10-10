@@ -4998,24 +4998,22 @@ function ItemsTabClass:AddItemStatDifferences(tooltip, item, base, slot)
 
 		local isUnique = item.rarity == "UNIQUE" or item.rarity == "RELIC"
 		local currentSameUniqueCount = 0
-		local slotCandidates = {}
+		local slots = {}
 		for _, compareSlot in ipairs(compareSlots) do
 			local selItem = self.items[compareSlot.selItemId]
 			local isSameUnique = isUnique and selItem and item.name == selItem.name
 			if isUnique and isSameUnique and item.limit then
 				currentSameUniqueCount = currentSameUniqueCount + 1
 			end
-			table.insert(slotCandidates,
+			table.insert(slots,
 				{ selItem = selItem, compareSlot = compareSlot, isSameUnique = isSameUnique })
 		end
 		local isLimitedUniqueAtLimit = (isUnique and item.limit and currentSameUniqueCount == item.limit) or false
 
-		local slots = {}
-		for _, slotEntry in ipairs(slotCandidates) do
+		for _, slotEntry in ipairs(slots) do
 			if not isLimitedUniqueAtLimit or slotEntry.isSameUnique then
 				local _, output = getReplacedItemAndOutput(slotEntry.compareSlot, slotEntry.selItem)
 				slotEntry.output = output
-				table.insert(slots, slotEntry)
 			end
 		end
 
