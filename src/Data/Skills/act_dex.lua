@@ -2535,6 +2535,7 @@ skills["Bladefall"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
+		duration = true,
 	},
 	baseMods = {
 		skill("radius", 44),
@@ -2802,6 +2803,7 @@ skills["BladefallAltZ"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
+		duration = true,
 	},
 	qualityStats = {
 		{ "active_skill_base_area_of_effect_radius", 0.15 },
@@ -14223,6 +14225,7 @@ skills["SmokeMine"] = {
 		mine = true,
 		area = true,
 		buff = true,
+		duration = true,
 	},
 	baseMods = {
 		skill("radius", 18),
