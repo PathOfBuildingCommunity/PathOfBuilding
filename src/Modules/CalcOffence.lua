@@ -2944,7 +2944,8 @@ function calcs.offence(env, actor, activeSkill)
 									globalOutput.ProjectileCount = globalOutput.ProjectileCount + globalOutput.BeidatAdditionalProjectiles
 								end
 								if skillFlags.chaining and not skillFlags.projectile and not skillModList:Flag(skillCfg, "CannotChain") and not skillModList:Flag(skillCfg, "NoAdditionalChains") then
-									globalOutput.BeidatAdditionalBeamChains = value.skillModList:Sum("BASE", value.skillCfg, "BeidatAdditionalBeamChains") * effectMult
+									local additionalBeamChains = value.skillModList:Sum("BASE", value.skillCfg, "BeidatAdditionalBeamChains") * effectMult
+									globalOutput.BeidatAdditionalBeamChains = additionalBeamChains * skillModList:More(skillCfg, "ChainCountMax")
 									globalOutput.ChainMax = globalOutput.ChainMax + globalOutput.BeidatAdditionalBeamChains
 									globalOutput.ChainMaxString = globalOutput.ChainMax
 									globalOutput.ChainRemaining = m_max(0, globalOutput.ChainMax - globalOutput.Chain)
