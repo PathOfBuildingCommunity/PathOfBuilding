@@ -72,15 +72,29 @@ local function defaultComparer(env, uuid, source, triggerRate)
 end
 
 -- Identify the trigger action skill for trigger conditions, take highest Attack Per Second
-local function findTriggerSkill(env, skill, source, triggerRate, comparer)
+-- sourceCache holds this override's complete candidate calculations and rejected cost probes
+local function findTriggerSkill(env, skill, source, triggerRate, comparer, minimumCost, sourceCache)
 	local comparer = comparer or defaultComparer
 
 	local uuid = cacheSkillUUID(skill, env)
-	if not GlobalCache.cachedData[env.mode][uuid] or env.mode == "CALCULATOR" then
-		calcs.buildActiveSkill(env, env.mode, skill, uuid)
+	local reused = sourceCache and sourceCache[uuid]
+	if minimumCost and reused and reused.rejectedOutput and (reused.rejectedOutput[minimumCost.stat] or 0) < minimumCost.minimum then
+		return source, triggerRate, source and cacheSkillUUID(source, env)
+	end
+	if not GlobalCache.cachedData[env.mode][uuid] or env.mode == "CALCULATOR" and not rawequal(reused, GlobalCache.cachedData[env.mode][uuid]) then
+		local rejectedOutput = calcs.buildActiveSkill(env, env.mode, skill, uuid, nil, sourceCache and minimumCost, sourceCache)
+		if rejectedOutput then
+			-- The probe is never published, so drop an older override's entry before a nested consumer reads it
+			GlobalCache.cachedData[env.mode][uuid] = nil
+			sourceCache[uuid] = { rejectedOutput = rejectedOutput }
+			return source, triggerRate, source and cacheSkillUUID(source, env)
+		elseif sourceCache then
+			sourceCache[uuid] = GlobalCache.cachedData[env.mode][uuid]
+		end
 	end
 
-	if GlobalCache.cachedData[env.mode][uuid] and comparer(env, uuid, source, triggerRate) and (skill.skillFlags and not skill.skillFlags.disable) and (skill.skillCfg and not skill.skillCfg.skillCond["usedByMirage"]) and not skill.skillTypes[SkillType.OtherThingUsesSkill] then
+	local cachedData = GlobalCache.cachedData[env.mode][uuid]
+	if cachedData and comparer(env, uuid, source, triggerRate) and (not minimumCost or (cachedData[minimumCost.stat] or 0) >= minimumCost.minimum) and (skill.skillFlags and not skill.skillFlags.disable) and (skill.skillCfg and not skill.skillCfg.skillCond["usedByMirage"]) and not skill.skillTypes[SkillType.OtherThingUsesSkill] then
 		return skill, GlobalCache.cachedData[env.mode][uuid].HitSpeed or GlobalCache.cachedData[env.mode][uuid].Speed, uuid
 	end
 	return source, triggerRate, source and cacheSkillUUID(source, env)
@@ -403,12 +417,13 @@ local function defaultTriggerHandler(env, config)
 	local sourceWeapon = config.sourceWeapon
 	-- Only attacks using the granting weapon can activate source-weapon triggers
 	local sourceWeaponFlag = sourceWeapon and actor.mainSkill.socketGroup.slot and (actor.mainSkill.socketGroup.slot:match("^Weapon 2") and "weapon2Attack" or "weapon1Attack")
+	local sourceCache = actor == env.player and not actor.mainSkill.skillFlags.globalTrigger and env.triggerSourceCache or nil
 
 	-- Find trigger skill and triggered skills
 	if config.triggeredSkillCond or config.triggerSkillCond then
 		for _, skill in ipairs(env.player.activeSkillList) do
 			if config.triggerSkillCond and config.triggerSkillCond(env, skill) and (not sourceWeaponFlag or skill.skillFlags[sourceWeaponFlag]) and (not isTriggered(skill) or actor.mainSkill.skillFlags.globalTrigger or config.allowTriggered) and skill ~= actor.mainSkill then
-				source, trigRate, uuid = findTriggerSkill(env, skill, source, trigRate, config.comparer)
+				source, trigRate, uuid = findTriggerSkill(env, skill, source, trigRate, config.comparer, config.minimumCostPerUse, sourceCache)
 			end
 			if config.triggeredSkillCond and config.triggeredSkillCond(env,skill) then
 				t_insert(triggeredSkills, packageSkillDataForSimulation(skill, env))
@@ -1084,28 +1099,20 @@ local configTable = {
 		end
 	end,
 	["kitava's thirst"] = function(env)
-		local requiredManaCost = env.player.modDB:Sum("BASE", nil, "KitavaRequiredManaCost")
 		return {triggerChance = env.player.modDB:Sum("BASE", nil, "KitavaTriggerChance"),
 				triggerName = "Kitava's Thirst",
-				comparer = function(env, uuid, source, triggerRate)
-					local cachedSpeed = GlobalCache.cachedData[env.mode][uuid].HitSpeed or GlobalCache.cachedData[env.mode][uuid].Speed
-					local cachedManaCost = GlobalCache.cachedData[env.mode][uuid].ManaCost
-					return ( (not source and cachedSpeed) or (cachedSpeed and cachedSpeed > (triggerRate or 0)) ) and ( (cachedManaCost or 0) >= requiredManaCost )
-				end,
+				-- Paid by a single use; accumulating triggers such as Manaforged Arrows must not declare this
+				minimumCostPerUse = { stat = "ManaCost", minimum = env.player.modDB:Sum("BASE", nil, "KitavaRequiredManaCost") },
 				triggerSkillCond = function(env, skill)
 					return true
 					-- Filtering done by skill() in SkillStatMap, comparer and default excludes
 				end}
 	end,
 	["foulborn kitava's thirst"] = function(env)
-		local requiredLifeCost = env.player.modDB:Sum("BASE", nil, "FoulbornKitavaRequiredLifeCost")
 		return {triggerChance = env.player.modDB:Sum("BASE", nil, "FoulbornKitavaTriggerChance"),
 				triggerName = "Foulborn Kitava's Thirst",
-				comparer = function(env, uuid, source, triggerRate)
-					local cachedSpeed = GlobalCache.cachedData[env.mode][uuid].HitSpeed or GlobalCache.cachedData[env.mode][uuid].Speed
-					local cachedLifeCost = GlobalCache.cachedData[env.mode][uuid].LifeCost
-					return ( (not source and cachedSpeed) or (cachedSpeed and cachedSpeed > (triggerRate or 0)) ) and ( (cachedLifeCost or 0) >= requiredLifeCost )
-				end,
+				-- Paid by a single use; accumulating triggers such as Manaforged Arrows must not declare this
+				minimumCostPerUse = { stat = "LifeCost", minimum = env.player.modDB:Sum("BASE", nil, "FoulbornKitavaRequiredLifeCost") },
 				triggerSkillCond = function(env, skill)
 					return true
 					-- Filtering done by skill() in SkillStatMap, comparer and default excludes
