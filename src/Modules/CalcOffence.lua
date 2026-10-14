@@ -1894,6 +1894,10 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 	end
+	-- A trigger-source probe only needs the cost; skip the damage work for candidates that cannot pay it
+	if env.triggerSourceCost and actor == env.player and (output[env.triggerSourceCost.stat] or 0) < env.triggerSourceCost.minimum then
+		return false
+	end
 	-- Eldritch Battery adds maximum Energy Shield to the Mana available for payable-cost damage.
 	output.ManaCostPayablePool = (output.ManaUnreserved or 0) + (modDB:Flag(nil, "EnergyShieldProtectsMana") and output.EnergyShield or 0)
 

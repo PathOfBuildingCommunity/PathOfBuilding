@@ -3795,8 +3795,8 @@ function calcs.perform(env, skipEHP)
 	end
 
 	calcs.triggers(env, env.player)
-	if not calcs.mirages(env) then
-		calcs.offence(env, env.player, env.player.mainSkill)
+	if not calcs.mirages(env) and calcs.offence(env, env.player, env.player.mainSkill) == false then
+		return false -- Rejected trigger-source probes are never cached
 	end
 
 	if env.minion then

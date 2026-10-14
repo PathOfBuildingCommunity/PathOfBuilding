@@ -99,12 +99,19 @@ function calcs.getMiscCalculator(build)
 	end
 	return function(override, useFullDPS)
 		local env, cachedPlayerDB, cachedEnemyDB, cachedMinionDB = calcs.initEnv(build, "CALCULATOR", override)
+		-- Trigger-source calculations shared by this override's main and Full DPS passes
+		env.triggerSourceCache = { }
 		calcs.perform(env)
+		local mainUUID = cacheSkillUUID(env.player.mainSkill, env)
+		local mainEntry = GlobalCache.cachedData["CALCULATOR"][mainUUID]
+		if mainEntry and mainEntry.Env == env then
+			env.triggerSourceCache[mainUUID] = mainEntry
+		end
 		if (useFullDPS ~= false or build.viewMode == "TREE") and usedFullDPS then
 			-- prevent upcoming calculation from using Cached Data and thus forcing it to re-calculate new FullDPS roll-up 
 			-- without this, FullDPS increase/decrease when for node/item/gem comparison would be all 0 as it would be comparing
 			-- A with A (due to cache reuse) instead of A with B
-			local fullDPS = calcs.calcFullDPS(build, "CALCULATOR", override, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = nil})
+			local fullDPS = calcs.calcFullDPS(build, "CALCULATOR", override, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = nil, triggerSourceCache = env.triggerSourceCache })
 			env.player.output.SkillDPS = fullDPS.skills
 			env.player.output.FullDPS = fullDPS.combinedDPS
 			env.player.output.FullDotDPS = fullDPS.TotalDotDPS
@@ -141,6 +148,7 @@ end
 
 function calcs.calcFullDPS(build, mode, override, specEnv)
 	local fullEnv, cachedPlayerDB, cachedEnemyDB, cachedMinionDB = calcs.initEnv(build, mode, override, specEnv)
+	fullEnv.triggerSourceCache = mode == "CALCULATOR" and (specEnv and specEnv.triggerSourceCache or { }) or nil
 	local usedEnv = nil
 
 	local fullDPS = {
@@ -353,10 +361,16 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 	return fullDPS
 end
 
--- Process active skill
-function calcs.buildActiveSkill(env, mode, skill, targetUUID, limitedProcessingFlags)
-	local fullEnv, _, _, _ = calcs.initEnv(env.build, mode, env.override)
+-- Process active skill; a trigger-source cost probe returns the partial output of a rejected candidate
+function calcs.buildActiveSkill(env, mode, skill, targetUUID, limitedProcessingFlags, minimumCost, sourceCache)
+	-- Only a rejected probe's environment can be reused: published results keep referencing theirs
+	local reusable = sourceCache and sourceCache.rejectedEnv
+	if reusable then
+		sourceCache.rejectedEnv = nil
+	end
+	local fullEnv, cachedPlayerDB, cachedEnemyDB, cachedMinionDB = calcs.initEnv(env.build, mode, env.override, reusable)
 	fullEnv.buildBreakdown = false
+	fullEnv.triggerSourceCost = minimumCost
 
 	-- env.limitedSkills contains a map of uuids that should be limited in calculation
 	-- this is in order to prevent infinite recursion loops
@@ -373,7 +387,12 @@ function calcs.buildActiveSkill(env, mode, skill, targetUUID, limitedProcessingF
 		local activeSkillUUID = cacheSkillUUID(activeSkill, fullEnv)
 		if activeSkillUUID == targetUUID then
 			fullEnv.player.mainSkill = activeSkill
-			calcs.perform(fullEnv, true)
+			if calcs.perform(fullEnv, true) == false then
+				if sourceCache and not fullEnv.minion and not activeSkill.mirage and not activeSkill.skillFlags.globalTrigger then
+					sourceCache.rejectedEnv = { env = fullEnv, cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, accelerate = { nodeAlloc = not (env.override.addNodes or env.override.removeNodes), requirementsItems = true, requirementsGems = true, skills = true } }
+				end
+				return fullEnv.player.output
+			end
 			return
 		end
 	end
