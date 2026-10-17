@@ -1088,8 +1088,11 @@ function PassiveSpecClass:NodesInIntuitiveLeapLikeRadius(node)
 	return result
 end
 
--- Rebuilds dependencies and paths for all nodes
-function PassiveSpecClass:BuildAllDependsAndPaths()
+-- Rebuilds dependencies and calculation distances for all nodes.
+-- Calculation-only specs leave UI path fields unset while still refreshing jewel
+-- socket distanceToClassStart values used by the calculator.
+---@param calculationOnly? boolean
+function PassiveSpecClass:BuildAllDependsAndPaths(calculationOnly)
 	local timelessJewelTypeByConqueror = {
 		vaal = 1,
 		karui = 2,
@@ -1625,8 +1628,13 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 	
 	-- Reset and rebuild all node paths
 	for _, node in pairs(self.nodes) do
-		node.pathDist = (node.alloc and #node.intuitiveLeapLikesAffecting == 0) and 0 or 1000
-		node.path = nil
+		if calculationOnly then
+			node.pathDist = nil
+			node.path = nil
+		else
+			node.pathDist = (node.alloc and #node.intuitiveLeapLikesAffecting == 0) and 0 or 1000
+			node.path = nil
+		end
 		if node.isJewelSocket or node.expansionJewel then
 			node.distanceToClassStart = 0
 		end
@@ -1638,49 +1646,51 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 		end
 	end
 
-	-- Use a multi-source 0-1 BFS to find the closest allocated node. Allocated
-	-- nodes have zero weight, while each unallocated node costs one passive point.
-	local queue = { }
-	for _, node in ipairs(rootList) do
-		node.pathDist = 0
-		node.path = wipeTable(node.path)
-		t_insert(queue, node)
-	end
-	local queueStart = 1
-	local queueLength = #queue
-	while queueStart <= queueLength do
-		local node = queue[queueStart]
-		queueStart = queueStart + 1
-		local linked = node.linked
-		local nodeDist = node.pathDist
-		local nodePath = node.path
-		for i = 1, #linked do
-			local other = linked[i]
-			local weight = other.alloc and 0 or 1
-			local distViaNode = nodeDist + weight
-			-- Paths cannot pass through start nodes, cross ascendancies, or move
-			-- away from masteries. Ascendant paths may leave at distance zero.
-			local canTraverse = node.type ~= "Mastery"
-				and other.type ~= "ClassStart"
-				and other.type ~= "AscendClassStart"
-				and (node.ascendancyName == other.ascendancyName or (nodeDist == 0 and not other.ascendancyName))
-			if distViaNode < (other.pathDist or math.huge) and canTraverse then
-				if weight == 0 then
-					-- Free nodes go to the front so they can shorten paid paths immediately.
-					queueStart = queueStart - 1
-					queue[queueStart] = other
-				else
-					queueLength = queueLength + 1
-					queue[queueLength] = other
-				end
+	if not calculationOnly then
+		-- Use a multi-source 0-1 BFS to find the closest allocated node. Allocated
+		-- nodes have zero weight, while each unallocated node costs one passive point.
+		local queue = { }
+		for _, node in ipairs(rootList) do
+			node.pathDist = 0
+			node.path = wipeTable(node.path)
+			t_insert(queue, node)
+		end
+		local queueStart = 1
+		local queueLength = #queue
+		while queueStart <= queueLength do
+			local node = queue[queueStart]
+			queueStart = queueStart + 1
+			local linked = node.linked
+			local nodeDist = node.pathDist
+			local nodePath = node.path
+			for i = 1, #linked do
+				local other = linked[i]
+				local weight = other.alloc and 0 or 1
+				local distViaNode = nodeDist + weight
+				-- Paths cannot pass through start nodes, cross ascendancies, or move
+				-- away from masteries. Ascendant paths may leave at distance zero.
+				local canTraverse = node.type ~= "Mastery"
+					and other.type ~= "ClassStart"
+					and other.type ~= "AscendClassStart"
+					and (node.ascendancyName == other.ascendancyName or (nodeDist == 0 and not other.ascendancyName))
+				if distViaNode < (other.pathDist or math.huge) and canTraverse then
+					if weight == 0 then
+						-- Free nodes go to the front so they can shorten paid paths immediately.
+						queueStart = queueStart - 1
+						queue[queueStart] = other
+					else
+						queueLength = queueLength + 1
+						queue[queueLength] = other
+					end
 
-				other.pathDist = distViaNode
-				local path = wipeTable(other.path)
-				path[1] = other
-				for pathIndex = 1, #nodePath do
-					path[pathIndex + 1] = nodePath[pathIndex]
+					other.pathDist = distViaNode
+					local path = wipeTable(other.path)
+					path[1] = other
+					for pathIndex = 1, #nodePath do
+						path[pathIndex + 1] = nodePath[pathIndex]
+					end
+					other.path = path
 				end
-				other.path = path
 			end
 		end
 	end
@@ -1691,7 +1701,9 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 		end
 	end
 
-	self:BuildSplitPersonalityPath()
+	if not calculationOnly then
+		self:BuildSplitPersonalityPath()
+	end
 end
 
 function PassiveSpecClass:ReplaceNode(old, newNode)
