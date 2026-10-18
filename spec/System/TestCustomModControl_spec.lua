@@ -60,13 +60,13 @@ describe("Custom modifier controls", function()
 		assert.are.equal("Minions deal 10% increased Damage", blockData.text)
 	end)
 
-	it("lists the same modifiers regardless of source iteration order", function()
+	it("lists the same modifiers regardless of table iteration order", function()
 		local function listModsWithOrderedPairs(descending)
-			local orderedTables = { }
+			local iteratedTables = { }
 			-- busted runs specs in their own environment; the browser module reads the real global
 			local originalPairs = _G.pairs
 			_G.pairs = function(tbl)
-				orderedTables[tbl] = true
+				iteratedTables[tbl] = true
 				local keys = { }
 				for key in next, tbl do
 					table.insert(keys, key)
@@ -95,10 +95,10 @@ describe("Custom modifier controls", function()
 				table.insert(mods, { text = mod.text, sources = mod.sources })
 			end
 			main:ClosePopup()
-			-- the comparison proves nothing unless the browser's own source loops used the ordered pairs
+			-- the comparison only holds if the browser's loops over tree nodes and item mods used the ordered pairs
 			local tree = build.treeTab.specList[build.treeTab.activeSpec].tree
-			assert.is_true(orderedTables[tree.nodes], "tree nodes were not iterated with the ordered pairs")
-			assert.is_true(orderedTables[build.data.itemMods], "item mods were not iterated with the ordered pairs")
+			assert.is_true(iteratedTables[tree.nodes], "tree nodes were not iterated with the ordered pairs")
+			assert.is_true(iteratedTables[build.data.itemMods], "item mods were not iterated with the ordered pairs")
 			return mods
 		end
 

@@ -51,7 +51,9 @@ end
 ---@param line string
 ---@param source string
 ---@param supported boolean?
--- either adds a new entry or adds the source to an existing entry
+-- either adds a new entry or adds the source to an existing entry, keeping one
+-- representative line per template: a supported line wins over an unsupported
+-- one, and among lines with the same support the one that sorts first wins
 local function addModLine(set, line, source, supported)
 	local template = getModTemplate(line)
 	local modEntry = set[template]
@@ -60,7 +62,7 @@ local function addModLine(set, line, source, supported)
 		set[template] = modEntry
 	else
 		modEntry.sources[source] = true
-		-- keep the line that sorts first so the entry doesn't depend on source iteration order
+		-- the text order makes the result independent of table iteration order
 		if line < modEntry.text and (supported or not modEntry.supported) then
 			modEntry.text = line
 		end
@@ -72,21 +74,22 @@ local function addModLine(set, line, source, supported)
 		modEntry.supported = modEntry.supported or supported
 	end
 end
+-- raw item mod line -> { rangedLine, supported }, kept for the session
 local rangedItemLineCache = {}
 ---@param set table
 ---@param line string
 ---@param source string
 local function addItemModLine(set, line, source)
-	local ranged = rangedItemLineCache[line]
-	if not ranged then
+	local rangedEntry = rangedItemLineCache[line]
+	if not rangedEntry then
 		-- note that exactly 0.5 range is necessary as that is what the
 		-- mod cache uses
 		local rangedLine = itemLib.applyRange(line, 0.5)
 		local modList, extra = modLib.parseMod(rangedLine)
-		ranged = { line = rangedLine, supported = (not not modList) and not extra }
-		rangedItemLineCache[line] = ranged
+		rangedEntry = { rangedLine = rangedLine, supported = (not not modList) and not extra }
+		rangedItemLineCache[line] = rangedEntry
 	end
-	addModLine(set, ranged.line, source, ranged.supported)
+	addModLine(set, rangedEntry.rangedLine, source, rangedEntry.supported)
 end
 ---@param set table
 ---@param mod table
