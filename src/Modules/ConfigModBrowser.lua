@@ -72,15 +72,21 @@ local function addModLine(set, line, source, supported)
 		modEntry.supported = modEntry.supported or supported
 	end
 end
+local rangedItemLineCache = {}
 ---@param set table
 ---@param line string
 ---@param source string
 local function addItemModLine(set, line, source)
-	-- note that exactly 0.5 range is necessary as that is what the
-	-- mod cache uses
-	local rangedLine = itemLib.applyRange(line, 0.5)
-	local modList, extra = modLib.parseMod(rangedLine)
-	addModLine(set, rangedLine, source, (not not modList) and not extra)
+	local ranged = rangedItemLineCache[line]
+	if not ranged then
+		-- note that exactly 0.5 range is necessary as that is what the
+		-- mod cache uses
+		local rangedLine = itemLib.applyRange(line, 0.5)
+		local modList, extra = modLib.parseMod(rangedLine)
+		ranged = { line = rangedLine, supported = (not not modList) and not extra }
+		rangedItemLineCache[line] = ranged
+	end
+	addModLine(set, ranged.line, source, ranged.supported)
 end
 ---@param set table
 ---@param mod table
