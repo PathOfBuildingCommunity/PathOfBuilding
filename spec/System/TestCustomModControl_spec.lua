@@ -54,10 +54,55 @@ describe("Custom modifier controls", function()
 			end
 		end
 
-		assert.are.same({ "Minions deal 12% increased Damage" }, minionDamageEntries)
+		assert.are.same({ "Minions deal 10% increased Damage" }, minionDamageEntries)
 		popup.controls.listControl.selIndex = minionDamageIndex
 		popup.controls.save.onClick()
-		assert.are.equal("Minions deal 12% increased Damage", blockData.text)
+		assert.are.equal("Minions deal 10% increased Damage", blockData.text)
+	end)
+
+	it("lists the same modifiers regardless of source iteration order", function()
+		local function listModsWithOrderedPairs(descending)
+			local orderedTables = { }
+			-- busted runs specs in their own environment; the browser module reads the real global
+			local originalPairs = _G.pairs
+			_G.pairs = function(tbl)
+				orderedTables[tbl] = true
+				local keys = { }
+				for key in next, tbl do
+					table.insert(keys, key)
+				end
+				table.sort(keys, function(a, b)
+					local aKey, bKey = type(a) .. tostring(a), type(b) .. tostring(b)
+					if descending then
+						return aKey > bKey
+					end
+					return aKey < bKey
+				end)
+				local index = 0
+				return function()
+					index = index + 1
+					local key = keys[index]
+					if key ~= nil then
+						return key, tbl[key]
+					end
+				end
+			end
+			local ok, popup = pcall(openModBrowser)
+			_G.pairs = originalPairs
+			assert(ok, popup)
+			local mods = { }
+			for _, mod in ipairs(popup.controls.listControl.list) do
+				table.insert(mods, { text = mod.text, sources = mod.sources })
+			end
+			main:ClosePopup()
+			-- the comparison proves nothing unless the browser's own source loops used the ordered pairs
+			local tree = build.treeTab.specList[build.treeTab.activeSpec].tree
+			assert.is_true(orderedTables[tree.nodes], "tree nodes were not iterated with the ordered pairs")
+			assert.is_true(orderedTables[build.data.itemMods], "item mods were not iterated with the ordered pairs")
+			return mods
+		end
+
+		assert.are.same(listModsWithOrderedPairs(false), listModsWithOrderedPairs(true))
 	end)
 
 	it("orders modifiers alphabetically while ignoring numeric values", function()

@@ -60,6 +60,10 @@ local function addModLine(set, line, source, supported)
 		set[template] = modEntry
 	else
 		modEntry.sources[source] = true
+		-- keep the line that sorts first so the entry doesn't depend on source iteration order
+		if line < modEntry.text and (supported or not modEntry.supported) then
+			modEntry.text = line
+		end
 	end
 	if supported ~= nil then
 		if supported and not modEntry.supported then
@@ -68,34 +72,33 @@ local function addModLine(set, line, source, supported)
 		modEntry.supported = modEntry.supported or supported
 	end
 end
----@param seenGroups table
+---@param set table
+---@param line string
+---@param source string
+local function addItemModLine(set, line, source)
+	-- note that exactly 0.5 range is necessary as that is what the
+	-- mod cache uses
+	local rangedLine = itemLib.applyRange(line, 0.5)
+	local modList, extra = modLib.parseMod(rangedLine)
+	addModLine(set, rangedLine, source, (not not modList) and not extra)
+end
 ---@param set table
 ---@param mod table
 ---@param source string
-local function addItemMod(seenGroups, set, mod, source)
-	if not seenGroups[mod.group] then
-		seenGroups[mod.group] = true
-		-- the actual trade hashes aren't relevant, but this
-		-- field is separated by stat description, which
-		-- means that getting rid of split lines won't
-		-- result in accidentally combining two separate
-		-- stats
-		if mod.tradeHashes then
-			for _, statDescription in pairs(mod.tradeHashes) do
-				local line = table.concat(statDescription, " ")
-				-- note that exactly 0.5 range is necessary as that is what the
-				-- mod cache uses
-				local rangedLine = itemLib.applyRange(line, 0.5)
-				local modList, extra = modLib.parseMod(rangedLine)
-				addModLine(set, rangedLine, source, (not not modList) and not extra)
-			end
-		else
-			-- crafted mods have a different format
-			for _, line in ipairs(mod) do
-				local rangedLine = itemLib.applyRange(line, 0.5)
-				local modList, extra = modLib.parseMod(rangedLine)
-				addModLine(set, rangedLine, source, (not not modList) and not extra)
-			end
+local function addItemMod(set, mod, source)
+	-- the actual trade hashes aren't relevant, but this
+	-- field is separated by stat description, which
+	-- means that getting rid of split lines won't
+	-- result in accidentally combining two separate
+	-- stats
+	if mod.tradeHashes then
+		for _, statDescription in pairs(mod.tradeHashes) do
+			addItemModLine(set, table.concat(statDescription, " "), source)
+		end
+	else
+		-- crafted mods have a different format
+		for _, line in ipairs(mod) do
+			addItemModLine(set, line, source)
 		end
 	end
 end
@@ -184,29 +187,28 @@ function M.OpenAddModPopup(configTab, blockData)
 			end
 		end
 	end
-	local recordedGroups = {}
 	if bData.masterMods then
 		for _, mod in ipairs(bData.masterMods) do
-			addItemMod(recordedGroups, modSet, mod, "Crafted mod")
+			addItemMod(modSet, mod, "Crafted mod")
 		end
 	end
 	if bData.itemMods then
 		for catName, catMods in pairs(bData.itemMods) do
 			if (catName ~= "Item" and catName ~= "JewelCluster") and type(catMods) == "table" then
 				for _, mod in pairs(catMods) do
-					addItemMod(recordedGroups, modSet, mod, "Item mod")
+					addItemMod(modSet, mod, "Item mod")
 				end
 			end
 		end
 	end
 	if bData.veiledMods then
 		for _, mod in pairs(bData.veiledMods) do
-			addItemMod(recordedGroups, modSet, mod, "Veiled mod")
+			addItemMod(modSet, mod, "Veiled mod")
 		end
 	end
 	if bData.beastCraft then
 		for _, mod in pairs(bData.beastCraft) do
-			addItemMod(recordedGroups, modSet, mod, "Item mod")
+			addItemMod(modSet, mod, "Item mod")
 		end
 	end
 
