@@ -339,7 +339,7 @@ function main:SaveModCache()
 				out:write("end)();(function()\n")
 				count = 0
 			else
-				count += 1
+				count = count + 1
 			end
 		end
 	end
