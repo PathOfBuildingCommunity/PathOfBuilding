@@ -61,7 +61,7 @@ describe("Custom modifier controls", function()
 	end)
 
 	it("lists the same modifiers regardless of table iteration order", function()
-		local function listModsWithOrderedPairs(descending)
+		local function listModsWithOrderedPairs(reverse)
 			local iteratedTables = { }
 			-- busted runs specs in their own environment; the browser module reads the real global
 			local originalPairs = _G.pairs
@@ -71,35 +71,20 @@ describe("Custom modifier controls", function()
 				for key in next, tbl do
 					table.insert(keys, key)
 				end
-				table.sort(keys, function(a, b)
-					local aKey, bKey = type(a) .. tostring(a), type(b) .. tostring(b)
-					if descending then
-						return aKey > bKey
-					end
-					return aKey < bKey
-				end)
-				local index = 0
+				table.sort(keys, function(a, b) return type(a) .. tostring(a) < type(b) .. tostring(b) end)
+				local index = reverse and #keys + 1 or 0
 				return function()
-					index = index + 1
-					local key = keys[index]
-					if key ~= nil then
-						return key, tbl[key]
-					end
+					index = index + (reverse and -1 or 1)
+					return keys[index], tbl[keys[index]]
 				end
 			end
 			local ok, popup = pcall(openModBrowser)
 			_G.pairs = originalPairs
 			assert(ok, popup)
-			local mods = { }
-			for _, mod in ipairs(popup.controls.listControl.list) do
-				table.insert(mods, { text = mod.text, sources = mod.sources })
-			end
 			main:ClosePopup()
-			-- the comparison only holds if the browser's loops over tree nodes and item mods used the ordered pairs
 			local tree = build.treeTab.specList[build.treeTab.activeSpec].tree
-			assert.is_true(iteratedTables[tree.nodes], "tree nodes were not iterated with the ordered pairs")
-			assert.is_true(iteratedTables[build.data.itemMods], "item mods were not iterated with the ordered pairs")
-			return mods
+			assert.is_true(iteratedTables[tree.nodes] and iteratedTables[build.data.itemMods], "the browser did not use the ordered pairs")
+			return popup.controls.listControl.list
 		end
 
 		assert.are.same(listModsWithOrderedPairs(false), listModsWithOrderedPairs(true))

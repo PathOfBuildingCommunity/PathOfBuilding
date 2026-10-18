@@ -51,9 +51,8 @@ end
 ---@param line string
 ---@param source string
 ---@param supported boolean?
--- either adds a new entry or adds the source to an existing entry, keeping one
--- representative line per template: a supported line wins over an unsupported
--- one, and among lines with the same support the one that sorts first wins
+-- either adds a new entry or adds the source to an existing entry
+-- the entry keeps a supported line over an unsupported one, then the line that sorts first
 local function addModLine(set, line, source, supported)
 	local template = getModTemplate(line)
 	local modEntry = set[template]
