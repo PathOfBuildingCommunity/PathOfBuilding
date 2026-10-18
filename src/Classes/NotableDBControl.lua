@@ -19,8 +19,11 @@ local function IsAnointableNode(node)
 end
 
 ---@class NotableDBControl : ListControl
-local NotableDBClass = newClass("NotableDBControl", "ListControl", function(self, anchor, rect, itemsTab, db, dbType)
-	self.ListControl(anchor, rect, 16, "VERTICAL", false)
+local NotableDBClass = newClass("NotableDBControl", "ListControl")
+
+---@param itemsTab ItemsTab
+function NotableDBClass:NotableDBControl(anchor, rect, itemsTab, db, dbType)
+	self:ListControl(anchor, rect, 16, "VERTICAL", false)
 	self.itemsTab = itemsTab
 	self.db = db
 	self.dbType = dbType
@@ -32,18 +35,19 @@ local NotableDBClass = newClass("NotableDBControl", "ListControl", function(self
 	self.sortDropList = { }
 	self.sortOrder = { }
 	self.sortMode = "NAME"
-	self.controls.sort = new("DropDownControl", {"BOTTOMLEFT",self,"TOPLEFT"}, {0, -22, 360, 18}, self.sortDropList, function(index, value)
+	self.controls.sort = new("DropDownControl"):DropDownControl({"BOTTOMLEFT",self,"TOPLEFT"}, {0, -22, 360, 18}, self.sortDropList, function(index, value)
 		self:SetSortMode(value.sortMode)
 	end)
-	self.controls.search = new("EditControl", {"BOTTOMLEFT",self,"TOPLEFT"}, {0, -2, 258, 18}, "", "Search", "%c", 100, function()
+	self.controls.search = new("EditControl"):EditControl({"BOTTOMLEFT",self,"TOPLEFT"}, {0, -2, 258, 18}, "", "Search", "%c", 100, function()
 		self.listBuildFlag = true
 	end, nil, nil, true)
-	self.controls.searchMode = new("DropDownControl", {"LEFT",self.controls.search,"RIGHT"}, {2, 0, 100, 18}, { "Anywhere", "Names", "Modifiers" }, function(index, value)
+	self.controls.searchMode = new("DropDownControl"):DropDownControl({"LEFT",self.controls.search,"RIGHT"}, {2, 0, 100, 18}, { "Anywhere", "Names", "Modifiers" }, function(index, value)
 		self.listBuildFlag = true
 	end)
 	self:BuildSortOrder()
 	self.listBuildFlag = true
-end)
+	return self
+end
 
 ---@param node table @The notable node to check
 ---@return boolean @Whether the notable matches the type and search filters.
@@ -87,7 +91,7 @@ end
 
 function NotableDBClass:BuildSortOrder()
 	wipeTable(self.sortDropList)
-	for id,stat in pairs(data.powerStatList) do
+	for id, stat in ipairs(data.powerStatList) do
 		if not stat.ignoreForItems then
 			t_insert(self.sortDropList, {
 				label="Sort by "..stat.label,
@@ -111,16 +115,8 @@ function NotableDBClass:BuildSortOrder()
 end
 
 function NotableDBClass:CalculatePowerStat(selection, original, modified)
-	if modified.Minion then
-		original = original.Minion
-		modified = modified.Minion
-	end
-	local originalValue = original[selection.stat] or 0
-	local modifiedValue = modified[selection.stat] or 0
-	if selection.transform then
-		originalValue = selection.transform(originalValue)
-		modifiedValue = selection.transform(modifiedValue)
-	end
+	local originalValue = data.powerStatList.GetFromOutput(original, selection)
+	local modifiedValue = data.powerStatList.GetFromOutput(modified, selection)
 	return originalValue - modifiedValue
 end
 

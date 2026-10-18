@@ -131,6 +131,7 @@ ColdResistUniqueStrHelmet2
 Kaom's Command
 Siege Helmet
 League: Settlers of Kalguur
+Source: Kingsmarch Shipping to normal{Ngakanu} or normal{Te Onui}
 Requires Level 48, 101 Str
 IncreasedLifeUnique__3
 WarcrySpeedUnique__2
@@ -301,7 +302,7 @@ Variant: Current
 Requires Level 70, 150 Dex
 {variant:1}IncreasedAccuracyUnique__4[300,500]
 {variant:2}IncreasedAccuracyUnique__4
-LocalIncreasedEvasionRatingPercentUnique__10
+LocalIncreasedEvasionRatingPercentUnique__3
 IncreasedLifeUnique__23
 IncreaseProjectileAttackDamagePerAccuracyUnique__1
 ]],[[
@@ -770,6 +771,7 @@ Bone Circlet
 Variant: Pre 3.19.0
 Variant: Pre 3.24.0
 Variant: Current
+Source: Drops from unique{Nightmare of Catarina} in normal{Ziggurat Map}
 Requires Level: 34, 73 Int
 {variant:3}AbyssJewelSocketUnique__17
 {variant:1,2}LocalIncreaseSocketedMinionGemLevelUnique__3
@@ -996,6 +998,7 @@ LocalIncreasedArmourAndEvasionUniqueHelmetStrDex5
 El'Abin's Visage
 Fencer Helm
 League: Crucible
+Source: Drops from Crucible monsters
 StrengthUnique__23
 DexterityUnique__28
 LocalIncreasedArmourAndEvasionUnique__23
@@ -1005,6 +1008,7 @@ ItemCanHaveShieldWeaponTreeUnique1
 The Trickster's Smile
 Visored Sallet
 League: Affliction
+Source: Drops from Viridian Wildwood and Ritual monsters
 Requires Level 23, 28 Str, 28 Dex
 LocalIncreasedArmourAndEvasionUnique__21
 AttackerTakesColdDamageUnique__1
@@ -1147,18 +1151,20 @@ Soldier Helmet
 League: Legion
 Variant: Pre 3.7.0
 Variant: Pre 3.19.0
+Variant: Pre 3.29.0
 Variant: Current
 Requires Level 12, 16 Str, 16 Int
 {variant:2}LocalIncreaseSocketedGemLevelUnique__10
-{variant:3}LocalIncreaseSocketedGemLevelUnique__11_
+{variant:3,4}LocalIncreaseSocketedGemLevelUnique__11_
 {variant:1,2}AddedLightningDamageUniqueHelmetStrInt1[1,1][13,13]
-{variant:3}AddedLightningDamageUniqueHelmetStrInt1
+{variant:3,4}AddedLightningDamageUniqueHelmetStrInt1
 {variant:1}LocalIncreasedArmourAndEnergyShieldUniqueHelmetStrInt1[40,50]
-{variant:2,3}LocalIncreasedArmourAndEnergyShieldUniqueHelmetStrInt1
-{variant:2,3}ItemFoundRarityIncreaseUnique__4_
+{variant:2,3,4}LocalIncreasedArmourAndEnergyShieldUniqueHelmetStrInt1
+{variant:2,3,4}ItemFoundRarityIncreaseUnique__4_
 {variant:1}AllResistancesUniqueHelmetStrInt1
 {variant:1}ElementalResistsOnLowLifeUniqueHelmetStrInt1
 {variant:2,3}ManaCostReductionUnique__2_
+{variant:4}ManaCostEffiencyUnique__2
 {variant:1}ReducedManaCostOnLowLifeUniqueHelmetStrInt1
 ]],[[
 Kitava's Thirst
@@ -1246,26 +1252,31 @@ Magistrate Crown
 League: Synthesis
 Source: Drops from unique{Altered/Augmented/Rewritten/Twisted Synthete}
 Variant: Pre 3.16.0
+Variant: Pre 3.29.0
 Variant: Current
 Requires Level 58, 64 Str, 64 Int
 AllAttributesUnique__15
 LocalIncreasedArmourAndEnergyShieldUniqueHelmetStrInt_1
-{variant:2}BlockPer100StrengthAuraUnique__1___
+{variant:2,3}BlockPer100StrengthAuraUnique__1___
 {variant:1}DefencesPer100StrengthAuraUnique__1
 CriticalMultiplierPer100DexterityAuraUnique__1
 CastSpeedPer100IntelligenceAuraUnique__1
-ManaReservationEfficiencyPerAttributeUnique__1
+{variant:1,2}ManaReservationEfficiencyPerAttributeUnique__1[2,2]
+{variant:3}ManaReservationEfficiencyPerAttributeUnique__1
 ]],[[
 Maw of Mischief
 Bone Helmet
 League: Heist
 Source: Obtained from divination card normal{Cursed Words}
+Variant: Pre 3.29.0
+Variant: Current
 Requires Level 73, 76 Str, 76 Int
 Implicits: 1
 MinionDamageImplicitHelmet1
 GrantsDeathWishUnique__1__
 IncreasedLifeUnique__109_
-MinionSkillManaCostUnique__2
+{variant:1}MinionSkillManaCostUnique__2
+{variant:2}MinionSkillManaCostEfficiencyUnique__1
 MinionLargerAggroRadiusUnique__1
 ]],[[
 Memory Vault
@@ -1315,6 +1326,16 @@ SkillEffectDurationUnique__1
 MinionAttackSpeedPerXDexUnique__1
 MinionMovementSpeedPerXDexUnique__1
 MinionHitsOnlyKillIgnitedEnemiesUnique__1
+]],[[
+Subsume the Source
+Faithful Helmet
+League: Allflame
+Source: Drops from unique{Zorath}
+Requires Level 73, 101 Str, 101 Int
+Crafted: true
+LocalExplicitModEffectUnique__1
+ConsumeAbyssJewelUnique__1
+LocalCannotHaveNonAbyssSocketsUnique__1
 ]],[[
 Veil of the Night
 Great Helmet
@@ -1453,10 +1474,11 @@ ChaosResistanceIsZeroUnique__1
 Corrupted
 ]],[[
 Gorgon's Gaze
+Source: Drops from unique{Talin, Faithbreaker} in normal{Pillars of Arun}
 Regicide Mask
 Requires Level 52, 58 Dex, 58 Int
 Implicits: 0
-Grants Level 20 Summon Petrification Statue Skill
+PetrificationStatueUnique__1
 LocalIncreasedEnergyShieldPercentUnique__15_
 IncreasedLifeUnique__121
 AttackAndCastSpeedUnique__2
@@ -1468,19 +1490,22 @@ Raven Mask
 League: Domination
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
+Variant: Pre 3.29.0
 Variant: Current
 Requires Level 38, 44 Dex, 44 Int
-{variant:2,3}TriggeredSummonLesserShrineUnique__1
+{variant:2,3,4}TriggeredSummonLesserShrineUnique__1
 LocalIncreasedEvasionAndEnergyShieldUniqueHelmetDexInt3
 {variant:2}LocalIncreasedEnergyShieldUnique__11[40,65]
-{variant:3}LocalIncreasedEnergyShieldUnique__11
-{variant:2,3}IncreasedLifeUnique__120
+{variant:3,4}LocalIncreasedEnergyShieldUnique__11
+{variant:2,3,4}IncreasedLifeUnique__120
 {variant:1}IncreasedManaUniqueHelmetDexInt3
-{variant:2,3}ColdResistUnique__16
+{variant:2,3,4}ColdResistUnique__16
 {variant:1}LifeGainedFromEnemyDeathUniqueHelmetDexInt3
 {variant:1}EnergyShieldGainedFromEnemyDeathUniqueHelmetDexInt3
-ShrineBuffEffectUniqueHelmetDexInt3
-ShrineEffectDurationUniqueHelmetDexInt3
+{variant:1,2,3}ShrineBuffEffectUniqueHelmetDexInt3[75,75]
+{variant:4}ShrineBuffEffectUniqueHelmetDexInt3
+{variant:1,2,3}ShrineEffectDurationUniqueHelmetDexInt3[50,50]
+{variant:4}ShrineEffectDurationUniqueHelmetDexInt3
 ]],[[
 Heretic's Veil
 Deicide Mask
@@ -1607,6 +1632,17 @@ FireShocksUniqueHelmetDexInt4
 ColdIgnitesUniqueHelmetDexInt4_
 LightningFreezesUniqueHelmetDexInt4
 ]],[[
+The Unblinking Eye
+Harlequin Mask
+Shaper Item
+Source: Drops from unique{The Shaper} (Uber)
+Requires Level 57, 64 Dex, 64 Int
+ChanceToSuppressSpellsUnique__5
+DexterityUnique__35
+LocalIncreasedEvasionAndEnergyShieldUniqueHelmetDexInt18
+EvasionModifersApplyToSpellDamageUnique__1
+NoPhysicalDamageReductionUnique__1
+]],[[
 The Vertex
 Vaal Mask
 Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Alluring Abyss}
@@ -1645,6 +1681,7 @@ LosePowerChargesOnBlockUnique__1
 Faithguard
 Runic Helm
 League: Expedition
+Source: Drops from Expedition monsters
 Variant: Pre 3.19.0
 Variant: Current
 IntelligenceUniqueHelmetInt9

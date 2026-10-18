@@ -92,15 +92,17 @@ Pinnacle Tower Shield
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Pre 3.16.0
+Variant: Pre 3.29.0
 Variant: Current
 Implicits: 1
-{variant:3,4}IncreasedLifeImplicitShield2
+{variant:3,4,5}IncreasedLifeImplicitShield2
 {variant:1,2,3}LocalIncreasedArmourPercentAndStunRecoveryUniqueShieldStr1[200,250][20,20]
-{variant:4}LocalIncreasedArmourPercentAndStunRecoveryUniqueShieldStr1
+{variant:4,5}LocalIncreasedArmourPercentAndStunRecoveryUniqueShieldStr1
 {variant:1}IncreasedLifeUniqueShieldStr1[80,100]
-{variant:2,3,4}IncreasedLifeUniqueShieldStr1
+{variant:2,3,4,5}IncreasedLifeUniqueShieldStr1
 MovementVelocityUniqueShieldStr1
-RangedAttackDamageReducedUniqueShieldStr1
+{variant:1,2,3,4}RangedAttackDamageReducedUniqueShieldStr1[-25,-25]
+{variant:5}RangedAttackDamageReducedUniqueShieldStr1
 AdditionalBlockChanceUniqueShieldDex1
 ]],[[
 Lycosidae
@@ -132,6 +134,7 @@ LocalFlatIncreasedEvasionAndEnergyShieldUnique__1
 Redblade Banner
 Painted Tower Shield
 League: Warbands
+Source: Drops from Redblade Mercenary monsters
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Pre 3.11.0
@@ -153,6 +156,7 @@ AdditionalBlockChanceUniqueShieldDex1
 Svalinn
 Girded Tower Shield
 League: Settlers of Kalguur
+Source: Drops from unique{The Black Knight} in a normal{Starfall Crater}
 Requires Level 51, 123 Str
 Implicits: 1
 IncreasedLifeImplicitShield1
@@ -195,24 +199,29 @@ LifeRegenerationRatePercentUniqueShieldStr5
 Tukohama's Fortress
 Ebony Tower Shield
 Variant: Pre 3.0.0
+Variant: Pre 3.29.0
 Variant: Current
 Implicits: 1
-{variant:2}IncreasedLifeImplicitShield2
+{variant:2,3}IncreasedLifeImplicitShield2
 TotemDamageUnique__1_
 IncreasedLifeUnique__82
 AdditionalTotemsUnique__1
-ArmourPerTotemUnique__1
+{variant:1,2}ArmourPerTotemUnique__1[300,300]
+{variant:3}ArmourPerTotemUnique__1
 KeystoneBloodMagicUnique__1_
 ]],[[
 Replica Tukohama's Fortress
 Ebony Tower Shield
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
+Variant: Pre 3.29.0
+Variant: Current
 Implicits: 1
 IncreasedLifeImplicitShield2
 IncreasedLifeUnique__90
 AdditionalBrandUnique__1
-CriticalStrikeChancePerBrandUnique__1___
+{variant:1}CriticalStrikeChancePerBrandUnique__1___[20,20]
+{variant:2}CriticalStrikeChancePerBrandUnique__1___
 BrandDamageUnique__1
 BloodMagic
 ]],
@@ -383,6 +392,7 @@ PhasingIfBlockedRecentlyUnique__1
 Mutewind Pennant
 Enameled Buckler
 League: Warbands
+Source: Drop from Mutewind Mercenary monsters
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Pre 3.11.0
@@ -527,6 +537,7 @@ SpectresGainArcaneSurgeWhenYouDoUnique__1_
 Brinerot Flag
 Tarnished Spirit Shield
 League: Warbands
+Source: Drops from Brinerot Warband monsters
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Pre 3.11.0
@@ -543,6 +554,17 @@ ManaRegenerationUniqueShieldInt5
 {variant:1}ManaGainedOnHitAgainstTauntedEnemyUniqueShieldInt5
 {variant:2,3}GainPowerChargesOnUsingWarcryUnique__1
 {variant:4}WarcryGrantsArcaneSurgeUnique__1
+]],[[
+The Draugur's Lantern
+Ancient Spirit Shield
+League: Allflame
+Source: Drops from unique{Filthscrabble} in normal{The Fathomless Depths}
+Requires Level 45, 110 Int
+SpellDamageImplicitShield1
+SpellBlockPercentageUniqueShieldInt18
+IncreasedLifeUnique__128
+FasterIgniteDamageUnique__2
+GhostFurnaceUnique__1
 ]],[[
 Esh's Mirror
 {variant:1}Thorium Spirit Shield
@@ -652,6 +674,7 @@ ShockOnMaxPowerChargesUnique__1
 Manastorm
 {variant:1}Fossilised Spirit Shield
 {variant:2,3}Lacewood Spirit Shield
+Source: Drops from unique{Nightmare of Uhtred} in normal{Citadel Map}
 Variant: Pre 3.19.0
 Variant: Pre 3.24.0
 Variant: Current
@@ -707,23 +730,27 @@ League: Legion
 Variant: Pre 3.4.0
 Variant: Pre 3.7.0
 Variant: 3.19.0
+Variant: Pre 3.29.0
 Variant: Current
 Implicits: 0
 {variant:1}SpellBlockPercentageUnique__1[12,18]
-{variant:2,3,4}SpellBlockPercentageUnique__1[10,15]
+{variant:2,3,4,5}SpellBlockPercentageUnique__1[10,15]
 {variant:1,2}SpellDamageUniqueShieldInt1
 LocalIncreasedEnergyShieldPercent___3
 MaximumLifeShieldInt1
 {variant:1,2}LightningResistUniqueShieldInt1
 {variant:3}SacrificeLifeOnSpellSkillUnique__1[4,4]
-{variant:4}SacrificeLifeOnSpellSkillUnique__1
+{variant:4,5}SacrificeLifeOnSpellSkillUnique__1
 {variant:3}SpellCriticalStrikeChancePerLifeUnique__1[2,2][100,100]
-{variant:4}SpellCriticalStrikeChancePerLifeUnique__1
+{variant:4}SpellCriticalStrikeChancePerLifeUnique__1[5,5][100,100]
+{variant:5}SpellCriticalStrikeChancePerLifeUnique__1
 {variant:3}SpellDamagePerLifeUnique__1[2,2][100,100]
-{variant:4}SpellDamagePerLifeUnique__1
+{variant:4}SpellDamagePerLifeUnique__1[5,5][100,100]
+{variant:5}SpellDamagePerLifeUnique__1
 ]],[[
 The Scales of Justice
 Chiming Spirit Shield
+Source: Labyrinth
 Implicits: 1
 SpellDamageImplicitShield2
 NoEnergyShieldUnique__1
@@ -752,6 +779,7 @@ ElementalWeaknessOnSpellBlockUniqueShieldInt4
 The Flawed Refuge
 Maple Round Shield
 League: Affliction
+Source: Drops from Viridian Wildwood and Ritual monsters
 Requires Level 39, 52 Str, 52 Dex
 Implicits: 1
 BlockRecoveryImplicitShield3
@@ -802,6 +830,7 @@ Teak Round Shield
 Variant: Pre 3.16.0
 Variant: Current
 League: Heist
+Source: Reward from Mercenary duel
 Implicits: 1
 BlockRecoveryImplicitShield3
 LocalIncreaseSocketedSupportGemLevelUnique__1
@@ -823,6 +852,19 @@ LocalIncreasedArmourAndEvasionUniqueShieldStrDex1
 AdditionalBlockChanceUnique__8_
 BaseBlockDamageTakenUnique__1___
 ]],[[
+Seablister
+Spiny Round Shield
+League: Allflame
+Source: Drops from unique{Velka, the Tide Witch}
+Requires Level 62, 85 Str, 85 Dex
+Implicits: 1
+BlockRecoveryImplicitShield1
+GrantsCreateBarnacleSkillUnique
+LocalBaseArmourAndEvasionRatingUnique__1
+LocalIncreasedArmourAndEvasionUnique__29
+MaximumColdResistUnique__3
+ColdResistUnique__44
+]],[[
 Shattershard
 Crimson Round Shield
 League: Heist
@@ -835,10 +877,12 @@ AdditionalBlockChanceUnique__7__
 ]],[[
 The Squire
 Elegant Round Shield
+Variant: Pre 3.29.0
+Variant: Current
 Implicits: 1
 BlockRecoveryImplicitShield2
 HasThreeSocketsUnique__1_
-AllSocketsAreWhiteUniqueShieldStrDex7_
+{variant:1}AllSocketsAreWhiteUniqueShieldStrDex7_
 IncreaseSocketedSupportGemQualityUnique__1___
 SupportGemsSocketedInOffHandAlsoSupportMainHandSkills
 LocalIncreasedArmourAndEvasionUniqueShieldStrDex4
@@ -846,6 +890,7 @@ AdditionalBlockChanceUniqueShieldStrDex3__
 ]],[[
 Vix Lunaris
 Cardinal Round Shield
+Source: Drops from unique{Selenia, the Endless Night} in normal{The Twilight Temple}
 Implicits: 0
 LocalIncreaseSocketedGemLevelUnique__11_
 TriggeredColdAegisSkillUnique__1
@@ -902,6 +947,7 @@ WeaponElementalDamageUniqueShieldStrInt4
 Broken Faith
 Archon Kite Shield
 League: Warbands
+Source: Drops from Renegade Warband monsters
 Variant: Pre 2.6.0
 Variant: Pre 3.11.0
 Variant: Current
@@ -934,6 +980,7 @@ KeystoneGlancingBlowsUnique__1___
 ]],[[
 Invictus Solaris
 Archon Kite Shield
+Source: Drops from unique{Helial, the Day Unending}
 Implicits: 1
 AllResistancesImplicitShield3
 LocalIncreaseSocketedGemLevelUnique__1
@@ -1146,7 +1193,7 @@ Implicits: 2
 {variant:1}AttackerTakesDamageShieldImplicit3
 {variant:2}ChanceToDodgeImplicitShield2
 LocalIncreasedEvasionAndEnergyShieldUnique__1
-IncreasedEnergyShieldUnique___1
+LocalIncreasedEnergyShieldUnique__6
 IncreasedLifeUniqueShieldStr2
 ItemFoundRarityIncreaseUnique__1
 ChanceToAvoidFireDamageUnique__1
@@ -1172,7 +1219,6 @@ PhysicalAttackDamageReducedUniqueShieldDexInt1
 ]],[[
 Leper's Alms
 Mirrored Spiked Shield
-Source: Drops from unique{The Eradicator}
 Variant: Pre 3.5.0
 Variant: Current
 Implicits: 1

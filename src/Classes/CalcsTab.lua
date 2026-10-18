@@ -16,14 +16,20 @@ local buffModeDropList = {
 	{ label = "Effective DPS", buffMode = "EFFECTIVE" } 
 }
 
-local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Control", function(self, build)
-	self.UndoHandler()
-	self.ControlHost()
-	self.Control()
+---@class CalcsTab: UndoHandler, ControlHost, Control
+---@field powerStat PowerStat?
+---@field nodePowerMaxDepth integer? Maximum distance for power report
+local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Control")
+
+---@param build Build
+function CalcsTabClass:CalcsTab(build)
+	self:UndoHandler()
+	self:ControlHost()
+	self:Control()
 
 	self.build = build
 
-	self.calcs = LoadModule("Modules/Calcs")
+	self.calcs = require("Modules.Calcs")
 
 	self.input = { }
 	self.input.skill_number = 1
@@ -32,13 +38,13 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 	self.colWidth = 230
 	self.sectionList = { }
 
-	self.controls.search = new("EditControl", {"TOPLEFT",self,"TOPLEFT"}, {4, 5, 260, 20}, "", "Search", "%c", 100, nil, nil, nil, true)
+	self.controls.search = new("EditControl"):EditControl({"TOPLEFT",self,"TOPLEFT"}, {4, 5, 260, 20}, "", "Search", "%c", 100, nil, nil, nil, true)
 	t_insert(self.controls, self.controls.search)
 
 	-- Special section for skill/mode selection
 	self:NewSection(3, "SkillSelect", 1, colorCodes.NORMAL, {{ defaultCollapsed = false, label = "View Skill Details", data = {
 		{ label = "Socket Group", { controlName = "mainSocketGroup", 
-			control = new("DropDownControl", nil, {0, 0, 300, 16}, nil, function(index, value) 
+			control = new("DropDownControl"):DropDownControl(nil, {0, 0, 300, 16}, nil, function(index, value)
 				self.input.skill_number = index
 				self:AddUndoState()
 				self.build.buildFlag = true
@@ -52,14 +58,14 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 			}
 		}, },
 		{ label = "Active Skill", { controlName = "mainSkill", 
-			control = new("DropDownControl", nil, {0, 0, 300, 16}, nil, function(index, value)
+			control = new("DropDownControl"):DropDownControl(nil, {0, 0, 300, 16}, nil, function(index, value)
 				local mainSocketGroup = self.build.skillsTab.socketGroupList[self.input.skill_number]
 				mainSocketGroup.mainActiveSkillCalcs = index
 				self.build.buildFlag = true
 			end)
 		}, },
 		{ label = "Skill Part", playerFlag = "multiPart", { controlName = "mainSkillPart", 
-			control = new("DropDownControl", nil, {0, 0, 250, 16}, nil, function(index, value)
+			control = new("DropDownControl"):DropDownControl(nil, {0, 0, 250, 16}, nil, function(index, value)
 				local mainSocketGroup = self.build.skillsTab.socketGroupList[self.input.skill_number]
 				local srcInstance = mainSocketGroup.displaySkillListCalcs[mainSocketGroup.mainActiveSkillCalcs].activeEffect.srcInstance
 				srcInstance.skillPartCalcs = index
@@ -67,7 +73,7 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 				self.build.buildFlag = true
 			end)
 		}, },{ label = "Skill Stages", playerFlag = "multiStage", { controlName = "mainSkillStageCount",
-			control = new("EditControl", nil, {0, 0, 52, 16}, nil, nil, "%D", nil, function(buf)
+			control = new("EditControl"):EditControl(nil, {0, 0, 52, 16}, nil, nil, "%D", nil, function(buf)
 				local mainSocketGroup = self.build.skillsTab.socketGroupList[self.input.skill_number]
 				local srcInstance = mainSocketGroup.displaySkillListCalcs[mainSocketGroup.mainActiveSkillCalcs].activeEffect.srcInstance
 				srcInstance.skillStageCountCalcs = tonumber(buf)
@@ -76,7 +82,7 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 			end)
 		}, },
 		{ label = "Active Mines", playerFlag = "mine", { controlName = "mainSkillMineCount",
-			control = new("EditControl", nil, {0, 0, 52, 16}, nil, nil, "%D", nil, function(buf)
+			control = new("EditControl"):EditControl(nil, {0, 0, 52, 16}, nil, nil, "%D", nil, function(buf)
 				local mainSocketGroup = self.build.skillsTab.socketGroupList[self.input.skill_number]
 				local srcInstance = mainSocketGroup.displaySkillListCalcs[mainSocketGroup.mainActiveSkillCalcs].activeEffect.srcInstance
 				srcInstance.skillMineCountCalcs = tonumber(buf)
@@ -85,13 +91,13 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 			end)
 		}, },
 		{ label = "Show Minion Stats", flag = "haveMinion", { controlName = "showMinion", 
-			control = new("CheckBoxControl", nil, {0, 0, 18}, nil, function(state)
+			control = new("CheckBoxControl"):CheckBoxControl(nil, {0, 0, 18}, nil, function(state)
 				self.input.showMinion = state
 				self:AddUndoState()
 			end, "Show stats for the minion instead of the player.")
 		}, },
 		{ label = "Minion", flag = "minion", { controlName = "mainSkillMinion",
-			control = new("DropDownControl", nil, {0, 0, 160, 16}, nil, function(index, value)
+			control = new("DropDownControl"):DropDownControl(nil, {0, 0, 160, 16}, nil, function(index, value)
 				local mainSocketGroup = self.build.skillsTab.socketGroupList[self.input.skill_number]
 				local srcInstance = mainSocketGroup.displaySkillListCalcs[mainSocketGroup.mainActiveSkillCalcs].activeEffect.srcInstance
 				if value.itemSetId then
@@ -104,12 +110,12 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 			end)
 		} },
 		{ label = "Spectre Library", flag = "spectre", { controlName = "mainSkillMinionLibrary",
-			control = new("ButtonControl", nil, {0, 0, 100, 16}, "Manage Spectres...", function()
+			control = new("ButtonControl"):ButtonControl(nil, {0, 0, 100, 16}, "Manage Spectres...", function()
 				self.build:OpenSpectreLibrary()
 			end)
 		} },
 		{ label = "Minion Skill", flag = "haveMinion", { controlName = "mainSkillMinionSkill",
-			control = new("DropDownControl", nil, {0, 0, 200, 16}, nil, function(index, value)
+			control = new("DropDownControl"):DropDownControl(nil, {0, 0, 200, 16}, nil, function(index, value)
 				local mainSocketGroup = self.build.skillsTab.socketGroupList[self.input.skill_number]
 				local srcInstance = mainSocketGroup.displaySkillListCalcs[mainSocketGroup.mainActiveSkillCalcs].activeEffect.srcInstance
 				srcInstance.skillMinionSkillCalcs = index
@@ -119,8 +125,8 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 		} },
 		{ label = "Calculation Mode", { 
 			controlName = "mode", 
-			control = new("DropDownControl", nil, {0, 0, 100, 16}, buffModeDropList, function(index, value) 
-				self.input.misc_buffMode = value.buffMode 
+			control = new("DropDownControl"):DropDownControl(nil, {0, 0, 100, 16}, buffModeDropList, function(index, value)
+				self.input.misc_buffMode = value.buffMode
 				self:AddUndoState()
 				self.build.buildFlag = true
 			end, [[
@@ -147,18 +153,19 @@ Effective DPS: Curses and enemy properties (such as resistances and status condi
 		self:NewSection(unpack(section))
 	end
 
-	self.controls.breakdown = new("CalcBreakdownControl", self)
+	self.controls.breakdown = new("CalcBreakdownControl"):CalcBreakdownControl(self)
 
-	self.controls.scrollBar = new("ScrollBarControl", {"TOPRIGHT",self,"TOPRIGHT"}, {0, 0, 18, 0}, 50, "VERTICAL", true)
+	self.controls.scrollBar = new("ScrollBarControl"):ScrollBarControl({"TOPRIGHT",self,"TOPRIGHT"}, {0, 0, 18, 0}, 50, "VERTICAL", true)
 	self.powerBuilderInitialized = nil
-end)
+	return self
+end
 
 function CalcsTabClass:Load(xml, dbFileName)
 	for _, node in ipairs(xml) do
 		if type(node) == "table" then
 			if node.elem == "Input" then
 				if not node.attrib.name then
-					launch:ShowErrMsg("^1Error parsing '%s': 'Input' element missing name attribute", fileName)
+					launch:ShowErrMsg("^1Error parsing '%s': 'Input' element missing name attribute", dbFileName)
 					return true
 				end
 				if node.attrib.number then
@@ -168,12 +175,12 @@ function CalcsTabClass:Load(xml, dbFileName)
 				elseif node.attrib.boolean then
 					self.input[node.attrib.name] = node.attrib.boolean == "true"
 				else
-					launch:ShowErrMsg("^1Error parsing '%s': 'Input' element missing number, string or boolean attribute", fileName)
+					launch:ShowErrMsg("^1Error parsing '%s': 'Input' element missing number, string or boolean attribute", dbFileName)
 					return true
 				end
 			elseif node.elem == "Section" then
 				if not node.attrib.id then
-					launch:ShowErrMsg("^1Error parsing '%s': 'Section' element missing id attribute", fileName)
+					launch:ShowErrMsg("^1Error parsing '%s': 'Section' element missing id attribute", dbFileName)
 					return true
 				end
 				for _, section in ipairs(self.sectionList) do
@@ -231,7 +238,7 @@ function CalcsTabClass:Draw(viewPort, inputEvents)
 	local maxY = 0
 	for _, section in ipairs(self.sectionList) do
 		section:UpdateSize()
-		if section.enabled then
+		if section.enabled and not section.isOverlay then
 			local col
 			if section.group == 1 then
 				-- Group 1: Offense or 3 wide sections
@@ -280,7 +287,7 @@ function CalcsTabClass:Draw(viewPort, inputEvents)
 			colY[c] = m_max(colY[1], colY[2], colY[3])
 		end
 		for _, section in ipairs(self.sectionList) do
-			if section.enabled and (main.portraitMode and section.group == 2 or section.group == 3) then
+			if section.enabled and not section.isOverlay and (main.portraitMode and section.group == 2 or section.group == 3) then
 				local col = 3
 				if colY[col] + section.height + 4 >= m_max(viewPort.y + viewPort.height, maxY) then
 					-- No room in the 4th column, find the highest available location in columns 1-4
@@ -302,9 +309,11 @@ function CalcsTabClass:Draw(viewPort, inputEvents)
 	self.controls.scrollBar.height = viewPort.height
 	self.controls.scrollBar:SetContentDimension(maxY - (baseY - 26), viewPort.height)
 	for _, section in ipairs(self.sectionList) do
-		-- Give sections their actual Y position and let them update
-		section.y = section.y - self.controls.scrollBar.offset
-		section:UpdatePos()
+		if not section.isOverlay then
+			-- Give sections their actual Y position and let them update
+			section.y = section.y - self.controls.scrollBar.offset
+			section:UpdatePos()
+		end
 	end
 	
 	self.controls.search.y = 4 - self.controls.scrollBar.offset
@@ -339,7 +348,15 @@ function CalcsTabClass:Draw(viewPort, inputEvents)
 		self.displayData = nil
 	end
 
+	local breakdown = self.controls.breakdown
+	local overlayBreakdown = breakdown.sourceData and breakdown.sourceData.calcSection and breakdown.sourceData.calcSection.isOverlay
+	if overlayBreakdown then
+		breakdown.shown = false
+	end
 	self:DrawControls(viewPort, self.selControl)
+	if overlayBreakdown then
+		breakdown.shown = true
+	end
 
 	if self.displayData then
 		if self.displayPinned and not self.selControl then
@@ -351,7 +368,7 @@ function CalcsTabClass:Draw(viewPort, inputEvents)
 end
 
 function CalcsTabClass:NewSection(width, ...)
-	local section = new("CalcSectionControl", self, width * self.colWidth + 8 * (width - 1), ...)
+	local section = new("CalcSectionControl"):CalcSectionControl(self, width * self.colWidth + 8 * (width - 1), ...)
 	section.widthCols = width
 	t_insert(self.controls, section)
 	t_insert(self.sectionList, section)
@@ -367,12 +384,16 @@ function CalcsTabClass:SetDisplayStat(displayData, pin)
 	if not displayData or (not pin and self.displayPinned) then
 		return
 	end
+	if pin and self.displayPinned and self.displayData == displayData then
+		self:ClearDisplayStat()
+		return
+	end
 	self.displayData = displayData
 	self.displayPinned = pin
 	self.controls.breakdown:SetBreakdownData(displayData, pin)
 end
 
-function CalcsTabClass:CheckFlag(obj, actor)
+function CalcsTabClass:CheckFlag(obj, actor, player)
 	actor = actor or (self.input.showMinion and self.calcsEnv.minion or self.calcsEnv.player)
 	local skillFlags = actor.mainSkill.skillFlags
 	if obj.flag and not skillFlags[obj.flag] then
@@ -385,7 +406,7 @@ function CalcsTabClass:CheckFlag(obj, actor)
 			end
 		end
 	end
-	if obj.playerFlag and not self.calcsEnv.player.mainSkill.skillFlags[obj.playerFlag] then
+	if obj.playerFlag and not (player or self.calcsEnv.player).mainSkill.skillFlags[obj.playerFlag] then
 		return
 	end
 	if obj.notFlag and skillFlags[obj.notFlag] then
@@ -446,8 +467,8 @@ function CalcsTabClass:BuildOutput()
 	end
 	
 	-- Retrieve calculator functions
-	self.nodeCalculator = { self.calcs.getNodeCalculator(self.build) }
-	self.miscCalculator = { self.calcs.getMiscCalculator(self.build) }
+	local miscCalcFunc, miscCalcBase = self.calcs.getMiscCalculator(self.build)
+	self.miscCalculator = { miscCalcFunc, miscCalcBase }
 end
 
 -- Controls the coroutine that calculates node power
@@ -513,13 +534,13 @@ function CalcsTabClass:PowerBuilder()
 		return not assignedNodeId or assignedNodeId == node.id
 	end
 
-	local function calculateAddNodePower(power, node, output, buildPathNodes)
+	local function calculateAddNodePower(power, distance, node, output, buildPathNodes)
 		if self.powerStat and self.powerStat.stat and not self.powerStat.ignoreForNodes then
 			power.singleStat = self:CalculatePowerStat(self.powerStat, output, calcBase)
 			if node.path and not node.ascendancyName then
 				newPowerMax.singleStat = m_max(newPowerMax.singleStat, power.singleStat)
 				power.pathPower = power.singleStat
-				if node.pathDist > 1 then
+				if distance > 1 then
 					power.pathPower = self:CalculatePowerStat(self.powerStat, calcFunc({ addNodes = buildPathNodes() }, useFullDPS), calcBase)
 				end
 			end
@@ -529,8 +550,8 @@ function CalcsTabClass:PowerBuilder()
 			if node.path and not node.ascendancyName then
 				newPowerMax.offence = m_max(newPowerMax.offence, power.offence)
 				newPowerMax.defence = m_max(newPowerMax.defence, power.defence)
-				newPowerMax.offencePerPoint = m_max(newPowerMax.offencePerPoint, power.offence / node.pathDist)
-				newPowerMax.defencePerPoint = m_max(newPowerMax.defencePerPoint, power.defence / node.pathDist)
+				newPowerMax.offencePerPoint = m_max(newPowerMax.offencePerPoint, power.offence / distance)
+				newPowerMax.defencePerPoint = m_max(newPowerMax.defencePerPoint, power.defence / distance)
 			end
 		end
 	end
@@ -555,9 +576,16 @@ function CalcsTabClass:PowerBuilder()
 					end
 				end
 			else
-				distanceMap[node.pathDist or 1000] = distanceMap[node.pathDist or 1000] or { }
-				distanceMap[node.pathDist or 1000][nodeId] = node
-				if not (self.nodePowerMaxDepth and self.nodePowerMaxDepth < node.pathDist) then
+				local dist = node.pathDist or 1000
+				for _, leap in ipairs(node.intuitiveLeapLikesAffecting or {}) do
+					if leap.alloc then
+						dist = math.max(math.min(leap.pathDist or 1000, dist), 1)
+					end
+				end
+				distanceMap[dist] = distanceMap[dist] or {}
+				distanceMap[dist][nodeId] = node
+				node.power.distance = dist
+				if (not self.nodePowerMaxDepth) or dist <= self.nodePowerMaxDepth then
 					total = total + 1
 				end
 			end
@@ -586,7 +614,7 @@ function CalcsTabClass:PowerBuilder()
 					cache[node.modKey] = calcFunc({ addNodes = { [node] = true } }, useFullDPS)
 				end
 				local output = cache[node.modKey]
-				calculateAddNodePower(node.power, node, output, function()
+				calculateAddNodePower(node.power, distance, node, output, function()
 					local pathNodes = { }
 					for _, pathNode in pairs(node.path) do
 						pathNodes[pathNode] = true
@@ -647,7 +675,7 @@ function CalcsTabClass:PowerBuilder()
 						local output = cache[effectNode.modKey]
 						node.power.masteryEffects[effect.id] = { }
 						local effectPower = node.power.masteryEffects[effect.id]
-						calculateAddNodePower(effectPower, node, output, function()
+						calculateAddNodePower(effectPower, node.pathDist, node, output, function()
 							local pathNodes = {
 								[effectNode] = true
 							}
@@ -712,16 +740,8 @@ function CalcsTabClass:PowerBuilder()
 end
 
 function CalcsTabClass:CalculatePowerStat(selection, original, modified)
-	if modified.Minion and selection.stat ~= "FullDPS" then
-		original = original.Minion
-		modified = modified.Minion
-	end
-	local originalValue = original[selection.stat] or 0
-	local modifiedValue = modified[selection.stat] or 0
-	if selection.transform then
-		originalValue = selection.transform(originalValue)
-		modifiedValue = selection.transform(modifiedValue)
-	end
+	local originalValue = data.powerStatList.GetFromOutput(original, selection)
+	local modifiedValue = data.powerStatList.GetFromOutput(modified, selection)
 	return originalValue - modifiedValue
 end
 
@@ -732,18 +752,13 @@ function CalcsTabClass:CalculateCombinedOffDefStat(original, modified)
 					(original.Evasion - modified.Evasion) / m_max(10000, modified.Evasion) +
 					(original.LifeRegenRecovery - modified.LifeRegenRecovery) / 500 +
 					(original.EnergyShieldRegenRecovery - modified.EnergyShieldRegenRecovery) / 1000
-	if modified.Minion then
-		return (original.Minion.CombinedDPS - modified.Minion.CombinedDPS) / modified.Minion.CombinedDPS, defence
-	end
-	return (original.CombinedDPS - modified.CombinedDPS) / modified.CombinedDPS, defence
-end
-
-function CalcsTabClass:GetNodeCalculator()
-	return unpack(self.nodeCalculator)
+	local modifiedDps = modified.CombinedDPS + (modified.Minion and modified.Minion.CombinedDPS or 0)
+	local dpsIncr = original.CombinedDPS + (original.Minion and original.Minion.CombinedDPS or 0) - modifiedDps
+	return dpsIncr / modifiedDps, defence
 end
 
 function CalcsTabClass:GetMiscCalculator()
-	return unpack(self.miscCalculator)
+	return self.miscCalculator[1], self.miscCalculator[2]
 end
 
 function CalcsTabClass:CreateUndoState()

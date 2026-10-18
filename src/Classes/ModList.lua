@@ -16,9 +16,13 @@ local bor = bit.bor
 
 local mod_createMod = modLib.createMod
 
-local ModListClass = newClass("ModList", "ModStore", function(self, parent)
-	self.ModStore(parent)
-end)
+---@class ModList: ModStore
+local ModListClass = newClass("ModList", "ModStore")
+
+function ModListClass:ModList(parent)
+	self:ModStore(parent)
+	return self
+end
 
 function ModListClass:AddMod(mod)
 	t_insert(self, mod)

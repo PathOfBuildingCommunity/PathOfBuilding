@@ -3,8 +3,7 @@
 -- Other active skills
 -- Skill data (c) Grinding Gear Games
 --
-local skills, mod, flag, skill = ...
-
+return function(skills, mod, flag, skill)
 #skill RepeatingShockwave
 #flags spell area
 	fromItem = true,
@@ -77,6 +76,42 @@ local skills, mod, flag, skill = ...
 	fromTree = true,
 #mods
 
+#skill AspectOfArakaali
+#flags cast
+	fromItem = true,
+	statMap = {
+		["active_skill_buff_life_recovery_rate_+%_per_wither_on_self_to_grant"] = {
+			mod("LifeRecoveryRate", "INC", nil, 0, 0, { type = "Multiplier", var = "WitheredStack", limit = 15 }, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+	},
+#baseMod flag("Condition:CanWither", { type = "GlobalEffect", effectType = "Buff" })
+#baseMod flag("Condition:CanBeWithered", { type = "GlobalEffect", effectType = "Buff" })
+#mods
+
+#skill AspectOfLunaris
+#flags cast duration
+	fromItem = true,
+	statMap = {
+		["lunaris_aspect_skill_physical_damage_taken_+%_final_per_phys_rebuff"] = {
+			mod("PhysicalDamageTaken", "MORE", nil, 0, 0, { type = "Multiplier", var = "LunarProtection", limit = 8 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Lunar Protection" }),
+		},
+		["lunaris_aspect_skill_elemental_damage_taken_+%_final_per_ele_rebuff"] = {
+			mod("ElementalDamageTaken", "MORE", nil, 0, 0, { type = "Multiplier", var = "LunarResistance", limit = 8 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Lunar Resistance" }),
+		},
+	},
+#mods
+
+#skill AspectOfSolaris
+#flags cast duration
+	fromItem = true,
+	statMap = {
+		["solaris_aspect_debuff_exposure_effect_+%_to_apply"] = {
+			mod("ExposureEffect", "INC", nil, 0, 0, { type = "Multiplier", var = "SunscaldStack", limit = 5 }, { type = "Condition", var = "Effective" }, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+	},
+#baseMod mod("EnemyModifier", "LIST", { mod = mod("FireExposure", "BASE", -10) }, 0, 0, { type = "Condition", var = "Effective" }, { type = "GlobalEffect", effectType = "Buff" })
+#mods
+
 #skill AspectOfTheAvian
 #flags cast duration
 	fromItem = true,
@@ -92,6 +127,19 @@ local skills, mod, flag, skill = ...
 		},
 		["minion_movement_speed_+%"] = {
 			mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "INC", nil) }, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Avian's Flight", effectCond = "AviansFlightActive" }),
+		},
+	},
+#mods
+
+#skill AspectOfTheBrineKing
+#flags cast guaranteedChill
+	fromItem = true,
+	statMap = {
+		["active_skill_buff_chill_effect_+%_to_grant"] = {
+			mod("EnemyChillEffect", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["cold_penetration_%_vs_chilled_enemies"] = {
+			mod("ColdPenetration", "BASE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Chilled" }, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 	},
 #mods
@@ -141,6 +189,17 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod skill("debuff", true)
 #baseMod skill("stackCount", 1, { type = "Multiplier", var = "SpiderWebApplyStack", limitVar = "SpiderWebApplyStackMax" })
+#mods
+
+#skill BarnacleSnap
+#flags attack area shieldAttack
+	fromItem = true,
+	statMap = {
+		["barnacle_snap_base_activate_rate_ms"] = {
+			skill("hitTimeOverride", nil),
+			div = 1000,
+		},
+	},
 #mods
 
 #skill SolartwineBlindingNova
@@ -301,6 +360,21 @@ local skills, mod, flag, skill = ...
 
 #skill SupportUniqueCosprisMaliceColdSpellsCastOnMeleeCriticalStrike Cospri's Malice
 	fromItem = true,
+#mods
+
+#skill SupportCrabTotem Crab Totem
+	fromItem = true,
+	addFlags = {
+		totem = true,
+	},
+	statMap = {
+		["support_crab_totem_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+		["support_crab_totem_cast_speed_+%_final"] = {
+			mod("Speed", "MORE", nil, ModFlag.Cast),
+		},
+	},
 #mods
 
 #skill TriggeredSummonLesserShrine
@@ -485,6 +559,11 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 40)
 #mods
 
+#skill BloodShrineUniqueTriggeredExplodingToad
+#flags hit area
+	fromItem = true,
+#mods
+
 #skill FireAegis
 #flags spell
 	fromItem = true,
@@ -502,7 +581,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill FieryImpactHeistMaceImplicit
-#flags attack area melee
+#flags attack area melee forceSourceWeapon
 	fromItem = true,
 #mods
 
@@ -709,6 +788,77 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
+#skill PactOfBeidat
+#flags spell pact
+	statMap = {
+		["skill_empowers_next_x_spells_cast"] = {
+			mod("BeidatEmpoweredSpells", "BASE", nil),
+		},
+		["pact_skill_additional_beam_only_chains"] = {
+			mod("BeidatAdditionalBeamChains", "BASE", nil),
+		},
+		["pact_skill_grant_x_additional_projectiles_fired_in_nova"] = {
+			mod("BeidatAdditionalProjectiles", "BASE", nil),
+		},
+		["pact_skill_grant_x_cascades_to_do_in_spiral"] = {
+			mod("BeidatAdditionalCascades", "BASE", nil),
+		},
+		["pact_skill_damage_+%_final_with_hits_and_ailments_to_grant"] = {
+			mod("BeidatPactDamage", "LIST", { mod = mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment)) }),
+		},
+	},
+#mods
+
+#skill PactOfGhorr
+#flags spell pact duration
+	statMap = {
+		["skill_empowers_next_x_spells_cast"] = {
+			mod("GhorrEmpoweredSpells", "BASE", nil),
+		},
+		["pact_skill_grant_damage_over_time_+%_final_to_spells"] = {
+			mod("GhorrPactDamage", "LIST", { mod = mod("Damage", "MORE", nil, ModFlag.Dot) }),
+		},
+	},
+#mods
+
+#skill TriggeredBloodrend
+#flags spell pact projectile
+#mods
+
+#skill PactOfKtash
+#flags spell pact
+	statMap = {
+		["skill_empowers_next_x_spells_cast"] = {
+			mod("KtashEmpoweredSpells", "BASE", nil),
+		},
+		["pact_skill_grant_damage_+%_final_to_exerted_skills"] = {
+			mod("KtashPactDamage", "LIST", { mod = mod("Damage", "MORE", nil) }),
+		},
+		["active_skill_osm_vaal_skill_soul_gain_prevention_+%_final_to_grant"] = {
+			mod("KtashPactSoulGainPrevention", "BASE", nil),
+		},
+		["active_skill_osm_vaal_skill_soul_refund_chance_%_to_grant"] = {
+			mod("KtashPactSoulRefundChance", "BASE", nil),
+		},
+	},
+#mods
+
+#skill PactOfLycia
+#flags spell pact
+	statMap = {
+		["skill_empowers_next_x_spells_cast"] = {
+			mod("LyciaEmpoweredSpells", "BASE", nil),
+		},
+		["pact_skill_grant_damage_+%_final_to_exerted_skills"] = {
+			mod("LyciaPactDamage", "LIST", { mod = mod("Damage", "MORE", nil) }),
+		},
+	},
+#mods
+
+#skill TriggeredHeavensScourge
+#flags spell pact area
+#mods
+
 #skill Portal
 #flags spell
 #mods
@@ -879,6 +1029,15 @@ local skills, mod, flag, skill = ...
 #baseMod skill("triggerSource", "Queen's Demand")
 #mods
 
+#skill SummonAbyssalConstructs
+#flags minion
+	fromTree = true,
+	minionList = {
+		"AbyssCurseBot",
+		"AbyssDebuffBot"
+	},
+#mods
+
 #skill SummonArbalists
 #flags spell minion
 	fromItem = true,
@@ -1036,6 +1195,14 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 	minionList = {
 		"SummonedPhantasm",
+	},
+	statMap = {
+		["phantasm_minimum_added_physical_damage_to_grant"] = {
+			mod("PhysicalMin", "BASE", nil, ModFlag.Spell, 0, { type = "PerStat", stat = "ActivePhantasmLimit" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Phantasmal Might", effectCond = "PhantasmalMight", allowTotemBuff = true })
+		},
+		["phantasm_maximum_added_physical_damage_to_grant"] = {
+			mod("PhysicalMax", "BASE", nil, ModFlag.Spell, 0, { type = "PerStat", stat = "ActivePhantasmLimit" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Phantasmal Might", effectCond = "PhantasmalMight", allowTotemBuff = true  })
+		},
 	},
 #mods
 
@@ -1444,6 +1611,11 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill GhostCannons Ghostly Artillery
+#flags attack projectile area forceSourceWeapon
+	fromItem = true,
+#mods
+
 #skill SupportUniqueCastCurseOnCurse Vixen's Entrapment
 #flags spell curse
 	fromItem = true,
@@ -1546,3 +1718,5 @@ skills["EnemyExplode"] = {
 		[1] = { damageEffectiveness = 1, baseMultiplier = 1, levelRequirement = 1, }
 	}
 }
+
+end

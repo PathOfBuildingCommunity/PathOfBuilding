@@ -1,3 +1,4 @@
+---@diagnostic disable: lowercase-global
 -- Path of Building
 --
 -- Module: Common
@@ -68,13 +69,17 @@ end
 local function getClass(className)
 	local class = common.classes[className]
 	if not class then
-		LoadModule("Classes/"..className)
+		LoadModule("Classes/" .. className)
 		class = common.classes[className]
-		assert(class, "Class '"..className.."' not defined in class file")
+		assert(class, "Class '" .. className .. "' not defined in class file")
 	end
 	return class
 end
--- newClass("<className>"[, "<parentClassName>"[, "<parentClassName>" ...]], constructorFunc)
+
+---@generic T
+---@param className `T`
+---@param ... string parent class names
+---@return T
 function newClass(className, ...)
 	local class = { }
 	common.classes[className] = class
@@ -85,74 +90,124 @@ function newClass(className, ...)
 		end
 		return obj
 	end
+	-- a list of metatables. one for each parent
+	class._metaList = {}
 	class._className = className
 	local numVarArg = select("#", ...)
-	class._constructor = select(numVarArg, ...)
-	if numVarArg > 1 then
+	local classMeta = { }
+	if numVarArg > 0 then
 		-- Build list of parent classes
 		class._parents = { }
-		for i = 1, numVarArg - 1 do
+		for i = 1, numVarArg do
 			class._parents[i] = getClass(select(i, ...))
 		end
 		-- Build list of all classes directly or indirectly inherited by this class
 		class._superParents = { }
 		addSuperParents(class, class)
 		-- Set up inheritance
-		setmetatable(class, {
-			__index = function(self, key)
-				for _, parent in ipairs(class._parents) do
-					local val = parent[key]
-					if val ~= nil then
-						self[key] = val
-						return val
-					end
+		classMeta.__index = function(self, key)
+			for _, parent in ipairs(class._parents) do
+				local val = parent[key]
+				if val ~= nil then
+					rawset(self, key, val)
+					return val
 				end
 			end
-		})
+		end
 	end
+	classMeta.__newindex = function(self, k, v)
+		if k == className then
+			local constructor = v
+			-- Check that the constructors for all parent and superparent classes have been called
+			v = function(self, ...)
+				local ret = constructor(self, ...)
+				if class._parents then
+					for parent in pairs(class._superParents) do
+						if parent[parent._className] and not self._parentInit[parent] then
+							error("Parent class '" ..
+								parent._className .. "' of class '" .. className .. "' must be initialised")
+						end
+					end
+				end
+				if not ret then
+					error(string.format("Class %s constructor did not return a value", className))
+				end
+				return ret
+			end
+		end
+		rawset(self, k, v)
+	end
+	setmetatable(class, classMeta)
+	class._unconstructedMeta = {
+		__index = function(obj, key)
+			if key == className then
+				setmetatable(obj, class)
+				return class[className]
+			end
+			error(s_format(
+				"Object of class '%s' was used before it was constructed (accessed '%s'). Did you forget to call new(\"%s\"):%s()?",
+				className, tostring(key), className, className))
+		end,
+	}
 	return class
 end
-function new(className, ...)
+---@generic T
+---@param className `T`
+---@param extraArg nil Never pass extra parameters. Defined purely to guard against old syntax.
+---@return T
+function new(className, extraArg)
+	if extraArg then
+		local line = s_format(
+			"Extra argument passed to new() during creation of class %s. Extra arguments are not allowed.\nAre you perhaps trying to pass constructor arguments here?",
+			className)
+		error(line)
+	end
 	local class = getClass(className)
-	local object = setmetatable({ }, class)
+	-- protect against calling new("Foo") without calling :Foo()
+	local object = setmetatable({}, class._unconstructedMeta or class)
 	object.Object = object
 	if class._parents then
 		-- Add parent and superparent class proxies
 		object._parentInit = { }
+		local metaList = rawget(class, "_metaList")
 		for parent in pairs(class._superParents) do
-			local proxyMeta = {
-				__index = function(self, key)
-					local v = rawget(object, key)
-					if v ~= nil then
-						return v
-					else
-						return parent[key]
-					end
-				end,
-				__newindex = object,
-				__call = function(...)
-					if not parent._constructor then
-						error("Parent class '"..parent._className.."' of class '"..class._className.."' has no constructor")
-					end
-					if object._parentInit[parent] then
-						error("Parent class '"..parent._className.."' of class '"..class._className.."' has already been initialised")
-					end
-					parent._constructor(...)
-					object._parentInit[parent] = true
-				end,
-			}
-			object[parent._className] = setmetatable(proxyMeta, proxyMeta)
-		end
-	end
-	if class._constructor then
-		class._constructor(object, ...)
-	end
-	if class._parents then
-		-- Check that the constructors for all parent and superparent classes have been called
-		for parent in pairs(class._superParents) do
-			if parent._constructor and not object._parentInit[parent] then
-				error("Parent class '"..parent._className.."' of class '"..className.."' must be initialised")
+			local meta = metaList[parent]
+			if not meta then
+				local proxyParent = parent
+				local parentName = parent._className
+				-- Cache one proxy metatable for each class-parent pair instead of rebuilding it for every object
+				meta = {
+					__index = function(proxy, key)
+						local proxyObject = rawget(proxy, "_object")
+						local value = rawget(proxyObject, key)
+						if value ~= nil then
+							return value
+						else
+							return proxyParent[key]
+						end
+					end,
+					__newindex = function(proxy, k, v)
+						local proxyObject = rawget(proxy, "_object")
+						proxyObject[k] = v
+					end,
+					__call = function(proxy, self, ...)
+						local proxyObject = rawget(proxy, "_object")
+						if not proxyParent[parentName] then
+							error("Parent class '" .. parentName .. "' of class '" .. class._className .. "' has no constructor")
+						end
+						if proxyObject._parentInit[proxyParent] then
+							error("Parent class '" .. parentName .. "' of class '" .. class._className .. "' has already been initialised")
+						end
+						if self ~= proxyObject then
+							error(string.format("Parent class %s constructor of class %s was not provided self. Are you perhaps calling it with self.%s instead of self:%s?", parentName, class._className, parentName, parentName))
+						end
+						proxyParent[parentName](self, ...)
+						proxyObject._parentInit[proxyParent] = true
+					end,
+				}
+				metaList[parent] = meta
 			end
+			object[parent._className] = setmetatable({ _object = object }, meta)
 		end
 	end
 	return object
@@ -415,6 +470,10 @@ function writeLuaTable(out, t, indent)
 end
 
 -- Make a copy of a table and all subtables
+---@generic T
+---@param tbl T
+---@param noRecurse boolean?
+---@return T copy Note that this type can be misleading if noRecurse is set to true. Type hint explicitly if necessary.
 function copyTable(tbl, noRecurse)
 	local out = {}
 	for k, v in pairs(tbl) do
@@ -463,11 +522,11 @@ function mergeDB(srcDB, modDB)
 end
 
 function specCopy(env)
-	local modDB = new("ModDB")
+	local modDB = new("ModDB"):ModDB()
 	modDB:AddDB(env.modDB)
 	modDB.conditions = copyTable(env.modDB.conditions)
 	modDB.multipliers = copyTable(env.modDB.multipliers)
-	local enemyDB = new("ModDB")
+	local enemyDB = new("ModDB"):ModDB()
 	if env.enemyDB then
 		enemyDB:AddDB(env.enemyDB)
 		enemyDB.conditions = copyTable(env.enemyDB.conditions)
@@ -475,7 +534,7 @@ function specCopy(env)
 	end
 	local minionDB = nil
 	if env.minion then
-		minionDB = new("ModDB")
+		minionDB = new("ModDB"):ModDB()
 		minionDB:AddDB(env.minion.modDB)
 		minionDB.conditions = copyTable(env.minion.modDB.conditions)
 		minionDB.multipliers = copyTable(env.minion.modDB.multipliers)
@@ -483,7 +542,10 @@ function specCopy(env)
 	return modDB, enemyDB, minionDB
 end
 
--- Wipe all keys from the table and return it, or return a new table if no table provided
+-- Wipe all keys from the table and return it, or return a new table if no table
+-- provided. This is useful to avoid alllocations in hot paths if a table can be reused. Using LuaJIT's `table.clear()` is another alternative to this, but this performs similarly on small tables, or tables which are often already empty.
+---@param tbl table?
+---@return table tbl
 function wipeTable(tbl)
 	if not tbl then
 		return { }
@@ -642,6 +704,8 @@ function naturalSortCompare(a, b)
 end
 
 -- Rounds a number to the nearest <dec> decimal places
+---@param val number
+---@param dec? number
 function round(val, dec)
 	if dec then
 		return m_floor(val * 10 ^ dec + 0.5) / 10 ^ dec
@@ -652,7 +716,7 @@ end
 
 --- Rounds down a number to the nearest <dec> decimal places
 ---@param val number
----@param dec number
+---@param dec? number
 ---@return number
 function floor(val, dec)
 	if dec then
@@ -663,6 +727,70 @@ function floor(val, dec)
 	end
 end
 
+---@param val number
+---@param dec? integer decimal places
+-- Symmetric round with precision: Rounds towards zero to <dec> decimal places.
+function roundSymmetric(val, dec)
+	if dec then
+		local factor = 10 ^ dec
+		if val >= 0 then
+			return m_floor(val * factor + 0.5) / factor
+		else
+			return m_ceil(val * factor - 0.5) / factor
+		end
+	else
+		if val >= 0 then
+			return m_floor(val + 0.5)
+		else
+			return m_ceil(val - 0.5)
+		end
+	end
+end
+
+---@param val number
+---@param dec? integer decimal places
+-- Use rounding formula for positive numbers always used in corrupted unique roll ranges this is an incorrect way to round numbers.
+function alwaysPositiveRound(val, dec)
+	if dec then
+		local factor = 10 ^ dec
+		return floorSymmetric(val * factor + 0.5) / factor
+	else
+		return floorSymmetric(val + 0.5)
+	end
+end
+
+---@param val number
+---@param dec? integer decimal places
+---@return number
+-- Symmetric floor with precision: Rounds down towards zero to <dec> decimal places.
+function floorSymmetric(val, dec)
+	if dec then
+		local factor = 10 ^ dec
+		return select(1, math.modf(val * factor)) / factor
+	else
+		return select(1, math.modf(val))
+	end
+end
+
+---@param val number
+---@param dec? integer decimal places
+-- Symmetric ceil with precision: Rounds up away from zero to <dec> decimal places.
+function ceilSymmetric(val, dec)
+	if dec then
+		local factor = 10 ^ dec
+		if val >= 0 then
+			return m_ceil(val * factor) / factor
+		else
+			return m_floor(val * factor) / factor
+		end
+	else
+		if val >= 0 then
+			return m_ceil(val)
+		else
+			return m_floor(val)
+		end
+	end
+end
 ---@param n number
 ---@return number
 function triangular(n)
@@ -829,38 +957,40 @@ function supportEnabled(skillName, activeSkill)
 	return true
 end
 
+-- will remove newlines from strings so that they are valid lua
+---@param thing string | table | number
+---@return string
 function stringify(thing)
 	if type(thing) == 'string' then
-		return thing
+		local s = thing:gsub("\n", " ")
+		return s
 	elseif type(thing) == 'number' then
-		return ""..thing;
+		return "" .. thing;
 	elseif type(thing) == 'table' then
 		local s = "{";
-		local keys = { }
-		for key in pairs(thing) do table.insert(keys, key) end
+		local keys = {}
+		for key in pairs(thing) do t_insert(keys, key) end
 		table.sort(keys)
 		for _, k in ipairs(keys) do
 			local v = thing[k]
-			s = s.."\n\t"
-			if type(k) == 'number' then
-				s = s.."["..k.."] = "
-			else
-				s = s.."[\""..k.."\"] = "
+			s = s .. "\n\t"
+			if type(k) ~= 'number' then
+				s = s .. "[\"" .. k .. "\"] = "
 			end
 			if type(v) == 'string' then
-				s = s.."\""..stringify(v).."\", "
+				s = s .. "\"" .. stringify(v) .. "\","
 			else
 				if type(v) == "boolean" then
 					v = v and "true" or "false"
 				end
-				val = stringify(v)..", "
+				val = stringify(v) .. ","
 				if type(v) == "table" then
 					val = string.gsub(val, "\n", "\n\t")
 				end
-				s = s..val;
+				s = s .. val;
 			end
 		end
-		return s.."\n}"
+		return s .. "\n}"
 	end
 end
 
@@ -974,6 +1104,16 @@ function ImportBuild(importLink, callback)
 	end
 end
 
+---@param text string
+---@return string line
+-- Removes GGG string tags used for keyword popups. E.g. "[Critical|Critical Hit]" -> "Critical Hit"
+function escapeGGGString(text)
+	local line = text
+		:gsub("<[^>]+>{([^}]+)}", "%1")
+		:gsub("%[([^|%]]+)%]", "%1")
+		:gsub("%[[^|]+|([^|]+)%]", "%1")
+	return line
+end
 -- Returns virtual screen size
 function GetVirtualScreenSize()
 	local width, height = GetScreenSize()
@@ -983,4 +1123,24 @@ function GetVirtualScreenSize()
 		height = math.floor(height / scale)
 	end
 	return width, height
+end
+
+-- used for calculating the hash field of a stat
+local GGG_STAT_HASH32_SEED = 0xC58F1A7B
+-- used for calculating the trade hash from stat hash fields
+local GGG_TRADE_SEED = 0x02312233
+---@param stats string[]
+---@param extraStat string? extra stat for time-lost jewels
+---@return integer
+function HashStats(stats, extraStat)
+	if extraStat then
+		stats = copyTable(stats)
+		table.insert(stats, extraStat)
+	end
+	local statHashes = ""
+	for _, statName in ipairs(stats) do
+		local newHash = intToBytes(murmurHash2(statName, GGG_STAT_HASH32_SEED))
+		statHashes = statHashes .. newHash
+	end
+	return murmurHash2(statHashes, GGG_TRADE_SEED)
 end

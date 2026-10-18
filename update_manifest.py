@@ -102,6 +102,9 @@ def create_manifest(version: str | None = None, replace: bool = False) -> None:
             if exclude_dirs and _exclude_directory(exclude_dirs, path):
                 continue
             data = path.read_bytes()
+            # Normalize line endings for non-binary files in case they were accidentally mixed
+            if b"\0" not in data:
+                data = re.sub(rb"\r\n?|\n", b"\r\n", data)
             sha1 = hashlib.sha1(data).hexdigest()
             name = path.relative_to(config[section]["path"]).as_posix()
             attributes = (

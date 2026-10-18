@@ -188,9 +188,12 @@ WeaponPhysicalDamageAddedAsRandomElementUnique__2
 The Grey Wind
 Spectral Axe
 Source: Drops from unique{It That Was Esh} and unique{It That Was Tul} in normal{Hive Colony}
+Variant: Pre 3.29.0
+Variant: Current
 Requires Level 33, 85 Str, 37 Dex
 FireDamagePercentUnique__14
-LocalFireDamageFromLifePercentUnique_1
+{variant:1}LocalFireDamageFromLifePercentUnique_1[8,12]
+{variant:2}LocalFireDamageFromLifePercentUnique_1
 FireDoTMultiPerRageUnique_1
 NearbyEnemiesHaveFireExposureWhileAtMaxRageUnique_1
 MaximumRageUnique__3
@@ -392,6 +395,19 @@ IncreasedAttackSpeedUnique__5
 AreaOfEffectPer25RampageStacksUnique__1_
 FrenzyChargePer50RampageStacksUnique__1
 SimulatedRampageDexInt6
+]],[[
+Spinesnatch
+Fleshripper
+League: Allflame
+Source: Drops from unique{Zorath}
+Requires Level 70, 156 Str, 84 Dex
+Implicits: 1
+LocalCriticalStrikeChanceImplicitMarakethTwoHandAxe2
+AbyssJewelSocketUnique__19
+LocalAttackSpeedPercentPerSocketedSearchingUnique__1
+LocalCriticalChancePercentPerSocketedHypnoticUnique__1
+LocalPhysicalDamagePercentPerSocketedMurderousUnique__1
+MinionImpaleChancePerSocketedGhastlyUnique__1
 ]],[[
 Uul-Netol's Kiss
 {variant:1}Labrys

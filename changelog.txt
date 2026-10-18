@@ -1,3 +1,207 @@
+VERSION[2.67.2][2026/08/07]
+
+--- Fixed Calculations ---
+* Fix Scornful Herald not counting buffs as affecting you (Wires77)
+* Fix The Unblinking Eye increased evasion not applying to Attacks with Arcane Might (andyli00)
+
+--- Fixed Behaviours ---
+* Fix Foulborn icon display on Linux (cupkax)
+* Fix double-clicking and dragging items causing issues (vaisest)
+
+
+VERSION[2.67.1][2026/08/06]
+
+--- New to Path of Building ---
+* Add support for pseudo stats in trader (vaisest)
+
+--- Fixed Crashes ---
+* Fix crash when double-clicking and dragging an item on small window sizes (vaisest)
+* Fix crash from equipping Quivers and Shields that grant skills (LocalIdentity)
+
+--- Fixed Calculations ---
+* Fix Chip Away not using a global limit (Trifall)
+* Fix Foulgrasp support not increasing Brand limit (Trifall)
+* Fix Block chance rounding with Mana-Infused Staff (LocalIdentity)
+
+--- Fixed Behaviours ---
+* Fix harvest Weapon Range enchant not appearing properly (vaisest)
+* Fix "Buy Similar" searches for punctuated unique names (mcagnion)
+* Fix missing modifier controls on imported items (vaisest)
+* Fix file sort not using folder name when determining the sort order of builds (xoxorwr)
+* Prevent recursion from stopping on file errors in build list (xoxorwr)
+
+
+VERSION[2.67.0][2026/08/05]
+
+--- 3.29 - Allflame ---
+* Add support for new Abyss Timeless Jewels (LocalIdentity)
+* Add and support new 3.29 Uniques (LocalIdentity, vaisest)
+* Add support for Pacts (Peechey, LocalIdentity)
+* Add support for 3.29 Vestigial and Intangibility parsing  (vaisest)
+* Add gem quality for matching socket based on equipped item (vaisest)
+
+--- New to Path of Building ---
+* Add sorting for sorting mod dropdowns in crafting UI (vaisest)
+* Add stat display from toggling config options (vaisest)
+* Refactor custom modifiers block into toggleable groups (xoxorwr)
+* Allow toggling individual item mods just by clicking on them (xoxorwr)
+* Allow recursive build list search with class filtering (xoxorwr)
+* Allow filtering the item list by loadout (xoxorwr)
+* Auto calculate Brand DPS by count on enemy (LocalIdentity)
+* Auto support for Wintertide final debuff in DPS calculation (LocalIdentity)
+* Add support for importing Animate Guardian items to separate item set (cupkax)
+* Update skill tree with 3.29.1 changes (Wires77)
+* Add support for Staff Life and Mana Mastery (Wires77)
+* Add quality to items fetched from trade (vaisest)
+* Add Talisman enchants to trader (vaisest)
+* Add Light Radius to stat sort list (ZenJediMind)
+* Use Currency Exchange API instead of poe.ninja in trader (vaisest)
+* Improve stat search with pseudo stats and word order ignore (vaisest)
+* Increase wait time for OAuth login and copy URL to clipboard (kylhuk)
+
+--- Fixed Crashes ---
+* Fix crash when clicking the "Add Implicit" button on some items (vaisest)
+
+--- User Interface ---
+* Show "Importing..." while importing (vaisest)
+* Add Memory Strands and Intangibility to the item tooltip (Blitz54)
+* Clarify stat-difference shortcut context (mcagnion)
+
+--- Fixed Calculations ---
+* Fix Soulwrest not granting Phantasmal Might damage (LocalIdentity)
+* Fix Mana-Infused Staff damage calculation (LocalIdentity)
+* Fix Communion Support counting temporary minions (LocalIdentity)
+* Fix base radius of Cleave + Vaal Cleave (LocalIdentity)
+* Fix Herald Skills not scaling area with some tree nodes (LocalIdentity)
+* Fix Howlcrack adding Life cost to all skills instead of just Warcries (LocalIdentity)
+* Fix Drillneck damage applying to Spells (LocalIdentity)
+* Fix Shield block chance calcs (Blitz54)
+
+--- Fixed Behaviours ---
+* Fix Fanaticism from Inquisitor not working (LocalIdentity)
+* Fix Raise Spider count not granting Attack Speed (LocalIdentity)
+* Fix Devastator not showing corpse explode damage (LocalIdentity)
+* Fix various issues with advanced copy/paste (LocalIdentity)
+* Fix various issues with the gem dropdown list (LocalIdentity)
+* Fix being unable to set Enemy Resistance to 0 in config tab (cupkax)
+* Prevents legacy Talisman bases from being anointed (cupkax)
+* Avoid copying enchants when editing item (vaisest)
+* Fix some unique name handling issues (vaisest)
+* Fix Vulconus Avatar of Fire mod not applying when the Keystone is allocated (ethannguyen128)
+* Fix Spellslinger selecting invalid trigger skills (Trifall)
+* Fix character reimport resetting bandit and pantheon choices (ltogniolli)
+* Fix reimport of skills showing old gem data (vaisest)
+
+--- Accuracy Improvements ---
+* Fix Reap of Butchery base AoE radius (xoxorwr)
+* Fix trader parsing everything as explicits (vaisest)
+* Revert "Fix Cost efficiency math" (vaisest)
+* Fix missing Catarina veiled mods on Cane of Kulemak variants (Maven35)
+
+VERSION[2.66.2][2026/07/25]
+
+--- Fixed Crashes ---
+* Fix Warden import crash (vaisest)
+
+--- Fixed Calculations ---
+* Fix Cost efficiency math and add mods to breakdown (vaisest)
+
+
+VERSION[2.66.1][2026/07/25]
+
+--- Fixed Crashes ---
+* Fix crash when using trade search (czarandy)
+
+VERSION[2.66.0][2026/07/25]
+
+--- 3.29 - Allflame ---
+* Add new 3.29 gems and update existing skills (LocalIdentity)
+* Add 3.29 skill trees (Wires77)
+* Add new 3.29 uniques + update existing uniques from patch notes (hducati, LocalIdentity, vaisest)
+* Add support for "Tide Caller" and "Salt and Scale" from Velka Bloodline (majochem)
+* Add support for new witch notables (SaloEater)
+* Add support for Bifurcated Crits (vaisest)
+* Add support for "Unhallowed Rite" Occultist Ascendancy node (majochem)
+* Add support for Reliquarian Molten strike triggers (Paliak)
+* Add support for some new tree nodes (vaisest)
+
+--- New to Path of Building ---
+* Populate gem list with results as sort progresses (no more waiting for the whole list to sort) (xoxorwr)
+* Add support for toggling Foulborn modifiers on uniques (vaisest)
+* Allow pinning calc panes to become overlay windows in other tabs (xoxorwr)
+* Add PoB 2 Oauth API import for character and trade (vaisest)
+* Add support for required stats in trader (vaisest)
+* Add support for various improvements for "Buy similar" in comparison tab (vaisest)
+* Add Abyss sockets to comparison tab (vaisest)
+* Add support for advanced copy/paste format (Wires77)
+* Add support for increased magnitude mods (Heist enchants, Kane of Kulemak, Helical Ring etc.) (vaisest)
+* Add support for Volatile Vaal Orbs (vaisest)
+* Add sorting to add-modifier, enchant, corrupt, and implicit popups (mcagnion)
+* Add node description tooltip to Power Report (Peechey)
+* Add Masteries to power report (ksnyder9801)
+* Allow Intuitive Leap likes to shorten power report distance (vaisest)
+* Timeless Jewel QoL: Copy max trade site allows and open link (vaisest)
+* Add Tree and item skill tooltips (vaisest)
+* Add support for sorting my Minion specific stats (vaisest)
+* Add option to return to build selection when crashing (vaisest)
+* Add option to disable scroll wheel interacting with controls (vaisest)
+* Add sidebar stat suffixes and compact value formatting toggle in options (KenManDev)
+* Add support for pob.codes build exporting and importing (AdamZ-8113)
+* Add support for Lesson of the Seasons spell Barkskin mod (LocalIdentity)
+* Add support for Sinistral and Dextral Catalysts (Peechey)
+* Add support to auto calculate minion count for mods on Bonemeld and Farrul Bloodline (LocalIdentity)
+* Add support for Companionship Support (LocalIdentity)
+* Add support for Cast on Ward Break + Celestial Mathematics + Ward bypass / chance to not break Bloodline nodes (LocalIdentity)
+* Add alt aura variant for Impresence (vaisest)
+* Add support for Loyalty/damage taken from Companion's Life before you (ltogniolli)
+* Add support for Runegraft of the Agile (czarandy)
+* Add spectres Ravenous Bloodshaper, Undead Vaal Commander, Wild Homunculus, Violator (Peechey)
+* Allocate Ascendancy Nodes through Custom Modifiers (Mar1cX)
+
+--- Fixed Crashes ---
+* Fix crash on hovering over legacy shared items (LocalIdentity)
+* Fix missing range on item mod causing errors (Wires77)
+
+--- User Interface ---
+* Render Ascendancy flavour text only at higher zoom levels (JustinStitt)
+* Change border size to be 1 px (vaisest)
+* Fix damage types mods in Mind over Matter Breakdown (Squamto)
+* Fix options menu overflowing screen boundaries (majochem)
+* Fix tooltip positioning and size for multi-column tooltips (majochem)
+* Fix colour for fractured + crafted mods (Blitz54)
+
+--- Fixed Calculations ---
+* Fix Prospero's Protection interaction with Iron Reflexes (Peechey)
+* Fix Divine Sentinel Templar Aura's duplicating effect (LocalIdentity)
+* Fix Raise Spectre damage being affected by hidden elemental conversion multiplier (LocalIdentity)
+* Fix calculation of inverted Resistances when having a source of Penetration (LocalIdentity)
+* Fix Kinetic Fusillade not scaling Ailment damage per projectile (Trifall)
+* Fix Impale DPS being displayed even when having zero Impale duration (KenManDev)
+
+--- Fixed Behaviours ---
+* Fix stat comparison for radius jewels (Timeless, Thread of Hope, etc.) (mcagnion)
+* Fix Cord Belt anoint comparison tooltip (mcagnion)
+* Fix Hallowing flame buff not applying to Minions and using wrong element for damage gain as (Paliak)
+* Fix Overloaded Intensity not capping to 3 stacks (LocalIdentity)
+* Set anchor collapse on comparison tab collectors (vaisest)
+* Fix The Dark Seer's "Unaffected by Blind" (Helyos96)
+* Fix cache invalidation bug when loading a new build (Paliak)
+* Fix compare config tab controls not supporting selections (vaisest)
+* Fix comparing builds that used a tree with Radius Jewels (oboking)
+* Fix eHP value decreasing when allocating defence nodes (unrealdreamz)
+* Fix missing "Greater" gems from Imbued Support (Peechey)
+* Gem Selection Improvements (Peechey)
+
+--- Accuracy Improvements ---
+* Fix Catalyst lines not showing on import (Wires77)
+* Fix incorrect mod on Tawhanuku's Timing (Wires77)
+* Fix Blade Blast default stage cap (OursCodeur)
+* Fix Heroic Tragedy variants not being correct in Timeless list (vaisest)
+* Fix Brutal Restraint missing Balbala variant (The Traitor) (Sentinent)
+* Fix parsing Vaal Unique modifiers on items (vaisest)
+* Fix searching for Low Life in Config tab (Blitz54)
+* Fix mods that were "Not Supported"  in mastery losing position when assigning masteries (soratidus999)
+
 VERSION[2.65.0][2026/04/20]
 
 --- Fixed Crashes ---

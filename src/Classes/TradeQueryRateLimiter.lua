@@ -6,32 +6,34 @@
 --
 
 ---@class TradeQueryRateLimiter
-local TradeQueryRateLimiterClass = newClass("TradeQueryRateLimiter", function(self)
+local TradeQueryRateLimiterClass = newClass("TradeQueryRateLimiter")
+
+function TradeQueryRateLimiterClass:TradeQueryRateLimiter()
 	-- policies_sample = {
-	-- --   label: policy
-	--     ["trade-search-request-limit"] = {
-	-- --       label: rule   
-	--         ["Ip"] = {
-	--             ["state"] = {
-	--                 ["60"]  = {["timeout"] = 0,    ["request"] = 1},
-	--                 ["300"] = {["timeout"] = 0,    ["request"] = 1},
-	--                 ["10"]  = {["timeout"] = 0,    ["request"] = 1}
-	--             },
-	--             ["limits"] = {
-	--                 ["60"]  = {["timeout"] = 120,  ["request"] = 15},
-	--                 ["300"] = {["timeout"] = 1800, ["request"] = 60},
-	--                 ["10"]  = {["timeout"] = 60,   ["request"] = 8}
-	--             }
-	--         },
-	--         ["Account"] = {
-	--             ["state"] = {
-	--                 ["5"]   = {["timeout"] = 0,    ["request"] = 1}
-	--             },
-	--             ["limits"] = {
-	--                 ["5"]   = {["timeout"] = 60,   ["request"] = 3}
-	--             }
-	--         }
-	--     }
+	-- --	label: policy
+	-- 	["trade-search-request-limit"] = {
+	-- --		label: rule
+	-- 		["Ip"] = {
+	-- 			["state"] = {
+	-- 				["60"]  = {["timeout"] = 0,    ["request"] = 1},
+	-- 				["300"] = {["timeout"] = 0,    ["request"] = 1},
+	-- 				["10"]  = {["timeout"] = 0,    ["request"] = 1}
+	-- 			},
+	-- 			["limits"] = {
+	-- 				["60"]  = {["timeout"] = 120,  ["request"] = 15},
+	-- 				["300"] = {["timeout"] = 1800, ["request"] = 60},
+	-- 				["10"]  = {["timeout"] = 60,   ["request"] = 8}
+	-- 			}
+	-- 		},
+	-- 		["Account"] = {
+	-- 			["state"] = {
+	-- 				["5"]   = {["timeout"] = 0,    ["request"] = 1}
+	-- 			},
+	-- 			["limits"] = {
+	-- 				["5"]   = {["timeout"] = 60,   ["request"] = 3}
+	-- 			}
+	-- 		}
+	-- 	}
 	-- }
 	self.policies = {}
 	self.retryAfter = {}
@@ -52,9 +54,12 @@ local TradeQueryRateLimiterClass = newClass("TradeQueryRateLimiter", function(se
 	-- state shows more requests than expected (external requests)
 	self.pendingRequests = {
 		["trade-search-request-limit"] = {},
-		["trade-fetch-request-limit"] = {}
+		["trade-fetch-request-limit"] = {},
+		["character-list-request-limit"] = {},
+		["character-request-limit"] = {}
 	}
-end)
+	return self
+end
 
 function TradeQueryRateLimiterClass:GetPolicyName(key)
 	return self.policyNames[key]
@@ -69,10 +74,10 @@ function TradeQueryRateLimiterClass:ParseHeader(headerString)
 	return headers
 end
 
-function TradeQueryRateLimiterClass:ParsePolicy(headerString) 
+function TradeQueryRateLimiterClass:ParsePolicy(headerString, policy) 
 	local policies = {}
 	local headers = self:ParseHeader(headerString)
-	local policyName = headers["x-rate-limit-policy"]
+	local policyName = headers["x-rate-limit-policy"] or policy
 	policies[policyName] = {}
 	local retryAfter = headers["retry-after"]
 	if retryAfter then
@@ -107,8 +112,11 @@ function TradeQueryRateLimiterClass:ParsePolicy(headerString)
 	return policies
 end
 
-function TradeQueryRateLimiterClass:UpdateFromHeader(headerString)
-	local newPolicies = self:ParsePolicy(headerString)
+function TradeQueryRateLimiterClass:UpdateFromHeader(headerString, policy)
+	local newPolicies = self:ParsePolicy(headerString, policy)
+	if not newPolicies then
+		return
+	end
 	for policyKey, policyValue in pairs(newPolicies) do
 		if self.requestHistory[policyKey] == nil then
 			self.requestHistory[policyKey] = { timestamps = {} }

@@ -3,8 +3,10 @@
 -- Spectre Data
 -- Monster data (c) Grinding Gear Games
 --
-local minions, mod, flag = ...
 
+return function(mod, flag)
+	---@class SpectreData
+	local minions = {}
 -- Blackguard
 #spectre Metadata/Monsters/Axis/AxisCaster
 #spectre Metadata/Monsters/Axis/AxisCasterArc
@@ -184,6 +186,8 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/LeagueHarvest/Blue/HarvestNessaCrabT3Spectre # HarvestNessaCrabScreechDebuff
 -- Primal Rhex Matriarch
 #spectre Metadata/Monsters/LeagueHarvest/Blue/HarvestRhexT3Spectre # HarvestRhexScreechDebuff
+-- Wild Homunculus
+#spectre Metadata/Monsters/LeagueHarvest/Red/HarvestMinerHammerT2Spectre
 -- Templar Tactician
 #spectre Metadata/Monsters/LegionLeague/LegionTemplarCaster1Spectre
 -- Frost Auto-Scout
@@ -196,6 +200,8 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/LeagueHeist/Thug/ThugRanged1EliteSpectre
 -- Ashblessed Warden
 #spectre Metadata/Monsters/LeagueHeist/Robot/RobotPyreKnightEliteSpectre
+-- Violator
+#spectre Metadata/Monsters/LeagueHeist/Science/ProjectUnarmedEliteGuardSpectre
 -- Snow Rhex
 #spectre Metadata/Monsters/AtlasExiles/EyrieInfluenceMonsters/EyrieArmouredBirdSpectre__
 -- Flickershade
@@ -214,8 +220,10 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/LeagueHellscape/DemonFaction/HellscapeDemonElite2_Spectre
 -- Pale Seraphim
 #spectre Metadata/Monsters/LeagueHellscape/PaleFaction/HellscapePaleElite2Spectre
--- Ravenous Mishapen
+-- Ravenous Misshapen
 #spectre Metadata/Monsters/LeagueHellscape/FleshFaction/HellscapeFleshFodder4Spectre
+-- Ravenous Bloodshaper
+#spectre Metadata/Monsters/LeagueHellscape/FleshFaction/HellscapeFleshElite1Spectre
 -- Aurid Synthete
 #spectre Metadata/Monsters/LeagueSynthesis/SynthesisSoulstealer4Spectre
 -- Ruins Hellion
@@ -439,3 +447,7 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/FaridunLeague/FaridunWarlock/FaridunWarlockLow
 #spectre Metadata/Monsters/FaridunLeague/FaridunWarlock/FaridunWarlockMid_
 #spectre Metadata/Monsters/FaridunLeague/FaridunWarlock/FaridunWarlockHigh
+-- Undead Vaal Commander
+#spectre Metadata/Monsters/VaalMonsters/VaalOverseer
+	return minions
+end

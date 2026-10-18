@@ -198,7 +198,7 @@ describe("TestItemsTab", function()
 
 	describe("ItemSetListControl", function()
 		it("adds an imported shared item set to the build once", function()
-			local itemSetList = new("ItemSetListControl", nil, { 0, 0, 300, 200 }, build.itemsTab)
+			local itemSetList = new("ItemSetListControl"):ItemSetListControl(nil, { 0, 0, 300, 200 }, build.itemsTab)
 
 			itemSetList:ReceiveDrag("SharedItemList", { title = "Shared Set", slots = {} })
 
@@ -210,7 +210,7 @@ describe("TestItemsTab", function()
 	describe("ItemSetService", function()
 		local itemSetService
 		before_each(function()
-			itemSetService = new("ItemSetService", build.itemsTab)
+			itemSetService = new("ItemSetService"):ItemSetService(build.itemsTab)
 		end)
 
 		describe("NewItemSet", function()
@@ -352,7 +352,7 @@ describe("TestItemsTab", function()
 		local itemSetService
 
 		before_each(function()
-			itemSetService = new("ItemSetService", build.itemsTab)
+			itemSetService = new("ItemSetService"):ItemSetService(build.itemsTab)
 		end)
 
 		describe("Item set persistence across switches", function()

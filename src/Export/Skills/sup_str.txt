@@ -3,8 +3,7 @@
 -- Strength support gems
 -- Skill data (c) Grinding Gear Games
 --
-local skills, mod, flag, skill = ...
-
+return function(skills, mod, flag, skill)
 #skill SupportAddedFireDamage
 #mods
 
@@ -226,6 +225,17 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod flag("Cruelty")
+#mods
+
+#skill SupportCrystalfall
+	statMap = {
+		["support_crystalfall_chance_to_trigger_crystalfall_on_hit_%"] = {
+		},
+	},
+#mods
+
+#skill TriggeredSupportCrystalfall
+#flags attack area melee
 #mods
 
 #skill SupportDamageOnFullLife
@@ -816,3 +826,5 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #mods
+
+end

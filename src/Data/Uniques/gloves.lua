@@ -6,6 +6,7 @@ return {
 Admiral's Arrogance
 Antique Gauntlets
 League: Settlers of Kalguur
+Source: Drops from unique{Admiral Valerius} in normal{Shipping encounters}
 Requires Level 39, 58 Str
 (6-12)% increased Attack Speed
 (100-140)% increased Armour
@@ -111,11 +112,14 @@ Hateforge
 Ancient Gauntlets
 League: Ultimatum
 Source: Drops from unique{The Trialmaster}
+Variant: Pre 3.29.0
+Variant: Current
 Requires Level 47, 68 Str
 Socketed Gems are Supported by Level 30 Rage
 (120-150)% increased Armour
-(10-25)% reduced Rage Cost of Skills
+{variant:1}(10-25)% reduced Rage Cost of Skills
 Vaal Attack Skills you Use yourself Cost Rage instead of requiring Souls
+{variant:2}(20-40)% increased Rage Cost Efficiency
 You cannot gain Rage during Soul Gain Prevention
 ]],[[
 Empire's Grasp
@@ -659,13 +663,16 @@ Trigger Level 20 Arcane Wake after Spending a total of 200 Mana
 ]],[[
 Wyrmsign
 Wyrmscale Gauntlets
+Variant: Pre 3.29.0
+Variant: Current
 Requires Level 49, 38 Str, 38 Dex
 Socketed Gems are Supported by Level 5 Concentrated Effect
 (120-160)% increased Armour and Evasion
 +(50-70) to maximum Life
-4% reduced Mana Cost per Endurance Charge
+{variant:1}4% reduced Mana Cost per Endurance Charge
 Gain Rampage while at Maximum Endurance Charges
 Lose all Endurance Charges when Rampage ends
+{variant:2}10% increased Mana Cost Efficiency per Endurance Charge
 ]],[[
 Tanu Ahi
 Wyrmscale Gauntlets
@@ -830,12 +837,18 @@ Your Hits can only Kill Frozen Enemies
 ]],[[
 Triad Grip
 Mesh Gloves
+Variant: Pre 3.29.0
+Variant: Current
 Requires Level 32, 26 Str, 26 Int
 (80-120)% increased Armour and Energy Shield
-Minions convert 25% of Physical Damage to Fire Damage per Red Socket
-Minions convert 25% of Physical Damage to Cold Damage per Green Socket
-Minions convert 25% of Physical Damage to Lightning Damage per Blue Socket
-Minions convert 25% of Physical Damage to Chaos Damage per White Socket
+{variant:2}Minions convert 25% of Physical Damage to Fire Damage per Socketed Red Gem
+{variant:1}Minions convert 25% of Physical Damage to Fire Damage per Red Socket
+{variant:2}Minions convert 25% of Physical Damage to Cold Damage per Socketed Green Gem
+{variant:1}Minions convert 25% of Physical Damage to Cold Damage per Green Socket
+{variant:2}Minions convert 25% of Physical Damage to Lightning Damage per Socketed Blue Gem
+{variant:1}Minions convert 25% of Physical Damage to Lightning Damage per Blue Socket
+{variant:2}Minions convert 25% of Physical Damage to Chaos Damage per Empty Socket
+{variant:1}Minions convert 25% of Physical Damage to Chaos Damage per White Socket
 Minions have (5-10)% chance to Freeze, Shock and Ignite
 ]],[[
 Volkuur's Guidance
@@ -874,6 +887,7 @@ Chaos Skills have 20% chance to Ignite
 Hand of Heresy
 Martyr Gloves
 League: Mercenaries of Trarthus
+Source: Reward from Mercenary duel
 Variant: Pre 3.28.0
 Variant: Current
 Requires Level 77, 70 Str, 70 Int
@@ -909,7 +923,6 @@ Unaffected by Shock while Leeching Energy Shield
 Algor Mortis
 Carnal Mitts
 League: Delirium
-Source: Drops from the Simulacrum Encounter
 Requires Level 50, 39 Dex, 39 Int
 +(50-70) to maximum Energy Shield
 +(15-20)% to Cold and Lightning Resistances
@@ -1052,6 +1065,7 @@ Requires Level 5
 ]],[[
 Malachai's Mark
 Murder Mitts
+Source: Drops from unique{Nightmare of the Depraved Trinity} in normal{Abomination Map}
 Requires Level 67, 51 Dex, 51 Int
 (80-100)% increased Evasion and Energy Shield
 +(60-80) to maximum Life
@@ -1071,7 +1085,8 @@ Requires Level 31, 25 Dex, 25 Int
 {variant:2}+(25-45)% to Global Critical Strike Multiplier
 {variant:3}+(20-30)% to Global Critical Strike Multiplier
 (100-130)% increased Evasion and Energy Shield
-0.2% of Physical Attack Damage Leeched as Mana
+{variant:1,2}0.2% of Physical Attack Damage Leeched as Mana
+{variant:3}0.2% of Attack Damage Leeched as Mana
 Creates a Smoke Cloud on Rampage
 Gain Unholy Might for 3 seconds on Rampage
 Rampage
@@ -1134,6 +1149,7 @@ Medved's Challenge
 Runic Gauntlets
 Requires Level 69, 38 Str, 38 Dex, 38 Int
 League: Expedition
+Source: Drops from Expedition monsters
 800% increased Attribute Requirements
 (30-50)% increased Ward
 +(15-25)% to all Elemental Resistances
@@ -1146,6 +1162,7 @@ Variant: Pre 3.16.0
 Variant: Pre 3.25.0
 Variant: Current
 League: Expedition
+Source: Drops from Expedition monsters
 Requires Level 48, 31 Str, 31 Dex, 31 Int
 (33-48)% increased Ward
 +(17-23)% to Chaos Resistance

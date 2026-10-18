@@ -166,7 +166,7 @@ describe("TestSkillsTab", function()
 		local skillsSetService
 
 		before_each(function()
-			skillsSetService = new("SkillsSetService", build.skillsTab)
+			skillsSetService = new("SkillsSetService"):SkillsSetService(build.skillsTab)
 		end)
 
 		describe("NewSkillSet", function()
@@ -309,7 +309,7 @@ describe("TestSkillsTab", function()
 		local skillsSetService
 
 		before_each(function()
-			skillsSetService = new("SkillsSetService", build.skillsTab)
+			skillsSetService = new("SkillsSetService"):SkillsSetService(build.skillsTab)
 		end)
 
 		describe("Socket group persistence", function()

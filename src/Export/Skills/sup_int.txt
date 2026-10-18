@@ -3,8 +3,7 @@
 -- Intelligence support gems
 -- Skill data (c) Grinding Gear Games
 --
-local skills, mod, flag, skill = ...
-
+return function(skills, mod, flag, skill)
 #skill SupportAddedChaosDamage
 #mods
 
@@ -191,6 +190,9 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportCooldownRecovery
+#mods
+
+#skill SupportCrustaceousGrasp
 #mods
 
 #skill SupportCursedGround
@@ -664,10 +666,11 @@ local skills, mod, flag, skill = ...
 
 #skill SupportMinionPact
 	statMap = {
-		["support_minion_pact_sacrifice_nearby_damageable_minion_to_gain_permillage_of_max_life_as_physical_damage"] = {
-			mod("PhysicalMin", "BASE", nil, 0, 0, { type = "Multiplier", var = "MinionLife" }),
-			mod("PhysicalMax", "BASE", nil, 0, 0, { type = "Multiplier", var = "MinionLife" }),
-			div = 1000,
+		["spell_minimum_added_physical_damage_per_active_permanent_minion"] = {
+			mod("PhysicalMin", "BASE", nil, 0, 0, { type = "Multiplier", var = "PermanentMinion" }),
+		},
+		["spell_maximum_added_physical_damage_per_active_permanent_minion"] = {
+			mod("PhysicalMax", "BASE", nil, 0, 0, { type = "Multiplier", var = "PermanentMinion" }),
 		},
 	},
 #mods
@@ -824,7 +827,8 @@ local skills, mod, flag, skill = ...
 #skill SupportScornfulHerald
 	statMap = {
 		["herald_no_buff_effect"] = {
-			flag("DisableBuff", { type = "SkillType", skillType = SkillType.Herald }),
+			mod("BuffEffect", "MORE", nil, 0, 0, { type = "SkillType", skillType = SkillType.Herald }),
+			value = -100,
 		},
 	},
 #mods
@@ -1023,3 +1027,5 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #mods
+
+end

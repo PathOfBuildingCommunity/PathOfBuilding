@@ -8,11 +8,14 @@ local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
 
-local DropDownClass = newClass("DropDownControl", "Control", "ControlHost", "TooltipHost", "SearchHost", function(self, anchor, rect, list, selFunc, tooltipText)
-	self.Control(anchor, rect)
-	self.ControlHost()
-	self.TooltipHost(tooltipText)
-	self.SearchHost(
+---@class DropDownControl: Control, ControlHost, TooltipHost, SearchHost
+local DropDownClass = newClass("DropDownControl", "Control", "ControlHost", "TooltipHost", "SearchHost")
+
+function DropDownClass:DropDownControl(anchor, rect, list, selFunc, tooltipText, ignoreSearchOrder)
+	self:Control(anchor, rect)
+	self:ControlHost()
+	self:TooltipHost(tooltipText)
+	self:SearchHost(
 			-- list to filter
 			function()
 				return self.list
@@ -28,9 +31,10 @@ local DropDownClass = newClass("DropDownControl", "Control", "ControlHost", "Too
 					end
 				end
 				return StripEscapes(listVal)
-			end
+		end,
+		ignoreSearchOrder
 	)
-	self.controls.scrollBar = new("ScrollBarControl", {"TOPRIGHT",self,"TOPRIGHT"}, {-1, 0, 18, 0}, (self.height - 4) * 4)
+	self.controls.scrollBar = new("ScrollBarControl"):ScrollBarControl({"TOPRIGHT",self,"TOPRIGHT"}, {-1, 0, 18, 0}, (self.height - 4) * 4)
 	self.controls.scrollBar.height = function()
 		return self.dropHeight + 2
 	end
@@ -49,8 +53,9 @@ local DropDownClass = newClass("DropDownControl", "Control", "ControlHost", "Too
 	self.enableDroppedWidth = false
 	-- Set by the parent control. Activates the auto width of the box component.
 	self.enableChangeBoxWidth = false
-	-- self.tag = "-"
-end)
+        -- self.tag = "-"
+	return self
+end
 
 -- maps the actual dropdown row index (after eventual filtering) to the original (unfiltered) list index
 function DropDownClass:DropIndexToListIndex(dropIndex)
@@ -111,13 +116,14 @@ function DropDownClass:DrawSearchHighlights(label, searchInfo, x, y, width, heig
 		local endX = 0
 		local last = 0
 		SetDrawColor(1, 1, 0, 0.2)
+		local strippedLabel = StripEscapes(label)
 		for _, range in ipairs(searchInfo.ranges) do
 			if range.from - last - 1 > 0 then
-				startX = DrawStringWidth(height, "VAR", label:sub(last + 1, range.from - 1)) + x + endX
+				startX = DrawStringWidth(height, "VAR", strippedLabel:sub(last + 1, range.from - 1)) + x + endX
 			else
 				startX = endX
 			end
-			endX = DrawStringWidth(height, "VAR", label:sub(range.from, range.to)) + x + startX
+			endX = DrawStringWidth(height, "VAR", strippedLabel:sub(range.from, range.to)) + x + startX
 			last = range.to
 
 			DrawImage(nil, startX, y, endX - startX, height)
@@ -487,6 +493,9 @@ function DropDownClass:OnKeyUp(key)
 		if self.dropped and self.controls.scrollBar.enabled then
 			self.controls.scrollBar:Scroll(1)
 		else
+			if main.disableScrollControlInteraction and key == "WHEELDOWN" then
+				return
+			end
 			self:SetSel(self:ListIndexToDropIndex(self.selIndex, 0) + 1)
 		end
 		return self
@@ -498,6 +507,9 @@ function DropDownClass:OnKeyUp(key)
 		if self.dropped and self.controls.scrollBar.enabled then
 			self.controls.scrollBar:Scroll(-1)
 		else
+			if main.disableScrollControlInteraction and key == "WHEELUP" then
+				return
+			end
 			self:SetSel(self:ListIndexToDropIndex(self.selIndex, 0) - 1)
 		end
 		return self

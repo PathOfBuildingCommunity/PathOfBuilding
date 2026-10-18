@@ -651,7 +651,7 @@ describe("TestLoadouts", function()
 	describe("BuildSetListControl", function()
 		it("passes the loadout title through the F2 rename shortcut", function()
 			build:NewLoadout("Second")
-			local loadoutList = new("BuildSetListControl", nil, { 0, 0, 380, 200 }, build)
+			local loadoutList = new("BuildSetListControl"):BuildSetListControl(nil, { 0, 0, 380, 200 }, build)
 			local renameName
 			loadoutList.RenameLoadout = function(_, name)
 				renameName = name
@@ -666,7 +666,7 @@ describe("TestLoadouts", function()
 	describe("BuildSetService", function()
 		local buildSetService
 		before_each(function()
-			buildSetService = new("BuildSetService", build)
+			buildSetService = new("BuildSetService"):BuildSetService(build)
 		end)
 
 		local function getActiveLoadoutIndex()

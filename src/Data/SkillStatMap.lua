@@ -3,8 +3,7 @@
 -- Stat to internal modifier mapping table for skills
 -- Stat data (c) Grinding Gear Games
 --
-local mod, flag, skill = ...
-
+return function(mod, flag, skill)
 return {
 --
 -- Skill data modifiers
@@ -20,6 +19,9 @@ return {
 ["base_tertiary_skill_effect_duration"] = {
 	skill("durationTertiary", nil),
 	div = 1000,
+},
+["infinite_minion_duration"] = {
+	skillFlag = "permanentMinion",
 },
 ["spell_minimum_base_physical_damage"] = {
 	skill("PhysicalMin", nil),
@@ -535,7 +537,7 @@ return {
 	mod("CooldownRecovery", "INC", nil),
 },
 ["cooldown_recovery_rate_+%_per_100_ward"] = {
-	mod("CooldownRecovery", "INC", nil, 0, 0, { type = "PerStat", stat = "Ward", div = 100 }),
+	mod("CooldownRecovery", "INC", nil, 0, 0, { type = "PerStat", stat = "Ward", div = 100, limit = 400, limitTotal = true }),
 },
 ["base_cooldown_modifier_ms"] = {
 	mod("CooldownRecovery", "BASE", nil),
@@ -580,7 +582,7 @@ return {
 	mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Condition", var = "CastOnFrostbolt" }),
 },
 ["active_skill_area_of_effect_radius_+%_final"] = {
-	mod("AreaOfEffect", "MORE", nil),
+	mod("AreaOfEffectRadius", "MORE", nil),
 },
 ["active_skill_area_of_effect_+%_final"] = {
 	mod("AreaOfEffect", "MORE", nil),
@@ -2081,6 +2083,9 @@ return {
 	value = 100,
 },
 --Golem
+["stone_golem_grants_melee_damage_removed_from_stone_golem_before_life_or_es_%"] = {
+	mod("takenFromStoneGolemBeforeYou", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+},
 ["golem_buff_effect_+%"] = {
 	mod("BuffEffect", "INC", nil, 0, 0)
 },
@@ -2362,4 +2367,8 @@ return {
 ["is_totem"] = {
 	-- Display only
 },
+["pact_empower_limitation_specifier_for_stat_description"] = {
+	-- Display only
+},
 }
+end

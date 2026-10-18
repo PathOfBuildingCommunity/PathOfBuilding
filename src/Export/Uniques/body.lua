@@ -180,6 +180,7 @@ Allow2ActiveBannersUnique__1
 Pragmatism
 Colosseum Plate
 League: Affliction
+Source: unique{The King in the Mists} in the normal{Crux of Nothingness}
 Requires Level 49, 134 Str
 LocalIncreaseSocketedActiveSkillGemLevelUnique__1
 LocalIncreasedPhysicalDamageReductionRatingPercentUnique__19
@@ -663,7 +664,7 @@ Implicits: 1
 CriticalStrikeChanceUniqueBodyInt4
 {variant:1,2}LocalIncreasedEnergyShieldUniqueBodyInt4[190,230]
 {variant:3,4,5}LocalIncreasedEnergyShieldUniqueBodyInt4
-ConvertFireToChaosUniqueBodyInt4
+ConvertFireToChaosUniqueBodyInt4Updated
 {variant:1,2,5}SpellDamageTakenOnLowManaUniqueBodyInt4[100,100]
 {variant:3}SpellDamageTakenOnLowManaUniqueBodyInt4[25,25]
 {variant:4}SpellDamageTakenOnLowManaUniqueBodyInt4[15,15]
@@ -1145,6 +1146,17 @@ Implicits: 0
 MaximumManaUniqueBodyStrInt1
 AddPowerChargeOnCrit1__
 {variant:2}KeystoneInnerConvictionUnique__1
+]],[[
+Waxen Soul
+Saint's Hauberk
+League: Ritual
+Source: Reward from Nameless Ritual, and rarely a regular Ritual
+MaximumLifeUnique__28
+ChaosResistUnique__39
+CurseSkillsCostAndReserveLifeUnique__1
+GainBloodShrineBuffUnique__1
+ShrineBuffEffectPerLifeReservationUnique__1
+TriggerExplodingToadsOnKillUnique__1
 ]],
 -- Body: Evasion/Energy Shield
 [[
@@ -1338,10 +1350,13 @@ AbyssJewelSocketUnique__14
 Stasis Prison
 Carnal Armour
 Source: Drops in Unrelenting Domain of Timeless Conflict
+Variant: Pre 3.29.0
+Variant: Current
 Implicits: 1
 IncreasedManaImplicitArmour1
 LocalIncreasedEvasionAndEnergyShieldUnique__33
-IncreasedLifeUniqueBodyStrInt7
+{variant:1}IncreasedLifeUniqueBodyStrInt7
+{variant:2}ImplicitModifierMagnitudeUnique_2
 ChronomanceReservesNoMana
 DamageTakenGainedAsLifeUnique__2
 DebuffTimePassedUnique__2
@@ -1463,5 +1478,15 @@ AllResistancesPerCorruptedItemUnique__1
 MaximumEnergyShieldPercentPerCorruptedItemUnique__1_
 MaximumLifePercentPerCorruptedItemUnique__1_
 Corrupted
-]],
+]],[[
+The Queen's Hunger
+Vaal Regalia
+League: Betrayal
+Source: Drops from unique{Catarina, Master of Undeath}
+Crafted: true
+Implicits: 0
+TriggerRandomOfferingSkillUnique__1
+LocalIncreasedEnergyShieldPercentUnique__20_
+MaximumLifeUnique__16
+]]
 }

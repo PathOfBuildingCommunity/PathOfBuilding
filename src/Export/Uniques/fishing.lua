@@ -17,6 +17,7 @@ FishDetectionUnique__1_
 Song of the Sirens
 Fishing Rod
 Requires 8 Str, 8 Dex
+Source: Fishing
 Implicits: 0
 FishingLureTypeUniqueFishingRod1
 FishingRarityUniqueFishingRod1

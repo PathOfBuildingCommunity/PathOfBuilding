@@ -18,6 +18,7 @@ luajit/
 spec/test_results.log
 spec/test_generation.log
 src/luacov.stats.out
+runtime/lua/debugger.lua
 
 # Release
 manifest-updated.xml
@@ -25,6 +26,7 @@ manifest-updated.xml
 # GGPK Export
 src/Export/ggpk/metadata/
 src/Export/ggpk/data/
+src/Export/ggpk/art/
 src/Export/ggpk/*.exe
 src/Export/ggpk/*.dll
 
@@ -37,3 +39,9 @@ src/Data/TimelessJewelData/*.bin
 # Simplegraphic Debugging
 runtime/imgui.ini
 runtime/SimpleGraphic/SimpleGraphic.log
+
+src/poe_api_response.json
+runtime/SimpleGraphic/Screenshots
+
+.emmyrc.json
+.luarc.json

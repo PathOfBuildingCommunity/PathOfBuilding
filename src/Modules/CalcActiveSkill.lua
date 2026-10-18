@@ -3,7 +3,8 @@
 -- Module: Calc Active Skill
 -- Active skill setup.
 --
-local calcs = ...
+---@class Calcs
+local calcs = require("Modules.CalcBase")
 
 local pairs = pairs
 local ipairs = ipairs
@@ -80,6 +81,7 @@ end
 -- Create an active skill using the given active gem and list of support gems
 -- It will determine the base flag set, and check which of the support gems can support this skill
 function calcs.createActiveSkill(activeEffect, supportList, actor, socketGroup, summonSkill)
+	---@class ActiveSkill
 	local activeSkill = {
 		activeEffect = activeEffect,
 		supportList = supportList,
@@ -99,6 +101,7 @@ function calcs.createActiveSkill(activeEffect, supportList, actor, socketGroup, 
 	end
 
 	-- Initialise skill flag set ('attack', 'projectile', etc)
+	---@class SkillFlags
 	local skillFlags = copyTable(activeGrantedEffect.baseFlags)
 	activeSkill.skillFlags = skillFlags
 	skillFlags.hit = skillFlags.hit or activeSkill.skillTypes[SkillType.Attack] or activeSkill.skillTypes[SkillType.Damage] or activeSkill.skillTypes[SkillType.Projectile]
@@ -110,7 +113,7 @@ function calcs.createActiveSkill(activeEffect, supportList, actor, socketGroup, 
 	for index, supportEffect in ipairs(supportList) do
 		-- Pass 1: Add skill types from compatible supports
 		if supportEffect.grantedEffect.support then
-			if calcLib.canGrantedEffectSupportActiveSkill(supportEffect.grantedEffect, activeSkill) then
+			if calcLib.canGrantedEffectSupportActiveSkill(supportEffect.grantedEffect, activeSkill, nil, supportEffect.appliesToGrantedSkills) then
 				for _, skillType in pairs(supportEffect.grantedEffect.addSkillTypes) do
 					activeSkill.skillTypes[skillType] = true
 				end
@@ -128,7 +131,7 @@ function calcs.createActiveSkill(activeEffect, supportList, actor, socketGroup, 
 		for index, supportEffectIndex in ipairs(rejectedSupportsIndices) do
 			local supportEffect = supportList[supportEffectIndex]
 			if supportEffect.grantedEffect.support then
-				if calcLib.canGrantedEffectSupportActiveSkill(supportEffect.grantedEffect, activeSkill) then
+				if calcLib.canGrantedEffectSupportActiveSkill(supportEffect.grantedEffect, activeSkill, nil, supportEffect.appliesToGrantedSkills) then
 					notAddedNewSupport = false
 					rejectedSupportsIndices[index] = nil
 					for _, skillType in pairs(supportEffect.grantedEffect.addSkillTypes) do
@@ -142,7 +145,7 @@ function calcs.createActiveSkill(activeEffect, supportList, actor, socketGroup, 
 	for _, supportEffect in ipairs(supportList) do
 		-- Pass 2: Add all compatible supports
 		if supportEffect.grantedEffect.support then
-			if calcLib.canGrantedEffectSupportActiveSkill(supportEffect.grantedEffect, activeSkill) then
+			if calcLib.canGrantedEffectSupportActiveSkill(supportEffect.grantedEffect, activeSkill, nil, supportEffect.appliesToGrantedSkills) then
 				t_insert(activeSkill.effectList, supportEffect)
 				if supportEffect.isSupporting and activeEffect.srcInstance then
 					supportEffect.isSupporting[activeEffect.srcInstance] = true
@@ -178,9 +181,9 @@ function calcs.copyActiveSkill(env, mode, skill)
 	local newSkill = calcs.createActiveSkill(activeEffect, skill.supportList, skill.actor, skill.socketGroup, skill.summonSkill)
 	local newEnv, _, _, _ = calcs.initEnv(env.build, mode, env.override)
 	calcs.buildActiveSkillModList(newEnv, newSkill)
-	newSkill.skillModList = new("ModList", newSkill.baseSkillModList)
+	newSkill.skillModList = new("ModList"):ModList(newSkill.baseSkillModList)
 	if newSkill.minion then
-		newSkill.minion.modDB = new("ModDB")
+		newSkill.minion.modDB = new("ModDB"):ModDB()
 		newSkill.minion.modDB.actor = newSkill.minion
 		calcs.createMinionSkills(env, newSkill)
 		newSkill.skillPartName = newSkill.minion.mainSkill.activeEffect.grantedEffect.name
@@ -272,19 +275,34 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 		activeSkill.disableReason = "This skill requires a Shield"
 	end
 
+	if skillTypes[SkillType.RequiresStaff] and not activeSkill.summonSkill and (not activeSkill.actor.itemList["Weapon 1"] or activeSkill.actor.itemList["Weapon 1"].type ~= "Staff") then
+		-- Skill requires a staff to be equipped
+		skillFlags.disable = true
+		activeSkill.disableReason = "This skill requires a Staff"
+	end
+
 	if skillFlags.shieldAttack then
 		-- Special handling for Spectral Shield Throw
 		skillFlags.weapon2Attack = true
 		activeSkill.weapon2Flags = 0
 	else
 		-- Set weapon flags
+		if skillFlags.forceSourceWeapon and activeSkill.socketGroup and activeSkill.socketGroup.sourceItem then
+			-- Some item-granted attacks must use the weapon that grants the skill
+			local sourceSlot = activeSkill.socketGroup.slot or ""
+			skillFlags.forceMainHand = sourceSlot:match("^Weapon 1") ~= nil
+			skillFlags.forceOffHand = sourceSlot:match("^Weapon 2") ~= nil
+		end
 		local weaponTypes = { activeGrantedEffect.weaponTypes }
 		for _, skillEffect in pairs(activeSkill.effectList) do
 			if skillEffect.grantedEffect.support and skillEffect.grantedEffect.weaponTypes then
 				t_insert(weaponTypes, skillEffect.grantedEffect.weaponTypes)
 			end
 		end
-		local weapon1Flags, weapon1Info = getWeaponFlags(env, activeSkill.actor.weaponData1, weaponTypes)
+		local weapon1Flags, weapon1Info
+		if not skillFlags.forceOffHand then
+			weapon1Flags, weapon1Info = getWeaponFlags(env, activeSkill.actor.weaponData1, weaponTypes)
+		end
 		if not weapon1Flags and activeSkill.summonSkill then
 			-- Minion skills seem to ignore weapon types
 			weapon1Flags, weapon1Info = ModFlag[env.data.weaponTypeInfo["None"].flag], env.data.weaponTypeInfo["None"]
@@ -299,12 +317,12 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 					skillFlags.melee = nil
 				end
 			end
-		elseif (skillTypes[SkillType.DualWieldOnly] or skillTypes[SkillType.MainHandOnly] or skillFlags.forceMainHand or weapon1Info) and not activeSkill.summonSkill then
+		elseif (skillTypes[SkillType.DualWieldOnly] or skillFlags.forceMainHand or weapon1Info) and not activeSkill.summonSkill then
 			-- Skill requires a compatible main hand weapon
 			skillFlags.disable = true
 			activeSkill.disableReason = "Main Hand weapon is not usable with this skill"
 		end
-		if not skillTypes[SkillType.MainHandOnly] and not skillFlags.forceMainHand then
+		if not skillFlags.forceMainHand then
 			local weapon2Flags, weapon2Info = getWeaponFlags(env, activeSkill.actor.weaponData2, weaponTypes)
 			if weapon2Flags then
 				if skillTypes[SkillType.DualWieldRequiresDifferentTypes] and (activeSkill.actor.weaponData1.type == activeSkill.actor.weaponData2.type) and not (activeSkill.actor.weaponData2.countsAsAll1H or activeSkill.actor.weaponData1.countsAsAll1H) then
@@ -442,6 +460,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 	end
 
 	-- Build config structure for modifier searches
+	---@class ModCfg
 	activeSkill.skillCfg = {
 		flags = bor(skillModFlags, activeSkill.weapon1Flags or activeSkill.weapon2Flags or 0),
 		keywordFlags = skillKeywordFlags,
@@ -470,7 +489,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 	end
 
 	-- Initialise skill modifier list
-	local skillModList = new("ModList", activeSkill.actor.modDB)
+	local skillModList = new("ModList"):ModList(activeSkill.actor.modDB)
 	activeSkill.skillModList = skillModList
 	activeSkill.baseSkillModList = skillModList
 	
@@ -532,9 +551,18 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 	-- Apply gem/quality modifiers from support gems
 	skillModList:NewMod("GemLevel", "BASE", activeSkill.activeEffect.srcInstance and activeSkill.activeEffect.srcInstance.level or activeSkill.activeEffect.level, "Max Level")
 	skillModList:NewMod("GemQuality", "BASE", activeSkill.activeEffect.srcInstance and activeSkill.activeEffect.srcInstance.quality or activeSkill.activeEffect.quality, "Max Quality")
+	-- matching socket bonus
+	local socketMatches = activeSkill.activeEffect.srcInstance and activeSkill.activeEffect.srcInstance.matchesSocket or activeSkill.activeEffect.matchesSocket
+	if socketMatches then
+		skillModList:NewMod("GemSocketQuality", "BASE", data.misc.MatchingSocketQualityBonus, "Socket Quality")
+	end
 	for _, supportProperty in ipairs(skillModList:Tabulate("LIST", activeSkill.skillCfg, "SupportedGemProperty")) do
 		local value = supportProperty.value
 		if value.keyword == "grants_active_skill" and activeSkill.activeEffect.gemData and not activeSkill.activeEffect.gemData.tags.support  then
+			-- save quality increases for use in tooltips
+			if value.key == "quality" then
+				activeEffect.supportQuality = (activeEffect.supportQuality or 0) + value.value
+			end
 			activeEffect[value.key] = activeEffect[value.key] + value.value
 			skillModList:NewMod("GemSupport".. value.key:gsub("^%l", string.upper), "BASE", value.value, supportProperty.mod.source, #supportProperty.mod > 0 and supportProperty.mod[1] or nil)
 		end
@@ -756,6 +784,12 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 						minion.weaponData2 = env.player.weaponData2
 					end
 				end
+			end
+			if not isSpectre and skillModList:Flag(activeSkill.skillCfg, "NonSpectreMinionsUseParentMainHandAttackTime") and env.player.weaponData1.AttackRate and env.player.weaponData1.AttackRate > 0 then
+				-- The weapon data may be shared with the player, an item set, or another actor.
+				-- Copy it before replacing only the minion's base attack rate.
+				minion.weaponData1 = copyTable(minion.weaponData1)
+				minion.weaponData1.AttackRate = env.player.weaponData1.AttackRate
 			end
 		end
 	elseif activeEffect.srcInstance and not (activeEffect.gemData and activeEffect.gemData.secondaryGrantedEffect) then

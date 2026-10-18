@@ -1,6 +1,5 @@
 -- Item data (c) Grinding Gear Games
-local itemBases = ...
-
+return function(itemBases)
 #type Gloves
 #influenceBaseTag gloves
 #socketLimit 4
@@ -35,3 +34,4 @@ local itemBases = ...
 
 #subType
 #base Metadata/Items/Armours/Gloves/GlovesDemigods1
+end

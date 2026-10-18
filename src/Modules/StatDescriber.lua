@@ -50,6 +50,7 @@ local function matchLimit(lang, val, quality)
 	end
 end
 
+local indexableNonActiveSupports = require("Data.PearlSupports")
 local function applySpecial(val, spec)
 	if spec.k == "negate" then
 		val[spec.v].max, val[spec.v].min = -val[spec.v].min, -val[spec.v].max
@@ -66,6 +67,10 @@ local function applySpecial(val, spec)
 	elseif spec.k == "divide_by_fifteen_0dp" then
 		val[spec.v].min = val[spec.v].min / 15
 		val[spec.v].max = val[spec.v].max / 15
+	elseif spec.k == "divide_by_four" then
+		val[spec.v].min = val[spec.v].min / 4
+		val[spec.v].max = val[spec.v].max / 4
+		val[spec.v].fmt = "g"
 	elseif spec.k == "divide_by_five" then
 		val[spec.v].min = val[spec.v].min / 5
 		val[spec.v].max = val[spec.v].max / 5
@@ -187,7 +192,13 @@ local function applySpecial(val, spec)
 	elseif spec.k == "plus_two_hundred" then
 		val[spec.v].min = val[spec.v].min + 200
 		val[spec.v].max = val[spec.v].max + 200
-	elseif spec.k == "reminderstring" or spec.k == "canonical_line" or spec.k == "_stat" then
+	elseif spec.k == "reminderstring" or spec.k == "canonical_line" or spec.k == "canonical_stat" or spec.k == "_stat" then
+	elseif spec.k == "display_indexable_non_active_support" then
+		local gem = indexableNonActiveSupports[val[spec.v].min]
+		local gemText = gem and gem.baseItemName and gem.baseItemName:gsub(" Support", "") or ""
+		val[spec.v].fmt = "s"
+		val[spec.v].min = gemText
+		val[spec.v].max = gemText
 	elseif spec.k then
 		ConPrintf("Unknown description function: %s", spec.k)
 	end

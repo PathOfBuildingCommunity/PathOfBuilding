@@ -741,6 +741,70 @@ AddedPhysicalDamageUnique__4
 {variant:2}IncreasedLifeUnique__108
 LifeGainedOnStunUnique__1_
 ]],[[
+Saresh's Darkness
+Chain Belt
+League: Mirage
+Source: No longer obtainable
+LevelReq: 24
+Implicits: 1
+IncreasedEnergyShieldImplicitBelt1
+ChaosResistUnique__38
+PoisonDurationUnique__3
+EnemiesPoisonedByYouCannotCritUnique_1
+BitingBraidUniqueBelt52
+]],[[
+Screams of the Desiccated
+Leather Belt
+League: Mirage
+Source: No longer obtainable
+Has Alt Variant: true
+Selected Variant: 1
+Selected Alt Variant: 1
+Variant: Acceleration
+Variant: Brutal
+Variant: Diamond
+Variant: Echoing
+Variant: Gloom
+Variant: Greater Freezing
+Variant: Greater Shocking
+Variant: Greater Skeletal
+Variant: Impenetrable
+Variant: Massive
+Variant: Replenishing
+Variant: Resistance
+Variant: Resonating
+LevelReq: 56
+Implicits: 1
+IncreasedLifeImplicitBelt1
+IntelligenceUnique__38
+ChaosResistUnique__37
+{variant:1}SoulcordAccelerationShrineUnique__1
+{variant:2}SoulcordBrutalShrineUnique_1
+{variant:3}SoulcordDiamondShrineUnique_1
+{variant:4}SoulcordEchoingShrineUnique__1
+{variant:5}SoulcordGloomShrineUnique__1
+{variant:6}SoulcordChillingShrineUnique_1
+{variant:7}SoulcordShockingShrineUnique_1
+{variant:8}SoulcordSkeletonShrineUnique_1
+{variant:9}SoulcordImpenetrableShrineUnique_1
+{variant:10}SoulcordMassiveShrineUnique_1
+{variant:11}SoulcordReplenishingShrineUnique_1
+{variant:12}SoulcordResistanceShrineUnique_1
+{variant:13}SoulcordResonatingShrineUnique_1
+]],
+[[
+Solerai's Radiance
+Chain Belt
+League: Mirage
+Source: No longer obtainable
+LevelReq: 24
+Implicits: 1
+IncreasedEnergyShieldImplicitBelt1
+FireResistUnique__38
+IgniteDurationUnique__4
+BlindedEnemiesCannotInflictAilmentsUnique_1
+SolartwineUniqueBelt55
+]],[[
 Siegebreaker
 Heavy Belt
 LevelReq: 44
@@ -906,6 +970,17 @@ MaximumLifeUnique__1
 LifeRegenerationRatePercentageUniqueJewel24
 CannotBeAffectedByFlasksUnique__1
 FlasksApplyToMinionsUnique__1
+]],[[
+Unholy Accomplice
+Cloth Belt
+Source: Drops from unique{K'Tash, the Hate Shepherd} and unique{Lycia, Herald of the Scourge}
+StunRecoveryImplicitBelt1
+SpellDamageUnique__19
+IncreasedLifeUnique__129
+LightningAndChaosResistanceUnique__1
+PactCastSpeedUnique__1
+PactCooldownSpeedUnique__1
+GainBoonsInsteadOfAfflictionsFromPactsUnique__1
 ]],[[
 Wurm's Molt
 Leather Belt

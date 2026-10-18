@@ -107,35 +107,34 @@ function stringify(thing)
 end
 
 function parseStats(datFileRow, legionPassive)
-	local descOrders = {}
 	for idx,statKey in ipairs(datFileRow.StatsKeys) do
 		local refRow = type(statKey) == "number" and statKey + 1 or statKey._rowIndex
 		local statId = stats:ReadCell(refRow, 1)
 		local range = datFileRow["Stat"..idx]
 
-		local stat = {}
-		stat[statId] = {
+		local stat = {
 			["min"] = range[1],
 			["max"] = range[2],
 			["index"] = idx
 		}
-		-- Describing stats here to get the orders
-		local statLines, orders = describeStats(stat)
-		stat[statId].statOrder = orders[1]
-		legionPassive.stats[statId] = stat[statId]
-		for i, line in ipairs(statLines) do
-			table.insert(legionPassive.sd, line)
-			descOrders[line] = orders[i]
-		end
+		-- describeStats changes values while formatting them, so use a copy when only finding the order.
+		local _, orders = describeStats({ [statId] = { min = stat.min, max = stat.max } })
+		stat.statOrder = orders[1]
+		legionPassive.stats[statId] = stat
 	end
-	-- Have to re-sort since we described the stats earlier
-	table.sort(legionPassive.sd, function(a, b) return descOrders[a] < descOrders[b] end)
+	-- A description can combine several stats, such as minimum and maximum
+	-- added damage, so describe the complete set together.
+	legionPassive.sd = describeStats(legionPassive.stats)
 	local sortedStats = {}
 	for stat in pairsSortByKey(legionPassive.stats) do
 		table.insert(sortedStats, stat)
 	end
 	-- Finally get what we want, sorted stats by order
-	table.sort(sortedStats, function(a, b) return legionPassive.stats[a].statOrder and legionPassive.stats[a].statOrder < legionPassive.stats[b].statOrder  end)
+	table.sort(sortedStats, function(a, b)
+		local statA, statB = legionPassive.stats[a], legionPassive.stats[b]
+		local orderA, orderB = statA.statOrder or math.huge, statB.statOrder or math.huge
+		return orderA < orderB or orderA == orderB and statA.index < statB.index
+	end)
 	legionPassive.sortedStats = sortedStats
 end
 

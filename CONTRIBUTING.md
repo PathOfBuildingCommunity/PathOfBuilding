@@ -136,6 +136,14 @@ It is recommended to use it over the built-in Lua plugins.
 Please note that EmmyLua is not available for other editors based on Visual Studio Code,
 such as [VSCodium](https://vscodium.com) or [Eclipse Theia](https://theia-ide.org) but can be built from source if needed.
 
+Another alternative on VSCode is to use [sumneko's Lua language server](https://marketplace.visualstudio.com/items?itemName=sumneko.lua) along with [actboy168's debugger](https://marketplace.visualstudio.com/items?itemName=actboy168.lua-debug). These can potentially offer more features than EmmyLua, such as conditional breakpoints.
+
+## Runtime environment
+
+It is recommended that you configure your IDE to include `src/_SimpleGraphic.def.lua` somehow. Path of Building runs inside a special Lua environment via SimpleGraphic which implements a small API. These are not defined inside the project, which means that the aforementioned meta/hint file is required for the IDE to know which functions exist. As the file is not included in code, it must be explicitly mentioned as a library in whichever language server you are using, or otherwise it will not be read.
+
+This file is normally not executed, but does contain basic implementations for parts of the API, which allows many parts of PoB to work without running inside SimpleGraphic. If you wish to test individual changes, it might be possible to do so through a script using Luajit directly. To do so, see HeadlessWrapper.lua for an example. It should be noted that some parts of the API (such as subscripts) are not implemented, which means some parts of PoB are unusable.
+
 ### Visual Studio Code
 
 1. Create a new <kbd>Debug Configuration</kbd> of type <kbd>EmmyLua New Debug</kbd>
@@ -168,20 +176,60 @@ such as [VSCodium](https://vscodium.com) or [Eclipse Theia](https://theia-ide.or
 1. In VSCode click <kbd>Start Debugging</kbd> (the green icon) or press <kbd>F5</kbd>
 1. The debugger should connect
 
+You might also want to use actboy168 debugger. This is possible by using for example the following launch.json configuration:
+
+```json
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "🍄attach",
+            "type": "lua",
+            "request": "attach",
+            "stopOnEntry": false,
+            "address": "127.0.0.1:12306",
+            "luaVersion": "luajit",
+        },
+
+    ]
+}
+```
+
+Then, similarly to the EmmyLua example:
+
+1. Find the sub-folder that looks like `actboy168.lua-debug-x.y.z-win32-x64` in `%USERPROFILE%/.vscode/extensions`. Navigate to it and find the `debugger.lua` script under the script folder. Copy this to `runtime/lua`.
+2. Copy-paste the following code snippet into `launch:OnInit()`:
+  ```lua
+  local debugger = require("debugger"):start("127.0.0.1:12306")
+  -- debugger:event("wait")  -- Uncomment this line if you want PoB to wait until the debugger is attached.
+  ```
+
+  Note that Linux developers using Wine might need to use the Windows debugger instead of using the VSCode debugger. This can be done by:
+
+  1. Downloading the .vsix from the VSCode extension page
+  2. Copying `extension/{script,runtime}` to the `runtime` folder of the PoB directory (i.e., `runtime/runtime`).
+  3. Copying `debugger.lua` from `runtime/scripts/debugger.lua` to `runtime/lua/debugger.lua`.
+  4. Using `local debugger = loadfile(GetRuntimePath().."/lua/debugger.lua")():start("127.0.0.1:12306")` instead of the above code to avoid issues with Wine backwards slashes
 
 #### Excluding directories from EmmyLua
 
 Depending on the amount of system ram you have available and the amount that gets assigned to the jvm running the emmylua language server you might run into issues when trying to debug Path of building.
-Files in `/Data` `/Export` and `/TreeData` can be massive and cause the EmmyLua language server to use a significant amount of memory. Sometimes causing the language server to crash. To avoid this and speed up initialization consider adding an `.emmyrc.json` file to the `.vscode` folder in the root of the Path of building folder with the following content:
+Files in `/Data` `/Export` and `/TreeData` can be massive and cause the EmmyLua language server to use a significant amount of memory. Sometimes causing the language server to crash. To avoid this and speed up initialization consider adding an `.emmyrc.json` to the root of the Path of building folder with the following content:
 
 ```json
 {
     "$schema": "https://raw.githubusercontent.com/EmmyLuaLs/emmylua-analyzer-rust/refs/heads/main/crates/emmylua_code_analysis/resources/schema.json",
     "runtime": {
-        "version": "LuaJIT"
+        "version": "LuaJIT",
+        // this is not technically correct as LoadModule behaviour can
+        // differ from require, but it is useful for now
+        "requireLikeFunction": ["LoadModule"],
     },
     "workspace": {
         "ignoreGlobs": [
+            "**/*_spec.lua",
+            "spec/**/*.lua",
+            "runtime/lua/sha1/lua53_ops.lua",
             "**/src/Data/**/*.lua",
             "**/src/TreeData/**/*.lua",
             "**/src/Modules/ModParser.lua"
@@ -189,6 +237,46 @@ Files in `/Data` `/Export` and `/TreeData` can be massive and cause the EmmyLua 
     }
 }
 ```
+
+This file can be customised according to what you want. It is a good idea to ignore test files as these tend to add things to the global namespace, which will look confusing, and they are designed to be run by Busted. `lua53_ops.lua` produces errors and doesn't actually get imported when using LuaJIT. It can be useful to keep the data and mod parser files, but generally this will increase the time the LSP takes to index the project on startup.
+
+### Excluding directories from Sumneko's language server
+
+If you prefer to not use EmmyLua, the following configuration works well for Sumneko's VS Code extension:
+
+```json
+{
+    "Lua.workspace.ignoreDir": [
+        ".vscode",
+        // these files add things to global that aren't there in normal
+        // operation
+        "spec/*",
+        "src/Export/*",
+        "src/HeadlessWrapper.lua",
+
+        // this has lua 5.3 code which produces errors, but doesn't actually run
+        "src/runtime/lua/sha1/*",
+
+        // avoid overriding the below library setting
+        "src/_SimpleGraphic.def.lua",
+    ],
+    "Lua.diagnostics.disable": ["inject-field"],
+    // disables diagnostics even when you open one of the above
+    "Lua.diagnostics.ignoredFiles": "Disable",
+    "Lua.runtime.version": "LuaJIT",
+    "Lua.workspace.preloadFileSize": 1000,
+    // this is not technically correct as LoadModule behaviour can
+    // differ from require, but it is useful for now
+    "Lua.runtime.special": {
+        "LoadModule": "require"
+    },
+    "Lua.workspace.library": [
+        "src/_SimpleGraphic.def.lua"
+    ],
+}
+```
+
+The extension will automatically skip large files from being preloaded (controlled by `Lua.workspace.preloadFileSize`), so they don't have to be excluded. The configuration file can be found by pressing Ctrl-Shift-P and selecting `Preferences: Open Workspace Settings (JSON)`. If you wish to check test files, you can remove the "ignoredFiles" option and install the busted, LuaFileSystem, and luassert LuaLS addons through `Lua: Open Addon Manager`.
 
 ### PyCharm Community / IntelliJ Idea Community
 
@@ -222,6 +310,13 @@ More tests can be added to this folder to test specific functionality, or new te
 3. Review the results in the terminal
 
 Please try to include tests for your new features in your pull request. Additionally, if your pr breaks a test that should be passing please update it accordingly.
+
+It is a good idea to prefer Docker due to it having a very reliable Lua setup. But if you have performance problems with it, installing `busted` locally might help as it tends to be faster to execute:
+
+1. Install Luajit (due to PoB accessing the jit library, it non-Luajit versions might not work)
+2. Install [Luarocks](https://luarocks.org/) (for example, through Scoop or your Linux package manager)
+3. Run `luarocks install busted`
+4. Run `busted --lua=luajit` to run the tests. You can also use e.g. `-p TestUtils_spec.lua` to run a specific file.
 
 ### Debugging tests
 When running tests with a docker container it is possible to use EmmyLua for debugging. Paste in the following right under `function launch:OnInit()` in `./src/Launch.lua`:

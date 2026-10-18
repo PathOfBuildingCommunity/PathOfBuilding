@@ -49,12 +49,35 @@ local function getFile(URL)
 	return #page > 0 and page
 end
 
-local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
+---@class PassiveTreeGroup
+---@field x number
+---@field y number
+---@field orbits integer[]
+---@field nodes string[]
+---@field background any
+---@field isProxy boolean?
+
+---@class PassiveTree
+---@field classes any[] A list of classes on the tree
+---@field alternate_ascendancies any[]?
+---@field tree "Default"|"DefaultAltAscendancies"
+---@field groups PassiveTreeGroup[]
+---@field nodes table<"root"|integer, Node>
+---@field jewelSlots integer[]
+---@field min_x integer
+---@field min_y integer
+---@field max_x integer
+---@field max_y integer
+---@field constants table<string, any>
+---@field points table<string, integer>
+local PassiveTreeClass = newClass("PassiveTree")
+
+function PassiveTreeClass:PassiveTree(treeVersion)
 	self.treeVersion = treeVersion
 	local versionNum = treeVersions[treeVersion].num
 
-	self.legion = LoadModule("Data/TimelessJewelData/LegionPassives")
-	self.tattoo = LoadModule("Data/TattooPassives")
+	self.legion = require("Data.TimelessJewelData.LegionPassives")
+	self.tattoo = require("Data.TattooPassives")
 
 	MakeDir("TreeData")
 
@@ -103,27 +126,9 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	-- Build maps of class name -> class table
 	self.classNameMap = { }
 	self.ascendNameMap = { }
-	self.classNotables = { }
+	self.internalAscendNameMap = {}
+	self.classNotables = {}
 
-	for classId, class in pairs(self.classes) do
-		if versionNum >= 3.10 then
-			-- Migrate to old format
-			class.classes = class.ascendancies
-		end
-		class.classes[0] = { name = "None" }
-		self.classNameMap[class.name] = classId
-		for ascendClassId, ascendClass in pairs(class.classes) do
-			self.ascendNameMap[ascendClass.id or ascendClass.name] = {
-				classId = classId,
-				class = class,
-				ascendClassId = ascendClassId,
-				ascendClass = ascendClass,
-				flavourText = ascendClass.flavourText,
-				flavourTextRect = ascendClass.flavourTextRect,
-			}
-		end
-	end
-	
 	-- hide legacy alternate ascendancies that are no longer obtainable
 	if self.alternate_ascendancies then
 		local legacyAlternateAscendancyIds = {
@@ -169,7 +174,37 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			self.alternate_ascendancies = nil
 		end
 	end
-	
+
+	for classId, class in pairs(self.classes) do
+		if versionNum >= 3.10 then
+			-- Migrate to old format
+			class.classes = class.ascendancies
+		end
+		class.classes[0] = { name = "None" }
+		self.classNameMap[class.name] = classId
+		for ascendClassId, ascendClass in pairs(class.classes) do
+			local entry = {
+				classId = classId,
+				class = class,
+				ascendClassId = ascendClassId,
+				ascendClass = ascendClass,
+				flavourText = ascendClass.flavourText,
+				flavourTextRect = ascendClass.flavourTextRect,
+			}
+			if ascendClass.id then
+				self.ascendNameMap[ascendClass.id] = entry
+			end
+			self.ascendNameMap[ascendClass.name] = entry
+			if ascendClass.internalId then
+				self.internalAscendNameMap[ascendClass.internalId] = {
+					classId = classId,
+					class = class,
+					ascendClassId = ascendClassId,
+					ascendClass = ascendClass
+				}
+			end
+		end
+	end
 	if self.alternate_ascendancies then
 		self.secondaryAscendNameMap = { }
 		local alternate_ascendancies_class = { 
@@ -197,8 +232,8 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	end
 
 	if not self.assets then
-		self.assets = LoadModule("TreeData/3_19/Assets.lua")
-		self.assets = self.assets.assets
+		self.assets = require("TreeData.3_19.Assets")
+		self.assets = copyTable(self.assets.assets, true)
 		if self.alternate_ascendancies then
 			-- backgrounds
 			self.assets["ClassesPrimalist"] = {[0.3835]="https://web.poecdn.com/gen/image/WzIyLCJlMzIwYTYwYmNiZTY4ZmQ5YTc2NmE1ZmY4MzhjMDMyNCIseyJ0IjoyNywic3AiOjAuMzgzNX1d/3d68393250/ClassesPrimalist.png"}
@@ -258,7 +293,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		end
 		self.skillSprites = self.sprites
 	end
-	for type, data in pairs(self.skillSprites) do
+	for spriteType, data in pairs(self.skillSprites) do
 		local maxZoom
 		if not self.imageZoomLevels then
 			maxZoom = data
@@ -277,14 +312,18 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			if not self.spriteMap[name] then
 				self.spriteMap[name] = { }
 			end
-			self.spriteMap[name][type] = {
+			local x = type(coords.x) == "table" and coords.x[#coords.x] or coords.x
+			local y = type(coords.y) == "table" and coords.y[#coords.y] or coords.y
+			local w = type(coords.w) == "table" and coords.w[#coords.w] or coords.w
+			local h = type(coords.h) == "table" and coords.h[#coords.h] or coords.h
+			self.spriteMap[name][spriteType] = {
 				handle = sheet.handle,
-				width = coords.w,
-				height = coords.h,
-				[1] = coords.x / sheet.width,
-				[2] = coords.y / sheet.height,
-				[3] = (coords.x + coords.w) / sheet.width,
-				[4] = (coords.y + coords.h) / sheet.height
+				width = w,
+				height = h,
+				[1] = x / sheet.width,
+				[2] = y / sheet.height,
+				[3] = (x + w) / sheet.width,
+				[4] = (y + h) / sheet.height
 			}
 		end
 	end
@@ -348,30 +387,50 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	end
 
 	-- Load legion sprite sheets and build sprite map
-	local legionSprites = LoadModule("TreeData/legion/tree-legion.lua")
-	for type, data in pairs(legionSprites) do
-		local maxZoom = data[#data]
-		local sheet = spriteSheets[maxZoom.filename]
+	local legionSprites = require("TreeData.legion.tree-legion")
+	local function loadLegionSheet(data)
+		local sheet = spriteSheets[data.filename]
 		if not sheet then
 			sheet = { }
 			sheet.handle = NewImageHandle()
-			sheet.handle:Load("TreeData/legion/"..maxZoom.filename)
+			sheet.handle:Load("TreeData/legion/"..data.filename)
 			sheet.width, sheet.height = sheet.handle:ImageSize()
-			spriteSheets[maxZoom.filename] = sheet
+			spriteSheets[data.filename] = sheet
 		end
-		for name, coords in pairs(maxZoom.coords) do
-			if not self.spriteMap[name] then
-				self.spriteMap[name] = { }
-			end
-			self.spriteMap[name][type] = {
+		return sheet
+	end
+	for _, data in ipairs(legionSprites.treeAssets or { }) do
+		local sheet = loadLegionSheet(data)
+		for name, coords in pairs(data.coords) do
+			self.assets[name] = {
 				handle = sheet.handle,
 				width = coords.w,
 				height = coords.h,
 				[1] = coords.x / sheet.width,
 				[2] = coords.y / sheet.height,
 				[3] = (coords.x + coords.w) / sheet.width,
-				[4] = (coords.y + coords.h) / sheet.height
+				[4] = (coords.y + coords.h) / sheet.height,
 			}
+		end
+	end
+	for type, data in pairs(legionSprites) do
+		if type ~= "treeAssets" then
+			local maxZoom = data[#data]
+			local sheet = loadLegionSheet(maxZoom)
+			for name, coords in pairs(maxZoom.coords) do
+				if not self.spriteMap[name] then
+					self.spriteMap[name] = { }
+				end
+				self.spriteMap[name][type] = {
+					handle = sheet.handle,
+					width = coords.w,
+					height = coords.h,
+					[1] = coords.x / sheet.width,
+					[2] = coords.y / sheet.height,
+					[3] = (coords.x + coords.w) / sheet.width,
+					[4] = (coords.y + coords.h) / sheet.height
+				}
+			end
 		end
 	end
 
@@ -459,7 +518,9 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	self.sockets = { }
 	self.masteryEffects = { }
 	local nodeMap = { }
-	for _, node in pairs(self.nodes) do
+	for _, n in pairs(self.nodes) do
+		---@class Node
+		local node = n
 		-- Migration...
 		if versionNum < 3.10 then
 			-- To new format
@@ -537,7 +598,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			node.type = "Normal"
 			if ((node.ascendancyName == "Ascendant" and not node.isMultipleChoiceOption and not node.dn:find("Dexterity")
 				and not node.dn:find("Intelligence") and not node.dn:find("Strength") and not node.dn:find("Passive"))
-				or (node.isMultipleChoiceOption and node.ascendancyName)) and node.ascendancyName ~= "Reliquarian" then
+				or (node.isMultipleChoiceOption and node.ascendancyName)) and node.ascendancyName ~= "Reliquarian" and node.ascendancyName ~= "Luminary" then
 				local className = self.ascendNameMap[node.ascendancyName].class.name
 				self.ascendancyMap[node.dn:lower()] = node
 				if not self.classNotables[className] then
@@ -660,6 +721,14 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		end
 	end
 
+	-- The game only gives these notables numbered names. Use the manual name for
+	-- their first stat, or show the full stat description when no name exists yet.
+	for _, addition in pairs(self.legion.additions) do
+		if addition.id:match("^abyss_.+_notable_%d+$") and addition.dn:match("^Notable %d+$") then
+			addition.dn = data.abyssNotableNames[addition.sortedStats[1]] or addition.sd[1]
+		end
+	end
+
 	-- Build ModList for legion jewels
 	for _, node in pairs(self.legion.nodes) do
 		-- Determine node type
@@ -720,14 +789,15 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	if treeVersion == latestTreeVersion then
 		buildTreeDependentUniques(self)
 	end
-end)
+	return self
+end
 
 function PassiveTreeClass:ProcessStats(node, startIndex)
 	startIndex = startIndex or 1
 	if startIndex == 1 then
 		node.modKey = ""
 		node.mods = { }
-		node.modList = new("ModList")
+		node.modList = new("ModList"):ModList()
 	end
 
 	if not node.sd then
@@ -760,7 +830,7 @@ function PassiveTreeClass:ProcessStats(node, startIndex)
 				if list and not extra then
 					-- Success, add dummy mod lists to the other lines that were combined with this one
 					for ci = i + 1, endI do
-						node.mods[ci] = { list = { } }
+						node.mods[ci] = { list = {}, combined = true }
 					end
 					break
 				end

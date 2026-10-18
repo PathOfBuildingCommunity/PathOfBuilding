@@ -6,11 +6,15 @@
 local ipairs = ipairs
 local t_insert = table.insert
 
-local RowListClass = newClass("RowListControl", "ListControl", function(self, anchor, rect)
-	self.ListControl(anchor, rect, 14, "HORIZONTAL", false, { })
+---@class RowListControl: ListControl
+local RowListClass = newClass("RowListControl", "ListControl")
+
+function RowListClass:RowListControl(anchor, rect)
+	self:ListControl(anchor, rect, 14, "HORIZONTAL", false, { })
 	self.colLabels = true
 	self._autoSizeToggleState = {} -- internal toggle memory, not saved to spec
-end)
+	return self
+end
 
 function RowListClass:BuildRows(filter)
 	wipeTable(self.list)

@@ -15,7 +15,7 @@ local function makeSkillDataMod(dataKey, dataValue, ...)
 	return makeSkillMod("SkillData", "LIST", { key = dataKey, value = dataValue }, 0, 0, ...)
 end
 dofile("../Data/Global.lua")
-local skillStatMap = LoadModule("../Data/SkillStatMap.lua", makeSkillMod, makeFlagMod, makeSkillDataMod)
+local skillStatMap = LoadModule("../Data/SkillStatMap")(makeSkillMod, makeFlagMod, makeSkillDataMod)
 
 local function tableToString(tbl, pre)
 	pre = pre or ""

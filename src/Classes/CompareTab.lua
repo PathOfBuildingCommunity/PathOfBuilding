@@ -9,12 +9,12 @@ local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
 local s_format = string.format
-local dkjson = require "dkjson"
-local tradeHelpers = LoadModule("Classes/CompareTradeHelpers")
-local buySimilar = LoadModule("Classes/CompareBuySimilar")
-local calcsHelpers = LoadModule("Classes/CompareCalcsHelpers")
-local buildListHelpers = LoadModule("Modules/BuildListHelpers")
-local configVisibility = LoadModule("Modules/ConfigVisibility")
+local tradeHelpers = require("Classes.TradeHelpers")
+local buySimilar = require("Classes.CompareBuySimilar")
+local calcsHelpers = require("Classes.CompareCalcsHelpers")
+local buildListHelpers = require("Modules.BuildListHelpers")
+local itemSlotHelper = require("Modules.ItemSlotHelper")
+local configVisibility = require("Modules.ConfigVisibility")
 
 -- Node IDs below this value are normal passive tree nodes; IDs at or above are cluster jewel nodes
 local CLUSTER_NODE_OFFSET = 65536
@@ -122,9 +122,13 @@ local function matchFlags(reqFlags, notFlags, flags)
 	return true
 end
 
-local CompareTabClass = newClass("CompareTab", "ControlHost", "Control", function(self, primaryBuild)
-	self.ControlHost()
-	self.Control()
+---@class CompareTab: ControlHost, Control
+local CompareTabClass = newClass("CompareTab", "ControlHost", "Control")
+
+---@param primaryBuild Build
+function CompareTabClass:CompareTab(primaryBuild)
+	self:ControlHost()
+	self:Control()
 
 	self.primaryBuild = primaryBuild
 
@@ -155,13 +159,13 @@ local CompareTabClass = newClass("CompareTab", "ControlHost", "Control", functio
 	self.treeOverlayMode = true
 
 	-- Tooltip for item hover in Items view
-	self.itemTooltip = new("Tooltip")
+	self.itemTooltip = new("Tooltip"):Tooltip()
 
 	-- Items expanded mode (false = compact names only, true = full item details inline)
 	self.itemsExpandedMode = false
 
 	-- Tooltip for calcs hover breakdown
-	self.calcsTooltip = new("Tooltip")
+	self.calcsTooltip = new("Tooltip"):Tooltip()
 	self.calcsShowOnlyDifferences = true
 
 	-- Interactive config controls state
@@ -184,27 +188,28 @@ local CompareTabClass = newClass("CompareTab", "ControlHost", "Control", functio
 	self.comparePowerCompareId = nil      -- track which compare entry was calculated
 
 	-- Pre-load static module data
-	self.configOptions = LoadModule("Modules/ConfigOptions")
+	self.configOptions = require("Modules.ConfigOptions")
 	self.calcSections = LoadModule("Modules/CalcSections")
-	self.calcs = LoadModule("Modules/Calcs")
+	self.calcs = require("Modules.Calcs")
 
 	-- Controls for the comparison screen
 	self:InitControls()
-end)
+	return self
+end
 
 function CompareTabClass:InitControls()
 	-- Sub-tab buttons
 	local subTabs = { "Summary", "Tree", "Skills", "Items", "Calcs", "Config" }
 	local subTabModes = { "SUMMARY", "TREE", "SKILLS", "ITEMS", "CALCS", "CONFIG" }
 
-	self.controls.subTabAnchor = new("Control", nil, {0, 0, 0, 20})
+	self.controls.subTabAnchor = new("Control"):Control(nil, {0, 0, 0, 20})
 	for i, tabName in ipairs(subTabs) do
 		local mode = subTabModes[i]
 		local prevName = i > 1 and ("subTab" .. subTabs[i-1]) or "subTabAnchor"
 		local anchor = i == 1
 			and {"TOPLEFT", self.controls.subTabAnchor, "TOPLEFT"}
 			or {"LEFT", self.controls[prevName], "RIGHT"}
-		self.controls["subTab" .. tabName] = new("ButtonControl", anchor, {i == 1 and 0 or 4, 0, 72, 20}, tabName, function()
+		self.controls["subTab" .. tabName] = new("ButtonControl"):ButtonControl(anchor, {i == 1 and 0 or 4, 0, 72, 20}, tabName, function()
 			-- Clear tree overlay compareSpec when leaving TREE mode
 			if self.compareViewMode == "TREE" and self.treeOverlayMode
 					and self.primaryBuild.treeTab and self.primaryBuild.treeTab.viewer then
@@ -225,8 +230,8 @@ function CompareTabClass:InitControls()
 	end
 
 	-- Build B selector dropdown
-	self.controls.compareBuildLabel = new("LabelControl", {"TOPLEFT", self.controls.subTabAnchor, "TOPLEFT"}, {0, -88, 0, 16}, "^7Compare with:")
-	self.controls.compareBuildSelect = new("DropDownControl", {"LEFT", self.controls.compareBuildLabel, "RIGHT"}, {4, 0, 250, 20}, {}, function(index, value)
+	self.controls.compareBuildLabel = new("LabelControl"):LabelControl({"TOPLEFT", self.controls.subTabAnchor, "TOPLEFT"}, {0, -88, 0, 16}, "^7Compare with:")
+	self.controls.compareBuildSelect = new("DropDownControl"):DropDownControl({"LEFT", self.controls.compareBuildLabel, "RIGHT"}, {4, 0, 250, 20}, {}, function(index, value)
 		if index and index > 0 and index <= #self.compareEntries then
 			self.activeCompareIndex = index
 			self.treeSearchNeedsSync = true
@@ -237,12 +242,12 @@ function CompareTabClass:InitControls()
 	end
 
 	-- Import button (opens import popup)
-	self.controls.importBtn = new("ButtonControl", {"LEFT", self.controls.compareBuildSelect, "RIGHT"}, {8, 0, 100, 20}, "Import...", function()
+	self.controls.importBtn = new("ButtonControl"):ButtonControl({"LEFT", self.controls.compareBuildSelect, "RIGHT"}, {8, 0, 100, 20}, "Import...", function()
 		self:OpenImportPopup()
 	end)
 
 	-- Re-import current build button
-	self.controls.reimportBtn = new("ButtonControl", {"LEFT", self.controls.importBtn, "RIGHT"}, {4, 0, 140, 20}, "Re-import Current", function()
+	self.controls.reimportBtn = new("ButtonControl"):ButtonControl({"LEFT", self.controls.importBtn, "RIGHT"}, {4, 0, 140, 20}, "Re-import Current", function()
 		self:ReimportPrimary()
 	end)
 	self.controls.reimportBtn.tooltipFunc = function(tooltip)
@@ -265,11 +270,13 @@ function CompareTabClass:InitControls()
 	end
 	self.controls.reimportBtn.enabled = function()
 		local importTab = self.primaryBuild.importTab
-		return importTab and importTab.charImportMode == "SELECTCHAR"
+		-- check if either oauth or account name import have a character selected
+		local siteActive = importTab.charImportMode == "SELECTCHAR" and importTab.controls.siteCharSelect:GetSelValue()
+		return importTab.controls.charSelect:GetSelValue() or siteActive
 	end
 
 	-- Remove comparison build button
-	self.controls.removeBtn = new("ButtonControl", {"LEFT", self.controls.reimportBtn, "RIGHT"}, {4, 0, 70, 20}, "Remove", function()
+	self.controls.removeBtn = new("ButtonControl"):ButtonControl({"LEFT", self.controls.reimportBtn, "RIGHT"}, {4, 0, 70, 20}, "Remove", function()
 		if self.activeCompareIndex > 0 and self.activeCompareIndex <= #self.compareEntries then
 			self:RemoveBuild(self.activeCompareIndex)
 		end
@@ -286,9 +293,9 @@ function CompareTabClass:InitControls()
 	end
 
 	-- Tree spec selector for comparison build
-	self.controls.compareSpecLabel = new("LabelControl", {"TOPLEFT", self.controls.subTabAnchor, "TOPLEFT"}, {0, -54, 0, 16}, "^7Tree set:")
+	self.controls.compareSpecLabel = new("LabelControl"):LabelControl({"TOPLEFT", self.controls.subTabAnchor, "TOPLEFT"}, {0, -54, 0, 16}, "^7Tree set:")
 	self.controls.compareSpecLabel.shown = setsEnabled
-	self.controls.compareSpecSelect = new("DropDownControl", {"LEFT", self.controls.compareSpecLabel, "RIGHT"}, {2, 0, 150, 20}, {}, function(index, value)
+	self.controls.compareSpecSelect = new("DropDownControl"):DropDownControl({"LEFT", self.controls.compareSpecLabel, "RIGHT"}, {2, 0, 150, 20}, {}, function(index, value)
 		local entry = self:GetActiveCompare()
 		if entry and entry.treeTab and entry.treeTab.specList[index] then
 			entry:SetActiveSpec(index)
@@ -303,9 +310,9 @@ function CompareTabClass:InitControls()
 	self.controls.compareSpecSelect.enableDroppedWidth = true
 
 	-- Skill set selector for comparison build
-	self.controls.compareSkillSetLabel = new("LabelControl", {"LEFT", self.controls.compareSpecSelect, "RIGHT"}, {8, 0, 0, 16}, "^7Skill set:")
+	self.controls.compareSkillSetLabel = new("LabelControl"):LabelControl({"LEFT", self.controls.compareSpecSelect, "RIGHT"}, {8, 0, 0, 16}, "^7Skill set:")
 	self.controls.compareSkillSetLabel.shown = setsEnabled
-	self.controls.compareSkillSetSelect = new("DropDownControl", {"LEFT", self.controls.compareSkillSetLabel, "RIGHT"}, {2, 0, 150, 20}, {}, function(index, value)
+	self.controls.compareSkillSetSelect = new("DropDownControl"):DropDownControl({"LEFT", self.controls.compareSkillSetLabel, "RIGHT"}, {2, 0, 150, 20}, {}, function(index, value)
 		local entry = self:GetActiveCompare()
 		if entry and entry.skillsTab and entry.skillsTab.skillSetOrderList[index] then
 			entry:SetActiveSkillSet(entry.skillsTab.skillSetOrderList[index])
@@ -313,9 +320,9 @@ function CompareTabClass:InitControls()
 	end)
 	self.controls.compareSkillSetSelect.enabled = setsEnabled
 	-- Item set selector for comparison build
-	self.controls.compareItemSetLabel = new("LabelControl", {"LEFT", self.controls.compareSkillSetSelect, "RIGHT"}, {8, 0, 0, 16}, "^7Item set:")
+	self.controls.compareItemSetLabel = new("LabelControl"):LabelControl({"LEFT", self.controls.compareSkillSetSelect, "RIGHT"}, {8, 0, 0, 16}, "^7Item set:")
 	self.controls.compareItemSetLabel.shown = setsEnabled
-	self.controls.compareItemSetSelect = new("DropDownControl", {"LEFT", self.controls.compareItemSetLabel, "RIGHT"}, {2, 0, 150, 20}, {}, function(index, value)
+	self.controls.compareItemSetSelect = new("DropDownControl"):DropDownControl({"LEFT", self.controls.compareItemSetLabel, "RIGHT"}, {2, 0, 150, 20}, {}, function(index, value)
 		local entry = self:GetActiveCompare()
 		if entry and entry.itemsTab and entry.itemsTab.itemSetOrderList[index] then
 			entry:SetActiveItemSet(entry.itemsTab.itemSetOrderList[index])
@@ -323,9 +330,9 @@ function CompareTabClass:InitControls()
 	end)
 	self.controls.compareItemSetSelect.enabled = setsEnabled
 	-- Config set selector for comparison build
-	self.controls.compareConfigSetLabel = new("LabelControl", {"LEFT", self.controls.compareItemSetSelect, "RIGHT"}, {8, 0, 0, 16}, "^7Config set:")
+	self.controls.compareConfigSetLabel = new("LabelControl"):LabelControl({"LEFT", self.controls.compareItemSetSelect, "RIGHT"}, {8, 0, 0, 16}, "^7Config set:")
 	self.controls.compareConfigSetLabel.shown = setsEnabled
-	self.controls.compareConfigSetSelect = new("DropDownControl", {"LEFT", self.controls.compareConfigSetLabel, "RIGHT"}, {2, 0, 150, 20}, {}, function(index, value)
+	self.controls.compareConfigSetSelect = new("DropDownControl"):DropDownControl({"LEFT", self.controls.compareConfigSetLabel, "RIGHT"}, {2, 0, 150, 20}, {}, function(index, value)
 		local entry = self:GetActiveCompare()
 		if entry and entry.configTab then
 			local setId = entry.configTab.configSetOrderList[index]
@@ -342,11 +349,12 @@ function CompareTabClass:InitControls()
 	-- ============================================================
 	-- Comparison build main skill selector (row between sets and sub-tabs)
 	-- ============================================================
-	self.controls.cmpSkillLabel = new("LabelControl", {"TOPLEFT", self.controls.subTabAnchor, "TOPLEFT"}, {0, -32, 0, 16}, "^7Skill:")
+	self.controls.cmpSkillLabel = new("LabelControl"):LabelControl({"TOPLEFT", self.controls.subTabAnchor, "TOPLEFT"}, {0, -32, 0, 16}, "^7Skill:")
 	self.controls.cmpSkillLabel.shown = setsEnabled
+	self.controls.cmpSkillLabel.anchor.collapse = true
 
 	-- Socket group dropdown
-	self.controls.cmpSocketGroup = new("DropDownControl", {"LEFT", self.controls.cmpSkillLabel, "RIGHT"}, {4, 0, 200, 20}, {}, function(index, value)
+	self.controls.cmpSocketGroup = new("DropDownControl"):DropDownControl({"LEFT", self.controls.cmpSkillLabel, "RIGHT"}, {4, 0, 200, 20}, {}, function(index, value)
 		local entry = self:GetActiveCompare()
 		if entry then
 			entry:SetMainSocketGroup(index)
@@ -355,9 +363,10 @@ function CompareTabClass:InitControls()
 	self.controls.cmpSocketGroup.shown = setsEnabled
 	self.controls.cmpSocketGroup.maxDroppedWidth = 500
 	self.controls.cmpSocketGroup.enableDroppedWidth = true
+	self.controls.cmpSocketGroup.anchor.collapse = true
 
 	-- Active skill within group
-	self.controls.cmpMainSkill = new("DropDownControl", {"LEFT", self.controls.cmpSocketGroup, "RIGHT"}, {4, 0, 225, 20}, {}, function(index, value)
+	self.controls.cmpMainSkill = new("DropDownControl"):DropDownControl({"LEFT", self.controls.cmpSocketGroup, "RIGHT"}, {4, 0, 225, 20}, {}, function(index, value)
 		local entry = self:GetActiveCompare()
 		if entry then
 			local mainSocketGroup = entry.skillsTab.socketGroupList[entry.mainSocketGroup]
@@ -368,9 +377,10 @@ function CompareTabClass:InitControls()
 		end
 	end)
 	self.controls.cmpMainSkill.shown = false
+	self.controls.cmpMainSkill.anchor.collapse = true
 
 	-- Skill part (multi-part skills)
-	self.controls.cmpSkillPart = new("DropDownControl", {"LEFT", self.controls.cmpMainSkill, "RIGHT"}, {4, 0, 200, 20}, {}, function(index, value)
+	self.controls.cmpSkillPart = new("DropDownControl"):DropDownControl({"LEFT", self.controls.cmpMainSkill, "RIGHT"}, {4, 0, 200, 20}, {}, function(index, value)
 		local entry = self:GetActiveCompare()
 		if entry then
 			local mainSocketGroup = entry.skillsTab.socketGroupList[entry.mainSocketGroup]
@@ -385,11 +395,13 @@ function CompareTabClass:InitControls()
 		end
 	end)
 	self.controls.cmpSkillPart.shown = false
+	self.controls.cmpSkillPart.anchor.collapse = true
 
 	-- Stage count
-	self.controls.cmpStageCountLabel = new("LabelControl", {"LEFT", self.controls.cmpSkillPart, "RIGHT"}, {6, 0, 0, 16}, "^7Stages:")
+	self.controls.cmpStageCountLabel = new("LabelControl"):LabelControl({"LEFT", self.controls.cmpSkillPart, "RIGHT"}, {6, 0, 0, 16}, "^7Stages:")
 	self.controls.cmpStageCountLabel.shown = function() return self.controls.cmpStageCount.shown end
-	self.controls.cmpStageCount = new("EditControl", {"LEFT", self.controls.cmpStageCountLabel, "RIGHT"}, {4, 0, 52, 20}, "", nil, "%D", 5, function(buf)
+	self.controls.cmpStageCountLabel.anchor.collapse = true
+	self.controls.cmpStageCount = new("EditControl"):EditControl({ "LEFT", self.controls.cmpStageCountLabel, "RIGHT" }, { 4, 0, 52, 20 }, "", nil, "%D", 5, function(buf)
 		local entry = self:GetActiveCompare()
 		if entry then
 			local mainSocketGroup = entry.skillsTab.socketGroupList[entry.mainSocketGroup]
@@ -404,11 +416,13 @@ function CompareTabClass:InitControls()
 		end
 	end)
 	self.controls.cmpStageCount.shown = false
+	self.controls.cmpStageCount.anchor.collapse = true
 
 	-- Mine count
-	self.controls.cmpMineCountLabel = new("LabelControl", {"LEFT", self.controls.cmpStageCount, "RIGHT"}, {6, 0, 0, 16}, "^7Mines:")
+	self.controls.cmpMineCountLabel = new("LabelControl"):LabelControl({"LEFT", self.controls.cmpStageCount, "RIGHT"}, {6, 0, 0, 16}, "^7Mines:")
 	self.controls.cmpMineCountLabel.shown = function() return self.controls.cmpMineCount.shown end
-	self.controls.cmpMineCount = new("EditControl", {"LEFT", self.controls.cmpMineCountLabel, "RIGHT"}, {4, 0, 52, 20}, "", nil, "%D", 5, function(buf)
+	self.controls.cmpMineCountLabel.anchor.collapse = true
+	self.controls.cmpMineCount = new("EditControl"):EditControl({ "LEFT", self.controls.cmpMineCountLabel, "RIGHT" }, { 4, 0, 52, 20 }, "", nil, "%D", 5, function(buf)
 		local entry = self:GetActiveCompare()
 		if entry then
 			local mainSocketGroup = entry.skillsTab.socketGroupList[entry.mainSocketGroup]
@@ -423,9 +437,10 @@ function CompareTabClass:InitControls()
 		end
 	end)
 	self.controls.cmpMineCount.shown = false
+	self.controls.cmpMineCount.anchor.collapse = true
 
 	-- Minion selector
-	self.controls.cmpMinion = new("DropDownControl", {"LEFT", self.controls.cmpMineCount, "RIGHT"}, {6, 0, 140, 20}, {}, function(index, value)
+	self.controls.cmpMinion = new("DropDownControl"):DropDownControl({"LEFT", self.controls.cmpMineCount, "RIGHT"}, {6, 0, 140, 20}, {}, function(index, value)
 		local entry = self:GetActiveCompare()
 		if entry then
 			local mainSocketGroup = entry.skillsTab.socketGroupList[entry.mainSocketGroup]
@@ -447,9 +462,10 @@ function CompareTabClass:InitControls()
 		end
 	end)
 	self.controls.cmpMinion.shown = false
+	self.controls.cmpMinion.anchor.collapse = true
 
 	-- Minion skill selector
-	self.controls.cmpMinionSkill = new("DropDownControl", {"LEFT", self.controls.cmpMinion, "RIGHT"}, {4, 0, 140, 20}, {}, function(index, value)
+	self.controls.cmpMinionSkill = new("DropDownControl"):DropDownControl({"LEFT", self.controls.cmpMinion, "RIGHT"}, {4, 0, 140, 20}, {}, function(index, value)
 		local entry = self:GetActiveCompare()
 		if entry then
 			local mainSocketGroup = entry.skillsTab.socketGroupList[entry.mainSocketGroup]
@@ -464,6 +480,7 @@ function CompareTabClass:InitControls()
 		end
 	end)
 	self.controls.cmpMinionSkill.shown = false
+	self.controls.cmpMinionSkill.anchor.collapse = true
 
 	-- ============================================================
 	-- Calcs view skill detail controls (per-build, independent of sidebar & regular Calcs tab)
@@ -475,7 +492,7 @@ function CompareTabClass:InitControls()
 		{ label = "Effective DPS", buffMode = "EFFECTIVE" },
 	}
 	-- Primary build calcs skill controls
-	self.controls.primCalcsSocketGroup = new("DropDownControl", nil, {0, 0, 200, 18}, {}, function(index, value)
+	self.controls.primCalcsSocketGroup = new("DropDownControl"):DropDownControl(nil, {0, 0, 200, 18}, {}, function(index, value)
 		self.primaryBuild.calcsTab.input.skill_number = index
 		self.primaryBuild.buildFlag = true
 	end)
@@ -483,7 +500,7 @@ function CompareTabClass:InitControls()
 	self.controls.primCalcsSocketGroup.maxDroppedWidth = 400
 	self.controls.primCalcsSocketGroup.enableDroppedWidth = true
 
-	self.controls.primCalcsMainSkill = new("DropDownControl", nil, {0, 0, 200, 18}, {}, function(index, value)
+	self.controls.primCalcsMainSkill = new("DropDownControl"):DropDownControl(nil, {0, 0, 200, 18}, {}, function(index, value)
 		local mainSocketGroup = self.primaryBuild.skillsTab.socketGroupList[self.primaryBuild.calcsTab.input.skill_number]
 		if mainSocketGroup then
 			mainSocketGroup.mainActiveSkillCalcs = index
@@ -492,7 +509,7 @@ function CompareTabClass:InitControls()
 	end)
 	self.controls.primCalcsMainSkill.shown = false
 
-	self.controls.primCalcsSkillPart = new("DropDownControl", nil, {0, 0, 150, 18}, {}, function(index, value)
+	self.controls.primCalcsSkillPart = new("DropDownControl"):DropDownControl(nil, {0, 0, 150, 18}, {}, function(index, value)
 		local mainSocketGroup = self.primaryBuild.skillsTab.socketGroupList[self.primaryBuild.calcsTab.input.skill_number]
 		if mainSocketGroup then
 			local displaySkillList = mainSocketGroup.displaySkillListCalcs
@@ -505,7 +522,7 @@ function CompareTabClass:InitControls()
 	end)
 	self.controls.primCalcsSkillPart.shown = false
 
-	self.controls.primCalcsStageCount = new("EditControl", nil, {0, 0, 52, 18}, "", nil, "%D", 5, function(buf)
+	self.controls.primCalcsStageCount = new("EditControl"):EditControl(nil, {0, 0, 52, 18}, "", nil, "%D", 5, function(buf)
 		local mainSocketGroup = self.primaryBuild.skillsTab.socketGroupList[self.primaryBuild.calcsTab.input.skill_number]
 		if mainSocketGroup then
 			local displaySkillList = mainSocketGroup.displaySkillListCalcs
@@ -518,7 +535,7 @@ function CompareTabClass:InitControls()
 	end)
 	self.controls.primCalcsStageCount.shown = false
 
-	self.controls.primCalcsMineCount = new("EditControl", nil, {0, 0, 52, 18}, "", nil, "%D", 5, function(buf)
+	self.controls.primCalcsMineCount = new("EditControl"):EditControl(nil, {0, 0, 52, 18}, "", nil, "%D", 5, function(buf)
 		local mainSocketGroup = self.primaryBuild.skillsTab.socketGroupList[self.primaryBuild.calcsTab.input.skill_number]
 		if mainSocketGroup then
 			local displaySkillList = mainSocketGroup.displaySkillListCalcs
@@ -531,13 +548,13 @@ function CompareTabClass:InitControls()
 	end)
 	self.controls.primCalcsMineCount.shown = false
 
-	self.controls.primCalcsShowMinion = new("CheckBoxControl", nil, {0, 0, 18}, nil, function(state)
+	self.controls.primCalcsShowMinion = new("CheckBoxControl"):CheckBoxControl(nil, {0, 0, 18}, nil, function(state)
 		self.primaryBuild.calcsTab.input.showMinion = state
 		self.primaryBuild.buildFlag = true
 	end, "Show stats for the minion instead of the player.")
 	self.controls.primCalcsShowMinion.shown = false
 
-	self.controls.primCalcsMinion = new("DropDownControl", nil, {0, 0, 140, 18}, {}, function(index, value)
+	self.controls.primCalcsMinion = new("DropDownControl"):DropDownControl(nil, {0, 0, 140, 18}, {}, function(index, value)
 		local mainSocketGroup = self.primaryBuild.skillsTab.socketGroupList[self.primaryBuild.calcsTab.input.skill_number]
 		if mainSocketGroup then
 			local displaySkillList = mainSocketGroup.displaySkillListCalcs
@@ -557,7 +574,7 @@ function CompareTabClass:InitControls()
 	end)
 	self.controls.primCalcsMinion.shown = false
 
-	self.controls.primCalcsMinionSkill = new("DropDownControl", nil, {0, 0, 140, 18}, {}, function(index, value)
+	self.controls.primCalcsMinionSkill = new("DropDownControl"):DropDownControl(nil, {0, 0, 140, 18}, {}, function(index, value)
 		local mainSocketGroup = self.primaryBuild.skillsTab.socketGroupList[self.primaryBuild.calcsTab.input.skill_number]
 		if mainSocketGroup then
 			local displaySkillList = mainSocketGroup.displaySkillListCalcs
@@ -570,14 +587,14 @@ function CompareTabClass:InitControls()
 	end)
 	self.controls.primCalcsMinionSkill.shown = false
 
-	self.controls.primCalcsMode = new("DropDownControl", nil, {0, 0, 120, 18}, calcsBuffModeDropList, function(index, value)
+	self.controls.primCalcsMode = new("DropDownControl"):DropDownControl(nil, {0, 0, 120, 18}, calcsBuffModeDropList, function(index, value)
 		self.primaryBuild.calcsTab.input.misc_buffMode = value.buffMode
 		self.primaryBuild.buildFlag = true
 	end)
 	self.controls.primCalcsMode.shown = false
 
 	-- Compare build calcs skill controls
-	self.controls.cmpCalcsSocketGroup = new("DropDownControl", nil, {0, 0, 200, 18}, {}, function(index, value)
+	self.controls.cmpCalcsSocketGroup = new("DropDownControl"):DropDownControl(nil, {0, 0, 200, 18}, {}, function(index, value)
 		local entry = self:GetActiveCompare()
 		if entry then
 			entry.calcsTab.input.skill_number = index
@@ -588,7 +605,7 @@ function CompareTabClass:InitControls()
 	self.controls.cmpCalcsSocketGroup.maxDroppedWidth = 400
 	self.controls.cmpCalcsSocketGroup.enableDroppedWidth = true
 
-	self.controls.cmpCalcsMainSkill = new("DropDownControl", nil, {0, 0, 200, 18}, {}, function(index, value)
+	self.controls.cmpCalcsMainSkill = new("DropDownControl"):DropDownControl(nil, {0, 0, 200, 18}, {}, function(index, value)
 		local entry = self:GetActiveCompare()
 		if entry then
 			local mainSocketGroup = entry.skillsTab.socketGroupList[entry.calcsTab.input.skill_number]
@@ -600,7 +617,7 @@ function CompareTabClass:InitControls()
 	end)
 	self.controls.cmpCalcsMainSkill.shown = false
 
-	self.controls.cmpCalcsSkillPart = new("DropDownControl", nil, {0, 0, 150, 18}, {}, function(index, value)
+	self.controls.cmpCalcsSkillPart = new("DropDownControl"):DropDownControl(nil, {0, 0, 150, 18}, {}, function(index, value)
 		local entry = self:GetActiveCompare()
 		if entry then
 			local mainSocketGroup = entry.skillsTab.socketGroupList[entry.calcsTab.input.skill_number]
@@ -616,7 +633,7 @@ function CompareTabClass:InitControls()
 	end)
 	self.controls.cmpCalcsSkillPart.shown = false
 
-	self.controls.cmpCalcsStageCount = new("EditControl", nil, {0, 0, 52, 18}, "", nil, "%D", 5, function(buf)
+	self.controls.cmpCalcsStageCount = new("EditControl"):EditControl(nil, {0, 0, 52, 18}, "", nil, "%D", 5, function(buf)
 		local entry = self:GetActiveCompare()
 		if entry then
 			local mainSocketGroup = entry.skillsTab.socketGroupList[entry.calcsTab.input.skill_number]
@@ -632,7 +649,7 @@ function CompareTabClass:InitControls()
 	end)
 	self.controls.cmpCalcsStageCount.shown = false
 
-	self.controls.cmpCalcsMineCount = new("EditControl", nil, {0, 0, 52, 18}, "", nil, "%D", 5, function(buf)
+	self.controls.cmpCalcsMineCount = new("EditControl"):EditControl(nil, {0, 0, 52, 18}, "", nil, "%D", 5, function(buf)
 		local entry = self:GetActiveCompare()
 		if entry then
 			local mainSocketGroup = entry.skillsTab.socketGroupList[entry.calcsTab.input.skill_number]
@@ -648,7 +665,7 @@ function CompareTabClass:InitControls()
 	end)
 	self.controls.cmpCalcsMineCount.shown = false
 
-	self.controls.cmpCalcsShowMinion = new("CheckBoxControl", nil, {0, 0, 18}, nil, function(state)
+	self.controls.cmpCalcsShowMinion = new("CheckBoxControl"):CheckBoxControl(nil, {0, 0, 18}, nil, function(state)
 		local entry = self:GetActiveCompare()
 		if entry then
 			entry.calcsTab.input.showMinion = state
@@ -657,7 +674,7 @@ function CompareTabClass:InitControls()
 	end, "Show stats for the minion instead of the player.")
 	self.controls.cmpCalcsShowMinion.shown = false
 
-	self.controls.cmpCalcsMinion = new("DropDownControl", nil, {0, 0, 140, 18}, {}, function(index, value)
+	self.controls.cmpCalcsMinion = new("DropDownControl"):DropDownControl(nil, {0, 0, 140, 18}, {}, function(index, value)
 		local entry = self:GetActiveCompare()
 		if entry then
 			local mainSocketGroup = entry.skillsTab.socketGroupList[entry.calcsTab.input.skill_number]
@@ -680,7 +697,7 @@ function CompareTabClass:InitControls()
 	end)
 	self.controls.cmpCalcsMinion.shown = false
 
-	self.controls.cmpCalcsMinionSkill = new("DropDownControl", nil, {0, 0, 140, 18}, {}, function(index, value)
+	self.controls.cmpCalcsMinionSkill = new("DropDownControl"):DropDownControl(nil, {0, 0, 140, 18}, {}, function(index, value)
 		local entry = self:GetActiveCompare()
 		if entry then
 			local mainSocketGroup = entry.skillsTab.socketGroupList[entry.calcsTab.input.skill_number]
@@ -696,7 +713,7 @@ function CompareTabClass:InitControls()
 	end)
 	self.controls.cmpCalcsMinionSkill.shown = false
 
-	self.controls.cmpCalcsMode = new("DropDownControl", nil, {0, 0, 120, 18}, calcsBuffModeDropList, function(index, value)
+	self.controls.cmpCalcsMode = new("DropDownControl"):DropDownControl(nil, {0, 0, 120, 18}, calcsBuffModeDropList, function(index, value)
 		local entry = self:GetActiveCompare()
 		if entry then
 			entry.calcsTab.input.misc_buffMode = value.buffMode
@@ -705,7 +722,7 @@ function CompareTabClass:InitControls()
 	end)
 	self.controls.cmpCalcsMode.shown = false
 
-	self.controls.calcsShowOnlyDifferencesCheck = new("CheckBoxControl", nil, {0, 0, 18}, "Show only differences", function(state)
+	self.controls.calcsShowOnlyDifferencesCheck = new("CheckBoxControl"):CheckBoxControl(nil, {0, 0, 18}, "Show only differences", function(state)
 		self.calcsShowOnlyDifferences = state
 	end, "Show only rows that differ between both builds. Disable to include unchanged rows.")
 	self.controls.calcsShowOnlyDifferencesCheck.shown = function()
@@ -732,7 +749,7 @@ function CompareTabClass:InitControls()
 	end
 
 	-- Overlay toggle checkbox
-	self.controls.treeOverlayCheck = new("CheckBoxControl", nil, {0, 0, 20}, "Overlay comparison", function(state)
+	self.controls.treeOverlayCheck = new("CheckBoxControl"):CheckBoxControl(nil, {0, 0, 20}, "Overlay comparison", function(state)
 		self.treeOverlayMode = state
 		self.treeSearchNeedsSync = true
 		if not state and self.primaryBuild.treeTab and self.primaryBuild.treeTab.viewer then
@@ -742,7 +759,7 @@ function CompareTabClass:InitControls()
 	self.controls.treeOverlayCheck.shown = treeFooterShown
 
 	-- Overlay-mode search (single search for primary viewer)
-	self.controls.overlayTreeSearch = new("EditControl", nil, {0, 0, 300, 20}, "", "Search", "%c", 100, function(buf)
+	self.controls.overlayTreeSearch = new("EditControl"):EditControl(nil, {0, 0, 300, 20}, "", "Search", "%c", 100, function(buf)
 		if self.primaryBuild.treeTab and self.primaryBuild.treeTab.viewer then
 			self.primaryBuild.treeTab.viewer.searchStr = buf
 		end
@@ -752,7 +769,7 @@ function CompareTabClass:InitControls()
 	end
 
 	-- Items expanded mode toggle
-	self.controls.itemsExpandedCheck = new("CheckBoxControl", nil, {0, 0, 20}, "Expanded mode", function(state)
+	self.controls.itemsExpandedCheck = new("CheckBoxControl"):CheckBoxControl(nil, {0, 0, 20}, "Expanded mode", function(state)
 		self.itemsExpandedMode = state
 		self.scrollY = 0
 	end)
@@ -764,9 +781,9 @@ function CompareTabClass:InitControls()
 	local itemsShown = function()
 		return self.compareViewMode == "ITEMS" and self:GetActiveCompare() ~= nil
 	end
-	self.controls.primaryItemSetLabel = new("LabelControl", nil, {0, 0, 0, 16}, "^7Item set:")
+	self.controls.primaryItemSetLabel = new("LabelControl"):LabelControl(nil, {0, 0, 0, 16}, "^7Item set:")
 	self.controls.primaryItemSetLabel.shown = itemsShown
-	self.controls.primaryItemSetSelect = new("DropDownControl", nil, {0, 0, 216, 20}, {}, function(index, value)
+	self.controls.primaryItemSetSelect = new("DropDownControl"):DropDownControl(nil, {0, 0, 216, 20}, {}, function(index, value)
 		if self.primaryBuild.itemsTab and self.primaryBuild.itemsTab.itemSetOrderList[index] then
 			self.primaryBuild.itemsTab:SetActiveItemSet(self.primaryBuild.itemsTab.itemSetOrderList[index])
 			self.primaryBuild.itemsTab:AddUndoState()
@@ -776,9 +793,9 @@ function CompareTabClass:InitControls()
 	self.controls.primaryItemSetSelect.shown = itemsShown
 
 	-- Item set dropdown for compare build
-	self.controls.compareItemSetLabel2 = new("LabelControl", nil, {0, 0, 0, 16}, "^7Item set:")
+	self.controls.compareItemSetLabel2 = new("LabelControl"):LabelControl(nil, {0, 0, 0, 16}, "^7Item set:")
 	self.controls.compareItemSetLabel2.shown = itemsShown
-	self.controls.compareItemSetSelect2 = new("DropDownControl", nil, {0, 0, 216, 20}, {}, function(index, value)
+	self.controls.compareItemSetSelect2 = new("DropDownControl"):DropDownControl(nil, {0, 0, 216, 20}, {}, function(index, value)
 		local entry = self:GetActiveCompare()
 		if entry and entry.itemsTab and entry.itemsTab.itemSetOrderList[index] then
 			entry:SetActiveItemSet(entry.itemsTab.itemSetOrderList[index])
@@ -788,9 +805,9 @@ function CompareTabClass:InitControls()
 	self.controls.compareItemSetSelect2.shown = itemsShown
 
 	-- Tree set dropdown for primary build
-	self.controls.primaryTreeSetLabel = new("LabelControl", nil, {0, 0, 0, 16}, "^7Tree set:")
+	self.controls.primaryTreeSetLabel = new("LabelControl"):LabelControl(nil, {0, 0, 0, 16}, "^7Tree set:")
 	self.controls.primaryTreeSetLabel.shown = itemsShown
-	self.controls.primaryTreeSetSelect = new("DropDownControl", nil, {0, 0, 216, 20}, {}, function(index, value)
+	self.controls.primaryTreeSetSelect = new("DropDownControl"):DropDownControl(nil, {0, 0, 216, 20}, {}, function(index, value)
 		if self.primaryBuild.treeTab and self.primaryBuild.treeTab.specList[index] then
 			self.primaryBuild.modFlag = true
 			self.primaryBuild.treeTab:SetActiveSpec(index)
@@ -802,9 +819,9 @@ function CompareTabClass:InitControls()
 	self.controls.primaryTreeSetSelect.enableDroppedWidth = true
 
 	-- Tree set dropdown for compare build
-	self.controls.compareTreeSetLabel = new("LabelControl", nil, {0, 0, 0, 16}, "^7Tree set:")
+	self.controls.compareTreeSetLabel = new("LabelControl"):LabelControl(nil, {0, 0, 0, 16}, "^7Tree set:")
 	self.controls.compareTreeSetLabel.shown = itemsShown
-	self.controls.compareTreeSetSelect = new("DropDownControl", nil, {0, 0, 216, 20}, {}, function(index, value)
+	self.controls.compareTreeSetSelect = new("DropDownControl"):DropDownControl(nil, {0, 0, 216, 20}, {}, function(index, value)
 		local entry = self:GetActiveCompare()
 		if entry and entry.treeTab and entry.treeTab.specList[index] then
 			entry:SetActiveSpec(index)
@@ -819,13 +836,13 @@ function CompareTabClass:InitControls()
 	self.controls.compareTreeSetSelect.enableDroppedWidth = true
 
 	-- Footer anchor controls (side-by-side only)
-	self.controls.leftFooterAnchor = new("Control", nil, {0, 0, 0, 20})
+	self.controls.leftFooterAnchor = new("Control"):Control(nil, {0, 0, 0, 20})
 	self.controls.leftFooterAnchor.shown = treeSideBySideShown
-	self.controls.rightFooterAnchor = new("Control", nil, {0, 0, 0, 20})
+	self.controls.rightFooterAnchor = new("Control"):Control(nil, {0, 0, 0, 20})
 	self.controls.rightFooterAnchor.shown = treeSideBySideShown
 
 	-- Left side (primary build) spec/version controls (header, both modes)
-	self.controls.leftSpecSelect = new("DropDownControl", nil, {0, 0, 180, 20}, {}, function(index, value)
+	self.controls.leftSpecSelect = new("DropDownControl"):DropDownControl(nil, {0, 0, 180, 20}, {}, function(index, value)
 		if self.primaryBuild.treeTab and self.primaryBuild.treeTab.specList[index] then
 			self.primaryBuild.modFlag = true
 			self.primaryBuild.treeTab:SetActiveSpec(index)
@@ -835,7 +852,7 @@ function CompareTabClass:InitControls()
 	self.controls.leftSpecSelect.maxDroppedWidth = 500
 	self.controls.leftSpecSelect.enableDroppedWidth = true
 
-	self.controls.leftVersionSelect = new("DropDownControl", {"LEFT", self.controls.leftSpecSelect, "RIGHT"}, {4, 0, 100, 20}, self.treeVersionDropdownList, function(index, selected)
+	self.controls.leftVersionSelect = new("DropDownControl"):DropDownControl({"LEFT", self.controls.leftSpecSelect, "RIGHT"}, {4, 0, 100, 20}, self.treeVersionDropdownList, function(index, selected)
 		if selected and selected.value and self.primaryBuild.spec and selected.value ~= self.primaryBuild.spec.treeVersion then
 			self.primaryBuild.treeTab:OpenVersionConvertPopup(selected.value, true)
 		end
@@ -843,7 +860,7 @@ function CompareTabClass:InitControls()
 	self.controls.leftVersionSelect.shown = treeFooterShown
 
 	-- Left search (footer, side-by-side only)
-	self.controls.leftTreeSearch = new("EditControl", {"TOPLEFT", self.controls.leftFooterAnchor, "TOPLEFT"}, {0, 0, 200, 20}, "", "Search", "%c", 100, function(buf)
+	self.controls.leftTreeSearch = new("EditControl"):EditControl({"TOPLEFT", self.controls.leftFooterAnchor, "TOPLEFT"}, {0, 0, 200, 20}, "", "Search", "%c", 100, function(buf)
 		if self.primaryBuild.treeTab and self.primaryBuild.treeTab.viewer then
 			self.primaryBuild.treeTab.viewer.searchStr = buf
 		end
@@ -851,7 +868,7 @@ function CompareTabClass:InitControls()
 	self.controls.leftTreeSearch.shown = treeSideBySideShown
 
 	-- Right side (compare build) spec/version controls (header, both modes)
-	self.controls.rightSpecSelect = new("DropDownControl", nil, {0, 0, 180, 20}, {}, function(index, value)
+	self.controls.rightSpecSelect = new("DropDownControl"):DropDownControl(nil, {0, 0, 180, 20}, {}, function(index, value)
 		local entry = self:GetActiveCompare()
 		if entry and entry.treeTab and entry.treeTab.specList[index] then
 			entry:SetActiveSpec(index)
@@ -865,7 +882,7 @@ function CompareTabClass:InitControls()
 	self.controls.rightSpecSelect.maxDroppedWidth = 500
 	self.controls.rightSpecSelect.enableDroppedWidth = true
 
-	self.controls.rightVersionSelect = new("DropDownControl", {"LEFT", self.controls.rightSpecSelect, "RIGHT"}, {4, 0, 100, 20}, self.treeVersionDropdownList, function(index, selected)
+	self.controls.rightVersionSelect = new("DropDownControl"):DropDownControl({"LEFT", self.controls.rightSpecSelect, "RIGHT"}, {4, 0, 100, 20}, self.treeVersionDropdownList, function(index, selected)
 		local entry = self:GetActiveCompare()
 		if entry and selected and selected.value and entry.spec then
 			if selected.value ~= entry.spec.treeVersion then
@@ -876,7 +893,7 @@ function CompareTabClass:InitControls()
 	self.controls.rightVersionSelect.shown = treeFooterShown
 
 	-- Copy compared tree to primary build
-	self.controls.copySpecBtn = new("ButtonControl", {"LEFT", self.controls.rightVersionSelect, "RIGHT"}, {4, 0, 76, 20}, "Copy tree", function()
+	self.controls.copySpecBtn = new("ButtonControl"):ButtonControl({"LEFT", self.controls.rightVersionSelect, "RIGHT"}, {4, 0, 76, 20}, "Copy tree", function()
 		self:CopyCompareSpecToPrimary(false)
 	end)
 	self.controls.copySpecBtn.shown = treeFooterShown
@@ -885,14 +902,14 @@ function CompareTabClass:InitControls()
 		return entry and entry.treeTab and entry.treeTab.specList[entry.treeTab.activeSpec] ~= nil
 	end
 
-	self.controls.copySpecUseBtn = new("ButtonControl", {"LEFT", self.controls.copySpecBtn, "RIGHT"}, {2, 0, 100, 20}, "Copy and use", function()
+	self.controls.copySpecUseBtn = new("ButtonControl"):ButtonControl({"LEFT", self.controls.copySpecBtn, "RIGHT"}, {2, 0, 100, 20}, "Copy and use", function()
 		self:CopyCompareSpecToPrimary(true)
 	end)
 	self.controls.copySpecUseBtn.shown = treeFooterShown
 	self.controls.copySpecUseBtn.enabled = self.controls.copySpecBtn.enabled
 
 	-- Right search (footer, side-by-side only)
-	self.controls.rightTreeSearch = new("EditControl", {"TOPLEFT", self.controls.rightFooterAnchor, "TOPLEFT"}, {0, 0, 200, 20}, "", "Search", "%c", 100, function(buf)
+	self.controls.rightTreeSearch = new("EditControl"):EditControl({"TOPLEFT", self.controls.rightFooterAnchor, "TOPLEFT"}, {0, 0, 200, 20}, "", "Search", "%c", 100, function(buf)
 		local entry = self:GetActiveCompare()
 		if entry and entry.treeTab and entry.treeTab.viewer then
 			entry.treeTab.viewer.searchStr = buf
@@ -901,7 +918,7 @@ function CompareTabClass:InitControls()
 	self.controls.rightTreeSearch.shown = treeSideBySideShown
 
 	-- Config view: "Copy Config from Compare Build" button
-	self.controls.copyConfigBtn = new("ButtonControl", nil, {0, 0, 240, 20},
+	self.controls.copyConfigBtn = new("ButtonControl"):ButtonControl(nil, {0, 0, 240, 20},
 		"Copy Config from Compare Build",
 		function() self:CopyCompareConfig() end)
 	self.controls.copyConfigBtn.shown = function()
@@ -909,7 +926,7 @@ function CompareTabClass:InitControls()
 	end
 
 	-- Config view: "Show All / Hide Ineligible" toggle button
-	self.controls.configToggleBtn = new("ButtonControl", nil, {0, 0, 240, 20},
+	self.controls.configToggleBtn = new("ButtonControl"):ButtonControl(nil, {0, 0, 240, 20},
 		function()
 			return self.configToggle and "Hide Ineligible Configurations" or "Show All Configurations"
 		end,
@@ -921,7 +938,7 @@ function CompareTabClass:InitControls()
 	end
 
 	-- Config view: search bar
-	self.controls.configSearchEdit = new("EditControl", nil, {0, 0, 240, 20}, "", "Search", "%c", 100, nil, nil, nil, true)
+	self.controls.configSearchEdit = new("EditControl"):EditControl(nil, {0, 0, 240, 20}, "", "Search", "%c", 100, nil, nil, nil, true)
 	self.controls.configSearchEdit.shown = function()
 		return self.compareViewMode == "CONFIG" and self:GetActiveCompare() ~= nil
 	end
@@ -930,9 +947,9 @@ function CompareTabClass:InitControls()
 	local configShown = function()
 		return self.compareViewMode == "CONFIG" and self:GetActiveCompare() ~= nil
 	end
-	self.controls.configPrimarySetLabel = new("LabelControl", nil, {0, 0, 0, 16}, "^7Config set:")
+	self.controls.configPrimarySetLabel = new("LabelControl"):LabelControl(nil, {0, 0, 0, 16}, "^7Config set:")
 	self.controls.configPrimarySetLabel.shown = configShown
-	self.controls.configPrimarySetSelect = new("DropDownControl", nil, {0, 0, 150, 20}, nil, function(index, value)
+	self.controls.configPrimarySetSelect = new("DropDownControl"):DropDownControl(nil, {0, 0, 150, 20}, nil, function(index, value)
 		local configTab = self.primaryBuild.configTab
 		local setId = configTab.configSetOrderList[index]
 		if setId then
@@ -960,7 +977,7 @@ function CompareTabClass:InitControls()
 			t_insert(powerStatList, entry)
 		end
 	end
-	self.controls.comparePowerStatSelect = new("DropDownControl", nil, {0, 0, 200, 20}, powerStatList, function(index, value)
+	self.controls.comparePowerStatSelect = new("DropDownControl"):DropDownControl(nil, {0, 0, 200, 20}, powerStatList, function(index, value)
 		if value and value.stat and value ~= self.comparePowerStat then
 			self.comparePowerStat = value
 			self.comparePowerDirty = true
@@ -981,35 +998,35 @@ function CompareTabClass:InitControls()
 	end
 
 	-- Category checkboxes
-	self.controls.comparePowerTreeCheck = new("CheckBoxControl", nil, {0, 0, 18}, "Tree:", function(state)
+	self.controls.comparePowerTreeCheck = new("CheckBoxControl"):CheckBoxControl(nil, {0, 0, 18}, "Tree:", function(state)
 		self.comparePowerCategories.treeNodes = state
 		self.comparePowerDirty = true
 	end, "Include passive tree nodes from compared build")
 	self.controls.comparePowerTreeCheck.shown = powerReportShown
 	self.controls.comparePowerTreeCheck.state = true
 
-	self.controls.comparePowerItemsCheck = new("CheckBoxControl", nil, {0, 0, 18}, "Items:", function(state)
+	self.controls.comparePowerItemsCheck = new("CheckBoxControl"):CheckBoxControl(nil, {0, 0, 18}, "Items:", function(state)
 		self.comparePowerCategories.items = state
 		self.comparePowerDirty = true
 	end, "Include items from compared build")
 	self.controls.comparePowerItemsCheck.shown = powerReportShown
 	self.controls.comparePowerItemsCheck.state = true
 
-	self.controls.comparePowerGemsCheck = new("CheckBoxControl", nil, {0, 0, 18}, "Skill gems:", function(state)
+	self.controls.comparePowerGemsCheck = new("CheckBoxControl"):CheckBoxControl(nil, {0, 0, 18}, "Skill gems:", function(state)
 		self.comparePowerCategories.skillGems = state
 		self.comparePowerDirty = true
 	end, "Include skill gem groups unique to compared build")
 	self.controls.comparePowerGemsCheck.shown = powerReportShown
 	self.controls.comparePowerGemsCheck.state = true
 
-	self.controls.comparePowerSupportGemsCheck = new("CheckBoxControl", nil, {0, 0, 18}, "Support gems:", function(state)
+	self.controls.comparePowerSupportGemsCheck = new("CheckBoxControl"):CheckBoxControl(nil, {0, 0, 18}, "Support gems:", function(state)
 		self.comparePowerCategories.supportGems = state
 		self.comparePowerDirty = true
 	end, "Include support gems from compared build's active skill")
 	self.controls.comparePowerSupportGemsCheck.shown = powerReportShown
 	self.controls.comparePowerSupportGemsCheck.state = true
 
-	self.controls.comparePowerConfigCheck = new("CheckBoxControl", nil, {0, 0, 18}, "Config:", function(state)
+	self.controls.comparePowerConfigCheck = new("CheckBoxControl"):CheckBoxControl(nil, {0, 0, 18}, "Config:", function(state)
 		self.comparePowerCategories.config = state
 		self.comparePowerDirty = true
 	end, "Include config option differences from compared build")
@@ -1017,19 +1034,19 @@ function CompareTabClass:InitControls()
 	self.controls.comparePowerConfigCheck.state = true
 
 	-- Power report list control (static height, own scrollbar)
-	self.controls.comparePowerReportList = new("ComparePowerReportListControl", nil, {0, 0, 750, 250})
+	self.controls.comparePowerReportList = new("ComparePowerReportListControl"):ComparePowerReportListControl(nil, {0, 0, 750, 250})
 	self.controls.comparePowerReportList.compareTab = self
 	self.controls.comparePowerReportList.shown = powerReportShown
 
 	-- Scrollbar for Calcs sub-tab
-	self.controls.calcsScrollBar = new("ScrollBarControl", nil, {0, 0, 18, 0}, 50, "VERTICAL", true)
+	self.controls.calcsScrollBar = new("ScrollBarControl"):ScrollBarControl(nil, {0, 0, 18, 0}, 50, "VERTICAL", true)
 	local calcsScrollBar = self.controls.calcsScrollBar
 	self.controls.calcsScrollBar.shown = function()
 		return self.compareViewMode == "CALCS" and self:GetActiveCompare() ~= nil and calcsScrollBar.enabled
 	end
 
 	-- Shared vertical scrollbar for Summary/Items/Skills/Config sub-tabs
-	self.controls.viewScrollBar = new("ScrollBarControl", nil, {0, 0, 18, 0}, 50, "VERTICAL", true)
+	self.controls.viewScrollBar = new("ScrollBarControl"):ScrollBarControl(nil, {0, 0, 18, 0}, 50, "VERTICAL", true)
 	local viewScrollBar = self.controls.viewScrollBar
 	self.controls.viewScrollBar.shown = function()
 		return self:GetActiveCompare() ~= nil
@@ -1039,14 +1056,14 @@ function CompareTabClass:InitControls()
 	end
 
 	-- Horizontal scrollbar for Items sub-tab
-	self.controls.itemsHScrollBar = new("ScrollBarControl", nil, {0, 0, 0, LAYOUT.itemsHScrollBarHeight}, 60, "HORIZONTAL", true)
+	self.controls.itemsHScrollBar = new("ScrollBarControl"):ScrollBarControl(nil, {0, 0, 0, LAYOUT.itemsHScrollBarHeight}, 60, "HORIZONTAL", true)
 	local itemsHScrollBar = self.controls.itemsHScrollBar
 	self.controls.itemsHScrollBar.shown = function()
 		return self.compareViewMode == "ITEMS" and self:GetActiveCompare() ~= nil and itemsHScrollBar.enabled
 	end
 
 	-- Horizontal scrollbar for Skills sub-tab
-	self.controls.skillsHScrollBar = new("ScrollBarControl", nil, {0, 0, 0, LAYOUT.skillsHScrollBarHeight}, 60, "HORIZONTAL", true)
+	self.controls.skillsHScrollBar = new("ScrollBarControl"):ScrollBarControl(nil, {0, 0, 0, LAYOUT.skillsHScrollBarHeight}, 60, "HORIZONTAL", true)
 	local skillsHScrollBar = self.controls.skillsHScrollBar
 	self.controls.skillsHScrollBar.shown = function()
 		return self.compareViewMode == "SKILLS" and self:GetActiveCompare() ~= nil and skillsHScrollBar.enabled
@@ -1117,7 +1134,7 @@ local function makeConfigControl(varData, inputTable, configTab, buildObj, sourc
 	local control
 	local pVal = inputTable[varData.var]
 	if varData.type == "check" then
-		control = new("CheckBoxControl", nil, {0, 0, 18}, nil, function(state)
+		control = new("CheckBoxControl"):CheckBoxControl(nil, {0, 0, 18}, nil, function(state)
 			inputTable[varData.var] = state
 			configTab:UpdateControls()
 			configTab:BuildModList()
@@ -1128,7 +1145,7 @@ local function makeConfigControl(varData, inputTable, configTab, buildObj, sourc
 			or varData.type == "countAllowZero" or varData.type == "float" then
 		local filter = (varData.type == "integer" and "^%-%d")
 			or (varData.type == "float" and "^%d.") or "%D"
-		control = new("EditControl", nil, {0, 0, 90, 18},
+		control = new("EditControl"):EditControl(nil, {0, 0, 90, 18},
 			tostring(pVal or ""), nil, filter, 7,
 			function(buf)
 				inputTable[varData.var] = tonumber(buf)
@@ -1137,7 +1154,7 @@ local function makeConfigControl(varData, inputTable, configTab, buildObj, sourc
 				buildObj.buildFlag = true
 			end)
 	elseif varData.type == "list" and varData.list then
-		control = new("DropDownControl", nil, {0, 0, 150, 18},
+		control = new("DropDownControl"):DropDownControl(nil, {0, 0, 150, 18},
 			varData.list, function(index, value)
 				inputTable[varData.var] = value.val
 				configTab:UpdateControls()
@@ -1226,11 +1243,15 @@ end
 
 -- Import a comparison build from XML text
 function CompareTabClass:ImportBuild(xmlText, label)
-	local entry = new("CompareEntry", xmlText, label)
+	local entry = new("CompareEntry"):CompareEntry(xmlText, label)
 	if entry and entry.calcsTab and entry.calcsTab.mainOutput then
 		t_insert(self.compareEntries, entry)
 		self.activeCompareIndex = #self.compareEntries
 		self:UpdateBuildSelector()
+		-- Restore primary build's window title
+		if self.primaryBuild.spec then
+			self.primaryBuild.spec:SetWindowTitleWithBuildClass()
+		end
 		return true
 	end
 	return false
@@ -1258,6 +1279,12 @@ function CompareTabClass:RemoveBuild(index)
 		if self.activeCompareIndex == 0 and #self.compareEntries > 0 then
 			self.activeCompareIndex = 1
 		end
+		if #self.compareEntries == 0 then
+			for _, control in ipairs({ self.controls.cmpMainSkill, self.controls.cmpSkillPart, self.controls.cmpStageCount,
+				self.controls.cmpMineCount, self.controls.cmpMinion, self.controls.cmpMinionSkill }) do
+				control.shown = false
+			end
+		end
 		self:UpdateBuildSelector()
 	end
 end
@@ -1265,13 +1292,24 @@ end
 -- Re-import primary build using character import (same as Import/Export tab)
 function CompareTabClass:ReimportPrimary()
 	local importTab = self.primaryBuild.importTab
-	-- Set clear checkboxes to true (delete existing jewels, skills, equipment)
-	importTab.controls.charImportTreeClearJewels.state = true
-	importTab.controls.charImportItemsClearSkills.state = true
-	importTab.controls.charImportItemsClearItems.state = true
-	-- Trigger both async imports (passive tree + items/skills)
-	importTab:DownloadPassiveTree()
-	importTab:DownloadItems()
+
+	-- oauth import, if previously selected
+	if importTab.controls.charSelect:GetSelValue() then
+		-- Set clear checkboxes to true (delete existing jewels, skills, equipment)
+		importTab.controls.charImportTreeClearJewels.state = true
+		importTab.controls.charImportItemsClearSkills.state = true
+		importTab.controls.charImportItemsClearItems.state = true
+		-- Trigger both async imports (passive tree + items/skills)
+		importTab.controls.charImportTree:Click()
+		importTab.controls.charImportItems:Click()
+	-- account name import
+	elseif importTab.controls.siteCharSelect:GetSelValue()  then
+		importTab.controls.siteCharImportTreeClearJewels.state = true
+		importTab.controls.siteCharImportItemsClearSkills.state = true
+		importTab.controls.siteCharImportItemsClearItems.state = true
+		importTab.controls.siteCharImportTree:Click()
+		importTab.controls.siteCharImportItems:Click()
+	end
 end
 
 -- Update the build selector dropdown
@@ -1306,7 +1344,7 @@ function CompareTabClass:CopyCompareSpecToPrimary(andUse)
 	-- Create new spec from source (same pattern as PassiveSpecListControl Copy)
 	-- Note: we don't copy jewels because they reference item IDs in the compared
 	-- build's itemsTab which don't exist in the primary build
-	local newSpec = new("PassiveSpec", self.primaryBuild, sourceSpec.treeVersion)
+	local newSpec = new("PassiveSpec"):PassiveSpec(self.primaryBuild, sourceSpec.treeVersion)
 	newSpec.title = (sourceSpec.title or "Default") .. " (Compared)"
 	newSpec:RestoreUndoState(sourceSpec:CreateUndoState())
 	newSpec:BuildClusterJewelGraphs()
@@ -1408,7 +1446,7 @@ function CompareTabClass:CopyCompareItemToPrimary(slotName, compareEntry, andUse
 	local cItem = cSlot and compareEntry.itemsTab.items and compareEntry.itemsTab.items[cSlot.selItemId]
 	if not cItem or not cItem.raw then return end
 
-	local newItem = new("Item", cItem.raw)
+	local newItem = new("Item"):Item(cItem.raw)
 	newItem:NormaliseQuality()
 	local pItemsTab = self.primaryBuild.itemsTab
 	pItemsTab:AddItem(newItem, true) -- true = noAutoEquip
@@ -1431,20 +1469,20 @@ function CompareTabClass:OpenImportPopup()
 	-- Use a local variable for state text so it doesn't go into the controls table
 	-- (PopupDialog iterates all controls table entries and expects them to be control objects)
 	local stateText = ""
-	controls.label = new("LabelControl", nil, {0, 20, 0, 16}, "^7Paste a build code or URL to import as comparison:")
-	controls.input = new("EditControl", nil, {0, 50, 450, 20}, "", nil, nil, nil, nil, nil, nil, true)
+	controls.label = new("LabelControl"):LabelControl(nil, {0, 20, 0, 16}, "^7Paste a build code or URL to import as comparison:")
+	controls.input = new("EditControl"):EditControl(nil, {0, 50, 450, 20}, "", nil, nil, nil, nil, nil, nil, true)
 	controls.input.enterFunc = function()
 		if controls.input.buf and controls.input.buf ~= "" then
 			controls.go.onClick()
 		end
 	end
 
-	controls.name = new("EditControl", nil, {0, 80, 450, 20}, "", "Name (optional)", nil, 100, nil)
-	controls.state = new("LabelControl", {"TOPLEFT", controls.name, "BOTTOMLEFT"}, {0, 4, 0, 16})
+	controls.name = new("EditControl"):EditControl(nil, {0, 80, 450, 20}, "", "Name (optional)", nil, 100, nil)
+	controls.state = new("LabelControl"):LabelControl({"TOPLEFT", controls.name, "BOTTOMLEFT"}, {0, 4, 0, 16})
 	controls.state.label = function()
 		return stateText or ""
 	end
-	controls.go = new("ButtonControl", nil, {-118, 130, 80, 20}, "Import", function()
+	controls.go = new("ButtonControl"):ButtonControl(nil, {-118, 130, 80, 20}, "Import", function()
 		local buf = controls.input.buf
 		if not buf or buf == "" then
 			return
@@ -1481,11 +1519,11 @@ function CompareTabClass:OpenImportPopup()
 			stateText = colorCodes.NEGATIVE .. "Invalid build code"
 		end
 	end)
-	controls.importFolder = new("ButtonControl", nil, {0, 130, 140, 20}, "Import from Folder", function()
+	controls.importFolder = new("ButtonControl"):ButtonControl(nil, {0, 130, 140, 20}, "Import from Folder", function()
 		main:ClosePopup()
 		self:OpenImportFolderPopup()
 	end)
-	controls.cancel = new("ButtonControl", nil, {118, 130, 80, 20}, "Cancel", function()
+	controls.cancel = new("ButtonControl"):ButtonControl(nil, {118, 130, 80, 20}, "Cancel", function()
 		main:ClosePopup()
 	end)
 	main:OpenPopup(500, 160, "Import Comparison Build", controls, "go", "input", "cancel")
@@ -1505,12 +1543,22 @@ function CompareTabClass:OpenImportFolderPopup()
 		controls = { },
 	}
 	function listHost:BuildList()
+		self.buildIndex = buildListHelpers.ScanFolder(self.subPath)
+		self:FilterBuildList()
+	end
+	function listHost:FilterBuildList()
 		wipeTable(self.list)
-		local scanned = buildListHelpers.ScanFolder(self.subPath, searchText)
-		for _, entry in ipairs(scanned) do
+		for _, entry in ipairs(buildListHelpers.FilterList(self.buildIndex, self.subPath, searchText)) do
 			t_insert(self.list, entry)
 		end
+		self:SortList()
+	end
+	function listHost:SortList()
+		local selectedFullFileName = controls.buildList and controls.buildList.selValue and controls.buildList.selValue.fullFileName
 		buildListHelpers.SortList(self.list, sortMode)
+		if controls.buildList then
+			controls.buildList:SelByFullFileName(selectedFullFileName)
+		end
 	end
 	function listHost:SelectControl(control)
 		-- Focus is managed by the popup's ControlHost; this is a no-op for the popup list.
@@ -1537,19 +1585,20 @@ function CompareTabClass:OpenImportFolderPopup()
 	end
 
 	-- Search box and sort dropdown sit above the build list.
-	controls.searchText = new("EditControl", {"TOPLEFT", nil, "TOPLEFT"}, {15, 25, 450, 20}, "", "Search", "%c%(%)", 100, function(buf)
+	controls.searchText = new("EditControl"):EditControl({"TOPLEFT", nil, "TOPLEFT"}, {15, 25, 450, 20}, "", "Search", "%c%(%)", 100, function(buf)
 		searchText = buf
-		listHost:BuildList()
+		listHost:FilterBuildList()
 	end, nil, nil, true)
-	controls.sort = new("DropDownControl", {"TOPLEFT", nil, "TOPLEFT"}, {475, 25, 210, 20}, buildListHelpers.buildSortDropList, function(index, value)
+	controls.searchText:SetPlaceholder("(e.g. class:assassin myfilename)")
+	controls.sort = new("DropDownControl"):DropDownControl({"TOPLEFT", nil, "TOPLEFT"}, {475, 25, 210, 20}, buildListHelpers.buildSortDropList, function(index, value)
 		sortMode = value.sortMode
 		main.buildSortMode = value.sortMode
-		buildListHelpers.SortList(listHost.list, sortMode)
+		listHost:SortList()
 	end)
 	controls.sort:SelByValue(sortMode, "sortMode")
 
 	-- Build list itself. Reuses BuildListControl (which provides the PathControl breadcrumbs)
-	controls.buildList = new("BuildListControl", {"TOPLEFT", nil, "TOPLEFT"}, {15, 75, 0, 0}, listHost)
+	controls.buildList = new("BuildListControl"):BuildListControl({"TOPLEFT", nil, "TOPLEFT"}, {15, 75, 0, 0}, listHost)
 	controls.buildList.width = function() return 670 end
 	controls.buildList.height = function() return 355 end
 
@@ -1557,7 +1606,7 @@ function CompareTabClass:OpenImportFolderPopup()
 	-- navigate folders, import builds, and suppress rename/delete/drag behaviors.
 	function controls.buildList:LoadBuild(build)
 		if build.folderName then
-			self.controls.path:SetSubPath(self.listMode.subPath .. build.folderName .. "/")
+			self.controls.path:SetSubPath(build.subPath .. build.folderName .. "/")
 		else
 			importBuildEntry(build)
 		end
@@ -1581,14 +1630,14 @@ function CompareTabClass:OpenImportFolderPopup()
 	-- Populate the initial list now that the control (and its path control) exist.
 	listHost:BuildList()
 
-	controls.open = new("ButtonControl", {"TOPLEFT", nil, "TOPLEFT"}, {255, 465, 80, 20}, "Open", function()
+	controls.open = new("ButtonControl"):ButtonControl({"TOPLEFT", nil, "TOPLEFT"}, {255, 465, 80, 20}, "Open", function()
 		local sel = controls.buildList.selValue
 		if sel then
 			controls.buildList:LoadBuild(sel)
 		end
 	end)
 	controls.open.enabled = function() return controls.buildList.selValue ~= nil end
-	controls.close = new("ButtonControl", {"TOPLEFT", nil, "TOPLEFT"}, {365, 465, 80, 20}, "Close", function()
+	controls.close = new("ButtonControl"):ButtonControl({"TOPLEFT", nil, "TOPLEFT"}, {365, 465, 80, 20}, "Close", function()
 		main:ClosePopup()
 	end)
 
@@ -1798,6 +1847,16 @@ function CompareTabClass:Draw(viewPort, inputEvents)
 	end
 
 	self:DrawControls(viewPort)
+	if self.compareViewMode == "CONFIG" and compareEntry then
+		self:DrawConfig(contentVP, compareEntry, true)
+		self:DrawControlList(viewPort, {
+			self.controls.copyConfigBtn,
+			self.controls.configToggleBtn,
+			self.controls.configSearchEdit,
+			self.controls.configPrimarySetLabel,
+			self.controls.configPrimarySetSelect,
+		})
+	end
 	if drawingTree then
 		SetDrawLayer(0)
 	end
@@ -1809,6 +1868,17 @@ end
 -- ============================================================
 -- DRAW HELPERS
 -- ============================================================
+
+function CompareTabClass:DrawControlList(viewPort, controls)
+	local noTooltip = function(control)
+		return self.selControl and self.selControl.hasFocus and self.selControl ~= control
+	end
+	for _, control in ipairs(controls) do
+		if control:IsShown() and control.Draw then
+			control:Draw(viewPort, noTooltip(control))
+		end
+	end
+end
 
 -- Pre-draw tree header/footer backgrounds and position tree controls.
 -- Must run before ProcessControlsInput so controls render on top of backgrounds.
@@ -1963,7 +2033,11 @@ local function syncControlValue(ctrl, varData, val)
 		ctrl.state = val or false
 	elseif varData.type == "count" or varData.type == "integer"
 			or varData.type == "countAllowZero" or varData.type == "float" then
-		ctrl:SetText(tostring(val or ""))
+		local text = tostring(val or "")
+		-- avoid setting text every time as otherwise this clears user selections on every frame
+		if not ctrl.hasFocus and text ~= ctrl.buf then
+			ctrl:SetText(text)
+		end
 	elseif varData.type == "list" then
 		ctrl:SelByValue(val or (varData.list[1] and varData.list[1].val), "val")
 	end
@@ -2123,6 +2197,7 @@ function CompareTabClass:LayoutConfigView(contentVP, compareEntry)
 	local scrollTopAbs = contentVP.y + fixedHeaderHeight
 	local scrollBottomAbs = contentVP.y + contentVP.height
 	local ctrlH = rowHeight
+	local mouseClipRect = { contentVP.x, scrollTopAbs, contentVP.width, scrollBottomAbs - scrollTopAbs }
 	for _, sec in ipairs(sectionLayout) do
 		local sectionAbsX = contentVP.x + sec.x
 		local rowY = sec.y + sectionInnerPad
@@ -2134,11 +2209,13 @@ function CompareTabClass:LayoutConfigView(contentVP, compareEntry)
 			ci.compareControl.y = contentVP.y + fixedHeaderHeight + rowY - self.scrollY
 			local shownFn = function()
 				local ay = ci.primaryControl.y
-				return ay >= scrollTopAbs and ay + ctrlH <= scrollBottomAbs
+				return ay + ctrlH > scrollTopAbs and ay < scrollBottomAbs
 					and self.compareViewMode == "CONFIG" and self:GetActiveCompare() ~= nil
 			end
 			ci.primaryControl.shown = shownFn
 			ci.compareControl.shown = shownFn
+			ci.primaryControl.mouseClipRect = mouseClipRect
+			ci.compareControl.mouseClipRect = mouseClipRect
 			rowY = rowY + rowHeight
 		end
 	end
@@ -2544,10 +2621,7 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 	end
 
 	-- Get baseline stat value for percentage calculation
-	local baseStatValue = calcBase[powerStat.stat] or 0
-	if powerStat.transform then
-		baseStatValue = powerStat.transform(baseStatValue)
-	end
+	local baseStatValue = data.powerStatList.GetFromOutput(calcBase, powerStat)
 
 	-- Helper to format an impact value and compute percentage
 	local function formatImpact(impact)
@@ -2655,7 +2729,7 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 			local pSlot = self.primaryBuild.itemsTab and self.primaryBuild.itemsTab.slots[slotName]
 			local pItem = pSlot and self.primaryBuild.itemsTab.items[pSlot.selItemId]
 			if cItem and cItem.raw and not (pItem and pItem.name == cItem.name) then
-				local newItem = new("Item", cItem.raw)
+				local newItem = new("Item"):Item(cItem.raw)
 				newItem:NormaliseQuality()
 				
 				-- if our comparison has abyssal jewels, but the primary build
@@ -2678,7 +2752,7 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 							-- might not exist
 							if cmpJewel then
 								-- copy item
-								local itemCopy = new("Item", cmpJewel:BuildRaw())
+								local itemCopy = new("Item"):Item(cmpJewel:BuildRaw())
 								table.insert(cmpJewels, itemCopy)
 								self.primaryBuild.itemsTab:AddItem(itemCopy, false)
 
@@ -2763,7 +2837,7 @@ function CompareTabClass:ComparePowerBuilder(compareEntry, powerStat, categories
 		local jewelSlots = self:GetJewelComparisonSlots(compareEntry)
 		for _, jEntry in ipairs(jewelSlots) do
 			if jEntry.cItem and jEntry.cItem.raw and not (jEntry.pItem and jEntry.pItem.name == jEntry.cItem.name) then
-				local newItem = new("Item", jEntry.cItem.raw)
+				local newItem = new("Item"):Item(jEntry.cItem.raw)
 				newItem:NormaliseQuality()
 
 				local bestImpactVal = nil
@@ -3798,13 +3872,33 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 			drawY = drawY + maxH + 6
 		else
 			-- === COMPACT MODE ===
+			local slot = self.primaryBuild.itemsTab.slots[equipSlotName]
+			local nodeId = slot and slot.nodeId
+			local shouldUnderline = not not nodeId
 			local pHover, cHover, b1Hover, b2Hover, b3Hover, b2X, b2Y, b2W, b2H,
 				rowHoverItem, rowHoverItemsTab, rowHoverX, rowHoverY, rowHoverW, rowHoverH =
 				tradeHelpers.drawCompactSlotRow(drawY, label, pItem, cItem,
 					colWidth, cursorX, cursorY, labelW,
 					self.primaryBuild.itemsTab, compareEntry.itemsTab, pWarn, cWarn, slotMissing,
-					LAYOUT.itemsCopyBtnW, LAYOUT.itemsCopyBtnH, LAYOUT.itemsBuyBtnW, LAYOUT.itemsEquipBtnW, scrollOffsetX)
+					LAYOUT.itemsCopyBtnW, LAYOUT.itemsCopyBtnH, LAYOUT.itemsBuyBtnW, LAYOUT.itemsEquipBtnW, scrollOffsetX,
+					shouldUnderline)
 
+			local labelX = (scrollOffsetX or 0) + 10
+			-- draw passive tree view when hovering over the label, if the slot is a jewel socket
+			if labelX <= cursorX and cursorX <= (labelX + labelW)
+				and drawY < cursorY and cursorY <= (drawY + 20) then
+				if nodeId then
+					local boxSize = 250
+					-- anchor bottom left to label top left, keeping in mind what our viewport was
+					SetViewport()
+					local boxX = vp.x + labelX
+					local boxY = (vp.y + checkboxOffset) + drawY - boxSize
+					itemSlotHelper.DrawViewer(self.primaryBuild.itemsTab, nodeId, boxX, boxY, boxSize,
+						boxSize)
+					-- restore viewport
+					SetViewport(vp.x, vp.y + checkboxOffset, vp.width, scrollViewH)
+				end
+			end
 			if rowHoverItem then
 				hoverItem = rowHoverItem
 				hoverItemsTab = rowHoverItemsTab
@@ -3889,7 +3983,7 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 	-- Draw item tooltip on hover (compact mode only, on top of everything)
 	SetViewport()
 	local maxTooltipWidth = m_min(600, m_max(260, vp.width - 24))
-	if hoverItem and hoverItemsTab then
+	if not main.popups[1] and hoverItem and hoverItemsTab then
 		self.itemTooltip:Clear()
 		hoverItemsTab:AddItemTooltip(self.itemTooltip, hoverItem, nil, nil, maxTooltipWidth)
 		SetDrawLayer(nil, 100)
@@ -3898,13 +3992,13 @@ function CompareTabClass:DrawItems(vp, compareEntry, inputEvents)
 	end
 
 	-- Draw stat comparison tooltip when hovering Equip button
-	if hoverEquipItem and hoverEquipSlotName and not hoverItem then
+	if not main.popups[1] and hoverEquipItem and hoverEquipSlotName and not hoverItem then
 		self.itemTooltip:Clear()
 		self.itemTooltip.maxWidth = maxTooltipWidth
 		local calcFunc, calcBase = self.calcs.getMiscCalculator(self.primaryBuild)
 		if calcFunc then
 			-- Create a fresh item to evaluate
-			local newItem = new("Item", hoverEquipItem.raw)
+			local newItem = new("Item"):Item(hoverEquipItem.raw)
 			newItem:NormaliseQuality()
 
 			-- Determine what's currently in the target slot
@@ -4839,7 +4933,7 @@ end
 -- ============================================================
 -- CONFIG VIEW
 -- ============================================================
-function CompareTabClass:DrawConfig(vp, compareEntry)
+function CompareTabClass:DrawConfig(vp, compareEntry, headerOnly)
 	local rowHeight = LAYOUT.configRowHeight
 	local columnHeaderHeight = LAYOUT.configColumnHeaderHeight
 	local fixedHeaderHeight = LAYOUT.configFixedHeaderHeight
@@ -4849,6 +4943,8 @@ function CompareTabClass:DrawConfig(vp, compareEntry)
 
 	-- Fixed header area: row 1 = buttons, row 2 = search/dropdowns, then column headers + separator
 	SetViewport(vp.x, vp.y, vp.width, fixedHeaderHeight)
+	SetDrawColor(0.05, 0.05, 0.05)
+	DrawImage(nil, 0, 0, vp.width, fixedHeaderHeight)
 	-- Controls are drawn by ControlHost (positioned in LayoutConfigView)
 	local colHeaderY = 54
 	SetDrawColor(1, 1, 1)
@@ -4860,6 +4956,10 @@ function CompareTabClass:DrawConfig(vp, compareEntry)
 		colorCodes.WARNING .. (compareEntry.label or "Compare Build"))
 	SetDrawColor(0.5, 0.5, 0.5)
 	DrawImage(nil, 4, colHeaderY + columnHeaderHeight + 4, vp.width - 8, 2)
+	if headerOnly then
+		SetViewport()
+		return
+	end
 
 	-- Scrollable content area (clipped below fixed header)
 	local scrollH = vp.height - fixedHeaderHeight

@@ -267,7 +267,7 @@ DexterityUniqueDagger3
 LocalIncreasedPhysicalDamagePercentUniqueDagger2
 AddedLightningDamageUniqueDagger3
 LocalIncreasedAttackSpeedUniqueDagger3
-CriticalStrikeChanceImplicitDaggerNew3
+CriticalStrikeChanceUniqueDagger3
 ]],[[
 Replica Ungil's Gauche
 Boot Knife

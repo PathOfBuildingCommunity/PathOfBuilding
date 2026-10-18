@@ -822,16 +822,19 @@ SoulTattooEffectUnique__1
 [[
 Amanamu's Gaze
 Ghastly Eye Jewel
+Source: Drops from unique{Abyssal Liches} in normal{Abyssal Depths}
 AllAttributesUnique__23
 MinionDamageOverTimeMultiplierPerMinionAbyssJewelUnique__1
 ]],[[
 Kurgal's Gaze
 Hypnotic Eye Jewel
+Source: Drops from unique{Abyssal Liches} in normal{Abyssal Depths}
 IntelligenceUnique__28
 ArcaneSurgeEffectPerCasterAbyssJewelUnique__1
 ]],[[
 Tecrod's Gaze
 Murderous Eye Jewel
+Source: Drops from unique{Abyssal Liches} in normal{Abyssal Depths}
 Variant: Pre 3.21.0
 Variant: Current
 Requires Level 40
@@ -843,6 +846,7 @@ StrengthUnique__21
 ]],[[
 Ulaman's Gaze
 Searching Eye Jewel
+Source: Drops from unique{Abyssal Liches} in normal{Abyssal Depths}
 Requires Level 40
 DexterityUnique__21_
 ChainOffTerrainChancePerRangedAbyssJewelUnique__1__
@@ -1837,9 +1841,10 @@ Variant: Duration of Curses
 Variant: Minion Attack and Cast Speed
 Variant: Minions Accuracy Rating
 Variant: Mana Regen
-Variant: Skill Cost
+Variant: Skill Cost (Pre 3.29.0)
 Variant: Non-Curse Aura Effect
 Variant: Defences from Shield
+Variant: Skill Cost
 Radius: Large
 Implicits: 0
 {variant:1}Carved to glorify (2000-10000) new faithful converted by High Templar Avarius
@@ -1859,9 +1864,70 @@ Implicits: 0
 {variant:15}MinionAccuracyRatingPerDevotion_
 {variant:16}AddedManaRegenerationPerDevotion
 {variant:17}ReducedManaCostPerDevotion
+{variant:20}ManaCostEfficiencyPerDevotion
 {variant:18}AuraEffectPerDevotion
 {variant:19}ShieldDefencesPerDevotion
 Passives in radius are Conquered by the Templars
 Historic
-]],
+]],[[
+Festering Vengeance
+Murderous Eye Jewel
+League: Abyss
+Source: Drops from unique{Zorath, Vile Assembled}
+Limited to: 1 Historic
+Implicits: 0
+Subjugating (100-8000) souls in the thrall of Tecrod
+Passives affected are Conquered by the Abyssal
+Historic
+]],[[
+Extinguishing Grasp
+Searching Eye Jewel
+League: Abyss
+Source: Drops from unique{Zorath, Vile Assembled}
+Limited to: 1 Historic
+Implicits: 0
+Subjugating (100-8000) souls in the thrall of Ulaman
+Passives affected are Conquered by the Abyssal
+Historic
+]],[[
+Baleful Dominion
+Hypnotic Eye Jewel
+League: Abyss
+Source: Drops from unique{Zorath, Vile Assembled}
+Limited to: 1 Historic
+Implicits: 0
+Subjugating (100-8000) souls in the thrall of Kurgal
+Passives affected are Conquered by the Abyssal
+Historic
+]],[[
+Destructive Aspiration
+Ghastly Eye Jewel
+League: Abyss
+Source: Drops from unique{Zorath, Vile Assembled}
+Limited to: 1 Historic
+Implicits: 0
+Subjugating (100-8000) souls in the thrall of Amanamu
+Passives affected are Conquered by the Abyssal
+Historic
+]],[[
+Reclaimed Malevolence
+Assembled Eye Jewel
+League: Abyss
+Source: Vendor Recipe
+Limited to: 1 Historic
+Implicits: 0
+Binding (100-8000) souls to phylacteries to sustain Zorath
+Passives affected are Conquered by the Abyssal
+Historic
+]],[[
+Item Class: Jewels
+Rarity: Unique
+That Which Was Taken
+Crimson Jewel
+Crafted: true
+League: Affliction
+Limited to: 1
+Requires Level 48
+Implicits: 0
+]]
 }

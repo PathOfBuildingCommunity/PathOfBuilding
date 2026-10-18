@@ -3,8 +3,7 @@
 -- Glove enchantment skills
 -- Skill data (c) Grinding Gear Games
 --
-local skills, mod, flag, skill = ...
-
+return function(skills, mod, flag, skill)
 #skill EnchantmentOfBladesOnHit
 #flags spell projectile
 	fromItem = true,
@@ -340,3 +339,5 @@ local skills, mod, flag, skill = ...
 #flags spell projectile area
 	fromItem = true,
 #mods
+
+end

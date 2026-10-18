@@ -608,16 +608,16 @@ return {
 			"15% increased Cyclone Attack Speed",
 		},
 	},
-	["Dark Pact"] = {
+	["Dark Bargain"] = {
 		["MERCILESS"] = {
-			"25% increased Dark Pact Damage",
-			"8% increased Dark Pact Cast Speed",
-			"16% increased Dark Pact Area of Effect",
+			"25% increased Dark Bargain Damage",
+			"8% increased Dark Bargain Cast Speed",
+			"16% increased Dark Bargain Area of Effect",
 		},
 		["ENDGAME"] = {
-			"40% increased Dark Pact Damage",
-			"12% increased Dark Pact Cast Speed",
-			"24% increased Dark Pact Area of Effect",
+			"40% increased Dark Bargain Damage",
+			"12% increased Dark Bargain Cast Speed",
+			"24% increased Dark Bargain Area of Effect",
 		},
 	},
 	["Dash"] = {
@@ -2487,7 +2487,7 @@ return {
 		["MERCILESS"] = {
 			"Stormbind has 16% increased Area of Effect",
 			"Stormbind deals 25% increased Damage",
-			"Rune Blast teleports you to the detonated Rune if you have not detonated Runes in the past 1 second",
+			"Rune Blast teleports you to the detonated Rune if you have not detonated Runes in the past 0.5 seconds",
 		},
 		["ENDGAME"] = {
 			"Stormbind has 24% increased Area of Effect",

@@ -6,9 +6,13 @@
 
 local m_max = math.max
 
-local ConfigSetServiceClass = newClass("ConfigSetService", function(self, configTab)
+---@class ConfigSetService
+local ConfigSetServiceClass = newClass("ConfigSetService")
+
+function ConfigSetServiceClass:ConfigSetService(configTab)
 	self.configTab = configTab
-end)
+	return self
+end
 
 function ConfigSetServiceClass:NewConfigSet(name)
 	local configSet = self.configTab:NewConfigSet(nil, name)

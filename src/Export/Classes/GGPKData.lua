@@ -31,7 +31,10 @@ end
 
 -- Path can be in any format recognized by the extractor at oozPath, ie,
 -- a .ggpk file or a Steam Path of Exile directory
-local GGPKClass = newClass("GGPKData", function(self, path, datPath, reExport)
+---@class GGPKData
+local GGPKClass = newClass("GGPKData")
+
+function GGPKClass:GGPKData(path, datPath, reExport)
 	if datPath then
 		self.oozPath = datPath:match("\\$") and datPath or (datPath .. "\\")
 	else
@@ -46,7 +49,8 @@ local GGPKClass = newClass("GGPKData", function(self, path, datPath, reExport)
 	self.ot = { }
 	
 	self:AddDat64Files()
-end)
+	return self
+end
 
 function GGPKClass:CleanDir(reExport)
 	if reExport then
@@ -214,11 +218,15 @@ function GGPKClass:GetNeededFiles()
 		"Data/PantheonPanelLayout.dat",
 		"Data/AlternatePassiveAdditions.dat",
 		"Data/AlternatePassiveSkills.dat",
+		"Data/AlternateTreeArt.dat",
 		"Data/AlternateTreeVersions.dat",
 		"Data/GrantedEffectQualityStats.dat",
 		"Data/AegisVariations.dat",
 		"Data/CostTypes.dat",
 		"Data/PassiveJewelRadii.dat",
+		"Data/PassiveJewelRadiiArt.dat",
+		"Data/PassiveSkillTreeConnectionArt.dat",
+		"Data/PassiveSkillTreeNodeFrameArt.dat",
 		"Data/SoundEffects.dat",
 		"Data/MavenJewelRadiusKeystones.dat",
 		"Data/GrantedEffectStatSets.dat",
@@ -250,6 +258,7 @@ function GGPKClass:GetNeededFiles()
 		"Data/ItemisedCorpse.dat",
 		"Data/IndexableSkillGems.dat",
 		"Data/IndexableSupportGems.dat",
+		"Data/IndexableNonActiveSupportGems.dat",
 		"Data/ItemClassCategories.dat",
 		"Data/MinionType.dat",
 		"Data/SummonedSpecificMonsters.dat",
@@ -287,6 +296,7 @@ function GGPKClass:GetNeededFiles()
 		"Data/BrequelGraftSkillStats.dat",
 		"Data/BrequelGraftGrantedSkillLevels.dat",
 		"Data/VillageBalancePerLevelShared.dat",
+		"Data/CurrencyExchange.dat",
 	}
 	local txtFiles = {
 		"Metadata/StatDescriptions/passive_skill_aura_stat_descriptions.txt",

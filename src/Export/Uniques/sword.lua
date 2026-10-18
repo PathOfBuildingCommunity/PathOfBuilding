@@ -28,6 +28,14 @@ EvasionRatingWhileMovingUnique__1
 NumberOfProjectilesIfUsedAMovementSkillRecentlyUnique__1
 PlayerFarShotUnique__2
 ]],[[
+Dread Captain's Cutlass
+Ghostflame Blade
+Source: Drops from unique{Captainsbane} in normal{The Fathomless Depths}
+League: Allflame
+Crafted: true
+Implicits: 1
+CanBeGhostflameCraftedAsThoughRare
+]],[[
 Dreamfeather
 Eternal Sword
 Variant: Pre 2.0.0
@@ -82,6 +90,19 @@ IncreasedEnergyShieldPercentUniqueOneHandSword2
 {variant:1,2,3}ManaLeechPermyriadUniqueOneHandSword2
 {variant:4,5}WeaponAddedLightningDamagePerEnergyShieldUnique__1[20,20]
 {variant:6}WeaponAddedLightningDamagePerEnergyShieldUnique__1
+]],[[
+Fleshrender
+Exquisite Blade
+League: Mirage
+Source: No longer obtainable
+Implicits: 1
+CriticalMultiplierImplicitSword3
+LocalIncreasedPhysicalDamagePercentUnique__54
+GlobalDamageOverTimeMultiplierUnique__1
+LocalCriticalStrikeChanceUnique__25
+CannotPoisonEnemiesWithNumPoisonsUnique__1
+LocalApplyAdditionalPoisonUnique__1
+WitherOnHitEnemiesWithNumPoisonsUnique__1
 ]],[[
 The Goddess Scorned
 Elegant Sword
@@ -274,18 +295,23 @@ Twilight Blade
 Variant: Pre 1.3.0
 Variant: Pre 2.6.0
 Variant: Pre 3.7.0
+Variant: Pre 3.29.0
 Variant: Current
 Implicits: 2
 {variant:1,2}AccuracyPercentImplicitSword1[18,18]
-{variant:3,4}AccuracyPercentImplicitSword1
+{variant:3,4,5}AccuracyPercentImplicitSword1
 {variant:1}BlockWhileDualWieldingUniqueOneHandSword5[10,10]
-{variant:2,3,4}BlockWhileDualWieldingUniqueOneHandSword5
+{variant:2,3,4,5}BlockWhileDualWieldingUniqueOneHandSword5
 {variant:1,2,3}LocalAddedPhysicalDamageUniqueOneHandSword5[20,30][31,40]
-{variant:4}LocalAddedPhysicalDamageUniqueOneHandSword5
-PhysicalDamgePerRedSocketUniqueOneHandSword5
-AttackSpeedPerGreenSocketUniqueOneHandSword5
-ManaLeechPermyriadFromPhysicalDamagePerBlueSocketUniqueOneHandSword5
-MeleeRangePerWhiteSocketUniqueOneHandSword5
+{variant:4,5}LocalAddedPhysicalDamageUniqueOneHandSword5
+{variant:1,2,3,4}PhysicalDamgePerRedSocketUniqueOneHandSword5[25,25]
+{variant:5}PhysicalDamgePerRedSocketUniqueOneHandSword5
+{variant:1,2,3,4}AttackSpeedPerGreenSocketUniqueOneHandSword5[12,12]
+{variant:5}AttackSpeedPerGreenSocketUniqueOneHandSword5
+{variant:1,2,3,4}ManaLeechPermyriadFromPhysicalDamagePerBlueSocketUniqueOneHandSword5[40,40]
+{variant:5}ManaLeechPermyriadFromPhysicalDamagePerBlueSocketUniqueOneHandSword5
+{variant:1,2,3,4}MeleeRangePerWhiteSocketUniqueOneHandSword5[2,2]
+{variant:5}MeleeRangePerWhiteSocketUniqueOneHandSword5
 ]],[[
 Razor of the Seventh Sun
 Midnight Blade
@@ -396,7 +422,22 @@ SpellDamageUnique__5
 LocalIncreasedPhysicalDamagePercentUnique__27
 LocalAddedLightningDamageUnique__5
 SpellAddedLightningDamageUnique__4
-AreaOfEffectUnique__2_
+AreaOfEffectUnique__3
+]],[[
+Skysunder
+Exquisite Blade
+League: Mirage
+Source: No longer obtainable
+Implicits: 1
+CriticalMultiplierImplicitSword3
+LocalIncreasedPhysicalDamagePercentUnique__55
+GlobalDamageOverTimeMultiplierUnique__2
+LocalCriticalStrikeChanceUnique__26
+ConvertPhysicalToFireUnique__4
+IgnitesReflectedToSelfUnique__1
+IgniteDurationEmberglowUnique__1
+LocalIgniteProlifEmberglowUnique__1
+UnaffectedByIgniteUnique__1
 ]],[[
 The Surging Thoughts
 Legion Sword
@@ -427,22 +468,30 @@ LocalCriticalStrikeChanceUnique__16
 Scaeva
 Gladius
 Variant: Pre 2.6.0
+Variant: Pre 3.29.0
 Variant: Current
 Implicits: 2
 {variant:1}AccuracyPercentImplicitSword1[18,18]
-{variant:2}AccuracyPercentImplicitSword1
+{variant:2,3}AccuracyPercentImplicitSword1
 LocalAddedPhysicalDamageUnique__7_
-LocalCriticalStrikeChanceUnique14
-LifeLeechFromPhysicalAttackDamagePerRedSocket_Unique_1
-CriticalStrikeMultiplierPerGreenSocketUnique_1
-ManaLeechPermyriadFromPhysicalDamagePerBlueSocketUnique
-GlobalDefensesPerWhiteSocketUnique__1
-CriticalStrikeChanceInMainHandUnique_1
-AdditionalChanceToBlockInOffHandUnique_1
+{variant:1,2}LocalCriticalStrikeChanceUnique__5[15,25]
+{variant:3}LocalCriticalStrikeChanceUnique__5
+{variant:1,2}LifeLeechFromPhysicalAttackDamagePerRedSocket_Unique_1
+{variant:3}AreaOfEffectPerRedSocketUnique__1
+{variant:1,2}CriticalStrikeMultiplierPerGreenSocketUnique_1[10,10]
+{variant:3}CriticalStrikeMultiplierPerGreenSocketUnique_1
+{variant:1,2}ManaLeechPermyriadFromPhysicalDamagePerBlueSocketUnique
+{variant:3}CriticalStrikeChancePerBlueSocketUnique__1
+{variant:1,2}GlobalDefensesPerWhiteSocketUnique__1
+{variant:3}GlobalDefensesPerEmptySocketUnique__1
+{variant:1,2}CriticalStrikeChanceInMainHandUnique_1
+{variant:1,2}AdditionalChanceToBlockInOffHandUnique_1[8,8]
+{variant:3}AdditionalChanceToBlockInOffHandUnique_1
 ]],[[
 The Redblade
 Gladius
 League: Crucible
+Source: Drops from Crucible monsters
 Implicits: 1
 AccuracyPercentImplicitSword1
 LocalIncreasedPhysicalDamagePercentUnique__46
@@ -755,6 +804,18 @@ LocalIncreasedAttackSpeedUniqueTwoHandSword8
 {variant:4,5}AttackSkillsHavePhysToExtraFireDamagePerSocketedRedGemUniqueTwoHandSword8
 {variant:4,5}VaalPactIfAllSocketedGemsAreRedUniqueTwoHandSword8
 ]],[[
+Echoforge
+Infernal Sword
+Source: Drops from unique{The Maven}
+Implicits: 1
+IncreasedChaosDamageImplicitUnique__1
+LocalAddedChaosDamageUnique__3
+LocalIncreasedAttackSpeedUnique__38
+IncreasedLifeUnique__117
+ChaosDamageCanShockUnique__1
+IncreasedAttackAreaOfEffectUnique__3
+DealNoElementalPhysicalDamageUnique__1
+]],[[
 Edge of Madness
 Etched Greatsword
 League: Beyond
@@ -774,6 +835,20 @@ LocalChaosDamageUniqueTwoHandSword7
 {variant:1}IncreasedChaosDamagePerLevelUniqueTwoHandSword7
 {variant:1,2,4}IncreasedElementalDamagePerLevelUniqueTwoHandSword7
 {variant:2,3,4}PhysicalDamageToAttacksPerLevelUnique__1_
+]],[[
+The Golden Charlatan
+Lion Sword
+Source: Drops from unique{Uber Incarnation of Dread} in normal{Moment of Reverence}
+Requires Level 65, 104 Str, 122 Dex
+Implicits: 1
+StrengthDexterityImplicitSword_1
+IntelligenceRequirementsUnique_1
+LocalIncreasedPhysicalDamagePercentUnique__53
+IncreasedAttackSpeedUniqueGlovesDemigods1
+LocalCriticalStrikeChanceUnique__24
+LocalNoCriticalStrikeMultiplierUnique_1
+GainShrineOnRareOrUniqueKillUnique_1
+GainManaPer2IntelligenceUnique_1
 ]],[[
 Hiltless
 Reaver Sword
@@ -843,18 +918,6 @@ IncreasedPhysicalDamageTakenUniqueTwoHandSword6
 ColdDamageTakenUnique__2
 {variant:2}CullingAgainstFrozenEnemiesUnique__1
 EnduranceChargeIfAttackFreezesUnique__1
-]],[[
-Echoforge
-Infernal Sword
-Source: Drops from unique{The Maven}
-Implicits: 1
-IncreasedChaosDamageImplicitUnique__1
-LocalAddedChaosDamageUnique__3
-LocalIncreasedAttackSpeedUnique__38
-IncreasedLifeUnique__117
-ChaosDamageCanShockUnique__1
-IncreasedAttackAreaOfEffectUnique__3
-DealNoElementalPhysicalDamageUnique__1
 ]],[[
 Queen's Decree
 Ornate Sword
@@ -993,20 +1056,22 @@ ElementalDamageCanShockUnique__1__
 {variant:3}WeaponPhysicalDamageAddedAsRandomElementUnique__1__
 IncreasedAttackAreaOfEffectUnique__1_
 DealNoNonElementalDamageUnique__1
-]],
-[[
-The Golden Charlatan
-Lion Sword
-Source: Drops from unique{Uber Incarnation of Dread} in normal{Moment of Reverence}
-Requires Level 65, 104 Str, 122 Dex
+]],[[
+Paradoxica
+Vaal Rapier
+League: Betrayal
+Source: Drops from unique{Intervention Leaders} in normal{Safehouses}
+Crafted: true
 Implicits: 1
-StrengthDexterityImplicitSword_1
-IntelligenceRequirementsUnique_1
-LocalIncreasedPhysicalDamagePercentUnique__53
-IncreasedAttackSpeedUniqueGlovesDemigods1
-LocalCriticalStrikeChanceUnique__24
-LocalNoCriticalStrikeMultiplierUnique_1
-GainShrineOnRareOrUniqueKillUnique_1
-GainManaPer2IntelligenceUnique_1
-]],
+CriticalMultiplierImplicitSword1
+DoubleDamageWithWeaponUnique__1
+]],[[
+Replica Paradoxica
+Vaal Rapier
+League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
+Crafted: true
+Implicits: 1
+CriticalMultiplierImplicitSword1
+]]
 }

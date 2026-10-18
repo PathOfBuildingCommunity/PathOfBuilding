@@ -587,6 +587,40 @@ return {
 			[1]={
 				limit={
 					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Chill enemies when they are Shocked by Hits from Minon, reducing Action Speed by Shock Effect"
+			}
+		},
+		name="support_inflict_equivalent_chill_on_shock",
+		stats={
+			[1]="inflict_equivalent_chill_on_inflicting_shock_with_hits"
+		}
+	},
+	[21]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					}
+				},
+				text="Shock enemies when they are Chilled by Hits from Minon, increasing Damage taken by Chill Effect"
+			}
+		},
+		name="support_inflict_equivalent_shock_on_chill",
+		stats={
+			[1]="inflict_equivalent_shock_on_inflicting_chill_with_hits"
+		}
+	},
+	[22]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
 						[1]=1,
 						[2]="#"
 					},
@@ -630,7 +664,7 @@ return {
 			[2]="killing_blow_consumes_corpse_restore_x_mana"
 		}
 	},
-	[21]={
+	[23]={
 		[1]={
 			[1]={
 				limit={
@@ -660,7 +694,7 @@ return {
 			[1]="active_skill_minion_attack_speed_+%_final"
 		}
 	},
-	[22]={
+	[24]={
 		[1]={
 			[1]={
 				limit={
@@ -677,7 +711,7 @@ return {
 			[1]="minion_chance_to_taunt_on_hit_%"
 		}
 	},
-	[23]={
+	[25]={
 		[1]={
 			[1]={
 				[1]={
@@ -698,7 +732,7 @@ return {
 			[1]="minion_fire_damage_%_of_maximum_life_taken_per_minute"
 		}
 	},
-	[24]={
+	[26]={
 		[1]={
 			[1]={
 				limit={
@@ -724,7 +758,7 @@ return {
 			[1]="minion_grants_rampage_kill_to_parent_on_hitting_rare_or_unique_enemy_%"
 		}
 	},
-	[25]={
+	[27]={
 		[1]={
 			[1]={
 				limit={
@@ -741,7 +775,7 @@ return {
 			[1]="minion_actor_level_is_user_level_up_to_maximum"
 		}
 	},
-	[26]={
+	[28]={
 		[1]={
 			[1]={
 				[1]={
@@ -766,7 +800,7 @@ return {
 			[1]="minion_life_leech_from_elemental_damage_permyriad"
 		}
 	},
-	[27]={
+	[29]={
 		[1]={
 			[1]={
 				limit={
@@ -783,7 +817,7 @@ return {
 			[1]="minion_recover_%_maximum_life_on_hit"
 		}
 	},
-	[28]={
+	[30]={
 		[1]={
 			[1]={
 				limit={
@@ -800,7 +834,7 @@ return {
 			[1]="minions_cannot_taunt_enemies"
 		}
 	},
-	[29]={
+	[31]={
 		[1]={
 			[1]={
 				limit={
@@ -830,7 +864,7 @@ return {
 			[1]="active_skill_non_reaper_minion_damage_+%_final"
 		}
 	},
-	[30]={
+	[32]={
 		[1]={
 			[1]={
 				limit={
@@ -860,7 +894,7 @@ return {
 			[1]="active_skill_non_reaper_minion_maximum_life_+%_final"
 		}
 	},
-	[31]={
+	[33]={
 		[1]={
 			[1]={
 				limit={
@@ -877,7 +911,7 @@ return {
 			[1]="skill_physical_damage_%_to_convert_to_chaos"
 		}
 	},
-	[32]={
+	[34]={
 		[1]={
 			[1]={
 				limit={
@@ -899,7 +933,7 @@ return {
 			[2]="active_skill_display_suppress_physical_to_cold_damage_conversion"
 		}
 	},
-	[33]={
+	[35]={
 		[1]={
 			[1]={
 				limit={
@@ -916,7 +950,7 @@ return {
 			[1]="skill_physical_damage_%_to_convert_to_fire"
 		}
 	},
-	[34]={
+	[36]={
 		[1]={
 			[1]={
 				[1]={
@@ -954,7 +988,7 @@ return {
 			[1]="support_faster_ailments_ailment_duration_+%_final"
 		}
 	},
-	[35]={
+	[37]={
 		[1]={
 			[1]={
 				limit={
@@ -984,7 +1018,7 @@ return {
 			[1]="support_minion_focus_fire_critical_strike_chance_+%_vs_focused_target"
 		}
 	},
-	[36]={
+	[38]={
 		[1]={
 			[1]={
 				limit={
@@ -1001,7 +1035,7 @@ return {
 			[1]="support_minion_focus_fire_critical_strike_multiplier_+_vs_focused_target"
 		}
 	},
-	[37]={
+	[39]={
 		[1]={
 			[1]={
 				limit={
@@ -1031,7 +1065,7 @@ return {
 			[1]="support_minion_focus_fire_damage_+%_final_vs_focussed_target"
 		}
 	},
-	[38]={
+	[40]={
 		[1]={
 			[1]={
 				[1]={
@@ -1052,7 +1086,7 @@ return {
 			[1]="support_minion_instability_minion_base_fire_area_damage_per_minute"
 		}
 	},
-	[39]={
+	[41]={
 		[1]={
 			[1]={
 				limit={
@@ -1082,7 +1116,7 @@ return {
 			[1]="support_minion_totem_resistance_elemental_damage_+%_final"
 		}
 	},
-	[40]={
+	[42]={
 		[1]={
 			[1]={
 				limit={
@@ -1099,7 +1133,7 @@ return {
 			[1]="support_minion_use_focussed_target"
 		}
 	},
-	[41]={
+	[43]={
 		[1]={
 			[1]={
 				limit={
@@ -1129,7 +1163,7 @@ return {
 			[1]="support_pure_shock_damage_+%_final"
 		}
 	},
-	[42]={
+	[44]={
 		[1]={
 			[1]={
 				limit={
@@ -1159,7 +1193,7 @@ return {
 			[1]="support_pure_shock_shock_as_though_damage_+%_final"
 		}
 	},
-	[43]={
+	[45]={
 		[1]={
 			[1]={
 				[1]={
@@ -1210,7 +1244,7 @@ return {
 			[2]="support_recent_ignites_damage_per_recent_ignite_+%_final_minimum"
 		}
 	},
-	[44]={
+	[46]={
 		[1]={
 			[1]={
 				[1]={
@@ -1257,14 +1291,14 @@ return {
 			[2]="support_recent_ignites_ignite_damage_per_recent_ignite_+%_final_maximum"
 		}
 	},
-	["active_skill_display_suppress_physical_to_cold_damage_conversion"]=32,
+	["active_skill_display_suppress_physical_to_cold_damage_conversion"]=34,
 	["active_skill_minion_added_damage_+%_final"]=12,
-	["active_skill_minion_attack_speed_+%_final"]=21,
+	["active_skill_minion_attack_speed_+%_final"]=23,
 	["active_skill_minion_bleeding_damage_+%_final"]=3,
 	["active_skill_minion_damage_+%_final"]=7,
 	["active_skill_minion_physical_damage_+%_final"]=8,
-	["active_skill_non_reaper_minion_damage_+%_final"]=29,
-	["active_skill_non_reaper_minion_maximum_life_+%_final"]=30,
+	["active_skill_non_reaper_minion_damage_+%_final"]=31,
+	["active_skill_non_reaper_minion_maximum_life_+%_final"]=32,
 	["active_skill_quality_duration_+%_final"]=13,
 	["attack_and_cast_speed_+%"]=14,
 	["base_all_ailment_duration_+%"]=15,
@@ -1277,35 +1311,37 @@ return {
 	["display_minion_actor_level_is_user_level"]=19,
 	["display_minion_maximum_life"]=9,
 	["global_bleed_on_hit"]=2,
-	["killing_blow_consumes_corpse_restore_x_life"]=20,
-	["killing_blow_consumes_corpse_restore_x_mana"]=20,
+	["inflict_equivalent_chill_on_inflicting_shock_with_hits"]=20,
+	["inflict_equivalent_shock_on_inflicting_chill_with_hits"]=21,
+	["killing_blow_consumes_corpse_restore_x_life"]=22,
+	["killing_blow_consumes_corpse_restore_x_mana"]=22,
 	["life_leech_from_any_damage_permyriad"]=1,
 	["maximum_attack_damage_+%_final_from_volatility_support"]=10,
 	["minimum_attack_damage_+%_final_from_volatility_support"]=11,
-	["minion_actor_level_is_user_level_up_to_maximum"]=25,
-	["minion_chance_to_taunt_on_hit_%"]=22,
+	["minion_actor_level_is_user_level_up_to_maximum"]=27,
+	["minion_chance_to_taunt_on_hit_%"]=24,
 	["minion_duration"]=5,
-	["minion_fire_damage_%_of_maximum_life_taken_per_minute"]=23,
-	["minion_grants_rampage_kill_to_parent_on_hitting_rare_or_unique_enemy_%"]=24,
-	["minion_life_leech_from_elemental_damage_permyriad"]=26,
-	["minion_recover_%_maximum_life_on_hit"]=27,
-	["minions_cannot_taunt_enemies"]=28,
+	["minion_fire_damage_%_of_maximum_life_taken_per_minute"]=25,
+	["minion_grants_rampage_kill_to_parent_on_hitting_rare_or_unique_enemy_%"]=26,
+	["minion_life_leech_from_elemental_damage_permyriad"]=28,
+	["minion_recover_%_maximum_life_on_hit"]=29,
+	["minions_cannot_taunt_enemies"]=30,
 	parent="minion_spell_skill_stat_descriptions",
-	["skill_physical_damage_%_to_convert_to_chaos"]=31,
-	["skill_physical_damage_%_to_convert_to_cold"]=32,
-	["skill_physical_damage_%_to_convert_to_fire"]=33,
-	["support_faster_ailments_ailment_duration_+%_final"]=34,
+	["skill_physical_damage_%_to_convert_to_chaos"]=33,
+	["skill_physical_damage_%_to_convert_to_cold"]=34,
+	["skill_physical_damage_%_to_convert_to_fire"]=35,
+	["support_faster_ailments_ailment_duration_+%_final"]=36,
 	["support_minion_damage_+%_final"]=4,
-	["support_minion_focus_fire_critical_strike_chance_+%_vs_focused_target"]=35,
-	["support_minion_focus_fire_critical_strike_multiplier_+_vs_focused_target"]=36,
-	["support_minion_focus_fire_damage_+%_final_vs_focussed_target"]=37,
-	["support_minion_instability_minion_base_fire_area_damage_per_minute"]=38,
-	["support_minion_totem_resistance_elemental_damage_+%_final"]=39,
-	["support_minion_use_focussed_target"]=40,
-	["support_pure_shock_damage_+%_final"]=41,
-	["support_pure_shock_shock_as_though_damage_+%_final"]=42,
-	["support_recent_ignites_damage_per_recent_ignite_+%_final"]=43,
-	["support_recent_ignites_damage_per_recent_ignite_+%_final_minimum"]=43,
-	["support_recent_ignites_ignite_damage_per_recent_ignite_+%_final"]=44,
-	["support_recent_ignites_ignite_damage_per_recent_ignite_+%_final_maximum"]=44
+	["support_minion_focus_fire_critical_strike_chance_+%_vs_focused_target"]=37,
+	["support_minion_focus_fire_critical_strike_multiplier_+_vs_focused_target"]=38,
+	["support_minion_focus_fire_damage_+%_final_vs_focussed_target"]=39,
+	["support_minion_instability_minion_base_fire_area_damage_per_minute"]=40,
+	["support_minion_totem_resistance_elemental_damage_+%_final"]=41,
+	["support_minion_use_focussed_target"]=42,
+	["support_pure_shock_damage_+%_final"]=43,
+	["support_pure_shock_shock_as_though_damage_+%_final"]=44,
+	["support_recent_ignites_damage_per_recent_ignite_+%_final"]=45,
+	["support_recent_ignites_damage_per_recent_ignite_+%_final_minimum"]=45,
+	["support_recent_ignites_ignite_damage_per_recent_ignite_+%_final"]=46,
+	["support_recent_ignites_ignite_damage_per_recent_ignite_+%_final_maximum"]=46
 }

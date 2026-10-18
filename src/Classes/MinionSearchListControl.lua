@@ -8,16 +8,19 @@ local t_insert = table.insert
 local t_remove = table.remove
 local s_format = string.format
 
-local MinionSearchListClass = newClass("MinionSearchListControl", "MinionListControl", function(self, anchor, rect, data, list, dest)
-	self.MinionListControl(anchor, rect, data, list, dest)	
+---@class MinionSearchListControl: MinionListControl
+local MinionSearchListClass = newClass("MinionSearchListControl", "MinionListControl")
+
+function MinionSearchListClass:MinionSearchListControl(anchor, rect, data, list, dest)
+	self:MinionListControl(anchor, rect, data, list, dest)
 	self.unfilteredList = copyTable(list)
 	self.isMutable = false
 
-	self.controls.searchText = new("EditControl", {"BOTTOMLEFT",self,"TOPLEFT"}, {0, -2, 203, 18}, "", "Search", "%c", 100, function(buf)
+	self.controls.searchText = new("EditControl"):EditControl({"BOTTOMLEFT",self,"TOPLEFT"}, {0, -2, 203, 18}, "", "Search", "%c", 100, function(buf)
 		self:ListFilterChanged(buf, self.controls.searchModeDropDown.selIndex)
 	end, nil, nil, true)	
 	
-	self.controls.searchModeDropDown = new("DropDownControl", {"LEFT",self.controls.searchText,"RIGHT"}, {2, 0, 60, 18}, { "Names", "Skills", "Both"}, function(index, value)
+	self.controls.searchModeDropDown = new("DropDownControl"):DropDownControl({"LEFT",self.controls.searchText,"RIGHT"}, {2, 0, 60, 18}, { "Names", "Skills", "Both"}, function(index, value)
 		self:ListFilterChanged(self.controls.searchText.buf, index)
 	end)
 
@@ -28,7 +31,8 @@ local MinionSearchListClass = newClass("MinionSearchListControl", "MinionListCon
 		self.controls.delete.y = self.controls.add.y - 20
 	end
 
-end)
+	return self
+end
 
 function MinionSearchListClass:DoesEntryMatchFilters(searchStr, minionId, filterMode)
 	if filterMode == 1 or filterMode == 3 then

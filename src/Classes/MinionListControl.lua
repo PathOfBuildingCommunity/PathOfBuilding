@@ -8,14 +8,17 @@ local t_insert = table.insert
 local t_remove = table.remove
 local s_format = string.format
 
-local MinionListClass = newClass("MinionListControl", "ListControl", function(self, anchor, rect, data, list, dest)
-	self.ListControl(anchor, rect, 16, "VERTICAL", not dest, list)
+---@class MinionListControl: ListControl
+local MinionListClass = newClass("MinionListControl", "ListControl")
+
+function MinionListClass:MinionListControl(anchor, rect, data, list, dest)
+	self:ListControl(anchor, rect, 16, "VERTICAL", not dest, list)
 	self.data = data
 	self.dest = dest
 	if dest then
 		self.dragTargetList = { dest }
 		self.label = "^7Available Spectres:"
-		self.controls.add = new("ButtonControl", {"BOTTOMRIGHT",self,"TOPRIGHT"}, {0, -2, 60, 18}, "Add", function()
+		self.controls.add = new("ButtonControl"):ButtonControl({"BOTTOMRIGHT",self,"TOPRIGHT"}, {0, -2, 60, 18}, "Add", function()
 			self:AddSel()
 		end)
 		self.controls.add.enabled = function()
@@ -23,14 +26,15 @@ local MinionListClass = newClass("MinionListControl", "ListControl", function(se
 		end
 	else
 		self.label = "^7Spectres in Build:"
-		self.controls.delete = new("ButtonControl", {"BOTTOMRIGHT",self,"TOPRIGHT"}, {0, -2, 60, 18}, "Remove", function()
+		self.controls.delete = new("ButtonControl"):ButtonControl({"BOTTOMRIGHT",self,"TOPRIGHT"}, {0, -2, 60, 18}, "Remove", function()
 			self:OnSelDelete(self.selIndex, self.selValue)
 		end)
 		self.controls.delete.enabled = function()
 			return self.selValue ~= nil
 		end
 	end
-end)
+	return self
+end
 
 function MinionListClass:AddSel()
 	if self.dest and not isValueInArray(self.dest.list, self.selValue) then
