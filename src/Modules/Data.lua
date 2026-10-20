@@ -113,7 +113,7 @@ end
 data = { }
 
 ---@class PowerStatList: PowerStat[]
----@field GetFromOutput fun(self: PowerStatList, output: Output, statTable: PowerStat, skipTransform?: boolean): number?
+---@field GetFromOutput fun(output: Output, statTable: PowerStat, skipTransform?: boolean): number?
 
 -- Misc data tables
 local miscData = LoadModule("Data/Misc")

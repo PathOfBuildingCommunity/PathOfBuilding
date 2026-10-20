@@ -13,6 +13,7 @@ local m_floor = math.floor
 ---@class ItemDBControl: ListControl<Item>
 ---@field controls ItemDBControls
 ---@field itemsTab ItemsTab
+---@field build Build
 ---@field db ItemDBData
 ---@field dbType "RARE"|"UNIQUE"
 ---@field leagueList string[]
@@ -26,7 +27,17 @@ local m_floor = math.floor
 ---@field leaguesAndTypesLoaded boolean
 ---@field listBuilder? thread
 ---@field listOutputRevision? integer
+---@field ListControl (fun(self: ItemDBControl, anchor?: Anchor, rect?: Rect, rowHeight: number, scroll?: string|boolean, isMutable?: boolean, list?: Item[], forceTooltip?: boolean): ListControl<Item>) & { Draw: fun(self: ItemDBControl, viewPort: Viewport, noTooltip?: boolean), GetHoverValue: fun(self: ItemDBControl, key?: string): unknown? }
 local ItemDBClass = newClass("ItemDBControl", "ListControl")
+
+---@class ItemDBModLine: ModLine
+---@field newModId? string
+
+---@class ItemDBItem: Item
+---@field id string|integer
+---@field base ItemBase
+---@field explicitModLines ItemDBModLine[]
+---@field measuredPower number
 
 ---@class ItemDBData
 ---@field list table<string, Item>
@@ -39,10 +50,10 @@ local ItemDBClass = newClass("ItemDBControl", "ListControl")
 ---@class ItemDBControls: ListControlControls
 ---@field slot DropDownControl<string>
 ---@field type DropDownControl<string>
----@field league? DropDownControl<string>
----@field requirement? DropDownControl<string>
----@field obtainable? DropDownControl<string>
----@field sort? DropDownControl<table>
+---@field league DropDownControl<string>
+---@field requirement DropDownControl<string>
+---@field obtainable DropDownControl<string>
+---@field sort DropDownControl<table> & { SelByValue: fun(self: DropDownControl<table>, value: unknown, key?: string), CheckDroppedWidth: fun(self: DropDownControl<table>, enable: boolean) }
 ---@field search EditControl
 ---@field searchMode DropDownControl<string>
 
@@ -121,7 +132,7 @@ function ItemDBClass:LoadLeaguesAndTypes()
 	self.leaguesAndTypesLoaded = true
 end
 
----@param item Item
+---@param item ItemDBItem
 ---@return boolean
 function ItemDBClass:DoesItemMatchFilters(item)
 	if self.controls.slot.selIndex > 1 then
@@ -276,6 +287,7 @@ function ItemDBClass:BuildSortOrder()
 	t_insert(self.sortOrder, self.sortControl.NAME)
 end
 
+---@async
 function ItemDBClass:ListBuilder()
 	local list = { }
 	for id, item in pairs(self.db.list) do
@@ -287,7 +299,7 @@ function ItemDBClass:ListBuilder()
 	if self.sortDetail and self.sortDetail.stat then -- stat-based
 		local useFullDPS = self.sortDetail.stat == "FullDPS"
 		local start = GetTime()
-		local calcFunc, calcBase = self.itemsTab.build.calcsTab:GetMiscCalculator(self.build)
+		local calcFunc, calcBase = self.itemsTab.build.calcsTab:GetMiscCalculator()
 		for itemIndex, item in ipairs(list) do
 			item.measuredPower = -math.huge
 			for slotName, slot in pairs(self.itemsTab.slots) do
@@ -372,7 +384,7 @@ end
 
 ---@param tooltip Tooltip
 ---@param index integer
----@param item Item
+---@param item ItemDBItem
 function ItemDBClass:AddValueTooltip(tooltip, index, item)
 	if main.popups[1] then
 		tooltip:Clear()
@@ -384,20 +396,22 @@ function ItemDBClass:AddValueTooltip(tooltip, index, item)
 end
 
 ---@param index integer
----@param item Item
+---@param item ItemDBItem
 ---@return string
----@return Item
+---@return ItemDBItem
 function ItemDBClass:GetDragValue(index, item)
 	return "Item", item
 end
 
+---@param self ItemDBControl
 ---@param index integer
----@param item Item
+---@param item ItemDBItem
 ---@param doubleClick? boolean
 ---@return boolean?
 function ItemDBClass:OnSelClick(index, item, doubleClick)
 	if IsKeyDown("CTRL") then
 		-- Add item
+		---@type ItemDBItem
 		local newItem = new("Item"):Item(item.raw)
 		newItem:NormaliseQuality()
 		self.itemsTab:AddItem(newItem, true)
@@ -435,7 +449,7 @@ function ItemDBClass:OnSelClick(index, item, doubleClick)
 end
 
 ---@param index integer
----@param item Item
+---@param item ItemDBItem
 function ItemDBClass:OnSelCopy(index, item)
 	Copy(item.raw:gsub("\n","\r\n"))
 end

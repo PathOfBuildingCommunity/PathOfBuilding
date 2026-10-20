@@ -22,24 +22,40 @@ local baseSlots = { "Weapon 1", "Weapon 2", "Weapon 1 Swap", "Weapon 2 Swap", "H
 ---@class WeightedPowerStat: PowerStat
 ---@field weightMult number
 
+---@class TradeQueryResult: TradeQueryItem
+---@field evaluation? table[]
+
+---@class TradeQueryControl: Control
+---@field SetList fun(self: TradeQueryControl, list: string[])
+---@field SetSel fun(self: TradeQueryControl, newSel: integer, noCallSelFunc?: boolean)
+---@field y number
+
+---@class TradeQueryControls: table<string, TradeQueryControl>
+
 ---@class TradeQuery
 ---@field itemsTab ItemsTab
----@field tradeQueryGenerator? TradeQueryGenerator
+---@field tradeQueryGenerator TradeQueryGenerator
 ---@field tradeQueryRequests TradeQueryRequests
----@field slotTables TradeQuerySlotTable[]
----@field controls table<string, Control>
+---@field slotTables table<integer, TradeQuerySlotTable>
+---@field controls TradeQueryControls
 ---@field totalPrice table<integer, { currency: string, amount: number }>
----@field resultTbl table<integer, table[]>
----@field sortedResultTbl table<integer, { outputAttr: number, index: integer }[]>
+---@field resultTbl table<integer, TradeQueryResult[]>
+---@field sortedResultTbl table<integer, table<integer, { outputAttr: number, index: integer }>>
 ---@field itemIndexTbl table<integer, integer>
 ---@field onlyWeightedBaseOutput table<integer, table<integer, Output>>
 ---@field lastComparedWeightList table<integer, table<integer, WeightedPowerStat[]>>
 ---@field statSortSelectionList WeightedPowerStat[]
 ---@field itemSortSelectionList string[]
+---@field tradeTypeSelection DropDownControl<string>
+---@field itemSortSelection DropDownControl<string>
+---@field realm DropDownControl<string>
+---@field league DropDownControl<string>
 ---@field pbCurrencyConversion table<string, table<string, table<string, number>>>
 ---@field allLeagues table<string, string[]>
 ---@field realmIds table<string, string>
 ---@field lastQueries table<integer, string>
+---@field pbRealm string
+---@field pbLeague string
 local TradeQueryClass = newClass("TradeQuery")
 ---@param itemsTab ItemsTab
 ---@return TradeQuery
@@ -306,6 +322,7 @@ function TradeQueryClass:PriceItem()
 	-- Set main Price Builder pane height and width
 	local row_height = 20
 	local row_vertical_padding = 4
+	---@type Anchor?
 	local top_pane_alignment_ref = nil
 	local pane_margins_horizontal = 16
 	local pane_margins_vertical = 16
@@ -316,7 +333,9 @@ function TradeQueryClass:PriceItem()
 		t_insert(newItemList, itemSet.title or "Default")
 	end
 	self.controls.setSelect = new("DropDownControl"):DropDownControl({"TOPLEFT", nil, "TOPLEFT"}, {pane_margins_horizontal, pane_margins_vertical, 188, row_height}, newItemList, function(index, value)
-		self.itemsTab:SetActiveItemSet(self.itemsTab.itemSetOrderList[index])
+		---@type integer
+		local itemSetId = self.itemsTab.itemSetOrderList[index]
+		self.itemsTab:SetActiveItemSet(itemSetId)
 		self.itemsTab:AddUndoState()
 	end)
 	self.controls.setSelect.enableDroppedWidth = true
@@ -832,12 +851,14 @@ end
 ---@return table<string, number|string|boolean>
 function TradeQueryClass:ReduceOutput(output)
 	local smallOutput = {}
+	---@type fun(output: Output, statTable: PowerStat, skipTransform?: boolean): number?
+	local getFromOutput = data.powerStatList.GetFromOutput
 	for _, statTable in ipairs(self.statSortSelectionList) do
-		smallOutput[statTable.stat] = data.powerStatList.GetFromOutput(output, statTable, true)
+		smallOutput[statTable.stat] = getFromOutput(output, statTable, true)
 		if statTable.stat == "FullDPS" and not output.FullDPS then
-			smallOutput.TotalDPS = data.powerStatList.GetFromOutput(output, { stat = "TotalDPS" })
-			smallOutput.TotalDotDPS = data.powerStatList.GetFromOutput(output, { stat = "TotalDotDPS" })
-			smallOutput.CombinedDPS = data.powerStatList.GetFromOutput(output, { stat = "CombinedDPS" })
+			smallOutput.TotalDPS = getFromOutput(output, { stat = "TotalDPS", label = "" })
+			smallOutput.TotalDotDPS = getFromOutput(output, { stat = "TotalDotDPS", label = "" })
+			smallOutput.CombinedDPS = getFromOutput(output, { stat = "CombinedDPS", label = "" })
 		end
 	end
 	return smallOutput
@@ -846,10 +867,11 @@ end
 -- Method to evaluate a result by getting it's output and weight
 ---@param row_idx integer
 ---@param result_index integer
----@param calcFunc fun(adjustments?: table): Output
----@param baseOutput Output
+---@param calcFunc? fun(adjustments?: table): Output
+---@param baseOutput? Output
 ---@return table[]
 function TradeQueryClass:GetResultEvaluation(row_idx, result_index, calcFunc, baseOutput)
+	---@type TradeQueryResult
 	local result = self.resultTbl[row_idx][result_index]
 	if not calcFunc then -- Always evaluate when calcFunc is given
 		calcFunc, baseOutput = self.itemsTab.build.calcsTab:GetMiscCalculator()
@@ -867,6 +889,7 @@ function TradeQueryClass:GetResultEvaluation(row_idx, result_index, calcFunc, ba
 		self.onlyWeightedBaseOutput[row_idx][result_index] = onlyWeightedBaseOutput
 		self.lastComparedWeightList[row_idx][result_index] = self.statSortSelectionList
 	end
+	---@type TradeQuerySlotTable
 	local slotTbl = self.slotTables[row_idx]
 	local jewelNodeId = slotTbl.nodeId or slotTbl.selectedJewelNodeId
 	if slotTbl.slotName == "Megalomaniac" then
@@ -939,6 +962,7 @@ function TradeQueryClass:ResetResultRow(rowIdx)
 end
 ---@param row_idx integer
 function TradeQueryClass:UpdateControlsWithItems(row_idx)
+	---@type string
 	local sortMode = self.itemSortSelectionList[self.pbItemSortSelectionIndex]
 	local sortedItems, errMsg = self:SortFetchResults(row_idx, sortMode)
 	if errMsg == "MissingConversionRates" then

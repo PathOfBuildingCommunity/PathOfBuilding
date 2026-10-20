@@ -8,16 +8,22 @@ local t_remove = table.remove
 local m_max = math.max
 local s_format = string.format
 
----@class ItemSet
+---@class ItemSet: table<string, ItemSetSlot>
 ---@field id integer
 ---@field title? string
----@field slots? table<string, Item>
+---@field [string] ItemSetSlot
 ---@field useSecondWeaponSet boolean
+
+---@class ItemSetSlot
+---@field selItemId integer
+---@field active? boolean
+---@field pbURL? string
 
 ---@class ItemSetListControl: ListControl<integer>
 ---@field itemsTab ItemsTab
----@field selIndex? integer
----@field selValue? integer
+---@field list integer[]
+---@field selIndex integer
+---@field selValue integer
 local ItemSetListClass = newClass("ItemSetListControl", "ListControl")
 
 ---@param anchor? Anchor
@@ -28,6 +34,7 @@ function ItemSetListClass:ItemSetListControl(anchor, rect, itemsTab)
 	self:ListControl(anchor, rect, 16, "VERTICAL", true, itemsTab.itemSetOrderList)
 	self.itemsTab = itemsTab
 	self.controls.copy = new("ButtonControl"):ButtonControl({"BOTTOMLEFT",self,"TOP"}, {2, -4, 60, 18}, "Copy", function()
+		---@type ItemSet
 		local newSet = copyTable(itemsTab.itemSets[self.selValue])
 		newSet.id = 1
 		while itemsTab.itemSets[newSet.id] do
@@ -131,6 +138,7 @@ function ItemSetListClass:ReceiveDrag(type, value, source)
 		local itemSet = self.itemsTab:NewItemSet()
 		itemSet.title = value.title
 		for slotName, item in pairs(value.slots) do
+			---@type Item & { id: integer }
 			local newItem = new("Item"):Item(item.raw)
 			newItem:NormaliseQuality()
 			self.itemsTab:AddItem(newItem, true)

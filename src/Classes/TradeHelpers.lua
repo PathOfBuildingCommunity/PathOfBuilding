@@ -9,7 +9,7 @@ local m_floor = math.floor
 -- so it and its precalculated patterns are built lazily
 local numberPattern = "%%d%+%%.%?%%d*"
 local statDescData
----@return table
+---@return table?
 local function getStatDescData()
 	-- this is not perfect. some currently known issues include:
 	-- death's oath chaos damage line: formatted as a # to # value on trade site which shows 3 to 450. nonsensical
@@ -250,8 +250,8 @@ local function impliedValue(statForm, canonical_stat)
 	return limit and tonumber(limit[1])
 end
 
----@param resultIds string[]
----@param tradeHash string
+---@param resultIds integer[]
+---@param tradeHash integer
 local function insertUniqueHash(resultIds, tradeHash)
 	if not isValueInArray(resultIds, tradeHash) then
 		table.insert(resultIds, tradeHash)
@@ -259,7 +259,7 @@ local function insertUniqueHash(resultIds, tradeHash)
 end
 -- Helper: find the trade stat ID for a mod line
 ---@param modLine string
----@return string[] resultIds @Can include more than one result if the results are ambiguous.
+---@return integer[] resultIds @Can include more than one result if the results are ambiguous.
 ---@return number? value @Might be nil if the line has no sensible number value.
 ---@return boolean? shouldNegate @Whether the mod needs to be negated when given to the trade site.
 function M.findTradeHash(modLine)
@@ -697,11 +697,11 @@ end
 -- with a preset changeFunc intended for mod values
 ---@param anchor? Anchor
 ---@param rect? Rect
----@param init number
+---@param init string|number
 ---@param prompt? string
 ---@param limit? integer
 ---@param integer? boolean
----@param changeFunc? fun(value: number)
+---@param changeFunc? fun(value: string)
 ---@return EditControl
 function M.newPlainNumericEdit(anchor, rect, init, prompt, limit, integer, changeFunc)
 	local format = integer and "%D" or "^%d."

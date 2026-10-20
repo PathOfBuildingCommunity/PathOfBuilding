@@ -31,6 +31,8 @@ local slot_map = {
 ---@field label string
 ---@field selIndex? integer
 ---@field selValue? table
+---@field list table
+---@field controls ListControlControls
 local SkillListClass = newClass("SkillListControl", "ListControl")
 
 ---@param anchor Anchor?

@@ -69,7 +69,7 @@ function SharedItemListClass:GetDragValue(index, item)
 end
 
 ---@param type string
----@param value Item
+---@param value Item & { id?: integer }
 ---@param source? ListControl<unknown>
 function SharedItemListClass:ReceiveDrag(type, value, source)
 	if type == "Item" then

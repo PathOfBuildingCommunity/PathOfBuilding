@@ -5,18 +5,36 @@
 --
 local m_floor = math.floor
 
+---@class PopupDialogAnchorState: AnchorState
+---@field other? Control|ControlHost|string
+
+---@class PopupDialogControl: Control
+---@field anchor PopupDialogAnchorState
+---@field Click fun(self: PopupDialogControl, ...)
+---@field IsScrollDownKey fun(self: PopupDialogControl, key: string): boolean
+---@field IsScrollUpKey fun(self: PopupDialogControl, key: string): boolean
+---@field Scroll fun(self: PopupDialogControl, mult: number)
+
+---@class PopupDialogControls: table<string, PopupDialogControl>
+---@field scrollBar PopupDialogControl
+
 ---@class PopupDialog: ControlHost, Control
+---@field controls PopupDialogControls
 ---@field title Prop<string>
 ---@field enterControl? string
 ---@field escapeControl? string
 ---@field scrollBarFunc? fun()
 ---@field resizeFunc? fun()
+---@field PopupDialog fun(self: PopupDialog, width: number, height: number, title: Prop<string>, controls: PopupDialogControls, enterControl?: string, defaultControl?: string, escapeControl?: string, scrollBarFunc?: fun(), resizeFunc?: fun()): PopupDialog
+---@field Draw fun(self: PopupDialog, viewPort: Viewport)
+---@field ProcessInput fun(self: PopupDialog, inputEvents: InputEvent[], viewPort: Viewport)
+---@type PopupDialog
 local PopupDialogClass = newClass("PopupDialog", "ControlHost", "Control")
 
 ---@param width number
 ---@param height number
 ---@param title Prop<string>
----@param controls table<string, Control>
+---@param controls PopupDialogControls
 ---@param enterControl? string
 ---@param defaultControl? string
 ---@param escapeControl? string

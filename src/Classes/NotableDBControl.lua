@@ -12,15 +12,36 @@ local m_floor = math.floor
 local m_huge = math.huge
 local s_format = string.format
 
+---@class NotableDBNode: Node
+---@field measuredPower? number
+---@field mods table<integer, { list: table, extra?: boolean, combined?: boolean }>
+
+---@class NotableDBItem: Item
+---@field base ItemBase
+
+---@class NotableDBItemsTab: ItemsTab
+---@field displayItem NotableDBItem
+
+---@class NotableDBSortEntry: PowerStat
+---@field sortMode string
+---@field itemField string?
+
+---@class NotableDBControlControls: ListControlControls
+---@field sort DropDownControl<NotableDBSortEntry>
+---@field search EditControl
+---@field searchMode DropDownControl<string>
+
 ---@param node Node
 ---@return boolean?
 local function IsAnointableNode(node)
 	return node.recipe and #node.recipe >= 1
 end
 
----@class NotableDBControl : ListControl<Node>
----@field itemsTab ItemsTab
----@field db table<"root"|integer, Node>
+---@class NotableDBControl: ListControl<NotableDBNode>
+---@field controls NotableDBControlControls
+---@field ListControl { ListControl: fun(self: ListControl<NotableDBNode>, anchor?: Anchor, rect?: Rect, rowHeight: number, scroll?: string|boolean, isMutable?: boolean, list?: NotableDBNode[], forceTooltip?: boolean): ListControl<NotableDBNode>, Draw: fun(self: ListControl<NotableDBNode>, viewPort: Viewport, noTooltip?: boolean) }
+---@field itemsTab NotableDBItemsTab
+---@field db table<"root"|integer, NotableDBNode>
 ---@field dbType string
 ---@field dragTargetList ListControl<unknown>[]
 ---@field sortControl table<string, table>
@@ -36,8 +57,8 @@ local NotableDBClass = newClass("NotableDBControl", "ListControl")
 
 ---@param anchor? Anchor
 ---@param rect? Rect
----@param itemsTab ItemsTab
----@param db table<"root"|integer, Node>
+---@param itemsTab NotableDBItemsTab
+---@param db table<"root"|integer, NotableDBNode>
 ---@param dbType string
 ---@return NotableDBControl
 function NotableDBClass:NotableDBControl(anchor, rect, itemsTab, db, dbType)
@@ -67,7 +88,7 @@ function NotableDBClass:NotableDBControl(anchor, rect, itemsTab, db, dbType)
 	return self
 end
 
----@param node Node @The notable node to check
+---@param node NotableDBNode @The notable node to check
 ---@return boolean @Whether the notable matches the type and search filters.
 function NotableDBClass:DoesNotableMatchFilters(node)
 	if not IsAnointableNode(node) then
@@ -133,8 +154,8 @@ function NotableDBClass:BuildSortOrder()
 end
 
 ---@param selection PowerStat
----@param original number
----@param modified number
+---@param original Output
+---@param modified Output
 ---@return number
 function NotableDBClass:CalculatePowerStat(selection, original, modified)
 	local originalValue = data.powerStatList.GetFromOutput(original, selection)
@@ -142,6 +163,7 @@ function NotableDBClass:CalculatePowerStat(selection, original, modified)
 	return originalValue - modifiedValue
 end
 
+---@async
 function NotableDBClass:ListBuilder()
 	local list = { }
 	for id, node in pairs(self.db) do
@@ -236,7 +258,7 @@ end
 
 ---@param column integer
 ---@param index integer
----@param node Node
+---@param node NotableDBNode
 ---@return string?
 function NotableDBClass:GetRowValue(column, index, node)
 	if column == 1 then
@@ -257,7 +279,7 @@ end
 
 ---@param tooltip Tooltip
 ---@param index integer
----@param node Node
+---@param node NotableDBNode
 function NotableDBClass:AddValueTooltip(tooltip, index, node)
 	local dropdownDropped = self.controls.type and self.controls.type.dropped or self.controls.sort.dropped or self.controls.searchMode.dropped
 	if dropdownDropped or (main.popups[1] and main.popups[1].title ~= "Anoint Item") then
@@ -297,7 +319,7 @@ function NotableDBClass:AddValueTooltip(tooltip, index, node)
 end
 
 ---@param index integer
----@param node Node
+---@param node NotableDBNode
 ---@return string
 ---@return Node
 function NotableDBClass:GetDragValue(index, node)
@@ -305,14 +327,14 @@ function NotableDBClass:GetDragValue(index, node)
 end
 
 ---@param index integer
----@param node Node
+---@param node NotableDBNode
 ---@param doubleClick? boolean
 function NotableDBClass:OnSelClick(index, node, doubleClick)
 	-- Do nothing
 end
 
 ---@param index integer
----@param node Node
+---@param node NotableDBNode
 function NotableDBClass:OnSelCopy(index, node)
 	Copy(node.dn)
 end

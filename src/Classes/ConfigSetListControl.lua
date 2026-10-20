@@ -9,8 +9,9 @@ local m_max = math.max
 
 ---@class ConfigSetListControl: ListControl<integer>
 ---@field configTab ConfigTab
----@field selIndex? integer
----@field selValue? integer
+---@field list integer[]
+---@field selIndex integer
+---@field selValue integer
 local ConfigSetListClass = newClass("ConfigSetListControl", "ListControl")
 
 ---@param anchor? Anchor
@@ -21,7 +22,9 @@ function ConfigSetListClass:ConfigSetListControl(anchor, rect, configTab)
 	self:ListControl(anchor, rect, 16, "VERTICAL", true, configTab.configSetOrderList)
 	self.configTab = configTab
 	self.controls.copy = new("ButtonControl"):ButtonControl({"BOTTOMLEFT",self,"TOP"}, {2, -4, 60, 18}, "Copy", function()
+		---@type ConfigSet
 		local configSet = configTab.configSets[self.selValue]
+		---@type ConfigSet
 		local newConfigSet = copyTable(configSet)
 		newConfigSet.id = 1
 		while configTab.configSets[newConfigSet.id] do

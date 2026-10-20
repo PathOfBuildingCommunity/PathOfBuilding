@@ -25,7 +25,11 @@ function CheckBoxClass:CheckBoxControl(anchor, rect, label, changeFunc, tooltipT
 	self:Control(anchor, rect)
 	self:TooltipHost(tooltipText)
 	self.label = label
-	self.labelWidth = DrawStringWidth(self.width - 4, "VAR", label or "") + 5
+	---@type number
+	local width = self:GetProperty("width")
+	---@type string?
+	local labelText = self:GetProperty("label")
+	self.labelWidth = DrawStringWidth(width - 4, "VAR", labelText or "") + 5
 	self.labelRight = false
 	self.changeFunc = changeFunc
 	self.state = initialState
@@ -56,7 +60,8 @@ end
 ---@param noTooltip? boolean
 function CheckBoxClass:Draw(viewPort, noTooltip)
 	local x, y = self:GetPos()
-	local size = self.width
+	---@type number
+	local size = self:GetProperty("width")
 	local enabled = self:IsEnabled()
 	local mOver = self:IsMouseOver()
 	if not enabled then
@@ -97,7 +102,7 @@ function CheckBoxClass:Draw(viewPort, noTooltip)
 	end
 	local label = self:GetProperty("label")
 	if label and self.labelRight then
-		DrawString(x + self.width + 5, y + 2, nil, size - 4, "VAR", label)
+		DrawString(x + size + 5, y + 2, nil, size - 4, "VAR", label)
 	elseif label then
 		DrawString(x - 5, y + 2, "RIGHT_X", size - 4, "VAR", label)
 	end

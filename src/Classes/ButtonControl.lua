@@ -10,6 +10,7 @@
 ---@field forceTooltip? boolean
 ---@field image? ImageHandle
 ---@field clicked? boolean
+---@field overSizeText? number
 ---@field locked? Prop<boolean>
 ---@field enterFunc? fun()
 local ButtonClass = newClass("ButtonControl", "Control", "TooltipHost")

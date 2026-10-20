@@ -15,6 +15,11 @@ local M = {}
 ---@field value number|boolean
 ---@field mod Mod
 
+---@class CompareCalcsSectionData: CalcSectionData, CalcSectionEntry
+---@field breakdown? string
+---@field modName? string|string[]
+---@field label? string
+
 -- Format a modifier value with its type for display
 ---@param value number|boolean
 ---@param modType NumericModTypes|string
@@ -45,7 +50,7 @@ end
 
 -- Format CamelCase mod name to spaced words
 ---@param modName string
----@return string
+---@return string, integer
 function M.FormatCalcModName(modName)
 	return modName:gsub("([%l%d]:?)(%u)", "%1 %2"):gsub("(%l)(%d)", "%1 %2")
 end
@@ -88,7 +93,7 @@ function M.ResolveSourceName(mod, build)
 end
 
 -- Get the modDB and config for a sectionData entry and actor
----@param sectionData CalcSectionData|CalcSectionEntry
+---@param sectionData CompareCalcsSectionData
 ---@param actor Actor
 ---@return ModStore?
 ---@return ModCfg?
@@ -112,7 +117,7 @@ function M.GetModStoreAndCfg(sectionData, actor)
 end
 
 -- Tabulate modifiers for a sectionData entry and actor
----@param sectionData CalcSectionData|CalcSectionEntry
+---@param sectionData CompareCalcsSectionData
 ---@param actor Actor
 ---@return CompareCalcModRow[]
 function M.TabulateMods(sectionData, actor)
@@ -146,7 +151,7 @@ end
 
 -- Format a single modifier row as a tooltip line
 ---@param row CompareCalcModRow
----@param sectionData CalcSectionData|CalcSectionEntry
+---@param sectionData CompareCalcsSectionData
 ---@param build Build|CompareEntry
 ---@return string displayValue
 ---@return string sourceType
@@ -171,7 +176,7 @@ function M.FormatModRow(row, sectionData, build)
 end
 
 -- Get breakdown text lines for a build's actor
----@param sectionData CalcSectionData|CalcSectionEntry
+---@param sectionData CompareCalcsSectionData
 ---@param build Build|CompareEntry
 ---@return string[]?
 function M.GetBreakdownLines(sectionData, build)
@@ -434,6 +439,7 @@ function M.DrawSkillBreakdownPanel(build, breakdownKey, label, cellX, cellY, cel
 	end)
 
 	-- Process rows: compute display strings and measure column widths
+	---@type { label: string, key: string, width?: number, x?: number }[]
 	local colDefs = {
 		{ label = "Value", key = "displayValue" },
 		{ label = "Stat", key = "name" },
@@ -467,6 +473,7 @@ function M.DrawSkillBreakdownPanel(build, breakdownKey, label, cellX, cellY, cel
 	local panelPadding = 4
 	local headerRowH = 20
 	local dataRowH = 14
+	---@type number
 	local panelW = panelPadding
 	for _, col in ipairs(colDefs) do
 		panelW = panelW + col.width

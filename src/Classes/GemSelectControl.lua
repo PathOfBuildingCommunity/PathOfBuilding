@@ -18,9 +18,66 @@ local imbuedTooltipText = "\"Socketed in\" item must be set in order to add an i
 ---@class GemSelectEntry
 ---@field name string
 ---@field grantedEffect table
+---@field id string
+---@field grantedEffectId string
+---@field tags table<string, boolean>
+---@field tagString string
+---@field secondaryGrantedEffect? table
+
+---@class GemSelectDisplayGroup
+---@field gemList table<integer, table>
+---@field displayGemList table
+---@field displaySkillList? table
+---@field slot? string
+
+---@class GemSelectSkillsTab: SkillsTab
+---@field displayGroup GemSelectDisplayGroup
+---@field build GemSelectBuild
+---@field selControl? GemSelectControl
+
+---@class GemSelectCalcsTab: CalcsTab
+---@field mainEnv GemSelectMainEnv
+
+---@class GemSelectMainEnv
+---@field crossLinkedSupportGroups table<string, string[]>
+
+---@class GemSelectBuildData
+---@field gems table<string, GemSelectEntry>
+
+---@class GemSelectBuild: Build
+---@field calcsTab GemSelectCalcsTab
+---@field data GemSelectBuildData
+
+---@class GemSelectControls: table<string, Control>
+---@field scrollBar ScrollBarControl
+
+---@class GemSelectSortCache
+---@field socketGroup GemSelectDisplayGroup
+---@field gemInstance table?
+---@field outputRevision number
+---@field defaultLevel string
+---@field defaultQuality number
+---@field characterLevel number
+---@field considerGemType string
+---@field showLegacyGems boolean
+---@field canSupport table<string, boolean>
+---@field dps table<string, number>
+---@field dpsColor table<string, string>
+---@field sortType string
+---@field calcFunc fun(adjustments?: table, useFullDPS?: boolean): Output
+---@field useFullDPS boolean
+---@field baseDPS number
+---@field dpsField string
+---@field pendingGems string[]?
 
 ---@class GemSelectControl: EditControl
----@field skillsTab SkillsTab
+---@field skillsTab GemSelectSkillsTab
+---@field controls GemSelectControls
+---@field build GemSelectBuild
+---@field Draw fun(self: GemSelectControl, viewPort: Viewport, noTooltip?: boolean)
+---@field _className string
+---@field height number
+---@field width number
 ---@field index integer
 ---@field imbuedSelect boolean
 ---@field gems table<string, GemSelectEntry>
@@ -29,7 +86,7 @@ local imbuedTooltipText = "\"Socketed in\" item must be set in order to add an i
 ---@field forceTooltip? boolean
 ---@field gemChangeFunc fun(gemId: string|table?, addUndo?: boolean, focusLost?: boolean, bufMatchesGem?: boolean, slotName?: string)
 ---@field dpsBuildFlag boolean
----@field sortCache? table
+---@field sortCache GemSelectSortCache
 local GemSelectClass = newClass("GemSelectControl", "EditControl")
 
 ---@param anchor Anchor?
@@ -188,6 +245,7 @@ end
 ---@param buf string
 function GemSelectClass:BuildList(buf)
 	local searchTerm = ""
+	---@type string[]
 	local tagsList = {}
 
 	self.controls.scrollBar.offset = 0
@@ -200,6 +258,7 @@ function GemSelectClass:BuildList(buf)
 		-- split the buffer using :
 		-- Remove the first entry as the name search term (can be blank)
 		tagsList = self.searchStr:split(":")
+		---@type string
 		searchTerm = tagsList[1]
 		t_remove(tagsList, 1)
 
@@ -289,6 +348,7 @@ end
 
 function GemSelectClass:UpdateSortCache()
 	--local start = GetTime()
+	---@type GemSelectSortCache
 	local sortCache = self.sortCache
 	local sameSortBy = self.sortGemsBy == self.lastSortGemsBy
 	-- Don't update the cache if no settings have changed that would impact the ordering
@@ -373,7 +433,7 @@ function GemSelectClass:UpdateSortCache()
 
 	local dpsField = self.skillsTab.sortGemsByDPSField
 	local useFullDPS = dpsField == "FullDPS"
-	local calcFunc, calcBase = self.skillsTab.build.calcsTab:GetMiscCalculator(self.build)
+	local calcFunc, calcBase = self.skillsTab.build.calcsTab:GetMiscCalculator()
 	-- Check for nil because some fields may not be populated, default to 0
 	local baseDPS = (dpsField == "FullDPS" and calcBase[dpsField] ~= nil and calcBase[dpsField]) or (calcBase.Minion and calcBase.Minion.CombinedDPS) or (calcBase[dpsField] ~= nil and calcBase[dpsField]) or 0
 
@@ -398,6 +458,7 @@ end
 
 ---@param gemList string[]
 function GemSelectClass:SortGemList(gemList)
+	---@type GemSelectSortCache
 	local sortCache = self.sortCache
 	local gems = self.gems
 	-- cache names to avoid repeated table lookups in comparator
@@ -430,6 +491,7 @@ function GemSelectClass:SyncSelection()
 	end
 end
 
+---@async
 function GemSelectClass:SortCurrentList()
 	if #self.searchStr == 0 then
 		self:SortGemList(self.list)
@@ -438,6 +500,7 @@ function GemSelectClass:SortCurrentList()
 end
 
 function GemSelectClass:DPSBuilder()
+	---@type GemSelectSortCache
 	local sortCache = self.sortCache
 	if not sortCache or not sortCache.pendingGems then return end
 
@@ -622,7 +685,7 @@ function GemSelectClass:Draw(viewPort, noTooltip)
 				self.hoverFrameCount = 0
 			end
 			if self.hoverFrameCount >= 2 then
-				local calcFunc, calcBase = self.skillsTab.build.calcsTab:GetMiscCalculator(self.build)
+				local calcFunc, calcBase = self.skillsTab.build.calcsTab:GetMiscCalculator()
 				if calcFunc then
 					self.tooltip:Clear()
 					local gemData = self.gems[self.list[self.hoverSel]]
@@ -654,6 +717,7 @@ function GemSelectClass:Draw(viewPort, noTooltip)
 		SetDrawLayer(nil, 0)
 	else
 		-- not dropped
+		---@type GemSelectControl?
 		local hoverControl
 		if self.skillsTab.selControl and self.skillsTab.selControl._className == "GemSelectControl" then
 			hoverControl = self.skillsTab.selControl

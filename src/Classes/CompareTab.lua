@@ -33,6 +33,7 @@ local function wrapInfoLine(str, width)
 	local lineStart = 1
 	local pos = 1
 	while pos <= #str do
+		---@type integer, integer
 		local ws, we = str:find("%s+", pos)
 		local wordEnd = ws and (ws - 1) or #str
 		if lineStart < pos and DrawStringWidth(14, "VAR", str:sub(lineStart, wordEnd)) > width then
@@ -221,14 +222,29 @@ end
 ---@field viewScrollBar ScrollBarControl
 ---@field itemsHScrollBar ScrollBarControl
 ---@field skillsHScrollBar ScrollBarControl
----@field cmpSocketGroup DropDownControl<any>
----@field cmpMainSkill DropDownControl<any>
----@field cmpSkillPart DropDownControl<any>
----@field cmpMinion DropDownControl<any>
----@field cmpMinionSkill DropDownControl<any>
----@field primCalcsMode DropDownControl<any>
----@field cmpCalcsMode DropDownControl<any>
----@field comparePowerStatSelect DropDownControl<any>
+---@field cmpSocketGroup DropDownControl<table>
+---@field cmpMainSkill DropDownControl<table>
+---@field cmpSkillPart DropDownControl<table>
+---@field cmpMinion DropDownControl<table>
+---@field cmpMinionSkill DropDownControl<table>
+---@field primCalcsMinion DropDownControl<table>
+---@field cmpCalcsMinion DropDownControl<table>
+---@field primCalcsMode DropDownControl<table>
+---@field cmpCalcsMode DropDownControl<table>
+---@field itemsExpandedCheck CheckBoxControl
+---@field configPrimarySetSelect DropDownControl<string>
+---@field configSearchEdit EditControl
+---@field scrollBarV ScrollBarControl
+---@field compareBuildSelect DropDownControl<string>
+---@field compareSpecSelect DropDownControl<table>
+---@field compareSkillSetSelect DropDownControl<table>
+---@field compareItemSetSelect DropDownControl<table>
+---@field compareConfigSetSelect DropDownControl<table>
+---@field leftTreeSearch EditControl
+---@field overlayTreeSearch EditControl
+---@field rightTreeSearch EditControl
+---@field calcsShowOnlyDifferencesCheck CheckBoxControl
+---@field comparePowerStatSelect DropDownControl<table>
 
 ---@class CompareTab: ControlHost, Control
 ---@field controls CompareTabControls
@@ -2086,7 +2102,7 @@ end
 -- Pre-draw tree header/footer backgrounds and position tree controls.
 -- Must run before ProcessControlsInput so controls render on top of backgrounds.
 ---@param contentVP Viewport
----@param compareEntry CompareEntry
+---@param compareEntry CompareEntry?
 function CompareTabClass:LayoutTreeView(contentVP, compareEntry)
 	self.treeLayout = nil
 	if self.compareViewMode ~= "TREE" or not compareEntry then return end
@@ -2253,7 +2269,7 @@ end
 
 -- Position config controls and build section-grouped display when in CONFIG view.
 ---@param contentVP Viewport
----@param compareEntry CompareEntry
+---@param compareEntry CompareEntry?
 function CompareTabClass:LayoutConfigView(contentVP, compareEntry)
 	if self.compareViewMode ~= "CONFIG" or not compareEntry then return end
 
@@ -2382,6 +2398,7 @@ local function searchMatch(varData)
 
 	for _, sec in ipairs(visibleSections) do
 		local h = sec.height
+		---@type integer
 		local col
 		-- Try preferred column if it fits
 		if sec.col and (colY[sec.col] or 0) + h + 28 <= scrollableH
@@ -3291,7 +3308,7 @@ local function formatImpact(impact)
 		local cInput = compareEntry.configTab.input or {}
 
 ---@param s string
----@return string
+---@return string, integer
 local function stripColors(s)
 			return s:gsub("%^%x", ""):gsub("%^x%x%x%x%x%x%x", "")
 		end
@@ -3370,6 +3387,7 @@ end
 
 -- Drive the compare power report coroutine
 ---@param compareEntry CompareEntry
+---@async
 function CompareTabClass:RunComparePowerReport(compareEntry)
 	-- Invalidate if compare entry changed
 	if self.comparePowerCompareId ~= compareEntry then
@@ -3741,7 +3759,6 @@ function CompareTabClass:DrawTree(vp, inputEvents, compareEntry)
 		end
 		local rightTreeVP = { x = 0, y = 0, width = halfWidth, height = treeHeight }
 		local compareEntryAsBuild = compareEntry
-		---@diagnostic disable-next-line: cast-type-mismatch
 		---@cast compareEntryAsBuild Build
 		compareEntry.treeTab.viewer:Draw(compareEntryAsBuild, rightTreeVP, leftHasInput and {} or inputEvents)
 		SetViewport()
@@ -3772,9 +3789,9 @@ function CompareTabClass:DrawItemExpanded(item, x, startY, colWidth, otherModMap
 	local maxLineW = 0
 ---@param lx number
 ---@param ly number
----@param align string
+---@param align "LEFT"|"CENTER"|"RIGHT"|"CENTER_X"|"RIGHT_X"
 ---@param fs number
----@param fStyle string
+---@param fStyle Font
 ---@param str string
 local function emit(lx, ly, align, fs, fStyle, str)
 		if measureMode then

@@ -87,6 +87,9 @@ local rageCost = {
 
 ---@class CalcSectionData A subsection's rows plus subsection configuration values
 ---@field [integer] CalcSectionRow The rows
+---@field breakdown? string Key indicating which output breakdown should be displayed
+---@field modName? string|string[] Modifier name or names used for source display
+---@field label? string Heading shown above the resulting table
 ---@field extra? string Summary text shown beside the header (e.g. "{0:output:Life}")
 ---@field colWidth? integer Fixed width for value columns in this subsection
 ---@field flag? string Applied to the whole subsection (via subSection[1].data.flag)

@@ -8,9 +8,24 @@ local t_insert = table.insert
 local t_remove = table.remove
 local s_format = string.format
 
+---@class MinionSearchListButtonControl: ButtonControl
+---@field y number
+
+---@class MinionSearchModeDropDownControl: DropDownControl<string>
+---@field selIndex integer
+
+---@class MinionSearchListControlControls: ListControlControls
+---@field add MinionSearchListButtonControl
+---@field delete MinionSearchListButtonControl
+---@field searchText EditControl
+---@field searchModeDropDown MinionSearchModeDropDownControl
+
 ---@class MinionSearchListControl: MinionListControl
+---@field controls MinionSearchListControlControls
+---@field MinionListControl fun(self: MinionListControl, anchor?: Anchor, rect?: Rect, data: Data, list: string[], dest?: MinionListControl): MinionListControl
+---@field SelectIndex fun(self: MinionSearchListControl, index: integer): boolean
 ---@field isMutable boolean
----@field labelPositionOffset number
+---@field labelPositionOffset [number, number]
 ---@field unfilteredList string[]
 local MinionSearchListClass = newClass("MinionSearchListControl", "MinionListControl")
 
@@ -18,7 +33,7 @@ local MinionSearchListClass = newClass("MinionSearchListControl", "MinionListCon
 ---@param rect? Rect
 ---@param data Data
 ---@param list string[]
----@param dest string[]
+---@param dest? MinionListControl
 ---@return MinionSearchListControl
 function MinionSearchListClass:MinionSearchListControl(anchor, rect, data, list, dest)
 	self:MinionListControl(anchor, rect, data, list, dest)
@@ -33,6 +48,7 @@ function MinionSearchListClass:MinionSearchListControl(anchor, rect, data, list,
 		self:ListFilterChanged(self.controls.searchText.buf, index)
 	end)
 
+	---@type [number, number]
 	self.labelPositionOffset = {0, -20}
 	if dest then
 		self.controls.add.y = self.controls.add.y - 20

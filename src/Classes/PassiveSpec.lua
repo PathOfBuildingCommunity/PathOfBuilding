@@ -20,6 +20,10 @@ local bor = bit.bor
 ---@field build Build
 ---@field treeVersion string
 ---@field tree PassiveTree
+---@field curClass table
+---@field curAscendClass table
+---@field extended_hashes integer[]
+---@field secondaryAscendClassId? integer
 ---@field nodes table<integer, Node>
 ---@field allocNodes table<integer, Node>
 ---@field jewel_data table<integer, table>
@@ -31,6 +35,20 @@ local bor = bit.bor
 ---@field hashOverrides table<integer, Node>
 ---@field splitPersonalityPath table<integer, boolean>
 local PassiveSpecClass = newClass("PassiveSpec", "UndoHandler")
+
+---@class (partial) Node
+---@field spriteId integer?
+
+---@class (partial) PassiveTreeGroup
+---@field n string[]
+
+---@class (partial) JewelData
+---@field impossibleEscapeKeystones table
+---@field clusterJewelNotables string[]
+---@field clusterJewelAddedMods string[]
+
+---@class (partial) Item
+---@field jewelData JewelData
 
 ---@param build Build
 ---@param treeVersion string
@@ -206,7 +224,10 @@ function PassiveSpecClass:Load(xml, dbFileName)
 				end
 			end
 		end
-		self:ImportFromNodeList(nil, tonumber(xml.attrib.classId), tonumber(xml.attrib.ascendClassId), tonumber(xml.attrib.secondaryAscendClassId or 0), hashList, self.hashOverrides, masteryEffects)
+		local classId = tonumber(xml.attrib.classId)
+		local ascendClassId = tonumber(xml.attrib.ascendClassId)
+		local secondaryAscendClassId = tonumber(xml.attrib.secondaryAscendClassId or 0)
+		self:ImportFromNodeList(nil, classId, ascendClassId, secondaryAscendClassId, hashList, self.hashOverrides, masteryEffects)
 	elseif url then
 		self:DecodeURL(url)
 	end
@@ -417,7 +438,7 @@ function PassiveSpecClass:DecodePoePlannerURL(url, return_tree_version_only)
 	   -- both error messages begin with 'Invalid'
 	---@param bytes string
 	---@param start integer
-	---@return number
+	---@return integer
 	local function byteToInt(bytes, start)
 		-- get a little endian number from two bytes
 		return bytes:byte(start) + bytes:byte(start + 1) * 256
@@ -473,7 +494,9 @@ function PassiveSpecClass:DecodePoePlannerURL(url, return_tree_version_only)
 	end
 
 	-- 9 is Class, 10 is Ascendancy
+	---@type integer
 	local classId = b:byte(9)
+	---@type integer
 	local ascendClassId = b:byte(10)
 	-- print("classId, ascendClassId", classId, ascendClassId)
 
@@ -486,15 +509,20 @@ function PassiveSpecClass:DecodePoePlannerURL(url, return_tree_version_only)
 	self:SelectAscendClass(ascendClassId)
 
 	-- 12-13 is node count
+	---@type integer
 	idx = 12
+	---@type integer
 	local nodesCount = byteToInt(b, idx)
+	---@type integer
 	local nodesEnd = idx + 2 + (nodesCount * 2)
 	local nodes = b:sub(idx  + 2, nodesEnd - 1)
 	-- print("idx + 2 , nodesEnd, nodesCount, len(nodes)", idx + 2, nodesEnd, nodesCount, #nodes)
 	self:AllocateDecodedNodes(nodes, false, "little")
 
 	idx = nodesEnd
+	---@type integer
 	local clusterCount = byteToInt(b, idx)
+	---@type integer
 	local clusterEnd = idx + 2 + (clusterCount * 2)
 	local clusterNodes = b:sub(idx  + 2, clusterEnd - 1)
 	-- print("idx + 2 , clusterEnd, clusterCount, len(clusterNodes)", idx + 2, clusterEnd, clusterCount, #clusterNodes)
@@ -502,14 +530,18 @@ function PassiveSpecClass:DecodePoePlannerURL(url, return_tree_version_only)
 
 	-- poeplanner has Ascendancy nodes in a separate array
 	idx = clusterEnd
+	---@type integer
 	local ascendancyCount = byteToInt(b, idx)
+	---@type integer
 	local ascendancyEnd = idx + 2 + (ascendancyCount * 2)
 	local ascendancyNodes = b:sub(idx  + 2, ascendancyEnd - 1)
 	-- print("idx + 2 , ascendancyEnd, ascendancyCount, len(ascendancyNodes)", idx + 2, ascendancyEnd, ascendancyCount, #ascendancyNodes)
 	self:AllocateDecodedNodes(ascendancyNodes, false, "little")
 
 	idx = ascendancyEnd
+	---@type integer
 	local masteryCount = byteToInt(b, idx)
+	---@type integer
 	local masteryEnd = idx + 2 + (masteryCount * 4)
 	local masteryEffects = b:sub(idx  + 2, masteryEnd - 1)
 	-- print("idx + 2 , masteryEnd, masteryCount, len(masteryEffects)", idx + 2, masteryEnd, masteryCount, #masteryEffects)
@@ -1105,7 +1137,6 @@ function PassiveSpecClass:AddMasteryEffectOptionsToNode(node)
 	local treeNode = self.tree.nodes[node.id]
 	local cacheNode = treeNode and treeNode.masteryCache
 	if not cacheNode then
-		---@diagnostic disable-next-line: missing-fields
 		cacheNode = { id = node.id, sd = {} } --[[@as Node]] -- minimal stand-in; only sd/mods/modList/modKey are used by ProcessStats
 		if node.masteryEffects ~= nil and #node.masteryEffects > 0 then
 			for _, effect in ipairs(node.masteryEffects) do
@@ -2033,7 +2064,7 @@ function PassiveSpecClass:TranslateClusterOrbitIndex(srcOidx, srcNodesPerOrbit, 
 end
 
 -- Applies proxy orbit offsets and converts from cluster template indices into tree orbit-space indices.
----@param indicies integer[]
+	---@param indicies table<integer, Node>
 ---@param startOidx integer
 ---@param clusterTotalIndicies integer
 ---@param skillsPerOrbit integer
@@ -2045,7 +2076,7 @@ function PassiveSpecClass:ApplyClusterOrbitIndexAdjustment(indicies, startOidx, 
 end
 
 -- Builds additional legacy node mappings by matching equivalent nodes in legacy and current orbit spaces.
----@param indicies integer[]
+	---@param indicies table<integer, Node>
 ---@param proxyNode Node
 ---@param clusterTotalIndicies integer
 ---@param skillsPerOrbit integer
@@ -2065,6 +2096,7 @@ function PassiveSpecClass:BuildLegacyClusterOrbitMappings(indicies, proxyNode, c
 		legacyNodeIdsByOidx[legacyNodeOidx] = node.id
 
 		local currentNodeOidxRelativeToClusterIndicies = self:TranslateClusterOrbitIndex(node.oidx, skillsPerOrbit, clusterTotalIndicies)
+		---@type integer
 		local currentNodeOidxInLegacySkillsPerOrbit = self:TranslateClusterOrbitIndex(currentNodeOidxRelativeToClusterIndicies, clusterTotalIndicies, legacySkillsPerOrbit)
 		currentNodeIdsByOidx[currentNodeOidxInLegacySkillsPerOrbit] = node.id
 	end
@@ -2146,7 +2178,7 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize, importe
 		end
 	end
 
-	---@param proxyId integer
+	---@param proxyId string|integer
 	---@return integer? groupId
 	local function matchGroup(proxyId)
 		for groupId, groupData in pairs(importedGroups) do
@@ -2182,6 +2214,7 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize, importe
 						or (node.oidx == data.orbitIndex and not data.isMastery)
 					if matches then
 						for _, extendedId in ipairs(importedGroups[proxyGroup].nodes) do
+							---@type integer
 							local numId = tonumber(id)
 							if id == extendedId and numId and inExtendedHashes(numId) then
 								return true
@@ -2201,6 +2234,7 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize, importe
 		assert(keystoneNode, "Keystone node not found: "..jewelData.clusterJewelKeystone)
 
 		-- Construct the new node
+		---@type { sd: string[] }
 		local node = {
 			type = "Keystone",
 			id = nodeId,
@@ -2317,6 +2351,7 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize, importe
 		makeJewel(6, 1)
 	else
 		assert(socketCount <= #clusterJewel.socketIndicies, "Too many sockets!")
+		---@type integer[]
 		local getJewels = { 0, 2, 1 }
 		for i = 1, socketCount do
 			makeJewel(clusterJewel.socketIndicies[i], getJewels[i])
@@ -2452,6 +2487,7 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize, importe
 	end
 
 	-- Generate connectors
+	---@type Node?
 	local firstNode, lastNode
 	for i = 0, clusterJewel.totalIndicies - 1 do
 		local thisNode = indicies[i]

@@ -18,6 +18,7 @@ local mod_createMod = modLib.createMod
 
 ---@class ModList: ModStore
 ---@field [integer] Mod
+---@field parent? ModStore
 local ModListClass = newClass("ModList", "ModStore")
 
 ---@param parent? ModStore
@@ -120,7 +121,7 @@ function ModListClass:SumInternal(context, modType, cfg, flags, keywordFlags, so
 	for i = 1, select('#', ...) do
 		local modName = select(i, ...)
 		for i = 1, #self do
-			---@type Mod
+			---@type { name: string, type: NumericModTypes|"FLAG"|"LIST", value: number|boolean|table, flags: integer, keywordFlags: integer, source?: string, [integer]: ModTag }
 			local mod = self[i]
 			if mod.name == modName and mod.type == modType and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or (mod.source and mod.source:match("[^:]+") == source)) then
 				if mod[1] then
@@ -153,7 +154,7 @@ function ModListClass:MoreInternal(context, cfg, flags, keywordFlags, source, ..
 		local modResult = 1 --The more multipliers for each mod are computed to the nearest percent then applied.
 		local modName = select(i, ...)
 		for i = 1, #self do
-			---@type Mod
+			---@type { name: string, type: NumericModTypes|"FLAG"|"LIST", value: number|boolean|table, flags: integer, keywordFlags: integer, source?: string, [integer]: ModTag }
 			local mod = self[i]
 			if mod.name == modName and mod.type == "MORE" and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or (mod.source and mod.source:match("[^:]+") == source)) then
 				if mod[1] then
@@ -192,7 +193,7 @@ function ModListClass:FlagInternal(context, cfg, flags, keywordFlags, source, ..
 	for i = 1, select('#', ...) do
 		local modName = select(i, ...)
 		for i = 1, #self do
-			---@type Mod
+			---@type { name: string, type: NumericModTypes|"FLAG"|"LIST", value: number|boolean|table, flags: integer, keywordFlags: integer, source?: string, [integer]: ModTag }
 			local mod = self[i]
 			if mod.name == modName and mod.type == "FLAG" and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or (mod.source and mod.source:match("[^:]+") == source)) then
 				if mod[1] then
@@ -221,7 +222,7 @@ function ModListClass:OverrideInternal(context, cfg, flags, keywordFlags, source
 	for i = 1, select('#', ...) do
 		local modName = select(i, ...)
 		for i = 1, #self do
-			---@type Mod
+			---@type { name: string, type: NumericModTypes|"FLAG"|"LIST", value: number|boolean|table, flags: integer, keywordFlags: integer, source?: string, [integer]: ModTag }
 			local mod = self[i]
 			if mod.name == modName and mod.type == "OVERRIDE" and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or (mod.source and mod.source:match("[^:]+") == source)) then
 				if mod[1] then
@@ -251,7 +252,7 @@ function ModListClass:ListInternal(context, result, cfg, flags, keywordFlags, so
 	for i = 1, select('#', ...) do
 		local modName = select(i, ...)
 		for i = 1, #self do
-			---@type Mod
+			---@type { name: string, type: NumericModTypes|"FLAG"|"LIST", value: number|boolean|table, flags: integer, keywordFlags: integer, source?: string, [integer]: ModTag }
 			local mod = self[i]
 			if mod.name == modName and mod.type == "LIST" and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or (mod.source and mod.source:match("[^:]+") == source)) then
 				local value
@@ -283,7 +284,7 @@ function ModListClass:TabulateInternal(context, result, modType, cfg, flags, key
 	for i = 1, select('#', ...) do
 		local modName = select(i, ...)
 		for i = 1, #self do
-			---@type Mod
+			---@type { name: string, type: NumericModTypes|"FLAG"|"LIST", value: number|boolean|table, flags: integer, keywordFlags: integer, source?: string, [integer]: ModTag }
 			local mod = self[i]
 			if mod.name == modName and (mod.type == modType or not modType) and band(flags, mod.flags) == mod.flags and MatchKeywordFlags(keywordFlags, mod.keywordFlags) and (not source or (mod.source and mod.source:match("[^:]+") == source)) then
 				local value

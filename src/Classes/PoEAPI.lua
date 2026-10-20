@@ -80,7 +80,7 @@ function PoEAPIClass:ValidateAuth(callback)
 	end
 end
 ---@param secret string
----@return string
+---@return string, integer
 local function base64_encode(secret)
 	return base64.encode(secret):gsub("+", "-"):gsub("/", "_"):gsub("=$", "")
 end

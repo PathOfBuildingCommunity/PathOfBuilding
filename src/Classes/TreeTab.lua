@@ -64,6 +64,25 @@ local dkjson = require "dkjson"
 ---@field desiredNodes table<string, TimelessDesiredNode>
 ---@field socketInfo TimelessJewelSocketOption
 
+---@class TreeTabControls: table<string, Control>
+---@field specSelect DropDownControl<string>
+---@field compareCheck CheckBoxControl
+---@field compareSelect DropDownControl<string>
+---@field reset ButtonControl
+---@field versionText LabelControl
+---@field versionSelect DropDownControl<TreeVersionOption>
+---@field treeSearch EditControl
+---@field findTimelessJewel ButtonControl
+---@field treeHeatMap CheckBoxControl
+---@field nodePowerMaxDepthSelect DropDownControl<unknown>
+---@field nodePowerMaxDepthCustom EditControl
+---@field treeHeatMapStatSelect DropDownControl<PowerStat>
+---@field powerReport ButtonControl
+---@field powerReportList PowerReportListControl
+---@field specConvertText LabelControl
+---@field specConvert ButtonControl
+---@field specConvertAll ButtonControl
+
 ---@class TreeTab: ControlHost
 ---@field build Build
 ---@field modFlag boolean
@@ -86,6 +105,7 @@ local dkjson = require "dkjson"
 ---@field jumpToY number
 ---@field showLegacyTattoo boolean
 ---@field allocatedNodesInRadiusCount integer
+---@field controls TreeTabControls
 ---@field [string] unknown
 local TreeTabClass = newClass("TreeTab", "ControlHost")
 ---@param build Build
@@ -778,14 +798,16 @@ function TreeTabClass:OpenImportPopup()
 			controls.msg.label = "^1Invalid tree link."
 			return
 		end
+		---@type string
+		local newTreeVersion = newTreeVersion_or_errMsg
 		-- Check for an error message
-		if string.find(newTreeVersion_or_errMsg, "Invalid") then
-			controls.msg.label = "^1"..newTreeVersion_or_errMsg
+		if string.find(newTreeVersion, "Invalid") then
+			controls.msg.label = "^1"..newTreeVersion
 			return
 		end
 
 		-- 20230908. We always create a new Spec()
-		local newSpec = new("PassiveSpec"):PassiveSpec(self.build, newTreeVersion_or_errMsg)
+		local newSpec = new("PassiveSpec"):PassiveSpec(self.build, newTreeVersion)
 		newSpec.title = controls.name.buf
 		newSpec:DecodePoePlannerURL(treeLink, false)  --DecodePoePlannerURL was used above and URL proven correct.
 		t_insert(self.specList, newSpec)
@@ -2077,7 +2099,7 @@ function TreeTabClass:FindTimelessJewel()
 	---@param powerStat PowerStat
 	---@return { id: string, weight1?: number, weight2?: number, weight3?: number }[]
 	local function generateFallbackWeights(nodes, powerStat)
-		local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator(self.build)
+					local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator()
 		local newList = { }
 		local basePower = data.powerStatList.GetFromOutput(calcBase, powerStat)
 		for _, newNode in ipairs(nodes) do

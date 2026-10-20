@@ -14,6 +14,8 @@ local m_min = math.min
 ---@class TimelessJewelSocketControl: DropDownControl<TimelessJewelSocket>
 ---@field build Build
 ---@field socketViewer PassiveTreeView
+---@field IsMouseOver fun(self: TimelessJewelSocketControl): boolean
+---@field DropDownControl DropDownControl<TimelessJewelSocket>
 local TimelessJewelSocketClass = newClass("TimelessJewelSocketControl", "DropDownControl")
 
 ---@param anchor Anchor?

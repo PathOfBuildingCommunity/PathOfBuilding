@@ -6,7 +6,7 @@
 --
 
 ---@class TradeRateLimitBucket
----@field request integer
+---@field request number
 ---@field timeout integer
 ---@field decremented? boolean
 
@@ -20,7 +20,7 @@
 
 ---@class TradeRateRequestHistory
 ---@field timestamps integer[]
----@field maxWindow? integer
+---@field maxWindow integer
 ---@field lastCheck? integer
 
 ---@class TradeQueryRateLimiter
@@ -168,10 +168,20 @@ function TradeQueryRateLimiterClass:UpdateFromHeader(headerString, policy)
 		if self.policies[policyKey] == nil or #self.pendingRequests[policyKey] == 0 then
 			self.policies[policyKey] = policyValue
 		else
+			---@type table<string, TradeRateRule>
+			local currentPolicy = self.policies[policyKey]
 			for rule, ruleValue in pairs(policyValue) do
-				---@cast ruleValue TradeRateRule
-				for window, state in pairs(ruleValue.state) do
-					local oldState = self.policies[policyKey][rule]["state"][window]
+				---@type TradeRateRule
+				local typedRuleValue = ruleValue
+				---@type table<integer, TradeRateLimitBucket>
+				local states = typedRuleValue.state
+				for window, rawState in pairs(states) do
+					---@type TradeRateLimitBucket
+					local state = rawState
+					---@type TradeRateRule
+					local oldRule = currentPolicy[rule]
+					---@type TradeRateLimitBucket
+					local oldState = oldRule.state[window]
 					if state.request > oldState.request then
 						oldState.request = state.request
 					end
@@ -235,8 +245,9 @@ function TradeQueryRateLimiterClass:NextRequestTime(policy, time)
 					nextTime = math.max(nextTime, self.lastUpdate[policy] + rule.limits[window].timeout + 1)
 				else
 					-- the expiration time of oldest timestamp in the window
-					local nextAvailableTime = self.requestHistory[policy].timestamps[oldestRequestIdx] + window + 1
-					---@cast nextAvailableTime integer
+					---@type integer
+					local oldestTimestamp = self.requestHistory[policy].timestamps[oldestRequestIdx]
+					local nextAvailableTime = oldestTimestamp + window + 1
 					nextTime = math.max(nextTime, nextAvailableTime)
 				end
 			end
@@ -295,6 +306,8 @@ end
 function TradeQueryRateLimiterClass:AgeOutRequests(policy, time)
 	local now = time or os.time()
 	local requestHistory = self.requestHistory[policy]
+	---@type integer
+	local maxWindow = requestHistory.maxWindow
 	requestHistory.lastCheck = requestHistory.lastCheck or now
 	if (requestHistory.lastCheck == now) then
 		return
@@ -313,7 +326,7 @@ function TradeQueryRateLimiterClass:AgeOutRequests(policy, time)
 				end
 			end
 		end
-		if timestamp < now - requestHistory.maxWindow then
+		if timestamp < now - maxWindow then
 			table.remove(requestHistory.timestamps, i)
 		end
 	end
@@ -336,7 +349,9 @@ function TradeQueryRateLimiterClass:ReduceLimits(margin, policies)
 		for _, rule in pairs(policy) do
 			---@cast rule TradeRateRule
 			for _, window in pairs(rule.limits) do
-				window.request = math.max(window.request - margin, 1)
+				---@type integer
+				local reducedRequest = math.max(window.request - margin, 1)
+				window.request = reducedRequest
 			end
 		end
 	end

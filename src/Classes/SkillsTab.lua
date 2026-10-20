@@ -87,15 +87,27 @@ local sortGemTypeList = {
 ---@field activeSocketGroup integer?
 ---@field activeSocketGroup2 integer?
 
+---@class SkillsTabDropDown: DropDownControl<table>
+---@field SelByValue fun(self: SkillsTabDropDown, value: unknown, key?: string)
+---@field SetList fun(self: SkillsTabDropDown, textList: string[])
+
+---@class SkillsTabGemSelectControl: GemSelectControl
+---@field SetText fun(self: SkillsTabGemSelectControl, text: string, notify?: boolean)
+
 ---@class SkillsTabControls: table<string, Control>
----@field setSelect DropDownControl<any>
----@field defaultLevel DropDownControl<any>
+---@field setSelect SkillsTabDropDown
+---@field defaultLevel SkillsTabDropDown
 ---@field defaultQuality EditControl
----@field showSupportGemTypes DropDownControl<any>
+---@field showSupportGemTypes SkillsTabDropDown
 ---@field groupLabel EditControl
----@field groupSlot DropDownControl<any>
+---@field groupSlot DropDownControl<table>
 ---@field groupCount EditControl
 ---@field scrollBarH ScrollBarControl
+---@field groupList SkillListControl
+---@field sortGemsByDPS CheckBoxControl
+---@field sortGemsByDPSFieldControl SkillsTabDropDown
+---@field showLegacyGems CheckBoxControl
+---@field imbuedSupport SkillsTabGemSelectControl
 
 ---@class SkillsTab: UndoHandler, ControlHost, Control
 ---@field controls SkillsTabControls
@@ -136,6 +148,7 @@ function SkillsTabClass:SkillsTab(build)
 	self.defaultGemQuality = main.defaultGemQuality
 
 	-- Set selector
+	---@type SkillsTabDropDown
 	self.controls.setSelect = new("DropDownControl"):DropDownControl({ "TOPLEFT", self, "TOPLEFT" }, { 76, 8, 210, 20 }, nil, function(index, value)
 		self:SetActiveSkillSet(self.skillSetOrderList[index])
 		self:AddUndoState()
@@ -168,9 +181,11 @@ function SkillsTabClass:SkillsTab(build)
 	self.controls.sortGemsByDPS = new("CheckBoxControl"):CheckBoxControl({ "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, { optionInputsX, optionInputsY + 70, 20 }, "Sort gems by DPS:", function(state)
 		self.sortGemsByDPS = state
 	end, nil, true)
+	---@type SkillsTabDropDown
 	self.controls.sortGemsByDPSFieldControl = new("DropDownControl"):DropDownControl({ "LEFT", self.controls.sortGemsByDPS, "RIGHT" }, { 10, 0, 140, 20 }, sortGemTypeList, function(index, value)
 		self.sortGemsByDPSField = value.type
 	end)
+	---@type SkillsTabDropDown
 	self.controls.defaultLevel = new("DropDownControl"):DropDownControl({ "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, { optionInputsX, optionInputsY + 94, 170, 20 }, defaultGemLevelList, function(index, value)
 		self.defaultGemLevel = value.gemLevel
 	end)
@@ -185,6 +200,7 @@ function SkillsTabClass:SkillsTab(build)
 		self.defaultGemQuality = m_min(tonumber(buf) or 0, 23)
 	end)
 	self.controls.defaultQualityLabel = new("LabelControl"):LabelControl({ "RIGHT", self.controls.defaultQuality, "LEFT" }, { -4, 0, 0, 16 }, "^7Default gem quality:")
+	---@type SkillsTabDropDown
 	self.controls.showSupportGemTypes = new("DropDownControl"):DropDownControl({ "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, { optionInputsX, optionInputsY + 142, 170, 20 }, showSupportGemTypeList, function(index, value)
 		self.showSupportGemTypes = value.show
 	end)
@@ -364,6 +380,7 @@ function SkillsTabClass:SkillsTab(build)
 	-- the last var in the GemSelectControl init, the true, sets imbuedSelect to true which sets the level to 1 and support filtering
 	self.imbuedSupportBySlot = { }
 	self.controls.imbuedSupportLabel = new("LabelControl"):LabelControl({ "TOPLEFT", self.controls.socketsLabel, "BOTTOMLEFT", true }, { 0, 8, 0, 16 }, colorCodes.CRAFTED .. "Imbued Support:")
+	---@type SkillsTabGemSelectControl
 	self.controls.imbuedSupport = new("GemSelectControl"):GemSelectControl({ "LEFT", self.controls.imbuedSupportLabel, "RIGHT" }, { 8, 0, 250, 20 }, self, 1, function(gemData, _, _, gemMatch, slotName)
 		local targetSlot = slotName or (self.displayGroup and self.displayGroup.slot)
 		if not targetSlot then
@@ -952,6 +969,8 @@ function SkillsTabClass:CreateGemSlot(index)
 			local gemData = gemInstance.gemData
 
 			-- Function for both granted effect and secondary such as vaal
+			---@param qualityList table
+			---@param grantedEffect table
 			local addQualityLines = function(qualityList, grantedEffect)
 				tooltip:AddLine(18, colorCodes.GEM..grantedEffect.name)
 				-- Hardcoded to use 20% quality instead of grabbing from gem, this is for consistency and so we always show something
@@ -992,7 +1011,7 @@ function SkillsTabClass:CreateGemSlot(index)
 				end
 			end
 
-			local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator(self.build)
+			local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator()
 			if calcFunc then
 				local storedQuality = self.displayGroup.gemList[index].quality
 				self.displayGroup.gemList[index].quality = 20
@@ -1032,7 +1051,7 @@ function SkillsTabClass:CreateGemSlot(index)
 	slot.enabled.tooltipFunc = function(tooltip)
 		if tooltip:CheckForUpdate(self.build.outputRevision, self.displayGroup) then
 			if self.displayGroup.gemList[index] then
-				local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator(self.build)
+				local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator()
 				if calcFunc then
 					self.displayGroup.gemList[index].enabled = not self.displayGroup.gemList[index].enabled
 					local output = calcFunc()

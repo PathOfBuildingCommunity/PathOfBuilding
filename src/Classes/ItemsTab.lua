@@ -55,6 +55,8 @@ local influenceInfo = itemLib.influenceInfo.all
 ---@field displayItemAltVariant3 DropDownControl<string>
 ---@field displayItemAltVariant4 DropDownControl<string>
 ---@field displayItemAltVariant5 DropDownControl<string>
+---@field displayItemQualityEdit EditControl & { SetText: fun(self: EditControl, text: string|number, notify?: boolean) }
+---@field displayItemCatalystQualityEdit EditControl & { SetText: fun(self: EditControl, text: string|number, notify?: boolean) }
 ---@field displayItemInfluence DropDownControl<any>
 ---@field displayItemInfluence2 DropDownControl<any>
 ---@field displayItemRangeLine DropDownControl<any>
@@ -992,7 +994,15 @@ holding Shift will put it in the second.]])
 					end
 				else
 					---@type ItemDataMod
-					local mod = { }
+					local mod = {
+						group = "",
+						level = 0,
+						modTags = { },
+						statOrder = { },
+						type = "",
+						weightKey = { },
+						weightVal = { },
+					}
 					if value.modId or #modList == 1 then
 						mod = self.displayItem.affixes[value.modId or modList[1]]
 					else

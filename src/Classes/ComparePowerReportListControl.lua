@@ -23,13 +23,17 @@ local t_sort = table.sort
 
 ---@class ComparePowerReportListControl: ListControl<ComparePowerReportEntry>
 ---@field reportData table
----@field impactColumn? ListColumn<table>
+---@field impactColumn { width: number, label: string, sortable: boolean }
+---@field compareTab CompareTab
 ---@field lastTooltipIndex? integer
 ---@field statusText? string
+---@field ListControl (fun(self: ListControl<ComparePowerReportEntry>, anchor?: Anchor, rect?: Rect, rowHeight: number, scroll?: string|boolean, isMutable?: boolean, list?: ComparePowerReportEntry[], forceTooltip?: boolean): ListControl<ComparePowerReportEntry>) & { Draw: fun(self: ListControl<ComparePowerReportEntry>, viewPort: Viewport, noTooltip?: boolean) }
 local ComparePowerReportListClass = newClass("ComparePowerReportListControl", "ListControl")
 
+---@alias ComparePowerReportRect [Prop<number>?, Prop<number>?, Prop<number>, Prop<number>?]
+
 ---@param anchor? Anchor
----@param rect? Rect
+---@param rect ComparePowerReportRect
 ---@return ComparePowerReportListControl
 function ComparePowerReportListClass:ComparePowerReportListControl(anchor, rect)
 	self:ListControl(anchor, rect, 18, "VERTICAL", false)
@@ -49,7 +53,7 @@ function ComparePowerReportListClass:ComparePowerReportListControl(anchor, rect)
 	return self
 end
 
----@param stat? { label: string }
+---@param stat? { label: string, stat?: string }
 ---@param report? table
 function ComparePowerReportListClass:SetReport(stat, report)
 	self.impactColumn.label = stat and stat.label or ""
@@ -142,7 +146,7 @@ end
 
 ---@param tooltip Tooltip
 ---@param index integer
----@param entry table
+---@param entry ComparePowerReportEntry
 function ComparePowerReportListClass:AddValueTooltip(tooltip, index, entry)
 	if main.popups[1] then
 		tooltip:Clear()
@@ -178,7 +182,7 @@ end
 
 ---@param column integer
 ---@param index integer
----@param entry table
+---@param entry ComparePowerReportEntry
 ---@return string?
 function ComparePowerReportListClass:GetRowValue(column, index, entry)
 	if column == 1 then

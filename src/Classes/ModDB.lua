@@ -18,6 +18,7 @@ local bor = bit.bor
 local mod_createMod = modLib.createMod
 
 ---@class ModDB: ModStore
+---@field parent? ModStore
 ---@field mods table<string, Mod[]>
 local ModDBClass = newClass("ModDB", "ModStore")
 

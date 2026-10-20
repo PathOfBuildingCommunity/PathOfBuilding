@@ -7,13 +7,23 @@ local pairs = pairs
 local ipairs = ipairs
 local t_insert = table.insert
 
+---@class ItemListControlControls: ListControlControls
+---@field loadoutFilter DropDownControl<string> & { list: string[], SetList: fun(self: DropDownControl<string>, textList: string[]) }
+
 ---@class ItemListControl: ListControl<integer>
+---@field controls ItemListControlControls
 ---@field itemsTab ItemsTab
 ---@field defaultText string
 ---@field dragTargetList ListControl<unknown>[]
 ---@field isMutable boolean
 ---@field loadoutListKey? string
 ---@field lastOutputRevision? integer
+---@field selIndex? integer
+---@field selValue? integer
+---@field ListControl { Draw: fun(self: ItemListControl, viewPort: Viewport, noTooltip?: boolean), GetHoverValue: fun(self: ItemListControl, key?: string): integer? }
+---@field OnSelClick fun(self: ItemListControl, index: integer, itemId: integer, doubleClick?: boolean): boolean?
+---@field OnSelCopy fun(self: ItemListControl, index: integer, itemId: integer)
+---@field OnSelDelete fun(self: ItemListControl, index: integer, itemId: integer)
 local ItemListClass = newClass("ItemListControl", "ListControl")
 
 ---@param anchor Anchor?
@@ -35,6 +45,7 @@ function ItemListClass:ItemListControl(anchor, rect, itemsTab, forceTooltip)
 		self:UpdateList()
 	end)
 	self.controls.deleteUnused = new("ButtonControl"):ButtonControl({"LEFT",self.controls.sort,"RIGHT"}, {4, 0, 84, 18}, "Del Unused", function()
+		---@type integer[]
 		local delList = {}
 		for _, itemId in pairs(itemsTab.itemOrderList) do
 			if not itemsTab:GetEquippedSlotForItem(itemsTab.items[itemId]) and not self:FindEquippedAbyssJewel(itemId, false) and not self:FindSocketedJewel(itemId, false) then
@@ -93,6 +104,7 @@ end
 function ItemListClass:UpdateLoadoutList()
 	local list = { "Any Loadout", "Current Loadout", "Unused Items" }
 	local listValues = { ["Any Loadout"] = true, ["Current Loadout"] = true, ["Unused Items"] = true }
+	---@type Build & { controls: { buildLoadouts: DropDownControl<string> } }
 	local build = self.itemsTab.build
 	if build and build.controls and build.controls.buildLoadouts then
 		for _, val in ipairs(build.controls.buildLoadouts.list) do
@@ -202,6 +214,7 @@ function ItemListClass:UpdateList()
 end
 
 ---@param viewPort Viewport
+---@param self ItemListControl
 function ItemListClass:Draw(viewPort)
 	local loadoutListChanged = self:UpdateLoadoutList()
 	local outputRevision = self.itemsTab.build and self.itemsTab.build.outputRevision
@@ -329,6 +342,7 @@ end
 ---@param itemId integer
 ---@param doubleClick? boolean
 ---@return boolean?
+---@param self ItemListControl
 function ItemListClass:OnSelClick(index, itemId, doubleClick)
 	local item = self.itemsTab.items[itemId]
 	if IsKeyDown("CTRL") then
@@ -367,6 +381,7 @@ end
 
 ---@param index integer
 ---@param itemId integer
+---@param self ItemListControl
 function ItemListClass:OnSelCopy(index, itemId)
 	local item = self.itemsTab.items[itemId]
 	Copy(item:BuildRaw():gsub("\n", "\r\n"))
@@ -374,6 +389,7 @@ end
 
 ---@param index integer
 ---@param itemId integer
+---@param self ItemListControl
 function ItemListClass:OnSelDelete(index, itemId)
 	local item = self.itemsTab.items[itemId]
 	local equipSlot, equipSet = self.itemsTab:GetEquippedSlotForItem(item)
@@ -415,6 +431,7 @@ function ItemListClass:OnSelDelete(index, itemId)
 end
 
 ---@param key string
+---@param self ItemListControl
 function ItemListClass:OnHoverKeyUp(key)
 	if itemLib.wiki.matchesKey(key) then
 		local itemId = self.ListControl:GetHoverValue()

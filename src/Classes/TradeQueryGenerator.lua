@@ -15,6 +15,7 @@ local utils = require("Modules.Utils")
 -- a table which tells us what subtypes each category we can search for
 -- contains. the commented out lines are type-subtype combinations which don't
 -- exist yet, but might exist in the future
+---@type table<string, string[]>
 local tradeCategoryNames = {
 	["Ring"] = { "Ring" },
 	["Amulet"] = { "Amulet" },
@@ -184,8 +185,8 @@ end
 ---@field lastMaxPrice? number
 ---@field lastMaxPriceTypeIndex? integer
 ---@field lastMaxLevel? integer
----@field requesterCallback? fun(context: table, query: string?, errMsg: string?)
----@field requesterContext? table
+	---@field requesterCallback fun(context: table, query: string?, errMsg: string?)
+	---@field requesterContext table
 ---@field [string] unknown
 local TradeQueryGeneratorClass = newClass("TradeQueryGenerator")
 ---@param queryTab TradeQuery
@@ -201,8 +202,8 @@ function TradeQueryGeneratorClass:TradeQueryGenerator(queryTab)
 	self.lastMaxLevel = nil
 	return self
 end
----@param baseOutput Output|table<string, number|string|boolean>
----@param newOutput Output|table<string, number|string|boolean>
+	---@param baseOutput Output
+	---@param newOutput Output
 ---@param statWeights WeightedPowerStat[]
 ---@return number
 function TradeQueryGeneratorClass.WeightedRatioOutputs(baseOutput, newOutput, statWeights)
@@ -210,11 +211,17 @@ function TradeQueryGeneratorClass.WeightedRatioOutputs(baseOutput, newOutput, st
 	local meanStatDiff = 0
 	---@return number
 	local function ratioModSums(...)
+		---@type number
 		local baseModSum = 0
+		---@type number
 		local newModSum = 0
 		for _, mod in ipairs({ ... }) do
-			baseModSum = baseModSum + data.powerStatList.GetFromOutput(baseOutput, mod, true)
-			newModSum = newModSum + data.powerStatList.GetFromOutput(newOutput, mod, true)
+			---@type number
+			local baseModValue = data.powerStatList.GetFromOutput(baseOutput, mod, true)
+			---@type number
+			local newModValue = data.powerStatList.GetFromOutput(newOutput, mod, true)
+			baseModSum = baseModSum + baseModValue
+			newModSum = newModSum + newModValue
 		end
 
 		if baseModSum == math.huge then
@@ -228,6 +235,7 @@ function TradeQueryGeneratorClass.WeightedRatioOutputs(baseOutput, newOutput, st
 		end
 	end
 	for _, statTable in ipairs(statWeights) do
+		---@type number
 		local modSumRatio
 		if statTable.stat == "FullDPS" and not (baseOutput["FullDPS"] and newOutput["FullDPS"]) then
 			modSumRatio = ratioModSums({ stat = "TotalDPS" }, { stat = "TotalDotDPS" }, { stat = "CombinedDPS" })
@@ -572,7 +580,7 @@ function TradeQueryGeneratorClass:InitMods()
 		{ ["AnyJewel"] = "AnyJewel" })
 
 	-- implicit mods
-	---@param baseEntry ItemBaseEntry
+	---@param baseEntry { type: string, subType?: string }
 	---@param modId string
 	---@param modType "Implicit"|"Enchant"
 	local function processBaseMod(baseEntry, modId, modType)
@@ -619,6 +627,7 @@ See TradeSiteStats.lua for a list of all trade site stats.]]
 	utils.saveTableToFile(queryModFilePath, self.modData, qmDescription)
 end
 ---@param modsToTest table<unknown, table>
+---@async
 function TradeQueryGeneratorClass:GenerateModWeights(modsToTest)
 	local start = GetTime()
 	for _, entry in pairs(modsToTest) do
@@ -669,6 +678,7 @@ function TradeQueryGeneratorClass:GenerateModWeights(modsToTest)
 	end
 end
 ---@param nodesToTest table<unknown, table>
+---@async
 function TradeQueryGeneratorClass:GeneratePassiveNodeWeights(nodesToTest)
 	local start = GetTime()
 	for _, entry in pairs(nodesToTest) do
@@ -715,6 +725,7 @@ function TradeQueryGeneratorClass:OnFrame()
 	end
 end
 
+---@type { name: string, id: string? }[]
 local currencyTable = {
 	{ name = "Chaos Orb Equivalent", id = nil },
 	{ name = "Chaos Orb", id = "chaos" },
@@ -1249,6 +1260,7 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 	local isWeaponSlot = slot and (slot.slotName == "Weapon 1" or slot.slotName == "Weapon 2")
 	local isEldritchModSlot = slot and eldritchModSlots[slot.slotName] == true
 
+	---@type Control
 	local lastItemAnchor
 	---@param anchor Control
 	---@param height? number

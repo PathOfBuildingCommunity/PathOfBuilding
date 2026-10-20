@@ -32,8 +32,8 @@ local m_floor = math.floor
 
 ---@class ListControlControls: table<string, Control>
 ---@field scrollBar? ScrollBarControl
----@field scrollBarH? ScrollBarControl
----@field scrollBarV? ScrollBarControl
+---@field scrollBarH ScrollBarControl
+---@field scrollBarV ScrollBarControl
 
 ---@class ListControl<T>: Control, ControlHost
 ---@field controls ListControlControls
@@ -48,13 +48,38 @@ local m_floor = math.floor
 ---@field tooltip Tooltip
 ---@field font Font
 ---@field labelPositionOffset [number, number]
----@field selIndex? integer
+---@field colLabels boolean
+---@field showRowSeparators boolean
+---@field defaultText string
+---@field OverrideSelectIndex fun(self: ListControl<T>, index: integer): boolean?
+---@field OnSelect fun(self: ListControl<T>, index: integer, value: T)
+---@field GetRowValue fun(self: ListControl<T>, column: integer, index: integer, value: T): string?
+---@field GetRowIcon fun(self: ListControl<T>, column: integer, index: integer, value: T): ImageHandle?
+---@field AddValueTooltip fun(self: ListControl<T>, tooltip: Tooltip, index: integer, value: T)
+---@field GetDragValue fun(self: ListControl<T>, index: integer, value: T): string?, unknown
+---@field CanReceiveDrag fun(self: ListControl<T>, type: string, value: unknown): boolean
+---@field ReceiveDrag fun(self: ListControl<T>, type: string, value: unknown, source: ListControl<unknown>)
+---@field OnDragSend fun(self: ListControl<T>, index: integer, value: T, target: ListControl<unknown>)
+---@field OnOrderChange fun(self: ListControl<T>, oldIndex: integer, newIndex: integer)
+---@field OnSelClick fun(self: ListControl<T>, index: integer, value: T, doubleClick?: boolean): boolean?
+---@field OnSelCopy fun(self: ListControl<T>, index: integer, value: T)
+---@field OnSelCut fun(self: ListControl<T>, index: integer, value: T)
+---@field OnSelDelete fun(self: ListControl<T>, index: integer, value: T)
+---@field OnSelKeyDown fun(self: ListControl<T>, index: integer, value: T, key: string)
+---@field OnAnyKeyDown fun(self: ListControl<T>, key: string)
+---@field SetHighlightColor fun(self: ListControl<T>, index: integer, value: T): boolean?
+---@field ReSort fun(self: ListControl<T>, column: integer)
+---@field IsMouseOver fun(self: ListControl<T>): boolean|Control?
+---@field GetRowRegion fun(self: ListControl<T>): ListRegion
+---@field GetColumnProperty fun(self: ListControl<T>, column: ListColumn<T>, property: string): unknown
+---@field SelectIndex fun(self: ListControl<T>, index: integer): boolean
+---@field selIndex integer
 ---@field selValue? T
 ---@field selDragging? boolean
 ---@field selDragActive? boolean
 ---@field selDragIndex? integer
----@field selCX? number
----@field selCY? number
+---@field selCX number
+---@field selCY number
 ---@field hoverIndex? integer
 ---@field hoverValue? T
 ---@field dragTargetList? ListControl<unknown>[]
@@ -68,9 +93,12 @@ local m_floor = math.floor
 ---@field label? string
 ---@field width? Prop<number>|fun(list: ListControl<T>, column: ListColumn<T>): number
 ---@field align? "LEFT"|"RIGHT"|"CENTER_X"
+---@field font? Font
+---@field sortable? boolean
 ---@field _offset? number
 ---@field _width? number
 local _ListColumn = { }
+---@type ListControl<unknown>
 local ListClass = newClass("ListControl", "Control", "ControlHost")
 
 ---@generic T
@@ -483,6 +511,7 @@ function ListClass:OnKeyDown(key, doubleClick)
 	return self
 end
 ---@param key string
+---@generic T
 ---@return ListControl<T>?
 function ListClass:OnKeyUp(key)
 	if not self:IsShown() or not self:IsEnabled() then
@@ -551,7 +580,7 @@ function ListClass:GetHoverIndex()
 end
 
 ---@param key? string
----@return T?
+---@return unknown?
 function ListClass:GetHoverValue(key)
 	local index = self:GetHoverIndex()
 	if index then

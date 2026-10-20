@@ -26,8 +26,8 @@ end
 local M = {}
 
 ---@class CompareBuySimilarTradeFilterValue
----@field min? number
----@field max? number
+---@field min? string|number
+---@field max? string|number
 ---@field option? string|number
 
 ---@class CompareBuySimilarTradeFilter

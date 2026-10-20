@@ -10,9 +10,10 @@ local s_format = string.format
 
 ---@class MinionListControl: ListControl<string>
 ---@field data Data
----@field dest? MinionListControl
+---@field dest? MinionListControl & { list: string[] }
 ---@field dragTargetList? ListControl<unknown>[]
 ---@field label string
+---@field list string[]
 ---@field selIndex? integer
 ---@field selValue? string
 local MinionListClass = newClass("MinionListControl", "ListControl")

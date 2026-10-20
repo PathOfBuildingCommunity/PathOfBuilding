@@ -17,18 +17,23 @@ local buildListHelpers = require("Modules.BuildListHelpers")
 ---@field ascendClassName? string
 ---@field level? integer
 
----@class BuildListMode: ControlHost
----@field subPath string
----@field list BuildListEntry[]
----@field BuildList fun(self: BuildListMode)
+---@class BuildListControlMode: BuildListMode
+---@field GetDestName fun(self: BuildListControlMode, subPath: string, fileName: string): string
+
+---@class BuildListPathControl: PathControl
+---@field CanReceiveDrag fun(self: BuildListPathControl, type: string, build: BuildListEntry): boolean
+---@field ReceiveDrag fun(self: BuildListPathControl, type: string, build: BuildListEntry, source: ListControl<unknown>)
 
 ---@class BuildListControl: ListControl<BuildListEntry>
----@field listMode BuildListMode
+---@field listMode BuildListControlMode
+---@field list BuildListEntry[]
+---@field width Prop<number>
+---@field SelectIndex fun(self: BuildListControl, index: integer): boolean?
 local BuildListClass = newClass("BuildListControl", "ListControl")
 
 ---@param anchor? Anchor
 ---@param rect? Rect
----@param listMode BuildListMode
+---@param listMode BuildListControlMode
 ---@return BuildListControl
 function BuildListClass:BuildListControl(anchor, rect, listMode)
 	self:ListControl(anchor, rect, 20, "VERTICAL", false, listMode.list)
@@ -47,6 +52,7 @@ function BuildListClass:BuildListControl(anchor, rect, listMode)
 		self.selDragActive = false
 		self.otherDragSource = false
 	end)
+	---@cast self.controls.path BuildListPathControl
 	---@param type string
 	---@param build BuildListEntry
 	---@return boolean
@@ -64,6 +70,7 @@ function BuildListClass:BuildListControl(anchor, rect, listMode)
 						if build.folderName then
 							main:MoveFolder(build.folderName, main.buildPath..build.subPath, main.buildPath..folder.path)
 						else
+							---@cast build.fileName string
 							local destPath = listMode:GetDestName(folder.path, build.fileName)
 							local res, msg = os.rename(build.fullFileName, destPath)
 							if not res then
@@ -102,6 +109,7 @@ end
 ---@param build BuildListEntry
 function BuildListClass:LoadBuild(build)
 	if build.folderName then
+		---@cast self.controls.path BuildListPathControl
 		self.controls.path:SetSubPath(build.subPath .. build.folderName  .. "/")
 	else
 		main:SetMode("BUILD", build.fullFileName, build.buildName)
@@ -129,6 +137,7 @@ function BuildListClass:RenameBuild(build, copyOnName)
 				controls.save.enabled = true
 			end
 		else
+			---@cast build.buildName string
 			if buf:match("%S") then
 				if buf:lower() ~= build.buildName:lower() then
 					local newName = buf..".xml"
@@ -281,6 +290,7 @@ function BuildListClass:ReceiveDrag(type, build, source)
 				if build.folderName then
 					main:MoveFolder(build.folderName, main.buildPath..build.subPath, main.buildPath..targetSubPath)
 				else
+					---@cast build.fileName string
 					local destPath = self.listMode:GetDestName(targetSubPath, build.fileName)
 					local res, msg = os.rename(build.fullFileName, destPath)
 					if not res then
@@ -296,8 +306,8 @@ end
 
 ---@param index integer
 ---@param build BuildListEntry
----@param source? ListControl<unknown>
----@return boolean
+---@param source ListControl<BuildListEntry>
+---@return boolean?
 function BuildListClass:CanDragToValue(index, build, source)
 	return build.folderName and source.selValue ~= build and buildListHelpers.CanMoveToSubPath(source.selValue, build.subPath .. build.folderName .. "/")
 end

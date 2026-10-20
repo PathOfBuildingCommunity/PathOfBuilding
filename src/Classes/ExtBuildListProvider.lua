@@ -23,14 +23,25 @@
 ---@field es? number
 ---@field dps? number
 ---@field version? string
----@field metadata? table[]
+---@field metadata? ExtBuildListMetadata[]
+
+---@class ExtBuildListMetadata
+---@field key string
+---@field value string
 
 ---@class ExtBuildListProvider
 ---@field listTitles? string[]
 ---@field buildList ExtBuildListEntry[]
+---@field buildListTitles string[]
 ---@field activeList? string
 ---@field statusMsg? string
 ---@field importCode? string
+---@field Activate fun(self: ExtBuildListProvider)
+---@field SetActiveList fun(self: ExtBuildListProvider, activeList: string?)
+---@field GetActiveList fun(self: ExtBuildListProvider): string?
+---@field GetListTitles fun(self: ExtBuildListProvider): string[]?
+---@field GetPageUrl fun(self: ExtBuildListProvider): string?
+---@field SetImportCode fun(self: ExtBuildListProvider, importCode: string)
 local ExtBuildListProviderClass = newClass("ExtBuildListProvider")
 
 ---@param listTitles? string[]
@@ -38,6 +49,7 @@ local ExtBuildListProviderClass = newClass("ExtBuildListProvider")
 function ExtBuildListProviderClass:ExtBuildListProvider(listTitles)
 	self.listTitles = listTitles
 	self.buildList = {}
+	self.buildListTitles = {}
 	self.activeList = nil
 	self.statusMsg = nil
 	return self
@@ -54,7 +66,7 @@ function ExtBuildListProviderClass:Activate()
 	end
 end
 
----@param activeList string
+---@param activeList string?
 function ExtBuildListProviderClass:SetActiveList(activeList)
 	if self.listTitles then
 		for _, value in ipairs(self.listTitles) do

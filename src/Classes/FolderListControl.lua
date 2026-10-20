@@ -11,18 +11,25 @@ local t_insert = table.insert
 ---@field fullFileName string
 ---@field modified integer
 
+---@class FolderListPathControl: PathControl
+---@field SetSubPath fun(self: FolderListPathControl, subPath: string, noUndo?: boolean)
+
 ---@class FolderListControl: ListControl<FolderListEntry>
+---@field controls ListControlControls & { path: FolderListPathControl }
+---@field list FolderListEntry[]
 ---@field subPath string
 ---@field sortMode "NAME"|"EDITED"
 ---@field onChangeCallback? fun(newSubPath: string)
 ---@field selIndex? integer
 ---@field selValue? FolderListEntry
+---@field UpdateScrollbar fun(self: FolderListControl)
+---@field Redraw fun(self: FolderListControl)
 local FolderListClass = newClass("FolderListControl", "ListControl")
 
 ---@param anchor? Anchor
 ---@param rect? Rect
 ---@param subPath? string
----@param onChange? fun()
+---@param onChange? fun(newSubPath: string)
 ---@return FolderListControl
 function FolderListClass:FolderListControl(anchor, rect, subPath, onChange)
 	self:ListControl(anchor, rect, 16, "VERTICAL", false, { })

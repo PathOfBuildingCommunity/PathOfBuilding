@@ -146,7 +146,6 @@ function CompareEntryClass:LoadFromXML(xmlText)
 	partyActor.modDB.actor = partyActor
 	self.partyTab = { enemyModList = new("ModList"):ModList(), actor = partyActor }
 	local selfAsBuild = self
-	---@diagnostic disable-next-line: cast-type-mismatch
 	---@cast selfAsBuild Build
 	self.configTab = new("ConfigTab"):ConfigTab(selfAsBuild)
 	self.itemsTab = new("ItemsTab"):ItemsTab(selfAsBuild)
@@ -337,7 +336,7 @@ function CompareEntryClass:SetMainSocketGroup(index)
 end
 
 ---@param controls table
----@param mainGroup? table
+---@param mainGroup integer
 ---@param suffix string
 function CompareEntryClass:RefreshSkillSelectControls(controls, mainGroup, suffix)
 	-- Populate skill select controls
@@ -430,8 +429,8 @@ function CompareEntryClass:RefreshSkillSelectControls(controls, mainGroup, suffi
 end
 
 ---@param controls table
----@param activeSkill? table
----@param activeEffect? table
+---@param activeSkill table
+---@param activeEffect table
 ---@param suffix string
 function CompareEntryClass:RefreshMinionControls(controls, activeSkill, activeEffect, suffix)
 	wipeTable(controls.mainSkillMinion.list)
@@ -507,7 +506,7 @@ end
 -- Stat comparison
 ---@param tooltip Tooltip
 ---@param statList table
----@param actor Actor
+---@param actor Actor?
 ---@param baseOutput Output
 ---@param compareOutput Output
 ---@param header string

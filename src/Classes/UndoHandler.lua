@@ -6,15 +6,23 @@
 -- undoState = :CreateUndoState()	Returns a new undo state that reflects the current state
 -- :RestoreUndoState(undoState)		Reverts the current state to the given undo state
 --
+---@type fun(list: unknown[], pos: integer, value: unknown)
 local t_insert = table.insert
+---@type fun(list: unknown[], pos?: integer): unknown
 local t_remove = table.remove
 
 ---@class UndoHandler
----@field CreateUndoState fun(): unknown Must be manually defined. Creates a state that can be restored
----@field RestoreUndoState fun(state: unknown) Must be manually defined. Restores a state created by calling CreateUndoState()
+---@field CreateUndoState fun(self: UndoHandler): unknown Must be manually defined. Creates a state that can be restored
+---@field RestoreUndoState fun(self: UndoHandler, state: unknown) Must be manually defined. Restores a state created by calling CreateUndoState()
 ---@field undo unknown[]
 ---@field redo unknown[]
 ---@field modFlag? boolean
+---@field UndoHandler fun(self: UndoHandler): UndoHandler
+---@field ResetUndo fun(self: UndoHandler)
+---@field AddUndoState fun(self: UndoHandler, noClearRedo?: boolean)
+---@field Undo fun(self: UndoHandler)
+---@field Redo fun(self: UndoHandler)
+---@type UndoHandler
 local UndoHandlerClass = newClass("UndoHandler")
 
 ---@return UndoHandler

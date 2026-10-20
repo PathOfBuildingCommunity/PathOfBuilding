@@ -71,7 +71,7 @@ function CustomModBlockClass:CustomModBlockControl(anchor, rect, configTab, bloc
 	self.controls.enableCheck.tooltipFunc = function(tooltip)
 		if tooltip:CheckForUpdate(configTab.build.outputRevision, blockData) then
 			if configTab.build.calcsTab then
-				local calcFunc, calcBase = configTab.build.calcsTab:GetMiscCalculator(configTab.build)
+				local calcFunc, calcBase = configTab.build.calcsTab:GetMiscCalculator()
 				if calcFunc then
 					local curState = blockData.enabled ~= false
 					blockData.enabled = not curState
@@ -145,6 +145,24 @@ end
 ---@alias ConfigValue string|number|boolean
 ---@alias ConfigConditionalOption string|integer
 
+---@class SectionControl
+---@field varControlList Control[]
+---@field col integer?
+---@field collapsed boolean
+
+---@class ConfigTabSectionControl: SectionControl
+
+---@class ConfigTabOptionControl: Control
+---@field inactiveText? fun(value: string): string?
+---@field SetText fun(self: ConfigTabOptionControl, text: string, notify?: boolean)
+---@field SelByValue fun(self: ConfigTabOptionControl, value: ConfigValue, key?: string): integer?
+---@field GetProperty fun(self: ConfigTabOptionControl, property: string): string?
+---@field IsScrollDownKey fun(self: ConfigTabOptionControl, key: string): boolean
+---@field IsScrollUpKey fun(self: ConfigTabOptionControl, key: string): boolean
+---@field Scroll fun(self: ConfigTabOptionControl, mult: number)
+---@field SetList fun(self: ConfigTabOptionControl, textList: table)
+---@field SetContentDimension fun(self: ConfigTabOptionControl, conDim: number, viewDim: number)
+
 ---@class (partial) ConfigSet
 ---@field id integer
 ---@field title? string
@@ -165,8 +183,8 @@ end
 ---@field configSetOrderList integer[]
 ---@field activeConfigSetId integer
 ---@field enemyLevel integer
----@field sectionList SectionControl[]
----@field varControls table<string, Control>
+---@field sectionList ConfigTabSectionControl[]
+---@field varControls table<string, ConfigTabOptionControl>
 ---@field modList ModList
 ---@field enemyModList ModList
 ---@field toggleConfigs boolean
@@ -236,7 +254,7 @@ function ConfigTabClass:ConfigTab(build)
 		self.toggleConfigs = not self.toggleConfigs
 	end)
 
-	---@param section SectionControl
+	---@param section ConfigTabSectionControl
 	---@return boolean
 	local function isCollapsed(section)
 		return self:IsSectionCollapsed(section)
@@ -321,7 +339,7 @@ function ConfigTabClass:ConfigTab(build)
 		end
 	end
 
-	local lastSection
+	local lastSection ---@type ConfigTabSectionControl
 	for _, varData in ipairs(varList) do
 		if varData.section then
 			lastSection = new("SectionControl"):SectionControl({"TOPLEFT",self.controls.search,"BOTTOMLEFT"}, {0, 0, 360, 0}, varData.section)
@@ -357,7 +375,7 @@ function ConfigTabClass:ConfigTab(build)
 				self.customSection = lastSection
 			end
 		else
-			local control
+			local control ---@type ConfigTabOptionControl
 			if varData.type == "check" then
 				control = new("CheckBoxControl"):CheckBoxControl({"TOPLEFT",lastSection,"TOPLEFT"}, {234, 0, 18}, varData.label, function(state)
 					self.configSets[self.activeConfigSetId].input[varData.var] = state
@@ -730,7 +748,7 @@ function ConfigTabClass:ConfigTab(build)
 			if varData.tooltipFunc then
 				control.tooltipFunc = varData.tooltipFunc
 			end
-			local labelControl = control
+			local labelControl = control ---@type ConfigTabOptionControl
 			if varData.label and varData.type ~= "check" then
 				labelControl = new("LabelControl"):LabelControl({"RIGHT",control,"LEFT"}, {-4, 0, 0, DrawStringWidth(14, "VAR", varData.label) > 228 and 12 or 14}, "^7"..varData.label)
 				t_insert(self.controls, labelControl)
@@ -828,7 +846,7 @@ function ConfigTabClass:ConfigTab(build)
 						-- input gets applied as soon as the user types, which
 						-- means comparisons don't make sense here
 						if not self.calcFunc then
-							self.calcFunc, self.calcBase = self.build.calcsTab:GetMiscCalculator(self.build)
+							self.calcFunc, self.calcBase = self.build.calcsTab:GetMiscCalculator()
 						end
 						if (varData.type == "check") or (varData.type == "list") then
 							local valueMapped
@@ -872,7 +890,7 @@ function ConfigTabClass:ConfigTab(build)
 				end
 			end
 
-			local ownSection = lastSection
+			local ownSection = lastSection ---@type ConfigTabSectionControl
 			local eligibleShown = control.shown
 			control.shown = function()
 				if isCollapsed(ownSection) then
@@ -1163,7 +1181,7 @@ function ConfigTabClass:Draw(viewPort, inputEvents)
 		section.shown = doShow
 		if doShow then
 			local width, height = section:GetSize()
-			local col
+			local col ---@type integer
 			if section.col and (colY[section.col] or 0) + height + 28 <= viewPort.height and 10 + section.col * 370 <= viewPort.width then
 				col = section.col
 			else

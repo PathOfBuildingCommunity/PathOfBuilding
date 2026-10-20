@@ -10,6 +10,7 @@ local s_format = string.format
 
 ---@class SkillSetListControl: ListControl<integer>
 ---@field skillsTab SkillsTab
+---@field list integer[]
 ---@field selIndex? integer
 ---@field selValue? integer
 local SkillSetListClass = newClass("SkillSetListControl", "ListControl")
@@ -22,7 +23,9 @@ function SkillSetListClass:SkillSetListControl(anchor, rect, skillsTab)
 	self:ListControl(anchor, rect, 16, "VERTICAL", true, skillsTab.skillSetOrderList)
 	self.skillsTab = skillsTab
 	self.controls.copy = new("ButtonControl"):ButtonControl({"BOTTOMLEFT",self,"TOP"}, {2, -4, 60, 18}, "Copy", function()
+		---@type SkillSet
 		local skillSet = skillsTab.skillSets[self.selValue]
+		---@type SkillSet
 		local newSkillSet = copyTable(skillSet, true)
 		newSkillSet.socketGroupList = { }
 		for socketGroupIndex, socketGroup in pairs(skillSet.socketGroupList) do
@@ -61,7 +64,7 @@ function SkillSetListClass:SkillSetListControl(anchor, rect, skillsTab)
 	return self
 end
 
----@param skillSet table
+---@param skillSet SkillSet
 ---@param addOnName? boolean
 function SkillSetListClass:RenameSet(skillSet, addOnName)
 	local controls = { }

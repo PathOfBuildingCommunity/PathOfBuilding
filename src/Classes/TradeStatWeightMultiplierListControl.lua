@@ -14,11 +14,13 @@
 ---@field Slider SliderControl
 ---@field SliderValue LabelControl
 
----@class TradeStatWeightMultiplierListControl: ListControl<TradeStatWeightMultiplier>
----@field list TradeStatWeightMultiplier[]
+---@class TradeStatWeightMultiplierListControl: ListControl<TradeStatWeightMultiplier> & { ListControl: { Draw: fun(self: ListControl<TradeStatWeightMultiplier>, viewPort: Viewport, noTooltip?: boolean) } }
+---@field list table<integer, TradeStatWeightMultiplier>
 ---@field indexController TradeStatWeightMultiplierIndexController
 ---@field selIndex? integer
 ---@field noTooltip? boolean
+---@field Draw fun(self: TradeStatWeightMultiplierListControl, viewPort: Viewport, noTooltip?: boolean)
+---@field ListControl { ListControl: fun(self: ListControl<TradeStatWeightMultiplier>, anchor?: Anchor, rect?: Rect, rowHeight: number, scroll?: string|boolean, isMutable?: boolean, list?: TradeStatWeightMultiplier[], forceTooltip?: boolean): ListControl<TradeStatWeightMultiplier>, Draw: fun(self: ListControl<TradeStatWeightMultiplier>, viewPort: Viewport, noTooltip?: boolean) }
 local TradeStatWeightMultiplierListControlClass = newClass("TradeStatWeightMultiplierListControl", "ListControl")
 
 ---@param anchor? Anchor
@@ -34,6 +36,7 @@ function TradeStatWeightMultiplierListControlClass:TradeStatWeightMultiplierList
 	return self
 end
 
+---@param self TradeStatWeightMultiplierListControl & { ListControl: { Draw: fun(self: TradeStatWeightMultiplierListControl, viewPort: Viewport, noTooltip?: boolean) } }
 ---@param viewPort Viewport
 ---@param noTooltip? boolean
 function TradeStatWeightMultiplierListControlClass:Draw(viewPort, noTooltip)
@@ -61,6 +64,7 @@ function TradeStatWeightMultiplierListControlClass:AddValueTooltip(tooltip, inde
 	end
 end
 
+---@param self TradeStatWeightMultiplierListControl
 ---@param index integer
 ---@param data TradeStatWeightMultiplier
 ---@param doubleClick? boolean

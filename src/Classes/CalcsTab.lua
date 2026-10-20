@@ -3,7 +3,6 @@
 -- Module: Calcs Tab
 -- Calculations breakdown tab for the current build.
 --
-local pairs = pairs
 local ipairs = ipairs
 local t_insert = table.insert
 local m_max = math.max
@@ -16,12 +15,40 @@ local buffModeDropList = {
 	{ label = "Effective DPS", buffMode = "EFFECTIVE" } 
 }
 
+---@class CalcsTabSectionColumn: CalcSectionColumn
+---@field calcSection? CalcSectionControl
+
+---@class CalcsPowerReport
+---@field singleStat number?
+---@field pathPower number?
+---@field offence number?
+---@field defence number?
+---@field offencePerPoint number?
+---@field defencePerPoint number?
+
+---@class CalcsPowerMax
+---@field singleStat number
+---@field offence number
+---@field offencePerPoint number
+---@field defence number
+---@field defencePerPoint number
+
+---@class CalcsTabBreakdownControl: CalcBreakdownControl
+---@field sourceData? CalcsTabSectionColumn
+---@field SetBreakdownData fun(self: CalcsTabBreakdownControl, displayData?: CalcSectionColumn, pinned?: boolean, forceActor?: "player"|"minion")
+
+---@class CalcsTabControls: table<string, Control>
+---@field search EditControl
+---@field breakdown CalcsTabBreakdownControl
+---@field scrollBar ScrollBarControl
+
 ---@class CalcsTab: UndoHandler, ControlHost, Control
 ---@field build Build
 ---@field modFlag boolean
 ---@field displayData? CalcSectionColumn
 ---@field powerStat PowerStat?
 ---@field nodePowerMaxDepth integer? Maximum distance for power report
+---@field controls CalcsTabControls
 local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Control")
 
 ---@param build Build
@@ -451,7 +478,7 @@ function CalcsTabClass:CheckFlag(obj, actor, player)
 end
 
 ---@param txt string
----@return boolean
+---@return integer|false|nil
 function CalcsTabClass:SearchMatch(txt)
 	local searchStr = self.controls.search.buf:lower()
 	return string.len(searchStr) > 0 and txt:lower():find(searchStr)
@@ -513,14 +540,17 @@ function CalcsTabClass:BuildPower()
 end
 
 -- Estimate the offensive and defensive power of all unallocated nodes
+---@async
 function CalcsTabClass:PowerBuilder()
 	-- local timer_start = GetTime()
 	local useFullDPS = self.powerStat and self.powerStat.stat == "FullDPS"
 	local calcFunc, calcBase = self:GetMiscCalculator()
+	---@type table<string, Output>
 	local cache = { }
 	local distanceMap = { }
 	local distanceList = { }
 	local masteryNodeList = { }
+	---@type CalcsPowerMax
 	local newPowerMax = {
 		singleStat = 0,
 		offence = 0,
@@ -537,7 +567,7 @@ function CalcsTabClass:PowerBuilder()
 
 	---@param node Node
 	---@param effect table
-	---@return Node
+	---@return table
 	local function buildMasteryEffectNode(node, effect)
 		local effectNode = {
 			id = node.id,
@@ -564,7 +594,7 @@ function CalcsTabClass:PowerBuilder()
 		return not assignedNodeId or assignedNodeId == node.id
 	end
 
-	---@param power number
+	---@param power CalcsPowerReport
 	---@param distance number
 	---@param node Node
 	---@param output Output

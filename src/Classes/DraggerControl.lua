@@ -15,6 +15,7 @@
 ---@field onHover? fun(): Control?
 ---@field forceTooltip? boolean
 ---@field image? ImageHandle
+---@field overSizeText number|nil
 ---@field clicked? boolean
 ---@field dragging? boolean
 ---@field cursorX number

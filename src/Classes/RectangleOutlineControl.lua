@@ -4,8 +4,10 @@
 -- Simple Outline Only Rectangle control
 --
 ---@class RectangleOutlineControl: Control
+---@field width number
+---@field height number
 ---@field stroke number
----@field colors number[]
+---@field colors [number, number, number]
 local RectangleOutlineClass = newClass("RectangleOutlineControl", "Control")
 
 ---@param anchor? Anchor

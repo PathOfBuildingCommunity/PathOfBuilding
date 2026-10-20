@@ -7,6 +7,7 @@ local t_insert = table.insert
 
 ---@class NotesTabControls: table<string, Control>
 ---@field edit EditControl
+---@field toggleColorCodes ButtonControl
 
 ---@class NotesTab: ControlHost, Control
 ---@field controls NotesTabControls

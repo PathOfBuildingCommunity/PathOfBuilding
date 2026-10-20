@@ -5,8 +5,12 @@
 --
 
 ---@class ControlHost
----@field controls table<string, Control>
+---@field controls table<string|integer, Control>
 ---@field selControl? Control
+---@field GetProperty fun(self: ControlHost, name: string): unknown
+---@field GetPos fun(self: ControlHost): number, number
+---@field GetSize fun(self: ControlHost): number, number
+---@field IsShown fun(self: ControlHost): boolean
 local ControlHostClass = newClass("ControlHost")
 
 ---@return ControlHost
@@ -63,7 +67,7 @@ function ControlHostClass:ProcessControlsInput(inputEvents, viewPort)
 	for id, event in ipairs(inputEvents) do
 		if event.type == "KeyDown" then
 			local prevSelControl = self.selControl
-			if self.selControl then
+			if self.selControl and self.selControl.OnKeyDown then
 				processedImbuedControl = self.selControl.imbuedSelect and self.selControl.dropped and event.key:match("BUTTON")
 				self:SelectControl(self.selControl:OnKeyDown(event.key, event.doubleClick))
 				inputEvents[id] = nil

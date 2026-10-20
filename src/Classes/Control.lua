@@ -49,8 +49,8 @@ local rect = {
 ---@field buf           string
 ---@field dropped       boolean
 ---@field Click?        fun(self: Control, ...)
----@field IsScrollDownKey? fun(key: string): boolean
----@field IsScrollUpKey? fun(key: string): boolean
+---@field IsScrollDownKey? fun(self: Control, key: string): boolean
+---@field IsScrollUpKey? fun(self: Control, key: string): boolean
 ---@field SelectIndex?  fun(self: Control, index: integer): boolean?
 ---@field CanDragToValue? fun(self: Control, index: integer, value: any, source: Control): boolean
 ---@field SetBreakdownData? fun(self: Control, displayData?: table, pinned?: boolean, forceActor?: Actor)
@@ -59,9 +59,19 @@ local rect = {
 ---@field rectStart      Rect
 ---@field hasFocus?      boolean
 ---@field tabOrder?      Control[]
+---@field selDragActive? boolean
+---@field dragTargetList? ListControl<unknown>[]
+---@field mouseClipRect? [number, number, number, number]|fun(self: Control): [number, number, number, number]
+---@field imbuedSelect? boolean
 ---@field OnFocusGained? fun()
 ---@field OnFocusLost?   fun()
+---@field GetProperty fun(self: Control, name: string): unknown
+---@field GetPos fun(self: Control): number, number
+---@field GetSize fun(self: Control): number, number
+---@field IsShown fun(self: Control): boolean
 ---@field OnKeyDown?     fun(...: any): any
+---@field OnHoverKeyUp?  fun(self: Control, key: string)
+---@field OnChar?        fun(self: Control, key: string): Control?
 ---@field shown          Prop<boolean>
 ---@field x              Prop<number>?
 ---@field y              Prop<number>?
@@ -123,7 +133,7 @@ function ControlClass:GetProperty(name)
 end
 
 ---@param point AnchorPoint
----@param other Control|ControlHost
+---@param other? Control|ControlHost
 ---@param otherPoint AnchorPoint
 ---@param x? Prop<number>
 ---@param y? Prop<number>
@@ -142,16 +152,19 @@ end
 ---@return number x
 ---@return number y
 function ControlClass:GetPos()
-	if self.anchor.collapse and self.anchor.other and not self.anchor.other:GetProperty("shown") then
-		local x, y = self.anchor.other:GetPos()
+	local other = self.anchor.other
+	if self.anchor.collapse and other and not other:GetProperty("shown") then
+		local x, y = other:GetPos()
 		x = x + (self.collapseX or 0)
 		y = y + (self.collapseY or 0)
 		return x, y
 	end
+	---@type number
 	local x = self:GetProperty("x")
+	---@type number
 	local y = self:GetProperty("y")
-	if self.anchor.other then
-		local otherX, otherY = self.anchor.other:GetPos()
+	if other then
+		local otherX, otherY = other:GetPos()
 		---@type number, number
 		local otherW, otherH = 0, 0
 		---@type number, number
@@ -159,7 +172,7 @@ function ControlClass:GetPos()
 		local otherPos = anchorPos[self.anchor.otherPoint]
 		assert(otherPos, "invalid anchor position '"..tostring(self.anchor.otherPoint).."'")
 		if self.anchor.otherPoint ~= "TOPLEFT" then
-			otherW, otherH = self.anchor.other:GetSize()
+			otherW, otherH = other:GetSize()
 		end
 		local pos = anchorPos[self.anchor.point]
 		assert(pos, "invalid anchor position '"..tostring(self.anchor.point).."'")
@@ -231,8 +244,9 @@ function ControlClass:TabAdvance(step)
 				elseif index < 1 then
 					index = #self.tabOrder
 				end
-				if self.tabOrder[index] == self or (self.tabOrder[index].OnKeyDown and self.tabOrder[index]:IsShown()) then
-					return self.tabOrder[index]
+				local control = self.tabOrder[index]
+				if control and (control == self or (control.OnKeyDown and control:IsShown())) then
+					return control
 				end
 			end
 		end

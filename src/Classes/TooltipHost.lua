@@ -29,6 +29,7 @@ function TooltipHostClass:DrawTooltip(x, y, width, height, viewPort, ...)
 		self.tooltipFunc(self.tooltip, ...)
 		self.tooltip:Draw(x, y, width, height, viewPort)
 	else
+		---@type string|boolean
 		local tooltipText = self.Object:GetProperty("tooltipText")
 		if tooltipText then
 			self.tooltip:Clear()

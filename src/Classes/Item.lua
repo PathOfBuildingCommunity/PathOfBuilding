@@ -66,7 +66,7 @@ local function getCatalystScalar(catalystId, mod, quality)
 end
 
 ---@param line string
----@return string
+---@return string, integer
 local function normaliseModLine(line)
 	return line:gsub("%d+%.?%d*", "#")
 		:gsub("%(%-?#%-#%)", "#"):lower()
@@ -150,8 +150,8 @@ local influenceInfo = itemLib.influenceInfo.all
 ---@field clusterJewelValid? boolean
 ---@field clusterJewelSkill? string
 ---@field clusterJewelKeystone? unknown
----@field clusterJewelNotables string[]
----@field clusterJewelAddedMods string[]
+---@field clusterJewelNotables? string[]
+---@field clusterJewelAddedMods? string[]
 ---@field clusterJewelIncEffect? number
 ---@field clusterJewelNodeCount? integer
 ---@field clusterJewelNothingnessCount? integer
@@ -195,10 +195,12 @@ local influenceInfo = itemLib.influenceInfo.all
 ---@field clusterJewelSkill? string
 ---@field variantList? string[]
 ---@field versionList? string[]
+---@field selectedVersion? integer
+---@field variantGroups? table<integer, table<integer, table<integer, boolean>>>
 ---@field baseModList ModList
 ---@field modList ModList
 ---@field slotModList table<integer, ModList>
----@field variantGroupSelections table<string, integer>
+---@field variantGroupSelections table<integer, integer>
 ---@field sockets table[]
 ---@field isUnique boolean
 ---@field affixLimit number
@@ -463,7 +465,7 @@ local function specToNumber(s)
 	return n and tonumber(n)
 end
 
----@param groupId string
+---@param groupId integer
 ---@param variantId integer
 ---@return boolean
 function ItemClass:IsVariantGroupOptionEligible(groupId, variantId)
@@ -472,7 +474,7 @@ function ItemClass:IsVariantGroupOptionEligible(groupId, variantId)
 	return versions and (versions[0] or self.selectedVersion and versions[self.selectedVersion]) or false
 end
 
----@param groupId string
+---@param groupId integer
 ---@param excludeSelected? boolean
 ---@return integer[]
 function ItemClass:GetVariantGroupOptions(groupId, excludeSelected)
@@ -540,7 +542,7 @@ function ItemClass:NormaliseVariantSelections()
 end
 
 ---@class (partial) ModLine A modifier line on an item. An in-game mod can translate to multiple ModLines.
----@field modList Mod[]
+---@field modList Mod[]?
 ---@field line string The actual text for the line. This might describe a range of values, in which case applyRange() can be used with this and the range value to get a ranged line.
 ---@field range number?
 ---@field extra string?
@@ -550,6 +552,7 @@ end
 ---@field variantList table<number, boolean>?
 ---@field versionList table<number, boolean>?
 ---@field variantGroupList table<number, boolean>?
+---@field modGroup string?
 ---@field modId string?
 
 -- Parse raw item data and extract item name, base type, quality, and modifiers
@@ -2402,6 +2405,7 @@ end
 -- Build list of modifiers in a given slot number while applying local modifiers and adding quality
 ---@param baseList ModList
 ---@param slotNum integer
+---@overload fun(self: Item, baseList: ModList): Mod[]
 ---@return Mod[]
 function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 	local slotName = self:GetPrimarySlot() or ""

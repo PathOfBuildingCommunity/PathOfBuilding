@@ -9,6 +9,12 @@ local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
 
+---@class MasterListElem
+---@field label string
+---@field id integer
+
+---@alias PassiveMasteryRect [Prop<number>?, Prop<number>?, number, Prop<number>?]
+
 ---@class PassiveMasteryControl: ListControl<MasterListElem>
 ---@field list MasterListElem[]
 ---@field treeTab TreeTab
@@ -17,14 +23,16 @@ local m_floor = math.floor
 ---@field saveButton ButtonControl
 ---@field selIndex? integer
 ---@field selValue? MasterListElem
+---@field ListControl (fun(self: ListControl<MasterListElem>, anchor?: Anchor, rect?: Rect, rowHeight: number, scroll?: string|boolean, isMutable?: boolean, list?: MasterListElem[], forceTooltip?: boolean): ListControl<MasterListElem>) & { Draw: fun(self: ListControl<MasterListElem>, viewPort: Viewport, noTooltip?: boolean) }
+---@field PassiveMasteryControl fun(self: PassiveMasteryControl, anchor?: Anchor, rect: PassiveMasteryRect, list: MasterListElem[], treeTab: TreeTab, node: Node, saveButton: ButtonControl): PassiveMasteryControl
+---@field Draw fun(self: PassiveMasteryControl, viewPort: Viewport)
+---@field GetRowValue fun(self: PassiveMasteryControl, column: integer, index: integer, effect: MasterListElem): string?
+---@field AddValueTooltip fun(self: PassiveMasteryControl, tooltip: Tooltip, index: integer, effect: MasterListElem)
+---@field OnSelClick fun(self: PassiveMasteryControl, index: integer, mastery: MasterListElem, doubleClick?: boolean)
 local PassiveMasteryControlClass = newClass("PassiveMasteryControl", "ListControl")
 
----@class MasterListElem
----@field label string
----@field id number
-
 ---@param anchor Anchor?
----@param rect Rect
+---@param rect PassiveMasteryRect
 ---@param list MasterListElem[]
 ---@param treeTab TreeTab
 ---@param node Node

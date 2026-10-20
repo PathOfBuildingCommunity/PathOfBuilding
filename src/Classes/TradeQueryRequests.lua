@@ -23,7 +23,7 @@ local tradeInfluenceApiKeys = {
 ---@field body? string
 ---@field callback fun(response: string, errMsg: string?, ...: unknown)
 ---@field callbackParams? unknown[]
----@field retryTime? integer
+---@field retryTime? number
 ---@field attempts? integer
 
 ---@class TradeQuerySearchError

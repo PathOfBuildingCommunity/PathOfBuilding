@@ -11,6 +11,7 @@ local m_floor = math.floor
 ---@class ScrollBarControl: Control
 ---@field Scroll fun(self: ScrollBarControl, mult: number)
 ---@field SetContentDimension fun(self: ScrollBarControl, conDim: number, viewDim: number)
+---@field width number
 ---@field step number
 ---@field dir "HORIZONTAL"|"VERTICAL"
 ---@field offset number
@@ -32,6 +33,17 @@ local m_floor = math.floor
 ---@overload fun(mix: table): ScrollBarControl
 local ScrollBarClass = newClass("ScrollBarControl", "Control")
 
+---@class ScrollBarControlDragState: ScrollBarControl
+---@field dragging true
+---@field dragCX number
+---@field dragCY number
+---@field dragKnobPos number
+
+---@class ScrollBarControlHoldState: ScrollBarControl
+---@field holdComp "UP"|"DOWN"
+---@field holdBase number
+---@field holdTime number
+
 ---@param anchor? Anchor
 ---@param rect? Rect
 ---@param step? number
@@ -40,7 +52,9 @@ local ScrollBarClass = newClass("ScrollBarControl", "Control")
 ---@return ScrollBarControl
 function ScrollBarClass:ScrollBarControl(anchor, rect, step, dir, autoHide)
 	self:Control(anchor, rect)
-	self.step = step or self.width * 2
+	---@type number
+	local width = self.width
+	self.step = step or width * 2
 	self.dir = dir or "VERTICAL"
 	self.offset = 0
 	self.enabled = false
@@ -157,31 +171,35 @@ function ScrollBarClass:Draw()
 		self.dragging = false
 	end
 	if self.dragging then
+		---@type ScrollBarControlDragState
+		local dragState = self
 		local cursorX, cursorY = GetCursorPos()
 		if self.dir == "HORIZONTAL" then
-			self:SetOffsetFromKnobPos((cursorX - self.dragCX) + self.dragKnobPos)
+			self:SetOffsetFromKnobPos((cursorX - dragState.dragCX) + dragState.dragKnobPos)
 		else
-			self:SetOffsetFromKnobPos((cursorY - self.dragCY) + self.dragKnobPos)
+			self:SetOffsetFromKnobPos((cursorY - dragState.dragCY) + dragState.dragKnobPos)
 		end
 	elseif self.holdComp then
+		---@type ScrollBarControlHoldState
+		local holdState = self
 		if mOverComp == self.holdComp then
 			local now = GetTime()
 			if not self.holdRepeating then
-				if now - self.holdTime > 500 then
+				if now - holdState.holdTime > 500 then
 					self.holdRepeating = true
-					self.holdTime = now - 1
+					holdState.holdTime = now - 1
 				end
 			end
 			if self.holdRepeating then
 				if self.holdPauseTime then
-					self.holdTime = self.holdTime + (now - self.holdPauseTime)
+					holdState.holdTime = holdState.holdTime + (now - self.holdPauseTime)
 					self.holdPauseTime = nil
 				end
-				local time = now - self.holdTime
-				if self.holdComp == "UP" then
-					self:SetOffset(self.holdBase - m_ceil(time / 50) * self.step)
-				elseif self.holdComp == "DOWN" then
-					self:SetOffset(self.holdBase + m_ceil(time / 50) * self.step)
+				local time = now - holdState.holdTime
+				if holdState.holdComp == "UP" then
+					self:SetOffset(holdState.holdBase - m_ceil(time / 50) * self.step)
+				elseif holdState.holdComp == "DOWN" then
+					self:SetOffset(holdState.holdBase + m_ceil(time / 50) * self.step)
 				end
 			end
 		elseif self.holdRepeating and not self.holdPauseTime then
@@ -338,12 +356,14 @@ function ScrollBarClass:OnKeyUp(key)
 	end
 	if key == "LEFTBUTTON" then
 		if self.dragging then
+			---@type ScrollBarControlDragState
+			local dragState = self
 			self.dragging = false
 			local cursorX, cursorY = GetCursorPos()
 			if self.dir == "HORIZONTAL" then
-				self:SetOffsetFromKnobPos((cursorX - self.dragCX) + self.dragKnobPos)
+				self:SetOffsetFromKnobPos((cursorX - dragState.dragCX) + dragState.dragKnobPos)
 			else
-				self:SetOffsetFromKnobPos((cursorY - self.dragCY) + self.dragKnobPos)
+				self:SetOffsetFromKnobPos((cursorY - dragState.dragCY) + dragState.dragKnobPos)
 			end
 		elseif self.holdComp then
 			self.holdComp = nil

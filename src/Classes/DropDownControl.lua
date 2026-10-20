@@ -15,17 +15,21 @@ local m_floor = math.floor
 ---@field controls DropDownControlControls
 ---@field list T[]
 ---@field selFunc? fun(index: integer, data: T, doubleClick?: boolean)
----@field selIndex? integer
+---@field selIndex integer
 ---@field dropHeight number
 ---@field dropped boolean
 ---@field dropUp boolean
----@field droppedWidth? number
----@field maxDroppedWidth? number
----@field enableDroppedWidth? boolean
----@field enableChangeBoxWidth? boolean
+---@field droppedWidth number
+---@field maxDroppedWidth number
+---@field enableDroppedWidth boolean
+---@field enableChangeBoxWidth boolean
 ---@field hoverSel? integer
 ---@field hoverSelDrop? integer
 ---@field tag? string
+---@field borderFunc? fun(): number, number, number
+---@field otherDragSource? ListControl<unknown>
+---@field width number
+---@field height number
 ---@overload fun(mix: table): DropDownControl<any>
 local DropDownClass = newClass("DropDownControl", "Control", "ControlHost", "TooltipHost", "SearchHost")
 
@@ -227,7 +231,7 @@ function DropDownClass:ScrollSelIntoView()
 	scrollBar:ScrollIntoView((self:ListIndexToDropIndex(self.selIndex, 1) - 2) * (height - 4), 3 * (height - 4))
 end
 
----@return boolean
+---@return boolean, string?
 function DropDownClass:IsMouseOver()
 	if not self:IsShown() then
 		return false
@@ -365,6 +369,7 @@ function DropDownClass:Draw(viewPort, noTooltip)
 	end
 	-- draw selected label or search term
 	local selLabel = nil
+	---@type string?
 	local selDetail = nil
 	if self:IsSearchActive() then
 		selLabel = "Search: " .. self:GetSearchTermPretty()

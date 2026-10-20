@@ -51,7 +51,7 @@ local function getFile(URL)
 	return #page > 0 and page
 end
 
----@class PassiveTreeGroup
+---@class (partial) PassiveTreeGroup
 ---@field x number
 ---@field y number
 ---@field orbits integer[]
@@ -188,6 +188,7 @@ end
 ---@field classNotables table
 ---@field orbitAnglesByOrbit table<integer, number[]>
 ---@field spriteMap table<string, table>
+---@field skillSprites table
 ---@field bloodlineSpritePrefixes? table<string, string>
 local PassiveTreeClass = newClass("PassiveTree")
 
@@ -390,6 +391,7 @@ function PassiveTreeClass:PassiveTree(treeVersion)
 	if not self.skillSprites then
 		if not self.sprites then
 			ConPrintf("Loading passive tree sprite data for version '%s'...", treeVersions[treeVersion].display)
+			---@type string
 			local spriteText
 			local spriteFile = io.open("TreeData/"..treeVersion.."/sprites.lua", "r")
 			if spriteFile then
@@ -414,7 +416,9 @@ function PassiveTreeClass:PassiveTree(treeVersion)
 		end
 		self.skillSprites = self.sprites
 	end
-	for spriteType, data in pairs(self.skillSprites) do
+	---@type table<string, table>
+	local skillSprites = self.skillSprites
+	for spriteType, data in pairs(skillSprites) do
 		local maxZoom
 		if not self.imageZoomLevels then
 			maxZoom = data
@@ -680,7 +684,6 @@ function PassiveTreeClass:PassiveTree(treeVersion)
 			if node.masteryEffects then
 				for _, effect in pairs(node.masteryEffects) do
 					if not self.masteryEffects[effect.effect] then
-						---@diagnostic disable-next-line: missing-fields
 						self.masteryEffects[effect.effect] = { id = effect.effect, sd = effect.stats } --[[@as Node]] -- minimal stand-in; only sd/mods/modList/modKey are used by ProcessStats
 						self:ProcessStats(self.masteryEffects[effect.effect])
 					else

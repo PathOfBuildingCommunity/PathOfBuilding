@@ -1024,7 +1024,6 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 					end
 				end
 			else
-				---@diagnostic disable-next-line: param-type-mismatch
 				SetDrawColor(self:GetCompareNodeColor(node, compareNode, spec, build, nodeDefaultColor))
 			end
 		elseif launch.devModeAlt then
@@ -1037,7 +1036,6 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				SetDrawColor(0, 0, 0)
 			end
 		else
-			---@diagnostic disable-next-line: param-type-mismatch
 			SetDrawColor(self:GetCompareNodeColor(node, compareNode, spec, build, nodeDefaultColor))
 		end
 
@@ -1802,7 +1800,7 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build, returnEarly)
 
 	-- Mod differences
 	if self.showStatDifferences then
-		local calcFunc, calcBase = build.calcsTab:GetMiscCalculator(build)
+		local calcFunc, calcBase = build.calcsTab:GetMiscCalculator()
 		tooltip:AddSeparator(14)
 		local path = (node.alloc and node.depends) or self.tracePath or node.path or { }
 		local pathLength = #path

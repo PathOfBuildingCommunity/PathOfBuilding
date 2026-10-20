@@ -9,8 +9,9 @@ local m_max = math.max
 
 ---@class PassiveSpecListControl: ListControl<PassiveSpec>
 ---@field treeTab TreeTab
----@field selIndex? integer
----@field selValue? PassiveSpec
+---@field list PassiveSpec[]
+---@field selIndex integer
+---@field selValue PassiveSpec
 local PassiveSpecListClass = newClass("PassiveSpecListControl", "ListControl")
 
 ---@param anchor? Anchor
@@ -55,7 +56,7 @@ function PassiveSpecListClass:PassiveSpecListControl(anchor, rect, treeTab)
 end
 
 ---@param spec PassiveSpec
----@param title? string
+---@param title Prop<string>
 ---@param addOnName? boolean
 function PassiveSpecListClass:RenameSpec(spec, title, addOnName)
 	local controls = { }

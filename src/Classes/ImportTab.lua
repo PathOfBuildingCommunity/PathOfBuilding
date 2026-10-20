@@ -22,12 +22,64 @@ local influenceInfo = itemLib.influenceInfo.all
 ---@field hostName string
 ---@field profileURL string
 
+---@class ImportCharacterEntry: CharacterBasicData
+---@field label string
+---@field char CharacterBasicData
+---@field searchFilter string
+---@field detail string
+
+---@class ImportLeagueEntry
+---@field label string
+---@field league string?
+
+---@class ImportRealmDropDown: DropDownControl<RealmInfo>
+---@field list RealmInfo[]
+---@field GetSelValue fun(self: ImportRealmDropDown): RealmInfo
+---@field SelByValue fun(self: ImportRealmDropDown, value: string, key?: string)
+
+---@class ImportStringDropDown: DropDownControl<string>
+---@field list string[]
+---@field GetSelValue fun(self: ImportStringDropDown): string
+---@field SelByValue fun(self: ImportStringDropDown, value: string, key?: string)
+
+---@class ImportCharacterDropDown: DropDownControl<ImportCharacterEntry>
+---@field list ImportCharacterEntry[]
+---@field GetSelValue fun(self: ImportCharacterDropDown): ImportCharacterEntry
+---@field SetList fun(self: ImportCharacterDropDown, list: ImportCharacterEntry[])
+
+---@class ImportLeagueDropDown: DropDownControl<ImportLeagueEntry>
+---@field list ImportLeagueEntry[]
+---@field GetSelValueByKey fun(self: ImportLeagueDropDown, key: string): string?
+---@field SetList fun(self: ImportLeagueDropDown, list: ImportLeagueEntry[])
+---@field SetSel fun(self: ImportLeagueDropDown, newSel: integer, noCallSelFunc?: boolean)
+---@field SelByValue fun(self: ImportLeagueDropDown, value: string, key?: string)
+
+---@class ImportCheckBoxControl: CheckBoxControl
+---@field state boolean
+
+---@class ImportButtonControl: ButtonControl
+---@field onClick fun(...)
+---@field Click fun(self: ImportButtonControl, ...)
+
 ---@class ImportTabControls: table<string, Control>
----@field accountRealm DropDownControl<RealmInfo>
+---@field accountRealm ImportRealmDropDown
 ---@field charSelectLeague DropDownControl<string>
+---@field charSelect ImportCharacterDropDown
+---@field charImportItemsClearItems ImportCheckBoxControl
+---@field charImportItemsClearSkills ImportCheckBoxControl
+---@field charImportItemsIgnoreWeaponSwap ImportCheckBoxControl
+---@field siteCharImportItemsClearItems ImportCheckBoxControl
+---@field siteCharImportItemsClearSkills ImportCheckBoxControl
+---@field siteCharImportItemsIgnoreWeaponSwap ImportCheckBoxControl
+---@field siteCharImportTreeClearJewels ImportCheckBoxControl
+---@field charImportTreeClearJewels ImportCheckBoxControl
+---@field accountRealmFetchButton ImportButtonControl
+---@field importCodeGo ImportButtonControl
+---@field siteAccountRealm ImportRealmDropDown
 ---@field siteAccountName EditControl
----@field siteAccountHistory DropDownControl<string>
----@field siteCharSelectLeague DropDownControl<table>
+---@field siteAccountHistory ImportStringDropDown
+---@field siteCharSelectLeague ImportLeagueDropDown
+---@field siteCharSelect ImportCharacterDropDown
 ---@field generateCodeOut EditControl
 ---@field exportFrom DropDownControl<table>
 ---@field importCodeIn EditControl
@@ -221,6 +273,7 @@ local function addOAuthControls(self)
 		return text
 	end
 
+	---@type ImportRealmDropDown
 	self.controls.accountRealm = new("DropDownControl"):DropDownControl({ "TOPLEFT", self.controls.charSelectHeader, "BOTTOMLEFT" },
 		{ 0, rowSpacing, 60, 20 }, realmList, function()
 			setLeaguesFromCharList()
@@ -253,9 +306,11 @@ local function addOAuthControls(self)
 
 	self.controls.charSelectLeagueLabel = new("LabelControl"):LabelControl({ "TOPLEFT", self.controls.accountRealm, "BOTTOMLEFT" },
 		{ 0, rowSpacing, 0, 14 }, "^7League:")
+	---@type ImportLeagueDropDown
 	self.controls.charSelectLeague = new("DropDownControl"):DropDownControl({ "LEFT", self.controls.charSelectLeagueLabel, "RIGHT" },
 		{ labelSpacing, 0, 150, 18 }, nil, onLeagueChange)
 	-- character select
+	---@type ImportCharacterDropDown
 	self.controls.charSelect = new("DropDownControl"):DropDownControl({ "TOPLEFT", self.controls.charSelectLeagueLabel, "BOTTOMLEFT" },
 		{ 0, rowSpacing, 400, 18 }, nil)
 	self.controls.charSelect.enabled = function()
@@ -375,6 +430,7 @@ local function addAccountNameControls(self)
 		return self.charImportMode == "GETACCOUNTNAME"
 	end
 
+	---@type ImportRealmDropDown
 	self.controls.siteAccountRealm = new("DropDownControl"):DropDownControl({ "TOPLEFT", self.controls.siteAccountNameHeader, "BOTTOMLEFT" },
 		{ 0, 4, 60, 20 }, realmList)
 	self.controls.siteAccountRealm:SelByValue(main.lastRealm or "PC", "id")
@@ -417,6 +473,7 @@ local function addAccountNameControls(self)
 		end
 	end
 
+	---@type ImportStringDropDown
 	self.controls.siteAccountHistory = new("DropDownControl"):DropDownControl({ "LEFT", self.controls.siteAccountNameGo, "RIGHT" },
 		{ 8, 0, 200, 20 }, historyList, function()
 		self.controls.siteAccountName.buf = self.controls.siteAccountHistory.list[self.controls.siteAccountHistory.selIndex]
@@ -456,12 +513,14 @@ local function addAccountNameControls(self)
 	end
 	self.controls.siteCharSelectLeagueLabel = new("LabelControl"):LabelControl({ "TOPLEFT", self.controls.siteCharSelectHeader, "BOTTOMLEFT" },
 		{ 0, 6, 0, 14 }, "^7League:")
+	---@type ImportLeagueDropDown
 	self.controls.siteCharSelectLeague = new("DropDownControl"):DropDownControl({ "LEFT", self.controls.siteCharSelectLeagueLabel, "RIGHT" },
 		{ 4, 0, 150, 18 }, nil, function(index, value)
 			local realm = self.controls.siteAccountRealm:GetSelValue()
 			---@cast realm RealmInfo
 			self:BuildCharacterList(realm.realmCode, value.league, self.lastCharList, self.controls.siteCharSelect)
 		end)
+	---@type ImportCharacterDropDown
 	self.controls.siteCharSelect = new("DropDownControl"):DropDownControl({ "TOPLEFT", self.controls.siteCharSelectHeader, "BOTTOMLEFT" },
 		{ 0, 24, 400, 18 })
 	self.controls.siteCharSelect.enabled = function()
@@ -518,7 +577,7 @@ end
 ---@class ImportTab: ControlHost, Control
 ---@field isAuthorized? fun(): boolean
 ---@field usingOauth? boolean
----@field characterList? table<string, table[]>
+---@field characterList table<string, CharacterBasicData[]>
 ---@field controls ImportTabControls
 ---@field build Build
 ---@field modFlag boolean
@@ -735,6 +794,7 @@ function ImportTabClass:ImportTab(build)
 	self.controls.importCodeMode.enabled = function()
 		return (self.build.dbFileName or self.controls.importCodeMode.selIndex == 3) and self.importCodeValid
 	end
+	---@type ImportButtonControl
 	self.controls.importCodeGo = new("ButtonControl"):ButtonControl({"LEFT",self.controls.importCodeMode,"RIGHT"}, {8, 0, 160, 20}, "Import", function()
 		if self.importCodeSite and not self.importCodeXML then
 			self.importCodeFetching = true
@@ -1001,6 +1061,7 @@ function ImportTabClass:DownloadSiteCharacterList(realm)
 				self.charImportMode = "GETACCOUNTNAME"
 				return
 			end
+			---@type CharacterBasicData[]?, string?
 			local charList, errMsg = self:ProcessSiteJSON(response.body)
 			if errMsg then
 				self.charImportStatus = colorCodes.NEGATIVE .. "Error processing character list, try again later"

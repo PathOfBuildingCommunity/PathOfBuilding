@@ -7,12 +7,57 @@ local t_insert = table.insert
 local m_max = math.max
 local m_min = math.min
 
+---@class CalcSectionControlCalcsTab: CalcsTab
+---@field displayData? CalcSectionControlColumn
+
+---@class CalcSectionControlColumn: CalcSectionColumn
+---@field x number
+---@field y number
+---@field width number
+---@field height number
+---@field xOffset number
+---@field yOffset number
+---@field calcSection CalcSectionControl
+
+---@class CalcSectionControlRow: CalcSectionEntry
+---@field [integer] CalcSectionControlColumn
+---@field label? string
+---@field haveOutput? string
+---@field flag? string
+---@field flagList? string[]
+---@field playerFlag? string
+---@field notFlag? string
+---@field notFlagList? string[]
+---@field enabled? boolean
+---@field color? string
+---@field bgCol? string
+---@field textSize? number
+
+---@class CalcSectionControlData: CalcSectionEntry
+---@field [integer] CalcSectionControlRow
+---@field breakdown? string
+---@field modName? string|string[]
+---@field label? string
+---@field extra? string
+---@field colWidth? integer
+---@field flag? string
+---@field notFlag? string
+---@field enabled? boolean
+
+---@class CalcSectionControlSubsection
+---@field defaultCollapsed boolean
+---@field collapsed? boolean
+---@field label string
+---@field data CalcSectionControlData
+
 ---@class CalcSectionControl: Control, ControlHost
----@field calcsTab CalcsTab
+---@field Control fun(self: CalcSectionControl, anchor?: Anchor|CalcsTab, rect?: Rect): Control
+---@field calcsTab CalcSectionControlCalcsTab
 ---@field id string
 ---@field group integer
 ---@field colour string
----@field subSection CalcSectionSubsection[]
+---@field subSection {[1]: CalcSectionControlSubsection, [integer]: CalcSectionControlSubsection}
+---@field controls table
 ---@field flag? string
 ---@field notFlag? string
 ---@field updateFunc? fun(self: CalcSectionControl)
@@ -32,7 +77,7 @@ local CalcSectionClass = newClass("CalcSectionControl", "Control", "ControlHost"
 ---@param id string
 ---@param group integer
 ---@param colour string
----@param subSection CalcSectionSubsection[]
+---@param subSection {[1]: CalcSectionControlSubsection, [integer]: CalcSectionControlSubsection}
 ---@param updateFunc? fun(self: CalcSectionControl)
 ---@return CalcSectionControl
 function CalcSectionClass:CalcSectionControl(calcsTab, width, id, group, colour, subSection, updateFunc)
@@ -150,6 +195,7 @@ function CalcSectionClass:UpdateSize()
 			rowData.enabled = self.calcsTab:CheckFlag(rowData)
 			if rowData.enabled then
 				self.enabled = true
+				---@type number
 				local xOffset = 134
 				for colour, colData in ipairs(rowData) do
 					colData.xOffset = xOffset

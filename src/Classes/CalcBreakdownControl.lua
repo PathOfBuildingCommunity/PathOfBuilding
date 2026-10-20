@@ -13,6 +13,20 @@ local m_cos = math.cos
 local m_pi = math.pi
 local band = bit.band
 
+---@class CalcBreakdownSourceData: CalcSectionColumn
+---@field x number
+---@field y number
+---@field width number
+
+---@class CalcBreakdownDrawControl: CalcBreakdownControl
+---@field sourceData CalcBreakdownSourceData
+
+---@class CalcBreakdownScrollBarControl: ScrollBarControl
+---@field width Prop<number>
+
+---@class CalcBreakdownControls: table<string, Control>
+---@field scrollBar CalcBreakdownScrollBarControl
+
 ---@class CalcBreakdownControl: Control, ControlHost
 ---@field calcsTab CalcsTab
 ---@field sourceData? CalcSectionColumn
@@ -23,13 +37,14 @@ local band = bit.band
 ---@field rangeGuide ImageHandle
 ---@field uiOverlay ImageHandle
 ---@field borderThickness integer
----@field pinnedColour number[]
----@field borderColour number[]
+---@field pinnedColour [number, number, number]
+---@field borderColour [number, number, number]
 ---@field sectionList table[]
 ---@field contentWidth number
 ---@field contentHeight number
 ---@field clearDisplayFunc? fun()
 ---@field envName? string
+---@field controls CalcBreakdownControls
 local CalcBreakdownClass = newClass("CalcBreakdownControl", "Control", "ControlHost")
 
 ---@param calcsTab CalcsTab
@@ -554,7 +569,7 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 end
 
 ---@param modName string
----@return string
+---@return string, integer
 function CalcBreakdownClass:FormatModName(modName)
 	return modName:gsub("([%l%d]:?)(%u)","%1 %2"):gsub("(%l)(%d)","%1 %2")
 end
@@ -610,6 +625,7 @@ function CalcBreakdownClass:FormatModValue(value, modType)
 	end
 end
 
+---@param self CalcBreakdownDrawControl
 ---@param viewPort Viewport
 ---@param x number
 ---@param y number

@@ -67,7 +67,7 @@ local EditClass = newClass("EditControl", "ControlHost", "Control", "UndoHandler
 
 ---@param anchor? Anchor
 ---@param rect? Rect
----@param init? string
+---@param init? string|number
 ---@param prompt? string
 ---@param filter? string|fun(text: string): string?
 ---@param limit? integer
@@ -393,9 +393,7 @@ function EditClass:Draw(viewPort, noTooltip)
 		local caretX, caretY
 		SetDrawColor(self.textCol)
 		for s, line, e in (self.buf.."\n"):gmatch("()([^\n]*)\n()") do
-			---@diagnostic disable-next-line: cast-type-mismatch
 			---@cast s integer
-			---@diagnostic disable-next-line: cast-type-mismatch
 			---@cast e integer
 			textX = -self.controls.scrollBarH.offset
 			---@cast textX number

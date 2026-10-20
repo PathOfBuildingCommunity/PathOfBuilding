@@ -15,13 +15,16 @@ local s_format = string.format
 ---@class SharedItemSetListControl: ListControl<SharedItemSet>
 ---@field itemsTab ItemsTab
 ---@field defaultText string
----@field selIndex? integer
----@field selValue? SharedItemSet
+---@field list SharedItemSet[]
+---@field selIndex integer
+---@field selValue SharedItemSet
+---@field dragIndex integer
 local SharedItemSetListClass = newClass("SharedItemSetListControl", "ListControl")
 
 ---@param anchor? Anchor
 ---@param rect? Rect
 ---@param itemsTab ItemsTab
+---@param self SharedItemSetListControl
 ---@return SharedItemSetListControl
 function SharedItemSetListClass:SharedItemSetListControl(anchor, rect, itemsTab)
 	self:ListControl(anchor, rect, 16, "VERTICAL", true, main.sharedItemSetList)
@@ -105,16 +108,20 @@ end
 ---@param type string
 ---@param value ItemSet
 ---@param source? ListControl<unknown>
+---@param self SharedItemSetListControl
 function SharedItemSetListClass:ReceiveDrag(type, value, source)
 	if type == "ItemList" then
 		local sharedItemList = { title = value.title, slots = { } }
 		for slotName, slot in pairs(self.itemsTab.slots) do
 			if not slot.nodeId then
 				if value ~= self.itemsTab.activeItemSet then
+					---@type ItemSetSlot
 					slot = value[slotName]
 				end
 				if slot.selItemId ~= 0 then
+					---@type Item
 					local item = self.itemsTab.items[slot.selItemId]
+					---@type table
 					local rawItem = { raw = item:BuildRaw() }
 					local newItem = new("Item"):Item(rawItem.raw)
 					if not value.id then
@@ -130,6 +137,7 @@ end
 
 ---@param index integer
 ---@param sharedItemSet SharedItemSet
+---@param self SharedItemSetListControl
 function SharedItemSetListClass:OnSelDelete(index, sharedItemSet)
 	main:OpenConfirmPopup("Delete Item Set", "Are you sure you want to delete '"..(sharedItemSet.title or "Default").."' from the shared item set list?", "Delete", function()
 		t_remove(self.list, index)

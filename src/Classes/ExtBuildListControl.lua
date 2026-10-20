@@ -12,12 +12,44 @@ local dkjson = require "dkjson"
 
 ---@class ExtBuildListProviderOption
 ---@field name string
----@field impl ExtBuildListProvider
+---@field impl ExtBuildListProviderForControl
+
+---@class ExtBuildListProviderForControl
+---@field buildList ExtBuildListEntry[]
+---@field buildListTitles string[]
+---@field statusMsg? string
+---@field importCode? string
+---@field SetImportCode fun(self: ExtBuildListProviderForControl, importCode: string)
+---@field Activate fun(self: ExtBuildListProviderForControl)
+---@field GetListTitles fun(self: ExtBuildListProviderForControl): string[]?
+---@field GetActiveList fun(self: ExtBuildListProviderForControl): string?
+---@field SetActiveList fun(self: ExtBuildListProviderForControl, activeList: string?)
+---@field GetPageUrl fun(self: ExtBuildListProviderForControl): string?
+
+---@class ExtBuildListControlEntry: ExtBuildListEntry
+---@field authorName? string
+
+---@class ExtBuildListControlChild: Control
+---@field label? string
+
+---@class ExtBuildListControlDropDown: DropDownControl<string>
+---@field SelByValue fun(self: ExtBuildListControlDropDown, value: string, key?: string): integer?
+
+---@class ExtBuildListControlScrollBar: ScrollBarControl
+---@field shown boolean|fun(): boolean
+
+---@class ExtBuildListControlControls: ControlHost
+---@field [integer] ExtBuildListControlChild
+---@field sort ExtBuildListControlDropDown
+---@field scrollBarV ExtBuildListControlScrollBar
+---@field all? ButtonControl
 
 ---@class ExtBuildListControl: ControlHost, Control
+---@field controls ExtBuildListControlControls
 ---@field importCode? string
 ---@field rowHeight integer
 ---@field scroll string
+---@field scrollH? boolean
 ---@field forceTooltip boolean
 ---@field font Font
 ---@field importButtons ButtonControl[]
@@ -25,12 +57,18 @@ local dkjson = require "dkjson"
 ---@field inTransition boolean
 ---@field contentHeight number
 ---@field tabs ButtonControl[]
----@field activeListProvider? ExtBuildListProvider
+---@field activeListProvider? ExtBuildListProviderForControl
 ---@field buildProviders ExtBuildListProviderOption[]
 ---@field buildProvidersList string[]
 ---@field providerMaxLength number
 ---@field scrollOffsetV? number
+---@field width Prop<number>
+---@field height Prop<number>
 local ExtBuildListControlClass = newClass("ExtBuildListControl", "ControlHost", "Control")
+
+---@class ExtBuildListControlInstance: ExtBuildListControl
+---@field controls ExtBuildListControlControls
+---@field activeListProvider? ExtBuildListProviderForControl
 
 ---@param anchor? Anchor
 ---@param rect? Rect
@@ -71,7 +109,9 @@ function ExtBuildListControlClass:Init(providerName)
 			self:Init(value)
 		end)
 
-	self.controls.sort:SelByValue(providerName)
+	if self.controls.sort.SelByValue then
+		self.controls.sort:SelByValue(providerName)
+	end
 
 	self.activeListProvider = nil
 
@@ -87,23 +127,31 @@ function ExtBuildListControlClass:Init(providerName)
 		print("Build provider not found: %s", providerName)
 		return
 	end
+	local activeListProvider = assert(self.activeListProvider)
 
-	self.activeListProvider:SetImportCode(self.importCode)
-	self.activeListProvider:Activate()
-	self.activeListProvider.buildListTitles = self.activeListProvider:GetListTitles()
+	if self.importCode then
+		activeListProvider:SetImportCode(self.importCode)
+	end
+	activeListProvider:Activate()
+	local listTitles = activeListProvider:GetListTitles()
+	if not listTitles then
+		return
+	end
+	activeListProvider.buildListTitles = listTitles
 
 	local lastControl = nil
-	for index, title in ipairs(self.activeListProvider:GetListTitles()) do
+	for index, title in ipairs(listTitles) do
 		local stringWidth = DrawStringWidth(16, self.font, title)
+		---@type Anchor
 		local anchor = { "TOP", self, "TOP" }
 		if lastControl then
 			anchor = { "LEFT", lastControl, "RIGHT" }
 		end
 		local button = new("ButtonControl"):ButtonControl(anchor, { 0, lastControl and 0 or -20, stringWidth + 10, 20 }, title, function()
-			if self.activeListProvider:GetActiveList() == title then
+			if activeListProvider:GetActiveList() == title then
 				return
 			end
-			self.activeListProvider:SetActiveList(title)
+			activeListProvider:SetActiveList(title)
 			for _, _button in ipairs(self.tabs) do
 				_button.locked = (_button.label == title)
 			end
@@ -146,10 +194,10 @@ function ExtBuildListControlClass:Init(providerName)
 		self.controls.scrollBarV.shown = false
 	end
 
-	if self.activeListProvider:GetPageUrl() then
+	if activeListProvider:GetPageUrl() then
 		self.controls.all = new("ButtonControl"):ButtonControl({ "BOTTOM", self, "BOTTOM" }, { 0, 1, self.width, 20 }, "See All",
 			function()
-				local url = self.activeListProvider:GetPageUrl()
+				local url = activeListProvider:GetPageUrl()
 				if url then
 					OpenURL(url)
 				end
@@ -195,14 +243,14 @@ function ExtBuildListControlClass:OnKeyUp(key)
 		return
 	end
 
-	if self.controls.scrollBarV:IsScrollDownKey(key) then
+	if self.controls.scrollBarV.IsScrollDownKey and self.controls.scrollBarV:IsScrollDownKey(key) then
 		self.controls.scrollBarV:Scroll(1)
-	elseif self.controls.scrollBarV:IsScrollUpKey(key) then
+	elseif self.controls.scrollBarV.IsScrollUpKey and self.controls.scrollBarV:IsScrollUpKey(key) then
 		self.controls.scrollBarV:Scroll(-1)
 	end
 end
 
----@param build ExtBuildListEntry
+---@param build ExtBuildListControlEntry
 function ExtBuildListControlClass:importBuild(build)
 	if not (build.buildLink) then
 		print("Build link is not provided.")
@@ -211,13 +259,13 @@ function ExtBuildListControlClass:importBuild(build)
 	ImportBuild(build.buildLink, function(xmlText, urlText)
 		if xmlText then
 			main:SetMode("BUILD", false,
-				build.buildName .. (build.authorName and (" - " .. self.build.authorName) or ""),
+				build.buildName .. (build.authorName and (" - " .. build.authorName) or ""),
 				xmlText, false, urlText)
 		end
 	end)
 end
 
----@param ascendancy string
+---@param ascendancy string?
 ---@return ImageHandle?
 function ExtBuildListControlClass:GetAscendancyImageHandle(ascendancy)
 	if ascendancy then
@@ -277,7 +325,7 @@ end
 
 ---@param left number
 ---@param top number
----@param align string
+---@param align "LEFT"|"CENTER"|"RIGHT"|"CENTER_X"|"RIGHT_X"
 ---@param height number
 ---@param font Font
 ---@param text string

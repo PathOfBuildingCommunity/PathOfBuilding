@@ -26,6 +26,7 @@ function SectionClass:Draw()
 	SetDrawColor(0.1, 0.1, 0.1)
 	DrawImage(nil, x + 2, y + 2, width - 4, height - 4)
 	SetDrawLayer(nil, 0)
+	---@type string
 	local label = self:GetProperty("label")
 	local labelWidth = DrawStringWidth(14, "VAR", label)
 	SetDrawColor(0.66, 0.66, 0.66)
