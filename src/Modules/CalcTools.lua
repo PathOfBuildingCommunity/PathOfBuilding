@@ -253,7 +253,7 @@ end
 --- Correct the tags on conversion with multipliers so they carry over correctly
 --- @param mod table
 --- @param multiplier number
---- @param minionMods boolean @convert ActorConditions pointing at parent to normal Conditions
+--- @param minionMods? boolean @convert ActorConditions pointing at parent to normal Conditions
 --- @return table @converted multipliers
 function calcLib.getConvertedModTags(mod, multiplier, minionMods)
 	local modifiers = { }

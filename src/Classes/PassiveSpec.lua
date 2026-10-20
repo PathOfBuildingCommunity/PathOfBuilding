@@ -19,6 +19,7 @@ local bor = bit.bor
 ---@class PassiveSpec: UndoHandler
 ---@field nodes table<integer, Node>
 ---@field allocNodes table<integer, Node>
+---@field jewel_data table<integer, table>
 local PassiveSpecClass = newClass("PassiveSpec", "UndoHandler")
 
 ---@param build Build

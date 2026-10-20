@@ -81,7 +81,7 @@ function ControlHostClass:ProcessControlsInput(inputEvents, viewPort)
 				inputEvents[id] = nil
 			end
 
-			local mOverControl = self:GetMouseOverControl(viewPort)
+			local mOverControl = self:GetMouseOverControl()
 
 			-- Avoid calculating isMouseInRegion as much as possible as it's expensive
 			if mOverControl and (not selControl or mOverControl.OnHoverKeyUp) then

@@ -1,3 +1,5 @@
+local lfs = require("lfs")
+
 local function fetchBuilds(path, buildList)
 	buildList = buildList or {}
 	for file in lfs.dir(path) do
@@ -45,6 +47,9 @@ local buildList = fetchBuilds("../spec/TestBuilds")
 for filename, testBuild in pairs(buildList) do
 	loadBuildFromXML(testBuild)
 	local fileHnd, errMsg = io.open(filename:gsub("^(.+)%..+$", "%1.lua"), "w+")
+	if not fileHnd then
+		error(errMsg)
+	end
 	fileHnd:write("return {\n   xml = [[")
 	fileHnd:write(testBuild)
 	fileHnd:write("]],\n    ")

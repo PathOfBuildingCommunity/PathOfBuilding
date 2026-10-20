@@ -209,7 +209,7 @@ return function(modDB, output, actor)
 				t_insert(out, "Total leeched per instance:")
 				t_insert(out, s_format("%d ^8(size of leech destination pool)", pool))
 				t_insert(out, s_format("x %.2f ^8(base leech rate is %d%% per second)", data.misc.LeechRateBase, 100 * data.misc.LeechRateBase))
-				local rateMod = calcLib.mod(modDB, skillCfg, rate)
+				local rateMod = calcLib.mod(modDB, actor.mainSkill.skillCfg, rate)
 				if rateMod ~= 1 then
 					t_insert(out, s_format("x %.2f ^8(leech rate modifier)", rateMod))
 				end
@@ -229,7 +229,7 @@ return function(modDB, output, actor)
 				t_insert(out, "Rate per instance:")
 				t_insert(out, s_format("%d ^8(size of leech destination pool)", pool))
 				t_insert(out, s_format("x %.2f ^8(base leech rate is %d%% per second)", data.misc.LeechRateBase, 100 * data.misc.LeechRateBase))
-				local rateMod = calcLib.mod(modDB, skillCfg, rate)
+				local rateMod = calcLib.mod(modDB, actor.mainSkill.skillCfg, rate)
 				if rateMod ~= 1 then
 					t_insert(out, s_format("x %.2f ^8(leech rate modifier)", rateMod))
 				end

@@ -18,6 +18,9 @@ local ItemDBClass = newClass("ItemDBControl", "ListControl")
 ---@field byTitle? table<string, Item>
 ---@field loading boolean?
 
+---@class UniqueItemDBData: ItemDBData
+---@field byTitle table<string, Item>
+
 ---@param anchor Anchor?
 ---@param rect Rect?
 ---@param itemsTab ItemsTab

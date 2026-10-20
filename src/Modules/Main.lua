@@ -54,12 +54,21 @@ local tempTable2 = { }
 ---@diagnostic disable-next-line: lowercase-global
 ---@class Main : ControlHost
 ---@field allowTreeDownload? boolean
+---@field errorReadingSettings? boolean
+---@field newModeChangeToTree? boolean
+---@field rareDB ItemDBData
+---@field saveNewModCache? boolean
+---@field showDragText? boolean
+---@field tree table<string, PassiveTree?>
+---@field uniqueDB UniqueItemDBData
+---@field updateAvailableShown? boolean
 main = new("ControlHost"):ControlHost()
 
 function main:Init()
 	self:DetectUnicodeSupport()
 	self.modes = { }
 	self.modes["LIST"] = LoadModule("Modules/BuildList")
+	---@type Build
 	self.modes["BUILD"] = LoadModule("Modules/Build")
 
 	self.popups = { }
@@ -147,7 +156,7 @@ function main:Init()
 	self.inputEvents = { }
 	self.tooltipLines = { }
 
-	---@type table<string, PassiveTree>
+	---@type table<string, PassiveTree?>
 	self.tree = { }
 	self:LoadTree(latestTreeVersion)
 
@@ -155,7 +164,7 @@ function main:Init()
 		self:ChangeUserPath(self.userPath, ignoreBuild)
 	end
 
-	---@type ItemDBData
+	---@type UniqueItemDBData
 	self.uniqueDB = { list = { }, byTitle = { }, loading = true }
 	---@type ItemDBData
 	self.rareDB = { list = {}, loading = true }

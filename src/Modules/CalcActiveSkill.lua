@@ -460,7 +460,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 	end
 
 	-- Build config structure for modifier searches
-	---@class ModCfg
+	---@type SkillCfg
 	activeSkill.skillCfg = {
 		flags = bor(skillModFlags, activeSkill.weapon1Flags or activeSkill.weapon2Flags or 0),
 		keywordFlags = skillKeywordFlags,

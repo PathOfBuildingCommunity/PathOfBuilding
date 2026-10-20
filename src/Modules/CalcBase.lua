@@ -90,4 +90,4 @@ return calcs
 
 ---@class ActiveSkill
 ---@field skillModList ModList
----@field skillCfg ModCfg
+---@field skillCfg SkillCfg

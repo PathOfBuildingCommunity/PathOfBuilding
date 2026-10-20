@@ -26,7 +26,7 @@ local bnot = bit.bnot
 ---  specified by @uuid or if not found in cache computes teh cache.
 --- @param env table
 --- @param activeSkill table active skill to be used as main when calculating output values
---- @param ... table keys to values to be returned (Note: EmmyLua does not natively support documenting variadic parameters)
+--- @param ... string keys to values to be returned
 --- @return table unpacked table containing the desired values
 local function getCachedOutputValue(env, activeSkill, ...)
 	local uuid = cacheSkillUUID(activeSkill, env)
@@ -912,6 +912,7 @@ local function doActorMisc(env, actor)
 			condList["LeechingEnergyShield"] = true
 		end
 		if modDB:Flag(nil, "Condition:CanGainRage") or modDB:Sum("BASE", nil, "RageRegen") > 0 then
+			local skillCfg = actor.mainSkill and actor.mainSkill.skillCfg
 			local maxStacks = m_floor(modDB:Sum("BASE", skillCfg, "MaximumRage") * modDB:More(skillCfg, "MaximumRage"))
 			local minStacks = m_min(modDB:Sum("BASE", nil, "MinimumRage"), maxStacks)
 			local rageConfig = modDB:Sum("BASE", nil, "Multiplier:RageStack")
@@ -3456,13 +3457,6 @@ function calcs.perform(env, skipEHP)
 				local more = env.minion.modDB:More(nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
 				env.minion.modDB:ScaleAddList(modList, (1 + inc / 100) * more)
 			end
-		end
-	end
-
-	-- Check for modifiers to apply to actors affected by player auras or curses
-	for _, value in ipairs(modDB:List(nil, "AffectedByAuraMod")) do
-		for actor in pairs(affectedByAura) do
-			actor.modDB:AddMod(value.mod)
 		end
 	end
 
