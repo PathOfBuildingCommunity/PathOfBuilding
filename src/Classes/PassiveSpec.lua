@@ -83,7 +83,6 @@ function PassiveSpecClass:Init(treeVersion, convert)
 	-- Table of jewels equipped in this tree
 	-- Keys are node IDs, values are items
 	self.jewels = { }
-	self.jewel_data = { }
 
 	-- Tree graphs dynamically generated from cluster jewels
 	-- Keys are subgraph IDs, values are graphs
