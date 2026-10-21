@@ -10,6 +10,13 @@ local t_remove = table.remove
 local m_min = math.min
 local m_max = math.max
 
+local socketDropList = {
+	{ label = colorCodes.STRENGTH.."R", color = "R" },
+	{ label = colorCodes.DEXTERITY.."G", color = "G" },
+	{ label = colorCodes.INTELLIGENCE.."B", color = "B" },
+	{ label = colorCodes.WHITE.."W", color = "W" },
+}
+
 local groupSlotDropList = {
 	{ label = "None" },
 	{ label = "Weapon 1", slotName = "Weapon 1" },
@@ -234,8 +241,6 @@ function SkillsTabClass:SkillsTab(build)
 		local socketLine = ""
 		if item and item.base and not item.base.socketLimit then
 			socketLine = "This item cannot have sockets"
-		elseif item then
-			socketLine = self.build.itemsTab:GetSocketDescriptionLine(item)
 		end
 		return "^7Item sockets: " .. socketLine
 	end)
@@ -253,7 +258,7 @@ function SkillsTabClass:SkillsTab(build)
 		local maxSockets = (item.base.socketLimit or 0) - abyssalSocketCount
 		return maxSockets, abyssalSocketCount
 	end
-	self.controls.optimiseSockets = new("ButtonControl"):ButtonControl({ "LEFT", self.controls.socketsLabel, "RIGHT" }, { 4, 0, 120, 18 }, "Optimise Sockets", function()
+	self.controls.optimiseSockets = new("ButtonControl"):ButtonControl({ "LEFT", self.controls.socketsLabel, "RIGHT" }, { 4, 0, 180, 18 }, "Optimise Socket Colours", function()
 		local item, groupSlot = getSelectedItem()
 		if not item or not groupSlot or not item.base then
 			return
@@ -312,6 +317,48 @@ function SkillsTabClass:SkillsTab(build)
 		return false
 	end
 	self.controls.optimiseSockets.tooltipText = "Rebuild the item's sockets to match the groups assigned to it."
+	self.controls.socketColours = new("Control"):Control({ "LEFT", self.controls.socketsLabel, "RIGHT" }, { 4, 0, function()
+		local item = getSelectedItem()
+		local width = 0
+		if item then
+			for i = 1, 6 do
+				if item.selectableSocketCount >= i and item.sockets[i] and item.sockets[i].color ~= "A" then
+					width = (i - 1) * 44 + 36
+				end
+			end
+		end
+		return width
+	end, 20 })
+	self.controls.abyssalSockets = new("LabelControl"):LabelControl({ "LEFT", self.controls.socketColours, "RIGHT" }, { 0, 0, 0, 16 }, function()
+		local item = getSelectedItem()
+		if not item then
+			return ""
+		end
+		local _, abyssalSocketCount = getSocketCounts(item)
+		return "^xB0B0B0" .. string.rep(" A", abyssalSocketCount)
+	end)
+	self.controls.optimiseSockets:SetAnchor("LEFT", self.controls.abyssalSockets, "RIGHT", 8, 0)
+	for i = 1, 6 do
+		local drop = new("DropDownControl"):DropDownControl({ "TOPLEFT", self.controls.socketColours, "TOPLEFT" }, { (i - 1) * 44, 0, 36, 20 }, socketDropList, function(index, value)
+			local item = getSelectedItem()
+			if not item or not item.sockets[i] or item.sockets[i].color == "A" then
+				return
+			end
+			-- Item undo states share nested tables, so preserve the previous sockets.
+			item.sockets = copyTable(item.sockets)
+			item.sockets[i].color = value.color
+			item:BuildAndParseRaw()
+			self.build.itemsTab:AddUndoState()
+			self:UpdateSocketGroups()
+			self.build.buildFlag = true
+		end)
+		drop.shown = function()
+			local item = getSelectedItem()
+			return item and item.selectableSocketCount >= i and item.sockets[i] and item.sockets[i].color ~= "A"
+		end
+		drop.tooltipText = "Change the item's socket colour. Gems in matching coloured sockets gain +10% quality."
+		self.controls["itemSocket"..i] = drop
+	end
 	-- self.imbuedSupportBySlot is used by CalcSetup to add an ExtraSupport mod of the selected gem
 	-- Each displayGroup has its own "imbuedSupport" and is saved to the xml to load when changing sockets or loading a build
 	-- "slotName" is used on import, which uses builtInSupport to get the gemData and pass in here
@@ -1081,6 +1128,15 @@ end
 function SkillsTabClass:UpdateGemSlots()
 	if not self.displayGroup then
 		return
+	end
+	local itemSlot = self.build.itemsTab.slots[self.displayGroup.slot]
+	local item = itemSlot and self.build.itemsTab.items[itemSlot.selItemId]
+	if item then
+		for i = 1, 6 do
+			if item.sockets[i] then
+				self.controls["itemSocket"..i]:SelByValue(item.sockets[i].color, "color")
+			end
+		end
 	end
 	for slotIndex = 1, #self.displayGroup.gemList + 1 do
 		if not self.gemSlots[slotIndex] then
