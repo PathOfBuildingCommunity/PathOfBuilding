@@ -329,7 +329,15 @@ function SkillsTabClass:SkillsTab(build)
 		end
 		return width
 	end, 20 })
-	self.controls.optimiseSockets:SetAnchor("LEFT", self.controls.socketColours, "RIGHT", 8, 0)
+	self.controls.abyssalSockets = new("LabelControl"):LabelControl({ "LEFT", self.controls.socketColours, "RIGHT" }, { 0, 0, 0, 16 }, function()
+		local item = getSelectedItem()
+		if not item then
+			return ""
+		end
+		local _, abyssalSocketCount = getSocketCounts(item)
+		return "^xB0B0B0" .. string.rep(" A", abyssalSocketCount)
+	end)
+	self.controls.optimiseSockets:SetAnchor("LEFT", self.controls.abyssalSockets, "RIGHT", 8, 0)
 	for i = 1, 6 do
 		local drop = new("DropDownControl"):DropDownControl({ "TOPLEFT", self.controls.socketColours, "TOPLEFT" }, { (i - 1) * 44, 0, 36, 20 }, socketDropList, function(index, value)
 			local item = getSelectedItem()
