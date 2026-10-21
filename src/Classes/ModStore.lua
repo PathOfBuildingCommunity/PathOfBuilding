@@ -391,7 +391,8 @@ end
 ---@return number
 function ModStoreClass:GetMultiplier(var, cfg, noMod)
 	local override = not noMod and self:Override(cfg, multiplierName[var])
-	if override ~= nil then
+	-- override is false (not nil) when noMod is set
+	if override then
 		return tonumber(override) or 0
 	end
 	return (self.multipliers[var] or 0) + (self.parent and self.parent:GetMultiplier(var, cfg, true) or 0) + (not noMod and self:Sum("BASE", cfg, multiplierName[var]) or 0)

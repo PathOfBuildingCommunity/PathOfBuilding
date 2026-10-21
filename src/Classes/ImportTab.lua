@@ -1102,7 +1102,8 @@ function ImportTabClass:DownloadSiteCharacterList(realm)
 					self.lastAccountHash = common.sha1(accountName)
 					main.lastAccountName = accountName
 					main.gameAccounts[accountName] = main.gameAccounts[accountName] or {}
-					main.gameAccounts[accountName].sessionID = sessionID
+					-- POESESSID is no longer stored; drop any saved by older versions
+					main.gameAccounts[accountName].sessionID = nil
 					local leagueList = {}
 					for i, char in ipairs(charList) do
 						if not isValueInArray(leagueList, char.league) then
