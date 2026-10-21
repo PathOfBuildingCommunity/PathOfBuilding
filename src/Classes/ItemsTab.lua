@@ -3136,8 +3136,9 @@ function ItemsTabClass:CorruptDisplayItem()
 		end
 	end
 	local isGlimpse = self.displayItem.title and self.displayItem.title:lower():find("glimpse of chaos") and self.displayItem.isUnique
-	if isGlimpse then
-		table.insert(sourceList, 1, "Glimpse of Chaos")
+	if self.displayItem.base.type == "Helmet" then
+		-- Glimpse of Chaos can transform into another helmet while retaining its special implicits.
+		table.insert(sourceList, isGlimpse and 1 or #sourceList + 1, "Glimpse of Chaos")
 	end
 	local currentModType = sourceList[1]
 	-- the amount of controls created
@@ -3148,6 +3149,7 @@ function ItemsTabClass:CorruptDisplayItem()
 		end
 		implicitList[modType] = {}
 		if modType == "Glimpse of Chaos" then
+			-- Pool and roll ranges: https://poedb.tw/us/Glimpse_of_Chaos#GlimpseofChaosMods
 			for modId, mod in pairs(data.itemMods.ItemExclusive) do
 				if modId:find("^UniqueSpecialCorruption") then
 					t_insert(implicitList[modType], { mod = mod })
