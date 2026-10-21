@@ -63,7 +63,15 @@ local function processAddedCastTime(skill, breakdown)
 end
 
 local function packageSkillDataForSimulation(skill, env)
-	return { uuid = cacheSkillUUID(skill, env), cd = skill.skillData.cooldown, cdOverride = skill.skillModList:Override(skill.skillCfg, "CooldownRecovery"), addsCastTime = processAddedCastTime(skill), icdr = calcLib.mod(skill.skillModList, skill.skillCfg, "CooldownRecovery"), addedCooldown = skill.skillModList:Sum("BASE", skill.skillCfg, "CooldownRecovery")}
+	return {
+		uuid = cacheSkillUUID(skill, env),
+		cd = skill.skillData.cooldown,
+		cdOverride = skill.skillModList:Override(skill.skillCfg, "CooldownRecovery"),
+		addsCastTime = processAddedCastTime(skill),
+		icdr = calcLib.mod(skill.skillModList, skill.skillCfg, "CooldownRecovery"),
+		addedCooldown = skill.skillModList:Sum("BASE", skill.skillCfg, "CooldownRecovery"),
+		cooldownNotConsumedChance = not skill.skillData.triggeredByBrand and m_min(m_max(skill.skillModList:Sum("BASE", skill.skillCfg, "CooldownNotConsumedChance"), 0), 100) or 0,
+	}
 end
 
 local function defaultComparer(env, uuid, source, triggerRate, useCastRate)
@@ -103,15 +111,28 @@ function calcMultiSpellRotationImpact(env, skillRotation, sourceRate, triggerCD,
 		skill.cd = m_max(skill.cdOverride or ( ((skill.cd or 0) + (skill.addedCooldown or 0)) / (skill.icdr or 1)), ( (triggerCD or 0) + (skill.addsCastTime or 0) ) / (skill.icdr or 1))
 		skill.next_trig = 0
 		skill.count = 0
+		skill.cooldownPreservationProgress = 0
 	end
 
 	while next_trigger < SIM_TIME do
 		local currentIndex = rotationIndex
 		repeat
-			if skillRotation[currentIndex].next_trig <= next_trigger then -- Skill at current index off cooldown, Trigger it.
-				skillRotation[currentIndex].count = skillRotation[currentIndex].count + 1
-				-- Cooldown starts at the beginning of current tick and ends at the next tick after cooldown expiration
-				skillRotation[currentIndex].next_trig = ceil_b(floor_b(next_trigger, data.misc.ServerTickTime) + skillRotation[currentIndex].cd, data.misc.ServerTickTime)
+			local skill = skillRotation[currentIndex]
+			if skill.next_trig <= next_trigger then -- Skill at current index off cooldown, Trigger it.
+				skill.count = skill.count + 1
+				if skill.cd == 0 then
+					skill.next_trig = next_trigger
+				else
+					-- Spread the expected cooldown preservations across simulated uses without
+					-- creating additional trigger events outside the shared rotation.
+					skill.cooldownPreservationProgress = skill.cooldownPreservationProgress + (skill.cooldownNotConsumedChance or 0)
+					if skill.cooldownPreservationProgress >= 100 then
+						skill.cooldownPreservationProgress = skill.cooldownPreservationProgress - 100
+					else
+						-- Cooldown starts at the beginning of current tick and ends at the next tick after cooldown expiration
+						skill.next_trig = ceil_b(floor_b(next_trigger, data.misc.ServerTickTime) + skill.cd, data.misc.ServerTickTime)
+					end
+				end
 				break
 			end
 			currentIndex = (currentIndex % skillCount) + 1 -- Current skill on cooldown, try the next one.
@@ -832,10 +853,6 @@ local function defaultTriggerHandler(env, config)
 				else -- Triggers like Cast on Crit go through simulation to calculate the trigger rate of each skill in the trigger group
 					output.SkillTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, config.triggeredSkillCond and triggeredSkills or {packageSkillDataForSimulation(actor.mainSkill, env)}, output.EffectiveSourceRate, (not actor.mainSkill.skillData.triggeredByBrand and ( triggerCD or triggeredCD ) or 0), triggerChance, actor)
 					local simulatedTriggerRate = output.SkillTriggerRate
-					if cooldownNotConsumedChance > 0 and simulatedTriggerRate > 0 then
-						output.SkillTriggerRate = 1 / (cooldownConsumedChance / simulatedTriggerRate + (1 - cooldownConsumedChance) / output.EffectiveSourceRate)
-					end
-					local cooldownPreservationMultiplier = simulatedTriggerRate > 0 and output.SkillTriggerRate / simulatedTriggerRate or 1
 					local triggerBotsEffective = actor.modDB:Flag(nil, "HaveTriggerBots") and actor.mainSkill.skillTypes[SkillType.Spell]
 					if triggerBotsEffective then
 						output.SkillTriggerRate = 2 * output.SkillTriggerRate
@@ -851,7 +868,7 @@ local function defaultTriggerHandler(env, config)
 							s_format("= %.2f ^8per second", output.SkillTriggerRate),
 						}
 						if cooldownNotConsumedChance > 0 then
-							t_insert(breakdown.SkillTriggerRate, 3, s_format("x %.3f ^8(expected effect of %g%% chance to not consume a cooldown)", cooldownPreservationMultiplier, cooldownNotConsumedChance))
+							t_insert(breakdown.SkillTriggerRate, 3, s_format("%g%% chance to not consume a cooldown is included in the rotation simulation", cooldownNotConsumedChance))
 						end
 						if triggerBotsEffective then
 							t_insert(breakdown.SkillTriggerRate, 3, "x 2 ^8(Trigger bots effectively cause the skill to trigger twice)")
