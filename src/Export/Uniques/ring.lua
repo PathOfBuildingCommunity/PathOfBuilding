@@ -1809,7 +1809,7 @@ Variant: Life
 Variant: Energy Shield
 Variant: Mana
 Variant: Reflect Immune
-Variant: No damage from Crits
+Variant: Reduced Extra Damage from Crits
 Variant: No Monster Suppress
 Variant: No Enemy Pen
 Variant: Charges cannot be stolen
@@ -1817,22 +1817,33 @@ Variant: Burning Ground Immune
 Variant: Shocked Ground Immune
 Variant: Desecrated Ground Immune
 Variant: Chilled Ground Immune
+Variant: Attack Speed
+Variant: Cast Speed
+Variant: Enemies Cannot Leech Life
+Variant: Reduced Curse Effect
+Variant: Attacks Cannot Be Blocked
+Variant: Avoid Chained Projectiles
 Requires Level 64
 Implicits: 1
 AllResistancesImplicitRing1
-IncreasedAttackSpeedUnique__9
+{variant:13}{group:1}IncreasedAttackSpeedUnique__9
+{variant:14}{group:1}IncreasedCastSpeedUnique__27
 AllResistancesUnique__38
-{variant:1}{group:1}MaximumLifeUnique__27
-{variant:2}{group:1}IncreasedEnergyShieldPercentUnique__6
-{variant:3}{group:1}MaximumManaUnique__10
-{variant:4}{group:2}DamageCannotBeReflectedUnique__2
-{variant:5}{group:2}UniqueReducedExtraDamageFromCrits__1
-{variant:6}{group:2}UniqueYourSpellsCannotBeSuppressed__1
-{variant:7}{group:2}UniqueElementalResistancesCannotBePenetrated__1
-{variant:8}{group:2}UniqueYourChargesCannotBeStolen__1
-{variant:9}{group:3}UniqueUnaffectedByBurningGround__1
-{variant:10}{group:3}UniqueUnaffectedByShockedGround__1
-{variant:11}{group:3}UniqueUnaffectedByDesecratedGround__1
-{variant:12}{group:3}UniqueUnaffectedByChilledGround__1
+{variant:1}{group:2}MaximumLifeUnique__27
+{variant:2}{group:2}IncreasedEnergyShieldPercentUnique__6
+{variant:3}{group:2}MaximumManaUnique__10
+{variant:4}{group:3,4}DamageCannotBeReflectedUnique__2
+{variant:5}{group:3,4}UniqueReducedExtraDamageFromCrits__1
+{variant:6}{group:3,4}UniqueYourSpellsCannotBeSuppressed__1
+{variant:7}{group:3,4}UniqueElementalResistancesCannotBePenetrated__1
+{variant:8}{group:3,4}UniqueYourChargesCannotBeStolen__1
+{variant:9}{group:3,4}UniqueUnaffectedByBurningGround__1
+{variant:10}{group:3,4}UniqueUnaffectedByShockedGround__1
+{variant:11}{group:3,4}UniqueUnaffectedByDesecratedGround__1
+{variant:12}{group:3,4}UniqueUnaffectedByChilledGround__1
+{variant:15}{group:3,4}UniqueEnemiesCantLifeLeech__1
+{variant:16}{group:3,4}ReducedCurseEffectUnique__2
+{variant:17}{group:3,4}UniqueYourAttacksCannotBeBlocked__1
+{variant:18}{group:3,4}UniqueAvoidChainingProjectiles__1
 ]],
 }
