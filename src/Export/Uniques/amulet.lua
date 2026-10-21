@@ -209,8 +209,8 @@ ElementalDamageReductionChaosResistUnique__1
 Badge of the Brotherhood
 Turquoise Amulet
 Requires Level: 20
-Implicits: 1
 League: Blight
+Implicits: 1
 HybridDexInt
 TravelSkillCooldownRecoveryPerFrenzyChargeUnique__1
 ElusiveBuffEffectPerPowerChargeUnique__1
