@@ -4,20 +4,39 @@
 -- Basic check box control.
 --
 ---@class CheckBoxControl: Control, TooltipHost
+---@field label? Prop<string>
+---@field labelWidth number
+---@field labelRight boolean
+---@field changeFunc? fun(state: boolean)
+---@field state boolean
+---@field clicked? boolean
+---@field borderFunc? fun(): number, number, number
 local CheckBoxClass = newClass("CheckBoxControl", "Control", "TooltipHost")
 
+---@param anchor? Anchor
+---@param rect Rect
+---@param label? Prop<string>
+---@param changeFunc? fun(state: boolean)
+---@param tooltipText? Prop<string>
+---@param initialState? boolean
+---@return CheckBoxControl
 function CheckBoxClass:CheckBoxControl(anchor, rect, label, changeFunc, tooltipText, initialState)
 	rect[4] = rect[3] or 0
 	self:Control(anchor, rect)
 	self:TooltipHost(tooltipText)
 	self.label = label
-	self.labelWidth = DrawStringWidth(self.width - 4, "VAR", label or "") + 5
+	---@type number
+	local width = self:GetProperty("width")
+	---@type string?
+	local labelText = self:GetProperty("label")
+	self.labelWidth = DrawStringWidth(width - 4, "VAR", labelText or "") + 5
 	self.labelRight = false
 	self.changeFunc = changeFunc
 	self.state = initialState
 	return self
 end
 
+---@return boolean
 function CheckBoxClass:IsMouseOver()
 	if not self:IsShown() then
 		return false
@@ -37,9 +56,12 @@ function CheckBoxClass:IsMouseOver()
 	return cursorX >= x and cursorY >= y and cursorX < x + width and cursorY < y + height
 end
 
+---@param viewPort Viewport
+---@param noTooltip? boolean
 function CheckBoxClass:Draw(viewPort, noTooltip)
 	local x, y = self:GetPos()
-	local size = self.width
+	---@type number
+	local size = self:GetProperty("width")
 	local enabled = self:IsEnabled()
 	local mOver = self:IsMouseOver()
 	if not enabled then
@@ -80,7 +102,7 @@ function CheckBoxClass:Draw(viewPort, noTooltip)
 	end
 	local label = self:GetProperty("label")
 	if label and self.labelRight then
-		DrawString(x + self.width + 5, y + 2, nil, size - 4, "VAR", label)
+		DrawString(x + size + 5, y + 2, nil, size - 4, "VAR", label)
 	elseif label then
 		DrawString(x - 5, y + 2, "RIGHT_X", size - 4, "VAR", label)
 	end
@@ -91,6 +113,8 @@ function CheckBoxClass:Draw(viewPort, noTooltip)
 	end
 end
 
+---@param key string
+---@return CheckBoxControl?
 function CheckBoxClass:OnKeyDown(key)
 	if not self:IsShown() or not self:IsEnabled() then
 		return
@@ -101,6 +125,7 @@ function CheckBoxClass:OnKeyDown(key)
 	return self
 end
 
+---@param key string
 function CheckBoxClass:OnKeyUp(key)
 	if not self:IsShown() or not self:IsEnabled() then
 		return

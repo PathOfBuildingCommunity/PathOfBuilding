@@ -273,9 +273,9 @@ function calcLib.getConvertedModTags(mod, multiplier, minionMods)
 end
 
 --- Get the gameId from the gemName which will be the same as the base gem for transfigured gems
---- @param gemName string
+--- @param gemName string?
 --- @param dropVaal boolean
---- @return string
+--- @return string?
 function calcLib.getGameIdFromGemName(gemName, dropVaal)
 	if type(gemName) ~= "string" then
 		return

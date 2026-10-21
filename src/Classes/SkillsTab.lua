@@ -75,10 +75,62 @@ local sortGemTypeList = {
 	{ label = "Effective Hit Pool", type = "TotalEHP" },
 }
 
+---@class SkillSet
+---@field id integer
+---@field title? string
+---@field socketGroupList table[]
+
+---@class SkillsTabUndoState
+---@field activeSkillSetId integer
+---@field skillSets table<integer, SkillSet>
+---@field skillSetOrderList integer[]
+---@field activeSocketGroup integer?
+---@field activeSocketGroup2 integer?
+
+---@class SkillsTabDropDown: DropDownControl<table>
+---@field SelByValue fun(self: SkillsTabDropDown, value: unknown, key?: string)
+---@field SetList fun(self: SkillsTabDropDown, textList: string[])
+
+---@class SkillsTabGemSelectControl: GemSelectControl
+---@field SetText fun(self: SkillsTabGemSelectControl, text: string, notify?: boolean)
+
+---@class SkillsTabControls: table<string, Control>
+---@field setSelect SkillsTabDropDown
+---@field defaultLevel SkillsTabDropDown
+---@field defaultQuality EditControl
+---@field showSupportGemTypes SkillsTabDropDown
+---@field groupLabel EditControl
+---@field groupSlot DropDownControl<table>
+---@field groupCount EditControl
+---@field scrollBarH ScrollBarControl
+---@field groupList SkillListControl
+---@field sortGemsByDPS CheckBoxControl
+---@field sortGemsByDPSFieldControl SkillsTabDropDown
+---@field showLegacyGems CheckBoxControl
+---@field imbuedSupport SkillsTabGemSelectControl
+
 ---@class SkillsTab: UndoHandler, ControlHost, Control
+---@field controls SkillsTabControls
+---@field build Build
+---@field socketGroupList table[]
+---@field skillSets table<integer, SkillSet>
+---@field skillSetOrderList integer[]
+---@field activeSkillSetId integer
+---@field displayGroup? table
+---@field gemSlots table<integer, table>
+---@field imbuedSupportBySlot table<string, table>
+---@field sortGemsByDPS boolean
+---@field sortGemsByDPSField string
+---@field showSupportGemTypes string
+---@field showLegacyGems boolean
+---@field defaultGemLevel string
+---@field defaultGemQuality number
+---@field modFlag boolean
+---@field [string] unknown
 local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Control")
 
 ---@param build Build
+---@return SkillsTab
 function SkillsTabClass:SkillsTab(build)
 	self:UndoHandler()
 	self:ControlHost()
@@ -96,6 +148,7 @@ function SkillsTabClass:SkillsTab(build)
 	self.defaultGemQuality = main.defaultGemQuality
 
 	-- Set selector
+	---@type SkillsTabDropDown
 	self.controls.setSelect = new("DropDownControl"):DropDownControl({ "TOPLEFT", self, "TOPLEFT" }, { 76, 8, 210, 20 }, nil, function(index, value)
 		self:SetActiveSkillSet(self.skillSetOrderList[index])
 		self:AddUndoState()
@@ -128,9 +181,11 @@ function SkillsTabClass:SkillsTab(build)
 	self.controls.sortGemsByDPS = new("CheckBoxControl"):CheckBoxControl({ "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, { optionInputsX, optionInputsY + 70, 20 }, "Sort gems by DPS:", function(state)
 		self.sortGemsByDPS = state
 	end, nil, true)
+	---@type SkillsTabDropDown
 	self.controls.sortGemsByDPSFieldControl = new("DropDownControl"):DropDownControl({ "LEFT", self.controls.sortGemsByDPS, "RIGHT" }, { 10, 0, 140, 20 }, sortGemTypeList, function(index, value)
 		self.sortGemsByDPSField = value.type
 	end)
+	---@type SkillsTabDropDown
 	self.controls.defaultLevel = new("DropDownControl"):DropDownControl({ "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, { optionInputsX, optionInputsY + 94, 170, 20 }, defaultGemLevelList, function(index, value)
 		self.defaultGemLevel = value.gemLevel
 	end)
@@ -145,6 +200,7 @@ function SkillsTabClass:SkillsTab(build)
 		self.defaultGemQuality = m_min(tonumber(buf) or 0, 23)
 	end)
 	self.controls.defaultQualityLabel = new("LabelControl"):LabelControl({ "RIGHT", self.controls.defaultQuality, "LEFT" }, { -4, 0, 0, 16 }, "^7Default gem quality:")
+	---@type SkillsTabDropDown
 	self.controls.showSupportGemTypes = new("DropDownControl"):DropDownControl({ "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, { optionInputsX, optionInputsY + 142, 170, 20 }, showSupportGemTypeList, function(index, value)
 		self.showSupportGemTypes = value.show
 	end)
@@ -215,6 +271,8 @@ function SkillsTabClass:SkillsTab(build)
 		self.build.buildFlag = true
 	end)
 
+	---@return Item? item
+	---@return table? groupSlot
 	local function getSelectedItem()
 		local item
 		local groupSlot = self.controls.groupSlot:GetSelValue()
@@ -243,6 +301,9 @@ function SkillsTabClass:SkillsTab(build)
 		local item = getSelectedItem()
 		return not not item
 	end
+	---@param item Item
+	---@return integer maxSockets
+	---@return integer abyssalSocketCount
 	local function getSocketCounts(item)
 		local abyssalSocketCount = 0
 		for _, socket in ipairs(item.sockets) do
@@ -319,6 +380,7 @@ function SkillsTabClass:SkillsTab(build)
 	-- the last var in the GemSelectControl init, the true, sets imbuedSelect to true which sets the level to 1 and support filtering
 	self.imbuedSupportBySlot = { }
 	self.controls.imbuedSupportLabel = new("LabelControl"):LabelControl({ "TOPLEFT", self.controls.socketsLabel, "BOTTOMLEFT", true }, { 0, 8, 0, 16 }, colorCodes.CRAFTED .. "Imbued Support:")
+	---@type SkillsTabGemSelectControl
 	self.controls.imbuedSupport = new("GemSelectControl"):GemSelectControl({ "LEFT", self.controls.imbuedSupportLabel, "RIGHT" }, { 8, 0, 250, 20 }, self, 1, function(gemData, _, _, gemMatch, slotName)
 		local targetSlot = slotName or (self.displayGroup and self.displayGroup.slot)
 		if not targetSlot then
@@ -348,7 +410,9 @@ function SkillsTabClass:SkillsTab(build)
 			end
 		end
 	end, true, true)
-	local function isImbuedEnabled() -- socketedIn must be set and the displayGroup must have an imbued, otherwise disable the imbued dropdown
+	-- socketedIn must be set and the displayGroup must have an imbued, otherwise disable the imbued dropdown
+	---@return boolean
+	local function isImbuedEnabled()
 		return (self.displayGroup and self.displayGroup.slot and ((self.imbuedSupportBySlot[self.displayGroup.slot] and self.displayGroup.imbuedSupport) or not self.imbuedSupportBySlot[self.displayGroup.slot]))
 	end
 	self.controls.imbuedSupport.enabled = function()
@@ -438,6 +502,8 @@ will automatically apply to the skill.]]
 end
 
 
+---@param node table
+---@param skillSetId integer
 function SkillsTabClass:LoadSkill(node, skillSetId)
 	if node.elem ~= "Skill" then
 		return
@@ -520,6 +586,8 @@ function SkillsTabClass:LoadSkill(node, skillSetId)
 	t_insert(self.skillSets[skillSetId].socketGroupList, socketGroup)
 end
 
+---@param xml table
+---@param fileName string
 function SkillsTabClass:Load(xml, fileName)
 	self.activeSkillSetId = 0
 	self.skillSets = { }
@@ -570,6 +638,7 @@ function SkillsTabClass:Load(xml, fileName)
 	self:ResetUndo()
 end
 
+---@param xml table
 function SkillsTabClass:Save(xml)
 	xml.attrib = {
 		activeSkillSet = tostring(self.activeSkillSetId),
@@ -628,6 +697,8 @@ function SkillsTabClass:Save(xml)
 	end
 end
 
+---@param viewPort Viewport
+---@param inputEvents InputEvent[]
 function SkillsTabClass:Draw(viewPort, inputEvents)
 	self.x = viewPort.x
 	self.y = viewPort.y
@@ -691,6 +762,7 @@ function SkillsTabClass:Draw(viewPort, inputEvents)
 	self:DrawControls(viewPort)
 end
 
+---@param socketGroup table
 function SkillsTabClass:CopySocketGroup(socketGroup)
 	local skillText = ""
 	if socketGroup.label and socketGroup.label:match("%S") then
@@ -705,6 +777,7 @@ function SkillsTabClass:CopySocketGroup(socketGroup)
 	Copy(skillText)
 end
 
+---@param testInput? string
 function SkillsTabClass:PasteSocketGroup(testInput)
 	local skillText = sanitiseText(Paste() or testInput)
 	if skillText then
@@ -740,6 +813,7 @@ function SkillsTabClass:PasteSocketGroup(testInput)
 end
 
 -- Create the controls for editing the gem at a given index
+---@param index integer
 function SkillsTabClass:CreateGemSlot(index)
 	local slot = { }
 	self.gemSlots[index] = slot
@@ -895,6 +969,8 @@ function SkillsTabClass:CreateGemSlot(index)
 			local gemData = gemInstance.gemData
 
 			-- Function for both granted effect and secondary such as vaal
+			---@param qualityList table
+			---@param grantedEffect table
 			local addQualityLines = function(qualityList, grantedEffect)
 				tooltip:AddLine(18, colorCodes.GEM..grantedEffect.name)
 				-- Hardcoded to use 20% quality instead of grabbing from gem, this is for consistency and so we always show something
@@ -935,7 +1011,7 @@ function SkillsTabClass:CreateGemSlot(index)
 				end
 			end
 
-			local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator(self.build)
+			local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator()
 			if calcFunc then
 				local storedQuality = self.displayGroup.gemList[index].quality
 				self.displayGroup.gemList[index].quality = 20
@@ -975,7 +1051,7 @@ function SkillsTabClass:CreateGemSlot(index)
 	slot.enabled.tooltipFunc = function(tooltip)
 		if tooltip:CheckForUpdate(self.build.outputRevision, self.displayGroup) then
 			if self.displayGroup.gemList[index] then
-				local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator(self.build)
+				local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator()
 				if calcFunc then
 					self.displayGroup.gemList[index].enabled = not self.displayGroup.gemList[index].enabled
 					local output = calcFunc()
@@ -1100,6 +1176,9 @@ function SkillsTabClass:UpdateGemSlots()
 end
 
 -- Find the skill gem matching the given specification
+---@param nameSpec string
+---@return string? errMsg
+---@return table? gemData
 function SkillsTabClass:FindSkillGem(nameSpec)
 	-- Search for gem name using increasingly broad search patterns
 	local patternList = {
@@ -1126,6 +1205,9 @@ function SkillsTabClass:FindSkillGem(nameSpec)
 	return "Unrecognised gem name '" .. nameSpec .. "'"
 end
 
+---@param gemData table
+---@param imbued? boolean
+---@return integer
 function SkillsTabClass:ProcessGemLevel(gemData, imbued)
 	local grantedEffect = gemData.grantedEffect
 	local naturalMaxLevel = gemData.naturalMaxLevel
@@ -1272,6 +1354,7 @@ function SkillsTabClass:UpdateSocketGroups()
 	end
 end
 -- Set the skill to be displayed/edited
+---@param socketGroup? table
 function SkillsTabClass:SetDisplayGroup(socketGroup)
 	self.displayGroup = socketGroup
 	if socketGroup then
@@ -1307,6 +1390,8 @@ function SkillsTabClass:SetDisplayGroup(socketGroup)
 	end
 end
 
+---@param tooltip Tooltip
+---@param socketGroup table
 function SkillsTabClass:AddSocketGroupTooltip(tooltip, socketGroup)
 	if socketGroup.explodeSources then
 		for _, source in ipairs(socketGroup.explodeSources) do
@@ -1394,6 +1479,7 @@ function SkillsTabClass:AddSocketGroupTooltip(tooltip, socketGroup)
 	end
 end
 
+---@return SkillsTabUndoState
 function SkillsTabClass:CreateUndoState()
 	local state = { }
 	state.activeSkillSetId = self.activeSkillSetId
@@ -1418,6 +1504,7 @@ function SkillsTabClass:CreateUndoState()
 	return state
 end
 
+---@param state SkillsTabUndoState
 function SkillsTabClass:RestoreUndoState(state)
 	local displayId = isValueInArray(self.socketGroupList, self.displayGroup)
 	wipeTable(self.skillSets)
@@ -1449,8 +1536,10 @@ function SkillsTabClass:OpenSkillSetManagePopup()
 end
 
 -- Creates a new skill set
+---@param skillSetId? integer
+---@return SkillSet
 function SkillsTabClass:NewSkillSet(skillSetId)
-	local skillSet = { id = skillSetId, socketGroupList = {} }
+	local skillSet = { id = skillSetId or 1, socketGroupList = {} }
 	if not skillSetId then
 		skillSet.id = 1
 		while self.skillSets[skillSet.id] do
@@ -1475,6 +1564,7 @@ function SkillsTabClass:RebuildImbuedSupportBySlot()
 end
 
 -- Changes the active skill set
+---@param skillSetId? integer
 function SkillsTabClass:SetActiveSkillSet(skillSetId)
 	-- Initialize skill sets if needed
 	if not self.skillSetOrderList[1] then

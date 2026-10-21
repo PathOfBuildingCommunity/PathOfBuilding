@@ -4,9 +4,27 @@
 -- Search host
 --
 
+---@class SearchRange
+---@field from integer
+---@field to integer
+
+---@class SearchInfo
+---@field ranges SearchRange[]
+---@field matches boolean
+
 ---@class SearchHost
+---@field searchListAccessor fun(): unknown[]?
+---@field valueAccessor? fun(entry: unknown): string
+---@field searchTerm string
+---@field searchInfos SearchInfo[]
+---@field ignoreOrder boolean
+---@field matchCount integer
 local SearchHostClass = newClass("SearchHost")
 
+---@param listAccessor fun(): unknown[]?
+---@param valueAccessor? fun(entry: unknown): string
+---@param ignoreOrder? boolean
+---@return SearchHost
 function SearchHostClass:SearchHost(listAccessor, valueAccessor, ignoreOrder)
 	self.searchListAccessor = listAccessor
 	self.valueAccessor = valueAccessor
@@ -16,6 +34,8 @@ function SearchHostClass:SearchHost(listAccessor, valueAccessor, ignoreOrder)
 	return self
 end
 
+---@param s string
+---@return string[]
 local function splitWords(s)
 	local words = {}
 	for word in s:gmatch("%S+") do
@@ -24,10 +44,14 @@ local function splitWords(s)
 	return words
 end
 
+---@param c string
+---@return string
 local function letterToCaselessPattern(c)
 	return string.format("[%s%s]", string.lower(c), string.upper(c))
 end
 
+---@param words string[]
+---@return string[]
 local function wordsToCaselessPatterns(words)
 	local patterns = {}
 	for idx = 1, #words do
@@ -39,6 +63,11 @@ local function wordsToCaselessPatterns(words)
 	return patterns
 end
 
+---@param searchWords string[]
+---@param entry string
+---@param valueAccessor? fun(entry: unknown): string
+---@param ignoreOrder boolean
+---@return SearchInfo
 local function matchWords(searchWords, entry, valueAccessor, ignoreOrder)
 	local value = valueAccessor and valueAccessor(entry) or entry
 	local searchInfo = { ranges = {}, matches = true }
@@ -78,6 +107,11 @@ local function matchWords(searchWords, entry, valueAccessor, ignoreOrder)
 	return searchInfo
 end
 
+---@param searchTerm string
+---@param list string[]?
+---@param valueAccessor? fun(entry: unknown): string
+---@param ignoreOrder boolean
+---@return SearchInfo[]
 local function matchTerm(searchTerm, list, valueAccessor, ignoreOrder)
 	if not searchTerm or searchTerm == "" or not list then
 		return {}
@@ -91,10 +125,13 @@ local function matchTerm(searchTerm, list, valueAccessor, ignoreOrder)
 	return searchInfos
 end
 
+---@return boolean
 function SearchHostClass:IsSearchActive()
 	return self.searchTerm and self.searchTerm ~= ""
 end
 
+---@param char string
+---@return SearchHost
 function SearchHostClass:OnSearchChar(char)
 	if char:match("%s") then
 		-- don't allow space char if search is empty or last character is already a space char
@@ -109,6 +146,8 @@ function SearchHostClass:OnSearchChar(char)
 	return self
 end
 
+---@param key string
+---@return SearchHost?
 function SearchHostClass:OnSearchKeyDown(key)
 	if self:IsSearchActive() and key == "ESCAPE" then
 		self:ResetSearch()
@@ -130,6 +169,7 @@ function SearchHostClass:UpdateMatchCount()
 		self.matchCount = matchCount
 end
 
+---@return integer
 function SearchHostClass:GetMatchCount()
 	return self.matchCount
 end
@@ -147,6 +187,7 @@ function SearchHostClass:ResetSearch()
 	self.searchInfos = {}
 end
 
+---@return string
 function SearchHostClass:GetSearchTermPretty()
 	local color = self:IsSearchActive() and self.matchCount > 0 and "^xFFFFFF" or "^xFF0000"
 	return color .. self.searchTerm

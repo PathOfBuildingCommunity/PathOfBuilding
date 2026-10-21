@@ -8,12 +8,30 @@ local t_insert = table.insert
 local t_remove = table.remove
 local t_sort = table.sort
 
----@class PowerReportListControl: ListControl
+---@class (partial) Node
+---@field allocated boolean
+---@field powerStr string
+---@field pathPowerStr string
+
+---@class PowerReportListControl: ListControl<Node>
+---@field nodeSelectCallback fun(node: Node)
+---@field originalList { name: string, power: number, powerStr: string, pathPower: number, pathPowerStr: string, allocated: boolean, id: integer, x: number, y: number, type: string, sd: string[], pathDist: integer|string }[]
+---@field powerColumn ListColumn<Node>
+---@field showClusters boolean
+---@field showMasteries boolean
+---@field allocated boolean
+---@field colList ListColumn<Node>[]
 local PowerReportListClass = newClass("PowerReportListControl", "ListControl")
 
+---@param anchor? Anchor
+---@param rect [number?, number?, number, number?]
+---@param nodeSelectCallback fun(node: Node)
+---@param self PowerReportListControl
+---@return PowerReportListControl
 function PowerReportListClass:PowerReportListControl(anchor, rect, nodeSelectCallback)
 	self:ListControl(anchor, rect, 16, "VERTICAL", false)
 
+	---@type number
 	local width = rect[3]
 	self.powerColumn = { width = width * 0.16, label = "", sortable = true }
 	self.colList = {
@@ -46,6 +64,8 @@ function PowerReportListClass:PowerReportListControl(anchor, rect, nodeSelectCal
 	return self
 end
 
+---@param stat? PowerStat
+---@param report? { name: string, power: number, powerStr: string, pathPower: number, pathPowerStr: string, allocated: boolean, id: integer, x: number, y: number, type: string, sd: string[], pathDist: integer|string }[]
 function PowerReportListClass:SetReport(stat, report)
 	self.powerColumn.label = stat and stat.label or ""
 	self.originalList = report or {}
@@ -59,6 +79,7 @@ function PowerReportListClass:SetReport(stat, report)
 	self:ReList()
 end
 
+---@param colIndex integer
 function PowerReportListClass:ReSort(colIndex)
 	-- Reverse power sort for allocated because it uses negative numbers
 	local compare = self.allocated and 
@@ -99,6 +120,7 @@ function PowerReportListClass:ReSort(colIndex)
 	end
 end
 
+---@param self PowerReportListControl
 function PowerReportListClass:ReList()
 	self.list = { }
 	if not self.originalList then
@@ -125,12 +147,20 @@ function PowerReportListClass:ReList()
 	end
 end
 
+---@param index integer
+---@param report Node
+---@param doubleClick? boolean
 function PowerReportListClass:OnSelClick(index, report, doubleClick)
 	if self.nodeSelectCallback then
 		self.nodeSelectCallback(report)
 	end
 end
 
+---@param column integer
+---@param index integer
+---@param report { powerStr: string, pathPowerStr: string, type: string, name: string, power: number, pathDist: integer|string }
+---@param self PowerReportListControl
+---@return string
 function PowerReportListClass:GetRowValue(column, index, report)
 	return column == 1 and report.type
 		or column == 2 and report.name
@@ -140,6 +170,9 @@ function PowerReportListClass:GetRowValue(column, index, report)
 		or ""
 end
 
+---@param tooltip Tooltip
+---@param _ integer
+---@param node Node
 function PowerReportListClass:AddValueTooltip(tooltip, _, node)
 	if main.popups[1] then
 		tooltip:Clear()

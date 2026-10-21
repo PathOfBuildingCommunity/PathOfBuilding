@@ -14,6 +14,7 @@ treeVersionList = { "2_6", "3_6", "3_7", "3_8", "3_9", "3_10", "3_11", "3_12", "
 --- Always points to the latest skill tree version.
 latestTreeVersion = treeVersionList[#treeVersionList]
 ---Tree version where multiple skill trees per build were introduced to PoBC.
+---@type string
 defaultTreeVersion = treeVersionList[2]
 ---Display, comparison and export data for all supported skill tree versions.
 ---@type table<string, {display: string, num: number, url: string}>

@@ -7,9 +7,34 @@
 local t_insert = table.insert
 local t_sort = table.sort
 
----@class ComparePowerReportListControl: ListControl
+---@class ComparePowerReportEntry
+---@field category string
+---@field categoryColor? string
+---@field name string
+---@field nameColor? string
+---@field impact number
+---@field impactStr? string
+---@field combinedImpactStr? string
+---@field pathDist? number
+---@field perPoint number
+---@field perPointStr? string
+---@field nodeId? integer
+---@field itemObj? Item
+
+---@class ComparePowerReportListControl: ListControl<ComparePowerReportEntry>
+---@field reportData table
+---@field impactColumn { width: number, label: string, sortable: boolean }
+---@field compareTab CompareTab
+---@field lastTooltipIndex? integer
+---@field statusText? string
+---@field ListControl (fun(self: ListControl<ComparePowerReportEntry>, anchor?: Anchor, rect?: Rect, rowHeight: number, scroll?: string|boolean, isMutable?: boolean, list?: ComparePowerReportEntry[], forceTooltip?: boolean): ListControl<ComparePowerReportEntry>) & { Draw: fun(self: ListControl<ComparePowerReportEntry>, viewPort: Viewport, noTooltip?: boolean) }
 local ComparePowerReportListClass = newClass("ComparePowerReportListControl", "ListControl")
 
+---@alias ComparePowerReportRect [Prop<number>?, Prop<number>?, Prop<number>, Prop<number>?]
+
+---@param anchor? Anchor
+---@param rect ComparePowerReportRect
+---@return ComparePowerReportListControl
 function ComparePowerReportListClass:ComparePowerReportListControl(anchor, rect)
 	self:ListControl(anchor, rect, 18, "VERTICAL", false)
 
@@ -28,6 +53,8 @@ function ComparePowerReportListClass:ComparePowerReportListControl(anchor, rect)
 	return self
 end
 
+---@param stat? { label: string, stat?: string }
+---@param report? table
 function ComparePowerReportListClass:SetReport(stat, report)
 	self.impactColumn.label = stat and stat.label or ""
 	self.reportData = report or {}
@@ -46,6 +73,7 @@ function ComparePowerReportListClass:SetReport(stat, report)
 	self:ReSort(3)
 end
 
+---@param progress number
 function ComparePowerReportListClass:SetProgress(progress)
 	if progress < 100 then
 		self.statusText = "Calculating... " .. progress .. "%"
@@ -53,6 +81,8 @@ function ComparePowerReportListClass:SetProgress(progress)
 	end
 end
 
+---@param viewPort Viewport
+---@param noTooltip? boolean
 function ComparePowerReportListClass:Draw(viewPort, noTooltip)
 	if self.hoverIndex ~= self.lastTooltipIndex then
 		self.tooltip.updateParams = nil
@@ -71,6 +101,7 @@ function ComparePowerReportListClass:Draw(viewPort, noTooltip)
 	end
 end
 
+---@param colIndex integer
 function ComparePowerReportListClass:ReSort(colIndex)
 	local compare = function(a, b) return a > b end
 
@@ -113,6 +144,9 @@ function ComparePowerReportListClass:ReList()
 	end
 end
 
+---@param tooltip Tooltip
+---@param index integer
+---@param entry ComparePowerReportEntry
 function ComparePowerReportListClass:AddValueTooltip(tooltip, index, entry)
 	if main.popups[1] then
 		tooltip:Clear()
@@ -146,6 +180,10 @@ function ComparePowerReportListClass:AddValueTooltip(tooltip, index, entry)
 	end
 end
 
+---@param column integer
+---@param index integer
+---@param entry ComparePowerReportEntry
+---@return string?
 function ComparePowerReportListClass:GetRowValue(column, index, entry)
 	if column == 1 then
 		return (entry.categoryColor or "^7") .. entry.category

@@ -19,10 +19,46 @@ local s_format = string.format
 
 local baseSlots = { "Weapon 1", "Weapon 2", "Weapon 1 Swap", "Weapon 2 Swap", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring 1", "Ring 2", "Ring 3", "Belt", "Flask 1", "Flask 2", "Flask 3", "Flask 4", "Flask 5" }
 
----@class TradeQuery
-local TradeQueryClass = newClass("TradeQuery")
+---@class WeightedPowerStat: PowerStat
+---@field weightMult number
 
+---@class TradeQueryResult: TradeQueryItem
+---@field evaluation? table[]
+
+---@class TradeQueryControl: Control
+---@field SetList fun(self: TradeQueryControl, list: string[])
+---@field SetSel fun(self: TradeQueryControl, newSel: integer, noCallSelFunc?: boolean)
+---@field y number
+
+---@class TradeQueryControls: table<string, TradeQueryControl>
+
+---@class TradeQuery
+---@field itemsTab ItemsTab
+---@field tradeQueryGenerator TradeQueryGenerator
+---@field tradeQueryRequests TradeQueryRequests
+---@field slotTables table<integer, TradeQuerySlotTable>
+---@field controls TradeQueryControls
+---@field totalPrice table<integer, { currency: string, amount: number }>
+---@field resultTbl table<integer, TradeQueryResult[]>
+---@field sortedResultTbl table<integer, table<integer, { outputAttr: number, index: integer }>>
+---@field itemIndexTbl table<integer, integer>
+---@field onlyWeightedBaseOutput table<integer, table<integer, Output>>
+---@field lastComparedWeightList table<integer, table<integer, WeightedPowerStat[]>>
+---@field statSortSelectionList WeightedPowerStat[]
+---@field itemSortSelectionList string[]
+---@field tradeTypeSelection DropDownControl<string>
+---@field itemSortSelection DropDownControl<string>
+---@field realm DropDownControl<string>
+---@field league DropDownControl<string>
+---@field pbCurrencyConversion table<string, table<string, table<string, number>>>
+---@field allLeagues table<string, string[]>
+---@field realmIds table<string, string>
+---@field lastQueries table<integer, string>
+---@field pbRealm string
+---@field pbLeague string
+local TradeQueryClass = newClass("TradeQuery")
 ---@param itemsTab ItemsTab
+---@return TradeQuery
 function TradeQueryClass:TradeQuery(itemsTab)
 	self.itemsTab = itemsTab
 	self.itemsTab.leagueDropList = { }
@@ -41,7 +77,7 @@ function TradeQueryClass:TradeQuery(itemsTab)
 	self.slotTables = { }
 	self.pbItemSortSelectionIndex = 1
 	-- for each realm and league, a table of values of each currency in div
-	--- @type table<string, table<string, table<string, number>>>
+	---@type table<string, table<string, table<string, number>>>
 	self.pbCurrencyConversion = {}
 	self.lastCurrencyFileTime = { }
 	self.pbFileTimestampDiff = { }
@@ -56,7 +92,7 @@ function TradeQueryClass:TradeQuery(itemsTab)
 		["Xbox"] = "xbox",
 		["Sony"] = "sony"
 	}
-	--- @type integer?
+	---@type integer?
 	self.backoffFinish = nil
 	-- last query for each row
 	self.lastQueries = {}
@@ -105,10 +141,9 @@ function TradeQueryClass:PullLeagueList()
 			end
 		end)
 end
-
---- @param currencyId string
---- @param amount integer
---- @return number?
+---@param currencyId string
+---@param amount number
+---@return number?
 function TradeQueryClass:ConvertCurrencyToDivs(currencyId, amount)
 	local map = self.pbCurrencyConversion[self.pbRealm] and self.pbCurrencyConversion[self.pbRealm][self.pbLeague]
 	if map and map[currencyId] then
@@ -254,7 +289,7 @@ function TradeQueryClass:PullCXData()
 		end)
 	end)
 end
-
+---@param list WeightedPowerStat[]
 local function initStatSortSelectionList(list)
 	t_insert(list,  {
 		label = "Full DPS",
@@ -269,6 +304,8 @@ local function initStatSortSelectionList(list)
 end
 
 -- we do not want to overwrite previous list if the new list is the default, e.g. hitting reset multiple times in a row
+---@param list WeightedPowerStat[]?
+---@return boolean?
 local function isSameAsDefaultList(list)
 	return list and #list == 2
 		and list[1].stat == "FullDPS" and list[1].weightMult == 1.0
@@ -285,6 +322,7 @@ function TradeQueryClass:PriceItem()
 	-- Set main Price Builder pane height and width
 	local row_height = 20
 	local row_vertical_padding = 4
+	---@type Anchor?
 	local top_pane_alignment_ref = nil
 	local pane_margins_horizontal = 16
 	local pane_margins_vertical = 16
@@ -295,7 +333,9 @@ function TradeQueryClass:PriceItem()
 		t_insert(newItemList, itemSet.title or "Default")
 	end
 	self.controls.setSelect = new("DropDownControl"):DropDownControl({"TOPLEFT", nil, "TOPLEFT"}, {pane_margins_horizontal, pane_margins_vertical, 188, row_height}, newItemList, function(index, value)
-		self.itemsTab:SetActiveItemSet(self.itemsTab.itemSetOrderList[index])
+		---@type integer
+		local itemSetId = self.itemsTab.itemSetOrderList[index]
+		self.itemsTab:SetActiveItemSet(itemSetId)
 		self.itemsTab:AddUndoState()
 	end)
 	self.controls.setSelect.enableDroppedWidth = true
@@ -657,7 +697,7 @@ Highest Weight - Displays the order retrieved from trade]]
 		self.controls.scrollBar:SetContentDimension(self.pane_height-100, self.effective_rows_height)
 		self.controls.sectionAnchor.y = -self.controls.scrollBar.offset
 	end
-
+	---@param backoff integer
 	local function onRateLimit(backoff)
 		self.backoffFinish = get_time() + backoff
 		self.countDown = coroutine.create(function()
@@ -688,6 +728,7 @@ Highest Weight - Displays the order retrieved from trade]]
 end
 
 -- Popup to set stat weight multipliers for sorting
+---@param previousSelectionList? WeightedPowerStat[]
 function TradeQueryClass:SetStatWeights(previousSelectionList)
 	previousSelectionList = previousSelectionList or {}
 	local controls = { }
@@ -794,6 +835,8 @@ function TradeQueryClass:SetStatWeights(previousSelectionList)
 end
 
 -- Method to set the notice message in upper right of PoB Trader pane
+---@param notice_control Control
+---@param msg string
 function TradeQueryClass:SetNotice(notice_control, msg)
 	if msg:find("No Matching Results") then
 		msg = colorCodes.WARNING .. msg
@@ -804,21 +847,31 @@ function TradeQueryClass:SetNotice(notice_control, msg)
 end
 
 -- Method to reduce the full output to only the values that were 'weighted'
+---@param output Output
+---@return table<string, number|string|boolean>
 function TradeQueryClass:ReduceOutput(output)
 	local smallOutput = {}
+	---@type fun(output: Output, statTable: PowerStat, skipTransform?: boolean): number?
+	local getFromOutput = data.powerStatList.GetFromOutput
 	for _, statTable in ipairs(self.statSortSelectionList) do
-		smallOutput[statTable.stat] = data.powerStatList.GetFromOutput(output, statTable, true)
+		smallOutput[statTable.stat] = getFromOutput(output, statTable, true)
 		if statTable.stat == "FullDPS" and not output.FullDPS then
-			smallOutput.TotalDPS = data.powerStatList.GetFromOutput(output, { stat = "TotalDPS" })
-			smallOutput.TotalDotDPS = data.powerStatList.GetFromOutput(output, { stat = "TotalDotDPS" })
-			smallOutput.CombinedDPS = data.powerStatList.GetFromOutput(output, { stat = "CombinedDPS" })
+			smallOutput.TotalDPS = getFromOutput(output, { stat = "TotalDPS", label = "" })
+			smallOutput.TotalDotDPS = getFromOutput(output, { stat = "TotalDotDPS", label = "" })
+			smallOutput.CombinedDPS = getFromOutput(output, { stat = "CombinedDPS", label = "" })
 		end
 	end
 	return smallOutput
 end
 
 -- Method to evaluate a result by getting it's output and weight
+---@param row_idx integer
+---@param result_index integer
+---@param calcFunc? fun(adjustments?: table): Output
+---@param baseOutput? Output
+---@return table[]
 function TradeQueryClass:GetResultEvaluation(row_idx, result_index, calcFunc, baseOutput)
+	---@type TradeQueryResult
 	local result = self.resultTbl[row_idx][result_index]
 	if not calcFunc then -- Always evaluate when calcFunc is given
 		calcFunc, baseOutput = self.itemsTab.build.calcsTab:GetMiscCalculator()
@@ -836,6 +889,7 @@ function TradeQueryClass:GetResultEvaluation(row_idx, result_index, calcFunc, ba
 		self.onlyWeightedBaseOutput[row_idx][result_index] = onlyWeightedBaseOutput
 		self.lastComparedWeightList[row_idx][result_index] = self.statSortSelectionList
 	end
+	---@type TradeQuerySlotTable
 	local slotTbl = self.slotTables[row_idx]
 	local jewelNodeId = slotTbl.nodeId or slotTbl.selectedJewelNodeId
 	if slotTbl.slotName == "Megalomaniac" then
@@ -880,6 +934,7 @@ function TradeQueryClass:GetResultEvaluation(row_idx, result_index, calcFunc, ba
 end
 
 -- Method to update controls after a search is completed
+---@param row_idx integer
 function TradeQueryClass:UpdateDropdownList(row_idx)
 	local dropdownLabels = {}
 
@@ -896,6 +951,7 @@ function TradeQueryClass:UpdateDropdownList(row_idx)
 	self.controls["resultDropdown".. row_idx].selIndex = 1
 	self.controls["resultDropdown".. row_idx]:SetList(dropdownLabels)
 end
+---@param rowIdx integer
 function TradeQueryClass:ResetResultRow(rowIdx)
 	self.itemIndexTbl[rowIdx] = nil
 	self.sortedResultTbl[rowIdx] = nil
@@ -904,7 +960,9 @@ function TradeQueryClass:ResetResultRow(rowIdx)
 	self:UpdateDropdownList(rowIdx)
 	self.controls.fullPrice.label = "^7Total Price: " .. self:GetTotalPriceString()
 end
+---@param row_idx integer
 function TradeQueryClass:UpdateControlsWithItems(row_idx)
+	---@type string
 	local sortMode = self.itemSortSelectionList[self.pbItemSortSelectionIndex]
 	local sortedItems, errMsg = self:SortFetchResults(row_idx, sortMode)
 	if errMsg == "MissingConversionRates" then
@@ -935,6 +993,8 @@ function TradeQueryClass:UpdateControlsWithItems(row_idx)
 end
 
 -- Method to set the current result return in the pane based of an index
+---@param row_idx integer
+---@param index integer
 function TradeQueryClass:SetFetchResultReturn(row_idx, index)
 	if self.resultTbl[row_idx] and self.resultTbl[row_idx][index] then
 		self.totalPrice[row_idx] = {
@@ -946,8 +1006,14 @@ function TradeQueryClass:SetFetchResultReturn(row_idx, index)
 end
 
 -- Method to sort the fetched results
+---@param row_idx integer
+---@param mode string
+---@return { outputAttr: number, index: integer }[]?
+---@return string?
 function TradeQueryClass:SortFetchResults(row_idx, mode)
 	local calcFunc, baseOutput
+	---@param result_index integer
+	---@return number
 	local function getResultWeight(result_index)
 		if not calcFunc then
 			calcFunc, baseOutput = self.itemsTab.build.calcsTab:GetMiscCalculator()
@@ -958,9 +1024,9 @@ function TradeQueryClass:SortFetchResults(row_idx, mode)
 		end
 		return sum
 	end
-	--- @return table<integer, number>?
+	---@return table<integer, number>?
 	local function getPriceTable()
-		--- @type table<integer, number>
+		---@type table<integer, number>
 		local divPrices = {}
 		for idx, item in ipairs(self.resultTbl[row_idx]) do
 			if item.currency and item.amount then
@@ -1023,8 +1089,9 @@ end
 
 -- ensure we only take in items that parse properly to avoid crash issues and fit in the
 -- provided slotName
----@param itemEntries table
----@param slotName string
+---@param itemEntries TradeQueryItem[]
+---@param slotName? string
+---@return TradeQueryItem[]
 function TradeQueryClass:FilterToSafeItems(itemEntries, slotName)
 	local itemsSafe = {}
 	for _, entry in ipairs(itemEntries) do
@@ -1036,6 +1103,10 @@ function TradeQueryClass:FilterToSafeItems(itemEntries, slotName)
 	return itemsSafe
 end
 -- Method to generate pane elements for each item slot
+---@param row_idx integer
+---@param top_pane_alignment_ref Anchor
+---@param row_vertical_padding number
+---@param row_height number
 function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, row_vertical_padding, row_height)
 	local controls = self.controls
 	local slotTbl = self.slotTables[row_idx]
@@ -1045,6 +1116,7 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 		slotTbl.slotName and (self.itemsTab.slots[slotTbl.slotName] or
 			-- fullName for Abyssal Sockets
 			slotTbl.fullName and self.itemsTab.slots[slotTbl.fullName])
+	---@return ItemSlotControl?
 	local function getSelectedSlot()
 		local selectedNodeId = slotTbl.nodeId or slotTbl.selectedJewelNodeId
 		return selectedNodeId and self.itemsTab.sockets[selectedNodeId] or activeSlot
@@ -1060,6 +1132,7 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 				self:SetNotice(context.controls.pbNotice, "")
 			end
 			if main.api.authToken == nil then
+				---@cast self.pbLeague string
 				local url = self.tradeQueryRequests:buildUrl(self.hostName .. "trade/search", self.pbRealm, self.pbLeague)
 				url = url .. "?q=" .. urlEncode(query)
 				controls["uri"..context.row_idx]:SetText(url, true)
@@ -1067,6 +1140,7 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 			end
 			context.controls["priceButton"..context.row_idx].label = "Searching..."
 			self.lastQueries[row_idx] = query
+			---@cast self.pbLeague string
 			self.tradeQueryRequests:SearchWithQueryWeightAdjusted(self.pbRealm, self.pbLeague, query,
 				function(items, errMsg)
 					if errMsg then
@@ -1104,6 +1178,7 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 				end,
 				{
 					callbackQueryId = function(queryId)
+						---@cast self.pbLeague string
 						local url = self.tradeQueryRequests:buildUrl(self.hostName .. "trade/search", self.pbRealm, self.pbLeague, queryId)
 						controls["uri"..context.row_idx]:SetText(url, true)
 					end
@@ -1123,6 +1198,7 @@ you can add them, copy the link here, and press "Price Item" to evaluate the ite
 		local buttonWidth, _ = button:GetSize()
 		local nodeId = slotTbl.nodeId
 		if not nodeId then return end
+		---@cast nodeId integer
 		local boxSize = 250
 		-- anchor bottom to top of button
 		local viewerY = y - boxSize - 4
@@ -1213,6 +1289,8 @@ you can add them, copy the link here, and press "Price Item" to evaluate the ite
 		self:SetFetchResultReturn(row_idx, self.itemIndexTbl[row_idx])
 	end)
 	self:UpdateDropdownList(row_idx)
+	---@param tooltip Tooltip
+	---@param result_index integer
 	local function addMegalomaniacCompareToTooltipIfApplicable(tooltip, result_index)
 		if slotTbl.slotName ~= "Megalomaniac" then
 			return
@@ -1248,6 +1326,7 @@ you can add them, copy the link here, and press "Price Item" to evaluate the ite
 	controls["importButton"..row_idx] = new("ButtonControl"):ButtonControl({ "TOPLEFT", controls["resultDropdown"..row_idx], "TOPRIGHT"}, {8, 0, 100, row_height}, "Import Item", function()
 		self.itemsTab:CreateDisplayItemFromRaw(self.resultTbl[row_idx][self.itemIndexTbl[row_idx]].item_string)
 		local item = self.itemsTab.displayItem
+		---@cast item Item
 		-- pass "true" to not auto equip it as we will have our own logic
 		self.itemsTab:AddDisplayItem(true)
 		-- Autoequip it
@@ -1328,6 +1407,7 @@ you can add them, copy the link here, and press "Price Item" to evaluate the ite
 end
 
 -- Method to update the Total Price string sum of all items
+---@return string
 function TradeQueryClass:GetTotalPriceString()
 	local text = ""
 	-- sum up prices

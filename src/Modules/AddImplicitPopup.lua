@@ -47,7 +47,7 @@ function M.AddImplicitToDisplayItem(itemsTab, displayItem)
 		wipeTable(modGroups)
 		local groupIndexes = {}
 		if sourceId == "EXARCH" or sourceId == "EATER" then
-			for i, mod in pairs(displayItem.affixes) do
+			for i, mod in pairs(displayItem.affixes or {}) do
 				if displayItem:GetModSpawnWeight(mod) > 0 and sourceId:lower() == mod.type:lower() then
 					local modLabel = table.concat(mod, "/")
 					local group = mod.group:gsub("PinnaclePresence", ""):gsub("UniquePresence", "")

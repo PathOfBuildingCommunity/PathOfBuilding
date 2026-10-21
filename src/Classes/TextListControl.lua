@@ -3,9 +3,46 @@
 -- Class: Text List
 -- Simple list control for displaying a block of text
 --
+---@class TextListRow
+---@field [integer] string
+---@field height number
+---@field x? number
+---@field align? "LEFT"|"CENTER"|"RIGHT"|"CENTER_X"|"RIGHT_X"
+---@field font? Font
+---@field underline? boolean[]
+
+---@class TextListColumn
+---@field x number
+---@field align "LEFT"|"CENTER"|"RIGHT"|"CENTER_X"|"RIGHT_X"
+
+---@class TextListHoverLine
+---@field line TextListRow
+---@field x number
+---@field y number
+---@field width number
+
+---@class TextListScrollBarControl: ScrollBarControl
+---@field SetOffset fun(self: TextListScrollBarControl, offset: number)
+
+---@class TextListControlControls: table<string, Control>
+---@field scrollBar TextListScrollBarControl
+
 ---@class TextListControl: Control, ControlHost
+---@field TextListControl fun(self: TextListControl, anchor?: Anchor, rect?: Rect, columns?: TextListColumn[], list?: TextListRow[], sectionHeights?: number[]): TextListControl
+---@field OnKeyUp fun(self: TextListControl, key: string): TextListControl?
+---@field controls TextListControlControls
+---@field columns TextListColumn[]
+---@field list TextListRow[]
+---@field sectionHeights? number[]
+---@field hoveredLine? TextListHoverLine
 local TextListClass = newClass("TextListControl", "Control", "ControlHost")
 
+---@param anchor? Anchor
+---@param rect? Rect
+---@param columns? TextListColumn[]
+---@param list? TextListRow[]
+---@param sectionHeights? number[]
+---@return TextListControl
 function TextListClass:TextListControl(anchor, rect, columns, list, sectionHeights)
 	self:Control(anchor, rect)
 	self:ControlHost()
@@ -20,6 +57,7 @@ function TextListClass:TextListControl(anchor, rect, columns, list, sectionHeigh
 	return self
 end
 
+---@return boolean|Control?
 function TextListClass:IsMouseOver()
 	if not self:IsShown() then
 		return
@@ -27,10 +65,13 @@ function TextListClass:IsMouseOver()
 	return self:IsMouseInBounds() or self:GetMouseOverControl()
 end
 
+---@param viewPort Viewport
 function TextListClass:Draw(viewPort)
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()
+	---@type TextListScrollBarControl
 	local scrollBar = self.controls.scrollBar
+	---@type number
 	local contentHeight = 0
 	for _, lineInfo in pairs(self.list) do
 		contentHeight = contentHeight + lineInfo.height
@@ -80,6 +121,9 @@ function TextListClass:Draw(viewPort)
 	SetViewport()
 end
 
+---@param key string
+---@param doubleClick? boolean
+---@return TextListControl?
 function TextListClass:OnKeyDown(key, doubleClick)
 	if not self:IsShown() or not self:IsEnabled() then
 		return
@@ -93,6 +137,8 @@ function TextListClass:OnKeyDown(key, doubleClick)
 	end
 end
 
+---@param key string
+---@return TextListControl?
 function TextListClass:OnKeyUp(key)
 	if not self:IsShown() or not self:IsEnabled() then
 		return

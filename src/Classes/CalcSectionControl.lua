@@ -7,16 +7,79 @@ local t_insert = table.insert
 local m_max = math.max
 local m_min = math.min
 
+---@class CalcSectionControlCalcsTab: CalcsTab
+---@field displayData? CalcSectionControlColumn
+
+---@class CalcSectionControlColumn: CalcSectionColumn
+---@field x number
+---@field y number
+---@field width number
+---@field height number
+---@field xOffset number
+---@field yOffset number
+---@field calcSection CalcSectionControl
+
+---@class CalcSectionControlRow: CalcSectionEntry
+---@field [integer] CalcSectionControlColumn
+---@field label? string
+---@field haveOutput? string
+---@field flag? string
+---@field flagList? string[]
+---@field playerFlag? string
+---@field notFlag? string
+---@field notFlagList? string[]
+---@field enabled? boolean
+---@field color? string
+---@field bgCol? string
+---@field textSize? number
+
+---@class CalcSectionControlData: CalcSectionEntry
+---@field [integer] CalcSectionControlRow
+---@field breakdown? string
+---@field modName? string|string[]
+---@field label? string
+---@field extra? string
+---@field colWidth? integer
+---@field flag? string
+---@field notFlag? string
+---@field enabled? boolean
+
+---@class CalcSectionControlSubsection
+---@field defaultCollapsed boolean
+---@field collapsed? boolean
+---@field label string
+---@field data CalcSectionControlData
+
 ---@class CalcSectionControl: Control, ControlHost
+---@field Control fun(self: CalcSectionControl, anchor?: Anchor|CalcsTab, rect?: Rect): Control
+---@field calcsTab CalcSectionControlCalcsTab
+---@field id string
+---@field group integer
+---@field colour string
+---@field subSection {[1]: CalcSectionControlSubsection, [integer]: CalcSectionControlSubsection}
+---@field controls table
+---@field flag? string
+---@field notFlag? string
+---@field updateFunc? fun(self: CalcSectionControl)
+---@field hasControls? boolean
+---@field isOverlay boolean
+---@field overlayX number
+---@field overlayY number
+---@field overlayRevision? integer
+---@field overlayBreakdownCell? boolean
+---@field dragging boolean
+---@field dragOffX number
+---@field dragOffY number
 local CalcSectionClass = newClass("CalcSectionControl", "Control", "ControlHost")
 
 ---@param calcsTab CalcsTab
----@param width any
----@param id any
----@param group any
----@param colour any
----@param subSection any
----@param updateFunc any
+---@param width number
+---@param id string
+---@param group integer
+---@param colour string
+---@param subSection {[1]: CalcSectionControlSubsection, [integer]: CalcSectionControlSubsection}
+---@param updateFunc? fun(self: CalcSectionControl)
+---@return CalcSectionControl
 function CalcSectionClass:CalcSectionControl(calcsTab, width, id, group, colour, subSection, updateFunc)
 	self:Control(calcsTab, {0, 0, width, 0})
 	self:ControlHost()
@@ -81,6 +144,8 @@ function CalcSectionClass:CalcSectionControl(calcsTab, width, id, group, colour,
 	return self
 end
 
+---@return boolean? mouseOver
+---@return CalcSectionColumn? hoveredCell
 function CalcSectionClass:IsMouseOver()
 	if not self:IsShown() then
 		return
@@ -130,6 +195,7 @@ function CalcSectionClass:UpdateSize()
 			rowData.enabled = self.calcsTab:CheckFlag(rowData)
 			if rowData.enabled then
 				self.enabled = true
+				---@type number
 				local xOffset = 134
 				for colour, colData in ipairs(rowData) do
 					colData.xOffset = xOffset
@@ -184,6 +250,8 @@ function CalcSectionClass:UpdatePos()
 	end
 end
 
+---@param viewPort Viewport
+---@param noTooltip? boolean
 function CalcSectionClass:Draw(viewPort, noTooltip)
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()
@@ -198,6 +266,9 @@ function CalcSectionClass:Draw(viewPort, noTooltip)
 	self:DrawContent(x, y, width, actor, viewPort, false, noTooltip)
 end
 
+---@param key string
+---@param doubleClick? boolean
+---@return Control?
 function CalcSectionClass:OnKeyDown(key, doubleClick)
 	if not self:IsShown() or not self:IsEnabled() then
 		return
@@ -220,6 +291,8 @@ function CalcSectionClass:OnKeyDown(key, doubleClick)
 	return
 end
 
+---@param key string
+---@return Control?
 function CalcSectionClass:OnKeyUp(key)
 	if not self:IsShown() or not self:IsEnabled() then
 		return
@@ -261,6 +334,9 @@ function CalcSectionClass:RaiseOverlay()
 	end
 end
 
+---@param cursorX number
+---@param cursorY number
+---@return boolean
 function CalcSectionClass:IsMouseInOverlay(cursorX, cursorY)
 	if not self.isOverlay or not self.calcsTab.calcsEnv then return false end
 	local x = self.overlayX
@@ -269,6 +345,7 @@ function CalcSectionClass:IsMouseInOverlay(cursorX, cursorY)
 	return cursorY < y + self:GetOverlayHeight()
 end
 
+---@return number
 function CalcSectionClass:GetOverlayHeight()
 	local height = 28
 	local enabled = self.calcsTab.calcsEnv and self.calcsTab:CheckFlag(self)
@@ -288,6 +365,9 @@ function CalcSectionClass:GetOverlayHeight()
 	return height
 end
 
+---@param key string
+---@param cursorX number
+---@param cursorY number
 function CalcSectionClass:HandleOverlayClick(key, cursorX, cursorY)
 	if key ~= "LEFTBUTTON" then return end
 
@@ -359,12 +439,15 @@ function CalcSectionClass:HandleOverlayClick(key, cursorX, cursorY)
 	end
 end
 
+---@param key string
 function CalcSectionClass:HandleOverlayRelease(key)
 	if key == "LEFTBUTTON" then
 		self.dragging = false
 	end
 end
 
+---@param viewPort Viewport
+---@param inputEvents InputEvent[]
 function CalcSectionClass:DrawOverlay(viewPort, inputEvents)
 	local cursorX, cursorY = GetCursorPos()
 	self.overlayBreakdownCell = nil
@@ -434,6 +517,13 @@ function CalcSectionClass:DrawOverlay(viewPort, inputEvents)
 	SetDrawLayer(0)
 end
 
+---@param drawX number
+---@param startLineY number
+---@param drawWidth number
+---@param actor Actor
+---@param viewPort Viewport
+---@param isOverlay boolean
+---@param noTooltip? boolean
 function CalcSectionClass:DrawContent(drawX, startLineY, drawWidth, actor, viewPort, isOverlay, noTooltip)
 	local cursorX, cursorY = GetCursorPos()
 	local lineY = startLineY

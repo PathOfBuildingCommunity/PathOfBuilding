@@ -353,7 +353,22 @@ SkillType = {
 	Pact = 135,
 }
 
+---@class CachedCalc
+---@field Env Env
+---@field ActiveSkill ActiveSkill
+---@field HitSpeed number?
+---@field Speed number?
+---@field TotalDPS number?
+---@field HitChance number?
+---@field CritChance number?
+
+---@class GlobalCacheData
+---@field MAIN table<string, CachedCalc>
+---@field CALCS table<string, CachedCalc>
+---@field CALCULATOR table<string, CachedCalc>
+
+---@class GlobalCache
+---@field cachedData GlobalCacheData
 GlobalCache = {
 	cachedData = { MAIN = {}, CALCS = {}, CALCULATOR = {} },
 }
-

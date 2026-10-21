@@ -10,8 +10,14 @@ local dkjson = require "dkjson"
 local archivesUrl = 'https://pobarchives.com'
 
 ---@class PoBArchivesProvider: ExtBuildListProvider
+---@field mode "builds"|"similar"
+---@field buildList table[]
+---@field contentHeight? number
+---@field statusMsg? string
 local PoBArchivesProviderClass = newClass("PoBArchivesProvider", "ExtBuildListProvider")
 
+---@param mode "builds"|"similar"
+---@return PoBArchivesProvider
 function PoBArchivesProviderClass:PoBArchivesProvider(mode)
 	if mode == "builds" then
 		self:ExtBuildListProvider({"Trending", "Latest"})
@@ -23,14 +29,17 @@ function PoBArchivesProviderClass:PoBArchivesProvider(mode)
 	return self
 end
 
+---@return string
 function PoBArchivesProviderClass:GetApiUrl()
 	if self.importCode then
 		return archivesUrl .. '/api/' .. 'recommendations'
 	else
+		---@cast self.activeList string
 		return archivesUrl .. '/api/builds?q=' .. string.lower(self.activeList)
 	end
 end
 
+---@return string?
 function PoBArchivesProviderClass:GetPageUrl()
 	local buildsPath = '/builds'
 	if self.activeList == "Latest" then
@@ -47,6 +56,9 @@ function PoBArchivesProviderClass:GetPageUrl()
 
 	return nil
 end
+
+---@param buildCode string
+---@param postURL string
 function PoBArchivesProviderClass:GetRecommendations(buildCode, postURL)
 	local id = LaunchSubScript([[
 			local code, connectionProtocol, proxyURL = ...
@@ -89,6 +101,7 @@ function PoBArchivesProviderClass:GetRecommendations(buildCode, postURL)
 
 end
 
+---@param message string
 function PoBArchivesProviderClass:ParseBuilds(message)
 	local obj = dkjson.decode(message)
 	if not obj or not obj.builds or next(obj.builds) == nil then
@@ -126,6 +139,7 @@ function PoBArchivesProviderClass:ParseBuilds(message)
 	end
 end
 
+---@return nil
 function PoBArchivesProviderClass:GetBuilds()
 	self.statusMsg = "Loading.."
 	wipeTable(self.buildList)
@@ -133,13 +147,14 @@ function PoBArchivesProviderClass:GetBuilds()
 
 
 	if self.mode == 'similar' then
+		---@cast self.importCode string
 		self:GetRecommendations(self.importCode,self:GetApiUrl())
-		return
+		return nil
 	else
 		launch:DownloadPage(self:GetApiUrl(), function(response, errMsg)
 			if errMsg then
 				self.statusMsg = errMsg
-				return
+				return nil
 			end
 
 			self:ParseBuilds(response.body)

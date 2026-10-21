@@ -9,11 +9,52 @@ local m_ceil = math.ceil
 local m_floor = math.floor
 
 ---@class ScrollBarControl: Control
+---@field Scroll fun(self: ScrollBarControl, mult: number)
+---@field SetContentDimension fun(self: ScrollBarControl, conDim: number, viewDim: number)
+---@field width number
+---@field step number
+---@field dir "HORIZONTAL"|"VERTICAL"
+---@field offset number
+---@field conDim number
+---@field viewDim number
+---@field offsetMax number
+---@field knobDim number
+---@field knobTravel number
+---@field autoHide? boolean
+---@field dragging? boolean
+---@field dragCX? number
+---@field dragCY? number
+---@field dragKnobPos? number
+---@field holdComp? "UP"|"DOWN"
+---@field holdBase? number
+---@field holdTime? number
+---@field holdPauseTime? number
+---@field holdRepeating? boolean
+---@overload fun(mix: table): ScrollBarControl
 local ScrollBarClass = newClass("ScrollBarControl", "Control")
 
+---@class ScrollBarControlDragState: ScrollBarControl
+---@field dragging true
+---@field dragCX number
+---@field dragCY number
+---@field dragKnobPos number
+
+---@class ScrollBarControlHoldState: ScrollBarControl
+---@field holdComp "UP"|"DOWN"
+---@field holdBase number
+---@field holdTime number
+
+---@param anchor? Anchor
+---@param rect? Rect
+---@param step? number
+---@param dir? "HORIZONTAL"|"VERTICAL"
+---@param autoHide? boolean
+---@return ScrollBarControl
 function ScrollBarClass:ScrollBarControl(anchor, rect, step, dir, autoHide)
 	self:Control(anchor, rect)
-	self.step = step or self.width * 2
+	---@type number
+	local width = self.width
+	self.step = step or width * 2
 	self.dir = dir or "VERTICAL"
 	self.offset = 0
 	self.enabled = false
@@ -25,6 +66,8 @@ function ScrollBarClass:ScrollBarControl(anchor, rect, step, dir, autoHide)
 	return self
 end
 
+---@param conDim number
+---@param viewDim number
 function ScrollBarClass:SetContentDimension(conDim, viewDim)
 	self.conDim = conDim
 	self.viewDim = viewDim
@@ -47,14 +90,18 @@ function ScrollBarClass:SetContentDimension(conDim, viewDim)
 	end
 end
 
+---@param offset number
 function ScrollBarClass:SetOffset(offset)
 	self.offset = m_floor(m_max(0, m_min(self.offsetMax or 0, offset)))
 end
 
+---@param mult number
 function ScrollBarClass:Scroll(mult)
 	self:SetOffset(self.offset + self.step * mult)
 end
 
+---@param minDim number
+---@param size number
 function ScrollBarClass:ScrollIntoView(minDim, size)
 	if self.offset > minDim then
 		self:SetOffset(minDim)
@@ -63,14 +110,18 @@ function ScrollBarClass:ScrollIntoView(minDim, size)
 	end
 end
 
+---@param knobPos number
 function ScrollBarClass:SetOffsetFromKnobPos(knobPos)
 	self:SetOffset(self.offsetMax * (knobPos / self.knobTravel))
 end
 
+---@return number
 function ScrollBarClass:GetKnobPosForOffset()
 	return self.knobTravel * (self.offset / self.offsetMax)
 end
 
+---@return boolean mouseOver
+---@return "UP"|"DOWN"|"SLIDEUP"|"SLIDEDOWN"|"KNOB"? mouseOverComponent
 function ScrollBarClass:IsMouseOver()
 	if not self:IsShown() then
 		return false
@@ -120,31 +171,35 @@ function ScrollBarClass:Draw()
 		self.dragging = false
 	end
 	if self.dragging then
+		---@type ScrollBarControlDragState
+		local dragState = self
 		local cursorX, cursorY = GetCursorPos()
 		if self.dir == "HORIZONTAL" then
-			self:SetOffsetFromKnobPos((cursorX - self.dragCX) + self.dragKnobPos)
+			self:SetOffsetFromKnobPos((cursorX - dragState.dragCX) + dragState.dragKnobPos)
 		else
-			self:SetOffsetFromKnobPos((cursorY - self.dragCY) + self.dragKnobPos)
+			self:SetOffsetFromKnobPos((cursorY - dragState.dragCY) + dragState.dragKnobPos)
 		end
 	elseif self.holdComp then
+		---@type ScrollBarControlHoldState
+		local holdState = self
 		if mOverComp == self.holdComp then
 			local now = GetTime()
 			if not self.holdRepeating then
-				if now - self.holdTime > 500 then
+				if now - holdState.holdTime > 500 then
 					self.holdRepeating = true
-					self.holdTime = now - 1
+					holdState.holdTime = now - 1
 				end
 			end
 			if self.holdRepeating then
 				if self.holdPauseTime then
-					self.holdTime = self.holdTime + (now - self.holdPauseTime)
+					holdState.holdTime = holdState.holdTime + (now - self.holdPauseTime)
 					self.holdPauseTime = nil
 				end
-				local time = now - self.holdTime
-				if self.holdComp == "UP" then
-					self:SetOffset(self.holdBase - m_ceil(time / 50) * self.step)
-				elseif self.holdComp == "DOWN" then
-					self:SetOffset(self.holdBase + m_ceil(time / 50) * self.step)
+				local time = now - holdState.holdTime
+				if holdState.holdComp == "UP" then
+					self:SetOffset(holdState.holdBase - m_ceil(time / 50) * self.step)
+				elseif holdState.holdComp == "DOWN" then
+					self:SetOffset(holdState.holdBase + m_ceil(time / 50) * self.step)
 				end
 			end
 		elseif self.holdRepeating and not self.holdPauseTime then
@@ -256,6 +311,8 @@ function ScrollBarClass:Draw()
 	end
 end
 
+---@param key string
+---@return ScrollBarControl?
 function ScrollBarClass:OnKeyDown(key)
 	if not self:IsShown() or not self:IsEnabled() or self:GetProperty("locked") then
 		return
@@ -292,18 +349,21 @@ function ScrollBarClass:OnKeyDown(key)
 	return self
 end
 
+---@param key string
 function ScrollBarClass:OnKeyUp(key)
 	if not self:IsShown() or not self:IsEnabled() or self:GetProperty("locked") then
 		return
 	end
 	if key == "LEFTBUTTON" then
 		if self.dragging then
+			---@type ScrollBarControlDragState
+			local dragState = self
 			self.dragging = false
 			local cursorX, cursorY = GetCursorPos()
 			if self.dir == "HORIZONTAL" then
-				self:SetOffsetFromKnobPos((cursorX - self.dragCX) + self.dragKnobPos)
+				self:SetOffsetFromKnobPos((cursorX - dragState.dragCX) + dragState.dragKnobPos)
 			else
-				self:SetOffsetFromKnobPos((cursorY - self.dragCY) + self.dragKnobPos)
+				self:SetOffsetFromKnobPos((cursorY - dragState.dragCY) + dragState.dragKnobPos)
 			end
 		elseif self.holdComp then
 			self.holdComp = nil
@@ -319,9 +379,14 @@ function ScrollBarClass:OnKeyUp(key)
 end
 
 -- Centralize inputs allowed to keep consistent scroll behavior for all scrollBars
+---@param key string
+---@return boolean
 function ScrollBarClass:IsScrollDownKey(key)
 	return isValueInTable({"WHEELDOWN", "PAGEDOWN"}, key)
 end
+
+---@param key string
+---@return boolean
 function ScrollBarClass:IsScrollUpKey(key)
 	return isValueInTable({"WHEELUP", "PAGEUP"}, key)
 end

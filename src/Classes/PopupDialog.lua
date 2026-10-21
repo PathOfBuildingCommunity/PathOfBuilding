@@ -5,9 +5,42 @@
 --
 local m_floor = math.floor
 
+---@class PopupDialogAnchorState: AnchorState
+---@field other? Control|ControlHost|string
+
+---@class PopupDialogControl: Control
+---@field anchor PopupDialogAnchorState
+---@field Click fun(self: PopupDialogControl, ...)
+---@field IsScrollDownKey fun(self: PopupDialogControl, key: string): boolean
+---@field IsScrollUpKey fun(self: PopupDialogControl, key: string): boolean
+---@field Scroll fun(self: PopupDialogControl, mult: number)
+
+---@class PopupDialogControls: table<string, PopupDialogControl>
+---@field scrollBar PopupDialogControl
+
 ---@class PopupDialog: ControlHost, Control
+---@field controls PopupDialogControls
+---@field title Prop<string>
+---@field enterControl? string
+---@field escapeControl? string
+---@field scrollBarFunc? fun()
+---@field resizeFunc? fun()
+---@field PopupDialog fun(self: PopupDialog, width: number, height: number, title: Prop<string>, controls: PopupDialogControls, enterControl?: string, defaultControl?: string, escapeControl?: string, scrollBarFunc?: fun(), resizeFunc?: fun()): PopupDialog
+---@field Draw fun(self: PopupDialog, viewPort: Viewport)
+---@field ProcessInput fun(self: PopupDialog, inputEvents: InputEvent[], viewPort: Viewport)
+---@type PopupDialog
 local PopupDialogClass = newClass("PopupDialog", "ControlHost", "Control")
 
+---@param width number
+---@param height number
+---@param title Prop<string>
+---@param controls PopupDialogControls
+---@param enterControl? string
+---@param defaultControl? string
+---@param escapeControl? string
+---@param scrollBarFunc? fun()
+---@param resizeFunc? fun()
+---@return PopupDialog
 function PopupDialogClass:PopupDialog(width, height, title, controls, enterControl, defaultControl,
 									escapeControl, scrollBarFunc, resizeFunc)
 	self:ControlHost()
@@ -41,6 +74,7 @@ function PopupDialogClass:PopupDialog(width, height, title, controls, enterContr
 	return self
 end
 
+---@param viewPort Viewport
 function PopupDialogClass:Draw(viewPort)
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()
@@ -69,6 +103,8 @@ function PopupDialogClass:Draw(viewPort)
 	self:DrawControls(viewPort)
 end
 
+---@param inputEvents InputEvent[]
+---@param viewPort Viewport
 function PopupDialogClass:ProcessInput(inputEvents, viewPort)
 	self:ProcessControlsInput(inputEvents, viewPort)
 	for id, event in ipairs(inputEvents) do

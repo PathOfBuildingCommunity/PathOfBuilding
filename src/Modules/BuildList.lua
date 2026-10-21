@@ -10,6 +10,16 @@ local t_insert = table.insert
 local buildListHelpers = require("Modules.BuildListHelpers")
 local buildSortDropList = buildListHelpers.buildSortDropList
 
+---@class BuildListMode: ControlHost
+---@field controls table<string, Control>
+---@field subPath string
+---@field list BuildListEntry[]
+---@field buildIndex table
+---@field BuildList fun(self: BuildListMode)
+---@field FilterBuildList fun(self: BuildListMode)
+---@field SortList fun(self: BuildListMode)
+
+---@type BuildListMode
 local listMode = new("ControlHost"):ControlHost()
 
 function listMode:Init(selBuildName, subPath)
