@@ -18,6 +18,7 @@ require("Modules.CalcPerform")
 require("Modules.CalcActiveSkill")
 require("Modules.CalcDefence")
 require("Modules.CalcOffence")
+require("Modules.CalcBrandRecall")
 require("Modules.CalcTriggers")
 require("Modules.CalcMirages")
 
@@ -168,6 +169,10 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 	for _, activeSkill in ipairs(fullEnv.player.activeSkillList) do
 		if activeSkill.socketGroup and activeSkill.socketGroup.includeInFullDPS then
 			local activeSkillCount, enabled = getActiveSkillCount(activeSkill)
+			if activeSkill.skillFlags.recalled and activeSkill.skillTypes[SkillType.Brand] then
+				-- Recalled brand count is already included in the calculated damage.
+				activeSkillCount = 1
+			end
 			if enabled then
 				fullEnv.player.mainSkill = activeSkill
 				calcs.perform(fullEnv, true)
@@ -406,8 +411,16 @@ function calcs.buildOutput(build, mode)
 				output.EnergyShieldProtectsMana = env.modDB:Flag(nil, "EnergyShieldProtectsMana")
 				for pool, costResource in pairs({["LifeUnreserved"] = "LifeCost", ["ManaUnreserved"] = "ManaCost", ["Rage"] = "RageCost", ["EnergyShield"] = "ESCost"}) do
 					local cachedCost = GlobalCache.cachedData[mode][uuid].Env.player.output[costResource]
+					local chainCost = GlobalCache.cachedData[mode][uuid].Env.player.output[costResource.."Total"]
+					local totalPool = (output.EnergyShieldProtectsMana and costResource == "ManaCost" and output["EnergyShield"] or 0) + (output[pool] or 0)
+					if chainCost and chainCost > (cachedCost or 0) and chainCost > totalPool then
+						if env.player.mainSkill and cacheSkillUUID(env.player.mainSkill, env) == uuid then
+							output[costResource.."TotalWarning"] = true
+						end
+						output[costResource.."ChainWarningList"] = output[costResource.."ChainWarningList"] or {}
+						t_insert(output[costResource.."ChainWarningList"], skill.activeEffect.grantedEffect.name)
+					end
 					if cachedCost then
-						local totalPool = (output.EnergyShieldProtectsMana and costResource == "ManaCost" and output["EnergyShield"] or 0) + (output[pool] or 0)
 						if totalPool < cachedCost then
 							local rawPool = pool:gsub("Unreserved$", "")
 							local reservation = GlobalCache.cachedData[mode][uuid].Env.player.mainSkill and GlobalCache.cachedData[mode][uuid].Env.player.mainSkill.skillData[rawPool .. "ReservedPercent"]
@@ -415,6 +428,7 @@ function calcs.buildOutput(build, mode)
 							if not reservation or (reservation and (totalPool + m_ceil((output[rawPool] or 0) * reservation / 100)) < cachedCost) then
 								if env.player.mainSkill and env.player.mainSkill.activeEffect.grantedEffect.name == skill.activeEffect.grantedEffect.name then
 									output[costResource.."Warning"] = true
+									output[costResource.."TotalWarning"] = true
 								end
 								output[costResource.."WarningList"] = output[costResource.."WarningList"] or {}
 								t_insert(output[costResource.."WarningList"], skill.activeEffect.grantedEffect.name)
@@ -424,6 +438,11 @@ function calcs.buildOutput(build, mode)
 				end
 				for pool, costResource in pairs({["LifeUnreservedPercent"] = "LifePercentCost", ["ManaUnreservedPercent"] = "ManaPercentCost"}) do
 					local cachedCost = GlobalCache.cachedData[mode][uuid].Env.player.output[costResource]
+					local chainCost = GlobalCache.cachedData[mode][uuid].Env.player.output[costResource.."Total"]
+					if chainCost and chainCost > (cachedCost or 0) and chainCost > (output[pool] or 0) then
+						output[costResource.."ChainWarningList"] = output[costResource.."ChainWarningList"] or {}
+						t_insert(output[costResource.."ChainWarningList"], skill.activeEffect.grantedEffect.name)
+					end
 					if cachedCost then
 						if (output[pool] or 0) < cachedCost then
 							output[costResource.."PercentCostWarningList"] = output[costResource.."PercentCostWarningList"] or {}

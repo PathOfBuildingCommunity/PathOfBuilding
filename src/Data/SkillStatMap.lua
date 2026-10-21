@@ -2172,6 +2172,9 @@ return {
 ["brand_cannot_be_recalled"] = {
 	flag("Condition:CannotRecallBrand"),
 },
+["brand_recall_spend_%_of_recalled_brands_cost"] = {
+	skill("brandRecallCostPercent", nil),
+},
 -- Banner
 ["banner_buff_effect_+%_final_per_resource"] = {
 	mod("AuraEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "BannerValour" }, { type = "Condition", var = "BannerPlanted" }),
