@@ -1053,8 +1053,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 						self.requirements.str = self.base.req.str or 0
 						self.requirements.dex = self.base.req.dex or 0
 						self.requirements.int = self.base.req.int or 0
-						local maxReq = m_max(self.requirements.str, self.requirements.dex, self.requirements.int)
-						self.defaultSocketColor = (maxReq == self.requirements.dex and "G") or (maxReq == self.requirements.int and "B") or "R"
+						self.defaultSocketColor = "W"
 						if self.base.flask and self.base.flask.buff and not flaskBuffLines then
 							flaskBuffLines = { }
 							for _, line in ipairs(self.base.flask.buff) do
