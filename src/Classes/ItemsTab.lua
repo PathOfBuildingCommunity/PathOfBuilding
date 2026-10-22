@@ -1838,6 +1838,9 @@ function ItemsTabClass:AddItem(item, noAutoEquip, index)
 				end
 			end
 		end
+	elseif not self.items[item.id] then
+		-- The display item is a copy whose original was removed (deleted, undone or cleared), so list the copy again
+		t_insert(self.itemOrderList, item.id)
 	end
 
 	-- Add it to the list
