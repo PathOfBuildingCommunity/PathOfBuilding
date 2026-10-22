@@ -1821,6 +1821,10 @@ function ItemsTabClass:AddItem(item, noAutoEquip, index)
 		while self.items[item.id] do
 			item.id = item.id + 1
 		end
+		-- The display item may be a copy of a removed item that still holds this ID; unless it is the item being added, detach it so adding it creates a new item
+		if self.displayItem and self.displayItem ~= item and self.displayItem.id == item.id then
+			self.displayItem.id = nil
+		end
 
 		if index then
 			t_insert(self.itemOrderList, index, item.id)
