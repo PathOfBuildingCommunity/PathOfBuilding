@@ -87,7 +87,7 @@ describe("TradeQuery", function()
 		end)
 	end)
 
-	describe("attribute requirement result filtering", function()
+	describe("requirement result filtering", function()
 		local function newTradeQueryWithOutput(output, slotTbl)
 			local tq = new("TradeQuery"):TradeQuery({ activeItemSet = {}, slots = { ["Ring 1"] = {} }, sockets = {} })
 			tq.slotTables[1] = slotTbl or { slotName = "Ring 1" }
@@ -154,7 +154,7 @@ describe("TradeQuery", function()
 			assert.is_nil(tq.totalPrice[1])
 			assert.are.equal("", tq:GetTotalPriceString())
 			assert.not_matches("chaos", tq.controls.fullPrice.label, 1, true)
-			assert.matches("attribute requirements", tq.controls.pbNotice.label, 1, true)
+			assert.matches("requirement filter", tq.controls.pbNotice.label, 1, true)
 			assert.is_falsy(tq.controls.importButton1:IsEnabled())
 			assert.are.equal("", tq.controls.whisperButton1:GetProperty("label"))
 			local tooltip = new("Tooltip"):Tooltip()
@@ -169,6 +169,17 @@ describe("TradeQuery", function()
 			tq.hideResultsFailingAttributeRequirements = true
 			local sortedItems = tq:SortFetchResults(1, tq.sortModes.Weight)
 			assert.are.equal(0, #sortedItems)
+		end)
+
+		it("filters fetched results above the character level without recalculating", function()
+			local tq = newTradeQueryWithOutput(function() error("Unexpected attribute recalculation") end)
+			-- Gold Ring requires level 20, Iron Ring has no level requirement.
+			tq.resultTbl[1][2] = { item_string = "Rarity: RARE\nSurvivor Hold\nIron Ring", amount = 1, currency = "chaos" }
+			tq.itemsTab.build.characterLevel = 19
+			tq.hideResultsAboveCharacterLevel = true
+			local sortedItems = tq:SortFetchResults(1, tq.sortModes.Weight)
+			assert.are.equal(1, #sortedItems)
+			assert.are.equal(2, sortedItems[1].index)
 		end)
 
 		it("keeps fetched results without recalculating by default", function()

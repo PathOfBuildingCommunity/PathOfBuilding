@@ -41,6 +41,7 @@ function TradeQueryClass:TradeQuery(itemsTab)
 	---@type TradeQuerySlotTable[]
 	self.slotTables = { }
 	self.pbItemSortSelectionIndex = 1
+	self.hideResultsAboveCharacterLevel = false
 	self.hideResultsFailingAttributeRequirements = false
 	-- for each realm and league, a table of values of each currency in div
 	--- @type table<string, table<string, table<string, number>>>
@@ -462,18 +463,20 @@ Highest Weight - Displays the order retrieved from trade]]
 	self.controls.itemSortSelectionLabel = new("LabelControl"):LabelControl({"TOPRIGHT", self.controls.itemSortSelection, "TOPLEFT"}, {-4, 0, 56, 16}, "^7Sort By:")
 
 	-- Optional post-fetch validation complements the query filters with the fully equipped output.
-	local hideAttributeRequirementsLabel = "^7Hide results failing attribute requirements"
-	local hideAttributeRequirementsLabelWidth = DrawStringWidth(row_height - 4, "VAR", hideAttributeRequirementsLabel) + 5
-	local hideAttributeRequirementsRect = {24 + hideAttributeRequirementsLabelWidth, 0, row_height, row_height}
-	self.controls.hideResultsFailingAttributeRequirementsCheck = new("CheckBoxControl"):CheckBoxControl({"LEFT", self.controls.tradeTypeSelection, "RIGHT"}, hideAttributeRequirementsRect, hideAttributeRequirementsLabel, function(state)
-		self.hideResultsFailingAttributeRequirements = state
+	-- Same choices and placement as the requirement filter under the sort list of the Items tab unique list.
+	self.controls.itemRequirementSelection = new("DropDownControl"):DropDownControl({"TOPRIGHT", self.controls.itemSortSelection, "BOTTOMRIGHT"}, {0, row_vertical_padding, 170, row_height}, { "Any requirements", "Current level", "Current attributes", "Current useable" }, function(index, value)
+		self.hideResultsAboveCharacterLevel = index == 2 or index == 4
+		self.hideResultsFailingAttributeRequirements = index > 2
 		for row_idx, _ in pairs(self.resultTbl) do
 			self:UpdateControlsWithItems(row_idx)
 		end
 	end)
-	self.controls.hideResultsFailingAttributeRequirementsCheck.tooltipText = "Hide fetched results when equipping the item would leave unmet Str/Dex/Int/Omniscience attribute requirements.\nUnchecked: show those results after fetching."
-	self.hideResultsFailingAttributeRequirements = self.hideResultsFailingAttributeRequirements == true
-	self.controls.hideResultsFailingAttributeRequirementsCheck.state = self.hideResultsFailingAttributeRequirements
+	self.controls.itemRequirementSelection.tooltipText =
+[[Hides fetched results the build could not use:
+Current level - Level requirement above the character level
+Current attributes - Unmet Str/Dex/Int/Omniscience requirements once equipped
+Current useable - Either of the above]]
+	self.controls.itemRequirementSelection:SetSel((self.hideResultsAboveCharacterLevel and 1 or 0) + (self.hideResultsFailingAttributeRequirements and 2 or 0) + 1, true)
 
 	-- Realm selection
 	self.controls.realmLabel = new("LabelControl"):LabelControl({"LEFT", self.controls.setSelect, "RIGHT"}, {18, 0, 20, row_height - 4}, "^7Realm:")
@@ -981,8 +984,8 @@ function TradeQueryClass:UpdateControlsWithItems(row_idx)
 	end
 	if not sortedItems or #sortedItems == 0 then
 		clearVisibleResults()
-		self:SetNotice(self.controls.pbNotice, self.hideResultsFailingAttributeRequirements and
-			"No usable results (attribute requirements)" or "^4No compatible items found for this slot.")
+		self:SetNotice(self.controls.pbNotice, (self.hideResultsAboveCharacterLevel or self.hideResultsFailingAttributeRequirements) and
+			"No usable results (requirement filter)" or "^4No compatible items found for this slot.")
 		return
 	end
 
@@ -1018,16 +1021,23 @@ function TradeQueryClass:SortFetchResults(row_idx, mode)
 		return {}
 	end
 
+	local checkAttributes = self.hideResultsFailingAttributeRequirements and slotName ~= nil
 	-- Post-fetch validation recalculates the equipped candidate so Omniscience and
 	-- other requirement transformations are applied before filtering the result.
-	local function meetsAttributeRequirements(result_index)
-		if not self.hideResultsFailingAttributeRequirements or not slotName then
+	local function meetsRequirementFilter(result_index)
+		if not self.hideResultsAboveCharacterLevel and not checkAttributes then
+			return true
+		end
+		local item = new("Item"):Item(self.resultTbl[row_idx][result_index].item_string)
+		if self.hideResultsAboveCharacterLevel and item.requirements.level and item.requirements.level > self.itemsTab.build.characterLevel then
+			return false
+		end
+		if not checkAttributes then
 			return true
 		end
 		if not calcFunc then
 			calcFunc, baseOutput = self.itemsTab.build.calcsTab:GetMiscCalculator()
 		end
-		local item = new("Item"):Item(self.resultTbl[row_idx][result_index].item_string)
 		local output = calcFunc({ repSlotName = slotName, repItem = item })
 		return tradeHelpers.meetsAttributeRequirements(output)
 	end
@@ -1060,14 +1070,14 @@ function TradeQueryClass:SortFetchResults(row_idx, mode)
 	local newTbl = {}
 	if mode == self.sortModes.Weight then
 		for index, _ in pairs(self.resultTbl[row_idx]) do
-			if meetsAttributeRequirements(index) then
+			if meetsRequirementFilter(index) then
 				t_insert(newTbl, { outputAttr = index, index = index })
 			end
 		end
 		return newTbl
 	elseif mode == self.sortModes.StatValue  then
 		for result_index = 1, #self.resultTbl[row_idx] do
-			if meetsAttributeRequirements(result_index) then
+			if meetsRequirementFilter(result_index) then
 				t_insert(newTbl, { outputAttr = getResultWeight(result_index), index = result_index })
 			end
 		end
@@ -1089,7 +1099,7 @@ function TradeQueryClass:SortFetchResults(row_idx, mode)
 
 			-- scaling factor for price
 			local k = 0.1
-			if meetsAttributeRequirements(result_index) then
+			if meetsRequirementFilter(result_index) then
 				t_insert(newTbl,
 					{ outputAttr = getResultWeight(result_index) - k * math.log(priceTable[result_index], 10), index =
 					result_index })
@@ -1102,7 +1112,7 @@ function TradeQueryClass:SortFetchResults(row_idx, mode)
 			return nil, "MissingConversionRates"
 		end
 		for result_index, price in pairs(priceTable) do
-			if meetsAttributeRequirements(result_index) then
+			if meetsRequirementFilter(result_index) then
 				t_insert(newTbl, { outputAttr = price, index = result_index })
 			end
 		end
