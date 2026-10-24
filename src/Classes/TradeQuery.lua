@@ -846,6 +846,7 @@ function TradeQueryClass:GetReplacementSlot(row_idx)
 	if jewelNodeId then
 		return self.itemsTab.sockets and self.itemsTab.sockets[jewelNodeId]
 	end
+	-- Remember the first visible ring as the Pearl's slot.
 	if slotTbl.slotName == "Pearl of Tsoatha" and not slotTbl.selectedSlotName then
 		for index = 1, 3 do
 			local ringSlot = self.itemsTab.slots and self.itemsTab.slots["Ring " .. index]
@@ -931,14 +932,12 @@ function TradeQueryClass:UpdateDropdownList(row_idx)
 
 	if not self.resultTbl[row_idx] then return end
 
-	-- Iterate the sorted (and potentially filtered) list so attribute-filtered rows are omitted from the dropdown
+	-- Iterate the sorted (and potentially filtered) list so results hidden by the requirement filter are omitted from the dropdown
 	for _, sorted in ipairs(self.sortedResultTbl[row_idx] or {}) do
-		if sorted and sorted.index and self.resultTbl[row_idx][sorted.index] then
-			local result = self.resultTbl[row_idx][sorted.index]
-			local price = string.format(" %s(%d %s)", colorCodes["CURRENCY"], result.amount, result.currency)
-			local item = new("Item"):Item(result.item_string)
-			table.insert(dropdownLabels, colorCodes[item.rarity] .. item.name .. price)
-		end
+		local result = self.resultTbl[row_idx][sorted.index]
+		local price = string.format(" %s(%d %s)", colorCodes["CURRENCY"], result.amount, result.currency)
+		local item = new("Item"):Item(result.item_string)
+		table.insert(dropdownLabels, colorCodes[item.rarity] .. item.name .. price)
 	end
 	if self.controls["resultDropdown".. row_idx] then
 		self.controls["resultDropdown".. row_idx].selIndex = 1
@@ -1395,8 +1394,7 @@ you can add them, copy the link here, and press "Price Item" to evaluate the ite
 		return itemResult and itemResult.item_string ~= nil
 	end
 	-- Whisper so we can copy to clipboard
-	controls["whisperButton" .. row_idx] = new("ButtonControl"):ButtonControl(
-		{ "TOPLEFT", controls["importButton" .. row_idx], "TOPRIGHT" }, { 8, 0, 155, row_height }, function()
+	controls["whisperButton" .. row_idx] = new("ButtonControl"):ButtonControl({ "TOPLEFT", controls["importButton" .. row_idx], "TOPRIGHT" }, { 8, 0, 155, row_height }, function()
 			local itemResult = getSelectedResult()
 
 			if not itemResult then return "" end
