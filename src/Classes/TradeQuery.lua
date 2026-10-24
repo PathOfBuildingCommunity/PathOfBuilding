@@ -966,7 +966,7 @@ function TradeQueryClass:UpdateControlsWithItems(row_idx)
 
 	local results = self.resultTbl[row_idx]
 	if not results or #results == 0 then
-		-- nothing to filter: go back to the search view, as before requirement filtering
+		-- nothing to filter: go back to the search view
 		self:ResetResultRow(row_idx)
 		self:SetNotice(self.controls.pbNotice, "^4No compatible items found for this slot.")
 		return
