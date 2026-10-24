@@ -586,9 +586,7 @@ Highest Weight - Displays the order retrieved from trade]]
 		t_insert(slotTables, { slotName = self.itemsTab.sockets[nodeId].label, nodeId = nodeId })
 	end
 
-	-- Base Y offset for sectionAnchor (used to preserve position when scrollbar shifts it)
-	local sectionAnchorBaseY = row_vertical_padding + row_height
-	self.controls.sectionAnchor = new("LabelControl"):LabelControl({"LEFT", self.controls.tradeTypeSelection, "LEFT"}, {0, sectionAnchorBaseY, 0, 0}, "")
+	self.controls.sectionAnchor = new("LabelControl"):LabelControl({"LEFT", self.controls.tradeTypeSelection, "LEFT"}, {0, row_vertical_padding, 0, 0}, "")
 	top_pane_alignment_ref = {"TOPLEFT", self.controls.sectionAnchor, "TOPLEFT"}
 	local scrollBarShown = #slotTables > 21 -- clipping starts beyond this
 	-- dynamically hide rows that are above or below the scrollBar
@@ -673,7 +671,7 @@ Highest Weight - Displays the order retrieved from trade]]
 	local function scrollBarFunc()
 		self.controls.scrollBar.height = self.pane_height-100
 		self.controls.scrollBar:SetContentDimension(self.pane_height-100, self.effective_rows_height)
-		self.controls.sectionAnchor.y = sectionAnchorBaseY - self.controls.scrollBar.offset
+		self.controls.sectionAnchor.y = -self.controls.scrollBar.offset
 	end
 
 	local function onRateLimit(backoff)
