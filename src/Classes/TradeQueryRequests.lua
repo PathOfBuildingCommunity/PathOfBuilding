@@ -330,6 +330,15 @@ function TradeQueryRequestsClass:FetchResultBlock(url, callback)
 				if item.ilvl then
 					t_insert(rawLines, "Item Level: " .. item.ilvl)
 				end
+				-- The listing's level requirement includes its mods, unlike the base level.
+				-- Socketed gems can override it, as in the character import.
+				if item.requirements and not (item.socketedItems and item.socketedItems[1]) then
+					for _, req in ipairs(item.requirements) do
+						if req.name == "Level" and req.values and req.values[1] then
+							t_insert(rawLines, "LevelReq: " .. req.values[1][1])
+						end
+					end
+				end
 				if item.sockets then
 					local socketString = ""
 					local colours = {}
