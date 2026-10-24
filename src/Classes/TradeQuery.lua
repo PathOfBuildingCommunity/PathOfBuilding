@@ -967,7 +967,9 @@ function TradeQueryClass:UpdateControlsWithItems(row_idx)
 
 	local results = self.resultTbl[row_idx]
 	if not results or #results == 0 then
-		clearVisibleResults()
+		-- nothing to filter: go back to the search view, as before requirement filtering
+		self:ResetResultRow(row_idx)
+		self:SetNotice(self.controls.pbNotice, "^4No compatible items found for this slot.")
 		return
 	end
 
@@ -985,7 +987,7 @@ function TradeQueryClass:UpdateControlsWithItems(row_idx)
 	if not sortedItems or #sortedItems == 0 then
 		clearVisibleResults()
 		self:SetNotice(self.controls.pbNotice, (self.hideResultsAboveCharacterLevel or self.hideResultsFailingAttributeRequirements) and
-			"No usable results (requirement filter)" or "^4No compatible items found for this slot.")
+			"^4No results match the selected requirements." or "^4No compatible items found for this slot.")
 		return
 	end
 
