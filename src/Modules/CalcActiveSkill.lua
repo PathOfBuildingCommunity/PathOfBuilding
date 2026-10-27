@@ -552,9 +552,8 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 	skillModList:NewMod("GemLevel", "BASE", activeSkill.activeEffect.srcInstance and activeSkill.activeEffect.srcInstance.level or activeSkill.activeEffect.level, "Max Level")
 	skillModList:NewMod("GemQuality", "BASE", activeSkill.activeEffect.srcInstance and activeSkill.activeEffect.srcInstance.quality or activeSkill.activeEffect.quality, "Max Quality")
 	-- matching socket bonus
-	local socketMatches = activeSkill.activeEffect.srcInstance and activeSkill.activeEffect.srcInstance.matchesSocket or activeSkill.activeEffect.matchesSocket
-	if socketMatches then
-		skillModList:NewMod("GemSocketQuality", "BASE", data.misc.MatchingSocketQualityBonus, "Socket Quality")
+	if (activeSkill.activeEffect.socketQuality or 0) > 0 then
+		skillModList:NewMod("GemSocketQuality", "BASE", activeSkill.activeEffect.socketQuality, "Socket Quality")
 	end
 	for _, supportProperty in ipairs(skillModList:Tabulate("LIST", activeSkill.skillCfg, "SupportedGemProperty")) do
 		local value = supportProperty.value
