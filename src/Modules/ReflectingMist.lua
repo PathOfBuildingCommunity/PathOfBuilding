@@ -400,19 +400,22 @@ function M.OpenPopup(itemsTab)
 			end
 			local negative = negatives[group.indices[1]] or false
 			local positiveButton, negativeButton = controls["positive" .. i], controls["negative" .. i]
+			local textHeight = #lines * 16
+			local contentHeight = math.max(22, textHeight)
+			local controlY = offset + math.floor((contentHeight - 22) / 2)
 			if group.canInvert then
-				positiveButton.y, negativeButton.y = offset, offset
+				positiveButton.y, negativeButton.y = controlY, controlY
 				positiveButton.locked, negativeButton.locked = not negative, negative
 				positiveButton.backgroundColor = not negative and { 0.06, 0.14, 0.09 } or { 0.04, 0.04, 0.04 }
 				negativeButton.backgroundColor = negative and { 0.16, 0.06, 0.08 } or { 0.04, 0.04, 0.04 }
 				positiveButton.label = (not negative and colorCodes.POSITIVE or "^8") .. "+ Positive"
 				negativeButton.label = (negative and "^xF05050" or "^8") .. "- Negative"
 			else
-				controls["state" .. i].y = offset
+				controls["state" .. i].y = controlY
 			end
-			controls["mod" .. i].y = offset
+			controls["mod" .. i].y = offset + math.floor((contentHeight - textHeight) / 2)
 			controls["mod" .. i].label = table.concat(lines, "\n")
-			offset = offset + math.max(24, #lines * 16 + 8)
+			offset = offset + contentHeight + 2
 		end
 		comparisonTooltip:Clear()
 		controls.showComparisons.y = offset + 10
