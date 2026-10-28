@@ -483,8 +483,8 @@ return {
 		modList:NewMod("Multiplier:HexDoomStack", "BASE", val, "Config")
 	end },
 	{ label = "Herald of Agony:", ifSkill = "Herald of Agony" },
-	{ var = "heraldOfAgonyVirulenceStack", type = "count", label = "# of Virulence Stacks:", ifSkill = "Herald of Agony", apply = function(val, modList, enemyModList)
-		modList:NewMod("Multiplier:VirulenceStack", "BASE", val, "Config")
+	{ var = "heraldOfAgonyVirulenceStack", type = "countAllowZero", label = "# of Virulence Stacks (if not maximum):", ifSkill = "Herald of Agony", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:VirulenceStack", "OVERRIDE", val, "Config")
 	end },
 	{ label = "Herald of Ash:", ifSkill = "Herald of Ash" },
 	{ var = "hoaOverkill", type = "count", label = "Overkill damage:", tooltip = "Herald of Ash's base ^xB97123Burning ^7damage is equal to 25% of Overkill damage.", ifSkill = "Herald of Ash", apply = function(val, modList, enemyModList)

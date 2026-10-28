@@ -458,6 +458,7 @@ function CalcsTabClass:BuildOutput()
 
 	self.mainEnv = self.calcs.buildOutput(self.build, "MAIN")
 	self.mainOutput = self.mainEnv.player.output
+	self.build.configTab.varControls.heraldOfAgonyVirulenceStack:SetPlaceholder(self.mainEnv.player.modDB:GetMultiplier("VirulenceStacksMax"))
 	self.calcsEnv = self.calcs.buildOutput(self.build, "CALCS")
 	self.calcsOutput = self.calcsEnv.player.output
 
