@@ -1005,6 +1005,50 @@ function ConfigTabClass:Save(xml)
 	end
 end
 
+-- These hints describe calculated defaults only; saving/applying them as config
+-- placeholders would turn them into overrides and prevent maxima from updating.
+function ConfigTabClass:UpdateMaximumPlaceholders(env)
+	local output = env.player.output
+	local skill = env.player.mainSkill
+	local skillModList, cfg = skill.skillModList, skill.skillCfg
+	local values = {
+		overrideCrabBarriers = output.CrabBarriersMax,
+		BrandsAttachedToEnemy = output.BrandsAttachedLimit,
+		overrideCruelty = 40,
+		overrideGhostShrouds = 3,
+		overrideFortification = output.MaximumFortification,
+		multiplierRage = output.MaximumRage,
+		multiplierGaleForce = output.MaximumGaleForce,
+		TotemsSummoned = output.ActiveTotemLimit,
+		multiplierSummonedMinion = output.SummonedMinionsMax,
+		multiplierPermanentMinion = output.PermanentMinionsMax,
+		multiplierImpalesOnEnemy = output.ImpaleStacksMax or skillModList:Sum("BASE", cfg, "ImpaleStacksMax") * (1 + skillModList:Sum("BASE", cfg, "ImpaleAdditionalDurationChance") / 100),
+		multiplierBleedsOnEnemy = output.BleedStacksMax or skillModList:Override(cfg, "BleedStacksMax") or skillModList:Sum("BASE", cfg, "BleedStacksMax"),
+		overrideBuffBlinded = calcLib.mod(env.enemy.modDB, nil, "BlindEffect", "BuffEffectOnSelf") * 100,
+	}
+	for _, charge in ipairs({ "Power", "Frenzy", "Endurance", "Siphoning", "Challenger", "Blitz", "Inspiration", "Blood" }) do
+		values["override"..charge.."Charges"] = output[charge.."ChargesMax"]
+	end
+	for _, charge in ipairs({ "Power", "Frenzy", "Endurance" }) do
+		values["minionsOverride"..charge.."Charges"] = env.minion and env.minion.output[charge.."ChargesMax"]
+	end
+	for _, activeSkill in ipairs(env.player.activeSkillList) do
+		if activeSkill.activeEffect.grantedEffect.name == "Rage Vortex" then
+			local maxRage = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "MaximumRage")
+			values.sacrificedRageCount = m_floor(maxRage * (activeSkill.skillData.MaxRageVortexSacrificePercentage or 0) / 100)
+		end
+	end
+	for _, varData in ipairs(varList) do
+		if varData.label and varData.label:find("(if not maximum)", 1, true) then
+			local control = self.varControls[varData.var]
+			if control then
+				local value = values[varData.var]
+				control:SetPlaceholder(value ~= nil and string.format("%g", value) or "", false)
+			end
+		end
+	end
+end
+
 function ConfigTabClass:UpdateControls()
 	for var, control in pairs(self.varControls) do
 		if control._className == "EditControl" or control._className == "ResizableEditControl" then

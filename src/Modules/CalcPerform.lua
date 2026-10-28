@@ -643,6 +643,11 @@ local function doActorMisc(env, actor)
 
 	-- Add misc buffs/debuffs
 	if env.mode_combat then
+		if modDB:Flag(nil, "Condition:CanGainGaleForce") then
+			output.MaximumGaleForce = m_max(modDB:Sum("BASE", nil, "MaximumGaleForce"), 0)
+			output.GaleForce = m_max(0, m_min(modDB:Override(nil, "GaleForce") or output.MaximumGaleForce, output.MaximumGaleForce))
+			modDB.multipliers["GaleForce"] = output.GaleForce
+		end
 		if env.player.mainSkill.baseSkillModList:Flag(nil, "Cruelty") then
 			modDB.multipliers["Cruelty"] = modDB:Override(nil, "Cruelty") or 40
 		end
@@ -911,14 +916,18 @@ local function doActorMisc(env, actor)
 			condList["Leeching"] = true
 			condList["LeechingEnergyShield"] = true
 		end
-		if modDB:Flag(nil, "Condition:CanGainRage") or modDB:Sum("BASE", nil, "RageRegen") > 0 then
+		if not modDB:Flag(nil, "Condition:CanGainRage") and modDB:Sum("BASE", nil, "RageRegen") > 0 then
+			modDB:NewMod("Condition:CanGainRage", "FLAG", true, "Base")
+		end
+		if modDB:Flag(nil, "Condition:CanGainRage") then
 			local maxStacks = m_floor(modDB:Sum("BASE", skillCfg, "MaximumRage") * modDB:More(skillCfg, "MaximumRage"))
 			local minStacks = m_min(modDB:Sum("BASE", nil, "MinimumRage"), maxStacks)
-			local rageConfig = modDB:Sum("BASE", nil, "Multiplier:RageStack")
+			local rageConfig = modDB:Override(nil, "RageStacks") or maxStacks
 			local stacks = m_max(m_min(rageConfig, maxStacks), (minStacks > 0 and minStacks) or 0)
 			output.RageEffect =  m_floor(stacks * calcLib.mod(modDB, nil, "RageEffect"))
 			modDB:NewMod("Multiplier:RageEffect", "BASE", output.RageEffect, "Base")
 			output.Rage = stacks
+			modDB.multipliers["RageStack"] = stacks
 			output.MaximumRage = maxStacks
 			modDB:NewMod("Multiplier:Rage", "BASE", output.Rage, "Base")
 			if modDB:Flag(nil, "Condition:RageSpellDamage") then
@@ -1287,6 +1296,13 @@ function calcs.perform(env, skipEHP)
 	local modDB = env.modDB
 	local enemyDB = env.enemyDB
 
+	if modDB:Flag(nil, "Condition:AverageFocus") then
+		local focus = env.data.skills.Focus
+		local duration = focus.constantStats[1][2] / 1000
+		local recovery = calcLib.mod(modDB, nil, "CooldownRecovery", "FocusCooldownRecovery")
+		modDB.multipliers["FocusUptime"] = recovery > 0 and duration / (duration + focus.levels[1].cooldown / recovery) or 0
+	end
+
 	-- Merge keystone modifiers
 	env.keystonesAdded = { }
 	modLib.mergeKeystones(env, env.modDB)
@@ -1357,6 +1373,7 @@ function calcs.perform(env, skipEHP)
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
 		if activeSkill.skillTypes[SkillType.Brand] then
 			local attachLimit = m_min(activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "BrandsAttachedLimit"), activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "ActiveBrandLimit"))
+			output.BrandsAttachedLimit = m_max(attachLimit, output.BrandsAttachedLimit or 0)
 			local configured = modDB:Sum("BASE", nil, "Multiplier:ConfigBrandsAttachedToEnemy")
 			local attached = configured > 0 and m_min(configured, attachLimit) or attachLimit
 			activeSkill.skillData.attachedBrandCount = attached
@@ -1489,6 +1506,7 @@ function calcs.perform(env, skipEHP)
 	end
 
 	local summonedMinions = 0
+	output.PermanentMinionsMax = 0
 	for _, counts in pairs(minionCounts) do
 		summonedMinions = summonedMinions + counts.total
 		modDB:NewMod("Multiplier:SummonedMinion", "BASE", counts.total, "Config", { type = "Condition", var = "Combat" })
@@ -1496,9 +1514,12 @@ function calcs.perform(env, skipEHP)
 			modDB:NewMod("Multiplier:NonVaalSummonedMinion", "BASE", counts.nonVaal, "Config", { type = "Condition", var = "Combat" })
 		end
 		if counts.permanent then
+			output.PermanentMinionsMax = output.PermanentMinionsMax + counts.permanent
 			modDB:NewMod("Multiplier:PermanentMinion", "BASE", counts.permanent, "Config", { type = "Condition", var = "Combat" })
 		end
 	end
+
+	output.SummonedMinionsMax = summonedMinions
 
 	-- Companionship only works while exactly one Minion is summoned.
 	local summonedMinionOverride = env.configInput.multiplierSummonedMinion
