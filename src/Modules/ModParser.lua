@@ -401,6 +401,7 @@ local modNameList = {
 	["to avoid being shocked"] = "AvoidShock",
 	["to avoid being frozen"] = "AvoidFreeze",
 	["to avoid being chilled"] = "AvoidChill",
+	["to avoid being chilled or frozen"] = { "AvoidChill", "AvoidFreeze" },
 	["to avoid being ignited"] = "AvoidIgnite",
 	["to avoid non-damaging ailments on you"] = { "AvoidShock", "AvoidFreeze", "AvoidChill", "AvoidSap", "AvoidBrittle", "AvoidScorch" },
 	["to avoid blind"] = "AvoidBlind",
@@ -833,6 +834,7 @@ local modNameList = {
 	["action speed"] = "ActionSpeed",
 	["light radius"] = "LightRadius",
 	["rarity of items found"] = "LootRarity",
+	["item rarity"] = "LootRarity",
 	["rarity of items dropped"] = "LootRarity",
 	["quantity of items found"] = "LootQuantity",
 	["quantity of items dropped"] = "LootQuantity",
@@ -2425,7 +2427,7 @@ local specialModList = {
 		mod("ManaConvertToArmour", "BASE", num),
 	} end,
 	["life recovery from flasks also applies to energy shield"] = { flag("LifeFlaskAppliesToEnergyShield") },
-	["increase to cast speed from arcane surge also applies to movement speed"] = { flag("ArcaneSurgeCastSpeedToMovementSpeed") },
+	["increases? to cast speed from arcane surge also applies to movement speed"] = { flag("ArcaneSurgeCastSpeedToMovementSpeed") },
 	["arcane surge also grants (%d+)%% increased life regeneration rate to you"] = function(num) return { mod("ArcaneSurgeAlsoLifeRegen", "INC", num) } end,
 	["increases and reductions to effect of flasks applied to you also applies to effect of arcane surge on you at (%d+)%% of their value"] = function(num) return { mod("FlaskEffectToArcaneSurgeEffect", "BASE", num) } end,
 	["non%-instant mana recovery from flasks is also recovered as life"] = { flag("ManaFlaskAppliesToLife") },
@@ -3265,6 +3267,7 @@ local specialModList = {
 		mod("ExtraSkillMod", "LIST", { mod = flag("IgnoreElementalResistances") }, { type = "SocketedIn", slotName = "{SlotName}" }, { type = "SkillType", skillType = SkillType.Vaal }),
 		mod("ExtraSkillMod", "LIST", { mod = flag("IgnoreChaosResistance") }, { type = "SocketedIn", slotName = "{SlotName}" }, { type = "SkillType", skillType = SkillType.Vaal }),
 	},
+	["hits from socketed vaal skills ignore enemy physical damage reduction"]  = { mod("ExtraSkillMod", "LIST", { mod = flag("IgnoreEnemyPhysicalDamageReduction") }, { type = "SocketedIn", slotName = "{SlotName}" }, { type = "SkillType", skillType = SkillType.Vaal }) },
 	["hits from socketed vaal skills ignore enemy monster physical damage reduction"]  = { mod("ExtraSkillMod", "LIST", { mod = flag("IgnoreEnemyPhysicalDamageReduction") }, { type = "SocketedIn", slotName = "{SlotName}" }, { type = "SkillType", skillType = SkillType.Vaal }) },
 	["socketed vaal skills grant elusive when used"] = { flag("Condition:CanBeElusive") },
 	["damage with hits from socketed vaal skills is lucky"]  = { mod("ExtraSkillMod", "LIST", { mod = flag("LuckyHits") }, { type = "SocketedIn", slotName = "{SlotName}" }, { type = "SkillType", skillType = SkillType.Vaal }) },
@@ -3828,7 +3831,7 @@ local specialModList = {
 	["hits with prismatic skills always ?i?n?f?l?i?c?t? (%w+)"] = function(_, type) return {
 		mod("Enemy" .. firstToUpper(type) .. "Chance", "BASE", 100, nil, ModFlag.Hit, { type = "SkillType", skillType = SkillType.RandomElement }),
 	} end,
-	["critical strikes do not [ia][np][fp]l[iy]c?t? non%-damaging ailments"] = {
+	["critical strikes do not inherently [ia][np][fp]l[iy]c?t? non%-damaging ailments"] = {
 		flag("CritsDontAlwaysChill"),
 		flag("CritsDontAlwaysFreeze"),
 		flag("CritsDontAlwaysShock"),
@@ -5461,7 +5464,7 @@ local specialModList = {
 	["every 8 seconds, gain avatar of fire for 4 seconds"] = {
 		flag("Condition:HaveVulconus"),
 	},
-	["when hit, gain a random movement speed modifier from 40%% reduced to 100%% increased until hit again"] = {
+	["when hit, gain a random movement speed modifier from 40%% reduced to 100%% increased,? until hit again"] = {
 		flag("Condition:HaveGamblesprint"),
 	},
 	["trigger socketed curse spell when you cast a curse spell, with a ([%d%.]+) second cooldown"] = {
