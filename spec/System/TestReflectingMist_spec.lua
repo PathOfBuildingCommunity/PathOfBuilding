@@ -399,7 +399,8 @@ Implicits: 2
 		local ok, err = pcall(function()
 			-- The headless renderer does not measure fonts. Supply a nonzero glyph
 			-- width so this test catches both late word breaks and unbroken words.
-			DrawStringWidth = function(_, _, value)
+			-- Set the real global because Busted isolates assignments within specs.
+			_G.DrawStringWidth = function(_, _, value)
 				local _, glyphs = StripEscapes(value):gsub("[%z\1-\127\194-\244][\128-\191]*", "")
 				return glyphs * 8
 			end
@@ -422,7 +423,7 @@ Implicits: 2
 			assert.is_true(controls.showComparisons.y >= controls.mod1.y + count * 16)
 			controls.close.onClick()
 		end)
-		DrawStringWidth = originalWidth
+		_G.DrawStringWidth = originalWidth
 		assert(ok, err)
 	end)
 

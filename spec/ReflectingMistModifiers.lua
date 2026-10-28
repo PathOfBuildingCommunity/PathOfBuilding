@@ -19,7 +19,7 @@ local function add(source, id, mod, itemType, influenced)
 	})
 end
 
-local function spawnable(source, mods, necropolis)
+local function collectAvailableModifiers(source, mods, necropolis)
 	for id, mod in pairs(mods) do
 		if mod.type == "Prefix" or mod.type == "Suffix" then
 			for _, itemType in ipairs({ "Ring", "Amulet" }) do
@@ -39,9 +39,9 @@ local function spawnable(source, mods, necropolis)
 	end
 end
 
-spawnable("Affix", data.itemMods.Item)
-spawnable("Veiled", data.veiledMods)
-spawnable("Necropolis", data.necropolisMods, true)
+collectAvailableModifiers("Affix", data.itemMods.Item)
+collectAvailableModifiers("Veiled", data.veiledMods)
+collectAvailableModifiers("Necropolis", data.necropolisMods, true)
 for id, mod in ipairs(data.masterMods) do
 	for _, itemType in ipairs({ "Ring", "Amulet" }) do
 		if mod.types[itemType] then add("Bench", id, mod, itemType) end
