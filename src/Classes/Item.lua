@@ -501,6 +501,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 	-- assume an item to be an advanced copy format if either has mod roll information, a modifier
 	-- line with a range, or advanced copy lines
 	self.advancedCopy = false
+	self.reflectionMultiplier = nil
 	self.modMagnitudeMods = {}
 	local implicitLines = 0
 	self.variantList = nil
@@ -837,6 +838,8 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 						local num = specToNumber(specVal) or self.clusterJewel.maxNodes
 						self.clusterJewelNodeCount = m_min(m_max(num, self.clusterJewel.minNodes), self.clusterJewel.maxNodes)
 					end
+				elseif specName == "Reflecting Mist" then
+					self.reflectionMultiplier = specToNumber(specVal)
 				elseif specName == "Catalyst" then
 					for i=1, #catalystList do
 						if specVal == catalystList[i] then
@@ -1398,7 +1401,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 			end
 		end
 	end
-	if self.advancedCopy or self.crafted then
+	if self.advancedCopy or self.crafted or self.reflectionMultiplier then
 		-- apply mod magnitude boost to matching mods
 		if #self.modMagnitudeMods > 0 then
 			for _, modMagnitudeMod in ipairs(self.modMagnitudeMods) do
@@ -1815,6 +1818,10 @@ function ItemClass:BuildRaw()
 			local range = affix.range and "{range:" .. (type(affix.range) == "table" and table.concat(affix.range, ",") or round(affix.range, 3)) .. "}" or ""
 			t_insert(rawLines, "Suffix: " .. (affix.fractured and "{fractured}" or "") .. range .. affix.modId)
 		end
+	end
+	if self.reflectionMultiplier then
+		-- Reflected explicit lines store base values, before modifier magnitudes.
+		t_insert(rawLines, "Reflecting Mist: " .. self.reflectionMultiplier)
 	end
 	if self.catalyst and self.catalyst > 0 then
 		t_insert(rawLines, "Catalyst: " .. catalystList[self.catalyst])
