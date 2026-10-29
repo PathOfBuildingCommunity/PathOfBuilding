@@ -112,4 +112,42 @@ Added Small Passive Skills grant: 12% increased Chaos Damage]])
 		spec:DeallocNode(nestedSocket)
 		assert.are.equal(1, countSubgraphs(spec))
 	end)
+
+	it("shows increased effect on added small passive skill stats", function()
+		local spec = build.spec
+		local outerSocket = getOuterSocket(spec)
+		spec:AllocNode(outerSocket)
+
+		local largeCluster = addItem([[Rarity: RARE
+New Item
+Large Cluster Jewel
+Implicits: 3
+Adds 8 Passive Skills
+2 Added Passive Skills are Jewel Sockets
+Added Small Passive Skills grant: 12% increased Fire Damage
+Added Small Passive Skills also grant: +5% to Chaos Resistance
+Added Small Passive Skills also grant: +7% to Fire Resistance
+Added Small Passive Skills also grant: +10 to Maximum Life
+Added Small Passive Skills have 35% increased Effect]])
+		spec.jewels[outerSocket.id] = largeCluster.id
+		spec:BuildClusterJewelGraphs()
+
+		local smallNode
+		for _, subgraph in pairs(spec.subGraphs) do
+			for _, node in ipairs(subgraph.nodes) do
+				if node.type == "Normal" and node.expansionSkill then
+					smallNode = node
+					break
+				end
+			end
+		end
+
+		assert.is_truthy(smallNode)
+		assert.are.same({
+			"16% increased Fire Damage",
+			"+6% to Chaos Resistance",
+			"+9% to Fire Resistance",
+			"+13 to Maximum Life",
+		}, smallNode.sd)
+	end)
 end)
