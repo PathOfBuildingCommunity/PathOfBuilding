@@ -287,7 +287,7 @@ Strict-Transport-Security: max-age=63115200; includeSubDomains; preload]]
 		local dkjson = require "dkjson"
 		local tradeHelpers = require "Classes.TradeHelpers"
 		local originalDecode, urlRequests, decodedQuery
-		local url = "https://www.pathofexile.com/trade2/search/poe2/Standard/encoded"
+		local url = "https://www.pathofexile.com/trade/search/Standard/encoded"
 
 		before_each(function()
 			urlRequests = new("TradeQueryRequests"):TradeQueryRequests(mock_limiter)
@@ -299,6 +299,18 @@ Strict-Transport-Security: max-age=63115200; includeSubDomains; preload]]
 		after_each(function()
 			tradeHelpers.B64GzipDecode = originalDecode
 		end)
+
+		for _, realmPath in ipairs({ "", "sony/", "xbox/" }) do
+			it("preserves the realm and league in " .. realmPath .. "Hardcore%20Test", function()
+				tradeHelpers.B64GzipDecode = function(encoded)
+					assert.are.equal("encoded", encoded)
+					return [[{"stats":[{"type":"and","filters":[]}]}]]
+				end
+				urlRequests:SearchWithURL("https://pathofexile.com/trade/search/" .. realmPath .. "Hardcore%20Test/encoded", function() end)
+				assert.are.equal("https://www.pathofexile.com/api/trade/search/" .. realmPath .. "Hardcore%20Test",
+					urlRequests.requestQueue.search[1].url)
+			end)
+		end
 
 		it("fetches ordinary searches by price and returns their query", function()
 			decodedQuery = [[{"stats":[{"type":"and","filters":[{"id":"explicit.stat_3299347043","value":{"min":1}}]}]}]]
@@ -314,10 +326,10 @@ Strict-Transport-Security: max-age=63115200; includeSubDomains; preload]]
 				calls = calls + 1
 				assert.is_nil(err)
 				assert.same(fetchedItems, items)
-				assert.same({ query = expectedQuery, sort = { price = "asc" } }, dkjson.decode(query))
+				assert.same({ query = expectedQuery, sort = { price = "asc" }, engine = "new" }, dkjson.decode(query))
 			end)
 			local search = table.remove(urlRequests.requestQueue.search, 1)
-			assert.are.equal("https://www.pathofexile.com/api/trade2/search/poe2/Standard", search.url)
+			assert.are.equal("https://www.pathofexile.com/api/trade/search/Standard", search.url)
 			search.callback([[{"total":1,"result":["item1"],"id":"searchId"}]])
 			assert.are.equal(1, calls)
 			assert.are.equal(0, #urlRequests.requestQueue.search)
@@ -369,7 +381,7 @@ Strict-Transport-Security: max-age=63115200; includeSubDomains; preload]]
 					callbackCalls = callbackCalls + 1
 					assert.is_nil(err)
 					assert.same(fetchedItems, items)
-					assert.same({ query = suppliedQuery, sort = { ["statgroup.0"] = "desc" } }, dkjson.decode(query))
+					assert.same({ query = suppliedQuery, sort = { ["statgroup.0"] = "desc" }, engine = "new" }, dkjson.decode(query))
 				end)
 				assert.are.equal(1, #urlRequests.requestQueue.search)
 				local search = table.remove(urlRequests.requestQueue.search, 1)

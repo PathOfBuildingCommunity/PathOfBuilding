@@ -78,8 +78,8 @@ local function buildURL(item, slotName, controls, modEntries, defenceEntries, is
 		-- timeless jewel ids or other numbers appended to the item name.
 		tradeName = tradeName:gsub("%s+$", "")
 		tradeName = tradeName:match("^(.-)%s+%d+$") or tradeName
-		queryTable.query.name = tradeName
-		queryTable.query.type = item.baseName
+		queryTable.name = tradeName
+		queryTable.type = item.baseName
 		-- If item is Foulborn, add the foulborn_item filter
 		if item.foulborn then
 			queryFilters.misc_filters = queryFilters.misc_filters or { filters = {} }

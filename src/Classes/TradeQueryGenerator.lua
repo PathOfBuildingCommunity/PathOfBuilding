@@ -1091,12 +1091,13 @@ function TradeQueryGeneratorClass:FinishQuery()
 
 	if options.account then
 		complexityBudget = complexityBudget - 3
-		queryTable.query.filters.trade_filters.filters.account = { input = options.account }
+		queryTable.filters.trade_filters = queryTable.filters.trade_filters or { filters = {} }
+		queryTable.filters.trade_filters.filters.account = { input = options.account }
 	end
 
 	if options.maxLevel and options.maxLevel > 0 then
 		complexityBudget = complexityBudget - 3
-		queryTable.query.filters.req_filters = {
+		queryTable.filters.req_filters = {
 			disabled = false,
 			filters = {
 				lvl = {
@@ -1108,7 +1109,7 @@ function TradeQueryGeneratorClass:FinishQuery()
 
 	if options.sockets and options.sockets > 0 then
 		complexityBudget = complexityBudget - 3
-		queryTable.query.filters.socket_filters = {
+		queryTable.filters.socket_filters = {
 			disabled = false,
 			filters = {
 				sockets = {
@@ -1121,8 +1122,8 @@ function TradeQueryGeneratorClass:FinishQuery()
 
 	if options.links and options.links > 0 then
 		complexityBudget = complexityBudget - 3
-		if not queryTable.query.filters.socket_filters then
-			queryTable.query.filters.socket_filters = {
+		if not queryTable.filters.socket_filters then
+			queryTable.filters.socket_filters = {
 				disabled = false,
 				filters = {
 					links = {
@@ -1132,7 +1133,7 @@ function TradeQueryGeneratorClass:FinishQuery()
 				}
 			}
 		else -- do not overwrite options.sockets
-			queryTable.query.filters.socket_filters.filters["links"] = {
+			queryTable.filters.socket_filters.filters["links"] = {
 				max = options.links,
 				min = options.links
 			}

@@ -3,6 +3,55 @@ describe("TestTimelessJewelSettings", function()
 		newBuild()
 	end)
 
+	describe("trade search", function()
+		local tradeHelpers = require "Classes.TradeHelpers"
+		local originalEncode, originalCopy, originalOpenURL
+		local query, copiedUrl, openedUrl
+
+		before_each(function()
+			originalEncode, originalCopy, originalOpenURL = tradeHelpers.B64GzipEncode, _G.Copy, _G.OpenURL
+			tradeHelpers.B64GzipEncode = function(json)
+				query = require("dkjson").decode(json)
+				return "encoded"
+			end
+			_G.Copy = function(url) copiedUrl = url end
+			_G.OpenURL = function(url) openedUrl = url end
+		end)
+
+		after_each(function()
+			tradeHelpers.B64GzipEncode, _G.Copy, _G.OpenURL = originalEncode, originalCopy, originalOpenURL
+			main:ClosePopup()
+		end)
+
+		it("includes seed and devotion constraints in a console trade link", function()
+			build.timelessData.jewelType = { id = 4 }
+			build.treeTab.tradeLeaguesList = { pc = { "Standard" }, xbox = { "Hardcore Test" } }
+			build.treeTab:FindTimelessJewel()
+			local controls = main.popups[1].controls
+			build.timelessData.sharedResults = {
+				conqueror = { id = 3 }, devotionVariant1 = { id = 2 }, devotionVariant2 = { id = 7 },
+			}
+			build.timelessData.searchResults = { { seed = 5000 }, { seed = 6000 } }
+			controls.realmSelection:SetSel(3)
+			controls.tradeTypeSelection:SetSel(2)
+			controls.searchTradeButton.onClick()
+
+			assert.are.equal("https://www.pathofexile.com/trade/search/xbox/Hardcore%20Test/encoded", openedUrl)
+			assert.are.equal(openedUrl, copiedUrl)
+			assert.are.equal("available", query.status.option)
+			assert.same({
+				type = "count", value = { min = 1 }, filters = {
+					{ id = data.timelessJewelTradeIDs[4].keystone[2], value = { min = 5000, max = 5000 } },
+					{ id = data.timelessJewelTradeIDs[4].keystone[2], value = { min = 6000, max = 6000 } },
+				},
+			}, query.stats[1])
+			assert.same({ type = "and", filters = {
+				{ id = data.timelessJewelTradeIDs[4].devotion[1] },
+				{ id = data.timelessJewelTradeIDs[4].devotion[6] },
+			} }, query.stats[2])
+		end)
+	end)
+
 	-- The finder's "Socket Jewel" toggle lives in timelessData, which only reaches the
 	-- build XML through the TimelessData element, so cover the save/load round trip.
 	it("round trips socketAllocate through the build XML", function()

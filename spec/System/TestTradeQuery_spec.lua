@@ -61,6 +61,90 @@ describe("TradeQuery", function()
 			assert.are.equal(0, #tooltip.lines)
 		end)
 	end)
+	describe("trade search links", function()
+		local dkjson = require "dkjson"
+		local tradeHelpers = require "Classes.TradeHelpers"
+		local originalEncode, originalCopy, originalOpenURL, originalToken
+		local encodedQuery, copiedUrl, openedUrl
+		local generatedQuery = { stats = { { type = "weight", value = { min = 10 }, filters = {} } } }
+
+		before_each(function()
+			originalEncode, originalCopy, originalOpenURL, originalToken = tradeHelpers.B64GzipEncode, _G.Copy, _G.OpenURL, main.api.authToken
+			tradeHelpers.B64GzipEncode = function(json)
+				encodedQuery = dkjson.decode(json)
+				return "encoded"
+			end
+			_G.Copy = function(url) copiedUrl = url end
+			_G.OpenURL = function(url) openedUrl = url end
+			encodedQuery, copiedUrl, openedUrl = nil, nil, nil
+			mock_tradeQuery.itemsTab.activeItemSet = {}
+			mock_tradeQuery.itemsTab.slots = {}
+			mock_tradeQuery.slotTables[1] = { slotName = "Ring 1" }
+			mock_tradeQuery.controls.pbNotice = {}
+			mock_tradeQuery:PriceItemRowDisplay(1, nil, 0, 20)
+			mock_tradeQuery.pbRealm = "sony"
+			mock_tradeQuery.pbLeague = "Hardcore Test"
+			mock_tradeQuery.tradeQueryGenerator = {
+				RequestQuery = function(_, slot, context, weights, callback)
+					callback(context, copyTable(generatedQuery, true))
+				end,
+			}
+		end)
+
+		after_each(function()
+			tradeHelpers.B64GzipEncode, _G.Copy, _G.OpenURL, main.api.authToken = originalEncode, originalCopy, originalOpenURL, originalToken
+		end)
+
+		it("creates an unauthenticated search link from the generated query", function()
+			main.api.authToken = nil
+			mock_tradeQuery.controls.bestButton1.onClick()
+			assert.same(generatedQuery, encodedQuery)
+			assert.are.equal("https://www.pathofexile.com/trade/search/sony/Hardcore%20Test/encoded", mock_tradeQuery.controls.uri1.buf)
+			assert.is_true(mock_tradeQuery.controls.uri1.validURL)
+			assert.are.equal(0, #mock_tradeQuery.tradeQueryRequests.requestQueue.search)
+		end)
+
+		it("posts generated queries with weighted sorting and keeps the adjusted query", function()
+			main.api.authToken = "test-token"
+			-- Complete two searches through the real request flow, without fetching items.
+			mock_tradeQuery.tradeQueryRequests.FetchResults = function(_, ids, queryId, callback) callback({}) end
+			mock_tradeQuery.UpdateControlsWithItems = function() end
+			mock_tradeQuery.controls.bestButton1.onClick()
+			local requests = mock_tradeQuery.tradeQueryRequests.requestQueue.search
+			local firstSearch = table.remove(requests, 1)
+			assert.are.equal("https://www.pathofexile.com/api/trade/search/sony/Hardcore%20Test", firstSearch.url)
+			assert.same({ query = generatedQuery, sort = { ["statgroup.0"] = "desc" }, engine = "new" }, dkjson.decode(firstSearch.body))
+			firstSearch.callback([[{"id":"first","total":1,"result":["item1"]}]])
+			local finalSearch = table.remove(requests, 1)
+			assert.are.equal(5, dkjson.decode(finalSearch.body).query.stats[1].value.min)
+			finalSearch.callback([[{"id":"final","total":10,"result":["item1"]}]])
+			assert.are.equal(finalSearch.body, mock_tradeQuery.lastQueries[1])
+			assert.are.equal("https://www.pathofexile.com/trade/search/sony/Hardcore%20Test/final", mock_tradeQuery.controls.uri1.buf)
+			assert.are.equal("Price Item", mock_tradeQuery.controls.priceButton1.label)
+		end)
+
+		for _, group in ipairs({
+			{ type = "and", filters = {} },
+			{ type = "count", value = { min = 1 }, filters = {} },
+			{ type = "weight", value = { min = 10 }, filters = {} },
+		}) do
+			it("preserves " .. group.type .. " group semantics in purchase links", function()
+				mock_tradeQuery.itemIndexTbl[1] = 1
+				mock_tradeQuery.resultTbl[1] = { { trader = "ExampleAccount", weight = "100", priceType = "~b/o" } }
+				mock_tradeQuery.lastQueries[1] = dkjson.encode({ query = { stats = { group } } })
+				mock_tradeQuery.controls.whisperButton1.onClick()
+				if group.type == "weight" then
+					assert.same({ min = 99, max = 101 }, encodedQuery.stats[1].value)
+				else
+					assert.same(group, encodedQuery.stats[1])
+				end
+				assert.same({ input = "ExampleAccount" }, encodedQuery.filters.trade_filters.filters.account)
+				assert.are.equal("https://www.pathofexile.com/trade/search/sony/Hardcore%20Test/encoded", openedUrl)
+				assert.are.equal(openedUrl, copiedUrl)
+			end)
+		end
+	end)
+
 	describe("GetResultEvaluation", function()
 		it("uses the first visible ring for a Pearl result without a selected slot", function()
 			local tq = new("TradeQuery"):TradeQuery({ itemsTab = {} })

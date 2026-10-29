@@ -15,8 +15,7 @@ local m_min = math.min
 local m_floor = math.floor
 local m_abs = math.abs
 local s_format = string.format
-local s_gsub = string.gsub
-local s_byte = string.byte
+local tradeHelpers = require("Classes.TradeHelpers")
 local dkjson = require "dkjson"
 
 ---@class TreeTab: ControlHost
@@ -2282,22 +2281,17 @@ function TreeTabClass:FindTimelessJewel()
 			"any"
 		}
 		local search = {
-			query = {
-				status = {
-					option = tradeTypes[self.tradeTypeIndex]
-				},
-				stats = {
-					{
-						filters = seedTrades,
-						type = "count",
-						value = {
-							min = 1
-						}
+			status = {
+				option = tradeTypes[self.tradeTypeIndex]
+			},
+			stats = {
+				{
+					filters = seedTrades,
+					type = "count",
+					value = {
+						min = 1
 					}
 				}
-			},
-			sort = {
-				price = "asc"
 			}
 		}
 
@@ -2310,22 +2304,16 @@ function TreeTabClass:FindTimelessJewel()
 				t_insert(devotionFilters, { id = data.timelessJewelTradeIDs[timelessData.jewelType.id].devotion[timelessData.sharedResults.devotionVariant2.id - 1] })
 			end
 			if next(devotionFilters) then
-				t_insert(search.query.stats, {
+				t_insert(search.stats, {
 					filters = devotionFilters,
 					type = "and"
 				})
 			end
 		end
 
-		-- if the league was not selected via dropdown, then default to the first league in the dropdown or "" if the leagues could not be read
-		local selectedRealm = controls.realmSelection:GetSelValue():lower()
-
-		local realmPath = selectedRealm == "pc" and "" or (selectedRealm .. "/")
-		local url = "https://www.pathofexile.com/trade/search/" .. realmPath ..
-			(controls.searchTradeLeagueSelect:GetSelValue()) ..
-			"/?q=" .. (s_gsub(dkjson.encode(search), "[^a-zA-Z0-9]", function(a)
-				return s_format("%%%02X", s_byte(a))
-			end))
+		local url = self.tradeQueryRequests:buildUrl("https://www.pathofexile.com/trade/search",
+			controls.realmSelection:GetSelValue():lower(), controls.searchTradeLeagueSelect:GetSelValue(),
+			tradeHelpers.B64GzipEncode(dkjson.encode(search)))
 		OpenURL(url)
 		Copy(url)
 
