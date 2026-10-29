@@ -199,9 +199,15 @@ function PassiveSpecClass:Save(xml)
 	for nodeId in pairs(self.allocNodes) do
 		t_insert(allocNodeIdList, nodeId)
 	end
+	table.sort(allocNodeIdList)
+	local masteryNodeIdList = { }
+	for mastery in pairs(self.masterySelections) do
+		t_insert(masteryNodeIdList, mastery)
+	end
+	table.sort(masteryNodeIdList)
 	local masterySelections = { }
-	for mastery, effect in pairs(self.masterySelections) do
-		t_insert(masterySelections, "{"..mastery..","..effect.."}")
+	for _, mastery in ipairs(masteryNodeIdList) do
+		t_insert(masterySelections, "{"..mastery..","..self.masterySelections[mastery].."}")
 	end
 	xml.attrib = {
 		title = self.title,
@@ -223,7 +229,13 @@ function PassiveSpecClass:Save(xml)
 	local sockets = {
 		elem = "Sockets"
 	}
-	for nodeId, itemId in pairs(self.jewels) do
+	local socketNodeIdList = { }
+	for nodeId in pairs(self.jewels) do
+		t_insert(socketNodeIdList, nodeId)
+	end
+	table.sort(socketNodeIdList)
+	for _, nodeId in ipairs(socketNodeIdList) do
+		local itemId = self.jewels[nodeId]
 		-- jewel socket contents should not be saved unless they contain a valid jewel
 		if itemId > 0 then
 			local socket = { elem = "Socket", attrib = { nodeId = tostring(nodeId), itemId = tostring(itemId) }}
@@ -236,7 +248,13 @@ function PassiveSpecClass:Save(xml)
 		elem = "Overrides"
 	}
 	if self.hashOverrides then
-		for nodeId, node in pairs(self.hashOverrides) do
+		local overrideNodeIdList = { }
+		for nodeId in pairs(self.hashOverrides) do
+			t_insert(overrideNodeIdList, nodeId)
+		end
+		table.sort(overrideNodeIdList)
+		for _, nodeId in ipairs(overrideNodeIdList) do
+			local node = self.hashOverrides[nodeId]
 			local override = { elem = "Override", attrib = { nodeId = tostring(nodeId), icon = tostring(node.icon), activeEffectImage = tostring(node.activeEffectImage), dn = tostring(node.dn) } }
 			for _, modLine in ipairs(node.sd) do
 				t_insert(override, modLine)
@@ -534,7 +552,13 @@ function PassiveSpecClass:EncodeURL(prefix)
 	local clusterNodeIds = {}
 	local masteryNodeIds = {}
 
-	for id, node in pairs(self.allocNodes) do
+	local encodeNodeIdList = { }
+	for id in pairs(self.allocNodes) do
+		t_insert(encodeNodeIdList, id)
+	end
+	table.sort(encodeNodeIdList)
+	for _, id in ipairs(encodeNodeIdList) do
+		local node = self.allocNodes[id]
 		if node.type ~= "ClassStart" and node.type ~= "AscendClassStart" and id < 65536 and nodeCount < 255 then
 			t_insert(a, m_floor(id / 256))
 			t_insert(a, id % 256)
