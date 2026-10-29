@@ -341,8 +341,8 @@ describe("TradeQueryGenerator", function()
 				}, 35.5
 			end
 			local query
-			queryGen.requesterCallback = function(_, queryJson)
-				query = require("dkjson").decode(queryJson).query
+			queryGen.requesterCallback = function(_, generatedQuery)
+				query = generatedQuery
 			end
 
 			queryGen:FinishQuery()

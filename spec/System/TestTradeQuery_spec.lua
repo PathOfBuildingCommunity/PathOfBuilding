@@ -353,6 +353,7 @@ describe("TradeQuery", function()
 			finalSearch.callback([[{"id":"final","total":10,"result":["item1"]}]])
 			assert.are.equal(finalSearch.body, mock_tradeQuery.lastQueries[1])
 			assert.are.equal("https://www.pathofexile.com/trade/search/sony/Hardcore%20Test/final", mock_tradeQuery.controls.uri1.buf)
+			mock_tradeQuery:ProcessResultEvaluations()
 			assert.are.equal("Price Item", mock_tradeQuery.controls.priceButton1.label)
 		end)
 
