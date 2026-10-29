@@ -1913,8 +1913,8 @@ function calcs.offence(env, actor, activeSkill)
 	end
 
 	-- Handle corpse and enemy explosions
-	local monsterLife = skillData.corpseLife or (env.enemyLevel and data.monsterLifeTable[env.enemyLevel] or 100)
-	if skillData.explodeCorpse and (skillData.corpseLife or env.enemyLevel) then
+	local monsterLife = output.DeathWishMinionLife or skillData.corpseLife or (env.enemyLevel and data.monsterLifeTable[env.enemyLevel] or 100)
+	if skillData.explodeCorpse and (output.DeathWishMinionLife or skillData.corpseLife or env.enemyLevel) then
 		local damageType = skillData.corpseExplosionDamageType or "Fire"
 		skillData[damageType.."BonusMin"] = monsterLife * ( skillData.corpseExplosionLifeMultiplier or skillData.selfFireExplosionLifeMultiplier )
 		skillData[damageType.."BonusMax"] = monsterLife * ( skillData.corpseExplosionLifeMultiplier or skillData.selfFireExplosionLifeMultiplier )

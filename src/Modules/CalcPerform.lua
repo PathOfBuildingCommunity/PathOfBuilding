@@ -3664,6 +3664,33 @@ function calcs.perform(env, skipEHP)
 		enemyDB:NewMod("DamageTaken", "INC", m_floor(enemyDB:Sum("INC", nil, "DamageTakenConsecratedGround") * effect), "Consecrated Ground")
 	end
 
+	local calculatedMinionLife = { }
+	local function getMinionLife(activeSkill)
+		local minion = activeSkill.minion
+		if not calculatedMinionLife[minion] then
+			if minion ~= env.minion then
+				initMinionModDB(env, activeSkill)
+				addMinionModifiers(activeSkill.skillModList, activeSkill.skillCfg, minion)
+				for _, modList in pairs(buffs) do
+					addMinionModifiers(modList, activeSkill.skillCfg, minion)
+				end
+				for _, modList in pairs(minionBuffs) do
+					minion.modDB:AddList(modList)
+				end
+				for _, name in ipairs(minion.modDB:List(nil, "Keystone")) do
+					if env.spec.tree.keystoneMap[name] then
+						minion.modDB:AddList(env.spec.tree.keystoneMap[name].modList)
+					end
+				end
+				doActorAttribsConditions(env, minion)
+			else
+				doActorLifeMana(minion)
+			end
+			calculatedMinionLife[minion] = minion.output.Life
+		end
+		return calculatedMinionLife[minion]
+	end
+
 	-- Full DPS and builds without a supported redirect do not need ally Life.
 	local needsAllyLife = not skipEHP and modDB:Sum("BASE", nil, unpack(allyLifeRedirects)) ~= 0
 	env.player.allyLifeList = { }
@@ -3707,25 +3734,7 @@ function calcs.perform(env, skipEHP)
 						and modDB:Sum("BASE", nil, pool.redirect) ~= 0 and not modDB:Override(nil, pool.life)
 					if canAdd then
 						if not minionLife then
-							if minion ~= env.minion then
-								initMinionModDB(env, activeSkill)
-								addMinionModifiers(activeSkill.skillModList, activeSkill.skillCfg, minion)
-								for _, modList in pairs(buffs) do
-									addMinionModifiers(modList, activeSkill.skillCfg, minion)
-								end
-								for _, modList in pairs(minionBuffs) do
-									minion.modDB:AddList(modList)
-								end
-								for _, name in ipairs(minion.modDB:List(nil, "Keystone")) do
-									if env.spec.tree.keystoneMap[name] then
-										minion.modDB:AddList(env.spec.tree.keystoneMap[name].modList)
-									end
-								end
-								doActorAttribsConditions(env, minion)
-							else
-								doActorLifeMana(minion)
-							end
-							minionLife = minion.output.Life
+							minionLife = getMinionLife(activeSkill)
 						end
 
 						-- Void Spawn redirects scale from their summon limit, so their Life pool uses that same limit.
@@ -3785,6 +3794,20 @@ function calcs.perform(env, skipEHP)
 		if vaalRejuvenationTotem and (modDB:Sum("BASE", nil, vaalPool.redirect) ~= 0 or nearestIsVaal and totemRedirect ~= 0) and not modDB:Override(nil, "TotalVaalRejuvenationTotemLife") then
 			modDB:NewMod("TotalVaalRejuvenationTotemLife", "BASE", vaalRejuvenationTotem.life, vaalPool.source)
 			env.player.allyLifeList.TotalVaalRejuvenationTotemLife = { vaalRejuvenationTotem }
+		end
+	end
+
+	-- Resolve Death Wish's target after buffs so its Life matches the summoning skill.
+	local deathWishMinion = env.configInput.deathWishMinion
+	if env.player.mainSkill.activeEffect.grantedEffect.id == "DeathWish" and deathWishMinion and deathWishMinion ~= "None" then
+		for _, activeSkill in ipairs(env.player.activeSkillList) do
+			local key, legacyKey = calcs.minionSourceKey(activeSkill, env.build.skillsTab)
+			if key == deathWishMinion or legacyKey == deathWishMinion then
+				-- Migrate selections saved before minion sources had persistent identifiers.
+				env.configInput.deathWishMinion = key
+				output.DeathWishMinionLife = getMinionLife(activeSkill)
+				break
+			end
 		end
 	end
 

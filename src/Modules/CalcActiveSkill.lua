@@ -248,10 +248,10 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 	local activeGemParts = activeGrantedEffect.parts
 	if activeGemParts and #activeGemParts > 1 then
 		if env.mode == "CALCS" and activeSkill == env.player.mainSkill then
-			activeEffect.srcInstance.skillPartCalcs = m_min(#activeGemParts, activeEffect.srcInstance.skillPartCalcs or 1)
+			activeEffect.srcInstance.skillPartCalcs = m_min(#activeGemParts, activeEffect.srcInstance.skillPartCalcs or activeGrantedEffect.defaultPart or 1)
 			activeSkill.skillPart = activeEffect.srcInstance.skillPartCalcs
 		else
-			activeEffect.srcInstance.skillPart = m_min(#activeGemParts, activeEffect.srcInstance.skillPart or 1)
+			activeEffect.srcInstance.skillPart = m_min(#activeGemParts, activeEffect.srcInstance.skillPart or activeGrantedEffect.defaultPart or 1)
 			activeSkill.skillPart = activeEffect.srcInstance.skillPart
 		end
 		local part = activeGemParts[activeSkill.skillPart]
@@ -931,4 +931,23 @@ function calcs.createMinionSkills(env, activeSkill)
 		end
 	end
 	minion.mainSkill = minion.activeSkillList[skillIndex]
+end
+
+-- Keep duplicate summoning gems distinct, even when they summon the same minion.
+function calcs.minionSourceKey(activeSkill, skillsTab)
+	if not activeSkill.minion or activeSkill.minion.hostile or activeSkill.skillFlags.disable or activeSkill.skillTypes[SkillType.MinionsAreUndamagable] then
+		return
+	end
+	for groupIndex, group in ipairs(skillsTab.socketGroupList) do
+		if group == activeSkill.socketGroup then
+			for gemIndex, gem in ipairs(group.gemList) do
+				if gem == activeSkill.activeEffect.srcInstance then
+					local effectId = activeSkill.activeEffect.grantedEffect.id
+					local key = "minion:"..skillsTab:GetMinionSourceId(gem)..":"..effectId
+					local legacyKey = groupIndex..":"..gemIndex..":"..effectId
+					return key, legacyKey
+				end
+			end
+		end
+	end
 end
