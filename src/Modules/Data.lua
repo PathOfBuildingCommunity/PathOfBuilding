@@ -124,12 +124,14 @@ end
 ---@field ignoreForItems? boolean
 ---@field reverseSort? boolean
 ---@field itemField string?
+---@field requiresEHP? boolean Whether this stat requires effective health and maximum hit estimations
+---@field requiresFullDPS? boolean Whether this stat requires the Full DPS roll-up
 
 ---@type PowerStat[]
 data.powerStatList = {
 	{ stat=nil, label="Offence/Defence", combinedOffDef=true, ignoreForItems=true },
 	{ stat=nil, label="Name", itemField="Name", ignoreForNodes=true, reverseSort=true, transform=function(value) return value:gsub("^The ","") end},
-	{ stat="FullDPS", label="Full DPS" },
+	{ stat="FullDPS", label="Full DPS", requiresFullDPS=true },
 	{ stat="CombinedDPS", label="Combined DPS" },
 	{ stat="TotalDPS", label="Hit DPS" },
 	{ stat="WithImpaleDPS", label="Impale + Hit DPS" },
@@ -159,13 +161,13 @@ data.powerStatList = {
 	{ stat="MeleeAvoidChance", label="Melee avoid chance" },
 	{ stat="SpellAvoidChance", label="Spell avoid chance" },
 	{ stat="ProjectileAvoidChance", label="Projectile avoid chance" },
-	{ stat="TotalEHP", label="Effective Hit Pool" },
-	{ stat="SecondMinimalMaximumHitTaken", label="Eff. Maximum Hit Taken" },
-	{ stat="PhysicalTakenHit", label="Taken Phys dmg", transform=function(value) return -value end },
-	{ stat="LightningTakenHit", label="Taken Lightning dmg", transform=function(value) return -value end },
-	{ stat="ColdTakenHit", label="Taken Cold dmg", transform=function(value) return -value end },
-	{ stat="FireTakenHit", label="Taken Fire dmg", transform=function(value) return -value end },
-	{ stat="ChaosTakenHit", label="Taken Chaos dmg", transform=function(value) return -value end },
+	{ stat="TotalEHP", label="Effective Hit Pool", requiresEHP=true },
+	{ stat="SecondMinimalMaximumHitTaken", label="Eff. Maximum Hit Taken", requiresEHP=true },
+	{ stat="PhysicalTakenHit", label="Taken Phys dmg", transform=function(value) return -value end, requiresEHP=true },
+	{ stat="LightningTakenHit", label="Taken Lightning dmg", transform=function(value) return -value end, requiresEHP=true },
+	{ stat="ColdTakenHit", label="Taken Cold dmg", transform=function(value) return -value end, requiresEHP=true },
+	{ stat="FireTakenHit", label="Taken Fire dmg", transform=function(value) return -value end, requiresEHP=true },
+	{ stat="ChaosTakenHit", label="Taken Chaos dmg", transform=function(value) return -value end, requiresEHP=true },
 	{ stat="CritChance", label="Crit Chance" },
 	{ stat="CritMultiplier", label="Crit Multiplier" },
 	{ stat="BleedChance", label="Bleed Chance" },
