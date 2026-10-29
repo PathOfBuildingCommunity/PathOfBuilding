@@ -2195,33 +2195,7 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize, importe
 	-- Second pass: notables
 
 	-- Gather notable indicies
-	local notableIndexList = { }
-	for _, nodeIndex in ipairs(clusterJewel.notableIndicies) do
-		if #notableIndexList == notableCount then
-			break
-		end
-		if clusterJewel.size == "Medium" then
-			if socketCount == 0 and notableCount == 2 then
-				-- Special rule for two notables in a Medium cluster
-				if nodeIndex == 6 then
-					nodeIndex = 4
-				elseif nodeIndex == 10 then
-					nodeIndex = 8
-				end
-			elseif nodeCount == 4 then
-				-- Special rule for notables in a 4-node Medium cluster
-				if nodeIndex == 10 then
-					nodeIndex = 9
-				elseif nodeIndex == 2 then
-					nodeIndex = 3
-				end
-			end
-		end
-		if not indicies[nodeIndex] then
-			t_insert(notableIndexList, nodeIndex)
-		end
-	end
-	table.sort(notableIndexList)
+	local notableIndexList = itemLib.getClusterJewelNotableIndices(clusterJewel, jewelData, notableCount)
 
 	-- Create the notables
 	for index, baseNode in ipairs(notableList) do
