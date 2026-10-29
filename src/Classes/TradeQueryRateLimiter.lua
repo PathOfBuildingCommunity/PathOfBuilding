@@ -225,8 +225,11 @@ function TradeQueryRateLimiterClass:InsertRequest(policy, timestamp, time)
 	end
 	local requestId = self.requestId
 	self.requestId = self.requestId + 1
+	if self.pendingRequests[policy] == nil then
+		self.pendingRequests[policy] = {}
+	end
 	table.insert(self.pendingRequests[policy], requestId)
-	return requestId 
+	return requestId
 end
 
 function TradeQueryRateLimiterClass:FinishRequest(policy, requestId)

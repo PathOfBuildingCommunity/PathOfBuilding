@@ -462,11 +462,69 @@ function TradeQueryRequestsClass:FetchSearchQuery(realm, league, queryId, callba
 	})
 end
 
---- Fetches the list of all available leagues using trade league API
+--- Fetches the account's private leagues from the account API (the trade site
+--- endpoint ignores OAuth tokens, so they can only come from there), with
+--- token refresh and rate limiting handled by PoEAPI.
+--- Memoized per token; concurrent calls share one request. Failures are not
+--- cached, so a later fetch retries.
+---@param callback fun(privateLeagues:table, ok:boolean)
+function TradeQueryRequestsClass:FetchPrivateLeagues(callback)
+	local token = main.api.authToken
+	if not token then
+		return callback({}, true)
+	end
+	local cache = self.privateLeaguesCache
+	if cache and cache.token == token then
+		if cache.leagues then
+			return callback(cache.leagues, true)
+		end
+		-- request already in flight, share its result
+		table.insert(cache.pending, callback)
+		return
+	end
+	cache = { token = token, pending = { callback } }
+	self.privateLeaguesCache = cache
+	main.api:DownloadWithRateLimit("account-leagues-request-limit", "/account/leagues", function(json_data, errMsg)
+		if not main.api.authToken then
+			-- logged out while the request was in flight; discard the result
+			if self.privateLeaguesCache == cache then
+				self.privateLeaguesCache = nil
+			end
+			for _, cb in ipairs(cache.pending) do
+				cb({}, true)
+			end
+			cache.pending = {}
+			return
+		end
+		-- the request may have transparently rotated the token; re-key the cache
+		-- so callers holding the new token still hit it
+		cache.token = main.api.authToken
+		local privateLeagues
+		if not errMsg and json_data and json_data.leagues then
+			privateLeagues = {}
+			for _, league in ipairs(json_data.leagues) do
+				if league.privateLeagueUrl then
+					table.insert(privateLeagues, league)
+				end
+			end
+		end
+		if privateLeagues then
+			cache.leagues = privateLeagues
+		elseif self.privateLeaguesCache == cache then
+			self.privateLeaguesCache = nil
+		end
+		for _, cb in ipairs(cache.pending) do
+			cb(privateLeagues or {}, privateLeagues ~= nil)
+		end
+		cache.pending = {}
+	end)
+end
+
+--- Fetches the list of all available leagues using trade league API,
+--- appending private leagues from the account API when authenticated
 ---@param realm string
----@param callback fun(query:table, errMsg:string)
+---@param callback fun(leagues:table, errMsg:string?, privateLeaguesFailed:boolean?)
 function TradeQueryRequestsClass:FetchLeagues(realm, callback)
-	local header = "Authorization: Bearer " .. (main.api.authToken or "")
 	launch:DownloadPage(
 			self.hostName .. "api/trade/data/leagues",
 			function(response, errMsg)
@@ -488,9 +546,15 @@ function TradeQueryRequestsClass:FetchLeagues(realm, callback)
 						table.insert(leagues, value.id)
 					end
 				end
-				callback(leagues, errMsg)
-			end,
-			{header = header}
+				self:FetchPrivateLeagues(function(privateLeagues, ok)
+					for _, league in ipairs(privateLeagues) do
+						if (league.realm or "pc") == realm then
+							table.insert(leagues, league.id)
+						end
+					end
+					callback(leagues, nil, not ok)
+				end)
+			end
 	)
 end
 
