@@ -191,6 +191,53 @@ Strict-Transport-Security: max-age=63115200; includeSubDomains; preload]]
 			requests.PerformSearch = orig_perform
 			requests.FetchResultBlock = orig_fetchBlock
 		end)
+
+		-- Pass: A zero threshold cannot be lowered, so a short result list is fetched after one search
+		-- Fail: Repeats the identical search up to the recursion limit, wasting rate-limited requests
+		it("does not repeat a search whose weight threshold is already zero", function()
+			local cases = {
+				{ label = "fewer results than the window", response = { total = 3, result = { "a", "b", "c" }, id = "id" }, expectedIds = { "a", "b", "c" } },
+				{ label = "no matching results", response = { total = 0, result = { }, id = "id" }, errMsg = "No Matching Results Found" },
+			}
+			local orig_perform = requests.PerformSearch
+			local orig_fetchBlock = requests.FetchResultBlock
+			local orig_maxFetch = requests.maxFetchPerSearch
+			finally(function()
+				requests.PerformSearch = orig_perform
+				requests.FetchResultBlock = orig_fetchBlock
+				requests.maxFetchPerSearch = orig_maxFetch
+			end)
+			requests.maxFetchPerSearch = 20
+			requests.FetchResultBlock = function(self, url, callback)
+				local items = { }
+				for hash in (url:match("fetch/([^?]+)") or ""):gmatch("[^,]+") do
+					table.insert(items, { id = hash, weight = "1" })
+				end
+				callback(items)
+			end
+			for _, case in ipairs(cases) do
+				local searchCount = 0
+				local receivedItems, receivedError
+				requests.PerformSearch = function(self, realm, league, query, callback)
+					searchCount = searchCount + 1
+					callback(case.response, case.errMsg)
+				end
+				requests:SearchWithQueryWeightAdjusted("pc", "league", [[{"query":{"stats":[{"type":"weight","value":{"min":0}}]}}]], function(items, errMsg)
+					receivedItems, receivedError = items, errMsg
+				end, {})
+				assert.are.equal(1, searchCount, case.label)
+				if case.expectedIds then
+					local ids = { }
+					for _, item in ipairs(receivedItems) do
+						table.insert(ids, item.id)
+					end
+					assert.are.same(case.expectedIds, ids, case.label)
+				else
+					assert.is_nil(receivedItems, case.label)
+					assert.are.equal(case.errMsg, receivedError, case.label)
+				end
+			end
+		end)
 	end)
 
 	describe("FetchResultBlock", function()
@@ -237,49 +284,173 @@ Strict-Transport-Security: max-age=63115200; includeSubDomains; preload]]
 			end
 		end)
 
-		it("reads weighted sums from current and legacy pseudo mods", function()
-			local function makeTradeEntry(id, pseudoMods)
-				return {
-					id = id,
-					listing = {
-						price = { amount = 1, currency = "chaos", type = "~price" },
-						whisper = "hi",
-						account = { name = "seller" },
-					},
-					item = {
-						pseudoMods = pseudoMods,
-						rarity = "Rare",
-						name = "Test Subject",
-						typeLine = "Astral Plate",
-					},
-				}
-			end
-			local response = dkjson.encode({
-				result = {
-					makeTradeEntry("current", { { description = "Sum: 178", domain = "pseudo", hash = "stat.statgroup.0" } }),
-					makeTradeEntry("legacy", { "Sum: 42" }),
-					makeTradeEntry("empty", { }),
+		local function makeExplicitMod(description, domain, hash, name, tier, min, max, flags)
+			return {
+				description = description, domain = domain, hash = "stat." .. hash, flags = flags,
+				mods = { { name = name, tier = tier, level = 44,
+					magnitudes = { { min = tostring(min), max = tostring(max) } } } },
+			}
+		end
+
+		local function makeStandaloneItem(domain)
+			domain = domain or "explicit"
+			local hash = domain .. ".fire_resistance"
+			return {
+				rarity = "Rare", name = "Test Subject", typeLine = "Coral Ring",
+				explicitMods = { makeExplicitMod("+17% to Fire Resistance", domain, hash,
+					"of the Salamander", "S7", 12, 17, domain == "crafted" and { crafted = true } or nil) },
+				extended = { hashes = { [domain] = { { hash, { 0 } } } } },
+			}
+		end
+
+		local function makeTradeEntry(id, item)
+			return {
+				id = id,
+				listing = {
+					price = { amount = 1, currency = "chaos", type = "~price" },
+					whisper = "private listing text", account = { name = "private account" },
 				},
-			})
+				item = item,
+			}
+		end
+
+		local function fetchEntries(entries)
+			local response = dkjson.encode({ result = entries })
 			local fetchedItems
 			local callbackError
-			requests.requestQueue.fetch = { }
+			requests.requestQueue.fetch = {}
 			requests:FetchResultBlock("test", function(items, errMsg)
 				fetchedItems = items
 				callbackError = errMsg
 			end)
-
 			local request = table.remove(requests.requestQueue.fetch, 1)
 			request.callback(response)
+			assert.is_nil(callbackError)
+			return fetchedItems
+		end
+
+		local function fetchSingle(item)
+			return fetchEntries({ makeTradeEntry("item-id", item) })[1]
+		end
+
+		it("reads weighted sums from current and legacy pseudo mods", function()
+			local function itemWithPseudoMods(pseudoMods)
+				return { pseudoMods = pseudoMods, rarity = "Rare", name = "Test Subject", typeLine = "Astral Plate" }
+			end
+			local fetchedItems = fetchEntries({
+				makeTradeEntry("current", itemWithPseudoMods({ { description = "Sum: 178", domain = "pseudo", hash = "stat.statgroup.0" } })),
+				makeTradeEntry("legacy", itemWithPseudoMods({ "Sum: 42" })),
+				makeTradeEntry("empty", itemWithPseudoMods({ })),
+			})
 
 			local itemsById = { }
 			for _, item in ipairs(fetchedItems) do
 				itemsById[item.id] = item
 			end
-			assert.is_nil(callbackError)
 			assert.are.equal("178", itemsById.current.weight)
 			assert.are.equal("42", itemsById.legacy.weight)
 			assert.are.equal("0", itemsById.empty.weight)
+		end)
+
+		it("keeps only a compact descriptor for a standalone explicit resistance", function()
+			local result = fetchSingle(makeStandaloneItem())
+
+			assert.are.same({ { lineIndex = 1, element = "Fire", domain = "explicit" } },
+				result.resistanceSwapDescriptors)
+			assert.is_nil(result.explicitMods)
+			assert.is_nil(result.extended)
+		end)
+
+		it("accepts metadata when the stat hash is nested on the unique mod", function()
+			local item = makeStandaloneItem()
+			item.explicitMods[1].mods[1].hash = item.explicitMods[1].hash
+			item.explicitMods[1].hash = nil
+
+			local result = fetchSingle(item)
+			assert.are.equal("Fire", result.resistanceSwapDescriptors[1].element)
+		end)
+
+		it("accepts a resistance whose neighbouring affix has a distinct group", function()
+			local item = makeStandaloneItem()
+			table.insert(item.explicitMods, makeExplicitMod(
+				"11% of Physical Damage from Hits taken as Fire Damage", "explicit", "explicit.phys_taken",
+				"The Elder's", "P1", 13, 15))
+			item.extended.hashes.explicit = {
+				{ "explicit.fire_resistance", { 2 } },
+				{ "explicit.phys_taken", { 0 } },
+			}
+
+			local result = fetchSingle(item)
+			assert.are.equal(1, #result.resistanceSwapDescriptors)
+			assert.are.equal(1, result.resistanceSwapDescriptors[1].lineIndex)
+			local parsedItem = new("Item"):Item(result.item_string)
+			assert.are.equal("+17% to Fire Resistance", parsedItem.explicitModLines[1].line)
+			assert.are.equal("11% of Physical Damage from Hits taken as Fire Damage", parsedItem.explicitModLines[2].line)
+		end)
+
+		it("keeps explicit and crafted affixes separate when their group indices collide", function()
+			local item = makeStandaloneItem("crafted")
+			table.insert(item.explicitMods, 1, makeExplicitMod(
+				"+25 to maximum Life", "explicit", "explicit.life", "Healthy", "P1", 20, 29))
+			item.extended.hashes.explicit = { { "explicit.life", { 0 } } }
+			local result = fetchSingle(item)
+
+			assert.are.equal("crafted", result.resistanceSwapDescriptors[1].domain)
+			assert.are.equal(2, result.resistanceSwapDescriptors[1].lineIndex)
+			assert.is_truthy(result.item_string:find("{crafted}%+17%% to Fire Resistance"))
+			local parsedItem = new("Item"):Item(result.item_string)
+			assert.are.equal("+17% to Fire Resistance", parsedItem.explicitModLines[2].line)
+			assert.is_true(parsedItem.explicitModLines[2].crafted)
+		end)
+
+		it("rejects unsafe items and incomplete or ambiguous metadata", function()
+			local resistanceSwap = LoadModule("Classes/TradeResistanceSwap")
+			local function physicalTakenSibling()
+				return makeExplicitMod("3% of Physical Damage from Hits taken as Fire Damage", "explicit",
+					"explicit.phys_taken", "of Puhuarte", "S0", 3, 5)
+			end
+			local cases = {
+				{ "shared affix group", function(item)
+					item.explicitMods[1].mods[1].name = "of Puhuarte"
+					item.explicitMods[1].mods[1].tier = "S0"
+					table.insert(item.explicitMods, physicalTakenSibling())
+					item.extended.hashes.explicit = {
+						{ "explicit.fire_resistance", { 0 } }, { "explicit.phys_taken", { 0 } },
+					}
+				end },
+				{ "sibling hash mapping missing", function(item)
+					item.explicitMods[1].mods[1].name = "of Puhuarte"
+					item.explicitMods[1].mods[1].tier = "S0"
+					local sibling = physicalTakenSibling()
+					sibling.hash = nil
+					table.insert(item.explicitMods, sibling)
+				end },
+				{ "sibling group and identity missing", function(item)
+					local sibling = physicalTakenSibling()
+					sibling.hash = nil
+					sibling.mods[1].level = nil
+					table.insert(item.explicitMods, sibling)
+				end },
+				{ "fractured", function(item) item.explicitMods[1].flags = { fractured = true } end },
+				{ "corrupted", function(item) item.corrupted = true end },
+				{ "duplicated", function(item) item.duplicated = true end },
+				{ "mirrored", function(item) item.mirrored = true end },
+				{ "unmodifiable", function(item) item.unmodifiable = true end },
+				{ "unmodifiable except chaos", function(item) item.unmodifiableExceptChaos = true end },
+				{ "extended metadata missing", function(item) item.extended = nil end },
+				{ "affix metadata missing", function(item) item.explicitMods[1].mods = {} end },
+				{ "affix metadata ambiguous", function(item) table.insert(item.explicitMods[1].mods, item.explicitMods[1].mods[1]) end },
+				{ "tier missing", function(item) item.explicitMods[1].mods[1].tier = nil end },
+				{ "level missing", function(item) item.explicitMods[1].mods[1].level = nil end },
+				{ "magnitude missing", function(item) item.explicitMods[1].mods[1].magnitudes = {} end },
+				{ "hash index ambiguous", function(item) item.extended.hashes.explicit[1][2] = { 0, 1 } end },
+				{ "hash duplicated", function(item) table.insert(item.extended.hashes.explicit, { "explicit.fire_resistance", { 0 } }) end },
+			}
+			for _, case in ipairs(cases) do
+				local item = makeStandaloneItem()
+				case[2](item)
+				assert.are.same({ }, resistanceSwap.extractDescriptors(item), case[1])
+			end
 		end)
 	end)
 
