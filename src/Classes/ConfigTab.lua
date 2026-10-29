@@ -842,12 +842,16 @@ function ConfigTabClass:Load(xml, fileName)
 	self.activeConfigSetId = 1
 	self.configSets = { }
 	self.configSetOrderList = { 1 }
+	local brandDurationModeProvided = { }
 
 	local function setInputAndPlaceholder(node, configSetId)
 		if node.elem == "Input" then
 			if not node.attrib.name then
 				launch:ShowErrMsg("^1Error parsing '%s': 'Input' element missing name attribute", fileName)
 				return true
+			end
+			if node.attrib.name == "brandAttachedDurationMode" then
+				brandDurationModeProvided[configSetId] = true
 			end
 			if node.attrib.number then
 				self.configSets[configSetId].input[node.attrib.name] = tonumber(node.attrib.number)
@@ -925,6 +929,20 @@ function ConfigTabClass:Load(xml, fileName)
 	-- Migration check for legacy builds
 	for _, configSetId in ipairs(self.configSetOrderList) do
 		local configSet = self.configSets[configSetId]
+		local input = configSet.input
+		if not brandDurationModeProvided[configSetId] then
+			if input.BrandsInLastQuarter == true then
+				input.brandAttachedDurationMode = "LAST_QUARTER"
+			elseif input.BrandsInLastQuarter == "AVERAGE" then
+				input.brandAttachedDurationMode = "AVERAGE"
+			elseif input.BrandsInLastHalf == true then
+				input.brandAttachedDurationMode = "LAST_HALF"
+			elseif input.BrandsInLastQuarter == false or input.BrandsInLastHalf == false then
+				input.brandAttachedDurationMode = "EARLY"
+			end
+		end
+		input.BrandsInLastQuarter = nil
+		input.BrandsInLastHalf = nil
 		local legacyText = configSet.input and configSet.input.customMods or ""
 		if legacyText ~= "" and (not configSet.customModsList or #configSet.customModsList == 0 or (#configSet.customModsList == 1 and (configSet.customModsList[1].text or "") == "")) then
 			configSet.customModsList = { { title = "Default", enabled = true, text = legacyText } }

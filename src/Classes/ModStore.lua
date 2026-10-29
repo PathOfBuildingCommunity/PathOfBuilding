@@ -638,8 +638,11 @@ function ModStoreClass:EvalMod(mod, cfg, globalLimits)
 				and GetCondition(self, "AverageFocus", cfg) then
 				conditionEffect = GetMultiplier(self, "FocusUptime", cfg)
 			elseif tag.var == "BrandLastQuarter" and not tag.neg and mod.name == "BrandActivationFrequency"
-				and GetCondition(self, "AverageBrandLastQuarter", cfg) then
+				and GetCondition(self, "AverageBrandAttachedDuration", cfg) then
 				conditionEffect = 0.25
+			elseif tag.var == "BrandLastHalf" and not tag.neg and mod.name == "AreaOfEffect"
+				and GetCondition(self, "AverageBrandAttachedDuration", cfg) then
+				conditionEffect = 0.5
 			end
 			local match = false
 			local allOneH = ((self.actor.weaponData1 and self.actor.weaponData1.countsAsAll1H) and self.actor.weaponData1) or ((self.actor.weaponData2 and self.actor.weaponData2.countsAsAll1H) and self.actor.weaponData2)

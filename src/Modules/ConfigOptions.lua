@@ -337,18 +337,16 @@ return {
 	{ var = "targetBrandedEnemy", type = "check", label = "Skill is targeting the Branded enemy", ifCond = "TargetingBrandedEnemy", defaultState = true, apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:TargetingBrandedEnemy", "FLAG", true, "Config")
 	end },
-	{ var = "BrandsInLastQuarter", type = "list", defaultIndex = 2, label = "Sign of Purpose mode:", ifCond = "BrandLastQuarter", tooltip = "Inactive: excludes the activation frequency bonus.\nAverage: averages the bonus over the full attached duration, giving 25% more Activation Frequency for Sign of Purpose. Assumes Brands remain attached for their full duration.\nLast 25%: applies the full bonus during the final quarter of attached duration.", list = {{val=false,label="Inactive"},{val="AVERAGE",label="Average"},{val=true,label="Last 25%"}}, apply = function(val, modList, enemyModList)
-		if val then
+	{ var = "brandAttachedDurationMode", type = "list", defaultIndex = 2, label = "Attached Brand duration mode:", ifCond = {"BrandLastQuarter", "BrandLastHalf"}, list = {{val="EARLY",label="First 50%"},{val="AVERAGE",label="Average"},{val="LAST_HALF",label="50-75% expired"},{val="LAST_QUARTER",label="Last 25%"}}, apply = function(val, modList, enemyModList)
+		if val == "AVERAGE" or val == "LAST_QUARTER" then
 			modList:NewMod("Condition:BrandLastQuarter", "FLAG", true, "Config")
-			if val == "AVERAGE" then
-				modList:NewMod("Condition:AverageBrandLastQuarter", "FLAG", true, "Config")
-			else
-				modList:NewMod("Condition:BrandLastHalf", "FLAG", true, "Config")
-			end
 		end
-	end },
-	{ var = "BrandsInLastHalf", type = "check", label = "Last 50% of attached duration?", ifCond = "BrandLastHalf", apply = function(val, modList, enemyModList)
-		modList:NewMod("Condition:BrandLastHalf", "FLAG", true, "Config")
+		if val == "AVERAGE" or val == "LAST_HALF" or val == "LAST_QUARTER" then
+			modList:NewMod("Condition:BrandLastHalf", "FLAG", true, "Config")
+		end
+		if val == "AVERAGE" then
+			modList:NewMod("Condition:AverageBrandAttachedDuration", "FLAG", true, "Config")
+		end
 	end },
 	{ label = "Carrion Golem:", ifSkill = "Summon Carrion Golem", includeTransfigured = true },
 	{ var = "carrionGolemNearbyMinion", type = "count", label = "# of Nearby Non-Golem Minions:", ifSkill = "Summon Carrion Golem", includeTransfigured = true, apply = function(val, modList, enemyModList)
