@@ -1268,6 +1268,22 @@ local function getSocketGroupReimportKey(socketGroup)
 	}, SOCKET_GROUP_REIMPORT_KEY_SEPARATOR)
 end
 
+local function findSocketGroupBySkillId(socketGroupList, skillId, preferredSlot)
+	local fallbackIndex
+	for index, socketGroup in ipairs(socketGroupList) do
+		for _, gem in ipairs(socketGroup.gemList) do
+			if gem.skillId == skillId then
+				if socketGroup.slot == preferredSlot then
+					return index
+				end
+				fallbackIndex = fallbackIndex or index
+				break
+			end
+		end
+	end
+	return fallbackIndex
+end
+
 local function snapshotSocketGroupReimportState(socketGroup, isMainGroup)
 	local gemStates = { }
 	for gemIndex, gem in ipairs(socketGroup.gemList) do
@@ -1391,7 +1407,18 @@ function ImportTabClass:ImportItemsAndSkills(charData, clearItems, clearSkills, 
 	local mainSkillEmpty = #self.build.skillsTab.socketGroupList == 0
 	local skillOrder
 	local preservedSocketGroupStateByKey
+	local preservedMainSkillId
+	local preservedMainGroupSlot
+	local preservedMainGrantedEffectId
 	if clearSkills then
+		local mainSocketGroup = self.build.skillsTab.socketGroupList[self.build.mainSocketGroup]
+		local mainActiveSkill = mainSocketGroup and mainSocketGroup.displaySkillList
+			and mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill or 1]
+		local mainActiveEffect = mainActiveSkill and mainActiveSkill.activeEffect
+		local srcInstance = mainActiveEffect and mainActiveEffect.srcInstance
+		preservedMainSkillId = srcInstance and srcInstance.skillId
+		preservedMainGroupSlot = mainSocketGroup and mainSocketGroup.slot
+		preservedMainGrantedEffectId = mainActiveEffect and mainActiveEffect.grantedEffect and mainActiveEffect.grantedEffect.id
 		skillOrder = { }
 		preservedSocketGroupStateByKey = { }
 		for _, socketGroup in ipairs(self.build.skillsTab.socketGroupList) do
@@ -1473,6 +1500,15 @@ function ImportTabClass:ImportItemsAndSkills(charData, clearItems, clearSkills, 
 		end
 		if restoredMainSocketGroup then
 			self.build.mainSocketGroup = restoredMainSocketGroup
+		elseif not mainSkillEmpty then
+			local matchingMainSocketGroup = preservedMainSkillId
+				and findSocketGroupBySkillId(self.build.skillsTab.socketGroupList, preservedMainSkillId, preservedMainGroupSlot)
+			if matchingMainSocketGroup then
+				self.build.mainSocketGroup = matchingMainSocketGroup
+				self.build.skillsTab.socketGroupList[matchingMainSocketGroup].pendingMainGrantedEffectId = preservedMainGrantedEffectId
+			else
+				self.build.mainSocketGroup = self:GuessMainSocketGroup()
+			end
 		end
 	end
 	if mainSkillEmpty then
