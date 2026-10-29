@@ -647,6 +647,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 		modDB:NewMod("ManaDegenPercentTincture", "BASE", 1, "Base", { type = "Multiplier", var = "EffectiveManaBurnStacks" })
 		modDB:NewMod("LifeDegenPercentTincture", "BASE", 1, "Base", { type = "Multiplier", var = "WeepingWoundsStacks" })
 		modDB:NewMod("PresenceRadius", "BASE", data.characterConstants["base_presence_radius"], "Base")
+		modDB:NewMod("Multiplier:VirulenceStack", "BASE", 1, "Base", { type = "Multiplier", var = "VirulenceStacksMax" })
 
 		-- Add bandit mods
 		if env.configInput.bandit == "Alira" then

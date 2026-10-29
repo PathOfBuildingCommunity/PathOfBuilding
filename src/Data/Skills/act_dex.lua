@@ -9340,6 +9340,7 @@ skills["HeraldOfAgony"] = {
 	minionSkillTypes = { [SkillType.Damage] = true, [SkillType.Attack] = true, [SkillType.Chaos] = true, [SkillType.Projectile] = true, [SkillType.RangedAttack] = true, },
 	statDescriptionScope = "minion_skill_stat_descriptions",
 	castTime = 0,
+	defaultMinionSkill = "HeraldOfAgonyMinionTailSpike",
 	minionList = {
 		"HeraldOfAgonySpiderPlated",
 	},

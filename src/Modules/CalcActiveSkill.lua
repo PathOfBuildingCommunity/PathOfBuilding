@@ -920,12 +920,19 @@ function calcs.createMinionSkills(env, activeSkill)
 		minionSkill.skillData.damageEffectiveness = 1 + (activeSkill.skillData.minionDamageEffectiveness or 0) / 100
 		t_insert(minion.activeSkillList, minionSkill)
 	end
-	local skillIndex 
+	local defaultSkillIndex = 1
+	for index, skillId in ipairs(skillIdList) do
+		if skillId == activeEffect.grantedEffect.defaultMinionSkill then
+			defaultSkillIndex = index
+			break
+		end
+	end
+	local skillIndex
 	if env.mode == "CALCS" then
-		skillIndex = m_max(m_min(activeEffect.srcInstance.skillMinionSkillCalcs or 1, #minion.activeSkillList), 1)
+		skillIndex = m_max(m_min(activeEffect.srcInstance.skillMinionSkillCalcs or defaultSkillIndex, #minion.activeSkillList), 1)
 		activeEffect.srcInstance.skillMinionSkillCalcs = skillIndex
 	else
-		skillIndex = m_max(m_min(activeEffect.srcInstance.skillMinionSkill or 1, #minion.activeSkillList), 1)
+		skillIndex = m_max(m_min(activeEffect.srcInstance.skillMinionSkill or defaultSkillIndex, #minion.activeSkillList), 1)
 		if env.mode == "MAIN" then
 			activeEffect.srcInstance.skillMinionSkill = skillIndex
 		end
