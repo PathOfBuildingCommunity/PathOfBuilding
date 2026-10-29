@@ -1896,6 +1896,9 @@ return {
 	mod("TotemDuration", "BASE", nil),
 	div = 1000
 },
+["totem_ignores_cooldown"] = {
+	flag("TotemIgnoresCooldown"),
+},
 -- Minion
 ["minion_damage_+%"] = {
 	mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", nil) }),

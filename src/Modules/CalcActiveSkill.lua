@@ -87,6 +87,8 @@ function calcs.createActiveSkill(activeEffect, supportList, actor, socketGroup, 
 		supportList = supportList,
 		actor = actor,
 		summonSkill = summonSkill,
+		mercenaryPossibleSupportIds = (activeEffect.srcInstance and activeEffect.srcInstance.mercenaryPossibleSupportIds)
+			or (summonSkill and summonSkill.mercenaryPossibleSupportIds),
 		socketGroup = socketGroup,
 		skillData = { },
 		buffList = { },
@@ -165,8 +167,8 @@ end
 
 -- Copy an Active Skill
 function calcs.copyActiveSkill(env, mode, skill)
-    local activeEffect = {
-        grantedEffect = skill.activeEffect.grantedEffect,
+	local activeEffect = {
+		grantedEffect = skill.activeEffect.grantedEffect,
 		level = skill.activeEffect.level,
 		quality = skill.activeEffect.quality
 	}
@@ -178,17 +180,26 @@ function calcs.copyActiveSkill(env, mode, skill)
 		activeEffect.gemData = skill.activeEffect.srcInstance.gemData
 	end
 
-	local newSkill = calcs.createActiveSkill(activeEffect, skill.supportList, skill.actor, skill.socketGroup, skill.summonSkill)
-	local newEnv, _, _, _ = calcs.initEnv(env.build, mode, env.override)
-	calcs.buildActiveSkillModList(newEnv, newSkill)
+	local fullEnv, _, _, _ = calcs.initEnv(env.build, mode, env.override)
+	local actor = fullEnv.player
+	local actorEnv = fullEnv
+	if skill.actor and skill.actor.isMercenary then
+		actor = fullEnv.mercenary
+		actorEnv = actor and actor.calcEnv
+		if not actorEnv then
+			error("copyActiveSkill: mercenary actor environment is missing")
+		end
+	end
+	local newSkill = calcs.createActiveSkill(activeEffect, skill.supportList, actor, skill.socketGroup, skill.summonSkill)
+	calcs.buildActiveSkillModList(actorEnv, newSkill)
 	newSkill.skillModList = new("ModList"):ModList(newSkill.baseSkillModList)
 	if newSkill.minion then
 		newSkill.minion.modDB = new("ModDB"):ModDB()
 		newSkill.minion.modDB.actor = newSkill.minion
-		calcs.createMinionSkills(env, newSkill)
+		calcs.createMinionSkills(actorEnv, newSkill)
 		newSkill.skillPartName = newSkill.minion.mainSkill.activeEffect.grantedEffect.name
 	end
-	return newSkill, newEnv
+	return newSkill, actorEnv, fullEnv
 end
 
 -- Get weapon flags and info for given weapon
@@ -247,7 +258,9 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 	-- Handle multipart skills
 	local activeGemParts = activeGrantedEffect.parts
 	if activeGemParts and #activeGemParts > 1 then
-		if env.mode == "CALCS" and activeSkill == env.player.mainSkill then
+		if not activeEffect.srcInstance then
+			activeSkill.skillPart = 1
+		elseif env.mode == "CALCS" and activeSkill == env.player.mainSkill then
 			activeEffect.srcInstance.skillPartCalcs = m_min(#activeGemParts, activeEffect.srcInstance.skillPartCalcs or 1)
 			activeSkill.skillPart = activeEffect.srcInstance.skillPartCalcs
 		else
@@ -574,7 +587,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 	end
 
 	-- Add active gem modifiers
-	activeEffect.actorLevel = activeSkill.actor.minionData and activeSkill.actor.level
+	activeEffect.actorLevel = (activeSkill.actor.minionData or activeSkill.actor.isMercenary) and activeSkill.actor.level
 	calcs.mergeSkillInstanceMods(env, skillModList, activeEffect, skillModList:List(activeSkill.skillCfg, "ExtraSkillStat"))
 	activeEffect.grantedEffectLevel = activeGrantedEffect.levels[activeEffect.level]
 
@@ -706,15 +719,28 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 			skillFlags.haveMinion = true
 			minion.type = minionType
 			minion.minionData = env.data.minions[minionType]
+			if not minion.minionData then
+				activeSkill.unsupportedReason = "Missing minion data: "..tostring(minionType)
+				return
+			end
+			if minion.minionData.noFallbackSkill then
+				-- Do not invent the generic Melee fallback for an explicitly exported Mercenary minion.
+				activeSkill.unsupportedReason = minion.minionData.name.." has no exported skills"
+				activeSkill.minion = nil
+				skillFlags.haveMinion = false
+				return
+			end
 			minion.hostile = minion.minionData and minion.minionData.hostile or false
 			if minion.hostile then
 				minion.parent = env.enemy
-				minion.enemy = env.player
+				minion.enemy = activeSkill.actor
 			else
-				minion.parent = env.player
+				minion.parent = activeSkill.actor
 				minion.enemy = env.enemy
 			end
-			minion.level = activeSkill.skillData.minionLevelIsEnemyLevel and env.enemyLevel or 
+			minion.player = env.player
+			minion.level = activeSkill.skillData.minionLevelIsActorLevel and activeSkill.actor.level or
+							activeSkill.skillData.minionLevelIsEnemyLevel and env.enemyLevel or
 								activeSkill.skillData.minionLevelIsPlayerLevel and (m_min(env.build and env.build.characterLevel or activeSkill.skillData.minionLevel or activeEffect.grantedEffectLevel.levelRequirement, activeSkill.skillData.minionLevelIsPlayerLevel)) or 
 								minionSupportLevel[minion.type] or activeSkill.skillData.minionLevel or activeEffect.grantedEffectLevel.levelRequirement
 			-- fix minion level between 1 and 100
@@ -733,6 +759,9 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 				 damage = damage * attackTime
 			end
 			if activeGrantedEffect.minionHasItemSet then
+				-- Keep the gem's assigned set. Weapon replacements for a comparison
+				-- targeting that set are applied here so attack data matches the preview
+				-- item; remaining equipment modifiers are applied later in CalcPerform.
 				if env.mode == "CALCS" and activeSkill == env.player.mainSkill then
 					if not env.build.itemsTab.itemSets[activeEffect.srcInstance.skillMinionItemSetCalcs] then
 						activeEffect.srcInstance.skillMinionItemSetCalcs = env.build.itemsTab.itemSetOrderList[1]
@@ -748,8 +777,8 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 				activeEffect.srcInstance.skillMinionItemSetCalcs = nil
 				activeEffect.srcInstance.skillMinionItemSet = nil
 			end
-			if (activeSkill.skillData.minionUseBowAndQuiver and env.player.weaponData1.type == "Bow") or activeSkill.skillData.minionUseMainHandWeapon then
-				minion.weaponData1 = env.player.weaponData1
+			if (activeSkill.skillData.minionUseBowAndQuiver and activeSkill.actor.weaponData1.type == "Bow") or activeSkill.skillData.minionUseMainHandWeapon then
+				minion.weaponData1 = activeSkill.actor.weaponData1
 			elseif env.theIronMass and minionType == "RaisedSkeleton" then
 				minion.weaponData1 = env.player.weaponData1
 			else
@@ -763,25 +792,32 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 				}
 			end
 			minion.weaponData2 = { }
+			local function minionSetItem(itemSet, slotName)
+				if env.override.itemSetId == itemSet.id and env.override.repSlotName == slotName then
+					return env.override.repItem
+				end
+				local itemSlot = itemSet[slotName]
+				return itemSlot and env.build.itemsTab.items[itemSlot.selItemId]
+			end
 			if minion.uses then
 				if minion.uses["Weapon 1"] then
 					if minion.itemSet then
-						local item = env.build.itemsTab.items[minion.itemSet[minion.itemSet.useSecondWeaponSet and "Weapon 1 Swap" or "Weapon 1"].selItemId]
+						local item = minionSetItem(minion.itemSet, minion.itemSet.useSecondWeaponSet and "Weapon 1 Swap" or "Weapon 1")
 						if item and item.weaponData then
 							minion.weaponData1 = item.weaponData[1]
 						end
 					else
-						minion.weaponData1 = env.player.weaponData1
+						minion.weaponData1 = activeSkill.actor.weaponData1
 					end
 				end
 				if minion.uses["Weapon 2"] then	
 					if minion.itemSet then
-						local item = env.build.itemsTab.items[minion.itemSet[minion.itemSet.useSecondWeaponSet and "Weapon 2 Swap" or "Weapon 2"].selItemId]
+						local item = minionSetItem(minion.itemSet, minion.itemSet.useSecondWeaponSet and "Weapon 2 Swap" or "Weapon 2")
 						if item and item.weaponData then
 							minion.weaponData2 = item.weaponData[2]
 						end
 					else
-						minion.weaponData2 = env.player.weaponData2
+						minion.weaponData2 = activeSkill.actor.weaponData2
 					end
 				end
 			end
@@ -879,6 +915,12 @@ function calcs.createMinionSkills(env, activeSkill)
 	local activeEffect = activeSkill.activeEffect
 	local minion = activeSkill.minion
 	local minionData = minion.minionData
+	-- Minions share the encounter, but their curses and hits are not their owner's.
+	if activeSkill.actor.enemySourceDB and not minion.hostile then
+		calcs.attachEnemySourceDB(env, minion)
+	else
+		minion.enemySourceDB = nil
+	end
 
 	minion.activeSkillList = { }
 	local skillIdList = { }

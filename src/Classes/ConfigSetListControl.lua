@@ -15,6 +15,7 @@ function ConfigSetListClass:ConfigSetListControl(anchor, rect, configTab)
 	self.configTab = configTab
 	self.controls.copy = new("ButtonControl"):ButtonControl({"BOTTOMLEFT",self,"TOP"}, {2, -4, 60, 18}, "Copy", function()
 		local configSet = configTab.configSets[self.selValue]
+		-- copyTable keeps mercenarySetId so a duplicated Config still binds the same hire.
 		local newConfigSet = copyTable(configSet)
 		newConfigSet.id = 1
 		while configTab.configSets[newConfigSet.id] do

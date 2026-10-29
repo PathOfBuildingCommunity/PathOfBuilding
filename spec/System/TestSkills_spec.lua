@@ -65,6 +65,25 @@ describe("TestSkills", function()
 		assert.True(build.calcsTab.mainOutput.MirageDPS ~= nil)
 
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate == build.calcsTab.mainOutput.Speed)
+		assert.is_true(not build.calcsTab.mainEnv.player.mainSkill.skillCfg.skillCond.usedByMirage)
+	end)
+
+	it("calculates The Saviour Reflection mirages for a player sword attack", function()
+		build.itemsTab:CreateDisplayItemFromRaw([[Rarity: Unique
+The Saviour
+Legion Sword
+Implicits: 1
+40% increased Global Accuracy Rating
+Triggers Level 20 Reflection when Equipped
+(130-150)% increased Physical Damage
+Adds (16-22) to (40-45) Physical Damage
+(8-12)% increased Attack Speed
+(8-12)% increased Critical Strike Chance]])
+		build.itemsTab:AddDisplayItem()
+		build.skillsTab:PasteSocketGroup("Double Strike 20/0  1\n")
+		runCallback("OnFrame")
+		local player = build.calcsTab.mainEnv.player
+		assert.is_true(not player.mainSkill.skillCfg.skillCond.usedByMirage)
 	end)
 	
 	it("Test Sacred wisps using current skill", function()

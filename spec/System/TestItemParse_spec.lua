@@ -4,6 +4,24 @@ describe("TestItemParse", function()
 		return "Rarity: Rare\nName\n"..base.."\n"..s
 	end
 
+	it("round-trips Socketed Gem occupancy", function()
+		local item = new("Item"):Item([[Rarity: UNIQUE
+Malachai's Artifice
+Unset Ring
+Sockets: W
+Socketed Gem: 1 Heavy Strike 20/0
+Implicits: 1
+Has 1 Socket
+-20% to all Elemental Resistances
++100% to Fire Resistance when Socketed with a Red Gem
+All Sockets are White]])
+		assert.are.equal("Heavy Strike", item.socketedGems[1].nameSpec)
+		assert.are.equal(20, item.socketedGems[1].level)
+		item:BuildAndParseRaw()
+		assert.are.equal("Heavy Strike", item.socketedGems[1].nameSpec)
+		assert.matches("Socketed Gem: 1 Heavy Strike 20/0", item.raw)
+	end)
+
 	it("Rarity", function()
 		local item = new("Item"):Item("Rarity: Normal\nCoral Ring")
 		assert.are.equals("NORMAL", item.rarity)

@@ -78,12 +78,13 @@ end
 function SharedItemSetListClass:ReceiveDrag(type, value, source)
 	if type == "ItemList" then
 		local sharedItemList = { title = value.title, slots = { } }
-		for slotName, slot in pairs(self.itemsTab.slots) do
+		for _, slot in ipairs(self.itemsTab.orderedSlots) do
 			if not slot.nodeId then
-				if value ~= self.itemsTab.activeItemSet then
+				local slotName = slot.slotName
+				if value ~= self.itemsTab:GetVisibleItemSet() then
 					slot = value[slotName]
 				end
-				if slot.selItemId ~= 0 then
+				if slot and slot.selItemId ~= 0 then
 					local item = self.itemsTab.items[slot.selItemId]
 					local rawItem = { raw = item:BuildRaw() }
 					local newItem = new("Item"):Item(rawItem.raw)

@@ -543,7 +543,7 @@ function specCopy(env)
 end
 
 -- Wipe all keys from the table and return it, or return a new table if no table
--- provided. This is useful to avoid alllocations in hot paths if a table can be reused. Using LuaJIT's `table.clear()` is another alternative to this, but this performs similarly on small tables, or tables which are often already empty.
+-- provided. This is useful to avoid allocations in hot paths if a table can be reused. Using LuaJIT's `table.clear()` is another alternative to this, but this performs similarly on small tables, or tables which are often already empty.
 ---@param tbl table?
 ---@return table tbl
 function wipeTable(tbl)
@@ -917,25 +917,35 @@ function cacheSkillUUID(skill, env)
 		end
 	end
 
-	return strName.."_"..strSlotName.."_"..tostring(slotIndx) .. "_" .. tostring(groupIdx)
+	local uuid = strName.."_"..strSlotName.."_"..tostring(slotIndx) .. "_" .. tostring(groupIdx)
+	if skill.actor and skill.actor.isMercenary then
+		local grantedId = skill.activeEffect.grantedEffect.id
+		if not grantedId then
+			error("Mercenary skill cache UUID requires grantedEffect.id")
+		end
+		uuid = uuid .. "_MERCENARY_" .. grantedId
+	end
+	return uuid
 end
 
 -- Global Cache related
-function cacheData(uuid, env)
+function cacheData(uuid, env, actor)
+	actor = actor or env.player
+	local output = actor.output
 	GlobalCache.cachedData[env.mode][uuid] = {
-		Name = env.player.mainSkill.activeEffect.grantedEffect.name,
-		Speed = env.player.output.Speed,
-		HitSpeed = env.player.output.HitSpeed,
-		ManaCost = env.player.output.ManaCost,
-		LifeCost = env.player.output.LifeCost,
-		ESCost = env.player.output.ESCost,
-		RageCost = env.player.output.RageCost,
-		HitChance = env.player.output.HitChance,
-		AccuracyHitChance = env.player.output.AccuracyHitChance,
-		PreEffectiveCritChance = env.player.output.PreEffectiveCritChance,
-		CritChance = env.player.output.CritChance,
-		TotalDPS = env.player.output.TotalDPS,
-		ActiveSkill = env.player.mainSkill,
+		Name = actor.mainSkill.activeEffect.grantedEffect.name,
+		Speed = output.Speed,
+		HitSpeed = output.HitSpeed,
+		ManaCost = output.ManaCost,
+		LifeCost = output.LifeCost,
+		ESCost = output.ESCost,
+		RageCost = output.RageCost,
+		HitChance = output.HitChance,
+		AccuracyHitChance = output.AccuracyHitChance,
+		PreEffectiveCritChance = output.PreEffectiveCritChance,
+		CritChance = output.CritChance,
+		TotalDPS = output.TotalDPS,
+		ActiveSkill = actor.mainSkill,
 		Env = env,
 	}
 end

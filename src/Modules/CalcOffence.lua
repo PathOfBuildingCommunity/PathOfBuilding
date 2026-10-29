@@ -341,6 +341,62 @@ function calcs.calcTotemLife(env, activeSkill)
 	return life, lifeMod
 end
 
+-- Character-sheet main-hand attack crit chance for Destructive Link.
+-- Uses the already-calculated main-hand PreEffective value when the actor
+-- actually attacked; otherwise the same number from weapon local crit plus
+-- global modifiers so aura/link owners still export a sheet value.
+-- NeverCrit / Resolute Technique stops the linker from dealing crits; it does
+-- not zero the chance stat the linked target uses.
+-- Does not include lucky rolls, accuracy, or enemy SelfCrit.
+function calcs.actorMainHandSheetCritChance(actor)
+	if not actor or not actor.modDB then
+		return 0
+	end
+	local weapon = actor.weaponData1
+	local info = weapon and data.weaponTypeInfo[weapon.type]
+	local flags = bor(ModFlag.Attack, ModFlag.Hit)
+	if info then
+		flags = bor(flags, ModFlag[info.flag] or 0)
+		if weapon.type ~= "None" then
+			flags = bor(flags, ModFlag.Weapon)
+			flags = bor(flags, info.oneHand and ModFlag.Weapon1H or ModFlag.Weapon2H)
+			flags = bor(flags, info.melee and ModFlag.WeaponMelee or ModFlag.WeaponRanged)
+		end
+	end
+	if weapon and weapon.countsAsAll1H then
+		flags = bor(flags, ModFlag.Axe, ModFlag.Claw, ModFlag.Dagger, ModFlag.Mace, ModFlag.Sword)
+	end
+	local cfg = {
+		flags = flags,
+		keywordFlags = KeywordFlag.Attack,
+		skillCond = { MainHandAttack = true },
+	}
+	-- Offence zeros PreEffective when NeverCrit; that is the linker's hit
+	-- outcome, not the sheet chance Destructive Link copies.
+	local mainHand = actor.output and actor.output.MainHand
+	if not actor.modDB:Flag(cfg, "NeverCrit") and mainHand and mainHand.PreEffectiveCritChance then
+		return mainHand.PreEffectiveCritChance
+	end
+	-- Party import serializes MainHand.CritChance and does not supply weapon data.
+	if not weapon then
+		return (mainHand and mainHand.CritChance) or 0
+	end
+	local override = actor.modDB:Override(cfg, "CritChance")
+	if override then
+		return override
+	end
+	local baseCrit = actor.modDB:Override(cfg, "WeaponBaseCritChance") or weapon.CritChance or 0
+	local base = actor.modDB:Sum("BASE", cfg, "CritChance")
+	local inc = actor.modDB:Sum("INC", cfg, "CritChance")
+	local more = actor.modDB:More(cfg, "CritChance")
+	local chance = round((baseCrit + base) * (1 + inc / 100) * more * 100) / 100
+	local cap = actor.modDB:Override(nil, "CritChanceCap") or actor.modDB:Sum("BASE", cfg, "CritChanceCap") or 100
+	if (baseCrit + base) > 0 then
+		chance = m_max(chance, 0)
+	end
+	return m_min(chance, cap)
+end
+
 -- Performs all offensive calculations
 ---@param env Env
 ---@param actor Actor
@@ -815,6 +871,8 @@ function calcs.offence(env, actor, activeSkill)
 		return not skillModList:Flag(nil, "CannotRepeat") and ((activeSkillTypes[SkillType.Attack] or activeSkillTypes[SkillType.Spell]))
 	end
 	output.Repeats = 1 + (repeatSkillTypesCheck(activeSkill.skillTypes) and skillModList:Sum("BASE", skillCfg, "RepeatCount") or 0)
+	-- Totem attacks ignore recast cooldown; the cooldown remains for placement display.
+	local totemIgnoresCooldown = skillFlags.totem and skillModList:Flag(skillCfg, "TotemIgnoresCooldown")
 	if output.Repeats > 1 then
 		output.RepeatCount = output.Repeats
 		-- handle all the multipliers from Repeats
@@ -2424,7 +2482,9 @@ function calcs.offence(env, actor, activeSkill)
 			end
 			if globalOutput.Cooldown then
 				output.Cooldown = globalOutput.Cooldown
-				output.Speed = m_min(output.Speed, 1 / output.Cooldown * output.Repeats)
+				if not totemIgnoresCooldown then
+					output.Speed = m_min(output.Speed, 1 / output.Cooldown * output.Repeats)
+				end
 			end
 			if output.Cooldown and skillFlags.selfCast then
 				skillFlags.notAverage = true
@@ -2448,7 +2508,7 @@ function calcs.offence(env, actor, activeSkill)
 					{ "%.2f ^8(action speed modifier)", (skillFlags.totem and output.TotemActionSpeed) or (skillFlags.selfCast and globalOutput.ActionSpeedMod) or 1 },
 					total = s_format("= %.2f ^8casts per second", output.CastRate)
 				})
-				if output.Cooldown and (1 / output.Cooldown) < output.CastRate then
+				if output.Cooldown and not totemIgnoresCooldown and (1 / output.Cooldown) < output.CastRate then
 					t_insert(breakdown.Speed, s_format("\n"))
 					t_insert(breakdown.Speed, s_format("1 / %.2f ^8(skill cooldown)", output.Cooldown))
 					if output.Repeats > 1 then
@@ -2477,9 +2537,9 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		elseif skillData.hitTimeMultiplier and output.Time and not skillData.triggeredOnDeath then
 			output.HitTime = output.Time * skillData.hitTimeMultiplier
-			if output.Cooldown and skillData.triggered then
+			if output.Cooldown and not totemIgnoresCooldown and skillData.triggered then
 				output.HitSpeed = 1 / (m_max(output.HitTime, output.Cooldown))
-			elseif output.Cooldown then
+			elseif output.Cooldown and not totemIgnoresCooldown then
 				output.HitSpeed = 1 / (output.HitTime + output.Cooldown)
 			else
 				output.HitSpeed = 1 / output.HitTime
@@ -2558,9 +2618,9 @@ function calcs.offence(env, actor, activeSkill)
 			output.HitSpeed = 1 / output.HitTime
 		elseif skillData.hitTimeMultiplier and output.Time and not skillData.triggeredOnDeath then
 			output.HitTime = output.Time * skillData.hitTimeMultiplier
-			if output.Cooldown and skillData.triggered then
+			if output.Cooldown and not totemIgnoresCooldown and skillData.triggered then
 				output.HitSpeed = 1 / (m_max(output.HitTime, output.Cooldown))
-			elseif output.Cooldown then
+			elseif output.Cooldown and not totemIgnoresCooldown then
 				output.HitSpeed = 1 / (output.HitTime + output.Cooldown)
 			else
 				output.HitSpeed = m_min(1 / output.HitTime, data.misc.ServerTickRate)
@@ -2585,9 +2645,9 @@ function calcs.offence(env, actor, activeSkill)
 			t_insert(breakdown.HitTime, s_format("x %.2f ^8(channel time multiplier)", skillData.hitTimeMultiplier))
 			t_insert(breakdown.HitTime, s_format("= %.2f", output.HitTime))
 			breakdown.HitSpeed = { }
-			if output.Cooldown and skillData.triggered then
+			if output.Cooldown and not totemIgnoresCooldown and skillData.triggered then
 				t_insert(breakdown.HitSpeed, s_format("1 / min(%.2f, %.2f) ^8min(hit time, cooldown)", output.HitTime, output.Cooldown))
-			elseif output.Cooldown then
+			elseif output.Cooldown and not totemIgnoresCooldown then
 				t_insert(breakdown.HitSpeed, s_format("1 / (%.2f + %.2f) ^8(hit time + cooldown)", output.HitTime, output.Cooldown))
 			else
 				t_insert(breakdown.HitSpeed, s_format("1 / %.2f ^8(hit time)", output.HitTime))
@@ -3074,11 +3134,11 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		else
 			local critOverride = skillModList:Override(cfg, "CritChance")
-			-- destructive link
+			-- Destructive Link copies the linker's character-sheet main-hand crit.
 			if skillModList:Flag(cfg, "MainHandCritIsEqualToParent") then
-				critOverride = actor.parent.output.MainHand and actor.parent.output.MainHand.CritChance or actor.parent.weaponData1.CritChance
+				critOverride = calcs.actorMainHandSheetCritChance(actor.parent)
 			elseif skillModList:Flag(cfg, "MainHandCritIsEqualToPartyMember") then
-				critOverride = actor.partyMembers.output.MainHand and actor.partyMembers.output.MainHand.CritChance or (actor.partyMembers.weaponData1 and actor.partyMembers.weaponData1.CritChance or 0)
+				critOverride = calcs.actorMainHandSheetCritChance(actor.partyMembers)
 			end
 			local baseCrit = critOverride or source.CritChance or 0
 
@@ -3147,7 +3207,8 @@ function calcs.offence(env, actor, activeSkill)
 				end
 				if breakdown and output.CritChance ~= baseCrit then
 					breakdown.CritChance = { }
-					local baseCritFromMainHandStr = baseCritFromMainHand and " from main weapon" or baseCritFromParentMainHand and " from parent main weapon" or ""
+					local fromLinkedMainHand = skillModList:Flag(cfg, "MainHandCritIsEqualToParent") or skillModList:Flag(cfg, "MainHandCritIsEqualToPartyMember")
+					local baseCritFromMainHandStr = baseCritFromMainHand and " from main weapon" or baseCritFromParentMainHand and " from parent main weapon" or fromLinkedMainHand and " from linked main hand" or ""
 					if base ~= 0 then
 						t_insert(breakdown.CritChance, s_format("(%g + %g) ^8(base%s)", baseCrit, base, baseCritFromMainHandStr))
 					else
@@ -3691,11 +3752,15 @@ function calcs.offence(env, actor, activeSkill)
 		output.TotalMin = totalHitMin
 		output.TotalMax = totalHitMax
 
-		if skillModList:Flag(skillCfg, "ElementalEquilibrium") and not env.configInput.EEIgnoreHitDamage and (output.FireHitAverage + output.ColdHitAverage + output.LightningHitAverage > 0) then
-			-- Update enemy hit-by-damage-type conditions
-			enemyDB.conditions.HitByFireDamage = output.FireHitAverage > 0
-			enemyDB.conditions.HitByColdDamage = output.ColdHitAverage > 0
-			enemyDB.conditions.HitByLightningDamage = output.LightningHitAverage > 0
+		local configInput = (actor.calcEnv and actor.calcEnv.configInput) or env.configInput
+		if skillModList:Flag(skillCfg, "ElementalEquilibrium") and not configInput.EEIgnoreHitDamage and (output.FireHitAverage + output.ColdHitAverage + output.LightningHitAverage > 0) then
+			-- Isolation overlay when a Mercenary is hired; otherwise origin writes the shared enemy.
+			local hitByStore = actor.enemySourceDB or (actor.enemy and actor.enemy.modDB)
+			if hitByStore then
+				hitByStore.conditions.HitByFireDamage = output.FireHitAverage > 0
+				hitByStore.conditions.HitByColdDamage = output.ColdHitAverage > 0
+				hitByStore.conditions.HitByLightningDamage = output.LightningHitAverage > 0
+			end
 		end
 
 		local highestType = "Physical"

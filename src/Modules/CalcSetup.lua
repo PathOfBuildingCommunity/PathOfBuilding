@@ -5,15 +5,748 @@
 --
 ---@class Calcs
 local calcs = require("Modules.CalcBase")
+local MercenaryTools = require("Modules.MercenaryTools")
+local ConfigScope = require("Modules.ConfigScope")
 
 local pairs = pairs
 local ipairs = ipairs
 local t_insert = table.insert
 local t_remove = table.remove
+local t_sort = table.sort
 local m_min = math.min
 local m_max = math.max
+local m_floor = math.floor
 
 local tempTable1 = { }
+
+local function mercenarySupportEffect(env, support, supportedEffect, errors)
+	if not support then
+		t_insert(errors, "Missing exported Mercenary support data")
+		return
+	end
+	local grantedEffect = env.data.mercenarySupportGrantedEffect(support.id, supportedEffect and supportedEffect.id)
+	if not grantedEffect then
+		t_insert(errors, "Missing Mercenary support grantedEffect: "..support.id)
+		return
+	end
+	if grantedEffect.missingSupportTemplate then
+		t_insert(errors, "Missing Mercenary support template: "..grantedEffect.missingSupportTemplate)
+	end
+	for _, statId in ipairs(grantedEffect.unsupportedMercenaryStats or { }) do
+		t_insert(errors, "Unsupported Mercenary support stat: "..statId)
+	end
+	return {
+		grantedEffect = grantedEffect,
+		level = 1,
+		quality = 0,
+		enabled = true,
+		isSupporting = { },
+	}
+end
+
+local function validateMercenarySkillStats(env, grantedEffect, errors)
+	local function validate(statId)
+		if not grantedEffect.statMap[statId] and not env.data.knownUncalculatedSkillStats[statId] then
+			t_insert(errors, "Unsupported Mercenary skill stat: "..statId.." ("..grantedEffect.id..")")
+		end
+	end
+	for _, statId in ipairs(grantedEffect.stats or { }) do validate(statId) end
+	for _, stat in ipairs(grantedEffect.constantStats or { }) do validate(stat[1]) end
+	local baseEffect = grantedEffect.inheritedFrom and env.data.skills[grantedEffect.inheritedFrom]
+	for _, message in ipairs(MercenaryTools.preDamageFuncErrors(grantedEffect, baseEffect, env.data.mercenaryStatData) or { }) do
+		t_insert(errors, message)
+	end
+end
+
+local function recordMercenaryAuxiliarySkill(env, auxiliarySkills, statId, selectedSkill)
+	local auxiliarySkillId = env.data.mercenaryStatData.auxiliarySkills[statId]
+	if auxiliarySkillId and not auxiliarySkills[auxiliarySkillId] then auxiliarySkills[auxiliarySkillId] = selectedSkill end
+end
+
+-- Hired Mercenaries treat Eldritch "while a Unique / Pinnacle Atlas Boss is in
+-- your Presence" implicits as always active. That is a mercenary-item exception,
+-- not a second encounter: shared RareOrUnique / PinnacleBoss on the enemy is
+-- left alone, and "against unique enemies" mods still follow that encounter.
+-- https://www.poewiki.net/wiki/Mercenary
+local function addEquippedItemPropertyCounts(modDB, item)
+	if (item.rarity == "UNIQUE" or item.rarity == "RELIC") and item.foulborn then
+		modDB.multipliers["FoulbornUniqueItem"] = (modDB.multipliers["FoulbornUniqueItem"] or 0) + 1
+	end
+	for mult, property in pairs({["CorruptedItem"] = "corrupted", ["ShaperItem"] = "shaper", ["ElderItem"] = "elder", ["WarlordItem"] = "adjudicator", ["HunterItem"] = "basilisk", ["CrusaderItem"] = "crusader", ["RedeemerItem"] = "eyrie"}) do
+		if item[property] then
+			modDB.multipliers[mult] = (modDB.multipliers[mult] or 0) + 1
+		else
+			modDB.multipliers["Non"..mult] = (modDB.multipliers["Non"..mult] or 0) + 1
+		end
+	end
+	if item.shaper or item.elder then
+		modDB.multipliers.ShaperOrElderItem = (modDB.multipliers.ShaperOrElderItem or 0) + 1
+	end
+	modDB.multipliers[item.type:gsub(" ", ""):gsub(".+Handed", "").."Item"] = (modDB.multipliers[item.type:gsub(" ", ""):gsub(".+Handed", "").."Item"] or 0) + 1
+	if item.type == "Ring" then
+		local key = item.baseName:gsub(" ", "").."Equipped"
+		modDB.multipliers[key] = (modDB.multipliers[key] or 0) + 1
+	end
+end
+
+local function mercenaryItemMod(mod, presenceImplicit)
+	if mod.name == "ExtraSkill" or mod.name == "ExtraSupport" or mod.name == "GemProperty" then
+		return
+	end
+	local copy = copyTable(mod, true)
+	local keepSocketedIn = copy.name == "SocketProperty" or copy.name == "GroupProperty"
+	local index = 1
+	while copy[index] do
+		local tag = copy[index]
+		if tag.type == "SocketedIn" and not keepSocketedIn then
+			return
+		elseif presenceImplicit and tag.type == "ActorCondition" and tag.actor == "enemy" and (tag.var == "RareOrUnique" or tag.var == "PinnacleBoss") then
+			t_remove(copy, index)
+		else
+			index = index + 1
+		end
+	end
+	return copy
+end
+
+local function applySocketMods(env, gem, groupCfg, socketNum, modSource)
+	local socketCfg = copyTable(groupCfg, true)
+	socketCfg.skillGem = gem
+	socketCfg.socketNum = socketNum
+	for _, value in ipairs(env.modDB:List(socketCfg, "SocketProperty")) do
+		env.player.modDB:AddMod(modLib.setSource(value.value, modSource or groupCfg.slotName or ""))
+	end
+end
+
+local function mercenarySocketedGemData(env, occupancy)
+	if not occupancy then
+		return
+	end
+	if occupancy.gemData then
+		return occupancy.gemData
+	end
+	local gemId = occupancy.gemId or occupancy.nameSpec and env.data.gemForBaseName[occupancy.nameSpec:lower()]
+	return gemId and env.data.gems[gemId]
+end
+
+local function addMercenaryItem(env, mercenary, item, slotName, slotNum, scale)
+	mercenary.itemList[slotName] = item
+	scale = scale or 1
+	if item.type == "Quiver" then
+		local quiverEffect = mercenary.modDB:Sum("INC", nil, "EffectOfBonusesFromQuiver")
+		if quiverEffect ~= 0 then
+			local widowHailMod = 1 + quiverEffect / 100
+			scale = scale * widowHailMod
+			mercenary.modDB:NewMod("WidowHailMultiplier", "BASE", widowHailMod, "Widowhail")
+		end
+	end
+	local presenceImplicitCounts = { }
+	for _, modLine in ipairs(item.implicitModLines or { }) do
+		if modLine.line and modLine.line:lower():match("^while .+ in your presence") then
+			for _, implicitMod in ipairs(modLine.modList or { }) do
+				local key = modLib.formatMod(implicitMod)
+				presenceImplicitCounts[key] = (presenceImplicitCounts[key] or 0) + 1
+			end
+		end
+	end
+	local srcList = item.modList or item.slotModList[slotNum]
+	if item.type == "Quiver" and scale ~= 1 then
+		local combinedList = new("ModList"):ModList()
+		for _, itemMod in ipairs(srcList) do
+			local key = modLib.formatMod(itemMod)
+			local presenceImplicit = (presenceImplicitCounts[key] or 0) > 0
+			if presenceImplicit then presenceImplicitCounts[key] = presenceImplicitCounts[key] - 1 end
+			local mod = mercenaryItemMod(itemMod, presenceImplicit)
+			if mod then combinedList:MergeMod(mod) end
+		end
+		mercenary.modDB:ScaleAddList(combinedList, scale)
+	else
+		for _, itemMod in ipairs(srcList) do
+			local key = modLib.formatMod(itemMod)
+			local presenceImplicit = (presenceImplicitCounts[key] or 0) > 0
+			if presenceImplicit then presenceImplicitCounts[key] = presenceImplicitCounts[key] - 1 end
+			local mod = mercenaryItemMod(itemMod, presenceImplicit)
+			if mod then mercenary.modDB:ScaleAddMod(mod, scale) end
+		end
+	end
+	if slotName == "Weapon 1" and item.name == "The Iron Mass, Gladius" then
+		-- Special handling for The Iron Mass
+		local ironMass = new("ModList"):ModList()
+		for _, itemMod in ipairs(srcList) do
+			-- Filter out mods that apply to socketed gems, or which add supports
+			local add = true
+			for _, tag in ipairs(itemMod) do
+				if tag.type == "SocketedIn" then
+					add = false
+					break
+				end
+			end
+			if add then
+				local mod = mercenaryItemMod(itemMod, false)
+				if mod then ironMass:ScaleAddMod(mod, scale) end
+			end
+		end
+		mercenary.theIronMass = ironMass
+	end
+	local emptySockets = { R = 0, G = 0, B = 0, W = 0 }
+	local socketedColours = { R = 0, G = 0, B = 0 }
+	local socketedCount = 0
+	local groupCfg = { slotName = slotName, strengthGems = 0, dexterityGems = 0, intelligenceGems = 0 }
+	for i, socket in ipairs(item.sockets or { }) do
+		if socket.color == "R" or socket.color == "G" or socket.color == "B" or socket.color == "W" then
+			local gemData = mercenarySocketedGemData(env, item.socketedGems and item.socketedGems[i])
+			if gemData then
+				socketedCount = socketedCount + 1
+				if gemData.tags.strength then
+					socketedColours.R = socketedColours.R + 1
+					groupCfg.strengthGems = groupCfg.strengthGems + 1
+				end
+				if gemData.tags.dexterity then
+					socketedColours.G = socketedColours.G + 1
+					groupCfg.dexterityGems = groupCfg.dexterityGems + 1
+				end
+				if gemData.tags.intelligence then
+					socketedColours.B = socketedColours.B + 1
+					groupCfg.intelligenceGems = groupCfg.intelligenceGems + 1
+				end
+				applySocketMods({ modDB = mercenary.modDB, player = mercenary }, gemData, groupCfg, i, item.name)
+			else
+				emptySockets[socket.color] = emptySockets[socket.color] + 1
+			end
+		end
+	end
+	mercenary.modDB.multipliers["EmptySocketIn"..slotName] = emptySockets.R + emptySockets.G + emptySockets.B + emptySockets.W
+	mercenary.modDB.multipliers["SocketedGemsIn"..slotName] = socketedCount
+	mercenary.modDB.multipliers["SocketedRedGemsIn"..slotName] = socketedColours.R
+	mercenary.modDB.multipliers["SocketedGreenGemsIn"..slotName] = socketedColours.G
+	mercenary.modDB.multipliers["SocketedBlueGemsIn"..slotName] = socketedColours.B
+	for color, name in pairs({ R = "Red", G = "Green", B = "Blue", W = "White" }) do
+		local multiplier = "Empty"..name.."SocketsInAnySlot"
+		mercenary.modDB.multipliers[multiplier] = (mercenary.modDB.multipliers[multiplier] or 0) + emptySockets[color]
+	end
+	for _, value in ipairs(mercenary.modDB:List(groupCfg, "GroupProperty")) do
+		mercenary.modDB:AddMod(modLib.setSource(value.value, slotName))
+	end
+	local rarity = (item.rarity == "UNIQUE" or item.rarity == "RELIC") and "UniqueItem" or item.rarity == "RARE" and "RareItem" or item.rarity == "MAGIC" and "MagicItem" or "NormalItem"
+	mercenary.modDB.multipliers[rarity] = (mercenary.modDB.multipliers[rarity] or 0) + 1
+	mercenary.modDB.conditions[rarity.."In"..slotName] = true
+	if item.type ~= "Jewel" and item.type ~= "Flask" and item.type ~= "Tincture" and item.type ~= "Graft" then
+		addEquippedItemPropertyCounts(mercenary.modDB, item)
+	end
+end
+
+local function addMercenaryMonsterStats(env, mercenary, monster, errors)
+	local rawStats = { }
+	for _, stat in ipairs(monster.stats or { }) do
+		if not env.data.mercenaryStatData.knownMonsterStats[stat.id] then
+			t_insert(errors, "Unsupported Mercenary monster stat: "..stat.id)
+		end
+		rawStats[stat.id] = (rawStats[stat.id] or 0) + stat.value
+	end
+	mercenary.modDB:NewMod("MaximumRage", "BASE", rawStats.maximum_rage or env.data.characterConstants["maximum_rage"], "Mercenary")
+	mercenary.modDB:NewMod("ActiveTrapLimit", "BASE", rawStats.base_number_of_traps_allowed or env.data.characterConstants["base_number_of_traps_allowed"], "Mercenary")
+	mercenary.modDB:NewMod("ActiveMineLimit", "BASE", rawStats.base_number_of_remote_mines_allowed or env.data.characterConstants["base_number_of_remote_mines_allowed"], "Mercenary")
+	mercenary.modDB:NewMod("ActiveTotemLimit", "BASE", env.data.characterConstants["base_number_of_totems_allowed"] + (rawStats.number_of_additional_totems_allowed or 0), "Mercenary")
+	mercenary.modDB:NewMod("LifeRegenPercent", "BASE", (rawStats["life_regeneration_per_minute_%_for_hired_mercenary_out_of_combat_window"] or 0) / 60, "Mercenary")
+	mercenary.modDB:NewMod("ManaCost", "INC", -(rawStats["set_base_mana_cost_-%"] or 0), "Mercenary")
+	mercenary.modDB:NewMod("ManaRegen", "BASE", (rawStats.base_mana_regeneration_rate_per_minute or 0) / 60, "Mercenary")
+	mercenary.modDB:NewMod("TotemLife", "MORE", rawStats["set_totem_life_+%_final"] or 0, "Mercenary")
+	mercenary.modDB:NewMod("DamageTaken", "INC", rawStats["set_minion_damage_taken_+%"] or 0, "Mercenary")
+	mercenary.modDB:NewMod("DamageTaken", "MORE", env.data.mercenaryStatData.permanentMercenary.damageOverTimeTakenMore, "Mercenary", ModFlag.Dot)
+	-- Rarity stats correct engine rarity bonuses; this normalized actor applies neither side.
+	if monster.damageFixup then
+		mercenary.modDB:NewMod("Damage", "MORE", -100 * monster.damageFixup, "Damage Fixup", ModFlag.Attack)
+		mercenary.modDB:NewMod("Speed", "MORE", 100 * monster.damageFixup, "Damage Fixup", ModFlag.Attack)
+	end
+	if rawStats.keystone_minion_instability == 1 then
+		mercenary.modDB:NewMod("Keystone", "LIST", "Minion Instability", "Mercenary")
+	end
+end
+
+-- parseMod is not cheap; mercenary passives are rebuilt on every real initEnv.
+local mercenaryPassiveModCache = { }
+
+local function addMercenaryPassiveStats(mercenary, mercenaryBuild, errors)
+	mercenary.passiveStats = { }
+	for _, passive in ipairs(mercenaryBuild.passiveStats or { }) do
+		local value = MercenaryTools.passiveStatValue(passive.values, mercenary.level)
+		local scaledValue = value / (passive.divisor or 1)
+		local valueText = scaledValue == m_floor(scaledValue) and tostring(m_floor(scaledValue)) or tostring(scaledValue)
+		local line = passive.line or string.format(passive.format, valueText)
+		if not passive.line or value ~= 0 then
+			local cached = mercenaryPassiveModCache[line]
+			if cached == nil then
+				local parsed, extra = modLib.parseMod(line)
+				if not parsed or extra then
+					mercenaryPassiveModCache[line] = false
+					cached = false
+				else
+					mercenaryPassiveModCache[line] = parsed
+					cached = parsed
+				end
+			end
+			if not cached then
+				t_insert(errors, "Unsupported Mercenary passive stat "..passive.id..": "..line)
+			else
+				local source = "Mercenary Passive: "..passive.id
+				for _, mod in ipairs(cached) do
+					mercenary.modDB:AddMod(modLib.setSource(copyTable(mod), source))
+				end
+			end
+		end
+		t_insert(mercenary.passiveStats, { id = passive.id, statId = passive.statId, value = scaledValue })
+	end
+end
+
+function calcs.attachEnemySourceDB(env, actor, sourceModList)
+	if not actor then
+		return
+	end
+	local hasSource = sourceModList and sourceModList[1] ~= nil
+	local encounterList = actor == env.player and env.build.configTab.enemyModList
+	local sourceDB = actor.enemySourceDB
+	if sourceDB then
+		wipeTable(sourceDB.mods)
+		wipeTable(sourceDB.conditions)
+		wipeTable(sourceDB.multipliers)
+	else
+		sourceDB = new("ModDB"):ModDB()
+		actor.enemySourceDB = sourceDB
+	end
+	sourceDB.actor = actor
+	sourceDB.conditions.Combat = env.mode_combat
+	sourceDB.conditions.Effective = env.mode_effective
+	if hasSource then
+		sourceDB:AddList(sourceModList)
+	end
+	-- Player "by you" mods that reuse encounter names (Ignited, WitheredStack, ...)
+	-- still honour the shared config checkboxes. Mercenary overlays do not copy
+	-- those predicates, so they cannot claim the player's ailments as their own.
+	if actor == env.player then
+		for _, mod in ipairs(encounterList or { }) do
+			if ConfigScope.shouldCopyEncounterOntoPlayerOverlay(mod) then
+				sourceDB:AddMod(mod)
+			end
+		end
+	end
+end
+
+local function copyModDB(db)
+	if not db then
+		return nil
+	end
+	local copy = new("ModDB"):ModDB()
+	copy:AddDB(db)
+	copy.conditions = copyTable(db.conditions)
+	copy.multipliers = copyTable(db.multipliers)
+	return copy
+end
+
+-- Copy cached mods into the live database. Parenting would round MORE in each
+-- store and then multiply, which disagrees with a reconstructed actor.
+local function restoreModDB(db, cached, actor)
+	if not db then
+		return
+	end
+	wipeTable(db.mods)
+	wipeTable(db.conditions)
+	wipeTable(db.multipliers)
+	if actor then
+		db.parent = nil
+		db.actor = actor
+	end
+	if cached then
+		db:AddDB(cached)
+		for key, value in pairs(cached.conditions) do
+			db.conditions[key] = value
+		end
+		for key, value in pairs(cached.multipliers) do
+			db.multipliers[key] = value
+		end
+	end
+end
+calcs.copyModDB = copyModDB
+calcs.restoreModDB = restoreModDB
+
+-- Mercenary actors are reconstructed each initEnv. Do not park ModDBs or
+-- snapshot a pre-perform baseline for Full DPS reuse; that cache has to
+-- round-trip every field perform() mutates. Reconstruct instead.
+local function dropCurrentMercenary(env)
+	env.mercenary = nil
+	env.mercenaryMinion = nil
+	env.mercenaryCalculationErrors = nil
+	if env.player then
+		env.player.enemySourceDB = nil
+	end
+end
+
+-- Mercenary calculations reuse upstream functions that still read env.player.
+-- This proxy is a Mercenary compatibility adapter: actor-local values are substituted,
+-- encounter-wide state is shared, and unclassified root fields error on access.
+-- It is not a general actor framework. Add a key to mercenaryLocalEnvKeys when
+-- Mercenary calculation reads it and the value is actor-owned.
+-- createMercenaryCalcEnv refuses to construct a proxy that omits them, and errors
+-- if they are read unset.
+local mercenaryLocalEnvKeys = {
+	"player",
+	"modDB",
+	"configInput",
+	"configPlaceholder",
+	"keystonesAdded",
+	"minion",
+	"itemModDB",
+	"auxSkillList",
+	"theIronMass",
+}
+
+-- Encounter/build state that Mercenary calculation actually reads through the proxy
+-- and that is semantically shared. Unclassified root fields error on access.
+local mercenarySharedEnvKeys = {
+	"build",
+	"data",
+	"enemy",
+	"enemyLevel",
+	"limitedSkills",
+	"mode",
+	"mode_buffs",
+	"mode_combat",
+	"mode_effective",
+	"override",
+	"partyMembers",
+	"spec",
+}
+
+local mercenaryLocalEnvKeySet = { }
+for _, key in ipairs(mercenaryLocalEnvKeys) do
+	mercenaryLocalEnvKeySet[key] = true
+end
+
+local mercenarySharedEnvKeySet = { }
+for _, key in ipairs(mercenarySharedEnvKeys) do
+	if mercenaryLocalEnvKeySet[key] then
+		error("Calc env field '"..key.."' cannot be both mercenary-local and shared")
+	end
+	mercenarySharedEnvKeySet[key] = true
+end
+
+-- Build a Mercenary-scoped calculation environment over `rootEnv`.
+-- Inheritable encounter/build state is read from the root; mercenary-local
+-- fields must be supplied on `actorFields` (use `false` rather than nil
+-- when the Mercenary has no value, so __index cannot leak the player actor).
+function calcs.createMercenaryCalcEnv(rootEnv, actorFields)
+	if not rootEnv then
+		error("createMercenaryCalcEnv requires a root environment")
+	end
+	actorFields = actorFields or { }
+	for _, key in ipairs(mercenaryLocalEnvKeys) do
+		if actorFields[key] == nil then
+			error("createMercenaryCalcEnv: missing mercenary-local field '"..key.."'")
+		end
+	end
+	for _, key in ipairs(mercenarySharedEnvKeys) do
+		if actorFields[key] == nil then
+			local value = rootEnv[key]
+			if value ~= nil then
+				actorFields[key] = value
+			end
+		end
+	end
+	return setmetatable(actorFields, {
+		__index = function(_, key)
+			if mercenaryLocalEnvKeySet[key] then
+				error("createMercenaryCalcEnv: mercenary-local field '"..key.."' is unset")
+			end
+			if mercenarySharedEnvKeySet[key] then
+				return rootEnv[key]
+			end
+			if rawget(rootEnv, key) ~= nil then
+				error("createMercenaryCalcEnv: unclassified env field '"..key.."'")
+			end
+		end,
+	})
+end
+
+function calcs.initMercenary(env)
+	local tab = env.build.mercenaryTab
+	dropCurrentMercenary(env)
+	if not tab or not tab.profile or not tab.profile.buildId then
+		return
+	end
+	env.data.ensureMercenaries()
+
+	local function abortInit(errors)
+		env.mercenaryCalculationErrors = errors
+	end
+
+	-- Profile and current-loadout equipment errors belong to MercenaryTab:GetErrors().
+	-- mercenaryCalculationErrors is only for failures this environment discovered
+	-- while constructing the actor, including equipment that exists only on this override.
+	local function overrideChangesMercenaryEquipment(override, mercenaryItemSetId)
+		if not override then
+			return false
+		end
+		if override.itemSetId and override.itemSetId == mercenaryItemSetId then
+			return true
+		end
+		local slotName = MercenaryTools.baseItemSlotName(override.repSlotName) or override.repSlotName
+		return MercenaryTools.overrideReplacesMercenarySlot(override, slotName, mercenaryItemSetId)
+	end
+
+	local profile = tab.profile
+	local profileErrors = MercenaryTools.validateProfile(profile, env.data.mercenaries)
+	if #profileErrors > 0 then
+		return
+	end
+	local mercenaryBuild = env.data.mercenaries.builds[profile.buildId]
+	local mercenaryClass = mercenaryBuild and env.data.mercenaries.classes[mercenaryBuild.classId]
+	local monster = mercenaryClass and mercenaryClass.monster
+	local calculationErrors = { }
+	if not monster then
+		abortInit({ "Selected Mercenary has no allied MonsterVariety data" })
+		return
+	end
+	local itemsTab = env.build.itemsTab
+	local itemSet = itemsTab:GetActorItemSet("MERCENARY")
+	local mercenaryItemSetId = itemsTab:GetActorItemSetId("MERCENARY")
+	local selectedItemSet = env.override.itemSetId and itemsTab.itemSets[env.override.itemSetId]
+	if selectedItemSet and mercenaryItemSetId == selectedItemSet.id then
+		itemSet = selectedItemSet
+	end
+	local equipmentErrors = MercenaryTools.equipmentErrors({
+		profile = profile,
+		mercenaryData = env.data.mercenaries,
+		itemSet = itemSet,
+		playerItemSet = itemsTab.activeItemSet,
+		items = itemsTab.items,
+		override = env.override,
+		mercenaryItemSetId = mercenaryItemSetId,
+		playerHasFlag = function(flagName) return env.modDB:Flag(nil, flagName) and true or false end,
+		isItemValidForSlot = function(item, slotName, set, equippedLookup)
+			return itemsTab:IsItemValidForSlot(item, slotName, set, equippedLookup)
+		end,
+	})
+	if #equipmentErrors > 0 then
+		if overrideChangesMercenaryEquipment(env.override, mercenaryItemSetId) then
+			abortInit(equipmentErrors)
+		end
+		return
+	end
+	-- Permanent hiring is a Luminary/Noble Blood capability. Keep the
+	-- configured profile for editing, but do not construct an actor that
+	-- would enter the player calculation graph.
+	if not env.modDB:Flag(nil, "CanHirePermanentMercenary") then
+		return
+	end
+	local mercenary = {
+		type = "Mercenary",
+		isMercenary = true,
+		player = env.player,
+		parent = env.player,
+		enemy = env.enemy,
+		level = MercenaryTools.effectiveLevel(profile.foundAreaLevel, env.enemyLevel),
+		foundAreaLevel = profile.foundAreaLevel,
+		itemList = { },
+		activeSkillList = { },
+		profile = profile,
+		monster = monster,
+	}
+	mercenary.modDB = new("ModDB"):ModDB()
+	mercenary.modDB.actor = mercenary
+	mercenary.modDB.multipliers.Level = mercenary.level
+	calcs.initModDB(env, mercenary.modDB)
+	if env.build.configTab.mercenaryModList then
+		mercenary.modDB:AddList(env.build.configTab.mercenaryModList)
+	end
+	calcs.attachEnemySourceDB(env, env.player, env.build.configTab.playerEnemyModList)
+	calcs.attachEnemySourceDB(env, mercenary, env.build.configTab.mercenaryEnemyModList)
+	local baseStats = env.data.mercenaries.baseStats
+	mercenary.modDB:NewMod("Life", "BASE", baseStats.lifePerLevel * mercenary.level, "Base")
+	mercenary.modDB:NewMod("Mana", "BASE", env.data.monsterConstants.base_maximum_mana + baseStats.manaPerLevel * mercenary.level, "Base")
+	mercenary.modDB:NewMod("Accuracy", "BASE", baseStats.accuracyPerLevel * mercenary.level, "Base")
+	if not baseStats.disableDefaultMonsterStats then
+		mercenary.modDB:NewMod("Armour", "BASE", round(env.data.monsterArmourTable[mercenary.level] * monster.armour), "Base")
+		mercenary.modDB:NewMod("Evasion", "BASE", round(env.data.monsterEvasionTable[mercenary.level] * monster.evasion), "Base")
+	end
+	mercenary.modDB:NewMod("CritMultiplier", "BASE", env.data.monsterConstants["base_critical_strike_multiplier"] - 100, "Base")
+	mercenary.modDB:NewMod("DotMultiplier", "BASE", env.data.monsterConstants["critical_ailment_dot_multiplier_+"], "Base", { type = "Condition", var = "CriticalStrike" })
+	mercenary.modDB:NewMod("FireResist", "BASE", monster.fireResist, "Base")
+	mercenary.modDB:NewMod("ColdResist", "BASE", monster.coldResist, "Base")
+	mercenary.modDB:NewMod("LightningResist", "BASE", monster.lightningResist, "Base")
+	mercenary.modDB:NewMod("ChaosResist", "BASE", monster.chaosResist, "Base")
+	mercenary.modDB:NewMod("CritChance", "INC", env.data.characterConstants["critical_strike_chance_+%_per_power_charge"], "Base", { type = "Multiplier", var = "PowerCharge" })
+	mercenary.modDB:NewMod("Speed", "INC", env.data.characterConstants["base_attack_speed_+%_per_frenzy_charge"], "Base", ModFlag.Attack, { type = "Multiplier", var = "FrenzyCharge" })
+	mercenary.modDB:NewMod("Speed", "INC", env.data.characterConstants["base_cast_speed_+%_per_frenzy_charge"], "Base", ModFlag.Cast, { type = "Multiplier", var = "FrenzyCharge" })
+	mercenary.modDB:NewMod("Damage", "MORE", env.data.characterConstants["object_inherent_damage_+%_final_per_frenzy_charge"], "Base", { type = "Multiplier", var = "FrenzyCharge" })
+	mercenary.modDB:NewMod("PhysicalDamageReduction", "BASE", env.data.characterConstants["physical_damage_reduction_%_per_endurance_charge"], "Base", { type = "Multiplier", var = "EnduranceCharge" })
+	mercenary.modDB:NewMod("ElementalDamageReduction", "BASE", env.data.characterConstants["elemental_damage_reduction_%_per_endurance_charge"], "Base", { type = "Multiplier", var = "EnduranceCharge" })
+	mercenary.modDB:NewMod("ProjectileCount", "BASE", 1, "Base")
+	mercenary.modDB:NewMod("MineThrowCount", "BASE", 1, "Base")
+	mercenary.modDB:NewMod("TrapThrowCount", "BASE", 1, "Base")
+	mercenary.modDB:NewMod("MaximumFortification", "BASE", env.data.characterConstants["base_max_fortification"], "Base")
+	calcs.addActorInherentCombatMods(mercenary.modDB)
+	mercenary.modDB:NewMod("Damage", "MORE", MercenaryTools.permanentDamageMore(mercenary.level, env.data.mercenaries.permanentMercenaryDamageMore), "Permanent Mercenary")
+	addMercenaryMonsterStats(env, mercenary, monster, calculationErrors)
+	addMercenaryPassiveStats(mercenary, mercenaryBuild, calculationErrors)
+	for _, value in ipairs(env.modDB:List(nil, "MercenaryModifier")) do
+		mercenary.modDB:AddMod(value.mod)
+	end
+
+	for _, slotName in ipairs(MercenaryTools.equipmentSlots) do
+		local slot = env.build.itemsTab.slots[slotName]
+		local item = MercenaryTools.equippedItem(itemSet, itemsTab.items, slotName, env.override, mercenaryItemSetId)
+		if item then addMercenaryItem(env, mercenary, item, slotName, slot and slot.slotNum or 1) end
+		for abyssalSocketIndex = 1, 6 do
+			local abyssalSlotName = slotName.." Abyssal Socket "..abyssalSocketIndex
+			local abyssalJewel = MercenaryTools.equippedItem(itemSet, itemsTab.items, abyssalSlotName, env.override, mercenaryItemSetId)
+			if abyssalJewel then
+				local parentItem = mercenary.itemList[slotName]
+				addMercenaryItem(env, mercenary, abyssalJewel, abyssalSlotName, abyssalSocketIndex, parentItem and parentItem.socketedJewelEffectModifier)
+			end
+		end
+	end
+	for _, passiveName in ipairs(mercenary.modDB:List(nil, "GrantedPassive")) do
+		local node = env.spec.tree.notableMap[passiveName] or env.spec.tree.ascendancyMap[passiveName]
+			or env.build.latestTree.notableMap[passiveName] or env.build.latestTree.ascendancyMap[passiveName]
+		if node then
+			mercenary.modDB:AddList((env.spec.nodes[node.id] or node).modList)
+		else
+			t_insert(calculationErrors, "Unsupported Mercenary anoint: "..tostring(passiveName))
+		end
+	end
+	for _, keystoneName in ipairs(mercenary.modDB:List(nil, "Keystone")) do
+		if not env.spec.tree.keystoneMap[keystoneName] and not env.build.latestTree.keystoneMap[keystoneName] then
+			t_insert(calculationErrors, "Unsupported Mercenary keystone: "..tostring(keystoneName))
+		end
+	end
+
+	local attackTime = monster.attackTime
+	-- Only reached while a weapon slot is empty. `disable_default_monster_stats` has
+	-- no per-level replacement for damage, so an unarmed Mercenary keeps the same
+	-- allied-monster damage model PoB uses for minions.
+	mercenary.averageDamage = env.data.monsterAllyDamageTable[mercenary.level] * monster.damage
+	local damage = mercenary.averageDamage
+	if not monster.baseDamageIgnoresAttackSpeed then damage = damage * attackTime end
+	mercenary.weaponData1 = mercenary.itemList["Weapon 1"] and mercenary.itemList["Weapon 1"].weaponData and mercenary.itemList["Weapon 1"].weaponData[1] or {
+		type = "None",
+		AttackRate = 1 / attackTime,
+		CritChance = 5,
+		PhysicalMin = round(damage * (1 - monster.damageSpread)),
+		PhysicalMax = round(damage * (1 + monster.damageSpread)),
+		range = monster.attackRange,
+	}
+	if mercenary.weaponData1.countsAsDualWielding then
+		mercenary.weaponData2 = mercenary.itemList["Weapon 1"].weaponData[2] or { }
+	else
+		mercenary.weaponData2 = mercenary.itemList["Weapon 2"] and mercenary.itemList["Weapon 2"].weaponData and mercenary.itemList["Weapon 2"].weaponData[2] or { }
+	end
+
+	-- Skill building reads `env.player` and `env.modDB` for the actor that owns the
+	-- skill. This proxy environment presents the Mercenary as that actor while
+	-- inheritable encounter/build state still falls through to the real environment.
+	-- Invariant: `mercenaryEnv.player` is the Mercenary; `env.player` is always
+	-- the character. `mercenaryEnv.minion` is the Mercenary minion or false.
+	-- false (not nil) prevents __index from returning the player's minion.
+	local mercInput, mercPlaceholder = { }, { }
+	if env.build.configTab.GetActorConfigInput then
+		-- GetActorConfigInput reuses its merge buffers; snapshot before the next call.
+		mercInput, mercPlaceholder = env.build.configTab:GetActorConfigInput("mercenary")
+		mercInput = copyTable(mercInput)
+		mercPlaceholder = copyTable(mercPlaceholder)
+	end
+	local mercenaryEnv = calcs.createMercenaryCalcEnv(env, {
+		modDB = mercenary.modDB,
+		player = mercenary,
+		keystonesAdded = { },
+		minion = false,
+		configInput = mercInput,
+		configPlaceholder = mercPlaceholder,
+		itemModDB = new("ModDB"):ModDB(),
+		auxSkillList = { },
+		theIronMass = mercenary.theIronMass or false,
+	})
+	mercenary.calcEnv = mercenaryEnv
+	local function addActiveSkill(selectedSkill, grantedEffect, supports, isPrimary)
+		local skillPart = isPrimary and selectedSkill.skillPart or env.data.mercenaryStatData.defaultSkillParts[grantedEffect.id] or 1
+		if grantedEffect.parts and (skillPart < 1 or skillPart > #grantedEffect.parts) then
+			t_insert(calculationErrors, "Invalid Mercenary skill part for "..grantedEffect.id..": "..tostring(skillPart))
+			return
+		end
+		local instance = {
+			skillId = grantedEffect.id,
+			level = MercenaryTools.skillLevel(grantedEffect, mercenary.level),
+			quality = 0,
+			enabled = true,
+			mercenarySkill = selectedSkill,
+			skillPart = skillPart,
+			skillStageCount = isPrimary and selectedSkill.skillStageCount or nil,
+			skillStageCountCalcs = isPrimary and (selectedSkill.skillStageCountCalcs or selectedSkill.skillStageCount) or nil,
+			skillMineCount = isPrimary and selectedSkill.skillMineCount or nil,
+			skillMineCountCalcs = isPrimary and (selectedSkill.skillMineCountCalcs or selectedSkill.skillMineCount) or nil,
+			skillMinionSkill = isPrimary and selectedSkill.skillMinionSkill or nil,
+			skillMinionSkillCalcs = isPrimary and (selectedSkill.skillMinionSkillCalcs or selectedSkill.skillMinionSkill) or nil,
+			mercenaryPossibleSupportIds = env.data.mercenaries.skills[grantedEffect.id] and env.data.mercenaries.skills[grantedEffect.id].possibleSupportIds,
+		}
+		local activeSkill = calcs.createActiveSkill({ grantedEffect = grantedEffect, level = instance.level, quality = 0, srcInstance = instance }, supports or { }, mercenary, selectedSkill)
+		activeSkill.mercenarySkill = selectedSkill
+		activeSkill.isMercenaryPrimary = isPrimary
+		activeSkill.isMercenaryAuxiliary = not isPrimary
+		calcs.buildActiveSkillModList(mercenaryEnv, activeSkill)
+		if activeSkill.unsupportedReason then
+			t_insert(calculationErrors, activeSkill.unsupportedReason)
+		else
+			t_insert(mercenary.activeSkillList, activeSkill)
+		end
+		return activeSkill
+	end
+	local auxiliarySkills = { }
+	for _, selectedSkill in ipairs(profile.skills) do
+		if selectedSkill.enabled ~= false then
+			local grantedEffect = env.data.skills[selectedSkill.id]
+			if not grantedEffect then
+				t_insert(calculationErrors, "Missing generated Mercenary skill: "..tostring(selectedSkill.id))
+			else
+				validateMercenarySkillStats(env, grantedEffect, calculationErrors)
+				for _, statId in ipairs(grantedEffect.stats or { }) do
+					recordMercenaryAuxiliarySkill(env, auxiliarySkills, statId, selectedSkill)
+				end
+				for _, stat in ipairs(grantedEffect.constantStats or { }) do
+					recordMercenaryAuxiliarySkill(env, auxiliarySkills, stat[1], selectedSkill)
+				end
+				local supports = { }
+				for _, selectedSupport in ipairs(selectedSkill.supports or { }) do
+					local support = env.data.mercenaries.supports[selectedSupport.id]
+					local supportEffect = mercenarySupportEffect(env, support, grantedEffect, calculationErrors)
+					if supportEffect then t_insert(supports, supportEffect) end
+					for _, stat in ipairs(support and support.stats or { }) do
+						recordMercenaryAuxiliarySkill(env, auxiliarySkills, stat.id, selectedSkill)
+					end
+				end
+				local activeSkill = addActiveSkill(selectedSkill, grantedEffect, supports, true)
+				if selectedSkill.id == profile.mainSkillId then mercenary.mainSkill = activeSkill end
+			end
+		end
+	end
+	local auxiliarySkillIds = { }
+	for auxiliarySkillId in pairs(auxiliarySkills) do t_insert(auxiliarySkillIds, auxiliarySkillId) end
+	t_sort(auxiliarySkillIds)
+	for _, auxiliarySkillId in ipairs(auxiliarySkillIds) do
+		local auxiliaryEffect = env.data.skills[auxiliarySkillId]
+		if auxiliaryEffect then
+			validateMercenarySkillStats(env, auxiliaryEffect, calculationErrors)
+			addActiveSkill(auxiliarySkills[auxiliarySkillId], auxiliaryEffect, nil, false)
+		else
+			t_insert(calculationErrors, "Missing Mercenary auxiliary skill: "..auxiliarySkillId)
+		end
+	end
+	if not mercenary.mainSkill then
+		t_insert(calculationErrors, "Configured Mercenary main skill could not be constructed: "..tostring(profile.mainSkillId))
+	end
+	if #calculationErrors > 0 then
+		env.mercenaryCalculationErrors = calculationErrors
+		return
+	end
+	env.mercenary = mercenary
+end
 
 -- Initialise modifier database with stats and conditions common to all actors
 function calcs.initModDB(env, modDB)
@@ -117,6 +850,25 @@ function calcs.initModDB(env, modDB)
 	modDB.conditions["Buffed"] = env.mode_buffs
 	modDB.conditions["Combat"] = env.mode_combat
 	modDB.conditions["Effective"] = env.mode_effective
+end
+
+-- Character combat inherent mods shared by the player and a hired Mercenary.
+function calcs.addActorInherentCombatMods(modDB)
+	modDB:NewMod("ActiveBrandLimit", "BASE", 3, "Base")
+	modDB:NewMod("EnemyCurseLimit", "BASE", 1, "Base")
+	modDB:NewMod("SocketedCursesHexLimitValue", "BASE", 1, "Base")
+	modDB:NewMod("Speed", "MORE", data.characterConstants["dual_wield_inherent_attack_speed_+%_final"], "Base", ModFlag.Attack, { type = "Condition", var = "DualWielding" }, { type = "Condition", var = "DoubledInherentDualWieldingSpeed", neg = true })
+	modDB:NewMod("Speed", "MORE", 2 * data.characterConstants["dual_wield_inherent_attack_speed_+%_final"], "Base", ModFlag.Attack, { type = "Condition", var = "DualWielding" }, { type = "Condition", var = "DoubledInherentDualWieldingSpeed"})
+	modDB:NewMod("BlockChance", "BASE", data.characterConstants["inherent_block_while_dual_wielding_%"], "Base", { type = "Condition", var = "DualWielding" }, { type = "Condition", var = "NoInherentBlock", neg = true}, { type = "Condition", var = "DoubledInherentDualWieldingBlock", neg = true})
+	modDB:NewMod("BlockChance", "BASE", 2 * data.characterConstants["inherent_block_while_dual_wielding_%"], "Base", { type = "Condition", var = "DualWielding" }, { type = "Condition", var = "NoInherentBlock", neg = true}, { type = "Condition", var = "DoubledInherentDualWieldingBlock"})
+	modDB:NewMod("Damage", "MORE", 200, "Base", 0, KeywordFlag.Bleed, { type = "ActorCondition", actor = "enemy", var = "Moving" }, { type = "Condition", var = "NoExtraBleedDamageToMovingEnemy", neg = true })
+	modDB:NewMod("Condition:BloodStance", "FLAG", true, "Base", { type = "Condition", var = "SandStance", neg = true })
+	modDB:NewMod("Condition:PrideMinEffect", "FLAG", true, "Base", { type = "Condition", var = "PrideMaxEffect", neg = true })
+	modDB:NewMod("PerBrutalTripleDamageChance", "BASE", data.characterConstants["chance_to_deal_triple_damage_%_per_brutal_charge"], "Base")
+	modDB:NewMod("PerAfflictionAilmentDamage", "BASE", data.characterConstants["ailment_damage_+%_final_per_affliction_charge"], "Base")
+	modDB:NewMod("PerAfflictionNonDamageEffect", "BASE", data.characterConstants["non_damaging_ailment_effect_+%_final_per_affliction_charge"], "Base")
+	modDB:NewMod("PerAbsorptionElementalEnergyShieldRecoup", "BASE", data.characterConstants["elemental_damage_taken_goes_to_energy_shield_over_4_seconds_%_per_absorption_charge"], "Base")
+	modDB:NewMod("PresenceRadius", "BASE", data.characterConstants["base_presence_radius"], "Base")
 end
 
 ---@param reuse table|nil A ModList to recycle instead of allocating. Only safe when the caller discards the result.
@@ -321,6 +1073,10 @@ function wipeEnv(env, accelerate)
 	end
 
 	if accelerate.everything then
+		-- Player DBs are restored via parent snapshots. Mercenary is
+		-- reconstructed at the end of initEnv rather than restored from a
+		-- pre-perform cache.
+		dropCurrentMercenary(env)
 		return
 	end
 
@@ -377,6 +1133,7 @@ function wipeEnv(env, accelerate)
 		-- and modifiers that affect skill scaling (e.g., global buffs/effects)
 		wipeTable(env.auxSkillList)
 	end
+	dropCurrentMercenary(env)
 end
 
 local function applyGemMods(effect, modList)
@@ -413,15 +1170,6 @@ local function applyGemMods(effect, modList)
 			effect.gemPropertyInfo = effect.gemPropertyInfo or {}
 			t_insert(effect.gemPropertyInfo, mod)
 		end
-	end
-end
-
-local function applySocketMods(env, gem, groupCfg, socketNum, modSource)
-	local socketCfg = copyTable(groupCfg, true)
-	socketCfg.skillGem = gem
-	socketCfg.socketNum = socketNum
-	for _, value in ipairs(env.modDB:List(socketCfg, "SocketProperty")) do
-		env.player.modDB:AddMod(modLib.setSource(value.value, modSource or groupCfg.slotName or ""))
 	end
 end
 
@@ -483,6 +1231,10 @@ function calcs.initEnv(build, mode, override, specEnv)
 
 	-- environment variables
 	local override = override or { }
+	if override.itemSetId ~= nil and not build.itemsTab.itemSets[override.itemSetId] then
+		error("Unknown item set id: "..tostring(override.itemSetId))
+	end
+	local replacesPlayerItem = MercenaryTools.overrideReplacesPlayerItem(override, build.itemsTab.activeItemSetId)
 	local modDB = nil
 	local enemyDB = nil
 	local classStats = nil
@@ -628,25 +1380,11 @@ function calcs.initEnv(build, mode, override, specEnv)
 		modDB:NewMod("ActiveMineLimit", "BASE", data.characterConstants["base_number_of_remote_mines_allowed"], "Base")
 		modDB:NewMod("MineThrowCount", "BASE", 1, "Base")
 		modDB:NewMod("TrapThrowCount", "BASE", 1, "Base")
-		modDB:NewMod("ActiveBrandLimit", "BASE", 3, "Base")
-		modDB:NewMod("EnemyCurseLimit", "BASE", 1, "Base")
-		modDB:NewMod("SocketedCursesHexLimitValue", "BASE", 1, "Base")
 		modDB:NewMod("ProjectileCount", "BASE", 1, "Base")
-		modDB:NewMod("Speed", "MORE", data.characterConstants["dual_wield_inherent_attack_speed_+%_final"], "Base", ModFlag.Attack, { type = "Condition", var = "DualWielding" }, { type = "Condition", var = "DoubledInherentDualWieldingSpeed", neg = true })
-		modDB:NewMod("Speed", "MORE", 2 * data.characterConstants["dual_wield_inherent_attack_speed_+%_final"], "Base", ModFlag.Attack, { type = "Condition", var = "DualWielding" }, { type = "Condition", var = "DoubledInherentDualWieldingSpeed"})
-		modDB:NewMod("BlockChance", "BASE", data.characterConstants["inherent_block_while_dual_wielding_%"], "Base", { type = "Condition", var = "DualWielding" }, { type = "Condition", var = "NoInherentBlock", neg = true}, { type = "Condition", var = "DoubledInherentDualWieldingBlock", neg = true})
-		modDB:NewMod("BlockChance", "BASE", 2 * data.characterConstants["inherent_block_while_dual_wielding_%"], "Base", { type = "Condition", var = "DualWielding" }, { type = "Condition", var = "NoInherentBlock", neg = true}, { type = "Condition", var = "DoubledInherentDualWieldingBlock"})
-		modDB:NewMod("Damage", "MORE", 200, "Base", 0, KeywordFlag.Bleed, { type = "ActorCondition", actor = "enemy", var = "Moving" }, { type = "Condition", var = "NoExtraBleedDamageToMovingEnemy", neg = true })
-		modDB:NewMod("Condition:BloodStance", "FLAG", true, "Base", { type = "Condition", var = "SandStance", neg = true })
-		modDB:NewMod("Condition:PrideMinEffect", "FLAG", true, "Base", { type = "Condition", var = "PrideMaxEffect", neg = true })
-		modDB:NewMod("PerBrutalTripleDamageChance", "BASE", data.characterConstants["chance_to_deal_triple_damage_%_per_brutal_charge"], "Base")
-		modDB:NewMod("PerAfflictionAilmentDamage", "BASE", data.characterConstants["ailment_damage_+%_final_per_affliction_charge"], "Base")
-		modDB:NewMod("PerAfflictionNonDamageEffect", "BASE", data.characterConstants["non_damaging_ailment_effect_+%_final_per_affliction_charge"], "Base")
-		modDB:NewMod("PerAbsorptionElementalEnergyShieldRecoup", "BASE", data.characterConstants["elemental_damage_taken_goes_to_energy_shield_over_4_seconds_%_per_absorption_charge"], "Base")
+		calcs.addActorInherentCombatMods(modDB)
 		modDB:NewMod("TinctureLimit", "BASE", 1, "Base")
 		modDB:NewMod("ManaDegenPercentTincture", "BASE", 1, "Base", { type = "Multiplier", var = "EffectiveManaBurnStacks" })
 		modDB:NewMod("LifeDegenPercentTincture", "BASE", 1, "Base", { type = "Multiplier", var = "WeepingWoundsStacks" })
-		modDB:NewMod("PresenceRadius", "BASE", data.characterConstants["base_presence_radius"], "Base")
 
 		-- Add bandit mods
 		if env.configInput.bandit == "Alira" then
@@ -678,6 +1416,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 		enemyDB:NewMod("Condition:AgainstDamageOverTime", "FLAG", true, "Base", ModFlag.Dot, { type = "ActorCondition", actor = "player", var = "Combat" })
 
 		-- Add mods from the config tab
+		build.configTab:EnsureHiredMercenaryModList()
 		env.modDB:AddList(build.configTab.modList)
 		env.enemyDB:AddList(build.configTab.enemyModList)
 
@@ -812,16 +1551,17 @@ function calcs.initEnv(build, mode, override, specEnv)
 				goto continue
 			end
 			local item
-			if slotName == override.repSlotName then
+			if replacesPlayerItem and slotName == override.repSlotName then
 				item = override.repItem
-			elseif override.repItem and override.repSlotName:match("^Weapon 1") and slotName:match("^Weapon 2") and
+			elseif replacesPlayerItem and override.repItem and override.repSlotName:match("^Weapon 1") and slotName:match("^Weapon 2") and
 			(override.repItem.base.type == "Staff" or override.repItem.base.type == "Two Handed Sword" or override.repItem.base.type == "Two Handed Axe" or override.repItem.base.type == "Two Handed Mace"
 			or (override.repItem.base.type == "Bow" and item and item.base.type ~= "Quiver")) then
 				goto continue
-			elseif slot.nodeId and override.spec then
+			elseif slot.nodeId then
 				item = build.itemsTab.items[env.spec.jewels[slot.nodeId]]
 			else
-				item = build.itemsTab.items[slot.selItemId]
+				local itemSlot = build.itemsTab.activeItemSet[slotName]
+				item = build.itemsTab.items[itemSlot and itemSlot.selItemId]
 			end
 			if item and item.grantedSkills then
 				-- Find skills granted by this item
@@ -1027,7 +1767,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 			local item = items[slotName]
 			if item and item.type == "Flask" then
 				env.itemModDB.conditions["Have"..item.baseName:gsub("%s+", "")] = true
-				if slot.active then
+				if build.itemsTab.activeItemSet[slotName].active then
 					env.flasks[item] = true
 				end
 				local flaskNum = tonumber(slotName:match("Flask (%d+)"))
@@ -1043,7 +1783,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 				end
 				item = nil
 			elseif item and item.type == "Tincture" then
-				if slot.active then
+				if build.itemsTab.activeItemSet[slotName].active then
 					env.tinctures[item] = true
 				end
 				item = nil
@@ -1276,9 +2016,6 @@ function calcs.initEnv(build, mode, override, specEnv)
 					-- Update item counts
 					local key
 					if item.rarity == "UNIQUE" or item.rarity == "RELIC" then
-						if item.foulborn then
-							env.itemModDB.multipliers["FoulbornUniqueItem"] = (env.itemModDB.multipliers["FoulbornUniqueItem"] or 0) + 1
-						end
 						key = "UniqueItem"
 					elseif item.rarity == "RARE" then
 						key = "RareItem"
@@ -1289,22 +2026,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 					end
 					env.itemModDB.multipliers[key] = (env.itemModDB.multipliers[key] or 0) + 1
 					env.itemModDB.conditions[key .. "In" .. slotName] = true
-					for mult, property in pairs({["CorruptedItem"] = "corrupted", ["ShaperItem"] = "shaper", ["ElderItem"] = "elder", ["WarlordItem"] = "adjudicator", ["HunterItem"] = "basilisk", ["CrusaderItem"] = "crusader", ["RedeemerItem"] = "eyrie"}) do
-						if item[property] then
-							env.itemModDB.multipliers[mult] = (env.itemModDB.multipliers[mult] or 0) + 1
-						else
-							env.itemModDB.multipliers["Non"..mult] = (env.itemModDB.multipliers["Non"..mult] or 0) + 1
-						end
-					end
-					if item.shaper or item.elder then
-						env.itemModDB.multipliers.ShaperOrElderItem = (env.itemModDB.multipliers.ShaperOrElderItem or 0) + 1
-					end
-					env.itemModDB.multipliers[item.type:gsub(" ", ""):gsub(".+Handed", "").."Item"] = (env.itemModDB.multipliers[item.type:gsub(" ", ""):gsub(".+Handed", "").."Item"] or 0) + 1
-					-- base ring count, e.g. Cryonic, Synaptic for Breachlord Esh of the Storm, Tul of the Blizzard
-					if item.type == "Ring" then
-						local key = item.baseName:gsub(" ", "").."Equipped"
-						env.itemModDB.multipliers[key] = (env.itemModDB.multipliers[key] or 0) + 1
-					end
+					addEquippedItemPropertyCounts(env.itemModDB, item)
 					-- Calculate socket counts
 					local slotEmptySocketsCount = { R = 0, G = 0, B = 0, W = 0}	
 					local slotGemSocketsCount = 0
@@ -1970,6 +2692,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 
 	-- Merge Requirements Tables
 	env.requirementsTable = tableConcat(env.requirementsTableItems, env.requirementsTableGems)
+	calcs.initMercenary(env)
 
 	return env, cachedPlayerDB, cachedEnemyDB, cachedMinionDB
 end

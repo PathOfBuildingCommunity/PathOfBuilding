@@ -277,6 +277,29 @@ local minionDisplayStats = {
 	{ stat = "EnergyShieldRegenRecovery", label = "ES Recovery", fmt = ".1f", color = colorCodes.ES },
 	{ stat = "EnergyShieldLeechGainRate", label = "ES Leech/On Hit Rate", fmt = ".1f", color = colorCodes.ES, compPercent = true },
 }
+local mercenaryDisplayStats = {
+	{ stat = "CombinedDPS", label = "Selected Skill DPS", fmt = ".1f", compactValue = true, compPercent = true },
+	{ stat = "FullDPS", label = "Full DPS", fmt = ".1f", compactValue = true, color = colorCodes.CURRENCY, compPercent = true },
+	{ stat = "FullDotDPS", label = "Full DoT DPS", fmt = ".1f", compactValue = true, color = colorCodes.CURRENCY, compPercent = true, warnFunc = function(v) return v >= data.misc.DotDpsCap and "Full DoT DPS exceeds in-game limit" end },
+	{ stat = "SkillDPS", label = "Skill DPS", compactValue = true, condFunc = function() return true end },
+	{ stat = "Speed", label = "Attack Rate", fmt = ".2f", compPercent = true, flag = "attack", condFunc = function(v,o) return v > 0 and (o.TriggerTime or 0) == 0 end },
+	{ stat = "PreEffectiveCritChance", label = "Crit Chance", fmt = ".2f%%", flag = "hit" },
+	{ stat = "CritChance", label = "Effective Crit Chance", fmt = ".2f%%", flag = "hit", condFunc = function(v,o) return v ~= o.PreEffectiveCritChance end },
+	{ stat = "CritMultiplier", label = "Crit Multiplier", fmt = "d%%", pc = true, condFunc = function(v,o) return (o.CritChance or 0) > 0 end },
+	{ stat = "HitChance", label = "Hit Chance", fmt = ".0f%%", flag = "attack" },
+	{ stat = "Life", label = "Life", fmt = "d", compactValue = true, color = colorCodes.LIFE },
+	{ stat = "EnergyShield", label = "Energy Shield", fmt = "d", compactValue = true, color = colorCodes.ES },
+	{ stat = "Armour", label = "Armour", fmt = "d", compactValue = true },
+	{ stat = "Evasion", label = "Evasion", fmt = "d", compactValue = true, color = colorCodes.EVASION },
+	{ stat = "FireResist", label = "Fire Resistance", fmt = "d%%", color = colorCodes.FIRE, condFunc = function() return true end, overCapStat = "FireResistOverCap" },
+	{ stat = "ColdResist", label = "Cold Resistance", fmt = "d%%", color = colorCodes.COLD, condFunc = function() return true end, overCapStat = "ColdResistOverCap" },
+	{ stat = "LightningResist", label = "Lightning Resistance", fmt = "d%%", color = colorCodes.LIGHTNING, condFunc = function() return true end, overCapStat = "LightningResistOverCap" },
+	{ stat = "ChaosResist", label = "Chaos Resistance", fmt = "d%%", color = colorCodes.CHAOS, condFunc = function() return true end, overCapStat = "ChaosResistOverCap" },
+	{ stat = "LifeRegenRecovery", label = "Life Recovery", fmt = ".1f", color = colorCodes.LIFE },
+	{ stat = "EnergyShieldRegenRecovery", label = "ES Recovery", fmt = ".1f", color = colorCodes.ES },
+	{ stat = "EffectiveMovementSpeedMod", label = "Movement Speed Modifier", fmt = "+d%%", mod = true, condFunc = function() return true end },
+	{ stat = "LootRarity", label = "Item Rarity", fmt = "+d%%", condFunc = function() return true end },
+}
 -- Extra stats saved to the xml if not already saved there, mostly for 3rd party tools
 ---@type string[]
 local extraSaveStats = {
@@ -290,4 +313,9 @@ local extraSaveStats = {
 	"ActiveMinionLimit",
 }
 
-return { displayStats = displayStats, minionDisplayStats = minionDisplayStats, extraSaveStats = extraSaveStats }
+return {
+	displayStats = displayStats,
+	minionDisplayStats = minionDisplayStats,
+	extraSaveStats = extraSaveStats,
+	mercenaryDisplayStats = mercenaryDisplayStats,
+}

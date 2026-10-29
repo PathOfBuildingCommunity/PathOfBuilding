@@ -8,7 +8,10 @@ local ipairs = ipairs
 local t_insert = table.insert
 local s_format = string.format
 local m_min = math.min
+local m_max = math.max
 local m_ceil = math.ceil
+local MercenaryTools = require("Modules.MercenaryTools")
+local ConfigScope = require("Modules.ConfigScope")
 
 ---@class Calcs
 local calcs = require("Modules.CalcBase")
@@ -70,6 +73,16 @@ local function infoDump(env)
 	prettyPrintTable(env.player.output)
 end
 
+local function applyFullDPSOutput(env, fullDPS)
+	env.player.output.SkillDPS = fullDPS.skills
+	env.player.output.FullDPS = fullDPS.combinedDPS
+	env.player.output.FullDotDPS = fullDPS.TotalDotDPS
+	if env.mercenary then
+		env.mercenary.output.SkillDPS = fullDPS.mercenarySkills
+		env.mercenary.output.FullDPS = fullDPS.mercenaryDPS
+		env.mercenary.output.FullDotDPS = fullDPS.mercenaryDotDPS
+	end
+end
 
 ---@class CalcOverride
 ---@field spec PassiveSpec?
@@ -81,11 +94,14 @@ end
 ---@field toggleTincture Item? Item object used as a table key.
 ---@field conditions string[]?
 ---@field extraJewelFuncs ModList?
+---@field comparisonActor string?
+---@field itemSetId integer?
 
 -- Get calculator for other changes (adding/removing nodes, items, gems, etc)
 ---@param build Build
 ---@return fun(override?: CalcOverride, useFullDPS?: boolean): Output calcFunc
 ---@return Output output
+---@return table baseOutputs
 function calcs.getMiscCalculator(build)
 	-- Run base calculation pass
 	local env, cachedPlayerDB, cachedEnemyDB, cachedMinionDB = calcs.initEnv(build, "CALCULATOR")
@@ -93,10 +109,30 @@ function calcs.getMiscCalculator(build)
 	local fullDPS = calcs.calcFullDPS(build, "CALCULATOR", {}, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = nil})
 	local usedFullDPS = #fullDPS.skills > 0
 	if usedFullDPS then
-		env.player.output.SkillDPS = fullDPS.skills
-		env.player.output.FullDPS = fullDPS.combinedDPS
-		env.player.output.FullDotDPS = fullDPS.TotalDotDPS
+		applyFullDPSOutput(env, fullDPS)
 	end
+	local function comparisonOutput(calculationEnv, override)
+		if override and (override.comparisonActor == "MERCENARY" or MercenaryTools.baseItemSlotName(override.repSlotName)) then
+			if calculationEnv.mercenary then
+				return MercenaryTools.buildComparisonOutput(calculationEnv.mercenary.output, calculationEnv.player.output)
+			end
+			local message = "The selected mercenary is unavailable for this build."
+			if calculationEnv.mercenaryCalculationErrors and calculationEnv.mercenaryCalculationErrors[1] then
+				message = table.concat(calculationEnv.mercenaryCalculationErrors, "\n")
+			else
+				local tabErrors = build.mercenaryTab and build.mercenaryTab:GetErrors()
+				if tabErrors and tabErrors[1] then
+					message = table.concat(tabErrors, "\n")
+				end
+			end
+			return { ActorUnavailableMessage = message }
+		end
+		return calculationEnv.player.output
+	end
+	local baseOutputs = {
+		PLAYER = comparisonOutput(env),
+		MERCENARY = comparisonOutput(env, { comparisonActor = "MERCENARY" }),
+	}
 	return function(override, useFullDPS)
 		local env, cachedPlayerDB, cachedEnemyDB, cachedMinionDB = calcs.initEnv(build, "CALCULATOR", override)
 		calcs.perform(env)
@@ -105,12 +141,10 @@ function calcs.getMiscCalculator(build)
 			-- without this, FullDPS increase/decrease when for node/item/gem comparison would be all 0 as it would be comparing
 			-- A with A (due to cache reuse) instead of A with B
 			local fullDPS = calcs.calcFullDPS(build, "CALCULATOR", override, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = nil})
-			env.player.output.SkillDPS = fullDPS.skills
-			env.player.output.FullDPS = fullDPS.combinedDPS
-			env.player.output.FullDotDPS = fullDPS.TotalDotDPS
+			applyFullDPSOutput(env, fullDPS)
 		end
-		return env.player.output
-	end, env.player.output
+		return comparisonOutput(env, override)
+	end, baseOutputs.PLAYER, baseOutputs
 end
 
 local function getActiveSkillCount(activeSkill)
@@ -139,14 +173,146 @@ local function getActiveSkillCount(activeSkill)
 	return 1, true
 end
 
-function calcs.calcFullDPS(build, mode, override, specEnv)
-	local fullEnv, cachedPlayerDB, cachedEnemyDB, cachedMinionDB = calcs.initEnv(build, mode, override, specEnv)
-	local usedEnv = nil
+local function countSkillDamageOnce(activeSkill, modDB)
+	local skillName = activeSkill.activeEffect.grantedEffect.name
+	return (skillName:match("Absolution") and modDB:Flag(false, "Condition:AbsolutionSkillDamageCountedOnce"))
+		or (skillName:match("Dominating Blow") and modDB:Flag(false, "Condition:DominatingBlowSkillDamageCountedOnce"))
+		or (skillName:match("Holy Strike") and modDB:Flag(false, "Condition:HolyStrikeSkillDamageCountedOnce"))
+end
 
+-- Generic skill DoT for Full DPS. Non-stacking DoTs of the same identity
+-- keep the strongest instance; stackable DoTs sum, multiplied by count.
+function calcs.genericDotIdentity(grantedEffect)
+	local identity = grantedEffect and (grantedEffect.inheritedFrom or grantedEffect.id)
+	if not identity then
+		error("Full DPS generic DoT is missing an identity")
+	end
+	return identity
+end
+
+function calcs.genericDotContribution(output, skillFlags, count)
+	if not (output.TotalDot and output.TotalDot > 0) then
+		return 0
+	end
+	return output.TotalDot * (skillFlags.DotCanStack and count or 1)
+end
+
+function calcs.contributeGenericDot(totals, identity, output, skillFlags, count)
+	local contribution = calcs.genericDotContribution(output, skillFlags, count)
+	if contribution <= 0 then
+		return
+	end
+	if skillFlags.DotCanStack then
+		totals[identity] = (totals[identity] or 0) + contribution
+	elseif contribution > (totals[identity] or 0) then
+		totals[identity] = contribution
+	end
+end
+
+-- Minion actors carry their own mainSkill. Full DPS must key generic DoT from
+-- that skill, not from the summoning skill that created the actor.
+function calcs.contributeSkillGenericDot(totals, skill, output, count)
+	if not (output and output.TotalDot and output.TotalDot > 0) then
+		return
+	end
+	if not (skill and skill.activeEffect and skill.activeEffect.grantedEffect) then
+		error("Full DPS generic DoT is missing a skill identity")
+	end
+	calcs.contributeGenericDot(totals, calcs.genericDotIdentity(skill.activeEffect.grantedEffect), output, skill.skillFlags or { }, count)
+end
+
+-- Shared Full DPS contribution for one actor output. Direct, poison, and impale
+-- scale by count; ailment/ground/decay maxima keep the strongest instance.
+-- extra.skills / extra.totals / extra.genericDots receive the same contribution
+-- for Mercenary subtotals without a second pass.
+local FULL_DPS_MAXIMUMS = {
+	{ output = "BleedDPS", full = "bleedDPS", source = "bleed", totals = "bleed" },
+	{ output = "CorruptingBloodDPS", full = "corruptingBloodDPS", source = "corruptingBlood", totals = "corruptingBlood" },
+	{ output = "IgniteDPS", full = "igniteDPS", source = "ignite", totals = "ignite" },
+	{ output = "BurningGroundDPS", full = "burningGroundDPS", source = "burningGround", totals = "burningGround" },
+	{ output = "CausticGroundDPS", full = "causticGroundDPS", source = "causticGround", totals = "causticGround" },
+	{ output = "DecayDPS", full = "decayDPS", source = "decay", totals = "decay" },
+}
+
+function calcs.contributeActorFullDPS(fullDPS, sources, genericDots, output, count, info, extra)
+	if not output then
+		return
+	end
+	info = info or { }
+	local name = info.name
+	local sourceName = info.sourceName or name
+	if output.TotalDPS and output.TotalDPS > 0 then
+		local skillDPS = {
+			name = name,
+			dps = output.TotalDPS,
+			count = count,
+			trigger = info.trigger,
+			source = info.source,
+			skillPart = info.skillPart,
+		}
+		t_insert(fullDPS.skills, skillDPS)
+		if extra and extra.skills then
+			t_insert(extra.skills, skillDPS)
+		end
+		local direct = output.TotalDPS * count
+		fullDPS.combinedDPS = fullDPS.combinedDPS + direct
+		if extra and extra.totals then
+			extra.totals.direct = extra.totals.direct + direct
+		end
+	end
+	for _, spec in ipairs(FULL_DPS_MAXIMUMS) do
+		local value = output[spec.output] or 0
+		if value > fullDPS[spec.full] then
+			fullDPS[spec.full] = value
+			sources[spec.source] = sourceName
+		end
+		if extra and extra.totals and value > extra.totals[spec.totals] then
+			extra.totals[spec.totals] = value
+			extra.totals[spec.totals.."Source"] = sourceName
+		end
+	end
+	if output.PoisonDPS and output.PoisonDPS > 0 then
+		local poison = output.TotalPoisonDPS * count
+		fullDPS.TotalPoisonDPS = fullDPS.TotalPoisonDPS + poison
+		if extra and extra.totals then
+			extra.totals.poison = extra.totals.poison + poison
+		end
+	end
+	if output.ImpaleDPS and output.ImpaleDPS > 0 then
+		local impale = output.ImpaleDPS * count
+		fullDPS.impaleDPS = fullDPS.impaleDPS + impale
+		if extra and extra.totals then
+			extra.totals.impale = extra.totals.impale + impale
+		end
+	end
+	calcs.contributeSkillGenericDot(genericDots, info.skill, output, count)
+	if extra and extra.genericDots then
+		calcs.contributeSkillGenericDot(extra.genericDots, info.skill, output, count)
+	end
+	if output.CullMultiplier and output.CullMultiplier > 1 and output.CullMultiplier > fullDPS.cullingMulti then
+		fullDPS.cullingMulti = output.CullMultiplier
+	end
+	if extra and extra.totals then
+		extra.totals.culling = m_max(extra.totals.culling, output.CullMultiplier or 0)
+	end
+end
+
+function calcs.sumDotTotals(totals)
+	local sum = 0
+	for _, value in pairs(totals) do
+		sum = sum + value
+	end
+	return sum
+end
+
+function calcs.calcFullDPS(build, mode, override, specEnv)
 	local fullDPS = {
 		combinedDPS = 0,
 		TotalDotDPS = 0,
 		skills = { },
+		mercenarySkills = { },
+		mercenaryDPS = 0,
+		mercenaryDotDPS = 0,
 		TotalPoisonDPS = 0,
 		causticGroundDPS = 0,
 		impaleDPS = 0,
@@ -158,13 +324,38 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 		dotDPS = 0,
 		cullingMulti = 0
 	}
+	local hasFullDPSSkill = false
+	for _, socketGroup in ipairs(build.skillsTab.socketGroupList) do
+		if socketGroup.includeInFullDPS then hasFullDPSSkill = true break end
+	end
+	if not hasFullDPSSkill then
+		local mercenarySkills = build.mercenaryTab and build.mercenaryTab.profile and build.mercenaryTab.profile.skills
+		for _, selected in ipairs(mercenarySkills or { }) do
+			if selected.enabled ~= false and selected.includeInFullDPS then hasFullDPSSkill = true break end
+		end
+	end
+	if not hasFullDPSSkill then return fullDPS end
 
-	local bleedSource = ""
-	local corruptingBloodSource = ""
-	local igniteSource = ""
-	local burningGroundSource = ""
-	local causticGroundSource = ""
-	
+	local fullEnv, cachedPlayerDB, cachedEnemyDB, cachedMinionDB = calcs.initEnv(build, mode, override, specEnv)
+	local usedEnv = nil
+
+	local sources = { bleed = "", corruptingBlood = "", ignite = "", burningGround = "", causticGround = "", decay = "" }
+	local genericDots = { }
+	local remainingPlayerFullDPS = 0
+	for _, activeSkill in ipairs(fullEnv.player.activeSkillList) do
+		if activeSkill.socketGroup and activeSkill.socketGroup.includeInFullDPS then
+			local _, enabled = getActiveSkillCount(activeSkill)
+			if enabled then
+				remainingPlayerFullDPS = remainingPlayerFullDPS + 1
+			end
+		end
+	end
+	local mercenaryFullDPSSkills = { }
+	for _, activeSkill in ipairs(fullEnv.mercenary and fullEnv.mercenary.activeSkillList or { }) do
+		if activeSkill.isMercenaryPrimary and activeSkill.mercenarySkill and activeSkill.mercenarySkill.includeInFullDPS then
+			t_insert(mercenaryFullDPSSkills, activeSkill.mercenarySkill)
+		end
+	end
 	for _, activeSkill in ipairs(fullEnv.player.activeSkillList) do
 		if activeSkill.socketGroup and activeSkill.socketGroup.includeInFullDPS then
 			local activeSkillCount, enabled = getActiveSkillCount(activeSkill)
@@ -181,11 +372,11 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 					end
 					if usedEnv.minion.output.BleedDPS and usedEnv.minion.output.BleedDPS > fullDPS.bleedDPS then
 						fullDPS.bleedDPS = usedEnv.minion.output.BleedDPS
-						bleedSource = activeSkill.activeEffect.grantedEffect.name
+						sources.bleed = activeSkill.activeEffect.grantedEffect.name
 					end
 					if usedEnv.minion.output.IgniteDPS and usedEnv.minion.output.IgniteDPS > fullDPS.igniteDPS then
 						fullDPS.igniteDPS = usedEnv.minion.output.IgniteDPS
-						igniteSource = activeSkill.activeEffect.grantedEffect.name
+						sources.ignite = activeSkill.activeEffect.grantedEffect.name
 					end
 					if usedEnv.minion.output.PoisonDPS and usedEnv.minion.output.PoisonDPS > 0 then
 						fullDPS.TotalPoisonDPS = fullDPS.TotalPoisonDPS + usedEnv.minion.output.TotalPoisonDPS * activeSkillCount
@@ -193,19 +384,16 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 					if usedEnv.minion.output.ImpaleDPS and usedEnv.minion.output.ImpaleDPS > 0 then
 						fullDPS.impaleDPS = fullDPS.impaleDPS + usedEnv.minion.output.ImpaleDPS * activeSkillCount
 					end
-					if usedEnv.minion.output.DecayDPS and usedEnv.minion.output.DecayDPS > 0 then
-						fullDPS.decayDPS = fullDPS.decayDPS + usedEnv.minion.output.DecayDPS
+					if usedEnv.minion.output.DecayDPS and usedEnv.minion.output.DecayDPS > fullDPS.decayDPS then
+						fullDPS.decayDPS = usedEnv.minion.output.DecayDPS
+						sources.decay = activeSkill.activeEffect.grantedEffect.name
 					end
-					if usedEnv.minion.output.TotalDot and usedEnv.minion.output.TotalDot > 0 then
-						fullDPS.dotDPS = fullDPS.dotDPS + usedEnv.minion.output.TotalDot
-					end
+					calcs.contributeSkillGenericDot(genericDots, usedEnv.minion.mainSkill, usedEnv.minion.output, activeSkillCount)
 					if usedEnv.minion.output.CullMultiplier and usedEnv.minion.output.CullMultiplier > 1 and usedEnv.minion.output.CullMultiplier > fullDPS.cullingMulti then
 						fullDPS.cullingMulti = usedEnv.minion.output.CullMultiplier
 					end
 					-- This is a fix to prevent skills such as Absolution or Dominating Blow from being counted multiple times when increasing minions count
-					if (activeSkill.activeEffect.grantedEffect.name:match("Absolution") and fullEnv.modDB:Flag(false, "Condition:AbsolutionSkillDamageCountedOnce"))
-						or (activeSkill.activeEffect.grantedEffect.name:match("Dominating Blow") and fullEnv.modDB:Flag(false, "Condition:DominatingBlowSkillDamageCountedOnce"))
-						or (activeSkill.activeEffect.grantedEffect.name:match("Holy Strike") and fullEnv.modDB:Flag(false, "Condition:HolyStrikeSkillDamageCountedOnce"))then
+					if countSkillDamageOnce(activeSkill, fullEnv.modDB) then
 						activeSkillCount = 1
 						activeSkill.infoMessage2 = "Skill Damage"
 					end
@@ -219,11 +407,11 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 					end
 					if activeSkill.mirage.output.BleedDPS and activeSkill.mirage.output.BleedDPS > fullDPS.bleedDPS then
 						fullDPS.bleedDPS = activeSkill.mirage.output.BleedDPS
-						bleedSource = activeSkill.activeEffect.grantedEffect.name .. " (Mirage)"
+						sources.bleed = activeSkill.activeEffect.grantedEffect.name .. " (Mirage)"
 					end
 					if activeSkill.mirage.output.IgniteDPS and activeSkill.mirage.output.IgniteDPS > fullDPS.igniteDPS then
 						fullDPS.igniteDPS = activeSkill.mirage.output.IgniteDPS
-						igniteSource = activeSkill.activeEffect.grantedEffect.name .. " (Mirage)"
+						sources.ignite = activeSkill.activeEffect.grantedEffect.name .. " (Mirage)"
 					end
 					if activeSkill.mirage.output.PoisonDPS and activeSkill.mirage.output.PoisonDPS > 0 then
 						fullDPS.TotalPoisonDPS = fullDPS.TotalPoisonDPS + activeSkill.mirage.output.TotalPoisonDPS * mirageCount
@@ -231,22 +419,21 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 					if activeSkill.mirage.output.ImpaleDPS and activeSkill.mirage.output.ImpaleDPS > 0 then
 						fullDPS.impaleDPS = fullDPS.impaleDPS + activeSkill.mirage.output.ImpaleDPS * mirageCount
 					end
-					if activeSkill.mirage.output.DecayDPS and activeSkill.mirage.output.DecayDPS > 0 then
-						fullDPS.decayDPS = fullDPS.decayDPS + activeSkill.mirage.output.DecayDPS
+					if activeSkill.mirage.output.DecayDPS and activeSkill.mirage.output.DecayDPS > fullDPS.decayDPS then
+						fullDPS.decayDPS = activeSkill.mirage.output.DecayDPS
+						sources.decay = activeSkill.activeEffect.grantedEffect.name .. " (Mirage)"
 					end
-					if activeSkill.mirage.output.TotalDot and activeSkill.mirage.output.TotalDot > 0 and (activeSkill.skillFlags.DotCanStack or (usedEnv.player.output.TotalDot and usedEnv.player.output.TotalDot == 0)) then
-						fullDPS.dotDPS = fullDPS.dotDPS + activeSkill.mirage.output.TotalDot * (activeSkill.skillFlags.DotCanStack and mirageCount or 1)
-					end
+					calcs.contributeSkillGenericDot(genericDots, activeSkill, activeSkill.mirage.output, mirageCount)
 					if activeSkill.mirage.output.CullMultiplier and activeSkill.mirage.output.CullMultiplier > 1 and activeSkill.mirage.output.CullMultiplier > fullDPS.cullingMulti then
 						fullDPS.cullingMulti = activeSkill.mirage.output.CullMultiplier
 					end
 					if activeSkill.mirage.output.BurningGroundDPS and activeSkill.mirage.output.BurningGroundDPS > fullDPS.burningGroundDPS then
 						fullDPS.burningGroundDPS = activeSkill.mirage.output.BurningGroundDPS
-						burningGroundSource = activeSkill.activeEffect.grantedEffect.name .. " (Mirage)"
+						sources.burningGround = activeSkill.activeEffect.grantedEffect.name .. " (Mirage)"
 					end
 					if activeSkill.mirage.output.CausticGroundDPS and activeSkill.mirage.output.CausticGroundDPS > fullDPS.causticGroundDPS then
 						fullDPS.causticGroundDPS = activeSkill.mirage.output.CausticGroundDPS
-						causticGroundSource = activeSkill.activeEffect.grantedEffect.name .. " (Mirage)"
+						sources.causticGround = activeSkill.activeEffect.grantedEffect.name .. " (Mirage)"
 					end
 				end
 
@@ -256,49 +443,121 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 				end
 				if usedEnv.player.output.BleedDPS and usedEnv.player.output.BleedDPS > fullDPS.bleedDPS then
 					fullDPS.bleedDPS = usedEnv.player.output.BleedDPS
-					bleedSource = activeSkill.activeEffect.grantedEffect.name
+					sources.bleed = activeSkill.activeEffect.grantedEffect.name
 				end
 				if usedEnv.player.output.CorruptingBloodDPS and usedEnv.player.output.CorruptingBloodDPS > fullDPS.corruptingBloodDPS then
 					fullDPS.corruptingBloodDPS = usedEnv.player.output.CorruptingBloodDPS
-					corruptingBloodSource = activeSkill.activeEffect.grantedEffect.name
+					sources.corruptingBlood = activeSkill.activeEffect.grantedEffect.name
 				end
 				if usedEnv.player.output.IgniteDPS and usedEnv.player.output.IgniteDPS > fullDPS.igniteDPS then
 					fullDPS.igniteDPS = usedEnv.player.output.IgniteDPS
-					igniteSource = activeSkill.activeEffect.grantedEffect.name
+					sources.ignite = activeSkill.activeEffect.grantedEffect.name
 				end
 				if usedEnv.player.output.BurningGroundDPS and usedEnv.player.output.BurningGroundDPS > fullDPS.burningGroundDPS then
 					fullDPS.burningGroundDPS = usedEnv.player.output.BurningGroundDPS
-					burningGroundSource = activeSkill.activeEffect.grantedEffect.name
+					sources.burningGround = activeSkill.activeEffect.grantedEffect.name
 				end
 				if usedEnv.player.output.PoisonDPS and usedEnv.player.output.PoisonDPS > 0 then
 					fullDPS.TotalPoisonDPS = fullDPS.TotalPoisonDPS + usedEnv.player.output.TotalPoisonDPS * activeSkillCount
 				end
 				if usedEnv.player.output.CausticGroundDPS and usedEnv.player.output.CausticGroundDPS > fullDPS.causticGroundDPS then
 					fullDPS.causticGroundDPS = usedEnv.player.output.CausticGroundDPS
-					causticGroundSource = activeSkill.activeEffect.grantedEffect.name
+					sources.causticGround = activeSkill.activeEffect.grantedEffect.name
 				end
 				if usedEnv.player.output.ImpaleDPS and usedEnv.player.output.ImpaleDPS > 0 then
 					fullDPS.impaleDPS = fullDPS.impaleDPS + usedEnv.player.output.ImpaleDPS * activeSkillCount
 				end
-				if usedEnv.player.output.DecayDPS and usedEnv.player.output.DecayDPS > 0 then
-					fullDPS.decayDPS = fullDPS.decayDPS + usedEnv.player.output.DecayDPS
+				if usedEnv.player.output.DecayDPS and usedEnv.player.output.DecayDPS > fullDPS.decayDPS then
+					fullDPS.decayDPS = usedEnv.player.output.DecayDPS
+					sources.decay = activeSkill.activeEffect.grantedEffect.name
 				end
-				if usedEnv.player.output.TotalDot and usedEnv.player.output.TotalDot > 0 then
-					fullDPS.dotDPS = fullDPS.dotDPS + usedEnv.player.output.TotalDot * (activeSkill.skillFlags.DotCanStack and activeSkillCount or 1)
-				end
+				calcs.contributeSkillGenericDot(genericDots, activeSkill, usedEnv.player.output, activeSkillCount)
 				if usedEnv.player.output.CullMultiplier and usedEnv.player.output.CullMultiplier > 1 and usedEnv.player.output.CullMultiplier > fullDPS.cullingMulti then
 					fullDPS.cullingMulti = usedEnv.player.output.CullMultiplier
 				end
 
-				-- Re-Build env calculator for new run
-				local accelerationTbl = {
-					nodeAlloc = true,
-					requirementsItems = true,
-					requirementsGems = true,
-					skills = true,
-					everything = true,
-				}
-				fullEnv, _, _, _ = calcs.initEnv(build, mode, override, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = fullEnv, accelerate = accelerationTbl })
+				remainingPlayerFullDPS = remainingPlayerFullDPS - 1
+				-- Rebuild after the last player skill too when a Mercenary Full DPS
+				-- loop follows, so that loop does not inherit the last perform().
+				if remainingPlayerFullDPS > 0 or #mercenaryFullDPSSkills > 0 then
+					local accelerationTbl = {
+						nodeAlloc = true,
+						requirementsItems = true,
+						requirementsGems = true,
+						skills = true,
+						everything = true,
+					}
+					fullEnv, _, _, _ = calcs.initEnv(build, mode, override, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = fullEnv, accelerate = accelerationTbl })
+				end
+			end
+		end
+	end
+
+	local mercenaryGenericDots, mercenaryTotals
+	if fullEnv.mercenary then
+		mercenaryGenericDots = { }
+		mercenaryTotals = {
+			direct = 0, poison = 0, impale = 0, decay = 0, dot = 0,
+			bleed = 0, corruptingBlood = 0, ignite = 0, burningGround = 0, causticGround = 0, culling = 0,
+			bleedSource = "", corruptingBloodSource = "", igniteSource = "", burningGroundSource = "", causticGroundSource = "", decaySource = "",
+		}
+		for selectedIndex, selected in ipairs(mercenaryFullDPSSkills) do
+			local activeSkill
+			for _, candidate in ipairs(fullEnv.mercenary.activeSkillList or { }) do
+				if candidate.mercenarySkill and candidate.mercenarySkill.id == selected.id then activeSkill = candidate break end
+			end
+			if activeSkill then
+				fullEnv.mercenary.mainSkill = activeSkill
+				calcs.perform(fullEnv, true)
+				usedEnv = fullEnv
+				local count = selected.count or 1
+				local directCount = count
+				if activeSkill.minion and countSkillDamageOnce(activeSkill, fullEnv.mercenary.modDB) then
+					directCount = 1
+					activeSkill.infoMessage2 = "Skill Damage"
+				end
+				local actorOutputs = { {
+					output = usedEnv.mercenary.output,
+					name = activeSkill.activeEffect.grantedEffect.name,
+					source = "Mercenary",
+					count = directCount,
+					skill = activeSkill,
+					skillPart = activeSkill.minion and activeSkill.infoMessage2 or activeSkill.skillPartName,
+				} }
+				if activeSkill.minion and usedEnv.mercenaryMinion then
+					t_insert(actorOutputs, 1, {
+						output = usedEnv.mercenaryMinion.output,
+						name = usedEnv.mercenaryMinion.minionData.name..": "..activeSkill.activeEffect.grantedEffect.name,
+						source = "Mercenary Minion",
+						count = count,
+						skill = usedEnv.mercenaryMinion.mainSkill,
+						skillPart = activeSkill.skillPartName,
+					})
+				end
+				if activeSkill.mirage then
+					t_insert(actorOutputs, {
+						output = activeSkill.mirage.output,
+						name = activeSkill.mirage.name.." (Mirage)",
+						source = "Mercenary Mirage",
+						count = (activeSkill.mirage.count or 1) * directCount,
+						skill = activeSkill,
+						skillPart = activeSkill.mirage.skillPartName,
+					})
+				end
+				local extra = { skills = fullDPS.mercenarySkills, totals = mercenaryTotals, genericDots = mercenaryGenericDots }
+				for _, actorData in ipairs(actorOutputs) do
+					calcs.contributeActorFullDPS(fullDPS, sources, genericDots, actorData.output, actorData.count, {
+						name = actorData.name,
+						source = actorData.source,
+						skillPart = actorData.skillPart,
+						skill = actorData.skill,
+					}, extra)
+				end
+
+				if selectedIndex < #mercenaryFullDPSSkills then
+					local accelerationTbl = { nodeAlloc = true, requirementsItems = true, requirementsGems = true, skills = true, everything = true }
+					fullEnv, _, _, _ = calcs.initEnv(build, mode, override, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = fullEnv, accelerate = accelerationTbl })
+				end
 			end
 		end
 	end
@@ -306,19 +565,19 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 	-- Re-Add ailment DPS components
 	fullDPS.TotalDotDPS = 0
 	if fullDPS.bleedDPS > 0 then
-		t_insert(fullDPS.skills, { name = "Best Bleed DPS", dps = fullDPS.bleedDPS, count = 1, source = bleedSource })
+		t_insert(fullDPS.skills, { name = "Best Bleed DPS", dps = fullDPS.bleedDPS, count = 1, source = sources.bleed })
 		fullDPS.TotalDotDPS = fullDPS.TotalDotDPS + fullDPS.bleedDPS
 	end
 	if fullDPS.corruptingBloodDPS > 0 then
-		t_insert(fullDPS.skills, { name = "Corrupting Blood DPS", dps = fullDPS.corruptingBloodDPS, count = 1, source = corruptingBloodSource })
+		t_insert(fullDPS.skills, { name = "Corrupting Blood DPS", dps = fullDPS.corruptingBloodDPS, count = 1, source = sources.corruptingBlood })
 		fullDPS.TotalDotDPS = fullDPS.TotalDotDPS + fullDPS.corruptingBloodDPS
 	end
 	if fullDPS.igniteDPS > 0 then
-		t_insert(fullDPS.skills, { name = "Best Ignite DPS", dps = fullDPS.igniteDPS, count = 1, source = igniteSource })
+		t_insert(fullDPS.skills, { name = "Best Ignite DPS", dps = fullDPS.igniteDPS, count = 1, source = sources.ignite })
 		fullDPS.TotalDotDPS = fullDPS.TotalDotDPS + fullDPS.igniteDPS
 	end
 	if fullDPS.burningGroundDPS > 0 then
-		t_insert(fullDPS.skills, { name = "Best Burning Ground DPS", dps = fullDPS.burningGroundDPS, count = 1, source = burningGroundSource })
+		t_insert(fullDPS.skills, { name = "Best Burning Ground DPS", dps = fullDPS.burningGroundDPS, count = 1, source = sources.burningGround })
 		fullDPS.TotalDotDPS = fullDPS.TotalDotDPS + fullDPS.burningGroundDPS
 	end
 	if fullDPS.TotalPoisonDPS > 0 then
@@ -327,7 +586,7 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 		fullDPS.TotalDotDPS = fullDPS.TotalDotDPS + fullDPS.TotalPoisonDPS
 	end
 	if fullDPS.causticGroundDPS > 0 then
-		t_insert(fullDPS.skills, { name = "Best Caustic Ground DPS", dps = fullDPS.causticGroundDPS, count = 1, source = causticGroundSource })
+		t_insert(fullDPS.skills, { name = "Best Caustic Ground DPS", dps = fullDPS.causticGroundDPS, count = 1, source = sources.causticGround })
 		fullDPS.TotalDotDPS = fullDPS.TotalDotDPS + fullDPS.causticGroundDPS
 	end
 	if fullDPS.impaleDPS > 0 then
@@ -335,9 +594,10 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 		fullDPS.combinedDPS = fullDPS.combinedDPS + fullDPS.impaleDPS
 	end
 	if fullDPS.decayDPS > 0 then
-		t_insert(fullDPS.skills, { name = "Full Decay DPS", dps = fullDPS.decayDPS, count = 1 })
+		t_insert(fullDPS.skills, { name = "Best Decay DPS", dps = fullDPS.decayDPS, count = 1, source = sources.decay })
 		fullDPS.TotalDotDPS = fullDPS.TotalDotDPS + fullDPS.decayDPS
 	end
+	fullDPS.dotDPS = calcs.sumDotTotals(genericDots)
 	if fullDPS.dotDPS > 0 then
 		t_insert(fullDPS.skills, { name = "Full DoT DPS", dps = fullDPS.dotDPS, count = 1 })
 		fullDPS.TotalDotDPS = fullDPS.TotalDotDPS + fullDPS.dotDPS
@@ -348,6 +608,32 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 		fullDPS.cullingDPS = fullDPS.combinedDPS * (fullDPS.cullingMulti - 1)
 		t_insert(fullDPS.skills, { name = "Full Culling DPS", dps = fullDPS.cullingDPS, count = 1 })
 		fullDPS.combinedDPS = fullDPS.combinedDPS + fullDPS.cullingDPS
+	end
+	if mercenaryTotals then
+		mercenaryTotals.dot = calcs.sumDotTotals(mercenaryGenericDots)
+		local function addMercenaryDPS(name, dps, source)
+			if dps > 0 then
+				t_insert(fullDPS.mercenarySkills, { name = name, dps = dps, count = 1, source = source })
+			end
+		end
+		local mercenaryPoison = m_min(mercenaryTotals.poison, data.misc.DotDpsCap)
+		addMercenaryDPS("Best Bleed DPS", mercenaryTotals.bleed, mercenaryTotals.bleedSource)
+		addMercenaryDPS("Corrupting Blood DPS", mercenaryTotals.corruptingBlood, mercenaryTotals.corruptingBloodSource)
+		addMercenaryDPS("Best Ignite DPS", mercenaryTotals.ignite, mercenaryTotals.igniteSource)
+		addMercenaryDPS("Best Burning Ground DPS", mercenaryTotals.burningGround, mercenaryTotals.burningGroundSource)
+		addMercenaryDPS("Full Poison DPS", mercenaryPoison)
+		addMercenaryDPS("Best Caustic Ground DPS", mercenaryTotals.causticGround, mercenaryTotals.causticGroundSource)
+		addMercenaryDPS("Full Impale DPS", mercenaryTotals.impale)
+		addMercenaryDPS("Best Decay DPS", mercenaryTotals.decay, mercenaryTotals.decaySource)
+		addMercenaryDPS("Full DoT DPS", mercenaryTotals.dot)
+		fullDPS.mercenaryDotDPS = m_min(mercenaryTotals.bleed + mercenaryTotals.corruptingBlood + mercenaryTotals.ignite
+			+ mercenaryTotals.burningGround + mercenaryTotals.causticGround + mercenaryPoison + mercenaryTotals.decay + mercenaryTotals.dot, data.misc.DotDpsCap)
+		fullDPS.mercenaryDPS = mercenaryTotals.direct + mercenaryTotals.impale + fullDPS.mercenaryDotDPS
+		if mercenaryTotals.culling > 1 then
+			local cullingDPS = fullDPS.mercenaryDPS * (mercenaryTotals.culling - 1)
+			addMercenaryDPS("Full Culling DPS", cullingDPS)
+			fullDPS.mercenaryDPS = fullDPS.mercenaryDPS + cullingDPS
+		end
 	end
 
 	return fullDPS
@@ -369,12 +655,21 @@ function calcs.buildActiveSkill(env, mode, skill, targetUUID, limitedProcessingF
 	end
 
 	targetUUID = targetUUID or cacheSkillUUID(skill, env)
-	for _, activeSkill in ipairs(fullEnv.player.activeSkillList) do
-		local activeSkillUUID = cacheSkillUUID(activeSkill, fullEnv)
-		if activeSkillUUID == targetUUID then
-			fullEnv.player.mainSkill = activeSkill
-			calcs.perform(fullEnv, true)
-			return
+	local skillLists = { fullEnv.player.activeSkillList }
+	if fullEnv.mercenary then
+		t_insert(skillLists, fullEnv.mercenary.activeSkillList)
+	end
+	for _, skillList in ipairs(skillLists) do
+		for _, activeSkill in ipairs(skillList) do
+			if cacheSkillUUID(activeSkill, fullEnv) == targetUUID then
+				if activeSkill.actor and activeSkill.actor.isMercenary then
+					fullEnv.mercenary.mainSkill = activeSkill
+				else
+					fullEnv.player.mainSkill = activeSkill
+				end
+				calcs.perform(fullEnv, true)
+				return
+			end
 		end
 	end
 	ConPrintf("[calcs.buildActiveSkill] Failed to process skill: " .. skill.activeEffect.grantedEffect.name)
@@ -392,9 +687,7 @@ function calcs.buildOutput(build, mode)
 	local fullDPS = calcs.calcFullDPS(build, "CALCULATOR", {}, { cachedPlayerDB = cachedPlayerDB, cachedEnemyDB = cachedEnemyDB, cachedMinionDB = cachedMinionDB, env = nil })
 
 	-- Add Full DPS data to main `env`
-	env.player.output.SkillDPS = fullDPS.skills
-	env.player.output.FullDPS = fullDPS.combinedDPS
-	env.player.output.FullDotDPS = fullDPS.TotalDotDPS
+	applyFullDPSOutput(env, fullDPS)
 
 	if mode == "MAIN" then
 		for _, skill in ipairs(env.player.activeSkillList) do
@@ -446,16 +739,20 @@ function calcs.buildOutput(build, mode)
 		output["Spec:EnergyShieldInc"] = env.modDB:Sum("INC", specCfg, "EnergyShield")
 
 		env.skillsUsed = { }
-		for _, activeSkill in ipairs(env.player.activeSkillList) do
-			for _, skillEffect in ipairs(activeSkill.effectList) do
-				env.skillsUsed[skillEffect.grantedEffect.name] = true
-			end
-			if activeSkill.minion then
-				for	_, activeSkill in ipairs(activeSkill.minion.activeSkillList) do
-					env.skillsUsed[activeSkill.activeEffect.grantedEffect.id] = true
+		local function recordActorSkills(actor)
+			for _, activeSkill in ipairs(actor and actor.activeSkillList or { }) do
+				for _, skillEffect in ipairs(activeSkill.effectList) do
+					env.skillsUsed[skillEffect.grantedEffect.name] = true
+				end
+				if activeSkill.minion then
+					for _, minionSkill in ipairs(activeSkill.minion.activeSkillList) do
+						env.skillsUsed[minionSkill.activeEffect.grantedEffect.id] = true
+					end
 				end
 			end
 		end
+		local primaryActorKeys = { "player", "mercenary" }
+		for _, actorKey in ipairs(primaryActorKeys) do recordActorSkills(env[actorKey]) end
 
 		env.conditionsUsed = { }
 		env.enemyConditionsUsed = { }
@@ -466,6 +763,28 @@ function calcs.buildOutput(build, mode)
 		env.enemyPerStatsUsed = { }
 		env.tagTypesUsed = { }
 		env.modsUsed = { }
+		env.actorUsage = {
+			player = { conditions = { }, multipliers = { }, mods = { }, perStats = { }, minionConditions = { }, enemyConditions = { }, enemyMultipliers = { }, enemyPerStats = { } },
+		}
+		if env.mercenary then
+			env.actorUsage.mercenary = { conditions = { }, multipliers = { }, mods = { }, perStats = { }, minionConditions = { }, enemyConditions = { }, enemyMultipliers = { }, enemyPerStats = { } }
+		end
+		local function actorUsageFor(actor)
+			if actor == env.mercenary then
+				return env.actorUsage.mercenary
+			end
+			if actor == env.player then
+				return env.actorUsage.player
+			end
+		end
+		local function ownerUsageForMinion(actor)
+			if actor == env.minion or (actor and actor.parent == env.player) then
+				return env.actorUsage.player
+			end
+			if actor == env.mercenaryMinion or (actor and actor.parent == env.mercenary) then
+				return env.actorUsage.mercenary
+			end
+		end
 		local function addTo(out, var, mod)
 			-- Do not count Base mods as mods being actually used as they are only used as descriptors for mods
 			if mod.source == "Base" then
@@ -496,6 +815,10 @@ function calcs.buildOutput(build, mode)
 		end
 		local function addModTags(actor, mod)
 			addTo(env.modsUsed, mod.name, mod)
+			local usage = actorUsageFor(actor)
+			if usage then
+				addTo(usage.mods, mod.name, mod)
+			end
 			
 			-- Imply enemy conditionals based on damage type
 			-- Needed to preemptively show config options for elemental ailments
@@ -506,63 +829,123 @@ function calcs.buildOutput(build, mode)
 					end
 				end
 			end
+			if ConfigScope.impliesChilledByYourHits(mod.name) then
+				addTo(env.enemyConditionsUsed, "ChilledByYourHits", mod)
+				if usage then
+					addTo(usage.enemyConditions, "ChilledByYourHits", mod)
+				end
+			end
 			
 			for _, tag in ipairs(mod) do
 				addTo(env.tagTypesUsed, tag.type, mod)
 				if tag.type == "IgnoreCond" then
 					break
 				elseif tag.type == "Condition" then
-					if actor == env.player then
+					if actor == env.player or actor == env.mercenary then
 						addVarTag(env.conditionsUsed, tag, mod)
+						if usage then
+							addVarTag(usage.conditions, tag, mod)
+						end
 					else
 						addVarTag(env.minionConditionsUsed, tag, mod)
+						local ownerUsage = ownerUsageForMinion(actor)
+						if ownerUsage then
+							addVarTag(ownerUsage.minionConditions, tag, mod)
+						end
 					end
 				elseif tag.type == "ActorCondition" and tag.var then
 					if tag.actor == "enemy" then
 						addTo(env.enemyConditionsUsed, tag.var, mod)
+						if usage then
+							addTo(usage.enemyConditions, tag.var, mod)
+						end
 					else
 						addTo(env.conditionsUsed, tag.var, mod)
+						if usage then
+							addTo(usage.conditions, tag.var, mod)
+						end
 					end
 				elseif tag.type == "Multiplier" or tag.type == "MultiplierThreshold" then
 					if not tag.actor then
-						if actor == env.player then
+						if actor == env.player or actor == env.mercenary then
 							addVarTag(env.multipliersUsed, tag, mod)
+							if usage then
+								addVarTag(usage.multipliers, tag, mod)
+							end
 						end
 					elseif tag.actor == "enemy" then
 						addVarTag(env.enemyMultipliersUsed, tag, mod)
+						if usage then
+							addVarTag(usage.enemyMultipliers, tag, mod)
+						end
 					end
 				elseif tag.type == "PerStat" or tag.type == "StatThreshold" then
 					if not tag.actor then
-						if actor == env.player then
+						if actor == env.player or actor == env.mercenary then
 							addStatTag(env.perStatsUsed, tag, mod)
+							if usage then
+								addStatTag(usage.perStats, tag, mod)
+							end
 						end
 					elseif tag.actor == "enemy" then
 						addStatTag(env.enemyPerStatsUsed, tag, mod)
+						if usage then
+							addStatTag(usage.enemyPerStats, tag, mod)
+						end
+					end
+				end
+			end
+			if mod.name == "EnemyModifier" and mod.value and mod.value.mod then
+				for _, innerTag in ipairs(mod.value.mod) do
+					if innerTag.type == "IgnoreCond" then
+						break
+					elseif innerTag.type == "Condition" then
+						addVarTag(env.enemyConditionsUsed, innerTag, mod.value.mod)
+						if usage then
+							addVarTag(usage.enemyConditions, innerTag, mod.value.mod)
+						end
+					elseif innerTag.type == "Multiplier" or innerTag.type == "MultiplierThreshold" then
+						if not innerTag.actor then
+							addVarTag(env.enemyMultipliersUsed, innerTag, mod.value.mod)
+							if usage then
+								addVarTag(usage.enemyMultipliers, innerTag, mod.value.mod)
+							end
+						end
 					end
 				end
 			end
 		end
-		for _, actor in ipairs({env.player, env.minion}) do
-			for modName, modList in pairs(actor.modDB.mods) do
-				for _, mod in ipairs(modList) do
-					addModTags(actor, mod)
+		for _, actorKey in ipairs({ "player", "mercenary", "minion", "mercenaryMinion" }) do
+			local actor = env[actorKey]
+			if actor then
+				for modName, modList in pairs(actor.modDB.mods) do
+					for _, mod in ipairs(modList) do
+						addModTags(actor, mod)
+					end
 				end
 			end
 		end
-		for _, activeSkill in pairs(env.player.activeSkillList) do
-			for _, mod in ipairs(activeSkill.baseSkillModList) do
-				addModTags(env.player, mod)
-			end
-			for _, mod in ipairs(activeSkill.skillModList) do
-				addTo(env.modsUsed, mod.name, mod)
-				for _, tag in ipairs(mod) do
-					addTo(env.tagTypesUsed, tag.type, mod)
+		for _, actorKey in ipairs(primaryActorKeys) do
+			local actor = env[actorKey]
+			for _, activeSkill in pairs(actor and actor.activeSkillList or { }) do
+				for _, mod in ipairs(activeSkill.baseSkillModList) do
+					addModTags(actor, mod)
 				end
-			end
-			if activeSkill.minion then
-				for _, activeSkill in pairs(activeSkill.minion.activeSkillList) do
-					for _, mod in ipairs(activeSkill.baseSkillModList) do
-						addModTags(env.minion, mod)
+				for _, mod in ipairs(activeSkill.skillModList) do
+					addTo(env.modsUsed, mod.name, mod)
+					local usage = actorUsageFor(actor)
+					if usage then
+						addTo(usage.mods, mod.name, mod)
+					end
+					for _, tag in ipairs(mod) do
+						addTo(env.tagTypesUsed, tag.type, mod)
+					end
+				end
+				if activeSkill.minion then
+					for _, minionSkill in pairs(activeSkill.minion.activeSkillList) do
+						for _, mod in ipairs(minionSkill.baseSkillModList) do
+							addModTags(activeSkill.minion, mod)
+						end
 					end
 				end
 			end
