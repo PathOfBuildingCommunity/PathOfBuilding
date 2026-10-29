@@ -8,7 +8,6 @@ Imperial Staff
 Variant: Pre 2.6.0
 Variant: Pre 3.25.0
 Variant: Current
-Requires Level 66, 158 Str, 113 Int
 Implicits: 3
 {variant:1}+12% Chance to Block Attack Damage
 {variant:2}+18% Chance to Block Attack Damage
@@ -26,7 +25,6 @@ Imperial Staff
 Variant: Pre 2.6.0
 Variant: Pre 3.25.0
 Variant: Current
-Requires Level 66, 158 Str, 113 Int
 Implicits: 3
 {variant:1}+12% Chance to Block Attack Damage
 {variant:2}+18% Chance to Block Attack Damage
@@ -44,7 +42,6 @@ Imperial Staff
 Variant: Pre 2.6.0
 Variant: Pre 3.25.0
 Variant: Current
-Requires Level 66, 158 Str, 113 Int
 Implicits: 3
 {variant:1}+12% Chance to Block Attack Damage
 {variant:2}+18% Chance to Block Attack Damage
@@ -62,7 +59,6 @@ Imperial Staff
 Variant: Pre 2.6.0
 Variant: Pre 3.25.0
 Variant: Current
-Requires Level 66, 158 Str, 113 Int
 Implicits: 3
 {variant:1}+12% Chance to Block Attack Damage
 {variant:2}+18% Chance to Block Attack Damage
@@ -80,7 +76,7 @@ Quarterstaff
 Variant: Pre 3.25.0
 Variant: Current
 Source: Drops from unique{The Searing Exarch} (Uber)
-Requires Level 68, 78 Str, 78 Int
+Requires Level 68
 Implicits: 2
 {variant:1}+18% Chance to Block Attack Damage
 {variant:2}+22% Chance to Block Spell Damage
@@ -93,7 +89,6 @@ Variant: Pre 3.25.0
 Variant: Pre 3.29.0
 Variant: Current
 Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Alluring Abyss}
-Requires Level 68, 113 Str, 113 Int
 Implicits: 2
 {variant:2,3}+25% Chance to Block Attack Damage
 {variant:1}+20% Chance to Block Spell Damage
@@ -156,7 +151,7 @@ The Broken Elegy
 Foul Staff
 League: Mirage
 Source: No longer obtainable
-LevelReq: 64
+Requires Level 64
 Implicits: 1
 +22% Chance to Block Attack Damage
 Trigger level 25 Ceaseless Flesh once every second
@@ -172,7 +167,6 @@ Variant: Pre 3.11.0
 Variant: Pre 3.25.0
 Variant: Pre 3.29.0
 Variant: Current
-Requires Level: 60, 113 Str, 113 Int
 Implicits: 3
 {variant:1,2}+18% Chance to Block Attack Damage
 {variant:3}+20% Chance to Block Attack Damage
@@ -210,7 +204,6 @@ Variant: Pre 3.11.0
 Variant: Pre 3.13.0
 Variant: Pre 3.29.0
 Variant: Current
-Requires Level 64, 113 Str, 113 Int
 Implicits: 2
 {variant:1,2}+20% Chance to Block Attack Damage
 {variant:3,4,5}+25% Chance to Block Attack Damage
@@ -236,7 +229,6 @@ Variant: Pre 3.5.0
 Variant: Pre 3.11.0
 Variant: Pre 3.29.0
 Variant: Current
-Requires Level 64, 113 Str, 113 Int
 Implicits: 3
 {variant:1}+18% Chance to Block Attack Damage
 {variant:2,3}+20% Chance to Block Attack Damage
@@ -257,7 +249,6 @@ League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Variant: Pre 3.29.0
 Variant: Current
-Requires Level 64, 113 Str, 113 Int
 Implicits: 1
 +25% Chance to Block Attack Damage
 {variant:1}+10% Chance to Block Attack Damage while wielding a Staff
@@ -294,7 +285,6 @@ Variant: Pre 3.11.0
 Variant: Pre 3.25.0
 Variant: Pre 3.26.0
 Variant: Current
-Requires Level 66, 113 Str, 113 Int
 Implicits: 2
 {variant:2}+18% Chance to Block Attack Damage
 {variant:3,4}+25% Chance to Block Spell Damage
@@ -315,7 +305,6 @@ Variant: Pre 3.26.0
 Variant: Current
 League: Harvest
 Source: Upgraded from unique{The Enmity Divine} via currency{Haemocombustion Scroll}
-Requires Level 66, 113 Str, 113 Int
 Implicits: 2
 {variant:1}+18% Chance to Block Attack Damage
 {variant:2,3}+25% Chance to Block Spell Damage
@@ -334,7 +323,6 @@ Variant: Pre 2.6.0
 Variant: Pre 3.8.0
 Variant: Pre 3.25.0
 Variant: Current
-Requires Level 58, 99 Str, 99 Int
 Implicits: 3
 {variant:1}+12% Chance to Block Attack Damage
 {variant:2,3}+18% Chance to Block Attack Damage
@@ -383,7 +371,6 @@ Primordial Staff
 Variant: Pre 3.25.0
 Variant: Current
 League: Affliction
-Requires Level 58, 99 Str, 99 Int
 Implicits: 2
 {variant:1}+18% Chance to Block Attack Damage
 {variant:2}+25% Chance to Block Spell Damage
@@ -399,7 +386,6 @@ Variant: Pre 3.25.0
 Variant: Current
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 60, 113 Str, 113 Int
 Implicits: 2
 {variant:1}+20% Chance to Block Attack Damage
 {variant:2}+25% Chance to Block Attack Damage
@@ -434,7 +420,6 @@ Variant: Pre 3.11.0
 Variant: Pre 3.25.0
 Variant: Pre 3.29.0
 Variant: Current
-Requires Level 68, 113 Str, 113 Int
 Implicits: 3
 {variant:1}+18% Chance to Block Attack Damage
 {variant:3,4}+25% Chance to Block Attack Damage
@@ -454,7 +439,6 @@ Variant: Pre 3.7.0
 Variant: Pre 3.11.0
 Variant: Pre 3.25.0
 Variant: Current
-Requires Level 68, 113 Str, 113 Int
 Implicits: 4
 {variant:1}+12% Chance to Block Attack Damage
 {variant:2,3}+18% Chance to Block Attack Damage
@@ -475,7 +459,6 @@ Imperial Staff
 Source: Drops from unique{It That Was Esh} and unique{It That Was Tul} in normal{Hive Colony}
 Variant: Pre 3.29.0
 Variant: Current
-Requires Level 66, 113 Str, 113 Dex
 Implicits: 1
 +25% Chance to Block Spell Damage
 (1-7)% increased Intelligence
@@ -492,7 +475,6 @@ Variant: Shaper's Despair
 Variant: Shaper's Ire
 Variant: Shaper's Devastation
 Source: Drops from unique{Incarnation of Neglect} in normal{Moment of Loneliness}
-Requires Level 68, 113 Str, 113 Int
 Implicits: 1
 +25% Chance to Block Attack Damage
 {variant:1}Grants Level 20 Summon Shaper Memory
@@ -516,10 +498,9 @@ Variant: Pre 3.13.0
 Variant: Pre 3.25.0
 Variant: Pre 3.29.0
 Variant: Current
-Requires Level 52, 89 Str, 89 Int
 Implicits: 2
 {variant:1,2,3}+18% Chance to Block Attack Damage
-{variant:4}+22% Chance to Block Spell Damage
+{variant:4,5}+22% Chance to Block Spell Damage
 {variant:1,2,3,4}+(12-16)% Chance to Block Attack Damage while wielding a Staff
 {variant:5}+(20-25)% Chance to Block Attack Damage while wielding a Staff
 {variant:1,2,3,4}100% increased Fire Damage
@@ -535,7 +516,6 @@ Iron Staff
 Variant: Pre 2.6.0
 Variant: Pre 3.25.0
 Variant: Current
-Requires Level 13, 27 Str, 27 Int
 Implicits: 3
 {variant:1}+12% Chance to Block Attack Damage
 {variant:2}+18% Chance to Block Attack Damage
@@ -554,7 +534,6 @@ Variant: Pre 3.15.0
 Variant: Pre 3.25.0
 Variant: Pre 3.28.0
 Variant: Current
-Requires Level 68, 113 Str, 113 Int
 Implicits: 4
 {variant:1}+12% Chance to Block Attack Damage
 {variant:2}+18% Chance to Block Attack Damage
@@ -573,7 +552,6 @@ Variant: Pre 2.6.0
 Variant: Pre 3.25.0
 Variant: Pre 3.29.0
 Variant: Current
-Requires Level 18, 35 Str, 35 Int
 Implicits: 3
 {variant:1}+12% Chance to Block Attack Damage
 {variant:2}+18% Chance to Block Attack Damage
@@ -593,7 +571,7 @@ Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Pre 3.25.0
 Variant: Current
-Requires Level 40, 35 Str, 35 Int
+Requires Level 40
 Implicits: 3
 {variant:1}+12% Chance to Block Attack Damage
 {variant:2}+18% Chance to Block Attack Damage
@@ -635,7 +613,6 @@ Serpentine Staff
 Variant: Pre 2.6.0
 Variant: Pre 3.25.0
 Variant: Current
-Requires Level 49, 85 Str, 85 Int
 Implicits: 3
 {variant:1}+18% Chance to Block Attack Damage
 {variant:2}+20% Chance to Block Attack Damage
@@ -654,7 +631,6 @@ Variant: Pre 3.11.0
 Variant: Pre 3.25.0
 Variant: Pre 3.26.0
 Variant: Current
-Requires Level 62, 113 Str, 113 Int
 Implicits: 3
 {variant:1}+18% Chance to Block Attack Damage
 {variant:2}+20% Chance to Block Attack Damage
@@ -673,7 +649,6 @@ Royal Staff
 Variant: Pre 2.6.0
 Variant: Pre 3.25.0
 Variant: Current
-Requires Level 28, 51 Str, 51 Int
 Implicits: 3
 {variant:1}+12% Chance to Block Attack Damage
 {variant:2}+18% Chance to Block Attack Damage
@@ -691,7 +666,7 @@ Royal Staff
 Variant: Pre 3.25.0
 Variant: Current
 Source: No longer obtainable
-Requires Level 60, 51 Str, 51 Int
+Requires Level 60
 Implicits: 2
 {variant:1}+18% Chance to Block Attack Damage
 {variant:2}+20% Chance to Block Spell Damage
@@ -711,7 +686,6 @@ Variant: Pre 2.6.0
 Variant: Pre 3.11.0
 Variant: Pre 3.29.0
 Variant: Current
-Requires Level 64, 113 Str, 113 Int
 Implicits: 3
 {variant:1,2}+18% Chance to Block Attack Damage
 {variant:3}+20% Chance to Block Attack Damage
@@ -735,7 +709,6 @@ Variant: Pre 2.6.0
 Variant: Pre 3.8.0
 Variant: Pre 3.25.0
 Variant: Current
-Requires Level 45, 78 Str, 78 Int
 Implicits: 3
 {variant:1}+12% Chance to Block Attack Damage
 {variant:2,3}+18% Chance to Block Attack Damage
@@ -753,7 +726,6 @@ Vile Staff
 Variant: Pre 2.6.0
 Variant: Pre 3.25.0
 Variant: Current
-Requires Level 33, 59 Str, 59 Int
 Implicits: 3
 {variant:1}+12% Chance to Block Attack Damage
 {variant:2}+18% Chance to Block Attack Damage
@@ -770,7 +742,7 @@ Variant: Pre 3.25.0
 Variant: Current
 League: Harvest
 Source: Drops from unique{Oshabi, Avatar of the Grove}
-Requires Level 68, 89 Str, 89 Int
+Requires Level 68
 Implicits: 2
 {variant:1}+18% Chance to Block Attack Damage
 {variant:2}+22% Chance to Block Spell Damage
@@ -800,7 +772,7 @@ Source: Drops in The Lord's Labyrinth
 Variant: Pre 2.6.0
 Variant: Pre 3.26.0
 Variant: Current
-Requires Level 28, 43 Str, 43 Int
+Requires Level 28
 Implicits: 2
 {variant:1}+18% Chance to Block Attack Damage
 {variant:2,3}+20% Chance to Block Attack Damage
@@ -817,7 +789,7 @@ Cane of Kulemak
 Serpentine Staff
 Source: Drops from unique{Catarina, Master of Undeath}
 Crafted: true
-Requires Level 68, 85 Str, 85 Int
+Requires Level 68
 Implicits: 1
 +22% Chance to Block Attack Damage
 (60-90)% increased Unveiled Modifier magnitudes

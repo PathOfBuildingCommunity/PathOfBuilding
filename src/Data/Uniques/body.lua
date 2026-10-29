@@ -30,7 +30,7 @@ Implicits: 0
 Wall of Brambles
 Plate Vest
 Source: No longer obtainable
-LevelReq: 30
+Requires Level 30
 Implicits: 0
 Adds 2 to 4 Physical Damage to Attacks
 +2000 to Armour
@@ -58,6 +58,7 @@ Variant: Pre 3.16.0
 Variant: Current
 League: Bestiary
 Source: Drops from unique{Craiceann, First of the Deep}
+Requires Level 64
 Implicits: 0
 Grants Level 20 Aspect of the Crab Skill
 {variant:1}(300-350)% increased Armour
@@ -183,7 +184,6 @@ Pragmatism
 Colosseum Plate
 League: Affliction
 Source: unique{The King in the Mists} in the normal{Crux of Nothingness}
-Requires Level 49, 134 Str
 +12 to Level of Socketed Skill Gems
 (80-120)% increased Armour
 +(60-100) to maximum Mana
@@ -204,7 +204,6 @@ Chaos Damage taken does not bypass Energy Shield
 ]],[[
 Utula's Hunger
 Majestic Plate
-Requires Level 53, 145 Str
 (60-100)% increased Armour
 Recover (1-3)% of Life on Kill
 (30-40)% increased Stun and Block Recovery
@@ -250,7 +249,7 @@ Implicits: 0
 Wildwrap
 Strapped Leather
 Source: No longer obtainable
-LevelReq: 57
+Requires Level 57
 Implicits: 0
 15% increased Dexterity
 10% increased Attack Speed
@@ -311,6 +310,7 @@ Implicits: 0
 Fox's Fortune
 Wild Leather
 Source: No longer obtainable
+Requires Level 54
 Implicits: 0
 +(20-30) to Dexterity
 Adds 5 to 12 Physical Damage to Attacks
@@ -498,7 +498,6 @@ Projectile Attack Skills have (40-60)% increased Critical Strike Chance
 [[
 The Apostate
 Cabalist Regalia
-Requires Level 35
 Source: Drops from unique{Synthete Nightmare} in normal{The Cortex} (Uber)
 +(30-50) to Strength
 +(20-30)% to all Elemental Resistances
@@ -626,6 +625,7 @@ Fenumus' Shroud
 Widowsilk Robe
 League: Bestiary
 Source: Drops from unique{Fenumus, First of the Night}
+Requires Level 67
 Implicits: 0
 +(30-40) to Intelligence
 (120-140)% increased Energy Shield
@@ -914,7 +914,6 @@ Cannot be Poisoned
 ]],[[
 Rigwald's Hunt
 General's Brigandine
-Requires Level 66, 103 Str, 103 Dex
 (160-200)% increased Armour and Evasion
 Minions have (20-30)% increased Movement Speed
 Minions have 1% chance to deal Double Damage per Fortification on you
@@ -1024,7 +1023,7 @@ Cannot be Chilled
 Crystal Vault
 Latticed Ringmail
 Source: No longer obtainable
-LevelReq: 49
+Requires Level 49
 Implicits: 0
 +(30-40) to Strength
 +(30-40) to Intelligence
@@ -1404,7 +1403,6 @@ Socketed Gems have 45% increased Reservation Efficiency
 Servant of Decay
 Torturer Garb
 Source: Drops from unique{Incarnation of Fear} in normal{Moment of Trauma}
-Requires Level 78, 151 Dex, 151 Int
 Trigger Level 20 Summon Void Spawn every 4 seconds
 (150-200)% increased Energy Shield
 +(23-37)% to Chaos Resistance
@@ -1414,7 +1412,7 @@ Gain (4-6)% of Non-Chaos Damage as Extra Chaos Damage per Summoned Void Spawn
 Seven Teachings
 Waxed Garb
 Source: Drops from unique{Incarnation of Dread} in normal{Moment of Reverence}
-Requires Level 77, 48 Dex, 48 Int
+Requires Level 77
 Trigger a Socketed Spell on Unarmed Melee Critical Strike, with a 0.25 second Cooldown
 (1-7)% more Attack Speed with Unarmed Melee Attacks
 (100-777)% increased Evasion and Energy Shield
@@ -1461,6 +1459,7 @@ Variant: Current (Energy Shield)
 Variant: Current (Armour/ES + Life)
 Variant: Current (Armour/ES + ES)
 Variant: Current (Armour/Evasion/ES)
+Requires Level 75
 Implicits: 1
 +1 to Level of all Vaal Skill Gems
 {variant:1,10}(380-420)% increased Armour

@@ -100,7 +100,6 @@ Crystal Wand
 Source: No longer obtainable
 Variant: Pre 3.10.0
 Variant: Current
-LevelReq: 63
 Implicits: 1
 SpellDamageOnWeaponImplicitWand13
 BlindingAuraSkillUnique__1
@@ -203,7 +202,6 @@ Mystic Refractor
 Pagan Wand
 Variant: Pre 3.29.0
 Variant: Current
-Requires Level 34, 118 Int
 Implicits: 1
 IncreasedCastSpeedImplicitMarakethWand1
 AdditionalProjectilesUniqueWand_1
@@ -304,14 +302,13 @@ Spiraled Wand
 Source: No longer obtainable
 Variant: Pre 3.11.0
 Variant: Current
-LevelReq: 36
 Implicits: 1
 SpellDamageOnWeaponImplicitWand5
 {variant:1}LocalIncreaseSocketedGemLevelUniqueWand8[1,1]
 {variant:2}LocalIncreaseSocketedGemLevelUniqueWand8
-SocketedGemsGetIncreasedAreaOfEffectUnique__1
-SupportedByEchoUniqueWand8
-ControlledDestructionSupportUniqueWand8
+SupportedByIntensifyUnique__1
+SupportedByEchoUniqueWand8New_
+ControlledDestructionSupportUnique__1New_
 IntelligenceUniqueWand8
 ]],[[
 Shade of Solaris
@@ -466,7 +463,6 @@ AttackAdditionalProjectilesUnique__1
 ]],[[
 Unlight Extant
 Sage Wand
-Requires Level 30, 119 Int
 Implicits: 1
 SpellDamageOnWeaponImplicitWand6
 IncreasedChaosDamageUniqueWand_1

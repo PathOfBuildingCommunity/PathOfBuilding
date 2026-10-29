@@ -5,7 +5,7 @@ return {
 [[
 Ahuana's Bite
 Sharktooth Arrow Quiver
-LevelReq: 56
+Requires Level 56
 Implicits: 1
 Gain (6-8) Life per Enemy Hit with Attacks
 Adds (30-40) to (60-70) Cold Damage to Attacks
@@ -19,7 +19,6 @@ Asphyxia's Wrath
 Variant: Pre 3.0.0
 Variant: Pre 3.17.0
 Variant: Current
-{variant:1,2}LevelReq: 10
 Implicits: 2
 {variant:1,2}(20-30)% increased Global Accuracy Rating
 {variant:3}(20-30)% increased Projectile Speed
@@ -40,8 +39,6 @@ Variant: Pre 1.2.0
 Variant: Pre 2.0.0
 Variant: Pre 3.17.0
 Variant: Current
-{variant:1,2,3}LevelReq: 22
-{variant:4}LevelReq: 45
 Implicits: 3
 {variant:1}Adds 2 to 4 Fire Damage to Attacks
 {variant:4}Adds (12-15) to (24-27) Fire Damage to Attacks
@@ -63,8 +60,6 @@ Variant: Pre 2.0.0
 Variant: Pre 3.17.0
 Variant: Current
 Source: No longer obtainable
-{variant:1,2,3}LevelReq: 24
-{variant:4}LevelReq: 45
 Implicits: 3
 {variant:1}Adds 2 to 4 Fire Damage to Attacks
 {variant:4}Adds (12-15) to (24-27) Fire Damage to Attacks
@@ -144,7 +139,6 @@ Sharktooth Arrow Quiver
 Source: Vendor Recipe
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 14
 Implicits: 1
 Gain (6-8) Life per Enemy Hit with Attacks
 +(15-25) to Strength
@@ -171,7 +165,6 @@ Adds 0 to 3 Lightning Damage to Attacks per 10 Intelligence
 ]],[[
 Maloney's Mechanism
 Ornate Quiver
-Requires Level 45
 Implicits: 1
 Has 1 Socket
 Has 2 Sockets
@@ -184,7 +177,6 @@ Replica Maloney's Mechanism
 Ornate Quiver
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 45
 Implicits: 1
 Has 1 Socket
 Has 2 Sockets
@@ -200,7 +192,6 @@ Maloney's Nightfall
 Variant: Pre 2.6.0
 Variant: Pre 3.17.0
 Variant: Current
-LevelReq: 55
 Implicits: 2
 {variant:1,2}(25-35)% increased Stun Duration on Enemies
 {variant:3}Gain (10-15)% of Physical Damage as Extra Chaos Damage
@@ -269,7 +260,6 @@ Scorpion's Call
 Variant: Pre 3.17.0
 Variant: Current
 League: Harvest
-Requires Level 57
 Implicits: 2
 {variant:2}Adds (12-15) to (24-27) Physical Damage to Attacks
 {variant:1}6 to 12 Added Physical Damage with Bow Attacks
@@ -282,7 +272,6 @@ Regenerate (150-200) Life per Second while in Blood Stance
 ]],[[
 Skirmish
 Two-Point Arrow Quiver
-Requires Level 36
 Implicits: 1
 (20-30)% increased Global Accuracy Rating
 +(15-25) to Intelligence
@@ -295,8 +284,8 @@ Steelworm
 Broadhead Arrow Quiver
 Variant: Pre 3.17.0
 Variant: Current
-LevelReq: 52
 Source: Labyrinth
+Requires Level 52
 Implicits: 2
 {variant:2}(8-10)% increased Attack Speed
 {variant:1}6 to 12 Added Physical Damage with Bow Attacks
@@ -347,7 +336,6 @@ Variant: Pre 3.17.0
 Variant: Pre 3.29.0
 Variant: Current
 Source: Drops from unique{The Elder} (Uber)
-{variant:1,2}LevelReq: 64
 Implicits: 3
 {variant:4}Has 1 Socket
 {variant:1,2}Arrows Pierce an additional Target
@@ -390,7 +378,6 @@ Variant: Mana and Life Regen
 Variant: Fire and Cold Damage
 Variant: Fire and Lightning Damage
 Variant: Cold and Lightning Damage
-Requires Level 55
 Implicits: 1
 Gain (10-15)% of Physical Damage as Extra Chaos Damage
 +(10-20) to Dexterity and Intelligence

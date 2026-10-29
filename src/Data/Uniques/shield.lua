@@ -159,7 +159,6 @@ Svalinn
 Girded Tower Shield
 League: Settlers of Kalguur
 Source: Drops from unique{The Black Knight} in a normal{Starfall Crater}
-Requires Level 51, 123 Str
 Implicits: 1
 +(10-20) to maximum Life
 (10-15)% Chance to Block Spell Damage
@@ -249,7 +248,7 @@ Hex Reflection
 Atziri's Reflection
 Golden Buckler
 Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Alluring Abyss}
-LevelReq: 68
+Requires Level 68
 Implicits: 1
 6% increased Movement Speed
 +(40-60) to Intelligence
@@ -268,7 +267,7 @@ Variant: Pre 3.17.0
 Variant: Pre 3.19.0
 Variant: Current
 Implicits: 1
-{variant:3,4}9% increased Movement Speed
+{variant:3,4,5}9% increased Movement Speed
 {variant:1,2,3,4}+1 to Level of Socketed Curse Gems
 {variant:5}+3 to Level of Socketed Curse Gems
 (30-50)% increased Evasion Rating
@@ -358,7 +357,6 @@ Reflects (25-50) Cold Damage to Melee Attackers
 ]],[[
 Kiloava's Bluster
 Ironwood Buckler
-Requires Level 57, 137 Dex
 Implicits: 1
 3% increased Movement Speed
 (100-150)% increased Evasion Rating
@@ -430,7 +428,6 @@ Implicits: 1
 ]],[[
 Cowards' Wail
 Ezomyte Tower Shield
-Requires Level 64, 159 Str
 Implicits: 1
 +(30-40) to maximum Life
 (120-240)% increased Armour
@@ -561,7 +558,6 @@ The Draugur's Lantern
 Ancient Spirit Shield
 League: Allflame
 Source: Drops from unique{Filthscrabble} in normal{The Fathomless Depths}
-Requires Level 45, 110 Int
 Implicits: 1
 (5-10)% increased Spell Damage
 (15-20)% Chance to Block Spell Damage
@@ -717,7 +713,7 @@ Implicits: 2
 Whakatutuki o Matua
 Tarnished Spirit Shield
 Source: No longer obtainable
-LevelReq: 63
+Requires Level 63
 Implicits: 1
 (5-10)% increased Spell Damage
 +3 to Level of Socketed Minion Gems
@@ -786,7 +782,6 @@ The Flawed Refuge
 Maple Round Shield
 League: Affliction
 Source: Drops from Viridian Wildwood and Ritual monsters
-Requires Level 39, 52 Str, 52 Dex
 Implicits: 1
 180% increased Block Recovery
 (100-150)% increased Armour and Evasion
@@ -862,7 +857,6 @@ Seablister
 Spiny Round Shield
 League: Allflame
 Source: Drops from unique{Velka, the Tide Witch}
-Requires Level 62, 85 Str, 85 Dex
 Implicits: 1
 60% increased Block Recovery
 Grants Level 20 Savage Barnacle
@@ -925,7 +919,6 @@ Implicits: 1
 Bitter Instinct
 Spiny Round Shield
 Source: Drops from unique{Uber Incarnation of Neglect} in normal{Moment of Loneliness}
-Requires Level 68, 85 Str, 85 Dex
 Implicits: 1
 60% increased Block Recovery
 (170-250)% increased Armour and Evasion
@@ -1095,7 +1088,7 @@ Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
-LevelReq: 40
+Requires Level 40
 Implicits: 2
 {variant:1}+8% to all Elemental Resistances
 {variant:2,3,4,5}+4% to all Elemental Resistances
@@ -1293,7 +1286,6 @@ Azadi Crest
 Lacquered Buckler
 Source: Drops from unique{Mercenary} after winning a duel
 League: Mercenaries of Trarthus
-Requires Level 60, 154 Dex
 Implicits: 1
 6% increased Movement Speed
 +(1-100) to maximum Life

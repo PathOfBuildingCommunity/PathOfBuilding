@@ -7,7 +7,6 @@ Advancing Fortress
 Gut Ripper
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 46, 80 Dex, 80 Int
 Implicits: 2
 {variant:1}LifeGainPerTargetImplicit2Claw8[21,21]
 {variant:2}LifeGainPerTargetImplicit2Claw8
@@ -23,7 +22,6 @@ Replica Advancing Fortress
 Gut Ripper
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 46, 80 Dex, 80 Int
 Implicits: 1
 LifeGainPerTargetImplicit2Claw8
 SupportedByCastOnDamageTakenUnique__1
@@ -37,7 +35,6 @@ Allure
 Vaal Claw
 Variant: Pre 3.0.0
 Variant: Current
-Requires Level 66, 131 Dex, 95 Int
 Implicits: 1
 LifeLeechPermyriadImplicitClaw2
 {variant:1}LocalIncreasedPhysicalDamagePercentUnique__1[80,100]
@@ -52,7 +49,6 @@ Replica Allure
 Vaal Claw
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 66, 95 Dex, 131 Int
 Implicits: 1
 LifeLeechPermyriadImplicitClaw2
 LocalIncreasedPhysicalDamagePercentUnique__1
@@ -71,7 +67,6 @@ Variant: Pre 3.0.0
 Variant: Pre 3.7.0
 Variant: Pre 3.11.0
 Variant: Current
-Requires Level 26, 39 Dex, 56 Int
 Implicits: 3
 {variant:2}LifeLeechPermyriadUniqueClaw6[200,200]
 {variant:1}LifeGainPerTargetImplicit2Claw4_1[8,8]
@@ -93,7 +88,6 @@ Variant: Pre 3.0.0
 Variant: Pre 3.20.0
 Variant: Pre 3.28.0
 Variant: Current
-Requires Level 62, 131 Dex, 95 Int
 Implicits: 1
 LifeLeechPermyriadImplicitClaw1
 {variant:1}LocalIncreasedPhysicalDamagePercentUniqueClaw3[100,120]
@@ -115,7 +109,6 @@ Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 37, 53 Dex, 77 Int
 Implicits: 3
 {variant:1}LifeGainPerTargetImplicit2Claw6[15,15]
 {variant:2}LifeGainPerTargetImplicit2Claw6[21,21]
@@ -197,7 +190,6 @@ Variant: Pre 3.0.0
 Variant: Pre 3.21.0
 Variant: Pre 3.26.0
 Variant: Current
-Requires Level 68, 131 Dex, 95 Int
 Implicits: 2
 {variant:1}LifeGainPerTargetImplicit2Claw10[25,25]
 {variant:2,3,4,5}LifeGainPerTargetImplicit2Claw13
@@ -216,7 +208,6 @@ Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Pre 3.7.0
 Variant: Current
-Requires Level 68, 131 Dex, 95 Int
 Implicits: 2
 {variant:1}LifeGainPerTargetImplicit2Claw13[25,25]
 {variant:2,3}LifeGainPerTargetImplicit2Claw13
@@ -258,7 +249,6 @@ Variant: Pre 3.14.0
 Variant: Current
 League: Harvest
 Source: Drops from unique{Oshabi, Avatar of the Grove}
-Requires Level 62, 131 Dex, 95 Int
 Implicits: 1
 LifeLeechPermyriadImplicitClaw1
 {variant:1}20% chance to Trigger Level 20 Summon Spectral Wolf on Critical Strike with this Weapon
@@ -273,7 +263,6 @@ Variant: Pre 2.2.0
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Current
-Requires Level 34, 61 Dex, 61 Int
 Implicits: 2
 {variant:1,2}LifeLeechPermyriadImplicitClaw2
 {variant:3,4}LifeGainPerTargetImplicit2Claw5_1
@@ -293,7 +282,6 @@ Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Pre 3.21.0
 Variant: Current
-Requires Level 46, 80 Dex, 80 Int
 Implicits: 2
 {variant:1}LifeGainPerTargetImplicit2Claw8[21,21]
 {variant:2,3,4}LifeGainPerTargetImplicit2Claw8
@@ -308,7 +296,6 @@ AlwaysHits
 ]],[[
 Rive
 Terror Claw
-Requires Level 70, 113 Dex, 113 Int
 Implicits: 1
 LifeLeechPermyriadImplicitClaw2
 LocalIncreasedPhysicalDamagePercentUnique__11_
@@ -322,7 +309,6 @@ The Scourge
 Terror Claw
 Variant: Pre 3.11.0
 Variant: Current
-Requires Level 70, 113 Dex, 113 Int
 Implicits: 1
 LifeLeechPermyriadImplicitClaw2
 {variant:1}SummonWolfOnKillUnique__1
@@ -336,7 +322,6 @@ Touch of Anguish
 Imperial Claw
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 68, 131 Dex, 95 Int
 Implicits: 2
 {variant:1}LifeGainPerTargetImplicit2Claw10[25,25]
 {variant:2}LifeGainPerTargetImplicit2Claw13
@@ -352,7 +337,6 @@ The Wasp Nest
 Throat Stabber
 Variant: Pre 3.7.0
 Variant: Current
-Requires Level 60, 113 Dex, 113 Int
 Implicits: 1
 LifeGainPerTargetImplicit2Claw11_
 LocalIncreasedPhysicalDamagePercentUnique__28__
@@ -367,7 +351,6 @@ Wildslash
 Awl
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 12, 25 Dex, 25 Int
 Implicits: 2
 {variant:1}LifeGainPerTargetImplicit2Claw3[5,5]
 {variant:2}LifeGainPerTargetImplicit2Claw3

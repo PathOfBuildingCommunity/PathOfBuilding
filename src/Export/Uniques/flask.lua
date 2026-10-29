@@ -67,7 +67,6 @@ FlaskChargesUsedUnique__3
 Wellwater Phylactery
 Colossal Mana Flask
 Source: Drops from unique{Uber Incarnation of Dread} in normal{Moment of Reverence}
-Requires Level 64
 LocalFlaskChargesUsedUniqueFlask36
 FlaskIncreasedRecoveryAmountUnique__2
 FlaskLessDurationUnique2
@@ -111,7 +110,6 @@ Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Apex of Sacri
 Variant: Pre 3.0.0
 Variant: Pre 3.15.0
 Variant: Current
-LevelReq: 68
 {variant:1}AddedChaosDamageAsPercentOfElementalWhileUsingFlaskUniqueFlask5[13,15]
 {variant:2}AddedChaosDamageAsPercentOfElementalWhileUsingFlaskUniqueFlask5[10,15]
 {variant:3}AddedChaosDamageAsPercentOfElementalWhileUsingFlaskUniqueFlask5
@@ -122,7 +120,6 @@ ChaosDamageLifeLeechPermyriadWhileUsingFlaskUniqueFlask5New
 ]],[[
 Progenesis
 Amethyst Flask
-LevelReq: 60
 Source: Drops from unique{The Maven} (Uber)
 FlaskChargesUsedUnique__11
 FlaskIncreasedDurationUnique__3
@@ -193,7 +190,6 @@ Variant: Pre 3.26
 Variant: Life on Kill
 Variant: Mana on Kill
 Variant: ES on Kill
-LevelReq: 48
 Implicits: 0
 {variant:15}FlaskExtraChargesUnique__1[90,90]
 {variant:16,17,18}FlaskExtraChargesUnique__3
@@ -207,17 +203,17 @@ Implicits: 0
 {variant:14}FlaskChargesUsedUnique__8
 {variant:14}{crafted}(60-80)% increased Critical Strike Chance during Effect
 {variant:1}{crafted}(45-55)% increased Critical Strike Chance during Effect
-{variant:2}{crafted}15% of Damage Taken from Hits is Leeched as Life during Effect
-{variant:3}{crafted}(20-30)% increased Rarity of Items found during Effect
+{variant:2}{crafted}JunMasterVeiledLocalFlaskLifeLeechOnDamageTakenPermyriadDuringFlaskEffect
+{variant:3}{crafted}JunMasterVeiledLocalFlaskItemFoundRarityDuringFlaskEffect
 {variant:4}{crafted}(8-12)% increased Movement Speed during Effect
-{variant:4,5}{crafted}50% Chance to avoid being Stunned during Effect
-{variant:6}{crafted}Regenerate 3% of Life per second during Effect
+{variant:4,5}{crafted}JunMasterVeiledLocalFlaskAvoidStunChanceDuringFlaskEffect
+{variant:6}{crafted}JunMasterVeiledLocalFlaskLifeRegenerationPerMinuteDuringFlaskEffect
 {variant:7}{crafted}(60-80)% reduced Reflected Damage taken during Effect
-{variant:8}{crafted}Your Physical Damage can Ignite during Effect
-{variant:9}{crafted}Enemies Ignited by you during Effect have Malediction
-{variant:10}{crafted}You can apply an additional Curse during Effect
-{variant:11}{crafted}Ignites you inflict during Effect spread to other Enemies within 1.5 metres
-{variant:12}{crafted}Leech 1.5% of Expected Ignite Damage as Life when you Ignite an Enemy during Effect
+{variant:8}{crafted}JunMasterVeiledLocalFlaskPhysicalDamageCanIgnite
+{variant:9}{crafted}JunMasterVeiledLocalFlaskIgnitedEnemiesHaveMalediction
+{variant:10}{crafted}JunMasterVeiledLocalFlaskAdditionalCurseOnEnemies
+{variant:11}{crafted}JunMasterVeiledLocalFlaskIgniteProlif
+{variant:12}{crafted}JunMasterVeiledLocalFlaskIgniteDamageLifeLeech
 ]],[[
 Dying Sun
 Ruby Flask
@@ -226,7 +222,6 @@ Variant: Pre 3.0.0
 Variant: Pre 3.15.0
 Variant: Pre 3.16.0
 Variant: Current
-LevelReq: 68
 {variant:2}FlaskChargesUsedUnique__4
 {variant:3,4}FlaskChargesUsedUnique__5
 {variant:3}FlaskEffectDurationUnique__2[-60,-40]
@@ -282,7 +277,6 @@ Variant: Pre 2.2.0
 Variant: Pre 2.6.0
 Variant: Pre 3.15.0
 Variant: Current
-LevelReq: 40
 {variant:1,2}FlaskChanceRechargeOnCritUnique__1[15,15]
 {variant:3,4}FlaskChanceRechargeOnCritUnique__1
 {variant:1}FlaskChargesUsedUnique__8[150,100]
@@ -301,7 +295,6 @@ Variant: Pre 1.3.0
 Variant: Pre 2.5.0
 Variant: Pre 3.15.0
 Variant: Current
-LevelReq: 68
 {variant:1}BlockIncreasedDuringFlaskEffectUniqueFlask7[30,40]
 {variant:2}BlockIncreasedDuringFlaskEffectUniqueFlask7[20,30]
 {variant:3}BlockIncreasedDuringFlaskEffectUniqueFlask7[14,20]
@@ -315,7 +308,6 @@ Replica Rumi's Concoction
 Granite Flask
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-LevelReq: 68
 FlaskIncreasedDurationUnique__2
 FlaskGainEnduranceChargeUnique__1_
 LocalFlaskPetrifiedUnique__1
@@ -386,7 +378,6 @@ Stormblood
 Sapphire Flask
 League: Allflame
 Source: Drops from unique{Velka, the Tide Witch}
-Requires Level 36
 FlaskChanceRechargeOnCritUnique__2
 FlaskCriticalStrikesContributeToColdAilmentsDuringEffectUnique__1
 FlaskEffectDurationUnique__8
@@ -395,7 +386,6 @@ Stormblood
 Topaz Flask
 League: Allflame
 Source: Drops from unique{Velka, the Tide Witch}
-Requires Level 36
 FlaskChanceRechargeOnCritUnique__2
 FlaskCriticalStrikesContributeToLightningAilmentsDuringEffectUnique__1
 FlaskEffectDurationUnique__8
@@ -451,7 +441,6 @@ Variant: Current (Proliferation)
 Variant: Current (Penetration)
 Variant: Current (Spells)
 Variant: Current (Attacks)
-LevelReq: 68
 {variant:5,6,7,8,9,10,11,12,13}FlaskChargesUsedUnique__6_
 {variant:14,15,16,17,18}FlaskChargesUsedUnique___2
 ShockNearbyEnemiesDuringFlaskEffect___1
@@ -486,7 +475,6 @@ Variant: Current
 ]],[[
 Oriath's End
 Bismuth Flask
-LevelReq: 56
 Source: Drops from unique{Sirus, Awakener of Worlds} (Uber)
 FlaskChargesAddedIncreasePercentUnique__3
 EnemyExplosionRandomElementFlaskEffectUnique__1
@@ -496,7 +484,6 @@ Stibnite Flask
 Variant: Pre 3.0.0
 Variant: Pre 3.15.0
 Variant: Current
-LevelReq: 48
 Implicits: 1
 UtilityFlaskSmokeCloud
 {variant:1,2}FlaskChargesUsedUnique__3
@@ -517,7 +504,6 @@ VulnerabilityAuraDuringFlaskEffectUnique__1Alt
 Wine of the Prophet
 Gold Flask
 Source: Drops from unique{Incarnation of Dread} in normal{Moment of Reverence}
-Requires Level 27
 FlaskExtraChargesUnique__4
 FlaskChargesUsedUnique___12
 GainDivinationBuffOnFlaskUsedUniqueFlask__1

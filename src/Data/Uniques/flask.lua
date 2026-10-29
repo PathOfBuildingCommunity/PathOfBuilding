@@ -116,7 +116,7 @@ Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Apex of Sacri
 Variant: Pre 3.0.0
 Variant: Pre 3.15.0
 Variant: Current
-LevelReq: 68
+Requires Level 68
 {variant:1}Gain (13-15)% of Elemental Damage as Extra Chaos Damage during effect
 {variant:2}Gain (10-15)% of Elemental Damage as Extra Chaos Damage during effect
 {variant:3}Gain (5-8)% of Elemental Damage as Extra Chaos Damage during effect
@@ -127,8 +127,8 @@ LevelReq: 68
 ]],[[
 Progenesis
 Amethyst Flask
-LevelReq: 60
 Source: Drops from unique{The Maven} (Uber)
+Requires Level 60
 (10-20)% reduced Charges per use
 (-35-35)% reduced Duration
 When Hit during effect, 25% of Life loss from Damage taken occurs over 4 seconds instead
@@ -199,13 +199,22 @@ Variant: Pre 3.26
 Variant: Life on Kill
 Variant: Mana on Kill
 Variant: ES on Kill
-LevelReq: 48
+Requires Level 48
 Implicits: 0
 {variant:15}+90 to Maximum Charges
 {variant:16,17,18}+(10-20) to Maximum Charges
 {variant:13}Recharges 1 Charge when you Consume an Ignited corpse
 {variant:15,16,17,18}Recharges 5 Charges when you Consume an Ignited corpse
 {variant:14}(175-200)% increased Charges per use
+{variant:4,5}{crafted}50% Chance to Avoid being Stunned during Effect
+{variant:11}{crafted}Ignites you inflict during Effect spread to other Enemies within 1.5 metres
+{variant:9}{crafted}Enemies Ignited by you during Effect have Malediction
+{variant:3}{crafted}(20-30)% increased Rarity of Items found during Effect
+{variant:12}{crafted}Leech 1.5% of Expected Ignite Damage as Life when you Ignite an Enemy during Effect
+{variant:2}{crafted}15% of Damage Taken from Hits is Leeched as Life during Effect
+{variant:6}{crafted}Regenerate 3% of Life per second during Effect
+{variant:10}{crafted}You can apply an additional Curse during Effect
+{variant:8}{crafted}Your Physical Damage can Ignite during Effect
 {variant:13}Enemies Ignited by you during Effect take 10% increased Damage
 {variant:14,15,16,17,18}Enemies Ignited by you during Effect take (7-10)% increased Damage
 {variant:13,15,16}Recover (1-3)% of Life when you Kill an Enemy during Effect
@@ -213,17 +222,8 @@ Implicits: 0
 {variant:13,15,18}Recover (1-3)% of Energy Shield when you Kill an Enemy during Effect
 {variant:14}{crafted}(60-80)% increased Critical Strike Chance during Effect
 {variant:1}{crafted}(45-55)% increased Critical Strike Chance during Effect
-{variant:2}{crafted}15% of Damage Taken from Hits is Leeched as Life during Effect
-{variant:3}{crafted}(20-30)% increased Rarity of Items found during Effect
 {variant:4}{crafted}(8-12)% increased Movement Speed during Effect
-{variant:4,5}{crafted}50% Chance to avoid being Stunned during Effect
-{variant:6}{crafted}Regenerate 3% of Life per second during Effect
 {variant:7}{crafted}(60-80)% reduced Reflected Damage taken during Effect
-{variant:8}{crafted}Your Physical Damage can Ignite during Effect
-{variant:9}{crafted}Enemies Ignited by you during Effect have Malediction
-{variant:10}{crafted}You can apply an additional Curse during Effect
-{variant:11}{crafted}Ignites you inflict during Effect spread to other Enemies within 1.5 metres
-{variant:12}{crafted}Leech 1.5% of Expected Ignite Damage as Life when you Ignite an Enemy during Effect
 ]],[[
 Dying Sun
 Ruby Flask
@@ -232,7 +232,7 @@ Variant: Pre 3.0.0
 Variant: Pre 3.15.0
 Variant: Pre 3.16.0
 Variant: Current
-LevelReq: 68
+Requires Level 68
 {variant:2}(-10-10)% reduced Charges per use
 {variant:3,4}(125-150)% increased Charges per use
 {variant:3}(40-60)% reduced Duration
@@ -288,7 +288,7 @@ Variant: Pre 2.2.0
 Variant: Pre 2.6.0
 Variant: Pre 3.15.0
 Variant: Current
-LevelReq: 40
+Requires Level 40
 {variant:1,2}15% chance to gain a Flask Charge when you deal a Critical Strike
 {variant:3,4}50% chance to gain a Flask Charge when you deal a Critical Strike
 {variant:1}(150-100)% increased Charges per use
@@ -307,7 +307,7 @@ Variant: Pre 1.3.0
 Variant: Pre 2.5.0
 Variant: Pre 3.15.0
 Variant: Current
-LevelReq: 68
+Requires Level 68
 {variant:1}+(30-40)% Chance to Block Attack Damage during Effect
 {variant:2}+(20-30)% Chance to Block Attack Damage during Effect
 {variant:3}+(14-20)% Chance to Block Attack Damage during Effect
@@ -321,7 +321,7 @@ Replica Rumi's Concoction
 Granite Flask
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-LevelReq: 68
+Requires Level 68
 90% reduced Duration
 Gain 1 Endurance Charge on use
 Petrified during Effect
@@ -460,7 +460,7 @@ Variant: Current (Proliferation)
 Variant: Current (Penetration)
 Variant: Current (Spells)
 Variant: Current (Attacks)
-LevelReq: 68
+Requires Level 68
 {variant:5,6,7,8,9,10,11,12,13}(80-100)% increased Charges per use
 {variant:14,15,16,17,18}(125-150)% increased Charges per use
 Shocks nearby Enemies during Effect, causing 10% increased Damage taken
@@ -495,8 +495,8 @@ Variant: Current
 ]],[[
 Oriath's End
 Bismuth Flask
-LevelReq: 56
 Source: Drops from unique{Sirus, Awakener of Worlds} (Uber)
+Requires Level 56
 (20-40)% increased Charge Recovery
 Enemies you Kill during Effect have a (20-30)% chance to Explode, dealing a tenth of their maximum Life as Damage of a Random Element
 ]],[[
@@ -505,7 +505,7 @@ Stibnite Flask
 Variant: Pre 3.0.0
 Variant: Pre 3.15.0
 Variant: Current
-LevelReq: 48
+Requires Level 48
 Implicits: 1
 Creates a Smoke Cloud on Use
 {variant:1,2}50% increased Charges per use
@@ -518,6 +518,7 @@ Replica Witchfire Brew
 Stibnite Flask
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
+Requires Level 48
 Implicits: 1
 Creates a Smoke Cloud on Use
 (-10-10)% reduced Charges per use
@@ -526,7 +527,7 @@ Grants Level 21 Vulnerability Curse Aura during Effect
 Wine of the Prophet
 Gold Flask
 Source: Drops from unique{Incarnation of Dread} in normal{Moment of Reverence}
-Requires Level 27
+Requires Level 33
 +60 to Maximum Charges
 (20-100)% increased Charges per use
 Grants a random Divination Buff for 20 seconds when Used

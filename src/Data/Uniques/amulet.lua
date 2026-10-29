@@ -30,7 +30,7 @@ Implicits: 1
 ]],[[
 Bloodsoaked Medallion
 Amber Amulet
-LevelReq: 49
+Requires Level 49
 Implicits: 1
 {tags:attribute}+(20-30) to Strength
 {tags:critical}(30-50)% increased Global Critical Strike Chance
@@ -69,7 +69,6 @@ Implicits: 1
 The Ascetic
 Gold Amulet
 Source: No longer obtainable
-Requires Level 8
 Implicits: 1
 (12-20)% increased Rarity of Items found
 (80-100)% increased Rarity of Items found with a Normal Item Equipped
@@ -90,7 +89,6 @@ Implicits: 1
 ]],[[
 Astramentis
 Onyx Amulet
-Requires Level 20
 Implicits: 1
 {tags:attribute}+(10-16) to all Attributes
 {tags:attribute}+(80-100) to all Attributes
@@ -198,7 +196,7 @@ Variant: Pre 3.25.0
 Variant: Current
 League: Sanctum
 Source: Drops from unique{Lycia, Herald of the Scourge} in normal{The Beyond}
-LevelReq: 52
+Requires Level 52
 Implicits: 1
 {tags:attribute}+(16-24) to Strength and Intelligence
 {tags:resource}+(40-70) to maximum Mana
@@ -209,8 +207,8 @@ Gain additional Elemental Damage Reduction equal to half your Chaos Resistance
 ]],[[
 Badge of the Brotherhood
 Turquoise Amulet
-Requires Level: 20
 League: Blight
+Requires Level 60
 Implicits: 1
 {tags:attribute}+(16-24) to Dexterity and Intelligence
 Your Maximum Frenzy Charges is equal to your Maximum Power Charges
@@ -224,7 +222,7 @@ Replica Badge of the Brotherhood
 Turquoise Amulet
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level: 60
+Requires Level 60
 Implicits: 1
 {tags:attribute}+(16-24) to Dexterity and Intelligence
 Your Maximum Endurance Charges is equal to your Maximum Frenzy Charges
@@ -273,7 +271,6 @@ Implicits: 1
 Blood of Corruption
 Amber Amulet
 Source: Use currency{Vaal Orb} on unique{Tear of Purity}
-Requires Level 5
 Implicits: 1
 {tags:attribute}+(20-30) to Strength
 Grants Level 10 Gluttony of Elements Skill
@@ -288,7 +285,6 @@ Bloodgrip
 Variant: Pre 3.0.0
 Variant: Pre 3.12.0
 Variant: Current
-Requires Level 74
 Implicits: 2
 {variant:1}{tags:resource}Regenerate (2-4) Life per second
 {variant:2,3}{tags:resource}Regenerate (1.2-1.6)% of Life per second
@@ -303,7 +299,6 @@ Carnage Heart
 Onyx Amulet
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 20
 Implicits: 1
 {tags:attribute}+(10-16) to all Attributes
 {tags:attribute}+(20-40) to all Attributes
@@ -329,7 +324,6 @@ Attribute Requirements can be satisfied by (15-25)% of Omniscience
 Daresso's Salute
 Citrine Amulet
 League: Anarchy
-Requires Level 16
 Implicits: 1
 {tags:attribute}+(16-24) to Strength and Dexterity
 {tags:defences}50% reduced maximum Energy Shield
@@ -343,7 +337,7 @@ Defiance of Destiny
 Paua Amulet
 Variant: Pre 3.25.0
 Variant: Current
-LevelReq: 49
+Requires Level 49
 Implicits: 1
 {tags:resource}(20-30)% increased Mana Regeneration Rate
 {tags:resource}+(60-80) to maximum Life
@@ -381,7 +375,7 @@ Implicits: 1
 ]],[[
 Doedre's Tongue
 Lapis Amulet
-LevelReq: 24
+Requires Level 24
 Implicits: 1
 {tags:attribute}+(20-30) to Intelligence
 {tags:resistance}+(20-25)% to all Elemental Resistances
@@ -392,7 +386,6 @@ Extractor Mentis
 Agate Amulet
 Variant: Pre 3.5.0
 Variant: Current
-Requires Level 16
 Implicits: 1
 {tags:attribute}+(16-24) to Strength and Intelligence
 {tags:attribute}+(30-50) to Strength
@@ -407,7 +400,6 @@ Implicits: 1
 Eye of Chayula
 Onyx Amulet
 Upgrade: Upgrades to unique{Presence of Chayula} using currency{Blessing of Chayula}
-Requires Level 20
 Implicits: 1
 {tags:attribute}+(10-16) to all Attributes
 {tags:resource}20% reduced maximum Life
@@ -438,7 +430,6 @@ Implicits: 1
 ]],[[
 Eyes of the Greatwolf
 Greatwolf Talisman
-Requires Level 52
 Version: Pre 3.25.0
 Version: Pre 3.29.0
 Version: Current
@@ -514,6 +505,7 @@ Variant: Unaffected by Ignite
 Variant: Utility Flask Charges
 Variant: Additional Exerted Attack
 Variant: Withered Effect
+Requires Level 52
 Implicits: 70
 {version:1,2}{variant:1}{group:1,2}{tags:attribute}(12-16)% increased Attributes
 {version:3}{variant:65}{group:1,2}{tags:attribute}{enchant}15% increased Attributes
@@ -621,7 +613,6 @@ Gloomfang
 Blue Pearl Amulet
 Variant: Pre 3.11.0
 Variant: Current
-Requires Level 77
 Implicits: 1
 {tags:resource}(48-56)% increased Mana Regeneration Rate
 {tags:resource}0.5% of Chaos Damage Leeched as Life
@@ -664,10 +655,10 @@ Blind Chilled Enemies on Hit
 ]],[[
 Hinekora's Sight
 Onyx Amulet
-Requires Level 20
 Variant: Pre 3.16.0
 Variant: Pre 3.37.0
 Variant: Current
+Requires Level 44
 Implicits: 1
 {tags:attribute}+(10-16) to all Attributes
 {variant:2}Prevent +3% of Suppressed Spell Damage
@@ -683,6 +674,7 @@ Replica Hinekora's Sight
 Onyx Amulet
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
+Requires Level 44
 Implicits: 1
 {tags:attribute}+(10-16) to all Attributes
 {tags:attack}+(600-1000) to Accuracy Rating
@@ -693,11 +685,10 @@ You cannot be Maimed
 Hyrri's Truth
 Jade Amulet
 League: Synthesis
-Requires Level 64
 Variant: Pre 3.16.0
 Variant: Pre 3.19.0
 Variant: Current
-LevelReq: 64
+Requires Level 64
 Implicits: 1
 {tags:attribute}+(20-30) to Dexterity
 {variant:1,2}Grants Level 22 Precision Skill
@@ -719,7 +710,7 @@ Source: Steal from a unique{Curio Display} during a Grand Heist
 Variant: Pre 3.16.0
 Variant: Pre 3.19.0
 Variant: Current
-LevelReq: 64
+Requires Level 64
 Implicits: 1
 {tags:attribute}+(20-30) to Dexterity
 Grants Level 22 Hatred Skill
@@ -729,15 +720,14 @@ Grants Level 22 Hatred Skill
 {variant:1,2}{tags:elemental_damage,attack}Adds (11-15) to (23-28) Cold Damage to Attacks
 {variant:1,2}{tags:critical}+(23-28)% to Global Critical Strike Multiplier
 {variant:3}{tags:critical}+(18-35)% to Global Critical Strike Multiplier
-{variant:1,2}{tags:resource}(0.8-1)% of Cold Damage Leeched as Life
 {variant:3}Bow Attacks have Culling Strike
 {variant:1,2,3}{tags:resource}Hatred has 100% increased Mana Reservation Efficiency
+{variant:1,2}(0.8-1)% of Cold Damage Leeched as Life
 ]],[[
 The Ignomon
 Gold Amulet
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 8
 Implicits: 1
 (12-20)% increased Rarity of Items found
 {variant:1}{tags:attribute}+10 to Dexterity
@@ -765,7 +755,7 @@ Implicits: 1
 ]],[[
 Ikiaho's Promise
 Coral Amulet
-LevelReq: 30
+Requires Level 30
 Implicits: 1
 {tags:resource}Regenerate (2-4) Life per second
 {tags:resource}Regenerate (3-5) Mana per second
@@ -813,7 +803,6 @@ Karui Ward
 Jade Amulet
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 5
 Implicits: 1
 {tags:attribute}+(20-30) to Dexterity
 {tags:attribute}+(20-30) to Strength
@@ -826,7 +815,6 @@ Replica Karui Ward
 Jade Amulet
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 5
 Implicits: 1
 {tags:attribute}+(20-30) to Dexterity
 {tags:attribute}+(20-30) to Intelligence
@@ -855,7 +843,7 @@ Khatal's Geyser
 Lapis Amulet
 League: Mirage
 Source: No longer obtainable
-LevelReq: 56
+Requires Level 56
 Implicits: 1
 {tags:attribute}+(20-30) to Intelligence
 Can't use Life Flasks
@@ -871,7 +859,7 @@ Khatal's Weeping
 Lapis Amulet
 League: Mirage
 Source: No longer obtainable
-LevelReq: 56
+Requires Level 56
 Implicits: 1
 {tags:attribute}+(20-30) to Intelligence
 {tags:resource}+(80-100) to maximum Life
@@ -988,9 +976,9 @@ Nearby Allies' Damage with Hits is Lucky
 The Primordial Chain
 Coral Amulet
 League: Delve
-Requires Level 34
 Variant: Pre 3.26.0
 Variant: Current
+Requires Level 34
 Implicits: 1
 {tags:resource}Regenerate (2-4) Life per second
 +3 to maximum number of Summoned Golems
@@ -1109,7 +1097,6 @@ Agate Amulet
 Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 16
 Implicits: 1
 {tags:attribute}+(16-24) to Strength and Intelligence
 {variant:1,2}{tags:resource}(30-50)% increased Mana Regeneration Rate
@@ -1182,7 +1169,6 @@ Lapis Amulet
 Variant: Pre 3.4.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 5
 Implicits: 1
 {tags:attribute}+(20-30) to Intelligence
 {variant:1}15% Chance to Block Spell Damage
@@ -1219,6 +1205,7 @@ Summon Raging Spirit has (20-30)% increased Duration
 ]],[[
 Tainted Pact
 Coral Amulet
+Requires Level 42
 Implicits: 1
 {tags:resource}Regenerate (2-4) Life per second
 {tags:attribute}+(20-30) to Strength
@@ -1231,7 +1218,6 @@ Lapis Amulet
 Variant: Pre 3.16.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 5
 Implicits: 1
 {tags:attribute}+(20-30) to Intelligence
 Grants Level 10 Purity of Elements Skill
@@ -1259,7 +1245,7 @@ Implicits: 1
 The Utmost
 Gold Amulet
 Source: Created from unique{Primordial Fragments} obtained from Uber bosses
-Requires Level 8
+Requires Level 40
 Implicits: 1
 (12-20)% increased Rarity of Items found
 +(0-30)% chance to Suppress Spell Damage
@@ -1283,7 +1269,6 @@ Socketed Support Gems can also Support Skills from Equipped Body Armour
 Victario's Acuity
 Turquoise Amulet
 League: Onslaught
-Requires Level 16
 Implicits: 1
 {tags:attribute}+(16-24) to Dexterity and Intelligence
 {tags:resistance}+(30-40)% to Lightning Resistance
@@ -1470,7 +1455,6 @@ Kill Enemies that have 15% or lower Life on Hit if The Searing Exarch is dominan
 Venarius' Astrolabe
 Astrolabe Amulet
 Source: Drops from unique{Incarnation of Neglect} in normal{Moment of Loneliness}
-Requires Level 69
 Implicits: 2
 Implicit Modifiers Cannot Be Changed
 Has Elder, Shaper and all Conqueror Influences
@@ -1484,7 +1468,6 @@ Seaglass Amulet
 Variant: Pre 3.27.0
 Variant: Current
 Source: Drops from unique{Incarnation of Dread} in normal{Moment of Reverence}
-Requires Level 74
 Implicits: 1
 {tags:defences}(10-15)% faster start of Energy Shield Recharge
 {tags:chaos_damage,resource,attack}(5-10) to (20-25) Added Attack Chaos Damage per 100 Maximum Mana
@@ -1496,7 +1479,6 @@ Implicits: 1
 Bonemeld
 Marble Amulet
 Source: Drops from unique{Incarnation of Dread} in normal{Moment of Reverence}
-Requires Level 74
 Implicits: 1
 {tags:resource}Regenerate (1.2-1.6)% of Life per second
 {tags:attribute}+(10-20) to all Attributes

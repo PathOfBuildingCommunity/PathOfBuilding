@@ -7,7 +7,6 @@ Arakaali's Fang
 Fiend Dagger
 Variant: Pre 3.29.0
 Variant: Current
-Requires Level 53, 58 Dex, 123 Int
 Implicits: 2
 {variant:2}(50-55)% increased Global Critical Strike Chance
 {variant:1}40% increased Global Critical Strike Chance
@@ -23,7 +22,7 @@ Variant: Pre 2.2.0
 Variant: Pre 3.20.0
 Variant: Pre 3.28.0
 Variant: Current
-Requires Level 65, 81 Dex, 117 Int
+Requires Level 65
 Implicits: 2
 {variant:4}(40-45)% increased Global Critical Strike Chance
 {variant:1,2,3}30% increased Global Critical Strike Chance
@@ -35,14 +34,13 @@ Implicits: 2
 {variant:2,3,4}+(15-25)% to Global Critical Strike Multiplier
 {variant:3}+(8-12)% to Chaos Resistance
 {variant:4}+(17-29)% to Chaos Resistance
-{variant:1,2,3,4}On Killing a Poisoned Enemy, Enemies within 3 metres are Poisoned 
-{variant:3,4}and nearby Allies Regenerate 400 Life per second
+{variant:1,2,3,4}On Killing a Poisoned Enemy, Enemies within 3 metres are Poisoned, and you and
+{variant:1,2,3,4}Allies Regenerate 400 Life per second for the Poison's duration if within 3 metres
 ]],[[
 Bloodplay
 Stiletto
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 15, 30 Dex, 30 Int
 Implicits: 2
 {variant:2}(40-45)% increased Global Critical Strike Chance
 {variant:1}30% increased Global Critical Strike Chance
@@ -60,7 +58,6 @@ League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Variant: Pre 3.29.0
 Variant: Current
-Requires Level 15, 30 Dex, 30 Int
 Implicits: 2
 {variant:2}(40-45)% increased Global Critical Strike Chance
 {variant:1}30% increased Global Critical Strike Chance
@@ -75,7 +72,6 @@ Cold Iron Point
 Ezomyte Dagger
 Variant: Pre 3.29.0
 Variant: Current
-Requires Level 62, 95 Dex, 131 Int
 Implicits: 2
 {variant:2}(40-45)% increased Global Critical Strike Chance
 {variant:1}30% increased Global Critical Strike Chance
@@ -88,7 +84,6 @@ League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Variant: Pre 3.29.0
 Variant: Current
-Requires Level 62, 95 Dex, 131 Int
 Implicits: 2
 {variant:2}(40-45)% increased Global Critical Strike Chance
 {variant:1}30% increased Global Critical Strike Chance
@@ -100,7 +95,6 @@ Fiend Dagger
 Variant: Pre 2.2.0
 Variant: Pre 3.0.0
 Variant: Current
-Requires Level 53, 58 Dex, 123 Int
 Implicits: 2
 {variant:3}(50-55)% increased Global Critical Strike Chance
 {variant:1,2}40% increased Global Critical Strike Chance
@@ -118,7 +112,6 @@ League: Legion
 Variant: Pre 3.7.0
 Variant: Pre 3.20.0
 Variant: Current
-Requires Level 66, 95 Dex, 131 Int
 Implicits: 2
 {variant:3}(40-45)% increased Global Critical Strike Chance
 {variant:1,2}30% increased Global Critical Strike Chance
@@ -141,7 +134,6 @@ Goredrill
 Skinning Knife
 Variant: Pre 3.29.0
 Variant: Current
-Requires Level 5, 16 Dex
 Implicits: 2
 {variant:2}(40-45)% increased Global Critical Strike Chance
 {variant:1}30% increased Global Critical Strike Chance
@@ -171,7 +163,6 @@ Ambusher
 League: Ritual
 Variant: Pre 3.29.0
 Variant: Current
-Requires Level 60, 113 Dex, 113 Int
 Implicits: 2
 {variant:2}(40-45)% increased Global Critical Strike Chance
 {variant:1}30% increased Global Critical Strike Chance
@@ -187,7 +178,6 @@ Royal Skean
 Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 50, 71 Dex, 102 Int
 Implicits: 2
 {variant:3}(40-45)% increased Global Critical Strike Chance
 {variant:1,2}30% increased Global Critical Strike Chance
@@ -206,7 +196,6 @@ Variant: Pre 3.19.0
 Variant: Current
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 50, 71 Dex, 102 Int
 Implicits: 2
 {variant:2}(40-45)% increased Global Critical Strike Chance
 {variant:1}30% increased Global Critical Strike Chance
@@ -225,7 +214,6 @@ League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Variant: Pre 3.29.0
 Variant: Current
-Requires Level 60, 113 Dex, 113 Int
 Implicits: 2
 {variant:2}(40-45)% increased Global Critical Strike Chance
 {variant:1}30% increased Global Critical Strike Chance
@@ -240,7 +228,6 @@ Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.26.0
 Variant: Current
-Requires Level 64, 76 Dex, 149 Int
 Implicits: 2
 {variant:4}(60-65)% increased Global Critical Strike Chance
 {variant:1,2,3}50% increased Global Critical Strike Chance
@@ -262,7 +249,6 @@ Mightflay
 Flaying Knife
 Variant: Pre 3.29.0
 Variant: Current
-Requires Level 35, 73 Dex, 51 Int
 Implicits: 2
 {variant:2}(40-45)% increased Global Critical Strike Chance
 {variant:1}30% increased Global Critical Strike Chance
@@ -275,7 +261,6 @@ Taproot
 Ambusher
 Variant: Pre 3.29.0
 Variant: Current
-Requires Level 60, 113 Dex, 113 Int
 Implicits: 2
 {variant:2}(40-45)% increased Global Critical Strike Chance
 {variant:1}30% increased Global Critical Strike Chance
@@ -292,7 +277,6 @@ Boot Knife
 Variant: Pre 1.1.0
 Variant: Pre 1.3.0
 Variant: Current
-Requires Level 20, 31 Dex, 45 Int
 Implicits: 2
 {variant:3}(40-45)% increased Global Critical Strike Chance
 {variant:1,2}30% increased Global Critical Strike Chance
@@ -310,7 +294,6 @@ League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Variant: Pre 3.29.0
 Variant: Current
-Requires Level 20, 31 Dex, 45 Int
 Implicits: 2
 {variant:2}(40-45)% increased Global Critical Strike Chance
 {variant:1}30% increased Global Critical Strike Chance
@@ -325,7 +308,6 @@ Vulconus
 Demon Dagger
 Variant: Pre 3.5.0
 Variant: Current
-Requires Level 68, 76 Dex, 149 Int
 Implicits: 1
 (50-55)% increased Global Critical Strike Chance
 Adds (85-110) to (135-150) Physical Damage
@@ -348,7 +330,6 @@ Imperial Skean
 Variant: Pre 3.11.0
 Variant: Pre 3.16.0
 Variant: Current
-Requires Level 66, 95 Dex, 131 Int
 Implicits: 1
 (40-45)% increased Global Critical Strike Chance
 Adds (160-190) to (280-320) Cold Damage
@@ -364,7 +345,6 @@ Widowmaker
 Boot Blade
 Variant: Pre 3.0.0
 Variant: Current
-Requires Level 44, 63 Dex, 90 Int
 Implicits: 2
 {variant:2}(40-45)% increased Global Critical Strike Chance
 {variant:1}30% increased Global Critical Strike Chance
@@ -381,7 +361,6 @@ Demon Dagger
 Source: Drops from unique{Uber Incarnation of Neglect} in normal{Moment of Loneliness}
 Variant: Pre 3.29.0
 Variant: Current
-Requires Level 68, 76 Dex, 149 Int
 Implicits: 2
 {variant:2}(50-55)% increased Global Critical Strike Chance
 {variant:1}40% increased Global Critical Strike Chance

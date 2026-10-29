@@ -5,7 +5,6 @@ return {
 [[
 Ahuana's Bite
 Sharktooth Arrow Quiver
-LevelReq: 56
 Implicits: 1
 LifeGainPerTargetImplicitQuiver3New
 AddedColdDamageUnique__11
@@ -19,7 +18,6 @@ Asphyxia's Wrath
 Variant: Pre 3.0.0
 Variant: Pre 3.17.0
 Variant: Current
-{variant:1,2}LevelReq: 10
 Implicits: 2
 {variant:1,2}IncreasedAccuracyPercentImplicitQuiver7
 {variant:3}ProjectileSpeedImplicitQuiver4New
@@ -40,8 +38,6 @@ Variant: Pre 1.2.0
 Variant: Pre 2.0.0
 Variant: Pre 3.17.0
 Variant: Current
-{variant:1,2,3}LevelReq: 22
-{variant:4}LevelReq: 45
 Implicits: 3
 {variant:1}AddedFireDamageImplicitQuiver1
 {variant:2,3}AddedFireDamageImplicitQuiver10
@@ -63,8 +59,6 @@ Variant: Pre 2.0.0
 Variant: Pre 3.17.0
 Variant: Current
 Source: No longer obtainable
-{variant:1,2,3}LevelReq: 24
-{variant:4}LevelReq: 45
 Implicits: 3
 {variant:1}AddedFireDamageImplicitQuiver1
 {variant:2,3}AddedFireDamageImplicitQuiver10
@@ -82,7 +76,6 @@ Craghead
 Serrated Arrow Quiver
 Variant: Pre 3.17.0
 Variant: Current
-Requires Level 5
 Implicits: 2
 {variant:1}AddedPhysicalDamageImplicitQuiver6_
 {variant:2}AddedPhysicalDamageImplicitQuiver1New
@@ -95,7 +88,6 @@ AddedPhysicalDamageUniqueQuiver8
 Cragfall
 Serrated Arrow Quiver
 Source: No longer obtainable
-Requires Level 5
 Implicits: 1
 AddedPhysicalDamageImplicitQuiver6_
 StunThresholdReductionUniqueQuiver8
@@ -106,7 +98,6 @@ ChanceForDoubleStunDurationUnique__1
 ]],[[
 Drillneck
 Penetrating Arrow Quiver
-Requires Level 36
 Implicits: 1
 AdditionalArrowPierceImplicitQuiver5New
 IncreasedAttackSpeedUniqueQuiver3
@@ -119,7 +110,6 @@ The Fracturing Spinner
 Blunt Arrow Quiver
 League: Harbinger
 Source: No longer obtainable
-Requires Level 60
 Implicits: 1
 AddedPhysicalDamageImplicitQuiver6New
 HarbingerSkillOnEquipUnique__4_
@@ -130,7 +120,6 @@ FireAndColdResistUnique__1
 ]],[[
 The Shattered Divinity
 Blunt Arrow Quiver
-Requires Level 60
 Implicits: 1
 AddedPhysicalDamageImplicitQuiver6New
 HarbingerSkillOnEquipUnique2_4
@@ -144,7 +133,6 @@ Sharktooth Arrow Quiver
 Source: Vendor Recipe
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 14
 Implicits: 1
 LifeGainPerTargetImplicitQuiver3New
 StrengthUniqueQuiver6
@@ -158,7 +146,6 @@ AreaOfEffectUniqueQuiver6
 Hyrri's Demise
 Sharktooth Arrow Quiver
 Source: No longer obtainable
-Requires Level 45
 Implicits: 1
 LifeGainPerTargetImplicitQuiver3New
 AllAttributesUnique__7
@@ -171,7 +158,6 @@ LightningDamageToAttacksPerIntelligenceUnique__1
 ]],[[
 Maloney's Mechanism
 Ornate Quiver
-Requires Level 45
 Implicits: 1
 QuiverHasOneSocket
 HasTwoSocketsUnique__1
@@ -184,7 +170,6 @@ Replica Maloney's Mechanism
 Ornate Quiver
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 45
 Implicits: 1
 QuiverHasOneSocket
 HasTwoSocketsUnique__1
@@ -199,7 +184,6 @@ Maloney's Nightfall
 Variant: Pre 2.6.0
 Variant: Pre 3.17.0
 Variant: Current
-LevelReq: 55
 Implicits: 2
 {variant:1,2}StunDurationImplicitQuiver9
 {variant:3}PhysicalDamageAddedAsChaosImplicitQuiver11New
@@ -235,7 +219,6 @@ Variant: Pre 3.14.0
 Variant: Current
 League: Talisman Standard, Talisman Hardcore
 Source: Drops from unique{Rigwald, The Wolven King} (Level 70+)
-Requires Level 56
 Implicits: 1
 IncreasedAccuracyPercentImplicitQuiver7New
 FireResistUnique__3
@@ -251,7 +234,6 @@ Saemus' Gift
 {variant:2}Feathered Arrow Quiver
 Variant: Pre 3.17.0
 Variant: Current
-Requires Level 45
 Implicits: 2
 {variant:1}CriticalStrikeChanceImplicitQuiver8New
 {variant:2}ProjectileSpeedImplicitQuiver4New
@@ -268,7 +250,6 @@ Scorpion's Call
 Variant: Pre 3.17.0
 Variant: Current
 League: Harvest
-Requires Level 57
 Implicits: 2
 {variant:1}AddedPhysicalDamageImplicitQuiver11
 {variant:2}AddedPhysicalDamageImplicitQuiver12New
@@ -281,7 +262,6 @@ AttackSpeedChangedStanceUnique__1
 ]],[[
 Skirmish
 Two-Point Arrow Quiver
-Requires Level 36
 Implicits: 1
 IncreasedAccuracyPercentImplicitQuiver7New
 IntelligenceUnique__3
@@ -294,7 +274,6 @@ Steelworm
 Broadhead Arrow Quiver
 Variant: Pre 3.17.0
 Variant: Current
-LevelReq: 52
 Source: Labyrinth
 Implicits: 2
 {variant:1}AddedPhysicalDamageImplicitQuiver11
@@ -309,7 +288,6 @@ Soul Strike
 Spike-Point Arrow Quiver
 Variant: Pre 2.5.0
 Variant: Current
-Requires Level 64
 Implicits: 1
 CriticalStrikeChanceImplicitQuiver8New
 DexterityUniqueQuiver7
@@ -324,7 +302,6 @@ Replica Soul Strike
 Spike-Point Arrow Quiver
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 64
 Implicits: 1
 CriticalStrikeChanceImplicitQuiver8New
 DexterityUniqueQuiver7
@@ -345,7 +322,6 @@ Variant: Pre 3.17.0
 Variant: Pre 3.29.0
 Variant: Current
 Source: Drops from unique{The Elder} (Uber)
-{variant:1,2}LevelReq: 64
 Implicits: 3
 {variant:1,2}AdditionalArrowPierceImplicitQuiver12_
 {variant:3}WeaponElementalDamageImplicitQuiver13New
@@ -386,7 +362,6 @@ Variant: Mana and Life Regen
 Variant: Fire and Cold Damage
 Variant: Fire and Lightning Damage
 Variant: Cold and Lightning Damage
-Requires Level 55
 Implicits: 1
 PhysicalDamageAddedAsChaosImplicitQuiver11New
 DexterityAndIntelligenceUniqueQuiver_1

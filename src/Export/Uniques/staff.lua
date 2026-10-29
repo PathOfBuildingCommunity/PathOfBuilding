@@ -8,7 +8,6 @@ Imperial Staff
 Variant: Pre 2.6.0
 Variant: Pre 3.25.0
 Variant: Current
-Requires Level 66, 158 Str, 113 Int
 Implicits: 3
 {variant:3}StaffSpellBlockPercent3
 {variant:1}StaffBlockPercentImplicitStaff1[12,12]
@@ -26,7 +25,6 @@ Imperial Staff
 Variant: Pre 2.6.0
 Variant: Pre 3.25.0
 Variant: Current
-Requires Level 66, 158 Str, 113 Int
 Implicits: 3
 {variant:3}StaffSpellBlockPercent3
 {variant:1}StaffBlockPercentImplicitStaff1[12,12]
@@ -44,7 +42,6 @@ Imperial Staff
 Variant: Pre 2.6.0
 Variant: Pre 3.25.0
 Variant: Current
-Requires Level 66, 158 Str, 113 Int
 Implicits: 3
 {variant:3}StaffSpellBlockPercent3
 {variant:1}StaffBlockPercentImplicitStaff1[12,12]
@@ -62,7 +59,6 @@ Imperial Staff
 Variant: Pre 2.6.0
 Variant: Pre 3.25.0
 Variant: Current
-Requires Level 66, 158 Str, 113 Int
 Implicits: 3
 {variant:3}StaffSpellBlockPercent3
 {variant:1}StaffBlockPercentImplicitStaff1[12,12]
@@ -80,7 +76,6 @@ Quarterstaff
 Variant: Pre 3.25.0
 Variant: Current
 Source: Drops from unique{The Searing Exarch} (Uber)
-Requires Level 68, 78 Str, 78 Int
 Implicits: 2
 {variant:2}StaffSpellBlockPercent2
 {variant:1}StaffBlockPercentImplicitStaff1[18,18]
@@ -93,7 +88,6 @@ Variant: Pre 3.25.0
 Variant: Pre 3.29.0
 Variant: Current
 Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Alluring Abyss}
-Requires Level 68, 113 Str, 113 Int
 Implicits: 2
 {variant:1}StaffSpellBlockPercentImplicitStaff__1
 {variant:2,3}StaffBlockPercentImplicitStaff3
@@ -156,7 +150,6 @@ The Broken Elegy
 Foul Staff
 League: Mirage
 Source: No longer obtainable
-LevelReq: 64
 Implicits: 1
 StaffBlockPercentImplicitStaff2
 CeaselessFleshGrantedSkillUnique__1
@@ -172,7 +165,6 @@ Variant: Pre 3.11.0
 Variant: Pre 3.25.0
 Variant: Pre 3.29.0
 Variant: Current
-Requires Level: 60, 113 Str, 113 Int
 Implicits: 3
 {variant:1,2}StaffBlockPercentImplicitStaff3[18,18]
 {variant:3}StaffBlockPercentImplicitStaff3[20,20]
@@ -210,7 +202,6 @@ Variant: Pre 3.11.0
 Variant: Pre 3.13.0
 Variant: Pre 3.29.0
 Variant: Current
-Requires Level 64, 113 Str, 113 Int
 Implicits: 2
 {variant:1,2}StaffBlockPercentImplicitStaff3[20,20]
 {variant:3,4,5}StaffBlockPercentImplicitStaff3
@@ -236,7 +227,6 @@ Variant: Pre 3.5.0
 Variant: Pre 3.11.0
 Variant: Pre 3.29.0
 Variant: Current
-Requires Level 64, 113 Str, 113 Int
 Implicits: 3
 {variant:1}StaffBlockPercentImplicitStaff2[18,18]
 {variant:2,3}StaffBlockPercentImplicitStaff2[20,20]
@@ -257,7 +247,6 @@ League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Variant: Pre 3.29.0
 Variant: Current
-Requires Level 64, 113 Str, 113 Int
 Implicits: 1
 StaffBlockPercentImplicitStaff3
 {variant:1}StaffBlockPercentUnique__2_[10,10]
@@ -294,7 +283,6 @@ Variant: Pre 3.11.0
 Variant: Pre 3.25.0
 Variant: Pre 3.26.0
 Variant: Current
-Requires Level 66, 113 Str, 113 Int
 Implicits: 2
 {variant:2}StaffBlockPercentImplicitStaff1[18,18]
 {variant:3,4}StaffSpellBlockPercent3
@@ -315,7 +303,6 @@ Variant: Pre 3.26.0
 Variant: Current
 League: Harvest
 Source: Upgraded from unique{The Enmity Divine} via currency{Haemocombustion Scroll}
-Requires Level 66, 113 Str, 113 Int
 Implicits: 2
 {variant:1}StaffBlockPercentImplicitStaff1[18,18]
 {variant:2,3}StaffSpellBlockPercent3
@@ -334,7 +321,6 @@ Variant: Pre 2.6.0
 Variant: Pre 3.8.0
 Variant: Pre 3.25.0
 Variant: Current
-Requires Level 58, 99 Str, 99 Int
 Implicits: 3
 {variant:4}StaffSpellBlockPercent3
 {variant:1}StaffBlockPercentImplicitStaff1[12,12]
@@ -383,7 +369,6 @@ Primordial Staff
 Variant: Pre 3.25.0
 Variant: Current
 League: Affliction
-Requires Level 58, 99 Str, 99 Int
 Implicits: 2
 {variant:2}StaffSpellBlockPercent3
 {variant:1}StaffBlockPercentImplicitStaff1[18,18]
@@ -399,7 +384,6 @@ Variant: Pre 3.25.0
 Variant: Current
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 60, 113 Str, 113 Int
 Implicits: 2
 {variant:1}StaffBlockPercentImplicitStaff3[20,20]
 {variant:2}StaffBlockPercentImplicitStaff3
@@ -417,7 +401,6 @@ Gnarled Branch
 Variant: Pre 3.25.0
 Variant: Current
 Source: No longer obtainable
-Requires Level 32
 Implicits: 2
 {variant:2}StaffSpellBlockPercentImplicitStaff__1
 {variant:1}StaffBlockPercentImplicitStaff1[18,18]
@@ -434,7 +417,6 @@ Variant: Pre 3.11.0
 Variant: Pre 3.25.0
 Variant: Pre 3.29.0
 Variant: Current
-Requires Level 68, 113 Str, 113 Int
 Implicits: 3
 {variant:2}StaffSpellBlockPercentImplicitStaff__1
 {variant:1}StaffBlockPercentImplicitStaff3[18,18]
@@ -454,7 +436,6 @@ Variant: Pre 3.7.0
 Variant: Pre 3.11.0
 Variant: Pre 3.25.0
 Variant: Current
-Requires Level 68, 113 Str, 113 Int
 Implicits: 4
 {variant:1}StaffBlockPercentImplicitStaff3[12,12]
 {variant:2,3}StaffBlockPercentImplicitStaff3[18,18]
@@ -475,7 +456,6 @@ Imperial Staff
 Source: Drops from unique{It That Was Esh} and unique{It That Was Tul} in normal{Hive Colony}
 Variant: Pre 3.29.0
 Variant: Current
-Requires Level 66, 113 Str, 113 Dex
 Implicits: 1
 StaffSpellBlockPercent3
 PercentageIntelligenceUnique__5
@@ -492,7 +472,6 @@ Variant: Shaper's Despair
 Variant: Shaper's Ire
 Variant: Shaper's Devastation
 Source: Drops from unique{Incarnation of Neglect} in normal{Moment of Loneliness}
-Requires Level 68, 113 Str, 113 Int
 Implicits: 1
 StaffBlockPercentImplicitStaff3
 {variant:1}GrantShaperSkill_1[3,3]
@@ -512,9 +491,8 @@ Variant: Pre 3.13.0
 Variant: Pre 3.25.0
 Variant: Pre 3.29.0
 Variant: Current
-Requires Level 52, 89 Str, 89 Int
 Implicits: 2
-{variant:4}StaffSpellBlockPercent2
+{variant:4,5}StaffSpellBlockPercent2
 {variant:1,2,3}StaffBlockPercentImplicitStaff1[18,18]
 {variant:1,2,3,4}StaffBlockPercentUnique__3[12,16]
 {variant:5}StaffBlockPercentUnique__3
@@ -531,7 +509,6 @@ Iron Staff
 Variant: Pre 2.6.0
 Variant: Pre 3.25.0
 Variant: Current
-Requires Level 13, 27 Str, 27 Int
 Implicits: 3
 {variant:1}StaffBlockPercentImplicitStaff1[12,12]
 {variant:2}StaffBlockPercentImplicitStaff1[18,18]
@@ -550,7 +527,6 @@ Variant: Pre 3.15.0
 Variant: Pre 3.25.0
 Variant: Pre 3.28.0
 Variant: Current
-Requires Level 68, 113 Str, 113 Int
 Implicits: 4
 {variant:3,4}StaffSpellBlockPercentImplicitStaff__1
 {variant:1}StaffBlockPercentImplicitStaff3[12,12]
@@ -569,7 +545,6 @@ Variant: Pre 2.6.0
 Variant: Pre 3.25.0
 Variant: Pre 3.29.0
 Variant: Current
-Requires Level 18, 35 Str, 35 Int
 Implicits: 3
 {variant:1}StaffBlockPercentImplicitStaff1[12,12]
 {variant:2}StaffBlockPercentImplicitStaff1[18,18]
@@ -589,7 +564,6 @@ Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Pre 3.25.0
 Variant: Current
-Requires Level 40, 35 Str, 35 Int
 Implicits: 3
 {variant:1}StaffBlockPercentImplicitStaff1[12,12]
 {variant:2}StaffBlockPercentImplicitStaff1[18,18]
@@ -631,7 +605,6 @@ Serpentine Staff
 Variant: Pre 2.6.0
 Variant: Pre 3.25.0
 Variant: Current
-Requires Level 49, 85 Str, 85 Int
 Implicits: 3
 {variant:1}StaffBlockPercentImplicitStaff2[18,18]
 {variant:2}StaffBlockPercentImplicitStaff2[20,20]
@@ -650,7 +623,6 @@ Variant: Pre 3.11.0
 Variant: Pre 3.25.0
 Variant: Pre 3.26.0
 Variant: Current
-Requires Level 62, 113 Str, 113 Int
 Implicits: 3
 {variant:1}StaffBlockPercentImplicitStaff3[18,18]
 {variant:2}StaffBlockPercentImplicitStaff3[20,20]
@@ -669,7 +641,6 @@ Royal Staff
 Variant: Pre 2.6.0
 Variant: Pre 3.25.0
 Variant: Current
-Requires Level 28, 51 Str, 51 Int
 Implicits: 3
 {variant:3}StaffSpellBlockPercentImplicitStaff__1
 {variant:1}StaffBlockPercentImplicitStaff1[12,12]
@@ -687,7 +658,6 @@ Royal Staff
 Variant: Pre 3.25.0
 Variant: Current
 Source: No longer obtainable
-Requires Level 60, 51 Str, 51 Int
 Implicits: 2
 {variant:1}StaffBlockPercentImplicitStaff1[18,18]
 {variant:2}StaffSpellBlockPercentImplicitStaff__1
@@ -707,7 +677,6 @@ Variant: Pre 2.6.0
 Variant: Pre 3.11.0
 Variant: Pre 3.29.0
 Variant: Current
-Requires Level 64, 113 Str, 113 Int
 Implicits: 3
 {variant:1,2}StaffBlockPercentImplicitStaff3[18,18]
 {variant:3}StaffBlockPercentImplicitStaff3[20,20]
@@ -731,7 +700,6 @@ Variant: Pre 2.6.0
 Variant: Pre 3.8.0
 Variant: Pre 3.25.0
 Variant: Current
-Requires Level 45, 78 Str, 78 Int
 Implicits: 3
 {variant:1}StaffBlockPercentImplicitStaff2[12,12]
 {variant:2,3}StaffBlockPercentImplicitStaff2[18,18]
@@ -749,7 +717,6 @@ Vile Staff
 Variant: Pre 2.6.0
 Variant: Pre 3.25.0
 Variant: Current
-Requires Level 33, 59 Str, 59 Int
 Implicits: 3
 {variant:1}StaffBlockPercentImplicitStaff1[12,12]
 {variant:2}StaffBlockPercentImplicitStaff1[18,18]
@@ -766,7 +733,6 @@ Variant: Pre 3.25.0
 Variant: Current
 League: Harvest
 Source: Drops from unique{Oshabi, Avatar of the Grove}
-Requires Level 68, 89 Str, 89 Int
 Implicits: 2
 {variant:1}StaffBlockPercentImplicitStaff1[18,18]
 {variant:2}StaffSpellBlockPercent2
@@ -795,7 +761,6 @@ Source: Drops in The Lord's Labyrinth
 Variant: Pre 2.6.0
 Variant: Pre 3.26.0
 Variant: Current
-Requires Level 28, 43 Str, 43 Int
 Implicits: 2
 {variant:1}StaffBlockPercentImplicitStaff1[18,18]
 {variant:2,3}StaffBlockPercentImplicitStaff1
@@ -812,7 +777,6 @@ Cane of Kulemak
 Serpentine Staff
 Source: Drops from unique{Catarina, Master of Undeath}
 Crafted: true
-Requires Level 68, 85 Str, 85 Int
 Implicits: 1
 StaffBlockPercentImplicitStaff2
 LocalVeiledModEffectUnique__1

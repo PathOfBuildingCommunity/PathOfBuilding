@@ -129,7 +129,7 @@ Eternal Sword
 Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Current
-LevelReq: 51
+Requires Level 51
 Implicits: 2
 {variant:1}AccuracyPercentImplicit2HSword1[18,18]
 {variant:2}IncreasedAccuracySwordImplicit9
@@ -254,7 +254,6 @@ StunRecoveryUniqueOneHandSword13
 The Living Blade
 Ezomyte Blade
 League: Settlers of Kalguur
-Requires Level 61, 113 Str, 113 Dex
 Implicits: 1
 CriticalMultiplierImplicitSword2H1
 LocalIncreasedPhysicalDamagePercentUnique__48
@@ -285,7 +284,7 @@ Implicits: 2
 LocalIncreasedPhysicalDamagePercentUniqueOneHandSword12
 LocalAddedPhysicalDamageUniqueOneHandSword12
 LocalIncreasedAttackSpeedUniqueOneHandSword12
-{variant:1}PhysicalAddedAsColdUnique__1[10,10]
+{variant:1}PhysicalAddedAsColdUniqueOneHandSword12[10,10]
 {variant:2}PhysicalAddedAsColdUniqueOneHandSword12
 DamageTakenFromSkeletonsUniqueOneHandSword12_
 DamageTakenFromGhostsUniqueOneHandSword12
@@ -378,7 +377,6 @@ Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Pre 3.7.0
 Variant: Current
-LevelReq: 61
 Implicits: 2
 {variant:1}AccuracyPercentImplicitSword1[18,18]
 {variant:2,3}AccuracyPercentImplicitSword1
@@ -532,7 +530,6 @@ Variant: Pre 3.16.0
 Variant: Pre 3.21.0
 Variant: Current
 League: Breach
-LevelReq: 69
 Implicits: 2
 {variant:1}AccuracyPercentImplicitSword1[18,18]
 {variant:2,3,4,5}AccuracyPercentImplicitSword1
@@ -654,9 +651,9 @@ Implicits: 3
 {variant:2}CriticalMultiplierImplicitSword1[30,30]
 {variant:3}CriticalMultiplierImplicitSword1
 StrengthUnique__1
-LocalIncreasedPhysicalDamagePercentUnique__27
+LocalIncreasedPhysicalDamagePercentUnique__5
 IncreasedManaUnique__2
-MovementVelocityUnique__58
+MovementVelocityUnique__3
 ElementalDamageUnique__1
 LocalIncreasedMeleeWeaponRangeUnique__1
 ]],[[
@@ -721,7 +718,6 @@ LifeGainPerTargetUniqueOneHandSword7
 Nametaker
 Graceful Sword
 League: Affliction
-Requires Level 50, 78 Str, 94 Dex
 Implicits: 1
 IncreasedAccuracySwordImplicit6
 LocalCriticalStrikeChanceUnique__22
@@ -839,7 +835,6 @@ LocalChaosDamageUniqueTwoHandSword7
 The Golden Charlatan
 Lion Sword
 Source: Drops from unique{Uber Incarnation of Dread} in normal{Moment of Reverence}
-Requires Level 65, 104 Str, 122 Dex
 Implicits: 1
 StrengthDexterityImplicitSword_1
 IntelligenceRequirementsUnique_1
@@ -943,7 +938,6 @@ Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Pre 3.8.0
 Variant: Current
-LevelReq: 38
 Implicits: 2
 {variant:1}AccuracyPercentImplicitSword1[18,18]
 {variant:2,3}IncreasedAccuracy2hSwordImplicit3
@@ -959,7 +953,6 @@ MaximumMinionCountUniqueTwoHandSword4
 ]],[[
 Rakiata's Dance
 Engraved Greatsword
-Requires Level 48, 91 Str, 76 Dex
 Implicits: 1
 AccuracyPercentImplicit2HSword1
 LocalAddedColdDamageUnique__10
@@ -990,7 +983,6 @@ Bastard Sword
 Variant: Pre 2.6.0
 Variant: Pre 3.11.0
 Variant: Current
-LevelReq: 14
 Implicits: 3
 {variant:1}AccuracyPercentImplicit2HSword1[18,18]
 {variant:2}AccuracyPercentImplicit2HSword1[40,40]

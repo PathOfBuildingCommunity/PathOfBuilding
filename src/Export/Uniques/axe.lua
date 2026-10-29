@@ -29,7 +29,6 @@ FlammabilityOnHitUnique__1
 Dreadsurge
 Cleaver
 Source: No longer obtainable
-LevelReq: 60
 Implicits: 0
 LocalAddedPhysicalDamageUniqueOneHandAxe7
 LocalAddedFireDamageUnique__4
@@ -71,7 +70,6 @@ Jade Hatchet
 Source: No longer obtainable
 Variant: Pre 2.0.0
 Variant: Current
-LevelReq: 32
 Implicits: 0
 DisplaySocketedGemGetsChanceToFleeUniqueOneHandAxe3
 LocalIncreasedPhysicalDamagePercentUnique__9
@@ -176,7 +174,6 @@ KeystoneEldritchBatteryUnique__1
 Starcaller
 Abyssal Axe
 Source: Drops from unique{Incarnation of Fear} in normal{Moment of Trauma}
-Requires Level 55, 128 Str, 60 Dex
 StarfellOnMeleeCriticalHitUnique__1
 AllAttributesUnique__29
 LocalIncreasedPhysicalDamagePercentUniqueTwoHandAxe10
@@ -190,7 +187,6 @@ Spectral Axe
 Source: Drops from unique{It That Was Esh} and unique{It That Was Tul} in normal{Hive Colony}
 Variant: Pre 3.29.0
 Variant: Current
-Requires Level 33, 85 Str, 37 Dex
 FireDamagePercentUnique__14
 {variant:1}LocalFireDamageFromLifePercentUnique_1[8,12]
 {variant:2}LocalFireDamageFromLifePercentUnique_1
@@ -206,7 +202,6 @@ Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Alluring Abys
 Variant: Pre 3.11.0
 Variant: Pre 3.20.0
 Variant: Current
-LevelReq: 75
 Implicits: 1
 {variant:2,3}LocalMaimOnHit2HImplicit_1
 {variant:1,2}LocalIncreaseSocketedSupportGemLevelUniqueTwoHandAxe7
@@ -351,7 +346,6 @@ Woodsplitter
 Source: No longer obtainable
 Variant: Pre 3.11.0
 Variant: Current
-LevelReq: 40
 Implicits: 0
 LocalIncreaseSocketedStrengthGemLevelUniqueTwoHandAxe3
 {variant:2}TriggerGoreShockwaveOnMeleeHitWith150StrengthUnique__2
@@ -400,7 +394,6 @@ Spinesnatch
 Fleshripper
 League: Allflame
 Source: Drops from unique{Zorath}
-Requires Level 70, 156 Str, 84 Dex
 Implicits: 1
 LocalCriticalStrikeChanceImplicitMarakethTwoHandAxe2
 AbyssJewelSocketUnique__19

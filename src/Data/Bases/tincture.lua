@@ -8,7 +8,7 @@ itemBases["Prismatic Tincture"] = {
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "attack" }, },
 	implicitIds = { "TinctureElementalDamageImplicit1", },
 	tincture = { manaBurn = 0.7, cooldown = 8 },
-	req = { },
+	req = { level = 18, },
 }
 itemBases["Rosethorn Tincture"] = {
 	type = "Tincture",
@@ -17,7 +17,7 @@ itemBases["Rosethorn Tincture"] = {
 	implicitModTypes = { { "attack", "critical" }, },
 	implicitIds = { "TinctureCriticalStrikeChanceImplicit1", },
 	tincture = { manaBurn = 0.7, cooldown = 8 },
-	req = { },
+	req = { level = 18, },
 }
 itemBases["Ironwood Tincture"] = {
 	type = "Tincture",
@@ -26,7 +26,7 @@ itemBases["Ironwood Tincture"] = {
 	implicitModTypes = { { "attack" }, { "attack" }, },
 	implicitIds = { "TinctureStunThresholdImplicit1", },
 	tincture = { manaBurn = 0.9, cooldown = 10 },
-	req = { },
+	req = { level = 18, },
 }
 itemBases["Ashbark Tincture"] = {
 	type = "Tincture",
@@ -35,7 +35,7 @@ itemBases["Ashbark Tincture"] = {
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "fire", "attack", "ailment" }, { "elemental_damage", "damage", "elemental", "fire", "attack", "ailment" }, },
 	implicitIds = { "TinctureChanceToIgniteImplicit1", },
 	tincture = { manaBurn = 0.6, cooldown = 7 },
-	req = { },
+	req = { level = 32, },
 }
 itemBases["Borealwood Tincture"] = {
 	type = "Tincture",
@@ -44,7 +44,7 @@ itemBases["Borealwood Tincture"] = {
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "cold", "attack", "ailment" }, { "elemental_damage", "damage", "elemental", "cold", "attack", "ailment" }, },
 	implicitIds = { "TinctureChanceToFreezeImplicit1", },
 	tincture = { manaBurn = 0.6, cooldown = 7 },
-	req = { },
+	req = { level = 32, },
 }
 itemBases["Fulgurite Tincture"] = {
 	type = "Tincture",
@@ -53,7 +53,7 @@ itemBases["Fulgurite Tincture"] = {
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "lightning", "attack", "ailment" }, { "elemental_damage", "damage", "elemental", "lightning", "attack", "ailment" }, },
 	implicitIds = { "TinctureChanceToShockImplicit1", },
 	tincture = { manaBurn = 0.6, cooldown = 7 },
-	req = { },
+	req = { level = 32, },
 }
 itemBases["Poisonberry Tincture"] = {
 	type = "Tincture",
@@ -62,7 +62,7 @@ itemBases["Poisonberry Tincture"] = {
 	implicitModTypes = { { "chaos_damage", "poison", "damage", "chaos", "attack", "ailment" }, { "chaos_damage", "poison", "damage", "chaos", "attack", "ailment" }, },
 	implicitIds = { "TinctureChanceToPoisonImplicit1", },
 	tincture = { manaBurn = 0.7, cooldown = 6 },
-	req = { },
+	req = { level = 45, },
 }
 itemBases["Blood Sap Tincture"] = {
 	type = "Tincture",
@@ -71,7 +71,7 @@ itemBases["Blood Sap Tincture"] = {
 	implicitModTypes = { { "physical_damage", "bleed", "damage", "physical", "attack", "ailment" }, { "physical_damage", "bleed", "damage", "physical", "attack", "ailment" }, },
 	implicitIds = { "TinctureChanceToBleedImplicit1", },
 	tincture = { manaBurn = 0.7, cooldown = 6 },
-	req = { },
+	req = { level = 45, },
 }
 itemBases["Oakbranch Tincture"] = {
 	type = "Tincture",
@@ -80,7 +80,7 @@ itemBases["Oakbranch Tincture"] = {
 	implicitModTypes = { { "attack" }, },
 	implicitIds = { "TinctureRageOnHitImplicit1", },
 	tincture = { manaBurn = 0.5, cooldown = 8 },
-	req = { },
+	req = { level = 60, },
 }
 itemBases["Sporebloom Tincture"] = {
 	type = "Tincture",
@@ -89,6 +89,6 @@ itemBases["Sporebloom Tincture"] = {
 	implicitModTypes = { { "attack" }, { "attack" }, },
 	implicitIds = { "TinctureChanceToBlindImplicit1", },
 	tincture = { manaBurn = 0.9, cooldown = 8 },
-	req = { },
+	req = { level = 52, },
 }
 end

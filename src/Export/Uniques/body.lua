@@ -30,7 +30,6 @@ Implicits: 0
 Wall of Brambles
 Plate Vest
 Source: No longer obtainable
-LevelReq: 30
 Implicits: 0
 AddedPhysicalDamageUniqueBodyStr2
 LocalIncreasedPhysicalDamageReductionRatingTransformedUnique__1
@@ -181,7 +180,6 @@ Pragmatism
 Colosseum Plate
 League: Affliction
 Source: unique{The King in the Mists} in the normal{Crux of Nothingness}
-Requires Level 49, 134 Str
 LocalIncreaseSocketedActiveSkillGemLevelUnique__1
 LocalIncreasedPhysicalDamageReductionRatingPercentUnique__29
 IncreasedManaUnique__28
@@ -202,7 +200,6 @@ ChaosTakenOnES
 ]],[[
 Utula's Hunger
 Majestic Plate
-Requires Level 53, 145 Str
 LocalIncreasedPhysicalDamageReductionRatingPercentUnique__27
 MaximumLifeOnKillPercentUnique__6
 StunRecoveryUnique__7
@@ -248,7 +245,6 @@ ColdResistUniqueBodyDex7
 Wildwrap
 Strapped Leather
 Source: No longer obtainable
-LevelReq: 57
 Implicits: 0
 IncreasedAttackSpeedUniqueBodyDex7
 IncreasedEvasionRatingUnique__5_
@@ -496,7 +492,6 @@ ProjectileAttackCriticalStrikeChanceUnique__1
 [[
 The Apostate
 Cabalist Regalia
-Requires Level 35
 Source: Drops from unique{Synthete Nightmare} in normal{The Cortex} (Uber)
 StrengthUnique__27
 AllResistancesUnique__31
@@ -541,7 +536,7 @@ Variant: Pre 3.0.0
 Variant: Current
 Implicits: 0
 DisplaySocketedMinionGemsSupportedByLifeLeechUnique__1
-{variant:1}LocalIncreasedEnergyShieldPercentUniqueBody_1[250,300]
+{variant:1}LocalIncreasedEnergyShieldPercentUnique__5[250,300]
 {variant:2}LocalIncreasedEnergyShieldPercentUnique__5
 MinionBlindImmunityUnique__1
 MinionChanceToBlindOnHitUnique__1
@@ -905,7 +900,6 @@ CannotBePoisonedUnique__1
 ]],[[
 Rigwald's Hunt
 General's Brigandine
-Requires Level 66, 103 Str, 103 Dex
 LocalIncreasedArmourAndEvasionUnique__28
 MinionMovementSpeedUnique_1
 MinionDoubleDamageChancePerFortificationUnique__1
@@ -1014,7 +1008,6 @@ CannotBeChilledUniqueBodyStrInt3
 Crystal Vault
 Latticed Ringmail
 Source: No longer obtainable
-LevelReq: 49
 Implicits: 0
 StrengthUniqueBodyStrInt3
 IntelligenceUniqueBodyStrInt3
@@ -1391,7 +1384,6 @@ IncreasedAuraEffectUniqueBodyDexInt4
 Servant of Decay
 Torturer Garb
 Source: Drops from unique{Incarnation of Fear} in normal{Moment of Trauma}
-Requires Level 78, 151 Dex, 151 Int
 GrantsSummonVoidSpawnUnique__1
 LocalIncreasedEnergyShieldPercentUniqueBody_1
 ChaosResistUniqueBody_1
@@ -1401,7 +1393,6 @@ ExtraChaosDamagePerVoidSpawnUnique__1
 Seven Teachings
 Waxed Garb
 Source: Drops from unique{Incarnation of Dread} in normal{Moment of Reverence}
-Requires Level 77, 48 Dex, 48 Int
 TriggerSocketedSpellOnUnarmedMeleeCriticalHitUnique__1
 UnarmedMoreMeleeAttackSpeedUnique__1
 LocalIncreasedEvasionAndEnergyShieldUnique__38

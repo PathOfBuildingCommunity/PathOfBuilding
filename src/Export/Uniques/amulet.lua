@@ -9,7 +9,6 @@ Variant: Pre 1.3.0
 Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 45
 Implicits: 1
 StrengthImplicitAmulet1
 {variant:1}AdditionalBlockUnique__2[10,10]
@@ -30,7 +29,6 @@ MaximumBlockChanceUniqueAmulet16
 ]],[[
 Bloodsoaked Medallion
 Amber Amulet
-LevelReq: 49
 Implicits: 1
 StrengthImplicitAmulet1
 CriticalStrikeChanceUnique__6
@@ -55,7 +53,6 @@ FireResistUniqueAmulet4
 Ngamahu Tiki
 Coral Amulet
 Source: No longer obtainable
-Requires Level 36
 Implicits: 1
 LifeRegenerationImplicitAmulet1
 FireDamagePercentUnique__6
@@ -67,7 +64,6 @@ LifeRegenerationOnLowLifeUniqueAmulet4
 The Ascetic
 Gold Amulet
 Source: No longer obtainable
-Requires Level 8
 Implicits: 1
 ItemFoundRarityIncreaseImplicitAmulet1
 ItemRarityWhileWearingANormalItemUnique__1
@@ -78,7 +74,6 @@ Onyx Amulet
 Variant: Pre 3.23.0
 Variant: Current
 Source: Drops from unique{The Eater of Worlds} (Uber)
-Requires Level 60
 Implicits: 1
 AllAttributesImplicitAmulet1
 GlobalGemExperienceGainUnique__1
@@ -88,7 +83,6 @@ GlobalSkillGemQualityUnique__1
 ]],[[
 Astramentis
 Onyx Amulet
-Requires Level 20
 Implicits: 1
 AllAttributesImplicitAmulet1
 AllAttributesUniqueAmulet8
@@ -98,7 +92,6 @@ Atziri's Foible
 Paua Amulet
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 16
 Implicits: 1
 ManaRegenerationImplicitAmulet1
 {variant:1}IncreasedManaUniqueAmulet10[50,50]
@@ -113,7 +106,6 @@ Replica Atziri's Foible
 Paua Amulet
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 16
 Implicits: 1
 LifeRegenerationRatePercentImplicitUnique__5
 IncreasedLifeUnique__104_
@@ -141,7 +133,6 @@ Variant: Intelligence: Purity of Lightning
 Variant: Intelligence: Wrath
 Variant: Intelligence: Zealotry
 Variant: Envy
-Requires Level 55
 Implicits: 1
 AllAttributesImplicitAmulet1
 {variant:1,2,3,4,5}StrengthUnique__14
@@ -179,7 +170,6 @@ The Aylardex
 Agate Amulet
 Variant: Pre 2.5.0
 Variant: Current
-Requires Level 32
 Implicits: 1
 HybridStrInt
 IncreasedLifeUnique__4
@@ -196,7 +186,6 @@ Variant: Pre 3.25.0
 Variant: Current
 League: Sanctum
 Source: Drops from unique{Lycia, Herald of the Scourge} in normal{The Beyond}
-LevelReq: 52
 Implicits: 1
 HybridStrInt
 IncreasedManaUnique__23
@@ -207,7 +196,6 @@ ElementalDamageReductionChaosResistUnique__1
 ]],[[
 Badge of the Brotherhood
 Turquoise Amulet
-Requires Level: 20
 League: Blight
 Implicits: 1
 HybridDexInt
@@ -222,7 +210,6 @@ Replica Badge of the Brotherhood
 Turquoise Amulet
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level: 60
 Implicits: 1
 HybridDexInt
 MaximumEnduranceChargesEqualToMaximumFrenzyChargesUnique__1
@@ -237,7 +224,6 @@ Variant: Pre 3.0.0
 Variant: Pre 3.2.0
 Variant: Current
 Source: No longer obtainable
-Requires Level 30
 Implicits: 1
 ItemFoundRarityIncreaseImplicitAmulet1
 {variant:1}MagicMonsterItemRarityUnique__1[150,150]
@@ -254,10 +240,9 @@ Variant: Pre 3.29.0
 Variant: Current
 League: Talisman Hardcore
 Talisman Tier: 2
-Requires Level 28
 Implicits: 1
 {variant:1,2}TalismanGlobalDefensesPercent
-{variant:1,2}IncreasedEnergyShieldUniqueAmulet14
+{variant:1,2}IncreasedEnergyShieldUnique___1[20,30]
 {variant:3}IncreasedEnergyShieldUnique___1
 FireResistUnique__2
 LightningResistUnique__1
@@ -271,7 +256,6 @@ LightningResistUnique__1
 Blood of Corruption
 Amber Amulet
 Source: Use currency{Vaal Orb} on unique{Tear of Purity}
-Requires Level 5
 Implicits: 1
 StrengthImplicitAmulet1
 GluttonyOfElementsUniqueAmulet23
@@ -286,7 +270,6 @@ Bloodgrip
 Variant: Pre 3.0.0
 Variant: Pre 3.12.0
 Variant: Current
-Requires Level 74
 Implicits: 2
 {variant:1}LifeRegenerationUniqueAmulet25[120,240]
 {variant:2,3}LifeRegenerationImplicitAmulet2
@@ -301,7 +284,6 @@ Carnage Heart
 Onyx Amulet
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 20
 Implicits: 1
 AllAttributesImplicitAmulet1
 AllAttributesUniqueAmulet9
@@ -316,7 +298,6 @@ ExtraGore
 Crystallised Omniscience
 Onyx Amulet
 Source: Drops from unique{The Searing Exarch} (Uber)
-Requires Level 61
 Implicits: 1
 AllAttributesImplicitAmulet1
 AttributeModifiersAscendanceUnique__1_
@@ -327,7 +308,6 @@ AttributeRequirementsAscendanceUnique__1
 Daresso's Salute
 Citrine Amulet
 League: Anarchy
-Requires Level 16
 Implicits: 1
 HybridStrDex
 ReducedEnergyShieldPercentUniqueAmulet13
@@ -341,7 +321,6 @@ Defiance of Destiny
 Paua Amulet
 Variant: Pre 3.25.0
 Variant: Current
-LevelReq: 49
 Implicits: 1
 ManaRegenerationImplicitAmulet1
 IncreasedLifeUnique__121
@@ -354,7 +333,6 @@ LightningResistUnique__29
 The Ephemeral Bond
 Lapis Amulet
 League: Heist
-Requires Level 68
 Implicits: 1
 IntelligenceImplicitAmulet1
 ManaRegenerationUnique__12
@@ -368,7 +346,6 @@ Gold Amulet
 Variant: Pre 3.29.0
 Variant: Current
 League: Affliction
-Requires Level 48
 Implicits: 1
 ItemFoundRarityIncreaseImplicitAmulet1
 IncreasedLifeEmptyRedSocketUnique__1
@@ -379,7 +356,6 @@ IncreasedManaEmptyBlueSocketUnique__1
 ]],[[
 Doedre's Tongue
 Lapis Amulet
-LevelReq: 24
 Implicits: 1
 IntelligenceImplicitAmulet1
 AllResistancesUnique__27
@@ -390,7 +366,6 @@ Extractor Mentis
 Agate Amulet
 Variant: Pre 3.5.0
 Variant: Current
-Requires Level 16
 Implicits: 1
 HybridStrInt
 StrengthUnique___2
@@ -405,7 +380,6 @@ MaximumLifeOnKillPercentUnique__1
 Eye of Chayula
 Onyx Amulet
 Upgrade: Upgrades to unique{Presence of Chayula} using currency{Blessing of Chayula}
-Requires Level 20
 Implicits: 1
 AllAttributesImplicitAmulet1
 MaximumLifeUniqueAmulet6
@@ -416,7 +390,6 @@ Presence of Chayula
 Onyx Amulet
 League: Breach
 Source: Upgraded from unique{Eye of Chayula} using currency{Blessing of Chayula}
-Requires Level 60
 Implicits: 1
 AllAttributesImplicitAmulet1
 ItemFoundRarityIncreaseUnique__2
@@ -426,7 +399,6 @@ MaximumLifeConvertedToEnergyShieldUnique__1
 ]],[[
 Eye of Innocence
 Citrine Amulet
-Requires Level 68
 Implicits: 1
 HybridStrDex
 ChanceToIgniteUnique__2
@@ -436,7 +408,6 @@ FireDamageLeechedAsLifeWhileIgnitedUnique__1
 ]],[[
 Eyes of the Greatwolf
 Greatwolf Talisman
-Requires Level 52
 Version: Pre 3.25.0
 Version: Pre 3.29.0
 Version: Current
@@ -592,7 +563,6 @@ League: Harvest
 Source: Drops from unique{Namharim, Born of Night} in normal{The Sacred Grove}
 Variant: Pre 3.20.0
 Variant: Current
-Requires Level 61
 Implicits: 1
 HybridStrDex
 IntelligenceUnique__22_
@@ -605,7 +575,6 @@ Curse50PercentCurseEffectUnique__1
 ]],[[
 Fury Valve
 Turquoise Amulet
-Requires Level 40
 Implicits: 1
 HybridDexInt
 IncreasedEvasionRatingPercentUnique__2
@@ -618,7 +587,6 @@ Gloomfang
 Blue Pearl Amulet
 Variant: Pre 3.11.0
 Variant: Current
-Requires Level 77
 Implicits: 1
 ManaRegenerationImplicitAmulet2
 ChaosDamageLifeLeechPermyriadUnique__2
@@ -636,7 +604,6 @@ Variant: Current
 League: Breach
 Source: Drops in Tul Breach or from unique{Tul, Creeping Avalanche}
 Upgrade: Upgrades to unique{The Pandemonius} using currency{Blessing of Tul}
-Requires Level 35
 Implicits: 1
 DexterityImplicitAmulet1
 {variant:1}ColdDamagePercentUnique___10
@@ -650,7 +617,6 @@ The Pandemonius
 Jade Amulet
 League: Breach
 Source: Upgraded from unique{The Halcyon} using currency{Blessing of Tul}
-Requires Level 64
 Implicits: 1
 DexterityImplicitAmulet1
 ColdDamagePercentUnique___11
@@ -661,7 +627,6 @@ ColdPenetrationAgainstChilledEnemiesUnique__1
 ]],[[
 Hinekora's Sight
 Onyx Amulet
-Requires Level 20
 Variant: Pre 3.16.0
 Variant: Pre 3.37.0
 Variant: Current
@@ -690,11 +655,9 @@ AvoidMaimChanceUnique__1
 Hyrri's Truth
 Jade Amulet
 League: Synthesis
-Requires Level 64
 Variant: Pre 3.16.0
 Variant: Pre 3.19.0
 Variant: Current
-LevelReq: 64
 Implicits: 1
 DexterityImplicitAmulet1
 {variant:1,2}GrantsAccuracyAuraSkillUnique__1[22,22]
@@ -716,7 +679,6 @@ Source: Steal from a unique{Curio Display} during a Grand Heist
 Variant: Pre 3.16.0
 Variant: Pre 3.19.0
 Variant: Current
-LevelReq: 64
 Implicits: 1
 DexterityImplicitAmulet1
 GrantsHatredUnique__1__
@@ -727,14 +689,13 @@ GrantsHatredUnique__1__
 {variant:1,2}CriticalMultiplierUnique__5[23,28]
 {variant:3}CriticalMultiplierUnique__5
 {variant:3}BowAttacksCullingStrikeUnique__1
-{variant:1,2}ColdDamageLifeLeechPermyriadUniqueBelt9bNew[80,100]
+{variant:1,2}ColdDamageLifeLeechUnique__1[80,100]
 {variant:1,2,3}HatredManaReservationEfficiencyUnique__1__
 ]],[[
 The Ignomon
 Gold Amulet
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 8
 Implicits: 1
 ItemFoundRarityIncreaseImplicitAmulet1
 {variant:1}DexterityUniqueAmulet7
@@ -749,7 +710,6 @@ FireResistUniqueAmulet7
 The Effigon
 Gold Amulet
 Source: No longer obtainable
-Requires Level 57
 Implicits: 1
 ItemFoundRarityIncreaseImplicitAmulet1
 DexterityUniqueAmulet7
@@ -762,7 +722,6 @@ FirePenetrationAgainstBlindedEnemiesUnique__1
 ]],[[
 Ikiaho's Promise
 Coral Amulet
-LevelReq: 30
 Implicits: 1
 LifeRegenerationImplicitAmulet1
 AddedManaRegenerationUnique__3
@@ -780,7 +739,6 @@ Variant: Fire
 Variant: Cold
 Variant: Lightning
 Variant: Chaos
-Requires Level 64
 Implicits: 1
 AllAttributesImplicitAmulet1
 {variant:1}GlobalAddedPhysicalDamageUnique__1_
@@ -810,7 +768,6 @@ Karui Ward
 Jade Amulet
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 5
 Implicits: 1
 DexterityImplicitAmulet1
 StrengthUniqueAmulet5
@@ -823,7 +780,6 @@ Replica Karui Ward
 Jade Amulet
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 5
 Implicits: 1
 DexterityImplicitAmulet1
 IntelligenceUnique__23
@@ -837,7 +793,6 @@ Jade Amulet
 Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 24
 Implicits: 1
 DexterityImplicitAmulet1
 StrengthImplicitAmulet1
@@ -852,7 +807,6 @@ Khatal's Geyser
 Lapis Amulet
 League: Mirage
 Source: No longer obtainable
-LevelReq: 56
 Implicits: 1
 IntelligenceImplicitAmulet1
 CannotUseLifeFlaskUnique__1
@@ -866,7 +820,6 @@ Khatal's Weeping
 Lapis Amulet
 League: Mirage
 Source: No longer obtainable
-LevelReq: 56
 Implicits: 1
 IntelligenceImplicitAmulet1
 IncreasedLifeUnique__127
@@ -878,7 +831,6 @@ Leadership's Price
 Onyx Amulet
 League: Heist
 Source: Drops from unique{Vic Vox} and unique{Vinny Vox} in normal{Contract: The Twins}
-Requires Level 68
 Implicits: 1
 AllAttributesImplicitAmulet1
 MaximumFireResistUnique__1
@@ -890,7 +842,6 @@ Corrupted
 ]],[[
 Maligaro's Cruelty
 Turquoise Amulet
-Requires Level 20
 Implicits: 1
 HybridDexInt
 MaximumLifeUnique__6
@@ -904,7 +855,6 @@ Citrine Amulet
 Variant: Pre 3.16.0
 Variant: Pre 3.20.0
 Variant: Current
-Requires Level 48
 Implicits: 1
 HybridStrDex
 IntelligenceUnique__16
@@ -922,7 +872,6 @@ Variant: Pre 2.0.0
 Variant: Pre 2.2.0
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 40
 Implicits: 1
 IntelligenceImplicitAmulet1
 IncreasedAccuracyUniqueAmulet17_
@@ -942,7 +891,6 @@ Variant: Pre 3.29.0
 Variant: Current
 League: Talisman Standard, Talisman Hardcore
 Talisman Tier: 3
-Requires Level 44
 Implicits: 1
 {variant:1}TalismanIncreasedDamage
 {variant:1}IncreasedPhysicalDamagePercentUnique__3
@@ -960,7 +908,6 @@ Night's Hold
 Black Maw Talisman
 League: Talisman Standard, Talisman Hardcore
 Talisman Tier: 1
-Requires Level 12
 Implicits: 1
 AmuletHasOneSocket
 LocalIncreaseSocketedGemLevelUnique__1
@@ -971,7 +918,6 @@ Corrupted
 ]],[[
 Perquil's Toe
 Gold Amulet
-Requires Level 29
 Implicits: 1
 ItemFoundRarityIncreaseImplicitAmulet1
 DexterityUnique__11
@@ -982,7 +928,6 @@ UniqueNearbyAlliesAreLuckyDisplay
 The Primordial Chain
 Coral Amulet
 League: Delve
-Requires Level 34
 Variant: Pre 3.26.0
 Variant: Current
 Implicits: 1
@@ -1001,7 +946,6 @@ Rashkaldor's Patience
 Jade Amulet
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 48
 Implicits: 1
 DexterityImplicitAmulet1
 IncreasedLifeUniqueAmulet19
@@ -1018,7 +962,6 @@ Retaliation Charm
 Citrine Amulet
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 30
 Implicits: 1
 HybridStrDex
 {variant:2}AttacksBlindOnHitChanceUnique__2
@@ -1037,7 +980,6 @@ Variant: Pre 2.2.0
 Variant: Pre 3.29.0
 Variant: Current
 Talisman Tier: 2
-Requires Level 28
 Implicits: 2
 {variant:1}TalismanIncreasedCriticalStrikeMultiplier_[16,24]
 {variant:2}TalismanIncreasedCriticalStrikeMultiplier_
@@ -1055,7 +997,6 @@ Variant: Cold
 Variant: Lightning
 League: Allflame
 Source: Drops from Treasure Clam chests in normal{The Fathomless Depths}
-Requires Level 28
 Implicits: 1
 AllResistancesImplicitAmulet1
 AllResistancesUniqueAmulet87
@@ -1072,7 +1013,6 @@ Variant: Current
 League: Incursion
 Source: Drops from unique{The Vaal Omnitect}
 Upgrade: Upgrades to unique{Zerphi's Heart} via currency{Vial of Sacrifice}
-Requires Level 32
 Implicits: 1
 ManaRegenerationImplicitAmulet1
 GlobalAddedFireDamageUnique__2
@@ -1089,7 +1029,6 @@ League: Incursion
 Source: Upgraded from unique{Sacrificial Heart} via currency{Vial of Sacrifice}
 Variant: Pre 3.10.0
 Variant: Current
-Requires Level 70
 Implicits: 1
 ManaRegenerationImplicitAmulet1
 GlobalAddedChaosDamageUnique__4__
@@ -1103,7 +1042,6 @@ Agate Amulet
 Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 16
 Implicits: 1
 HybridStrInt
 {variant:1,2}ManaRegenerationUniqueAmulet21[30,50]
@@ -1141,7 +1079,6 @@ Shaper Item
 Source: Drops from unique{The Shaper}
 Variant: Pre 3.10.0
 Variant: Current
-Requires Level 64
 Implicits: 1
 AllAttributesImplicitAmulet1
 {variant:1}AllDamageUnique__4[20,25]
@@ -1158,14 +1095,13 @@ Source: Vendor Recipe
 Variant: Pre 2.6.0
 Variant: Pre 3.8.0
 Variant: Current
-Requires Level 28
 Implicits: 1
 FireResistImplicitAmulet1
 {variant:3}GrantsFrostblinkSkillUnique__1
-ColdDamagePercentUnique__3
+ColdDamagePercentUnique__5
 AllResistancesUnique__2
-{variant:1}CurseAreaOfEffectUnique__2_[30,30]
-{variant:2,3}CurseAreaOfEffectUnique__2_
+{variant:1}CurseAreaOfEffectUnique__1[30,30]
+{variant:2,3}CurseAreaOfEffectUnique__1
 SilenceImmunityUnique__1
 {variant:1,2}ItemGrantsIllusoryWarpUnique__1
 {variant:3}FrostblinkDurationUnique__1_
@@ -1176,7 +1112,6 @@ Lapis Amulet
 Variant: Pre 3.4.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 5
 Implicits: 1
 IntelligenceImplicitAmulet1
 {variant:1}BlockingBlocksSpellsUniqueAmulet1
@@ -1189,7 +1124,6 @@ IntelligenceImplicitAmulet1
 Stranglegasp
 Onyx Amulet
 Source: Drops in Blight-ravaged Maps
-Requires Level 52
 Implicits: 1
 AllAttributesImplicitAmulet1
 MultipleEnchantmentsAllowedUnique__2
@@ -1199,7 +1133,6 @@ Coral Amulet
 League: Legion
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 54
 Implicits: 1
 LifeRegenerationImplicitAmulet1
 IntelligenceUnique__15_
@@ -1225,7 +1158,6 @@ Lapis Amulet
 Variant: Pre 3.16.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 5
 Implicits: 1
 IntelligenceImplicitAmulet1
 PuritySkillUniqueAmulet22
@@ -1233,14 +1165,13 @@ PuritySkillUniqueAmulet22
 {variant:3}AllAttributesUniqueAmulet22
 IncreasedLifeUniqueAmulet22
 {variant:1}AvoidElementalAilmentsUnique__1_[5,5]
-{variant:2}AllResistancesUniqueAmulet2[5,5]
+{variant:2}ChanceToAvoidElementalStatusAilmentsUniqueAmulet22[5,5]
 {variant:3}ChanceToAvoidElementalStatusAilmentsUniqueAmulet22
 ]],[[
 Ungil's Harmony
 Turquoise Amulet
 Variant: Pre 3.11.0
 Variant: Current
-Requires Level 23
 Implicits: 1
 HybridDexInt
 {variant:1}CriticalStrikeChanceUniqueBodyInt4
@@ -1253,7 +1184,6 @@ CriticalMultiplierUniqueAmulet18
 The Utmost
 Gold Amulet
 Source: Created from unique{Primordial Fragments} obtained from Uber bosses
-Requires Level 8
 Implicits: 1
 ItemFoundRarityIncreaseImplicitAmulet1
 ChanceToSuppressSpellsUnique__3
@@ -1265,7 +1195,6 @@ Corrupted
 Uul-Netol's Vow
 Unset Amulet
 Source: Drops from unique{Breachlord} in a normal{Flawless Breachstone}
-Requires Level 72
 Implicits: 1
 AmuletHasOneSocket
 SupportGemsSocketedInAmuletAlsoSupportBodySkills
@@ -1277,7 +1206,6 @@ ChaosResistUnique__24
 Victario's Acuity
 Turquoise Amulet
 League: Onslaught
-Requires Level 16
 Implicits: 1
 HybridDexInt
 LightningResistUniqueAmulet15
@@ -1295,7 +1223,6 @@ Upgrade: Upgrades to unique{Choir of the Storm} using currency{Blessing of Esh}
 Variant: Pre 3.16.0
 Variant: Pre 3.21.0
 Variant: Current
-Requires Level 69
 Implicits: 1
 IntelligenceImplicitAmulet1
 {variant:1,2}LightningStrikesOnCritUnique__1
@@ -1313,7 +1240,6 @@ Variant: Pre 3.0.0
 Variant: Pre 3.16.0
 Variant: Pre 3.21.0
 Variant: Current
-Requires Level 69
 Implicits: 1
 IntelligenceImplicitAmulet1
 {variant:1,2,3}LightningStrikesOnCritUnique__2[20,20]
@@ -1326,7 +1252,6 @@ CriticalChanceIncreasedByUncappedLightningResistanceUnique__1
 Voll's Devotion
 Agate Amulet
 League: Anarchy, Onslaught
-Requires Level 32
 Implicits: 1
 HybridStrInt
 IncreasedLifeUniqueAmulet14
@@ -1341,7 +1266,6 @@ Turquoise Amulet
 Variant: Pre 3.11.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 50
 Implicits: 1
 HybridDexInt
 {variant:1}IncreasedAttackSpeedUniqueAmulet20[8,12]
@@ -1360,7 +1284,6 @@ HybridDexInt
 ]],[[
 Willowgift
 Jade Amulet
-Requires Level 52
 Implicits: 1
 DexterityImplicitAmulet1
 PercentageStrengthUnique__4_
@@ -1374,7 +1297,6 @@ Winterheart
 Gold Amulet
 Variant: Pre 3.15.0
 Variant: Current
-Requires Level 42
 Implicits: 1
 ItemFoundRarityIncreaseImplicitAmulet1
 DexterityUnique__1
@@ -1388,7 +1310,6 @@ Replica Winterheart
 Gold Amulet
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 42
 Implicits: 1
 ItemFoundRarityIncreaseImplicitAmulet1
 DexterityUnique__1
@@ -1404,7 +1325,6 @@ Variant: Current
 League: Breach
 Source: Drops in Xoph Breach or from unique{Xoph, Dark Embers}
 Upgrade: Upgrades to unique{Xoph's Blood} using currency{Blessing of Xoph}
-Requires Level 35
 Implicits: 1
 StrengthImplicitAmulet1
 StrengthUnique__6
@@ -1418,7 +1338,6 @@ Xoph's Blood
 Amber Amulet
 League: Breach
 Source: Upgraded from unique{Xoph's Heart} using currency{Blessing of Xoph}
-Requires Level 64
 Implicits: 1
 StrengthImplicitAmulet1
 MaximumLifeUnique__3
@@ -1432,7 +1351,6 @@ Yoke of Suffering
 Onyx Amulet
 Variant: Pre 3.24.0
 Variant: Current
-Requires Level 70
 Implicits: 1
 AllAttributesImplicitAmulet1
 FireResistUnique__15
@@ -1449,7 +1367,6 @@ Onyx Amulet
 Searing Exarch Item
 Eater of Worlds Item
 Source: Drops from unique{The Black Star} or unique{The Infinite Hunger}
-Requires Level 61
 Implicits: 2
 9% increased Mana Reservation Efficiency of Skills
 MovementVelocityEldritchImplicit2
@@ -1463,7 +1380,6 @@ KillEnemyInstantlyExarchDominantUnique__1
 Venarius' Astrolabe
 Astrolabe Amulet
 Source: Drops from unique{Incarnation of Neglect} in normal{Moment of Loneliness}
-Requires Level 69
 Implicits: 1
 CanHaveEveryInfluenceTypeImplicitE1
 FoolishlyDrawnAttentionUnique_1
@@ -1476,7 +1392,6 @@ Seaglass Amulet
 Variant: Pre 3.27.0
 Variant: Current
 Source: Drops from unique{Incarnation of Dread} in normal{Moment of Reverence}
-Requires Level 74
 Implicits: 1
 ReducedEnergyShieldDelayImplicit1_
 AttacksGainMinMaxAddedChaosDamageBasedOnManaUnique__1
@@ -1488,7 +1403,6 @@ SkillsCostEnergyShieldInsteadOfManaLifeUnique__1
 Bonemeld
 Marble Amulet
 Source: Drops from unique{Incarnation of Dread} in normal{Moment of Reverence}
-Requires Level 74
 Implicits: 1
 LifeRegenerationImplicitAmulet2
 AllAttributesUnique__30
@@ -1500,7 +1414,6 @@ MinionsGainPercentOfYourResistancesUnique_1
 Haunting Memories
 Turquoise Amulet
 Source: Drops from unique{Uber Incarnation of Neglect} in normal{Moment of Loneliness}
-Requires Level 64
 Implicits: 1
 HybridDexInt
 ChanceToSuppressSpellsUnique__4

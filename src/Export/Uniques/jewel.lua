@@ -24,7 +24,6 @@ Cobalt Jewel
 League: Heist
 Source: Drops from unique{The Unbreakable} in normal{Contract: Breaking the Unbreakable}
 Limited to: 1
-Requires Level 20
 SpellDamageUnique__13
 CriticalStrikeChancePerIntensityUnique__1
 SpellsGainIntensityUnique__1
@@ -837,7 +836,6 @@ Murderous Eye Jewel
 Source: Drops from unique{Abyssal Liches} in normal{Abyssal Depths}
 Variant: Pre 3.21.0
 Variant: Current
-Requires Level 40
 StrengthUnique__21
 {variant:1}MainHandCriticalStrikeChancePerMeleeAbyssJewelUnique__1[20,20]
 {variant:2}MainHandCriticalStrikeChancePerMeleeAbyssJewelUnique__1
@@ -847,7 +845,6 @@ StrengthUnique__21
 Ulaman's Gaze
 Searching Eye Jewel
 Source: Drops from unique{Abyssal Liches} in normal{Abyssal Depths}
-Requires Level 40
 DexterityUnique__21_
 ChainOffTerrainChancePerRangedAbyssJewelUnique__1__
 ]],
@@ -1049,7 +1046,7 @@ Variant: Pre 3.17.0
 Variant: Current
 Limited to: 1
 Radius: Medium
-IncreasedPhysicalDamagePercentUnique__3
+IncreasedPhysicalDamagePercentUnique__5
 EtherealKnivesThresholdJewel_1
 {variant:1}With at least 40 Dexterity in Radius, Ethereal Knives fires 10 additional Projectiles
 {variant:2}With at least 40 Dexterity in Radius, Ethereal Knives fires 5 additional Projectiles
@@ -1373,7 +1370,6 @@ Cobalt Jewel
 Source: Use currency{Vaal Orb} on normal{Cobalt Jewel}
 Variant: Pre 3.20.0
 Variant: Current
-Requires Level: 20
 Limited to: 1
 Radius: Medium
 NotablesGrantMinionDamageTakenUnique__1_
@@ -1470,7 +1466,6 @@ Viridian Jewel
 Source: Use currency{Vaal Orb} on normal{Viridian Jewel}
 Variant: Pre 3.20.0
 Variant: Current
-Requires Level: 20
 Limited to: 1
 Radius: Medium
 NotablesGrantMinionMovementSpeedUnique__1_
@@ -1517,7 +1512,6 @@ Variant: Pre 3.16.0
 Variant: Pre 3.20.0
 Variant: Current
 League: Legion
-Requires Level: 20
 Limited to: 1
 AttackDamageWhileHoldingShieldUnique__1
 {variant:1}SpectralShieldThrowThresholdJewel1_[20,20]
@@ -1927,7 +1921,6 @@ Crimson Jewel
 Crafted: true
 League: Affliction
 Limited to: 1
-Requires Level 48
 Implicits: 0
 ]]
 }

@@ -157,7 +157,6 @@ Svalinn
 Girded Tower Shield
 League: Settlers of Kalguur
 Source: Drops from unique{The Black Knight} in a normal{Starfall Crater}
-Requires Level 51, 123 Str
 Implicits: 1
 IncreasedLifeImplicitShield1
 SpellBlockPercentageUnique__4
@@ -247,7 +246,6 @@ ReflectCurses
 Atziri's Reflection
 Golden Buckler
 Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Alluring Abyss}
-LevelReq: 68
 Implicits: 1
 MovementVelocityImplicitShield2
 IntelligenceUniqueShieldDex3
@@ -266,7 +264,7 @@ Variant: Pre 3.17.0
 Variant: Pre 3.19.0
 Variant: Current
 Implicits: 1
-{variant:3,4}MovementVelocityImplicitShield3
+{variant:3,4,5}MovementVelocityImplicitShield3
 {variant:1,2,3,4}IncreaseSocketedCurseGemLevelUniqueShieldDex4[1,1]
 {variant:5}IncreaseSocketedCurseGemLevelUniqueShieldDex4
 LocalIncreasedEvasionRatingPercentUniqueShieldDex4
@@ -356,7 +354,6 @@ FireDamageTakenAsColdUnique___1
 ]],[[
 Kiloava's Bluster
 Ironwood Buckler
-Requires Level 57, 137 Dex
 Implicits: 1
 MovementVelocityImplicitShield1
 LocalIncreasedEvasionRatingPercentUnique__21
@@ -428,7 +425,6 @@ LifeLeechPermyriadUniqueShieldDex5
 ]],[[
 Cowards' Wail
 Ezomyte Tower Shield
-Requires Level 64, 159 Str
 Implicits: 1
 IncreasedLifeImplicitShield3
 LocalIncreasedPhysicalDamageReductionRatingPercentUnique__38
@@ -559,7 +555,6 @@ The Draugur's Lantern
 Ancient Spirit Shield
 League: Allflame
 Source: Drops from unique{Filthscrabble} in normal{The Fathomless Depths}
-Requires Level 45, 110 Int
 Implicits: 1
 SpellDamageImplicitShield1
 SpellBlockPercentageUniqueShieldInt18
@@ -713,7 +708,6 @@ IncreasedManaUniqueShieldInt2
 Whakatutuki o Matua
 Tarnished Spirit Shield
 Source: No longer obtainable
-LevelReq: 63
 Implicits: 1
 SpellDamageImplicitShield1
 LocalIncreaseSocketedMinionGemLevelUnique__5____
@@ -782,7 +776,6 @@ The Flawed Refuge
 Maple Round Shield
 League: Affliction
 Source: Drops from Viridian Wildwood and Ritual monsters
-Requires Level 39, 52 Str, 52 Dex
 Implicits: 1
 BlockRecoveryImplicitShield3
 LocalIncreasedArmourAndEvasionUnique__26
@@ -858,7 +851,6 @@ Seablister
 Spiny Round Shield
 League: Allflame
 Source: Drops from unique{Velka, the Tide Witch}
-Requires Level 62, 85 Str, 85 Dex
 Implicits: 1
 BlockRecoveryImplicitShield1
 GrantsCreateBarnacleSkillUnique
@@ -920,7 +912,6 @@ IncreasedSelfCurseDurationUniqueShieldStrDex2
 Bitter Instinct
 Spiny Round Shield
 Source: Drops from unique{Uber Incarnation of Neglect} in normal{Moment of Loneliness}
-Requires Level 68, 85 Str, 85 Dex
 Implicits: 1
 BlockRecoveryImplicitShield1
 LocalIncreasedArmourAndEvasionUniqueShieldStrDex5
@@ -1089,7 +1080,6 @@ Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
-LevelReq: 40
 Implicits: 2
 {variant:1}AllResistancesImplicitShield1[8,8]
 {variant:2,3,4,5}AllResistancesImplicitShield1
@@ -1287,7 +1277,6 @@ Azadi Crest
 Lacquered Buckler
 Source: Drops from unique{Mercenary} after winning a duel
 League: Mercenaries of Trarthus
-Requires Level 60, 154 Dex
 Implicits: 1
 MovementVelocityImplicitShield2
 IncreasedLifeUnique__125
