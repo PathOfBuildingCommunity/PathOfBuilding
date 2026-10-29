@@ -1,10 +1,8 @@
-local dkjson = require "dkjson"
-
 describe("TradeQueryGenerator", function()
 	local mock_queryGen = new("TradeQueryGenerator"):TradeQueryGenerator({ itemsTab = {} })
 
 	local function findStatFilter(queryTable, id, groupType)
-		for _, group in ipairs(queryTable.query.stats) do
+		for _, group in ipairs(queryTable.stats) do
 			for _, filter in ipairs(group.filters) do
 				if filter.id == id and (not groupType or group.type == groupType) then
 					return filter
@@ -20,8 +18,8 @@ describe("TradeQueryGenerator", function()
 			{ tradeModId = "explicit.stat_3299347043", weight = 1, meanStatDiff = 1 },
 		}
 		queryGen.tradeTypeIndex = 1
-		queryGen.requesterCallback = function(_, queryJson, queryErrMsg)
-			queryTable = dkjson.decode(queryJson)
+		queryGen.requesterCallback = function(_, generatedQuery, queryErrMsg)
+			queryTable = generatedQuery
 			errMsg = queryErrMsg
 		end
 		queryGen.calcContext = {
@@ -282,7 +280,7 @@ describe("TradeQueryGenerator", function()
 				assert.are.equal(191, equipped.ReqStr)
 				local queryGen = new("TradeQueryGenerator"):TradeQueryGenerator({ itemsTab = build.itemsTab })
 				local query
-				queryGen.requesterCallback = function(_, queryJSON) query = dkjson.decode(queryJSON) end
+				queryGen.requesterCallback = function(_, generatedQuery) query = generatedQuery end
 				queryGen:StartQuery(build.itemsTab.slots["Ring 1"], {
 					statWeights = { { stat = "Life", weightMult = 1 } },
 					includeAttributeRequirementFilters = true, includeMirrored = true,
