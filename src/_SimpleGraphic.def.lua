@@ -360,13 +360,15 @@ function Copy(text) end
 function Paste() end
 
 ---@param data string
+---@param isGzip boolean? Whether a Gzip header should be used instead of the default ZLib header.
 ---@return string? compressedData
 ---@return string? errMsg
-function Deflate(data)
+function Deflate(data, isGzip)
+	-- TODO: add FFI bindings to `runtime/zlib1.dll` similar to what SimpleGraphic does
 	return ""
 end
 
----@param data string
+---@param data string DEFLATE data with either ZLib or Gzip headers. The format is detected automatically. Raw DEFLATE data is not supported.
 ---@return string? data
 ---@return string? errMsg
 function Inflate(data)

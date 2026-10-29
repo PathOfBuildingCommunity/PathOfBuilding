@@ -6,6 +6,7 @@
 
 local dkjson = require "dkjson"
 local utils = require("Modules.Utils")
+local tradeHelpers = require("Classes.TradeHelpers")
 
 local tradeInfluenceApiKeys = {
 	shaper = "shaper",
@@ -114,7 +115,7 @@ end
 ---the search to fetch more items when the search cap (10k items) is reached
 ---@param league string
 ---@param query string
----@param callback fun(items:table, errMsg:string)
+---@param callback fun(items: table, errMsg: string, query: string)
 ---@param params table @ params = { callbackQueryId = fun(queryId:string) }
 function TradeQueryRequestsClass:SearchWithQueryWeightAdjusted(realm, league, query, callback, params)
 	params = params or {}
@@ -125,13 +126,17 @@ function TradeQueryRequestsClass:SearchWithQueryWeightAdjusted(realm, league, qu
 	-- Each repeat is a leap of 10k items, normally we shouldn't need more than 1-2 steps anyways
 	local maxRecursion = 5
 	local currentRecursion = 0
+	-- the query is adjusted as the search repeats, so return the final query
+	local function resultCallback(items, errMsg)
+		return callback(items, errMsg, query)
+	end
 	local function performSearchCallback(response, errMsg)
 		currentRecursion = currentRecursion + 1
 		if params.callbackQueryId and response and response.id then
 			params.callbackQueryId(response.id)
 		end
 		if errMsg and ((errMsg == "No Matching Results Found" and currentRecursion >= maxRecursion) or errMsg ~= "No Matching Results Found") then
-			return callback(nil, errMsg)
+			return resultCallback(nil, errMsg)
 		end
 		if (response.total >= self.maxFetchPerSearch and response.total < 10000) or currentRecursion >= maxRecursion then
 			-- Search not clipped or max recursion reached, fetch results and finalize
@@ -139,7 +144,7 @@ function TradeQueryRequestsClass:SearchWithQueryWeightAdjusted(realm, league, qu
 				-- Not enough items in the last search, fill results from previous search
 				self:FetchResults(response.result, response.id, function(items, errMsg)
 					if errMsg then
-						return callback(nil, errMsg)
+						return resultCallback(nil, errMsg)
 					end
 					local fetchedItemIds = {}
 					local idSet = {}
@@ -172,23 +177,26 @@ function TradeQueryRequestsClass:SearchWithQueryWeightAdjusted(realm, league, qu
 						end
 						self:FetchResults(unfetchedItemIds, previousSearchId, function(newItems, errMsg)
 							if errMsg then
-								return callback(nil, errMsg)
+								return resultCallback(nil, errMsg)
 							end
 							items = tableConcat(items, newItems)
-							callback(items, errMsg)
+							resultCallback(items, errMsg)
 						end)
 					else
-						callback(items, errMsg)
+						resultCallback(items, errMsg)
 					end
 				end)
 			else
 				-- Search not clipped and result count satisfy maxFetchPerSearch, proceed normally
-				self:FetchResults(response.result, response.id,  callback)
+				self:FetchResults(response.result, response.id, resultCallback)
 			end
 		else
 			if response.total < self.maxFetchPerSearch then -- Less than maximum items retrieved lower weight to try and get more.
 				local queryJson = dkjson.decode(query)
-				queryJson.query.stats[1].value.min = queryJson.query.stats[1].value.min / 2
+				if not queryJson.query.stats[1].value then
+					queryJson.query.stats[1].value = { min = 0 }
+				end
+				queryJson.query.stats[1].value.min = (queryJson.query.stats[1].value.min or 0) / 2
 				query = dkjson.encode(queryJson)
 				self:PerformSearch(realm, league, query, performSearchCallback)
 			else -- Search clipped, fetch highest weight item, update query weight and repeat search
@@ -197,12 +205,15 @@ function TradeQueryRequestsClass:SearchWithQueryWeightAdjusted(realm, league, qu
 				local firstResultBatch = {unpack(response.result, 1, math.min(#response.result, 10))}
 				self:FetchResults(firstResultBatch, response.id, function(items, errMsg)
 					if errMsg then
-						return callback(nil, errMsg)
+						return resultCallback(nil, errMsg)
 					end
 					previousSearchItems = items
 					local highestWeight = items[1].weight
 					local queryJson = dkjson.decode(query)
-					queryJson.query.stats[1].value.min = (tonumber(highestWeight) + queryJson.query.stats[1].value.min) / 2
+					if not queryJson.query.stats[1].value then
+						queryJson.query.stats[1].value = { min = 0 }
+					end
+					queryJson.query.stats[1].value.min = (tonumber(highestWeight) + (queryJson.query.stats[1].value.min or 0)) / 2
 					query = dkjson.encode(queryJson)
 					self:PerformSearch(realm, league, query, performSearchCallback)
 				end)
@@ -403,6 +414,9 @@ end
 ---@param callback fun(items:table, errMsg:string, query: string?)
 function TradeQueryRequestsClass:SearchWithURL(url, callback)
 	local subpath = url:match(self.hostNamePattern .. "trade/search/(.+)$")
+	if not subpath then
+		return callback(nil, "Invalid URL")
+	end
 	local paths = {}
 	for path in subpath:gmatch("[^/]+") do
 		table.insert(paths, path)
@@ -414,52 +428,40 @@ function TradeQueryRequestsClass:SearchWithURL(url, callback)
 	if #paths == 3 then
 		realm = paths[1]
 	end
-	league = paths[#paths-1]
+	league = urlDecode(paths[#paths-1])
 	queryId = paths[#paths]
-	self:FetchSearchQuery(realm, league, queryId, function(query, errMsg)
-		if errMsg then
-			return callback(nil, errMsg, nil)
+	local json = tradeHelpers.B64GzipDecode(queryId)
+	if not json then
+		return callback(nil, "URL is malformed")
+	end
+	local decodedQuery = dkjson.decode(json)
+	if type(decodedQuery) ~= "table" or type(decodedQuery.stats) ~= "table" or type(decodedQuery.stats[1]) ~= "table" then
+		return callback(nil, "URL is malformed")
+	end
+	local weightGroupIndex
+	for i, group in ipairs(decodedQuery.stats) do
+		if type(group) ~= "table" or type(group.type) ~= "string" then
+			return callback(nil, "URL is malformed")
 		end
-
-		-- update sorting on provided url to sort by weights.
-		local json_data = dkjson.decode(query)
-		if not json_data or json_data.error then
-			errMsg = json_data and json_data.error or "Failed to parse search query JSON"
-			return callback(nil, errMsg, nil)
+		if group.type == "weight" and not weightGroupIndex then
+			weightGroupIndex = i
 		end
-		if json_data.query.stats and json_data.query.stats[1] and json_data.query.stats[1].type == "weight" then
-			json_data.sort = {}
-			json_data.sort["statgroup.0"] = "desc"
-		else
-			json_data.sort = { price = "asc"}
-		end
-		query = dkjson.encode(json_data)
-
-		self:SearchWithQuery(realm, league, query, function(items, searchErrMsg)
-			callback(items, searchErrMsg, query)
-		end)
+	end
+	local newQuery = {
+		query = decodedQuery,
+		sort = { price = "asc" },
+		engine = "new",
+	}
+	if weightGroupIndex then
+		-- Purchase links expect the weighted group first.
+		decodedQuery.stats[1], decodedQuery.stats[weightGroupIndex] = decodedQuery.stats[weightGroupIndex], decodedQuery.stats[1]
+		newQuery.sort = { ["statgroup.0"] = "desc" }
+	end
+	-- Pasted searches contain user constraints; only generated searches may adjust weights.
+	local query = dkjson.encode(newQuery)
+	self:SearchWithQuery(realm, league, query, function(items, errMsg)
+		callback(items, errMsg, query)
 	end)
-end
-
----Fetch query data needed to perform the search
----@param queryId string
----@param league string
----@param callback fun(query:string, errMsg:string)
-function TradeQueryRequestsClass:FetchSearchQuery(realm, league, queryId, callback)
-	local url = self:buildUrl(self.hostName .. "api/trade/search", realm, league, queryId)
-	table.insert(self.requestQueue["search"], {
-		url = url,
-		callback = function(response, errMsg)
-			if errMsg then
-				return callback(nil, errMsg)
-			end
-			local json_data = dkjson.decode(response)
-			if not json_data or json_data.error then
-				errMsg = json_data and json_data.error or "Failed to get search query"
-			end
-			callback(response, errMsg)
-		end
-	})
 end
 
 --- Fetches the list of all available leagues using trade league API
