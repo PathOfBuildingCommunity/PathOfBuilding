@@ -328,6 +328,36 @@ describe("TestSkills", function()
 		assert.are.near(singleBrandDPS * 2, build.calcsTab.mainOutput.TotalDot, 10 ^ -9)
 	end)
 
+	it("applies Follow-Through to projectile hits and ailments with a shared cap", function()
+		build.skillsTab:PasteSocketGroup("Ethereal Knives 20/0  1\n")
+		local modText = "Projectiles deal %d%% increased Damage with Hits and Ailments for each remaining Chain%s"
+		for _, case in ipairs({
+			{ suffix = ", up to a maximum of 100%", value = 20, chains = 3, used = 0, copies = 1, expected = 60 },
+			{ suffix = ", up to a maximum of 100%", value = 20, chains = 3, used = 0, copies = 2, expected = 100 },
+			{ suffix = ", up to a maximum of 100%", value = 20, chains = 6, used = 0, copies = 1, expected = 100 },
+			{ suffix = ", up to a maximum of 100%", value = 20, chains = 3, used = 2, copies = 1, expected = 20 },
+			{ suffix = ", up to a maximum of 100%", value = 20, chains = 3, used = 3, copies = 1, expected = 0 },
+			{ suffix = ", up to 100%", value = 20, chains = 3, used = 0, copies = 2, expected = 100 },
+			{ suffix = "", value = 15, chains = 6, used = 0, copies = 2, expected = 180 },
+		}) do
+			local baseMods = "100% chance to Poison on Hit\nSkills Chain +" .. case.chains .. " times\n"
+			build.configTab.input.skillChainCount = case.used
+			build.configTab.input.customMods = baseMods .. case.expected .. "% increased Damage with Hits and Ailments"
+			build.configTab:BuildModList()
+			runCallback("OnFrame")
+			local expectedHit = build.calcsTab.mainOutput.AverageHit
+			local expectedPoison = build.calcsTab.mainOutput.PoisonDPS
+			assert.is_true(expectedHit > 0 and expectedPoison > 0)
+
+			build.configTab.input.customMods = baseMods .. (modText:format(case.value, case.suffix) .. "\n"):rep(case.copies)
+			build.configTab:BuildModList()
+			runCallback("OnFrame")
+			assert.are.equals(case.chains - case.used, build.calcsTab.mainOutput.ChainRemaining)
+			assert.are.near(expectedHit, build.calcsTab.mainOutput.AverageHit, 10 ^ -9)
+			assert.are.near(expectedPoison, build.calcsTab.mainOutput.PoisonDPS, 10 ^ -9)
+		end
+	end)
+
 	it("caps total Brand Recall Cooldown Recovery from multiple Chip Away notables at 40%", function()
 		build.skillsTab:PasteSocketGroup("Storm Brand 20/0  1\n")
 		build.configTab.input.ActiveBrands = 10
