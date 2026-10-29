@@ -85,39 +85,19 @@ local separatorConfigs = {
 -- spell-checker: enable
 
 -- Cache tooltip assets
-local tooltipAssetCache = {
-	header = {},
-	influence = {},
-	separator = {},
-}
+local tooltipAssetCache = {}
 
-local function getCachedImage(cache, key, path)
-	local image = cache[key]
+local function getCachedImage(path)
+	local image = tooltipAssetCache[path]
 
 	if image == nil then
 		image = NewImageHandle()
 		image:Load(path)
-		cache[key] = image
+		tooltipAssetCache[path] = image
 	end
 
 	return image
 end
-
-local function getHeaderImage(rarity, location)
-	local resolvedRarity = headerConfigs[rarity] and rarity or "NORMAL"
-	local key = resolvedRarity .. ":" .. location
-	return getCachedImage(tooltipAssetCache.header, key, headerConfigs[resolvedRarity][location])
-end
-
-local function getInfluenceIconImage(influence)
-	return getCachedImage(tooltipAssetCache.influence, influence, headerInfluence[influence])
-end
-
-local function getSeparatorImage(rarity)
-	local path = separatorConfigs[rarity] or separatorConfigs["NORMAL"]
-	return getCachedImage(tooltipAssetCache.separator, rarity, path)
-end
-
 
 ---@class Tooltip
 local TooltipClass = newClass("Tooltip")
@@ -209,7 +189,7 @@ function TooltipClass:AddSeparator(size)
 
 	if self.tooltipHeader then
 		local rarity = tostring(self.tooltipHeader):upper()
-		separatorImage = getSeparatorImage(rarity)
+		separatorImage = getCachedImage(separatorConfigs[rarity] or separatorConfigs.NORMAL)
 	end
 
 	local lastBlock = lastLine and lastLine.block or 1
@@ -544,10 +524,10 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 			end
 		end
 		-- Draw left cap first, then influence icon on top
-		DrawImage(getHeaderImage(rarity, "left"), headerX, headerY, headerSideWidth, headerHeight)
+		DrawImage(getCachedImage(config.left), headerX, headerY, headerSideWidth, headerHeight)
 		if self.influenceHeader1 and config.allowInfluenceIcon then
 			SetDrawColor(1, 1, 1)
-			DrawImage(getInfluenceIconImage(self.influenceHeader1), headerX + 2, headerY + (headerHeight - (headerHeight/2))/2, headerHeight/2, headerHeight/2)
+			DrawImage(getCachedImage(headerInfluence[self.influenceHeader1]), headerX + 2, headerY + (headerHeight - (headerHeight/2))/2, headerHeight/2, headerHeight/2)
 		end
 
 		if self.tooltipHeader == "RELIC" then
@@ -564,20 +544,20 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 			local drawX = headerX + headerSideWidth
 			local endX = headerX + headerTotalWidth - headerSideWidth
 			while drawX + headerMiddleWidth <= endX do
-				DrawImage(getHeaderImage(rarity, "middle"), drawX, headerY, headerMiddleWidth, headerHeight)
+				DrawImage(getCachedImage(config.middle), drawX, headerY, headerMiddleWidth, headerHeight)
 				drawX = drawX + headerMiddleWidth
 			end
 			local remainingWidth = endX - drawX
 			if remainingWidth > 0 then
-				DrawImage(getHeaderImage(rarity, "middle"), drawX, headerY, remainingWidth, headerHeight)
+				DrawImage(getCachedImage(config.middle), drawX, headerY, remainingWidth, headerHeight)
 			end
 		end
 
 		-- Draw right cap
-		DrawImage(getHeaderImage(rarity, "right"), headerX + headerTotalWidth - headerSideWidth, headerY, headerSideWidth, headerHeight)
+		DrawImage(getCachedImage(config.right), headerX + headerTotalWidth - headerSideWidth, headerY, headerSideWidth, headerHeight)
 		if self.influenceHeader2 and config.allowInfluenceIcon then
 			SetDrawColor(1, 1, 1)
-			DrawImage(getInfluenceIconImage(self.influenceHeader2), headerX + headerTotalWidth - (headerHeight/2) - 2, headerY + (headerHeight - (headerHeight/2))/2, headerHeight/2, headerHeight/2)
+			DrawImage(getCachedImage(headerInfluence[self.influenceHeader2]), headerX + headerTotalWidth - (headerHeight/2) - 2, headerY + (headerHeight - (headerHeight/2))/2, headerHeight/2, headerHeight/2)
 		end
 	end
 
