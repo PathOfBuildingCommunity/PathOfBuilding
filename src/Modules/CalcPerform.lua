@@ -661,7 +661,7 @@ local function doActorMisc(env, actor)
 			local skillCfg = actor.mainSkill and actor.mainSkill.skillCfg
 			local maxStacks = m_max(modDB:Override(nil, "MaximumFortification") or modDB:Sum("BASE", skillCfg, "MaximumFortification"), alliedFortify)
 			local minStacks = m_min(modDB:Flag(nil, "Condition:HaveMaxFortification") and maxStacks or modDB:Sum("BASE", nil, "MinimumFortification"), maxStacks)
-			local stacks = m_min(modDB:Override(nil, "FortificationStacks") or (minStacks > 0 and minStacks) or maxStacks, maxStacks)
+			local stacks = m_min(modDB:Override(nil, "FortificationStacks") or maxStacks, maxStacks)
 			local increasedDuration = skillModList:Sum("INC", nil, "FortifyDuration")
 			output.MaximumFortification = maxStacks
 			output.MinimumFortification = minStacks
