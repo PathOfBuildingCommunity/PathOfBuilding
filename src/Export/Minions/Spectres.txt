@@ -35,6 +35,8 @@ return function(mod, flag)
 #spectre Metadata/Monsters/Bull/Bull
 -- Cage Spider
 #spectre Metadata/Monster/CageSpider/CageSpider2
+-- Colossal Vaal Fallen
+#spectre Metadata/Monsters/Skeletons/SkeletonMeleeKnightElementalLargeSword
 -- Cannibals
 #spectre Metadata/Monsters/Cannibal/CannibalMaleChampion
 -- Goatmen
