@@ -13457,6 +13457,9 @@ skills["ManaInfusedStaff"] = {
 		area = true,
 		duration = true,
 	},
+	baseMods = {
+		skill("requiresManaReservation", true),
+	},
 	qualityStats = {
 		{ "base_skill_effect_duration", 2.5 },
 	},

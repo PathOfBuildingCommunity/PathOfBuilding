@@ -3198,6 +3198,7 @@ return function(skills, mod, flag, skill)
 
 #skill ManaInfusedStaff
 #flags spell area duration
+#baseMod skill("requiresManaReservation", true)
 	statMap = {
 		["mana_infused_staff_base_trigger_interval_ms"] = {
 			skill("hitTimeOverride", nil),
