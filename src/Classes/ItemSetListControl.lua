@@ -8,13 +8,33 @@ local t_remove = table.remove
 local m_max = math.max
 local s_format = string.format
 
----@class ItemSetListControl: ListControl
+---@class ItemSet: table<string, ItemSetSlot>
+---@field id integer
+---@field title? string
+---@field [string] ItemSetSlot
+---@field useSecondWeaponSet boolean
+
+---@class ItemSetSlot
+---@field selItemId integer
+---@field active? boolean
+---@field pbURL? string
+
+---@class ItemSetListControl: ListControl<integer>
+---@field itemsTab ItemsTab
+---@field list integer[]
+---@field selIndex integer
+---@field selValue integer
 local ItemSetListClass = newClass("ItemSetListControl", "ListControl")
 
+---@param anchor? Anchor
+---@param rect? Rect
+---@param itemsTab ItemsTab
+---@return ItemSetListControl
 function ItemSetListClass:ItemSetListControl(anchor, rect, itemsTab)
 	self:ListControl(anchor, rect, 16, "VERTICAL", true, itemsTab.itemSetOrderList)
 	self.itemsTab = itemsTab
 	self.controls.copy = new("ButtonControl"):ButtonControl({"BOTTOMLEFT",self,"TOP"}, {2, -4, 60, 18}, "Copy", function()
+		---@type ItemSet
 		local newSet = copyTable(itemsTab.itemSets[self.selValue])
 		newSet.id = 1
 		while itemsTab.itemSets[newSet.id] do
@@ -45,6 +65,8 @@ function ItemSetListClass:ItemSetListControl(anchor, rect, itemsTab)
 	return self
 end
 
+---@param itemSet ItemSet
+---@param addOnName? boolean
 function ItemSetListClass:RenameSet(itemSet, addOnName)
 	local controls = { }
 	controls.label = new("LabelControl"):LabelControl(nil, {0, 20, 0, 16}, "^7Enter name for this item set:")
@@ -73,6 +95,10 @@ function ItemSetListClass:RenameSet(itemSet, addOnName)
 	main:OpenPopup(370, 100, itemSet.title and "Rename" or "Set Name", controls, "save", "edit", "cancel")
 end
 
+---@param column integer
+---@param index integer
+---@param itemSetId integer
+---@return string?
 function ItemSetListClass:GetRowValue(column, index, itemSetId)
 	local itemSet = self.itemsTab.itemSets[itemSetId]
 	if column == 1 then
@@ -80,25 +106,39 @@ function ItemSetListClass:GetRowValue(column, index, itemSetId)
 	end
 end
 
+---@param tooltip Tooltip
+---@param index integer
+---@param itemSetId integer
 function ItemSetListClass:AddValueTooltip(tooltip, index, itemSetId)
 	local itemSet = self.itemsTab.itemSets[itemSetId]
 	tooltip:Clear()
 	self.itemsTab:AddItemSetTooltip(tooltip, itemSet)
 end
 
+---@param index integer
+---@param itemSetId integer
+---@return string dragType
+---@return ItemSet dragValue
 function ItemSetListClass:GetDragValue(index, itemSetId)
 	return "ItemList", self.itemsTab.itemSets[itemSetId]
 end
 
+---@param type string
+---@param value unknown
+---@return boolean
 function ItemSetListClass:CanReceiveDrag(type, value)
 	return type == "SharedItemList"
 end
 
+---@param type string
+---@param value SharedItemSet
+---@param source? ListControl<unknown>
 function ItemSetListClass:ReceiveDrag(type, value, source)
 	if type == "SharedItemList" then
 		local itemSet = self.itemsTab:NewItemSet()
 		itemSet.title = value.title
 		for slotName, item in pairs(value.slots) do
+			---@type Item & { id: integer }
 			local newItem = new("Item"):Item(item.raw)
 			newItem:NormaliseQuality()
 			self.itemsTab:AddItem(newItem, true)
@@ -113,6 +153,9 @@ function ItemSetListClass:OnOrderChange()
 	self.itemsTab.modFlag = true
 end
 
+---@param index integer
+---@param itemSetId integer
+---@param doubleClick? boolean
 function ItemSetListClass:OnSelClick(index, itemSetId, doubleClick)
 	if doubleClick and itemSetId ~= self.itemsTab.activeItemSetId then
 		self.itemsTab:SetActiveItemSet(itemSetId)
@@ -120,6 +163,8 @@ function ItemSetListClass:OnSelClick(index, itemSetId, doubleClick)
 	end
 end
 
+---@param index integer
+---@param itemSetId integer
 function ItemSetListClass:OnSelDelete(index, itemSetId)
 	local itemSet = self.itemsTab.itemSets[itemSetId]
 	if #self.list > 1 then
@@ -137,6 +182,9 @@ function ItemSetListClass:OnSelDelete(index, itemSetId)
 	end
 end
 
+---@param index integer
+---@param itemSetId integer
+---@param key string
 function ItemSetListClass:OnSelKeyDown(index, itemSetId, key)
 	local itemSet = self.itemsTab.itemSets[itemSetId]
 	if key == "F2" then

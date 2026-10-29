@@ -8,16 +8,32 @@ local t_insert = table.insert
 local m_min = math.min
 
 local itemSlotHelper = require("Modules.ItemSlotHelper")
----@class ItemSlotControl
+---@class ItemSlotControl: DropDownControl<string>
+---@field controls DropDownControlControls & { activate: Control & { OnKeyDown: fun(self: Control, key: string): any } }
+---@field list string[]
+---@field itemsTab ItemsTab & { items: table<integer, Item & { id: integer }>, selControl?: Control & { ListControl?: unknown } }
+---@field DropDownControl { Draw: fun(self: DropDownControl<string>, viewPort: Viewport, noTooltip?: boolean), OnKeyDown: fun(self: DropDownControl<string>, key: string): ItemSlotControl?, GetHoverIndex: fun(self: DropDownControl<string>, key?: string): integer?, dropUp: boolean, dropped: boolean }
+---@field otherDragSource? ListControl<unknown>
+---@field IsMouseOver fun(self: ItemSlotControl): boolean
+---@field slotName string
+---@field slotNum integer
+---@field nodeId? integer
+---@field selItemId integer
+---@field active boolean
+---@field inactive? boolean
+---@field weaponSet? integer
+---@field items integer[]
 local ItemSlotClass = newClass("ItemSlotControl", "DropDownControl")
 
+---@param self ItemSlotControl
 ---@param anchor Anchor?
 ---@param x Prop<number>
 ---@param y Prop<number>
----@param itemsTab ItemsTab
+---@param itemsTab ItemsTab & { items: table<integer, Item & { id: integer }>, selControl?: Control & { ListControl?: unknown } }
 ---@param slotName string
 ---@param slotLabel string
 ---@param nodeId integer?
+---@return ItemSlotControl
 function ItemSlotClass:ItemSlotControl(anchor, x, y, itemsTab, slotName, slotLabel, nodeId)
 	self:DropDownControl(anchor, { x, y, 310, 20 }, {}, function(index, value)
 		if self.items[index] ~= self.selItemId then
@@ -35,6 +51,7 @@ function ItemSlotClass:ItemSlotControl(anchor, x, y, itemsTab, slotName, slotLab
 		return not self.inactive
 	end
 	self.itemsTab = itemsTab
+	---@type integer[]
 	self.items = { }
 	self.selItemId = 0
 	self.slotName = slotName
@@ -56,6 +73,7 @@ function ItemSlotClass:ItemSlotControl(anchor, x, y, itemsTab, slotName, slotLab
 	end
 	self.abyssalSocketList = { }
 	self.tooltipFunc = function(tooltip, mode, index, itemId)
+		---@type Item?
 		local item = itemsTab.items[self.items[index]]
 		-- not selControl.ListControl allows hover when All Items or Unique/Rare DB Sections are in focus
 		if main.popups[1] or mode == "OUT" or not item or (not self.dropped and itemsTab.selControl and itemsTab.selControl ~= self.controls.activate and not itemsTab.selControl.ListControl) then
@@ -69,6 +87,8 @@ function ItemSlotClass:ItemSlotControl(anchor, x, y, itemsTab, slotName, slotLab
 	return self
 end
 
+---@param self ItemSlotControl
+---@param selItemId integer
 function ItemSlotClass:SetSelItemId(selItemId)
 	if self.nodeId then
 		if self.itemsTab.build.spec then
@@ -107,8 +127,10 @@ function ItemSlotClass:Populate()
 	end
 
 	-- Update Abyssal Sockets
+	---@type integer
 	local abyssalSocketCount = 0
 	if self.selItemId > 0 then
+		---@type Item & { abyssalSocketCount: integer }
 		local selItem = self.itemsTab.items[self.selItemId]
 		abyssalSocketCount = selItem.abyssalSocketCount or 0
 	end
@@ -122,10 +144,18 @@ function ItemSlotClass:Populate()
 	end
 end
 
+---@param self ItemSlotControl
+---@param type string
+---@param value Item & { id: integer }
+---@return boolean?
 function ItemSlotClass:CanReceiveDrag(type, value)
 	return type == "Item" and self.itemsTab:IsItemValidForSlot(value, self.slotName)
 end
 
+---@param self ItemSlotControl
+---@param type string
+---@param value Item & { id: integer }
+---@param source? ListControl<unknown>
 function ItemSlotClass:ReceiveDrag(type, value, source)
 	if value.id and self.itemsTab.items[value.id] then
 		self:SetSelItemId(value.id)
@@ -141,6 +171,8 @@ function ItemSlotClass:ReceiveDrag(type, value, source)
 	self.itemsTab.build.buildFlag = true
 end
 
+---@param self ItemSlotControl
+---@param viewPort Viewport
 function ItemSlotClass:Draw(viewPort)
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()
@@ -160,6 +192,9 @@ function ItemSlotClass:Draw(viewPort)
 	end
 end
 
+---@param self ItemSlotControl
+---@param key string
+---@return ItemSlotControl?
 function ItemSlotClass:OnKeyDown(key)
 	if not self:IsShown() or not self:IsEnabled() then
 		return
@@ -171,6 +206,8 @@ function ItemSlotClass:OnKeyDown(key)
 	return self.DropDownControl:OnKeyDown(key)
 end
 
+---@param self ItemSlotControl
+---@param key string
 function ItemSlotClass:OnHoverKeyUp(key)
 	if itemLib.wiki.matchesKey(key) then
 		local index = self.DropDownControl:GetHoverIndex()

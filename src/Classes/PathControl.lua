@@ -6,9 +6,27 @@
 local ipairs = ipairs
 local t_insert = table.insert
 
----@class PathControl
+---@class PathFolder
+---@field label string
+---@field path string
+---@field button? ButtonControl
+
+---@class PathControl: Control, ControlHost, UndoHandler
+---@field basePath string
+---@field baseName string
+---@field subPath string
+---@field folderList PathFolder[]
+---@field height number
+---@field onChange? fun(subPath: string)
+---@field otherDragSource? unknown
 local PathClass = newClass("PathControl", "Control", "ControlHost", "UndoHandler")
 
+---@param anchor? Anchor
+---@param rect? Rect
+---@param basePath string
+---@param subPath? string
+---@param onChange? fun(subPath: string)
+---@return PathControl
 function PathClass:PathControl(anchor, rect, basePath, subPath, onChange)
 	self:Control(anchor, rect)
 	self:ControlHost()
@@ -21,23 +39,29 @@ function PathClass:PathControl(anchor, rect, basePath, subPath, onChange)
 	return self
 end
 
+---@param subPath string
+---@param noUndo? boolean
 function PathClass:SetSubPath(subPath, noUndo)
 	if subPath == self.subPath then
 		return
 	end
 	self.subPath = subPath
+	---@type PathFolder[]
 	self.folderList = {
+		---@type PathFolder
 		{ label = self.baseName, path = "" },
 	}
 	for folder, endIndex in subPath:gmatch("([^/]+)()") do
-		t_insert(self.folderList, { label = folder, path = subPath:sub(1, endIndex) })
+		local pathEnd = math.floor(tonumber(endIndex) or 0)
+		t_insert(self.folderList, { label = folder, path = subPath:sub(1, pathEnd) })
 	end
 	local x = 2
 	local i = 1
 	for index, folder in ipairs(self.folderList) do
+		---@type ButtonControl
 		local button = self.controls["folder"..i]
 		if not button then
-			button = new("ButtonControl"):ButtonControl({"LEFT",self,"LEFT"}, {0, 0, 0, self.height - 4})
+			button = new("ButtonControl"):ButtonControl({"LEFT",self,"LEFT"}, {0, 0, 0, self.height - 4}, "", function() end)
 			self.controls["folder"..i] = button
 		end
 		button.shown = true
@@ -63,6 +87,7 @@ function PathClass:SetSubPath(subPath, noUndo)
 	end
 end
 
+---@return boolean|Control?
 function PathClass:IsMouseOver()
 	if not self:IsShown() then
 		return
@@ -70,6 +95,7 @@ function PathClass:IsMouseOver()
 	return self:IsMouseInBounds() or self:GetMouseOverControl()
 end
 
+---@param viewPort Viewport
 function PathClass:Draw(viewPort)
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()
@@ -79,8 +105,9 @@ function PathClass:Draw(viewPort)
 	DrawImage(nil, x + 1, y + 1, width - 2, height - 2)
 	self:DrawControls(viewPort)
 	for index, folder in ipairs(self.folderList) do
-		local buttonX, buttonY = folder.button:GetPos()
-		local buttonW, buttonH = folder.button:GetSize()
+		local button = assert(folder.button)
+		local buttonX, buttonY = button:GetPos()
+		local buttonW, buttonH = button:GetSize()
 		SetDrawColor(1, 1, 1)
 		main:DrawArrow(buttonX + buttonW + 6, y + height/2, 8, 8, "RIGHT")
 		if self.otherDragSource and index < #self.folderList then
@@ -90,6 +117,9 @@ function PathClass:Draw(viewPort)
 	end
 end
 
+---@param key string
+---@param doubleClick? boolean
+---@return Control?
 function PathClass:OnKeyDown(key, doubleClick)
 	if not self:IsShown() or not self:IsEnabled() then
 		return
@@ -100,11 +130,12 @@ function PathClass:OnKeyDown(key, doubleClick)
 	end
 end
 
+---@return string
 function PathClass:CreateUndoState()
 	return self.subPath
 end
 
+---@param state string
 function PathClass:RestoreUndoState(state)
 	self:SetSubPath(state, true)
 end
-

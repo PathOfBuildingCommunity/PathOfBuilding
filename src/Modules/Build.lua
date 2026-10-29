@@ -16,6 +16,7 @@ local m_abs = math.abs
 local s_format = string.format
 
 ---@class Build: ControlHost
+---@field controls table<string, Control>
 ---@field spec PassiveSpec added by TreeTab
 ---@field powerBuilderProgressCallback fun(progress: number)?
 ---@field powerBuilderCallback fun()

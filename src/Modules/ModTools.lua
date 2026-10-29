@@ -25,6 +25,83 @@ modLib = { }
 -- Massive discriminated union. Todo: probably has to be built with an LLM for a start
 ---@class ModTag
 ---@field type string
+---@field actor? string
+---@field allSlots? boolean
+---@field base? number
+---@field baseFlag? string
+---@field bothSlots? boolean
+---@field corruptedCond? boolean
+---@field div? number
+---@field divVar? string
+---@field elderCond? boolean
+---@field equals? boolean
+---@field excludeSelf? boolean
+---@field floor? boolean
+---@field globalLimit? number
+---@field globalLimitKey? string
+---@field includeTransfigured? boolean
+---@field invert? boolean
+---@field itemSlot? string
+---@field keyword? string
+---@field keywordFlags? integer
+---@field limit? number
+---@field limitActor? string
+---@field limitNegTotal? boolean
+---@field limitStat? string
+---@field limitTotal? boolean
+---@field limitVar? string
+---@field modFlags? integer
+---@field monsterTag? string
+---@field monsterTagList? string[]
+---@field nameCond? string
+---@field neg? boolean
+---@field noFloor? boolean
+---@field percent? number
+---@field percentVar? string
+---@field rarityCond? string
+---@field searchCond? string
+---@field shaperCond? boolean
+---@field skillId? string
+---@field skillName? string
+---@field skillNameList? string[]
+---@field skillPart? integer
+---@field skillPartList? integer[]
+---@field skillType? string
+---@field skillTypeList? string[]
+---@field slotName? string
+---@field slotNameList? string[]
+---@field socketColor? string
+---@field sockets? integer[]|"all"|number
+---@field stat? string
+---@field statList? string[]
+---@field summonSkill? boolean
+---@field threshold? number
+---@field thresholdActor? string
+---@field thresholdPercent? number
+---@field thresholdPercentVar? string
+---@field thresholdStat? string
+---@field thresholdVar? string
+---@field upper? boolean
+---@field var? string
+---@field varList? string[]
+---@field ramp? number[]|{ [integer]: [number, number] }
+
+---@class (partial) Mod
+---@field [string] any
+---@field actor? Actor
+---@field neg? boolean
+---@field var? string
+---@field varList? table
+---@field base? number
+---@field ramp? number
+---@field partyMembers? table
+---@field newModId? string
+---@field modList? ModList
+---@field limitVar? string
+---@field reservedPercent? number
+---@field efficiency? number
+---@field efficiencyMore? number
+---@field inc? number
 
 ---@overload fun(modName: string, modType: NumericModTypes, modVal?: number, sourceOrTag: string|ModTag?, flagsOrModTag: number|ModTag?, keywordFlagsOrModTag: number|ModTag?, ...: ModTag)
 ---@overload fun(modName: string, modType: "FLAG", modVal: boolean, sourceOrModTag: string|ModTag?, flagsOrModTag: number|ModTag?, keywordFlagsOrModTag: number|ModTag?, ...: ModTag)
@@ -54,6 +131,16 @@ function modLib.createMod(modName, modType, modVal, ...)
 	---@field flags number
 	---@field keywordFlags number
 	---@field source? string
+	---@field neg? boolean
+	---@field var? string
+	---@field base? number
+	---@field ramp? number
+	---@field limitVar? string
+	---@field reservedPercent? number
+	---@field partyMembers? table
+	---@field newModId? string
+	---@field modList? ModList
+	---@field limit? number
 	---@field [integer] ModTag
 	return {
 		name = modName,

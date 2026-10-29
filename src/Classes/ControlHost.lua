@@ -5,13 +5,21 @@
 --
 
 ---@class ControlHost
+---@field controls table<string|integer, Control>
+---@field selControl? Control
+---@field GetProperty fun(self: ControlHost, name: string): unknown
+---@field GetPos fun(self: ControlHost): number, number
+---@field GetSize fun(self: ControlHost): number, number
+---@field IsShown fun(self: ControlHost): boolean
 local ControlHostClass = newClass("ControlHost")
 
+---@return ControlHost
 function ControlHostClass:ControlHost()
     self.controls = {}
 	return self
 end
 
+---@param newSelControl? Control
 function ControlHostClass:SelectControl(newSelControl)
 	if self.selControl == newSelControl then
 		return
@@ -28,6 +36,7 @@ function ControlHostClass:SelectControl(newSelControl)
 	end
 end
 
+---@return Control?
 function ControlHostClass:GetMouseOverControl()
 	for _, control in pairs(self.controls) do
 		if control.IsMouseOver and control:IsMouseOver() then
@@ -46,12 +55,19 @@ function ControlHostClass:GetMouseOverControl()
 	end
 end
 
+---@class InputEvent
+---@field type "KeyDown"|"KeyUp"|"Char"
+---@field key string
+---@field doubleClick? boolean
+
+---@param inputEvents InputEvent[]
+---@param viewPort Viewport
 function ControlHostClass:ProcessControlsInput(inputEvents, viewPort)
 	local processedImbuedControl
 	for id, event in ipairs(inputEvents) do
 		if event.type == "KeyDown" then
 			local prevSelControl = self.selControl
-			if self.selControl then
+			if self.selControl and self.selControl.OnKeyDown then
 				processedImbuedControl = self.selControl.imbuedSelect and self.selControl.dropped and event.key:match("BUTTON")
 				self:SelectControl(self.selControl:OnKeyDown(event.key, event.doubleClick))
 				inputEvents[id] = nil
@@ -106,6 +122,8 @@ function ControlHostClass:ProcessControlsInput(inputEvents, viewPort)
 	end	
 end
 
+---@param viewPort Viewport
+---@param selControl? Control|false
 function ControlHostClass:DrawControls(viewPort, selControl)
 	for _, control in pairs(self.controls) do
 		if control:IsShown() and control.Draw then

@@ -10,9 +10,70 @@ local m_max = math.max
 local m_min = math.min
 local dkjson = require "dkjson"
 
+---@class ExtBuildListProviderOption
+---@field name string
+---@field impl ExtBuildListProviderForControl
+
+---@class ExtBuildListProviderForControl
+---@field buildList ExtBuildListEntry[]
+---@field buildListTitles string[]
+---@field statusMsg? string
+---@field importCode? string
+---@field SetImportCode fun(self: ExtBuildListProviderForControl, importCode: string)
+---@field Activate fun(self: ExtBuildListProviderForControl)
+---@field GetListTitles fun(self: ExtBuildListProviderForControl): string[]?
+---@field GetActiveList fun(self: ExtBuildListProviderForControl): string?
+---@field SetActiveList fun(self: ExtBuildListProviderForControl, activeList: string?)
+---@field GetPageUrl fun(self: ExtBuildListProviderForControl): string?
+
+---@class ExtBuildListControlEntry: ExtBuildListEntry
+---@field authorName? string
+
+---@class ExtBuildListControlChild: Control
+---@field label? string
+
+---@class ExtBuildListControlDropDown: DropDownControl<string>
+---@field SelByValue fun(self: ExtBuildListControlDropDown, value: string, key?: string): integer?
+
+---@class ExtBuildListControlScrollBar: ScrollBarControl
+---@field shown boolean|fun(): boolean
+
+---@class ExtBuildListControlControls: ControlHost
+---@field [integer] ExtBuildListControlChild
+---@field sort ExtBuildListControlDropDown
+---@field scrollBarV ExtBuildListControlScrollBar
+---@field all? ButtonControl
+
 ---@class ExtBuildListControl: ControlHost, Control
+---@field controls ExtBuildListControlControls
+---@field importCode? string
+---@field rowHeight integer
+---@field scroll string
+---@field scrollH? boolean
+---@field forceTooltip boolean
+---@field font Font
+---@field importButtons ButtonControl[]
+---@field previewButtons ButtonControl[]
+---@field inTransition boolean
+---@field contentHeight number
+---@field tabs ButtonControl[]
+---@field activeListProvider? ExtBuildListProviderForControl
+---@field buildProviders ExtBuildListProviderOption[]
+---@field buildProvidersList string[]
+---@field providerMaxLength number
+---@field scrollOffsetV? number
+---@field width Prop<number>
+---@field height Prop<number>
 local ExtBuildListControlClass = newClass("ExtBuildListControl", "ControlHost", "Control")
 
+---@class ExtBuildListControlInstance: ExtBuildListControl
+---@field controls ExtBuildListControlControls
+---@field activeListProvider? ExtBuildListProviderForControl
+
+---@param anchor? Anchor
+---@param rect? Rect
+---@param providers ExtBuildListProviderOption[]
+---@return ExtBuildListControl
 function ExtBuildListControlClass:ExtBuildListControl(anchor, rect, providers)
 	self:Control(anchor, rect)
 	self:ControlHost()
@@ -38,6 +99,7 @@ function ExtBuildListControlClass:ExtBuildListControl(anchor, rect, providers)
 	return self
 end
 
+---@param providerName string
 function ExtBuildListControlClass:Init(providerName)
 	wipeTable(self.controls)
 	wipeTable(self.tabs)
@@ -47,7 +109,9 @@ function ExtBuildListControlClass:Init(providerName)
 			self:Init(value)
 		end)
 
-	self.controls.sort:SelByValue(providerName)
+	if self.controls.sort.SelByValue then
+		self.controls.sort:SelByValue(providerName)
+	end
 
 	self.activeListProvider = nil
 
@@ -63,23 +127,31 @@ function ExtBuildListControlClass:Init(providerName)
 		print("Build provider not found: %s", providerName)
 		return
 	end
+	local activeListProvider = assert(self.activeListProvider)
 
-	self.activeListProvider:SetImportCode(self.importCode)
-	self.activeListProvider:Activate()
-	self.activeListProvider.buildListTitles = self.activeListProvider:GetListTitles()
+	if self.importCode then
+		activeListProvider:SetImportCode(self.importCode)
+	end
+	activeListProvider:Activate()
+	local listTitles = activeListProvider:GetListTitles()
+	if not listTitles then
+		return
+	end
+	activeListProvider.buildListTitles = listTitles
 
 	local lastControl = nil
-	for index, title in ipairs(self.activeListProvider:GetListTitles()) do
+	for index, title in ipairs(listTitles) do
 		local stringWidth = DrawStringWidth(16, self.font, title)
+		---@type Anchor
 		local anchor = { "TOP", self, "TOP" }
 		if lastControl then
 			anchor = { "LEFT", lastControl, "RIGHT" }
 		end
 		local button = new("ButtonControl"):ButtonControl(anchor, { 0, lastControl and 0 or -20, stringWidth + 10, 20 }, title, function()
-			if self.activeListProvider:GetActiveList() == title then
+			if activeListProvider:GetActiveList() == title then
 				return
 			end
-			self.activeListProvider:SetActiveList(title)
+			activeListProvider:SetActiveList(title)
 			for _, _button in ipairs(self.tabs) do
 				_button.locked = (_button.label == title)
 			end
@@ -122,10 +194,10 @@ function ExtBuildListControlClass:Init(providerName)
 		self.controls.scrollBarV.shown = false
 	end
 
-	if self.activeListProvider:GetPageUrl() then
+	if activeListProvider:GetPageUrl() then
 		self.controls.all = new("ButtonControl"):ButtonControl({ "BOTTOM", self, "BOTTOM" }, { 0, 1, self.width, 20 }, "See All",
 			function()
-				local url = self.activeListProvider:GetPageUrl()
+				local url = activeListProvider:GetPageUrl()
 				if url then
 					OpenURL(url)
 				end
@@ -136,10 +208,12 @@ function ExtBuildListControlClass:Init(providerName)
 	end
 end
 
+---@param importCode string
 function ExtBuildListControlClass:SetImportCode(importCode)
 	self.importCode = importCode
 end
 
+---@return boolean|Control?
 function ExtBuildListControlClass:IsMouseOver()
 	if not self:IsShown() then
 		return
@@ -147,6 +221,9 @@ function ExtBuildListControlClass:IsMouseOver()
 	return self:IsMouseInBounds() or self:GetMouseOverControl()
 end
 
+---@param key string
+---@param doubleClick? boolean
+---@return Control?
 function ExtBuildListControlClass:OnKeyDown(key, doubleClick)
 	if not self:IsShown() or not self:IsEnabled() then
 		return
@@ -160,18 +237,20 @@ function ExtBuildListControlClass:OnKeyDown(key, doubleClick)
 	end
 end
 
+---@param key string
 function ExtBuildListControlClass:OnKeyUp(key)
 	if not self:IsShown() or not self:IsEnabled() then
 		return
 	end
 
-	if self.controls.scrollBarV:IsScrollDownKey(key) then
+	if self.controls.scrollBarV.IsScrollDownKey and self.controls.scrollBarV:IsScrollDownKey(key) then
 		self.controls.scrollBarV:Scroll(1)
-	elseif self.controls.scrollBarV:IsScrollUpKey(key) then
+	elseif self.controls.scrollBarV.IsScrollUpKey and self.controls.scrollBarV:IsScrollUpKey(key) then
 		self.controls.scrollBarV:Scroll(-1)
 	end
 end
 
+---@param build ExtBuildListControlEntry
 function ExtBuildListControlClass:importBuild(build)
 	if not (build.buildLink) then
 		print("Build link is not provided.")
@@ -180,12 +259,14 @@ function ExtBuildListControlClass:importBuild(build)
 	ImportBuild(build.buildLink, function(xmlText, urlText)
 		if xmlText then
 			main:SetMode("BUILD", false,
-				build.buildName .. (build.authorName and (" - " .. self.build.authorName) or ""),
+				build.buildName .. (build.authorName and (" - " .. build.authorName) or ""),
 				xmlText, false, urlText)
 		end
 	end)
 end
 
+---@param ascendancy string?
+---@return ImageHandle?
 function ExtBuildListControlClass:GetAscendancyImageHandle(ascendancy)
 	if ascendancy then
 		local fileName = s_format('Assets/ascendants/%s.jpeg', (ascendancy:gsub("^%l", string.lower)))
@@ -203,6 +284,10 @@ function ExtBuildListControlClass:GetAscendancyImageHandle(ascendancy)
 end
 
 -- splits strings by word and maxWidth
+---@param str string
+---@param maxWidth number
+---@param font Font
+---@return string[]
 function ExtBuildListControlClass:splitStringByWidth(str, maxWidth, font)
 	local words = {}
 	for word in str:gmatch("%S+") do
@@ -226,6 +311,11 @@ function ExtBuildListControlClass:splitStringByWidth(str, maxWidth, font)
 end
 
 -- wrappers for Drawing tools to apply scrolling
+---@param imgHandle ImageHandle?
+---@param left number
+---@param top number
+---@param width number
+---@param height number
 function ExtBuildListControlClass:DrawImage(imgHandle, left, top, width, height)
 	local _, y = self:GetPos()
 	if top - self.controls.scrollBarV.offset >= y and top + height - self.controls.scrollBarV.offset < self.height() + y then
@@ -233,6 +323,12 @@ function ExtBuildListControlClass:DrawImage(imgHandle, left, top, width, height)
 	end
 end
 
+---@param left number
+---@param top number
+---@param align "LEFT"|"CENTER"|"RIGHT"|"CENTER_X"|"RIGHT_X"
+---@param height number
+---@param font Font
+---@param text string
 function ExtBuildListControlClass:DrawString(left, top, align, height, font, text)
 	local _, y = self:GetPos()
 	if top - self.controls.scrollBarV.offset >= y and top + height - self.controls.scrollBarV.offset < self.height() + y then
@@ -240,6 +336,8 @@ function ExtBuildListControlClass:DrawString(left, top, align, height, font, tex
 	end
 end
 
+---@param viewPort Viewport
+---@param noTooltip? boolean
 function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 	if self.activeListProvider == nil then
 		return
@@ -288,6 +386,9 @@ function ExtBuildListControlClass:Draw(viewPort, noTooltip)
 		end
 	end
 
+---@param y number
+---@param fillH number
+---@return number
 	local function addSeparator(y, fillH)
 		y = y + 4
 		SetDrawColor(0.5, 0.5, 0.5)

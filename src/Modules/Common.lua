@@ -301,8 +301,9 @@ function convertUTF8to16(text, offset)
 end
 
 --- Clean item text by removing or replacing unsupported or redundant characters or sequences
----@param text string
----@return string
+---@param text? string
+---@return string?
+---@overload fun(text: string): string
 function sanitiseText(text)
 	if not text then return nil end
 	-- Something something unicode support something grumble
@@ -998,6 +999,8 @@ end
   -- returns a list of fields, not including the separator.
   -- Will return the first field as blank if the first character of the string is the separator
   -- Separator defaults to colon
+---@param sep? string
+---@return string[] fields
 function string:split(sep)
 	-- Initially from http://lua-users.org/wiki/SplitJoin
 	-- function will ignore duplicate separators

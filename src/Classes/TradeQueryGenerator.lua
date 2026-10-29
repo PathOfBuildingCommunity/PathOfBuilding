@@ -15,6 +15,7 @@ local utils = require("Modules.Utils")
 -- a table which tells us what subtypes each category we can search for
 -- contains. the commented out lines are type-subtype combinations which don't
 -- exist yet, but might exist in the future
+---@type table<string, string[]>
 local tradeCategoryNames = {
 	["Ring"] = { "Ring" },
 	["Amulet"] = { "Amulet" },
@@ -56,7 +57,9 @@ local tradeCategoryNames = {
 	["Flask"] = { "Flask: Utility" },
 }
 local basesForType
-
+---@param mod TradeQueryGeneratorMod
+---@param category string
+---@return boolean
 local function canModSpawnForItemCategory(mod, category)
 	-- lazy load type list as it's only required when generating QueryMods.lua
 	if not basesForType then
@@ -105,6 +108,7 @@ local function canModSpawnForItemCategory(mod, category)
 	end
 	return false
 end
+---@param modType string
 ---@return table[]? category list of entries for the mod type
 local function getStatEntries(modType)
 	local tradeStats = tradeHelpers.getTradeStats()
@@ -145,10 +149,48 @@ local function logToFile(...)
 	ConPrintf(...)
 end
 
----@class TradeQueryGenerator
-local TradeQueryGeneratorClass = newClass("TradeQueryGenerator")
+---@alias TradeQueryGeneratorMod ItemDataMod
 
+---@class TradeQuerySelectorOption
+---@field label string
+---@field tradeId? string
+---@field value? number
+
+---@class TradeQueryGeneratorOptions
+---@field account? string
+---@field blockedMods? TradeQuerySelectorOption[]
+---@field includeAllWEMods? boolean
+---@field includeCorrupted? boolean
+---@field includeEldritch? string
+---@field includeMirrored? boolean
+---@field includeScourge? boolean
+---@field includeTalisman? boolean
+---@field jewelType? "Base"|"Abyss"
+---@field links? integer
+---@field maxLevel? integer
+---@field maxPrice? number
+---@field maxPriceType? string
+---@field requiredMods? TradeQuerySelectorOption[]
+---@field sockets? integer
+---@field special? { itemName: string }
+---@field statWeights WeightedPowerStat[]
+
+---@class TradeQueryGenerator
+---@field queryTab TradeQuery
+---@field itemsTab ItemsTab
+---@field calcContext table
+---@field modData table<string, table>
+---@field modWeights table[]
+---@field alreadyWeightedMods table<string, boolean>
+---@field lastMaxPrice? number
+---@field lastMaxPriceTypeIndex? integer
+---@field lastMaxLevel? integer
+	---@field requesterCallback fun(context: table, query: string?, errMsg: string?)
+	---@field requesterContext table
+---@field [string] unknown
+local TradeQueryGeneratorClass = newClass("TradeQueryGenerator")
 ---@param queryTab TradeQuery
+---@return TradeQueryGenerator
 function TradeQueryGeneratorClass:TradeQueryGenerator(queryTab)
 	self:InitMods()
 	self.queryTab = queryTab
@@ -160,16 +202,26 @@ function TradeQueryGeneratorClass:TradeQueryGenerator(queryTab)
 	self.lastMaxLevel = nil
 	return self
 end
-
+	---@param baseOutput Output
+	---@param newOutput Output
+---@param statWeights WeightedPowerStat[]
+---@return number
 function TradeQueryGeneratorClass.WeightedRatioOutputs(baseOutput, newOutput, statWeights)
+	---@type number
 	local meanStatDiff = 0
-
+	---@return number
 	local function ratioModSums(...)
+		---@type number
 		local baseModSum = 0
+		---@type number
 		local newModSum = 0
 		for _, mod in ipairs({ ... }) do
-			baseModSum = baseModSum + data.powerStatList.GetFromOutput(baseOutput, mod, true)
-			newModSum = newModSum + data.powerStatList.GetFromOutput(newOutput, mod, true)
+			---@type number
+			local baseModValue = data.powerStatList.GetFromOutput(baseOutput, mod, true)
+			---@type number
+			local newModValue = data.powerStatList.GetFromOutput(newOutput, mod, true)
+			baseModSum = baseModSum + baseModValue
+			newModSum = newModSum + newModValue
 		end
 
 		if baseModSum == math.huge then
@@ -183,6 +235,7 @@ function TradeQueryGeneratorClass.WeightedRatioOutputs(baseOutput, newOutput, st
 		end
 	end
 	for _, statTable in ipairs(statWeights) do
+		---@type number
 		local modSumRatio
 		if statTable.stat == "FullDPS" and not (baseOutput["FullDPS"] and newOutput["FullDPS"]) then
 			modSumRatio = ratioModSums({ stat = "TotalDPS" }, { stat = "TotalDotDPS" }, { stat = "CombinedDPS" })
@@ -197,7 +250,11 @@ function TradeQueryGeneratorClass.WeightedRatioOutputs(baseOutput, newOutput, st
 	end
 	return meanStatDiff
 end
-
+---@param modId string|integer
+---@param mod TradeQueryGeneratorMod
+---@param tradeQueryStatsParsed table
+---@param itemCategoriesMask? table<string, boolean>
+---@param itemCategoriesOverride? table<string, boolean|string>
 function TradeQueryGeneratorClass:ProcessMod(modId, mod, tradeQueryStatsParsed, itemCategoriesMask, itemCategoriesOverride)
 	if type(modId) == "string" and modId:find("HellscapeDownside") ~= nil then -- skip scourge downsides, they often don't follow standard parsing rules, and should basically never be beneficial anyways
 		goto continue
@@ -250,6 +307,7 @@ function TradeQueryGeneratorClass:ProcessMod(modId, mod, tradeQueryStatsParsed, 
 		if self.modData[modType][uniqueIndex] == nil then
 			local tradeMod = nil
 			-- Try to match to a local mod fallback to global if no match
+			---@cast mod.group string
 			if mod.group:match("Local") then
 				local matchLocalStr = (modLine .. " (Local)"):gsub("[#()0-9%-%+%.]","")
 				for _, entry in pairs(getStatEntries(modType) or {}) do
@@ -293,6 +351,7 @@ function TradeQueryGeneratorClass:ProcessMod(modId, mod, tradeQueryStatsParsed, 
 
 		-- tokenize the numerical variables for this mod and store the sign if there is one
 		local tokens = { }
+		---@type number, number
 		local poundPos, tokenizeOffset = 0, 0
 		while true do
 			poundPos = self.modData[modType][uniqueIndex].tradeMod.text:find("#", poundPos + 1)
@@ -358,7 +417,10 @@ function TradeQueryGeneratorClass:ProcessMod(modId, mod, tradeQueryStatsParsed, 
 	end
 	::continue::
 end
-
+---@param mods table<string|integer, TradeQueryGeneratorMod>
+---@param tradeQueryStatsParsed table
+---@param itemCategoriesMask? table<string, boolean>
+---@param itemCategoriesOverride? table<string, boolean|string>
 function TradeQueryGeneratorClass:GenerateModData(mods, tradeQueryStatsParsed, itemCategoriesMask, itemCategoriesOverride)
 	for modId, mod in pairsSortByKey(mods) do
 		self:ProcessMod(modId, mod, tradeQueryStatsParsed, itemCategoriesMask, itemCategoriesOverride)
@@ -453,6 +515,8 @@ function TradeQueryGeneratorClass:InitMods()
 	self:GenerateModData(data.itemMods.Flask, tradeQueryStatsParsed, { ["Flask"] = true })
 
 	-- translate base type name to trade category name for e.g. essences and drop-restricted mods
+	---@param mask table<string, boolean>
+	---@param cat string
 	local function getTradeCategoryNamesForType(mask, cat)
 		for tradeName, typeNames in pairs(tradeCategoryNames) do
 			if tradeName == cat then
@@ -516,6 +580,9 @@ function TradeQueryGeneratorClass:InitMods()
 		{ ["AnyJewel"] = "AnyJewel" })
 
 	-- implicit mods
+	---@param baseEntry { type: string, subType?: string }
+	---@param modId string
+	---@param modType "Implicit"|"Enchant"
 	local function processBaseMod(baseEntry, modId, modType)
 		local mod = copyTable(data.itemMods.ItemExclusive[modId] or error("mod id doesn't exist " .. modId))
 		mod.type = modType
@@ -559,7 +626,8 @@ relevant for generating search weights.
 See TradeSiteStats.lua for a list of all trade site stats.]]
 	utils.saveTableToFile(queryModFilePath, self.modData, qmDescription)
 end
-
+---@param modsToTest table<unknown, table>
+---@async
 function TradeQueryGeneratorClass:GenerateModWeights(modsToTest)
 	local start = GetTime()
 	for _, entry in pairs(modsToTest) do
@@ -609,7 +677,8 @@ function TradeQueryGeneratorClass:GenerateModWeights(modsToTest)
 		::continue::
 	end
 end
-
+---@param nodesToTest table<unknown, table>
+---@async
 function TradeQueryGeneratorClass:GeneratePassiveNodeWeights(nodesToTest)
 	local start = GetTime()
 	for _, entry in pairs(nodesToTest) do
@@ -656,6 +725,7 @@ function TradeQueryGeneratorClass:OnFrame()
 	end
 end
 
+---@type { name: string, id: string? }[]
 local currencyTable = {
 	{ name = "Chaos Orb Equivalent", id = nil },
 	{ name = "Chaos Orb", id = "chaos" },
@@ -675,7 +745,8 @@ local currencyTable = {
 	{ name = "Regal Orb", id = "regal" },
 	{ name = "Vaal Orb", id = "vaal" }
 }
-
+---@param slot ItemSlotControl?
+---@param options TradeQueryGeneratorOptions
 function TradeQueryGeneratorClass:StartQuery(slot, options)
 	if self.lastMaxPrice then
 		options.maxPrice = self.lastMaxPrice
@@ -857,6 +928,8 @@ function TradeQueryGeneratorClass:ExecuteQuery()
 		local eaterMods = self.modData["Eater"]
 		local exarchMods = self.modData["Exarch"]
 		if omitConditional then
+			---@param mods table<unknown, table>
+			---@return table<unknown, table>
 			local function filterMods(mods)
 				local filtered = {}
 				for name, mod in pairs(mods) do
@@ -878,6 +951,8 @@ function TradeQueryGeneratorClass:ExecuteQuery()
 end
 
 function TradeQueryGeneratorClass:addMoreWEMods()
+	---@param tbl { tradeModId: string }[]
+	---@return string[]
 	local function getTableOfTradeModIds(tbl)
 		local tmpTable={}
 		for _,val in ipairs(tbl) do
@@ -1164,13 +1239,17 @@ function TradeQueryGeneratorClass:FinishQuery()
 	-- Close blocker popup
 	main:ClosePopup()
 end
-
+---@param slot ItemSlotControl?
+---@param context table
+---@param statWeights WeightedPowerStat[]
+---@param callback fun(context: table, query: string?, errMsg: string?)
 function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callback)
 	self.requesterCallback = callback
 	self.requesterContext = context
 
 	local controls = { }
 	local options = { }
+	---@type number
 	local popupHeight = 110
 	local popupWidth = 480
 
@@ -1181,7 +1260,10 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 	local isWeaponSlot = slot and (slot.slotName == "Weapon 1" or slot.slotName == "Weapon 2")
 	local isEldritchModSlot = slot and eldritchModSlots[slot.slotName] == true
 
+	---@type Control
 	local lastItemAnchor
+	---@param anchor Control
+	---@param height? number
 	local function updateLastAnchor(anchor, height)
 		lastItemAnchor = anchor
 		popupHeight = popupHeight + (height or 23)
@@ -1465,6 +1547,8 @@ Remove: %s will be removed from the search results.]], term, term, term)
 		{ (popupWidth - totalWidth) / 2, lastItemH + lastItemY, 0, 0 })
 	updateLastAnchor(controls.modSelectorHeaderAnchor)
 	-- get mod selector list
+	---@param firstLabel string
+	---@return TradeQuerySelectorOption[]
 	local function getModList(firstLabel)
 		local _, itemCategory = tradeHelpers.getTradeCategory(slot.slotName, slot and self.itemsTab.items[slot.selItemId])
 		-- add radius/base as they have different mods
@@ -1516,6 +1600,10 @@ Remove: %s will be removed from the search results.]], term, term, term)
 	-- stats fit in the weighted sum, and this means a static popup size is ok
 	local maxSelectors = 5
 	-- set mod selector dropdown labels, adjust width, and possibly change the mod list
+	---@param controls table<string, Control>
+	---@param modList? TradeQuerySelectorOption[]
+	---@param prefix string
+	---@param selectedList TradeQuerySelectorOption[]
 	local function setModSelectors(controls, modList, prefix, selectedList)
 		-- reset selections
 		if modList then
@@ -1543,7 +1631,9 @@ Remove: %s will be removed from the search results.]], term, term, term)
 		setModSelectors(controls, getModList("^7+ Add Required Stat"), "modSelector", selectedMods)
 		setModSelectors(controls, getModList("^7+ Add Blocked Stat"), "modNotSelector", notMods)
 	end
-
+	---@param selectedList TradeQuerySelectorOption[]
+	---@param prefix string
+	---@param i integer
 	local function createDropdownRow(selectedList, prefix, i)
 		-- dropdown which lists all mods that fit
 		local dropdown = new("DropDownControl"):DropDownControl({ "TOPLEFT", lastItemAnchor, "BOTTOMLEFT", true },

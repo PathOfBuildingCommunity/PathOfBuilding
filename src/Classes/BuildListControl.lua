@@ -7,12 +7,34 @@ local ipairs = ipairs
 local s_format = string.format
 local buildListHelpers = require("Modules.BuildListHelpers")
 
----@class BuildListControl: ListControl
+---@class BuildListEntry
+---@field subPath string
+---@field fullFileName string
+---@field fileName? string
+---@field folderName? string
+---@field buildName? string
+---@field className? string
+---@field ascendClassName? string
+---@field level? integer
+
+---@class BuildListControlMode: BuildListMode
+---@field GetDestName fun(self: BuildListControlMode, subPath: string, fileName: string): string
+
+---@class BuildListPathControl: PathControl
+---@field CanReceiveDrag fun(self: BuildListPathControl, type: string, build: BuildListEntry): boolean
+---@field ReceiveDrag fun(self: BuildListPathControl, type: string, build: BuildListEntry, source: ListControl<unknown>)
+
+---@class BuildListControl: ListControl<BuildListEntry>
+---@field listMode BuildListControlMode
+---@field list BuildListEntry[]
+---@field width Prop<number>
+---@field SelectIndex fun(self: BuildListControl, index: integer): boolean?
 local BuildListClass = newClass("BuildListControl", "ListControl")
 
----@param anchor Anchor?
----@param rect Rect?
----@param listMode any
+---@param anchor? Anchor
+---@param rect? Rect
+---@param listMode BuildListControlMode
+---@return BuildListControl
 function BuildListClass:BuildListControl(anchor, rect, listMode)
 	self:ListControl(anchor, rect, 20, "VERTICAL", false, listMode.list)
 	self.listMode = listMode
@@ -30,9 +52,16 @@ function BuildListClass:BuildListControl(anchor, rect, listMode)
 		self.selDragActive = false
 		self.otherDragSource = false
 	end)
+	---@cast self.controls.path BuildListPathControl
+	---@param type string
+	---@param build BuildListEntry
+	---@return boolean
 	function self.controls.path:CanReceiveDrag(type, build)
 		return type == "Build" and #self.folderList > 1
 	end
+	---@param type string
+	---@param build BuildListEntry
+	---@param source ListControl<unknown>
 	function self.controls.path:ReceiveDrag(type, build, source)
 		if type == "Build" then
 			for index, folder in ipairs(self.folderList) do
@@ -41,6 +70,7 @@ function BuildListClass:BuildListControl(anchor, rect, listMode)
 						if build.folderName then
 							main:MoveFolder(build.folderName, main.buildPath..build.subPath, main.buildPath..folder.path)
 						else
+							---@cast build.fileName string
 							local destPath = listMode:GetDestName(folder.path, build.fileName)
 							local res, msg = os.rename(build.fullFileName, destPath)
 							if not res then
@@ -62,6 +92,7 @@ function BuildListClass:BuildListControl(anchor, rect, listMode)
 	return self
 end
 
+---@param fullFileName string
 function BuildListClass:SelByFullFileName(fullFileName)
 	if fullFileName then
 		for index, build in ipairs(self.list) do
@@ -75,8 +106,10 @@ function BuildListClass:SelByFullFileName(fullFileName)
 	self.selValue = nil
 end
 
+---@param build BuildListEntry
 function BuildListClass:LoadBuild(build)
 	if build.folderName then
+		---@cast self.controls.path BuildListPathControl
 		self.controls.path:SetSubPath(build.subPath .. build.folderName  .. "/")
 	else
 		main:SetMode("BUILD", build.fullFileName, build.buildName)
@@ -92,6 +125,8 @@ function BuildListClass:NewFolder()
 	end)
 end
 
+---@param build BuildListEntry
+---@param copyOnName? boolean
 function BuildListClass:RenameBuild(build, copyOnName)
 	local controls = { }
 	controls.label = new("LabelControl"):LabelControl(nil, {0, 20, 0, 16}, "^7Enter the new name for this "..(build.folderName and "folder:" or "build:"))
@@ -102,6 +137,7 @@ function BuildListClass:RenameBuild(build, copyOnName)
 				controls.save.enabled = true
 			end
 		else
+			---@cast build.buildName string
 			if buf:match("%S") then
 				if buf:lower() ~= build.buildName:lower() then
 					local newName = buf..".xml"
@@ -159,6 +195,7 @@ function BuildListClass:RenameBuild(build, copyOnName)
 	main:OpenPopup(370, 100, (copyOnName and "Copy " or "Rename ")..(build.folderName and "Folder" or "Build"), controls, "save", "edit")	
 end
 
+---@param build BuildListEntry
 function BuildListClass:DeleteBuild(build)
 	if build.folderName then
 		if NewFileSearch(build.fullFileName.."/*") or NewFileSearch(build.fullFileName.."/*", true) then
@@ -188,6 +225,10 @@ function BuildListClass:DeleteBuild(build)
 	end
 end
 
+---@param column integer
+---@param index integer
+---@param build BuildListEntry
+---@return string?
 function BuildListClass:GetRowValue(column, index, build)
 	if column == 1 then
 		local label
@@ -223,14 +264,24 @@ function BuildListClass:GetRowValue(column, index, build)
 	end
 end
 
+---@param index integer
+---@param build BuildListEntry
+---@return string
+---@return BuildListEntry
 function BuildListClass:GetDragValue(index, build)
 	return "Build", build
 end
 
+---@param type string
+---@param build BuildListEntry
+---@return boolean
 function BuildListClass:CanReceiveDrag(type, build)
 	return type == "Build"
 end
 
+---@param type string
+---@param build BuildListEntry
+---@param source? ListControl<unknown>
 function BuildListClass:ReceiveDrag(type, build, source)
 	if type == "Build" then
 		if self.hoverValue and self.hoverValue.folderName then
@@ -239,6 +290,7 @@ function BuildListClass:ReceiveDrag(type, build, source)
 				if build.folderName then
 					main:MoveFolder(build.folderName, main.buildPath..build.subPath, main.buildPath..targetSubPath)
 				else
+					---@cast build.fileName string
 					local destPath = self.listMode:GetDestName(targetSubPath, build.fileName)
 					local res, msg = os.rename(build.fullFileName, destPath)
 					if not res then
@@ -252,10 +304,17 @@ function BuildListClass:ReceiveDrag(type, build, source)
 	end
 end
 
+---@param index integer
+---@param build BuildListEntry
+---@param source ListControl<BuildListEntry>
+---@return boolean?
 function BuildListClass:CanDragToValue(index, build, source)
 	return build.folderName and source.selValue ~= build and buildListHelpers.CanMoveToSubPath(source.selValue, build.subPath .. build.folderName .. "/")
 end
 
+---@param index integer
+---@param build BuildListEntry
+---@param doubleClick? boolean
 function BuildListClass:OnSelClick(index, build, doubleClick)
 	if doubleClick then
 		self:LoadBuild(build)
@@ -264,20 +323,29 @@ function BuildListClass:OnSelClick(index, build, doubleClick)
 	end
 end
 
+---@param index integer
+---@param build BuildListEntry
 function BuildListClass:OnSelCopy(index, build)
 	self.copyBuild = build
 	self.cutBuild = nil
 end
 
+---@param index integer
+---@param build BuildListEntry
 function BuildListClass:OnSelCut(index, build)
 	self.copyBuild = nil
 	self.cutBuild = build
 end
 
+---@param index integer
+---@param build BuildListEntry
 function BuildListClass:OnSelDelete(index, build)
 	self:DeleteBuild(build)
 end
 
+---@param index integer
+---@param build BuildListEntry
+---@param key string
 function BuildListClass:OnSelKeyDown(index, build, key)
 	if key == "RETURN" then
 		self:LoadBuild(build)

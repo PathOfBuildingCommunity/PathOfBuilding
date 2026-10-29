@@ -8,6 +8,8 @@ local m_max = math.max
 ---@class GemTooltip
 local GemTooltip = { }
 
+---@return number normal
+---@return number large
 local function getFontSizes()
 	return main.showFlavourText and 18 or 16, main.showFlavourText and 24 or 20
 end
@@ -22,11 +24,11 @@ local reservationMap = {
 
 ---@param tooltip Tooltip
 ---@param build Build
----@param gemInstance any
----@param grantedEffect any
----@param addLevel boolean
----@param addReq boolean
----@param mergeStatsFrom any
+---@param gemInstance table
+---@param grantedEffect table
+---@param addLevel? boolean
+---@param addReq? boolean
+---@param mergeStatsFrom? table
 local function addCommonGemInfo(tooltip, build, gemInstance, grantedEffect, addLevel, addReq, mergeStatsFrom)
 	local fontSizeBig = main.showFlavourText and 18 or 16
 	local displayInstance = gemInstance.displayEffect or gemInstance
@@ -141,6 +143,9 @@ local function addCommonGemInfo(tooltip, build, gemInstance, grantedEffect, addL
 		if gemInstance.quality > 0 then
 			tooltip:AddLine(fontSizeBig, string.format("^x7F7F7FQuality: +%s%d%%", colorCodes.MAGIC, gemInstance.quality), "FONTIN SC")
 		end
+		---@param number number
+		---@param suffix? string
+		---@return string
 		local function formatQuality(number, suffix)
 			return colorCodes.MAGIC .. string.format("+%d%% Quality from %s", number, suffix)
 		end
@@ -206,9 +211,10 @@ end
 
 ---@class GemToolTipOptions
 ---@field skipRequirements? boolean
+
 ---@param tooltip Tooltip
 ---@param build Build
----@param gemInstance any
+---@param gemInstance table
 ---@param options? GemToolTipOptions
 function GemTooltip.AddGemTooltip(tooltip, build, gemInstance, options)
 	options = options or { }

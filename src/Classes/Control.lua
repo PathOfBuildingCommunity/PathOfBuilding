@@ -35,23 +35,78 @@ local rect = {
 --]]
 
 ---@class Control
----@field enabled        boolean | fun(...: any): boolean
----@field onFocusGained? fun()
----@field onFocusLost?   fun()
+---@field enabled        Prop<boolean>
+---@field state          boolean?
+---@field list           table?
+---@field selValue       any
+---@field selIndex       integer?
+---@field offset         number?
+---@field labelWidth     number?
+---@field realDraw       fun(self: Control, x: number, y: number, width: number, height: number, viewPort: Viewport)?
+---@field IsMouseOver?   fun(self: Control): boolean
+---@field lines          table
+---@field onClick?      fun(...)
+---@field buf           string
+---@field dropped       boolean
+---@field Click?        fun(self: Control, ...)
+---@field IsScrollDownKey? fun(self: Control, key: string): boolean
+---@field IsScrollUpKey? fun(self: Control, key: string): boolean
+---@field SelectIndex?  fun(self: Control, index: integer): boolean?
+---@field CanDragToValue? fun(self: Control, index: integer, value: any, source: Control): boolean
+---@field SetBreakdownData? fun(self: Control, displayData?: table, pinned?: boolean, forceActor?: Actor)
+---@field GetColumnProperty? fun(self: Control, column: table, property: string): any
+---@field anchor         AnchorState
+---@field rectStart      Rect
+---@field hasFocus?      boolean
+---@field tabOrder?      Control[]
+---@field selDragActive? boolean
+---@field dragTargetList? ListControl<unknown>[]
+---@field mouseClipRect? [number, number, number, number]|fun(self: Control): [number, number, number, number]
+---@field imbuedSelect? boolean
+---@field OnFocusGained? fun()
+---@field OnFocusLost?   fun()
+---@field GetProperty fun(self: Control, name: string): unknown
+---@field GetPos fun(self: Control): number, number
+---@field GetSize fun(self: Control): number, number
+---@field IsShown fun(self: Control): boolean
+---@field OnKeyDown?     fun(...: any): any
+---@field OnHoverKeyUp?  fun(self: Control, key: string)
+---@field OnChar?        fun(self: Control, key: string): Control?
 ---@field shown          Prop<boolean>
 ---@field x              Prop<number>?
 ---@field y              Prop<number>?
 ---@field width          Prop<number>?
 ---@field height         Prop<number>?
+---@field Draw?          fun(self: Control, viewPort: Viewport, noTooltip?: boolean)
+---@field OnKeyUp?       fun(self: Control, key: string): Control?
+---@field SetText?       fun(self: Control, text: string, notify?: boolean)
+---@field SetList?       fun(self: Control, textList: table)
+---@field SetSel?        fun(self: Control, newSel: integer, noCallSelFunc?: boolean)
+---@field SelByValue?    fun(self: Control, value: any, key?: string): integer?
+---@field Scroll?        fun(self: Control, mult: number)
+---@field SetContentDimension? fun(self: Control, conDim: number, viewDim: number)
 ---@field collapseY      number? An additional offset which is applied when this control uses a collapsed anchor.
 ---@field collapseX      number? An additional offset which is applied when this control uses a collapsed anchor.
 local ControlClass = newClass("Control")
 
----@alias Anchor [AnchorPoint, Control|ControlHost, AnchorPoint, boolean|nil]
----@alias Rect [Prop<number>?,Prop<number>?, Prop<number>?, Prop<number>?]
+---@alias Anchor [AnchorPoint, (Control|ControlHost)?, AnchorPoint, boolean|nil]
+---@alias Rect [Prop<number>?, Prop<number>?, Prop<number>?, Prop<number>?]
+
+---@class Viewport A resolved, absolute drawing region, as passed to :Draw() methods (distinct from the positional Rect tuple used for anchoring).
+---@field x number
+---@field y number
+---@field width number
+---@field height number
+
+---@class AnchorState
+---@field point? AnchorPoint
+---@field other? Control|ControlHost
+---@field otherPoint? AnchorPoint
+---@field collapse? boolean
 
 ---@param anchor? Anchor
 ---@param rect? Rect
+---@return Control
 function ControlClass:Control(anchor, rect)
 	self.rectStart = rect or {0, 0, 0, 0}
 	self.x, self.y, self.width, self.height = unpack(self.rectStart)
@@ -65,11 +120,10 @@ function ControlClass:Control(anchor, rect)
 	return self
 end
 
----@generic T
----@alias Prop<T> (fun(self: self): T) | T
+---@alias Prop<T> (fun(...: any): T) | T
 
 ---@param name string
----@return any value
+---@return unknown value
 function ControlClass:GetProperty(name)
 	if type(self[name]) == "function" then
 		return self[name](self)
@@ -78,6 +132,12 @@ function ControlClass:GetProperty(name)
 	end
 end
 
+---@param point AnchorPoint
+---@param other? Control|ControlHost
+---@param otherPoint AnchorPoint
+---@param x? Prop<number>
+---@param y? Prop<number>
+---@param collapse? boolean
 function ControlClass:SetAnchor(point, other, otherPoint, x, y, collapse)
 	self.anchor.point = point
 	self.anchor.other = other
@@ -89,23 +149,30 @@ function ControlClass:SetAnchor(point, other, otherPoint, x, y, collapse)
 	end
 end
 
+---@return number x
+---@return number y
 function ControlClass:GetPos()
-	if self.anchor.collapse and self.anchor.other and not self.anchor.other:GetProperty("shown") then
-		local x, y = self.anchor.other:GetPos()
+	local other = self.anchor.other
+	if self.anchor.collapse and other and not other:GetProperty("shown") then
+		local x, y = other:GetPos()
 		x = x + (self.collapseX or 0)
 		y = y + (self.collapseY or 0)
 		return x, y
 	end
+	---@type number
 	local x = self:GetProperty("x")
+	---@type number
 	local y = self:GetProperty("y")
-	if self.anchor.other then
-		local otherX, otherY = self.anchor.other:GetPos()
+	if other then
+		local otherX, otherY = other:GetPos()
+		---@type number, number
 		local otherW, otherH = 0, 0
+		---@type number, number
 		local width, height = 0, 0
 		local otherPos = anchorPos[self.anchor.otherPoint]
 		assert(otherPos, "invalid anchor position '"..tostring(self.anchor.otherPoint).."'")
 		if self.anchor.otherPoint ~= "TOPLEFT" then
-			otherW, otherH = self.anchor.other:GetSize()
+			otherW, otherH = other:GetSize()
 		end
 		local pos = anchorPos[self.anchor.point]
 		assert(pos, "invalid anchor position '"..tostring(self.anchor.point).."'")
@@ -118,18 +185,23 @@ function ControlClass:GetPos()
 	return x, y
 end
 
+---@return number width
+---@return number height
 function ControlClass:GetSize()
 	return self:GetProperty("width"), self:GetProperty("height")
 end
 
+---@return boolean?
 function ControlClass:IsShown()
 	return (not self.anchor.other or self.anchor.collapse or self.anchor.other:IsShown()) and self:GetProperty("shown")
 end
 
+---@return boolean
 function ControlClass:IsEnabled()
 	return self:GetProperty("enabled")
 end
 
+---@return boolean
 function ControlClass:IsMouseInBounds()
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()
@@ -137,6 +209,7 @@ function ControlClass:IsMouseInBounds()
 	return cursorX >= x and cursorY >= y and cursorX < x + width and cursorY < y + height
 end
 
+---@param focus boolean
 function ControlClass:SetFocus(focus)
 	if focus ~= self.hasFocus then
 		if focus and self.OnFocusGained then
@@ -148,6 +221,7 @@ function ControlClass:SetFocus(focus)
 	end
 end
 
+---@param master Control
 function ControlClass:AddToTabGroup(master)
 	if master.tabOrder then
 		t_insert(master.tabOrder, self)
@@ -157,6 +231,8 @@ function ControlClass:AddToTabGroup(master)
 	self.tabOrder = master.tabOrder
 end
 
+---@param step integer
+---@return Control?
 function ControlClass:TabAdvance(step)
 	if self.tabOrder then
 		local index = isValueInArray(self.tabOrder, self)
@@ -168,8 +244,9 @@ function ControlClass:TabAdvance(step)
 				elseif index < 1 then
 					index = #self.tabOrder
 				end
-				if self.tabOrder[index] == self or (self.tabOrder[index].OnKeyDown and self.tabOrder[index]:IsShown()) then
-					return self.tabOrder[index]
+				local control = self.tabOrder[index]
+				if control and (control == self or (control.OnKeyDown and control:IsShown())) then
+					return control
 				end
 			end
 		end

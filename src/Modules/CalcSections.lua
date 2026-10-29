@@ -69,6 +69,11 @@ local rageCost = {
 ---@class CalcSectionColumn : CalcSectionEntry One column cell: a format and descriptions for the popup
 ---@field [integer] CalcSectionEntry
 ---@field format? string Value format string (e.g. "{0:output:Life}") or literal header text
+---@field x? number Screen x position, set when this column is the source of a shown breakdown popup
+---@field y? number Screen y position, set when this column is the source of a shown breakdown popup
+---@field width? number Column width, set when this column is the source of a shown breakdown popup
+---@field xOffset? number Horizontal offset relative to the section, used to compute x
+---@field yOffset? number Vertical offset relative to the section, used to compute y
 
 ---@class CalcSectionRow One row of a subsection
 ---@field [integer] CalcSectionColumn Column cells
@@ -82,6 +87,9 @@ local rageCost = {
 
 ---@class CalcSectionData A subsection's rows plus subsection configuration values
 ---@field [integer] CalcSectionRow The rows
+---@field breakdown? string Key indicating which output breakdown should be displayed
+---@field modName? string|string[] Modifier name or names used for source display
+---@field label? string Heading shown above the resulting table
 ---@field extra? string Summary text shown beside the header (e.g. "{0:output:Life}")
 ---@field colWidth? integer Fixed width for value columns in this subsection
 ---@field flag? string Applied to the whole subsection (via subSection[1].data.flag)
@@ -89,6 +97,7 @@ local rageCost = {
 
 ---@class CalcSectionSubsection
 ---@field defaultCollapsed boolean
+---@field collapsed? boolean
 ---@field label string
 ---@field data CalcSectionData
 

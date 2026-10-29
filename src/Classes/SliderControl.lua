@@ -8,8 +8,21 @@ local m_max = math.max
 local m_ceil = math.ceil
 
 ---@class SliderControl: Control, TooltipHost
+---@field knobSize number
+---@field val number
+---@field changeFunc? fun(value: number)
+---@field scrollWheelSpeedTbl table<"SHIFT"|"CTRL"|"DEFAULT", number>
+---@field divCount? integer
+---@field dragging? boolean
+---@field dragCX? number
+---@field dragKnobX? number
 local SliderClass = newClass("SliderControl", "Control", "TooltipHost")
 
+---@param anchor? Anchor
+---@param rect? Rect
+---@param changeFunc? fun(value: number)
+---@param scrollWheelSpeedTbl? table<"SHIFT"|"CTRL"|"DEFAULT", number>
+---@return SliderControl
 function SliderClass:SliderControl(anchor, rect, changeFunc, scrollWheelSpeedTbl)
 	self:Control(anchor, rect)
 	self:TooltipHost()
@@ -20,6 +33,8 @@ function SliderClass:SliderControl(anchor, rect, changeFunc, scrollWheelSpeedTbl
 	return self
 end
 
+---@return boolean mouseOver
+---@return "KNOB"|"SLIDE"|nil component
 function SliderClass:IsMouseOver()
 	if not self:IsShown() then
 		return false
@@ -41,11 +56,13 @@ function SliderClass:IsMouseOver()
 	return mOver, mOverComp
 end
 
+---@return number
 function SliderClass:GetKnobTravel()
 	local width, height = self:GetSize()
 	return width - self.knobSize - 2
 end
 
+---@param newVal number
 function SliderClass:SetVal(newVal)
 	newVal = m_max(0, m_min(1, newVal))
 	if newVal ~= self.val then
@@ -56,6 +73,9 @@ function SliderClass:SetVal(newVal)
 	end
 end
 
+---@param val? number
+---@return integer divisionIndex
+---@return number divisionValue
 function SliderClass:GetDivVal(val)
 	val = val or self.val
 	if self.divCount and self.divCount > 1 then
@@ -66,15 +86,18 @@ function SliderClass:GetDivVal(val)
 	end
 end
 
+---@param knobX number
 function SliderClass:SetValFromKnobX(knobX)
 	self:SetVal(knobX / self:GetKnobTravel())
 end
 
+---@return number
 function SliderClass:GetKnobXForVal()
 	local knobTravel = self:GetKnobTravel()
 	return knobTravel * self.val
 end
 
+---@param viewPort Viewport
 function SliderClass:Draw(viewPort)
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()
@@ -132,6 +155,8 @@ function SliderClass:Draw(viewPort)
 	end
 end
 
+---@param key string
+---@return SliderControl?
 function SliderClass:OnKeyDown(key)
 	if not self:IsShown() or not self:IsEnabled() then
 		return
@@ -155,6 +180,7 @@ function SliderClass:OnKeyDown(key)
 	return self
 end
 
+---@param key string
 function SliderClass:OnKeyUp(key)
 	if not self:IsShown() or not self:IsEnabled() then
 		return

@@ -7,13 +7,30 @@ local pairs = pairs
 local ipairs = ipairs
 local t_insert = table.insert
 
----@class ItemListControl: ListControl
+---@class ItemListControlControls: ListControlControls
+---@field loadoutFilter DropDownControl<string> & { list: string[], SetList: fun(self: DropDownControl<string>, textList: string[]) }
+
+---@class ItemListControl: ListControl<integer>
+---@field controls ItemListControlControls
+---@field itemsTab ItemsTab
+---@field defaultText string
+---@field dragTargetList ListControl<unknown>[]
+---@field isMutable boolean
+---@field loadoutListKey? string
+---@field lastOutputRevision? integer
+---@field selIndex? integer
+---@field selValue? integer
+---@field ListControl { Draw: fun(self: ItemListControl, viewPort: Viewport, noTooltip?: boolean), GetHoverValue: fun(self: ItemListControl, key?: string): integer? }
+---@field OnSelClick fun(self: ItemListControl, index: integer, itemId: integer, doubleClick?: boolean): boolean?
+---@field OnSelCopy fun(self: ItemListControl, index: integer, itemId: integer)
+---@field OnSelDelete fun(self: ItemListControl, index: integer, itemId: integer)
 local ItemListClass = newClass("ItemListControl", "ListControl")
 
 ---@param anchor Anchor?
 ---@param rect Rect?
 ---@param itemsTab ItemsTab
----@param forceTooltip boolean?
+---@param forceTooltip? boolean
+---@return ItemListControl
 function ItemListClass:ItemListControl(anchor, rect, itemsTab, forceTooltip)
 	self:ListControl(anchor, rect, 16, "VERTICAL", true, itemsTab.itemOrderList, forceTooltip)
 	self.itemsTab = itemsTab
@@ -28,6 +45,7 @@ function ItemListClass:ItemListControl(anchor, rect, itemsTab, forceTooltip)
 		self:UpdateList()
 	end)
 	self.controls.deleteUnused = new("ButtonControl"):ButtonControl({"LEFT",self.controls.sort,"RIGHT"}, {4, 0, 84, 18}, "Del Unused", function()
+		---@type integer[]
 		local delList = {}
 		for _, itemId in pairs(itemsTab.itemOrderList) do
 			if not itemsTab:GetEquippedSlotForItem(itemsTab.items[itemId]) and not self:FindEquippedAbyssJewel(itemId, false) and not self:FindSocketedJewel(itemId, false) then
@@ -82,9 +100,11 @@ function ItemListClass:ItemListControl(anchor, rect, itemsTab, forceTooltip)
 	return self
 end
 
+---@return boolean changed
 function ItemListClass:UpdateLoadoutList()
 	local list = { "Any Loadout", "Current Loadout", "Unused Items" }
 	local listValues = { ["Any Loadout"] = true, ["Current Loadout"] = true, ["Unused Items"] = true }
+	---@type Build & { controls: { buildLoadouts: DropDownControl<string> } }
 	local build = self.itemsTab.build
 	if build and build.controls and build.controls.buildLoadouts then
 		for _, val in ipairs(build.controls.buildLoadouts.list) do
@@ -193,6 +213,8 @@ function ItemListClass:UpdateList()
 	self.selValue = self.selIndex and self.list[self.selIndex] or nil
 end
 
+---@param viewPort Viewport
+---@param self ItemListControl
 function ItemListClass:Draw(viewPort)
 	local loadoutListChanged = self:UpdateLoadoutList()
 	local outputRevision = self.itemsTab.build and self.itemsTab.build.outputRevision
@@ -203,6 +225,9 @@ function ItemListClass:Draw(viewPort)
 	self.ListControl.Draw(self, viewPort)
 end
 
+---@param jewelId integer
+---@param excludeActiveSpec? boolean
+---@return string?
 function ItemListClass:FindSocketedJewel(jewelId, excludeActiveSpec)
 	if not self.itemsTab.items[jewelId] or self.itemsTab.items[jewelId].type ~= "Jewel" then
 		return nil
@@ -226,6 +251,9 @@ function ItemListClass:FindSocketedJewel(jewelId, excludeActiveSpec)
 	return equipTree
 end
 
+---@param jewelId integer
+---@param excludeActiveSet? boolean
+---@return string?
 function ItemListClass:FindEquippedAbyssJewel(jewelId, excludeActiveSet)
 	if not self.itemsTab.items[jewelId] or self.itemsTab.items[jewelId].base.subType ~= "Abyss" then
 		return nil
@@ -247,6 +275,10 @@ function ItemListClass:FindEquippedAbyssJewel(jewelId, excludeActiveSet)
 	return equipSet
 end
 
+---@param column integer
+---@param index integer
+---@param itemId integer
+---@return string?
 function ItemListClass:GetRowValue(column, index, itemId)
 	local item = self.itemsTab.items[itemId]
 	if column == 1 then
@@ -265,6 +297,9 @@ function ItemListClass:GetRowValue(column, index, itemId)
 	end
 end
 
+---@param tooltip Tooltip
+---@param index integer
+---@param itemId integer
 function ItemListClass:AddValueTooltip(tooltip, index, itemId)
 	if main.popups[1] then
 		tooltip:Clear()
@@ -276,10 +311,17 @@ function ItemListClass:AddValueTooltip(tooltip, index, itemId)
 	end
 end
 
+---@param index integer
+---@param itemId integer
+---@return string
+---@return Item?
 function ItemListClass:GetDragValue(index, itemId)
 	return "Item", self.itemsTab.items[itemId]
 end
 
+---@param type string
+---@param value Item
+---@param source? ListControl<unknown>
 function ItemListClass:ReceiveDrag(type, value, source)
 	if type == "Item" then
 		local newItem = new("Item"):Item(value.raw)
@@ -296,6 +338,11 @@ function ItemListClass:OnOrderChange()
 	self.itemsTab:AddUndoState()
 end
 
+---@param index integer
+---@param itemId integer
+---@param doubleClick? boolean
+---@return boolean?
+---@param self ItemListControl
 function ItemListClass:OnSelClick(index, itemId, doubleClick)
 	local item = self.itemsTab.items[itemId]
 	if IsKeyDown("CTRL") then
@@ -332,11 +379,17 @@ function ItemListClass:OnSelClick(index, itemId, doubleClick)
 	end
 end
 
+---@param index integer
+---@param itemId integer
+---@param self ItemListControl
 function ItemListClass:OnSelCopy(index, itemId)
 	local item = self.itemsTab.items[itemId]
 	Copy(item:BuildRaw():gsub("\n", "\r\n"))
 end
 
+---@param index integer
+---@param itemId integer
+---@param self ItemListControl
 function ItemListClass:OnSelDelete(index, itemId)
 	local item = self.itemsTab.items[itemId]
 	local equipSlot, equipSet = self.itemsTab:GetEquippedSlotForItem(item)
@@ -377,6 +430,8 @@ function ItemListClass:OnSelDelete(index, itemId)
 	end
 end
 
+---@param key string
+---@param self ItemListControl
 function ItemListClass:OnHoverKeyUp(key)
 	if itemLib.wiki.matchesKey(key) then
 		local itemId = self.ListControl:GetHoverValue()

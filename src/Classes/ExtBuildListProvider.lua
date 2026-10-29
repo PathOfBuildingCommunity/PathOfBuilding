@@ -10,17 +10,52 @@
 -- .buildList [Needs to be filled in :GetBuilds with current list. buildName and buildLink fields are required.]
 -- .statusMsg [This can be used to print status message on the screen. Builds will not be listed if it has a value other than nil.]
 
+---@class ExtBuildListEntry
+---@field buildName string
+---@field buildLink string
+---@field author? string
+---@field mainSkill? string
+---@field ascendancy? string
+---@field class? string
+---@field previewLink? string
+---@field ehp? number
+---@field life? number
+---@field es? number
+---@field dps? number
+---@field version? string
+---@field metadata? ExtBuildListMetadata[]
+
+---@class ExtBuildListMetadata
+---@field key string
+---@field value string
+
 ---@class ExtBuildListProvider
+---@field listTitles? string[]
+---@field buildList ExtBuildListEntry[]
+---@field buildListTitles string[]
+---@field activeList? string
+---@field statusMsg? string
+---@field importCode? string
+---@field Activate fun(self: ExtBuildListProvider)
+---@field SetActiveList fun(self: ExtBuildListProvider, activeList: string?)
+---@field GetActiveList fun(self: ExtBuildListProvider): string?
+---@field GetListTitles fun(self: ExtBuildListProvider): string[]?
+---@field GetPageUrl fun(self: ExtBuildListProvider): string?
+---@field SetImportCode fun(self: ExtBuildListProvider, importCode: string)
 local ExtBuildListProviderClass = newClass("ExtBuildListProvider")
 
+---@param listTitles? string[]
+---@return ExtBuildListProvider
 function ExtBuildListProviderClass:ExtBuildListProvider(listTitles)
 	self.listTitles = listTitles
 	self.buildList = {}
+	self.buildListTitles = {}
 	self.activeList = nil
 	self.statusMsg = nil
 	return self
 end
 
+---@return string?
 function ExtBuildListProviderClass:GetPageUrl()
 	return nil
 end
@@ -31,6 +66,7 @@ function ExtBuildListProviderClass:Activate()
 	end
 end
 
+---@param activeList string?
 function ExtBuildListProviderClass:SetActiveList(activeList)
 	if self.listTitles then
 		for _, value in ipairs(self.listTitles) do
@@ -42,22 +78,27 @@ function ExtBuildListProviderClass:SetActiveList(activeList)
 	end
 end
 
+---@return string?
 function ExtBuildListProviderClass:GetActiveList()
 	return self.activeList
 end
 
+---@return string[]?
 function ExtBuildListProviderClass:GetListTitles()
 	return self.listTitles
 end
 
+---@return string?
 function ExtBuildListProviderClass:GetActivePageUrl()
 	return nil
 end
 
+---@return ExtBuildListEntry[]
 function ExtBuildListProviderClass:GetBuilds()
 	return {}
 end
 
+---@param importCode string
 function ExtBuildListProviderClass:SetImportCode(importCode)
 	self.importCode = importCode
 end
