@@ -669,7 +669,7 @@ function calcs.buildOutput(build, mode)
 		if build.calcsTab.mainEnv.multipliersUsed["SpiritInfusion"] then
 			t_insert(combatList, s_format("%d Spirit Infusions", output.SpiritInfusions))
 		end
-		if env.player.mainSkill.baseSkillModList:Flag(nil, "Cruelty") then
+		if env.player.mainSkill.baseSkillModList:Flag(env.player.mainSkill.skillCfg, "Cruelty") then
 			t_insert(combatList, "Cruelty")
 		end
 		if env.modDB:Flag(nil, "Fortify") then

@@ -1536,7 +1536,7 @@ skills["SupportCruelty"] = {
 		},
 	},
 	baseMods = {
-		flag("Cruelty"),
+		flag("Cruelty", { type = "SkillType", skillTypeList = { SkillType.SummonsTotem, SkillType.Trapped, SkillType.RemoteMined }, neg = true }),
 	},
 	qualityStats = {
 		{ "cruelty_effect_+%", 0.25 },
