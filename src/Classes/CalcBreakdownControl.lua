@@ -434,14 +434,22 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 		elseif sourceType == "Tree" then
 			-- Modifier is from a passive node, add node name, and add node ID (used to show node location)
 			local nodeId = row.mod.source:match("Tree:(%d+)")
-			local tattooNodeId = row.mod.source:match("Tree:(%w+)")
+			local textNodeId = row.mod.source:match("Tree:([%w_]+)")
 			if nodeId then
 				local nodeIdNumber = tonumber(nodeId)
 				local node = build.spec.nodes[nodeIdNumber] or build.spec.tree.nodes[nodeIdNumber] or build.latestTree.nodes[nodeIdNumber]
 				row.sourceName = node.dn
 				row.sourceNameNode = node
-			elseif tattooNodeId then
-				row.sourceName = build.spec.tree.tattoo.idMap[tattooNodeId]
+			elseif textNodeId then
+				row.sourceName = build.spec.tree.tattoo.idMap[textNodeId]
+				if not row.sourceName then
+					for _, node in pairs(build.spec.tree.legion.nodes) do
+						if node.id == textNodeId then
+							row.sourceName = node.dn
+							break
+						end
+					end
+				end
 			end
 		elseif sourceType == "Skill" then
 			-- Extract skill name
