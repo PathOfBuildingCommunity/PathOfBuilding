@@ -1181,11 +1181,10 @@ function calcs.offence(env, actor, activeSkill)
 			output.StrikeTargets = baseStrikeCount + skillModList:Sum("BASE", skillCfg, "AdditionalStrikeTarget")
 		end
 	end
+	if skillFlags.totem then
+		output.ActiveTotemLimit = skillModList:Sum("BASE", skillCfg, "ActiveTotemLimit", "ActiveBallistaLimit")
+	end
 	if skillFlags.area or skillData.radius or (skillFlags.mine and activeSkill.skillTypes[SkillType.Aura]) then
-		-- add totem limit output early for conjoined spire
-		if skillFlags.totem then
-			output.ActiveTotemLimit = skillModList:Sum("BASE", skillCfg, "ActiveTotemLimit", "ActiveBallistaLimit")
-		end
 		calcAreaOfEffect(skillModList, skillCfg, skillData, skillFlags, output, breakdown)
 	end
 	if activeSkill.skillTypes[SkillType.Aura] then
@@ -1434,7 +1433,6 @@ function calcs.offence(env, actor, activeSkill)
 				total = s_format("= %.2f ^8per second", output.TotemPlacementSpeed),
 			})
 		end
-		output.ActiveTotemLimit = skillModList:Sum("BASE", skillCfg, "ActiveTotemLimit", "ActiveBallistaLimit")
 		output.TotemsSummoned = env.modDB:Override(nil, "TotemsSummoned") or output.ActiveTotemLimit
 		if breakdown then
 			breakdown.ActiveTotemLimit = {
