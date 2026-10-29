@@ -212,7 +212,7 @@ Badge of the Brotherhood
 Turquoise Amulet
 Requires Level: 20
 League: Blight
-Implicits: 0
+Implicits: 1
 {tags:attribute}+(16-24) to Dexterity and Intelligence
 Your Maximum Frenzy Charges is equal to your Maximum Power Charges
 (7-10)% increased Cooldown Recovery Rate of Travel Skills per Frenzy Charge
