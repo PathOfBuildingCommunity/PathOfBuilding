@@ -7,6 +7,7 @@
 
 local dkjson = require "dkjson"
 local itemSlotHelper = require("Modules.ItemSlotHelper")
+local tradeHelpers = require("Classes.TradeHelpers")
 
 local get_time = os.time
 local t_insert = table.insert
@@ -1052,7 +1053,8 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 	local nameColor = slotTbl.unique and colorCodes.UNIQUE or "^7"
 	controls["name" .. row_idx] = new("LabelControl"):LabelControl(top_pane_alignment_ref, { 0, row_idx * (row_height + row_vertical_padding), 135, row_height - 4 }, nameColor .. slotTbl.slotName)
 	controls["bestButton" .. row_idx] = new("ButtonControl"):ButtonControl({ "LEFT", controls["name" .. row_idx], "LEFT" }, { 135 + 8, 0, 80, row_height }, "Find best", function()
-		self.tradeQueryGenerator:RequestQuery(activeSlot, { slotTbl = slotTbl, controls = controls, row_idx = row_idx }, self.statSortSelectionList, function(context, query, errMsg)
+		---@param query table A table of filters
+		local function requestQueryHandler(context, query, errMsg)
 			if errMsg then
 				self:SetNotice(context.controls.pbNotice, colorCodes.NEGATIVE .. errMsg)
 				return
@@ -1061,14 +1063,19 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 			end
 			if main.api.authToken == nil then
 				local url = self.tradeQueryRequests:buildUrl(self.hostName .. "trade/search", self.pbRealm, self.pbLeague)
-				url = url .. "?q=" .. urlEncode(query)
+				url = url .. "/" .. tradeHelpers.B64GzipEncode(dkjson.encode(query))
 				controls["uri"..context.row_idx]:SetText(url, true)
 				return
 			end
 			context.controls["priceButton"..context.row_idx].label = "Searching..."
-			self.lastQueries[row_idx] = query
+			-- Trade URLs contain only the query; the API also needs the sort order.
+			query = dkjson.encode({
+				query = query,
+				sort = { ["statgroup.0"] = "desc" },
+				engine = "new",
+			})
 			self.tradeQueryRequests:SearchWithQueryWeightAdjusted(self.pbRealm, self.pbLeague, query,
-				function(items, errMsg)
+				function(items, errMsg, finalQuery)
 					if errMsg then
 						self:SetNotice(context.controls.pbNotice, colorCodes.NEGATIVE .. errMsg)
 						context.controls["priceButton"..context.row_idx].label =  "Price Item"
@@ -1077,6 +1084,7 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 						self:SetNotice(context.controls.pbNotice, "")
 					end
 
+					self.lastQueries[row_idx] = finalQuery
 					local selectedSlot = getSelectedSlot()
 					local itemsSafe = self:FilterToSafeItems(items, selectedSlot and selectedSlot.slotName)
 					-- replace eldritch mods or enchants if the user requested
@@ -1109,7 +1117,8 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 					end
 				}
 			)
-		end)
+		end
+		self.tradeQueryGenerator:RequestQuery(activeSlot, { slotTbl = slotTbl, controls = controls, row_idx = row_idx }, self.statSortSelectionList, requestQueryHandler)
 	end)
 	controls["bestButton"..row_idx].shown = function() return not self.resultTbl[row_idx] end
 	controls["bestButton"..row_idx].enabled = function() return self.pbLeague end
@@ -1300,7 +1309,9 @@ you can add them, copy the link here, and press "Price Item" to evaluate the ite
 				-- use trade sum to get the specific item. both min and max
 				-- weight on site uses floats but only shows integer in the api
 				-- e.g. weight of 172.3 shows up as 172 in the api
-				exactQuery.query.stats[1].value = { min = floor(itemResult.weight, 1) - 1, max = round(itemResult.weight, 1) + 1 }
+				if exactQuery.query.stats[1].type == "weight" then
+					exactQuery.query.stats[1].value = { min = floor(itemResult.weight, 1) - 1, max = round(itemResult.weight, 1) + 1 }
+				end
 				-- also apply trader name. this should make false positives
 				-- extremely unlikely. this doesn't seem to take up a filter slot
 				exactQuery.query.filters = exactQuery.query.filters or { }
@@ -1308,9 +1319,8 @@ you can add them, copy the link here, and press "Price Item" to evaluate the ite
 				exactQuery.query.filters.trade_filters.filters = exactQuery.query.filters.trade_filters.filters or { }
 				exactQuery.query.filters.trade_filters.filters.account = { input = itemResult.trader }
 
-				local exactQueryStr = dkjson.encode(exactQuery)
-
-				local encodedUrl = s_format("https://www.pathofexile.com/trade/search/%s?q=%s", self.pbLeague, urlEncode(exactQueryStr))
+				local encodedUrl = self.tradeQueryRequests:buildUrl(self.hostName .. "trade/search", self.pbRealm, self.pbLeague,
+					tradeHelpers.B64GzipEncode(dkjson.encode(exactQuery.query)))
 
 				Copy(encodedUrl)
 				OpenURL(encodedUrl)

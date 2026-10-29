@@ -13,6 +13,64 @@ describe("TestOffence", function()
 			string.format("%s: expected ~%.2f (within %.1f%%), got %.2f", msg, expected, tolerance * 100, actual))
 	end
 
+	for _, support in ipairs({
+		{ name = "Trap", cooldown = "TrapCooldown", speed = "TrapThrowingSpeed", rate = 119 / 60 },
+		{ name = "Blastchain Mine", cooldown = "Cooldown", speed = "MineLayingSpeed", rate = 10 / 3 },
+		{ name = "High-Impact Mine", cooldown = "Cooldown", speed = "MineLayingSpeed", rate = 10 / 3 },
+	}) do
+		it("limits " .. support.name .. " hit DPS and Full DPS by cooldown without exceeding throwing speed", function()
+			build.skillsTab:PasteSocketGroup("Frost Bomb 20/0  1\n" .. support.name .. " 20/0  1")
+			build.skillsTab.socketGroupList[1].includeInFullDPS = true
+			for _, case in ipairs({
+				{ recovery = 0, cooldown = 2.508 },
+				{ recovery = 100, cooldown = 1.254 },
+				{ recovery = 1000, cooldown = 0.231 },
+			}) do
+				build.configTab.input.customMods = case.recovery .. "% increased Cooldown Recovery Rate"
+				build.configTab:BuildModList()
+				runCallback("OnFrame")
+
+				local output = build.calcsTab.mainOutput
+				local expectedRate = case.recovery == 1000 and support.rate or 1 / case.cooldown
+				assert.near(case.cooldown, output[support.cooldown], 0.000001)
+				assert.near(support.rate, output[support.speed], 0.000001)
+				assert.near(expectedRate, output.Speed, 0.000001)
+				assert.near(output.AverageDamage * expectedRate, output.TotalDPS, 0.000001)
+				assert.near(output.TotalDPS, output.FullDPS, 0.000001)
+			end
+		end)
+
+		it("keeps cooldown-free " .. support.name .. " skills limited by throwing speed", function()
+			build.skillsTab:PasteSocketGroup("Fireball 20/0  1\n" .. support.name .. " 20/0  1")
+			runCallback("OnFrame")
+
+			local output = build.calcsTab.mainOutput
+			assert.is_nil(output[support.cooldown])
+			assert.near(support.rate, output.Speed, 0.000001)
+			assert.near(output.AverageDamage * support.rate, output.TotalDPS, 0.000001)
+		end)
+	end
+
+	it("preserves Lightning Spire Trap's independent hit rate", function()
+		build.skillsTab:PasteSocketGroup("Lightning Spire Trap 20/0  1")
+		runCallback("OnFrame")
+
+		local output = build.calcsTab.mainOutput
+		assert.near(8.019, output.TrapCooldown, 0.000001)
+		assert.near(1 / 0.36, output.HitSpeed, 0.000001)
+		assert.near(output.AverageDamage / 0.36, output.TotalDPS, 0.000001)
+	end)
+
+	it("preserves the cooldown cap for spells used by totems", function()
+		build.skillsTab:PasteSocketGroup("Frost Bomb 20/0  1\nSpell Totem 20/0  1")
+		runCallback("OnFrame")
+
+		local output = build.calcsTab.mainOutput
+		assert.near(2.508, output.Cooldown, 0.000001)
+		assert.near(1 / 2.508, output.Speed, 0.000001)
+		assert.near(output.AverageDamage / 2.508, output.TotalDPS, 0.000001)
+	end)
+
 	it("counts only permanent minions for Communion", function()
 		build.skillsTab:PasteSocketGroup("Fireball 20/0  1\nCommunion 3/0  1")
 		build.skillsTab:PasteSocketGroup("Summon Reaper 20/0  1")
@@ -257,6 +315,11 @@ describe("TestOffence", function()
 
 		-- Arc is pure lightning, so the player can no longer deal damage with it
 		assert.are.equals(0, build.calcsTab.calcsOutput.LightningMax)
+		local lightningBreakdown = build.calcsTab.calcsEnv.player.breakdown.Lightning
+		assert.are.equals("You can't deal Lightning damage", lightningBreakdown[1])
+		assert.are.equals(1, #lightningBreakdown.modList)
+		assert.are.equals("DealNoLightning", lightningBreakdown.modList[1].mod.name)
+		assert.matches("^Item:%d+:New Item", lightningBreakdown.modList[1].mod.source)
 	end)
 
 	it("keeps deal no non-elemental damage as its own literal", function()
@@ -352,4 +415,17 @@ describe("TestOffence", function()
 			assert.are.equals(1, build.calcsTab.mainOutput[outputName])
 		end)
 	end
+	it("uses the final totem limit when scaling area of effect", function()
+		build.skillsTab:PasteSocketGroup("Searing Bond of Detonation 20/0  1")
+		build.configTab.input.customMods = [[
+		+3 to Maximum Power Charges
+		Skills used by Totems have 10% more Area of Effect per maximum number of Summoned Totems
+		]]
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		-- 1 base totem + 6 maximum power charges, so 70% more area of effect.
+		assert.are.equals(7, build.calcsTab.mainOutput.ActiveTotemLimit)
+		assert.are.equals(1.7, build.calcsTab.mainOutput.AreaOfEffectMod)
+	end)
 end)

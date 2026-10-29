@@ -810,7 +810,7 @@ function formatNumSep(str)
 		local x, y, minus, integer, fraction = str:find("(-?)(%d+)(%.?%d*)")
 		if main.showThousandsSeparators then
 			rev1kSep = utf8.reverse(main.thousandsSeparator)
-			integer = utf8.reverse(utf8.gsub(utf8.reverse(integer), "(%d%d%d)", "%1"..rev1kSep))
+			integer = utf8.reverse((utf8.gsub(utf8.reverse(integer), "(%d%d%d)", "%1" .. rev1kSep)))
 			-- There will be leading separators if the number of digits are divisible by 3
 			-- This checks for their presence and removes them
 			-- Don't use patterns here because thousandsSeparator can be a pattern control character, and will crash if used
@@ -821,7 +821,7 @@ function formatNumSep(str)
 				end
 			end
 		else
-			integer = utf8.reverse(utf8.gsub(utf8.reverse(integer), "(%d%d%d)", "%1"))
+			integer = utf8.reverse((utf8.gsub(utf8.reverse(integer), "(%d%d%d)", "%1")))
 		end
 		return colour..minus..integer..utf8.gsub(fraction, "%.", main.decimalSeparator)
 	end)

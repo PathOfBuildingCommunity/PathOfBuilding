@@ -123,6 +123,8 @@ Can have 3 additional Enchantment Modifiers]])
 		end)
 	end)
 	describe("popup URL controls", function()
+		local tradeHelpers = require "Classes.TradeHelpers"
+		local originalEncode, encodedQuery
 		local originalCopy
 		local originalOpenURL
 		local originalFetchLeagues
@@ -135,6 +137,12 @@ Can have 3 additional Enchantment Modifiers]])
 
 		before_each(function()
 			newBuild()
+			originalEncode = tradeHelpers.B64GzipEncode
+			-- SimpleGraphic provides compression; capture the query at that boundary.
+			tradeHelpers.B64GzipEncode = function(json)
+				encodedQuery = dkjson.decode(json)
+				return urlEncode(json)
+			end
 			originalCopy = _G.Copy
 			originalOpenURL = _G.OpenURL
 			copiedUrl = nil
@@ -146,6 +154,7 @@ Can have 3 additional Enchantment Modifiers]])
 		end)
 
 		after_each(function()
+			tradeHelpers.B64GzipEncode = originalEncode
 			build.itemsTab.tradeQuery.tradeQueryRequests.FetchLeagues = originalFetchLeagues
 			_G.Copy = originalCopy
 			_G.OpenURL = originalOpenURL
@@ -166,8 +175,7 @@ Can have 3 additional Enchantment Modifiers]])
 
 		local function getQuery(controls)
 			controls.search.onClick()
-			local queryJson = urlDecode(assert(copiedUrl:match("[?&]q=(.+)$")))
-			return dkjson.decode(queryJson)
+			return encodedQuery
 		end
 
 		local function getUniqueQuery(name, baseName)
@@ -185,13 +193,13 @@ Can have 3 additional Enchantment Modifiers]])
 			controls.leagueDrop:SetSel(isValueInArray(controls.leagueDrop.list, "Standard"))
 			getQuery(controls)
 			assert.not_equal(initialUrl, copiedUrl)
-			assert.is_truthy(copiedUrl:find("/Standard?", 1, true))
+			assert.is_truthy(copiedUrl:find("/Standard/", 1, true))
 			local standardUrl = copiedUrl
 
 			controls.listedDrop:SetSel(4)
 			local query = getQuery(controls)
 			assert.not_equal(standardUrl, copiedUrl)
-			assert.equal("any", query.query.status.option)
+			assert.equal("any", query.status.option)
 		end)
 
 		it("preserves apostrophes in unique names", function()
@@ -202,15 +210,15 @@ Riveted Boots
 Implicits: 0]])
 			local controls = openPopup(item, "Boots")
 
-			assert.equal("Ralakesh's Impatience", getQuery(controls).query.name)
+			assert.equal("Ralakesh's Impatience", getQuery(controls).name)
 		end)
 
 		it("removes a trailing unique ID without removing name punctuation", function()
-			assert.equal("Uul-Netol's Embrace", getUniqueQuery("Uul-Netol's Embrace 1234", "Vaal Axe").query.name)
+			assert.equal("Uul-Netol's Embrace", getUniqueQuery("Uul-Netol's Embrace 1234", "Vaal Axe").name)
 		end)
 
 		it("trims whitespace after a unique name", function()
-			assert.equal("The Hateful Accuser", getUniqueQuery("The Hateful Accuser ", "Ghastly Eye Jewel").query.name)
+			assert.equal("The Hateful Accuser", getUniqueQuery("The Hateful Accuser ", "Ghastly Eye Jewel").name)
 		end)
 
 		it("persists league choices by name for each realm", function()
@@ -250,7 +258,7 @@ Corrupted]])
 			controls.mod1Check.state = true
 			controls.mod1Check.changeFunc()
 
-			local filter = getQuery(controls).query.stats[1].filters[1]
+			local filter = getQuery(controls).stats[1].filters[1]
 			assert.equal("explicit.stat_2422708892", filter.id)
 			assert.equal(22088, filter.value.option)
 		end)
@@ -266,7 +274,7 @@ Implicits: 0
 			controls.mod1Check.state = true
 			controls.mod1Check.changeFunc()
 
-			local value = getQuery(controls).query.stats[1].filters[1].value
+			local value = getQuery(controls).stats[1].filters[1].value
 			assert.is_nil(value.min)
 			assert.equal(-67, value.max)
 		end)
@@ -293,7 +301,7 @@ Adds 5 to 15 Fire Damage]])
 			check.state = true
 			check.changeFunc()
 
-			local countFilter = getQuery(controls).query.stats[2]
+			local countFilter = getQuery(controls).stats[2]
 			assert.equal("count", countFilter.type)
 			assert.equal(1, countFilter.value.min)
 			assert.equal(#modEntries[ambiguousIndex].tradeIds, #countFilter.filters)

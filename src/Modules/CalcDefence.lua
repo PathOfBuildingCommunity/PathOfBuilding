@@ -664,9 +664,11 @@ function calcs.defence(env, actor)
 
 	calcs.resistances(actor)
 	if env.minion and modDB:Sum("BASE", nil, "ResistanceAddedToMinions") > 0 then
-		for _, elem in ipairs(resistTypeList) do
-			local final = output[elem.."Resist"]
-			env.minion.modDB:NewMod(elem.."Resist", "BASE", m_floor(final * modDB:Sum("BASE", nil, "ResistanceAddedToMinions") / 100), "Player")
+		for _, value in ipairs(modDB:Tabulate("BASE", nil, "ResistanceAddedToMinions")) do
+			for _, elem in ipairs(resistTypeList) do
+				local final = output[elem.."Resist"]
+				env.minion.modDB:NewMod(elem.."Resist", "BASE", m_floor(final * value.value / 100), value.mod.source)
+			end
 		end
 	end
 	-- Formless Inferno
@@ -2702,10 +2704,10 @@ function calcs.buildDefenceEstimations(env, actor)
 					poolTable.EnergyShield = m_min(poolTable.EnergyShield + DamageIn.EnergyShieldWhenHit * (gainMult - 1), gainMult * output.EnergyShieldRecoveryCap)
 				end
 			end
-			if DamageIn.MissingLifeBeforeEnemyHit and poolTable.Life > 0 then
+			if (DamageIn.MissingLifeBeforeEnemyHit or 0) ~= 0 and poolTable.Life > 0 then
 				poolTable.Life = m_min(poolTable.Life + DamageIn.MissingLifeBeforeEnemyHit * ((output.LifeUnreserved or 0) - poolTable.Life) / 100, output.LifeRecoverable or 0)
 			end
-			if DamageIn.MissingManaBeforeEnemyHit and poolTable.Mana > 0 then
+			if (DamageIn.MissingManaBeforeEnemyHit or 0) ~= 0 and poolTable.Mana > 0 then
 				poolTable.Mana = m_min(poolTable.Mana + DamageIn.MissingManaBeforeEnemyHit * ((output.ManaUnreserved or 0) - poolTable.Mana) / 100, output.ManaUnreserved or 0)
 			end
 			poolTable = calcs.reducePoolsByDamage(poolTable, Damage, actor)

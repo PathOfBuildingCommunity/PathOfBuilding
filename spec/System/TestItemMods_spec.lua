@@ -7,6 +7,131 @@ describe("TetsItemMods", function()
 		-- newBuild() takes care of resetting everything in setup()
 	end)
 
+	local function createCraftedRing()
+		build.itemsTab:CreateDisplayItemFromRaw([[Rarity: Rare
+			Test Ring
+			Amethyst Ring
+			Crafted: true
+			Prefix: None
+			Prefix: None
+			Prefix: None
+			Suffix: None
+			Suffix: None
+			Suffix: None
+			Quality: 12
+			Implicits: 0]])
+		return build.itemsTab.displayItem
+	end
+
+	it("clears catalyst quality when no catalyst is selected", function()
+		local item = createCraftedRing()
+		local controls = build.itemsTab.controls
+		local catalyst = controls.displayItemCatalyst
+		local catalystQuality = controls.displayItemCatalystQualityEdit
+
+		catalyst:SetSel(2)
+		assert.are.equals(1, item.catalyst)
+		assert.are.equals(20, item.catalystQuality)
+		catalystQuality:SetText("17", true)
+		assert.are.equals(17, item.catalystQuality)
+		assert.is_truthy(item:BuildRaw():match("Catalyst: Abrasive"))
+		assert.is_truthy(item:BuildRaw():match("CatalystQuality: 17"))
+
+		catalyst:SetSel(1)
+		assert.are.equals(0, item.catalyst)
+		assert.is_nil(item.catalystQuality)
+		assert.are.equals("0", catalystQuality.buf)
+		assert.is_nil(item:BuildRaw():match("Catalyst:"))
+		assert.is_nil(item:BuildRaw():match("CatalystQuality:"))
+
+		item.catalystQuality = 20
+		build.itemsTab:SetDisplayItem(item)
+		assert.is_nil(item.catalystQuality)
+		assert.are.equals("0", catalystQuality.buf)
+		assert.is_nil(item:BuildRaw():match("CatalystQuality:"))
+	end)
+
+	for _, wording in ipairs({ "Increases", "Increase" }) do
+		it("Scornflux applies Arcane Surge cast speed to movement speed with '" .. wording .. "' wording", function()
+			build.itemsTab:CreateDisplayItemFromRaw("Scornflux\nSatin Slippers\n" .. wording .. " to Cast Speed from Arcane Surge also applies to Movement Speed")
+			build.itemsTab:AddDisplayItem()
+			runCallback("OnFrame")
+			local withoutArcaneSurge = build.calcsTab.mainOutput.MovementSpeedMod
+
+			build.configTab.input.buffArcaneSurge = true
+			build.configTab:BuildModList()
+			runCallback("OnFrame")
+			assert.are.near(withoutArcaneSurge + 0.2, build.calcsTab.mainOutput.MovementSpeedMod, 10 ^ -9)
+		end)
+	end
+
+	for _, punctuation in ipairs({ ",", "" }) do
+		it("Gamblesprint applies configured movement speed with '" .. punctuation .. "' punctuation", function()
+			build.itemsTab:CreateDisplayItemFromRaw("Gamblesprint\nHydrascale Boots\nWhen Hit, gain a random Movement Speed modifier from 40% reduced to 100% increased" .. punctuation .. " until Hit again")
+			build.itemsTab:AddDisplayItem()
+			for _, movementSpeed in ipairs({ 100, -40 }) do
+				build.configTab.input.GamblesprintMovementSpeed = movementSpeed
+				build.configTab:BuildModList()
+				runCallback("OnFrame")
+				assert.are.near(1 + movementSpeed / 100, build.calcsTab.mainOutput.MovementSpeedMod, 10 ^ -9)
+			end
+		end)
+	end
+
+	for _, wording in ipairs({ "Item Rarity", "Rarity of Items found" }) do
+		it("The Pariah grants rarity only for white sockets with '" .. wording .. "' wording", function()
+			for _, colour in ipairs({ "W", "R" }) do
+				local item = new("Item"):Item("Rarity: UNIQUE\nThe Pariah\nUnset Ring\nSockets: " .. colour .. "\nImplicits: 0\n60% increased " .. wording .. " per White Socket")
+				build.itemsTab:AddItem(item, true)
+				build.itemsTab.slots["Ring 1"]:SetSelItemId(item.id)
+				build.buildFlag = true
+				runCallback("OnFrame")
+				assert.are.equals(colour == "W" and 60 or 0, build.calcsTab.mainEnv.player.modDB:Sum("INC", nil, "LootRarity"))
+			end
+		end)
+	end
+
+	for _, wording in ipairs({ "Enemy", "Enemy Monster" }) do
+		it("Triumvirate Authority ignores physical reduction only for socketed Vaal skills with '" .. wording .. "' wording", function()
+			build.itemsTab:CreateDisplayItemFromRaw("Triumvirate Authority\nUnset Ring\nSockets: G\nHits from Socketed Vaal Skills ignore " .. wording .. " Physical Damage Reduction")
+			build.itemsTab:AddDisplayItem()
+			build.skillsTab:PasteSocketGroup("Slot: Ring 1\nVaal Blade Vortex 20/0  1\n")
+			build.skillsTab:PasteSocketGroup("Slot: Ring 1\nFireball 20/0  1\n")
+			build.skillsTab:PasteSocketGroup("Slot: Helmet\nVaal Blade Vortex 20/0  1\n")
+			runCallback("OnFrame")
+
+			local affected, unaffected = 0, 0
+			for _, skill in ipairs(build.calcsTab.mainEnv.player.activeSkillList) do
+				local expected = skill.socketGroup.slot == "Ring 1" and skill.skillTypes[SkillType.Vaal] or false
+				assert.are.equals(expected, skill.skillModList:Flag(skill.skillCfg, "IgnoreEnemyPhysicalDamageReduction") or false)
+				if expected then
+					affected = affected + 1
+				else
+					unaffected = unaffected + 1
+				end
+			end
+			assert.are.equals(1, affected)
+			assert.is_true(unaffected >= 2)
+		end)
+	end
+
+	for _, case in ipairs({
+		{ name = "current", line = "100% chance to Avoid being Chilled or Frozen if you have used a Fire Skill Recently" },
+		{ name = "legacy", line = "Cannot be Frozen or Chilled if you've used a Fire Skill Recently" },
+	}) do
+		it("Hrimnor's Resolve grants conditional chill and freeze protection with " .. case.name .. " wording", function()
+			build.itemsTab:CreateDisplayItemFromRaw("Hrimnor's Resolve\nSamnite Helmet\n" .. case.line)
+			build.itemsTab:AddDisplayItem()
+			for _, recently in ipairs({ false, true, false }) do
+				build.configTab.input.conditionUsedFireSkillRecently = recently
+				build.configTab:BuildModList()
+				runCallback("OnFrame")
+				assert.are.equals(recently and 100 or 0, build.calcsTab.mainOutput.ChillAvoidChance)
+				assert.are.equals(recently and 100 or 0, build.calcsTab.mainOutput.FreezeAvoidChance)
+			end
+		end)
+	end
+
 	it("shows versioned reusable variant groups", function()
 		build.itemsTab:CreateDisplayItemFromRaw([[
 			Rarity: Unique

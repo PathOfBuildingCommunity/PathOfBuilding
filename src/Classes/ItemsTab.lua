@@ -663,9 +663,14 @@ holding Shift will put it in the second.]])
 		 "Prismatic (Resistance)","Sinistral (Prefix)","Tempering (Defense)","Turbulent (Elemental)","Unstable (Critical)"},
 		function(index, value)
 			self.displayItem.catalyst = index - 1
-			if not self.displayItem.catalystQuality then
-				self.displayItem.catalystQuality = 20
-				self.controls.displayItemCatalystQualityEdit:SetText(self.displayItem.catalystQuality)
+			if index > 1 then
+				if not self.displayItem.catalystQuality then
+					self.displayItem.catalystQuality = 20
+					self.controls.displayItemCatalystQualityEdit:SetText(self.displayItem.catalystQuality)
+				end
+			else
+				self.displayItem.catalystQuality = nil
+				self.controls.displayItemCatalystQualityEdit:SetText(0)
 			end
 			if self.displayItem.crafted then
 				for i = 1, self.displayItem.affixLimit do
@@ -1009,9 +1014,36 @@ holding Shift will put it in the second.]])
 		return self.displayItem and (self.displayItem:GetPrimarySlot() == "Weapon 1" or self.displayItem.type == "Shield" or self.displayItem.canHaveShieldCrucibleTree)
 	end
 
+	-- Section: Cluster jewel notable positions
+	self.controls.displayItemSectionClusterJewelPositions = new("Control"):Control({"TOPLEFT",self.controls.displayItemSectionCustom,"BOTTOMLEFT"}, {0, 0, 0, function()
+		if not self.controls.displayItemClusterJewelPositions:IsShown() then
+			return 0
+		end
+		return 24 + #self.clusterJewelNotablePositions * 18
+	end})
+	self.controls.displayItemClusterJewelPositions = new("LabelControl"):LabelControl({"TOPLEFT",self.controls.displayItemSectionClusterJewelPositions,"TOPLEFT"}, {0, 0, 0, 14}, "^7Notable positions (relative to entrance):")
+	self.controls.displayItemClusterJewelPositions.shown = function()
+		local item = self.displayItem
+		return item and item.clusterJewel and (item.clusterJewel.size == "Large" and item.crafted or item.title == "Megalomaniac")
+			and #(self.clusterJewelNotablePositions or { }) > 0
+	end
+	for i = 1, 4 do
+		self.controls["displayItemClusterJewelPosition"..i] = new("LabelControl"):LabelControl({"TOPLEFT",self.controls.displayItemClusterJewelPositions,"TOPLEFT"}, {0, i * 18, 0, 14}, function()
+			local notable = self.clusterJewelNotablePositions and self.clusterJewelNotablePositions[i]
+			if not notable then
+				return ""
+			end
+			local color = notable.position == "Front" and colorCodes.POSITIVE or colorCodes.NORMAL
+			return color..notable.position..": ^7"..notable.name
+		end)
+		self.controls["displayItemClusterJewelPosition"..i].shown = function()
+			return self.controls.displayItemClusterJewelPositions:IsShown() and self.clusterJewelNotablePositions[i] ~= nil
+		end
+	end
+
 	-- Section: Modifier Range
 	local labelFontSize = 14
-	self.controls.displayItemSectionRange = new("Control"):Control({ "TOPLEFT", self.controls.displayItemSectionCustom, "BOTTOMLEFT" }, { 0, 0, 0, function()
+	self.controls.displayItemSectionRange = new("Control"):Control({ "TOPLEFT", self.controls.displayItemSectionClusterJewelPositions, "BOTTOMLEFT" }, { 0, 0, 0, function()
 		if not self.displayItem or not self.displayItem.rangeLineList[1] then
 			return 0
 		end
@@ -1218,6 +1250,11 @@ function ItemsTabClass:Load(xml, dbFileName)
 	self.itemSets = { }
 	self.itemSetOrderList = { }
 	self.tradeQuery.statSortSelectionList = { }
+	-- Enchants from the base data are only added to an item text without enchants and were not in the saved text,
+	-- so saved ModRange ids skip the whole list
+	local function countSavedModLines(modLines)
+		return modLines[1] and modLines[1].addedFromBase and 0 or #modLines
+	end
 	for _, node in ipairs(xml) do
 		if node.elem == "Item" then
 			local item = new("Item"):Item("")
@@ -1243,10 +1280,21 @@ function ItemsTabClass:Load(xml, dbFileName)
 				item.hasAltVariant5 = true
 				item.variantAlt5 = tonumber(node.attrib.variantAlt5)
 			end
+			local modRangeCount = 0
+			for _, child in ipairs(node) do
+				if type(child) == "table" and child.elem == "ModRange" then
+					modRangeCount = modRangeCount + 1
+				end
+			end
+			local ignoreModRanges
 			for _, child in ipairs(node) do
 				if type(child) == "string" then
 					item:ParseRaw(child)
-				elseif child.elem == "ModRange" then
+					-- Save writes at most one ModRange per mod line. More entries than lines means some saved lines are
+					-- no longer mod lines (e.g. Intangibility before 2.67), so the ids no longer match their lines and the
+					-- {range:} tags of the item text are kept instead
+					ignoreModRanges = modRangeCount > countSavedModLines(item.enchantModLines) + #item.scourgeModLines + #item.implicitModLines + #item.explicitModLines + #item.crucibleModLines
+				elseif child.elem == "ModRange" and not ignoreModRanges then
 					local id = tonumber(child.attrib.id) or 0
 					local range = tonumber(child.attrib.range) or 1
 					-- This is garbage, but needed due to change to separate mod line lists
@@ -1254,11 +1302,15 @@ function ItemsTabClass:Load(xml, dbFileName)
 					-- Maybe it is? Maybe it isn't? Maybe up is down? Maybe good is bad? AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 					-- Sorry, cluster jewels are making me crazy(-ier)
 					for _, list in ipairs{item.buffModLines, item.enchantModLines, item.scourgeModLines, item.implicitModLines, item.explicitModLines, item.crucibleModLines} do
-						if id <= #list then
-							list[id].range = range
+						local savedLineCount = countSavedModLines(list)
+						if id <= savedLineCount then
+							-- Versions that could not parse "value(min-max)" lines saved them as is with a default ModRange
+							if not list[id].rangeFromValue then
+								list[id].range = range
+							end
 							break
 						end
-						id = id - #list
+						id = id - savedLineCount
 					end
 				end
 			end
@@ -1384,7 +1436,8 @@ function ItemsTabClass:Save(xml)
 	for _, itemSetId in ipairs(self.itemSetOrderList) do
 		local itemSet = self.itemSets[itemSetId]
 		local child = { elem = "ItemSet", attrib = { id = tostring(itemSetId), title = itemSet.title, useSecondWeaponSet = tostring(itemSet.useSecondWeaponSet) } }
-		for slotName, slot in pairs(self.slots) do
+		for _, slot in ipairs(self.orderedSlots) do
+			local slotName = slot.slotName
 			if not slot.nodeId then
 				t_insert(child, { elem = "Slot", attrib = { name = slotName, itemId = tostring(itemSet[slotName].selItemId), itemPbURL = itemSet[slotName].pbURL or "", active = itemSet[slotName].active and "true" }})
 			else
@@ -2033,6 +2086,9 @@ end
 -- Sets the display item to the given item
 function ItemsTabClass:SetDisplayItem(item)
 	self.displayItem = item
+	if item and not (item.catalyst and item.catalyst > 0) then
+		item.catalystQuality = nil
+	end
 	if item then
 		-- Update the display item controls
 		self:UpdateDisplayItemTooltip()
@@ -2115,6 +2171,7 @@ function ItemsTabClass:SetDisplayItem(item)
 end
 
 function ItemsTabClass:UpdateDisplayItemTooltip()
+	self.clusterJewelNotablePositions = itemLib.getClusterJewelNotablePositions(self.displayItem, self.build.data.clusterJewels.notableSortOrder)
 	self.displayItemTooltip:Clear()
 	self:AddItemTooltip(self.displayItemTooltip, self.displayItem)
 	self.displayItemTooltip.center = true
@@ -3136,8 +3193,9 @@ function ItemsTabClass:CorruptDisplayItem()
 		end
 	end
 	local isGlimpse = self.displayItem.title and self.displayItem.title:lower():find("glimpse of chaos") and self.displayItem.isUnique
-	if isGlimpse then
-		table.insert(sourceList, 1, "Glimpse of Chaos")
+	if self.displayItem.base.type == "Helmet" then
+		-- Glimpse of Chaos can transform into another helmet while retaining its special implicits.
+		table.insert(sourceList, isGlimpse and 1 or #sourceList + 1, "Glimpse of Chaos")
 	end
 	local currentModType = sourceList[1]
 	-- the amount of controls created
@@ -3148,6 +3206,7 @@ function ItemsTabClass:CorruptDisplayItem()
 		end
 		implicitList[modType] = {}
 		if modType == "Glimpse of Chaos" then
+			-- Pool and roll ranges: https://poedb.tw/us/Glimpse_of_Chaos#GlimpseofChaosMods
 			for modId, mod in pairs(data.itemMods.ItemExclusive) do
 				if modId:find("^UniqueSpecialCorruption") then
 					t_insert(implicitList[modType], { mod = mod })
@@ -3425,6 +3484,10 @@ function ItemsTabClass:CorruptDisplayItem()
 		"^7Source:")
 	controls.source = new("DropDownControl"):DropDownControl({ "TOPLEFT", nil, "TOPLEFT" }, { 100, 30, 150, 18 },
 		sourceList, function(index, value)
+			-- Clear selections without callbacks before the source changes; Implicit #5 has no Scourge pair.
+			for i = 1, maxImplicitNum do
+				controls[string.format("implicit%d", i)]:SetSel(1, true)
+			end
 			if value == "Scourge" then
 				currentModType = "ScourgeUpside"
 				buildImplicitList("ScourgeUpside")
@@ -3444,9 +3507,6 @@ function ItemsTabClass:CorruptDisplayItem()
 				applySort(controls.sort.list[controls.sort.selIndex].stat)
 			else
 				buildCorruptLists(currentModType)
-			end
-			for i = 1, maxImplicitNum do
-				controls[string.format("implicit%d", i)]:SetSel(1)
 			end
 		end)
 	controls.source.enabled = #sourceList > 1

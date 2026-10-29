@@ -2821,6 +2821,7 @@ skills["ColdSnap"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
+		duration = true,
 	},
 	baseMods = {
 		skill("dotIsArea", true),
@@ -13455,6 +13456,9 @@ skills["ManaInfusedStaff"] = {
 		spell = true,
 		area = true,
 		duration = true,
+	},
+	baseMods = {
+		skill("requiresManaReservation", true),
 	},
 	qualityStats = {
 		{ "base_skill_effect_duration", 2.5 },

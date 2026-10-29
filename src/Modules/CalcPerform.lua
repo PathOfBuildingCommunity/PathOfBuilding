@@ -643,7 +643,7 @@ local function doActorMisc(env, actor)
 
 	-- Add misc buffs/debuffs
 	if env.mode_combat then
-		if env.player.mainSkill.baseSkillModList:Flag(nil, "Cruelty") then
+		if env.player.mainSkill.baseSkillModList:Flag(env.player.mainSkill.skillCfg, "Cruelty") then
 			modDB.multipliers["Cruelty"] = modDB:Override(nil, "Cruelty") or 40
 		end
 		-- Minimum Rage
@@ -661,7 +661,7 @@ local function doActorMisc(env, actor)
 			local skillCfg = actor.mainSkill and actor.mainSkill.skillCfg
 			local maxStacks = m_max(modDB:Override(nil, "MaximumFortification") or modDB:Sum("BASE", skillCfg, "MaximumFortification"), alliedFortify)
 			local minStacks = m_min(modDB:Flag(nil, "Condition:HaveMaxFortification") and maxStacks or modDB:Sum("BASE", nil, "MinimumFortification"), maxStacks)
-			local stacks = m_min(modDB:Override(nil, "FortificationStacks") or (minStacks > 0 and minStacks) or maxStacks, maxStacks)
+			local stacks = m_min(modDB:Override(nil, "FortificationStacks") or maxStacks, maxStacks)
 			local increasedDuration = skillModList:Sum("INC", nil, "FortifyDuration")
 			output.MaximumFortification = maxStacks
 			output.MinimumFortification = minStacks
@@ -1770,7 +1770,20 @@ function calcs.perform(env, skipEHP)
 			end
 		end
 
+		local slotIndex = env.itemSlotIndex or { }
+		local orderedFlasks = { }
 		for item in pairs(flasks) do
+			t_insert(orderedFlasks, item)
+		end
+		table.sort(orderedFlasks, function(a, b)
+			local posA = slotIndex[a] or 0
+			local posB = slotIndex[b] or 0
+			if posA ~= posB then
+				return posA < posB
+			end
+			return (a.id or 0) < (b.id or 0)
+		end)
+		for _, item in ipairs(orderedFlasks) do
 			flaskBuffsPerBase[item.baseName] = flaskBuffsPerBase[item.baseName] or {}
 			flaskBuffsPerBaseNonPlayer[item.baseName] = flaskBuffsPerBaseNonPlayer[item.baseName] or {}
 			local instantPerc = getFlaskInstantRecovery(item)
@@ -1902,7 +1915,20 @@ function calcs.perform(env, skipEHP)
 				mergeBuff(srcList, tinctureBuffsPerBase[item.baseName], key)
 			end
 		end
+		local slotIndex = env.itemSlotIndex or { }
+		local orderedTinctures = { }
 		for item in pairs(tinctures) do
+			t_insert(orderedTinctures, item)
+		end
+		table.sort(orderedTinctures, function(a, b)
+			local posA = slotIndex[a] or 0
+			local posB = slotIndex[b] or 0
+			if posA ~= posB then
+				return posA < posB
+			end
+			return (a.id or 0) < (b.id or 0)
+		end)
+		for _, item in ipairs(orderedTinctures) do
 			if tinctureLimit <= 0 then
 				break
 			end
@@ -1976,6 +2002,10 @@ function calcs.perform(env, skipEHP)
 		breakdown.ManaReserved = { reservations = { } }
 	end
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
+		if activeSkill.skillData.requiresManaReservation and output.Mana == 0 then
+			activeSkill.skillFlags.disable = true
+			activeSkill.disableReason = "This skill requires reserving Mana"
+		end
 		if (activeSkill.skillTypes[SkillType.HasReservation] or activeSkill.skillData.triggeredByAutoexertion ) and not activeSkill.skillTypes[SkillType.ReservationBecomesCost] and not activeSkill.skillFlags.disable then
 			local skillModList = activeSkill.skillModList
 			local skillCfg = activeSkill.skillCfg
@@ -1991,7 +2021,7 @@ function calcs.perform(env, skipEHP)
 				pool.Life.baseFlat = skillModList:Sum("BASE", skillCfg, "LifeCostBase") + (activeSkill.activeEffect.grantedEffectLevel.cost.Life or 0)
 			end
 			pool.Life.basePercent = activeSkill.skillData.lifeReservationPercent or activeSkill.activeEffect.grantedEffectLevel.lifeReservationPercent or 0
-			if skillModList:Flag(skillCfg, "BloodMagicReserved") and not activeSkill.skillData.ManaReservationPercentForced then
+			if skillModList:Flag(skillCfg, "BloodMagicReserved") and not activeSkill.skillData.requiresManaReservation then
 				pool.Life.baseFlat = pool.Life.baseFlat + pool.Mana.baseFlat
 				pool.Mana.baseFlat = 0
 				activeSkill.skillData["LifeReservationFlatForced"] = activeSkill.skillData["ManaReservationFlatForced"]
@@ -2080,10 +2110,6 @@ function calcs.perform(env, skipEHP)
 				if skillModList:Flag(skillCfg, "HasUncancellableReservation") then
 					env.player["uncancellable_"..name.."Reservation"] = env.player["uncancellable_"..name.."Reservation"] + values.reservedPercent
 				end
-			end
-			if activeSkill.skillData.ManaReservationPercentForced and activeSkill.skillData.ManaReservedBase == 0 then
-				activeSkill.skillFlags.disable = true
-				activeSkill.disableReason = "This skill requires reserving Mana"
 			end
 		end
 	end
@@ -3795,8 +3821,8 @@ function calcs.perform(env, skipEHP)
 	end
 
 	calcs.triggers(env, env.player)
-	if not calcs.mirages(env) then
-		calcs.offence(env, env.player, env.player.mainSkill)
+	if not calcs.mirages(env) and calcs.offence(env, env.player, env.player.mainSkill) == false then
+		return false -- Rejected trigger-source probes are never cached
 	end
 
 	if env.minion then
@@ -3940,19 +3966,22 @@ function calcs.perform(env, skipEHP)
 			if mainSkill.activeEffect.level then
 				local baseLevel = mainSkill.skillModList:Sum("BASE", mainSkill.skillCfg, "GemLevel")
 				local totalItemLevel = mainSkill.skillModList:Sum("BASE", mainSkill.skillCfg, "GemItemLevel")
+				local totalGlobalLevel = mainSkill.skillModList:Sum("BASE", mainSkill.skillCfg, "GemGlobalLevel")
 				local totalSupportLevel = mainSkill.skillModList:Sum("BASE", mainSkill.skillCfg, "GemSupportLevel")
 
 				output.GemHasLevel = true
-				output.GemLevel = baseLevel + totalSupportLevel + totalItemLevel
+				output.GemLevel = mainSkill.activeEffect.level
 
 				if env.player.breakdown then
 					env.player.breakdown.GemLevel = {}
 					t_insert(env.player.breakdown.GemLevel, s_format("%d ^8(level from gem)", baseLevel))
-					if totalSupportLevel > 0 then
-						t_insert(env.player.breakdown.GemLevel, s_format("+ %d ^8(level from support)", totalSupportLevel))
+					for _, source in ipairs({ { totalItemLevel, "items" }, { totalGlobalLevel, "global modifiers" }, { totalSupportLevel, "support" } }) do
+						if source[1] ~= 0 then
+							t_insert(env.player.breakdown.GemLevel, s_format("%s %d ^8(level from %s)", source[1] > 0 and "+" or "-", math.abs(source[1]), source[2]))
+						end
 					end
-					if totalItemLevel > 0 then
-						t_insert(env.player.breakdown.GemLevel, s_format("+ %d ^8(level from items)", totalItemLevel))
+					if output.GemLevel ~= baseLevel + totalItemLevel + totalGlobalLevel + totalSupportLevel then
+						t_insert(env.player.breakdown.GemLevel, s_format("^8Limited to Level %d", output.GemLevel))
 					end
 					t_insert(env.player.breakdown.GemLevel, s_format("= %d", output.GemLevel))
 				end
@@ -3962,23 +3991,20 @@ function calcs.perform(env, skipEHP)
 			if mainSkill.activeEffect.quality then
 				local baseQuality = mainSkill.skillModList:Sum("BASE", mainSkill.skillCfg, "GemQuality")
 				local totalItemQuality = mainSkill.skillModList:Sum("BASE", mainSkill.skillCfg, "GemItemQuality")
+				local totalGlobalQuality = mainSkill.skillModList:Sum("BASE", mainSkill.skillCfg, "GemGlobalQuality")
 				local totalSupportQuality = mainSkill.skillModList:Sum("BASE", mainSkill.skillCfg, "GemSupportQuality")
 				local socketQuality = mainSkill.skillModList:Sum("BASE", mainSkill.skillCfg, "GemSocketQuality")
 
 				output.GemHasQuality = true
-				output.GemQuality = baseQuality + totalSupportQuality + totalItemQuality + socketQuality
+				output.GemQuality = baseQuality + totalSupportQuality + totalItemQuality + totalGlobalQuality + socketQuality
 
 				if env.player.breakdown then
 					env.player.breakdown.GemQuality = {}
 					t_insert(env.player.breakdown.GemQuality, s_format("%d ^8(quality from gem)", baseQuality))
-					if totalSupportQuality > 0 then
-						t_insert(env.player.breakdown.GemQuality, s_format("+ %d ^8(quality from support)", totalSupportQuality))
-					end
-					if totalItemQuality > 0 then
-						t_insert(env.player.breakdown.GemQuality, s_format("+ %d ^8(quality from items)", totalItemQuality))
-					end
-					if socketQuality > 0 then
-						t_insert(env.player.breakdown.GemQuality, s_format("+ %d ^8(quality from socket)", socketQuality))
+					for _, source in ipairs({ { totalItemQuality, "items" }, { totalGlobalQuality, "global modifiers" }, { totalSupportQuality, "support" }, { socketQuality, "socket colour" } }) do
+						if source[1] ~= 0 then
+							t_insert(env.player.breakdown.GemQuality, s_format("%s %d ^8(quality from %s)", source[1] > 0 and "+" or "-", math.abs(source[1]), source[2]))
+						end
 					end
 					t_insert(env.player.breakdown.GemQuality, s_format("= %d", output.GemQuality))
 				end

@@ -501,6 +501,9 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 	-- assume an item to be an advanced copy format if either has mod roll information, a modifier
 	-- line with a range, or advanced copy lines
 	self.advancedCopy = false
+	-- Only in-game advanced copy text (with "{ ... }" modifier headers) is re-sorted into stat order.
+	-- Text written by PoB keeps its line order, which the ModRange entries of saved builds refer to.
+	local hasModifierHeaders = false
 	self.modMagnitudeMods = {}
 	local implicitLines = 0
 	self.variantList = nil
@@ -574,6 +577,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 		elseif line:match("^{ ") then
 			-- We're parsing advanced copy/paste format
 			self.advancedCopy = true
+			hasModifierHeaders = true
 			linePrefix = ""
 			linePostfix = ""
 			self.crafted = true
@@ -1181,6 +1185,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 						line = advancedCopyLine:gsub("(%-?%d+%.?%d*)%(%-?%d+%.?%d*%-%-?%d+%.?%d*%)", "%1")
 					elseif bestPrecisionRange <= 1 and bestPrecisionRange >= 0 then
 						modLine.range = bestPrecisionRange
+						modLine.rangeFromValue = true
 					end
 				end
 				local rangedLine = itemLib.applyRange(line, 1, catalystScalar, modLine.corruptedRange)
@@ -1357,7 +1362,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 		::continue::
 		l = l + 1
 	end
-	if self.advancedCopy and (self.rarity == "UNIQUE" or self.rarity == "RELIC") then
+	if hasModifierHeaders and (self.rarity == "UNIQUE" or self.rarity == "RELIC") then
 		if not uniqueModStatOrder then
 			uniqueModStatOrder = { exact = { }, normalised = { } }
 			for _, mod in pairs(data.itemMods.ItemExclusive) do
@@ -1468,7 +1473,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 			end
 		end
 	end
-	if self.advancedCopy and #self.explicitModLines > 1 then
+	if hasModifierHeaders and #self.explicitModLines > 1 then
 		sortCraftedModLines(self.explicitModLines)
 	end
 	self.affixLimit = 0
@@ -1618,18 +1623,28 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 		end
 	end
 	if self.base and self.base.enchant and #self.enchantModLines == 0 then
+		-- Items saved before their base gained this enchant carry it as an implicit (Black Maw Talisman)
+		local activeImplicitLines = { }
+		for _, modLine in ipairs(self.implicitModLines) do
+			if self:CheckModLineVariant(modLine) then
+				activeImplicitLines[modLine.line] = true
+			end
+		end
 		local enchantIndex = 1
 		for line in self.base.enchant:gmatch("[^\n]+") do
-			local modList, extra = modLib.parseMod(line)
-			t_insert(self.enchantModLines, {
-				line = line,
-				crafted = true,
-				implicit = true,
-				enchant = true,
-				extra = extra,
-				modList = modList or { },
-				modTags = self.base.enchantModTypes and self.base.enchantModTypes[enchantIndex] or { },
-			})
+			if not activeImplicitLines[line] then
+				local modList, extra = modLib.parseMod(line)
+				t_insert(self.enchantModLines, {
+					line = line,
+					crafted = true,
+					implicit = true,
+					enchant = true,
+					addedFromBase = true,
+					extra = extra,
+					modList = modList or { },
+					modTags = self.base.enchantModTypes and self.base.enchantModTypes[enchantIndex] or { },
+				})
+			end
 			enchantIndex = enchantIndex + 1
 		end
 	end
