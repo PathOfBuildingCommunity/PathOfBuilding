@@ -85,6 +85,7 @@ function SkillsTabClass:SkillsTab(build)
 	self:Control()
 
 	self.build = build
+	self.nextMinionSourceId = 1
 
 	self.socketGroupList = { }
 
@@ -460,6 +461,8 @@ function SkillsTabClass:LoadSkill(node, skillSetId)
 
 	for _, child in ipairs(node) do
 		local gemInstance = { }
+		gemInstance.minionSourceId = tonumber(child.attrib.minionSourceId)
+		self.nextMinionSourceId = m_max(self.nextMinionSourceId, (gemInstance.minionSourceId or 0) + 1)
 		gemInstance.nameSpec = sanitiseText(child.attrib.nameSpec or "")
 		if child.attrib.gemId then
 			local gemData
@@ -521,6 +524,7 @@ function SkillsTabClass:LoadSkill(node, skillSetId)
 end
 
 function SkillsTabClass:Load(xml, fileName)
+	self.nextMinionSourceId = tonumber(xml.attrib.nextMinionSourceId) or 1
 	self.activeSkillSetId = 0
 	self.skillSets = { }
 	self.skillSetOrderList = { }
@@ -572,6 +576,7 @@ end
 
 function SkillsTabClass:Save(xml)
 	xml.attrib = {
+		nextMinionSourceId = tostring(self.nextMinionSourceId),
 		activeSkillSet = tostring(self.activeSkillSetId),
 		defaultGemLevel = self.defaultGemLevel,
 		defaultGemQuality = tostring(self.defaultGemQuality),
@@ -599,6 +604,7 @@ function SkillsTabClass:Save(xml)
 			} }
 			for _, gemInstance in ipairs(socketGroup.gemList) do
 				t_insert(node, { elem = "Gem", attrib = {
+					minionSourceId = gemInstance.minionSourceId and tostring(gemInstance.minionSourceId),
 					nameSpec = gemInstance.nameSpec,
 					skillId = gemInstance.skillId,
 					gemId = gemInstance.gemData and gemInstance.gemData.gameId,
@@ -1156,6 +1162,15 @@ function SkillsTabClass:ProcessGemLevel(gemData, imbued)
 	end
 end
 
+-- Allocate once and preserve through reordering, undo and build saves.
+function SkillsTabClass:GetMinionSourceId(gemInstance)
+	if not gemInstance.minionSourceId then
+		gemInstance.minionSourceId = self.nextMinionSourceId
+		self.nextMinionSourceId = self.nextMinionSourceId + 1
+	end
+	return gemInstance.minionSourceId
+end
+
 -- Processes the given socket group, filling in information that will be used for display or calculations
 ---@param socketGroup table
 function SkillsTabClass:ProcessSocketGroup(socketGroup)
@@ -1209,6 +1224,9 @@ function SkillsTabClass:ProcessSocketGroup(socketGroup)
 		if gemInstance.gemData or gemInstance.grantedEffect then
 			gemInstance.new = nil
 			local grantedEffect = gemInstance.grantedEffect or gemInstance.gemData.grantedEffect
+			if grantedEffect.skillTypes and grantedEffect.skillTypes[SkillType.Minion] then
+				self:GetMinionSourceId(gemInstance)
+			end
 			if grantedEffect.color == 1 then
 				gemInstance.color = colorCodes.STRENGTH
 			elseif grantedEffect.color == 2 then
