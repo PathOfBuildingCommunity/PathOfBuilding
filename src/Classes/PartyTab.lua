@@ -195,10 +195,10 @@ function PartyTabClass:PartyTab(build)
 		-- Parse the XML
 		local dbXML, errMsg = common.xml.ParseXML(self.importCodeXML)
 		if not dbXML then
-			launch:ShowErrMsg("^1Error loading '%s': %s", fileName, errMsg)
+			launch:ShowErrMsg("^1Error loading import code: %s", errMsg)
 			return
 		elseif dbXML[1].elem ~= "PathOfBuilding" then
-			launch:ShowErrMsg("^1Error parsing '%s': 'PathOfBuilding' root element missing", fileName)
+			launch:ShowErrMsg("^1Error parsing import code: 'PathOfBuilding' root element missing")
 			return
 		end
 
@@ -916,8 +916,8 @@ function PartyTabClass:ParseBuffs(list, buf, buffType, label)
 					end
 				end
 				if list["AuraDebuff"] and list["AuraDebuff"]["Vaal"] then
-					if not list["Aura"] or not list["Aura"]["Vaal"] or not list["Aura"]["Vaal"][aura] then
-						for aura, auraMod in pairs(list["AuraDebuff"]["Vaal"]) do
+					for aura, auraMod in pairs(list["AuraDebuff"]["Vaal"]) do
+						if not list["Aura"] or not list["Aura"]["Vaal"] or not list["Aura"]["Vaal"][aura] then
 							t_insert(labelList, aura..": "..auraMod.effectMult.."%\n")
 						end
 					end

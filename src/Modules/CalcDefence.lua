@@ -1603,7 +1603,7 @@ function calcs.defence(env, actor)
 		-- Foulborn Ancestral Vision
 		modDB:NewMod("ArmourDefense", "MAX", tonumber(spellSuppressionAppliesToChanceToDefendWithArmourPercentArmour) - 100, "Chance to Defend from Spell Suppression: Max Calc", { type = "Condition", var = "ArmourMax" })
 		modDB:NewMod("ArmourDefense", "MAX", math.min((spellSuppressionAppliesToChanceToDefendWithArmourPercent * spellSuppressionChance) / 100, 1.0) * (tonumber(spellSuppressionAppliesToChanceToDefendWithArmourPercentArmour) - 100), "Chance to Defend from Spell Suppression: Average Calc", { type = "Condition", var = "ArmourAvg" })
-		modDB:NewMod("ArmourDefense", "MAX", math.min(math.floor((spellSuppressionAppliesToChanceToDefendWithArmourPercent * spellSuppressionChance) / 100), 1.0) * (tonumber(spellSuppressionAppliesToChanceToDefendWithArmourPercentArmour) - 100), modSource or "Chance to Defend from Spell Suppression: Min Calc", { type = "Condition", var = "ArmourMax", neg = true }, { type = "Condition", var = "ArmourAvg", neg = true })
+		modDB:NewMod("ArmourDefense", "MAX", math.min(math.floor((spellSuppressionAppliesToChanceToDefendWithArmourPercent * spellSuppressionChance) / 100), 1.0) * (tonumber(spellSuppressionAppliesToChanceToDefendWithArmourPercentArmour) - 100), "Chance to Defend from Spell Suppression: Min Calc", { type = "Condition", var = "ArmourMax", neg = true }, { type = "Condition", var = "ArmourAvg", neg = true })
 	end
 	output.ArmourDefense = (modDB:Max(nil, "ArmourDefense") or 0) / 100
 	output.RawArmourDefense = output.ArmourDefense > 0 and ((1 + output.ArmourDefense) * 100) or nil

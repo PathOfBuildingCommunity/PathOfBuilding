@@ -27,12 +27,37 @@ local conditionName = setmetatable({ }, { __index = function(t, var)
 	return t[var]
 end })
 
--- TODO: very incomplete
 ---@class ModCfg
----@field flags number? bit mask
----@field keywordFlags number?
+---@field flags integer? bit mask
+---@field keywordFlags integer?
 ---@field skillName string?
+---@field summonSkillName string?
+---@field skillGem any?
+---@field skillGrantedEffect any?
+---@field skillPart integer?
+---@field skillTypes table?
+---@field skillCond table<string, boolean>?
+---@field skillDist number?
+---@field slotName string?
+---@field socketColor any?
+---@field socketNum integer?
 ---@field source string?
+---@field actor string?
+---@field skillStats table<string, number>?
+---@field baseFlags table?
+---@field dexterityGems integer?
+---@field intelligenceGems integer?
+---@field strengthGems integer?
+---@field item Item?
+
+---@class SkillCfg: ModCfg
+---@field flags integer
+---@field keywordFlags integer
+---@field skillName string
+---@field skillGrantedEffect any
+---@field skillPart integer
+---@field skillTypes table
+---@field skillCond table<string, boolean>
 
 ---@class ModStore
 local ModStoreClass = newClass("ModStore")
