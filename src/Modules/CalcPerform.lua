@@ -643,9 +643,7 @@ local function doActorMisc(env, actor)
 
 	-- Add misc buffs/debuffs
 	if env.mode_combat then
-		-- Totems, Traps and Mines cannot gain or grant Cruelty
-		local mainSkillFlags = env.player.mainSkill.skillFlags
-		if env.player.mainSkill.baseSkillModList:Flag(nil, "Cruelty") and not mainSkillFlags.totem and not mainSkillFlags.trap and not mainSkillFlags.mine then
+		if env.player.mainSkill.baseSkillModList:Flag(env.player.mainSkill.skillCfg, "Cruelty") then
 			modDB.multipliers["Cruelty"] = modDB:Override(nil, "Cruelty") or 40
 		end
 		-- Minimum Rage

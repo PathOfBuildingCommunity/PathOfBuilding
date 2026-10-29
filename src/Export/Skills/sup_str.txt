@@ -224,7 +224,7 @@ return function(skills, mod, flag, skill)
 			mod("Damage", "MORE", 1, ModFlag.Dot, 0, { type = "Multiplier", var = "Cruelty" }),
 		},
 	},
-#baseMod flag("Cruelty")
+#baseMod flag("Cruelty", { type = "SkillType", skillTypeList = { SkillType.SummonsTotem, SkillType.Trapped, SkillType.RemoteMined }, neg = true })
 #mods
 
 #skill SupportCrystalfall
