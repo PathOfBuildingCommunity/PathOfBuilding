@@ -44,20 +44,15 @@ end
 function PopupDialogClass:Draw(viewPort)
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()
+	local colors = ui.colors
 	-- Draw dialog background
-	SetDrawColor(0.8, 0.8, 0.8)
-	DrawImage(nil, x, y, width, height)
-	SetDrawColor(0.1, 0.1, 0.1)
-	DrawImage(nil, x + 2, y + 2, width - 4, height - 4)
+	ui.DrawBox(x, y, width, height, ui.radiusLarge, colors.borderHover, colors.popover)
 	-- Draw dialog title box
 	local title = self:GetProperty("title")
 	local titleWidth = DrawStringWidth(16, "VAR", title)
 	local titleX = x + m_floor((width - titleWidth - 8) / 2)
-	SetDrawColor(1, 1, 1)
-	DrawImage(nil, titleX, y - 10, titleWidth + 8, 24)
-	SetDrawColor(0, 0, 0)
-	DrawImage(nil, titleX + 2, y - 8, titleWidth + 4, 20)
-	SetDrawColor(1, 1, 1)
+	ui.DrawBox(titleX - 4, y - 10, titleWidth + 16, 24, ui.radius, colors.borderHover, colors.popover)
+	ui.SetColor(colors.text)
 	DrawString(titleX + 4, y - 7, "LEFT", 16, "VAR", title)
 	if self.scrollBarFunc then
 		self.scrollBarFunc()

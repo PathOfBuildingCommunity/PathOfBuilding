@@ -3,6 +3,10 @@
 -- Class: Text List
 -- Simple list control for displaying a block of text
 --
+-- A line's height doubles as its font size, so grouped lists pad every row to buy the text some
+-- breathing room without inflating it
+local rowPad = 6
+
 ---@class TextListControl: Control, ControlHost
 local TextListClass = newClass("TextListControl", "Control", "ControlHost")
 
@@ -20,6 +24,59 @@ function TextListClass:TextListControl(anchor, rect, columns, list, sectionHeigh
 	return self
 end
 
+---Height a line occupies, which is its font size plus the padding grouped lists add. Headers take
+---double, to hold the rule under them clear of the card that follows.
+function TextListClass:GetLineHeight(lineInfo)
+	if not self.grouped then
+		return lineInfo.height
+	end
+	return lineInfo.height + (lineInfo.header and rowPad * 2 or rowPad)
+end
+
+-- Banding for lists that arrive as one long run of lines broken up by blank spacers, which is
+-- hard to read at the length the side bar stat list reaches. Each run of lines between spacers
+-- becomes a card, its rows divided by hairlines, and any line flagged as a header gets a rule
+-- under it. Opt in with control.grouped, since the changelog and help lists want the plain
+-- treatment.
+function TextListClass:DrawGroups(contentWidth, offset)
+	local colors = ui.colors
+	-- Cards first, so the dividers land on top of them
+	local lineY = -offset
+	local groupStart = nil
+	local function endGroup(endY)
+		if groupStart and endY > groupStart then
+			ui.SetColor(colors.surface)
+			ui.DrawRect(0, groupStart - 2, contentWidth, endY - groupStart + 4, ui.radiusLarge)
+		end
+		groupStart = nil
+	end
+	for _, lineInfo in ipairs(self.list) do
+		if lineInfo.header or not lineInfo[1] then
+			endGroup(lineY)
+		else
+			groupStart = groupStart or lineY
+		end
+		lineY = lineY + self:GetLineHeight(lineInfo)
+	end
+	endGroup(lineY)
+	-- Rule under each header, hairline between the rows sharing a card
+	lineY = -offset
+	for index, lineInfo in ipairs(self.list) do
+		local lineHeight = self:GetLineHeight(lineInfo)
+		if lineInfo.header then
+			ui.SetColor(colors.border)
+			DrawImage(nil, 0, lineY + lineInfo.height + rowPad, contentWidth, 1)
+		elseif lineInfo[1] then
+			local nextLine = self.list[index + 1]
+			if nextLine and nextLine[1] and not nextLine.header then
+				ui.SetColor(colors.border, 0.45)
+				DrawImage(nil, 8, lineY + lineHeight - 1, contentWidth - 16, 1)
+			end
+		end
+		lineY = lineY + lineHeight
+	end
+end
+
 function TextListClass:IsMouseOver()
 	if not self:IsShown() then
 		return
@@ -33,34 +90,46 @@ function TextListClass:Draw(viewPort)
 	local scrollBar = self.controls.scrollBar
 	local contentHeight = 0
 	for _, lineInfo in pairs(self.list) do
-		contentHeight = contentHeight + lineInfo.height
+		contentHeight = contentHeight + self:GetLineHeight(lineInfo)
 	end
 	scrollBar:SetContentDimension(contentHeight, height - 4)
-	SetDrawColor(0.66, 0.66, 0.66)
-	DrawImage(nil, x, y, width, height)
-	SetDrawColor(0.05, 0.05, 0.05)
-	DrawImage(nil, x + 1, y + 1, width - 2, height - 2)
+	ui.DrawBox(x, y, width, height, ui.radius, ui.colors.border, ui.colors.input)
 	self:DrawControls(viewPort)
 	SetViewport(x + 2, y + 2, width - 20, height - 4)
+	if self.grouped then
+		self:DrawGroups(width - 26, scrollBar.offset)
+	end
+	local textPad = self.grouped and rowPad / 2 or 0
+	local valueCol = self.columns[2]
 	for colIndex, colInfo in pairs(self.columns) do
 		local lineY = -scrollBar.offset
 		for _, lineInfo in ipairs(self.list) do
-			if lineInfo[colIndex] then
-				local textX = lineInfo.x or colInfo.x
+			local text = lineInfo[colIndex]
+			if text then
+				local font = lineInfo.font or "VAR"
+				local drawX = lineInfo.x or colInfo.x
 				local align = lineInfo.align or colInfo.align
-				DrawString(textX, lineY, align, lineInfo.height, lineInfo.font or "VAR", lineInfo[colIndex])
+				-- Clip a label that would otherwise run underneath its own value
+				if self.grouped and colIndex == 1 and valueCol and lineInfo[2] and not lineInfo.x then
+					local space = valueCol.x - drawX - DrawStringWidth(lineInfo.height, font, lineInfo[2]) - 8
+					if DrawStringWidth(lineInfo.height, font, text) > space then
+						local clipWidth = DrawStringWidth(lineInfo.height, font, "..")
+						local clipIndex = DrawStringCursorIndex(lineInfo.height, font, text, space - clipWidth, 0)
+						text = text:sub(1, clipIndex - 1) .. ".."
+					end
+				end
+				DrawString(drawX, lineY + textPad, align, lineInfo.height, font, text)
 				if lineInfo.underline and lineInfo.underline[colIndex] then
-					local width = DrawStringWidth(lineInfo.height, "VAR", StripEscapes(lineInfo[colIndex]))
+					-- measured off the text as drawn, so a clipped label keeps its rule the same length
+					local textWidth = DrawStringWidth(lineInfo.height, font, StripEscapes(text))
 					-- note: not fully handled. this is currently only used for
 					-- the side bar stats
-					if align == "RIGHT_X" then
-						textX = textX - width
-					end
-					SetDrawColor(0.5, 0.5, 0.5)
-					DrawImage(nil, textX, lineY + lineInfo.height, width, 1)
+					local underlineX = align == "RIGHT_X" and drawX - textWidth or drawX
+					ui.SetColor(ui.colors.textMuted)
+					DrawImage(nil, underlineX, lineY + textPad + lineInfo.height, textWidth, 1)
 				end
 			end
-			lineY = lineY + lineInfo.height
+			lineY = lineY + self:GetLineHeight(lineInfo)
 		end
 	end
 	-- determine which line the user is hovering over
@@ -70,11 +139,12 @@ function TextListClass:Draw(viewPort)
 		local rowY = y - scrollBar.offset + 2
 		-- suboptimal. should do binary search if this causes performance problems
 		for _, lineInfo in ipairs(self.list) do
-			if cursorY >= rowY and cursorY < rowY + lineInfo.height then
-				self.hoveredLine = { line = lineInfo, x = x, y = rowY, width = width }
+			local lineHeight = self:GetLineHeight(lineInfo)
+			if cursorY >= rowY and cursorY < rowY + lineHeight then
+				self.hoveredLine = { line = lineInfo, x = x, y = rowY, width = width, height = lineHeight }
 				break
 			end
-			rowY = rowY + lineInfo.height
+			rowY = rowY + lineHeight
 		end
 	end
 	SetViewport()
