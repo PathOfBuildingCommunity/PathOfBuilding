@@ -337,7 +337,7 @@ return {
 	{ var = "targetBrandedEnemy", type = "check", label = "Skill is targeting the Branded enemy", ifCond = "TargetingBrandedEnemy", defaultState = true, apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:TargetingBrandedEnemy", "FLAG", true, "Config")
 	end },
-	{ var = "BrandsInLastQuarter", type = "list", label = "Sign of Purpose mode:", ifCond = "BrandLastQuarter", tooltip = "Inactive: excludes the activation frequency bonus.\nAverage: averages the bonus over the full attached duration, giving 25% more Activation Frequency for Sign of Purpose. Assumes Brands remain attached for their full duration.\nLast 25%: applies the full bonus during the final quarter of attached duration.", list = {{val=false,label="Inactive"},{val="AVERAGE",label="Average"},{val=true,label="Last 25%"}}, apply = function(val, modList, enemyModList)
+	{ var = "BrandsInLastQuarter", type = "list", defaultIndex = 2, label = "Sign of Purpose mode:", ifCond = "BrandLastQuarter", tooltip = "Inactive: excludes the activation frequency bonus.\nAverage: averages the bonus over the full attached duration, giving 25% more Activation Frequency for Sign of Purpose. Assumes Brands remain attached for their full duration.\nLast 25%: applies the full bonus during the final quarter of attached duration.", list = {{val=false,label="Inactive"},{val="AVERAGE",label="Average"},{val=true,label="Last 25%"}}, apply = function(val, modList, enemyModList)
 		if val then
 			modList:NewMod("Condition:BrandLastQuarter", "FLAG", true, "Config")
 			if val == "AVERAGE" then
