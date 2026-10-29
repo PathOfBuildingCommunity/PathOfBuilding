@@ -3534,10 +3534,8 @@ function calcs.perform(env, skipEHP)
 		end
 	end
 	if partyTabEnableExportBuffs and strongestLocalWither then
-		local mod = copyTable(strongestLocalWither.mod, true)
-		mod.name = "ChaosDamageTaken"
-		mod.type = "INC"
-		t_insert(localDebuffMods, mod)
+		-- Export the support's configured stacks, without depending on the recipient's stack count.
+		t_insert(localDebuffMods, modLib.createMod("ChaosDamageTaken", "INC", strongestLocalWither.value, "Withered"))
 	end
 	if strongestWither then
 		local mod = copyTable(strongestWither.mod, true)

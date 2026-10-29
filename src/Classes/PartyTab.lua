@@ -743,6 +743,7 @@ function PartyTabClass:ParseBuffs(list, buf, buffType, label)
 					if mod.name == "ChaosDamageTaken" and mod.type == "INC" and mod.source == "PartyWithered" then
 						mod.name = "WitheredEffect"
 						mod.type = "MAX"
+						t_insert(mod, { type = "Condition", var = "Effective" })
 					end
 					local exposureElement = mod.name:match("^(%a+)Resist$")
 					if exposureElement and mod.type == "BASE" and mod.source:match("^PartyExposure:") then
