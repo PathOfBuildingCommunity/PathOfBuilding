@@ -17,6 +17,7 @@ local m_modf = math.modf
 
 local buySimilar = require("Classes.CompareBuySimilar")
 local addImplicit = require("Modules.AddImplicitPopup")
+local reflectingMist = require("Modules.ReflectingMist")
 local gemTooltip = require("Classes.GemTooltip")
 
 local rarityDropList = {
@@ -568,7 +569,13 @@ holding Shift will put it in the second.]])
 	self.controls.displayItemCorrupt.shown = function()
 		return self.displayItem and self.displayItem.corruptible
 	end
-	self.controls.displayItemAddImplicit = new("ButtonControl"):ButtonControl({"TOPLEFT",self.controls.displayItemCorrupt,"TOPRIGHT",true}, {8, 0, 120, 20}, "Add Implicit...", function()
+	self.controls.displayItemReflect = new("ButtonControl"):ButtonControl({"TOPLEFT",self.controls.displayItemCorrupt,"TOPRIGHT",true}, {8, 0, 100, 20}, "Reflect...", function()
+		reflectingMist.OpenPopup(self)
+	end)
+	self.controls.displayItemReflect.shown = function()
+		return reflectingMist.CanReflect(self.displayItem)
+	end
+	self.controls.displayItemAddImplicit = new("ButtonControl"):ButtonControl({"TOPLEFT",self.controls.displayItemReflect,"TOPRIGHT",true}, {8, 0, 120, 20}, "Add Implicit...", function()
 		addImplicit.AddImplicitToDisplayItem(self, self.displayItem)
 	end)
 	self.controls.displayItemAddImplicit.shown = function()
@@ -3808,7 +3815,10 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 			local listMod = modList[controls.modSelect.selIndex]
 			if listMod then
 				for _, line in ipairs(listMod.mod) do
-					t_insert(item.explicitModLines, { line = line, modTags = listMod.mod.modTags, [listMod.type] = true })
+					t_insert(item.explicitModLines, {
+						line = line, modTags = listMod.mod.modTags, [listMod.type] = true,
+						prefix = listMod.mod.type == "Prefix", suffix = listMod.mod.type == "Suffix",
+					})
 				end
 			end
 		end

@@ -44,6 +44,7 @@ function ButtonClass:Draw(viewPort, noTooltip)
 	local enabled = self:IsEnabled()
 	local mOver = self:IsMouseOver()
 	local locked = self:GetProperty("locked")
+	local backgroundColor = self:GetProperty("backgroundColor")
 	if not enabled then
 		SetDrawColor(0.33, 0.33, 0.33)
 	elseif mOver or locked then
@@ -56,6 +57,8 @@ function ButtonClass:Draw(viewPort, noTooltip)
 		SetDrawColor(0, 0, 0)
 	elseif self.clicked and mOver then
 		SetDrawColor(0.5, 0.5, 0.5)
+	elseif backgroundColor then
+		SetDrawColor(unpack(backgroundColor))
 	elseif mOver or locked then
 		SetDrawColor(0.33, 0.33, 0.33)
 	else
