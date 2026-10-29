@@ -31,7 +31,7 @@ local socketDropList = {
 	{ label = colorCodes.STRENGTH.."R", color = "R" },
 	{ label = colorCodes.DEXTERITY.."G", color = "G" },
 	{ label = colorCodes.INTELLIGENCE.."B", color = "B" },
-	{ label = colorCodes.SCION.."W", color = "W" }
+	{ label = colorCodes.WHITE.."W", color = "W" }
 }
 
 local baseSlots = { "Weapon 1", "Weapon 2", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring 1", "Ring 2", "Ring 3", "Belt", "Graft 1", "Graft 2", "Flask 1", "Flask 2", "Flask 3", "Flask 4", "Flask 5" }
@@ -4203,7 +4203,7 @@ function ItemsTabClass:GetSocketDescriptionLine(item)
 		elseif socket.color == "B" then
 			code = colorCodes.INTELLIGENCE
 		elseif socket.color == "W" then
-			code = colorCodes.SCION
+			code = colorCodes.WHITE
 		elseif socket.color == "A" then
 			code = "^xB0B0B0"
 		end
