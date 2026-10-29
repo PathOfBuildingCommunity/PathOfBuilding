@@ -1,12 +1,15 @@
 describe("ItemDBControl", function()
 	local originalGetCursorPos
+	local originalIsKeyDown
 
 	before_each(function()
 		originalGetCursorPos = GetCursorPos
+		originalIsKeyDown = _G.IsKeyDown
 	end)
 
 	after_each(function()
 		GetCursorPos = originalGetCursorPos
+		_G.IsKeyDown = originalIsKeyDown
 	end)
 
 	it("sorts lower-is-better stats below zero", function()
@@ -113,5 +116,64 @@ describe("ItemDBControl", function()
 		assert.is_nil(selectedControl)
 		assert.are.equal(item.raw, itemsTab.displayRaw)
 		assert.is_true(itemsTab.displayIsUnique)
+	end)
+
+	it("resizes its filter controls with the item list", function()
+		local width = 360
+		local control = new("ItemDBControl"):ItemDBControl(nil, { 0, 0, function() return width end, 100 }, {
+			build = { outputRevision = 1 },
+		}, {
+			list = { },
+		}, "RARE")
+		local viewPort = { x = 0, y = 0, width = 1920, height = 1080 }
+
+		control:Draw(viewPort)
+		assert.equal(179, control.controls.slot.width)
+		assert.equal(258, control.controls.search.width)
+
+		width = 450
+		control:Draw(viewPort)
+		assert.equal(224, control.controls.slot.width)
+		assert.equal(348, control.controls.search.width)
+	end)
+
+	it("selects a newly added item after equipping it", function()
+		local equipped
+		local counterpartAdded
+		local slotsPopulated
+		local selectedItemId
+		local item = { raw = "Rarity: Normal\nPlate Vest" }
+		local itemsTab = {
+			activeItemSet = { useSecondWeaponSet = false },
+			slots = {
+				["Body Armour"] = {
+					weaponSet = 0,
+					SetSelItemId = function() equipped = true end,
+				},
+			},
+			controls = {
+				itemList = {
+					SelectItem = function(_, itemId)
+						assert.is_true(equipped)
+						assert.is_true(counterpartAdded)
+						assert.is_true(slotsPopulated)
+						selectedItemId = itemId
+					end,
+				},
+			},
+			build = { },
+			AddItem = function(_, newItem)
+				newItem.id = 1
+			end,
+			AddForbiddenJewelCounterpart = function() counterpartAdded = true end,
+			PopulateSlots = function() slotsPopulated = true end,
+			AddUndoState = function() end,
+		}
+		local control = new("ItemDBControl"):ItemDBControl(nil, { 0, 0, 100, 100 }, itemsTab, { list = { item } }, "RARE")
+		_G.IsKeyDown = function(key) return key == "CTRL" end
+
+		control:OnSelClick(1, item, false)
+
+		assert.equal(1, selectedItemId)
 	end)
 end)
