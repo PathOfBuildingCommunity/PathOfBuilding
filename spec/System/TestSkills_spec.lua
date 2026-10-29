@@ -7,6 +7,167 @@ describe("TestSkills", function()
 		-- newBuild() takes care of resetting everything in setup()
 	end)
 
+	local function gemTooltipText(gem)
+		local tooltip = new("Tooltip"):Tooltip()
+		require("Classes.GemTooltip").AddGemTooltip(tooltip, build, gem)
+		local lines = {}
+		for _, line in ipairs(tooltip.lines) do
+			table.insert(lines, line.text)
+		end
+		return table.concat(lines, "\n")
+	end
+
+	it("separates socketed and global modifiers from the same item on a support gem", function()
+		build.itemsTab:CreateDisplayItemFromRaw("Rarity: RARE\nTest Helmet\nHubris Circlet\nSockets: B-B\nImplicits: 0\n+2 to Level of Socketed Gems\n+10% to Quality of Socketed Gems\n+1 to Level of all Support Gems\n+3% to Quality of all Support Gems")
+		build.itemsTab:AddDisplayItem()
+		build.skillsTab:PasteSocketGroup("Slot: Helmet\nFireball 20/0  1\nControlled Destruction 20/5  1\n")
+		runCallback("OnFrame")
+
+		local gem = build.skillsTab.socketGroupList[1].gemList[2]
+		assert.are.equals(23, gem.displayEffect.level)
+		assert.are.equals(28, gem.displayEffect.quality)
+		local text = gemTooltipText(gem)
+		assert.is_truthy(text:find("+2 Levels from Item", 1, true))
+		assert.is_truthy(text:find("+1 Levels from Global Modifiers", 1, true))
+		assert.is_truthy(text:find("+10% Quality from Item", 1, true))
+		assert.is_truthy(text:find("+3% Quality from Global Modifiers", 1, true))
+		assert.is_truthy(text:find("+10% Quality from Socket Colour", 1, true))
+		assert.is_nil(text:find("from Supports", 1, true))
+	end)
+
+	it("includes negative item and global modifiers in gem tooltips and breakdowns", function()
+		build.itemsTab:CreateDisplayItemFromRaw("Rarity: RARE\nTest Helmet\nHubris Circlet\nSockets: G\nImplicits: 0\n-5 to Level of Socketed Gems\n-10% to Quality of Socketed Gems")
+		build.itemsTab:AddDisplayItem()
+		build.skillsTab:PasteSocketGroup("Slot: Helmet\nFireball 20/20  1\n")
+		build.configTab.input.customMods = "-1 to Level of all Spell Skill Gems\n-2% to Quality of all Skill Gems"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.equals(14, build.calcsTab.mainOutput.GemLevel)
+		assert.are.equals(8, build.calcsTab.mainOutput.GemQuality)
+		local text = gemTooltipText(build.skillsTab.socketGroupList[1].gemList[1])
+		assert.is_truthy(text:find("-5 Levels from Item", 1, true))
+		assert.is_truthy(text:find("-1 Levels from Global Modifiers", 1, true))
+		assert.is_truthy(text:find("-10% Quality from Item", 1, true))
+		assert.is_truthy(text:find("-2% Quality from Global Modifiers", 1, true))
+		local breakdown = build.calcsTab.calcsEnv.player.breakdown
+		assert.is_truthy(table.concat(breakdown.GemLevel, "\n"):find("- 5 ^8(level from items)", 1, true))
+		assert.is_truthy(table.concat(breakdown.GemLevel, "\n"):find("- 1 ^8(level from global modifiers)", 1, true))
+		assert.is_truthy(table.concat(breakdown.GemQuality, "\n"):find("- 10 ^8(quality from items)", 1, true))
+		assert.is_truthy(table.concat(breakdown.GemQuality, "\n"):find("- 2 ^8(quality from global modifiers)", 1, true))
+	end)
+
+	it("shows the applied level cap without losing the source bonuses", function()
+		build.skillsTab:PasteSocketGroup("Fireball 20/0  1\n")
+		build.configTab.input.customMods = "+30 to Level of all Spell Skill Gems"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.equals(40, build.calcsTab.mainEnv.player.mainSkill.activeEffect.level)
+		assert.are.equals(40, build.calcsTab.mainOutput.GemLevel)
+		local text = gemTooltipText(build.skillsTab.socketGroupList[1].gemList[1])
+		assert.is_truthy(text:find("+30 Levels from Global Modifiers", 1, true))
+		assert.is_truthy(text:find("Limited to Level 40", 1, true))
+		local breakdown = table.concat(build.calcsTab.calcsEnv.player.breakdown.GemLevel, "\n")
+		assert.is_truthy(breakdown:find("+ 30 ^8(level from global modifiers)", 1, true))
+		assert.is_truthy(breakdown:find("Limited to Level 40", 1, true))
+		assert.is_truthy(breakdown:find("= 40", 1, true))
+	end)
+
+	it("includes item and global bonuses in gem totals alongside supports and socket quality", function()
+		build.itemsTab:CreateDisplayItemFromRaw("Rarity: RARE\nTest Robe\nSage's Robe\nSockets: B-R-G\nImplicits: 0\n+2 to Level of Socketed Fire Gems\n+3 to Level of Socketed Projectile Gems\n+10% to Quality of Socketed Gems\n+4% to Quality of Socketed Fire Gems")
+		build.itemsTab:AddDisplayItem()
+		build.skillsTab:PasteSocketGroup("Slot: Body Armour\nFireball 20/5  1\nEmpower 3/0  1\nEnhance 3/0  1\n")
+		build.configTab.input.customMods = "+1 to Level of all Spell Skill Gems\n+2 to Level of all Fire Skill Gems\n+5% to Quality of all Skill Gems\n+3% to Quality of all Fire Skill Gems"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.equals(30, build.calcsTab.mainEnv.player.mainSkill.activeEffect.level)
+		assert.are.equals(53, build.calcsTab.mainEnv.player.mainSkill.activeEffect.quality)
+		assert.are.equals(30, build.calcsTab.mainOutput.GemLevel)
+		assert.are.equals(53, build.calcsTab.mainOutput.GemQuality)
+
+		local text = gemTooltipText(build.skillsTab.socketGroupList[1].gemList[1])
+		assert.is_truthy(text:find("20 Levels from Gem (Max)", 1, true))
+		assert.is_truthy(text:find("+5 Levels from Item", 1, true))
+		assert.is_truthy(text:find("+3 Levels from Global Modifiers", 1, true))
+		assert.is_truthy(text:find("+2 Levels from Supports", 1, true))
+		assert.is_truthy(text:find("+14% Quality from Item", 1, true))
+		assert.is_truthy(text:find("+8% Quality from Global Modifiers", 1, true))
+		assert.is_truthy(text:find("+16% Quality from Support", 1, true))
+		assert.is_truthy(text:find("+10% Quality from Socket Colour", 1, true))
+
+		local levelBreakdown = table.concat(build.calcsTab.calcsEnv.player.breakdown.GemLevel, "\n")
+		assert.is_truthy(levelBreakdown:find("+ 5 ^8(level from items)", 1, true))
+		assert.is_truthy(levelBreakdown:find("+ 3 ^8(level from global modifiers)", 1, true))
+		assert.is_truthy(levelBreakdown:find("+ 2 ^8(level from support)", 1, true))
+		assert.is_truthy(levelBreakdown:find("= 30", 1, true))
+		local qualityBreakdown = table.concat(build.calcsTab.calcsEnv.player.breakdown.GemQuality, "\n")
+		assert.is_truthy(qualityBreakdown:find("+ 14 ^8(quality from items)", 1, true))
+		assert.is_truthy(qualityBreakdown:find("+ 8 ^8(quality from global modifiers)", 1, true))
+		assert.is_truthy(qualityBreakdown:find("+ 16 ^8(quality from support)", 1, true))
+		assert.is_truthy(qualityBreakdown:find("+ 10 ^8(quality from socket colour)", 1, true))
+		assert.is_truthy(qualityBreakdown:find("= 53", 1, true))
+
+		-- Exercise the visible breakdown tables, not just the calculation summary.
+		local checkedBreakdowns = 0
+		for _, calcSection in ipairs(build.calcsTab.sectionList) do
+			if calcSection.id == "SkillTypeStats" then
+				for _, row in ipairs(calcSection.subSection[1].data) do
+					if row.label == "Gem Level" or row.label == "Gem Quality" then
+						checkedBreakdowns = checkedBreakdowns + 1
+						local breakdown = build.calcsTab.controls.breakdown
+						breakdown:SetBreakdownData(row[1])
+						local groups = {}
+						for _, section in ipairs(breakdown.sectionList) do
+							if section.type == "TABLE" then
+								local name = section.rowList[1].mod.name
+								groups[name] = 0
+								for _, modifier in ipairs(section.rowList) do
+									assert.are.equals(name, modifier.mod.name, "Each gem bonus category needs its own table")
+									groups[name] = groups[name] + modifier.value
+								end
+							end
+						end
+						if row.label == "Gem Level" then
+							assert.same({ GemLevel = 20, GemItemLevel = 5, GemGlobalLevel = 3, GemSupportLevel = 2 }, groups)
+						else
+							assert.same({ GemQuality = 5, GemItemQuality = 14, GemGlobalQuality = 8, GemSupportQuality = 16, GemSocketQuality = 10 }, groups)
+						end
+					end
+				end
+			end
+		end
+		assert.are.equals(2, checkedBreakdowns)
+	end)
+
+	it("shows socketed gem levels from a helmet as item bonuses in the tooltip", function()
+		build.itemsTab:CreateDisplayItemFromRaw("Rarity: RARE\nTest Helmet\nHubris Circlet\nSockets: G\nImplicits: 0\n+6 to Level of Socketed Gems")
+		build.itemsTab:AddDisplayItem()
+		build.skillsTab:PasteSocketGroup("Slot: Helmet\nTornado 18/0  1\n")
+		runCallback("OnFrame")
+
+		local text = gemTooltipText(build.skillsTab.socketGroupList[1].gemList[1])
+		assert.is_truthy(text:find("Level: " .. colorCodes.MAGIC .. "24", 1, true))
+		assert.is_truthy(text:find("18 Levels from Gem", 1, true))
+		assert.is_truthy(text:find("+6 Levels from Item", 1, true))
+		assert.is_nil(text:find("Levels from Global Modifiers", 1, true))
+		assert.is_nil(text:find("Levels from Supports", 1, true))
+	end)
+
+	it("breaks down Tornado's gem level and global levels in its tooltip", function()
+		build.skillsTab:PasteSocketGroup("Tornado 18/0  1\n")
+		build.configTab.input.customMods = "+4 to Level of all Spell Skill Gems"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		local text = gemTooltipText(build.skillsTab.socketGroupList[1].gemList[1])
+		assert.is_truthy(text:find("Level: " .. colorCodes.MAGIC .. "22", 1, true))
+		assert.is_truthy(text:find("18 Levels from Gem", 1, true))
+		assert.is_truthy(text:find("+4 Levels from Global Modifiers", 1, true))
+		assert.is_nil(text:find("Levels from Supports", 1, true))
+	end)
+
 	it("adds envy, ensures +1 level keeps level 25 Envy", function()
 		build.itemsTab:CreateDisplayItemFromRaw("New Item\nAssassin Bow\nGrants Level 1 Summon Raging Spirit\nGrants Level 25 Envy Skill")
 		build.itemsTab:AddDisplayItem()
