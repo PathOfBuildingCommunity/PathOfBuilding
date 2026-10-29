@@ -521,11 +521,12 @@ Implicits: 2
 {variant:1,2,3,4}+(12-16)% Chance to Block Attack Damage while wielding a Staff
 {variant:5}+(20-25)% Chance to Block Attack Damage while wielding a Staff
 {variant:1,2,3,4}100% increased Fire Damage
-{variant:5}100% increased Fire Damage
+{variant:5}(100-200)% increased Fire Damage
 {variant:1,2}Adds (350-400) to (500-600) Fire Damage
 {variant:3,4,5}Adds (315-360) to (450-540) Fire Damage
 Damage Penetrates 15% of Fire Resistance if you have Blocked Recently
 Immune to Freeze and Chill while Ignited
+{variant:5}Grants Level 15 Battlemage's Cry Skill
 Battlemage
 ]],[[
 Pillar of the Caged God
