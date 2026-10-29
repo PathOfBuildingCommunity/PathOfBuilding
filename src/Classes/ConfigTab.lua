@@ -760,8 +760,10 @@ function ConfigTabClass:ConfigTab(build)
 							local valueMapped
 							if varData.type == "check" then
 								valueMapped = not cur
+							elseif type(value) == "table" then
+								valueMapped = value.val
 							else
-								valueMapped = type(value) == "table" and value.val or value
+								valueMapped = value
 							end
 							if (valueMapped ~= cur) then
 								local buildFlag = self.build.buildFlag
@@ -840,12 +842,16 @@ function ConfigTabClass:Load(xml, fileName)
 	self.activeConfigSetId = 1
 	self.configSets = { }
 	self.configSetOrderList = { 1 }
+	local brandDurationModeProvided = { }
 
 	local function setInputAndPlaceholder(node, configSetId)
 		if node.elem == "Input" then
 			if not node.attrib.name then
 				launch:ShowErrMsg("^1Error parsing '%s': 'Input' element missing name attribute", fileName)
 				return true
+			end
+			if node.attrib.name == "brandAttachedDurationMode" then
+				brandDurationModeProvided[configSetId] = true
 			end
 			if node.attrib.number then
 				self.configSets[configSetId].input[node.attrib.name] = tonumber(node.attrib.number)
@@ -923,6 +929,20 @@ function ConfigTabClass:Load(xml, fileName)
 	-- Migration check for legacy builds
 	for _, configSetId in ipairs(self.configSetOrderList) do
 		local configSet = self.configSets[configSetId]
+		local input = configSet.input
+		if not brandDurationModeProvided[configSetId] then
+			if input.BrandsInLastQuarter == true then
+				input.brandAttachedDurationMode = "LAST_QUARTER"
+			elseif input.BrandsInLastQuarter == "AVERAGE" then
+				input.brandAttachedDurationMode = "AVERAGE"
+			elseif input.BrandsInLastHalf == true then
+				input.brandAttachedDurationMode = "LAST_HALF"
+			elseif input.BrandsInLastQuarter == false or input.BrandsInLastHalf == false then
+				input.brandAttachedDurationMode = "EARLY"
+			end
+		end
+		input.BrandsInLastQuarter = nil
+		input.BrandsInLastHalf = nil
 		local legacyText = configSet.input and configSet.input.customMods or ""
 		if legacyText ~= "" and (not configSet.customModsList or #configSet.customModsList == 0 or (#configSet.customModsList == 1 and (configSet.customModsList[1].text or "") == "")) then
 			configSet.customModsList = { { title = "Default", enabled = true, text = legacyText } }
@@ -1005,6 +1025,77 @@ function ConfigTabClass:Save(xml)
 	end
 end
 
+-- These hints describe calculated defaults only; saving/applying them as config
+-- placeholders would turn them into overrides and prevent defaults from updating.
+function ConfigTabClass:UpdateCalculatedPlaceholders(env)
+	local output = env.player.output
+	local modDB = env.player.modDB
+	local skill = env.player.mainSkill
+	local skillModList, cfg = skill.skillModList, skill.skillCfg
+	local values = {
+		manabondMissingUnreservedManaPercentage = 100,
+		perforateSpikeOverlap = 1,
+		ShrapnelBallistaProjectileOverlap = 1,
+		stormRainBeamOverlap = 1,
+		stormRainActiveArrows = 1,
+		toxicRainPodOverlap = 1,
+		raiseSpectreBladeVortexBladeCount = 1,
+		curseOverlaps = 1,
+		detonateDeadCorpseLife = env.data.monsterLifeTable[env.enemyLevel],
+		multiplierPvpDamage = 100,
+		enemyMultiplierPvpDamage = 100,
+		overrideCrabBarriers = output.CrabBarriersMax,
+		BrandsAttachedToEnemy = output.BrandsAttachedLimit,
+		overrideCruelty = 40,
+		overrideGhostShrouds = 3,
+		overrideFortification = output.MaximumFortification,
+		multiplierRage = output.MaximumRage,
+		multiplierGaleForce = output.MaximumGaleForce,
+		TotemsSummoned = output.ActiveTotemLimit,
+		multiplierSummonedMinion = output.SummonedMinionsMax,
+		multiplierPermanentMinion = output.PermanentMinionsMax,
+		multiplierImpalesOnEnemy = output.ImpaleStacksMax or skillModList:Sum("BASE", cfg, "ImpaleStacksMax") * (1 + skillModList:Sum("BASE", cfg, "ImpaleAdditionalDurationChance") / 100),
+		multiplierBleedsOnEnemy = output.BleedStacksMax or skillModList:Override(cfg, "BleedStacksMax") or skillModList:Sum("BASE", cfg, "BleedStacksMax"),
+		overrideBuffBlinded = calcLib.mod(env.enemy.modDB, nil, "BlindEffect", "BuffEffectOnSelf") * 100,
+	}
+	for _, charge in ipairs({ "Power", "Frenzy", "Endurance", "Siphoning", "Challenger", "Blitz", "Inspiration", "Blood" }) do
+		values["override"..charge.."Charges"] = output[charge.."ChargesMax"]
+	end
+	for _, charge in ipairs({ "Power", "Frenzy", "Endurance" }) do
+		values["minionsOverride"..charge.."Charges"] = env.minion and env.minion.output[charge.."ChargesMax"]
+	end
+	for _, stat in ipairs({ "TotalMinionLife", "TotalSpectreLife", "TotalTotemLife", "TotalRadianceSentinelLife", "TotalVoidSpawnLife", "TotalStoneGolemLife", "TotalVaalRejuvenationTotemLife" }) do
+		local source = modDB:Flag(nil, "MinionLifeShares"..stat) and "TotalMinionLife" or stat
+		values[stat] = env.configDefaults[source] or modDB:Sum("BASE", nil, source)
+	end
+	for _, activeSkill in ipairs(env.player.activeSkillList) do
+		local name = activeSkill.activeEffect.grantedEffect.name
+		if name == "Tornado Shot" then
+			values.tornadoShotSecondaryHitChance = m_min(20 * activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "tornadoShotSecondaryProjectiles"), 100)
+		elseif name:match("^Shrapnel Ballista") and activeSkill.skillTypes[SkillType.Rain] then
+			local mods, skillCfg = activeSkill.skillModList, activeSkill.skillCfg
+			if mods:Flag(skillCfg, "NoAdditionalProjectiles", "SingleProjectile") then
+				values.ShrapnelBallistaProjectileOverlap = 1
+			else
+				local projectiles = m_floor(mods:Sum("BASE", skillCfg, "ProjectileCount") * mods:More(skillCfg, "ProjectileCount"))
+				values.ShrapnelBallistaProjectileOverlap = m_max(m_min(projectiles, mods:Override(skillCfg, "ProjectileCountMaximum") or math.huge), mods:Sum("BASE", skillCfg, "ProjectileCountMinimum"))
+			end
+		elseif name == "Rage Vortex" then
+			local maxRage = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "MaximumRage")
+			values.sacrificedRageCount = m_floor(maxRage * (activeSkill.skillData.MaxRageVortexSacrificePercentage or 0) / 100)
+		end
+	end
+	for _, varData in ipairs(varList) do
+		if varData.showDefaultPlaceholder or varData.placeholderStat or (varData.label and varData.label:find("(if not maximum)", 1, true)) then
+			local control = self.varControls[varData.var]
+			if control then
+				local value = varData.placeholderStat and output[varData.placeholderStat] or env.configDefaults[varData.var] or values[varData.var]
+				control:SetPlaceholder(type(value) == "number" and string.format("%g", value) or "", false)
+			end
+		end
+	end
+end
+
 function ConfigTabClass:UpdateControls()
 	for var, control in pairs(self.varControls) do
 		if control._className == "EditControl" or control._className == "ResizableEditControl" then
@@ -1015,7 +1106,11 @@ function ConfigTabClass:UpdateControls()
 		elseif control._className == "CheckBoxControl" then
 			control.state = self.configSets[self.activeConfigSetId].input[var]
 		elseif control._className == "DropDownControl" then
-			control:SelByValue(self.configSets[self.activeConfigSetId].input[var] or self:GetDefaultState(var), "val")
+			local value = self.configSets[self.activeConfigSetId].input[var]
+			if value == nil then
+				value = self:GetDefaultState(var)
+			end
+			control:SelByValue(value, "val")
 		end
 	end
 	self:UpdateCustomModsControls()
@@ -1118,13 +1213,15 @@ end
 function ConfigTabClass:UpdateLevel()
 	local input = self.configSets[self.activeConfigSetId].input
 	local placeholder = self.configSets[self.activeConfigSetId].placeholder
+	local defaultLevel = placeholder.enemyLevel and placeholder.enemyLevel > 0 and placeholder.enemyLevel or m_min(83, self.build.characterLevel)
 	if input.enemyLevel and input.enemyLevel > 0 then
 		self.enemyLevel = m_min(data.misc.MaxEnemyLevel, input.enemyLevel)
-	elseif placeholder.enemyLevel and placeholder.enemyLevel > 0 then
-		self.enemyLevel = m_min(data.misc.MaxEnemyLevel, placeholder.enemyLevel)
 	else
-		self.enemyLevel = m_min(data.misc.MaxEnemyLevel, self.build.characterLevel)
+		self.enemyLevel = m_min(data.misc.MaxEnemyLevel, defaultLevel)
 	end
+	-- Boss-mode changes and tooltip previews rebuild the mod list without always
+	-- rebuilding the calculated output. Keep this display-only hint in sync here.
+	self.varControls.enemyLevel:SetPlaceholder(m_min(data.misc.MaxEnemyLevel, defaultLevel), false)
 end
 
 function ConfigTabClass:BuildModList()

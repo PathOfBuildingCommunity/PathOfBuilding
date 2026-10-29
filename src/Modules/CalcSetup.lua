@@ -495,6 +495,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 		env.data = build.data
 		env.configInput = build.configTab.input
 		env.configPlaceholder = build.configTab.placeholder
+		env.configDefaults = { }
 		env.calcsInput = build.calcsTab.input
 		env.mode = mode
 		env.buildBreakdown = mode == "MAIN" or mode == "CALCS"
@@ -508,7 +509,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 		env.enemyDB = enemyDB
 		env.itemModDB = new("ModDB"):ModDB()
 
-		env.enemyLevel = build.configTab.enemyLevel or m_min(data.misc.MaxEnemyLevel, build.characterLevel)
+		env.enemyLevel = build.configTab.enemyLevel or m_min(83, build.characterLevel)
 
 		-- Create player/enemy actors
 		env.player = {
@@ -1361,6 +1362,9 @@ function calcs.initEnv(build, mode, override, specEnv)
 			end
 		end
 		-- Override empty socket calculation if set in config
+		for _, colour in ipairs({ "Red", "Green", "Blue", "White" }) do
+			env.configDefaults["overrideEmpty"..colour.."Sockets"] = env.itemModDB.multipliers["Empty"..colour.."SocketsInAnySlot"] or 0
+		end
 		env.itemModDB.multipliers.EmptyRedSocketsInAnySlot = (env.configInput.overrideEmptyRedSockets or env.itemModDB.multipliers.EmptyRedSocketsInAnySlot)
 		env.itemModDB.multipliers.EmptyGreenSocketsInAnySlot = (env.configInput.overrideEmptyGreenSockets or env.itemModDB.multipliers.EmptyGreenSocketsInAnySlot)
 		env.itemModDB.multipliers.EmptyBlueSocketsInAnySlot = (env.configInput.overrideEmptyBlueSockets or env.itemModDB.multipliers.EmptyBlueSocketsInAnySlot)

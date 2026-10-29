@@ -142,7 +142,7 @@ end
 
 -- Options with these properties or label keywords stay hidden even when "Show All Configurations" is on.
 local function isShowAllExcluded(varData)
-	if varData.ifOption or varData.ifSkill or varData.ifSkillData or varData.ifSkillFlag or varData.legacy then
+	if varData.ifOption or varData.ifCondTrue or varData.ifSkill or varData.ifSkillData or varData.ifSkillFlag or varData.legacy then
 		return true
 	end
 	if varData.label then

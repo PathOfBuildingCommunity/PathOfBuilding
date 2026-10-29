@@ -643,6 +643,11 @@ local function doActorMisc(env, actor)
 
 	-- Add misc buffs/debuffs
 	if env.mode_combat then
+		if modDB:Flag(nil, "Condition:CanGainGaleForce") then
+			output.MaximumGaleForce = m_max(modDB:Sum("BASE", nil, "MaximumGaleForce"), 0)
+			output.GaleForce = m_max(0, m_min(modDB:Override(nil, "GaleForce") or output.MaximumGaleForce, output.MaximumGaleForce))
+			modDB.multipliers["GaleForce"] = output.GaleForce
+		end
 		if env.player.mainSkill.baseSkillModList:Flag(nil, "Cruelty") then
 			modDB.multipliers["Cruelty"] = modDB:Override(nil, "Cruelty") or 40
 		end
@@ -833,6 +838,9 @@ local function doActorMisc(env, actor)
 			end
 			-- if we want the max skill to not be noted as its own breakdown table entry, comment out below
 			modDB:NewMod("ElusiveEffect", "INC", maxSkillInc, "Max Skill Effect")
+			if actor == env.player then
+				env.configDefaults.overrideBuffElusive = output.ElusiveEffectMod
+			end
 			-- Override elusive effect if set.
 			if modDB:Override(nil, "ElusiveEffect") then
 				output.ElusiveEffectMod = m_min(modDB:Override(nil, "ElusiveEffect"), peakElusiveEffect)
@@ -911,14 +919,18 @@ local function doActorMisc(env, actor)
 			condList["Leeching"] = true
 			condList["LeechingEnergyShield"] = true
 		end
-		if modDB:Flag(nil, "Condition:CanGainRage") or modDB:Sum("BASE", nil, "RageRegen") > 0 then
+		if not modDB:Flag(nil, "Condition:CanGainRage") and modDB:Sum("BASE", nil, "RageRegen") > 0 then
+			modDB:NewMod("Condition:CanGainRage", "FLAG", true, "Base")
+		end
+		if modDB:Flag(nil, "Condition:CanGainRage") then
 			local maxStacks = m_floor(modDB:Sum("BASE", skillCfg, "MaximumRage") * modDB:More(skillCfg, "MaximumRage"))
 			local minStacks = m_min(modDB:Sum("BASE", nil, "MinimumRage"), maxStacks)
-			local rageConfig = modDB:Sum("BASE", nil, "Multiplier:RageStack")
+			local rageConfig = modDB:Override(nil, "RageStacks") or maxStacks
 			local stacks = m_max(m_min(rageConfig, maxStacks), (minStacks > 0 and minStacks) or 0)
 			output.RageEffect =  m_floor(stacks * calcLib.mod(modDB, nil, "RageEffect"))
 			modDB:NewMod("Multiplier:RageEffect", "BASE", output.RageEffect, "Base")
 			output.Rage = stacks
+			modDB.multipliers["RageStack"] = stacks
 			output.MaximumRage = maxStacks
 			modDB:NewMod("Multiplier:Rage", "BASE", output.Rage, "Base")
 			if modDB:Flag(nil, "Condition:RageSpellDamage") then
@@ -1287,6 +1299,13 @@ function calcs.perform(env, skipEHP)
 	local modDB = env.modDB
 	local enemyDB = env.enemyDB
 
+	if modDB:Flag(nil, "Condition:AverageFocus") then
+		local focus = env.data.skills.Focus
+		local duration = focus.constantStats[1][2] / 1000
+		local recovery = calcLib.mod(modDB, nil, "CooldownRecovery", "FocusCooldownRecovery")
+		modDB.multipliers["FocusUptime"] = recovery > 0 and duration / (duration + focus.levels[1].cooldown / recovery) or 0
+	end
+
 	-- Merge keystone modifiers
 	env.keystonesAdded = { }
 	modLib.mergeKeystones(env, env.modDB)
@@ -1338,6 +1357,11 @@ function calcs.perform(env, skipEHP)
 		modDB:NewMod("Multiplier:BannerValour", "BASE", m_min(stacks, max), "Base")
 	end
 
+	local defaultWarcryPower = m_max(modDB:Sum("BASE", nil, "WarcryPower") * (1 + modDB:Sum("INC", nil, "WarcryPower") / 100), modDB:Sum("BASE", nil, "MinimumWarcryPower"))
+	if modDB:Flag(nil, "CryWolfMinimumPower") and modDB:Sum("BASE", nil, "WarcryPower") < 10 then
+		defaultWarcryPower = 10
+	end
+	env.configDefaults.multiplierWarcryPower = modDB:Flag(nil, "WarcryInfinitePower") and 999999 or defaultWarcryPower
 	if modDB:Flag(nil, "CryWolfMinimumPower") and modDB:Sum("BASE", nil, "WarcryPower") < 10 then
 		modDB:NewMod("WarcryPower", "OVERRIDE", 10, "Minimum Warcry Power from CryWolf")
 	end
@@ -1357,6 +1381,7 @@ function calcs.perform(env, skipEHP)
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
 		if activeSkill.skillTypes[SkillType.Brand] then
 			local attachLimit = m_min(activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "BrandsAttachedLimit"), activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "ActiveBrandLimit"))
+			output.BrandsAttachedLimit = m_max(attachLimit, output.BrandsAttachedLimit or 0)
 			local configured = modDB:Sum("BASE", nil, "Multiplier:ConfigBrandsAttachedToEnemy")
 			local attached = configured > 0 and m_min(configured, attachLimit) or attachLimit
 			activeSkill.skillData.attachedBrandCount = attached
@@ -1489,16 +1514,22 @@ function calcs.perform(env, skipEHP)
 	end
 
 	local summonedMinions = 0
+	env.configDefaults.multiplierNonVaalSummonedMinion = 0
+	output.PermanentMinionsMax = 0
 	for _, counts in pairs(minionCounts) do
 		summonedMinions = summonedMinions + counts.total
 		modDB:NewMod("Multiplier:SummonedMinion", "BASE", counts.total, "Config", { type = "Condition", var = "Combat" })
 		if counts.nonVaal then
+			env.configDefaults.multiplierNonVaalSummonedMinion = env.configDefaults.multiplierNonVaalSummonedMinion + counts.nonVaal
 			modDB:NewMod("Multiplier:NonVaalSummonedMinion", "BASE", counts.nonVaal, "Config", { type = "Condition", var = "Combat" })
 		end
 		if counts.permanent then
+			output.PermanentMinionsMax = output.PermanentMinionsMax + counts.permanent
 			modDB:NewMod("Multiplier:PermanentMinion", "BASE", counts.permanent, "Config", { type = "Condition", var = "Combat" })
 		end
 	end
+
+	output.SummonedMinionsMax = summonedMinions
 
 	-- Companionship only works while exactly one Minion is summoned.
 	local summonedMinionOverride = env.configInput.multiplierSummonedMinion
@@ -3704,7 +3735,7 @@ function calcs.perform(env, skipEHP)
 				for _, pool in ipairs(pools) do
 					local canAdd = ((pool == spectreLifePool and spectreCount < spectreLimit)
 						or (pool ~= spectreLifePool and not calculatedLifePool[pool.life]))
-						and modDB:Sum("BASE", nil, pool.redirect) ~= 0 and not modDB:Override(nil, pool.life)
+						and modDB:Sum("BASE", nil, pool.redirect) ~= 0 and (not modDB:Override(nil, pool.life) or env.mode == "MAIN")
 					if canAdd then
 						if not minionLife then
 							if minion ~= env.minion then
@@ -3735,7 +3766,11 @@ function calcs.perform(env, skipEHP)
 							spectreCount = spectreCount + 1
 						end
 						local life = minionLife * count
-						modDB:NewMod(pool.life, "BASE", life, pool.source)
+						if modDB:Override(nil, pool.life) then
+							env.configDefaults[pool.life] = (env.configDefaults[pool.life] or modDB:Sum("BASE", nil, pool.life)) + life
+						else
+							modDB:NewMod(pool.life, "BASE", life, pool.source)
+						end
 						env.player.allyLifeList[pool.life] = env.player.allyLifeList[pool.life] or { }
 						local entry = { name = minion.minionData.name, life = life, count = count }
 						t_insert(env.player.allyLifeList[pool.life], entry)
@@ -3754,7 +3789,11 @@ function calcs.perform(env, skipEHP)
 			local life = firstSpectre.life * count
 			firstSpectre.entry.count = firstSpectre.entry.count + count
 			firstSpectre.entry.life = firstSpectre.entry.life + life
-			modDB:NewMod(spectreLifePool.life, "BASE", life, spectreLifePool.source)
+			if modDB:Override(nil, spectreLifePool.life) then
+				env.configDefaults[spectreLifePool.life] = env.configDefaults[spectreLifePool.life] + life
+			else
+				modDB:NewMod(spectreLifePool.life, "BASE", life, spectreLifePool.source)
+			end
 		end
 
 		local normalTotem
@@ -3777,6 +3816,12 @@ function calcs.perform(env, skipEHP)
 		local vaalPool = totemLifePoolByStat.TotalVaalRejuvenationTotemLife
 		local totemLifeOverride = modDB:Override(nil, "TotalTotemLife")
 		local totemRedirect = modDB:Sum("BASE", nil, totemPool.redirect)
+		if nearestTotem then
+			env.configDefaults.TotalTotemLife = nearestTotem.life + modDB:Sum("BASE", nil, "TotalTotemLife")
+		end
+		if vaalRejuvenationTotem then
+			env.configDefaults.TotalVaalRejuvenationTotemLife = vaalRejuvenationTotem.life + modDB:Sum("BASE", nil, "TotalVaalRejuvenationTotemLife")
+		end
 		local nearestIsVaal = nearestTotem and nearestTotem == vaalRejuvenationTotem and not totemLifeOverride
 		if nearestTotem and not nearestIsVaal and totemRedirect ~= 0 and not totemLifeOverride then
 			modDB:NewMod("TotalTotemLife", "BASE", nearestTotem.life, totemPool.source)

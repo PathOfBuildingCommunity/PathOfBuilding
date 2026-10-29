@@ -362,6 +362,7 @@ end
 ---@return any
 function ModStoreClass:EvalMod(mod, cfg, globalLimits)
 	local value = mod.value
+	local conditionEffect
 	local GetStat = self.GetStat
 	local GetMultiplier = self.GetMultiplier
 	local GetCondition = self.GetCondition
@@ -631,6 +632,18 @@ function ModStoreClass:EvalMod(mod, cfg, globalLimits)
 		elseif tag.type == "Limit" then
 			value = m_min(value, tag.limit or self:GetMultiplier(tag.limitVar, cfg))
 		elseif tag.type == "Condition" then
+			if tag.var == "Focused" and not tag.neg
+				and (type(value) == "number" or (type(value) == "table" and value.mod and type(value.mod.value) == "number"))
+				and mod.name ~= "FocusCooldownRecovery" and mod.name ~= "CooldownRecovery"
+				and GetCondition(self, "AverageFocus", cfg) then
+				conditionEffect = GetMultiplier(self, "FocusUptime", cfg)
+			elseif tag.var == "BrandLastQuarter" and not tag.neg and mod.name == "BrandActivationFrequency"
+				and GetCondition(self, "AverageBrandAttachedDuration", cfg) then
+				conditionEffect = 0.25
+			elseif tag.var == "BrandLastHalf" and not tag.neg and mod.name == "AreaOfEffect"
+				and GetCondition(self, "AverageBrandAttachedDuration", cfg) then
+				conditionEffect = 0.5
+			end
 			local match = false
 			local allOneH = ((self.actor.weaponData1 and self.actor.weaponData1.countsAsAll1H) and self.actor.weaponData1) or ((self.actor.weaponData2 and self.actor.weaponData2.countsAsAll1H) and self.actor.weaponData2)
 			if tag.varList then
@@ -953,6 +966,15 @@ function ModStoreClass:EvalMod(mod, cfg, globalLimits)
 			if not match then
 				return
 			end
+		end
+	end
+
+	if conditionEffect then
+		if type(value) == "number" then
+			value = value * conditionEffect
+		elseif type(value) == "table" and value.mod and type(value.mod.value) == "number" then
+			value = copyTable(value)
+			value.mod.value = value.mod.value * conditionEffect
 		end
 	end
 
