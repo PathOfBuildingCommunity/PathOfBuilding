@@ -1976,8 +1976,7 @@ function calcs.perform(env, skipEHP)
 		breakdown.ManaReserved = { reservations = { } }
 	end
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
-		local forcedManaReservation = activeSkill.skillData.ManaReservationPercentForced
-		if forcedManaReservation and m_ceil((output.Mana or 0) * forcedManaReservation / 100) == 0 then
+		if activeSkill.skillData.requiresManaReservation and output.Mana == 0 then
 			activeSkill.skillFlags.disable = true
 			activeSkill.disableReason = "This skill requires reserving Mana"
 		end
@@ -1996,7 +1995,7 @@ function calcs.perform(env, skipEHP)
 				pool.Life.baseFlat = skillModList:Sum("BASE", skillCfg, "LifeCostBase") + (activeSkill.activeEffect.grantedEffectLevel.cost.Life or 0)
 			end
 			pool.Life.basePercent = activeSkill.skillData.lifeReservationPercent or activeSkill.activeEffect.grantedEffectLevel.lifeReservationPercent or 0
-			if skillModList:Flag(skillCfg, "BloodMagicReserved") and not activeSkill.skillData.ManaReservationPercentForced then
+			if skillModList:Flag(skillCfg, "BloodMagicReserved") and not activeSkill.skillData.requiresManaReservation then
 				pool.Life.baseFlat = pool.Life.baseFlat + pool.Mana.baseFlat
 				pool.Mana.baseFlat = 0
 				activeSkill.skillData["LifeReservationFlatForced"] = activeSkill.skillData["ManaReservationFlatForced"]

@@ -113,7 +113,7 @@ describe("TestSkills", function()
 		assert.is_nil(supports.SupportSacredWisps)
 	end)
 
-	it("keeps forced mana reservations on mana", function()
+	it("keeps Mana-Infused Staff reservation on mana and disables it without mana", function()
 		build.itemsTab:CreateDisplayItemFromRaw("Test Staff\nJudgement Staff")
 		build.itemsTab:AddDisplayItem()
 		build.skillsTab:PasteSocketGroup("Mana-Infused Staff 20/0  1\nArrogance 20/0  1\n")
