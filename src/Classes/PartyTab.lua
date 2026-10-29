@@ -739,10 +739,11 @@ function PartyTabClass:ParseBuffs(list, buf, buffType, label)
 				local mod = modLib.parseFormattedSourceMod(line)
 				if mod then
 					mod.source = "Party"..mod.source
-					-- Keep existing support exports compatible while comparing Wither instead of adding it.
-					if mod.name == "ChaosDamageTaken" and mod.type == "INC" and mod.source == "PartyWithered" then
+					local witherStacks = mod.source:match("^PartyWithered:(%d+)$")
+					if mod.name == "ChaosDamageTaken" and mod.type == "INC" and (mod.source == "PartyWithered" or witherStacks) then
 						mod.name = "WitheredEffect"
 						mod.type = "MAX"
+						mod.witherStackCount = tonumber(witherStacks)
 						t_insert(mod, { type = "Condition", var = "Effective" })
 					end
 					local exposureElement = mod.name:match("^(%a+)Resist$")

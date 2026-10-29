@@ -3522,27 +3522,44 @@ function calcs.perform(env, skipEHP)
 		doActorMisc(env, env.minion)
 	end
 
-	-- Wither from players and party members shares the same stack limit; only apply the strongest effect.
-	local strongestWither
+	-- Combine Wither sources, keeping the strongest 15 individual stacks.
+	local witherSources = { }
 	local strongestLocalWither
+	local localWitherStacks = m_min(15, m_max(0, m_floor(enemyDB:GetMultiplier("WitheredStack"))))
 	for _, value in ipairs(enemyDB:Tabulate("MAX", nil, "WitheredEffect")) do
-		if not strongestWither or value.value > strongestWither.value then
-			strongestWither = value
-		end
 		if value.mod.source == "Withered" and (not strongestLocalWither or value.value > strongestLocalWither.value) then
 			strongestLocalWither = value
+		elseif value.mod.source ~= "Withered" then
+			-- Older flat exports lack a count; preserve their total as a full set of stacks.
+			local stacks = value.mod.witherStackCount or 15
+			for _, tag in ipairs(value.mod) do
+				if tag.type == "Multiplier" and tag.var == "WitheredStack" then
+					stacks = localWitherStacks -- Legacy exports used the recipient's multiplier.
+				end
+			end
+			if stacks > 0 then
+				t_insert(witherSources, { effect = value.value / stacks, stacks = stacks, source = value.mod.source })
+			end
 		end
 	end
-	if partyTabEnableExportBuffs and strongestLocalWither then
-		-- Export the support's configured stacks, without depending on the recipient's stack count.
-		t_insert(localDebuffMods, modLib.createMod("ChaosDamageTaken", "INC", strongestLocalWither.value, "Withered"))
+	if strongestLocalWither and localWitherStacks > 0 then
+		t_insert(witherSources, { effect = strongestLocalWither.value / localWitherStacks, stacks = localWitherStacks, source = "Withered" })
+		if partyTabEnableExportBuffs then
+			-- Retain the count so recipients can combine this contribution with their own stacks.
+			t_insert(localDebuffMods, modLib.createMod("ChaosDamageTaken", "INC", strongestLocalWither.value, "Withered:"..localWitherStacks))
+		end
 	end
-	if strongestWither then
-		local mod = copyTable(strongestWither.mod, true)
-		mod.name = "ChaosDamageTaken"
-		mod.type = "INC"
+	table.sort(witherSources, function(a, b) return a.effect > b.effect end)
+	local remainingWitherStacks = 15
+	for _, wither in ipairs(witherSources) do
+		local stacks = m_min(wither.stacks, remainingWitherStacks)
+		if stacks <= 0 then
+			break
+		end
+		local mod = modLib.createMod("ChaosDamageTaken", "INC", wither.effect * stacks, wither.source)
 		enemyDB:AddMod(mod)
 		appliedDebuffMods[mod] = true
+		remainingWitherStacks = remainingWitherStacks - stacks
 	end
 
 	-- Calculate maximum and apply the strongest non-damaging ailments
