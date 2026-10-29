@@ -11,6 +11,7 @@ local m_max = math.max
 local m_floor = math.floor
 local m_huge = math.huge
 local s_format = string.format
+local WeightedScore = LoadModule("Modules/WeightedScore")
 
 ---@param node table
 ---@return boolean
@@ -36,7 +37,12 @@ function NotableDBClass:NotableDBControl(anchor, rect, itemsTab, db, dbType)
 	self.sortOrder = { }
 	self.sortMode = "NAME"
 	self.controls.sort = new("DropDownControl"):DropDownControl({"BOTTOMLEFT",self,"TOPLEFT"}, {0, -22, 360, 18}, self.sortDropList, function(index, value)
-		self:SetSortMode(value.sortMode)
+		if value.action then
+			value.action()
+			self.controls.sort:SelByValue(self.sortMode, "sortMode")
+		else
+			self:SetSortMode(value.sortMode)
+		end
 	end)
 	self.controls.search = new("EditControl"):EditControl({"BOTTOMLEFT",self,"TOPLEFT"}, {0, -2, 258, 18}, "", "Search", "%c", 100, function()
 		self.listBuildFlag = true
@@ -93,15 +99,15 @@ function NotableDBClass:BuildSortOrder()
 	wipeTable(self.sortDropList)
 	for id, stat in ipairs(data.powerStatList) do
 		if not stat.ignoreForItems then
-			t_insert(self.sortDropList, {
-				label="Sort by "..stat.label,
-				sortMode=stat.itemField or stat.stat,
-				itemField=stat.itemField,
-				stat=stat.stat,
-				transform=stat.transform,
-			})
+			local sortEntry = copyTable(stat)
+			sortEntry.label = "Sort by " .. stat.label
+			sortEntry.sortMode = stat.itemField or stat.stat
+			t_insert(self.sortDropList, sortEntry)
 		end
 	end
+	WeightedScore.appendEditWeightsAction(self.sortDropList, function()
+		WeightedScore.editWeights(self.itemsTab.build, function() self.listBuildFlag = true end)
+	end)
 	wipeTable(self.sortOrder)
 	if self.controls.sort then
 		self.controls.sort.selIndex = 1
@@ -115,6 +121,9 @@ function NotableDBClass:BuildSortOrder()
 end
 
 function NotableDBClass:CalculatePowerStat(selection, original, modified)
+	if selection.getValue then
+		return data.powerStatList.GetValue(original, selection, self.itemsTab.build, modified)
+	end
 	local originalValue = data.powerStatList.GetFromOutput(original, selection)
 	local modifiedValue = data.powerStatList.GetFromOutput(modified, selection)
 	return originalValue - modifiedValue
@@ -134,12 +143,15 @@ function NotableDBClass:ListBuilder()
 		local start = GetTime()
 		local calcFunc = self.itemsTab.build.calcsTab:GetMiscCalculator()
 		local itemType = self.itemsTab.displayItem.base.type
-		local calcBase = calcFunc({ repSlotName = itemType, repItem = self.itemsTab:anointItem(nil) })
+		local useFullDPS = data.powerStatList.RequiresFullDPS(self.sortDetail, self.itemsTab.build)
+		-- Contextual stats compare with the displayed item; scalar stats retain the historical no-anoint delta.
+		local referenceItem = self.sortDetail.getValue and self.itemsTab.displayItem or self.itemsTab:anointItem(nil)
+		local calcBase = calcFunc({ repSlotName = itemType, repItem = referenceItem }, useFullDPS)
 		self.sortMaxPower = 0
 		for nodeIndex, node in ipairs(list) do
 			node.measuredPower = 0
 			if node.modKey ~= "" then
-				local output = calcFunc({ repSlotName = itemType, repItem = self.itemsTab:anointItem(node) })
+				local output = calcFunc({ repSlotName = itemType, repItem = self.itemsTab:anointItem(node) }, useFullDPS)
 				node.measuredPower = self:CalculatePowerStat(self.sortDetail, output, calcBase)
 				if node.measuredPower == m_huge then
 					t_insert(infinites, node)
