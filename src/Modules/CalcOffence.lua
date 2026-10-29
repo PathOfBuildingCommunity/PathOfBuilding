@@ -2909,7 +2909,7 @@ function calcs.offence(env, actor, activeSkill)
 							local count = value.skillModList:Sum("BASE", value.skillCfg, pactKey.."EmpoweredSpells")
 							local storedUses = value.skillData.storedUses + value.skillModList:Sum("BASE", value.skillCfg, "AdditionalCooldownUses")
 							-- Repeated spells retain the empowerment from the initial cast without consuming another use.
-							local empoweredUseRate = (globalOutput.Speed or 0) / (globalOutput.Repeats or 1)
+							local empoweredUseRate = globalOutput.Speed / globalOutput.Repeats
 							local uptime = empoweredUseRate == 0 and 100 or m_min((count / empoweredUseRate) / (cooldown + castTime), 1) * 100
 							uptime = m_min(100, uptime * storedUses)
 							local effect = skillModList:Flag(nil, "Condition:PactMaxHit") and 100 or uptime
@@ -2944,8 +2944,7 @@ function calcs.offence(env, actor, activeSkill)
 									globalOutput.ProjectileCount = globalOutput.ProjectileCount + globalOutput.BeidatAdditionalProjectiles
 								end
 								if skillFlags.chaining and not skillFlags.projectile and not skillModList:Flag(skillCfg, "CannotChain") and not skillModList:Flag(skillCfg, "NoAdditionalChains") then
-									local additionalBeamChains = value.skillModList:Sum("BASE", value.skillCfg, "BeidatAdditionalBeamChains") * effectMult
-									globalOutput.BeidatAdditionalBeamChains = additionalBeamChains * skillModList:More(skillCfg, "ChainCountMax")
+									globalOutput.BeidatAdditionalBeamChains = value.skillModList:Sum("BASE", value.skillCfg, "BeidatAdditionalBeamChains") * effectMult * skillModList:More(skillCfg, "ChainCountMax")
 									globalOutput.ChainMax = globalOutput.ChainMax + globalOutput.BeidatAdditionalBeamChains
 									globalOutput.ChainMaxString = globalOutput.ChainMax
 									globalOutput.ChainRemaining = m_max(0, globalOutput.ChainMax - globalOutput.Chain)
