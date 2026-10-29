@@ -14,6 +14,21 @@ local m_min = math.min
 local m_max = math.max
 
 local tempTable1 = { }
+local gemSocketColours = { "R", "G", "B" }
+
+local function getMatchingSocketQuality(env, groupCfg, gemInstance, socketIndex)
+	local item = groupCfg.slotName and env.player.itemList[groupCfg.slotName]
+	local sockets = item and item.sockets
+	if not sockets then
+		return 0
+	elseif sockets.colourAlwaysMatches then
+		return data.misc.MatchingSocketQualityBonus
+	end
+	local grantedEffect = gemInstance.grantedEffect or (gemInstance.gemData and gemInstance.gemData.grantedEffect)
+	local gemColour = grantedEffect and grantedEffect.color and gemSocketColours[grantedEffect.color]
+	local socket = socketIndex and sockets[socketIndex]
+	return gemColour and socket and socket.color == gemColour and data.misc.MatchingSocketQualityBonus or 0
+end
 
 -- Initialise modifier database with stats and conditions common to all actors
 function calcs.initModDB(env, modDB)
@@ -1600,6 +1615,17 @@ function calcs.initEnv(build, mode, override, specEnv)
 		local supportLists = { }
 		local groupCfgList = { }
 		local processedSockets = {}
+		local socketIndexByGem = {}
+		local slotSocketedCounts = {}
+		for _, group in ipairs(build.skillsTab.socketGroupList) do
+			if group.slot then
+				local socketOffset = slotSocketedCounts[group.slot] or 0
+				for gemIndex, gemInstance in ipairs(group.gemList) do
+					socketIndexByGem[gemInstance] = socketOffset + gemIndex
+				end
+				slotSocketedCounts[group.slot] = socketOffset + #group.gemList
+			end
+		end
 		-- Process support gems adding them to applicable support lists
 		for index, group in ipairs(build.skillsTab.socketGroupList) do
 			local slot = group.slot and build.itemsTab.slots[group.slot]
@@ -1677,7 +1703,8 @@ function calcs.initEnv(build, mode, override, specEnv)
 							if not grantedEffect or not grantedEffect.support then
 								return
 							end
-							local actualQuality = gemInstance.quality + (gemInstance.matchesSocket and data.misc.MatchingSocketQualityBonus or 0)
+							local socketQuality = getMatchingSocketQuality(env, groupCfg, gemInstance, socketIndexByGem[gemInstance])
+							local actualQuality = gemInstance.quality + socketQuality
 							local supportEffect = {
 								grantedEffect = grantedEffect,
 								level = gemInstance.level,
@@ -1685,7 +1712,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 								globalQuality = 0,
 								itemQuality = 0,
 								supportQuality = 0,
-								socketQuality = gemInstance.matchesSocket and data.misc.MatchingSocketQualityBonus or 0,
+								socketQuality = socketQuality,
 								srcInstance = gemInstance,
 								gemData = gemInstance.gemData,
 								superseded = false,
@@ -1754,7 +1781,8 @@ function calcs.initEnv(build, mode, override, specEnv)
 						for index, grantedEffect in ipairs(grantedEffectList) do
 							if not grantedEffect.support and not grantedEffect.unsupported and (not grantedEffect.hasGlobalEffect or gemInstance["enableGlobal"..index]) then
 								slotHasActiveSkill = true
-								local actualQuality = gemInstance.quality + (gemInstance.matchesSocket and data.misc.MatchingSocketQualityBonus or 0)
+								local socketQuality = getMatchingSocketQuality(env, groupCfg, gemInstance, socketIndexByGem[gemInstance])
+								local actualQuality = gemInstance.quality + socketQuality
 								local activeEffect = {
 									grantedEffect = grantedEffect,
 									level = gemInstance.level,
@@ -1762,7 +1790,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 									globalQuality = 0,
 									itemQuality = 0,
 									supportQuality = 0,
-									socketQuality = gemInstance.matchesSocket and data.misc.MatchingSocketQualityBonus or 0,
+									socketQuality = socketQuality,
 									srcInstance = gemInstance,
 									gemData = gemInstance.gemData,
 								}
