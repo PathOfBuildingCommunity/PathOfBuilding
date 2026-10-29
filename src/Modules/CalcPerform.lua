@@ -1770,7 +1770,20 @@ function calcs.perform(env, skipEHP)
 			end
 		end
 
+		local slotIndex = env.itemSlotIndex or { }
+		local orderedFlasks = { }
 		for item in pairs(flasks) do
+			t_insert(orderedFlasks, item)
+		end
+		table.sort(orderedFlasks, function(a, b)
+			local posA = slotIndex[a] or 0
+			local posB = slotIndex[b] or 0
+			if posA ~= posB then
+				return posA < posB
+			end
+			return (a.id or 0) < (b.id or 0)
+		end)
+		for _, item in ipairs(orderedFlasks) do
 			flaskBuffsPerBase[item.baseName] = flaskBuffsPerBase[item.baseName] or {}
 			flaskBuffsPerBaseNonPlayer[item.baseName] = flaskBuffsPerBaseNonPlayer[item.baseName] or {}
 			local instantPerc = getFlaskInstantRecovery(item)
@@ -1902,7 +1915,20 @@ function calcs.perform(env, skipEHP)
 				mergeBuff(srcList, tinctureBuffsPerBase[item.baseName], key)
 			end
 		end
+		local slotIndex = env.itemSlotIndex or { }
+		local orderedTinctures = { }
 		for item in pairs(tinctures) do
+			t_insert(orderedTinctures, item)
+		end
+		table.sort(orderedTinctures, function(a, b)
+			local posA = slotIndex[a] or 0
+			local posB = slotIndex[b] or 0
+			if posA ~= posB then
+				return posA < posB
+			end
+			return (a.id or 0) < (b.id or 0)
+		end)
+		for _, item in ipairs(orderedTinctures) do
 			if tinctureLimit <= 0 then
 				break
 			end
