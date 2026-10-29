@@ -1830,7 +1830,7 @@ Variant: Life
 Variant: Energy Shield
 Variant: Mana
 Variant: Reflect Immune
-Variant: No damage from Crits
+Variant: Reduced Extra Damage from Crits
 Variant: No Monster Suppress
 Variant: No Enemy Pen
 Variant: Charges cannot be stolen
@@ -1838,22 +1838,33 @@ Variant: Burning Ground Immune
 Variant: Shocked Ground Immune
 Variant: Desecrated Ground Immune
 Variant: Chilled Ground Immune
+Variant: Attack Speed
+Variant: Cast Speed
+Variant: Enemies Cannot Leech Life
+Variant: Reduced Curse Effect
+Variant: Attacks Cannot Be Blocked
+Variant: Avoid Chained Projectiles
 Requires Level 64
 Implicits: 1
 {tags:resistance}+(8-10)% to all Elemental Resistances
-{tags:attack,speed}(5-15)% increased Attack Speed
-{variant:5}{group:2}{tags:critical}You take 100% reduced Extra Damage from Critical Strikes
-{variant:2}{group:1}{tags:defences}20% increased maximum Energy Shield
-{variant:1}{group:1}{tags:resource}10% increased maximum Life
-{variant:3}{group:1}{tags:resource}20% increased maximum Mana
+{variant:13}{group:1}{tags:attack,speed}(5-15)% increased Attack Speed
+{variant:14}{group:1}{tags:caster,speed}(5-15)% increased Cast Speed
+{variant:5}{group:3,4}{tags:critical}You take 100% reduced Extra Damage from Critical Strikes
+{variant:2}{group:2}{tags:defences}20% increased maximum Energy Shield
+{variant:1}{group:2}{tags:resource}10% increased maximum Life
+{variant:3}{group:2}{tags:resource}20% increased maximum Mana
 {tags:resistance}+(-15-15)% to all Elemental Resistances
-{variant:4}{group:2}Damage cannot be Reflected
-{variant:7}{group:2}Elemental Resistances cannot be Penetrated
-{variant:9}{group:3}Unaffected by Burning Ground
-{variant:12}{group:3}Unaffected by Chilled Ground
-{variant:11}{group:3}Unaffected by Desecrated Ground
-{variant:10}{group:3}Unaffected by Shocked Ground
-{variant:8}{group:2}Monsters cannot steal or remove your Power, Frenzy or Endurance charges on Hit
-{variant:6}{group:2}Monsters cannot Suppress your Spells
+{variant:16}{group:3,4}{tags:caster}80% reduced Effect of Curses on you
+{variant:15}{group:3,4}Enemies Cannot Leech Life From you
+{variant:18}{group:3,4}Avoid Projectiles that have Chained
+{variant:4}{group:3,4}Damage cannot be Reflected
+{variant:7}{group:3,4}Elemental Resistances cannot be Penetrated
+{variant:9}{group:3,4}Unaffected by Burning Ground
+{variant:12}{group:3,4}Unaffected by Chilled Ground
+{variant:11}{group:3,4}Unaffected by Desecrated Ground
+{variant:10}{group:3,4}Unaffected by Shocked Ground
+{variant:17}{group:3,4}Monsters cannot Block your Attacks
+{variant:8}{group:3,4}Monsters cannot steal or remove your Power, Frenzy or Endurance charges on Hit
+{variant:6}{group:3,4}Monsters cannot Suppress your Spells
 ]],
 }
