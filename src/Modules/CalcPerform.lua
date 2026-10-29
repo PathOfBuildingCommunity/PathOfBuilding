@@ -1353,6 +1353,16 @@ function calcs.perform(env, skipEHP)
 	end
 	applyEnemyModifiers(env.enemy, true)
 	local minionCounts = { }
+	local recalledBrandsUseMaximum = env.build.configTab.input.ActiveBrands == nil
+	if recalledBrandsUseMaximum then
+		recalledBrandsUseMaximum = false
+		for _, activeSkill in ipairs(env.player.activeSkillList) do
+			if activeSkill.skillFlags.recalled then
+				recalledBrandsUseMaximum = true
+				break
+			end
+		end
+	end
 
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
 		if activeSkill.skillTypes[SkillType.Brand] then
@@ -1360,10 +1370,11 @@ function calcs.perform(env, skipEHP)
 			local configured = modDB:Sum("BASE", nil, "Multiplier:ConfigBrandsAttachedToEnemy")
 			local attached = configured > 0 and m_min(configured, attachLimit) or attachLimit
 			activeSkill.skillData.attachedBrandCount = attached
-			local activeBrands = modDB:Sum("BASE", nil, "Multiplier:ConfigActiveBrands")
+			local activeBrandLimit = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "ActiveBrandLimit")
+			local activeBrands = recalledBrandsUseMaximum and activeBrandLimit or modDB:Sum("BASE", nil, "Multiplier:ConfigActiveBrands")
 			-- Cap the number of active brands by the limit, which is 3 by default
 			-- Also consider increase to number of active brands from other sources (e.g. Foulgrasp Support)
-			modDB.multipliers["ActiveBrand"] = m_max(m_min(activeBrands, activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "ActiveBrandLimit")), modDB.multipliers["ActiveBrand"] or 0)
+			modDB.multipliers["ActiveBrand"] = m_max(m_min(activeBrands, activeBrandLimit), modDB.multipliers["ActiveBrand"] or 0)
 			modDB.multipliers["BrandsAttachedToEnemy"] = m_max(attached, modDB.multipliers["BrandsAttachedToEnemy"] or 0)
 			enemyDB.multipliers["BrandsAttached"] = m_max(attached, enemyDB.multipliers["BrandsAttached"] or 0)
 		end

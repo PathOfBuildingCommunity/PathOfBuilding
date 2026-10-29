@@ -71,6 +71,19 @@ function GemSelectClass:CalcOutputWithThisGem(calcFunc, gemData, useFullDPS)
 	local gemList = self.skillsTab.displayGroup.gemList
 	local displayGemList = self.skillsTab.displayGroup.displayGemList
 	local oldGem
+	local skillPartSelections = { }
+	-- Some candidate supports can temporarily make an active skill incompatible
+	-- with its selected part. The comparison calculation must not persist the
+	-- resulting fallback to the default part in the actual build.
+	for _, socketGroup in ipairs(self.skillsTab.socketGroupList) do
+		for _, gemInstance in ipairs(socketGroup.gemList) do
+			t_insert(skillPartSelections, {
+				gemInstance = gemInstance,
+				skillPart = gemInstance.skillPart,
+				skillPartCalcs = gemInstance.skillPartCalcs,
+			})
+		end
+	end
 
 	-- the imbuedSupport control actively switches to the latest index of the current displayGroup's gemList so we can use the canSupport filtering
 	if self.imbuedSelect then
@@ -99,6 +112,10 @@ function GemSelectClass:CalcOutputWithThisGem(calcFunc, gemData, useFullDPS)
 	gemInstance.displayEffect = nil
 	-- Calculate the impact of using this gem
 	local output = calcFunc(nil, useFullDPS)
+	for _, selection in ipairs(skillPartSelections) do
+		selection.gemInstance.skillPart = selection.skillPart
+		selection.gemInstance.skillPartCalcs = selection.skillPartCalcs
+	end
 	-- Put the original gem back into the list
 	if oldGem then
 		gemInstance.gemData = oldGem.gemData
