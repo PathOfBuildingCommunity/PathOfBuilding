@@ -256,15 +256,33 @@ function ItemDBClass:ListBuilder()
 		local useFullDPS = self.sortDetail.stat == "FullDPS"
 		local start = GetTime()
 		local calcFunc, calcBase = self.itemsTab.build.calcsTab:GetMiscCalculator(self.build)
+		local statCache
+		if self.dbType == "UNIQUE" then
+			local outputRevision = self.itemsTab.build.outputRevision
+			if self.statCacheOutputRevision ~= outputRevision then
+				self.statCache = { }
+				self.statCacheOutputRevision = outputRevision
+			end
+			local cacheKey = self.sortDetail.stat..":"..(self.itemsTab.activeItemSet.useSecondWeaponSet and "2" or "1")
+			self.statCache = self.statCache or { }
+			self.statCache[cacheKey] = self.statCache[cacheKey] or { }
+			statCache = self.statCache[cacheKey]
+		end
 		for itemIndex, item in ipairs(list) do
-			item.measuredPower = -math.huge
-			for slotName, slot in pairs(self.itemsTab.slots) do
-				if self.itemsTab:IsItemValidForSlot(item, slotName) and not slot.inactive and (not slot.weaponSet or slot.weaponSet == (self.itemsTab.activeItemSet.useSecondWeaponSet and 2 or 1)) then
-					local output = calcFunc(item.base.flask and { toggleFlask = item } or item.base.tincture and { toggleTincture = item } or { repSlotName = slotName, repItem = item }, useFullDPS)
-					local measuredPower = data.powerStatList.GetFromOutput(output, self.sortDetail)
-					item.measuredPower = m_max(item.measuredPower, measuredPower)
+			local measuredPower = statCache and statCache[item]
+			if measuredPower == nil then
+				measuredPower = -math.huge
+				for slotName, slot in pairs(self.itemsTab.slots) do
+					if self.itemsTab:IsItemValidForSlot(item, slotName) and not slot.inactive and (not slot.weaponSet or slot.weaponSet == (self.itemsTab.activeItemSet.useSecondWeaponSet and 2 or 1)) then
+						local output = calcFunc(item.base.flask and { toggleFlask = item } or item.base.tincture and { toggleTincture = item } or { repSlotName = slotName, repItem = item }, useFullDPS)
+						measuredPower = m_max(measuredPower, data.powerStatList.GetFromOutput(output, self.sortDetail))
+					end
+				end
+				if statCache then
+					statCache[item] = measuredPower
 				end
 			end
+			item.measuredPower = measuredPower
 			local now = GetTime()
 			if now - start > 50 then
 				self.defaultText = "^7Sorting... ("..m_floor(itemIndex/#list*100).."%)"

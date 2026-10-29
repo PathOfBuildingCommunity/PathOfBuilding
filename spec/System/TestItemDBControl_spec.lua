@@ -62,6 +62,56 @@ describe("ItemDBControl", function()
 		assert.are.equal(-math.huge, invalidItem.measuredPower)
 	end)
 
+	it("reuses unique stat values until relevant build state changes", function()
+		local calcCount = 0
+		local item = {
+			name = "Test Item",
+			base = { },
+			enchantModLines = { },
+			implicitModLines = { },
+			explicitModLines = { },
+			baseModList = { },
+		}
+		local itemsTab = {
+			activeItemSet = { useSecondWeaponSet = false },
+			slots = { ["Body Armour"] = { } },
+			build = {
+				outputRevision = 1,
+				characterLevel = 100,
+				calcsTab = {
+					mainOutput = { Str = 100, Dex = 100, Int = 100 },
+					GetMiscCalculator = function()
+						return function()
+							calcCount = calcCount + 1
+							return { TotalDPS = calcCount }
+						end
+					end,
+				},
+			},
+			IsItemValidForSlot = function()
+				return true
+			end,
+		}
+		local control = new("ItemDBControl"):ItemDBControl(nil, { 0, 0, 100, 100 }, itemsTab, { list = { item } }, "UNIQUE")
+		control.sortDetail = { stat = "TotalDPS" }
+		control.sortOrder = { control.sortControl.STAT, control.sortControl.NAME }
+
+		control:ListBuilder()
+		control:ListBuilder()
+		assert.are.equal(1, calcCount)
+		assert.are.equal(1, item.measuredPower)
+
+		itemsTab.build.outputRevision = 2
+		control:ListBuilder()
+		assert.are.equal(2, calcCount)
+		assert.are.equal(2, item.measuredPower)
+
+		itemsTab.activeItemSet.useSecondWeaponSet = true
+		control:ListBuilder()
+		assert.are.equal(3, calcCount)
+		assert.are.equal(3, item.measuredPower)
+	end)
+
 	it("searches Foulborn modifier text without case sensitivity", function()
 		local item = new("Item"):Item([[
 			Rarity: Unique
