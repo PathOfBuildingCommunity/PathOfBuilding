@@ -5,9 +5,11 @@ return {
 [[
 Arakaali's Fang
 Fiend Dagger
-Requires Level 53, 58 Dex, 123 Int
-Implicits: 1
-40% increased Global Critical Strike Chance
+Variant: Pre 3.29.0
+Variant: Current
+Implicits: 2
+{variant:2}(50-55)% increased Global Critical Strike Chance
+{variant:1}40% increased Global Critical Strike Chance
 100% chance to Trigger Level 1 Raise Spiders on Kill
 (170-200)% increased Physical Damage
 Adds (8-13) to (20-30) Physical Damage
@@ -20,9 +22,10 @@ Variant: Pre 2.2.0
 Variant: Pre 3.20.0
 Variant: Pre 3.28.0
 Variant: Current
-Requires Level 65, 81 Dex, 117 Int
-Implicits: 1
-30% increased Global Critical Strike Chance
+Requires Level 65
+Implicits: 2
+{variant:4}(40-45)% increased Global Critical Strike Chance
+{variant:1,2,3}30% increased Global Critical Strike Chance
 {variant:1,2}30% increased Damage over Time
 {variant:1,2}Adds (50-60) to (120-140) Physical Damage
 {variant:3,4}Adds (140-155) to (210-235) Physical Damage
@@ -30,17 +33,17 @@ Implicits: 1
 {variant:1}+(10-15)% to Global Critical Strike Multiplier
 {variant:2,3,4}+(15-25)% to Global Critical Strike Multiplier
 {variant:3}+(8-12)% to Chaos Resistance
-{variant:4}+(17-27)% to Chaos Resistance
-{variant:1,2,3,4}On Killing a Poisoned Enemy, Enemies within 3 metres are Poisoned 
-{variant:3,4}and nearby Allies Regenerate 400 Life per second
+{variant:4}+(17-29)% to Chaos Resistance
+{variant:1,2,3,4}On Killing a Poisoned Enemy, Enemies within 3 metres are Poisoned, and you and
+{variant:1,2,3,4}Allies Regenerate 400 Life per second for the Poison's duration if within 3 metres
 ]],[[
 Bloodplay
 Stiletto
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 15, 30 Dex, 30 Int
-Implicits: 1
-30% increased Global Critical Strike Chance
+Implicits: 2
+{variant:2}(40-45)% increased Global Critical Strike Chance
+{variant:1}30% increased Global Critical Strike Chance
 +20 to Dexterity
 (20-40)% increased Physical Damage
 Adds (3-6) to (9-13) Physical Damage
@@ -53,9 +56,11 @@ Replica Bloodplay
 Stiletto
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 15, 30 Dex, 30 Int
-Implicits: 1
-30% increased Global Critical Strike Chance
+Variant: Pre 3.29.0
+Variant: Current
+Implicits: 2
+{variant:2}(40-45)% increased Global Critical Strike Chance
+{variant:1}30% increased Global Critical Strike Chance
 +20 to Strength
 (20-40)% increased Physical Damage
 Adds (3-6) to (9-13) Physical Damage
@@ -65,9 +70,11 @@ Extra gore
 ]],[[
 Cold Iron Point
 Ezomyte Dagger
-Requires Level 62, 95 Dex, 131 Int
-Implicits: 1
-30% increased Global Critical Strike Chance
+Variant: Pre 3.29.0
+Variant: Current
+Implicits: 2
+{variant:2}(40-45)% increased Global Critical Strike Chance
+{variant:1}30% increased Global Critical Strike Chance
 +3 to Level of all Physical Spell Skill Gems
 Deal no Elemental Damage
 ]],[[
@@ -75,9 +82,11 @@ Replica Cold Iron Point
 Ezomyte Dagger
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 62, 95 Dex, 131 Int
-Implicits: 1
-30% increased Global Critical Strike Chance
+Variant: Pre 3.29.0
+Variant: Current
+Implicits: 2
+{variant:2}(40-45)% increased Global Critical Strike Chance
+{variant:1}30% increased Global Critical Strike Chance
 +3 to Level of all Cold Spell Skill Gems
 Deal no Cold Damage
 ]],[[
@@ -86,9 +95,9 @@ Fiend Dagger
 Variant: Pre 2.2.0
 Variant: Pre 3.0.0
 Variant: Current
-Requires Level 53, 58 Dex, 123 Int
-Implicits: 1
-40% increased Global Critical Strike Chance
+Implicits: 2
+{variant:3}(50-55)% increased Global Critical Strike Chance
+{variant:1,2}40% increased Global Critical Strike Chance
 +(20-40) to Intelligence
 (40-60)% increased Fire Damage
 +1 to Level of all Fire Spell Skill Gems
@@ -103,9 +112,9 @@ League: Legion
 Variant: Pre 3.7.0
 Variant: Pre 3.20.0
 Variant: Current
-Requires Level 66, 95 Dex, 131 Int
-Implicits: 1
-30% increased Global Critical Strike Chance
+Implicits: 2
+{variant:3}(40-45)% increased Global Critical Strike Chance
+{variant:1,2}30% increased Global Critical Strike Chance
 {variant:1,2}(50-70)% increased Spell Damage
 {variant:3}(150-200)% increased Spell Damage
 {variant:1}Gain 10 Life per Enemy Killed
@@ -123,9 +132,11 @@ Implicits: 1
 ]],[[
 Goredrill
 Skinning Knife
-Requires Level 5, 16 Dex
-Implicits: 1
-30% increased Global Critical Strike Chance
+Variant: Pre 3.29.0
+Variant: Current
+Implicits: 2
+{variant:2}(40-45)% increased Global Critical Strike Chance
+{variant:1}30% increased Global Critical Strike Chance
 +(10-15) to Dexterity
 (50-70)% increased Physical Damage
 Adds (1-2) to (3-5) Physical Damage
@@ -150,9 +161,11 @@ You have Crimson Dance if you have dealt a Critical Strike Recently
 Goblinedge
 Ambusher
 League: Ritual
-Requires Level 60, 113 Dex, 113 Int
-Implicits: 1
-30% increased Global Critical Strike Chance
+Variant: Pre 3.29.0
+Variant: Current
+Implicits: 2
+{variant:2}(40-45)% increased Global Critical Strike Chance
+{variant:1}30% increased Global Critical Strike Chance
 (200-250)% increased Physical Damage
 (20-25)% increased Attack Speed if you haven't gained a Frenzy Charge Recently
 (60-80)% increased Critical Strike Chance if you haven't gained a Power Charge Recently
@@ -165,9 +178,9 @@ Royal Skean
 Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 50, 71 Dex, 102 Int
-Implicits: 1
-30% increased Global Critical Strike Chance
+Implicits: 2
+{variant:3}(40-45)% increased Global Critical Strike Chance
+{variant:1,2}30% increased Global Critical Strike Chance
 {variant:1}(40-50)% increased Spell Damage
 {variant:2,3}(60-70)% increased Spell Damage
 {variant:1,2}+50 to maximum Energy Shield
@@ -183,9 +196,9 @@ Variant: Pre 3.19.0
 Variant: Current
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 50, 71 Dex, 102 Int
-Implicits: 1
-30% increased Global Critical Strike Chance
+Implicits: 2
+{variant:2}(40-45)% increased Global Critical Strike Chance
+{variant:1}30% increased Global Critical Strike Chance
 (60-70)% increased Spell Damage
 {variant:1}+50 to maximum Energy Shield
 {variant:1}10% faster start of Energy Shield Recharge
@@ -199,9 +212,11 @@ The Hidden Blade
 Ambusher
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 60, 113 Dex, 113 Int
-Implicits: 1
-30% increased Global Critical Strike Chance
+Variant: Pre 3.29.0
+Variant: Current
+Implicits: 2
+{variant:2}(40-45)% increased Global Critical Strike Chance
+{variant:1}30% increased Global Critical Strike Chance
 Trigger Level 20 Unseen Strike every 0.5 seconds while Phasing
 +(20-40) to Dexterity
 (230-260)% increased Physical Damage
@@ -213,9 +228,9 @@ Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.26.0
 Variant: Current
-Requires Level 64, 76 Dex, 149 Int
-Implicits: 1
-50% increased Global Critical Strike Chance
+Implicits: 2
+{variant:4}(60-65)% increased Global Critical Strike Chance
+{variant:1,2,3}50% increased Global Critical Strike Chance
 +5% Chance to Block Attack Damage while Dual Wielding
 {variant:1}(180-210)% increased Physical Damage
 {variant:2}(210-240)% increased Physical Damage
@@ -232,9 +247,11 @@ Implicits: 1
 ]],[[
 Mightflay
 Flaying Knife
-Requires Level 35, 73 Dex, 51 Int
-Implicits: 1
-30% increased Global Critical Strike Chance
+Variant: Pre 3.29.0
+Variant: Current
+Implicits: 2
+{variant:2}(40-45)% increased Global Critical Strike Chance
+{variant:1}30% increased Global Critical Strike Chance
 +25 to Strength
 (80-100)% increased Physical Damage
 Adds 12 to 24 Physical Damage
@@ -242,9 +259,11 @@ Grants 10 Life per Enemy Hit
 ]],[[
 Taproot
 Ambusher
-Requires Level 60, 113 Dex, 113 Int
-Implicits: 1
-30% increased Global Critical Strike Chance
+Variant: Pre 3.29.0
+Variant: Current
+Implicits: 2
+{variant:2}(40-45)% increased Global Critical Strike Chance
+{variant:1}30% increased Global Critical Strike Chance
 (180-200)% increased Physical Damage
 (10-15)% increased Attack Speed
 (15-20)% increased Poison Duration
@@ -258,9 +277,9 @@ Boot Knife
 Variant: Pre 1.1.0
 Variant: Pre 1.3.0
 Variant: Current
-Requires Level 20, 31 Dex, 45 Int
-Implicits: 1
-30% increased Global Critical Strike Chance
+Implicits: 2
+{variant:3}(40-45)% increased Global Critical Strike Chance
+{variant:1,2}30% increased Global Critical Strike Chance
 {variant:2}+20% Chance to Block Attack Damage while Dual Wielding
 {variant:1,3}+12% Chance to Block Attack Damage while Dual Wielding
 +(10-20) to Dexterity
@@ -273,9 +292,11 @@ Replica Ungil's Gauche
 Boot Knife
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 20, 31 Dex, 45 Int
-Implicits: 1
-30% increased Global Critical Strike Chance
+Variant: Pre 3.29.0
+Variant: Current
+Implicits: 2
+{variant:2}(40-45)% increased Global Critical Strike Chance
+{variant:1}30% increased Global Critical Strike Chance
 +18% Chance to Block Attack Damage while Dual Wielding
 +(10-20) to Dexterity
 10% increased Attack Speed
@@ -287,7 +308,6 @@ Vulconus
 Demon Dagger
 Variant: Pre 3.5.0
 Variant: Current
-Requires Level 68, 76 Dex, 149 Int
 Implicits: 1
 (50-55)% increased Global Critical Strike Chance
 Adds (85-110) to (135-150) Physical Damage
@@ -310,7 +330,6 @@ Imperial Skean
 Variant: Pre 3.11.0
 Variant: Pre 3.16.0
 Variant: Current
-Requires Level 66, 95 Dex, 131 Int
 Implicits: 1
 (40-45)% increased Global Critical Strike Chance
 Adds (160-190) to (280-320) Cold Damage
@@ -326,9 +345,9 @@ Widowmaker
 Boot Blade
 Variant: Pre 3.0.0
 Variant: Current
-Requires Level 44, 63 Dex, 90 Int
-Implicits: 1
-30% increased Global Critical Strike Chance
+Implicits: 2
+{variant:2}(40-45)% increased Global Critical Strike Chance
+{variant:1}30% increased Global Critical Strike Chance
 {variant:1}Adds (15-25) to (35-45) Physical Damage
 {variant:2}Adds (35-40) to (55-60) Physical Damage
 (22-30)% increased Critical Strike Chance
@@ -340,9 +359,11 @@ Implicits: 1
 Festering Resentment
 Demon Dagger
 Source: Drops from unique{Uber Incarnation of Neglect} in normal{Moment of Loneliness}
-Requires Level 68, 76 Dex, 149 Int
-Implicits: 1
-40% increased Global Critical Strike Chance
+Variant: Pre 3.29.0
+Variant: Current
+Implicits: 2
+{variant:2}(50-55)% increased Global Critical Strike Chance
+{variant:1}40% increased Global Critical Strike Chance
 Trigger a Socketed Spell when you Block, with a 0.25 second Cooldown
 +(30-45)% Chance to Block Spell Damage while in Off Hand
 (100-150)% increased Spell Damage

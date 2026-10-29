@@ -8,7 +8,6 @@ Ezomyte Burgonet
 Variant: Pre 2.2.0
 Variant: Pre 3.0.0
 Variant: Current
-Requires Level 60, 138 Str
 AllAttributesUniqueHelmetStr3
 AddedPhysicalDamageUniqueHelmetStr3
 {variant:1}MeleeWeaponCriticalStrikeMultiplierUniqueHelmetStr3[100,150]
@@ -21,7 +20,6 @@ Replica Abyssus
 Ezomyte Burgonet
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 60, 138 Str
 AllAttributesUniqueHelmetStr3
 AddedFireDamageUnique__4
 AddedColdDamageUnique__9
@@ -34,8 +32,7 @@ The Baron
 Close Helmet
 Variant: Pre 3.10.0
 Variant: Current
-Requires Level 26, 58 Str
-LocalIncreaseSocketedMinionGemLevelUnique__4
+LocalIncreaseSocketedMinionGemLevelUnique__2_
 {variant:1}StrengthUnique__10
 {variant:1}MinionLifeUniqueRing33[20,20]
 {variant:2}MinionLifeUnique__2
@@ -75,11 +72,10 @@ Upgrade: Upgrades to unique{The Formless Inferno} using currency{Blessing of Xop
 Variant: Pre 3.16.0
 Variant: Pre 3.21.0
 Variant: Current
-Requires Level 48, 101 Str
 {variant:1,2}LocalIncreasedPhysicalDamageReductionRatingUnique__1
-{variant:3}LocalIncreasedPhysicalDamageReductionRatingPercentUnique__26
+{variant:3}LocalIncreasedPhysicalDamageReductionRatingPercentUnique__6
 {variant:1,2}IncreasedLifeUnique__118
-{variant:3}FireResistUniqueHelmetInt7
+{variant:3}FireResistUnique__10
 {variant:1,2}ReducedFireDamageTakenUnique__1[-20,-20]
 {variant:3}ReducedFireDamageTakenUnique__1
 {variant:1,2,3}ArmourIncreasedByUncappedFireResistanceUnique__1
@@ -91,12 +87,11 @@ Source: Upgraded from unique{The Formless Flame} using currency{Blessing of Xoph
 Variant: Pre 3.16.0
 Variant: Pre 3.21.0
 Variant: Current
-Requires Level 65, 148 Str
 {variant:3}SupportedByInfernalLegionUnique__1
 {variant:1,2}LocalIncreasedPhysicalDamageReductionRatingPercentUnique__22
 {variant:1,2}IncreasedLifeUniqueHelmetDexInt2[40,50]
-{variant:3}IncreasedLifeUniqueHelmetDexInt2
-FireResistUniqueHelmetInt7
+{variant:3}IncreasedLifeUnique__33
+FireResistUnique__10
 {variant:1,2}PhysicalDamageTakenAsFirePercentUnique__1
 {variant:1,2}ArmourIncreasedByUncappedFireResistanceUnique__1
 {variant:3}MinionLifeIncreasedByOvercappedFireResistanceUnique__1
@@ -105,10 +100,9 @@ Echoes of Creation
 Shaper Item
 Royal Burgonet
 Source: Drops from unique{The Shaper} (Uber)
-Requires Level 65, 148 Str
 SocketedWarcryCooldownCountUnique__1
-LocalIncreasedPhysicalDamageReductionRatingPercentUnique__19
-IncreasedLifeUniqueHelmetStrDex5
+LocalIncreasedPhysicalDamageReductionRatingPercentUnique__26
+IncreasedLifeUnique__113
 TakePhysicalDamagePerWarcryExertingUnique__1
 MoreDamagePerWarcryExertingUnique__1
 ]],[[
@@ -117,12 +111,12 @@ Samnite Helmet
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 55, 114 Str
 {variant:1}FireDamagePercentUniqueStrHelmet2[10,30]
 {variant:2,3}FireDamagePercentUniqueStrHelmet2
 {variant:1}LocalIncreasedPhysicalDamageReductionRatingPercentAndStunRecoveryUniqueStrHelmet2[40,60]
-{variant:2,3}LocalIncreasedPhysicalDamageReductionRatingPercentAndStunRecoveryUniqueStrHelmet2
-{variant:3}IncreasedLifeUniqueHelmetStrDex5
+{variant:2}LocalIncreasedPhysicalDamageReductionRatingPercentAndStunRecoveryUniqueStrHelmet2
+{variant:3}LocalIncreasedPhysicalDamageReductionRatingPercentUnique__10
+{variant:3}IncreasedLifeUnique__44
 ColdResistUniqueStrHelmet2
 {variant:1,2}ChanceToAvoidChilledUnique__1
 {variant:1,2}JewelImplicitChanceToAvoidFreeze[50,50]
@@ -132,8 +126,7 @@ Kaom's Command
 Siege Helmet
 League: Settlers of Kalguur
 Source: Kingsmarch Shipping to normal{Ngakanu} or normal{Te Onui}
-Requires Level 48, 101 Str
-IncreasedLifeUnique__3
+IncreasedLifeUnique__124
 WarcrySpeedUnique__2
 WarcryCorpseExplosionUnique__1
 WarcryAreaOfEffectUnique__1
@@ -141,7 +134,6 @@ WarcryAreaOfEffectUnique__1
 Usurper's Penance
 Eternal Burgonet
 League: Expedition
-Requires Level 69, 138 Str
 LocalIncreasedPhysicalDamageReductionRatingPercentUnique__21
 ChanceToBleedUnique__3_
 LightRadiusUnique__6
@@ -164,8 +156,7 @@ Howlcrack
 Ezomyte Burgonet
 Source: Drops from unique{Mercenary} after winning a duel
 League: Mercenaries of Trarthus
-Requires Level 60, 138 Str
-StrengthUnique__28
+StrengthUnique__30
 LocalIncreasedPhysicalDamageReductionRatingPercentUnique__33
 NoCooldownWarcriesUnique
 WarcryLifeCostUnique
@@ -175,7 +166,6 @@ WarcryAreaOfEffectUnique__2
 Refuge in Isolation
 Paladin Crown
 Source: Drops from unique{Uber Incarnation of Neglect} in normal{Moment of Loneliness}
-Requires Level 78, 116 Str, 116 Int
 LocalIncreasedArmourUniqueHelmetStrInt_2
 AllResistancesUnique__36
 ChaosResistUnique__34
@@ -186,10 +176,9 @@ EnemyExtraDamagerollsWithPhysicalDamageUnique_1
 The Hallowed Monarch
 Faithful Helmet
 Source: Drops from unique{Uber Incarnation of Dread} in normal{Moment of Reverence}
-Requires Level 73, 101 Str, 101 Int
 LocalIncreasedPhysicalDamageReductionRatingPercentUnique__35
 AllResistancesUnique__35
-LightRadiusUniqueSceptre2
+LightRadiusUnique__11
 LinksTargetDamageableMinionsUnique_1
 LinksGrantMinionsLessDamageTakenUnique_1
 LinkedMinionsStealRareModsUnique_1
@@ -198,31 +187,28 @@ LinkedMinionsStealRareModsUnique_1
 [[
 Alpha's Howl
 Sinner Tricorne
-Requires Level 64, 138 Dex
 LocalIncreaseSocketedAuraGemLevelUniqueHelmetDex5
-LocalIncreasedEvasionRatingPercentUniqueDexHelmet2
-ColdResistDexHelmet2
+LocalIncreasedEvasionRatingPercentUniqueHelmetDex5
+ColdResistUniqueHelmetDex5
 CannotBeFrozen
 ChanceToAvoidFreezeAndChillUniqueDexHelmet5
-ReducedManaReservationsCostUniqueHelmetDex5
+ManaReservationEfficiencyUniqueHelmetDex5_
 ]],[[
 Replica Alpha's Howl
 Sinner Tricorne
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 64, 138 Dex
 LocalIncreaseSocketedHeraldLevelUnique__2
-LocalIncreasedEvasionRatingPercentUniqueDexHelmet2
-ChaosResistUniqueHelmetStrInt2
+LocalIncreasedEvasionRatingPercentUniqueHelmetDex5
+ChaosResistUnique__18_
 ChanceToAvoidPoisonUnique__1
-ManaReservationEfficiencyUniqueHelmetDex5_
-YouCannotBeHinderedUnique__1
+ReducedManaReservationsCostUniqueHelmetDex5
+YouCannotBeHinderedUnique__2
 ]],[[
 Assailum
 Sinner Tricorne
 Variant: Pre 3.21.0
 Variant: Current
-Requires Level 64, 138 Dex
 Implicits: 0
 {variant:1}GrantsHighLevelSnipeUnique__1[20,20]
 {variant:2}GrantsHighLevelSnipeUnique__1
@@ -236,7 +222,6 @@ Fairgraves' Tricorne
 Tricorne
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 12, 27 Dex
 {variant:1}AddedColdDamageUniqueDexHelmet1[6,6][12,12]
 {variant:2}AddedColdDamageUniqueDexHelmet1
 LocalIncreasedEvasionPercentAndStunRecoveryUniqueDexHelmet1
@@ -259,10 +244,9 @@ Variant: Pre 3.0.0
 Variant: Pre 3.19.0
 Variant: Pre 3.23.0
 Variant: Current
-Requires Level 20, 46 Dex
 {variant:1}LocalIncreaseSocketedFireGemLevelUniqueDexHelmet2
 {variant:1}LocalIncreaseSocketedColdGemLevelUniqueDexHelmet2
-LocalIncreasedEvasionRatingPercentUniqueHelmetDex5
+LocalIncreasedEvasionRatingPercentUniqueDexHelmet2
 ManaRegenerationUniqueDexHelmet2
 {variant:1}FireResistUniqueDexHelmet2[-20,-10]
 {variant:2,3,4}FireResistUniqueDexHelmet2
@@ -280,14 +264,13 @@ League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 LocalIncreasedEvasionRatingPercentUniqueDexHelmet2
 ManaRegenerationUniqueDexHelmet2
-ColdResistUniqueHelmetDex5
-LightningResistUniqueDexHelmet1
+ColdResistDexHelmet2
+LightningResistUnique__31
 LightningAddedAsColdShockedEnemyUnique__1
 ]],[[
 Frostferno
 Leather Hood
 Source: No longer obtainable
-Requires Level 60, 46 Dex
 LocalIncreaseSocketedFireGemLevelUnique__1_
 LocalIncreaseSocketedColdGemLevelUnique__1
 ItemActsAsColdToFireSupportUnique__1
@@ -299,7 +282,6 @@ Obscurantis
 Lion Pelt
 Variant: Pre 3.5.0
 Variant: Current
-Requires Level 70, 150 Dex
 {variant:1}IncreasedAccuracyUnique__4[300,500]
 {variant:2}IncreasedAccuracyUnique__4
 LocalIncreasedEvasionRatingPercentUnique__3
@@ -309,28 +291,26 @@ IncreaseProjectileAttackDamagePerAccuracyUnique__1
 Elevore
 Wolf Pelt
 ChanceToSuppressSpellsUnique__2
-IncreasedEvasionRatingPercentUnique__1_
+LocalIncreasedEvasionRatingPercentUnique__19
 AvoidElementalAilmentsUnique__2
 RecoverLifeOnSuppressUnique__1
 ]],[[
 Rat's Nest
 Ursine Pelt
-Requires Level 55, 114 Dex
 IncreasedAttackSpeedUniqueHelmetDex6
 CriticalStrikeChanceUniqueHelmetDex6
 LocalIncreasedEvasionRatingPercentUniqueHelmetDex6
 ItemFoundRarityIncreaseUniqueHelmetDex6
-MovementVelocityUniqueHelmetInt6
+MovementVelocityUniqueHelmetDex6
 ActorSizeUniqueHelmetDex6
 ]],[[
 Saqawal's Flock
 Silken Hood
 League: Bestiary
 Source: Drops from unique{Saqawal, First of the Sky}
-Requires Level 60, 138 Dex
 GrantsAvianTornadoUnique__1__
-LocalIncreasedEvasionRatingPercentUnique__15_
-IncreasedLifeUnique__26
+LocalIncreasedEvasionRatingPercentUnique__12
+IncreasedLifeUnique__71
 LightningResistUnique__14
 MovementVelocityUnique__32
 ]],[[
@@ -338,7 +318,6 @@ Starkonja's Head
 Silken Hood
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 60, 138 Dex
 {variant:1}DexterityUniqueHelmetDex4[30,50]
 {variant:2}DexterityUniqueHelmetDex4
 ReducedPhysicalDamagePercentOnLowLifeUniqueHelmetDex4
@@ -356,12 +335,12 @@ Iron Circlet
 Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 8, 23 Int
 {variant:3}TriggerSocketedSpellOnBowAttackUnique__2
 {variant:3}SpellDamageUnique__14
 IncreasedAttackSpeedUniqueIntHelmet2
 {variant:1,2}IncreasedCastSpeedUniqueIntHelmet2
-{variant:2,3}LocalIncreasedEnergyShieldPercentAndStunRecoveryUniqueHelmetInt2
+{variant:2}LocalIncreasedEnergyShieldPercentAndStunRecoveryUniqueHelmetInt2
+{variant:3}LocalIncreasedEnergyShieldUnique__32
 {variant:1}LocalIncreasedEnergyShieldUniqueHelmetInt4
 ManaRegenerationUniqueIntHelmet2
 {variant:1,2}MovementVelocityUniqueIntHelmet2
@@ -371,7 +350,6 @@ Iron Circlet
 Source: No longer obtainable
 Variant: Pre 3.9.0
 Variant: Current
-Requires Level 45, 23 Int
 {variant:1}TriggerSocketedSpellOnBowAttackUnique__1_[25,25]
 {variant:2}TriggerSocketedSpellOnBowAttackUnique__1_
 IncreasedAttackSpeedUniqueIntHelmet2
@@ -383,11 +361,10 @@ StunRecoveryUnique__2
 ]],[[
 Cowl of the Ceraunophile
 Solaris Circlet
-Requires Level 59, 122 Int
 League: Blight
 Source: Drops in Blighted Maps
 MultipleEnchantmentsAllowedUnique__1
-AllAttributesUnique__8_
+AllAttributesUnique__19
 LocalIncreasedEnergyShieldPercentUnique__26
 ReducedFireResistanceUnique__1
 ReducedColdResistanceUnique__1
@@ -396,12 +373,11 @@ This item can be anointed by Cassia
 ]],[[
 Cowl of the Cryophile
 Silken Hood
-Requires Level 60, 138 Dex
 League: Blight
 Source: Drops in Blighted Maps
 MultipleEnchantmentsAllowedUnique__1
-AllAttributesUnique__22_
-LocalIncreasedEvasionRatingPercentUnique__12
+AllAttributesUnique__19
+LocalIncreasedEvasionRatingPercentUnique__15_
 ReducedFireResistanceUnique__1
 ColdResistanceOverrideUnique__1
 ReducedLightningResistanceUnique__1
@@ -409,7 +385,6 @@ This item can be anointed by Cassia
 ]],[[
 Cowl of the Thermophile
 Ezomyte Burgonet
-Requires Level 60, 138 Str
 League: Blight
 Source: Drops in Blighted Maps
 MultipleEnchantmentsAllowedUnique__1
@@ -422,7 +397,6 @@ This item can be anointed by Cassia
 ]],[[
 Chitus' Apex
 Necromancer Circlet
-Requires Level 54, 112 Int
 StrengthUniqueIntHelmet3
 IncreasedManaUniqueIntHelmet3
 IncreasedExperienceUniqueIntHelmet3
@@ -433,7 +407,6 @@ Crown of Eyes
 Hubris Circlet
 Variant: Pre 3.7.0
 Variant: Current
-Requires Level 69, 154 Int
 {variant:1}IncreasedAccuracyUniqueHelmetInt7[200,250]
 {variant:2}IncreasedAccuracyUniqueHelmetInt7
 LocalIncreasedEnergyShieldUniqueHelmetInt7
@@ -460,18 +433,17 @@ Vine Circlet
 Source: No longer obtainable
 Variant: Pre 3.0.0
 Variant: Current
-Requires Level 52
 {variant:1}LocalIncreasedEnergyShieldPercentUniqueIntHelmet1[260,300]
-{variant:2}LocalIncreasedEnergyShieldPercentUniqueIntHelmet1[170,210]
+{variant:2}LocalIncreasedEnergyShieldPercentUniqueIntHelmet1
+{variant:2}LocalIncreasedEnergyShieldUnique__8
 AttackerTakesDamageUniqueIntHelmet1
 TakesDamageWhenAttackedUniqueIntHelmet1[5,5]
-KeystonePainAttunementUnique__1
+PainAttunement
 ]],[[
 The Devouring Diadem
 Necromancer Circlet
 League: Betrayal
 Source: Drops from unique{Catarina, Master of Undeath}
-Requires Level 54, 112 Int
 Variant: Strength and Quality Pre 3.16.0
 Variant: Dexterity and Quality Pre 3.16.0
 Variant: Intelligence and Quality Pre 3.16.0
@@ -514,7 +486,7 @@ Variant: Damage if consumed corpse
 {variant:1,2,3,4,5,6,7,8,9,10,11,12,13}SocketedItemsHaveReducedReservationUnique__1[40,40]
 {variant:14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38}SocketedItemsHaveReducedReservationUnique__1
 TriggerFeastOfFleshSkillUnique__1_
-LocalIncreasedEnergyShieldPercentUnique__19
+LocalIncreasedEnergyShieldPercentUnique__21
 StartEnergyShieldRechargeOnSkillUnique__1
 KeystoneEldritchBatteryUnique__1
 {variant:1}StrengthUniqueHelmetStrDex3[10,25]
@@ -544,45 +516,37 @@ KeystoneEldritchBatteryUnique__1
 {variant:23}FocusCooldownRecoveryUnique__1_[5,8]
 {variant:24}(36-40)% increased Duration of Ailments you inflict while Focused
 {variant:25}(10-12)% chance to Avoid Elemental Damage from Hits during Soul Gain Prevention
-{variant:26}MaximumMinionCountUniqueWand2Updated
-{variant:26}MaximumMinionCountUniqueBootsStrInt2
-{variant:26}MinionLifeUnique__2[8,10]
-{variant:27}AreaOfEffectUnique_9[8,10]
-{variant:27}+2 to Level of Socketed AoE Gems
-{variant:28}AdditionalPierceUniqueJewel__1
-{variant:28}+2 to Level of Socketed Projectile Gems
-{variant:29}IncreasedMeleeWeaponAndUnarmedRangeUniqueJewel42
-{variant:29}VillageLocalIncreaseSocketedMeleeGemLevel
-{variant:30}IncreasedLifeUniqueHelmetDex5[55,60]
-{variant:30}Regenerate 5.3 Mana per second
-{variant:31}IncreasedManaUniqueDexHelmet1[55,60]
-{variant:31}LifeRegenerationUniqueTwoHandAxe4[1998,1998]
-{variant:32}(30-32)% increased Evasion Rating while Focused
-{variant:33}(13-15)% additional Physical Damage Reduction while Focused
-{variant:34}LocalIncreaseSocketedGemLevelUnique__6
-{variant:35}Corpses you Spawn have 20% increased Maximum Life
-{variant:36}20% increased Attack and Cast Speed if you've Consumed a Corpse Recently
-{variant:37}Take no Extra Damage from Critical Strikes if Energy Shield Recharge started Recently
-{variant:38}20% increased Damage if you have Consumed a corpse Recently
+{variant:26}JunMasterVeiledMaximumZombieAndSkeleton
+{variant:27}JunMasterVeiledSkillAreaOfEffectPercentAndAreaOfEffectGemLevel
+{variant:28}JunMasterVeiledProjectilePierceAndProjectileGemLevel
+{variant:29}JunMasterVeiledMeleeRangeAndMeleeGemLevel
+{variant:30}JunMasterVeiledBaseLifeAndManaRegen_
+{variant:31}JunMasterVeiledBaseManaAndLifeRegen__
+{variant:32}JunMasterVeiledDodgeChanceDuringFocus_
+{variant:33}JunMasterVeiledPhysicalDamageReductionDuringFocus_
+{variant:34}JunMasterVeiledLocalIncreaseSocketedGemLevel
+{variant:35}JunMasterVeiledCorpseLife
+{variant:36}JunMasterVeiledAttackAndCastSpeedIfCorpseConsumedRecently
+{variant:37}JunMasterVeiledTakeNoExtraDamageFromCriticalStrikesIfEnergyShieldRechargeStartedRecently
+{variant:38}JunMasterVeiledDamageIfConsumedCorpse
 ]],[[
 Wilma's Requital
 Solaris Circlet
 IncreasedAccuracyUnique__10
-LocalIncreasedEnergyShieldPercentUnique__33
+LocalIncreasedEnergyShieldPercentUnique__32
 CastSpeedAppliesToAttackSpeedUnique__1
 WeaponElementalDamageUnique__6
-KeystoneAncestralBondUnique__1
+KeystoneAncestralBondUnique__2
 ]],[[
 Doedre's Scorn
 Lunaris Circlet
 Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 39, 83 Int
 {variant:1}IncreaseSocketedCurseGemLevelUniqueHelmetInt9[1,1]
 {variant:2,3}IncreaseSocketedCurseGemLevelUniqueHelmetInt9
-{variant:2,3}LocalIncreasedEnergyShieldUnique__25
-IntelligenceUniqueHelmetWard1
+{variant:2,3}LocalIncreasedEnergyShieldUnique__9
+IntelligenceUniqueHelmetInt9
 {variant:1,2}ElementalDamageUniqueHelmetInt9
 {variant:1,2}IncreasedDamagePerCurseUniqueHelmetInt9
 IncreasedCurseDurationUniqueHelmetInt9
@@ -590,19 +554,19 @@ IncreasedCurseDurationUniqueHelmetInt9
 ]],[[
 Eber's Unification
 Hubris Circlet
-Requires Level 69, 154 Int
-Implicits: 0
+Version: Pre 3.5.0
+Version: Current
 GrantsVoidGazeUnique__1
-LocalIncreasedEnergyShieldUniqueHelmetInt7
+{version:1}LocalIncreasedEnergyShieldUniqueHelmetInt7
+{version:2}LocalIncreasedEnergyShieldPercentUnique__10
 IncreasedManaUnique__9
-StunRecoveryUniqueHelmetInt6
+StunRecoveryUnique__1_
 ElementalDamagePercentAddedAsChaosUnique__4
 ]],[[
 Fenumus' Toxins
 Necromancer Circlet
 League: Bestiary
 Source: Drops from unique{Fenumus, First of the Night}
-Requires Level 65, 112 Int
 SpellAddedChaosDamageUnique__2
 LocalIncreasedEnergyShieldPercentUnique__18
 PowerChargeOnHitWebbedEnemyUnique__1
@@ -615,7 +579,7 @@ Necromancer Circlet
 League: Sanctum
 Source: Drops from unique{Lycia, Herald of the Scourge} in normal{The Beyond}
 IncreasedCastSpeedUnique__24
-LocalIncreasedEnergyShieldPercentUnique__32
+LocalIncreasedEnergyShieldPercentUnique__33
 AvoidInterruptionWhileCastingUnique__1
 SpellCritChanceEqualsWeaponCritChanceUnique__1
 AttacksCannotCritUnique__1
@@ -624,9 +588,8 @@ Flamesight
 Solaris Circlet
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 59, 122 Int
 LocalIncreasedEnergyShieldPercentUnique__23
-FireResistUnique__12
+FireResistUnique__20_
 ElementalDamageUnique__3
 {variant:1}AlternateFireAilmentUnique__1[25,25][1,1]
 {variant:2}AlternateFireAilmentUnique__1
@@ -636,9 +599,8 @@ Galesight
 Solaris Circlet
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 59, 122 Int
 LocalIncreasedEnergyShieldPercentUnique__23
-ColdResistUnique__17
+ColdResistUnique__27
 ElementalDamageUnique__3
 {variant:1}AlternateColdAilmentUnique__1[25,25][1,1]
 {variant:2}AlternateColdAilmentUnique__1
@@ -650,9 +612,8 @@ League: Delve
 Source: Drops from unique{Kurgal, the Blackblooded}
 Variant: One Abyssal Socket
 Variant: Two Abyssal Sockets
-Requires Level 65, 138 Int
-{variant:1}AbyssJewelSocketUnique__10
-{variant:2}AbyssJewelSocketUnique__11_
+{variant:1}AbyssJewelSocketUnique__12
+{variant:2}AbyssJewelSocketUnique__13
 MaximumLifeUnique__15
 MaximumSpiritChargesPerAbyssJewelEquippedUnique__2
 GainSpiritChargeEverySecondUnique__1
@@ -667,8 +628,7 @@ Elder Item
 Source: Drops from unique{The Elder} (Uber)
 Variant: Pre 3.5.0
 Variant: Current
-Requires Level 69, 154 Int
-LocalIncreasedEnergyShieldPercentUnique__10
+LocalIncreasedEnergyShieldPercentUnique__16
 MaximumManaUnique__6
 NonInstantManaRecoveryAlsoAffectsLifeUnique__1
 ManaCostPer200ManaSpentRecentlyUnique__1
@@ -681,8 +641,8 @@ Tribal Circlet
 Variant: Pre 3.11.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 26, 58 Int
-LocalIncreasedEnergyShieldPercentAndStunRecoveryUniqueHelmetInt2
+{variant:1,2}LocalIncreasedEnergyShieldPercentAndStunRecoveryUniqueHelmetInt2
+{variant:3}LocalIncreasedEnergyShieldUnique__17__
 {variant:1}MinionRunSpeedUnique__3[10,15]
 {variant:2}MinionRunSpeedUnique__3
 {variant:2}RagingSpiritDamageUnique__1_[130,150]
@@ -695,10 +655,9 @@ RagingSpiritAlwaysIgniteUnique__1
 Maw of Conquest
 Steel Circlet
 League: Legion
-Requires Level 48, 101 Int
 (60-80)% increased Critical Strike Chance for Spells
 LocalIncreasedEnergyShieldPercentUnique__25_
-IncreasedLifeUniqueHelmetStrDex5
+IncreasedLifeUnique__96__
 UnaffectedByPoisonUnique__1_
 DamageTakenGainedAsLifeUnique__1_
 ]],[[
@@ -706,7 +665,6 @@ Plume of Pursuit
 Bone Circlet
 League: Harvest
 Source: Drops from unique{Janaar, the Omen} in normal{The Sacred Grove}
-Requires Level 64, 73 Int
 (30-20)% reduced Cast Speed
 LocalIncreasedEnergyShieldPercentUnique__29
 NonCriticalStrikesLessDamageUnique__1
@@ -721,7 +679,6 @@ Variant: Pre 3.5.0
 Variant: Pre 3.16.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 65, 138 Int
 {variant:1,2}ItemActsAsConcentratedAOESupportUniqueHelmetInt4[15,15]
 {variant:3,4,5,6}ItemActsAsConcentratedAOESupportUniqueHelmetInt4
 {variant:4,5}ColdDamageOverTimeMultiplierUnique__1[16,22]
@@ -739,18 +696,16 @@ IncreasedEnergyShieldDelayUniqueHelmetInt4
 Scold's Bridle
 Mind Cage
 League: Torment
-Requires Level 65, 138 Int
 SpellDamageUniqueHelmetInt8
-ReducedCastSpeedUniqueHelmetStrInt6
+ReducedCastSpeedUniqueHelmetInt8
 IncreasedManaUniqueHelmetInt8
 PhysicalDamageOnSkillUseUniqueHelmetInt8
 ]],[[
 Sudden Dawn
 Steel Circlet
 Source: Drops from unique{The Black Star}
-Requires Level 48, 101 Int
 LocalIncreasedEnergyShieldPercentUnique__30___
-IncreasedManaUniqueHelmetStrDex5_
+IncreasedManaUnique__22__
 EnergyShieldRechargeOnKillUnique__1__
 LessRechargeRateSoullessEleganceUnique__1
 ]],[[
@@ -758,9 +713,8 @@ Thundersight
 Solaris Circlet
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 59, 122 Int
 LocalIncreasedEnergyShieldPercentUnique__23
-LightningResistUnique__10
+LightningResistUnique__19_
 ElementalDamageUnique__3
 {variant:1}AlternateLightningAilmentUnique__1__[25,25][1,1]
 {variant:2}AlternateLightningAilmentUnique__1__
@@ -772,10 +726,9 @@ Variant: Pre 3.19.0
 Variant: Pre 3.24.0
 Variant: Current
 Source: Drops from unique{Nightmare of Catarina} in normal{Ziggurat Map}
-Requires Level: 34, 73 Int
 {variant:3}AbyssJewelSocketUnique__17
 {variant:1,2}LocalIncreaseSocketedMinionGemLevelUnique__3
-LocalIncreasedEnergyShieldUniqueHelmetInt7
+LocalIncreasedEnergyShieldPercentUnique__12
 {variant:3}GlobalIncreaseMinionSpellSkillGemLevelUnique__2
 {variant:2}MaximumMinionCountUnique__1__
 {variant:1}MinionLifeRegenerationUnique__1
@@ -786,11 +739,10 @@ LocalIncreasedEnergyShieldUniqueHelmetInt7
 Wreath of Phrecia
 Iron Circlet
 League: Legion
-Requires Level 8
-LocalNoAttributeRequirementsUnique__1
+LocalNoAttributeRequirementsUnique__2
 LightRadiusToAreaOfEffectUnique__1
 LightRadiusToDamageUnique_1
-LightRadiusUnique__7_
+LightRadiusUnique__5
 DealNoChaosDamageUnique_1
 ]],[[
 Ylfeban's Trickery
@@ -799,7 +751,6 @@ League: Tempest
 Variant: Pre 2.6.0
 Variant: Pre 3.20.0
 Variant: Current
-Requires Level 69, 154 Int
 {variant:2,3}ShockedGroundWhenHitUnique__1
 AddedLightningDamageToSpellsAndAttacksUniqueHelmetInt10
 LocalIncreasedEnergyShieldUniqueHelmetInt10
@@ -828,7 +779,6 @@ Variant: Summoned Spectral Wolves
 Variant: Living Lightning
 Variant: Holy Armaments
 Source: Drops from unique{Incarnation of Dread} in normal{Moment of Reverence}
-Requires Level 80, 224 Int
 LocalIncreasedEnergyShieldUniqueHelmetInt_1
 GlobalIncreaseMinionSpellSkillGemLevelUnique__4
 ChaosResistUniqueHelmetInt__1
@@ -854,7 +804,6 @@ LightRadiusUnique__10
 [[
 Black Sun Crest
 Lacquered Helmet
-Requires Level 51, 57 Str, 57 Dex
 LocalIncreaseSocketedGemLevelUniqueHelmetStrDex6
 PercentageStrengthUniqueHelmetStrDex6
 PercentageDexterityUniqueHelmetStrDex6
@@ -869,11 +818,10 @@ Variant: Pre 1.3.0
 Variant: Pre 3.5.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 67, 62 Str, 85 Dex
 {variant:1,2,3,4}DisplaySocketedGemGetsMeleePhysicalDamageUniqueHelmetStrDex4[18,18]
 {variant:5}DisplaySocketedGemGetsMeleePhysicalDamageUniqueHelmetStrDex4
 {variant:1,4}DisplaySocketedGemGetsFasterAttackUniqueHelmetStrDex4b[18,18]
-{variant:5}DisplaySocketedGemGetsFasterAttackUniqueHelmetStrDex4b[30,30]
+{variant:5}DisplaySocketedGemGetsFasterAttackUniqueHelmetStrDex4
 {variant:2,3}DisplaySocketedGemGetsFasterAttackUniqueHelmetStrDex4b
 {variant:1,4}ItemActsAsSupportBlindUniqueHelmetStrDex4b[18,18]
 {variant:5}ItemActsAsSupportBlindUniqueHelmetStrDex4
@@ -883,7 +831,7 @@ Requires Level 67, 62 Str, 85 Dex
 AddedPhysicalDamageUniqueHelmetStrDex4
 LocalIncreasedArmourAndEvasionUniqueHelmetStrDex4
 {variant:1,4}IncreasedLifeUnique__106_[200,220]
-{variant:5}IncreasedLifeUnique__106_[200,300]
+{variant:5}IncreasedLifeUniqueHelmetStrDex4
 {variant:2,3}IncreasedLifeUnique__106_
 {variant:1,2}ChanceToGainEnduranceChargeOnBlockUniqueHelmetStrDex4[10,10]
 {variant:3,4,5}ChanceToGainEnduranceChargeOnBlockUniqueHelmetStrDex4
@@ -894,19 +842,17 @@ Crest of Desire
 Fluted Bascinet
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 58, 64 Str, 64 Dex
 HasOneSocketUnique__2
 LocalIncreaseSocketedGemLevelUnique__9
 SocketedGemQualityUnique__1
 SocketedSkillsDoubleDamageUnique__1_
-LocalIncreasedArmourAndEvasionUnique__12
+LocalIncreasedArmourAndEvasionUnique__14
 ]],[[
 Deidbell
 Gilded Sallet
 Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 33, 38 Str, 38 Dex
 StrengthUniqueHelmetStrDex3
 DexterityUniqueHelmetStrDex3
 {variant:1,2}MeleeDamageIncreaseUniqueHelmetStrDex3
@@ -920,7 +866,6 @@ Gilded Sallet
 Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 33, 38 Str, 38 Dex
 StrengthUniqueIntHelmet3
 DexterityUniqueHelmetStrDex3
 MeleeDamageIncreaseUniqueHelmetStrDex3
@@ -931,7 +876,6 @@ AttackCastMoveOnWarcryRecentlyUnique____1
 ]],[[
 Devoto's Devotion
 Nightmare Bascinet
-Requires Level 67, 62 Str, 85 Dex
 DexterityUniqueHelmetStrDex2
 IncreasedPhysicalDamagePercentUniqueHelmetStrDex2
 IncreasedAttackSpeedUniqueHelmetStrDex2
@@ -943,8 +887,7 @@ ItemSilverFootstepsUniqueHelmetStrDex2
 The Devourer of Minds
 Pig-Faced Bascinet
 Source: Drops from unique{The Elder} (Uber Uber)
-Requires Level 63, 85 Str, 62 Dex
-IntelligenceUnique__19
+IntelligenceUnique__35
 LocalIncreasedArmourAndEvasionUnique__27
 GlobalIncreaseMinionSpellSkillGemLevelUnique__3
 LightRadiusUnique__9
@@ -954,8 +897,7 @@ The Fledgling
 Lacquered Helmet
 League: Heist
 Source: Drops from unique{Nashta, The Usurper} in normal{Contract: Heart of Glory}
-Requires Level 51, 57 Str, 57 Dex
-LocalIncreasedArmourAndEvasionUniqueHelmetStrDex2
+LocalIncreasedArmourAndEvasionUnique__17_
 ProjectileSpeedUnique__8
 IncreasedProjectileDamageUnique___10_
 NearbyEnemiesAvoidProjectilesUnique__1
@@ -967,7 +909,6 @@ Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Pre 3.7.0
 Variant: Current
-Requires Level 23, 28 Str, 28 Dex
 {variant:1}IncreasedAccuracyUniqueStrDexHelmet1[100,100]
 {variant:2}IncreasedAccuracyUniqueStrDexHelmet1[300,300]
 {variant:3}IncreasedAccuracyUniqueStrDexHelmet1
@@ -983,7 +924,6 @@ Secutor Helm
 Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 36, 42 Str, 42 Dex
 LocalIncreasedArmourAndEvasionUniqueHelmetStrDex5
 {variant:1,2}IncreasedLifeUniqueHelmetStrDex5
 {variant:1,2}IncreasedManaUniqueHelmetStrDex5_
@@ -1009,8 +949,7 @@ The Trickster's Smile
 Visored Sallet
 League: Affliction
 Source: Drops from Viridian Wildwood and Ritual monsters
-Requires Level 23, 28 Str, 28 Dex
-LocalIncreasedArmourAndEvasionUnique__21
+LocalIncreasedArmourAndEvasionUnique__25
 AttackerTakesColdDamageUnique__1
 AttackerTakesFireDamageUnique__1
 AttackerTakesLightningDamageUnique__1
@@ -1020,10 +959,9 @@ EnemyElementalResistanceZeroWhenHitUnique__1
 [[
 Ahn's Contempt
 Praetor Crown
-Requires Level 68, 62 Str, 91 Int
-AllAttributesUnique__10_
+AllAttributesUnique__4
 LocalIncreasedArmourAndEnergyShieldUnique__7
-IncreasedLifeUnique__55
+IncreasedLifeUnique__57
 ReducedMaximumPowerChargesUnique__1
 PhysAddedAsChaosWithMaxPowerChargesUnique__1
 ReducedExtraDamageFromCritsWithNoPowerChargesUnique__1
@@ -1031,10 +969,9 @@ ReducedExtraDamageFromCritsWithNoPowerChargesUnique__1
 Ancient Skull
 Bone Helmet
 League: Ritual
-Requires Level 73, 76 Str, 76 Int
 Implicits: 1
 MinionDamageImplicitHelmet1
-LocalIncreasedArmourAndEnergyShieldUniqueHelmetStrInt_1
+LocalIncreasedArmourAndEnergyShieldUnique__25
 MinionLifeUnique__5_
 MinionRunSpeedUnique__6
 MinionCriticalStrikeChanceMaximumPowerChargeUnique__1
@@ -1045,14 +982,13 @@ Prophet Crown
 Variant: Pre 3.5.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 63, 85 Str, 62 Int
 {variant:1}LocalIncreasedArmourAndEnergyShieldUnique__6[100,120]
 {variant:2,3}LocalIncreasedArmourAndEnergyShieldUnique__6
 {variant:1}IncreasedLifeUniqueHelmetDex4[50,70]
-{variant:2,3}IncreasedLifeUniqueHelmetDex4
+{variant:2,3}IncreasedLifeUnique__35
 {variant:3}MaximumColdResistUnique__2
 {variant:1,2}ColdResistUnique__10
-CannotBeFrozenUnique__1
+CannotBeFrozen
 {variant:2}ColdDamageTakenUnique__1
 {variant:1}AddedArmourWhileStationaryUnique__1[800,800]
 {variant:2,3}AddedArmourWhileStationaryUnique__1
@@ -1064,7 +1000,6 @@ Prophet Crown
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Current
-Requires Level 63, 85 Str, 62 Int
 SocketedGemsSupportedByCastOnDeathUniqueHelmetStrInt5
 AllAttributesUniqueHelmetStrInt5
 DamageOnLowLifeUniqueHelmetStrInt5
@@ -1081,9 +1016,8 @@ Variant: Pre 3.4.0
 Variant: Current
 League: Bestiary
 Source: Drops from unique{Craiceann, First of the Deep}
-Requires Level 58, 64 Str, 64 Int
 {variant:1}SpellBlockPercentageUnique__1[7,9]
-{variant:2}SpellBlockPercentageUnique__1[4,6]
+{variant:2}SpellBlockPercentageUnique__2
 LocalIncreasedArmourAndEnergyShieldUnique__10_
 MaximumLifeUnique__12
 CannotLoseCrabBarriersIfLostRecentlyUnique__1
@@ -1093,7 +1027,6 @@ AdditionalBlockChance10CrabBarriersUnique__1
 Crown of the Inward Eye
 Prophet Crown
 Source: Drops from unique{Sirus, Awakener of Worlds}
-Requires Level 63, 85 Str, 62 Int
 LocalIncreasedArmourAndEnergyShieldUnique__19
 MaximumLifeManaEnergyShieldUnique__1
 TransfigurationOfSoulUnique__1_
@@ -1106,7 +1039,6 @@ League: Delve
 Source: Drops from unique{Aul, the Crystal King}
 Variant: Pre 3.11.0
 Variant: Current
-Requires Level 58, 64 Str, 64 Int
 HasOneSocketUnique__1
 {variant:1}IncreasedLifeUnique__88[50,100]
 {variant:2}IncreasedLifeUnique__88
@@ -1153,9 +1085,8 @@ Variant: Pre 3.7.0
 Variant: Pre 3.19.0
 Variant: Pre 3.29.0
 Variant: Current
-Requires Level 12, 16 Str, 16 Int
 {variant:2}LocalIncreaseSocketedGemLevelUnique__10
-{variant:3,4}LocalIncreaseSocketedGemLevelUnique__11_
+{variant:3,4}LocalIncreaseSocketedGemLevelUnique__8
 {variant:1,2}AddedLightningDamageUniqueHelmetStrInt1[1,1][13,13]
 {variant:3,4}AddedLightningDamageUniqueHelmetStrInt1
 {variant:1}LocalIncreasedArmourAndEnergyShieldUniqueHelmetStrInt1[40,50]
@@ -1171,12 +1102,11 @@ Kitava's Thirst
 Zealot Helmet
 Variant: Pre 3.11.0
 Variant: Current
-Requires Level 44, 50 Str, 50 Int
 {variant:1}ChanceToCastOnManaSpentUnique__1[100,100][30,30]
 {variant:2}ChanceToCastOnManaSpentUnique__1
-ReducedCastSpeedUniqueHelmetInt8
+ReducedCastSpeedUniqueHelmetStrInt6
 LocalIncreasedArmourAndEnergyShieldUniqueHelmetStrInt6
-IncreasedManaUnique__16
+IncreasedManaUnique__5
 ]],[[
 Lightpoacher
 Great Crown
@@ -1186,10 +1116,10 @@ Variant: One Abyssal Socket (Pre 3.21.0)
 Variant: Two Abyssal Sockets (Pre 3.21.0)
 Variant: One Abyssal Socket (Current)
 Variant: Two Abyssal Sockets (Current)
-{variant:1,3}AbyssJewelSocketImplicit
-{variant:2,4}AbyssJewelSocketUnique__1
+{variant:1,3}AbyssJewelSocketUnique__7
+{variant:2,4}AbyssJewelSocketUnique__2
 LocalDisplayGrantLevelXSpiritBurstUnique__1
-AllResistancesUnique__14
+AllResistancesUnique__12
 MaximumSpiritChargesPerAbyssJewelEquippedUnique__1
 {variant:1,2}GainSpiritChargeOnKillChanceUnique__1[15,20]
 {variant:3,4}GainSpiritChargeOnKillChanceUnique__1
@@ -1226,7 +1156,7 @@ Upgrade: Upgrades to unique{Mask of the Stitched Demon} via currency{Vial of Sum
 {variant:2}LocalIncreasedArmourAndEnergyShieldUnique__12
 {variant:2}LocalIncreasedEnergyShieldUnique__31
 {variant:1}IncreasedLifeUniqueHelmetDex4[30,50]
-{variant:2}IncreasedLifeUniqueHelmetDex4
+{variant:2}IncreasedLifeUnique__82
 CannotGainEnergyShieldUnique__1
 LifeRegenerationWith500EnergyShieldUnique__1
 LifeRegenerationWith1000EnergyShieldUnique__1
@@ -1237,8 +1167,7 @@ Mask of the Stitched Demon
 Magistrate Crown
 League: Incursion
 Source: Upgraded from unique{Mask of the Spirit Drinker} via currency{Vial of Summoning}
-Requires Level 58, 64 Str, 64 Int
-IntelligenceUniqueHelmetInt6
+IntelligenceUnique__11
 LocalIncreasedEnergyShieldUnique__24_
 NoMaximumLifePerStrengthUnique__1
 NoMaximumManaPerIntelligenceUnique__1
@@ -1254,9 +1183,8 @@ Source: Drops from unique{Altered/Augmented/Rewritten/Twisted Synthete}
 Variant: Pre 3.16.0
 Variant: Pre 3.29.0
 Variant: Current
-Requires Level 58, 64 Str, 64 Int
 AllAttributesUnique__15
-LocalIncreasedArmourAndEnergyShieldUniqueHelmetStrInt_1
+LocalIncreasedArmourAndEnergyShieldUnique__13_
 {variant:2,3}BlockPer100StrengthAuraUnique__1___
 {variant:1}DefencesPer100StrengthAuraUnique__1
 CriticalMultiplierPer100DexterityAuraUnique__1
@@ -1270,7 +1198,6 @@ League: Heist
 Source: Obtained from divination card normal{Cursed Words}
 Variant: Pre 3.29.0
 Variant: Current
-Requires Level 73, 76 Str, 76 Int
 Implicits: 1
 MinionDamageImplicitHelmet1
 GrantsDeathWishUnique__1__
@@ -1281,12 +1208,11 @@ MinionLargerAggroRadiusUnique__1
 ]],[[
 Memory Vault
 Praetor Crown
-Requires Level 68, 62 Str, 91 Int
 LocalIncreasedEnergyShieldUnique__15
-IncreasedManaUnique__26
+IncreasedManaUnique__10
 ManaRegenerationUnique__6
-FireResistUniqueDexHelmet2
-IncreasedManaReservationsCostUnique__2
+FireResistUnique__13
+ReservationEfficiencyUnique__2
 GainArmourEqualToManaReservedUnique__1
 ]],[[
 Mindspiral
@@ -1294,7 +1220,6 @@ Aventail Helmet
 Variant: Pre 3.0.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 37, 42 Str, 42 Int
 {variant:1,2}ColdDamagePercentUniqueHelmetStrInt3
 {variant:1,2}LightningDamagePercentUniqueHelmetStrInt3
 {variant:1}IncreasedManaUniqueHelmetStrInt3[100,150]
@@ -1304,24 +1229,22 @@ Requires Level 37, 42 Str, 42 Int
 EnemiesCannotLeechMana
 {variant:1,2}PercentDamageGoesToManaUniqueHelmetStrInt3[5,10]
 {variant:3}PercentDamageGoesToManaUniqueHelmetStrInt3
-CannotLeechManaUnique__1_
+CannotLeechMana
 ]],[[
 Ravenous Passion
 Zealot Helmet
 Variant: Pre 3.25.0
 Variant: Current
 Source: Drops from unique{The Eater of Worlds} (Uber)
-Requires Level: 44, 50 Str, 50 Int
-StrengthUnique__18
-LocalIncreasedArmourAndEnergyShieldUnique__16
+StrengthUnique__26
+LocalIncreasedArmourAndEnergyShieldUnique__27
 {variant:1}GainRageOnManaSpentUnique__1[10,15][200,200]
 {variant:2}GainRageOnManaSpentUnique__1
 RageCasterStatsUnique__1
 ]],[[
 Speaker's Wreath
 Prophet Crown
-Requires Level 63, 85 Str, 62 Int
-DexterityUnique__20__
+DexterityUnique__6
 SkillEffectDurationUnique__1
 MinionAttackSpeedPerXDexUnique__1
 MinionMovementSpeedPerXDexUnique__1
@@ -1331,7 +1254,6 @@ Subsume the Source
 Faithful Helmet
 League: Allflame
 Source: Drops from unique{Zorath}
-Requires Level 73, 101 Str, 101 Int
 Crafted: true
 LocalExplicitModEffectUnique__1
 ConsumeAbyssJewelUnique__1
@@ -1339,7 +1261,6 @@ LocalCannotHaveNonAbyssSocketsUnique__1
 ]],[[
 Veil of the Night
 Great Helmet
-Requires Level 22, 27 Str, 27 Int
 StunRecoveryUniqueHelmetStrInt4
 LightRadiusUniqueHelmetStrInt4
 LightningDamageOnBlockUniqueHelmetStrInt4
@@ -1350,7 +1271,6 @@ Replica Veil of the Night
 Great Helmet
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 22, 27 Str, 27 Int
 StunRecoveryUniqueHelmetStrInt4
 LightRadiusUniqueHelmetStrInt4
 LightningDamageOnBlockUniqueHelmetStrInt4
@@ -1364,7 +1284,7 @@ Variant: Current
 IncreasedPhysicalDamageReductionRatingUnique__2
 FireResistUnique__7_
 ChaosResistUnique__2
-LightRadiusUnique__8
+LightRadiusUnique__3
 IncreasedLifeWhileNoCorruptedItemsUnique__1
 {variant:1}LifeRegenerationPerMinuteWhileNoCorruptedItemsUnique__1[6000,6000]
 {variant:2}LifeRegenerationPerMinuteWhileNoCorruptedItemsUnique__1
@@ -1373,7 +1293,6 @@ IncreasedLifeWhileNoCorruptedItemsUnique__1
 [[
 Akoya's Gaze
 Regicide Mask
-Requires Level 52, 58 Dex, 58 Int
 StrengthRequirementsUnique__4
 WarcrySpeedUnique__1
 LifeLeechInstantExertedAttacksUnique__1
@@ -1385,9 +1304,8 @@ League: Tempest
 Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 52, 58 Dex, 58 Int
 LocalIncreasedEvasionAndEnergyShieldUniqueHelmetDexInt6
-{variant:2,3}IncreasedLifeUnique__124
+{variant:2,3}IncreasedLifeUnique__45
 LifeLeechPermyriadUniqueHelmetDexInt6
 AttackerTakesDamageUniqueHelmetDexInt6
 {variant:1,2}DamageYouReflectGainedAsLifeUniqueHelmetDexInt6[30,30]
@@ -1395,7 +1313,6 @@ AttackerTakesDamageUniqueHelmetDexInt6
 ]],[[
 Curtain Call
 Plague Mask
-Requires Level 20
 IncreasedLifeUnique__87
 RemoteMineLayingSpeedUnique__1
 RemoteMineArmingSpeedUnique__1
@@ -1404,7 +1321,6 @@ PlaceAdditionalMineWith600IntelligenceUnique__1
 ]],[[
 Eye of Malice
 Callous Mask
-Requires Level 45, 51 Dex, 51 Int
 LocalIncreasedEvasionAndEnergyShieldUnique__25
 FireResistUnique__23_
 ColdResistUnique__31_
@@ -1416,7 +1332,6 @@ Farrul's Bite
 Harlequin Mask
 League: Bestiary
 Source: Drops from unique{Farrul, First of the Plains}
-Requires Level 57, 64 Dex, 64 Int
 GrantsCatAspect1
 LocalIncreasedEvasionAndEnergyShieldUnique__12
 ColdResistUnique__25
@@ -1427,7 +1342,6 @@ DamageAgainstBlindedEnemiesUnique__1
 Fractal Thoughts
 Vaal Mask
 League: Legion
-Requires Level: 62, 79 Dex, 72 Int
 LocalIncreasedEvasionAndEnergyShieldUnique__22
 CriticalStrikeMultiplierIfDexterityHigherThanIntelligenceUnique__1
 PercentDexterityIfStrengthHigherThanIntelligenceUnique__1
@@ -1438,7 +1352,6 @@ Glimpse of Chaos
 Vaal Mask
 League: Ultimatum
 Source: Drops from unique{The Trialmaster}
-Requires Level 62, 79 Dex, 72 Int
 Implicits: 1
 Variant: Area of Effect
 Variant: Blind
@@ -1476,11 +1389,10 @@ Corrupted
 Gorgon's Gaze
 Source: Drops from unique{Talin, Faithbreaker} in normal{Pillars of Arun}
 Regicide Mask
-Requires Level 52, 58 Dex, 58 Int
 Implicits: 0
 PetrificationStatueUnique__1
 LocalIncreasedEnergyShieldPercentUnique__15_
-IncreasedLifeUnique__121
+IncreasedLifeUnique__66
 AttackAndCastSpeedUnique__2
 AdditionalPhysicalDamageReductionWhileMovingUnique__1
 ReducedElementalDamageTakenWhileStationaryUnique__1_
@@ -1492,14 +1404,13 @@ Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Pre 3.29.0
 Variant: Current
-Requires Level 38, 44 Dex, 44 Int
 {variant:2,3,4}TriggeredSummonLesserShrineUnique__1
 LocalIncreasedEvasionAndEnergyShieldUniqueHelmetDexInt3
 {variant:2}LocalIncreasedEnergyShieldUnique__11[40,65]
 {variant:3,4}LocalIncreasedEnergyShieldUnique__11
-{variant:2,3,4}IncreasedLifeUnique__120
+{variant:2,3,4}IncreasedLifeUnique__46
 {variant:1}IncreasedManaUniqueHelmetDexInt3
-{variant:2,3,4}ColdResistUnique__16
+{variant:2,3,4}ColdResistUnique__17
 {variant:1}LifeGainedFromEnemyDeathUniqueHelmetDexInt3
 {variant:1}EnergyShieldGainedFromEnemyDeathUniqueHelmetDexInt3
 {variant:1,2,3}ShrineBuffEffectUniqueHelmetDexInt3[75,75]
@@ -1513,8 +1424,7 @@ Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Pre 3.20.0
 Variant: Current
-Requires Level 67, 73 Dex, 88 Int
-{variant:1,4}IncreaseSocketedCurseGemLevelUniqueHelmetInt9[2,2]
+{variant:1,4}IncreaseSocketedCurseGemLevelUnique__1[2,2]
 {variant:2,3}IncreaseSocketedCurseGemLevelUniqueHelmetInt9[1,1]
 SocketedGemsSupportedByBlasphemyUnique__1
 ReducedReservationForSocketedCurseGemsUnique__1
@@ -1526,7 +1436,7 @@ Leer Cast
 Festival Mask
 Variant: Pre 3.19.0
 Variant: Current
-DexterityUniqueHelmetStrDex3
+DexterityUniqueHelmetDexInt2
 {variant:1}AllDamageUniqueHelmetDexInt2[-30,-30]
 {variant:2}AllDamageUniqueHelmetDexInt2
 {variant:1}IncreasedLifeUniqueHelmetDexInt2[20,30]
@@ -1562,11 +1472,11 @@ StrengthUniqueHelmetDexInt1
 {variant:1,2,3,4,5}SpellDamageUniqueHelmetDexInt1
 {variant:1,2,3,4,5}LightningDamageUniqueHelmetDexInt1
 {variant:1,2,3,4,5}LightningResistUniqueStrDexHelmet1[10,10]
-{variant:6}LightningResistUniqueDexHelmet1
+{variant:6}LightningResistUniqueHelmetDexInt1
 {variant:1}ManaCostReductionUniqueJewel44[100,100]
 {variant:2}ManaCostReductionUniqueJewel44[20,20]
 {variant:6}SpellsDoubleDamageChanceUnique__1
-KeystoneMortalConvictionUnique__1
+BloodMagic
 {variant:4}KeystoneMortalConvictionUnique__1
 ]],[[
 Malachai's Awakening
@@ -1575,21 +1485,18 @@ Source: No longer obtainable
 Variant: Pre 3.7.0
 Variant: Pre 3.17.0
 Variant: Current
-Requires Level 60, 21 Dex, 21 Int
 StrengthUniqueHelmetDexInt1
 SpellDamageUniqueHelmetDexInt1
-AllResistancesUniqueIntHelmet3
+AllResistancesUnique__13
 AddedColdDamageWhileNoLifeReservedUnique__1__
 AddedFireDamageWhileNoLifeReservedUnique__1
 AddedLightningDamageWhileNoLifeReservedUnique__1
-KeystoneBloodMagicUnique__1_
-{variant:2}KeystoneBloodMagicUnique__1_
+BloodMagic
 ]],[[
 Mind of the Council
 Harlequin Mask
 Variant: Pre 3.10.0
 Variant: Current
-Requires Level 57, 64 Dex, 64 Int
 LocalIncreasedEvasionAndEnergyShieldUnique__3
 {variant:2}LocalIncreasedEnergyShieldUnique__29
 MaximumManaUnique___2
@@ -1604,7 +1511,6 @@ The Tempest's Binding
 Callous Mask
 League: Harbinger
 Source: No longer obtainable
-Requires Level 45, 51 Dex, 51 Int
 SupportedByIceBiteUnique__1
 SupportedByInnervateUnique__1
 HarbingerSkillOnEquipUnique__5
@@ -1615,18 +1521,16 @@ AllResistancesUnique__12
 ]],[[
 The Tempest's Liberation
 Callous Mask
-Requires Level 60, 51 Dex, 51 Int
 SupportedByIceBiteUnique__1
 SupportedByInnervateUnique__1
 HarbingerSkillOnEquipUnique2_5
 LocalIncreasedEvasionRatingUnique__1
-LocalIncreasedEnergyShieldUniqueHelmetInt5_
-IncreasedLifeUnique__103
+LocalIncreasedEnergyShieldUnique__12
+IncreasedLifeUnique__53
 AllResistancesUnique__10
 ]],[[
 The Three Dragons
 Golden Mask
-Requires Level 35, 40 Dex, 40 Int
 AllResistancesUniqueHelmetDexInt4
 FireShocksUniqueHelmetDexInt4
 ColdIgnitesUniqueHelmetDexInt4_
@@ -1636,7 +1540,6 @@ The Unblinking Eye
 Harlequin Mask
 Shaper Item
 Source: Drops from unique{The Shaper} (Uber)
-Requires Level 57, 64 Dex, 64 Int
 ChanceToSuppressSpellsUnique__5
 DexterityUnique__35
 LocalIncreasedEvasionAndEnergyShieldUniqueHelmetDexInt18
@@ -1646,7 +1549,6 @@ NoPhysicalDamageReductionUnique__1
 The Vertex
 Vaal Mask
 Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Alluring Abyss}
-Requires Level 62, 79 Dex, 72 Int
 LocalIncreaseSocketedGemLevelUniqueHelmetDexInt5
 SocketedGemsHaveReducedManaCostUniqueHelmetDexInt5
 LocalIncreasedEvasionAndEnergyShieldUniqueHelmetDexInt5
@@ -1658,10 +1560,9 @@ Viridi's Veil
 Praetor Crown
 League: Ritual
 Source: Drops from unique{The Maven} (Uber)
-Requires Level 68, 62 Str, 91 Int
 LocalIncreaseSocketedGemLevelUnique__10
 LocalIncreasedArmourAndEnergyShieldUnique__24
-AllResistancesDemigodsImplicit
+AllResistancesUnique__21
 AnyRingMagicDamageExtraRollUnique__1
 RightRingMagicHexproofUnique__1
 LeftRingMagicNoCritDamageUnique__1
@@ -1669,7 +1570,6 @@ LeftRingMagicNoCritDamageUnique__1
 Willclash
 Golden Mask
 League: Heist
-Requires Level 35, 40 Dex, 40 Int
 LocalIncreasedEvasionAndEnergyShieldUnique__29
 ChanceToBlockSpellsPerPowerChargeUnique__2_
 ElementalDamagePerPowerChargeUnique__1
@@ -1684,18 +1584,17 @@ League: Expedition
 Source: Drops from Expedition monsters
 Variant: Pre 3.19.0
 Variant: Current
-IntelligenceUniqueHelmetInt9
+IntelligenceUniqueHelmetWard1
 LocalIncreasedWardPercentUnique__2
 {variant:1}WardDelayRecoveryUnique__1[20,30]
 {variant:2}WardDelayRecoveryUnique__1
-LightRadiusUnique__5
+LightRadiusUnique__7_
 EnergyShieldAdditiveModifiersInsteadApplyToWardUnique__
 ]],[[
 Cadigan's Crown
 Runic Crown
 League: Expedition
 Source: Drops from unique{Olroth, Origin of the Fall} in normal{Expedition Logbook}
-Requires Level 68, 66 Str, 66 Dex, 66 Int
 CannotCrit
-BattlemageKeystoneUnique__6
+BattlemageKeystoneUnique__3
 ]],}

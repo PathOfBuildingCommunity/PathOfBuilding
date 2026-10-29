@@ -159,7 +159,7 @@ local function applySpecial(val, spec)
 	elseif spec.k == "deciseconds_to_seconds" then
 		val[spec.v].min = val[spec.v].min / 10
 		val[spec.v].max = val[spec.v].max / 10
-		val[spec.v].fmt = ".2f"
+		val[spec.v].fmt = "g"
 	elseif spec.k == "locations_to_metres" then
 		val[spec.v].min = val[spec.v].min / 10
 		val[spec.v].max = val[spec.v].max / 10

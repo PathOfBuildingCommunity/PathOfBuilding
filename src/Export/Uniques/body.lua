@@ -30,7 +30,6 @@ Implicits: 0
 Wall of Brambles
 Plate Vest
 Source: No longer obtainable
-LevelReq: 30
 Implicits: 0
 AddedPhysicalDamageUniqueBodyStr2
 LocalIncreasedPhysicalDamageReductionRatingTransformedUnique__1
@@ -50,7 +49,7 @@ Implicits: 0
 {variant:1}SelfShockDurationUnique__2
 TakeNoExtraDamageFromCriticalStrikesUnique__1
 {variant:2}MaximumElementalResistanceUnique__1__
-{variant:2}NoMaximumLifePerStrengthUnique__1
+{variant:2}NoMaximumLifePerStrengthUnique__2
 ]],[[
 Craiceann's Carapace
 Golden Plate
@@ -61,10 +60,10 @@ Source: Drops from unique{Craiceann, First of the Deep}
 Implicits: 0
 GrantsCrabAspect1_
 {variant:1}LocalIncreasedPhysicalDamageReductionRatingPercentUniqueBodyStr6[300,350]
-{variant:2}LocalIncreasedPhysicalDamageReductionRatingPercentUniqueBodyStr6
+{variant:2}LocalIncreasedPhysicalDamageReductionRatingPercentUnique__16
 IncreasedLifeUnique__72_
 FireAndColdResistUnique__3
-BleedingImmunityUnique__1
+BleedingImmunityUnique__2
 MaximumCrabBarriersUnique__1
 ]],[[
 Death's Oath
@@ -78,7 +77,7 @@ AllResistancesImplicitArmour1
 AllAttributesUniqueBodyStr3
 IncreasedAttackSpeedUniqueBodyStr3
 LocalIncreasedPhysicalDamageReductionRatingUniqueBodyStr3
-{variant:3}IncreasedLifeUniqueBodyDex6
+{variant:3}IncreasedLifeUnique__55
 LifeLeechPermyriadUniqueBodyStr3
 {variant:1,2}DisplayChaosDegenerationAuraUniqueBodyStr3
 {variant:1}ChaosDegenerationOnKillUniqueBodyStr3[27000,27000][600,600]
@@ -162,8 +161,8 @@ Implicits: 0
 BlockChancePer50StrengthUnique__1
 ExtraRollsSpellBlockUnique__1
 StrengthUnique__13_
-LocalIncreasedPhysicalDamageReductionRatingPercentUnique__12
-ReducedMovementVelocityUnique__1
+LocalIncreasedPhysicalDamageReductionRatingPercentUnique__15
+ReducedMovementVelocityUnique__2
 StrengthDamageBonus3Per10Unique__1
 ]],[[
 Perfidy
@@ -173,7 +172,7 @@ Variant: Pre 3.25.0
 Variant: Current
 Implicits: 0
 MeleeDamageUnique__2
-IncreasedLifeUniqueBodyStrDex3_
+IncreasedLifeUnique__100
 Allow2ActiveBannersUnique__1
 {variant:2}BannerResourceGainedUnique__1
 ]],[[
@@ -181,9 +180,8 @@ Pragmatism
 Colosseum Plate
 League: Affliction
 Source: unique{The King in the Mists} in the normal{Crux of Nothingness}
-Requires Level 49, 134 Str
 LocalIncreaseSocketedActiveSkillGemLevelUnique__1
-LocalIncreasedPhysicalDamageReductionRatingPercentUnique__19
+LocalIncreasedPhysicalDamageReductionRatingPercentUnique__29
 IncreasedManaUnique__28
 LocalIncreaseSocketedGemLevelPerFilledSocketUnique__1
 ]],[[
@@ -202,10 +200,9 @@ ChaosTakenOnES
 ]],[[
 Utula's Hunger
 Majestic Plate
-Requires Level 53, 145 Str
 LocalIncreasedPhysicalDamageReductionRatingPercentUnique__27
-MaximumLifeOnKillPercentUnique__2
-StunRecoveryUnique__2
+MaximumLifeOnKillPercentUnique__6
+StunRecoveryUnique__7
 IncreasedLifeNoLifeModifiersUnique__1
 ]],
 -- Body: Evasion
@@ -224,7 +221,7 @@ AvoidIgniteUniqueBodyDex3
 {variant:1,2}RangedWeaponPhysicalDamagePlusPercentUnique__1[10,15]
 {variant:3}RangedWeaponPhysicalDamagePlusPercentUnique__1
 {variant:1,2}PhysicalAttackDamageReducedUniqueBodyDex3[-5,-7]
-{variant:3}PhysicalAttackDamageReducedUniqueBodyDex3[-30,-60]
+{variant:3}PhysicalAttackDamageReducedUnique__1
 ]],[[
 Briskwrap
 {variant:1,2,3}Strapped Leather
@@ -248,7 +245,6 @@ ColdResistUniqueBodyDex7
 Wildwrap
 Strapped Leather
 Source: No longer obtainable
-LevelReq: 57
 Implicits: 0
 IncreasedAttackSpeedUniqueBodyDex7
 IncreasedEvasionRatingUnique__5_
@@ -304,7 +300,7 @@ DexterityUniqueBodyDex4
 LocalIncreasedEvasionRatingPercentUniqueBodyDex4
 {variant:1,2}MovementVelocityUniqueBodyDex4
 {variant:3}MovementVelocityOnFullLifeUnique__1
-{variant:3}EnemyExtraDamageRollsOnFullLifeUnique__1
+{variant:3}EnemyExtraDamageRollsOnFullLifeUnique__2
 ]],[[
 Fox's Fortune
 Wild Leather
@@ -344,7 +340,7 @@ Zodiac Leather
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 ChanceToSuppressSpellsUniqueBodyDex1
-IntelligenceUnique__11
+IntelligenceUnique__34
 LocalIncreasedEvasionRatingPercentUniqueBodyDex1
 ShockDurationUnique__3
 AddedLightningDamageUnique__4
@@ -412,7 +408,7 @@ Implicits: 0
 {variant:1,2}DexterityUnique__10_
 {variant:3}PercentageDexterityUnique__4
 {variant:1}LocalIncreasedEvasionRatingPercentUniqueBodyDex3[30,50]
-{variant:2,3}LocalIncreasedEvasionRatingPercentUniqueBodyDex3
+{variant:2,3}LocalIncreasedEvasionRatingPercentUnique__5
 IncreasedLifeUnique__26
 {variant:1,2}ArcticArmourBuffEffectUnique__1_[25,25]
 {variant:3}ArcticArmourBuffEffectUnique__1_
@@ -438,7 +434,7 @@ Implicits: 0
 ColdResistUnique__14
 {variant:1,2}ArcticArmourReservationCostUnique__1
 EvasionIncreasedByUncappedColdResistanceUnique__1
-Acrobatics
+KeystonePhaseAcrobaticsUnique__1
 ]],[[
 Replica Perfect Form
 Zodiac Leather
@@ -453,11 +449,11 @@ Implicits: 0
 {variant:2,3}PercentageDexterityUnique__4
 {variant:1}LocalIncreasedEvasionRatingPercentUnique__2[30,50]
 {variant:2}LocalIncreasedEvasionRatingPercentUnique__2[80,100]
-{variant:3,4}LocalIncreasedEvasionRatingPercentUnique__2
+{variant:3,4}LocalIncreasedEvasionRatingPercentUnique__4
 {variant:1}IncreasedLifeUniqueBodyStrDex4[50,80]
 {variant:2,3}IncreasedLifeUniqueBodyStrDex4
 ColdResistUnique__14
-{variant:4}AdditionalBlockUniqueBodyDex2[20,20]
+{variant:4}BlockPercentUnique__2
 {variant:1,2,3,4}EvasionIncreasedByUncappedColdResistanceUnique__1
 {variant:3}FleshAndStoneManaReservationUnique__1_
 {variant:3}KeystoneHollowPalmTechniqueUnique__1
@@ -475,9 +471,9 @@ Implicits: 0
 {variant:1,4}GrantsSummonBeastRhoaUnique__1
 {variant:2,5}GrantsSummonBeastSnakeUnique__1
 {variant:3,6}GrantsSummonBeastUrsaUnique__1
-IncreasedAccuracyUnique__1
+IncreasedAccuracyUnique__5
 LocalIncreasedEvasionRatingPercentUnique__9
-IncreasedLifeUniqueBodyStrDexInt1
+IncreasedLifeUnique__51
 ProjectileAttackCriticalStrikeChanceUnique__1
 {variant:1}Projectiles from Attacks have 20% chance to Maim on Hit while you have a Bestial Minion
 {variant:4}Projectiles from Attacks have 100% chance to Maim on Hit while you have a Bestial Minion
@@ -496,9 +492,8 @@ ProjectileAttackCriticalStrikeChanceUnique__1
 [[
 The Apostate
 Cabalist Regalia
-Requires Level 35
 Source: Drops from unique{Synthete Nightmare} in normal{The Cortex} (Uber)
-StrengthUnique__18
+StrengthUnique__27
 AllResistancesUnique__31
 LifeFromEnergyShieldArmourUnique__1
 ]],[[
@@ -512,7 +507,7 @@ SpellDamageUnique__3
 {variant:1}IncreasedEnergyShieldImplicitRing1[55,65]
 {variant:2}IncreasedEnergyShieldImplicitRing1
 {variant:1,2}LocalIncreasedEnergyShieldUniqueBodyInt4[110,130]
-{variant:3}LocalIncreasedEnergyShieldUniqueBodyInt4
+{variant:3}LocalIncreasedEnergyShieldPercent___3
 {variant:1,2}EnergyShieldRecoveryRateUnique__1[30,40]
 {variant:3}EnergyShieldRecoveryRateUnique__1
 AreaOfEffectUnique__1
@@ -541,8 +536,8 @@ Variant: Pre 3.0.0
 Variant: Current
 Implicits: 0
 DisplaySocketedMinionGemsSupportedByLifeLeechUnique__1
-{variant:1}LocalIncreasedEnergyShieldPercentUniqueBody_1[250,300]
-{variant:2}LocalIncreasedEnergyShieldPercentUniqueBody_1
+{variant:1}LocalIncreasedEnergyShieldPercentUnique__5[250,300]
+{variant:2}LocalIncreasedEnergyShieldPercentUnique__5
 MinionBlindImmunityUnique__1
 MinionChanceToBlindOnHitUnique__1
 MagicItemsDropIdentifiedUnique__1
@@ -607,10 +602,11 @@ Variant: Pre 3.5.0
 Variant: Pre 3.16.0
 Variant: Current
 Implicits: 0
-SocketedGemsSupportedByBlasphemyUnique__2__
-GrantCursePillarSkillUnique
+SupportedByBlasphemyUnique
+{variant:1,2}GrantCursePillarSkillUnique
+{variant:3}GrantCursePillarSkillUnique__
 {variant:3}DoedresSkinLessCurseEffectUnique__1
-IntelligenceUniqueBodyStrInt3
+IntelligenceUnique__8
 LocalIncreasedEnergyShieldPercentUnique__14
 {variant:1}CurseEffectivenessUnique__2_[-33,-25]
 ]],[[
@@ -619,7 +615,7 @@ Widowsilk Robe
 League: Bestiary
 Source: Drops from unique{Fenumus, First of the Night}
 Implicits: 0
-IntelligenceUniqueBodyStrInt3
+IntelligenceUnique__10
 LocalIncreasedEnergyShieldPercentUnique__17
 FlatEnergyShieldRegenerationUnique__1
 DamageDealtByWebbedEnemiesUnique__1
@@ -630,7 +626,7 @@ Fleshcrafter
 Necromancer Silks
 League: Harvest
 Implicits: 0
-LocalIncreasedEnergyShieldUniqueBodyInt1
+LocalIncreasedEnergyShieldPercentUnique__28__
 Minions Convert 2% of their Maximum Life to Maximum Energy Shield per 1% Chaos Resistance they have
 MinionChaosDamageDoesNotBypassESUnique__1
 MinionEnergyShieldRechargeDelayUnique__1
@@ -691,7 +687,7 @@ Source: Drops in Chayula Breach or from unique{Chayula, Who Dreamt}
 Upgrade: Upgrades to unique{Skin of the Lords} using currency{Blessing of Chayula}
 Implicits: 0
 Roll6LinkedRandomColourSocketsUnique__1
-LocalIncreaseSocketedGemLevelUnique__2
+LocalIncreaseSocketedGemLevelUnique__5
 AllDefencesUnique__2
 ]],[[
 Soul Mantle
@@ -838,8 +834,8 @@ Triumphant Lamellar
 League: Bestiary
 Source: Drops from unique{Farrul, First of the Plains}
 Implicits: 0
-LocalIncreasedArmourAndEvasionUnique__14
-IncreasedLifeUniqueBodyStrInt7
+LocalIncreasedArmourAndEvasionUnique__7
+IncreasedLifeUnique__74
 CatAspectReservesNoManaUnique__1___
 CatsStealthDurationUnique__1_
 GainMaxFrenzyAndPowerOnCatsStealthUnique__1
@@ -850,9 +846,9 @@ Triumphant Lamellar
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 0
-LocalIncreasedArmourAndEvasionUnique__12
-IncreasedLifeUniqueBodyStrInt7
-CatsStealthDurationUnique__1_
+LocalIncreasedArmourAndEvasionUnique__7
+IncreasedLifeUnique__74
+CatsAgilityDurationUnique__1
 CatAspectReservesNoManaUnique__1___
 GainMaxFrenzyAndEnduranceOnCatsAgilityUnique__1
 GainOnslaughtWhileCatsAgilityUnique__1_
@@ -885,7 +881,7 @@ Variant: Current
 Implicits: 0
 AddedLightningDamageUniqueBodyStrDex2
 LocalIncreasedArmourAndEvasionUniqueBodyStrDex2
-IncreasedLifeUniqueBodyDexInt3
+IncreasedLifeUniqueBodyStrDex2
 LightningResistUniqueBodyStrDex2
 {variant:1}PhysicalDamageTakenAsLightningPercentUniqueBodyStrDex2[40,40]
 {variant:2}PhysicalDamageTakenAsLightningPercentUniqueBodyStrDex2[30,30]
@@ -904,8 +900,7 @@ CannotBePoisonedUnique__1
 ]],[[
 Rigwald's Hunt
 General's Brigandine
-Requires Level 66, 103 Str, 103 Dex
-LocalIncreasedArmourAndEvasionUniqueBodyStrDex4
+LocalIncreasedArmourAndEvasionUnique__28
 MinionMovementSpeedUnique_1
 MinionDoubleDamageChancePerFortificationUnique__1
 FortifyDurationUnique_1
@@ -925,7 +920,7 @@ Implicits: 0
 {variant:1}LocalIncreasedArmourAndEnergyShieldUniqueBodyStrInt2[80,100]
 {variant:2}LocalIncreasedArmourAndEnergyShieldUniqueBodyStrInt2[140,180]
 {variant:3,4,5}LocalIncreasedArmourAndEnergyShieldUniqueBodyStrInt2
-{variant:4,5}IncreasedLifeUniqueBodyDexInt3
+{variant:4,5}IncreasedLifeUnique__42_
 {variant:1,2}AllResistancesUniqueBodyStrInt2[10,10]
 {variant:3,4,5}AllResistancesUniqueBodyStrInt2
 {variant:1,2,3,4}GainEnduranceChargeWhenCriticallyHit
@@ -941,7 +936,7 @@ League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 0
 LocalIncreasedArmourAndEnergyShieldUniqueBodyStrInt2
-IncreasedLifeUniqueBodyDexInt3
+IncreasedLifeUnique__42_
 AllResistancesUniqueBodyStrInt2
 ShareEnduranceChargesWithParty
 GainEnduranceChargesWhenHitUnique__1_
@@ -953,7 +948,7 @@ Implicits: 0
 AnimateGuardianWeaponOnGuardianKillUnique__1_
 AnimateGuardianWeaponOnAnimatedWeaponKillUnique__1
 LocalIncreasedArmourAndEnergyShieldUnique__11
-IncreasedLifeUniqueBodyStrDex3_
+IncreasedLifeUnique__81
 AnimatedGuardianDamagePerAnimatedWeaponUnique__1__
 AnimatedMinionsHaveMeleeSplashUnique__1
 IncreasedAnimatedMinionSplashDamageUnique__1
@@ -963,8 +958,8 @@ Doryani's Prototype
 Saint's Hauberk
 League: Harvest
 Implicits: 0
-LocalIncreasedArmourAndEnergyShieldUnique__13_
-IncreasedLifeUniqueBodyStrDex3_
+LocalIncreasedArmourAndEnergyShieldUnique__21
+IncreasedLifeUnique__101
 DealNoNonLightningDamageUnique__1_
 ArmourAppliesToLightningDamageUnique__1_
 LightningResistNoReductionUnique__1_
@@ -973,7 +968,7 @@ NearbyEnemyLightningResistanceEqualUnique__1
 The Fourth Vow
 Devout Chainmail
 LocalIncreasedArmourAndEnergyShieldUnique__26
-ChaosResistUnique__25
+ChaosResistUnique__28
 LifeRegenerationRatePercentUnique__5
 ArmourAppliesToChaosDamageUnique__1
 PhysicalDamageBypassesEnergyShieldUnique__1
@@ -986,12 +981,13 @@ Variant: Current
 Implicits: 0
 LocalIncreasedArmourAndEnergyShieldUnique__2
 {variant:1,2}IncreasedEnergyShieldUnique__5[70,80]
-{variant:3}IncreasedEnergyShieldUnique__5
-IncreasedLifeUniqueBodyDexInt1
+{variant:3}LocalIncreasedEnergySheildUnique__2_
+{variant:1,2}IncreasedLifeUniqueBodyDexInt1
+{variant:3}IncreasedLifeUnique__9
 AllResistancesUnique__3
 {variant:1}EnergyShieldPer5StrengthUnique__1[1,1][5,5]
 {variant:2,3}EnergyShieldPer5StrengthUnique__1
-KeystoneZealotsOathUnique__1_
+ZealotsOathUnique__1
 ]],[[
 Icetomb
 Latticed Ringmail
@@ -1012,7 +1008,6 @@ CannotBeChilledUniqueBodyStrInt3
 Crystal Vault
 Latticed Ringmail
 Source: No longer obtainable
-LevelReq: 49
 Implicits: 0
 StrengthUniqueBodyStrInt3
 IntelligenceUniqueBodyStrInt3
@@ -1033,7 +1028,7 @@ Implicits: 0
 {variant:2}LocalIncreasedArmourAndEnergyShieldUniqueBodyStrInt5
 IncreasedLifeUniqueBodyStrInt5
 {variant:1,2}LifeLeechPermyriadUniqueBodyStrInt5
-{variant:2}ElementalDamagePercentAddedAsChaosUnique__1
+{variant:2}ElementalDamagePercentAddedAsChaosUnique__3
 ElementalDamageTakenAsChaosUniqueBodyStrInt5
 LightRadiusUniqueBodyStrInt5
 ArcaneVisionUniqueBodyStrInt5
@@ -1168,7 +1163,7 @@ Implicits: 0
 DisplayGrantsBloodOfferingUnique__1_
 LocalIncreasedEvasionAndEnergyShieldUnique__6_
 MaximumLifeUnique__5
-MinionLifeUnique__1
+MinionLifeUnique__3_
 LifeRegenerationRatePercentUnique__3
 {variant:1}MinionDodgeChanceUnique__1[6,10]
 {variant:2}MinionDodgeChanceUnique__1
@@ -1179,7 +1174,7 @@ Variant: Pre 3.0.0
 Variant: Pre 3.5.0
 Variant: Current
 Implicits: 0
-LocalIncreasedEvasionAndEnergyShieldUniqueBodyDexInt4
+LocalIncreasedEvasionAndEnergyShieldUniqueBodyDexInt1
 IncreasedLifeUniqueBodyDexInt1
 AllResistancesUniqueBodyDexInt1
 {variant:1,2}AreaOfEffectImplicitMarakethTwoHandMace2
@@ -1203,7 +1198,7 @@ Implicits: 0
 {variant:1,2}ManaRegenerationUniqueBodyDexInt2
 {variant:3,4,5}BaseManaRegenerationUniqueBodyDexInt2
 {variant:1,3,4}DamageRemovedFromManaBeforeLifeTestMod[10,10]
-KeystoneMindOverMatterUnique__1
+ManaShield
 ]],[[
 Dendrobate
 Sentinel Jacket
@@ -1211,7 +1206,7 @@ Implicits: 0
 SupportedByLesserPoisonUnique__1
 LocalIncreasedEvasionAndEnergyShieldUnique__7
 LocalIncreasedEnergyShieldUnique__13_
-AllResistancesDemigodsImplicit
+AllResistancesUnique__11__
 PoisonDamageWithOver300DexterityUnique__1
 PoisonDurationWithOver150IntelligenceUnique__1
 ]],[[
@@ -1222,9 +1217,9 @@ Elder Item
 Source: Drops from unique{The Elder} (Uber)
 Implicits: 0
 GlimpseOfEternityWhenHitUnique__1
-LocalIncreasedEvasionAndEnergyShieldUnique__24
-IncreasedLifeUniqueBodyStrDex4
-ChaosResistUnique__11
+LocalIncreasedEvasionAndEnergyShieldUnique__18
+IncreasedLifeUnique__91
+ChaosResistUnique__12
 ElementalDamagePercentAddedAsChaosPerShaperItemUnique__1
 HitsIgnoreChaosResistanceAllShaperItemsUnique__1
 ]],[[
@@ -1236,9 +1231,9 @@ League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 0
 TriggerShadeFormWhenHitUnique__1
-LocalIncreasedEvasionAndEnergyShieldUnique__21_
-IncreasedLifeUniqueBodyStrDex4
-ChaosResistUnique__10
+LocalIncreasedEvasionAndEnergyShieldUnique__18
+IncreasedLifeUnique__91
+ChaosResistUnique__12
 PhysicalDamagePercentAddedAsChaosPerElderItemUnique__1
 HitsIgnoreChaosResistanceAllElderItemsUnique__1
 ]],[[
@@ -1247,7 +1242,7 @@ Sentinel Jacket
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 0
-LocalIncreasedEvasionAndEnergyShieldUnique__18
+LocalIncreasedEvasionAndEnergyShieldUnique__27
 MaximumLifeUnique__21
 AllDamageCanFreezeUnique__1
 FreezeChilledEnemiesMoreDamageUnique__1_
@@ -1259,7 +1254,7 @@ Variant: Pre 3.5.0
 Variant: Pre 3.7.0
 Variant: Current
 Implicits: 0
-IncreasedLifeUniqueBodyDexInt3
+IncreasedLifeUnique__56
 IncreasedDamageIfShockedRecentlyUnique__1
 {variant:1,2}ShockEffectUnique__1[25,40]
 {variant:3}ShockEffectUnique__1
@@ -1277,7 +1272,7 @@ IncreasedManaImplicitArmour1
 {variant:1}LocalIncreasedEvasionAndEnergyShieldUniqueBodyDexInt3[120,150]
 {variant:2,3}LocalIncreasedEvasionAndEnergyShieldUniqueBodyDexInt3
 {variant:1}IncreasedLifeUniqueBodyStrDex2[40,60]
-{variant:2,3}IncreasedLifeUniqueBodyStrDex2
+{variant:2,3}IncreasedLifeUniqueBodyDexInt3
 {variant:1,2}MovementVelocityPerFrenzyChargeUniqueBodyDexInt3[1,1]
 {variant:3}MovementVelocityPerFrenzyChargeUniqueBodyDexInt3
 {variant:1}LifeRegenPerMinutePerEnduranceChargeUnique__1[900,1200]
@@ -1305,7 +1300,7 @@ League: Bestiary
 Source: Drops from unique{Saqawal, First of the Sky}
 Implicits: 0
 AllAttributesUnique__5
-LightningResistUniqueBodyInt1
+LightningResistUnique__16
 ManaReservationEfficiencyUnique__2
 AvianAspectBuffEffectUnique__1
 GrantAviansAspectToAlliesUnique__1
@@ -1324,8 +1319,8 @@ Variant: Two Abyssal Sockets (Current)
 Variant: One Abyssal Socket (Current)
 Implicits: 1
 IncreasedManaImplicitArmour1
-{variant:5}AbyssJewelSocketUnique__1[3,3]
-{variant:1,3,6}AbyssJewelSocketUnique__1
+{variant:5}AbyssJewelSocketUnique__16
+{variant:1,3,6}AbyssJewelSocketUnique__15
 {variant:2,4,7}AbyssJewelSocketImplicit
 {variant:1,2}DisplaySupportedByElementalPenetrationUnique__1[20,20]
 {variant:3,4}DisplaySupportedByElementalPenetrationUnique__1
@@ -1344,7 +1339,7 @@ Carnal Armour
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 1
-IncreasedManaUnique__29
+IncreasedManaImplicitArmour1
 AbyssJewelSocketUnique__14
 ]],[[
 Stasis Prison
@@ -1365,7 +1360,7 @@ Tinkerskin
 Sadist Garb
 Implicits: 0
 LocalIncreasedEvasionAndEnergyShieldUnique__4
-IncreasedLifeUniqueBodyStrDex3_
+IncreasedLifeUnique__21
 TrapCooldownRecoveryUnique__1
 GainFrenzyChargeOnTrapTriggeredUnique__1
 PhasingOnTrapTriggeredUnique__1
@@ -1381,7 +1376,7 @@ LocalIncreaseSocketedAuraGemLevelUniqueBodyDexInt4
 {variant:1}SupportedByGenerosityUniqueBodyDexInt4_[1,1]
 {variant:2}SupportedByGenerosityUniqueBodyDexInt4_
 SocketedItemsHaveReducedReservationUniqueBodyDexInt4
-LocalIncreasedEvasionAndEnergyShieldUniqueBodyDexInt1
+LocalIncreasedEvasionAndEnergyShieldUniqueBodyDexInt4
 {variant:1}IncreasedAuraRadiusUniqueBodyDexInt4[10,20]
 {variant:2}IncreasedAuraRadiusUniqueBodyDexInt4
 IncreasedAuraEffectUniqueBodyDexInt4
@@ -1389,7 +1384,6 @@ IncreasedAuraEffectUniqueBodyDexInt4
 Servant of Decay
 Torturer Garb
 Source: Drops from unique{Incarnation of Fear} in normal{Moment of Trauma}
-Requires Level 78, 151 Dex, 151 Int
 GrantsSummonVoidSpawnUnique__1
 LocalIncreasedEnergyShieldPercentUniqueBody_1
 ChaosResistUniqueBody_1
@@ -1399,7 +1393,6 @@ ExtraChaosDamagePerVoidSpawnUnique__1
 Seven Teachings
 Waxed Garb
 Source: Drops from unique{Incarnation of Dread} in normal{Moment of Reverence}
-Requires Level 77, 48 Dex, 48 Int
 TriggerSocketedSpellOnUnarmedMeleeCriticalHitUnique__1
 UnarmedMoreMeleeAttackSpeedUnique__1
 LocalIncreasedEvasionAndEnergyShieldUnique__38
@@ -1417,7 +1410,7 @@ Source: Drops from unique{Admiral Darnaw} in normal{Contract: Death to Darnaw}
 Variant: Pre 3.26.0
 Variant: Current
 Implicits: 0
-IntelligenceUniqueBodyStrInt3
+IntelligenceUnique__26_
 {variant:1}LocalIncreasedEvasionAndEnergyShieldUnique__31[100,140]
 {variant:2}LocalIncreasedEvasionAndEnergyShieldUnique__31
 AllResistancesUnique__20
@@ -1449,11 +1442,13 @@ Variant: Current (Armour/Evasion/ES)
 Implicits: 1
 GlobalVaalGemsLevelImplicit1_
 {variant:1,10}LocalIncreasedPhysicalDamageReductionRatingPercentUniqueBodyStrDexInt1a
-{variant:2,11}GlobalEvasionRatingAndArmourPercentUnique__1_[200,220]
+{variant:2,11}LocalIncreasedArmourAndEvasionUniqueBodyStrDexInt1b
 {variant:3,12}LocalIncreasedEvasionRatingPercentUniqueBodyStrDexInt1c
-{variant:4,5,13,14}LocalIncreasedEvasionAndEnergyShieldUniqueBodyStrDexInt1d
+{variant:4,13}LocalIncreasedEvasionAndEnergyShieldUniqueBodyStrDexInt1d
+{variant:5,14}LocalIncreasedEvasionAndEnergyShieldUniqueBodyStrDexInt1f
 {variant:6,15}LocalIncreasedEnergyShieldUniqueBodyStrDexInt1g
-{variant:7,8,16,17}LocalIncreasedArmourAndEnergyShieldUniqueBodyStrDexInt1e
+{variant:7,16}LocalIncreasedArmourAndEnergyShieldUniqueBodyStrDexInt1e
+{variant:8,17}LocalIncreasedArmourAndEnergyShieldUniqueBodyStrDexInt1h
 {variant:9,18}LocalArmourAndEvasionAndEnergyShieldUniqueBodyStrDexInt1i
 {variant:1,2,3,4,7,10,11,12,13,16}IncreasedLifeUniqueBodyStrDexInt1
 {variant:5,6,8}IncreasedEnergyShieldUniqueBodyStrDexInt1[90,100]
@@ -1470,7 +1465,7 @@ Variant: Pre 3.10.0
 Variant: Current
 Implicits: 0
 DisplayHasAdditionalModUnique__1
-AllAttributesUnique__11
+AllAttributesUnique__8_
 {variant:2}LocalIncreasedArmourEvasionEnergyShieldUnique__1_
 MaximumLifeOnKillPercentUnique__3__
 MaximumEnergyShieldOnKillPercentUnique__1

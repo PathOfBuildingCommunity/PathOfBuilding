@@ -38,7 +38,6 @@ Implicits: 1
 ]],[[
 Andvarius
 Gold Ring
-Requires Level 20
 Implicits: 1
 (6-15)% increased Rarity of Items found
 {tags:attribute}+10 to Dexterity
@@ -71,7 +70,6 @@ League: Domination, Nemesis
 Variant: Pre 2.6.0
 Variant: Pre 3.8.0
 Variant: Current
-Requires Level 20
 Implicits: 1
 {tags:resistance}+(12-16)% to Cold and Lightning Resistances
 {variant:1}{tags:elemental_damage}(10-15)% increased Cold Damage
@@ -89,7 +87,6 @@ Two-Stone Ring
 League: Domination, Nemesis
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 20
 Implicits: 1
 {tags:resistance}+(12-16)% to Fire and Cold Resistances
 {variant:1}{tags:elemental_damage}(10-15)% increased Fire Damage
@@ -105,7 +102,6 @@ Two-Stone Ring
 League: Domination, Nemesis
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 20
 Implicits: 1
 {tags:resistance}+(12-16)% to Fire and Lightning Resistances
 {variant:1}{tags:elemental_damage,attack,caster}Adds 1 to (10-30) Fire Damage to Spells and Attacks
@@ -196,7 +192,7 @@ Unset Ring
 League: Warbands
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 45
+Requires Level 44
 Implicits: 1
 Has 1 Socket
 {variant:2}25% increased Effect of Buffs granted by Socketed Golem Skills
@@ -214,7 +210,6 @@ Call of the Brotherhood
 Two-Stone Ring
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 20
 Implicits: 1
 {tags:resistance}+(12-16)% to Cold and Lightning Resistances
 {tags:attribute}+(15-25) to Intelligence
@@ -227,7 +222,6 @@ Implicits: 1
 Circle of Ambition
 Prismatic Ring
 Source: Drops from unique{Synthete Nightmare} in normal{The Cortex} (Uber)
-Requires Level 20
 Variant: Thunder: Skill Reservation
 Variant: Thunder: Lightning Damage
 Variant: Thunder: Buff Effect
@@ -258,6 +252,7 @@ Has Alt Variant: true
 Selected Alt Variant: 2
 Has Alt Variant Two: true
 Selected Alt Variant Two: 3
+Requires Level 64
 Implicits: 0
 {tags:attribute}+(10-20) to all Attributes
 {tags:resistance}+(10-20)% to all Elemental Resistances
@@ -292,7 +287,6 @@ Circle of Anguish
 Ruby Ring
 League: Synthesis
 Source: Drops from unique{Altered/Augmented/Rewritten/Twisted Synthete}
-Requires Level 52
 Has Alt Variant: true
 Variant: Skill Reservation (Pre 3.11.0)
 Variant: Skill Reservation (Current)
@@ -301,6 +295,7 @@ Variant: Buff Effect (Pre 3.11.0)
 Variant: Buff Effect (Current)
 Variant: Max Resistance
 Variant: Fire Resistance
+Requires Level 52
 Implicits: 1
 {tags:resistance}+(20-30)% to Fire Resistance
 {tags:attribute}{fractured}+(20-30) to Strength
@@ -318,7 +313,6 @@ Circle of Fear
 Sapphire Ring
 League: Synthesis
 Source: Drops from unique{Altered/Augmented/Rewritten/Twisted Synthete}
-Requires Level 52
 Has Alt Variant: true
 Variant: Skill Reservation (Pre 3.11.0)
 Variant: Skill Reservation (Current)
@@ -327,6 +321,7 @@ Variant: Buff Effect (Pre 3.11.0)
 Variant: Buff Effect (Current)
 Variant: Max Resistance
 Variant: Cold Resistance
+Requires Level 52
 Implicits: 1
 {tags:resistance}+(20-30)% to Cold Resistance
 {tags:attribute}{fractured}+(20-30) to Dexterity
@@ -344,7 +339,6 @@ Circle of Guilt
 Iron Ring
 League: Synthesis
 Source: Drops from unique{Altered/Augmented/Rewritten/Twisted Synthete}
-Requires Level 52
 Has Alt Variant: true
 Variant: Skill Reservation (Pre 3.11.0)
 Variant: Skill Reservation (Current)
@@ -353,6 +347,7 @@ Variant: Buff Effect (Pre 3.11.0)
 Variant: Buff Effect (Current)
 Variant: Sentinel Damage
 Variant: Damage Reduction
+Requires Level 52
 Implicits: 1
 {tags:physical_damage,attack}Adds 1 to 4 Physical Damage to Attacks
 {tags:attribute}{fractured}+(10-20) to all Attributes
@@ -370,7 +365,6 @@ Circle of Nostalgia
 Amethyst Ring
 League: Synthesis
 Source: Drops from unique{Altered/Augmented/Rewritten/Twisted Synthete}
-Requires Level 52
 Has Alt Variant: true
 Variant: Skill Reservation (Pre 3.11.0)
 Variant: Skill Reservation (Current)
@@ -379,6 +373,7 @@ Variant: Buff Effect (Pre 3.11.0)
 Variant: Buff Effect (Current)
 Variant: Agony Damage
 Variant: Chaos Resistance
+Requires Level 52
 Implicits: 1
 {tags:resistance}+(17-23)% to Chaos Resistance
 {tags:attribute}{fractured}+(10-20) to all Attributes
@@ -396,7 +391,6 @@ Circle of Regret
 Topaz Ring
 League: Synthesis
 Source: Drops from unique{Altered/Augmented/Rewritten/Twisted Synthete}
-Requires Level 52
 Has Alt Variant: true
 Variant: Skill Reservation (Pre 3.11.0)
 Variant: Skill Reservation (Current)
@@ -405,6 +399,7 @@ Variant: Buff Effect (Pre 3.11.0)
 Variant: Buff Effect (Current)
 Variant: Max Resistance
 Variant: Lightning Resistance
+Requires Level 52
 Implicits: 1
 {tags:resistance}+(20-30)% to Lightning Resistance
 {tags:attribute}{fractured}+(20-30) to Intelligence
@@ -433,7 +428,7 @@ Implicits: 1
 {variant:2}{tags:resource}+(40-50) to maximum Life
 {variant:1,2}{tags:resistance}+(15-20)% to Chaos Resistance
 {variant:1,2}{tags:resource,attack}(0.6-0.8)% of Physical Attack Damage Leeched as Life
-{variant:3}{tags:resource}Recover 5% of Life on Kill
+{variant:3}{tags:resource}Recover (3-5)% of Life on Kill
 {variant:1}You gain Onslaught for 2 seconds on Kill
 {variant:2}You gain Onslaught for 4 seconds on Kill
 {variant:3}Gain Adrenaline for 3 seconds on Kill
@@ -450,7 +445,8 @@ Implicits: 1
 {variant:2}{tags:resistance}+(5-20)% to all Elemental Resistances
 {variant:1}{tags:resource}Gain 5 Mana per Enemy Killed
 {variant:2}{tags:resource}Gain (5-20) Mana per Enemy Killed
-{tags:caster}You can apply an additional Curse
+{variant:1}{tags:caster}You can apply an additional Curse
+{variant:2}{tags:caster}You can apply an additional Curse
 ]],[[
 Replica Doedre's Damning
 Paua Ring
@@ -494,7 +490,6 @@ Variant: Pre 3.9.0
 Variant: Pre 3.16.0
 Variant: Pre 3.29.0
 Variant: Current
-Requires Level 16
 Implicits: 1
 {tags:resistance}+(20-30)% to Fire Resistance
 {variant:1}{tags:elemental_damage}(15-25)% increased Fire Damage
@@ -517,7 +512,6 @@ League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Variant: Pre 3.29.0
 Variant: Current
-Requires Level 16
 Implicits: 1
 {tags:resistance}+(20-30)% to Fire Resistance
 {tags:elemental_damage}(30-40)% increased Fire Damage
@@ -536,7 +530,7 @@ Has 1 Socket
 +2 to Level of Socketed Aura Gems
 {tags:resource}Socketed Gems have no Reservation
 {tags:resource}Your Blessing Skills are Disabled
-{tags:resource}80% reduced Reservation Efficiency of Skills
+80% reduced Reservation Efficiency of Skills
 ]],[[
 Fated End
 Paua Ring
@@ -547,7 +541,7 @@ Implicits: 1
 {tags:resource}+(20-30) to maximum Mana
 {tags:attribute}+(20-40) to Intelligence
 {tags:caster,speed}Curse Skills have (8-12)% increased Cast Speed
-Non-Aura Hexes expire upon reaching 200% of base Effect
+Non-Aura Hexes expire upon reaching (180-220)% of base Effect
 Non-Aura Hexes gain 20% increased Effect per second
 ]],[[
 Gifts from Above
@@ -583,7 +577,6 @@ Grattus Signet
 Diamond Ring
 League: Necropolis
 Source: Created from 4 different unique{Grattus} family corpses in the normal{Necropolis}
-Requires Level 64
 Implicits: 1
 {tags:critical}(20-30)% increased Global Critical Strike Chance
 {tags:attack,speed}(5-10)% increased Attack Speed
@@ -607,9 +600,8 @@ Grants level 20 Penance Mark
 ]],[[
 Heartbound Loop
 Moonstone Ring
-Requires Level 20
 Implicits: 1
-{tags:defences}+(15-25) to maximum Energy Shield
+{tags:caster,speed}(7-10)% increased Cast Speed
 {tags:resource}Regenerate (10-15) Life per second
 {tags:resource}(20-40)% increased Mana Regeneration Rate
 {tags:resource}Minions have 15% increased maximum Life
@@ -619,7 +611,6 @@ Minions have 10% increased Area of Effect
 Ixchel's Temptation
 Gold Ring
 League: Affliction
-Requires Level 20
 Implicits: 1
 (6-15)% increased Rarity of Items found
 {tags:attribute}+(10-15) to all Attributes
@@ -638,9 +629,9 @@ Corrupted
 ]],[[
 Anathema
 Moonstone Ring
-LevelReq: 49
+Requires Level 49
 Implicits: 1
-{tags:defences}+(15-25) to maximum Energy Shield
+{tags:caster,speed}(7-10)% increased Cast Speed
 {tags:attribute}+(30-40) to Intelligence
 {tags:caster,speed}(10-15)% increased Cast Speed
 (10-20)% chance to gain a Power Charge when you Cast a Curse Spell
@@ -667,7 +658,7 @@ Honoured Alliance
 Coral Ring
 League: Ancestor
 Source: No longer obtainable
-LevelReq: 49
+Requires Level 49
 Implicits: 1
 {tags:resource}+(20-30) to maximum Life
 10% chance to Trigger Summon Spirit of Akoya on Kill
@@ -678,7 +669,7 @@ Implicits: 1
 [[
 The Hungry Loop
 Unset Ring
-Requires Level 45
+Requires Level 70
 Implicits: 1
 Has 1 Socket
 Consumes Socketed Uncorrupted Support Gems when they reach Maximum Level
@@ -687,8 +678,8 @@ Has not Consumed any Gems
 ]],[[
 Icefang Orbit
 Iron Ring
-Requires Level: 49
 League: Blight
+Requires Level 49
 Implicits: 1
 {tags:physical_damage,attack}Adds 1 to 4 Physical Damage to Attacks
 {tags:attribute}+(20-30) to Dexterity
@@ -747,7 +738,7 @@ Implicits: 1
 Nimis
 Topaz Ring
 Source: Drops from unique{The Eater of Worlds} (Uber)
-LevelReq: 48
+Requires Level 48
 Implicits: 1
 {tags:resistance}+(20-30)% to Lightning Resistance
 {tags:attribute}+(30-50) to Dexterity
@@ -775,7 +766,6 @@ Lori's Lantern
 Prismatic Ring
 Variant: Pre 1.0.0
 Variant: Current
-Requires Level 30
 Implicits: 2
 {variant:1}{tags:resistance}+(8-12)% to all Elemental Resistances
 {variant:2}{tags:resistance}+(8-10)% to all Elemental Resistances
@@ -790,7 +780,6 @@ Unset Ring
 Variant: Pre 2.6.0
 Variant: Current
 Sockets: W
-Requires Level 5
 Implicits: 1
 Has 1 Socket
 All Sockets are White
@@ -805,7 +794,6 @@ Replica Malachai's Artifice
 Unset Ring
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 5
 Implicits: 1
 Has 1 Socket
 All Sockets are White
@@ -826,7 +814,6 @@ Mark of the Elder
 Steel Ring
 Elder Item
 Source: Drops from unique{The Elder} (Uber)
-Requires Level 80
 Implicits: 1
 {tags:physical_damage,attack}Adds (3-4) to (10-14) Physical Damage to Attacks
 20% chance to Trigger Level 20 Tentacle Whip on Kill
@@ -840,7 +827,6 @@ Mark of the Shaper
 Opal Ring
 Shaper Item
 Source: Drops from unique{The Elder} (Uber)
-Requires Level 80
 Implicits: 1
 {tags:elemental_damage}(15-25)% increased Elemental Damage
 20% chance to Trigger Level 20 Summon Volatile Anomaly on Kill
@@ -875,7 +861,6 @@ Mokou's Embrace
 Ruby Ring
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 16
 Implicits: 1
 {tags:resistance}+(20-30)% to Fire Resistance
 {variant:1}{tags:elemental_damage}(15-25)% increased Fire Damage
@@ -894,7 +879,7 @@ League: Warbands
 Variant: Pre 2.6.0
 Variant: Pre 3.16.0
 Variant: Current
-Requires Level 45
+Requires Level 44
 Implicits: 1
 Has 1 Socket
 {variant:2,3}{tags:attack,caster,speed}Socketed Golem Skills have 20% increased Attack and Cast Speed
@@ -906,7 +891,7 @@ Has 1 Socket
 {tags:physical_damage,attack}Adds (5-10) to (11-15) Physical Damage to Attacks
 {tags:attack,speed}(5-10)% increased Attack Speed
 {variant:1}{tags:speed}(1-2)% increased Movement Speed
-{variant:2}{tags:speed}(3-5)% increased Movement Speed
+{variant:2,3}{tags:speed}(3-5)% increased Movement Speed
 ]],[[
 Ngamahu's Sign
 Ruby Ring
@@ -933,7 +918,7 @@ Original Sin
 Amethyst Ring
 League: Sanctum
 Source: Drops from unique{Lycia, Herald of the Scourge} in normal{The Beyond} while unique{The Original Scripture} is active in the normal{Relic Altar}
-LevelReq: 52
+Requires Level 52
 Implicits: 1
 {tags:resistance}+(17-23)% to Chaos Resistance
 {tags:elemental_damage,chaos_damage}All Elemental Damage Converted to Chaos Damage
@@ -976,7 +961,6 @@ Implicits: 1
 Polaric Devastation
 Opal Ring
 Source: Drops from unique{The Black Star}
-Requires Level 80
 Implicits: 1
 {tags:elemental_damage}(15-25)% increased Elemental Damage
 {tags:critical}(15-25)% increased Global Critical Strike Chance
@@ -1002,7 +986,7 @@ Implicits: 1
 Profane Proxy
 Unset Ring
 Sockets: G
-LevelReq: 52
+Requires Level 52
 Implicits: 1
 Has 1 Socket
 {tags:caster}+3 to Level of Socketed Curse Gems
@@ -1077,7 +1061,7 @@ Unset Ring
 League: Warbands
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 45
+Requires Level 44
 Implicits: 1
 Has 1 Socket
 {variant:2}Socketed Golem Skills have 25% chance to Taunt on Hit
@@ -1097,7 +1081,6 @@ League: Talisman
 Variant: Pre 3.19.0
 Variant: Current
 Source: Drops from unique{Rigwald, the Wolven King} (Level 60+)
-Requires Level 49
 Implicits: 1
 {tags:resistance}+(12-16)% to Fire and Cold Resistances
 Trigger Level 10 Summon Spectral Wolf on Kill
@@ -1145,7 +1128,7 @@ League: Settlers of Kalguur
 Requires Level 50
 Implicits: 2
 50% increased Elemental Ailment Duration on you
-{tags:caster}50% reduced Effect of Curses on you
+50% reduced Effect of Curses on you
 Grants level 20 Affliction
 {tags:caster,speed}(6-12)% increased Cast Speed
 {tags:defences}+(30-60) to maximum Energy Shield
@@ -1159,8 +1142,9 @@ Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
 Requires Level 30
-Implicits: 1
-{tags:defences}+(15-25) to maximum Energy Shield
+Implicits: 2
+{variant:4}{tags:caster,speed}(7-10)% increased Cast Speed
+{variant:1,2,3}{tags:defences}+(15-25) to maximum Energy Shield
 {tags:attribute}+(60-75) to Intelligence
 {tags:resource}Right ring slot: You cannot Regenerate Mana
 {variant:1}{tags:defences}Right ring slot: Regenerate 4% of Energy Shield per second
@@ -1216,7 +1200,7 @@ Implicits: 1
 ]],[[
 Soulbound
 Paua Ring
-LevelReq: 44
+Requires Level 44
 Implicits: 1
 {tags:resource}+(20-30) to maximum Mana
 {tags:attribute}+(10-20) to all Attributes
@@ -1230,7 +1214,6 @@ Opal Ring
 Variant: Pre 3.17.0
 Variant: Pre 3.29.0
 Variant: Current
-Requires Level 80
 Implicits: 1
 {tags:elemental_damage}(15-25)% increased Elemental Damage
 {tags:resource}(40-45)% increased Mana Regeneration Rate
@@ -1261,7 +1244,6 @@ Source: Vendor Recipe
 Variant: Pre 3.0.0
 Variant: Pre 3.25.0
 Variant: Current
-Requires Level 30
 Implicits: 1
 {tags:resistance}+(8-10)% to all Elemental Resistances
 {variant:1}{tags:resistance}+(10-15)% to all Elemental Resistances
@@ -1288,7 +1270,7 @@ Requires Level 20
 Implicits: 1
 {tags:resistance}+(20-30)% to Cold Resistance
 {variant:1}{tags:physical_damage,attack}Adds 10 to 15 Physical Damage to Attacks against Frozen Enemies
-{variant:1}{tags:elemental_damage,attack}Adds (5-6) to (7-9) Cold Damage to Attacks
+{variant:1}{tags:elemental_damage,attack,caster}Adds (5-6) to (7-9) Cold Damage to Spells and Attacks
 {variant:2}{tags:elemental_damage,attack,caster}Adds (7-10) to (15-20) Cold Damage to Spells and Attacks
 {tags:defences}+(200-300) to Evasion Rating
 {variant:2}50% chance to Avoid being Chilled
@@ -1314,8 +1296,10 @@ Tawhanuku's Timing
 Moonstone Ring
 Variant: Pre 3.29.0
 Variant: Current
-Implicits: 1
-{tags:defences}+(15-25) to maximum Energy Shield
+Requires Level 44
+Implicits: 2
+{variant:2}{tags:caster,speed}(7-10)% increased Cast Speed
+{variant:1}{tags:defences}+(15-25) to maximum Energy Shield
 {tags:caster}(30-40)% increased Spell Damage
 {variant:2}{tags:defences}+(60-80) to maximum Energy Shield
 {tags:resource}+(60-80) to maximum Mana
@@ -1331,7 +1315,6 @@ Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Pre 3.25.0
 Variant: Current
-Requires Level 30
 Implicits: 2
 {variant:1}{tags:resistance}+(8-12)% to all Elemental Resistances
 {variant:2,3,4,5,6}{tags:resistance}+(8-10)% to all Elemental Resistances
@@ -1354,9 +1337,10 @@ Variant: Pre 2.6.0
 Variant: Pre 3.17.0
 Variant: Pre 3.19.0
 Variant: Current
-LevelReq: 25
-Implicits: 1
-{tags:defences}+(15-25) to maximum Energy Shield
+Requires Level 25
+Implicits: 2
+{variant:4}{tags:caster,speed}(7-10)% increased Cast Speed
+{variant:1,2,3}{tags:defences}+(15-25) to maximum Energy Shield
 {tags:attack,speed}(10-15)% increased Attack Speed
 {variant:1}{tags:caster,speed}(5-8)% increased Cast Speed
 {variant:2,3}{tags:caster,speed}(5-10)% increased Cast Speed
@@ -1379,7 +1363,7 @@ Moonstone Ring
 Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Current
-LevelReq: 25
+Requires Level 25
 Implicits: 1
 {tags:defences}+(15-25) to maximum Energy Shield
 {tags:attack,speed}(10-15)% increased Attack Speed
@@ -1393,7 +1377,6 @@ Implicits: 1
 ]],[[
 Triumvirate Authority
 Unset Ring
-Requires Level 64
 Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Apex of Sacrifice} (3 stats) or in normal{The Alluring Abyss} (4 stats)
 Has Alt Variant: true
 Has Alt Variant Two: true
@@ -1411,6 +1394,7 @@ Variant: Skill Effect Duration
 Variant: Soul Gain Prevention Duration
 Variant: Lucky Damage
 Variant: Aura Effect
+Requires Level 64
 Implicits: 1
 Has 1 Socket
 +2 to Level of Socketed Vaal Gems
@@ -1487,8 +1471,9 @@ Moonstone Ring
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 38
-Implicits: 1
-{tags:defences}+(15-25) to maximum Energy Shield
+Implicits: 2
+{variant:2}{tags:caster,speed}(7-10)% increased Cast Speed
+{variant:1}{tags:defences}+(15-25) to maximum Energy Shield
 {variant:1}{tags:defences}+(10-20) to maximum Energy Shield
 {variant:2}{tags:defences}+(30-40) to maximum Energy Shield
 {variant:1}{tags:resistance}+(20-30)% to Fire Resistance
@@ -1498,12 +1483,12 @@ Stun Threshold is based on Energy Shield instead of Life
 ]],[[
 Venopuncture
 Iron Ring
-Requires Level: 49
 League: Blight
+Requires Level 49
 Implicits: 1
 {tags:physical_damage,attack}Adds 1 to 4 Physical Damage to Attacks
 {tags:attribute}+(20-30) to Strength
-{tags:attack}25% chance to cause Bleeding on Hit
+{tags:attack}Attacks have 25% chance to cause Bleeding
 {tags:physical_damage,attack}(40-60)% increased Damage with Bleeding
 You are Chilled while you are Bleeding
 Non-Chilled Enemies you inflict Bleeding on are Chilled
@@ -1549,7 +1534,7 @@ Variant: Focus Shock Nearby Enemies
 Variant: Minimum Frenzy Charges
 Variant: Minimum Power Charges
 Variant: Minimum Endurance Charges
-Requires Level 45
+Requires Level 48
 Implicits: 1
 Has 1 Socket
 +5 to Level of Socketed Aura Gems
@@ -1561,13 +1546,20 @@ Has 1 Socket
 {variant:17}{tags:attribute}+(31-35) to Strength and Intelligence
 {variant:5}{tags:attribute}+(6-17) to Dexterity and Intelligence
 {variant:16}{tags:attribute}+(31-35) to Dexterity and Intelligence
+{variant:21}+1 to Minimum Endurance Charges
+{variant:21}(3-4)% chance to gain an Endurance Charge on Kill
+{variant:19}+1 to Minimum Frenzy Charges
 {variant:19}(3-4)% chance to gain a Frenzy Charge on Kill
+{variant:20}+1 to Minimum Power Charges
 {variant:20}(3-4)% chance to gain a Power Charge on Kill
 {tags:resource}Regenerate 15 Life per second for each Uncorrupted Item Equipped
 {tags:resource}-2 to Total Mana Cost of Skills for each Corrupted Item Equipped
+{variant:13}{tags:resistance}+(16-20)% to Cold and Chaos Resistances
 {variant:1}{tags:resistance}+(8-15)% to Fire and Chaos Resistances
 {variant:12}{tags:resistance}+(16-20)% to Fire and Chaos Resistances
 {variant:18}Focus has (5-8)% increased Cooldown Recovery Rate
+{variant:18}Shock nearby Enemies for 4 Seconds when you Focus
+{variant:14}{tags:resistance}+(16-20)% to Lightning and Chaos Resistances
 {variant:1,2,3,4,5,6,7,8,9,10,11}Socketed Gems have 20% reduced Mana Reservation Efficiency
 {variant:2}{crafted}{tags:chaos,jewellery_resistance}+(8-15)% to Cold and Chaos Resistances
 {variant:3}{crafted}{tags:chaos,jewellery_resistance}+(8-15)% to Lightning and Chaos Resistances
@@ -1576,13 +1568,6 @@ Has 1 Socket
 {variant:9}{crafted}+1 to Minimum Frenzy Charges
 {variant:10}{crafted}+1 to Minimum Power Charges
 {variant:11}{crafted}+1 to Minimum Endurance Charges
-{variant:13}{crafted}{tags:chaos,jewellery_resistance}+(16-20)% to Cold and Chaos Resistances
-{variant:14}{crafted}{tags:chaos,jewellery_resistance}+(16-20)% to Lightning and Chaos Resistances
-{variant:18}{crafted}Shock nearby Enemies for 4 Seconds when you Focus
-{variant:19}{crafted}+1 to Minimum Frenzy Charges
-{variant:20}{crafted}+1 to Minimum Power Charges
-{variant:21}{crafted}+1 to Minimum Endurance Charges
-{variant:21}{crafted}(3-4)% chance to gain a Endurance Charge on Kill
 ]],[[
 Voideye
 Unset Ring
@@ -1612,7 +1597,7 @@ Implicits: 1
 ]],[[
 Warrior's Legacy
 Ruby Ring
-Requires Level 16
+Requires Level 40
 Implicits: 1
 {tags:resistance}+(20-30)% to Fire Resistance
 {tags:attribute}+(30-50) to Strength
@@ -1644,7 +1629,6 @@ Mirrored
 Betrayal's Sting
 Steel Ring
 Source: Drops from unique{Incarnation of Neglect} in normal{Moment of Loneliness}
-Requires Level 80
 Implicits: 1
 {tags:physical_damage,attack}Adds (3-4) to (10-14) Physical Damage to Attacks
 {tags:attribute}+(20-35) to Dexterity
@@ -1666,7 +1650,6 @@ When 90% of your Hex's Duration Expires on an Enemy, Eat 1 Soul per Enemy Power
 Enmity's Embrace
 Vermillion Ring
 Source: Drops from unique{Incarnation of Fear} in normal{Moment of Trauma}
-Requires Level 80
 Implicits: 1
 {tags:resource}(5-7)% increased maximum Life
 {tags:attribute}+(30-50) to Strength
@@ -1700,7 +1683,6 @@ An Enemy Writhing Worm spawns every 2 seconds
 Lost Unity
 Formless Ring
 Source: Drops from unique{It That Was Esh} and unique{It That Was Tul} in normal{Hive Colony}
-Requires Level 42
 Implicits: 1
 {tags:defences}(5-7)% increased Global Defences
 Grants Level 30 Herald of the Hive Skill
@@ -1727,7 +1709,6 @@ Auras from Chaos Skills at (10-15)% of their value, up to a maximum of 150%
 The Unseen Hue
 Opal Ring
 Source: Drops from unique{Incarnation of Dread} in normal{Moment of Reverence}
-Requires Level 80
 Variant: Scorch
 Variant: Brittle
 Variant: Sap
@@ -1811,7 +1792,6 @@ Steel Ring
 Source: Drops from unique{Uber Incarnation of Fear} in normal{Moment of Trauma}
 Variant: Pre 3.28.0
 Variant: Current
-Requires Level 80
 Implicits: 1
 {tags:physical_damage,attack}Adds (3-4) to (10-14) Physical Damage to Attacks
 {tags:attribute}+(25-40) to Strength and Dexterity

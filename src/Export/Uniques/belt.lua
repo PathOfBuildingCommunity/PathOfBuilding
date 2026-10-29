@@ -9,13 +9,12 @@ Variant: Pre 3.17.0
 Variant: Current
 League: Ritual
 Source: Drops from unique{The Maven}
-LevelReq: 68
 Implicits: 1
 StunRecoveryImplicitBelt1
 IncreasedPhysicalDamageReductionRatingUnique__7
 MaximumLifeUnique__22
 FireResistUnique__26
-{variant:2}ChargeBonusMaximumEnduranceCharges
+{variant:2}MaximumEnduranceChargeUnique__2
 MinimumBrutalChargeModifiersEqualsEnduranceUnique__1
 MaximumBrutalChargesEqualsEnduranceUnique__1__
 GainBrutalChargesInsteadOfEnduranceUnique__1
@@ -25,13 +24,12 @@ Chain Belt
 Variant: Pre 2.6.0
 Variant: Pre 3.16.0
 Variant: Current
-LevelReq: 44
 Implicits: 1
 IncreasedEnergyShieldImplicitBelt1
 IncreasedEvasionRatingUnique__2
 {variant:1}IncreasedEnergyShieldUnique__4[35,45]
 {variant:2,3}IncreasedEnergyShieldUnique__4
-AllResistancesUniqueBelt13
+AllResistancesUnique__4
 PhasingOnBeginESRechargeUnique___1
 {variant:1,2}ChanceToDodgeAttacksWhilePhasingUnique___1[6,6]
 {variant:3}ChanceToDodgeAttacksWhilePhasingUnique___1
@@ -44,10 +42,9 @@ Variant: Pre 1.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.5.0
 Variant: Current
-{variant:1,2}LevelReq: 70
 Implicits: 2
 {variant:1,2}IncreasedEnergyShieldUniqueBelt5[9,20]
-{variant:3,4}IncreasedEnergyShieldUniqueBelt5[60,80]
+{variant:3,4}IncreasedEnergyShieldImplicitBelt2
 IncreasedEnergyShieldUniqueBelt5
 IncreasedManaUniqueBelt5
 {variant:1}{tags:attack,mana}0.2% of Physical Attack Damage Leeched as Mana per Power Charge
@@ -61,7 +58,6 @@ IncreasedManaUniqueBelt5
 The Burden of Truth
 Crystal Belt
 Source: Drops from unique{Sirus, Awakener of Worlds}
-LevelReq: 79
 Implicits: 1
 IncreasedEnergyShieldImplicitBelt2
 BeltFlaskLifeRecoveryUnique__1
@@ -74,7 +70,6 @@ Bated Breath
 Chain Belt
 Variant: Pre 2.6.0
 Variant: Current
-LevelReq: 22
 Implicits: 1
 IncreasedEnergyShieldImplicitBelt1
 IntelligenceUniqueBelt11
@@ -87,10 +82,9 @@ Replica Bated Breath
 Chain Belt
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-LevelReq: 22
 Implicits: 1
 IncreasedEnergyShieldImplicitBelt1
-IntelligenceUniqueBelt11
+IntelligenceUnique__24
 AllDamageUniqueBelt11
 FishingPoolConsumptionUnique__1__
 FishingCastDistanceUnique__1__
@@ -102,23 +96,22 @@ Variant: Pre 3.25.0
 Variant: Current
 League: Harvest
 Source: Drops from unique{Ersi, Mother of Thorns} in normal{The Sacred Grove}
-LevelReq: 68
 Implicits: 1
 IncreasedLifeImplicitBelt1
 AddedPhysicalDamageUnique__9_
-StunDurationImplicitBelt1
+StunDurationUnique__1
 EnemiesCrushedWithRageUnique__1_
 {variant:1}MaximumRageImplicitE1[20,20]
-{variant:2}MaximumRageImplicitE1
+{variant:2}MaximumRageUnique__1
 ]],[[
 Belt of the Deceiver
 Heavy Belt
 Variant: Pre 2.6.0
 Variant: Current
-LevelReq: 20
 Implicits: 1
 StrengthImplicitBelt1
-{variant:1}ReducedChanceToBlockUnique__1[-10,-10]
+{variant:1}ReducedChanceToBlockUniqueBelt13[-10,-10]
+{variant:2}ReducedChanceToBlockUniqueBelt13
 IncreasedPhysicalDamagePercentUniqueBelt13
 ReducedCriticalStrikeDamageTakenUniqueBelt13
 IncreasedLifeUniqueBelt13
@@ -130,34 +123,31 @@ Bisco's Leash
 Heavy Belt
 Variant: Pre 3.25.0
 Variant: Current
-LevelReq: 30
 Implicits: 1
 StrengthImplicitBelt1
 {variant:1}ItemFoundQuantityIncreasedUnique__1
-{variant:2}AllAttributesUnique__2
-ColdResistUniqueBelt14
+{variant:2}AllAttributesUnique__28
+ColdResistUnique__15
 IncreasedRarityPerRampageStacksUnique__1
-SimulatedRampageDexInt6
+SimulatedRampageUnique__2
 ]],[[
 Bound Fate
 Cloth Belt
-LevelReq: 16
 Implicits: 1
 StunRecoveryImplicitBelt1
-DexterityUnique__1
-IntelligenceUniqueBelt1
-IncreasedLifeUnique__3
+DexterityUnique__29
+IntelligenceUnique__32
+IncreasedLifeUnique__120
 HinekoraButterflyEffectUnique__1
 ]],[[
 Chains of Emancipation
 Chain Belt
 League: Heist
 Source: Drops from unique{Friedrich Tarollo, Slave Merchant} in normal{Contract: The Slaver King}
-LevelReq: 61
 Implicits: 1
 IncreasedEnergyShieldImplicitBelt1
-IncreasedLifeUnique__124
-ChaosResistUnique__10
+IncreasedLifeUnique__103
+ChaosResistUnique__17
 EnemyTemporalChainsOnHitUnique__1
 GainRageOnLosingTemporalChainsUnique__1__
 ImmuneToCursesWithRageUnique__1
@@ -169,38 +159,35 @@ Variant: Current
 League: Incursion
 Source: Opening normal{Experimental Chest} in normal{Hybridisation Chamber}
 Upgrade: Upgrades to unique{Coward's Legacy} via currency{Vial of Consequence}
-LevelReq: 22
 Implicits: 1
 IncreasedEnergyShieldImplicitBelt1
 {variant:1}AllDamageUnique__2
 {variant:1}AllAttributesUnique__20[10,15]
-{variant:2}AllAttributesUnique__20
-MovementVelocityUnique__44
+{variant:2}AllAttributesUnique__9
+MovementVelocityUnique__33_
 EnemiesExtraDamageRollsWhileAffectedByVulnerabilityUnique__1_
 {variant:2}CountOnFullLifeWhileAffectedByVulnerabilityUnique__1
-UniqueSelfCurseVulnerabilityLevel20
+UniqueSelfCurseVulnerabilityLevel10
 ]],[[
 Coward's Legacy
 Chain Belt
 League: Incursion
 Source: Upgraded from unique{Coward's Chains} via currency{Vial of Consequence}
-LevelReq: 52
 Implicits: 1
 IncreasedEnergyShieldImplicitBelt1
-AllAttributesUnique__12
+AllAttributesUnique__10_
 MovementVelocityUnique__33_
 IncreasedCurseEffectUnique__1
 CountAsLowLifeWhileAffectedByVulnerabilityUnique__1
-UniqueSelfCurseVulnerabilityLevel10
+UniqueSelfCurseVulnerabilityLevel20
 ]],[[
 Cyclopean Coil
 Leather Belt
 Elder Item
 Source: Drops from unique{The Elder}
-LevelReq: 68
 Implicits: 1
 IncreasedLifeImplicitBelt1
-IncreasedLifeUnique__121
+IncreasedLifeUnique__63_
 AllAttributesPercentUnique__2
 CannotBeFrozenWithDexHigherThanIntUnique__1
 CannotBeIgnitedWithStrHigherThanDexUnique__1
@@ -216,7 +203,7 @@ Variant: Pre 3.21.0
 Variant: Current
 Implicits: 1
 AbyssJewelSocketImplicit
-AbyssJewelSocketUnique__3
+AbyssJewelSocketUnique__6_
 {variant:1}AbyssJewelEffectUnique__1[50,50]
 {variant:2}AbyssJewelEffectUnique__1[75,75]
 {variant:3}AbyssJewelEffectUnique__1
@@ -232,7 +219,6 @@ Variant: Current (Physical)
 Variant: Current (Fire)
 Variant: Current (Cold)
 Variant: Current (Lightning)
-LevelReq: 68
 Implicits: 1
 StrengthImplicitBelt1
 {variant:1,5}IncreasedPhysicalDamagePercentUniqueBelt9d
@@ -262,10 +248,9 @@ StrengthImplicitBelt1
 The Druggery
 Cloth Belt
 League: Heist
-LevelReq: 48
 Implicits: 1
 StunRecoveryImplicitBelt1
-AllAttributesUniqueBelt3
+AllAttributesUnique__22_
 BeltIncreasedFlaskChargesGainedUnique__1_
 BeltIncreasedFlaskChargedUsedUnique__1
 BeltIncreasedFlaskDurationUnique__3___
@@ -276,7 +261,6 @@ Dyadian Dawn
 Heavy Belt
 Variant: Pre 2.6.0
 Variant: Current
-LevelReq: 52
 Implicits: 1
 StrengthImplicitBelt1
 IncreasedLifeFireResistUniqueBelt14
@@ -291,19 +275,17 @@ DealNoPhysicalDamageUniqueBelt14
 Faminebind
 Rustic Sash
 League: Talisman Standard, Talisman Hardcore
-LevelReq: 18
 Implicits: 1
 IncreasedPhysicalDamagePercentImplicitBelt1
-ColdResistUniqueBelt1
+ColdResistUnique__3
 IncreasedProjectileDamageUnique__5
 BeltReducedFlaskChargesGainedUnique__1
-BeltIncreasedFlaskDurationUnique__2
+BeltIncreasedFlaskDurationUnique__1
 DisplayChaosDegenerationAuraUnique__1
 ]],[[
 Feastbind
 Rustic Sash
 League: Talisman Standard, Talisman Hardcore
-LevelReq: 11
 Implicits: 1
 IncreasedPhysicalDamagePercentImplicitBelt1
 AddedPhysicalDamageUnique___1
@@ -318,7 +300,6 @@ Variant: Pre 3.16.0
 Variant: Current
 League: Harbinger
 Source: No longer obtainable
-LevelReq: 60
 Implicits: 1
 StunRecoveryImplicitBelt1
 HarbingerSkillOnEquipUnique__2
@@ -332,7 +313,6 @@ The Torrent's Reclamation
 Cloth Belt
 Variant: Pre 3.16.0
 Variant: Current
-LevelReq: 60
 Implicits: 1
 StunRecoveryImplicitBelt1
 HarbingerSkillOnEquipUnique2_2
@@ -346,11 +326,10 @@ Gluttony
 Leather Belt
 Variant: Pre 3.12.0
 Variant: Current
-LevelReq: 48
 Implicits: 1
 IncreasedLifeImplicitBelt1
 {variant:1}PoachersMarkCurseOnHitHexproofUnique__1
-IncreasedLifeUnique__120
+IncreasedLifeUnique__79
 {variant:1}CullingStrikePoachersMarkUnique__1
 {variant:2}CullingStrikeCursedEnemyUnique__1_
 {variant:2}LifeGainOnHitCursedEnemyUnique__1
@@ -364,13 +343,12 @@ Variant: Pre 3.17.0
 Variant: Current
 League: Ritual
 Source: Drops from unique{The Maven}
-LevelReq: 68
 Implicits: 1
 StunRecoveryImplicitBelt1
-IncreasedEnergyShieldUniqueBelt5
+IncreasedEnergyShieldUnique__10
 MaximumManaUnique__8
 LightningResistUnique__24
-{variant:2}ChargeBonusMaximumPowerCharges
+{variant:2}IncreasedMaximumPowerChargesUnique__4
 MinimumAbsorptionChargeModifiersEqualsPowerUnique__1
 MaximumAbsorptionChargesEqualsPowerUnique__1_
 GainAbsorptionChargesInsteadOfPowerUnique__1
@@ -378,7 +356,6 @@ GainAbsorptionChargesInsteadOfPowerUnique__1
 Headhunter
 Leather Belt
 League: Nemesis
-LevelReq: 40
 Implicits: 1
 IncreasedLifeImplicitBelt1
 StrengthUniqueBelt7
@@ -391,7 +368,6 @@ Replica Headhunter
 Leather Belt
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-LevelReq: 40
 Implicits: 1
 IncreasedLifeImplicitBelt1
 StrengthUniqueBelt7
@@ -423,33 +399,32 @@ Variant: Strength and Intelligence (Current)
 Variant: Trap Throwing Speed (Current)
 Variant: Energy Shield Regen (Current)
 Variant: Lucky Crit Chance while Focused (Current)
-LevelReq: 60
 Implicits: 1
 IncreasedLifeImplicitBelt1
-ColdResistUnique__16
+ColdResistUnique__26
 ChillNearbyEnemiesOnFocusUnique__1_
 {variant:1,2,3,4,5,6,7,8,9,10}FocusCooldownRecoveryUnique__1_[15,25]
 {variant:11,12,13,14,15,16,17,18,19}FocusCooldownRecoveryUnique__1_
 DamageWithHitsAndAilmentsAgainstChilledEnemyUnique__1
-{variant:1}{crafted}{tags:life}Regenerate 2% of Life per second during any Flask Effect
-{variant:2}{crafted}{tags:resistance}+(8-15)% to Fire and Chaos Resistances
-{variant:3}{crafted}{tags:resistance}+(8-15)% to Cold and Chaos Resistances
-{variant:4}{crafted}{tags:resistance}+(8-15)% to Lightning and Chaos Resistances
-{variant:5}{crafted}{tags:attribute}+(6-17) to Strength and Dexterity
-{variant:6}{crafted}{tags:attribute}+(6-17) to Dexterity and Intelligence
-{variant:7}{crafted}{tags:attribute}+(6-17) to Strength and Intelligence
-{variant:8}{crafted}{tags:speed}(7-12)% increased Trap Throwing Speed
-{variant:9}{crafted}{tags:defences}Regenerate 120 Energy Shield per second while a Rare or Unique Enemy is Nearby
-{variant:10,19}{crafted}Your Critical Strike Chance is Lucky while Focused
-{variant:11}{crafted}{tags:resistance}+(16-20)% to Fire and Chaos Resistances
-{variant:12}{crafted}{tags:resistance}+(16-20)% to Cold and Chaos Resistances
-{variant:13}{crafted}{tags:resistance}+(16-20)% to Lightning and Chaos Resistances
-{variant:14}{crafted}{tags:attribute}+(31-35) to Strength and Dexterity
-{variant:15}{crafted}{tags:attribute}+(31-35) to Dexterity and Intelligence
-{variant:16}{crafted}{tags:attribute}+(31-35) to Strength and Intelligence
-{variant:17}{crafted}{tags:speed}(14-16)% increased Trap Throwing Speed
-{variant:18}{crafted}{tags:defences}Regenerate 200 Energy Shield per second while a Rare or Unique Enemy is Nearby
-{variant:19}{crafted}Focus has (5-8)% increased Cooldown Recovery Rate
+{variant:1}{crafted}JunMasterVeiledLifeRegenerationRatePerMinuteWhileUsingFlask[2,2[
+{variant:2}{crafted}JunMasterVeiledFireAndChaosDamageResistance[8,15]
+{variant:3}{crafted}JunMasterVeiledColdAndChaosDamageResistance[8,15]
+{variant:4}{crafted}JunMasterVeiledLightningAndChaosDamageResistance[8,15]
+{variant:5}{crafted}JunMasterVeiledStrengthAndDexterity[6,17]
+{variant:6}{crafted}JunMasterVeiledDexterityAndIntelligence[6,17]
+{variant:7}{crafted}JunMasterVeiledStrengthAndIntelligence[6,17]
+{variant:8}{crafted}JunMasterVeiledTrapThrowSpeed_[7,12]
+{variant:9}{crafted}JunMaster2EnergyShieldRegenerationRatePerMinuteIfRareOrUniqueEnemyNearby3_[7200,7200]
+{variant:10}{crafted}Your Critical Strike Chance is Lucky while Focused
+{variant:11}JunMasterVeiledFireAndChaosDamageResistance
+{variant:12}JunMasterVeiledColdAndChaosDamageResistance
+{variant:13}JunMasterVeiledLightningAndChaosDamageResistance
+{variant:14}JunMasterVeiledStrengthAndDexterity
+{variant:15}JunMasterVeiledDexterityAndIntelligence
+{variant:16}JunMasterVeiledStrengthAndIntelligence
+{variant:17}JunMasterVeiledTrapThrowSpeed_
+{variant:18}JunMasterVeiledEnergyShieldRegenerationRatePerMinuteIfRareOrUniqueEnemyNearby
+{variant:19}JunMasterVeiledLuckyCriticalsDuringFocus
 ]],[[
 Immortal Flesh
 Leather Belt
@@ -457,7 +432,6 @@ Variant: Pre 1.3.0
 Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
-LevelReq: 50
 Implicits: 1
 IncreasedLifeImplicitBelt1
 IncreasedLifeUniqueBelt8
@@ -473,21 +447,19 @@ ArmourWhileNotIgnitedFrozenShockedBelt8
 ]],[[
 Kaom's Binding
 Heavy Belt
-LevelReq: 56
 Implicits: 1
 StrengthImplicitBelt1
-StrengthUnique__11
+StrengthUnique__25
 IncreasedPhysicalDamageReductionRatingUnique__8
 TakeNoBurningDamageIfStopBurningUnique__1
 NearbyEnemyPhysicalDamageConvertedToFire__1
 ]],[[
 Leash of Oblation
 Leather Belt
-LevelReq: 49
 Implicits: 1
 IncreasedLifeImplicitBelt1
-AllAttributesUnique__10_
-IncreasedLifeUnique__110
+AllAttributesUnique__20
+IncreasedLifeUnique__98
 MultipleOfferingsAllowedUnique__1_
 OfferingDurationUnique__1
 ]],[[
@@ -496,7 +468,6 @@ Studded Belt
 Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
-LevelReq: 16
 Implicits: 1
 StunDurationImplicitBelt1
 StrengthUniqueBelt2
@@ -510,7 +481,6 @@ BeltIncreasedFlaskChargesGainedUniqueBelt2
 The Nomad
 Studded Belt
 Source: No longer obtainable
-LevelReq: 48
 Implicits: 1
 StunDurationImplicitBelt1
 StrengthUniqueBelt2
@@ -523,7 +493,6 @@ ProjectileAttackDamageAt200DexterityUnique__1
 The Tactician
 Studded Belt
 Source: No longer obtainable
-LevelReq: 48
 Implicits: 1
 StunDurationImplicitBelt1
 StrengthUniqueBelt2
@@ -535,19 +504,17 @@ CriticalStrikeChanceAt200IntelligenceUnique__1
 ]],[[
 Mageblood
 Heavy Belt
-LevelReq: 44
 Implicits: 1
 StrengthImplicitBelt1
 DexterityUnique__22
 FireResistUnique__27_
-ColdResistUnique__19
+ColdResistUnique__34
 MagicUtilityFlasksCannotUseUnique__1____
 MagicUtilityFlasksAlwaysApplyUnique__1
 MagicUtilityFlasksCannotRemoveUnique__1
 ]],[[
 Maligaro's Restraint
 Chain Belt
-LevelReq: 44
 Implicits: 1
 IncreasedEnergyShieldImplicitBelt1
 AddedLightningDamageUniqueBelt12
@@ -566,16 +533,15 @@ StrengthUniqueBelt4
 {variant:1}AddedPhysicalDamageUniqueBelt4[5,5][15,15]
 {variant:2}AddedPhysicalDamageUniqueBelt4
 MaximumLifeUniqueBelt4
-ColdResistUniqueBelt13
+ColdResistUniqueBelt4
 BeltFlaskLifeRecoveryRateUniqueBelt4
 ]],[[
 Mother's Embrace
 Heavy Belt
-LevelReq: 40
 Implicits: 1
 StrengthImplicitBelt1
-IncreasedLifeUnique__102
-ColdResistUniqueBelt1
+IncreasedLifeUnique__99
+ColdResistUnique__29
 MinionsUseFlaskOnSummonUnique__1__
 MinionFlaskChargesUsedUnique__1
 MinionFlaskDurationUnique__1
@@ -583,10 +549,9 @@ MinionFlaskDurationUnique__1
 Nevalius Inheritance
 Cloth Belt
 League: Necropolis
-Requires Level 16
 Implicits: 1
 StunRecoveryImplicitBelt1
-DexterityUnique__1
+DexterityUnique__31
 BeltIncreasedFlaskDurationUnique__4
 BeltIncreasedFlaskEffectUnique__2
 FlaskDurationPerLevelUnique__1
@@ -598,13 +563,12 @@ Variant: Pre 3.17.0
 Variant: Current
 League: Ritual
 Source: Drops from unique{The Maven}
-LevelReq: 68
 Implicits: 1
 StunRecoveryImplicitBelt1
 IncreasedEvasionRatingUnique__5_
 ColdResistUnique__33
 MovementVelocityUnique__46
-{variant:2}ChargeBonusMaximumFrenzyCharges
+{variant:2}MaximumFrenzyChargesUnique__1
 MinimumAfflictionChargeModifiersEqualsFrenzyUnique__1
 MaximumAfflictionChargesEqualsFrenzyUnique__1
 GainAfflictionChargesInsteadOfFrenzyUnique__1
@@ -619,24 +583,23 @@ StunRecoveryImplicitBelt1
 AllAttributesUniqueBelt3
 {variant:1}ItemFoundQuantityIncreaseUniqueBelt3[8,12]
 {variant:2}ItemFoundQuantityIncreaseUniqueBelt3
-{variant:3}ItemFoundRarityIncreaseUnique__4_
+{variant:3}ItemFoundRarityIncreaseUnique__8
 FireResistUniqueBelt3
 BeltIncreasedFlaskDurationUniqueBelt3
 PhysicalAttackDamageReducedUniqueBelt3
 ]],[[
 Ceinture of Benevolence
 Cloth Belt
-LevelReq: 40
 Implicits: 1
 StunRecoveryImplicitBelt1
-DexterityUnique__18
-IncreasedManaUnique__14
+DexterityUnique__27
+IncreasedManaUnique__25
 BeltIncreasedFlaskChargedUsedUnique__2
 LinkSkillFlaskEffectsUnique__1
 ]],[[
 Chain of Endurance
 Chain Belt
-LevelReq: 14
+Implicits: 1
 IncreasedEnergyShieldImplicitBelt1
 IncreasedLifeUnique__118
 StunRecoveryUnique__6
@@ -650,7 +613,7 @@ Variant: Current
 Implicits: 1
 ArmourAndEvasionImplicitBelt1
 MaximumLifeUnique__4_
-ColdResistUniqueBelt14
+ColdResistUnique__13
 AttackDamagePerLowestArmourOrEvasionUnique__1
 {variant:1}FortifyOnMeleeStunUnique__1[14,20]
 {variant:2}FortifyOnMeleeStunUnique__1
@@ -661,7 +624,6 @@ Rustic Sash
 Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
-LevelReq: 25
 Implicits: 1
 IncreasedPhysicalDamagePercentImplicitBelt1
 {variant:1}AddedFireDamageUniqueBelt10[3,4][7,8]
@@ -684,7 +646,6 @@ League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Variant: Pre 3.19.0
 Variant: Current
-LevelReq: 25
 Implicits: 1
 IncreasedPhysicalDamagePercentImplicitBelt1
 {variant:1}SpellAddedFireDamageUnique__6_[7,8][15,16]
@@ -701,10 +662,9 @@ ElementalDamageDuringFlaskEffectUnique__1
 Pyroshock Clasp
 Leather Belt
 League: Heist
-LevelReq: 43
 Implicits: 1
 IncreasedLifeImplicitBelt1
-DexterityImplicitQuiver1
+DexterityUnique__19
 IncreasedEvasionRatingUnique__4
 ElementalStatusAilmentDurationUnique__1_
 EnemyIgnitedConvertedToFireUnique__1
@@ -714,13 +674,12 @@ The Retch
 Rustic Sash
 League: Talisman Standard, Talisman Hardcore
 Source: Vendor Recipe
-LevelReq: 44
 Implicits: 1
 IncreasedPhysicalDamagePercentImplicitBelt1
-IncreasedLifeUnique__105
-ColdResistUniqueRing24
+IncreasedLifeUnique__6
+ColdResistUnique__4
 LifeLeechPermyriadUnique__3
-BeltIncreasedFlaskDurationUnique__1
+BeltIncreasedFlaskDurationUnique__2
 FlaskChargeRecoveryDuringFlaskEffectUnique__2
 EnemiesLoseLifePlayerLeechesUnique__1
 MovementSpeedDuringFlaskEffectUnique__1
@@ -729,23 +688,21 @@ Ryslatha's Coil
 Studded Belt
 Variant: Pre 3.5.0
 Variant: Current
-LevelReq: 20
 Implicits: 1
 StunDurationImplicitBelt1
-StrengthUnique__19_
+StrengthUnique__10
 {variant:1}RyuslathaMinimumDamageModifierUnique__1[-20,-20]
 {variant:2}RyuslathaMinimumDamageModifierUnique__1
 {variant:1}RyuslathaMaximumDamageModifierUnique__1_[20,20]
 {variant:2}RyuslathaMaximumDamageModifierUnique__1_
 AddedPhysicalDamageUnique__4
-{variant:2}IncreasedLifeUnique__108
+{variant:2}IncreasedLifeUnique__90
 LifeGainedOnStunUnique__1_
 ]],[[
 Saresh's Darkness
 Chain Belt
 League: Mirage
 Source: No longer obtainable
-LevelReq: 24
 Implicits: 1
 IncreasedEnergyShieldImplicitBelt1
 ChaosResistUnique__38
@@ -773,7 +730,6 @@ Variant: Massive
 Variant: Replenishing
 Variant: Resistance
 Variant: Resonating
-LevelReq: 56
 Implicits: 1
 IncreasedLifeImplicitBelt1
 IntelligenceUnique__38
@@ -797,7 +753,6 @@ Solerai's Radiance
 Chain Belt
 League: Mirage
 Source: No longer obtainable
-LevelReq: 24
 Implicits: 1
 IncreasedEnergyShieldImplicitBelt1
 FireResistUnique__38
@@ -807,12 +762,11 @@ SolartwineUniqueBelt55
 ]],[[
 Siegebreaker
 Heavy Belt
-LevelReq: 44
 Implicits: 1
 StrengthImplicitBelt1
 IncreasedEnergyShieldPercentUnique__5
-MaximumLifeUnique__16
-ChaosResistImplicitRing1
+MaximumLifeUnique__17
+ChaosResistUnique__14
 MinionAttacksTauntOnHitChanceUnique__1
 MinionCausticCloudOnDeathUnique__1_
 ]],[[
@@ -820,21 +774,19 @@ Replica Siegebreaker
 Heavy Belt
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-LevelReq: 44
 Implicits: 1
 StrengthImplicitBelt1
-IncreasedEnergyShieldPercentUnique__3
-MaximumLifeUnique__11
+IncreasedEnergyShieldPercentUnique__5
+MaximumLifeUnique__17
 FireResistUnique__24
 MinionBurningCloudOnDeathUnique__1
 MinionChanceToMaimOnHitUnique__1_
 ]],[[
 Soul Tether
 Cloth Belt
-LevelReq: 48
 Implicits: 1
 StunRecoveryImplicitBelt1
-IntelligenceUnique__25
+IntelligenceUnique__6
 MaximumEnergyShieldAsPercentageOfLifeUnique__1
 KeystoneSoulTetherUnique__1
 ]],[[
@@ -842,19 +794,17 @@ Replica Soul Tether
 Cloth Belt
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-LevelReq: 48
 Implicits: 1
 StunRecoveryImplicitBelt1
-StrengthUnique__10
+StrengthUnique__19_
 MaximumEnergyShieldAsPercentageOfLifeUnique__1
 KeystoneCorruptedSoulUnique_1
 ]],[[
 Soulthirst
 Cloth Belt
-LevelReq: 45
 Implicits: 1
 StunRecoveryImplicitBelt1
-IncreasedLifeUnique__103
+IncreasedLifeUnique__3
 AllResistancesUnique__1
 BeltFlaskManaRecoveryUnique__1
 IncreasedFlaskDurationUnique__1
@@ -887,7 +837,7 @@ Variant: Intelligence/Dexterity
 Variant: Dexterity/Strength
 Variant: Strength/Intelligence
 Variant: Elemental Resistances
-Implicits: 24
+Implicits: 25
 {variant:1}AreaOfEffectUnique_9[24,30]
 {variant:2}{tags:critical}+(60-75)% to Critical Strike Multiplier during any Flask Effect
 {variant:3}{tags:speed}(24-36)% increased Attack Speed during any Flask Effect
@@ -920,7 +870,6 @@ Sunblast
 Cloth Belt
 Variant: Pre 3.19.0
 Variant: Current
-LevelReq: 37
 Implicits: 1
 StunRecoveryImplicitBelt1
 {variant:1}TrapDamageUniqueBelt6
@@ -937,11 +886,10 @@ Survivor's Guilt
 Heavy Belt
 League: Ritual
 Source: Purchase from Ritual Reward
-LevelReq: 52
 Implicits: 1
 StrengthImplicitBelt1
 IncreasedPhysicalDamageReductionRatingUnique__6_
-LifeRegenerationUnique__1
+LifeRegenerationUnique__2__
 IncreasedStunThresholdUnique__1_
 ArmourPerStrengthUnique__1_
 KeystoneSacredBastionUnique__1
@@ -950,7 +898,6 @@ The Tides of Time
 Vanguard Belt
 Shaper Item
 Source: Drops from unique{The Shaper} (Uber)
-Requires Level 78
 Implicits: 1
 ArmourAndEvasionImplicitBelt1
 BeltFlaskLifeRecoveryUnique__2
@@ -963,17 +910,17 @@ UtilityFlaskPassiveChargeGainUnique__1
 Umbilicus Immortalis
 Leather Belt
 League: Perandus
-LevelReq: 30
 Implicits: 1
 IncreasedLifeImplicitBelt1
 MaximumLifeUnique__1
-LifeRegenerationRatePercentageUniqueJewel24
+LifeRegenerationRatePercentUnique__1
 CannotBeAffectedByFlasksUnique__1
 FlasksApplyToMinionsUnique__1
 ]],[[
 Unholy Accomplice
 Cloth Belt
 Source: Drops from unique{K'Tash, the Hate Shepherd} and unique{Lycia, Herald of the Scourge}
+Implicits: 1
 StunRecoveryImplicitBelt1
 SpellDamageUnique__19
 IncreasedLifeUnique__129
@@ -986,7 +933,6 @@ Wurm's Molt
 Leather Belt
 Variant: Pre 3.19.0
 Variant: Current
-LevelReq: 41
 Implicits: 1
 IncreasedLifeImplicitBelt1
 StrengthUniqueBelt1
@@ -1003,30 +949,27 @@ IntelligenceUniqueBelt1
 Ynda's Stand
 Studded Belt
 League: Settlers of Kalguur
-Requires Level 52
 Implicits: 1
 StunDurationImplicitBelt1
-LifeRegenerationUnique__3
-FireResistUniqueBelt6
-ColdResistUniqueBelt1
+LifeRegenerationUnique__5
+FireResistUnique__35
+ColdResistUnique__41
 ConvertBodyArmourEvasionToWardUnique__1
 ]],[[
 Binds of Bloody Vengeance
 Vanguard Belt
 Source: Drops from unique{Mercenary} after winning a duel
 League: Mercenaries of Trarthus
-Requires Level 78
 Implicits: 1
 ArmourAndEvasionImplicitBelt1
 IncreasedPhysicalDamageReductionRatingUnique__11
-IncreasedLifeUnique__100
+IncreasedLifeUnique__126
 AttackDamageIfHitRecentlyUnique
 AttackCritAfterBeingCritUnique
 ]],[[
 The Arkhon's Tools
 Cloth Belt
 Source: Drops from unique{Incarnation of Neglect} in normal{Moment of Loneliness}
-Requires Level 16
 Implicits: 1
 StunRecoveryImplicitBelt1
 DexterityAndIntelligenceUnique_2

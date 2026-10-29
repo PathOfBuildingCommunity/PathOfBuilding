@@ -5,7 +5,6 @@ return {
 The Battle Within
 Oakbranch Tincture
 League: Settlers of Kalguur
-Requires Level 18
 Implicits: 1
 Gain 3 Rage on Melee Weapon Hit
 Does not inflict Mana Burn over time
@@ -16,7 +15,6 @@ Melee Weapon Attacks have Culling Strike
 Grasping Nightshade
 Sporebloom Tincture
 League: Settlers of Kalguur
-Requires Level 52
 Implicits: 2
 25% chance to Blind Enemies on Hit with Melee Weapons
 (25-35)% increased Effect of Blind from Melee Weapons
@@ -26,7 +24,6 @@ Melee Weapon Hits Inflict (2-3) Withered Debuffs for 2 seconds
 Mightblood Ire
 Ironwood Tincture
 League: Settlers of Kalguur
-Requires Level 18
 Implicits: 2
 40% reduced Enemy Stun Threshold with Melee Weapons
 (15-25)% increased Stun Duration with Melee Weapons
@@ -36,7 +33,6 @@ Melee Strike Skills deal Splash Damage to surrounding targets
 Sap of the Seasons
 Prismatic Tincture
 League: Settlers of Kalguur
-Requires Level 18
 Implicits: 1
 (70-100)% increased Elemental Damage with Melee Weapons
 Melee Weapon Damage Penetrates 1% Elemental Resistances per Mana Burn, up to a maximum of 200%
@@ -46,7 +42,6 @@ Melee Weapon Damage Penetrates 1% Elemental Resistances per Mana Burn, up to a m
 Wildfire Phloem
 Ashbark Tincture
 League: Settlers of Kalguur
-Requires Level 32
 Implicits: 2
 25% chance to Ignite with Melee Weapons
 (60-90)% increased Damage with Ignite from Melee Weapons

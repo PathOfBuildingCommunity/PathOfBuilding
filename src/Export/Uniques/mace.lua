@@ -8,7 +8,6 @@ War Hammer
 Variant: Pre 2.6.0
 Variant: Pre 3.7.0
 Variant: Current
-Requires Level 20, 71 Str
 Implicits: 2
 {variant:2,3}StunThresholdReductionImplicitMace1
 {variant:1}StunDurationImplicitMace1[20,20]
@@ -23,11 +22,10 @@ Callinellus Malleus
 Auric Mace
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 66, 212 Str
 Implicits: 2
 {variant:2}StunThresholdReductionImplicitMace2
 {variant:1}StunDurationImplicitMace1[40,40]
-LocalIncreasedPhysicalDamagePercentUniqueTwoHandMace8
+LocalIncreasedPhysicalDamageUniqueOneHandMace5
 LocalAddedPhysicalDamageUniqueOneHandMace5
 StunThresholdReductionUniqueOneHandMace5
 CannotKnockBackUniqueOneHandMace5_
@@ -37,7 +35,6 @@ Cameria's Maul
 Gavel
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 60, 212 Str
 Implicits: 2
 {variant:2}StunThresholdReductionImplicitMace2
 {variant:1}StunDurationImplicitMace1[40,40]
@@ -50,7 +47,6 @@ ColdWeaponDamageUniqueOneHandMace4
 Cameria's Avarice
 Gavel
 Source: Vendor Recipe
-Requires Level 60, 212 Str
 Implicits: 1
 StunThresholdReductionImplicitMace2
 GrantsLevel20IcicleNovaTriggerUnique__1
@@ -65,9 +61,8 @@ Rock Breaker
 Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 41, 134 Str
 Implicits: 2
-{variant:2}StunThresholdReductionImplicitMace2
+{variant:2,3}StunThresholdReductionImplicitMace2
 {variant:1}StunDurationImplicitMace1[40,40]
 GrantsLevel12StoneGolem
 LocalAddedPhysicalDamageUnique__9
@@ -81,7 +76,6 @@ The Desecrated Chalice
 Coronal Maul
 League: Mirage
 Source: No longer obtainable
-Requires Level 69
 Implicits: 1
 AreaOfEffectImplicitMarakethTwoHandMace2
 LocalIncreasedPhysicalDamagePercentUnique__57
@@ -94,7 +88,6 @@ Flesh-Eater
 Dream Mace
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 32, 107 Str
 Implicits: 2
 {variant:2}StunThresholdReductionImplicitMace1
 {variant:1}StunDurationImplicitMace1[20,20]
@@ -112,7 +105,6 @@ Ornate Mace
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Current
-Requires Level 50, 161 Str
 Implicits: 2
 {variant:2,3}StunThresholdReductionImplicitMace2
 {variant:1}StunDurationImplicitMace1[40,40]
@@ -120,7 +112,7 @@ Implicits: 2
 {variant:3}LocalAddedPhysicalDamageUnique__6_
 {variant:1,2}LocalAddedColdDamageUnique__2[16,22][26,32]
 {variant:3}LocalAddedColdDamageUnique__2
-LocalIncreasedAttackSpeedUnique__12
+LocalIncreasedAttackSpeedUnique__11
 FireResistUnique__4
 IncreasedChillDurationUnique__1
 LocalDoubleDamageToChilledEnemiesUnique__1
@@ -129,12 +121,11 @@ Replica Frostbreath
 Ornate Mace
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 50, 161 Str
 Implicits: 1
 StunThresholdReductionImplicitMace2
 LocalAddedChaosDamageUnique__2
 LocalIncreasedAttackSpeedUnique__11
-ChaosResistUnique__15
+ChaosResistUnique__20_
 ChaosDamageCanChill
 LocalDoubleDamageToChilledEnemiesUnique__1
 ]],[[
@@ -142,7 +133,6 @@ Gorebreaker
 Spiked Club
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 10, 41 Str
 Implicits: 2
 {variant:2}StunThresholdReductionImplicitMace1
 {variant:1}StunDurationImplicitMace1[20,20]
@@ -150,7 +140,8 @@ LocalIncreasedPhysicalDamagePercentUniqueOneHandMace6
 LocalReducedAttackSpeedUniqueOneHandMace6
 StunThresholdReductionUniqueOneHandMace6
 StunDurationUniqueOneHandMace6
-MeleeDamageAgainstBleedingEnemiesUniqueOneHandMace6
+{variant:1}MeleeDamageAgainstBleedingEnemiesUniqueOneHandMace6
+{variant:2}ExtraGore
 ]],[[
 Lavianga's Wisdom
 War Hammer
@@ -158,11 +149,10 @@ League: Legion
 Variant: Pre 2.6.0
 Variant: Pre 3.7.0
 Variant: Current
-Requires Level 20, 71 Str
 Implicits: 2
 {variant:2,3}StunThresholdReductionImplicitMace1
 {variant:1}StunDurationImplicitMace1[20,20]
-{variant:3}LocalIncreasedPhysicalDamagePercentUnique__55[160,200]
+{variant:3}LocalIncreasedPhysicalDamagePercentUniqueOneHandMace7
 {variant:1,2}LocalIncreasedPhysicalDamagePercentUnique__55
 {variant:1,2}IncreasedLifeImplicitShield1
 {variant:3}IncreasedLifeUniqueOneHandMace7
@@ -181,7 +171,6 @@ Variant: Pre 2.4.0
 Variant: Pre 2.6.0
 Variant: Pre 3.15.0
 Variant: Current
-Requires Level 60, 412 Str, 300 Int
 Implicits: 2
 {variant:4,5}StunThresholdReductionImplicitMace2
 {variant:1,2,3}StunDurationImplicitMace1[40,40]
@@ -203,7 +192,6 @@ Variant: Pre 3.29.0
 Variant: Current
 League: Synthesis
 Source: Drops from unique{Synthete Nightmare} in normal{The Cortex} (Uber)
-Requires Level 68, 104 Str, 122 Int
 Implicits: 1
 ElementalDamagePercentImplicitSceptre3
 {variant:2,3}ClassicNebulisImplicitModifierMagnitudeUnique_1
@@ -219,9 +207,8 @@ Variant: Pre 3.27.0
 Variant: Current
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 68, 104 Str, 122 Int
 Implicits: 1
-ElementalDamagePercentImplicitSceptre3
+ElementalDamagePercentImplicitSceptreNew22
 {variant:2}ReplicaNebulisImplicitModifierMagnitudeUnique_1
 IncreasedCastSpeedUnique__16
 {variant:1}ColdDamagePerMissingColdResistanceUnique__1
@@ -234,7 +221,6 @@ Elder Item
 Source: Drops from unique{The Elder}
 Variant: Pre 3.4.0
 Variant: Current
-Requires Level 68, 212 Str
 Implicits: 1
 StunThresholdReductionImplicitMace1
 LocalAddedPhysicalDamageUnique__30_
@@ -248,12 +234,11 @@ ArmourPerEnduranceChargeUnique__1
 ]],[[
 The Monastery Bell
 Dream Mace
-Requires Level 32, 107 Str
 Implicits: 1
 StunThresholdReductionImplicitMace1
-LocalIncreasedPhysicalDamagePercentUniqueOneHandMace1
+LocalIncreasedPhysicalDamagePercentUnique__52
 LocalAddedPhyiscalDamageUnique__43
-IncreasedAttackSpeedUniqueShieldDex6
+LocalIncreasedAttackSpeedUnique__42
 BlockIsUnluckyUnique__1
 CountAsBlockingAttackFromShieldAttackFirstTargetUnique__1
 ]],[[
@@ -261,7 +246,6 @@ The Sacred Chalice
 Coronal Maul
 League: Mirage
 Source: No longer obtainable
-Requires Level 69
 Implicits: 1
 AreaOfEffectImplicitMarakethTwoHandMace2
 LocalIncreasedPhysicalDamagePercentUnique__56
@@ -278,11 +262,11 @@ Void Sceptre
 Elder Item
 Variant: Pre 3.5.0
 Variant: Current
-Requires Level 68, 104 Str, 122 Int
 Implicits: 1
 ElementalDamagePercentImplicitSceptreNew22
-LocalIncreasedPhysicalDamagePercentUnique__29
-LocalIncreasedAttackSpeedUnique__20
+{variant:1}LocalIncreasedPhysicalDamagePercentUnique__29
+{variant:2}LocalIncreasedPhysicalDamagePercentUnique__31
+LocalIncreasedAttackSpeedUnique__26_
 LocalCriticalStrikeChanceUnique__14
 ConvertPhysicaltoLightningUnique__3
 GainElementalOverloadEvery16SecondsUnique__1
@@ -293,10 +277,9 @@ Axiom Perpetuum
 Bronze Sceptre
 Variant: Pre 2.3.0
 Variant: Current
-Requires Level 10, 22 Str, 22 Int
 Implicits: 2
 {variant:1}ElementalDamagePercentImplicitSceptreNew2[10,10]
-{variant:2}ElementalDamagePercentImplicitSceptreNew2
+{variant:2}ElementalDamagePercentImplicitSceptreNew3
 SpellAddedFireDamageUnique__4
 SpellAddedColdDamageUnique__3
 SpellAddedLightningDamageUnique__3
@@ -305,7 +288,6 @@ SpellCriticalStrikeChanceUnique__1
 ]],[[
 Balefire
 Opal Sceptre
-Requires Level 60, 95 Str, 131 Int
 Implicits: 1
 ElementalDamagePercentImplicitSceptreNew18
 ScorchingRaySkillUnique__1
@@ -316,15 +298,14 @@ FireBeamLengthUnique__1
 ]],[[
 Bitterdream
 Shadow Sceptre
-Requires Level 32, 52 Str, 62 Int
 Implicits: 1
-ElementalDamagePercentImplicitSceptreNew12___
+ElementalDamagePercentImplicitSceptreNew8
 DisplaySupportedByBonechillUnique__1
 DisplaySupportedByHypothermiaUnique__1
-DisplaySupportedByIceBiteUnique__2
+DisplaySupportedByIceBiteUnique__1
 DisplaySupportedByColdPenetrationUnique__1
 DisplaySupportedByAddedColdDamageUnique__1
-DisplaySupportedByReducedManaUnique__2
+DisplaySupportedByReducedManaUnique__1
 ]],[[
 Replica Bitterdream
 Shadow Sceptre
@@ -332,23 +313,21 @@ Variant: Pre 3.23.0
 Variant: Current
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 32, 52 Str, 62 Int
 Implicits: 1
 ElementalDamagePercentImplicitSceptreNew8
 {variant:1}DisplaySupportedByElementalPenetrationUnique__2[1,1]
 {variant:2}DisplaySupportedByElementalPenetrationUnique__2
 DisplaySupportedByImmolateUnique__1
 DisplaySupportedByUnboundAilmentsUnique__1__
-DisplaySupportedByIceBiteUnique__1
-DisplaySupportedByReducedManaUnique__1
+DisplaySupportedByIceBiteUnique__2
+DisplaySupportedByReducedManaUnique__2
 SupportedByInnervateUnique__2
 ]],[[
 The Black Cane
 Royal Sceptre
-Requires Level 50, 86 Str, 86 Int
 Implicits: 1
 ElementalDamagePercentImplicitSceptreNew14
-Intelligence__1
+IntelligenceUnique__18
 IncreasedCastSpeedUnique__19__
 ManaRegenerationUnique__11___
 MinionDamageUnique__8_
@@ -359,15 +338,14 @@ Carnal Sceptre
 Variant: Pre 3.0.0
 Variant: Pre 3.29.0
 Variant: Current
-Requires Level 66, 113 Str, 113 Int
 Implicits: 1
-ElementalDamagePercentImplicitSceptreNew20
+ElementalDamagePercentImplicitSceptreNew21__
 LocalIncreasedPhysicalDamagePercentUnique__16
 {variant:1}IncreasedChaosDamageUnique__2[60,80]
 {variant:2}IncreasedChaosDamageUnique__2[80,100]
 {variant:3}IncreasedChaosDamageUnique__2
-{variant:1,2}AreaOfEffectUnique_9[10,10]
-{variant:3}AreaOfEffectUnique_9
+{variant:1,2}AreaOfEffectUnique__2_[10,10]
+{variant:3}AreaOfEffectUnique__2_
 {variant:1,2}ChaosSkillEffectDurationUnique__1[40,40]
 {variant:3}ChaosSkillEffectDurationUnique__1
 ]],[[
@@ -378,16 +356,15 @@ Variant: Pre 2.3.0
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Current
-Requires Level 28, 51 Str, 51 Int
 Implicits: 2
 {variant:1}ElementalDamagePercentImplicitSceptreNew6[10,10]
-{variant:2,3,4}ElementalDamagePercentImplicitSceptreNew6
+{variant:2,3,4}ElementalDamagePercentImplicitSceptreNew7
 LocalIncreasedPhysicalDamageUniqueSceptre9
 {variant:1,2}LocalAddedFireDamageAgainstIgnitedEnemiesUniqueSceptre9
 LocalAddedPhysicalDamageUniqueSceptre9
 FireDamagePercentUniqueSceptre9
-LocalIncreasedAttackSpeedUnique__33
-LocalCriticalStrikeChanceUniqueTwoHandMace6
+LocalIncreasedAttackSpeedUniqueSceptre9
+LocalCriticalStrikeChanceUniqueSceptre9
 {variant:3}AddedFireDamagePerStrengthUnique__1[2,2][4,4]
 {variant:4}AddedFireDamagePerStrengthUnique__1
 ]],[[
@@ -397,7 +374,6 @@ League: Delve
 Source: Drops from unique{Ahuatotli, the Blind}
 Variant: Pre 3.29.0
 Variant: Current
-Requires Level 47, 81 Str, 81 Int
 Implicits: 1
 ElementalDamagePercentImplicitSceptreNew13
 SpellDamageUnique__9
@@ -422,10 +398,9 @@ Variant: Pre 3.24.0 (Mana/ES)
 Variant: Current (Life/Mana)
 Variant: Current (Life/ES)
 Variant: Current (Mana/ES)
-Requires Level 32, 52 Str, 62 Int
 Implicits: 2
 {variant:1}ElementalDamagePercentImplicitSceptreNew12___[15,15]
-{variant:2,3,4,5,6,7,8,9,10,11}ElementalDamagePercentImplicitSceptreNew12___
+{variant:2,3,4,5,6,7,8,9,10,11}ElementalDamagePercentImplicitSceptreNew8
 {variant:1,2,3,4,5}AllDamageUniqueSceptre8[30,50]
 {variant:6,7,8}AllDamageUniqueSceptre8
 {variant:9,10,11}GlobalSpellGemsLevelUnique__1
@@ -447,7 +422,6 @@ Karui Sceptre
 Variant: Pre 2.3.0
 Variant: Pre 3.7.0
 Variant: Current
-Requires Level 56, 96 Str, 96 Int
 Implicits: 2
 {variant:1}ElementalDamagePercentImplicitSceptreNew16[10,10]
 {variant:2,3}ElementalDamagePercentImplicitSceptreNew16
@@ -461,7 +435,6 @@ Doon Cuebiyari
 Vaal Sceptre
 Variant: Pre 2.3.0
 Variant: Current
-Requires Level 64, 113 Str, 113 Int
 Implicits: 2
 {variant:1}ElementalDamagePercentImplicitSceptreNew20[10,10]
 {variant:2}ElementalDamagePercentImplicitSceptreNew20
@@ -477,24 +450,22 @@ Vaal Sceptre
 Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Apex of Sacrifice}
 Variant: Pre 2.3.0
 Variant: Current
-Requires Level 75, 113 Str, 113 Int
 Implicits: 2
 {variant:1}ElementalDamagePercentImplicitSceptreNew21__[10,10]
-{variant:2}ElementalDamagePercentImplicitSceptreNew21__
+{variant:2}ElementalDamagePercentImplicitSceptreNew20
 SocketedGemsGetElementalProliferationUniqueSceptre7
 LocalAddedPhysicalDamageUniqueSceptre7
 LocalIncreasedAttackSpeedUniqueSceptre7
-IncreasedCastSpeedUnique__12
+IncreasedCastSpeedUniqueSceptre7
 CriticalSrikeChanceUniqueSceptre7
 ElementalDamageLeechedAsLifePermyriadUniqueSceptre7_
 ElementalDamageUniqueSceptre7
 ]],[[
 Earendel's Embrace
 Grinning Fetish
-Requires Level 35, 62 Str, 62 Int
 Implicits: 1
 ElementalDamagePercentImplicitSceptreNew9
-AllAttributesUnique__18
+AllAttributesUnique__11
 MinionDamageUnique__5
 SkeletonsCoverEnemiesInAshUnique__1
 SkeletonsTakeFireDamagrPerSecondUnique__1
@@ -504,9 +475,8 @@ Replica Earendel's Embrace
 Grinning Fetish
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 35, 62 Str, 62 Int
 Implicits: 1
-ElementalDamagePercentImplicitSceptreNew10
+ElementalDamagePercentImplicitSceptreNew9
 AllAttributesUnique__11
 MinionDamageUnique__5
 ZombiesCoverInAshOnHitUnique__1
@@ -517,9 +487,8 @@ Replica Maata's Teaching
 Karui Sceptre
 Variant: Pre 3.25.0
 Variant: Current
-Requires Level 56, 96 Str, 96 Int
 Implicits: 1
-ElementalDamagePercentImplicitSceptreNew17
+ElementalDamagePercentImplicitSceptreNew16
 IntelligenceUnique__33
 LocalIncreasedAttackSpeedUnique__46
 MinionMovementSpeedUnique_2
@@ -529,10 +498,9 @@ Maata's Teaching
 Karui Sceptre
 Variant: Pre 3.25.0
 Variant: Current
-Requires Level 56, 96 Str, 96 Int
 Implicits: 1
-ElementalDamagePercentImplicitSceptreNew17
-IntelligenceUnique__10
+ElementalDamagePercentImplicitSceptreNew16
+IntelligenceUnique__33
 {variant:1}LocalCriticalStrikeChanceUnique__21[25,50]
 {variant:2}LocalCriticalStrikeChanceUnique__21
 GlobalIncreaseMinionSpellSkillGemLevelUnique__1
@@ -545,10 +513,9 @@ Variant: Pre 2.3.0
 Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 68, 104 Str, 122 Int
 Implicits: 2
 {variant:1,2}ElementalDamagePercentImplicitSceptre3[15,15]
-{variant:3,4,5}ElementalDamagePercentImplicitSceptre3
+{variant:3,4,5}ElementalDamagePercentImplicitSceptreNew22
 NumberOfZombiesSummonedPercentageUniqueSceptre3
 {variant:1}ZombieLifeUniqueSceptre3[500,500]
 {variant:2,3}ZombieLifeUniqueSceptre3[2000,2000]
@@ -567,28 +534,26 @@ Variant: Pre 2.3.0
 Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 41, 59 Str, 85 Int
 Implicits: 2
 {variant:1,2}ElementalDamagePercentImplicitSceptreNew15[20,20]
-{variant:3,4,5}ElementalDamagePercentImplicitSceptreNew15
+{variant:3,4,5}ElementalDamagePercentImplicitSceptreNew11
 {variant:4}LocalIncreaseSocketedFireGemLevelUnique__1_
 {variant:1,2,3}ItemActsAsFireDamageSupportUniqueSceptre2
 {variant:1,2,3}ItemActsAsColdToFireSupportUniqueSceptre2
 {variant:1,2,3,4}ItemActsAsFirePenetrationSupportUniqueSceptre2
 {variant:4}SupportFlatAddedFireDamageUnique__1
 {variant:1,2,3,4}SpellDamageUniqueSceptre2
-{variant:2,3,4,5}LocalIncreasedPhysicalDamageUniqueOneHandMace5
+{variant:2,3,4,5}LocalIncreasedPhysicalDamagePercentUniqueSceptre2
 {variant:5}LocalAddedFireDamageUnique__7
 {variant:1,2,3,4}LifeGainPerTargetUniqueSceptre2
-{variant:1,2,3,4}LightRadiusUnique__11[25,25]
-{variant:5}LightRadiusUnique__11
-{variant:5}BattlemageKeystoneUnique__3
+{variant:1,2,3,4}LightRadiusUniqueSceptre2[25,25]
+{variant:5}LightRadiusUniqueSceptre2
+{variant:5}BattlemageKeystoneUnique__4
 ]],[[
 The Sands of Time
 Tyrant's Sekhem
 League: Mirage
 Source: No longer obtainable
-Requires Level 58, 99 Str, 99 Int
 Implicits: 1
 ElementalDamagePercentImplicitSceptreNew17
 SandMirageOnCastUnique__1
@@ -600,9 +565,8 @@ SpellDamagePerUniqueSpellRecentlyUnique__1
 Sign of the Sin Eater
 Tyrant's Sekhem
 League: Legion
-Requires Level 58, 99 Str, 99 Int
 Implicits: 1
-ElementalDamagePercentImplicitSceptreNew16
+ElementalDamagePercentImplicitSceptreNew17
 GrantsLevel30SmiteUnique__1
 StrengthIntelligenceUnique__2
 ElementalAilmentsOnYouInsteadOfAlliesUnique__1
@@ -613,10 +577,9 @@ Variant: Pre 2.3.0
 Variant: Pre 3.19.0
 Variant: Pre 3.29.0
 Variant: Current
-Requires Level 62, 113 Str, 113 Int
 Implicits: 2
 {variant:1}ElementalDamagePercentImplicitSceptreNew11[10,10]
-{variant:2,3,4}ElementalDamagePercentImplicitSceptreNew11
+{variant:2,3,4}ElementalDamagePercentImplicitSceptreNew19
 {variant:1,2}SpellAddedLightningDamageUnique__2[30,40][60,70]
 {variant:3,4}SpellAddedLightningDamageUnique__2
 IncreasedCastSpeedUnique__2
@@ -632,15 +595,14 @@ Source: No longer obtainable
 Variant: Pre 2.3.0
 Variant: Pre 3.5.0
 Variant: Current
-Requires Level 20, 38 Str, 38 Int
 Implicits: 2
 {variant:1}ElementalDamagePercentImplicitSceptreNew5[10,10]
 {variant:2,3}ElementalDamagePercentImplicitSceptreNew5
-LocalIncreasedPhysicalDamagePercentUnique__13
+LocalIncreasedPhysicalDamagePercentUnique__4
 IncreasedDamageAgainstFrozenEnemiesUnique__1
 {variant:3}ColdDamageOverTimeMultiplierUnique__1
 ColdDamagePercentUnique__3
-IncreasedAttackSpeedTransformedUnique__1
+LocalIncreasedAttackSpeedUnique__3
 IncreasedCastSpeedUnique__1
 ChanceToFreezeUnique__1
 ]],[[
@@ -650,17 +612,16 @@ Variant: Pre 2.0.0
 Variant: Pre 2.3.0
 Variant: Pre 2.28.0
 Variant: Current
-Requires Level 41, 59 Str, 136 Int
 Implicits: 2
 {variant:1,2}ElementalDamagePercentImplicitSceptre2[20,20]
-{variant:3,4}ElementalDamagePercentImplicitSceptre2
+{variant:3,4}ElementalDamagePercentImplicitSceptreNew11
 {variant:4}LocalInflictHallowingFlameOnHitUnique__1
 LocalIncreaseSocketedGemLevelUniqueSceptre1
 IncreasedIntelligenceRequirementsUniqueSceptre1
 LocalIncreasedPhysicalDamagePercentUniqueSceptre1
 LocalIncreasedAttackSpeedUniqueSceptre1
 {variant:1}IncreasedExperienceUniqueSceptre1[5,5]
-{variant:2,3}IncreasedExperienceUniqueSceptre1
+{variant:2,3,4}IncreasedExperienceUniqueSceptre1
 {variant:1,2,3}ElementalDamagePercentImplicitSceptre1
 ]],[[
 Yaomac's Accord
@@ -669,7 +630,6 @@ League: Ultimatum
 Source: Drops from unique{The Trialmaster}
 Variant: Pre 3.29.0
 Variant: Current
-Requires Level 64, 113 Str, 113 Int
 Implicits: 1
 ElementalDamagePercentImplicitSceptreNew20
 VaalSkillDamageUnique__1
@@ -681,14 +641,13 @@ KeystoneShepherdOfSoulsUnique__1
 Cadigan's Authority
 Platinum Sceptre
 Source: Obtained from unique{Shipping} in normal{Kingsmarch}
-Requires Level 62, 113 Str, 113 Int
 Implicits: 1
-ElementalDamagePercentImplicitSceptre2
+ElementalDamagePercentImplicitSceptreNew19
 LocalAddedPhysicalDamageUnique__38
 AdditionalTotemsUniqueScepter_1
 Maximum2OfSameTotemUnique__1
 SummonTotemCastSpeedUnique__3
-BattlemageKeystoneUnique__2_
+BattlemageKeystoneUnique__5
 ]],
 -- Weapon: Two Handed Mace
 [[
@@ -719,7 +678,6 @@ Great Mallet
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Current
-Requires Level 40, 104 Str
 Implicits: 2
 {variant:1}StunDurationImplicitMace1[20,20]
 {variant:2,3}StunDurationImplicitMace1
@@ -735,7 +693,6 @@ SkillEffectDurationUniqueTwoHandMace5
 Chaber Cairn
 Great Mallet
 Source: No longer obtainable
-Requires Level 60, 131 Str
 Implicits: 1
 StunDurationImplicitMace1
 LocalIncreaseSocketedMeleeGemLevelUniqueTwoHandMace5
@@ -750,7 +707,6 @@ Geofri's Baptism
 Brass Maul
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 27, 92 Str
 Implicits: 2
 {variant:1}StunDurationImplicitMace1[20,20]
 {variant:2}StunDurationImplicitMace1
@@ -765,7 +721,6 @@ Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Pre 3.11.0
 Variant: Current
-Requires Level 61, 92 Str
 Implicits: 2
 {variant:1}StunDurationImplicitMace1[20,20]
 {variant:2,3}StunDurationImplicitMace1
@@ -781,7 +736,6 @@ Hrimnor's Hymn
 Sledgehammer
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 17, 62 Str
 Implicits: 2
 {variant:1}StunDurationImplicitMace2[40,40]
 {variant:2}StunDurationImplicitMace2
@@ -796,7 +750,6 @@ Sledgehammer
 Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 36, 62 Str
 Implicits: 2
 {variant:1}StunDurationImplicitMace2[40,40]
 {variant:2}StunDurationImplicitMace2
@@ -813,7 +766,6 @@ Steelhead
 League: Tempest
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 44, 143 Str
 Implicits: 2
 {variant:1}StunDurationImplicitMace2[40,40]
 {variant:2}StunDurationImplicitMace2
@@ -830,7 +782,6 @@ Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.11.0
 Variant: Current
-Requires Level 67, 212 Str
 Implicits: 3
 {variant:1,2}StunDurationImplicitMace1[20,20]
 {variant:3}StunDurationImplicitMace1
@@ -848,7 +799,6 @@ Replica Kongor's Undying Rage
 Terror Maul
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 67, 212 Str
 Implicits: 1
 ChanceForDoubleStunDurationImplicitMace_1
 LocalAddedPhysicalDamageUniqueTwoHandMace6
@@ -868,7 +818,6 @@ Variant: Pre 3.19.0
 Variant: Pre 3.20.0
 Variant: Pre 3.28.0
 Variant: Current
-Requires Level 57, 182 Str
 Implicits: 3
 {variant:1}StunDurationImplicitMace2[20,20]
 {variant:2,3}StunDurationImplicitMace2[30,30]
@@ -893,7 +842,6 @@ Quecholli
 Jagged Maul
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 22, 77 Str
 Implicits: 2
 {variant:1}StunDurationImplicitMace1[20,20]
 {variant:2}StunDurationImplicitMace1
@@ -906,7 +854,6 @@ Enemies killed explode dealing 10% of their Life as Fire Damage
 Panquetzaliztli
 Jagged Maul
 Source: No longer obtainable
-Requires Level 61, 77 Str
 Implicits: 1
 StunDurationImplicitMace1
 AllAttributesUniqueTwoHandMace7
@@ -919,7 +866,6 @@ Serle's Masterwork
 Phantom Mace
 Source: No longer obtainable
 League: Settlers of Kalguur
-Requires Level 53, 170 Str
 Implicits: 1
 StunThresholdReductionImplicitMace1
 StrengthUnique__25
@@ -931,13 +877,12 @@ VillageTripleEnchant1H
 Tawhoa's Felling
 Piledriver
 League: Settlers of Kalguur
-Requires Level 61, 212 Str
 Implicits: 1
 StunThresholdReductionImplicitMace3_
 GrantsTawhoasChosenUnique__1
-StrengthUnique__11
+StrengthUnique__28
 LocalIncreasedPhysicalDamagePercentUnique__49
-StunDurationUnique__1
+StunDurationUnique__2
 StunThresholdReductionUnique__2
 ]],[[
 Tidebreaker
@@ -946,7 +891,6 @@ Variant: Pre 3.5.0
 Variant: Pre 3.11.0
 Variant: Pre 3.29.0
 Variant: Current
-Requires Level 65, 212 Str
 Implicits: 2
 {variant:3,4}PercentageStrengthImplicitMace1
 {variant:1,2}StunDurationImplicitMace1
@@ -963,7 +907,6 @@ Great Mallet
 League: Perandus
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 40, 131 Str
 Implicits: 2
 {variant:1}StunDurationImplicitMace1[20,20]
 {variant:2}StunDurationImplicitMace1
@@ -974,17 +917,15 @@ Replica Trypanon
 Great Mallet
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 40, 131 Str
 Implicits: 1
 StunDurationImplicitMace1
 IncreasedAccuracyUnique__9____
-LocalAlwaysCrit
+LocalAttacksAlwaysCritUnique__1
 ]],[[
 Voidhome
 Dread Maul
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 54, 173 Str
 Implicits: 2
 {variant:1}StunDurationImplicitMace1[20,20]
 {variant:2}StunDurationImplicitMace1

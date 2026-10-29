@@ -9,7 +9,6 @@ Variant: Pre 1.3.0
 Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 45
 Implicits: 1
 StrengthImplicitAmulet1
 {variant:1}AdditionalBlockUnique__2[10,10]
@@ -30,12 +29,11 @@ MaximumBlockChanceUniqueAmulet16
 ]],[[
 Bloodsoaked Medallion
 Amber Amulet
-LevelReq: 49
 Implicits: 1
 StrengthImplicitAmulet1
-TalismanIncreasedCriticalChance
+CriticalStrikeChanceUnique__6
 IncreasedLifeUnique__119
-ChaosResistUniqueAmulet23
+ChaosResistUnique__29
 RecoverLifeAlteratingUnique__1
 ]],[[
 Araku Tiki
@@ -46,8 +44,8 @@ Implicits: 1
 LifeRegenerationImplicitAmulet1
 {variant:1}EvasionOnLowLifeUniqueAmulet4[100,100]
 {variant:2}EvasionOnLowLifeUniqueAmulet4
-IncreasedLifeUniqueAmulet18
-FireResistImplicitAmulet1
+IncreasedLifeUniqueAmulet4
+FireResistUniqueAmulet4
 {variant:1}LifeRegenerationOnLowLifeUniqueAmulet4
 {variant:2}ElusiveOnLowLifeUnique__1
 {variant:2}PhasingOnLowLifeUnique__1
@@ -55,7 +53,6 @@ FireResistImplicitAmulet1
 Ngamahu Tiki
 Coral Amulet
 Source: No longer obtainable
-Requires Level 36
 Implicits: 1
 LifeRegenerationImplicitAmulet1
 FireDamagePercentUnique__6
@@ -67,7 +64,6 @@ LifeRegenerationOnLowLifeUniqueAmulet4
 The Ascetic
 Gold Amulet
 Source: No longer obtainable
-Requires Level 8
 Implicits: 1
 ItemFoundRarityIncreaseImplicitAmulet1
 ItemRarityWhileWearingANormalItemUnique__1
@@ -78,7 +74,6 @@ Onyx Amulet
 Variant: Pre 3.23.0
 Variant: Current
 Source: Drops from unique{The Eater of Worlds} (Uber)
-Requires Level 60
 Implicits: 1
 AllAttributesImplicitAmulet1
 GlobalGemExperienceGainUnique__1
@@ -88,7 +83,6 @@ GlobalSkillGemQualityUnique__1
 ]],[[
 Astramentis
 Onyx Amulet
-Requires Level 20
 Implicits: 1
 AllAttributesImplicitAmulet1
 AllAttributesUniqueAmulet8
@@ -98,7 +92,6 @@ Atziri's Foible
 Paua Amulet
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 16
 Implicits: 1
 ManaRegenerationImplicitAmulet1
 {variant:1}IncreasedManaUniqueAmulet10[50,50]
@@ -113,7 +106,6 @@ Replica Atziri's Foible
 Paua Amulet
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 16
 Implicits: 1
 LifeRegenerationRatePercentImplicitUnique__5
 IncreasedLifeUnique__104_
@@ -141,22 +133,20 @@ Variant: Intelligence: Purity of Lightning
 Variant: Intelligence: Wrath
 Variant: Intelligence: Zealotry
 Variant: Envy
-Requires Level 55
 Implicits: 1
 AllAttributesImplicitAmulet1
-{variant:1,2,3,4,5}StrengthImplicitAmulet1
-{variant:6,7,8,9}DexterityImplicitAmulet1
-{variant:10,11,12,13,14,15,16}IntelligenceImplicitAmulet1
+{variant:1,2,3,4,5}StrengthUnique__14
+{variant:6,7,8,9}DexterityUnique__12
+{variant:10,11,12,13,14,15,16}IntelligenceUnique__12
 {variant:17}GrantsEnvyUnique__2
 {variant:1,2,3,4,5}GlobalPhysicalDamageReductionRatingPercentUnique__1
 {variant:6,7,8,9}GlobalEvasionRatingPercentUnique__1
 {variant:10,11,12,13,14,15,16}GlobalEnergyShieldPercentUnique__1
-{variant:17}AllAttributesUnique__10_
-IncreasedLifeUnique__114
+{variant:17}AllAttributesUnique__12
+IncreasedLifeUnique__89
 {variant:1,2,3,4,5}NearbyEnemiesReducedStunRecoveryUnique__1
 {variant:6,7,8,9}NearbyEnemiesGrantIncreasedFlaskChargesUnique__1
-{variant:1,2,3,4,5}NearbyEnemiesReducedStunRecoveryUnique__1
-{variant:10,11,12,13,14,15,16}NearbyEnemiesHaveIncreasedChanceToBeCritUnique__1
+{variant:10,11,12,13,14,15,16}NearbyEnemiesHaveIncreasedChanceToBeCritUnique__2
 {variant:17}AllDefencesUnique__4
 {variant:1}AngerNoReservationUnique__1
 {variant:2}DeterminationNoReservationUnique__1
@@ -180,12 +170,11 @@ The Aylardex
 Agate Amulet
 Variant: Pre 2.5.0
 Variant: Current
-Requires Level 32
 Implicits: 1
 HybridStrInt
-IncreasedLifeUniqueAmulet4
-IncreasedManaUnique__22__
-ChargeBonusMaximumPowerCharges
+IncreasedLifeUnique__4
+IncreasedManaUnique__3
+IncreasedMaximumPowerChargesUnique__2
 IncreasedManaRegenerationPerPowerChargeUnique__1
 {variant:2}IncreasedPowerChargeDurationUnique__1
 DamageTakeFromManaBeforeLifePerPowerChargeUnique__1
@@ -197,10 +186,9 @@ Variant: Pre 3.25.0
 Variant: Current
 League: Sanctum
 Source: Drops from unique{Lycia, Herald of the Scourge} in normal{The Beyond}
-LevelReq: 52
 Implicits: 1
 HybridStrInt
-IncreasedManaUniqueAmulet1
+IncreasedManaUnique__23
 ChaosResistUnique__27
 IncreasedMaximumResistsUnique__2
 ElementalDamageReductionChaosResistUnique__1
@@ -208,7 +196,6 @@ ElementalDamageReductionChaosResistUnique__1
 ]],[[
 Badge of the Brotherhood
 Turquoise Amulet
-Requires Level: 20
 League: Blight
 Implicits: 1
 HybridDexInt
@@ -223,7 +210,6 @@ Replica Badge of the Brotherhood
 Turquoise Amulet
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level: 60
 Implicits: 1
 HybridDexInt
 MaximumEnduranceChargesEqualToMaximumFrenzyChargesUnique__1
@@ -238,7 +224,6 @@ Variant: Pre 3.0.0
 Variant: Pre 3.2.0
 Variant: Current
 Source: No longer obtainable
-Requires Level 30
 Implicits: 1
 ItemFoundRarityIncreaseImplicitAmulet1
 {variant:1}MagicMonsterItemRarityUnique__1[150,150]
@@ -255,10 +240,9 @@ Variant: Pre 3.29.0
 Variant: Current
 League: Talisman Hardcore
 Talisman Tier: 2
-Requires Level 28
 Implicits: 1
 {variant:1,2}TalismanGlobalDefensesPercent
-{variant:1,2}IncreasedEnergyShieldUniqueAmulet14
+{variant:1,2}IncreasedEnergyShieldUnique___1[20,30]
 {variant:3}IncreasedEnergyShieldUnique___1
 FireResistUnique__2
 LightningResistUnique__1
@@ -272,7 +256,6 @@ LightningResistUnique__1
 Blood of Corruption
 Amber Amulet
 Source: Use currency{Vaal Orb} on unique{Tear of Purity}
-Requires Level 5
 Implicits: 1
 StrengthImplicitAmulet1
 GluttonyOfElementsUniqueAmulet23
@@ -287,7 +270,6 @@ Bloodgrip
 Variant: Pre 3.0.0
 Variant: Pre 3.12.0
 Variant: Current
-Requires Level 74
 Implicits: 2
 {variant:1}LifeRegenerationUniqueAmulet25[120,240]
 {variant:2,3}LifeRegenerationImplicitAmulet2
@@ -302,7 +284,6 @@ Carnage Heart
 Onyx Amulet
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 20
 Implicits: 1
 AllAttributesImplicitAmulet1
 AllAttributesUniqueAmulet9
@@ -317,7 +298,6 @@ ExtraGore
 Crystallised Omniscience
 Onyx Amulet
 Source: Drops from unique{The Searing Exarch} (Uber)
-Requires Level 61
 Implicits: 1
 AllAttributesImplicitAmulet1
 AttributeModifiersAscendanceUnique__1_
@@ -328,7 +308,6 @@ AttributeRequirementsAscendanceUnique__1
 Daresso's Salute
 Citrine Amulet
 League: Anarchy
-Requires Level 16
 Implicits: 1
 HybridStrDex
 ReducedEnergyShieldPercentUniqueAmulet13
@@ -342,10 +321,9 @@ Defiance of Destiny
 Paua Amulet
 Variant: Pre 3.25.0
 Variant: Current
-LevelReq: 49
 Implicits: 1
 ManaRegenerationImplicitAmulet1
-IncreasedLifeUnique__105
+IncreasedLifeUnique__121
 FireResistUnique__34
 ColdResistUnique__39
 LightningResistUnique__29
@@ -355,10 +333,9 @@ LightningResistUnique__29
 The Ephemeral Bond
 Lapis Amulet
 League: Heist
-Requires Level 68
 Implicits: 1
 IntelligenceImplicitAmulet1
-ManaRegenerationUnique__13
+ManaRegenerationUnique__12
 AllResistancesUnique__19
 CriticalStrikeMultiplierIfGainedPowerChargeUnique__1_
 GlobalAddedLightningDamagePerPowerChargeUnique__1
@@ -369,7 +346,6 @@ Gold Amulet
 Variant: Pre 3.29.0
 Variant: Current
 League: Affliction
-Requires Level 48
 Implicits: 1
 ItemFoundRarityIncreaseImplicitAmulet1
 IncreasedLifeEmptyRedSocketUnique__1
@@ -380,10 +356,9 @@ IncreasedManaEmptyBlueSocketUnique__1
 ]],[[
 Doedre's Tongue
 Lapis Amulet
-LevelReq: 24
 Implicits: 1
 IntelligenceImplicitAmulet1
-AllResistancesUnique__26
+AllResistancesUnique__27
 ChanceToFreezeShockIgniteUnique__2
 CursedEnemiesCannotInflictElementalAilmentsUnique__1
 ]],[[
@@ -391,10 +366,9 @@ Extractor Mentis
 Agate Amulet
 Variant: Pre 3.5.0
 Variant: Current
-Requires Level 16
 Implicits: 1
 HybridStrInt
-StrengthUnique__26
+StrengthUnique___2
 GrantEnemiesUnholyMightOnKillUnique__1
 GrantEnemiesOnslaughtOnKillUnique__1
 {variant:1}UnholyMightOnKillPercentChanceUnique__1[5,5][10,10]
@@ -406,28 +380,25 @@ MaximumLifeOnKillPercentUnique__1
 Eye of Chayula
 Onyx Amulet
 Upgrade: Upgrades to unique{Presence of Chayula} using currency{Blessing of Chayula}
-Requires Level 20
 Implicits: 1
 AllAttributesImplicitAmulet1
 MaximumLifeUniqueAmulet6
 ItemFoundRarityIncreaseUniqueAmulet6
-CannotBeStunnedUnique__1_
+CannotBeStunned
 ]],[[
 Presence of Chayula
 Onyx Amulet
 League: Breach
 Source: Upgraded from unique{Eye of Chayula} using currency{Blessing of Chayula}
-Requires Level 60
 Implicits: 1
 AllAttributesImplicitAmulet1
-ItemFoundRarityIncreaseUniqueAmulet6
+ItemFoundRarityIncreaseUnique__2
 ChaosResistUnique__5
 CannotBeStunned
 MaximumLifeConvertedToEnergyShieldUnique__1
 ]],[[
 Eye of Innocence
 Citrine Amulet
-Requires Level 68
 Implicits: 1
 HybridStrDex
 ChanceToIgniteUnique__2
@@ -437,10 +408,11 @@ FireDamageLeechedAsLifeWhileIgnitedUnique__1
 ]],[[
 Eyes of the Greatwolf
 Greatwolf Talisman
-Requires Level 52
-Has Alt Variant: true
-Selected Variant: 11
-Selected Alt Variant: 19
+Version: Pre 3.25.0
+Version: Pre 3.29.0
+Version: Current
+Selected Variant Group: 1=65
+Selected Variant Group: 2=41
 Variant: Attributes
 Variant: Global Defences
 Variant: Chaos Damage
@@ -474,41 +446,116 @@ Variant: Lightning taken as Fire
 Variant: Gain Physical as random Element
 Variant: Extra Pierces
 Variant: Damage over Time Multiplier
-Implicits: 33
-{variant:1}TalismanIncreasedAllAttributes
-{variant:2}TalismanGlobalDefensesPercent
-{variant:3}TalismanIncreasedChaosDamage
-{variant:4}TalismanAttackDamage
-{variant:5}TalismanIncreasedColdDamage
-{variant:6}TalismanIncreasedFireDamage
-{variant:7}TalismanIncreasedLightningDamage
-{variant:8}TalismanSpellDamage
-{variant:9}TalismanIncreasedPhysicalDamage
-{variant:10}TalismanIncreasedMana
-{variant:11}TalismanIncreasedDamage
-{variant:12}TalismanReducedPhysicalDamageTaken_
-{variant:13}TalismanChanceToFreezeShockIgnite_
-{variant:14}TalismanIncreasedCriticalChance
-{variant:15}TalismanIncreasedAreaOfEffect
-{variant:16}TalismanAttackAndCastSpeed
-{variant:17}TalismanIncreasedItemQuantity
-{variant:18}TalismanIncreasedLife
-{variant:19}TalismanIncreasedCriticalStrikeMultiplier_
-{variant:20}TalismanAdditionalZombie
-{variant:21}TalismanFrenzyChargeOnKill
-{variant:22}TalismanPowerChargeOnKill
-{variant:23}TalismanEnduranceChargeOnKill_
-{variant:24}TalismanPercentLifeRegeneration
-{variant:25}TalismanColdTakenAsFire
-{variant:26}TalismanColdTakenAsLightning
-{variant:27}TalismanFireTakenAsCold
-{variant:28}TalismanFireTakenAsLightning
-{variant:29}TalismanLightningTakenAsCold
-{variant:30}TalismanLightningTakenAsFire
-{variant:31}TalismanDamageDealtAddedAsRandomElement
-{variant:32}TalismanAdditionalPierce
-{variant:33}TalismanGlobalDamageOverTimeMultiplier
-LocalEnchantStatMagnitudeUnique__1
+Variant: Action Speed
+Variant: Extra Pierces
+Variant: Additional Projectile
+Variant: Global Defences
+Variant: Area of Effect
+Variant: Cold and Lightning taken as Fire
+Variant: Cold Penetration
+Variant: Crit Multiplier
+Variant: Fire Penetration
+Variant: Freeze Enemies when Hit
+Variant: Cooldown Recovery
+Variant: Damage over Time Multiplier
+Variant: Herald Gem Levels
+Variant: Skill Gem Levels
+Variant: Skill Gem Quality
+Variant: Ignore Physical Damage Reduction
+Variant: Maximum Power Charges
+Variant: Lightning Penetration
+Variant: Mark Effect
+Variant: Maximum Cold Resistance
+Variant: Maximum Endurance Charges
+Variant: Maximum Fire Resistance
+Variant: Maximum Frenzy Charges
+Variant: Life as Extra Armour
+Variant: Life
+Variant: Maximum Lightning Resistance
+Variant: Mana
+Variant: Maximum Spectres
+Variant: Minimum Charges
+Variant: Minion Damage over Time Multiplier
+Variant: Movement Speed
+Variant: Attributes
+Variant: Projectile Speed
+Variant: Unaffected by Ignite
+Variant: Utility Flask Charges
+Variant: Additional Exerted Attack
+Variant: Withered Effect
+Implicits: 70
+{version:1,2}{variant:1}{group:1,2}TalismanIncreasedAllAttributes
+{version:1,2}{variant:2}{group:1,2}TalismanGlobalDefensesPercent
+{version:1,2}{variant:3}{group:1,2}TalismanIncreasedChaosDamage
+{version:1,2}{variant:4}{group:1,2}TalismanAttackDamage
+{version:1,2}{variant:5}{group:1,2}TalismanIncreasedColdDamage
+{version:1,2}{variant:6}{group:1,2}TalismanIncreasedFireDamage
+{version:1,2}{variant:7}{group:1,2}TalismanIncreasedLightningDamage
+{version:1,2}{variant:8}{group:1,2}TalismanSpellDamage
+{version:1,2}{variant:9}{group:1,2}TalismanIncreasedPhysicalDamage
+{version:1,2}{variant:10}{group:1,2}TalismanIncreasedMana
+{version:1,2}{variant:11}{group:1,2}TalismanIncreasedDamage
+{version:1,2}{variant:12}{group:1,2}TalismanReducedPhysicalDamageTaken_
+{version:1,2}{variant:13}{group:1,2}TalismanChanceToFreezeShockIgnite_
+{version:1,2}{variant:14}{group:1,2}TalismanIncreasedCriticalChance
+{version:1,2}{variant:15}{group:1,2}TalismanIncreasedAreaOfEffect
+{version:1,2}{variant:16}{group:1,2}TalismanAttackAndCastSpeed
+{version:1}{variant:17}{group:1,2}TalismanIncreasedItemQuantity
+{version:1,2}{variant:18}{group:1,2}TalismanIncreasedLife
+{version:1,2}{variant:19}{group:1,2}TalismanIncreasedCriticalStrikeMultiplier_
+{version:1,2}{variant:20}{group:1,2}TalismanAdditionalZombie
+{version:1,2}{variant:21}{group:1,2}TalismanFrenzyChargeOnKill
+{version:1,2}{variant:22}{group:1,2}TalismanPowerChargeOnKill
+{version:1,2}{variant:23}{group:1,2}TalismanEnduranceChargeOnKill_
+{version:1,2}{variant:24}{group:1,2}TalismanPercentLifeRegeneration
+{version:1,2}{variant:25}{group:1,2}TalismanColdTakenAsFire
+{version:1,2}{variant:26}{group:1,2}TalismanColdTakenAsLightning
+{version:1,2}{variant:27}{group:1,2}TalismanFireTakenAsCold
+{version:1,2}{variant:28}{group:1,2}TalismanFireTakenAsLightning
+{version:1,2}{variant:29}{group:1,2}TalismanLightningTakenAsCold
+{version:1,2}{variant:30}{group:1,2}TalismanLightningTakenAsFire
+{version:1,2}{variant:31}{group:1,2}TalismanDamageDealtAddedAsRandomElement
+{version:1,2}{variant:32}{group:1,2}TalismanAdditionalPierce
+{version:1,2}{variant:33}{group:1,2}TalismanGlobalDamageOverTimeMultiplier
+{version:3}{variant:34}{group:1,2}{enchant}TalismanEnchantActionSpeedReduction
+{version:3}{variant:35}{group:1,2}{enchant}TalismanEnchantAdditionalPierce
+{version:3}{variant:36}{group:1,2}{enchant}TalismanEnchantAdditionalProjectiles
+{version:3}{variant:37}{group:1,2}{enchant}TalismanEnchantAllDefences
+{version:3}{variant:38}{group:1,2}{enchant}TalismanEnchantAreaOfEffect
+{version:3}{variant:39}{group:1,2}{enchant}TalismanEnchantColdAndLightningDamageTakenAsFire
+{version:3}{variant:40}{group:1,2}{enchant}TalismanEnchantColdResistancePenetration
+{version:3}{variant:41}{group:1,2}{enchant}TalismanEnchantCriticalStrikeMultiplier
+{version:3}{variant:42}{group:1,2}{enchant}TalismanEnchantFireResistancePenetration
+{version:3}{variant:43}{group:1,2}{enchant}TalismanEnchantFreezeEnemiesWhenHitChance
+{version:3}{variant:44}{group:1,2}{enchant}TalismanEnchantGlobalCooldownRecovery
+{version:3}{variant:45}{group:1,2}{enchant}TalismanEnchantGlobalDamageOverTimeMultiplier
+{version:3}{variant:46}{group:1,2}{enchant}TalismanEnchantGlobalHeraldGemlevel
+{version:3}{variant:47}{group:1,2}{enchant}TalismanEnchantGlobalSkillGemLevel
+{version:3}{variant:48}{group:1,2}{enchant}TalismanEnchantGlobalSkillGemQuality
+{version:3}{variant:49}{group:1,2}{enchant}TalismanEnchantIgnoreEnemyArmour
+{version:3}{variant:50}{group:1,2}{enchant}TalismanEnchantIncreasedMaximumPowerCharges
+{version:3}{variant:51}{group:1,2}{enchant}TalismanEnchantLightningResistancePenetration
+{version:3}{variant:52}{group:1,2}{enchant}TalismanEnchantMarkEffect
+{version:3}{variant:53}{group:1,2}{enchant}TalismanEnchantMaximumColdResist
+{version:3}{variant:54}{group:1,2}{enchant}TalismanEnchantMaximumEnduranceCharges
+{version:3}{variant:55}{group:1,2}{enchant}TalismanEnchantMaximumFireResist
+{version:3}{variant:56}{group:1,2}{enchant}TalismanEnchantMaximumFrenzyCharges
+{version:3}{variant:57}{group:1,2}{enchant}TalismanEnchantMaximumLifeAddedAsArmour
+{version:3}{variant:58}{group:1,2}{enchant}TalismanEnchantMaximumLifeIncreasePercent
+{version:3}{variant:59}{group:1,2}{enchant}TalismanEnchantMaximumLightningResistance
+{version:3}{variant:60}{group:1,2}{enchant}TalismanEnchantMaximumManaIncreasePercent
+{version:3}{variant:61}{group:1,2}{enchant}TalismanEnchantMaximumSpectreCount
+{version:3}{variant:62}{group:1,2}{enchant}TalismanEnchantMinimumEndurancePowerFrenzyCharges
+{version:3}{variant:63}{group:1,2}{enchant}TalismanEnchantMinionDotMultiplier
+{version:3}{variant:64}{group:1,2}{enchant}TalismanEnchantMovementVelocity
+{version:3}{variant:65}{group:1,2}{enchant}TalismanEnchantPercentageAllAttributes
+{version:3}{variant:66}{group:1,2}{enchant}TalismanEnchantProjectileSpeed
+{version:3}{variant:67}{group:1,2}{enchant}TalismanEnchantUnaffectedByIgnite
+{version:3}{variant:68}{group:1,2}{enchant}TalismanEnchantUtilityFlaskPassiveChargeGain
+{version:3}{variant:69}{group:1,2}{enchant}TalismanEnchantWarcriesExertAnAdditionalAttack
+{version:3}{variant:70}{group:1,2}{enchant}TalismanEnchantWitheredEffect
+{version:1,2}LocalDoubleImplicitMods
+{version:3}LocalEnchantStatMagnitudeUnique__1
 ]],[[
 The Felbog Fang
 Citrine Amulet
@@ -516,10 +563,9 @@ League: Harvest
 Source: Drops from unique{Namharim, Born of Night} in normal{The Sacred Grove}
 Variant: Pre 3.20.0
 Variant: Current
-Requires Level 61
 Implicits: 1
 HybridStrDex
-IntelligenceUnique__19
+IntelligenceUnique__22_
 IncreasedCastSpeedUnique__20
 AreaOfEffectUnique__6
 {variant:1,2}Curse25PercentHinderEnemyUnique__1
@@ -529,20 +575,18 @@ Curse50PercentCurseEffectUnique__1
 ]],[[
 Fury Valve
 Turquoise Amulet
-Requires Level 40
 Implicits: 1
 HybridDexInt
 IncreasedEvasionRatingPercentUnique__2
-AllResistancesUniqueAmulet14
+AllResistancesUnique__17
 AdditionalProjectilesUnique__1__
-ProjectileSpeedUnique__10
+ProjectileSpeedUnique__6
 ProjectileModifiersApplyToSplitsUnique__1
 ]],[[
 Gloomfang
 Blue Pearl Amulet
 Variant: Pre 3.11.0
 Variant: Current
-Requires Level 77
 Implicits: 1
 ManaRegenerationImplicitAmulet2
 ChaosDamageLifeLeechPermyriadUnique__2
@@ -560,13 +604,12 @@ Variant: Current
 League: Breach
 Source: Drops in Tul Breach or from unique{Tul, Creeping Avalanche}
 Upgrade: Upgrades to unique{The Pandemonius} using currency{Blessing of Tul}
-Requires Level 35
 Implicits: 1
 DexterityImplicitAmulet1
 {variant:1}ColdDamagePercentUnique___10
 ColdResistUnique__11
 FreezeDurationUnique__1
-ChanceToFreezeUnique__3
+ChanceToFreezeUnique__4
 {variant:2}FreezeProliferationUnique__1
 IncreasedDamageIfFrozenRecentlyUnique__1
 ]],[[
@@ -574,10 +617,9 @@ The Pandemonius
 Jade Amulet
 League: Breach
 Source: Upgraded from unique{The Halcyon} using currency{Blessing of Tul}
-Requires Level 64
 Implicits: 1
 DexterityImplicitAmulet1
-ColdDamagePercentUnique__7
+ColdDamagePercentUnique___11
 ColdResistUnique__11
 ChillEnemiesWhenHitUnique__1
 OnHitBlindChilledEnemiesUnique__1_
@@ -585,7 +627,6 @@ ColdPenetrationAgainstChilledEnemiesUnique__1
 ]],[[
 Hinekora's Sight
 Onyx Amulet
-Requires Level 20
 Variant: Pre 3.16.0
 Variant: Pre 3.37.0
 Variant: Current
@@ -604,6 +645,7 @@ Replica Hinekora's Sight
 Onyx Amulet
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
+Implicits: 1
 AllAttributesImplicitAmulet1
 IncreasedAccuracyUnique__3
 IncreasedPhysicalDamageReductionRatingUnique__10
@@ -613,11 +655,9 @@ AvoidMaimChanceUnique__1
 Hyrri's Truth
 Jade Amulet
 League: Synthesis
-Requires Level 64
 Variant: Pre 3.16.0
 Variant: Pre 3.19.0
 Variant: Current
-LevelReq: 64
 Implicits: 1
 DexterityImplicitAmulet1
 {variant:1,2}GrantsAccuracyAuraSkillUnique__1[22,22]
@@ -630,7 +670,7 @@ DexterityImplicitAmulet1
 {variant:3}CriticalMultiplierUnique__3__
 {variant:3}BowAttacksCullingStrikeUnique__1
 {variant:1,2}LifeLeechPermyriadUniqueAmulet9[80,100]
-{variant:1,2,3}PrecisionAuraBonusUnique__1
+{variant:1,2,3}PrecisionReservationEfficiencyUnique__1
 ]],[[
 Replica Hyrri's Truth
 Jade Amulet
@@ -639,7 +679,6 @@ Source: Steal from a unique{Curio Display} during a Grand Heist
 Variant: Pre 3.16.0
 Variant: Pre 3.19.0
 Variant: Current
-LevelReq: 64
 Implicits: 1
 DexterityImplicitAmulet1
 GrantsHatredUnique__1__
@@ -650,14 +689,13 @@ GrantsHatredUnique__1__
 {variant:1,2}CriticalMultiplierUnique__5[23,28]
 {variant:3}CriticalMultiplierUnique__5
 {variant:3}BowAttacksCullingStrikeUnique__1
-{variant:1,2}ColdDamageLifeLeechPermyriadUniqueBelt9bNew[80,100]
+{variant:1,2}ColdDamageLifeLeechUnique__1[80,100]
 {variant:1,2,3}HatredManaReservationEfficiencyUnique__1__
 ]],[[
 The Ignomon
 Gold Amulet
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 8
 Implicits: 1
 ItemFoundRarityIncreaseImplicitAmulet1
 {variant:1}DexterityUniqueAmulet7
@@ -666,13 +704,12 @@ ItemFoundRarityIncreaseImplicitAmulet1
 IncreasedAccuracyUniqueAmulet7
 IncreasedEvasionRatingUniqueAmulet7
 FireResistUniqueAmulet7
-{variant:2}LightRadiusUnique__3
-{variant:2}DisplayBlindAuraUnique__1
+{variant:2}LightRadiusUnique__8
+{variant:2}NearbyEnemiesAreBlindedUnique__1
 ]],[[
 The Effigon
 Gold Amulet
 Source: No longer obtainable
-Requires Level 57
 Implicits: 1
 ItemFoundRarityIncreaseImplicitAmulet1
 DexterityUniqueAmulet7
@@ -685,12 +722,11 @@ FirePenetrationAgainstBlindedEnemiesUnique__1
 ]],[[
 Ikiaho's Promise
 Coral Amulet
-LevelReq: 30
 Implicits: 1
 LifeRegenerationImplicitAmulet1
 AddedManaRegenerationUnique__3
 BeltFlaskLifeRecoveryUnique__1
-FlaskManaRecoveryUnique__1
+BeltFlaskManaRecoveryUnique__1
 LowLifeInstantLifeRecoveryUnique__1
 LowManaInstantManaRecoveryUnique__1
 ]],[[
@@ -703,7 +739,6 @@ Variant: Fire
 Variant: Cold
 Variant: Lightning
 Variant: Chaos
-Requires Level 64
 Implicits: 1
 AllAttributesImplicitAmulet1
 {variant:1}GlobalAddedPhysicalDamageUnique__1_
@@ -711,8 +746,8 @@ AllAttributesImplicitAmulet1
 {variant:3}GlobalAddedColdDamageUnique__1
 {variant:4}GlobalAddedLightningDamageUnique__1_
 {variant:5}GlobalAddedChaosDamageUnique__1
-IncreasedLifeUnique__113
-{variant:1}IncreasedPhysicalDamageReductionRatingUniqueAmulet16
+IncreasedLifeUnique__65
+{variant:1}IncreasedPhysicalDamageReductionRatingUnique__3
 {variant:2}LifeRegenerationRatePercentUnique__4_
 {variant:3}ManaRegenerationUnique__7
 {variant:4}EnergyShieldRegenerationUnique__2
@@ -721,7 +756,7 @@ IncreasedLifeUnique__113
 {variant:2}FireResistUnique__14
 {variant:3}ColdResistUnique__20
 {variant:4}LightningResistUnique__11
-{variant:5}ChaosResistUnique__14
+{variant:5}ChaosResistUnique__9
 {variant:1}VulnerabilityReservationCostUnique__1_
 {variant:2}FlammabilityReservationCostUnique__1
 {variant:3}FrostbiteReservationCostUnique__1
@@ -733,10 +768,9 @@ Karui Ward
 Jade Amulet
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 5
 Implicits: 1
 DexterityImplicitAmulet1
-StrengthImplicitAmulet1
+StrengthUniqueAmulet5
 IncreasedAccuracyUniqueAmulet5
 {variant:2}IncreasedProjectileDamageUnique__6
 ProjectileSpeedUniqueAmulet5
@@ -746,10 +780,9 @@ Replica Karui Ward
 Jade Amulet
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 5
 Implicits: 1
 DexterityImplicitAmulet1
-IntelligenceImplicitAmulet1
+IntelligenceUnique__23
 IncreasedAccuracyUniqueAmulet5
 MovementVelocityUniqueAmulet5
 AreaOfEffectUnique__7_
@@ -760,7 +793,6 @@ Jade Amulet
 Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 24
 Implicits: 1
 DexterityImplicitAmulet1
 StrengthImplicitAmulet1
@@ -775,7 +807,6 @@ Khatal's Geyser
 Lapis Amulet
 League: Mirage
 Source: No longer obtainable
-LevelReq: 56
 Implicits: 1
 IntelligenceImplicitAmulet1
 CannotUseLifeFlaskUnique__1
@@ -789,7 +820,6 @@ Khatal's Weeping
 Lapis Amulet
 League: Mirage
 Source: No longer obtainable
-LevelReq: 56
 Implicits: 1
 IntelligenceImplicitAmulet1
 IncreasedLifeUnique__127
@@ -801,7 +831,6 @@ Leadership's Price
 Onyx Amulet
 League: Heist
 Source: Drops from unique{Vic Vox} and unique{Vinny Vox} in normal{Contract: The Twins}
-Requires Level 68
 Implicits: 1
 AllAttributesImplicitAmulet1
 MaximumFireResistUnique__1
@@ -813,10 +842,9 @@ Corrupted
 ]],[[
 Maligaro's Cruelty
 Turquoise Amulet
-Requires Level 20
 Implicits: 1
 HybridDexInt
-MaximumLifeUnique__4_
+MaximumLifeUnique__6
 GainFrenzyChargeOnKillVsEnemiesWith5PoisonsUnique__1
 GainPowerChargeOnKillVsEnemiesWithLessThan5PoisonsUnique__1
 PoisonDamagePerFrenzyChargeUnique__1
@@ -827,10 +855,9 @@ Citrine Amulet
 Variant: Pre 3.16.0
 Variant: Pre 3.20.0
 Variant: Current
-Requires Level 48
 Implicits: 1
 HybridStrDex
-IntelligenceUnique__15_
+IntelligenceUnique__16
 ChaosResistUnique__15
 {variant:1}CurseEffectivenessUnique__3_[10,15]
 {variant:2}CurseEffectivenessUnique__3_
@@ -845,7 +872,6 @@ Variant: Pre 2.0.0
 Variant: Pre 2.2.0
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 40
 Implicits: 1
 IntelligenceImplicitAmulet1
 IncreasedAccuracyUniqueAmulet17_
@@ -865,7 +891,6 @@ Variant: Pre 3.29.0
 Variant: Current
 League: Talisman Standard, Talisman Hardcore
 Talisman Tier: 3
-Requires Level 44
 Implicits: 1
 {variant:1}TalismanIncreasedDamage
 {variant:1}IncreasedPhysicalDamagePercentUnique__3
@@ -883,10 +908,9 @@ Night's Hold
 Black Maw Talisman
 League: Talisman Standard, Talisman Hardcore
 Talisman Tier: 1
-Requires Level 12
 Implicits: 1
 AmuletHasOneSocket
-LocalIncreaseSocketedGemLevelUnique__8
+LocalIncreaseSocketedGemLevelUnique__1
 SocketedGemsHaveAddedChaosDamageUnique__1
 ItemActsAsSupportBlindUnique__1
 SupportedByCastOnStunUnique___1
@@ -894,7 +918,6 @@ Corrupted
 ]],[[
 Perquil's Toe
 Gold Amulet
-Requires Level 29
 Implicits: 1
 ItemFoundRarityIncreaseImplicitAmulet1
 DexterityUnique__11
@@ -905,7 +928,6 @@ UniqueNearbyAlliesAreLuckyDisplay
 The Primordial Chain
 Coral Amulet
 League: Delve
-Requires Level 34
 Variant: Pre 3.26.0
 Variant: Current
 Implicits: 1
@@ -918,13 +940,12 @@ GolemSizeUnique__1
 {variant:1}LessGolemLifeUnique__1[-35,-45]
 {variant:2}LessGolemLifeUnique__1
 GolemMovementSpeedUnique__1
-PrimordialJewelCountUnique__1
+PrimordialJewelCountUnique__4
 ]],[[
 Rashkaldor's Patience
 Jade Amulet
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 48
 Implicits: 1
 DexterityImplicitAmulet1
 IncreasedLifeUniqueAmulet19
@@ -941,7 +962,6 @@ Retaliation Charm
 Citrine Amulet
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 30
 Implicits: 1
 HybridStrDex
 {variant:2}AttacksBlindOnHitChanceUnique__2
@@ -960,7 +980,6 @@ Variant: Pre 2.2.0
 Variant: Pre 3.29.0
 Variant: Current
 Talisman Tier: 2
-Requires Level 28
 Implicits: 2
 {variant:1}TalismanIncreasedCriticalStrikeMultiplier_[16,24]
 {variant:2}TalismanIncreasedCriticalStrikeMultiplier_
@@ -978,7 +997,7 @@ Variant: Cold
 Variant: Lightning
 League: Allflame
 Source: Drops from Treasure Clam chests in normal{The Fathomless Depths}
-Requires Level 28
+Implicits: 1
 AllResistancesImplicitAmulet1
 AllResistancesUniqueAmulet87
 IncreasedMaximumResistsUniqueAmulet87
@@ -994,7 +1013,6 @@ Variant: Current
 League: Incursion
 Source: Drops from unique{The Vaal Omnitect}
 Upgrade: Upgrades to unique{Zerphi's Heart} via currency{Vial of Sacrifice}
-Requires Level 32
 Implicits: 1
 ManaRegenerationImplicitAmulet1
 GlobalAddedFireDamageUnique__2
@@ -1011,7 +1029,6 @@ League: Incursion
 Source: Upgraded from unique{Sacrificial Heart} via currency{Vial of Sacrifice}
 Variant: Pre 3.10.0
 Variant: Current
-Requires Level 70
 Implicits: 1
 ManaRegenerationImplicitAmulet1
 GlobalAddedChaosDamageUnique__4__
@@ -1025,7 +1042,6 @@ Agate Amulet
 Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 16
 Implicits: 1
 HybridStrInt
 {variant:1,2}ManaRegenerationUniqueAmulet21[30,50]
@@ -1052,7 +1068,7 @@ MinionLifeUniqueAmulet3
 {variant:1,2,3}MinionRunSpeedUniqueAmulet3
 {variant:4}MinionPhysicalConvertToColdUnique__1
 {variant:3}MinionAddedColdDamageUnique__1[5,9][11,15]
-{variant:4}MinionAddedColdDamageUnique__1[25,35][60,65]
+{variant:4}MinionAddedColdDamageUnique__1
 {variant:1,2}MinionDamageUniqueAmulet3
 {variant:2,3}MinionSkillManaCostUnique__1_
 {variant:4}MinionOnlyDealColdDamageUnique__1
@@ -1063,12 +1079,11 @@ Shaper Item
 Source: Drops from unique{The Shaper}
 Variant: Pre 3.10.0
 Variant: Current
-Requires Level 64
 Implicits: 1
 AllAttributesImplicitAmulet1
 {variant:1}AllDamageUnique__4[20,25]
 {variant:2}AllDamageUnique__4
-IncreasedLifeUnique__110
+IncreasedLifeUnique__92_
 {variant:1}AddedManaRegenerationUnique__2[120,180]
 {variant:2}AddedManaRegenerationUnique__2
 TemporalChainsReservationCostUnique__1
@@ -1080,14 +1095,13 @@ Source: Vendor Recipe
 Variant: Pre 2.6.0
 Variant: Pre 3.8.0
 Variant: Current
-Requires Level 28
 Implicits: 1
 FireResistImplicitAmulet1
 {variant:3}GrantsFrostblinkSkillUnique__1
-ColdDamagePercentUnique__3
+ColdDamagePercentUnique__5
 AllResistancesUnique__2
-{variant:1}CurseAreaOfEffectUnique__2_[30,30]
-{variant:2,3}CurseAreaOfEffectUnique__2_
+{variant:1}CurseAreaOfEffectUnique__1[30,30]
+{variant:2,3}CurseAreaOfEffectUnique__1
 SilenceImmunityUnique__1
 {variant:1,2}ItemGrantsIllusoryWarpUnique__1
 {variant:3}FrostblinkDurationUnique__1_
@@ -1098,7 +1112,6 @@ Lapis Amulet
 Variant: Pre 3.4.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 5
 Implicits: 1
 IntelligenceImplicitAmulet1
 {variant:1}BlockingBlocksSpellsUniqueAmulet1
@@ -1111,7 +1124,6 @@ IntelligenceImplicitAmulet1
 Stranglegasp
 Onyx Amulet
 Source: Drops in Blight-ravaged Maps
-Requires Level 52
 Implicits: 1
 AllAttributesImplicitAmulet1
 MultipleEnchantmentsAllowedUnique__2
@@ -1121,10 +1133,9 @@ Coral Amulet
 League: Legion
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 54
 Implicits: 1
 LifeRegenerationImplicitAmulet1
-IntelligenceUnique__10
+IntelligenceUnique__15_
 MinionChaosResistanceUnique__3
 RagingSpiritDurationUnique__1
 {variant:1}RagingSpiritDamageUnique__2[60,80]
@@ -1137,8 +1148,8 @@ Tainted Pact
 Coral Amulet
 Implicits: 1
 LifeRegenerationImplicitAmulet1
-StrengthImplicitAmulet1
-LifeLeechPermyriadUnique__9
+StrengthUnique__23
+LifeLeechPermyriadUnique__8
 ManaLeechPermyriadUnique__3
 ChaosDamageOverTimeHealsLeechLifeUnique__1
 ]],[[
@@ -1147,7 +1158,6 @@ Lapis Amulet
 Variant: Pre 3.16.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 5
 Implicits: 1
 IntelligenceImplicitAmulet1
 PuritySkillUniqueAmulet22
@@ -1155,14 +1165,13 @@ PuritySkillUniqueAmulet22
 {variant:3}AllAttributesUniqueAmulet22
 IncreasedLifeUniqueAmulet22
 {variant:1}AvoidElementalAilmentsUnique__1_[5,5]
-{variant:2}AllResistancesUniqueAmulet2[5,5]
+{variant:2}ChanceToAvoidElementalStatusAilmentsUniqueAmulet22[5,5]
 {variant:3}ChanceToAvoidElementalStatusAilmentsUniqueAmulet22
 ]],[[
 Ungil's Harmony
 Turquoise Amulet
 Variant: Pre 3.11.0
 Variant: Current
-Requires Level 23
 Implicits: 1
 HybridDexInt
 {variant:1}CriticalStrikeChanceUniqueBodyInt4
@@ -1175,7 +1184,6 @@ CriticalMultiplierUniqueAmulet18
 The Utmost
 Gold Amulet
 Source: Created from unique{Primordial Fragments} obtained from Uber bosses
-Requires Level 8
 Implicits: 1
 ItemFoundRarityIncreaseImplicitAmulet1
 ChanceToSuppressSpellsUnique__3
@@ -1187,7 +1195,6 @@ Corrupted
 Uul-Netol's Vow
 Unset Amulet
 Source: Drops from unique{Breachlord} in a normal{Flawless Breachstone}
-Requires Level 72
 Implicits: 1
 AmuletHasOneSocket
 SupportGemsSocketedInAmuletAlsoSupportBodySkills
@@ -1199,7 +1206,6 @@ ChaosResistUnique__24
 Victario's Acuity
 Turquoise Amulet
 League: Onslaught
-Requires Level 16
 Implicits: 1
 HybridDexInt
 LightningResistUniqueAmulet15
@@ -1217,7 +1223,6 @@ Upgrade: Upgrades to unique{Choir of the Storm} using currency{Blessing of Esh}
 Variant: Pre 3.16.0
 Variant: Pre 3.21.0
 Variant: Current
-Requires Level 69
 Implicits: 1
 IntelligenceImplicitAmulet1
 {variant:1,2}LightningStrikesOnCritUnique__1
@@ -1235,7 +1240,6 @@ Variant: Pre 3.0.0
 Variant: Pre 3.16.0
 Variant: Pre 3.21.0
 Variant: Current
-Requires Level 69
 Implicits: 1
 IntelligenceImplicitAmulet1
 {variant:1,2,3}LightningStrikesOnCritUnique__2[20,20]
@@ -1248,7 +1252,6 @@ CriticalChanceIncreasedByUncappedLightningResistanceUnique__1
 Voll's Devotion
 Agate Amulet
 League: Anarchy, Onslaught
-Requires Level 32
 Implicits: 1
 HybridStrInt
 IncreasedLifeUniqueAmulet14
@@ -1263,7 +1266,6 @@ Turquoise Amulet
 Variant: Pre 3.11.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 50
 Implicits: 1
 HybridDexInt
 {variant:1}IncreasedAttackSpeedUniqueAmulet20[8,12]
@@ -1282,13 +1284,12 @@ HybridDexInt
 ]],[[
 Willowgift
 Jade Amulet
-Requires Level 52
 Implicits: 1
 DexterityImplicitAmulet1
 PercentageStrengthUnique__4_
 PercentageDexterityUnique__5
 FireResistUnique__22_
-ColdResistUniqueAmulet13
+ColdResistUnique__30
 AlternateFortifyUnique__1_
 AttackAndCastSpeedFortifyUnique__1
 ]],[[
@@ -1296,11 +1297,10 @@ Winterheart
 Gold Amulet
 Variant: Pre 3.15.0
 Variant: Current
-Requires Level 42
 Implicits: 1
 ItemFoundRarityIncreaseImplicitAmulet1
-DexterityImplicitAmulet1
-IncreasedLifeUnique__102
+DexterityUnique__1
+IncreasedLifeUnique___7
 ColdResistUnique__5
 CannotBeChilledUnique__1
 {variant:1}LifeRegenerationWhileFrozenUnique__1[1200,1200]
@@ -1310,10 +1310,9 @@ Replica Winterheart
 Gold Amulet
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 42
 Implicits: 1
 ItemFoundRarityIncreaseImplicitAmulet1
-DexterityImplicitAmulet1
+DexterityUnique__1
 IncreasedEnergyShieldUnique__9
 LightningResistUnique__23_
 EnergyShieldRegenerationWhileShockedUnique__1
@@ -1326,13 +1325,12 @@ Variant: Current
 League: Breach
 Source: Drops in Xoph Breach or from unique{Xoph, Dark Embers}
 Upgrade: Upgrades to unique{Xoph's Blood} using currency{Blessing of Xoph}
-Requires Level 35
 Implicits: 1
 StrengthImplicitAmulet1
-StrengthImplicitAmulet1
+StrengthUnique__6
 FireDamagePercentUnique___7
 IncreasedLifeUnique__25
-FireResistUnique__29
+FireResistUnique__9
 {variant:1}CoverInAshWhenHitUnique__1
 {variant:2}NearbyEnemiesCoveredInAshUnique__1
 ]],[[
@@ -1340,11 +1338,10 @@ Xoph's Blood
 Amber Amulet
 League: Breach
 Source: Upgraded from unique{Xoph's Heart} using currency{Blessing of Xoph}
-Requires Level 64
 Implicits: 1
 StrengthImplicitAmulet1
 MaximumLifeUnique__3
-FireResistUnique__25
+FireResistUnique__9
 PercentageStrengthUnique__3
 FirePenetrationUnique__1
 CoverInAshWhenHitUnique__1
@@ -1354,12 +1351,11 @@ Yoke of Suffering
 Onyx Amulet
 Variant: Pre 3.24.0
 Variant: Current
-Requires Level 70
 Implicits: 1
 AllAttributesImplicitAmulet1
 FireResistUnique__15
 ColdResistUnique__21
-LightningResistUnique__3
+LightningResistUnique__12
 IncreasedAilmentDurationUnique__2
 ChanceToShockUnique__3
 {variant:1}EnemiesTakeIncreasedDamagePerAilmentTypeUnique__1[5,5]
@@ -1371,10 +1367,9 @@ Onyx Amulet
 Searing Exarch Item
 Eater of Worlds Item
 Source: Drops from unique{The Black Star} or unique{The Infinite Hunger}
-Requires Level 61
 Implicits: 2
 9% increased Mana Reservation Efficiency of Skills
-MovementVelocityImplicitShield2
+MovementVelocityEldritchImplicit2
 StrengthUnique__22
 DexterityUnique__23
 IntelligenceUnique__29
@@ -1385,7 +1380,6 @@ KillEnemyInstantlyExarchDominantUnique__1
 Venarius' Astrolabe
 Astrolabe Amulet
 Source: Drops from unique{Incarnation of Neglect} in normal{Moment of Loneliness}
-Requires Level 69
 Implicits: 1
 CanHaveEveryInfluenceTypeImplicitE1
 FoolishlyDrawnAttentionUnique_1
@@ -1398,7 +1392,6 @@ Seaglass Amulet
 Variant: Pre 3.27.0
 Variant: Current
 Source: Drops from unique{Incarnation of Dread} in normal{Moment of Reverence}
-Requires Level 74
 Implicits: 1
 ReducedEnergyShieldDelayImplicit1_
 AttacksGainMinMaxAddedChaosDamageBasedOnManaUnique__1
@@ -1410,10 +1403,9 @@ SkillsCostEnergyShieldInsteadOfManaLifeUnique__1
 Bonemeld
 Marble Amulet
 Source: Drops from unique{Incarnation of Dread} in normal{Moment of Reverence}
-Requires Level 74
 Implicits: 1
 LifeRegenerationImplicitAmulet2
-AllAttributesUniqueAmulet22
+AllAttributesUnique__30
 GlobalIncreaseMinionSpellSkillGemLevelUnique__5
 AllResistancesReducedPerActiveNonVaalSkillMinionUnique_1
 GlobalDefensesIncreasedPerActiveNonVaalSkillMinionUnique_1
@@ -1422,14 +1414,13 @@ MinionsGainPercentOfYourResistancesUnique_1
 Haunting Memories
 Turquoise Amulet
 Source: Drops from unique{Uber Incarnation of Neglect} in normal{Moment of Loneliness}
-Requires Level 64
 Implicits: 1
 HybridDexInt
-ChanceToDodgeSpellsUnique__1
+ChanceToSuppressSpellsUnique__4
 SuppressedDamageBypassEnergyShieldUnique_1
 SuppressedDamageRecoupedAsEnergyShield_1
-DexterityAndIntelligenceUnique_2
-IncreasedEnergyShieldUnique__13
-IncreasedLifeUnique__71
+DexterityAndIntelligenceUnique_3
+LocalIncreasedEnergyShieldUnique__35
+MaximumLifeUnique__25
 ]],
 }

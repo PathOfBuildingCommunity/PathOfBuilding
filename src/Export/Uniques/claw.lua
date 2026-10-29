@@ -7,29 +7,27 @@ Advancing Fortress
 Gut Ripper
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 46, 80 Dex, 80 Int
 Implicits: 2
 {variant:1}LifeGainPerTargetImplicit2Claw8[21,21]
 {variant:2}LifeGainPerTargetImplicit2Claw8
 SocketedGemsSupportedByFortifyUnique____1
 AdditionalBlockUnique__2
-LocalIncreasedPhysicalDamagePercentUniqueClaw6
+LocalIncreasedPhysicalDamagePercentUnique__10
 IncreasedEvasionRatingUnique___1
 IncreasedEnergyShieldUnique__2
-IncreasedLifeUnique__11
-AttackerTakesDamageShieldImplicit7
+IncreasedLifeUnique__8
+AttackerTakesDamageUnique__1
 ]],[[
 Replica Advancing Fortress
 Gut Ripper
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 46, 80 Dex, 80 Int
 Implicits: 1
 LifeGainPerTargetImplicit2Claw8
 SupportedByCastOnDamageTakenUnique__1
 AdditionalBlockUnique__2
-LocalIncreasedPhysicalDamagePercentUniqueClaw6
-IncreasedLifeUnique__107
+LocalIncreasedPhysicalDamagePercentUnique__10
+IncreasedLifeUnique__8
 ShieldArmourIncreaseUnique__1
 AddedFireDamageIfBlockedRecentlyUnique__1
 ]],[[
@@ -37,13 +35,12 @@ Allure
 Vaal Claw
 Variant: Pre 3.0.0
 Variant: Current
-Requires Level 66, 131 Dex, 95 Int
 Implicits: 1
 LifeLeechPermyriadImplicitClaw2
 {variant:1}LocalIncreasedPhysicalDamagePercentUnique__1[80,100]
 {variant:2}LocalIncreasedPhysicalDamagePercentUnique__1
 LocalAddedPhysicalDamageUnique__1
-LocalIncreasedAttackSpeedUnique__16
+LocalIncreasedAttackSpeedUnique__2
 MovementSpeedWhilePhasedUnique__1
 {variant:1}GainPhasingOnVaalSkillUseUnique__1[3000,3000]
 {variant:2}GainPhasingOnVaalSkillUseUnique__1
@@ -52,12 +49,11 @@ Replica Allure
 Vaal Claw
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 66, 95 Dex, 131 Int
 Implicits: 1
 LifeLeechPermyriadImplicitClaw2
 LocalIncreasedPhysicalDamagePercentUnique__1
 LocalAddedPhysicalDamageUnique__1
-LocalIncreasedAttackSpeedUnique__16
+LocalIncreasedAttackSpeedUnique__2
 LifeGainedOnTauntingEnemyUnique__1
 OnslaughtOnKillingTauntedEnemyUnique__1
 TauntedEnemiesTakeIncreasedDamage_
@@ -71,7 +67,6 @@ Variant: Pre 3.0.0
 Variant: Pre 3.7.0
 Variant: Pre 3.11.0
 Variant: Current
-Requires Level 26, 39 Dex, 56 Int
 Implicits: 3
 {variant:2}LifeLeechPermyriadUniqueClaw6[200,200]
 {variant:1}LifeGainPerTargetImplicit2Claw4_1[8,8]
@@ -84,7 +79,7 @@ LifeLeechPermyriadUniqueClaw6
 {variant:1,2,3,4}StunThresholdReductionUniqueClaw6
 {variant:6}WarcryTauntChaosExplosionUnique__1_
 {variant:5}WarcryEffectUnique__1[50,50]
-{variant:6}WarcryEffectUnique__1
+{variant:6}WarcryEffectUnique__2
 {variant:5,6}WarcryCooldownIs2SecondsUnique__1
 ]],[[
 Bloodseeker
@@ -93,7 +88,6 @@ Variant: Pre 3.0.0
 Variant: Pre 3.20.0
 Variant: Pre 3.28.0
 Variant: Current
-Requires Level 62, 131 Dex, 95 Int
 Implicits: 1
 LifeLeechPermyriadImplicitClaw1
 {variant:1}LocalIncreasedPhysicalDamagePercentUniqueClaw3[100,120]
@@ -115,7 +109,6 @@ Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 37, 53 Dex, 77 Int
 Implicits: 3
 {variant:1}LifeGainPerTargetImplicit2Claw6[15,15]
 {variant:2}LifeGainPerTargetImplicit2Claw6[21,21]
@@ -130,7 +123,7 @@ IncreasedManaUniqueClaw7
 ]],[[
 Essentia Sanguis
 {variant:1,2,3}Eye Gouger
-{variant:4,5,6}Vaal Claw
+{variant:4,5,6,7}Vaal Claw
 Variant: Pre 1.3.0
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
@@ -163,7 +156,7 @@ LocalIncreasedAttackSpeedUniqueClaw1
 ]],[[
 Hand of Thought and Motion
 {variant:1,2,3}Blinder
-{variant:4}Imperial Claw
+{variant:4,5}Imperial Claw
 League: Breach
 Source: Drops in Esh Breach or from unique{Esh, Forked Thought}
 Upgrade: Upgrades to unique{Hand of Wisdom and Action} using currency{Blessing of Esh}
@@ -175,12 +168,12 @@ Variant: Current
 Implicits: 3
 {variant:1}LifeGainPerTargetImplicit2Claw10[10,10]
 {variant:2,3}LifeGainPerTargetImplicit2Claw10[12,12]
-{variant:4,5}LifeGainPerTargetImplicit2Claw10
+{variant:4,5}LifeGainPerTargetImplicit2Claw13
 {variant:4,5}PercentageDexterityUnique__3
 {variant:4,5}PercentageIntelligenceUnique__3
 {variant:1,2,3}LocalAddedLightningDamageUnique__4
 {variant:1,2,3}LocalIncreasedAttackSpeedUniqueClaw8
-{variant:4,5}MaximumLifeOnKillPercentUnique__1
+{variant:4,5}RecoverPercentMaxLifeOnKillUnique__3
 {variant:4}AddedLightningDamagePerDexterityUnique__1[1,1][10,10]
 {variant:5}AddedLightningDamagePerDexterityUnique__1
 {variant:1,2}AddedLightningDamagePerIntelligenceUnique__2[1,1][3,3]
@@ -197,10 +190,9 @@ Variant: Pre 3.0.0
 Variant: Pre 3.21.0
 Variant: Pre 3.26.0
 Variant: Current
-Requires Level 68, 131 Dex, 95 Int
 Implicits: 2
 {variant:1}LifeGainPerTargetImplicit2Claw10[25,25]
-{variant:2,3,4,5}LifeGainPerTargetImplicit2Claw10
+{variant:2,3,4,5}LifeGainPerTargetImplicit2Claw13
 PercentageDexterityUnique__3
 PercentageIntelligenceUnique__3
 {variant:4,5}LifeLeechFromAttacksPermyriadUnique__1
@@ -216,7 +208,6 @@ Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Pre 3.7.0
 Variant: Current
-Requires Level 68, 131 Dex, 95 Int
 Implicits: 2
 {variant:1}LifeGainPerTargetImplicit2Claw13[25,25]
 {variant:2,3}LifeGainPerTargetImplicit2Claw13
@@ -230,9 +221,9 @@ PhysicalDamageWhileFrozenUnique___1
 Last Resort
 Nailed Fist
 Implicits: 1
-LifeGainPerTargetImplicitClaw1
+LifeGainPerTargetImplicit2Claw1
 IncreasedAttackSpeedWhenOnLowLifeUniqueClaw4
-LocalIncreasedPhysicalDamagePercentUniqueClaw5
+LocalIncreasedPhysicalDamagePercentUniqueClaw4
 LocalAddedPhysicalDamagePercentUniqueClaw4
 IncreasedClawDamageOnLowLifeUniqueClaw4
 IncreasedAccuracyWhenOnLowLifeUniqueClaw4
@@ -246,7 +237,7 @@ Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 1
 LifeGainPerTargetImplicit2Claw1
 {variant:1}IncreasedAttackSpeedWhenOnLowLifeUniqueClaw4[50,50]
-{variant:2}IncreasedAttackSpeedWhenOnLowLifeUniqueClaw4
+{variant:2}IncreasedAttackSpeedWhenOnLowLifeUnique__1
 LocalIncreasedPhysicalDamagePercentUniqueClaw4
 IncreasedAccuracyWhenOnLowLifeUniqueClaw4
 IncreasedClawDamageOnLowLifeUnique__1__
@@ -258,12 +249,11 @@ Variant: Pre 3.14.0
 Variant: Current
 League: Harvest
 Source: Drops from unique{Oshabi, Avatar of the Grove}
-Requires Level 62, 131 Dex, 95 Int
 Implicits: 1
 LifeLeechPermyriadImplicitClaw1
 {variant:1}20% chance to Trigger Level 20 Summon Spectral Wolf on Critical Strike with this Weapon
 {variant:2}SummonWolfOnCritUnique__1
-LocalIncreasedAttackSpeedUnique__25
+LocalIncreasedAttackSpeedUnique__33
 LocalCriticalStrikeChanceUnique__17_
 CriticalMultiplierUnique__4____
 ]],[[
@@ -273,7 +263,6 @@ Variant: Pre 2.2.0
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Current
-Requires Level 34, 61 Dex, 61 Int
 Implicits: 2
 {variant:1,2}LifeLeechPermyriadImplicitClaw2
 {variant:3,4}LifeGainPerTargetImplicit2Claw5_1
@@ -293,7 +282,6 @@ Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Pre 3.21.0
 Variant: Current
-Requires Level 46, 80 Dex, 80 Int
 Implicits: 2
 {variant:1}LifeGainPerTargetImplicit2Claw8[21,21]
 {variant:2,3,4}LifeGainPerTargetImplicit2Claw8
@@ -308,12 +296,11 @@ AlwaysHits
 ]],[[
 Rive
 Terror Claw
-Requires Level 70, 113 Dex, 113 Int
 Implicits: 1
 LifeLeechPermyriadImplicitClaw2
-LocalIncreasedPhyiscalDamagePercentUnique__3
+LocalIncreasedPhysicalDamagePercentUnique__11_
 LocalAddedPhysicalDamageUnique__13
-CausesBleedingUnique__1
+CausesBleedingUnique__2Updated
 IncreasePhysicalDegenDamagePerDexterityUnique__1
 IncreaseBleedDurationPerIntelligenceUnique__1
 BleedingEnemiesFleeOnHitUnique__1
@@ -322,12 +309,11 @@ The Scourge
 Terror Claw
 Variant: Pre 3.11.0
 Variant: Current
-Requires Level 70, 113 Dex, 113 Int
 Implicits: 1
 LifeLeechPermyriadImplicitClaw2
 {variant:1}SummonWolfOnKillUnique__1
 LocalAddedPhysicalDamageUnique__23_
-LocalIncreasedAttackSpeedUniqueClaw9
+LocalIncreasedAttackSpeedUnique__17
 IncreasedMinionAttackSpeedUnique__1_
 MinionDamageAlsoAffectsYouUnique__1
 IncreasedMinionDamageIfYouHitEnemyUnique__1
@@ -336,13 +322,12 @@ Touch of Anguish
 Imperial Claw
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 68, 131 Dex, 95 Int
 Implicits: 2
 {variant:1}LifeGainPerTargetImplicit2Claw10[25,25]
-{variant:2}LifeGainPerTargetImplicit2Claw10
+{variant:2}LifeGainPerTargetImplicit2Claw13
 LocalAddedPhysicalDamageUnique__14
 ColdDamagePercentUnique__8
-LocalCriticalStrikeChanceUnique__10
+LocalCriticalStrikeChanceUnique__3
 ChanceToGainFrenzyChargeOnKillingFrozenEnemyUnique__1
 AdditionalChainWhileAtMaxFrenzyChargesUnique___1
 ChanceToFreezeUnique__3
@@ -352,7 +337,6 @@ The Wasp Nest
 Throat Stabber
 Variant: Pre 3.7.0
 Variant: Current
-Requires Level 60, 113 Dex, 113 Int
 Implicits: 1
 LifeGainPerTargetImplicit2Claw11_
 LocalIncreasedPhysicalDamagePercentUnique__28__
@@ -367,14 +351,13 @@ Wildslash
 Awl
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 12, 25 Dex, 25 Int
 Implicits: 2
 {variant:1}LifeGainPerTargetImplicit2Claw3[5,5]
 {variant:2}LifeGainPerTargetImplicit2Claw3
 StrengthUniqueClaw9
 DexterityUniqueClaw9
 LocalAddedPhysicalDamageUniqueClaw9
-LocalIncreasedAttackSpeedUniqueClaw8
+LocalIncreasedAttackSpeedUniqueClaw9
 DamageWithMovementSkillsUniqueClaw9
 AttackSpeedWithMovementSkillsUniqueClaw9
 AccuracyPercentUniqueClaw9

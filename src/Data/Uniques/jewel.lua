@@ -24,7 +24,6 @@ Cobalt Jewel
 League: Heist
 Source: Drops from unique{The Unbreakable} in normal{Contract: Breaking the Unbreakable}
 Limited to: 1
-Requires Level 20
 (20-25)% increased Spell Damage
 Spells have 10% reduced Critical Strike Chance per Intensity
 Spells which have gained Intensity Recently gain 1 Intensity every 0.5 Seconds
@@ -777,9 +776,9 @@ Radius: Variable
 Implicits: 0
 {variant:1}Only affects Passives in Small Ring
 {variant:5}Only affects Passives in Massive Ring
--(20-10)% to all Elemental Resistances
 Passive Skills in Radius can be Allocated without being connected to your tree
 Passage
+-(20-10)% to all Elemental Resistances
 {variant:2}Only affects Passives in Medium Ring
 {variant:3}Only affects Passives in Large Ring
 {variant:4}Only affects Passives in Very Large Ring
@@ -858,6 +857,7 @@ Radius: Medium
 Amanamu's Gaze
 Ghastly Eye Jewel
 Source: Drops from unique{Abyssal Liches} in normal{Abyssal Depths}
+Requires Level 40
 +(5-10) to all Attributes
 Minions have +6% to Damage over Time Multiplier per
 Ghastly Eye Jewel affecting you, up to a maximum of +30%
@@ -865,6 +865,7 @@ Ghastly Eye Jewel affecting you, up to a maximum of +30%
 Kurgal's Gaze
 Hypnotic Eye Jewel
 Source: Drops from unique{Abyssal Liches} in normal{Abyssal Depths}
+Requires Level 40
 +(10-20) to Intelligence
 8% increased Effect of Arcane Surge on you per
 Hypnotic Eye Jewel affecting you, up to a maximum of 40%
@@ -1463,7 +1464,6 @@ Cobalt Jewel
 Source: Use currency{Vaal Orb} on normal{Cobalt Jewel}
 Variant: Pre 3.20.0
 Variant: Current
-Requires Level: 20
 Limited to: 1
 Radius: Medium
 Minions deal (35-45)% increased Damage
@@ -1561,7 +1561,6 @@ Viridian Jewel
 Source: Use currency{Vaal Orb} on normal{Viridian Jewel}
 Variant: Pre 3.20.0
 Variant: Current
-Requires Level: 20
 Limited to: 1
 Radius: Medium
 Minions have (12-16)% increased Attack Speed
@@ -1610,7 +1609,6 @@ Variant: Pre 3.16.0
 Variant: Pre 3.20.0
 Variant: Current
 League: Legion
-Requires Level: 20
 Limited to: 1
 (10-15)% increased Attack Damage while holding a Shield
 {variant:1}+0.2% to Off Hand Critical Strike Chance per 10 Maximum Energy Shield on Shield
@@ -2023,7 +2021,6 @@ Crimson Jewel
 Crafted: true
 League: Affliction
 Limited to: 1
-Requires Level 48
 Implicits: 0
 ]]
 }

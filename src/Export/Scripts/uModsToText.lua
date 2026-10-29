@@ -37,7 +37,7 @@ local itemTypes = {
 	"flask",
 	"tincture",
 }
-local function writeMods(out, statOrder)
+local function appendMods(lines, statOrder)
 	local orders = { }
 	for order, _ in pairs(statOrder) do
 		table.insert(orders, order)
@@ -45,41 +45,65 @@ local function writeMods(out, statOrder)
 	table.sort(orders)
 	for _, order in pairs(orders) do
 		for _, line in ipairs(statOrder[order]) do
-			out:write(line, "\n")
+			table.insert(lines, line)
 		end
 	end
+end
+
+local itemBases = { }
+for _, name in ipairs(itemTypes) do
+	LoadModule("../Data/Bases/"..name..".lua")(itemBases)
 end
 
 local uniqueMods = LoadModule("../Data/ModItemExclusive.lua")
 for _, name in ipairs(itemTypes) do
 	local out = io.open("../Data/Uniques/"..name..".lua", "w")
+	local lines = { }
+	local requirementIndex
 	local statOrder = {}
 	local postModLines = {}
 	local modLines = 0
 	local implicits
 	local nextOrder = 100000
+	local baseReqLevel = 0
+	local uniqueReqLevel = 0
 	for line in io.lines("Uniques/"..name..".lua") do
 		if implicits then -- remove 1 downs to 0
 			implicits = implicits - 1
 		end
 		local specName, specVal = line:match("^([%a ]+): (.+)$")
-		if line:match("]],") then -- start new unique
-			writeMods(out, statOrder)
-			for _, line in ipairs(postModLines) do
-				out:write(line, "\n")
+		if line:match("^%]%]") then -- end of unique
+			-- Attribute requirements come from the base; mods can raise the required level.
+			if uniqueReqLevel > 1 and uniqueReqLevel > baseReqLevel then
+				table.insert(lines, requirementIndex or #lines + 1, "Requires Level "..uniqueReqLevel)
 			end
-			out:write(line, "\n")
+			appendMods(lines, statOrder)
+			for _, line in ipairs(postModLines) do
+				table.insert(lines, line)
+			end
+			table.insert(lines, line)
+			out:write(table.concat(lines, "\n"), "\n")
+			lines = { }
+			requirementIndex = nil
 			statOrder = { }
 			postModLines = { }
 			modLines = 0
 			nextOrder = 100000
+			baseReqLevel = 0
+			uniqueReqLevel = 0
 		elseif not specName then
 			local prefix = ""
 			local versionString = line:match("({version:[%d,]+})")
 			local variantString = line:match("({variant:[%d,]+})")
 			local groupString = line:match("({group:[%d,]+})")
+			local enchant = line:match("({enchant})") or ""
 			local fractured = line:match("({fractured})") or ""
+			local crafted = line:match("({crafted})") or ""
 			local cleanLine = line:gsub("{.-}", "")
+			local base = itemBases[sanitiseText(cleanLine)]
+			if base then
+				baseReqLevel = math.max(baseReqLevel, base.req.level or 0)
+			end
 			-- Check if this is a mod ID: purely alphanumeric+underscore, optionally followed by [num,num] ranges
 			local modName = cleanLine:match("^([%a%d_ ]+)%[") or cleanLine:match("^([%a%d_ ]+)$")
 			local legacy = modName and cleanLine:sub(#modName + 1) or ""
@@ -89,6 +113,23 @@ for _, name in ipairs(itemTypes) do
 				modName = nil
 			end
 			local mod = modName and uniqueMods[modName]
+			local rawMod = modName and dat("Mods"):GetRow("Id", modName)
+			local modLevel = rawMod and rawMod.Level or mod and mod.level
+			if modLevel then
+				uniqueReqLevel = math.max(uniqueReqLevel, math.floor(modLevel * 0.8))
+			end
+			if modName and not mod and legacy == "" then
+				if rawMod then
+					local orders
+					mod, orders = describeMod(rawMod)
+					mod.statOrder = orders
+					mod.modTags = { }
+					for _, tag in ipairs(rawMod.ImplicitTags) do
+						table.insert(mod.modTags, tag.Id)
+					end
+					uniqueMods[modName] = mod
+				end
+			end
 			if mod or (modName and legacy ~= "") then
 				modLines = modLines + 1
 				prefix = prefix .. (versionString or "") .. (variantString or "") .. (groupString or "")
@@ -106,7 +147,7 @@ for _, name in ipairs(itemTypes) do
 				if tags[1] then
 					prefix = prefix.."{tags:"..table.concat(tags, ",").."}"
 				end
-				prefix = prefix..fractured
+				prefix = prefix..enchant..fractured..crafted
 				local legacyMod
 				if legacy ~= "" then
 					local values = { }
@@ -114,16 +155,15 @@ for _, name in ipairs(itemTypes) do
 						local min, max = range:match("%[([%d%.%-]+),([%d%.%-]+)%]")
 						table.insert(values, { min = tonumber(min), max = tonumber(max) })
 					end
-					local mod = dat("Mods"):GetRow("Id", modName)
-					if mod then
+					if rawMod then
 						local stats = { }
 						for i = 1, 6 do
-							if mod["Stat"..i] then
-								stats[mod["Stat"..i].Id] = values[i]
+							if rawMod["Stat"..i] then
+								stats[rawMod["Stat"..i].Id] = values[i]
 							end
 						end
-						if mod.Type then
-							stats.Type = mod.Type
+						if rawMod.Type then
+							stats.Type = rawMod.Type
 						end
 						legacyMod = describeStats(stats)
 					else
@@ -155,31 +195,35 @@ for _, name in ipairs(itemTypes) do
 					end
 					nextOrder = nextOrder + 1
 				else
-					out:write(line, "\n")
+					table.insert(lines, line)
 				end
 			end
 		else -- spec line
 			if specName == "Implicits" then
+				requirementIndex = #lines + 1
 				implicits = tonumber(specVal)
 			else
-				out:write(line, "\n")
+				table.insert(lines, line)
 			end
 		end
 		if implicits and implicits == 0 then
-			local lines = 0
+			local count = 0
 			for _, l in pairs(statOrder) do
-				lines = lines + #l
+				count = count + #l
 			end
-			out:write("Implicits: "..lines, "\n")
-			writeMods(out, statOrder)
+			table.insert(lines, "Implicits: "..count)
+			appendMods(lines, statOrder)
 			implicits = nil
 			statOrder = { }
 			modLines = 0
 		end
 	end
-	writeMods(out, statOrder)
+	appendMods(lines, statOrder)
 	for _, line in ipairs(postModLines) do
-		out:write(line, "\n")
+		table.insert(lines, line)
+	end
+	if #lines > 0 then
+		out:write(table.concat(lines, "\n"), "\n")
 	end
 	out:close()
 end

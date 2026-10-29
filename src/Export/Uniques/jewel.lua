@@ -24,8 +24,7 @@ Cobalt Jewel
 League: Heist
 Source: Drops from unique{The Unbreakable} in normal{Contract: Breaking the Unbreakable}
 Limited to: 1
-Requires Level 20
-SpellDamageUnique__12
+SpellDamageUnique__13
 CriticalStrikeChancePerIntensityUnique__1
 SpellsGainIntensityUnique__1
 ]],[[
@@ -523,7 +522,7 @@ Viridian Jewel
 GolemAttackAndCastSpeedUnique__1
 GolemBuffEffectUnique__1
 GolemArmourRatingUnique__1
-PrimordialJewelCountUnique__4
+PrimordialJewelCountUnique__3
 ]],[[
 Primordial Harmony
 Cobalt Jewel
@@ -534,7 +533,7 @@ GolemSkillsCooldownRecoveryUnique__1
 {variant:2}GolemsSkillsCooldownRecoveryUnique__1_
 IncreasedGolemDamagePerGolemUnique__1
 GolemLifeRegenerationUnique__1
-PrimordialJewelCountUnique__3
+PrimordialJewelCountUnique__1
 ]],[[
 Primordial Might
 Crimson Jewel
@@ -671,7 +670,7 @@ Variant: Current
 Radius: Medium
 AdditionalStrengthPerAllocatedStrengthJewelUnique__1_
 {variant:1,2}AdditionalPhysicalReductionPerAllocatedStrengthJewelUnique__1
-{variant:2,3}CriticalStrikeMultiplierPerUnallocatedStrengthJewelUnique__1_
+{variant:2,3}CriticalStrikeMultiplierPerUnallocatedStrengthUnique__1
 {variant:1}CriticalStrikeMultiplierPerUnallocatedStrengthJewelUnique__1_[5,5][10,10]
 {variant:3}LifeRecoveryRatePerAllocatedStrengthUnique__2
 {variant:3}LifeRecoveryRatePerUnallocatedStrengthUnique__1_
@@ -716,7 +715,7 @@ Variant: Current
 Radius: Medium
 AdditionalDexterityPerAllocatedDexterityJewelUnique__1
 {variant:1}FlatManaPerUnallocatedDexterityJewelUnique__1
-{variant:2}MovementSpeedPerAllocatedDexterityJewelUnique__1
+{variant:2}MovementSpeedPerAllocatedDexterityUnique__1
 ]],[[
 Transcendent Spirit
 Viridian Jewel
@@ -744,8 +743,8 @@ Radius: Variable
 Implicits: 0
 {variant:1}JewelRingRadiusValuesUnique__1
 {variant:5}JewelRingRadiusValuesUnique__2
-JewelUniqueAllocateDisconnectedPassives
-AllResistancesUnique__6
+AllocateDisconnectedPassivesDonutUnique__1
+AllResistancesUnique__18
 {variant:2}Only affects Passives in Medium Ring
 {variant:3}Only affects Passives in Large Ring
 {variant:4}Only affects Passives in Very Large Ring
@@ -837,7 +836,6 @@ Murderous Eye Jewel
 Source: Drops from unique{Abyssal Liches} in normal{Abyssal Depths}
 Variant: Pre 3.21.0
 Variant: Current
-Requires Level 40
 StrengthUnique__21
 {variant:1}MainHandCriticalStrikeChancePerMeleeAbyssJewelUnique__1[20,20]
 {variant:2}MainHandCriticalStrikeChancePerMeleeAbyssJewelUnique__1
@@ -847,7 +845,6 @@ StrengthUnique__21
 Ulaman's Gaze
 Searching Eye Jewel
 Source: Drops from unique{Abyssal Liches} in normal{Abyssal Depths}
-Requires Level 40
 DexterityUnique__21_
 ChainOffTerrainChancePerRangedAbyssJewelUnique__1__
 ]],
@@ -1049,7 +1046,7 @@ Variant: Pre 3.17.0
 Variant: Current
 Limited to: 1
 Radius: Medium
-IncreasedPhysicalDamagePercentUnique__3
+IncreasedPhysicalDamagePercentUnique__5
 EtherealKnivesThresholdJewel_1
 {variant:1}With at least 40 Dexterity in Radius, Ethereal Knives fires 10 additional Projectiles
 {variant:2}With at least 40 Dexterity in Radius, Ethereal Knives fires 5 additional Projectiles
@@ -1373,7 +1370,6 @@ Cobalt Jewel
 Source: Use currency{Vaal Orb} on normal{Cobalt Jewel}
 Variant: Pre 3.20.0
 Variant: Current
-Requires Level: 20
 Limited to: 1
 Radius: Medium
 NotablesGrantMinionDamageTakenUnique__1_
@@ -1470,7 +1466,6 @@ Viridian Jewel
 Source: Use currency{Vaal Orb} on normal{Viridian Jewel}
 Variant: Pre 3.20.0
 Variant: Current
-Requires Level: 20
 Limited to: 1
 Radius: Medium
 NotablesGrantMinionMovementSpeedUnique__1_
@@ -1517,7 +1512,6 @@ Variant: Pre 3.16.0
 Variant: Pre 3.20.0
 Variant: Current
 League: Legion
-Requires Level: 20
 Limited to: 1
 AttackDamageWhileHoldingShieldUnique__1
 {variant:1}SpectralShieldThrowThresholdJewel1_[20,20]
@@ -1698,7 +1692,7 @@ Emperor's Cunning
 Viridian Jewel
 Source: Drops in The Eternal Labyrinth
 Limited to: 1
-PercentageDexterityUniqueJewel29
+PercentageDexterityUnique__2
 PercentIncreasedAccuracyJewelUnique__1
 ActorSizeUnique__1
 ]],[[
@@ -1715,7 +1709,7 @@ Emperor's Might
 Crimson Jewel
 Source: Drops in The Eternal Labyrinth
 Limited to: 1
-PercentageStrengthUniqueJewel29
+PercentageStrengthUnique__2
 AllDamageUnique__1
 ActorSizeUnique__1
 ]],[[
@@ -1927,7 +1921,6 @@ Crimson Jewel
 Crafted: true
 League: Affliction
 Limited to: 1
-Requires Level 48
 Implicits: 0
 ]]
 }

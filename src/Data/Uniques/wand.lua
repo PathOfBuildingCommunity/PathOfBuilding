@@ -62,7 +62,7 @@ Implicits: 3
 {variant:1}Adds (10-14) to (18-22) Fire Damage
 {variant:3,4,5}Adds (20-24) to (38-46) Fire Damage
 {variant:1,2}Adds (4-6) to (7-9) Fire Damage to Spells
-{variant:3,4,5}Adds (20-24) to (36-46) Fire Damage to Spells
+{variant:3,4,5}Adds (20-24) to (38-46) Fire Damage to Spells
 {variant:1}(40-50)% increased Burning Damage
 {variant:2}(20-30)% increased Burning Damage
 {variant:1,2}(16-22)% chance to Ignite
@@ -100,7 +100,7 @@ Crystal Wand
 Source: No longer obtainable
 Variant: Pre 3.10.0
 Variant: Current
-LevelReq: 63
+Requires Level 63
 Implicits: 1
 (30-34)% increased Spell Damage
 Triggers Level 20 Blinding Aura when Equipped
@@ -208,7 +208,6 @@ Mystic Refractor
 Pagan Wand
 Variant: Pre 3.29.0
 Variant: Current
-Requires Level 34, 118 Int
 Implicits: 1
 10% increased Cast Speed
 Skills fire (2-3) additional Projectiles
@@ -309,7 +308,7 @@ Spiraled Wand
 Source: No longer obtainable
 Variant: Pre 3.11.0
 Variant: Current
-LevelReq: 36
+Requires Level 36
 Implicits: 1
 (15-19)% increased Spell Damage
 {variant:1}+1 to Level of Socketed Gems
@@ -474,7 +473,6 @@ Attacks fire an additional Projectile
 ]],[[
 Unlight Extant
 Sage Wand
-Requires Level 30, 119 Int
 Implicits: 1
 (17-21)% increased Spell Damage
 (31-43)% increased Chaos Damage

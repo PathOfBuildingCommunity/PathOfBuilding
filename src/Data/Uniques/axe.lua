@@ -29,7 +29,7 @@ Curse Enemies with Flammability on Hit
 Dreadsurge
 Cleaver
 Source: No longer obtainable
-LevelReq: 60
+Requires Level 60
 Implicits: 0
 Adds (5-15) to (20-25) Physical Damage
 Adds (223-250) to (264-280) Fire Damage
@@ -71,7 +71,7 @@ Jade Hatchet
 Source: No longer obtainable
 Variant: Pre 2.0.0
 Variant: Current
-LevelReq: 32
+Requires Level 32
 Implicits: 0
 Socketed Gems are supported by Level 2 Chance to Flee
 (170-190)% increased Physical Damage
@@ -176,7 +176,7 @@ Eldritch Battery
 Starcaller
 Abyssal Axe
 Source: Drops from unique{Incarnation of Fear} in normal{Moment of Trauma}
-Requires Level 55, 128 Str, 60 Dex
+Requires Level 68
 Trigger Level 20 Starfall on Melee Critical Strike
 +(10-20) to all Attributes
 (120-180)% increased Physical Damage
@@ -190,7 +190,6 @@ Spectral Axe
 Source: Drops from unique{It That Was Esh} and unique{It That Was Tul} in normal{Hive Colony}
 Variant: Pre 3.29.0
 Variant: Current
-Requires Level 33, 85 Str, 37 Dex
 (30-50)% increased Fire Damage
 {variant:1}Attacks with this Weapon have Added Fire Damage equal to (8-12)% of Player's Maximum Life
 {variant:2}Attacks with this Weapon have Added Fire Damage equal to (6-10)% of Player's Maximum Life
@@ -206,7 +205,7 @@ Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Alluring Abys
 Variant: Pre 3.11.0
 Variant: Pre 3.20.0
 Variant: Current
-LevelReq: 75
+Requires Level 75
 Implicits: 1
 {variant:2,3}25% chance to Maim on Hit
 {variant:1,2}+2 to Level of Socketed Support Gems
@@ -351,7 +350,7 @@ Woodsplitter
 Source: No longer obtainable
 Variant: Pre 3.11.0
 Variant: Current
-LevelReq: 40
+Requires Level 40
 Implicits: 0
 +1 to Level of Socketed Strength Gems
 {variant:2}Trigger Level 5 Gore Shockwave on Melee Hit if you have at least 150 Strength
@@ -400,7 +399,6 @@ Spinesnatch
 Fleshripper
 League: Allflame
 Source: Drops from unique{Zorath}
-Requires Level 70, 156 Str, 84 Dex
 Implicits: 1
 50% increased Critical Strike Chance
 Has 6 Abyssal Sockets
@@ -473,7 +471,7 @@ Counts as Dual Wielding
 ]],[[
 Wings of Entropy
 {variant:1,2,3,4}Sundering Axe
-{variant:5}Ezomyte Axe
+{variant:5,6}Ezomyte Axe
 Variant: Pre 1.3.0
 Variant: Pre 2.0.0
 Variant: Pre 3.4.0

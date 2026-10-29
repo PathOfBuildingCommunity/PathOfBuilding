@@ -7,7 +7,6 @@ Ahkeli's Meadow
 Ruby Ring
 League: Delve
 Source: Drops from unique{Aul, the Crystal King}
-Requires Level 49
 Implicits: 1
 FireResistImplicitRing1
 StrengthUnique__15
@@ -18,10 +17,9 @@ Ahkeli's Mountain
 Ruby Ring
 League: Delve
 Source: Drops from unique{Ahuatotli, the Blind}
-Requires Level 49
 Implicits: 1
 FireResistImplicitRing1
-StrengthUnique__20_
+StrengthUnique__15
 IncreasedEnergyShieldPercentUnique__4
 MaximumLifeUnique__14
 ]],[[
@@ -29,7 +27,6 @@ Ahkeli's Valley
 Ruby Ring
 League: Delve
 Source: Drops from unique{Kurgal, the Blackblooded}
-Requires Level 49
 Implicits: 1
 FireResistImplicitRing1
 StrengthUnique__15
@@ -38,20 +35,18 @@ MaximumLifeUnique__14
 ]],[[
 Andvarius
 Gold Ring
-Requires Level 20
 Implicits: 1
 ItemFoundRarityIncreaseImplicitRing1
 DexterityUniqueRing3
 ItemFoundRarityIncreaseUniqueRing3
-AllResistancesUniqueRing25
+AllResistancesUniqueRing3
 ]],[[
 Astral Projector
 Topaz Ring
-Requires Level 40
 Implicits: 1
 LightningResistImplicitRing1
-IntelligenceUnique__22_
-SpellDamageUniqueRing35
+IntelligenceUnique__19
+SpellDamageUnique__12
 AvoidElementalAilmentsUnique__1_
 NovaSpellsAreaOfEffectUnique__1
 NovaSkillsTargetLocationUnique__1__
@@ -60,7 +55,6 @@ The Bandit Lord's Band
 Gold Ring
 League: Settlers
 Source: Drops from unique{Sasan, the Bandit Lord}
-Requires Level 44
 Implicits: 1
 ItemFoundRarityIncreaseImplicitRing1
 IncreasedGoldFoundUnique__1
@@ -71,7 +65,6 @@ League: Domination, Nemesis
 Variant: Pre 2.6.0
 Variant: Pre 3.8.0
 Variant: Current
-Requires Level 20
 Implicits: 1
 ColdAndLightningResistImplicitRing1
 {variant:1}ColdDamagePercentUniqueRing19[10,15]
@@ -80,7 +73,7 @@ ColdAndLightningResistImplicitRing1
 {variant:2,3}AddedLightningDamageUniqueRing19
 IncreasedLifeUniqueRing19
 {variant:1}LifeLeechPermyriadOnFrozenEnemiesUniqueRing19
-{variant:2,3}LifeLeechPermyriadVsShockedEnemiesUniqueRing29
+{variant:2,3}LifeLeechPermyriadOnFrozenEnemiesUniqueRing19
 {variant:1,2}ManaLeechPermyriadOnShockedEnemiesUniqueRing19
 {variant:3}EnergyShieldLeechPermyriadOnFrozenEnemiesUniqueRing19
 ]],[[
@@ -89,7 +82,6 @@ Two-Stone Ring
 League: Domination, Nemesis
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 20
 Implicits: 1
 FireAndColdResistImplicitRing1
 {variant:1}FireDamagePercentUniqueRing18[10,15]
@@ -105,7 +97,6 @@ Two-Stone Ring
 League: Domination, Nemesis
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 20
 Implicits: 1
 FireAndLightningResistImplicitRing1
 {variant:1}AddedFireDamageUniqueRing20[1,1][10,30]
@@ -120,7 +111,6 @@ Blackflame
 Amethyst Ring
 League: Ritual
 Source: Purchase from Ritual Reward
-Requires Level 49
 Implicits: 1
 ChaosResistImplicitRing1
 FireDamageOverTimeMultiplierUnique__3
@@ -137,11 +127,11 @@ Variant: Current
 Implicits: 1
 AddedPhysicalDamageImplicitRing1
 {variant:1}IncreasedPhysicalDamagePercentUniqueRing1
-{variant:1}AddedChaosDamageUnique__1[1,1][3,3]
+{variant:1}AddedChaosDamageUniqueRing1[1,1][3,3]
 {variant:2}AddedChaosDamageUniqueRing1
 {variant:1}IncreasedLifeImplicitRing1
 {variant:1}LifeRegenerationUniqueRing33[120,240]
-{variant:2}LifeRegenerationUniqueRing33
+{variant:2}LifeRegenerationUniqueRing1
 HitsCauseMonsterFleeUniqueRing1
 ]],[[
 Voidheart
@@ -149,7 +139,6 @@ Iron Ring
 Source: No longer obtainable
 Variant: Pre 2.4.0
 Variant: Current
-Requires Level 48
 Implicits: 1
 AddedPhysicalDamageImplicitRing1
 IncreasedPhysicalDamagePercentUniqueRing1
@@ -167,7 +156,6 @@ Coral Ring
 Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 24
 Implicits: 1
 IncreasedLifeImplicitRing1
 {variant:1}AddedFireDamageUniqueRing28[7,10][15,20]
@@ -181,13 +169,12 @@ ColdResistUniqueRing28
 ]],[[
 Winterweave
 Coral Ring
-Requires Level 24
 Implicits: 1
 IncreasedLifeImplicitRing1
 AddedFireDamageUniqueRing28
 AddedColdDamageUnique__6
 IncreasedLifeUniqueRing28
-ColdResistUnique__24
+ColdResistUnique__23
 MovementVelocityWhileIgnitedUnique__1
 EffectOfChillIsReversedUnique__1
 ]],[[
@@ -196,7 +183,6 @@ Unset Ring
 League: Warbands
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 45
 Implicits: 1
 RingHasOneSocket
 {variant:1}LocalIncreaseSocketedGolemLevelUniqueRing35[2,2]
@@ -214,7 +200,6 @@ Call of the Brotherhood
 Two-Stone Ring
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 20
 Implicits: 1
 ColdAndLightningResistImplicitRing1
 IntelligenceUniqueRing34
@@ -227,7 +212,6 @@ SpellChanceToShockFrozenEnemiesUniqueRing34
 Circle of Ambition
 Prismatic Ring
 Source: Drops from unique{Synthete Nightmare} in normal{The Cortex} (Uber)
-Requires Level 20
 Variant: Thunder: Skill Reservation
 Variant: Thunder: Lightning Damage
 Variant: Thunder: Buff Effect
@@ -259,7 +243,7 @@ Selected Alt Variant: 2
 Has Alt Variant Two: true
 Selected Alt Variant Two: 3
 Implicits: 0
-AllAttributesUnique__29
+AllAttributesUnique__27
 AllResistancesUnique__33
 HeraldReservationEfficiencyUnique__1
 {variant:1}HeraldBonusThunderReservationEfficiency
@@ -292,7 +276,6 @@ Circle of Anguish
 Ruby Ring
 League: Synthesis
 Source: Drops from unique{Altered/Augmented/Rewritten/Twisted Synthete}
-Requires Level 52
 Has Alt Variant: true
 Variant: Skill Reservation (Pre 3.11.0)
 Variant: Skill Reservation (Current)
@@ -303,11 +286,11 @@ Variant: Max Resistance
 Variant: Fire Resistance
 Implicits: 1
 FireResistImplicitRing1
-{fractured}StrengthUniqueRing8
+{fractured}StrengthUnique__16
 GlobalAddedFireDamageUnique__3_
-FireResistImplicitRing1
+FireResistUnique__21
 {variant:1}HeraldBonusAshReservation[30,40]
-{variant:2}HeraldBonusAshReservation
+{variant:2}HeraldBonusAshReservationEfficiency__
 {variant:3}HeraldBonusAshFireDamage
 {variant:4}HeraldBonusAshEffect[70,100]
 {variant:5}HeraldBonusAshEffect
@@ -318,7 +301,6 @@ Circle of Fear
 Sapphire Ring
 League: Synthesis
 Source: Drops from unique{Altered/Augmented/Rewritten/Twisted Synthete}
-Requires Level 52
 Has Alt Variant: true
 Variant: Skill Reservation (Pre 3.11.0)
 Variant: Skill Reservation (Current)
@@ -329,11 +311,11 @@ Variant: Max Resistance
 Variant: Cold Resistance
 Implicits: 1
 ColdResistImplicitRing1
-{fractured}DexterityUnique__12
+{fractured}DexterityUnique__14
 GlobalAddedColdDamageUnique__3
-ColdResistImplicitRing1
+ColdResistUnique__28
 {variant:1}HeraldBonusIceReservation_[30,40]
-{variant:2}HeraldBonusIceReservation_
+{variant:2}HeraldBonusIceReservationEfficiency__
 {variant:3}HeraldBonusIceColdDamage
 {variant:4}HeraldBonusIceEffect_[70,100]
 {variant:5}HeraldBonusIceEffect_
@@ -344,7 +326,6 @@ Circle of Guilt
 Iron Ring
 League: Synthesis
 Source: Drops from unique{Altered/Augmented/Rewritten/Twisted Synthete}
-Requires Level 52
 Has Alt Variant: true
 Variant: Skill Reservation (Pre 3.11.0)
 Variant: Skill Reservation (Current)
@@ -355,11 +336,11 @@ Variant: Sentinel Damage
 Variant: Damage Reduction
 Implicits: 1
 AddedPhysicalDamageImplicitRing1
-{fractured}AllAttributesUnique__27
+{fractured}AllAttributesUnique__17_
 GlobalAddedPhysicalDamageUnique__2
 IncreasedPhysicalDamageReductionRatingUnique__4
 {variant:1}HeraldBonusPurityReservation_[30,40]
-{variant:2}HeraldBonusPurityReservation_
+{variant:2}HeraldBonusPurityReservationEfficiency_
 {variant:3}HeraldBonusPurityPhysicalDamage
 {variant:4}HeraldBonusPurityEffect[70,100]
 {variant:5}HeraldBonusPurityEffect
@@ -370,7 +351,6 @@ Circle of Nostalgia
 Amethyst Ring
 League: Synthesis
 Source: Drops from unique{Altered/Augmented/Rewritten/Twisted Synthete}
-Requires Level 52
 Has Alt Variant: true
 Variant: Skill Reservation (Pre 3.11.0)
 Variant: Skill Reservation (Current)
@@ -381,11 +361,11 @@ Variant: Agony Damage
 Variant: Chaos Resistance
 Implicits: 1
 ChaosResistImplicitRing1
-{fractured}AllAttributesUnique__25
+{fractured}AllAttributesUnique__17_
 GlobalAddedChaosDamageUnique__5_
-ChaosResistImplicitRing1
+ChaosResistUnique__13
 {variant:1}HeraldBonusAgonyReservation[30,40]
-{variant:2}HeraldBonusAgonyReservation
+{variant:2}HeraldBonusAgonyReservationEfficiency
 {variant:3}HeraldBonusAgonyChaosDamage_
 {variant:4}HeraldBonusAgonyEffect[70,100]
 {variant:5}HeraldBonusAgonyEffect
@@ -396,7 +376,6 @@ Circle of Regret
 Topaz Ring
 League: Synthesis
 Source: Drops from unique{Altered/Augmented/Rewritten/Twisted Synthete}
-Requires Level 52
 Has Alt Variant: true
 Variant: Skill Reservation (Pre 3.11.0)
 Variant: Skill Reservation (Current)
@@ -409,9 +388,9 @@ Implicits: 1
 LightningResistImplicitRing1
 {fractured}IntelligenceUnique__14
 GlobalAddedLightningDamageUnique__3
-LightningResistImplicitRing1
+LightningResistUnique__21
 {variant:1}HeraldBonusThunderReservation[30,40]
-{variant:2}HeraldBonusThunderReservation
+{variant:2}HeraldBonusThunderReservationEfficiency
 {variant:3}HeraldBonusThunderLightningDamage
 {variant:4}HeraldBonusThunderEffect[70,100]
 {variant:5}HeraldBonusThunderEffect
@@ -424,7 +403,6 @@ League: Onslaught
 Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 46
 Implicits: 1
 ChaosResistImplicitRing1
 {variant:1,2}IncreasedAccuracyUniqueRing12
@@ -435,7 +413,7 @@ ChaosResistImplicitRing1
 {variant:1,2}LifeLeechPermyriadUniqueRing12
 {variant:1}OnslaughtBuffOnKillUniqueRing12[2000,2000]
 {variant:2}OnslaughtBuffOnKillUniqueRing12
-{variant:3}RecoverPercentMaxLifeOnKillUnique__1
+{variant:3}MaximumLifeOnKillPercentUnique__5
 {variant:3}AdrenalineOnKillUnique__1[3,3]
 ]],[[
 Doedre's Damning
@@ -446,11 +424,12 @@ Implicits: 1
 IncreasedManaImplicitRing1
 {variant:1}IntelligenceUniqueRing4[5,10]
 {variant:2}IntelligenceUniqueRing4
-{variant:1}AllResistancesUniqueRing9[5,5]
+{variant:1}AllResistancesUniqueRing4[5,5]
 {variant:2}AllResistancesUniqueRing4
 {variant:1}ManaGainedFromEnemyDeathUnique__1[5,5]
 {variant:2}ManaGainedFromEnemyDeathUniqueRing4
-AdditionalCurseOnEnemiesUnique__1
+{variant:1}AdditionalCurseOnEnemiesUnique__1
+{variant:2}AdditionalCurseOnEnemies_
 ]],[[
 Replica Doedre's Damning
 Paua Ring
@@ -477,12 +456,11 @@ Dream Fragments
 Sapphire Ring
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 24
 Implicits: 1
 ColdResistImplicitRing1
 MaximumManaUniqueRing5
 ManaRegenerationUniqueRing5
-{variant:2}ColdResistUnique__17
+{variant:2}ColdResistUnique__16
 {variant:1}CannotBeFrozen
 {variant:2}CannotBeFrozenOrChilledUnique__1
 ]],[[
@@ -493,7 +471,6 @@ Variant: Pre 3.9.0
 Variant: Pre 3.16.0
 Variant: Pre 3.29.0
 Variant: Current
-Requires Level 16
 Implicits: 1
 FireResistImplicitRing1
 {variant:1}FireDamagePercentUniqueRing38[15,25]
@@ -516,7 +493,6 @@ League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Variant: Pre 3.29.0
 Variant: Current
-Requires Level 16
 Implicits: 1
 FireResistImplicitRing1
 FireDamagePercentUniqueRing38
@@ -529,23 +505,22 @@ ChanceToIgniteUniqueRing38
 ]],[[
 Essence Worm
 Unset Ring
-Requires Level 38
 Implicits: 1
 RingHasOneSocket
 LocalIncreaseSocketedAuraGemLevelUnique___1
 SocketedAurasReserveNoManaUnique__1
-IncreasedManaReservationsCostUnique__1
+ReservationEfficiencyUnique__1_
 ]],[[
 Fated End
 Paua Ring
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 38
 Implicits: 1
 IncreasedManaImplicitRing1
 IntelligenceUnique__25
 CurseCastSpeedUnique__2
-HexExpiresMaxDoomUnique__1[-20,20]
+HexExpiresMaxDoomUnique__1
+HexDoomGainUnique__1
 DoubleDoomEffectUnique__1
 ]],[[
 Gifts from Above
@@ -553,7 +528,6 @@ Diamond Ring
 League: Anarchy
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 28
 Implicits: 1
 CriticalStrikeChanceImplicitRing1
 {variant:2}TriggeredConsecrateUnique__1
@@ -568,7 +542,6 @@ Replica Gifts from Above
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Diamond Ring
-Requires Level 28
 Implicits: 1
 CriticalStrikeChanceImplicitRing1
 TriggeredConsecrateUnique__1
@@ -581,20 +554,18 @@ Grattus Signet
 Diamond Ring
 League: Necropolis
 Source: Created from 4 different unique{Grattus} family corpses in the normal{Necropolis}
-Requires Level 64
 Implicits: 1
 CriticalStrikeChanceImplicitRing1
-IncreasedAttackSpeedUniqueRing37
-IncreasedCastSpeedUnique__15_
-IncreasedEnergyShieldUnique__13
-IncreasedLifeUnique__15
+IncreasedAttackSpeedUnique__6
+IncreasedCastSpeedUnique__26
+IncreasedEnergyShieldUnique__12
+IncreasedLifeUnique__123
 AttackCriticalStrikesUnnerveUnique__1
 SpellCriticalStrikesIntimidateUnique__1
 ]],[[
 The Hateful Accuser 
 Nameless Ring
 League: Settlers of Kalguur
-Requires Level 50
 Implicits: 1
 CurseEffectElementalAilmentDurationOnSelfR1
 RitualRingPenanceMark
@@ -604,10 +575,9 @@ ChaosResistUnique__31
 ]],[[
 Heartbound Loop
 Moonstone Ring
-Requires Level 20
 Implicits: 1
-IncreasedEnergyShieldImplicitRing1
-LifeRegenerationUniqueRing1
+IncreasedCastSpeedImplicitRing1
+LifeRegenerationUniqueRing33
 ManaRegenerationUniqueRing33
 MinionLifeUniqueRing33
 MinonAreaOfEffectUniqueRing33
@@ -616,10 +586,9 @@ PhysicalDamageToSelfOnMinionDeathUniqueRing33
 Ixchel's Temptation
 Gold Ring
 League: Affliction
-Requires Level 20
 Implicits: 1
 ItemFoundRarityIncreaseImplicitRing1
-AllAttributesUniqueRing26
+AllAttributesUnique__26
 AddedChaosDamageUnique__2
 SpellAddedFireDamageUnique__7
 IncreasedPhysicalDamageReductionRatingUnique__9
@@ -627,19 +596,18 @@ IncreasedEvasionRatingUnique__7
 IncreasedEnergyShieldUnique__11
 IncreasedLifeUnique__122
 CriticalMultiplierUnique__7
-IncreasedManaImplicitArmour1
-AllResistancesImplicitRing1
+IncreasedManaUnique__29
+AllResistancesUnique__30
 AttackAndCastSpeedUnique__8
 MaximumQualityOverrideUnique__1
 Corrupted
 ]],[[
 Anathema
 Moonstone Ring
-LevelReq: 49
 Implicits: 1
-IncreasedEnergyShieldImplicitRing1
-IntelligenceUnique__16
-IncreasedCastSpeedUniqueRing27
+IncreasedCastSpeedImplicitRing1
+IntelligenceUnique__30
+IncreasedCastSpeedUnique__23
 PowerChargeOnCurseUnique__1
 CurseLimitMaximumPowerChargesUnique__1
 ]],[[
@@ -648,13 +616,12 @@ Gold Ring
 League: Heist
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 44
 Implicits: 1
 ItemFoundRarityIncreaseImplicitRing1
 ItemFoundRarityIncreaseUnique__5
 {variant:2}LifeLeechAnyDamageUnique__1
 {variant:1}MovementVelocityUnique__4
-{variant:2}MovementVelocityUnique__33_
+{variant:2}MovementVelocityUnique__44
 {variant:1}StealChargesOnHitPercentUniqueGlovesStrDex6[25,25]
 {variant:1}DamageLeechWith5ChargesUnique__1
 {variant:2}StealChargesOnHitPercentUnique__1
@@ -664,7 +631,6 @@ Honoured Alliance
 Coral Ring
 League: Ancestor
 Source: No longer obtainable
-LevelReq: 49
 Implicits: 1
 IncreasedLifeImplicitRing1
 TukohamasEmbraceOnKillUnique__1
@@ -675,18 +641,16 @@ DamageTakenGainedAsLifeUnique__4
 [[
 The Hungry Loop
 Unset Ring
-Requires Level 45
 Implicits: 1
 RingHasOneSocket
 ConsumesSupportGemsUnique
 ]],[[
 Icefang Orbit
 Iron Ring
-Requires Level: 49
 League: Blight
 Implicits: 1
 AddedPhysicalDamageImplicitRing1
-DexterityUnique__1
+DexterityUnique__17
 ChanceToPoisonUnique__1_______
 PoisonDamageUnique__1
 ChilledWhilePoisonedUnique__1
@@ -711,7 +675,6 @@ Coral Ring
 Variant: Pre 3.16.0
 Variant: Current
 Source: No longer obtainable
-Requires Level 32
 Implicits: 1
 IncreasedLifeImplicitRing1
 StrengthUniqueRing2
@@ -727,7 +690,6 @@ Variant: Pre 2.6.0
 Variant: Pre 3.16.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 20
 Implicits: 1
 LightningResistImplicitRing1
 AllAttributesUniqueRing26
@@ -742,10 +704,9 @@ ManaRegenerationUniqueRing26
 Nimis
 Topaz Ring
 Source: Drops from unique{The Eater of Worlds} (Uber)
-LevelReq: 48
 Implicits: 1
 LightningResistImplicitRing1
-DexterityUnique__3
+DexterityUnique__25
 IncreasedProjectileDamageUnique___11
 ReturningProjectilesUnique__1
 RandomProjectileDirectionUnique__1
@@ -754,7 +715,6 @@ Le Heup of All
 Iron Ring
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 24
 Implicits: 1
 AddedPhysicalDamageImplicitRing1
 {variant:1}AllDamageUniqueRing6[10,20]
@@ -770,7 +730,6 @@ Lori's Lantern
 Prismatic Ring
 Variant: Pre 1.0.0
 Variant: Current
-Requires Level 30
 Implicits: 2
 {variant:1}AllResistancesImplicitRing1[8,12]
 {variant:2}AllResistancesImplicitRing1
@@ -785,11 +744,10 @@ Unset Ring
 Variant: Pre 2.6.0
 Variant: Current
 Sockets: W
-Requires Level 5
 Implicits: 1
 RingHasOneSocket
 {variant:1}AllResistancesUniqueRing3[-25,-25]
-{variant:2}AllResistancesUniqueRing3
+{variant:2}AllResistancesUniqueRing25
 FireResistanceWhenSocketedWithRedGemUniqueRing25
 ColdResistanceWhenSocketedWithGreenGemUniqueRing25
 LightningResistanceWhenSocketedWithBlueGemUniqueRing25
@@ -800,7 +758,6 @@ Replica Malachai's Artifice
 Unset Ring
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 5
 Implicits: 1
 RingHasOneSocket
 SocketedGemHasSecretsOfSufferingUnique__1
@@ -812,7 +769,6 @@ AllSocketsAreWhiteUniqueRing25
 ]],[[
 Mark of Submission
 Unset Ring
-Requires Level 24
 Implicits: 1
 RingHasOneSocket
 UniqueCurseWithSocketedCurseOnHit_
@@ -821,12 +777,11 @@ Mark of the Elder
 Steel Ring
 Elder Item
 Source: Drops from unique{The Elder} (Uber)
-Requires Level 80
 Implicits: 1
 AddedPhysicalDamageImplicitRing2
 AddedColdDamageUnique__5
-IncreasedEnergyShieldPercentUnique__5
-MaximumLifeUnique__16
+IncreasedEnergyShieldPercentUnique__3
+MaximumLifeUnique__11
 AttackDamageShaperItemUnique__1
 CannotBeStunnedByAttacksElderItemUnique__1
 TentacleSmashOnKillUnique__1_
@@ -835,7 +790,6 @@ Mark of the Shaper
 Opal Ring
 Shaper Item
 Source: Drops from unique{The Elder} (Uber)
-Requires Level 80
 Implicits: 1
 ElementalDamagePercentImplicitAtlasRing_
 SpellAddedLightningDamageUnique__6_
@@ -851,7 +805,6 @@ Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 69
 Implicits: 1
 ChaosResistImplicitRing1
 {variant:1}MaximumLifeUniqueRing16[15,15]
@@ -870,7 +823,6 @@ Mokou's Embrace
 Ruby Ring
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 16
 Implicits: 1
 FireResistImplicitRing1
 {variant:1}FireDamagePercentUniqueRing24
@@ -889,7 +841,6 @@ League: Warbands
 Variant: Pre 2.6.0
 Variant: Pre 3.16.0
 Variant: Current
-Requires Level 45
 Implicits: 1
 RingHasOneSocket
 {variant:1}LocalIncreaseSocketedGolemLevelUniqueRing37[2,2]
@@ -899,7 +850,7 @@ RingHasOneSocket
 AddedPhysicalDamageUniqueRing37
 IncreasedAttackSpeedUniqueRing37
 {variant:1}ChanceToDodgeUniqueRing37[1,2]
-{variant:2}ChanceToDodgeUniqueRing37
+{variant:2,3}ChanceToDodgeUniqueRing37
 {variant:1}DisplaySocketedGemsSupportedByMinionSpeedUniqueRing37
 {variant:2,3}LocalGolemGrantOnslaughtOnSummonUnique__1
 ]],[[
@@ -910,7 +861,6 @@ Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Pre 3.29.0
 Variant: Current
-Requires Level 29
 Implicits: 1
 FireResistImplicitRing1
 StrengthUniqueRing31__
@@ -928,7 +878,6 @@ Original Sin
 Amethyst Ring
 League: Sanctum
 Source: Drops from unique{Lycia, Herald of the Scourge} in normal{The Beyond} while unique{The Original Scripture} is active in the normal{Relic Altar}
-LevelReq: 52
 Implicits: 1
 ChaosResistImplicitRing1
 AllElementalDamageConvertedToChaosUnique__1
@@ -940,7 +889,6 @@ Variant: Pre 3.25.0
 Variant: Pre 3.29.0
 Variant: Current
 League: Warbands
-Requires Level 60
 Implicits: 1
 RingHasOneSocket
 LocalIncreaseSocketedGemLevelUniqueRing39
@@ -971,12 +919,11 @@ IncreasedChanceForMonstersToDropWisdomScrollsUniqueRing14
 Polaric Devastation
 Opal Ring
 Source: Drops from unique{The Black Star}
-Requires Level 80
 Implicits: 1
 ElementalDamagePercentImplicitAtlasRing_
 CriticalStrikeChanceUnique__5__
-FireResistUnique__9
-ColdResistUnique__15
+FireResistUnique__29
+ColdResistUnique__36_
 IncreasedAilmentDurationUnique__3_
 LeftRingCoveredInAshUnique__1_
 RightRingCoveredInFrostUnique__1
@@ -985,7 +932,6 @@ Praxis
 Paua Ring
 Variant: Pre 3.29.0
 Variant: Current
-Requires Level 22
 Implicits: 1
 IncreasedManaImplicitRing1
 IncreasedManaUnique__8
@@ -997,19 +943,17 @@ PercentDamageGoesToManaUnique__1
 Profane Proxy
 Unset Ring
 Sockets: G
-LevelReq: 52
 Implicits: 1
 RingHasOneSocket
 IncreaseSocketedCurseGemLevelUnique__2
-ColdResistImplicitRing1
-LightningResistImplicitRing1
+ColdResistUnique__32
+LightningResistUnique__22
 SupportSkitterBotAilmentAuraReplaceWithCurse____1
 ]],[[
 Putembo's Meadow
 Topaz Ring
 League: Delve
 Source: Drops from unique{Kurgal, the Blackblooded}
-Requires Level 49
 Implicits: 1
 LightningResistImplicitRing1
 IntelligenceUnique__13
@@ -1020,7 +964,6 @@ Putembo's Mountain
 Topaz Ring
 League: Delve
 Source: Drops from unique{Aul, the Crystal King}
-Requires Level 49
 Implicits: 1
 LightningResistImplicitRing1
 IntelligenceUnique__13
@@ -1031,7 +974,6 @@ Putembo's Valley
 Topaz Ring
 League: Delve
 Source: Drops from unique{Ahuatotli, the Blind}
-Requires Level 49
 Implicits: 1
 LightningResistImplicitRing1
 IntelligenceUnique__13
@@ -1043,7 +985,6 @@ Sapphire Ring
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Current
-Requires Level 11
 Implicits: 1
 ColdResistImplicitRing1
 FireResistUniqueRing15
@@ -1057,7 +998,6 @@ IgnitedEnemiesTurnToAshUniqueRing15
 The Queller of Minds
 Nameless Ring
 League: Settlers of Kalguur
-Requires Level 50
 Implicits: 1
 CurseEffectElementalAilmentDurationOnSelfR1
 RitualRingPacify
@@ -1070,13 +1010,12 @@ Unset Ring
 League: Warbands
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 45
 Implicits: 1
 RingHasOneSocket
 {variant:1}LocalIncreaseSocketedGolemLevelUniqueRing36[2,2]
 {variant:2}LocalIncreaseSocketedGolemLevelUniqueRing36
 StrengthUniqueRing36
-{variant:2}IncreasedLifeUniqueRing19
+{variant:2}IncreasedLifeUnique__48
 {variant:1}AddedFireDamageUniqueRing36
 FireDamagePercentUniqueRing36
 {variant:1}DisplaySocketedGemsSupportedByLesserMultipleProjectilesUniqueRing36
@@ -1090,20 +1029,18 @@ League: Talisman
 Variant: Pre 3.19.0
 Variant: Current
 Source: Drops from unique{Rigwald, the Wolven King} (Level 60+)
-Requires Level 49
 Implicits: 1
 FireAndColdResistImplicitRing1
-SummonWolfOnKillUnique__1
+SummonWolfOnKillUnique__1New
 {variant:1}FireDamagePercentUniqueRing36
 {variant:1}ColdDamagePercentUnique___11
-ManaRegenerationUnique__4
+ManaRegenerationUnique__2
 ]],[[
 Romira's Banquet
 Diamond Ring
 Variant: Pre 1.1.0
 Variant: Pre 2.2.0
 Variant: Current
-Requires Level 60
 Implicits: 1
 CriticalStrikeChanceImplicitRing1
 IncreasedAccuracyUniqueRing17
@@ -1121,24 +1058,21 @@ League: Ritual
 Source: Purchase from Ritual Reward
 Variant: Pre 3.16.0
 Variant: Current
-Requires Level 56
 Implicits: 1
 RingHasOneSocket
-SupportedByBlasphemyUnique
+SocketedGemsSupportedByBlasphemyUnique__2__
 CurseAurasAffectYouUnique__1
 {variant:1}ReducedReservationForSocketedCurseGemsUnique__2[-50,-50]
 {variant:2}ReducedReservationForSocketedCurseGemsUnique__2
-IntelligenceUnique__12
+IntelligenceUnique__27
 ReducedCurseEffectUnique__1
 HitAndAilmentDamageCursedEnemiesUnique__1
 ]],[[
 The Selfish Shepherd
 Nameless Ring
 League: Settlers of Kalguur
-Requires Level 50
-Implicits: 2
-SelfStatusAilmentDurationUnique__1
-ReducedCurseEffectUniqueRing7
+Implicits: 1
+CurseEffectElementalAilmentDurationOnSelfR1
 RitualRingAffliction
 RitualRingCastSpeed
 RitualRingEnergyShield
@@ -1151,9 +1085,9 @@ Variant: Pre 1.2.0
 Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 30
-Implicits: 1
-IncreasedEnergyShieldImplicitRing1
+Implicits: 2
+{variant:1,2,3}IncreasedEnergyShieldImplicitRing1
+{variant:4}IncreasedCastSpeedImplicitRing1
 IntelligenceUniqueRing13
 RightRingSlotNoManaRegenUniqueRing13
 {variant:1}RightRingSlotEnergyShieldRegenUniqueRing13[240,240]
@@ -1174,7 +1108,6 @@ Variant: Pre 2.6.0
 Variant: Pre 3.9.0
 Variant: Pre 3.28.0
 Variant: Current
-Requires Level 45
 Implicits: 1
 IncreasedLifeImplicitRing1
 WeaponElementalDamageUniqueRing10
@@ -1194,12 +1127,11 @@ Snakepit
 Sapphire Ring
 Variant: Pre 3.5.0
 Variant: Current
-Requires Level 68
 Implicits: 1
 ColdResistImplicitRing1
 {variant:1}ColdDamagePercentUnique__9
 {variant:2}SpellDamageUnique__11
-IncreasedCastSpeedUnique__15_
+IncreasedCastSpeedUnique__6
 {variant:1}AdditionalSpellProjectilesUnique__1
 {variant:2}LeftRingSpellProjectilesCannotChainUnique__1
 {variant:2}LeftRingSpellProjectilesForkUnique__1_
@@ -1209,10 +1141,9 @@ IncreasedCastSpeedUnique__15_
 ]],[[
 Soulbound
 Paua Ring
-LevelReq: 44
 Implicits: 1
 IncreasedManaImplicitRing1
-AllAttributesUnique__17_
+AllAttributesUnique__24
 LinkSkillCastSpeedUnique__1
 LinkSkillEffectDurationUnique__1
 LinkTargetCannotDieUnique__1
@@ -1223,11 +1154,10 @@ Opal Ring
 Variant: Pre 3.17.0
 Variant: Pre 3.29.0
 Variant: Current
-Requires Level 80
 Implicits: 1
 ElementalDamagePercentImplicitAtlasRing_
 ManaRegenerationUnique__8
-FireAndLightningResistUnique__2
+FireAndLightningResistUnique__1
 {variant:1}BurningDamagePerEnemyShockedRecentlyUnique__1_[4,6][120,120]
 {variant:2,3}BurningDamagePerEnemyShockedRecentlyUnique__1_
 {variant:1,2}AddedLightningDamageAgainstIgnitedEnemiesUnique__1[1,3][62,70]
@@ -1237,10 +1167,9 @@ LightningDamageCanIgniteUnique__1
 Storm Secret
 Topaz Ring
 League: Harvest
-Requires Level 56
 Implicits: 1
 LightningResistImplicitRing1
-Intelligence__1
+IntelligenceUnique__20
 LightningDamagePercentUnique__7
 ChanceToShockUnique__4_
 ActivateHeraldOfThunderOnShockUnique__1
@@ -1254,7 +1183,6 @@ Source: Vendor Recipe
 Variant: Pre 3.0.0
 Variant: Pre 3.25.0
 Variant: Current
-Requires Level 30
 Implicits: 1
 AllResistancesImplicitRing1
 {variant:1}WeaponElementalDamageImplicitSword1[15,15]
@@ -1274,12 +1202,11 @@ Sapphire Ring
 League: Bloodlines
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 20
 Implicits: 1
 ColdResistImplicitRing1
 {variant:1}AddedPhysicalDamageVsFrozenEnemiesUniqueRing30
 {variant:2}AddedColdDamageAgainstFrozenEnemiesUnique__1
-{variant:1}AddedColdDamageUnique__11[5,6][7,9]
+{variant:1}AddedColdDamageUniqueRing30[5,6],[7,9]
 {variant:2}AddedColdDamageUniqueRing30
 IncreasedEvasionRatingUniqueRing30
 {variant:1}ReducedChillDurationOnSelfUniqueRing30
@@ -1291,21 +1218,21 @@ Replica Tasalio's Sign
 Sapphire Ring
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 20
 Implicits: 1
 ColdResistImplicitRing1
 AddedColdDamageUnique__10
 IncreasedEvasionRatingUniqueRing30
 ColdDamageCannotFreeze
-ImmuneToChillUnique__2__
+ImmuneToChillUnique__1
 AddedColdDamageAgainstFrozenEnemiesUnique__2
 ]],[[
 Tawhanuku's Timing
 Moonstone Ring
 Variant: Pre 3.29.0
 Variant: Current
-Implicits: 1
-IncreasedEnergyShieldImplicitRing1
+Implicits: 2
+{variant:1}IncreasedEnergyShieldImplicitRing1
+{variant:2}IncreasedCastSpeedImplicitRing1
 SpellDamageUnique__16
 IncreasedManaUnique__27
 {variant:2}IncreasedEnergyShieldUnique__14
@@ -1320,7 +1247,6 @@ Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Pre 3.25.0
 Variant: Current
-Requires Level 30
 Implicits: 2
 {variant:1}AllResistancesImplicitRing1[8,12]
 {variant:2,3,4,5,6}AllResistancesImplicitRing1
@@ -1343,9 +1269,9 @@ Variant: Pre 2.6.0
 Variant: Pre 3.17.0
 Variant: Pre 3.19.0
 Variant: Current
-LevelReq: 25
-Implicits: 1
-IncreasedEnergyShieldImplicitRing1
+Implicits: 2
+{variant:1,2,3}IncreasedEnergyShieldImplicitRing1
+{variant:4}IncreasedCastSpeedImplicitRing1
 IncreasedAttackSpeedUniqueRing27
 {variant:1}IncreasedCastSpeedUniqueRing27[5,8]
 {variant:2,3}IncreasedCastSpeedUniqueRing27[5,10]
@@ -1358,7 +1284,7 @@ IncreasedAttackSpeedUniqueRing27
 {variant:1}TemporalChainsEffectivenessOnSelfUniqueRing27[-30,-30]
 {variant:2}TemporalChainsEffectivenessOnSelfUniqueRing27
 {variant:3}SkillEffectDurationUnique__1[-10,10]
-{variant:4}SkillEffectDurationUnique__1[-20,20]
+{variant:4}SkillEffectDurationUnique__2_
 {variant:4}DamageTakenGainedAsLifeUnique__3
 {variant:4}PercentDamageGoesToManaUnique__2
 {variant:3,4}TemporalChainsEffectivenessOnSelfUnique__1
@@ -1368,7 +1294,6 @@ Moonstone Ring
 Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Current
-LevelReq: 25
 Implicits: 1
 IncreasedEnergyShieldImplicitRing1
 IncreasedAttackSpeedUniqueRing27
@@ -1382,7 +1307,6 @@ TemporalChainsEffectivenessOnSelfUnique__1
 ]],[[
 Triumvirate Authority
 Unset Ring
-Requires Level 64
 Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Apex of Sacrifice} (3 stats) or in normal{The Alluring Abyss} (4 stats)
 Has Alt Variant: true
 Has Alt Variant Two: true
@@ -1421,7 +1345,6 @@ Uzaza's Meadow
 Sapphire Ring
 League: Delve
 Source: Drops from unique{Ahuatotli, the Blind}
-Requires Level 49
 Implicits: 1
 ColdResistImplicitRing1
 DexterityUnique__13
@@ -1432,7 +1355,6 @@ Uzaza's Mountain
 Sapphire Ring
 League: Delve
 Source: Drops from unique{Kurgal, the Blackblooded}
-Requires Level 49
 Implicits: 1
 ColdResistImplicitRing1
 DexterityUnique__13
@@ -1443,7 +1365,6 @@ Uzaza's Valley
 Sapphire Ring
 League: Delve
 Source: Drops from unique{Aul, the Crystal King}
-Requires Level 49
 Implicits: 1
 ColdResistImplicitRing1
 DexterityUnique__13
@@ -1457,7 +1378,6 @@ Variant: Pre 2.6.0
 Variant: Pre 3.11.0
 Variant: Pre 3.29.0
 Variant: Current
-Requires Level 38
 Implicits: 1
 LightningResistImplicitRing1
 {variant:1}IncreasedDamageToShockedTargetsUniqueRing29[15,15]
@@ -1475,24 +1395,23 @@ Valyrium
 Moonstone Ring
 Variant: Pre 3.11.0
 Variant: Current
-Requires Level 38
-Implicits: 1
-IncreasedEnergyShieldImplicitRing1
+Implicits: 2
+{variant:1}IncreasedEnergyShieldImplicitRing1
+{variant:2}IncreasedCastSpeedImplicitRing1
 {variant:1}IncreasedEnergyShieldUniqueRing18[10,20]
-{variant:2}IncreasedEnergyShieldUniqueRing18
+{variant:2}IncreasedEnergyShieldUnique__5
 {variant:1}FireResistUnique__20_[20,30]
-{variant:2}FireResistUnique__20_
+{variant:2}FireResistUnique__8
 ColdResistUnique__9
 StunDurationBasedOnEnergyShieldUnique__1
 ]],[[
 Venopuncture
 Iron Ring
-Requires Level: 49
 League: Blight
 Implicits: 1
 AddedPhysicalDamageImplicitRing1
-StrengthUniqueRing8
-CausesBleedingUnique__1
+StrengthUnique__17
+ChanceToBleedUnique__2__
 BleedDamageUnique__1_
 ChilledWhileBleedingUnique__1_
 NonChilledEnemiesBleedAndChillUnique__1_
@@ -1502,7 +1421,6 @@ Ventor's Gamble
 Gold Ring
 Variant: Pre 3.25.0
 Variant: Current
-Requires Level 65
 Implicits: 1
 ItemFoundRarityIncreaseImplicitRing1
 IncreasedLifeUniqueRing32
@@ -1538,13 +1456,12 @@ Variant: Focus Shock Nearby Enemies
 Variant: Minimum Frenzy Charges
 Variant: Minimum Power Charges
 Variant: Minimum Endurance Charges
-Requires Level 45
 Implicits: 1
 RingHasOneSocket
 LocalIncreaseSocketedAuraGemLevelUnique___2___
 {variant:1,2,3,4,5,6,7,8,9,10,11}Socketed Gems have 20% reduced Mana Reservation Efficiency
 {variant:13,14,15,16,17,18,19,20,21}SocketedItemsHaveIncreasedReservationUnique__1
-AllAttributesUnique__16_
+AllAttributesUnique__14
 LifeRegenPerUncorruptedItemUnique__1
 TotalManaCostPerCorruptedItemUnique__1
 {variant:1}FireAndChaosDamageResistanceUnique__1__[8,15]
@@ -1558,25 +1475,20 @@ TotalManaCostPerCorruptedItemUnique__1
 {variant:9}{crafted}+1 to Minimum Frenzy Charges
 {variant:10}{crafted}+1 to Minimum Power Charges
 {variant:11}{crafted}+1 to Minimum Endurance Charges
-{variant:12}FireAndChaosDamageResistanceUnique__1__[16,20]
-{variant:13}{crafted}{tags:chaos,jewellery_resistance}+(16-20)% to Cold and Chaos Resistances
-{variant:14}{crafted}{tags:chaos,jewellery_resistance}+(16-20)% to Lightning and Chaos Resistances
-{variant:15}StrengthAndDexterityUnique_1[31,35]
-{variant:16}DexterityAndIntelligenceUnique_2[31,35]
-{variant:17}StrengthIntelligenceUnique__2[31,35]
-{variant:18}{crafted}Shock nearby Enemies for 4 Seconds when you Focus
-{variant:18}FocusCooldownRecoveryUnique__1_[5,8]
-{variant:19}{crafted}+1 to Minimum Frenzy Charges
-{variant:19}VillageFrenzyChargeOnKillChance[3,4]
-{variant:20}{crafted}+1 to Minimum Power Charges
-{variant:20}PowerChargeOnKillChanceUnique__1[3,4]
-{variant:21}{crafted}+1 to Minimum Endurance Charges
-{variant:21}{crafted}(3-4)% chance to gain a Endurance Charge on Kill
+{variant:12}JunMasterVeiledFireAndChaosDamageResistance
+{variant:13}JunMasterVeiledColdAndChaosDamageResistance
+{variant:14}JunMasterVeiledLightningAndChaosDamageResistance
+{variant:15}JunMasterVeiledStrengthAndDexterity
+{variant:16}JunMasterVeiledDexterityAndIntelligence
+{variant:17}JunMasterVeiledStrengthAndIntelligence
+{variant:18}JunMasterVeiledShockNearbyEnemiesOnFocus
+{variant:19}JunMasterVeiledMinimumFrenzyCharges___
+{variant:20}JunMasterVeiledMinimumPowerCharges
+{variant:21}JunMasterVeiledMinimumEnduranceCharges_
 ]],[[
 Voideye
 Unset Ring
 League: Ambush, Invasion
-Requires Level 45
 Implicits: 1
 RingHasOneSocket
 LocalIncreaseSocketedGemLevelUniqueRing23
@@ -1585,14 +1497,12 @@ Replica Voideye
 Unset Ring
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 45
 Implicits: 1
 RingHasOneSocket
 SocketedGemQualityUnique__2_
 ]],[[
 The Warden's Brand
 Iron Ring
-Requires Level 30
 Implicits: 1
 AddedPhysicalDamageImplicitRing1
 AddedPhysicalDamageUnique__2
@@ -1601,10 +1511,9 @@ ChanceToGainFrenzyChargeOnStunUnique__1
 ]],[[
 Warrior's Legacy
 Ruby Ring
-Requires Level 16
 Implicits: 1
 FireResistImplicitRing1
-StrengthUnique__32
+StrengthUnique__18
 MeleeDamageUnique__1
 AvoidStunUnique__1
 RingAttackSpeedUnique__1
@@ -1615,10 +1524,9 @@ Sapphire Ring
 Shaper Item
 Elder Item
 Source: Drops from unique{The Elder} (Uber Uber)
-Requires Level 16
 Implicits: 1
 ColdResistImplicitRing1
-ColdResistImplicitRing1
+ColdResistUnique__37
 AllDamageCanChillUnique__1
 AllDamageTakenCanChillUnique__1
 ChillHitsCauseShatteringUnique__1
@@ -1633,19 +1541,17 @@ Mirrored
 Betrayal's Sting
 Steel Ring
 Source: Drops from unique{Incarnation of Neglect} in normal{Moment of Loneliness}
-Requires Level 80
 Implicits: 1
 AddedPhysicalDamageImplicitRing2
 DexterityUnique__33
 AllResistancesUnique_1
-ChaosResistUnique__18_
-MovementVelocityUnique__3
+ChaosResistUnique__32
+MovementVelocityUnique__58
 AdditionalPoisonChanceUnique__1
 ]],[[
 Coiling Whisper
 Amethyst Ring
 Source: Drops from unique{Incarnation of Fear} in normal{Moment of Trauma}
-Requires Level 32
 Implicits: 1
 ChaosResistImplicitRing1
 CurseAreaOfEffectUnique__4
@@ -1655,10 +1561,9 @@ EatSoulAfterHexPercentCurseExpireUnique__1
 Enmity's Embrace
 Vermillion Ring
 Source: Drops from unique{Incarnation of Fear} in normal{Moment of Trauma}
-Requires Level 80
 Implicits: 1
 MaximumLifeImplicitAtlasRing
-StrengthUnique__27
+StrengthUnique__32
 FireDamagePercentUnique__13
 ReducedFireResistanceUnique__2
 FireDamageOnSkillUseUnique__1
@@ -1666,18 +1571,16 @@ OvercappedFireResistanceAsFirePrenetrationUnique__1
 ]],[[
 Prospero's Protection
 Iron Ring
-Requires Level 32
 Implicits: 1
 AddedPhysicalDamageImplicitRing1
 BlockPercentUnique__3
 StrengthUnique__31
-IncreasedLifeUnique__14
+MaximumLifeUnique__24
 ArmourFromShieldDoubledUnique__1
 GainNoArmourFromBodyArmourUnique__1
 ]],[[
 Squirming Terror
 Unset Ring
-Requires Level 32
 Implicits: 1
 RingHasOneSocket
 SummonWrithingWormEveryXMsUnique__1
@@ -1689,32 +1592,29 @@ ManaGainPerTargetUnique__3
 Lost Unity
 Formless Ring
 Source: Drops from unique{It That Was Esh} and unique{It That Was Tul} in normal{Hive Colony}
-Requires Level 42
 Implicits: 1
 FormlessBreachRingImplicit
 HeraldOfTheBreachUnique_1
-AllResistancesUnique__33
+AllResistancesUnique__37
 ChaosResistUnique__36
 ]],
 [[
 The Sundered Will
 Fugitive Ring
 Source: Drops from unique{It That Was Esh} and unique{It That Was Tul} in normal{Hive Colony}
-Requires Level 42
 Implicits: 1
 ChayulaBreachRingImplicit
 AllAttributesUnique__31
 GlobalAddedChaosDamageUnique__7
 ChaosResistUnique__35
-AuraIncreasedIncreasedAreaOfEffectUnique_3
-ReservationEfficiencyUnique__6
+AuraIncreasedIncreasedAreaOfEffectUnique_6
+ReservationEfficiencyUnique__10
 ChaosDamageModsApplyToChaosAuraEffectAtPercentUnique_1
 ]],
 [[
 The Unseen Hue
 Opal Ring
 Source: Drops from unique{Incarnation of Dread} in normal{Moment of Reverence}
-Requires Level 80
 Variant: Scorch
 Variant: Brittle
 Variant: Sap
@@ -1732,56 +1632,52 @@ NonDamagingAilmentEffectUnique_1
 The Will of Esh
 Synaptic Ring
 Source: Drops from unique{It That Was Esh} and unique{It That Was Tul} in normal{Hive Colony}
-Requires Level 42
 Implicits: 1
 EshBreachRingImplicit
-IntelligenceUniqueRing34
+IntelligenceUnique__37
 GlobalAddedLightningDamageUnique__5
-LightningResistImplicitRing1
-AuraIncreasedIncreasedAreaOfEffectUnique_2
-ReservationEfficiencyUnique__10
+LightningResistUnique__33
+AuraIncreasedIncreasedAreaOfEffectUnique_4
+ReservationEfficiencyUnique__8
 LightningDamageModsApplyToLightningAuraEffectAtPercentUnique_1
 ]],
 [[
 The Will of Tul
 Cryonic Ring
 Source: Drops from unique{It That Was Esh} and unique{It That Was Tul} in normal{Hive Colony}
-Requires Level 42
 Implicits: 1
 TulBreachRingImplicit
 DexterityUnique__34
 GlobalAddedColdDamageUnique__5
-ColdResistImplicitRing1
+ColdResistUnique__43
 AuraIncreasedIncreasedAreaOfEffectUnique_2
-ReservationEfficiencyUnique__10
+ReservationEfficiencyUnique__6
 ColdDamageModsApplyToColdAuraEffectAtPercentUnique_1
 ]],
 [[
 The Will of Uul-Netol
 Organic Ring
 Source: Drops from unique{It That Was Esh} and unique{It That Was Tul} in normal{Hive Colony}
-Requires Level 42
 Implicits: 1
 UulNetolBreachRingImplicit
-StrengthUniqueRing31__
+StrengthUnique__34
 GlobalAddedPhysicalDamageUnique__3
 GlobalPhysicalDamageReductionRatingPercentUnique__2
-AuraIncreasedIncreasedAreaOfEffectUnique_2
-ReservationEfficiencyUnique__10
+AuraIncreasedIncreasedAreaOfEffectUnique_5
+ReservationEfficiencyUnique__9
 PhysicalDamageModsApplyToPhysicalAuraEffectAtPercentUnique_1
 ]],
 [[
 The Will of Xoph
 Enthalpic Ring
 Source: Drops from unique{It That Was Esh} and unique{It That Was Tul} in normal{Hive Colony}
-Requires Level 42
 Implicits: 1
 XophBreachRingImplicit
-StrengthUniqueRing31__
+StrengthUnique__33
 GlobalAddedFireDamageUnique__6
-FireResistImplicitRing1
-AuraIncreasedIncreasedAreaOfEffectUnique_2
-ReservationEfficiencyUnique__10
+FireResistUnique__37
+AuraIncreasedIncreasedAreaOfEffectUnique_3
+ReservationEfficiencyUnique__7
 FireDamageModsApplyToFireAuraEffectAtPercentUnique_1
 ]],
 [[
@@ -1790,7 +1686,6 @@ Steel Ring
 Source: Drops from unique{Uber Incarnation of Fear} in normal{Moment of Trauma}
 Variant: Pre 3.28.0
 Variant: Current
-Requires Level 80
 Implicits: 1
 AddedPhysicalDamageImplicitRing2
 StrengthAndDexterityUnique_1
@@ -1823,7 +1718,6 @@ Variant: Enemies Cannot Leech Life
 Variant: Reduced Curse Effect
 Variant: Attacks Cannot Be Blocked
 Variant: Avoid Chained Projectiles
-Requires Level 64
 Implicits: 1
 AllResistancesImplicitRing1
 {variant:13}{group:1}IncreasedAttackSpeedUnique__9

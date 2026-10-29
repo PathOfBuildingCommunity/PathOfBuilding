@@ -7,7 +7,6 @@ Advancing Fortress
 Gut Ripper
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 46, 80 Dex, 80 Int
 Implicits: 2
 {variant:1}Grants 21 Life per Enemy Hit
 {variant:2}Grants 44 Life per Enemy Hit
@@ -23,7 +22,6 @@ Replica Advancing Fortress
 Gut Ripper
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 46, 80 Dex, 80 Int
 Implicits: 1
 Grants 44 Life per Enemy Hit
 Socketed Gems are Supported by Level 12 Cast when Damage Taken
@@ -37,7 +35,6 @@ Allure
 Vaal Claw
 Variant: Pre 3.0.0
 Variant: Current
-Requires Level 66, 131 Dex, 95 Int
 Implicits: 1
 2% of Physical Attack Damage Leeched as Life
 {variant:1}(80-100)% increased Physical Damage
@@ -52,7 +49,6 @@ Replica Allure
 Vaal Claw
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 66, 95 Dex, 131 Int
 Implicits: 1
 2% of Physical Attack Damage Leeched as Life
 (110-130)% increased Physical Damage
@@ -71,7 +67,6 @@ Variant: Pre 3.0.0
 Variant: Pre 3.7.0
 Variant: Pre 3.11.0
 Variant: Current
-Requires Level 26, 39 Dex, 56 Int
 Implicits: 3
 {variant:2}2% of Physical Attack Damage Leeched as Life
 {variant:1}Grants 8 Life per Enemy Hit
@@ -93,7 +88,6 @@ Variant: Pre 3.0.0
 Variant: Pre 3.20.0
 Variant: Pre 3.28.0
 Variant: Current
-Requires Level 62, 131 Dex, 95 Int
 Implicits: 1
 1.6% of Physical Attack Damage Leeched as Life
 {variant:1}(100-120)% increased Physical Damage
@@ -115,7 +109,6 @@ Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 37, 53 Dex, 77 Int
 Implicits: 3
 {variant:1}Grants 15 Life per Enemy Hit
 {variant:2}Grants 21 Life per Enemy Hit
@@ -130,7 +123,7 @@ Implicits: 3
 ]],[[
 Essentia Sanguis
 {variant:1,2,3}Eye Gouger
-{variant:4,5,6}Vaal Claw
+{variant:4,5,6,7}Vaal Claw
 Variant: Pre 1.3.0
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
@@ -163,7 +156,7 @@ Implicits: 4
 ]],[[
 Hand of Thought and Motion
 {variant:1,2,3}Blinder
-{variant:4}Imperial Claw
+{variant:4,5}Imperial Claw
 League: Breach
 Source: Drops in Esh Breach or from unique{Esh, Forked Thought}
 Upgrade: Upgrades to unique{Hand of Wisdom and Action} using currency{Blessing of Esh}
@@ -197,7 +190,6 @@ Variant: Pre 3.0.0
 Variant: Pre 3.21.0
 Variant: Pre 3.26.0
 Variant: Current
-Requires Level 68, 131 Dex, 95 Int
 Implicits: 2
 {variant:1}Grants 25 Life per Enemy Hit
 {variant:2,3,4,5}Grants 46 Life per Enemy Hit
@@ -216,7 +208,6 @@ Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Pre 3.7.0
 Variant: Current
-Requires Level 68, 131 Dex, 95 Int
 Implicits: 2
 {variant:1}Grants 25 Life per Enemy Hit
 {variant:2,3}Grants 46 Life per Enemy Hit
@@ -258,7 +249,6 @@ Variant: Pre 3.14.0
 Variant: Current
 League: Harvest
 Source: Drops from unique{Oshabi, Avatar of the Grove}
-Requires Level 62, 131 Dex, 95 Int
 Implicits: 1
 1.6% of Physical Attack Damage Leeched as Life
 {variant:1}20% chance to Trigger Level 20 Summon Spectral Wolf on Critical Strike with this Weapon
@@ -273,7 +263,6 @@ Variant: Pre 2.2.0
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Current
-Requires Level 34, 61 Dex, 61 Int
 Implicits: 2
 {variant:1,2}2% of Physical Attack Damage Leeched as Life
 {variant:3,4}Grants 20 Life per Enemy Hit
@@ -293,7 +282,6 @@ Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Pre 3.21.0
 Variant: Current
-Requires Level 46, 80 Dex, 80 Int
 Implicits: 2
 {variant:1}Grants 21 Life per Enemy Hit
 {variant:2,3,4}Grants 44 Life per Enemy Hit
@@ -308,7 +296,6 @@ Hits can't be Evaded
 ]],[[
 Rive
 Terror Claw
-Requires Level 70, 113 Dex, 113 Int
 Implicits: 1
 2% of Physical Attack Damage Leeched as Life
 (60-80)% increased Physical Damage
@@ -322,7 +309,6 @@ The Scourge
 Terror Claw
 Variant: Pre 3.11.0
 Variant: Current
-Requires Level 70, 113 Dex, 113 Int
 Implicits: 1
 2% of Physical Attack Damage Leeched as Life
 {variant:1}Trigger Level 10 Summon Spectral Wolf on Kill
@@ -336,7 +322,6 @@ Touch of Anguish
 Imperial Claw
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 68, 131 Dex, 95 Int
 Implicits: 2
 {variant:1}Grants 25 Life per Enemy Hit
 {variant:2}Grants 46 Life per Enemy Hit
@@ -352,7 +337,6 @@ The Wasp Nest
 Throat Stabber
 Variant: Pre 3.7.0
 Variant: Current
-Requires Level 60, 113 Dex, 113 Int
 Implicits: 1
 Grants 40 Life per Enemy Hit
 (150-170)% increased Physical Damage
@@ -368,7 +352,6 @@ Wildslash
 Awl
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 12, 25 Dex, 25 Int
 Implicits: 2
 {variant:1}Grants 5 Life per Enemy Hit
 {variant:2}Grants 7 Life per Enemy Hit
