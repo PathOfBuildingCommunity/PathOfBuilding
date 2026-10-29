@@ -2821,6 +2821,7 @@ skills["ColdSnap"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
+		duration = true,
 	},
 	baseMods = {
 		skill("dotIsArea", true),

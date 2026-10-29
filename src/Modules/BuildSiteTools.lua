@@ -22,7 +22,7 @@ buildSites.websiteList = {
 		codeOut = "https://maxroll.gg/poe/pob/", postUrl = "https://maxroll.gg/poe/api/pob", postFields = "pobCode=", linkURL = "maxroll%.gg/poe/pob/%1"
 	},
 	{
-		label = "pob.codes", id = "PoBCodes", matchURL = "^https://pob%.codes/b/.+", regexURL = "pob%.codes/b/(.+)%s*$", downloadURL = "api.pob.codes/%1/raw",
+		label = "pob.codes", id = "PoBCodes", matchURL = "^https://pob%.codes/b/.+", regexURL = "pob%.codes/b/([^?%s]+)[^%s]*%s*$", downloadURL = "api.pob.codes/%1/raw",
 		codeOut = "https://pob.codes/b/", postUrl = "https://api.pob.codes/pob/plain", postFields = "", linkURL = "pob.codes/b/%1"
 	},
 	{

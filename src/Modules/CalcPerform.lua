@@ -643,7 +643,7 @@ local function doActorMisc(env, actor)
 
 	-- Add misc buffs/debuffs
 	if env.mode_combat then
-		if env.player.mainSkill.baseSkillModList:Flag(nil, "Cruelty") then
+		if env.player.mainSkill.baseSkillModList:Flag(env.player.mainSkill.skillCfg, "Cruelty") then
 			modDB.multipliers["Cruelty"] = modDB:Override(nil, "Cruelty") or 40
 		end
 		-- Minimum Rage
@@ -661,7 +661,7 @@ local function doActorMisc(env, actor)
 			local skillCfg = actor.mainSkill and actor.mainSkill.skillCfg
 			local maxStacks = m_max(modDB:Override(nil, "MaximumFortification") or modDB:Sum("BASE", skillCfg, "MaximumFortification"), alliedFortify)
 			local minStacks = m_min(modDB:Flag(nil, "Condition:HaveMaxFortification") and maxStacks or modDB:Sum("BASE", nil, "MinimumFortification"), maxStacks)
-			local stacks = m_min(modDB:Override(nil, "FortificationStacks") or (minStacks > 0 and minStacks) or maxStacks, maxStacks)
+			local stacks = m_min(modDB:Override(nil, "FortificationStacks") or maxStacks, maxStacks)
 			local increasedDuration = skillModList:Sum("INC", nil, "FortifyDuration")
 			output.MaximumFortification = maxStacks
 			output.MinimumFortification = minStacks
@@ -1770,7 +1770,20 @@ function calcs.perform(env, skipEHP)
 			end
 		end
 
+		local slotIndex = env.itemSlotIndex or { }
+		local orderedFlasks = { }
 		for item in pairs(flasks) do
+			t_insert(orderedFlasks, item)
+		end
+		table.sort(orderedFlasks, function(a, b)
+			local posA = slotIndex[a] or 0
+			local posB = slotIndex[b] or 0
+			if posA ~= posB then
+				return posA < posB
+			end
+			return (a.id or 0) < (b.id or 0)
+		end)
+		for _, item in ipairs(orderedFlasks) do
 			flaskBuffsPerBase[item.baseName] = flaskBuffsPerBase[item.baseName] or {}
 			flaskBuffsPerBaseNonPlayer[item.baseName] = flaskBuffsPerBaseNonPlayer[item.baseName] or {}
 			local instantPerc = getFlaskInstantRecovery(item)
@@ -1902,7 +1915,20 @@ function calcs.perform(env, skipEHP)
 				mergeBuff(srcList, tinctureBuffsPerBase[item.baseName], key)
 			end
 		end
+		local slotIndex = env.itemSlotIndex or { }
+		local orderedTinctures = { }
 		for item in pairs(tinctures) do
+			t_insert(orderedTinctures, item)
+		end
+		table.sort(orderedTinctures, function(a, b)
+			local posA = slotIndex[a] or 0
+			local posB = slotIndex[b] or 0
+			if posA ~= posB then
+				return posA < posB
+			end
+			return (a.id or 0) < (b.id or 0)
+		end)
+		for _, item in ipairs(orderedTinctures) do
 			if tinctureLimit <= 0 then
 				break
 			end
@@ -3795,8 +3821,8 @@ function calcs.perform(env, skipEHP)
 	end
 
 	calcs.triggers(env, env.player)
-	if not calcs.mirages(env) then
-		calcs.offence(env, env.player, env.player.mainSkill)
+	if not calcs.mirages(env) and calcs.offence(env, env.player, env.player.mainSkill) == false then
+		return false -- Rejected trigger-source probes are never cached
 	end
 
 	if env.minion then

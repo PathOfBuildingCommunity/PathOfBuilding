@@ -200,4 +200,36 @@ Implicits: 0]])
 		end
 		assert.truthy(found)
 	end)
+
+	for _, target in ipairs({ { "NOTES", "notesTab", "edit" }, { "PARTY", "partyTab", "editAuras" } }) do
+		it("keeps " .. target[1] .. " changes unsaved after exporting a build", function()
+			build:ResetModFlags()
+			local tab = build[target[2]]
+			tab.controls[target[3]]:SetText("Unsaved text")
+			build.viewMode = target[1]
+			runCallback("OnFrame")
+			assert.is_true(build.unsaved)
+			local xml = build:SaveDB("code")
+			assert.is_truthy(xml:find("Unsaved text", 1, true))
+			runCallback("OnFrame")
+			assert.is_true(build.unsaved)
+			assert.is_true(tab.modFlag)
+
+			local openFile = io.open
+			local written
+			io.open = function()
+				return { write = function(_, text) written = text; return true end, close = function() return true end }
+			end
+			build.dbFileName = "test.xml"
+			local ok, err = pcall(build.SaveDBFile, build)
+			io.open = openFile
+			build.dbFileName = nil
+			assert.is_true(ok, err)
+			assert.is_truthy(written:find("Unsaved text", 1, true))
+			runCallback("OnFrame")
+			assert.is_false(build.unsaved)
+			assert.is_false(tab.modFlag)
+		end)
+	end
+
 end)

@@ -651,7 +651,7 @@ return function(skills, mod, flag, skill)
 #mods
 
 #skill ColdSnap
-#flags spell area
+#flags spell area duration
 #baseMod skill("dotIsArea", true)
 #baseMod skill("radiusLabel", "Initial Burst:")
 #baseMod skill("radiusSecondaryLabel", "Initial Chilled Ground:")

@@ -651,6 +651,14 @@ function PartyTabClass:Save(xml)
 		t_insert(child, exportString)
 		t_insert(xml, child)
 	end
+	xml.attrib = {
+		destination = self.controls.importCodeDestination.list[self.controls.importCodeDestination.selIndex],
+		append = tostring(self.controls.appendNotReplace.state),
+		ShowAdvanceTools = tostring(self.controls.ShowAdvanceTools.state)
+	}
+end
+
+function PartyTabClass:ResetModFlags()
 	self.lastContent.PartyMemberStats = self.controls.editPartyMemberStats.buf
 	self.lastContent.Aura = self.controls.editAuras.buf
 	self.lastContent.Curse = self.controls.editCurses.buf
@@ -659,12 +667,8 @@ function PartyTabClass:Save(xml)
 	self.lastContent.EnemyCond = self.controls.enemyCond.buf
 	self.lastContent.EnemyMods = self.controls.enemyMods.buf
 	self.lastContent.EnableExportBuffs = self.enableExportBuffs
-	xml.attrib = {
-		destination = self.controls.importCodeDestination.list[self.controls.importCodeDestination.selIndex],
-		append = tostring(self.controls.appendNotReplace.state),
-		ShowAdvanceTools = tostring(self.controls.ShowAdvanceTools.state)
-	}
 	self.lastContent.showAdvancedTools = self.controls.ShowAdvanceTools.state
+	self.modFlag = false
 end
 
 function PartyTabClass:Draw(viewPort, inputEvents)
@@ -997,7 +1001,7 @@ function PartyTabClass:exportBuffs(buffType)
 		return self.buffExports[buffType].string
 	end
 	local buf = ((buffType == "Curse") and ("--- Curse Limit ---\n" .. tostring(self.buffExports["CurseLimit"]))) or ""
-	for buffName, buff in pairs(self.buffExports[buffType]) do
+	for buffName, buff in pairsSortByKey(self.buffExports[buffType]) do
 		if buffName ~= "extraAura" or #buff.modList > 0 then
 			if #buf > 0 then
 				buf = buf.."\n"
@@ -1014,7 +1018,7 @@ function PartyTabClass:exportBuffs(buffType)
 				buf = buf.."\n"..tostring(buff.effectMult * 100)
 			end
 			if buffType == "Aura" and buffName == "otherEffects" then
-				for innerBuffName, innerBuff in pairs(buff) do
+				for innerBuffName, innerBuff in pairsSortByKey(buff) do
 					for _, mod in ipairs(innerBuff.modList) do
 						buf = buf.."\n"..innerBuffName.."|"..tostring(innerBuff.effectMult * 100).."|"..modLib.formatSourceMod(mod)
 					end

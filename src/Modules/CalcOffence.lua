@@ -1293,7 +1293,7 @@ function calcs.offence(env, actor, activeSkill)
 		local baseCooldown = skillData.trapCooldown or skillData.cooldown
 		if baseCooldown or skillModList:Sum("BASE", skillCfg, "CooldownRecovery") ~= 0 then
 			if baseCooldown then
-				output.TrapCooldown = baseCooldown / calcLib.mod(skillModList, skillCfg, "CooldownRecovery")
+				output.TrapCooldown = skillModList:Override(skillCfg, "CooldownRecovery") or baseCooldown / calcLib.mod(skillModList, skillCfg, "CooldownRecovery")
 				output.TrapCooldown = m_ceil(output.TrapCooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
 			else -- Assign Trap Cooldown if the trap/skill does not have cooldown but gain cooldown elsewhere
 				local cooldown, _, _ = calcSkillCooldown(skillModList, skillCfg, skillData)
@@ -1894,6 +1894,10 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 	end
+	-- A trigger-source probe only needs the cost; skip the damage work for candidates that cannot pay it
+	if env.triggerSourceCost and actor == env.player and (output[env.triggerSourceCost.stat] or 0) < env.triggerSourceCost.minimum then
+		return false
+	end
 	-- Eldritch Battery adds maximum Energy Shield to the Mana available for payable-cost damage.
 	output.ManaCostPayablePool = (output.ManaUnreserved or 0) + (modDB:Flag(nil, "EnergyShieldProtectsMana") and output.EnergyShield or 0)
 
@@ -1903,6 +1907,18 @@ function calcs.offence(env, actor, activeSkill)
 		local multiplier = 0.25
 		skillModList:NewMod("PhysicalMin", "BASE", m_floor(output.ManaCost * multiplier), "Sacrificial Zeal", ModFlag.Spell)
 		skillModList:NewMod("PhysicalMax", "BASE", m_floor(output.ManaCost * multiplier), "Sacrificial Zeal", ModFlag.Spell)
+	end
+
+	if skillData.sacrificeLifePercent then
+		local life
+		if skillFlags.totem then
+			life = output.TotemLife
+		else
+			life = output.LifeUnreserved
+		end
+		local add = m_floor(life * skillData.sacrificeLifePercent / 100 * (skillData.sacrificeLifeAsChaos / 100))
+		skillModList:NewMod("ChaosMin", "BASE", add, "Sacrifice Support")
+		skillModList:NewMod("ChaosMax", "BASE", add, "Sacrifice Support")
 	end
 
 	runSkillFunc("preDamageFunc")
@@ -1930,8 +1946,13 @@ function calcs.offence(env, actor, activeSkill)
 
 	-- Cache global damage disabling flags
 	local canDeal = { }
+	local damageDisableMods = breakdown and { }
 	for _, damageType in ipairs(dmgTypeList) do
-		canDeal[damageType] = not skillModList:Flag(skillCfg, "DealNo"..damageType, "DealNoDamage")
+		local damageDisabled = skillModList:Flag(skillCfg, "DealNo"..damageType, "DealNoDamage")
+		canDeal[damageType] = not damageDisabled
+		if damageDisableMods and damageDisabled then
+			damageDisableMods[damageType] = skillModList:Tabulate("FLAG", skillCfg, "DealNo"..damageType, "DealNoDamage")
+		end
 	end
 
 	-- Calculate damage conversion percentages
@@ -2275,6 +2296,10 @@ function calcs.offence(env, actor, activeSkill)
 			output.Speed = 0
 		elseif skillData.timeOverride then
 			output.Time = skillData.timeOverride
+			local cooldown = globalOutput.TrapCooldown or globalOutput.Cooldown
+			if cooldown then
+				output.Time = m_max(output.Time, cooldown)
+			end
 			output.Speed = 1 / output.Time
 		elseif skillData.fixedCastTime then
 			output.Time = activeSkill.activeEffect.grantedEffect.castTime
@@ -2908,7 +2933,9 @@ function calcs.offence(env, actor, activeSkill)
 							local castTime = 1 / m_min(castRate, data.misc.ServerTickRate)
 							local count = value.skillModList:Sum("BASE", value.skillCfg, pactKey.."EmpoweredSpells")
 							local storedUses = value.skillData.storedUses + value.skillModList:Sum("BASE", value.skillCfg, "AdditionalCooldownUses")
-							local uptime = (globalOutput.Speed or 0) == 0 and 100 or m_min((count / globalOutput.Speed) / (cooldown + castTime), 1) * 100
+							-- Repeated spells retain the empowerment from the initial cast without consuming another use.
+							local empoweredUseRate = globalOutput.Speed / globalOutput.Repeats
+							local uptime = empoweredUseRate == 0 and 100 or m_min((count / empoweredUseRate) / (cooldown + castTime), 1) * 100
 							uptime = m_min(100, uptime * storedUses)
 							local effect = skillModList:Flag(nil, "Condition:PactMaxHit") and 100 or uptime
 							local effectMult = effect / 100
@@ -2921,7 +2948,7 @@ function calcs.offence(env, actor, activeSkill)
 							if globalBreakdown then
 								globalBreakdown[pactKey.."UpTimeRatio"] = {
 									s_format("(%.2f ^8(number of Empowered)", count),
-									s_format("/ %.2f) ^8(casts per second)", globalOutput.Speed or 0),
+									s_format("/ %.2f) ^8(non-repeated casts per second)", empoweredUseRate),
 									s_format("/ (%.2f ^8(pact cooldown)", cooldown),
 									s_format("+ %.2f) ^8(pact cast time)", castTime),
 									s_format("* %.2f ^8(stored uses)", storedUses),
@@ -2942,7 +2969,7 @@ function calcs.offence(env, actor, activeSkill)
 									globalOutput.ProjectileCount = globalOutput.ProjectileCount + globalOutput.BeidatAdditionalProjectiles
 								end
 								if skillFlags.chaining and not skillFlags.projectile and not skillModList:Flag(skillCfg, "CannotChain") and not skillModList:Flag(skillCfg, "NoAdditionalChains") then
-									globalOutput.BeidatAdditionalBeamChains = value.skillModList:Sum("BASE", value.skillCfg, "BeidatAdditionalBeamChains") * effectMult
+									globalOutput.BeidatAdditionalBeamChains = value.skillModList:Sum("BASE", value.skillCfg, "BeidatAdditionalBeamChains") * effectMult * skillModList:More(skillCfg, "ChainCountMax")
 									globalOutput.ChainMax = globalOutput.ChainMax + globalOutput.BeidatAdditionalBeamChains
 									globalOutput.ChainMaxString = globalOutput.ChainMax
 									globalOutput.ChainRemaining = m_max(0, globalOutput.ChainMax - globalOutput.Chain)
@@ -3640,7 +3667,8 @@ function calcs.offence(env, actor, activeSkill)
 				else
 					if breakdown then
 						breakdown[damageType] = {
-							"You can't deal "..damageType.." damage"
+							"You can't deal "..damageType.." damage",
+							modList = damageDisableMods[damageType],
 						}
 					end
 				end

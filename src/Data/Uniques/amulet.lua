@@ -212,7 +212,7 @@ Badge of the Brotherhood
 Turquoise Amulet
 Requires Level: 20
 League: Blight
-Implicits: 0
+Implicits: 1
 {tags:attribute}+(16-24) to Dexterity and Intelligence
 Your Maximum Frenzy Charges is equal to your Maximum Power Charges
 (7-10)% increased Cooldown Recovery Rate of Travel Skills per Frenzy Charge
@@ -960,7 +960,7 @@ Blind you inflict is Reflected to you
 ]],[[
 Rigwald's Curse
 {variant:1,2}Wereclaw Talisman
-{variant:3} Wolf Alpha Talisman
+{variant:3}Wolf Alpha Talisman
 League: Talisman Standard
 Variant: Pre 2.2.0
 Variant: Pre 3.29.0
