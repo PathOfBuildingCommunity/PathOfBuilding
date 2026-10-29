@@ -1209,6 +1209,9 @@ function ImportTabClass:ImportPassiveTreeAndJewels(charData, deleteJewels)
 		)
 	self.build.treeTab:SetActiveSpec(self.build.treeTab.activeSpec)
 	self.build.spec:BuildClusterJewelGraphs()
+	-- Imported cluster allocations must not be reapplied by later item or tree edits.
+	self.build.spec.jewel_data = nil
+	self.build.spec.extended_hashes = nil
 	self.build.spec:AddUndoState()
 	self.build.characterLevel = charData.level or 100
 	self.build.characterLevelAutoMode = false
