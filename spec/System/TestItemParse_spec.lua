@@ -843,6 +843,40 @@ describe("TestAdvancedItemParse #item", function()
 		assert.are.equals("Adds 14 to 285 Lightning Damage", item.explicitModLines[2].line)
 	end)
 
+	it("preserves corrupted modifier identity and requirement through crafting", function()
+		local item = new("Item"):Item([[
+			Rarity: Rare
+			Test Ring
+			Gold Ring
+			Crafted: true
+			Prefix: None
+			Prefix: None
+			Prefix: None
+			Suffix: None
+			Suffix: None
+			Suffix: None
+			LevelReq: 1
+			Implicits: 1
+			{modGroup:IncreasedCastSpeedCorrupted}(4-6)% increased Cast Speed
+			Corrupted
+		]])
+
+		assert.are.equals("IncreasedCastSpeedCorrupted", item.implicitModLines[1].modGroup)
+		item:BuildAndParseRaw()
+		assert.are.equals("IncreasedCastSpeedCorrupted", item.implicitModLines[1].modGroup)
+
+		item:Craft()
+		assert.are.equals(1, item.requirements.level)
+
+		item.suffixes[1] = { modId = "Strength8", range = 0.5 }
+		item:Craft()
+		assert.are.equals(59, item.requirements.level)
+
+		item.suffixes[1] = { modId = "None" }
+		item:Craft()
+		assert.are.equals(1, item.requirements.level)
+	end)
+
 	it("filters flask base properties and parses fixed-value advanced rolls", function()
 		local item = new("Item"):Item([[
 			Rarity: Unique

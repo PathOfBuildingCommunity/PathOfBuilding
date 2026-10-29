@@ -2051,8 +2051,61 @@ function ItemClass:BuildAndParseRaw()
 	self:ParseRaw(raw)
 end
 
+function ItemClass:GetCorruptedImplicitMods()
+	local mods = { }
+	local seen = { }
+	for _, modLine in ipairs(self.implicitModLines) do
+		local modId = modLine.modGroup
+		if modId and not seen[modId] then
+			local mod = data.itemMods.Corrupted[modId]
+			if mod and mod.type == "Corrupted" then
+				seen[modId] = true
+				t_insert(mods, mod)
+			end
+		end
+	end
+	return mods
+end
+
+function ItemClass:CalculateCorruptedRequirement(corruptedMods, existingRequirement)
+	local requirement
+	local canRecalculate = self.crafted and self.rarity ~= "UNIQUE" and self.rarity ~= "RELIC"
+	if canRecalculate then
+		if self.base.weapon or self.base.armour or self.base.flask then
+			requirement = self.base.req.level or 1
+		else
+			-- Other bases have a pre-implicit requirement of 1 in the base exporter.
+			requirement = 1
+		end
+		for _, list in ipairs({ self.prefixes, self.suffixes }) do
+			for _, affix in ipairs(list) do
+				if affix.modId ~= "None" then
+					local mod = affix.modId and self.affixes[affix.modId]
+					if not mod then
+						canRecalculate = false
+						break
+					end
+					requirement = m_max(requirement, m_floor(mod.level * 0.8))
+				end
+			end
+			if not canRecalculate then
+				break
+			end
+		end
+	end
+	if not canRecalculate then
+		requirement = existingRequirement or self.requirements.level or self.base.req.level or 1
+	end
+	for _, mod in ipairs(corruptedMods) do
+		requirement = m_max(requirement, m_floor(mod.level * 0.8))
+	end
+	return requirement
+end
+
 -- Rebuild explicit modifiers using the item's affixes
 function ItemClass:Craft()
+	local existingLevelRequirement = self.requirements.level
+	local corruptedImplicitMods = self:GetCorruptedImplicitMods()
 	-- Save off any crafted or custom mods so they can be re-added at the end
 	local savedMods = {}
 	for _, mod in ipairs(self.explicitModLines) do
@@ -2112,6 +2165,13 @@ function ItemClass:Craft()
 	end
 	if #self.explicitModLines > 1 then
 		sortCraftedModLines(self.explicitModLines)
+	end
+	if self.corrupted then
+		if #corruptedImplicitMods > 0 then
+			self.requirements.level = self:CalculateCorruptedRequirement(corruptedImplicitMods, existingLevelRequirement)
+		else
+			self.requirements.level = m_max(self.requirements.level or 0, existingLevelRequirement or 0)
+		end
 	end
 
 	self:BuildAndParseRaw()
