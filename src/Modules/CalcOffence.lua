@@ -1038,6 +1038,9 @@ function calcs.offence(env, actor, activeSkill)
 	if skillModList:Flag(nil, "SupportedByMomentum") then
 		local maxMomentumStacks = skillModList:Sum("BASE", skillCfg, "MomentumStacksMax")
 		local extraMomentumStacks = skillModList:Sum("BASE", skillCfg, "MomentumStacksExtra")
+		if actor == env.player then
+			env.configDefaults.MomentumStacks = m_min((maxMomentumStacks + extraMomentumStacks) / 2, maxMomentumStacks)
+		end
 		if maxMomentumStacks > 0 then
 			if not modDB:HasMod("BASE", nil, "Multiplier:MomentumStacks") then
 				modDB:NewMod("Multiplier:MomentumStacks", "BASE", m_min((maxMomentumStacks + extraMomentumStacks) / 2, maxMomentumStacks), "Config", { type = "Condition", var = "Combat" })
@@ -1266,6 +1269,9 @@ function calcs.offence(env, actor, activeSkill)
 			trapThrowCount = 1
 		end
 		output.TrapThrowCount = env.modDB:Override(nil, "TrapThrowCount") or trapThrowCount
+		if actor == env.player then
+			env.configDefaults.trapsPerThrow = trapThrowCount
+		end
 		output.TrapThrowingSpeed = m_min(output.TrapThrowingSpeed, data.misc.ServerTickRate)
 		output.TrapThrowingTime = 1 / output.TrapThrowingSpeed
 		skillData.timeOverride = output.TrapThrowingTime / output.TrapThrowCount
@@ -1355,6 +1361,9 @@ function calcs.offence(env, actor, activeSkill)
 			mineThrowCount = 1
 		end
 		output.MineThrowCount = env.modDB:Override(nil, "MineThrowCount") or mineThrowCount
+		if actor == env.player then
+			env.configDefaults.minesPerThrow = mineThrowCount
+		end
 		if output.MineThrowCount >= 1 then
 			-- Throwing Mines takes 10% more time for each *additional* Mine thrown
 			output.MineLayingSpeed = output.MineLayingSpeed / (1 + (output.MineThrowCount - 1) * 0.1)
@@ -4461,6 +4470,9 @@ function calcs.offence(env, actor, activeSkill)
 			end
 
 			-- ratio of bleeds applied : max effective bleeds
+			if actor == env.player then
+				env.configDefaults.overrideBleedStackPotential = bleedStacks
+			end
 			globalOutput.BleedStackPotential = overrideStackPotential or (bleedStacks / maxStacks)
 
 			if globalBreakdown then
@@ -5039,6 +5051,9 @@ function calcs.offence(env, actor, activeSkill)
 				end
 			end
 			-- ratio of ignites applied : max effective ignites
+			if actor == env.player then
+				env.configDefaults.overrideIgniteStackPotential = igniteStacks
+			end
 			globalOutput.IgniteStackPotential = overrideStackPotential or (igniteStacks / maxStacks)
 			if globalBreakdown then
 				globalBreakdown.IgniteStackPotential = {

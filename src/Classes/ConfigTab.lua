@@ -760,8 +760,10 @@ function ConfigTabClass:ConfigTab(build)
 							local valueMapped
 							if varData.type == "check" then
 								valueMapped = not cur
+							elseif type(value) == "table" then
+								valueMapped = value.val
 							else
-								valueMapped = type(value) == "table" and value.val or value
+								valueMapped = value
 							end
 							if (valueMapped ~= cur) then
 								local buildFlag = self.build.buildFlag
@@ -1006,12 +1008,24 @@ function ConfigTabClass:Save(xml)
 end
 
 -- These hints describe calculated defaults only; saving/applying them as config
--- placeholders would turn them into overrides and prevent maxima from updating.
-function ConfigTabClass:UpdateMaximumPlaceholders(env)
+-- placeholders would turn them into overrides and prevent defaults from updating.
+function ConfigTabClass:UpdateCalculatedPlaceholders(env)
 	local output = env.player.output
+	local modDB = env.player.modDB
 	local skill = env.player.mainSkill
 	local skillModList, cfg = skill.skillModList, skill.skillCfg
 	local values = {
+		manabondMissingUnreservedManaPercentage = 100,
+		perforateSpikeOverlap = 1,
+		ShrapnelBallistaProjectileOverlap = 1,
+		stormRainBeamOverlap = 1,
+		stormRainActiveArrows = 1,
+		toxicRainPodOverlap = 1,
+		raiseSpectreBladeVortexBladeCount = 1,
+		curseOverlaps = 1,
+		detonateDeadCorpseLife = env.data.monsterLifeTable[env.enemyLevel],
+		multiplierPvpDamage = 100,
+		enemyMultiplierPvpDamage = 100,
 		overrideCrabBarriers = output.CrabBarriersMax,
 		BrandsAttachedToEnemy = output.BrandsAttachedLimit,
 		overrideCruelty = 40,
@@ -1032,18 +1046,33 @@ function ConfigTabClass:UpdateMaximumPlaceholders(env)
 	for _, charge in ipairs({ "Power", "Frenzy", "Endurance" }) do
 		values["minionsOverride"..charge.."Charges"] = env.minion and env.minion.output[charge.."ChargesMax"]
 	end
+	for _, stat in ipairs({ "TotalMinionLife", "TotalSpectreLife", "TotalTotemLife", "TotalRadianceSentinelLife", "TotalVoidSpawnLife", "TotalStoneGolemLife", "TotalVaalRejuvenationTotemLife" }) do
+		local source = modDB:Flag(nil, "MinionLifeShares"..stat) and "TotalMinionLife" or stat
+		values[stat] = env.configDefaults[source] or modDB:Sum("BASE", nil, source)
+	end
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
-		if activeSkill.activeEffect.grantedEffect.name == "Rage Vortex" then
+		local name = activeSkill.activeEffect.grantedEffect.name
+		if name == "Tornado Shot" then
+			values.tornadoShotSecondaryHitChance = m_min(20 * activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "tornadoShotSecondaryProjectiles"), 100)
+		elseif name:match("^Shrapnel Ballista") and activeSkill.skillTypes[SkillType.Rain] then
+			local mods, skillCfg = activeSkill.skillModList, activeSkill.skillCfg
+			if mods:Flag(skillCfg, "NoAdditionalProjectiles", "SingleProjectile") then
+				values.ShrapnelBallistaProjectileOverlap = 1
+			else
+				local projectiles = m_floor(mods:Sum("BASE", skillCfg, "ProjectileCount") * mods:More(skillCfg, "ProjectileCount"))
+				values.ShrapnelBallistaProjectileOverlap = m_max(m_min(projectiles, mods:Override(skillCfg, "ProjectileCountMaximum") or math.huge), mods:Sum("BASE", skillCfg, "ProjectileCountMinimum"))
+			end
+		elseif name == "Rage Vortex" then
 			local maxRage = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "MaximumRage")
 			values.sacrificedRageCount = m_floor(maxRage * (activeSkill.skillData.MaxRageVortexSacrificePercentage or 0) / 100)
 		end
 	end
 	for _, varData in ipairs(varList) do
-		if varData.label and varData.label:find("(if not maximum)", 1, true) then
+		if varData.showDefaultPlaceholder or varData.placeholderStat or (varData.label and varData.label:find("(if not maximum)", 1, true)) then
 			local control = self.varControls[varData.var]
 			if control then
-				local value = values[varData.var]
-				control:SetPlaceholder(value ~= nil and string.format("%g", value) or "", false)
+				local value = varData.placeholderStat and output[varData.placeholderStat] or env.configDefaults[varData.var] or values[varData.var]
+				control:SetPlaceholder(type(value) == "number" and string.format("%g", value) or "", false)
 			end
 		end
 	end
@@ -1162,13 +1191,15 @@ end
 function ConfigTabClass:UpdateLevel()
 	local input = self.configSets[self.activeConfigSetId].input
 	local placeholder = self.configSets[self.activeConfigSetId].placeholder
+	local defaultLevel = placeholder.enemyLevel and placeholder.enemyLevel > 0 and placeholder.enemyLevel or m_min(83, self.build.characterLevel)
 	if input.enemyLevel and input.enemyLevel > 0 then
 		self.enemyLevel = m_min(data.misc.MaxEnemyLevel, input.enemyLevel)
-	elseif placeholder.enemyLevel and placeholder.enemyLevel > 0 then
-		self.enemyLevel = m_min(data.misc.MaxEnemyLevel, placeholder.enemyLevel)
 	else
-		self.enemyLevel = m_min(data.misc.MaxEnemyLevel, self.build.characterLevel)
+		self.enemyLevel = m_min(data.misc.MaxEnemyLevel, defaultLevel)
 	end
+	-- Boss-mode changes and tooltip previews rebuild the mod list without always
+	-- rebuilding the calculated output. Keep this display-only hint in sync here.
+	self.varControls.enemyLevel:SetPlaceholder(m_min(data.misc.MaxEnemyLevel, defaultLevel), false)
 end
 
 function ConfigTabClass:BuildModList()

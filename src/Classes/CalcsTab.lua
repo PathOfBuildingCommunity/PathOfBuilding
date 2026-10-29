@@ -460,7 +460,7 @@ function CalcsTabClass:BuildOutput()
 	self.mainOutput = self.mainEnv.player.output
 	self.calcsEnv = self.calcs.buildOutput(self.build, "CALCS")
 	self.calcsOutput = self.calcsEnv.player.output
-	self.build.configTab:UpdateMaximumPlaceholders(self.mainEnv)
+	self.build.configTab:UpdateCalculatedPlaceholders(self.mainEnv)
 
 	if self.displayData then
 		self.controls.breakdown:SetBreakdownData()

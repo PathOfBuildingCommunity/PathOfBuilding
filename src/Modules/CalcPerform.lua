@@ -838,6 +838,9 @@ local function doActorMisc(env, actor)
 			end
 			-- if we want the max skill to not be noted as its own breakdown table entry, comment out below
 			modDB:NewMod("ElusiveEffect", "INC", maxSkillInc, "Max Skill Effect")
+			if actor == env.player then
+				env.configDefaults.overrideBuffElusive = output.ElusiveEffectMod
+			end
 			-- Override elusive effect if set.
 			if modDB:Override(nil, "ElusiveEffect") then
 				output.ElusiveEffectMod = m_min(modDB:Override(nil, "ElusiveEffect"), peakElusiveEffect)
@@ -1354,6 +1357,11 @@ function calcs.perform(env, skipEHP)
 		modDB:NewMod("Multiplier:BannerValour", "BASE", m_min(stacks, max), "Base")
 	end
 
+	local defaultWarcryPower = m_max(modDB:Sum("BASE", nil, "WarcryPower") * (1 + modDB:Sum("INC", nil, "WarcryPower") / 100), modDB:Sum("BASE", nil, "MinimumWarcryPower"))
+	if modDB:Flag(nil, "CryWolfMinimumPower") and modDB:Sum("BASE", nil, "WarcryPower") < 10 then
+		defaultWarcryPower = 10
+	end
+	env.configDefaults.multiplierWarcryPower = modDB:Flag(nil, "WarcryInfinitePower") and 999999 or defaultWarcryPower
 	if modDB:Flag(nil, "CryWolfMinimumPower") and modDB:Sum("BASE", nil, "WarcryPower") < 10 then
 		modDB:NewMod("WarcryPower", "OVERRIDE", 10, "Minimum Warcry Power from CryWolf")
 	end
@@ -1506,11 +1514,13 @@ function calcs.perform(env, skipEHP)
 	end
 
 	local summonedMinions = 0
+	env.configDefaults.multiplierNonVaalSummonedMinion = 0
 	output.PermanentMinionsMax = 0
 	for _, counts in pairs(minionCounts) do
 		summonedMinions = summonedMinions + counts.total
 		modDB:NewMod("Multiplier:SummonedMinion", "BASE", counts.total, "Config", { type = "Condition", var = "Combat" })
 		if counts.nonVaal then
+			env.configDefaults.multiplierNonVaalSummonedMinion = env.configDefaults.multiplierNonVaalSummonedMinion + counts.nonVaal
 			modDB:NewMod("Multiplier:NonVaalSummonedMinion", "BASE", counts.nonVaal, "Config", { type = "Condition", var = "Combat" })
 		end
 		if counts.permanent then
@@ -3725,7 +3735,7 @@ function calcs.perform(env, skipEHP)
 				for _, pool in ipairs(pools) do
 					local canAdd = ((pool == spectreLifePool and spectreCount < spectreLimit)
 						or (pool ~= spectreLifePool and not calculatedLifePool[pool.life]))
-						and modDB:Sum("BASE", nil, pool.redirect) ~= 0 and not modDB:Override(nil, pool.life)
+						and modDB:Sum("BASE", nil, pool.redirect) ~= 0 and (not modDB:Override(nil, pool.life) or env.mode == "MAIN")
 					if canAdd then
 						if not minionLife then
 							if minion ~= env.minion then
@@ -3756,7 +3766,11 @@ function calcs.perform(env, skipEHP)
 							spectreCount = spectreCount + 1
 						end
 						local life = minionLife * count
-						modDB:NewMod(pool.life, "BASE", life, pool.source)
+						if modDB:Override(nil, pool.life) then
+							env.configDefaults[pool.life] = (env.configDefaults[pool.life] or modDB:Sum("BASE", nil, pool.life)) + life
+						else
+							modDB:NewMod(pool.life, "BASE", life, pool.source)
+						end
 						env.player.allyLifeList[pool.life] = env.player.allyLifeList[pool.life] or { }
 						local entry = { name = minion.minionData.name, life = life, count = count }
 						t_insert(env.player.allyLifeList[pool.life], entry)
@@ -3775,7 +3789,11 @@ function calcs.perform(env, skipEHP)
 			local life = firstSpectre.life * count
 			firstSpectre.entry.count = firstSpectre.entry.count + count
 			firstSpectre.entry.life = firstSpectre.entry.life + life
-			modDB:NewMod(spectreLifePool.life, "BASE", life, spectreLifePool.source)
+			if modDB:Override(nil, spectreLifePool.life) then
+				env.configDefaults[spectreLifePool.life] = env.configDefaults[spectreLifePool.life] + life
+			else
+				modDB:NewMod(spectreLifePool.life, "BASE", life, spectreLifePool.source)
+			end
 		end
 
 		local normalTotem
@@ -3798,6 +3816,12 @@ function calcs.perform(env, skipEHP)
 		local vaalPool = totemLifePoolByStat.TotalVaalRejuvenationTotemLife
 		local totemLifeOverride = modDB:Override(nil, "TotalTotemLife")
 		local totemRedirect = modDB:Sum("BASE", nil, totemPool.redirect)
+		if nearestTotem then
+			env.configDefaults.TotalTotemLife = nearestTotem.life + modDB:Sum("BASE", nil, "TotalTotemLife")
+		end
+		if vaalRejuvenationTotem then
+			env.configDefaults.TotalVaalRejuvenationTotemLife = vaalRejuvenationTotem.life + modDB:Sum("BASE", nil, "TotalVaalRejuvenationTotemLife")
+		end
 		local nearestIsVaal = nearestTotem and nearestTotem == vaalRejuvenationTotem and not totemLifeOverride
 		if nearestTotem and not nearestIsVaal and totemRedirect ~= 0 and not totemLifeOverride then
 			modDB:NewMod("TotalTotemLife", "BASE", nearestTotem.life, totemPool.source)
