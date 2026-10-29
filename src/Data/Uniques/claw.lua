@@ -130,7 +130,7 @@ Implicits: 3
 ]],[[
 Essentia Sanguis
 {variant:1,2,3}Eye Gouger
-{variant:4,5,6}Vaal Claw
+{variant:4,5,6,7}Vaal Claw
 Variant: Pre 1.3.0
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
@@ -163,7 +163,7 @@ Implicits: 4
 ]],[[
 Hand of Thought and Motion
 {variant:1,2,3}Blinder
-{variant:4}Imperial Claw
+{variant:4,5}Imperial Claw
 League: Breach
 Source: Drops in Esh Breach or from unique{Esh, Forked Thought}
 Upgrade: Upgrades to unique{Hand of Wisdom and Action} using currency{Blessing of Esh}

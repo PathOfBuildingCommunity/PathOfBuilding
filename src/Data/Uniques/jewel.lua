@@ -777,9 +777,9 @@ Radius: Variable
 Implicits: 0
 {variant:1}Only affects Passives in Small Ring
 {variant:5}Only affects Passives in Massive Ring
--(20-10)% to all Elemental Resistances
 Passive Skills in Radius can be Allocated without being connected to your tree
 Passage
+-(20-10)% to all Elemental Resistances
 {variant:2}Only affects Passives in Medium Ring
 {variant:3}Only affects Passives in Large Ring
 {variant:4}Only affects Passives in Very Large Ring

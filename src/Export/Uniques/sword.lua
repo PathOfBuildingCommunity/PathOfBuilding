@@ -622,7 +622,7 @@ Implicits: 2
 {variant:1}AccuracyPercentImplicit2HSword1[18,18]
 {variant:2,3}IncreasedAccuracySwordImplicit8
 {variant:1,2}LocalIncreasedPhysicalDamagePercentUniqueTwoHandSword1[40,60]
-{variant:3}LocalIncreasedPhysicalDamagePercentUniqueTwoHandSword1[80,100]
+{variant:3}LocalIncreasedPhysicalDamagePercentUnique__12
 LocalAddedPhysicalDamageUnique__12
 ManaGainPerTargetUnique__1
 WeaponCountsAsAllOneHandedWeapons__1
@@ -828,7 +828,7 @@ Implicits: 3
 {variant:2}AccuracyPercentImplicit2HSword1[40,40]
 {variant:3,4}AccuracyPercentImplicit2HSword1
 LocalIncreaseSocketedActiveSkillGemLevelUniqueTwoHandSword7_
-{variant:2,3,4}LocalIncreasedPhysicalDamagePercentUniqueOneHandSword13[40,60]
+{variant:2,3,4}LocalIncreasedPhysicalDamagePercentUniqueTwoHandSword7
 {variant:1}LocalIncreasedPhysicalDamagePercentUniqueOneHandSword13
 LocalChaosDamageUniqueTwoHandSword7
 {variant:1}LifeGainedOnEnemyDeathPerLevelUniqueTwoHandSword7

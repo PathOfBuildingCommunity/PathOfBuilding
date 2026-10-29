@@ -62,7 +62,7 @@ Implicits: 3
 {variant:1}LocalAddedFireDamageUnique__2[10,14][18,22]
 {variant:3,4,5}LocalAddedFireDamageUnique__2
 {variant:1,2}SpellAddedFireDamageUniqueWand10[4,6][7,9]
-{variant:3,4,5}SpellAddedFireDamageUniqueWand10[20,24][36,46]
+{variant:3,4,5}SpellAddedFireDamageUnique__3
 {variant:1}BurnDamageUnique__1[40,50]
 {variant:2}BurnDamageUnique__1
 {variant:1,2}ChanceToIgniteUnique__1
@@ -150,7 +150,7 @@ Variant: Current
 Implicits: 3
 {variant:1}SpellDamageOnWeaponImplicitWand9[12,16]
 {variant:2,3}SpellDamageOnWeaponImplicitWand9
-{variant:4}MinionDamageUniqueWand2[12,16]
+{variant:4}MinionDamageImplicitWand3
 LifeReservationUniqueWand2
 IntelligenceUniqueWand2
 {variant:1,2}MinionRunSpeedUniqueWand2[10,20]
@@ -168,7 +168,7 @@ League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 2
 {variant:1}SpellDamageOnWeaponImplicitWand9
-{variant:2}MinionDamageUniqueWand2[12,16]
+{variant:2}MinionDamageImplicitWand3
 LifeReservationUniqueWand2
 IntelligenceUniqueWand2
 MinionRunSpeedUnique__5
@@ -334,7 +334,7 @@ Variant: Pre 3.21.0
 Variant: Pre 3.29.0
 Variant: Current
 Implicits: 2
-{variant:1,2,4}SpellDamageUniqueWand1[35,39]
+{variant:1,2,4}SpellDamageOnWeaponImplicitWand16
 {variant:3}AddedLightningDamageSpellsAndAttacksImplicit3
 {variant:1,2,3}SpellDamageUniqueWand1
 {variant:1,2,3}SpellAddedLightningDamageUnique__5

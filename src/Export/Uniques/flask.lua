@@ -509,6 +509,7 @@ Replica Witchfire Brew
 Stibnite Flask
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
+Implicits: 1
 UtilityFlaskSmokeCloud
 FlaskChargesUsedUnique__4
 VulnerabilityAuraDuringFlaskEffectUnique__1Alt

@@ -518,8 +518,9 @@ Replica Witchfire Brew
 Stibnite Flask
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-(-10-10)% reduced Charges per use
+Implicits: 1
 Creates a Smoke Cloud on Use
+(-10-10)% reduced Charges per use
 Grants Level 21 Vulnerability Curse Aura during Effect
 ]],[[
 Wine of the Prophet

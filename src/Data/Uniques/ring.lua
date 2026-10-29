@@ -433,7 +433,7 @@ Implicits: 1
 {variant:2}{tags:resource}+(40-50) to maximum Life
 {variant:1,2}{tags:resistance}+(15-20)% to Chaos Resistance
 {variant:1,2}{tags:resource,attack}(0.6-0.8)% of Physical Attack Damage Leeched as Life
-{variant:3}{tags:resource}Recover 5% of Life on Kill
+{variant:3}{tags:resource}Recover (3-5)% of Life on Kill
 {variant:1}You gain Onslaught for 2 seconds on Kill
 {variant:2}You gain Onslaught for 4 seconds on Kill
 {variant:3}Gain Adrenaline for 3 seconds on Kill
@@ -450,7 +450,8 @@ Implicits: 1
 {variant:2}{tags:resistance}+(5-20)% to all Elemental Resistances
 {variant:1}{tags:resource}Gain 5 Mana per Enemy Killed
 {variant:2}{tags:resource}Gain (5-20) Mana per Enemy Killed
-{tags:caster}You can apply an additional Curse
+{variant:1}{tags:caster}You can apply an additional Curse
+{variant:2}{tags:caster}You can apply an additional Curse
 ]],[[
 Replica Doedre's Damning
 Paua Ring
@@ -536,7 +537,7 @@ Has 1 Socket
 +2 to Level of Socketed Aura Gems
 {tags:resource}Socketed Gems have no Reservation
 {tags:resource}Your Blessing Skills are Disabled
-{tags:resource}80% reduced Reservation Efficiency of Skills
+80% reduced Reservation Efficiency of Skills
 ]],[[
 Fated End
 Paua Ring
@@ -547,7 +548,7 @@ Implicits: 1
 {tags:resource}+(20-30) to maximum Mana
 {tags:attribute}+(20-40) to Intelligence
 {tags:caster,speed}Curse Skills have (8-12)% increased Cast Speed
-Non-Aura Hexes expire upon reaching 200% of base Effect
+Non-Aura Hexes expire upon reaching (180-220)% of base Effect
 Non-Aura Hexes gain 20% increased Effect per second
 ]],[[
 Gifts from Above
@@ -609,7 +610,7 @@ Heartbound Loop
 Moonstone Ring
 Requires Level 20
 Implicits: 1
-{tags:defences}+(15-25) to maximum Energy Shield
+{tags:caster,speed}(7-10)% increased Cast Speed
 {tags:resource}Regenerate (10-15) Life per second
 {tags:resource}(20-40)% increased Mana Regeneration Rate
 {tags:resource}Minions have 15% increased maximum Life
@@ -640,7 +641,7 @@ Anathema
 Moonstone Ring
 LevelReq: 49
 Implicits: 1
-{tags:defences}+(15-25) to maximum Energy Shield
+{tags:caster,speed}(7-10)% increased Cast Speed
 {tags:attribute}+(30-40) to Intelligence
 {tags:caster,speed}(10-15)% increased Cast Speed
 (10-20)% chance to gain a Power Charge when you Cast a Curse Spell
@@ -1145,7 +1146,7 @@ League: Settlers of Kalguur
 Requires Level 50
 Implicits: 2
 50% increased Elemental Ailment Duration on you
-{tags:caster}50% reduced Effect of Curses on you
+50% reduced Effect of Curses on you
 Grants level 20 Affliction
 {tags:caster,speed}(6-12)% increased Cast Speed
 {tags:defences}+(30-60) to maximum Energy Shield
@@ -1159,8 +1160,9 @@ Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
 Requires Level 30
-Implicits: 1
-{tags:defences}+(15-25) to maximum Energy Shield
+Implicits: 2
+{variant:4}{tags:caster,speed}(7-10)% increased Cast Speed
+{variant:1,2,3}{tags:defences}+(15-25) to maximum Energy Shield
 {tags:attribute}+(60-75) to Intelligence
 {tags:resource}Right ring slot: You cannot Regenerate Mana
 {variant:1}{tags:defences}Right ring slot: Regenerate 4% of Energy Shield per second
@@ -1314,8 +1316,9 @@ Tawhanuku's Timing
 Moonstone Ring
 Variant: Pre 3.29.0
 Variant: Current
-Implicits: 1
-{tags:defences}+(15-25) to maximum Energy Shield
+Implicits: 2
+{variant:2}{tags:caster,speed}(7-10)% increased Cast Speed
+{variant:1}{tags:defences}+(15-25) to maximum Energy Shield
 {tags:caster}(30-40)% increased Spell Damage
 {variant:2}{tags:defences}+(60-80) to maximum Energy Shield
 {tags:resource}+(60-80) to maximum Mana
@@ -1355,8 +1358,9 @@ Variant: Pre 3.17.0
 Variant: Pre 3.19.0
 Variant: Current
 LevelReq: 25
-Implicits: 1
-{tags:defences}+(15-25) to maximum Energy Shield
+Implicits: 2
+{variant:4}{tags:caster,speed}(7-10)% increased Cast Speed
+{variant:1,2,3}{tags:defences}+(15-25) to maximum Energy Shield
 {tags:attack,speed}(10-15)% increased Attack Speed
 {variant:1}{tags:caster,speed}(5-8)% increased Cast Speed
 {variant:2,3}{tags:caster,speed}(5-10)% increased Cast Speed
@@ -1487,8 +1491,9 @@ Moonstone Ring
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 38
-Implicits: 1
-{tags:defences}+(15-25) to maximum Energy Shield
+Implicits: 2
+{variant:2}{tags:caster,speed}(7-10)% increased Cast Speed
+{variant:1}{tags:defences}+(15-25) to maximum Energy Shield
 {variant:1}{tags:defences}+(10-20) to maximum Energy Shield
 {variant:2}{tags:defences}+(30-40) to maximum Energy Shield
 {variant:1}{tags:resistance}+(20-30)% to Fire Resistance
@@ -1503,7 +1508,7 @@ League: Blight
 Implicits: 1
 {tags:physical_damage,attack}Adds 1 to 4 Physical Damage to Attacks
 {tags:attribute}+(20-30) to Strength
-{tags:attack}25% chance to cause Bleeding on Hit
+{tags:attack}Attacks have 25% chance to cause Bleeding
 {tags:physical_damage,attack}(40-60)% increased Damage with Bleeding
 You are Chilled while you are Bleeding
 Non-Chilled Enemies you inflict Bleeding on are Chilled
@@ -1561,13 +1566,20 @@ Has 1 Socket
 {variant:17}{tags:attribute}+(31-35) to Strength and Intelligence
 {variant:5}{tags:attribute}+(6-17) to Dexterity and Intelligence
 {variant:16}{tags:attribute}+(31-35) to Dexterity and Intelligence
+{variant:21}+1 to Minimum Endurance Charges
+{variant:21}(3-4)% chance to gain an Endurance Charge on Kill
+{variant:19}+1 to Minimum Frenzy Charges
 {variant:19}(3-4)% chance to gain a Frenzy Charge on Kill
+{variant:20}+1 to Minimum Power Charges
 {variant:20}(3-4)% chance to gain a Power Charge on Kill
 {tags:resource}Regenerate 15 Life per second for each Uncorrupted Item Equipped
 {tags:resource}-2 to Total Mana Cost of Skills for each Corrupted Item Equipped
+{variant:13}{tags:resistance}+(16-20)% to Cold and Chaos Resistances
 {variant:1}{tags:resistance}+(8-15)% to Fire and Chaos Resistances
 {variant:12}{tags:resistance}+(16-20)% to Fire and Chaos Resistances
 {variant:18}Focus has (5-8)% increased Cooldown Recovery Rate
+{variant:18}Shock nearby Enemies for 4 Seconds when you Focus
+{variant:14}{tags:resistance}+(16-20)% to Lightning and Chaos Resistances
 {variant:1,2,3,4,5,6,7,8,9,10,11}Socketed Gems have 20% reduced Mana Reservation Efficiency
 {variant:2}{crafted}{tags:chaos,jewellery_resistance}+(8-15)% to Cold and Chaos Resistances
 {variant:3}{crafted}{tags:chaos,jewellery_resistance}+(8-15)% to Lightning and Chaos Resistances
@@ -1576,13 +1588,6 @@ Has 1 Socket
 {variant:9}{crafted}+1 to Minimum Frenzy Charges
 {variant:10}{crafted}+1 to Minimum Power Charges
 {variant:11}{crafted}+1 to Minimum Endurance Charges
-{variant:13}{crafted}{tags:chaos,jewellery_resistance}+(16-20)% to Cold and Chaos Resistances
-{variant:14}{crafted}{tags:chaos,jewellery_resistance}+(16-20)% to Lightning and Chaos Resistances
-{variant:18}{crafted}Shock nearby Enemies for 4 Seconds when you Focus
-{variant:19}{crafted}+1 to Minimum Frenzy Charges
-{variant:20}{crafted}+1 to Minimum Power Charges
-{variant:21}{crafted}+1 to Minimum Endurance Charges
-{variant:21}{crafted}(3-4)% chance to gain a Endurance Charge on Kill
 ]],[[
 Voideye
 Unset Ring

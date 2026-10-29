@@ -130,7 +130,7 @@ IncreasedManaUniqueClaw7
 ]],[[
 Essentia Sanguis
 {variant:1,2,3}Eye Gouger
-{variant:4,5,6}Vaal Claw
+{variant:4,5,6,7}Vaal Claw
 Variant: Pre 1.3.0
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
@@ -163,7 +163,7 @@ LocalIncreasedAttackSpeedUniqueClaw1
 ]],[[
 Hand of Thought and Motion
 {variant:1,2,3}Blinder
-{variant:4}Imperial Claw
+{variant:4,5}Imperial Claw
 League: Breach
 Source: Drops in Esh Breach or from unique{Esh, Forked Thought}
 Upgrade: Upgrades to unique{Hand of Wisdom and Action} using currency{Blessing of Esh}
@@ -175,12 +175,12 @@ Variant: Current
 Implicits: 3
 {variant:1}LifeGainPerTargetImplicit2Claw10[10,10]
 {variant:2,3}LifeGainPerTargetImplicit2Claw10[12,12]
-{variant:4,5}LifeGainPerTargetImplicit2Claw10
+{variant:4,5}LifeGainPerTargetImplicit2Claw13
 {variant:4,5}PercentageDexterityUnique__3
 {variant:4,5}PercentageIntelligenceUnique__3
 {variant:1,2,3}LocalAddedLightningDamageUnique__4
 {variant:1,2,3}LocalIncreasedAttackSpeedUniqueClaw8
-{variant:4,5}MaximumLifeOnKillPercentUnique__1
+{variant:4,5}RecoverPercentMaxLifeOnKillUnique__3
 {variant:4}AddedLightningDamagePerDexterityUnique__1[1,1][10,10]
 {variant:5}AddedLightningDamagePerDexterityUnique__1
 {variant:1,2}AddedLightningDamagePerIntelligenceUnique__2[1,1][3,3]

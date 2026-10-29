@@ -32,9 +32,12 @@ Replica Atziri's Acuity
 Vaal Gauntlets
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
+Version: Pre 3.16.0
+Version: Current
 Requires Level 63, 100 Str
 +(60-80) to Intelligence
-(25-35)% increased Global Critical Strike Chance
+{version:1}(25-35)% increased Global Critical Strike Chance
+{version:2}(40-60)% increased Global Critical Strike Chance
 (200-220)% increased Armour
 +(60-75) to maximum Life
 You have Perfect Agony if you've dealt a Critical Strike recently
@@ -55,7 +58,7 @@ The Celestial Brace
 Goliath Gauntlets
 Source: Drops from unique{The Searing Exarch} (Uber)
 Requires Level: 53, 77 Str
-(80-120)% increased Armour
+(100-150)% increased Armour
 1% increased Attack Speed per Fortification
 +(1-10) to maximum Fortification
 Melee Hits from Strike Skills Fortify
@@ -332,7 +335,7 @@ Can have up to (3-5) additional Traps placed at a time
 [[
 Allelopathy
 {variant:1}Sorcerer Gloves
-{variant:2}Satin Gloves
+{variant:2,3}Satin Gloves
 Variant: Pre 3.19.0
 Variant: Pre 3.26.0
 Variant: Current
@@ -346,7 +349,7 @@ You cannot be Hindered
 ]],[[
 Replica Allelopathy
 {variant:1}Sorcerer Gloves
-{variant:2}Satin Gloves
+{variant:2,3}Satin Gloves
 Variant: Pre 3.19.0
 Variant: Pre 3.26.0
 Variant: Current
@@ -492,7 +495,7 @@ Adds 1 to 13 Lightning Damage to Attacks
 {variant:1}(18-24)% increased Quantity of Items found
 {variant:2}(12-16)% increased Quantity of Items found
 {variant:3}(5-10)% increased Quantity of Items found
-{variant:4}(10-15)% increased Rarity of Items found
+{variant:4}(5-15)% increased Rarity of Items found
 ]],[[
 Voidbringer
 Conjurer Gloves

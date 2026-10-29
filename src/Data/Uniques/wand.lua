@@ -62,7 +62,7 @@ Implicits: 3
 {variant:1}Adds (10-14) to (18-22) Fire Damage
 {variant:3,4,5}Adds (20-24) to (38-46) Fire Damage
 {variant:1,2}Adds (4-6) to (7-9) Fire Damage to Spells
-{variant:3,4,5}Adds (20-24) to (36-46) Fire Damage to Spells
+{variant:3,4,5}Adds (20-24) to (38-46) Fire Damage to Spells
 {variant:1}(40-50)% increased Burning Damage
 {variant:2}(20-30)% increased Burning Damage
 {variant:1,2}(16-22)% chance to Ignite

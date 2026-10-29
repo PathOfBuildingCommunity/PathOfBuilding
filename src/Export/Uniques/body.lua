@@ -224,7 +224,7 @@ AvoidIgniteUniqueBodyDex3
 {variant:1,2}RangedWeaponPhysicalDamagePlusPercentUnique__1[10,15]
 {variant:3}RangedWeaponPhysicalDamagePlusPercentUnique__1
 {variant:1,2}PhysicalAttackDamageReducedUniqueBodyDex3[-5,-7]
-{variant:3}PhysicalAttackDamageReducedUniqueBodyDex3[-30,-60]
+{variant:3}PhysicalAttackDamageReducedUnique__1
 ]],[[
 Briskwrap
 {variant:1,2,3}Strapped Leather
@@ -457,7 +457,7 @@ Implicits: 0
 {variant:1}IncreasedLifeUniqueBodyStrDex4[50,80]
 {variant:2,3}IncreasedLifeUniqueBodyStrDex4
 ColdResistUnique__14
-{variant:4}AdditionalBlockUniqueBodyDex2[20,20]
+{variant:4}BlockPercentUnique__2
 {variant:1,2,3,4}EvasionIncreasedByUncappedColdResistanceUnique__1
 {variant:3}FleshAndStoneManaReservationUnique__1_
 {variant:3}KeystoneHollowPalmTechniqueUnique__1
@@ -608,7 +608,8 @@ Variant: Pre 3.16.0
 Variant: Current
 Implicits: 0
 SupportedByBlasphemyUnique
-GrantCursePillarSkillUnique
+{variant:1,2}GrantCursePillarSkillUnique
+{variant:3}GrantCursePillarSkillUnique__
 {variant:3}DoedresSkinLessCurseEffectUnique__1
 IntelligenceUnique__8
 LocalIncreasedEnergyShieldPercentUnique__14
@@ -852,7 +853,7 @@ Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 0
 LocalIncreasedArmourAndEvasionUnique__7
 IncreasedLifeUnique__74
-CatsStealthDurationUnique__1_
+CatsAgilityDurationUnique__1
 CatAspectReservesNoManaUnique__1___
 GainMaxFrenzyAndEnduranceOnCatsAgilityUnique__1
 GainOnslaughtWhileCatsAgilityUnique__1_
@@ -987,7 +988,8 @@ Implicits: 0
 LocalIncreasedArmourAndEnergyShieldUnique__2
 {variant:1,2}IncreasedEnergyShieldUnique__5[70,80]
 {variant:3}LocalIncreasedEnergySheildUnique__2_
-IncreasedLifeUniqueBodyDexInt1
+{variant:1,2}IncreasedLifeUniqueBodyDexInt1
+{variant:3}IncreasedLifeUnique__9
 AllResistancesUnique__3
 {variant:1}EnergyShieldPer5StrengthUnique__1[1,1][5,5]
 {variant:2,3}EnergyShieldPer5StrengthUnique__1
@@ -1324,7 +1326,7 @@ Variant: Two Abyssal Sockets (Current)
 Variant: One Abyssal Socket (Current)
 Implicits: 1
 IncreasedManaImplicitArmour1
-{variant:5}AbyssJewelSocketUnique__15[3,3]
+{variant:5}AbyssJewelSocketUnique__16
 {variant:1,3,6}AbyssJewelSocketUnique__15
 {variant:2,4,7}AbyssJewelSocketImplicit
 {variant:1,2}DisplaySupportedByElementalPenetrationUnique__1[20,20]
@@ -1449,11 +1451,13 @@ Variant: Current (Armour/Evasion/ES)
 Implicits: 1
 GlobalVaalGemsLevelImplicit1_
 {variant:1,10}LocalIncreasedPhysicalDamageReductionRatingPercentUniqueBodyStrDexInt1a
-{variant:2,11}GlobalEvasionRatingAndArmourPercentUnique__1_[200,220]
+{variant:2,11}LocalIncreasedArmourAndEvasionUniqueBodyStrDexInt1b
 {variant:3,12}LocalIncreasedEvasionRatingPercentUniqueBodyStrDexInt1c
-{variant:4,5,13,14}LocalIncreasedEvasionAndEnergyShieldUniqueBodyStrDexInt1d
+{variant:4,13}LocalIncreasedEvasionAndEnergyShieldUniqueBodyStrDexInt1d
+{variant:5,14}LocalIncreasedEvasionAndEnergyShieldUniqueBodyStrDexInt1f
 {variant:6,15}LocalIncreasedEnergyShieldUniqueBodyStrDexInt1g
-{variant:7,8,16,17}LocalIncreasedArmourAndEnergyShieldUniqueBodyStrDexInt1h
+{variant:7,16}LocalIncreasedArmourAndEnergyShieldUniqueBodyStrDexInt1e
+{variant:8,17}LocalIncreasedArmourAndEnergyShieldUniqueBodyStrDexInt1h
 {variant:9,18}LocalArmourAndEvasionAndEnergyShieldUniqueBodyStrDexInt1i
 {variant:1,2,3,4,7,10,11,12,13,16}IncreasedLifeUniqueBodyStrDexInt1
 {variant:5,6,8}IncreasedEnergyShieldUniqueBodyStrDexInt1[90,100]
@@ -1470,7 +1474,7 @@ Variant: Pre 3.10.0
 Variant: Current
 Implicits: 0
 DisplayHasAdditionalModUnique__1
-AllAttributesUnique__11
+AllAttributesUnique__8_
 {variant:2}LocalIncreasedArmourEvasionEnergyShieldUnique__1_
 MaximumLifeOnKillPercentUnique__3__
 MaximumEnergyShieldOnKillPercentUnique__1

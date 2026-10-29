@@ -83,8 +83,9 @@ Serrated Arrow Quiver
 Variant: Pre 3.17.0
 Variant: Current
 Requires Level 5
-Implicits: 1
-1 to 4 Added Physical Damage with Bow Attacks
+Implicits: 2
+{variant:2}Adds 1 to 4 Physical Damage to Attacks
+{variant:1}1 to 4 Added Physical Damage with Bow Attacks
 (20-25)% reduced Enemy Stun Threshold
 25% reduced Projectile Speed
 {variant:1}(60-80)% increased Stun Duration on Enemies
@@ -277,7 +278,7 @@ Regenerate (150-200) Life per Second while in Blood Stance
 (40-60)% increased Projectile Damage while in Blood Stance
 +(700-1000) to Evasion Rating while in Sand Stance
 (20-30)% increased Area of Effect while in Sand Stance
-(20-30)% increased Attack Speed if you've changed Stance Recently
+(25-30)% increased Attack Speed if you've changed Stance Recently
 ]],[[
 Skirmish
 Two-Point Arrow Quiver
@@ -347,10 +348,10 @@ Variant: Pre 3.29.0
 Variant: Current
 Source: Drops from unique{The Elder} (Uber)
 {variant:1,2}LevelReq: 64
-Implicits: 2
+Implicits: 3
+{variant:4}Has 1 Socket
 {variant:1,2}Arrows Pierce an additional Target
 {variant:3}(20-30)% increased Elemental Damage with Attack Skills
-{variant:4}Has 1 Socket
 {variant:4}Has 2 Sockets
 Consumes a Void Charge to Trigger Level 20 Void Shot when you fire Arrows with a Non-Triggered Skill
 Adds (30-40) to (80-100) Cold Damage to Attacks

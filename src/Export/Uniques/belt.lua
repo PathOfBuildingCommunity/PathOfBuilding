@@ -47,7 +47,7 @@ Variant: Current
 {variant:1,2}LevelReq: 70
 Implicits: 2
 {variant:1,2}IncreasedEnergyShieldUniqueBelt5[9,20]
-{variant:3,4}IncreasedEnergyShieldUniqueBelt5[60,80]
+{variant:3,4}IncreasedEnergyShieldImplicitBelt2
 IncreasedEnergyShieldUniqueBelt5
 IncreasedManaUniqueBelt5
 {variant:1}{tags:attack,mana}0.2% of Physical Attack Damage Leeched as Mana per Power Charge
@@ -90,7 +90,7 @@ Source: Steal from a unique{Curio Display} during a Grand Heist
 LevelReq: 22
 Implicits: 1
 IncreasedEnergyShieldImplicitBelt1
-IntelligenceUniqueBelt11
+IntelligenceUnique__24
 AllDamageUniqueBelt11
 FishingPoolConsumptionUnique__1__
 FishingCastDistanceUnique__1__
@@ -637,6 +637,7 @@ LinkSkillFlaskEffectsUnique__1
 Chain of Endurance
 Chain Belt
 LevelReq: 14
+Implicits: 1
 IncreasedEnergyShieldImplicitBelt1
 IncreasedLifeUnique__118
 StunRecoveryUnique__6
@@ -718,7 +719,7 @@ LevelReq: 44
 Implicits: 1
 IncreasedPhysicalDamagePercentImplicitBelt1
 IncreasedLifeUnique__6
-ColdResistUniqueRing24
+ColdResistUnique__4
 LifeLeechPermyriadUnique__3
 BeltIncreasedFlaskDurationUnique__2
 FlaskChargeRecoveryDuringFlaskEffectUnique__2
@@ -941,7 +942,7 @@ LevelReq: 52
 Implicits: 1
 StrengthImplicitBelt1
 IncreasedPhysicalDamageReductionRatingUnique__6_
-LifeRegenerationUnique__1
+LifeRegenerationUnique__2__
 IncreasedStunThresholdUnique__1_
 ArmourPerStrengthUnique__1_
 KeystoneSacredBastionUnique__1
@@ -974,6 +975,7 @@ FlasksApplyToMinionsUnique__1
 Unholy Accomplice
 Cloth Belt
 Source: Drops from unique{K'Tash, the Hate Shepherd} and unique{Lycia, Herald of the Scourge}
+Implicits: 1
 StunRecoveryImplicitBelt1
 SpellDamageUnique__19
 IncreasedLifeUnique__129

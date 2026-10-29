@@ -560,6 +560,7 @@ Ancient Spirit Shield
 League: Allflame
 Source: Drops from unique{Filthscrabble} in normal{The Fathomless Depths}
 Requires Level 45, 110 Int
+Implicits: 1
 SpellDamageImplicitShield1
 SpellBlockPercentageUniqueShieldInt18
 IncreasedLifeUnique__128
@@ -734,7 +735,8 @@ Variant: Pre 3.29.0
 Variant: Current
 Implicits: 0
 {variant:1}SpellBlockPercentageUnique__1[12,18]
-{variant:2,3,4,5}SpellBlockPercentageUnique__1[10,15]
+{variant:2,3,4}SpellBlockPercentageUnique__1[10,15]
+{variant:5}SpellBlockPercentageUniqueShieldInt1
 {variant:1,2}SpellDamageUniqueShieldInt1
 LocalIncreasedEnergyShieldPercentUniqueShieldInt1
 MaximumLifeShieldInt1
@@ -837,7 +839,7 @@ LocalIncreaseSocketedSupportGemLevelUnique__1
 TriggeredPhysicalAegisSkillUnique__1
 LocalIncreasedArmourAndEvasionUnique__16__
 {variant:1}ChanceToAvoidBleedingUnique__1[30,50]
-{variant:2}BleedingImmunityUnique__1
+{variant:2}ChanceToAvoidBleedingUnique__2_
 AttackAndCastSpeedWithoutPhysicalAegisUnique__1
 CriticalStrikeChanceWithoutPhysicalAegisUnique__1
 NearbyEnemiesAreBlindedPhysicalAegisUnique__1

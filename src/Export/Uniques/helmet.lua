@@ -121,7 +121,8 @@ Requires Level 55, 114 Str
 {variant:1}FireDamagePercentUniqueStrHelmet2[10,30]
 {variant:2,3}FireDamagePercentUniqueStrHelmet2
 {variant:1}LocalIncreasedPhysicalDamageReductionRatingPercentAndStunRecoveryUniqueStrHelmet2[40,60]
-{variant:2,3}LocalIncreasedPhysicalDamageReductionRatingPercentAndStunRecoveryUniqueStrHelmet2
+{variant:2}LocalIncreasedPhysicalDamageReductionRatingPercentAndStunRecoveryUniqueStrHelmet2
+{variant:3}LocalIncreasedPhysicalDamageReductionRatingPercentUnique__10
 {variant:3}IncreasedLifeUnique__44
 ColdResistUniqueStrHelmet2
 {variant:1,2}ChanceToAvoidChilledUnique__1
@@ -361,7 +362,8 @@ Requires Level 8, 23 Int
 {variant:3}SpellDamageUnique__14
 IncreasedAttackSpeedUniqueIntHelmet2
 {variant:1,2}IncreasedCastSpeedUniqueIntHelmet2
-{variant:2,3}LocalIncreasedEnergyShieldPercentAndStunRecoveryUniqueHelmetInt2
+{variant:2}LocalIncreasedEnergyShieldPercentAndStunRecoveryUniqueHelmetInt2
+{variant:3}LocalIncreasedEnergyShieldUnique__32
 {variant:1}LocalIncreasedEnergyShieldUniqueHelmetInt4
 ManaRegenerationUniqueIntHelmet2
 {variant:1,2}MovementVelocityUniqueIntHelmet2
@@ -400,8 +402,8 @@ Requires Level 60, 138 Dex
 League: Blight
 Source: Drops in Blighted Maps
 MultipleEnchantmentsAllowedUnique__1
-AllAttributesUnique__22_
-LocalIncreasedEvasionRatingPercentUnique__12
+AllAttributesUnique__19
+LocalIncreasedEvasionRatingPercentUnique__15_
 ReducedFireResistanceUnique__1
 ColdResistanceOverrideUnique__1
 ReducedLightningResistanceUnique__1
@@ -544,26 +546,19 @@ KeystoneEldritchBatteryUnique__1
 {variant:23}FocusCooldownRecoveryUnique__1_[5,8]
 {variant:24}(36-40)% increased Duration of Ailments you inflict while Focused
 {variant:25}(10-12)% chance to Avoid Elemental Damage from Hits during Soul Gain Prevention
-{variant:26}MaximumMinionCountUniqueWand2Updated
-{variant:26}MaximumMinionCountUniqueBootsStrInt2
-{variant:26}MinionLifeUnique__2[8,10]
-{variant:27}AreaOfEffectUnique_9[8,10]
-{variant:27}+2 to Level of Socketed AoE Gems
-{variant:28}AdditionalPierceUniqueJewel__1
-{variant:28}+2 to Level of Socketed Projectile Gems
-{variant:29}IncreasedMeleeWeaponAndUnarmedRangeUniqueJewel42
-{variant:29}VillageLocalIncreaseSocketedMeleeGemLevel
-{variant:30}IncreasedLifeUniqueHelmetDex5[55,60]
-{variant:30}Regenerate 5.3 Mana per second
-{variant:31}IncreasedManaUniqueDexHelmet1[55,60]
-{variant:31}LifeRegenerationUniqueTwoHandAxe4[1998,1998]
-{variant:32}(30-32)% increased Evasion Rating while Focused
-{variant:33}(13-15)% additional Physical Damage Reduction while Focused
-{variant:34}LocalIncreaseSocketedGemLevelUnique__6
-{variant:35}Corpses you Spawn have 20% increased Maximum Life
-{variant:36}20% increased Attack and Cast Speed if you've Consumed a Corpse Recently
-{variant:37}Take no Extra Damage from Critical Strikes if Energy Shield Recharge started Recently
-{variant:38}20% increased Damage if you have Consumed a corpse Recently
+{variant:26}JunMasterVeiledMaximumZombieAndSkeleton
+{variant:27}JunMasterVeiledSkillAreaOfEffectPercentAndAreaOfEffectGemLevel
+{variant:28}JunMasterVeiledProjectilePierceAndProjectileGemLevel
+{variant:29}JunMasterVeiledMeleeRangeAndMeleeGemLevel
+{variant:30}JunMasterVeiledBaseLifeAndManaRegen_
+{variant:31}JunMasterVeiledBaseManaAndLifeRegen__
+{variant:32}JunMasterVeiledDodgeChanceDuringFocus_
+{variant:33}JunMasterVeiledPhysicalDamageReductionDuringFocus_
+{variant:34}JunMasterVeiledLocalIncreaseSocketedGemLevel
+{variant:35}JunMasterVeiledCorpseLife
+{variant:36}JunMasterVeiledAttackAndCastSpeedIfCorpseConsumedRecently
+{variant:37}JunMasterVeiledTakeNoExtraDamageFromCriticalStrikesIfEnergyShieldRechargeStartedRecently
+{variant:38}JunMasterVeiledDamageIfConsumedCorpse
 ]],[[
 Wilma's Requital
 Solaris Circlet
@@ -590,10 +585,12 @@ IncreasedCurseDurationUniqueHelmetInt9
 ]],[[
 Eber's Unification
 Hubris Circlet
+Version: Pre 3.5.0
+Version: Current
 Requires Level 69, 154 Int
-Implicits: 0
 GrantsVoidGazeUnique__1
-LocalIncreasedEnergyShieldUniqueHelmetInt7
+{version:1}LocalIncreasedEnergyShieldUniqueHelmetInt7
+{version:2}LocalIncreasedEnergyShieldPercentUnique__10
 IncreasedManaUnique__9
 StunRecoveryUnique__1_
 ElementalDamagePercentAddedAsChaosUnique__4
@@ -651,8 +648,8 @@ Source: Drops from unique{Kurgal, the Blackblooded}
 Variant: One Abyssal Socket
 Variant: Two Abyssal Sockets
 Requires Level 65, 138 Int
-{variant:1}AbyssJewelSocketUnique__10
-{variant:2}AbyssJewelSocketUnique__11_
+{variant:1}AbyssJewelSocketUnique__12
+{variant:2}AbyssJewelSocketUnique__13
 MaximumLifeUnique__15
 MaximumSpiritChargesPerAbyssJewelEquippedUnique__2
 GainSpiritChargeEverySecondUnique__1
@@ -682,7 +679,8 @@ Variant: Pre 3.11.0
 Variant: Pre 3.19.0
 Variant: Current
 Requires Level 26, 58 Int
-LocalIncreasedEnergyShieldPercentAndStunRecoveryUniqueHelmetInt2
+{variant:1,2}LocalIncreasedEnergyShieldPercentAndStunRecoveryUniqueHelmetInt2
+{variant:3}LocalIncreasedEnergyShieldUnique__17__
 {variant:1}MinionRunSpeedUnique__3[10,15]
 {variant:2}MinionRunSpeedUnique__3
 {variant:2}RagingSpiritDamageUnique__1_[130,150]
@@ -873,7 +871,7 @@ Requires Level 67, 62 Str, 85 Dex
 {variant:1,2,3,4}DisplaySocketedGemGetsMeleePhysicalDamageUniqueHelmetStrDex4[18,18]
 {variant:5}DisplaySocketedGemGetsMeleePhysicalDamageUniqueHelmetStrDex4
 {variant:1,4}DisplaySocketedGemGetsFasterAttackUniqueHelmetStrDex4b[18,18]
-{variant:5}DisplaySocketedGemGetsFasterAttackUniqueHelmetStrDex4b[30,30]
+{variant:5}DisplaySocketedGemGetsFasterAttackUniqueHelmetStrDex4
 {variant:2,3}DisplaySocketedGemGetsFasterAttackUniqueHelmetStrDex4b
 {variant:1,4}ItemActsAsSupportBlindUniqueHelmetStrDex4b[18,18]
 {variant:5}ItemActsAsSupportBlindUniqueHelmetStrDex4
@@ -883,7 +881,7 @@ Requires Level 67, 62 Str, 85 Dex
 AddedPhysicalDamageUniqueHelmetStrDex4
 LocalIncreasedArmourAndEvasionUniqueHelmetStrDex4
 {variant:1,4}IncreasedLifeUnique__106_[200,220]
-{variant:5}IncreasedLifeUnique__106_[200,300]
+{variant:5}IncreasedLifeUniqueHelmetStrDex4
 {variant:2,3}IncreasedLifeUnique__106_
 {variant:1,2}ChanceToGainEnduranceChargeOnBlockUniqueHelmetStrDex4[10,10]
 {variant:3,4,5}ChanceToGainEnduranceChargeOnBlockUniqueHelmetStrDex4
@@ -1083,7 +1081,7 @@ League: Bestiary
 Source: Drops from unique{Craiceann, First of the Deep}
 Requires Level 58, 64 Str, 64 Int
 {variant:1}SpellBlockPercentageUnique__1[7,9]
-{variant:2}SpellBlockPercentageUnique__1[4,6]
+{variant:2}SpellBlockPercentageUnique__2
 LocalIncreasedArmourAndEnergyShieldUnique__10_
 MaximumLifeUnique__12
 CannotLoseCrabBarriersIfLostRecentlyUnique__1

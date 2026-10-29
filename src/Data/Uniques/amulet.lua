@@ -33,7 +33,7 @@ Amber Amulet
 LevelReq: 49
 Implicits: 1
 {tags:attribute}+(20-30) to Strength
-{tags:critical}(40-50)% increased Global Critical Strike Chance
+{tags:critical}(30-50)% increased Global Critical Strike Chance
 {tags:resource}+(50-70) to maximum Life
 {tags:resistance}+(17-29)% to Chaos Resistance
 Every 10 seconds:
@@ -158,7 +158,6 @@ Implicits: 1
 {variant:17}{tags:defences}(15-20)% increased Global Defences
 {variant:10,11,12,13,14,15,16}{tags:critical}Hits against Nearby Enemies have 50% increased Critical Strike Chance
 {variant:6,7,8,9}Nearby Enemies grant 25% increased Flask Charges
-{variant:1,2,3,4,5}Nearby Enemies have 10% reduced Stun and Block Recovery
 {variant:1,2,3,4,5}Nearby Enemies have 10% reduced Stun and Block Recovery
 {variant:1}Anger has no Reservation
 {variant:10}Clarity has no Reservation
@@ -440,9 +439,11 @@ Implicits: 1
 Eyes of the Greatwolf
 Greatwolf Talisman
 Requires Level 52
-Has Alt Variant: true
-Selected Variant: 11
-Selected Alt Variant: 19
+Version: Pre 3.25.0
+Version: Pre 3.29.0
+Version: Current
+Selected Variant Group: 1=65
+Selected Variant Group: 2=41
 Variant: Attributes
 Variant: Global Defences
 Variant: Chaos Damage
@@ -476,41 +477,116 @@ Variant: Lightning taken as Fire
 Variant: Gain Physical as random Element
 Variant: Extra Pierces
 Variant: Damage over Time Multiplier
-Implicits: 33
-{variant:1}{tags:attribute}(12-16)% increased Attributes
-{variant:11}(25-35)% increased Damage
-{variant:4}{tags:attack}(20-30)% increased Attack Damage
-{variant:8}{tags:caster}(20-30)% increased Spell Damage
-{variant:9}{tags:physical_damage}(20-30)% increased Global Physical Damage
-{variant:33}+(12-18)% to Damage over Time Multiplier
-{variant:6}{tags:elemental_damage}(20-30)% increased Fire Damage
-{variant:5}{tags:elemental_damage}(20-30)% increased Cold Damage
-{variant:7}{tags:elemental_damage}(20-30)% increased Lightning Damage
-{variant:3}{tags:chaos_damage}(19-31)% increased Chaos Damage
-{variant:14}{tags:critical}(40-50)% increased Global Critical Strike Chance
-{variant:19}{tags:critical}+(24-36)% to Global Critical Strike Multiplier
-{variant:18}{tags:resource}(8-12)% increased maximum Life
-{variant:10}{tags:resource}(20-30)% increased maximum Mana
-{variant:17}(6-10)% increased Quantity of Items found
-{variant:32}Projectiles Pierce 2 additional Targets
-{variant:15}(5-8)% increased Area of Effect
-{variant:24}{tags:resource}Regenerate 2% of Life per second
-{variant:16}{tags:attack,caster,speed}(6-10)% increased Attack and Cast Speed
-{variant:20}+1 to maximum number of Raised Zombies
-{variant:12}(4-6)% additional Physical Damage Reduction
-{variant:23}10% chance to gain an Endurance Charge on Kill
-{variant:21}10% chance to gain a Frenzy Charge on Kill
-{variant:22}10% chance to gain a Power Charge on Kill
-{variant:13}(4-6)% chance to Freeze, Shock and Ignite
-{variant:2}{tags:defences}(15-25)% increased Global Defences
-{variant:31}{tags:physical_damage,elemental_damage}Gain (6-12)% of Physical Damage as Extra Damage of a random Element
-{variant:27}50% of Fire Damage from Hits taken as Cold Damage
-{variant:28}50% of Fire Damage from Hits taken as Lightning Damage
-{variant:25}50% of Cold Damage from Hits taken as Fire Damage
-{variant:26}50% of Cold Damage from Hits taken as Lightning Damage
-{variant:30}50% of Lightning Damage from Hits taken as Fire Damage
-{variant:29}50% of Lightning Damage from Hits taken as Cold Damage
-(50-100)% increased Enchantment Modifier magnitudes
+Variant: Action Speed
+Variant: Extra Pierces
+Variant: Additional Projectile
+Variant: Global Defences
+Variant: Area of Effect
+Variant: Cold and Lightning taken as Fire
+Variant: Cold Penetration
+Variant: Crit Multiplier
+Variant: Fire Penetration
+Variant: Freeze Enemies when Hit
+Variant: Cooldown Recovery
+Variant: Damage over Time Multiplier
+Variant: Herald Gem Levels
+Variant: Skill Gem Levels
+Variant: Skill Gem Quality
+Variant: Ignore Physical Damage Reduction
+Variant: Maximum Power Charges
+Variant: Lightning Penetration
+Variant: Mark Effect
+Variant: Maximum Cold Resistance
+Variant: Maximum Endurance Charges
+Variant: Maximum Fire Resistance
+Variant: Maximum Frenzy Charges
+Variant: Life as Extra Armour
+Variant: Life
+Variant: Maximum Lightning Resistance
+Variant: Mana
+Variant: Maximum Spectres
+Variant: Minimum Charges
+Variant: Minion Damage over Time Multiplier
+Variant: Movement Speed
+Variant: Attributes
+Variant: Projectile Speed
+Variant: Unaffected by Ignite
+Variant: Utility Flask Charges
+Variant: Additional Exerted Attack
+Variant: Withered Effect
+Implicits: 70
+{version:1,2}{variant:1}{group:1,2}{tags:attribute}(12-16)% increased Attributes
+{version:3}{variant:65}{group:1,2}{tags:attribute}{enchant}15% increased Attributes
+{version:1,2}{variant:11}{group:1,2}(25-35)% increased Damage
+{version:1,2}{variant:4}{group:1,2}{tags:attack}(20-30)% increased Attack Damage
+{version:1,2}{variant:8}{group:1,2}{tags:caster}(20-30)% increased Spell Damage
+{version:1,2}{variant:9}{group:1,2}{tags:physical_damage}(20-30)% increased Global Physical Damage
+{version:1,2}{variant:33}{group:1,2}+(12-18)% to Damage over Time Multiplier
+{version:3}{variant:45}{group:1,2}{enchant}+20% to Damage over Time Multiplier
+{version:3}{variant:63}{group:1,2}{enchant}Minions have +30% to Damage over Time Multiplier
+{version:1,2}{variant:6}{group:1,2}{tags:elemental_damage}(20-30)% increased Fire Damage
+{version:1,2}{variant:5}{group:1,2}{tags:elemental_damage}(20-30)% increased Cold Damage
+{version:1,2}{variant:7}{group:1,2}{tags:elemental_damage}(20-30)% increased Lightning Damage
+{version:1,2}{variant:3}{group:1,2}{tags:chaos_damage}(19-31)% increased Chaos Damage
+{version:1,2}{variant:14}{group:1,2}{tags:critical}(40-50)% increased Global Critical Strike Chance
+{version:1,2}{variant:19}{group:1,2}{tags:critical}+(24-36)% to Global Critical Strike Multiplier
+{version:3}{variant:41}{group:1,2}{tags:critical}{enchant}+40% to Global Critical Strike Multiplier
+{version:1,2}{variant:18}{group:1,2}{tags:resource}(8-12)% increased maximum Life
+{version:3}{variant:58}{group:1,2}{tags:resource}{enchant}15% increased maximum Life
+{version:1,2}{variant:10}{group:1,2}{tags:resource}(20-30)% increased maximum Mana
+{version:3}{variant:60}{group:1,2}{tags:resource}{enchant}30% increased maximum Mana
+{version:1}{variant:17}{group:1,2}(6-10)% increased Quantity of Items found
+{version:3}{variant:55}{group:1,2}{tags:resistance}{enchant}+4% to maximum Fire Resistance
+{version:3}{variant:53}{group:1,2}{tags:resistance}{enchant}+4% to maximum Cold Resistance
+{version:3}{variant:59}{group:1,2}{tags:resistance}{enchant}+4% to maximum Lightning Resistance
+{version:1,2}{variant:32}{group:1,2}Projectiles Pierce 2 additional Targets
+{version:3}{variant:35}{group:1,2}{enchant}Projectiles Pierce 3 additional Targets
+{version:3}{variant:36}{group:1,2}{enchant}Skills fire an additional Projectile
+{version:3}{variant:66}{group:1,2}{tags:speed}{enchant}30% increased Projectile Speed
+{version:3}{variant:64}{group:1,2}{tags:speed}{enchant}12% increased Movement Speed
+{version:3}{variant:54}{group:1,2}{enchant}+1 to Maximum Endurance Charges
+{version:3}{variant:56}{group:1,2}{enchant}+1 to Maximum Frenzy Charges
+{version:3}{variant:50}{group:1,2}{enchant}+1 to Maximum Power Charges
+{version:1,2}{variant:15}{group:1,2}(5-8)% increased Area of Effect
+{version:3}{variant:38}{group:1,2}{enchant}16% increased Area of Effect
+{version:1,2}{variant:24}{group:1,2}{tags:resource}Regenerate 2% of Life per second
+{version:1,2}{variant:16}{group:1,2}{tags:attack,caster,speed}(6-10)% increased Attack and Cast Speed
+{version:1,2}{variant:20}{group:1,2}+1 to maximum number of Raised Zombies
+{version:3}{variant:61}{group:1,2}{enchant}+1 to maximum number of Spectres
+{version:1,2}{variant:12}{group:1,2}(4-6)% additional Physical Damage Reduction
+{version:3}{variant:52}{group:1,2}{tags:caster}{enchant}30% increased Effect of your Marks
+{version:1,2}{variant:23}{group:1,2}10% chance to gain an Endurance Charge on Kill
+{version:1,2}{variant:21}{group:1,2}10% chance to gain a Frenzy Charge on Kill
+{version:1,2}{variant:22}{group:1,2}10% chance to gain a Power Charge on Kill
+{version:1,2}{variant:13}{group:1,2}(4-6)% chance to Freeze, Shock and Ignite
+{version:1,2}{variant:2}{group:1,2}{tags:defences}(15-25)% increased Global Defences
+{version:3}{variant:37}{group:1,2}{tags:defences}{enchant}30% increased Global Defences
+{version:1,2}{variant:31}{group:1,2}{tags:physical_damage,elemental_damage}Gain (6-12)% of Physical Damage as Extra Damage of a random Element
+{version:3}{variant:42}{group:1,2}{tags:elemental_damage}{enchant}Damage Penetrates 15% Fire Resistance
+{version:3}{variant:40}{group:1,2}{tags:elemental_damage}{enchant}Damage Penetrates 15% Cold Resistance
+{version:3}{variant:51}{group:1,2}{tags:elemental_damage}{enchant}Damage Penetrates 15% Lightning Resistance
+{version:1,2}{variant:27}{group:1,2}50% of Fire Damage from Hits taken as Cold Damage
+{version:1,2}{variant:28}{group:1,2}50% of Fire Damage from Hits taken as Lightning Damage
+{version:1,2}{variant:25}{group:1,2}50% of Cold Damage from Hits taken as Fire Damage
+{version:1,2}{variant:26}{group:1,2}50% of Cold Damage from Hits taken as Lightning Damage
+{version:3}{variant:39}{group:1,2}{enchant}100% of Cold and Lightning Damage from Hits taken as Fire Damage
+{version:1,2}{variant:30}{group:1,2}50% of Lightning Damage from Hits taken as Fire Damage
+{version:1,2}{variant:29}{group:1,2}50% of Lightning Damage from Hits taken as Cold Damage
+{version:3}{variant:34}{group:1,2}{tags:speed}{enchant}8% increased Action Speed
+{version:3}{variant:47}{group:1,2}{enchant}+1 to Level of all Skill Gems
+{version:3}{variant:48}{group:1,2}{enchant}+15% to Quality of all Skill Gems
+{version:3}{variant:44}{group:1,2}{enchant}20% increased Cooldown Recovery Rate
+{version:3}{variant:43}{group:1,2}{enchant}20% chance to Freeze Enemies for 1 second when they Hit you
+{version:3}{variant:46}{group:1,2}{enchant}+2 to Level of all Herald Skill Gems
+{version:3}{variant:49}{group:1,2}{enchant}Hits ignore Enemy Physical Damage Reduction
+{version:3}{variant:57}{group:1,2}{tags:defences}{enchant}Gain 15% of Maximum Life as Extra Armour
+{version:3}{variant:62}{group:1,2}{enchant}+1 to Minimum Endurance, Frenzy and Power Charges
+{version:3}{variant:67}{group:1,2}{enchant}Unaffected by Ignite
+{version:3}{variant:68}{group:1,2}{enchant}Utility Flasks gain 2 Charges every 3 seconds
+{version:3}{variant:69}{group:1,2}{enchant}Warcries Exert 1 additional Attack
+{version:3}{variant:70}{group:1,2}{enchant}35% increased Effect of Withered
+{version:3}(50-100)% increased Enchantment Modifier magnitudes
+{version:1,2}Implicit Modifier magnitudes are doubled
 ]],[[
 The Felbog Fang
 Citrine Amulet
@@ -607,6 +683,7 @@ Replica Hinekora's Sight
 Onyx Amulet
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
+Implicits: 1
 {tags:attribute}+(10-16) to all Attributes
 {tags:attack}+(600-1000) to Accuracy Rating
 {tags:defences}+(600-1000) to Armour
@@ -693,7 +770,7 @@ Implicits: 1
 {tags:resource}Regenerate (2-4) Life per second
 {tags:resource}Regenerate (3-5) Mana per second
 {tags:resource}(30-40)% increased Life Recovery from Flasks
-{tags:resource}(15-30)% increased Mana Recovery from Flasks
+{tags:resource}(20-30)% increased Mana Recovery from Flasks
 {tags:resource}Life Flasks used while on Low Life apply Recovery Instantly
 {tags:resource}Mana Flasks used while on Low Mana apply Recovery Instantly
 ]],[[
@@ -985,6 +1062,7 @@ Variant: Lightning
 League: Allflame
 Source: Drops from Treasure Clam chests in normal{The Fathomless Depths}
 Requires Level 28
+Implicits: 1
 {tags:resistance}+(8-10)% to all Elemental Resistances
 {tags:resistance}+(20-25)% to all Elemental Resistances
 {tags:resistance}+(1-3)% to all maximum Resistances
@@ -1059,7 +1137,7 @@ Implicits: 1
 {variant:4}Minions convert 50% of Physical Damage to Cold Damage
 {variant:1,2}Minions deal (10-15)% increased Damage
 {variant:3}{tags:elemental_damage}Minions deal (5-9) to (11-15) additional Cold Damage
-{variant:4}{tags:elemental_damage}Minions deal (25-35) to (60-65) additional Cold Damage
+{variant:4}{tags:elemental_damage}Minions deal (25-35) to (50-65) additional Cold Damage
 {variant:4}Minions deal no Non-Cold Damage
 {variant:2,3}{tags:resource}(10-15)% reduced Mana Cost of Minion Skills
 ]],[[

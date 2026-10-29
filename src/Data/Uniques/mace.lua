@@ -151,7 +151,8 @@ Implicits: 2
 20% reduced Attack Speed
 (10-20)% reduced Enemy Stun Threshold
 (30-50)% increased Stun Duration on Enemies
-30% increased Melee Damage against Bleeding Enemies
+{variant:1}30% increased Melee Damage against Bleeding Enemies
+{variant:2}Extra gore
 ]],[[
 Lavianga's Wisdom
 War Hammer
@@ -289,7 +290,8 @@ Variant: Current
 Requires Level 68, 104 Str, 122 Int
 Implicits: 1
 40% increased Elemental Damage
-(180-200)% increased Physical Damage
+{variant:1}(180-200)% increased Physical Damage
+{variant:2}(180-220)% increased Physical Damage
 (10-15)% increased Attack Speed
 (80-100)% increased Critical Strike Chance
 50% of Physical Damage Converted to Lightning Damage

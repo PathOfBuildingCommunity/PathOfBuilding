@@ -78,6 +78,7 @@ for _, name in ipairs(itemTypes) do
 			local versionString = line:match("({version:[%d,]+})")
 			local variantString = line:match("({variant:[%d,]+})")
 			local groupString = line:match("({group:[%d,]+})")
+			local enchant = line:match("({enchant})") or ""
 			local fractured = line:match("({fractured})") or ""
 			local cleanLine = line:gsub("{.-}", "")
 			-- Check if this is a mod ID: purely alphanumeric+underscore, optionally followed by [num,num] ranges
@@ -89,6 +90,19 @@ for _, name in ipairs(itemTypes) do
 				modName = nil
 			end
 			local mod = modName and uniqueMods[modName]
+			if modName and not mod and legacy == "" then
+				local rawMod = dat("Mods"):GetRow("Id", modName)
+				if rawMod then
+					local orders
+					mod, orders = describeMod(rawMod)
+					mod.statOrder = orders
+					mod.modTags = { }
+					for _, tag in ipairs(rawMod.ImplicitTags) do
+						table.insert(mod.modTags, tag.Id)
+					end
+					uniqueMods[modName] = mod
+				end
+			end
 			if mod or (modName and legacy ~= "") then
 				modLines = modLines + 1
 				prefix = prefix .. (versionString or "") .. (variantString or "") .. (groupString or "")
@@ -106,7 +120,7 @@ for _, name in ipairs(itemTypes) do
 				if tags[1] then
 					prefix = prefix.."{tags:"..table.concat(tags, ",").."}"
 				end
-				prefix = prefix..fractured
+				prefix = prefix..enchant..fractured
 				local legacyMod
 				if legacy ~= "" then
 					local values = { }

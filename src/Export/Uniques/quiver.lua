@@ -83,8 +83,9 @@ Serrated Arrow Quiver
 Variant: Pre 3.17.0
 Variant: Current
 Requires Level 5
-Implicits: 1
-AddedPhysicalDamageImplicitQuiver6_
+Implicits: 2
+{variant:1}AddedPhysicalDamageImplicitQuiver6_
+{variant:2}AddedPhysicalDamageImplicitQuiver1New
 StunThresholdReductionUniqueQuiver8
 ProjectileSpeedUniqueQuiver8
 {variant:1}StunDurationUniqueQuiver8[60,80]
@@ -276,7 +277,7 @@ LifeRegenerationBloodStanceUnique__1
 ProjectileDamageBloodStanceUnique__1
 EvasionRatingSandStanceUnique__1
 AreaOfEffectSandStanceUnique__1
-(20-30)% increased Attack Speed if you've changed Stance Recently
+AttackSpeedChangedStanceUnique__1
 ]],[[
 Skirmish
 Two-Point Arrow Quiver
@@ -345,7 +346,7 @@ Variant: Pre 3.29.0
 Variant: Current
 Source: Drops from unique{The Elder} (Uber)
 {variant:1,2}LevelReq: 64
-Implicits: 2
+Implicits: 3
 {variant:1,2}AdditionalArrowPierceImplicitQuiver12_
 {variant:3}WeaponElementalDamageImplicitQuiver13New
 {variant:4}QuiverHasOneSocket

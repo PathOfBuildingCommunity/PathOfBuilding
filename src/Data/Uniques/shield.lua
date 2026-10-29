@@ -562,8 +562,9 @@ Ancient Spirit Shield
 League: Allflame
 Source: Drops from unique{Filthscrabble} in normal{The Fathomless Depths}
 Requires Level 45, 110 Int
-(15-20)% Chance to Block Spell Damage
+Implicits: 1
 (5-10)% increased Spell Damage
+(15-20)% Chance to Block Spell Damage
 +(66-99) to maximum Life
 Ignites you inflict deal Damage (15-20)% faster
 Draugurflames burn enemies around you for 8 seconds after you Ignite a target
@@ -737,12 +738,13 @@ Variant: 3.19.0
 Variant: Pre 3.29.0
 Variant: Current
 Implicits: 0
+{variant:5}(10-15)% Chance to Block Spell Damage
 {variant:1,2}(40-60)% increased Spell Damage
 (120-160)% increased Energy Shield
 10% increased maximum Life
 {variant:1,2}+25% to Lightning Resistance
 {variant:1}+(12-18)% Chance to Block Spell Damage
-{variant:2,3,4,5}+(10-15)% Chance to Block Spell Damage
+{variant:2,3,4}+(10-15)% Chance to Block Spell Damage
 {variant:3}Sacrifice 4% of your Life when you Use or Trigger a Spell Skill
 {variant:4,5}Sacrifice 10% of your Life when you Use or Trigger a Spell Skill
 {variant:3}2% increased Spell Critical Strike Chance per 100 Player Maximum Life
@@ -840,8 +842,8 @@ Implicits: 1
 +2 to Level of Socketed Support Gems
 Triggers Level 20 Physical Aegis when Equipped
 (300-400)% increased Armour and Evasion
-{variant:2}Bleeding cannot be inflicted on you
 {variant:1}(30-50)% chance to Avoid Bleeding
+{variant:2}100% chance to Avoid Bleeding
 (8-15)% increased Attack and Cast Speed while Physical Aegis is depleted
 (50-70)% increased Critical Strike Chance while Physical Aegis is depleted
 Nearby Enemies are Blinded while Physical Aegis is not depleted

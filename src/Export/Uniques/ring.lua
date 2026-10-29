@@ -435,7 +435,7 @@ ChaosResistImplicitRing1
 {variant:1,2}LifeLeechPermyriadUniqueRing12
 {variant:1}OnslaughtBuffOnKillUniqueRing12[2000,2000]
 {variant:2}OnslaughtBuffOnKillUniqueRing12
-{variant:3}RecoverPercentMaxLifeOnKillUnique__1
+{variant:3}MaximumLifeOnKillPercentUnique__5
 {variant:3}AdrenalineOnKillUnique__1[3,3]
 ]],[[
 Doedre's Damning
@@ -450,7 +450,8 @@ IncreasedManaImplicitRing1
 {variant:2}AllResistancesUniqueRing4
 {variant:1}ManaGainedFromEnemyDeathUnique__1[5,5]
 {variant:2}ManaGainedFromEnemyDeathUniqueRing4
-AdditionalCurseOnEnemiesUnique__1
+{variant:1}AdditionalCurseOnEnemiesUnique__1
+{variant:2}AdditionalCurseOnEnemies_
 ]],[[
 Replica Doedre's Damning
 Paua Ring
@@ -545,7 +546,8 @@ Implicits: 1
 IncreasedManaImplicitRing1
 IntelligenceUnique__25
 CurseCastSpeedUnique__2
-HexExpiresMaxDoomUnique__1[-20,20]
+HexExpiresMaxDoomUnique__1
+HexDoomGainUnique__1
 DoubleDoomEffectUnique__1
 ]],[[
 Gifts from Above
@@ -606,7 +608,7 @@ Heartbound Loop
 Moonstone Ring
 Requires Level 20
 Implicits: 1
-IncreasedEnergyShieldImplicitRing1
+IncreasedCastSpeedImplicitRing1
 LifeRegenerationUniqueRing33
 ManaRegenerationUniqueRing33
 MinionLifeUniqueRing33
@@ -637,7 +639,7 @@ Anathema
 Moonstone Ring
 LevelReq: 49
 Implicits: 1
-IncreasedEnergyShieldImplicitRing1
+IncreasedCastSpeedImplicitRing1
 IntelligenceUnique__30
 IncreasedCastSpeedUnique__23
 PowerChargeOnCurseUnique__1
@@ -1136,9 +1138,8 @@ The Selfish Shepherd
 Nameless Ring
 League: Settlers of Kalguur
 Requires Level 50
-Implicits: 2
-SelfStatusAilmentDurationUnique__1
-ReducedCurseEffectUniqueRing7
+Implicits: 1
+CurseEffectElementalAilmentDurationOnSelfR1
 RitualRingAffliction
 RitualRingCastSpeed
 RitualRingEnergyShield
@@ -1152,8 +1153,9 @@ Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
 Requires Level 30
-Implicits: 1
-IncreasedEnergyShieldImplicitRing1
+Implicits: 2
+{variant:1,2,3}IncreasedEnergyShieldImplicitRing1
+{variant:4}IncreasedCastSpeedImplicitRing1
 IntelligenceUniqueRing13
 RightRingSlotNoManaRegenUniqueRing13
 {variant:1}RightRingSlotEnergyShieldRegenUniqueRing13[240,240]
@@ -1304,8 +1306,9 @@ Tawhanuku's Timing
 Moonstone Ring
 Variant: Pre 3.29.0
 Variant: Current
-Implicits: 1
-IncreasedEnergyShieldImplicitRing1
+Implicits: 2
+{variant:1}IncreasedEnergyShieldImplicitRing1
+{variant:2}IncreasedCastSpeedImplicitRing1
 SpellDamageUnique__16
 IncreasedManaUnique__27
 {variant:2}IncreasedEnergyShieldUnique__14
@@ -1344,8 +1347,9 @@ Variant: Pre 3.17.0
 Variant: Pre 3.19.0
 Variant: Current
 LevelReq: 25
-Implicits: 1
-IncreasedEnergyShieldImplicitRing1
+Implicits: 2
+{variant:1,2,3}IncreasedEnergyShieldImplicitRing1
+{variant:4}IncreasedCastSpeedImplicitRing1
 IncreasedAttackSpeedUniqueRing27
 {variant:1}IncreasedCastSpeedUniqueRing27[5,8]
 {variant:2,3}IncreasedCastSpeedUniqueRing27[5,10]
@@ -1358,7 +1362,7 @@ IncreasedAttackSpeedUniqueRing27
 {variant:1}TemporalChainsEffectivenessOnSelfUniqueRing27[-30,-30]
 {variant:2}TemporalChainsEffectivenessOnSelfUniqueRing27
 {variant:3}SkillEffectDurationUnique__1[-10,10]
-{variant:4}SkillEffectDurationUnique__1[-20,20]
+{variant:4}SkillEffectDurationUnique__2_
 {variant:4}DamageTakenGainedAsLifeUnique__3
 {variant:4}PercentDamageGoesToManaUnique__2
 {variant:3,4}TemporalChainsEffectivenessOnSelfUnique__1
@@ -1476,8 +1480,9 @@ Moonstone Ring
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 38
-Implicits: 1
-IncreasedEnergyShieldImplicitRing1
+Implicits: 2
+{variant:1}IncreasedEnergyShieldImplicitRing1
+{variant:2}IncreasedCastSpeedImplicitRing1
 {variant:1}IncreasedEnergyShieldUniqueRing18[10,20]
 {variant:2}IncreasedEnergyShieldUnique__5
 {variant:1}FireResistUnique__20_[20,30]
@@ -1492,7 +1497,7 @@ League: Blight
 Implicits: 1
 AddedPhysicalDamageImplicitRing1
 StrengthUnique__17
-CausesBleedingUnique__1
+ChanceToBleedUnique__2__
 BleedDamageUnique__1_
 ChilledWhileBleedingUnique__1_
 NonChilledEnemiesBleedAndChillUnique__1_
@@ -1558,20 +1563,16 @@ TotalManaCostPerCorruptedItemUnique__1
 {variant:9}{crafted}+1 to Minimum Frenzy Charges
 {variant:10}{crafted}+1 to Minimum Power Charges
 {variant:11}{crafted}+1 to Minimum Endurance Charges
-{variant:12}FireAndChaosDamageResistanceUnique__1__[16,20]
-{variant:13}{crafted}{tags:chaos,jewellery_resistance}+(16-20)% to Cold and Chaos Resistances
-{variant:14}{crafted}{tags:chaos,jewellery_resistance}+(16-20)% to Lightning and Chaos Resistances
-{variant:15}StrengthAndDexterityUnique_1[31,35]
-{variant:16}DexterityAndIntelligenceUnique_2[31,35]
-{variant:17}StrengthIntelligenceUnique__2[31,35]
-{variant:18}{crafted}Shock nearby Enemies for 4 Seconds when you Focus
-{variant:18}FocusCooldownRecoveryUnique__1_[5,8]
-{variant:19}{crafted}+1 to Minimum Frenzy Charges
-{variant:19}VillageFrenzyChargeOnKillChance[3,4]
-{variant:20}{crafted}+1 to Minimum Power Charges
-{variant:20}PowerChargeOnKillChanceUnique__1[3,4]
-{variant:21}{crafted}+1 to Minimum Endurance Charges
-{variant:21}{crafted}(3-4)% chance to gain a Endurance Charge on Kill
+{variant:12}JunMasterVeiledFireAndChaosDamageResistance
+{variant:13}JunMasterVeiledColdAndChaosDamageResistance
+{variant:14}JunMasterVeiledLightningAndChaosDamageResistance
+{variant:15}JunMasterVeiledStrengthAndDexterity
+{variant:16}JunMasterVeiledDexterityAndIntelligence
+{variant:17}JunMasterVeiledStrengthAndIntelligence
+{variant:18}JunMasterVeiledShockNearbyEnemiesOnFocus
+{variant:19}JunMasterVeiledMinimumFrenzyCharges___
+{variant:20}JunMasterVeiledMinimumPowerCharges
+{variant:21}JunMasterVeiledMinimumEnduranceCharges_
 ]],[[
 Voideye
 Unset Ring

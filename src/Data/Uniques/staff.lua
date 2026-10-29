@@ -147,7 +147,7 @@ Implicits: 2
 {variant:1}+18% Chance to Block Attack Damage
 {variant:2}+20% Chance to Block Spell Damage
 +12% Chance to Block Attack Damage while wielding a Staff
-(100-200)% increased Fire Damage
+100% increased Fire Damage
 (5-10)% increased Attack Speed
 Curse Enemies with Flammability on Block
 Reflects (22-44) Fire Damage to Attackers on Block
@@ -192,12 +192,13 @@ The Crustacean's Call
 Primordial Staff
 League: Allflame
 Source: Drops from unique{Velka, the Tide Witch}
+Implicits: 1
++25% Chance to Block Spell Damage
 Socketed Spells are Supported by level 20 Crab Totem
 Totems have 100% increased Movement Speed
 (150-200)% increased Spell Damage
 (50-75)% increased Totem Duration
 +2 to maximum number of Summoned Totems
-+25% Chance to Block Spell Damage
 ]],[[
 Disintegrator
 Maelstrom Staff
@@ -248,7 +249,7 @@ Gain (10-20)% of Elemental Damage as Extra Chaos Damage
 +1% to Critical Strike Multiplier per 1% Chance to Block Attack Damage
 +60% to Critical Strike Multiplier if you've dealt a Non-Critical Strike Recently
 {variant:1,2}120% increased Spell Damage if you've dealt a Critical Strike Recently
-{variant:3,4}(120-150)% increased Spell Damage if you've dealt a Critical Strike Recently
+{variant:3,4,5}(120-150)% increased Spell Damage if you've dealt a Critical Strike Recently
 ]],[[
 Replica Duskdawn
 Maelström Staff
@@ -269,7 +270,7 @@ Gain (10-20)% of Elemental Damage as Extra Chaos Damage
 ]],[[
 Dying Breath
 {variant:1}Coiled Staff
-{variant:2}Iron Staff
+{variant:2,3}Iron Staff
 Variant: Pre 2.6.0
 Variant: Pre 3.25.0
 Variant: Current
@@ -388,7 +389,8 @@ Implicits: 2
 {variant:2}+25% Chance to Block Spell Damage
 Socketed Gems are Supported by Level 1 Lifetap
 (20-30)% increased Cast Speed
-Lose 500 Life per second
+{variant:2}Lose 500 Life per second
+{variant:1}Lose 500 Life per second
 Spells deal added Chaos Damage equal to (15-20)% of your maximum Life
 ]],[[
 The Fulcrum
@@ -521,7 +523,7 @@ Implicits: 2
 {variant:1,2,3,4}+(12-16)% Chance to Block Attack Damage while wielding a Staff
 {variant:5}+(20-25)% Chance to Block Attack Damage while wielding a Staff
 {variant:1,2,3,4}100% increased Fire Damage
-{variant:5}100% increased Fire Damage
+{variant:5}(100-200)% increased Fire Damage
 {variant:1,2}Adds (350-400) to (500-600) Fire Damage
 {variant:3,4,5}Adds (315-360) to (450-540) Fire Damage
 Damage Penetrates 15% of Fire Resistance if you have Blocked Recently
@@ -617,7 +619,7 @@ Variant: Current
 Implicits: 3
 {variant:1,2}+12% Chance to Block Attack Damage
 {variant:3,4,5}+18% Chance to Block Attack Damage
-{variant:6,7}+25% Chance to Block Attack Damage
+{variant:6,7}+25% Chance to Block Spell Damage
 {variant:1,2,3}(30-50)% increased Spell Damage
 {variant:5,6,7}+(40-60)% to Fire Damage over Time Multiplier
 {variant:1,2,3}(20-40)% increased Fire Damage
@@ -800,8 +802,8 @@ Variant: Pre 3.26.0
 Variant: Current
 Requires Level 28, 43 Str, 43 Int
 Implicits: 2
-{variant:1}+18% Chance to Block Attack Damage while wielding a Staff
-{variant:2,3}+20% Chance to Block Attack Damage while wielding a Staff
+{variant:1}+18% Chance to Block Attack Damage
+{variant:2,3}+20% Chance to Block Attack Damage
 +15% Chance to Block Attack Damage while wielding a Staff
 (60-80)% increased Spell Damage
 {variant:1,2}+(70-100) to maximum Energy Shield

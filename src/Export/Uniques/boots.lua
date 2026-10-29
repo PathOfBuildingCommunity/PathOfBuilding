@@ -63,7 +63,7 @@ Source: Drops in Uul-Netol Breach or from unique{Uul-Netol, Unburdened Flesh}
 Upgrade: Upgrades to unique{The Red Trail} using currency{Blessing of Uul-Netol}
 Requires Level 54, 95 Str
 {variant:1}IncreasedLifeUnique__27
-MovementVelocityUniqueBootsDex8
+MovementVelocityUnique__13
 NoExtraBleedDamageWhileMovingUnique__1
 {variant:2}BleedingExpiresSlowerWhileMovingUnique__1
 {variant:2}CannotBePoisonedWhileBleedingUnique__1
@@ -195,7 +195,8 @@ AllResistancesUniqueBootsStr1
 {variant:3}MovementVelocityUniqueBootsStr1
 {variant:1}ElementalDamageUniqueBootsStr1[10,10]
 {variant:2}ElementalDamageUniqueBootsStr1
-AdditionalCurseOnEnemiesUnique__1
+{variant:1,2}AdditionalCurseOnEnemiesUnique__1
+{variant:3}AdditionalCurseOnEnemies_
 {variant:3}CurseAreaOfEffectUnique__3
 ]],[[
 Windshriek
@@ -438,7 +439,7 @@ DexterityUniqueBootsDex3
 IntelligenceUniqueBootsDex3
 LocalIncreasedEvasionRatingPercentUniqueBootsDex3
 {variant:2}MovementVelocityUniqueBootsDexInt2
-{variant:3}MovementVelocityUniqueBootsInt4[10,20]
+{variant:3}MovementVelocityUnique__19
 {variant:1}MovementVelocityOnLowLifeUniqueBootsDex3
 {variant:3}MovementVelocityOnLowLifeUnique__1
 {variant:1,2}PercentDamageGoesToManaUniqueBootsDex3
@@ -682,7 +683,7 @@ Implicits: 3
 GrantEmbraceMadnessSkillUnique1
 {variant:3}IncreasedChaosDamageUnique__5
 {variant:1}LocalIncreasedArmourAndEvasionUnique__13
-MovementVelocityUniqueBootsA1
+MovementSpeedUnique_42
 {variant:2}IncreasedAilmentEffectOnEnemiesUnique_2
 {variant:3}AllDamageCanPoisonGloriousMadnessUnique___1
 {variant:1}DoubleDamageChanceGloriousMadnessUnique_1
@@ -766,8 +767,7 @@ Source: Drops from unique{The Searing Exarch} (Uber)
 GrantsTouchOfFireUnique__1
 LocalIncreasedArmourAndEvasionUnique__21
 MovementVelocityUnique__50
-CannotBeChilledUnique__1
-CannotBeFrozen
+CannotBeFrozenOrChilledUnique__2
 {variant:1}FireDamageTakenFireTouchedUnique__1[10000,10000]
 {variant:2}FireDamageTakenFireTouchedUnique__1
 GainAdrenalineFireTouchedGainUnique__1
@@ -934,7 +934,7 @@ Requires Level 28, 28 Str, 28 Int
 AddedLightningDamageUniqueBootsStrInt1
 LocalIncreasedArmourAndEnergyShieldUniqueBootsStrInt1
 LifeGainedFromEnemyDeathUniqueBootsStrInt1
-{variant:2,3}MovementVelocityUniqueBootsStrInt2_[15,15]
+{variant:2,3}MovementVelocityUnique__16
 {variant:1,2}HitsCauseMonsterFleeUniqueBootsStrInt1
 {variant:3}ShockedGroundWhileMovingUnique__1_
 ]],

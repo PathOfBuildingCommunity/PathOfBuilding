@@ -32,9 +32,12 @@ Replica Atziri's Acuity
 Vaal Gauntlets
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
+Version: Pre 3.16.0
+Version: Current
 Requires Level 63, 100 Str
 IntelligenceUniqueGlovesStr3
-CriticalStrikeChanceUniqueGlovesStr3[25,35]
+{version:1}CriticalStrikeChanceUniqueGlovesStr3[25,35]
+{version:2}CriticalStrikeChanceUniqueGlovesStr3
 LocalIncreasedPhysicalDamageReductionRatingPercentUniqueGlovesStr3
 IncreasedLifeUniqueGlovesStr3
 PerfectAgonyIfCritRecentlyUnique__1
@@ -55,7 +58,7 @@ The Celestial Brace
 Goliath Gauntlets
 Source: Drops from unique{The Searing Exarch} (Uber)
 Requires Level: 53, 77 Str
-LocalIncreasedPhysicalDamageReductionRatingPercentUnique__19
+LocalIncreasedPhysicalDamageReductionRatingPercentUnique__30
 AttackSpeedPerFortificationUnique__1
 MaximumFortificationUnique__1
 StrikeSkillsFortifyOnHitUnique__1
@@ -327,21 +330,21 @@ NumberOfAdditionalTrapsUnique_1
 [[
 Allelopathy
 {variant:1}Sorcerer Gloves
-{variant:2}Satin Gloves
+{variant:2,3}Satin Gloves
 Variant: Pre 3.19.0
 Variant: Pre 3.26.0
 Variant: Current
 {variant:1,2}BlightSkillUnique__1[22,22]
 {variant:3}BlightSkillUnique__1
 {variant:1}DegenerationDamageUnique__2
-LocalIncreasedEnergyShieldUniqueGlovesInt5
-AreaOfEffectUnique__3
+LocalIncreasedEnergyShieldPercentUnique__11
+AreaOfEffectUnique__4_
 BlightSecondarySkillEffectDurationUnique__1
 YouCannotBeHinderedUnique__1
 ]],[[
 Replica Allelopathy
 {variant:1}Sorcerer Gloves
-{variant:2}Satin Gloves
+{variant:2,3}Satin Gloves
 Variant: Pre 3.19.0
 Variant: Pre 3.26.0
 Variant: Current
@@ -350,9 +353,9 @@ Source: Steal from a unique{Curio Display} during a Grand Heist
 {variant:1,2}GrantsWintertideBrandUnique__1[22,22]
 {variant:3}GrantsWintertideBrandUnique__1
 {variant:1}DegenerationDamageUnique__5
-LocalIncreasedEnergyShieldUniqueGlovesInt5
-AreaOfEffectUnique__3
-ImmuneToChillUnique__1
+LocalIncreasedEnergyShieldPercentUnique__11
+AreaOfEffectUnique__4_
+ImmuneToChillUnique__2__
 WintertideBrandChillEffectUnique__1_
 ]],[[
 Asenath's Gentle Touch
@@ -485,7 +488,7 @@ LocalIncreasedEnergyShieldUniqueGlovesInt1
 {variant:1}ItemFoundQuantityIncreaseUniqueGlovesInt1[18,24]
 {variant:2}ItemFoundQuantityIncreaseUniqueGlovesInt1[12,16]
 {variant:3}ItemFoundQuantityIncreaseUniqueGlovesInt1
-{variant:4}ItemFoundRarityIncreaseUnique__7[10,15]
+{variant:4}ItemFoundRarityIncreaseUnique__7
 ]],[[
 Voidbringer
 Conjurer Gloves
@@ -613,8 +616,8 @@ Variant: Murderous: Rage
 Variant: Searching: Maim
 Variant: Searching: Blind
 Variant: Searching: Onslaught
-{variant:4}AbyssJewelSocketUnique__10
-{variant:5}AbyssJewelSocketUnique__11_
+{variant:4}AbyssJewelSocketUnique__5
+{variant:5}AbyssJewelSocketUnique__9
 {variant:1,2}IncreasedAttackSpeedUniqueGlovesStrDex1[6,10]
 {variant:3}IncreasedAttackSpeedUnique__2
 {variant:1,2}MaximumLifeUnique__7
@@ -685,8 +688,8 @@ Variant: Pre 3.27.0 Two Abyssal Sockets
 Variant: One Abyssal Socket
 Variant: Two Abyssal Sockets
 Requires Level 37, 29 Str, 29 Int
-{variant:1,3}AbyssJewelSocketImplicit
-{variant:2,4}AbyssJewelSocketUnique__1
+{variant:1,3}AbyssJewelSocketUnique__10
+{variant:2,4}AbyssJewelSocketUnique__11_
 IncreasedCastSpeedUnique__12
 MaximumLifeUnique__13
 {variant:1,2}MinionAccuracyWithMinionAbyssJewelUnique__1
@@ -850,7 +853,7 @@ Requires Level 43, 34 Str, 34 Int
 {variant:3}AddedLightningDamageUnique__1
 IncreasedLifeUnique__50
 {variant:1}FireResistUnique__12
-{variant:2}ColdResistUnique__16
+{variant:2}ColdResistUnique__18
 {variant:3}LightningResistUnique__10
 VolkuurLessPoisonDurationUnique__1
 {variant:1}FireDamageCanPoisonUnique__1

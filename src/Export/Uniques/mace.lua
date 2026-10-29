@@ -150,7 +150,8 @@ LocalIncreasedPhysicalDamagePercentUniqueOneHandMace6
 LocalReducedAttackSpeedUniqueOneHandMace6
 StunThresholdReductionUniqueOneHandMace6
 StunDurationUniqueOneHandMace6
-MeleeDamageAgainstBleedingEnemiesUniqueOneHandMace6
+{variant:1}MeleeDamageAgainstBleedingEnemiesUniqueOneHandMace6
+{variant:2}ExtraGore
 ]],[[
 Lavianga's Wisdom
 War Hammer
@@ -162,7 +163,7 @@ Requires Level 20, 71 Str
 Implicits: 2
 {variant:2,3}StunThresholdReductionImplicitMace1
 {variant:1}StunDurationImplicitMace1[20,20]
-{variant:3}LocalIncreasedPhysicalDamagePercentUnique__55[160,200]
+{variant:3}LocalIncreasedPhysicalDamagePercentUniqueOneHandMace7
 {variant:1,2}LocalIncreasedPhysicalDamagePercentUnique__55
 {variant:1,2}IncreasedLifeImplicitShield1
 {variant:3}IncreasedLifeUniqueOneHandMace7
@@ -281,7 +282,8 @@ Variant: Current
 Requires Level 68, 104 Str, 122 Int
 Implicits: 1
 ElementalDamagePercentImplicitSceptreNew22
-LocalIncreasedPhysicalDamagePercentUnique__29
+{variant:1}LocalIncreasedPhysicalDamagePercentUnique__29
+{variant:2}LocalIncreasedPhysicalDamagePercentUnique__31
 LocalIncreasedAttackSpeedUnique__26_
 LocalCriticalStrikeChanceUnique__14
 ConvertPhysicaltoLightningUnique__3

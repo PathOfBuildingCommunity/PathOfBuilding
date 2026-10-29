@@ -33,7 +33,7 @@ Amber Amulet
 LevelReq: 49
 Implicits: 1
 StrengthImplicitAmulet1
-TalismanIncreasedCriticalChance
+CriticalStrikeChanceUnique__6
 IncreasedLifeUnique__119
 ChaosResistUnique__29
 RecoverLifeAlteratingUnique__1
@@ -144,19 +144,18 @@ Variant: Envy
 Requires Level 55
 Implicits: 1
 AllAttributesImplicitAmulet1
-{variant:1,2,3,4,5}StrengthImplicitAmulet1
-{variant:6,7,8,9}DexterityImplicitAmulet1
-{variant:10,11,12,13,14,15,16}IntelligenceImplicitAmulet1
+{variant:1,2,3,4,5}StrengthUnique__14
+{variant:6,7,8,9}DexterityUnique__12
+{variant:10,11,12,13,14,15,16}IntelligenceUnique__12
 {variant:17}GrantsEnvyUnique__2
 {variant:1,2,3,4,5}GlobalPhysicalDamageReductionRatingPercentUnique__1
 {variant:6,7,8,9}GlobalEvasionRatingPercentUnique__1
 {variant:10,11,12,13,14,15,16}GlobalEnergyShieldPercentUnique__1
-{variant:17}AllAttributesUnique__10_
+{variant:17}AllAttributesUnique__12
 IncreasedLifeUnique__89
 {variant:1,2,3,4,5}NearbyEnemiesReducedStunRecoveryUnique__1
 {variant:6,7,8,9}NearbyEnemiesGrantIncreasedFlaskChargesUnique__1
-{variant:1,2,3,4,5}NearbyEnemiesReducedStunRecoveryUnique__1
-{variant:10,11,12,13,14,15,16}NearbyEnemiesHaveIncreasedChanceToBeCritUnique__1
+{variant:10,11,12,13,14,15,16}NearbyEnemiesHaveIncreasedChanceToBeCritUnique__2
 {variant:17}AllDefencesUnique__4
 {variant:1}AngerNoReservationUnique__1
 {variant:2}DeterminationNoReservationUnique__1
@@ -438,9 +437,11 @@ FireDamageLeechedAsLifeWhileIgnitedUnique__1
 Eyes of the Greatwolf
 Greatwolf Talisman
 Requires Level 52
-Has Alt Variant: true
-Selected Variant: 11
-Selected Alt Variant: 19
+Version: Pre 3.25.0
+Version: Pre 3.29.0
+Version: Current
+Selected Variant Group: 1=65
+Selected Variant Group: 2=41
 Variant: Attributes
 Variant: Global Defences
 Variant: Chaos Damage
@@ -474,41 +475,116 @@ Variant: Lightning taken as Fire
 Variant: Gain Physical as random Element
 Variant: Extra Pierces
 Variant: Damage over Time Multiplier
-Implicits: 33
-{variant:1}TalismanIncreasedAllAttributes
-{variant:2}TalismanGlobalDefensesPercent
-{variant:3}TalismanIncreasedChaosDamage
-{variant:4}TalismanAttackDamage
-{variant:5}TalismanIncreasedColdDamage
-{variant:6}TalismanIncreasedFireDamage
-{variant:7}TalismanIncreasedLightningDamage
-{variant:8}TalismanSpellDamage
-{variant:9}TalismanIncreasedPhysicalDamage
-{variant:10}TalismanIncreasedMana
-{variant:11}TalismanIncreasedDamage
-{variant:12}TalismanReducedPhysicalDamageTaken_
-{variant:13}TalismanChanceToFreezeShockIgnite_
-{variant:14}TalismanIncreasedCriticalChance
-{variant:15}TalismanIncreasedAreaOfEffect
-{variant:16}TalismanAttackAndCastSpeed
-{variant:17}TalismanIncreasedItemQuantity
-{variant:18}TalismanIncreasedLife
-{variant:19}TalismanIncreasedCriticalStrikeMultiplier_
-{variant:20}TalismanAdditionalZombie
-{variant:21}TalismanFrenzyChargeOnKill
-{variant:22}TalismanPowerChargeOnKill
-{variant:23}TalismanEnduranceChargeOnKill_
-{variant:24}TalismanPercentLifeRegeneration
-{variant:25}TalismanColdTakenAsFire
-{variant:26}TalismanColdTakenAsLightning
-{variant:27}TalismanFireTakenAsCold
-{variant:28}TalismanFireTakenAsLightning
-{variant:29}TalismanLightningTakenAsCold
-{variant:30}TalismanLightningTakenAsFire
-{variant:31}TalismanDamageDealtAddedAsRandomElement
-{variant:32}TalismanAdditionalPierce
-{variant:33}TalismanGlobalDamageOverTimeMultiplier
-LocalEnchantStatMagnitudeUnique__1
+Variant: Action Speed
+Variant: Extra Pierces
+Variant: Additional Projectile
+Variant: Global Defences
+Variant: Area of Effect
+Variant: Cold and Lightning taken as Fire
+Variant: Cold Penetration
+Variant: Crit Multiplier
+Variant: Fire Penetration
+Variant: Freeze Enemies when Hit
+Variant: Cooldown Recovery
+Variant: Damage over Time Multiplier
+Variant: Herald Gem Levels
+Variant: Skill Gem Levels
+Variant: Skill Gem Quality
+Variant: Ignore Physical Damage Reduction
+Variant: Maximum Power Charges
+Variant: Lightning Penetration
+Variant: Mark Effect
+Variant: Maximum Cold Resistance
+Variant: Maximum Endurance Charges
+Variant: Maximum Fire Resistance
+Variant: Maximum Frenzy Charges
+Variant: Life as Extra Armour
+Variant: Life
+Variant: Maximum Lightning Resistance
+Variant: Mana
+Variant: Maximum Spectres
+Variant: Minimum Charges
+Variant: Minion Damage over Time Multiplier
+Variant: Movement Speed
+Variant: Attributes
+Variant: Projectile Speed
+Variant: Unaffected by Ignite
+Variant: Utility Flask Charges
+Variant: Additional Exerted Attack
+Variant: Withered Effect
+Implicits: 70
+{version:1,2}{variant:1}{group:1,2}TalismanIncreasedAllAttributes
+{version:1,2}{variant:2}{group:1,2}TalismanGlobalDefensesPercent
+{version:1,2}{variant:3}{group:1,2}TalismanIncreasedChaosDamage
+{version:1,2}{variant:4}{group:1,2}TalismanAttackDamage
+{version:1,2}{variant:5}{group:1,2}TalismanIncreasedColdDamage
+{version:1,2}{variant:6}{group:1,2}TalismanIncreasedFireDamage
+{version:1,2}{variant:7}{group:1,2}TalismanIncreasedLightningDamage
+{version:1,2}{variant:8}{group:1,2}TalismanSpellDamage
+{version:1,2}{variant:9}{group:1,2}TalismanIncreasedPhysicalDamage
+{version:1,2}{variant:10}{group:1,2}TalismanIncreasedMana
+{version:1,2}{variant:11}{group:1,2}TalismanIncreasedDamage
+{version:1,2}{variant:12}{group:1,2}TalismanReducedPhysicalDamageTaken_
+{version:1,2}{variant:13}{group:1,2}TalismanChanceToFreezeShockIgnite_
+{version:1,2}{variant:14}{group:1,2}TalismanIncreasedCriticalChance
+{version:1,2}{variant:15}{group:1,2}TalismanIncreasedAreaOfEffect
+{version:1,2}{variant:16}{group:1,2}TalismanAttackAndCastSpeed
+{version:1}{variant:17}{group:1,2}TalismanIncreasedItemQuantity
+{version:1,2}{variant:18}{group:1,2}TalismanIncreasedLife
+{version:1,2}{variant:19}{group:1,2}TalismanIncreasedCriticalStrikeMultiplier_
+{version:1,2}{variant:20}{group:1,2}TalismanAdditionalZombie
+{version:1,2}{variant:21}{group:1,2}TalismanFrenzyChargeOnKill
+{version:1,2}{variant:22}{group:1,2}TalismanPowerChargeOnKill
+{version:1,2}{variant:23}{group:1,2}TalismanEnduranceChargeOnKill_
+{version:1,2}{variant:24}{group:1,2}TalismanPercentLifeRegeneration
+{version:1,2}{variant:25}{group:1,2}TalismanColdTakenAsFire
+{version:1,2}{variant:26}{group:1,2}TalismanColdTakenAsLightning
+{version:1,2}{variant:27}{group:1,2}TalismanFireTakenAsCold
+{version:1,2}{variant:28}{group:1,2}TalismanFireTakenAsLightning
+{version:1,2}{variant:29}{group:1,2}TalismanLightningTakenAsCold
+{version:1,2}{variant:30}{group:1,2}TalismanLightningTakenAsFire
+{version:1,2}{variant:31}{group:1,2}TalismanDamageDealtAddedAsRandomElement
+{version:1,2}{variant:32}{group:1,2}TalismanAdditionalPierce
+{version:1,2}{variant:33}{group:1,2}TalismanGlobalDamageOverTimeMultiplier
+{version:3}{variant:34}{group:1,2}{enchant}TalismanEnchantActionSpeedReduction
+{version:3}{variant:35}{group:1,2}{enchant}TalismanEnchantAdditionalPierce
+{version:3}{variant:36}{group:1,2}{enchant}TalismanEnchantAdditionalProjectiles
+{version:3}{variant:37}{group:1,2}{enchant}TalismanEnchantAllDefences
+{version:3}{variant:38}{group:1,2}{enchant}TalismanEnchantAreaOfEffect
+{version:3}{variant:39}{group:1,2}{enchant}TalismanEnchantColdAndLightningDamageTakenAsFire
+{version:3}{variant:40}{group:1,2}{enchant}TalismanEnchantColdResistancePenetration
+{version:3}{variant:41}{group:1,2}{enchant}TalismanEnchantCriticalStrikeMultiplier
+{version:3}{variant:42}{group:1,2}{enchant}TalismanEnchantFireResistancePenetration
+{version:3}{variant:43}{group:1,2}{enchant}TalismanEnchantFreezeEnemiesWhenHitChance
+{version:3}{variant:44}{group:1,2}{enchant}TalismanEnchantGlobalCooldownRecovery
+{version:3}{variant:45}{group:1,2}{enchant}TalismanEnchantGlobalDamageOverTimeMultiplier
+{version:3}{variant:46}{group:1,2}{enchant}TalismanEnchantGlobalHeraldGemlevel
+{version:3}{variant:47}{group:1,2}{enchant}TalismanEnchantGlobalSkillGemLevel
+{version:3}{variant:48}{group:1,2}{enchant}TalismanEnchantGlobalSkillGemQuality
+{version:3}{variant:49}{group:1,2}{enchant}TalismanEnchantIgnoreEnemyArmour
+{version:3}{variant:50}{group:1,2}{enchant}TalismanEnchantIncreasedMaximumPowerCharges
+{version:3}{variant:51}{group:1,2}{enchant}TalismanEnchantLightningResistancePenetration
+{version:3}{variant:52}{group:1,2}{enchant}TalismanEnchantMarkEffect
+{version:3}{variant:53}{group:1,2}{enchant}TalismanEnchantMaximumColdResist
+{version:3}{variant:54}{group:1,2}{enchant}TalismanEnchantMaximumEnduranceCharges
+{version:3}{variant:55}{group:1,2}{enchant}TalismanEnchantMaximumFireResist
+{version:3}{variant:56}{group:1,2}{enchant}TalismanEnchantMaximumFrenzyCharges
+{version:3}{variant:57}{group:1,2}{enchant}TalismanEnchantMaximumLifeAddedAsArmour
+{version:3}{variant:58}{group:1,2}{enchant}TalismanEnchantMaximumLifeIncreasePercent
+{version:3}{variant:59}{group:1,2}{enchant}TalismanEnchantMaximumLightningResistance
+{version:3}{variant:60}{group:1,2}{enchant}TalismanEnchantMaximumManaIncreasePercent
+{version:3}{variant:61}{group:1,2}{enchant}TalismanEnchantMaximumSpectreCount
+{version:3}{variant:62}{group:1,2}{enchant}TalismanEnchantMinimumEndurancePowerFrenzyCharges
+{version:3}{variant:63}{group:1,2}{enchant}TalismanEnchantMinionDotMultiplier
+{version:3}{variant:64}{group:1,2}{enchant}TalismanEnchantMovementVelocity
+{version:3}{variant:65}{group:1,2}{enchant}TalismanEnchantPercentageAllAttributes
+{version:3}{variant:66}{group:1,2}{enchant}TalismanEnchantProjectileSpeed
+{version:3}{variant:67}{group:1,2}{enchant}TalismanEnchantUnaffectedByIgnite
+{version:3}{variant:68}{group:1,2}{enchant}TalismanEnchantUtilityFlaskPassiveChargeGain
+{version:3}{variant:69}{group:1,2}{enchant}TalismanEnchantWarcriesExertAnAdditionalAttack
+{version:3}{variant:70}{group:1,2}{enchant}TalismanEnchantWitheredEffect
+{version:1,2}LocalDoubleImplicitMods
+{version:3}LocalEnchantStatMagnitudeUnique__1
 ]],[[
 The Felbog Fang
 Citrine Amulet
@@ -604,6 +680,7 @@ Replica Hinekora's Sight
 Onyx Amulet
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
+Implicits: 1
 AllAttributesImplicitAmulet1
 IncreasedAccuracyUnique__3
 IncreasedPhysicalDamageReductionRatingUnique__10
@@ -690,7 +767,7 @@ Implicits: 1
 LifeRegenerationImplicitAmulet1
 AddedManaRegenerationUnique__3
 BeltFlaskLifeRecoveryUnique__1
-FlaskManaRecoveryUnique__1
+BeltFlaskManaRecoveryUnique__1
 LowLifeInstantLifeRecoveryUnique__1
 LowManaInstantManaRecoveryUnique__1
 ]],[[
@@ -712,7 +789,7 @@ AllAttributesImplicitAmulet1
 {variant:4}GlobalAddedLightningDamageUnique__1_
 {variant:5}GlobalAddedChaosDamageUnique__1
 IncreasedLifeUnique__65
-{variant:1}IncreasedPhysicalDamageReductionRatingUniqueAmulet16
+{variant:1}IncreasedPhysicalDamageReductionRatingUnique__3
 {variant:2}LifeRegenerationRatePercentUnique__4_
 {variant:3}ManaRegenerationUnique__7
 {variant:4}EnergyShieldRegenerationUnique__2
@@ -721,7 +798,7 @@ IncreasedLifeUnique__65
 {variant:2}FireResistUnique__14
 {variant:3}ColdResistUnique__20
 {variant:4}LightningResistUnique__11
-{variant:5}ChaosResistUnique__14
+{variant:5}ChaosResistUnique__9
 {variant:1}VulnerabilityReservationCostUnique__1_
 {variant:2}FlammabilityReservationCostUnique__1
 {variant:3}FrostbiteReservationCostUnique__1
@@ -979,6 +1056,7 @@ Variant: Lightning
 League: Allflame
 Source: Drops from Treasure Clam chests in normal{The Fathomless Depths}
 Requires Level 28
+Implicits: 1
 AllResistancesImplicitAmulet1
 AllResistancesUniqueAmulet87
 IncreasedMaximumResistsUniqueAmulet87
@@ -1052,7 +1130,7 @@ MinionLifeUniqueAmulet3
 {variant:1,2,3}MinionRunSpeedUniqueAmulet3
 {variant:4}MinionPhysicalConvertToColdUnique__1
 {variant:3}MinionAddedColdDamageUnique__1[5,9][11,15]
-{variant:4}MinionAddedColdDamageUnique__1[25,35][60,65]
+{variant:4}MinionAddedColdDamageUnique__1
 {variant:1,2}MinionDamageUniqueAmulet3
 {variant:2,3}MinionSkillManaCostUnique__1_
 {variant:4}MinionOnlyDealColdDamageUnique__1
@@ -1374,7 +1452,7 @@ Source: Drops from unique{The Black Star} or unique{The Infinite Hunger}
 Requires Level 61
 Implicits: 2
 9% increased Mana Reservation Efficiency of Skills
-MovementVelocityImplicitShield2
+MovementVelocityEldritchImplicit2
 StrengthUnique__22
 DexterityUnique__23
 IntelligenceUnique__29

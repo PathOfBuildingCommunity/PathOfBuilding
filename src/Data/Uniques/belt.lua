@@ -90,7 +90,7 @@ Source: Steal from a unique{Curio Display} during a Grand Heist
 LevelReq: 22
 Implicits: 1
 {tags:defences}+(9-20) to maximum Energy Shield
-{tags:attribute}+(15-25) to Intelligence
+{tags:attribute}-(25-15) to Intelligence
 10% increased Damage
 50% increased Fishing Pool Consumption
 20% increased Fishing Range
@@ -643,6 +643,7 @@ Non-Unique Utility Flasks you Use apply to Linked Targets
 Chain of Endurance
 Chain Belt
 LevelReq: 14
+Implicits: 1
 {tags:defences}+(9-20) to maximum Energy Shield
 {tags:resource}+(40-50) to maximum Life
 (40-60)% increased Stun and Block Recovery
@@ -724,7 +725,7 @@ LevelReq: 44
 Implicits: 1
 {tags:physical_damage}(12-24)% increased Global Physical Damage
 {tags:resource}+(60-80) to maximum Life
-{tags:resistance}+(25-40)% to Cold Resistance
+{tags:resistance}+(30-40)% to Cold Resistance
 {tags:resource,attack}0.4% of Physical Attack Damage Leeched as Life
 60% increased Flask Effect Duration
 30% reduced Flask Charges gained during any Flask Effect
@@ -983,9 +984,10 @@ Flasks you Use apply to your Raised Zombies and Spectres
 Unholy Accomplice
 Cloth Belt
 Source: Drops from unique{K'Tash, the Hate Shepherd} and unique{Lycia, Herald of the Scourge}
+Implicits: 1
+(15-25)% increased Stun and Block Recovery
 {tags:caster}(30-50)% increased Spell Damage
 {tags:resource}+(50-77) to maximum Life
-(15-25)% increased Stun and Block Recovery
 {tags:resistance}+(23-37)% to Lightning and Chaos Resistances
 {tags:caster}Pact Skills have (30-50)% increased Cast Speed
 {tags:caster}Pact Skills have (30-50)% increased Cooldown Recovery Rate

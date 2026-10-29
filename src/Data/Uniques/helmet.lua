@@ -122,8 +122,9 @@ Requires Level 55, 114 Str
 {variant:1}(10-30)% increased Fire Damage
 {variant:2,3}(30-40)% increased Fire Damage
 {variant:1}(40-60)% increased Armour
-{variant:2,3}(100-120)% increased Armour
-{variant:2,3}10% increased Stun and Block Recovery
+{variant:2}(100-120)% increased Armour
+{variant:2}10% increased Stun and Block Recovery
+{variant:3}(100-120)% increased Armour
 {variant:3}+(50-70) to maximum Life
 +30% to Cold Resistance
 {variant:1,2}50% chance to Avoid being Chilled
@@ -364,8 +365,9 @@ Requires Level 8, 23 Int
 {variant:3}(30-60)% increased Spell Damage
 (10-15)% increased Attack Speed
 {variant:1,2}(10-15)% increased Cast Speed
-{variant:2,3}+(30-50) to maximum Energy Shield
-{variant:2,3}(10-15)% increased Stun and Block Recovery
+{variant:2}+(30-50) to maximum Energy Shield
+{variant:2}(10-15)% increased Stun and Block Recovery
+{variant:3}+(30-50) to maximum Energy Shield
 {variant:1}50% increased Energy Shield
 30% increased Mana Regeneration Rate
 {variant:1,2}5% increased Movement Speed
@@ -516,7 +518,12 @@ Variant: Take no Crit Damage if Recharge
 Variant: Damage if consumed corpse
 {variant:1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25}+1 to Level of Socketed Gems
 {variant:34}+2 to Level of Socketed Gems
+{variant:27}+2 to Level of Socketed AoE Gems
+{variant:27}(8-10)% increased Area of Effect
+{variant:28}+2 to Level of Socketed Projectile Gems
+{variant:28}Projectiles Pierce an additional Target
 {variant:29}+2 to Level of Socketed Melee Gems
+{variant:29}+0.2 metres to Melee Strike Range
 {variant:1,2,3,4,5,6,7,8,9,10,11,12,13}Socketed Gems have 40% reduced Reservation Efficiency
 {variant:14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38}Socketed Gems have 25% increased Reservation Efficiency
 Trigger Level 15 Feast of Flesh every 5 seconds
@@ -531,20 +538,22 @@ Trigger Level 15 Feast of Flesh every 5 seconds
 {variant:20}+(31-35) to Dexterity and Intelligence
 (180-220)% increased Energy Shield
 {variant:30}+(55-60) to maximum Life
+{variant:30}Regenerate 5.3 Mana per second
 {variant:31}Regenerate 33.3 Life per second
 {variant:31}+(55-60) to maximum Mana
 {variant:26}Minions have (8-10)% increased maximum Life
-{variant:28}Projectiles Pierce an additional Target
-{variant:27}(8-10)% increased Area of Effect
 {variant:26}+1 to maximum number of Raised Zombies
-{variant:26}+1 to maximum number of Spectres
 {variant:26}+1 to maximum number of Skeletons
-{variant:29}+0.2 metres to Melee Strike Range
+{variant:38}20% increased Damage if you have Consumed a corpse Recently
+{variant:33}(13-15)% additional Physical Damage Reduction while Focused
+{variant:36}20% increased Attack and Cast Speed if you've Consumed a Corpse Recently
 10% chance for Energy Shield Recharge to start when you use a Skill
+{variant:32}(30-32)% increased Evasion Rating while Focused
 {variant:4}+(8-15)% to Fire and Chaos Resistances
 {variant:16}+(16-20)% to Fire and Chaos Resistances
 {variant:23}Focus has (5-8)% increased Cooldown Recovery Rate
-{variant:26}+1 to maximum number of Skeletons
+{variant:35}Corpses you Spawn have 20% increased Maximum Life
+{variant:37}Take no Extra Damage from Critical Strikes if Energy Shield Recharge started Recently
 Eldritch Battery
 {variant:1,2,3}{crafted}+(7-18)% to Quality
 {variant:5}{crafted}+(8-15)% to Cold and Chaos Resistances
@@ -561,15 +570,6 @@ Eldritch Battery
 {variant:23}Trigger Socketed Spells when you Focus, with a 0.25 second Cooldown
 {variant:24}(36-40)% increased Duration of Ailments you inflict while Focused
 {variant:25}(10-12)% chance to Avoid Elemental Damage from Hits during Soul Gain Prevention
-{variant:27}+2 to Level of Socketed AoE Gems
-{variant:28}+2 to Level of Socketed Projectile Gems
-{variant:30}Regenerate 5.3 Mana per second
-{variant:32}(30-32)% increased Evasion Rating while Focused
-{variant:33}(13-15)% additional Physical Damage Reduction while Focused
-{variant:35}Corpses you Spawn have 20% increased Maximum Life
-{variant:36}20% increased Attack and Cast Speed if you've Consumed a Corpse Recently
-{variant:37}Take no Extra Damage from Critical Strikes if Energy Shield Recharge started Recently
-{variant:38}20% increased Damage if you have Consumed a corpse Recently
 ]],[[
 Wilma's Requital
 Solaris Circlet
@@ -596,10 +596,12 @@ Curse Skills have (30-50)% increased Skill Effect Duration
 ]],[[
 Eber's Unification
 Hubris Circlet
+Version: Pre 3.5.0
+Version: Current
 Requires Level 69, 154 Int
-Implicits: 0
 Trigger Level 10 Void Gaze when you use a Skill
-(120-150)% increased Energy Shield
+{version:1}(120-150)% increased Energy Shield
+{version:2}(150-180)% increased Energy Shield
 +(50-80) to maximum Mana
 50% increased Stun and Block Recovery
 Gain (5-8)% of Elemental Damage as Extra Chaos Damage
@@ -692,8 +694,9 @@ Variant: Pre 3.11.0
 Variant: Pre 3.19.0
 Variant: Current
 Requires Level 26, 58 Int
-+(30-50) to maximum Energy Shield
-(10-15)% increased Stun and Block Recovery
+{variant:1,2}+(30-50) to maximum Energy Shield
+{variant:1,2}(10-15)% increased Stun and Block Recovery
+{variant:3}+(30-50) to maximum Energy Shield
 {variant:1}Minions have (10-15)% increased Movement Speed
 {variant:2}Minions have (25-45)% increased Movement Speed
 {variant:2}Summoned Raging Spirits deal (130-150)% increased Damage
@@ -1115,10 +1118,10 @@ Variant: Current
 League: Bestiary
 Source: Drops from unique{Craiceann, First of the Deep}
 Requires Level 58, 64 Str, 64 Int
+{variant:2}(4-6)% Chance to Block Spell Damage
 (140-180)% increased Armour and Energy Shield
 (4-7)% increased maximum Life
 {variant:1}+(7-9)% Chance to Block Spell Damage
-{variant:2}+(4-6)% Chance to Block Spell Damage
 Cannot lose Crab Barriers if you have lost Crab Barriers Recently
 +3% Chance to Block Attack Damage while you have at least 5 Crab Barriers
 +5% Chance to Block Attack Damage while you have at least 10 Crab Barriers

@@ -147,7 +147,7 @@ Implicits: 2
 {variant:1}StaffBlockPercentImplicitStaff1[18,18]
 {variant:2}StaffSpellBlockPercentImplicitStaff__1
 StaffBlockPercentUniqueStaff9
-IncreasedFireDamgeIfHitRecentlyUnique__1
+FireDamagePercentUnique__12___
 LocalIncreasedAttackSpeedUniqueStaff9
 FlammabilityOnBlockChanceUnique__1
 ReflectFireDamageOnBlockUnique__1___
@@ -192,6 +192,7 @@ The Crustacean's Call
 Primordial Staff
 League: Allflame
 Source: Drops from unique{Velka, the Tide Witch}
+Implicits: 1
 StaffSpellBlockPercent3
 SupportedByCrabTotemSupportUnique__1
 TotemMovementVelocityUnique__1
@@ -225,7 +226,7 @@ NonChaosDamageAddedAsChaosPerSiphoningChargeUnique__1
 {variant:5}AdditionalPhysicalDamageReductionPerSiphoningChargeUnique__1
 LifeLeechPerSiphoningChargeUnique__1
 DamageTakenPerSiphoningChargeOnSkillUseUnique__1
-{variant:1,2,3,4,5}BattlemageKeystoneUnique__5
+{variant:1,2,3,4,5}BattlemageKeystoneUnique__2_
 ]],[[
 Duskdawn
 Maelström Staff
@@ -248,7 +249,7 @@ ElementalDamagePercentAddedAsChaosUnique__2
 CriticalMultiplierPerBlockChanceUnique__1
 CritMultiIfDealtNonCritRecentlyUnique__2
 {variant:1,2}SpellDamageIfYouHaveCritRecentlyUnique__2[120,120]
-{variant:3,4}SpellDamageIfYouHaveCritRecentlyUnique__2
+{variant:3,4,5}SpellDamageIfYouHaveCritRecentlyUnique__2
 ]],[[
 Replica Duskdawn
 Maelström Staff
@@ -269,7 +270,7 @@ ElementalDamageIfCritRecently
 ]],[[
 Dying Breath
 {variant:1}Coiled Staff
-{variant:2}Iron Staff
+{variant:2,3}Iron Staff
 Variant: Pre 2.6.0
 Variant: Pre 3.25.0
 Variant: Current
@@ -388,7 +389,8 @@ Implicits: 2
 {variant:1}StaffBlockPercentImplicitStaff1[18,18]
 SocketedGemsSupportedByLifetapUnique__1
 IncreasedCastSpeedUnique__25
-LifeDegenerationGracePeriodUnique__1
+{variant:1}LifeDegenerationGracePeriodUnique__1
+{variant:2}LifeDegenerationGracePeriodPer10SecondsUnique__1
 SpellAddedChaosDamageMaximumLifeUnique__1
 ]],[[
 The Fulcrum
@@ -517,7 +519,7 @@ Implicits: 2
 {variant:1,2,3,4}StaffBlockPercentUnique__3[12,16]
 {variant:5}StaffBlockPercentUnique__3
 {variant:1,2,3,4}FireDamagePercentUnique__12___[100,100]
-{variant:5}FireDamagePercentUnique__12___
+{variant:5}IncreasedFireDamgeIfHitRecentlyUnique__1
 {variant:1,2}LocalAddedFireDamageUnique__3[350,400][500,600]
 {variant:3,4,5}LocalAddedFireDamageUnique__3
 FirePenetrationIfBlockedRecentlyUnique__1
@@ -613,7 +615,7 @@ Variant: Current
 Implicits: 3
 {variant:1,2}StaffBlockPercentImplicitStaff3[12,12]
 {variant:3,4,5}StaffBlockPercentImplicitStaff3[18,18]
-{variant:6,7}StaffBlockPercentImplicitStaff3
+{variant:6,7}StaffSpellBlockPercent3
 {variant:1,2,3}SpellDamageUnique__10
 {variant:5,6,7}FireDamageOverTimeMultiplierUnique__1
 {variant:1,2,3}FireDamagePercentUniqueStaff1_[20,40]
@@ -795,8 +797,8 @@ Variant: Pre 3.26.0
 Variant: Current
 Requires Level 28, 43 Str, 43 Int
 Implicits: 2
-{variant:1}StaffBlockPercentUnique__1[18,18]
-{variant:2,3}StaffBlockPercentUnique__1[20,20]
+{variant:1}StaffBlockPercentImplicitStaff1[18,18]
+{variant:2,3}StaffBlockPercentImplicitStaff1
 StaffBlockPercentUnique__1
 SpellDamageUnique__2
 {variant:1,2}IncreasedEnergyShieldUnique__3[70,100]

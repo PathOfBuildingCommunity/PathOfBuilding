@@ -473,7 +473,7 @@ Counts as Dual Wielding
 ]],[[
 Wings of Entropy
 {variant:1,2,3,4}Sundering Axe
-{variant:5}Ezomyte Axe
+{variant:5,6}Ezomyte Axe
 Variant: Pre 1.3.0
 Variant: Pre 2.0.0
 Variant: Pre 3.4.0

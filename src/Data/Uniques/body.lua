@@ -226,7 +226,7 @@ Cannot be Ignited
 {variant:1,2}(10-15)% increased Physical Damage with Ranged Weapons
 {variant:3}(75-150)% increased Physical Damage with Ranged Weapons
 {variant:1,2}-(5-7) Physical Damage taken from Attack Hits
-{variant:3}-(30-60) Physical Damage taken from Attack Hits
+{variant:3}-(60-30) Physical Damage taken from Attack Hits
 ]],[[
 Briskwrap
 {variant:1,2,3}Strapped Leather
@@ -451,6 +451,7 @@ Variant: Pre 3.21.0
 Variant: Pre 3.23.0
 Variant: Current
 Implicits: 0
+{variant:4}20% Chance to Block Attack Damage
 {variant:1}(5-10)% increased Dexterity
 {variant:2,3}(10-15)% increased Dexterity
 {variant:1}(30-50)% increased Evasion Rating
@@ -459,7 +460,6 @@ Implicits: 0
 {variant:1}+(50-80) to maximum Life
 {variant:2,3}+(70-100) to maximum Life
 -30% to Cold Resistance
-{variant:4}+20% Chance to Block Attack Damage
 {variant:1,2,3,4}Evasion Rating is increased by Overcapped Cold Resistance
 {variant:3}Flesh and Stone has no Reservation
 {variant:3}Hollow Palm Technique
@@ -477,9 +477,9 @@ Implicits: 0
 {variant:1,4}Grants Level 20 Summon Bestial Rhoa Skill
 {variant:2,5}Grants Level 20 Summon Bestial Snake Skill
 {variant:3,6}Grants Level 20 Summon Bestial Ursa Skill
++(300-400) to Accuracy Rating
 (130-150)% increased Evasion Rating
 +(90-100) to maximum Life
-+(300-400) to Accuracy Rating
 Projectile Attack Skills have (40-60)% increased Critical Strike Chance
 {variant:3}Adds (11-16) to (21-25) Physical Damage to Attacks while you have a Bestial Minion
 {variant:6}Adds (18-24) to (30-36) Physical Damage to Attacks while you have a Bestial Minion
@@ -610,10 +610,13 @@ Variant: Pre 3.16.0
 Variant: Current
 Implicits: 0
 Socketed Gems are Supported by Level 20 Blasphemy
-Grants Level 20 Summon Doedre's Effigy Skill
-Socketed Hex Curse Skills are Triggered by Doedre's Effigy when Summoned
-Hexes from Socketed Skills can apply 5 additional Curses
-20% less Effect of Curses from Socketed Hex Skills
+{variant:1,2}Grants Level 20 Summon Doedre's Effigy Skill
+{variant:1,2}Socketed Hex Curse Skills are Triggered by Doedre's Effigy when Summoned
+{variant:1,2}Hexes from Socketed Skills can apply 5 additional Curses
+{variant:1,2}20% less Effect of Curses from Socketed Hex Skills
+{variant:3}Grants Level 20 Summon Doedre's Effigy Skill
+{variant:3}Socketed Hex Curse Skills are Triggered by Doedre's Effigy when Summoned
+{variant:3}Hexes from Socketed Skills can apply 5 additional Curses
 +(30-40) to Intelligence
 (130-150)% increased Energy Shield
 {variant:1}(25-33)% reduced Effect of your Curses
@@ -859,8 +862,8 @@ Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 0
 (100-150)% increased Armour and Evasion
 +(80-100) to maximum Life
++2 seconds to Cat's Agility Duration
 Aspect of the Cat has no Reservation
-+2 seconds to Cat's Stealth Duration
 Gain up to your maximum number of Frenzy and Endurance Charges when you gain Cat's Agility
 You have Onslaught while you have Cat's Agility
 ]],[[
@@ -995,7 +998,8 @@ Implicits: 0
 (50-75)% increased Armour and Energy Shield
 {variant:1,2}+(70-80) to maximum Energy Shield
 {variant:3}+(30-40) to maximum Energy Shield
-+(50-70) to maximum Life
+{variant:1,2}+(50-70) to maximum Life
+{variant:3}+(60-70) to maximum Life
 +(14-18)% to all Elemental Resistances
 {variant:1}+1 maximum Energy Shield per 5 Strength
 {variant:2,3}+2 maximum Energy Shield per 5 Strength
@@ -1460,10 +1464,12 @@ Variant: Current (Armour/Evasion/ES)
 Implicits: 1
 +1 to Level of all Vaal Skill Gems
 {variant:1,10}(380-420)% increased Armour
-{variant:2,11}(200-220)% increased Evasion Rating and Armour
 {variant:3,12}(380-420)% increased Evasion Rating
-{variant:7,8,16,17}(200-220)% increased Armour and Energy Shield
-{variant:4,5,13,14}(200-220)% increased Evasion and Energy Shield
+{variant:7,16}(200-220)% increased Armour and Energy Shield
+{variant:8,17}(200-220)% increased Armour and Energy Shield
+{variant:2,11}(200-220)% increased Armour and Evasion
+{variant:4,13}(200-220)% increased Evasion and Energy Shield
+{variant:5,14}(200-220)% increased Evasion and Energy Shield
 {variant:9,18}(270-340)% increased Armour, Evasion and Energy Shield
 {variant:5,6,8}+(90-100) to maximum Energy Shield
 {variant:14,15,17}+(70-80) to maximum Energy Shield

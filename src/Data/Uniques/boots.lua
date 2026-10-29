@@ -195,7 +195,8 @@ Variant: Current
 {variant:3}20% increased Movement Speed
 {variant:1}10% increased Elemental Damage
 {variant:2}(10-20)% increased Elemental Damage
-You can apply an additional Curse
+{variant:1,2}You can apply an additional Curse
+{variant:3}You can apply an additional Curse
 {variant:3}50% increased Area of Effect of Hex Skills
 ]],[[
 Windshriek
