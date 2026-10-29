@@ -119,6 +119,108 @@ function calcs.initModDB(env, modDB)
 	modDB.conditions["Effective"] = env.mode_effective
 end
 
+local allocationCountStats = {
+	allocatedNotableCount = "Multiplier:AllocatedNotable",
+	allocatedKeystoneCount = "Multiplier:AllocatedKeystone",
+	allocatedMasteryCount = "Multiplier:AllocatedMastery",
+	allocatedMasteryTypeCount = "Multiplier:AllocatedMasteryType",
+}
+
+function calcs.getAllocatedNodeCounts(spec)
+	return {
+		allocatedNotableCount = spec.allocatedNotableCount,
+		allocatedKeystoneCount = spec.allocatedKeystoneCount,
+		allocatedMasteryCount = spec.allocatedMasteryCount,
+		allocatedMasteryTypeCount = spec.allocatedMasteryTypeCount,
+		allocatedMasteryTypes = copyTable(spec.allocatedMasteryTypes),
+		allocatedTattooTypes = copyTable(spec.allocatedTattooTypes),
+	}
+end
+
+-- Shared by real allocation overrides and the non-mutating relevance probe.
+function calcs.updateAllocatedNodeCounts(counts, node, delta)
+	if node.type == "Mastery" then
+		counts.allocatedMasteryCount = counts.allocatedMasteryCount + delta
+		local previous = counts.allocatedMasteryTypes[node.name] or 0
+		local current = previous + delta
+		counts.allocatedMasteryTypes[node.name] = current
+		if previous == 0 and current > 0 then
+			counts.allocatedMasteryTypeCount = counts.allocatedMasteryTypeCount + 1
+		elseif previous > 0 and current == 0 then
+			counts.allocatedMasteryTypeCount = counts.allocatedMasteryTypeCount - 1
+		end
+	elseif node.type == "Notable" then
+		counts.allocatedNotableCount = counts.allocatedNotableCount + delta
+	elseif node.type == "Keystone" then
+		counts.allocatedKeystoneCount = counts.allocatedKeystoneCount + delta
+	end
+	if node.isTattoo and node.overrideType then
+		local previous = counts.allocatedTattooTypes[node.overrideType]
+		if previous or delta > 0 then
+			counts.allocatedTattooTypes[node.overrideType] = (previous or 0) + delta
+		end
+	end
+end
+
+function calcs.addAllocatedNodeCountMods(modDB, counts)
+	for field, stat in pairs(allocationCountStats) do
+		local count = counts[field]
+		if count and count > 0 then
+			modDB:NewMod(stat, "BASE", count)
+		end
+	end
+	local lifeMastery = counts.allocatedMasteryTypes["Life Mastery"]
+	if lifeMastery and lifeMastery > 0 then
+		modDB:NewMod("Multiplier:AllocatedLifeMastery", "BASE", lifeMastery)
+	end
+	for tattooType, count in pairs(counts.allocatedTattooTypes) do
+		modDB.multipliers[tattooType] = count
+	end
+end
+
+-- Probe native contributions without exposing live node or radius-jewel state.
+function calcs.probeNodeContribution(env, node)
+	if type(node) ~= "table" or not node.id or not node.modList then
+		return nil
+	end
+	for _, rad in pairs(env.radiusJewelList) do
+		if rad.nodes[node.id] then
+			return nil
+		end
+	end
+	if env.extraRadiusNodeList[node.id] then
+		return nil
+	end
+	local probe = setmetatable(copyTable(node, true), getmetatable(node))
+	probe.grantedSkills = { }
+	local probeEnv = { radiusJewelList = { }, allocNodes = { [node.id] = probe } }
+	local mods, explode = calcs.buildModListForNode(probeEnv, probe)
+	local counts = {
+		allocatedNotableCount = 0, allocatedKeystoneCount = 0,
+		allocatedMasteryCount = 0, allocatedMasteryTypeCount = 0,
+		allocatedMasteryTypes = { }, allocatedTattooTypes = { },
+	}
+	calcs.updateAllocatedNodeCounts(counts, node, 1)
+	calcs.addAllocatedNodeCountMods(mods, counts)
+	for tattooType, count in pairs(counts.allocatedTattooTypes) do
+		mods:NewMod("Multiplier:" .. tattooType, "BASE", count)
+	end
+	return mods, next(probe.grantedSkills) ~= nil, explode ~= nil
+end
+
+-- Temporary stores must observe absent queries without acquiring a semantic parent.
+function calcs.newModList(env)
+	return new("ModList"):ModList(nil, env.queryObserver)
+end
+
+-- Persistent item lists are read through a local view during observation only.
+function calcs.observedModList(env, modList)
+	if env.queryObserver then
+		return new("ModList"):ModList(modList, env.queryObserver)
+	end
+	return modList
+end
+
 ---@param reuse table|nil A ModList to recycle instead of allocating. Only safe when the caller discards the result.
 function calcs.buildModListForNode(env, node, reuse)
 	local modList
@@ -133,7 +235,7 @@ function calcs.buildModListForNode(env, node, reuse)
 		modList.actor = wipeTable(modList.actor)
 		modList.parent = false
 	else
-		modList = new("ModList"):ModList()
+		modList = calcs.newModList(env)
 	end
 	if node.type == "Keystone" then
 		modList:AddMod(node.keystoneMod)
@@ -173,6 +275,7 @@ function calcs.buildModListForNode(env, node, reuse)
 
 	if (hasNoEffect and modList:Flag(nil, "PassiveSkillHasNoEffect")) or (env.allocNodes[node.id] and (hasAllocNoEffect and modList:Flag(nil, "AllocatedPassiveSkillHasNoEffect"))) then
 		wipeTable(modList)
+		modList.queryObserver = env.queryObserver or false
 		hasScale = false
 		hasOtherEffect = nil
 		hasExtraSkill = nil
@@ -183,7 +286,7 @@ function calcs.buildModListForNode(env, node, reuse)
 	if hasScale then
 		local scale = calcLib.mod(modList, nil, "PassiveSkillEffect")
 		if scale ~= 1 then
-			local scaledList = new("ModList"):ModList()
+			local scaledList = calcs.newModList(env)
 			scaledList:ScaleAddList(modList, scale)
 			modList = scaledList
 		end
@@ -221,6 +324,7 @@ function calcs.buildModListForNode(env, node, reuse)
 			local mod = newMods[i].mod
 			if i == 1 then
 				wipeTable(modList)
+				modList.queryObserver = env.queryObserver or false
 				hasExtraSkill = nil
 				hasExplode = nil
 			end
@@ -264,12 +368,12 @@ function calcs.buildModListForNodeList(env, nodeList, finishJewels)
 	end
 
 	-- Add node modifiers
-	local modList = new("ModList"):ModList()
+	local modList = calcs.newModList(env)
 	local explodeSources = {}
 	-- Outside MAIN mode the per-node list is merged into modList and then
 	-- dropped, so a single list can be recycled for every node instead of
 	-- allocating one each time.
-	local scratch = env.mode ~= "MAIN" and new("ModList"):ModList() or nil
+	local scratch = env.mode ~= "MAIN" and calcs.newModList(env) or nil
 	for _, node in pairs(nodeList) do
 		local nodeModList, explode = calcs.buildModListForNode(env, node, scratch)
 		t_insert(explodeSources, explode)
@@ -472,7 +576,7 @@ end
 ---@return ModDB? cachedPlayerDB
 ---@return ModDB? cachedEnemyDB
 ---@return ModDB? cachedMinionDB
-function calcs.initEnv(build, mode, override, specEnv)
+function calcs.initEnv(build, mode, override, specEnv, queryObserver)
 	ClearMatchKeywordFlagsCache()
 	-- accelerator variables
 	local cachedPlayerDB = specEnv and specEnv.cachedPlayerDB or nil
@@ -490,7 +594,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 	if not env then
 		---@class Env
 		---@field minion Actor?
-		env = { }
+		env = { queryObserver = queryObserver }
 		env.build = build
 		env.data = build.data
 		env.configInput = build.configTab.input
@@ -502,11 +606,11 @@ function calcs.initEnv(build, mode, override, specEnv)
 		env.override = override
 		env.classId = env.spec.curClassId
 
-		modDB = new("ModDB"):ModDB()
+		modDB = new("ModDB"):ModDB(nil, env.queryObserver)
 		env.modDB = modDB
-		enemyDB = new("ModDB"):ModDB()
+		enemyDB = new("ModDB"):ModDB(nil, env.queryObserver)
 		env.enemyDB = enemyDB
-		env.itemModDB = new("ModDB"):ModDB()
+		env.itemModDB = new("ModDB"):ModDB(nil, env.queryObserver)
 
 		env.enemyLevel = build.configTab.enemyLevel or m_min(data.misc.MaxEnemyLevel, build.characterLevel)
 
@@ -699,14 +803,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 		end
 	end
 
-	local allocatedNotableCount = env.spec.allocatedNotableCount
-	local allocatedKeystoneCount = env.spec.allocatedKeystoneCount
-	local allocatedMasteryCount = env.spec.allocatedMasteryCount
-	local allocatedMasteryTypeCount = env.spec.allocatedMasteryTypeCount
-	local allocatedMasteryTypes = copyTable(env.spec.allocatedMasteryTypes)
-	local allocatedTattooTypes = copyTable(env.spec.allocatedTattooTypes)
-
-
+	local allocatedCounts = calcs.getAllocatedNodeCounts(env.spec)
 
 	if not accelerate.nodeAlloc then
 		-- Build list of passive nodes
@@ -716,85 +813,28 @@ function calcs.initEnv(build, mode, override, specEnv)
 			if override.addNodes then
 				for node in pairs(override.addNodes) do
 					nodes[node.id] = node
-					if node.type == "Mastery" then
-						allocatedMasteryCount = allocatedMasteryCount + 1
-
-						if not allocatedMasteryTypes[node.name] then
-							allocatedMasteryTypes[node.name] = 1
-							allocatedMasteryTypeCount = allocatedMasteryTypeCount + 1
-						else
-							local prevCount = allocatedMasteryTypes[node.name]
-							allocatedMasteryTypes[node.name] = prevCount + 1
-							if prevCount == 0 then
-								allocatedMasteryTypeCount = allocatedMasteryTypeCount + 1
-							end
-						end
-					elseif node.type == "Notable" then
-						allocatedNotableCount = allocatedNotableCount + 1
-					elseif node.type == "Keystone" then
-						allocatedKeystoneCount = allocatedKeystoneCount + 1	
-					end
-					if node.isTattoo and node.overrideType then
-						if not allocatedTattooTypes[node.overrideType] then
-							allocatedTattooTypes[node.overrideType] = 1
-						else
-							local prevCount = allocatedTattooTypes[node.overrideType]
-							allocatedTattooTypes[node.overrideType] = prevCount + 1
-						end
-					end
+					calcs.updateAllocatedNodeCounts(allocatedCounts, node, 1)
 				end
 			end
 			for _, node in pairs(env.spec.allocNodes) do
 				if not override.removeNodes or not override.removeNodes[node] then
 					nodes[node.id] = node
 				elseif override.removeNodes[node] then
-					if node.type == "Mastery" then
-						allocatedMasteryCount = allocatedMasteryCount - 1
-
-						allocatedMasteryTypes[node.name] = allocatedMasteryTypes[node.name] - 1
-						if allocatedMasteryTypes[node.name] == 0 then
-							allocatedMasteryTypeCount = allocatedMasteryTypeCount - 1
-						end
-					elseif node.type == "Notable" then
-						allocatedNotableCount = allocatedNotableCount - 1
-					elseif node.type == "Keystone" then
-						allocatedKeystoneCount = allocatedKeystoneCount - 1	
-					end
-					if node.isTattoo and node.overrideType then
-						if allocatedTattooTypes[node.overrideType] then
-							allocatedTattooTypes[node.overrideType] = allocatedTattooTypes[node.overrideType] - 1
-						end
-					end
+					calcs.updateAllocatedNodeCounts(allocatedCounts, node, -1)
 				end
 			end
 		else
 			nodes = copyTable(env.spec.allocNodes, true)
+		end
+		if env.queryObserver then
+			env.queryObserver:ObserveNodes(nodes)
 		end
 		env.allocNodes = nodes
 		env.initialNodeModDB = calcs.buildModListForNodeList(env, env.allocNodes, true)
 		modLib.mergeKeystones(env, env.initialNodeModDB)
 	end
 
-	if allocatedNotableCount and allocatedNotableCount > 0 then
-		modDB:NewMod("Multiplier:AllocatedNotable", "BASE", allocatedNotableCount)
-	end
-	if allocatedKeystoneCount and allocatedKeystoneCount > 0 then
-		modDB:NewMod("Multiplier:AllocatedKeystone", "BASE", allocatedKeystoneCount)
-	end
-	if allocatedMasteryCount and allocatedMasteryCount > 0 then
-		modDB:NewMod("Multiplier:AllocatedMastery", "BASE", allocatedMasteryCount)
-	end
-	if allocatedMasteryTypeCount and allocatedMasteryTypeCount > 0 then
-		modDB:NewMod("Multiplier:AllocatedMasteryType", "BASE", allocatedMasteryTypeCount)
-	end
-	if allocatedMasteryTypes["Life Mastery"] and allocatedMasteryTypes["Life Mastery"] > 0 then
-		modDB:NewMod("Multiplier:AllocatedLifeMastery", "BASE", allocatedMasteryTypes["Life Mastery"])
-	end
-	if allocatedTattooTypes then
-		for type, count in pairs(allocatedTattooTypes) do
-			env.modDB.multipliers[type] = count
-		end
-	end
+	calcs.addAllocatedNodeCountMods(modDB, allocatedCounts)
 
 	-- Build and merge item modifiers, and create list of radius jewels
 	if not accelerate.requirementsItems then
@@ -834,7 +874,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 					t_insert(env.grantedSkillsItems, grantedSkill)
 				end
 			end
-			if item and item.baseModList and item.baseModList:Flag(nil, "CanExplode") then
+			if item and item.baseModList and calcs.observedModList(env, item.baseModList):Flag(nil, "CanExplode") then
 				t_insert(env.explodeSources, item)
 			end
 			if slot.weaponSet and slot.weaponSet ~= (build.itemsTab.activeItemSet.useSecondWeaponSet and 2 or 1) then
@@ -1099,7 +1139,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 				end
 				if item.type == "Shield" and env.allocNodes[45175] and env.allocNodes[45175].dn == "Necromantic Aegis" then
 					-- Special handling for Necromantic Aegis
-					env.aegisModList = new("ModList"):ModList()
+					env.aegisModList = calcs.newModList(env)
 					for _, mod in ipairs(srcList) do
 						-- Filter out mods that apply to socketed gems, or which add supports
 						local add = true
@@ -1152,7 +1192,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 					end
 				elseif slotName == "Weapon 1" and item.name == "The Iron Mass, Gladius" then
 					-- Special handling for The Iron Mass
-					env.theIronMass = new("ModList"):ModList()
+					env.theIronMass = calcs.newModList(env)
 					for _, mod in ipairs(srcList) do
 						-- Filter out mods that apply to socketed gems, or which add supports
 						local add = true
@@ -1170,7 +1210,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 					end
 				elseif slotName == "Weapon 1" and item.grantedSkills[1] and item.grantedSkills[1].skillId == "UniqueAnimateWeapon" then
 					-- Special handling for The Dancing Dervish
-					env.weaponModList1 = new("ModList"):ModList()
+					env.weaponModList1 = calcs.newModList(env)
 					for _, mod in ipairs(srcList) do
 						-- Filter out mods that apply to socketed gems, or which add supports
 						local add = true
@@ -1226,28 +1266,28 @@ function calcs.initEnv(build, mode, override, specEnv)
 						end
 					end
 				elseif item.type == "Quiver" and (items["Weapon 1"] and items["Weapon 1"].name:match("Widowhail") or env.initialNodeModDB:Sum("INC", nil, "EffectOfBonusesFromQuiver") > 0) then
-					local widowHailMod= (1 + (items["Weapon 1"] and items["Weapon 1"].baseModList:Sum("INC", nil, "EffectOfBonusesFromQuiver") + env.initialNodeModDB:Sum("INC", nil, "EffectOfBonusesFromQuiver") or 100) / 100)
+					local widowHailMod= (1 + (items["Weapon 1"] and calcs.observedModList(env, items["Weapon 1"].baseModList):Sum("INC", nil, "EffectOfBonusesFromQuiver") + env.initialNodeModDB:Sum("INC", nil, "EffectOfBonusesFromQuiver") or 100) / 100)
 					scale = scale * widowHailMod
 					env.modDB:NewMod("WidowHailMultiplier", "BASE", widowHailMod, "Widowhail")
-					local combinedList = new("ModList"):ModList()
+					local combinedList = calcs.newModList(env)
 					for _, mod in ipairs(srcList) do
 						combinedList:MergeMod(mod)
 					end
 					env.itemModDB:ScaleAddList(combinedList, scale)
 				elseif env.modDB.multipliers["Corrupted" .. item.rarity:gsub("(%a)(%u*)", function(a, b) return a..string.lower(b) end) .. "JewelEffect"] and item.type == "Jewel" and item.corrupted and slot.nodeId and item.base.subType ~= "Charm" and not env.spec.nodes[slot.nodeId].containJewelSocket then
 					scale = scale + env.modDB.multipliers["Corrupted" .. item.rarity:gsub("(%a)(%u*)", function(a, b) return a..string.lower(b) end) .. "JewelEffect"]
-					local combinedList = new("ModList"):ModList()
+					local combinedList = calcs.newModList(env)
 					for _, mod in ipairs(srcList) do
 						combinedList:MergeMod(mod)
 					end	
 					env.itemModDB:ScaleAddList(combinedList, scale)
 				elseif item.type == "Gloves" and calcLib.mod(env.initialNodeModDB, nil, "EffectOfBonusesFromGloves") ~=1 then
 					scale = calcLib.mod(env.initialNodeModDB, nil, "EffectOfBonusesFromGloves") - 1
-					local combinedList = new("ModList"):ModList()
+					local combinedList = calcs.newModList(env)
 					for _, mod in ipairs(srcList) do
 						combinedList:MergeMod(mod)
 					end
-					local scaledList = new("ModList"):ModList()
+					local scaledList = calcs.newModList(env)
 					scaledList:ScaleAddList(combinedList, scale)
 					for _, mod in ipairs(scaledList) do
 						combinedList:MergeMod(mod, true)
@@ -1255,11 +1295,11 @@ function calcs.initEnv(build, mode, override, specEnv)
 					env.itemModDB:AddList(combinedList)
 				elseif item.type == "Boots" and calcLib.mod(env.initialNodeModDB, nil, "EffectOfBonusesFromBoots") ~= 1 then
 					scale = calcLib.mod(env.initialNodeModDB, nil, "EffectOfBonusesFromBoots") - 1
-					local combinedList = new("ModList"):ModList()
+					local combinedList = calcs.newModList(env)
 					for _, mod in ipairs(srcList) do
 						combinedList:MergeMod(mod)
 					end
-					local scaledList = new("ModList"):ModList()
+					local scaledList = calcs.newModList(env)
 					scaledList:ScaleAddList(combinedList, scale)
 					for _, mod in ipairs(scaledList) do
 						combinedList:MergeMod(mod, true)
@@ -1424,13 +1464,13 @@ function calcs.initEnv(build, mode, override, specEnv)
 	end
 	if not override or (override and not override.extraJewelFuncs) then
 		override = override or {}
-		override.extraJewelFuncs = new("ModList"):ModList()
+		override.extraJewelFuncs = calcs.newModList(env)
 		override.extraJewelFuncs.actor = env.player
 		for _, mod in ipairs(env.modDB:Tabulate("LIST", nil, "ExtraJewelFunc")) do
 			override.extraJewelFuncs:AddMod(mod.mod)
 		end
 		if #override.extraJewelFuncs > 0 then
-			return calcs.initEnv(build, mode, override, specEnv)
+			return calcs.initEnv(build, mode, override, specEnv, queryObserver)
 		end
 	end
 
@@ -1920,7 +1960,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 					if grantedEffect and not grantedEffect.support and gemInstance.enabled and grantedEffect.name == "Energy Blade" then
 						override.conditions = override.conditions or { }
 						t_insert(override.conditions, "AffectedByEnergyBlade")
-						return calcs.initEnv(build, mode, override, specEnv)
+						return calcs.initEnv(build, mode, override, specEnv, queryObserver)
 					end
 				end
 			end

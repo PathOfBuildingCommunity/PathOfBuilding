@@ -20,8 +20,8 @@ local mod_createMod = modLib.createMod
 ---@class ModDB: ModStore
 local ModDBClass = newClass("ModDB", "ModStore")
 
-function ModDBClass:ModDB(parent)
-	self:ModStore(parent)
+function ModDBClass:ModDB(parent, queryObserver)
+	self:ModStore(parent, queryObserver)
 	self.mods = { }
 	return self
 end

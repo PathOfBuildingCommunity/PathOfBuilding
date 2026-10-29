@@ -19,8 +19,8 @@ local mod_createMod = modLib.createMod
 ---@class ModList: ModStore
 local ModListClass = newClass("ModList", "ModStore")
 
-function ModListClass:ModList(parent)
-	self:ModStore(parent)
+function ModListClass:ModList(parent, queryObserver)
+	self:ModStore(parent, queryObserver)
 	return self
 end
 

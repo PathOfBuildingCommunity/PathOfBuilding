@@ -179,11 +179,11 @@ function calcs.copyActiveSkill(env, mode, skill)
 	end
 
 	local newSkill = calcs.createActiveSkill(activeEffect, skill.supportList, skill.actor, skill.socketGroup, skill.summonSkill)
-	local newEnv, _, _, _ = calcs.initEnv(env.build, mode, env.override)
+	local newEnv, _, _, _ = calcs.initEnv(env.build, mode, env.override, nil, env.queryObserver)
 	calcs.buildActiveSkillModList(newEnv, newSkill)
 	newSkill.skillModList = new("ModList"):ModList(newSkill.baseSkillModList)
 	if newSkill.minion then
-		newSkill.minion.modDB = new("ModDB"):ModDB()
+		newSkill.minion.modDB = new("ModDB"):ModDB(nil, env.queryObserver)
 		newSkill.minion.modDB.actor = newSkill.minion
 		calcs.createMinionSkills(env, newSkill)
 		newSkill.skillPartName = newSkill.minion.mainSkill.activeEffect.grantedEffect.name
@@ -489,7 +489,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 	end
 
 	-- Initialise skill modifier list
-	local skillModList = new("ModList"):ModList(activeSkill.actor.modDB)
+	local skillModList = new("ModList"):ModList(activeSkill.actor.modDB, env.queryObserver)
 	activeSkill.skillModList = skillModList
 	activeSkill.baseSkillModList = skillModList
 	
