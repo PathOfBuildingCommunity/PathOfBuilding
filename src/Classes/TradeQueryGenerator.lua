@@ -1123,7 +1123,7 @@ function TradeQueryGeneratorClass:FinishQuery()
 					t_insert(swapCoverage.filters, { id = "crafted.stat_" .. hash, value = { min = minimum } })
 				end
 				complexityBudget = complexityBudget - 4 * (#swapCoverage.filters + 1)
-				t_insert(queryTable.query.stats, swapCoverage)
+				t_insert(queryTable.stats, swapCoverage)
 			end
 			addResistanceMinimum(resistancePseudoIds.Chaos, shortfallByType.Chaos)
 		else

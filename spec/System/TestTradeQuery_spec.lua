@@ -337,6 +337,7 @@ describe("TradeQuery", function()
 			local finalSearch = table.remove(requests, 1)
 			assert.are.equal(5, dkjson.decode(finalSearch.body).query.stats[1].value.min)
 			finalSearch.callback([[{"id":"final","total":10,"result":["item1"]}]])
+			mock_tradeQuery:ProcessResultEvaluations()
 			assert.are.equal(finalSearch.body, mock_tradeQuery.lastQueries[1])
 			assert.are.equal("https://www.pathofexile.com/trade/search/sony/Hardcore%20Test/final", mock_tradeQuery.controls.uri1.buf)
 			assert.are.equal("Price Item", mock_tradeQuery.controls.priceButton1.label)
@@ -565,18 +566,28 @@ describe("TradeQuery", function()
 					tradeQuery.pbRealm = "pc"
 					tradeQuery.pbLeague = "Standard"
 					tradeQuery.tradeQueryGenerator = { }
+					local generatedQuery = { stats = { {
+						type = case.weighted and "weight" or "and",
+						filters = { { id = "explicit.test", value = { min = 17 } } },
+					} } }
 					tradeQuery.tradeQueryGenerator.RequestQuery = function(_, _, context, _, callback)
-						callback(context, case.label .. " query", nil, queryOptions)
+						callback(context, generatedQuery, nil, queryOptions)
 					end
 
 					local routedRequest
 					local function makeSearchHandler(routeName)
 						return function(_, realm, league, query, callback)
-							routedRequest = { routeName, realm, league, query }
+							local decoded = require("dkjson").decode(query)
+							routedRequest = { routeName, realm, league, copyTable(decoded) }
+							local finalQuery
+							if routeName == "adjusted" then
+								decoded.query.stats[1].value = { min = 71 }
+								finalQuery = require("dkjson").encode(decoded)
+							end
 							callback({ {
 								item_string = "Rarity: RARE\nTest Ring\nCoral Ring\nImplicits: 0\n+17% to Fire Resistance",
 								resistanceSwapDescriptors = { { lineIndex = 1, element = "Fire", domain = "explicit" } },
-							} })
+							} }, nil, finalQuery)
 						end
 					end
 					tradeQuery.tradeQueryRequests = {
@@ -598,8 +609,16 @@ describe("TradeQuery", function()
 					tradeQuery:ProcessResultEvaluations()
 
 					local result = tradeQuery.resultTbl[1][1]
-					assert.are.same({ case.route, "pc", "Standard", case.label .. " query" },
-						routedRequest, case.label)
+					assert.are.same({ case.route, "pc", "Standard" },
+						{ routedRequest[1], routedRequest[2], routedRequest[3] }, case.label)
+					assert.are.same(generatedQuery, routedRequest[4].query, case.label)
+					assert.are.same(case.weighted and { ["statgroup.0"] = "desc" } or { price = "asc" },
+						routedRequest[4].sort, case.label)
+					local retained = require("dkjson").decode(tradeQuery.lastQueries[1])
+					assert.are.equal(17, retained.query.stats[1].filters[1].value.min, case.label)
+					if case.weighted then
+						assert.are.equal(71, retained.query.stats[1].value.min, case.label)
+					end
 					assert.are.equal(case.swaps, result.resistanceSwapEnabled, case.label)
 					assert.are.equal(case.caps, result.prioritiseResistanceCaps, case.label)
 					assert.are.same({ { lineIndex = 1, element = "Fire", domain = "explicit" } },

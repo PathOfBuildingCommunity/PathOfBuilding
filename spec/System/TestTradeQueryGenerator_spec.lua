@@ -241,16 +241,16 @@ describe("TradeQueryGenerator", function()
 				resistanceCapShortfallByType = options.resistanceCapShortfallByType,
 			}
 			queryGen.requesterContext = { slotTbl = { sentinel = true } }
-			local queryJson
+			local generatedQuery
 			local queryOptions
 			local queryError
-			queryGen.requesterCallback = function(_, json, errMsg, optionsSnapshot)
-				queryJson = json
+			queryGen.requesterCallback = function(_, query, errMsg, optionsSnapshot)
+				generatedQuery = query
 				queryError = errMsg
 				queryOptions = optionsSnapshot
 			end
 			queryGen:FinishQuery()
-			return require("dkjson").decode(queryJson), queryGen.requesterContext.slotTbl, queryOptions, queryError
+			return generatedQuery, queryGen.requesterContext.slotTbl, queryOptions, queryError
 		end
 
 		local function annotatedWeight(id, text, weight, meanStatDiff)
@@ -265,7 +265,7 @@ describe("TradeQueryGenerator", function()
 
 		local function filtersById(query, groupType)
 			local filters = { }
-			for _, group in ipairs(query.query.stats) do
+			for _, group in ipairs(query.stats) do
 				if not groupType or group.type == groupType then
 					for _, filter in ipairs(group.filters) do
 						filters[filter.id] = filter
@@ -304,7 +304,7 @@ describe("TradeQueryGenerator", function()
 			}
 			for _, case in ipairs(cases) do
 				local query = finishQuery({ includeResistSwaps = true }, { annotatedWeight(case[2], case[3], 10, 10) })
-				local filters = query.query.stats[1].filters
+				local filters = query.stats[1].filters
 				assert.are.equal(1, #filters, case[1])
 				assert.are.equal(case[2], filters[1].id, case[1])
 			end
@@ -322,7 +322,7 @@ describe("TradeQueryGenerator", function()
 			local query = finishQuery({ includeResistSwaps = true }, weights)
 			local filters = filtersById(query, "weight")
 
-			assert.are.equal(33, #query.query.stats[1].filters)
+			assert.are.equal(33, #query.stats[1].filters)
 			assert.is_not_nil(filters["explicit.hybrid_resistance"])
 			assert.is_not_nil(filters["explicit.low_priority_filter"])
 		end)
@@ -341,7 +341,7 @@ describe("TradeQueryGenerator", function()
 				annotatedWeight("explicit.all_resistance", "+#% to all Elemental Resistances", 30, 30),
 				annotatedWeight("explicit.fire_resistance", "+#% to Fire Resistance", 8, 8),
 			})
-			local filter = query.query.stats[1].filters[1]
+			local filter = query.stats[1].filters[1]
 
 			assert.are.equal("pseudo.pseudo_total_elemental_resistance", filter.id)
 			assert.are.equal(10, filter.value.weight)
@@ -373,9 +373,9 @@ describe("TradeQueryGenerator", function()
 				case.options.resistanceCapShortfallByType = shortfalls
 				local query, _, queryOptions = finishQuery(case.options, case.weights)
 				assert.are.same(case.minimums, minimumsById(query), case.label)
-				assert.are.equal(1, #query.query.stats[1].filters, case.label)
-				assert.are.equal("explicit.life", query.query.stats[1].filters[1].id, case.label)
-				assert.are.equal(0, query.query.stats[1].value.min, case.label)
+				assert.are.equal(1, #query.stats[1].filters, case.label)
+				assert.are.equal("explicit.life", query.stats[1].filters[1].id, case.label)
+				assert.are.equal(0, query.stats[1].value.min, case.label)
 				-- Clipped searches still need threshold refinement to return the global weight top.
 				assert.is_true(queryOptions.weightAdjustedSearch, case.label)
 			end
@@ -409,7 +409,7 @@ describe("TradeQueryGenerator", function()
 					resistanceCapShortfallByType = case.shortfalls,
 				}, { weight("explicit.life", 6) })
 				local countGroups = { }
-				for _, group in ipairs(query.query.stats) do
+				for _, group in ipairs(query.stats) do
 					if group.type == "count" then
 						table.insert(countGroups, group)
 					end
@@ -423,7 +423,7 @@ describe("TradeQueryGenerator", function()
 				assert.are.equal(1, #countGroups, case.label)
 				assert.are.same({ min = 1 }, countGroups[1].value, case.label)
 				assert.are.same(expectedFilters, countGroups[1].filters, case.label)
-				assert.are.equal("explicit.life", query.query.stats[1].filters[1].id, case.label)
+				assert.are.equal("explicit.life", query.stats[1].filters[1].id, case.label)
 				assert.is_true(queryOptions.weightAdjustedSearch, case.label)
 			end
 		end)
@@ -465,13 +465,13 @@ describe("TradeQueryGenerator", function()
 				case.options.resistanceCapShortfallByType = shortfalls
 				local query, _, _, queryError = finishQuery(case.options, { weight("explicit.life", 6) })
 				local countGroups = 0
-				for _, group in ipairs(query.query.stats) do
+				for _, group in ipairs(query.stats) do
 					countGroups = countGroups + (group.type == "count" and 1 or 0)
 				end
 
 				assert.are.same(case.minimums, minimumsById(query), case.label)
 				assert.are.equal(case.countGroups, countGroups, case.label)
-				assert.are.equal("explicit.life", query.query.stats[1].filters[1].id, case.label)
+				assert.are.equal("explicit.life", query.stats[1].filters[1].id, case.label)
 				assert.is_nil(queryError, case.label)
 			end
 		end)
@@ -485,10 +485,10 @@ describe("TradeQueryGenerator", function()
 				annotatedWeight("explicit.fire_resistance", "+#% to Fire Resistance", 10, 10),
 			})
 
-			assert.are.equal(1, #query.query.stats)
-			assert.are.equal("count", query.query.stats[1].type)
-			assert.are.equal("pseudo.pseudo_total_fire_resistance", query.query.stats[1].filters[1].id)
-			assert.are.same({ price = "asc" }, query.sort)
+			assert.are.equal(1, #query.stats)
+			assert.are.equal("count", query.stats[1].type)
+			assert.are.equal("pseudo.pseudo_total_fire_resistance", query.stats[1].filters[1].id)
+			assert.is_nil(query.sort)
 			assert.is_false(queryOptions.weightAdjustedSearch)
 			assert.is_nil(queryError)
 		end)
@@ -501,9 +501,9 @@ describe("TradeQueryGenerator", function()
 				annotatedWeight("explicit.fire_resistance", "+#% to Fire Resistance", 10, 10),
 			})
 
-			assert.are.equal(1, #query.query.stats)
-			assert.are.equal("and", query.query.stats[1].type)
-			assert.are.same({ price = "asc" }, query.sort)
+			assert.are.equal(1, #query.stats)
+			assert.are.equal("and", query.stats[1].type)
+			assert.is_nil(query.sort)
 			assert.is_false(queryOptions.weightAdjustedSearch)
 		end)
 
@@ -515,7 +515,7 @@ describe("TradeQueryGenerator", function()
 				annotatedWeight("explicit.fire_resistance", "+#% to Fire Resistance", 10, 10),
 			})
 
-			assert.are.equal(0, #query.query.stats)
+			assert.are.equal(0, #query.stats)
 			assert.is_truthy(queryError)
 		end)
 
@@ -524,10 +524,10 @@ describe("TradeQueryGenerator", function()
 				requiredMods = { { tradeId = "explicit.required", value = 10 } },
 			}, {})
 
-			assert.are.equal("weight", query.query.stats[1].type)
-			assert.are.equal(0, #query.query.stats[1].filters)
-			assert.are.equal("and", query.query.stats[2].type)
-			assert.are.same({ ["statgroup.0"] = "desc" }, query.sort)
+			assert.are.equal("weight", query.stats[1].type)
+			assert.are.equal(0, #query.stats[1].filters)
+			assert.are.equal("and", query.stats[2].type)
+			assert.is_nil(query.sort)
 			assert.is_false(queryOptions.weightAdjustedSearch)
 			assert.is_truthy(queryError)
 		end)
@@ -545,12 +545,12 @@ describe("TradeQueryGenerator", function()
 				weight("explicit.life", 6),
 			})
 			local filterCount = 0
-			for _, group in ipairs(query.query.stats) do
+			for _, group in ipairs(query.stats) do
 				filterCount = filterCount + #group.filters
 			end
 
 			assert.are.equal(33, filterCount)
-			assert.are.equal("and", query.query.stats[1].type)
+			assert.are.equal("and", query.stats[1].type)
 			assert.is_false(queryOptions.weightAdjustedSearch)
 		end)
 
@@ -560,7 +560,7 @@ describe("TradeQueryGenerator", function()
 				weight("explicit.fire_damage", 2, 20),
 				weight("explicit.life", 1, 10),
 			})
-			local filters = query.query.stats[1].filters
+			local filters = query.stats[1].filters
 
 			assert.are.equal("explicit.fire_resistance", filters[1].id)
 			assert.are.equal("explicit.fire_damage", filters[2].id)
