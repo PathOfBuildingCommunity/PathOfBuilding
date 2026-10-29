@@ -27,7 +27,7 @@ function ItemListClass:ItemListControl(anchor, rect, itemsTab, forceTooltip)
 		itemsTab:SortItemList()
 		self:UpdateList()
 	end)
-	self.controls.deleteUnused = new("ButtonControl"):ButtonControl({"LEFT",self.controls.sort,"RIGHT"}, {4, 0, 84, 18}, "Del Unused", function()
+	local function deleteUnused()
 		local delList = {}
 		for _, itemId in pairs(itemsTab.itemOrderList) do
 			if not itemsTab:GetEquippedSlotForItem(itemsTab.items[itemId]) and not self:FindEquippedAbyssJewel(itemId, false) and not self:FindSocketedJewel(itemId, false) then
@@ -46,6 +46,9 @@ function ItemListClass:ItemListControl(anchor, rect, itemsTab, forceTooltip)
 		itemsTab:AddUndoState()
 		itemsTab.build.buildFlag = true
 		self:UpdateList()
+	end
+	self.controls.deleteUnused = new("ButtonControl"):ButtonControl({"LEFT",self.controls.sort,"RIGHT"}, {4, 0, 84, 18}, "Del Unused", function()
+		main:OpenConfirmPopup("Delete Unused", "Are you sure you want to delete all unused items in this build?", "Delete", deleteUnused)
 	end)
 	self.controls.deleteUnused.enabled = function()
 		return #self.list > 0

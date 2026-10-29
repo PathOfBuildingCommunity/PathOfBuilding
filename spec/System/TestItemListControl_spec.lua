@@ -176,6 +176,33 @@ describe("ItemListControl", function()
 		assert.are.same({ }, itemsTab.items)
 	end)
 
+	it("requires confirmation before deleting unused items", function()
+		local control, itemsTab = newItemListControl()
+		local onConfirm
+		local deleted = false
+		itemsTab.GetEquippedSlotForItem = function()
+			return nil
+		end
+		itemsTab.DeleteItem = function()
+			deleted = true
+		end
+		itemsTab.build.treeTab.specList = { }
+		main.OpenConfirmPopup = function(_, title, message, confirmLabel, callback)
+			assert.are.equal("Delete Unused", title)
+			assert.are.equal("Are you sure you want to delete all unused items in this build?", message)
+			assert.are.equal("Delete", confirmLabel)
+			onConfirm = callback
+		end
+
+		control.controls.deleteUnused.onClick()
+
+		assert.is_false(deleted)
+
+		onConfirm()
+
+		assert.is_true(deleted)
+	end)
+
 	it("releases focus after opening an item with a double click", function()
 		local control, itemsTab = newItemListControl()
 		local item = new("Item"):Item([[
