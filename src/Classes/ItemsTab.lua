@@ -1009,9 +1009,36 @@ holding Shift will put it in the second.]])
 		return self.displayItem and (self.displayItem:GetPrimarySlot() == "Weapon 1" or self.displayItem.type == "Shield" or self.displayItem.canHaveShieldCrucibleTree)
 	end
 
+	-- Section: Cluster jewel notable positions
+	self.controls.displayItemSectionClusterJewelPositions = new("Control"):Control({"TOPLEFT",self.controls.displayItemSectionCustom,"BOTTOMLEFT"}, {0, 0, 0, function()
+		if not self.controls.displayItemClusterJewelPositions:IsShown() then
+			return 0
+		end
+		return 24 + #self.clusterJewelNotablePositions * 18
+	end})
+	self.controls.displayItemClusterJewelPositions = new("LabelControl"):LabelControl({"TOPLEFT",self.controls.displayItemSectionClusterJewelPositions,"TOPLEFT"}, {0, 0, 0, 14}, "^7Notable positions (relative to entrance):")
+	self.controls.displayItemClusterJewelPositions.shown = function()
+		local item = self.displayItem
+		return item and item.clusterJewel and (item.clusterJewel.size == "Large" and item.crafted or item.title == "Megalomaniac")
+			and #(self.clusterJewelNotablePositions or { }) > 0
+	end
+	for i = 1, 4 do
+		self.controls["displayItemClusterJewelPosition"..i] = new("LabelControl"):LabelControl({"TOPLEFT",self.controls.displayItemClusterJewelPositions,"TOPLEFT"}, {0, i * 18, 0, 14}, function()
+			local notable = self.clusterJewelNotablePositions and self.clusterJewelNotablePositions[i]
+			if not notable then
+				return ""
+			end
+			local color = notable.position == "Front" and colorCodes.POSITIVE or colorCodes.NORMAL
+			return color..notable.position..": ^7"..notable.name
+		end)
+		self.controls["displayItemClusterJewelPosition"..i].shown = function()
+			return self.controls.displayItemClusterJewelPositions:IsShown() and self.clusterJewelNotablePositions[i] ~= nil
+		end
+	end
+
 	-- Section: Modifier Range
 	local labelFontSize = 14
-	self.controls.displayItemSectionRange = new("Control"):Control({ "TOPLEFT", self.controls.displayItemSectionCustom, "BOTTOMLEFT" }, { 0, 0, 0, function()
+	self.controls.displayItemSectionRange = new("Control"):Control({ "TOPLEFT", self.controls.displayItemSectionClusterJewelPositions, "BOTTOMLEFT" }, { 0, 0, 0, function()
 		if not self.displayItem or not self.displayItem.rangeLineList[1] then
 			return 0
 		end
@@ -2115,6 +2142,7 @@ function ItemsTabClass:SetDisplayItem(item)
 end
 
 function ItemsTabClass:UpdateDisplayItemTooltip()
+	self.clusterJewelNotablePositions = itemLib.getClusterJewelNotablePositions(self.displayItem, self.build.data.clusterJewels.notableSortOrder)
 	self.displayItemTooltip:Clear()
 	self:AddItemTooltip(self.displayItemTooltip, self.displayItem)
 	self.displayItemTooltip.center = true

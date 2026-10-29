@@ -11,6 +11,76 @@ local m_floor = math.floor
 
 itemLib = { }
 
+-- Cluster-template positions, shared by the passive tree and the item editor.
+-- Index 0 is the entrance; half of totalIndicies is the back of the cluster.
+function itemLib.getClusterJewelNotableIndices(clusterJewel, jewelData, notableCount)
+	local socketCount = jewelData.clusterJewelSocketCountOverride or jewelData.clusterJewelSocketCount or 0
+	local nodeCount = jewelData.clusterJewelNodeCount or (socketCount + notableCount + (jewelData.clusterJewelNothingnessCount or 0))
+	local sockets = { }
+	if clusterJewel.size == "Large" and socketCount == 1 then
+		sockets[6] = true
+	else
+		for i = 1, socketCount do
+			local nodeIndex = clusterJewel.socketIndicies[i]
+			if nodeIndex then
+				sockets[nodeIndex] = true
+			end
+		end
+	end
+	local indices = { }
+	for _, nodeIndex in ipairs(clusterJewel.notableIndicies) do
+		if #indices == notableCount then
+			break
+		end
+		if clusterJewel.size == "Medium" then
+			if socketCount == 0 and notableCount == 2 then
+				if nodeIndex == 6 then
+					nodeIndex = 4
+				elseif nodeIndex == 10 then
+					nodeIndex = 8
+				end
+			elseif nodeCount == 4 then
+				if nodeIndex == 10 then
+					nodeIndex = 9
+				elseif nodeIndex == 2 then
+					nodeIndex = 3
+				end
+			end
+		end
+		if not sockets[nodeIndex] then
+			t_insert(indices, nodeIndex)
+		end
+	end
+	table.sort(indices)
+	return indices
+end
+
+function itemLib.getClusterJewelNotablePositions(item, sortOrder)
+	local positions = { }
+	if not item or not item.clusterJewel or not item.jewelData or item.jewelData.clusterJewelKeystone then
+		return positions
+	end
+	local names = { }
+	for _, name in ipairs(item.jewelData.clusterJewelNotables or { }) do
+		if not sortOrder[name] then
+			return positions
+		end
+		t_insert(names, name)
+	end
+	table.sort(names, function(a, b) return sortOrder[a] < sortOrder[b] end)
+	local indices = itemLib.getClusterJewelNotableIndices(item.clusterJewel, item.jewelData, #names)
+	for i, nodeIndex in ipairs(indices) do
+		local position = "Front"
+		if item.clusterJewel.size == "Small" then
+			position = "End"
+		elseif nodeIndex > item.clusterJewel.totalIndicies / 4 and nodeIndex < item.clusterJewel.totalIndicies * 3 / 4 then
+			position = "Back"
+		end
+		t_insert(positions, { name = names[i], index = nodeIndex, position = position })
+	end
+	return positions
+end
+
 -- Info table for all types of item influence
 itemLib.influenceInfo = {
 	["all"] = {
