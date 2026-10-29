@@ -13,6 +13,13 @@ local varList = require("Modules.ConfigOptions")
 local configVisibility = require("Modules.ConfigVisibility")
 local configModBrowser = require("Modules.ConfigModBrowser")
 
+local numericOptions = { }
+for _, varData in ipairs(varList) do
+	if varData.type == "count" or varData.type == "integer" or varData.type == "countAllowZero" or varData.type == "float" then
+		numericOptions[varData.var] = varData
+	end
+end
+
 ---@class CustomModBlockControl: ControlHost, Control
 local CustomModBlockClass = newClass("CustomModBlockControl", "ControlHost", "Control")
 
@@ -968,7 +975,9 @@ function ConfigTabClass:Save(xml)
 		t_insert(xml, child)
 
 		for k, v in pairs(configSet.input) do
-			if v ~= self:GetDefaultState(k, type(v)) then
+			local varData = numericOptions[k]
+			-- Preserve numeric entries that would not be restored by the field's declared default.
+			if (type(v) == "number" and varData and v ~= varData.defaultState) or v ~= self:GetDefaultState(k, type(v)) then
 				local node = { elem = "Input", attrib = { name = k } }
 				if type(v) == "number" then
 					node.attrib.number = tostring(v)
