@@ -1865,11 +1865,13 @@ function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 	end
 
 	-- Import the socket groups
+	-- A socket group matched or added for this item is not matched again, so unlinked sockets holding the same gems stay separate groups
+	local claimedGroups = { }
 	for _, itemSocketGroup in pairs(itemSocketGroupList) do
 		-- Check if this socket group matches an existing one
 		local repGroup
 		for index, socketGroup in pairs(self.build.skillsTab.socketGroupList) do
-			if #socketGroup.gemList == #itemSocketGroup.gemList and (not socketGroup.slot or socketGroup.slot == slotName) then
+			if not claimedGroups[socketGroup] and #socketGroup.gemList == #itemSocketGroup.gemList and (not socketGroup.slot or socketGroup.slot == slotName) then
 				local match = true
 				for gemIndex, gem in pairs(socketGroup.gemList) do
 					if gem.nameSpec:lower() ~= itemSocketGroup.gemList[gemIndex].nameSpec:lower() then
@@ -1893,6 +1895,7 @@ function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 		else
 			t_insert(self.build.skillsTab.socketGroupList, itemSocketGroup)
 		end
+		claimedGroups[repGroup or itemSocketGroup] = true
 		self.build.skillsTab:ProcessSocketGroup(itemSocketGroup)
 	end
 end

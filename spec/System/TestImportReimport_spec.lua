@@ -253,4 +253,26 @@ Blight 20/0  1
 		table.insert(build.itemsTab.itemSetOrderList, itemSet.id)
 		assertReimportPreservesSkillSubstate("Weapon 1", "Driftwood Wand", "Weapon", "Animate Weapon", "skillMinionItemSet", itemSet.id)
 	end)
+
+	it("keeps one socket group per unlinked socket holding the same gem when reimporting without deleting skills", function()
+		-- One matching group, as left by an import that merged the unlinked sockets
+		build.skillsTab:PasteSocketGroup([[
+Slot: Weapon 1
+Raise Spectre 20/0  1
+]])
+		runCallback("OnFrame")
+
+		local wand = makeImportItem("Driftwood Wand", "Weapon", {
+			makeSocketedGemEntry(0, false, "Raise Spectre", 20),
+			makeSocketedGemEntry(1, false, "Raise Spectre", 20),
+			makeSocketedGemEntry(2, false, "Raise Spectre", 20),
+		})
+		for index, socket in ipairs(wand.sockets) do
+			socket.group = index - 1
+		end
+		build.importTab:ImportItemsAndSkills(buildImportPayload({ wand }), false, false, true)
+		runCallback("OnFrame")
+
+		assert.are.equal(3, #build.skillsTab.socketGroupList)
+	end)
 end)
