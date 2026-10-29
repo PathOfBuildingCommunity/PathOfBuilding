@@ -409,24 +409,21 @@ local function applyGemMods(effect, modList)
 			match = false
 		end
 		if match then
-			-- save quality increases for use in tooltips
-			if value.key == "quality" then
-				local isSocketed = false
-				for _, tag in ipairs(mod.mod) do
-					if tag.type == "SocketedIn" then
-						isSocketed = true
-						break
-					end
+			local sourceType = "Global"
+			for _, tag in ipairs(mod.mod) do
+				if tag.type == "SocketedIn" then
+					sourceType = "Item"
+					break
 				end
-				if isSocketed then
-					effect.itemQuality = (effect.itemQuality or 0) + value.value
-				else
-					effect.globalQuality = (effect.globalQuality or 0) + value.value
-				end
+			end
+			-- Keep separate totals for the gem tooltip and source categories for Calcs.
+			if value.key == "level" or value.key == "quality" then
+				local property = sourceType:lower() .. value.key:gsub("^%l", string.upper)
+				effect[property] = (effect[property] or 0) + value.value
 			end
 			effect[value.key] = (effect[value.key] or 0) + value.value
 			effect.gemPropertyInfo = effect.gemPropertyInfo or {}
-			t_insert(effect.gemPropertyInfo, mod)
+			t_insert(effect.gemPropertyInfo, { mod = mod.mod, value = value, sourceType = sourceType })
 		end
 	end
 end

@@ -32,13 +32,24 @@ local function addCommonGemInfo(tooltip, build, gemInstance, grantedEffect, addL
 	local displayInstance = gemInstance.displayEffect or gemInstance
 	local grantedEffectLevel = grantedEffect.levels[displayInstance.level] or {}
 	if addLevel then
-		tooltip:AddLine(fontSizeBig, string.format("^x7F7F7FLevel: ^7%d%s%s",
-			gemInstance.level,
-			((displayInstance.level > gemInstance.level) and " (" .. colorCodes.MAGIC .. "+" .. (displayInstance.level - gemInstance.level) .. "^7)") or
-			((displayInstance.level < gemInstance.level) and " (" .. colorCodes.WARNING .. "-" .. (gemInstance.level - displayInstance.level) .. "^7)") or
-			"",
-			(gemInstance.level >= (gemInstance.gemData.naturalMaxLevel or math.huge)) and " (Max)" or ""
-		), "FONTIN SC")
+		local globalLevels = displayInstance.globalLevel or 0
+		local itemLevels = displayInstance.itemLevel or 0
+		local supportLevels = displayInstance.supportLevel or 0
+		local maxLevel = gemInstance.level >= (gemInstance.gemData.naturalMaxLevel or math.huge) and " (Max)" or ""
+		if itemLevels ~= 0 or globalLevels ~= 0 or supportLevels ~= 0 then
+			tooltip:AddLine(fontSizeBig, "^x7F7F7FLevel: " .. colorCodes.MAGIC .. displayInstance.level, "FONTIN SC")
+			tooltip:AddLine(fontSizeBig, string.format("^7%d Levels from Gem%s", gemInstance.level, maxLevel), "FONTIN SC")
+			for _, source in ipairs({ { itemLevels, "Item" }, { globalLevels, "Global Modifiers" }, { supportLevels, "Supports" } }) do
+				if source[1] ~= 0 then
+					tooltip:AddLine(fontSizeBig, (source[1] > 0 and colorCodes.MAGIC or colorCodes.WARNING) .. string.format("%+d Levels from %s", source[1], source[2]), "FONTIN SC")
+				end
+			end
+			if displayInstance.level ~= gemInstance.level + itemLevels + globalLevels + supportLevels then
+				tooltip:AddLine(fontSizeBig, "^x7F7F7FLimited to Level " .. displayInstance.level, "FONTIN SC")
+			end
+		else
+			tooltip:AddLine(fontSizeBig, string.format("^x7F7F7FLevel: ^7%d%s", gemInstance.level, maxLevel), "FONTIN SC")
+		end
 	end
 	if grantedEffect.support then
 		if grantedEffectLevel.manaMultiplier then
@@ -141,20 +152,15 @@ local function addCommonGemInfo(tooltip, build, gemInstance, grantedEffect, addL
 		if gemInstance.quality > 0 then
 			tooltip:AddLine(fontSizeBig, string.format("^x7F7F7FQuality: +%s%d%%", colorCodes.MAGIC, gemInstance.quality), "FONTIN SC")
 		end
-		local function formatQuality(number, suffix)
-			return colorCodes.MAGIC .. string.format("+%d%% Quality from %s", number, suffix)
-		end
-		if (displayInstance.itemQuality or 0) > 0 then
-			tooltip:AddLine(fontSizeBig, formatQuality(displayInstance.itemQuality, "Item"), "FONTIN SC")
-		end
-		if (displayInstance.supportQuality or 0) > 0 then
-			tooltip:AddLine(fontSizeBig, formatQuality(displayInstance.supportQuality, "Support"), "FONTIN SC")
-		end
-		if (displayInstance.globalQuality or 0) > 0 then
-			tooltip:AddLine(fontSizeBig, formatQuality(displayInstance.globalQuality, "Global Modifiers"), "FONTIN SC")
-		end
-		if (displayInstance.socketQuality or 0) > 0 then
-			tooltip:AddLine(fontSizeBig, formatQuality(displayInstance.socketQuality, "Socket Colour"), "FONTIN SC")
+		for _, source in ipairs({
+			{ displayInstance.itemQuality or 0, "Item" },
+			{ displayInstance.globalQuality or 0, "Global Modifiers" },
+			{ displayInstance.supportQuality or 0, "Supports" },
+			{ displayInstance.socketQuality or 0, "Socket Colour" },
+		}) do
+			if source[1] ~= 0 then
+				tooltip:AddLine(fontSizeBig, (source[1] > 0 and colorCodes.MAGIC or colorCodes.WARNING) .. string.format("%+d%% Quality from %s", source[1], source[2]), "FONTIN SC")
+			end
 		end
 	end
 	tooltip:AddSeparator(10)

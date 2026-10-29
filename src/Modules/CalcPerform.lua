@@ -3966,19 +3966,22 @@ function calcs.perform(env, skipEHP)
 			if mainSkill.activeEffect.level then
 				local baseLevel = mainSkill.skillModList:Sum("BASE", mainSkill.skillCfg, "GemLevel")
 				local totalItemLevel = mainSkill.skillModList:Sum("BASE", mainSkill.skillCfg, "GemItemLevel")
+				local totalGlobalLevel = mainSkill.skillModList:Sum("BASE", mainSkill.skillCfg, "GemGlobalLevel")
 				local totalSupportLevel = mainSkill.skillModList:Sum("BASE", mainSkill.skillCfg, "GemSupportLevel")
 
 				output.GemHasLevel = true
-				output.GemLevel = baseLevel + totalSupportLevel + totalItemLevel
+				output.GemLevel = mainSkill.activeEffect.level
 
 				if env.player.breakdown then
 					env.player.breakdown.GemLevel = {}
 					t_insert(env.player.breakdown.GemLevel, s_format("%d ^8(level from gem)", baseLevel))
-					if totalSupportLevel > 0 then
-						t_insert(env.player.breakdown.GemLevel, s_format("+ %d ^8(level from support)", totalSupportLevel))
+					for _, source in ipairs({ { totalItemLevel, "items" }, { totalGlobalLevel, "global modifiers" }, { totalSupportLevel, "support" } }) do
+						if source[1] ~= 0 then
+							t_insert(env.player.breakdown.GemLevel, s_format("%s %d ^8(level from %s)", source[1] > 0 and "+" or "-", math.abs(source[1]), source[2]))
+						end
 					end
-					if totalItemLevel > 0 then
-						t_insert(env.player.breakdown.GemLevel, s_format("+ %d ^8(level from items)", totalItemLevel))
+					if output.GemLevel ~= baseLevel + totalItemLevel + totalGlobalLevel + totalSupportLevel then
+						t_insert(env.player.breakdown.GemLevel, s_format("^8Limited to Level %d", output.GemLevel))
 					end
 					t_insert(env.player.breakdown.GemLevel, s_format("= %d", output.GemLevel))
 				end
@@ -3988,23 +3991,20 @@ function calcs.perform(env, skipEHP)
 			if mainSkill.activeEffect.quality then
 				local baseQuality = mainSkill.skillModList:Sum("BASE", mainSkill.skillCfg, "GemQuality")
 				local totalItemQuality = mainSkill.skillModList:Sum("BASE", mainSkill.skillCfg, "GemItemQuality")
+				local totalGlobalQuality = mainSkill.skillModList:Sum("BASE", mainSkill.skillCfg, "GemGlobalQuality")
 				local totalSupportQuality = mainSkill.skillModList:Sum("BASE", mainSkill.skillCfg, "GemSupportQuality")
 				local socketQuality = mainSkill.skillModList:Sum("BASE", mainSkill.skillCfg, "GemSocketQuality")
 
 				output.GemHasQuality = true
-				output.GemQuality = baseQuality + totalSupportQuality + totalItemQuality + socketQuality
+				output.GemQuality = baseQuality + totalSupportQuality + totalItemQuality + totalGlobalQuality + socketQuality
 
 				if env.player.breakdown then
 					env.player.breakdown.GemQuality = {}
 					t_insert(env.player.breakdown.GemQuality, s_format("%d ^8(quality from gem)", baseQuality))
-					if totalSupportQuality > 0 then
-						t_insert(env.player.breakdown.GemQuality, s_format("+ %d ^8(quality from support)", totalSupportQuality))
-					end
-					if totalItemQuality > 0 then
-						t_insert(env.player.breakdown.GemQuality, s_format("+ %d ^8(quality from items)", totalItemQuality))
-					end
-					if socketQuality > 0 then
-						t_insert(env.player.breakdown.GemQuality, s_format("+ %d ^8(quality from socket)", socketQuality))
+					for _, source in ipairs({ { totalItemQuality, "items" }, { totalGlobalQuality, "global modifiers" }, { totalSupportQuality, "support" }, { socketQuality, "socket colour" } }) do
+						if source[1] ~= 0 then
+							t_insert(env.player.breakdown.GemQuality, s_format("%s %d ^8(quality from %s)", source[1] > 0 and "+" or "-", math.abs(source[1]), source[2]))
+						end
 					end
 					t_insert(env.player.breakdown.GemQuality, s_format("= %d", output.GemQuality))
 				end
