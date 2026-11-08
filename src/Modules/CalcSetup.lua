@@ -443,7 +443,8 @@ local function addBestSupport(supportEffect, appliedSupportList, mode)
 		-- Check if there's another better support already present
 		if supportEffect.grantedEffect == otherSupport.grantedEffect then
 			add = false
-			if supportEffect.level > otherSupport.level or (supportEffect.level == otherSupport.level and supportEffect.quality > otherSupport.quality) then
+			if supportEffect.level > otherSupport.level or (supportEffect.level == otherSupport.level and (supportEffect.quality > otherSupport.quality
+				or (supportEffect.quality == otherSupport.quality and (supportEffect.triggerChance or 100) > (otherSupport.triggerChance or 100)))) then
 				if mode == "MAIN" then
 					otherSupport.superseded = true
 				end
@@ -1670,6 +1671,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 								gemData = env.data.gems[env.data.gemForBaseName[grantedEffect.name:lower()] or env.data.gemForBaseName[(grantedEffect.name .. " Support"):lower()]],
 								level = level or value.level,
 								appliesToGrantedSkills = value and value.appliesToGrantedSkills,
+								triggerChance = value and value.triggerChance,
 								quality = 0,
 								enabled = true,
 							}, targetList, env.mode)

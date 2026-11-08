@@ -1048,8 +1048,9 @@ local configTable = {
 					return skill.skillData.triggeredByUnique and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot and skill.skillTypes[SkillType.RangedAttack]
 				end}
 	end,
-	["asenath's chant"] = function()
+	["asenath's chant"] = function(env)
 		return {triggerOnUse = true,
+				triggerChance = env.player.mainSkill.triggeredBy.triggerChance,
 				triggerSkillCond = function(env, skill)
 					return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and band(skill.skillCfg.flags, ModFlag.Bow) > 0
 				end,

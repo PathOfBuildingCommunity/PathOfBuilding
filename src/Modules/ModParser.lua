@@ -3065,7 +3065,8 @@ local specialModList = {
 		mod("PhysicalMin", "BASE", 1, { type = "PercentStat", stat = "LifeCost", percent = num, floor = true }, { type = "StatThreshold", stat = "LifeUnreserved", thresholdStat = "LifeCost" }),
 		mod("PhysicalMax", "BASE", 1, { type = "PercentStat", stat = "LifeCost", percent = num, floor = true }, { type = "StatThreshold", stat = "LifeUnreserved", thresholdStat = "LifeCost" }),
 	} end,
-	["gain maximum life instead of maximum energy shield from equipped armour items"] = { flag("ConvertArmourESToLife") },
+	["gain maximum life instead of maximum energy shield from equipped armour items"] = { mod("ConvertArmourESToLife", "MAX", 100) },
+	["gain maximum life instead of maximum energy shield from equipped armour items at (%d+)%% of the value"] = function(num) return { mod("ConvertArmourESToLife", "MAX", num) } end,
 	-- Ritualist Bloodline
 	["unaffected by bleeding"] = { mod("SelfBleedEffect", "MORE", -100) },
 	["unaffected by poison"] = { mod("SelfPoisonEffect", "MORE", -100) },
@@ -3206,6 +3207,9 @@ local specialModList = {
 	["trigger socketed spells when you focus, with a ([%d%.]+) second cooldown"] = { mod("ExtraSupport", "LIST", { skillId = "SupportTriggerSpellFromHelmet", level = 1 }, { type = "SocketedIn", slotName = "{SlotName}" }) },
 	["trigger a socketed spell when you attack with a bow"] = { mod("ExtraSupport", "LIST", { skillId = "SupportTriggerSpellOnBowAttack", level = 1 }, { type = "SocketedIn", slotName = "{SlotName}" }) },
 	["trigger a socketed spell when you attack with a bow, with a ([%d%.]+) second cooldown"] = { mod("ExtraSupport", "LIST", { skillId = "SupportTriggerSpellOnBowAttack", level = 1 }, { type = "SocketedIn", slotName = "{SlotName}" }) },
+	["(%d+)%% chance to trigger a socketed spell when you attack with a bow, with a ([%d%.]+) second cooldown"] = function(num) return {
+		mod("ExtraSupport", "LIST", { skillId = "SupportTriggerSpellOnBowAttack", level = 1, triggerChance = tonumber(num) }, { type = "SocketedIn", slotName = "{SlotName}" })
+	} end,
 	["trigger a socketed bow skill when you attack with a bow"] = { mod("ExtraSupport", "LIST", { skillId = "SupportTriggerBowSkillOnBowAttack", level = 1 }, { type = "SocketedIn", slotName = "{SlotName}" }) },
 	["trigger a socketed bow skill when you attack with a bow, with a ([%d%.]+) second cooldown"] = { mod("ExtraSupport", "LIST", { skillId = "SupportTriggerBowSkillOnBowAttack", level = 1 }, { type = "SocketedIn", slotName = "{SlotName}" }) },
 	["trigger a socketed bow skill when you cast a spell while wielding a bow"] = { mod("ExtraSupport", "LIST", { skillId = "SupportTriggerBowSkillOnBowAttack", level = 1 }, { type = "SocketedIn", slotName = "{SlotName}" }) },
@@ -3464,7 +3468,8 @@ local specialModList = {
 	["increases and reductions to cast speed apply to attack speed at (%d+)%% of their value"] =  function(num) return { flag("CastSpeedAppliesToAttacks"), mod("ImprovedCastSpeedAppliesToAttacks", "MAX", num) } end,
 	["increases and reductions to cast speed apply to attack speed"] =  function(num) return { flag("CastSpeedAppliesToAttacks") } end,
 	["increases and reductions to spell damage also apply to attacks"] = { flag("SpellDamageAppliesToAttacks") },
-	["increases and reductions to your evasion rating also apply to your spell damage"] = { flag("EvasionAppliesToSpellDamage") },
+	["increases and reductions to your evasion rating also apply to your spell damage"] = { mod("EvasionAppliesToSpellDamage", "MAX", 100) },
+	["increases and reductions to your evasion rating also apply to your spell damage at (%d+)%% of their value"] = function(num) return { mod("EvasionAppliesToSpellDamage", "MAX", num) } end,
 	["arcane might"] = { flag("SpellDamageAppliesToAttacks") },
 	["(%d+)%% arcane might"] = function(num) return { flag("SpellDamageAppliesToAttacks"), mod("ImprovedSpellDamageAppliesToAttacks", "MAX", num) } end,
 	["attacks have (%d+)%% arcane might"] = function(num) return { flag("SpellDamageAppliesToAttacks"), mod("ImprovedSpellDamageAppliesToAttacks", "MAX", num) } end,
@@ -3911,6 +3916,7 @@ local specialModList = {
 	} end,
 	["(%d+)%% chance for blade vortex and blade blast to impale enemies on hit"] = function(num) return {  mod("ImpaleChance", "BASE", num, { type = "SkillName", skillNameList = { "Blade Vortex", "Blade Blast" }, includeTransfigured = true }) } end,
 	["critical strikes with spells inflict impale"] = { mod("ImpaleChance", "BASE", 100, nil, ModFlag.Spell, { type = "Condition", var = "CriticalStrike" }) },
+	["critical strikes with spells have (%d+)%% chance to inflict impale"] = function(num) return { mod("ImpaleChance", "BASE", num, nil, ModFlag.Spell, { type = "Condition", var = "CriticalStrike" }) } end,
 	["(%d+)%% chance on hitting an enemy for all impales on that enemy to last for an additional hit"] = function(num) return {
 		mod("ImpaleAdditionalDurationChance", "BASE", num)
 	} end,
@@ -4729,6 +4735,7 @@ local specialModList = {
 	["chaos damage t?a?k?e?n? ?does not bypass energy shield while not on low life or low mana"] = { flag("ChaosNotBypassEnergyShield", { type = "Condition", varList = { "LowLife", "LowMana" }, neg = true }) },
 	["chaos damage t?a?k?e?n? ?does not bypass energy shield while not on low mana"] = { flag("ChaosNotBypassEnergyShield", { type = "Condition", varList = { "LowMana" }, neg = true }) },
 	["chaos damage is taken from mana before life"] = { mod("ChaosDamageTakenFromManaBeforeLife", "BASE", 100) },
+	["(%d+)%% of chaos damage is taken from mana before life"] = function(num) return { mod("ChaosDamageTakenFromManaBeforeLife", "BASE", num) } end,
 	["(%d+)%% of physical damage is taken from mana before life"] = function(num) return { mod("PhysicalDamageTakenFromManaBeforeLife", "BASE", num) } end,
 	["minions take (%d+)%% increased damage"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("DamageTaken", "INC", num) }) } end,
 	["minions take (%d+)%% reduced damage"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("DamageTaken", "INC", -num) }) } end,
@@ -4861,7 +4868,8 @@ local specialModList = {
 	["maximum energy shield is increased by chance to block spell damage"] = { flag("EnergyShieldIncreasedByChanceToBlockSpellDamage") },
 	["maximum energy shield is increased by chaos resistance"] = { flag("EnergyShieldIncreasedByChaosResistance") },
 	["armour is increased by uncapped fire resistance"] = { flag( "ArmourIncreasedByUncappedFireRes") },
-	["armour is increased by overcapped fire resistance"] = { flag( "ArmourIncreasedByOvercappedFireRes") },
+	["armour is increased by overcapped fire resistance"] = { mod("ArmourIncreasedByOvercappedFireRes", "MAX", 100) },
+	["armour is increased by (%d+)%% of overcapped fire resistance"] = function(num) return { mod("ArmourIncreasedByOvercappedFireRes", "MAX", num) } end,
 	["minion life is increased by t?h?e?i?r? ?overcapped fire resistance"] = { mod("MinionModifier", "LIST", { mod = mod("Life", "INC", 1, { type = "PerStat", stat = "FireResistOverCap", div = 1 }) }) },
 	["totem life is increased by t?h?e?i?r? ?overcapped fire resistance"] = { mod("TotemLife", "INC", 1, { type = "PerStat", stat = "TotemFireResistOverCap", div = 1 }) },
 	["evasion rating is increased by uncapped cold resistance"] = { flag( "EvasionRatingIncreasedByUncappedColdRes") },
@@ -5010,6 +5018,7 @@ local specialModList = {
 	["action speed cannot be modified to below base value while ignited"] = { mod("MinimumActionSpeed", "MAX", 100, { type = "Condition", var = "Ignited" }) },
 	["nearby allies' action speed cannot be modified to below base value"] = { mod("ExtraAura", "LIST", { onlyAllies = true, mod = mod("MinimumActionSpeed", "MAX", 100, { type = "GlobalEffect", effectType = "Global", unscalable = true }) }) },
 	["armour also applies to lightning damage taken from hits"] = { mod("ArmourAppliesToLightningDamageTaken", "BASE", 100), },
+	["(%d+)%% of armour also applies to lightning damage taken from hits"] = function(num) return { mod("ArmourAppliesToLightningDamageTaken", "BASE", num) } end,
 	["lightning resistance does not affect lightning damage taken"] = { flag("SelfIgnoreLightningResistance") },
 	["(%d+)%% increased maximum life and reduced fire resistance"] = function(num) return {
 		mod("Life", "INC", num),
@@ -5477,6 +5486,11 @@ local specialModList = {
 	},
 	["when hit, gain a random movement speed modifier from 40%% reduced to 100%% increased,? until hit again"] = {
 		flag("Condition:HaveGamblesprint"),
+		mod("GamblesprintEffect", "MAX", 100),
+	},
+	["when hit, gain a random movement speed modifier from 20%% reduced to 50%% increased,? until hit again"] = {
+		flag("Condition:HaveGamblesprint"),
+		mod("GamblesprintEffect", "MAX", 50),
 	},
 	["trigger socketed curse spell when you cast a curse spell, with a ([%d%.]+) second cooldown"] = {
 		mod("ExtraSupport", "LIST", { skillId = "SupportUniqueCastCurseOnCurse", level = 1 }, { type = "SocketedIn", slotName = "{SlotName}" }),
@@ -5538,7 +5552,8 @@ local specialModList = {
 	["with a murderous eye jewel socketed, melee attacks grant (%d+) rage on hit, no more than once every second"] = { flag("Condition:CanGainRage", { type = "Condition", var = "HaveMurderousEyeJewelIn{SlotName}" }) },
 	["gain %d+ rage after spending a total of %d+ mana"] = { flag("Condition:CanGainRage") },
 	["rage grants cast speed instead of attack speed"] = { flag("Condition:RageCastSpeed") },
-	["rage grants spell damage instead of attack damage"] = { flag("Condition:RageSpellDamage") },
+	["rage grants spell damage instead of attack damage"] = { mod("RageSpellDamage", "MAX", 100) },
+	["rage grants spell damage instead of attack damage at (%d+)%% of the value"] = function(num) return { mod("RageSpellDamage", "MAX", num) } end,
 	["inherent loss of rage is (%d+)%% slower"] = function(num) return { mod("InherentRageLoss", "INC", -num) } end,
 	["inherent loss of rage is (%d+)%% faster"] = function(num) return { mod("InherentRageLoss", "INC", num) } end,
 	["inherent rage loss starts (%d+) seconds? later"] = function(num) return { mod("InherentRageLossDelay", "BASE", num) } end,
