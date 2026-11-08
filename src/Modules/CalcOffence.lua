@@ -641,11 +641,14 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 	end
-	if skillModList:Flag(nil, "EvasionAppliesToSpellDamage") then
+	local evasionAppliesToSpellDamage = skillModList:Max(nil, "EvasionAppliesToSpellDamage")
+	if evasionAppliesToSpellDamage then
 		-- The Unblinking Eye evasion rating to spell damage conversion
+		local multiplier = evasionAppliesToSpellDamage / 100
 		for i, value in ipairs(skillModList:Tabulate("INC", { }, "Evasion")) do
 			local mod = value.mod
-			skillModList:NewMod("Damage", mod.type, mod.value, mod.source, ModFlag.Spell, mod.keywordFlags, unpack(mod))
+			local modifiers = calcLib.getConvertedModTags(mod, multiplier)
+			skillModList:NewMod("Damage", mod.type, mod.value * multiplier, mod.source, ModFlag.Spell, mod.keywordFlags, unpack(modifiers))
 		end
 	end
 	if skillModList:Flag(nil, "SpellDamageAppliesToAttacks") or skillModList:Flag(skillCfg, "SpellDamageAppliesToAttacks") then

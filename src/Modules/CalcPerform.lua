@@ -921,8 +921,9 @@ local function doActorMisc(env, actor)
 			output.Rage = stacks
 			output.MaximumRage = maxStacks
 			modDB:NewMod("Multiplier:Rage", "BASE", output.Rage, "Base")
-			if modDB:Flag(nil, "Condition:RageSpellDamage") then
-				modDB:NewMod("Damage", "MORE", output.RageEffect, "Rage", ModFlag.Spell)
+			local rageSpellDamage = modDB:Max(nil, "RageSpellDamage")
+			if rageSpellDamage then
+				modDB:NewMod("Damage", "MORE", output.RageEffect * rageSpellDamage / 100, "Rage", ModFlag.Spell)
 			else
 				modDB:NewMod("Damage", "MORE", output.RageEffect, "Rage", ModFlag.Attack)
 			end
@@ -931,6 +932,11 @@ local function doActorMisc(env, actor)
 			end
 			output.InherentRageLossDelay = 2 + modDB:Sum("BASE", nil, "InherentRageLossDelay")
 			output.InherentRageLoss = (not modDB:Flag(nil, "InherentRageLossIsPrevented")) and 10 * (1 + modDB:Sum("INC", nil, "InherentRageLoss") / 100) or 0
+		end
+		local gamblesprintEffect = modDB:Max(nil, "GamblesprintEffect")
+		if gamblesprintEffect then
+			local movementSpeed = modDB:Sum("BASE", nil, "Multiplier:GamblesprintMovementSpeed") * gamblesprintEffect / 100
+			modDB:NewMod("MovementSpeed", "INC", movementSpeed, "Config")
 		end
 		if (env.configInput.multiplierManaBurnStacks or 0) > 0 then
 			local maxManaBurn = modDB:Sum("BASE", nil, "MaxManaBurnStacks")
@@ -1521,7 +1527,8 @@ function calcs.perform(env, skipEHP)
 		end
 	end
 
-	if modDB:Flag(nil, "ConvertArmourESToLife") then
+	local armourESToLife = modDB:Max(nil, "ConvertArmourESToLife")
+	if armourESToLife then
 		local energyShieldBase
 		local tempTable1 = { }
 		local slotCfg = wipeTable(tempTable1)
@@ -1531,7 +1538,7 @@ function calcs.perform(env, skipEHP)
 				slotCfg.slotName = slot
 				energyShieldBase = armourData.EnergyShield or 0
 				if energyShieldBase > 0 then
-					modDB:NewMod("Life", "BASE", energyShieldBase, slot.." ES to Life Conversion")
+					modDB:NewMod("Life", "BASE", energyShieldBase * armourESToLife / 100, slot.." ES to Life Conversion")
 				end
 			end
 		end
