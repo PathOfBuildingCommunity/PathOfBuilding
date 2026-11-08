@@ -4343,6 +4343,8 @@ local specialModList = {
 	} end,
 	["left ring slot: cover enemies in ash for (%d+) seconds when you ignite them"] = { mod("CoveredInAshEffect", "BASE", 20, { type = "SlotNumber", num = 1 }, { type = "ActorCondition", actor = "enemy", var = "Ignited" }) },
 	["right ring slot: cover enemies in frost for (%d+) seconds when you freeze them"] = { mod("CoveredInFrostEffect", "BASE", 20, { type = "SlotNumber", num = 2 }, { type = "ActorCondition", actor = "enemy", var = "Frozen" }) },
+	["cover enemies in ash for (%d+) seconds when you ignite them"] = { mod("CoveredInAshEffect", "BASE", 20, { type = "ActorCondition", actor = "enemy", var = "Ignited" }) },
+	["cover enemies in frost for (%d+) seconds when you freeze them"] = { mod("CoveredInFrostEffect", "BASE", 20, { type = "ActorCondition", actor = "enemy", var = "Frozen" }) },
 	["nearby enemies are covered in ash"] = { mod("CoveredInAshEffect", "BASE", 20) },
 	["nearby enemies are covered in ash if you haven't moved in the past (%d+) seconds"] = function(num) return { mod("CoveredInAshEffect", "BASE", 20, { type = "MultiplierThreshold", var = "StationarySeconds", threshold = num }, { type = "Condition", var = "Stationary" }) } end,
 	["your warcries cover enemies in ash for (%d+) seconds"] = { mod("CoveredInAshEffect", "BASE", 20, { type = "Condition", var = "UsedWarcryRecently" }) },
