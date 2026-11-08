@@ -4111,9 +4111,9 @@ c["100% increased Armour and Energy Shield from Equipped Body Armour if Equipped
 c["100% increased Armour and Evasion"]={{[1]={flags=0,keywordFlags=0,name="ArmourAndEvasion",type="INC",value=100}},nil}
 c["100% increased Armour from Equipped Boots and Gloves"]={{[1]={[1]={slotNameList={[1]="Gloves",[2]="Boots"},type="SlotName"},flags=0,keywordFlags=0,name="Armour",type="INC",value=100}},nil}
 c["100% increased Aspect of the Avian Buff Effect"]={{[1]={[1]={skillName="Aspect of the Avian",type="SkillName"},flags=0,keywordFlags=0,name="BuffEffect",type="INC",value=100}},nil}
-c["100% increased Aspect of the Cat Buff Effect"]={{[1]={flags=0,keywordFlags=0,name="BuffEffect",type="INC",value=100}}," Aspect of the Cat  "}
-c["100% increased Aspect of the Crab Buff Effect"]={{[1]={flags=0,keywordFlags=0,name="BuffEffect",type="INC",value=100}}," Aspect of the Crab  "}
-c["100% increased Aspect of the Spider Debuff Effect"]={{[1]={flags=0,keywordFlags=0,name="BuffEffect",type="INC",value=100}}," Aspect of the Spider De "}
+c["100% increased Aspect of the Cat Buff Effect"]={{[1]={[1]={skillName="Aspect of the Cat",type="SkillName"},flags=0,keywordFlags=0,name="BuffEffect",type="INC",value=100}},nil}
+c["100% increased Aspect of the Crab Buff Effect"]={{[1]={[1]={skillName="Aspect of the Crab",type="SkillName"},flags=0,keywordFlags=0,name="BuffEffect",type="INC",value=100}},nil}
+c["100% increased Aspect of the Spider Debuff Effect"]={{[1]={[1]={skillName="Aspect of the Spider",type="SkillName"},flags=0,keywordFlags=0,name="DebuffEffect",type="INC",value=100}},nil}
 c["100% increased Attack Critical Strike Chance while Dual Wielding"]={{[1]={[1]={type="Condition",var="DualWielding"},flags=1,keywordFlags=0,name="CritChance",type="INC",value=100}},nil}
 c["100% increased Attack Damage"]={{[1]={flags=1,keywordFlags=0,name="Damage",type="INC",value=100}},nil}
 c["100% increased Attack Speed"]={{[1]={flags=1,keywordFlags=0,name="Speed",type="INC",value=100}},nil}
