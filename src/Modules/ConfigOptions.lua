@@ -1557,13 +1557,6 @@ Huge sets the radius to 11.
 		modList:NewMod("Condition:UsedVaalSkillRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 		modList:NewMod("Condition:UsedSkillRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "conditionUsedVaalSkillInPast5Sec", type = "check", label = "Used a Vaal Skill in the past 5 seconds?", ifCond = "UsedVaalSkillInPast5Sec", implyCond = "UsedVaalSkillInPast20Sec", tooltip = "This also counts as having used a Vaal Skill in the past 20 seconds.", apply = function(val, modList, enemyModList)
-		modList:NewMod("Condition:UsedVaalSkillInPast5Sec", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
-		modList:NewMod("Condition:UsedVaalSkillInPast20Sec", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
-	end },
-	{ var = "conditionUsedVaalSkillInPast20Sec", type = "check", label = "Used a Vaal Skill in the past 20 seconds?", ifCond = "UsedVaalSkillInPast20Sec", apply = function(val, modList, enemyModList)
-		modList:NewMod("Condition:UsedVaalSkillInPast20Sec", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
-	end },
 	{ var = "multiplierUsedVaalSkillInPast8Seconds", type = "count", label = "# of Vaal Skills used in the past 8 Seconds:", ifMult = "VaalSkillsUsedInPast8Seconds", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:VaalSkillsUsedInPast8Seconds", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 	end },

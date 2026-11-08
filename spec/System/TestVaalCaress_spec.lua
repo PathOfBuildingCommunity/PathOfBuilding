@@ -27,7 +27,7 @@ describe("Vaal Caress Onslaught", function()
 	end
 
 	local function configure(input)
-		for _, name in ipairs({ "conditionUsedVaalSkillRecently", "conditionUsedVaalSkillInPast5Sec", "conditionUsedVaalSkillInPast20Sec", "buffOnslaught" }) do
+		for _, name in ipairs({ "conditionUsedVaalSkillRecently", "buffOnslaught" }) do
 			build.configTab.input[name] = input[name]
 		end
 		build.configTab:BuildModList()
@@ -35,11 +35,11 @@ describe("Vaal Caress Onslaught", function()
 	end
 
 	for _, case in ipairs({
-		{ name = "current gloves", duration = 20, setup = function() addGloves(3) end },
-		{ name = "legacy gloves", duration = 5, setup = function() addGloves(2) end },
-		{ name = "Reliquarian notable", duration = 20, setup = allocateNotable },
+		{ name = "current gloves", setup = function() addGloves(3) end },
+		{ name = "legacy gloves", setup = function() addGloves(2) end },
+		{ name = "Reliquarian notable", setup = allocateNotable },
 	}) do
-		it("applies " .. case.name .. " to an ordinary spell for the configured Vaal-use window", function()
+		it("applies " .. case.name .. " to an ordinary spell after recent Vaal skill use", function()
 			newBuild()
 			case.setup()
 			build.skillsTab:PasteSocketGroup("Fireball 20/0  1\n")
@@ -63,12 +63,7 @@ describe("Vaal Caress Onslaught", function()
 			check(true)
 			configure({})
 			check(false)
-			configure({ conditionUsedVaalSkillInPast20Sec = true })
-			check(case.duration == 20)
-			assert.is_falsy((build.calcsTab.mainEnv.player.modDB:Flag(nil, "Condition:UsedVaalSkillRecently")))
-			configure({ conditionUsedVaalSkillInPast5Sec = true })
-			check(true)
-			configure({ conditionUsedVaalSkillInPast5Sec = true, buffOnslaught = true })
+			configure({ conditionUsedVaalSkillRecently = true, buffOnslaught = true })
 			check(true)
 			configure({ buffOnslaught = true })
 			check(true)
