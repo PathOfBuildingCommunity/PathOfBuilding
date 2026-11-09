@@ -4026,8 +4026,7 @@ local specialModList = {
 	-- Buffs/debuffs
 	["phasing"] = { flag("Condition:Phasing") },
 	["onslaught"] = { flag("Condition:Onslaught") },
-	["you gain onslaught for 5 seconds on using a vaal skill"] = { flag("Condition:Onslaught", { type = "Condition", var = "UsedVaalSkillRecently" }) },
-	["you gain onslaught for 20 seconds on using a vaal skill"] = { flag("Condition:Onslaught", { type = "Condition", var = "UsedVaalSkillRecently" }) },
+	["you gain onslaught for %d+ seconds on using a vaal skill"] = { flag("Condition:Onslaught", { type = "Condition", var = "UsedVaalSkillRecently" }) },
 	["rampage"] = { flag("Condition:Rampage") },
 	["soul eater"] = { flag("Condition:CanHaveSoulEater") },
 	["unholy might"] = { flag("Condition:UnholyMight"), flag("Condition:CanWither"), },
