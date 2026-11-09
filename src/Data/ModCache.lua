@@ -14795,12 +14795,11 @@ c["Count as having maximum number of Frenzy Charges"]={{[1]={flags=0,keywordFlag
 c["Count as having maximum number of Power Charges"]={{[1]={flags=0,keywordFlags=0,name="HaveMaximumPowerCharges",type="FLAG",value=true}},nil}
 c["Counts as Dual Wielding"]={{[1]={flags=0,keywordFlags=0,name="WeaponData",type="LIST",value={key="countsAsDualWielding",value=true}}},nil}
 c["Counts as all One Handed Melee Weapon Types"]={{[1]={flags=0,keywordFlags=0,name="WeaponData",type="LIST",value={key="countsAsAll1H",value=true}}},nil}
-c["Cover Enemies in Ash for 5 seconds when you Ignite them"]={nil,"Cover Enemies in Ash for 5 seconds when you Ignite them "}
-c["Cover Enemies in Ash for 5 seconds when you Ignite them Cover Enemies in Frost for 5 seconds when you Freeze them"]={nil,"Cover Enemies in Ash for 5 seconds when you Ignite them Cover Enemies in Frost for 5 seconds when you Freeze them "}
+c["Cover Enemies in Ash for 5 seconds when you Ignite them"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Ignited"},flags=0,keywordFlags=0,name="CoveredInAshEffect",type="BASE",value=20}},nil}
 c["Cover Enemies in Ash when they Hit you"]={nil,"Cover Enemies in Ash when they Hit you "}
 c["Cover Enemies in Ash when they Hit you Avatar of Fire"]={nil,"Cover Enemies in Ash when they Hit you Avatar of Fire "}
 c["Cover Enemies in Ash when they Hit you Nearby Enemies are Covered in Ash"]={nil,"Cover Enemies in Ash when they Hit you Nearby Enemies are Covered in Ash "}
-c["Cover Enemies in Frost for 5 seconds when you Freeze them"]={nil,"Cover Enemies in Frost for 5 seconds when you Freeze them "}
+c["Cover Enemies in Frost for 5 seconds when you Freeze them"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Frozen"},flags=0,keywordFlags=0,name="CoveredInFrostEffect",type="BASE",value=20}},nil}
 c["Cover Full Life Enemies in Ash for 10 seconds on Melee Weapon Hit"]={nil,"Cover Full Life Enemies in Ash for 10 seconds on Melee Weapon Hit "}
 c["Cover Full Life Enemies in Ash for 7 seconds on Melee Weapon Hit"]={nil,"Cover Full Life Enemies in Ash for 7 seconds on Melee Weapon Hit "}
 c["Create Consecrated Ground when Hit, lasting 8 seconds"]={nil,"Create Consecrated Ground when Hit, lasting 8 seconds "}
@@ -15005,8 +15004,8 @@ c["Damage of Enemies Hitting you is Unlucky while you are on Full Life"]={nil,"D
 c["Damage of Enemies Hitting you is Unlucky while you are on Low Life"]={nil,"Damage of Enemies Hitting you is Unlucky while you are on Low Life "}
 c["Damage of Enemies Hitting you is Unlucky while you have a Magic Ring Equipped"]={nil,"Damage of Enemies Hitting you is Unlucky while you have a Magic Ring Equipped "}
 c["Damage of Enemies Hitting you is Unlucky while you have a Magic Ring Equipped You are Hexproof if you have a Magic Ring in right slot"]={nil,"Damage of Enemies Hitting you is Unlucky while you have a Magic Ring Equipped You are Hexproof if you have a Magic Ring in right slot "}
-end)();(function()
 c["Damage of Hits against you is Lucky"]={nil,"Damage of Hits  is Lucky "}
+end)();(function()
 c["Damage over Time Multiplier for Ailments is equal to Critical Strike Multiplier"]={{[1]={flags=0,keywordFlags=0,name="DotMultiplierIsCritMultiplier",type="FLAG",value=true}},nil}
 c["Damage taken bypasses Unbroken Ward if the Hit deals less Damage than 15% of Ward"]={{[1]={flags=0,keywordFlags=0,name="WardBypassBelowPercent",type="BASE",value=15}},nil}
 c["Damage taken from Blocked Hits cannot bypass Energy Shield"]={{[1]={[1]={neg=true,type="Condition",var="EVBypass"},flags=0,keywordFlags=0,name="BlockedDamageDoesntBypassES",type="FLAG",value=true}},nil}
@@ -20007,8 +20006,8 @@ c["Skills Socketed in your Boots are Supported by level 20 Impale"]={{[1]={[1]={
 c["Skills Socketed in your Boots are Supported by level 20 Increased Area of Effect"]={{[1]={[1]={slotName="Boots",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={appliesToGrantedSkills=true,level=20,skillId="SupportIncreasedAreaOfEffect"}}},nil}
 c["Skills Socketed in your Boots are Supported by level 20 Increased Critical Damage"]={{[1]={[1]={slotName="Boots",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={appliesToGrantedSkills=true,level=20,skillId="SupportIncreasedCriticalDamage"}}},nil}
 c["Skills Socketed in your Boots are Supported by level 20 Increased Critical Strikes"]={{[1]={[1]={slotName="Boots",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={appliesToGrantedSkills=true,level=20,skillId="SupportIncreasedCriticalStrikes"}}},nil}
-end)();(function()
 c["Skills Socketed in your Boots are Supported by level 20 Infernal Legion"]={{[1]={[1]={slotName="Boots",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={appliesToGrantedSkills=true,level=20,skillId="SupportInfernalLegion"}}},nil}
+end)();(function()
 c["Skills Socketed in your Boots are Supported by level 20 Infused Channelling"]={{[1]={[1]={slotName="Boots",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={appliesToGrantedSkills=true,level=20,skillId="SupportInfusedChannelling"}}},nil}
 c["Skills Socketed in your Boots are Supported by level 20 Innervate"]={{[1]={[1]={slotName="Boots",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={appliesToGrantedSkills=true,level=20,skillId="SupportInnervate"}}},nil}
 c["Skills Socketed in your Boots are Supported by level 20 Inspiration"]={{[1]={[1]={slotName="Boots",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={appliesToGrantedSkills=true,level=20,skillId="SupportInspiration"}}},nil}
