@@ -38,6 +38,10 @@ describe("Vaal Caress Onslaught", function()
 		{ name = "current gloves", setup = function() addGloves(3) end },
 		{ name = "legacy gloves", setup = function() addGloves(2) end },
 		{ name = "Reliquarian notable", setup = allocateNotable },
+		{ name = "Ruthless Reliquarian notable", setup = function()
+			build.spec:Init(latestTreeVersion .. "_ruthless")
+			allocateNotable()
+		end, movement = false },
 	}) do
 		it("applies " .. case.name .. " to an ordinary spell after recent Vaal skill use", function()
 			newBuild()
@@ -51,7 +55,9 @@ describe("Vaal Caress Onslaught", function()
 			local mainSkill = build.calcsTab.mainEnv.player.mainSkill
 			local inactiveSpeedInc = mainSkill.skillModList:Sum("INC", mainSkill.skillCfg, "Speed")
 			local function check(active)
-				assert.are.near(inactiveMovement + (active and 0.2 or 0), build.calcsTab.mainOutput.MovementSpeedMod, 1e-9)
+				if case.movement ~= false then
+					assert.are.near(inactiveMovement + (active and 0.2 or 0), build.calcsTab.mainOutput.MovementSpeedMod, 1e-9)
+				end
 				if active then
 					assert.are.near(inactiveSpeed * (1 + 20 / (100 + inactiveSpeedInc)), build.calcsTab.mainOutput.Speed, 1e-9)
 				else
