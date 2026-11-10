@@ -4978,6 +4978,10 @@ local specialModList = {
 	["immun[ei]t?y? to curses while you have at least (%d+) rage"] = function(num) return { flag("CurseImmune", { type = "MultiplierThreshold", var = "Rage", threshold = num }) } end,
 	["you cannot be cursed with silence"] = { flag("SilenceImmune") },
 	["unaffected by ignite"] = { mod("SelfIgniteEffect", "MORE", -100) },
+	["unaffected by ignite or shock if maximum life and maximum mana are within (%d+)"] = function(num) return {
+		mod("SelfIgniteEffect", "MORE", -100, { type = "StatThreshold", stat = "AbsoluteDifferenceOfMaximumLifeAndMaximumMana", threshold = num, upper = true }),
+		mod("SelfShockEffect", "MORE", -100, { type = "StatThreshold", stat = "AbsoluteDifferenceOfMaximumLifeAndMaximumMana", threshold = num, upper = true }),
+	} end,
 	["unaffected by chill"] = { mod("SelfChillEffect", "MORE", -100) },
 	["unaffected by chill while leeching mana"] = { mod("SelfChillEffect", "MORE", -100, { type = "Condition", var = "LeechingMana" }) },
 	["unaffected by chill while channelling"] = { mod("SelfChillEffect", "MORE", -100, { type = "Condition", var = "Channelling" }) },
