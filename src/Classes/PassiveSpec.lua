@@ -191,7 +191,6 @@ function PassiveSpecClass:Load(xml, dbFileName)
 	elseif url then
 		self:DecodeURL(url)
 	end
-	self:ResetUndo()
 end
 
 function PassiveSpecClass:Save(xml)
@@ -268,6 +267,8 @@ end
 
 function PassiveSpecClass:PostLoad()
 	self:BuildClusterJewelGraphs()
+	-- Capture the initial history only after saved cluster allocations have been restored.
+	self:ResetUndo()
 end
 
 -- Import passive spec from the provided class IDs and node hash list
@@ -1827,7 +1828,8 @@ function PassiveSpecClass:EndLegacyClusterHashConversion()
 	self.legacyClusterNodeMapReverse = nil
 end
 
-function PassiveSpecClass:BuildClusterJewelGraphs()
+---@param skipImportedAllocations boolean?
+function PassiveSpecClass:BuildClusterJewelGraphs(skipImportedAllocations)
 	local needsLegacyClusterHashConversion = self:BeginLegacyClusterHashConversion()
 
 	-- Mark that path building should clear out stale references to cluster nodes
@@ -1855,7 +1857,7 @@ function PassiveSpecClass:BuildClusterJewelGraphs()
 
 	local importedGroups = { }
 	local importedNodes = { }
-	if self.jewel_data then
+	if self.jewel_data and not skipImportedAllocations then
 		for _, value in pairs(self.jewel_data) do
 			if value.subgraph then
 				for groupId, groupData in pairs(value.subgraph.groups) do
@@ -2381,7 +2383,12 @@ function PassiveSpecClass:CreateUndoState()
 end
 
 function PassiveSpecClass:RestoreUndoState(state, treeVersion)
+	-- The snapshot owns allocations; do not reapply nodes remembered from earlier cluster rebuilds.
+	wipeTable(self.allocExtendedNodes)
 	self:ImportFromNodeList(nil, state.classId, state.ascendClassId, state.secondaryAscendClassId, state.hashList, state.hashOverrides, state.masteryEffects, treeVersion or state.treeVersion)
+	if next(self.subGraphs) or next(self.allocSubgraphNodes) then
+		self:BuildClusterJewelGraphs(true)
+	end
 	self:SetWindowTitleWithBuildClass()
 end
 
