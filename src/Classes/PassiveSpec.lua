@@ -1099,7 +1099,8 @@ function PassiveSpecClass:NodesInIntuitiveLeapLikeRadius(node)
 		if item.jewelData and item.jewelData.impossibleEscapeKeystone then
 			for keyName, keyNode in pairs(item.jewelData.impossibleEscapeKeystones) do
 				if self.tree.keystoneMap[keyName] and self.tree.keystoneMap[keyName].nodesInRadius then
-					for affectedNodeId in pairs(self.tree.keystoneMap[keyName].nodesInRadius[radiusIndex]) do
+					local nodesInRadius = self.tree.keystoneMap[keyName].nodesInRadius[radiusIndex]
+					for affectedNodeId in pairs(nodesInRadius or { }) do
 						if self.nodes[affectedNodeId].alloc then
 							t_insert(result, self.nodes[affectedNodeId])
 						end
@@ -1582,6 +1583,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 									and self.build.itemsTab.items[itemId].jewelData.intuitiveLeapLike
 									and self.build.itemsTab.items[itemId].jewelRadiusIndex
 									and self.nodes[nodeId].nodesInRadius
+									and self.nodes[nodeId].nodesInRadius[self.build.itemsTab.items[itemId].jewelRadiusIndex]
 									and self.nodes[nodeId].nodesInRadius[self.build.itemsTab.items[itemId].jewelRadiusIndex][depNode.id]
 							) or (
 								self.build.itemsTab.items[itemId].jewelData
