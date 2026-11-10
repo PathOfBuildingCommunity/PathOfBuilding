@@ -237,6 +237,38 @@ Strict-Transport-Security: max-age=63115200; includeSubDomains; preload]]
 			end
 		end)
 
+		it("keeps the listing level requirement in reconstructed item strings", function()
+			local response = dkjson.encode({
+				result = {
+					{
+						id = "levelled",
+						listing = {
+							price = { amount = 1, currency = "chaos", type = "~price" },
+							whisper = "hi",
+							account = { name = "seller" },
+						},
+						item = {
+							rarity = "Rare",
+							name = "Test Subject",
+							typeLine = "Astral Plate",
+							-- Astral Plate alone requires level 62
+							requirements = { { name = "Level", values = { { "70", 0 } } } },
+						},
+					},
+				},
+			})
+			local fetchedItems
+			requests.requestQueue.fetch = { }
+			requests:FetchResultBlock("test", function(items)
+				fetchedItems = items
+			end)
+
+			local request = table.remove(requests.requestQueue.fetch, 1)
+			request.callback(response)
+
+			assert.are.equal(70, new("Item"):Item(fetchedItems[1].item_string).requirements.level)
+		end)
+
 		it("reads weighted sums from current and legacy pseudo mods", function()
 			local function makeTradeEntry(id, pseudoMods)
 				return {
