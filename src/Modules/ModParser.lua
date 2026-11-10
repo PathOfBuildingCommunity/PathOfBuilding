@@ -1440,6 +1440,7 @@ local modTagList = {
 	["per green socket"] = { tag = { type = "Multiplier", var = "GreenSocketIn{SlotName}" } },
 	["per blue socket"] = { tag = { type = "Multiplier", var = "BlueSocketIn{SlotName}" } },
 	["per white socket"] = { tag = { type = "Multiplier", var = "WhiteSocketIn{SlotName}" } },
+	["per empty socket"] = { tag = { type = "Multiplier", var = "EmptySocketIn{SlotName}" } },
 	["for each unlinked socket in equipped two handed weapon"] = { tagList = { { type = "Multiplier", var = "UnlinkedSocketInWeapon 1" }, { type = "Condition", var = "UsingTwoHandedWeapon" } } },
 	["for each empty red socket on any equipped item"] = { tag = { type = "Multiplier", var = "EmptyRedSocketsInAnySlot" } },
 	["for each empty green socket on any equipped item"] = { tag = { type = "Multiplier", var = "EmptyGreenSocketsInAnySlot" } },
