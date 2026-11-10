@@ -3209,13 +3209,13 @@ function ItemsTabClass:CorruptDisplayItem()
 			-- Pool and roll ranges: https://poedb.tw/us/Glimpse_of_Chaos#GlimpseofChaosMods
 			for modId, mod in pairs(data.itemMods.ItemExclusive) do
 				if modId:find("^UniqueSpecialCorruption") then
-					t_insert(implicitList[modType], { mod = mod })
+					t_insert(implicitList[modType], { modId = modId, mod = mod })
 				end
 			end
 		else
 			for modId, mod in pairs(self.displayItem.affixes) do
 				if mod.type == modType and self.displayItem:GetModSpawnWeight(mod) > 0 then
-					t_insert(implicitList[modType], { mod = mod })
+					t_insert(implicitList[modType], { modId = modId, mod = mod })
 				end
 			end
 		end
@@ -3241,7 +3241,7 @@ function ItemsTabClass:CorruptDisplayItem()
 		for _, entry in ipairs(implicitList[modType]) do
 			local mod = entry.mod
 			if not otherMod or mod.group ~= otherMod.group then
-				t_insert(control.list, { label = table.concat(mod, "/"), mod = mod })
+				t_insert(control.list, { label = table.concat(mod, "/"), modId = entry.modId, mod = mod })
 			end
 		end
 		control:SelByValue(selfMod, "mod")
@@ -3265,7 +3265,7 @@ function ItemsTabClass:CorruptDisplayItem()
 			for _, entry in ipairs(implicitList[modType]) do
 				local mod = entry.mod
 				if not selectedGroups[mod.group] or selectedGroups[mod.group].idx == i then
-					t_insert(control.list, { label = table.concat(mod, "/"), mod = mod })
+					t_insert(control.list, { label = table.concat(mod, "/"), modId = entry.modId, mod = mod })
 				end
 			end
 		end
@@ -3365,16 +3365,21 @@ function ItemsTabClass:CorruptDisplayItem()
 		-- implicits, like in pob2
 		if addingImplicits then
 			local newImplicit = {}
+			local selectedCorruptionMods = { }
 			for i = 1, maxImplicitNum do
 				local control = controls[string.format("implicit%d", i)]
 				if control.selIndex > 1 then
-					local mod = control.list[control.selIndex].mod
+					local entry = control.list[control.selIndex]
+					local mod = entry.mod
+					if currentModType == "Corrupted" then
+						t_insert(selectedCorruptionMods, mod)
+					end
 					for _, modLine in ipairs(mod) do
 						modLine = (currentModType == "ScourgeUpside" and "{scourge}" or "") .. modLine
 						if mod.modTags[1] then
-							t_insert(newImplicit, { line = "{tags:" .. table.concat(mod.modTags, ",") .. "}" .. modLine })
+							t_insert(newImplicit, { line = "{tags:" .. table.concat(mod.modTags, ",") .. "}" .. modLine, modGroup = currentModType == "Corrupted" and entry.modId or nil })
 						else
-							t_insert(newImplicit, { line = modLine })
+							t_insert(newImplicit, { line = modLine, modGroup = currentModType == "Corrupted" and entry.modId or nil })
 						end
 					end
 				end
@@ -3388,6 +3393,11 @@ function ItemsTabClass:CorruptDisplayItem()
 					t_insert(currentModType ~= "ScourgeUpside" and item.implicitModLines or item.scourgeModLines, implicit)
 				end
 			end
+			item:BuildAndParseRaw()
+			if #selectedCorruptionMods > 0 then
+				item.requirements.level = item:CalculateCorruptedRequirement(selectedCorruptionMods, self.displayItem.requirements.level)
+				item:BuildAndParseRaw()
+			end
 		end
 		if not addingImplicits then
 			for i, modLine in ipairs(item.explicitModLines) do
@@ -3397,7 +3407,9 @@ function ItemsTabClass:CorruptDisplayItem()
 				end
 			end
 		end
-		item:BuildAndParseRaw()
+		if not addingImplicits then
+			item:BuildAndParseRaw()
+		end
 		return item
 	end
 	if self.displayItem.rarity == "UNIQUE" or self.displayItem.rarity == "RELIC" then
