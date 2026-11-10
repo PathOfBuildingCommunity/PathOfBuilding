@@ -17,6 +17,45 @@ describe("TestDefence", function()
 		return build.calcsTab.calcs.reducePoolsByDamage(nil, takenDamages, build.calcsTab.calcsEnv.player)
 	end
 
+	it("counts tree Defences in the Inc. from Tree stats", function()
+		local node, value
+		for _, candidate in pairs(build.spec.nodes) do
+			local mod = candidate.modList and candidate.modList[1]
+			if mod and #candidate.modList == 1 and mod.name == "Defences" and mod.type == "INC" and #mod == 0 then
+				node, value = candidate, mod.value
+				break
+			end
+		end
+		assert.is_not_nil(node)
+		node.alloc = true
+		build.spec.allocNodes[node.id] = node
+		build.buildFlag = true
+		runCallback("OnFrame")
+
+		local output = build.calcsTab.mainOutput
+		local actual = {
+			["Spec:ArmourInc"] = output["Spec:ArmourInc"],
+			["Spec:EvasionInc"] = output["Spec:EvasionInc"],
+			["Spec:EnergyShieldInc"] = output["Spec:EnergyShieldInc"],
+		}
+		for _, section in ipairs(LoadModule("Modules/CalcSections")) do
+			for _, row in ipairs(section[5][1].data) do
+				if row.label == "Inc. from Tree" and section[2] ~= "Life" and section[2] ~= "Mana" then
+					actual[section[2]] = formatCalcStr(row[1].format, build.calcsTab.mainEnv.player, row[1])
+				end
+			end
+		end
+		assert.are.same({
+			["Spec:ArmourInc"] = value,
+			["Spec:EvasionInc"] = value,
+			["Spec:EnergyShieldInc"] = value,
+			Armour = value.."%",
+			Evasion = value.."%",
+			EnergyShield = value.."%",
+			Ward = value.."%",
+		}, actual)
+	end)
+
 	it("attributes resistances inherited by minions to Bonemeld after loading a build", function()
 		build.skillsTab:PasteSocketGroup("Raise Zombie 20/0  1")
 		build.itemsTab:CreateDisplayItemFromRaw("Rarity: UNIQUE\nBonemeld\nMarble Amulet\nImplicits: 0\nMinions gain added Resistances equal to 50% of your Resistances")
