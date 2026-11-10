@@ -845,7 +845,7 @@ local function doActorMisc(env, actor)
 		if modDB:Max(nil, "WitherEffectStack") then
 			modDB:NewMod("Condition:CanWither", "FLAG", true, "Config")
 			local effect = modDB:Max(nil, "WitherEffectStack")
-			enemyDB:NewMod("ChaosDamageTaken", "INC", effect, "Withered", { type = "Multiplier", var = "WitheredStack", limit = 15 } )
+			enemyDB:NewMod("WitheredEffect", "MAX", effect, "Withered", { type = "Multiplier", var = "WitheredStack", limit = 15 } )
 		end
 		if modDB:Flag(nil, "Condition:CanBeWithered") then
 			local effect = 6 * (100 + modDB:Sum("INC", nil, "WitherEffectOnSelf")) / 100 * modDB:More(nil, "WitherEffectOnSelf")
@@ -2231,6 +2231,8 @@ function calcs.perform(env, skipEHP)
 	local linkSkills = { }
 	local allyBuffs = env.partyMembers["Aura"]
 	local buffExports = { Aura = {}, Curse = {}, Warcry = {}, Link = {}, EnemyMods = {}, EnemyConditions = {}, PlayerMods = {} }
+	local localDebuffMods = { }
+	local appliedDebuffMods = { }
 	local hasActiveSpectreSkill = false
 	local activeSpectreList = { }
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
@@ -3520,6 +3522,46 @@ function calcs.perform(env, skipEHP)
 		doActorMisc(env, env.minion)
 	end
 
+	-- Combine Wither sources, keeping the strongest 15 individual stacks.
+	local witherSources = { }
+	local strongestLocalWither
+	local localWitherStacks = m_min(15, m_max(0, m_floor(enemyDB:GetMultiplier("WitheredStack"))))
+	for _, value in ipairs(enemyDB:Tabulate("MAX", nil, "WitheredEffect")) do
+		if value.mod.source == "Withered" and (not strongestLocalWither or value.value > strongestLocalWither.value) then
+			strongestLocalWither = value
+		elseif value.mod.source ~= "Withered" then
+			-- Older flat exports lack a count; preserve their total as a full set of stacks.
+			local stacks = value.mod.witherStackCount or 15
+			for _, tag in ipairs(value.mod) do
+				if tag.type == "Multiplier" and tag.var == "WitheredStack" then
+					stacks = localWitherStacks -- Legacy exports used the recipient's multiplier.
+				end
+			end
+			if stacks > 0 then
+				t_insert(witherSources, { effect = value.value / stacks, stacks = stacks, source = value.mod.source })
+			end
+		end
+	end
+	if strongestLocalWither and localWitherStacks > 0 then
+		t_insert(witherSources, { effect = strongestLocalWither.value / localWitherStacks, stacks = localWitherStacks, source = "Withered" })
+		if partyTabEnableExportBuffs then
+			-- Retain the count so recipients can combine this contribution with their own stacks.
+			t_insert(localDebuffMods, modLib.createMod("ChaosDamageTaken", "INC", strongestLocalWither.value, "Withered:"..localWitherStacks))
+		end
+	end
+	table.sort(witherSources, function(a, b) return a.effect > b.effect end)
+	local remainingWitherStacks = 15
+	for _, wither in ipairs(witherSources) do
+		local stacks = m_min(wither.stacks, remainingWitherStacks)
+		if stacks <= 0 then
+			break
+		end
+		local mod = modLib.createMod("ChaosDamageTaken", "INC", wither.effect * stacks, wither.source)
+		enemyDB:AddMod(mod)
+		appliedDebuffMods[mod] = true
+		remainingWitherStacks = remainingWitherStacks - stacks
+	end
+
 	-- Calculate maximum and apply the strongest non-damaging ailments
 	local ailmentData = data.nonDamagingAilment
 	local ailments = {
@@ -3677,9 +3719,25 @@ function calcs.perform(env, skipEHP)
 				if exposureEffectInc ~= 0 then
 					min = min * (1 + exposureEffectInc / 100)
 				end
-				enemyDB:NewMod("Condition:Has"..element.."Exposure", "FLAG", true, "")
-				enemyDB:NewMod(element.."Resist", "BASE", m_min(min, modDB:Override(nil, "ExposureMin")), source)
+				min = m_min(min, modDB:Override(nil, "ExposureMin"))
+				if partyTabEnableExportBuffs then
+					-- Mark exposure only in the export so Calcs retains the original modifier source.
+					t_insert(localDebuffMods, modLib.createMod(element.."Resist", "BASE", min, "Exposure:"..source))
+				end
 				modDB:NewMod("Condition:AppliedExposureRecently", "FLAG", true, "")
+			end
+			-- Imported exposure already includes the support's modifiers; compare it without scaling it again.
+			for _, mod in ipairs(enemyDB:Tabulate("BASE", nil, element.."ExposureFromParty")) do
+				if mod.value < min then
+					min = mod.value
+					source = mod.mod.source
+				end
+			end
+			if min ~= math.huge then
+				enemyDB:NewMod("Condition:Has"..element.."Exposure", "FLAG", true, "")
+				local mod = modLib.createMod(element.."Resist", "BASE", min, source)
+				enemyDB:AddMod(mod)
+				appliedDebuffMods[mod] = true
 			end
 		end
 	end
@@ -3836,7 +3894,17 @@ function calcs.perform(env, skipEHP)
 
 	 -- Export modifiers to enemy conditions and stats for party tab
 	if partyTabEnableExportBuffs then
-        for k, mod in pairs(enemyDB.mods) do
+		-- Export the character's own debuffs even when a stronger party effect is applied locally.
+		local exportDB = new("ModDB"):ModDB()
+		for _, mods in pairs(enemyDB.mods) do
+			for _, mod in ipairs(mods) do
+				if not appliedDebuffMods[mod] then
+					exportDB:AddMod(mod)
+				end
+			end
+		end
+		exportDB:AddList(localDebuffMods)
+        for k, mod in pairs(exportDB.mods) do
             if k:find("Condition") and not k:find("Party") then
                 buffExports["EnemyConditions"][k] = true
             elseif (k:find("Resist") and not k:find("Totem") and not k:find("Max")) or k:find("Damage") or k:find("ActionSpeed") or k:find("SelfCrit") or (k:find("Multiplier") and not k:find("Max") and not k:find("Impale")) then
