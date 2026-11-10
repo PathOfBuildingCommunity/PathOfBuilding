@@ -91,6 +91,17 @@ describe("TetsItemMods", function()
 		end)
 	end
 
+	it("Main Hand Weapon Red and Green Socket line needs both sockets", function()
+		for _, sockets in ipairs({ "R-G", "R-B", "G-B" }) do
+			local item = new("Item"):Item("Rarity: RARE\nTest Sword\nLion Sword\nSockets: " .. sockets .. "\nImplicits: 0\n30% increased Armour and Evasion Rating if your Main Hand Weapon has a Red and Green Socket")
+			build.itemsTab:AddItem(item, true)
+			build.itemsTab.slots["Weapon 1"]:SetSelItemId(item.id)
+			build.buildFlag = true
+			runCallback("OnFrame")
+			assert.are.equals(sockets == "R-G" and 30 or 0, build.calcsTab.mainEnv.player.modDB:Sum("INC", nil, "ArmourAndEvasion"))
+		end
+	end)
+
 	for _, wording in ipairs({ "Enemy", "Enemy Monster" }) do
 		it("Triumvirate Authority ignores physical reduction only for socketed Vaal skills with '" .. wording .. "' wording", function()
 			build.itemsTab:CreateDisplayItemFromRaw("Triumvirate Authority\nUnset Ring\nSockets: G\nHits from Socketed Vaal Skills ignore " .. wording .. " Physical Damage Reduction")
