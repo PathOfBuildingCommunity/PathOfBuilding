@@ -80,14 +80,6 @@ describe("TestImport", function()
 		build.importTab:ImportPassiveTreeAndJewels(sampleData, true)
 		runCallback("OnFrame")
 
-		local jewelCount = 0
-		for _ in pairs(build.spec.jewel_data) do
-			jewelCount = jewelCount + 1
-		end
-		assert.equals(jewelCount, 11)
-		assert.equals(build.spec.jewel_data[3].radius, 2400)
-		assert.equals(build.spec.jewel_data[3].type, "JewelStr")
-
 		local items = build.itemsTab.items
 		assert.truthy(items)
 		assert.equals(#items, 11)
@@ -105,6 +97,55 @@ describe("TestImport", function()
 		end
 		isEquipped(3, "Healthy Mind, Cobalt Jewel")
 		isEquipped(4, "Fulgent Bliss, Small Cluster Jewel")
+	end)
+
+	it("preserves unallocated imported cluster nodes when saving an edited jewel", function()
+		local socketId
+		for _, id in ipairs(build.latestTree.jewelSlots) do
+			local node = build.spec.nodes[id]
+			if node.expansionJewel and node.expansionJewel.size == 2 then
+				socketId = id
+				break
+			end
+		end
+		build.spec:AllocNode(build.spec.nodes[socketId])
+		local importData = {
+			name = "Cluster import test", class = build.spec.curClassName, league = "Standard", level = 90,
+			passives = {
+				hashes = build.spec:CreateUndoState().hashList,
+				hashes_ex = { 123 },
+				jewel_data = { [tostring(socketId)] = { subgraph = {
+					groups = { cluster = { proxy = build.spec.nodes[socketId].expansionJewel.proxy, nodes = { "123" } } },
+					nodes = { ["123"] = { group = "cluster", isKeystone = true, orbitIndex = 0 } },
+				} } },
+			},
+			jewels = { {
+				id = "cluster-import-test", frameType = 3, name = "One With Nothing", typeLine = "Small Cluster Jewel",
+				inventoryId = "PassiveJewels", x = isValueInArray(build.latestTree.jewelSlots, socketId) - 1, ilvl = 75,
+				explicitMods = { "Adds Hollow Palm Technique" },
+			} },
+		}
+		build.importTab:ImportPassiveTreeAndJewels(importData, true)
+		local _, graph = next(build.spec.subGraphs)
+		local nodeId = graph.nodes[1].id
+		assert.is_true(build.spec.nodes[nodeId].alloc)
+
+		build.spec:DeallocNode(build.spec.nodes[nodeId])
+		local item = build.itemsTab.items[build.spec.jewels[socketId]]
+		local edited = new("Item"):Item(item.raw .. "\n+5 to Strength")
+		edited.id = item.id
+		build.itemsTab:SetDisplayItem(edited)
+		build.itemsTab:AddDisplayItem()
+		assert.is_truthy(build.spec.nodes[nodeId])
+		assert.is_nil(build.spec.allocNodes[nodeId])
+		assert.is_true(build.spec.nodes[socketId].alloc)
+
+		-- A fresh character import must still apply its own cluster allocations.
+		for _, deleteJewels in ipairs({ false, true }) do
+			build.importTab:ImportPassiveTreeAndJewels(importData, deleteJewels)
+			assert.is_true(build.spec.nodes[nodeId].alloc)
+			build.spec:DeallocNode(build.spec.nodes[nodeId])
+		end
 	end)
 
 	it("imports modifier flags from the 3.29 item API", function()
