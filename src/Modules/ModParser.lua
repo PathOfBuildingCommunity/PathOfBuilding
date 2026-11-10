@@ -4476,6 +4476,11 @@ local specialModList = {
 	["raised zombies take ([%d%.]+)%% of their maximum life per second as fire damage"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("FireDegen", "BASE", 1, { type = "PercentStat", stat = "Life", percent = num }) }, { type = "SkillName", skillName = "Raise Zombie", includeTransfigured = true }) } end,
 	["maximum number of summoned raging spirits is (%d+)"] = function(num) return { mod("ActiveRagingSpiritLimit", "OVERRIDE", num) } end,
 	["maximum number of summoned phantasms is (%d+)"] = function(num) return { mod("ActivePhantasmLimit", "OVERRIDE", num) } end,
+	["maximum number of raised spectres, skeletons and zombies is (%d+)"] = function(num) return {
+		mod("ActiveSpectreLimit", "OVERRIDE", num),
+		mod("ActiveSkeletonLimit", "OVERRIDE", num),
+		mod("ActiveZombieLimit", "OVERRIDE", num),
+	} end,
 	["summoned raging spirits have diamond shrine and massive shrine buffs"] = {
 		mod("MinionModifier", "LIST", { mod = flag("Condition:DiamondShrine") }, { type = "SkillName", skillName = "Summon Raging Spirit", includeTransfigured = true }),
 		mod("MinionModifier", "LIST", { mod = flag("Condition:MassiveShrine") }, { type = "SkillName", skillName = "Summon Raging Spirit", includeTransfigured = true }),
@@ -4512,6 +4517,7 @@ local specialModList = {
 		end
 	end,
 	["minions have a (%d+)%% chance to impale on hit with attacks"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("ImpaleChance", "BASE", num ) }) } end,
+	["minions impale on hit"] = { mod("MinionModifier", "LIST", { mod = mod("ImpaleChance", "BASE", 100) }) },
 	["minions have (%d+)%% chance to impale on attack hit per socketed ghastly eye jewel"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("ImpaleChance", "BASE", num ) }, { type = "Multiplier", var = "GhastlyEyeJewelIn{SlotName}" }) } end,
 	["minions from herald skills deal (%d+)%% more damage"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", num) }, { type = "SkillType", skillType = SkillType.Herald }) } end,
 	["minions have (%d+)%% increased movement speed for each herald affecting you"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "INC", num, { type = "Multiplier", var = "Herald", actor = "parent" }) }) } end,
@@ -4797,6 +4803,7 @@ local specialModList = {
 	["cannot gain energy shield"] = { flag("CannotGainEnergyShield") },
 	["cannot gain life"] = { flag("CannotGainLife") },
 	["cannot gain mana"] = { flag("CannotGainMana") },
+	["cannot recover mana"] = { flag("CannotGainMana") },
 	["cannot recover life other than from leech"] = { 
 		flag("CannotRecoverLifeOutsideLeech"),
 		flag("NoLifeRegen"),
@@ -5320,6 +5327,7 @@ local specialModList = {
 	["spell skills deal no damage"] = {	flag("DealNoDamage", { type = "SkillType", skillType = SkillType.Spell }) },
 	["attacks have blood magic"] = { flag("CostLifeInsteadOfMana", nil, ModFlag.Attack) },
 	["attacks cost life instead of mana"] = { flag("CostLifeInsteadOfMana", nil, ModFlag.Attack) },
+	["attack skills cost life instead of mana"] = { flag("CostLifeInsteadOfMana", nil, ModFlag.Attack) },
 	["attack skills cost life instead of (%d+)%% of mana cost"] = function(num) return { 
 		mod("HybridManaAndLifeCost_Life", "BASE", num, nil, ModFlag.Attack) 
 	} end,
