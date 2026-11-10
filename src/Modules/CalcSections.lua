@@ -925,6 +925,7 @@ return {
 		{ breakdown = "TotemChaosResist" },
 		{ modName = { "TotemChaosResistMax", "TotemChaosResist" }, }, 
 	}, },
+	{ label = "Exploded Minion Life", haveOutput = "DeathWishMinionLife", { format = "{0:output:DeathWishMinionLife}", }, },
 	{ label = "Corpse Level", haveOutput = "CorpseLevel", { format = "{0:output:CorpseLevel}",
 		{ breakdown = "CorpseLevel" },
 		{ modName = "CorpseLevel", cfg = "skill" },

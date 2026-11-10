@@ -415,6 +415,22 @@ return {
 		modList:NewMod("Condition:DivineSentinelSelfCurseEffect", "FLAG", true, "Config")
 		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Condition:DivineSentinelSelfCurseEffect", "FLAG", true, "Config") })
 	end },
+	{ label = "Death Wish:", ifSkill = "Death Wish" },
+	{ var = "deathWishMinion", type = "list", label = "Minion to explode:", ifSkill = "Death Wish",
+		list = {{val="None",label="Custom corpse life"}},
+		tooltip = "Uses the selected minion's calculated maximum life for Minion Explosion, including its gem level, supports and minion life modifiers.\nWithout an available selection, Enemy Corpse Life is used instead.",
+		listFunc = function(build)
+			local list = {{val="None",label="Custom corpse life"}}
+			local env = build.calcsTab and build.calcsTab.mainEnv
+			for _, activeSkill in ipairs(env and env.player.activeSkillList or { }) do
+				local key = build.calcsTab.calcs.minionSourceKey(activeSkill, build.skillsTab)
+				if key then
+					table.insert(list, { val = key, label = activeSkill.minion.minionData.name.." ("..activeSkill.socketGroup.displayLabel..")" })
+				end
+			end
+			return list
+		end,
+	},
 	{ label = "Doom Blast:", ifSkill = "Doom Blast" },
 	{ var = "doomBlastSource", type = "list", label = "Doom Blast Trigger Source:", ifSkill = "Doom Blast", list = {{val="expiration",label="Curse Expiration"},{val="replacement",label="Curse Replacement"},{val="vixen",label="Vixen's Curse"},{val="hexblast",label="Hexblast Replacement"}}, defaultIndex = 3},
 	{ var = "curseOverlaps", type = "count", label = "Curse overlaps:", ifSkill = "Doom Blast", ifFlag = "UsesCurseOverlaps", apply = function(val, modList, enemyModList)
