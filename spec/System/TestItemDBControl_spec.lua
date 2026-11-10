@@ -114,4 +114,27 @@ describe("ItemDBControl", function()
 		assert.are.equal(item.raw, itemsTab.displayRaw)
 		assert.is_true(itemsTab.displayIsUnique)
 	end)
+
+	it("appends typed Wickerman filters after Grafts", function()
+		local item = new("Item"):Item("")
+		item.base = { }
+		for _, dbType in ipairs({ "RARE", "UNIQUE" }) do
+			local control = new("ItemDBControl"):ItemDBControl(nil, { 0, 0, 100, 100 }, { }, { list = { } }, dbType)
+			item.type = "Graft"
+			control.controls.slot:SelByValue("Graft 1")
+			assert.are.equal("Graft 1", control.slotList[control.controls.slot.selIndex])
+			assert.is_true(control:DoesItemMatchFilters(item))
+			control.controls.slot:SelByValue("Graft 2")
+			assert.are.equal("Graft 2", control.slotList[control.controls.slot.selIndex])
+			local lastIndex = control.controls.slot.selIndex
+			for _, slotName in ipairs({ "Wickerman Head", "Wickerman Torso", "Wickerman Upper Limb", "Wickerman Lower Limb" }) do
+				control.controls.slot:SelByValue(slotName)
+				assert.are.equal(lastIndex + 1, control.controls.slot.selIndex)
+				assert.is_false(control:DoesItemMatchFilters(item))
+				item.type = slotName
+				assert.is_true(control:DoesItemMatchFilters(item))
+				lastIndex = control.controls.slot.selIndex
+			end
+		end
+	end)
 end)

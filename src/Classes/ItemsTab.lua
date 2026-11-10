@@ -201,8 +201,20 @@ function ItemsTabClass:ItemsTab(build)
 		end
 	end
 
+	-- Wickerman (3.30): keep the equipment controls together after the existing slots.
+	self.controls.wickermanHeader = new("LabelControl"):LabelControl({"TOPLEFT",prevSlot,"BOTTOMLEFT"}, {0, 8, 0, 16}, "^7Wickerman:")
+	self.controls.wickermanHeader.shown = function()
+		return self.build.spec.treeVersion:find("3_30")
+	end
+	prevSlot = self.controls.wickermanHeader
+	for _, slotName in ipairs({ "Wickerman Head", "Wickerman Torso", "Wickerman Upper Limb", "Wickerman Lower Limb" }) do
+		local slot = new("ItemSlotControl"):ItemSlotControl({"TOPLEFT",prevSlot,"BOTTOMLEFT"}, 0, 2, self, slotName, (slotName:gsub("^Wickerman ", "")))
+		slot.shown = self.controls.wickermanHeader.shown
+		addSlot(slot)
+	end
+
 	-- Passive tree dropdown controls
-	self.controls.specSelect = new("DropDownControl"):DropDownControl({"TOPLEFT",prevSlot,"BOTTOMLEFT"}, {0, 8, 216, 20}, nil, function(index, value)
+	self.controls.specSelect = new("DropDownControl"):DropDownControl({"TOPLEFT",prevSlot,"BOTTOMLEFT",true}, {0, 8, 216, 20}, nil, function(index, value)
 		if self.build.treeTab.specList[index] then
 			self.build.modFlag = true
 			self.build.treeTab:SetActiveSpec(index)
@@ -1724,6 +1736,9 @@ function ItemsTabClass:UpdateSockets()
 
 	-- Update the state of the active socket controls
 	self.lastSlot = self.slots[baseSlots[#baseSlots]]
+	if self.controls.wickermanHeader and self.controls.wickermanHeader:IsShown() then
+		self.lastSlot = self.slots["Wickerman Lower Limb"]
+	end
 	for index, nodeId in ipairs(activeSocketList) do
 		self.sockets[nodeId].label = "Socket #"..index
 		self.lastSlot = self.sockets[nodeId]
