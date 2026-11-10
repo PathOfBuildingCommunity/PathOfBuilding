@@ -11,6 +11,23 @@ local scopesOAuth = {
 
 local filename = "poe_api_response.json"
 
+local function randomBytes(count)
+	local ffi = require("ffi")
+	if ffi.os == "Windows" then
+		ffi.cdef[[long __stdcall BCryptGenRandom(void*, unsigned char*, unsigned long, unsigned long);]]
+		local buffer = ffi.new("unsigned char[?]", count)
+		if ffi.load("bcrypt").BCryptGenRandom(nil, buffer, count, 2) ~= 0 then
+			error("Could not generate OAuth verifier")
+		end
+		return ffi.string(buffer, count)
+	end
+	local file = assert(io.open("/dev/urandom", "rb"), "Could not open OS random source")
+	local bytes = file:read(count)
+	file:close()
+	assert(bytes and #bytes == count, "Could not generate OAuth verifier")
+	return bytes
+end
+
 ---@class PoEAPI
 local PoEAPIClass = newClass("PoEAPI")
 
@@ -70,7 +87,7 @@ end
 
 --- @param secret string
 local function base64_encode(secret)
-	return base64.encode(secret):gsub("+", "-"):gsub("/", "_"):gsub("=$", "")
+	return base64.encode(secret):gsub("+", "-"):gsub("/", "_"):gsub("=+$", "")
 end
 
 --- resets current authorization details
@@ -91,15 +108,14 @@ end
 
 --- @param callback fun(errCode: string?)
 function PoEAPIClass:FetchAuthToken(callback)
-	math.randomseed(os.time())
-	local secret = math.random(2 ^ 32 - 1)
-	local code_verifier = base64_encode(tostring(secret))
+	local ok, secret = pcall(randomBytes, 48)
+	if not ok then
+		callback("Could not generate secure OAuth verifier")
+		return
+	end
+	local code_verifier = base64_encode(secret:sub(1, 32))
 	local code_challenge = base64_encode(sha.hex_to_bin(sha.sha256(code_verifier)))
-
-	-- 16 character hex string
-	local initialState = string.gsub('xxxxxxxxxxxxxxxx', 'x', function()
-		return string.format('%x', math.random(0, 0xf))
-	end)
+	local initialState = base64_encode(secret:sub(33))
 
 	local authUrl = string.format(
 		"https://www.pathofexile.com/oauth/authorize?client_id=pob&response_type=code&scope=%s&state=%s&code_challenge=%s&code_challenge_method=S256"
