@@ -1190,20 +1190,27 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 				end
 				local rangedLine = itemLib.applyRange(line, 1, catalystScalar, modLine.corruptedRange)
 				local modList, extra = modLib.parseMod(rangedLine)
+				local nextLine = self.rawLines[l + 1]
+					and self.rawLines[l + 1]:gsub("%b{}", ""):gsub(" ?%(%l+%)", "")
 				local nextModGroup = self.rawLines[l + 1]
 					and self.rawLines[l + 1]:match("{modGroup:([^}]+)}")
 				-- Only combine generated lines that came from the same modifier.
-				if (not modList or extra) and self.rawLines[l + 1]
+				-- A value continuation can reduce an otherwise complete modifier.
+				if (not modList or extra or nextLine and nextLine:match("^at %d+%% of the")) and nextLine
 					and modLine.modGroup == nextModGroup then
 					-- Try to combine it with the next line
-					local nextLine = self.rawLines[l+1]:gsub("%b{}", ""):gsub(" ?%(%l+%)","")
 					local combLine = line.." "..nextLine
 					rangedLine = itemLib.applyRange(combLine, 1, catalystScalar, modLine.corruptedRange)
-					modList, extra = modLib.parseMod(rangedLine, true)
-					if modList and not extra then
+					local combinedModList, combinedExtra = modLib.parseMod(rangedLine, true)
+					if combinedModList and not combinedExtra then
+						modList, extra = combinedModList, combinedExtra
+						-- Website exports count separately marked Vestigial lines as separate implicits.
+						if modLine.vestigial and self.rawLines[l + 1]:find("{vestigial}", 1, true) then
+							implicitLines = implicitLines - 1
+						end
 						line = line .. "\n" .. nextLine
 						l = l + 1
-					else
+					elseif not modList or extra then
 						modList, extra = modLib.parseMod(rangedLine)
 					end
 				end
