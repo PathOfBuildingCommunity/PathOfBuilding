@@ -2312,6 +2312,18 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize, importe
 		node.linked = { }
 		node.power = { }
 		self.tree:ProcessNode(node)
+		if node.modList and node.type == "Normal" then
+			-- Combine matching additive stats before passive effect scaling rounds them.
+			local modList = new("ModList"):ModList()
+			for _, mod in ipairs(node.modList) do
+				if mod.type == "BASE" or mod.type == "INC" then
+					modList:MergeMod(mod)
+				else
+					modList:AddMod(mod)
+				end
+			end
+			node.modList = modList
+		end
 		if node.modList and jewelData.clusterJewelIncEffect and node.type == "Normal" then
 			node.modList:NewMod("PassiveSkillEffect", "INC", jewelData.clusterJewelIncEffect)
 		end
