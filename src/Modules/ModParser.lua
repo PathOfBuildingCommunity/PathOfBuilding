@@ -5251,6 +5251,7 @@ local specialModList = {
 	["tinctures inflict weeping wounds instead of mana burn"] = { flag("Condition:WeepingWoundsInsteadOfManaBurn"), },
 	["tincture effects also apply to ranged weapons"] = { flag("TinctureRangedWeapons"), },
 	["you can have an additional tincture active"] = { mod("TinctureLimit", "BASE", 1), },
+	["you can have (%d+) additional tinctures active"] = function(num) return { mod("TinctureLimit", "BASE", num) } end,
 	["(%d+)%% increased tincture cooldown recovery rate"] = function(num) return { mod("TinctureCooldownRecovery", "INC", num) } end,
 	["adds (%d+) passive skills"] = function(num) return { mod("JewelData", "LIST", { key = "clusterJewelNodeCount", value = num }) } end,
 	["1 added passive skill is a jewel socket"] = { mod("JewelData", "LIST", { key = "clusterJewelSocketCount", value = 1 }) },
