@@ -1259,6 +1259,12 @@ local minionLifePoolBySkill = {
 	["Summon Stone Golem of Safeguarding"] = { life = "TotalStoneGolemLife", redirect = "takenFromStoneGolemBeforeYou", source = "Stone Golem" },
 }
 local spectreLifePool = { life = "TotalSpectreLife", redirect = "takenFromSpectresBeforeYou", source = "Spectres", limit = "ActiveSpectreLimit" }
+-- Conditions set on the player while at least one minion with this limit is active (e.g. "while you have a Zombie")
+local minionLimitConditions = {
+	ActiveZombieLimit = "HaveZombie",
+	ActiveSkeletonLimit = "HaveSkeleton",
+	ActiveSpectreLimit = "HaveSpectre",
+}
 local companionshipLifePool = { life = "TotalMinionLife", redirect = "takenFromMinionBeforeYou", source = "Minion" }
 local totemLifePoolByStat = {
 	TotalTotemLife = { redirect = "takenFromTotemsBeforeYou", source = "Totem" },
@@ -1445,6 +1451,9 @@ function calcs.perform(env, skipEHP)
 					if minionData.limit then
 						count = m_floor(modDB:Override(nil, minionData.limit) or (calcLib.val(activeSkill.skillModList, minionData.limit) * activeSkill.skillModList:More(activeSkill.skillCfg, "ActiveMinionLimit")))
 						output[minionData.limit] = m_max(count, output[minionData.limit] or 0)
+						if count > 0 and minionLimitConditions[minionData.limit] then
+							modDB:NewMod("Condition:"..minionLimitConditions[minionData.limit], "FLAG", true, grantedEffect.name)
+						end
 					end
 					local counts = minionCounts[key] or { }
 					counts.total = m_max(count, counts.total or 0)
