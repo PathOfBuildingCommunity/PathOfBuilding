@@ -275,7 +275,7 @@ function DrawString(left, top, align, height, font, text) end
 ---@param height number
 ---@param font   Font
 ---@param text   string
----@return integer physicalWidth
+---@return number logicalWidth
 function DrawStringWidth(height, font, text)
 	return 1
 end
