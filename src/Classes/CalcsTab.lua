@@ -496,6 +496,7 @@ end
 function CalcsTabClass:PowerBuilder()
 	-- local timer_start = GetTime()
 	local useFullDPS = self.powerStat and self.powerStat.stat == "FullDPS"
+	local useClusterPower = self.powerStat and self.powerStat.stat and not self.powerStat.ignoreForNodes
 	local calcFunc, calcBase = self:GetMiscCalculator()
 	local cache = { }
 	local distanceMap = { }
@@ -597,9 +598,11 @@ function CalcsTabClass:PowerBuilder()
 	distanceMap = nil
 	table.sort(distanceList, function(a, b) return a[1] < b[1] end)
 	-- Count eligible cluster nodes
-	for _, node in pairs(self.build.spec.tree.clusterNodeMap) do
-		if not node.alloc and node.modKey ~= "" and not self.mainEnv.grantedPassives[node.id] then
-			total = total + 1
+	if useClusterPower then
+		for _, node in pairs(self.build.spec.tree.clusterNodeMap) do
+			if not node.alloc and node.modKey ~= "" and not self.mainEnv.grantedPassives[node.id] then
+				total = total + 1
+			end
 		end
 	end
 
@@ -716,14 +719,12 @@ function CalcsTabClass:PowerBuilder()
 			node.power = {}
 		end
 		wipeTable(node.power)
-		if not node.alloc and node.modKey ~= "" and not self.mainEnv.grantedPassives[node.id] then
+		if useClusterPower and not node.alloc and node.modKey ~= "" and not self.mainEnv.grantedPassives[node.id] then
 			if not cache[node.modKey] then
 				cache[node.modKey] = calcFunc({ addNodes = { [node] = true } }, useFullDPS)
 			end
 			local output = cache[node.modKey]
-			if self.powerStat and self.powerStat.stat and not self.powerStat.ignoreForNodes then
-				node.power.singleStat = self:CalculatePowerStat(self.powerStat, output, calcBase)
-			end
+			node.power.singleStat = self:CalculatePowerStat(self.powerStat, output, calcBase)
 			nodeIndex = nodeIndex + 1
 			if coroutine.running() and GetTime() - start > 100 then
 				if self.build.powerBuilderProgressCallback then
