@@ -100,6 +100,7 @@ directiveTable.monster = function(state, args, out)
 	state.name = nil
 	state.limit = nil
 	state.hostile = nil
+	state.mercenary = nil
 	state.extraModList = { }
 	state.extraSkillList = { }
 	for arg in args:gmatch("%S+") do
@@ -134,6 +135,11 @@ directiveTable.mod = function(state, args, out)
 	table.insert(state.extraModList, args)
 end
 
+-- #mercenary <Name>
+-- Permanent mercenaries don't get the default monster stats
+directiveTable.mercenary = function(state, args, out)
+	state.mercenary = args
+end
 -- #skill <SkillId>
 directiveTable.skill = function(state, args, out)
 	table.insert(state.extraSkillList, args)
@@ -148,7 +154,7 @@ directiveTable.emit = function(state, args, out)
 		return
 	end
 	out:write('minions["', state.name, '"] = {\n')
-	out:write('\tname = "', monsterVariety.Name, '",\n')
+	out:write('\tname = "', state.mercenary or monsterVariety.Name, '",\n')
 	out:write('\tmonsterTags = { ')
 		for _, tag in ipairs(monsterVariety.Tags) do
 			out:write('"',tag.Id, '", ')
@@ -202,6 +208,29 @@ directiveTable.emit = function(state, args, out)
 	end
 	if state.hostile then
 		out:write('\thostile = ', state.hostile, ',\n')
+	end
+	if state.mercenary then
+		out:write('\tmercenary = true,\n')
+		for _, stat in ipairs(getOTStats("Metadata/Monsters/Mercenaries/MercenaryAdditions", {})) do
+			if stat.Id == "life_per_level" then
+				out:write('\tlifePerLevel = ', stat.Stat1Value[1], ',\n')
+			elseif stat.Id == "accuracy_rating_per_level" then
+				out:write('\taccuracyPerLevel = ', stat.Stat1Value[1], ',\n')
+			end
+		end
+		local nobleBlood = dat("PassiveSkills"):GetRow("Id", "AscendancyLuminary9_")
+		for i, stat in ipairs(nobleBlood.Stats) do
+			if stat.Id == "permanenet_mercenary_damage_+%_final_and_minion_damage_+%_final_from_luminary" then
+				out:write('\tpermanentDamagePenalty = ', nobleBlood["Stat" .. i], ',\n')
+			end
+		end
+		out:write('\tdisabledUniques = { ')
+		for row in dat("MercenaryDisabledUniques"):Rows() do
+			out:write('"', row.Unique.Text, '", ')
+		end
+		out:write('},\n')
+		out:write('\tarmour = 0,\n')
+		out:write('\tevasion = 0,\n')
 	end
 	out:write('\tskillList = {\n')
 	for _, grantedEffect in ipairs(monsterVariety.GrantedEffects) do
@@ -259,4 +288,21 @@ for _, name in pairs({"Spectres","Minions"}) do
 	processTemplateFile(name, "Minions/", "../Data/", directiveTable)
 end
 
+local mercenaryBuilds = {}
+for row in dat("MercenaryBuilds"):Rows() do
+	-- Mercenaries always have the primary skills of their build
+	local build = { id = row.Id, name = row.BuildName, primarySkills = {}, stats = {} }
+	for _, skill in ipairs(row.Skill1) do
+		table.insert(build.primarySkills, skill.Id.Id)
+	end
+	for _, extraStat in ipairs(row.ExtraStats) do
+		if extraStat.Level24 ~= 0 or extraStat.Level68 ~= 0 or extraStat.Level84 ~= 0 then
+			table.insert(build.stats, { extraStat.Stat.Id, extraStat.Level24, extraStat.Level68, extraStat.Level84 })
+		end
+	end
+	if build.stats[1] then
+		table.insert(mercenaryBuilds, build)
+	end
+end
+LoadModule("../Modules/Utils").saveTableToFile("../Data/MercenaryBuilds.lua", mercenaryBuilds, "Hidden stats of mercenary builds at mercenary levels 24, 68 and 84")
 print("Minion data exported.")

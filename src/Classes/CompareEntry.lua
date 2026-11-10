@@ -289,11 +289,14 @@ end
 function CompareEntryClass:RefreshSkillSelectControls(controls, mainGroup, suffix)
 	-- Populate skill select controls
 	if not controls or not controls.mainSocketGroup then return end
-	controls.mainSocketGroup.selIndex = mainGroup
 	wipeTable(controls.mainSocketGroup.list)
-	for i, socketGroup in pairs(self.skillsTab.socketGroupList) do
-		controls.mainSocketGroup.list[i] = { val = i, label = socketGroup.displayLabel }
+	for i, socketGroup in ipairs(self.skillsTab.socketGroupList) do
+		if not socketGroup.mercenary then
+			t_insert(controls.mainSocketGroup.list, { val = i, label = socketGroup.displayLabel })
+		end
 	end
+	controls.mainSocketGroup.selIndex = 1
+	controls.mainSocketGroup:SelByValue(mainGroup, "val")
 	controls.mainSocketGroup:CheckDroppedWidth(true)
 
 	-- Helper: hide all skill detail controls

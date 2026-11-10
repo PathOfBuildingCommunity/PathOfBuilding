@@ -712,6 +712,41 @@ return {
 ["damage_+%"] = {
 	mod("Damage", "INC", nil),
 },
+["maximum_life_+%"] = {
+	mod("Life", "INC", nil),
+},
+["maximum_energy_shield_+%"] = {
+	mod("EnergyShield", "INC", nil),
+},
+["evasion_rating_+%"] = {
+	mod("Evasion", "INC", nil),
+},
+["energy_shield_delay_-%"] = {
+	mod("EnergyShieldRechargeFaster", "INC", nil),
+},
+["base_strength"] = {
+	mod("Str", "BASE", nil),
+},
+["base_dexterity"] = {
+	mod("Dex", "BASE", nil),
+},
+["base_intelligence"] = {
+	mod("Int", "BASE", nil),
+},
+["base_spell_suppression_chance_%"] = {
+	mod("SpellSuppressionChance", "BASE", nil),
+},
+["hits_ignore_enemy_monster_physical_damage_reduction_%_chance"] = {
+	mod("ChanceToIgnoreEnemyPhysicalDamageReduction", "BASE", nil),
+},
+["base_phasing_without_visual"] = {
+	flag("Condition:Phasing"),
+},
+["resolute_technique"] = {
+	flag("CannotBeEvaded"),
+	flag("NeverCrit"),
+	flag("Condition:NeverCrit"),
+},
 ["chance_for_extra_damage_roll_%"] = {
 	mod("LuckyHitsChance", "BASE", nil)
 },

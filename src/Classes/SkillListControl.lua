@@ -89,8 +89,11 @@ function SkillListClass:GetRowValue(column, index, socketGroup)
 			local activeLabel = disabled and " (Forced Active)" or " (Active)"
 			label = label .. colorCodes.RELIC .. activeLabel
 		end
-		if socketGroup.includeInFullDPS then 
+		if socketGroup.includeInFullDPS then
 			label = label .. colorCodes.CUSTOM .. " (FullDPS)"
+		end
+		if socketGroup.mercenary then
+			label = label .. colorCodes.UNIQUE .. " (Mercenary)"
 		end
 		
 		if not socketGroup.source then
@@ -208,7 +211,7 @@ function SkillListClass:OnHoverKeyUp(key)
 			end
 		elseif key == "RIGHTBUTTON" then
 			if IsKeyDown("CTRL") then
-				item.includeInFullDPS = not item.includeInFullDPS
+				item.includeInFullDPS = not item.includeInFullDPS and not item.mercenary
 				if item == self.skillsTab.displayGroup then
 					self.skillsTab:SetDisplayGroup(item)
 				end
@@ -216,7 +219,7 @@ function SkillListClass:OnHoverKeyUp(key)
 				self.skillsTab.build.buildFlag = true
 			else
 				local index = self.ListControl:GetHoverIndex()
-				if index then
+				if index and not item.mercenary then
 					self.skillsTab.build.mainSocketGroup = index
 					self.skillsTab:AddUndoState()
 					self.skillsTab.build.buildFlag = true

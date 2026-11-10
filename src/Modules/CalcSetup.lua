@@ -559,6 +559,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 
 		-- skill-related
 		env.player.activeSkillList = { }
+		env.mercenarySkillList = { }
 		env.auxSkillList = { }
 	--elseif accelerate.everything then
 	--	local minionDB = nil
@@ -1643,11 +1644,24 @@ function calcs.initEnv(build, mode, override, specEnv)
 		end
 
 		-- Determine main skill group
+		local function validMainSocketGroup(index)
+			local socketGroupList = build.skillsTab.socketGroupList
+			index = m_min(m_max(#socketGroupList, 1), index or 1)
+			-- Mercenary skills are used by the mercenary, so they can't be the main skill
+			if socketGroupList[index] and socketGroupList[index].mercenary then
+				for groupIndex, group in ipairs(socketGroupList) do
+					if not group.mercenary then
+						return groupIndex
+					end
+				end
+			end
+			return index
+		end
 		if env.mode == "CALCS" then
-			env.calcsInput.skill_number = m_min(m_max(#build.skillsTab.socketGroupList, 1), env.calcsInput.skill_number or 1)
+			env.calcsInput.skill_number = validMainSocketGroup(env.calcsInput.skill_number)
 			env.mainSocketGroup = env.calcsInput.skill_number
 		else
-			build.mainSocketGroup = m_min(m_max(#build.skillsTab.socketGroupList, 1), build.mainSocketGroup or 1)
+			build.mainSocketGroup = validMainSocketGroup(build.mainSocketGroup)
 			env.mainSocketGroup = build.mainSocketGroup
 		end
 
@@ -1910,12 +1924,17 @@ function calcs.initEnv(build, mode, override, specEnv)
 										end
 									end
 								end
-								local activeSkill = calcs.createActiveSkill(activeEffect, appliedSupportList, env.player, group)
-								if gemInstance.gemData then
-									activeSkill.slotName = groupCfg.slotName
+								if group.mercenary then
+									-- Used by the mercenary instead of the player, see calcs.createMinionSkills
+									t_insert(env.mercenarySkillList, { grantedEffect = grantedEffect, srcInstance = gemInstance, supportList = appliedSupportList })
+								else
+									local activeSkill = calcs.createActiveSkill(activeEffect, appliedSupportList, env.player, group)
+									if gemInstance.gemData then
+										activeSkill.slotName = groupCfg.slotName
+									end
+									t_insert(socketGroupSkillList, activeSkill)
+									t_insert(env.player.activeSkillList, activeSkill)
 								end
-								t_insert(socketGroupSkillList, activeSkill)
-								t_insert(env.player.activeSkillList, activeSkill)
 							end
 						end
 						if gemInstance.gemData and not accelerate.requirementsGems then

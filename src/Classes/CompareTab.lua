@@ -357,7 +357,7 @@ function CompareTabClass:InitControls()
 	self.controls.cmpSocketGroup = new("DropDownControl"):DropDownControl({"LEFT", self.controls.cmpSkillLabel, "RIGHT"}, {4, 0, 200, 20}, {}, function(index, value)
 		local entry = self:GetActiveCompare()
 		if entry then
-			entry:SetMainSocketGroup(index)
+			entry:SetMainSocketGroup(value.val)
 		end
 	end)
 	self.controls.cmpSocketGroup.shown = setsEnabled
@@ -493,7 +493,7 @@ function CompareTabClass:InitControls()
 	}
 	-- Primary build calcs skill controls
 	self.controls.primCalcsSocketGroup = new("DropDownControl"):DropDownControl(nil, {0, 0, 200, 18}, {}, function(index, value)
-		self.primaryBuild.calcsTab.input.skill_number = index
+		self.primaryBuild.calcsTab.input.skill_number = value.val
 		self.primaryBuild.buildFlag = true
 	end)
 	self.controls.primCalcsSocketGroup.shown = false
@@ -597,7 +597,7 @@ function CompareTabClass:InitControls()
 	self.controls.cmpCalcsSocketGroup = new("DropDownControl"):DropDownControl(nil, {0, 0, 200, 18}, {}, function(index, value)
 		local entry = self:GetActiveCompare()
 		if entry then
-			entry.calcsTab.input.skill_number = index
+			entry.calcsTab.input.skill_number = value.val
 			entry.buildFlag = true
 		end
 	end)

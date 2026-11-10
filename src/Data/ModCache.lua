@@ -17545,7 +17545,7 @@ c["Increases and Reductions to Light Radius also apply to Accuracy"]={{[1]={flag
 c["Increases and Reductions to Light Radius also apply to Area of Effect at 50% of their value"]={{[1]={flags=0,keywordFlags=0,name="LightRadiusAppliesToAreaOfEffect",type="FLAG",value=true}},nil}
 c["Increases and Reductions to Light Radius also apply to Damage"]={{[1]={flags=0,keywordFlags=0,name="LightRadiusAppliesToDamage",type="FLAG",value=true}},nil}
 c["Increases and Reductions to Light Radius also apply to Effect of"]={nil,"Increases and Reductions to Light Radius also apply to Effect of "}
-c["Increases and Reductions to Light Radius also apply to Effect of your Link Skill Buffs on your Mercenary at 50% of their value"]={nil,"Increases and Reductions to Light Radius also apply to Effect of your Link Skill Buffs on your Mercenary at 50% of their value "}
+c["Increases and Reductions to Light Radius also apply to Effect of your Link Skill Buffs on your Mercenary at 50% of their value"]={{[1]={flags=0,keywordFlags=0,name="LightRadiusAppliesToMercenaryLinkEffect",type="MAX",value=50}},nil}
 c["Increases and Reductions to Light Radius also apply to Life Regeneration Rate at 10% value"]={{[1]={flags=0,keywordFlags=0,name="LightRadiusAppliesToLifeRegen",type="MAX",value=10}},nil}
 c["Increases and Reductions to Light Radius also apply to Life Regeneration Rate at 12% value"]={{[1]={flags=0,keywordFlags=0,name="LightRadiusAppliesToLifeRegen",type="MAX",value=12}},nil}
 c["Increases and Reductions to Lightning Damage also apply to Effect of"]={nil,"Increases and Reductions to Lightning Damage also apply to Effect of "}
@@ -22846,7 +22846,7 @@ c["You can have an Offering of each type"]={nil,"You can have an Offering of eac
 c["You can have an Offering of each type Offering Skills have 50% reduced Duration"]={nil,"You can have an Offering of each type Offering Skills have 50% reduced Duration "}
 c["You can have an additional Brand Attached to an Enemy"]={{[1]={flags=0,keywordFlags=0,name="BrandsAttachedLimit",type="BASE",value=1}},nil}
 c["You can have an additional Tincture active"]={{[1]={flags=0,keywordFlags=0,name="TinctureLimit",type="BASE",value=1}},nil}
-c["You can hire a Mercenary permanently"]={nil,"You can hire a Mercenary permanently "}
+c["You can hire a Mercenary permanently"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=1,skillId="CallMercenary"}}},nil}
 c["You can inflict +1 Hallowing Flame on Enemies"]={{[1]={flags=0,keywordFlags=0,name="Multiplier:HallowingFlameMax",type="BASE",value=1}},nil}
 c["You can inflict Bleeding on an Enemy up to 8 times"]={{[1]={flags=0,keywordFlags=0,name="BleedStacksMax",type="OVERRIDE",value=8},[2]={flags=0,keywordFlags=0,name="Condition:HaveCrimsonDance",type="FLAG",value=true}},nil}
 c["You can inflict an additional Ignite on each Enemy"]={{[1]={flags=0,keywordFlags=0,name="IgniteCanStack",type="FLAG",value=true},[2]={flags=0,keywordFlags=0,name="IgniteStacks",type="BASE",value=1}},nil}
@@ -23145,19 +23145,19 @@ c["Your Maximum Resistances are 80%"]={{[1]={flags=0,keywordFlags=0,name="FireRe
 c["Your Melee Hits can't be Evaded while wielding a Sword"]={{[1]={[1]={type="Condition",var="UsingSword"},flags=260,keywordFlags=0,name="CannotBeEvaded",type="FLAG",value=true}},nil}
 c["Your Mercenary Taunts on Hit"]={nil,"Your Mercenary Taunts on Hit "}
 c["Your Mercenary Taunts on Hit Your Mercenary has 50% increased effect of Non-Curse Auras from Skills"]={nil,"Your Mercenary Taunts on Hit Your Mercenary has 50% increased effect of Non-Curse Auras from Skills "}
-c["Your Mercenary and their Minions deal 15% increased Damage"]={nil,"Your Mercenary and their Minions deal 15% increased Damage "}
-c["Your Mercenary and their Minions deal 15% increased Damage 5% increased Light Radius"]={nil,"Your Mercenary and their Minions deal 15% increased Damage 5% increased Light Radius "}
-c["Your Mercenary and their Minions deal 8% more Damage for"]={nil,"Your Mercenary and their Minions deal 8% more Damage for "}
-c["Your Mercenary and their Minions deal 8% more Damage for each Unique item they have equipped"]={nil,"Your Mercenary and their Minions deal 8% more Damage for each Unique item they have equipped "}
-c["Your Mercenary and their Minions have 15% increased maximum Life"]={nil,"Your Mercenary and their Minions have 15% increased maximum Life "}
-c["Your Mercenary and their Minions have 15% increased maximum Life 5% increased Light Radius"]={nil,"Your Mercenary and their Minions have 15% increased maximum Life 5% increased Light Radius "}
-c["Your Mercenary can equip Unique Amulets"]={nil,"Your Mercenary can equip Unique Amulets "}
-c["Your Mercenary can equip Unique Belts"]={nil,"Your Mercenary can equip Unique Belts "}
-c["Your Mercenary can equip Unique Boots"]={nil,"Your Mercenary can equip Unique Boots "}
-c["Your Mercenary can equip Unique Gloves"]={nil,"Your Mercenary can equip Unique Gloves "}
-c["Your Mercenary can equip Unique Helmets"]={nil,"Your Mercenary can equip Unique Helmets "}
-c["Your Mercenary can equip Unique Rings"]={nil,"Your Mercenary can equip Unique Rings "}
-c["Your Mercenary can equip Unique Weapons, Shields and Quivers"]={nil,"Your Mercenary can equip Unique Weapons, Shields and Quivers "}
+c["Your Mercenary and their Minions deal 15% increased Damage"]={{[1]={flags=0,keywordFlags=0,name="MercenaryModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Damage",type="INC",value=15}}}},nil}
+c["Your Mercenary and their Minions deal 15% increased Damage 5% increased Light Radius"]={{[1]={flags=0,keywordFlags=0,name="MercenaryModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Damage",type="INC",value=15}}}},"  5% increased Light Radius "}
+c["Your Mercenary and their Minions deal 8% more Damage for"]={{[1]={flags=0,keywordFlags=0,name="MercenaryModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Damage",type="MORE",value=8}}}},"  for "}
+c["Your Mercenary and their Minions deal 8% more Damage for each Unique item they have equipped"]={{[1]={flags=0,keywordFlags=0,name="MercenaryModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Damage",type="MORE",value=8}}}},"  for each Unique item they have equipped "}
+c["Your Mercenary and their Minions have 15% increased maximum Life"]={{[1]={flags=0,keywordFlags=0,name="MercenaryModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Life",type="INC",value=15}}}},nil}
+c["Your Mercenary and their Minions have 15% increased maximum Life 5% increased Light Radius"]={{[1]={flags=0,keywordFlags=0,name="MercenaryModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Life",type="INC",value=15}}}},"  5% increased Light Radius "}
+c["Your Mercenary can equip Unique Amulets"]={{[1]={flags=0,keywordFlags=0,name="MercenaryUniqueSlot",type="LIST",value="Amulet"}},nil}
+c["Your Mercenary can equip Unique Belts"]={{[1]={flags=0,keywordFlags=0,name="MercenaryUniqueSlot",type="LIST",value="Belt"}},nil}
+c["Your Mercenary can equip Unique Boots"]={{[1]={flags=0,keywordFlags=0,name="MercenaryUniqueSlot",type="LIST",value="Boots"}},nil}
+c["Your Mercenary can equip Unique Gloves"]={{[1]={flags=0,keywordFlags=0,name="MercenaryUniqueSlot",type="LIST",value="Gloves"}},nil}
+c["Your Mercenary can equip Unique Helmets"]={{[1]={flags=0,keywordFlags=0,name="MercenaryUniqueSlot",type="LIST",value="Helmet"}},nil}
+c["Your Mercenary can equip Unique Rings"]={{[1]={flags=0,keywordFlags=0,name="MercenaryUniqueSlot",type="LIST",value="Ring 1"},[2]={flags=0,keywordFlags=0,name="MercenaryUniqueSlot",type="LIST",value="Ring 2"}},nil}
+c["Your Mercenary can equip Unique Weapons, Shields and Quivers"]={{[1]={flags=0,keywordFlags=0,name="MercenaryUniqueSlot",type="LIST",value="Weapon 1"},[2]={flags=0,keywordFlags=0,name="MercenaryUniqueSlot",type="LIST",value="Weapon 2"}},nil}
 c["Your Mercenary can equip Unique Weapons, Shields and Quivers Your Mercenary and their Minions deal 8% more Damage for\neach Unique item they have equipped"]={nil,"Your Mercenary can equip Unique Weapons, Shields and Quivers Your Mercenary and their Minions deal 8% more Damage for\neach Unique item they have equipped "}
 c["Your Mercenary has 50% increased effect of Non-Curse Auras from Skills"]={nil,"Your Mercenary has 50% increased effect of Non-Curse Auras from Skills "}
 c["Your Minions gain your chance to Suppress Spell Damage"]={{[1]={flags=0,keywordFlags=0,name="MinionsGainYourSpellSuppressionChance",type="FLAG",value=true}},nil}

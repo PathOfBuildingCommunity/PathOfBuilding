@@ -81,6 +81,15 @@ function calcLib.doesTypeExpressionMatch(checkTypes, skillTypes, minionTypes)
 	return false
 end
 
+-- Check if a minion can equip an item in a slot. Mercenaries can only equip
+-- uniques in slots allowed by Luminary passives, and never some uniques
+function calcLib.canMinionEquip(env, minion, item, slotName)
+	if not minion.minionData.mercenary or (item.rarity ~= "UNIQUE" and item.rarity ~= "RELIC") then
+		return true
+	end
+	return not isValueInArray(minion.minionData.disabledUniques, item.title) and isValueInArray(env.player.modDB:List(nil, "MercenaryUniqueSlot"), (slotName:gsub(" Swap$", "")))
+end
+
 -- Check if given support skill can support the given active skill
 ---@param appliesToGrantedSkills boolean? Generally modifiers which add support gems to the socketed skills don't work with granted skills, and this flag can be used to mark exceptions such as the Pearl of Tsoatha.
 function calcLib.canGrantedEffectSupportActiveSkill(grantedEffect, activeSkill, imbuedSupport, appliesToGrantedSkills)
@@ -89,6 +98,11 @@ function calcLib.canGrantedEffectSupportActiveSkill(grantedEffect, activeSkill, 
 	end
 	if grantedEffect.supportGemsOnly and not activeSkill.activeEffect.gemData then
 		return false
+	end
+	-- Mercenary skills can only be supported by the mercenary supports they list, which have no skill type requirements
+	if grantedEffect.mercenary or activeSkill.activeEffect.grantedEffect.mercenary then
+		local mercenarySupports = activeSkill.activeEffect.grantedEffect.mercenarySupports
+		return mercenarySupports ~= nil and isValueInArray(mercenarySupports, grantedEffect.id) ~= nil
 	end
 
 	-- Special case for things like Forbidden Shako or Hungry Loop with  for example Prismatic Burst and another compatible support
