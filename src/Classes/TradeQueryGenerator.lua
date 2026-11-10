@@ -5,6 +5,7 @@
 --
 
 local dkjson = require "dkjson"
+local WeightedScore = LoadModule("Modules/WeightedScore")
 local curl = require("lcurl.safe")
 local m_max = math.max
 local s_format = string.format
@@ -162,40 +163,7 @@ function TradeQueryGeneratorClass:TradeQueryGenerator(queryTab)
 end
 
 function TradeQueryGeneratorClass.WeightedRatioOutputs(baseOutput, newOutput, statWeights)
-	local meanStatDiff = 0
-
-	local function ratioModSums(...)
-		local baseModSum = 0
-		local newModSum = 0
-		for _, mod in ipairs({ ... }) do
-			baseModSum = baseModSum + data.powerStatList.GetFromOutput(baseOutput, mod, true)
-			newModSum = newModSum + data.powerStatList.GetFromOutput(newOutput, mod, true)
-		end
-
-		if baseModSum == math.huge then
-			return 0
-		else
-			if newModSum == math.huge then
-				return data.misc.maxStatIncrease
-			else
-				return math.min(newModSum / ((baseModSum ~= 0) and baseModSum or 1), data.misc.maxStatIncrease)
-			end
-		end
-	end
-	for _, statTable in ipairs(statWeights) do
-		local modSumRatio
-		if statTable.stat == "FullDPS" and not (baseOutput["FullDPS"] and newOutput["FullDPS"]) then
-			modSumRatio = ratioModSums({ stat = "TotalDPS" }, { stat = "TotalDotDPS" }, { stat = "CombinedDPS" })
-		else
-			modSumRatio = ratioModSums(statTable)
-		end
-		-- some weights, such as damage taken from hit need to be negated as lower is better for them
-		if statTable.transform then
-			modSumRatio = statTable.transform(modSumRatio)
-		end
-		meanStatDiff = meanStatDiff + modSumRatio * statTable.weightMult
-	end
-	return meanStatDiff
+	return WeightedScore.computeRatioScore(baseOutput, newOutput, statWeights)
 end
 
 function TradeQueryGeneratorClass:ProcessMod(modId, mod, tradeQueryStatsParsed, itemCategoriesMask, itemCategoriesOverride)

@@ -300,6 +300,65 @@ describe("Abyss timeless jewels", function()
 		assert.matches("abyss_special_small_attribute25, 1, 0, 0", build.timelessData.searchListFallback, nil, true)
 	end)
 
+	it("generates useful non-uniform fallback weights with Weighted Score", function()
+		build.skillsTab:PasteSocketGroup("Ethereal Knives 20/0  1\n")
+		runCallback("OnFrame")
+		local socketId
+		for id, node in pairs(build.spec.nodes) do
+			if node.isJewelSocket and node.name ~= "Charm Socket" then
+				socketId = id
+				break
+			end
+		end
+		assert.is_truthy(socketId, "fixture requires a passive-tree jewel socket")
+
+		build.timelessData.jewelType = { id = 11 }
+		build.timelessData.conquerorType = { }
+		build.timelessData.jewelSocket = { id = socketId }
+		build.itemsTab.tradeQuery.statSortSelectionList = {
+			{ stat = "FullDPS", label = "Full DPS", weightMult = 1 },
+			{ stat = "TotalEHP", label = "Effective Hit Pool", weightMult = 0.5 },
+		}
+		build.treeTab:FindTimelessJewel()
+		local controls = main.popups[1].controls
+		controls.fallbackWeightsList:SelByValue("WeightedScore", "stat")
+		assert.are.equal("WeightedScore", controls.fallbackWeightsList:GetSelValue().stat)
+
+		local originalGetMiscCalculator = build.calcsTab.GetMiscCalculator
+		local requestedFullDPS = { }
+		build.calcsTab.GetMiscCalculator = function(self, ...)
+			local calcFunc, calcBase = originalGetMiscCalculator(self, ...)
+			return function(params, useFullDPS)
+				requestedFullDPS[#requestedFullDPS + 1] = useFullDPS
+				return calcFunc(params, useFullDPS)
+			end, calcBase
+		end
+		local ok, errMsg = pcall(controls.fallbackWeightsButton.onClick)
+		build.calcsTab.GetMiscCalculator = originalGetMiscCalculator
+		assert.is_true(ok, errMsg)
+		assert.is_true(#requestedFullDPS > 1, "Generate must evaluate a baseline and candidates")
+		for _, useFullDPS in ipairs(requestedFullDPS) do
+			assert.is_true(useFullDPS)
+		end
+
+		local distinctWeights = { }
+		local usefulWeightCount = 0
+		for line in build.timelessData.searchListFallback:gmatch("[^\r\n]+") do
+			local weight1, weight2 = line:match("^[^,]+,%s*([^,]+),%s*([^,]+)")
+			weight1, weight2 = tonumber(weight1), tonumber(weight2)
+			if weight1 and weight2 and math.abs(weight1) + math.abs(weight2) > 0 then
+				usefulWeightCount = usefulWeightCount + 1
+				distinctWeights[weight1 .. "," .. weight2] = true
+			end
+		end
+		local distinctWeightCount = 0
+		for _ in pairs(distinctWeights) do
+			distinctWeightCount = distinctWeightCount + 1
+		end
+		assert.is_true(usefulWeightCount > 0, "Generate must produce at least one useful fallback weight")
+		assert.is_true(distinctWeightCount > 1, "Weighted Score must not collapse every node to one weight")
+	end)
+
 	it("reads Zorath seed 6564 node and Inquisitor ascendancy changes", function()
 		data.timelessJewelLUTs[11] = parseAbyssJewel(11, zorathExampleData())
 		local expected = {
