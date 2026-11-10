@@ -145,6 +145,17 @@ describe("TestVestigialReducedImplicits", function()
 		assert.are.equal(0, full.EnergyShield)
 		assert.are.equal(0, half.EnergyShield)
 		assert.are.equal(control.Life + (full.Life - control.Life) / 2, half.Life)
+		-- Website exports can wrap the reduced value onto another Vestigial line.
+		assert.are.equal(half.Life, calculate({ apostate, "at 50% of the value" }, options).Life)
+		options.explicit = "100% increased Energy Shield"
+		local wrapped = calculate({ apostate, "at 50% of the value" }, options)
+		assert.are.equal(1, #wrapped.item.implicitModLines)
+		assert.are.equal(1, #wrapped.item.explicitModLines)
+		local reimported = new("Item"):Item(wrapped.item:BuildRaw())
+		assert.are.equal(1, #reimported.implicitModLines)
+		assert.are.equal(1, #reimported.explicitModLines)
+		assert.is_nil(reimported.implicitModLines[1].extra)
+		options.explicit = nil
 		assert.are.equal(full.Life, calculate({ apostateHalf, apostate }, options).Life)
 		options.configure = function()
 			equip("Hubris Circlet", { })
