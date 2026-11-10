@@ -88,36 +88,34 @@ function SliderClass:Draw(viewPort)
 		self:SetValFromKnobX((cursorX - self.dragCX) + self.dragKnobX)
 	end
 	local mOver, mOverComp = self:IsMouseOver()
-	if not enabled then
-		SetDrawColor(0.33, 0.33, 0.33)
-	elseif self.dragging or mOver then
-		SetDrawColor(1, 1, 1)
-	else
-		SetDrawColor(0.5, 0.5, 0.5)
-	end
-	DrawImage(nil, x, y, width, height)
-	SetDrawColor(0, 0, 0)
-	DrawImage(nil, x + 1, y + 1, width - 2, height - 2)
+	local colors = ui.colors
+	local knobX = self:GetKnobXForVal()
+	-- Thin track running the length of the control, with the travelled part filled in
+	local trackHeight = m_max(4, m_ceil(height / 4))
+	local trackY = y + m_ceil((height - trackHeight) / 2)
+	local trackRadius = trackHeight / 2
+	ui.SetColor(enabled and colors.accent or colors.surfaceDisabled)
+	ui.DrawRect(x, trackY, width, trackHeight, trackRadius)
 	if enabled then
+		if self.dragging or mOver then
+			ui.SetColor(colors.primaryHover)
+		else
+			ui.SetColor(colors.primary)
+		end
+		ui.DrawRect(x, trackY, m_max(trackHeight, knobX + self.knobSize / 2), trackHeight, trackRadius)
 		if self.divCount then
-			SetDrawColor(0.33, 0.33, 0.33)
+			ui.SetColor(colors.surface)
 			for d = 0, knobTravel + 0.5, knobTravel / self.divCount do
-				DrawImage(nil, x + self.knobSize/2 + d, y + 1, 2, height - 2)
+				DrawImage(nil, x + self.knobSize/2 + d, trackY, 2, trackHeight)
 			end
 		end
-		if self.dragging or mOverComp == "KNOB" then
-			SetDrawColor(1, 1, 1)
-		else
-			SetDrawColor(0.5, 0.5, 0.5)
-		end
-		local knobX = self:GetKnobXForVal()
-		if self.divCount then
-			local arrowHeight = self.knobSize/2
-			main:DrawArrow(x + 1 + knobX + self.knobSize/2, y + height/2 - arrowHeight/2, self.knobSize, arrowHeight, "UP")
-			main:DrawArrow(x + 1 + knobX + self.knobSize/2, y + height/2 + arrowHeight/2, self.knobSize, arrowHeight, "DOWN")
-		else
-			DrawImage(nil, x + 2 + knobX, y + 2, self.knobSize - 2, self.knobSize - 2)
-		end
+		-- Round knob, outlined so it stays readable over the filled part of the track
+		local knobSize = self.knobSize
+		local knobY = y + (height - knobSize) / 2
+		ui.SetColor((self.dragging or mOverComp == "KNOB") and colors.borderActive or colors.border)
+		ui.DrawCircle(x + 1 + knobX, knobY, knobSize)
+		ui.SetColor((self.dragging or mOverComp == "KNOB") and colors.primaryHover or colors.primary)
+		ui.DrawCircle(x + 2 + knobX, knobY + 1, knobSize - 2)
 	end
 	if enabled and (mOver or self.dragging) then
 		SetDrawLayer(nil, 100)

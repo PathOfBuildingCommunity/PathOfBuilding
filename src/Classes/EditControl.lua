@@ -9,6 +9,9 @@ local m_floor = math.floor
 local protected_replace = "*"
 local utf8 = require('lua-utf8')
 
+-- Matches the drop down inset so fields and selects sitting side by side line up
+local textInset = 6
+
 local function lastLine(str)
 	local lastLineIndex = 1
 	while true do
@@ -248,30 +251,25 @@ function EditClass:Draw(viewPort, noTooltip)
 	local width, height = self:GetSize()
 	local enabled = self:IsEnabled()
 	local mOver = self:IsMouseOver()
+	local colors = ui.colors
+	local radius = ui.FitRadius(ui.radius, width, height)
+	local border = colors.border
+	local fill = colors.input
 	if not enabled then
-		SetDrawColor(0.33, 0.33, 0.33)
+		border, fill = colors.borderDisabled, colors.surfaceDisabled
+	elseif self.hasFocus then
+		border, fill = colors.borderActive, colors.inputHover
 	elseif mOver then
-		SetDrawColor(1, 1, 1)
+		border, fill = colors.borderHover, colors.inputHover
 	elseif self.borderFunc then
 		local r, g, b = self.borderFunc()
-		SetDrawColor(r, g, b)
-	else
-		SetDrawColor(0.5, 0.5, 0.5)
+		border = ui.PackColor(r, g, b)
 	end
-	DrawImage(nil, x, y, width, height)
-	if not enabled then
-		SetDrawColor(0, 0, 0)
-	elseif self.hasFocus or mOver then
-		if self.lineHeight then
-			SetDrawColor(0.1, 0.1, 0.1)
-		else
-			SetDrawColor(0.15, 0.15, 0.15)
-		end
-	else
-		SetDrawColor(0, 0, 0)
+	if self.hasFocus and enabled then
+		ui.DrawFocusRing(x, y, width, height, radius)
 	end
-	DrawImage(nil, x + 1, y + 1, width - 2, height - 2)
-	local textX = x + 2
+	ui.DrawBox(x, y, width, height, radius, border, fill)
+	local textX = x + 2 + textInset
 	local textY = y + 2
 	local textHeight = self.lineHeight or (height - 4)
 	if self.prompt then
@@ -495,7 +493,7 @@ function EditClass:OnKeyDown(key, doubleClick)
 			self.drag = true
 			local x, y = self:GetPos()
 			local width, height = self:GetSize()
-			local textX = x + 2
+			local textX = x + 2 + textInset
 			local textY = y + 2
 			local textHeight = self.lineHeight or (height - 4)
 			if self.prompt then
