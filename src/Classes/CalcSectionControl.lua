@@ -187,7 +187,7 @@ end
 function CalcSectionClass:Draw(viewPort, noTooltip)
 	local x, y = self:GetPos()
 	local width, height = self:GetSize()
-	local actor = self.calcsTab.input.showMinion and self.calcsTab.calcsEnv.minion or self.calcsTab.calcsEnv.player
+	local actor = self.calcsTab:GetActor(self.calcsTab.calcsEnv)
 	-- Draw border and background
 	SetDrawLayer(nil, -10)
 	SetDrawColor(self.colour)
@@ -385,7 +385,7 @@ function CalcSectionClass:DrawOverlay(viewPort, inputEvents)
 	local x = self.overlayX
 	local y = self.overlayY
 	local overlayWidth = self.width
-	local actor = self.calcsTab.calcsEnv and (self.calcsTab.input.showMinion and self.calcsTab.calcsEnv.minion or self.calcsTab.calcsEnv.player)
+	local actor = self.calcsTab.calcsEnv and self.calcsTab:GetActor(self.calcsTab.calcsEnv)
 
 	-- Calculate content height
 	local totalHeight = self:GetOverlayHeight()

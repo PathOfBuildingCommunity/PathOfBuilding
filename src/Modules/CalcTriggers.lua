@@ -421,7 +421,7 @@ local function defaultTriggerHandler(env, config)
 
 	-- Find trigger skill and triggered skills
 	if config.triggeredSkillCond or config.triggerSkillCond then
-		for _, skill in ipairs(env.player.activeSkillList) do
+		for _, skill in ipairs((config.sourceActor or env.player).activeSkillList) do
 			if config.triggerSkillCond and config.triggerSkillCond(env, skill) and (not sourceWeaponFlag or skill.skillFlags[sourceWeaponFlag]) and (not isTriggered(skill) or actor.mainSkill.skillFlags.globalTrigger or config.allowTriggered) and skill ~= actor.mainSkill then
 				source, trigRate, uuid = findTriggerSkill(env, skill, source, trigRate, config.comparer, config.minimumCostPerUse, sourceCache)
 			end
@@ -587,7 +587,7 @@ local function defaultTriggerHandler(env, config)
 				triggerCD = triggerCD * icdr -- cancels out division by icdr lower, brand activation rate is not affected by icdr
 			end
 
-			local triggeredName = (actor.mainSkill.activeEffect.grantedEffect and actor ~= env.minion and actor.mainSkill.activeEffect.grantedEffect.name) or "Triggered skill"
+			local triggeredName = (actor.mainSkill.activeEffect.grantedEffect and actor == env.player and actor.mainSkill.activeEffect.grantedEffect.name) or "Triggered skill"
 			local csi
 			output.addsCastTime, csi = processAddedCastTime(env.player.mainSkill, breakdown)
 
@@ -654,7 +654,7 @@ local function defaultTriggerHandler(env, config)
 
 				t_insert(breakdown.TriggerRateCap, "")
 
-				if actor ~= env.minion then -- Minion triggers have internal triggers
+				if actor == env.player then -- Minion triggers have internal triggers
 					if triggerCDAdjusted == 0 then
 						t_insert(breakdown.TriggerRateCap, s_format("Trigger rate based on %s cooldown", triggeredName))
 					else -- triggerCDAdjusted ~= 0 trigger has some kind of cooldown
@@ -899,7 +899,7 @@ local function defaultTriggerHandler(env, config)
 			addTriggerIncMoreMods(actor.mainSkill, source or actor.mainSkill)
 			if source and source ~= actor.mainSkill then
 				actor.mainSkill.skillData.triggerSourceUUID = cacheSkillUUID(source, env)
-				actor.mainSkill.infoMessage = (config.customTriggerName or ((config.triggerName ~= source.activeEffect.grantedEffect.name and config.triggerName or triggeredName) .. ( actor == env.minion and "'s attack Trigger: " or "'s Trigger: "))) .. source.activeEffect.grantedEffect.name
+				actor.mainSkill.infoMessage = (config.customTriggerName or ((config.triggerName ~= source.activeEffect.grantedEffect.name and config.triggerName or triggeredName) .. ( actor ~= env.player and "'s attack Trigger: " or "'s Trigger: "))) .. source.activeEffect.grantedEffect.name
 			else
 				actor.mainSkill.infoMessage = actor.mainSkill.triggeredBy and actor.mainSkill.triggeredBy.grantedEffect.name or config.triggerName .. " Trigger"
 			end
@@ -1192,11 +1192,13 @@ local configTable = {
 			env.player.mainSkill.infoMessage = "Cast on Melee Kill requires recent kills"
 		end
 	end,
-	["nova"] = function(env)
-		if env.minion and env.minion.mainSkill then
+	["nova"] = function(env, actor)
+		if actor ~= env.player then
 			return {triggerName = "Summon Holy Relic",
-				   actor = env.minion,
-				   triggeredSkills = {{ uuid = cacheSkillUUID(env.minion.mainSkill, env), cd = env.minion.mainSkill.skillData.cooldown}},
+				   actor = actor,
+				   -- The relic is triggered by its summoner's attacks
+				   sourceActor = actor ~= env.minion and env.minion or env.player,
+				   triggeredSkills = {{ uuid = cacheSkillUUID(actor.mainSkill, env), cd = actor.mainSkill.skillData.cooldown}},
 				   triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Attack] end}
 		end
 	end,
@@ -1633,11 +1635,11 @@ function calcs.triggers(env, actor)
 		local awakenedTriggerNameLower = triggerNameLower and triggerNameLower:gsub("^awakened ", "")
 		local uniqueNameLower = uniqueName and uniqueName:lower()
 		local skillId = actor.mainSkill.activeEffect.grantedEffect.id
-		local config = skillId and configTable[skillId] and configTable[skillId](env)
-		config = config or skillNameLower and configTable[skillNameLower] and configTable[skillNameLower](env)
-        config = config or triggerNameLower and configTable[triggerNameLower] and configTable[triggerNameLower](env)
-        config = config or awakenedTriggerNameLower and configTable[awakenedTriggerNameLower] and configTable[awakenedTriggerNameLower](env)
-        config = config or uniqueNameLower and configTable[uniqueNameLower] and configTable[uniqueNameLower](env)
+		local config = skillId and configTable[skillId] and configTable[skillId](env, actor)
+		config = config or skillNameLower and configTable[skillNameLower] and configTable[skillNameLower](env, actor)
+        config = config or triggerNameLower and configTable[triggerNameLower] and configTable[triggerNameLower](env, actor)
+        config = config or awakenedTriggerNameLower and configTable[awakenedTriggerNameLower] and configTable[awakenedTriggerNameLower](env, actor)
+        config = config or uniqueNameLower and configTable[uniqueNameLower] and configTable[uniqueNameLower](env, actor)
 		if config then
 		    config.actor = config.actor or actor
 			config.triggerName = config.triggerName or triggerName or skillName or uniqueName

@@ -45,12 +45,12 @@ function CalcsTabClass:CalcsTab(build)
 	self:NewSection(3, "SkillSelect", 1, colorCodes.NORMAL, {{ defaultCollapsed = false, label = "View Skill Details", data = {
 		{ label = "Socket Group", { controlName = "mainSocketGroup", 
 			control = new("DropDownControl"):DropDownControl(nil, {0, 0, 300, 16}, nil, function(index, value)
-				self.input.skill_number = index
+				self.input.skill_number = value.val
 				self:AddUndoState()
 				self.build.buildFlag = true
 			end) {
 				tooltipFunc = function(tooltip, mode, index, value)
-					local socketGroup = self.build.skillsTab.socketGroupList[index]
+					local socketGroup = value and self.build.skillsTab.socketGroupList[value.val]
 					if socketGroup and tooltip:CheckForUpdate(socketGroup, self.build.outputRevision) then
 						self.build.skillsTab:AddSocketGroupTooltip(tooltip, socketGroup)
 					end
@@ -64,7 +64,7 @@ function CalcsTabClass:CalcsTab(build)
 				self.build.buildFlag = true
 			end)
 		}, },
-		{ label = "Skill Part", playerFlag = "multiPart", { controlName = "mainSkillPart", 
+		{ label = "Skill Part", { controlName = "mainSkillPart",
 			control = new("DropDownControl"):DropDownControl(nil, {0, 0, 250, 16}, nil, function(index, value)
 				local mainSocketGroup = self.build.skillsTab.socketGroupList[self.input.skill_number]
 				local srcInstance = mainSocketGroup.displaySkillListCalcs[mainSocketGroup.mainActiveSkillCalcs].activeEffect.srcInstance
@@ -72,7 +72,7 @@ function CalcsTabClass:CalcsTab(build)
 				self:AddUndoState()
 				self.build.buildFlag = true
 			end)
-		}, },{ label = "Skill Stages", playerFlag = "multiStage", { controlName = "mainSkillStageCount",
+		}, },{ label = "Skill Stages", { controlName = "mainSkillStageCount",
 			control = new("EditControl"):EditControl(nil, {0, 0, 52, 16}, nil, nil, "%D", nil, function(buf)
 				local mainSocketGroup = self.build.skillsTab.socketGroupList[self.input.skill_number]
 				local srcInstance = mainSocketGroup.displaySkillListCalcs[mainSocketGroup.mainActiveSkillCalcs].activeEffect.srcInstance
@@ -81,7 +81,7 @@ function CalcsTabClass:CalcsTab(build)
 				self.build.buildFlag = true
 			end)
 		}, },
-		{ label = "Active Mines", playerFlag = "mine", { controlName = "mainSkillMineCount",
+		{ label = "Active Mines", { controlName = "mainSkillMineCount",
 			control = new("EditControl"):EditControl(nil, {0, 0, 52, 16}, nil, nil, "%D", nil, function(buf)
 				local mainSocketGroup = self.build.skillsTab.socketGroupList[self.input.skill_number]
 				local srcInstance = mainSocketGroup.displaySkillListCalcs[mainSocketGroup.mainActiveSkillCalcs].activeEffect.srcInstance
@@ -90,13 +90,21 @@ function CalcsTabClass:CalcsTab(build)
 				self.build.buildFlag = true
 			end)
 		}, },
-		{ label = "Show Minion Stats", flag = "haveMinion", { controlName = "showMinion", 
-			control = new("CheckBoxControl"):CheckBoxControl(nil, {0, 0, 18}, nil, function(state)
-				self.input.showMinion = state
+		{ label = "Show Stats For", flag = "haveMinion", { controlName = "showMinion",
+			control = new("DropDownControl"):DropDownControl(nil, {0, 0, 200, 16}, nil, function(index, value)
+				self.input.showMinion = value.showMinion
+				self.input.showMercenaryMinion = value.showMercenaryMinion
 				self:AddUndoState()
-			end, "Show stats for the minion instead of the player.")
+			end, "Show stats for the player or one of their minions.")
 		}, },
-		{ label = "Minion", flag = "minion", { controlName = "mainSkillMinion",
+		{ label = "Mercenary Set", { controlName = "mainSkillMercenaryItemSet",
+			control = new("DropDownControl"):DropDownControl(nil, {0, 0, 160, 16}, nil, function(index, value)
+				self:SetMercenaryItemSet("Calcs", value.itemSetId)
+				self:AddUndoState()
+				self.build.buildFlag = true
+			end)
+		} },
+		{ label = "Minion Set", flag = "minion", { controlName = "mainSkillMinion",
 			control = new("DropDownControl"):DropDownControl(nil, {0, 0, 160, 16}, nil, function(index, value)
 				local mainSocketGroup = self.build.skillsTab.socketGroupList[self.input.skill_number]
 				local srcInstance = mainSocketGroup.displaySkillListCalcs[mainSocketGroup.mainActiveSkillCalcs].activeEffect.srcInstance
@@ -143,7 +151,7 @@ Effective DPS: Curses and enemy properties (such as resistances and status condi
 		{ label = "Curses and Debuffs", flag = "effective", textSize = 12, { format = "{output:CurseList}", { breakdown = "SkillDebuffs" } }, },
 	}}}, function(section)
 		self.build:RefreshSkillSelectControls(section.controls, self.input.skill_number, "Calcs")
-		section.controls.showMinion.state = self.input.showMinion
+		self:RefreshActorList(section.controls.showMinion, self.calcsEnv)
 		section.controls.mode:SelByValue(self.input.misc_buffMode, "buffMode")
 	end)
 
@@ -393,8 +401,66 @@ function CalcsTabClass:SetDisplayStat(displayData, pin)
 	self.controls.breakdown:SetBreakdownData(displayData, pin)
 end
 
-function CalcsTabClass:CheckFlag(obj, actor, player)
-	actor = actor or (self.input.showMinion and self.calcsEnv.minion or self.calcsEnv.player)
+-- Returns the mercenary, if it is the minion of the main skill
+function CalcsTabClass:GetMercenary(env)
+	local mercenary = env and env.minion
+	return mercenary and mercenary.minionData.mercenary and mercenary
+end
+
+-- Returns the minion of the mercenary's main skill, if it has one
+function CalcsTabClass:GetMercenaryMinion(env)
+	local mercenary = self:GetMercenary(env)
+	local minion = mercenary and mercenary.mainSkill.minion
+	return minion and minion.output and minion
+end
+
+-- Fills a dropdown of the actors whose stats can be shown
+function CalcsTabClass:RefreshActorList(control, env)
+	local actorList = control.list
+	wipeTable(actorList)
+	t_insert(actorList, { label = "Player" })
+	local minion = env and env.minion
+	if minion then
+		t_insert(actorList, { label = minion.minionData.mercenary and "Mercenary" or minion.minionData.name, showMinion = true })
+		local mercenaryMinion = self:GetMercenaryMinion(env)
+		if mercenaryMinion then
+			t_insert(actorList, { label = "Mercenary's "..mercenaryMinion.minionData.name, showMinion = true, showMercenaryMinion = true })
+		end
+	end
+	control.selIndex = self.input.showMinion and math.min(self.input.showMercenaryMinion and 3 or 2, #actorList) or 1
+end
+
+-- Shows the item set of the mercenary when one of its socket groups is the main skill
+function CalcsTabClass:RefreshMercenaryItemSet(control, mainSocketGroup, suffix)
+	local env = suffix == "Calcs" and self.calcsEnv or self.mainEnv
+	local callMercenary = env and mainSocketGroup and env.mercenaryMainGroup == mainSocketGroup and env.player.mainSkill
+	control.shown = callMercenary and true or false
+	if callMercenary then
+		self.build.itemsTab:FillItemSetList(control, callMercenary.activeEffect.srcInstance["skillMinionItemSet"..suffix])
+	end
+end
+
+-- The item set of the mercenary is stored on Order: To me!
+function CalcsTabClass:SetMercenaryItemSet(suffix, itemSetId)
+	local env = suffix == "Calcs" and self.calcsEnv or self.mainEnv
+	env.callMercenarySkill.activeEffect.srcInstance["skillMinionItemSet"..suffix] = itemSetId
+end
+
+-- Returns the actor whose stats are shown
+function CalcsTabClass:GetActor(env)
+	if not self.input.showMinion then
+		return env.player
+	end
+	return self.input.showMercenaryMinion and self:GetMercenaryMinion(env) or env.minion or env.player
+end
+
+function CalcsTabClass:CheckFlag(obj, actor)
+	actor = actor or self:GetActor(self.calcsEnv)
+	-- Skill selectors are hidden when they don't apply to the main skill
+	local control = obj[1] and obj[1].control
+	if control and control.shown == false then
+		return
+	end
 	local skillFlags = actor.mainSkill.skillFlags
 	if obj.flag and not skillFlags[obj.flag] then
 		return
@@ -405,9 +471,6 @@ function CalcsTabClass:CheckFlag(obj, actor, player)
 				return
 			end
 		end
-	end
-	if obj.playerFlag and not (player or self.calcsEnv.player).mainSkill.skillFlags[obj.playerFlag] then
-		return
 	end
 	if obj.notFlag and skillFlags[obj.notFlag] then
 		return

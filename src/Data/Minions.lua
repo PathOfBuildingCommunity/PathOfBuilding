@@ -2200,5 +2200,78 @@ minions["ShamblingUndead"] = {
 		-- set_item_drop_slots [set_item_drop_slots = 0]
 	},
 }
+
+minions["Mercenary"] = {
+	name = "Mercenary",
+	monsterTags = { "human", "humanoid", "light_armour", "medium_height", "medium_movement", "red_blood", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 0.35,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1,
+	damageSpread = 0.2,
+	attackTime = 1.005,
+	attackRange = 40,
+	accuracy = 1,
+	mercenary = true,
+	lifePerLevel = 22,
+	manaPerLevel = 9,
+	accuracyPerLevel = 3,
+	permanentDamagePenalty = -30,
+	disabledUniques = { "Kalandra's Touch", },
+	armour = 0,
+	evasion = 0,
+	skillList = {
+		"EASMercenaryPortalOut",
+		"SummonSacredWisp",
+	},
+	modList = {
+		-- CannotBeAugmented [cannot_have_azmeri_dust = 1]
+		-- CannotBeAugmented [cant_possess_this = 1]
+		-- CannotBeAugmented [cant_touch_this = 1]
+		-- CannotBeAugmented [cannot_be_tagged_by_sentinel = 1]
+		-- CannotBeAugmented [cannot_be_afflicted = 1]
+		-- CannotBeAugmented [cannot_have_affliction_mods = 1]
+		-- MonsterNoDropsOrExperience [monster_no_drops_or_experience = 1]
+		-- set_base_mana_cost_-% [set_base_mana_cost_-% = 100]
+		-- set_base_attack_speed_+%_per_frenzy_charge [set_base_attack_speed_+%_per_frenzy_charge = 4]
+		-- set_base_cast_speed_+%_per_frenzy_charge [set_base_cast_speed_+%_per_frenzy_charge = 4]
+		-- set_physical_damage_reduction_%_per_endurance_charge [set_physical_damage_reduction_%_per_endurance_charge = 4]
+		-- set_elemental_damage_reduction_%_per_endurance_charge [set_elemental_damage_reduction_%_per_endurance_charge = 4]
+		-- set_resist_all_elements_%_per_endurance_charge [set_resist_all_elements_%_per_endurance_charge = 0]
+		-- set_elemental_damage_reduction_%_per_endurance_charge [set_elemental_damage_reduction_%_per_endurance_charge = 4]
+		-- set_physical_damage_%_to_add_as_cold_per_brine_charge [set_physical_damage_%_to_add_as_cold_per_brine_charge = 4]
+		-- set_physical_damage_%_to_add_as_lightning_per_brine_charge [set_physical_damage_%_to_add_as_lightning_per_brine_charge = 4]
+		-- set_critical_strike_chance_+%_per_power_charge [set_critical_strike_chance_+%_per_power_charge = 50]
+		-- set_item_drop_slots [set_item_drop_slots = 0]
+		-- map_related_item_drop_chance_+%_final_from_league [map_related_item_drop_chance_+%_final_from_league = -70]
+		-- traps_invulnerable_for_duration_ms [traps_invulnerable_for_duration_ms = 2000]
+		-- traps_explode_on_timeout [traps_explode_on_timeout = 1]
+		-- mines_invulnerable_for_duration_ms [mines_invulnerable_for_duration_ms = 2000]
+		-- kill_traps_mines_and_totems_on_death [kill_traps_mines_and_totems_on_death = 1]
+		-- monster_no_additional_player_scaling [monster_no_additional_player_scaling = 1]
+		-- set_movement_velocity_cap [set_movement_velocity_cap = 0]
+		-- monster_rarity_attack_cast_speed_+%_and_damage_-%_final [monster_rarity_attack_cast_speed_+%_and_damage_-%_final = -33]
+		-- monster_rarity_damage_+%_final [monster_rarity_damage_+%_final = -70]
+		-- max_steel_ammo [max_steel_ammo = 12]
+		-- set_totem_life_+%_final [set_totem_life_+%_final = 1000]
+		-- set_labyrinth_trap_degen_effect_on_self_+% [set_labyrinth_trap_degen_effect_on_self_+% = -90]
+		-- set_damage_taken_from_labyrinth_traps_+% [set_damage_taken_from_labyrinth_traps_+% = -90]
+		-- set_minion_damage_taken_+% [set_minion_damage_taken_+% = -90]
+		-- life_regeneration_per_minute_%_for_hired_mercenary_out_of_combat_window [life_regeneration_per_minute_%_for_hired_mercenary_out_of_combat_window = 1200]
+		-- maximum_rage [maximum_rage = 30]
+		-- base_presence_radius [base_presence_radius = 80]
+		-- rage_loss_delay_ms [rage_loss_delay_ms = 2000]
+		-- set_ignore_skill_weapon_restrictions [set_ignore_skill_weapon_restrictions = 0]
+		-- set_base_attack_speed_+%_per_frenzy_charge_if_not_player_minion [set_base_attack_speed_+%_per_frenzy_charge_if_not_player_minion = 0]
+		-- set_base_cast_speed_+%_per_frenzy_charge_if_not_player_minion [set_base_cast_speed_+%_per_frenzy_charge_if_not_player_minion = 0]
+		-- set_movement_velocity_+%_per_frenzy_charge_if_not_player_minion [set_movement_velocity_+%_per_frenzy_charge_if_not_player_minion = 0]
+		-- set_physical_damage_reduction_%_per_endurance_charge_if_not_player_minion [set_physical_damage_reduction_%_per_endurance_charge_if_not_player_minion = 0]
+		-- set_resist_all_elements_%_per_endurance_charge_if_not_player_minion [set_resist_all_elements_%_per_endurance_charge_if_not_player_minion = 0]
+		-- set_critical_strike_chance_+%_per_power_charge_if_not_player_minion [set_critical_strike_chance_+%_per_power_charge_if_not_player_minion = 0]
+	},
+}
 	return minions
 end

@@ -461,6 +461,7 @@ local modNameList = {
 	["aura effect"] = "AuraEffect",
 	["effect of non-curse auras you cast"] = { "AuraEffect", tagList = { { type = "SkillType", skillType = SkillType.Aura }, { type = "SkillType", skillType = SkillType.AppliesCurse, neg = true } } },
 	["effect of non-curse auras from your skills"] = { "AuraEffect", tagList = { { type = "SkillType", skillType = SkillType.Aura }, { type = "SkillType", skillType = SkillType.AppliesCurse, neg = true } } },
+	["effect of non-curse auras from skills"] = { "AuraEffect", tagList = { { type = "SkillType", skillType = SkillType.Aura }, { type = "SkillType", skillType = SkillType.AppliesCurse, neg = true } } },
 	["effect of non-curse auras from your skills on your minions"] = { "AuraEffectOnSelf", tagList = { { type = "SkillType", skillType = SkillType.Aura }, { type = "SkillType", skillType = SkillType.AppliesCurse, neg = true } }, addToMinion = true },
 	["effect of non-curse auras"] = { "AuraEffect", tag = { type = "SkillType", skillType = SkillType.AppliesCurse, neg = true } },
 	["effect of your curses"] = "CurseEffect",
@@ -1141,6 +1142,8 @@ local preFlagList = {
 	-- Add to minion
 	["^minions "] = { addToMinion = true },
 	["^minions [hd][ae][va][el] "] = { addToMinion = true },
+	["^your mercenary and their minions [hd][ae][va][el] "] = { addToMinion = true, minionModifier = "MercenaryModifier", addToMercenaryMinions = true },
+	["^your mercenary has "] = { addToMinion = true, minionModifier = "MercenaryModifier" },
 	["^while a unique enemy is in your presence, minions [hd][ae][va][el] "] = { addToMinion = true, playerTag = { type = "ActorCondition", actor = "enemy", var = "RareOrUnique" } },
 	["^while a pinnacle atlas boss is in your presence, minions [hd][ae][va][el] "] = { addToMinion = true, playerTag = { type = "ActorCondition", actor = "enemy", var = "PinnacleBoss" } },
 	["^minions leech "] = { addToMinion = true },
@@ -1379,6 +1382,7 @@ local modTagList = {
 	["for each equipped unique item"] = { tag = { type = "Multiplier", var = "UniqueItem" } },
 	["for each unique item equipped"] = { tag = { type = "Multiplier", var = "UniqueItem" } },
 	["for each unique item you have equipped"] = { tag = { type = "Multiplier", var = "UniqueItem" } },
+	["for each unique item they have equipped"] = { tag = { type = "Multiplier", var = "UniqueItem" } },
 	["per elder item equipped"] = { tag = { type = "Multiplier", var = "ElderItem" } },
 	["per shaper item equipped"] = { tag = { type = "Multiplier", var = "ShaperItem" } },
 	["per elder or shaper item equipped"] = { tag = { type = "Multiplier", var = "ShaperOrElderItem" } },
@@ -2974,6 +2978,18 @@ local specialModList = {
 	["cannot be slowed to below base speed"] = { mod("MinimumActionSpeed", "MAX", 100, { type = "GlobalEffect", effectType = "Global", unscalable = true }) },
 	["gain accuracy rating equal to your strength"] = { mod("Accuracy", "BASE", 1, { type = "PerStat", stat = "Str" }) },
 	["gain accuracy rating equal to twice your strength"] = { mod("Accuracy", "BASE", 2, { type = "PerStat", stat = "Str" }) },
+	-- Luminary
+	["you can hire a mercenary permanently"] = { mod("ExtraSkill", "LIST", { skillId = "CallMercenary", level = 1 }) },
+	["your mercenary can equip unique amulets"] = { mod("MercenaryUniqueSlot", "LIST", "Amulet") },
+	["your mercenary can equip unique belts"] = { mod("MercenaryUniqueSlot", "LIST", "Belt") },
+	["your mercenary can equip unique boots"] = { mod("MercenaryUniqueSlot", "LIST", "Boots") },
+	["your mercenary can equip unique gloves"] = { mod("MercenaryUniqueSlot", "LIST", "Gloves") },
+	["your mercenary can equip unique helmets"] = { mod("MercenaryUniqueSlot", "LIST", "Helmet") },
+	["your mercenary can equip unique rings"] = { mod("MercenaryUniqueSlot", "LIST", "Ring 1"), mod("MercenaryUniqueSlot", "LIST", "Ring 2") },
+	["your mercenary can equip unique weapons, shields and quivers"] = { mod("MercenaryUniqueSlot", "LIST", "Weapon 1"), mod("MercenaryUniqueSlot", "LIST", "Weapon 2") },
+	["if your mercenary's life is higher than your own, (%d+)%% of damage from hits is taken from your mercenary's life before you"] = function(num) return { mod("takenFromMercenaryBeforeYou", "BASE", num, { type = "Condition", var = "MercenaryLifeHigherThanYours" }) } end,
+	["if your mercenary's life is lower than your own, (%d+)%% of damage they take is recouped as life"] = function(num) return { mod("MercenaryModifier", "LIST", { mod = mod("LifeRecoup", "BASE", num, { type = "Condition", var = "LifeLowerThanParent" }) }) } end,
+	["increases and reductions to light radius also apply to effect of your link skill buffs on your mercenary at (%d+)%% of their value"] = function(num) return { mod("LightRadiusAppliesToMercenaryLinkEffect", "MAX", num) } end,
 	-- Necromancer
 	["offerings you create also grant (%d+)%% increased damage"] = function(num) return { mod("ExtraSkillMod", "LIST", { mod = mod("Damage", "INC", num, { type = "GlobalEffect", effectType = "Buff" }) }, { type = "SkillName", skillNameList = { "Bone Offering", "Flesh Offering", "Spirit Offering", "Blood Offering" } }) } end,
 	["your offering skills also affect you"] = { mod("ExtraSkillMod", "LIST", { mod = mod("SkillData", "LIST", { key = "buffNotPlayer", value = false }) }, { type = "SkillName", skillNameList = { "Bone Offering", "Flesh Offering", "Spirit Offering", "Blood Offering" } }) },
@@ -7084,7 +7100,8 @@ local function parseMod(line, order)
 			end
 		elseif misc.addToMinion then
 			-- Minion modifiers
-			for i, effectMod in ipairs(modList) do
+			for i = 1, #modList do
+				local effectMod = modList[i]
 				local tagList = { }
 				if misc.playerTag then t_insert(tagList, misc.playerTag) end
 				if misc.addToMinionTag then t_insert(tagList, misc.addToMinionTag) end
@@ -7093,7 +7110,17 @@ local function parseMod(line, order)
 						t_insert(tagList, tag)
 					end
 				end
-				modList[i] = mod("MinionModifier", "LIST", { mod = effectMod }, unpack(tagList))
+				modList[i] = mod(misc.minionModifier or "MinionModifier", "LIST", { mod = effectMod }, unpack(tagList))
+				if misc.addToMercenaryMinions then
+					-- Multipliers such as equipped unique items are counted on the mercenary
+					local minionMod = copyTable(effectMod)
+					for _, tag in ipairs(minionMod) do
+						if tag.type == "Multiplier" and not tag.actor then
+							tag.actor = "parent"
+						end
+					end
+					t_insert(modList, mod("MercenaryModifier", "LIST", { mod = mod("MinionModifier", "LIST", { mod = minionMod }) }, unpack(tagList)))
+				end
 			end
 		elseif misc.addToSkill then
 			-- Skill enchants or socketed gem modifiers that add additional effects

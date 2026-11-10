@@ -34,6 +34,7 @@ local resistTypeList = { "Fire", "Cold", "Lightning", "Chaos" }
 -- Damage is shifted to external allies before Frost Shield, so this is also the order in which pools are drained.
 local allyLifePoolList = {
 	{ key = "minion", life = "TotalMinionLife", mitigation = "MinionAllyDamageMitigation", redirect = "takenFromMinionBeforeYou", fallback = "Multiplier:MinionLife", label = "Minion Life" },
+	{ key = "mercenary", life = "TotalMercenaryLife", mitigation = "MercenaryAllyDamageMitigation", redirect = "takenFromMercenaryBeforeYou", label = "Mercenary Life" },
 	{ key = "radianceSentinel", life = "TotalRadianceSentinelLife", mitigation = "RadianceSentinelAllyDamageMitigation", redirect = "takenFromRadianceSentinelBeforeYou", label = "Total Sentinel of Radiance Life" },
 	{ key = "spectres", life = "TotalSpectreLife", mitigation = "SpectreAllyDamageMitigation", redirect = "takenFromSpectresBeforeYou", label = "Total Spectre Life" },
 	{ key = "totems", life = "TotalTotemLife", mitigation = "TotemAllyDamageMitigation", redirect = "takenFromTotemsBeforeYou", label = "Nearest Totem Life" },
@@ -665,7 +666,7 @@ function calcs.defence(env, actor)
 	output.ActionSpeedMod = calcs.actionSpeedMod(actor)
 
 	calcs.resistances(actor)
-	if env.minion and modDB:Sum("BASE", nil, "ResistanceAddedToMinions") > 0 then
+	if env.playerMinion and modDB:Sum("BASE", nil, "ResistanceAddedToMinions") > 0 then
 		for _, value in ipairs(modDB:Tabulate("BASE", nil, "ResistanceAddedToMinions")) do
 			for _, elem in ipairs(resistTypeList) do
 				local final = output[elem.."Resist"]
@@ -697,10 +698,12 @@ function calcs.defence(env, actor)
 		baseBlockChance = baseBlockChance + actor.itemList["Weapon 3"].armourData.BlockChance
 	end
 	output.ShieldBlockChance = baseBlockChance
-	baseBlockChance = not env.keystonesAdded["Necromantic Aegis"] and modDB:Override(nil, "ReplaceShieldBlock") or baseBlockChance
+	-- Necromantic Aegis doesn't apply the player's shield to Mercenaries, as they aren't minions
+	local necromanticAegis = env.keystonesAdded["Necromantic Aegis"] and not (actor.minionData and actor.minionData.mercenary)
+	baseBlockChance = not necromanticAegis and modDB:Override(nil, "ReplaceShieldBlock") or baseBlockChance
 
 	-- Apply player block overrides if Necromantic Aegis allocated
-	baseBlockChance = actor == env.minion and env.keystonesAdded["Necromantic Aegis"] and env.player.modDB:Override(nil, "ReplaceShieldBlock") or baseBlockChance
+	baseBlockChance = actor == env.minion and necromanticAegis and env.player.modDB:Override(nil, "ReplaceShieldBlock") or baseBlockChance
 
 	if modDB:Flag(nil, "BlockAttackChanceIsEqualToParent") then
 		output.BlockChance = m_min(actor.parent.output.BlockChance, output.BlockChanceMax)

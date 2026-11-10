@@ -48,7 +48,7 @@ end
 
 function CalcBreakdownClass:GetActor()
 	local env = self.calcsTab[self.envName or "calcsEnv"]
-	local actor = self.calcsTab.input.showMinion and env.minion or env.player
+	local actor = self.calcsTab:GetActor(env)
 	if self.forceActor then
 		actor = env[self.forceActor]
 	end
@@ -73,7 +73,7 @@ function CalcBreakdownClass:SetBreakdownData(displayData, pinned, forceActor)
 	local actor, env = self:GetActor()
 	self.sectionList = wipeTable(self.sectionList)
 	for _, sectionData in ipairs(displayData) do
-		if self.calcsTab:CheckFlag(sectionData, actor, env.player) then
+		if self.calcsTab:CheckFlag(sectionData, actor) then
 			if sectionData.breakdown then
 				self:AddBreakdownSection(sectionData)
 			elseif sectionData.modName then

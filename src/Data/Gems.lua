@@ -16349,6 +16349,21 @@ return {
 		reqInt = 40,
 		naturalMaxLevel = 20,
 	},
+	["Metadata/Items/Gems/SkillGemCallMercenary"] = {
+		name = "Order: To me!",
+		baseTypeName = "Order: To me!",
+		gameId = "Metadata/Items/Gem/SkillGemCallMercenary",
+		variantId = "CallMercenary",
+		grantedEffectId = "CallMercenary",
+		tags = {
+			grants_active_skill = true,
+		},
+		tagString = "",
+		reqStr = 0,
+		reqDex = 0,
+		reqInt = 0,
+		naturalMaxLevel = 20,
+	},
 	["Metadata/Items/Gems/SkillGemPactOfBeidat"] = {
 		name = "Pact of Beidat",
 		baseTypeName = "Pact of Beidat",

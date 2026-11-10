@@ -239,7 +239,7 @@ end
 function modLib.setSource(mod, source)
 	mod.source = source
 	if type(mod.value) == "table" and mod.value.mod then
-		mod.value.mod.source = source
+		modLib.setSource(mod.value.mod, source)
 	end
 	return mod
 end

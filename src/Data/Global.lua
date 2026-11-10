@@ -11,6 +11,7 @@ colorCodes = {
 	UNIQUE = "^xAF6025",
 	RELIC = "^x60C060",
 	GEM = "^x1AA29B",
+	MERCENARY = "^xDB9D24",
 	PROPHECY = "^xB54BFF",
 	CURRENCY = "^xAA9E82",
 	CRAFTED = "^xB8DAF1",

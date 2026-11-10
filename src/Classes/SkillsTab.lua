@@ -202,7 +202,7 @@ function SkillsTabClass:SkillsTab(build)
 		end
 	end
 	self.controls.groupSlot.enabled = function()
-		return self.displayGroup.source == nil
+		return self.displayGroup.source == nil and not self.displayGroup.mercenary
 	end
 	self.controls.groupEnabled = new("CheckBoxControl"):CheckBoxControl({ "LEFT", self.controls.groupSlot, "RIGHT" }, { 70, 0, 20 }, "Enabled:", function(state)
 		self.displayGroup.enabled = state
@@ -214,6 +214,27 @@ function SkillsTabClass:SkillsTab(build)
 		self:AddUndoState()
 		self.build.buildFlag = true
 	end)
+	self.controls.groupMercenary = new("CheckBoxControl"):CheckBoxControl({ "LEFT", self.controls.includeInFullDPS, "RIGHT" }, { 90, 0, 20 }, "Mercenary:", function(state)
+		self.displayGroup.mercenary = state
+		-- Mercenary gems aren't socketed in the player's items
+		if state then
+			self.displayGroup.slot = nil
+		end
+		-- Player and mercenary gems can't be used in the same group
+		for index = #self.displayGroup.gemList, 1, -1 do
+			local gemData = self.displayGroup.gemList[index].gemData
+			if gemData and (gemData.mercenary or false) ~= state then
+				t_remove(self.displayGroup.gemList, index)
+			end
+		end
+		self:SetDisplayGroup(self.displayGroup)
+		self:UpdateSocketGroups()
+		self:AddUndoState()
+		self.build.buildFlag = true
+	end, "Skills in this group are used by your mercenary, with mercenary gems.\nThe mercenary is summoned by the Order: To me! skill.")
+	self.controls.groupMercenary.shown = function()
+		return self.displayGroup.source == nil
+	end
 
 	local function getSelectedItem()
 		local item
@@ -446,6 +467,7 @@ function SkillsTabClass:LoadSkill(node, skillSetId)
 	local socketGroup = { }
 	socketGroup.enabled = node.attrib.active == "true" or node.attrib.enabled == "true"
 	socketGroup.includeInFullDPS = node.attrib.includeInFullDPS and node.attrib.includeInFullDPS == "true"
+	socketGroup.mercenary = node.attrib.mercenary == "true"
 	socketGroup.groupCount = tonumber(node.attrib.groupCount)
 	socketGroup.label = node.attrib.label
 	socketGroup.slot = node.attrib.slot
@@ -590,6 +612,7 @@ function SkillsTabClass:Save(xml)
 			local node = { elem = "Skill", attrib = {
 				enabled = tostring(socketGroup.enabled),
 				includeInFullDPS = tostring(socketGroup.includeInFullDPS),
+				mercenary = socketGroup.mercenary and "true",
 				groupCount = socketGroup.groupCount ~= nil and tostring(socketGroup.groupCount),
 				label = socketGroup.label,
 				slot = socketGroup.slot,
@@ -700,8 +723,13 @@ function SkillsTabClass:CopySocketGroup(socketGroup)
 	if socketGroup.slot then
 		skillText = skillText .. "Slot: " .. socketGroup.slot .. "\r\n"
 	end
+	if socketGroup.mercenary then
+		skillText = skillText .. "Mercenary: true\r\n"
+	end
 	for _, gemInstance in ipairs(socketGroup.gemList) do
-		skillText = skillText .. string.format("%s %d/%d %s %d\r\n", gemInstance.nameSpec, gemInstance.level, gemInstance.quality, gemInstance.enabled and "" or "DISABLED", gemInstance.count or 1)
+		-- Some mercenary skills share names, so they are copied by skill ID
+		local nameSpec = socketGroup.mercenary and gemInstance.gemData and gemInstance.gemData.grantedEffectId or gemInstance.nameSpec
+		skillText = skillText .. string.format("%s %d/%d %s %d\r\n", nameSpec, gemInstance.level, gemInstance.quality, gemInstance.enabled and "" or "DISABLED", gemInstance.count or 1)
 	end
 	Copy(skillText)
 end
@@ -718,6 +746,7 @@ function SkillsTabClass:PasteSocketGroup(testInput)
 		if slot then
 			newGroup.slot = slot
 		end
+		newGroup.mercenary = skillText:match("Mercenary: true") and true
 		for nameSpec, level, quality, state, count in skillText:gmatch("([ %a']+) (%d+)/(%d+) ?(%a*) (%d+)") do
 			t_insert(newGroup.gemList, {
 				nameSpec = nameSpec,
@@ -857,7 +886,8 @@ function SkillsTabClass:CreateGemSlot(index)
 	end)
 	slot.level:AddToTabGroup(self.controls.groupLabel)
 	slot.level.enabled = function()
-		return index <= #self.displayGroup.gemList
+		-- Mercenary skill levels come from the mercenary's level and they don't use quality
+		return index <= #self.displayGroup.gemList and not self.displayGroup.mercenary
 	end
 	self.controls["gemSlot"..index.."Level"] = slot.level
 
@@ -948,7 +978,7 @@ function SkillsTabClass:CreateGemSlot(index)
 	end
 	slot.quality:AddToTabGroup(self.controls.groupLabel)
 	slot.quality.enabled = function()
-		return index <= #self.displayGroup.gemList
+		return index <= #self.displayGroup.gemList and not self.displayGroup.mercenary
 	end
 	self.controls["gemSlot"..index.."Quality"] = slot.quality
 
@@ -1109,8 +1139,52 @@ function SkillsTabClass:FindImbuedSupport(name)
 	return gem and gem.grantedEffect and gem.grantedEffect.support and gem or nil
 end
 
+-- Order: To me! is used through the mercenary's socket groups, so groups with only it aren't main skill options
+function SkillsTabClass:IsCallMercenaryGroup(socketGroup)
+	local hasCallMercenary = false
+	for _, gem in ipairs(socketGroup.gemList) do
+		local grantedEffect = gem.gemData and gem.gemData.grantedEffect or gem.grantedEffect
+		if gem.skillId == "CallMercenary" then
+			hasCallMercenary = true
+		elseif grantedEffect and not grantedEffect.support then
+			return false
+		end
+	end
+	return hasCallMercenary
+end
+
+--- @param enabledOnly boolean? only include enabled gems in enabled socket groups
+--- @return table[] gem instances of the Order: To me! skill
+function SkillsTabClass:FindCallMercenaryGems(enabledOnly)
+	local gems = { }
+	for _, socketGroup in ipairs(self.socketGroupList) do
+		if socketGroup.enabled or not enabledOnly then
+			for _, gem in ipairs(socketGroup.gemList) do
+				if gem.skillId == "CallMercenary" and (gem.enabled or not enabledOnly) then
+					t_insert(gems, gem)
+				end
+			end
+		end
+	end
+	return gems
+end
+
+-- Fills a main socket group selector, where mercenary skills are tagged as they share names with player skills
+function SkillsTabClass:FillMainSocketGroupList(list)
+	wipeTable(list)
+	for index, socketGroup in ipairs(self.socketGroupList) do
+		if not self:IsCallMercenaryGroup(socketGroup) then
+			t_insert(list, { val = index, label = socketGroup.displayLabel, labelPrefix = socketGroup.mercenary and colorCodes.MERCENARY.."(Merc) " or nil })
+		end
+	end
+end
+
 -- Find the skill gem matching the given specification
-function SkillsTabClass:FindSkillGem(nameSpec)
+function SkillsTabClass:FindSkillGem(nameSpec, mercenary)
+	local mercenaryGem = mercenary and self.build.data.gems["Mercenary/" .. nameSpec]
+	if mercenaryGem then
+		return nil, mercenaryGem
+	end
 	-- Search for gem name using increasingly broad search patterns
 	local patternList = {
 		"^ "..nameSpec:gsub("%a", function(a) return "["..a:upper()..a:lower().."]" end).."$", -- Exact match (case-insensitive)
@@ -1122,7 +1196,7 @@ function SkillsTabClass:FindSkillGem(nameSpec)
 	for i, pattern in ipairs(patternList) do
 		local foundGemData
 		for gemId, gemData in pairs(self.build.data.gems) do
-			if (" "..gemData.name):match(pattern) then
+			if (not gemData.mercenary) == (not mercenary) and (" "..gemData.name):match(pattern) then
 				if foundGemData then
 					return "Ambiguous gem name '" .. nameSpec .. "': matches '" .. foundGemData.name .. "', '" .. gemData.name .. "'"
 				end
@@ -1203,7 +1277,7 @@ function SkillsTabClass:ProcessSocketGroup(socketGroup)
 		elseif gemInstance.nameSpec:match("%S") then
 			-- Specified by gem/skill name, try to match it
 			-- Used to migrate pre-1.4.20 builds
-			gemInstance.errMsg, gemInstance.gemData = self:FindSkillGem(gemInstance.nameSpec)
+			gemInstance.errMsg, gemInstance.gemData = self:FindSkillGem(gemInstance.nameSpec, socketGroup.mercenary)
 			gemInstance.gemId = gemInstance.gemData and gemInstance.gemData.id
 			gemInstance.skillId = gemInstance.gemData and gemInstance.gemData.grantedEffectId
 			if gemInstance.gemData then
@@ -1292,6 +1366,7 @@ function SkillsTabClass:SetDisplayGroup(socketGroup)
 		self.controls.groupSlot:SelByValue(socketGroup.slot, "slotName")
 		self.controls.groupEnabled.state = socketGroup.enabled
 		self.controls.includeInFullDPS.state = socketGroup.includeInFullDPS and socketGroup.enabled
+		self.controls.groupMercenary.state = socketGroup.mercenary
 		self.controls.groupCount:SetText(socketGroup.groupCount or 1)
 		if socketGroup.imbuedSupport then
 			local gem = self:FindImbuedSupport(socketGroup.imbuedSupport)
@@ -1355,7 +1430,7 @@ function SkillsTabClass:AddSocketGroupTooltip(tooltip, socketGroup)
 				gemShown[skillEffect.srcInstance] = true
 			end
 		end
-		if activeSkill.minion then
+		if activeSkill.minion and activeSkill.minion.mainSkill then
 			tooltip:AddSeparator(10)
 			tooltip:AddLine(16, "^7Active Skill #" .. index .. "'s Main Minion Skill:")
 			local activeEffect = activeSkill.minion.mainSkill.effectList[1]

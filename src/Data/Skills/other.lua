@@ -944,6 +944,43 @@ skills["ColdAegis"] = {
 		[20] = { levelRequirement = 1, },
 	},
 }
+skills["CallMercenary"] = {
+	name = "Order: To me!",
+	baseTypeName = "Order: To me!",
+	color = 4,
+	description = "Recalls any Mercenary accompanying you to your location. Recalled Mercenaries are healed for a portion of their maximum health.",
+	skillTypes = { [SkillType.Instant] = true, [SkillType.Cooldown] = true, [SkillType.InstantNoRepeatWhenHeld] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0,
+	minionHasItemSet = true,
+	minionUses = {
+		["Weapon 1"] = true,
+		["Weapon 2"] = true,
+		["Helmet"] = true,
+		["Body Armour"] = true,
+		["Gloves"] = true,
+		["Boots"] = true,
+		["Amulet"] = true,
+		["Ring 1"] = true,
+		["Ring 2"] = true,
+		["Belt"] = true,
+	},
+	minionList = {
+		"Mercenary",
+	},
+	baseFlags = {
+		minion = true,
+		permanentMinion = true,
+	},
+	baseMods = {
+		skill("minionLevel", 84),
+	},
+	stats = {
+	},
+	levels = {
+		[1] = { cooldown = 4, levelRequirement = 0, storedUses = 1, },
+	},
+}
 skills["UniqueEnchantmentOfInfernoOnCrit"] = {
 	name = "Commandment of Inferno",
 	hidden = true,
