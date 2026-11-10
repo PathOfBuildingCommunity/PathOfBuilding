@@ -34,16 +34,7 @@ describe("TestVestigialReducedImplicits", function()
 		result.evasionIncrease = skill.skillModList:Sum("INC", { }, "Evasion")
 		result.damageMore = env.player.modDB:More(skill.skillCfg, "Damage")
 		result.attackDamageMore = env.player.modDB:More({ flags = ModFlag.Attack }, "Damage")
-		local armourIncreases = env.player.modDB:Tabulate("INC", nil, "Armour")
-		result.armourIncreaseSource = armourIncreases[1] and armourIncreases[1].mod.source
-		for _, value in ipairs(env.player.modDB:Tabulate("MAX", nil, "ArmourIncreasedByOvercappedFireRes")) do
-			if value.value == 100 then
-				result.fullArmourSource = value.mod.source
-			end
-		end
-		result.hitTaken = build.calcsTab.calcs.takenHitFromDamage(1000, "Lightning", env.player)
-		result.pools = build.calcsTab.calcs.reducePoolsByDamage({ Life = 1000, Mana = 1000, EnergyShield = options.poolEnergyShield or 0, Ward = 0 }, { Chaos = 200 }, env.player)
-		return result
+		return result, env
 	end
 
 	local form = "Armour is increased by Overcapped Fire Resistance"
@@ -84,8 +75,15 @@ describe("TestVestigialReducedImplicits", function()
 		assert.are.equal(full.Armour, calculate({ formHalf, form }, options).Armour)
 		assert.are.equal(half.Armour, calculate({ formHalf, formHalf }, options).Armour)
 		options.custom = options.custom .. "\n" .. form
-		local mixedSources = calculate({ formHalf }, options)
-		assert.are.equal(mixedSources.fullArmourSource, mixedSources.armourIncreaseSource)
+		local _, env = calculate({ formHalf }, options)
+		local armourIncreases = env.player.modDB:Tabulate("INC", nil, "Armour")
+		local fullArmourSource
+		for _, value in ipairs(env.player.modDB:Tabulate("MAX", nil, "ArmourIncreasedByOvercappedFireRes")) do
+			if value.value == 100 then
+				fullArmourSource = value.mod.source
+			end
+		end
+		assert.are.equal(fullArmourSource, armourIncreases[1] and armourIncreases[1].mod.source)
 		options.custom = "+1000 to Armour"
 		assert.are.equal(calculate({ }, options).Armour, calculate({ formHalf }, options).Armour)
 	end)
@@ -170,9 +168,14 @@ describe("TestVestigialReducedImplicits", function()
 
 	it("applies one tenth of armour to lightning hits through the final mitigation calculation", function()
 		local options = { base = "Simple Robe", custom = "+10000 to Armour" }
-		local control = calculate({ }, options)
-		local tenth = calculate({ doryaniTenth }, options)
-		local full = calculate({ doryani }, options)
+		local function calculateHit(lines)
+			local result, env = calculate(lines, options)
+			result.hitTaken = build.calcsTab.calcs.takenHitFromDamage(1000, "Lightning", env.player)
+			return result
+		end
+		local control = calculateHit({ })
+		local tenth = calculateHit({ doryaniTenth })
+		local full = calculateHit({ doryani })
 		assert.are.equal(1000, tenth.LightningEffectiveAppliedArmour)
 		assert.are.equal(0, tenth.FireEffectiveAppliedArmour)
 		assert.is_true(full.hitTaken < tenth.hitTaken and tenth.hitTaken < control.hitTaken)
@@ -181,18 +184,23 @@ describe("TestVestigialReducedImplicits", function()
 
 	it("redirects half of chaos damage to mana and retains the shared redirection cap", function()
 		local options = { base = "Simple Robe", custom = "+1000 to maximum Life\n+1000 to maximum Mana" }
-		local half = calculate({ ivoryHalf }, options)
+		local function calculatePools(lines)
+			local result, env = calculate(lines, options)
+			result.pools = build.calcsTab.calcs.reducePoolsByDamage({ Life = 1000, Mana = 1000, EnergyShield = options.poolEnergyShield or 0, Ward = 0 }, { Chaos = 200 }, env.player)
+			return result
+		end
+		local half = calculatePools({ ivoryHalf })
 		assert.are.equal(50, half.ChaosMindOverMatter)
 		assert.are.equal(900, half.pools.Life)
 		assert.are.equal(900, half.pools.Mana)
-		local full = calculate({ ivory }, options)
+		local full = calculatePools({ ivory })
 		assert.are.equal(1000, full.pools.Life)
 		assert.are.equal(800, full.pools.Mana)
 		options.custom = options.custom .. "\n60% of Damage is taken from Mana before Life"
 		assert.are.equal(40, calculate({ ivoryHalf }, options).ChaosMindOverMatter)
 		options.custom = "+1000 to maximum Life\n+1000 to maximum Mana\n+100 to maximum Energy Shield\nEldritch Battery"
 		options.poolEnergyShield = 100
-		local battery = calculate({ ivoryHalf }, options)
+		local battery = calculatePools({ ivoryHalf })
 		assert.are.equal(900, battery.pools.Life)
 		assert.are.equal(900, battery.pools.Mana)
 		assert.are.equal(100, battery.pools.EnergyShield)
