@@ -259,7 +259,7 @@ CriticalMultiplierImplicitSword2H1
 LocalIncreasedPhysicalDamagePercentUnique__48
 LocalIncreasedAttackSpeedUnique__40
 CannotBePoisonedUnique__2
-AdditionalTinctureUnique__1
+You can have 2 additional Tinctures active
 TinctureRemoveToxicityOnKillUnique__1
 ]],[[
 Oni-Goroshi

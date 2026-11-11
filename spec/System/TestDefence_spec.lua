@@ -7,6 +7,54 @@ describe("TestDefence", function()
 		-- newBuild() takes care of resetting everything in setup()
 	end)
 
+	it("applies the Scales of Justice ailment condition to maximum life and mana", function()
+		-- Exercise the parser rather than the checked-in result for this item.
+		modLib.parseModCache["Unaffected by Ignite or Shock if Maximum Life and Maximum Mana are within 500"] = nil
+		for _, raw in ipairs(dofile("Data/Uniques/shield.lua")) do
+			if raw:match("^The Scales of Justice\n") then
+				build.itemsTab:CreateDisplayItemFromRaw("Rarity: UNIQUE\n" .. raw)
+				break
+			end
+		end
+		local item = build.itemsTab.displayItem
+		assert.is_not_nil(item)
+		build.itemsTab:AddDisplayItem()
+		build.itemsTab.slots["Weapon 2"]:SetSelItemId(item.id)
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+		local baseLife = build.calcsTab.mainOutput.Life
+		local baseMana = build.calcsTab.mainOutput.Mana
+		for _, case in ipairs({
+			{ life = 1000, mana = 1499, effect = 0 },
+			{ life = 1000, mana = 1500, effect = 0 },
+			{ life = 1000, mana = 1501, effect = 100 },
+			{ life = 1501, mana = 1000, effect = 100 },
+			{ life = 1499, mana = 1000, effect = 0 },
+			{ life = 1500, mana = 1000, effect = 0 },
+		}) do
+			build.configTab.input.customMods = "+" .. (case.life - baseLife) .. " to maximum Life\n+" .. (case.mana - baseMana) .. " to maximum Mana"
+			build.configTab:BuildModList()
+			runCallback("OnFrame")
+			local output = build.calcsTab.mainOutput
+			assert.are.equal(case.life, output.Life)
+			assert.are.equal(case.mana, output.Mana)
+			assert.are.equal(case.effect, output.SelfIgniteEffect)
+			assert.are.equal(case.effect, output.SelfShockEffect)
+			assert.are.equal(0, output.ShockAvoidChance)
+		end
+		build.skillsTab:PasteSocketGroup("Clarity 1/0  1")
+		runCallback("OnFrame")
+		local output = build.calcsTab.mainOutput
+		assert.is_true(output.ManaUnreserved < output.Mana)
+		assert.are.equal(0, output.SelfIgniteEffect)
+		assert.are.equal(0, output.SelfShockEffect)
+		build.itemsTab.slots["Weapon 2"]:SetSelItemId(0)
+		build.buildFlag = true
+		runCallback("OnFrame")
+		assert.are.equal(100, build.calcsTab.mainOutput.SelfIgniteEffect)
+		assert.are.equal(100, build.calcsTab.mainOutput.SelfShockEffect)
+	end)
+
 	-- a small helper function to calculate damage taken from limited test parameters
 	local function takenHitFromTypeMaxHit(type, enemyDamageMulti)
 		return build.calcsTab.calcs.takenHitFromDamage(build.calcsTab.calcsOutput[type.."MaximumHitTaken"] * (enemyDamageMulti or 1), type, build.calcsTab.calcsEnv.player)

@@ -4978,6 +4978,10 @@ local specialModList = {
 	["immun[ei]t?y? to curses while you have at least (%d+) rage"] = function(num) return { flag("CurseImmune", { type = "MultiplierThreshold", var = "Rage", threshold = num }) } end,
 	["you cannot be cursed with silence"] = { flag("SilenceImmune") },
 	["unaffected by ignite"] = { mod("SelfIgniteEffect", "MORE", -100) },
+	["unaffected by ignite or shock if maximum life and maximum mana are within (%d+)"] = function(num) return {
+		mod("SelfIgniteEffect", "MORE", -100, { type = "StatThreshold", stat = "AbsoluteDifferenceOfMaximumLifeAndMaximumMana", threshold = num, upper = true }),
+		mod("SelfShockEffect", "MORE", -100, { type = "StatThreshold", stat = "AbsoluteDifferenceOfMaximumLifeAndMaximumMana", threshold = num, upper = true }),
+	} end,
 	["unaffected by chill"] = { mod("SelfChillEffect", "MORE", -100) },
 	["unaffected by chill while leeching mana"] = { mod("SelfChillEffect", "MORE", -100, { type = "Condition", var = "LeechingMana" }) },
 	["unaffected by chill while channelling"] = { mod("SelfChillEffect", "MORE", -100, { type = "Condition", var = "Channelling" }) },
@@ -5251,6 +5255,7 @@ local specialModList = {
 	["tinctures inflict weeping wounds instead of mana burn"] = { flag("Condition:WeepingWoundsInsteadOfManaBurn"), },
 	["tincture effects also apply to ranged weapons"] = { flag("TinctureRangedWeapons"), },
 	["you can have an additional tincture active"] = { mod("TinctureLimit", "BASE", 1), },
+	["you can have (%d+) additional tinctures active"] = function(num) return { mod("TinctureLimit", "BASE", num) } end,
 	["(%d+)%% increased tincture cooldown recovery rate"] = function(num) return { mod("TinctureCooldownRecovery", "INC", num) } end,
 	["adds (%d+) passive skills"] = function(num) return { mod("JewelData", "LIST", { key = "clusterJewelNodeCount", value = num }) } end,
 	["1 added passive skill is a jewel socket"] = { mod("JewelData", "LIST", { key = "clusterJewelSocketCount", value = 1 }) },

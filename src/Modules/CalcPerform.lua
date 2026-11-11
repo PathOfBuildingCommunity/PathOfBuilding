@@ -10,6 +10,7 @@ local pairs = pairs
 local ipairs = ipairs
 local t_insert = table.insert
 local t_remove = table.remove
+local m_abs = math.abs
 local m_min = math.min
 local m_max = math.max
 local m_ceil = math.ceil
@@ -130,6 +131,7 @@ function doActorLifeMana(actor)
 		end
 	end
 	output.LowestOfMaximumLifeAndMaximumMana = m_min(output.Life, output.Mana)
+	output.AbsoluteDifferenceOfMaximumLifeAndMaximumMana = m_abs(output.Life - output.Mana)
 end
 
 -- Calculate attributes, and set conditions

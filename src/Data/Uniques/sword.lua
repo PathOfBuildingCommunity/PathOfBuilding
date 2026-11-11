@@ -262,8 +262,8 @@ Implicits: 1
 (100-140)% increased Physical Damage
 (25-35)% increased Attack Speed
 Cannot be Poisoned
-You can have an additional Tincture active
 10% chance to remove 1 Mana Burn on Kill
+You can have 2 additional Tinctures active
 ]],[[
 Oni-Goroshi
 Charan's Sword
