@@ -869,7 +869,7 @@ function buildMode:SyncLoadouts()
 
 	-- Try to select loadout in dropdown based on currently selected tree
 	if self.treeTab then
-		local treeName = self.treeTab.specList[self.treeTab.activeSpec].title or "Default"
+		local treeName = self.treeTab:GetSpecList()[self.treeTab.activeSpec]
 		for i, loadout in ipairs(filteredList) do
 			if loadout == treeName then
 				local linkMatch = string.match(treeName, "%{(%w+)%}") or treeName
