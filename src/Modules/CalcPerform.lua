@@ -1664,8 +1664,9 @@ function calcs.perform(env, skipEHP)
 		local flaskRecInc = modDB:Sum("INC", nil, "Flask"..type.."Recovery")
 		local flaskRecMore = modDB:More(nil, "Flask"..type.."Recovery")
 		local flaskRateInc = modDB:Sum("INC", nil, "Flask"..type.."RecoveryRate")
+		local flaskRateMore = modDB:More(nil, "Flask"..type.."RecoveryRate")
 		local flaskTotal = base * (1 - instPerc / 100) * (1 + flaskRecInc / 100) * flaskRecMore * (1 + flaskDurInc / 100)
-		local flaskDur = dur * (1 + flaskDurInc / 100) / (1 + flaskTotalRateInc / 100) / (1 + flaskRateInc / 100)
+		local flaskDur = dur * (1 + flaskDurInc / 100) / (1 + flaskTotalRateInc / 100) / (1 + flaskRateInc / 100) / flaskRateMore
 
 		-- More life recovery while on low life is not affected by flask effect (verified ingame).
 		-- Since this will be multiplied by the flask effect value below we have to counteract this by removing the flask effect from the value beforehand.

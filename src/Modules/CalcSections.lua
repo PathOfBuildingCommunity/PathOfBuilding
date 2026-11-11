@@ -1798,6 +1798,7 @@ return {
 	{ label = "Inc. Recovery Rate", { format = "{0:mod:1,2}%",
 		{ label = "Life Flask Recovery Rate", modName = "FlaskLifeRecoveryRate", modType = "INC"},
 		{ label = "Generic Flask Recovery Rate", modName = "FlaskRecoveryRate", modType = "INC" }}, },
+	{ label = "More Recovery Rate", { format = "{0:mod:1}%", { modName = "FlaskLifeRecoveryRate", modType = "MORE" }}, },
 	{ label = "Charges/s", { format = "{2:output:LifeFlaskChargeGen}",
 		{ label = "Life Flask Charges/s", modName = "LifeFlaskChargesGenerated", modType = "BASE"},
 		{ label = "Generic Flask Charges/s", modName = { "FlaskChargesGenerated", "FlaskChargesGeneratedPerEmptyFlask" }, modType = "BASE" }}, },

@@ -872,6 +872,7 @@ local modNameList = {
 	["flask recovery rate"] = "FlaskRecoveryRate",
 	["flask recovery speed"] = "FlaskRecoveryRate",
 	["flask life recovery rate"] = "FlaskLifeRecoveryRate",
+	["life flask recovery rate"] = "FlaskLifeRecoveryRate",
 	["flask mana recovery rate"] = "FlaskManaRecoveryRate",
 	["extra charges"] = "FlaskCharges",
 	["maximum charges"] = "FlaskCharges",
