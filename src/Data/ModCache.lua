@@ -22617,8 +22617,7 @@ c["You can catch Exotic Fish"]={nil,"You can catch Exotic Fish "}
 c["You can catch Exotic Fish 40% reduced Quantity of Fish Caught"]={nil,"You can catch Exotic Fish 40% reduced Quantity of Fish Caught "}
 c["You can catch Foulborn Fish"]={nil,"You can catch Foulborn Fish "}
 c["You can catch Scourged Fish"]={nil,"You can catch Scourged Fish "}
-c["You can have 2 additional Tinctures active"]={nil,"You can have 2 additional Tinctures active "}
-c["You can have 2 additional Tinctures active 10% chance to remove 1 Mana Burn on Kill"]={nil,"You can have 2 additional Tinctures active 10% chance to remove 1 Mana Burn on Kill "}
+c["You can have 2 additional Tinctures active"]={{[1]={flags=0,keywordFlags=0,name="TinctureLimit",type="BASE",value=2}},nil}
 c["You can have an Offering of each type"]={nil,"You can have an Offering of each type "}
 c["You can have an Offering of each type Offering Skills have 50% reduced Duration"]={nil,"You can have an Offering of each type Offering Skills have 50% reduced Duration "}
 c["You can have an additional Brand Attached to an Enemy"]={{[1]={flags=0,keywordFlags=0,name="BrandsAttachedLimit",type="BASE",value=1}},nil}
