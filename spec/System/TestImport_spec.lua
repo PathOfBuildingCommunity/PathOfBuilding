@@ -146,6 +146,39 @@ describe("TestImport", function()
 		assert.is_truthy(item:BuildRaw():find("{vestigial}", 1, true))
 	end)
 
+	it("preserves modifier sections when an imported implicit wraps", function()
+		local itemData = {
+			id = "wrapped-implicit",
+			frameType = 2,
+			name = "Test Hat",
+			typeLine = "Iron Hat",
+			ilvl = 1,
+			implicitMods = {
+				{ description = "Adds 1 to 2 Fire Damage to\nSpells" },
+				{ description = "+10 to Strength\n+11 to Dexterity" },
+			},
+			explicitMods = { { description = "+20 to maximum Life" } },
+		}
+		-- Synthetic wrapping: one description can also contain independent effects.
+		for _, action in ipairs({ "import", "reload", "reimport" }) do
+			if action == "reload" then
+				loadBuildFromXML(build:SaveDB("code"))
+			else
+				build.importTab:ImportItem(itemData, "Helmet")
+			end
+			local item = build.itemsTab.items[build.itemsTab.slots.Helmet.selItemId]
+			for _ = 1, 2 do
+				assert.are.equals(3, #item.implicitModLines)
+				assert.are.equals("Adds 1 to 2 Fire Damage to\nSpells", item.implicitModLines[1].line)
+				assert.are.equals("+10 to Strength", item.implicitModLines[2].line)
+				assert.are.equals("+11 to Dexterity", item.implicitModLines[3].line)
+				assert.are.equals(1, #item.explicitModLines)
+				assert.are.equals("+20 to maximum Life", item.explicitModLines[1].line)
+				item = new("Item"):Item(item.raw)
+			end
+		end
+	end)
+
 	function importAndReimportWithOldJewel(shouldDelete)
 		local oldJewel = new("Item"):Item([[Rarity: RARE
 TEST JEWEL

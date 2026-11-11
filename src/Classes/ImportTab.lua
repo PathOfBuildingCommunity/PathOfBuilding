@@ -1793,7 +1793,8 @@ function ImportTabClass:ImportItem(itemData, slotName, ignoreWeaponSwap, itemSet
 	end
 
 	-- Add and equip the new item
-	item:BuildAndParseRaw()
+	-- API descriptions above were split into raw text lines, including continuations.
+	item:ParseRaw(item:BuildRaw(), nil, nil, true)
 	--ConPrintf("%s", item.raw)
 	if item.base then
 		local repIndex, repItem
