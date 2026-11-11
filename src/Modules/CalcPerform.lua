@@ -1702,6 +1702,10 @@ function calcs.perform(env, skipEHP)
 		local function calcFlaskMods(item, baseName, buffModList, modList, onlyMinion)
 			local flaskEffectInc = effectInc + item.flaskData.effectInc
 			local flaskEffectIncNonPlayer = effectIncNonPlayer + item.flaskData.effectInc
+			if item.baseName == "Iron Flask" then
+				flaskEffectInc = flaskEffectInc + modDB:Sum("INC", { actor = "player" }, "IronFlaskEffect")
+				flaskEffectIncNonPlayer = flaskEffectIncNonPlayer + modDB:Sum("INC", nil, "IronFlaskEffect")
+			end
 			if item.rarity == "MAGIC" and not (item.base.flask.life or item.base.flask.mana) then
 				flaskEffectInc = flaskEffectInc + effectIncMagic
 				flaskEffectIncNonPlayer = flaskEffectIncNonPlayer + effectIncMagicNonPlayer

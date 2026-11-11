@@ -857,6 +857,7 @@ local modNameList = {
 	-- Flask and Tincture modifiers
 	["effect"] = "LocalEffect",
 	["effect of flasks"] = "FlaskEffect",
+	["effect of iron flasks"] = "IronFlaskEffect",
 	["effect of tinctures"] = "TinctureEffect",
 	["amount recovered"] = "FlaskRecovery",
 	["life recovered"] = "FlaskRecovery",

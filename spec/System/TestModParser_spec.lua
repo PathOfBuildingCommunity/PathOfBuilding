@@ -49,6 +49,14 @@ describe("TestModParser", function()
 		assert.are.equal(0.5, modDB:More(nil, "FlaskLifeRecoveryRate"))
 	end)
 
+	it("parses Regenerative Runes as Iron Flask effect", function()
+		local mods, extra = modLib.parseMod("20% increased Effect of Iron Flasks")
+		assert.is_nil(extra)
+		assert.are.equal("IronFlaskEffect", mods[1].name)
+		assert.are.equal("INC", mods[1].type)
+		assert.are.equal(20, mods[1].value)
+	end)
+
 	it("keeps Master Surgeon's legacy recovery amount penalty", function()
 		local mods, extra = modLib.parseMod("50% less Life Recovery from Flasks")
 
