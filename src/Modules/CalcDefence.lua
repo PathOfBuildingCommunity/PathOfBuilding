@@ -808,11 +808,14 @@ function calcs.defence(env, actor)
 			break
 		end
 	end
-	if modDB:Flag(nil, "ArmourIncreasedByOvercappedFireRes") then
-		for i, value in ipairs(modDB:Tabulate("FLAG", nil, "ArmourIncreasedByOvercappedFireRes")) do
+	local armourFromOvercappedFireRes = modDB:Max(nil, "ArmourIncreasedByOvercappedFireRes")
+	if armourFromOvercappedFireRes then
+		for _, value in ipairs(modDB:Tabulate("MAX", nil, "ArmourIncreasedByOvercappedFireRes")) do
 			local mod = value.mod
-			modDB:NewMod("Armour", "INC", output.FireResistOverCap, mod.source)			
-			break
+			if value.value == armourFromOvercappedFireRes then
+				modDB:NewMod("Armour", "INC", output.FireResistOverCap * armourFromOvercappedFireRes / 100, mod.source)
+				break
+			end
 		end
 	end
 	if modDB:Flag(nil, "EvasionRatingIncreasedByUncappedColdRes") then
@@ -916,7 +919,7 @@ function calcs.defence(env, actor)
 								item = actor.itemList[slot],
 							})
 						end
-					elseif not modDB:Flag(nil, "ConvertArmourESToLife") then
+					elseif not modDB:Max(nil, "ConvertArmourESToLife") then
 						energyShield = energyShield + energyShieldBase * calcLib.mod(modDB, slotCfg, "EnergyShield", "Defences", slot.."ESAndArmour")
 						gearEnergyShield = gearEnergyShield + energyShieldBase
 						if breakdown then
