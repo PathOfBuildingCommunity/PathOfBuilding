@@ -17,6 +17,43 @@ describe("TestDefence", function()
 		return build.calcsTab.calcs.reducePoolsByDamage(nil, takenDamages, build.calcsTab.calcsEnv.player)
 	end
 
+	it("adds Elusive and type-specific damage avoidance without applying either twice", function()
+		local function calculate(avoidance, elusive, category, worstOf)
+			build.configTab.input.enemyDamageType = category
+			build.configTab.input.enemyIsBoss = "None"
+			build.configTab.input.enemyCritChance = 0
+			build.configTab.input.EHPUnluckyWorstOf = worstOf
+			build.configTab.input.buffElusive = elusive
+			for _, damageType in ipairs({ "Physical", "Lightning", "Cold", "Fire", "Chaos" }) do
+				build.configTab.input["enemy"..damageType.."Damage"] = damageType == "Cold" and "1000" or "0"
+			end
+			build.configTab.input.customMods = "+1000 to maximum Life\n+60% to Cold Resistance\n"..avoidance
+			if elusive then
+				build.configTab.input.customMods = build.configTab.input.customMods.."\nGain Elusive on Critical Strike\n100% increased Elusive Effect"
+			end
+			build.configTab:BuildModList()
+			runCallback("OnFrame")
+			return build.calcsTab.calcsOutput
+		end
+
+		for _, category in ipairs({ "Melee", "Projectile", "Spell", "SpellProjectile", "Untyped", "Average" }) do
+			for _, worstOf in ipairs({ 1, 2, 4 }) do
+				for _, chance in ipairs({ 0, 15, 70 }) do
+					local combined = math.min(15 + chance, data.misc.AvoidChanceCap)
+					local output = calculate(chance.."% chance to Avoid Cold Damage from Hits\n10% chance to Avoid Projectiles", true, category, worstOf)
+					assert.are.equal(15, output.AvoidAllDamageFromHitsChance)
+					assert.are.equal(combined, output.AvoidColdDamageChance)
+					assert.are.equal(15, output.AvoidPhysicalDamageChance)
+					if category == "SpellProjectile" then
+						assert.are.near(100 * (0.1 ^ worstOf), output.ConfiguredNotHitChance, 0.000001)
+					end
+					local reference = calculate(combined.."% chance to Avoid Cold Damage from Hits\n10% chance to Avoid Projectiles", false, category, worstOf)
+					assert.are.near(reference.TotalEHP, output.TotalEHP, 0.000001)
+				end
+			end
+		end
+	end)
+
 	it("attributes resistances inherited by minions to Bonemeld after loading a build", function()
 		build.skillsTab:PasteSocketGroup("Raise Zombie 20/0  1")
 		build.itemsTab:CreateDisplayItemFromRaw("Rarity: UNIQUE\nBonemeld\nMarble Amulet\nImplicits: 0\nMinions gain added Resistances equal to 50% of your Resistances")
