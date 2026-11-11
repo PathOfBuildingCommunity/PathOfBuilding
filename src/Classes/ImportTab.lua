@@ -583,10 +583,6 @@ function ImportTabClass:ImportTab(build)
 			return
 		end
 
-		if not self.build.dbFileName then
-			self.controls.importCodeMode.selIndex = 2
-		end
-
 		self.importCodeDetail = colorCodes.NEGATIVE.."Invalid input"
 		local urlText = buf:gsub("^[%s?]+", ""):gsub("[%s?]+$", "") -- Quick Trim
 		if urlText:match("youtube%.com/redirect%?") or urlText:match("google%.com/url%?") then
@@ -624,6 +620,7 @@ function ImportTabClass:ImportTab(build)
 				return
 			end
 			self.importCodeJson = jsonData
+			self.controls.importCodeMode.selIndex = 1
 			self.importCodeDetail = colorCodes.POSITIVE.."JSON is valid"
 			self.importCodeValid = true
 			return
@@ -661,6 +658,12 @@ function ImportTabClass:ImportTab(build)
 					main:OpenMessagePopup("Import Error", "Failed to import build for comparison.")
 				end
 			end
+		elseif self.controls.importCodeMode.selIndex == 4 then
+			if self:ImportLoadout(self.importCodeXML, self.controls.importLoadoutName.buf) then
+				self.build.viewMode = "TREE"
+			else
+				main:OpenMessagePopup("Import Error", "Failed to import build as a loadout. The current build has been preserved.")
+			end
 		else
 			self.build:Shutdown()
 			self.build:Init(false, "Imported build", self.importCodeXML, false, self.importCodeSite and self.controls.importCodeIn.buf or nil)
@@ -678,10 +681,19 @@ function ImportTabClass:ImportTab(build)
 	self.controls.importCodeState.label = function()
 		return self.importCodeDetail or ""
 	end
-	self.controls.importCodeMode = new("DropDownControl"):DropDownControl({"TOPLEFT",self.controls.importCodeIn,"BOTTOMLEFT"}, {0, 4, 200, 20}, { "Import to this build", "Import to a new build", "Import as comparison" })
+	self.controls.importCodeMode = new("DropDownControl"):DropDownControl({"TOPLEFT",self.controls.importCodeIn,"BOTTOMLEFT"}, {0, 4, 200, 20}, { "Import to this build", "Import to a new build", "Import as comparison", "Import to a new loadout" })
+	self.controls.importCodeMode.selIndex = self.build.dbFileName and 1 or 2
 	self.controls.importCodeMode.enabled = function()
-		return (self.build.dbFileName or self.controls.importCodeMode.selIndex == 3) and self.importCodeValid
+		return self.importCodeValid and not self.importCodeFetching and not self.importCodeJson
 	end
+	self.controls.importLoadoutName = new("EditControl"):EditControl({"TOPLEFT",self.controls.importCodeMode,"BOTTOMLEFT"}, {0, 4, 200, 20}, "Imported loadout", "Loadout name", "%c", 100)
+	self.controls.importLoadoutName.shown = function()
+		return self.controls.importCodeMode.selIndex == 4 and not self.importCodeJson
+	end
+	self.controls.sectionBuild.height = function()
+		return self.controls.importLoadoutName:IsShown() and 206 or 182
+	end
+	self.controls.importLoadoutName.tooltipText = "Import the selected tree, items, skills and configuration as a new loadout. Existing data is preserved."
 	self.controls.importCodeGo = new("ButtonControl"):ButtonControl({"LEFT",self.controls.importCodeMode,"RIGHT"}, {8, 0, 160, 20}, "Import", function()
 		if self.importCodeSite and not self.importCodeXML then
 			self.importCodeFetching = true
@@ -1018,6 +1030,211 @@ function ImportTabClass:DownloadSiteCharacterList(realm)
 					self:SaveAccountHistory()
 				end)
 		end)
+end
+
+-- Load separately before touching the current build. CompareEntry uses the normal tab
+-- loaders, including migrations for older build codes, without replacing the build.
+function ImportTabClass:ImportLoadout(xmlText, name)
+	local xml, err = common.xml.ParseXML(xmlText or "")
+	if err or not xml or not xml[1] or xml[1].elem ~= "PathOfBuilding" then
+		return false
+	end
+	local hasBuild = false
+	for _, section in ipairs(xml[1]) do
+		if type(section) == "table" then
+			if section.elem == "Build" then
+				hasBuild = true
+				if section.attrib.targetVersion and section.attrib.targetVersion ~= liveTargetVersion then
+					return false
+				end
+			elseif section.elem == "Tree" then
+				for _, spec in ipairs(section) do
+					if type(spec) == "table" and spec.elem == "Spec" and spec.attrib.treeVersion and not treeVersions[spec.attrib.treeVersion] then
+						return false
+					end
+				end
+			end
+		end
+	end
+	if not hasBuild then
+		return false
+	end
+	local build = self.build
+	local ok, imported = pcall(function()
+		return new("CompareEntry"):CompareEntry(xmlText, "Imported loadout")
+	end)
+	-- Loading a passive tree changes these globals even for a temporary build.
+	data.setJewelRadiiGlobally(build.spec.treeVersion)
+	build.spec:SetWindowTitleWithBuildClass()
+	if not ok then
+		ConPrintf("Loadout import failed: %s", imported)
+		return false
+	end
+	if not imported.spec or not imported.calcsTab then
+		return false
+	end
+
+	local usedNames = { }
+	for _, spec in ipairs(build.treeTab.specList) do
+		usedNames[spec.title or "Default"] = true
+	end
+	for _, sets in ipairs({ build.itemsTab.itemSets, build.skillsTab.skillSets, build.configTab.configSets }) do
+		for _, set in pairs(sets) do
+			usedNames[set.title or "Default"] = true
+		end
+	end
+	local versionPrefix = imported.spec.treeVersion ~= latestTreeVersion and ("[" .. treeVersions[imported.spec.treeVersion].display .. "] ") or ""
+	local function uniqueName(base)
+		local result, suffix = base, 2
+		while usedNames[result] or usedNames[versionPrefix .. result] do
+			result = base .. " (" .. suffix .. ")"
+			suffix = suffix + 1
+		end
+		usedNames[result] = true
+		usedNames[versionPrefix .. result] = true
+		return result
+	end
+	name = (name or ""):gsub("^%s+", ""):gsub("%s+$", "")
+	-- Braces have special linking semantics in loadout names.
+	name = name:gsub("{", "("):gsub("}", ")")
+	name = uniqueName(name ~= "" and name or "Imported loadout")
+	local displayName = versionPrefix .. name
+
+	-- A single set is implicitly shared by all existing loadouts. Materialise
+	-- those associations before adding another set, so they continue to work.
+	local existingLoadouts = { }
+	for _, title in ipairs(build.controls.buildLoadouts.list) do
+		existingLoadouts[title] = true
+	end
+	local function preserveSharedSets(tab, sets, order, create)
+		if #order ~= 1 then
+			return
+		end
+		local shared = sets[order[1]]
+		for _, spec in ipairs(build.treeTab.specList) do
+			local title = spec.title or "Default"
+			local displayTitle = (spec.treeVersion ~= latestTreeVersion and ("[" .. treeVersions[spec.treeVersion].display .. "] ") or "") .. title
+			local linkedLoadout = false
+			local identifiers = title:match("%{([%w,]+)%}")
+			if identifiers then
+				local base = title:gsub("%{" .. identifiers .. "%}", ""):gsub("^%s*", ""):gsub("%s*$", "")
+				for identifier in identifiers:gmatch("[^,]+") do
+					linkedLoadout = linkedLoadout or existingLoadouts[(base ~= "" and base or "Default") .. " {" .. identifier .. "}"]
+				end
+			end
+			local setTitle = identifiers and title or displayTitle
+			if (existingLoadouts[displayTitle] or linkedLoadout) and setTitle ~= (shared.title or "Default") then
+				local set = tab[create](tab)
+				local id = set.id
+				-- Skill groups contain calculation state; copy their editable fields
+				-- the same way as the skill set manager and undo handler.
+				local copied
+				if tab == build.skillsTab then
+					copied = tab:CreateUndoState().skillSets[shared.id]
+				else
+					copied = copyTable(shared)
+				end
+				for key, value in pairs(copied) do
+					set[key] = value
+				end
+				set.id, set.title = id, setTitle
+				t_insert(order, id)
+			end
+		end
+	end
+	preserveSharedSets(build.itemsTab, build.itemsTab.itemSets, build.itemsTab.itemSetOrderList, "NewItemSet")
+	preserveSharedSets(build.skillsTab, build.skillsTab.skillSets, build.skillsTab.skillSetOrderList, "NewSkillSet")
+	preserveSharedSets(build.configTab, build.configTab.configSets, build.configTab.configSetOrderList, "NewConfigSet")
+
+	local itemIds, itemSetIds = { }, { }
+	for _, id in ipairs(imported.itemsTab.itemOrderList) do
+		local item = copyTableSafe(imported.itemsTab.items[id], true, true)
+		item.id = nil
+		build.itemsTab:AddItem(item, true)
+		itemIds[id] = item.id
+	end
+	-- Keep the other item sets too: minion skills can refer to them.
+	for _, id in ipairs(imported.itemsTab.itemSetOrderList) do
+		local source = imported.itemsTab.itemSets[id]
+		local set = build.itemsTab:NewItemSet()
+		itemSetIds[id] = set.id
+		set.title = id == imported.itemsTab.activeItemSetId and displayName or uniqueName(displayName .. " - " .. (source.title or "Default"))
+		set.useSecondWeaponSet = source.useSecondWeaponSet
+		for slotName, slot in pairs(source) do
+			if type(slot) == "table" then
+				set[slotName] = copyTable(slot)
+				if slot.selItemId then
+					set[slotName].selItemId = itemIds[slot.selItemId] or 0
+				end
+			end
+		end
+		t_insert(build.itemsTab.itemSetOrderList, set.id)
+	end
+
+	local skillSet = build.skillsTab:NewSkillSet()
+	skillSet.title = displayName
+	t_insert(build.skillsTab.skillSetOrderList, skillSet.id)
+	-- Loading imbued supports updates the displayed group, so leave the old
+	-- skill set before loading any of the incoming groups.
+	build.skillsTab:SetActiveSkillSet(skillSet.id)
+	local skillsXML = { }
+	imported.skillsTab:Save(skillsXML)
+	for _, set in ipairs(skillsXML) do
+		if tonumber(set.attrib.id) == imported.skillsTab.activeSkillSetId then
+			for _, skill in ipairs(set) do
+				if skill.attrib.source then
+					skill.attrib.source = skill.attrib.source:gsub("^Item:(%d+):", function(id)
+						return "Item:" .. (itemIds[tonumber(id)] or 0) .. ":"
+					end)
+				end
+				for _, gem in ipairs(skill) do
+					for _, key in ipairs({ "skillMinionItemSet", "skillMinionItemSetCalcs" }) do
+						gem.attrib[key] = tostring(itemSetIds[tonumber(gem.attrib[key]) or 1] or itemSetIds[imported.itemsTab.activeItemSetId])
+					end
+				end
+				build.skillsTab:LoadSkill(skill, skillSet.id)
+			end
+		end
+	end
+
+	local configSet = build.configTab:NewConfigSet(nil, displayName)
+	local sourceConfig = imported.configTab.configSets[imported.configTab.activeConfigSetId]
+	configSet.input = copyTable(sourceConfig.input)
+	configSet.placeholder = copyTable(sourceConfig.placeholder)
+	configSet.customModsList = copyTable(sourceConfig.customModsList)
+	t_insert(build.configTab.configSetOrderList, configSet.id)
+	for _, spectre in ipairs(imported.spectreList) do
+		if not isValueInArray(build.spectreList, spectre) then
+			t_insert(build.spectreList, spectre)
+		end
+	end
+
+	local specXML = { }
+	imported.spec:Save(specXML)
+	specXML.attrib.title = name
+	for _, section in ipairs(specXML) do
+		if section.elem == "Sockets" then
+			for _, socket in ipairs(section) do
+				socket.attrib.itemId = tostring(itemIds[tonumber(socket.attrib.itemId)] or 0)
+			end
+		end
+	end
+	local spec = new("PassiveSpec"):PassiveSpec(build, imported.spec.treeVersion)
+	spec:Load(specXML, "Imported loadout")
+	t_insert(build.treeTab.specList, spec)
+	build.itemsTab:SetActiveItemSet(itemSetIds[imported.itemsTab.activeItemSetId])
+	build.treeTab:SetActiveSpec(#build.treeTab.specList)
+	spec:PostLoad()
+	build.skillsTab:SetActiveSkillSet(skillSet.id)
+	build.configTab:SetActiveConfigSet(configSet.id)
+	build.skillsTab:UpdateSocketGroups()
+	build.itemsTab:AddUndoState()
+	build.skillsTab:AddUndoState()
+	build.configTab:AddUndoState()
+	build:SyncLoadouts()
+	build.modFlag = true
+	build.buildFlag = true
+	return true
 end
 
 --- @param realm string
