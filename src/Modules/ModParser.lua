@@ -2979,6 +2979,9 @@ local specialModList = {
 	["if diamond flask charges are consumed, (%d+)%% increased critical strike chance"] = function (num) return {
 		mod("CritChance", "INC", num, { type = "SkillType", skillType = SkillType.Triggered, neg = true }, { type = "SkillType", skillType = SkillType.Channel, neg = true }, { type = "Condition", var = "HaveDiamondFlask" })
 	} end,
+	["if diamond flask charges are consumed, %+(%d+)%% to critical strike multiplier"] = function (num) return {
+		mod("CritMultiplier", "BASE", num, { type = "SkillType", skillType = SkillType.Triggered, neg = true }, { type = "SkillType", skillType = SkillType.Channel, neg = true }, { type = "Condition", var = "HaveDiamondFlask" })
+	} end,
 	["if bismuth flask charges are consumed, penetrate (%d+)%% elemental resistances"] = function (num) return {
 		mod("ElementalPenetration", "BASE", num, { type = "SkillType", skillType = SkillType.Triggered, neg = true }, { type = "SkillType", skillType = SkillType.Channel, neg = true }, { type = "Condition", var = "HaveBismuthFlask" })
 	} end,
