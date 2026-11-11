@@ -17,6 +17,63 @@ describe("TestDefence", function()
 		return build.calcsTab.calcs.reducePoolsByDamage(nil, takenDamages, build.calcsTab.calcsEnv.player)
 	end
 
+	local function calculateAvoidance(avoidance, elusive, category, worstOf, mixedDamage)
+		build.configTab.input.enemyDamageType = category
+		build.configTab.input.enemyIsBoss = "None"
+		build.configTab.input.enemyCritChance = 0
+		build.configTab.input.EHPUnluckyWorstOf = worstOf
+		build.configTab.input.buffElusive = elusive
+		for _, damageType in ipairs({ "Physical", "Lightning", "Cold", "Fire", "Chaos" }) do
+			build.configTab.input["enemy"..damageType.."Damage"] = (damageType == "Cold" or mixedDamage and damageType == "Fire") and "1000" or "0"
+		end
+		build.configTab.input.customMods = "+1000 to maximum Life\n+60% to Cold Resistance\n"..avoidance
+		if elusive then
+			build.configTab.input.customMods = build.configTab.input.customMods.."\nGain Elusive on Critical Strike\n100% increased Elusive Effect"
+		end
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+		return build.calcsTab.calcsOutput
+	end
+
+	it("adds Elusive and type-specific damage avoidance without applying either twice", function()
+		for _, category in ipairs({ "Melee", "Projectile", "Spell", "SpellProjectile", "Untyped", "Average" }) do
+			for _, worstOf in ipairs({ 1, 2, 4 }) do
+				for _, chance in ipairs({ 0, 15, 70 }) do
+					local combined = math.min(15 + chance, data.misc.AvoidChanceCap)
+					local output = calculateAvoidance(chance.."% chance to Avoid Cold Damage from Hits\n10% chance to Avoid Projectiles", true, category, worstOf)
+					assert.are.equal(15, output.AvoidAllDamageFromHitsChance)
+					assert.are.equal(combined, output.AvoidColdDamageChance)
+					assert.are.equal(15, output.AvoidPhysicalDamageChance)
+					if category == "SpellProjectile" then
+						assert.are.near(100 * (0.1 ^ worstOf), output.ConfiguredNotHitChance, 0.000001)
+					end
+					local reference = calculateAvoidance(combined.."% chance to Avoid Cold Damage from Hits\n10% chance to Avoid Projectiles", false, category, worstOf)
+					assert.are.near(reference.TotalEHP, output.TotalEHP, 0.000001)
+				end
+			end
+		end
+	end)
+
+	it("applies additive damage avoidance and projectile avoidance as independent probabilities", function()
+		local baseline = calculateAvoidance("", false, "SpellProjectile", 1)
+		local damageAvoidance = calculateAvoidance("15% chance to Avoid Cold Damage from Hits", true, "SpellProjectile", 1)
+		assert.are.near(baseline.TotalEHP / 0.7, damageAvoidance.TotalEHP, 0.000001)
+
+		local projectileAvoidance = calculateAvoidance("15% chance to Avoid Cold Damage from Hits\n10% chance to Avoid Projectiles", true, "SpellProjectile", 1)
+		-- 30% damage avoidance and 10% projectile avoidance leave 63% of attempts dealing damage.
+		assert.are.near(baseline.TotalEHP / 0.63, projectileAvoidance.TotalEHP, 0.000001)
+	end)
+
+	it("applies type-specific avoidance only to its portion of a mixed-damage hit", function()
+		local baseline = calculateAvoidance("", false, "Spell", 1, true)
+		local output = calculateAvoidance("15% chance to Avoid Cold Damage from Hits", true, "Spell", 1, true)
+		assert.are.equal(30, output.AvoidColdDamageChance)
+		assert.are.equal(15, output.AvoidFireDamageChance)
+		local damage = baseline.ColdTakenHit + baseline.FireTakenHit
+		local expectedDamage = baseline.ColdTakenHit * 0.7 + baseline.FireTakenHit * 0.85
+		assert.are.near(baseline.TotalEHP * damage / expectedDamage, output.TotalEHP, 0.000001)
+	end)
+
 	it("attributes resistances inherited by minions to Bonemeld after loading a build", function()
 		build.skillsTab:PasteSocketGroup("Raise Zombie 20/0  1")
 		build.itemsTab:CreateDisplayItemFromRaw("Rarity: UNIQUE\nBonemeld\nMarble Amulet\nImplicits: 0\nMinions gain added Resistances equal to 50% of your Resistances")
