@@ -198,26 +198,48 @@ describe("TradeQuery", function()
 			end
 		end)
 
-		it("describes added and replaced bench crafts in result tooltips", function()
-			local itemString = "Rarity: RARE\nBehemoth Hold\nGold Ring\nImplicits: 0\n{crafted}{suffix}+25 to Strength"
-			local cases = {
-				{ name = "added", evaluation = { benchCraft = "+25 to Strength ^8(Suffix)",
-					benchCraftItemString = itemString },
-					expected = { "+25 to Strength", "[Ctrl: compare]" } },
-				{ name = "replaced", evaluation = { benchCraft = "+25 to Strength ^8(Suffix)",
-					benchCraftReplaced = "+20 to Dexterity ^8(Suffix)", benchCraftItemString = itemString },
-					expected = { "+20 to Dexterity", "+25 to Strength" } },
-			}
-			for _, case in ipairs(cases) do
-				local tq = newResultQuery(case.evaluation)
-				tq.itemsTab.AddItemTooltip = function() end
-				local tooltip = new("Tooltip"):Tooltip()
-				buildResultDropdown(tq).tooltipFunc(tooltip, "DROP", 1, nil)
-				local text = tooltipText(tooltip)
-				for _, expected in ipairs(case.expected) do
-					assert.is_truthy(text:find(expected, 1, true), case.name)
+		describe("compact craft summary", function()
+			local originalDrawStringWidth
+			before_each(function()
+				originalDrawStringWidth = _G.DrawStringWidth
+				-- A deterministic character-width model exercises layout without native fonts.
+				_G.DrawStringWidth = function(_, _, text) return #StripEscapes(text) end
+			end)
+			after_each(function()
+				_G.DrawStringWidth = originalDrawStringWidth
+			end)
+			it("keeps proposed crafts within the item width without repeating the removed craft", function()
+				local itemString = "Rarity: RARE\nBehemoth Hold\nGold Ring\nImplicits: 0\n+50% to Fire Resistance\n{crafted}{suffix}+20 to Dexterity"
+				local cases = {
+					{ name = "added", evaluation = { benchCraft = "+25 to Strength ^8(Suffix)",
+						benchCraftItemString = itemString },
+						expected = { "+25", "Strength", "Ctrl", "compare" } },
+					{ name = "replaced", evaluation = { benchCraft = "+25 to Strength ^8(Suffix)",
+						benchCraftReplaced = "+20 to Dexterity ^8(Suffix)", benchCraftItemString = itemString },
+						expected = { "Replace craft ^8(Suffix):", "+25", "Strength", "Ctrl", "compare" } },
+					{ name = "multiline replacement", evaluation = {
+						benchCraft = "25% increased Armour\n+30 to maximum Energy Shield ^8(Prefix)",
+						benchCraftReplaced = "+20 to Dexterity ^8(Suffix)", benchCraftItemString = itemString },
+						expected = { "Replace craft ^8(Prefix):", "25%", "Armour", "+30", "Energy", "Shield" } },
+				}
+				for _, case in ipairs(cases) do
+					local tq = newResultQuery(case.evaluation, itemString)
+					local itemWidth
+					tq.itemsTab.AddItemTooltip = function(self, tooltip, item)
+						addItemTooltip(self, tooltip, item)
+						itemWidth = tooltip:GetSize()
+					end
+					local tooltip = new("Tooltip"):Tooltip()
+					buildResultDropdown(tq).tooltipFunc(tooltip, "DROP", 1, nil)
+					local text = tooltipText(tooltip)
+					local _, oldCraftOccurrences = text:gsub("%+20 to Dexterity", "")
+					assert.are.equal(1, oldCraftOccurrences, case.name)
+					assert.is_true(tooltip:GetSize() <= itemWidth, case.name)
+					for _, expected in ipairs(case.expected) do
+						assert.is_truthy(text:find(expected, 1, true), case.name)
+					end
 				end
-			end
+			end)
 		end)
 
 		it("shows the simulated item as an estimate and highlights its craft while Ctrl is held", function()

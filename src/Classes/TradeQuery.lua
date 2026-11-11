@@ -1210,7 +1210,7 @@ function TradeQueryClass:GetBestBenchCraftEvaluation(item, slotName, calcFunc, b
 		if craftWeight > weight then
 			output = craftOutput
 			weight = craftWeight
-			bestCraft = table.concat(craft, "/") .. " ^8(" .. craft.type .. ")"
+			bestCraft = table.concat(craft, "\n") .. " ^8(" .. craft.type .. ")"
 			bestCraftItemString = craftedItem:BuildRaw()
 			bestReplacedCraft = replacedCraft
 			bestCraftLineIndexes = { }
@@ -1702,12 +1702,40 @@ you can add them, copy the link here, and press "Price Item" to evaluate the ite
 		if not evaluation or not evaluation.benchCraft then
 			return
 		end
-		local compareHint = evaluation.benchCraftItemString and colorCodes.TIP .. " [Ctrl: compare]" or ""
-		local craftLabel = evaluation.benchCraftReplaced
-			and "^7Replace craft: " .. evaluation.benchCraftReplaced .. " -> "
-			or "^7Bench craft: "
+		local textWidth = 0
+		for _, line in ipairs(tooltip.lines) do
+			if line.text then
+				textWidth = m_max(textWidth, DrawStringWidth(line.size, line.font, line.text))
+			end
+		end
+		local craftText, craftType = evaluation.benchCraft:match("^(.*)%s+%^8(%b())$")
+		local craftLabel = evaluation.benchCraftReplaced and "^7Replace craft" or "^7Bench craft"
+		local summary = { craftLabel .. (craftType and " ^8" .. craftType or "") .. ":" }
+		for line in (craftText or evaluation.benchCraft):gmatch("[^\n]+") do
+			t_insert(summary, "^7" .. line)
+		end
+		if evaluation.benchCraftItemString then
+			t_insert(summary, colorCodes.TIP .. "Tip: Hold Ctrl to compare items.")
+		end
 		tooltip:AddSeparator(10)
-		tooltip:AddLine(16, craftLabel .. evaluation.benchCraft .. compareHint)
+		local maxWidth = tooltip.maxWidth
+		tooltip.maxWidth = nil
+		-- Keep the summary within the existing item text, wrapping before an oversized word.
+		for index, text in ipairs(summary) do
+			local size = evaluation.benchCraftItemString and index == #summary and 14 or 16
+			local line = ""
+			for word in text:gmatch("%S+") do
+				local nextLine = line == "" and word or line .. " " .. word
+				if line ~= "" and DrawStringWidth(size, "VAR", nextLine) > textWidth then
+					tooltip:AddLine(size, line)
+					line = word
+				else
+					line = nextLine
+				end
+			end
+			tooltip:AddLine(size, line)
+		end
+		tooltip.maxWidth = maxWidth
 		return evaluation
 	end
 	local function addBenchCraftPreviewIfApplicable(tooltip, evaluation, tooltipSlot, sourceItem)
