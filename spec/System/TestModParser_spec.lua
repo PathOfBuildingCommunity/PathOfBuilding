@@ -1,24 +1,12 @@
 describe("TestModParser", function()
 	local function getMasterDistillerCritMultiplier(skillTypes, hasDiamondFlask)
-		local mods = modLib.parseMod("If Diamond Flask Charges are consumed, +100% to Critical Strike Multiplier")
+		local mods, extra = modLib.parseMod("If Diamond Flask Charges are consumed, +100% to Critical Strike Multiplier")
+		assert.is_nil(extra)
 		local modDB = new("ModDB"):ModDB()
 		modDB:AddList(mods)
 		modDB.conditions.HaveDiamondFlask = hasDiamondFlask
 		return modDB:Sum("BASE", { skillTypes = skillTypes }, "CritMultiplier")
 	end
-
-	it("parses the Master Distiller diamond flask bonus as critical strike multiplier", function()
-		local mods, extra = modLib.parseMod("If Diamond Flask Charges are consumed, +100% to Critical Strike Multiplier")
-
-		assert.is_nil(extra)
-		assert.are.equal(1, #mods)
-		assert.are.equal("CritMultiplier", mods[1].name)
-		assert.are.equal("BASE", mods[1].type)
-		assert.are.equal(100, mods[1].value)
-		assert.are.same({ type = "SkillType", skillType = SkillType.Triggered, neg = true }, mods[1][1])
-		assert.are.same({ type = "SkillType", skillType = SkillType.Channel, neg = true }, mods[1][2])
-		assert.are.same({ type = "Condition", var = "HaveDiamondFlask" }, mods[1][3])
-	end)
 
 	it("applies the Master Distiller diamond flask bonus only to eligible skills while the flask is present", function()
 		assert.are.equal(100, getMasterDistillerCritMultiplier({}, true))
@@ -27,42 +15,18 @@ describe("TestModParser", function()
 		assert.are.equal(0, getMasterDistillerCritMultiplier({ [SkillType.Channel] = true }, true))
 	end)
 
-	it("keeps the legacy Master Distiller diamond flask bonus as critical strike chance", function()
-		local mods, extra = modLib.parseMod("If Diamond Flask Charges are consumed, 250% increased Critical Strike Chance")
-
-		assert.is_nil(extra)
-		assert.are.equal("CritChance", mods[1].name)
-		assert.are.equal("INC", mods[1].type)
-		assert.are.equal(250, mods[1].value)
-	end)
-
-	it("parses Master Surgeon's life flask recovery rate as a multiplicative rate modifier", function()
-		local mods, extra = modLib.parseMod("50% less Life Flask Recovery Rate")
-		local modDB = new("ModDB"):ModDB()
-		modDB:AddList(mods)
-
-		assert.is_nil(extra)
-		assert.are.equal(1, #mods)
-		assert.are.equal("FlaskLifeRecoveryRate", mods[1].name)
-		assert.are.equal("MORE", mods[1].type)
-		assert.are.equal(-50, mods[1].value)
-		assert.are.equal(0.5, modDB:More(nil, "FlaskLifeRecoveryRate"))
-	end)
-
-	it("parses Regenerative Runes as Iron Flask effect", function()
-		local mods, extra = modLib.parseMod("20% increased Effect of Iron Flasks")
-		assert.is_nil(extra)
-		assert.are.equal("IronFlaskEffect", mods[1].name)
-		assert.are.equal("INC", mods[1].type)
-		assert.are.equal(20, mods[1].value)
-	end)
-
-	it("keeps Master Surgeon's legacy recovery amount penalty", function()
-		local mods, extra = modLib.parseMod("50% less Life Recovery from Flasks")
-
-		assert.is_nil(extra)
-		assert.are.equal("FlaskLifeRecovery", mods[1].name)
-		assert.are.equal("MORE", mods[1].type)
-		assert.are.equal(-50, mods[1].value)
-	end)
+	for text, expected in pairs({
+		["If Diamond Flask Charges are consumed, 250% increased Critical Strike Chance"] = { "CritChance", "INC", 250 },
+		["50% less Life Flask Recovery Rate"] = { "FlaskLifeRecoveryRate", "MORE", -50 },
+		["50% less Flask Life Recovery Rate"] = { "FlaskLifeRecoveryRate", "MORE", -50 },
+		["50% less Life Recovery from Flasks"] = { "FlaskLifeRecovery", "MORE", -50 },
+		["20% increased Effect of Iron Flasks"] = { "IronFlaskEffect", "INC", 20 },
+	}) do
+		it("parses " .. text, function()
+			local mods, extra = modLib.parseMod(text)
+			assert.is_nil(extra)
+			assert.are.equal(1, #mods)
+			assert.are.same(expected, { mods[1].name, mods[1].type, mods[1].value })
+		end)
+	end
 end)
