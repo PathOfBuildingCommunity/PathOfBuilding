@@ -207,6 +207,11 @@ function TradeQueryRequestsClass:SearchWithQueryWeightAdjusted(realm, league, qu
 					if errMsg then
 						return resultCallback(nil, errMsg)
 					end
+					if not items[1] then
+						-- Every listing of the batch is gone, so there is no weight to adjust from:
+						-- keep the results of this search.
+						return self:FetchResults(response.result, response.id, resultCallback)
+					end
 					previousSearchItems = items
 					local highestWeight = items[1].weight
 					local queryJson = dkjson.decode(query)
@@ -274,19 +279,30 @@ function TradeQueryRequestsClass:FetchResults(itemHashes, queryId, callback)
 	local quantity_found = math.min(#itemHashes, self.maxFetchPerSearch)
 	local max_block_size = 10
 	local items = {}
+	-- A block can return fewer listings than ids requested (a listing removed since the
+	-- search comes back as null), so completion counts answered blocks, not items.
+	local pendingBlocks = math.ceil(quantity_found / max_block_size)
+	if pendingBlocks == 0 then
+		return callback(items)
+	end
+	local failed = false
 	for fetch_block_start = 1, quantity_found, max_block_size do
 		local fetch_block_end = math.min(fetch_block_start + max_block_size - 1, quantity_found)
 		local param_item_hashes = table.concat({unpack(itemHashes, fetch_block_start, fetch_block_end)}, ",")
 		local fetch_url = self.hostName .. "api/trade/fetch/"..param_item_hashes.."?query="..queryId
 		self:FetchResultBlock(fetch_url, function(itemBlock, errMsg)
+			if failed then
+				return
+			end
 			if errMsg then
+				failed = true
 				return callback(nil, errMsg)
 			end
 			for _, item in pairs(itemBlock) do
 				table.insert(items, item)
 			end
-			-- finished fetching item blocks
-			if #items >= quantity_found then
+			pendingBlocks = pendingBlocks - 1
+			if pendingBlocks == 0 then
 				callback(items)
 			end
 		end)

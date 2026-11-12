@@ -191,6 +191,34 @@ Strict-Transport-Security: max-age=63115200; includeSubDomains; preload]]
 			requests.PerformSearch = orig_perform
 			requests.FetchResultBlock = orig_fetchBlock
 		end)
+
+		-- Pass: A clipped search whose top listings are all gone keeps its own results
+		-- Fail: Indexing the empty batch raises, or the search never finishes
+		it("keeps the clipped results when the highest listings are gone", function()
+			local adjustRequests = new("TradeQueryRequests"):TradeQueryRequests(mock_limiter)
+			local searchCalls, fetchCalls, callbackCalls = 0, 0, 0
+			local finalItems = { { id = "item11", weight = "90" } }
+			adjustRequests.PerformSearch = function(_, realm, league, query, callback)
+				searchCalls = searchCalls + 1
+				callback({ total = 10000, result = { "item1", "item11" }, id = "clipped" })
+			end
+			adjustRequests.FetchResults = function(_, ids, queryId, callback)
+				fetchCalls = fetchCalls + 1
+				if fetchCalls == 2 then
+					assert.same({ "item1", "item11" }, ids)
+					assert.are.equal("clipped", queryId)
+				end
+				callback(fetchCalls == 1 and { } or finalItems)
+			end
+			adjustRequests:SearchWithQueryWeightAdjusted("pc", "league", [[{"query":{"stats":[{"value":{"min":0}}]}}]], function(items, errMsg)
+				callbackCalls = callbackCalls + 1
+				assert.is_nil(errMsg)
+				assert.are.equal(finalItems, items)
+			end)
+			assert.are.equal(1, searchCalls)
+			assert.are.equal(2, fetchCalls)
+			assert.are.equal(1, callbackCalls)
+		end)
 	end)
 
 	describe("FetchResultBlock", function()
@@ -481,6 +509,50 @@ Strict-Transport-Security: max-age=63115200; includeSubDomains; preload]]
 				assert.are.equal(block_count, 1)
 			end)
 			requests.FetchResultBlock = orig_fetchBlock
+		end)
+
+		-- Pass: Each call ends with exactly one callback
+		-- Fail: The Trader row stays on "Searching..." or receives repeated callbacks
+		local function runFetchResults(itemHashes, blockResponses)
+			local fetchRequests = new("TradeQueryRequests"):TradeQueryRequests(mock_limiter)
+			fetchRequests.maxFetchPerSearch = 20
+			local calls = { }
+			fetchRequests:FetchResults(itemHashes, "queryId", function(items, errMsg)
+				table.insert(calls, { items = items, errMsg = errMsg })
+			end)
+			for _, response in ipairs(blockResponses) do
+				table.remove(fetchRequests.requestQueue.fetch, 1).callback(response.body, response.errMsg)
+			end
+			return calls
+		end
+
+		it("finishes when a listing comes back as null", function()
+			local listing = dkjson.encode({
+				id = "id1",
+				listing = { price = { amount = 1, currency = "chaos", type = "~price" }, whisper = "hi", account = { name = "seller" } },
+				item = { rarity = "Rare", name = "Test Subject", typeLine = "Astral Plate" },
+			})
+			local calls = runFetchResults({ "id1", "id2" }, { { body = '{"result":[' .. listing .. ',null]}' } })
+			assert.are.equal(1, #calls)
+			assert.are.equal("id1", calls[1].items[1].id)
+			assert.are.equal(1, #calls[1].items)
+		end)
+
+		it("finishes without ids to fetch", function()
+			local calls = runFetchResults({ }, { })
+			assert.are.equal(1, #calls)
+			assert.same({ }, calls[1].items)
+		end)
+
+		it("reports failed blocks once", function()
+			local itemHashes = { }
+			for i = 1, 20 do
+				table.insert(itemHashes, "id" .. i)
+			end
+			local calls = runFetchResults(itemHashes, { { errMsg = "Response code: 500" }, { errMsg = "Response code: 500" } })
+			assert.are.equal(1, #calls)
+			assert.is_nil(calls[1].items)
+			assert.are.equal("Response code: 500", calls[1].errMsg)
 		end)
 	end)
 end)
