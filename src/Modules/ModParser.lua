@@ -1576,6 +1576,7 @@ local modTagList = {
 	["w?h?i[lf]e? you have at least (%d+) maximum energy shield"] = function(num) return { tag = { type = "StatThreshold", stat = "EnergyShield", threshold = num } } end,
 	["against targets they pierce"] = { tag = { type = "StatThreshold", stat = "PierceCount", threshold = 1 } },
 	["against pierced targets"] = { tag = { type = "StatThreshold", stat = "PierceCount", threshold = 1 } },
+	["against enemies within ([%d%.]+) metres?"] = function(num) return { tag = { type = "DistanceRamp", ramp = { { num * 10, 1 }, { num * 10, 0 } } } } end,
 	["to targets they pierce"] = { tag = { type = "StatThreshold", stat = "PierceCount", threshold = 1 } },
 	["that fire a single projectile"] = { tag = { type = "StatThreshold", stat = "ProjectileCount", threshold = 1, upper = true } },
 	["w?h?i[lf]e? you have at least (%d+) devotion"] = function(num) return { tag = { type = "StatThreshold", stat = "Devotion", threshold = num } } end,
@@ -7006,6 +7007,23 @@ local function parseMod(line, order)
 	return modList, line:match("%S") and line
 end
 
+local function parseModOrdered(line)
+	local modList, extra = parseMod(line, 1)
+	if modList and extra then
+		modList, extra = parseMod(line, 2)
+	end
+	return modList, extra
+end
+
+local nearbyRewrites = {
+	{ "^enemy monsters within [%d%.]+ metres? have ", "nearby enemy monsters' " },
+	{ "while at least (%d+) enemies within [%d%.]+ metres?", "while at least %1 enemies are nearby" },
+	{ "while you have an ally within [%d%.]+ metres?", "while you have at least 1 nearby ally" },
+	{ "when you or allies within [%d%.]+ metres?", "when you or a nearby ally" },
+	{ "(rare or unique enem%a+) within [%d%.]+ metres?", "%1 nearby" },
+	{ "(applies .- to enemies) within [%d%.]+ metres?", "%1 near it" },
+	{ "(%a+) within [%d%.]+ metres?", "nearby %1" },
+}
 local cache = { }
 local unsupported = { }
 local count = 0
@@ -7014,9 +7032,17 @@ local count = 0
 return {
 	parseMod = function(line, isComb)
 		if not cache[line] then
-			local modList, extra = parseMod(line, 1)
-			if modList and extra then
-				modList, extra = parseMod(line, 2)
+			local modList, extra = parseModOrdered(line)
+			local nearbyLine = (not modList or extra) and line:lower()
+			-- 3.30 replaced "nearby" with explicit distances. Lines that don't parse are retried with the old wording
+			if nearbyLine and nearbyLine:find("within [%d%.]+ metre") then
+				for _, rewrite in ipairs(nearbyRewrites) do
+					nearbyLine = nearbyLine:gsub(rewrite[1], rewrite[2])
+				end
+				local nearbyModList, nearbyExtra = parseModOrdered(nearbyLine)
+				if nearbyModList and not nearbyExtra then
+					modList, extra = nearbyModList, nil
+				end
 			end
 			cache[line] = { modList, extra }
 			if foo and not isComb and not cache[line][1] then
