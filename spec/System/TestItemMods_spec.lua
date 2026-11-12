@@ -132,6 +132,41 @@ describe("TetsItemMods", function()
 		end)
 	end
 
+	it("applies the Steelworm projectile bonus for each historical shard threshold", function()
+		local raw
+		for _, entry in ipairs(data.uniques.quiver) do
+			if entry:match("^Steelworm\n") then
+				raw = entry
+				break
+			end
+		end
+		assert.is_not_nil(raw)
+
+		for variant, threshold in ipairs({ 12, 12, 8, 8 }) do
+			newBuild()
+			build.itemsTab:CreateDisplayItemFromRaw("Test Bow\nCrude Bow\nImplicits: 0")
+			build.itemsTab:AddDisplayItem()
+			local item = new("Item"):Item(raw)
+			item.variant = variant
+			item:BuildAndParseRaw()
+			build.itemsTab:AddItem(item, true)
+			build.itemsTab.slots["Weapon 2"]:SetSelItemId(item.id)
+			build.skillsTab:PasteSocketGroup("Fireball 20/0  1")
+			build.buildFlag = true
+			runCallback("OnFrame")
+			local base = build.calcsTab.mainOutput.ProjectileCount
+			local other = threshold == 8 and 12 or 8
+			build.configTab.input["conditionConsumed" .. other .. "SteelShardsRecently"] = true
+			build.configTab:BuildModList()
+			runCallback("OnFrame")
+			assert.are.equals(base, build.calcsTab.mainOutput.ProjectileCount)
+			build.configTab.input["conditionConsumed" .. threshold .. "SteelShardsRecently"] = true
+			build.configTab:BuildModList()
+			runCallback("OnFrame")
+			assert.are.equals(base + 3, build.calcsTab.mainOutput.ProjectileCount)
+		end
+	end)
+
 	it("shows versioned reusable variant groups", function()
 		build.itemsTab:CreateDisplayItemFromRaw([[
 			Rarity: Unique

@@ -4631,6 +4631,7 @@ local specialModList = {
 	["modifiers to number of projectiles do not apply to fireball and rolling magma"] = { flag("NoAdditionalProjectiles", { type = "SkillName", skillNameList = { "Fireball", "Rolling Magma" } }) },
 	["attack skills fire an additional projectile while wielding a claw or dagger"] = { mod("ProjectileCount", "BASE", 1, nil, ModFlag.Attack, { type = "ModFlagOr", modFlags = bor(ModFlag.Claw, ModFlag.Dagger) }) },
 	["skills fire (%d+) additional projectiles for 4 seconds after you consume a total of 12 steel shards"] = function(num) return { mod("ProjectileCount", "BASE", num, { type = "Condition", var = "Consumed12SteelShardsRecently" }) } end,
+	["skills fire (%d+) additional projectiles for 4 seconds after you consume a total of 8 steel shards"] = function(num) return { mod("ProjectileCount", "BASE", num, { type = "Condition", var = "Consumed8SteelShardsRecently" }) } end,
 	["bow attacks sacrifice a random damageable minion to fire (%d+) additional arrows?"] = function(num) return {
 		mod("ProjectileCount", "BASE", num, nil, 0, KeywordFlag.Arrow, { type = "Condition", var = "SacrificeMinionOnAttack" }, { type = "Condition", var = "HaveDamageableMinion" }, { type = "SkillType", skillType = SkillType.Triggered, neg = true }, { type = "SkillType", skillType = SkillType.SummonsTotem, neg = true })
 	} end,

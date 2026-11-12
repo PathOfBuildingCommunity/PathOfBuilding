@@ -657,16 +657,20 @@ Harmonic Spirit Shield
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Pre 3.11.0
+Variant: Pre 3.30.0
 Variant: Current
 Implicits: 2
 {variant:1,2}10% increased Spell Damage
-{variant:3,4}(10-15)% increased Spell Damage
+{variant:3,4,5}(10-15)% increased Spell Damage
 {variant:1}(160-200)% increased Energy Shield
 {variant:2,3,4}(210-250)% increased Energy Shield
-+2 to Maximum Power Charges
-20% chance to gain a Power Charge on Hit
+{variant:5}(240-300)% increased Energy Shield
+{variant:1,2,3,4}+2 to Maximum Power Charges
+{variant:5}+1 to Maximum Power Charges
+{variant:1,2,3,4}20% chance to gain a Power Charge on Hit
+{variant:5}(20-40)% chance to gain a Power Charge on Hit
 {variant:1,2,3}6% increased Spell Damage per Power Charge
-{variant:4}(12-16)% increased Spell Damage per Power Charge
+{variant:4,5}(12-16)% increased Spell Damage per Power Charge
 Lose all Power Charges on reaching Maximum Power Charges
 Shocks you when you reach Maximum Power Charges
 ]],[[

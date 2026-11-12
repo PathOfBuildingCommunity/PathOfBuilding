@@ -1251,6 +1251,7 @@ c["+26 to Intelligence"]={{[1]={flags=0,keywordFlags=0,name="Int",type="BASE",va
 c["+26 to Maximum Charges"]={{[1]={flags=0,keywordFlags=0,name="FlaskCharges",type="BASE",value=26}},nil}
 c["+26 to Strength"]={{[1]={flags=0,keywordFlags=0,name="Str",type="BASE",value=26}},nil}
 c["+26 to Ward"]={{[1]={flags=0,keywordFlags=0,name="Ward",type="BASE",value=26}},nil}
+c["+26 to all Attributes"]={{[1]={flags=0,keywordFlags=0,name="Str",type="BASE",value=26},[2]={flags=0,keywordFlags=0,name="Dex",type="BASE",value=26},[3]={flags=0,keywordFlags=0,name="Int",type="BASE",value=26},[4]={flags=0,keywordFlags=0,name="All",type="BASE",value=26}},nil}
 c["+26 to maximum Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="EnergyShield",type="BASE",value=26}},nil}
 c["+26 to maximum Life"]={{[1]={flags=0,keywordFlags=0,name="Life",type="BASE",value=26}},nil}
 c["+26 to maximum Mana"]={{[1]={flags=0,keywordFlags=0,name="Mana",type="BASE",value=26}},nil}
@@ -2846,6 +2847,7 @@ c["-54% to Critical Strike Multiplier with Bows"]={{[1]={flags=131076,keywordFla
 c["-54% to Global Critical Strike Multiplier"]={{[1]={[1]={type="Global"},flags=0,keywordFlags=0,name="CritMultiplier",type="BASE",value=-54}},nil}
 c["-6 Physical Damage taken from Attack Hits"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageTakenFromAttacks",type="BASE",value=-6}},nil}
 c["-6 to Total Mana Cost of Skills"]={{[1]={flags=0,keywordFlags=0,name="ManaCost",type="BASE",value=-6}},nil}
+c["-6% to all Resistances for each Corrupted Item Equipped"]={{[1]={[1]={type="Multiplier",var="CorruptedItem"},flags=0,keywordFlags=0,name="ElementalResist",type="BASE",value=-6},[2]={[1]={type="Multiplier",var="CorruptedItem"},flags=0,keywordFlags=0,name="ChaosResist",type="BASE",value=-6}},nil}
 c["-60 Cold Damage taken from Hits"]={{[1]={flags=0,keywordFlags=0,name="ColdDamageTakenWhenHit",type="BASE",value=-60}},nil}
 c["-60 Fire Damage taken from Hits"]={{[1]={flags=0,keywordFlags=0,name="FireDamageTakenWhenHit",type="BASE",value=-60}},nil}
 c["-60 Lightning Damage taken from Hits"]={{[1]={flags=0,keywordFlags=0,name="LightningDamageTaken",type="BASE",value=-60}},"  from Hits "}
@@ -2857,6 +2859,7 @@ c["-65 Physical Damage taken from Projectile Attacks"]={{[1]={flags=0,keywordFla
 c["-7 Physical Damage taken from Attack Hits"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageTakenFromAttacks",type="BASE",value=-7}},nil}
 c["-7 to Total Mana Cost of Skills"]={{[1]={flags=0,keywordFlags=0,name="ManaCost",type="BASE",value=-7}},nil}
 c["-7% to all Elemental Resistances"]={{[1]={flags=0,keywordFlags=0,name="ElementalResist",type="BASE",value=-7}},nil}
+c["-7% to all Resistances for each Corrupted Item Equipped"]={{[1]={[1]={type="Multiplier",var="CorruptedItem"},flags=0,keywordFlags=0,name="ElementalResist",type="BASE",value=-7},[2]={[1]={type="Multiplier",var="CorruptedItem"},flags=0,keywordFlags=0,name="ChaosResist",type="BASE",value=-7}},nil}
 c["-70% to all Elemental Resistances"]={{[1]={flags=0,keywordFlags=0,name="ElementalResist",type="BASE",value=-70}},nil}
 c["-75% to all Elemental Resistances"]={{[1]={flags=0,keywordFlags=0,name="ElementalResist",type="BASE",value=-75}},nil}
 c["-8 Physical Damage taken from Attack Hits"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageTakenFromAttacks",type="BASE",value=-8}},nil}
@@ -3920,6 +3923,7 @@ c["10% increased Mana Reservation Efficiency of Herald Skills"]={{[1]={[1]={skil
 c["10% increased Mana Reservation Efficiency of Skills"]={{[1]={flags=0,keywordFlags=0,name="ManaReservationEfficiency",type="INC",value=10}},nil}
 c["10% increased Mana Reservation Efficiency of Skills that throw Mines"]={{[1]={flags=0,keywordFlags=8192,name="ManaReservationEfficiency",type="INC",value=10}},nil}
 c["10% increased Mana Reservation Efficiency of Stance Skills"]={{[1]={[1]={skillType=93,type="SkillType"},flags=0,keywordFlags=0,name="ManaReservationEfficiency",type="INC",value=10}},nil}
+c["10% increased Maximum Life for each Corrupted Item Equipped"]={{[1]={[1]={type="Multiplier",var="CorruptedItem"},flags=0,keywordFlags=0,name="Life",type="INC",value=10}},nil}
 c["10% increased Maximum Life if no Equipped Items are Corrupted"]={{[1]={[1]={threshold=0,type="MultiplierThreshold",upper=true,var="CorruptedItem"},flags=0,keywordFlags=0,name="Life",type="INC",value=10}},nil}
 c["10% increased Maximum Recovery per Life Leech for each 5% of Life Reserved"]={{[1]={[1]={div=5,stat="LifeReservedPercent",type="PerStat"},flags=0,keywordFlags=0,name="MaxLifeLeechInstance",type="INC",value=10}},nil}
 c["10% increased Maximum total Energy Shield Recovery per second from Leech"]={{[1]={flags=0,keywordFlags=0,name="MaxEnergyShieldLeechRate",type="INC",value=10}},nil}
@@ -4387,6 +4391,7 @@ c["11% increased Life Regeneration rate"]={{[1]={flags=0,keywordFlags=0,name="Li
 c["11% increased Lightning Damage"]={{[1]={flags=0,keywordFlags=0,name="LightningDamage",type="INC",value=11}},nil}
 c["11% increased Mana Recovery rate"]={{[1]={flags=0,keywordFlags=0,name="ManaRecoveryRate",type="INC",value=11}},nil}
 c["11% increased Mana Reservation Efficiency of Skills"]={{[1]={flags=0,keywordFlags=0,name="ManaReservationEfficiency",type="INC",value=11}},nil}
+c["11% increased Maximum Energy Shield for each Corrupted Item Equipped"]={{[1]={[1]={type="Multiplier",var="CorruptedItem"},flags=0,keywordFlags=0,name="EnergyShield",type="INC",value=11}},nil}
 c["11% increased Melee Damage"]={{[1]={flags=256,keywordFlags=0,name="Damage",type="INC",value=11}},nil}
 c["11% increased Mine Throwing Speed"]={{[1]={flags=0,keywordFlags=0,name="MineLayingSpeed",type="INC",value=11}},nil}
 c["11% increased Minion Duration"]={{[1]={[1]={skillType=77,type="SkillType"},[2]={skillType=6,type="SkillType"},flags=0,keywordFlags=0,name="Duration",type="INC",value=11}},nil}
@@ -4579,6 +4584,7 @@ c["12% increased Lightning Damage with Attack Skills"]={{[1]={flags=0,keywordFla
 c["12% increased Mana Cost Efficiency"]={{[1]={flags=0,keywordFlags=0,name="ManaCostEfficiency",type="INC",value=12}},nil}
 c["12% increased Mana Recovery rate"]={{[1]={flags=0,keywordFlags=0,name="ManaRecoveryRate",type="INC",value=12}},nil}
 c["12% increased Mana Reservation Efficiency of Skills"]={{[1]={flags=0,keywordFlags=0,name="ManaReservationEfficiency",type="INC",value=12}},nil}
+c["12% increased Maximum Energy Shield for each Corrupted Item Equipped"]={{[1]={[1]={type="Multiplier",var="CorruptedItem"},flags=0,keywordFlags=0,name="EnergyShield",type="INC",value=12}},nil}
 c["12% increased Maximum Life if no Equipped Items are Corrupted"]={{[1]={[1]={threshold=0,type="MultiplierThreshold",upper=true,var="CorruptedItem"},flags=0,keywordFlags=0,name="Life",type="INC",value=12}},nil}
 c["12% increased Melee Critical Strike Chance"]={{[1]={flags=256,keywordFlags=0,name="CritChance",type="INC",value=12}},nil}
 c["12% increased Melee Damage"]={{[1]={flags=256,keywordFlags=0,name="Damage",type="INC",value=12}},nil}
@@ -6354,7 +6360,7 @@ c["20% chance to gain a Frenzy Charge when you Block Attack Damage"]={nil,"a Fre
 c["20% chance to gain a Power Charge on Critical Strike"]={nil,"a Power Charge "}
 c["20% chance to gain a Power Charge on Critical Strike You have Mind over Matter while at maximum Power Charges"]={nil,"a Power Charge You have Mind over Matter  "}
 c["20% chance to gain a Power Charge on Hit"]={nil,"a Power Charge on Hit "}
-c["20% chance to gain a Power Charge on Hit 6% increased Spell Damage per Power Charge"]={nil,"a Power Charge on Hit 6% increased Spell Damage  "}
+c["20% chance to gain a Power Charge on Hit 40% chance to gain a Power Charge on Hit"]={nil,"a Power Charge on Hit 40% chance to gain a Power Charge on Hit "}
 c["20% chance to gain a Power Charge when you Block"]={nil,"a Power Charge when you Block "}
 c["20% chance to gain a Power Charge when you Block +10% Chance to Block Spell Damage while at Maximum Power Charges"]={nil,"a Power Charge when you Block +10% Chance to Block Spell Damage  "}
 c["20% chance to gain a Power Charge when you Block +8% Chance to Block Attack Damage while wielding a Staff"]={nil,"a Power Charge when you Block +8% Chance to Block Attack Damage  "}
@@ -7553,6 +7559,7 @@ c["25% of Attack Physical Damage Converted to Fire Damage"]={{[1]={flags=1,keywo
 c["25% of Attack Physical Damage Converted to Lightning Damage"]={{[1]={flags=1,keywordFlags=0,name="PhysicalDamageConvertToLightning",type="BASE",value=25}},nil}
 c["25% of Cold Damage taken as Fire Damage"]={{[1]={flags=0,keywordFlags=0,name="ColdDamageTakenAsFire",type="BASE",value=25}},nil}
 c["25% of Damage is taken from Mana before Life"]={{[1]={flags=0,keywordFlags=0,name="DamageTakenFromManaBeforeLife",type="BASE",value=25}},nil}
+c["25% of Damage taken Recouped as Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="EnergyShieldRecoup",type="BASE",value=25}},nil}
 c["25% of Damage taken Recouped as Life"]={{[1]={flags=0,keywordFlags=0,name="LifeRecoup",type="BASE",value=25}},nil}
 c["25% of Damage taken Recouped as Life if Leech was removed by Filling Unreserved Life Recently"]={{[1]={flags=0,keywordFlags=0,name="LifeRecoup",type="BASE",value=25}},"  if Leech was removed by Filling Unreserved Life Recently "}
 c["25% of Damage taken Recouped as Life, Mana and Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="LifeRecoup",type="BASE",value=25},[2]={flags=0,keywordFlags=0,name="EnergyShieldRecoup",type="BASE",value=25},[3]={flags=0,keywordFlags=0,name="ManaRecoup",type="BASE",value=25}},nil}
@@ -7722,6 +7729,7 @@ c["27% reduced Charges per use"]={{[1]={flags=0,keywordFlags=0,name="FlaskCharge
 c["27% reduced Effect of Curses on you"]={{[1]={flags=0,keywordFlags=0,name="CurseEffectOnSelf",type="INC",value=-27}},nil}
 c["27% reduced Enemy Stun Threshold"]={{[1]={flags=0,keywordFlags=0,name="EnemyStunThreshold",type="INC",value=-27}},nil}
 c["270% increased Armour and Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="ArmourAndEnergyShield",type="INC",value=270}},nil}
+c["270% increased Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="EnergyShield",type="INC",value=270}},nil}
 c["270% increased Physical Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamage",type="INC",value=270}},nil}
 c["275% increased Armour and Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="ArmourAndEnergyShield",type="INC",value=275}},nil}
 c["275% increased Charges per use"]={{[1]={flags=0,keywordFlags=0,name="FlaskChargesUsed",type="INC",value=275}},nil}
@@ -8304,6 +8312,7 @@ c["30% increased Global Critical Strike Chance per Blue Socket"]={{[1]={[1]={typ
 c["30% increased Global Defences"]={{[1]={[1]={type="Global"},flags=0,keywordFlags=0,name="Defences",type="INC",value=30}},nil}
 c["30% increased Global Physical Damage"]={{[1]={[1]={type="Global"},flags=0,keywordFlags=0,name="PhysicalDamage",type="INC",value=30}},nil}
 c["30% increased Global Physical Damage per Red Socket"]={{[1]={[1]={type="Global"},[2]={type="Multiplier",var="RedSocketIn{SlotName}"},flags=0,keywordFlags=0,name="PhysicalDamage",type="INC",value=30}},nil}
+c["30% increased Impale Effect"]={{[1]={flags=0,keywordFlags=0,name="ImpaleEffect",type="INC",value=30}},nil}
 c["30% increased Knockback Distance"]={{[1]={flags=0,keywordFlags=0,name="EnemyKnockbackDistance",type="INC",value=30}},nil}
 c["30% increased Life Recovery Rate while affected by Vitality"]={{[1]={[1]={type="Condition",var="AffectedByVitality"},flags=0,keywordFlags=0,name="LifeRecoveryRate",type="INC",value=30}},nil}
 c["30% increased Life Recovery from Flasks"]={{[1]={flags=0,keywordFlags=0,name="FlaskLifeRecovery",type="INC",value=30}},nil}
@@ -8396,6 +8405,7 @@ c["30% of Chaos Damage taken does not bypass Energy Shield"]={{[1]={flags=0,keyw
 c["30% of Cold Damage taken Recouped as Life"]={{[1]={flags=0,keywordFlags=0,name="ColdLifeRecoup",type="BASE",value=30}},nil}
 c["30% of Cold and Lightning Damage taken as Fire Damage while affected by Purity of Fire"]={{[1]={[1]={type="Condition",var="AffectedByPurityofFire"},flags=0,keywordFlags=0,name="ColdDamageTakenAsFire",type="BASE",value=30},[2]={[1]={type="Condition",var="AffectedByPurityofFire"},flags=0,keywordFlags=0,name="LightningDamageTakenAsFire",type="BASE",value=30}},nil}
 c["30% of Damage is taken from Mana before Life"]={{[1]={flags=0,keywordFlags=0,name="DamageTakenFromManaBeforeLife",type="BASE",value=30}},nil}
+c["30% of Damage taken Recouped as Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="EnergyShieldRecoup",type="BASE",value=30}},nil}
 c["30% of Damage taken from Stunning Hits is Recovered as Life"]={{[1]={flags=0,keywordFlags=0,name="DamageTaken",type="BASE",value=30}},"  from Stunning Hits is Recovered as Life "}
 c["30% of Damage you Reflect to Enemies when Hit is leeched as Life"]={{[1]={flags=0,keywordFlags=0,name="DamageLifeLeech",type="BASE",value=30}},"  you Reflect to Enemies when Hit  "}
 c["30% of Damage you Reflect to Enemies when Hit is leeched as Life 100% of Damage you Reflect to Enemies when Hit is leeched as Life"]={{[1]={flags=0,keywordFlags=0,name="DamageLifeLeech",type="BASE",value=30}},"  you Reflect to Enemies when Hit  100% of Damage you Reflect to Enemies when Hit is leeched as Life "}
@@ -8764,6 +8774,7 @@ c["35% increased Global Critical Strike Chance"]={{[1]={[1]={type="Global"},flag
 c["35% increased Global Physical Damage per Red Socket"]={{[1]={[1]={type="Global"},[2]={type="Multiplier",var="RedSocketIn{SlotName}"},flags=0,keywordFlags=0,name="PhysicalDamage",type="INC",value=35}},nil}
 c["35% increased Global maximum Energy Shield and reduced Lightning Resistance"]={{[1]={[1]={type="Global"},flags=0,keywordFlags=0,name="EnergyShield",type="INC",value=35},[2]={flags=0,keywordFlags=0,name="LightningResist",type="INC",value=-35}},nil}
 c["35% increased Life Recovery from Flasks"]={{[1]={flags=0,keywordFlags=0,name="FlaskLifeRecovery",type="INC",value=35}},nil}
+c["35% increased Light Radius"]={{[1]={flags=0,keywordFlags=0,name="LightRadius",type="INC",value=35}},nil}
 c["35% increased Lightning Damage"]={{[1]={flags=0,keywordFlags=0,name="LightningDamage",type="INC",value=35}},nil}
 c["35% increased Mana Regeneration Rate"]={{[1]={flags=0,keywordFlags=0,name="ManaRegen",type="INC",value=35}},nil}
 c["35% increased Mana Regeneration Rate while moving"]={{[1]={[1]={type="Condition",var="Moving"},flags=0,keywordFlags=0,name="ManaRegen",type="INC",value=35}},nil}
@@ -9237,6 +9248,8 @@ c["40% chance to Unnerve Enemies for 4 seconds on Hit"]={{}," to Unnerve Enemies
 c["40% chance to cause Bleeding on Hit"]={{[1]={flags=0,keywordFlags=0,name="BleedChance",type="BASE",value=40}},nil}
 c["40% chance to gain a Flask Charge when you deal a Critical Strike"]={{[1]={flags=0,keywordFlags=0,name="FlaskChargeOnCritChance",type="BASE",value=40}},nil}
 c["40% chance to gain a Frenzy Charge for each Enemy you hit with a Critical Strike"]={nil,"a Frenzy Charge for each Enemy you hit with a Critical Strike "}
+c["40% chance to gain a Power Charge on Hit"]={nil,"a Power Charge on Hit "}
+c["40% chance to gain a Power Charge on Hit 6% increased Spell Damage per Power Charge"]={nil,"a Power Charge on Hit 6% increased Spell Damage  "}
 c["40% chance to inflict an additional Poison on the same Target when you inflict Poison"]={{[1]={flags=0,keywordFlags=0,name="AdditionalPoisonChance",type="BASE",value=40}},nil}
 c["40% chance when you Kill a Scorched Enemy to Burn Each surrounding"]={{}," when you Kill a Scorched Enemy to Burn Each surrounding "}
 c["40% chance when you Kill a Scorched Enemy to Burn Each surrounding Enemy for 4 seconds, dealing 8% of the Killed Enemy's Life as Fire Damage per second"]={{[1]={flags=0,keywordFlags=0,name="Life",type="BASE",value=40}}," when you Kill a Scorched Enemy to Burn Each surrounding Enemy , dealing 8% of the Killed Enemy's  as Fire Damage per second "}
@@ -11858,6 +11871,7 @@ c["9% increased Life Recovery rate"]={{[1]={flags=0,keywordFlags=0,name="LifeRec
 c["9% increased Life Regeneration rate"]={{[1]={flags=0,keywordFlags=0,name="LifeRegen",type="INC",value=9}},nil}
 c["9% increased Mana Recovery rate"]={{[1]={flags=0,keywordFlags=0,name="ManaRecoveryRate",type="INC",value=9}},nil}
 c["9% increased Mana Reservation Efficiency of Skills"]={{[1]={flags=0,keywordFlags=0,name="ManaReservationEfficiency",type="INC",value=9}},nil}
+c["9% increased Maximum Life for each Corrupted Item Equipped"]={{[1]={[1]={type="Multiplier",var="CorruptedItem"},flags=0,keywordFlags=0,name="Life",type="INC",value=9}},nil}
 c["9% increased Mine Throwing Speed"]={{[1]={flags=0,keywordFlags=0,name="MineLayingSpeed",type="INC",value=9}},nil}
 c["9% increased Movement Speed"]={{[1]={flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=9}},nil}
 c["9% increased Movement Speed if you've Hit an Enemy Recently"]={{[1]={[1]={type="Condition",var="HitRecently"},flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=9}},nil}
@@ -19913,7 +19927,8 @@ c["Skills Cost Life instead of 15% of Mana Cost"]={{[1]={flags=0,keywordFlags=0,
 c["Skills Cost Life instead of Mana"]={{[1]={flags=0,keywordFlags=0,name="CostLifeInsteadOfMana",type="FLAG",value=true}},nil}
 c["Skills Cost no Mana during Effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="ManaCost",type="MORE",value=-100}},nil}
 c["Skills Fire 3 additional Projectiles for 4 seconds after"]={{[1]={flags=0,keywordFlags=0,name="ProjectileCount",type="BASE",value=3}},"   after "}
-c["Skills Fire 3 additional Projectiles for 4 seconds after you consume a total of 8 Steel Shards"]={{[1]={flags=0,keywordFlags=0,name="ProjectileCount",type="BASE",value=3}},"   after you consume a total of 8 Steel Shards "}
+c["Skills Fire 3 additional Projectiles for 4 seconds after you consume a total of 12 Steel Shards"]={{[1]={[1]={type="Condition",var="Consumed12SteelShardsRecently"},flags=0,keywordFlags=0,name="ProjectileCount",type="BASE",value=3}},nil}
+c["Skills Fire 3 additional Projectiles for 4 seconds after you consume a total of 8 Steel Shards"]={{[1]={[1]={type="Condition",var="Consumed8SteelShardsRecently"},flags=0,keywordFlags=0,name="ProjectileCount",type="BASE",value=3}},nil}
 c["Skills Reserve Life instead of Mana"]={{[1]={flags=0,keywordFlags=0,name="BloodMagicReserved",type="FLAG",value=true}},nil}
 c["Skills Socketed in your Boots are Supported by level 20 Added Chaos Damage"]={{[1]={[1]={slotName="Boots",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={appliesToGrantedSkills=true,level=20,skillId="SupportAddedChaosDamage"}}},nil}
 c["Skills Socketed in your Boots are Supported by level 20 Added Cold Damage"]={{[1]={[1]={slotName="Boots",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={appliesToGrantedSkills=true,level=20,skillId="SupportAddedColdDamage"}}},nil}
@@ -23202,7 +23217,6 @@ c["up to a maximum of 50%"]={nil,"up to a maximum of 50% "}
 c["used if you've Hit an enemy with a Weapon Recently"]={nil,"used if you've Hit an enemy with a Weapon Recently "}
 c["wielding a Bow, with a 1 second Cooldown"]={nil,"wielding a Bow, with a 1 second Cooldown "}
 c["wielding a Bow, with a 1 second Cooldown 12% increased Cast Speed"]={nil,"wielding a Bow, with a 1 second Cooldown 12% increased Cast Speed "}
-c["you consume a total of 8 Steel Shards"]={nil,"you consume a total of 8 Steel Shards "}
 c["your maximum number of Crab Barriers"]={nil,"your maximum number of Crab Barriers "}
 c["your maximum number of Power Charges"]={nil,"your maximum number of Power Charges "}
 end)();
