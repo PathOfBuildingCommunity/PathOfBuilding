@@ -683,13 +683,16 @@ Shavronne's Wrappings
 Occultist's Vestment
 Variant: Pre 1.0.0
 Variant: Pre 3.0.0
+Variant: Pre 3.30.0
 Variant: Current
 Implicits: 1
 (3-10)% increased Spell Damage
 {variant:1}(200-250)% increased Energy Shield
 {variant:2}(140-200)% increased Energy Shield
 {variant:3}(100-150)% increased Energy Shield
-10% faster start of Energy Shield Recharge
+{variant:4}(150-200)% increased Energy Shield
+{variant:4}(20-30)% of Damage taken Recouped as Energy Shield
+{variant:1,2,3}10% faster start of Energy Shield Recharge
 +(30-40)% to Lightning Resistance
 Reflects 1 to 250 Lightning Damage to Melee Attackers
 Chaos Damage taken does not bypass Energy Shield
@@ -1483,16 +1486,21 @@ Sacrificial Garb
 League: Incursion
 Source: Double Corrupting Sacrificial Garb
 Variant: Pre 3.10.0
+Variant: Pre 3.30.0
 Variant: Current
 Implicits: 0
-Has an additional Implicit Mod
-+(20-30) to all Attributes
-{variant:2}(250-350)% increased Armour, Evasion and Energy Shield
+{variant:1,2}Has an additional Implicit Mod
+{variant:1,2}+(20-30) to all Attributes
+{variant:3}+(1-50) to all Attributes
+{variant:2,3}(250-350)% increased Armour, Evasion and Energy Shield
 Recover (3-5)% of Life on Kill
 Recover (3-5)% of Energy Shield on Kill
-6% increased Maximum Life for each Corrupted Item Equipped
-8% increased Maximum Energy Shield for each Corrupted Item Equipped
--(6-4)% to all Resistances for each Corrupted Item Equipped
+{variant:1,2}6% increased Maximum Life for each Corrupted Item Equipped
+{variant:3}(8-10)% increased Maximum Life for each Corrupted Item Equipped
+{variant:1,2}8% increased Maximum Energy Shield for each Corrupted Item Equipped
+{variant:3}(10-12)% increased Maximum Energy Shield for each Corrupted Item Equipped
+{variant:1,2}-(6-4)% to all Resistances for each Corrupted Item Equipped
+{variant:3}-(8-6)% to all Resistances for each Corrupted Item Equipped
 Corrupted
 ]],[[
 The Queen's Hunger

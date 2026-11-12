@@ -654,16 +654,20 @@ Harmonic Spirit Shield
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Pre 3.11.0
+Variant: Pre 3.30.0
 Variant: Current
 Implicits: 2
 {variant:1,2}SpellDamageImplicitShield2[10,10]
-{variant:3,4}SpellDamageImplicitShield2
+{variant:3,4,5}SpellDamageImplicitShield2
 {variant:1}LocalIncreasedEnergyShieldPercent__2[160,200]
-{variant:2,3,4}LocalIncreasedEnergyShieldPercent__2
-IncreasedMaximumPowerChargesUnique__3
-PowerChargeOnHitUnique__1
+{variant:2,3,4}LocalIncreasedEnergyShieldPercent__2[210,250]
+{variant:5}LocalIncreasedEnergyShieldPercent__2
+{variant:1,2,3,4}IncreasedMaximumPowerChargesUnique__3[2,2]
+{variant:5}IncreasedMaximumPowerChargesUnique__3
+{variant:1,2,3,4}PowerChargeOnHitUnique__1[20,20]
+{variant:5}PowerChargeOnHitUnique__1
 {variant:1,2,3}IncreasedSpellDamagePerPowerChargeUnique__1[6,6]
-{variant:4}IncreasedSpellDamagePerPowerChargeUnique__1
+{variant:4,5}IncreasedSpellDamagePerPowerChargeUnique__1
 LosePowerChargesOnMaxPowerChargesUnique__1
 ShockOnMaxPowerChargesUnique__1
 ]],[[

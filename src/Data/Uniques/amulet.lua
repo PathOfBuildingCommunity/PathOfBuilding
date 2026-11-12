@@ -1044,6 +1044,8 @@ Implicits: 2
 ]],[[
 Rotmother's Mutiny
 Pearlescent Amulet
+Version: Pre 3.30.0
+Version: Current
 Variant: Fire
 Variant: Cold
 Variant: Lightning
@@ -1054,10 +1056,11 @@ Implicits: 1
 {tags:resistance}+(8-10)% to all Elemental Resistances
 {tags:resistance}+(20-25)% to all Elemental Resistances
 {tags:resistance}+(1-3)% to all maximum Resistances
-(25-75)% increased Light Radius
-{variant:2}+1% to Chaos Resistance per 1% Cold Resistance
-{variant:1}+1% to Chaos Resistance per 1% Fire Resistance
-{variant:3}+1% to Chaos Resistance per 1% Lightning Resistance
+{version:1}(25-75)% increased Light Radius
+{version:2}(20-40)% increased Light Radius
+{variant:2}{group:1}+1% to Chaos Resistance per 1% Cold Resistance
+{variant:1}{group:1}+1% to Chaos Resistance per 1% Fire Resistance
+{variant:3}{group:1}+1% to Chaos Resistance per 1% Lightning Resistance
 ]],[[
 Sacrificial Heart
 Paua Amulet
