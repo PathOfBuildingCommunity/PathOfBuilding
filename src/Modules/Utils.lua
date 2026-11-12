@@ -87,6 +87,7 @@ end
 ---@param description? string A string which will be passed to string.format and which should describe what this file contains. Multi-line strings are supported.
 ---@param allowMultiLine? boolean Whether multi-line strings should be allowed. If not, they are converted to spaces.
 ---@return boolean success
+---@return string contents
 function M.saveTableToFile(fileName, table, description, allowMultiLine)
 	local f, openErr = io.open(fileName, "w")
 	if not f then
@@ -119,7 +120,7 @@ return %s
 		error(string.format("Failed to write to %s: %s", fileName, writeErr))
 	end
 
-	return f:close() or false
+	return f:close() or false, contents
 end
 
 return M
