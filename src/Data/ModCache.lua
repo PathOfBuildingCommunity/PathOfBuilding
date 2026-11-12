@@ -19927,7 +19927,8 @@ c["Skills Cost Life instead of 15% of Mana Cost"]={{[1]={flags=0,keywordFlags=0,
 c["Skills Cost Life instead of Mana"]={{[1]={flags=0,keywordFlags=0,name="CostLifeInsteadOfMana",type="FLAG",value=true}},nil}
 c["Skills Cost no Mana during Effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="ManaCost",type="MORE",value=-100}},nil}
 c["Skills Fire 3 additional Projectiles for 4 seconds after"]={{[1]={flags=0,keywordFlags=0,name="ProjectileCount",type="BASE",value=3}},"   after "}
-c["Skills Fire 3 additional Projectiles for 4 seconds after you consume a total of 8 Steel Shards"]={{[1]={flags=0,keywordFlags=0,name="ProjectileCount",type="BASE",value=3}},"   after you consume a total of 8 Steel Shards "}
+c["Skills Fire 3 additional Projectiles for 4 seconds after you consume a total of 12 Steel Shards"]={{[1]={[1]={type="Condition",var="Consumed12SteelShardsRecently"},flags=0,keywordFlags=0,name="ProjectileCount",type="BASE",value=3}},nil}
+c["Skills Fire 3 additional Projectiles for 4 seconds after you consume a total of 8 Steel Shards"]={{[1]={[1]={type="Condition",var="Consumed8SteelShardsRecently"},flags=0,keywordFlags=0,name="ProjectileCount",type="BASE",value=3}},nil}
 c["Skills Reserve Life instead of Mana"]={{[1]={flags=0,keywordFlags=0,name="BloodMagicReserved",type="FLAG",value=true}},nil}
 c["Skills Socketed in your Boots are Supported by level 20 Added Chaos Damage"]={{[1]={[1]={slotName="Boots",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={appliesToGrantedSkills=true,level=20,skillId="SupportAddedChaosDamage"}}},nil}
 c["Skills Socketed in your Boots are Supported by level 20 Added Cold Damage"]={{[1]={[1]={slotName="Boots",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={appliesToGrantedSkills=true,level=20,skillId="SupportAddedColdDamage"}}},nil}
@@ -23216,8 +23217,6 @@ c["up to a maximum of 50%"]={nil,"up to a maximum of 50% "}
 c["used if you've Hit an enemy with a Weapon Recently"]={nil,"used if you've Hit an enemy with a Weapon Recently "}
 c["wielding a Bow, with a 1 second Cooldown"]={nil,"wielding a Bow, with a 1 second Cooldown "}
 c["wielding a Bow, with a 1 second Cooldown 12% increased Cast Speed"]={nil,"wielding a Bow, with a 1 second Cooldown 12% increased Cast Speed "}
-c["you consume a total of 8 Steel Shards"]={nil,"you consume a total of 8 Steel Shards "}
-c["you consume a total of 8 Steel Shards 30% increased Impale Effect"]={nil,"you consume a total of 8 Steel Shards 30% increased Impale Effect "}
 c["your maximum number of Crab Barriers"]={nil,"your maximum number of Crab Barriers "}
 c["your maximum number of Power Charges"]={nil,"your maximum number of Power Charges "}
 end)();
