@@ -1664,8 +1664,9 @@ function calcs.perform(env, skipEHP)
 		local flaskRecInc = modDB:Sum("INC", nil, "Flask"..type.."Recovery")
 		local flaskRecMore = modDB:More(nil, "Flask"..type.."Recovery")
 		local flaskRateInc = modDB:Sum("INC", nil, "Flask"..type.."RecoveryRate")
+		local flaskRateMore = modDB:More(nil, "Flask"..type.."RecoveryRate")
 		local flaskTotal = base * (1 - instPerc / 100) * (1 + flaskRecInc / 100) * flaskRecMore * (1 + flaskDurInc / 100)
-		local flaskDur = dur * (1 + flaskDurInc / 100) / (1 + flaskTotalRateInc / 100) / (1 + flaskRateInc / 100)
+		local flaskDur = dur * (1 + flaskDurInc / 100) / (1 + flaskTotalRateInc / 100) / (1 + flaskRateInc / 100) / flaskRateMore
 
 		-- More life recovery while on low life is not affected by flask effect (verified ingame).
 		-- Since this will be multiplied by the flask effect value below we have to counteract this by removing the flask effect from the value beforehand.
@@ -1701,6 +1702,10 @@ function calcs.perform(env, skipEHP)
 		local function calcFlaskMods(item, baseName, buffModList, modList, onlyMinion)
 			local flaskEffectInc = effectInc + item.flaskData.effectInc
 			local flaskEffectIncNonPlayer = effectIncNonPlayer + item.flaskData.effectInc
+			if item.baseName == "Iron Flask" then
+				flaskEffectInc = flaskEffectInc + modDB:Sum("INC", { actor = "player" }, "IronFlaskEffect")
+				flaskEffectIncNonPlayer = flaskEffectIncNonPlayer + modDB:Sum("INC", nil, "IronFlaskEffect")
+			end
 			if item.rarity == "MAGIC" and not (item.base.flask.life or item.base.flask.mana) then
 				flaskEffectInc = flaskEffectInc + effectIncMagic
 				flaskEffectIncNonPlayer = flaskEffectIncNonPlayer + effectIncMagicNonPlayer
