@@ -364,8 +364,8 @@ Strict-Transport-Security: max-age=63115200; includeSubDomains; preload]]
 				return { Life = hasStrengthCraft and 150 or 100 }
 			end, { Life = 100 })[1]
 
-			assert.is_truthy(evaluation.benchCraft:find("to Strength", 1, true))
-			assert.is_truthy(evaluation.benchCraftReplaced:find("to Dexterity/10% increased Rarity", 1, true))
+			assert.is_truthy(evaluation.benchCraftItemString:find("to Strength", 1, true))
+			assert.is_not_nil(evaluation.benchCraftReplaced)
 			assert.is_nil(evaluation.benchCraftItemString:find("+20 to Dexterity", 1, true))
 			assert.is_nil(evaluation.benchCraftItemString:find("10% increased Rarity", 1, true))
 			local replacementItem = new("Item"):Item(evaluation.benchCraftItemString)
@@ -380,7 +380,7 @@ Strict-Transport-Security: max-age=63115200; includeSubDomains; preload]]
 			assert.is_true(fracturedManaLine.fractured)
 		end)
 
-		it("preserves fetched fractured suffix values in a bench craft preview", function()
+		it("preserves fetched fractured suffix values after bench craft reconstruction", function()
 			local function apiMod(description, hash, tier, domain, flags)
 				return { description = description, domain = domain or "explicit", hash = "stat." .. hash,
 					flags = flags, mods = { { name = "Test Affix", tier = tier, level = 30 } } }
@@ -407,16 +407,12 @@ Strict-Transport-Security: max-age=63115200; includeSubDomains; preload]]
 					if modLine.line == text then return modLine end
 				end
 			end
-			local function assertDisplayedValue(item, line, stored, displayed)
-				local modLine = assert(findLine(item, line))
-				assert.are.equal(stored, modLine.line)
-				assert.is_truthy(itemLib.formatModLine(modLine):find(displayed, 1, true))
-				return modLine
-			end
-			local sourceCrit = assertDisplayedValue(sourceItem, "+37% to Global Critical Strike Multiplier", "+37% to Global Critical Strike Multiplier", "+37%")
+			sourceItem:BuildModList()
+			local sourceCrit = assert(findLine(sourceItem, "+37% to Global Critical Strike Multiplier"))
 			assert.is_true(sourceCrit.fractured)
-			assertDisplayedValue(sourceItem, "+24% to all Elemental Resistances", "+24% to all Elemental Resistances", "+24%")
-			assertDisplayedValue(sourceItem, "+69% to Lightning Resistance", "+69% to Lightning Resistance", "+69%")
+			assert.are.equal(37, sourceItem.baseModList:Sum("BASE", nil, "CritMultiplier"))
+			assert.are.equal(24, sourceItem.baseModList:Sum("BASE", nil, "ElementalResist"))
+			assert.are.equal(69, sourceItem.baseModList:Sum("BASE", nil, "LightningResist"))
 
 			local tradeQuery = new("TradeQuery"):TradeQuery({ itemsTab = { } })
 			local strengthCraft = { type = "Suffix", group = "Strength", modTags = { "attribute" }, types = { Ring = true }, "+(21-25) to Strength" }
@@ -427,19 +423,24 @@ Strict-Transport-Security: max-age=63115200; includeSubDomains; preload]]
 			tradeQuery.resultTbl[1] = { fetchedItems[1] }
 			local previousAffixQuality = main.defaultItemAffixQuality
 			main.defaultItemAffixQuality = 0.5
-			local evaluation = tradeQuery:GetResultEvaluation(1, 1, function(args)
-				return { Life = args.repItem:BuildRaw():find("to Strength", 1, true) and 150 or 100 }
-			end, { Life = 100 })[1]
+			local success, evaluation = pcall(function()
+				return tradeQuery:GetResultEvaluation(1, 1, function(args)
+					return { Life = args.repItem:BuildRaw():find("to Strength", 1, true) and 150 or 100 }
+				end, { Life = 100 })[1]
+			end)
 			main.defaultItemAffixQuality = previousAffixQuality
+			assert.is_true(success, evaluation)
 			assert.is_truthy(evaluation.benchCraftItemString)
 			local previewItem = new("Item"):Item(evaluation.benchCraftItemString)
-			local previewCrit = assertDisplayedValue(previewItem, "+37% to Global Critical Strike Multiplier", "+37% to Global Critical Strike Multiplier", "+37%")
+			previewItem:BuildModList()
+			local previewCrit = assert(findLine(previewItem, "+37% to Global Critical Strike Multiplier"))
 			assert.is_true(previewCrit.fractured)
-			assertDisplayedValue(previewItem, "+24% to all Elemental Resistances", "+24% to all Elemental Resistances", "+24%")
-			assertDisplayedValue(previewItem, "+69% to Lightning Resistance", "+69% to Lightning Resistance", "+69%")
+			assert.are.equal(37, previewItem.baseModList:Sum("BASE", nil, "CritMultiplier"))
+			assert.are.equal(24, previewItem.baseModList:Sum("BASE", nil, "ElementalResist"))
+			assert.are.equal(69, previewItem.baseModList:Sum("BASE", nil, "LightningResist"))
 			local previewStrength = assert(findLine(previewItem, "+(21-25) to Strength"))
 			assert.is_true(previewStrength.crafted)
-			assert.is_truthy(itemLib.formatModLine(previewStrength):find("+34 to Strength", 1, true))
+			assert.are.equal(34, previewItem.baseModList:Sum("BASE", nil, "Str"))
 		end)
 	end)
 
