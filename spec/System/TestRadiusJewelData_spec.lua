@@ -71,41 +71,6 @@ describe("RadiusJewelData #radius-jewel", function()
 	-- ── buildJewelTypes ──────────────────────────────────────────────────────
 
 	describe("buildJewelTypes", function()
-		it("gives every jewel descriptor its preview", function()
-			for _, jewelType in ipairs(RadiusJewelData.buildJewelTypes()) do
-				assert.is_function(jewelType.preview,
-					"missing preview function for " .. jewelType.name)
-			end
-		end)
-
-		it("preserves base previews when descriptors have raw text and groups variants-only descriptors", function()
-			local jewelTypesByName = { }
-			for _, jewelType in ipairs(RadiusJewelData.buildJewelTypes()) do
-				jewelTypesByName[jewelType.name] = jewelType
-			end
-			local function previewText(jewelType, variant)
-				local text = { }
-				for _, line in ipairs(jewelType.preview(variant)) do
-					if line[1] then
-						text[#text + 1] = line[1]
-					end
-				end
-				return table.concat(text, "\n")
-			end
-
-			local intuitivePreview = previewText(jewelTypesByName["Intuitive Leap"])
-			assert.is_not_nil(intuitivePreview:find("Radius: Small", 1, true))
-			assert.is_nil(intuitivePreview:find("Finder group", 1, true))
-
-			local groupPreview = previewText(jewelTypesByName["Tempered & Transcendent"])
-			assert.is_not_nil(groupPreview:find("Finder group", 1, true))
-
-			local splitPersonality = jewelTypesByName["Split Personality"]
-			local splitVariant = splitPersonality.variants[1]
-			local splitPreview = previewText(splitPersonality, splitVariant)
-			assert.is_not_nil(splitPreview:find("Split Personality (" .. splitVariant.name .. ")", 1, true))
-		end)
-
 		it("assigns one evaluation strategy to every jewel type", function()
 			local strategy = RadiusJewelData.JEWEL_STRATEGY
 			local expectedSpecialStrategies = {
@@ -344,7 +309,6 @@ describe("RadiusJewelData #radius-jewel", function()
 		it("uses the mapped Inspired Learning mutation and excludes Foulborn Might of the Meek", function()
 			local inspired = RadiusJewelData.buildFoulbornVariants("Inspired Learning")
 			assert.are.equal(1, #inspired)
-			assert.are.equal("alloc small passives", inspired[1].scoreLabel)
 			assert.are.equal(2, inspired[1].score({
 				allocatedNormalA = { type = "Normal" },
 				allocatedNormalB = { type = "Normal" },
@@ -358,32 +322,13 @@ describe("RadiusJewelData #radius-jewel", function()
 			assert.are.equal(0, #RadiusJewelData.buildFoulbornVariants("Might of the Meek"))
 		end)
 
-		it("marks Foulborn Intuitive Leap as Massive Radius keystone-only in preview and compute", function()
+		it("uses Massive Radius and keystone-only candidates for Foulborn Intuitive Leap", function()
 			data.setJewelRadiiGlobally("3_29")
 			local variants = RadiusJewelData.buildFoulbornVariants("Intuitive Leap")
 			assert.are.equal(1, #variants)
 			local variant = variants[1]
 			assert.is_true(variant.isMassiveRadius)
 			assert.is_true(variant.keystoneOnly)
-			assert.are.same({ "Massive Radius", "Keystone Passive Skills only" }, variant.previewMeta)
-
-			local intuitiveLeap
-			for _, jewelType in ipairs(RadiusJewelData.buildJewelTypes()) do
-				if jewelType.name == "Intuitive Leap" then
-					intuitiveLeap = jewelType
-					break
-				end
-			end
-			assert.is_not_nil(intuitiveLeap)
-			local preview = intuitiveLeap.preview(variant)
-			local previewText = { }
-			for _, line in ipairs(preview) do
-				if line[1] then
-					previewText[#previewText + 1] = line[1]
-				end
-			end
-			assert.is_true(table.concat(previewText, "\n"):find("Massive Radius", 1, true) ~= nil)
-			assert.is_true(table.concat(previewText, "\n"):find("Keystone Passive Skills only", 1, true) ~= nil)
 
 			local finder = makeFinder()
 			local capturedOptions

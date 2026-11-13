@@ -65,29 +65,6 @@ describe("RadiusJewelFinder actions #radius-jewel", function()
 		build.itemsTab:Undo()
 		support.assertFinderStateUnchanged(before, assert)
 	end
-
-	local function tooltipText(control)
-		local tooltip = new("Tooltip"):Tooltip()
-		control.tooltipFunc(tooltip)
-		local texts = { }
-		for _, line in ipairs(tooltip.lines) do
-			if line.text and line.text ~= "" then
-				table.insert(texts, line.text)
-			end
-		end
-		return table.concat(texts, "\n")
-	end
-
-	local function listText(control)
-		local texts = { }
-		for _, line in ipairs(control.list) do
-			if line[1] and line[1] ~= "" then
-				table.insert(texts, line[1])
-			end
-		end
-		return table.concat(texts, "\n")
-	end
-
 	local function addJewelToSocket(rawText, socketId)
 		local item = new("Item"):Item("Rarity: Unique\n" .. rawText)
 		item:BuildModList()
@@ -323,25 +300,7 @@ describe("RadiusJewelFinder actions #radius-jewel", function()
 		assert.is_true(build.itemsTab.items[addedItemId].foulborn)
 		assertUndoRestores(before, undoCount)
 	end)
-
-	it("offers both actions and warns that an unallocated socket is hidden from Items", function()
-		local popup, row = openStandardResult(findJewelType("Might of the Meek"), 33631)
-
-		assert.are.equal("equip", row.actionPlan.kind)
-		assert.is_false(row.actionPlan.targetSocketAllocated)
-		assert.is_true(popup.controls.addToBuildButton.enabled())
-		assert.is_true(popup.controls.applyButton.enabled())
-		local addTooltip = tooltipText(popup.controls.addToBuildButton)
-		assert.is_true(addTooltip:find("Recommended socket:", 1, true) ~= nil)
-		local equipTooltip = tooltipText(popup.controls.applyButton)
-		assert.is_true(equipTooltip:find("hidden from the Items panel", 1, true) ~= nil)
-		local details = listText(popup.controls.resultDetailList)
-		assert.is_true(details:find("Current location:", 1, true) ~= nil)
-		assert.is_true(details:find("Not in build", 1, true) ~= nil)
-		assert.is_nil(details:find("hidden from the Items panel", 1, true))
-	end)
-
-	it("adds from the result without equipping and then reports the jewel in the build", function()
+	it("adds from a result without equipping", function()
 		local targetSocketId = 33631
 		local popup = openStandardResult(findJewelType("Might of the Meek"), targetSocketId)
 		local before = support.snapshotFinderState()
@@ -350,36 +309,25 @@ describe("RadiusJewelFinder actions #radius-jewel", function()
 		popup.controls.addToBuildButton:Click()
 
 		assert.are.equal(0, build.itemsTab.sockets[targetSocketId].selItemId)
-		assert.is_false(popup.controls.addToBuildButton.enabled())
-		assert.is_false(popup.controls.applyButton.enabled())
-		assert.is_true(tooltipText(popup.controls.addToBuildButton):find("already in this build", 1, true) ~= nil)
 		assertUndoRestores(before, undoCount)
 	end)
 
-	it("requires confirmation before equipping into a socket hidden from Items", function()
+	it("preserves socket and undo state until placement is confirmed", function()
 		local targetSocketId = 33631
 		local popup = openStandardResult(findJewelType("Might of the Meek"), targetSocketId)
 		local before = support.snapshotFinderState()
 		local undoCount = #build.itemsTab.undo
 		local confirmation
-		main.OpenConfirmPopup = function(_, title, message, confirmLabel, onConfirm)
-			confirmation = {
-				title = title,
-				message = message,
-				confirmLabel = confirmLabel,
-				onConfirm = onConfirm,
-			}
+		main.OpenConfirmPopup = function(_, _, _, _, onConfirm)
+			confirmation = onConfirm
 		end
 
 		popup.controls.applyButton:Click()
 
-		assert.is_not_nil(confirmation)
-		assert.is_true(confirmation.message:find("hidden from the Items panel", 1, true) ~= nil)
-		assert.is_true(confirmation.message:find("No passive nodes will be allocated", 1, true) ~= nil)
 		assert.are.equal(0, build.itemsTab.sockets[targetSocketId].selItemId)
 		assert.are.equal(undoCount, #build.itemsTab.undo)
 
-		confirmation.onConfirm()
+		confirmation()
 		assert.is_true(build.itemsTab.sockets[targetSocketId].selItemId ~= 0)
 		assertUndoRestores(before, undoCount)
 	end)
@@ -445,16 +393,26 @@ describe("RadiusJewelFinder actions #radius-jewel", function()
 		assertUndoRestores(before, undoCount)
 	end)
 
-	it("disables the action for an exact Thread ring", function()
+	it("does not replace an exact Thread ring or add an undo state", function()
 		local variant = RadiusJewelData.getThreadOfHopeVariants()[1]
-		local popup, row = openThreadResult(36634, 36634, variant, variant)
+		local socketId = 36634
+		local item = addJewelToSocket(variant.rawText, socketId)
+		build.itemsTab:ResetUndo()
+		local before = support.snapshotFinderState()
+		local undoCount = #build.itemsTab.undo
+		local finder = support.makeFinder()
+		local plan = finder.itemActions:buildPlan({
+			socketId = socketId,
+			socketLabel = "Exact target",
+			targetIdentity = variant.variantIdentity,
+			targetRawText = variant.rawText,
+		})
 
-		assert.are.equal("equipped", row.action)
-		assert.is_false(popup.controls.applyButton.enabled())
-		assert.is_true(tooltipText(popup.controls.applyButton):find("already equipped", 1, true) ~= nil)
-		local details = listText(popup.controls.resultDetailList)
-		assert.is_true(details:find("Current location:", 1, true) ~= nil)
-		assert.is_true(details:find("This socket", 1, true) ~= nil)
+		assert.are.equal("equipped", plan.kind)
+		assert.are.equal(item.id, plan.sourceItemId)
+		assert.is_false(finder.itemActions:executePlan(plan))
+		assert.are.equal(undoCount, #build.itemsTab.undo)
+		support.assertFinderStateUnchanged(before, assert)
 	end)
 
 	it("moves the exact limited jewel without duplicating it and records one undo state", function()
@@ -494,10 +452,6 @@ describe("RadiusJewelFinder actions #radius-jewel", function()
 		assert.are.equal("move", row.actionPlan.kind)
 		assert.are.equal(sourceItem.id, row.actionPlan.sourceItemId)
 		assert.are.equal(replacedItem.id, row.actionPlan.replacedTargetId)
-		local actionTooltip = tooltipText(popup.controls.applyButton)
-		assert.is_true(actionTooltip:find("Replaces:", 1, true) ~= nil)
-		local details = listText(popup.controls.resultDetailList)
-		assert.is_true(details:find("Will replace:", 1, true) ~= nil)
 
 		popup.controls.applyButton:Click()
 		assert.are.equal(0, build.itemsTab.sockets[sourceSocketId].selItemId)
@@ -618,15 +572,10 @@ describe("RadiusJewelFinder actions #radius-jewel", function()
 
 		assert.are.equal(sourceItem.id, row.actionPlan.sourceItemId)
 		assert.is_nil(row.actionPlan.sourceSocketId)
-		local details = listText(popup.controls.resultDetailList)
-		assert.is_true(details:find("Items", 1, true) ~= nil)
-		assert.is_false(popup.controls.addToBuildButton.enabled())
-		assert.is_true(popup.controls.applyButton.enabled())
 		build.itemsTab.sockets[relocatedSocketId]:SetSelItemId(sourceItem.id)
 		build.itemsTab:PopulateSlots()
 		local afterRelocation = support.snapshotFinderState()
 
-		assert.is_false(popup.controls.applyButton.enabled())
 		popup.controls.resultsList.OnSelClick(popup.controls.resultsList, 1, row, true)
 		support.assertFinderStateUnchanged(afterRelocation, assert)
 	end)

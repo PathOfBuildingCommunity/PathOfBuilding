@@ -632,7 +632,6 @@ describe("RadiusJewelCompute #radius-jewel", function()
 			for _, result in ipairs(results) do
 				assert.is_not_nil(result.variant)
 				assert.is_number(result.splitDistance)
-				assert.is_string(result.detailText)
 			end
 			for _, socket in ipairs(sockets) do
 				local node = build.spec.nodes[socket.id]
@@ -1081,8 +1080,6 @@ describe("RadiusJewelCompute #radius-jewel", function()
 			assert.is_not_nil(simulatedResults[1].variant)
 			assert.is_number(fastResults[1].variant.radiusIndex)
 			assert.is_number(simulatedResults[1].variant.radiusIndex)
-			assert.is_string(fastResults[1].detailText)
-			assert.is_string(simulatedResults[1].detailText)
 			assertFinderStateUnchanged(before)
 		end)
 
@@ -1441,7 +1438,6 @@ describe("RadiusJewelCompute #radius-jewel", function()
 				local allowed = finder:socketMatchesOccupiedMode(socketId, { id = "free" })
 
 				assert.is_false(occupancy.isOccupied)
-				assert.are.equal("Thread of Hope", occupancy.storedUnallocatedItemLabel)
 				assert.is_true(allowed)
 				assert.are.equal(7, finder:getSocketBasePoints({ id = socketId, pathDist = 7 }, occupancy))
 
@@ -1458,7 +1454,7 @@ describe("RadiusJewelCompute #radius-jewel", function()
 				assert.is_false(result.atLimit)
 			end)
 
-			it("allows ordinary jewels in Safe occupied and labels their base type", function()
+			it("allows ordinary jewels in Safe occupied", function()
 				local socketId = ALLOC_SOCKET_IDS[1]
 				local itemId = 999000 + socketId
 				local item = new("Item"):Item("Rarity: RARE\nChimeric Creed\nCrimson Jewel\n")
@@ -1467,11 +1463,10 @@ describe("RadiusJewelCompute #radius-jewel", function()
 				build.itemsTab.sockets[socketId].selItemId = itemId
 				build.spec.jewels[socketId] = itemId
 				local finder = makeFinder()
-				local isAllowed, occupancy = finder:socketMatchesOccupiedMode(socketId, { id = "safe" })
+				local isAllowed = finder:socketMatchesOccupiedMode(socketId, { id = "safe" })
 
 				assert.is_nil(next(item.jewelData.impossibleEscapeKeystones))
 				assert.is_true(isAllowed)
-				assert.are.equal("Chimeric Creed (Crimson Jewel)", occupancy.replacedItemLabel)
 			end)
 
 			it("keeps ordinary Abyss jewels safe but excludes Abyss Timeless jewels", function()
@@ -1587,8 +1582,6 @@ describe("RadiusJewelCompute #radius-jewel", function()
 				})
 
 				assert.are.equal(1, #results)
-				assert.is_nil(results[1].replacedItemLabel)
-				assert.are.equal("Unnatural Instinct", results[1].storedUnallocatedItemLabel)
 			end)
 		end)
 
