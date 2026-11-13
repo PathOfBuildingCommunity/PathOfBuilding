@@ -428,4 +428,21 @@ describe("TestOffence", function()
 		assert.are.equals(7, build.calcsTab.mainOutput.ActiveTotemLimit)
 		assert.are.equals(1.7, build.calcsTab.mainOutput.AreaOfEffectMod)
 	end)
+	it("applies Energy Blade's quality attack speed as increased, not more", function()
+		local function attackSpeed(quality)
+			newBuild()
+			build.itemsTab:CreateDisplayItemFromRaw("Rarity: NORMAL\nCorsair Sword")
+			build.itemsTab:AddDisplayItem()
+			build.skillsTab:PasteSocketGroup("Energy Blade 20/" .. quality .. "  1")
+			build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nCleave 20/0  1")
+			build.mainSocketGroup = 2
+			build.configTab.input.customMods = "100% increased Attack Speed"
+			build.configTab:BuildModList()
+			runCallback("OnFrame")
+			return build.calcsTab.mainOutput.Speed
+		end
+
+		-- "Buff grants 10% increased Attack Speed" at 20% quality: (1 + 1 + 0.1) / (1 + 1)
+		assertNearRelative(1.05, attackSpeed(20) / attackSpeed(0), 0.0001)
+	end)
 end)
