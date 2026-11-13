@@ -1,7 +1,6 @@
 describe("Flasks", function()
 	local function buildFlasks(rawFlasks, customMods)
 		newBuild()
-		build.configTab.input.conditionUsingFlask = true
 		build.configTab.input.customMods = customMods or ""
 		build.configTab:BuildModList()
 
