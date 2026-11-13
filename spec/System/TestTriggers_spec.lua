@@ -1660,4 +1660,23 @@ describe("TestTriggers", function()
 		assert.are.equals(sourceLimit, build.calcsTab.mainOutput.TotemsSummoned)
 		assert.are.equals(round(1 + 0.1 * sourceLimit, 2), round(build.calcsTab.mainOutput.AreaOfEffectMod, 2))
 	end)
+
+	it("per Summoned Totem defences do not change when Avenging Flame is the main skill", function()
+		build.configTab.input.customMods = "+4 to maximum number of Summoned Searing Bond Totems\n+300 Armour per Summoned Totem"
+		build.configTab:BuildModList()
+		build.skillsTab:PasteSocketGroup("Searing Bond 20/0  1\nFlamewood 20/0  1\n")
+		runCallback("OnFrame")
+
+		local sourceArmour = build.calcsTab.mainOutput.Armour
+
+		local mainSocketGroup = build.skillsTab.socketGroupList[build.mainSocketGroup]
+		mainSocketGroup.mainActiveSkill = 2
+		build.modFlag = true
+		build.buildFlag = true
+		runCallback("OnFrame")
+
+		assert.are.equals("Avenging Flame", build.calcsTab.mainEnv.player.mainSkill.activeEffect.grantedEffect.name)
+		assert.True(sourceArmour >= 300 * 5)
+		assert.are.equals(sourceArmour, build.calcsTab.mainOutput.Armour)
+	end)
 end)

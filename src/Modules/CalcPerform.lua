@@ -1368,7 +1368,12 @@ function calcs.perform(env, skipEHP)
 			enemyDB.multipliers["BrandsAttached"] = m_max(attached, enemyDB.multipliers["BrandsAttached"] or 0)
 		end
 		if activeSkill.skillFlags.totem then
-			local limit = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ActiveTotemLimit", "ActiveBallistaLimit" )
+			local limitSkill = env.player.mainSkill
+			-- A support-granted totem skill (e.g. Flamewood's Avenging Flame) is cast by the totems of the skill it supports
+			if limitSkill.skillTypes[SkillType.SkillGrantedBySupport] and activeSkill ~= limitSkill and activeSkill.socketGroup == limitSkill.socketGroup then
+				limitSkill = activeSkill
+			end
+			local limit = limitSkill.skillModList:Sum("BASE", limitSkill.skillCfg, "ActiveTotemLimit", "ActiveBallistaLimit" )
 			output.ActiveTotemLimit = m_max(limit, output.ActiveTotemLimit or 0)
 			output.TotemsSummoned = modDB:Override(nil, "TotemsSummoned") or output.ActiveTotemLimit
 			enemyDB.multipliers["TotemsSummoned"] = m_max(output.TotemsSummoned or 0, enemyDB.multipliers["TotemsSummoned"] or 0)
