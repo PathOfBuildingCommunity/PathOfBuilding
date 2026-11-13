@@ -5099,7 +5099,7 @@ skills["EnergyBlade"] = {
 			mod("EnergyBladeDamage", "MORE", nil, 0, 0, { type = "Condition", var = "UsingTwoHandedWeapon" }, { type = "GlobalEffect", effectType = "Buff", unscalable = true  }),
 		},
 		["storm_blade_global_attack_speed_+%"] = {
-			mod("EnergyBladeAttackSpeed", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true  }),
+			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
 		},
 		["storm_blade_minimum_lightning_damage"] = {
 			mod("EnergyBladeMinLightning", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true  }),
