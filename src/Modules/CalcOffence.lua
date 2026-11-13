@@ -3593,7 +3593,8 @@ function calcs.offence(env, actor, activeSkill)
 								pen = skillModList:Sum("BASE", cfg, "ChaosPenetration")
 							end
 						end
-						local invertChanceEle = m_max(m_min(skillModList:Sum("CHANCE", cfg, "HitsInvertEleResChance"), 1), 0)
+						-- Include the matching element-specific resistance inversion chance when calculating hit damage.
+						local invertChanceEle = m_max(m_min(skillModList:Sum("CHANCE", cfg, "HitsInvertEleResChance", "HitsInvert"..damageType.."ResChance"), 1), 0)
 						local invertChanceChaos = m_max(m_min(skillModList:Sum("CHANCE", cfg, "HitsInvertChaosResChance"), 1), 0)
 						local invertChance = (isElemental[damageType] and invertChanceEle) or (damageType == "Chaos" and invertChanceChaos) or 0
 						sourceRes = env.modDB:Flag(nil, "Enemy"..sourceRes.."ResistEqualToYours") and "Your "..sourceRes.." Resistance" or (env.partyMembers.modDB:Flag(nil, "Enemy"..sourceRes.."ResistEqualToYours") and "Party Member "..sourceRes.." Resistance" or sourceRes)
@@ -5413,11 +5414,12 @@ function calcs.offence(env, actor, activeSkill)
 			local incChillDuration = skillModList:Sum("INC", cfg, "EnemyChillDuration", "EnemyAilmentDuration", "EnemyElementalAilmentDuration") + enemyDB:Sum("INC", nil, "SelfChillDuration", "SelfAilmentDuration", "SelfElementalAilmentDuration")
 			local moreChillDuration = skillModList:More(cfg, "EnemyChillDuration", "EnemyAilmentDuration", "EnemyElementalAilmentDuration") * enemyDB:More(nil, "SelfChillDuration", "SelfAilmentDuration", "SelfElementalAilmentDuration")
 			output.ChillDurationMod = (1 + incChillDuration / 100) * moreChillDuration
-			output.ChillSourceEffect = m_min(skillModList:Override(nil, "ChillMax") or ailmentData.Chill.max, m_floor(ailmentData.Chill.default * output.ChillEffectMod))
+			-- Let +maximum Chill effect also raise the cap for chilling areas such as Cold Snap.
+			output.ChillSourceEffect = m_min(skillModList:Override(nil, "ChillMax") or (ailmentData.Chill.max + skillModList:Sum("BASE", nil, "ChillMax")), m_floor(ailmentData.Chill.default * output.ChillEffectMod))
 			if breakdown then
 				breakdown.DotChill = { }
 				breakdown.multiChain(breakdown.DotChill, {
-					label = s_format("Effect of Chill: ^8(capped at %d%%)", skillModList:Override(nil, "ChillMax") or ailmentData.Chill.max),
+					label = s_format("Effect of Chill: ^8(capped at %d%%)", skillModList:Override(nil, "ChillMax") or (ailmentData.Chill.max + skillModList:Sum("BASE", nil, "ChillMax"))),
 					base = s_format("%d%% ^8(base)", ailmentData.Chill.default),
 					{ "%.2f ^8(increased/reduced effect of chill)", 1 + incChill / 100 },
 					{ "%.2f ^8(more/less effect of chill)", moreChill },

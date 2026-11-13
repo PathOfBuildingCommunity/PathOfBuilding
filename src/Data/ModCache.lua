@@ -261,7 +261,7 @@ c["+1 to maximum number of Summoned Golems"]={{[1]={flags=0,keywordFlags=0,name=
 c["+1 to maximum number of Summoned Golems if you have 3 Primordial Items Socketed or Equipped"]={{[1]={[1]={threshold=3,type="MultiplierThreshold",var="PrimordialItem"},flags=0,keywordFlags=0,name="ActiveGolemLimit",type="BASE",value=1}},nil}
 c["+1 to maximum number of Summoned Holy Relics"]={{[1]={flags=0,keywordFlags=0,name="ActiveHolyRelicLimit",type="BASE",value=1}},nil}
 c["+1 to maximum number of Summoned Totems"]={{[1]={flags=0,keywordFlags=0,name="ActiveTotemLimit",type="BASE",value=1}},nil}
-c["+1 to number of Sacred Wisps Summoned"]={{}," number of Sacred Wisps Summoned "}
+c["+1 to number of Sacred Wisps Summoned"]={{[1]={flags=0,keywordFlags=0,name="SacredWispsSummoned",type="BASE",value=1}},nil}
 c["+1 to number of Summoned Arbalists"]={{[1]={flags=0,keywordFlags=0,name="ActiveArbalistLimit",type="BASE",value=1}},nil}
 c["+1% Chance to Block Attack Damage"]={{[1]={flags=0,keywordFlags=0,name="BlockChance",type="BASE",value=1}},nil}
 c["+1% Chance to Block Attack Damage per 5% Chance to Block on Equipped Shield"]={{[1]={[1]={div=5,stat="ShieldBlockChance",type="PerStat"},flags=0,keywordFlags=0,name="BlockChance",type="BASE",value=1}},nil}
@@ -3580,7 +3580,7 @@ c["10% Chance to Cause Monster to Flee on Block"]={{}," to Cause Monster to Flee
 c["10% Chance to Cause Monster to Flee on Block 1% of Damage Leeched as Life against Cursed Enemies"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Cursed"},flags=0,keywordFlags=0,name="Damage",type="BASE",value=10}}," to Cause Monster to Flee on Block 1% of  Leeched as Life  "}
 c["10% Chance to Cause Monster to Flee on Block 100% Chance to Cause Monster to Flee on Block"]={{}," to Cause Monster to Flee on Block 100% Chance to Cause Monster to Flee on Block "}
 c["10% Chance to Inflict Cold Exposure on Hit with Cold Damage"]={{[1]={flags=0,keywordFlags=0,name="ColdExposureChance",type="BASE",value=10}},nil}
-c["10% Global chance to Blind Enemies on hit"]={{},"%  chance to Blind Enemies on hit "}
+c["10% Global chance to Blind Enemies on hit"]={{[1]={flags=0,keywordFlags=0,name="BlindChance",type="BASE",value=10}},nil}
 c["10% Global chance to Blind Enemies on hit Gain 1 Mana on Kill per Level"]={{[1]={[1]={type="Global"},[2]={type="Condition",var="KilledRecently"},[3]={type="Multiplier",var="Level"},flags=0,keywordFlags=0,name="Mana",type="BASE",value=10}},"%  chance to Blind Enemies on hit Gain 1    "}
 c["10% additional Physical Damage Reduction while stationary"]={{[1]={[1]={type="Condition",var="Stationary"},flags=0,keywordFlags=0,name="PhysicalDamageReduction",type="BASE",value=10}},nil}
 c["10% chance for Energy Shield Recharge to start when you Kill an Enemy"]={{[1]={[1]={type="Condition",var="KilledRecently"},flags=0,keywordFlags=0,name="EnergyShield",type="BASE",value=10}}," for  Recharge to start  "}
@@ -3622,7 +3622,7 @@ c["10% chance to Freeze"]={{[1]={flags=0,keywordFlags=0,name="EnemyFreezeChance"
 c["10% chance to Freeze during any Flask Effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="EnemyFreezeChance",type="BASE",value=10}},nil}
 c["10% chance to Freeze, Shock and Ignite"]={{[1]={flags=0,keywordFlags=0,name="EnemyFreezeChance",type="BASE",value=10},[2]={flags=0,keywordFlags=0,name="EnemyShockChance",type="BASE",value=10},[3]={flags=0,keywordFlags=0,name="EnemyIgniteChance",type="BASE",value=10}},nil}
 c["10% chance to Freeze, Shock and Ignite while affected by a Herald"]={{[1]={[1]={type="Condition",var="AffectedByHerald"},flags=0,keywordFlags=0,name="EnemyFreezeChance",type="BASE",value=10},[2]={[1]={type="Condition",var="AffectedByHerald"},flags=0,keywordFlags=0,name="EnemyShockChance",type="BASE",value=10},[3]={[1]={type="Condition",var="AffectedByHerald"},flags=0,keywordFlags=0,name="EnemyIgniteChance",type="BASE",value=10}},nil}
-c["10% chance to Hinder Enemies on Hit with Spells"]={{}," to Hinder Enemies  "}
+c["10% chance to Hinder Enemies on Hit with Spells"]={{[1]={flags=2,keywordFlags=0,name="HinderChance",type="BASE",value=10},[2]={[1]={actor="enemy",type="ActorCondition",var="Hindered"},flags=0,keywordFlags=0,name="Dummy",source="Select enemy Hindered in Configuration",type="DUMMY",value=1}},nil}
 c["10% chance to Ignite"]={{[1]={flags=0,keywordFlags=0,name="EnemyIgniteChance",type="BASE",value=10}},nil}
 c["10% chance to Ignite during any Flask Effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="EnemyIgniteChance",type="BASE",value=10}},nil}
 c["10% chance to Impale Enemies on Hit with Attacks"]={{[1]={flags=0,keywordFlags=65536,name="ImpaleChance",type="BASE",value=10}},nil}
@@ -4459,12 +4459,12 @@ c["12 to 22 Added Physical Damage with Bow Attacks"]={{[1]={flags=131076,keyword
 c["12% Chance for Traps to Trigger an additional time"]={{},"  to Trigger an additional time "}
 c["12% Chance to Block Attack Damage"]={{[1]={flags=0,keywordFlags=0,name="BlockChance",type="BASE",value=12}},nil}
 c["12% Chance to Block Spell Damage"]={{[1]={flags=0,keywordFlags=0,name="SpellBlockChance",type="BASE",value=12}},nil}
-c["12% Global chance to Blind Enemies on hit"]={{},"%  chance to Blind Enemies on hit "}
+c["12% Global chance to Blind Enemies on hit"]={{[1]={flags=0,keywordFlags=0,name="BlindChance",type="BASE",value=12}},nil}
 c["12% chance to Avoid Elemental Ailments per Grand Spectrum"]={{[1]={[1]={type="Multiplier",var="GrandSpectrum"},flags=0,keywordFlags=0,name="AvoidElementalAilments",type="BASE",value=12}},nil}
 c["12% chance to Avoid Elemental Damage from Hits during Soul Gain Prevention"]={{[1]={[1]={type="Condition",var="SoulGainPrevention"},flags=0,keywordFlags=0,name="AvoidFireDamageChance",type="BASE",value=12},[2]={[1]={type="Condition",var="SoulGainPrevention"},flags=0,keywordFlags=0,name="AvoidColdDamageChance",type="BASE",value=12},[3]={[1]={type="Condition",var="SoulGainPrevention"},flags=0,keywordFlags=0,name="AvoidLightningDamageChance",type="BASE",value=12}},nil}
 c["12% chance to Avoid being Stunned"]={{[1]={flags=0,keywordFlags=0,name="AvoidStun",type="BASE",value=12}},nil}
 c["12% chance to Freeze"]={{[1]={flags=0,keywordFlags=0,name="EnemyFreezeChance",type="BASE",value=12}},nil}
-c["12% chance to Hinder Enemies on Hit with Spells"]={{}," to Hinder Enemies  "}
+c["12% chance to Hinder Enemies on Hit with Spells"]={{[1]={flags=2,keywordFlags=0,name="HinderChance",type="BASE",value=12},[2]={[1]={actor="enemy",type="ActorCondition",var="Hindered"},flags=0,keywordFlags=0,name="Dummy",source="Select enemy Hindered in Configuration",type="DUMMY",value=1}},nil}
 c["12% chance to Ignite"]={{[1]={flags=0,keywordFlags=0,name="EnemyIgniteChance",type="BASE",value=12}},nil}
 c["12% chance to Impale Enemies on Hit with Attacks"]={{[1]={flags=0,keywordFlags=65536,name="ImpaleChance",type="BASE",value=12}},nil}
 c["12% chance to Intimidate Enemies for 4 seconds on Hit"]={{}," to Intimidate Enemies   "}
@@ -4726,7 +4726,7 @@ c["13 to 23 Added Fire Damage with Bow Attacks"]={{[1]={flags=131076,keywordFlag
 c["13 to 24 Added Cold Damage with Bow Attacks"]={{[1]={flags=131076,keywordFlags=0,name="ColdMin",type="BASE",value=13},[2]={flags=131076,keywordFlags=0,name="ColdMax",type="BASE",value=24}},nil}
 c["13% Chance to Block Attack Damage"]={{[1]={flags=0,keywordFlags=0,name="BlockChance",type="BASE",value=13}},nil}
 c["13% Chance to Block Spell Damage"]={{[1]={flags=0,keywordFlags=0,name="SpellBlockChance",type="BASE",value=13}},nil}
-c["13% Global chance to Blind Enemies on hit"]={{},"%  chance to Blind Enemies on hit "}
+c["13% Global chance to Blind Enemies on hit"]={{[1]={flags=0,keywordFlags=0,name="BlindChance",type="BASE",value=13}},nil}
 c["13% additional Elemental Resistances during Effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="ElementalResist",type="BASE",value=13}},nil}
 c["13% additional Physical Damage Reduction while Bleeding"]={{[1]={[1]={type="Condition",var="Bleeding"},flags=0,keywordFlags=0,name="PhysicalDamageReduction",type="BASE",value=13}},nil}
 c["13% chance for Energy Shield Recharge to start when you use a Skill"]={{[1]={flags=0,keywordFlags=0,name="EnergyShield",type="BASE",value=13}}," for  Recharge to start when you use a Skill "}
@@ -4932,7 +4932,7 @@ c["138% increased Spell Critical Strike Chance"]={{[1]={flags=2,keywordFlags=0,n
 c["14 to 24 Added Physical Damage with Bow Attacks"]={{[1]={flags=131076,keywordFlags=0,name="PhysicalMin",type="BASE",value=14},[2]={flags=131076,keywordFlags=0,name="PhysicalMax",type="BASE",value=24}},nil}
 c["14% Chance to Block Attack Damage"]={{[1]={flags=0,keywordFlags=0,name="BlockChance",type="BASE",value=14}},nil}
 c["14% Chance to Block Spell Damage"]={{[1]={flags=0,keywordFlags=0,name="SpellBlockChance",type="BASE",value=14}},nil}
-c["14% Global chance to Blind Enemies on hit"]={{},"%  chance to Blind Enemies on hit "}
+c["14% Global chance to Blind Enemies on hit"]={{[1]={flags=0,keywordFlags=0,name="BlindChance",type="BASE",value=14}},nil}
 c["14% chance to Avoid Elemental Ailments"]={{[1]={flags=0,keywordFlags=0,name="AvoidElementalAilments",type="BASE",value=14}},nil}
 c["14% chance to Avoid being Frozen"]={{[1]={flags=0,keywordFlags=0,name="AvoidFreeze",type="BASE",value=14}},nil}
 c["14% chance to Avoid being Ignited"]={{[1]={flags=0,keywordFlags=0,name="AvoidIgnite",type="BASE",value=14}},nil}
@@ -5145,7 +5145,7 @@ c["15% chance to Defend with 200% of Armour"]={{[1]={[1]={type="Condition",var="
 c["15% chance to Extinguish Enemies on Hit"]={{}," to Extinguish Enemies  "}
 c["15% chance to Freeze"]={{[1]={flags=0,keywordFlags=0,name="EnemyFreezeChance",type="BASE",value=15}},nil}
 c["15% chance to Freeze, Shock and Ignite"]={{[1]={flags=0,keywordFlags=0,name="EnemyFreezeChance",type="BASE",value=15},[2]={flags=0,keywordFlags=0,name="EnemyShockChance",type="BASE",value=15},[3]={flags=0,keywordFlags=0,name="EnemyIgniteChance",type="BASE",value=15}},nil}
-c["15% chance to Hinder Enemies on Hit with Spells"]={{}," to Hinder Enemies  "}
+c["15% chance to Hinder Enemies on Hit with Spells"]={{[1]={flags=2,keywordFlags=0,name="HinderChance",type="BASE",value=15},[2]={[1]={actor="enemy",type="ActorCondition",var="Hindered"},flags=0,keywordFlags=0,name="Dummy",source="Select enemy Hindered in Configuration",type="DUMMY",value=1}},nil}
 c["15% chance to Ignite"]={{[1]={flags=0,keywordFlags=0,name="EnemyIgniteChance",type="BASE",value=15}},nil}
 c["15% chance to Ignore Stuns while Casting"]={{[1]={flags=0,keywordFlags=0,name="AvoidInterruptStun",type="BASE",value=15}},nil}
 c["15% chance to Impale Enemies on Hit with Attacks"]={{[1]={flags=0,keywordFlags=65536,name="ImpaleChance",type="BASE",value=15}},nil}
@@ -6138,7 +6138,7 @@ c["2% chance to Avoid Damage of each Element from Hits per Frenzy Charge"]={{[1]
 c["2% chance to Blind Enemies on Hit with Attacks"]={{}," to Blind Enemies  with Attacks "}
 c["2% chance to Defend with 150% of Armour per 5% missing Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="Armour",type="BASE",value=2}}," to Defend with 150% of  per 5% missing Energy Shield "}
 c["2% chance to Freeze"]={{[1]={flags=0,keywordFlags=0,name="EnemyFreezeChance",type="BASE",value=2}},nil}
-c["2% chance to Hinder Enemies on Hit with Spells"]={{}," to Hinder Enemies  "}
+c["2% chance to Hinder Enemies on Hit with Spells"]={{[1]={flags=2,keywordFlags=0,name="HinderChance",type="BASE",value=2},[2]={[1]={actor="enemy",type="ActorCondition",var="Hindered"},flags=0,keywordFlags=0,name="Dummy",source="Select enemy Hindered in Configuration",type="DUMMY",value=1}},nil}
 c["2% chance to Ignite"]={{[1]={flags=0,keywordFlags=0,name="EnemyIgniteChance",type="BASE",value=2}},nil}
 c["2% chance to Poison on Hit"]={{[1]={flags=0,keywordFlags=0,name="PoisonChance",type="BASE",value=2}},nil}
 c["2% chance to Shock"]={{[1]={flags=0,keywordFlags=0,name="EnemyShockChance",type="BASE",value=2}},nil}
@@ -6311,7 +6311,7 @@ c["20% chance to Extinguish Enemies on Hit"]={{}," to Extinguish Enemies  "}
 c["20% chance to Freeze"]={{[1]={flags=0,keywordFlags=0,name="EnemyFreezeChance",type="BASE",value=20}},nil}
 c["20% chance to Freeze Enemies for 1 second when they Hit you"]={{[1]={flags=0,keywordFlags=0,name="EnemyFreezeChance",type="BASE",value=20}},"  Enemies for 1 second when they Hit you "}
 c["20% chance to Freeze Enemies for 1 second when they Hit you +2 to Level of all Herald Skill Gems"]={{[1]={flags=0,keywordFlags=0,name="EnemyFreezeChance",type="BASE",value=20}},"  Enemies for 1 second when they Hit you +2 to Level of all Herald Skill Gems "}
-c["20% chance to Hinder Enemies on Hit with Spells"]={{}," to Hinder Enemies  "}
+c["20% chance to Hinder Enemies on Hit with Spells"]={{[1]={flags=2,keywordFlags=0,name="HinderChance",type="BASE",value=20},[2]={[1]={actor="enemy",type="ActorCondition",var="Hindered"},flags=0,keywordFlags=0,name="Dummy",source="Select enemy Hindered in Configuration",type="DUMMY",value=1}},nil}
 c["20% chance to Ignite"]={{[1]={flags=0,keywordFlags=0,name="EnemyIgniteChance",type="BASE",value=20}},nil}
 c["20% chance to Ignore Stuns while Casting"]={{[1]={flags=0,keywordFlags=0,name="AvoidInterruptStun",type="BASE",value=20}},nil}
 c["20% chance to Impale Enemies on Hit with Attacks"]={{[1]={flags=0,keywordFlags=65536,name="ImpaleChance",type="BASE",value=20}},nil}
@@ -7246,7 +7246,7 @@ c["25% chance to Freeze during any Flask Effect"]={{[1]={[1]={type="Condition",v
 c["25% chance to Freeze with Melee Weapons"]={{[1]={flags=67108864,keywordFlags=0,name="EnemyFreezeChance",type="BASE",value=25}},nil}
 c["25% chance to Freeze, Shock and Ignite"]={{[1]={flags=0,keywordFlags=0,name="EnemyFreezeChance",type="BASE",value=25},[2]={flags=0,keywordFlags=0,name="EnemyShockChance",type="BASE",value=25},[3]={flags=0,keywordFlags=0,name="EnemyIgniteChance",type="BASE",value=25}},nil}
 c["25% chance to Freeze, Shock and Ignite during Effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="EnemyFreezeChance",type="BASE",value=25},[2]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="EnemyShockChance",type="BASE",value=25},[3]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="EnemyIgniteChance",type="BASE",value=25}},nil}
-c["25% chance to Hinder Enemies on Hit with Spells"]={{}," to Hinder Enemies  "}
+c["25% chance to Hinder Enemies on Hit with Spells"]={{[1]={flags=2,keywordFlags=0,name="HinderChance",type="BASE",value=25},[2]={[1]={actor="enemy",type="ActorCondition",var="Hindered"},flags=0,keywordFlags=0,name="Dummy",source="Select enemy Hindered in Configuration",type="DUMMY",value=1}},nil}
 c["25% chance to Ignite"]={{[1]={flags=0,keywordFlags=0,name="EnemyIgniteChance",type="BASE",value=25}},nil}
 c["25% chance to Ignite during any Flask Effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="EnemyIgniteChance",type="BASE",value=25}},nil}
 c["25% chance to Ignite when in Main Hand"]={{[1]={[1]={num=1,type="SlotNumber"},flags=0,keywordFlags=0,name="EnemyIgniteChance",type="BASE",value=25}},nil}
@@ -8093,7 +8093,7 @@ c["30% chance to Extinguish Enemies on Hit"]={{}," to Extinguish Enemies  "}
 c["30% chance to Freeze"]={{[1]={flags=0,keywordFlags=0,name="EnemyFreezeChance",type="BASE",value=30}},nil}
 c["30% chance to Freeze Enemies which are Chilled"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Chilled"},flags=0,keywordFlags=0,name="EnemyFreezeChance",type="BASE",value=30}},nil}
 c["30% chance to Freeze during any Flask Effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="EnemyFreezeChance",type="BASE",value=30}},nil}
-c["30% chance to Hinder Enemies on Hit with Spells"]={{}," to Hinder Enemies  "}
+c["30% chance to Hinder Enemies on Hit with Spells"]={{[1]={flags=2,keywordFlags=0,name="HinderChance",type="BASE",value=30},[2]={[1]={actor="enemy",type="ActorCondition",var="Hindered"},flags=0,keywordFlags=0,name="Dummy",source="Select enemy Hindered in Configuration",type="DUMMY",value=1}},nil}
 c["30% chance to Ignite"]={{[1]={flags=0,keywordFlags=0,name="EnemyIgniteChance",type="BASE",value=30}},nil}
 c["30% chance to Ignite during any Flask Effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="EnemyIgniteChance",type="BASE",value=30}},nil}
 c["30% chance to Ignore Stuns while Casting"]={{[1]={flags=0,keywordFlags=0,name="AvoidInterruptStun",type="BASE",value=30}},nil}
@@ -8692,7 +8692,7 @@ c["35% chance to Aggravate Bleeding on targets you Hit with Attacks"]={{}," to A
 c["35% chance to Chill Attackers for 4 seconds on Block"]={{}," to Chill Attackers  on Block "}
 c["35% chance to Extinguish Enemies on Hit"]={{}," to Extinguish Enemies  "}
 c["35% chance to Freeze"]={{[1]={flags=0,keywordFlags=0,name="EnemyFreezeChance",type="BASE",value=35}},nil}
-c["35% chance to Hinder Enemies on Hit with Spells"]={{}," to Hinder Enemies  "}
+c["35% chance to Hinder Enemies on Hit with Spells"]={{[1]={flags=2,keywordFlags=0,name="HinderChance",type="BASE",value=35},[2]={[1]={actor="enemy",type="ActorCondition",var="Hindered"},flags=0,keywordFlags=0,name="Dummy",source="Select enemy Hindered in Configuration",type="DUMMY",value=1}},nil}
 c["35% chance to Ignite"]={{[1]={flags=0,keywordFlags=0,name="EnemyIgniteChance",type="BASE",value=35}},nil}
 c["35% chance to Ignore Stuns while Casting"]={{[1]={flags=0,keywordFlags=0,name="AvoidInterruptStun",type="BASE",value=35}},nil}
 c["35% chance to Impale Enemies on Hit with Attacks"]={{[1]={flags=0,keywordFlags=65536,name="ImpaleChance",type="BASE",value=35}},nil}
@@ -9063,7 +9063,7 @@ c["4% chance to Blind Enemies on Hit with Attacks"]={{}," to Blind Enemies  with
 c["4% chance to Freeze"]={{[1]={flags=0,keywordFlags=0,name="EnemyFreezeChance",type="BASE",value=4}},nil}
 c["4% chance to Freeze, Shock and Ignite"]={{[1]={flags=0,keywordFlags=0,name="EnemyFreezeChance",type="BASE",value=4},[2]={flags=0,keywordFlags=0,name="EnemyShockChance",type="BASE",value=4},[3]={flags=0,keywordFlags=0,name="EnemyIgniteChance",type="BASE",value=4}},nil}
 c["4% chance to Gain Unholy Might for 4 seconds on Melee Kill"]={{[1]={[1]={type="Condition",var="KilledRecently"},flags=67108864,keywordFlags=0,name="Condition:UnholyMight",type="FLAG",value=true}},nil}
-c["4% chance to Hinder Enemies on Hit with Spells"]={{}," to Hinder Enemies  "}
+c["4% chance to Hinder Enemies on Hit with Spells"]={{[1]={flags=2,keywordFlags=0,name="HinderChance",type="BASE",value=4},[2]={[1]={actor="enemy",type="ActorCondition",var="Hindered"},flags=0,keywordFlags=0,name="Dummy",source="Select enemy Hindered in Configuration",type="DUMMY",value=1}},nil}
 c["4% chance to Ignite"]={{[1]={flags=0,keywordFlags=0,name="EnemyIgniteChance",type="BASE",value=4}},nil}
 c["4% chance to Impale Enemies on Hit"]={{[1]={flags=0,keywordFlags=0,name="ImpaleChance",type="BASE",value=4}},nil}
 c["4% chance to Poison on Hit"]={{[1]={flags=0,keywordFlags=0,name="PoisonChance",type="BASE",value=4}},nil}
@@ -9226,7 +9226,7 @@ c["40% chance to Chill Attackers for 4 seconds on Block"]={{}," to Chill Attacke
 c["40% chance to Chill Attackers for 4 seconds on Block 40% chance to Shock Attackers for 4 seconds on Block"]={{[1]={flags=0,keywordFlags=0,name="EnemyShockChance",type="BASE",value=40}}," to Chill Attackers  on Block 40% chance  Attackers  on Block "}
 c["40% chance to Extinguish Enemies on Hit"]={{}," to Extinguish Enemies  "}
 c["40% chance to Freeze"]={{[1]={flags=0,keywordFlags=0,name="EnemyFreezeChance",type="BASE",value=40}},nil}
-c["40% chance to Hinder Enemies on Hit with Spells"]={{}," to Hinder Enemies  "}
+c["40% chance to Hinder Enemies on Hit with Spells"]={{[1]={flags=2,keywordFlags=0,name="HinderChance",type="BASE",value=40},[2]={[1]={actor="enemy",type="ActorCondition",var="Hindered"},flags=0,keywordFlags=0,name="Dummy",source="Select enemy Hindered in Configuration",type="DUMMY",value=1}},nil}
 c["40% chance to Ignite"]={{[1]={flags=0,keywordFlags=0,name="EnemyIgniteChance",type="BASE",value=40}},nil}
 c["40% chance to Impale Enemies on Hit with Attacks"]={{[1]={flags=0,keywordFlags=65536,name="ImpaleChance",type="BASE",value=40}},nil}
 c["40% chance to Intimidate Enemies for 4 seconds on Hit"]={{}," to Intimidate Enemies   "}
@@ -9621,7 +9621,7 @@ c["45% chance to Avoid being Shocked"]={{[1]={flags=0,keywordFlags=0,name="Avoid
 c["45% chance to Blind Enemies on Critical Strike"]={{}," to Blind Enemies "}
 c["45% chance to Extinguish Enemies on Hit"]={{}," to Extinguish Enemies  "}
 c["45% chance to Freeze"]={{[1]={flags=0,keywordFlags=0,name="EnemyFreezeChance",type="BASE",value=45}},nil}
-c["45% chance to Hinder Enemies on Hit with Spells"]={{}," to Hinder Enemies  "}
+c["45% chance to Hinder Enemies on Hit with Spells"]={{[1]={flags=2,keywordFlags=0,name="HinderChance",type="BASE",value=45},[2]={[1]={actor="enemy",type="ActorCondition",var="Hindered"},flags=0,keywordFlags=0,name="Dummy",source="Select enemy Hindered in Configuration",type="DUMMY",value=1}},nil}
 c["45% chance to Ignite"]={{[1]={flags=0,keywordFlags=0,name="EnemyIgniteChance",type="BASE",value=45}},nil}
 c["45% chance to Impale Enemies on Hit with Attacks"]={{[1]={flags=0,keywordFlags=65536,name="ImpaleChance",type="BASE",value=45}},nil}
 c["45% chance to Intimidate Enemies for 4 seconds on Hit"]={{}," to Intimidate Enemies   "}
@@ -9831,7 +9831,7 @@ c["5 to 61 Added Spell Lightning Damage while wielding a Two Handed Weapon"]={{[
 c["5 to 83 Added Lightning Damage with Bow Attacks"]={{[1]={flags=131076,keywordFlags=0,name="LightningMin",type="BASE",value=5},[2]={flags=131076,keywordFlags=0,name="LightningMax",type="BASE",value=83}},nil}
 c["5% Chance to Block Attack Damage"]={{[1]={flags=0,keywordFlags=0,name="BlockChance",type="BASE",value=5}},nil}
 c["5% Chance to Block Spell Damage"]={{[1]={flags=0,keywordFlags=0,name="SpellBlockChance",type="BASE",value=5}},nil}
-c["5% Global chance to Blind Enemies on hit"]={{},"%  chance to Blind Enemies on hit "}
+c["5% Global chance to Blind Enemies on hit"]={{[1]={flags=0,keywordFlags=0,name="BlindChance",type="BASE",value=5}},nil}
 c["5% additional Physical Damage Reduction"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageReduction",type="BASE",value=5}},nil}
 c["5% additional Physical Damage Reduction against Abyssal Monsters"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageReduction",type="BASE",value=5}},"  against Abyssal Monsters "}
 c["5% additional Physical Damage Reduction during any Flask Effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="PhysicalDamageReduction",type="BASE",value=5}},nil}
@@ -9850,7 +9850,7 @@ c["5% chance to Defend with 200% of Armour for each time you've been Hit by an E
 c["5% chance to Freeze"]={{[1]={flags=0,keywordFlags=0,name="EnemyFreezeChance",type="BASE",value=5}},nil}
 c["5% chance to Freeze, Shock and Ignite"]={{[1]={flags=0,keywordFlags=0,name="EnemyFreezeChance",type="BASE",value=5},[2]={flags=0,keywordFlags=0,name="EnemyShockChance",type="BASE",value=5},[3]={flags=0,keywordFlags=0,name="EnemyIgniteChance",type="BASE",value=5}},nil}
 c["5% chance to Gain Unholy Might for 4 seconds on Melee Kill"]={{[1]={[1]={type="Condition",var="KilledRecently"},flags=67108864,keywordFlags=0,name="Condition:UnholyMight",type="FLAG",value=true}},nil}
-c["5% chance to Hinder Enemies on Hit with Spells"]={{}," to Hinder Enemies  "}
+c["5% chance to Hinder Enemies on Hit with Spells"]={{[1]={flags=2,keywordFlags=0,name="HinderChance",type="BASE",value=5},[2]={[1]={actor="enemy",type="ActorCondition",var="Hindered"},flags=0,keywordFlags=0,name="Dummy",source="Select enemy Hindered in Configuration",type="DUMMY",value=1}},nil}
 c["5% chance to Ignite"]={{[1]={flags=0,keywordFlags=0,name="EnemyIgniteChance",type="BASE",value=5}},nil}
 c["5% chance to Impale Enemies on Hit with Attacks"]={{[1]={flags=0,keywordFlags=65536,name="ImpaleChance",type="BASE",value=5}},nil}
 c["5% chance to Intimidate Enemies for 4 seconds on Hit"]={{}," to Intimidate Enemies   "}
@@ -10082,7 +10082,7 @@ c["50% chance to Cause Bleeding on Critical Strike"]={{[1]={[1]={type="Condition
 c["50% chance to Cause Poison on Critical Strike"]={{[1]={[1]={type="Condition",var="CriticalStrike"},flags=0,keywordFlags=0,name="PoisonChance",type="BASE",value=50}},nil}
 c["50% chance to Extinguish Enemies on Hit"]={{}," to Extinguish Enemies  "}
 c["50% chance to Freeze"]={{[1]={flags=0,keywordFlags=0,name="EnemyFreezeChance",type="BASE",value=50}},nil}
-c["50% chance to Hinder Enemies on Hit with Spells"]={{}," to Hinder Enemies  "}
+c["50% chance to Hinder Enemies on Hit with Spells"]={{[1]={flags=2,keywordFlags=0,name="HinderChance",type="BASE",value=50},[2]={[1]={actor="enemy",type="ActorCondition",var="Hindered"},flags=0,keywordFlags=0,name="Dummy",source="Select enemy Hindered in Configuration",type="DUMMY",value=1}},nil}
 c["50% chance to Ignite"]={{[1]={flags=0,keywordFlags=0,name="EnemyIgniteChance",type="BASE",value=50}},nil}
 c["50% chance to Impale Enemies on Hit with Attacks"]={{[1]={flags=0,keywordFlags=65536,name="ImpaleChance",type="BASE",value=50}},nil}
 c["50% chance to Intimidate Enemies for 4 seconds on Hit"]={{}," to Intimidate Enemies   "}
@@ -10505,7 +10505,7 @@ c["55% chance to Avoid being Ignited"]={{[1]={flags=0,keywordFlags=0,name="Avoid
 c["55% chance to Avoid being Poisoned"]={{[1]={flags=0,keywordFlags=0,name="AvoidPoison",type="BASE",value=55}},nil}
 c["55% chance to Avoid being Shocked"]={{[1]={flags=0,keywordFlags=0,name="AvoidShock",type="BASE",value=55}},nil}
 c["55% chance to Extinguish Enemies on Hit"]={{}," to Extinguish Enemies  "}
-c["55% chance to Hinder Enemies on Hit with Spells"]={{}," to Hinder Enemies  "}
+c["55% chance to Hinder Enemies on Hit with Spells"]={{[1]={flags=2,keywordFlags=0,name="HinderChance",type="BASE",value=55},[2]={[1]={actor="enemy",type="ActorCondition",var="Hindered"},flags=0,keywordFlags=0,name="Dummy",source="Select enemy Hindered in Configuration",type="DUMMY",value=1}},nil}
 c["55% chance to Intimidate Enemies for 4 seconds on Hit"]={{}," to Intimidate Enemies   "}
 c["55% chance to Unnerve Enemies for 4 seconds on Hit"]={{}," to Unnerve Enemies   "}
 c["55% faster start of Energy Shield Recharge"]={{[1]={flags=0,keywordFlags=0,name="EnergyShieldRechargeFaster",type="INC",value=55}},nil}
@@ -10656,7 +10656,7 @@ c["6 to 8 Added Physical Damage with Sword Attacks"]={{[1]={flags=4194308,keywor
 c["6 to 8 Added Physical Damage with Wand Attacks"]={{[1]={flags=8388612,keywordFlags=0,name="PhysicalMin",type="BASE",value=6},[2]={flags=8388612,keywordFlags=0,name="PhysicalMax",type="BASE",value=8}},nil}
 c["6% Chance to Block Attack Damage"]={{[1]={flags=0,keywordFlags=0,name="BlockChance",type="BASE",value=6}},nil}
 c["6% Chance to Block Spell Damage"]={{[1]={flags=0,keywordFlags=0,name="SpellBlockChance",type="BASE",value=6}},nil}
-c["6% Global chance to Blind Enemies on hit"]={{},"%  chance to Blind Enemies on hit "}
+c["6% Global chance to Blind Enemies on hit"]={{[1]={flags=0,keywordFlags=0,name="BlindChance",type="BASE",value=6}},nil}
 c["6% additional Physical Damage Reduction"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageReduction",type="BASE",value=6}},nil}
 c["6% additional Physical Damage Reduction while stationary"]={{[1]={[1]={type="Condition",var="Stationary"},flags=0,keywordFlags=0,name="PhysicalDamageReduction",type="BASE",value=6}},nil}
 c["6% chance for Flasks you use to not consume Charges"]={{[1]={flags=0,keywordFlags=0,name="FlaskChanceNotConsumeCharges",type="BASE",value=6}},nil}
@@ -10832,7 +10832,7 @@ c["60% chance to Avoid being Ignited"]={{[1]={flags=0,keywordFlags=0,name="Avoid
 c["60% chance to Avoid being Poisoned"]={{[1]={flags=0,keywordFlags=0,name="AvoidPoison",type="BASE",value=60}},nil}
 c["60% chance to Avoid being Shocked"]={{[1]={flags=0,keywordFlags=0,name="AvoidShock",type="BASE",value=60}},nil}
 c["60% chance to Extinguish Enemies on Hit"]={{}," to Extinguish Enemies  "}
-c["60% chance to Hinder Enemies on Hit with Spells"]={{}," to Hinder Enemies  "}
+c["60% chance to Hinder Enemies on Hit with Spells"]={{[1]={flags=2,keywordFlags=0,name="HinderChance",type="BASE",value=60},[2]={[1]={actor="enemy",type="ActorCondition",var="Hindered"},flags=0,keywordFlags=0,name="Dummy",source="Select enemy Hindered in Configuration",type="DUMMY",value=1}},nil}
 c["60% chance to Intimidate Enemies for 4 seconds on Hit"]={{}," to Intimidate Enemies   "}
 c["60% chance to Poison on Hit"]={{[1]={flags=0,keywordFlags=0,name="PoisonChance",type="BASE",value=60}},nil}
 c["60% chance to Poison on Hit against Cursed Enemies"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Cursed"},flags=0,keywordFlags=0,name="PoisonChance",type="BASE",value=60}},nil}
@@ -11029,7 +11029,7 @@ c["65% chance to Avoid being Ignited"]={{[1]={flags=0,keywordFlags=0,name="Avoid
 c["65% chance to Avoid being Poisoned"]={{[1]={flags=0,keywordFlags=0,name="AvoidPoison",type="BASE",value=65}},nil}
 c["65% chance to Avoid being Shocked"]={{[1]={flags=0,keywordFlags=0,name="AvoidShock",type="BASE",value=65}},nil}
 c["65% chance to Extinguish Enemies on Hit"]={{}," to Extinguish Enemies  "}
-c["65% chance to Hinder Enemies on Hit with Spells"]={{}," to Hinder Enemies  "}
+c["65% chance to Hinder Enemies on Hit with Spells"]={{[1]={flags=2,keywordFlags=0,name="HinderChance",type="BASE",value=65},[2]={[1]={actor="enemy",type="ActorCondition",var="Hindered"},flags=0,keywordFlags=0,name="Dummy",source="Select enemy Hindered in Configuration",type="DUMMY",value=1}},nil}
 c["65% chance to Intimidate Enemies for 4 seconds on Hit"]={{}," to Intimidate Enemies   "}
 c["65% chance to Unnerve Enemies for 4 seconds on Hit"]={{}," to Unnerve Enemies   "}
 c["65% increased Armour"]={{[1]={flags=0,keywordFlags=0,name="Armour",type="INC",value=65}},nil}
@@ -11133,7 +11133,7 @@ c["7 to 12 Added Cold Damage with Wand Attacks"]={{[1]={flags=8388612,keywordFla
 c["7 to 13 Added Cold Damage per Frenzy Charge"]={{[1]={[1]={type="Multiplier",var="FrenzyCharge"},flags=0,keywordFlags=0,name="ColdMin",type="BASE",value=7},[2]={[1]={type="Multiplier",var="FrenzyCharge"},flags=0,keywordFlags=0,name="ColdMax",type="BASE",value=13}},nil}
 c["7% Chance to Block Attack Damage"]={{[1]={flags=0,keywordFlags=0,name="BlockChance",type="BASE",value=7}},nil}
 c["7% Chance to Block Spell Damage"]={{[1]={flags=0,keywordFlags=0,name="SpellBlockChance",type="BASE",value=7}},nil}
-c["7% Global chance to Blind Enemies on hit"]={{},"%  chance to Blind Enemies on hit "}
+c["7% Global chance to Blind Enemies on hit"]={{[1]={flags=0,keywordFlags=0,name="BlindChance",type="BASE",value=7}},nil}
 c["7% Global chance to Blind Enemies on hit 10% Global chance to Blind Enemies on hit"]={{},"%  chance to Blind Enemies on hit 10% Global chance to Blind Enemies on hit "}
 c["7% additional Physical Damage Reduction"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageReduction",type="BASE",value=7}},nil}
 c["7% additional Physical Damage Reduction while affected by Determination"]={{[1]={[1]={type="Condition",var="AffectedByDetermination"},flags=0,keywordFlags=0,name="PhysicalDamageReduction",type="BASE",value=7}},nil}
@@ -11148,7 +11148,7 @@ c["7% chance to Avoid being Shocked"]={{[1]={flags=0,keywordFlags=0,name="AvoidS
 c["7% chance to Avoid being Stunned"]={{[1]={flags=0,keywordFlags=0,name="AvoidStun",type="BASE",value=7}},nil}
 c["7% chance to Freeze"]={{[1]={flags=0,keywordFlags=0,name="EnemyFreezeChance",type="BASE",value=7}},nil}
 c["7% chance to Gain Unholy Might for 4 seconds on Melee Kill"]={{[1]={[1]={type="Condition",var="KilledRecently"},flags=67108864,keywordFlags=0,name="Condition:UnholyMight",type="FLAG",value=true}},nil}
-c["7% chance to Hinder Enemies on Hit with Spells"]={{}," to Hinder Enemies  "}
+c["7% chance to Hinder Enemies on Hit with Spells"]={{[1]={flags=2,keywordFlags=0,name="HinderChance",type="BASE",value=7},[2]={[1]={actor="enemy",type="ActorCondition",var="Hindered"},flags=0,keywordFlags=0,name="Dummy",source="Select enemy Hindered in Configuration",type="DUMMY",value=1}},nil}
 c["7% chance to Ignite"]={{[1]={flags=0,keywordFlags=0,name="EnemyIgniteChance",type="BASE",value=7}},nil}
 c["7% chance to Intimidate Enemies for 4 seconds on Hit"]={{}," to Intimidate Enemies   "}
 c["7% chance to Knock Enemies Back on hit"]={{[1]={flags=0,keywordFlags=0,name="EnemyKnockbackChance",type="BASE",value=7}},nil}
@@ -11249,7 +11249,7 @@ c["7% reduced Movement Speed"]={{[1]={flags=0,keywordFlags=0,name="MovementSpeed
 c["7% reduced Soul Gain Prevention Duration"]={{[1]={flags=0,keywordFlags=0,name="SoulGainPreventionDuration",type="INC",value=-7}},nil}
 c["70 to 105 Added Cold Damage with Bow Attacks"]={{[1]={flags=131076,keywordFlags=0,name="ColdMin",type="BASE",value=70},[2]={flags=131076,keywordFlags=0,name="ColdMax",type="BASE",value=105}},nil}
 c["70% chance to Extinguish Enemies on Hit"]={{}," to Extinguish Enemies  "}
-c["70% chance to Hinder Enemies on Hit with Spells"]={{}," to Hinder Enemies  "}
+c["70% chance to Hinder Enemies on Hit with Spells"]={{[1]={flags=2,keywordFlags=0,name="HinderChance",type="BASE",value=70},[2]={[1]={actor="enemy",type="ActorCondition",var="Hindered"},flags=0,keywordFlags=0,name="Dummy",source="Select enemy Hindered in Configuration",type="DUMMY",value=1}},nil}
 c["70% chance to Intimidate Enemies for 4 seconds on Hit"]={{}," to Intimidate Enemies   "}
 c["70% chance to Unnerve Enemies for 4 seconds on Hit"]={{}," to Unnerve Enemies   "}
 c["70% increased Armour"]={{[1]={flags=0,keywordFlags=0,name="Armour",type="INC",value=70}},nil}
@@ -11330,7 +11330,7 @@ c["74% reduced Global Physical Damage"]={{[1]={[1]={type="Global"},flags=0,keywo
 c["74% reduced Lightning Damage"]={{[1]={flags=0,keywordFlags=0,name="LightningDamage",type="INC",value=-74}},nil}
 c["74% reduced Spell Damage"]={{[1]={flags=2,keywordFlags=0,name="Damage",type="INC",value=-74}},nil}
 c["75% chance to Extinguish Enemies on Hit"]={{}," to Extinguish Enemies  "}
-c["75% chance to Hinder Enemies on Hit with Spells"]={{}," to Hinder Enemies  "}
+c["75% chance to Hinder Enemies on Hit with Spells"]={{[1]={flags=2,keywordFlags=0,name="HinderChance",type="BASE",value=75},[2]={[1]={actor="enemy",type="ActorCondition",var="Hindered"},flags=0,keywordFlags=0,name="Dummy",source="Select enemy Hindered in Configuration",type="DUMMY",value=1}},nil}
 c["75% chance to Intimidate Enemies for 4 seconds on Hit"]={{}," to Intimidate Enemies   "}
 c["75% chance to Unnerve Enemies for 4 seconds on Hit"]={{}," to Unnerve Enemies   "}
 c["75% chance to cause Enemies to Flee on use"]={{}," to cause Enemies to Flee on use "}
@@ -11435,7 +11435,7 @@ c["8 to 23 Added Attack Chaos Damage per 100 Maximum Mana"]={{[1]={[1]={div=100,
 c["8% Chance for Traps to Trigger an additional time"]={{},"  to Trigger an additional time "}
 c["8% Chance to Block Attack Damage"]={{[1]={flags=0,keywordFlags=0,name="BlockChance",type="BASE",value=8}},nil}
 c["8% Chance to Block Spell Damage"]={{[1]={flags=0,keywordFlags=0,name="SpellBlockChance",type="BASE",value=8}},nil}
-c["8% Global chance to Blind Enemies on hit"]={{},"%  chance to Blind Enemies on hit "}
+c["8% Global chance to Blind Enemies on hit"]={{[1]={flags=0,keywordFlags=0,name="BlindChance",type="BASE",value=8}},nil}
 c["8% additional Physical Damage Reduction"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageReduction",type="BASE",value=8}},nil}
 c["8% additional Physical Damage Reduction while affected by Determination"]={{[1]={[1]={type="Condition",var="AffectedByDetermination"},flags=0,keywordFlags=0,name="PhysicalDamageReduction",type="BASE",value=8}},nil}
 c["8% chance for Flasks you use to not consume Charges"]={{[1]={flags=0,keywordFlags=0,name="FlaskChanceNotConsumeCharges",type="BASE",value=8}},nil}
@@ -11449,7 +11449,7 @@ c["8% chance to Cover Rare or Unique Enemies in Ash for 10 Seconds on Hit"]={{},
 c["8% chance to Defend with 200% of Armour"]={{[1]={[1]={type="Condition",var="ArmourMax"},flags=0,keywordFlags=0,name="ArmourDefense",source="Armour Mastery: Max Calc",type="MAX",value=100},[2]={[1]={type="Condition",var="ArmourAvg"},flags=0,keywordFlags=0,name="ArmourDefense",source="Armour Mastery: Average Calc",type="MAX",value=8},[3]={[1]={neg=true,type="Condition",var="ArmourMax"},[2]={neg=true,type="Condition",var="ArmourAvg"},flags=0,keywordFlags=0,name="ArmourDefense",source="Armour Mastery: Min Calc",type="MAX",value=0}},nil}
 c["8% chance to Freeze"]={{[1]={flags=0,keywordFlags=0,name="EnemyFreezeChance",type="BASE",value=8}},nil}
 c["8% chance to Freeze, Shock and Ignite"]={{[1]={flags=0,keywordFlags=0,name="EnemyFreezeChance",type="BASE",value=8},[2]={flags=0,keywordFlags=0,name="EnemyShockChance",type="BASE",value=8},[3]={flags=0,keywordFlags=0,name="EnemyIgniteChance",type="BASE",value=8}},nil}
-c["8% chance to Hinder Enemies on Hit with Spells"]={{}," to Hinder Enemies  "}
+c["8% chance to Hinder Enemies on Hit with Spells"]={{[1]={flags=2,keywordFlags=0,name="HinderChance",type="BASE",value=8},[2]={[1]={actor="enemy",type="ActorCondition",var="Hindered"},flags=0,keywordFlags=0,name="Dummy",source="Select enemy Hindered in Configuration",type="DUMMY",value=1}},nil}
 c["8% chance to Ignite"]={{[1]={flags=0,keywordFlags=0,name="EnemyIgniteChance",type="BASE",value=8}},nil}
 c["8% chance to Impale Enemies on Hit"]={{[1]={flags=0,keywordFlags=0,name="ImpaleChance",type="BASE",value=8}},nil}
 c["8% chance to Impale Enemies on Hit with Attacks"]={{[1]={flags=0,keywordFlags=65536,name="ImpaleChance",type="BASE",value=8}},nil}
@@ -11645,7 +11645,7 @@ c["8% reduced Soul Gain Prevention Duration"]={{[1]={flags=0,keywordFlags=0,name
 c["80% chance to Avoid being Chilled"]={{[1]={flags=0,keywordFlags=0,name="AvoidChill",type="BASE",value=80}},nil}
 c["80% chance to Avoid being Shocked"]={{[1]={flags=0,keywordFlags=0,name="AvoidShock",type="BASE",value=80}},nil}
 c["80% chance to Extinguish Enemies on Hit"]={{}," to Extinguish Enemies  "}
-c["80% chance to Hinder Enemies on Hit with Spells"]={{}," to Hinder Enemies  "}
+c["80% chance to Hinder Enemies on Hit with Spells"]={{[1]={flags=2,keywordFlags=0,name="HinderChance",type="BASE",value=80},[2]={[1]={actor="enemy",type="ActorCondition",var="Hindered"},flags=0,keywordFlags=0,name="Dummy",source="Select enemy Hindered in Configuration",type="DUMMY",value=1}},nil}
 c["80% chance to Intimidate Enemies for 4 seconds on Hit"]={{}," to Intimidate Enemies   "}
 c["80% chance to Unnerve Enemies for 4 seconds on Hit"]={{}," to Unnerve Enemies   "}
 c["80% faster start of Energy Shield Recharge"]={{[1]={flags=0,keywordFlags=0,name="EnergyShieldRechargeFaster",type="INC",value=80}},nil}
@@ -11725,7 +11725,7 @@ c["83% increased Fire Damage"]={{[1]={flags=0,keywordFlags=0,name="FireDamage",t
 c["83% increased Lightning Damage"]={{[1]={flags=0,keywordFlags=0,name="LightningDamage",type="INC",value=83}},nil}
 c["83% increased Spell Damage"]={{[1]={flags=2,keywordFlags=0,name="Damage",type="INC",value=83}},nil}
 c["85% chance to Extinguish Enemies on Hit"]={{}," to Extinguish Enemies  "}
-c["85% chance to Hinder Enemies on Hit with Spells"]={{}," to Hinder Enemies  "}
+c["85% chance to Hinder Enemies on Hit with Spells"]={{[1]={flags=2,keywordFlags=0,name="HinderChance",type="BASE",value=85},[2]={[1]={actor="enemy",type="ActorCondition",var="Hindered"},flags=0,keywordFlags=0,name="Dummy",source="Select enemy Hindered in Configuration",type="DUMMY",value=1}},nil}
 c["85% chance to Intimidate Enemies for 4 seconds on Hit"]={{}," to Intimidate Enemies   "}
 c["85% chance to Unnerve Enemies for 4 seconds on Hit"]={{}," to Unnerve Enemies   "}
 c["85% increased Burning Damage"]={{[1]={flags=0,keywordFlags=134217728,name="FireDamage",type="INC",value=85}},nil}
@@ -11902,7 +11902,7 @@ c["9% reduced Flask Charges used"]={{[1]={flags=0,keywordFlags=0,name="FlaskChar
 c["9% reduced Movement Speed"]={{[1]={flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=-9}},nil}
 c["9% reduced Physical Damage taken"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageTaken",type="INC",value=-9}},nil}
 c["90% chance to Extinguish Enemies on Hit"]={{}," to Extinguish Enemies  "}
-c["90% chance to Hinder Enemies on Hit with Spells"]={{}," to Hinder Enemies  "}
+c["90% chance to Hinder Enemies on Hit with Spells"]={{[1]={flags=2,keywordFlags=0,name="HinderChance",type="BASE",value=90},[2]={[1]={actor="enemy",type="ActorCondition",var="Hindered"},flags=0,keywordFlags=0,name="Dummy",source="Select enemy Hindered in Configuration",type="DUMMY",value=1}},nil}
 c["90% chance to Intimidate Enemies for 4 seconds on Hit"]={{}," to Intimidate Enemies   "}
 c["90% chance to Unnerve Enemies for 4 seconds on Hit"]={{}," to Unnerve Enemies   "}
 c["90% increased Armour"]={{[1]={flags=0,keywordFlags=0,name="Armour",type="INC",value=90}},nil}
@@ -11947,7 +11947,7 @@ c["93% increased Mine Damage"]={{[1]={flags=0,keywordFlags=8192,name="Damage",ty
 c["93% increased Trap Damage"]={{[1]={flags=0,keywordFlags=4096,name="Damage",type="INC",value=93}},nil}
 c["94% increased Elemental Damage with Attack Skills"]={{[1]={flags=0,keywordFlags=65536,name="ElementalDamage",type="INC",value=94}},nil}
 c["95% chance to Extinguish Enemies on Hit"]={{}," to Extinguish Enemies  "}
-c["95% chance to Hinder Enemies on Hit with Spells"]={{}," to Hinder Enemies  "}
+c["95% chance to Hinder Enemies on Hit with Spells"]={{[1]={flags=2,keywordFlags=0,name="HinderChance",type="BASE",value=95},[2]={[1]={actor="enemy",type="ActorCondition",var="Hindered"},flags=0,keywordFlags=0,name="Dummy",source="Select enemy Hindered in Configuration",type="DUMMY",value=1}},nil}
 c["95% chance to Intimidate Enemies for 4 seconds on Hit"]={{}," to Intimidate Enemies   "}
 c["95% chance to Unnerve Enemies for 4 seconds on Hit"]={{}," to Unnerve Enemies   "}
 c["95% increased Physical Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamage",type="INC",value=95}},nil}
@@ -17671,7 +17671,7 @@ c["Melee Attacks have 30% chance to Poison on Hit"]={{[1]={flags=256,keywordFlag
 c["Melee Attacks have 40% chance to Poison on Hit"]={{[1]={flags=256,keywordFlags=0,name="PoisonChance",type="BASE",value=40}},nil}
 c["Melee Attacks have 40% chance to cause Bleeding"]={{[1]={flags=256,keywordFlags=0,name="BleedChance",type="BASE",value=40}},nil}
 c["Melee Attacks have 50% chance to cause Bleeding"]={{[1]={flags=256,keywordFlags=0,name="BleedChance",type="BASE",value=50}},nil}
-c["Melee Critical Strikes Poison the Enemy"]={nil,"Melee Critical Strikes Poison the Enemy "}
+c["Melee Critical Strikes Poison the Enemy"]={{[1]={[1]={type="Condition",var="CriticalStrike"},flags=256,keywordFlags=0,name="PoisonChance",type="BASE",value=100}},nil}
 c["Melee Critical Strikes have 25% chance to Poison the Enemy"]={{[1]={[1]={type="Condition",var="CriticalStrike"},flags=256,keywordFlags=0,name="PoisonChance",type="BASE",value=25}},nil}
 c["Melee Critical Strikes have 25% chance to cause Bleeding"]={{[1]={[1]={type="Condition",var="CriticalStrike"},flags=256,keywordFlags=0,name="BleedChance",type="BASE",value=25}},nil}
 c["Melee Hits Fortify"]={nil,"Melee Hits Fortify "}
@@ -17861,7 +17861,7 @@ c["Minions deal 24% increased Damage"]={{[1]={flags=0,keywordFlags=0,name="Minio
 c["Minions deal 25 to 36 additional Chaos Damage"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="ChaosMin",type="BASE",value=25}}},[2]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="ChaosMax",type="BASE",value=36}}}},nil}
 c["Minions deal 25 to 36 additional Physical Damage"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="PhysicalMin",type="BASE",value=25}}},[2]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="PhysicalMax",type="BASE",value=36}}}},nil}
 c["Minions deal 25% increased Damage"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Damage",type="INC",value=25}}}},nil}
-c["Minions deal 25% increased Damage if you've Hit Recently"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={[1]={type="Condition",var="HitRecently"},flags=0,keywordFlags=0,name="Damage",type="INC",value=25}}}},nil}
+c["Minions deal 25% increased Damage if you've Hit Recently"]={{[1]={[1]={type="Condition",var="HitRecently"},flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Damage",type="INC",value=25}}}},nil}
 c["Minions deal 26 to 35 additional Cold Damage"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="ColdMin",type="BASE",value=26}}},[2]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="ColdMax",type="BASE",value=35}}}},nil}
 c["Minions deal 26 to 35 additional Fire Damage"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="FireMin",type="BASE",value=26}}},[2]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="FireMax",type="BASE",value=35}}}},nil}
 c["Minions deal 26% increased Damage"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Damage",type="INC",value=26}}}},nil}
@@ -17912,7 +17912,7 @@ c["Minions deal 52% increased Damage"]={{[1]={flags=0,keywordFlags=0,name="Minio
 c["Minions deal 53% increased Damage"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Damage",type="INC",value=53}}}},nil}
 c["Minions deal 58% increased Damage"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Damage",type="INC",value=58}}}},nil}
 c["Minions deal 60% increased Damage"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Damage",type="INC",value=60}}}},nil}
-c["Minions deal 60% increased Damage if you've Hit Recently"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={[1]={type="Condition",var="HitRecently"},flags=0,keywordFlags=0,name="Damage",type="INC",value=60}}}},nil}
+c["Minions deal 60% increased Damage if you've Hit Recently"]={{[1]={[1]={type="Condition",var="HitRecently"},flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Damage",type="INC",value=60}}}},nil}
 c["Minions deal 61% increased Damage"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Damage",type="INC",value=61}}}},nil}
 c["Minions deal 62% increased Damage"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Damage",type="INC",value=62}}}},nil}
 c["Minions deal 67% increased Damage"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Damage",type="INC",value=67}}}},nil}
@@ -17921,7 +17921,7 @@ c["Minions deal 7 to 13 additional Physical Damage"]={{[1]={flags=0,keywordFlags
 c["Minions deal 7 to 14 additional Attack Physical Damage"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=1,keywordFlags=0,name="PhysicalDamage",type="BASE",value=7}}}}," to 14 additional  "}
 c["Minions deal 7% increased Damage"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Damage",type="INC",value=7}}}},nil}
 c["Minions deal 70% increased Damage"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Damage",type="INC",value=70}}}},nil}
-c["Minions deal 70% increased Damage if you've Hit Recently"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={[1]={type="Condition",var="HitRecently"},flags=0,keywordFlags=0,name="Damage",type="INC",value=70}}}},nil}
+c["Minions deal 70% increased Damage if you've Hit Recently"]={{[1]={[1]={type="Condition",var="HitRecently"},flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Damage",type="INC",value=70}}}},nil}
 c["Minions deal 72% increased Damage"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Damage",type="INC",value=72}}}},nil}
 c["Minions deal 75% increased Damage"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Damage",type="INC",value=75}}}},nil}
 c["Minions deal 77% increased Damage"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Damage",type="INC",value=77}}}},nil}

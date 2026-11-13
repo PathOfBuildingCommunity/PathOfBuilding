@@ -7,6 +7,352 @@ describe("TetsItemMods", function()
 		-- newBuild() takes care of resetting everything in setup()
 	end)
 
+	local function setWickermanCustomMods(text)
+		build.configTab.input.customMods = text
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+	end
+
+	it("exposes Hinder configuration when the modifier is present", function()
+		setWickermanCustomMods("10% chance to Hinder Enemies on Hit with Spells")
+		assert.is_truthy(build.calcsTab.mainEnv.enemyConditionsUsed.Hindered)
+		setWickermanCustomMods("")
+		assert.is_falsy(build.calcsTab.mainEnv.enemyConditionsUsed.Hindered)
+	end)
+
+	it("defaults missing unreserved life from Petrified Blood and lets zero override it", function()
+		local common = "Regenerate 100 Life per second\n2% increased Life Recovery rate per 5% missing Unreserved Life"
+		setWickermanCustomMods(common)
+		assert.are.equal(1, build.calcsTab.mainOutput.LifeRecoveryRateMod)
+		build.skillsTab:PasteSocketGroup("Petrified Blood 20/0  1")
+		setWickermanCustomMods(common)
+		assert.are.near(1.2, build.calcsTab.mainOutput.LifeRecoveryRateMod, 1e-9)
+		setWickermanCustomMods(common.."\nYou count as on Low Life while at 55% of maximum Life or below")
+		assert.are.near(1.18, build.calcsTab.mainOutput.LifeRecoveryRateMod, 1e-9)
+		build.configTab.input.missingUnreservedLifePercent = 25
+		setWickermanCustomMods(common)
+		assert.are.near(1.1, build.calcsTab.mainOutput.LifeRecoveryRateMod, 1e-9)
+		build.configTab.input.missingUnreservedLifePercent = nil
+		setWickermanCustomMods(common.."\nReserves 25% of Life")
+		assert.are.near(1.12, build.calcsTab.mainOutput.LifeRecoveryRateMod, 1e-9)
+		setWickermanCustomMods(common.."\nReserves 50% of Life")
+		assert.are.equal(1, build.calcsTab.mainOutput.LifeRecoveryRateMod)
+		build.configTab.input.missingUnreservedLifePercent = 0
+		setWickermanCustomMods(common)
+		loadBuildFromXML(build:SaveDB("code"))
+		assert.are.equal(0, build.calcsTab.mainOutput.MissingUnreservedLifePercent)
+		assert.are.equal(1, build.calcsTab.mainOutput.LifeRecoveryRateMod)
+		build.configTab.input.missingUnreservedLifePercent = nil
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+		loadBuildFromXML(build:SaveDB("code"))
+		assert.are.equal(50, build.calcsTab.mainOutput.MissingUnreservedLifePercent)
+		assert.are.near(1.2, build.calcsTab.mainOutput.LifeRecoveryRateMod, 1e-9)
+	end)
+
+	it("poisons on melee critical strikes without granting poison to normal hits or spells", function()
+		build.itemsTab:CreateDisplayItemFromRaw("Test Sword\nRusted Sword")
+		build.itemsTab:AddDisplayItem()
+		for _, skill in ipairs({ "Heavy Strike", "Fireball" }) do
+			build.skillsTab:PasteSocketGroup(skill.." 20/0  1")
+			build.mainSocketGroup = #build.skillsTab.socketGroupList
+			setWickermanCustomMods("Melee Critical Strikes Poison the Enemy")
+			local output = build.calcsTab.mainOutput.MainHand or build.calcsTab.mainOutput
+			assert.are.equal(skill == "Heavy Strike" and 100 or 0, output.PoisonChanceOnCrit)
+			assert.are.equal(0, output.PoisonChanceOnHit)
+		end
+	end)
+
+	it("applies faster minion ailments without changing their hit damage", function()
+		build.skillsTab:PasteSocketGroup("Raise Zombie 20/0  1")
+		local common = "Minions have 100% chance to Poison on Hit\nMinions have 100% chance to cause Bleeding\nMinions have 100% chance to Ignite\nMinions gain 100% of Physical Damage as Extra Fire Damage"
+		setWickermanCustomMods(common)
+		local base = copyTable(build.calcsTab.mainEnv.minion.output, true)
+		setWickermanCustomMods(common.."\nDamaging Ailments inflicted by Minions deal damage 20% Faster")
+		local output = build.calcsTab.mainEnv.minion.output
+		for _, ailment in ipairs({ "Poison", "Bleed", "Ignite" }) do
+			assert.is_true(base[ailment.."Duration"] > 0)
+			assert.are.near(base[ailment.."Duration"] / 1.2, output[ailment.."Duration"], 0.001)
+		end
+		assert.are.equal(base.AverageDamage, output.AverageDamage)
+	end)
+
+	it("checks both blind and sand stance for the enemy damage bonus", function()
+		build.skillsTab:PasteSocketGroup("Fireball 20/0  1")
+		setWickermanCustomMods("")
+		local base = build.calcsTab.mainOutput.AverageDamage
+		for _, sand in ipairs({ false, true }) do
+			for _, blind in ipairs({ false, true }) do
+				build.configTab.input.bloodSandStance = sand and "SAND" or "BLOOD"
+				build.configTab.input.conditionEnemyBlinded = blind
+				setWickermanCustomMods("Enemies you Blind while in Sand Stance take 20% increased Damage")
+				assert.are.near(base * (sand and blind and 1.2 or 1), build.calcsTab.mainOutput.AverageDamage, 1)
+			end
+		end
+		build.configTab.input.conditionEnemyBlinded = false
+		for _, blind in ipairs({ false, true, false }) do
+			build.configTab.input.conditionBlinded = blind
+			setWickermanCustomMods("20% increased Damage while Blind")
+			assert.are.near(base * (blind and 1.2 or 1), build.calcsTab.mainOutput.AverageDamage, 1)
+		end
+	end)
+
+	it("grants influence-gated curses as item skills only while the requirement is met", function()
+		for _, case in ipairs({ { "Vulnerability", "Hunter", "basilisk" }, { "Vulnerability", "Hunter", "basilisk", true }, { "Assassin's Mark", "Elder", "elder", true } }) do
+			newBuild()
+			build.skillsTab:PasteSocketGroup("Ethereal Knives 20/0  1")
+			setWickermanCustomMods("")
+			local baseDamage = build.calcsTab.mainOutput.AverageDamage
+			local line = "Curse Enemies with "..case[1].." on Hit if 1 "..case[2].." Items are Equipped"
+			local item = new("Item"):Item("Test Amulet\nPaua Amulet"..(case[4] and "" or "\n"..line))
+			build.itemsTab:AddItem(item, true)
+			build.itemsTab.slots.Amulet:SetSelItemId(item.id)
+			if case[4] then setWickermanCustomMods(line) end
+			for _, equipped in ipairs({ false, true, false }) do
+				item[case[3]] = equipped
+				build.buildFlag = true
+				runCallback("OnFrame")
+				local count = 0
+				for _, group in ipairs(build.skillsTab.socketGroupList) do
+					if (case[4] and group.source == "Config" or not case[4] and group.sourceItem == item) and group.gemList[1].nameSpec == case[1] then count = count + 1 end
+				end
+				assert.are.equal(equipped and 1 or 0, count)
+				assert.are.equal(equipped, build.calcsTab.mainOutput.AverageDamage > baseDamage)
+			end
+			if case[4] then
+				item[case[3]] = true
+				setWickermanCustomMods(line)
+				setWickermanCustomMods("")
+				assert.are.equal(baseDamage, build.calcsTab.mainOutput.AverageDamage)
+				for _, group in ipairs(build.skillsTab.socketGroupList) do assert.are_not.equal("Config", group.source) end
+			end
+		end
+	end)
+
+	it("scales only Iron Flask effects", function()
+		local flask = new("Item"):Item("Rarity: NORMAL\nIron Flask\nQuality: 0")
+		build.itemsTab:AddItem(flask, true)
+		build.itemsTab.slots["Flask 1"]:SetSelItemId(flask.id)
+		build.itemsTab.slots["Flask 1"].active = true
+		setWickermanCustomMods("")
+		local baseWard = build.calcsTab.mainOutput.Ward
+		assert.is_true(baseWard > 0)
+		setWickermanCustomMods("Iron Flasks applied to you have 50% increased Effect")
+		assert.are.equal(baseWard * 1.5, build.calcsTab.mainOutput.Ward)
+		assert.are.equal(0, build.calcsTab.mainEnv.player.modDB:Sum("INC", nil, "FlaskEffect"))
+	end)
+
+	it("adds offering damage to its recipients", function()
+		build.skillsTab:PasteSocketGroup("Raise Zombie 20/0  1\n")
+		build.skillsTab:PasteSocketGroup("Flesh Offering 20/0  1")
+		setWickermanCustomMods("")
+		local base = build.calcsTab.mainEnv.minion.output.TotalDPS
+		setWickermanCustomMods("Offerings you create also grant 20% increased Damage")
+		assert.are.near(base * 1.2, build.calcsTab.mainEnv.minion.output.TotalDPS, 1)
+		assert.are.equal(0, build.calcsTab.mainEnv.player.modDB:Sum("INC", nil, "Damage"))
+	end)
+
+	it("limits boot-socketed mana cost efficiency to boots", function()
+		for _, slot in ipairs({ "Boots", "Helmet" }) do
+			newBuild()
+			build.skillsTab:PasteSocketGroup("Slot: "..slot.."\nFireball 20/0  1")
+			setWickermanCustomMods(slot == "Boots" and "20% increased Mana Cost Efficiency" or "")
+			local expected = build.calcsTab.mainOutput.ManaCost
+			setWickermanCustomMods("Skills socketed in Equipped Boots have 20% increased Mana Cost Efficiency")
+			assert.are.equal(expected, build.calcsTab.mainOutput.ManaCost)
+		end
+	end)
+
+	it("converts light radius and mana regeneration increases without converting more modifiers", function()
+		local cases = {
+			{ "Light Radius", "Life Regeneration Rate", "Increases and Reductions to Light Radius also apply to Life Regeneration Rate at 50% value", "LifeRegen", "Regenerate 100 Life per second" },
+			{ "Mana Regeneration Rate", "Energy Shield Recharge Rate", "Increases and Reductions to Mana Regeneration Rate also apply to Energy Shield Recharge Rate at 50% of their value", "EnergyShieldRecharge", "+1000 to maximum Energy Shield" },
+		}
+		for _, case in ipairs(cases) do
+			for _, value in ipairs({ 40, -20 }) do
+				setWickermanCustomMods(case[5].."\n"..math.abs(value / 2).."% "..(value < 0 and "reduced " or "increased ")..case[2])
+				local expected = build.calcsTab.mainOutput[case[4]]
+				assert.is_true(expected > 0)
+				setWickermanCustomMods(case[5].."\n"..math.abs(value).."% "..(value < 0 and "reduced " or "increased ")..case[1].."\n100% more "..case[1].."\n"..case[3])
+				assert.are.equal(expected, build.calcsTab.mainOutput[case[4]])
+			end
+		end
+	end)
+
+	it("grants Onslaught only to recently created minions", function()
+		build.skillsTab:PasteSocketGroup("Raise Zombie 20/0  1")
+		setWickermanCustomMods("")
+		local base = build.calcsTab.mainEnv.minion.output.MovementSpeedMod
+		for _, enabled in ipairs({ false, true, false }) do
+			build.configTab.input.minionsConditionCreatedRecently = enabled
+			setWickermanCustomMods("Minions created Recently have Onslaught")
+			assert.are.near(base + (enabled and 0.2 or 0), build.calcsTab.mainEnv.minion.output.MovementSpeedMod, 1e-9)
+			assert.is_false(not not build.calcsTab.mainEnv.player.modDB:Flag(nil, "Condition:Onslaught"))
+		end
+	end)
+
+	it("grants double damage only to skills with a positive life cost", function()
+		build.skillsTab:PasteSocketGroup("Fireball 20/0  1")
+		for _, costsLife in ipairs({ false, true, false }) do
+			setWickermanCustomMods("Skills that Cost Life have 20% chance to deal Double Damage"..(costsLife and "\nSkills cost Life instead of Mana" or ""))
+			assert.are.equal(costsLife and 20 or 0, build.calcsTab.mainOutput.DoubleDamageChance)
+		end
+	end)
+
+	it("inverts only the specified elemental resistance", function()
+		build.skillsTab:PasteSocketGroup("Fireball 20/0  1")
+		build.configTab.input.enemyFireResist = 50
+		build.configTab.input.enemyColdResist = 50
+		build.configTab.input.enemyLightningResist = 50
+		for _, element in ipairs({ "Cold", "Fire", "Lightning" }) do
+			for _, chance in ipairs({ 0, 50, 100 }) do
+				setWickermanCustomMods("Adds 100 to 100 Cold Damage to Spells\nAdds 100 to 100 Lightning Damage to Spells\nHits have "..chance.."% chance to treat Enemy Monster "..element.." Resistance values as inverted")
+				for _, damageType in ipairs({ "Cold", "Fire", "Lightning" }) do
+					assert.are.near(0.5 + (damageType == element and chance / 100 or 0), build.calcsTab.calcsOutput[damageType.."EffMult"], 1e-9)
+				end
+			end
+		end
+	end)
+
+	it("adds to the maximum chill effect", function()
+		build.skillsTab:PasteSocketGroup("Freezing Pulse 20/0  1")
+		setWickermanCustomMods("+10% to Maximum Effect of Chill")
+		assert.are.equal(40, build.calcsTab.mainOutput.MaximumChill)
+		build.skillsTab:PasteSocketGroup("Cold Snap 20/0  1")
+		build.mainSocketGroup = #build.skillsTab.socketGroupList
+		setWickermanCustomMods("+10% to Maximum Effect of Chill\n400% increased Effect of Chill")
+		assert.are.equal(40, build.calcsTab.mainOutput.ChillSourceEffect)
+		setWickermanCustomMods("")
+		assert.are.equal(30, build.calcsTab.mainOutput.MaximumChill)
+	end)
+
+	it("applies the distance-worded cold bonus and scorch using the nearby model", function()
+		build.skillsTab:PasteSocketGroup("Fireball 20/0  1")
+		setWickermanCustomMods("Adds 20 to 30 Cold Damage\nNearby Enemies are Scorched")
+		local expected = copyTable(build.calcsTab.mainOutput, true)
+		setWickermanCustomMods("You and Allies within 10 metres deal 20 to 30 additional Cold Damage\nEnemies within 10 metres are Scorched")
+		assert.are.equal(expected.AverageDamage, build.calcsTab.mainOutput.AverageDamage)
+		assert.are.equal(10, build.calcsTab.mainOutput.CurrentScorch)
+	end)
+
+	for _, case in ipairs({
+		{ "Minions deal 25% increased Damage if you've Hit Recently", "HitRecently", "conditionHitRecently", "TotalDPS", "Minions deal 25% increased Damage" },
+		{ "Minions have 30% increased Movement Speed if you've used a Minion Skill Recently", "UsedMinionSkillRecently", "conditionUsedMinionSkillRecently", "MovementSpeedMod", "Minions have 30% increased Movement Speed" },
+	}) do
+		it("checks the player for conditional minion "..case[4], function()
+			build.skillsTab:PasteSocketGroup("Raise Zombie 20/0  1")
+			setWickermanCustomMods("")
+			local base = build.calcsTab.mainEnv.minion.output[case[4]]
+			local playerMovement = build.calcsTab.mainOutput.MovementSpeedMod
+			-- The unconditional modifier provides a reference that preserves damage rounding.
+			setWickermanCustomMods(case[5])
+			local activeValue = build.calcsTab.mainEnv.minion.output[case[4]]
+			for _, enabled in ipairs({ false, true, false }) do
+				build.configTab.input[case[3]] = enabled
+				setWickermanCustomMods(case[1])
+				local env = build.calcsTab.mainEnv
+				-- The minion satisfies the condition even while the player does not.
+				assert.is_true(env.minion.modDB:GetCondition(case[2]))
+				assert.are.equal(enabled and activeValue or base, env.minion.output[case[4]])
+				assert.are.equal(playerMovement, env.player.output.MovementSpeedMod)
+			end
+		end)
+	end
+
+	it("supports Hinder immunity and removal", function()
+		setWickermanCustomMods("Immune to Hinder")
+		assert.is_true(build.calcsTab.mainOutput.HinderImmunity)
+		setWickermanCustomMods("")
+		assert.is_falsy(build.calcsTab.mainOutput.HinderImmunity)
+	end)
+
+	it("reduces burning damage taken without reducing hits or other damage over time", function()
+		local base = copyTable(build.calcsTab.mainOutput, true)
+		setWickermanCustomMods("7% reduced Burning Damage taken")
+		local output = build.calcsTab.mainOutput
+		assert.are.near(base.FireTakenDotMult * 0.93, output.FireTakenDotMult, 1e-9)
+		assert.are.equal(base.FireTakenHitMult, output.FireTakenHitMult)
+		assert.are.equal(base.ColdTakenDotMult, output.ColdTakenDotMult)
+	end)
+
+	for _, case in ipairs({
+		{ "been Hit", "conditionBeenHitRecently", "conditionUsedMovementSkillRecently" },
+		{ "used a Movement Skill", "conditionUsedMovementSkillRecently", "conditionBeenHitRecently" },
+	}) do
+		it("grants the conditional Constrictor projectile only after "..case[1], function()
+			build.skillsTab:PasteSocketGroup("Fireball 20/0  1")
+			setWickermanCustomMods("Skills fire an additional Projectile if you've "..case[1].." Recently")
+			assert.are.equal(1, build.calcsTab.mainOutput.ProjectileCount)
+			build.configTab.input[case[3]] = true
+			build.configTab:BuildModList()
+			runCallback("OnFrame")
+			assert.are.equal(1, build.calcsTab.mainOutput.ProjectileCount)
+			build.configTab.input[case[2]] = true
+			build.configTab:BuildModList()
+			runCallback("OnFrame")
+			assert.are.equal(2, build.calcsTab.mainOutput.ProjectileCount)
+		end)
+	end
+
+	for _, case in ipairs({ { "Armour", "Armour, Gloves, and" }, { "Evasion Rating", "Armour Gloves and" } }) do
+		it("scales "..case[1].." only from the four named armour slots", function()
+			for _, equipment in ipairs({
+				{ "Helmet", "Iron Hat" }, { "Body Armour", "Plate Vest" },
+				{ "Gloves", "Iron Gauntlets" }, { "Boots", "Iron Greaves" },
+				{ "Weapon 2", "Splintered Tower Shield" },
+			}) do
+				local item = new("Item"):Item("Rarity: Normal\n"..equipment[2])
+				-- Synthetic equal defences make shield exclusion and flat global bonuses observable.
+				build.itemsTab:AddItem(item, true)
+				item.armourData.Armour = 100
+				item.armourData.Evasion = 100
+				build.itemsTab.slots[equipment[1]]:SetSelItemId(item.id)
+			end
+			local stat = case[1] == "Armour" and "Armour" or "Evasion"
+			local flat = "+100 to "..case[1]
+			setWickermanCustomMods(flat)
+			local base = build.calcsTab.mainOutput[stat]
+			setWickermanCustomMods(flat.."\n50% increased "..case[1].." from Equipped Helmet, Body "..case[2].." Boots")
+			assert.are.equal(base + 200, build.calcsTab.mainOutput[stat])
+		end)
+	end
+
+	for _, case in ipairs({ { "Gloves", "Iron Gauntlets" }, { "Boots", "Iron Greaves" } }) do
+		it("scales "..case[1].." bonuses from a synthetic Wickerman item independently of slot order", function()
+			local target = new("Item"):Item("Rarity: Rare\nBonus target\n"..case[2].."\nImplicits: 0\n+100 to Strength\n+7 to Dexterity\n20% more maximum Mana")
+			build.itemsTab:AddItem(target, true)
+			build.itemsTab.slots[case[1]]:SetSelItemId(target.id)
+			setWickermanCustomMods("")
+			local base = copyTable(build.calcsTab.mainOutput, true)
+			-- Use a normal slot with a synthetic type; no Wickerman base/slot/import framework is required.
+			local source = new("Item"):Item("Rarity: Rare\nSynthetic Wickerman\nPaua Amulet\nImplicits: 0\n20% increased bonuses gained from Equipped "..case[1])
+			source.type = "Wickerman Lower Limb"
+			build.itemsTab:AddItem(source, true)
+			build.itemsTab.slots.Amulet:SetSelItemId(source.id)
+			for _, first in ipairs({ true, false }) do
+				local slot = build.itemsTab.slots.Amulet
+				for index, entry in ipairs(build.itemsTab.orderedSlots) do
+					if entry == slot then table.remove(build.itemsTab.orderedSlots, index) break end
+				end
+				table.insert(build.itemsTab.orderedSlots, first and 1 or #build.itemsTab.orderedSlots + 1, slot)
+				build.buildFlag = true
+				runCallback("OnFrame")
+				assert.are.equal(base.Str + 20, build.calcsTab.mainOutput.Str)
+				assert.are.equal(base.Dex + 1, build.calcsTab.mainOutput.Dex)
+				assert.are.near(1.24, build.calcsTab.mainEnv.player.modDB:More(nil, "Mana"), 1e-9)
+			end
+			setWickermanCustomMods("10% increased bonuses gained from Equipped "..case[1])
+			assert.are.equal(base.Str + 30, build.calcsTab.mainOutput.Str)
+			setWickermanCustomMods("30% reduced bonuses gained from Equipped "..case[1])
+			assert.are.equal(base.Str - 10, build.calcsTab.mainOutput.Str)
+			setWickermanCustomMods("20% reduced bonuses gained from Equipped "..case[1])
+			assert.are.equal(base.Str, build.calcsTab.mainOutput.Str)
+			build.itemsTab.slots.Amulet:SetSelItemId(0)
+			setWickermanCustomMods("")
+			assert.are.equal(base.Str, build.calcsTab.mainOutput.Str)
+		end)
+	end
+
 	local function createCraftedRing()
 		build.itemsTab:CreateDisplayItemFromRaw([[Rarity: Rare
 			Test Ring
