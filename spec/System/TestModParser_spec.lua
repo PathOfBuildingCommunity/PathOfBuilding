@@ -17,8 +17,7 @@ describe("TestModParser", function()
 
 	for text, expected in pairs({
 		["If Diamond Flask Charges are consumed, 250% increased Critical Strike Chance"] = { "CritChance", "INC", 250 },
-		["50% less Life Flask Recovery Rate"] = { "FlaskLifeRecoveryRate", "MORE", -50 },
-		["50% less Flask Life Recovery Rate"] = { "FlaskLifeRecoveryRate", "MORE", -50 },
+		["50% less Flask Life Recovery rate"] = { "FlaskLifeRecoveryRate", "MORE", -50 },
 		["50% less Life Recovery from Flasks"] = { "FlaskLifeRecovery", "MORE", -50 },
 		["20% increased Effect of Iron Flasks"] = { "IronFlaskEffect", "INC", 20 },
 	}) do

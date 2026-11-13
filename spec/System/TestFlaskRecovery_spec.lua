@@ -25,7 +25,7 @@ describe("Flask recovery", function()
 
 	it("applies Master Surgeon's recovery rate to active non-instant life flasks", function()
 		local baselineOutput = buildLifeFlask()
-		local reducedOutput, reducedTooltip = buildLifeFlask("50% less Life Flask Recovery Rate")
+		local reducedOutput, reducedTooltip = buildLifeFlask("50% less Flask Life Recovery rate")
 		assert.is_true(baselineOutput.LifeRecovery > 0)
 		assert.are.equal(baselineOutput.LifeRecovery / 2, reducedOutput.LifeRecovery)
 		assert.is_truthy(reducedTooltip:match("over %^77%.00s"))
@@ -33,7 +33,7 @@ describe("Flask recovery", function()
 
 	it("does not change instant life flask recovery", function()
 		local _, baselineTooltip = buildLifeFlask(nil, true)
-		local _, reducedTooltip = buildLifeFlask("50% less Life Flask Recovery Rate", true)
+		local _, reducedTooltip = buildLifeFlask("50% less Flask Life Recovery rate", true)
 
 		assert.are.equal(baselineTooltip, reducedTooltip)
 	end)
