@@ -428,4 +428,13 @@ describe("TestOffence", function()
 		assert.are.equals(7, build.calcsTab.mainOutput.ActiveTotemLimit)
 		assert.are.equals(1.7, build.calcsTab.mainOutput.AreaOfEffectMod)
 	end)
+	it("applies Corrupting Cry's less area of effect multiplicatively", function()
+		build.skillsTab:PasteSocketGroup("Infernal Cry 20/0  1\nCorrupting Cry 20/0  1")
+		build.configTab.input.customMods = "40% increased Area of Effect"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		-- "Supported Skills have 20% less Area of Effect": (1 + 0.4) * 0.8, not 1 + 0.4 - 0.2
+		assertNearRelative(1.12, build.calcsTab.mainOutput.AreaOfEffectMod, 0.0001)
+	end)
 end)
