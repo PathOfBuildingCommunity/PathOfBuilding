@@ -24,7 +24,7 @@ describe("Flask effect", function()
 			for _, line in ipairs(tooltip.lines) do
 				table.insert(lines, line.text)
 			end
-			tooltips[index] = table.concat(lines, "\n")
+			tooltips[index] = table.concat(lines, "\n"):gsub("%^%x", ""):gsub("%^x%x%x%x%x%x%x", "")
 		end
 		return build.calcsTab.mainOutput, tooltips
 	end
@@ -37,8 +37,8 @@ describe("Flask effect", function()
 		assert.is_true(baseline.Armour > 0)
 		assert.are.equal(math.floor(baseline.Ward * 1.2), increased.Ward)
 		assert.are.equal(baseline.Armour, increased.Armour)
-		assert.is_truthy(tooltips[1]:find("Flask effect modifier: ^7+20%", 1, true))
-		assert.is_nil(tooltips[2]:find("Flask effect modifier", 1, true))
+		assert.are.equal(20, tonumber(tooltips[1]:match("Flask effect modifier: ([%+%-]?[%d%.]+)%%")))
+		assert.are.equal(0, tonumber(tooltips[2]:match("Flask effect modifier: ([%+%-]?[%d%.]+)%%")) or 0)
 	end)
 
 	it("adds Iron Flask effect to generic flask effect", function()

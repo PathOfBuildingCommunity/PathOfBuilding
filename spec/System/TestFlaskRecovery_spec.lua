@@ -20,15 +20,17 @@ describe("Flask recovery", function()
 		for _, line in ipairs(tooltip.lines) do
 			table.insert(lines, line.text)
 		end
-		return build.calcsTab.mainOutput, table.concat(lines, "\n")
+		return build.calcsTab.mainOutput, table.concat(lines, "\n"):gsub("%^%x", ""):gsub("%^x%x%x%x%x%x%x", ""), item.flaskData
 	end
 
 	it("applies Master Surgeon's recovery rate to active non-instant life flasks", function()
 		local baselineOutput = buildLifeFlask()
-		local reducedOutput, reducedTooltip = buildLifeFlask("50% less Flask Life Recovery rate")
+		local reducedOutput, reducedTooltip, flaskData = buildLifeFlask("50% less Flask Life Recovery rate")
 		assert.is_true(baselineOutput.LifeRecovery > 0)
 		assert.are.equal(baselineOutput.LifeRecovery / 2, reducedOutput.LifeRecovery)
-		assert.is_truthy(reducedTooltip:match("over %^77%.00s"))
+		local amount, duration = reducedTooltip:match("Life recovered: (%d+) over ([%d%.]+)s")
+		assert.are.equal(flaskData.lifeTotal, tonumber(amount))
+		assert.are.equal(tonumber(string.format("%.2f", flaskData.duration * 2)), tonumber(duration))
 	end)
 
 	it("does not change instant life flask recovery", function()
