@@ -9,6 +9,10 @@ local m_floor = math.floor
 local protected_replace = "*"
 local utf8 = require('lua-utf8')
 
+local function character(str, index)
+	return str:sub(index, (utf8.next(str, index, 1) or #str + 1) - 1)
+end
+
 local function lastLine(str)
 	local lastLineIndex = 1
 	while true do
@@ -460,27 +464,27 @@ function EditClass:OnKeyDown(key, doubleClick)
 		if doubleClick then
 			if self.lineHeight then
 				if self.buf:sub(self.caret - 1, self.caret):match("^%C\n$") then
-					self.caret = self.caret - 1
+					self.caret = utf8.next(self.buf, self.caret, -1)
 				end
 				while self.buf:sub(self.caret - 1, self.caret):match("[^\n][ \t]") do
-					self.caret = self.caret - 1
+					self.caret = utf8.next(self.buf, self.caret, -1)
 				end
-				local caretChar = self.buf:sub(self.caret, self.caret)
-				if caretChar:match("%w") then
+				local caretChar = character(self.buf, self.caret)
+				if utf8.match(caretChar, "%w") then
 					self.sel = self.caret
-					while self.buf:sub(self.sel - 1, self.sel - 1):match("%w") do
-						self.sel = self.sel - 1
+					while self.sel > 1 and utf8.match(character(self.buf, utf8.next(self.buf, self.sel, -1)), "%w") do
+						self.sel = utf8.next(self.buf, self.sel, -1)
 					end
-					while self.buf:sub(self.caret, self.caret):match("%w") do
-						self.caret = self.caret + 1
+					while utf8.match(character(self.buf, self.caret), "%w") do
+						self.caret = utf8.next(self.buf, self.caret, 1) or #self.buf + 1
 					end
 				elseif caretChar:match("%S") then
 					self.sel = self.caret
-					while self.buf:sub(self.sel - 1, self.sel - 1) == caretChar do
-						self.sel = self.sel - 1
+					while self.sel > 1 and character(self.buf, utf8.next(self.buf, self.sel, -1)) == caretChar do
+						self.sel = utf8.next(self.buf, self.sel, -1)
 					end
-					while self.buf:sub(self.caret, self.caret) == caretChar do
-						self.caret = self.caret + 1
+					while character(self.buf, self.caret) == caretChar do
+						self.caret = utf8.next(self.buf, self.caret, 1) or #self.buf + 1
 					end
 				end
 			else
@@ -536,7 +540,9 @@ function EditClass:OnKeyDown(key, doubleClick)
 			if self.pasteFilter then
 				text = self.pasteFilter(text)
 			end
-			text = text:gsub("[\128-\255]","?")
+			if not self.allowUnicode then
+				text = text:gsub("[\128-\255]","?")
+			end
 			if self.sel and self.sel ~= self.caret then
 				self:ReplaceSel(text)
 			else
@@ -613,19 +619,19 @@ function EditClass:OnKeyDown(key, doubleClick)
 		if self.sel and self.sel ~= self.caret then
 			self:ReplaceSel("")
 		elseif self.caret > 1 then
-			local len = 1
+			local left = utf8.next(self.buf, self.caret, -1)
 			if IsKeyDown("CTRL") then
-				while self.caret - len > 1 and self.buf:sub(self.caret - len, self.caret - len):match("%s") and not self.buf:sub(self.caret - len - 1, self.caret - len - 1):match("\n") do
-					len = len + 1
+				while left > 1 and utf8.match(character(self.buf, left), "%s") and self.buf:sub(left - 1, left - 1) ~= "\n" do
+					left = utf8.next(self.buf, left, -1)
 				end
-				if self.buf:sub(self.caret - len, self.caret - len):match("%w") then
-					while self.caret - len > 1 and self.buf:sub(self.caret - len - 1, self.caret - len - 1):match("%w") do
-						len = len + 1
+				if utf8.match(character(self.buf, left), "%w") then
+					while left > 1 and utf8.match(character(self.buf, utf8.next(self.buf, left, -1)), "%w") do
+						left = utf8.next(self.buf, left, -1)
 					end
 				end
 			end
-			self.buf = self.buf:sub(1, self.caret - 1 - len) .. self.buf:sub(self.caret)
-			self.caret = self.caret - len
+			self.buf = self.buf:sub(1, left - 1) .. self.buf:sub(self.caret)
+			self.caret = left
 			self.sel = nil
 			self:ScrollCaretIntoView()
 			self.blinkStart = GetTime()
@@ -638,18 +644,20 @@ function EditClass:OnKeyDown(key, doubleClick)
 		if self.sel and self.sel ~= self.caret then
 			self:ReplaceSel("")
 		elseif self.caret <= #self.buf then
-			local len = 1
+			local right = utf8.next(self.buf, self.caret, 1) or #self.buf + 1
+			local current = self.caret
 			if IsKeyDown("CTRL") then
-				while self.caret + len <= #self.buf and self.buf:sub(self.caret + len - 1, self.caret + len - 1):match("%s") and not self.buf:sub(self.caret + len, self.caret + len):match("\n") do
-					len = len + 1
+				while right <= #self.buf and utf8.match(character(self.buf, current), "%s") and character(self.buf, right) ~= "\n" do
+					current = right
+					right = utf8.next(self.buf, right, 1) or #self.buf + 1
 				end
-				if self.buf:sub(self.caret + len - 1, self.caret + len - 1):match("%w") then
-					while self.caret + len <= #self.buf and self.buf:sub(self.caret + len, self.caret + len):match("%w") do
-						len = len + 1
+				if utf8.match(character(self.buf, current), "%w") then
+					while right <= #self.buf and utf8.match(character(self.buf, right), "%w") do
+						right = utf8.next(self.buf, right, 1) or #self.buf + 1
 					end
 				end
 			end
-			self.buf = self.buf:sub(1, self.caret - 1) .. self.buf:sub(self.caret + len)
+			self.buf = self.buf:sub(1, self.caret - 1) .. self.buf:sub(right)
 			self.sel = nil
 			self.blinkStart = GetTime()
 			if self.changeFunc then
