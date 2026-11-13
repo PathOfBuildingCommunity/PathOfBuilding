@@ -464,10 +464,10 @@ function EditClass:OnKeyDown(key, doubleClick)
 		if doubleClick then
 			if self.lineHeight then
 				if self.buf:sub(self.caret - 1, self.caret):match("^%C\n$") then
-					self.caret = self.caret - 1
+					self.caret = utf8.next(self.buf, self.caret, -1)
 				end
 				while self.buf:sub(self.caret - 1, self.caret):match("[^\n][ \t]") do
-					self.caret = self.caret - 1
+					self.caret = utf8.next(self.buf, self.caret, -1)
 				end
 				local caretChar = character(self.buf, self.caret)
 				if utf8.match(caretChar, "%w") then

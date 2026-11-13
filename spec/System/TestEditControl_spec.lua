@@ -90,4 +90,21 @@ describe("UTF-8 notes editing", function()
 		press(edit, "LEFTBUTTON", false, nil, true)
 		assert.are.same({ 7, 11 }, { edit.sel, edit.caret })
 	end)
+
+	-- Notes repair clause 1: whitespace must not move the caret into a UTF-8 character.
+	for _, case in ipairs({
+		{ "ёж ", 5, "ёж" },
+		{ "ёж  ", 6, "ёж" },
+		{ "ёж\t", 5, "ёж" },
+		{ "ёж\nSmite", 5, "ёж" },
+		{ "— ", 4, "—" },
+		{ "™\nSmite", 4, "™" },
+	}) do
+		it(string.format("selects a complete word before whitespace at byte %d in %q", case[2], case[1]), function()
+			local edit = notes(case[1]).controls.edit
+			edit.caret = case[2]
+			press(edit, "LEFTBUTTON", false, nil, true)
+			assert.are.equal(case[3], edit:GetSelText())
+		end)
+	end
 end)
