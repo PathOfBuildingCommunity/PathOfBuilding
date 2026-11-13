@@ -6,6 +6,8 @@
 ---@class Calcs
 local calcs = require("Modules.CalcBase")
 
+local regenerationConversions = { { "LightRadius", "LifeRegen", "LightRadiusAppliesToLifeRegen" }, { "ManaRegen", "EnergyShieldRecharge", "ManaRegenAppliesToEnergyShieldRecharge" } }
+
 local pairs = pairs
 local ipairs = ipairs
 local t_insert = table.insert
@@ -791,6 +793,18 @@ function calcs.defence(env, actor)
 		output.DamageTakenOnBlock = 100 - output.BlockEffect
 	end
 
+	-- Apply Light Radius increases to Life Regeneration, and Mana Regeneration increases to ES Recharge, at the stated percentage.
+	for _, conversion in ipairs(regenerationConversions) do
+		local multiplier = (modDB:Max(nil, conversion[3]) or 0) / 100
+		if multiplier ~= 0 then
+			for _, value in ipairs(modDB:Tabulate("INC", nil, conversion[1])) do
+				local mod = value.mod
+				local modifiers = calcLib.getConvertedModTags(mod, multiplier)
+				modDB:NewMod(conversion[2], "INC", m_floor(mod.value * multiplier), mod.source, mod.flags, mod.keywordFlags, unpack(modifiers))
+			end
+		end
+	end
+
 	if modDB:Flag(nil, "ArmourAppliesToEnergyShieldRecharge") then
 		-- Armour to ES Recharge conversion from Armour and Energy Shield Mastery
 		local multiplier = (modDB:Max(nil, "ImprovedArmourAppliesToEnergyShieldRecharge") or 100) / 100
@@ -1209,6 +1223,14 @@ function calcs.defence(env, actor)
 			"Total: "..output.SpellDodgeChance+output.SpellDodgeChanceOverCap.."%",
 		}
 	end
+
+	-- Use the non-flask Petrified Blood recovery ceiling only as a default for this modifier.
+	local missingLife = 0
+	if modDB:GetCondition("AffectedByPetrifiedBlood") and output.LifeUnreserved > 0 then
+		local currentLife = m_min(output.LifeUnreserved, output.Life * output.LowLifePercentage / 100)
+		missingLife = 100 * (output.LifeUnreserved - currentLife) / output.LifeUnreserved
+	end
+	output.MissingUnreservedLifePercent = modDB:Override(nil, "MissingUnreservedLifePercent") or missingLife
 
 	-- Recovery modifiers
 	output.LifeRecoveryRateMod = 1
@@ -1857,9 +1879,11 @@ function calcs.buildDefenceEstimations(env, actor)
 			local dotDestinationTotal = 0
 			for _, destType in ipairs(dmgTypeList) do
 				if destType ~= damageType then
-					dotShiftTable[destType] = modDB:Sum("BASE", nil, damageType.."DamageTakenAs"..destType, isElemental[damageType] and "ElementalDamageTakenAs"..destType or nil)
+					-- Allow Physical DoT taken as Chaos without also converting damage from hits.
+					local takenAs = modDB:Sum("BASE", nil, damageType.."DamageTakenAs"..destType, isElemental[damageType] and "ElementalDamageTakenAs"..destType or nil)
+					dotShiftTable[destType] = takenAs + modDB:Sum("BASE", nil, damageType.."DamageTakenOverTimeAs"..destType, isElemental[damageType] and "ElementalDamageTakenOverTimeAs"..destType or nil)
 					dotDestinationTotal = dotDestinationTotal + dotShiftTable[destType]
-					shiftTable[destType] = dotShiftTable[destType] + modDB:Sum("BASE", nil, damageType.."DamageFromHitsTakenAs"..destType, isElemental[damageType] and "ElementalDamageFromHitsTakenAs"..destType or nil)
+					shiftTable[destType] = takenAs + modDB:Sum("BASE", nil, damageType.."DamageFromHitsTakenAs"..destType, isElemental[damageType] and "ElementalDamageFromHitsTakenAs"..destType or nil)
 					destTotal = destTotal + shiftTable[destType]
 				end
 			end
