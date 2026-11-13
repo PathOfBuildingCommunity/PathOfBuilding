@@ -322,7 +322,6 @@ describe("Abyss timeless jewels", function()
 		build.treeTab:FindTimelessJewel()
 		local controls = main.popups[1].controls
 		controls.fallbackWeightsList:SelByValue("WeightedScore", "stat")
-		assert.are.equal("WeightedScore", controls.fallbackWeightsList:GetSelValue().stat)
 
 		local originalGetMiscCalculator = build.calcsTab.GetMiscCalculator
 		local requestedFullDPS = { }

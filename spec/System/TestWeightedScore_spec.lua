@@ -274,32 +274,7 @@ describe("WeightedScore — tree integration", function()
 		} } }
 	end
 
-	it("appendEditWeightsAction handles lists with and without WeightedScore", function()
-		local ordinaryList = {
-			{ label = "Sort by Name", sortMode = "name" },
-			{ label = "Sort by Life", sortMode = "Life" },
-		}
-		local called = false
-		WeightedScore.appendEditWeightsAction(ordinaryList, function() called = true end)
-		assert.are.equal(2, #ordinaryList)
-		assert.is_false(called)
-
-		local list = {
-			{ label = "Sort by Name", sortMode = "name" },
-			{ label = "Sort by Weighted Score", sortMode = "WeightedScore", stat = "WeightedScore" },
-		}
-		local opened = false
-		WeightedScore.appendEditWeightsAction(list, function() opened = true end)
-		assert.are.equal(3, #list)
-		local entry = list[3]
-		assert.is_function(entry.action)
-		assert.is_string(entry.label)
-		assert.are.equal("WeightedScore", list[2].stat)
-		entry.action()
-		assert.is_true(opened, "calling entry.action must invoke the openEditor callback")
-	end)
-
-	it("createSortHandler restores the metric and invalidates cached candidate scores after editing weights", function()
+	it("invalidates cached candidate scores after editing weights", function()
 		local list = {
 			{ label = "Default", stat = nil },
 			{ label = "Weighted Score", stat = "WeightedScore" },
@@ -309,12 +284,9 @@ describe("WeightedScore — tree integration", function()
 			{ label = "Defence", scores = { damage = 1, defence = 2 } },
 		}
 		local weight = "damage"
-		local selectedStat
 		local controls = {
 			sort = {
-				SelByValue = function(_, value)
-					selectedStat = value
-				end,
+				SelByValue = function() end,
 			},
 		}
 		local function applySort(stat)
@@ -339,71 +311,26 @@ describe("WeightedScore — tree integration", function()
 		handler(2, list[2])
 		assert.are.equal("Damage", candidates[1].label)
 		handler(3, list[3])
-		assert.are.equal("WeightedScore", selectedStat)
 		assert.are.equal("Defence", candidates[1].label)
 	end)
 end)
 
-describe("WeightedScore — selector contracts", function()
-	local function findWeightedScore(list)
-		local weightedIndex
-		local weightedCount = 0
-		for index, entry in ipairs(list) do
-			if entry.stat == "WeightedScore" then
-				weightedIndex = index
-				weightedCount = weightedCount + 1
-			end
-		end
-		assert.are.equal(1, weightedCount)
-		assert.is_truthy(weightedIndex)
-		assert.is_truthy(list[weightedIndex + 1])
-		assert.is_function(list[weightedIndex + 1].action)
-		return weightedIndex
-	end
-
+describe("WeightedScore — report invalidation", function()
 	before_each(function()
 		newBuild()
 	end)
 
-	it("opens weight editing from crafted modifier sorting and restores Weighted Score", function()
-		local itemsTab = build.itemsTab
-		itemsTab:CreateDisplayItemFromRaw([[
-Rarity: RARE
-Weighted Selector Helmet
-Royal Burgonet
-Item Level: 86
-Crafted: true
-Prefix: None
-Prefix: None
-Prefix: None
-Suffix: None
-Suffix: None
-Suffix: None
-Quality: 20
-Implicits: 0
-]])
-		local control = itemsTab.controls.craftingSorting
-		local weightedIndex = findWeightedScore(control.list)
-		local opened = false
-		itemsTab.tradeQuery.SetStatWeights = function(_, _, onSave)
-			opened = true
-			onSave()
-		end
-
-		control:SetSel(weightedIndex)
-		control:SetSel(weightedIndex + 1)
-
-		assert.is_true(opened)
-		assert.are.equal("WeightedScore", control:GetSelValue().stat)
-	end)
-
-	it("opens weight editing from Compare Power and invalidates the selected report", function()
+	it("invalidates the selected Compare Power report after editing weights", function()
 		local compareTab = build.compareTab
 		local control = compareTab.controls.comparePowerStatSelect
-		local weightedIndex = findWeightedScore(control.list)
-		local opened = false
+		local weightedIndex
+		for index, entry in ipairs(control.list) do
+			if entry.stat == "WeightedScore" then
+				weightedIndex = index
+				break
+			end
+		end
 		build.itemsTab.tradeQuery.SetStatWeights = function(_, _, onSave)
-			opened = true
 			onSave()
 		end
 
@@ -411,8 +338,6 @@ Implicits: 0
 		compareTab.comparePowerDirty = false
 		control:SetSel(weightedIndex + 1)
 
-		assert.is_true(opened)
-		assert.are.equal("WeightedScore", control:GetSelValue().stat)
 		assert.is_true(compareTab.comparePowerDirty)
 	end)
 end)

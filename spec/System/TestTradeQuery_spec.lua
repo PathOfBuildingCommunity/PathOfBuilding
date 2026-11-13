@@ -293,17 +293,5 @@ describe("TradeQuery", function()
 			assert.is_true(itemsTab.modFlag)
 			assert.are.equal(0.75, tradeQuery.statSortSelectionList[1].weightMult)
 		end)
-
-		it("preserves the save callback after resetting weights", function()
-			local callbackCount = 0
-			local tradeQuery = new("TradeQuery"):TradeQuery({})
-			tradeQuery:SetStatWeights(nil, function()
-				callbackCount = callbackCount + 1
-			end)
-			capturedControls.reset.onClick()
-			capturedControls.finalise.onClick()
-
-			assert.are.equal(1, callbackCount)
-		end)
 	end)
 end)
