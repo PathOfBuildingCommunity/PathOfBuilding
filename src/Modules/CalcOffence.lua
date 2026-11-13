@@ -1183,6 +1183,14 @@ function calcs.offence(env, actor, activeSkill)
 	end
 	if skillFlags.totem then
 		output.ActiveTotemLimit = skillModList:Sum("BASE", skillCfg, "ActiveTotemLimit", "ActiveBallistaLimit")
+		-- Skills granted by a support and triggered by totems (e.g. Flamewood's Avenging Flame) are cast by the supported skill's totems
+		if activeSkill.skillTypes[SkillType.SkillGrantedBySupport] and skillData.triggerSourceUUID then
+			local sourceCache = GlobalCache.cachedData[env.mode][skillData.triggerSourceUUID]
+			local sourceLimit = sourceCache and sourceCache.Env.player.output.ActiveTotemLimit
+			if sourceLimit then
+				output.ActiveTotemLimit = sourceLimit
+			end
+		end
 	end
 	if skillFlags.area or skillData.radius or (skillFlags.mine and activeSkill.skillTypes[SkillType.Aura]) then
 		calcAreaOfEffect(skillModList, skillCfg, skillData, skillFlags, output, breakdown)
@@ -4478,7 +4486,7 @@ function calcs.offence(env, actor, activeSkill)
 				--assume skills with no cast, attack, or cooldown time are single cast
 				bleedStacks = bleedStacks * globalOutput.BleedDuration * (globalOutput.HitSpeed or globalOutput.Speed)
 			end
-			local activeTotems = env.modDB:Override(nil, "TotemsSummoned") or skillModList:Sum("BASE", skillCfg, "ActiveTotemLimit", "ActiveBallistaLimit")
+			local activeTotems = env.modDB:Override(nil, "TotemsSummoned") or output.ActiveTotemLimit or skillModList:Sum("BASE", skillCfg, "ActiveTotemLimit", "ActiveBallistaLimit")
 			if skillFlags.totem then
 				bleedStacks = bleedStacks * activeTotems
 			end

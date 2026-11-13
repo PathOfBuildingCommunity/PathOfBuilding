@@ -1639,4 +1639,25 @@ describe("TestTriggers", function()
 		assert.is_falsy(build.calcsTab.mainEnv.player.mainSkill.skillFlags.weapon1Attack)
 		assert.is_true(build.calcsTab.mainEnv.player.mainSkill.skillFlags.weapon2Attack)
 	end)
+
+	it("Avenging Flame uses the totem limit of the Flamewood-supported skill", function()
+		build.configTab.input.customMods = "+4 to maximum number of Summoned Searing Bond Totems\nSkills used by Totems have 10% more Area of Effect per maximum number of Summoned Totems"
+		build.configTab:BuildModList()
+		build.skillsTab:PasteSocketGroup("Searing Bond 20/0  1\nFlamewood 20/0  1\n")
+		runCallback("OnFrame")
+
+		local sourceLimit = build.calcsTab.mainOutput.ActiveTotemLimit
+
+		local mainSocketGroup = build.skillsTab.socketGroupList[build.mainSocketGroup]
+		mainSocketGroup.mainActiveSkill = 2
+		build.modFlag = true
+		build.buildFlag = true
+		runCallback("OnFrame")
+
+		assert.are.equals("Avenging Flame", build.calcsTab.mainEnv.player.mainSkill.activeEffect.grantedEffect.name)
+		assert.True(sourceLimit >= 5)
+		assert.are.equals(sourceLimit, build.calcsTab.mainOutput.ActiveTotemLimit)
+		assert.are.equals(sourceLimit, build.calcsTab.mainOutput.TotemsSummoned)
+		assert.are.equals(round(1 + 0.1 * sourceLimit, 2), round(build.calcsTab.mainOutput.AreaOfEffectMod, 2))
+	end)
 end)
