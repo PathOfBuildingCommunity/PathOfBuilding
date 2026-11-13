@@ -1183,6 +1183,14 @@ function calcs.offence(env, actor, activeSkill)
 	end
 	if skillFlags.totem then
 		output.ActiveTotemLimit = skillModList:Sum("BASE", skillCfg, "ActiveTotemLimit", "ActiveBallistaLimit")
+		-- Avenging Flame is used by the totem selected as its trigger source.
+		if activeSkill.activeEffect.grantedEffect.name == "Avenging Flame" then
+			local uuid = skillData.triggerSourceUUID
+			local source = uuid and GlobalCache.cachedData[env.mode][uuid]
+			if source and source.Env.player.output.ActiveTotemLimit then
+				output.ActiveTotemLimit = source.Env.player.output.ActiveTotemLimit
+			end
+		end
 	end
 	if skillFlags.area or skillData.radius or (skillFlags.mine and activeSkill.skillTypes[SkillType.Aura]) then
 		calcAreaOfEffect(skillModList, skillCfg, skillData, skillFlags, output, breakdown)
