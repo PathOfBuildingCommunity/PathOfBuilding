@@ -315,6 +315,7 @@ function sanitiseText(text)
 		:gsub("\226\128\147", "-") -- U+2013 EN DASH
 		:gsub("\226\128\148", "-") -- U+2014 EM DASH
 		:gsub("\226\128\149", "-") -- U+2015 HORIZONTAL BAR
+		:gsub("\226\128\139", "")  -- U+200B ZERO WIDTH SPACE
 		:gsub("\226\136\146", "-") -- U+2212 MINUS SIGN
 		:gsub("\195\164", "a") -- U+00E4 LATIN SMALL LETTER A WITH DIAERESIS
 		:gsub("\195\182", "o") -- U+00F6 LATIN SMALL LETTER O WITH DIAERESIS
@@ -543,7 +544,7 @@ function specCopy(env)
 end
 
 -- Wipe all keys from the table and return it, or return a new table if no table
--- provided. This is useful to avoid alllocations in hot paths if a table can be reused. Using LuaJIT's `table.clear()` is another alternative to this, but this performs similarly on small tables, or tables which are often already empty.
+-- provided. This is useful to avoid allocations in hot paths if a table can be reused. Using LuaJIT's `table.clear()` is another alternative to this, but this performs similarly on small tables, or tables which are often already empty.
 ---@param tbl table?
 ---@return table tbl
 function wipeTable(tbl)
