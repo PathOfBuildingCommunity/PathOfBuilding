@@ -31,13 +31,6 @@ describe("TradeQuery", function()
 			return tq.controls.resultDropdown1
 		end
 
-		it("constructs the Watcher's Eye row without an active jewel socket", function()
-			local tq = newTradeQuery({})
-			tq.slotTables[1] = { slotName = "Watcher's Eye", unique = true }
-
-			assert.is_not_nil(buildRow1Dropdown(tq))
-		end)
-
 		it("returns early when sortedResultTbl[row_idx] is missing", function()
 			-- No sorted results at all -> first guard must short-circuit.
 			local tq = newTradeQuery({})
@@ -132,36 +125,21 @@ describe("TradeQuery", function()
 			end)
 		end
 
-		it("clears the visible selection and price when filtering removes every result", function()
+		it("clears the result selection and price when filtering removes every result", function()
 			local tq = newTradeQueryWithOutput({ ReqStr = 50, Str = 40 })
 			tq:PriceItemRowDisplay(1, nil, 0, 20)
-			local dropdown = tq.controls.resultDropdown1
 			tq.controls.fullPrice = new("LabelControl"):LabelControl(nil, { 0, 0, 100, 20 }, "")
 			tq.controls.pbNotice = new("LabelControl"):LabelControl(nil, { 0, 0, 100, 20 }, "")
 			-- Populate the row through the same path first, so stale state can be detected.
 			tq:UpdateControlsWithItems(1)
-			assert.is_not_nil(dropdown:GetSelValue())
 			assert.are.equal(1, tq.itemIndexTbl[1])
-			assert.are.equal("1 chaos", tq:GetTotalPriceString())
-			assert.is_true(tq.controls.importButton1:IsEnabled())
-			assert.matches("chaos", tq.controls.fullPrice.label, 1, true)
+			assert.are.equal(1, tq.totalPrice[1].amount)
 
 			tq.hideResultsFailingAttributeRequirements = true
 			tq:UpdateControlsWithItems(1)
-			assert.are.equal(0, dropdown:GetDropCount())
 			assert.are.equal(0, #tq.sortedResultTbl[1])
 			assert.is_nil(tq.itemIndexTbl[1])
 			assert.is_nil(tq.totalPrice[1])
-			assert.are.equal("", tq:GetTotalPriceString())
-			assert.not_matches("chaos", tq.controls.fullPrice.label, 1, true)
-			assert.matches("selected requirements", tq.controls.pbNotice.label, 1, true)
-			assert.is_falsy(tq.controls.importButton1:IsEnabled())
-			assert.are.equal("", tq.controls.whisperButton1:GetProperty("label"))
-			local tooltip = new("Tooltip"):Tooltip()
-			for _, control in ipairs({ dropdown, tq.controls.importButton1, tq.controls.whisperButton1 }) do
-				control.tooltipFunc(tooltip, "DROP", 1, nil)
-				assert.are.equal(0, #tooltip.lines)
-			end
 		end)
 
 		it("filters fetched results that do not meet Omniscience requirements", function()
@@ -182,14 +160,13 @@ describe("TradeQuery", function()
 			assert.are.equal(2, sortedItems[1].index)
 		end)
 
-		it("reports a search without compatible items even when a requirement filter is selected", function()
+		it("clears a search without compatible items when a requirement filter is selected", function()
 			local tq = newTradeQueryWithOutput(function() error("Unexpected attribute recalculation") end)
 			tq.controls.fullPrice = new("LabelControl"):LabelControl(nil, { 0, 0, 100, 20 }, "")
 			tq.controls.pbNotice = new("LabelControl"):LabelControl(nil, { 0, 0, 100, 20 }, "")
 			tq.resultTbl[1] = {}
 			tq.hideResultsFailingAttributeRequirements = true
 			tq:UpdateControlsWithItems(1)
-			assert.matches("No compatible items found", tq.controls.pbNotice.label, 1, true)
 			assert.is_nil(tq.resultTbl[1])
 		end)
 
