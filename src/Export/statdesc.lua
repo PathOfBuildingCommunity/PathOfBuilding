@@ -466,6 +466,110 @@ function describeStats(stats)
 	return out, orders
 end
 
+-- Maps granted effect ids to gem names and their number of levels
+-- Secondary effects such as Snipe Support have their own name instead of the gem's
+local grantedEffectNames, grantedEffectLevelCounts
+local function getGrantedEffectData()
+	if not grantedEffectNames then
+		grantedEffectNames = {}
+		for gem in dat("SkillGems"):Rows() do
+			for _, gemEffect in ipairs(gem.GemVariants) do
+				if gemEffect.GrantedEffect then
+					grantedEffectNames[gemEffect.GrantedEffect.Id] = grantedEffectNames[gemEffect.GrantedEffect.Id] or gem.BaseItemType.Name
+				end
+				if gemEffect.GrantedEffect2 then
+					local name = gemEffect.SecondarySupportName
+					if name == "" then
+						name = gem.BaseItemType.Name
+					end
+					grantedEffectNames[gemEffect.GrantedEffect2.Id] = grantedEffectNames[gemEffect.GrantedEffect2.Id] or name
+				end
+			end
+		end
+		grantedEffectLevelCounts = {}
+		for levelRow in dat("GrantedEffectsPerLevel"):Rows() do
+			local id = levelRow.GrantedEffect.Id
+			grantedEffectLevelCounts[id] = (grantedEffectLevelCounts[id] or 0) + 1
+		end
+	end
+	return grantedEffectNames, grantedEffectLevelCounts
+end
+
+-- 3.30 moved the gem and level of most "Supported by" and "Grants" mods from their display stats, which are now 0, into a GrantedEffect column on the mod row
+-- The display stat may still hold a level when describing legacy values
+local function describeGrantedEffects(mod, stats)
+	local hasDisplayStat, level
+	-- Only handle display stats that GGG zeroed. If a legacy value is given for one that still has a description, describeStats handles it
+	for i = 1, 6 do
+		local stat = mod["Stat" .. i]
+		if stat and stat.Id:match("^local_display_") and mod["Stat" .. i .. "Value"][1] == 0 and mod["Stat" .. i .. "Value"][2] == 0 then
+			local value = stats[stat.Id]
+			if value and (value.min ~= 0 or value.max ~= 0) then
+				if statDescriptor[stat.Id] then
+					return
+				end
+				level = value
+			end
+			hasDisplayStat = true
+		end
+	end
+	if not hasDisplayStat then
+		return
+	end
+	local names, levelCounts = getGrantedEffectData()
+	local out, orders, seen = {}, {}, {}
+	for _, levelRow in ipairs(mod.GrantedEffect) do
+		local grantedEffect = levelRow.GrantedEffect
+		-- Supports are named after their gem and actives after their skill. The stat order of a remaining descriptor of the same kind is borrowed
+		local name, template, orderStat
+		if grantedEffect.IsSupport then
+			name, template, orderStat = names[grantedEffect.Id], "ModGrantsSupportEffect", "local_random_support_gem_level"
+		else
+			name, template, orderStat = grantedEffect.ActiveSkill?.DisplayName, "ModGrantsEffect", "local_display_grants_skill_frostbite_level"
+		end
+		if not name or name == "" then
+			print("Granted effect '" .. grantedEffect.Id .. "' of mod '" .. mod.Id .. "' has no name")
+		elseif not seen[name] then
+			seen[name] = true
+			local levelText
+			if level then
+				levelText = tostring(level.min)
+				if level.min ~= level.max then
+					levelText = "(" .. level.min .. "-" .. level.max .. ")"
+				end
+			-- Single level effects such as Harbinger skills are shown without a level
+			elseif levelCounts[grantedEffect.Id] > 1 then
+				levelText = tostring(levelRow.Level)
+			end
+			if levelText then
+				template = template .. "WithLevel"
+			end
+			-- The same templates the client uses, e.g. "Socketed Gems are Supported by Level {1} {0}"
+			local text = dat("ClientStrings"):GetRow("Id", template).Text:gsub("{0}", name):gsub("{1}", levelText or "")
+			table.insert(out, text)
+			table.insert(orders, statDescriptor[orderStat].order)
+		end
+	end
+	return out, orders
+end
+
+-- describeStats with the granted effect lines of the mod inserted by stat order
+function describeModStats(mod, stats)
+	local grantedOut, grantedOrders = describeGrantedEffects(mod, stats)
+	local out, orders = describeStats(stats)
+	for i, line in ipairs(grantedOut or {}) do
+		local index = #orders + 1
+		for j, order in ipairs(orders) do
+			if order > grantedOrders[i] then
+				index = j
+				break
+			end
+		end
+		table.insert(out, index, line)
+		table.insert(orders, index, grantedOrders[i])
+	end
+	return out, orders
+end
 function describeMod(mod)
 	local stats = { }
 	local buffTemplateStats = { }
@@ -487,7 +591,7 @@ function describeMod(mod)
 	if mod.Type then
 		stats.Type = mod.Type
 	end
-	local out, orders = describeStats(stats)
+	local out, orders = describeModStats(mod, stats)
 	out.modTags = describeModTags(mod.ImplicitTags)
 	return out, orders
 end

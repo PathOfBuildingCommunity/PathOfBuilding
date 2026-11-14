@@ -37,6 +37,9 @@ Variant: Purity of Ice: Lightning
 Variant: Purity of Lightning: Fire
 Variant: Purity of Lightning: Cold
 Variant: Purity of Lightning: Lightning
+{variant:1,2,3,10,11,12}Grants Level 30 Purity of Fire
+{variant:4,5,6,13,14,15}Grants Level 30 Purity of Ice
+{variant:7,8,9,16,17,18}Grants Level 30 Purity of Lightning
 {variant:1,4,7,10,13,16}Adds (25-30) to (40-45) Fire Damage to Spells and Attacks
 {variant:2,5,8,11,14,17}Adds (25-30) to (40-45) Cold Damage to Spells and Attacks
 {variant:3,6,9,12,15,18}Adds (1-3) to (68-72) Lightning Damage to Spells and Attacks
@@ -255,6 +258,8 @@ Deerskin Boots
 Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
+{variant:1,2}Socketed Gems are Supported by Level 11 Trap Support
+{variant:3}Socketed Gems are Supported by Level 15 Trap Support
 (160-200)% increased Evasion Rating
 {variant:1,2}+(35-45) to maximum Life
 {variant:2,3}15% increased Movement Speed
@@ -292,6 +297,9 @@ Variant: Purity of Ice: Lightning
 Variant: Purity of Lightning: Fire
 Variant: Purity of Lightning: Cold
 Variant: Purity of Lightning: Lightning
+{variant:1,2,3,10,11,12}Grants Level 30 Purity of Fire
+{variant:4,5,6,13,14,15}Grants Level 30 Purity of Ice
+{variant:7,8,9,16,17,18}Grants Level 30 Purity of Lightning
 {variant:1,4,7,10,13,16}Adds (25-30) to (40-45) Fire Damage to Spells and Attacks
 {variant:2,5,8,11,14,17}Adds (25-30) to (40-45) Cold Damage to Spells and Attacks
 {variant:3,6,9,12,15,18}Adds (1-3) to (68-72) Lightning Damage to Spells and Attacks
@@ -470,6 +478,9 @@ Variant: Purity of Ice: Lightning
 Variant: Purity of Lightning: Fire
 Variant: Purity of Lightning: Cold
 Variant: Purity of Lightning: Lightning
+{variant:1,2,3,10,11,12,19,20,21}Grants Level 30 Purity of Fire
+{variant:4,5,6,13,14,15,22,23,24}Grants Level 30 Purity of Ice
+{variant:7,8,9,16,17,18,25,26,27}Grants Level 30 Purity of Lightning
 {variant:1,4,7,10,13,16,19,22,25}Adds (25-30) to (40-45) Fire Damage to Spells and Attacks
 {variant:2,5,8,11,14,17,20,23,26}Adds (25-30) to (40-45) Cold Damage to Spells and Attacks
 {variant:3,6,9,12,15,18,21,24,27}Adds (1-3) to (68-72) Lightning Damage to Spells and Attacks
@@ -646,6 +657,7 @@ Implicits: 3
 {variant:1}+(16-20)% to Fire and Cold Resistances
 {variant:2}+(16-20)% to Fire and Lightning Resistances
 {variant:3}+(16-20)% to Cold and Lightning Resistances
+Grants Embrace Madness
 {variant:3}(20-40)% increased Chaos Damage
 {variant:1}(150-300)% increased Armour and Evasion
 30% increased Movement Speed
@@ -698,6 +710,7 @@ Source: No longer obtainable
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 40
+{variant:1}Socketed Gems are Supported by Level 15 Added Chaos Damage Support
 {variant:2}Trigger Level 15 Stalking Pustule on Kill
 (120-150)% increased Armour and Evasion
 +(50-60) to maximum Life
@@ -728,6 +741,7 @@ Dragonscale Boots
 Variant: Pre 3.23.0
 Variant: Current
 Source: Drops from unique{The Searing Exarch} (Uber)
+Grants Approaching Flames
 (60-100)% increased Armour and Evasion
 30% increased Movement Speed
 Cannot be Chilled
@@ -790,6 +804,7 @@ Saqawal's Talons
 Hydrascale Boots
 League: Bestiary
 Source: Drops from unique{Saqawal, First of the Sky}
+Grants Level 20 Aspect of the Avian
 (100-150)% increased Armour and Evasion
 (20-30)% increased Movement Speed
 +(-2-2) seconds to Avian's Flight Duration
@@ -858,6 +873,7 @@ Variant: Current
 League: Synthesis
 {variant:1}+2 to Level of Socketed Aura Gems
 {variant:2}+(3-5) to Level of Socketed Aura Gems
+Socketed Gems are Supported by Level 25 Divine Blessing Support
 (250-300)% increased Armour and Energy Shield
 +(12-18)% to all Elemental Resistances
 (20-30)% increased Movement Speed
@@ -1062,6 +1078,7 @@ Regenerate (75-125) Life per second while Ignited
 Veruso's Ambition
 Shackled Boots
 League: Necropolis
+Grants Ravenous
 Enemies display their Monster Category
 (80-120)% increased Evasion and Energy Shield
 +(13-23)% to Chaos Resistance

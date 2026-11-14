@@ -321,6 +321,7 @@ Source: No longer obtainable
 Requires Level 60
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
+Grants Summon Harbinger of Time
 {variant:1}{tags:resource,defences}(15-20)% increased Energy Shield Recovery rate
 {variant:1}{tags:resource,defences}(15-20)% increased Life Recovery rate
 {variant:2}{tags:resource,defences}(10-15)% increased Energy Shield Recovery rate
@@ -336,6 +337,7 @@ Variant: Current
 Requires Level 60
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
+Grants Summon Greater Harbinger of Time
 {variant:1}{tags:resource,defences}(15-20)% increased Energy Shield Recovery rate
 {variant:1}{tags:resource,defences}(15-20)% increased Life Recovery rate
 {variant:2}{tags:resource,defences}(10-15)% increased Energy Shield Recovery rate

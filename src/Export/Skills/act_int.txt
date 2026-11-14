@@ -1131,17 +1131,8 @@ return function(skills, mod, flag, skill)
 #mods
 
 #skill FireballAltX
-#flags spell projectile duration
-	parts = {
-		{
-			name = "Projectile",
-			area = false,
-		},
-		{
-			name = "Explosion",
-			area = true,
-		},
-	},
+#flags spell projectile area duration
+#baseMod skill("debuff", true)
 #mods
 
 #skill VaalFireball

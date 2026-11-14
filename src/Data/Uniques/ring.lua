@@ -199,6 +199,8 @@ Has 1 Socket
 {variant:2}{tags:resource,defences}Socketed Golem Skills gain 20% of Maximum Life as Extra Maximum Energy Shield
 {variant:1}+2 to Level of Socketed Golem Gems
 {variant:2}+3 to Level of Socketed Golem Gems
+{variant:1}Socketed Gems are Supported by Level 15 Concentrated Effect Support
+{variant:1}Socketed Gems are Supported by Level 15 Minion Life Support
 {variant:1}{tags:caster}(10-25)% increased Spell Damage
 {variant:2}{tags:caster}(20-25)% increased Spell Damage
 {tags:defences}+(15-25) to maximum Energy Shield
@@ -591,6 +593,7 @@ Requires Level 50
 Implicits: 2
 50% increased Elemental Ailment Duration on you
 50% reduced Effect of Curses on you
+Grants Penance Mark
 {tags:caster,speed}(6-12)% increased Cast Speed
 {tags:resource}+(30-60) to maximum Life
 {tags:resistance}+(7-19)% to Chaos Resistance
@@ -693,6 +696,7 @@ Variant: Pre 3.19.0
 Variant: Current
 Implicits: 1
 {tags:resource}+(20-30) to maximum Life
+{variant:3}Grants Level 10 Enduring Cry
 {tags:attribute}+(10-20) to Strength
 {variant:1}{tags:resource,attack}0.4% of Physical Attack Damage Leeched as Life
 {variant:2}{tags:resource,attack}Gain (2-4) Life per Enemy Hit with Attacks
@@ -882,6 +886,8 @@ Has 1 Socket
 {variant:2,3}Gain Onslaught for 10 seconds when you Cast Socketed Golem Skill
 {variant:1}+2 to Level of Socketed Golem Gems
 {variant:2,3}+3 to Level of Socketed Golem Gems
+{variant:1}Socketed Gems are Supported by Level 13 Faster Attacks Support
+{variant:1}Socketed Gems are Supported by Level 16 Minion Speed Support
 {tags:physical_damage,attack}Adds (5-10) to (11-15) Physical Damage to Attacks
 {tags:attack,speed}(5-10)% increased Attack Speed
 {variant:1}{tags:speed}(1-2)% increased Movement Speed
@@ -1045,6 +1051,7 @@ Requires Level 50
 Implicits: 2
 50% increased Elemental Ailment Duration on you
 50% reduced Effect of Curses on you
+Grants Pacify
 {tags:caster,speed}(6-12)% increased Cast Speed
 {tags:resource}+(30-60) to maximum Mana
 {tags:resistance}+(7-19)% to Chaos Resistance
@@ -1061,6 +1068,8 @@ Has 1 Socket
 {variant:2}{tags:resource}Socketed Golem Skills have Minions Regenerate 5% of Life per second
 {variant:1}+2 to Level of Socketed Golem Gems
 {variant:2}+3 to Level of Socketed Golem Gems
+{variant:1}Socketed Gems are Supported by Level 12 Multiple Projectiles Support
+{variant:1}Socketed Gems are Supported by Level 17 Minion Damage Support
 {tags:attribute}+(30-40) to Strength
 {tags:elemental_damage}(20-30)% increased Fire Damage
 {variant:1}{tags:elemental_damage,attack}Adds (8-12) to (20-30) Fire Damage to Attacks
@@ -1088,8 +1097,8 @@ Requires Level 60
 Implicits: 1
 {tags:critical}(20-30)% increased Global Critical Strike Chance
 {tags:attack}+333 to Accuracy Rating
-{variant:1}{tags:critical}+(10-20)% to Critical Strike Multiplier
-{variant:2}{tags:critical}+(10-15)% to Critical Strike Multiplier
+{variant:1}{tags:critical}+(10-20)% to Global Critical Strike Multiplier
+{variant:2}{tags:critical}+(10-15)% to Global Critical Strike Multiplier
 {variant:3}{tags:critical}+(15-25)% to Global Critical Strike Multiplier
 {tags:resource}+(40-60) to maximum Mana
 {tags:resource,attack}0.4% of Physical Attack Damage Leeched as Mana
@@ -1105,6 +1114,7 @@ Variant: Current
 Requires Level 56
 Implicits: 1
 Has 1 Socket
+{tags:caster}Socketed Gems are Supported by Level 20 Blasphemy Support
 Curse Auras from Socketed Skills also affect you
 {variant:1}{tags:caster}Socketed Curse Gems have 50% increased Reservation Efficiency
 {variant:2}{tags:caster}Socketed Curse Gems have 80% increased Reservation Efficiency
@@ -1675,6 +1685,7 @@ Formless Ring
 Source: Drops from unique{It That Was Esh} and unique{It That Was Tul} in normal{Hive Colony}
 Implicits: 1
 {tags:defences}(5-7)% increased Global Defences
+Grants Level 30 Herald of the Hive
 {tags:resistance}+(10-20)% to all Elemental Resistances
 {tags:resistance}+(23-37)% to Chaos Resistance
 ]],

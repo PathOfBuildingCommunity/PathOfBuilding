@@ -47,6 +47,7 @@ Variant: Pre 3.25.0
 Variant: Current
 Implicits: 1
 {variant:2,3,4}+(30-40) to maximum Life
+{variant:1,2,3}Grants Level 30 Crushing Fist
 {variant:1,2}(130-170)% increased Armour
 {variant:3,4}(165-205)% increased Armour
 +(65-80) to maximum Life
@@ -859,6 +860,7 @@ League: Allflame
 Source: Drops from unique{Velka, the Tide Witch}
 Implicits: 1
 60% increased Block Recovery
+Grants Savage Barnacle
 +(50-100) to Armour
 +(50-100) to Evasion Rating
 (100-200)% increased Armour and Evasion
@@ -1108,6 +1110,7 @@ Source: Created from item parts obtained from Boss in The Beachhead
 Upgrade: Upgrades to unique{The Immortal Will} via currency{Specularity Scroll}
 Implicits: 1
 +12% to all Elemental Resistances
+Grants Summon Harbinger of Focus
 +(60-80) to maximum Life
 +(10-15)% to all Elemental Resistances
 (30-50) Mana gained when you Block
@@ -1120,6 +1123,7 @@ League: Harvest
 Source: Upgraded from unique{The Unshattered Will} via currency{Specularity Scroll}
 Implicits: 1
 +12% to all Elemental Resistances
+Grants Summon Greater Harbinger of Focus
 +(60-80) to maximum Life
 +(10-15)% to all Elemental Resistances
 (30-50) Mana gained when you Block
@@ -1206,6 +1210,8 @@ Variant: Current
 Implicits: 2
 {variant:3,4}+5% chance to Suppress Spell Damage
 {variant:1,2}Reflects (221-260) Physical Damage to Melee Attackers
+{variant:1,2,3}Grants Level 20 Bear Trap
+{variant:4}Grants Level 25 Bear Trap
 (18-28)% increased Trap Damage
 (15-25)% increased Global Physical Damage
 +(60-80) to maximum Life

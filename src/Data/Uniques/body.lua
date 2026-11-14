@@ -60,6 +60,7 @@ League: Bestiary
 Source: Drops from unique{Craiceann, First of the Deep}
 Requires Level 64
 Implicits: 0
+Grants Level 20 Aspect of the Crab
 {variant:1}(300-350)% increased Armour
 {variant:2}(200-250)% increased Armour
 +(100-120) to maximum Life
@@ -92,6 +93,7 @@ Variant: Current
 League: Ritual
 Source: Drops from unique{The Maven}
 Implicits: 0
+Grants Unhinge
 (40-60)% more Critical Strike Chance while Insane
 Enemies Killed by your Hits are destroyed while Insane
 {variant:1}(15-25)% more Physical and Chaos Damage Taken while Sane
@@ -138,6 +140,7 @@ Crusader Plate
 Variant: Pre 3.5.0
 Variant: Current
 Implicits: 0
+Socketed Gems are Supported by Level 15 Pierce Support
 {variant:2}+160 Dexterity Requirement
 (200-250)% increased Armour
 +(60-100) to maximum Life
@@ -214,6 +217,7 @@ Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
 Implicits: 0
+{variant:2}Socketed Gems are Supported by Level 10 Added Fire Damage Support
 (80-100)% increased Evasion Rating
 {variant:2}+(30-50) to maximum Life
 +(40-50)% to Fire Resistance
@@ -470,6 +474,9 @@ Variant: Rhoa Current
 Variant: Snake Current
 Variant: Ursa Current
 Implicits: 0
+{variant:1,4}Grants Summon Bestial Rhoa
+{variant:2,5}Grants Summon Bestial Snake
+{variant:3,6}Grants Summon Bestial Ursa
 +(300-400) to Accuracy Rating
 (130-150)% increased Evasion Rating
 +(90-100) to maximum Life
@@ -558,6 +565,8 @@ Variant: Pre 3.0.0
 Variant: Pre 3.19.0
 Variant: Current
 Implicits: 0
+{variant:1,2,3,4,5}Socketed Gems are Supported by Level 15 Added Chaos Damage Support
+{variant:6}Socketed Gems are Supported by Level 29 Added Chaos Damage Support
 {variant:4,5}Socketed Gems Cost and Reserve Life instead of Mana
 +(20-30) to Intelligence
 {variant:1}(125-150)% increased Energy Shield
@@ -573,6 +582,7 @@ Replica Covenant
 Spidersilk Robe
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
+Socketed Gems are Supported by Level 29 Added Cold Damage Support
 +(20-30) to Intelligence
 (210-250)% increased Energy Shield
 10% increased maximum Life
@@ -598,6 +608,7 @@ Variant: Pre 3.5.0
 Variant: Pre 3.16.0
 Variant: Current
 Implicits: 0
+Socketed Gems are Supported by Level 20 Blasphemy Support
 {variant:1,2}Grants Level 20 Summon Doedre's Effigy Skill
 {variant:1,2}Socketed Hex Curse Skills are Triggered by Doedre's Effigy when Summoned
 {variant:1,2}Hexes from Socketed Skills can apply 5 additional Curses
@@ -701,6 +712,8 @@ Variant: Pre 3.16.0
 Variant: Pre 3.17.0
 Variant: Current
 Implicits: 0
+{variant:1,2}Socketed Gems are Supported by Level 14 Spell Totem Support
+{variant:3,4,5}Socketed Gems are Supported by Level 20 Spell Totem Support
 (20-25)% increased Spell Damage
 (100-120)% increased Energy Shield
 {variant:1}25% increased Totem Life
@@ -718,6 +731,7 @@ Simple Robe
 Variant: Pre 3.0.0
 Variant: Pre 3.19.0
 Variant: Current
+Socketed Gems are Supported by Level 5 Elemental Proliferation Support
 {variant:1,2}Adds 2 to 3 Fire Damage to Spells and Attacks
 {variant:3}Adds (2-4) to (5-9) Fire Damage to Spells and Attacks
 {variant:1,2}Adds 2 to 3 Cold Damage to Spells and Attacks
@@ -859,7 +873,7 @@ Variant: Pre 3.5.0
 Variant: Pre 3.19.0
 Variant: Current
 Implicits: 0
-{variant:1}(60-100)% increased Physical Damage
+{variant:1}(60-100)% increased Global Physical Damage
 {variant:2,3}100% increased Global Physical Damage
 {variant:3}(300-400)% increased Armour and Evasion
 {variant:1}+(130-160) to maximum Life
@@ -1110,6 +1124,7 @@ Loricated Ringmail
 Source: No longer obtainable
 League: Blight
 Implicits: 0
+Socketed Gems are Supported by Level 1 Meat Shield Support
 (100-140)% increased Armour and Energy Shield
 +(50-80) to maximum Life
 (5-8)% increased Damage per Raised Zombie
@@ -1162,6 +1177,7 @@ Bone Armour
 Variant: Pre 3.16.0
 Variant: Current
 Implicits: 0
+Grants Level 15 Blood Offering
 (100-120)% increased Evasion and Energy Shield
 (15-25)% increased maximum Life
 Minions have (20-30)% increased maximum Life
@@ -1204,6 +1220,7 @@ Mind Over Matter
 Dendrobate
 Sentinel Jacket
 Implicits: 0
+Socketed Gems are Supported by Level 10 Chance to Poison Support
 (130-150)% increased Evasion and Energy Shield
 +40 to maximum Energy Shield
 +(15-25)% to all Elemental Resistances
@@ -1324,6 +1341,8 @@ Implicits: 1
 {variant:5}Has 3 Abyssal Sockets
 {variant:1,3,6}Has 2 Abyssal Sockets
 {variant:2,4,7}Has 1 Abyssal Socket
+{variant:1,2}Socketed Gems are Supported by Level 20 Elemental Penetration Support
+{variant:3,4}Socketed Gems are Supported by Level 25 Elemental Penetration Support
 20% chance to Trigger Level 20 Shade Form when you Use a Socketed Skill
 (160-180)% increased Evasion and Energy Shield
 {variant:1,2,3,4}(6-10)% increased maximum Life
@@ -1373,6 +1392,8 @@ Variant: Pre 2.6.0
 Variant: Current
 Implicits: 0
 +1 to Level of Socketed Aura Gems
+{variant:1}Socketed Gems are Supported by Level 1 Generosity Support
+{variant:2}Socketed Gems are Supported by Level 30 Generosity Support
 Socketed Gems have 45% increased Reservation Efficiency
 (120-150)% increased Evasion and Energy Shield
 {variant:1}(10-20)% increased Area of Effect of Aura Skills

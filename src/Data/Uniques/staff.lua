@@ -92,6 +92,7 @@ Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Alluring Abys
 Implicits: 2
 {variant:2,3}+25% Chance to Block Attack Damage
 {variant:1}+20% Chance to Block Spell Damage
+Grants Queen's Demand
 Queen's Demand can Trigger Level 20 Flames of Judgement
 Queen's Demand can Trigger Level 20 Storm of Judgement
 {variant:3}(100-300)% increased Spell Critical Strike Chance
@@ -109,7 +110,7 @@ Implicits: 2
 {variant:1}+18% Chance to Block Attack Damage
 {variant:2,3}+22% Chance to Block Attack Damage
 (700-800)% increased Physical Damage
-{variant:1,2}+100% to Critical Strike Multiplier
+{variant:1,2}+100% to Global Critical Strike Multiplier
 {variant:3}+(100-150)% to Global Critical Strike Multiplier
 75% of Physical Damage converted to a random Element
 25% of Physical Damage Converted to Chaos Damage
@@ -287,6 +288,9 @@ Variant: Current
 Implicits: 2
 {variant:2}+18% Chance to Block Attack Damage
 {variant:3,4}+25% Chance to Block Spell Damage
+{variant:1}Socketed Gems are Supported by Level 10 Life Leech Support
+{variant:2,3,4}Socketed Gems are Supported by Level 1 Chance to Bleed Support
+Grants Summon Harbinger of Brutality
 +5% Chance to Block Attack Damage while wielding a Staff
 {variant:2,3}+(30-40)% to Damage over Time Multiplier for Bleeding from Critical Strikes
 {variant:4}+(60-80)% to Damage over Time Multiplier for Bleeding from Critical Strikes
@@ -304,6 +308,8 @@ Source: Upgraded from unique{The Enmity Divine} via currency{Haemocombustion Scr
 Implicits: 2
 {variant:1}+18% Chance to Block Attack Damage
 {variant:2,3}+25% Chance to Block Spell Damage
+Socketed Gems are Supported by Level 1 Chance to Bleed Support
+Grants Summon Greater Harbinger of Brutality
 +5% Chance to Block Attack Damage while wielding a Staff
 {variant:1,2}+(30-40)% to Damage over Time Multiplier for Bleeding from Critical Strikes
 {variant:3}+(60-80)% to Damage over Time Multiplier for Bleeding from Critical Strikes
@@ -341,6 +347,7 @@ Implicits: 3
 {variant:1}+12% Chance to Block Attack Damage
 {variant:2}+18% Chance to Block Attack Damage
 {variant:3}+20% Chance to Block Spell Damage
+Socketed Gems are Supported by Level 8 Trap Support
 (40-50)% increased Global Damage
 (10-20)% increased maximum Life
 (10-20)% increased maximum Mana
@@ -354,6 +361,7 @@ Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 2
 {variant:1}+18% Chance to Block Attack Damage
 {variant:2}+20% Chance to Block Spell Damage
+Socketed Gems are Supported by Level 1 Multiple Totems Support
 (40-50)% increased Global Damage
 (10-20)% increased maximum Life
 (10-20)% increased maximum Mana
@@ -366,6 +374,7 @@ League: Affliction
 Implicits: 2
 {variant:1}+18% Chance to Block Attack Damage
 {variant:2}+25% Chance to Block Spell Damage
+Socketed Gems are Supported by Level 1 Lifetap Support
 (20-30)% increased Cast Speed
 {variant:2}Lose 500 Life per second
 {variant:1}Lose 500 Life per second
@@ -398,6 +407,9 @@ Requires Level 32
 Implicits: 2
 {variant:1}+18% Chance to Block Attack Damage
 {variant:2}+20% Chance to Block Spell Damage
+Socketed Gems are Supported by Level 16 Trap Support
+Socketed Gems are Supported by Level 16 Cluster Traps Support
+Socketed Gems are Supported by Level 16 Trap and Mine Damage Support
 (40-50)% increased Global Damage
 (10-20)% increased maximum Life
 (10-20)% increased maximum Mana
@@ -527,6 +539,8 @@ Implicits: 4
 {variant:2}+18% Chance to Block Attack Damage
 {variant:5,6}+25% Chance to Block Attack Damage
 {variant:3,4}+20% Chance to Block Spell Damage
+{variant:1,2,3,4,5}Socketed Gems are Supported by Level 30 Greater Spell Echo Support
+{variant:6}Socketed Gems are Supported by Level 1 Greater Spell Echo Support
 (120-160)% increased Spell Damage
 {variant:1,2,3}100% increased maximum Mana
 {variant:4,5}50% increased maximum Mana
@@ -546,6 +560,7 @@ Implicits: 3
 {variant:4}+2 to Level of Socketed Fire Gems
 {variant:1,2,3}+1 to Level of Socketed Cold Gems
 {variant:4}+2 to Level of Socketed Cold Gems
+Socketed Gems are Supported by Level 5 Cold to Fire Support
 Adds (10-15) to (20-25) Fire Damage
 Adds (10-15) to (20-25) Cold Damage
 (30-50)% increased Elemental Damage
@@ -564,6 +579,7 @@ Implicits: 3
 +2 to Level of Socketed Fire Gems
 +2 to Level of Socketed Cold Gems
 +2 to Level of Socketed Elemental Gems
+Socketed Gems are Supported by Level 5 Cold to Fire Support
 Adds (10-15) to (20-25) Fire Damage
 Adds (10-15) to (20-25) Cold Damage
 (30-50)% increased Elemental Damage
@@ -698,6 +714,7 @@ Implicits: 3
 {variant:2,3}+18% Chance to Block Attack Damage
 {variant:4}+22% Chance to Block Attack Damage
 {variant:3,4}+2 to Level of Socketed Spell Gems
+{variant:1,2,3,4}Socketed Gems are Supported by Level 10 Blastchain Mine Support
 {variant:1,2}35% less Mine Damage
 (40-60)% increased Spell Damage
 (15-20)% reduced Enemy Stun Threshold
@@ -714,6 +731,7 @@ Implicits: 3
 {variant:2}+18% Chance to Block Attack Damage
 {variant:3}+20% Chance to Block Attack Damage
 +1 to Level of Socketed Support Gems
+Grants Icestorm
 (14-18)% increased Intelligence
 (8-12)% increased Cast Speed
 1% increased Spell Damage per 10 Intelligence
@@ -728,6 +746,7 @@ Requires Level 68
 Implicits: 2
 {variant:1}+18% Chance to Block Attack Damage
 {variant:2}+22% Chance to Block Spell Damage
+Grants Brandsurge
 Brand Skills have (50-100)% increased Duration
 ]],[[
 The Geomantic Gyre

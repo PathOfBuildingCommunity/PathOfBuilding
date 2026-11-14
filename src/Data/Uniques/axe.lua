@@ -59,6 +59,7 @@ Jade Hatchet
 Variant: Pre 2.0.0
 Variant: Current
 Implicits: 0
+Socketed Gems are Supported by Level 2 Chance to Flee Support
 {variant:1}Adds (8-12) to (18-22) Physical Damage
 {variant:2}Adds (10-15) to (25-30) Physical Damage
 +(10-15) to maximum Life
@@ -72,6 +73,7 @@ Variant: Pre 2.0.0
 Variant: Current
 Requires Level 32
 Implicits: 0
+Socketed Gems are Supported by Level 2 Chance to Flee Support
 (170-190)% increased Physical Damage
 {variant:1}Adds (8-12) to (18-22) Physical Damage
 {variant:2}Adds (10-15) to (25-30) Physical Damage
@@ -85,6 +87,7 @@ Vaal Hatchet
 Variant: Pre 3.13.0
 Variant: Current
 Implicits: 0
+{variant:2}Grants Level 20 Thirst for Blood
 {variant:1}(90-110)% increased Physical Damage
 {variant:2}(130-150)% increased Physical Damage
 Adds (11-14) to (18-23) Physical Damage
@@ -321,6 +324,7 @@ Variant: Pre 3.5.0
 Variant: Pre 3.11.0
 Variant: Current
 Implicits: 0
+Socketed Gems are Supported by Level 30 Melee Splash Support
 {variant:1}(250-300)% increased Physical Damage
 {variant:2}(265-330)% increased Physical Damage
 {variant:3}(200-240)% increased Physical Damage
@@ -441,6 +445,7 @@ Poleaxe
 Variant: Pre 3.7.0
 Variant: Current
 Implicits: 0
+Socketed Gems are Supported by Level 20 Increased Area of Effect Support
 +10 to Strength
 (120-160)% increased Physical Damage
 Gain 10 Mana per Enemy Killed

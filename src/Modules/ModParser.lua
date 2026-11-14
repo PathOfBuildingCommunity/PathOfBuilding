@@ -2035,6 +2035,7 @@ end
 
 local gemIdLookup = {
 	["power charge on critical strike"] = "SupportPowerChargeOnCritical",
+	["snipe support"] = "ChannelledSnipeSupport",
 }
 local skillIds = {}
 for id in pairs(data.skills) do

@@ -144,6 +144,7 @@ Variant: Envy
 Requires Level 55
 Implicits: 1
 {tags:attribute}+(10-16) to all Attributes
+{variant:17}Grants Level 15 Envy
 {variant:17}{tags:attribute}+(15-20) to all Attributes
 {variant:1,2,3,4,5}{tags:attribute}+(20-30) to Strength
 {variant:6,7,8,9}{tags:attribute}+(20-30) to Dexterity
@@ -272,6 +273,7 @@ Amber Amulet
 Source: Use currency{Vaal Orb} on unique{Tear of Purity}
 Implicits: 1
 {tags:attribute}+(20-30) to Strength
+Grants Level 20 Gluttony of Elements
 {tags:chaos_damage,attack}Adds 19 to 43 Chaos Damage to Attacks
 {tags:resistance}-(10-5)% to all Elemental Resistances
 {tags:resistance}+(17-29)% to Chaos Resistance
@@ -691,11 +693,13 @@ Variant: Current
 Requires Level 64
 Implicits: 1
 {tags:attribute}+(20-30) to Dexterity
+{variant:1,2}Grants Level 22 Precision
+{variant:3}Grants Level 30 Precision
 {variant:1,2}{tags:attribute}+(25-35) to Dexterity
 {variant:3}{tags:attribute}+(40-80) to Dexterity
 {variant:1,2}{tags:physical_damage,attack}Adds (12-15) to (24-28) Physical Damage to Attacks
 {variant:1,2}{tags:elemental_damage,attack}Adds (11-15) to (23-28) Cold Damage to Attacks
-{variant:1,2}{tags:critical}+(23-28)% to Critical Strike Multiplier
+{variant:1,2}{tags:critical}+(23-28)% to Global Critical Strike Multiplier
 {variant:3}{tags:critical}+(25-50)% to Global Critical Strike Multiplier
 {variant:1,2}{tags:resource,attack}(0.8-1)% of Physical Attack Damage Leeched as Life
 {variant:3}Bow Attacks have Culling Strike
@@ -711,11 +715,12 @@ Variant: Current
 Requires Level 64
 Implicits: 1
 {tags:attribute}+(20-30) to Dexterity
+Grants Level 22 Hatred
 {variant:1,2}{tags:attribute}+(25-35) to Dexterity
 {variant:3}{tags:attribute}+(30-55) to Dexterity
 {variant:1,2}{tags:physical_damage,attack}Adds (12-15) to (24-28) Physical Damage to Attacks
 {variant:1,2}{tags:elemental_damage,attack}Adds (11-15) to (23-28) Cold Damage to Attacks
-{variant:1,2}{tags:critical}+(23-28)% to Critical Strike Multiplier
+{variant:1,2}{tags:critical}+(23-28)% to Global Critical Strike Multiplier
 {variant:3}{tags:critical}+(18-35)% to Global Critical Strike Multiplier
 {variant:3}Bow Attacks have Culling Strike
 {variant:1,2,3}{tags:resource}Hatred has 100% increased Mana Reservation Efficiency
@@ -917,7 +922,7 @@ Requires Level 40
 Implicits: 1
 {tags:attribute}+(20-30) to Intelligence
 {tags:attack}+(80-120) to Accuracy Rating
-{variant:1,2,3}{tags:critical}+(140-160)% to Critical Strike Multiplier
+{variant:1,2,3}{tags:critical}+(140-160)% to Global Critical Strike Multiplier
 {variant:4,5}{tags:critical}+(210-240)% to Global Critical Strike Multiplier
 {tags:defences}+(80-100) to Evasion Rating
 (10-15)% increased Light Radius
@@ -955,6 +960,9 @@ Requires Level 12
 Implicits: 1
 Has 1 Socket
 +2 to Level of Socketed Gems
+Socketed Gems are Supported by Level 10 Added Chaos Damage Support
+Socketed Gems are Supported by Level 10 Blind Support
+Socketed Gems are Supported by Level 10 Cast when Stunned Support
 Corrupted
 ]],[[
 Perquil's Toe
@@ -1027,7 +1035,7 @@ Variant: Current
 Talisman Tier: 2
 Requires Level 28
 Implicits: 2
-{variant:1}{tags:critical}+(16-24)% to Critical Strike Multiplier
+{variant:1}{tags:critical}+(16-24)% to Global Critical Strike Multiplier
 {variant:2}{tags:critical}+(24-36)% to Global Critical Strike Multiplier
 {variant:1,2}{tags:critical}+7% to Unarmed Melee Attack Critical Strike Chance
 {variant:3}{tags:critical}+(5-10)% to Unarmed Melee Attack Critical Strike Chance
@@ -1148,6 +1156,8 @@ Variant: Current
 Requires Level 28
 Implicits: 1
 {tags:resistance}+(20-30)% to Fire Resistance
+{variant:3}Grants Level 10 Frostblink
+{variant:1,2}Grants Illusory Warp
 {tags:elemental_damage}(30-50)% increased Cold Damage
 {tags:resistance}+(10-15)% to all Elemental Resistances
 {variant:1}{tags:caster}30% increased Area of Effect of Hex Skills
