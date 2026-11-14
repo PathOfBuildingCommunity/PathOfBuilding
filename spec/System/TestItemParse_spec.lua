@@ -4,6 +4,51 @@ describe("TestItemParse", function()
 		return "Rarity: Rare\nName\n"..base.."\n"..s
 	end
 
+	it("pastes Viscera names and implicit rolls without adding item descriptions as modifiers", function()
+		newBuild()
+		local cases = {
+			{ "Greater Gladiator's Heart", "Gladiator's Heart", "Greater ", "Torso" }, -- Live clipboard sample.
+			{ "Lesser Gladiator's Heart", "Gladiator's Heart", "Lesser ", "Torso" }, -- Synthetic unlisted name.
+			{ "Gladiator's Heart", "Gladiator's Heart", "", "Torso" },
+			{ "Greater Sirus' Head", "Greater Sirus' Head", "", "Head" }, -- Exact base takes precedence.
+			{ "Experimental Gladiator's Heart", "Gladiator's Heart", "Experimental ", "Torso" }, -- Synthetic unknown prefix.
+			{ "Lesser Warden's Arm", "Lesser Warden's Arm", "", "Upper Limb" },
+			{ "Lesser Pocked Leg", "Lesser Pocked Leg", "", "Lower Limb" },
+		}
+		for _, example in ipairs(cases) do
+			local text = "Item Class: Viscera\n" .. example[1] .. "\n" .. [[
+--------
+]] .. example[4] .. "\n" .. [[
+--------
+Item Level: 69
+--------
+{ Implicit Modifier }
++6(5-7) to Maximum Rage
+(Every Rage grants 1% more Attack Damage. Maximum Rage is 30. Lose 10 Rage per second if you have not been Hit or gained Rage in the last 2 seconds)
+--------
+Take this to the Wickerman in a town or hideout to attach it.
+]]
+			build.itemsTab.displayItem = nil
+			build.itemsTab:CreateDisplayItemFromRaw(text, true)
+			local item = assert(build.itemsTab.displayItem)
+			assert.equals("NORMAL", item.rarity)
+			assert.equals(example[1], item.name)
+			assert.equals(example[2], item.baseName)
+			assert.equals(example[3], item.namePrefix)
+			assert.equals("Wickerman " .. example[4], item.type)
+			assert.equals(69, item.itemLevel)
+			assert.equals(1, #item.implicitModLines)
+			assert.equals("+(5-7) to Maximum Rage", item.implicitModLines[1].line)
+			assert.equals(0.5, item.implicitModLines[1].range)
+			assert.equals(0, #item.explicitModLines)
+			local saved = new("Item"):Item(item:BuildRaw())
+			assert.equals(example[1], saved.name)
+			assert.equals(example[2], saved.baseName)
+			assert.equals(1, #saved.implicitModLines)
+			assert.equals(0.5, saved.implicitModLines[1].range)
+		end
+	end)
+
 	it("Rarity", function()
 		local item = new("Item"):Item("Rarity: Normal\nCoral Ring")
 		assert.are.equals("NORMAL", item.rarity)

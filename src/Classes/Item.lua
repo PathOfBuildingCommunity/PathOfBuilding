@@ -440,10 +440,14 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 	local itemClass
 	if self.rawLines[l] then
 		if self.rawLines[l]:match("^Item Class:") then
-			itemClass = self.rawLines[l]:gsub("^Item Class: %s+", "%1")
+			itemClass = self.rawLines[l]:match("^Item Class:%s*(.*)")
 			l = l + 1 -- Item class is already determined by the base type
 		end
 		local rarity = self.rawLines[l]:match("^Rarity: (%a+)")
+		if itemClass == "Viscera" and not rarity then
+			self.rarity = "NORMAL"
+			mode = "GAME"
+		end
 		if rarity then
 			mode = "GAME"
 			if colorCodes[rarity:upper()] then
@@ -538,7 +542,10 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 		if line == "Veiled Prefix" or line == "Veiled Suffix" then
 			self.veiled = true
 		end
-		if flaskBuffLines and flaskBuffLines[line] then
+		if itemClass == "Viscera" and (line == "Head" or line == "Torso" or line == "Upper Limb" or line == "Lower Limb"
+			or line == "Take this to the Wickerman in a town or hideout to attach it.") then
+			-- Slot labels and instructions in the game clipboard are not modifiers.
+		elseif flaskBuffLines and flaskBuffLines[line] then
 			flaskBuffLines[line] = nil
 		elseif tinctureBuffLines and tinctureBuffLines[line] then
 			tinctureBuffLines[line] = nil
