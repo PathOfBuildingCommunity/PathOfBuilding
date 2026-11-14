@@ -1337,6 +1337,7 @@ you can add them, copy the link here, and press "Price Item" to evaluate the ite
 		end
 	end
 	controls["resultDropdown"..row_idx].tooltipFunc = function(tooltip, dropdown_mode, dropdown_index, dropdown_display_string)
+		tooltip:Clear()
 		local sortedRow = self.sortedResultTbl[row_idx]
 		if not sortedRow or not sortedRow[dropdown_index] then
 			return
@@ -1347,7 +1348,6 @@ you can add them, copy the link here, and press "Price Item" to evaluate the ite
 			return
 		end
 		local item = new("Item"):Item(result.item_string)
-		tooltip:Clear()
 		local tooltipSlot = slotTbl.selectedJewelNodeId and self.itemsTab.sockets[slotTbl.selectedJewelNodeId] or activeSlot
 		self.itemsTab:AddItemTooltip(tooltip, item, tooltipSlot)
 		addMegalomaniacCompareToTooltipIfApplicable(tooltip, pb_index)
