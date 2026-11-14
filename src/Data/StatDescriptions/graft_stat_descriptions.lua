@@ -745,17 +745,13 @@ return {
 					k="reminderstring",
 					v="ReminderTextDamagingAilments"
 				},
-				[2]={
-					k="reminderstring",
-					v="ReminderTextDealsDamageFaster"
-				},
 				limit={
 					[1]={
 						[1]="#",
 						[2]="#"
 					}
 				},
-				text="Damaging Ailments inflicted by Skills used by this Graft deal damage {0}% faster"
+				text="Damaging Ailments inflicted by Skills used by this Graft deal Damage {0}% Faster"
 			}
 		},
 		stats={
@@ -1362,10 +1358,6 @@ return {
 	[51]={
 		[1]={
 			[1]={
-				[1]={
-					k="reminderstring",
-					v="ReminderTextBlind"
-				},
 				limit={
 					[1]={
 						[1]=1,
@@ -1375,10 +1367,6 @@ return {
 				text="Minions summoned by this Graft have {0}% chance to Blind on Hit"
 			},
 			[2]={
-				[1]={
-					k="reminderstring",
-					v="ReminderTextBlind"
-				},
 				limit={
 					[1]={
 						[1]=100,
@@ -2407,24 +2395,11 @@ return {
 			[1]={
 				limit={
 					[1]={
-						[1]=1,
+						[1]="#",
 						[2]="#"
 					}
 				},
-				text="{0}% increased Rarity of Items found from Hiveborn Monsters"
-			},
-			[2]={
-				[1]={
-					k="negate",
-					v=1
-				},
-				limit={
-					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Rarity of Items found from Hiveborn Monsters"
+				text="{0:+d}% to Item Rarity from Hiveborn Monsters"
 			}
 		},
 		stats={

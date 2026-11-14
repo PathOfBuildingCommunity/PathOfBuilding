@@ -1,7 +1,7 @@
 if not loadStatFile then
 	dofile("statdesc.lua")
 end
-loadStatFile("passive_skill_stat_descriptions.txt")
+loadStatFile("passive_skill_stat_descriptions.csd")
 
 -- This table lists errors in the ggpk dat files
 local datErrors = {

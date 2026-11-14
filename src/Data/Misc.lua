@@ -210,9 +210,10 @@ data.monsterConstants = {
 	["damage_taken_when_hit_+%_final_per_fortification"] = -1,
 	["base_max_fortification"] = 20,
 	["soul_eater_maximum_stacks"] = 45,
+	["base_presence_radius"] = 80,
 }
 -- From MonsterVarieties.dat combined with SkillTotemVariations.dat
-data.totemLifeMult = { [1] = 1, [2] = 1, [3] = 1, [4] = 1.2, [5] = 1, [6] = 1.2, [7] = 1.2, [8] = 1.2, [9] = 1, [10] = 1, [11] = 1, [12] = 1, [13] = 1.2, [15] = 1.2, [16] = 7.44, [17] = 1.2, [18] = 1, [19] = 1, [20] = 1.2, [21] = 1.2, }
+data.totemLifeMult = { [1] = 1, [2] = 1, [3] = 1, [4] = 1.2, [5] = 1, [6] = 1.2, [7] = 1.2, [8] = 1.2, [9] = 1, [10] = 1, [11] = 1, [12] = 1, [13] = 1.2, [15] = 1.2, [16] = 7.44, [17] = 1.2, [18] = 1, [19] = 1, [20] = 1.2, [21] = 1.2, [22] = 1, [23] = 2.4, }
 data.monsterVarietyLifeMult = {
 	["Skeletal Beast"] = 2.38,
 	["Corrupted Beast"] = 2.38,
@@ -433,6 +434,7 @@ data.monsterVarietyLifeMult = {
 	["Experimented Dead"] = 1.3,
 	["Dreadwheel"] = 1.28,
 	["Bone Husk"] = 2.07,
+	["Osseous Abomination"] = 2.8,
 	["Necrotic Bones "] = 2.16,
 	["[DNT] Bonier Husk"] = 2.3,
 	["Brittle Miner"] = 1.32,

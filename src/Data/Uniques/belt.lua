@@ -46,7 +46,7 @@ Variant: Pre 3.5.0
 Variant: Current
 Implicits: 2
 {variant:1,2}{tags:defences}+(9-20) to maximum Energy Shield
-{variant:3,4}{tags:defences}+(60-80) to maximum Energy Shield
+{variant:3,4}{tags:defences}+(60-100) to maximum Energy Shield
 {tags:defences}+(60-70) to maximum Energy Shield
 {tags:resource}+(45-55) to maximum Mana
 {variant:2,3}Chill Effect and Freeze Duration on you are based on 65% of Energy Shield
@@ -61,7 +61,7 @@ The Burden of Truth
 Crystal Belt
 Source: Drops from unique{Sirus, Awakener of Worlds}
 Implicits: 1
-{tags:defences}+(60-80) to maximum Energy Shield
+{tags:defences}+(60-100) to maximum Energy Shield
 33% of Non-Chaos Damage taken bypasses Energy Shield
 {tags:resource}(30-40)% increased Life Recovery from Flasks
 33% of Chaos Damage taken does not bypass Energy Shield
@@ -105,7 +105,7 @@ Implicits: 1
 {tags:resource}+(25-40) to maximum Life
 {tags:physical_damage,attack}Adds (5-7) to (11-12) Physical Damage to Attacks
 (20-30)% increased Stun Duration on Enemies
-Nearby Enemies are Crushed while you have at least 25 Rage
+Enemies within 3 metres are Crushed while you have at least 25 Rage
 {variant:1}+20 to Maximum Rage
 {variant:2}+10 to Maximum Rage
 ]],[[
@@ -121,7 +121,7 @@ Implicits: 1
 {tags:resource}+(30-40) to maximum Life
 {variant:1}{tags:resistance}+(6-10)% to all Elemental Resistances
 {variant:2}{tags:resistance}+(10-15)% to all Elemental Resistances
-{variant:2}Nearby Enemies are Intimidated
+{variant:2}Enemies within 2.5 metres are Intimidated
 {variant:1}10% reduced Chance to Block Attack and Spell Damage
 ]],[[
 Bisco's Leash
@@ -134,7 +134,7 @@ Implicits: 1
 {variant:2}{tags:attribute}+(10-15) to all Attributes
 {variant:1}5% increased Quantity of Items found
 {tags:resistance}+(20-40)% to Cold Resistance
-1% increased Rarity of Items found per 15 Rampage Kills
++1% to Item Rarity per 15 Rampage Kills
 Rampage
 ]],[[
 Bound Fate
@@ -239,14 +239,14 @@ Variant: Current (Lightning)
 Requires Level 68
 Implicits: 1
 {tags:attribute}+(25-35) to Strength
-{variant:1,5}{tags:physical_damage}(20-30)% increased Global Physical Damage
-{variant:2,6}{tags:elemental_damage}(20-30)% increased Fire Damage
-{variant:3,7}{tags:elemental_damage}(20-30)% increased Cold Damage
-{variant:4,8}{tags:elemental_damage}(20-30)% increased Lightning Damage
-{variant:2,3,4,6,7,8}{tags:defences}+(300-350) to Armour
-{variant:1,3,4,5,7,8}{tags:resistance}+(30-35)% to Fire Resistance
-{variant:1,2,4,5,6,8}{tags:resistance}+(30-35)% to Cold Resistance
-{variant:1,2,3,5,6,7}{tags:resistance}+(30-35)% to Lightning Resistance
+{variant:1,5}{tags:physical_damage}(15-60)% increased Global Physical Damage
+{variant:2,6}{tags:elemental_damage}(15-60)% increased Fire Damage
+{variant:3,7}{tags:elemental_damage}(15-60)% increased Cold Damage
+{variant:4,8}{tags:elemental_damage}(15-60)% increased Lightning Damage
+{variant:2,3,4,6,7,8}{tags:defences}+(250-1000) to Armour
+{variant:1,3,4,5,7,8}{tags:resistance}+(25-100)% to Fire Resistance
+{variant:1,2,4,5,6,8}{tags:resistance}+(25-100)% to Cold Resistance
+{variant:1,2,3,5,6,7}{tags:resistance}+(25-100)% to Lightning Resistance
 {variant:5}{tags:resource}0.6% of Physical Damage Leeched as Life
 {variant:6}{tags:resource}0.6% of Fire Damage Leeched as Life
 {variant:7}{tags:resource}0.6% of Cold Damage Leeched as Life
@@ -270,7 +270,7 @@ Implicits: 1
 (10-20)% increased Flask Charges used
 (10-20)% increased Flask Effect Duration
 Life Flasks gain 1 Charge every 3 seconds
-100% of Life Recovery from Flasks is applied to nearby Allies instead of You
+100% of Life Recovery from Flasks is applied to Allies within 7.5 metres instead of You
 ]],[[
 Dyadian Dawn
 Heavy Belt
@@ -284,8 +284,8 @@ Implicits: 1
 {tags:resistance}+(20-40)% to Cold Resistance
 {variant:1}{tags:resource,attack}0.6% of Attack Damage Leeched as Life against Chilled Enemies
 {variant:2}{tags:resource,attack}1% of Attack Damage Leeched as Life against Chilled Enemies
-{variant:1}{tags:elemental_damage,attack}Ignites you inflict with Attacks deal Damage 20% faster
-{variant:2}{tags:elemental_damage,attack}Ignites you inflict with Attacks deal Damage 35% faster
+{variant:1}{tags:elemental_damage,attack}Ignites you inflict with Attacks deal Damage 20% Faster
+{variant:2}{tags:elemental_damage,attack}Ignites you inflict with Attacks deal Damage 35% Faster
 {tags:physical_damage}Deal no Physical Damage
 ]],[[
 Faminebind
@@ -298,7 +298,7 @@ Implicits: 1
 20% increased Projectile Damage
 30% reduced Flask Charges gained
 60% increased Flask Effect Duration
-{tags:chaos_damage}Deals 50 Chaos Damage per second to nearby Enemies
+{tags:chaos_damage}Deals 50 Chaos Damage per second to Enemies within 3 metres
 ]],[[
 Feastbind
 Rustic Sash
@@ -321,7 +321,7 @@ Source: No longer obtainable
 Requires Level 60
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
-Grants Summon Harbinger of Time Skill
+Grants Summon Harbinger of Time
 {variant:1}{tags:resource,defences}(15-20)% increased Energy Shield Recovery rate
 {variant:1}{tags:resource,defences}(15-20)% increased Life Recovery rate
 {variant:2}{tags:resource,defences}(10-15)% increased Energy Shield Recovery rate
@@ -337,7 +337,7 @@ Variant: Current
 Requires Level 60
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
-Grants Summon Greater Harbinger of Time Skill
+Grants Summon Greater Harbinger of Time
 {variant:1}{tags:resource,defences}(15-20)% increased Energy Shield Recovery rate
 {variant:1}{tags:resource,defences}(15-20)% increased Life Recovery rate
 {variant:2}{tags:resource,defences}(10-15)% increased Energy Shield Recovery rate
@@ -438,10 +438,10 @@ Implicits: 1
 {variant:15}{tags:attribute}+(31-35) to Dexterity and Intelligence
 {tags:resistance}+(30-40)% to Cold Resistance
 {variant:17}{tags:speed}(14-16)% increased Trap Throwing Speed
-Chill nearby Enemies when you Focus, causing 30% reduced Action Speed
+Chill Enemies within 3 metres when you Focus, causing 30% reduced Action Speed
 {variant:3}{tags:resistance}{crafted}+(8-15)% to Cold and Chaos Resistances
 {variant:12}{tags:resistance}+(16-20)% to Cold and Chaos Resistances
-{variant:18}{tags:defences}Regenerate 200 Energy Shield per second while a Rare or Unique Enemy is Nearby
+{variant:18}{tags:defences}Regenerate 200 Energy Shield per second while a Rare or Unique Enemy is within 6 metres
 {variant:19}{tags:critical}Your Critical Strike Chance is Lucky while Focused
 {variant:19}{tags:critical}Focus has (5-8)% increased Cooldown Recovery Rate
 {variant:2}{tags:resistance}{crafted}+(8-15)% to Fire and Chaos Resistances
@@ -452,7 +452,7 @@ Chill nearby Enemies when you Focus, causing 30% reduced Action Speed
 {variant:4}{tags:resistance}{crafted}+(8-15)% to Lightning and Chaos Resistances
 {variant:13}{tags:resistance}+(16-20)% to Lightning and Chaos Resistances
 {variant:8}{crafted}(7-12)% increased Trap Throwing Speed
-{variant:9}{crafted}Regenerate 120 Energy Shield per second while a Rare or Unique Enemy is Nearby
+{variant:9}{crafted}Regenerate 120 Energy Shield per second while a Rare or Unique Enemy is within 6 metres
 {variant:10}{crafted}Your Critical Strike Chance is Lucky while Focused
 ]],[[
 Immortal Flesh
@@ -483,7 +483,7 @@ Implicits: 1
 {tags:attribute}+(30-40) to Strength
 {tags:defences}+(300-500) to Armour
 Take no Burning Damage if you've stopped taking Burning Damage Recently
-Nearby Enemies Convert 25% of their Physical Damage to Fire
+Enemies within 6 metres Convert 25% of their Physical Damage to Fire
 ]],[[
 Leash of Oblation
 Leather Belt
@@ -621,7 +621,7 @@ Implicits: 1
 {tags:attribute}+(20-30) to all Attributes
 {variant:1}(8-12)% increased Quantity of Items found
 {variant:2}(6-8)% increased Quantity of Items found
-{variant:3}(10-20)% increased Rarity of Items found
+{variant:3}+(10-20)% to Item Rarity
 {tags:resistance}+20% to Fire Resistance
 20% increased Flask Effect Duration
 {tags:attack}-2 Physical Damage taken from Attack Hits
@@ -651,7 +651,7 @@ Vanguard Belt
 Variant: Pre 3.16.0
 Variant: Current
 Implicits: 1
-{tags:defences}+(260-320) to Armour and Evasion Rating
+{tags:defences}+(260-480) to Armour and Evasion Rating
 {tags:resource}(4-8)% increased maximum Life
 {tags:resistance}+(20-40)% to Cold Resistance
 {tags:attack}1% increased Attack Damage per 200 of the lowest of Armour and Evasion Rating
@@ -779,21 +779,21 @@ Variant: Resonating
 Requires Level 56
 Implicits: 1
 {tags:resource}+(25-40) to maximum Life
-{variant:1}You have Acceleration Shrine Buff while affected by no Flasks
-{variant:2}You have Brutal Shrine Buff while affected by no Flasks
-{variant:6}You have Greater Freezing Shrine Buff while affected by no Flasks
+{variant:1}Players have Acceleration Shrine Buff while affected by no Flasks
+{variant:2}Players have Brutal Shrine Buff while affected by no Flasks
+{variant:6}Players have Greater Freezing Shrine Buff while affected by no Flasks
 {variant:6}(15-20)% increased Effect of Shrine Buffs on you
-{variant:3}You have Diamond Shrine Buff while affected by no Flasks
-{variant:4}You have Echoing Shrine Buff while affected by no Flasks
-{variant:5}You have Gloom Shrine Buff while affected by no Flasks
-{variant:9}You have Impenetrable Shrine Buff while affected by no Flasks
-{variant:10}You have Massive Shrine Buff while affected by no Flasks
-{variant:11}You have Replenishing Shrine Buff while affected by no Flasks
-{variant:12}You have Resistance Shrine Buff while affected by no Flasks
-{variant:13}You have Resonating Shrine Buff while affected by no Flasks
-{variant:7}You have Greater Shocking Shrine Buff while affected by no Flasks
+{variant:3}Players have Diamond Shrine Buff while affected by no Flasks
+{variant:4}Players have Echoing Shrine Buff while affected by no Flasks
+{variant:5}Players have Gloom Shrine Buff while affected by no Flasks
+{variant:9}Players have Impenetrable Shrine Buff while affected by no Flasks
+{variant:10}Players have Massive Shrine Buff while affected by no Flasks
+{variant:11}Players have Replenishing Shrine Buff while affected by no Flasks
+{variant:12}Players have Resistance Shrine Buff while affected by no Flasks
+{variant:13}Players have Resonating Shrine Buff while affected by no Flasks
+{variant:7}Players have Greater Shocking Shrine Buff while affected by no Flasks
 {variant:7}(15-20)% increased Effect of Shrine Buffs on you
-{variant:8}You have Greater Skeletal Shrine Buff while affected by no Flasks
+{variant:8}Players have Greater Skeletal Shrine Buff while affected by no Flasks
 {variant:8}(15-20)% increased Effect of Shrine Buffs on you
 {tags:attribute}+(23-32) to Intelligence
 {tags:resistance}+(23-37)% to Chaos Resistance
@@ -893,13 +893,14 @@ Variant: Intelligence/Dexterity
 Variant: Dexterity/Strength
 Variant: Strength/Intelligence
 Variant: Elemental Resistances
+Requires Level 68
 Implicits: 25
 {variant:19}{tags:attribute}(12-18)% increased Dexterity
 {variant:20}{tags:attribute}(12-18)% increased Dexterity
 {variant:7}{tags:defences}(24-30)% increased maximum Energy Shield
 {variant:8}{tags:resource}(18-24)% increased maximum Life
 {variant:11}(9-15)% increased Quantity of Items found
-{variant:10}(60-90)% increased Rarity of Items found
+{variant:10}+(60-90)% to Item Rarity
 {variant:22}{tags:resistance}+(42-48)% to all Elemental Resistances
 {variant:1}(24-30)% increased Area of Effect
 {variant:6}(36-45)% increased Skill Effect Duration
@@ -957,7 +958,7 @@ Vanguard Belt
 Shaper Item
 Source: Drops from unique{The Shaper} (Uber)
 Implicits: 1
-{tags:defences}+(260-320) to Armour and Evasion Rating
+{tags:defences}+(260-480) to Armour and Evasion Rating
 {tags:resource}100% increased Life Recovery from Flasks
 {tags:resource}100% increased Mana Recovery from Flasks
 Flasks applied to you have 25% increased Effect
@@ -1023,7 +1024,7 @@ Vanguard Belt
 Source: Drops from unique{Mercenary} after winning a duel
 League: Mercenaries of Trarthus
 Implicits: 1
-{tags:defences}+(260-320) to Armour and Evasion Rating
+{tags:defences}+(260-480) to Armour and Evasion Rating
 {tags:defences}+(200-400) to Armour
 {tags:resource}+(60-90) to maximum Life
 (20-40)% increased Attack Damage if you've been Hit Recently

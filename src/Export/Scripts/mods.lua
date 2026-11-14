@@ -1,7 +1,7 @@
 if not loadStatFile then
 	dofile("statdesc.lua")
 end
-loadStatFile("tincture_stat_descriptions.txt", "graft_stat_descriptions.txt")
+loadStatFile("tincture_stat_descriptions.csd", "graft_stat_descriptions.csd")
 
 -- https://www.poewiki.net/wiki/Modifier#Domain
 local Domains = {

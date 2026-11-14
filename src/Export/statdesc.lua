@@ -56,7 +56,8 @@ local function parseStatFile(target, order, fileName)
 								limit[1] = "!"
 								limit[2] = tonumber(negate)
 							else
-								limit[1], limit[2] = statLimit:match("([%d%-#]+)|([%d%-#]+)")
+								-- 3.30 stat_descriptions has the typo "1|99#"
+								limit[1], limit[2] = statLimit:gsub("(%d)#", "%1"):match("([%d%-#]+)|([%d%-#]+)")
 								limit[1] = tonumber(limit[1]) or limit[1]
 								limit[2] = tonumber(limit[2]) or limit[2]
 							end
@@ -170,6 +171,38 @@ end
 
 for k, v in pairs(nk) do
 	print("'"..k.."' = '"..v.."'")
+end
+
+-- 3.30 replaced the per-value descriptions of these stats with formatter functions. The stat value is a row number in these tables
+local formatterNames
+function getDescriptionFormatterNames()
+	if formatterNames then
+		return formatterNames
+	end
+	local function rowNames(datName, getName)
+		local names = { }
+		for row in dat(datName):Rows() do
+			table.insert(names, getName(row))
+		end
+		return names
+	end
+	local pearlSlots = { }
+	for row in dat("ClientStrings"):Rows() do
+		if row.Id:match("^PelagicPearlSlotType") then
+			table.insert(pearlSlots, row.Text)
+		end
+	end
+	formatterNames = {
+		passive_jewel_radius = rowNames("PassiveJewelRadii", function(row) return row.Name.Text end),
+		fishing_lure_type = rowNames("FishingLureTypes", function(row) return row.Name end),
+		fishing_hook_type = rowNames("FishingHookTypes", function(row) return row.Name end),
+		pelagic_pearl_slot = pearlSlots,
+		shaper_apparition_ability = rowNames("ShaperApparitionAbility", function(row) return row.Name end),
+		minion_doubling_type = rowNames("MinionDoublingStatTypes", function(row) return row.Name end),
+		atlas_exile_citadel_index = rowNames("AtlasExiles", function(row) return row.CitadelName end),
+		elder_guardian_index = rowNames("ElderGuardians", function(row) return row.Name end),
+	}
+	return formatterNames
 end
 
 local function matchLimit(lang, val)
@@ -363,6 +396,11 @@ function describeStats(stats)
 					val[spec.v].min = ItemClasses[val[spec.v].min].Name
 					val[spec.v].max = ItemClasses[val[spec.v].max].Name
 					val[spec.v].fmt = "s"
+				elseif getDescriptionFormatterNames()[spec.k] then
+					-- Ranges describe the lowest value, as the per-value descriptions did before 3.30
+					val[spec.v].min = getDescriptionFormatterNames()[spec.k][val[spec.v].min] or val[spec.v].min
+					val[spec.v].max = val[spec.v].min
+					val[spec.v].fmt = "s"
 				elseif spec.k == "multiplicative_damage_modifier" then
 					val[spec.v].min = 100 + val[spec.v].min
 					val[spec.v].max = 100 + val[spec.v].max
@@ -428,6 +466,110 @@ function describeStats(stats)
 	return out, orders
 end
 
+-- Maps granted effect ids to gem names and their number of levels
+-- Secondary effects such as Snipe Support have their own name instead of the gem's
+local grantedEffectNames, grantedEffectLevelCounts
+local function getGrantedEffectData()
+	if not grantedEffectNames then
+		grantedEffectNames = {}
+		for gem in dat("SkillGems"):Rows() do
+			for _, gemEffect in ipairs(gem.GemVariants) do
+				if gemEffect.GrantedEffect then
+					grantedEffectNames[gemEffect.GrantedEffect.Id] = grantedEffectNames[gemEffect.GrantedEffect.Id] or gem.BaseItemType.Name
+				end
+				if gemEffect.GrantedEffect2 then
+					local name = gemEffect.SecondarySupportName
+					if name == "" then
+						name = gem.BaseItemType.Name
+					end
+					grantedEffectNames[gemEffect.GrantedEffect2.Id] = grantedEffectNames[gemEffect.GrantedEffect2.Id] or name
+				end
+			end
+		end
+		grantedEffectLevelCounts = {}
+		for levelRow in dat("GrantedEffectsPerLevel"):Rows() do
+			local id = levelRow.GrantedEffect.Id
+			grantedEffectLevelCounts[id] = (grantedEffectLevelCounts[id] or 0) + 1
+		end
+	end
+	return grantedEffectNames, grantedEffectLevelCounts
+end
+
+-- 3.30 moved the gem and level of most "Supported by" and "Grants" mods from their display stats, which are now 0, into a GrantedEffect column on the mod row
+-- The display stat may still hold a level when describing legacy values
+local function describeGrantedEffects(mod, stats)
+	local hasDisplayStat, level
+	-- Only handle display stats that GGG zeroed. If a legacy value is given for one that still has a description, describeStats handles it
+	for i = 1, 6 do
+		local stat = mod["Stat" .. i]
+		if stat and stat.Id:match("^local_display_") and mod["Stat" .. i .. "Value"][1] == 0 and mod["Stat" .. i .. "Value"][2] == 0 then
+			local value = stats[stat.Id]
+			if value and (value.min ~= 0 or value.max ~= 0) then
+				if statDescriptor[stat.Id] then
+					return
+				end
+				level = value
+			end
+			hasDisplayStat = true
+		end
+	end
+	if not hasDisplayStat then
+		return
+	end
+	local names, levelCounts = getGrantedEffectData()
+	local out, orders, seen = {}, {}, {}
+	for _, levelRow in ipairs(mod.GrantedEffect) do
+		local grantedEffect = levelRow.GrantedEffect
+		-- Supports are named after their gem and actives after their skill. The stat order of a remaining descriptor of the same kind is borrowed
+		local name, template, orderStat
+		if grantedEffect.IsSupport then
+			name, template, orderStat = names[grantedEffect.Id], "ModGrantsSupportEffect", "local_random_support_gem_level"
+		else
+			name, template, orderStat = grantedEffect.ActiveSkill?.DisplayName, "ModGrantsEffect", "local_display_grants_skill_frostbite_level"
+		end
+		if not name or name == "" then
+			print("Granted effect '" .. grantedEffect.Id .. "' of mod '" .. mod.Id .. "' has no name")
+		elseif not seen[name] then
+			seen[name] = true
+			local levelText
+			if level then
+				levelText = tostring(level.min)
+				if level.min ~= level.max then
+					levelText = "(" .. level.min .. "-" .. level.max .. ")"
+				end
+			-- Single level effects such as Harbinger skills are shown without a level
+			elseif levelCounts[grantedEffect.Id] > 1 then
+				levelText = tostring(levelRow.Level)
+			end
+			if levelText then
+				template = template .. "WithLevel"
+			end
+			-- The same templates the client uses, e.g. "Socketed Gems are Supported by Level {1} {0}"
+			local text = dat("ClientStrings"):GetRow("Id", template).Text:gsub("{0}", name):gsub("{1}", levelText or "")
+			table.insert(out, text)
+			table.insert(orders, statDescriptor[orderStat].order)
+		end
+	end
+	return out, orders
+end
+
+-- describeStats with the granted effect lines of the mod inserted by stat order
+function describeModStats(mod, stats)
+	local grantedOut, grantedOrders = describeGrantedEffects(mod, stats)
+	local out, orders = describeStats(stats)
+	for i, line in ipairs(grantedOut or {}) do
+		local index = #orders + 1
+		for j, order in ipairs(orders) do
+			if order > grantedOrders[i] then
+				index = j
+				break
+			end
+		end
+		table.insert(out, index, line)
+		table.insert(orders, index, grantedOrders[i])
+	end
+	return out, orders
+end
 function describeMod(mod)
 	local stats = { }
 	local buffTemplateStats = { }
@@ -449,7 +591,7 @@ function describeMod(mod)
 	if mod.Type then
 		stats.Type = mod.Type
 	end
-	local out, orders = describeStats(stats)
+	local out, orders = describeModStats(mod, stats)
 	out.modTags = describeModTags(mod.ImplicitTags)
 	return out, orders
 end
@@ -467,7 +609,8 @@ function describeScalability(fileName)
 		local scalability = {}
 		if statDescription.stats then
 			for i, stat in ipairs(statDescription.stats) do
-				table.insert(scalability, stats:GetRow("Id", stat).IsScalable)
+				-- assume unscalable for invalid reference where ID doesn't exist
+				table.insert(scalability, stats:GetRow("Id", stat)?.IsScalable or false)
 			end
 			for _, wordings in ipairs(statDescription[1]) do
 				local wordingFormats = {}

@@ -10,7 +10,7 @@ Variant: Current
 Implicits: 2
 {variant:2}(50-55)% increased Global Critical Strike Chance
 {variant:1}40% increased Global Critical Strike Chance
-100% chance to Trigger Level 1 Raise Spiders on Kill
+Trigger Level 1 Raise Spiders on Kill
 (170-200)% increased Physical Damage
 Adds (8-13) to (20-30) Physical Damage
 Adds 1 to 59 Chaos Damage

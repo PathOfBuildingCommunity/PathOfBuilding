@@ -41,7 +41,7 @@ Implicits: 2
 (140-180)% increased Physical Damage
 Adds (10-20) to (30-50) Cold Damage
 (15-40)% increased Critical Strike Chance
-40% increased Rarity of Items Dropped by Frozen Enemies
++40% to Rarity of Items Dropped by Frozen Enemies
 (30-40)% increased Cold Damage with Attack Skills
 ]],[[
 Cameria's Avarice
@@ -53,7 +53,7 @@ Trigger Level 20 Icicle Burst when you Hit a Frozen Enemy
 (140-180)% increased Physical Damage
 Adds (11-14) to (17-21) Physical Damage
 (15-40)% increased Critical Strike Chance
-40% increased Rarity of Items Dropped by Frozen Enemies
++40% to Rarity of Items Dropped by Frozen Enemies
 (30-40)% increased Cold Damage with Attack Skills
 ]],[[
 Clayshaper
@@ -64,7 +64,7 @@ Variant: Current
 Implicits: 2
 {variant:2,3}15% reduced Enemy Stun Threshold
 {variant:1}40% increased Stun Duration on Enemies
-Grants Level 12 Summon Stone Golem Skill
+Grants Level 12 Summon Stone Golem
 Adds (24-30) to (34-40) Physical Damage
 (8-10)% increased Attack Speed
 {variant:1,2}Minions have (20-30)% increased maximum Life
@@ -298,7 +298,7 @@ Balefire
 Opal Sceptre
 Implicits: 1
 40% increased Elemental Damage
-Grants Level 25 Scorching Ray Skill
+Grants Scorching Ray
 (12-20)% increased Cast Speed
 Recover (1-3)% of Life on Kill
 Recover (1-3)% of Mana on Kill
@@ -308,12 +308,12 @@ Bitterdream
 Shadow Sceptre
 Implicits: 1
 22% increased Elemental Damage
-Socketed Gems are Supported by Level 15 Bonechill
-Socketed Gems are Supported by Level 15 Hypothermia
-Socketed Gems are Supported by Level 15 Ice Bite
-Socketed Gems are Supported by Level 15 Cold Penetration
-Socketed Gems are Supported by Level 15 Added Cold Damage
-Socketed Gems are Supported by Level 15 Inspiration
+Socketed Gems are Supported by Level 15 Bonechill Support
+Socketed Gems are Supported by Level 15 Hypothermia Support
+Socketed Gems are Supported by Level 15 Ice Bite Support
+Socketed Gems are Supported by Level 15 Cold Penetration Support
+Socketed Gems are Supported by Level 15 Added Cold Damage Support
+Socketed Gems are Supported by Level 15 Inspiration Support
 ]],[[
 Replica Bitterdream
 Shadow Sceptre
@@ -323,13 +323,13 @@ League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 1
 22% increased Elemental Damage
-{variant:1}Socketed Gems are Supported by Level 1 Elemental Penetration
-{variant:2}Socketed Gems are Supported by Level 15 Elemental Penetration
-Socketed Gems are Supported by Level 15 Immolate
-Socketed Gems are Supported by Level 15 Unbound Ailments
-Socketed Gems are Supported by Level 15 Ice Bite
-Socketed Gems are Supported by Level 15 Inspiration
-Socketed Gems are Supported by Level 15 Innervate
+{variant:1}Socketed Gems are Supported by Level 1 Elemental Penetration Support
+{variant:2}Socketed Gems are Supported by Level 15 Elemental Penetration Support
+Socketed Gems are Supported by Level 15 Immolate Support
+Socketed Gems are Supported by Level 15 Unbound Ailments Support
+Socketed Gems are Supported by Level 15 Ice Bite Support
+Socketed Gems are Supported by Level 15 Inspiration Support
+Socketed Gems are Supported by Level 15 Innervate Support
 ]],[[
 The Black Cane
 Royal Sceptre
@@ -446,7 +446,7 @@ Variant: Current
 Implicits: 2
 {variant:1}10% increased Elemental Damage
 {variant:2}32% increased Elemental Damage
-Socketed Gems are Supported by Level 30 Iron Will
+Socketed Gems are Supported by Level 30 Iron Will Support
 +(50-70) to Strength
 (15-18)% increased Cast Speed
 +(20-30) to maximum Mana
@@ -462,7 +462,7 @@ Requires Level 75
 Implicits: 2
 {variant:1}10% increased Elemental Damage
 {variant:2}32% increased Elemental Damage
-Socketed Gems are Supported by Level 20 Elemental Proliferation
+Socketed Gems are Supported by Level 20 Elemental Proliferation Support
 Adds (65-85) to (100-160) Physical Damage
 (11-15)% increased Attack Speed
 (6-10)% increased Cast Speed
@@ -549,9 +549,9 @@ Implicits: 2
 {variant:1,2}20% increased Elemental Damage
 {variant:3,4,5}30% increased Elemental Damage
 {variant:4}+2 to Level of Socketed Fire Gems
-{variant:1,2,3}Socketed Gems are Supported by Level 10 Added Fire Damage
-{variant:1,2,3}Socketed Gems are Supported by Level 10 Cold to Fire
-{variant:1,2,3,4}Socketed Gems are Supported by Level 10 Fire Penetration
+{variant:1,2,3}Socketed Gems are Supported by Level 10 Added Fire Damage Support
+{variant:1,2,3}Socketed Gems are Supported by Level 10 Cold to Fire Support
+{variant:1,2,3,4}Socketed Gems are Supported by Level 10 Fire Penetration Support
 {variant:4}Socketed Gems deal 63 to 94 Added Fire Damage
 {variant:1,2,3,4}(20-30)% increased Spell Damage
 {variant:2,3,4,5}(150-200)% increased Physical Damage
@@ -578,9 +578,9 @@ Tyrant's Sekhem
 League: Legion
 Implicits: 1
 26% increased Elemental Damage
-Grants Level 30 Smite Skill
+Grants Level 30 Smite
 +(10-30) to Strength and Intelligence
-Enemies inflict Elemental Ailments on you instead of nearby Allies
+Enemies inflict Elemental Ailments on you instead of Allies within 6 metres
 ]],[[
 Singularity
 Platinum Sceptre
@@ -595,7 +595,7 @@ Implicits: 2
 {variant:3,4}Adds (1-10) to (150-200) Lightning Damage to Spells
 (14-18)% increased Cast Speed
 {variant:1,2,3}(6-8)% reduced Mana Cost of Skills
-Nearby Enemies are Hindered, with 25% reduced Movement Speed
+Enemies within 3.5 metres are Hindered, with 25% reduced Movement Speed
 {variant:1,2}(60-80)% increased Damage with Hits and Ailments against Hindered Enemies
 {variant:3,4}100% increased Damage with Hits and Ailments against Hindered Enemies
 {variant:4}(15-25)% increased Mana Cost Efficiency
@@ -708,7 +708,7 @@ Requires Level 60
 Implicits: 1
 30% increased Stun Duration on Enemies
 +1 to Level of Socketed Melee Gems
-+2 to Level of Socketed Minion Gems
++(2-3) to Level of Socketed Minion Gems
 (200-220)% increased Physical Damage
 Adds (25-35) to (45-55) Physical Damage
 25% increased maximum Mana
@@ -836,7 +836,7 @@ Implicits: 3
 {variant:1}20% increased Stun Duration on Enemies
 {variant:2,3}30% increased Stun Duration on Enemies
 {variant:4,5,6,7}45% increased Stun Duration on Enemies
-{variant:1,2,3,4}Socketed Gems are Supported by Level 15 Pulverise
+{variant:1,2,3,4}Socketed Gems are Supported by Level 15 Pulverise Support
 {variant:1,2}(220-250)% increased Physical Damage
 {variant:3}(230-260)% increased Physical Damage
 {variant:4}(200-230)% increased Physical Damage
@@ -912,7 +912,7 @@ Variant: Current
 Implicits: 2
 {variant:3,4}10% increased Strength
 {variant:1,2}30% increased Stun Duration on Enemies
-Socketed Gems are Supported by Level 20 Endurance Charge on Melee Stun
+Socketed Gems are Supported by Level 20 Endurance Charge on Melee Stun Support
 +40 to Intelligence
 {variant:1}Adds (60-70) to (300-350) Physical Damage
 {variant:2,3,4}Adds (70-80) to (340-375) Physical Damage
@@ -949,7 +949,7 @@ Implicits: 2
 {variant:2}30% increased Stun Duration on Enemies
 150% increased Physical Damage
 50% increased Attack Speed
-(30-50)% reduced Rarity of Items found
+-(50-30)% to Item Rarity
 (30-50)% reduced Experience gain
 0.4% of Physical Attack Damage Leeched as Mana
 ]],}

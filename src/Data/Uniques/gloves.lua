@@ -44,7 +44,7 @@ Ceaseless Feast
 Spiked Gloves
 Source: Drops from unique{The Infinite Hunger}
 Implicits: 1
-(16-20)% increased Melee Damage
+(24-30)% increased Melee Damage
 Adds (2-3) to (22-26) Physical Damage to Attacks
 (100-150)% increased Armour
 (20-30)% chance to inflict Corrosion on Hit with Attacks
@@ -92,7 +92,7 @@ Variant: Pre 3.0.0
 Variant: Pre 3.5.0
 Variant: Pre 3.10.0
 Variant: Current
-{variant:2,3,4}Grants Level 20 Doryani's Touch Skill
+{variant:2,3,4}Grants Level 20 Doryani's Touch
 {variant:1,2,3}+30 to maximum Energy Shield
 {variant:4}+(80-100) to maximum Energy Shield
 {variant:1,2,3}10% chance to Shock
@@ -112,7 +112,7 @@ Source: Drops from unique{The Trialmaster}
 Variant: Pre 3.29.0
 Variant: Current
 Requires Level 72
-Socketed Gems are Supported by Level 30 Rage
+Socketed Gems are Supported by Level 30 Rage Support
 (120-150)% increased Armour
 {variant:1}(10-25)% reduced Rage Cost of Skills
 Vaal Attack Skills you Use yourself Cost Rage instead of requiring Souls
@@ -121,7 +121,7 @@ You cannot gain Rage during Soul Gain Prevention
 ]],[[
 Empire's Grasp
 Goliath Gauntlets
-Socketed Gems are Supported by Level 10 Knockback
+Socketed Gems are Supported by Level 10 Knockback Support
 +(400-600) to Armour
 Knockback direction is reversed
 ]],[[
@@ -216,7 +216,7 @@ Eelskin Gloves
 Adds (8-12) to (15-20) Physical Damage to Attacks
 +(50-70) to maximum Life
 (10-20)% chance to Impale Enemies on Hit with Attacks
-50% chance for Impales on Enemies you Kill to Reflect Damage to surrounding Enemies
+50% chance for Impales on Enemies you Kill to Reflect Damage to Enemies within 2.2 metres
 ]],[[
 Hrimsorrow
 Goathide Gloves
@@ -278,7 +278,7 @@ Variant: Current
 Mark Skills have (10-15)% increased Cast Speed
 (30-50)% increased Damage with Hits and Ailments against Marked Enemy
 {variant:2}8% of Damage from Hits is taken from Marked Target's Life before you
-Your Mark Transfers to another Enemy when Marked Enemy dies
+Your Mark Transfers to another Enemy within 3 metres when Marked Enemy dies
 ]],[[
 Oskarm
 Nubuck Gloves
@@ -308,7 +308,7 @@ Source: Drops from unique{It That Was Esh} and unique{It That Was Tul} in normal
 Requires Level 68
 You cannot Cast Socketed Hex Curse Skills
 Inflict Socketed Hexes on Enemies that trigger your Traps
-Grants Level 30 Will of the Lords Skill
+Grants Level 30 Will of the Lords
 400% increased Attribute Requirements
 (120-160)% increased Evasion and Energy Shield
 (6-12)% increased Trap Throwing Speed
@@ -322,8 +322,8 @@ Allelopathy
 Variant: Pre 3.19.0
 Variant: Pre 3.26.0
 Variant: Current
-{variant:1,2}Grants Level 22 Blight Skill
-{variant:3}Grants Level 25 Blight Skill
+{variant:1,2}Grants Level 22 Blight
+{variant:3}Grants Level 25 Blight
 {variant:1}(20-30)% increased Damage over Time
 (100-120)% increased Energy Shield
 10% increased Area of Effect
@@ -338,8 +338,8 @@ Variant: Pre 3.26.0
 Variant: Current
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-{variant:1,2}Grants Level 22 Wintertide Brand Skill
-{variant:3}Grants Level 25 Wintertide Brand Skill
+{variant:1,2}Grants Level 22 Wintertide Brand
+{variant:3}Grants Level 25 Wintertide Brand
 {variant:1}(20-30)% increased Damage over Time
 (100-120)% increased Energy Shield
 10% increased Area of Effect
@@ -367,7 +367,7 @@ Black Zenith
 Fingerless Silk Gloves
 Source: Drops from unique{The Infinite Hunger}
 Implicits: 1
-(12-16)% increased Spell Damage
+(20-26)% increased Spell Damage
 Socketed Projectile Spells deal 150% more Damage with Hits
 Socketed Projectile Spells have +4 seconds to Cooldown
 Socketed Projectile Spells fire 4 additional Projectiles
@@ -442,7 +442,7 @@ Minions gain 20% of Physical Damage as Extra Fire Damage
 Kalisa's Grace
 Samite Gloves
 Requires Level 55
-Socketed Gems are Supported by Level 18 Faster Casting
+Socketed Gems are Supported by Level 18 Faster Casting Support
 +(20-30) to Intelligence
 +(50-80) to maximum Energy Shield
 +(50-70) to maximum Life
@@ -453,7 +453,7 @@ Samite Gloves
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 55
-Socketed Gems are Supported by Level 18 Unleash
+Socketed Gems are Supported by Level 18 Unleash Support
 +(20-30) to Intelligence
 +(50-80) to maximum Energy Shield
 +(50-70) to maximum Life
@@ -472,7 +472,7 @@ Adds 1 to 13 Lightning Damage to Attacks
 {variant:1}(18-24)% increased Quantity of Items found
 {variant:2}(12-16)% increased Quantity of Items found
 {variant:3}(5-10)% increased Quantity of Items found
-{variant:4}(5-15)% increased Rarity of Items found
+{variant:4}+(5-15)% to Item Rarity
 ]],[[
 Voidbringer
 Conjurer Gloves
@@ -494,7 +494,7 @@ Gain (15-20) Energy Shield per Enemy Killed
 Aurseize
 Steelscale Gauntlets
 (40-60)% increased Armour and Evasion
-(40-50)% increased Rarity of Items found
++(40-50)% to Item Rarity
 +15% to all Elemental Resistances
 5% reduced Movement Speed
 ]],[[
@@ -536,7 +536,7 @@ Implicits: 0
 (100-150)% increased Armour and Evasion
 +(19-29)% to Chaos Resistance
 Gain (15-25) Life per Enemy Killed
-Nearby Enemies Killed by anyone count as being Killed by you instead
+Enemies within 4 metres Killed by anyone count as being Killed by you instead
 ]],[[
 Haemophilia
 Serpentscale Gauntlets
@@ -635,7 +635,7 @@ Wyrmsign
 Wyrmscale Gauntlets
 Variant: Pre 3.29.0
 Variant: Current
-Socketed Gems are Supported by Level 5 Concentrated Effect
+Socketed Gems are Supported by Level 5 Concentrated Effect Support
 (120-160)% increased Armour and Evasion
 +(50-70) to maximum Life
 {variant:1}4% reduced Mana Cost per Endurance Charge
@@ -758,7 +758,7 @@ You cannot be Frozen for 3 seconds after being Frozen
 You cannot be Ignited for 3 seconds after being Ignited
 {variant:1}You cannot be Shocked for 1 second after being Shocked
 {variant:2}You cannot be Shocked for 3 seconds after being Shocked
-You grant (4-6) Frenzy Charges to allies on Death
+You grant (4-6) Frenzy Charges to Allies within 5 metres on Death
 ]],[[
 Shaper's Touch
 Crusader Gloves
@@ -937,7 +937,7 @@ Remove an Ailment when you use a Flask if all Equipped Items are Elder Items
 ]],[[
 The Embalmer
 Carnal Mitts
-Socketed Gems are Supported by Level 20 Vile Toxins
+Socketed Gems are Supported by Level 20 Vile Toxins Support
 Adds (13-17) to (23-29) Chaos Damage
 +(50-70) to maximum Life
 +(17-29)% to Chaos Resistance
@@ -965,7 +965,7 @@ Fenumus' Weave
 Carnal Mitts
 League: Bestiary
 Source: Drops from unique{Fenumus, First of the Night}
-Grants Level 20 Aspect of the Spider Skill
+Grants Level 20 Aspect of the Spider
 (120-170)% increased Evasion and Energy Shield
 +(40-50) to maximum Life
 (6-9)% increased Attack and Cast Speed
@@ -1062,8 +1062,8 @@ Variant: Pre 1.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
-{variant:1,2,3}Socketed Gems are Supported by Level 18 Added Lightning Damage
-{variant:4}Socketed Gems are Supported by Level 30 Added Lightning Damage
+{variant:1,2,3}Socketed Gems are Supported by Level 18 Added Lightning Damage Support
+{variant:4}Socketed Gems are Supported by Level 30 Added Lightning Damage Support
 {variant:1,3}Adds 1 to 100 Lightning Damage to Attacks
 {variant:2}Adds 1 to 40 Lightning Damage to Attacks
 10% increased Attack Speed

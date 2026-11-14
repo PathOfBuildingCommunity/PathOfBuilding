@@ -51,6 +51,7 @@ local function matchLimit(lang, val, quality)
 end
 
 local indexableNonActiveSupports = require("Data.PearlSupports")
+local formatterNames = require("Data.StatDescriptionFormatters")
 local function applySpecial(val, spec)
 	if spec.k == "negate" then
 		val[spec.v].max, val[spec.v].min = -val[spec.v].min, -val[spec.v].max
@@ -199,6 +200,11 @@ local function applySpecial(val, spec)
 		val[spec.v].fmt = "s"
 		val[spec.v].min = gemText
 		val[spec.v].max = gemText
+	elseif formatterNames[spec.k] then
+		-- Ranges describe the lowest value, as the per-value descriptions did before 3.30
+		val[spec.v].min = formatterNames[spec.k][val[spec.v].min] or val[spec.v].min
+		val[spec.v].max = val[spec.v].min
+		val[spec.v].fmt = "s"
 	elseif spec.k then
 		ConPrintf("Unknown description function: %s", spec.k)
 	end

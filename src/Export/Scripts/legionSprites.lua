@@ -86,11 +86,7 @@ for row in dat("AlternateTreeArt"):Rows() do
 		else
 			-- All current Abyss jewels use one art set. Stop the export if a future
 			-- jewel needs another set instead of silently giving it the wrong art.
-			assert(row.ConnectionArt.Id == alternateArt.ConnectionArt.Id
-				and row.KeystoneFrameArt.Id == alternateArt.KeystoneFrameArt.Id
-				and row.NotableFrameArt.Id == alternateArt.NotableFrameArt.Id
-				and row.AscendancyFrameArt.Id == alternateArt.AscendancyFrameArt.Id,
-				"Abyss alternate tree art sets do not match")
+			assert(row.ConnectionArt.Id == alternateArt.ConnectionArt.Id, "Abyss alternate tree art sets do not match")
 		end
 	end
 end
@@ -123,10 +119,12 @@ for passive in dat("AlternatePassiveSkills"):Rows() do
 end
 
 local frameEntries = { }
+-- 3.30 removed the frame art keys from AlternateTreeArt
+local frameArt = dat("PassiveSkillTreeNodeFrameArt")
 local frameGroups = {
-	{ art = alternateArt.NotableFrameArt, prefix = "AbyssNotableFrame" },
-	{ art = alternateArt.KeystoneFrameArt, prefix = "AbyssKeystoneFrame" },
-	{ art = alternateArt.AscendancyFrameArt, prefix = "AbyssAscendancyFrame" },
+	{ art = frameArt:GetRow("Id", "AbyssAlternateTreeNotable"), prefix = "AbyssNotableFrame" },
+	{ art = frameArt:GetRow("Id", "AbyssAlternateTreeKeystone"), prefix = "AbyssKeystoneFrame" },
+	{ art = frameArt:GetRow("Id", "AbyssAlternateTreeAscendancyNotable"), prefix = "AbyssAscendancyFrame" },
 }
 local frameStates = {
 	{ column = "Normal", suffix = "Unallocated" },

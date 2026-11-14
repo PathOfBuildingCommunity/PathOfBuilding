@@ -880,38 +880,24 @@ return {
 		},
 		[2]={
 			list=false,
-			name="ConnectionArt",
-			refTo="PassiveSkillTreeConnectionArt",
-			type="Key",
-			width=180
-		},
-		[3]={
-			list=false,
-			name="KeystoneFrameArt",
-			refTo="PassiveSkillTreeNodeFrameArt",
-			type="Key",
-			width=180
-		},
-		[4]={
-			list=false,
 			name="RadiiArt",
 			refTo="PassiveJewelRadiiArt",
 			type="Key",
 			width=150
 		},
-		[5]={
+		[3]={
 			list=false,
-			name="NotableFrameArt",
-			refTo="PassiveSkillTreeNodeFrameArt",
+			name="ConnectionArt",
+			refTo="PassiveSkillTreeConnectionArt",
 			type="Key",
 			width=180
 		},
-		[6]={
+		[4]={
 			list=false,
-			name="AscendancyFrameArt",
-			refTo="PassiveSkillTreeNodeFrameArt",
+			name="",
+			refTo="",
 			type="Key",
-			width=200
+			width=150
 		}
 	},
 	alternatetreepassivesizes={
@@ -1606,6 +1592,55 @@ return {
 	atlasexileregionquestflags={
 	},
 	atlasexiles={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=50
+		},
+		[3]={
+			list=false,
+			name="InfluencedItemIncrStat",
+			refTo="Stats",
+			type="Key",
+			width=230
+		},
+		[4]={
+			list=false,
+			name="MapIcon",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[5]={
+			list=false,
+			name="MapIcon2",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[6]={
+			list=false,
+			name="Influence",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[7]={
+			list=false,
+			name="CitadelName",
+			refTo="",
+			type="String",
+			width=150
+		}
 	},
 	atlasfavouredmapslots={
 	},
@@ -2036,15 +2071,15 @@ return {
 		},
 		[31]={
 			list=false,
-			name="",
-			refTo="",
-			type="Bool",
+			name="ShopTag",
+			refTo="ShopTag",
+			type="Key",
 			width=150
 		},
 		[32]={
-			list=false,
-			name="ShopTag",
-			refTo="ShopTag",
+			list=true,
+			name="",
+			refTo="",
 			type="Key",
 			width=150
 		},
@@ -2063,13 +2098,6 @@ return {
 			width=150
 		},
 		[35]={
-			list=true,
-			name="",
-			refTo="",
-			type="Key",
-			width=150
-		},
-		[36]={
 			list=true,
 			name="EnchantMods",
 			refTo="Mods",
@@ -4817,6 +4845,27 @@ return {
 	elderbossarenas={
 	},
 	elderguardians={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="MapIcon",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="Name",
+			refTo="",
+			type="String",
+			width=150
+		}
 	},
 	eldermapbossoverride={
 	},
@@ -5388,6 +5437,38 @@ return {
 	extraterrainfeaturefamily={
 	},
 	extraterrainfeatures={
+	},
+	fishinghooktypes={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="Int",
+			width=50
+		},
+		[2]={
+			list=false,
+			name="Name",
+			refTo="",
+			type="String",
+			width=150
+		}
+	},
+	fishingluretypes={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="Int",
+			width=50
+		},
+		[2]={
+			list=false,
+			name="Name",
+			refTo="",
+			type="String",
+			width=150
+		}
 	},
 	fixedhideoutdoodads={
 	},
@@ -8297,6 +8378,13 @@ return {
 			refTo="MinionType",
 			type="Key",
 			width=200
+		},
+		[4]={
+			list=false,
+			name="Name",
+			refTo="",
+			type="String",
+			width=150
 		}
 	},
 	miniontype={
@@ -12506,6 +12594,29 @@ return {
 	sentineltaggedmonsterstats={
 	},
 	sessionquestflags={
+	},
+	shaperapparitionability={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="Int",
+			width=50
+		},
+		[2]={
+			list=false,
+			name="GrantedEffect",
+			refTo="GrantedEffects",
+			type="Key",
+			width=230
+		},
+		[3]={
+			list=false,
+			name="Name",
+			refTo="",
+			type="String",
+			width=150
+		}
 	},
 	shaperguardians={
 	},

@@ -11,19 +11,19 @@ return {
 					[1] = { line = "You cannot be Stunned if you've been Stunned or Blocked a Stunning Hit in the past 2 seconds", value = { 1 }, },
 				},
 			},
-			[2] = { name = "Nassar, Lion of the Seas",
+			[2] = { name = "Merveil, the Returned",
 				mods = {
 					-- base_stun_recovery_+%
 					[1] = { line = "30% increased Stun and Block Recovery", value = { 30 }, },
 				},
 			},
-			[3] = { name = "Captain Tanner Lightfoot",
+			[3] = { name = "Belcer, the Pirate Lord",
 				mods = {
 					-- base_avoid_freeze_%
 					[1] = { line = "100% chance to Avoid being Frozen", value = { 100 }, },
 				},
 			},
-			[4] = { name = "Shock and Horror",
+			[4] = { name = "Nassar, Lion of the Seas",
 				mods = {
 					-- chill_effectiveness_on_self_+%
 					[1] = { line = "50% reduced Effect of Chill on you", value = { -50 }, },
@@ -40,19 +40,19 @@ return {
 					[1] = { line = "10% reduced Damage taken from Damage Over Time", value = { -10 }, },
 				},
 			},
-			[2] = { name = "Maligaro the Mutilator",
+			[2] = { name = "Thraxia",
 				mods = {
 					-- life_and_energy_shield_recovery_rate_+%_if_stopped_taking_damage_over_time_recently
 					[1] = { line = "20% increased Recovery rate of Life and Energy Shield if you've stopped taking Damage Over Time Recently", value = { 20 }, },
 				},
 			},
-			[3] = { name = "Armala, the Widow",
+			[3] = { name = "Enticer of Rot",
 				mods = {
 					-- debuff_time_passed_+%
 					[1] = { line = "Debuffs on you expire 20% faster", value = { 20 }, },
 				},
 			},
-			[4] = { name = "Drought-Maddened Rhoa",
+			[4] = { name = "Armala, the Widow",
 				mods = {
 					-- additional_chaos_resistance_against_damage_over_time_%
 					[1] = { line = "+40% Chaos Resistance against Damage Over Time", value = { 40 }, },
@@ -66,24 +66,24 @@ return {
 			[1] = { name = "Soul of Solaris",
 				mods = {
 					-- physical_damage_reduction_%_if_only_one_enemy_nearby
-					[1] = { line = "6% additional Physical Damage Reduction while there is only one nearby Enemy", value = { 6 }, },
+					[1] = { line = "6% additional Physical Damage Reduction while there is only one Enemy within 6 metres", value = { 6 }, },
 					-- take_half_area_damage_from_hit_%_chance
 					[2] = { line = "20% chance to take 50% less Area Damage from Hits", value = { 20 }, },
 				},
 			},
-			[2] = { name = "Oak the Mighty",
+			[2] = { name = "Forest of Flames",
 				mods = {
 					-- elemental_damage_taken_+%_if_not_hit_recently
 					[1] = { line = "8% reduced Elemental Damage taken if you haven't been Hit Recently", value = { -8 }, },
 				},
 			},
-			[3] = { name = "Kitava, The Destroyer",
+			[3] = { name = "The Infernal King",
 				mods = {
 					-- self_take_no_extra_damage_from_critical_strikes_if_have_been_crit_recently
 					[1] = { line = "Take no Extra Damage from Critical Strikes if you have taken a Critical Strike Recently", value = { 1 }, },
 				},
 			},
-			[4] = { name = "Forest of Flames",
+			[4] = { name = "Jorus, Sky's Edge",
 				mods = {
 					-- avoid_ailments_%_from_crit
 					[1] = { line = "50% chance to avoid Ailments from Critical Strikes", value = { 50 }, },
@@ -97,24 +97,24 @@ return {
 			[1] = { name = "Soul of Lunaris",
 				mods = {
 					-- physical_damage_reduction_%_per_nearby_enemy
-					[1] = { line = "1% additional Physical Damage Reduction for each nearby Enemy, up to 8%", value = { 1 }, },
+					[1] = { line = "1% additional Physical Damage Reduction for each Enemy within 6 metres, up to 8%", value = { 1 }, },
 					-- movement_speed_+%_per_nearby_enemy
-					[2] = { line = "1% increased Movement Speed for each nearby Enemy, up to 8%", value = { 1 }, },
+					[2] = { line = "1% increased Movement Speed for each Enemy within 6 metres, up to 8%", value = { 1 }, },
 				},
 			},
-			[2] = { name = "Captain Clayborne, The Accursed",
+			[2] = { name = "Mutewind Leader",
 				mods = {
 					-- base_avoid_projectiles_%_chance
 					[1] = { line = "10% chance to avoid Projectiles", value = { 10 }, },
 				},
 			},
-			[3] = { name = "Fragment of Winter",
+			[3] = { name = "Shock and Horror",
 				mods = {
 					-- elemental_damage_taken_+%_if_been_hit_recently
 					[1] = { line = "6% reduced Elemental Damage taken if you have been Hit Recently", value = { -6 }, },
 				},
 			},
-			[4] = { name = "Glace",
+			[4] = { name = "Sebbert, Crescent's Point",
 				mods = {
 					-- avoid_chained_projectile_%_chance
 					[1] = { line = "Avoid Projectiles that have Chained", value = { 100 }, },
@@ -243,7 +243,7 @@ return {
 					[1] = { line = "60% reduced Effect of Shock on you", value = { -60 }, },
 				},
 			},
-			[2] = { name = "The Blacksmith",
+			[2] = { name = "Stalker of the Endless Dunes",
 				mods = {
 					-- cannot_be_blinded
 					[1] = { line = "Cannot be Blinded", value = { 1 }, },
