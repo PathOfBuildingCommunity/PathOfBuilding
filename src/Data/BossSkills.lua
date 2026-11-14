@@ -9,9 +9,8 @@ return {
 	["Atziri Flameblast"] = {
 		DamageType = "Spell",
 		DamageMultipliers = {
-			Fire = { 51.086684344463, 0.25543342172232 }
+			Fire = { 69.748225526961, 0.34874112763481 }
 		},
-		UberDamageMultiplier = 1.26,
 		DamagePenetrations = {
 			FirePen = 8
 		},
@@ -19,7 +18,6 @@ return {
 			FirePen = 10
 		},
 		speed = 25000,
-		critChance = 0,
 		earlierUber = true,
 		tooltip = "The Uber variant has 10 ^xB97123Fire^7 penetration (Applied on Pinnacle And Uber)"
 	},

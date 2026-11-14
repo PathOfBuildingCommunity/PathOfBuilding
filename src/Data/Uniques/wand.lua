@@ -16,7 +16,7 @@ Implicits: 3
 {variant:4}+(30-50)% to Damage over Time Multiplier for Ignite from Critical Strikes
 {variant:1,2,3}(20-30)% increased Fire Damage
 Adds (4-6) to (8-12) Fire Damage to Spells
-{variant:1,2,3}(40-60)% increased Global Critical Strike Chance
+{variant:1,2,3}(40-60)% increased Critical Strike Chance
 {variant:4}(80-120)% increased Global Critical Strike Chance
 Gain 10 Life per Ignited Enemy Killed
 25% reduced Ignite Duration on Enemies
@@ -39,8 +39,8 @@ Implicits: 3
 (25-30)% increased Cast Speed
 +(5-10)% to Chaos Resistance
 {variant:1,2,3}40% increased Mana Cost of Skills
-{variant:3,4}Poisons you inflict deal Damage 20% faster
-{variant:5,6}Poisons you inflict deal Damage (30-50)% faster
+{variant:3,4}Poisons you inflict deal Damage 20% Faster
+{variant:5,6}Poisons you inflict deal Damage (30-50)% Faster
 {variant:4,5,6}Lose 40 Mana when you use a Skill
 ]],[[
 Ashcaller
@@ -87,11 +87,11 @@ Implicits: 4
 {variant:4,5}Adds (30-45) to (60-80) Fire Damage
 {variant:4,5}(6-10)% increased Attack Speed
 {variant:6}(20-26)% increased Attack Speed
-{variant:1}+(18-30)% to Global Critical Strike Multiplier
+{variant:1}+(18-30)% to Critical Strike Multiplier
 {variant:2,3,4,5,6}+(27-33)% to Global Critical Strike Multiplier
 {variant:1,2,3,4,5}20% increased Light Radius
 {variant:6}(15-20)% increased Light Radius
-Nearby Enemies are Blinded
+Enemies within 3.5 metres are Blinded
 (120-140)% increased Critical Strike Chance against Blinded Enemies
 {variant:6}Adds 2 to 5 Fire Damage to Attacks for every 1% your Light Radius is above base value
 ]],[[
@@ -193,8 +193,6 @@ Implicits: 3
 {variant:1,2}(15-19)% increased Spell Damage
 {variant:3,4}(33-37)% increased Spell Damage
 {variant:5}Cannot roll Caster Modifiers
-{variant:1,2,3}Socketed Gems are supported by Level 5 Blind
-{variant:4,5}Socketed Gems are supported by Level 20 Blind
 +10 to Intelligence
 (30-40)% increased Spell Damage
 {variant:1}125% increased Physical Damage
@@ -202,7 +200,7 @@ Implicits: 3
 {variant:4,5}(250-275)% increased Physical Damage
 (20-30)% increased Lightning Damage
 10% increased Cast Speed
-10% chance to Blind Enemies on hit
+10% chance to Blind Enemies on Hit
 ]],[[
 Mystic Refractor
 Pagan Wand
@@ -285,9 +283,6 @@ Implicits: 3
 {variant:5}Adds (1-2) to (9-11) Lightning Damage to Spells and Attacks
 {variant:1,2}+1 to Level of Socketed Gems
 {variant:3,4,5}+2 to Level of Socketed Gems
-{variant:4,5}Socketed Gems are Supported by Level 10 Arcane Surge
-Socketed Gems are Supported by Level 10 Spell Echo
-{variant:4,5}Socketed Gems are Supported by Level 10 Controlled Destruction
 +(10-30) to Intelligence
 ]],[[
 Relic of the Pact
@@ -300,7 +295,6 @@ Source: Drops from unique{The Trialmaster}
 Implicits: 2
 {variant:1}(15-19)% increased Spell Damage
 {variant:2}(17-21)% increased Spell Damage
-Grants Level 1 Blood Sacrament Skill
 Your Critical Strike Chance is Lucky while on Low Life
 ]],[[
 Amplification Rod
@@ -313,9 +307,6 @@ Implicits: 1
 (15-19)% increased Spell Damage
 {variant:1}+1 to Level of Socketed Gems
 {variant:2}+2 to Level of Socketed Gems
-Socketed Gems are Supported by Level 10 Intensify
-Socketed Gems are Supported by Level 10 Spell Echo
-Socketed Gems are Supported by Level 10 Controlled Destruction
 +(10-30) to Intelligence
 ]],[[
 Shade of Solaris

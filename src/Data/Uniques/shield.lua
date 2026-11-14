@@ -47,7 +47,6 @@ Variant: Pre 3.25.0
 Variant: Current
 Implicits: 1
 {variant:2,3,4}+(30-40) to maximum Life
-{variant:1,2,3}Grants Level 30 Crushing Fist Skill
 {variant:1,2}(130-170)% increased Armour
 {variant:3,4}(165-205)% increased Armour
 +(65-80) to maximum Life
@@ -562,7 +561,7 @@ Implicits: 1
 (5-10)% increased Spell Damage
 (15-20)% Chance to Block Spell Damage
 +(66-99) to maximum Life
-Ignites you inflict deal Damage (15-20)% faster
+Ignites you inflict deal Damage (15-20)% Faster
 Draugurflames burn enemies around you for 8 seconds after you Ignite a target
 ]],[[
 Esh's Mirror
@@ -600,7 +599,7 @@ Implicits: 2
 +(30-40)% to Lightning Resistance
 +(17-29)% to Chaos Resistance
 Chaos Damage taken does not bypass Energy Shield while not on Low Life
-Reflect Shocks applied to you to all Nearby Enemies
+Reflect Shocks applied to you to all Enemies within 3 metres
 ]],[[
 The Eternal Apple
 Chiming Spirit Shield
@@ -662,9 +661,9 @@ Implicits: 2
 {variant:1,2}10% increased Spell Damage
 {variant:3,4}(10-15)% increased Spell Damage
 {variant:1}(160-200)% increased Energy Shield
-{variant:2,3,4}(210-250)% increased Energy Shield
-+2 to Maximum Power Charges
-20% chance to gain a Power Charge on Hit
+{variant:2,3,4}(240-300)% increased Energy Shield
++1 to Maximum Power Charges
+(20-40)% chance to gain a Power Charge on Hit
 {variant:1,2,3}6% increased Spell Damage per Power Charge
 {variant:4}(12-16)% increased Spell Damage per Power Charge
 Lose all Power Charges on reaching Maximum Power Charges
@@ -697,6 +696,7 @@ Tarnished Spirit Shield
 Variant: Pre 3.0.0
 Variant: Pre 3.19.0
 Variant: Current
+Requires Level 63
 Implicits: 2
 {variant:1}5% increased Spell Damage
 {variant:2,3}(5-10)% increased Spell Damage
@@ -723,7 +723,7 @@ Implicits: 1
 20% increased effect of Non-Curse Auras from your Skills on your Minions
 20% increased effect of Non-Curse Auras from your Skills
 Spreads Tar when you Block
-If you have Blocked Recently, you and nearby Allies Regenerate 5% of Life per second
+If you have Blocked Recently, you and Allies within 5 metres Regenerate 5% of Life per second
 ]],[[
 Rathpith Globe
 Titanium Spirit Shield
@@ -841,7 +841,7 @@ Triggers Level 20 Physical Aegis when Equipped
 {variant:2}100% chance to Avoid Bleeding
 (8-15)% increased Attack and Cast Speed while Physical Aegis is depleted
 (50-70)% increased Critical Strike Chance while Physical Aegis is depleted
-Nearby Enemies are Blinded while Physical Aegis is not depleted
+Enemies within 3 metres are Blinded while Physical Aegis is not depleted
 ]],[[
 The Oppressor
 Elegant Round Shield
@@ -859,7 +859,6 @@ League: Allflame
 Source: Drops from unique{Velka, the Tide Witch}
 Implicits: 1
 60% increased Block Recovery
-Grants Level 20 Savage Barnacle
 +(50-100) to Armour
 +(50-100) to Evasion Rating
 (100-200)% increased Armour and Evasion
@@ -909,7 +908,7 @@ Implicits: 1
 {variant:1,2}+(5-10) to Armour
 {variant:3}+(20-40) to Armour
 {variant:3}+(20-40) to Evasion Rating
-(30-40)% increased Rarity of Items found
++(30-40)% to Item Rarity
 {variant:3}+(50-75)% to Lightning Resistance
 100% increased Duration of Curses on you
 {variant:1,2}+5% Chance to Block
@@ -1109,7 +1108,6 @@ Source: Created from item parts obtained from Boss in The Beachhead
 Upgrade: Upgrades to unique{The Immortal Will} via currency{Specularity Scroll}
 Implicits: 1
 +12% to all Elemental Resistances
-Grants Summon Harbinger of Focus Skill
 +(60-80) to maximum Life
 +(10-15)% to all Elemental Resistances
 (30-50) Mana gained when you Block
@@ -1122,7 +1120,6 @@ League: Harvest
 Source: Upgraded from unique{The Unshattered Will} via currency{Specularity Scroll}
 Implicits: 1
 +12% to all Elemental Resistances
-Grants Summon Greater Harbinger of Focus Skill
 +(60-80) to maximum Life
 +(10-15)% to all Elemental Resistances
 (30-50) Mana gained when you Block
@@ -1152,8 +1149,8 @@ Implicits: 1
 +11% to Chaos Resistance
 {variant:1}10% increased Area of Effect of Aura Skills
 {variant:2}20% increased Area of Effect of Aura Skills
-10% chance to grant a Power Charge to nearby Allies on Kill
-5% chance to grant a Frenzy Charge to nearby Allies on Hit
+10% chance to grant a Power Charge to Allies within 4 metres on Kill
+5% chance to grant a Frenzy Charge to Allies within 4 metres on Hit
 ]],[[
 Replica Victario's Charity
 Laminated Kite Shield
@@ -1165,8 +1162,8 @@ Implicits: 1
 +(20-30)% to Lightning Resistance
 +11% to Chaos Resistance
 10% increased effect of Non-Curse Auras from your Skills
-5% chance to grant an Endurance Charge to nearby Allies on Hit
-10% chance to grant a Frenzy Charge to nearby Allies on Kill
+5% chance to grant an Endurance Charge to Allies within 4 metres on Hit
+10% chance to grant a Frenzy Charge to Allies within 4 metres on Kill
 ]],
 -- Shield: Evasion/Energy Shield
 [[
@@ -1196,7 +1193,7 @@ Implicits: 2
 (120-140)% increased Evasion and Energy Shield
 +(20-30) to maximum Energy Shield
 +(30-50) to maximum Life
-10% increased Rarity of Items found
++10% to Item Rarity
 25% chance to Avoid Fire Damage from Hits
 {variant:2}You always Ignite while Burning
 ]],[[
@@ -1209,8 +1206,6 @@ Variant: Current
 Implicits: 2
 {variant:3,4}+5% chance to Suppress Spell Damage
 {variant:1,2}Reflects (221-260) Physical Damage to Melee Attackers
-{variant:1,2,3}Grants Level 20 Bear Trap Skill
-{variant:4}Grants Level 25 Bear Trap Skill
 (18-28)% increased Trap Damage
 (15-25)% increased Global Physical Damage
 +(60-80) to maximum Life
@@ -1243,8 +1238,8 @@ Implicits: 2
 (10-20)% increased maximum Life
 -50% to all Elemental Resistances
 10% increased Area of Effect
-{variant:1,2}Nearby allies Recover 2% of your Maximum Life when you Die
-{variant:3}Nearby allies Recover 1% of your Maximum Life when you Die
+{variant:1,2}Allies within 3.5 metres Recover 2% of your Maximum Life when you Die
+{variant:3}Allies within 3.5 metres Recover 1% of your Maximum Life when you Die
 ]],[[
 Perepiteia
 Ezomyte Spiked Shield

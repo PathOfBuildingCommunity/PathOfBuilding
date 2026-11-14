@@ -60,7 +60,6 @@ League: Bestiary
 Source: Drops from unique{Craiceann, First of the Deep}
 Requires Level 64
 Implicits: 0
-Grants Level 20 Aspect of the Crab Skill
 {variant:1}(300-350)% increased Armour
 {variant:2}(200-250)% increased Armour
 +(100-120) to maximum Life
@@ -81,7 +80,7 @@ Implicits: 1
 (180-220)% increased Armour
 {variant:3}+(60-70) to maximum Life
 1% of Attack Damage Leeched as Life
-{variant:1,2}Deals 450 Chaos Damage per second to nearby Enemies
+{variant:1,2}Deals 450 Chaos Damage per second to Enemies within 3 metres
 {variant:1}You take 450 Chaos Damage per second for 0 seconds on Kill
 {variant:2,3}You take 450 Chaos Damage per second for 3 seconds on Kill
 Gore Footprints
@@ -93,7 +92,6 @@ Variant: Current
 League: Ritual
 Source: Drops from unique{The Maven}
 Implicits: 0
-Grants Level 20 Unhinge Skill
 (40-60)% more Critical Strike Chance while Insane
 Enemies Killed by your Hits are destroyed while Insane
 {variant:1}(15-25)% more Physical and Chaos Damage Taken while Sane
@@ -107,8 +105,8 @@ Variant: Current
 Implicits: 0
 30% reduced Strength Requirement
 {variant:1}(10-15)% increased Quantity of Items found
-{variant:1}(30-50)% increased Rarity of Items found
-{variant:2}100% increased Rarity of Items found
+{variant:1}+(30-50)% to Item Rarity
+{variant:2}+100% to Item Rarity
 -10% to Fire Resistance
 +(20-30)% to Cold Resistance
 {variant:1}-20% to Lightning Resistance
@@ -140,7 +138,6 @@ Crusader Plate
 Variant: Pre 3.5.0
 Variant: Current
 Implicits: 0
-Socketed Gems are Supported by Level 15 Pierce
 {variant:2}+160 Dexterity Requirement
 (200-250)% increased Armour
 +(60-100) to maximum Life
@@ -217,7 +214,6 @@ Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
 Implicits: 0
-{variant:2}Socketed Gems are Supported by Level 10 Added Fire Damage
 (80-100)% increased Evasion Rating
 {variant:2}+(30-50) to maximum Life
 +(40-50)% to Fire Resistance
@@ -474,9 +470,6 @@ Variant: Rhoa Current
 Variant: Snake Current
 Variant: Ursa Current
 Implicits: 0
-{variant:1,4}Grants Level 20 Summon Bestial Rhoa Skill
-{variant:2,5}Grants Level 20 Summon Bestial Snake Skill
-{variant:3,6}Grants Level 20 Summon Bestial Ursa Skill
 +(300-400) to Accuracy Rating
 (130-150)% increased Evasion Rating
 +(90-100) to maximum Life
@@ -565,8 +558,6 @@ Variant: Pre 3.0.0
 Variant: Pre 3.19.0
 Variant: Current
 Implicits: 0
-{variant:1,2,3,4,5}Socketed Gems are Supported by Level 15 Added Chaos Damage
-{variant:6}Socketed Gems are Supported by Level 29 Added Chaos Damage
 {variant:4,5}Socketed Gems Cost and Reserve Life instead of Mana
 +(20-30) to Intelligence
 {variant:1}(125-150)% increased Energy Shield
@@ -582,7 +573,6 @@ Replica Covenant
 Spidersilk Robe
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Socketed Gems are Supported by Level 29 Added Cold Damage
 +(20-30) to Intelligence
 (210-250)% increased Energy Shield
 10% increased maximum Life
@@ -608,7 +598,6 @@ Variant: Pre 3.5.0
 Variant: Pre 3.16.0
 Variant: Current
 Implicits: 0
-Socketed Gems are Supported by Level 20 Blasphemy
 {variant:1,2}Grants Level 20 Summon Doedre's Effigy Skill
 {variant:1,2}Socketed Hex Curse Skills are Triggered by Doedre's Effigy when Summoned
 {variant:1,2}Hexes from Socketed Skills can apply 5 additional Curses
@@ -655,8 +644,8 @@ Implicits: 0
 Gain a Divine Charge on Hit
 You gain Divinity for 10 seconds on reaching maximum Divine Charges
 Lose all Divine Charges when you gain Divinity
-Nearby Allies' Action Speed cannot be modified to below Base Value
-Nearby Enemies cannot deal Critical Strikes
+Allies within 5 metres cannot have their Action Speed modified to below Base Value
+Enemies within 6 metres cannot deal Critical Strikes
 ]],[[
 Infernal Mantle
 {variant:1}Occultist's Vestment
@@ -688,7 +677,7 @@ Implicits: 1
 (3-10)% increased Spell Damage
 {variant:1}(200-250)% increased Energy Shield
 {variant:2}(140-200)% increased Energy Shield
-{variant:3}(100-150)% increased Energy Shield
+{variant:3}(150-200)% increased Energy Shield
 10% faster start of Energy Shield Recharge
 +(30-40)% to Lightning Resistance
 Reflects 1 to 250 Lightning Damage to Melee Attackers
@@ -712,8 +701,6 @@ Variant: Pre 3.16.0
 Variant: Pre 3.17.0
 Variant: Current
 Implicits: 0
-{variant:1,2}Socketed Gems are Supported by Level 14 Spell Totem
-{variant:3,4,5}Socketed Gems are Supported by Level 20 Spell Totem
 (20-25)% increased Spell Damage
 (100-120)% increased Energy Shield
 {variant:1}25% increased Totem Life
@@ -731,7 +718,6 @@ Simple Robe
 Variant: Pre 3.0.0
 Variant: Pre 3.19.0
 Variant: Current
-Socketed Gems are Supported by Level 5 Elemental Proliferation
 {variant:1,2}Adds 2 to 3 Fire Damage to Spells and Attacks
 {variant:3}Adds (2-4) to (5-9) Fire Damage to Spells and Attacks
 {variant:1,2}Adds 2 to 3 Cold Damage to Spells and Attacks
@@ -873,7 +859,7 @@ Variant: Pre 3.5.0
 Variant: Pre 3.19.0
 Variant: Current
 Implicits: 0
-{variant:1}(60-100)% increased Global Physical Damage
+{variant:1}(60-100)% increased Physical Damage
 {variant:2,3}100% increased Global Physical Damage
 {variant:3}(300-400)% increased Armour and Evasion
 {variant:1}+(130-160) to maximum Life
@@ -939,10 +925,10 @@ Implicits: 0
 {variant:3,4,5}+15% to all Elemental Resistances
 {variant:1,2,3,4}Gain an Endurance Charge when you take a Critical Strike
 {variant:1,2,3}Regenerate 2% of Life per second while on Low Life
-{variant:1,2,3,4}Share Endurance Charges with nearby party members
+{variant:1,2,3,4}Share Endurance Charges with Party members within 12 metres
 {variant:5}Gain up to maximum Endurance Charges when you take a Critical Strike
 {variant:4}Regenerate 2% of Life per second if you have been Hit Recently
-{variant:5}Your nearby party members maximum Endurance Charges is equal to yours
+{variant:5}Your party members within 6 metres maximum Endurance Charges is equal to yours
 ]],[[
 Replica Ambu's Charge
 Crusader Chainmail
@@ -952,7 +938,7 @@ Implicits: 0
 (180-220)% increased Armour and Energy Shield
 +(60-80) to maximum Life
 +15% to all Elemental Resistances
-Share Endurance Charges with nearby party members
+Share Endurance Charges with Party members within 12 metres
 Gain an Endurance Charge when you are Hit
 Lose 2% of Life per second if you have been Hit Recently
 ]],[[
@@ -978,7 +964,7 @@ Implicits: 0
 Deal no Non-Lightning Damage
 Armour also applies to Lightning Damage taken from Hits
 Lightning Resistance does not affect Lightning Damage taken
-Nearby Enemies have Lightning Resistance equal to yours
+Enemies within 6 metres have Lightning Resistance equal to yours
 ]],[[
 The Fourth Vow
 Devout Chainmail
@@ -1098,7 +1084,7 @@ Adds (4-10) to (14-36) Physical Damage to Attacks
 +(15-50) to maximum Energy Shield
 +(20-60) to maximum Life
 +(20-50) to maximum Mana
-(6-30)% increased Rarity of Items found
++(6-30)% to Item Rarity
 (15-50)% increased Elemental Damage
 {variant:1}Your Maximum Resistances are (76-80)%
 {variant:2}Your Maximum Resistances are (76-78)%
@@ -1115,7 +1101,7 @@ Adds (4-10) to (14-36) Physical Damage to Attacks
 +(150-200) to maximum Energy Shield
 +(120-160) to maximum Life
 +(120-160) to maximum Mana
-(6-30)% increased Rarity of Items found
++(6-30)% to Item Rarity
 (15-50)% increased Elemental Damage
 Your Maximum Resistances are (70-72)%
 ]],[[
@@ -1124,7 +1110,6 @@ Loricated Ringmail
 Source: No longer obtainable
 League: Blight
 Implicits: 0
-Socketed Gems are Supported by Level 1 Meat Shield
 (100-140)% increased Armour and Energy Shield
 +(50-80) to maximum Life
 (5-8)% increased Damage per Raised Zombie
@@ -1177,7 +1162,6 @@ Bone Armour
 Variant: Pre 3.16.0
 Variant: Current
 Implicits: 0
-Grants Level 15 Blood Offering Skill
 (100-120)% increased Evasion and Energy Shield
 (15-25)% increased maximum Life
 Minions have (20-30)% increased maximum Life
@@ -1220,7 +1204,6 @@ Mind Over Matter
 Dendrobate
 Sentinel Jacket
 Implicits: 0
-Socketed Gems are Supported by Level 10 Chance to Poison
 (130-150)% increased Evasion and Energy Shield
 +40 to maximum Energy Shield
 +(15-25)% to all Elemental Resistances
@@ -1263,7 +1246,7 @@ Implicits: 0
 (5-10)% increased maximum Life
 All Damage can Freeze
 Freeze Chilled Enemies as though dealing (50-100)% more Damage
-Nearby Enemies are Chilled
+Enemies within 3 metres are Chilled
 ]],[[
 Inpulsa's Broken Heart
 Sadist Garb
@@ -1322,7 +1305,7 @@ Implicits: 0
 +(30-40)% to Lightning Resistance
 (12-20)% increased Mana Reservation Efficiency of Skills
 100% increased Aspect of the Avian Buff Effect
-Aspect of the Avian also grants Avian's Might and Avian's Flight to nearby Allies
+Aspect of the Avian also grants Avian's Might and Avian's Flight to Allies within 6 metres
 +(120-150) to Evasion Rating and Energy Shield
 ]],[[
 Shroud of the Lightless
@@ -1341,8 +1324,6 @@ Implicits: 1
 {variant:5}Has 3 Abyssal Sockets
 {variant:1,3,6}Has 2 Abyssal Sockets
 {variant:2,4,7}Has 1 Abyssal Socket
-{variant:1,2}Socketed Gems are Supported by Level 20 Elemental Penetration
-{variant:3,4}Socketed Gems are Supported by Level 25 Elemental Penetration
 20% chance to Trigger Level 20 Shade Form when you Use a Socketed Skill
 (160-180)% increased Evasion and Energy Shield
 {variant:1,2,3,4}(6-10)% increased maximum Life
@@ -1392,8 +1373,6 @@ Variant: Pre 2.6.0
 Variant: Current
 Implicits: 0
 +1 to Level of Socketed Aura Gems
-{variant:1}Socketed Gems are Supported by Level 1 Generosity
-{variant:2}Socketed Gems are Supported by Level 30 Generosity
 Socketed Gems have 45% increased Reservation Efficiency
 (120-150)% increased Evasion and Energy Shield
 {variant:1}(10-20)% increased Area of Effect of Aura Skills
@@ -1485,14 +1464,13 @@ Source: Double Corrupting Sacrificial Garb
 Variant: Pre 3.10.0
 Variant: Current
 Implicits: 0
-Has an additional Implicit Mod
-+(20-30) to all Attributes
++(1-50) to all Attributes
 {variant:2}(250-350)% increased Armour, Evasion and Energy Shield
 Recover (3-5)% of Life on Kill
 Recover (3-5)% of Energy Shield on Kill
-6% increased Maximum Life for each Corrupted Item Equipped
-8% increased Maximum Energy Shield for each Corrupted Item Equipped
--(6-4)% to all Resistances for each Corrupted Item Equipped
+(8-10)% increased Maximum Life for each Corrupted Item Equipped
+(10-12)% increased Maximum Energy Shield for each Corrupted Item Equipped
+-(8-6)% to all Resistances for each Corrupted Item Equipped
 Corrupted
 ]],[[
 The Queen's Hunger

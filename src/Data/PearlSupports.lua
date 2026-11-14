@@ -602,8 +602,8 @@ return {
 		["grantedEffectName"] = "SupportFreshMeat",
 	},
 	{
-		["baseItemName"] = "Flamewood Support",
-		["grantedEffectName"] = "SupportFlamewood",
+		["baseItemName"] = "Greater Multiple Projectiles Support",
+		["grantedEffectName"] = "SupportGreaterMultipleProjectiles",
 	},
 	{
 		["baseItemName"] = "Corrupting Cry Support",

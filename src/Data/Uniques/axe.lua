@@ -59,7 +59,6 @@ Jade Hatchet
 Variant: Pre 2.0.0
 Variant: Current
 Implicits: 0
-Socketed Gems are supported by Level 2 Chance to Flee
 {variant:1}Adds (8-12) to (18-22) Physical Damage
 {variant:2}Adds (10-15) to (25-30) Physical Damage
 +(10-15) to maximum Life
@@ -73,7 +72,6 @@ Variant: Pre 2.0.0
 Variant: Current
 Requires Level 32
 Implicits: 0
-Socketed Gems are supported by Level 2 Chance to Flee
 (170-190)% increased Physical Damage
 {variant:1}Adds (8-12) to (18-22) Physical Damage
 {variant:2}Adds (10-15) to (25-30) Physical Damage
@@ -87,7 +85,6 @@ Vaal Hatchet
 Variant: Pre 3.13.0
 Variant: Current
 Implicits: 0
-{variant:2}Grants Level 20 Thirst for Blood Skill
 {variant:1}(90-110)% increased Physical Damage
 {variant:2}(130-150)% increased Physical Damage
 Adds (11-14) to (18-23) Physical Damage
@@ -194,7 +191,7 @@ Variant: Current
 {variant:1}Attacks with this Weapon have Added Fire Damage equal to (8-12)% of Player's Maximum Life
 {variant:2}Attacks with this Weapon have Added Fire Damage equal to (6-10)% of Player's Maximum Life
 Each Rage also grants +2% to Fire Damage Over Time Multiplier
-Nearby Enemies have Fire Exposure while at maximum Rage
+Enemies within 3 metres have Fire Exposure while at maximum Rage
 +(-5-5) to Maximum Rage
 ]],
 -- Weapon: Two Handed Axe
@@ -311,12 +308,12 @@ Implicits: 0
 (7-12)% increased Attack Speed
 {variant:2,3,4,5,6}(30-40)% increased Critical Strike Chance
 {variant:1}+(100-150) to maximum Mana
-Nearby Allies have 30% increased Item Rarity
-Nearby Allies have Culling Strike
+Allies within 3 metres have 30% increased Item Rarity
+Allies within 3 metres have Culling Strike
 {variant:2,3,4,5,6}Insufficient Mana doesn't prevent your Melee Attacks
-{variant:3,4,5,6}Nearby Allies have +50% to Critical Strike Multiplier
-{variant:3,4}Nearby Allies have +1 Fortification
-{variant:5,6}Nearby Allies have +10 Fortification
+{variant:3,4,5,6}Allies within 3 metres have +50% to Critical Strike Multiplier
+{variant:3,4}Allies within 3 metres have +1 Fortification
+{variant:5,6}Allies within 3 metres have +10 Fortification
 ]],[[
 Kitava's Feast
 Void Axe
@@ -324,7 +321,6 @@ Variant: Pre 3.5.0
 Variant: Pre 3.11.0
 Variant: Current
 Implicits: 0
-Socketed Gems are supported by Level 30 Melee Splash
 {variant:1}(250-300)% increased Physical Damage
 {variant:2}(265-330)% increased Physical Damage
 {variant:3}(200-240)% increased Physical Damage
@@ -377,7 +373,7 @@ Reaper's Pursuit
 Shadow Axe
 Implicits: 0
 (100-125)% increased Physical Damage
-(30-40)% increased Rarity of Items found
++(30-40)% to Item Rarity
 Gain 10 Life per Enemy Killed
 15% increased Movement Speed when on Full Life
 Culling Strike
@@ -445,7 +441,6 @@ Poleaxe
 Variant: Pre 3.7.0
 Variant: Current
 Implicits: 0
-Socketed Gems are Supported by Level 20 Increased Area of Effect
 +10 to Strength
 (120-160)% increased Physical Damage
 Gain 10 Mana per Enemy Killed

@@ -87,7 +87,6 @@ Source: Upgraded from unique{The Formless Flame} using currency{Blessing of Xoph
 Variant: Pre 3.16.0
 Variant: Pre 3.21.0
 Variant: Current
-{variant:3}Socketed Gems are Supported by Level 30 Infernal Legion
 {variant:1,2}(80-120)% increased Armour
 {variant:1,2}+(40-50) to maximum Life
 {variant:3}+(60-100) to maximum Life
@@ -140,7 +139,7 @@ League: Expedition
 Attacks have 15% chance to cause Bleeding
 50% reduced Light Radius
 +4% to Damage over Time Multiplier for Bleeding per Frenzy Charge
-Bleeding you inflict deals Damage 4% faster per Frenzy Charge
+Bleeding you inflict deals Damage 4% Faster per Frenzy Charge
 (20-30)% chance to gain a Frenzy Charge on Critical Strike at Close Range
 ]],[[
 Thrillsteel
@@ -152,7 +151,7 @@ Reaver Helmet
 24% reduced maximum Life
 Regenerate (200-250) Life per second
 100% increased Stun and Block Recovery
-Nearby Enemy Monsters have at least 8% of Life Reserved
+Enemy Monsters within 3 metres have at least 8% of Life Reserved
 ]],[[
 Howlcrack
 Ezomyte Burgonet
@@ -180,7 +179,7 @@ Faithful Helmet
 Source: Drops from unique{Uber Incarnation of Dread} in normal{Moment of Reverence}
 (150-230)% increased Armour
 +(25-35)% to all Elemental Resistances
-50% increased Light Radius
+(25-35)% increased Light Radius
 Link Skills can target Damageable Minions
 Your Linked Minions take (65-75)% less Damage
 On Killing a Rare monster, a random Linked Minion gains its Modifiers for 60 seconds
@@ -212,10 +211,6 @@ Sinner Tricorne
 Variant: Pre 3.21.0
 Variant: Current
 Implicits: 0
-{variant:1}Grants Level 20 Snipe Skill
-{variant:2}Grants Level 30 Snipe Skill
-Socketed Non-Channelling Bow Skills are Triggered by Snipe
-Socketed Triggered Bow Skills gain a 0.05 second Cooldown
 +(350-500) to Accuracy Rating
 +(350-500) to Evasion Rating
 {variant:2}+2 to maximum Snipe Stages
@@ -238,7 +233,7 @@ Cannot be Shocked
 Goldrim
 Leather Cap
 +(30-50) to Evasion Rating
-10% increased Rarity of Items found
++10% to Item Rarity
 +(30-40)% to all Elemental Resistances
 Reflects 4 Physical Damage to Melee Attackers
 ]],[[
@@ -278,7 +273,6 @@ Source: No longer obtainable
 Requires Level 60
 +2 to Level of Socketed Fire Gems
 +2 to Level of Socketed Cold Gems
-Socketed Gems are Supported by Level 30 Cold to Fire
 (450-500)% increased Evasion Rating
 60% increased Mana Regeneration Rate
 +(20-30)% to Fire and Cold Resistances
@@ -305,7 +299,7 @@ Ursine Pelt
 15% increased Attack Speed
 (60-75)% increased Global Critical Strike Chance
 150% increased Evasion Rating
-(20-25)% increased Rarity of Items found
++(20-25)% to Item Rarity
 10% increased Movement Speed
 10% reduced Character Size
 ]],[[
@@ -516,8 +510,8 @@ Trigger Level 15 Feast of Flesh every 5 seconds
 {variant:31}Regenerate 33.3 Life per second
 {variant:31}+(55-60) to maximum Mana
 {variant:26}Minions have (8-10)% increased maximum Life
-{variant:26}+1 to maximum number of Raised Zombies
-{variant:26}+1 to maximum number of Skeletons
+{variant:26}+1 to Maximum number of Raised Zombies
+{variant:26}+1 to Maximum number of Skeletons
 {variant:38}20% increased Damage if you have Consumed a corpse Recently
 {variant:33}(13-15)% additional Physical Damage Reduction while Focused
 {variant:36}20% increased Attack and Cast Speed if you've Consumed a Corpse Recently
@@ -702,8 +696,6 @@ Variant: Pre 3.5.0
 Variant: Pre 3.16.0
 Variant: Pre 3.19.0
 Variant: Current
-{variant:1,2}Socketed Gems are Supported by Level 15 Concentrated Effect
-{variant:3,4,5,6}Socketed Gems are Supported by Level 20 Concentrated Effect
 {variant:4,5}+(16-22)% to Cold Damage over Time Multiplier
 {variant:6}+50% to Cold Damage over Time Multiplier
 {variant:1}10% increased Cold Damage
@@ -859,14 +851,6 @@ Variant: Pre 1.3.0
 Variant: Pre 3.5.0
 Variant: Pre 3.19.0
 Variant: Current
-{variant:1,2,3,4}Socketed Gems are Supported by Level 18 Melee Physical Damage
-{variant:5}Socketed Gems are Supported by Level 30 Melee Physical Damage
-{variant:1,4}Socketed Gems are Supported by Level 18 Faster Attacks
-{variant:5}Socketed Gems are Supported by Level 30 Faster Attacks
-{variant:2,3}Socketed Gems are Supported by Level 12 Faster Attacks
-{variant:1,4}Socketed Gems are supported by Level 18 Blind
-{variant:5}Socketed Gems are supported by Level 30 Blind
-{variant:2,3}Socketed Gems are supported by Level 6 Blind
 {variant:1,2}15% Chance to Block Attack Damage
 {variant:3,4,5}6% Chance to Block Attack Damage
 Adds 20 to 30 Physical Damage to Attacks
@@ -913,7 +897,7 @@ Variant: Current
 {variant:2}Adds 10 to 20 Physical Damage to Attacks
 +(200-300) to Armour
 Cannot Leech when on Low Life
-If you've Warcried Recently, you and nearby allies have 20% increased Attack, Cast and Movement Speed
+If you've Warcried Recently, you and Allies within 6 metres have 20% increased Attack, Cast and Movement Speed
 ]],[[
 Devoto's Devotion
 Nightmare Bascinet
@@ -956,7 +940,7 @@ Variant: Current
 {variant:2}+300 to Accuracy Rating
 {variant:3}+500 to Accuracy Rating
 (40-60)% increased Armour and Evasion
-(20-30)% increased Rarity of Items found
++(20-30)% to Item Rarity
 +30% to Lightning Resistance
 {variant:1}0.2% of Physical Attack Damage Leeched as Mana
 {variant:2,3}0.4% of Attack Damage Leeched as Mana
@@ -985,7 +969,7 @@ Source: Drops from Crucible monsters
 +(20-30) to Strength
 +(20-30) to Dexterity
 (80-120)% increased Armour and Evasion
-(15-25)% increased Rarity of Items found
++(15-25)% to Item Rarity
 Has a Crucible Passive Skill Tree
 Crucible Passive Skill Tree is removed if this Modifier is removed
 ]],[[
@@ -1014,7 +998,7 @@ Ancient Skull
 Bone Helmet
 League: Ritual
 Implicits: 1
-Minions deal (15-20)% increased Damage
+Minions deal (20-30)% increased Damage
 (150-200)% increased Armour and Energy Shield
 Minions have (20-40)% reduced maximum Life
 Minions have (15-25)% increased Movement Speed
@@ -1044,7 +1028,6 @@ Prophet Crown
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Current
-Socketed Gems are supported by Level 20 Cast on Death
 +(10-15) to all Attributes
 20% increased Damage when on Low Life
 (60-100)% increased Armour and Energy Shield
@@ -1086,11 +1069,11 @@ Variant: Current
 Has 1 Socket
 {variant:1}+(50-100) to maximum Life
 {variant:2}+(50-175) to maximum Life
-Nearby Enemies have -10% to all Resistances
-You and Nearby Allies have 64 to 96 added Fire Damage per Red Socket
-You and Nearby Allies have 56 to 88 added Cold Damage per Green Socket
-You and Nearby Allies have 16 to 144 added Lightning Damage per Blue Socket
-You and Nearby Allies have 47 to 61 added Chaos Damage per White Socket
+Enemies within 6 metres have -10% to all Resistances
+You and Allies within 6 metres have 64 to 96 added Fire Damage per Red Socket
+You and Allies within 6 metres have 56 to 88 added Cold Damage per Green Socket
+You and Allies within 6 metres have 16 to 144 added Lightning Damage per Blue Socket
+You and Allies within 6 metres have 47 to 61 added Chaos Damage per White Socket
 ]],[[
 Geofri's Crest
 Great Crown
@@ -1135,7 +1118,7 @@ Variant: Current
 {variant:3,4}Adds 1 to 30 Lightning Damage to Spells and Attacks
 {variant:1}(40-50)% increased Armour and Energy Shield
 {variant:2,3,4}(100-150)% increased Armour and Energy Shield
-{variant:2,3,4}(10-20)% increased Rarity of Items found
+{variant:2,3,4}+(10-20)% to Item Rarity
 {variant:1}+(10-20)% to all Elemental Resistances
 {variant:1}+20% to all Elemental Resistances while on Low Life
 {variant:2,3}(10-20)% reduced Mana Cost of Skills
@@ -1231,10 +1214,10 @@ Variant: Pre 3.29.0
 Variant: Current
 +(25-30) to all Attributes
 (150-200)% increased Armour and Energy Shield
-{variant:2,3}Nearby Allies have 1% Chance to Block Attack Damage per 100 Strength you have
-{variant:1}Nearby Allies have (4-6)% increased Defences per 100 Strength you have
-Nearby Allies have +(6-8)% to Critical Strike Multiplier per 100 Dexterity you have
-Nearby Allies have (2-4)% increased Cast Speed per 100 Intelligence you have
+{variant:2,3}Allies within 6 metres have 1% Chance to Block Attack Damage per 100 Strength you have
+{variant:1}Allies within 6 metres have (4-6)% increased Defences per 100 Strength you have
+Allies within 6 metres have +(6-8)% to Critical Strike Multiplier per 100 Dexterity you have
+Allies within 6 metres have (2-4)% increased Cast Speed per 100 Intelligence you have
 {variant:1,2}2% increased Mana Reservation Efficiency of Skills per 250 total Attributes
 {variant:3}3% increased Mana Reservation Efficiency of Skills per 250 total Attributes
 ]],[[
@@ -1245,8 +1228,7 @@ Source: Obtained from divination card normal{Cursed Words}
 Variant: Pre 3.29.0
 Variant: Current
 Implicits: 1
-Minions deal (15-20)% increased Damage
-Grants Level 20 Death Wish Skill
+Minions deal (20-30)% increased Damage
 +(45-65) to maximum Life
 {variant:2}(40-60)% increased Mana Cost Efficiency of Minion Skills
 {variant:1}(20-30)% reduced Mana Cost of Minion Skills
@@ -1375,13 +1357,12 @@ Callous Mask
 +(20-40)% to Cold Resistance
 25% chance to inflict Cold Exposure on Hit
 25% chance to inflict Fire Exposure on Hit
-Nearby Enemies have 50% increased Fire and Cold Resistances
+Enemies within 3 metres have 50% increased Fire and Cold Resistances
 ]],[[
 Farrul's Bite
 Harlequin Mask
 League: Bestiary
 Source: Drops from unique{Farrul, First of the Plains}
-Grants Level 20 Aspect of the Cat Skill
 (180-220)% increased Evasion and Energy Shield
 +(25-35)% to Cold Resistance
 +1% to Critical Strike Chance while affected by Aspect of the Cat
@@ -1427,9 +1408,9 @@ Can have up to 5 Implicit Modifiers while Item has this Modifier
 {variant:1}(15-25)% increased Area of Effect
 {variant:5}(15-25)% increased Skill Effect Duration
 {variant:4}(10-15)% increased Effect of your Curses
-{variant:2}Nearby Enemies are Blinded
-{variant:6}Nearby Enemies are Crushed
-{variant:12}Nearby Enemies have Malediction
+{variant:2}Enemies within 3.5 metres are Blinded
+{variant:6}Enemies within 3 metres are Crushed
+{variant:12}Enemies within 3 metres have Malediction
 {variant:10}(10-15)% increased effect of Non-Curse Auras from your Skills
 {variant:9}(8-12)% increased Cooldown Recovery Rate
 {variant:8}+1 to Minimum Endurance, Frenzy and Power Charges
@@ -1440,7 +1421,6 @@ Gorgon's Gaze
 Source: Drops from unique{Talin, Faithbreaker} in normal{Pillars of Arun}
 Regicide Mask
 Implicits: 0
-Grants Level 20 Petrification Statue Skill
 (200-250)% increased Energy Shield
 +(60-80) to maximum Life
 (5-10)% increased Attack and Cast Speed
@@ -1476,7 +1456,6 @@ Variant: Pre 3.20.0
 Variant: Current
 {variant:1,4}+2 to Level of Socketed Curse Gems
 {variant:2,3}+1 to Level of Socketed Curse Gems
-Socketed Gems are Supported by Level 22 Blasphemy
 Socketed Curse Gems have 30% increased Reservation Efficiency
 {variant:1,2}(130-150)% increased Evasion and Energy Shield
 {variant:3,4}(90-110)% increased Evasion and Energy Shield
@@ -1493,8 +1472,8 @@ Variant: Current
 {variant:2}+(60-100) to maximum Life
 {variant:1}+(20-30) to maximum Mana
 {variant:2}+(60-100) to maximum Mana
-{variant:1}You and nearby allies gain 15% increased Damage
-{variant:2}You and nearby allies gain 50% increased Damage
+{variant:1}You and Allies within 7.5 metres gain 15% increased Damage
+{variant:2}You and Allies within 7.5 metres gain 50% increased Damage
 ]],[[
 Replica Leer Cast
 Festival Mask
@@ -1508,7 +1487,7 @@ Source: Steal from a unique{Curio Display} during a Grand Heist
 {variant:1}+(20-30) to maximum Mana
 {variant:2}+(60-100) to maximum Mana
 60% reduced Mana Regeneration Rate
-You and nearby Allies have 30% increased Mana Regeneration Rate
+You and Allies within 7.5 metres have 30% increased Mana Regeneration Rate
 ]],[[
 Malachai's Simula
 Iron Mask
@@ -1562,9 +1541,6 @@ The Tempest's Binding
 Callous Mask
 League: Harbinger
 Source: No longer obtainable
-Socketed Gems are Supported by Level 18 Ice Bite
-Socketed Gems are Supported by Level 18 Innervate
-Grants Summon Harbinger of Storms Skill
 +(100-150) to Evasion Rating
 +(40-60) to maximum Energy Shield
 +(60-80) to maximum Life
@@ -1573,9 +1549,6 @@ Grants Summon Harbinger of Storms Skill
 The Tempest's Liberation
 Callous Mask
 Requires Level 60
-Socketed Gems are Supported by Level 18 Ice Bite
-Socketed Gems are Supported by Level 18 Innervate
-Grants Summon Greater Harbinger of Storms Skill
 +(100-150) to Evasion Rating
 +(40-60) to maximum Energy Shield
 +(60-80) to maximum Life

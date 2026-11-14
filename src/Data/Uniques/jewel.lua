@@ -1083,8 +1083,8 @@ Limited to: 1
 Radius: Medium
 (10-15)% increased Global Physical Damage
 With at least 40 Strength in Radius, Hits with Cleave Fortify
-With at least 40 Strength in Radius, Cleave has +0.1 metres to Radius per Nearby
-Enemy, up to a maximum of +1 metre
+With at least 40 Strength in Radius, Cleave has +0.1 metres to Radius per
+Enemy within 2 metres, up to a maximum of +1 metre
 ]],[[
 Pitch Darkness
 Viridian Jewel
@@ -1104,7 +1104,7 @@ Variant: Pre 3.3.0
 Variant: Current
 Limited to: 2
 Radius: Medium
-{variant:1}(4-12)% increased Global Physical Damage
+{variant:1}(4-12)% increased Physical Damage
 {variant:2,3}(8-12)% increased Global Physical Damage
 {variant:2}With at least 40 Strength in Radius, Ground Slam has a 25% chance
 {variant:2}to grant an Endurance Charge when you Stun an Enemy
@@ -1153,8 +1153,7 @@ Variant: Current
 Radius: Medium
 {variant:1}(5-15)% increased Cold Damage
 {variant:2}(10-15)% increased Cold Damage
-With at least 40 Strength in Radius, 20% increased
-Rarity of Items dropped by Enemies Shattered by Glacial Hammer
+With at least 40 Strength in Radius, +20% to Rarity of Items dropped by Enemies Shattered by Glacial Hammer
 ]],[[
 Spirit Guards
 Viridian Jewel
@@ -1229,9 +1228,9 @@ Variant: Current
 Limited to: 1
 Radius: Medium
 (8-15)% increased Armour
-{variant:1}With at least 40 Strength in Radius, Hits with Vigilant Strike Fortify you and Nearby Allies for 3 seconds
-{variant:2}With at least 40 Strength in Radius, Hits with Vigilant Strike Fortify you and Nearby Allies for 12 seconds
-{variant:3}With at least 40 Strength in Radius, Hits with Vigilant Strike Fortify you and Nearby Allies for 8 seconds
+{variant:1}With at least 40 Strength in Radius, Hits with Vigilant Strike Fortify you and Allies within a 10 metre base radius for 3 seconds
+{variant:2}With at least 40 Strength in Radius, Hits with Vigilant Strike Fortify you and Allies within a 10 metre base radius for 12 seconds
+{variant:3}With at least 40 Strength in Radius, Hits with Vigilant Strike Fortify you and Allies within a 10 metre base radius for 8 seconds
 ]],[[
 Violent Dead
 Cobalt Jewel

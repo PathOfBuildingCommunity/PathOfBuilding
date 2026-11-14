@@ -13,7 +13,6 @@ Variant: Current
 Source: Vendor Recipe
 Implicits: 1
 {variant:3,4,5}+(15-25)% to Global Critical Strike Multiplier
-{variant:4,5}Grants Level 30 Dash Skill
 {variant:1}Adds (60-70) to (180-210) Physical Damage
 {variant:2,3,4}Adds (95-115) to (240-265) Physical Damage
 {variant:5}Adds (80-100) to (200-225) Physical Damage
@@ -125,8 +124,8 @@ Implicits: 1
 {variant:1,2,3,4,5}(100-125)% increased Physical Damage
 {variant:6,7}(90-105)% increased Physical Damage
 10% increased Attack Speed
-{variant:1,2,4}+100% to Global Critical Strike Multiplier
-{variant:3}+150% to Global Critical Strike Multiplier
+{variant:1,2,4}+100% to Critical Strike Multiplier
+{variant:3}+150% to Critical Strike Multiplier
 {variant:5,6,7}+50% to Global Critical Strike Multiplier
 {variant:1,2,3,4,5,6}Bow Attacks fire an additional Arrow
 {variant:7}Bow Attacks fire 2 additional Arrows
@@ -147,8 +146,8 @@ Implicits: 1
 {variant:6}(90-105)% increased Physical Damage
 Adds (10-20) to (30-35) Physical Damage
 10% increased Attack Speed
-{variant:1,2,4}+100% to Global Critical Strike Multiplier
-{variant:3}+150% to Global Critical Strike Multiplier
+{variant:1,2,4}+100% to Critical Strike Multiplier
+{variant:3}+150% to Critical Strike Multiplier
 {variant:5,6}+50% to Global Critical Strike Multiplier
 {variant:1,2,3,4,5}Bow Attacks fire 2 additional Arrows
 {variant:6}Bow Attacks fire an additional Arrow
@@ -371,7 +370,6 @@ Replica Quill Rain
 Short Bow
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Socketed Gems are Supported by Level 1 Arrow Nova
 +(10-20) to Dexterity
 100% increased Physical Damage
 (25-30)% increased Attack Speed
@@ -387,7 +385,6 @@ Variant: Pre 3.5.0
 Variant: Pre 3.11.0
 Variant: Pre 3.17.0
 Variant: Current
-{variant:4,5,6}Socketed Gems are Supported by Level 20 Greater Volley
 {variant:1}(50-70)% increased Physical Damage
 {variant:2,3}(40-50)% increased Physical Damage
 {variant:4,5,6}(50-75)% increased Physical Damage
@@ -520,9 +517,9 @@ Implicits: 2
 {variant:5,6}(30-40)% increased Critical Strike Chance
 {variant:1,2}25% increased Quantity of Items Dropped by Slain Frozen Enemies
 {variant:3,4,5}15% increased Quantity of Items Dropped by Slain Frozen Enemies
-{variant:1,2}50% increased Rarity of Items Dropped by Slain Shocked Enemies
-{variant:3,4,5,6}30% increased Rarity of Items Dropped by Slain Shocked Enemies
-{variant:6}30% increased Rarity of Items Dropped by Frozen Enemies
+{variant:1,2}+50% to Rarity of Items Dropped by Slain Shocked Enemies
+{variant:3,4,5,6}+30% to Rarity of Items Dropped by Slain Shocked Enemies
+{variant:6}+30% to Rarity of Items Dropped by Frozen Enemies
 ]],[[
 Replica Windripper
 Imperial Bow
@@ -563,7 +560,6 @@ Variant: Pre 3.9.0
 Variant: Pre 3.17.0
 Variant: Current
 Requires Level 64
-{variant:3,4}Socketed Gems are Supported by Level 20 Ignite Proliferation
 {variant:1,2,3}(250-300)% increased Physical Damage
 {variant:4}(165-195)% increased Physical Damage
 50% of Physical Damage Converted to Fire Damage

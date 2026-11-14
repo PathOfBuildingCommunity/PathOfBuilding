@@ -10,7 +10,6 @@ Variant: Current
 Implicits: 2
 {variant:1}Grants 21 Life per Enemy Hit
 {variant:2}Grants 44 Life per Enemy Hit
-Socketed Gems are Supported by Level 12 Fortify
 15% Chance to Block Attack Damage
 (100-120)% increased Physical Damage
 +110 to Evasion Rating
@@ -24,7 +23,6 @@ League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 1
 Grants 44 Life per Enemy Hit
-Socketed Gems are Supported by Level 12 Cast when Damage Taken
 15% Chance to Block Attack Damage
 (100-120)% increased Physical Damage
 +(30-50) to maximum Life
@@ -269,7 +267,7 @@ Implicits: 2
 (75-100)% increased Physical Damage
 20% increased Attack Speed
 25% increased Critical Strike Chance
-{variant:1}+25% to Global Critical Strike Multiplier
+{variant:1}+25% to Critical Strike Multiplier
 {variant:2,3,4}+40% to Global Critical Strike Multiplier
 (10-20)% of Physical Damage Converted to Chaos Damage
 {variant:1,2,3}Poisonous Hit
@@ -286,8 +284,6 @@ Implicits: 2
 {variant:1}Grants 21 Life per Enemy Hit
 {variant:2,3,4}Grants 44 Life per Enemy Hit
 +1 to Level of Socketed Dexterity Gems
-{variant:3}Socketed Gems are Supported by Level 10 Faster Attacks
-{variant:4}Socketed Gems are Supported by Level 15 Faster Attacks
 {variant:1,2}(100-120)% increased Physical Damage
 {variant:3,4}(160-180)% increased Physical Damage
 (10-15)% increased Attack Speed

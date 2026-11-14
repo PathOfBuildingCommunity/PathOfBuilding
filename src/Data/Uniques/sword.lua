@@ -44,7 +44,7 @@ Variant: Pre 2.6.0
 Variant: Pre 3.7.0
 Variant: Current
 Implicits: 2
-{variant:1,2}18% increased Global Accuracy Rating
+{variant:1,2}18% increased Accuracy Rating
 {variant:3,4}+475 to Accuracy Rating
 {variant:1}Adds (15-30) to (35-50) Physical Damage
 {variant:2}Adds (20-40) to (55-70) Physical Damage
@@ -78,7 +78,7 @@ Variant: Pre 3.23.0
 Variant: Pre 3.26.0
 Variant: Current
 Implicits: 2
-{variant:1,2}18% increased Global Accuracy Rating
+{variant:1,2}18% increased Accuracy Rating
 {variant:3,4,5,6}40% increased Global Accuracy Rating
 +10 to Intelligence
 {variant:1}100% increased Physical Damage
@@ -113,17 +113,17 @@ Variant: Pre 2.2.0
 Variant: Pre 2.6.0
 Variant: Current
 Implicits: 2
-{variant:1,2}18% increased Global Accuracy Rating
+{variant:1,2}18% increased Accuracy Rating
 {variant:3}+190 to Accuracy Rating
 Uses both hand slots
 (250-300)% increased Physical Damage
 (90-110)% increased Critical Strike Chance
-{variant:1}+(15-20)% to Global Critical Strike Multiplier
+{variant:1}+(15-20)% to Critical Strike Multiplier
 {variant:2,3}+(20-30)% to Global Critical Strike Multiplier
 +(40-50)% to Fire Resistance
 Cannot be Ignited
 100% of Physical Damage Converted to Fire Damage
-Ignites you inflict deal Damage 50% faster
+Ignites you inflict deal Damage 50% Faster
 You can only deal Damage with this Weapon or Ignite
 ]],[[
 The Goddess Unleashed
@@ -133,7 +133,7 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 51
 Implicits: 2
-{variant:1}18% increased Global Accuracy Rating
+{variant:1}18% increased Accuracy Rating
 {variant:2}+475 to Accuracy Rating
 Uses both hand slots
 Adds (3-6) to (33-66) Physical Damage
@@ -141,7 +141,7 @@ Adds (3-6) to (33-66) Physical Damage
 33% increased Ignite Duration on Enemies
 Gain (66-99)% of Sword Physical Damage as Extra Fire Damage
 Gain Her Blessing for 3 seconds when you Ignite an Enemy
-33% chance to Blind nearby Enemies when gaining Her Blessing
+33% chance to Blind Enemies within 1.2 metres when gaining Her Blessing
 100% chance to Avoid being Ignited, Chilled or Frozen with Her Blessing
 20% increased Attack and Movement Speed with Her Blessing
 ]],[[
@@ -168,7 +168,7 @@ Variant: Pre 3.0.0
 Variant: Pre 3.11.0
 Variant: Current
 Implicits: 2
-{variant:1,2,3}18% increased Global Accuracy Rating
+{variant:1,2,3}18% increased Accuracy Rating
 {variant:4,5,6}40% increased Global Accuracy Rating
 {variant:1,2}Adds 1 to (500-600) Lightning Damage
 {variant:3,4,5,6}Adds 1 to (550-650) Lightning Damage
@@ -185,7 +185,7 @@ Corsair Sword
 Variant: Pre 2.6.0
 Variant: Current
 Implicits: 2
-{variant:1}18% increased Global Accuracy Rating
+{variant:1}18% increased Accuracy Rating
 {variant:2}40% increased Global Accuracy Rating
 {variant:1}(60-80)% increased Physical Damage
 {variant:2}(80-95)% increased Physical Damage
@@ -202,7 +202,7 @@ Elder Sword
 Variant: Pre 2.6.0
 Variant: Current
 Implicits: 2
-{variant:1}18% increased Global Accuracy Rating
+{variant:1}18% increased Accuracy Rating
 {variant:2}+330 to Accuracy Rating
 (100-140)% increased Physical Damage
 (17-25)% increased Attack Speed
@@ -245,9 +245,8 @@ Elegant Sword
 Variant: Pre 2.6.0
 Variant: Current
 Implicits: 2
-{variant:1}18% increased Global Accuracy Rating
+{variant:1}18% increased Accuracy Rating
 {variant:2}+190 to Accuracy Rating
-Socketed Gems are supported by Level 1 Multistrike
 (60-80)% increased Physical Damage
 Adds (5-8) to (10-14) Physical Damage
 (10-15)% increased Attack Speed
@@ -262,7 +261,7 @@ Implicits: 1
 (100-140)% increased Physical Damage
 (25-35)% increased Attack Speed
 Cannot be Poisoned
-You can have an additional Tincture active
+You can have 2 additional Tinctures active
 10% chance to remove 1 Mana Burn on Kill
 ]],[[
 Oni-Goroshi
@@ -282,7 +281,7 @@ Sabre
 Variant: Pre 2.6.0
 Variant: Current
 Implicits: 2
-{variant:1}18% increased Global Accuracy Rating
+{variant:1}18% increased Accuracy Rating
 {variant:2}40% increased Global Accuracy Rating
 (20-50)% increased Physical Damage
 Adds (3-4) to (5-8) Physical Damage
@@ -300,7 +299,7 @@ Variant: Pre 3.7.0
 Variant: Pre 3.29.0
 Variant: Current
 Implicits: 2
-{variant:1,2}18% increased Global Accuracy Rating
+{variant:1,2}18% increased Accuracy Rating
 {variant:3,4,5}40% increased Global Accuracy Rating
 {variant:1}+10% Chance to Block Attack Damage while Dual Wielding
 {variant:2,3,4,5}+8% Chance to Block Attack Damage while Dual Wielding
@@ -322,7 +321,7 @@ Variant: Pre 3.5.0
 Variant: Pre 3.11.0
 Variant: Current
 Implicits: 2
-{variant:1}18% increased Global Accuracy Rating
+{variant:1}18% increased Accuracy Rating
 {variant:2,3,4}40% increased Global Accuracy Rating
 {variant:1,2}Adds (65-75) to (110-130) Physical Damage
 {variant:3,4}Adds (90-110) to (145-170) Physical Damage
@@ -341,7 +340,7 @@ Variant: Pre 2.6.0
 Variant: Pre 3.7.0
 Variant: Current
 Implicits: 2
-{variant:1,2}18% increased Global Accuracy Rating
+{variant:1,2}18% increased Accuracy Rating
 {variant:3,4}+460 to Accuracy Rating
 {variant:1}Adds (15-24) to (25-35) Physical Damage
 {variant:2,3}Adds (19-28) to (31-40) Physical Damage
@@ -365,7 +364,7 @@ Rusted Sword
 Variant: Pre 2.6.0
 Variant: Current
 Implicits: 2
-{variant:1}18% increased Global Accuracy Rating
+{variant:1}18% increased Accuracy Rating
 {variant:2}40% increased Global Accuracy Rating
 100% increased Damage when on Low Life
 50% increased Physical Damage
@@ -382,7 +381,7 @@ Variant: Pre 3.7.0
 Variant: Current
 Requires Level 61
 Implicits: 2
-{variant:1}18% increased Global Accuracy Rating
+{variant:1}18% increased Accuracy Rating
 {variant:2,3}40% increased Global Accuracy Rating
 100% increased Damage when on Low Life
 50% increased Physical Damage
@@ -402,7 +401,7 @@ Variant: Pre 3.11.0
 Variant: Pre 3.25.0
 Variant: Current
 Implicits: 2
-{variant:1}18% increased Global Accuracy Rating
+{variant:1}18% increased Accuracy Rating
 {variant:2,3,4}40% increased Global Accuracy Rating
 +10% Chance to Block Attack Damage while Dual Wielding
 Adds (60-80) to (150-180) Physical Damage
@@ -418,7 +417,6 @@ League: Harbinger
 Source: No longer obtainable
 Implicits: 1
 40% increased Global Accuracy Rating
-Grants Summon Harbinger of the Arcane Skill
 Trigger Level 20 Storm Cascade when you Attack
 (75-90)% increased Spell Damage
 (140-160)% increased Physical Damage
@@ -445,7 +443,6 @@ The Surging Thoughts
 Legion Sword
 Implicits: 1
 40% increased Global Accuracy Rating
-Grants Summon Greater Harbinger of the Arcane Skill
 Trigger Level 20 Storm Cascade when you Attack
 (75-90)% increased Spell Damage
 (140-160)% increased Physical Damage
@@ -473,7 +470,7 @@ Variant: Pre 2.6.0
 Variant: Pre 3.29.0
 Variant: Current
 Implicits: 2
-{variant:1}18% increased Global Accuracy Rating
+{variant:1}18% increased Accuracy Rating
 {variant:2,3}40% increased Global Accuracy Rating
 Adds (75-92) to (125-154) Physical Damage
 {variant:1,2}(15-25)% increased Critical Strike Chance
@@ -514,9 +511,8 @@ Variant: Current
 League: Breach
 Requires Level 69
 Implicits: 2
-{variant:1}18% increased Global Accuracy Rating
+{variant:1}18% increased Accuracy Rating
 {variant:2,3,4}40% increased Global Accuracy Rating
-{variant:4}Grants Level 25 Envy Skill
 {variant:1,2,3}+(10-20) to all Attributes
 {variant:1,2,3}Minions deal (20-30)% increased Damage
 {variant:1,2,3}Minions have +17% to Chaos Resistance
@@ -538,12 +534,10 @@ Variant: Current
 League: Breach
 Requires Level 69
 Implicits: 2
-{variant:1}18% increased Global Accuracy Rating
+{variant:1}18% increased Accuracy Rating
 {variant:2,3,4,5}40% increased Global Accuracy Rating
-{variant:1,2,3}Grants Level 15 Envy Skill
-{variant:4,5}Grants Level 25 Envy Skill
 {variant:1,2,3}Minions deal (30-40)% increased Damage
-{variant:4}Minions deal (60-80)% increased Damage
+{variant:4}Minions deal (80-100)% increased Damage
 Minions have +29% to Chaos Resistance
 {variant:1,2}Minions Poison Enemies on Hit
 {variant:3,4,5}Minions have 60% chance to Poison Enemies on Hit
@@ -593,7 +587,7 @@ War Sword
 Variant: Pre 2.6.0
 Variant: Current
 Implicits: 2
-{variant:1}18% increased Global Accuracy Rating
+{variant:1}18% increased Accuracy Rating
 {variant:2}40% increased Global Accuracy Rating
 Adds (5-8) to (15-20) Physical Damage
 (8-14)% increased Attack Speed
@@ -623,7 +617,7 @@ Variant: Pre 2.6.0
 Variant: Pre 3.20.0
 Variant: Current
 Implicits: 2
-{variant:1}18% increased Global Accuracy Rating
+{variant:1}18% increased Accuracy Rating
 {variant:2,3}+460 to Accuracy Rating
 {variant:1,2}(40-60)% increased Physical Damage
 {variant:3}(80-100)% increased Physical Damage
@@ -639,11 +633,11 @@ Variant: Pre 2.2.0
 Variant: Pre 2.6.0
 Variant: Current
 Implicits: 3
-{variant:1}+20% to Global Critical Strike Multiplier
-{variant:2}+30% to Global Critical Strike Multiplier
+{variant:1}+20% to Critical Strike Multiplier
+{variant:2}+30% to Critical Strike Multiplier
 {variant:3}+25% to Global Critical Strike Multiplier
 (120-150)% increased Physical Damage
-20% reduced Rarity of Items found
+-20% to Item Rarity
 +(40-60)% to all Elemental Resistances
 Grants 3 Life per Enemy Hit
 ]],[[
@@ -654,8 +648,8 @@ Variant: Pre 2.2.0
 Variant: Pre 2.6.0
 Variant: Current
 Implicits: 3
-{variant:1}+20% to Global Critical Strike Multiplier
-{variant:2}+30% to Global Critical Strike Multiplier
+{variant:1}+20% to Critical Strike Multiplier
+{variant:2}+30% to Critical Strike Multiplier
 {variant:3}+25% to Global Critical Strike Multiplier
 +30 to Strength
 (140-160)% increased Physical Damage
@@ -669,7 +663,7 @@ Jewelled Foil
 Variant: Pre 2.6.0
 Variant: Current
 Implicits: 2
-{variant:1}+30% to Global Critical Strike Multiplier
+{variant:1}+30% to Critical Strike Multiplier
 {variant:2}+25% to Global Critical Strike Multiplier
 Trigger a Socketed Cold Spell on Melee Critical Strike, with a 0.25 second Cooldown
 +257 Intelligence Requirement
@@ -684,7 +678,7 @@ Estoc
 Variant: Pre 2.6.0
 Variant: Current
 Implicits: 2
-{variant:1}+30% to Global Critical Strike Multiplier
+{variant:1}+30% to Critical Strike Multiplier
 {variant:2}+25% to Global Critical Strike Multiplier
 Adds (30-38) to (40-50) Physical Damage
 Adds (30-38) to (40-50) Cold Damage
@@ -697,7 +691,7 @@ Antique Rapier
 Variant: Pre 2.6.0
 Variant: Current
 Implicits: 2
-{variant:1}+30% to Global Critical Strike Multiplier
+{variant:1}+30% to Critical Strike Multiplier
 {variant:2}+25% to Global Critical Strike Multiplier
 Adds 1 to (45-55) Lightning Damage
 (16-22)% increased Attack Speed
@@ -711,8 +705,8 @@ Variant: Pre 2.2.0
 Variant: Pre 2.6.0
 Variant: Current
 Implicits: 3
-{variant:1}+20% to Global Critical Strike Multiplier
-{variant:2}+30% to Global Critical Strike Multiplier
+{variant:1}+20% to Critical Strike Multiplier
+{variant:2}+30% to Critical Strike Multiplier
 {variant:3}+25% to Global Critical Strike Multiplier
 No Physical Damage
 Adds 1 to (40-50) Lightning Damage
@@ -739,8 +733,8 @@ Variant: Pre 2.2.0
 Variant: Pre 2.6.0
 Variant: Current
 Implicits: 3
-{variant:1}+20% to Global Critical Strike Multiplier
-{variant:2}+30% to Global Critical Strike Multiplier
+{variant:1}+20% to Critical Strike Multiplier
+{variant:2}+30% to Critical Strike Multiplier
 {variant:3}+25% to Global Critical Strike Multiplier
 +1 to Level of Socketed Melee Gems
 Uses both hand slots
@@ -749,7 +743,7 @@ Adds 3 to 7 Fire Damage
 20% increased Attack Speed
 30% increased Global Critical Strike Chance
 +(20-40) to Evasion Rating
-20% reduced Rarity of Items found
+-20% to Item Rarity
 30% increased Movement Speed when on Low Life
 ]],
 -- Weapon: Two Handed Sword
@@ -761,8 +755,8 @@ Variant: Pre 3.11.0
 Variant: Pre 3.17.0
 Variant: Current
 Implicits: 3
-{variant:1}18% increased Global Accuracy Rating
-{variant:2}40% increased Global Accuracy Rating
+{variant:1}18% increased Accuracy Rating
+{variant:2}40% increased Accuracy Rating
 {variant:3,4}60% increased Global Accuracy Rating
 {variant:1,2}(160-190)% increased Physical Damage
 {variant:3,4}(130-160)% increased Physical Damage
@@ -780,7 +774,7 @@ Source: No longer obtainable
 Variant: Pre 3.11.0
 Variant: Current
 Implicits: 2
-{variant:1}40% increased Global Accuracy Rating
+{variant:1}40% increased Accuracy Rating
 {variant:2}60% increased Global Accuracy Rating
 {variant:1}(160-190)% increased Physical Damage
 {variant:2}(130-160)% increased Physical Damage
@@ -801,7 +795,7 @@ Variant: Pre 3.11.0
 Variant: Current
 Implicits: 3
 {variant:5}+50 to Strength and Dexterity
-{variant:1}18% increased Global Accuracy Rating
+{variant:1}18% increased Accuracy Rating
 {variant:2,3,4}+470 to Accuracy Rating
 Socketed Melee Gems have 15% increased Area of Effect
 {variant:1,2,3}Socketed Red Gems get 10% Physical Damage as Extra Fire Damage
@@ -833,8 +827,8 @@ Variant: Pre 3.11.0
 Variant: Pre 3.11.1
 Variant: Current
 Implicits: 3
-{variant:1}18% increased Global Accuracy Rating
-{variant:2}40% increased Global Accuracy Rating
+{variant:1}18% increased Accuracy Rating
+{variant:2}40% increased Accuracy Rating
 {variant:3,4}60% increased Global Accuracy Rating
 +1 to Level of Socketed Skill Gems
 {variant:2,3,4}(40-60)% increased Physical Damage
@@ -864,10 +858,9 @@ Variant: Pre 2.6.0
 Variant: Pre 3.11.0
 Variant: Current
 Implicits: 3
-{variant:1}18% increased Global Accuracy Rating
-{variant:2}40% increased Global Accuracy Rating
+{variant:1}18% increased Accuracy Rating
+{variant:2}40% increased Accuracy Rating
 {variant:3}60% increased Global Accuracy Rating
-Socketed Gems are Supported by Level 1 Lifetap
 Adds (90-115) to (230-260) Physical Damage
 (40-50)% increased Critical Strike Chance
 Enemies you Attack Reflect 100 Physical Damage to you
@@ -879,7 +872,7 @@ Variant: Pre 2.6.0
 Variant: Pre 3.11.0
 Variant: Current
 Implicits: 3
-{variant:1}18% increased Global Accuracy Rating
+{variant:1}18% increased Accuracy Rating
 {variant:3}+25% to Global Critical Strike Multiplier
 {variant:2}+435 to Accuracy Rating
 {variant:1,2}(270-320)% increased Physical Damage
@@ -934,7 +927,7 @@ Variant: Pre 3.8.0
 Variant: Pre 3.26.0
 Variant: Current
 Implicits: 2
-{variant:1}18% increased Global Accuracy Rating
+{variant:1}18% increased Accuracy Rating
 {variant:2,3,4}+185 to Accuracy Rating
 25% increased Strength Requirement
 {variant:1,2}Minions have (10-15)% increased maximum Life
@@ -957,7 +950,7 @@ Variant: Pre 3.8.0
 Variant: Current
 Requires Level 38
 Implicits: 2
-{variant:1}18% increased Global Accuracy Rating
+{variant:1}18% increased Accuracy Rating
 {variant:2,3}+185 to Accuracy Rating
 25% increased Strength Requirement
 25% increased Strength Requirement
@@ -988,7 +981,7 @@ Variant: Pre 3.7.0
 Variant: Pre 3.19.0
 Variant: Current
 Implicits: 2
-{variant:1,2}18% increased Global Accuracy Rating
+{variant:1,2}18% increased Accuracy Rating
 {variant:3,4,5}+305 to Accuracy Rating
 (120-150)% increased Physical Damage
 {variant:1}10% increased Attack Speed
@@ -1005,8 +998,8 @@ Variant: Pre 3.11.0
 Variant: Current
 Requires Level 14
 Implicits: 3
-{variant:1}18% increased Global Accuracy Rating
-{variant:2}40% increased Global Accuracy Rating
+{variant:1}18% increased Accuracy Rating
+{variant:2}40% increased Accuracy Rating
 {variant:3}60% increased Global Accuracy Rating
 (80-100)% increased Physical Damage
 Adds 35 to 70 Cold Damage
@@ -1038,7 +1031,7 @@ Variant: Pre 2.6.0
 Variant: Pre 3.11.0
 Variant: Current
 Implicits: 2
-{variant:1}18% increased Global Accuracy Rating
+{variant:1}18% increased Accuracy Rating
 {variant:2,3}+360 to Accuracy Rating
 {variant:1}(120-180)% increased Physical Damage
 {variant:2}(220-260)% increased Physical Damage
