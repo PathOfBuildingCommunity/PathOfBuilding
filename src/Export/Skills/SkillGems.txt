@@ -534,6 +534,7 @@ Arc                                          		----		Arc
 Arc of Oscillating                           		----		ArcAltY
 Arc of Surging                               		----		ArcAltX
 Arcane Cloak                                 		----		ArcaneCloak
+Arcane Link                                  		----		ArcaneLink
 Arcanist Brand                               		----		BrandSupport	SupportBrandSupport
 Armageddon Brand                             		----		ArmageddonBrand
 Armageddon Brand of Recall                   		----		ArmageddonBrandAltY
@@ -594,6 +595,7 @@ Eye of Winter of Finality                    		----		EyeOfWinterAltX
 Eye of Winter of Transience                  		----		EyeOfWinterAltY
 Fire Weapon                                  		----		FireWeapon
 Fireball                                     		----		Fireball
+Fireball of Radiation                        		----		FireballAltX
 Firestorm                                    		----		Firestorm
 Firestorm of Meteors                         		----		FirestormAltX
 Firestorm of Pelting                         		----		FirestormAltY
@@ -897,6 +899,18 @@ Vaal Breach                                  		----		VaalBreach
 Wand Teleport                                		----		WandTeleport
 
 						--------- Support Other ---------
+Constriction Support                         		----		SupportConstriction
+Destitution Support                          		----		SupportDestitution
+Diminishment Support                         		----		SupportDiminishment
+Disempower Support                           		----		SupportDisempower
 Eclipse Support                              		----		SupportEclipse
+Encumbrance Support                          		----		SupportEncumbrance
+Impotence Support                            		----		SupportImpotence
+Lethargy Support                             		----		SupportLethargy
+Mediocrity Support                           		----		SupportMediocrity
+Nullification Support                        		----		SupportNullification
+Penance Support                              		----		SupportPenance
+Poverty Support                              		----		SupportPoverty
+Taxation Support                             		----		SupportTaxation
 Vaal Soul Harvesting                         		----		SupportVaalSoulHarvesting
 

@@ -56,7 +56,8 @@ local function parseStatFile(target, order, fileName)
 								limit[1] = "!"
 								limit[2] = tonumber(negate)
 							else
-								limit[1], limit[2] = statLimit:match("([%d%-#]+)|([%d%-#]+)")
+								-- 3.30 stat_descriptions has the typo "1|99#"
+								limit[1], limit[2] = statLimit:gsub("(%d)#", "%1"):match("([%d%-#]+)|([%d%-#]+)")
 								limit[1] = tonumber(limit[1]) or limit[1]
 								limit[2] = tonumber(limit[2]) or limit[2]
 							end
@@ -170,6 +171,38 @@ end
 
 for k, v in pairs(nk) do
 	print("'"..k.."' = '"..v.."'")
+end
+
+-- 3.30 replaced the per-value descriptions of these stats with formatter functions. The stat value is a row number in these tables
+local formatterNames
+function getDescriptionFormatterNames()
+	if formatterNames then
+		return formatterNames
+	end
+	local function rowNames(datName, getName)
+		local names = { }
+		for row in dat(datName):Rows() do
+			table.insert(names, getName(row))
+		end
+		return names
+	end
+	local pearlSlots = { }
+	for row in dat("ClientStrings"):Rows() do
+		if row.Id:match("^PelagicPearlSlotType") then
+			table.insert(pearlSlots, row.Text)
+		end
+	end
+	formatterNames = {
+		passive_jewel_radius = rowNames("PassiveJewelRadii", function(row) return row.Name.Text end),
+		fishing_lure_type = rowNames("FishingLureTypes", function(row) return row.Name end),
+		fishing_hook_type = rowNames("FishingHookTypes", function(row) return row.Name end),
+		pelagic_pearl_slot = pearlSlots,
+		shaper_apparition_ability = rowNames("ShaperApparitionAbility", function(row) return row.Name end),
+		minion_doubling_type = rowNames("MinionDoublingStatTypes", function(row) return row.Name end),
+		atlas_exile_citadel_index = rowNames("AtlasExiles", function(row) return row.CitadelName end),
+		elder_guardian_index = rowNames("ElderGuardians", function(row) return row.Name end),
+	}
+	return formatterNames
 end
 
 local function matchLimit(lang, val)
@@ -363,6 +396,11 @@ function describeStats(stats)
 					val[spec.v].min = ItemClasses[val[spec.v].min].Name
 					val[spec.v].max = ItemClasses[val[spec.v].max].Name
 					val[spec.v].fmt = "s"
+				elseif getDescriptionFormatterNames()[spec.k] then
+					-- Ranges describe the lowest value, as the per-value descriptions did before 3.30
+					val[spec.v].min = getDescriptionFormatterNames()[spec.k][val[spec.v].min] or val[spec.v].min
+					val[spec.v].max = val[spec.v].min
+					val[spec.v].fmt = "s"
 				elseif spec.k == "multiplicative_damage_modifier" then
 					val[spec.v].min = 100 + val[spec.v].min
 					val[spec.v].max = 100 + val[spec.v].max
@@ -467,7 +505,8 @@ function describeScalability(fileName)
 		local scalability = {}
 		if statDescription.stats then
 			for i, stat in ipairs(statDescription.stats) do
-				table.insert(scalability, stats:GetRow("Id", stat).IsScalable)
+				-- assume unscalable for invalid reference where ID doesn't exist
+				table.insert(scalability, stats:GetRow("Id", stat)?.IsScalable or false)
 			end
 			for _, wordings in ipairs(statDescription[1]) do
 				local wordingFormats = {}
