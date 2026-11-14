@@ -2321,6 +2321,59 @@ function calcs.buildDefenceEstimations(env, actor)
 		end
 	end
 
+	-- Self-inflicted degens (eg. Righteous Fire). Calculated before the pools so energy shield depletion can be determined
+	output.TotalBuildDegen = 0
+	for _, damageType in ipairs(dmgTypeList) do
+		local baseVal = modDB:Sum("BASE", nil, damageType.."Degen")
+		if baseVal > 0 then
+			for damageConvertedType, convertPercent in pairs(actor.damageOverTimeShiftTable[damageType]) do
+				if convertPercent > 0 then
+					local total = baseVal * (convertPercent / 100) * output[damageConvertedType.."TakenDotMult"]
+					output[damageConvertedType.."BuildDegen"] = (output[damageConvertedType.."BuildDegen"] or 0) + total
+					output.TotalBuildDegen = output.TotalBuildDegen + total
+					if breakdown then
+						breakdown.TotalBuildDegen = breakdown.TotalBuildDegen or { 
+							rowList = { },
+							colList = {
+								{ label = "Base Type", key = "type" },
+								{ label = "Final Type", key = "type2" },
+								{ label = "Base", key = "base" },
+								{ label = "Taken As Percent", key = "conv" },
+								{ label = "Multiplier", key = "mult" },
+								{ label = "Total", key = "total" },
+							}
+						}
+						t_insert(breakdown.TotalBuildDegen.rowList, {
+							type = damageType,
+							type2 = damageConvertedType,
+							base = s_format("%.1f", baseVal),
+							conv = s_format("x %.2f%%", convertPercent),
+							mult = s_format("x %.2f", output[damageConvertedType.."TakenDotMult"]),
+							total = s_format("%.1f", total),
+						})
+						breakdown[damageConvertedType.."BuildDegen"] = breakdown[damageConvertedType.."BuildDegen"] or { 
+							rowList = { },
+							colList = {
+								{ label = "Base Type", key = "type" },
+								{ label = "Base", key = "base" },
+								{ label = "Taken As Percent", key = "conv" },
+								{ label = "Multiplier", key = "mult" },
+								{ label = "Total", key = "total" },
+							}
+						}
+						t_insert(breakdown[damageConvertedType.."BuildDegen"].rowList, {
+							type = damageType,
+							base = s_format("%.1f", baseVal),
+							conv = s_format("x %.2f%%", convertPercent),
+							mult = s_format("x %.2f", output[damageConvertedType.."TakenDotMult"]),
+							total = s_format("%.1f", total),
+						})
+					end
+				end
+			end
+		end
+	end
+
 	-- Energy Shield bypass
 	output.AnyBypass = false
 	output.MinimumBypass = 100
@@ -2350,6 +2403,39 @@ function calcs.buildDefenceEstimations(env, actor)
 	output.OnlySharedMindOverMatter = false
 	output.AnySpecificMindOverMatter = false
 	output["sharedMindOverMatter"] = m_min(modDB:Sum("BASE", nil, "DamageTakenFromManaBeforeLife"), 100)
+
+	-- Energy Shield depleted by self-inflicted degens
+	-- Degens (eg. Righteous Fire) are taken from energy shield before life. If energy shield regeneration can't keep up,
+	-- energy shield is drained to 0 and stays there while the degen is active, so it can't absorb hits
+	output.EnergyShieldDepletedByDegen = false
+	if output.TotalBuildDegen > 0 and output.EnergyShieldRecoveryCap > 0 and not env.configInput.DisableEHPDegenEnergyShieldDepletion then
+		local energyShieldDegen = 0
+		for _, damageType in ipairs(dmgTypeList) do
+			if output[damageType.."BuildDegen"] then
+				local energyShieldPortion = 1 - output[damageType.."EnergyShieldBypass"] / 100
+				if modDB:Flag(nil, "EnergyShieldProtectsMana") then
+					-- Eldritch Battery: energy shield only takes the part of the degen taken from mana
+					local takenFromMana = m_min(modDB:Sum("BASE", nil, damageType.."DamageTakenFromManaBeforeLife"), 100 - output["sharedMindOverMatter"]) + output["sharedMindOverMatter"]
+					energyShieldPortion = energyShieldPortion * takenFromMana / 100
+				end
+				energyShieldDegen = energyShieldDegen + output[damageType.."BuildDegen"] * energyShieldPortion
+			end
+		end
+		if energyShieldDegen > output.EnergyShieldRegenRecovery then
+			output.EnergyShieldDepletedByDegen = true
+			if breakdown then
+				breakdown.EnergyShieldRecoveryCap = {
+					s_format("%.1f ^8(energy shield degen)", energyShieldDegen),
+					s_format("> %.1f ^8(energy shield regen)", output.EnergyShieldRegenRecovery),
+					"Energy shield is depleted by degen, so it is not counted towards the hit pools",
+					"^8(this can be disabled in the Configuration tab)",
+				}
+			end
+			output.CappingES = true
+			output.EnergyShieldRecoveryCap = 0
+		end
+	end
+
 	local function calcMoMEBPool(lifePool, MoMEffect, esBypass)
 		local mana = m_max(output.ManaUnreserved or 0, 0)
 		local maxMoMPool = MoMEffect < 1 and lifePool / (1 - MoMEffect) - lifePool or m_huge
@@ -3384,57 +3470,6 @@ function calcs.buildDefenceEstimations(env, actor)
 	
 	-- degens
 	do
-		output.TotalBuildDegen = 0
-		for _, damageType in ipairs(dmgTypeList) do
-			local baseVal = modDB:Sum("BASE", nil, damageType.."Degen")
-			if baseVal > 0 then
-				for damageConvertedType, convertPercent in pairs(actor.damageOverTimeShiftTable[damageType]) do
-					if convertPercent > 0 then
-						local total = baseVal * (convertPercent / 100) * output[damageConvertedType.."TakenDotMult"]
-						output[damageConvertedType.."BuildDegen"] = (output[damageConvertedType.."BuildDegen"] or 0) + total
-						output.TotalBuildDegen = output.TotalBuildDegen + total
-						if breakdown then
-							breakdown.TotalBuildDegen = breakdown.TotalBuildDegen or { 
-								rowList = { },
-								colList = {
-									{ label = "Base Type", key = "type" },
-									{ label = "Final Type", key = "type2" },
-									{ label = "Base", key = "base" },
-									{ label = "Taken As Percent", key = "conv" },
-									{ label = "Multiplier", key = "mult" },
-									{ label = "Total", key = "total" },
-								}
-							}
-							t_insert(breakdown.TotalBuildDegen.rowList, {
-								type = damageType,
-								type2 = damageConvertedType,
-								base = s_format("%.1f", baseVal),
-								conv = s_format("x %.2f%%", convertPercent),
-								mult = s_format("x %.2f", output[damageConvertedType.."TakenDotMult"]),
-								total = s_format("%.1f", total),
-							})
-							breakdown[damageConvertedType.."BuildDegen"] = breakdown[damageConvertedType.."BuildDegen"] or { 
-								rowList = { },
-								colList = {
-									{ label = "Base Type", key = "type" },
-									{ label = "Base", key = "base" },
-									{ label = "Taken As Percent", key = "conv" },
-									{ label = "Multiplier", key = "mult" },
-									{ label = "Total", key = "total" },
-								}
-							}
-							t_insert(breakdown[damageConvertedType.."BuildDegen"].rowList, {
-								type = damageType,
-								base = s_format("%.1f", baseVal),
-								conv = s_format("x %.2f%%", convertPercent),
-								mult = s_format("x %.2f", output[damageConvertedType.."TakenDotMult"]),
-								total = s_format("%.1f", total),
-							})
-						end
-					end
-				end
-			end
-		end
 		if output.TotalBuildDegen == 0 then
 			output.TotalBuildDegen = nil
 		else

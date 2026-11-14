@@ -1816,4 +1816,78 @@ describe("TestDefence", function()
 		assert.is_true(higherResistEHP >= lowerResistEHP,
 			string.format("EHP fell from %.1f to %.1f", lowerResistEHP, higherResistEHP))
 	end)
+
+	describe("energy shield depleted by self degen", function()
+		local function calc(customMods, config)
+			newBuild()
+			build.skillsTab:PasteSocketGroup("Righteous Fire 20/0  1")
+			build.configTab.input.enemyIsBoss = "None"
+			for k, v in pairs(config or { }) do
+				build.configTab.input[k] = v
+			end
+			build.configTab.input.customMods = customMods
+			build.configTab:BuildModList()
+			runCallback("OnFrame")
+			return build.calcsTab.calcsOutput
+		end
+		local esMods = "+1000 to maximum Energy Shield\n"
+
+		it("does not change energy shield without a self degen", function()
+			newBuild()
+			build.configTab.input.enemyIsBoss = "None"
+			build.configTab.input.customMods = esMods
+			build.configTab:BuildModList()
+			runCallback("OnFrame")
+			local output = build.calcsTab.calcsOutput
+			assert.is_false(output.EnergyShieldDepletedByDegen)
+			assert.are.equals(output.EnergyShield, output.EnergyShieldRecoveryCap)
+		end)
+
+		it("excludes energy shield from the hit pools when Righteous Fire drains it", function()
+			local output = calc(esMods)
+			assert.is_true(output.FireBuildDegen > 0)
+			assert.is_true(output.EnergyShield > 0)
+			assert.is_true(output.EnergyShieldDepletedByDegen)
+			assert.are.equals(0, output.EnergyShieldRecoveryCap)
+			-- hit pools now match a build with no energy shield at all
+			local depletedPool, depletedEHP = output.FireTotalPool, output.TotalEHP
+			local noES = calc(esMods, { DisableEHPDegenEnergyShieldDepletion = true })
+			assert.is_false(noES.EnergyShieldDepletedByDegen)
+			assert.are.equals(noES.EnergyShield, noES.EnergyShieldRecoveryCap)
+			assert.are.equals(depletedPool + noES.EnergyShield, noES.FireTotalPool)
+			assert.is_true(depletedEHP < noES.TotalEHP)
+		end)
+
+		it("keeps energy shield when its regeneration sustains the degen", function()
+			local degen = calc(esMods).FireBuildDegen
+			local output = calc(esMods .. "Regenerate " .. math.ceil(degen) + 1 .. " Energy Shield per second")
+			assert.is_false(output.EnergyShieldDepletedByDegen)
+			assert.are.equals(output.EnergyShield, output.EnergyShieldRecoveryCap)
+			-- partial sustain still drains energy shield
+			output = calc(esMods .. "Regenerate " .. math.floor(degen / 2) .. " Energy Shield per second")
+			assert.is_true(output.EnergyShieldDepletedByDegen)
+			assert.are.equals(0, output.EnergyShieldRecoveryCap)
+		end)
+
+		it("ignores the part of the degen that bypasses energy shield", function()
+			local output = calc(esMods .. "All Damage taken bypasses Energy Shield")
+			assert.is_false(output.EnergyShieldDepletedByDegen)
+			-- Corrupted Soul style partial bypass: energy shield only takes half of the degen
+			local degen = calc(esMods).FireBuildDegen
+			output = calc(esMods .. "50% of Non-Chaos Damage taken bypasses Energy Shield\nRegenerate " .. math.ceil(degen * 0.75) .. " Energy Shield per second")
+			assert.is_false(output.EnergyShieldDepletedByDegen)
+			output = calc(esMods .. "50% of Non-Chaos Damage taken bypasses Energy Shield\nRegenerate " .. math.floor(degen * 0.25) .. " Energy Shield per second")
+			assert.is_true(output.EnergyShieldDepletedByDegen)
+		end)
+
+		it("only drains energy shield through mana with Eldritch Battery", function()
+			local output = calc(esMods .. "Energy Shield protects Mana instead of Life")
+			assert.is_false(output.EnergyShieldDepletedByDegen)
+			assert.are.equals(output.EnergyShield, output.EnergyShieldRecoveryCap)
+			output = calc(esMods .. "Energy Shield protects Mana instead of Life\n40% of Damage is taken from Mana before Life")
+			assert.are.equals(40, output.sharedMindOverMatter)
+			assert.is_true(output.EnergyShieldDepletedByDegen)
+			assert.are.equals(0, output.EnergyShieldRecoveryCap)
+		end)
+	end)
 end)
