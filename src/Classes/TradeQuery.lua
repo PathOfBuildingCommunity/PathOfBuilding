@@ -902,20 +902,24 @@ function TradeQueryClass:GetResultEvaluation(row_idx, result_index, calcFunc, ba
 		for nodeName in (result.item_string.."\r\n"):gmatch("1 Added Passive Skill is (.-)\r?\n") do
 			t_insert(addedNodes, self.itemsTab.build.spec.tree.clusterNodeMap[nodeName])
 		end
-		local output12  = self:ReduceOutput(calcFunc({ addNodes = { [addedNodes[1]] = true, [addedNodes[2]] = true } }))
-		local output13  = self:ReduceOutput(calcFunc({ addNodes = { [addedNodes[1]] = true, [addedNodes[3]] = true } }))
-		local output23  = self:ReduceOutput(calcFunc({ addNodes = { [addedNodes[2]] = true, [addedNodes[3]] = true } }))
-		local output123 = self:ReduceOutput(calcFunc({ addNodes = { [addedNodes[1]] = true, [addedNodes[2]] = true, [addedNodes[3]] = true } }))
+		local fullOutput12  = calcFunc({ addNodes = { [addedNodes[1]] = true, [addedNodes[2]] = true } })
+		local fullOutput13  = calcFunc({ addNodes = { [addedNodes[1]] = true, [addedNodes[3]] = true } })
+		local fullOutput23  = calcFunc({ addNodes = { [addedNodes[2]] = true, [addedNodes[3]] = true } })
+		local fullOutput123 = calcFunc({ addNodes = { [addedNodes[1]] = true, [addedNodes[2]] = true, [addedNodes[3]] = true } })
+		local output12  = self:ReduceOutput(fullOutput12)
+		local output13  = self:ReduceOutput(fullOutput13)
+		local output23  = self:ReduceOutput(fullOutput23)
+		local output123 = self:ReduceOutput(fullOutput123)
 		-- Sometimes the third node is as powerful as a wet noodle, so use weight per point spent, including the jewel socket
 		local weight12  = self.tradeQueryGenerator.WeightedRatioOutputs(baseOutput, output12,  self.statSortSelectionList) / 4
 		local weight13  = self.tradeQueryGenerator.WeightedRatioOutputs(baseOutput, output13,  self.statSortSelectionList) / 4
 		local weight23  = self.tradeQueryGenerator.WeightedRatioOutputs(baseOutput, output23,  self.statSortSelectionList) / 4
 		local weight123 = self.tradeQueryGenerator.WeightedRatioOutputs(baseOutput, output123, self.statSortSelectionList) / 5
 		result.evaluation = {
-			{ output = output12,  weight = weight12,  DNs = { addedNodes[1].dn, addedNodes[2].dn } },
-			{ output = output13,  weight = weight13,  DNs = { addedNodes[1].dn, addedNodes[3].dn } },
-			{ output = output23,  weight = weight23,  DNs = { addedNodes[2].dn, addedNodes[3].dn } },
-			{ output = output123, weight = weight123, DNs = { addedNodes[1].dn, addedNodes[2].dn, addedNodes[3].dn } },
+			{ output = output12,  weight = weight12,  DNs = { addedNodes[1].dn, addedNodes[2].dn }, statDetails = self:ComputeStatDetails(baseOutput, fullOutput12) },
+			{ output = output13,  weight = weight13,  DNs = { addedNodes[1].dn, addedNodes[3].dn }, statDetails = self:ComputeStatDetails(baseOutput, fullOutput13) },
+			{ output = output23,  weight = weight23,  DNs = { addedNodes[2].dn, addedNodes[3].dn }, statDetails = self:ComputeStatDetails(baseOutput, fullOutput23) },
+			{ output = output123, weight = weight123, DNs = { addedNodes[1].dn, addedNodes[2].dn, addedNodes[3].dn }, statDetails = self:ComputeStatDetails(baseOutput, fullOutput123) },
 		}
 		table.sort(result.evaluation, function(a, b) return a.weight > b.weight end)
 	else
