@@ -1130,6 +1130,11 @@ return function(skills, mod, flag, skill)
 	},
 #mods
 
+#skill FireballAltX
+#flags spell projectile area duration
+#baseMod skill("debuff", true)
+#mods
+
 #skill VaalFireball
 #flags spell projectile
 	parts = {
@@ -4590,6 +4595,22 @@ return function(skills, mod, flag, skill)
 		},
 	},
 #baseMod skill("radius", 16)
+#mods
+
+#skill ArcaneLink
+#flags spell duration
+	statMap = {
+		["arcane_link_minimum_lightning_damage"] = {
+			mod("LightningMin", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Link" }),
+		},
+		["arcane_link_maximum_lightning_damage"] = {
+			mod("LightningMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Link" }),
+		},
+		["arcane_link_added_lightning_damage_from_mana_%"] = {
+			mod("LightningMin", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Link" }, { type = "PercentStat", stat = "Mana", percent = 1, actor = "parent" }),
+			mod("LightningMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Link" }, { type = "PercentStat", stat = "Mana", percent = 1, actor = "parent" }),
+		},
+	},
 #mods
 
 #skill WintertideBrand

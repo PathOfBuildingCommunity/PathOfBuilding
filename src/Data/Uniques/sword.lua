@@ -123,7 +123,7 @@ Uses both hand slots
 +(40-50)% to Fire Resistance
 Cannot be Ignited
 100% of Physical Damage Converted to Fire Damage
-Ignites you inflict deal Damage 50% faster
+Ignites you inflict deal Damage 50% Faster
 You can only deal Damage with this Weapon or Ignite
 ]],[[
 The Goddess Unleashed
@@ -141,7 +141,7 @@ Adds (3-6) to (33-66) Physical Damage
 33% increased Ignite Duration on Enemies
 Gain (66-99)% of Sword Physical Damage as Extra Fire Damage
 Gain Her Blessing for 3 seconds when you Ignite an Enemy
-33% chance to Blind nearby Enemies when gaining Her Blessing
+33% chance to Blind Enemies within 1.2 metres when gaining Her Blessing
 100% chance to Avoid being Ignited, Chilled or Frozen with Her Blessing
 20% increased Attack and Movement Speed with Her Blessing
 ]],[[
@@ -247,7 +247,7 @@ Variant: Current
 Implicits: 2
 {variant:1}18% increased Global Accuracy Rating
 {variant:2}+190 to Accuracy Rating
-Socketed Gems are supported by Level 1 Multistrike
+Socketed Gems are Supported by Level 1 Multistrike Support
 (60-80)% increased Physical Damage
 Adds (5-8) to (10-14) Physical Damage
 (10-15)% increased Attack Speed
@@ -262,7 +262,7 @@ Implicits: 1
 (100-140)% increased Physical Damage
 (25-35)% increased Attack Speed
 Cannot be Poisoned
-You can have an additional Tincture active
+You can have 2 additional Tinctures active
 10% chance to remove 1 Mana Burn on Kill
 ]],[[
 Oni-Goroshi
@@ -418,7 +418,7 @@ League: Harbinger
 Source: No longer obtainable
 Implicits: 1
 40% increased Global Accuracy Rating
-Grants Summon Harbinger of the Arcane Skill
+Grants Summon Harbinger of the Arcane
 Trigger Level 20 Storm Cascade when you Attack
 (75-90)% increased Spell Damage
 (140-160)% increased Physical Damage
@@ -445,7 +445,7 @@ The Surging Thoughts
 Legion Sword
 Implicits: 1
 40% increased Global Accuracy Rating
-Grants Summon Greater Harbinger of the Arcane Skill
+Grants Summon Greater Harbinger of the Arcane
 Trigger Level 20 Storm Cascade when you Attack
 (75-90)% increased Spell Damage
 (140-160)% increased Physical Damage
@@ -516,7 +516,7 @@ Requires Level 69
 Implicits: 2
 {variant:1}18% increased Global Accuracy Rating
 {variant:2,3,4}40% increased Global Accuracy Rating
-{variant:4}Grants Level 25 Envy Skill
+{variant:4}Grants Level 25 Envy
 {variant:1,2,3}+(10-20) to all Attributes
 {variant:1,2,3}Minions deal (20-30)% increased Damage
 {variant:1,2,3}Minions have +17% to Chaos Resistance
@@ -540,10 +540,10 @@ Requires Level 69
 Implicits: 2
 {variant:1}18% increased Global Accuracy Rating
 {variant:2,3,4,5}40% increased Global Accuracy Rating
-{variant:1,2,3}Grants Level 15 Envy Skill
-{variant:4,5}Grants Level 25 Envy Skill
+{variant:1,2,3}Grants Level 15 Envy
+{variant:4,5}Grants Level 25 Envy
 {variant:1,2,3}Minions deal (30-40)% increased Damage
-{variant:4}Minions deal (60-80)% increased Damage
+{variant:4}Minions deal (80-100)% increased Damage
 Minions have +29% to Chaos Resistance
 {variant:1,2}Minions Poison Enemies on Hit
 {variant:3,4,5}Minions have 60% chance to Poison Enemies on Hit
@@ -643,7 +643,7 @@ Implicits: 3
 {variant:2}+30% to Global Critical Strike Multiplier
 {variant:3}+25% to Global Critical Strike Multiplier
 (120-150)% increased Physical Damage
-20% reduced Rarity of Items found
+-20% to Item Rarity
 +(40-60)% to all Elemental Resistances
 Grants 3 Life per Enemy Hit
 ]],[[
@@ -749,7 +749,7 @@ Adds 3 to 7 Fire Damage
 20% increased Attack Speed
 30% increased Global Critical Strike Chance
 +(20-40) to Evasion Rating
-20% reduced Rarity of Items found
+-20% to Item Rarity
 30% increased Movement Speed when on Low Life
 ]],
 -- Weapon: Two Handed Sword
@@ -867,7 +867,7 @@ Implicits: 3
 {variant:1}18% increased Global Accuracy Rating
 {variant:2}40% increased Global Accuracy Rating
 {variant:3}60% increased Global Accuracy Rating
-Socketed Gems are Supported by Level 1 Lifetap
+Socketed Gems are Supported by Level 1 Lifetap Support
 Adds (90-115) to (230-260) Physical Damage
 (40-50)% increased Critical Strike Chance
 Enemies you Attack Reflect 100 Physical Damage to you

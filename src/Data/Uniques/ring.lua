@@ -39,9 +39,9 @@ Implicits: 1
 Andvarius
 Gold Ring
 Implicits: 1
-(6-15)% increased Rarity of Items found
++(6-15)% to Item Rarity
 {tags:attribute}+10 to Dexterity
-(50-70)% increased Rarity of Items found
++(50-70)% to Item Rarity
 {tags:resistance}-20% to all Elemental Resistances
 ]],[[
 Astral Projector
@@ -61,7 +61,7 @@ League: Settlers
 Source: Drops from unique{Sasan, the Bandit Lord}
 Requires Level 44
 Implicits: 1
-(6-15)% increased Rarity of Items found
++(6-15)% to Item Rarity
 (25-35)% increased Quantity of Gold Dropped by Slain Enemies
 ]],[[
 Berek's Grip
@@ -109,8 +109,8 @@ Implicits: 1
 {variant:1}{tags:elemental_damage}(10-15)% increased Lightning Damage
 {variant:2}{tags:elemental_damage}(25-30)% increased Lightning Damage
 {tags:resource}+(30-40) to maximum Mana
-When you Kill a Shocked Enemy, inflict an equivalent Shock on each nearby Enemy
-When you Kill an Ignited Enemy, inflict an equivalent Ignite on each nearby Enemy
+When you Kill a Shocked Enemy, inflict an equivalent Shock on each Enemy within 2 metres
+When you Kill an Ignited Enemy, inflict an equivalent Ignite on each Enemy within 2 metres
 ]],[[
 Blackflame
 Amethyst Ring
@@ -118,7 +118,7 @@ League: Ritual
 Source: Purchase from Ritual Reward
 Requires Level 49
 Implicits: 1
-{tags:resistance}+(17-23)% to Chaos Resistance
+{tags:resistance}+(13-19)% to Chaos Resistance
 {tags:elemental_damage}+(8-12)% to Fire Damage over Time Multiplier
 50% reduced Ignite Duration on Enemies
 (10-15)% chance to Ignite
@@ -199,8 +199,8 @@ Has 1 Socket
 {variant:2}{tags:resource,defences}Socketed Golem Skills gain 20% of Maximum Life as Extra Maximum Energy Shield
 {variant:1}+2 to Level of Socketed Golem Gems
 {variant:2}+3 to Level of Socketed Golem Gems
-{variant:1}Socketed Gems are Supported by Level 15 Concentrated Effect
-{variant:1}Socketed Gems are Supported by Level 15 Minion Life
+{variant:1}Socketed Gems are Supported by Level 15 Concentrated Effect Support
+{variant:1}Socketed Gems are Supported by Level 15 Minion Life Support
 {variant:1}{tags:caster}(10-25)% increased Spell Damage
 {variant:2}{tags:caster}(20-25)% increased Spell Damage
 {tags:defences}+(15-25) to maximum Energy Shield
@@ -375,7 +375,7 @@ Variant: Agony Damage
 Variant: Chaos Resistance
 Requires Level 52
 Implicits: 1
-{tags:resistance}+(17-23)% to Chaos Resistance
+{tags:resistance}+(13-19)% to Chaos Resistance
 {tags:attribute}{fractured}+(10-20) to all Attributes
 {tags:chaos_damage}Adds (15-20) to (21-30) Chaos Damage
 {tags:resistance}+(17-23)% to Chaos Resistance
@@ -421,7 +421,7 @@ Variant: Pre 3.19.0
 Variant: Current
 Requires Level 46
 Implicits: 1
-{tags:resistance}+(17-23)% to Chaos Resistance
+{tags:resistance}+(13-19)% to Chaos Resistance
 {variant:1,2}{tags:attack}+(300-350) to Accuracy Rating
 {variant:1}{tags:defences}+(60-80) to Armour
 {variant:2}{tags:defences}+(260-300) to Armour
@@ -519,8 +519,8 @@ Implicits: 1
 {variant:2}{tags:caster,speed}(10-20)% increased Cast Speed
 90% reduced Ignite Duration on Enemies
 10% chance to Ignite
-{variant:1}{tags:elemental_damage}Ignites you inflict deal Damage (35-45)% faster
-{variant:2}{tags:elemental_damage}Ignites you inflict deal Damage (40-60)% faster
+{variant:1}{tags:elemental_damage}Ignites you inflict deal Damage (35-45)% Faster
+{variant:2}{tags:elemental_damage}Ignites you inflict deal Damage (40-60)% Faster
 ]],[[
 Essence Worm
 Unset Ring
@@ -541,7 +541,7 @@ Implicits: 1
 {tags:resource}+(20-30) to maximum Mana
 {tags:attribute}+(20-40) to Intelligence
 {tags:caster,speed}Curse Skills have (8-12)% increased Cast Speed
-Non-Aura Hexes expire upon reaching (180-220)% of base Effect
+Non-Aura Hexes expire upon reaching 200% of base Effect
 Non-Aura Hexes gain 20% increased Effect per second
 ]],[[
 Gifts from Above
@@ -556,7 +556,7 @@ Implicits: 1
 {tags:critical}(30-35)% increased Global Critical Strike Chance
 (10-15)% increased Light Radius
 {variant:1}{tags:critical}Creates Consecrated Ground on Critical Strike
-{tags:critical}(40-50)% increased Rarity of Items Dropped by Enemies killed with a Critical Strike
+{tags:critical}+(40-50)% to Rarity of Items Dropped by Enemies killed with a Critical Strike
 {variant:2}50% increased Damage while on Consecrated Ground
 {variant:2}+5% Chance to Block Attack Damage while on Consecrated Ground
 ]],[[
@@ -570,7 +570,7 @@ Implicits: 1
 {tags:critical}Trigger Level 10 Consecrate when you deal a Critical Strike
 {tags:critical}(30-35)% increased Global Critical Strike Chance
 (10-15)% increased Light Radius
-{tags:critical}(40-50)% increased Rarity of Items Dropped by Enemies killed with a Critical Strike
+{tags:critical}+(40-50)% to Rarity of Items Dropped by Enemies killed with a Critical Strike
 Inflict Hallowing Flame on Hit while on Consecrated Ground
 ]],[[
 Grattus Signet
@@ -593,7 +593,7 @@ Requires Level 50
 Implicits: 2
 50% increased Elemental Ailment Duration on you
 50% reduced Effect of Curses on you
-Grants level 20 Penance Mark
+Grants Penance Mark
 {tags:caster,speed}(6-12)% increased Cast Speed
 {tags:resource}+(30-60) to maximum Life
 {tags:resistance}+(7-19)% to Chaos Resistance
@@ -612,7 +612,7 @@ Ixchel's Temptation
 Gold Ring
 League: Affliction
 Implicits: 1
-(6-15)% increased Rarity of Items found
++(6-15)% to Item Rarity
 {tags:attribute}+(10-15) to all Attributes
 {tags:chaos_damage,attack}Adds (7-10) to (15-18) Chaos Damage to Attacks
 {tags:elemental_damage,caster}Adds (9-12) to (19-22) Fire Damage to Spells
@@ -644,8 +644,8 @@ Variant: Pre 3.19.0
 Variant: Current
 Requires Level 44
 Implicits: 1
-(6-15)% increased Rarity of Items found
-(15-25)% increased Rarity of Items found
++(6-15)% to Item Rarity
++(15-25)% to Item Rarity
 {variant:2}{tags:resource}1% of Damage Leeched as Life
 {variant:1}{tags:speed}5% increased Movement Speed
 {variant:2}{tags:speed}(5-10)% increased Movement Speed
@@ -696,7 +696,7 @@ Variant: Pre 3.19.0
 Variant: Current
 Implicits: 1
 {tags:resource}+(20-30) to maximum Life
-{variant:3}Grants Level 10 Enduring Cry Skill
+{variant:3}Grants Level 10 Enduring Cry
 {tags:attribute}+(10-20) to Strength
 {variant:1}{tags:resource,attack}0.4% of Physical Attack Damage Leeched as Life
 {variant:2}{tags:resource,attack}Gain (2-4) Life per Enemy Hit with Attacks
@@ -757,8 +757,8 @@ Implicits: 1
 {variant:2}{tags:attribute}+(10-30) to all Attributes
 {variant:1}(10-20)% increased Damage
 {variant:2}(10-30)% increased Damage
-{variant:1}(10-20)% increased Rarity of Items found
-{variant:2}(10-30)% increased Rarity of Items found
+{variant:1}+(10-20)% to Item Rarity
+{variant:2}+(10-30)% to Item Rarity
 {variant:1}{tags:resistance}+(10-20)% to all Elemental Resistances
 {variant:2}{tags:resistance}+(10-30)% to all Elemental Resistances
 ]],[[
@@ -844,7 +844,7 @@ Variant: Pre 3.19.0
 Variant: Current
 Requires Level 69
 Implicits: 1
-{tags:resistance}+(17-23)% to Chaos Resistance
+{tags:resistance}+(13-19)% to Chaos Resistance
 {variant:1}{tags:defences}15% increased maximum Energy Shield
 {variant:2}{tags:defences}10% increased maximum Energy Shield
 {variant:3}{tags:defences}(5-10)% increased maximum Energy Shield
@@ -886,8 +886,8 @@ Has 1 Socket
 {variant:2,3}Gain Onslaught for 10 seconds when you Cast Socketed Golem Skill
 {variant:1}+2 to Level of Socketed Golem Gems
 {variant:2,3}+3 to Level of Socketed Golem Gems
-{variant:1}Socketed Gems are Supported by Level 13 Faster Attacks
-{variant:1}Socketed Gems are Supported by Level 16 Minion Speed
+{variant:1}Socketed Gems are Supported by Level 13 Faster Attacks Support
+{variant:1}Socketed Gems are Supported by Level 16 Minion Speed Support
 {tags:physical_damage,attack}Adds (5-10) to (11-15) Physical Damage to Attacks
 {tags:attack,speed}(5-10)% increased Attack Speed
 {variant:1}{tags:speed}(1-2)% increased Movement Speed
@@ -920,9 +920,9 @@ League: Sanctum
 Source: Drops from unique{Lycia, Herald of the Scourge} in normal{The Beyond} while unique{The Original Scripture} is active in the normal{Relic Altar}
 Requires Level 52
 Implicits: 1
-{tags:resistance}+(17-23)% to Chaos Resistance
+{tags:resistance}+(13-19)% to Chaos Resistance
 {tags:elemental_damage,chaos_damage}All Elemental Damage Converted to Chaos Damage
-{tags:chaos_damage,resistance}Nearby Enemies' Chaos Resistance is 0
+{tags:chaos_damage,resistance}Chaos Resistance of Enemies within 6 metres is 0
 ]],[[
 The Pariah
 Unset Ring
@@ -942,7 +942,7 @@ Has 1 Socket
 {variant:1,2}{tags:defences}+100 to Maximum Energy Shield per Blue Socket
 {variant:3}{tags:defences}+(100-200) to Maximum Energy Shield per Blue Socket
 {variant:1}15% increased Item Quantity per White Socket
-{variant:2,3}60% increased Item Rarity per White Socket
+{variant:2,3}+60% to Item Rarity per White Socket
 ]],[[
 Perandus Signet
 Paua Ring
@@ -1051,7 +1051,7 @@ Requires Level 50
 Implicits: 2
 50% increased Elemental Ailment Duration on you
 50% reduced Effect of Curses on you
-Grants level 20 Pacify
+Grants Pacify
 {tags:caster,speed}(6-12)% increased Cast Speed
 {tags:resource}+(30-60) to maximum Mana
 {tags:resistance}+(7-19)% to Chaos Resistance
@@ -1068,8 +1068,8 @@ Has 1 Socket
 {variant:2}{tags:resource}Socketed Golem Skills have Minions Regenerate 5% of Life per second
 {variant:1}+2 to Level of Socketed Golem Gems
 {variant:2}+3 to Level of Socketed Golem Gems
-{variant:1}Socketed Gems are Supported by Level 12 Multiple Projectiles
-{variant:1}Socketed Gems are Supported by Level 17 Minion Damage
+{variant:1}Socketed Gems are Supported by Level 12 Multiple Projectiles Support
+{variant:1}Socketed Gems are Supported by Level 17 Minion Damage Support
 {tags:attribute}+(30-40) to Strength
 {tags:elemental_damage}(20-30)% increased Fire Damage
 {variant:1}{tags:elemental_damage,attack}Adds (8-12) to (20-30) Fire Damage to Attacks
@@ -1114,7 +1114,7 @@ Variant: Current
 Requires Level 56
 Implicits: 1
 Has 1 Socket
-{tags:caster}Socketed Gems are Supported by Level 20 Blasphemy
+{tags:caster}Socketed Gems are Supported by Level 20 Blasphemy Support
 Curse Auras from Socketed Skills also affect you
 {variant:1}{tags:caster}Socketed Curse Gems have 50% increased Reservation Efficiency
 {variant:2}{tags:caster}Socketed Curse Gems have 80% increased Reservation Efficiency
@@ -1169,8 +1169,8 @@ Requires Level 45
 Implicits: 1
 {tags:resource}+(20-30) to maximum Life
 {tags:elemental_damage,attack}Adds (8-15) to (20-28) Fire Damage to Attacks
-{variant:1}(20-40)% increased Rarity of Items found
-{variant:2,3,4,5}(10-20)% reduced Rarity of Items found
+{variant:1}+(20-40)% to Item Rarity
+{variant:2,3,4,5}-(20-10)% to Item Rarity
 {tags:elemental_damage,attack}(20-30)% increased Elemental Damage with Attack Skills
 {variant:1,2}Left ring slot: you and your Minions prevent +30% of Reflected Elemental Damage
 {variant:3}Left ring slot: you and your Minions prevent +40% of Reflected Elemental Damage
@@ -1320,7 +1320,7 @@ Implicits: 2
 {variant:2,3,4,5,6}{tags:resistance}+(8-10)% to all Elemental Resistances
 {variant:1,2}(15-25)% increased Quantity of Items found
 {variant:3,4,5}(10-16)% increased Quantity of Items found
-{variant:6}(20-30)% increased Rarity of Items found
+{variant:6}+(20-30)% to Item Rarity
 Can't use other Rings
 {variant:1,2,3}{tags:resistance}+(8-12)% to all Elemental Resistances
 {variant:4}{tags:resistance}+(16-24)% to all Elemental Resistances
@@ -1500,10 +1500,10 @@ Variant: Pre 3.25.0
 Variant: Current
 Requires Level 65
 Implicits: 1
-(6-15)% increased Rarity of Items found
++(6-15)% to Item Rarity
 {tags:resource}+(0-60) to maximum Life
 {variant:1}(-10-10)% reduced Quantity of Items found
-(-40-40)% reduced Rarity of Items found
++(-40-40)% to Item Rarity
 {tags:resistance}+(-25-50)% to Fire Resistance
 {tags:resistance}+(-25-50)% to Cold Resistance
 {tags:resistance}+(-25-50)% to Lightning Resistance
@@ -1558,7 +1558,7 @@ Has 1 Socket
 {variant:1}{tags:resistance}+(8-15)% to Fire and Chaos Resistances
 {variant:12}{tags:resistance}+(16-20)% to Fire and Chaos Resistances
 {variant:18}Focus has (5-8)% increased Cooldown Recovery Rate
-{variant:18}Shock nearby Enemies for 4 Seconds when you Focus
+{variant:18}Shock Enemies within 3 metres for 4 Seconds when you Focus
 {variant:14}{tags:resistance}+(16-20)% to Lightning and Chaos Resistances
 {variant:1,2,3,4,5,6,7,8,9,10,11}Socketed Gems have 20% reduced Mana Reservation Efficiency
 {variant:2}{crafted}{tags:chaos,jewellery_resistance}+(8-15)% to Cold and Chaos Resistances
@@ -1642,7 +1642,7 @@ Amethyst Ring
 Source: Drops from unique{Incarnation of Fear} in normal{Moment of Trauma}
 Requires Level 32
 Implicits: 1
-{tags:resistance}+(17-23)% to Chaos Resistance
+{tags:resistance}+(13-19)% to Chaos Resistance
 {tags:caster}(25-50)% reduced Area of Effect of Hex Skills
 Targets are Unaffected by your Hexes
 When 90% of your Hex's Duration Expires on an Enemy, Eat 1 Soul per Enemy Power
@@ -1685,7 +1685,7 @@ Formless Ring
 Source: Drops from unique{It That Was Esh} and unique{It That Was Tul} in normal{Hive Colony}
 Implicits: 1
 {tags:defences}(5-7)% increased Global Defences
-Grants Level 30 Herald of the Hive Skill
+Grants Level 30 Herald of the Hive
 {tags:resistance}+(10-20)% to all Elemental Resistances
 {tags:resistance}+(23-37)% to Chaos Resistance
 ]],
