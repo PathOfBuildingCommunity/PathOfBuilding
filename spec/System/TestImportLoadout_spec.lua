@@ -3,6 +3,53 @@ describe("Importing a build into a loadout", function()
 	local sampleData
 	local savedInflate, savedDownload
 
+	local function addNamedSets(section, elementName, originalTitle, configure)
+		for _, node in ipairs(section) do
+			if type(node) == "table" and node.elem == elementName then
+				node.attrib.title = originalTitle
+				for id, title in ipairs({ "Loadout A", "Loadout B" }) do
+					local loadout = copyTable(node)
+					loadout.attrib.id = tostring(id + 1)
+					loadout.attrib.title = title
+					if configure then
+						configure(loadout, title)
+					end
+					table.insert(section, loadout)
+				end
+				return
+			end
+		end
+	end
+
+	local function makeMultiLoadoutXML()
+		local xml = common.xml.ParseXML(sourceXML)
+		for _, section in ipairs(xml[1]) do
+			if type(section) == "table" and section.elem == "Tree" then
+				local original = section[1]
+				original.attrib.title = "Unmatched"
+				local loadoutA = copyTable(original)
+				loadoutA.attrib.title = "Loadout A"
+				local loadoutB = copyTable(original)
+				loadoutB.attrib.title = "Loadout B"
+				table.insert(section, loadoutA)
+				table.insert(section, loadoutB)
+				section.attrib.activeSpec = "3"
+			elseif type(section) == "table" and section.elem == "Items" then
+				addNamedSets(section, "ItemSet", "Auxiliary set")
+				section.attrib.activeItemSet = "3"
+			elseif type(section) == "table" and section.elem == "Skills" then
+				addNamedSets(section, "SkillSet", "Unmatched")
+				section.attrib.activeSkillSet = "3"
+			elseif type(section) == "table" and section.elem == "Config" then
+				addNamedSets(section, "ConfigSet", "Default", function(loadout, title)
+					table.insert(loadout, { elem = "Input", attrib = { name = "enemyIsBoss", string = title == "Loadout A" and "Boss" or "Uber" } })
+				end)
+				section.attrib.activeConfigSet = "3"
+			end
+		end
+		return common.xml.ComposeXML(xml[1])
+	end
+
 	setup(function()
 		local file = assert(io.open("../spec/System/SampleCharacter.json", "r"))
 		sampleData = require("dkjson").decode(file:read("*a")).character
@@ -241,13 +288,112 @@ describe("Importing a build into a loadout", function()
 		end
 	end)
 
+	it("rolls back an unexpected error while applying a loadout", function()
+		local originalXML = build:SaveDB("code")
+		local originalSpec = build.spec
+		local originalItems = build.itemsTab.activeItemSet
+		local originalSkills = build.skillsTab.skillSets[build.skillsTab.activeSkillSetId]
+		local originalConfig = build.configTab.configSets[build.configTab.activeConfigSetId]
+		local newSkillSet = build.skillsTab.NewSkillSet
+		build.skillsTab.NewSkillSet = function()
+			error("forced import failure")
+		end
+
+		local success, importError = build.importTab:ImportLoadout(sourceXML, "Rollback")
+		build.skillsTab.NewSkillSet = newSkillSet
+
+		assert.is_false(success)
+		assert.is_not_nil(importError:match("unexpected error"))
+		assert.equals(originalXML, build:SaveDB("code"))
+		assert.equals(originalSpec, build.spec)
+		assert.equals(originalItems, build.itemsTab.activeItemSet)
+		assert.equals(originalSkills, build.skillsTab.skillSets[build.skillsTab.activeSkillSetId])
+		assert.equals(originalConfig, build.configTab.configSets[build.configTab.activeConfigSetId])
+	end)
+
+	it("finds only complete loadouts in an imported build", function()
+		local imported, loadouts, hasNamedLoadouts = build.importTab:PrepareLoadoutImport(makeMultiLoadoutXML())
+		assert.is_not_nil(imported)
+		assert.is_true(hasNamedLoadouts)
+		assert.equals(2, #loadouts)
+		assert.equals("Loadout A", loadouts[1].label)
+		assert.equals("Loadout B", loadouts[2].label)
+		local _, _, hasNamedLoadoutsInSingleBuild = build.importTab:PrepareLoadoutImport(sourceXML)
+		assert.is_false(hasNamedLoadoutsInSingleBuild)
+	end)
+
+	it("imports only the selected loadouts", function()
+		assert.is_true(build.importTab:ImportLoadouts(makeMultiLoadoutXML(), { "Loadout A" }))
+		assert.equals(2, #build.treeTab.specList)
+		assert.is_not_nil(isValueInArray(build.controls.buildLoadouts.list, "Loadout A"))
+		assert.is_nil(isValueInArray(build.controls.buildLoadouts.list, "Loadout B"))
+		assert.is_nil(isValueInArray(build.treeTab:GetSpecList(), "Unmatched"))
+		assert.equals("Loadout A", build.spec.title)
+		assert.equals("Boss", build.configTab.input.enemyIsBoss)
+	end)
+
+	it("imports all loadouts and resolves name clashes", function()
+		build.spec.title = "Loadout A"
+		build.itemsTab.activeItemSet.title = "Loadout A"
+		build.skillsTab.skillSets[1].title = "Loadout A"
+		build.configTab.configSets[1].title = "Loadout A"
+		build:SyncLoadouts()
+		assert.is_true(build.importTab:ImportLoadouts(makeMultiLoadoutXML(), { "Loadout A", "Loadout B" }))
+		assert.is_not_nil(isValueInArray(build.controls.buildLoadouts.list, "Loadout A"))
+		assert.is_not_nil(isValueInArray(build.controls.buildLoadouts.list, "Loadout A (2)"))
+		assert.is_not_nil(isValueInArray(build.controls.buildLoadouts.list, "Loadout B"))
+		assert.equals("Loadout B", build.controls.buildLoadouts:GetSelValue())
+		loadBuildFromXML(build:SaveDB("code"))
+		assert.is_not_nil(isValueInArray(build.controls.buildLoadouts.list, "Loadout A (2)"))
+		assert.is_not_nil(isValueInArray(build.controls.buildLoadouts.list, "Loadout B"))
+	end)
+
+	it("names auxiliary minion item sets for the loadout that uses them", function()
+		local xml = common.xml.ParseXML(makeMultiLoadoutXML())
+		local targetGem
+		for _, section in ipairs(xml[1]) do
+			if type(section) == "table" and section.elem == "Skills" then
+				for _, skillSet in ipairs(section) do
+					if type(skillSet) == "table" and skillSet.elem == "SkillSet" and (skillSet.attrib.title == "Loadout A" or skillSet.attrib.title == "Loadout B") then
+						for _, skill in ipairs(skillSet) do
+							if type(skill) == "table" and skill.elem == "Skill" then
+								for _, gem in ipairs(skill) do
+									if type(gem) == "table" and gem.elem == "Gem" then
+										gem.attrib.skillMinionItemSet = nil
+										gem.attrib.skillMinionItemSetCalcs = nil
+										if skillSet.attrib.title == "Loadout B" and not targetGem then
+											targetGem = gem
+										end
+									end
+								end
+							end
+						end
+					end
+				end
+			end
+		end
+		assert.is_not_nil(targetGem)
+		targetGem.attrib.skillMinionItemSet = "1"
+		targetGem.attrib.skillMinionItemSetCalcs = "1"
+
+		assert.is_true(build.importTab:ImportLoadouts(common.xml.ComposeXML(xml[1]), { "Loadout A", "Loadout B" }))
+		local titles = { }
+		for _, itemSet in pairs(build.itemsTab.itemSets) do
+			titles[itemSet.title or "Default"] = true
+		end
+		assert.is_true(titles["Loadout B - Auxiliary set"])
+		assert.is_nil(titles["Loadout A - Auxiliary set"])
+	end)
+
 	it("imports a code into an unsaved build through the import controls", function()
 		Inflate = function() return sourceXML end
 		build.importTab.controls.importCodeIn:SetText("test", true)
 		assert.is_true(build.importTab.controls.importCodeMode:IsEnabled())
 		build.importTab.controls.importCodeMode:SetSel(4)
-		build.importTab.controls.importLoadoutName:SetText("From code")
 		build.importTab.controls.importCodeGo.onClick()
+		assert.equals("Import Loadout", main.popups[1].title)
+		main.popups[1].controls.name:SetText("From code")
+		main.popups[1].controls.import.onClick()
 		assert.equals(2, #build.treeTab.specList)
 		assert.equals("From code", build.spec.title)
 		assert.equals("TREE", build.viewMode)
@@ -257,12 +403,114 @@ describe("Importing a build into a loadout", function()
 		Inflate = function() return sourceXML end
 		build.importTab.controls.importCodeIn:SetText("https://pobb.in/test", true)
 		build.importTab.controls.importCodeMode:SetSel(4)
-		build.importTab.controls.importLoadoutName:SetText("From link")
 		buildSites.DownloadBuild = function(_, _, callback)
 			callback(true, "test")
 		end
 		build.importTab.controls.importCodeGo.onClick()
+		assert.equals("Import Loadout", main.popups[1].title)
+		main.popups[1].controls.name:SetText("From link")
+		main.popups[1].controls.import.onClick()
 		assert.equals(2, #build.treeTab.specList)
 		assert.equals("From link", build.spec.title)
+	end)
+
+	it("shows loadout choices for builds with multiple loadouts", function()
+		Inflate = function() return makeMultiLoadoutXML() end
+		build.importTab.controls.importCodeIn:SetText("test", true)
+		build.importTab.controls.importCodeMode:SetSel(4)
+		build.importTab.controls.importCodeGo.onClick()
+		local popup = main.popups[1]
+		assert.equals("Import Loadouts", popup.title)
+		assert.equals("Loadout A", popup.controls.loadout1.label)
+		assert.equals("Loadout B", popup.controls.loadout2.label)
+		assert.is_true(popup.controls.loadout1:IsShown())
+		assert.is_true(popup.controls.loadout2:IsShown())
+		assert.is_true(popup.controls.loadout1.state)
+		assert.is_true(popup.controls.loadout2.state)
+		assert.is_false(popup.controls.loadout1:IsEnabled())
+		assert.is_false(popup.controls.loadout2:IsEnabled())
+		popup.controls.mode:SetSel(2)
+		assert.is_true(popup.controls.loadout1:IsEnabled())
+		assert.is_true(popup.controls.loadout2:IsEnabled())
+		popup.controls.loadout2.state = false
+		popup.controls.mode:SetSel(1)
+		assert.is_true(popup.controls.loadout2.state)
+		assert.is_false(popup.controls.loadout2:IsEnabled())
+		popup.controls.mode:SetSel(2)
+		popup.controls.loadout2.state = false
+		assert.is_true(popup.controls.import:IsEnabled())
+		popup.controls.import.onClick()
+		assert.is_not_nil(isValueInArray(build.controls.buildLoadouts.list, "Loadout A"))
+		assert.is_nil(isValueInArray(build.controls.buildLoadouts.list, "Loadout B"))
+	end)
+
+	it("warns about loadouts that will be renamed", function()
+		build.spec.title = "Loadout A"
+		build.itemsTab.activeItemSet.title = "Loadout A"
+		build.skillsTab.skillSets[1].title = "Loadout A"
+		build.configTab.configSets[1].title = "Loadout A"
+		build:SyncLoadouts()
+		Inflate = function() return makeMultiLoadoutXML() end
+		build.importTab.controls.importCodeIn:SetText("test", true)
+		build.importTab.controls.importCodeMode:SetSel(4)
+		build.importTab.controls.importCodeGo.onClick()
+		local popup = main.popups[1]
+		assert.is_not_nil(popup.controls.warning)
+		assert.equals(colorCodes.WARNING .. "One or more selected loadouts have name conflicts and will be renamed.", popup.controls.warning.label)
+		local warningWidth = popup.controls.warning:GetSize()
+		local popupWidth = popup:GetSize()
+		assert(warningWidth <= popupWidth - 20)
+		assert.equals(colorCodes.WARNING .. "Loadout A", popup.controls.loadout1.label)
+		assert.equals("Loadout B", popup.controls.loadout2.label)
+		popup.controls.mode:SetSel(2)
+		popup.controls.loadout1.state = false
+		popup.controls.loadout1.changeFunc()
+		assert.is_false(popup.controls.warning:IsShown())
+		assert.equals("Loadout A", popup.controls.loadout1.label)
+		popup.controls.loadout1.state = true
+		popup.controls.loadout1.changeFunc()
+		assert.is_true(popup.controls.warning:IsShown())
+		main:ClosePopup()
+	end)
+
+	it("warns when selected incoming loadouts have duplicate names", function()
+		local imported = { treeTab = { specList = { { treeVersion = latestTreeVersion }, { treeVersion = latestTreeVersion } } } }
+		local loadouts = {
+			{ label = "Duplicate", sourceTitle = "Duplicate", treeIndex = 1 },
+			{ label = "Duplicate", sourceTitle = "Duplicate", treeIndex = 2 },
+		}
+		local conflicts, hasConflict = build.importTab:GetLoadoutImportNameConflicts(imported, loadouts)
+		assert.is_true(hasConflict)
+		assert.is_false(conflicts[1])
+		assert.is_true(conflicts[2])
+	end)
+
+	it("caps and scrolls the loadout popup", function()
+		build.spec.title = "Loadout 1"
+		local originalPrepare = build.importTab.PrepareLoadoutImport
+		build.importTab.PrepareLoadoutImport = function()
+			local loadouts, specs = { }, { }
+			for index = 1, 40 do
+				table.insert(specs, { treeVersion = latestTreeVersion })
+				table.insert(loadouts, { label = "Loadout " .. index, sourceTitle = "Loadout " .. index, treeIndex = index })
+			end
+			return { treeTab = { specList = specs } }, loadouts, true
+		end
+		assert.is_true(build.importTab:OpenLoadoutImportPopup("unused"))
+		build.importTab.PrepareLoadoutImport = originalPrepare
+		local popup = main.popups[1]
+		local width, height = popup:GetSize()
+		assert(width <= 500)
+		assert(height <= 376)
+		assert.is_not_nil(popup.controls.warning)
+		assert.is_true(popup.controls.scrollBar.enabled)
+		assert.is_true(popup.controls.loadout1:IsShown())
+		assert.is_false(popup.controls.loadout40:IsShown())
+		assert.is_true(popup.controls.loadout40.state)
+		assert.is_false(popup.controls.loadout40:IsEnabled())
+		popup.controls.scrollBar:SetOffset(popup.controls.scrollBar.offsetMax)
+		assert.is_false(popup.controls.loadout1:IsShown())
+		assert.is_true(popup.controls.loadout40:IsShown())
+		main:ClosePopup()
 	end)
 end)
