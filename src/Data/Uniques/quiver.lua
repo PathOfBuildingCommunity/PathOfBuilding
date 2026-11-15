@@ -22,7 +22,7 @@ Variant: Current
 Implicits: 2
 {variant:1,2}(20-30)% increased Global Accuracy Rating
 {variant:3}(20-30)% increased Projectile Speed
-{variant:2,3}Grants Level 5 Frostbite Skill
+{variant:2,3}Grants Level 5 Frostbite
 (8-12)% increased Attack Speed
 +(30-40)% to Cold Resistance
 (30-40)% increased Chill Duration on Enemies
@@ -117,7 +117,7 @@ Source: No longer obtainable
 Requires Level 60
 Implicits: 1
 Adds (7-9) to (13-16) Physical Damage to Attacks
-Grants Summon Harbinger of Directions Skill
+Grants Summon Harbinger of Directions
 +(30-50) to Strength and Dexterity
 Adds (19-22) to (30-35) Fire Damage to Spells and Attacks
 Adds (19-22) to (30-35) Cold Damage to Spells and Attacks
@@ -128,7 +128,7 @@ Blunt Arrow Quiver
 Requires Level 60
 Implicits: 1
 Adds (7-9) to (13-16) Physical Damage to Attacks
-Grants Summon Greater Harbinger of Directions Skill
+Grants Summon Greater Harbinger of Directions
 +(30-50) to Strength and Dexterity
 Adds (19-22) to (30-35) Fire Damage to Spells and Attacks
 Adds (19-22) to (30-35) Cold Damage to Spells and Attacks

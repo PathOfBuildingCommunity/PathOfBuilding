@@ -11,7 +11,7 @@ local function processStatFile(name)
 			line = prepend .. line
 			prepend = ''
 		end
-		local parent = line:match('include "Metadata/StatDescriptions/(.+)%.txt"$')
+		local parent = line:match('include "Metadata/StatDescriptions/(.+)%.csd"$')
 		if parent then
 			statDescriptor.parent = parent
 			return
@@ -60,7 +60,8 @@ local function processStatFile(name)
 								limit[1] = "!"
 								limit[2] = tonumber(negate)
 							else
-								limit[1], limit[2] = statLimit:match("([%d%-#]+)|([%d%-#]+)")
+								-- 3.30 stat_descriptions has the typo "1|99#"
+								limit[1], limit[2] = statLimit:gsub("(%d)#", "%1"):match("([%d%-#]+)|([%d%-#]+)")
 								limit[1] = tonumber(limit[1]) or limit[1]
 								limit[2] = tonumber(limit[2]) or limit[2]
 							end
@@ -104,7 +105,7 @@ local function processStatFile(name)
 			end
 		end
 	end
-	local text = convertUTF16to8(getFile("Metadata/StatDescriptions/"..name..".txt"))
+	local text = convertUTF16to8(getFile("Metadata/StatDescriptions/"..name..".csd"))
 	for line in text:gmatch("[^\r\n]+") do
 		processLine(line)
 	end
@@ -146,5 +147,11 @@ end
 for k, v in pairs(nk) do
 	--print("'"..k.."' = '"..v.."'")
 end
+
+if not getDescriptionFormatterNames then
+	dofile("statdesc.lua")
+end
+local utils = LoadModule("../Modules/Utils")
+utils.saveTableToFile("../Data/StatDescriptionFormatters.lua", getDescriptionFormatterNames(), "Names for stat description functions that turn a value into a name.")
 
 print("Stat descriptions exported.")

@@ -9,7 +9,7 @@ Implicits: 1
 Gain 3 Rage on Melee Weapon Hit
 Does not inflict Mana Burn over time
 Inflicts Mana Burn on you when you Hit an Enemy with a Melee Weapon
-(1-5)% increased Rarity of Items found per Mana Burn, up to a maximum of 100%
++(1-5)% to Item Rarity per Mana Burn, up to a maximum of 100%
 Melee Weapon Attacks have Culling Strike
 ]],[[
 Grasping Nightshade
