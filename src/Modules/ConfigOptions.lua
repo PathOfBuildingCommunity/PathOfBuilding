@@ -1388,6 +1388,9 @@ Huge sets the radius to 11.
 	{ var = "conditionConsumed12SteelShardsRecently", type = "check", label = "Consumed 12 Steel Shards Recently?", ifCond = "Consumed12SteelShardsRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:Consumed12SteelShardsRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
+	{ var = "conditionConsumed8SteelShardsRecently", type = "check", label = "Consumed 8 Steel Shards Recently?", ifCond = "Consumed8SteelShardsRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:Consumed8SteelShardsRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
 	{ var = "conditionGainedPowerChargeRecently", type = "check", label = "Gained a Power Charge Recently?", ifCond = "GainedPowerChargeRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:GainedPowerChargeRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },

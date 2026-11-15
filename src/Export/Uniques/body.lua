@@ -669,13 +669,16 @@ Shavronne's Wrappings
 Occultist's Vestment
 Variant: Pre 1.0.0
 Variant: Pre 3.0.0
+Variant: Pre 3.30.0
 Variant: Current
 Implicits: 1
 SpellDamageImplicitArmour1
 {variant:1}LocalIncreasedEnergyShieldUniqueBodyInt1[200,250]
 {variant:2}LocalIncreasedEnergyShieldUniqueBodyInt1[140,200]
-{variant:3}LocalIncreasedEnergyShieldUniqueBodyInt1
-ReducedEnergyShieldDelayUniqueBodyInt1
+{variant:3}LocalIncreasedEnergyShieldUniqueBodyInt1[100,150]
+{variant:4}LocalIncreasedEnergyShieldUniqueBodyInt1
+{variant:4}(20-30)% of Damage taken Recouped as Energy Shield
+{variant:1,2,3}ReducedEnergyShieldDelayUniqueBodyInt1
 LightningResistUniqueBodyInt1
 AttackerTakesLightningDamageUniqueBodyInt1
 ChaosTakenOnES
@@ -1462,16 +1465,21 @@ Sacrificial Garb
 League: Incursion
 Source: Double Corrupting Sacrificial Garb
 Variant: Pre 3.10.0
+Variant: Pre 3.30.0
 Variant: Current
 Implicits: 0
-DisplayHasAdditionalModUnique__1
-AllAttributesUnique__8_
-{variant:2}LocalIncreasedArmourEvasionEnergyShieldUnique__1_
+{variant:1,2}DisplayHasAdditionalModUnique__1
+{variant:1,2}AllAttributesUnique__8_[20,30]
+{variant:3}AllAttributesUnique__8_
+{variant:2,3}LocalIncreasedArmourEvasionEnergyShieldUnique__1_
 MaximumLifeOnKillPercentUnique__3__
 MaximumEnergyShieldOnKillPercentUnique__1
-AllResistancesPerCorruptedItemUnique__1
-MaximumEnergyShieldPercentPerCorruptedItemUnique__1_
-MaximumLifePercentPerCorruptedItemUnique__1_
+{variant:1,2}AllResistancesPerCorruptedItemUnique__1[-6,-4]
+{variant:3}AllResistancesPerCorruptedItemUnique__1
+{variant:1,2}MaximumEnergyShieldPercentPerCorruptedItemUnique__1_[8,8]
+{variant:3}MaximumEnergyShieldPercentPerCorruptedItemUnique__1_
+{variant:1,2}MaximumLifePercentPerCorruptedItemUnique__1_[6,6]
+{variant:3}MaximumLifePercentPerCorruptedItemUnique__1_
 Corrupted
 ]],[[
 The Queen's Hunger

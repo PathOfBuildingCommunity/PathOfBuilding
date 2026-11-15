@@ -176,9 +176,12 @@ EnemyExtraDamagerollsWithPhysicalDamageUnique_1
 The Hallowed Monarch
 Faithful Helmet
 Source: Drops from unique{Uber Incarnation of Dread} in normal{Moment of Reverence}
+Variant: Pre 3.30.0
+Variant: Current
 LocalIncreasedPhysicalDamageReductionRatingPercentUnique__35
 AllResistancesUnique__35
-LightRadiusUnique__11
+{variant:1}LightRadiusUnique__11[50,50]
+{variant:2}LightRadiusUnique__11
 LinksTargetDamageableMinionsUnique_1
 LinksGrantMinionsLessDamageTakenUnique_1
 LinkedMinionsStealRareModsUnique_1
