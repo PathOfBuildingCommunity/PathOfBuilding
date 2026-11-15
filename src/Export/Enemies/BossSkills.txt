@@ -6,7 +6,7 @@
 return {
 	bossSkills = {
 #boss Atziri Metadata/Monsters/Atziri/Atziri true true
-#skill Flameblast AtziriFlameblastEmpowered, stages = 10,
+#skill Flameblast AtziriFlameblastEmpowered, stages = 10, skillIndex = 2, skillIndexUber = nil,
 #tooltip "The Uber variant has 10 ^xB97123Fire^7 penetration (Applied on Pinnacle And Uber)"
 #boss Shaper Metadata/Monsters/AtlasBosses/TheShaperBoss false false
 #skill Ball AtlasBossAcceleratingProjectiles

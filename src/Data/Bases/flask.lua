@@ -320,7 +320,7 @@ itemBases["Basalt Flask"] = {
 	type = "Flask",
 	subType = "Utility",
 	tags = { default = true, flask = true, utility_flask = true, },
-	implicit = "Taunts nearby Enemies on use",
+	implicit = "Taunts Enemies within 3 metres on use",
 	implicitModTypes = { { "flask" }, },
 	implicitIds = { "UtilityFlaskTaunt_", },
 	flask = { duration = 8, chargesUsed = 40, chargesMax = 60, buff = { "20% more Armour" }, },
@@ -377,7 +377,7 @@ itemBases["Gold Flask"] = {
 	subType = "Utility",
 	tags = { default = true, flask = true, utility_flask = true, },
 	implicitModTypes = { },
-	flask = { duration = 5, chargesUsed = 60, chargesMax = 80, buff = { "30% increased Rarity of Items found" }, },
+	flask = { duration = 5, chargesUsed = 60, chargesMax = 80, buff = { "+30% to Item Rarity" }, },
 	req = { level = 27, },
 }
 itemBases["Corundum Flask"] = {

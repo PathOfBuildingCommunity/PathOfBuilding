@@ -1,8 +1,8 @@
 if not loadStatFile then
 	dofile("statdesc.lua")
 end
-loadStatFile("stat_descriptions.txt")
-loadStatFile("passive_skill_stat_descriptions.txt")
+loadStatFile("stat_descriptions.csd")
+loadStatFile("passive_skill_stat_descriptions.csd")
 
 local out = io.open("../Data/TattooPassives.lua", "w")
 

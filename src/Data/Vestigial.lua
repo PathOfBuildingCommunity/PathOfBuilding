@@ -9,7 +9,7 @@ return {
 		"Command of the Pit",
 	},
 	["DivergentAbyssJewelSocketUnique__12"] = {
-		"Bubonic Trail",
+		"Hale Negator",
 	},
 	["DivergentAbyssJewelSocketUnique__14"] = {
 		"Replica Shroud of the Lightless",
@@ -38,8 +38,12 @@ return {
 	["DivergentAddedPhysicalDamageUniqueShieldDex6"] = {
 		"Great Old One's Ward",
 	},
+	["DivergentAdditionalAttackTotemsUnique__1"] = {
+	},
+	["DivergentAdditionalBaseCritUnique__1"] = {
+	},
 	["DivergentAdditionalBlockChanceUniqueShieldDex2"] = {
-		"The Unshattered Will",
+		"Crest of Perandus",
 	},
 	["DivergentAdditionalCurseOnEnemiesUnique__1"] = {
 		"Windscream",
@@ -61,6 +65,8 @@ return {
 	},
 	["DivergentAllAttributesUnique__21"] = {
 		"Forbidden Shako",
+	},
+	["DivergentAllAttributesUnique__32"] = {
 	},
 	["DivergentAllAttributesUnique__6"] = {
 		"Loreweave",
@@ -122,11 +128,17 @@ return {
 	["DivergentArmourPerTotemUnique__1"] = {
 		"Tukohama's Fortress",
 	},
+	["DivergentArrowDamageAgainstPiercedTargetsUnique__1"] = {
+	},
 	["DivergentAttackCorrosionOnHitChanceUnique__1"] = {
 		"Ceaseless Feast",
 	},
 	["DivergentAttackLightningDamageMaximumManaUnique__1__"] = {
 		"Mind of the Council",
+	},
+	["DivergentAttackSpeedChangedStanceUnique__1"] = {
+	},
+	["DivergentAttackSpeedIfUsedAttackMovementSkillRecentlyUnique__1"] = {
 	},
 	["DivergentAttackSpeedOnFullLifeUniqueGlovesStr1"] = {
 		"Ondar's Clasp",
@@ -193,6 +205,8 @@ return {
 	},
 	["DivergentBlockChanceVersusCursedEnemiesUnique__1"] = {
 		"Chalice of Horrors",
+	},
+	["DivergentBlockPercentUniqueQuiver4"] = {
 	},
 	["DivergentBlockVsProjectilesUniqueShieldStr2"] = {
 		"Titucius' Span",
@@ -290,6 +304,8 @@ return {
 	["DivergentColdDamageOverTimeMultiplierUnique__2"] = {
 		"Rime Gaze",
 	},
+	["DivergentColdDamageToAttacksPerDexterityUnique__1"] = {
+	},
 	["DivergentColdExposureOnHitUnique__1"] = {
 		"Eye of Malice",
 	},
@@ -310,6 +326,8 @@ return {
 	},
 	["DivergentConvertPhysicalToColdUniqueGlovesDex1"] = {
 		"Hrimsorrow",
+	},
+	["DivergentConvertPhysicalToFireUniqueQuiver1_"] = {
 	},
 	["DivergentConvertPhysicalToFireUniqueShieldStr3"] = {
 		"Chernobog's Pillar",
@@ -346,6 +364,8 @@ return {
 	},
 	["DivergentCurseSkillsCostAndReserveLifeUnique__1"] = {
 		"Waxen Soul",
+	},
+	["DivergentCurseTransferOnKillUniqueQuiver5"] = {
 	},
 	["DivergentDamageOverTimeMultiplierIfCrit8SecondsUnique__1_"] = {
 		"Qotra's Regulator",
@@ -392,6 +412,8 @@ return {
 	["DivergentDisplaySupportedByUnleashUnique__1"] = {
 		"Replica Kalisa's Grace",
 	},
+	["DivergentDisplaySupportedByUnleashUnique__2"] = {
+	},
 	["DivergentDodgeAndSpellDodgePerMaximumManaUnique__1"] = {
 		"Omeyocan",
 	},
@@ -424,6 +446,8 @@ return {
 	},
 	["DivergentEnemiesCantLifeLeechUnique__1"] = {
 		"Sin Trek",
+	},
+	["DivergentEnemiesChilledIncreasedDamageTakenUnique__1"] = {
 	},
 	["DivergentEnemiesCountAsMovingElementalAilmentsUnique__1"] = {
 		"The Tempest Rising",
@@ -476,6 +500,8 @@ return {
 	["DivergentEvasionRatingPercentOnLowLifeUniqueHelmetDex4"] = {
 		"Starkonja's Head",
 	},
+	["DivergentEverySecondSpellcastUnique__1"] = {
+	},
 	["DivergentExcommunicateOnMeleeHitUnique"] = {
 		"Hand of Heresy",
 	},
@@ -487,6 +513,8 @@ return {
 	},
 	["DivergentFireDamageTakenConvertedToPhysicalUnique__1"] = {
 		"The Rat Cage",
+	},
+	["DivergentFireDamageToAttacksPerStrengthUnique__1"] = {
 	},
 	["DivergentFireExposureOnHitUnique__1"] = {
 		"Eye of Malice",
@@ -605,6 +633,8 @@ return {
 	["DivergentGraspFromBeyondTrapUnique_1"] = {
 		"Hand of the Lords",
 	},
+	["DivergentHarbingerSkillOnEquipUnique2_4"] = {
+	},
 	["DivergentHarbingerSkillOnEquipUnique2_5"] = {
 		"The Tempest's Liberation",
 	},
@@ -614,6 +644,8 @@ return {
 	["DivergentHarbingerSkillOnEquipUnique__3"] = {
 		"The Unshattered Will",
 	},
+	["DivergentHarbingerSkillOnEquipUnique__4_"] = {
+	},
 	["DivergentHarbingerSkillOnEquipUnique__5"] = {
 		"The Tempest's Binding",
 	},
@@ -622,6 +654,11 @@ return {
 	},
 	["DivergentHasMassiveShrineBuffUnique__1"] = {
 		"Blunderbore",
+	},
+	["DivergentHasThreeSocketsUnique__1"] = {
+		"The Squire",
+	},
+	["DivergentHasThreeSocketsUnique__2"] = {
 	},
 	["DivergentHealAlliesOnDeathUniqueShieldDexInt2"] = {
 		"Maligaro's Lens",
@@ -637,6 +674,10 @@ return {
 	},
 	["DivergentImmuneToElementalAilmentsWhileLifeAndManaCloseUnique__1"] = {
 		"The Scales of Justice",
+	},
+	["DivergentImpaleEffectUnique__3"] = {
+	},
+	["DivergentIncreaseDamageOnBlindedEnemiesUniqueQuiver9_"] = {
 	},
 	["DivergentIncreaseProjectileAttackDamagePerAccuracyUnique__1"] = {
 		"Obscurantis",
@@ -686,6 +727,8 @@ return {
 	["DivergentIncreasedLifeWhileNoCorruptedItemsUnique__1"] = {
 		"Voll's Vision",
 	},
+	["DivergentIncreasedLightningDamagePer10IntelligenceUnique__1"] = {
+	},
 	["DivergentIncreasedManaUnique__19"] = {
 		"Replica Kaom's Heart",
 	},
@@ -706,9 +749,6 @@ return {
 	},
 	["DivergentIronWillUniqueGlovesStrInt4__"] = {
 		"Repentance",
-	},
-	["DivergentItemActsAsConcentratedAOESupportUnique__1"] = {
-		"Wyrmsign",
 	},
 	["DivergentItemFoundRarityIncreaseUniqueBodyStr5"] = {
 		"Greed's Embrace",
@@ -794,6 +834,8 @@ return {
 	["DivergentLightningDamageCanPoisonAndLessDurationUnique__1"] = {
 		"Volkuur's Guidance",
 	},
+	["DivergentLightningDamageToAttacksPerIntelligenceUnique__1"] = {
+	},
 	["DivergentLightningFreezesUniqueHelmetDexInt4"] = {
 		"The Three Dragons",
 	},
@@ -837,7 +879,7 @@ return {
 		"Mask of the Tribunal",
 	},
 	["DivergentManaReservationEfficiencyUniqueHelmetDex5_"] = {
-		"Replica Alpha's Howl",
+		"Alpha's Howl",
 	},
 	["DivergentMaximumCrabBarriersUnique__1"] = {
 		"Craiceann's Carapace",
@@ -850,6 +892,8 @@ return {
 	},
 	["DivergentMaximumLifeConvertedToEnergyShieldUnique__2"] = {
 		"Ghostwrithe",
+	},
+	["DivergentMaximumLifeLeechRateUnique__1"] = {
 	},
 	["DivergentMaximumLifePer10DexterityUnique__1"] = {
 		"Garukhan's Flight",
@@ -1085,6 +1129,8 @@ return {
 	["DivergentProjectilesChainWhilePhasingUnique__1"] = {
 		"Replica Voidwalker",
 	},
+	["DivergentProjectilesForkUnique____1"] = {
+	},
 	["DivergentPunishmentOnMeleeBlockUniqueShieldInt4"] = {
 		"Sentari's Answer",
 	},
@@ -1121,6 +1167,8 @@ return {
 	["DivergentRecoverLifeOnSuppressUnique__1"] = {
 		"Elevore",
 	},
+	["DivergentReducedEnergyShieldDelayUniqueQuiver7"] = {
+	},
 	["DivergentReducedReservationForSocketedCurseGemsUnique__1"] = {
 		"Heretic's Veil",
 	},
@@ -1144,6 +1192,8 @@ return {
 	},
 	["DivergentSacrificeLifeToGainESUnique__1"] = {
 		"Demon Stitcher",
+	},
+	["DivergentSacrificeMinionToFireAdditionalArrowsUnique__1"] = {
 	},
 	["DivergentSacrificialZealOnSkillUseUnique__1_"] = {
 		"Hand of the Fervent",
@@ -1188,10 +1238,10 @@ return {
 		"Shadows and Dust",
 	},
 	["DivergentSimulatedRampageStrDex5"] = {
-		"Null and Void",
+		"Flesh and Spirit",
 	},
 	["DivergentSimulatedRampageStrInt2"] = {
-		"Flesh and Spirit",
+		"Null and Void",
 	},
 	["DivergentSkeletonWarriorsPermanentMinionUnique__1"] = {
 		"Alberon's Warpath",
@@ -1204,12 +1254,6 @@ return {
 	},
 	["DivergentSocketedGemQualityUnique__1"] = {
 		"Crest of Desire",
-	},
-	["DivergentSocketedGemsGetElementalProliferationUniqueBodyInt5"] = {
-		"Thousand Ribbons",
-	},
-	["DivergentSocketedGemsHaveAddedChaosDamageUnique__3"] = {
-		"The Covenant",
 	},
 	["DivergentSocketedGemsHaveReducedManaCostUniqueHelmetDexInt5"] = {
 		"The Vertex",
@@ -1288,6 +1332,8 @@ return {
 	},
 	["DivergentStunAvoidancePerHeraldUnique__1"] = {
 		"The Coming Calamity",
+	},
+	["DivergentStunDurationUniqueQuiver8"] = {
 	},
 	["DivergentSupportedByFasterCastUnique__1"] = {
 		"Kalisa's Grace",
@@ -1388,6 +1434,8 @@ return {
 	["DivergentVaalPactIfCritRecentlyUnique__1"] = {
 		"Atziri's Acuity",
 	},
+	["DivergentVoidShotOnSkillUseUnique__1_"] = {
+	},
 	["DivergentVulnerabilityOnBlockUniqueShieldStrDex3"] = {
 		"The Deep One's Hide",
 	},
@@ -1395,10 +1443,10 @@ return {
 		"Howlcrack",
 	},
 	["DivergentWarcryCooldownSpeedUnique__1"] = {
-		"The Eternal Apple",
+		"Redblade Banner",
 	},
 	["DivergentWarcryCooldownSpeedUnique__2"] = {
-		"Redblade Banner",
+		"The Eternal Apple",
 	},
 	["DivergentWarcryCorpseExplosionUnique__1"] = {
 		"Kaom's Command",

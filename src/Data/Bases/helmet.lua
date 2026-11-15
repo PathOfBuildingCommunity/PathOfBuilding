@@ -754,7 +754,7 @@ itemBases["Bone Helmet"] = {
 	socketLimit = 4,
 	tags = { armour = true, atlas_base_type = true, default = true, helmet = true, helmetatlas1 = true, not_for_sale = true, str_int_armour = true, },
 	influenceTags = { shaper = "helmet_shaper", elder = "helmet_elder", adjudicator = "helmet_adjudicator", basilisk = "helmet_basilisk", crusader = "helmet_crusader", eyrie = "helmet_eyrie", cleansing = "helmet_cleansing", tangle = "helmet_tangle" },
-	implicit = "Minions deal (15-20)% increased Damage",
+	implicit = "Minions deal (20-30)% increased Damage",
 	implicitModTypes = { { "damage", "minion" }, },
 	implicitIds = { "MinionDamageImplicitHelmet1", },
 	armour = { ArmourBaseMin = 197, ArmourBaseMax = 227, EnergyShieldBaseMin = 40, EnergyShieldBaseMax = 46, },

@@ -31,7 +31,9 @@ for essence in dat("Essences"):Rows() do
 		out:write('type = ', essence.Type._rowIndex - 1, ', tier = ', essence.Tier, ', ')
 		out:write('mods = { ')
 		for type, col in pairsSortByKey(colMap) do
-			out:write('["', type, '"] = "', essence[col].Id, '", ')
+			if essence[col] then
+				out:write('["', type, '"] = "', essence[col].Id, '", ')
+			end
 		end
 		out:write('}, },\n')
 	end
