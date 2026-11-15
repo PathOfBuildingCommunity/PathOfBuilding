@@ -254,13 +254,13 @@ function M.addModEntries(item, modTypeSources)
 							value = value,
 						}
 						if not tradeId then
-							local resultHashes, value, invert = tradeHelpers.findTradeHash(resolvedLine)
+							local resultHashes, value, invert, prefix = tradeHelpers.findTradeHash(resolvedLine)
 							-- convert hashes to string ids
 							local resultIds = {}
 							if resultHashes then
 								local existingStats = getStats()
 								for idx = 1, #resultHashes do
-									local id = string.format("%s.stat_%s", source.type, resultHashes[idx])
+									local id = string.format("%s.%s%s", source.type, prefix, resultHashes[idx])
 									if existingStats[id] then
 										t_insert(resultIds, id)
 									end
