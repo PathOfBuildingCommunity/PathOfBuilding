@@ -691,11 +691,11 @@ Implicits: 1
 {variant:2}(140-200)% increased Energy Shield
 {variant:3}(100-150)% increased Energy Shield
 {variant:4}(150-200)% increased Energy Shield
-{variant:4}(20-30)% of Damage taken Recouped as Energy Shield
 {variant:1,2,3}10% faster start of Energy Shield Recharge
 +(30-40)% to Lightning Resistance
 Reflects 1 to 250 Lightning Damage to Melee Attackers
 Chaos Damage taken does not bypass Energy Shield
+{variant:4}(20-30)% of Damage taken Recouped as Energy Shield
 ]],[[
 Skin of the Loyal
 Simple Robe
@@ -1489,7 +1489,6 @@ Variant: Pre 3.10.0
 Variant: Pre 3.30.0
 Variant: Current
 Implicits: 0
-{variant:1,2}Has an additional Implicit Mod
 {variant:1,2}+(20-30) to all Attributes
 {variant:3}+(1-50) to all Attributes
 {variant:2,3}(250-350)% increased Armour, Evasion and Energy Shield

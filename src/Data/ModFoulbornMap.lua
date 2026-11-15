@@ -22,6 +22,9 @@ return {
 	["Ambu's Charge"] = {
 		"+1 to Maximum Endurance Charges",
 	},
+	["Amplification Rod"] = {
+		"Socketed Gems are Supported by Level 1 Greater Spell Cascade Support",
+	},
 	["Anathema"] = {
 		"Curse Skills have (-30-30)% reduced Skill Effect Duration",
 	},
@@ -90,6 +93,7 @@ return {
 	},
 	["Carcass Jack"] = {
 		"(15-30)% increased Effect of Non-Curse Auras from your Skills on Enemies",
+		"Socketed Gems are Supported by Level 20 Intensify Support",
 	},
 	["Cherrubim's Maleficence"] = {
 		"20% of Physical Damage from Hits taken as Chaos Damage",
@@ -318,6 +322,7 @@ return {
 		"Minions deal (50-70)% increased Damage if you've Hit Recently",
 	},
 	["Kalisa's Grace"] = {
+		"Socketed Gems are Supported by Level 20 Focused Channelling Support",
 		"100% increased Mana Cost Efficiency for 2 seconds after Spending a total of 800 Mana",
 		"50% reduced Mana Cost of Skills for 2 seconds after Spending a total of 800 Mana",
 	},
@@ -410,6 +415,9 @@ return {
 		"Your Action Speed is at least 90% of base value",
 		"50% increased Effect of non-Damaging Ailments you inflict with Critical Strikes",
 	},
+	["Maloney's Mechanism"] = {
+		"Socketed Gems are Supported by Level 25 Arrow Nova Support",
+	},
 	["Matua Tupuna"] = {
 		"+2 to Level of Socketed Aura Gems",
 	},
@@ -453,6 +461,7 @@ return {
 		"(15-25)% increased Life Regeneration rate",
 	},
 	["Null's Inclination"] = {
+		"Socketed Gems are Supported by Level 20 Summon Phantasm Support",
 		"Minions deal (25-35) to (50-65) additional Chaos Damage",
 		"An Enemy Writhing Worm spawns every 2 seconds",
 	},
@@ -497,6 +506,9 @@ return {
 	["Repentance"] = {
 		"(12-16)% increased Intelligence",
 	},
+	["Reverberation Rod"] = {
+		"Socketed Gems are Supported by Level 1 Greater Spell Cascade Support",
+	},
 	["Rigwald's Command"] = {
 		"+10% Chance to Block Spell Damage while Dual Wielding",
 	},
@@ -505,6 +517,9 @@ return {
 	},
 	["Rigwald's Savagery"] = {
 		"Your Melee Hits can't be Evaded while wielding a Sword",
+	},
+	["Rime Gaze"] = {
+		"Socketed Gems are Supported by Level 25 Frigid Bond Support",
 	},
 	["Rise of the Phoenix"] = {
 		"(10-20)% increased Cast Speed when on Low Life",
@@ -639,6 +654,9 @@ return {
 		"Gain no inherent bonuses from Strength",
 		"Transcendence",
 	},
+	["The Bringer of Rain"] = {
+		"Socketed Gems are Supported by Level 30 Sadism Support",
+	},
 	["The Coming Calamity"] = {
 		"(80-100)% increased Effect of Herald Buffs on you",
 		"Lone Messenger",
@@ -668,6 +686,9 @@ return {
 	["The Formless Flame"] = {
 		"30% of Fire Damage from Hits taken as Physical Damage",
 		"Totem Life is increased by their Overcapped Fire Resistance",
+	},
+	["The Formless Inferno"] = {
+		"Socketed Gems are Supported by Level 30 Minion Life Support",
 	},
 	["The Fourth Vow"] = {
 		"40% of Non-Chaos Damage taken bypasses Energy Shield",
@@ -870,6 +891,9 @@ return {
 		"Curse Skills have (10-15)% increased Skill Effect Duration",
 		"Cursed Enemies you or your Minions Kill have a (10-15)% chance to Explode, dealing a quarter of their maximum Life as Chaos Damage",
 	},
+	["Wyrmsign"] = {
+		"Socketed Gems are Supported by Level 5 Manaforged Arrows Support",
+	},
 	["Xoph's Blood"] = {
 		"Elemental Overload",
 	},
@@ -878,10 +902,12 @@ return {
 		"(5-15)% of Physical Damage from Hits taken as Fire Damage",
 	},
 	["Xoph's Inception"] = {
+		"Socketed Gems are Supported by Level 20 Returning Projectiles Support",
 		"Ignites you inflict deal Damage (20-40)% Faster",
 	},
 	["Xoph's Nurture"] = {
 		"All Damage can Ignite",
+		"Socketed Gems are Supported by Level 30 Immolate Support",
 	},
 	["Ylfeban's Trickery"] = {
 		"Retaliation Skills have 200% Arcane Might",

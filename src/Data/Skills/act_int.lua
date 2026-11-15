@@ -5880,20 +5880,14 @@ skills["FireballAltX"] = {
 	skillTypes = { [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.DamageOverTime] = true, [SkillType.Duration] = true, [SkillType.Fire] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.75,
-	parts = {
-		{
-			name = "Projectile",
-			area = false,
-		},
-		{
-			name = "Explosion",
-			area = true,
-		},
-	},
 	baseFlags = {
 		spell = true,
 		projectile = true,
+		area = true,
 		duration = true,
+	},
+	baseMods = {
+		skill("debuff", true),
 	},
 	qualityStats = {
 		{ "active_skill_base_area_of_effect_radius", 0.1 },
