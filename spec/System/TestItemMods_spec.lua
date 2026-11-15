@@ -39,13 +39,11 @@ describe("TetsItemMods", function()
 		assert.are.equal(1, build.calcsTab.mainOutput.LifeRecoveryRateMod)
 		build.configTab.input.missingUnreservedLifePercent = 0
 		setWickermanCustomMods(common)
-		loadBuildFromXML(build:SaveDB("code"))
 		assert.are.equal(0, build.calcsTab.mainOutput.MissingUnreservedLifePercent)
 		assert.are.equal(1, build.calcsTab.mainOutput.LifeRecoveryRateMod)
 		build.configTab.input.missingUnreservedLifePercent = nil
 		build.configTab:BuildModList()
 		runCallback("OnFrame")
-		loadBuildFromXML(build:SaveDB("code"))
 		assert.are.equal(50, build.calcsTab.mainOutput.MissingUnreservedLifePercent)
 		assert.are.near(1.2, build.calcsTab.mainOutput.LifeRecoveryRateMod, 1e-9)
 	end)

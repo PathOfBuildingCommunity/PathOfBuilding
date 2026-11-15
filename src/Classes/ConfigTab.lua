@@ -968,8 +968,7 @@ function ConfigTabClass:Save(xml)
 		t_insert(xml, child)
 
 		for k, v in pairsSortByKey(configSet.input) do
-			-- This override distinguishes an explicit zero from the automatic missing-life assumption.
-			if k == "missingUnreservedLifePercent" or v ~= self:GetDefaultState(k, type(v)) then
+			if v ~= self:GetDefaultState(k, type(v)) then
 				local node = { elem = "Input", attrib = { name = k } }
 				if type(v) == "number" then
 					node.attrib.number = tostring(v)
