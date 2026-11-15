@@ -391,8 +391,28 @@ return {
 	["DivergentDisplayDamageAuraUniqueHelmetDexInt2"] = {
 		"Leer Cast",
 	},
+	["DivergentDisplayGrantsBloodOfferingUnique__1_"] = {
+		"Bloodbond",
+	},
+	["DivergentDisplaySocketedGemGetsAddedLightningDamageUnique__1"] = {
+		"Thunderfist",
+	},
+	["DivergentDisplaySocketedGemGetsFasterAttackUniqueHelmetStrDex4"] = {
+		"The Bringer of Rain",
+	},
+	["DivergentDisplaySocketedGemGetsSpellTotemBodyInt7"] = {
+		"Soul Mantle",
+	},
 	["DivergentDisplaySocketedMinionGemsSupportedByLifeLeechUnique__1"] = {
 		"Cloak of Tawm'r Isley",
+	},
+	["DivergentDisplaySupportedByAddedColdDamageUnique__2"] = {
+		"Replica Covenant",
+	},
+	["DivergentDisplaySupportedByUnleashUnique__1"] = {
+		"Replica Kalisa's Grace",
+	},
+	["DivergentDisplaySupportedByUnleashUnique__2"] = {
 	},
 	["DivergentDodgeAndSpellDodgePerMaximumManaUnique__1"] = {
 		"Omeyocan",
@@ -577,17 +597,57 @@ return {
 	["DivergentGrantsAvianTornadoUnique__1__"] = {
 		"Saqawal's Flock",
 	},
+	["DivergentGrantsBirdAspect1_"] = {
+		"Saqawal's Talons",
+	},
+	["DivergentGrantsCatAspect1"] = {
+		"Farrul's Bite",
+	},
 	["DivergentGrantsRavenousSkillUnique__1"] = {
 		"Veruso's Ambition",
+	},
+	["DivergentGrantsSpiderAspect1"] = {
+		"Fenumus' Weave",
 	},
 	["DivergentGrantsSummonArbalistsSkillUnique__1_"] = {
 		"Vorana's March",
 	},
+	["DivergentGrantsSummonBeastRhoaUnique__1"] = {
+		"Yriel's Fostering",
+	},
+	["DivergentGrantsSummonBeastSnakeUnique__1"] = {
+		"Yriel's Fostering",
+	},
+	["DivergentGrantsSummonBeastUrsaUnique__1"] = {
+		"Yriel's Fostering",
+	},
 	["DivergentGrantsSummonVoidSpawnUnique__1"] = {
 		"Servant of Decay",
 	},
+	["DivergentGrantsTouchOfGodUnique__1"] = {
+		"Doryani's Fist",
+	},
 	["DivergentGrantsVoidGazeUnique__1"] = {
 		"Eber's Unification",
+	},
+	["DivergentGraspFromBeyondTrapUnique_1"] = {
+		"Hand of the Lords",
+	},
+	["DivergentHarbingerSkillOnEquipUnique2_4"] = {
+	},
+	["DivergentHarbingerSkillOnEquipUnique2_5"] = {
+		"The Tempest's Liberation",
+	},
+	["DivergentHarbingerSkillOnEquipUnique2__3"] = {
+		"The Immortal Will",
+	},
+	["DivergentHarbingerSkillOnEquipUnique__3"] = {
+		"The Unshattered Will",
+	},
+	["DivergentHarbingerSkillOnEquipUnique__4_"] = {
+	},
+	["DivergentHarbingerSkillOnEquipUnique__5"] = {
+		"The Tempest's Binding",
 	},
 	["DivergentHasBrutalShrineBuffUnique__1"] = {
 		"Blunderbore",
@@ -1210,6 +1270,12 @@ return {
 	["DivergentSocketedGemsSupportedByBlasphemyUnique__3"] = {
 		"Heretic's Veil",
 	},
+	["DivergentSocketedGemsSupportedByCastOnDeathUniqueHelmetStrInt5"] = {
+		"The Broken Crown",
+	},
+	["DivergentSocketedGemsSupportedByPierceUniqueBodyStr6"] = {
+		"Lioneye's Vision",
+	},
 	["DivergentSocketedItemsHaveReducedReservationUniqueBodyDexInt4"] = {
 		"Victario's Influence",
 	},
@@ -1268,6 +1334,18 @@ return {
 		"The Coming Calamity",
 	},
 	["DivergentStunDurationUniqueQuiver8"] = {
+	},
+	["DivergentSupportedByFasterCastUnique__1"] = {
+		"Kalisa's Grace",
+	},
+	["DivergentSupportedByLesserPoisonUnique__1"] = {
+		"Dendrobate",
+	},
+	["DivergentSupportedByRageUnique__1__"] = {
+		"Hateforge",
+	},
+	["DivergentSupportedByVileToxinsUnique__1"] = {
+		"The Embalmer",
 	},
 	["DivergentTakeNoExtraDamageFromCriticalStrikesUnique__1"] = {
 		"The Brass Dome",
