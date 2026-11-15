@@ -439,11 +439,11 @@ local itemTypes = {
 	"flask",
 	"tincture",
 	"graft",
+	"wickerman",
 }
 for _, name in pairs(itemTypes) do
 	processTemplateFile(name, "Bases/", "../Data/Bases/", directiveTable)
 end
-processTemplateFile("wickerman", "Bases/", "../Data/Bases/", directiveTable)
 
 print("Item bases exported.")
 
