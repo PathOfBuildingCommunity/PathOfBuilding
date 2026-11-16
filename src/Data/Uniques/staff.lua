@@ -92,7 +92,7 @@ Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Alluring Abys
 Implicits: 2
 {variant:2,3}+25% Chance to Block Attack Damage
 {variant:1}+20% Chance to Block Spell Damage
-Grants Queen's Demand
+Grants Level 20 Queen's Demand
 Queen's Demand can Trigger Level 20 Flames of Judgement
 Queen's Demand can Trigger Level 20 Storm of Judgement
 {variant:3}(100-300)% increased Spell Critical Strike Chance
@@ -731,7 +731,7 @@ Implicits: 3
 {variant:2}+18% Chance to Block Attack Damage
 {variant:3}+20% Chance to Block Attack Damage
 +1 to Level of Socketed Support Gems
-Grants Icestorm
+Grants Level 1 Icestorm
 (14-18)% increased Intelligence
 (8-12)% increased Cast Speed
 1% increased Spell Damage per 10 Intelligence
@@ -746,7 +746,7 @@ Requires Level 68
 Implicits: 2
 {variant:1}+18% Chance to Block Attack Damage
 {variant:2}+22% Chance to Block Spell Damage
-Grants Brandsurge
+Grants Level 20 Brandsurge
 Brand Skills have (50-100)% increased Duration
 ]],[[
 The Geomantic Gyre
@@ -793,5 +793,14 @@ Requires Level 68
 Implicits: 1
 +22% Chance to Block Attack Damage
 (60-90)% increased Unveiled Modifier magnitudes
+]],[[
+Bane of the Apostate
+Judgement Staff
+Implicits: 1
++25% Chance to Block Attack Damage
+Grants Level 20 Witchhunter's Pyre
+(150-220)% increased Fire Damage
+(35-50)% increased Area of Effect
+(20-30)% increased Skill Effect Duration
 ]]
 }

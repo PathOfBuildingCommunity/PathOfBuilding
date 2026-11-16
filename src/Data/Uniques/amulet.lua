@@ -1160,7 +1160,7 @@ Requires Level 28
 Implicits: 1
 {tags:resistance}+(20-30)% to Fire Resistance
 {variant:3}Grants Level 10 Frostblink
-{variant:1,2}Grants Illusory Warp
+{variant:1,2}Grants Level 20 Illusory Warp
 {tags:elemental_damage}(30-50)% increased Cold Damage
 {tags:resistance}+(10-15)% to all Elemental Resistances
 {variant:1}{tags:caster}30% increased Area of Effect of Hex Skills

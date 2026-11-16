@@ -1248,7 +1248,7 @@ Variant: Pre 3.29.0
 Variant: Current
 Implicits: 1
 Minions deal (20-30)% increased Damage
-Grants Death Wish
+Grants Level 20 Death Wish
 +(45-65) to maximum Life
 {variant:2}(40-60)% increased Mana Cost Efficiency of Minion Skills
 {variant:1}(20-30)% reduced Mana Cost of Minion Skills
@@ -1442,7 +1442,7 @@ Gorgon's Gaze
 Source: Drops from unique{Talin, Faithbreaker} in normal{Pillars of Arun}
 Regicide Mask
 Implicits: 0
-Grants Petrification Statue
+Grants Level 1 Petrification Statue
 (200-250)% increased Energy Shield
 +(60-80) to maximum Life
 (5-10)% increased Attack and Cast Speed

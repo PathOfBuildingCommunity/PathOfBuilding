@@ -864,7 +864,7 @@ League: Allflame
 Source: Drops from unique{Velka, the Tide Witch}
 Implicits: 1
 60% increased Block Recovery
-Grants Savage Barnacle
+Grants Level 20 Savage Barnacle
 +(50-100) to Armour
 +(50-100) to Evasion Rating
 (100-200)% increased Armour and Evasion

@@ -298,7 +298,7 @@ Balefire
 Opal Sceptre
 Implicits: 1
 40% increased Elemental Damage
-Grants Scorching Ray
+Grants Level 25 Scorching Ray
 (12-20)% increased Cast Speed
 Recover (1-3)% of Life on Kill
 Recover (1-3)% of Mana on Kill

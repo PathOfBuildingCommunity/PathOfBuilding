@@ -1621,6 +1621,16 @@ return function(skills, mod, flag, skill)
 	fromItem = true,
 #mods
 
+#skill GrimBonfire Witchhunter's Pyre
+#flags spell projectile area
+	fromItem = true,
+	statMap = {
+		["grim_bonfire_additional_projectile_chance_per_debuff_on_target"] = {
+			mod("DPS", "MORE", nil, 0, 0, { type = "Multiplier", var = "WitchhuntersPyreAdditionalBurningDebuff" }),
+		},
+	},
+#mods
+
 #skill SupportTriggerFireSpellOnHit
 	fromItem = true,
 	statMap = {

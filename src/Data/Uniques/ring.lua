@@ -593,7 +593,7 @@ Requires Level 50
 Implicits: 2
 50% increased Elemental Ailment Duration on you
 50% reduced Effect of Curses on you
-Grants Penance Mark
+Grants Level 20 Penance Mark
 {tags:caster,speed}(6-12)% increased Cast Speed
 {tags:resource}+(30-60) to maximum Life
 {tags:resistance}+(7-19)% to Chaos Resistance
@@ -1051,7 +1051,7 @@ Requires Level 50
 Implicits: 2
 50% increased Elemental Ailment Duration on you
 50% reduced Effect of Curses on you
-Grants Pacify
+Grants Level 20 Pacify
 {tags:caster,speed}(6-12)% increased Cast Speed
 {tags:resource}+(30-60) to maximum Mana
 {tags:resistance}+(7-19)% to Chaos Resistance

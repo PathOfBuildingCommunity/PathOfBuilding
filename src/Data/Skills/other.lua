@@ -6162,6 +6162,60 @@ skills["SupportUniqueCastCurseOnCurse"] = {
 		[1] = { cooldown = 0.25, levelRequirement = 0, storedUses = 1, },
 	},
 }
+skills["GrimBonfire"] = {
+	name = "Witchhunter's Pyre",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 1.0499999523163,
+	incrementalEffectiveness = 0.049499999731779,
+	description = "Create a burning Bonfire of corpses at the targeted location. This Bonfire will deal fire damage over time to surrounding enemies. Bonfires created this way are considered to be totems.\nBonfires periodically release fiery projectiles which target nearby burning enemies. An additional projectile will be fired at a given target for each additional burning debuff on that target.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Fire] = true, [SkillType.Projectile] = true, [SkillType.DamageOverTime] = true, [SkillType.Area] = true, [SkillType.AreaSpell] = true, [SkillType.SummonsTotem] = true, [SkillType.Damage] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.CausesBurning] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.5,
+	fromItem = true,
+	statMap = {
+		["grim_bonfire_additional_projectile_chance_per_debuff_on_target"] = {
+			mod("DPS", "MORE", nil, 0, 0, { type = "Multiplier", var = "WitchhuntersPyreAdditionalBurningDebuff" }),
+		},
+	},
+	baseFlags = {
+		spell = true,
+		projectile = true,
+		area = true,
+	},
+	constantStats = {
+		{ "base_totem_duration", 8000 },
+		{ "base_totem_range", 80 },
+		{ "active_skill_base_area_of_effect_radius", 80 },
+		{ "active_skill_base_secondary_area_of_effect_radius", 12 },
+		{ "active_skill_base_tertiary_area_of_effect_radius", 27 },
+		{ "grim_bonfire_additional_projectile_chance_per_debuff_on_target", 100 },
+		{ "active_skill_area_of_effect_description_mode", 11 },
+		{ "active_skill_tertiary_area_of_effect_description_mode", 4 },
+		{ "active_skill_secondary_area_of_effect_description_mode", 7 },
+		{ "number_of_additional_totems_allowed", 2 },
+	},
+	stats = {
+		"base_fire_damage_to_deal_per_minute",
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+		"base_is_projectile",
+		"is_area_damage",
+		"projectile_behaviour_only_explode",
+		"is_totem",
+		"base_skill_is_totemified",
+		"action_do_not_face_target",
+		"spell_damage_modifiers_apply_to_skill_dot",
+	},
+	notMinionStat = {
+		"base_fire_damage_to_deal_per_minute",
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+	},
+	levels = {
+		[20] = { 175.00000391155, 0.80000001192093, 1.2000000476837, critChance = 5, damageEffectiveness = 1.75, levelRequirement = 70, statInterpolation = { 3, 3, 3, }, cost = { Mana = 39, }, },
+	},
+}
 skills["SupportTriggerFireSpellOnHit"] = {
 	name = "SupportTriggerFireSpellOnHit",
 	hidden = true,

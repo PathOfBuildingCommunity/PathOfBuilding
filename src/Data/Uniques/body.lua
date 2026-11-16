@@ -93,7 +93,7 @@ Variant: Current
 League: Ritual
 Source: Drops from unique{The Maven}
 Implicits: 0
-Grants Unhinge
+Grants Level 20 Unhinge
 (40-60)% more Critical Strike Chance while Insane
 Enemies Killed by your Hits are destroyed while Insane
 {variant:1}(15-25)% more Physical and Chaos Damage Taken while Sane
@@ -474,9 +474,9 @@ Variant: Rhoa Current
 Variant: Snake Current
 Variant: Ursa Current
 Implicits: 0
-{variant:1,4}Grants Summon Bestial Rhoa
-{variant:2,5}Grants Summon Bestial Snake
-{variant:3,6}Grants Summon Bestial Ursa
+{variant:1,4}Grants Level 20 Summon Bestial Rhoa
+{variant:2,5}Grants Level 20 Summon Bestial Snake
+{variant:3,6}Grants Level 20 Summon Bestial Ursa
 +(300-400) to Accuracy Rating
 (130-150)% increased Evasion Rating
 +(90-100) to maximum Life

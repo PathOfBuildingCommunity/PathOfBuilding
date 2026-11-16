@@ -300,7 +300,7 @@ Source: Drops from unique{The Trialmaster}
 Implicits: 2
 {variant:1}(15-19)% increased Spell Damage
 {variant:2}(17-21)% increased Spell Damage
-Grants Blood Sacrament
+Grants Level 1 Blood Sacrament
 Your Critical Strike Chance is Lucky while on Low Life
 ]],[[
 Amplification Rod
