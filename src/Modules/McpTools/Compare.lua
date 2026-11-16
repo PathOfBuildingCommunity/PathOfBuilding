@@ -1225,6 +1225,7 @@ T.Tool {
 		.. "build's socket groups listed in socket_groups as new groups, as the Skills tab's copy and paste do (gem name, level, quality, "
 		.. "enabled, count, label and slot; groups granted by items come with the item and are skipped). The build is marked unsaved and "
 		.. "statChanges lists what changed.",
+	destructive = true,
 	modifies = true,
 	input = {
 		what = { type = "string", enum = { "tree", "item", "config", "skills" }, description = "What to copy." },
@@ -1475,6 +1476,7 @@ T.Tool {
 		.. "Effects'); 'rebuild' parses all the text again ('Rebuild All'); 'export_support' turns the Import/Export tab's 'Export "
 		.. "Support' on or off for the open build, so its own export can be imported into another build's Party tab (the result "
 		.. "lists the sections it exports). Changes mark the build unsaved and statChanges shows their effect.",
+	destructive = true,
 	modifies = true,
 	openWorld = true,
 	input = {
@@ -1507,6 +1509,8 @@ T.Tool {
 			end
 			local link = args.link:gsub("^%s+", ""):gsub("%s+$", "")
 			local site = findLinkSite(link)
+			-- main.modes.BUILD is reused for every build; its tabs are recreated whenever another build opens.
+			local openedTree = build.treeTab
 			return T.Defer(function(resolve)
 				buildSites.DownloadBuild(link, site, function(isSuccess, data)
 					if not isSuccess then
@@ -1514,7 +1518,7 @@ T.Tool {
 					end
 					T.Settle(resolve, function()
 						local current = T.Build()
-						if current ~= build then
+						if current.treeTab ~= openedTree then
 							T.Fail("The open build changed while the download ran; nothing was imported.")
 						end
 						local sections = partyImport(build, T.DecodeBuildCode(data), args)
@@ -1746,9 +1750,10 @@ T.Tool {
 		local mode = args.mode or "new_build"
 		local withItems = mode == "new_build" or args.parts ~= "tree"
 		local withTree = mode == "new_build" or args.parts ~= "items_skills"
-		local target
+		-- main.modes.BUILD is reused for every build; its tabs are recreated whenever another build opens.
+		local targetTree
 		if mode == "update" then
-			target = T.Build()
+			targetTree = T.Build().treeTab
 		else
 			T.CheckCanReplaceBuild(args)
 		end
@@ -1765,7 +1770,7 @@ T.Tool {
 					local build
 					if mode == "update" then
 						build = T.Build()
-						if build ~= target then
+						if build.treeTab ~= targetTree then
 							T.Fail("The open build changed while the download ran; nothing was imported.")
 						end
 						local result = importCharacterInto(build, char, realmCode, args, withItems, withTree)

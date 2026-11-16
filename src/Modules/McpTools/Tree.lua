@@ -480,6 +480,7 @@ T.Tool {
 		.. "every request that failed (unreachable, unknown, mastery effect taken elsewhere) without stopping the others. Measure "
 		.. "first with simulate; changes are unsaved until build_save.",
 	idempotent = true,
+	destructive = true,
 	modifies = true,
 	input = {
 		class = { type = "string", description = "Change the class, for example 'Witch'. Keeps the tree when it reaches the new class's start; otherwise needs reset_tree." },
@@ -1393,6 +1394,7 @@ T.Tool {
 		.. "are given by id or name as listed; include_legacy also lists legacy tattoos. Results include PoB's tattoo count: the game "
 		.. "allows at most 50 tattoos, which PoB counts but does not enforce. simulate cannot preview tattoos; after apply or reset, "
 		.. "statChanges lists what changed. Changes are unsaved until build_save.",
+	destructive = true,
 	modifies = true,
 	usesDialog = true,
 	input = {

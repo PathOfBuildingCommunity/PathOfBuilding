@@ -406,6 +406,10 @@ function main:OnFrame()
 	end
 	self:ProcessModeChange()
 
+	-- Answer MCP requests before this frame's input is handled: the server reads that input
+	-- to tell whether someone is using the window, and its changes are drawn in this frame
+	self.mcpServer:Poll(self.inputEvents)
+
 	self.viewPort = { x = 0, y = 0, width = self.screenW, height = self.screenH }
 
 	if self.popups[1] then
@@ -492,9 +496,6 @@ function main:OnFrame()
 		end
 	end
 	itemLib.wiki.triggered = false
-
-	-- Answer MCP requests between frames; it looks at this frame's input to tell whether the window is in use
-	self.mcpServer:Poll(self.inputEvents)
 
 	wipeTable(self.inputEvents)
 

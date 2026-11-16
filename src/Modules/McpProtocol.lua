@@ -242,7 +242,7 @@ Server.__index = Server
 ---   port number: the port the server listens on (for Host and Origin checks)
 ---   getToken function: returns the bearer token clients must send
 ---   serverInfo table: { name, title, version }
----   instructions string: guidance for the client's model
+---   instructions string: usage guidance for clients
 ---   tools table: { list = function() -> defs, call = function(def, args, finish) }
 ---     finish(result) with a JSON-able table, or finish(nil, message) for an error
 ---   prompts table|nil: { list = function() -> defs, get = function(name, args) -> result | nil, message }
@@ -309,25 +309,23 @@ function Server:OriginAllowed(origin)
 	if origin == nil then
 		return true
 	end
-	local host, port = origin:lower():match("^https?://([^/:]+):?(%d*)/?$")
-	if not host then
-		return false
-	end
+	-- Without a port an origin means port 80 or 443, a different origin from this server.
+	local host, port = origin:lower():match("^https?://([^/:]+):(%d+)/?$")
 	if host ~= "127.0.0.1" and host ~= "localhost" then
 		return false
 	end
-	return port == "" or tonumber(port) == self.options.port
+	return tonumber(port) == self.options.port
 end
 
 function Server:HostAllowed(hostHeader)
 	if not hostHeader then
 		return false
 	end
-	local host, port = hostHeader:lower():match("^([^:]+):?(%d*)$")
+	local host, port = hostHeader:lower():match("^([^:]+):(%d+)$")
 	if host ~= "127.0.0.1" and host ~= "localhost" then
 		return false
 	end
-	return port == "" or tonumber(port) == self.options.port
+	return tonumber(port) == self.options.port
 end
 
 function Server:Authorized(authorization)

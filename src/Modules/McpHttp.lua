@@ -42,9 +42,13 @@ local function decodeChunked(data)
 	while true do
 		local lineEnd = data:find("\r\n", pos, true)
 		if not lineEnd then
+			if #data - pos > 64 then
+				return false, "invalid chunk size"
+			end
 			return nil
 		end
-		local chunkSize = tonumber(data:sub(pos, lineEnd - 1):match("^%s*(%x+)"), 16)
+		local hex = data:sub(pos, lineEnd - 1):match("^%s*(%x+)")
+		local chunkSize = hex and #hex <= 8 and tonumber(hex, 16)
 		if not chunkSize then
 			return false, "invalid chunk size"
 		end
@@ -54,6 +58,9 @@ local function decodeChunked(data)
 			while true do
 				local trailerEnd = data:find("\r\n", pos, true)
 				if not trailerEnd then
+					if #data - pos > M.MAX_HEADER_BYTES then
+						return false, "trailer too large"
+					end
 					return nil
 				end
 				local isEmpty = trailerEnd == pos

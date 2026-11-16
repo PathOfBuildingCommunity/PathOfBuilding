@@ -76,13 +76,13 @@ end
 function T.DecodeBuildCode(code)
 	code = code:gsub("^%s+", ""):gsub("%s+$", "")
 	if code:sub(1, 1) == "<" then
-		return code
+		return T.CheckBuildXML(code)
 	end
 	local xml = Inflate(common.base64.decode((code:gsub("-", "+"):gsub("_", "/"))))
 	if not xml or not xml:match("<PathOfBuilding") then
 		T.Fail("That is not a Path of Building build code (or the code is incomplete).")
 	end
-	return xml
+	return T.CheckBuildXML(xml)
 end
 
 function T.EncodeBuildCode(xml)
@@ -263,6 +263,32 @@ T.Tool {
 				end)
 			end, 60)
 		else
+			if args.class or args.ascendancy then
+				-- Check the names on the tree a new build gets before replacing the open build.
+				local tree = main:LoadTree(latestTreeVersion)
+				local class = tree.classes[0]
+				local classNames, ascendancyNames = { }, { }
+				for _, candidate in pairs(tree.classes) do
+					t_insert(classNames, candidate.name)
+					if args.class and candidate.name:lower() == args.class:lower() then
+						class = candidate
+					end
+				end
+				if args.class and class.name:lower() ~= args.class:lower() then
+					table.sort(classNames)
+					T.Fail("Unknown class '%s'. Classes: %s", args.class, t_concat(classNames, ", "))
+				end
+				if args.ascendancy then
+					local found = false
+					for _, ascendClass in pairs(class.classes) do
+						t_insert(ascendancyNames, ascendClass.name)
+						found = found or ascendClass.name:lower() == args.ascendancy:lower()
+					end
+					if not found then
+						T.Fail("%s has no ascendancy '%s'. Ascendancies: %s", class.name, args.ascendancy, t_concat(ascendancyNames, ", "))
+					end
+				end
+			end
 			local build = T.SwitchToBuild(false, name or "Unnamed build")
 			if args.class or args.ascendancy then
 				T.SelectClass(build, args.class, args.ascendancy, false)
@@ -343,6 +369,11 @@ T.Tool {
 	},
 	run = function(args)
 		local build = T.Build()
+		if main.popups[1] then
+			-- e.g. "Save changes before exiting?": its Save As would then exit, update or close the build.
+			T.Fail("A dialog is open in Path of Building; ask the user to finish or close it first, then try again.")
+		end
+		local previousFile, previousName, previousSubPath = build.dbFileName, build.buildName, build.dbFileSubPath
 		if args.name then
 			local name = T.Sanitise(args.name):gsub("[\\/:%*%?\"<>|%c]", "-")
 			if not name:match("%S") then
@@ -369,8 +400,12 @@ T.Tool {
 		elseif not build.dbFileName then
 			T.Fail("This build has no file yet (it was opened from a code, a link or as new). Give a name to save it.")
 		end
+		-- A save started here never carries out an action the user chose in a dialog.
+		build.actionOnSave = nil
 		if build:SaveDBFile() then
-			T.Fail("Path of Building could not write %s; check the folder exists and is writable.", build.dbFileName)
+			local failedFile = build.dbFileName
+			build.dbFileName, build.buildName, build.dbFileSubPath = previousFile, previousName, previousSubPath
+			T.Fail("Path of Building could not write %s; check the folder exists and is writable.", failedFile)
 		end
 		build.spec:SetWindowTitleWithBuildClass()
 		return { saved = (build.dbFileSubPath or "") .. build.buildName .. ".xml", build = T.BuildSummary(build) }
@@ -488,6 +523,7 @@ T.Tool {
 		.. "the build's notes (Notes tab). The change shows in the window and marks the build unsaved. Class and ascendancy are "
 		.. "changed with tree_edit; bandit and pantheon are Config options (config_set).",
 	idempotent = true,
+	destructive = true,
 	modifies = true,
 	input = {
 		level = { type = "integer", minimum = 1, maximum = 100, description = "Character level." },

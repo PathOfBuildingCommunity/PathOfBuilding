@@ -287,31 +287,36 @@ local function cleanModText(text)
 	return (T.Sanitise(text))
 end
 
-local function editCustomMods(configTab, args, result)
+-- The existing custom modifier group args.custom_mods_group names (default the first); fails when there is none.
+local function findCustomModsGroup(configTab, args)
 	if not configTab.customSection then
 		T.Fail("This version of Path of Building has no custom modifiers section.")
 	end
 	local list = configTab.configSets[configTab.activeConfigSetId].customModsList
+	local ref = args.custom_mods_group
+	if ref == nil then
+		return 1
+	elseif type(ref) == "number" then
+		if not list[ref] then
+			T.Fail("There is no custom modifier group %d; there are %d.", ref, #list)
+		end
+		return ref
+	end
+	return isValueInArray(list, T.Find(list, ref, function(block) return block.title or "Default" end, "custom modifier group"))
+end
+
+local function editCustomMods(configTab, args, result)
 	local index
 	if args.new_custom_mods_group then
+		findCustomModsGroup(configTab, { })
 		configTab.controls.customModsAddBlock.onClick()
 		index = #configTab.configSets[configTab.activeConfigSetId].customModsList
 		local title = T.Sanitise((args.new_custom_mods_group:gsub("%c", " ")))
 		if title:match("%S") then
 			configTab.customModsBlockControls[index].controls.titleEdit:SetText(title, true)
 		end
-	elseif args.custom_mods_group ~= nil then
-		local ref = args.custom_mods_group
-		if type(ref) == "number" then
-			if not list[ref] then
-				T.Fail("There is no custom modifier group %d; there are %d.", ref, #list)
-			end
-			index = ref
-		else
-			index = isValueInArray(list, T.Find(list, ref, function(block) return block.title or "Default" end, "custom modifier group"))
-		end
 	else
-		index = 1
+		index = findCustomModsGroup(configTab, args)
 	end
 	local blockControl = configTab.customModsBlockControls[index]
 	local block = configTab.configSets[configTab.activeConfigSetId].customModsList[index]
@@ -385,6 +390,11 @@ T.Tool {
 			end
 			didSomething = true
 			result.configSetChange = done
+		end
+
+		-- Check the custom modifier group before changing any option, so a wrong group changes nothing more.
+		if (args.custom_mods or args.custom_mods_enabled ~= nil) and not args.new_custom_mods_group then
+			findCustomModsGroup(configTab, args)
 		end
 
 		local applied, rejected = { }, { }

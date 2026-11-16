@@ -159,6 +159,9 @@ function server:Start()
 	end
 	self.listener = listener
 	self.protocol = protocol
+	-- Treat the window as in use when the server starts, so hovering it right away stays smooth.
+	self.lastInput = GetTime()
+	self.lastInputEvent = self.lastInput
 	-- SimpleGraphic skips OnFrame for a window that is unfocused, not under the
 	-- cursor and has no suspended coroutine (ui_main.cpp, ui_main_c::Frame), so
 	-- requests would wait until someone touches the window. A coroutine kept
@@ -283,7 +286,7 @@ function server:HandleRequest(connection, request)
 	connection.busy = true
 	local keepAlive = McpHttp.KeepAlive(request)
 	local answered = false
-	self.protocol:HandleHttp(request, function(response)
+	local function respond(response)
 		if answered then
 			return
 		end
@@ -297,7 +300,14 @@ function server:HandleRequest(connection, request)
 		if not keepAlive then
 			connection.closeAfterFlush = true
 		end
-	end)
+	end
+	-- Tool errors are handled inside the protocol; this catches anything else so it never reaches PoB's frame.
+	local ok, err = pcall(self.protocol.HandleHttp, self.protocol, request, respond)
+	if not ok then
+		ConPrintf("MCP server: %s", tostring(err))
+		keepAlive = false
+		respond({ status = 500, headers = { ["Content-Type"] = "text/plain" }, body = "internal error" })
+	end
 end
 
 --- Called once per frame from main:OnFrame.
@@ -353,7 +363,13 @@ function server:Poll(inputEvents)
 			end
 		end
 		if keep and not connection.busy and connection.buffer ~= "" and not connection.closeAfterFlush then
-			local request, rest, message = McpHttp.ParseRequest(connection.buffer)
+			local parsed, request, rest, message = pcall(McpHttp.ParseRequest, connection.buffer)
+			if not parsed then
+				request, rest, message = nil, 400, "malformed request"
+			elseif not request and not rest and #connection.buffer > McpHttp.MAX_HEADER_BYTES + McpHttp.MAX_BODY_BYTES + 4096 then
+				-- Nothing complete in far more bytes than any request may have.
+				rest, message = 413, "request too large"
+			end
 			if request then
 				connection.buffer = rest
 				self:HandleRequest(connection, request)

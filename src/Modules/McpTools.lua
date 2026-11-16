@@ -17,6 +17,7 @@
 local McpProtocol = LoadModule("Modules/McpProtocol")
 
 local t_insert = table.insert
+local t_remove = table.remove
 local t_concat = table.concat
 local s_format = string.format
 local m_min = math.min
@@ -117,26 +118,45 @@ function T.CheckCanReplaceBuild(args)
 	end
 	if main.mode == "BUILD" then
 		local build = main.modes["BUILD"]
-		if build.targetVersion and build.spec and build:HasUnsavedChanges() then
-			if not args.discard_unsaved then
-				T.Fail("The build open in Path of Building (%s) has unsaved changes (%s). Save it with build_save, or ask the user; "
-					.. "pass discard_unsaved: true only if the user agreed to lose them.", build.buildName or "?", t_concat(T.UnsavedParts(build), ", "))
-			end
-			-- Dev Mode saves a closing build to its file; do not write changes the user chose to discard.
-			build.abortSave = true
+		if build.targetVersion and build.spec and build:HasUnsavedChanges() and not args.discard_unsaved then
+			T.Fail("The build open in Path of Building (%s) has unsaved changes (%s). Save it with build_save, or ask the user; "
+				.. "pass discard_unsaved: true only if the user agreed to lose them.", build.buildName or "?", t_concat(T.UnsavedParts(build), ", "))
 		end
 	end
 end
 
+--- Fail unless text is build XML Path of Building can load, before anything is replaced
+--- (a load that fails shows PoB's full-screen error instead).
+function T.CheckBuildXML(xml)
+	local parsed = type(xml) == "string" and common.xml.ParseXML(xml)
+	if not parsed or type(parsed[1]) ~= "table" or parsed[1].elem ~= "PathOfBuilding" then
+		T.Fail("That is not a Path of Building build (no PathOfBuilding root element).")
+	end
+	for _, node in ipairs(parsed[1]) do
+		if type(node) == "table" and node.elem == "Build" then
+			return xml
+		end
+	end
+	T.Fail("That is not a Path of Building build (no Build section).")
+end
+
 --- Switch PoB to a build now (main:SetMode, then the switch PoB would do on
---- the next frame), and check that it opened.
+--- the next frame), and check that it opened. Call it only after everything
+--- the switch depends on was checked, including T.CheckCanReplaceBuild.
 function T.SwitchToBuild(...)
+	if main.mode == "BUILD" and main.modes["BUILD"].targetVersion then
+		-- Dev Mode saves a closing build to its file; the caller already decided this one may be
+		-- replaced, so do not write changes the user chose to discard. (Shutdown clears the flag.)
+		main.modes["BUILD"].abortSave = true
+	end
 	main:SetMode("BUILD", ...)
 	main:ProcessModeChange()
 	local build = main.modes["BUILD"]
-	if main.mode == "BUILD" and build.spec and not build.targetVersion then
-		-- PoB asks whether to convert a build made for an older game version.
-		main:ClosePopup()
+	if main.mode == "BUILD" and not build.targetVersion then
+		-- PoB asks whether to convert a build made for an older game version (buildMode:OpenConversionPopup).
+		if main.popups[1] and main.popups[1].title == "Game Version" then
+			main:ClosePopup()
+		end
 		build:CloseBuild()
 		main:ProcessModeChange()
 		T.Fail("This build was made for an older version of Path of Exile and has to be converted; open it in Path of Building to choose.")
@@ -210,8 +230,38 @@ function T.PageArgs(defaultLimit, maxLimit)
 	}
 end
 
+local function failureMessage(err)
+	if type(err) == "table" and err.mcpFailure then
+		return err.mcpFailure
+	end
+	return "Path of Building raised an error: " .. tostring(err)
+end
+
+local DIALOG_OPEN = "A dialog is open in Path of Building; ask the user to finish or close it first, then try again."
+
+-- The dialogs open now, to close later only those a tool opened itself.
+local function openPopups()
+	local set = { }
+	for _, popup in ipairs(main.popups) do
+		set[popup] = true
+	end
+	return set
+end
+
+local function closePopupsOpenedSince(before)
+	for i = #main.popups, 1, -1 do
+		if not before[main.popups[i]] then
+			t_remove(main.popups, i)
+		end
+	end
+end
+
+-- The resolve functions handed to deferred tools, with their pending call.
+local resolverEntries = setmetatable({ }, { __mode = "k" })
+
 --- A tool result that arrives later (a download PoB runs, for example).
---- starter(resolve) must eventually call resolve(result) or resolve(nil, message).
+--- starter(resolve) must eventually call resolve(result) or resolve(nil, message);
+--- do the work in the callback through T.Settle.
 function T.Defer(starter, timeoutSeconds)
 	return { mcpDeferred = starter, timeout = timeoutSeconds or 60 }
 end
@@ -219,12 +269,23 @@ end
 --- Run fn(...) and pass its result, or its failure message, to a deferred
 --- tool's resolve. Use it for work done in a callback PoB calls later (a
 --- download finishing), where a T.Fail would otherwise escape into PoB.
+--- Nothing runs once the call has already been answered (timed out), and a
+--- tool that changes the build does not run while the user has a dialog open.
 function T.Settle(resolve, fn, ...)
+	local entry = resolverEntries[resolve]
+	if entry and entry.done then
+		return
+	end
+	if entry and (entry.def.modifies or entry.def.replacesBuild) and main.popups[1] then
+		return resolve(nil, DIALOG_OPEN)
+	end
+	local before = openPopups()
 	local ok, result = pcall(fn, ...)
+	closePopupsOpenedSince(before)
 	if ok then
 		return resolve(result)
 	end
-	resolve(nil, type(result) == "table" and result.mcpFailure or ("Path of Building raised an error: " .. tostring(result)))
+	resolve(nil, failureMessage(result))
 end
 
 --- A PoB tooltip stand-in that records its lines, for PoB functions that
@@ -279,13 +340,6 @@ T.discardUnsavedArg = {
 	description = "Replace the open build even though it has unsaved changes, losing them. Only pass true when the user has agreed.",
 }
 
-local function failureMessage(err)
-	if type(err) == "table" and err.mcpFailure then
-		return err.mcpFailure
-	end
-	return "Path of Building raised an error: " .. tostring(err)
-end
-
 -- Run a tool with the shared guards, then report through finish.
 local function callTool(def, args, finish)
 	if def.needsBuild ~= false then
@@ -295,26 +349,26 @@ local function callTool(def, args, finish)
 		end
 	end
 	if (def.modifies or def.replacesBuild or def.usesDialog) and main.popups[1] then
-		return finish(nil, "A dialog is open in Path of Building; ask the user to finish or close it first, then try again.")
+		return finish(nil, DIALOG_OPEN)
 	end
 	local ctx = { changed = false }
 	function ctx:Changed()
 		self.changed = true
 	end
-	local popupsBefore = #main.popups
 	-- The output before a change, to report what the change did as the side bar would.
 	local outputBefore = def.modifies and main.mode == "BUILD" and main.modes["BUILD"].calcsTab and main.modes["BUILD"].calcsTab.mainOutput
 
 	local function complete(ok, result, message)
-		-- Close any dialog the tool opened and left behind.
-		while #main.popups > popupsBefore do
-			main:ClosePopup()
-		end
-		if ok and ctx.changed and main.mode == "BUILD" then
+		if ctx.changed and main.mode == "BUILD" and main.modes["BUILD"].targetVersion then
 			local build = main.modes["BUILD"]
 			-- Edits made here bypass the controls that would set a tab's flag.
 			build.modFlag = true
 			build:ProcessBuildFlag()
+			if not ok or result == nil then
+				-- The change stays (and shows as unsaved), so say so.
+				message = (ok and (message or "the tool returned no result") or failureMessage(result)) .. " (Some changes were already made before this error; they show in Path of Building as unsaved.)"
+				return finish(nil, message)
+			end
 			if outputBefore and type(result) == "table" and result.statChanges == nil then
 				local collector = T.LineCollector()
 				build:AddStatComparesToTooltip(collector, outputBefore, build.calcsTab.mainOutput, "Changes:")
@@ -335,9 +389,13 @@ local function callTool(def, args, finish)
 		return finish(result)
 	end
 
+	local popupsBefore = openPopups()
 	local ok, result, message = pcall(def.run, args, ctx)
+	-- Close any dialog the tool opened and left behind (never one the user opened).
+	closePopupsOpenedSince(popupsBefore)
 	if ok and type(result) == "table" and result.mcpDeferred then
-		local entry = { deadline = os.clock() + result.timeout, timeout = result.timeout }
+		local entry = { def = def, deadline = os.clock() + result.timeout, timeout = result.timeout }
+		-- Answers exactly once, whatever happens while answering.
 		entry.resolve = function(value, err)
 			if entry.done then
 				return
@@ -345,26 +403,23 @@ local function callTool(def, args, finish)
 			entry.done = true
 			for i, other in ipairs(pending) do
 				if other == entry then
-					table.remove(pending, i)
+					t_remove(pending, i)
 					break
 				end
 			end
-			local resolvedOk, resolved, resolvedMessage = true, value, err
-			if type(err) == "table" then
-				resolvedOk, resolved = false, err
+			local completed, completeErr = pcall(complete, true, value, err)
+			if not completed then
+				pcall(finish, nil, failureMessage(completeErr))
 			end
-			complete(resolvedOk, resolved, resolvedMessage)
 		end
+		local resolver = function(value, err)
+			entry.resolve(value, err)
+		end
+		resolverEntries[resolver] = entry
 		t_insert(pending, entry)
-		local started, startErr = pcall(result.mcpDeferred, function(value, err)
-			-- Resolvers may themselves fail with T.Fail; report that as the result.
-			local resolveOk, resolveErr = pcall(entry.resolve, value, err)
-			if not resolveOk then
-				entry.resolve(nil, { mcpFailure = failureMessage(resolveErr) })
-			end
-		end)
+		local started, startErr = pcall(result.mcpDeferred, resolver)
 		if not started then
-			entry.resolve(nil, { mcpFailure = failureMessage(startErr) })
+			entry.resolve(nil, failureMessage(startErr))
 		end
 		return
 	end
@@ -376,8 +431,8 @@ function M.OnFrame()
 	local now = os.clock()
 	for i = #pending, 1, -1 do
 		local entry = pending[i]
-		if now > entry.deadline then
-			entry.resolve(nil, { mcpFailure = s_format("No answer within %d seconds; try again later.", entry.timeout) })
+		if entry and now > entry.deadline then
+			pcall(entry.resolve, nil, s_format("No answer within %d seconds; try again later.", entry.timeout))
 		end
 	end
 end
