@@ -847,6 +847,12 @@ function TradeQueryClass:IsResultFetchCurrent(rowIdx, context)
 	return self.resultFetchContexts[rowIdx] == context
 end
 
+-- The search controls stay shown, with their progress label, until a result of the row is ranked
+function TradeQueryClass:IsResultRankingPending(rowIdx)
+	return (self.resultFetchContexts[rowIdx] ~= nil or self.resultEvaluationContexts[rowIdx] ~= nil)
+		and self.itemIndexTbl[rowIdx] == nil
+end
+
 function TradeQueryClass:FinishResultFetch(rowIdx, context)
 	if not self:IsResultFetchCurrent(rowIdx, context) then
 		return false
@@ -1577,7 +1583,7 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 		end
 		self.tradeQueryGenerator:RequestQuery(activeSlot, { slotTbl = slotTbl, controls = controls, row_idx = row_idx }, self.statSortSelectionList, requestQueryHandler)
 	end)
-	controls["bestButton"..row_idx].shown = function() return not self.resultTbl[row_idx] end
+	controls["bestButton"..row_idx].shown = function() return not self.resultTbl[row_idx] or self:IsResultRankingPending(row_idx) end
 	controls["bestButton"..row_idx].enabled = function() return self.pbLeague end
 	controls["bestButton"..row_idx].tooltipText = [[Creates a weighted search to find the highest Stat Value items for this slot.
 Note that even if you are authenticated, you can click this button again to show the search link.
@@ -1677,7 +1683,7 @@ you can add them, copy the link here, and press "Price Item" to evaluate the ite
 	controls["changeButton" .. row_idx] = new("ButtonControl"):ButtonControl({ "LEFT", controls["name" .. row_idx], "LEFT" }, { 135 + 8, 0, 80, row_height }, "<< Search", function()
 		self:ResetResultRow(row_idx)
 	end)
-	controls["changeButton"..row_idx].shown = function() return self.resultTbl[row_idx] end
+	controls["changeButton"..row_idx].shown = function() return self.resultTbl[row_idx] and not self:IsResultRankingPending(row_idx) end
 	controls["resultDropdown" .. row_idx] = new("DropDownControl"):DropDownControl({ "TOPLEFT", controls["changeButton" .. row_idx], "TOPRIGHT" }, { 8, 0, 351, row_height }, {}, function(index)
 		self.itemIndexTbl[row_idx] = self.sortedResultTbl[row_idx][index].index
 		self:SetFetchResultReturn(row_idx, self.itemIndexTbl[row_idx])
