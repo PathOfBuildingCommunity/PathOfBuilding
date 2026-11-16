@@ -1701,10 +1701,6 @@ function calcs.perform(env, skipEHP)
 
 		local function calcFlaskMods(item, baseName, buffModList, modList, onlyMinion)
 			local flaskEffectInc = effectInc + item.flaskData.effectInc
-			-- Apply increased Iron Flask effect to the player without boosting other flask types.
-			if item.baseName == "Iron Flask" then
-				flaskEffectInc = flaskEffectInc + modDB:Sum("INC", { actor = "player" }, "IronFlaskEffect")
-			end
 			local flaskEffectIncNonPlayer = effectIncNonPlayer + item.flaskData.effectInc
 			if item.baseName == "Iron Flask" then
 				flaskEffectInc = flaskEffectInc + modDB:Sum("INC", { actor = "player" }, "IronFlaskEffect")
