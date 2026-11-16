@@ -865,16 +865,22 @@ Ralakesh's Impatience
 Riveted Boots
 Variant: Pre 3.19.0
 Variant: Pre 3.26.0
+Variant: Pre 3.30.0 Endurance
+Variant: Pre 3.30.0 Frenzy
+Variant: Pre 3.30.0 Power
 Variant: Endurance Current
 Variant: Frenzy Current
 Variant: Power Current
 ColdResistUnique__19
 ChaosResistUnique__7
-{variant:3,4,5}MovementVelocityUnique__57
-{variant:3,4,5}CorruptedBloodImmunityUnique_1
+{variant:3,4,5,6,7,8}MovementVelocityUnique__57
+{variant:3,4,5,6,7,8}CorruptedBloodImmunityUnique_1
 {variant:1,2,3}CountAsHavingMaxEnduranceChargesUnique__1
 {variant:1,2,4}CountAsHavingMaxFrenzyChargesUnique__1
 {variant:1,2,5}CountAsHavingMaxPowerChargesUnique__1
+{variant:6}CountAsHavingMaxEnduranceChargesNewUnique__1
+{variant:7}CountAsHavingMaxFrenzyChargesNewUnique__1
+{variant:8}CountAsHavingMaxPowerChargesNewUnique__1
 {variant:1}GainARandomChargePerSecondWhileStationaryUnique__1
 {variant:1}Lose all Frenzy, Endurance, and Power Charges when you Move
 ]],[[

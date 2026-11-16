@@ -130,6 +130,7 @@ function doActorLifeMana(actor)
 		end
 	end
 	output.LowestOfMaximumLifeAndMaximumMana = m_min(output.Life, output.Mana)
+	output.MaximumLifeManaDifference = math.abs(output.Life - output.Mana)
 end
 
 -- Calculate attributes, and set conditions
@@ -1702,9 +1703,10 @@ function calcs.perform(env, skipEHP)
 		local function calcFlaskMods(item, baseName, buffModList, modList, onlyMinion)
 			local flaskEffectInc = effectInc + item.flaskData.effectInc
 			local flaskEffectIncNonPlayer = effectIncNonPlayer + item.flaskData.effectInc
-			if item.baseName == "Iron Flask" then
-				flaskEffectInc = flaskEffectInc + modDB:Sum("INC", { actor = "player" }, "IronFlaskEffect")
-				flaskEffectIncNonPlayer = flaskEffectIncNonPlayer + modDB:Sum("INC", nil, "IronFlaskEffect")
+			local flaskTypeEffect = ({ ["Iron Flask"] = "IronFlaskEffect", ["Granite Flask"] = "GraniteFlaskEffect", ["Ruby Flask"] = "RubyFlaskEffect", ["Sapphire Flask"] = "SapphireFlaskEffect", ["Topaz Flask"] = "TopazFlaskEffect" })[item.baseName]
+			if flaskTypeEffect then
+				flaskEffectInc = flaskEffectInc + modDB:Sum("INC", { actor = "player" }, flaskTypeEffect)
+				flaskEffectIncNonPlayer = flaskEffectIncNonPlayer + modDB:Sum("INC", nil, flaskTypeEffect)
 			end
 			if item.rarity == "MAGIC" and not (item.base.flask.life or item.base.flask.mana) then
 				flaskEffectInc = flaskEffectInc + effectIncMagic

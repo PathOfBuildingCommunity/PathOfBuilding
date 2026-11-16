@@ -317,24 +317,46 @@ LocalCriticalStrikeChanceUnique__10
 ]],[[
 Femurs of the Saints
 Primordial Staff
+Has Alt Variant: true
+Has Alt Variant Two: true
+Has Alt Variant Three: true
+Selected Variant: 5
+Selected Alt Variant: 6
+Selected Alt Variant Two: 7
+Selected Alt Variant Three: 8
 Variant: Pre 2.6.0
 Variant: Pre 3.8.0
 Variant: Pre 3.25.0
-Variant: Current
+Variant: Pre 3.30.0
+Variant: Current: Minion Damage per Spectre
+Variant: Current: Spell Damage per Skeleton
+Variant: Current: Attack Damage per Zombie
+Variant: Current: Block per Skeleton
+Variant: Current: Life Regen per Zombie
+Variant: Current: Mana Regen per Spectre
+Variant: Current: Speed per Raging Spirit
 Implicits: 3
-{variant:4}StaffSpellBlockPercent3
+{variant:4,5,6,7,8,9,10,11}StaffSpellBlockPercent3
 {variant:1}StaffBlockPercentImplicitStaff1[12,12]
 {variant:2,3}StaffBlockPercentImplicitStaff1[18,18]
-LocalIncreaseSocketedMinionGemLevelUnique__1
-{variant:3,4}MinionDamageUnique__7
+{variant:1,2,3,4}LocalIncreaseSocketedMinionGemLevelUnique__1[2,2]
+{variant:5,6,7,8,9,10,11}LocalIncreaseSocketedMinionGemLevelUnique__1
+{variant:3,4}MinionDamageUnique__7[60,80]
+{variant:5,6,7,8,9,10,11}MinionDamageUnique__7
 {variant:1,2}MinionLifeRegenerationPerRagingSpirit__1
 {variant:1,2}MinionAttackAndCastSpeedPerSkeleton__1
 {variant:1,2}MinionDurationPerZombie__1
-{variant:1,2}MinionDamagePerSpectre__1
-{variant:3,4}AttackBlockPerSkeletonUnique__1
-{variant:3,4}AttackAndCastSpeedPerRagingSpiritUnique__1
-{variant:3,4}LifeRegenerationPerZombieUnique__1
-{variant:3,4}ManaRegenerationPerSpectreUnique__1
+{variant:1,2,5}MinionDamagePerSpectre__1
+{variant:6}SpellDamagePerSkeletonUnique__1
+{variant:7}AttackDamagePerZombieUnique__1
+{variant:3,4}AttackBlockPerSkeletonUnique__1[1,1]
+{variant:8}AttackBlockPerSkeletonUnique__1
+{variant:3,4}AttackAndCastSpeedPerRagingSpiritUnique__1[2,2]
+{variant:11}AttackAndCastSpeedPerRagingSpiritUnique__1
+{variant:3,4}LifeRegenerationPerZombieUnique__1[0.6,0.6]
+{variant:9}LifeRegenerationPerZombieUnique__1
+{variant:3,4}ManaRegenerationPerSpectreUnique__1[30,30]
+{variant:10}ManaRegenerationPerSpectreUnique__1
 ]],[[
 Fencoil
 Gnarled Branch
