@@ -162,12 +162,18 @@ function M.KeepAlive(request)
 end
 
 --- Compose an HTTP response.
+--- HTTP/1.1 responses are sent chunked: some security software that inspects
+--- MCP traffic on this machine rewrites responses to chunked framing but
+--- passes a Content-Length body through unchanged, which corrupts it, while
+--- it forwards responses that are already chunked intact.
 --- @param status number
 --- @param headers table|nil Extra headers, { name = value }
 --- @param body string|nil
 --- @param keepAlive boolean
-function M.FormatResponse(status, headers, body, keepAlive)
+--- @param httpVersion string|nil The request's HTTP version ("1.0" gets Content-Length)
+function M.FormatResponse(status, headers, body, keepAlive, httpVersion)
 	body = body or ""
+	local chunked = httpVersion ~= "1.0"
 	local lines = { s_format("HTTP/1.1 %d %s", status, reasonPhrases[status] or "Unknown") }
 	local names = { }
 	for name in pairs(headers or { }) do
@@ -177,10 +183,27 @@ function M.FormatResponse(status, headers, body, keepAlive)
 	for _, name in ipairs(names) do
 		t_insert(lines, name .. ": " .. headers[name])
 	end
-	t_insert(lines, "Content-Length: " .. #body)
+	if chunked then
+		t_insert(lines, "Transfer-Encoding: chunked")
+	else
+		t_insert(lines, "Content-Length: " .. #body)
+	end
 	t_insert(lines, "Cache-Control: no-store")
 	t_insert(lines, "Connection: " .. (keepAlive and "keep-alive" or "close"))
-	return t_concat(lines, "\r\n") .. "\r\n\r\n" .. body
+	local head = t_concat(lines, "\r\n") .. "\r\n\r\n"
+	if not chunked then
+		return head .. body
+	end
+	if body == "" then
+		return head .. "0\r\n\r\n"
+	end
+	return head .. s_format("%x\r\n", #body) .. body .. "\r\n0\r\n\r\n"
+end
+
+--- Decode a chunked response body (for tests and tools that read responses).
+function M.DecodeChunked(data)
+	local body, rest = decodeChunked(data)
+	return body, rest
 end
 
 return M

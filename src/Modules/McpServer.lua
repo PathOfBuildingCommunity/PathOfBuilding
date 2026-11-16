@@ -24,10 +24,13 @@ local MAX_CONNECTIONS = 8
 local RECEIVE_BYTES = 64 * 1024
 -- A connection with no request in flight is closed after this long.
 local IDLE_CONNECTION_S = 120
--- While nobody uses the window, Poll waits this long for network activity
--- instead of returning at once (see Poll).
-local IDLE_WAIT_S = 0.1
+-- While nobody uses the window, Poll waits for network activity instead of
+-- returning at once, longer the longer the window has been idle (see Poll).
 local USER_IDLE_MS = 2000
+-- Cursor movement only counts as use this soon after a key or click in the
+-- window: the cursor also moves over the window's area while another window
+-- covers it (a game, for example), which must not keep frames at full rate.
+local CURSOR_ENGAGED_MS = 20000
 local LOG_SIZE = 50
 
 local server = {
@@ -147,8 +150,15 @@ function server:Start()
 		return false
 	end
 	listener:settimeout(0)
+	local protocolOk, protocol = pcall(self.NewProtocol, self, self.port)
+	if not protocolOk then
+		listener:close()
+		self.error = "could not load the MCP tools: " .. tostring(protocol)
+		ConPrintf("MCP server: %s", self.error)
+		return false
+	end
 	self.listener = listener
-	self.protocol = self:NewProtocol(self.port)
+	self.protocol = protocol
 	-- SimpleGraphic skips OnFrame for a window that is unfocused, not under the
 	-- cursor and has no suspended coroutine (ui_main.cpp, ui_main_c::Frame), so
 	-- requests would wait until someone touches the window. A coroutine kept
@@ -205,21 +215,37 @@ function server:StatusText()
 	return "^8Off"
 end
 
--- Whether someone used the window recently: an input event, or the cursor
--- moving inside the window.
+-- Whether someone used the window recently: an input event (key, click,
+-- wheel), or the cursor moving inside the window soon after one.
 function server:UserActive(inputEvents)
 	local now = GetTime()
 	if inputEvents and inputEvents[1] then
 		self.lastInput = now
+		self.lastInputEvent = now
 	end
 	local x, y = GetCursorPos()
 	if x ~= self.lastCursorX or y ~= self.lastCursorY then
-		if x and y and main.screenW and x >= 0 and y >= 0 and x < main.screenW and y < main.screenH then
+		local inside = x and y and main.screenW and x >= 0 and y >= 0 and x < main.screenW and y < main.screenH
+		if inside and now - (self.lastInputEvent or -CURSOR_ENGAGED_MS) < CURSOR_ENGAGED_MS then
 			self.lastInput = now
 		end
 		self.lastCursorX, self.lastCursorY = x, y
 	end
 	return now - (self.lastInput or 0) < USER_IDLE_MS
+end
+
+-- How long Poll may wait for a request: frames of an idle window cost as much
+-- as any other, so their rate drops the longer it stays idle. A request still
+-- wakes the wait at once; only the first input after a long idle can take up
+-- to a second to show.
+function server:IdleWait()
+	local idleMs = GetTime() - (self.lastInput or 0)
+	if idleMs < 10000 then
+		return 0.1
+	elseif idleMs < 60000 then
+		return 0.5
+	end
+	return 1
 end
 
 -- Long jobs PoB runs as coroutines (item database load, power report, trade
@@ -267,7 +293,7 @@ function server:HandleRequest(connection, request)
 		if connection.closed then
 			return
 		end
-		connection.out = connection.out .. McpHttp.FormatResponse(response.status, response.headers, response.body, keepAlive)
+		connection.out = connection.out .. McpHttp.FormatResponse(response.status, response.headers, response.body, keepAlive, request.version)
 		if not keepAlive then
 			connection.closeAfterFlush = true
 		end
@@ -283,14 +309,13 @@ function server:Poll(inputEvents)
 	local socket = self.socket
 	-- With nobody using the window and nothing else to do, wait for a
 	-- request here instead of rendering another idle frame at once. select
-	-- returns as soon as a connection or request arrives; the wait matches
-	-- the 100 ms SimpleGraphic sleeps between frames of an inactive window.
+	-- returns as soon as a connection or request arrives.
 	if not self:UserActive(inputEvents) and not self:OtherWorkRunning() then
 		local watch = { self.listener }
 		for _, connection in ipairs(self.connections) do
 			t_insert(watch, connection.sock)
 		end
-		socket.select(watch, nil, IDLE_WAIT_S)
+		socket.select(watch, nil, self:IdleWait())
 	end
 	while true do
 		local sock = self.listener:accept()

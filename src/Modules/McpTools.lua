@@ -511,8 +511,12 @@ M.instructions = table.concat({
 }, " ")
 
 -- Tool files, one per area of the UI.
-for _, name in ipairs({ "Build", "Tree", "Items", "Skills", "Config", "Compare" }) do
-	LoadModule("Modules/McpTools/" .. name, T)
+-- One failing file must not take the others down.
+for _, name in ipairs({ "Build", "Tree", "Items", "Skills", "Config", "Calcs", "Compare" }) do
+	local ok, err = pcall(LoadModule, "Modules/McpTools/" .. name, T)
+	if not ok then
+		ConPrintf("MCP server: could not load the %s tools: %s", name, tostring(err))
+	end
 end
 
 M.T = T
