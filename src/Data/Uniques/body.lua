@@ -1522,5 +1522,17 @@ Socketed Gems are Supported by Level 30 Unleash Support
 (100-150)% increased Energy Shield
 Socketed Gems deal 20% more damage per Socketed Skill Gem
 Socketed Support Gems have no effect
+]],[[
+Hide of the Vendigo
+Exquisite Leather
+League: Covens
+Source: Drops from a boss empowered by a Fate that rewards this item
+Implicits: 0
++(15-25)% chance to Suppress Spell Damage
+(150-200)% increased Evasion Rating
++(25-35)% to Cold Resistance
+(165-205) to (260-310) Added Cold Damage with Unarmed Attacks
+(16-24)% increased Attack Speed if you've used an Attack Movement Skill Recently
+Can Attack as though using a Claw while main hand is empty
 ]]
 }

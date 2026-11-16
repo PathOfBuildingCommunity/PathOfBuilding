@@ -1585,6 +1585,10 @@ function calcs.initEnv(build, mode, override, specEnv)
 
 		-- Get the weapon data tables for the equipped weapons
 		env.player.weaponData1 = env.player.itemList["Weapon 1"] and env.player.itemList["Weapon 1"].weaponData and env.player.itemList["Weapon 1"].weaponData[1] or copyTable(env.data.unarmedWeaponData[env.classId])
+		-- Hide of the Vendigo: Can Attack as though using a Claw while main hand is empty
+		if not env.player.itemList["Weapon 1"] and env.modDB:Flag(nil, "CanAttackAsClawUnarmed") then
+			env.player.weaponData1.asThoughUsing = { Claw = true }
+		end
 		if env.player.weaponData1.countsAsDualWielding then
 			env.player.weaponData2 = env.player.itemList["Weapon 1"].weaponData[2]
 		elseif not env.player.itemList["Weapon 2"] then

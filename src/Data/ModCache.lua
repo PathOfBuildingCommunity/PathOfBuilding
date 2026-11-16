@@ -152,6 +152,7 @@ c["+0.4 metres to Weapon Range"]={{[1]={flags=0,keywordFlags=0,name="WeaponRange
 c["+0.4% to Critical Strike Chance"]={{[1]={flags=0,keywordFlags=0,name="CritChance",type="BASE",value=0.4}},nil}
 c["+0.5 metres to Melee Strike Range"]={{[1]={flags=0,keywordFlags=0,name="MeleeWeaponRangeMetre",type="BASE",value=0.5},[2]={flags=0,keywordFlags=0,name="UnarmedRangeMetre",type="BASE",value=0.5}},nil}
 c["+0.5% Critical Strike Chance while at maximum Power Charges"]={{[1]={[1]={stat="PowerCharges",thresholdStat="PowerChargesMax",type="StatThreshold"},flags=0,keywordFlags=0,name="CritChance",type="BASE",value=0.5}},nil}
+c["+0.5% to Critical Strike Chance"]={{[1]={flags=0,keywordFlags=0,name="CritChance",type="BASE",value=0.5}},nil}
 c["+0.65% to Spell Critical Strike Chance"]={{[1]={flags=2,keywordFlags=0,name="CritChance",type="BASE",value=0.65}},nil}
 c["+0.7 metres to Melee Strike Range with Unarmed Attacks"]={{[1]={flags=16777220,keywordFlags=0,name="MeleeWeaponRangeMetre",type="BASE",value=0.7},[2]={flags=16777220,keywordFlags=0,name="UnarmedRangeMetre",type="BASE",value=0.7}},nil}
 c["+0.75% to Critical Strike Chance"]={{[1]={flags=0,keywordFlags=0,name="CritChance",type="BASE",value=0.75}},nil}
@@ -5000,8 +5001,8 @@ c["13% reduced Mine Throwing Speed"]={{[1]={flags=0,keywordFlags=0,name="MineLay
 c["13% reduced Movement Speed"]={{[1]={flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=-13}},nil}
 c["13% reduced maximum Mana"]={{[1]={flags=0,keywordFlags=0,name="Mana",type="INC",value=-13}},nil}
 c["130% increased Armour"]={{[1]={flags=0,keywordFlags=0,name="Armour",type="INC",value=130}},nil}
-c["130% increased Armour and Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="ArmourAndEnergyShield",type="INC",value=130}},nil}
 end)();(function()
+c["130% increased Armour and Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="ArmourAndEnergyShield",type="INC",value=130}},nil}
 c["130% increased Armour and Evasion"]={{[1]={flags=0,keywordFlags=0,name="ArmourAndEvasion",type="INC",value=130}},nil}
 c["130% increased Critical Strike Chance against Blinded Enemies"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Blinded"},flags=0,keywordFlags=0,name="CritChance",type="INC",value=130}},nil}
 c["130% increased Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="EnergyShield",type="INC",value=130}},nil}
@@ -6525,7 +6526,7 @@ c["20% increased Attack Damage while in Blood Stance"]={{[1]={[1]={type="Conditi
 c["20% increased Attack Speed"]={{[1]={flags=1,keywordFlags=0,name="Speed",type="INC",value=20}},nil}
 c["20% increased Attack Speed if you have Blocked Recently"]={{[1]={[1]={type="Condition",var="BlockedRecently"},flags=1,keywordFlags=0,name="Speed",type="INC",value=20}},nil}
 c["20% increased Attack Speed if you've Killed Recently"]={{[1]={[1]={type="Condition",var="KilledRecently"},flags=1,keywordFlags=0,name="Speed",type="INC",value=20}},nil}
-c["20% increased Attack Speed if you've used an Attack Movement Skill Recently"]={{[1]={flags=1,keywordFlags=0,name="Speed",type="INC",value=20}},"  if you've used an Attack Movement Skill Recently "}
+c["20% increased Attack Speed if you've used an Attack Movement Skill Recently"]={{[1]={[1]={type="Condition",var="UsedMovementSkillRecently"},flags=1,keywordFlags=0,name="Speed",type="INC",value=20}},nil}
 c["20% increased Attack Speed when on Full Life"]={{[1]={[1]={type="Condition",var="FullLife"},flags=1,keywordFlags=0,name="Speed",type="INC",value=20}},nil}
 c["20% increased Attack Speed while Chilled"]={{[1]={[1]={type="Condition",var="Chilled"},flags=1,keywordFlags=0,name="Speed",type="INC",value=20}},nil}
 c["20% increased Attack Speed while Ignited"]={{[1]={[1]={type="Condition",var="Ignited"},flags=1,keywordFlags=0,name="Speed",type="INC",value=20}},nil}
@@ -6897,6 +6898,7 @@ c["200% more Rogue's Marker value of primary Heist Target"]={{}," Rogue's Marker
 c["200% of Life Leech applies to Enemies as Chaos Damage"]={{[1]={flags=0,keywordFlags=0,name="LifeAsChaos",type="BASE",value=200}},"  Leech applies to Enemies  "}
 c["200% of Life Leech applies to Enemies as Chaos Damage 15% increased Movement Speed during any Flask Effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="LifeAsChaos",type="BASE",value=200}},"  Leech applies to Enemies  15% increased Movement Speed  "}
 c["200% of Lightning Damage Leeched as Mana"]={{[1]={flags=0,keywordFlags=0,name="LightningDamageManaLeech",type="BASE",value=200}},nil}
+c["205 to 310 Added Cold Damage with Unarmed Attacks"]={{[1]={flags=16777220,keywordFlags=0,name="ColdMin",type="BASE",value=205},[2]={flags=16777220,keywordFlags=0,name="ColdMax",type="BASE",value=310}},nil}
 c["205% increased Armour"]={{[1]={flags=0,keywordFlags=0,name="Armour",type="INC",value=205}},nil}
 c["205% increased Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="EnergyShield",type="INC",value=205}},nil}
 c["21 Life gained when you Block"]={{[1]={flags=0,keywordFlags=0,name="LifeOnBlock",type="BASE",value=21}},nil}
@@ -7256,6 +7258,7 @@ c["24% increased Armour and Evasion"]={{[1]={flags=0,keywordFlags=0,name="Armour
 c["24% increased Armour, Evasion and Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="Defences",type="INC",value=24}},nil}
 c["24% increased Attack Damage"]={{[1]={flags=1,keywordFlags=0,name="Damage",type="INC",value=24}},nil}
 c["24% increased Attack Speed"]={{[1]={flags=1,keywordFlags=0,name="Speed",type="INC",value=24}},nil}
+c["24% increased Attack Speed if you've used an Attack Movement Skill Recently"]={{[1]={[1]={type="Condition",var="UsedMovementSkillRecently"},flags=1,keywordFlags=0,name="Speed",type="INC",value=24}},nil}
 c["24% increased Attack Speed while Fortified"]={{[1]={[1]={type="Condition",var="Fortified"},flags=1,keywordFlags=0,name="Speed",type="INC",value=24}},nil}
 c["24% increased Cast Speed"]={{[1]={flags=16,keywordFlags=0,name="Speed",type="INC",value=24}},nil}
 c["24% increased Chaos Damage"]={{[1]={flags=0,keywordFlags=0,name="ChaosDamage",type="INC",value=24}},nil}
@@ -10000,10 +10003,10 @@ c["5% chance to Blind Enemies on Hit with Attacks"]={{}," to Blind Enemies  with
 c["5% chance to Cause Monsters to Flee"]={{}," to Cause Monsters to Flee "}
 c["5% chance to Cover Enemies in Ash on Hit while you are Burning"]={{}," to Cover Enemies in Ash  while you are Burning "}
 c["5% chance to Defend with 200% of Armour for each"]={{[1]={flags=0,keywordFlags=0,name="Armour",type="BASE",value=5}}," to Defend with 200% of  for each "}
+end)();(function()
 c["5% chance to Defend with 200% of Armour for each time you've been Hit by an Enemy Recently, up to 30%"]={{[1]={[1]={type="Condition",var="ArmourMax"},flags=0,keywordFlags=0,name="ArmourDefense",source="Armour Mastery: Max Calc",type="MAX",value=100},[2]={[1]={type="Condition",var="ArmourAvg"},[2]={limit=6,type="Multiplier",var="BeenHitRecently"},flags=0,keywordFlags=0,name="ArmourDefense",source="Armour Mastery: Average Calc",type="MAX",value=5},[3]={[1]={neg=true,type="Condition",var="ArmourMax"},[2]={neg=true,type="Condition",var="ArmourAvg"},[3]={limit=6,type="Multiplier",var="BeenHitRecently"},flags=0,keywordFlags=0,name="ArmourDefense",source="Armour Mastery: Min Calc",type="MAX",value=0}},nil}
 c["5% chance to Freeze"]={{[1]={flags=0,keywordFlags=0,name="EnemyFreezeChance",type="BASE",value=5}},nil}
 c["5% chance to Freeze, Shock and Ignite"]={{[1]={flags=0,keywordFlags=0,name="EnemyFreezeChance",type="BASE",value=5},[2]={flags=0,keywordFlags=0,name="EnemyShockChance",type="BASE",value=5},[3]={flags=0,keywordFlags=0,name="EnemyIgniteChance",type="BASE",value=5}},nil}
-end)();(function()
 c["5% chance to Gain Unholy Might for 4 seconds on Melee Kill"]={{[1]={[1]={type="Condition",var="KilledRecently"},flags=67108864,keywordFlags=0,name="Condition:UnholyMight",type="FLAG",value=true}},nil}
 c["5% chance to Hinder Enemies on Hit with Spells"]={{}," to Hinder Enemies  "}
 c["5% chance to Ignite"]={{[1]={flags=0,keywordFlags=0,name="EnemyIgniteChance",type="BASE",value=5}},nil}
@@ -14729,7 +14732,7 @@ c["Can Allocate Passives from the Ranger's starting point"]={{},nil}
 c["Can Allocate Passives from the Shadow's starting point"]={{},nil}
 c["Can Allocate Passives from the Templar's starting point"]={{},nil}
 c["Can Allocate Passives from the Witch's starting point"]={{},nil}
-c["Can Attack as though using a Claw while main hand is empty"]={nil,"Can Attack as though using a Claw while main hand is empty "}
+c["Can Attack as though using a Claw while main hand is empty"]={{[1]={flags=0,keywordFlags=0,name="CanAttackAsClawUnarmed",type="FLAG",value=true}},nil}
 c["Can Consume 4 Uncorrupted Support Gems"]={nil,"Can Consume 4 Uncorrupted Support Gems "}
 c["Can Consume 4 Uncorrupted Support Gems Has not Consumed any Gems"]={nil,"Can Consume 4 Uncorrupted Support Gems Has not Consumed any Gems "}
 c["Can be Allflame Crafted as if Rare"]={{},nil}
@@ -15002,10 +15005,10 @@ c["Consecrated Ground created by this Flask has Tripled Radius +2% to Critical S
 c["Consecrated Ground created during Effect applies 10% increased Damage taken to Enemies"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={[1]={type="Condition",var="OnConsecratedGround"},flags=0,keywordFlags=0,name="DamageTakenConsecratedGround",type="INC",value=10}}}},nil}
 c["Consecrated Ground created during Effect applies 9% increased Damage taken to Enemies"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={[1]={type="Condition",var="OnConsecratedGround"},flags=0,keywordFlags=0,name="DamageTakenConsecratedGround",type="INC",value=9}}}},nil}
 c["Consecrated Ground you create also grants"]={nil,""}
+end)();(function()
 c["Consecrated Ground you create also grants 50% reduced duration of Damaging Ailments on you"]={{[1]={[1]={type="Condition",var="OnConsecratedGround"},flags=0,keywordFlags=0,name="SelfIgniteDuration",type="INC",value=-50},[2]={[1]={type="Condition",var="OnConsecratedGround"},flags=0,keywordFlags=0,name="SelfBleedDuration",type="INC",value=-50},[3]={[1]={type="Condition",var="OnConsecratedGround"},flags=0,keywordFlags=0,name="SelfPoisonDuration",type="INC",value=-50}},nil}
 c["Consecrated Ground you create applies 15% increased Damage taken to Enemies"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={[1]={type="Condition",var="OnConsecratedGround"},flags=0,keywordFlags=0,name="DamageTakenConsecratedGround",type="INC",value=15}}}},nil}
 c["Consecrated Ground you create applies 6% increased Damage taken to Enemies"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={[1]={type="Condition",var="OnConsecratedGround"},flags=0,keywordFlags=0,name="DamageTakenConsecratedGround",type="INC",value=6}}}},nil}
-end)();(function()
 c["Consecrated Ground you create applies 9% increased Damage taken to Enemies"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={[1]={type="Condition",var="OnConsecratedGround"},flags=0,keywordFlags=0,name="DamageTakenConsecratedGround",type="INC",value=9}}}},nil}
 c["Consecrated Ground you create causes Life Regeneration to"]={nil,"Consecrated Ground you create causes Life Regeneration to "}
 c["Consecrated Ground you create causes Life Regeneration to also Recover Energy Shield for you and Allies"]={{[1]={flags=0,keywordFlags=0,name="ExtraAura",type="LIST",value={mod={[1]={type="Condition",var="OnConsecratedGround"},flags=0,keywordFlags=0,name="LifeRegenerationRecoversEnergyShield",type="FLAG",value=true}}}},nil}
@@ -16466,6 +16469,7 @@ c["Gain Arcane Surge when you use a Movement Skill"]={{[1]={[1]={type="Condition
 c["Gain Arcane Surge when your Mine is Detonated targeting an Enemy"]={{[1]={[1]={type="Condition",var="DetonatedMinesRecently"},flags=0,keywordFlags=0,name="Condition:ArcaneSurge",type="FLAG",value=true}},nil}
 c["Gain Arcane Surge when your Trap is Triggered by an Enemy"]={{[1]={[1]={type="Condition",var="TriggeredTrapsRecently"},flags=0,keywordFlags=0,name="Condition:ArcaneSurge",type="FLAG",value=true}},nil}
 c["Gain Bitterblood equal to Life spent"]={nil,"Bitterblood equal to Life spent "}
+c["Gain Bitterblood equal to Life spent Maximum Bitterblood is equal to your Maximum Life"]={nil,"Bitterblood equal to Life spent Maximum Bitterblood is equal to your Maximum Life "}
 c["Gain Brutal Charges instead of Endurance Charges"]={{[1]={flags=0,keywordFlags=0,name="EnduranceChargesConvertToBrutalCharges",type="FLAG",value=true}},nil}
 c["Gain Chaotic Might for 4 seconds on Critical Strike"]={{[1]={[1]={type="Condition",var="CriticalStrike"},flags=0,keywordFlags=0,name="Condition:ChaoticMight",type="FLAG",value=true}},nil}
 c["Gain Convergence when you Hit a Unique Enemy, no more than once every 8 seconds"]={{[1]={flags=0,keywordFlags=0,name="Condition:CanGainConvergence",type="FLAG",value=true}},nil}
@@ -20003,11 +20007,11 @@ c["Requires Class Witch Allocates Unhallowed Rite if you have the matching modif
 c["Requires Class Witch Allocates Unholy Authority if you have the matching modifier on Forbidden Flame"]={nil,"Requires Class Witch Allocates Unholy Authority if you have the matching modifier on Forbidden Flame "}
 c["Requires Class Witch Allocates Unholy Authority if you have the matching modifier on Forbidden Flesh"]={nil,"Requires Class Witch Allocates Unholy Authority if you have the matching modifier on Forbidden Flesh "}
 c["Requires Class Witch Allocates Unnatural Strength if you have the matching modifier on Forbidden Flame"]={nil,"Requires Class Witch Allocates Unnatural Strength if you have the matching modifier on Forbidden Flame "}
+end)();(function()
 c["Requires Class Witch Allocates Unnatural Strength if you have the matching modifier on Forbidden Flesh"]={nil,"Requires Class Witch Allocates Unnatural Strength if you have the matching modifier on Forbidden Flesh "}
 c["Requires Class Witch Allocates Vile Bastion if you have the matching modifier on Forbidden Flame"]={nil,"Requires Class Witch Allocates Vile Bastion if you have the matching modifier on Forbidden Flame "}
 c["Requires Class Witch Allocates Vile Bastion if you have the matching modifier on Forbidden Flesh"]={nil,"Requires Class Witch Allocates Vile Bastion if you have the matching modifier on Forbidden Flesh "}
 c["Requires Class Witch Allocates Void Beacon if you have the matching modifier on Forbidden Flame"]={nil,"Requires Class Witch Allocates Void Beacon if you have the matching modifier on Forbidden Flame "}
-end)();(function()
 c["Requires Class Witch Allocates Void Beacon if you have the matching modifier on Forbidden Flesh"]={nil,"Requires Class Witch Allocates Void Beacon if you have the matching modifier on Forbidden Flesh "}
 c["Requires Class Witch Allocates Withering Presence if you have the matching modifier on Forbidden Flame"]={nil,"Requires Class Witch Allocates Withering Presence if you have the matching modifier on Forbidden Flame "}
 c["Requires Class Witch Allocates Withering Presence if you have the matching modifier on Forbidden Flesh"]={nil,"Requires Class Witch Allocates Withering Presence if you have the matching modifier on Forbidden Flesh "}

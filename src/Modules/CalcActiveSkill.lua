@@ -191,6 +191,25 @@ function calcs.copyActiveSkill(env, mode, skill)
 	return newSkill, newEnv
 end
 
+-- Check for "asThoughUsing..." weaponTypes match, which is mechanically different from "countAs..."
+---@param weaponData table
+---@param weaponTypes table
+---@return boolean @whether a match was found
+local function checkAsThoughWeaponTypes(weaponData, weaponTypes)
+	if (not weaponData.asThoughUsing) or (not weaponTypes) then
+		return false
+	end
+	-- check if any 'usingKey' for which 'usingValue = true' is also true in weaponTypes
+	for usingKey, usingValue in pairs(weaponData.asThoughUsing) do
+		for _, types in ipairs(weaponTypes) do
+			if usingValue and types[usingKey] then
+				return true
+			end
+		end
+	end
+	return false
+end
+
 -- Get weapon flags and info for given weapon
 local function getWeaponFlags(env, weaponData, weaponTypes)
 	local info = env.data.weaponTypeInfo[weaponData.type]
@@ -200,7 +219,8 @@ local function getWeaponFlags(env, weaponData, weaponTypes)
 	if weaponTypes then
 		for _, types in ipairs(weaponTypes) do
 			if not types[weaponData.type] and
-			(not weaponData.countsAsAll1H or not (types["Claw"] or types["Dagger"] or types["One Handed Axe"] or types["One Handed Mace"] or types["One Handed Sword"])) then
+			(not weaponData.countsAsAll1H or not (types["Claw"] or types["Dagger"] or types["One Handed Axe"] or types["One Handed Mace"] or types["One Handed Sword"]))
+			and not checkAsThoughWeaponTypes(weaponData, weaponTypes) then
 				return nil, info
 			end
 		end
