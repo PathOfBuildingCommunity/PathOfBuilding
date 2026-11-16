@@ -18757,16 +18757,16 @@ c["Physical Damage of Enemies Hitting you is Unlucky"]={nil,"Physical Damage of 
 c["Physical Damage taken bypasses Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="PhysicalEnergyShieldBypass",type="BASE",value=100}},nil}
 c["Physical Skills have 1% increased Duration per 12 Intelligence"]={{[1]={[1]={div=12,stat="Int",type="PerStat"},flags=0,keywordFlags=16,name="Duration",type="INC",value=1}},nil}
 c["Plague Bearer has 20% increased Maximum Plague Value"]={{}," Maximum Plague Value "}
-c["Players have +12% to all Elemental Resistances for each Empty White Socket"]={nil,"Players have +12% to all Elemental Resistances for each Empty White Socket "}
-c["Players have +12% to all Elemental Resistances for each Empty White Socket on any Equipped Item"]={nil,"Players have +12% to all Elemental Resistances for each Empty White Socket on any Equipped Item "}
-c["Players have +18% to all Elemental Resistances for each Empty White Socket"]={nil,"Players have +18% to all Elemental Resistances for each Empty White Socket "}
-c["Players have +18% to all Elemental Resistances for each Empty White Socket on any Equipped Item"]={nil,"Players have +18% to all Elemental Resistances for each Empty White Socket on any Equipped Item "}
-c["Players have +225 to Accuracy Rating for each Empty Green Socket on any Equipped Item"]={nil,"Players have +225 to Accuracy Rating for each Empty Green Socket on any Equipped Item "}
-c["Players have +225 to Accuracy Rating for each Empty Green Socket on any Equipped Item Players have +40 to maximum Mana for each Empty Blue Socket on any Equipped Item"]={nil,"Players have +225 to Accuracy Rating for each Empty Green Socket on any Equipped Item Players have +40 to maximum Mana for each Empty Blue Socket on any Equipped Item "}
-c["Players have +40 to maximum Life for each Empty Red Socket on any Equipped Item"]={nil,"Players have +40 to maximum Life for each Empty Red Socket on any Equipped Item "}
-c["Players have +40 to maximum Life for each Empty Red Socket on any Equipped Item Players have +225 to Accuracy Rating for each Empty Green Socket on any Equipped Item"]={nil,"Players have +40 to maximum Life for each Empty Red Socket on any Equipped Item Players have +225 to Accuracy Rating for each Empty Green Socket on any Equipped Item "}
-c["Players have +40 to maximum Mana for each Empty Blue Socket on any Equipped Item"]={nil,"Players have +40 to maximum Mana for each Empty Blue Socket on any Equipped Item "}
-c["Players have +40 to maximum Mana for each Empty Blue Socket on any Equipped Item Players have +18% to all Elemental Resistances for each Empty White Socket"]={nil,"Players have +40 to maximum Mana for each Empty Blue Socket on any Equipped Item Players have +18% to all Elemental Resistances for each Empty White Socket "}
+c["Players have +12% to all Elemental Resistances for each Empty White Socket"]={nil,"+12% to all Elemental Resistances for each Empty White Socket "}
+c["Players have +12% to all Elemental Resistances for each Empty White Socket on any Equipped Item"]={nil,"+12% to all Elemental Resistances  "}
+c["Players have +18% to all Elemental Resistances for each Empty White Socket"]={nil,"+18% to all Elemental Resistances for each Empty White Socket "}
+c["Players have +18% to all Elemental Resistances for each Empty White Socket on any Equipped Item"]={nil,"+18% to all Elemental Resistances  "}
+c["Players have +225 to Accuracy Rating for each Empty Green Socket on any Equipped Item"]={nil,"+225 to Accuracy Rating  "}
+c["Players have +225 to Accuracy Rating for each Empty Green Socket on any Equipped Item Players have +40 to maximum Mana for each Empty Blue Socket on any Equipped Item"]={nil,"+225 to Accuracy Rating  Players have +40 to maximum Mana  "}
+c["Players have +40 to maximum Life for each Empty Red Socket on any Equipped Item"]={nil,"+40 to maximum Life  "}
+c["Players have +40 to maximum Life for each Empty Red Socket on any Equipped Item Players have +225 to Accuracy Rating for each Empty Green Socket on any Equipped Item"]={nil,"+40 to maximum Life  Players have +225 to Accuracy Rating  "}
+c["Players have +40 to maximum Mana for each Empty Blue Socket on any Equipped Item"]={nil,"+40 to maximum Mana  "}
+c["Players have +40 to maximum Mana for each Empty Blue Socket on any Equipped Item Players have +18% to all Elemental Resistances for each Empty White Socket"]={nil,"+40 to maximum Mana  Players have +18% to all Elemental Resistances for each Empty White Socket "}
 c["Players have Acceleration Shrine Buff while affected by no Flasks"]={{[1]={[1]={neg=true,type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="Condition:AccelerationShrine",type="FLAG",value=true}},nil}
 c["Players have Brutal Shrine Buff while affected by no Flasks"]={{[1]={[1]={neg=true,type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="Condition:BrutalShrine",type="FLAG",value=true}},nil}
 c["Players have Diamond Shrine Buff while affected by no Flasks"]={{[1]={[1]={neg=true,type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="Condition:DiamondShrine",type="FLAG",value=true}},nil}

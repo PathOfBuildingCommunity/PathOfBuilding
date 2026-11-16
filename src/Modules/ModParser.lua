@@ -1292,6 +1292,7 @@ local preFlagList = {
 	["^hits against you "] = { applyToEnemy = true, flags = ModFlag.Hit },
 	["^enemies near your totems deal "] = { applyToEnemy = true },
 	-- Other
+	["^players "] = { },
 	["^your flasks grant "] = { },
 	["^when hit, "] = { },
 	["^you and allies [hgd][ae][via][enl] "] = { },
@@ -5724,12 +5725,6 @@ local specialModList = {
 	["skills supported by unleash have (%d+)%% increased seal gain frequency"] = function(num) return { mod("SealGainFrequency", "INC", num) } end,
 	["(%d+)%% increased critical strike chance with spells which remove the maximum number of seals"] = function(num) return { mod("MaxSealCrit", "INC", num) } end,
 	["gain elusive on critical strike"] = {	flag("Condition:CanBeElusive") },
-	["players have ([%a%s]+ shrine buff) while affected by no flasks"] = function(_, shrine)
-		local condition = modNameList[shrine]
-		if condition then
-			return { flag(condition, { type = "Condition", var = "UsingFlask", neg = true }) }
-		end
-	end,
 	["gain a random shrine buff every (%d+) seconds"] = { flag("Condition:CanHaveRegularShrines") },
 	["gain a random shrine buff for (%d+) seconds when you kill a rare or unique enemy"] = { flag("Condition:CanHaveRegularShrines") },
 	["gain a random blood shrine buff every (%d+) seconds"] = { flag("Condition:CanHaveBloodShrines") },
