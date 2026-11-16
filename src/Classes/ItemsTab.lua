@@ -201,8 +201,20 @@ function ItemsTabClass:ItemsTab(build)
 		end
 	end
 
+	-- Wickerman (3.30): keep the equipment controls together after the existing slots.
+	self.controls.wickermanHeader = new("LabelControl"):LabelControl({"TOPLEFT",prevSlot,"BOTTOMLEFT"}, {0, 8, 0, 16}, "^7Wickerman:")
+	self.controls.wickermanHeader.shown = function()
+		return self.build.spec.treeVersion:find("3_30")
+	end
+	prevSlot = self.controls.wickermanHeader
+	for _, slotName in ipairs({ "Wickerman Head", "Wickerman Torso", "Wickerman Upper Limb", "Wickerman Lower Limb" }) do
+		local slot = new("ItemSlotControl"):ItemSlotControl({"TOPLEFT",prevSlot,"BOTTOMLEFT"}, 0, 2, self, slotName, (slotName:gsub("^Wickerman ", "")))
+		slot.shown = self.controls.wickermanHeader.shown
+		addSlot(slot)
+	end
+
 	-- Passive tree dropdown controls
-	self.controls.specSelect = new("DropDownControl"):DropDownControl({"TOPLEFT",prevSlot,"BOTTOMLEFT"}, {0, 8, 216, 20}, nil, function(index, value)
+	self.controls.specSelect = new("DropDownControl"):DropDownControl({"TOPLEFT",prevSlot,"BOTTOMLEFT",true}, {0, 8, 216, 20}, nil, function(index, value)
 		if self.build.treeTab.specList[index] then
 			self.build.modFlag = true
 			self.build.treeTab:SetActiveSpec(index)
@@ -1724,6 +1736,9 @@ function ItemsTabClass:UpdateSockets()
 
 	-- Update the state of the active socket controls
 	self.lastSlot = self.slots[baseSlots[#baseSlots]]
+	if self.controls.wickermanHeader and self.controls.wickermanHeader:IsShown() then
+		self.lastSlot = self.slots["Wickerman Lower Limb"]
+	end
 	for index, nodeId in ipairs(activeSocketList) do
 		self.sockets[nodeId].label = "Socket #"..index
 		self.lastSlot = self.sockets[nodeId]
@@ -4731,6 +4746,9 @@ function ItemsTabClass:AddItemStatDifferences(tooltip, item, base, slot)
 		local output = self.build.calcsTab.mainOutput
 		local durInc = modDB:Sum("INC", nil, "FlaskDuration")
 		local effectInc = modDB:Sum("INC", { actor = "player" }, "FlaskEffect")
+		if item.baseName == "Iron Flask" then
+			effectInc = effectInc + modDB:Sum("INC", { actor = "player" }, "IronFlaskEffect")
+		end
 		local lifeDur = 0
 		local manaDur = 0
 
@@ -4744,6 +4762,7 @@ function ItemsTabClass:AddItemStatDifferences(tooltip, item, base, slot)
 				local lifeInc = modDB:Sum("INC", nil, "FlaskLifeRecovery")
 				local lifeMore = modDB:More(nil, "FlaskLifeRecovery")
 				local lifeRateInc = modDB:Sum("INC", nil, "FlaskLifeRecoveryRate")
+				local lifeRateMore = modDB:More(nil, "FlaskLifeRecoveryRate")
 				local instantPerc = flaskData.instantPerc + modDB:Sum("BASE", nil, "LifeFlaskInstantRecovery")
 
 				-- More life recovery while on low life is not affected by flask effect (verified ingame).
@@ -4756,7 +4775,7 @@ function ItemsTabClass:AddItemStatDifferences(tooltip, item, base, slot)
 				local base = flaskData.lifeBase * (1 - instantPerc / 100) * (1 + lifeInc / 100) * lifeMore * (1 + effectInc / 100) * (1 + durInc / 100) * lowLifeMulti
 				local grad = base * output.LifeRecoveryRateMod
 				local esGrad = base * output.EnergyShieldRecoveryRateMod
-				lifeDur = flaskData.duration * (1 + durInc / 100) / (1 + rateInc / 100) / (1 + lifeRateInc / 100)
+				lifeDur = flaskData.duration * (1 + durInc / 100) / (1 + rateInc / 100) / (1 + lifeRateInc / 100) / lifeRateMore
 
 				-- LocalLifeFlaskAdditionalLifeRecovery flask mods
 				if flaskData.lifeAdditional > 0 and not self.build.configTab.input.conditionFullLife then

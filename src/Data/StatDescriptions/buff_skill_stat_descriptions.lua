@@ -1414,6 +1414,28 @@ return {
 						[2]="#"
 					}
 				},
+				text="Linked target gains {0} to {1} Added Lightning Damage"
+			}
+		},
+		name="arcane_link_added_damage",
+		stats={
+			[1]="virtual_arcane_link_minimum_lightning_damage",
+			[2]="virtual_arcane_link_maximum_lightning_damage"
+		}
+	},
+	[60]={
+		[1]={
+			[1]={
+				limit={
+					[1]={
+						[1]="#",
+						[2]="#"
+					},
+					[2]={
+						[1]="#",
+						[2]="#"
+					}
+				},
 				text="Linked target gains {0} to {1} Added Fire Damage"
 			}
 		},
@@ -1423,7 +1445,7 @@ return {
 			[2]="virtual_flame_link_maximum_fire_damage"
 		}
 	},
-	[60]={
+	[61]={
 		[1]={
 			[1]={
 				limit={
@@ -1445,7 +1467,7 @@ return {
 			[2]="virtual_storm_blade_maximum_lightning_damage"
 		}
 	},
-	[61]={
+	[62]={
 		[1]={
 			[1]={
 				limit={
@@ -1509,14 +1531,14 @@ return {
 	["damage_taken_goes_to_mana_%"]=30,
 	["display_bulwark_link_overrides_attack_block_and_maximum_attack_block"]=31,
 	["display_critical_link_overrides_main_hand_critical_strike_chance"]=32,
-	["display_link_stuff"]=61,
+	["display_link_stuff"]=62,
 	["display_skill_buff_grants_bleeding_immunity"]=33,
 	["energy_shield_lost_per_minute"]=34,
 	["flame_link_grants_chance_to_ignite_%"]=35,
 	["herald_of_ice_cold_damage_+%"]=7,
 	["herald_of_thunder_lightning_damage_+%"]=8,
 	["life_leech_is_applied_to_remora_link_targets_instead"]=39,
-	["link_grace_period_8_second_override"]=61,
+	["link_grace_period_8_second_override"]=62,
 	parent="skill_stat_descriptions",
 	["petrified_blood_%_life_loss_below_half_from_hit_to_prevent"]=36,
 	["petrified_blood_%_prevented_life_loss_to_lose_over_time"]=36,
@@ -1550,8 +1572,10 @@ return {
 	["storm_blade_global_attack_speed_+%"]=56,
 	["unaffected_by_temporal_chains"]=57,
 	["vaal_molten_shall_armour_+%_final"]=58,
-	["virtual_flame_link_maximum_fire_damage"]=59,
-	["virtual_flame_link_minimum_fire_damage"]=59,
-	["virtual_storm_blade_maximum_lightning_damage"]=60,
-	["virtual_storm_blade_minimum_lightning_damage"]=60
+	["virtual_arcane_link_maximum_lightning_damage"]=59,
+	["virtual_arcane_link_minimum_lightning_damage"]=59,
+	["virtual_flame_link_maximum_fire_damage"]=60,
+	["virtual_flame_link_minimum_fire_damage"]=60,
+	["virtual_storm_blade_maximum_lightning_damage"]=61,
+	["virtual_storm_blade_minimum_lightning_damage"]=61
 }

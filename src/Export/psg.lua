@@ -136,9 +136,9 @@ for g = 1, getInt(psg) do
 		node.sd = { }
 		if passive.StatsKeys[1] > 0 then
 			if passive.GrantedBuff_BuffDefinitionsKey then
-				loadStatFile("passive_skill_aura_stat_descriptions.txt")
+				loadStatFile("passive_skill_aura_stat_descriptions.csd")
 			else
-				loadStatFile("passive_skill_stat_descriptions.txt")
+				loadStatFile("passive_skill_stat_descriptions.csd")
 			end
 			local stats = { }
 			for i, statKey in ipairs(passive.StatsKeys) do

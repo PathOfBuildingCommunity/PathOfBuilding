@@ -3,6 +3,34 @@ describe("Buy similar mod stat matching", function()
 	local dkjson = require "dkjson"
 
 	describe("addModEntries mod matching", function()
+		it("matches granted skills against effect-based trade stats", function()
+			local helpers = LoadModule("Classes/TradeHelpers")
+			helpers.getTradeStats = function()
+				return {
+					{ id = "explicit", entries = {
+						{ id = "explicit.effect_2377502094", text = "Grants Level # Summon Bestial Snake" },
+					} },
+				}
+			end
+			local originalHelpers = package.loaded["Classes.TradeHelpers"]
+			package.loaded["Classes.TradeHelpers"] = helpers
+			local effectBuySimilar = LoadModule("Classes/CompareBuySimilar")
+			package.loaded["Classes.TradeHelpers"] = originalHelpers
+			local item = new("Item"):Item([[
+Rarity: UNIQUE
+Yriel's Fostering
+Exquisite Leather
+Implicits: 0
+Grants Level 20 Summon Bestial Snake Skill]])
+			local entries = effectBuySimilar.addModEntries(item, {
+				{ list = item.explicitModLines, type = "explicit" },
+			})
+			assert.equal(1, #entries)
+			assert.same({ "explicit.effect_2377502094" }, entries[1].tradeIds)
+			assert.equal(20, entries[1].value)
+			assert.is_false(entries[1].isOption)
+		end)
+
 		it("matches impossible escape mods as options", function()
 			local fromNothing = new("Item"):Item([[
 Impossible Escape

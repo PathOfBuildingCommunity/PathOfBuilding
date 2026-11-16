@@ -93,9 +93,9 @@ Variant: Current
 {variant:1}(20-25)% increased Quantity of Items found during Effect
 {variant:2,3,4}(12-18)% increased Quantity of Items found during Effect
 {variant:5}(8-12)% increased Quantity of Items found during Effect
-{variant:1,2,3,4}(40-60)% increased Rarity of Items found during Effect
-{variant:5}(20-30)% increased Rarity of Items found during Effect
-{variant:6}(30-50)% increased Rarity of Items found during Effect
+{variant:1,2,3,4}+(40-60)% to Item Rarity during Effect
+{variant:5}+(20-30)% to Item Rarity during Effect
+{variant:6}+(30-50)% to Item Rarity during Effect
 25% increased Light Radius during Effect
 {variant:4,5}+50% to Elemental Resistances during Effect
 {variant:6}+10% to Elemental Resistances during Effect
@@ -209,7 +209,7 @@ Implicits: 0
 {variant:4,5}{crafted}50% Chance to Avoid being Stunned during Effect
 {variant:11}{crafted}Ignites you inflict during Effect spread to other Enemies within 1.5 metres
 {variant:9}{crafted}Enemies Ignited by you during Effect have Malediction
-{variant:3}{crafted}(20-30)% increased Rarity of Items found during Effect
+{variant:3}{crafted}+(20-30)% to Item Rarity during Effect
 {variant:12}{crafted}Leech 1.5% of Expected Ignite Damage as Life when you Ignite an Enemy during Effect
 {variant:2}{crafted}15% of Damage Taken from Hits is Leeched as Life during Effect
 {variant:6}{crafted}Regenerate 3% of Life per second during Effect
@@ -463,7 +463,7 @@ Variant: Current (Attacks)
 Requires Level 68
 {variant:5,6,7,8,9,10,11,12,13}(80-100)% increased Charges per use
 {variant:14,15,16,17,18}(125-150)% increased Charges per use
-Shocks nearby Enemies during Effect, causing 10% increased Damage taken
+Shocks Enemies within 3 metres during Effect, causing 10% increased Damage taken
 You are Shocked during Effect, causing 50% increased Damage taken
 {variant:4,8,10}20% of Physical Damage Converted to Lightning during Effect
 {variant:14}50% of Physical Damage Converted to Lightning during Effect
@@ -568,7 +568,7 @@ Source: Drops from unique{Uhtred, Covetous Traitor} in normal{Expedition Logbook
 Implicits: 1
 Restores Ward on use
 (20-30)% increased Charge Recovery
-Inflict Fire, Cold and Lightning Exposure on nearby Enemies when used
+Inflict Fire, Cold and Lightning Exposure on Enemies within 3 metres when used
 (20-30)% increased Effect of Non-Damaging Ailments you inflict during Effect
 ]],[[
 Vorana's Preparation
@@ -578,7 +578,7 @@ Source: Drops from unique{Vorana, Last to Fall} in normal{Expedition Logbook}
 Implicits: 1
 Restores Ward on use
 (-10-10)% reduced Charges per use
-Debilitate nearby Enemies for 2 Seconds when Effect ends
+Debilitate Enemies within 3 metres for 2 Seconds when Effect ends
 Effect is removed when Ward Breaks
 Culling Strike during Effect
 ]],

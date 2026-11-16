@@ -37,9 +37,9 @@ Variant: Purity of Ice: Lightning
 Variant: Purity of Lightning: Fire
 Variant: Purity of Lightning: Cold
 Variant: Purity of Lightning: Lightning
-{variant:1,2,3,10,11,12}Grants Level 30 Purity of Fire Skill
-{variant:4,5,6,13,14,15}Grants Level 30 Purity of Ice Skill
-{variant:7,8,9,16,17,18}Grants Level 30 Purity of Lightning Skill
+{variant:1,2,3,10,11,12}Grants Level 30 Purity of Fire
+{variant:4,5,6,13,14,15}Grants Level 30 Purity of Ice
+{variant:7,8,9,16,17,18}Grants Level 30 Purity of Lightning
 {variant:1,4,7,10,13,16}Adds (25-30) to (40-45) Fire Damage to Spells and Attacks
 {variant:2,5,8,11,14,17}Adds (25-30) to (40-45) Cold Damage to Spells and Attacks
 {variant:3,6,9,12,15,18}Adds (1-3) to (68-72) Lightning Damage to Spells and Attacks
@@ -158,7 +158,7 @@ Source: Drops from unique{Sirus, Awakener of Worlds} (Uber)
 (80-120)% increased Armour
 30% increased Movement Speed
 (5-25)% increased Duration of Ailments on Enemies
-Damaging Ailments deal damage (5-25)% faster
+Damaging Ailments deal damage (5-25)% Faster
 You and Enemies in your Presence count as moving while affected by Elemental Ailments
 ]],[[
 Torchoak Step
@@ -170,8 +170,8 @@ Variant: Current
 {variant:2}(20-30)% increased Totem Life
 25% increased Movement Speed
 (30-50)% increased Totem Placement speed
-{variant:1}Totems Reflect 25% of their maximum Life as Fire Damage to nearby Enemies when Hit
-{variant:2}Totems Reflect 100% of their maximum Life as Fire Damage to nearby Enemies when Hit
+{variant:1}Totems Reflect 25% of their maximum Life as Fire Damage to Enemies within 1.8 metres when Hit
+{variant:2}Totems Reflect 100% of their maximum Life as Fire Damage to Enemies within 1.8 metres when Hit
 ]],[[
 Windscream
 Reinforced Greaves
@@ -205,7 +205,6 @@ Vaal Greaves
 Variant: Pre 3.25.0
 Variant: Current
 Source: Drops from unique{The Searing Exarch}
-{variant:2}Socketed Slam Gems are Supported by Level 25 Earthbreaker
 +(80-100) to maximum Life
 30% increased Movement Speed
 {variant:2}(3-5)% of Damage from Hits is taken from your nearest Totem's Life before you
@@ -219,7 +218,7 @@ Triggers Level 7 Abberath's Fury when Equipped
 +(20-30) to Strength
 15% increased Movement Speed
 (6-10)% chance to Ignite
-When you Kill an Ignited Enemy, inflict an equivalent Ignite on each nearby Enemy
+When you Kill an Ignited Enemy, inflict an equivalent Ignite on each Enemy within 2 metres
 1% increased Fire Damage per 20 Strength
 Burning Hoofprints
 ]],[[
@@ -259,8 +258,8 @@ Deerskin Boots
 Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
-{variant:1,2}Socketed Gems are Supported by Level 11 Trap
-{variant:3}Socketed Gems are Supported by Level 15 Trap
+{variant:1,2}Socketed Gems are Supported by Level 11 Trap Support
+{variant:3}Socketed Gems are Supported by Level 15 Trap Support
 (160-200)% increased Evasion Rating
 {variant:1,2}+(35-45) to maximum Life
 {variant:2,3}15% increased Movement Speed
@@ -298,9 +297,9 @@ Variant: Purity of Ice: Lightning
 Variant: Purity of Lightning: Fire
 Variant: Purity of Lightning: Cold
 Variant: Purity of Lightning: Lightning
-{variant:1,2,3,10,11,12}Grants Level 30 Purity of Fire Skill
-{variant:4,5,6,13,14,15}Grants Level 30 Purity of Ice Skill
-{variant:7,8,9,16,17,18}Grants Level 30 Purity of Lightning Skill
+{variant:1,2,3,10,11,12}Grants Level 30 Purity of Fire
+{variant:4,5,6,13,14,15}Grants Level 30 Purity of Ice
+{variant:7,8,9,16,17,18}Grants Level 30 Purity of Lightning
 {variant:1,4,7,10,13,16}Adds (25-30) to (40-45) Fire Damage to Spells and Attacks
 {variant:2,5,8,11,14,17}Adds (25-30) to (40-45) Cold Damage to Spells and Attacks
 {variant:3,6,9,12,15,18}Adds (1-3) to (68-72) Lightning Damage to Spells and Attacks
@@ -331,7 +330,7 @@ Variant: Current
 60% increased Mana Regeneration Rate
 {variant:1}(20-30)% increased Quantity of Items found
 {variant:2}(14-20)% increased Quantity of Items found
-{variant:3}(20-40)% increased Rarity of Items found
+{variant:3}+(20-40)% to Item Rarity
 +(40-50)% to Fire Resistance
 10% increased Movement Speed
 ]],[[
@@ -422,7 +421,7 @@ Variant: Current
 {variant:1}30% increased Movement Speed when on Low Life
 {variant:3}(10-20)% increased Movement Speed when on Low Life
 {variant:1,2}(5-10)% of Damage taken Recouped as Mana
-{variant:3}Quicksilver Flasks you Use also apply to nearby Allies
+{variant:3}Quicksilver Flasks you Use also apply to Allies within 6 metres
 {variant:2}10% increased Movement Speed for you and nearby Allies
 ]],
 -- Boots: Energy Shield
@@ -479,9 +478,9 @@ Variant: Purity of Ice: Lightning
 Variant: Purity of Lightning: Fire
 Variant: Purity of Lightning: Cold
 Variant: Purity of Lightning: Lightning
-{variant:1,2,3,10,11,12,19,20,21}Grants Level 30 Purity of Fire Skill
-{variant:4,5,6,13,14,15,22,23,24}Grants Level 30 Purity of Ice Skill
-{variant:7,8,9,16,17,18,25,26,27}Grants Level 30 Purity of Lightning Skill
+{variant:1,2,3,10,11,12,19,20,21}Grants Level 30 Purity of Fire
+{variant:4,5,6,13,14,15,22,23,24}Grants Level 30 Purity of Ice
+{variant:7,8,9,16,17,18,25,26,27}Grants Level 30 Purity of Lightning
 {variant:1,4,7,10,13,16,19,22,25}Adds (25-30) to (40-45) Fire Damage to Spells and Attacks
 {variant:2,5,8,11,14,17,20,23,26}Adds (25-30) to (40-45) Cold Damage to Spells and Attacks
 {variant:3,6,9,12,15,18,21,24,27}Adds (1-3) to (68-72) Lightning Damage to Spells and Attacks
@@ -617,7 +616,7 @@ Variant: Current
 {variant:3}+(5-30) to Intelligence
 {variant:1,2}+(10-16) to maximum Energy Shield
 {variant:3}+(5-30) to maximum Energy Shield
-100% increased Rarity of Items found when on Low Life
++100% to Item Rarity when on Low Life
 {variant:1}15% increased Movement Speed
 {variant:2}10% increased Movement Speed
 {variant:3}(10-25)% increased Movement Speed
@@ -655,10 +654,10 @@ Variant: Two-Toned Boots (Armour/Energy Shield)
 Variant: Two-Toned Boots (Evasion/Energy Shield)
 League: Delirium
 Implicits: 3
-{variant:1}+(8-12)% to Fire and Cold Resistances
-{variant:2}+(8-12)% to Fire and Lightning Resistances
-{variant:3}+(8-12)% to Cold and Lightning Resistances
-Grants Level 1 Embrace Madness Skill
+{variant:1}+(16-20)% to Fire and Cold Resistances
+{variant:2}+(16-20)% to Fire and Lightning Resistances
+{variant:3}+(16-20)% to Cold and Lightning Resistances
+Grants Embrace Madness
 {variant:3}(20-40)% increased Chaos Damage
 {variant:1}(150-300)% increased Armour and Evasion
 30% increased Movement Speed
@@ -711,8 +710,8 @@ Source: No longer obtainable
 Variant: Pre 3.11.0
 Variant: Current
 Requires Level 40
-{variant:1}Socketed Gems are Supported by Level 15 Added Chaos Damage
-{variant:2}Trigger Level 1 Stalking Pustule on Kill
+{variant:1}Socketed Gems are Supported by Level 15 Added Chaos Damage Support
+{variant:2}Trigger Level 15 Stalking Pustule on Kill
 (120-150)% increased Armour and Evasion
 +(50-60) to maximum Life
 20% increased Movement Speed
@@ -730,7 +729,7 @@ League: Ritual
 Requires Level 69
 (200-300)% increased Armour and Evasion
 30% increased Movement Speed
-{variant:2}Nearby Enemies are Scorched
+{variant:2}Enemies within 3 metres are Scorched
 {variant:1}Drops Scorched Ground while moving, lasting 4 seconds
 (30-50)% increased Effect of Scorch
 (30-40)% chance when you Kill a Scorched Enemy to Burn Each surrounding
@@ -742,7 +741,7 @@ Dragonscale Boots
 Variant: Pre 3.23.0
 Variant: Current
 Source: Drops from unique{The Searing Exarch} (Uber)
-Grants Level 20 Approaching Flames Skill
+Grants Approaching Flames
 (60-100)% increased Armour and Evasion
 30% increased Movement Speed
 Cannot be Chilled
@@ -805,7 +804,7 @@ Saqawal's Talons
 Hydrascale Boots
 League: Bestiary
 Source: Drops from unique{Saqawal, First of the Sky}
-Grants Level 20 Aspect of the Avian Skill
+Grants Level 20 Aspect of the Avian
 (100-150)% increased Armour and Evasion
 (20-30)% increased Movement Speed
 +(-2-2) seconds to Avian's Flight Duration
@@ -874,7 +873,7 @@ Variant: Current
 League: Synthesis
 {variant:1}+2 to Level of Socketed Aura Gems
 {variant:2}+(3-5) to Level of Socketed Aura Gems
-Socketed Gems are Supported by Level 25 Divine Blessing
+Socketed Gems are Supported by Level 25 Divine Blessing Support
 (250-300)% increased Armour and Energy Shield
 +(12-18)% to all Elemental Resistances
 (20-30)% increased Movement Speed
@@ -955,9 +954,9 @@ Triggers Level 20 Corpse Walk when Equipped
 (80-120)% increased Evasion and Energy Shield
 25% increased Movement Speed
 {variant:1}(20-40)% increased Damage if you have Consumed a corpse Recently
-{variant:2}For each nearby corpse, Regenerate 8 Life per second
-{variant:1}For each nearby corpse, Regenerate 0.25% Life per second, up to 3%
-{variant:2}For each nearby corpse, 1% increased Movement Speed
+{variant:2}For each corpse within 6 metres, Regenerate 8 Life per second
+{variant:1}For each corpse within 6 metres, Regenerate 0.25% Life per second, up to 3%
+{variant:2}For each corpse within 6 metres, 1% increased Movement Speed
 ]],[[
 Dance of the Offered
 {variant:1}Shackled Boots
@@ -1007,11 +1006,11 @@ Inextricable Fate
 Fugitive Boots
 Source: Drops from unique{The Eater of Worlds}
 Implicits: 1
-+(13-17)% to Chaos Resistance
++(17-23)% to Chaos Resistance
 +(80-100) to maximum Life
 30% increased Movement Speed
 You gain 3 Grasping Vines when you take a Critical Strike
-Nearby stationary Enemies gain a Grasping Vine every 0.5 seconds
+Stationary Enemies within 6 metres gain a Grasping Vine every 0.5 seconds
 All Damage inflicts Poison against Enemies affected by at least 3 Grasping Vines
 You take (30-50)% reduced Extra Damage from Critical Strikes by Poisoned Enemies
 ]],[[
@@ -1058,7 +1057,7 @@ Variant: Pre 2.6.0
 Variant: Current
 10% increased Attack Speed
 (80-120)% increased Evasion Rating
-(20-30)% increased Rarity of Items found
++(20-30)% to Item Rarity
 +(30-40)% to Fire Resistance
 {variant:1}10% increased Movement Speed
 {variant:2}20% increased Movement Speed
@@ -1069,7 +1068,7 @@ Source: No longer obtainable
 Requires Level 59
 10% increased Attack Speed
 (260-300)% increased Evasion and Energy Shield
-(20-30)% increased Rarity of Items found
++(20-30)% to Item Rarity
 +(30-40)% to Fire Resistance
 20% increased Movement Speed
 (10-20)% increased Movement Speed while Ignited
@@ -1079,7 +1078,7 @@ Regenerate (75-125) Life per second while Ignited
 Veruso's Ambition
 Shackled Boots
 League: Necropolis
-Grants Level 20 Ravenous Skill
+Grants Ravenous
 Enemies display their Monster Category
 (80-120)% increased Evasion and Energy Shield
 +(13-23)% to Chaos Resistance
