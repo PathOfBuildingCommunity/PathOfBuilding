@@ -1494,6 +1494,8 @@ MaximumLifeUnique__16
 ]],[[
 Mantle of Dreams
 Twilight Regalia
+League: Covens
+Source: Drops from unique{Incarnation of Dread} (Uber)
 Implicits: 0
 DisplaySupportedByUnleashUnique__2
 LocalIncreasedEnergyShieldPercentUnique__35

@@ -501,6 +501,8 @@ Implicits: 2
 ]], [[
 Corpse Rose
 Imbued Wand
+League: Covens
+Source: Drops from a boss empowered by a Fate that rewards this item
 Implicits: 1
 (33-37)% increased Spell Damage
 Trigger Level 20 Goreblossom after spending (10-20)% of your Maximum Life on Spells

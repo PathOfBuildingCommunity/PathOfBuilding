@@ -365,6 +365,8 @@ Adds (2-6) to (16-22) Physical Damage
 ]],[[
 The Covetous Dark
 Eye Gouger
+League: Covens
+Source: Drops from unique{The Coven Queen}
 Has Alt Variant: true
 Has Alt Variant Two: true
 Selected Variant: 2

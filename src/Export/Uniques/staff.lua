@@ -783,6 +783,8 @@ LocalVeiledModEffectUnique__1
 ]],[[
 Bane of the Apostate
 Judgement Staff
+League: Covens
+Source: Drops from unique{The Coven Queen}
 Implicits: 1
 StaffBlockPercentImplicitStaff3
 FireDamagePercentUnique__16

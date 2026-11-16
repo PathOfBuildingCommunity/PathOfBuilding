@@ -1290,6 +1290,8 @@ ExtremelyLuckyUnique
 ]],[[
 Ordered Fate
 Walnut Spirit Shield
+League: Covens
+Source: Drops from a boss empowered by a Fate that rewards this item
 Implicits: 1
 SpellDamageImplicitShield1
 IncreasedCastSpeedUnique__30

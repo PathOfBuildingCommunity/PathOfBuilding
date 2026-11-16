@@ -1301,6 +1301,8 @@ worst from three rolls instead of two
 ]],[[
 Ordered Fate
 Walnut Spirit Shield
+League: Covens
+Source: Drops from a boss empowered by a Fate that rewards this item
 Requires Level 48
 Implicits: 1
 (5-10)% increased Spell Damage

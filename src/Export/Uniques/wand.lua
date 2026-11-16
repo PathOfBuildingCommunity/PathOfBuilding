@@ -491,6 +491,8 @@ IncreasedMaximumPowerChargesUniqueWand3
 ]], [[
 Corpse Rose
 Imbued Wand
+League: Covens
+Source: Drops from a boss empowered by a Fate that rewards this item
 Implicits: 1
 SpellDamageOnWeaponImplicitWand15
 GrantsCreateBloodFlowerSkillUnique__1

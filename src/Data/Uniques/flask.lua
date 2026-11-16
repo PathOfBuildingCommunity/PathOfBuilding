@@ -584,6 +584,8 @@ Culling Strike during Effect
 ]],[[
 Dreadmaidens' Sacrament
 Basalt Flask
+League: Covens
+Source: Drops from a boss empowered by a Fate that rewards this item
 Requires Level 36
 Implicits: 1
 Taunts Enemies within 3 metres on use

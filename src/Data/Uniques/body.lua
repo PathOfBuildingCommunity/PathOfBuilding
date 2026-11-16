@@ -1515,6 +1515,8 @@ Offering Skills Triggered this way also affect you
 ]],[[
 Mantle of Dreams
 Twilight Regalia
+League: Covens
+Source: Drops from unique{Incarnation of Dread} (Uber)
 Implicits: 0
 Socketed Gems are Supported by Level 30 Unleash Support
 (100-150)% increased Energy Shield

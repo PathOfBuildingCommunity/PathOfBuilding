@@ -796,6 +796,8 @@ Implicits: 1
 ]],[[
 Bane of the Apostate
 Judgement Staff
+League: Covens
+Source: Drops from unique{The Coven Queen}
 Implicits: 1
 +25% Chance to Block Attack Damage
 Grants Level 20 Witchhunter's Pyre
