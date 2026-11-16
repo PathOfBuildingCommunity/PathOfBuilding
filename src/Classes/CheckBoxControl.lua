@@ -42,42 +42,29 @@ function CheckBoxClass:Draw(viewPort, noTooltip)
 	local size = self.width
 	local enabled = self:IsEnabled()
 	local mOver = self:IsMouseOver()
-	if not enabled then
-		SetDrawColor(0.33, 0.33, 0.33)
-	elseif mOver then
-		SetDrawColor(1, 1, 1)
-	elseif self.borderFunc then
+	local colors = ui.colors
+	local radius = ui.FitRadius(ui.radiusSmall, size, size)
+	local border, fill = ui.SurfaceColors(enabled, mOver, self.clicked and mOver)
+	if self.borderFunc and enabled and not mOver then
 		local r, g, b = self.borderFunc()
-		SetDrawColor(r, g, b)
-	else
-		SetDrawColor(0.5, 0.5, 0.5)
+		border = ui.PackColor(r, g, b)
 	end
-	DrawImage(nil, x, y, size, size)
-	if not enabled then
-		SetDrawColor(0, 0, 0)
-	elseif self.clicked and mOver then
-		SetDrawColor(0.5, 0.5, 0.5)
-	elseif mOver then
-		SetDrawColor(0.33, 0.33, 0.33)
-	else
-		SetDrawColor(0, 0, 0)
+	-- A ticked box is filled with the emphasis colour and carries a dark check mark, like the
+	-- unticked box inverted
+	if self.state and enabled then
+		border = mOver and colors.primaryHover or colors.primary
+		fill = border
 	end
-	DrawImage(nil, x + 1, y + 1, size - 2, size - 2)
+	ui.DrawBox(x, y, size, size, radius, border, fill)
 	if self.state then
 		if not enabled then
-			SetDrawColor(0.33, 0.33, 0.33)
-		elseif mOver then
-			SetDrawColor(1, 1, 1)
+			ui.SetColor(colors.textDisabled)
 		else
-			SetDrawColor(0.75, 0.75, 0.75)
+			ui.SetColor(colors.onPrimary)
 		end
-		main:DrawCheckMark(x + size/2, y + size/2, size * 0.8)
+		main:DrawCheckMark(x + size/2, y + size/2, size * 0.7)
 	end
-	if enabled then
-		SetDrawColor(1, 1, 1)
-	else
-		SetDrawColor(0.33, 0.33, 0.33)
-	end
+	ui.SetColor(enabled and colors.text or colors.textDisabled)
 	local label = self:GetProperty("label")
 	if label and self.labelRight then
 		DrawString(x + self.width + 5, y + 2, nil, size - 4, "VAR", label)
