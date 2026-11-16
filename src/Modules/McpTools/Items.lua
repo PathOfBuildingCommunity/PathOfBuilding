@@ -1009,9 +1009,23 @@ function craftActions.implicit(itemsTab, args, build)
 	for _, entry in ipairs(sources) do
 		t_insert(sourceLabels, entry.label)
 	end
+	-- AddImplicitPopup offers Searing Exarch and Eater of Worlds implicits only on
+	-- non-unique helmets, body armours, gloves and boots that have that influence.
+	local item = itemsTab.displayItem
+	local missing = { }
+	if item.rarity ~= "UNIQUE" and item.rarity ~= "RELIC"
+		and (item.type == "Helmet" or item.type == "Body Armour" or item.type == "Gloves" or item.type == "Boots") then
+		if not item.cleansing then
+			t_insert(missing, "Searing Exarch")
+		end
+		if not item.tangle then
+			t_insert(missing, "Eater of Worlds")
+		end
+	end
+	local influenceHint = #missing > 0 and s_format(" %s implicits are offered only once the item has that influence: add it first with action 'properties' and influences.", table.concat(missing, " and ")) or ""
 	if source.sourceId == "CUSTOM" then
 		if not args.custom then
-			return { sources = sourceLabels, source = source.label, note = "Pass custom with the implicit line to add." }
+			return { sources = sourceLabels, source = source.label, note = "Pass custom with the implicit line to add." .. influenceHint }
 		end
 		p.custom:SetText((T.Sanitise(args.custom)))
 		p.save.onClick()
@@ -1022,7 +1036,7 @@ function craftActions.implicit(itemsTab, args, build)
 		local listing = listOptions(p.modGroupSelect.list, args)
 		listing.sources = sourceLabels
 		listing.source = source.label
-		listing.note = "These are implicit types: pass one as group" .. (p.modSelect:GetProperty("shown") and ", then a modifier of that type." or ".")
+		listing.note = "These are implicit types: pass one as group" .. (p.modSelect:GetProperty("shown") and ", then a modifier of that type." or ".") .. influenceHint
 		return listing
 	end
 	choose(p.modGroupSelect, pick(p.modGroupSelect.list, args.group, "implicit type"))

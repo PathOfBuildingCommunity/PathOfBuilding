@@ -259,6 +259,16 @@ describe("MCP items tools", function()
 			local custom = callTool("items_craft", { action = "modifier", item = withLife.item, custom = "+10% to Cold Resistance" })
 			assert.is_truthy(table.concat(custom.mods, "\n"):find("+10% to Cold Resistance", 1, true))
 
+			-- Exarch and Eater implicits need the influence first, as in AddImplicitPopup.
+			local noInfluence = callTool("items_craft", { action = "implicit", item = custom.item })
+			assert.are.same({ "Custom" }, noInfluence.sources)
+			assert.is_truthy(noInfluence.note:find("Searing Exarch and Eater of Worlds implicits are offered only once", 1, true))
+			local exarchItem = callTool("items_craft", { action = "properties", item = custom.item, influences = { "Searing Exarch" } })
+			local exarch = callTool("items_craft", { action = "implicit", item = exarchItem.item })
+			assert.are.same({ "Searing Exarch", "Custom" }, exarch.sources)
+			assert.is_truthy(#exarch.options > 0)
+			assert.is_truthy(exarch.note:find("Eater of Worlds implicits are offered only once", 1, true))
+
 			local quality = callTool("items_craft", { action = "properties", item = custom.item, quality = 20, influences = { "Shaper" } })
 			assert.is_truthy(quality.item:find("Shaper Item", 1, true))
 			assert.is_truthy(quality.item:find("Quality: 20", 1, true))
