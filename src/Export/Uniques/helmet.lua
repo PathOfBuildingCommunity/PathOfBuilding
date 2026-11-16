@@ -1600,4 +1600,15 @@ League: Expedition
 Source: Drops from unique{Olroth, Origin of the Fall} in normal{Expedition Logbook}
 CannotCrit
 BattlemageKeystoneUnique__3
+]],[[
+Veil of Flesh
+Callous Mask
+League: Covens
+Source: Drops from unique{The Coven Queen}
+Implicits: 0
+AdditionalBaseCritUnique__1
+LocalIncreasedEvasionAndEnergyShieldUnique__40
+MaximumLifeUnique__29
+SkillLifeCostInsteadOfManaUnique__2
+FleshBarrierUnique__1
 ]],}

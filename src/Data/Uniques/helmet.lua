@@ -1651,4 +1651,17 @@ League: Expedition
 Source: Drops from unique{Olroth, Origin of the Fall} in normal{Expedition Logbook}
 Never deal Critical Strikes
 Battlemage
+]],[[
+Veil of Flesh
+Callous Mask
+League: Covens
+Source: Drops from unique{The Coven Queen}
+Requires Level 56
+Implicits: 0
++(0.3-0.5)% to Critical Strike Chance
+(100-160)% increased Evasion and Energy Shield
+(14-20)% increased maximum Life
+Skills Cost Life instead of 100% of Mana Cost
+Gain Bitterblood equal to Life spent
+Maximum Bitterblood is equal to your Maximum Life
 ]],}
