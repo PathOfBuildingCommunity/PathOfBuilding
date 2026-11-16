@@ -232,4 +232,94 @@ Implicits: 0]])
 		end)
 	end
 
+	local function characterWithImbuedSupport(name)
+		local character = copyTable(sampleData, true)
+		for _, item in ipairs(character.equipment) do
+			if item.inventoryId == "BodyArmour" then
+				local gem = item.socketedItems[1]
+				gem.builtInSupport = "Supported by Level 1 " .. name
+				return character, gem
+			end
+		end
+		error("Sample character has no body armour")
+	end
+
+	local function bodyArmourGroup()
+		for index, group in ipairs(build.skillsTab.socketGroupList) do
+			if group.slot == "Body Armour" then
+				return group, index
+			end
+		end
+		error("Imported character has no body armour skill group")
+	end
+
+	for _, example in ipairs({
+		{ "Added Fire Damage", "Added Fire Damage", true },
+		{ "Added Fire Damage Support", "Added Fire Damage", true },
+		{ "Barrage Support", "Barrage Support", true },
+		{ "[SupportVolatility|Volatility]", "Volatility", true },
+		{ "Unknown Example", "Unknown Example", false },
+	}) do
+		it("imports and reloads an imbued support: " .. example[1], function()
+			local character = characterWithImbuedSupport(example[1])
+			build.importTab:ImportItemsAndSkills(character, true, true)
+			local function checkGroup()
+				local group = bodyArmourGroup()
+				assert.equals(example[2], group.imbuedSupport)
+				build.skillsTab:SetDisplayGroup(group)
+				assert.equals(example[3], build.skillsTab.imbuedSupportBySlot[group.slot] ~= nil)
+			end
+			checkGroup()
+			loadBuildFromXML(build:SaveDB("code"))
+			checkGroup()
+		end)
+	end
+
+	it("repairs saved imbued support markup and applies the support", function()
+		local character = characterWithImbuedSupport("[SupportVolatility|Volatility]")
+		build.importTab:ImportItemsAndSkills(character, true, true)
+		local xml = build:SaveDB("code")
+		xml = xml:gsub('imbuedSupport="[^"]+"', 'imbuedSupport="[SupportVolatility|Volatility]"', 1)
+		loadBuildFromXML(xml)
+		local group, groupIndex = bodyArmourGroup()
+		assert.equals("Volatility", group.imbuedSupport)
+		build.mainSocketGroup = groupIndex
+		build.buildFlag = true
+		runCallback("OnFrame")
+		local found
+		for _, support in ipairs(build.calcsTab.mainEnv.player.mainSkill.supportList) do
+			if support.grantedEffect.id == "SupportVolatility" then
+				found = support
+				break
+			end
+		end
+		assert.is_not_nil(found)
+		assert.equals(1, found.level)
+	end)
+
+	it("updates imbued support when reimporting an existing skill group", function()
+		local character, socketedGem = characterWithImbuedSupport("Added Fire Damage")
+		build.importTab:ImportItemsAndSkills(character, true, true)
+		local group = bodyArmourGroup()
+		build.skillsTab:SetDisplayGroup(group)
+		socketedGem.builtInSupport = "Supported by Level 1 [UnknownSupport|Unknown Example]"
+		build.importTab:ImportItemsAndSkills(character, false, false)
+		assert.equals("Unknown Example", group.imbuedSupport)
+		assert.equals("Unknown Example", build.skillsTab.controls.imbuedSupport.buf)
+		assert.is_nil(build.skillsTab.imbuedSupportBySlot[group.slot])
+		build.skillsTab:SetDisplayGroup(nil)
+		socketedGem.builtInSupport = "Supported by Level 1 [SupportVolatility|Volatility]"
+		build.importTab:ImportItemsAndSkills(character, false, false)
+		assert.equals("Volatility", group.imbuedSupport)
+		assert.equals("SupportVolatility", build.skillsTab.imbuedSupportBySlot[group.slot].id)
+		build.skillsTab:SetDisplayGroup(group)
+		assert.equals("Volatility", build.skillsTab.controls.imbuedSupport.buf)
+
+		group.slot, group.imbuedSupport = nil, nil
+		build.skillsTab:SetDisplayGroup(nil)
+		build.importTab:ImportItemsAndSkills(character, false, false)
+		assert.is_nil(group.slot)
+		assert.is_nil(group.imbuedSupport)
+	end)
+
 end)
