@@ -1287,4 +1287,15 @@ IncreasedLifeUnique__125
 AdditionalBlockChanceUnique__12
 ProjectileAvoidUnique
 ExtremelyLuckyUnique
-]],}
+]],[[
+Ordered Fate
+Walnut Spirit Shield
+Implicits: 1
+SpellDamageImplicitShield1
+IncreasedCastSpeedUnique__30
+LocalIncreasedEnergyShieldUnique__36
+EverySecondSpellcastUnique__1
+EveryFourthSpellcastUnique__1
+EverySixthSpellcastUnique__1
+]]
+}
