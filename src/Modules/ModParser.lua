@@ -3411,7 +3411,7 @@ local specialModList = {
 	["(%d+)%% chance to [ct][ar][si][tg]g?e?r? level (%d+) (.+) on %a+"] = function(chance, _, level, skill) return triggerExtraSkill(skill, level, {triggerChance =  chance}) end,
 	["attack with level (%d+) (.+) when you kill a bleeding enemy"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
 	["triggers? level (%d+) (.+) when you kill a bleeding enemy"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
-	-- Accept multiword curse names and carry the influence requirement into the existing granted-skill system.
+	-- Accept multi-word curse names and carry the influence requirement into the existing granted-skill system.
 	["curse enemies with (.-) on hit if (%d+) (%a+) items are equipped"] = function(_, curse, count, influence)
 		local mods = triggerExtraSkill(curse, 1, { noSupports = true })
 		if mods[1] then
