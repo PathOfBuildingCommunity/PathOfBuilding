@@ -1491,5 +1491,13 @@ Implicits: 0
 TriggerRandomOfferingSkillUnique__1
 LocalIncreasedEnergyShieldPercentUnique__20_
 MaximumLifeUnique__16
+]],[[
+Mantle of Dreams
+Twilight Regalia
+Implicits: 0
+DisplaySupportedByUnleashUnique__2
+LocalIncreasedEnergyShieldPercentUnique__35
+DamagePerSocketedGemInBodyFinalUnique__1
+LocalSupportGemsSocketedHaveNoEffectUnique__1
 ]]
 }

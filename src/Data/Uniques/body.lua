@@ -1512,5 +1512,13 @@ Trigger Level 20 Bone Offering, Flesh Offering, Spirit Offering every 5 seconds 
 Offering Skills Triggered this way also affect you
 (100-130)% increased Energy Shield
 (6-10)% increased maximum Life
+]],[[
+Mantle of Dreams
+Twilight Regalia
+Implicits: 0
+Socketed Gems are Supported by Level 30 Unleash Support
+(100-150)% increased Energy Shield
+Socketed Gems deal 20% more damage per Socketed Skill Gem
+Socketed Support Gems have no effect
 ]]
 }
