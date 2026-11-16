@@ -1497,7 +1497,7 @@ end
 local rarityMap = { [0] = "NORMAL", "MAGIC", "RARE", "UNIQUE", [9] = "RELIC", [10] = "RELIC", [15] = "NORMAL" }
 local slotMap = { ["Weapon"] = "Weapon 1", ["Offhand"] = "Weapon 2", ["Weapon2"] = "Weapon 1 Swap", ["Offhand2"] = "Weapon 2 Swap", ["Helm"] = "Helmet", ["BodyArmour"] = "Body Armour", ["Gloves"] = "Gloves", ["Boots"] = "Boots",
 				  ["Amulet"] = "Amulet", ["Ring"] = "Ring 1", ["Ring2"] = "Ring 2", ["Ring3"] = "Ring 3", ["Belt"] = "Belt",  ["BrequelGrafts"] = "Graft 1", ["BrequelGrafts2"] = "Graft 2",
-				  ["VisceraHead"] = "Wickerman Head", ["VisceraBody"] = "Wickerman Torso", ["VisceraArm"] = "Wickerman Upper Limb", ["VisceraLeg"] = "Wickerman Lower Limb", }
+				  ["VisceraHead"] = "Head", ["VisceraBody"] = "Body", ["VisceraArm"] = "Arm", ["VisceraLeg"] = "Leg", }
 
 function ImportTabClass:ImportItem(itemData, slotName, ignoreWeaponSwap, itemSetId)
 	if not slotName then

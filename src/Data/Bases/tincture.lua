@@ -2,6 +2,7 @@
 -- Item data (c) Grinding Gear Games
 return function(itemBases)
 itemBases["Prismatic Tincture"] = {
+	baseId = "Metadata/Items/Tinctures/Tincture1",
 	type = "Tincture",
 	tags = { default = true, tincture = true, },
 	implicit = "(70-100)% increased Elemental Damage with Melee Weapons",
@@ -11,6 +12,7 @@ itemBases["Prismatic Tincture"] = {
 	req = { level = 18, },
 }
 itemBases["Rosethorn Tincture"] = {
+	baseId = "Metadata/Items/Tinctures/Tincture2",
 	type = "Tincture",
 	tags = { default = true, tincture = true, },
 	implicit = "(100-150)% increased Critical Strike Chance with Melee Weapons",
@@ -20,6 +22,7 @@ itemBases["Rosethorn Tincture"] = {
 	req = { level = 18, },
 }
 itemBases["Ironwood Tincture"] = {
+	baseId = "Metadata/Items/Tinctures/Tincture3",
 	type = "Tincture",
 	tags = { default = true, tincture = true, },
 	implicit = "40% reduced Enemy Stun Threshold with Melee Weapons\n(15-25)% increased Stun Duration with Melee Weapons",
@@ -29,6 +32,7 @@ itemBases["Ironwood Tincture"] = {
 	req = { level = 18, },
 }
 itemBases["Ashbark Tincture"] = {
+	baseId = "Metadata/Items/Tinctures/Tincture4",
 	type = "Tincture",
 	tags = { default = true, tincture = true, },
 	implicit = "25% chance to Ignite with Melee Weapons\n(60-90)% increased Damage with Ignite from Melee Weapons",
@@ -38,6 +42,7 @@ itemBases["Ashbark Tincture"] = {
 	req = { level = 32, },
 }
 itemBases["Borealwood Tincture"] = {
+	baseId = "Metadata/Items/Tinctures/Tincture5",
 	type = "Tincture",
 	tags = { default = true, tincture = true, },
 	implicit = "25% chance to Freeze with Melee Weapons\n(25-35)% increased Effect of Chill from Melee Weapons",
@@ -47,6 +52,7 @@ itemBases["Borealwood Tincture"] = {
 	req = { level = 32, },
 }
 itemBases["Fulgurite Tincture"] = {
+	baseId = "Metadata/Items/Tinctures/Tincture6",
 	type = "Tincture",
 	tags = { default = true, tincture = true, },
 	implicit = "25% chance to Shock with Melee Weapons\n(25-35)% increased Effect of Shock from Melee Weapons",
@@ -56,6 +62,7 @@ itemBases["Fulgurite Tincture"] = {
 	req = { level = 32, },
 }
 itemBases["Poisonberry Tincture"] = {
+	baseId = "Metadata/Items/Tinctures/Tincture7",
 	type = "Tincture",
 	tags = { default = true, tincture = true, },
 	implicit = "20% chance to Poison with Melee Weapons\n(60-90)% increased Damage with Poison from Melee Weapons",
@@ -65,6 +72,7 @@ itemBases["Poisonberry Tincture"] = {
 	req = { level = 45, },
 }
 itemBases["Blood Sap Tincture"] = {
+	baseId = "Metadata/Items/Tinctures/Tincture8",
 	type = "Tincture",
 	tags = { default = true, tincture = true, },
 	implicit = "20% chance to cause Bleeding with Melee Weapons\n(60-90)% increased Damage with Bleeding from Melee Weapons",
@@ -74,6 +82,7 @@ itemBases["Blood Sap Tincture"] = {
 	req = { level = 45, },
 }
 itemBases["Oakbranch Tincture"] = {
+	baseId = "Metadata/Items/Tinctures/Tincture9",
 	type = "Tincture",
 	tags = { default = true, tincture = true, },
 	implicit = "Gain 3 Rage on Melee Weapon Hit",
@@ -83,6 +92,7 @@ itemBases["Oakbranch Tincture"] = {
 	req = { level = 60, },
 }
 itemBases["Sporebloom Tincture"] = {
+	baseId = "Metadata/Items/Tinctures/Tincture10",
 	type = "Tincture",
 	tags = { default = true, tincture = true, },
 	implicit = "25% chance to Blind Enemies on Hit with Melee Weapons\n(25-35)% increased Effect of Blind from Melee Weapons",

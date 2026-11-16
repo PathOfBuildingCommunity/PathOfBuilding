@@ -207,8 +207,8 @@ function ItemsTabClass:ItemsTab(build)
 		return self.build.spec.treeVersion:find("3_30")
 	end
 	prevSlot = self.controls.wickermanHeader
-	for _, slotName in ipairs({ "Wickerman Head", "Wickerman Torso", "Wickerman Upper Limb", "Wickerman Lower Limb" }) do
-		local slot = new("ItemSlotControl"):ItemSlotControl({"TOPLEFT",prevSlot,"BOTTOMLEFT"}, 0, 2, self, slotName, (slotName:gsub("^Wickerman ", "")))
+	for _, slotName in ipairs({ "Head", "Body", "Arm", "Leg" }) do
+		local slot = new("ItemSlotControl"):ItemSlotControl({"TOPLEFT",prevSlot,"BOTTOMLEFT"}, 0, 2, self, slotName)
 		slot.shown = self.controls.wickermanHeader.shown
 		addSlot(slot)
 	end
@@ -2658,6 +2658,10 @@ function ItemsTabClass:IsItemValidForSlot(item, slotName, itemSet)
 		end
 	elseif item.type == slotType then
 		return true
+	elseif item.type == "Viscera" then
+		if item.base.tags["viscera_" .. (slotName:gsub("^%u", string.lower))] then
+			return true
+		end
 	elseif item.type == "Tincture" and slotType == "Flask" then
 		return true
 	elseif item.type == "Jewel" and item.base.subType == "Abyss" and slotName:match("Abyssal Socket") then
