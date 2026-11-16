@@ -4257,6 +4257,21 @@ local function buildSpecForJewelComparison(itemsTab, compareSlot, replacementIte
 	return spec
 end
 
+--- Calculator override that puts an item into a slot in place of the one equipped there,
+--- rebuilding the passive tree for jewels that change it.
+--- Passing the equipped item itself (or nil) gives the override for removing it.
+---@param compareSlot ItemSlotControl
+---@param item Item|nil
+---@return table override, Item|nil selItem
+function ItemsTabClass:GetSlotReplacementOverride(compareSlot, item)
+	local selItem = self.items[compareSlot.selItemId]
+	local override = { repSlotName = compareSlot.slotName, repItem = item ~= selItem and item or nil }
+	if compareSlot.nodeId and (itemChangesPassiveTree(selItem) or itemChangesPassiveTree(item)) then
+		override.spec = buildSpecForJewelComparison(self, compareSlot, override.repItem)
+	end
+	return override, selItem
+end
+
 function ItemsTabClass:GetSocketDescriptionLine(item)
 	-- Sockets/links
 	local group = 0
@@ -4997,11 +5012,7 @@ function ItemsTabClass:AddItemStatDifferences(tooltip, item, base, slot)
 		end
 
 		local function getReplacedItemAndOutput(compareSlot)
-			local selItem = self.items[compareSlot.selItemId]
-			local override = { repSlotName = compareSlot.slotName, repItem = item ~= selItem and item or nil }
-			if compareSlot.nodeId and (itemChangesPassiveTree(selItem) or itemChangesPassiveTree(item)) then
-				override.spec = buildSpecForJewelComparison(self, compareSlot, override.repItem)
-			end
+			local override, selItem = self:GetSlotReplacementOverride(compareSlot, item)
 			local output = calcFunc(override)
 			return selItem, output
 		end

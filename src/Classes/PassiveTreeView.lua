@@ -790,22 +790,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 	if self.searchStrCached ~= self.searchStr then
 		self.searchStrCached = self.searchStr
 
-		local function prepSearch(search)
-			search = search:lower()
-			--gsub("([%[%]%%])", "%%%1")
-			local searchWords = {}
-			for matchstring, v in search:gmatch('"([^"]*)"') do
-				searchWords[#searchWords+1] = matchstring
-				search = search:gsub('"'..matchstring:gsub("([%(%)])", "%%%1")..'"', "")
-			end
-			for matchstring, v in search:gmatch("(%S*)") do
-				if matchstring:match("%S") ~= nil then
-					searchWords[#searchWords+1] = matchstring
-				end
-			end
-			return searchWords
-		end
-		self.searchParams = prepSearch(self.searchStr)
+		self.searchParams = self:ParseSearchString(self.searchStr)
 
 		for nodeId, node in pairs(spec.nodes) do
 			self.searchStrResults[nodeId] = #self.searchParams > 0 and self:DoesNodeMatchSearchParams(node)
@@ -1329,6 +1314,23 @@ function PassiveTreeViewClass:Focus(x, y, viewPort, build)
 	
 	self.zoomX = -x * scale
 	self.zoomY = -y * scale
+end
+
+-- Split the search box text into the words DoesNodeMatchSearchParams looks for; "quoted text" stays one word
+function PassiveTreeViewClass:ParseSearchString(search)
+	search = search:lower()
+	--gsub("([%[%]%%])", "%%%1")
+	local searchWords = {}
+	for matchstring, v in search:gmatch('"([^"]*)"') do
+		searchWords[#searchWords+1] = matchstring
+		search = search:gsub('"'..matchstring:gsub("([%(%)])", "%%%1")..'"', "")
+	end
+	for matchstring, v in search:gmatch("(%S*)") do
+		if matchstring:match("%S") ~= nil then
+			searchWords[#searchWords+1] = matchstring
+		end
+	end
+	return searchWords
 end
 
 function PassiveTreeViewClass:DoesNodeMatchSearchParams(node)

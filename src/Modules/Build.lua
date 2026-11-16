@@ -1255,22 +1255,7 @@ function buildMode:OnFrame(inputEvents)
 	self.controls.ascendDrop:CheckDroppedWidth(true)
 	self:UpdateSecondaryAscendancyDropdown()
 
-	if self.buildFlag then
-		-- Wipe Global Cache
-		wipeGlobalCache()
-
-		-- Rebuild calculation output tables
-		self.outputRevision = self.outputRevision + 1
-		self.buildFlag = false
-		self.skillsTab:UpdateSocketGroups()
-		self.calcsTab:BuildOutput()
-		if self.controls.breakdown.pinned and self.breakdownInputs then
-			self.controls.breakdown:SetBreakdownData()
-			self.controls.breakdown:SetBreakdownData(unpack(self.breakdownInputs))
-		end
-		self:RefreshStatList()
-		self.configTab.calcFunc, self.configTab.calcBase = self.calcsTab:GetMiscCalculator()
-	end
+	self:ProcessBuildFlag()
 	if main.showThousandsSeparators ~= self.lastShowThousandsSeparators then
 		self:RefreshStatList()
 	end
@@ -1324,7 +1309,7 @@ function buildMode:OnFrame(inputEvents)
 		end
 	end
 
-	self.unsaved = self.modFlag or self.notesTab.modFlag or self.partyTab.modFlag or self.configTab.modFlag or self.treeTab.modFlag or self.treeTab.searchFlag or self.spec.modFlag or self.skillsTab.modFlag or self.itemsTab.modFlag or self.calcsTab.modFlag
+	self.unsaved = self:HasUnsavedChanges()
 
 	SetDrawLayer(5)
 
@@ -1347,6 +1332,30 @@ function buildMode:OnFrame(inputEvents)
 	self:DrawControls(main.viewPort)
 	if self.controls.breakdown.pinned and self.breakdownInputs and not self.selControl then
 		self:SelectControl(self.controls.breakdown)
+	end
+end
+
+function buildMode:HasUnsavedChanges()
+	return self.modFlag or self.notesTab.modFlag or self.partyTab.modFlag or self.configTab.modFlag or self.treeTab.modFlag or self.treeTab.searchFlag or self.spec.modFlag or self.skillsTab.modFlag or self.itemsTab.modFlag or self.calcsTab.modFlag
+end
+
+-- Recalculate the build if anything flagged it as changed (buildFlag)
+function buildMode:ProcessBuildFlag()
+	if self.buildFlag then
+		-- Wipe Global Cache
+		wipeGlobalCache()
+
+		-- Rebuild calculation output tables
+		self.outputRevision = self.outputRevision + 1
+		self.buildFlag = false
+		self.skillsTab:UpdateSocketGroups()
+		self.calcsTab:BuildOutput()
+		if self.controls.breakdown.pinned and self.breakdownInputs then
+			self.controls.breakdown:SetBreakdownData()
+			self.controls.breakdown:SetBreakdownData(unpack(self.breakdownInputs))
+		end
+		self:RefreshStatList()
+		self.configTab.calcFunc, self.configTab.calcBase = self.calcsTab:GetMiscCalculator()
 	end
 end
 

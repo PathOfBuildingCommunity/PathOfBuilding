@@ -151,6 +151,9 @@ function main:Init()
 	self.tree = { }
 	self:LoadTree(latestTreeVersion)
 
+	-- Local MCP server; its settings are read with the others and it starts only when enabled
+	self.mcpServer = LoadModule("Modules/McpServer")
+
 	if self.userPath then
 		self:ChangeUserPath(self.userPath, ignoreBuild)
 	end
@@ -374,16 +377,11 @@ end
 function main:Shutdown()
 	self:CallMode("Shutdown")
 	self:SaveSettings()
+	self.mcpServer:Stop()
 end
 
-function main:OnFrame()
-	self.screenW, self.screenH = GetVirtualScreenSize()
-
-	if self.screenH > self.screenW then
-		self.portraitMode = true
-	else
-		self.portraitMode = false
-	end
+-- Switch to the mode requested with SetMode, if any.
+function main:ProcessModeChange()
 	while self.newMode do
 		if self.mode then
 			self:CallMode("Shutdown")
@@ -396,6 +394,17 @@ function main:OnFrame()
 		end
 		self.newModeChangeToTree = false
 	end
+end
+
+function main:OnFrame()
+	self.screenW, self.screenH = GetVirtualScreenSize()
+
+	if self.screenH > self.screenW then
+		self.portraitMode = true
+	else
+		self.portraitMode = false
+	end
+	self:ProcessModeChange()
 
 	self.viewPort = { x = 0, y = 0, width = self.screenW, height = self.screenH }
 
@@ -483,6 +492,9 @@ function main:OnFrame()
 		end
 	end
 	itemLib.wiki.triggered = false
+
+	-- Answer MCP requests between frames; it looks at this frame's input to tell whether the window is in use
+	self.mcpServer:Poll(self.inputEvents)
 
 	wipeTable(self.inputEvents)
 
@@ -573,6 +585,8 @@ function main:LoadSettings(ignoreBuild)
 						}
 					end
 				end
+			elseif node.elem == "McpServer" then
+				self.mcpServer:LoadSettings(node)
 			elseif node.elem == "Misc" then
 				if node.attrib.buildSortMode then
 					self.buildSortMode = node.attrib.buildSortMode
@@ -776,6 +790,7 @@ function main:SaveSettings()
 		t_insert(sharedItemList, set)
 	end
 	t_insert(setXML, sharedItemList)
+	t_insert(setXML, self.mcpServer:SaveSettings())
 	t_insert(setXML, { elem = "Misc", attrib = {
 		buildSortMode = self.buildSortMode,
 		connectionProtocol = tostring(launch.connectionProtocol),
@@ -859,6 +874,7 @@ function main:ChangeUserPath(newUserPath, ignoreBuild)
 	MakeDir(self.buildPath)
 	self:LoadSettings(ignoreBuild)
 	self:LoadSharedItems()
+	self.mcpServer:Apply()
 end
 --- Opens the popup for the "Options" menu
 --- @param savedState table|nil optional passing of saved values, in case of reopening `{nodePowerTheme, colorPositive, ...}`
@@ -897,7 +913,7 @@ function main:OpenOptionsPopup(savedState)
 	}
 
 	-- NOTE: Height needs to be adjusted if more menu options are added
-	local oneColumnHeightReq = 850 -- Min height required to not split menu into two columns
+	local oneColumnHeightReq = 876 -- Min height required to not split menu into two columns
 	local columnWidth = 600
 	
 	local startingY = 20
@@ -1076,6 +1092,16 @@ function main:OpenOptionsPopup(savedState)
 		self.disableScrollControlInteraction = state
 	end)
 	controls.disableScrollControlInteraction.tooltipText = "Disable changing the values in controls such as dropdowns or numeric inputs when using the scroll wheel."
+
+	nextRow()
+	controls.mcpServer = new("ButtonControl"):ButtonControl({ "TOPLEFT", controls.sectionAnchor, "TOPLEFT" }, { currentX + defaultLabelPlacementX, currentY, 100, 18 }, "Configure...", function()
+		self.mcpServer:OpenSettingsPopup()
+	end)
+	controls.mcpServerLabel = new("LabelControl"):LabelControl({ "RIGHT", controls.mcpServer, "LEFT" }, { defaultLabelSpacingPx, 0, 0, 16 }, "^7Local MCP server:")
+	controls.mcpServerStatus = new("LabelControl"):LabelControl({ "LEFT", controls.mcpServer, "RIGHT" }, { 8, 0, 0, 16 }, function()
+		return self.mcpServer:IsRunning() and "^2On" or "^8Off"
+	end)
+	controls.mcpServer.tooltipText = "Lets MCP clients on this computer read and change the build open in Path of Building.\nOff by default."
 
 	nextRow()
 
