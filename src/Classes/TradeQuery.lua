@@ -57,6 +57,12 @@ function TradeQueryClass:TradeQuery(itemsTab)
 		["Xbox"] = "xbox",
 		["Sony"] = "sony"
 	}
+	self.sortModes = {
+		StatValue = "(Highest) Stat Value",
+		StatValuePrice = "Stat Value / Price",
+		Price = "(Lowest) Price",
+		Weight = "(Highest) Weighted Sum",
+	}
 	--- @type integer?
 	self.backoffFinish = nil
 	-- last query for each row
@@ -109,9 +115,12 @@ end
 
 --- @param currencyId string
 --- @param amount integer
+--- @param realm string? defaults to the realm selected in the trader
+--- @param league string? defaults to the league selected in the trader
 --- @return number?
-function TradeQueryClass:ConvertCurrencyToDivs(currencyId, amount)
-	local map = self.pbCurrencyConversion[self.pbRealm] and self.pbCurrencyConversion[self.pbRealm][self.pbLeague]
+function TradeQueryClass:ConvertCurrencyToDivs(currencyId, amount, realm, league)
+	realm, league = realm or self.pbRealm, league or self.pbLeague
+	local map = self.pbCurrencyConversion[realm] and self.pbCurrencyConversion[realm][league]
 	if map and map[currencyId] then
 		return amount * map[currencyId]
 	end
@@ -123,8 +132,9 @@ local generalCurrencies = {
 }
 
 -- Method to pull down and interpret the Currency Exchange JSON endpoint data
-function TradeQueryClass:PullCXData()
-	local realm = self.pbRealm
+--- @param realm string? defaults to the realm selected in the trader
+function TradeQueryClass:PullCXData(realm)
+	realm = realm or self.pbRealm
 	if realm == "" then
 		return
 	end
@@ -430,12 +440,6 @@ on trade site to work on other leagues and realms)]]
 			tooltip:AddLine(16, s_format("%s: %.2f", stat.label, stat.weightMult))
 		end
 	end
-	self.sortModes = {
-		StatValue = "(Highest) Stat Value",
-		StatValuePrice = "Stat Value / Price",
-		Price = "(Lowest) Price",
-		Weight = "(Highest) Weighted Sum",
-	}
 	-- Item sort dropdown
 	self.itemSortSelectionList = {
 		self.sortModes.StatValue,
@@ -796,6 +800,10 @@ end
 
 -- Method to set the notice message in upper right of PoB Trader pane
 function TradeQueryClass:SetNotice(notice_control, msg)
+	-- The pane's controls exist only once the trader has been opened.
+	if not notice_control then
+		return
+	end
 	if msg:find("No Matching Results") then
 		msg = colorCodes.WARNING .. msg
 	elseif msg:find("Error") then
@@ -805,9 +813,10 @@ function TradeQueryClass:SetNotice(notice_control, msg)
 end
 
 -- Method to reduce the full output to only the values that were 'weighted'
-function TradeQueryClass:ReduceOutput(output)
+--- @param statWeights table? defaults to the trader's search weights
+function TradeQueryClass:ReduceOutput(output, statWeights)
 	local smallOutput = {}
-	for _, statTable in ipairs(self.statSortSelectionList) do
+	for _, statTable in ipairs(statWeights or self.statSortSelectionList) do
 		smallOutput[statTable.stat] = data.powerStatList.GetFromOutput(output, statTable, true)
 		if statTable.stat == "FullDPS" and not output.FullDPS then
 			smallOutput.TotalDPS = data.powerStatList.GetFromOutput(output, { stat = "TotalDPS" })
@@ -837,47 +846,67 @@ function TradeQueryClass:GetResultEvaluation(row_idx, result_index, calcFunc, ba
 		self.onlyWeightedBaseOutput[row_idx][result_index] = onlyWeightedBaseOutput
 		self.lastComparedWeightList[row_idx][result_index] = self.statSortSelectionList
 	end
-	local slotTbl = self.slotTables[row_idx]
+	result.evaluation = self:EvaluateItem(self.slotTables[row_idx], result.item_string, calcFunc, baseOutput)
+	return result.evaluation
+end
+
+-- Method to get the slot a row's items are evaluated in
+--- @param slotTbl TradeQuerySlotTable
+--- @return string
+function TradeQueryClass:GetEvaluationSlotName(slotTbl)
 	local jewelNodeId = slotTbl.nodeId or slotTbl.selectedJewelNodeId
+	if slotTbl.slotName == "Pearl of Tsoatha" and not slotTbl.selectedSlotName then
+		for index = 1, 3 do
+			local ringSlot = self.itemsTab.slots["Ring " .. index]
+			if ringSlot and ringSlot.shown() then
+				slotTbl.selectedSlotName = ringSlot.slotName
+				break
+			end
+		end
+	end
+	return jewelNodeId and "Jewel " .. tostring(jewelNodeId) or slotTbl.selectedSlotName or slotTbl.slotName
+end
+
+-- Method to evaluate an item for a row: its weighted output and weight
+--- @param slotTbl TradeQuerySlotTable
+--- @param itemString string
+--- @param statWeights table? defaults to the trader's search weights
+function TradeQueryClass:EvaluateItem(slotTbl, itemString, calcFunc, baseOutput, statWeights)
+	statWeights = statWeights or self.statSortSelectionList
+	-- A static function of the generator class, which may not be loaded yet.
+	if not common.classes.TradeQueryGenerator then
+		LoadModule("Classes/TradeQueryGenerator")
+	end
+	local WeightedRatioOutputs = common.classes.TradeQueryGenerator.WeightedRatioOutputs
 	if slotTbl.slotName == "Megalomaniac" then
 		local addedNodes = {}
-		for nodeName in (result.item_string.."\r\n"):gmatch("1 Added Passive Skill is (.-)\r?\n") do
+		for nodeName in (itemString.."\r\n"):gmatch("1 Added Passive Skill is (.-)\r?\n") do
 			t_insert(addedNodes, self.itemsTab.build.spec.tree.clusterNodeMap[nodeName])
 		end
-		local output12  = self:ReduceOutput(calcFunc({ addNodes = { [addedNodes[1]] = true, [addedNodes[2]] = true } }))
-		local output13  = self:ReduceOutput(calcFunc({ addNodes = { [addedNodes[1]] = true, [addedNodes[3]] = true } }))
-		local output23  = self:ReduceOutput(calcFunc({ addNodes = { [addedNodes[2]] = true, [addedNodes[3]] = true } }))
-		local output123 = self:ReduceOutput(calcFunc({ addNodes = { [addedNodes[1]] = true, [addedNodes[2]] = true, [addedNodes[3]] = true } }))
+		local output12  = self:ReduceOutput(calcFunc({ addNodes = { [addedNodes[1]] = true, [addedNodes[2]] = true } }), statWeights)
+		local output13  = self:ReduceOutput(calcFunc({ addNodes = { [addedNodes[1]] = true, [addedNodes[3]] = true } }), statWeights)
+		local output23  = self:ReduceOutput(calcFunc({ addNodes = { [addedNodes[2]] = true, [addedNodes[3]] = true } }), statWeights)
+		local output123 = self:ReduceOutput(calcFunc({ addNodes = { [addedNodes[1]] = true, [addedNodes[2]] = true, [addedNodes[3]] = true } }), statWeights)
 		-- Sometimes the third node is as powerful as a wet noodle, so use weight per point spent, including the jewel socket
-		local weight12  = self.tradeQueryGenerator.WeightedRatioOutputs(baseOutput, output12,  self.statSortSelectionList) / 4
-		local weight13  = self.tradeQueryGenerator.WeightedRatioOutputs(baseOutput, output13,  self.statSortSelectionList) / 4
-		local weight23  = self.tradeQueryGenerator.WeightedRatioOutputs(baseOutput, output23,  self.statSortSelectionList) / 4
-		local weight123 = self.tradeQueryGenerator.WeightedRatioOutputs(baseOutput, output123, self.statSortSelectionList) / 5
-		result.evaluation = {
+		local weight12  = WeightedRatioOutputs(baseOutput, output12,  statWeights) / 4
+		local weight13  = WeightedRatioOutputs(baseOutput, output13,  statWeights) / 4
+		local weight23  = WeightedRatioOutputs(baseOutput, output23,  statWeights) / 4
+		local weight123 = WeightedRatioOutputs(baseOutput, output123, statWeights) / 5
+		local evaluation = {
 			{ output = output12,  weight = weight12,  DNs = { addedNodes[1].dn, addedNodes[2].dn } },
 			{ output = output13,  weight = weight13,  DNs = { addedNodes[1].dn, addedNodes[3].dn } },
 			{ output = output23,  weight = weight23,  DNs = { addedNodes[2].dn, addedNodes[3].dn } },
 			{ output = output123, weight = weight123, DNs = { addedNodes[1].dn, addedNodes[2].dn, addedNodes[3].dn } },
 		}
-		table.sort(result.evaluation, function(a, b) return a.weight > b.weight end)
-	else
-		if slotTbl.slotName == "Pearl of Tsoatha" and not slotTbl.selectedSlotName then
-			for index = 1, 3 do
-				local ringSlot = self.itemsTab.slots["Ring " .. index]
-				if ringSlot and ringSlot.shown() then
-					slotTbl.selectedSlotName = ringSlot.slotName
-					break
-				end
-			end
-		end
-		local slotName = jewelNodeId and "Jewel " .. tostring(jewelNodeId) or slotTbl.selectedSlotName or slotTbl.slotName
-		local item = new("Item"):Item(result.item_string)
-
-		local output = self:ReduceOutput(calcFunc({ repSlotName = slotName, repItem = item }))
-		local weight = self.tradeQueryGenerator.WeightedRatioOutputs(baseOutput, output, self.statSortSelectionList)
-		result.evaluation = {{ output = output, weight = weight }}
+		table.sort(evaluation, function(a, b) return a.weight > b.weight end)
+		return evaluation
 	end
-	return result.evaluation
+	local slotName = self:GetEvaluationSlotName(slotTbl)
+	local item = new("Item"):Item(itemString)
+
+	local output = self:ReduceOutput(calcFunc({ repSlotName = slotName, repItem = item }), statWeights)
+	local weight = WeightedRatioOutputs(baseOutput, output, statWeights)
+	return {{ output = output, weight = weight }}
 end
 
 -- Method to update controls after a search is completed
@@ -959,13 +988,22 @@ function TradeQueryClass:SortFetchResults(row_idx, mode)
 		end
 		return sum
 	end
+	return self:SortResults(self.resultTbl[row_idx], mode, getResultWeight)
+end
+
+-- Method to sort search results by a sort mode
+--- @param results table the fetched results
+--- @param getResultWeight fun(result_index: integer): number
+--- @param realm string? for currency conversion, defaults to the realm selected in the trader
+--- @param league string? for currency conversion, defaults to the league selected in the trader
+function TradeQueryClass:SortResults(results, mode, getResultWeight, realm, league)
 	--- @return table<integer, number>?
 	local function getPriceTable()
 		--- @type table<integer, number>
 		local divPrices = {}
-		for idx, item in ipairs(self.resultTbl[row_idx]) do
+		for idx, item in ipairs(results) do
 			if item.currency and item.amount then
-				local divs = self:ConvertCurrencyToDivs(item.currency, item.amount)
+				local divs = self:ConvertCurrencyToDivs(item.currency, item.amount, realm, league)
 				if not divs then
 					return nil
 				end
@@ -976,12 +1014,12 @@ function TradeQueryClass:SortFetchResults(row_idx, mode)
 	end
 	local newTbl = {}
 	if mode == self.sortModes.Weight then
-		for index, _ in pairs(self.resultTbl[row_idx]) do
+		for index, _ in pairs(results) do
 			t_insert(newTbl, { outputAttr = index, index = index })
 		end
 		return newTbl
 	elseif mode == self.sortModes.StatValue  then
-		for result_index = 1, #self.resultTbl[row_idx] do
+		for result_index = 1, #results do
 			t_insert(newTbl, { outputAttr = getResultWeight(result_index), index = result_index })
 		end
 		table.sort(newTbl, function(a,b) return a.outputAttr > b.outputAttr end)
@@ -990,7 +1028,7 @@ function TradeQueryClass:SortFetchResults(row_idx, mode)
 		if priceTable == nil then
 			return nil, "MissingConversionRates"
 		end
-		for result_index = 1, #self.resultTbl[row_idx] do
+		for result_index = 1, #results do
 			-- generally, because we are filtering our results to only the top
 			-- contenders, we will end up with a small spread of result weights.
 			-- this is however not true for prices as *decent* items might start
@@ -1033,6 +1071,59 @@ function TradeQueryClass:FilterToSafeItems(itemEntries, slotName)
 		if item.base and ((not slotName) or self.itemsTab:IsItemValidForSlot(item, slotName)) then
 			t_insert(itemsSafe, entry)
 		end
+	end
+	return itemsSafe
+end
+
+-- Method to build a trade site link that shows one listing of a search's results
+---@param lastQuery string the search's query JSON, as sent
+---@param itemResult table the fetched result
+---@param realm string? defaults to the realm selected in the trader
+---@param league string? defaults to the league selected in the trader
+function TradeQueryClass:BuildListingSearchUrl(lastQuery, itemResult, realm, league)
+	local exactQuery = dkjson.decode(lastQuery)
+	-- use trade sum to get the specific item. both min and max
+	-- weight on site uses floats but only shows integer in the api
+	-- e.g. weight of 172.3 shows up as 172 in the api
+	if exactQuery.query.stats[1].type == "weight" then
+		exactQuery.query.stats[1].value = { min = floor(itemResult.weight, 1) - 1, max = round(itemResult.weight, 1) + 1 }
+	end
+	-- also apply trader name. this should make false positives
+	-- extremely unlikely. this doesn't seem to take up a filter slot
+	exactQuery.query.filters = exactQuery.query.filters or { }
+	exactQuery.query.filters.trade_filters = exactQuery.query.filters.trade_filters or { filters = { } }
+	exactQuery.query.filters.trade_filters.filters = exactQuery.query.filters.trade_filters.filters or { }
+	exactQuery.query.filters.trade_filters.filters.account = { input = itemResult.trader }
+
+	return self.tradeQueryRequests:buildUrl(self.hostName .. "trade/search", realm or self.pbRealm, league or self.pbLeague,
+		tradeHelpers.B64GzipEncode(dkjson.encode(exactQuery.query)))
+end
+
+-- Method to prepare the results of a generated search: drop items that do not
+-- parse or fit, and apply the query options' eldritch and enchant choices
+---@param items table the fetched results
+---@param filterSlotName string? the slot the items must fit
+---@param slotName string the row's slot, whose anoints and eldritch implicits are copied
+---@param includeEldritch string? the Eldritch Mods choice
+---@param copyEnchantMode string? the Enchant/Anoint Behaviour choice
+function TradeQueryClass:PrepareGeneratedResults(items, filterSlotName, slotName, includeEldritch, copyEnchantMode)
+	local itemsSafe = self:FilterToSafeItems(items, filterSlotName)
+	-- replace eldritch mods or enchants if the user requested
+	-- so in TradeQueryGenerator
+	for i, _ in ipairs(itemsSafe) do
+		local item = new("Item"):Item(itemsSafe[i].item_string)
+		-- assume the user will add quality if they buy the item
+		item:NormaliseQuality()
+		if includeEldritch == "Copy Current" or copyEnchantMode == "Copy Current" then
+			self.itemsTab:CopyAnointsAndEldritchImplicits(item, true, true, slotName)
+		elseif includeEldritch == "Remove" then
+			if item.tangle or item.cleansing then
+				item.implicitModLines = {}
+			end
+		elseif copyEnchantMode == "Remove" then
+			item.enchantModLines = {}
+		end
+		itemsSafe[i].item_string = item:BuildRaw()
 	end
 	return itemsSafe
 end
@@ -1086,25 +1177,8 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 
 					self.lastQueries[row_idx] = finalQuery
 					local selectedSlot = getSelectedSlot()
-					local itemsSafe = self:FilterToSafeItems(items, selectedSlot and selectedSlot.slotName)
-					-- replace eldritch mods or enchants if the user requested
-					-- so in TradeQueryGenerator
-					for i, _ in ipairs(itemsSafe) do
-						local item = new("Item"):Item(itemsSafe[i].item_string)
-						-- assume the user will add quality if they buy the item
-						item:NormaliseQuality()
-						if self.tradeQueryGenerator.lastIncludeEldritch == "Copy Current" or
-							self.tradeQueryGenerator.lastCopyEnchantMode == "Copy Current" then
-							self.itemsTab:CopyAnointsAndEldritchImplicits(item, true, true, context.slotTbl.slotName)
-						elseif self.tradeQueryGenerator.lastIncludeEldritch == "Remove" then
-							if item.tangle or item.cleansing then
-								item.implicitModLines = {}
-							end
-						elseif self.tradeQueryGenerator.lastCopyEnchantMode == "Remove" then
-							item.enchantModLines = {}
-						end
-						itemsSafe[i].item_string = item:BuildRaw()
-					end
+					local itemsSafe = self:PrepareGeneratedResults(items, selectedSlot and selectedSlot.slotName, context.slotTbl.slotName,
+						self.tradeQueryGenerator.lastIncludeEldritch, self.tradeQueryGenerator.lastCopyEnchantMode)
 
 					self.resultTbl[context.row_idx] = itemsSafe
 					self:UpdateControlsWithItems(context.row_idx)
@@ -1305,22 +1379,7 @@ you can add them, copy the link here, and press "Price Item" to evaluate the ite
 			if  itemResult.whisper and (itemResult.priceType ~= "~b/o") then
 				Copy(itemResult.whisper)
 			else
-				local exactQuery = dkjson.decode(self.lastQueries[row_idx])
-				-- use trade sum to get the specific item. both min and max
-				-- weight on site uses floats but only shows integer in the api
-				-- e.g. weight of 172.3 shows up as 172 in the api
-				if exactQuery.query.stats[1].type == "weight" then
-					exactQuery.query.stats[1].value = { min = floor(itemResult.weight, 1) - 1, max = round(itemResult.weight, 1) + 1 }
-				end
-				-- also apply trader name. this should make false positives
-				-- extremely unlikely. this doesn't seem to take up a filter slot
-				exactQuery.query.filters = exactQuery.query.filters or { }
-				exactQuery.query.filters.trade_filters = exactQuery.query.filters.trade_filters or { filters = { } }
-				exactQuery.query.filters.trade_filters.filters = exactQuery.query.filters.trade_filters.filters or { }
-				exactQuery.query.filters.trade_filters.filters.account = { input = itemResult.trader }
-
-				local encodedUrl = self.tradeQueryRequests:buildUrl(self.hostName .. "trade/search", self.pbRealm, self.pbLeague,
-					tradeHelpers.B64GzipEncode(dkjson.encode(exactQuery.query)))
+				local encodedUrl = self:BuildListingSearchUrl(self.lastQueries[row_idx], itemResult)
 
 				Copy(encodedUrl)
 				OpenURL(encodedUrl)

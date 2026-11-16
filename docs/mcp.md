@@ -43,8 +43,10 @@ so you can see what a client did.
   existing file unless told to.
 - Tools that use one of Path of Building's dialogs to do their work (timeless jewel finder, tattoos, crafting) close it and
   put back what they changed in it.
-- `import_character` uses the Path of Exile login you set up in *Import/Export*; the token never leaves Path of Building.
-  Build links are downloaded by Path of Building itself. Nothing is uploaded.
+- `import_character` and `trade_search` use the Path of Exile login you set up in *Import/Export*; the token never leaves
+  Path of Building. `trade_search` runs the trader's searches through Path of Building's own request queue and rate limits
+  and only reads listings: nothing is bought or sent to sellers. Build links are downloaded by Path of Building itself.
+  Nothing is uploaded.
 
 ## Tools
 
@@ -73,7 +75,8 @@ Tools are grouped by the part of the window they work on. Read-only tools are ma
 | | `items_sets` | Item sets: list, select, new, copy, rename, delete |
 | | `items_db_search` | PoB's unique and rare databases, sortable by a stat |
 | | `items_craft` | Build an item with PoB's crafting and return its text |
-| | `trade_query` | The weighted trade search PoB generates for a slot |
+| Trade | `trade_query` | The weighted trade search PoB's trader generates for a slot or unique row, as a link |
+| | `trade_search` | Runs that search (or a trade link) and returns listings with prices, measured on the build |
 | Skills | `skills_get` | Socket groups, gems, main skill, skill sets |
 | | `skills_edit` | Add or change gems and groups, main skill, skill sets |
 | | `skills_rank_supports` | Support gems ranked by damage for a group |

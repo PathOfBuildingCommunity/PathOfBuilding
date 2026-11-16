@@ -526,9 +526,9 @@ local promptDefs = {
 			return "Find the best upgrade for the " .. tostring(args.slot) .. " slot of the build open in Path of Building"
 				.. (args.goal and args.goal ~= "" and (", aiming for " .. args.goal) or "") .. ".\n"
 				.. "1. Read the current item with items_get and the build's needs with build_stats (resistances, attributes, warnings).\n"
-				.. "2. Find candidates with items_db_search (uniques and PoB's rare templates) and, if useful, items_craft; trade_query gives a weighted trade search the user can open.\n"
-				.. "3. Measure every candidate with simulate in that slot and rank them by the measured change, mentioning unmet requirements.\n"
-				.. "4. Only equip one with items_equip if the user asks."
+				.. "2. Find candidates with items_db_search (uniques and PoB's rare templates) and, if useful, items_craft; trade_search finds listings on the trade site with their prices, already measured on the build (it needs PoB's Path of Exile login; otherwise trade_query gives a link the user can open).\n"
+				.. "3. Measure every candidate with simulate in that slot and rank them by the measured change, mentioning unmet requirements and prices.\n"
+				.. "4. Only equip one with items_equip if the user asks; nothing is bought."
 		end,
 	},
 	{
@@ -578,7 +578,7 @@ M.instructions = table.concat({
 
 -- Tool files, one per area of the UI.
 -- One failing file must not take the others down.
-for _, name in ipairs({ "Build", "Tree", "Items", "Skills", "Config", "Calcs", "Compare" }) do
+for _, name in ipairs({ "Build", "Tree", "Items", "Trade", "Skills", "Config", "Calcs", "Compare" }) do
 	local ok, err = pcall(LoadModule, "Modules/McpTools/" .. name, T)
 	if not ok then
 		ConPrintf("MCP server: could not load the %s tools: %s", name, tostring(err))
