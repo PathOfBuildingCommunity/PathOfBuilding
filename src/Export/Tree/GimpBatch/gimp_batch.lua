@@ -52,16 +52,16 @@ function module.extract_abyss_lines(batch, sources, temporaryPath, outputPath)
 	for _, source in ipairs(sources) do
 		local sourceFile = source.file
 		if source.effect then
-			sourceFile = temporaryPath .. "abyss-preview.png"
+			sourceFile = temporaryPath .. source.prefix .. "-preview.png"
 			batch.script:write(string.format(
 				'(make-abyss-preview "%s" "%s" "%s")\n',
 				schemePath(source.file), schemePath(source.effect), schemePath(sourceFile)
 			))
 		end
 		batch.script:write(string.format(
-			'(extract-abyss-lines "%s" "%s" "%s" "%s" %d)\n',
+			'(extract-abyss-lines "%s" "%s" "%s" "%s" "%s" %d)\n',
 			schemePath(sourceFile), schemePath(temporaryPath), schemePath(outputPath),
-			source.state, source.state == "active" and 1 or 0
+			source.prefix, source.state, source.state == "active" and 1 or 0
 		))
 	end
 end

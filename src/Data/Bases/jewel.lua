@@ -92,6 +92,14 @@ itemBases["Timeless Jewel"] = {
 	req = { },
 }
 
+itemBases["Mycelium Core"] = {
+	type = "Jewel",
+	subType = "Blightcore",
+	tags = { default = true, jewel = true, not_for_sale = true, },
+	implicitModTypes = { },
+	req = { },
+}
+
 itemBases["Ursine Charm"] = {
 	type = "Jewel",
 	subType = "Charm",
