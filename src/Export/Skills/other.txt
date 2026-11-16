@@ -759,6 +759,17 @@ return function(skills, mod, flag, skill)
 #baseMod flag("CannotSplit")
 #mods
 
+#skill TriggeredMoonfall
+#flags attack projectile area
+	fromItem = true,
+	statMap = {
+		["attack_trigger_on_melee_critical_hit_%"] = {
+			skill("triggeredByCovetousDark", true),
+			skill("triggerOnCrit", true),
+		},
+	},
+#mods
+
 #skill PenanceMark
 #flags spell curse duration mark
 	fromItem = true,

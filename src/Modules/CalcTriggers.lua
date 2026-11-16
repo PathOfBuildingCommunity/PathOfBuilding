@@ -1140,6 +1140,10 @@ local configTable = {
 				end,
 				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByCospris and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot end}
 	end,
+	["the covetous dark"] = function()
+		return {triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Melee] end,
+				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByCovetousDark end}
+	end,
 	["seven teachings"] = function()
 		return {triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Melee] and band(skill.skillCfg.flags, bor(ModFlag.Unarmed, ModFlag.Melee)) == bor(ModFlag.Unarmed, ModFlag.Melee) end,
 				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredBySevenTeachings and slotMatch(env, skill) end}

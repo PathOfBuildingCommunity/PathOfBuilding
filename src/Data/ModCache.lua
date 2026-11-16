@@ -8251,6 +8251,7 @@ c["30% chance to gain Unholy Might on Block for 3 seconds"]={{[1]={flags=0,keywo
 c["30% chance to gain Unholy Might on Block for 3 seconds Gain Unholy Might on Block for 10 seconds"]={{[1]={flags=0,keywordFlags=0,name="Condition:UnholyMight",type="FLAG",value=true}}," on Block  Gain  on Block  "}
 c["30% chance to gain a Flask Charge when you deal a Critical Strike"]={{[1]={flags=0,keywordFlags=0,name="FlaskChargeOnCritChance",type="BASE",value=30}},nil}
 c["30% chance to gain a Frenzy Charge for each Enemy you hit with a Critical Strike"]={nil,"a Frenzy Charge for each Enemy you hit with a Critical Strike "}
+c["30% chance to gain a Frenzy Charge for each Enemy you hit with a Critical Strike Gain a random Shrine Buff for 15 seconds when you Blind a"]={nil,"a Frenzy Charge for each Enemy you hit with a Critical Strike Gain a random Shrine Buff  when you Blind a "}
 c["30% chance to gain a Frenzy Charge on Critical Strike at Close Range"]={nil,"a Frenzy Charge  "}
 c["30% chance to gain a Frenzy Charge on Hitting an Enemy with no Evasion Rating"]={nil,"a Frenzy Charge on Hitting an Enemy with no Evasion Rating "}
 c["30% chance to gain a Frenzy Charge on Kill"]={nil,"a Frenzy Charge  "}
@@ -10002,8 +10003,8 @@ c["5% chance to Freeze"]={{[1]={flags=0,keywordFlags=0,name="EnemyFreezeChance",
 c["5% chance to Freeze, Shock and Ignite"]={{[1]={flags=0,keywordFlags=0,name="EnemyFreezeChance",type="BASE",value=5},[2]={flags=0,keywordFlags=0,name="EnemyShockChance",type="BASE",value=5},[3]={flags=0,keywordFlags=0,name="EnemyIgniteChance",type="BASE",value=5}},nil}
 c["5% chance to Gain Unholy Might for 4 seconds on Melee Kill"]={{[1]={[1]={type="Condition",var="KilledRecently"},flags=67108864,keywordFlags=0,name="Condition:UnholyMight",type="FLAG",value=true}},nil}
 c["5% chance to Hinder Enemies on Hit with Spells"]={{}," to Hinder Enemies  "}
-c["5% chance to Ignite"]={{[1]={flags=0,keywordFlags=0,name="EnemyIgniteChance",type="BASE",value=5}},nil}
 end)();(function()
+c["5% chance to Ignite"]={{[1]={flags=0,keywordFlags=0,name="EnemyIgniteChance",type="BASE",value=5}},nil}
 c["5% chance to Impale Enemies on Hit with Attacks"]={{[1]={flags=0,keywordFlags=65536,name="ImpaleChance",type="BASE",value=5}},nil}
 c["5% chance to Intimidate Enemies for 4 seconds on Hit"]={{}," to Intimidate Enemies   "}
 c["5% chance to Knock Enemies Back on hit"]={{[1]={flags=0,keywordFlags=0,name="EnemyKnockbackChance",type="BASE",value=5}},nil}
@@ -13437,6 +13438,7 @@ c["Adds 44 to 81 Fire Damage to Attacks"]={{[1]={flags=0,keywordFlags=65536,name
 c["Adds 440 to 545 Cold Damage"]={{[1]={flags=0,keywordFlags=0,name="ColdMin",type="BASE",value=440},[2]={flags=0,keywordFlags=0,name="ColdMax",type="BASE",value=545}},nil}
 c["Adds 45 to 100 Physical Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalMin",type="BASE",value=45},[2]={flags=0,keywordFlags=0,name="PhysicalMax",type="BASE",value=100}},nil}
 c["Adds 45 to 140 Physical Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalMin",type="BASE",value=45},[2]={flags=0,keywordFlags=0,name="PhysicalMax",type="BASE",value=140}},nil}
+c["Adds 45 to 62 Physical Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalMin",type="BASE",value=45},[2]={flags=0,keywordFlags=0,name="PhysicalMax",type="BASE",value=62}},nil}
 c["Adds 45 to 68 Cold Damage"]={{[1]={flags=0,keywordFlags=0,name="ColdMin",type="BASE",value=45},[2]={flags=0,keywordFlags=0,name="ColdMax",type="BASE",value=68}},nil}
 c["Adds 45 to 69 Physical Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalMin",type="BASE",value=45},[2]={flags=0,keywordFlags=0,name="PhysicalMax",type="BASE",value=69}},nil}
 c["Adds 45 to 75 Fire Damage if you've Blocked Recently"]={{[1]={[1]={type="Condition",var="BlockedRecently"},flags=0,keywordFlags=0,name="FireMin",type="BASE",value=45},[2]={[1]={type="Condition",var="BlockedRecently"},flags=0,keywordFlags=0,name="FireMax",type="BASE",value=75}},nil}
@@ -14620,13 +14622,15 @@ c["Blight has 30% increased Hinder Duration"]={{[1]={[1]={includeTransfigured=tr
 c["Blight has 30% increased Hinder Duration You cannot be Hindered"]={{[1]={[1]={includeTransfigured=true,skillName="Blight",type="SkillName"},flags=0,keywordFlags=0,name="Duration",type="INC",value=30}}," Hinder  You cannot be Hindered "}
 c["Blind Chilled Enemies on Hit"]={nil,"Blind Chilled Enemies on Hit "}
 c["Blind Chilled Enemies on Hit Damage Penetrates 20% Cold Resistance against Chilled Enemies"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Chilled"},flags=4,keywordFlags=0,name="ColdPenetration",type="BASE",value=20}},"Blind Chilled Enemies      "}
-c["Blind Enemies on Hit"]={nil,"Blind Enemies on Hit "}
+c["Blind Enemies on Hit"]={{[1]={[1]={type="Condition",var="HitRecently"},flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Condition:Blinded",type="FLAG",value=true}}}},nil}
 c["Blind does not affect your Light Radius"]={nil,"Blind does not affect your Light Radius "}
 c["Blind does not affect your Light Radius 25% more Melee Critical Strike Chance while Blinded"]={nil,"Blind does not affect your Light Radius 25% more Melee Critical Strike Chance while Blinded "}
 c["Blind does not affect your Light Radius Blind you inflict is Reflected to you"]={nil,"Blind does not affect your Light Radius Blind you inflict is Reflected to you "}
 c["Blind you inflict is Reflected to you"]={nil,"Blind you inflict is Reflected to you "}
 c["Blind you inflict is Reflected to you 20% chance to gain a Frenzy Charge on Hit while Blinded"]={nil,"Blind you inflict is Reflected to you 20% chance to gain a Frenzy Charge on Hit while Blinded "}
 c["Blind you inflict is permanent"]={nil,"Blind you inflict is permanent "}
+c["Blind you inflict is permanent Gain 60% of Weapon Physical Damage as Extra Damage of a random Element"]={nil,"Blind you inflict is permanent Gain 60% of Weapon Physical Damage as Extra Damage of a random Element "}
+c["Blinding a non-Blinded Pinnacle Atlas Boss with this Weapon will"]={nil,"Blinding a non-Blinded Pinnacle Atlas Boss with this Weapon will "}
 c["Blinding a non-Blinded Pinnacle Atlas Boss with this Weapon will steal a Modifier for this item (1 Modifier remaining)"]={nil,"Blinding a non-Blinded Pinnacle Atlas Boss with this Weapon will steal a Modifier for this item (1 Modifier remaining) "}
 c["Blinding a non-Blinded Pinnacle Atlas Boss with this Weapon will steal a Modifier for this item (2 Modifiers remaining)"]={nil,"Blinding a non-Blinded Pinnacle Atlas Boss with this Weapon will steal a Modifier for this item (2 Modifiers remaining) "}
 c["Blink Arrow and Mirror Arrow have 100% increased Cooldown Recovery Rate"]={{[1]={[1]={includeTransfigured=true,skillNameList={[1]="Blink Arrow",[2]="Mirror Arrow"},type="SkillName"},flags=0,keywordFlags=0,name="CooldownRecovery",type="INC",value=100}},nil}
@@ -15001,11 +15005,11 @@ c["Consecrated Ground you create applies 15% increased Damage taken to Enemies"]
 c["Consecrated Ground you create applies 6% increased Damage taken to Enemies"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={[1]={type="Condition",var="OnConsecratedGround"},flags=0,keywordFlags=0,name="DamageTakenConsecratedGround",type="INC",value=6}}}},nil}
 c["Consecrated Ground you create applies 9% increased Damage taken to Enemies"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={[1]={type="Condition",var="OnConsecratedGround"},flags=0,keywordFlags=0,name="DamageTakenConsecratedGround",type="INC",value=9}}}},nil}
 c["Consecrated Ground you create causes Life Regeneration to"]={nil,"Consecrated Ground you create causes Life Regeneration to "}
+end)();(function()
 c["Consecrated Ground you create causes Life Regeneration to also Recover Energy Shield for you and Allies"]={{[1]={flags=0,keywordFlags=0,name="ExtraAura",type="LIST",value={mod={[1]={type="Condition",var="OnConsecratedGround"},flags=0,keywordFlags=0,name="LifeRegenerationRecoversEnergyShield",type="FLAG",value=true}}}},nil}
 c["Consecrated Ground you create grants +2% maximum Chaos Resistance to you and Allies"]={{[1]={[1]={type="Condition",var="OnConsecratedGround"},flags=0,keywordFlags=0,name="ExtraAura",type="LIST",value={mod={flags=0,keywordFlags=0,name="ChaosResistMax",type="BASE",value=2}}}},nil}
 c["Consecrated Ground you create grants 30% increased Accuracy Rating to you and Allies"]={{[1]={flags=0,keywordFlags=0,name="ExtraAura",type="LIST",value={mod={[1]={type="Condition",var="OnConsecratedGround"},flags=0,keywordFlags=0,name="ConsecratedGroundAlsoAccuracy",type="INC",value=30}}}},nil}
 c["Consecrated Ground you create grants 30% increased Mana Regeneration"]={{[1]={[1]={type="Condition",var="OnConsecratedGround"},flags=0,keywordFlags=0,name="ManaRegen",type="INC",value=30}},nil}
-end)();(function()
 c["Consecrated Ground you create grants 5% reduced damage taken to you and Allies"]={{[1]={[1]={type="Condition",var="OnConsecratedGround"},flags=0,keywordFlags=0,name="ExtraAura",type="LIST",value={mod={flags=0,keywordFlags=0,name="DamageTaken",type="INC",value=-5}}}},nil}
 c["Consecrated Ground you create while affected by Zealotry causes enemies to take 10% increased Damage"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="OnConsecratedGround"},[2]={type="Condition",var="AffectedByZealotry"},flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="DamageTakenConsecratedGround",type="INC",value=10}}}},nil}
 c["Consecrated Ground you create while affected by Zealotry causes enemies to take 9% increased Damage"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="OnConsecratedGround"},[2]={type="Condition",var="AffectedByZealotry"},flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="DamageTakenConsecratedGround",type="INC",value=9}}}},nil}
@@ -15257,7 +15261,7 @@ c["Damage to Surrounding Targets"]={nil,"Damage to Surrounding Targets "}
 c["Damage to surrounding targets"]={nil,"Damage to surrounding targets "}
 c["Damage to surrounding targets Animated and Manifested Minions' Melee Strikes deal 50% less Splash Damage"]={nil,"Damage to surrounding targets Animated and Manifested Minions' Melee Strikes deal 50% less Splash Damage "}
 c["Damage with Hits from Socketed Vaal Skills is Lucky"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},[2]={skillType=38,type="SkillType"},flags=0,keywordFlags=0,name="ExtraSkillMod",type="LIST",value={mod={flags=0,keywordFlags=0,name="LuckyHits",type="FLAG",value=true}}}},nil}
-c["Damage with Hits is Lucky while your Offhand is Magic"]={nil,"Damage with Hits is Lucky while your Offhand is Magic "}
+c["Damage with Hits is Lucky while your Offhand is Magic"]={{[1]={[1]={type="Condition",var="MagicItemInWeapon 2"},flags=0,keywordFlags=0,name="LuckyHits",type="FLAG",value=true}},nil}
 c["Damage with Hits is Unlucky"]={{[1]={flags=0,keywordFlags=0,name="UnluckyHits",type="FLAG",value=true}},nil}
 c["Damage with Hits of Allies within 5 metres is Lucky"]={nil,"Damage with Hits of Allies within 5 metres is Lucky "}
 c["Damage with Weapons Penetrates 2% Elemental Resistances"]={{[1]={flags=8192,keywordFlags=0,name="ElementalPenetration",type="BASE",value=2}},nil}
@@ -16584,6 +16588,7 @@ c["Gain a Void Charge every 0.5 seconds"]={nil,"a Void Charge every 0.5 seconds 
 c["Gain a Void Charge every second"]={nil,"a Void Charge every second "}
 c["Gain a Void Charge every second 5 Maximum Void Charges"]={nil,"a Void Charge every second 5 Maximum Void Charges "}
 c["Gain a random Blood Shrine buff every 10 seconds"]={{[1]={flags=0,keywordFlags=0,name="Condition:CanHaveBloodShrines",type="FLAG",value=true}},nil}
+c["Gain a random Shrine Buff for 15 seconds when you Blind a"]={nil,"a random Shrine Buff  when you Blind a "}
 c["Gain a random Shrine Buff for 15 seconds when you Blind a non-Blinded Rare or Unique Enemy"]={{[1]={flags=0,keywordFlags=0,name="Condition:Blinded",type="FLAG",value=true}},"a random Shrine Buff  when you Blind a non- Rare or Unique Enemy "}
 c["Gain a random Shrine Buff for 2.5 seconds when you Kill a Rare or Unique Enemy"]={nil,"a random Shrine Buff for 2.5 seconds when you Kill a Rare or Unique Enemy "}
 c["Gain a random Shrine Buff for 30 seconds when you Kill a Rare or Unique Enemy"]={{[1]={flags=0,keywordFlags=0,name="Condition:CanHaveRegularShrines",type="FLAG",value=true}},nil}
@@ -17483,7 +17488,8 @@ c["Inflict Withered for 2 seconds on Hit if you've cast Despair in the past 10 s
 c["Inflict Withered for 2 seconds on Hit with this Weapon"]={{[1]={flags=0,keywordFlags=0,name="Condition:CanWither",type="FLAG",value=true}},nil}
 c["Inflict a Grasping Vine on Hit against Enemies with fewer than"]={nil,"Inflict a Grasping Vine on Hit against Enemies with fewer than "}
 c["Inflict a Grasping Vine on Hit against Enemies with fewer than 8 Grasping Vines during Effect of any Life Flask"]={nil,"Inflict a Grasping Vine on Hit against Enemies with fewer than 8 Grasping Vines during Effect of any Life Flask "}
-c["Inflict an additional Poison on the same Target when you inflict Poison with this weapon"]={nil,"Inflict an additional Poison on the same Target when you inflict Poison with this weapon "}
+c["Inflict an additional Poison on the same Target when"]={nil,"Inflict an additional Poison on the same Target when "}
+c["Inflict an additional Poison on the same Target when you inflict Poison with this weapon"]={{[1]={[1]={type="Condition",var="{Hand}Attack"},flags=0,keywordFlags=0,name="AdditionalPoisonStacks",type="BASE",value=1}},nil}
 c["Inflict non-Damaging Ailments as though dealing 100% more Damage"]={{[1]={flags=0,keywordFlags=0,name="ShockAsThoughDealing",type="MORE",value=100},[2]={flags=0,keywordFlags=0,name="ChillAsThoughDealing",type="MORE",value=100},[3]={flags=0,keywordFlags=0,name="FreezeAsThoughDealing",type="MORE",value=100},[4]={flags=0,keywordFlags=0,name="ScorchAsThoughDealing",type="MORE",value=100},[5]={flags=0,keywordFlags=0,name="BrittleAsThoughDealing",type="MORE",value=100},[6]={flags=0,keywordFlags=0,name="SapAsThoughDealing",type="MORE",value=100}},nil}
 c["Inflict non-Damaging Ailments as though dealing 150% more Damage"]={{[1]={flags=0,keywordFlags=0,name="ShockAsThoughDealing",type="MORE",value=150},[2]={flags=0,keywordFlags=0,name="ChillAsThoughDealing",type="MORE",value=150},[3]={flags=0,keywordFlags=0,name="FreezeAsThoughDealing",type="MORE",value=150},[4]={flags=0,keywordFlags=0,name="ScorchAsThoughDealing",type="MORE",value=150},[5]={flags=0,keywordFlags=0,name="BrittleAsThoughDealing",type="MORE",value=150},[6]={flags=0,keywordFlags=0,name="SapAsThoughDealing",type="MORE",value=150}},nil}
 c["Inflict non-Damaging Ailments as though dealing 200% more Damage"]={{[1]={flags=0,keywordFlags=0,name="ShockAsThoughDealing",type="MORE",value=200},[2]={flags=0,keywordFlags=0,name="ChillAsThoughDealing",type="MORE",value=200},[3]={flags=0,keywordFlags=0,name="FreezeAsThoughDealing",type="MORE",value=200},[4]={flags=0,keywordFlags=0,name="ScorchAsThoughDealing",type="MORE",value=200},[5]={flags=0,keywordFlags=0,name="BrittleAsThoughDealing",type="MORE",value=200},[6]={flags=0,keywordFlags=0,name="SapAsThoughDealing",type="MORE",value=200}},nil}
@@ -18822,7 +18828,7 @@ c["Poisons you inflict deal Damage 14% Faster"]={{[1]={flags=0,keywordFlags=0,na
 c["Poisons you inflict deal Damage 15% Faster"]={{[1]={flags=0,keywordFlags=0,name="PoisonFaster",type="INC",value=15}},nil}
 c["Poisons you inflict deal Damage 16% Faster"]={{[1]={flags=0,keywordFlags=0,name="PoisonFaster",type="INC",value=16}},nil}
 c["Poisons you inflict deal Damage 18% Faster"]={{[1]={flags=0,keywordFlags=0,name="PoisonFaster",type="INC",value=18}},nil}
-c["Poisons you inflict deal Damage 18% Slower"]={nil,"Poisons you inflict deal Damage 18% Slower "}
+c["Poisons you inflict deal Damage 18% Slower"]={{[1]={flags=0,keywordFlags=0,name="PoisonFaster",type="INC",value=-18}},nil}
 c["Poisons you inflict deal Damage 20% Faster"]={{[1]={flags=0,keywordFlags=0,name="PoisonFaster",type="INC",value=20}},nil}
 c["Poisons you inflict deal Damage 24% Faster"]={{[1]={flags=0,keywordFlags=0,name="PoisonFaster",type="INC",value=24}},nil}
 c["Poisons you inflict deal Damage 33% Faster"]={{[1]={flags=0,keywordFlags=0,name="PoisonFaster",type="INC",value=33}},nil}
@@ -20001,13 +20007,13 @@ c["Requires Class Witch Allocates Vile Bastion if you have the matching modifier
 c["Requires Class Witch Allocates Void Beacon if you have the matching modifier on Forbidden Flame"]={nil,"Requires Class Witch Allocates Void Beacon if you have the matching modifier on Forbidden Flame "}
 c["Requires Class Witch Allocates Void Beacon if you have the matching modifier on Forbidden Flesh"]={nil,"Requires Class Witch Allocates Void Beacon if you have the matching modifier on Forbidden Flesh "}
 c["Requires Class Witch Allocates Withering Presence if you have the matching modifier on Forbidden Flame"]={nil,"Requires Class Witch Allocates Withering Presence if you have the matching modifier on Forbidden Flame "}
+end)();(function()
 c["Requires Class Witch Allocates Withering Presence if you have the matching modifier on Forbidden Flesh"]={nil,"Requires Class Witch Allocates Withering Presence if you have the matching modifier on Forbidden Flesh "}
 c["Reserves 30% of Life"]={{[1]={flags=0,keywordFlags=0,name="ExtraLifeReserved",type="BASE",value=30}},nil}
 c["Reserves 8% of Life"]={{[1]={flags=0,keywordFlags=0,name="ExtraLifeReserved",type="BASE",value=8}},nil}
 c["Resolute Technique"]={{[1]={flags=0,keywordFlags=0,name="Keystone",type="LIST",value="Resolute Technique"},[2]={flags=0,keywordFlags=0,name="Condition:HaveResoluteTechnique",type="FLAG",value=true}},nil}
 c["Restores Ward on use"]={nil,"Restores Ward on use "}
 c["Restores Ward on use 10% reduced Charges per use"]={nil,"Restores Ward on use 10% reduced Charges per use "}
-end)();(function()
 c["Restores Ward on use 30% increased Charge Recovery"]={nil,"Restores Ward on use 30% increased Charge Recovery "}
 c["Restores Ward on use 40% increased Charges per use"]={nil,"Restores Ward on use 40% increased Charges per use "}
 c["Restores Ward on use 40% increased Duration"]={nil,"Restores Ward on use 40% increased Duration "}
@@ -22079,7 +22085,7 @@ c["Trigger Level 20 Icicle Burst when you Hit a Frozen Enemy"]={{[1]={flags=0,ke
 c["Trigger Level 20 Intimidating Cry when you lose Cat's Stealth"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="IntimidatingCry",triggered=true}}},nil}
 c["Trigger Level 20 Lightning Bolt on Melee Hit with this Weapon, with a 0.25 second cooldown"]={nil,"Trigger Level 20 Lightning Bolt on Melee Hit with this Weapon, with a 0.25 second cooldown "}
 c["Trigger Level 20 Lightning Bolt when you deal a Critical Strike"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="LightningBolt",triggered=true}}},nil}
-c["Trigger Level 20 Moonfall on Melee Critical Strike"]={{[1]={[1]={type="SkillId"},flags=0,keywordFlags=0,name="ExtraSkillMod",type="LIST",value={mod={flags=0,keywordFlags=0,name="SkillData",type="LIST",value={key="triggerOnCrit",value=true}}}}},nil}
+c["Trigger Level 20 Moonfall on Melee Critical Strike"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="TriggeredMoonfall",triggered=true}},[2]={[1]={skillId="TriggeredMoonfall",type="SkillId"},flags=0,keywordFlags=0,name="ExtraSkillMod",type="LIST",value={mod={flags=0,keywordFlags=0,name="SkillData",type="LIST",value={key="triggerOnCrit",value=true}}}}},nil}
 c["Trigger Level 20 Shade Form when Hit"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="ShadeForm",triggered=true}}},nil}
 c["Trigger Level 20 Shield Shatter when you Block"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="ShieldShatter",triggered=true}}},nil}
 c["Trigger Level 20 Spirit Burst when you Use a Skill while you have a Spirit Charge"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="SpiritBurst",triggered=true}}},nil}
@@ -23049,6 +23055,8 @@ c["have fewer than 5 Poisons on you"]={nil,"fewer than 5 Poisons on you "}
 c["more than once every 0.3 seconds"]={nil,"more than once every 0.3 seconds "}
 c["more than once every 0.3 seconds Lose all Defiance when you reach 10 Defiance"]={nil,"more than once every 0.3 seconds Lose all Defiance when you reach 10 Defiance "}
 c["more than once every 0.3 seconds Lose all Defiance when you reach 10 Defiance Gain 3% of Missing Unreserved Life before being Hit by an Enemy Per Defiance"]={nil,"more than once every 0.3 seconds Lose all Defiance when you reach 10 Defiance Gain 3% of Missing Unreserved Life before being Hit by an Enemy Per Defiance "}
+c["non-Blinded Rare or Unique Enemy"]={nil,"non-Blinded Rare or Unique Enemy "}
+c["non-Blinded Rare or Unique Enemy Damage with Hits is Lucky while your Offhand is Magic"]={nil,"non-Blinded Rare or Unique Enemy Damage with Hits is Lucky while your Offhand is Magic "}
 c["of your Traps are Triggered by an Enemy"]={nil,"of your Traps are Triggered by an Enemy "}
 c["of your Traps are Triggered by an Enemy Skills which throw Traps Cost Life instead of Mana"]={nil,"of your Traps are Triggered by an Enemy Skills which throw Traps Cost Life instead of Mana "}
 c["on any Equipped Item"]={nil,"on any Equipped Item "}
@@ -23058,6 +23066,10 @@ c["per Tribe for which you have an allocated Tattoo Limited to 1 Ancestral Tatto
 c["removed by Filling Unreserved Life"]={nil,"removed by Filling Unreserved Life "}
 c["removed by Filling Unreserved Life 10% chance to gain Onslaught for 4 Seconds when Leech is"]={nil,"removed by Filling Unreserved Life 10% chance to gain Onslaught for 4 Seconds when Leech is "}
 c["second, up to a maximum of 100%"]={nil,"second, up to a maximum of 100% "}
+c["steal a Modifier for this item (1 Modifier remaining)"]={nil,"steal a Modifier for this item (1 Modifier remaining) "}
+c["steal a Modifier for this item (1 Modifier remaining) Poisons you inflict deal Damage 18% Slower"]={nil,"steal a Modifier for this item (1 Modifier remaining) Poisons you inflict deal Damage 18% Slower "}
+c["steal a Modifier for this item (2 Modifiers remaining)"]={nil,"steal a Modifier for this item (2 Modifiers remaining) "}
+c["steal a Modifier for this item (2 Modifiers remaining) Blinding a non-Blinded Pinnacle Atlas Boss with this Weapon will"]={nil,"steal a Modifier for this item (2 Modifiers remaining) Blinding a non-Blinded Pinnacle Atlas Boss with this Weapon will "}
 c["taken from your Mercenary's Life before you"]={nil,"taken from your Mercenary's Life before you "}
 c["taken from your Mercenary's Life before you If your Mercenary's Life is lower than your own, 40% of Damage they take is Recouped as Life"]={nil,"taken from your Mercenary's Life before you If your Mercenary's Life is lower than your own, 40% of Damage they take is Recouped as Life "}
 c["to grant an Endurance Charge when you Stun an Enemy"]={nil,"to grant an Endurance Charge when you Stun an Enemy "}

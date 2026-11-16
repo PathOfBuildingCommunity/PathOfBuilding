@@ -2810,6 +2810,42 @@ skills["TriggeredMoltenStrike"] = {
 		[20] = { 100, baseMultiplier = 2, cooldown = 0.15, damageEffectiveness = 2, levelRequirement = 70, storedUses = 1, statInterpolation = { 1, }, },
 	},
 }
+skills["TriggeredMoonfall"] = {
+	name = "Moonfall",
+	hidden = true,
+	color = 2,
+	baseEffectiveness = 0,
+	description = "Lunar meteors fall, raining destruction down over an area. Falling meteors deal Attack Damage. Cannot be supported by Trigger Support Gems.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.Area] = true, [SkillType.ProjectileSpeed] = true, [SkillType.ProjectileNumber] = true, [SkillType.Triggerable] = true, [SkillType.Rain] = true, [SkillType.Triggered] = true, [SkillType.Cooldown] = true, [SkillType.InbuiltTrigger] = true, [SkillType.DisallowTriggerSupports] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	fromItem = true,
+	statMap = {
+		["attack_trigger_on_melee_critical_hit_%"] = {
+			skill("triggeredByCovetousDark", true),
+			skill("triggerOnCrit", true),
+		},
+	},
+	baseFlags = {
+		attack = true,
+		projectile = true,
+		area = true,
+	},
+	constantStats = {
+		{ "skill_art_variation", 12 },
+		{ "attack_trigger_on_melee_critical_hit_%", 100 },
+		{ "base_physical_damage_%_to_convert_to_cold", 100 },
+	},
+	stats = {
+		"base_number_of_projectiles",
+		"base_is_projectile",
+		"is_area_damage",
+		"cannot_pierce",
+	},
+	levels = {
+		[20] = { 22, baseMultiplier = 0.6, cooldown = 0.15, damageEffectiveness = 0.6, levelRequirement = 0, storedUses = 1, statInterpolation = { 1, }, },
+	},
+}
 skills["PenanceMark"] = {
 	name = "Penance Mark",
 	hidden = true,
