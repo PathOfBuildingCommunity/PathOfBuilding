@@ -697,6 +697,16 @@ return function(skills, mod, flag, skill)
 	fromItem = true,
 #mods
 
+#skill SupportUniqueSuspendInTimeCanUse Temporal Mirage
+	fromItem = true,
+	statMap = {
+		["skill_can_be_used_by_temporal_mirage"] = {
+			skill("triggeredByTemporalMirage", true),
+		},
+	},
+#baseMod mod("Damage", "MORE", -30)
+#mods
+
 #skill LightningAegis
 #flags spell
 	fromItem = true,

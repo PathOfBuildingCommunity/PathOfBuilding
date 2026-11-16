@@ -1140,6 +1140,11 @@ local configTable = {
 				end,
 				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByCospris and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot end}
 	end,
+	["temporal mirage"] = function()
+		return {triggerOnUse = true,
+				triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Movement] and skill.skillTypes[SkillType.Attack] end,
+				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByTemporalMirage end}
+	end,
 	["the covetous dark"] = function()
 		return {triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Melee] end,
 				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByCovetousDark end}

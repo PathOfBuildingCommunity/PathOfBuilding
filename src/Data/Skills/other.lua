@@ -2551,6 +2551,37 @@ skills["SupportCastOnLifeSpent"] = {
 		[1] = { PvPDamageMultiplier = -80, cooldown = 0.1, levelRequirement = 1, storedUses = 1, },
 	},
 }
+skills["SupportUniqueSuspendInTimeCanUse"] = {
+	name = "Temporal Mirage",
+	hidden = true,
+	color = 4,
+	support = true,
+	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
+	addSkillTypes = { SkillType.Triggered, },
+	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.Aura, SkillType.InbuiltTrigger, SkillType.Channel, SkillType.CreatesMinion, SkillType.Vaal, SkillType.HasReservation, SkillType.Microtransaction, SkillType.Link, SkillType.Cooldown, },
+	isTrigger = true,
+	statDescriptionScope = "gem_stat_descriptions",
+	fromItem = true,
+	statMap = {
+		["skill_can_be_used_by_temporal_mirage"] = {
+			skill("triggeredByTemporalMirage", true),
+		},
+	},
+	baseMods = {
+		mod("Damage", "MORE", -30),
+	},
+	constantStats = {
+		{ "skill_disabled_unless_cloned", 1 },
+		{ "base_cast_speed_+%", 100 },
+	},
+	stats = {
+		"skill_can_be_used_by_temporal_mirage",
+		"socketed_triggered_skills_use_weapon_attack_time_for_pvp_scaling",
+	},
+	levels = {
+		[1] = { levelRequirement = 70, manaMultiplier = -100, },
+	},
+}
 skills["LightningAegis"] = {
 	name = "Lightning Aegis",
 	hidden = true,

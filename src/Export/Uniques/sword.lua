@@ -1065,5 +1065,16 @@ Source: Steal from a unique{Curio Display} during a Grand Heist
 Crafted: true
 Implicits: 1
 CriticalMultiplierImplicitSword1
+]],[[
+The Sword of Ages
+Exquisite Blade
+League: Covens
+Implicits: 1
+CriticalMultiplierImplicitSword3
+SandMirageOnAttackMovementSkillUnique__1
+GlobalIncreaseMovementSkillGemLevelUnique__1
+LocalIncreasedPhysicalDamagePercentUnique__59
+LocalIncreasedAttackSpeedUnique__47
+DamageWithMovementSkillsUniqueTwoHandSword20
 ]]
 }

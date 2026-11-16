@@ -1086,5 +1086,16 @@ Source: Steal from a unique{Curio Display} during a Grand Heist
 Crafted: true
 Implicits: 1
 +25% to Global Critical Strike Multiplier
+]],[[
+The Sword of Ages
+Exquisite Blade
+League: Covens
+Implicits: 1
++50% to Global Critical Strike Multiplier
+Trigger level 20 Temporal Mirage on using a Movement Attack
++(2-4) to Level of all Movement Skill Gems
+(250-300)% increased Physical Damage
+(12-24)% increased Attack Speed
+(100-180)% increased Damage with Movement Skills
 ]]
 }
