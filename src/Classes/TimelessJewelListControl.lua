@@ -83,7 +83,7 @@ League: Legion
 Limited to: 1 Historic
 Variant: Doryani (Corrupted Soul)
 Variant: Xibaqua (Divine Flesh)
-Variant: Ahuana (Immortal Ambition)
+Variant: Mazcotl (Immortal Ambition)
 Selected Variant: ]] .. variant .. "\n" .. [[
 Radius: Large
 Implicits: 0

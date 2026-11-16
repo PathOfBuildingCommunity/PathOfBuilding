@@ -2139,6 +2139,13 @@ local dmgTypes = {
 	["fire"] = "Fire",
 	["chaos"] = "Chaos",
 }
+local function timelessJewel(num, _, name)
+	local conqueror = conquerorList[name:lower()]
+	if not conqueror then return nil end
+	return {
+		mod("JewelData", "LIST", { key = "conqueredBy", value = { id = num, conqueror = conqueror } })
+	}
+end
 -- List of special modifiers
 ---@type table<string, Mod[]|fun(num: number, ...: string): Mod[]>
 local specialModList = {
@@ -5907,30 +5914,14 @@ local specialModList = {
 	["%+(%d+)%% to quality"] = function(num) return { mod("Quality", "BASE", num) } end,
 	["infernal blow debuff deals an additional (%d+)%% of damage per charge"] = function(num) return { mod("DebuffEffect", "BASE", num, { type = "SkillName", skillName = "Infernal Blow", includeTransfigured = true }) } end,
 	-- Legion modifiers
-	["bathed in the blood of (%d+) sacrificed in the name of (.+)"] =  function(num, _, name)
-		return { mod("JewelData", "LIST",
-				{ key = "conqueredBy", value = { id = num, conqueror = conquerorList[name:lower()] } }) } end,
-	["carved to glorify (%d+) new faithful converted by high templar (.+)"] =  function(num, _, name)
-		return { mod("JewelData", "LIST",
-				{ key = "conqueredBy", value = { id = num, conqueror = conquerorList[name:lower()] } }) } end,
-	["commanded leadership over (%d+) warriors under (.+)"] =  function(num, _, name)
-		return { mod("JewelData", "LIST",
-				{ key = "conqueredBy", value = { id = num, conqueror = conquerorList[name:lower()] } }) } end,
-	["commissioned (%d+) coins to commemorate (.+)"] =  function(num, _, name)
-		return { mod("JewelData", "LIST",
-				{ key = "conqueredBy", value = { id = num, conqueror = conquerorList[name:lower()] } }) } end,
-	["denoted service of (%d+) dekhara in the akhara of (.+)"] =  function(num, _, name)
-		return { mod("JewelData", "LIST",
-				{ key = "conqueredBy", value = { id = num, conqueror = conquerorList[name:lower()] } }) } end,
-	["remembrancing (%d+) songworthy deeds by the line of (.+)"] =  function(num, _, name)
-		return { mod("JewelData", "LIST",
-				{ key = "conqueredBy", value = { id = num, conqueror = conquerorList[name:lower()] } }) } end,
-	["subjugating (%d+) souls in the thrall of (.+)"] = function(num, _, name)
-		return { mod("JewelData", "LIST",
-				{ key = "conqueredBy", value = { id = num, conqueror = conquerorList[name:lower()] } }) } end,
-	["binding (%d+) souls to phylacteries to sustain (.+)"] = function(num, _, name)
-		return { mod("JewelData", "LIST",
-				{ key = "conqueredBy", value = { id = num, conqueror = conquerorList[name:lower()] } }) } end,
+	["bathed in the blood of (%d+) sacrificed in the name of (.+)"] = timelessJewel,
+	["carved to glorify (%d+) new faithful converted by high templar (.+)"] = timelessJewel,
+	["commanded leadership over (%d+) warriors under (.+)"] = timelessJewel,
+	["commissioned (%d+) coins to commemorate (.+)"] = timelessJewel,
+	["denoted service of (%d+) dekhara in the akhara of (.+)"] = timelessJewel,
+	["remembrancing (%d+) songworthy deeds by the line of (.+)"] = timelessJewel,
+	["subjugating (%d+) souls in the thrall of (.+)"] = timelessJewel,
+	["binding (%d+) souls to phylacteries to sustain (.+)"] = timelessJewel,
 	["passives in radius are conquered by the (%D+)"] = { },
 	["passives affected are conquered by the abyssal"] = { },
 	["historic"] = { },
