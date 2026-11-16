@@ -43,6 +43,8 @@ local conquerorList = {
 	["zerphi"]		=	{ id = 2, type = "vaal" },
 	["doryani"]		=	{ id = 3, type = "vaal" },
 	["ahuana"]		=	{ id = "2_v2", type = "vaal" },
+	-- Ahuana variant was renamed to Mazcotl in 3.30
+	["mazcotl"]		=	{ id = "2_v2", type = "vaal" },
 	["deshret"]		=	{ id = 1, type = "maraketh" },
 	["asenath"]		=	{ id = 2, type = "maraketh" },
 	["nasima"]		=	{ id = 3, type = "maraketh" },

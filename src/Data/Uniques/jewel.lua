@@ -1866,13 +1866,13 @@ Limited to: 1 Historic
 Variant: Doryani (Corrupted Soul)
 Variant: Xibaqua (Divine Flesh)
 Variant: Zerphi (Eternal Youth) (Pre 3.11.0)
-Variant: Ahuana (Immortal Ambition)
+Variant: Mazcotl (Immortal Ambition)
 Radius: Large
 Implicits: 0
 {variant:1}Bathed in the blood of (100-8000) sacrificed in the name of Doryani
 {variant:2}Bathed in the blood of (100-8000) sacrificed in the name of Xibaqua
 {variant:3}Bathed in the blood of (100-8000) sacrificed in the name of Zerphi
-{variant:4}Bathed in the blood of (100-8000) sacrificed in the name of Ahuana
+{variant:4}Bathed in the blood of (100-8000) sacrificed in the name of Mazcotl
 Passives in radius are Conquered by the Vaal
 Historic
 ]],[[
