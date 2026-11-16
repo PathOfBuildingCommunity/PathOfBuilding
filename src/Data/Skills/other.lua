@@ -6296,10 +6296,11 @@ skills["BloodFlower"] = {
 	fromItem = true,
 	statMap = {
 		["blood_flower_physical_dot_multiplier_+_to_grant"] = {
-			mod("PhysicalDotMultiplier", "BASE", nil, 0, 0, { type = "Multiplier", var = "GoreblossomBloom" }, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("PhysicalDotMultiplier", "BASE", nil, 0, 0, { type = "Multiplier", var = "GoreblossomBloom", limitVar = "GoreblossomMaxBlooms" }, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["blood_flower_maximum_flowers"] = {
 			mod("Multiplier:GoreblossomBloom", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+			mod("Multiplier:GoreblossomMaxBlooms", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
 		},
 	},
 	baseFlags = {

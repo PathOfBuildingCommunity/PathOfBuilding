@@ -107,6 +107,17 @@ describe("TestAttacks", function()
 			assert.are.equals(0, bit.band(mainSkill.weapon1Flags, ModFlag.Claw))
 		end)
 
+		it("does not bypass weapon restrictions of supports", function()
+			equipHide()
+			-- Close Combat only allows Axes and Swords
+			build.skillsTab:PasteSocketGroup("Frost Blades 20/0 1\nClose Combat 20/0 1")
+			build.mainSocketGroup = 1
+			runCallback("OnFrame")
+			build.calcsTab:BuildOutput()
+			runCallback("OnFrame")
+			assert.is_true(build.calcsTab.mainEnv.player.mainSkill.skillFlags.disable)
+		end)
+
 		it("applies unarmed modifiers but not claw modifiers to Claw skills", function()
 			equipHide()
 			useFrostBlades()

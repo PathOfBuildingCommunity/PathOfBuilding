@@ -5988,7 +5988,7 @@ function calcs.offence(env, actor, activeSkill)
 			end
 
 			local refundMult = 1
-			if resource == "Mana" and skillModList:Flag(skillCfg, "Every2UseManaCostRefund") then
+			if usedResource == "Mana" and skillModList:Flag(skillCfg, "Every2UseManaCostRefund") then
 				refundMult = 0.5
 			end
 

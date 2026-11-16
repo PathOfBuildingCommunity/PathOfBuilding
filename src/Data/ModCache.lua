@@ -16703,8 +16703,8 @@ c["Golems have 30% less Life"]={{[1]={[1]={skillType=51,type="SkillType"},flags=
 c["Golems have 35% less Life"]={{[1]={[1]={skillType=51,type="SkillType"},flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Life",type="MORE",value=-35}}}},nil}
 c["Golems have 90% increased Movement Speed"]={{[1]={[1]={skillType=51,type="SkillType"},flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=90}}}},nil}
 c["Gore Footprints"]={nil,"Gore Footprints "}
-c["Goreblossom has +2 maximum Bloom"]={{[1]={flags=0,keywordFlags=0,name="Multiplier:GoreblossomBloom",type="BASE",value=2}},nil}
-c["Goreblossom has +3 maximum Bloom"]={{[1]={flags=0,keywordFlags=0,name="Multiplier:GoreblossomBloom",type="BASE",value=3}},nil}
+c["Goreblossom has +2 maximum Bloom"]={{[1]={flags=0,keywordFlags=0,name="Multiplier:GoreblossomBloom",type="BASE",value=2},[2]={flags=0,keywordFlags=0,name="Multiplier:GoreblossomMaxBlooms",type="BASE",value=2}},nil}
+c["Goreblossom has +3 maximum Bloom"]={{[1]={flags=0,keywordFlags=0,name="Multiplier:GoreblossomBloom",type="BASE",value=3},[2]={flags=0,keywordFlags=0,name="Multiplier:GoreblossomMaxBlooms",type="BASE",value=3}},nil}
 c["Grace has 18% increased Aura Effect"]={{[1]={[1]={includeTransfigured=true,skillName="Grace",type="SkillName"},flags=0,keywordFlags=0,name="AuraEffect",type="INC",value=18}},nil}
 c["Grace has 20% increased Aura Effect"]={{[1]={[1]={includeTransfigured=true,skillName="Grace",type="SkillName"},flags=0,keywordFlags=0,name="AuraEffect",type="INC",value=20}},nil}
 c["Grace has 20% increased Mana Reservation Efficiency"]={{[1]={[1]={includeTransfigured=true,skillName="Grace",type="SkillName"},flags=0,keywordFlags=0,name="ManaReservationEfficiency",type="INC",value=20}},nil}

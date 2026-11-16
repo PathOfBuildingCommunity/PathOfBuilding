@@ -193,18 +193,16 @@ end
 
 -- Check for "asThoughUsing..." weaponTypes match, which is mechanically different from "countAs..."
 ---@param weaponData table
----@param weaponTypes table
+---@param types table
 ---@return boolean @whether a match was found
-local function checkAsThoughWeaponTypes(weaponData, weaponTypes)
-	if (not weaponData.asThoughUsing) or (not weaponTypes) then
+local function checkAsThoughWeaponTypes(weaponData, types)
+	if not weaponData.asThoughUsing then
 		return false
 	end
-	-- check if any 'usingKey' for which 'usingValue = true' is also true in weaponTypes
+	-- check if any 'usingKey' for which 'usingValue = true' is also true in types
 	for usingKey, usingValue in pairs(weaponData.asThoughUsing) do
-		for _, types in ipairs(weaponTypes) do
-			if usingValue and types[usingKey] then
-				return true
-			end
+		if usingValue and types[usingKey] then
+			return true
 		end
 	end
 	return false
@@ -220,7 +218,7 @@ local function getWeaponFlags(env, weaponData, weaponTypes)
 		for _, types in ipairs(weaponTypes) do
 			if not types[weaponData.type] and
 			(not weaponData.countsAsAll1H or not (types["Claw"] or types["Dagger"] or types["One Handed Axe"] or types["One Handed Mace"] or types["One Handed Sword"]))
-			and not checkAsThoughWeaponTypes(weaponData, weaponTypes) then
+			and not checkAsThoughWeaponTypes(weaponData, types) then
 				return nil, info
 			end
 		end

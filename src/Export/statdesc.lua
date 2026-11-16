@@ -493,7 +493,8 @@ end
 -- 3.30 moved the gem and level of most "Supported by" and "Grants" mods from
 -- their display stats, which are now 0, into a GrantedEffect column on the mod
 -- row. The display stat may still hold a level when describing legacy values.
--- These mods might also have no stats at all
+-- These mods might also have no stats at all, in which case the line is only
+-- shown if the mod is flagged to show it. Trigger mods are not
 local function describeGrantedEffects(mod, stats)
 	local hasDisplayStat, level
 	-- Only handle display stats that GGG zeroed. If a legacy value is given for one that still has a description, describeStats handles it
@@ -510,7 +511,7 @@ local function describeGrantedEffects(mod, stats)
 			hasDisplayStat = true
 		end
 	end
-	if not hasDisplayStat and mod.Stat1 then
+	if not hasDisplayStat and (mod.Stat1 or not mod.ShowGrantedEffects) then
 		return
 	end
 	local names = getGrantedEffectNames()
