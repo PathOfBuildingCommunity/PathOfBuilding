@@ -759,7 +759,7 @@ Grants Level 20 Caustic Retribution
 Screams of the Desiccated
 Leather Belt
 League: Mirage
-Source: No longer obtainable
+Source: Drops from unique{Saresh, of the Weeping Black}
 Has Alt Variant: true
 Selected Variant: 1
 Selected Alt Variant: 1
