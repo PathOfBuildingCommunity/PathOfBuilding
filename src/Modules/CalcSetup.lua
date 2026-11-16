@@ -818,6 +818,8 @@ function calcs.initEnv(build, mode, override, specEnv)
 				if not build.spec.treeVersion:find("3_27") then
 					goto continue
 				end
+			elseif slotName:match("^Wickerman ") and not env.spec.treeVersion:find("3_30") then
+				goto continue
 			end
 			-- ignore item in Ring 3 if The Unseen Hand is not allocated
 			if slotName == "Ring 3" and not env.initialNodeModDB:Flag(nil, "AdditionalRingSlot") then
@@ -1028,6 +1030,21 @@ function calcs.initEnv(build, mode, override, specEnv)
 				end
 				env.itemWarnings.missingAnointWarning = env.itemWarnings.missingAnointWarning or { }
 				t_insert(env.itemWarnings.missingAnointWarning, slotLabel)
+			end
+		end
+
+		-- Wickerman slots follow ordinary equipment. Collect their bonus modifiers
+		-- before scaling gloves/boots so the result does not depend on slot order.
+		-- Glove/boot bonus scaling must include Custom Modifiers and Wickerman items as well as passive nodes.
+		local equipmentBonusModDB = new("ModDB"):ModDB(env.initialNodeModDB)
+		equipmentBonusModDB:AddList(build.configTab.modList)
+		for _, item in pairs(items) do
+			if item.type:match("^Wickerman ") then
+				for _, mod in ipairs(item.modList or { }) do
+					if mod.name == "EffectOfBonusesFromGloves" or mod.name == "EffectOfBonusesFromBoots" then
+						equipmentBonusModDB:AddMod(mod)
+					end
+				end
 			end
 		end
 
@@ -1257,8 +1274,9 @@ function calcs.initEnv(build, mode, override, specEnv)
 						combinedList:MergeMod(mod)
 					end	
 					env.itemModDB:ScaleAddList(combinedList, scale)
-				elseif item.type == "Gloves" and calcLib.mod(env.initialNodeModDB, nil, "EffectOfBonusesFromGloves") ~=1 then
-					scale = calcLib.mod(env.initialNodeModDB, nil, "EffectOfBonusesFromGloves") - 1
+				-- Apply increased/reduced bonuses from equipped gloves from Custom Modifiers and Wickerman items, as well as passives.
+				elseif item.type == "Gloves" and calcLib.mod(equipmentBonusModDB, nil, "EffectOfBonusesFromGloves") ~=1 then
+					scale = calcLib.mod(equipmentBonusModDB, nil, "EffectOfBonusesFromGloves") - 1
 					local combinedList = new("ModList"):ModList()
 					for _, mod in ipairs(srcList) do
 						combinedList:MergeMod(mod)
@@ -1269,8 +1287,9 @@ function calcs.initEnv(build, mode, override, specEnv)
 						combinedList:MergeMod(mod, true)
 					end
 					env.itemModDB:AddList(combinedList)
-				elseif item.type == "Boots" and calcLib.mod(env.initialNodeModDB, nil, "EffectOfBonusesFromBoots") ~= 1 then
-					scale = calcLib.mod(env.initialNodeModDB, nil, "EffectOfBonusesFromBoots") - 1
+				-- Apply increased/reduced bonuses from equipped boots from Custom Modifiers and Wickerman items, as well as passives.
+				elseif item.type == "Boots" and calcLib.mod(equipmentBonusModDB, nil, "EffectOfBonusesFromBoots") ~= 1 then
+					scale = calcLib.mod(equipmentBonusModDB, nil, "EffectOfBonusesFromBoots") - 1
 					local combinedList = new("ModList"):ModList()
 					for _, mod in ipairs(srcList) do
 						combinedList:MergeMod(mod)
@@ -1288,7 +1307,8 @@ function calcs.initEnv(build, mode, override, specEnv)
 				if item.classRestriction then
 					env.itemModDB.conditions[item.title:gsub(" ", "")] = item.classRestriction
 				end
-				if item.type ~= "Jewel" and item.type ~= "Flask" and item.type ~= "Tincture" and item.type ~= "Graft" then
+				if item.type ~= "Jewel" and item.type ~= "Flask" and item.type ~= "Tincture" and item.type ~= "Graft"
+				and item.type ~= "Wickerman Head" and item.type ~= "Wickerman Torso" and item.type ~= "Wickerman Upper Limb" and item.type ~= "Wickerman Lower Limb" then
 					-- Update item counts
 					local key
 					if item.rarity == "UNIQUE" or item.rarity == "RELIC" then
@@ -1463,6 +1483,22 @@ function calcs.initEnv(build, mode, override, specEnv)
 
 	-- Merge Granted Skills Tables
 	env.grantedSkills = tableConcat(env.grantedSkillsNodes, env.grantedSkillsItems)
+	-- Create skill groups for influence-gated curses entered in Custom Modifiers, just like item-granted curses.
+	for _, skill in ipairs(build.configTab.modList:List(nil, "ExtraSkill")) do
+		if skill.itemRequirement and env.data.skills[skill.skillId] then
+			local grantedSkill = copyTable(skill)
+			grantedSkill.source = "Config"
+			grantedSkill.nameSpec = env.data.skills[skill.skillId].name
+			t_insert(env.grantedSkills, grantedSkill)
+		end
+	end
+	-- Only grant these curses while enough items of the required influence are equipped.
+	for index = #env.grantedSkills, 1, -1 do
+		local requirement = env.grantedSkills[index].itemRequirement
+		if requirement and env.itemModDB:GetMultiplier(requirement.multiplier) < requirement.count then
+			t_remove(env.grantedSkills, index)
+		end
+	end
 
 	if not accelerate.skills then
 		if env.mode == "MAIN" then

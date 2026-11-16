@@ -2656,6 +2656,8 @@ function ItemClass:BuildModList()
 				source = self.modSource,
 				triggered = skill.triggered,
 				triggerChance = skill.triggerChance,
+				-- Keep the influence requirement so calculation setup can enable or remove the granted curse.
+				itemRequirement = skill.itemRequirement,
 			})
 		end
 	end

@@ -174,6 +174,11 @@ return {
 	{ var = "conditionFullLife", type = "check", label = "Are you always on Full ^xE05030Life?", ifCond = "FullLife", tooltip = FullLifeTooltip, apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:FullLife", "FLAG", true, "Config")
 	end },
+	{ var = "missingUnreservedLifePercent", type = "countAllowZero", label = "Missing unreserved Life % (override):", ifStat = "MissingUnreservedLifePercent",
+		tooltip = "For recovery scaling per missing unreserved Life.\nBlank assumes full unreserved Life, or Petrified Blood's non-flask recovery limit:\n50% maximum Life (55% with the Low Life mastery), accounting for reservation.\nAn explicit value, including 0, overrides this assumption.\nDoes not change other Full/Low Life settings.",
+		apply = function(val, modList, enemyModList)
+		modList:NewMod("MissingUnreservedLifePercent", "OVERRIDE", math.max(0, math.min(100, val)), "Config")
+	end },
 	{ var = "conditionLowLife", type = "check", label = "Are you always on Low ^xE05030Life?", ifCond = "LowLife", tooltip = LowLifeTooltip, apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:LowLife", "FLAG", true, "Config")
 	end },
@@ -517,11 +522,11 @@ return {
 	{ var = "OverloadedIntensity", type = "count", label = "# of Overloaded Intensity:", ifSkill = "Overloaded Intensity", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:OverloadedIntensity", "BASE", m_min(val, 3), "Config")
 	end },
-	{ label = "Link Skills:", ifSkill = { "Destructive Link", "Flame Link", "Intuitive Link", "Protective Link", "Soul Link", "Vampiric Link" } },
-	{ var = "multiplierLinkedTargets", type = "count", label = "# of linked Targets:", ifSkill = { "Destructive Link", "Flame Link", "Intuitive Link", "Protective Link", "Soul Link", "Vampiric Link" }, apply = function(val, modList, enemyModList)
+	{ label = "Link Skills:", ifSkill = { "Arcane Link", "Destructive Link", "Flame Link", "Intuitive Link", "Protective Link", "Soul Link", "Vampiric Link" } },
+	{ var = "multiplierLinkedTargets", type = "count", label = "# of linked Targets:", ifSkill = { "Arcane Link", "Destructive Link", "Flame Link", "Intuitive Link", "Protective Link", "Soul Link", "Vampiric Link" }, apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:LinkedTargets", "BASE", val, "Config")
 	end },
-	{ var = "linkedToMinion", type = "check", label = "Linked To Minion?", ifSkill = { "Destructive Link", "Flame Link", "Intuitive Link", "Protective Link", "Soul Link", "Vampiric Link" }, ifFlag = "Condition:CanLinkToMinions", ifFlag = "Condition:HaveDamageableMinion", apply = function(val, modList, enemyModList)
+	{ var = "linkedToMinion", type = "check", label = "Linked To Minion?", ifSkill = { "Arcane Link", "Destructive Link", "Flame Link", "Intuitive Link", "Protective Link", "Soul Link", "Vampiric Link" }, ifFlag = "Condition:CanLinkToMinions", ifFlag = "Condition:HaveDamageableMinion", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:LinkedToMinion", "FLAG", true, "Config")
 	end },
 	{ var = "linkedSourceRate", type = "float", label = "Source rate for Intuitive Link", ifSkill = "Intuitive Link", apply = function(val, modList, enemyModList)
@@ -1387,6 +1392,9 @@ Huge sets the radius to 11.
 	end },
 	{ var = "conditionConsumed12SteelShardsRecently", type = "check", label = "Consumed 12 Steel Shards Recently?", ifCond = "Consumed12SteelShardsRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:Consumed12SteelShardsRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionConsumed8SteelShardsRecently", type = "check", label = "Consumed 8 Steel Shards Recently?", ifCond = "Consumed8SteelShardsRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:Consumed8SteelShardsRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "conditionGainedPowerChargeRecently", type = "check", label = "Gained a Power Charge Recently?", ifCond = "GainedPowerChargeRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:GainedPowerChargeRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })

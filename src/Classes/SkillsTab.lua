@@ -382,7 +382,7 @@ function SkillsTabClass:SkillsTab(build)
 	end
 	self.controls.sourceNote = new("LabelControl"):LabelControl({ "TOPLEFT", self.controls.socketsLabel, "TOPLEFT" }, { 0, 30, 0, 16 })
 	self.controls.sourceNote.shown = function()
-		return self.displayGroup.source ~= nil
+		return self.displayGroup.source ~= nil and self.displayGroup.source ~= "Config"
 	end
 	self.controls.sourceNote.label = function()
 		local label
@@ -1320,6 +1320,10 @@ function SkillsTabClass:AddSocketGroupTooltip(tooltip, socketGroup)
 	local sourceSingle = socketGroup.sourceItem or socketGroup.sourceNode
 	if sourceSingle then
 		tooltip:AddLine(18, "^7Source: " .. colorCodes[sourceSingle.rarity or "NORMAL"] .. sourceSingle.name)
+		tooltip:AddSeparator(10)
+	-- Identify curses granted by Custom Modifiers in the skill-group tooltip.
+	elseif socketGroup.source == "Config" then
+		tooltip:AddLine(18, "^7Source: " .. colorCodes.NORMAL .. "Custom Modifiers")
 		tooltip:AddSeparator(10)
 	end
 	local gemShown = { }

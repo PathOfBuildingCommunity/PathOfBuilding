@@ -992,6 +992,8 @@ ClawCritModsAlsoAffectUnarmed__1
 ]],[[
 Rotmother's Mutiny
 Pearlescent Amulet
+Version: Pre 3.30.0
+Version: Current
 Variant: Fire
 Variant: Cold
 Variant: Lightning
@@ -1001,10 +1003,11 @@ Implicits: 1
 AllResistancesImplicitAmulet1
 AllResistancesUniqueAmulet87
 IncreasedMaximumResistsUniqueAmulet87
-LightRadiusUniqueAmulet87
-{variant:1}UniqueAmuletChaosResistancePerFireResistance
-{variant:2}UniqueAmuletChaosResistancePerColdResistance
-{variant:3}UniqueAmuletChaosResistancePerLightningResistance
+{version:1}LightRadiusUniqueAmulet87[25,75]
+{version:2}LightRadiusUniqueAmulet87
+{variant:1}{group:1}UniqueAmuletChaosResistancePerFireResistance
+{variant:2}{group:1}UniqueAmuletChaosResistancePerColdResistance
+{variant:3}{group:1}UniqueAmuletChaosResistancePerLightningResistance
 ]],[[
 Sacrificial Heart
 Paua Amulet
