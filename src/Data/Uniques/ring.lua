@@ -1802,7 +1802,7 @@ Implicits: 1
 {variant:2}(40-50)% less Impale Duration
 {variant:1}(40-25)% reduced Impale Duration
 ]],
-[[
+	[[
 Zana's Ingenuity
 Prismatic Ring
 Source: Drops from unique{The Shaper} (Uber)
@@ -1846,5 +1846,17 @@ Implicits: 1
 {variant:17}{group:3,4}Monsters cannot Block your Attacks
 {variant:8}{group:3,4}Monsters cannot steal or remove your Power, Frenzy or Endurance charges on Hit
 {variant:6}{group:3,4}Monsters cannot Suppress your Spells
-]],
+]],[[
+Unwilling Embrace
+Bone Ring
+Requires Level 52
+Implicits: 1
+{tags:resistance}Minions have +(10-15)% to all Elemental Resistances
++(10-15)% chance to Suppress Spell Damage
+{tags:attribute}+(15-25) to Dexterity
+{tags:defences}+(200-350) to Evasion Rating
+Minions deal (20-35)% increased Damage
+Your Minions gain your chance to Suppress Spell Damage
+Your Minions have no Armour or Maximum Energy Shield
+]]
 }

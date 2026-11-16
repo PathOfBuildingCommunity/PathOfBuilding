@@ -4444,6 +4444,11 @@ local specialModList = {
 	["half of your strength is added to your minions"] = { mod("StrengthAddedToMinions", "BASE", 50) },
 	["minions gain added resistances equal to (%d+)%% of your resistances"] = function(num) return { mod("ResistanceAddedToMinions", "BASE", num) } end,
 	["minions' accuracy rating is equal to yours"] = { flag("MinionAccuracyEqualsAccuracy") },
+	["your minions gain your chance to suppress spell damage"] = { flag("MinionsGainYourSpellSuppressionChance") },
+	["your minions have no armour or maximum energy shield"] = {
+		mod("MinionModifier", "LIST", { mod = mod("Armour", "OVERRIDE", 0) }),
+		mod("MinionModifier", "LIST", { mod = mod("EnergyShield", "OVERRIDE", 0) }),
+	},
 	["minions poison enemies on hit"] = { mod("MinionModifier", "LIST", { mod = mod("PoisonChance", "BASE", 100) }) },
 	["minions have (%d+)%% chance to poison enemies on hit"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("PoisonChance", "BASE", num) }) } end,
 	["(%d+)%% increased minion damage if you have hit recently"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", num) }, { type = "Condition", var = "HitRecently" }) } end,
