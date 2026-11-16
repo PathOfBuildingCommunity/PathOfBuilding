@@ -562,7 +562,7 @@ holding Shift will put it in the second.]])
 			self.displayItem.canHaveFourEnchants and
 			#self.displayItem.enchantModLines > 2
 	end
-	self.controls.displayItemCorrupt = new("ButtonControl"):ButtonControl({"TOPLEFT",self.controls.displayItemAnoint4,"TOPRIGHT",true}, {8, 10, 100, 20}, "Corrupt...", function()
+	self.controls.displayItemCorrupt = new("ButtonControl"):ButtonControl({"TOPLEFT",self.controls.displayItemAnoint4,"TOPRIGHT",true}, {8, 0, 100, 20}, "Corrupt...", function()
 		self:CorruptDisplayItem()
 	end)
 	self.controls.displayItemCorrupt.shown = function()
