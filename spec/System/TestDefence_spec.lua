@@ -7,6 +7,26 @@ describe("TestDefence", function()
 		-- newBuild() takes care of resetting everything in setup()
 	end)
 
+	it("converts physical damage over time independently of hit damage", function()
+		build.configTab.input.enemyDamageType = "DamageOverTime"
+		for _, damageType in ipairs({ "Physical", "Lightning", "Cold", "Fire", "Chaos" }) do
+			build.configTab.input["enemy"..damageType.."Damage"] = damageType == "Physical" and 1000 or 0
+		end
+		local common = "+300% to Chaos Resistance\n10% of Physical Damage taken as Chaos Damage\n20% of Physical Damage from Hits taken as Chaos Damage"
+		-- Shared, hit-only and DoT-only conversion must stay separate, including on removal.
+		for _, value in ipairs({ 10, 0 }) do
+			build.configTab.input.customMods = common..(value > 0 and "\n"..value.."% of Physical Damage over Time taken as Chaos Damage" or "")
+			build.configTab:BuildModList()
+			runCallback("OnFrame")
+			local actor = build.calcsTab.mainEnv.player
+			local output = actor.output
+			assert.are.equal(925 - 7.5 * value, output.TotalDegen)
+			assert.are.equal(70, actor.damageShiftTable.Physical.Physical)
+			assert.are.equal(30, actor.damageShiftTable.Physical.Chaos)
+			assert.are.equal(100, actor.damageOverTimeShiftTable.Cold.Cold)
+		end
+	end)
+
 	-- a small helper function to calculate damage taken from limited test parameters
 	local function takenHitFromTypeMaxHit(type, enemyDamageMulti)
 		return build.calcsTab.calcs.takenHitFromDamage(build.calcsTab.calcsOutput[type.."MaximumHitTaken"] * (enemyDamageMulti or 1), type, build.calcsTab.calcsEnv.player)
