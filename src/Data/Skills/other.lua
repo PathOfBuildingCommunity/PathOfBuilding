@@ -6216,6 +6216,46 @@ skills["GrimBonfire"] = {
 		[20] = { 175.00000391155, 0.80000001192093, 1.2000000476837, critChance = 5, damageEffectiveness = 1.75, levelRequirement = 70, statInterpolation = { 3, 3, 3, }, cost = { Mana = 39, }, },
 	},
 }
+skills["BloodFlower"] = {
+	name = "Goreblossom",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 2.3499999046326,
+	incrementalEffectiveness = 0.052499998360872,
+	description = "Creates a bloody Bloom of gore and flesh. Allies near this Bloom will gain additional physical damage over time multiplier. Multiple instances of this buff can stack. Enemies near it will take physical damage over time. Only the most damaging instance of this debuff will affect an enemy near multiple Blooms.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Physical] = true, [SkillType.Cooldown] = true, [SkillType.Duration] = true, [SkillType.Area] = true, [SkillType.DamageOverTime] = true, [SkillType.Buff] = true, [SkillType.Triggerable] = true, [SkillType.InbuiltTrigger] = true, [SkillType.Triggered] = true, [SkillType.AreaSpell] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	fromItem = true,
+	statMap = {
+		["blood_flower_physical_dot_multiplier_+_to_grant"] = {
+			mod("PhysicalDotMultiplier", "BASE", nil, 0, 0, { type = "Multiplier", var = "GoreblossomBloom" }, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["blood_flower_maximum_flowers"] = {
+			mod("Multiplier:GoreblossomBloom", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+		},
+	},
+	baseFlags = {
+		spell = true,
+		area = true,
+		duration = true,
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 8000 },
+		{ "active_skill_base_area_of_effect_radius", 30 },
+		{ "blood_flower_physical_dot_multiplier_+_to_grant", 25 },
+		{ "blood_flower_maximum_flowers", 1 },
+	},
+	stats = {
+		"base_physical_damage_to_deal_per_minute",
+		"is_area_damage",
+		"skill_has_trigger_from_unique_item",
+		"spell_damage_modifiers_apply_to_skill_dot",
+	},
+	levels = {
+		[20] = { 76.666666790843, cooldown = 1, levelRequirement = 70, storedUses = 1, statInterpolation = { 3, }, },
+	},
+}
 skills["SupportTriggerFireSpellOnHit"] = {
 	name = "SupportTriggerFireSpellOnHit",
 	hidden = true,

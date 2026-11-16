@@ -1631,6 +1631,19 @@ return function(skills, mod, flag, skill)
 	},
 #mods
 
+#skill BloodFlower Goreblossom
+#flags spell area duration
+	fromItem = true,
+	statMap = {
+		["blood_flower_physical_dot_multiplier_+_to_grant"] = {
+			mod("PhysicalDotMultiplier", "BASE", nil, 0, 0, { type = "Multiplier", var = "GoreblossomBloom" }, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["blood_flower_maximum_flowers"] = {
+			mod("Multiplier:GoreblossomBloom", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+		},
+	},
+#mods
+
 #skill SupportTriggerFireSpellOnHit
 	fromItem = true,
 	statMap = {

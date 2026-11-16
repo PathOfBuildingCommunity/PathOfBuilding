@@ -488,5 +488,14 @@ CriticalStrikeChanceUniqueWand3
 IncreasedMaximumPowerChargesUniqueWand3
 {variant:1,2}IncreasedSpellDamagePerPowerChargeUniqueWand3[25,25]
 {variant:3}IncreasedSpellDamagePerPowerChargeUniqueWand3
-]],
+]], [[
+Corpse Rose
+Imbued Wand
+Implicits: 1
+SpellDamageOnWeaponImplicitWand15
+GrantsCreateBloodFlowerSkillUnique__1
+IncreasedCastSpeedUnique__29
+SkillLifeCostInsteadOfManaUnique__1
+MaximumBloodFlowersUnique__1
+]]
 }

@@ -498,5 +498,14 @@ Implicits: 2
 +1 to Maximum Power Charges
 {variant:1,2}25% increased Spell Damage per Power Charge
 {variant:3}(10-15)% increased Spell Damage per Power Charge
-]],
+]], [[
+Corpse Rose
+Imbued Wand
+Implicits: 1
+(33-37)% increased Spell Damage
+Trigger Level 20 Goreblossom after spending (10-20)% of your Maximum Life on Spells
+(20-30)% increased Cast Speed
+Skills Cost Life instead of 50% of Mana Cost
+Goreblossom has +(1-3) maximum Bloom
+]]
 }

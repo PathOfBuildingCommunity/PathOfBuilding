@@ -3452,6 +3452,8 @@ local specialModList = {
 	} end,
 	["offering skills triggered this way also affect you"] = { mod("ExtraSkillMod", "LIST", { mod = mod("SkillData", "LIST", { key = "buffNotPlayer", value = false }) }, { type = "SkillName", skillNameList = { "Bone Offering", "Flesh Offering", "Spirit Offering" } }) },
 	["trigger level (%d+) (.+) after spending a total of (%d+) mana"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
+	["trigger level (%d+) (.+) after spending (%d+)%% of your maximum life on spells"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
+	["goreblossom has %+(%d+) maximum blooms?"] = function(num) return { mod("Multiplier:GoreblossomBloom", "BASE", num) } end,
 	["consumes a void charge to trigger level (%d+) (.+) when you fire arrows"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
 	["consumes a void charge to trigger level (%d+) (.+) when you fire arrows with a non%-triggered skill"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
 	["your hits treat cold resistance as (%d+)%% higher than actual value"] = function(num) return {
