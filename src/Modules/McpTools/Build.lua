@@ -140,8 +140,8 @@ T.Tool {
 T.Tool {
 	name = "builds_list",
 	title = "List saved builds",
-	description = "Lists the builds saved in Path of Building's builds folder, with their class, ascendancy, level and last-edit time, "
-		.. "the same list the build screen shows. Without search it lists one folder (the top folder unless 'folder' is given); with "
+	description = "Lists the builds saved in Path of Building's builds folder, with their class, ascendancy and level, "
+		.. "the same list the build screen shows (sort 'edited' puts the most recently saved first). Without search it lists one folder (the top folder unless 'folder' is given); with "
 		.. "search it looks through every folder, using PoB's own filter (words match the name, folder or class; 'class:Witch' matches "
 		.. "the class or ascendancy only). Pass a build's 'path' to build_open to open it.",
 	readOnly = true,
@@ -175,7 +175,6 @@ T.Tool {
 					class = entry.className,
 					ascendancy = entry.ascendClassName ~= "None" and entry.ascendClassName or nil,
 					level = entry.level,
-					edited = entry.modified and os.date("%Y-%m-%d %H:%M", entry.modified) or nil,
 				})
 			end
 		end
@@ -254,11 +253,13 @@ T.Tool {
 					if not isSuccess then
 						return resolve(nil, s_format("Could not download the build from %s: %s", site.label, tostring(data)))
 					end
-					-- The user may have changed something while the download ran.
-					T.CheckCanReplaceBuild(args)
-					local xml = T.DecodeBuildCode(data)
-					local build = T.SwitchToBuild(false, name or "Imported build", xml, false, link)
-					resolve({ opened = T.BuildSummary(build), source = site.label })
+					T.Settle(resolve, function()
+						-- The user may have changed something while the download ran.
+						T.CheckCanReplaceBuild(args)
+						local xml = T.DecodeBuildCode(data)
+						local build = T.SwitchToBuild(false, name or "Imported build", xml, false, link)
+						return { opened = T.BuildSummary(build), source = site.label }
+					end)
 				end)
 			end, 60)
 		else

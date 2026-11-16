@@ -532,4 +532,7 @@ function M.openPopup(item, slotName, primaryBuild)
 	main:OpenPopup(popupWidth, popupHeight, title, controls, "search", nil, "close")
 end
 
+-- Shared with the MCP server (Modules/McpTools/Compare), which composes the same URL without the popup
+M.buildURL = buildURL
+
 return M

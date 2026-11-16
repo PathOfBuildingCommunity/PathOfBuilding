@@ -216,6 +216,17 @@ function T.Defer(starter, timeoutSeconds)
 	return { mcpDeferred = starter, timeout = timeoutSeconds or 60 }
 end
 
+--- Run fn(...) and pass its result, or its failure message, to a deferred
+--- tool's resolve. Use it for work done in a callback PoB calls later (a
+--- download finishing), where a T.Fail would otherwise escape into PoB.
+function T.Settle(resolve, fn, ...)
+	local ok, result = pcall(fn, ...)
+	if ok then
+		return resolve(result)
+	end
+	resolve(nil, type(result) == "table" and result.mcpFailure or ("Path of Building raised an error: " .. tostring(result)))
+end
+
 --- A PoB tooltip stand-in that records its lines, for PoB functions that
 --- report through a tooltip (stat comparisons, for example).
 function T.LineCollector()

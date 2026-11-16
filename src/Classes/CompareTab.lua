@@ -124,6 +124,8 @@ end
 
 ---@class CompareTab: ControlHost, Control
 local CompareTabClass = newClass("CompareTab", "ControlHost", "Control")
+-- Shared with the MCP server's comparison report (Modules/McpTools/Compare)
+CompareTabClass.matchFlags = matchFlags
 
 ---@param primaryBuild Build
 function CompareTabClass:CompareTab(primaryBuild)
@@ -4679,6 +4681,10 @@ local function subSectionExtraMatches(subSecData, primaryActor, compareActor)
 	local compareExtraOk, compareExtraText = pcall(formatCalcStr, subSecData.extra, compareActor)
 	return primaryExtraOk and compareExtraOk and tostring(primaryExtraText or "") == tostring(compareExtraText or "")
 end
+
+-- Shared with the MCP server's comparison report (Modules/McpTools/Compare)
+CompareTabClass.calcRowMatchesBetweenBuilds = calcRowMatchesBetweenBuilds
+CompareTabClass.subSectionExtraMatches = subSectionExtraMatches
 
 function CompareTabClass:DrawCalcs(vp, compareEntry)
 	-- Use calcsEnv for both values and tooltips (has breakdown data + respects Calcs skill selection)

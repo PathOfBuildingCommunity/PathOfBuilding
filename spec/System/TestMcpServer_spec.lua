@@ -71,6 +71,11 @@ describe("MCP server", function()
 	before_each(function()
 		main.mcpServer.token = TOKEN
 		protocol = main.mcpServer:NewProtocol(PORT)
+		-- A build an earlier spec changed would be autosaved by Dev Mode when replaced; there is nowhere to save it here.
+		build.abortSave = true
+		while main.popups[1] do
+			main:ClosePopup()
+		end
 		newBuild()
 	end)
 
