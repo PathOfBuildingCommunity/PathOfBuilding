@@ -211,32 +211,59 @@ AbyssJewelSocketUnique__6_
 Doryani's Invitation
 Heavy Belt
 Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Apex of Sacrifice}
+Has Alt Variant: true
+Has Alt Variant Two: true
+Has Alt Variant Three: true
+Selected Variant: 9
+Selected Alt Variant: 13
+Selected Alt Variant Two: 17
+Selected Alt Variant Three: 21
 Variant: Pre 3.11.0 (Physical)
 Variant: Pre 3.11.0 (Fire)
 Variant: Pre 3.11.0 (Cold)
 Variant: Pre 3.11.0 (Lightning)
-Variant: Current (Physical)
-Variant: Current (Fire)
-Variant: Current (Cold)
-Variant: Current (Lightning)
+Variant: Pre 3.30.0 (Physical)
+Variant: Pre 3.30.0 (Fire)
+Variant: Pre 3.30.0 (Cold)
+Variant: Pre 3.30.0 (Lightning)
+Variant: Current: Physical Damage
+Variant: Current: Fire Damage
+Variant: Current: Cold Damage
+Variant: Current: Lightning Damage
+Variant: Current: Fire Resistance
+Variant: Current: Cold Resistance
+Variant: Current: Lightning Resistance
+Variant: Current: Armour
+Variant: Current: Physical Leech
+Variant: Current: Fire Leech
+Variant: Current: Cold Leech
+Variant: Current: Lightning Leech
+Variant: Current: Granite Flask Effect
+Variant: Current: Ruby Flask Effect
+Variant: Current: Sapphire Flask Effect
+Variant: Current: Topaz Flask Effect
 Implicits: 1
 StrengthImplicitBelt1
-{variant:1,5}IncreasedPhysicalDamagePercentUniqueBelt9d
-{variant:2,6}FireDamagePercentUniqueBelt9a
-{variant:3,7}ColdDamagePercentUniqueBelt9b
-{variant:4,8}LightningDamagePercentUniqueBelt9c
-{variant:2,3,4,6,7,8}IncreasedPhysicalDamageReductionRatingUniqueBelt9
-{variant:1,3,4,5,7,8}FireResistUniqueBelt9
-{variant:1,2,4,5,6,8}ColdResistUniqueBelt9
-{variant:1,2,3,5,6,7}LightningResistUniqueBelt9
+{variant:1,5,9}IncreasedPhysicalDamagePercentUniqueBelt9d
+{variant:2,6,10}FireDamagePercentUniqueBelt9a
+{variant:3,7,11}ColdDamagePercentUniqueBelt9b
+{variant:4,8,12}LightningDamagePercentUniqueBelt9c
+{variant:2,3,4,6,7,8,16}IncreasedPhysicalDamageReductionRatingUniqueBelt9
+{variant:1,3,4,5,7,8,13}FireResistUniqueBelt9
+{variant:1,2,4,5,6,8,14}ColdResistUniqueBelt9
+{variant:1,2,3,5,6,7,15}LightningResistUniqueBelt9
 {variant:1}PhysicalDamageLifeLeechPermyriadUniqueBelt9dNew[0.2,0.2]
-{variant:5}PhysicalDamageLifeLeechPermyriadUniqueBelt9dNew
+{variant:5,17}PhysicalDamageLifeLeechPermyriadUniqueBelt9dNew
 {variant:2}FireDamageLifeLeechPermyriadUniqueBelt9aNew[0.2,0.2]
-{variant:6}FireDamageLifeLeechPermyriadUniqueBelt9aNew
+{variant:6,18}FireDamageLifeLeechPermyriadUniqueBelt9aNew
 {variant:3}ColdDamageLifeLeechPermyriadUniqueBelt9bNew[0.2,0.2]
-{variant:7}ColdDamageLifeLeechPermyriadUniqueBelt9bNew
+{variant:7,19}ColdDamageLifeLeechPermyriadUniqueBelt9bNew
 {variant:4}LightningDamageLifeLeechPermyriadUniqueBelt9cNew[0.2,0.2]
-{variant:8}LightningDamageLifeLeechPermyriadUniqueBelt9cNew
+{variant:8,20}LightningDamageLifeLeechPermyriadUniqueBelt9cNew
+{variant:21}GraniteFlaskEffectUniqueBelt9
+{variant:22}RubyFlaskEffectUniqueBelt9
+{variant:23}SapphireFlaskEffectUniqueBelt9
+{variant:24}TopazFlaskEffectUniqueBelt9
 {variant:1,5}ReducedStunThresholdWhileUsingFlaskUniqueBelt9d
 {variant:2}IgniteChanceWhileUsingFlaskUniqueBelt9a[10,10]
 {variant:6}IgniteChanceWhileUsingFlaskUniqueBelt9a

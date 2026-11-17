@@ -882,16 +882,22 @@ Ralakesh's Impatience
 Riveted Boots
 Variant: Pre 3.19.0
 Variant: Pre 3.26.0
+Variant: Pre 3.30.0 Endurance
+Variant: Pre 3.30.0 Frenzy
+Variant: Pre 3.30.0 Power
 Variant: Endurance Current
 Variant: Frenzy Current
 Variant: Power Current
 +(15-25)% to Cold Resistance
 +(15-25)% to Chaos Resistance
-{variant:3,4,5}(15-25)% increased Movement Speed
-{variant:3,4,5}Corrupted Blood cannot be inflicted on you
-{variant:1,2,3}Count as having maximum number of Endurance Charges
-{variant:1,2,4}Count as having maximum number of Frenzy Charges
-{variant:1,2,5}Count as having maximum number of Power Charges
+{variant:3,4,5,6,7,8}(15-25)% increased Movement Speed
+{variant:3,4,5,6,7,8}Corrupted Blood cannot be inflicted on you
+{variant:6}-1 to Maximum Endurance Charges
+{variant:7}-1 to Maximum Frenzy Charges
+{variant:8}-1 to Maximum Power Charges
+{variant:1,2,3,6}Count as having maximum number of Endurance Charges
+{variant:1,2,4,7}Count as having maximum number of Frenzy Charges
+{variant:1,2,5,8}Count as having maximum number of Power Charges
 {variant:1}Gain a Frenzy, Endurance, or Power Charge once per second while you are Stationary
 {variant:1}Lose all Frenzy, Endurance, and Power Charges when you Move
 ]],[[

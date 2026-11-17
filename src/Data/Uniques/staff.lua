@@ -319,24 +319,46 @@ Grants Summon Greater Harbinger of Brutality
 ]],[[
 Femurs of the Saints
 Primordial Staff
+Has Alt Variant: true
+Has Alt Variant Two: true
+Has Alt Variant Three: true
+Selected Variant: 5
+Selected Alt Variant: 6
+Selected Alt Variant Two: 7
+Selected Alt Variant Three: 8
 Variant: Pre 2.6.0
 Variant: Pre 3.8.0
 Variant: Pre 3.25.0
-Variant: Current
+Variant: Pre 3.30.0
+Variant: Current: Minion Damage per Spectre
+Variant: Current: Spell Damage per Skeleton
+Variant: Current: Attack Damage per Zombie
+Variant: Current: Block per Skeleton
+Variant: Current: Life Regen per Zombie
+Variant: Current: Mana Regen per Spectre
+Variant: Current: Speed per Raging Spirit
 Implicits: 3
 {variant:1}+12% Chance to Block Attack Damage
 {variant:2,3}+18% Chance to Block Attack Damage
-{variant:4}+25% Chance to Block Spell Damage
-+(2-3) to Level of Socketed Minion Gems
-{variant:3,4}Minions deal (80-100)% increased Damage
+{variant:4,5,6,7,8,9,10,11}+25% Chance to Block Spell Damage
+{variant:1,2,3,4}+2 to Level of Socketed Minion Gems
+{variant:5,6,7,8,9,10,11}+(2-3) to Level of Socketed Minion Gems
+{variant:3,4}Minions deal (60-80)% increased Damage
+{variant:5,6,7,8,9,10,11}Minions deal (80-100)% increased Damage
 {variant:1,2}Minions Regenerate (1.5-2.5)% of Life per second
 {variant:1,2}2% increased Minion Attack and Cast Speed per Skeleton you own
 {variant:1,2}2% increased Minion Duration per Raised Zombie
-{variant:1,2}(10-15)% increased Minion Damage per Raised Spectre
-{variant:3,4}+(1-2)% Chance to Block Attack Damage per Summoned Skeleton
-{variant:3,4}(3-5)% increased Attack and Cast Speed per Summoned Raging Spirit
-{variant:3,4}Regenerate (0.8-1)% of Life per second for each Raised Zombie
-{variant:3,4}(40-60)% increased Mana Regeneration Rate per Raised Spectre
+{variant:1,2,5}(10-15)% increased Minion Damage per Raised Spectre
+{variant:6}(12-18)% increased Spell Damage per Summoned Skeleton
+{variant:7}(16-24)% increased Attack Damage per Raised Zombie
+{variant:3,4}+1% Chance to Block Attack Damage per Summoned Skeleton
+{variant:8}+(1-2)% Chance to Block Attack Damage per Summoned Skeleton
+{variant:3,4}2% increased Attack and Cast Speed per Summoned Raging Spirit
+{variant:11}(3-5)% increased Attack and Cast Speed per Summoned Raging Spirit
+{variant:3,4}Regenerate 0.6% of Life per second for each Raised Zombie
+{variant:9}Regenerate (0.8-1)% of Life per second for each Raised Zombie
+{variant:3,4}30% increased Mana Regeneration Rate per Raised Spectre
+{variant:10}(40-60)% increased Mana Regeneration Rate per Raised Spectre
 ]],[[
 Fencoil
 Gnarled Branch
