@@ -2392,7 +2392,7 @@ function ItemsTabClass:UpdateAffixControl(control, item, affixType, outputTable,
 	-- sort modifier groups by power
 	if sortOption.stat and self.controls.craftingSortingLabel.shown() then
 		local calcFunc = self.build.calcsTab:GetMiscCalculator()
-		local slotName = self.displayItem:GetPrimarySlot()
+		local slotName = self:GetComparisonSlotNameForItem(self.displayItem, true)
 		local testSubject = new("Item"):Item(self.displayItem:BuildRaw())
 		local controlPowerCache = powerCache
 		if selAffix and selAffix ~= "None" then
@@ -2584,7 +2584,7 @@ local function checkLineForAllocates(line, nodes)
 end
 
 function ItemsTabClass:AddModComparisonTooltip(tooltip, mod, replaceImplicits)
-	local slotName = self.displayItem:GetPrimarySlot()
+	local slotName = self:GetComparisonSlotNameForItem(self.displayItem, true)
 	local newItem = new("Item"):Item(self.displayItem:BuildRaw())
 	local targetLines = replaceImplicits and newItem.implicitModLines or newItem.explicitModLines
 	if replaceImplicits then
@@ -2608,15 +2608,15 @@ function ItemsTabClass:AddModComparisonTooltip(tooltip, mod, replaceImplicits)
 end
 
 -- Returns the first slot in which the given item is equipped
-function ItemsTabClass:GetEquippedSlotForItem(item)
+function ItemsTabClass:GetEquippedSlotForItem(item, activeOnly)
 	for _, slot in ipairs(self.orderedSlots) do
-		if not slot.inactive then
+		if not slot.inactive and (not activeOnly or slot:IsShown()) then
 			if slot.selItemId == item.id then
 				return slot
 			end
 			for _, itemSetId in ipairs(self.itemSetOrderList) do
 				local itemSet = self.itemSets[itemSetId]
-				if itemSetId ~= self.activeItemSetId and itemSet[slot.slotName] and itemSet[slot.slotName].selItemId == item.id then
+				if not activeOnly and itemSetId ~= self.activeItemSetId and itemSet[slot.slotName] and itemSet[slot.slotName].selItemId == item.id then
 					return slot, itemSet
 				end
 			end
@@ -2624,8 +2624,9 @@ function ItemsTabClass:GetEquippedSlotForItem(item)
 	end
 end
 
-function ItemsTabClass:GetComparisonSlotNameForItem(item)
-	local equippedSlot = self:GetEquippedSlotForItem(item)
+-- Pass activeOnly for modifier comparisons against the current item and weapon set.
+function ItemsTabClass:GetComparisonSlotNameForItem(item, activeOnly)
+	local equippedSlot = self:GetEquippedSlotForItem(item, activeOnly)
 	if equippedSlot then
 		return equippedSlot.slotName
 	end
@@ -2636,7 +2637,11 @@ function ItemsTabClass:GetComparisonSlotNameForItem(item)
 			end
 		end
 	end
-	return item:GetPrimarySlot()
+	local slotName = item:GetPrimarySlot()
+	if activeOnly and self.activeItemSet.useSecondWeaponSet and (slotName == "Weapon 1" or slotName == "Weapon 2") then
+		slotName = slotName .. " Swap"
+	end
+	return slotName
 end
 -- Check if the given item could be equipped in the given slot, taking into account possible conflicts with currently equipped items
 -- For example, a shield is not valid for Weapon 2 if Weapon 1 is a staff, and a wand is not valid for Weapon 2 if Weapon 1 is a dagger
@@ -2925,7 +2930,12 @@ function ItemsTabClass:EnchantDisplayItem(enchantSlot)
 		item.id = self.displayItem.id
 		local entry = enchantmentList[index]
 		if remove then
-			t_remove(item.enchantModLines, self.enchantSlot)
+			if item.canHaveTwoEnchants then
+				t_remove(item.enchantModLines, self.enchantSlot)
+			else
+				-- A single enchantment can span multiple modifier lines.
+				wipeTable(item.enchantModLines)
+			end
 		elseif entry then
 			local line = entry.line
 			local first, second = line:match("([^/]+)/([^/]+)")
@@ -2976,7 +2986,7 @@ function ItemsTabClass:EnchantDisplayItem(enchantSlot)
 		end
 		local selected = not selectFirst and enchantmentList[controls.enchantment.selIndex] or nil
 		if stat then
-			local slotName = self.displayItem:GetPrimarySlot()
+			local slotName = self:GetComparisonSlotNameForItem(self.displayItem, true)
 			local calcFunc = self.build.calcsTab:GetMiscCalculator()
 			local useFullDPS = stat == "FullDPS"
 			for _, entry in ipairs(enchantmentList) do
@@ -3046,7 +3056,7 @@ function ItemsTabClass:EnchantDisplayItem(enchantSlot)
 	controls.enchantment = new("DropDownControl"):DropDownControl({"TOPLEFT",nil,"TOPLEFT"}, {100, 70, 495, 18}, enchantmentList)
 	controls.enchantment.tooltipFunc = function(tooltip, mode, index)
 		tooltip:Clear()
-		self:AddItemTooltip(tooltip, enchantItem(index), nil, true)
+		self:AddItemTooltip(tooltip, enchantItem(index), self:GetComparisonSlotNameForItem(self.displayItem, true), true)
 	end
 	controls.save = new("ButtonControl"):ButtonControl(nil, {-88, 100, 80, 20}, "Enchant", function()
 		self:SetDisplayItem(enchantItem())
@@ -3369,7 +3379,7 @@ function ItemsTabClass:CorruptDisplayItem()
 		if not controls.implicit1 then
 			return
 		end
-		local slotName = self.displayItem:GetPrimarySlot()
+		local slotName = self:GetComparisonSlotNameForItem(self.displayItem, true)
 		local calcFunc = stat and self.build.calcsTab:GetMiscCalculator() or nil
 		local useFullDPS = stat == "FullDPS"
 		if currentModType ~= "ScourgeUpside" then
@@ -3607,7 +3617,7 @@ function ItemsTabClass:CorruptDisplayItem()
 	end)
 	controls.save.tooltipFunc = function(tooltip)
 		tooltip:Clear()
-		self:AddItemTooltip(tooltip, corruptItem(controls.implicit1.shown), nil, false)
+		self:AddItemTooltip(tooltip, corruptItem(controls.implicit1.shown), self:GetComparisonSlotNameForItem(self.displayItem, true), false)
 	end
 	controls.close = new("ButtonControl"):ButtonControl({ "BOTTOM", nil, "BOTTOM" }, { 45, -4, 80, 20 }, "Cancel", function()
 		main:ClosePopup()
@@ -3652,7 +3662,7 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 		end
 		local selected = not selectFirst and modList[controls.modSelect.selIndex] or nil
 		if stat then
-			local slotName = self.displayItem:GetPrimarySlot()
+			local slotName = self:GetComparisonSlotNameForItem(self.displayItem, true)
 			local calcFunc = self.build.calcsTab:GetMiscCalculator()
 			local useFullDPS = stat == "FullDPS"
 			for _, listMod in ipairs(modList) do
@@ -3963,7 +3973,7 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 	end)
 	controls.save.tooltipFunc = function(tooltip)
 		tooltip:Clear()
-		self:AddItemTooltip(tooltip, addModifier())
+		self:AddItemTooltip(tooltip, addModifier(), self:GetComparisonSlotNameForItem(self.displayItem, true))
 	end
 	controls.close = new("ButtonControl"):ButtonControl(nil, {45, 75, 80, 20}, "Cancel", function()
 		main:ClosePopup()
@@ -4075,7 +4085,7 @@ function ItemsTabClass:AddCrucibleModifierToDisplayItem()
 	end)
 	controls.save.tooltipFunc = function(tooltip)
 		tooltip:Clear()
-		self:AddItemTooltip(tooltip, addModifier())
+		self:AddItemTooltip(tooltip, addModifier(), self:GetComparisonSlotNameForItem(self.displayItem, true))
 	end
 	controls.close = new("ButtonControl"):ButtonControl(nil, {45, 157, 80, 20}, "Cancel", function()
 		main:ClosePopup()
