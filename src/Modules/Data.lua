@@ -266,14 +266,9 @@ t_insert(data.powerStatList, {
 	end,
 	getValue=function(output, build, calcBase)
 		local weights = WeightedScore.getWeights(build)
-		local baselineOutput = calcBase
-		if not baselineOutput then
-			local _, cachedBaselineOutput = build.calcsTab:GetMiscCalculator()
-			baselineOutput = cachedBaselineOutput
-		end
 		-- Trader multiplies ratio scores by 1000 to create weight points. Reuse it so
 		-- Calcs/Compare deltas and every ranking or normalization preserve one scale.
-		return WeightedScore.computeRatioScore(baselineOutput, output, weights) * 1000
+		return WeightedScore.computeRatioScore(calcBase, output, weights) * 1000
 	end,
 })
 data.misc = { -- magic numbers
