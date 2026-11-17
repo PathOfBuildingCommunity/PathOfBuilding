@@ -2,6 +2,7 @@
 -- Item data (c) Grinding Gear Games
 return function(itemBases)
 itemBases["Rustic Sash"] = {
+	baseId = "Metadata/Items/Belts/Belt1",
 	type = "Belt",
 	tags = { belt = true, default = true, },
 	influenceTags = { shaper = "belt_shaper", elder = "belt_elder", adjudicator = "belt_adjudicator", basilisk = "belt_basilisk", crusader = "belt_crusader", eyrie = "belt_eyrie", cleansing = "belt_cleansing", tangle = "belt_tangle" },
@@ -11,6 +12,7 @@ itemBases["Rustic Sash"] = {
 	req = { },
 }
 itemBases["Chain Belt"] = {
+	baseId = "Metadata/Items/Belts/Belt2",
 	type = "Belt",
 	tags = { belt = true, default = true, },
 	influenceTags = { shaper = "belt_shaper", elder = "belt_elder", adjudicator = "belt_adjudicator", basilisk = "belt_basilisk", crusader = "belt_crusader", eyrie = "belt_eyrie", cleansing = "belt_cleansing", tangle = "belt_tangle" },
@@ -20,6 +22,7 @@ itemBases["Chain Belt"] = {
 	req = { },
 }
 itemBases["Leather Belt"] = {
+	baseId = "Metadata/Items/Belts/Belt3",
 	type = "Belt",
 	tags = { belt = true, default = true, },
 	influenceTags = { shaper = "belt_shaper", elder = "belt_elder", adjudicator = "belt_adjudicator", basilisk = "belt_basilisk", crusader = "belt_crusader", eyrie = "belt_eyrie", cleansing = "belt_cleansing", tangle = "belt_tangle" },
@@ -29,6 +32,7 @@ itemBases["Leather Belt"] = {
 	req = { level = 8, },
 }
 itemBases["Heavy Belt"] = {
+	baseId = "Metadata/Items/Belts/Belt4",
 	type = "Belt",
 	tags = { belt = true, default = true, },
 	influenceTags = { shaper = "belt_shaper", elder = "belt_elder", adjudicator = "belt_adjudicator", basilisk = "belt_basilisk", crusader = "belt_crusader", eyrie = "belt_eyrie", cleansing = "belt_cleansing", tangle = "belt_tangle" },
@@ -38,6 +42,7 @@ itemBases["Heavy Belt"] = {
 	req = { level = 8, },
 }
 itemBases["Cloth Belt"] = {
+	baseId = "Metadata/Items/Belts/Belt5",
 	type = "Belt",
 	tags = { belt = true, default = true, },
 	influenceTags = { shaper = "belt_shaper", elder = "belt_elder", adjudicator = "belt_adjudicator", basilisk = "belt_basilisk", crusader = "belt_crusader", eyrie = "belt_eyrie", cleansing = "belt_cleansing", tangle = "belt_tangle" },
@@ -47,6 +52,7 @@ itemBases["Cloth Belt"] = {
 	req = { level = 16, },
 }
 itemBases["Studded Belt"] = {
+	baseId = "Metadata/Items/Belts/Belt6",
 	type = "Belt",
 	tags = { belt = true, default = true, },
 	influenceTags = { shaper = "belt_shaper", elder = "belt_elder", adjudicator = "belt_adjudicator", basilisk = "belt_basilisk", crusader = "belt_crusader", eyrie = "belt_eyrie", cleansing = "belt_cleansing", tangle = "belt_tangle" },
@@ -56,6 +62,7 @@ itemBases["Studded Belt"] = {
 	req = { level = 16, },
 }
 itemBases["Micro-Distillery Belt"] = {
+	baseId = "Metadata/Items/Belts/BeltE1",
 	type = "Belt",
 	tags = { belt = true, default = true, experimental_base = true, },
 	influenceTags = { shaper = "belt_shaper", elder = "belt_elder", adjudicator = "belt_adjudicator", basilisk = "belt_basilisk", crusader = "belt_crusader", eyrie = "belt_eyrie", cleansing = "belt_cleansing", tangle = "belt_tangle" },
@@ -65,6 +72,7 @@ itemBases["Micro-Distillery Belt"] = {
 	req = { level = 24, },
 }
 itemBases["Mechalarm Belt"] = {
+	baseId = "Metadata/Items/Belts/BeltE2",
 	type = "Belt",
 	tags = { belt = true, default = true, experimental_base = true, },
 	influenceTags = { shaper = "belt_shaper", elder = "belt_elder", adjudicator = "belt_adjudicator", basilisk = "belt_basilisk", crusader = "belt_crusader", eyrie = "belt_eyrie", cleansing = "belt_cleansing", tangle = "belt_tangle" },
@@ -74,6 +82,7 @@ itemBases["Mechalarm Belt"] = {
 	req = { level = 56, },
 }
 itemBases["Mechanical Belt"] = {
+	baseId = "Metadata/Items/Belts/BeltE3",
 	type = "Belt",
 	tags = { belt = true, default = true, experimental_base = true, },
 	influenceTags = { shaper = "belt_shaper", elder = "belt_elder", adjudicator = "belt_adjudicator", basilisk = "belt_basilisk", crusader = "belt_crusader", eyrie = "belt_eyrie", cleansing = "belt_cleansing", tangle = "belt_tangle" },
@@ -83,24 +92,27 @@ itemBases["Mechanical Belt"] = {
 	req = { level = 56, },
 }
 itemBases["Vanguard Belt"] = {
+	baseId = "Metadata/Items/Belts/BeltAtlas1",
 	type = "Belt",
 	tags = { atlas_base_type = true, belt = true, beltatlas1 = true, default = true, not_for_sale = true, },
 	influenceTags = { shaper = "belt_shaper", elder = "belt_elder", adjudicator = "belt_adjudicator", basilisk = "belt_basilisk", crusader = "belt_crusader", eyrie = "belt_eyrie", cleansing = "belt_cleansing", tangle = "belt_tangle" },
-	implicit = "+(260-320) to Armour and Evasion Rating",
+	implicit = "+(260-480) to Armour and Evasion Rating",
 	implicitModTypes = { { "defences", "armour", "evasion" }, },
 	implicitIds = { "ArmourAndEvasionImplicitBelt1", },
 	req = { level = 78, },
 }
 itemBases["Crystal Belt"] = {
+	baseId = "Metadata/Items/Belts/BeltAtlas2",
 	type = "Belt",
 	tags = { atlas_base_type = true, belt = true, beltatlas2 = true, default = true, not_for_sale = true, },
 	influenceTags = { shaper = "belt_shaper", elder = "belt_elder", adjudicator = "belt_adjudicator", basilisk = "belt_basilisk", crusader = "belt_crusader", eyrie = "belt_eyrie", cleansing = "belt_cleansing", tangle = "belt_tangle" },
-	implicit = "+(60-80) to maximum Energy Shield",
+	implicit = "+(60-100) to maximum Energy Shield",
 	implicitModTypes = { { "defences", "energy_shield" }, },
 	implicitIds = { "IncreasedEnergyShieldImplicitBelt2", },
 	req = { level = 79, },
 }
 itemBases["Stygian Vise"] = {
+	baseId = "Metadata/Items/Belts/BeltAbyss",
 	type = "Belt",
 	tags = { belt = true, default = true, not_for_sale = true, },
 	influenceTags = { shaper = "belt_shaper", elder = "belt_elder", adjudicator = "belt_adjudicator", basilisk = "belt_basilisk", crusader = "belt_crusader", eyrie = "belt_eyrie", cleansing = "belt_cleansing", tangle = "belt_tangle" },
@@ -110,6 +122,7 @@ itemBases["Stygian Vise"] = {
 	req = { },
 }
 itemBases["Cord Belt"] = {
+	baseId = "Metadata/Items/Belts/BeltFaridun",
 	type = "Belt",
 	tags = { belt = true, default = true, not_for_sale = true, },
 	influenceTags = { shaper = "belt_shaper", elder = "belt_elder", adjudicator = "belt_adjudicator", basilisk = "belt_basilisk", crusader = "belt_crusader", eyrie = "belt_eyrie", cleansing = "belt_cleansing", tangle = "belt_tangle" },
@@ -120,10 +133,11 @@ itemBases["Cord Belt"] = {
 }
 
 itemBases["Golden Obi"] = {
+	baseId = "Metadata/Items/Belts/BeltDemigods1",
 	type = "Belt",
 	tags = { belt = true, default = true, demigods = true, not_for_sale = true, },
 	influenceTags = { shaper = "belt_shaper", elder = "belt_elder", adjudicator = "belt_adjudicator", basilisk = "belt_basilisk", crusader = "belt_crusader", eyrie = "belt_eyrie", cleansing = "belt_cleansing", tangle = "belt_tangle" },
-	implicit = "(20-30)% increased Rarity of Items found",
+	implicit = "+(20-30)% to Item Rarity",
 	implicitModTypes = { { "drop" }, },
 	implicitIds = { "ItemFoundRarityIncreaseImplicitDemigodsBelt1", },
 	req = { },

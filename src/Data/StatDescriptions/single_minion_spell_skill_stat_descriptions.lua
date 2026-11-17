@@ -591,7 +591,7 @@ return {
 						[2]="#"
 					}
 				},
-				text="Chill enemies when they are Shocked by Hits from Minon, reducing Action Speed by Shock Effect"
+				text="Chill enemies when they are Shocked by Hits from Minion, reducing Action Speed by Shock Effect"
 			}
 		},
 		name="support_inflict_equivalent_chill_on_shock",
@@ -608,7 +608,7 @@ return {
 						[2]="#"
 					}
 				},
-				text="Shock enemies when they are Chilled by Hits from Minon, increasing Damage taken by Chill Effect"
+				text="Shock enemies when they are Chilled by Hits from Minion, increasing Damage taken by Chill Effect"
 			}
 		},
 		name="support_inflict_equivalent_shock_on_chill",

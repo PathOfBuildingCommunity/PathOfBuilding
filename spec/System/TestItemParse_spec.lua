@@ -4,6 +4,51 @@ describe("TestItemParse", function()
 		return "Rarity: Rare\nName\n"..base.."\n"..s
 	end
 
+	it("pastes Viscera names and implicit rolls without adding item descriptions as modifiers", function()
+		newBuild()
+		local cases = {
+			{ "Greater Gladiator's Heart", "Gladiator's Heart", "Greater ", "Torso" }, -- Live clipboard sample.
+			{ "Lesser Gladiator's Heart", "Gladiator's Heart", "Lesser ", "Torso" }, -- Synthetic unlisted name.
+			{ "Gladiator's Heart", "Gladiator's Heart", "", "Torso" },
+			{ "Greater Sirus' Head", "Sirus' Head", "Greater ", "Head" }, -- Exact base takes precedence.
+			{ "Experimental Gladiator's Heart", "Gladiator's Heart", "Experimental ", "Torso" }, -- Synthetic unknown prefix.
+			{ "Lesser Warden's Arm", "Warden's Arm", "Lesser ", "Upper Limb" },
+			{ "Lesser Pocked Leg", "Pocked Leg", "Lesser ", "Lower Limb" },
+		}
+		for _, example in ipairs(cases) do
+			local text = "Item Class: Viscera\n" .. example[1] .. "\n" .. [[
+--------
+]] .. example[4] .. "\n" .. [[
+--------
+Item Level: 69
+--------
+{ Implicit Modifier }
++6(5-7) to Maximum Rage
+(Every Rage grants 1% more Attack Damage. Maximum Rage is 30. Lose 10 Rage per second if you have not been Hit or gained Rage in the last 2 seconds)
+--------
+Take this to the Wickerman in a town or hideout to attach it.
+]]
+			build.itemsTab.displayItem = nil
+			build.itemsTab:CreateDisplayItemFromRaw(text, true)
+			local item = assert(build.itemsTab.displayItem)
+			assert.equals("NORMAL", item.rarity)
+			assert.equals(example[1], item.name)
+			assert.equals(example[2], item.baseName)
+			assert.equals(example[3], item.namePrefix)
+			assert.equals("Viscera", item.type)
+			assert.equals(69, item.itemLevel)
+			assert.equals(1, #item.implicitModLines)
+			assert.equals("+(5-7) to Maximum Rage", item.implicitModLines[1].line)
+			assert.equals(0.5, item.implicitModLines[1].range)
+			assert.equals(0, #item.explicitModLines)
+			local saved = new("Item"):Item(item:BuildRaw())
+			assert.equals(example[1], saved.name)
+			assert.equals(example[2], saved.baseName)
+			assert.equals(1, #saved.implicitModLines)
+			assert.equals(0.5, saved.implicitModLines[1].range)
+		end
+	end)
+
 	it("Rarity", function()
 		local item = new("Item"):Item("Rarity: Normal\nCoral Ring")
 		assert.are.equals("NORMAL", item.rarity)
@@ -243,6 +288,155 @@ Implicits: 1
 		assert.matches("Selected Version: 1", item.raw, 1, true)
 		assert.matches("Selected Variant Group: 1=1", item.raw, 1, true)
 		assert.matches("{version:1}{variant:1}{group:1}", item.raw, 1, true)
+	end)
+
+	describe("3.30 unique selections", function()
+		local function unique(name)
+			for _, typeList in pairs(data.uniques) do
+				for _, itemRaw in pairs(typeList) do
+					if itemRaw:match("^%s*([^\r\n]+)") == name then
+						return new("Item"):Item(itemRaw, "UNIQUE")
+					end
+				end
+			end
+			error("Unique not found: " .. name)
+		end
+
+		local function activeMods(item)
+			local lines = { }
+			for _, modLine in ipairs(item.explicitModLines) do
+				if item:CheckModLineVariant(modLine) then
+					table.insert(lines, modLine.line)
+				end
+			end
+			return lines, table.concat(lines, "\n")
+		end
+
+		it("keeps Doryani's four current mod pools independent and restores legacy bundles", function()
+			local item = unique("Doryani's Invitation")
+			assert.are.equal(3, item.selectedVersion)
+			for group = 1, 4 do
+				local first = (group - 1) * 4 + 1
+				assert.are.same({ first, first + 1, first + 2, first + 3 }, item:GetVariantGroupOptions(group, false))
+			end
+			for damage = 1, 4 do
+				for defence = 5, 8 do
+					for leech = 9, 12 do
+						for flask = 13, 16 do
+							item.variantGroupSelections = { damage, defence, leech, flask }
+							item:NormaliseVariantSelections()
+							assert.are.equal(4, #activeMods(item))
+						end
+					end
+				end
+			end
+			item.selectedVersion = 2
+			item.variantGroupSelections[1] = 2
+			item:NormaliseVariantSelections()
+			assert.are.same({ }, item:GetVariantGroupOptions(2, false))
+			local lines, text = activeMods(item)
+			assert.are.equal(6, #lines)
+			assert.matches("0.6% of Fire Damage Leeched as Life", text, 1, true)
+			assert.matches("(20-30)% chance to Ignite", text, 1, true)
+			assert.is_nil(text:find("Flasks applied", 1, true))
+			item.selectedVersion = 1
+			item:NormaliseVariantSelections()
+			local _, oldText = activeMods(item)
+			assert.matches("0.2% of Fire Damage Leeched as Life", oldText, 1, true)
+			item.selectedVersion = 3
+			item:BuildAndParseRaw()
+			assert.are.equal(4, #activeMods(item))
+		end)
+
+		it("selects four different Femurs modifiers without leaking current mods into old versions", function()
+			local item = unique("Femurs of the Saints")
+			assert.are.equal(5, item.selectedVersion)
+			assert.are.equal(6, #activeMods(item))
+			item.variantGroupSelections = { 7, 7, 7, 7 }
+			item:NormaliseVariantSelections()
+			local seen = { }
+			for group = 1, 4 do
+				local selected = item.variantGroupSelections[group]
+				assert.is_nil(seen[selected])
+				seen[selected] = true
+				assert.are.equal(4, #item:GetVariantGroupOptions(group, true))
+			end
+			item.selectedVersion = 4
+			item:BuildAndParseRaw()
+			assert.are.same({ }, item:GetVariantGroupOptions(1, false))
+			local lines, text = activeMods(item)
+			assert.are.equal(6, #lines)
+			assert.matches("Regenerate 0.6% of Life", text, 1, true)
+			assert.matches("30% increased Mana Regeneration Rate", text, 1, true)
+			assert.is_nil(text:find("increased Spell Damage per Summoned Skeleton", 1, true))
+		end)
+
+		it("allows only one Doedre ailment and no new ailment on the legacy version", function()
+			local item = unique("Doedre's Tongue")
+			assert.are.equal(2, item.selectedVersion)
+			for variant, ailment in ipairs({ "Ignite", "Shock", "Freeze" }) do
+				item.variantGroupSelections[1] = variant
+				item:BuildAndParseRaw()
+				local lines, text = activeMods(item)
+				assert.are.equal(4, #lines)
+				assert.matches("All Damage can " .. ailment .. " against Cursed Enemies", text, 1, true)
+			end
+			item.selectedVersion = 1
+			item:BuildAndParseRaw()
+			assert.are.same({ }, item:GetVariantGroupOptions(1, false))
+			assert.are.equal(3, #activeMods(item))
+		end)
+
+		it("pairs each Ralakesh charge penalty with its matching maximum-charge modifier", function()
+			local item = unique("Ralakesh's Impatience")
+			assert.are.equal(4, item.selectedVersion)
+			for variant, charge in ipairs({ "Endurance", "Frenzy", "Power" }) do
+				item.variantGroupSelections[1] = variant
+				item:BuildAndParseRaw()
+				local lines, text = activeMods(item)
+				assert.are.equal(6, #lines)
+				assert.matches("-1 to Maximum " .. charge .. " Charges", text, 1, true)
+				assert.matches("Count as having maximum number of " .. charge .. " Charges", text, 1, true)
+			end
+			item.selectedVersion = 3
+			item:BuildAndParseRaw()
+			local lines, text = activeMods(item)
+			assert.are.equal(5, #lines)
+			assert.is_nil(text:find("-1 to Maximum", 1, true))
+			item.selectedVersion = 2
+			item:BuildAndParseRaw()
+			assert.are.same({ }, item:GetVariantGroupOptions(1, false))
+			assert.are.equal(5, #activeMods(item))
+		end)
+
+		it("keeps Atziri's new leech and recovery restrictions out of legacy versions", function()
+			local item = unique("Atziri's Acuity")
+			assert.are.equal(4, item.selectedVersion)
+			local _, text = activeMods(item)
+			assert.matches("Life Leech from Critical Strikes is instant", text, 1, true)
+			assert.matches("You cannot Regenerate or Recoup Life", text, 1, true)
+			assert.is_nil(text:find("Vaal Pact", 1, true))
+			item.selectedVersion = 3
+			item:BuildAndParseRaw()
+			local _, oldText = activeMods(item)
+			assert.matches("You have Vaal Pact", oldText, 1, true)
+			assert.is_nil(oldText:find("Recoup", 1, true))
+		end)
+
+		it("keeps Rotmother's resistance choice when changing light-radius versions", function()
+			local item = unique("Rotmother's Mutiny")
+			item.variantGroupSelections[1] = 2
+			item.selectedVersion = 1
+			item:BuildAndParseRaw()
+			local _, oldText = activeMods(item)
+			assert.matches("(25-75)% increased Light Radius", oldText, 1, true)
+			item.selectedVersion = 2
+			item:BuildAndParseRaw()
+			local _, text = activeMods(item)
+			assert.matches("(20-40)% increased Light Radius", text, 1, true)
+			assert.matches("+1% to Chaos Resistance per 1% Cold Resistance", text, 1, true)
+			assert.are.equal(2, item.variantGroupSelections[1])
+		end)
 	end)
 
 	it("Talisman Tier", function()

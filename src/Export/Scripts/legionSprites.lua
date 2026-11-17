@@ -86,15 +86,19 @@ for row in dat("AlternateTreeArt"):Rows() do
 		else
 			-- All current Abyss jewels use one art set. Stop the export if a future
 			-- jewel needs another set instead of silently giving it the wrong art.
-			assert(row.ConnectionArt.Id == alternateArt.ConnectionArt.Id
-				and row.KeystoneFrameArt.Id == alternateArt.KeystoneFrameArt.Id
-				and row.NotableFrameArt.Id == alternateArt.NotableFrameArt.Id
-				and row.AscendancyFrameArt.Id == alternateArt.AscendancyFrameArt.Id,
-				"Abyss alternate tree art sets do not match")
+			assert(row.ConnectionArt.Id == alternateArt.ConnectionArt.Id, "Abyss alternate tree art sets do not match")
 		end
 	end
 end
 assert(alternateArt, "Abyss alternate tree art was not found")
+-- Putrid Seed passives use their own alternate tree art
+local blightArt
+for row in dat("AlternateTreeArt"):Rows() do
+	if row.TreeVersion and row.TreeVersion.Id == "BlightJewel" then
+		blightArt = row
+	end
+end
+assert(blightArt, "Blight alternate tree art was not found")
 
 local files = { }
 local iconEntries = { }
@@ -123,50 +127,64 @@ for passive in dat("AlternatePassiveSkills"):Rows() do
 end
 
 local frameEntries = { }
+-- 3.30 removed the frame art keys from AlternateTreeArt
+local frameArt = dat("PassiveSkillTreeNodeFrameArt")
 local frameGroups = {
-	{ art = alternateArt.NotableFrameArt, prefix = "AbyssNotableFrame" },
-	{ art = alternateArt.KeystoneFrameArt, prefix = "AbyssKeystoneFrame" },
-	{ art = alternateArt.AscendancyFrameArt, prefix = "AbyssAscendancyFrame" },
+	{ art = frameArt:GetRow("Id", "AbyssAlternateTreeNotable"), prefix = "AbyssNotableFrame" },
+	{ art = frameArt:GetRow("Id", "AbyssAlternateTreeKeystone"), prefix = "AbyssKeystoneFrame" },
+	{ art = frameArt:GetRow("Id", "AbyssAlternateTreeAscendancyNotable"), prefix = "AbyssAscendancyFrame" },
+	{ art = frameArt:GetRow("Id", "BlightAlternateTreeNotable"), prefix = "BlightNotableFrame" },
 }
 local frameStates = {
 	{ column = "Normal", suffix = "Unallocated" },
 	{ column = "CanAllocate", suffix = "CanAllocate" },
 	{ column = "Active", suffix = "Allocated" },
 }
+local function addFrameEntry(name, uiImageName)
+	local image = assert(uiImages[uiImageName:lower()], "Missing UIImages row for " .. uiImageName)
+	frameEntries[#frameEntries + 1] = {
+		name = name,
+		file = main.ggpk.oozPath .. image.path:lower(),
+		sourceX = image.x,
+		sourceY = image.y,
+		sourceWidth = image.width,
+		sourceHeight = image.height,
+		width = round(image.width * treeArtScale),
+		height = round(image.height * treeArtScale),
+	}
+	addFile(files, image.path)
+end
 for _, group in ipairs(frameGroups) do
 	for _, state in ipairs(frameStates) do
-		local image = assert(uiImages[group.art[state.column]:lower()], "Missing UIImages row for Abyss frame")
-		frameEntries[#frameEntries + 1] = {
-			name = group.prefix .. state.suffix,
-			file = main.ggpk.oozPath .. image.path:lower(),
-			sourceX = image.x,
-			sourceY = image.y,
-			sourceWidth = image.width,
-			sourceHeight = image.height,
-			width = round(image.width * treeArtScale),
-			height = round(image.height * treeArtScale),
-		}
-		addFile(files, image.path)
+		addFrameEntry(group.prefix .. state.suffix, group.art[state.column])
 	end
 end
+-- Socket art for a Putrid Seed in a normal and a Large Jewel Socket
+addFrameEntry("JewelSocketActiveBlightcore", "Art/2DArt/UIImages/InGame/PassiveSkillScreenJewelSocketActive_Blightcore")
+addFrameEntry("JewelSocketActiveBlightcoreAlt", "Art/2DArt/UIImages/InGame/PassiveSkillScreenJewelSocketActive_BlightcoreAlt")
 
-local connectionArt = alternateArt.ConnectionArt
-local connectionSources = {
-	{ state = "normal", file = connectionArt.Normal },
-	-- Active is an effect mask. The game colors it gold over the normal curve
-	-- while previewing a path; it is not itself a displayed connector texture.
-	{ state = "intermediate", file = connectionArt.Normal, effect = connectionArt.Active },
-	-- Despite the column name, Mask contains the completed green curve art.
-	{ state = "active", file = connectionArt.Mask },
-}
-for _, source in ipairs(connectionSources) do
-	addFile(files, source.file)
-	addFile(files, source.effect)
-	source.file = main.ggpk.oozPath .. source.file:lower()
-	if source.effect then
-		source.effect = main.ggpk.oozPath .. source.effect:lower()
+local function getConnectionSources(connectionArt, prefix)
+	local sources = {
+		{ state = "normal", file = connectionArt.Normal },
+		-- Active is an effect mask. The game colors it gold over the normal curve
+		-- while previewing a path; it is not itself a displayed connector texture.
+		{ state = "intermediate", file = connectionArt.Normal, effect = connectionArt.Active },
+		-- Despite the column name, Mask contains the completed curve art.
+		{ state = "active", file = connectionArt.Mask },
+	}
+	for _, source in ipairs(sources) do
+		source.prefix = prefix
+		addFile(files, source.file)
+		addFile(files, source.effect)
+		source.file = main.ggpk.oozPath .. source.file:lower()
+		if source.effect then
+			source.effect = main.ggpk.oozPath .. source.effect:lower()
+		end
 	end
+	return sources
 end
+local connectionSources = getConnectionSources(alternateArt.ConnectionArt, "abyss")
+local blightConnectionSources = getConnectionSources(blightArt.ConnectionArt, "blight")
 
 local filesToExtract = { }
 for file in pairs(files) do
@@ -219,6 +237,7 @@ gimpBatch.combine_images_to_sprite(
 	batch, { filename = "legion-inactive.png", w = iconWidth, h = iconHeight, coords = iconEntries }, outputPath, 40
 )
 gimpBatch.extract_abyss_lines(batch, connectionSources, temporaryPath, outputPath)
+gimpBatch.extract_abyss_lines(batch, blightConnectionSources, temporaryPath, outputPath)
 gimpBatch.combine_images_to_sprite(
 	batch, { filename = "legion-art.png", w = artWidth, h = artHeight, coords = frameEntries }, outputPath, 100
 )
@@ -250,11 +269,13 @@ for _, name in ipairs(artNames) do
 	))
 end
 output:write('\t\t} },\n')
-for _, state in ipairs({ "Normal", "Intermediate", "Active" }) do
-	output:write(string.format(
-		'\t\t{ ["filename"] = "abyss-line-connector-%s.png", ["coords"] = { ["AbyssLineConnector%s"] = { ["x"] = 0, ["y"] = 0, ["w"] = 368, ["h"] = 13 } } },\n',
-		state:lower(), state
-	))
+for _, prefix in ipairs({ "Abyss", "Blight" }) do
+	for _, state in ipairs({ "Normal", "Intermediate", "Active" }) do
+		output:write(string.format(
+			'\t\t{ ["filename"] = "%s-line-connector-%s.png", ["coords"] = { ["%sLineConnector%s"] = { ["x"] = 0, ["y"] = 0, ["w"] = 368, ["h"] = 13 } } },\n',
+			prefix:lower(), state:lower(), prefix, state
+		))
+	end
 end
 output:write('\t},\n')
 output:write("}\n")

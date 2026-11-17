@@ -196,6 +196,10 @@ function M.findTradeIdOption(modLine, modType)
 	for _, pat in ipairs(timelessPatterns) do
 		local value, conqueror = modLine:match(pat)
 		if conqueror then
+			-- 3.30 changed the conqueror name but didn't change the stat id
+			if conqueror == "mazcotl" then
+				conqueror = "ahuana"
+			end
 			return "explicit.pseudo_timeless_jewel_" .. conqueror, tonumber(value)
 		end
 	end
@@ -238,10 +242,28 @@ local function insertUniqueHash(resultIds, tradeHash)
 end
 -- Helper: find the trade stat ID for a mod line
 ---@param modLine  string
----@return table[] results Can include more than one result if the results are ambiguous
+---@return number[] results Can include more than one result if the results are ambiguous
 ---@return number? value Might be nil if the line has no sensible number value
 ---@return boolean shouldNegate whether the mod needs to be negated when given to the trade site
+---@return string prefix Trade stat ID prefix
 function M.findTradeHash(modLine)
+	local mods, extra = modLib.parseMod(modLine)
+	if not extra then
+		local effectHashes = {}
+		local level
+		for _, mod in ipairs(mods or {}) do
+			if mod.name == "ExtraSkill" then
+				local grantedEffect = data.skills[mod.value.skillId]
+				if grantedEffect then
+					insertUniqueHash(effectHashes, murmurHash2(grantedEffect.id, 0xC58F1A7B))
+					level = mod.value.level
+				end
+			end
+		end
+		if #effectHashes > 0 then
+			return effectHashes, level, false, "effect_"
+		end
+	end
 	modLine = modLine:lower()
 	local resultIds = {}
 	local value
@@ -340,7 +362,7 @@ function M.findTradeHash(modLine)
 		end
 		::continue::
 	end
-	return resultIds, value, shouldNegate
+	return resultIds, value, shouldNegate, "stat_"
 end
 
 -- Map slot name + item type to (trade API category string, itemCategoryTags key).

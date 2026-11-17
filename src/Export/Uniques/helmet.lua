@@ -176,9 +176,12 @@ EnemyExtraDamagerollsWithPhysicalDamageUnique_1
 The Hallowed Monarch
 Faithful Helmet
 Source: Drops from unique{Uber Incarnation of Dread} in normal{Moment of Reverence}
+Variant: Pre 3.30.0
+Variant: Current
 LocalIncreasedPhysicalDamageReductionRatingPercentUnique__35
 AllResistancesUnique__35
-LightRadiusUnique__11
+{variant:1}LightRadiusUnique__11[50,50]
+{variant:2}LightRadiusUnique__11
 LinksTargetDamageableMinionsUnique_1
 LinksGrantMinionsLessDamageTakenUnique_1
 LinkedMinionsStealRareModsUnique_1
@@ -1597,4 +1600,15 @@ League: Expedition
 Source: Drops from unique{Olroth, Origin of the Fall} in normal{Expedition Logbook}
 CannotCrit
 BattlemageKeystoneUnique__3
+]],[[
+Veil of Flesh
+Callous Mask
+League: Covens
+Source: Drops from unique{The Coven Queen}
+Implicits: 0
+AdditionalBaseCritUnique__1
+LocalIncreasedEvasionAndEnergyShieldUnique__40
+MaximumLifeUnique__29
+SkillLifeCostInsteadOfManaUnique__2
+FleshBarrierUnique__1
 ]],}
