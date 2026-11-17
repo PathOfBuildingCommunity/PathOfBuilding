@@ -1,5 +1,16 @@
 # Changelog
 
+## [v2.68.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding-PoE2/tree/v2.68.1) (2026/11/17)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.68.0...v2.68.1)
+
+
+## What's Changed
+### User Interface
+- Fix visibiliy of Viscera list on larger screens [\#10476](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10476) ([Wires77](https://github.com/Wires77))
+
+
+
 ## [v2.68.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding-PoE2/tree/v2.68.0) (2026/11/17)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.67.2...v2.68.0)
