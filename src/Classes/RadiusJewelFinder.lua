@@ -1696,9 +1696,6 @@ local function buildRadiusJewelPopupContext(self)
 		end
 		return s_format("^7%s | %s %.1f | %%/pt", itemLabel, statLabel, baseline)
 	end
-	local function formatReplacementLabel(replacedItemLabel)
-		return replacedItemLabel and ("Replace " .. replacedItemLabel) or "Free socket"
-	end
 	local function setComputeProgress(message)
 		controls.statusLabel.label = message
 		controls.resultsList:SetMode("message", { }, "")
