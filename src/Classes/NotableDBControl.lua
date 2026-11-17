@@ -99,10 +99,15 @@ function NotableDBClass:BuildSortOrder()
 	wipeTable(self.sortDropList)
 	for id, stat in ipairs(data.powerStatList) do
 		if not stat.ignoreForItems then
-			local sortEntry = copyTable(stat)
-			sortEntry.label = "Sort by " .. stat.label
-			sortEntry.sortMode = stat.itemField or stat.stat
-			t_insert(self.sortDropList, sortEntry)
+			t_insert(self.sortDropList, {
+				label="Sort by "..stat.label,
+				sortMode=stat.itemField or stat.stat,
+				itemField=stat.itemField,
+				stat=stat.stat,
+				transform=stat.transform,
+				requiresFullDPS=stat.requiresFullDPS,
+				getValue=stat.getValue,
+			})
 		end
 	end
 	WeightedScore.appendEditWeightsAction(self.sortDropList, function()

@@ -100,9 +100,9 @@ describe("ItemDBControl", function()
 		local control = new("ItemDBControl"):ItemDBControl(nil, { 0, 0, 100, 100 }, itemsTab, {
 			list = { worseItem, betterItem },
 		}, "RARE")
-		for _, stat in ipairs(data.powerStatList) do
-			if stat.stat == "WeightedScore" then
-				control.sortDetail = stat
+		for _, entry in ipairs(control.sortDropList) do
+			if entry.stat == "WeightedScore" then
+				control.sortDetail = entry
 			end
 		end
 		control.sortOrder = { control.sortControl.STAT, control.sortControl.NAME }

@@ -2137,9 +2137,13 @@ function TreeTabClass:FindTimelessJewel()
 	local fallbackWeightsList = { }
 	for _, stat in ipairs(data.powerStatList) do
 		if not stat.ignoreForItems and stat.label ~= "Name" then
-			local fallbackWeight = copyTable(stat)
-			fallbackWeight.label = "Sort by " .. stat.label
-			t_insert(fallbackWeightsList, fallbackWeight)
+			t_insert(fallbackWeightsList, {
+				label = "Sort by " .. stat.label,
+				stat = stat.stat,
+				transform = stat.transform,
+				requiresFullDPS = stat.requiresFullDPS,
+				getValue = stat.getValue,
+			})
 		end
 	end
 	local selectedFallbackStatIndex = timelessData.fallbackWeightMode.idx or 1

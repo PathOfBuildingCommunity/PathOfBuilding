@@ -1,8 +1,8 @@
 describe("NotableDBControl", function()
-	local function findPowerStat(statName)
-		for _, stat in ipairs(data.powerStatList) do
-			if stat.stat == statName then
-				return copyTable(stat)
+	local function findSortEntry(control, statName)
+		for _, entry in ipairs(control.sortDropList) do
+			if entry.stat == statName then
+				return entry
 			end
 		end
 	end
@@ -44,7 +44,7 @@ describe("NotableDBControl", function()
 			{ stat = "TotalEHP", weightMult = 1 },
 		}
 		local control, candidates = newAnointFixture(weights, true)
-		control.sortDetail = findPowerStat("WeightedScore")
+		control.sortDetail = findSortEntry(control, "WeightedScore")
 
 		control:ListBuilder()
 
@@ -55,7 +55,7 @@ describe("NotableDBControl", function()
 
 	it("keeps scalar anoint impact relative to the item without an anoint", function()
 		local control, candidates = newAnointFixture()
-		control.sortDetail = findPowerStat("FullDPS")
+		control.sortDetail = findSortEntry(control, "FullDPS")
 
 		control:ListBuilder()
 
