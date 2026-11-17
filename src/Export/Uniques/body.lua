@@ -1491,5 +1491,27 @@ Implicits: 0
 TriggerRandomOfferingSkillUnique__1
 LocalIncreasedEnergyShieldPercentUnique__20_
 MaximumLifeUnique__16
+]],[[
+Mantle of Dreams
+Twilight Regalia
+League: Covens
+Source: Drops from unique{Incarnation of Dread} (Uber)
+Implicits: 0
+DisplaySupportedByUnleashUnique__2
+LocalIncreasedEnergyShieldPercentUnique__35
+DamagePerSocketedGemInBodyFinalUnique__1
+LocalSupportGemsSocketedHaveNoEffectUnique__1
+]],[[
+Hide of the Vendigo
+Exquisite Leather
+League: Covens
+Source: Drops from a boss empowered by a Fate that rewards this item
+Implicits: 0
+ChanceToSuppressSpellsUnique__6
+LocalIncreasedEvasionRatingPercentUnique__22
+ColdResistUnique__45
+UnarmedAddedColdDamageUnique__1
+AttackSpeedIfUsedAttackMovementSkillRecentlyUnique__1
+CanUseClawAttacksWhileUnarmedUnique__1
 ]]
 }

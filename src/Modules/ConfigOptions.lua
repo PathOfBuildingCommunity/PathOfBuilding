@@ -475,6 +475,10 @@ return {
 	{ var = "Disgorged", type = "check", label = "Is Disgorge active?", ifSkill = "Gluttony", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:Disgorged", "FLAG", true, "Config")
 	end },
+	{ label = "Goreblossom:", ifSkill = "Goreblossom" },
+	{ var = "goreblossomBlooms", type = "count", label = "# of Blooms nearby (if not maximum):", ifSkill = "Goreblossom", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:GoreblossomBloom", "OVERRIDE", val, "Config", { type = "Condition", var = "Combat" })
+	end },
 	{ label = "Greater Harbinger of Time:", ifSkill =  "Summon Greater Harbinger of Time" },
 	{ var = "greaterHarbingerOfTimeSlipstream", type = "check", label = "Is Slipstream active?:", ifSkill =  "Summon Greater Harbinger of Time", tooltip = "Greater Harbinger of Time Slipstream buff grants:\n10% increased Action Speed\nBuff affects the player and allies\nBuff has a base duration of 8s with a 10s Cooldown", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:GreaterHarbingerOfTime", "FLAG", true, "Config")
@@ -760,6 +764,10 @@ return {
 	end },
 	{ var = "multiplierWoCExpiredDuration", type = "count", label = "% Wave of Conviction duration expired:", ifMod = "WaveOfConvictionDurationDotMulti", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:WoCDurationExpired", "BASE", m_min(val, 100), "Config", { type = "Condition", var = "Effective" })
+	end },
+	{ label = "Witchhunter's Pyre:", ifSkill = "Witchhunter's Pyre" },
+	{ var = "witchhuntersPyreBurningDebuffs", type = "count", label = "# of burning debuffs on enemy:", ifSkill = "Witchhunter's Pyre", tooltip = "Bonfires fire an additional projectile at a target for each burning debuff on it after the first.", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:WitchhuntersPyreAdditionalBurningDebuff", "BASE", m_max(val - 1, 0), "Config", { type = "Condition", var = "Effective" })
 	end },
 	{ var = "absolutionSkillDamageCountedOnce", type = "check", label = "Absolution: Count skill damage once", ifSkill = "Absolution", includeTransfigured = true, tooltip = "Your Absolution Skill Damage will not be scaled with Count setting.\nBy default it multiplies both minion count and skill hit count which leads to incorrect\nTotal DPS calculation since Absolution cannot inherently shotgun.\nDo not enable if you use Spell Totem support, Spell Cascade support or similar supports", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:AbsolutionSkillDamageCountedOnce", "FLAG", true, "Config", { type = "Condition", var = "Combat" })

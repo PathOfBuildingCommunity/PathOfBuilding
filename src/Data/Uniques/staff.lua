@@ -92,7 +92,7 @@ Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Alluring Abys
 Implicits: 2
 {variant:2,3}+25% Chance to Block Attack Damage
 {variant:1}+20% Chance to Block Spell Damage
-Grants Queen's Demand
+Grants Level 20 Queen's Demand
 Queen's Demand can Trigger Level 20 Flames of Judgement
 Queen's Demand can Trigger Level 20 Storm of Judgement
 {variant:3}(100-300)% increased Spell Critical Strike Chance
@@ -319,24 +319,45 @@ Grants Summon Greater Harbinger of Brutality
 ]],[[
 Femurs of the Saints
 Primordial Staff
-Variant: Pre 2.6.0
-Variant: Pre 3.8.0
-Variant: Pre 3.25.0
-Variant: Current
+Version: Pre 2.6.0
+Version: Pre 3.8.0
+Version: Pre 3.25.0
+Version: Pre 3.30.0
+Version: Current
+Variant: Minion Damage per Spectre
+Variant: Spell Damage per Skeleton
+Variant: Attack Damage per Zombie
+Variant: Block per Skeleton
+Variant: Life Regen per Zombie
+Variant: Mana Regen per Spectre
+Variant: Speed per Raging Spirit
+Selected Variant Group: 1=1
+Selected Variant Group: 2=2
+Selected Variant Group: 3=3
+Selected Variant Group: 4=4
 Implicits: 3
-{variant:1}+12% Chance to Block Attack Damage
-{variant:2,3}+18% Chance to Block Attack Damage
-{variant:4}+25% Chance to Block Spell Damage
-+(2-3) to Level of Socketed Minion Gems
-{variant:3,4}Minions deal (80-100)% increased Damage
-{variant:1,2}Minions Regenerate (1.5-2.5)% of Life per second
-{variant:1,2}2% increased Minion Attack and Cast Speed per Skeleton you own
-{variant:1,2}2% increased Minion Duration per Raised Zombie
-{variant:1,2}(10-15)% increased Minion Damage per Raised Spectre
-{variant:3,4}+(1-2)% Chance to Block Attack Damage per Summoned Skeleton
-{variant:3,4}(3-5)% increased Attack and Cast Speed per Summoned Raging Spirit
-{variant:3,4}Regenerate (0.8-1)% of Life per second for each Raised Zombie
-{variant:3,4}(40-60)% increased Mana Regeneration Rate per Raised Spectre
+{version:1}+12% Chance to Block Attack Damage
+{version:2,3}+18% Chance to Block Attack Damage
+{version:4,5}+25% Chance to Block Spell Damage
+{version:1,2,3,4}+2 to Level of Socketed Minion Gems
+{version:5}+(2-3) to Level of Socketed Minion Gems
+{version:3,4}Minions deal (60-80)% increased Damage
+{version:5}Minions deal (80-100)% increased Damage
+{version:1,2}Minions Regenerate (1.5-2.5)% of Life per second
+{version:1,2}2% increased Minion Attack and Cast Speed per Skeleton you own
+{version:1,2}2% increased Minion Duration per Raised Zombie
+{version:1,2}(10-15)% increased Minion Damage per Raised Spectre
+{version:5}{variant:1}{group:1,2,3,4}(10-15)% increased Minion Damage per Raised Spectre
+{version:5}{variant:2}{group:1,2,3,4}(12-18)% increased Spell Damage per Summoned Skeleton
+{version:5}{variant:3}{group:1,2,3,4}(16-24)% increased Attack Damage per Raised Zombie
+{version:3,4}+1% Chance to Block Attack Damage per Summoned Skeleton
+{version:5}{variant:4}{group:1,2,3,4}+(1-2)% Chance to Block Attack Damage per Summoned Skeleton
+{version:3,4}2% increased Attack and Cast Speed per Summoned Raging Spirit
+{version:5}{variant:7}{group:1,2,3,4}(3-5)% increased Attack and Cast Speed per Summoned Raging Spirit
+{version:3,4}Regenerate 0.6% of Life per second for each Raised Zombie
+{version:5}{variant:5}{group:1,2,3,4}Regenerate (0.8-1)% of Life per second for each Raised Zombie
+{version:3,4}30% increased Mana Regeneration Rate per Raised Spectre
+{version:5}{variant:6}{group:1,2,3,4}(40-60)% increased Mana Regeneration Rate per Raised Spectre
 ]],[[
 Fencoil
 Gnarled Branch
@@ -731,7 +752,7 @@ Implicits: 3
 {variant:2}+18% Chance to Block Attack Damage
 {variant:3}+20% Chance to Block Attack Damage
 +1 to Level of Socketed Support Gems
-Grants Icestorm
+Grants Level 1 Icestorm
 (14-18)% increased Intelligence
 (8-12)% increased Cast Speed
 1% increased Spell Damage per 10 Intelligence
@@ -746,7 +767,7 @@ Requires Level 68
 Implicits: 2
 {variant:1}+18% Chance to Block Attack Damage
 {variant:2}+22% Chance to Block Spell Damage
-Grants Brandsurge
+Grants Level 20 Brandsurge
 Brand Skills have (50-100)% increased Duration
 ]],[[
 The Geomantic Gyre
@@ -793,5 +814,16 @@ Requires Level 68
 Implicits: 1
 +22% Chance to Block Attack Damage
 (60-90)% increased Unveiled Modifier magnitudes
+]],[[
+Bane of the Apostate
+Judgement Staff
+League: Covens
+Source: Drops from unique{The Coven Queen}
+Implicits: 1
++25% Chance to Block Attack Damage
+Grants Level 20 Witchhunter's Pyre
+(150-220)% increased Fire Damage
+(35-50)% increased Area of Effect
+(20-30)% increased Skill Effect Duration
 ]]
 }

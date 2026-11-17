@@ -377,12 +377,23 @@ Implicits: 1
 ]],[[
 Doedre's Tongue
 Lapis Amulet
+Version: Pre 3.30.0
+Version: Current
+Variant: Ignite
+Variant: Shock
+Variant: Freeze
+Selected Variant Group: 1=3
 Requires Level 24
 Implicits: 1
 {tags:attribute}+(20-30) to Intelligence
-{tags:resistance}+(30-35)% to all Elemental Resistances
-(25-50)% chance to Freeze, Shock and Ignite
+{version:1}{tags:resistance}+(20-25)% to all Elemental Resistances
+{version:2}{tags:resistance}+(30-35)% to all Elemental Resistances
+{version:1}(20-25)% chance to Freeze, Shock and Ignite
+{version:2}(25-50)% chance to Freeze, Shock and Ignite
 Cursed Enemies cannot inflict Elemental Ailments on You
+{version:2}{variant:1}{group:1}All Damage can Ignite against Cursed Enemies
+{version:2}{variant:2}{group:1}All Damage can Shock against Cursed Enemies
+{version:2}{variant:3}{group:1}All Damage can Freeze against Cursed Enemies
 ]],[[
 Extractor Mentis
 Agate Amulet
@@ -1160,7 +1171,7 @@ Requires Level 28
 Implicits: 1
 {tags:resistance}+(20-30)% to Fire Resistance
 {variant:3}Grants Level 10 Frostblink
-{variant:1,2}Grants Illusory Warp
+{variant:1,2}Grants Level 20 Illusory Warp
 {tags:elemental_damage}(30-50)% increased Cold Damage
 {tags:resistance}+(10-15)% to all Elemental Resistances
 {variant:1}{tags:caster}30% increased Area of Effect of Hex Skills

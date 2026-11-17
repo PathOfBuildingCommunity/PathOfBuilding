@@ -21,6 +21,9 @@ return function(itemBases)
 #subType Timeless
 #base Metadata/Items/Jewels/JewelTimeless
 
+#subType Blightcore
+#base Metadata/Items/Jewels/JewelBlighted
+
 #subType Charm
 #base Metadata/Items/AnimalCharms/StrAnimalCharm
 #base Metadata/Items/AnimalCharms/DexAnimalCharm
