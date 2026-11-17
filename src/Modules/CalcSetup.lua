@@ -84,7 +84,7 @@ function calcs.initModDB(env, modDB)
 	modDB:NewMod("Damage", "MORE", -10, "Base", { type = "Condition", var = "Debilitated"}, { type = "GlobalEffect", effectName = "Debilitated", effectType = "Debuff"})
 	modDB:NewMod("MovementSpeed", "MORE", -20, "Base", { type = "Condition", var = "Debilitated"}, { type = "GlobalEffect", effectName = "Debilitated", effectType = "Debuff"})
 	modDB:NewMod("Damage", "MORE", -10, "Base", { type = "Condition", var = "MalignantMadness"}, { type = "GlobalEffect", effectName = "Malignant Madness", effectType = "Debuff"})
-	modDB:NewMod("ActionSpeed", "MORE", -10, "Base", { type = "Condition", var = "MalignantMadness"}, { type = "GlobalEffect", effectName = "Malignant Madness", effectType = "Debuff"})
+	modDB:NewMod("ActionSpeed", "INC", -10, "Base", { type = "Condition", var = "MalignantMadness"}, { type = "GlobalEffect", effectName = "Malignant Madness", effectType = "Debuff"})
 	modDB:NewMod("Condition:Burning", "FLAG", true, "Base", { type = "IgnoreCond" }, { type = "Condition", var = "Ignited" })
 	modDB:NewMod("Condition:Poisoned", "FLAG", true, "Base", { type = "IgnoreCond" }, { type = "MultiplierThreshold", var = "PoisonStack", threshold = 1 })
 	modDB:NewMod("Blind", "FLAG", true, "Base", { type = "Condition", var = "Blinded" })
@@ -1827,6 +1827,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 				for gemIndex, gemInstance in ipairs(group.gemList) do
 					if gemInstance.enabled and (gemInstance.gemData or gemInstance.grantedEffect) then
 						local grantedEffectList = gemInstance.gemData and gemInstance.gemData.grantedEffectList or { gemInstance.grantedEffect }
+						local gemSkill
 						for index, grantedEffect in ipairs(grantedEffectList) do
 							if not grantedEffect.support and not grantedEffect.unsupported and (not grantedEffect.hasGlobalEffect or gemInstance["enableGlobal"..index]) then
 								slotHasActiveSkill = true
@@ -1914,6 +1915,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 								if gemInstance.gemData then
 									activeSkill.slotName = groupCfg.slotName
 								end
+								gemSkill = gemSkill or activeSkill
 								t_insert(socketGroupSkillList, activeSkill)
 								t_insert(env.player.activeSkillList, activeSkill)
 							end
@@ -1925,6 +1927,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 								Str = gemInstance.reqOverride or gemInstance.reqStr,
 								Dex = gemInstance.reqOverride or gemInstance.reqDex,
 								Int = gemInstance.reqOverride or gemInstance.reqInt,
+								sourceSkill = gemSkill,
 							})
 						end
 					end

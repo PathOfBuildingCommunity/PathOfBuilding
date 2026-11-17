@@ -2151,10 +2151,11 @@ function calcs.perform(env, skipEHP)
 			local out = {val = 0, source = nil}
 			for _, reqSource in ipairs(env.requirementsTable) do
 				if reqSource[attr] and reqSource[attr] > 0 then
-					local req = m_floor(reqSource[attr] * reqMult)
+					local sourceSkill = reqSource.sourceSkill
+					local req = m_floor(reqSource[attr] * (sourceSkill and calcLib.mod(sourceSkill.skillModList, sourceSkill.skillCfg, "GlobalAttributeRequirements") or reqMult))
 					if omniRequirements then
 						local omniReqMult = 1 / (omniRequirements - 1)
-						local attributereq =  m_floor(reqSource[attr] * reqMult)
+						local attributereq = req
 						req = m_floor(attributereq * omniReqMult)
 					end
 					if req > out.val then
