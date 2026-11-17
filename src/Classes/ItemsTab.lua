@@ -296,35 +296,26 @@ function ItemsTabClass:ItemsTab(build)
 
 	-- Database selector
 	self.controls.selectDBLabel = new("LabelControl"):LabelControl({"TOPLEFT",self.controls.itemList,"BOTTOMLEFT"}, {0, 14, 0, 16}, "^7Import from:")
-	self.controls.selectDBLabel.shown = function()
-		return self.height < 980
-	end
 	self.controls.selectDB = new("DropDownControl"):DropDownControl({"LEFT",self.controls.selectDBLabel,"RIGHT"}, {4, 0, 150, 18}, { "Uniques", "Rare Templates", "Viscera" })
 
 	-- Unique database
 	self.controls.uniqueDB = new("ItemDBControl"):ItemDBControl({"TOPLEFT",self.controls.itemList,"BOTTOMLEFT"}, {0, 76, 360, function(c) return m_min(244, self.maxY - select(2, c:GetPos())) end}, self, main.uniqueDB, "UNIQUE")
-	self.controls.uniqueDB.y = function()
-		return self.controls.selectDBLabel:IsShown() and 118 or 96
-	end
+	self.controls.uniqueDB.y = 118
 	self.controls.uniqueDB.shown = function()
-		return not self.controls.selectDBLabel:IsShown() or self.controls.selectDB.selIndex == 1
+		return self.controls.selectDB.selIndex == 1
 	end
 
 	-- Rare template database
 	self.controls.rareDB = new("ItemDBControl"):ItemDBControl({"TOPLEFT",self.controls.itemList,"BOTTOMLEFT"}, {0, 76, 360, function(c) return m_min(260, self.maxY - select(2, c:GetPos())) end}, self, main.rareDB, "RARE")
-	self.controls.rareDB.y = function()
-		return self.controls.selectDBLabel:IsShown() and 78 or 396
-	end
+	self.controls.rareDB.y = 78
 	self.controls.rareDB.shown = function()
-		return not self.controls.selectDBLabel:IsShown() or self.controls.selectDB.selIndex == 2
+		return self.controls.selectDB.selIndex == 2
 	end
 	-- Viscera database
 	self.controls.visceraDB = new("ItemDBControl"):ItemDBControl({"TOPLEFT",self.controls.itemList,"BOTTOMLEFT"}, {0, 76, 360, function(c) return m_min(260, self.maxY - select(2, c:GetPos())) end}, self, main.visceraDB, "RARE")
-	self.controls.visceraDB.y = function()
-		return self.controls.selectDBLabel:IsShown() and 78 or 396
-	end
+	self.controls.visceraDB.y = 78
 	self.controls.visceraDB.shown = function()
-		return not self.controls.selectDBLabel:IsShown() or self.controls.selectDB.selIndex == 3
+		return self.controls.selectDB.selIndex == 3
 	end
 	-- Create/import item
 	self.controls.craftDisplayItem = new("ButtonControl"):ButtonControl({"TOPLEFT",main.portraitMode and self.controls.setManage or self.controls.itemList,"TOPRIGHT"}, {20, main.portraitMode and 0 or -20, 120, 20}, "Craft item...", function()
