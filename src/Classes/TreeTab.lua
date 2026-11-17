@@ -17,8 +17,6 @@ local m_abs = math.abs
 local s_format = string.format
 local tradeHelpers = require("Classes.TradeHelpers")
 local WeightedScore = LoadModule("Modules/WeightedScore")
-local s_gsub = string.gsub
-local s_byte = string.byte
 local dkjson = require "dkjson"
 
 ---@class TreeTab: ControlHost

@@ -10,6 +10,7 @@ local m_max = math.max
 local m_floor = math.floor
 local WeightedScore = LoadModule("Modules/WeightedScore")
 
+
 ---@class ItemDBControl: ListControl
 local ItemDBClass = newClass("ItemDBControl", "ListControl")
 
