@@ -232,4 +232,128 @@ Implicits: 0]])
 		end)
 	end
 
+	it("keeps Wickerman items separate through import and save/load", function()
+		-- Live OAuth structure and Lesser names; IDs and boundary-case rolls are synthetic.
+		local examples = {
+			{ "Ravenous Skull", "Ravenous Skull", "Head", "Every 3 seconds, Consume a Corpse within 5 metres to Recover 4% of Life" },
+			{ "Lesser Warden's Arm", "Warden's Arm", "Arm", "+43 to maximum Life" },
+			{ "Greater Sirus' Head", "Sirus' Head", "Head", "+10 to Strength" },
+			{ "Lesser Blackened Lungs", "Blackened Lungs", "Body", "12% increased Warcry Speed", "VisceraBody" },
+			{ "Lesser Pocked Leg", "Pocked Leg", "Leg", "20% increased Armour from Equipped Helmet and Gloves", "VisceraLeg" },
+			{ "Artificial Appendage", "Artificial Appendage", "Arm", "25% increased Effect of Chill" },
+			{ "Artificial Appendage", "Artificial Appendage", "Arm", "18% increased Area of Effect for Attacks" },
+			{ "Artificial Appendage", "Artificial Appendage", "Arm", "Minions have 30% increased Critical Strike Chance" },
+		}
+		local equipped, items = { }, { }
+		for i, example in ipairs(examples) do
+			local slot = example[2]
+			local item = { id = "synthetic-wickerman-" .. i, name = "", typeLine = example[1], baseType = example[1], frameType = 15, ilvl = 83,
+				inventoryId = example[5] or (example[2] == "Head" and "VisceraHead" or "VisceraArm"), implicitMods = { { description = example[4] } } }
+			table.insert(items, item)
+			equipped[slot] = item.id
+		end
+		local character = { level = 80, equipment = { }, wickerman = items }
+		build.importTab:ImportItemsAndSkills(character, true, false)
+		build.importTab:ImportItemsAndSkills(character, false, false) -- Replace only matching IDs.
+		loadBuildFromXML(build:SaveDB("code"))
+		assert.equals(#examples, #build.itemsTab.itemOrderList)
+		for i, example in ipairs(examples) do
+			local item = build.itemsTab.items[build.itemsTab.itemOrderList[i]]
+			assert.equals("synthetic-wickerman-" .. i, item.uniqueID)
+			assert.equals(example[2], item.baseName)
+			assert.equals("NORMAL", item.rarity)
+			assert.equals("Viscera", item.type)
+			assert.equals(example[4], item.implicitModLines[1].line)
+		end
+  end)
+	local function characterWithImbuedSupport(name)
+		local character = copyTable(sampleData, true)
+		for _, item in ipairs(character.equipment) do
+			if item.inventoryId == "BodyArmour" then
+				local gem = item.socketedItems[1]
+				gem.builtInSupport = "Supported by Level 1 " .. name
+				return character, gem
+			end
+		end
+		error("Sample character has no body armour")
+	end
+
+	local function bodyArmourGroup()
+		for index, group in ipairs(build.skillsTab.socketGroupList) do
+			if group.slot == "Body Armour" then
+				return group, index
+			end
+		end
+		error("Imported character has no body armour skill group")
+	end
+
+	for _, example in ipairs({
+		{ "Added Fire Damage", "Added Fire Damage", true },
+		{ "Added Fire Damage Support", "Added Fire Damage", true },
+		{ "Barrage Support", "Barrage Support", true },
+		{ "[SupportVolatility|Volatility]", "Volatility", true },
+		{ "Unknown Example", "Unknown Example", false },
+	}) do
+		it("imports and reloads an imbued support: " .. example[1], function()
+			local character = characterWithImbuedSupport(example[1])
+			build.importTab:ImportItemsAndSkills(character, true, true)
+			local function checkGroup()
+				local group = bodyArmourGroup()
+				assert.equals(example[2], group.imbuedSupport)
+				build.skillsTab:SetDisplayGroup(group)
+				assert.equals(example[3], build.skillsTab.imbuedSupportBySlot[group.slot] ~= nil)
+			end
+			checkGroup()
+			loadBuildFromXML(build:SaveDB("code"))
+			checkGroup()
+		end)
+	end
+
+	it("repairs saved imbued support markup and applies the support", function()
+		local character = characterWithImbuedSupport("[SupportVolatility|Volatility]")
+		build.importTab:ImportItemsAndSkills(character, true, true)
+		local xml = build:SaveDB("code")
+		xml = xml:gsub('imbuedSupport="[^"]+"', 'imbuedSupport="[SupportVolatility|Volatility]"', 1)
+		loadBuildFromXML(xml)
+		local group, groupIndex = bodyArmourGroup()
+		assert.equals("Volatility", group.imbuedSupport)
+		build.mainSocketGroup = groupIndex
+		build.buildFlag = true
+		runCallback("OnFrame")
+		local found
+		for _, support in ipairs(build.calcsTab.mainEnv.player.mainSkill.supportList) do
+			if support.grantedEffect.id == "SupportVolatility" then
+				found = support
+				break
+			end
+		end
+		assert.is_not_nil(found)
+		assert.equals(1, found.level)
+	end)
+
+	it("updates imbued support when reimporting an existing skill group", function()
+		local character, socketedGem = characterWithImbuedSupport("Added Fire Damage")
+		build.importTab:ImportItemsAndSkills(character, true, true)
+		local group = bodyArmourGroup()
+		build.skillsTab:SetDisplayGroup(group)
+		socketedGem.builtInSupport = "Supported by Level 1 [UnknownSupport|Unknown Example]"
+		build.importTab:ImportItemsAndSkills(character, false, false)
+		assert.equals("Unknown Example", group.imbuedSupport)
+		assert.equals("Unknown Example", build.skillsTab.controls.imbuedSupport.buf)
+		assert.is_nil(build.skillsTab.imbuedSupportBySlot[group.slot])
+		build.skillsTab:SetDisplayGroup(nil)
+		socketedGem.builtInSupport = "Supported by Level 1 [SupportVolatility|Volatility]"
+		build.importTab:ImportItemsAndSkills(character, false, false)
+		assert.equals("Volatility", group.imbuedSupport)
+		assert.equals("SupportVolatility", build.skillsTab.imbuedSupportBySlot[group.slot].id)
+		build.skillsTab:SetDisplayGroup(group)
+		assert.equals("Volatility", build.skillsTab.controls.imbuedSupport.buf)
+
+		group.slot, group.imbuedSupport = nil, nil
+		build.skillsTab:SetDisplayGroup(nil)
+		build.importTab:ImportItemsAndSkills(character, false, false)
+		assert.is_nil(group.slot)
+		assert.is_nil(group.imbuedSupport)
+	end)
+
 end)

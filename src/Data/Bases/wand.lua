@@ -2,6 +2,7 @@
 -- Item data (c) Grinding Gear Games
 return function(itemBases)
 itemBases["Driftwood Wand"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/Wands/Wand1",
 	type = "Wand",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, ranged = true, wand = true, wand_can_roll_caster_modifiers = true, weapon = true, },
@@ -13,6 +14,7 @@ itemBases["Driftwood Wand"] = {
 	req = { int = 14, },
 }
 itemBases["Goat's Horn"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/Wands/Wand2",
 	type = "Wand",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, ranged = true, wand = true, wand_can_roll_caster_modifiers = true, weapon = true, },
@@ -24,6 +26,7 @@ itemBases["Goat's Horn"] = {
 	req = { level = 6, int = 29, },
 }
 itemBases["Carved Wand"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/Wands/Wand3",
 	type = "Wand",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, ranged = true, wand = true, wand_can_roll_caster_modifiers = true, weapon = true, },
@@ -35,6 +38,7 @@ itemBases["Carved Wand"] = {
 	req = { level = 12, int = 47, },
 }
 itemBases["Quartz Wand"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/Wands/Wand4",
 	type = "Wand",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, ranged = true, wand = true, wand_can_roll_caster_modifiers = true, weapon = true, },
@@ -46,6 +50,7 @@ itemBases["Quartz Wand"] = {
 	req = { level = 18, int = 65, },
 }
 itemBases["Spiraled Wand"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/Wands/Wand5",
 	type = "Wand",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, ranged = true, wand = true, wand_can_roll_caster_modifiers = true, weapon = true, },
@@ -57,6 +62,7 @@ itemBases["Spiraled Wand"] = {
 	req = { level = 24, int = 83, },
 }
 itemBases["Sage Wand"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/Wands/Wand6",
 	type = "Wand",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, ranged = true, wand = true, wand_can_roll_caster_modifiers = true, weapon = true, },
@@ -68,6 +74,7 @@ itemBases["Sage Wand"] = {
 	req = { level = 30, int = 119, },
 }
 itemBases["Pagan Wand"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/Wands/WandM1",
 	type = "Wand",
 	socketLimit = 3,
 	tags = { default = true, maraketh = true, not_for_sale = true, one_hand_weapon = true, onehand = true, ranged = true, wand = true, wand_can_roll_caster_modifiers = true, weapon = true, },
@@ -79,6 +86,7 @@ itemBases["Pagan Wand"] = {
 	req = { level = 34, int = 118, },
 }
 itemBases["Faun's Horn"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/Wands/Wand7",
 	type = "Wand",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, ranged = true, wand = true, wand_can_roll_caster_modifiers = true, weapon = true, },
@@ -90,6 +98,7 @@ itemBases["Faun's Horn"] = {
 	req = { level = 35, int = 116, },
 }
 itemBases["Engraved Wand"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/Wands/Wand8",
 	type = "Wand",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, ranged = true, wand = true, wand_can_roll_caster_modifiers = true, weapon = true, },
@@ -101,6 +110,7 @@ itemBases["Engraved Wand"] = {
 	req = { level = 40, int = 131, },
 }
 itemBases["Crystal Wand"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/Wands/Wand9",
 	type = "Wand",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, ranged = true, wand = true, wand_can_roll_caster_modifiers = true, weapon = true, },
@@ -112,6 +122,7 @@ itemBases["Crystal Wand"] = {
 	req = { level = 45, int = 146, },
 }
 itemBases["Coiled Wand"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/Wands/Wand10",
 	type = "Wand",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, ranged = true, wand = true, wand_can_roll_caster_modifiers = true, weapon = true, },
@@ -123,6 +134,7 @@ itemBases["Coiled Wand"] = {
 	req = { level = 49, int = 158, },
 }
 itemBases["Omen Wand"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/Wands/Wand11",
 	type = "Wand",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, ranged = true, wand = true, wand_can_roll_caster_modifiers = true, weapon = true, },
@@ -134,6 +146,7 @@ itemBases["Omen Wand"] = {
 	req = { level = 53, int = 200, },
 }
 itemBases["Heathen Wand"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/Wands/WandM2",
 	type = "Wand",
 	socketLimit = 3,
 	tags = { default = true, maraketh = true, not_for_sale = true, one_hand_weapon = true, onehand = true, ranged = true, wand = true, wand_can_roll_caster_modifiers = true, weapon = true, },
@@ -145,6 +158,7 @@ itemBases["Heathen Wand"] = {
 	req = { level = 55, int = 184, },
 }
 itemBases["Demon's Horn"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/Wands/Wand12",
 	type = "Wand",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, ranged = true, wand = true, wand_can_roll_caster_modifiers = true, weapon = true, },
@@ -156,6 +170,7 @@ itemBases["Demon's Horn"] = {
 	req = { level = 56, int = 179, },
 }
 itemBases["Imbued Wand"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/Wands/Wand13",
 	type = "Wand",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, ranged = true, wand = true, wand_can_roll_caster_modifiers = true, weapon = true, },
@@ -167,6 +182,7 @@ itemBases["Imbued Wand"] = {
 	req = { level = 59, int = 188, },
 }
 itemBases["Opal Wand"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/Wands/Wand14",
 	type = "Wand",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, ranged = true, top_tier_base_item_type = true, wand = true, wand_can_roll_caster_modifiers = true, weapon = true, },
@@ -178,6 +194,7 @@ itemBases["Opal Wand"] = {
 	req = { level = 62, int = 212, },
 }
 itemBases["Tornado Wand"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/Wands/Wand15",
 	type = "Wand",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, ranged = true, top_tier_base_item_type = true, wand = true, wand_can_roll_caster_modifiers = true, weapon = true, },
@@ -189,6 +206,7 @@ itemBases["Tornado Wand"] = {
 	req = { level = 65, int = 212, },
 }
 itemBases["Prophecy Wand"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/Wands/Wand16",
 	type = "Wand",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, ranged = true, top_tier_base_item_type = true, wand = true, wand_can_roll_caster_modifiers = true, weapon = true, },
@@ -200,6 +218,7 @@ itemBases["Prophecy Wand"] = {
 	req = { level = 68, int = 245, },
 }
 itemBases["Profane Wand"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/Wands/WandM3",
 	type = "Wand",
 	socketLimit = 3,
 	tags = { default = true, maraketh = true, not_for_sale = true, one_hand_weapon = true, onehand = true, ranged = true, wand = true, wand_can_roll_caster_modifiers = true, weapon = true, },
@@ -211,6 +230,7 @@ itemBases["Profane Wand"] = {
 	req = { level = 70, int = 237, },
 }
 itemBases["Assembler Wand"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/Wands/WandE1",
 	type = "Wand",
 	socketLimit = 3,
 	tags = { default = true, experimental_base = true, not_for_sale = true, one_hand_weapon = true, onehand = true, ranged = true, wand = true, wand_can_roll_caster_modifiers = true, weapon = true, },
@@ -222,6 +242,7 @@ itemBases["Assembler Wand"] = {
 	req = { level = 30, int = 101, },
 }
 itemBases["Congregator Wand"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/Wands/WandE2",
 	type = "Wand",
 	socketLimit = 3,
 	tags = { default = true, experimental_base = true, not_for_sale = true, one_hand_weapon = true, onehand = true, ranged = true, wand = true, wand_can_roll_caster_modifiers = true, weapon = true, },
@@ -233,6 +254,7 @@ itemBases["Congregator Wand"] = {
 	req = { level = 50, int = 168, },
 }
 itemBases["Accumulator Wand"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/Wands/WandE3",
 	type = "Wand",
 	socketLimit = 3,
 	tags = { default = true, experimental_base = true, not_for_sale = true, one_hand_weapon = true, onehand = true, ranged = true, wand = true, wand_can_roll_caster_modifiers = true, weapon = true, },
@@ -244,6 +266,7 @@ itemBases["Accumulator Wand"] = {
 	req = { level = 70, int = 237, },
 }
 itemBases["Somatic Wand"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/Wands/WandK1",
 	type = "Wand",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, ranged = true, wand = true, weapon = true, },
@@ -255,6 +278,7 @@ itemBases["Somatic Wand"] = {
 	req = { level = 12, int = 47, },
 }
 itemBases["Blasting Wand"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/Wands/WandK2",
 	type = "Wand",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, ranged = true, wand = true, weapon = true, },
@@ -266,6 +290,7 @@ itemBases["Blasting Wand"] = {
 	req = { level = 40, int = 131, },
 }
 itemBases["Kinetic Wand"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/Wands/WandK3",
 	type = "Wand",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, ranged = true, top_tier_base_item_type = true, wand = true, weapon = true, },
@@ -278,6 +303,7 @@ itemBases["Kinetic Wand"] = {
 }
 
 itemBases["Convoking Wand"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/Wands/WandAtlas1",
 	type = "Wand",
 	socketLimit = 3,
 	tags = { atlas_base_type = true, default = true, one_hand_weapon = true, onehand = true, ranged = true, top_tier_base_item_type = true, wand = true, wand_can_roll_caster_modifiers = true, wandatlas1 = true, weapon = true, weapon_can_roll_minion_modifiers = true, },
@@ -290,6 +316,7 @@ itemBases["Convoking Wand"] = {
 }
 
 itemBases["Calling Wand"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/Wands/WandMinion1",
 	type = "Wand",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, ranged = true, wand = true, wand_can_roll_caster_modifiers = true, weapon = true, weapon_can_roll_minion_modifiers = true, },
@@ -302,6 +329,7 @@ itemBases["Calling Wand"] = {
 }
 
 itemBases["Convening Wand"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/Wands/WandMinion2",
 	type = "Wand",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, ranged = true, wand = true, wand_can_roll_caster_modifiers = true, weapon = true, weapon_can_roll_minion_modifiers = true, },

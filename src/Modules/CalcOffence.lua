@@ -3171,6 +3171,9 @@ function calcs.offence(env, actor, activeSkill)
 					if skillModList:Flag(skillCfg, "Every5UseCrit") then
 						output.CritChance = (4 * output.CritChance + 100) / 5
 					end
+					if skillModList:Flag(skillCfg, "Every6UseCrit") then
+						output.CritChance = (5 * output.CritChance + 100) / 6
+					end
 					preHitCheckCritChance = output.CritChance
 					output.CritChance = output.CritChance * output.AccuracyHitChance / 100
 				end
@@ -3216,7 +3219,10 @@ function calcs.offence(env, actor, activeSkill)
 						if skillModList:Flag(skillCfg, "Every5UseCrit") then
 							t_insert(breakdown.CritChance, s_format("+ %.2f%% ^8(crit every 5th use)", (4 * preSkillUseCritChance + 100) / 5 - preSkillUseCritChance))
 						end
-						if skillModList:Flag(skillCfg, "Every3UseCrit") or skillModList:Flag(skillCfg, "Every5UseCrit") then
+						if skillModList:Flag(skillCfg, "Every6UseCrit") then
+							t_insert(breakdown.CritChance, s_format("+ %.2f%% ^8(crit every 6th use)", (5 * preSkillUseCritChance + 100) / 6 - preSkillUseCritChance))
+						end
+						if skillModList:Flag(skillCfg, "Every3UseCrit") or skillModList:Flag(skillCfg, "Every5UseCrit") or skillModList:Flag(skillCfg, "Every6UseCrit") then
 							t_insert(breakdown.CritChance, s_format("= %.2f%%", preHitCheckCritChance))
 						end
 					end
@@ -3264,6 +3270,9 @@ function calcs.offence(env, actor, activeSkill)
 					end
 					if skillModList:Flag(skillCfg, "Every5UseCrit") then
 						bifurcateUseChance = bifurcateUseChance * 4 / 5
+					end
+					if skillModList:Flag(skillCfg, "Every6UseCrit") then
+						bifurcateUseChance = bifurcateUseChance * 5 / 6
 					end
 					bifurcateMultiChance = bifurcateMultiChance * bifurcateUseChance
 					local conditionalBifurcateChance = effectiveCritChance > 0 and bifurcateMultiChance / effectiveCritChance or 0
@@ -3494,20 +3503,24 @@ function calcs.offence(env, actor, activeSkill)
 						damageTypeLuckyChance = damageTypeLuckyChance - 1
 					end
 					local rolls = damageTypeLuckyChance
+					-- Extra rolls when lucky, separate from the chance as partially lucky hits are averaged
+					local luckRolls = 1
 					if skillModList:Flag(skillCfg, "ExtremeLuck") then
 						rolls = rolls * 2
+						luckRolls = 2
 					end
 					if skillModList:Flag(skillCfg, "Unexciting") then
 						rolls = 0
+						luckRolls = 0
 					end
 					output.DamageRolls = rolls
 					if pass == 1 then
 						output.CritDamageRolls = rolls
 					end
-					rolls = m_abs(rolls) + 2
-					damageTypeHitAvgNotLucky = (damageTypeHitMin / rolls + damageTypeHitMax / rolls)
-					damageTypeHitAvgLucky = (damageTypeHitMin / rolls + (rolls - 1) * damageTypeHitMax / rolls)
-					damageTypeHitAvgUnlucky = ((rolls - 1) * damageTypeHitMin / rolls + damageTypeHitMax / rolls)
+					luckRolls = luckRolls + 2
+					damageTypeHitAvgNotLucky = (damageTypeHitMin + damageTypeHitMax) / 2
+					damageTypeHitAvgLucky = (damageTypeHitMin + (luckRolls - 1) * damageTypeHitMax) / luckRolls
+					damageTypeHitAvgUnlucky = ((luckRolls - 1) * damageTypeHitMin + damageTypeHitMax) / luckRolls
 					if damageTypeLuckyChance >= 0 then
 						damageTypeHitAvg = damageTypeHitAvgNotLucky * (1 - damageTypeLuckyChance) + damageTypeHitAvgLucky * damageTypeLuckyChance
 					else
@@ -3593,7 +3606,8 @@ function calcs.offence(env, actor, activeSkill)
 								pen = skillModList:Sum("BASE", cfg, "ChaosPenetration")
 							end
 						end
-						local invertChanceEle = m_max(m_min(skillModList:Sum("CHANCE", cfg, "HitsInvertEleResChance"), 1), 0)
+						-- Include the matching element-specific resistance inversion chance when calculating hit damage.
+						local invertChanceEle = m_max(m_min(skillModList:Sum("CHANCE", cfg, "HitsInvertEleResChance", "HitsInvert"..damageType.."ResChance"), 1), 0)
 						local invertChanceChaos = m_max(m_min(skillModList:Sum("CHANCE", cfg, "HitsInvertChaosResChance"), 1), 0)
 						local invertChance = (isElemental[damageType] and invertChanceEle) or (damageType == "Chaos" and invertChanceChaos) or 0
 						sourceRes = env.modDB:Flag(nil, "Enemy"..sourceRes.."ResistEqualToYours") and "Your "..sourceRes.." Resistance" or (env.partyMembers.modDB:Flag(nil, "Enemy"..sourceRes.."ResistEqualToYours") and "Party Member "..sourceRes.." Resistance" or sourceRes)
@@ -5413,11 +5427,12 @@ function calcs.offence(env, actor, activeSkill)
 			local incChillDuration = skillModList:Sum("INC", cfg, "EnemyChillDuration", "EnemyAilmentDuration", "EnemyElementalAilmentDuration") + enemyDB:Sum("INC", nil, "SelfChillDuration", "SelfAilmentDuration", "SelfElementalAilmentDuration")
 			local moreChillDuration = skillModList:More(cfg, "EnemyChillDuration", "EnemyAilmentDuration", "EnemyElementalAilmentDuration") * enemyDB:More(nil, "SelfChillDuration", "SelfAilmentDuration", "SelfElementalAilmentDuration")
 			output.ChillDurationMod = (1 + incChillDuration / 100) * moreChillDuration
-			output.ChillSourceEffect = m_min(skillModList:Override(nil, "ChillMax") or ailmentData.Chill.max, m_floor(ailmentData.Chill.default * output.ChillEffectMod))
+			-- Let +maximum Chill effect also raise the cap for chilling areas such as Cold Snap.
+			output.ChillSourceEffect = m_min(skillModList:Override(nil, "ChillMax") or (ailmentData.Chill.max + skillModList:Sum("BASE", nil, "ChillMax")), m_floor(ailmentData.Chill.default * output.ChillEffectMod))
 			if breakdown then
 				breakdown.DotChill = { }
 				breakdown.multiChain(breakdown.DotChill, {
-					label = s_format("Effect of Chill: ^8(capped at %d%%)", skillModList:Override(nil, "ChillMax") or ailmentData.Chill.max),
+					label = s_format("Effect of Chill: ^8(capped at %d%%)", skillModList:Override(nil, "ChillMax") or (ailmentData.Chill.max + skillModList:Sum("BASE", nil, "ChillMax"))),
 					base = s_format("%d%% ^8(base)", ailmentData.Chill.default),
 					{ "%.2f ^8(increased/reduced effect of chill)", 1 + incChill / 100 },
 					{ "%.2f ^8(more/less effect of chill)", moreChill },
@@ -5974,13 +5989,21 @@ function calcs.offence(env, actor, activeSkill)
 				timeType = skillData.triggered and "trigger" or (skillFlags.totem and "totem placement" or skillFlags.attack and "attack" or "cast")
 			end
 
+			local refundMult = 1
+			if usedResource == "Mana" and skillModList:Flag(skillCfg, "Every2UseManaCostRefund") then
+				refundMult = 0.5
+			end
+
 			output[usedResource.."PerSecondHasCost"] = true
-			output[usedResource.."PerSecondCost"] = (output[usedResource.."PerSecondCost"] or 0)+ output[resource.."Cost"] * useSpeed
+			output[usedResource.."PerSecondCost"] = (output[usedResource.."PerSecondCost"] or 0)+ output[resource.."Cost"] * useSpeed * refundMult
 
 			if breakdown then
 				breakdown[usedResource.."PerSecondCost"] = copyTable(breakdown[resource.."Cost"])
 				t_remove(breakdown[usedResource.."PerSecondCost"])
 				t_insert(breakdown[usedResource.."PerSecondCost"], s_format("x %.2f ^8("..timeType.." speed)", useSpeed))
+				if refundMult ~= 1 then
+					t_insert(breakdown[usedResource.."PerSecondCost"], s_format("x %g ^8(refunded every second use)", refundMult))
+				end
 				t_insert(breakdown[usedResource.."PerSecondCost"], s_format("= %.2f per second", output[usedResource.."PerSecondCost"]))
 			end
 		end

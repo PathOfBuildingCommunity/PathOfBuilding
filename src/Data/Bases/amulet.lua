@@ -3,6 +3,7 @@
 return function(itemBases)
 
 itemBases["Paua Amulet"] = {
+	baseId = "Metadata/Items/Amulets/Amulet1",
 	type = "Amulet",
 	tags = { amulet = true, default = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
@@ -12,6 +13,7 @@ itemBases["Paua Amulet"] = {
 	req = { },
 }
 itemBases["Coral Amulet"] = {
+	baseId = "Metadata/Items/Amulets/Amulet2",
 	type = "Amulet",
 	tags = { amulet = true, default = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
@@ -21,6 +23,7 @@ itemBases["Coral Amulet"] = {
 	req = { },
 }
 itemBases["Amber Amulet"] = {
+	baseId = "Metadata/Items/Amulets/Amulet3",
 	type = "Amulet",
 	tags = { amulet = true, default = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
@@ -30,6 +33,7 @@ itemBases["Amber Amulet"] = {
 	req = { level = 5, },
 }
 itemBases["Jade Amulet"] = {
+	baseId = "Metadata/Items/Amulets/Amulet4",
 	type = "Amulet",
 	tags = { amulet = true, default = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
@@ -39,6 +43,7 @@ itemBases["Jade Amulet"] = {
 	req = { level = 5, },
 }
 itemBases["Lapis Amulet"] = {
+	baseId = "Metadata/Items/Amulets/Amulet5",
 	type = "Amulet",
 	tags = { amulet = true, default = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
@@ -48,15 +53,17 @@ itemBases["Lapis Amulet"] = {
 	req = { level = 5, },
 }
 itemBases["Gold Amulet"] = {
+	baseId = "Metadata/Items/Amulets/Amulet6",
 	type = "Amulet",
 	tags = { amulet = true, default = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
-	implicit = "(12-20)% increased Rarity of Items found",
+	implicit = "+(12-20)% to Item Rarity",
 	implicitModTypes = { { "drop" }, },
 	implicitIds = { "ItemFoundRarityIncreaseImplicitAmulet1", },
 	req = { level = 8, },
 }
 itemBases["Onyx Amulet"] = {
+	baseId = "Metadata/Items/Amulets/Amulet7",
 	type = "Amulet",
 	tags = { amulet = true, default = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
@@ -66,6 +73,7 @@ itemBases["Onyx Amulet"] = {
 	req = { level = 20, },
 }
 itemBases["Turquoise Amulet"] = {
+	baseId = "Metadata/Items/Amulets/Amulet8",
 	type = "Amulet",
 	tags = { amulet = true, default = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
@@ -75,6 +83,7 @@ itemBases["Turquoise Amulet"] = {
 	req = { level = 16, },
 }
 itemBases["Agate Amulet"] = {
+	baseId = "Metadata/Items/Amulets/Amulet9",
 	type = "Amulet",
 	tags = { amulet = true, default = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
@@ -84,6 +93,7 @@ itemBases["Agate Amulet"] = {
 	req = { level = 16, },
 }
 itemBases["Citrine Amulet"] = {
+	baseId = "Metadata/Items/Amulets/Amulet10",
 	type = "Amulet",
 	tags = { amulet = true, default = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
@@ -93,6 +103,7 @@ itemBases["Citrine Amulet"] = {
 	req = { level = 16, },
 }
 itemBases["Ruby Amulet"] = {
+	baseId = "Metadata/Items/Amulets/Amulet11",
 	type = "Amulet",
 	tags = { amulet = true, default = true, not_for_sale = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
@@ -102,6 +113,7 @@ itemBases["Ruby Amulet"] = {
 	req = { },
 }
 itemBases["Unset Amulet"] = {
+	baseId = "Metadata/Items/Amulets/Amulet12",
 	type = "Amulet",
 	tags = { amulet = true, default = true, not_for_sale = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
@@ -111,6 +123,7 @@ itemBases["Unset Amulet"] = {
 	req = { level = 5, },
 }
 itemBases["Pearlescent Amulet"] = {
+	baseId = "Metadata/Items/Amulets/Amulet13",
 	type = "Amulet",
 	tags = { amulet = true, default = true, not_for_sale = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
@@ -120,6 +133,7 @@ itemBases["Pearlescent Amulet"] = {
 	req = { level = 8, },
 }
 itemBases["Blue Pearl Amulet"] = {
+	baseId = "Metadata/Items/Amulet/AmuletAtlas1",
 	type = "Amulet",
 	tags = { amulet = true, amuletatlas1 = true, atlas_base_type = true, default = true, not_for_sale = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
@@ -129,24 +143,27 @@ itemBases["Blue Pearl Amulet"] = {
 	req = { level = 77, },
 }
 itemBases["Marble Amulet"] = {
+	baseId = "Metadata/Items/Amulet/AmuletAtlas2",
 	type = "Amulet",
 	tags = { amulet = true, amuletatlas2 = true, atlas_base_type = true, default = true, not_for_sale = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
-	implicit = "Regenerate (1.2-1.6)% of Life per second",
+	implicit = "Regenerate (1.4-2)% of Life per second",
 	implicitModTypes = { { "resource", "life" }, },
 	implicitIds = { "LifeRegenerationImplicitAmulet2", },
 	req = { level = 74, },
 }
 itemBases["Seaglass Amulet"] = {
+	baseId = "Metadata/Items/Amulet/AmuletAtlas3",
 	type = "Amulet",
 	tags = { amulet = true, amuletatlas3 = true, atlas_base_type = true, default = true, not_for_sale = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
-	implicit = "(10-15)% faster start of Energy Shield Recharge",
+	implicit = "(20-30)% faster start of Energy Shield Recharge",
 	implicitModTypes = { { "defences", "energy_shield" }, },
 	implicitIds = { "ReducedEnergyShieldDelayImplicit1_", },
 	req = { level = 74, },
 }
 itemBases["Astrolabe Amulet"] = {
+	baseId = "Metadata/Items/Amulets/AmuletE1",
 	type = "Amulet",
 	tags = { amulet = true, default = true, experimental_base = true, not_for_sale = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
@@ -156,6 +173,7 @@ itemBases["Astrolabe Amulet"] = {
 	req = { level = 69, },
 }
 itemBases["Simplex Amulet"] = {
+	baseId = "Metadata/Items/Amulets/AmuletE2",
 	type = "Amulet",
 	tags = { amulet = true, default = true, experimental_base = true, not_for_sale = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
@@ -165,6 +183,7 @@ itemBases["Simplex Amulet"] = {
 	req = { level = 24, },
 }
 itemBases["Focused Amulet"] = {
+	baseId = "Metadata/Items/Amulets/AmuletE3",
 	type = "Amulet",
 	tags = { amulet = true, default = true, experimental_base = true, not_for_sale = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
@@ -174,6 +193,7 @@ itemBases["Focused Amulet"] = {
 	req = { level = 24, },
 }
 itemBases["Jet Amulet"] = {
+	baseId = "Metadata/Items/Amulet/AmuletVictor1",
 	type = "Amulet",
 	tags = { amulet = true, default = true, demigods = true, not_for_sale = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
@@ -184,6 +204,7 @@ itemBases["Jet Amulet"] = {
 }
 
 itemBases["Black Maw Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/Talisman1_1",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -200,6 +221,7 @@ itemBases["Black Maw Talisman"] = {
 	},
 }
 itemBases["Bonespire Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/Talisman1_2",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -215,6 +237,7 @@ itemBases["Bonespire Talisman"] = {
 	},
 }
 itemBases["Ashscale Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/Talisman1_3",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -231,6 +254,7 @@ itemBases["Ashscale Talisman"] = {
 	},
 }
 itemBases["Lone Antler Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/Talisman1_4",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -247,6 +271,7 @@ itemBases["Lone Antler Talisman"] = {
 	},
 }
 itemBases["Deep One Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/Talisman1_5",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -263,6 +288,7 @@ itemBases["Deep One Talisman"] = {
 	},
 }
 itemBases["Breakrib Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/Talisman1_6",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -279,6 +305,7 @@ itemBases["Breakrib Talisman"] = {
 	},
 }
 itemBases["Deadhand Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/Talisman1_7",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -295,6 +322,7 @@ itemBases["Deadhand Talisman"] = {
 	},
 }
 itemBases["Undying Flesh Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/Talisman1_8",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -311,6 +339,7 @@ itemBases["Undying Flesh Talisman"] = {
 	},
 }
 itemBases["Rot Head Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/Talisman1_9",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -327,6 +356,7 @@ itemBases["Rot Head Talisman"] = {
 	},
 }
 itemBases["Mandible Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/Talisman1_10",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -343,6 +373,7 @@ itemBases["Mandible Talisman"] = {
 	},
 }
 itemBases["Chrysalis Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/Talisman1_11",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -359,6 +390,7 @@ itemBases["Chrysalis Talisman"] = {
 	},
 }
 itemBases["Writhing Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/Talisman1_12",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -375,6 +407,7 @@ itemBases["Writhing Talisman"] = {
 	},
 }
 itemBases["Hexclaw Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/Talisman2_1",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -391,6 +424,7 @@ itemBases["Hexclaw Talisman"] = {
 	},
 }
 itemBases["Primal Skull Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/Talisman2_2",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -407,6 +441,7 @@ itemBases["Primal Skull Talisman"] = {
 	},
 }
 itemBases["Wereclaw Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/Talisman2_3",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -423,6 +458,7 @@ itemBases["Wereclaw Talisman"] = {
 	},
 }
 itemBases["Splitnewt Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/Talisman2_4",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -439,6 +475,7 @@ itemBases["Splitnewt Talisman"] = {
 	},
 }
 itemBases["Clutching Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/Talisman2_5",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -455,6 +492,7 @@ itemBases["Clutching Talisman"] = {
 	},
 }
 itemBases["Avian Twins Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/Talisman2_6_1",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -471,6 +509,7 @@ itemBases["Avian Twins Talisman"] = {
 	},
 }
 itemBases["Avian Twins Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/Talisman2_6_2",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -487,6 +526,7 @@ itemBases["Avian Twins Talisman"] = {
 	},
 }
 itemBases["Avian Twins Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/Talisman2_6_3",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -503,6 +543,7 @@ itemBases["Avian Twins Talisman"] = {
 	},
 }
 itemBases["Avian Twins Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/Talisman2_6_4",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -519,6 +560,7 @@ itemBases["Avian Twins Talisman"] = {
 	},
 }
 itemBases["Avian Twins Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/Talisman2_6_5",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -535,6 +577,7 @@ itemBases["Avian Twins Talisman"] = {
 	},
 }
 itemBases["Avian Twins Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/Talisman2_6_6",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -551,6 +594,7 @@ itemBases["Avian Twins Talisman"] = {
 	},
 }
 itemBases["Fangjaw Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/Talisman2_7",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -567,6 +611,7 @@ itemBases["Fangjaw Talisman"] = {
 	},
 }
 itemBases["Horned Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/Talisman2_8",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -583,6 +628,7 @@ itemBases["Horned Talisman"] = {
 	},
 }
 itemBases["Spinefuse Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/Talisman3_1",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -599,6 +645,7 @@ itemBases["Spinefuse Talisman"] = {
 	},
 }
 itemBases["Three Rat Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/Talisman3_2",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -615,6 +662,7 @@ itemBases["Three Rat Talisman"] = {
 	},
 }
 itemBases["Monkey Twins Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/Talisman3_3",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -631,6 +679,7 @@ itemBases["Monkey Twins Talisman"] = {
 	},
 }
 itemBases["Longtooth Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/Talisman3_4",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -647,6 +696,7 @@ itemBases["Longtooth Talisman"] = {
 	},
 }
 itemBases["Rotfeather Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/Talisman3_5",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -663,6 +713,7 @@ itemBases["Rotfeather Talisman"] = {
 	},
 }
 itemBases["Monkey Paw Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/Talisman3_6_1",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -679,6 +730,7 @@ itemBases["Monkey Paw Talisman"] = {
 	},
 }
 itemBases["Monkey Paw Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/Talisman3_6_2",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -695,6 +747,7 @@ itemBases["Monkey Paw Talisman"] = {
 	},
 }
 itemBases["Monkey Paw Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/Talisman3_6_3",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -711,6 +764,7 @@ itemBases["Monkey Paw Talisman"] = {
 	},
 }
 itemBases["Three Hands Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/Talisman3_7",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -727,6 +781,7 @@ itemBases["Three Hands Talisman"] = {
 	},
 }
 itemBases["Greatwolf Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/Talisman4",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, },
@@ -741,6 +796,7 @@ itemBases["Greatwolf Talisman"] = {
 	},
 }
 itemBases["Chieftain Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/TalismanChieftain",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -759,6 +815,7 @@ itemBases["Chieftain Talisman"] = {
 	},
 }
 itemBases["Gargantuan Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/TalismanBeast",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -776,6 +833,7 @@ itemBases["Gargantuan Talisman"] = {
 	},
 }
 itemBases["Goliath Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/TalismanSpiker",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -794,6 +852,7 @@ itemBases["Goliath Talisman"] = {
 	},
 }
 itemBases["Rhoa Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/TalismanRhoa",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -812,6 +871,7 @@ itemBases["Rhoa Talisman"] = {
 	},
 }
 itemBases["Blood Viper Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/TalismanSandSnake",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -830,6 +890,7 @@ itemBases["Blood Viper Talisman"] = {
 	},
 }
 itemBases["Chimeral Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/TalismanIguana",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -848,6 +909,7 @@ itemBases["Chimeral Talisman"] = {
 	},
 }
 itemBases["Squid Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/TalismanSirenSpawn",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -866,6 +928,7 @@ itemBases["Squid Talisman"] = {
 	},
 }
 itemBases["Sand Spitter Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/TalismanSandSpitter",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -884,6 +947,7 @@ itemBases["Sand Spitter Talisman"] = {
 	},
 }
 itemBases["Shield Crab Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/TalismanShieldCrab",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -902,6 +966,7 @@ itemBases["Shield Crab Talisman"] = {
 	},
 }
 itemBases["Goatman Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/TalismanGoatman",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -920,6 +985,7 @@ itemBases["Goatman Talisman"] = {
 	},
 }
 itemBases["Devourer Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/TalismanDevourer",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -938,6 +1004,7 @@ itemBases["Devourer Talisman"] = {
 	},
 }
 itemBases["Plagued Arachnid Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/TalismanPlagueSpider",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -956,6 +1023,7 @@ itemBases["Plagued Arachnid Talisman"] = {
 	},
 }
 itemBases["Watcher Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/TalismanSquid",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -974,6 +1042,7 @@ itemBases["Watcher Talisman"] = {
 	},
 }
 itemBases["Savage Crab Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/TalismanCrab",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -992,6 +1061,7 @@ itemBases["Savage Crab Talisman"] = {
 	},
 }
 itemBases["Flame Hellion Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/TalismanHellionFire",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -1010,6 +1080,7 @@ itemBases["Flame Hellion Talisman"] = {
 	},
 }
 itemBases["Frost Hellion Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/TalismanHellionIce",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -1028,6 +1099,7 @@ itemBases["Frost Hellion Talisman"] = {
 	},
 }
 itemBases["Lynx Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/TalismanLynx",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -1046,6 +1118,7 @@ itemBases["Lynx Talisman"] = {
 	},
 }
 itemBases["Ape Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/TalismanMonkey",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -1064,6 +1137,7 @@ itemBases["Ape Talisman"] = {
 	},
 }
 itemBases["Wolf Alpha Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/TalismanWolf",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -1082,6 +1156,7 @@ itemBases["Wolf Alpha Talisman"] = {
 	},
 }
 itemBases["Magma Hound Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/TalismanHound",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -1100,6 +1175,7 @@ itemBases["Magma Hound Talisman"] = {
 	},
 }
 itemBases["Pitbull Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/TalismanPitbull",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -1118,6 +1194,7 @@ itemBases["Pitbull Talisman"] = {
 	},
 }
 itemBases["Ursa Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/TalismanUrsa",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -1136,6 +1213,7 @@ itemBases["Ursa Talisman"] = {
 	},
 }
 itemBases["Taurus Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/TalismanBull",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -1154,6 +1232,7 @@ itemBases["Taurus Talisman"] = {
 	},
 }
 itemBases["Retch Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/TalismanKiweth",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -1172,6 +1251,7 @@ itemBases["Retch Talisman"] = {
 	},
 }
 itemBases["Cobra Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/TalismanForestSnake",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -1190,6 +1270,7 @@ itemBases["Cobra Talisman"] = {
 	},
 }
 itemBases["Carrion Queen Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/TalismanCarrionQueen",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -1208,6 +1289,7 @@ itemBases["Carrion Queen Talisman"] = {
 	},
 }
 itemBases["Scrabbler Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/TalismanSandLeaper",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -1226,6 +1308,7 @@ itemBases["Scrabbler Talisman"] = {
 	},
 }
 itemBases["Black Widow Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/TalismanSpider",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -1244,6 +1327,7 @@ itemBases["Black Widow Talisman"] = {
 	},
 }
 itemBases["Scorpion Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/TalismanScorpion",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -1262,6 +1346,7 @@ itemBases["Scorpion Talisman"] = {
 	},
 }
 itemBases["Tiger Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/TalismanTiger",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -1280,6 +1365,7 @@ itemBases["Tiger Talisman"] = {
 	},
 }
 itemBases["Vulture Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/TalismanVulture",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -1298,6 +1384,7 @@ itemBases["Vulture Talisman"] = {
 	},
 }
 itemBases["Rhex Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/TalismanRhex",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -1316,6 +1403,7 @@ itemBases["Rhex Talisman"] = {
 	},
 }
 itemBases["Hybrid Arachnid Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/TalismanPlatedSpider",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -1334,6 +1422,7 @@ itemBases["Hybrid Arachnid Talisman"] = {
 	},
 }
 itemBases["Octopus Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/TalismanParasiticSquid",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -1352,6 +1441,7 @@ itemBases["Octopus Talisman"] = {
 	},
 }
 itemBases["Spider Crab Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/TalismanCrab2",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -1370,6 +1460,7 @@ itemBases["Spider Crab Talisman"] = {
 	},
 }
 itemBases["Great Maw Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/TalismanFrog",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -1388,6 +1479,7 @@ itemBases["Great Maw Talisman"] = {
 	},
 }
 itemBases["Croaker Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/TalismanGemFrog",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -1406,6 +1498,7 @@ itemBases["Croaker Talisman"] = {
 	},
 }
 itemBases["Craicic Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/TalismanBossCrab",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -1424,6 +1517,7 @@ itemBases["Craicic Talisman"] = {
 	},
 }
 itemBases["Fenumal Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/TalismanBossSpider",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -1442,6 +1536,7 @@ itemBases["Fenumal Talisman"] = {
 	},
 }
 itemBases["Saqawine Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/TalismanBossBird",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -1460,6 +1555,7 @@ itemBases["Saqawine Talisman"] = {
 	},
 }
 itemBases["Farric Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/TalismanBossTiger",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -1479,6 +1575,7 @@ itemBases["Farric Talisman"] = {
 	},
 }
 itemBases["Greatwolf Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/TalismanGreatwolf",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -1497,6 +1594,7 @@ itemBases["Greatwolf Talisman"] = {
 	},
 }
 itemBases["Black Maw Talisman"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/TalismanBlackMaw",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -1515,6 +1613,7 @@ itemBases["Black Maw Talisman"] = {
 	},
 }
 itemBases["Avian Twins Talisman (Fire-To-Cold)"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/Talisman2_6_1",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -1531,6 +1630,7 @@ itemBases["Avian Twins Talisman (Fire-To-Cold)"] = {
 	},
 }
 itemBases["Avian Twins Talisman (Fire-To-Lightning)"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/Talisman2_6_2",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -1547,6 +1647,7 @@ itemBases["Avian Twins Talisman (Fire-To-Lightning)"] = {
 	},
 }
 itemBases["Avian Twins Talisman (Cold-To-Lightning)"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/Talisman2_6_3",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -1563,6 +1664,7 @@ itemBases["Avian Twins Talisman (Cold-To-Lightning)"] = {
 	},
 }
 itemBases["Avian Twins Talisman (Cold-To-Fire)"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/Talisman2_6_4",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -1579,6 +1681,7 @@ itemBases["Avian Twins Talisman (Cold-To-Fire)"] = {
 	},
 }
 itemBases["Avian Twins Talisman (Lightning-To-Cold)"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/Talisman2_6_5",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -1595,6 +1698,7 @@ itemBases["Avian Twins Talisman (Lightning-To-Cold)"] = {
 	},
 }
 itemBases["Monkey Paw Talisman (Power)"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/Talisman3_6_1",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },
@@ -1611,6 +1715,7 @@ itemBases["Monkey Paw Talisman (Power)"] = {
 	},
 }
 itemBases["Monkey Paw Talisman (Frenzy)"] = {
+	baseId = "Metadata/Items/Amulets/Talismans/Talisman3_6_2",
 	type = "Amulet",
 	subType = "Talisman",
 	tags = { amulet = true, default = true, talisman = true, },

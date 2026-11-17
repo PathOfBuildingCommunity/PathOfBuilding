@@ -3,6 +3,7 @@
 return function(itemBases)
 
 itemBases["Iron Greaves"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsStr1",
 	type = "Boots",
 	subType = "Armour",
 	socketLimit = 4,
@@ -13,6 +14,7 @@ itemBases["Iron Greaves"] = {
 	req = { str = 8, },
 }
 itemBases["Steel Greaves"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsStr2",
 	type = "Boots",
 	subType = "Armour",
 	socketLimit = 4,
@@ -23,6 +25,7 @@ itemBases["Steel Greaves"] = {
 	req = { level = 9, str = 21, },
 }
 itemBases["Plated Greaves"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsStr3",
 	type = "Boots",
 	subType = "Armour",
 	socketLimit = 4,
@@ -33,6 +36,7 @@ itemBases["Plated Greaves"] = {
 	req = { level = 23, str = 44, },
 }
 itemBases["Reinforced Greaves"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsStr4",
 	type = "Boots",
 	subType = "Armour",
 	socketLimit = 4,
@@ -43,6 +47,7 @@ itemBases["Reinforced Greaves"] = {
 	req = { level = 33, str = 61, },
 }
 itemBases["Antique Greaves"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsStr5",
 	type = "Boots",
 	subType = "Armour",
 	socketLimit = 4,
@@ -53,6 +58,7 @@ itemBases["Antique Greaves"] = {
 	req = { level = 37, str = 67, },
 }
 itemBases["Ancient Greaves"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsStr6",
 	type = "Boots",
 	subType = "Armour",
 	socketLimit = 4,
@@ -63,6 +69,7 @@ itemBases["Ancient Greaves"] = {
 	req = { level = 46, str = 82, },
 }
 itemBases["Goliath Greaves"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsStr7",
 	type = "Boots",
 	subType = "Armour",
 	socketLimit = 4,
@@ -73,6 +80,7 @@ itemBases["Goliath Greaves"] = {
 	req = { level = 54, str = 95, },
 }
 itemBases["Vaal Greaves"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsStr8",
 	type = "Boots",
 	subType = "Armour",
 	socketLimit = 4,
@@ -83,6 +91,7 @@ itemBases["Vaal Greaves"] = {
 	req = { level = 62, str = 117, },
 }
 itemBases["Titan Greaves"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsStr9",
 	type = "Boots",
 	subType = "Armour",
 	socketLimit = 4,
@@ -93,6 +102,7 @@ itemBases["Titan Greaves"] = {
 	req = { level = 68, str = 120, },
 }
 itemBases["Precursor Greaves"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsStr10",
 	type = "Boots",
 	subType = "Armour",
 	socketLimit = 4,
@@ -103,6 +113,7 @@ itemBases["Precursor Greaves"] = {
 	req = { level = 78, str = 153, },
 }
 itemBases["Leviathan Greaves"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsStr11",
 	type = "Boots",
 	subType = "Armour",
 	socketLimit = 4,
@@ -113,6 +124,7 @@ itemBases["Leviathan Greaves"] = {
 	req = { level = 84, str = 177, },
 }
 itemBases["Basemetal Treads"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsStrRitual1",
 	type = "Boots",
 	subType = "Armour",
 	socketLimit = 4,
@@ -125,6 +137,7 @@ itemBases["Basemetal Treads"] = {
 	req = { level = 20, str = 39, },
 }
 itemBases["Darksteel Treads"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsStrRitual2",
 	type = "Boots",
 	subType = "Armour",
 	socketLimit = 4,
@@ -137,6 +150,7 @@ itemBases["Darksteel Treads"] = {
 	req = { level = 50, str = 89, },
 }
 itemBases["Brimstone Treads"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsStrRitual3",
 	type = "Boots",
 	subType = "Armour",
 	socketLimit = 4,
@@ -150,6 +164,7 @@ itemBases["Brimstone Treads"] = {
 }
 
 itemBases["Rawhide Boots"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsDex1",
 	type = "Boots",
 	subType = "Evasion",
 	socketLimit = 4,
@@ -160,6 +175,7 @@ itemBases["Rawhide Boots"] = {
 	req = { dex = 11, },
 }
 itemBases["Goathide Boots"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsDex2",
 	type = "Boots",
 	subType = "Evasion",
 	socketLimit = 4,
@@ -170,6 +186,7 @@ itemBases["Goathide Boots"] = {
 	req = { level = 12, dex = 26, },
 }
 itemBases["Deerskin Boots"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsDex3",
 	type = "Boots",
 	subType = "Evasion",
 	socketLimit = 4,
@@ -180,6 +197,7 @@ itemBases["Deerskin Boots"] = {
 	req = { level = 22, dex = 42, },
 }
 itemBases["Nubuck Boots"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsDex4",
 	type = "Boots",
 	subType = "Evasion",
 	socketLimit = 4,
@@ -190,6 +208,7 @@ itemBases["Nubuck Boots"] = {
 	req = { level = 34, dex = 62, },
 }
 itemBases["Eelskin Boots"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsDex5",
 	type = "Boots",
 	subType = "Evasion",
 	socketLimit = 4,
@@ -200,6 +219,7 @@ itemBases["Eelskin Boots"] = {
 	req = { level = 39, dex = 70, },
 }
 itemBases["Sharkskin Boots"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsDex6",
 	type = "Boots",
 	subType = "Evasion",
 	socketLimit = 4,
@@ -210,6 +230,7 @@ itemBases["Sharkskin Boots"] = {
 	req = { level = 44, dex = 79, },
 }
 itemBases["Shagreen Boots"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsDex7",
 	type = "Boots",
 	subType = "Evasion",
 	socketLimit = 4,
@@ -220,6 +241,7 @@ itemBases["Shagreen Boots"] = {
 	req = { level = 55, dex = 97, },
 }
 itemBases["Stealth Boots"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsDex8",
 	type = "Boots",
 	subType = "Evasion",
 	socketLimit = 4,
@@ -230,6 +252,7 @@ itemBases["Stealth Boots"] = {
 	req = { level = 62, dex = 117, },
 }
 itemBases["Slink Boots"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsDex9",
 	type = "Boots",
 	subType = "Evasion",
 	socketLimit = 4,
@@ -240,6 +263,7 @@ itemBases["Slink Boots"] = {
 	req = { level = 69, dex = 120, },
 }
 itemBases["Harpyskin Boots"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsDex10",
 	type = "Boots",
 	subType = "Evasion",
 	socketLimit = 4,
@@ -250,6 +274,7 @@ itemBases["Harpyskin Boots"] = {
 	req = { level = 78, dex = 153, },
 }
 itemBases["Velour Boots"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsDex11",
 	type = "Boots",
 	subType = "Evasion",
 	socketLimit = 4,
@@ -260,6 +285,7 @@ itemBases["Velour Boots"] = {
 	req = { level = 84, dex = 177, },
 }
 itemBases["Cloudwhisper Boots"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsDexRitual1",
 	type = "Boots",
 	subType = "Evasion",
 	socketLimit = 4,
@@ -272,6 +298,7 @@ itemBases["Cloudwhisper Boots"] = {
 	req = { level = 20, dex = 39, },
 }
 itemBases["Windbreak Boots"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsDexRitual2",
 	type = "Boots",
 	subType = "Evasion",
 	socketLimit = 4,
@@ -284,6 +311,7 @@ itemBases["Windbreak Boots"] = {
 	req = { level = 50, dex = 89, },
 }
 itemBases["Stormrider Boots"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsDexRitual3",
 	type = "Boots",
 	subType = "Evasion",
 	socketLimit = 4,
@@ -297,6 +325,7 @@ itemBases["Stormrider Boots"] = {
 }
 
 itemBases["Wool Shoes"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsInt1",
 	type = "Boots",
 	subType = "Energy Shield",
 	socketLimit = 4,
@@ -307,6 +336,7 @@ itemBases["Wool Shoes"] = {
 	req = { int = 11, },
 }
 itemBases["Velvet Slippers"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsInt2",
 	type = "Boots",
 	subType = "Energy Shield",
 	socketLimit = 4,
@@ -317,6 +347,7 @@ itemBases["Velvet Slippers"] = {
 	req = { level = 9, int = 21, },
 }
 itemBases["Silk Slippers"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsInt3",
 	type = "Boots",
 	subType = "Energy Shield",
 	socketLimit = 4,
@@ -327,6 +358,7 @@ itemBases["Silk Slippers"] = {
 	req = { level = 22, int = 42, },
 }
 itemBases["Scholar Boots"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsInt4",
 	type = "Boots",
 	subType = "Energy Shield",
 	socketLimit = 4,
@@ -337,6 +369,7 @@ itemBases["Scholar Boots"] = {
 	req = { level = 32, int = 59, },
 }
 itemBases["Satin Slippers"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsInt5",
 	type = "Boots",
 	subType = "Energy Shield",
 	socketLimit = 4,
@@ -347,6 +380,7 @@ itemBases["Satin Slippers"] = {
 	req = { level = 38, int = 69, },
 }
 itemBases["Samite Slippers"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsInt6",
 	type = "Boots",
 	subType = "Energy Shield",
 	socketLimit = 4,
@@ -357,6 +391,7 @@ itemBases["Samite Slippers"] = {
 	req = { level = 44, int = 79, },
 }
 itemBases["Conjurer Boots"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsInt7",
 	type = "Boots",
 	subType = "Energy Shield",
 	socketLimit = 4,
@@ -367,6 +402,7 @@ itemBases["Conjurer Boots"] = {
 	req = { level = 53, int = 94, },
 }
 itemBases["Arcanist Slippers"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsInt8",
 	type = "Boots",
 	subType = "Energy Shield",
 	socketLimit = 4,
@@ -377,6 +413,7 @@ itemBases["Arcanist Slippers"] = {
 	req = { level = 61, int = 119, },
 }
 itemBases["Sorcerer Boots"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsInt9",
 	type = "Boots",
 	subType = "Energy Shield",
 	socketLimit = 4,
@@ -387,6 +424,7 @@ itemBases["Sorcerer Boots"] = {
 	req = { level = 67, int = 123, },
 }
 itemBases["Sage Slippers"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsInt10",
 	type = "Boots",
 	subType = "Energy Shield",
 	socketLimit = 4,
@@ -397,6 +435,7 @@ itemBases["Sage Slippers"] = {
 	req = { level = 78, int = 153, },
 }
 itemBases["Warlock Boots"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsInt11",
 	type = "Boots",
 	subType = "Energy Shield",
 	socketLimit = 4,
@@ -407,6 +446,7 @@ itemBases["Warlock Boots"] = {
 	req = { level = 84, int = 177, },
 }
 itemBases["Duskwalk Slippers"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsIntRitual1",
 	type = "Boots",
 	subType = "Energy Shield",
 	socketLimit = 4,
@@ -419,6 +459,7 @@ itemBases["Duskwalk Slippers"] = {
 	req = { level = 20, int = 39, },
 }
 itemBases["Nightwind Slippers"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsIntRitual2",
 	type = "Boots",
 	subType = "Energy Shield",
 	socketLimit = 4,
@@ -431,6 +472,7 @@ itemBases["Nightwind Slippers"] = {
 	req = { level = 50, int = 89, },
 }
 itemBases["Dreamquest Slippers"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsIntRitual3",
 	type = "Boots",
 	subType = "Energy Shield",
 	socketLimit = 4,
@@ -444,6 +486,7 @@ itemBases["Dreamquest Slippers"] = {
 }
 
 itemBases["Leatherscale Boots"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsStrDex1",
 	type = "Boots",
 	subType = "Armour/Evasion",
 	socketLimit = 4,
@@ -454,6 +497,7 @@ itemBases["Leatherscale Boots"] = {
 	req = { level = 6, str = 9, dex = 9, },
 }
 itemBases["Ironscale Boots"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsStrDex2",
 	type = "Boots",
 	subType = "Armour/Evasion",
 	socketLimit = 4,
@@ -464,6 +508,7 @@ itemBases["Ironscale Boots"] = {
 	req = { level = 18, str = 19, dex = 19, },
 }
 itemBases["Bronzescale Boots"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsStrDex3",
 	type = "Boots",
 	subType = "Armour/Evasion",
 	socketLimit = 4,
@@ -474,6 +519,7 @@ itemBases["Bronzescale Boots"] = {
 	req = { level = 30, str = 30, dex = 30, },
 }
 itemBases["Steelscale Boots"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsStrDex4",
 	type = "Boots",
 	subType = "Armour/Evasion",
 	socketLimit = 4,
@@ -484,6 +530,7 @@ itemBases["Steelscale Boots"] = {
 	req = { level = 36, str = 35, dex = 35, },
 }
 itemBases["Serpentscale Boots"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsStrDex5",
 	type = "Boots",
 	subType = "Armour/Evasion",
 	socketLimit = 4,
@@ -494,6 +541,7 @@ itemBases["Serpentscale Boots"] = {
 	req = { level = 42, str = 40, dex = 40, },
 }
 itemBases["Wyrmscale Boots"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsStrDex6",
 	type = "Boots",
 	subType = "Armour/Evasion",
 	socketLimit = 4,
@@ -504,6 +552,7 @@ itemBases["Wyrmscale Boots"] = {
 	req = { level = 51, str = 48, dex = 48, },
 }
 itemBases["Hydrascale Boots"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsStrDex7",
 	type = "Boots",
 	subType = "Armour/Evasion",
 	socketLimit = 4,
@@ -514,6 +563,7 @@ itemBases["Hydrascale Boots"] = {
 	req = { level = 59, str = 56, dex = 56, },
 }
 itemBases["Dragonscale Boots"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsStrDex8",
 	type = "Boots",
 	subType = "Armour/Evasion",
 	socketLimit = 4,
@@ -524,6 +574,7 @@ itemBases["Dragonscale Boots"] = {
 	req = { level = 65, str = 62, dex = 62, },
 }
 itemBases["Chimerascale Boots"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsStrDex9",
 	type = "Boots",
 	subType = "Armour/Evasion",
 	socketLimit = 4,
@@ -534,6 +585,7 @@ itemBases["Chimerascale Boots"] = {
 	req = { level = 78, str = 85, dex = 85, },
 }
 itemBases["Wyvernscale Boots"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsStrDex10",
 	type = "Boots",
 	subType = "Armour/Evasion",
 	socketLimit = 4,
@@ -544,12 +596,13 @@ itemBases["Wyvernscale Boots"] = {
 	req = { level = 84, str = 98, dex = 98, },
 }
 itemBases["Two-Toned Boots (Armour/Evasion)"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsAtlas2",
 	type = "Boots",
 	subType = "Armour/Evasion",
 	socketLimit = 4,
 	tags = { armour = true, atlas_base_type = true, boots = true, bootsatlas2 = true, default = true, not_for_sale = true, str_dex_armour = true, },
 	influenceTags = { shaper = "boots_shaper", elder = "boots_elder", adjudicator = "boots_adjudicator", basilisk = "boots_basilisk", crusader = "boots_crusader", eyrie = "boots_eyrie", cleansing = "boots_cleansing", tangle = "boots_tangle" },
-	implicit = "+(8-12)% to Fire and Cold Resistances",
+	implicit = "+(16-20)% to Fire and Cold Resistances",
 	implicitModTypes = { { "elemental", "fire", "cold", "resistance" }, },
 	implicitIds = { "FireAndColdResistImplicitBoots1_", },
 	armour = { ArmourBaseMin = 126, ArmourBaseMax = 145, EvasionBaseMin = 126, EvasionBaseMax = 145, },
@@ -557,6 +610,7 @@ itemBases["Two-Toned Boots (Armour/Evasion)"] = {
 }
 
 itemBases["Chain Boots"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsStrInt1",
 	type = "Boots",
 	subType = "Armour/Energy Shield",
 	socketLimit = 4,
@@ -567,6 +621,7 @@ itemBases["Chain Boots"] = {
 	req = { level = 5, str = 8, int = 8, },
 }
 itemBases["Ringmail Boots"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsStrInt2",
 	type = "Boots",
 	subType = "Armour/Energy Shield",
 	socketLimit = 4,
@@ -577,6 +632,7 @@ itemBases["Ringmail Boots"] = {
 	req = { level = 13, str = 15, int = 15, },
 }
 itemBases["Mesh Boots"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsStrInt3",
 	type = "Boots",
 	subType = "Armour/Energy Shield",
 	socketLimit = 4,
@@ -587,6 +643,7 @@ itemBases["Mesh Boots"] = {
 	req = { level = 28, str = 28, int = 28, },
 }
 itemBases["Riveted Boots"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsStrInt4",
 	type = "Boots",
 	subType = "Armour/Energy Shield",
 	socketLimit = 4,
@@ -597,6 +654,7 @@ itemBases["Riveted Boots"] = {
 	req = { level = 36, str = 35, int = 35, },
 }
 itemBases["Zealot Boots"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsStrInt5",
 	type = "Boots",
 	subType = "Armour/Energy Shield",
 	socketLimit = 4,
@@ -607,6 +665,7 @@ itemBases["Zealot Boots"] = {
 	req = { level = 40, str = 39, int = 39, },
 }
 itemBases["Soldier Boots"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsStrInt6",
 	type = "Boots",
 	subType = "Armour/Energy Shield",
 	socketLimit = 4,
@@ -617,6 +676,7 @@ itemBases["Soldier Boots"] = {
 	req = { level = 49, str = 47, int = 47, },
 }
 itemBases["Legion Boots"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsStrInt7",
 	type = "Boots",
 	subType = "Armour/Energy Shield",
 	socketLimit = 4,
@@ -627,6 +687,7 @@ itemBases["Legion Boots"] = {
 	req = { level = 58, str = 54, int = 54, },
 }
 itemBases["Crusader Boots"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsStrInt8",
 	type = "Boots",
 	subType = "Armour/Energy Shield",
 	socketLimit = 4,
@@ -637,6 +698,7 @@ itemBases["Crusader Boots"] = {
 	req = { level = 64, str = 62, int = 62, },
 }
 itemBases["Martyr Boots"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsStrInt9",
 	type = "Boots",
 	subType = "Armour/Energy Shield",
 	socketLimit = 4,
@@ -647,6 +709,7 @@ itemBases["Martyr Boots"] = {
 	req = { level = 78, str = 85, int = 85, },
 }
 itemBases["Paladin Boots"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsStrInt10",
 	type = "Boots",
 	subType = "Armour/Energy Shield",
 	socketLimit = 4,
@@ -657,12 +720,13 @@ itemBases["Paladin Boots"] = {
 	req = { level = 84, str = 98, int = 98, },
 }
 itemBases["Two-Toned Boots (Armour/Energy Shield)"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsAtlas3",
 	type = "Boots",
 	subType = "Armour/Energy Shield",
 	socketLimit = 4,
 	tags = { armour = true, atlas_base_type = true, boots = true, bootsatlas3 = true, default = true, not_for_sale = true, str_int_armour = true, },
 	influenceTags = { shaper = "boots_shaper", elder = "boots_elder", adjudicator = "boots_adjudicator", basilisk = "boots_basilisk", crusader = "boots_crusader", eyrie = "boots_eyrie", cleansing = "boots_cleansing", tangle = "boots_tangle" },
-	implicit = "+(8-12)% to Fire and Lightning Resistances",
+	implicit = "+(16-20)% to Fire and Lightning Resistances",
 	implicitModTypes = { { "elemental", "fire", "lightning", "resistance" }, },
 	implicitIds = { "FireAndLightningResistImplicitBoots1", },
 	armour = { ArmourBaseMin = 126, ArmourBaseMax = 145, EnergyShieldBaseMin = 26, EnergyShieldBaseMax = 30, },
@@ -670,6 +734,7 @@ itemBases["Two-Toned Boots (Armour/Energy Shield)"] = {
 }
 
 itemBases["Wrapped Boots"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsDexInt1",
 	type = "Boots",
 	subType = "Evasion/Energy Shield",
 	socketLimit = 4,
@@ -680,6 +745,7 @@ itemBases["Wrapped Boots"] = {
 	req = { level = 6, dex = 9, int = 9, },
 }
 itemBases["Strapped Boots"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsDexInt2",
 	type = "Boots",
 	subType = "Evasion/Energy Shield",
 	socketLimit = 4,
@@ -690,6 +756,7 @@ itemBases["Strapped Boots"] = {
 	req = { level = 16, dex = 18, int = 18, },
 }
 itemBases["Clasped Boots"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsDexInt3",
 	type = "Boots",
 	subType = "Evasion/Energy Shield",
 	socketLimit = 4,
@@ -700,6 +767,7 @@ itemBases["Clasped Boots"] = {
 	req = { level = 27, dex = 27, int = 27, },
 }
 itemBases["Shackled Boots"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsDexInt4",
 	type = "Boots",
 	subType = "Evasion/Energy Shield",
 	socketLimit = 4,
@@ -710,6 +778,7 @@ itemBases["Shackled Boots"] = {
 	req = { level = 34, dex = 34, int = 34, },
 }
 itemBases["Trapper Boots"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsDexInt5",
 	type = "Boots",
 	subType = "Evasion/Energy Shield",
 	socketLimit = 4,
@@ -720,6 +789,7 @@ itemBases["Trapper Boots"] = {
 	req = { level = 41, dex = 40, int = 40, },
 }
 itemBases["Ambush Boots"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsDexInt6",
 	type = "Boots",
 	subType = "Evasion/Energy Shield",
 	socketLimit = 4,
@@ -730,6 +800,7 @@ itemBases["Ambush Boots"] = {
 	req = { level = 47, dex = 45, int = 45, },
 }
 itemBases["Carnal Boots"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsDexInt7",
 	type = "Boots",
 	subType = "Evasion/Energy Shield",
 	socketLimit = 4,
@@ -740,6 +811,7 @@ itemBases["Carnal Boots"] = {
 	req = { level = 55, dex = 52, int = 52, },
 }
 itemBases["Assassin's Boots"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsDexInt8",
 	type = "Boots",
 	subType = "Evasion/Energy Shield",
 	socketLimit = 4,
@@ -750,6 +822,7 @@ itemBases["Assassin's Boots"] = {
 	req = { level = 63, dex = 62, int = 62, },
 }
 itemBases["Murder Boots"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsDexInt9",
 	type = "Boots",
 	subType = "Evasion/Energy Shield",
 	socketLimit = 4,
@@ -760,6 +833,7 @@ itemBases["Murder Boots"] = {
 	req = { level = 69, dex = 82, int = 42, },
 }
 itemBases["Infiltrator Boots"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsDexInt10",
 	type = "Boots",
 	subType = "Evasion/Energy Shield",
 	socketLimit = 4,
@@ -770,6 +844,7 @@ itemBases["Infiltrator Boots"] = {
 	req = { level = 78, dex = 85, int = 85, },
 }
 itemBases["Phantom Boots"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsDexInt11",
 	type = "Boots",
 	subType = "Evasion/Energy Shield",
 	socketLimit = 4,
@@ -780,24 +855,26 @@ itemBases["Phantom Boots"] = {
 	req = { level = 84, dex = 98, int = 98, },
 }
 itemBases["Fugitive Boots"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsAtlas4",
 	type = "Boots",
 	subType = "Evasion/Energy Shield",
 	socketLimit = 4,
 	tags = { armour = true, atlas_base_type = true, boots = true, bootsatlasdexint = true, default = true, dex_int_armour = true, not_for_sale = true, },
 	influenceTags = { shaper = "boots_shaper", elder = "boots_elder", adjudicator = "boots_adjudicator", basilisk = "boots_basilisk", crusader = "boots_crusader", eyrie = "boots_eyrie", cleansing = "boots_cleansing", tangle = "boots_tangle" },
-	implicit = "+(13-17)% to Chaos Resistance",
+	implicit = "+(17-23)% to Chaos Resistance",
 	implicitModTypes = { { "chaos", "resistance" }, },
 	implicitIds = { "ChaosResistImplicitBoots1", },
 	armour = { EvasionBaseMin = 112, EvasionBaseMax = 129, EnergyShieldBaseMin = 32, EnergyShieldBaseMax = 37, },
 	req = { level = 70, dex = 56, int = 76, },
 }
 itemBases["Two-Toned Boots (Evasion/Energy Shield)"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsAtlas1",
 	type = "Boots",
 	subType = "Evasion/Energy Shield",
 	socketLimit = 4,
 	tags = { armour = true, atlas_base_type = true, boots = true, bootsatlas1 = true, default = true, dex_int_armour = true, not_for_sale = true, },
 	influenceTags = { shaper = "boots_shaper", elder = "boots_elder", adjudicator = "boots_adjudicator", basilisk = "boots_basilisk", crusader = "boots_crusader", eyrie = "boots_eyrie", cleansing = "boots_cleansing", tangle = "boots_tangle" },
-	implicit = "+(8-12)% to Cold and Lightning Resistances",
+	implicit = "+(16-20)% to Cold and Lightning Resistances",
 	implicitModTypes = { { "elemental", "cold", "lightning", "resistance" }, },
 	implicitIds = { "ColdAndLightningResistImplicitBoots1", },
 	armour = { EvasionBaseMin = 126, EvasionBaseMax = 145, EnergyShieldBaseMin = 26, EnergyShieldBaseMax = 30, },
@@ -805,6 +882,7 @@ itemBases["Two-Toned Boots (Evasion/Energy Shield)"] = {
 }
 
 itemBases["Runic Greaves"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsExpedition1",
 	type = "Boots",
 	subType = "Ward",
 	socketLimit = 4,
@@ -815,6 +893,7 @@ itemBases["Runic Greaves"] = {
 	req = { level = 24, str = 20, dex = 20, int = 20, },
 }
 itemBases["Runic Sollerets"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsExpedition2",
 	type = "Boots",
 	subType = "Ward",
 	socketLimit = 4,
@@ -825,6 +904,7 @@ itemBases["Runic Sollerets"] = {
 	req = { level = 48, str = 37, dex = 37, int = 37, },
 }
 itemBases["Runic Sabatons"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsExpedition3",
 	type = "Boots",
 	subType = "Ward",
 	socketLimit = 4,
@@ -836,6 +916,7 @@ itemBases["Runic Sabatons"] = {
 }
 
 itemBases["Golden Caligae"] = {
+	baseId = "Metadata/Items/Armours/Boots/BootsDemigods1",
 	type = "Boots",
 	socketLimit = 4,
 	tags = { armour = true, boots = true, default = true, demigods = true, not_for_sale = true, },

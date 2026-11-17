@@ -3,6 +3,7 @@
 return function(itemBases)
 
 itemBases["Rusted Sword"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandSwords/OneHandSword1",
 	type = "One Handed Sword",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, sword = true, weapon = true, },
@@ -14,6 +15,7 @@ itemBases["Rusted Sword"] = {
 	req = { str = 8, dex = 8, },
 }
 itemBases["Copper Sword"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandSwords/OneHandSword2",
 	type = "One Handed Sword",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, sword = true, weapon = true, },
@@ -25,6 +27,7 @@ itemBases["Copper Sword"] = {
 	req = { level = 5, str = 14, dex = 14, },
 }
 itemBases["Sabre"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandSwords/OneHandSword3",
 	type = "One Handed Sword",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, sword = true, weapon = true, },
@@ -36,6 +39,7 @@ itemBases["Sabre"] = {
 	req = { level = 10, str = 18, dex = 26, },
 }
 itemBases["Broad Sword"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandSwords/OneHandSword4",
 	type = "One Handed Sword",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, sword = true, weapon = true, },
@@ -47,6 +51,7 @@ itemBases["Broad Sword"] = {
 	req = { level = 15, str = 30, dex = 30, },
 }
 itemBases["War Sword"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandSwords/OneHandSword5",
 	type = "One Handed Sword",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, sword = true, weapon = true, },
@@ -58,6 +63,7 @@ itemBases["War Sword"] = {
 	req = { level = 20, str = 41, dex = 35, },
 }
 itemBases["Ancient Sword"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandSwords/OneHandSword6",
 	type = "One Handed Sword",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, sword = true, weapon = true, },
@@ -69,6 +75,7 @@ itemBases["Ancient Sword"] = {
 	req = { level = 24, str = 44, dex = 44, },
 }
 itemBases["Elegant Sword"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandSwords/OneHandSword7",
 	type = "One Handed Sword",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, sword = true, weapon = true, },
@@ -80,6 +87,7 @@ itemBases["Elegant Sword"] = {
 	req = { level = 28, str = 46, dex = 55, },
 }
 itemBases["Dusk Blade"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandSwords/OneHandSword8",
 	type = "One Handed Sword",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, sword = true, weapon = true, },
@@ -91,6 +99,7 @@ itemBases["Dusk Blade"] = {
 	req = { level = 32, str = 57, dex = 57, },
 }
 itemBases["Hook Sword"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandSwords/OneHandSwordM1",
 	type = "One Handed Sword",
 	socketLimit = 3,
 	tags = { default = true, maraketh = true, not_for_sale = true, one_hand_weapon = true, onehand = true, sword = true, weapon = true, },
@@ -102,6 +111,7 @@ itemBases["Hook Sword"] = {
 	req = { level = 34, str = 64, dex = 64, },
 }
 itemBases["Variscite Blade"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandSwords/OneHandSword9",
 	type = "One Handed Sword",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, sword = true, weapon = true, },
@@ -113,6 +123,7 @@ itemBases["Variscite Blade"] = {
 	req = { level = 35, str = 62, dex = 62, },
 }
 itemBases["Cutlass"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandSwords/OneHandSword10",
 	type = "One Handed Sword",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, sword = true, weapon = true, },
@@ -124,6 +135,7 @@ itemBases["Cutlass"] = {
 	req = { level = 38, str = 55, dex = 79, },
 }
 itemBases["Baselard"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandSwords/OneHandSword11",
 	type = "One Handed Sword",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, sword = true, weapon = true, },
@@ -135,6 +147,7 @@ itemBases["Baselard"] = {
 	req = { level = 41, str = 72, dex = 72, },
 }
 itemBases["Battle Sword"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandSwords/OneHandSword12",
 	type = "One Handed Sword",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, sword = true, weapon = true, },
@@ -146,6 +159,7 @@ itemBases["Battle Sword"] = {
 	req = { level = 44, str = 83, dex = 70, },
 }
 itemBases["Elder Sword"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandSwords/OneHandSword13",
 	type = "One Handed Sword",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, sword = true, weapon = true, },
@@ -157,6 +171,7 @@ itemBases["Elder Sword"] = {
 	req = { level = 47, str = 81, dex = 81, },
 }
 itemBases["Graceful Sword"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandSwords/OneHandSword14",
 	type = "One Handed Sword",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, sword = true, weapon = true, },
@@ -168,6 +183,7 @@ itemBases["Graceful Sword"] = {
 	req = { level = 50, str = 78, dex = 94, },
 }
 itemBases["Twilight Blade"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandSwords/OneHandSword15",
 	type = "One Handed Sword",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, sword = true, weapon = true, },
@@ -179,6 +195,7 @@ itemBases["Twilight Blade"] = {
 	req = { level = 53, str = 91, dex = 91, },
 }
 itemBases["Grappler"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandSwords/OneHandSwordM2",
 	type = "One Handed Sword",
 	socketLimit = 3,
 	tags = { default = true, maraketh = true, not_for_sale = true, one_hand_weapon = true, onehand = true, sword = true, weapon = true, },
@@ -190,6 +207,7 @@ itemBases["Grappler"] = {
 	req = { level = 55, str = 99, dex = 99, },
 }
 itemBases["Gemstone Sword"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandSwords/OneHandSword16",
 	type = "One Handed Sword",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, sword = true, weapon = true, },
@@ -201,6 +219,7 @@ itemBases["Gemstone Sword"] = {
 	req = { level = 56, str = 96, dex = 96, },
 }
 itemBases["Corsair Sword"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandSwords/OneHandSword17",
 	type = "One Handed Sword",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, sword = true, weapon = true, },
@@ -212,6 +231,7 @@ itemBases["Corsair Sword"] = {
 	req = { level = 58, str = 81, dex = 117, },
 }
 itemBases["Gladius"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandSwords/OneHandSword18",
 	type = "One Handed Sword",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, sword = true, weapon = true, },
@@ -223,6 +243,7 @@ itemBases["Gladius"] = {
 	req = { level = 60, str = 113, dex = 113, },
 }
 itemBases["Legion Sword"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandSwords/OneHandSword19",
 	type = "One Handed Sword",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, sword = true, top_tier_base_item_type = true, weapon = true, },
@@ -234,6 +255,7 @@ itemBases["Legion Sword"] = {
 	req = { level = 62, str = 122, dex = 104, },
 }
 itemBases["Vaal Blade"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandSwords/OneHandSword20",
 	type = "One Handed Sword",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, sword = true, top_tier_base_item_type = true, weapon = true, },
@@ -245,6 +267,7 @@ itemBases["Vaal Blade"] = {
 	req = { level = 64, str = 113, dex = 113, },
 }
 itemBases["Eternal Sword"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandSwords/OneHandSword21",
 	type = "One Handed Sword",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, sword = true, top_tier_base_item_type = true, weapon = true, },
@@ -256,6 +279,7 @@ itemBases["Eternal Sword"] = {
 	req = { level = 66, str = 104, dex = 122, },
 }
 itemBases["Midnight Blade"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandSwords/OneHandSword22",
 	type = "One Handed Sword",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, sword = true, top_tier_base_item_type = true, weapon = true, },
@@ -267,6 +291,7 @@ itemBases["Midnight Blade"] = {
 	req = { level = 68, str = 113, dex = 113, },
 }
 itemBases["Tiger Hook"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandSwords/OneHandSwordM3",
 	type = "One Handed Sword",
 	socketLimit = 3,
 	tags = { default = true, maraketh = true, not_for_sale = true, one_hand_weapon = true, onehand = true, sword = true, weapon = true, },
@@ -278,6 +303,7 @@ itemBases["Tiger Hook"] = {
 	req = { level = 70, str = 119, dex = 119, },
 }
 itemBases["Fickle Spiritblade"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandSwords/OneHandSwordE1",
 	type = "One Handed Sword",
 	socketLimit = 3,
 	tags = { default = true, experimental_base = true, not_for_sale = true, one_hand_weapon = true, onehand = true, sword = true, weapon = true, },
@@ -289,6 +315,7 @@ itemBases["Fickle Spiritblade"] = {
 	req = { level = 30, str = 54, dex = 54, },
 }
 itemBases["Capricious Spiritblade"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandSwords/OneHandSwordE2",
 	type = "One Handed Sword",
 	socketLimit = 3,
 	tags = { default = true, experimental_base = true, not_for_sale = true, one_hand_weapon = true, onehand = true, sword = true, weapon = true, },
@@ -300,6 +327,7 @@ itemBases["Capricious Spiritblade"] = {
 	req = { level = 50, str = 94, dex = 94, },
 }
 itemBases["Anarchic Spiritblade"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandSwords/OneHandSwordE3",
 	type = "One Handed Sword",
 	socketLimit = 3,
 	tags = { default = true, experimental_base = true, not_for_sale = true, one_hand_weapon = true, onehand = true, sword = true, weapon = true, },
@@ -311,6 +339,7 @@ itemBases["Anarchic Spiritblade"] = {
 	req = { level = 70, str = 121, dex = 121, },
 }
 itemBases["Ghostflame Blade"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandSwords/OneHandSwordD1",
 	type = "One Handed Sword",
 	socketLimit = 3,
 	tags = { default = true, not_for_sale = true, one_hand_weapon = true, onehand = true, sword = true, weapon = true, },
@@ -320,6 +349,7 @@ itemBases["Ghostflame Blade"] = {
 	req = { level = 68, str = 113, dex = 113, },
 }
 itemBases["Random One Hand Sword"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandSwords/OneHandSwordGamble",
 	type = "One Handed Sword",
 	socketLimit = 3,
 	tags = { default = true, },
@@ -329,6 +359,7 @@ itemBases["Random One Hand Sword"] = {
 }
 
 itemBases["Charan's Sword"] = {
+	baseId = "Metadata/items/Weapons/OneHandWeapons/OneHandSwords/OneHandSwordC",
 	type = "One Handed Sword",
 	socketLimit = 3,
 	tags = { default = true, not_for_sale = true, one_hand_weapon = true, onehand = true, sword = true, weapon = true, },
@@ -341,6 +372,7 @@ itemBases["Charan's Sword"] = {
 }
 
 itemBases["Energy Blade One Handed"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandSwords/StormBladeOneHand",
 	type = "One Handed Sword",
 	hidden = true,
 	socketLimit = 3,
@@ -352,6 +384,7 @@ itemBases["Energy Blade One Handed"] = {
 }
 
 itemBases["Rusted Spike"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandThrustingSwords/Rapier1",
 	type = "One Handed Sword",
 	subType = "Thrusting",
 	socketLimit = 3,
@@ -364,6 +397,7 @@ itemBases["Rusted Spike"] = {
 	req = { dex = 20, },
 }
 itemBases["Whalebone Rapier"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandThrustingSwords/Rapier2",
 	type = "One Handed Sword",
 	subType = "Thrusting",
 	socketLimit = 3,
@@ -376,6 +410,7 @@ itemBases["Whalebone Rapier"] = {
 	req = { level = 7, dex = 32, },
 }
 itemBases["Battered Foil"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandThrustingSwords/Rapier3",
 	type = "One Handed Sword",
 	subType = "Thrusting",
 	socketLimit = 3,
@@ -388,6 +423,7 @@ itemBases["Battered Foil"] = {
 	req = { level = 12, dex = 47, },
 }
 itemBases["Basket Rapier"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandThrustingSwords/Rapier4",
 	type = "One Handed Sword",
 	subType = "Thrusting",
 	socketLimit = 3,
@@ -400,6 +436,7 @@ itemBases["Basket Rapier"] = {
 	req = { level = 17, dex = 62, },
 }
 itemBases["Jagged Foil"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandThrustingSwords/Rapier5",
 	type = "One Handed Sword",
 	subType = "Thrusting",
 	socketLimit = 3,
@@ -412,6 +449,7 @@ itemBases["Jagged Foil"] = {
 	req = { level = 22, dex = 77, },
 }
 itemBases["Antique Rapier"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandThrustingSwords/Rapier6",
 	type = "One Handed Sword",
 	subType = "Thrusting",
 	socketLimit = 3,
@@ -424,6 +462,7 @@ itemBases["Antique Rapier"] = {
 	req = { level = 26, dex = 89, },
 }
 itemBases["Elegant Foil"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandThrustingSwords/Rapier7",
 	type = "One Handed Sword",
 	subType = "Thrusting",
 	socketLimit = 3,
@@ -436,6 +475,7 @@ itemBases["Elegant Foil"] = {
 	req = { level = 30, dex = 101, },
 }
 itemBases["Thorn Rapier"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandThrustingSwords/Rapier8",
 	type = "One Handed Sword",
 	subType = "Thrusting",
 	socketLimit = 3,
@@ -448,6 +488,7 @@ itemBases["Thorn Rapier"] = {
 	req = { level = 34, dex = 113, },
 }
 itemBases["Smallsword"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandThrustingSwords/RapierM1",
 	type = "One Handed Sword",
 	subType = "Thrusting",
 	socketLimit = 3,
@@ -460,6 +501,7 @@ itemBases["Smallsword"] = {
 	req = { level = 36, dex = 124, },
 }
 itemBases["Wyrmbone Rapier"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandThrustingSwords/Rapier9",
 	type = "One Handed Sword",
 	subType = "Thrusting",
 	socketLimit = 3,
@@ -472,6 +514,7 @@ itemBases["Wyrmbone Rapier"] = {
 	req = { level = 37, dex = 122, },
 }
 itemBases["Burnished Foil"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandThrustingSwords/Rapier10",
 	type = "One Handed Sword",
 	subType = "Thrusting",
 	socketLimit = 3,
@@ -484,6 +527,7 @@ itemBases["Burnished Foil"] = {
 	req = { level = 40, dex = 131, },
 }
 itemBases["Estoc"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandThrustingSwords/Rapier11",
 	type = "One Handed Sword",
 	subType = "Thrusting",
 	socketLimit = 3,
@@ -496,6 +540,7 @@ itemBases["Estoc"] = {
 	req = { level = 43, dex = 140, },
 }
 itemBases["Serrated Foil"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandThrustingSwords/Rapier12",
 	type = "One Handed Sword",
 	subType = "Thrusting",
 	socketLimit = 3,
@@ -508,6 +553,7 @@ itemBases["Serrated Foil"] = {
 	req = { level = 46, dex = 149, },
 }
 itemBases["Primeval Rapier"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandThrustingSwords/Rapier13",
 	type = "One Handed Sword",
 	subType = "Thrusting",
 	socketLimit = 3,
@@ -520,6 +566,7 @@ itemBases["Primeval Rapier"] = {
 	req = { level = 49, dex = 158, },
 }
 itemBases["Fancy Foil"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandThrustingSwords/Rapier14",
 	type = "One Handed Sword",
 	subType = "Thrusting",
 	socketLimit = 3,
@@ -532,6 +579,7 @@ itemBases["Fancy Foil"] = {
 	req = { level = 52, dex = 167, },
 }
 itemBases["Apex Rapier"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandThrustingSwords/Rapier15",
 	type = "One Handed Sword",
 	subType = "Thrusting",
 	socketLimit = 3,
@@ -544,6 +592,7 @@ itemBases["Apex Rapier"] = {
 	req = { level = 55, dex = 176, },
 }
 itemBases["Courtesan Sword"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandThrustingSwords/RapierM2",
 	type = "One Handed Sword",
 	subType = "Thrusting",
 	socketLimit = 3,
@@ -556,6 +605,7 @@ itemBases["Courtesan Sword"] = {
 	req = { level = 57, dex = 190, },
 }
 itemBases["Dragonbone Rapier"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandThrustingSwords/Rapier16",
 	type = "One Handed Sword",
 	subType = "Thrusting",
 	socketLimit = 3,
@@ -568,6 +618,7 @@ itemBases["Dragonbone Rapier"] = {
 	req = { level = 58, dex = 185, },
 }
 itemBases["Tempered Foil"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandThrustingSwords/Rapier17",
 	type = "One Handed Sword",
 	subType = "Thrusting",
 	socketLimit = 3,
@@ -580,6 +631,7 @@ itemBases["Tempered Foil"] = {
 	req = { level = 60, dex = 212, },
 }
 itemBases["Pecoraro"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandThrustingSwords/Rapier18",
 	type = "One Handed Sword",
 	subType = "Thrusting",
 	socketLimit = 3,
@@ -592,6 +644,7 @@ itemBases["Pecoraro"] = {
 	req = { level = 62, dex = 212, },
 }
 itemBases["Spiraled Foil"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandThrustingSwords/Rapier19",
 	type = "One Handed Sword",
 	subType = "Thrusting",
 	socketLimit = 3,
@@ -604,6 +657,7 @@ itemBases["Spiraled Foil"] = {
 	req = { level = 64, dex = 212, },
 }
 itemBases["Vaal Rapier"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandThrustingSwords/Rapier20",
 	type = "One Handed Sword",
 	subType = "Thrusting",
 	socketLimit = 3,
@@ -616,6 +670,7 @@ itemBases["Vaal Rapier"] = {
 	req = { level = 66, dex = 212, },
 }
 itemBases["Jewelled Foil"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandThrustingSwords/Rapier21",
 	type = "One Handed Sword",
 	subType = "Thrusting",
 	socketLimit = 3,
@@ -628,6 +683,7 @@ itemBases["Jewelled Foil"] = {
 	req = { level = 68, dex = 212, },
 }
 itemBases["Harpy Rapier"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandThrustingSwords/Rapier22",
 	type = "One Handed Sword",
 	subType = "Thrusting",
 	socketLimit = 3,
@@ -640,6 +696,7 @@ itemBases["Harpy Rapier"] = {
 	req = { level = 70, dex = 212, },
 }
 itemBases["Dragoon Sword"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandThrustingSwords/RapierM3",
 	type = "One Handed Sword",
 	subType = "Thrusting",
 	socketLimit = 3,
@@ -653,6 +710,7 @@ itemBases["Dragoon Sword"] = {
 }
 
 itemBases["Keyblade"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandSwords/TwoHandSwordDev",
 	type = "Two Handed Sword",
 	socketLimit = 6,
 	tags = { default = true, not_for_sale = true, sword = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -665,6 +723,7 @@ itemBases["Keyblade"] = {
 	},
 }
 itemBases["Corroded Blade"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandSwords/TwoHandSword1",
 	type = "Two Handed Sword",
 	socketLimit = 6,
 	tags = { default = true, sword = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -676,6 +735,7 @@ itemBases["Corroded Blade"] = {
 	req = { str = 11, dex = 11, },
 }
 itemBases["Longsword"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandSwords/TwoHandSword2",
 	type = "Two Handed Sword",
 	socketLimit = 6,
 	tags = { default = true, sword = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -687,6 +747,7 @@ itemBases["Longsword"] = {
 	req = { level = 8, str = 20, dex = 17, },
 }
 itemBases["Bastard Sword"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandSwords/TwoHandSword3",
 	type = "Two Handed Sword",
 	socketLimit = 6,
 	tags = { default = true, sword = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -698,6 +759,7 @@ itemBases["Bastard Sword"] = {
 	req = { level = 12, str = 21, dex = 30, },
 }
 itemBases["Two-Handed Sword"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandSwords/TwoHandSword4",
 	type = "Two Handed Sword",
 	socketLimit = 6,
 	tags = { default = true, sword = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -709,6 +771,7 @@ itemBases["Two-Handed Sword"] = {
 	req = { level = 17, str = 33, dex = 33, },
 }
 itemBases["Etched Greatsword"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandSwords/TwoHandSword5",
 	type = "Two Handed Sword",
 	socketLimit = 6,
 	tags = { default = true, sword = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -720,6 +783,7 @@ itemBases["Etched Greatsword"] = {
 	req = { level = 22, str = 45, dex = 38, },
 }
 itemBases["Ornate Sword"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandSwords/TwoHandSword6",
 	type = "Two Handed Sword",
 	socketLimit = 6,
 	tags = { default = true, sword = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -731,6 +795,7 @@ itemBases["Ornate Sword"] = {
 	req = { level = 27, str = 45, dex = 54, },
 }
 itemBases["Spectral Sword"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandSwords/TwoHandSword7",
 	type = "Two Handed Sword",
 	socketLimit = 6,
 	tags = { default = true, sword = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -742,6 +807,7 @@ itemBases["Spectral Sword"] = {
 	req = { level = 32, str = 57, dex = 57, },
 }
 itemBases["Curved Blade"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandSwords/TwoHandSwordM1",
 	type = "Two Handed Sword",
 	socketLimit = 6,
 	tags = { default = true, maraketh = true, not_for_sale = true, sword = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -753,6 +819,7 @@ itemBases["Curved Blade"] = {
 	req = { level = 35, str = 62, dex = 73, },
 }
 itemBases["Butcher Sword"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandSwords/TwoHandSword8",
 	type = "Two Handed Sword",
 	socketLimit = 6,
 	tags = { default = true, sword = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -764,6 +831,7 @@ itemBases["Butcher Sword"] = {
 	req = { level = 36, str = 69, dex = 58, },
 }
 itemBases["Footman Sword"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandSwords/TwoHandSword9",
 	type = "Two Handed Sword",
 	socketLimit = 6,
 	tags = { default = true, sword = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -775,6 +843,7 @@ itemBases["Footman Sword"] = {
 	req = { level = 40, str = 57, dex = 83, },
 }
 itemBases["Highland Blade"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandSwords/TwoHandSword10",
 	type = "Two Handed Sword",
 	socketLimit = 6,
 	tags = { default = true, sword = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -786,6 +855,7 @@ itemBases["Highland Blade"] = {
 	req = { level = 44, str = 77, dex = 77, },
 }
 itemBases["Engraved Greatsword"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandSwords/TwoHandSword11",
 	type = "Two Handed Sword",
 	socketLimit = 6,
 	tags = { default = true, sword = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -797,6 +867,7 @@ itemBases["Engraved Greatsword"] = {
 	req = { level = 48, str = 91, dex = 76, },
 }
 itemBases["Tiger Sword"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandSwords/TwoHandSword12",
 	type = "Two Handed Sword",
 	socketLimit = 6,
 	tags = { default = true, sword = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -808,6 +879,7 @@ itemBases["Tiger Sword"] = {
 	req = { level = 51, str = 80, dex = 96, },
 }
 itemBases["Wraith Sword"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandSwords/TwoHandSword13",
 	type = "Two Handed Sword",
 	socketLimit = 6,
 	tags = { default = true, sword = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -819,6 +891,7 @@ itemBases["Wraith Sword"] = {
 	req = { level = 54, str = 93, dex = 93, },
 }
 itemBases["Lithe Blade"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandSwords/TwoHandSwordM2",
 	type = "Two Handed Sword",
 	socketLimit = 6,
 	tags = { default = true, maraketh = true, not_for_sale = true, sword = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -830,6 +903,7 @@ itemBases["Lithe Blade"] = {
 	req = { level = 56, str = 96, dex = 113, },
 }
 itemBases["Headman's Sword"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandSwords/TwoHandSword14",
 	type = "Two Handed Sword",
 	socketLimit = 6,
 	tags = { default = true, sword = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -841,6 +915,7 @@ itemBases["Headman's Sword"] = {
 	req = { level = 57, str = 106, dex = 89, },
 }
 itemBases["Reaver Sword"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandSwords/TwoHandSword15",
 	type = "Two Handed Sword",
 	socketLimit = 6,
 	tags = { default = true, sword = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -852,6 +927,7 @@ itemBases["Reaver Sword"] = {
 	req = { level = 59, str = 82, dex = 119, },
 }
 itemBases["Ezomyte Blade"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandSwords/TwoHandSword16",
 	type = "Two Handed Sword",
 	socketLimit = 6,
 	tags = { default = true, sword = true, top_tier_base_item_type = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -863,6 +939,7 @@ itemBases["Ezomyte Blade"] = {
 	req = { level = 61, str = 113, dex = 113, },
 }
 itemBases["Vaal Greatsword"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandSwords/TwoHandSword17",
 	type = "Two Handed Sword",
 	socketLimit = 6,
 	tags = { default = true, sword = true, top_tier_base_item_type = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -874,6 +951,7 @@ itemBases["Vaal Greatsword"] = {
 	req = { level = 63, str = 122, dex = 104, },
 }
 itemBases["Lion Sword"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandSwords/TwoHandSword18",
 	type = "Two Handed Sword",
 	socketLimit = 6,
 	tags = { default = true, sword = true, top_tier_base_item_type = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -885,6 +963,7 @@ itemBases["Lion Sword"] = {
 	req = { level = 65, str = 104, dex = 122, },
 }
 itemBases["Infernal Sword"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandSwords/TwoHandSword19",
 	type = "Two Handed Sword",
 	socketLimit = 6,
 	tags = { default = true, sword = true, top_tier_base_item_type = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -896,6 +975,7 @@ itemBases["Infernal Sword"] = {
 	req = { level = 67, str = 113, dex = 113, },
 }
 itemBases["Exquisite Blade"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandSwords/TwoHandSwordM3",
 	type = "Two Handed Sword",
 	socketLimit = 6,
 	tags = { default = true, maraketh = true, not_for_sale = true, sword = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -907,6 +987,7 @@ itemBases["Exquisite Blade"] = {
 	req = { level = 70, str = 119, dex = 131, },
 }
 itemBases["Rebuking Blade"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandSwords/TwoHandSwordE1",
 	type = "Two Handed Sword",
 	socketLimit = 6,
 	tags = { default = true, experimental_base = true, not_for_sale = true, sword = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -918,6 +999,7 @@ itemBases["Rebuking Blade"] = {
 	req = { level = 30, str = 54, dex = 54, },
 }
 itemBases["Blasting Blade"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandSwords/TwoHandSwordE2",
 	type = "Two Handed Sword",
 	socketLimit = 6,
 	tags = { default = true, experimental_base = true, not_for_sale = true, sword = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -929,6 +1011,7 @@ itemBases["Blasting Blade"] = {
 	req = { level = 50, str = 86, dex = 86, },
 }
 itemBases["Banishing Blade"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandSwords/TwoHandSwordE3",
 	type = "Two Handed Sword",
 	socketLimit = 6,
 	tags = { default = true, experimental_base = true, not_for_sale = true, sword = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -940,6 +1023,7 @@ itemBases["Banishing Blade"] = {
 	req = { level = 70, str = 130, dex = 130, },
 }
 itemBases["Random Two Hand Sword"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandSwords/TwoHandSwordGamble",
 	type = "Two Handed Sword",
 	socketLimit = 6,
 	tags = { default = true, },
@@ -949,6 +1033,7 @@ itemBases["Random Two Hand Sword"] = {
 }
 
 itemBases["Energy Blade Two Handed"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandSwords/StormBladeTwoHand",
 	type = "Two Handed Sword",
 	hidden = true,
 	socketLimit = 6,
