@@ -5083,8 +5083,8 @@ local specialModList = {
 	["you cannot be cursed with silence"] = { flag("SilenceImmune") },
 	["unaffected by ignite"] = { mod("SelfIgniteEffect", "MORE", -100) },
 	["unaffected by ignite or shock if maximum life and maximum mana are within (%d+)"] = function(num) return {
-		mod("SelfIgniteEffect", "MORE", -100, { type = "StatThreshold", stat = "AbsoluteDifferenceOfMaximumLifeAndMaximumMana", threshold = num, upper = true }),
-		mod("SelfShockEffect", "MORE", -100, { type = "StatThreshold", stat = "AbsoluteDifferenceOfMaximumLifeAndMaximumMana", threshold = num, upper = true }),
+		mod("SelfIgniteEffect", "MORE", -100, { type = "StatThreshold", stat = "MaximumLifeManaDifference", threshold = num, upper = true }),
+		mod("SelfShockEffect", "MORE", -100, { type = "StatThreshold", stat = "MaximumLifeManaDifference", threshold = num, upper = true }),
 	} end,
 	["unaffected by chill"] = { mod("SelfChillEffect", "MORE", -100) },
 	["unaffected by chill while leeching mana"] = { mod("SelfChillEffect", "MORE", -100, { type = "Condition", var = "LeechingMana" }) },
