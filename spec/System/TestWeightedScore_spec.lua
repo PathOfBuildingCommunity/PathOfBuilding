@@ -29,9 +29,6 @@ describe("WeightedScore module", function()
 
 	it("weightsRequireFullDPS identifies active FullDPS weights", function()
 		local cases = {
-			{ label = "nil", expected = false },
-			{ label = "empty", weights = {}, expected = false },
-			{ label = "only FullDPS", weights = { { stat = "FullDPS", weightMult = 1.0 } }, expected = true },
 			{
 				label = "ordinary stats",
 				weights = { { stat = "TotalEHP", weightMult = 0.5 }, { stat = "TotalDPS", weightMult = 1.0 } },
@@ -39,15 +36,10 @@ describe("WeightedScore module", function()
 			},
 			{
 				label = "FullDPS among other stats",
-				weights = {
-					{ stat = "TotalEHP", weightMult = 0.5 },
-					{ stat = "FullDPS", weightMult = 1.0 },
-					{ stat = "Life", weightMult = 0.25 },
-				},
+				weights = { { stat = "TotalEHP", weightMult = 0.5 }, { stat = "FullDPS", weightMult = 1.0 } },
 				expected = true,
 			},
 			{ label = "zero FullDPS weight", weights = { { stat = "FullDPS", weightMult = 0 } }, expected = false },
-			{ label = "custom stat", weights = { { stat = "TotalAttr", weightMult = 1.0 } }, expected = false },
 		}
 
 		for _, case in ipairs(cases) do

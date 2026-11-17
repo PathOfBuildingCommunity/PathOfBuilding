@@ -36,11 +36,8 @@ end
 -- Returns true when any active weight targets FullDPS, so callers can route
 -- through the FullDPS-aware calculation path.
 function WeightedScore.weightsRequireFullDPS(weights)
-	if not weights then
-		return false
-	end
 	for _, statTable in ipairs(weights) do
-		if statTable and statTable.stat == "FullDPS" and (statTable.weightMult == nil or statTable.weightMult ~= 0) then
+		if statTable.stat == "FullDPS" and statTable.weightMult ~= 0 then
 			return true
 		end
 	end
