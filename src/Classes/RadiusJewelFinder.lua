@@ -126,6 +126,7 @@ function RadiusJewelFinderClass:getSocketOccupancyInfo(socketId)
 		local impossibleEscapeKeystones = jewelData and jewelData.impossibleEscapeKeystones
 		isPositionSensitive = item.clusterJewel
 			or (jewelData and jewelData.conqueredBy)
+			or (jewelData and jewelData.blightcoreNotables)
 			or item.jewelRadiusIndex ~= nil
 			or (impossibleEscapeKeystones and next(impossibleEscapeKeystones) ~= nil)
 			or (item.title and item.title:match("^Split Personality") ~= nil)

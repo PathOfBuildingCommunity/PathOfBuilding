@@ -720,6 +720,33 @@ describe("RadiusJewelCompute #radius-jewel", function()
 
 	describe("cluster jewel replacements", function()
 
+		local function socketPutridSeed()
+			newBuild()
+			local spec = build.spec
+			local seedSocketId
+			for socketId in pairs(spec.tree.blightcoreLayouts) do
+				if not seedSocketId or socketId < seedSocketId then
+					seedSocketId = socketId
+				end
+			end
+			local seed = new("Item"):Item([[
+Rarity: UNIQUE
+Putrid Seed
+Mycelium Core
+Limited to: 1
+Implicits: 1
+1 Added Passive Skill is Constitution (enchant)
+Grows four random Passive Skills when Anointed
+Passive Skills grown are influenced by Oils used when Anointing
+]])
+			build.itemsTab:AddItem(seed, true)
+			spec.jewels[seedSocketId] = seed.id
+			build.itemsTab.sockets[seedSocketId].selItemId = seed.id
+			spec:AllocNode(spec.nodes[seedSocketId])
+			spec:BuildClusterJewelGraphs()
+			return spec, seedSocketId
+		end
+
 		it("rebuilds the comparison tree without the replaced cluster subgraph", function()
 			loadBuildFromXML(mirageArcherToxicRain.xml, "Mirage Archer Toxic Rain")
 
@@ -780,29 +807,7 @@ describe("RadiusJewelCompute #radius-jewel", function()
 		end)
 
 		it("rebuilds a socketed Putrid Seed's grown passives in the comparison tree", function()
-			newBuild()
-			local spec = build.spec
-			local seedSocketId
-			for socketId in pairs(spec.tree.blightcoreLayouts) do
-				if not seedSocketId or socketId < seedSocketId then
-					seedSocketId = socketId
-				end
-			end
-			local seed = new("Item"):Item([[
-Rarity: UNIQUE
-Putrid Seed
-Mycelium Core
-Limited to: 1
-Implicits: 1
-1 Added Passive Skill is Constitution (enchant)
-Grows four random Passive Skills when Anointed
-Passive Skills grown are influenced by Oils used when Anointing
-]])
-			build.itemsTab:AddItem(seed, true)
-			spec.jewels[seedSocketId] = seed.id
-			build.itemsTab.sockets[seedSocketId].selItemId = seed.id
-			spec:AllocNode(spec.nodes[seedSocketId])
-			spec:BuildClusterJewelGraphs()
+			local spec, seedSocketId = socketPutridSeed()
 
 			local clusterSocketId
 			for socketId in pairs(spec.tree.blightcoreLayouts) do
@@ -829,6 +834,41 @@ Adds Hollow Palm Technique
 				end
 			end
 			assert.are.equal(#seedSubGraph.entranceNodes, grownLinkCount)
+		end)
+
+		it("drops a replaced Putrid Seed's grown passives from the comparison tree", function()
+			local spec, seedSocketId = socketPutridSeed()
+			local grownNode = spec.subGraphs[seedSocketId].entranceNodes[1]
+			spec:AllocNode(grownNode)
+			assert.is_true(grownNode.alloc, "expected an allocated grown passive")
+			local finder = makeFinder()
+			assert.is_false(finder:socketMatchesOccupiedMode(seedSocketId, { id = "safe" }))
+
+			local comparisonSpec
+			local originalGetMiscCalculator = build.calcsTab.GetMiscCalculator
+			build.calcsTab.GetMiscCalculator = function()
+				return function(override)
+					comparisonSpec = comparisonSpec or override.spec
+					return { Life = 0 }
+				end, { Life = 0 }
+			end
+			finder.compute:computeBestVariantSocketImpact({
+				sockets = { {
+					id = seedSocketId,
+					label = "Putrid Seed socket",
+					pathDist = 0,
+				} },
+				variants = { {
+					name = "Candidate",
+					rawText = MIGHT_OF_MEEK_RAW_TEXT,
+				} },
+				impactStat = "Life",
+				occupiedMode = { id = "all" },
+			})
+			build.calcsTab.GetMiscCalculator = originalGetMiscCalculator
+
+			assert.is_not_nil(comparisonSpec, "expected a comparison spec for the Putrid Seed replacement")
+			assert.is_nil(comparisonSpec.allocNodes[grownNode.id], "replaced Putrid Seed passive should not remain allocated")
 		end)
 
 	end)

@@ -222,9 +222,15 @@ local function buildReplacementItem(slot)
 	return item
 end
 
+-- Cluster jewels and Putrid Seeds grow passives in a subgraph of their socket.
+-- An unanointed Putrid Seed has an empty blightcoreNotables list and still grows passives.
+local function itemGrowsSocketSubgraph(item)
+	return not not (item and item.type == "Jewel"
+		and (item.clusterJewel or (item.jewelData and item.jewelData.blightcoreNotables)))
+end
+
 local function itemNeedsRadiusComparisonSpec(itemsTab, item)
-	return itemsTab:ItemNeedsMainTreeComparisonSpec(item)
-		or not not (item and item.type == "Jewel" and item.clusterJewel)
+	return itemsTab:ItemNeedsMainTreeComparisonSpec(item) or itemGrowsSocketSubgraph(item)
 end
 
 local function buildDisconnectedPassivePlanStep(baseOutput, baseValue, value, compareOutput, chosenNodes, variantLabel)
@@ -324,7 +330,7 @@ function RadiusJewelComputeClass:buildSocketReplacementOverride(replacementConte
 		local spec = replacementContext.comparisonSpecs[item]
 		if not spec then
 			local replacedItem = replacementContext.occupancy and replacementContext.occupancy.item
-			local rebuildClusterJewelGraphs = (replacedItem and replacedItem.clusterJewel) or item.clusterJewel
+			local rebuildClusterJewelGraphs = itemGrowsSocketSubgraph(replacedItem) or itemGrowsSocketSubgraph(item)
 			spec = self.build.itemsTab:BuildSpecForJewelComparison({ nodeId = socketNode.id }, item, not socketNode.alloc, rebuildClusterJewelGraphs)
 			replacementContext.comparisonSpecs[item] = spec
 		end
