@@ -1748,7 +1748,7 @@ function ItemsTabClass:UpdateSockets()
 	-- Update the state of the active socket controls
 	self.lastSlot = self.slots[baseSlots[#baseSlots]]
 	if self.controls.wickermanHeader and self.controls.wickermanHeader:IsShown() then
-		self.lastSlot = self.slots["Wickerman Lower Limb"]
+		self.lastSlot = self.slots["Leg"]
 	end
 	for index, nodeId in ipairs(activeSocketList) do
 		self.sockets[nodeId].label = "Socket #"..index
