@@ -127,7 +127,7 @@ describe("ItemDBControl", function()
 			control.controls.slot:SelByValue("Graft 2")
 			assert.are.equal("Graft 2", control.slotList[control.controls.slot.selIndex])
 			local lastIndex = control.controls.slot.selIndex
-			for _, slotName in ipairs({ "Wickerman Head", "Wickerman Torso", "Wickerman Upper Limb", "Wickerman Lower Limb" }) do
+			for _, slotName in ipairs({ "Head", "Body", "Arm", "Leg" }) do
 				control.controls.slot:SelByValue(slotName)
 				assert.are.equal(lastIndex + 1, control.controls.slot.selIndex)
 				assert.is_false(control:DoesItemMatchFilters(item))

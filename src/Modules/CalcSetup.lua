@@ -1308,7 +1308,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 					env.itemModDB.conditions[item.title:gsub(" ", "")] = item.classRestriction
 				end
 				if item.type ~= "Jewel" and item.type ~= "Flask" and item.type ~= "Tincture" and item.type ~= "Graft"
-				and item.type ~= "Wickerman Head" and item.type ~= "Wickerman Torso" and item.type ~= "Wickerman Upper Limb" and item.type ~= "Wickerman Lower Limb" then
+				and item.type ~= "Viscera" then
 					-- Update item counts
 					local key
 					if item.rarity == "UNIQUE" or item.rarity == "RELIC" then

@@ -1243,25 +1243,6 @@ for _, type in pairs(itemTypes) do
 end
 -- Wickerman has base data only; no unique rarity or modifier ownership is assumed.
 LoadModule("Data/Bases/wickerman")(data.itemBases)
--- Need to populate it with the proper implicit mods
-local visceraMap = { Low = "Lesser ", Med = "", High = "Greater ", [""] = "" }
-for name, base in pairs(data.itemBases) do
-	if base.type == "Viscera" then
-		for _, level in ipairs({ "Low", "Med", "High", "" }) do
-			local baseCopy = copyTable(base)
-			local implicit = data.itemMods.ItemExclusive["VisceraMod" .. base.baseId:gsub("^.*/Viscera", "") .. level]
-			if implicit then
-				baseCopy.implicit = ""
-				for i, modLine in ipairs(implicit) do
-					baseCopy.implicit = baseCopy.implicit .. modLine .. (i < #implicit and "\n" or "")
-				end
-				data.itemBases[visceraMap[level] .. name] = baseCopy
-			else
-				ConPrintf("Missing implicit for %s, level %s", base.baseId:gsub("^.*/Viscera", ""), level)
-			end
-		end
-	end
-end
 
 ---@class ItemBaseEntry
 ---@field label string
@@ -1323,6 +1304,7 @@ table.sort(data.itemBaseTypeList)
 
 -- Rare templates
 data.rares = LoadModule("Data/Rares")
+data.viscera = LoadModule("Data/Viscera")
 
 data.casterTagCrucibleUniques = {
 	["Atziri's Rule"] = true,

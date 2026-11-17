@@ -2198,6 +2198,12 @@ function ItemClass:GetPrimarySlot()
 		return "Flask 1"
 	elseif self.type == "Graft" then
 		return "Graft 1"
+	elseif self.type == "Viscera" then
+		for tag, _ in pairs(self.base.tags) do
+			if tag:match("^viscera_") then
+				return tag:gsub("^viscera_", ""):gsub("^%l", string.upper)
+			end
+		end
 	else
 		return self.type
 	end

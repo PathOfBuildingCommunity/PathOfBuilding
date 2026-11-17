@@ -2015,7 +2015,7 @@ return {
 		},
 		[23]={
 			list=false,
-			name="",
+			name="Drops",
 			refTo="",
 			type="Bool",
 			width=50
@@ -8849,7 +8849,7 @@ return {
 			name="Stat2",
 			refTo="Stats",
 			type="Key",
-			width=200
+			width=480
 		},
 		[7]={
 			list=false,
@@ -8863,7 +8863,7 @@ return {
 			name="Stat4",
 			refTo="Stats",
 			type="Key",
-			width=200
+			width=430
 		},
 		[9]={
 			list=false,
@@ -8940,7 +8940,7 @@ return {
 			name="Tags",
 			refTo="Tags",
 			type="Key",
-			width=150
+			width=220
 		},
 		[20]={
 			list=true,

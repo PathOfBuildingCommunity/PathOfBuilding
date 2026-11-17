@@ -10,10 +10,10 @@ describe("TestItemParse", function()
 			{ "Greater Gladiator's Heart", "Gladiator's Heart", "Greater ", "Torso" }, -- Live clipboard sample.
 			{ "Lesser Gladiator's Heart", "Gladiator's Heart", "Lesser ", "Torso" }, -- Synthetic unlisted name.
 			{ "Gladiator's Heart", "Gladiator's Heart", "", "Torso" },
-			{ "Greater Sirus' Head", "Greater Sirus' Head", "", "Head" }, -- Exact base takes precedence.
+			{ "Greater Sirus' Head", "Sirus' Head", "Greater ", "Head" }, -- Exact base takes precedence.
 			{ "Experimental Gladiator's Heart", "Gladiator's Heart", "Experimental ", "Torso" }, -- Synthetic unknown prefix.
-			{ "Lesser Warden's Arm", "Lesser Warden's Arm", "", "Upper Limb" },
-			{ "Lesser Pocked Leg", "Lesser Pocked Leg", "", "Lower Limb" },
+			{ "Lesser Warden's Arm", "Warden's Arm", "Lesser ", "Upper Limb" },
+			{ "Lesser Pocked Leg", "Pocked Leg", "Lesser ", "Lower Limb" },
 		}
 		for _, example in ipairs(cases) do
 			local text = "Item Class: Viscera\n" .. example[1] .. "\n" .. [[
@@ -35,7 +35,7 @@ Take this to the Wickerman in a town or hideout to attach it.
 			assert.equals(example[1], item.name)
 			assert.equals(example[2], item.baseName)
 			assert.equals(example[3], item.namePrefix)
-			assert.equals("Wickerman " .. example[4], item.type)
+			assert.equals("Viscera", item.type)
 			assert.equals(69, item.itemLevel)
 			assert.equals(1, #item.implicitModLines)
 			assert.equals("+(5-7) to Maximum Rage", item.implicitModLines[1].line)

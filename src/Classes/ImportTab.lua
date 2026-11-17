@@ -1547,12 +1547,6 @@ function ImportTabClass:ImportItem(itemData, slotName, ignoreWeaponSwap, itemSet
 			itemData.implicitMods = { }
 			itemData.explicitMods = { }
 		end
-		-- Lesser and Greater Wickerman names overlap ordinary names: prefer the exact base.
-		local exactBase = self.build.data.itemBases[item.name]
-		if exactBase and exactBase.type:match("^Wickerman ") then
-			item.baseName = item.name
-			item.type = exactBase.type
-		end
 		for baseName, baseData in pairs(self.build.data.itemBases) do
 			if item.baseName then
 				break
