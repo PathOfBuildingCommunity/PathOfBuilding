@@ -207,8 +207,8 @@ function ItemsTabClass:ItemsTab(build)
 		return self.build.spec.treeVersion:find("3_30")
 	end
 	prevSlot = self.controls.wickermanHeader
-	for _, slotName in ipairs({ "Wickerman Head", "Wickerman Torso", "Wickerman Upper Limb", "Wickerman Lower Limb" }) do
-		local slot = new("ItemSlotControl"):ItemSlotControl({"TOPLEFT",prevSlot,"BOTTOMLEFT"}, 0, 2, self, slotName, (slotName:gsub("^Wickerman ", "")))
+	for _, slotName in ipairs({ "Head", "Body", "Arm", "Leg" }) do
+		local slot = new("ItemSlotControl"):ItemSlotControl({"TOPLEFT",prevSlot,"BOTTOMLEFT"}, 0, 2, self, slotName)
 		slot.shown = self.controls.wickermanHeader.shown
 		addSlot(slot)
 	end
@@ -299,7 +299,7 @@ function ItemsTabClass:ItemsTab(build)
 	self.controls.selectDBLabel.shown = function()
 		return self.height < 980
 	end
-	self.controls.selectDB = new("DropDownControl"):DropDownControl({"LEFT",self.controls.selectDBLabel,"RIGHT"}, {4, 0, 150, 18}, { "Uniques", "Rare Templates" })
+	self.controls.selectDB = new("DropDownControl"):DropDownControl({"LEFT",self.controls.selectDBLabel,"RIGHT"}, {4, 0, 150, 18}, { "Uniques", "Rare Templates", "Viscera" })
 
 	-- Unique database
 	self.controls.uniqueDB = new("ItemDBControl"):ItemDBControl({"TOPLEFT",self.controls.itemList,"BOTTOMLEFT"}, {0, 76, 360, function(c) return m_min(244, self.maxY - select(2, c:GetPos())) end}, self, main.uniqueDB, "UNIQUE")
@@ -317,6 +317,14 @@ function ItemsTabClass:ItemsTab(build)
 	end
 	self.controls.rareDB.shown = function()
 		return not self.controls.selectDBLabel:IsShown() or self.controls.selectDB.selIndex == 2
+	end
+	-- Viscera database
+	self.controls.visceraDB = new("ItemDBControl"):ItemDBControl({"TOPLEFT",self.controls.itemList,"BOTTOMLEFT"}, {0, 76, 360, function(c) return m_min(260, self.maxY - select(2, c:GetPos())) end}, self, main.visceraDB, "RARE")
+	self.controls.visceraDB.y = function()
+		return self.controls.selectDBLabel:IsShown() and 78 or 396
+	end
+	self.controls.visceraDB.shown = function()
+		return not self.controls.selectDBLabel:IsShown() or self.controls.selectDB.selIndex == 3
 	end
 	-- Create/import item
 	self.controls.craftDisplayItem = new("ButtonControl"):ButtonControl({"TOPLEFT",main.portraitMode and self.controls.setManage or self.controls.itemList,"TOPRIGHT"}, {20, main.portraitMode and 0 or -20, 120, 20}, "Craft item...", function()
@@ -1234,6 +1242,8 @@ holding Shift will put it in the second.]])
 	t_insert(self.controls.uniqueDB.dragTargetList, self.controls.itemList)
 	t_insert(self.controls.uniqueDB.dragTargetList, self.controls.sharedItemList)
 	t_insert(self.controls.uniqueDB.dragTargetList, build.controls.mainSkillMinion)
+	t_insert(self.controls.visceraDB.dragTargetList, self.controls.itemList)
+	t_insert(self.controls.visceraDB.dragTargetList, self.controls.sharedItemList)
 	t_insert(self.controls.rareDB.dragTargetList, self.controls.itemList)
 	t_insert(self.controls.rareDB.dragTargetList, self.controls.sharedItemList)
 	t_insert(self.controls.rareDB.dragTargetList, build.controls.mainSkillMinion)
@@ -1243,6 +1253,7 @@ holding Shift will put it in the second.]])
 		t_insert(self.controls.itemList.dragTargetList, slot)
 		t_insert(self.controls.uniqueDB.dragTargetList, slot)
 		t_insert(self.controls.rareDB.dragTargetList, slot)
+		t_insert(self.controls.visceraDB.dragTargetList, slot)
 		t_insert(self.controls.sharedItemList.dragTargetList, slot)
 	end
 
@@ -2658,6 +2669,10 @@ function ItemsTabClass:IsItemValidForSlot(item, slotName, itemSet)
 		end
 	elseif item.type == slotType then
 		return true
+	elseif item.type == "Viscera" then
+		if item.base.tags["viscera_" .. (slotName:gsub("^%u", string.lower))] then
+			return true
+		end
 	elseif item.type == "Tincture" and slotType == "Flask" then
 		return true
 	elseif item.type == "Jewel" and item.base.subType == "Abyss" and slotName:match("Abyssal Socket") then

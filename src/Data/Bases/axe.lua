@@ -2,6 +2,7 @@
 -- Item data (c) Grinding Gear Games
 return function(itemBases)
 itemBases["Rusted Hatchet"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandAxes/OneHandAxe1",
 	type = "One Handed Axe",
 	socketLimit = 3,
 	tags = { axe = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
@@ -11,6 +12,7 @@ itemBases["Rusted Hatchet"] = {
 	req = { str = 12, dex = 6, },
 }
 itemBases["Jade Hatchet"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandAxes/OneHandAxe2",
 	type = "One Handed Axe",
 	socketLimit = 3,
 	tags = { axe = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
@@ -20,6 +22,7 @@ itemBases["Jade Hatchet"] = {
 	req = { level = 6, str = 21, dex = 10, },
 }
 itemBases["Boarding Axe"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandAxes/OneHandAxe3",
 	type = "One Handed Axe",
 	socketLimit = 3,
 	tags = { axe = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
@@ -29,6 +32,7 @@ itemBases["Boarding Axe"] = {
 	req = { level = 11, str = 28, dex = 19, },
 }
 itemBases["Cleaver"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandAxes/OneHandAxe4",
 	type = "One Handed Axe",
 	socketLimit = 3,
 	tags = { axe = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
@@ -38,6 +42,7 @@ itemBases["Cleaver"] = {
 	req = { level = 16, str = 48, dex = 14, },
 }
 itemBases["Broad Axe"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandAxes/OneHandAxe5",
 	type = "One Handed Axe",
 	socketLimit = 3,
 	tags = { axe = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
@@ -47,6 +52,7 @@ itemBases["Broad Axe"] = {
 	req = { level = 21, str = 54, dex = 25, },
 }
 itemBases["Arming Axe"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandAxes/OneHandAxe6",
 	type = "One Handed Axe",
 	socketLimit = 3,
 	tags = { axe = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
@@ -56,6 +62,7 @@ itemBases["Arming Axe"] = {
 	req = { level = 25, str = 58, dex = 33, },
 }
 itemBases["Decorative Axe"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandAxes/OneHandAxe7",
 	type = "One Handed Axe",
 	socketLimit = 3,
 	tags = { axe = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
@@ -65,6 +72,7 @@ itemBases["Decorative Axe"] = {
 	req = { level = 29, str = 80, dex = 23, },
 }
 itemBases["Spectral Axe"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandAxes/OneHandAxe8",
 	type = "One Handed Axe",
 	socketLimit = 3,
 	tags = { axe = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
@@ -74,6 +82,7 @@ itemBases["Spectral Axe"] = {
 	req = { level = 33, str = 85, dex = 37, },
 }
 itemBases["Etched Hatchet"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandAxes/OneHandAxeM1",
 	type = "One Handed Axe",
 	socketLimit = 3,
 	tags = { axe = true, default = true, maraketh = true, not_for_sale = true, one_hand_weapon = true, onehand = true, weapon = true, },
@@ -85,6 +94,7 @@ itemBases["Etched Hatchet"] = {
 	req = { level = 35, str = 93, dex = 43, },
 }
 itemBases["Jasper Axe"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandAxes/OneHandAxe9",
 	type = "One Handed Axe",
 	socketLimit = 3,
 	tags = { axe = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
@@ -94,6 +104,7 @@ itemBases["Jasper Axe"] = {
 	req = { level = 36, str = 86, dex = 40, },
 }
 itemBases["Tomahawk"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandAxes/OneHandAxe10",
 	type = "One Handed Axe",
 	socketLimit = 3,
 	tags = { axe = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
@@ -103,6 +114,7 @@ itemBases["Tomahawk"] = {
 	req = { level = 39, str = 81, dex = 56, },
 }
 itemBases["Wrist Chopper"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandAxes/OneHandAxe11",
 	type = "One Handed Axe",
 	socketLimit = 3,
 	tags = { axe = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
@@ -112,6 +124,7 @@ itemBases["Wrist Chopper"] = {
 	req = { level = 42, str = 112, dex = 32, },
 }
 itemBases["War Axe"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandAxes/OneHandAxe12",
 	type = "One Handed Axe",
 	socketLimit = 3,
 	tags = { axe = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
@@ -121,6 +134,7 @@ itemBases["War Axe"] = {
 	req = { level = 45, str = 106, dex = 49, },
 }
 itemBases["Chest Splitter"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandAxes/OneHandAxe13",
 	type = "One Handed Axe",
 	socketLimit = 3,
 	tags = { axe = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
@@ -130,6 +144,7 @@ itemBases["Chest Splitter"] = {
 	req = { level = 48, str = 105, dex = 60, },
 }
 itemBases["Ceremonial Axe"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandAxes/OneHandAxe14",
 	type = "One Handed Axe",
 	socketLimit = 3,
 	tags = { axe = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
@@ -139,6 +154,7 @@ itemBases["Ceremonial Axe"] = {
 	req = { level = 51, str = 134, dex = 39, },
 }
 itemBases["Wraith Axe"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandAxes/OneHandAxe15",
 	type = "One Handed Axe",
 	socketLimit = 3,
 	tags = { axe = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
@@ -148,6 +164,7 @@ itemBases["Wraith Axe"] = {
 	req = { level = 54, str = 134, dex = 59, },
 }
 itemBases["Engraved Hatchet"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandAxes/OneHandAxeM2",
 	type = "One Handed Axe",
 	socketLimit = 3,
 	tags = { axe = true, default = true, maraketh = true, not_for_sale = true, one_hand_weapon = true, onehand = true, weapon = true, },
@@ -159,6 +176,7 @@ itemBases["Engraved Hatchet"] = {
 	req = { level = 56, str = 143, dex = 66, },
 }
 itemBases["Karui Axe"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandAxes/OneHandAxe16",
 	type = "One Handed Axe",
 	socketLimit = 3,
 	tags = { axe = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
@@ -168,6 +186,7 @@ itemBases["Karui Axe"] = {
 	req = { level = 57, str = 132, dex = 62, },
 }
 itemBases["Siege Axe"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandAxes/OneHandAxe17",
 	type = "One Handed Axe",
 	socketLimit = 3,
 	tags = { axe = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
@@ -177,6 +196,7 @@ itemBases["Siege Axe"] = {
 	req = { level = 59, str = 119, dex = 82, },
 }
 itemBases["Reaver Axe"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandAxes/OneHandAxe18",
 	type = "One Handed Axe",
 	socketLimit = 3,
 	tags = { axe = true, default = true, one_hand_weapon = true, onehand = true, weapon = true, },
@@ -186,6 +206,7 @@ itemBases["Reaver Axe"] = {
 	req = { level = 61, str = 167, dex = 57, },
 }
 itemBases["Butcher Axe"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandAxes/OneHandAxe19",
 	type = "One Handed Axe",
 	socketLimit = 3,
 	tags = { axe = true, default = true, one_hand_weapon = true, onehand = true, top_tier_base_item_type = true, weapon = true, },
@@ -195,6 +216,7 @@ itemBases["Butcher Axe"] = {
 	req = { level = 63, str = 149, dex = 76, },
 }
 itemBases["Vaal Hatchet"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandAxes/OneHandAxe20",
 	type = "One Handed Axe",
 	socketLimit = 3,
 	tags = { axe = true, default = true, one_hand_weapon = true, onehand = true, top_tier_base_item_type = true, weapon = true, },
@@ -204,6 +226,7 @@ itemBases["Vaal Hatchet"] = {
 	req = { level = 65, str = 140, dex = 86, },
 }
 itemBases["Royal Axe"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandAxes/OneHandAxe21",
 	type = "One Handed Axe",
 	socketLimit = 3,
 	tags = { axe = true, default = true, one_hand_weapon = true, onehand = true, top_tier_base_item_type = true, weapon = true, },
@@ -213,6 +236,7 @@ itemBases["Royal Axe"] = {
 	req = { level = 67, str = 167, dex = 57, },
 }
 itemBases["Infernal Axe"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandAxes/OneHandAxe22",
 	type = "One Handed Axe",
 	socketLimit = 3,
 	tags = { axe = true, default = true, one_hand_weapon = true, onehand = true, top_tier_base_item_type = true, weapon = true, },
@@ -222,6 +246,7 @@ itemBases["Infernal Axe"] = {
 	req = { level = 69, str = 158, dex = 76, },
 }
 itemBases["Runic Hatchet"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandAxes/OneHandAxeM3",
 	type = "One Handed Axe",
 	socketLimit = 3,
 	tags = { axe = true, default = true, maraketh = true, not_for_sale = true, one_hand_weapon = true, onehand = true, weapon = true, },
@@ -233,6 +258,7 @@ itemBases["Runic Hatchet"] = {
 	req = { level = 71, str = 163, dex = 82, },
 }
 itemBases["Maltreatment Axe"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandAxes/OneHandAxeE1",
 	type = "One Handed Axe",
 	socketLimit = 3,
 	tags = { axe = true, default = true, experimental_base = true, not_for_sale = true, one_hand_weapon = true, onehand = true, weapon = true, },
@@ -244,6 +270,7 @@ itemBases["Maltreatment Axe"] = {
 	req = { level = 30, str = 78, dex = 34, },
 }
 itemBases["Disapprobation Axe"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandAxes/OneHandAxeE2",
 	type = "One Handed Axe",
 	socketLimit = 3,
 	tags = { axe = true, default = true, experimental_base = true, not_for_sale = true, one_hand_weapon = true, onehand = true, weapon = true, },
@@ -255,6 +282,7 @@ itemBases["Disapprobation Axe"] = {
 	req = { level = 50, str = 124, dex = 54, },
 }
 itemBases["Psychotic Axe"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandAxes/OneHandAxeE3",
 	type = "One Handed Axe",
 	socketLimit = 3,
 	tags = { axe = true, default = true, experimental_base = true, not_for_sale = true, one_hand_weapon = true, onehand = true, weapon = true, },
@@ -267,6 +295,7 @@ itemBases["Psychotic Axe"] = {
 }
 
 itemBases["Stone Axe"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandAxes/TwoHandAxe1",
 	type = "Two Handed Axe",
 	socketLimit = 6,
 	tags = { axe = true, default = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -276,6 +305,7 @@ itemBases["Stone Axe"] = {
 	req = { str = 17, dex = 8, },
 }
 itemBases["Jade Chopper"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandAxes/TwoHandAxe2",
 	type = "Two Handed Axe",
 	socketLimit = 6,
 	tags = { axe = true, default = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -285,6 +315,7 @@ itemBases["Jade Chopper"] = {
 	req = { level = 9, str = 31, dex = 9, },
 }
 itemBases["Woodsplitter"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandAxes/TwoHandAxe3",
 	type = "Two Handed Axe",
 	socketLimit = 6,
 	tags = { axe = true, default = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -294,6 +325,7 @@ itemBases["Woodsplitter"] = {
 	req = { level = 13, str = 36, dex = 17, },
 }
 itemBases["Poleaxe"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandAxes/TwoHandAxe4",
 	type = "Two Handed Axe",
 	socketLimit = 6,
 	tags = { axe = true, default = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -303,6 +335,7 @@ itemBases["Poleaxe"] = {
 	req = { level = 18, str = 44, dex = 25, },
 }
 itemBases["Double Axe"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandAxes/TwoHandAxe5",
 	type = "Two Handed Axe",
 	socketLimit = 6,
 	tags = { axe = true, default = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -312,6 +345,7 @@ itemBases["Double Axe"] = {
 	req = { level = 23, str = 62, dex = 27, },
 }
 itemBases["Gilded Axe"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandAxes/TwoHandAxe6",
 	type = "Two Handed Axe",
 	socketLimit = 6,
 	tags = { axe = true, default = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -321,6 +355,7 @@ itemBases["Gilded Axe"] = {
 	req = { level = 28, str = 64, dex = 37, },
 }
 itemBases["Shadow Axe"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandAxes/TwoHandAxe7",
 	type = "Two Handed Axe",
 	socketLimit = 6,
 	tags = { axe = true, default = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -330,6 +365,7 @@ itemBases["Shadow Axe"] = {
 	req = { level = 33, str = 80, dex = 37, },
 }
 itemBases["Dagger Axe"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandAxes/TwoHandAxeM1",
 	type = "Two Handed Axe",
 	socketLimit = 6,
 	tags = { axe = true, default = true, maraketh = true, not_for_sale = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -341,6 +377,7 @@ itemBases["Dagger Axe"] = {
 	req = { level = 36, str = 89, dex = 43, },
 }
 itemBases["Jasper Chopper"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandAxes/TwoHandAxe8",
 	type = "Two Handed Axe",
 	socketLimit = 6,
 	tags = { axe = true, default = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -350,6 +387,7 @@ itemBases["Jasper Chopper"] = {
 	req = { level = 37, str = 100, dex = 29, },
 }
 itemBases["Timber Axe"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandAxes/TwoHandAxe9",
 	type = "Two Handed Axe",
 	socketLimit = 6,
 	tags = { axe = true, default = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -359,6 +397,7 @@ itemBases["Timber Axe"] = {
 	req = { level = 41, str = 97, dex = 45, },
 }
 itemBases["Headsman Axe"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandAxes/TwoHandAxe10",
 	type = "Two Handed Axe",
 	socketLimit = 6,
 	tags = { axe = true, default = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -368,6 +407,7 @@ itemBases["Headsman Axe"] = {
 	req = { level = 45, str = 99, dex = 57, },
 }
 itemBases["Labrys"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandAxes/TwoHandAxe11",
 	type = "Two Handed Axe",
 	socketLimit = 6,
 	tags = { axe = true, default = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -377,6 +417,7 @@ itemBases["Labrys"] = {
 	req = { level = 49, str = 122, dex = 53, },
 }
 itemBases["Noble Axe"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandAxes/TwoHandAxe12",
 	type = "Two Handed Axe",
 	socketLimit = 6,
 	tags = { axe = true, default = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -386,6 +427,7 @@ itemBases["Noble Axe"] = {
 	req = { level = 52, str = 113, dex = 65, },
 }
 itemBases["Abyssal Axe"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandAxes/TwoHandAxe13",
 	type = "Two Handed Axe",
 	socketLimit = 6,
 	tags = { axe = true, default = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -395,6 +437,7 @@ itemBases["Abyssal Axe"] = {
 	req = { level = 55, str = 128, dex = 60, },
 }
 itemBases["Talon Axe"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandAxes/TwoHandAxeM2",
 	type = "Two Handed Axe",
 	socketLimit = 6,
 	tags = { axe = true, default = true, maraketh = true, not_for_sale = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -406,6 +449,7 @@ itemBases["Talon Axe"] = {
 	req = { level = 59, str = 140, dex = 67, },
 }
 itemBases["Karui Chopper"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandAxes/TwoHandAxe14",
 	type = "Two Handed Axe",
 	socketLimit = 6,
 	tags = { axe = true, default = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -415,6 +459,7 @@ itemBases["Karui Chopper"] = {
 	req = { level = 58, str = 151, dex = 43, },
 }
 itemBases["Sundering Axe"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandAxes/TwoHandAxe15",
 	type = "Two Handed Axe",
 	socketLimit = 6,
 	tags = { axe = true, default = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -426,6 +471,7 @@ itemBases["Sundering Axe"] = {
 	req = { level = 60, str = 149, dex = 76, },
 }
 itemBases["Ezomyte Axe"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandAxes/TwoHandAxe16",
 	type = "Two Handed Axe",
 	socketLimit = 6,
 	tags = { axe = true, default = true, top_tier_base_item_type = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -435,6 +481,7 @@ itemBases["Ezomyte Axe"] = {
 	req = { level = 62, str = 140, dex = 86, },
 }
 itemBases["Vaal Axe"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandAxes/TwoHandAxe17",
 	type = "Two Handed Axe",
 	socketLimit = 6,
 	tags = { axe = true, default = true, top_tier_base_item_type = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -446,6 +493,7 @@ itemBases["Vaal Axe"] = {
 	req = { level = 64, str = 158, dex = 76, },
 }
 itemBases["Despot Axe"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandAxes/TwoHandAxe18",
 	type = "Two Handed Axe",
 	socketLimit = 6,
 	tags = { axe = true, default = true, top_tier_base_item_type = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -455,6 +503,7 @@ itemBases["Despot Axe"] = {
 	req = { level = 66, str = 140, dex = 86, },
 }
 itemBases["Void Axe"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandAxes/TwoHandAxe19",
 	type = "Two Handed Axe",
 	socketLimit = 6,
 	tags = { axe = true, default = true, top_tier_base_item_type = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -464,6 +513,7 @@ itemBases["Void Axe"] = {
 	req = { level = 68, str = 149, dex = 76, },
 }
 itemBases["Fleshripper"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandAxes/TwoHandAxeM3",
 	type = "Two Handed Axe",
 	socketLimit = 6,
 	tags = { axe = true, default = true, maraketh = true, not_for_sale = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -475,6 +525,7 @@ itemBases["Fleshripper"] = {
 	req = { level = 70, str = 156, dex = 84, },
 }
 itemBases["Prime Cleaver"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandAxes/TwoHandAxeE1",
 	type = "Two Handed Axe",
 	socketLimit = 6,
 	tags = { axe = true, default = true, experimental_base = true, not_for_sale = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -486,6 +537,7 @@ itemBases["Prime Cleaver"] = {
 	req = { level = 30, str = 73, dex = 34, },
 }
 itemBases["Honed Cleaver"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandAxes/TwoHandAxeE2",
 	type = "Two Handed Axe",
 	socketLimit = 6,
 	tags = { axe = true, default = true, experimental_base = true, not_for_sale = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -497,6 +549,7 @@ itemBases["Honed Cleaver"] = {
 	req = { level = 50, str = 117, dex = 54, },
 }
 itemBases["Apex Cleaver"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandAxes/TwoHandAxeE3",
 	type = "Two Handed Axe",
 	socketLimit = 6,
 	tags = { axe = true, default = true, experimental_base = true, not_for_sale = true, two_hand_weapon = true, twohand = true, weapon = true, },

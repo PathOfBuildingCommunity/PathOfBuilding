@@ -2,6 +2,7 @@
 -- Item data (c) Grinding Gear Games
 return function(itemBases)
 itemBases["Fishing Rod"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapon/FishingRods/FishingRod1",
 	type = "Fishing Rod",
 	socketLimit = 4,
 	tags = { default = true, fishing_rod = true, not_for_sale = true, twohand = true, },
