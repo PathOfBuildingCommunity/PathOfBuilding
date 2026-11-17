@@ -1284,6 +1284,8 @@ data.itemBases = { }
 for _, type in pairs(itemTypes) do
 	LoadModule("Data/Bases/" .. type)(data.itemBases)
 end
+-- Wickerman has base data only; no unique rarity or modifier ownership is assumed.
+LoadModule("Data/Bases/wickerman")(data.itemBases)
 
 ---@class ItemBaseEntry
 ---@field label string
@@ -1345,6 +1347,7 @@ table.sort(data.itemBaseTypeList)
 
 -- Rare templates
 data.rares = LoadModule("Data/Rares")
+data.viscera = LoadModule("Data/Viscera")
 
 data.casterTagCrucibleUniques = {
 	["Atziri's Rule"] = true,

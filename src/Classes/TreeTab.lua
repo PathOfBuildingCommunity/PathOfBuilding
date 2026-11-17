@@ -1234,7 +1234,7 @@ function TreeTabClass:FindTimelessJewel()
 			{ label = "Any", id = 1 },
 			{ label = "Doryani (Corrupted Soul)", id = 2 },
 			{ label = "Xibaqua (Divine Flesh)", id = 3 },
-			{ label = "Ahuana (Immortal Ambition)", id = 4 }
+			{ label = "Mazcotl (Immortal Ambition)", id = 4 }
 		},
 		[2] = {
 			{ label = "Any", id = 1 },

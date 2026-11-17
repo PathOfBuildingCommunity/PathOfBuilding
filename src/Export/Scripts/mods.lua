@@ -1,7 +1,7 @@
 if not loadStatFile then
 	dofile("statdesc.lua")
 end
-loadStatFile("tincture_stat_descriptions.txt", "graft_stat_descriptions.txt")
+loadStatFile("tincture_stat_descriptions.csd", "graft_stat_descriptions.csd")
 
 -- https://www.poewiki.net/wiki/Modifier#Domain
 local Domains = {
@@ -288,6 +288,7 @@ writeMods("../Data/ModItemExclusive.lua",
 			and not mod.Id:match("^Synthesis") and not mod.Id:match("Royale")
 			and not mod.Id:match("Cowards") and not mod.Id:match("Map")
 			and not mod.Id:match("Ultimatum") and not mod.Id:match("^MutatedUnique")
+			and not mod.Id:match("^VisceraMod")
 			and not mod.Id:match("UNUSED")
 	end)
 writeMods("../Data/ModGraft.lua", function(mod)

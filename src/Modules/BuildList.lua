@@ -14,6 +14,8 @@ local listMode = new("ControlHost"):ControlHost()
 
 function listMode:Init(selBuildName, subPath)
 	if self.initialised then
+		local subPathChanged = subPath and subPath ~= self.subPath
+		local reuseBuildIndex = not subPathChanged and self.indexedBuildPath == main.buildPath
 		self.subPath = subPath or self.subPath
 		self.controls.buildList.controls.path:SetSubPath(self.subPath)
 		--if main.showPublicBuilds then
@@ -22,7 +24,14 @@ function listMode:Init(selBuildName, subPath)
 		else
 			self.controls.ExtBuildList = nil
 		end
-		self:BuildList()
+		if reuseBuildIndex then
+			if selBuildName then
+				buildListHelpers.RefreshBuild(self.buildIndex, self.subPath, selBuildName..".xml")
+			end
+			self:FilterBuildList()
+		elseif not subPathChanged then
+			self:BuildList()
+		end
 		self.controls.buildList:SelByFullFileName(selBuildName and main.buildPath..self.subPath..selBuildName..".xml")
 		self:SelectControl(self.controls.buildList)
 		return
@@ -199,6 +208,7 @@ function listMode:GetDestName(subPath, fileName)
 end
 
 function listMode:BuildList()
+	self.indexedBuildPath = main.buildPath
 	self.buildIndex = buildListHelpers.ScanFolder(self.subPath)
 	self:FilterBuildList()
 end

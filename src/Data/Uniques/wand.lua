@@ -39,8 +39,8 @@ Implicits: 3
 (25-30)% increased Cast Speed
 +(5-10)% to Chaos Resistance
 {variant:1,2,3}40% increased Mana Cost of Skills
-{variant:3,4}Poisons you inflict deal Damage 20% faster
-{variant:5,6}Poisons you inflict deal Damage (30-50)% faster
+{variant:3,4}Poisons you inflict deal Damage 20% Faster
+{variant:5,6}Poisons you inflict deal Damage (30-50)% Faster
 {variant:4,5,6}Lose 40 Mana when you use a Skill
 ]],[[
 Ashcaller
@@ -62,7 +62,7 @@ Implicits: 3
 {variant:1}Adds (10-14) to (18-22) Fire Damage
 {variant:3,4,5}Adds (20-24) to (38-46) Fire Damage
 {variant:1,2}Adds (4-6) to (7-9) Fire Damage to Spells
-{variant:3,4,5}Adds (20-24) to (36-46) Fire Damage to Spells
+{variant:3,4,5}Adds (20-24) to (38-46) Fire Damage to Spells
 {variant:1}(40-50)% increased Burning Damage
 {variant:2}(20-30)% increased Burning Damage
 {variant:1,2}(16-22)% chance to Ignite
@@ -91,7 +91,7 @@ Implicits: 4
 {variant:2,3,4,5,6}+(27-33)% to Global Critical Strike Multiplier
 {variant:1,2,3,4,5}20% increased Light Radius
 {variant:6}(15-20)% increased Light Radius
-Nearby Enemies are Blinded
+Enemies within 3.5 metres are Blinded
 (120-140)% increased Critical Strike Chance against Blinded Enemies
 {variant:6}Adds 2 to 5 Fire Damage to Attacks for every 1% your Light Radius is above base value
 ]],[[
@@ -100,7 +100,7 @@ Crystal Wand
 Source: No longer obtainable
 Variant: Pre 3.10.0
 Variant: Current
-LevelReq: 63
+Requires Level 63
 Implicits: 1
 (30-34)% increased Spell Damage
 Triggers Level 20 Blinding Aura when Equipped
@@ -193,8 +193,8 @@ Implicits: 3
 {variant:1,2}(15-19)% increased Spell Damage
 {variant:3,4}(33-37)% increased Spell Damage
 {variant:5}Cannot roll Caster Modifiers
-{variant:1,2,3}Socketed Gems are supported by Level 5 Blind
-{variant:4,5}Socketed Gems are supported by Level 20 Blind
+{variant:1,2,3}Socketed Gems are Supported by Level 5 Blind Support
+{variant:4,5}Socketed Gems are Supported by Level 20 Blind Support
 +10 to Intelligence
 (30-40)% increased Spell Damage
 {variant:1}125% increased Physical Damage
@@ -202,13 +202,12 @@ Implicits: 3
 {variant:4,5}(250-275)% increased Physical Damage
 (20-30)% increased Lightning Damage
 10% increased Cast Speed
-10% chance to Blind Enemies on hit
+10% chance to Blind Enemies on Hit
 ]],[[
 Mystic Refractor
 Pagan Wand
 Variant: Pre 3.29.0
 Variant: Current
-Requires Level 34, 118 Int
 Implicits: 1
 10% increased Cast Speed
 Skills fire (2-3) additional Projectiles
@@ -286,9 +285,9 @@ Implicits: 3
 {variant:5}Adds (1-2) to (9-11) Lightning Damage to Spells and Attacks
 {variant:1,2}+1 to Level of Socketed Gems
 {variant:3,4,5}+2 to Level of Socketed Gems
-{variant:4,5}Socketed Gems are Supported by Level 10 Arcane Surge
-Socketed Gems are Supported by Level 10 Spell Echo
-{variant:4,5}Socketed Gems are Supported by Level 10 Controlled Destruction
+{variant:4,5}Socketed Gems are Supported by Level 10 Arcane Surge Support
+Socketed Gems are Supported by Level 10 Spell Echo Support
+{variant:4,5}Socketed Gems are Supported by Level 10 Controlled Destruction Support
 +(10-30) to Intelligence
 ]],[[
 Relic of the Pact
@@ -301,7 +300,7 @@ Source: Drops from unique{The Trialmaster}
 Implicits: 2
 {variant:1}(15-19)% increased Spell Damage
 {variant:2}(17-21)% increased Spell Damage
-Grants Level 1 Blood Sacrament Skill
+Grants Level 1 Blood Sacrament
 Your Critical Strike Chance is Lucky while on Low Life
 ]],[[
 Amplification Rod
@@ -309,14 +308,14 @@ Spiraled Wand
 Source: No longer obtainable
 Variant: Pre 3.11.0
 Variant: Current
-LevelReq: 36
+Requires Level 36
 Implicits: 1
 (15-19)% increased Spell Damage
 {variant:1}+1 to Level of Socketed Gems
 {variant:2}+2 to Level of Socketed Gems
-Socketed Gems are Supported by Level 10 Intensify
-Socketed Gems are Supported by Level 10 Spell Echo
-Socketed Gems are Supported by Level 10 Controlled Destruction
+Socketed Gems are Supported by Level 10 Intensify Support
+Socketed Gems are Supported by Level 10 Spell Echo Support
+Socketed Gems are Supported by Level 10 Controlled Destruction Support
 +(10-30) to Intelligence
 ]],[[
 Shade of Solaris
@@ -474,7 +473,6 @@ Attacks fire an additional Projectile
 ]],[[
 Unlight Extant
 Sage Wand
-Requires Level 30, 119 Int
 Implicits: 1
 (17-21)% increased Spell Damage
 (31-43)% increased Chaos Damage
@@ -500,5 +498,16 @@ Implicits: 2
 +1 to Maximum Power Charges
 {variant:1,2}25% increased Spell Damage per Power Charge
 {variant:3}(10-15)% increased Spell Damage per Power Charge
-]],
+]], [[
+Corpse Rose
+Imbued Wand
+League: Covens
+Source: Drops from a boss empowered by a Fate that rewards this item
+Implicits: 1
+(33-37)% increased Spell Damage
+Trigger Level 20 Goreblossom after spending (10-20)% of your Maximum Life on Spells
+(20-30)% increased Cast Speed
+Skills Cost Life instead of 50% of Mana Cost
+Goreblossom has +(1-3) maximum Bloom
+]]
 }
