@@ -6249,6 +6249,7 @@ skills["GrimBonfire"] = {
 		spell = true,
 		projectile = true,
 		area = true,
+		totem = true,
 	},
 	constantStats = {
 		{ "base_totem_duration", 8000 },

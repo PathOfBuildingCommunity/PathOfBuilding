@@ -1643,7 +1643,7 @@ return function(skills, mod, flag, skill)
 #mods
 
 #skill GrimBonfire Witchhunter's Pyre
-#flags spell projectile area
+#flags spell projectile area totem
 	fromItem = true,
 	statMap = {
 		["grim_bonfire_additional_projectile_chance_per_debuff_on_target"] = {
