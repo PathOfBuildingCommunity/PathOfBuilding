@@ -2,6 +2,7 @@
 -- Item data (c) Grinding Gear Games
 return function(itemBases)
 itemBases["Cured Quiver"] = {
+	baseId = "Metadata/Items/Quivers/Quiver1",
 	type = "Quiver",
 	hidden = true,
 	tags = { default = true, quiver = true, },
@@ -12,6 +13,7 @@ itemBases["Cured Quiver"] = {
 	req = { },
 }
 itemBases["Rugged Quiver"] = {
+	baseId = "Metadata/Items/Quivers/Quiver2",
 	type = "Quiver",
 	hidden = true,
 	tags = { default = true, quiver = true, },
@@ -22,6 +24,7 @@ itemBases["Rugged Quiver"] = {
 	req = { },
 }
 itemBases["Conductive Quiver"] = {
+	baseId = "Metadata/Items/Quivers/Quiver3",
 	type = "Quiver",
 	hidden = true,
 	tags = { default = true, quiver = true, },
@@ -32,6 +35,7 @@ itemBases["Conductive Quiver"] = {
 	req = { },
 }
 itemBases["Heavy Quiver"] = {
+	baseId = "Metadata/Items/Quivers/Quiver4",
 	type = "Quiver",
 	hidden = true,
 	tags = { default = true, quiver = true, },
@@ -42,6 +46,7 @@ itemBases["Heavy Quiver"] = {
 	req = { level = 5, },
 }
 itemBases["Light Quiver"] = {
+	baseId = "Metadata/Items/Quivers/Quiver5",
 	type = "Quiver",
 	hidden = true,
 	tags = { default = true, quiver = true, },
@@ -52,6 +57,7 @@ itemBases["Light Quiver"] = {
 	req = { level = 12, },
 }
 itemBases["Serrated Arrow Quiver"] = {
+	baseId = "Metadata/Items/Quivers/Quiver6",
 	type = "Quiver",
 	hidden = true,
 	tags = { default = true, quiver = true, trade_market_legacy_item = true, },
@@ -62,6 +68,7 @@ itemBases["Serrated Arrow Quiver"] = {
 	req = { level = 5, },
 }
 itemBases["Two-Point Arrow Quiver"] = {
+	baseId = "Metadata/Items/Quivers/Quiver7",
 	type = "Quiver",
 	hidden = true,
 	tags = { default = true, quiver = true, trade_market_legacy_item = true, },
@@ -72,6 +79,7 @@ itemBases["Two-Point Arrow Quiver"] = {
 	req = { level = 4, },
 }
 itemBases["Sharktooth Arrow Quiver"] = {
+	baseId = "Metadata/Items/Quivers/Quiver8",
 	type = "Quiver",
 	hidden = true,
 	tags = { default = true, quiver = true, trade_market_legacy_item = true, },
@@ -82,6 +90,7 @@ itemBases["Sharktooth Arrow Quiver"] = {
 	req = { level = 10, },
 }
 itemBases["Blunt Arrow Quiver"] = {
+	baseId = "Metadata/Items/Quivers/Quiver9",
 	type = "Quiver",
 	hidden = true,
 	tags = { default = true, quiver = true, trade_market_legacy_item = true, },
@@ -92,6 +101,7 @@ itemBases["Blunt Arrow Quiver"] = {
 	req = { level = 16, },
 }
 itemBases["Fire Arrow Quiver"] = {
+	baseId = "Metadata/Items/Quivers/Quiver10",
 	type = "Quiver",
 	hidden = true,
 	tags = { default = true, quiver = true, trade_market_legacy_item = true, },
@@ -102,6 +112,7 @@ itemBases["Fire Arrow Quiver"] = {
 	req = { level = 22, },
 }
 itemBases["Broadhead Arrow Quiver"] = {
+	baseId = "Metadata/Items/Quivers/Quiver11",
 	type = "Quiver",
 	hidden = true,
 	tags = { default = true, quiver = true, trade_market_legacy_item = true, },
@@ -112,6 +123,7 @@ itemBases["Broadhead Arrow Quiver"] = {
 	req = { level = 28, },
 }
 itemBases["Penetrating Arrow Quiver"] = {
+	baseId = "Metadata/Items/Quivers/Quiver12",
 	type = "Quiver",
 	hidden = true,
 	tags = { default = true, quiver = true, trade_market_legacy_item = true, },
@@ -122,6 +134,7 @@ itemBases["Penetrating Arrow Quiver"] = {
 	req = { level = 36, },
 }
 itemBases["Spike-Point Arrow Quiver"] = {
+	baseId = "Metadata/Items/Quivers/Quiver13",
 	type = "Quiver",
 	hidden = true,
 	tags = { default = true, quiver = true, trade_market_legacy_item = true, },
@@ -132,6 +145,7 @@ itemBases["Spike-Point Arrow Quiver"] = {
 	req = { level = 45, },
 }
 itemBases["Ornate Quiver"] = {
+	baseId = "Metadata/Items/Quivers/Quiver14",
 	type = "Quiver",
 	tags = { default = true, not_for_sale = true, quiver = true, },
 	influenceTags = { shaper = "quiver_shaper", elder = "quiver_elder", adjudicator = "quiver_adjudicator", basilisk = "quiver_basilisk", crusader = "quiver_crusader", eyrie = "quiver_eyrie", cleansing = "quiver_cleansing", tangle = "quiver_tangle" },
@@ -141,6 +155,7 @@ itemBases["Ornate Quiver"] = {
 	req = { level = 45, },
 }
 itemBases["Serrated Arrow Quiver"] = {
+	baseId = "Metadata/Items/Quivers/QuiverNew1",
 	type = "Quiver",
 	tags = { default = true, quiver = true, },
 	influenceTags = { shaper = "quiver_shaper", elder = "quiver_elder", adjudicator = "quiver_adjudicator", basilisk = "quiver_basilisk", crusader = "quiver_crusader", eyrie = "quiver_eyrie", cleansing = "quiver_cleansing", tangle = "quiver_tangle" },
@@ -150,6 +165,7 @@ itemBases["Serrated Arrow Quiver"] = {
 	req = { level = 4, },
 }
 itemBases["Fire Arrow Quiver"] = {
+	baseId = "Metadata/Items/Quivers/QuiverNew2",
 	type = "Quiver",
 	tags = { default = true, quiver = true, },
 	influenceTags = { shaper = "quiver_shaper", elder = "quiver_elder", adjudicator = "quiver_adjudicator", basilisk = "quiver_basilisk", crusader = "quiver_crusader", eyrie = "quiver_eyrie", cleansing = "quiver_cleansing", tangle = "quiver_tangle" },
@@ -159,6 +175,7 @@ itemBases["Fire Arrow Quiver"] = {
 	req = { level = 9, },
 }
 itemBases["Sharktooth Arrow Quiver"] = {
+	baseId = "Metadata/Items/Quivers/QuiverNew3",
 	type = "Quiver",
 	tags = { default = true, quiver = true, },
 	influenceTags = { shaper = "quiver_shaper", elder = "quiver_elder", adjudicator = "quiver_adjudicator", basilisk = "quiver_basilisk", crusader = "quiver_crusader", eyrie = "quiver_eyrie", cleansing = "quiver_cleansing", tangle = "quiver_tangle" },
@@ -168,6 +185,7 @@ itemBases["Sharktooth Arrow Quiver"] = {
 	req = { level = 14, },
 }
 itemBases["Feathered Arrow Quiver"] = {
+	baseId = "Metadata/Items/Quivers/QuiverNew4",
 	type = "Quiver",
 	tags = { default = true, quiver = true, },
 	influenceTags = { shaper = "quiver_shaper", elder = "quiver_elder", adjudicator = "quiver_adjudicator", basilisk = "quiver_basilisk", crusader = "quiver_crusader", eyrie = "quiver_eyrie", cleansing = "quiver_cleansing", tangle = "quiver_tangle" },
@@ -177,6 +195,7 @@ itemBases["Feathered Arrow Quiver"] = {
 	req = { level = 20, },
 }
 itemBases["Penetrating Arrow Quiver"] = {
+	baseId = "Metadata/Items/Quivers/QuiverNew5",
 	type = "Quiver",
 	tags = { default = true, quiver = true, },
 	influenceTags = { shaper = "quiver_shaper", elder = "quiver_elder", adjudicator = "quiver_adjudicator", basilisk = "quiver_basilisk", crusader = "quiver_crusader", eyrie = "quiver_eyrie", cleansing = "quiver_cleansing", tangle = "quiver_tangle" },
@@ -186,6 +205,7 @@ itemBases["Penetrating Arrow Quiver"] = {
 	req = { level = 25, },
 }
 itemBases["Blunt Arrow Quiver"] = {
+	baseId = "Metadata/Items/Quivers/QuiverNew6",
 	type = "Quiver",
 	tags = { default = true, quiver = true, },
 	influenceTags = { shaper = "quiver_shaper", elder = "quiver_elder", adjudicator = "quiver_adjudicator", basilisk = "quiver_basilisk", crusader = "quiver_crusader", eyrie = "quiver_eyrie", cleansing = "quiver_cleansing", tangle = "quiver_tangle" },
@@ -195,6 +215,7 @@ itemBases["Blunt Arrow Quiver"] = {
 	req = { level = 31, },
 }
 itemBases["Two-Point Arrow Quiver"] = {
+	baseId = "Metadata/Items/Quivers/QuiverNew7",
 	type = "Quiver",
 	tags = { default = true, quiver = true, },
 	influenceTags = { shaper = "quiver_shaper", elder = "quiver_elder", adjudicator = "quiver_adjudicator", basilisk = "quiver_basilisk", crusader = "quiver_crusader", eyrie = "quiver_eyrie", cleansing = "quiver_cleansing", tangle = "quiver_tangle" },
@@ -204,6 +225,7 @@ itemBases["Two-Point Arrow Quiver"] = {
 	req = { level = 36, },
 }
 itemBases["Spike-Point Arrow Quiver"] = {
+	baseId = "Metadata/Items/Quivers/QuiverNew8",
 	type = "Quiver",
 	tags = { default = true, quiver = true, },
 	influenceTags = { shaper = "quiver_shaper", elder = "quiver_elder", adjudicator = "quiver_adjudicator", basilisk = "quiver_basilisk", crusader = "quiver_crusader", eyrie = "quiver_eyrie", cleansing = "quiver_cleansing", tangle = "quiver_tangle" },
@@ -213,6 +235,7 @@ itemBases["Spike-Point Arrow Quiver"] = {
 	req = { level = 40, },
 }
 itemBases["Blazing Arrow Quiver"] = {
+	baseId = "Metadata/Items/Quivers/QuiverNew9",
 	type = "Quiver",
 	tags = { default = true, quiver = true, },
 	influenceTags = { shaper = "quiver_shaper", elder = "quiver_elder", adjudicator = "quiver_adjudicator", basilisk = "quiver_basilisk", crusader = "quiver_crusader", eyrie = "quiver_eyrie", cleansing = "quiver_cleansing", tangle = "quiver_tangle" },
@@ -222,6 +245,7 @@ itemBases["Blazing Arrow Quiver"] = {
 	req = { level = 45, },
 }
 itemBases["Broadhead Arrow Quiver"] = {
+	baseId = "Metadata/Items/Quivers/QuiverNew10",
 	type = "Quiver",
 	tags = { default = true, quiver = true, },
 	influenceTags = { shaper = "quiver_shaper", elder = "quiver_elder", adjudicator = "quiver_adjudicator", basilisk = "quiver_basilisk", crusader = "quiver_crusader", eyrie = "quiver_eyrie", cleansing = "quiver_cleansing", tangle = "quiver_tangle" },
@@ -231,6 +255,7 @@ itemBases["Broadhead Arrow Quiver"] = {
 	req = { level = 49, },
 }
 itemBases["Vile Arrow Quiver"] = {
+	baseId = "Metadata/Items/Quivers/QuiverNew11",
 	type = "Quiver",
 	tags = { default = true, quiver = true, },
 	influenceTags = { shaper = "quiver_shaper", elder = "quiver_elder", adjudicator = "quiver_adjudicator", basilisk = "quiver_basilisk", crusader = "quiver_crusader", eyrie = "quiver_eyrie", cleansing = "quiver_cleansing", tangle = "quiver_tangle" },
@@ -240,6 +265,7 @@ itemBases["Vile Arrow Quiver"] = {
 	req = { level = 55, },
 }
 itemBases["Heavy Arrow Quiver"] = {
+	baseId = "Metadata/Items/Quivers/QuiverNew12",
 	type = "Quiver",
 	tags = { default = true, quiver = true, },
 	influenceTags = { shaper = "quiver_shaper", elder = "quiver_elder", adjudicator = "quiver_adjudicator", basilisk = "quiver_basilisk", crusader = "quiver_crusader", eyrie = "quiver_eyrie", cleansing = "quiver_cleansing", tangle = "quiver_tangle" },
@@ -249,6 +275,7 @@ itemBases["Heavy Arrow Quiver"] = {
 	req = { level = 61, },
 }
 itemBases["Primal Arrow Quiver"] = {
+	baseId = "Metadata/Items/Quivers/QuiverNew13",
 	type = "Quiver",
 	tags = { default = true, quiver = true, },
 	influenceTags = { shaper = "quiver_shaper", elder = "quiver_elder", adjudicator = "quiver_adjudicator", basilisk = "quiver_basilisk", crusader = "quiver_crusader", eyrie = "quiver_eyrie", cleansing = "quiver_cleansing", tangle = "quiver_tangle" },
@@ -258,12 +285,13 @@ itemBases["Primal Arrow Quiver"] = {
 	req = { level = 66, },
 }
 itemBases["Artillery Quiver"] = {
+	baseId = "Metadata/Items/Quivers/QuiverAtlas1",
 	type = "Quiver",
 	tags = { atlas_base_type = true, default = true, not_for_sale = true, quiver = true, quiveratlas1 = true, },
 	influenceTags = { shaper = "quiver_shaper", elder = "quiver_elder", adjudicator = "quiver_adjudicator", basilisk = "quiver_basilisk", crusader = "quiver_crusader", eyrie = "quiver_eyrie", cleansing = "quiver_cleansing", tangle = "quiver_tangle" },
-	implicit = "(20-30)% increased Totem Placement speed",
-	implicitModTypes = { { "speed" }, },
-	implicitIds = { "SummonTotemCastSpeedImplicit1", },
-	req = { level = 74, },
+	implicit = "Attack Skills have +1 to maximum number of Summoned Totems",
+	implicitModTypes = { { "attack" }, },
+	implicitIds = { "AdditionalAttackTotemsImplicit1", },
+	req = { },
 }
 end

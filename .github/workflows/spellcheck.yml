@@ -23,6 +23,10 @@ jobs:
         with:
           ref: ${{ inputs.ref }}
 
+      - name: Fetch pull request diff commits
+        if: github.event_name == 'pull_request'
+        run: git fetch --no-tags --depth=1 origin ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }}
+
       - name: Fetch config file and dictionaries
         run:
           curl --silent --show-error --parallel --remote-name-all

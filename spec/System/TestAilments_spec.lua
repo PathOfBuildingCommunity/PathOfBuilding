@@ -12,6 +12,26 @@ describe("TestAilments", function()
 		runCallback("OnFrame")
 	end
 
+	for _, verb in ipairs({ "inflict", "apply" }) do
+		it("Painseeker removes inherent ailment chance on crit with '" .. verb .. "' wording", function()
+			build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nBall Lightning 20/0  1\n")
+			build.itemsTab:CreateDisplayItemFromRaw("Rarity: UNIQUE\nPainseeker\nShagreen Gloves\nImplicits: 0\nCritical Strikes do not inherently " .. verb .. " non-Damaging Ailments\nInflict non-Damaging Ailments as though dealing 150% more Damage")
+			build.itemsTab:AddDisplayItem()
+			runCallback("OnFrame")
+
+			assert.are.equals(0, build.calcsTab.mainOutput.ShockChanceOnCrit)
+			assert.are.equals(0, build.calcsTab.mainOutput.FreezeChanceOnCrit)
+			assert.are.equals(100, build.calcsTab.mainOutput.IgniteChanceOnCrit)
+
+			build.configTab.input.customMods = "25% chance to Shock\n25% chance to Freeze"
+			rebuild()
+
+			assert.are.equals(25, build.calcsTab.mainOutput.ShockChanceOnCrit)
+			assert.are.equals(25, build.calcsTab.mainOutput.FreezeChanceOnCrit)
+			assert.are.equals(25, build.calcsTab.mainOutput.ShockChance)
+		end)
+	end
+
 	it("maximum shock value", function()
 		-- Shock Nova
 		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nShock Nova 4/0  1\n")

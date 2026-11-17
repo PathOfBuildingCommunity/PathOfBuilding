@@ -1234,15 +1234,19 @@ end
 ---@class ItemBaseTincture
 ---@field manaBurn? number
 ---@field cooldown? number
+---@field buff? string[] # tincture-granted buff line(s)
 
 ---@type table<string, ItemBase>
 data.itemBases = { }
 for _, type in pairs(itemTypes) do
 	LoadModule("Data/Bases/" .. type)(data.itemBases)
 end
+-- Wickerman has base data only; no unique rarity or modifier ownership is assumed.
+LoadModule("Data/Bases/wickerman")(data.itemBases)
 
 ---@class ItemBaseEntry
 ---@field label string
+---@field searchFilter string
 ---@field name string
 ---@field base ItemBase
 
@@ -1256,7 +1260,25 @@ for name, base in pairs(data.itemBases) do
 			type = type .. ": " .. base.subType
 		end
 		data.itemBaseLists[type] = data.itemBaseLists[type] or { }
-		table.insert(data.itemBaseLists[type], { label = name:gsub(" %(.+%)",""), name = name, base = base })
+		local label = name:gsub(" %(.+%)","")
+		local searchTerms = { name }
+		if base.implicit then
+			t_insert(searchTerms, base.implicit)
+		end
+		if base.enchant then
+			t_insert(searchTerms, base.enchant)
+		end
+		if base.flask and base.flask.buff then
+			for _, line in ipairs(base.flask.buff) do
+				t_insert(searchTerms, line)
+			end
+		end
+		if base.tincture and base.tincture.buff then
+			for _, line in ipairs(base.tincture.buff) do
+				t_insert(searchTerms, line)
+			end
+		end
+		table.insert(data.itemBaseLists[type], { label = label, searchFilter = t_concat(searchTerms, " "), name = name, base = base })
 	end
 end
 data.itemBaseTypeList = { }
@@ -1282,6 +1304,7 @@ table.sort(data.itemBaseTypeList)
 
 -- Rare templates
 data.rares = LoadModule("Data/Rares")
+data.viscera = LoadModule("Data/Viscera")
 
 data.casterTagCrucibleUniques = {
 	["Atziri's Rule"] = true,

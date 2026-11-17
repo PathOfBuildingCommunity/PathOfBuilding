@@ -29,7 +29,7 @@ Curse Enemies with Flammability on Hit
 Dreadsurge
 Cleaver
 Source: No longer obtainable
-LevelReq: 60
+Requires Level 60
 Implicits: 0
 Adds (5-15) to (20-25) Physical Damage
 Adds (223-250) to (264-280) Fire Damage
@@ -59,7 +59,7 @@ Jade Hatchet
 Variant: Pre 2.0.0
 Variant: Current
 Implicits: 0
-Socketed Gems are supported by Level 2 Chance to Flee
+Socketed Gems are Supported by Level 2 Chance to Flee Support
 {variant:1}Adds (8-12) to (18-22) Physical Damage
 {variant:2}Adds (10-15) to (25-30) Physical Damage
 +(10-15) to maximum Life
@@ -71,9 +71,9 @@ Jade Hatchet
 Source: No longer obtainable
 Variant: Pre 2.0.0
 Variant: Current
-LevelReq: 32
+Requires Level 32
 Implicits: 0
-Socketed Gems are supported by Level 2 Chance to Flee
+Socketed Gems are Supported by Level 2 Chance to Flee Support
 (170-190)% increased Physical Damage
 {variant:1}Adds (8-12) to (18-22) Physical Damage
 {variant:2}Adds (10-15) to (25-30) Physical Damage
@@ -87,7 +87,7 @@ Vaal Hatchet
 Variant: Pre 3.13.0
 Variant: Current
 Implicits: 0
-{variant:2}Grants Level 20 Thirst for Blood Skill
+{variant:2}Grants Level 20 Thirst for Blood
 {variant:1}(90-110)% increased Physical Damage
 {variant:2}(130-150)% increased Physical Damage
 Adds (11-14) to (18-23) Physical Damage
@@ -176,7 +176,7 @@ Eldritch Battery
 Starcaller
 Abyssal Axe
 Source: Drops from unique{Incarnation of Fear} in normal{Moment of Trauma}
-Requires Level 55, 128 Str, 60 Dex
+Requires Level 68
 Trigger Level 20 Starfall on Melee Critical Strike
 +(10-20) to all Attributes
 (120-180)% increased Physical Damage
@@ -190,12 +190,11 @@ Spectral Axe
 Source: Drops from unique{It That Was Esh} and unique{It That Was Tul} in normal{Hive Colony}
 Variant: Pre 3.29.0
 Variant: Current
-Requires Level 33, 85 Str, 37 Dex
 (30-50)% increased Fire Damage
 {variant:1}Attacks with this Weapon have Added Fire Damage equal to (8-12)% of Player's Maximum Life
 {variant:2}Attacks with this Weapon have Added Fire Damage equal to (6-10)% of Player's Maximum Life
 Each Rage also grants +2% to Fire Damage Over Time Multiplier
-Nearby Enemies have Fire Exposure while at maximum Rage
+Enemies within 3 metres have Fire Exposure while at maximum Rage
 +(-5-5) to Maximum Rage
 ]],
 -- Weapon: Two Handed Axe
@@ -206,7 +205,7 @@ Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Alluring Abys
 Variant: Pre 3.11.0
 Variant: Pre 3.20.0
 Variant: Current
-LevelReq: 75
+Requires Level 75
 Implicits: 1
 {variant:2,3}25% chance to Maim on Hit
 {variant:1,2}+2 to Level of Socketed Support Gems
@@ -312,12 +311,12 @@ Implicits: 0
 (7-12)% increased Attack Speed
 {variant:2,3,4,5,6}(30-40)% increased Critical Strike Chance
 {variant:1}+(100-150) to maximum Mana
-Nearby Allies have 30% increased Item Rarity
-Nearby Allies have Culling Strike
+Allies within 3 metres have 30% increased Item Rarity
+Allies within 3 metres have Culling Strike
 {variant:2,3,4,5,6}Insufficient Mana doesn't prevent your Melee Attacks
-{variant:3,4,5,6}Nearby Allies have +50% to Critical Strike Multiplier
-{variant:3,4}Nearby Allies have +1 Fortification
-{variant:5,6}Nearby Allies have +10 Fortification
+{variant:3,4,5,6}Allies within 3 metres have +50% to Critical Strike Multiplier
+{variant:3,4}Allies within 3 metres have +1 Fortification
+{variant:5,6}Allies within 3 metres have +10 Fortification
 ]],[[
 Kitava's Feast
 Void Axe
@@ -325,7 +324,7 @@ Variant: Pre 3.5.0
 Variant: Pre 3.11.0
 Variant: Current
 Implicits: 0
-Socketed Gems are supported by Level 30 Melee Splash
+Socketed Gems are Supported by Level 30 Melee Splash Support
 {variant:1}(250-300)% increased Physical Damage
 {variant:2}(265-330)% increased Physical Damage
 {variant:3}(200-240)% increased Physical Damage
@@ -351,7 +350,7 @@ Woodsplitter
 Source: No longer obtainable
 Variant: Pre 3.11.0
 Variant: Current
-LevelReq: 40
+Requires Level 40
 Implicits: 0
 +1 to Level of Socketed Strength Gems
 {variant:2}Trigger Level 5 Gore Shockwave on Melee Hit if you have at least 150 Strength
@@ -378,7 +377,7 @@ Reaper's Pursuit
 Shadow Axe
 Implicits: 0
 (100-125)% increased Physical Damage
-(30-40)% increased Rarity of Items found
++(30-40)% to Item Rarity
 Gain 10 Life per Enemy Killed
 15% increased Movement Speed when on Full Life
 Culling Strike
@@ -400,7 +399,6 @@ Spinesnatch
 Fleshripper
 League: Allflame
 Source: Drops from unique{Zorath}
-Requires Level 70, 156 Str, 84 Dex
 Implicits: 1
 50% increased Critical Strike Chance
 Has 6 Abyssal Sockets
@@ -447,7 +445,7 @@ Poleaxe
 Variant: Pre 3.7.0
 Variant: Current
 Implicits: 0
-Socketed Gems are Supported by Level 20 Increased Area of Effect
+Socketed Gems are Supported by Level 20 Increased Area of Effect Support
 +10 to Strength
 (120-160)% increased Physical Damage
 Gain 10 Mana per Enemy Killed
@@ -473,7 +471,7 @@ Counts as Dual Wielding
 ]],[[
 Wings of Entropy
 {variant:1,2,3,4}Sundering Axe
-{variant:5}Ezomyte Axe
+{variant:5,6}Ezomyte Axe
 Variant: Pre 1.3.0
 Variant: Pre 2.0.0
 Variant: Pre 3.4.0

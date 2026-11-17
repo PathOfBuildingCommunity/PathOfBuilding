@@ -909,6 +909,76 @@ describe("TestTriggers", function()
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
 	end)
 
+	for _, resource in ipairs({ "Mana", "Life" }) do
+		it("preserves Kitava Full DPS across shared source calculations and " .. resource .. " cost overrides", function()
+			local triggerName = resource == "Life" and "Foulborn Kitava's Thirst" or "Kitava's Thirst"
+			local threshold = resource == "Life" and 200 or 100
+			build.itemsTab:CreateDisplayItemFromRaw("Rarity: UNIQUE\n" .. triggerName .. "\nZealot Helmet\nImplicits: 0\n50% chance to Trigger Socketed Spells when you Spend at least " .. threshold .. " " .. resource .. " on an Upfront Cost to Use or Trigger a Skill, with a 0.1 second Cooldown")
+			build.itemsTab:AddDisplayItem()
+			build.configTab.input.customMods = "2000% increased Cost of Skills\n100% increased Cast Speed" .. (resource == "Life" and "\nSkills Cost Life instead of Mana" or "")
+			build.configTab:BuildModList()
+			-- The source's own Full DPS pass replaces its cached entry between helmet spells; Clarity is a rejected candidate
+			for _, group in ipairs({ "Slot: Helmet\nArc", "Slot: Body Armour\nFireball", "Slot: Helmet\nIce Nova", "Slot: Helmet\nSpark" }) do
+				build.skillsTab:PasteSocketGroup(group .. " 20/0  1\n")
+			end
+			for _, group in ipairs(build.skillsTab.socketGroupList) do
+				group.includeInFullDPS = true
+			end
+			build.skillsTab:PasteSocketGroup("Slot: Gloves\nClarity 1/0  1\n")
+			build.buildFlag = true
+			runCallback("OnFrame")
+
+			local calc = build.calcsTab.calcs.getMiscCalculator(build)
+			local baseline = calc({}, true)
+			assert.are.equal(build.calcsTab.mainOutput.FullDPS, baseline.FullDPS)
+			for _, case in ipairs({
+				{ mod = "", rate = 8 / 3, dps = { 929.06, 3217.1333333333332, 970.0625, 716.53666666666663, 1403.4792533755865 } },
+				{ mod = "100% increased Cast Speed", rate = 4, dps = { 1393.59, 4825.7, 1455.09375, 1074.805, 1503.771511006951 } },
+				{ mod = "3000% reduced Cost of Skills", dps = { 2322.65, 3217.1333333333332, 2078.7053571428573, 1791.3416666666669, 1403.4792533755865 } },
+				{ mod = "", rate = 8 / 3, dps = { 929.06, 3217.1333333333332, 970.0625, 716.53666666666663, 1403.4792533755865 } },
+			}) do
+				local override = case.mod ~= "" and { repSlotName = "Ring 1", repItem = new("Item"):Item("Rarity: RARE\nCost and Speed Ring\nIron Ring\nImplicits: 0\n" .. case.mod) } or {}
+				local output = calc(override, true)
+				assert.are.equal(case.rate, output.EffectiveSourceRate)
+				local skillDPS = {}
+				for index, row in ipairs(output.SkillDPS) do
+					skillDPS[index] = row.dps
+				end
+				assert.are.same(case.dps, skillDPS)
+			end
+			-- A reused rejected environment must still see the override's allocated notables
+			table.insert(build.skillsTab.socketGroupList, 2, table.remove(build.skillsTab.socketGroupList))
+			build.configTab.input.customMods = build.configTab.input.customMods .. "\n100% increased Cast Speed per allocated Notable Passive Skill"
+			build.configTab:BuildModList()
+			runCallback("OnFrame")
+			local notable = build.spec.nodes[build.spec.tree.notableMap["deep wisdom"].id]
+			assert.are.equal(4, build.calcsTab.calcs.getMiscCalculator(build)({ addNodes = { [notable] = true } }, true).EffectiveSourceRate)
+		end)
+	end
+
+	it("does not let Reflection reuse a rejected Kitava source from an earlier override", function()
+		build.itemsTab:CreateDisplayItemFromRaw("Rarity: UNIQUE\nFoulborn Kitava's Thirst\nZealot Helmet\nImplicits: 0\n50% chance to Trigger Socketed Spells when you Spend at least 200 Life on an Upfront Cost to Use or Trigger a Skill, with a 0.1 second Cooldown")
+		build.itemsTab:AddDisplayItem()
+		build.itemsTab:CreateDisplayItemFromRaw("Rarity: UNIQUE\nThe Saviour\nLegion Sword\nImplicits: 0\nTriggers Level 20 Reflection when Equipped")
+		build.itemsTab:AddDisplayItem()
+		build.configTab.input.customMods = "2000% increased Cost of Skills\nSkills Cost Life instead of Mana"
+		build.configTab:BuildModList()
+		for _, group in ipairs({ "Slot: Helmet\nArc 20", "Slot: Body Armour\nHeavy Strike 1", "Slot: Boots\nFireball 20" }) do
+			build.skillsTab:PasteSocketGroup(group .. "/0  1\n")
+		end
+		runCallback("OnFrame")
+		for _, group in ipairs(build.skillsTab.socketGroupList) do
+			group.includeInFullDPS = group.slot == "Helmet" or group.gemList[1].skillId == "UniqueMirageWarriors"
+		end
+		build.buildFlag = true
+		runCallback("OnFrame")
+		local calc = build.calcsTab.calcs.getMiscCalculator(build)
+		local override = { repSlotName = "Ring 1", repItem = new("Item"):Item("Rarity: RARE\nAttack Ring\nIron Ring\nImplicits: 0\nAdds 1000 to 1000 Physical Damage to Attacks") }
+		local output = calc(override, true)
+		wipeGlobalCache()
+		assert.are.same(calc(override, true).SkillDPS, output.SkillDPS)
+	end)
+
 	it("Trigger Mjolner", function()
 		build.itemsTab:CreateDisplayItemFromRaw([[Mjolner
 		Gavel

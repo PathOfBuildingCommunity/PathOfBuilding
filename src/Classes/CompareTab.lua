@@ -4061,12 +4061,11 @@ function CompareTabClass:DrawSkills(vp, compareEntry)
 	local function getImbuedGem(group, skillsTab)
 		if not group or not group.imbuedSupport then return nil end
 		if imbuedGemCache[group] then return imbuedGemCache[group] end
-		-- Prefer the grantedEffect cached on skillsTab; fall back to a direct data lookup
-		-- (mirrors SkillsTab:RebuildImbuedSupportBySlot) in case the tab hasn't been primed.
+		-- Prefer the grantedEffect cached on skillsTab; resolve the name if the tab hasn't been primed.
 		local grantedEffect = skillsTab and skillsTab.imbuedSupportBySlot and group.slot and skillsTab.imbuedSupportBySlot[group.slot]
-		if not grantedEffect then
-			local gemId = data.gemForBaseName and data.gemForBaseName[group.imbuedSupport:lower() .. " support"]
-			grantedEffect = gemId and data.gems[gemId] and data.gems[gemId].grantedEffect or nil
+		if not grantedEffect and skillsTab then
+			local gem = skillsTab:FindImbuedSupport(group.imbuedSupport)
+			grantedEffect = gem and gem.grantedEffect
 		end
 		local entry = {
 			grantedEffect = grantedEffect,

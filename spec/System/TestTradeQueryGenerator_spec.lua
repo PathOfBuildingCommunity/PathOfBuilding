@@ -193,8 +193,8 @@ describe("TradeQueryGenerator", function()
 			}
 			queryGen.tradeTypeIndex = 1
 			local query
-			queryGen.requesterCallback = function(_, queryJson)
-				query = require("dkjson").decode(queryJson).query
+			queryGen.requesterCallback = function(_, generatedQuery)
+				query = generatedQuery
 			end
 
 			queryGen:FinishQuery()
@@ -202,6 +202,17 @@ describe("TradeQueryGenerator", function()
 			assert.are.equal(31, #query.stats[1].filters)
 			assert.is_not_nil(query.filters.socket_filters.filters.sockets)
 			assert.is_not_nil(query.filters.socket_filters.filters.links)
+
+			-- Account searches must also work without a maximum price.
+			queryGen.calcContext.options = {
+				statWeights = {}, influence1 = 1, influence2 = 1,
+				includeMirrored = true, account = "ExampleAccount", maxLevel = 80, links = 5,
+			}
+			queryGen:FinishQuery()
+			assert.same({ input = "ExampleAccount" }, query.filters.trade_filters.filters.account)
+			assert.same({ max = 80 }, query.filters.req_filters.filters.lvl)
+			assert.same({ min = 5, max = 5 }, query.filters.socket_filters.filters.links)
+			assert.is_nil(query.filters.socket_filters.filters.sockets)
 		end)
 	end)
 end)

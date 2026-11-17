@@ -29,11 +29,9 @@ describe("TradeHelpers trade hash matching", function()
 			assert.equal(22088, value)
 		end)
 
-		it("matches a legacy '#'-valued option and returns its value", function()
-			local tradeId, value = tradeHelpers.findTradeIdOption("Grants Level 20 Summon Bestial Snake Skill",
-				"explicit")
-			assert.equal("explicit.stat_2878779644", tradeId)
-			assert.equal(3, value)
+		it("does not match granted effects as legacy options", function()
+			assert.is_nil(tradeHelpers.findTradeIdOption("Grants Level 20 Summon Bestial Snake Skill",
+				"explicit"))
 		end)
 
 		it("matches an exact-text option and returns no value", function()
@@ -66,10 +64,28 @@ describe("TradeHelpers trade hash matching", function()
 		end)
 	end)
 	describe("findTradeHash", function()
+		it("uses the granted effect hash and skill level for granted skills", function()
+			local ids, value, shouldNegate, prefix = tradeHelpers.findTradeHash(
+				"Grants Level 20 Summon Bestial Snake Skill")
+			assert.same({ 2377502094 }, ids)
+			assert.equal(20, value)
+			assert.is_false(shouldNegate)
+			assert.equal("effect_", prefix)
+		end)
+
+		it("matches granted skills without the legacy Skill suffix", function()
+			local ids, value, _, prefix = tradeHelpers.findTradeHash(
+				"Grants Level 19 Summon Bestial Snake")
+			assert.same({ 2377502094 }, ids)
+			assert.equal(19, value)
+			assert.equal("effect_", prefix)
+		end)
+
 		it("matches a simple mod", function()
-			local ids, value = tradeHelpers.findTradeHash("+50 to maximum Life")
+			local ids, value, _, prefix = tradeHelpers.findTradeHash("+50 to maximum Life")
 			assert.equal(50, value)
 			assert.is_truthy(isValueInArray(ids, HashStats({ "base_maximum_life" })))
+			assert.equal("stat_", prefix)
 		end)
 
 		it("matches a percentage mod", function()

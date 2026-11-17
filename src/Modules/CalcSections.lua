@@ -710,8 +710,8 @@ return {
 } }
 } },
 { 1, "SkillTypeStats", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Skill type-specific Stats", data = {
-	{ label = "Gem Level", haveOutput = "GemHasLevel", { format = "{0:output:GemLevel}", { breakdown = "GemLevel" }, { modName = { "GemLevel" }, cfg = "skill" },{ modName = { "GemSupportLevel" }, cfg = "skill" }, { modName = { "GemItemLevel" }, cfg = "skill" }, }, },
-	{ label = "Gem Quality", haveOutput = "GemHasQuality", { format = "{0:output:GemQuality}", { breakdown = "GemQuality" }, { modName = { "GemQuality", "GemSupportQuality", "GemItemQuality", "GemSocketQuality" }, cfg = "skill" }, }, },
+	{ label = "Gem Level", haveOutput = "GemHasLevel", { format = "{0:output:GemLevel}", { breakdown = "GemLevel" }, { modName = { "GemLevel" }, cfg = "skill" }, { modName = { "GemItemLevel" }, cfg = "skill" }, { modName = { "GemGlobalLevel" }, cfg = "skill" }, { modName = { "GemSupportLevel" }, cfg = "skill" }, }, },
+	{ label = "Gem Quality", haveOutput = "GemHasQuality", { format = "{0:output:GemQuality}%", { breakdown = "GemQuality" }, { modName = { "GemQuality" }, cfg = "skill" }, { modName = { "GemItemQuality" }, cfg = "skill" }, { modName = { "GemGlobalQuality" }, cfg = "skill" }, { modName = { "GemSupportQuality" }, cfg = "skill" }, { modName = { "GemSocketQuality" }, cfg = "skill" }, }, },
 	{ label = "Mana Cost", color = colorCodes.MANA, haveOutput = "ManaHasCost", { format = "{0:output:ManaCost}", { breakdown = "ManaCost" }, { modName = manaCost, cfg = "skill" }, }, },
 	{ label = "Mana % Cost", color = colorCodes.MANA, haveOutput = "ManaPercentHasCost", { format = "{0:output:ManaPercentCost}", { breakdown = "ManaPercentCost" }, { modName = manaCost, cfg = "skill" }, }, },
 	{ label = "Mana per second", color = colorCodes.MANA, haveOutput = "ManaPerSecondHasCost", { format = "{2:output:ManaPerSecondCost}", { breakdown = "ManaPerSecondCost" }, { modName = manaCost, cfg = "skill" }, }, },
@@ -1798,6 +1798,7 @@ return {
 	{ label = "Inc. Recovery Rate", { format = "{0:mod:1,2}%",
 		{ label = "Life Flask Recovery Rate", modName = "FlaskLifeRecoveryRate", modType = "INC"},
 		{ label = "Generic Flask Recovery Rate", modName = "FlaskRecoveryRate", modType = "INC" }}, },
+	{ label = "More Recovery Rate", { format = "{0:mod:1}%", { modName = "FlaskLifeRecoveryRate", modType = "MORE" }}, },
 	{ label = "Charges/s", { format = "{2:output:LifeFlaskChargeGen}",
 		{ label = "Life Flask Charges/s", modName = "LifeFlaskChargesGenerated", modType = "BASE"},
 		{ label = "Generic Flask Charges/s", modName = { "FlaskChargesGenerated", "FlaskChargesGeneratedPerEmptyFlask" }, modType = "BASE" }}, },

@@ -9,7 +9,7 @@ Variant: Pre 3.17.0
 Variant: Current
 League: Ritual
 Source: Drops from unique{The Maven}
-LevelReq: 68
+Requires Level 68
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
 {tags:defences}+(600-700) to Armour
@@ -25,7 +25,7 @@ Chain Belt
 Variant: Pre 2.6.0
 Variant: Pre 3.16.0
 Variant: Current
-LevelReq: 44
+Requires Level 44
 Implicits: 1
 {tags:defences}+(9-20) to maximum Energy Shield
 {tags:defences}+300 to Evasion Rating
@@ -44,10 +44,9 @@ Variant: Pre 1.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.5.0
 Variant: Current
-{variant:1,2}LevelReq: 70
 Implicits: 2
 {variant:1,2}{tags:defences}+(9-20) to maximum Energy Shield
-{variant:3,4}{tags:defences}+(60-80) to maximum Energy Shield
+{variant:3,4}{tags:defences}+(60-100) to maximum Energy Shield
 {tags:defences}+(60-70) to maximum Energy Shield
 {tags:resource}+(45-55) to maximum Mana
 {variant:2,3}Chill Effect and Freeze Duration on you are based on 65% of Energy Shield
@@ -61,9 +60,8 @@ Implicits: 2
 The Burden of Truth
 Crystal Belt
 Source: Drops from unique{Sirus, Awakener of Worlds}
-LevelReq: 79
 Implicits: 1
-{tags:defences}+(60-80) to maximum Energy Shield
+{tags:defences}+(60-100) to maximum Energy Shield
 33% of Non-Chaos Damage taken bypasses Energy Shield
 {tags:resource}(30-40)% increased Life Recovery from Flasks
 33% of Chaos Damage taken does not bypass Energy Shield
@@ -74,7 +72,7 @@ Bated Breath
 Chain Belt
 Variant: Pre 2.6.0
 Variant: Current
-LevelReq: 22
+Requires Level 22
 Implicits: 1
 {tags:defences}+(9-20) to maximum Energy Shield
 {tags:attribute}+(15-25) to Intelligence
@@ -87,10 +85,10 @@ Replica Bated Breath
 Chain Belt
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-LevelReq: 22
+Requires Level 22
 Implicits: 1
 {tags:defences}+(9-20) to maximum Energy Shield
-{tags:attribute}+(15-25) to Intelligence
+{tags:attribute}-(25-15) to Intelligence
 10% increased Damage
 50% increased Fishing Pool Consumption
 20% increased Fishing Range
@@ -102,12 +100,12 @@ Variant: Pre 3.25.0
 Variant: Current
 League: Harvest
 Source: Drops from unique{Ersi, Mother of Thorns} in normal{The Sacred Grove}
-LevelReq: 68
+Requires Level 68
 Implicits: 1
 {tags:resource}+(25-40) to maximum Life
 {tags:physical_damage,attack}Adds (5-7) to (11-12) Physical Damage to Attacks
 (20-30)% increased Stun Duration on Enemies
-Nearby Enemies are Crushed while you have at least 25 Rage
+Enemies within 3 metres are Crushed while you have at least 25 Rage
 {variant:1}+20 to Maximum Rage
 {variant:2}+10 to Maximum Rage
 ]],[[
@@ -115,33 +113,33 @@ Belt of the Deceiver
 Heavy Belt
 Variant: Pre 2.6.0
 Variant: Current
-LevelReq: 20
+Requires Level 20
 Implicits: 1
 {tags:attribute}+(25-35) to Strength
-{variant:1}10% reduced Chance to Block Attack and Spell Damage
 {tags:physical_damage}(15-25)% increased Global Physical Damage
 {tags:critical}You take 30% reduced Extra Damage from Critical Strikes
 {tags:resource}+(30-40) to maximum Life
 {variant:1}{tags:resistance}+(6-10)% to all Elemental Resistances
 {variant:2}{tags:resistance}+(10-15)% to all Elemental Resistances
-{variant:2}Nearby Enemies are Intimidated
+{variant:2}Enemies within 2.5 metres are Intimidated
+{variant:1}10% reduced Chance to Block Attack and Spell Damage
 ]],[[
 Bisco's Leash
 Heavy Belt
 Variant: Pre 3.25.0
 Variant: Current
-LevelReq: 30
+Requires Level 30
 Implicits: 1
 {tags:attribute}+(25-35) to Strength
 {variant:2}{tags:attribute}+(10-15) to all Attributes
 {variant:1}5% increased Quantity of Items found
 {tags:resistance}+(20-40)% to Cold Resistance
-1% increased Rarity of Items found per 15 Rampage Kills
++1% to Item Rarity per 15 Rampage Kills
 Rampage
 ]],[[
 Bound Fate
 Cloth Belt
-LevelReq: 16
+Requires Level 49
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
 {tags:attribute}+(20-30) to Dexterity
@@ -159,7 +157,7 @@ Chains of Emancipation
 Chain Belt
 League: Heist
 Source: Drops from unique{Friedrich Tarollo, Slave Merchant} in normal{Contract: The Slaver King}
-LevelReq: 61
+Requires Level 61
 Implicits: 1
 {tags:defences}+(9-20) to maximum Energy Shield
 {tags:resource}+(60-80) to maximum Life
@@ -175,7 +173,7 @@ Variant: Current
 League: Incursion
 Source: Opening normal{Experimental Chest} in normal{Hybridisation Chamber}
 Upgrade: Upgrades to unique{Coward's Legacy} via currency{Vial of Consequence}
-LevelReq: 22
+Requires Level 22
 Implicits: 1
 {tags:defences}+(9-20) to maximum Energy Shield
 {variant:1}{tags:attribute}+(10-15) to all Attributes
@@ -190,7 +188,7 @@ Coward's Legacy
 Chain Belt
 League: Incursion
 Source: Upgraded from unique{Coward's Chains} via currency{Vial of Consequence}
-LevelReq: 52
+Requires Level 52
 Implicits: 1
 {tags:defences}+(9-20) to maximum Energy Shield
 {tags:attribute}+(15-20) to all Attributes
@@ -203,7 +201,7 @@ Cyclopean Coil
 Leather Belt
 Elder Item
 Source: Drops from unique{The Elder}
-LevelReq: 68
+Requires Level 68
 Implicits: 1
 {tags:resource}+(25-40) to maximum Life
 {tags:attribute}(5-15)% increased Attributes
@@ -230,41 +228,73 @@ Has 1 Abyssal Socket
 Doryani's Invitation
 Heavy Belt
 Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Apex of Sacrifice}
-Variant: Pre 3.11.0 (Physical)
-Variant: Pre 3.11.0 (Fire)
-Variant: Pre 3.11.0 (Cold)
-Variant: Pre 3.11.0 (Lightning)
-Variant: Current (Physical)
-Variant: Current (Fire)
-Variant: Current (Cold)
-Variant: Current (Lightning)
-LevelReq: 68
+Version: Pre 3.11.0
+Version: Pre 3.30.0
+Version: Current
+Variant: Physical Damage
+Variant: Fire Damage
+Variant: Cold Damage
+Variant: Lightning Damage
+Variant: Fire Resistance
+Variant: Cold Resistance
+Variant: Lightning Resistance
+Variant: Armour
+Variant: Physical Leech
+Variant: Fire Leech
+Variant: Cold Leech
+Variant: Lightning Leech
+Variant: Granite Flask Effect
+Variant: Ruby Flask Effect
+Variant: Sapphire Flask Effect
+Variant: Topaz Flask Effect
+Selected Variant Group: 1=1
+Selected Variant Group: 2=5
+Selected Variant Group: 3=9
+Selected Variant Group: 4=13
+Requires Level 68
 Implicits: 1
 {tags:attribute}+(25-35) to Strength
-{variant:1,5}{tags:physical_damage}(20-30)% increased Global Physical Damage
-{variant:2,6}{tags:elemental_damage}(20-30)% increased Fire Damage
-{variant:3,7}{tags:elemental_damage}(20-30)% increased Cold Damage
-{variant:4,8}{tags:elemental_damage}(20-30)% increased Lightning Damage
-{variant:2,3,4,6,7,8}{tags:defences}+(300-350) to Armour
-{variant:1,3,4,5,7,8}{tags:resistance}+(30-35)% to Fire Resistance
-{variant:1,2,4,5,6,8}{tags:resistance}+(30-35)% to Cold Resistance
-{variant:1,2,3,5,6,7}{tags:resistance}+(30-35)% to Lightning Resistance
-{variant:5}{tags:resource}0.6% of Physical Damage Leeched as Life
-{variant:6}{tags:resource}0.6% of Fire Damage Leeched as Life
-{variant:7}{tags:resource}0.6% of Cold Damage Leeched as Life
-{variant:8}{tags:resource}0.6% of Lightning Damage Leeched as Life
-{variant:2}10% chance to Ignite during any Flask Effect
-{variant:6}(20-30)% chance to Ignite during any Flask Effect
-{variant:3}10% chance to Freeze during any Flask Effect
-{variant:7}(20-30)% chance to Freeze during any Flask Effect
-{variant:4}10% chance to Shock during any Flask Effect
-{variant:8}(20-30)% chance to Shock during any Flask Effect
-{variant:1,5}25% reduced Enemy Stun Threshold during any Flask Effect
+{variant:1}{group:1}{tags:physical_damage}(15-60)% increased Global Physical Damage
+{variant:2}{group:1}{tags:elemental_damage}(15-60)% increased Fire Damage
+{variant:3}{group:1}{tags:elemental_damage}(15-60)% increased Cold Damage
+{variant:4}{group:1}{tags:elemental_damage}(15-60)% increased Lightning Damage
+{version:1,2}{variant:2,3,4}{group:1}{tags:defences}+(250-1000) to Armour
+{version:1,2}{variant:1,3,4}{group:1}{tags:resistance}+(25-100)% to Fire Resistance
+{version:1,2}{variant:1,2,4}{group:1}{tags:resistance}+(25-100)% to Cold Resistance
+{version:1,2}{variant:1,2,3}{group:1}{tags:resistance}+(25-100)% to Lightning Resistance
+{version:3}{variant:8}{group:2}{tags:defences}+(250-1000) to Armour
+{version:3}{variant:5}{group:2}{tags:resistance}+(25-100)% to Fire Resistance
+{version:3}{variant:6}{group:2}{tags:resistance}+(25-100)% to Cold Resistance
+{version:3}{variant:7}{group:2}{tags:resistance}+(25-100)% to Lightning Resistance
+{version:1}{variant:1}{group:1}{tags:resource}0.2% of Physical Damage Leeched as Life
+{version:1}{variant:2}{group:1}{tags:resource}0.2% of Fire Damage Leeched as Life
+{version:1}{variant:3}{group:1}{tags:resource}0.2% of Cold Damage Leeched as Life
+{version:1}{variant:4}{group:1}{tags:resource}0.2% of Lightning Damage Leeched as Life
+{version:2}{variant:1}{group:1}{tags:resource}0.6% of Physical Damage Leeched as Life
+{version:2}{variant:2}{group:1}{tags:resource}0.6% of Fire Damage Leeched as Life
+{version:2}{variant:3}{group:1}{tags:resource}0.6% of Cold Damage Leeched as Life
+{version:2}{variant:4}{group:1}{tags:resource}0.6% of Lightning Damage Leeched as Life
+{version:3}{variant:9}{group:3}{tags:resource}0.6% of Physical Damage Leeched as Life
+{version:3}{variant:10}{group:3}{tags:resource}0.6% of Fire Damage Leeched as Life
+{version:3}{variant:11}{group:3}{tags:resource}0.6% of Cold Damage Leeched as Life
+{version:3}{variant:12}{group:3}{tags:resource}0.6% of Lightning Damage Leeched as Life
+{version:3}{variant:13}{group:4}{tags:defences}Granite Flasks applied to you have (20-80)% increased Effect
+{version:3}{variant:14}{group:4}{tags:resistance}Ruby Flasks applied to you have (20-80)% increased Effect
+{version:3}{variant:15}{group:4}{tags:resistance}Sapphire Flasks applied to you have (20-80)% increased Effect
+{version:3}{variant:16}{group:4}{tags:resistance}Topaz Flasks applied to you have (20-80)% increased Effect
+{version:1}{variant:2}{group:1}10% chance to Ignite during any Flask Effect
+{version:2}{variant:2}{group:1}(20-30)% chance to Ignite during any Flask Effect
+{version:1}{variant:3}{group:1}10% chance to Freeze during any Flask Effect
+{version:2}{variant:3}{group:1}(20-30)% chance to Freeze during any Flask Effect
+{version:1}{variant:4}{group:1}10% chance to Shock during any Flask Effect
+{version:2}{variant:4}{group:1}(20-30)% chance to Shock during any Flask Effect
+{version:1,2}{variant:1}{group:1}25% reduced Enemy Stun Threshold during any Flask Effect
+Corrupted
 ]],[[
 The Druggery
 Cloth Belt
 League: Heist
-LevelReq: 48
+Requires Level 48
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
 {tags:attribute}+(20-30) to all Attributes
@@ -272,13 +302,13 @@ Implicits: 1
 (10-20)% increased Flask Charges used
 (10-20)% increased Flask Effect Duration
 Life Flasks gain 1 Charge every 3 seconds
-100% of Life Recovery from Flasks is applied to nearby Allies instead of You
+100% of Life Recovery from Flasks is applied to Allies within 7.5 metres instead of You
 ]],[[
 Dyadian Dawn
 Heavy Belt
 Variant: Pre 2.6.0
 Variant: Current
-LevelReq: 52
+Requires Level 52
 Implicits: 1
 {tags:attribute}+(25-35) to Strength
 {tags:resource}+(70-85) to maximum Life
@@ -286,26 +316,26 @@ Implicits: 1
 {tags:resistance}+(20-40)% to Cold Resistance
 {variant:1}{tags:resource,attack}0.6% of Attack Damage Leeched as Life against Chilled Enemies
 {variant:2}{tags:resource,attack}1% of Attack Damage Leeched as Life against Chilled Enemies
-{variant:1}{tags:elemental_damage,attack}Ignites you inflict with Attacks deal Damage 20% faster
-{variant:2}{tags:elemental_damage,attack}Ignites you inflict with Attacks deal Damage 35% faster
+{variant:1}{tags:elemental_damage,attack}Ignites you inflict with Attacks deal Damage 20% Faster
+{variant:2}{tags:elemental_damage,attack}Ignites you inflict with Attacks deal Damage 35% Faster
 {tags:physical_damage}Deal no Physical Damage
 ]],[[
 Faminebind
 Rustic Sash
 League: Talisman Standard, Talisman Hardcore
-LevelReq: 18
+Requires Level 18
 Implicits: 1
 {tags:physical_damage}(12-24)% increased Global Physical Damage
 {tags:resistance}+(20-30)% to Cold Resistance
 20% increased Projectile Damage
 30% reduced Flask Charges gained
 60% increased Flask Effect Duration
-{tags:chaos_damage}Deals 50 Chaos Damage per second to nearby Enemies
+{tags:chaos_damage}Deals 50 Chaos Damage per second to Enemies within 3 metres
 ]],[[
 Feastbind
 Rustic Sash
 League: Talisman Standard, Talisman Hardcore
-LevelReq: 11
+Requires Level 11
 Implicits: 1
 {tags:physical_damage}(12-24)% increased Global Physical Damage
 {tags:physical_damage,attack}Adds 5 to 10 Physical Damage to Attacks
@@ -320,10 +350,10 @@ Variant: Pre 3.16.0
 Variant: Current
 League: Harbinger
 Source: No longer obtainable
-LevelReq: 60
+Requires Level 60
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
-Grants Summon Harbinger of Time Skill
+Grants Summon Harbinger of Time
 {variant:1}{tags:resource,defences}(15-20)% increased Energy Shield Recovery rate
 {variant:1}{tags:resource,defences}(15-20)% increased Life Recovery rate
 {variant:2}{tags:resource,defences}(10-15)% increased Energy Shield Recovery rate
@@ -336,10 +366,10 @@ The Torrent's Reclamation
 Cloth Belt
 Variant: Pre 3.16.0
 Variant: Current
-LevelReq: 60
+Requires Level 60
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
-Grants Summon Greater Harbinger of Time Skill
+Grants Summon Greater Harbinger of Time
 {variant:1}{tags:resource,defences}(15-20)% increased Energy Shield Recovery rate
 {variant:1}{tags:resource,defences}(15-20)% increased Life Recovery rate
 {variant:2}{tags:resource,defences}(10-15)% increased Energy Shield Recovery rate
@@ -352,7 +382,7 @@ Gluttony
 Leather Belt
 Variant: Pre 3.12.0
 Variant: Current
-LevelReq: 48
+Requires Level 48
 Implicits: 1
 {tags:resource}+(25-40) to maximum Life
 {variant:1}{tags:caster}Trigger Level 30 Poacher's Mark when you Hit a Rare or Unique Enemy and have no Mark
@@ -370,7 +400,7 @@ Variant: Pre 3.17.0
 Variant: Current
 League: Ritual
 Source: Drops from unique{The Maven}
-LevelReq: 68
+Requires Level 68
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
 {tags:defences}+(60-70) to maximum Energy Shield
@@ -384,7 +414,7 @@ Gain Absorption Charges instead of Power Charges
 Headhunter
 Leather Belt
 League: Nemesis
-LevelReq: 40
+Requires Level 40
 Implicits: 1
 {tags:resource}+(25-40) to maximum Life
 {tags:attribute}+(40-55) to Strength
@@ -397,7 +427,7 @@ Replica Headhunter
 Leather Belt
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-LevelReq: 40
+Requires Level 40
 Implicits: 1
 {tags:resource}+(25-40) to maximum Life
 {tags:attribute}+(40-55) to Strength
@@ -429,33 +459,33 @@ Variant: Strength and Intelligence (Current)
 Variant: Trap Throwing Speed (Current)
 Variant: Energy Shield Regen (Current)
 Variant: Lucky Crit Chance while Focused (Current)
-LevelReq: 60
+Requires Level 64
 Implicits: 1
 {tags:resource}+(25-40) to maximum Life
+{variant:5}{tags:attribute}{crafted}+(6-17) to Strength and Dexterity
+{variant:14}{tags:attribute}+(31-35) to Strength and Dexterity
+{variant:7}{tags:attribute}{crafted}+(6-17) to Strength and Intelligence
+{variant:16}{tags:attribute}+(31-35) to Strength and Intelligence
+{variant:6}{tags:attribute}{crafted}+(6-17) to Dexterity and Intelligence
+{variant:15}{tags:attribute}+(31-35) to Dexterity and Intelligence
 {tags:resistance}+(30-40)% to Cold Resistance
-Chill nearby Enemies when you Focus, causing 30% reduced Action Speed
+{variant:17}{tags:speed}(14-16)% increased Trap Throwing Speed
+Chill Enemies within 3 metres when you Focus, causing 30% reduced Action Speed
+{variant:3}{tags:resistance}{crafted}+(8-15)% to Cold and Chaos Resistances
+{variant:12}{tags:resistance}+(16-20)% to Cold and Chaos Resistances
+{variant:18}{tags:defences}Regenerate 200 Energy Shield per second while a Rare or Unique Enemy is within 6 metres
+{variant:19}{tags:critical}Your Critical Strike Chance is Lucky while Focused
+{variant:19}{tags:critical}Focus has (5-8)% increased Cooldown Recovery Rate
+{variant:2}{tags:resistance}{crafted}+(8-15)% to Fire and Chaos Resistances
+{variant:11}{tags:resistance}+(16-20)% to Fire and Chaos Resistances
 {variant:1,2,3,4,5,6,7,8,9,10}Focus has (15-25)% increased Cooldown Recovery Rate
 {variant:11,12,13,14,15,16,17,18,19}Focus has (30-50)% increased Cooldown Recovery Rate
 (50-70)% increased Damage with Hits and Ailments against Chilled Enemies
-{variant:1}{crafted}{tags:life}Regenerate 2% of Life per second during any Flask Effect
-{variant:2}{crafted}{tags:resistance}+(8-15)% to Fire and Chaos Resistances
-{variant:3}{crafted}{tags:resistance}+(8-15)% to Cold and Chaos Resistances
-{variant:4}{crafted}{tags:resistance}+(8-15)% to Lightning and Chaos Resistances
-{variant:5}{crafted}{tags:attribute}+(6-17) to Strength and Dexterity
-{variant:6}{crafted}{tags:attribute}+(6-17) to Dexterity and Intelligence
-{variant:7}{crafted}{tags:attribute}+(6-17) to Strength and Intelligence
-{variant:8}{crafted}{tags:speed}(7-12)% increased Trap Throwing Speed
-{variant:9}{crafted}{tags:defences}Regenerate 120 Energy Shield per second while a Rare or Unique Enemy is Nearby
-{variant:10,19}{crafted}Your Critical Strike Chance is Lucky while Focused
-{variant:11}{crafted}{tags:resistance}+(16-20)% to Fire and Chaos Resistances
-{variant:12}{crafted}{tags:resistance}+(16-20)% to Cold and Chaos Resistances
-{variant:13}{crafted}{tags:resistance}+(16-20)% to Lightning and Chaos Resistances
-{variant:14}{crafted}{tags:attribute}+(31-35) to Strength and Dexterity
-{variant:15}{crafted}{tags:attribute}+(31-35) to Dexterity and Intelligence
-{variant:16}{crafted}{tags:attribute}+(31-35) to Strength and Intelligence
-{variant:17}{crafted}{tags:speed}(14-16)% increased Trap Throwing Speed
-{variant:18}{crafted}{tags:defences}Regenerate 200 Energy Shield per second while a Rare or Unique Enemy is Nearby
-{variant:19}{crafted}Focus has (5-8)% increased Cooldown Recovery Rate
+{variant:4}{tags:resistance}{crafted}+(8-15)% to Lightning and Chaos Resistances
+{variant:13}{tags:resistance}+(16-20)% to Lightning and Chaos Resistances
+{variant:8}{crafted}(7-12)% increased Trap Throwing Speed
+{variant:9}{crafted}Regenerate 120 Energy Shield per second while a Rare or Unique Enemy is within 6 metres
+{variant:10}{crafted}Your Critical Strike Chance is Lucky while Focused
 ]],[[
 Immortal Flesh
 Leather Belt
@@ -463,7 +493,7 @@ Variant: Pre 1.3.0
 Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
-LevelReq: 50
+Requires Level 50
 Implicits: 1
 {tags:resource}+(25-40) to maximum Life
 {tags:resource}+(75-100) to maximum Life
@@ -479,17 +509,17 @@ Implicits: 1
 ]],[[
 Kaom's Binding
 Heavy Belt
-LevelReq: 56
+Requires Level 56
 Implicits: 1
 {tags:attribute}+(25-35) to Strength
 {tags:attribute}+(30-40) to Strength
 {tags:defences}+(300-500) to Armour
 Take no Burning Damage if you've stopped taking Burning Damage Recently
-Nearby Enemies Convert 25% of their Physical Damage to Fire
+Enemies within 6 metres Convert 25% of their Physical Damage to Fire
 ]],[[
 Leash of Oblation
 Leather Belt
-LevelReq: 49
+Requires Level 49
 Implicits: 1
 {tags:resource}+(25-40) to maximum Life
 {tags:attribute}+(15-20) to all Attributes
@@ -502,7 +532,6 @@ Studded Belt
 Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
-LevelReq: 16
 Implicits: 1
 (20-30)% increased Stun Duration on Enemies
 {tags:attribute}+(40-50) to Strength
@@ -516,7 +545,7 @@ Implicits: 1
 The Nomad
 Studded Belt
 Source: No longer obtainable
-LevelReq: 48
+Requires Level 48
 Implicits: 1
 (20-30)% increased Stun Duration on Enemies
 {tags:attribute}+(40-50) to Strength
@@ -529,7 +558,7 @@ Implicits: 1
 The Tactician
 Studded Belt
 Source: No longer obtainable
-LevelReq: 48
+Requires Level 48
 Implicits: 1
 (20-30)% increased Stun Duration on Enemies
 {tags:attribute}+(40-50) to Strength
@@ -541,7 +570,7 @@ Implicits: 1
 ]],[[
 Mageblood
 Heavy Belt
-LevelReq: 44
+Requires Level 44
 Implicits: 1
 {tags:attribute}+(25-35) to Strength
 {tags:attribute}+(30-50) to Dexterity
@@ -553,7 +582,7 @@ Magic Utility Flask Effects cannot be removed
 ]],[[
 Maligaro's Restraint
 Chain Belt
-LevelReq: 44
+Requires Level 44
 Implicits: 1
 {tags:defences}+(9-20) to maximum Energy Shield
 {tags:elemental_damage,attack}Adds 1 to (30-50) Lightning Damage to Attacks
@@ -577,7 +606,7 @@ Implicits: 1
 ]],[[
 Mother's Embrace
 Heavy Belt
-LevelReq: 40
+Requires Level 40
 Implicits: 1
 {tags:attribute}+(25-35) to Strength
 {tags:resource}+(50-70) to maximum Life
@@ -589,7 +618,6 @@ Minions have (50-80)% increased Flask Effect Duration
 Nevalius Inheritance
 Cloth Belt
 League: Necropolis
-Requires Level 16
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
 {tags:attribute}+(20-30) to Dexterity
@@ -604,7 +632,7 @@ Variant: Pre 3.17.0
 Variant: Current
 League: Ritual
 Source: Drops from unique{The Maven}
-LevelReq: 68
+Requires Level 68
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
 {tags:defences}+(600-700) to Evasion Rating
@@ -625,14 +653,14 @@ Implicits: 1
 {tags:attribute}+(20-30) to all Attributes
 {variant:1}(8-12)% increased Quantity of Items found
 {variant:2}(6-8)% increased Quantity of Items found
-{variant:3}(10-20)% increased Rarity of Items found
+{variant:3}+(10-20)% to Item Rarity
 {tags:resistance}+20% to Fire Resistance
 20% increased Flask Effect Duration
 {tags:attack}-2 Physical Damage taken from Attack Hits
 ]],[[
 Ceinture of Benevolence
 Cloth Belt
-LevelReq: 40
+Requires Level 40
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
 {tags:attribute}+(20-40) to Dexterity
@@ -642,7 +670,8 @@ Non-Unique Utility Flasks you Use apply to Linked Targets
 ]],[[
 Chain of Endurance
 Chain Belt
-LevelReq: 14
+Requires Level 14
+Implicits: 1
 {tags:defences}+(9-20) to maximum Energy Shield
 {tags:resource}+(40-50) to maximum Life
 (40-60)% increased Stun and Block Recovery
@@ -654,7 +683,7 @@ Vanguard Belt
 Variant: Pre 3.16.0
 Variant: Current
 Implicits: 1
-{tags:defences}+(260-320) to Armour and Evasion Rating
+{tags:defences}+(260-480) to Armour and Evasion Rating
 {tags:resource}(4-8)% increased maximum Life
 {tags:resistance}+(20-40)% to Cold Resistance
 {tags:attack}1% increased Attack Damage per 200 of the lowest of Armour and Evasion Rating
@@ -667,7 +696,7 @@ Rustic Sash
 Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
-LevelReq: 25
+Requires Level 25
 Implicits: 1
 {tags:physical_damage}(12-24)% increased Global Physical Damage
 {variant:1}{tags:elemental_damage,attack}Adds (3-4) to (7-8) Fire Damage to Attacks
@@ -690,7 +719,7 @@ League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Variant: Pre 3.19.0
 Variant: Current
-LevelReq: 25
+Requires Level 25
 Implicits: 1
 {tags:physical_damage}(12-24)% increased Global Physical Damage
 {variant:1}{tags:elemental_damage,caster}Adds (7-8) to (15-16) Fire Damage to Spells
@@ -707,7 +736,7 @@ Implicits: 1
 Pyroshock Clasp
 Leather Belt
 League: Heist
-LevelReq: 43
+Requires Level 43
 Implicits: 1
 {tags:resource}+(25-40) to maximum Life
 {tags:attribute}+(30-40) to Dexterity
@@ -720,11 +749,11 @@ The Retch
 Rustic Sash
 League: Talisman Standard, Talisman Hardcore
 Source: Vendor Recipe
-LevelReq: 44
+Requires Level 44
 Implicits: 1
 {tags:physical_damage}(12-24)% increased Global Physical Damage
 {tags:resource}+(60-80) to maximum Life
-{tags:resistance}+(25-40)% to Cold Resistance
+{tags:resistance}+(30-40)% to Cold Resistance
 {tags:resource,attack}0.4% of Physical Attack Damage Leeched as Life
 60% increased Flask Effect Duration
 30% reduced Flask Charges gained during any Flask Effect
@@ -735,7 +764,7 @@ Ryslatha's Coil
 Studded Belt
 Variant: Pre 3.5.0
 Variant: Current
-LevelReq: 20
+Requires Level 32
 Implicits: 1
 (20-30)% increased Stun Duration on Enemies
 {tags:attribute}+(20-40) to Strength
@@ -751,7 +780,7 @@ Saresh's Darkness
 Chain Belt
 League: Mirage
 Source: No longer obtainable
-LevelReq: 24
+Requires Level 24
 Implicits: 1
 {tags:defences}+(9-20) to maximum Energy Shield
 {tags:resistance}+(23-37)% to Chaos Resistance
@@ -762,7 +791,7 @@ Grants Level 20 Caustic Retribution
 Screams of the Desiccated
 Leather Belt
 League: Mirage
-Source: No longer obtainable
+Source: Drops from unique{Saresh, of the Weeping Black}
 Has Alt Variant: true
 Selected Variant: 1
 Selected Alt Variant: 1
@@ -779,24 +808,24 @@ Variant: Massive
 Variant: Replenishing
 Variant: Resistance
 Variant: Resonating
-LevelReq: 56
+Requires Level 56
 Implicits: 1
 {tags:resource}+(25-40) to maximum Life
-{variant:1}You have Acceleration Shrine Buff while affected by no Flasks
-{variant:2}You have Brutal Shrine Buff while affected by no Flasks
-{variant:6}You have Greater Freezing Shrine Buff while affected by no Flasks
+{variant:1}Players have Acceleration Shrine Buff while affected by no Flasks
+{variant:2}Players have Brutal Shrine Buff while affected by no Flasks
+{variant:6}Players have Greater Freezing Shrine Buff while affected by no Flasks
 {variant:6}(15-20)% increased Effect of Shrine Buffs on you
-{variant:3}You have Diamond Shrine Buff while affected by no Flasks
-{variant:4}You have Echoing Shrine Buff while affected by no Flasks
-{variant:5}You have Gloom Shrine Buff while affected by no Flasks
-{variant:9}You have Impenetrable Shrine Buff while affected by no Flasks
-{variant:10}You have Massive Shrine Buff while affected by no Flasks
-{variant:11}You have Replenishing Shrine Buff while affected by no Flasks
-{variant:12}You have Resistance Shrine Buff while affected by no Flasks
-{variant:13}You have Resonating Shrine Buff while affected by no Flasks
-{variant:7}You have Greater Shocking Shrine Buff while affected by no Flasks
+{variant:3}Players have Diamond Shrine Buff while affected by no Flasks
+{variant:4}Players have Echoing Shrine Buff while affected by no Flasks
+{variant:5}Players have Gloom Shrine Buff while affected by no Flasks
+{variant:9}Players have Impenetrable Shrine Buff while affected by no Flasks
+{variant:10}Players have Massive Shrine Buff while affected by no Flasks
+{variant:11}Players have Replenishing Shrine Buff while affected by no Flasks
+{variant:12}Players have Resistance Shrine Buff while affected by no Flasks
+{variant:13}Players have Resonating Shrine Buff while affected by no Flasks
+{variant:7}Players have Greater Shocking Shrine Buff while affected by no Flasks
 {variant:7}(15-20)% increased Effect of Shrine Buffs on you
-{variant:8}You have Greater Skeletal Shrine Buff while affected by no Flasks
+{variant:8}Players have Greater Skeletal Shrine Buff while affected by no Flasks
 {variant:8}(15-20)% increased Effect of Shrine Buffs on you
 {tags:attribute}+(23-32) to Intelligence
 {tags:resistance}+(23-37)% to Chaos Resistance
@@ -806,7 +835,7 @@ Solerai's Radiance
 Chain Belt
 League: Mirage
 Source: No longer obtainable
-LevelReq: 24
+Requires Level 24
 Implicits: 1
 {tags:defences}+(9-20) to maximum Energy Shield
 {tags:resistance}+(35-50)% to Fire Resistance
@@ -816,7 +845,7 @@ Grants Level 20 Blazing Glare
 ]],[[
 Siegebreaker
 Heavy Belt
-LevelReq: 44
+Requires Level 44
 Implicits: 1
 {tags:attribute}+(25-35) to Strength
 {tags:defences}(6-10)% increased maximum Energy Shield
@@ -829,7 +858,7 @@ Replica Siegebreaker
 Heavy Belt
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-LevelReq: 44
+Requires Level 44
 Implicits: 1
 {tags:attribute}+(25-35) to Strength
 {tags:defences}(6-10)% increased maximum Energy Shield
@@ -840,7 +869,7 @@ Implicits: 1
 ]],[[
 Soul Tether
 Cloth Belt
-LevelReq: 48
+Requires Level 48
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
 {tags:attribute}+(20-40) to Intelligence
@@ -851,7 +880,7 @@ Replica Soul Tether
 Cloth Belt
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-LevelReq: 48
+Requires Level 48
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
 {tags:attribute}+(20-40) to Strength
@@ -860,7 +889,7 @@ Implicits: 1
 ]],[[
 Soulthirst
 Cloth Belt
-LevelReq: 45
+Requires Level 45
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
 {tags:resource}+(60-80) to maximum Life
@@ -896,13 +925,15 @@ Variant: Intelligence/Dexterity
 Variant: Dexterity/Strength
 Variant: Strength/Intelligence
 Variant: Elemental Resistances
-Implicits: 24
+Requires Level 68
+Implicits: 25
 {variant:19}{tags:attribute}(12-18)% increased Dexterity
 {variant:20}{tags:attribute}(12-18)% increased Dexterity
 {variant:7}{tags:defences}(24-30)% increased maximum Energy Shield
 {variant:8}{tags:resource}(18-24)% increased maximum Life
 {variant:11}(9-15)% increased Quantity of Items found
-{variant:10}(60-90)% increased Rarity of Items found
+{variant:10}+(60-90)% to Item Rarity
+{variant:22}{tags:resistance}+(42-48)% to all Elemental Resistances
 {variant:1}(24-30)% increased Area of Effect
 {variant:6}(36-45)% increased Skill Effect Duration
 {variant:2}{tags:critical}+(60-75)% to Critical Strike Multiplier during any Flask Effect
@@ -921,7 +952,6 @@ Implicits: 24
 {variant:20}(12-18)% increased Strength
 {variant:21}(12-18)% increased Strength
 {variant:21}(12-18)% increased Intelligence
-{variant:22}{tags:resistance}+(42-48)% to all Elemental Resistances
 Implicit Modifier magnitudes are tripled
 Corrupted
 ]],[[
@@ -929,7 +959,7 @@ Sunblast
 Cloth Belt
 Variant: Pre 3.19.0
 Variant: Current
-LevelReq: 37
+Requires Level 37
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
 {variant:1}(30-40)% increased Trap Damage
@@ -946,7 +976,7 @@ Survivor's Guilt
 Heavy Belt
 League: Ritual
 Source: Purchase from Ritual Reward
-LevelReq: 52
+Requires Level 52
 Implicits: 1
 {tags:attribute}+(25-35) to Strength
 {tags:defences}+(800-1200) to Armour
@@ -959,9 +989,8 @@ The Tides of Time
 Vanguard Belt
 Shaper Item
 Source: Drops from unique{The Shaper} (Uber)
-Requires Level 78
 Implicits: 1
-{tags:defences}+(260-320) to Armour and Evasion Rating
+{tags:defences}+(260-480) to Armour and Evasion Rating
 {tags:resource}100% increased Life Recovery from Flasks
 {tags:resource}100% increased Mana Recovery from Flasks
 Flasks applied to you have 25% increased Effect
@@ -972,7 +1001,7 @@ Utility Flasks gain (0-3) Charges every 3 seconds
 Umbilicus Immortalis
 Leather Belt
 League: Perandus
-LevelReq: 30
+Requires Level 30
 Implicits: 1
 {tags:resource}+(25-40) to maximum Life
 {tags:resource}(8-12)% increased maximum Life
@@ -983,9 +1012,11 @@ Flasks you Use apply to your Raised Zombies and Spectres
 Unholy Accomplice
 Cloth Belt
 Source: Drops from unique{K'Tash, the Hate Shepherd} and unique{Lycia, Herald of the Scourge}
+Requires Level 50
+Implicits: 1
+(15-25)% increased Stun and Block Recovery
 {tags:caster}(30-50)% increased Spell Damage
 {tags:resource}+(50-77) to maximum Life
-(15-25)% increased Stun and Block Recovery
 {tags:resistance}+(23-37)% to Lightning and Chaos Resistances
 {tags:caster}Pact Skills have (30-50)% increased Cast Speed
 {tags:caster}Pact Skills have (30-50)% increased Cooldown Recovery Rate
@@ -995,7 +1026,7 @@ Wurm's Molt
 Leather Belt
 Variant: Pre 3.19.0
 Variant: Current
-LevelReq: 41
+Requires Level 41
 Implicits: 1
 {tags:resource}+(25-40) to maximum Life
 {tags:attribute}+(20-30) to Strength
@@ -1024,9 +1055,8 @@ Binds of Bloody Vengeance
 Vanguard Belt
 Source: Drops from unique{Mercenary} after winning a duel
 League: Mercenaries of Trarthus
-Requires Level 78
 Implicits: 1
-{tags:defences}+(260-320) to Armour and Evasion Rating
+{tags:defences}+(260-480) to Armour and Evasion Rating
 {tags:defences}+(200-400) to Armour
 {tags:resource}+(60-90) to maximum Life
 (20-40)% increased Attack Damage if you've been Hit Recently
@@ -1035,7 +1065,6 @@ All Hits with your next Non-Channelling Attack within 4 seconds of taking a Crit
 The Arkhon's Tools
 Cloth Belt
 Source: Drops from unique{Incarnation of Neglect} in normal{Moment of Loneliness}
-Requires Level 16
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
 {tags:attribute}+(20-30) to Dexterity and Intelligence

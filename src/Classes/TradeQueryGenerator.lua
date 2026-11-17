@@ -961,38 +961,34 @@ function TradeQueryGeneratorClass:FinishQuery()
 	local requiredMods = self.calcContext.requiredMods or {}
 	local blockedMods = self.calcContext.blockedMods or {}
 	local queryTable = {
-		query = {
-			filters = self.calcContext.special.queryFilters or {
-				type_filters = {
-					filters = {
-						category = { option = self.calcContext.itemCategoryQueryStr },
-						rarity = { option = "nonunique" }
-					}
-				}
-			},
-			status = { option = selectedTradeType },
-			stats = {
-				{
-					type = "weight",
-					value = { min = minWeight },
-					filters = {},
-				},
-				{
-					type = "and",
-					filters = {},
-				},
-				{
-					type = "not",
-					filters = {},
+		filters = self.calcContext.special.queryFilters or {
+			type_filters = {
+				filters = {
+					category = { option = self.calcContext.itemCategoryQueryStr },
+					rarity = { option = "nonunique" }
 				}
 			}
 		},
-		sort = { ["statgroup.0"] = "desc" },
-		engine = "new"
+		status = { option = selectedTradeType },
+		stats = {
+			{
+				type = "weight",
+				value = { min = minWeight },
+				filters = {},
+			},
+			{
+				type = "and",
+				filters = {},
+			},
+			{
+				type = "not",
+				filters = {},
+			}
+		},
 	}
-	local weightGroup = queryTable.query.stats[1]
-	local andGroup = queryTable.query.stats[2]
-	local notGroup = queryTable.query.stats[3]
+	local weightGroup = queryTable.stats[1]
+	local andGroup = queryTable.stats[2]
+	local notGroup = queryTable.stats[3]
 	-- the trade site has a maximum complexity of 200 for each query. our baseline is 54 for the weighted sum group, 4 for the rarity filter plus category, and 4 for the and group
 	local complexityBudget = 200 - 54 - 4 - 4
 
@@ -1058,7 +1054,7 @@ function TradeQueryGeneratorClass:FinishQuery()
 
 	for k, v in pairs(self.calcContext.special.queryExtra or {}) do
 		complexityBudget = complexityBudget - 2
-		queryTable.query[k] = v
+		queryTable[k] = v
 	end
 
 	-- and filters specified by the user
@@ -1073,7 +1069,7 @@ function TradeQueryGeneratorClass:FinishQuery()
 	local options = self.calcContext.options
 	if not options.includeMirrored then
 		complexityBudget = complexityBudget - 3
-		queryTable.query.filters.misc_filters = {
+		queryTable.filters.misc_filters = {
 			disabled = false,
 			filters = {
 				mirrored = false,
@@ -1083,7 +1079,7 @@ function TradeQueryGeneratorClass:FinishQuery()
 
 	if options.maxPrice and options.maxPrice > 0 then
 		complexityBudget = complexityBudget - 3
-		queryTable.query.filters.trade_filters = {
+		queryTable.filters.trade_filters = {
 			filters = {
 				price = {
 					option = options.maxPriceType,
@@ -1095,12 +1091,13 @@ function TradeQueryGeneratorClass:FinishQuery()
 
 	if options.account then
 		complexityBudget = complexityBudget - 3
-		queryTable.query.filters.trade_filters.filters.account = { input = options.account }
+		queryTable.filters.trade_filters = queryTable.filters.trade_filters or { filters = {} }
+		queryTable.filters.trade_filters.filters.account = { input = options.account }
 	end
 
 	if options.maxLevel and options.maxLevel > 0 then
 		complexityBudget = complexityBudget - 3
-		queryTable.query.filters.req_filters = {
+		queryTable.filters.req_filters = {
 			disabled = false,
 			filters = {
 				lvl = {
@@ -1112,7 +1109,7 @@ function TradeQueryGeneratorClass:FinishQuery()
 
 	if options.sockets and options.sockets > 0 then
 		complexityBudget = complexityBudget - 3
-		queryTable.query.filters.socket_filters = {
+		queryTable.filters.socket_filters = {
 			disabled = false,
 			filters = {
 				sockets = {
@@ -1125,8 +1122,8 @@ function TradeQueryGeneratorClass:FinishQuery()
 
 	if options.links and options.links > 0 then
 		complexityBudget = complexityBudget - 3
-		if not queryTable.query.filters.socket_filters then
-			queryTable.query.filters.socket_filters = {
+		if not queryTable.filters.socket_filters then
+			queryTable.filters.socket_filters = {
 				disabled = false,
 				filters = {
 					links = {
@@ -1136,7 +1133,7 @@ function TradeQueryGeneratorClass:FinishQuery()
 				}
 			}
 		else -- do not overwrite options.sockets
-			queryTable.query.filters.socket_filters.filters["links"] = {
+			queryTable.filters.socket_filters.filters["links"] = {
 				max = options.links,
 				min = options.links
 			}
@@ -1158,8 +1155,7 @@ function TradeQueryGeneratorClass:FinishQuery()
 		errMsg = "Could not generate search, found no mods to search for"
 	end
 
-	local queryJson = dkjson.encode(queryTable)
-	self.requesterCallback(self.requesterContext, queryJson, errMsg)
+	self.requesterCallback(self.requesterContext, queryTable, errMsg)
 
 	-- Close blocker popup
 	main:ClosePopup()

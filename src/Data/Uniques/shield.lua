@@ -47,7 +47,7 @@ Variant: Pre 3.25.0
 Variant: Current
 Implicits: 1
 {variant:2,3,4}+(30-40) to maximum Life
-{variant:1,2,3}Grants Level 30 Crushing Fist Skill
+{variant:1,2,3}Grants Level 30 Crushing Fist
 {variant:1,2}(130-170)% increased Armour
 {variant:3,4}(165-205)% increased Armour
 +(65-80) to maximum Life
@@ -159,7 +159,6 @@ Svalinn
 Girded Tower Shield
 League: Settlers of Kalguur
 Source: Drops from unique{The Black Knight} in a normal{Starfall Crater}
-Requires Level 51, 123 Str
 Implicits: 1
 +(10-20) to maximum Life
 (10-15)% Chance to Block Spell Damage
@@ -249,7 +248,7 @@ Hex Reflection
 Atziri's Reflection
 Golden Buckler
 Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Alluring Abyss}
-LevelReq: 68
+Requires Level 68
 Implicits: 1
 6% increased Movement Speed
 +(40-60) to Intelligence
@@ -268,7 +267,7 @@ Variant: Pre 3.17.0
 Variant: Pre 3.19.0
 Variant: Current
 Implicits: 1
-{variant:3,4}9% increased Movement Speed
+{variant:3,4,5}9% increased Movement Speed
 {variant:1,2,3,4}+1 to Level of Socketed Curse Gems
 {variant:5}+3 to Level of Socketed Curse Gems
 (30-50)% increased Evasion Rating
@@ -358,7 +357,6 @@ Reflects (25-50) Cold Damage to Melee Attackers
 ]],[[
 Kiloava's Bluster
 Ironwood Buckler
-Requires Level 57, 137 Dex
 Implicits: 1
 3% increased Movement Speed
 (100-150)% increased Evasion Rating
@@ -430,7 +428,6 @@ Implicits: 1
 ]],[[
 Cowards' Wail
 Ezomyte Tower Shield
-Requires Level 64, 159 Str
 Implicits: 1
 +(30-40) to maximum Life
 (120-240)% increased Armour
@@ -561,11 +558,11 @@ The Draugur's Lantern
 Ancient Spirit Shield
 League: Allflame
 Source: Drops from unique{Filthscrabble} in normal{The Fathomless Depths}
-Requires Level 45, 110 Int
-(15-20)% Chance to Block Spell Damage
+Implicits: 1
 (5-10)% increased Spell Damage
+(15-20)% Chance to Block Spell Damage
 +(66-99) to maximum Life
-Ignites you inflict deal Damage (15-20)% faster
+Ignites you inflict deal Damage (15-20)% Faster
 Draugurflames burn enemies around you for 8 seconds after you Ignite a target
 ]],[[
 Esh's Mirror
@@ -603,7 +600,7 @@ Implicits: 2
 +(30-40)% to Lightning Resistance
 +(17-29)% to Chaos Resistance
 Chaos Damage taken does not bypass Energy Shield while not on Low Life
-Reflect Shocks applied to you to all Nearby Enemies
+Reflect Shocks applied to you to all Enemies within 3 metres
 ]],[[
 The Eternal Apple
 Chiming Spirit Shield
@@ -660,16 +657,20 @@ Harmonic Spirit Shield
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Pre 3.11.0
+Variant: Pre 3.30.0
 Variant: Current
 Implicits: 2
 {variant:1,2}10% increased Spell Damage
-{variant:3,4}(10-15)% increased Spell Damage
+{variant:3,4,5}(10-15)% increased Spell Damage
 {variant:1}(160-200)% increased Energy Shield
 {variant:2,3,4}(210-250)% increased Energy Shield
-+2 to Maximum Power Charges
-20% chance to gain a Power Charge on Hit
+{variant:5}(240-300)% increased Energy Shield
+{variant:1,2,3,4}+2 to Maximum Power Charges
+{variant:5}+1 to Maximum Power Charges
+{variant:1,2,3,4}20% chance to gain a Power Charge on Hit
+{variant:5}(20-40)% chance to gain a Power Charge on Hit
 {variant:1,2,3}6% increased Spell Damage per Power Charge
-{variant:4}(12-16)% increased Spell Damage per Power Charge
+{variant:4,5}(12-16)% increased Spell Damage per Power Charge
 Lose all Power Charges on reaching Maximum Power Charges
 Shocks you when you reach Maximum Power Charges
 ]],[[
@@ -700,6 +701,7 @@ Tarnished Spirit Shield
 Variant: Pre 3.0.0
 Variant: Pre 3.19.0
 Variant: Current
+Requires Level 63
 Implicits: 2
 {variant:1}5% increased Spell Damage
 {variant:2,3}(5-10)% increased Spell Damage
@@ -716,7 +718,7 @@ Implicits: 2
 Whakatutuki o Matua
 Tarnished Spirit Shield
 Source: No longer obtainable
-LevelReq: 63
+Requires Level 63
 Implicits: 1
 (5-10)% increased Spell Damage
 +3 to Level of Socketed Minion Gems
@@ -726,7 +728,7 @@ Implicits: 1
 20% increased effect of Non-Curse Auras from your Skills on your Minions
 20% increased effect of Non-Curse Auras from your Skills
 Spreads Tar when you Block
-If you have Blocked Recently, you and nearby Allies Regenerate 5% of Life per second
+If you have Blocked Recently, you and Allies within 5 metres Regenerate 5% of Life per second
 ]],[[
 Rathpith Globe
 Titanium Spirit Shield
@@ -737,12 +739,13 @@ Variant: 3.19.0
 Variant: Pre 3.29.0
 Variant: Current
 Implicits: 0
+{variant:5}(10-15)% Chance to Block Spell Damage
 {variant:1,2}(40-60)% increased Spell Damage
 (120-160)% increased Energy Shield
 10% increased maximum Life
 {variant:1,2}+25% to Lightning Resistance
 {variant:1}+(12-18)% Chance to Block Spell Damage
-{variant:2,3,4,5}+(10-15)% Chance to Block Spell Damage
+{variant:2,3,4}+(10-15)% Chance to Block Spell Damage
 {variant:3}Sacrifice 4% of your Life when you Use or Trigger a Spell Skill
 {variant:4,5}Sacrifice 10% of your Life when you Use or Trigger a Spell Skill
 {variant:3}2% increased Spell Critical Strike Chance per 100 Player Maximum Life
@@ -784,7 +787,6 @@ The Flawed Refuge
 Maple Round Shield
 League: Affliction
 Source: Drops from Viridian Wildwood and Ritual monsters
-Requires Level 39, 52 Str, 52 Dex
 Implicits: 1
 180% increased Block Recovery
 (100-150)% increased Armour and Evasion
@@ -840,11 +842,11 @@ Implicits: 1
 +2 to Level of Socketed Support Gems
 Triggers Level 20 Physical Aegis when Equipped
 (300-400)% increased Armour and Evasion
-{variant:2}Bleeding cannot be inflicted on you
 {variant:1}(30-50)% chance to Avoid Bleeding
+{variant:2}100% chance to Avoid Bleeding
 (8-15)% increased Attack and Cast Speed while Physical Aegis is depleted
 (50-70)% increased Critical Strike Chance while Physical Aegis is depleted
-Nearby Enemies are Blinded while Physical Aegis is not depleted
+Enemies within 3 metres are Blinded while Physical Aegis is not depleted
 ]],[[
 The Oppressor
 Elegant Round Shield
@@ -860,7 +862,6 @@ Seablister
 Spiny Round Shield
 League: Allflame
 Source: Drops from unique{Velka, the Tide Witch}
-Requires Level 62, 85 Str, 85 Dex
 Implicits: 1
 60% increased Block Recovery
 Grants Level 20 Savage Barnacle
@@ -913,7 +914,7 @@ Implicits: 1
 {variant:1,2}+(5-10) to Armour
 {variant:3}+(20-40) to Armour
 {variant:3}+(20-40) to Evasion Rating
-(30-40)% increased Rarity of Items found
++(30-40)% to Item Rarity
 {variant:3}+(50-75)% to Lightning Resistance
 100% increased Duration of Curses on you
 {variant:1,2}+5% Chance to Block
@@ -923,7 +924,6 @@ Implicits: 1
 Bitter Instinct
 Spiny Round Shield
 Source: Drops from unique{Uber Incarnation of Neglect} in normal{Moment of Loneliness}
-Requires Level 68, 85 Str, 85 Dex
 Implicits: 1
 60% increased Block Recovery
 (170-250)% increased Armour and Evasion
@@ -1093,7 +1093,7 @@ Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
-LevelReq: 40
+Requires Level 40
 Implicits: 2
 {variant:1}+8% to all Elemental Resistances
 {variant:2,3,4,5}+4% to all Elemental Resistances
@@ -1114,7 +1114,7 @@ Source: Created from item parts obtained from Boss in The Beachhead
 Upgrade: Upgrades to unique{The Immortal Will} via currency{Specularity Scroll}
 Implicits: 1
 +12% to all Elemental Resistances
-Grants Summon Harbinger of Focus Skill
+Grants Summon Harbinger of Focus
 +(60-80) to maximum Life
 +(10-15)% to all Elemental Resistances
 (30-50) Mana gained when you Block
@@ -1127,7 +1127,7 @@ League: Harvest
 Source: Upgraded from unique{The Unshattered Will} via currency{Specularity Scroll}
 Implicits: 1
 +12% to all Elemental Resistances
-Grants Summon Greater Harbinger of Focus Skill
+Grants Summon Greater Harbinger of Focus
 +(60-80) to maximum Life
 +(10-15)% to all Elemental Resistances
 (30-50) Mana gained when you Block
@@ -1157,8 +1157,8 @@ Implicits: 1
 +11% to Chaos Resistance
 {variant:1}10% increased Area of Effect of Aura Skills
 {variant:2}20% increased Area of Effect of Aura Skills
-10% chance to grant a Power Charge to nearby Allies on Kill
-5% chance to grant a Frenzy Charge to nearby Allies on Hit
+10% chance to grant a Power Charge to Allies within 4 metres on Kill
+5% chance to grant a Frenzy Charge to Allies within 4 metres on Hit
 ]],[[
 Replica Victario's Charity
 Laminated Kite Shield
@@ -1170,8 +1170,8 @@ Implicits: 1
 +(20-30)% to Lightning Resistance
 +11% to Chaos Resistance
 10% increased effect of Non-Curse Auras from your Skills
-5% chance to grant an Endurance Charge to nearby Allies on Hit
-10% chance to grant a Frenzy Charge to nearby Allies on Kill
+5% chance to grant an Endurance Charge to Allies within 4 metres on Hit
+10% chance to grant a Frenzy Charge to Allies within 4 metres on Kill
 ]],
 -- Shield: Evasion/Energy Shield
 [[
@@ -1201,7 +1201,7 @@ Implicits: 2
 (120-140)% increased Evasion and Energy Shield
 +(20-30) to maximum Energy Shield
 +(30-50) to maximum Life
-10% increased Rarity of Items found
++10% to Item Rarity
 25% chance to Avoid Fire Damage from Hits
 {variant:2}You always Ignite while Burning
 ]],[[
@@ -1214,8 +1214,8 @@ Variant: Current
 Implicits: 2
 {variant:3,4}+5% chance to Suppress Spell Damage
 {variant:1,2}Reflects (221-260) Physical Damage to Melee Attackers
-{variant:1,2,3}Grants Level 20 Bear Trap Skill
-{variant:4}Grants Level 25 Bear Trap Skill
+{variant:1,2,3}Grants Level 20 Bear Trap
+{variant:4}Grants Level 25 Bear Trap
 (18-28)% increased Trap Damage
 (15-25)% increased Global Physical Damage
 +(60-80) to maximum Life
@@ -1248,8 +1248,8 @@ Implicits: 2
 (10-20)% increased maximum Life
 -50% to all Elemental Resistances
 10% increased Area of Effect
-{variant:1,2}Nearby allies Recover 2% of your Maximum Life when you Die
-{variant:3}Nearby allies Recover 1% of your Maximum Life when you Die
+{variant:1,2}Allies within 3.5 metres Recover 2% of your Maximum Life when you Die
+{variant:3}Allies within 3.5 metres Recover 1% of your Maximum Life when you Die
 ]],[[
 Perepiteia
 Ezomyte Spiked Shield
@@ -1291,7 +1291,6 @@ Azadi Crest
 Lacquered Buckler
 Source: Drops from unique{Mercenary} after winning a duel
 League: Mercenaries of Trarthus
-Requires Level 60, 154 Dex
 Implicits: 1
 6% increased Movement Speed
 +(1-100) to maximum Life
@@ -1299,4 +1298,19 @@ Implicits: 1
 (1-10)% chance to avoid Projectiles
 Your Lucky or Unlucky effects use the best or
 worst from three rolls instead of two
-]],}
+]],[[
+Ordered Fate
+Walnut Spirit Shield
+League: Covens
+Source: Drops from a boss empowered by a Fate that rewards this item
+Requires Level 48
+Implicits: 1
+(5-10)% increased Spell Damage
+(12-24)% increased Cast Speed
++(80-110) to maximum Energy Shield
+Every second time you cast each Spell, gain Mana equal to its Upfront Cost
+Every fourth time you cast each Spell, Damage of its Hits is Lucky
+Every sixth time you cast each Spell, All Hits are Critically Strikes
+These effects do not apply to Reservation, Duration or Channelling Spells
+]]
+}

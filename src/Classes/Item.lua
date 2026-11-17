@@ -440,10 +440,14 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 	local itemClass
 	if self.rawLines[l] then
 		if self.rawLines[l]:match("^Item Class:") then
-			itemClass = self.rawLines[l]:gsub("^Item Class: %s+", "%1")
+			itemClass = self.rawLines[l]:match("^Item Class:%s*(.*)")
 			l = l + 1 -- Item class is already determined by the base type
 		end
 		local rarity = self.rawLines[l]:match("^Rarity: (%a+)")
+		if itemClass == "Viscera" and not rarity then
+			self.rarity = "NORMAL"
+			mode = "GAME"
+		end
 		if rarity then
 			mode = "GAME"
 			if colorCodes[rarity:upper()] then
@@ -501,6 +505,9 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 	-- assume an item to be an advanced copy format if either has mod roll information, a modifier
 	-- line with a range, or advanced copy lines
 	self.advancedCopy = false
+	-- Only in-game advanced copy text (with "{ ... }" modifier headers) is re-sorted into stat order.
+	-- Text written by PoB keeps its line order, which the ModRange entries of saved builds refer to.
+	local hasModifierHeaders = false
 	self.modMagnitudeMods = {}
 	local implicitLines = 0
 	self.variantList = nil
@@ -535,7 +542,10 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 		if line == "Veiled Prefix" or line == "Veiled Suffix" then
 			self.veiled = true
 		end
-		if flaskBuffLines and flaskBuffLines[line] then
+		if itemClass == "Viscera" and (line == "Head" or line == "Torso" or line == "Upper Limb" or line == "Lower Limb"
+			or line == "Take this to the Wickerman in a town or hideout to attach it.") then
+			-- Slot labels and instructions in the game clipboard are not modifiers.
+		elseif flaskBuffLines and flaskBuffLines[line] then
 			flaskBuffLines[line] = nil
 		elseif tinctureBuffLines and tinctureBuffLines[line] then
 			tinctureBuffLines[line] = nil
@@ -574,6 +584,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 		elseif line:match("^{ ") then
 			-- We're parsing advanced copy/paste format
 			self.advancedCopy = true
+			hasModifierHeaders = true
 			linePrefix = ""
 			linePostfix = ""
 			self.crafted = true
@@ -1181,6 +1192,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 						line = advancedCopyLine:gsub("(%-?%d+%.?%d*)%(%-?%d+%.?%d*%-%-?%d+%.?%d*%)", "%1")
 					elseif bestPrecisionRange <= 1 and bestPrecisionRange >= 0 then
 						modLine.range = bestPrecisionRange
+						modLine.rangeFromValue = true
 					end
 				end
 				local rangedLine = itemLib.applyRange(line, 1, catalystScalar, modLine.corruptedRange)
@@ -1357,7 +1369,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 		::continue::
 		l = l + 1
 	end
-	if self.advancedCopy and (self.rarity == "UNIQUE" or self.rarity == "RELIC") then
+	if hasModifierHeaders and (self.rarity == "UNIQUE" or self.rarity == "RELIC") then
 		if not uniqueModStatOrder then
 			uniqueModStatOrder = { exact = { }, normalised = { } }
 			for _, mod in pairs(data.itemMods.ItemExclusive) do
@@ -1468,7 +1480,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 			end
 		end
 	end
-	if self.advancedCopy and #self.explicitModLines > 1 then
+	if hasModifierHeaders and #self.explicitModLines > 1 then
 		sortCraftedModLines(self.explicitModLines)
 	end
 	self.affixLimit = 0
@@ -1618,20 +1630,37 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 		end
 	end
 	if self.base and self.base.enchant and #self.enchantModLines == 0 then
+		-- Items saved before their base gained this enchant carry it as an implicit (Black Maw Talisman)
+		local activeImplicitLines = { }
+		for _, modLine in ipairs(self.implicitModLines) do
+			if self:CheckModLineVariant(modLine) then
+				activeImplicitLines[modLine.line] = true
+			end
+		end
 		local enchantIndex = 1
 		for line in self.base.enchant:gmatch("[^\n]+") do
-			local modList, extra = modLib.parseMod(line)
-			t_insert(self.enchantModLines, {
-				line = line,
-				crafted = true,
-				implicit = true,
-				enchant = true,
-				extra = extra,
-				modList = modList or { },
-				modTags = self.base.enchantModTypes and self.base.enchantModTypes[enchantIndex] or { },
-			})
+			if not activeImplicitLines[line] then
+				local modList, extra = modLib.parseMod(line)
+				t_insert(self.enchantModLines, {
+					line = line,
+					crafted = true,
+					implicit = true,
+					enchant = true,
+					addedFromBase = true,
+					extra = extra,
+					modList = modList or { },
+					modTags = self.base.enchantModTypes and self.base.enchantModTypes[enchantIndex] or { },
+				})
+			end
 			enchantIndex = enchantIndex + 1
 		end
+	end
+	if self.base and self.base.subType == "Blightcore" then
+		-- Anointing a Putrid Seed grows four passives
+		self.canBeAnointed = true
+		self.canHaveTwoEnchants = true
+		self.canHaveThreeEnchants = true
+		self.canHaveFourEnchants = true
 	end
 	self:BuildModList()
 	if deferJewelRadiusIndexAssignment then
@@ -2176,6 +2205,12 @@ function ItemClass:GetPrimarySlot()
 		return "Flask 1"
 	elseif self.type == "Graft" then
 		return "Graft 1"
+	elseif self.type == "Viscera" then
+		for tag, _ in pairs(self.base.tags) do
+			if tag:match("^viscera_") then
+				return tag:gsub("^viscera_", ""):gsub("^%l", string.upper)
+			end
+		end
 	else
 		return self.type
 	end
@@ -2477,6 +2512,10 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 		for _, value in ipairs(modList:List(nil, "JewelData")) do
 			jewelData[value.key] = value.value
 		end
+		if self.base.subType == "Blightcore" then
+			-- In order of the jewel's granted passive stats
+			jewelData.blightcoreNotables = modList:List(nil, "BlightcoreNotable")
+		end
 		if modList:List(nil, "ImpossibleEscapeKeystones") then
 			jewelData.impossibleEscapeKeystones = { }
 			for _, value in ipairs(modList:List(nil, "ImpossibleEscapeKeystones")) do
@@ -2634,6 +2673,8 @@ function ItemClass:BuildModList()
 				source = self.modSource,
 				triggered = skill.triggered,
 				triggerChance = skill.triggerChance,
+				-- Keep the influence requirement so calculation setup can enable or remove the granted curse.
+				itemRequirement = skill.itemRequirement,
 			})
 		end
 	end

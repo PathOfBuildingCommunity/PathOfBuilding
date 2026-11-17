@@ -1099,8 +1099,8 @@ end
 
 function buildMode:ResetModFlags()
 	self.modFlag = false
-	self.notesTab.modFlag = false
-	self.partyTab.modFlag = false
+	self.notesTab:ResetModFlags()
+	self.partyTab:ResetModFlags()
 	self.configTab.modFlag = false
 	self.treeTab.modFlag = false
 	self.treeTab.searchFlag = false
@@ -2285,7 +2285,7 @@ function buildMode:SaveDB(fileName)
 	end
 
 	-- Call on all savers to save their data in their respective sections
-	for elem, saver in pairs(self.savers) do
+	for elem, saver in pairsSortByKey(self.savers) do
 		local node = { elem = elem }
 		saver:Save(node)
 		t_insert(dbXML, node)
