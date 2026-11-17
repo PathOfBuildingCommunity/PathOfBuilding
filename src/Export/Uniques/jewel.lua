@@ -1922,5 +1922,12 @@ Crafted: true
 League: Affliction
 Limited to: 1
 Implicits: 0
+]],[[
+Putrid Seed
+Mycelium Core
+League: Covens
+Source: Drops from unique{Effulgent Blightworm} in a Mycotic Blight encounter
+Limited to: 1
+BlightcoreDisplayMod
 ]]
 }

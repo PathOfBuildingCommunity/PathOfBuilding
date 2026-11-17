@@ -16939,6 +16939,7 @@ c["Grants level 20 Affliction"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",
 c["Grants level 20 Suspend in Time"]={nil,nil}
 c["Grants maximum Energy Shield equal to 10% of your Reserved Mana to"]={nil,"Grants maximum Energy Shield equal to 10% of your Reserved Mana to "}
 c["Grants maximum Energy Shield equal to 10% of your Reserved Mana to you and Allies within 6 metres"]={{[1]={flags=0,keywordFlags=0,name="GrantReservedManaAsAura",type="LIST",value={mod={flags=0,keywordFlags=0,name="EnergyShield",type="BASE",value=0.1}}}},nil}
+c["Grows four random Passive Skills when Anointed"]={{},nil}
 c["Grows four random Passive Skills when Anointed Passive Skills grown are influenced by Oils used when Anointing"]={nil,"Grows four random Passive Skills when Anointed Passive Skills grown are influenced by Oils used when Anointing "}
 c["Guard Skills have 15% increased Cooldown Recovery Rate"]={{[1]={[1]={skillType=78,type="SkillType"},flags=0,keywordFlags=0,name="CooldownRecovery",type="INC",value=15}},nil}
 c["Guard Skills have 18% increased Cooldown Recovery Rate"]={{[1]={[1]={skillType=78,type="SkillType"},flags=0,keywordFlags=0,name="CooldownRecovery",type="INC",value=18}},nil}
@@ -18700,6 +18701,7 @@ c["Pact Skills have 50% increased Cooldown Recovery Rate"]={{[1]={[1]={skillType
 c["Pain Attunement"]={{[1]={flags=0,keywordFlags=0,name="Keystone",type="LIST",value="Pain Attunement"},[2]={flags=0,keywordFlags=0,name="Condition:HavePainAttunement",type="FLAG",value=true}},nil}
 c["Passage"]={nil,"Passage "}
 c["Passage -10% to all Elemental Resistances"]={nil,"Passage -10% to all Elemental Resistances "}
+c["Passive Skills grown are influenced by Oils used when Anointing"]={{},nil}
 c["Passive Skills in Radius can be Allocated without being connected to your tree"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="intuitiveLeapLike",value=true}}},nil}
 c["Passive Skills in Radius can be Allocated without being connected to your tree Passage"]={nil,"Passive Skills in Radius can be Allocated without being connected to your tree Passage "}
 c["Passive Skills in radius of Acrobatics can be allocated without being connected to your tree"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="impossibleEscapeKeystone",value="acrobatics"}},[2]={flags=0,keywordFlags=0,name="ImpossibleEscapeKeystones",type="LIST",value={key="acrobatics",value=true}}},nil}
@@ -19993,6 +19995,7 @@ c["Requires Class Witch Allocates Shaper of Winter if you have the matching modi
 c["Requires Class Witch Allocates Unhallowed Rite if you have the matching modifier on Forbidden Flame"]={nil,"Requires Class Witch Allocates Unhallowed Rite if you have the matching modifier on Forbidden Flame "}
 c["Requires Class Witch Allocates Unhallowed Rite if you have the matching modifier on Forbidden Flesh"]={nil,"Requires Class Witch Allocates Unhallowed Rite if you have the matching modifier on Forbidden Flesh "}
 c["Requires Class Witch Allocates Unholy Authority if you have the matching modifier on Forbidden Flame"]={nil,"Requires Class Witch Allocates Unholy Authority if you have the matching modifier on Forbidden Flame "}
+end)();(function()
 c["Requires Class Witch Allocates Unholy Authority if you have the matching modifier on Forbidden Flesh"]={nil,"Requires Class Witch Allocates Unholy Authority if you have the matching modifier on Forbidden Flesh "}
 c["Requires Class Witch Allocates Unnatural Strength if you have the matching modifier on Forbidden Flame"]={nil,"Requires Class Witch Allocates Unnatural Strength if you have the matching modifier on Forbidden Flame "}
 end)();(function()

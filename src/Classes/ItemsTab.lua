@@ -582,7 +582,7 @@ holding Shift will put it in the second.]])
 			self.displayItem.canHaveFourEnchants and
 			#self.displayItem.enchantModLines > 2
 	end
-	self.controls.displayItemCorrupt = new("ButtonControl"):ButtonControl({"TOPLEFT",self.controls.displayItemAnoint4,"TOPRIGHT",true}, {8, 10, 100, 20}, "Corrupt...", function()
+	self.controls.displayItemCorrupt = new("ButtonControl"):ButtonControl({"TOPLEFT",self.controls.displayItemAnoint4,"TOPRIGHT",true}, {8, 0, 100, 20}, "Corrupt...", function()
 		self:CorruptDisplayItem()
 	end)
 	self.controls.displayItemCorrupt.shown = function()
@@ -2657,6 +2657,9 @@ function ItemsTabClass:IsItemValidForSlot(item, slotName, itemSet)
 				return true
 			end
 			return false
+		elseif item.base.subType == "Blightcore" then
+			-- Putrid Seed can only grow passives from Large Jewel Sockets
+			return node.expansionJewel and node.expansionJewel.size == 2
 		elseif item.clusterJewel and not node.expansionJewel then
 			-- Don't allow cluster jewels in inner sockets
 			return false
@@ -3072,6 +3075,12 @@ function ItemsTabClass:getAnoint(item)
 				if anoint then
 					local nodeName = line:sub(anoint + string.len("Allocates "))
 					t_insert(result, nodeName)
+				elseif item.base.subType == "Blightcore" then
+					-- Putrid Seed anoints grow passives instead
+					local nodeName = line:lower():match("^1 added passive skill is (.+)$")
+					if nodeName then
+						t_insert(result, nodeName)
+					end
 				end
 			end
 		end
@@ -3103,7 +3112,13 @@ function ItemsTabClass:anointItem(node)
 		t_remove(item.enchantModLines, self.anointEnchantSlot)
 	end
 	if node then
-		t_insert(item.enchantModLines, self.anointEnchantSlot, { crafted = true, line = "Allocates " .. node.dn })
+		local line
+		if item.base.subType == "Blightcore" then
+			line = "1 Added Passive Skill is " .. node.dn
+		else
+			line = "Allocates " .. node.dn
+		end
+		t_insert(item.enchantModLines, self.anointEnchantSlot, { crafted = true, line = line })
 	end
 	item:BuildAndParseRaw()
 	return item

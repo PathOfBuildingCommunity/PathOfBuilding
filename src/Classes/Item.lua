@@ -1655,6 +1655,13 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 			enchantIndex = enchantIndex + 1
 		end
 	end
+	if self.base and self.base.subType == "Blightcore" then
+		-- Anointing a Putrid Seed grows four passives
+		self.canBeAnointed = true
+		self.canHaveTwoEnchants = true
+		self.canHaveThreeEnchants = true
+		self.canHaveFourEnchants = true
+	end
 	self:BuildModList()
 	if deferJewelRadiusIndexAssignment then
 		self.jewelRadiusIndex = self.jewelData.radiusIndex
@@ -2504,6 +2511,10 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 		end
 		for _, value in ipairs(modList:List(nil, "JewelData")) do
 			jewelData[value.key] = value.value
+		end
+		if self.base.subType == "Blightcore" then
+			-- In order of the jewel's granted passive stats
+			jewelData.blightcoreNotables = modList:List(nil, "BlightcoreNotable")
 		end
 		if modList:List(nil, "ImpossibleEscapeKeystones") then
 			jewelData.impossibleEscapeKeystones = { }

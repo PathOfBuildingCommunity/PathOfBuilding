@@ -1425,9 +1425,9 @@ function calcs.initEnv(build, mode, override, specEnv)
 	-- Merge env.itemModDB with env.ModDB
 	mergeDB(env.modDB, env.itemModDB)
 
-	-- Add granted passives (e.g., amulet anoints)
+	-- Add granted passives (e.g., amulet anoints or Putrid Seed passives)
 	if not accelerate.nodeAlloc then
-		for _, passive in pairs(env.modDB:List(nil, "GrantedPassive")) do
+		for _, passive in pairs(tableConcat(env.modDB:List(nil, "GrantedPassive"), env.initialNodeModDB:List(nil, "GrantedPassive"))) do
 			local node = env.spec.tree.notableMap[passive] or env.spec.tree.ascendancyMap[passive]
 			local specNode = node and env.spec.nodes[node.id] -- use the conquered node data, if available
 			node = node or build.latestTree.ascendancyMap[passive]
