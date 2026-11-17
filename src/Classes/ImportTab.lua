@@ -19,7 +19,8 @@ local function shallowCopyTable(source)
 	return result
 end
 
-local function splitLoadoutLink(title)
+-- Parse PoB's "Name {identifier1,identifier2}" convention.
+local function parseLoadoutTitleIdentifiers(title)
 	local identifiers = title:match("%{([%w,]+)%}")
 	if not identifiers then
 		return nil
@@ -28,6 +29,7 @@ local function splitLoadoutLink(title)
 	return base ~= "" and base or "Default", identifiers
 end
 
+-- Mirror the loadout dropdown's version prefix for older trees.
 local function getLoadoutVersionPrefix(spec, linkId)
 	return not linkId and spec.treeVersion ~= latestTreeVersion and ("[" .. treeVersions[spec.treeVersion].display .. "] ") or ""
 end
@@ -1126,7 +1128,7 @@ function ImportTabClass:PrepareLoadoutImport(xmlText)
 		for _, id in ipairs(order) do
 			local setTitle = sets[id].title or "Default"
 			if linkId then
-				local _, identifiers = splitLoadoutLink(setTitle)
+				local _, identifiers = parseLoadoutTitleIdentifiers(setTitle)
 				if identifiers then
 					for identifier in identifiers:gmatch("[^,]+") do
 						if identifier == linkId then
@@ -1140,6 +1142,7 @@ function ImportTabClass:PrepareLoadoutImport(xmlText)
 		end
 	end
 	local loadouts = { }
+	-- Add a candidate only when every set required to import it can be found;
 	local function addLoadout(treeIndex, sourceTitle, linkId)
 		local sourceSpec = imported.treeTab.specList[treeIndex]
 		local displayTitle = getLoadoutVersionPrefix(sourceSpec, linkId) .. sourceTitle
@@ -1165,7 +1168,7 @@ function ImportTabClass:PrepareLoadoutImport(xmlText)
 	end
 	for treeIndex, spec in ipairs(imported.treeTab.specList) do
 		local sourceTitle = spec.title or "Default"
-		local base, identifiers = splitLoadoutLink(sourceTitle)
+		local base, identifiers = parseLoadoutTitleIdentifiers(sourceTitle)
 		if identifiers then
 			for identifier in identifiers:gmatch("[^,]+") do
 				addLoadout(treeIndex, base .. " {" .. identifier .. "}", identifier)
@@ -1202,6 +1205,7 @@ function ImportTabClass:PrepareLoadoutImport(xmlText)
 	return imported, loadouts, hasNamedLoadout
 end
 
+--- Collect every existing tree, set, and dropdown name to avoid name collisions.
 ---@return table<string, boolean> usedTitles
 function ImportTabClass:GetUsedLoadoutNames()
 	local usedNames = { }
@@ -1219,6 +1223,7 @@ function ImportTabClass:GetUsedLoadoutNames()
 	return usedNames
 end
 
+--- Predict which selected loadouts need suffixes so we can warn users.
 ---@param imported table
 ---@param loadouts table[]
 ---@param selectedIndices table<integer, boolean>?
@@ -1361,6 +1366,8 @@ function ImportTabClass:OpenLoadoutImportPopup(xmlText)
 	return true
 end
 
+-- Snapshot every collection, selection, history, and dirty flag changed by an
+-- import so an unexpected error can leave the existing build exactly intact.
 local function captureLoadoutImportState(build)
 	local skillsTab = build.skillsTab
 	return {
@@ -1402,6 +1409,8 @@ local function captureLoadoutImportState(build)
 	}
 end
 
+-- Restore a captured import snapshot and rebind the active tabs and derived
+-- skill/loadout state after a failed transaction.
 local function restoreLoadoutImportState(build, state)
 	local itemsTab = build.itemsTab
 	local skillsTab = build.skillsTab
@@ -1443,6 +1452,8 @@ local function restoreLoadoutImportState(build, state)
 	build.calcsTab.modFlag = state.flags.calcs
 end
 
+--- Validate selected loadouts, reserve their final names, and apply them as one
+--- transaction so either every requested loadout is imported or none are.
 ---@param imported table
 ---@param selected table[] Each entry contains a `selection` and optional `requestedTitle`.
 ---@return boolean success
@@ -1491,6 +1502,7 @@ function ImportTabClass:ImportPreparedLoadouts(imported, selected)
 	return true
 end
 
+--- Copy the planned loadouts into the current build
 ---@param imported table
 ---@param plans table[]
 function ImportTabClass:_ApplyLoadoutImportPlans(imported, plans)
@@ -1500,6 +1512,9 @@ function ImportTabClass:_ApplyLoadoutImportPlans(imported, plans)
 		usedNames[plan.treeTitle] = true
 		usedNames[plan.displayTitle] = true
 	end
+
+	-- Auxiliary sets also share the loadout name namespace, so reserve a unique
+	-- title before copying sets referenced by minion skills.
 	local function uniqueSetName(base)
 		local result, suffix = base, 2
 		while usedNames[result] do
@@ -1516,6 +1531,9 @@ function ImportTabClass:_ApplyLoadoutImportPlans(imported, plans)
 	for _, title in ipairs(build.controls.buildLoadouts.list) do
 		existingLoadouts[title] = true
 	end
+	
+	-- Materialise a formerly implicit one-set association before adding imported
+	-- sets, preserving every existing loadout's equipment, skills, and config.
 	local function preserveSharedSets(tab, sets, order, create)
 		if #order ~= 1 then
 			return
@@ -1525,7 +1543,7 @@ function ImportTabClass:_ApplyLoadoutImportPlans(imported, plans)
 			local title = spec.title or "Default"
 			local displayTitle = getLoadoutVersionPrefix(spec) .. title
 			local linkedLoadout = false
-			local base, identifiers = splitLoadoutLink(title)
+			local base, identifiers = parseLoadoutTitleIdentifiers(title)
 			if identifiers then
 				for identifier in identifiers:gmatch("[^,]+") do
 					linkedLoadout = linkedLoadout or existingLoadouts[base .. " {" .. identifier .. "}"]
@@ -1607,6 +1625,8 @@ function ImportTabClass:_ApplyLoadoutImportPlans(imported, plans)
 			itemIds[id] = item.id
 		end
 	end
+	-- Copy an item set and replace source item IDs with the IDs allocated in the
+	-- current build, preventing references back into the temporary import build.
 	local function copyItemSet(source, title)
 		local set = build.itemsTab:NewItemSet()
 		set.title = title
@@ -1726,7 +1746,8 @@ function ImportTabClass:_ApplyLoadoutImportPlans(imported, plans)
 	return true
 end
 
--- Retained for callers that import the active combination directly.
+--- Import the source build's active combination under an optional explicit
+--- name. This compatibility wrapper uses the transactional multi-import path.
 ---@param xmlText string
 ---@param title string?
 ---@return boolean success
@@ -1747,6 +1768,8 @@ function ImportTabClass:ImportLoadout(xmlText, title)
 	return self:ImportPreparedLoadouts(imported, { { selection = selected, requestedTitle = title } })
 end
 
+--- Import only the complete source loadouts whose display labels were selected
+--- by a non-UI caller, using the same transactional path as the popup.
 ---@param xmlText string
 ---@param selectedLabels string[]
 ---@return boolean success
