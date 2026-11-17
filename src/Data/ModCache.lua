@@ -5004,7 +5004,6 @@ c["130% increased Armour"]={{[1]={flags=0,keywordFlags=0,name="Armour",type="INC
 end)();(function()
 c["130% increased Armour and Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="ArmourAndEnergyShield",type="INC",value=130}},nil}
 c["130% increased Armour and Evasion"]={{[1]={flags=0,keywordFlags=0,name="ArmourAndEvasion",type="INC",value=130}},nil}
-end)();(function()
 c["130% increased Critical Strike Chance against Blinded Enemies"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Blinded"},flags=0,keywordFlags=0,name="CritChance",type="INC",value=130}},nil}
 c["130% increased Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="EnergyShield",type="INC",value=130}},nil}
 c["130% increased Evasion Rating"]={{[1]={flags=0,keywordFlags=0,name="Evasion",type="INC",value=130}},nil}
@@ -10004,16 +10003,15 @@ c["5% chance to Avoid Elemental Ailments"]={{[1]={flags=0,keywordFlags=0,name="A
 c["5% chance to Avoid Lightning Damage from Hits"]={{[1]={flags=0,keywordFlags=0,name="AvoidLightningDamageChance",type="BASE",value=5}},nil}
 c["5% chance to Blind Enemies on Hit"]={{}," to Blind Enemies  "}
 c["5% chance to Blind Enemies on Hit with Attacks"]={{}," to Blind Enemies  with Attacks "}
+end)();(function()
 c["5% chance to Cause Monsters to Flee"]={{}," to Cause Monsters to Flee "}
 c["5% chance to Cover Enemies in Ash on Hit while you are Burning"]={{}," to Cover Enemies in Ash  while you are Burning "}
 c["5% chance to Defend with 200% of Armour for each"]={{[1]={flags=0,keywordFlags=0,name="Armour",type="BASE",value=5}}," to Defend with 200% of  for each "}
-end)();(function()
 c["5% chance to Defend with 200% of Armour for each time you've been Hit by an Enemy Recently, up to 30%"]={{[1]={[1]={type="Condition",var="ArmourMax"},flags=0,keywordFlags=0,name="ArmourDefense",source="Armour Mastery: Max Calc",type="MAX",value=100},[2]={[1]={type="Condition",var="ArmourAvg"},[2]={limit=6,type="Multiplier",var="BeenHitRecently"},flags=0,keywordFlags=0,name="ArmourDefense",source="Armour Mastery: Average Calc",type="MAX",value=5},[3]={[1]={neg=true,type="Condition",var="ArmourMax"},[2]={neg=true,type="Condition",var="ArmourAvg"},[3]={limit=6,type="Multiplier",var="BeenHitRecently"},flags=0,keywordFlags=0,name="ArmourDefense",source="Armour Mastery: Min Calc",type="MAX",value=0}},nil}
 c["5% chance to Freeze"]={{[1]={flags=0,keywordFlags=0,name="EnemyFreezeChance",type="BASE",value=5}},nil}
 c["5% chance to Freeze, Shock and Ignite"]={{[1]={flags=0,keywordFlags=0,name="EnemyFreezeChance",type="BASE",value=5},[2]={flags=0,keywordFlags=0,name="EnemyShockChance",type="BASE",value=5},[3]={flags=0,keywordFlags=0,name="EnemyIgniteChance",type="BASE",value=5}},nil}
 c["5% chance to Gain Unholy Might for 4 seconds on Melee Kill"]={{[1]={[1]={type="Condition",var="KilledRecently"},flags=67108864,keywordFlags=0,name="Condition:UnholyMight",type="FLAG",value=true}},nil}
 c["5% chance to Hinder Enemies on Hit with Spells"]={{[1]={flags=2,keywordFlags=0,name="HinderChance",type="BASE",value=5},[2]={[1]={actor="enemy",type="ActorCondition",var="Hindered"},flags=0,keywordFlags=0,name="Dummy",source="Select enemy Hindered in Configuration",type="DUMMY",value=1}},nil}
-end)();(function()
 c["5% chance to Ignite"]={{[1]={flags=0,keywordFlags=0,name="EnemyIgniteChance",type="BASE",value=5}},nil}
 c["5% chance to Impale Enemies on Hit with Attacks"]={{[1]={flags=0,keywordFlags=65536,name="ImpaleChance",type="BASE",value=5}},nil}
 c["5% chance to Intimidate Enemies for 4 seconds on Hit"]={{}," to Intimidate Enemies   "}
@@ -15007,9 +15005,9 @@ c["Consecrated Ground around you while stationary if 2 Crusader Items are Equipp
 c["Consecrated Ground created by this Flask has Tripled Radius"]={nil,"Consecrated Ground created by this Flask has Tripled Radius "}
 c["Consecrated Ground created by this Flask has Tripled Radius +2% to Critical Strike Chance against Enemies on Consecrated Ground during Effect"]={nil,"Consecrated Ground created by this Flask has Tripled Radius +2% to Critical Strike Chance against Enemies on Consecrated Ground during Effect "}
 c["Consecrated Ground created during Effect applies 10% increased Damage taken to Enemies"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={[1]={type="Condition",var="OnConsecratedGround"},flags=0,keywordFlags=0,name="DamageTakenConsecratedGround",type="INC",value=10}}}},nil}
+end)();(function()
 c["Consecrated Ground created during Effect applies 9% increased Damage taken to Enemies"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={[1]={type="Condition",var="OnConsecratedGround"},flags=0,keywordFlags=0,name="DamageTakenConsecratedGround",type="INC",value=9}}}},nil}
 c["Consecrated Ground you create also grants"]={nil,""}
-end)();(function()
 c["Consecrated Ground you create also grants 50% reduced duration of Damaging Ailments on you"]={{[1]={[1]={type="Condition",var="OnConsecratedGround"},flags=0,keywordFlags=0,name="SelfIgniteDuration",type="INC",value=-50},[2]={[1]={type="Condition",var="OnConsecratedGround"},flags=0,keywordFlags=0,name="SelfBleedDuration",type="INC",value=-50},[3]={[1]={type="Condition",var="OnConsecratedGround"},flags=0,keywordFlags=0,name="SelfPoisonDuration",type="INC",value=-50}},nil}
 c["Consecrated Ground you create applies 15% increased Damage taken to Enemies"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={[1]={type="Condition",var="OnConsecratedGround"},flags=0,keywordFlags=0,name="DamageTakenConsecratedGround",type="INC",value=15}}}},nil}
 c["Consecrated Ground you create applies 6% increased Damage taken to Enemies"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={[1]={type="Condition",var="OnConsecratedGround"},flags=0,keywordFlags=0,name="DamageTakenConsecratedGround",type="INC",value=6}}}},nil}
@@ -15021,7 +15019,6 @@ c["Consecrated Ground you create grants 30% increased Accuracy Rating to you and
 c["Consecrated Ground you create grants 30% increased Mana Regeneration"]={{[1]={[1]={type="Condition",var="OnConsecratedGround"},flags=0,keywordFlags=0,name="ManaRegen",type="INC",value=30}},nil}
 c["Consecrated Ground you create grants 5% reduced damage taken to you and Allies"]={{[1]={[1]={type="Condition",var="OnConsecratedGround"},flags=0,keywordFlags=0,name="ExtraAura",type="LIST",value={mod={flags=0,keywordFlags=0,name="DamageTaken",type="INC",value=-5}}}},nil}
 c["Consecrated Ground you create while affected by Zealotry causes enemies to take 10% increased Damage"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="OnConsecratedGround"},[2]={type="Condition",var="AffectedByZealotry"},flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="DamageTakenConsecratedGround",type="INC",value=10}}}},nil}
-end)();(function()
 c["Consecrated Ground you create while affected by Zealotry causes enemies to take 9% increased Damage"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="OnConsecratedGround"},[2]={type="Condition",var="AffectedByZealotry"},flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="DamageTakenConsecratedGround",type="INC",value=9}}}},nil}
 c["Consumes Frenzy Charges on use"]={nil,"Consumes Frenzy Charges on use "}
 c["Consumes Frenzy Charges on use Gain Onslaught for 1 second per Frenzy Charge consumed on use"]={nil,"Consumes Frenzy Charges on use Gain Onslaught for 1 second per Frenzy Charge consumed on use "}
@@ -20002,16 +19999,15 @@ c["Requires Class Witch Allocates Shaper of Winter if you have the matching modi
 c["Requires Class Witch Allocates Unhallowed Rite if you have the matching modifier on Forbidden Flame"]={nil,"Requires Class Witch Allocates Unhallowed Rite if you have the matching modifier on Forbidden Flame "}
 c["Requires Class Witch Allocates Unhallowed Rite if you have the matching modifier on Forbidden Flesh"]={nil,"Requires Class Witch Allocates Unhallowed Rite if you have the matching modifier on Forbidden Flesh "}
 c["Requires Class Witch Allocates Unholy Authority if you have the matching modifier on Forbidden Flame"]={nil,"Requires Class Witch Allocates Unholy Authority if you have the matching modifier on Forbidden Flame "}
-end)();(function()
 c["Requires Class Witch Allocates Unholy Authority if you have the matching modifier on Forbidden Flesh"]={nil,"Requires Class Witch Allocates Unholy Authority if you have the matching modifier on Forbidden Flesh "}
 c["Requires Class Witch Allocates Unnatural Strength if you have the matching modifier on Forbidden Flame"]={nil,"Requires Class Witch Allocates Unnatural Strength if you have the matching modifier on Forbidden Flame "}
-end)();(function()
 c["Requires Class Witch Allocates Unnatural Strength if you have the matching modifier on Forbidden Flesh"]={nil,"Requires Class Witch Allocates Unnatural Strength if you have the matching modifier on Forbidden Flesh "}
 c["Requires Class Witch Allocates Vile Bastion if you have the matching modifier on Forbidden Flame"]={nil,"Requires Class Witch Allocates Vile Bastion if you have the matching modifier on Forbidden Flame "}
 c["Requires Class Witch Allocates Vile Bastion if you have the matching modifier on Forbidden Flesh"]={nil,"Requires Class Witch Allocates Vile Bastion if you have the matching modifier on Forbidden Flesh "}
 c["Requires Class Witch Allocates Void Beacon if you have the matching modifier on Forbidden Flame"]={nil,"Requires Class Witch Allocates Void Beacon if you have the matching modifier on Forbidden Flame "}
 c["Requires Class Witch Allocates Void Beacon if you have the matching modifier on Forbidden Flesh"]={nil,"Requires Class Witch Allocates Void Beacon if you have the matching modifier on Forbidden Flesh "}
 c["Requires Class Witch Allocates Withering Presence if you have the matching modifier on Forbidden Flame"]={nil,"Requires Class Witch Allocates Withering Presence if you have the matching modifier on Forbidden Flame "}
+end)();(function()
 c["Requires Class Witch Allocates Withering Presence if you have the matching modifier on Forbidden Flesh"]={nil,"Requires Class Witch Allocates Withering Presence if you have the matching modifier on Forbidden Flesh "}
 c["Reserves 30% of Life"]={{[1]={flags=0,keywordFlags=0,name="ExtraLifeReserved",type="BASE",value=30}},nil}
 c["Reserves 8% of Life"]={{[1]={flags=0,keywordFlags=0,name="ExtraLifeReserved",type="BASE",value=8}},nil}
@@ -20024,7 +20020,6 @@ c["Restores Ward on use 40% increased Duration"]={nil,"Restores Ward on use 40% 
 c["Retaliation Skills Debilitate Enemies for 3 seconds on Hit"]={{[1]={flags=0,keywordFlags=0,name="DebilitateChance",type="BASE",value=100}},nil}
 c["Retaliation Skills Fortify on Melee Hit"]={nil,"Retaliation Skills Fortify on Melee Hit "}
 c["Retaliation Skills become Usable for 100% longer"]={nil,"Retaliation Skills become Usable for 100% longer "}
-end)();(function()
 c["Retaliation Skills become Usable for 20% longer"]={nil,"Retaliation Skills become Usable for 20% longer "}
 c["Retaliation Skills become Usable for 30% longer"]={nil,"Retaliation Skills become Usable for 30% longer "}
 c["Retaliation Skills become Usable for 75% longer"]={nil,"Retaliation Skills become Usable for 75% longer "}
@@ -20045,7 +20040,6 @@ c["Retaliation Skills have 15% increased Cooldown Recovery Rate"]={{[1]={[1]={sk
 c["Retaliation Skills have 20% increased Speed"]={{[1]={[1]={skillType=121,type="SkillType"},flags=0,keywordFlags=0,name="Speed",type="INC",value=20},[2]={[1]={skillType=121,type="SkillType"},flags=0,keywordFlags=4,name="WarcrySpeed",type="INC",value=20}},nil}
 c["Retaliation Skills have 200% Arcane Might"]={{[1]={[1]={skillType=121,type="SkillType"},flags=0,keywordFlags=0,name="SpellDamageAppliesToAttacks",type="FLAG",value=true},[2]={[1]={skillType=121,type="SkillType"},flags=0,keywordFlags=0,name="ImprovedSpellDamageAppliesToAttacks",type="MAX",value=200}},nil}
 c["Retaliation Skills have 25% increased Stun Duration on Enemies"]={{[1]={[1]={skillType=121,type="SkillType"},flags=0,keywordFlags=0,name="EnemyStunDuration",type="INC",value=25}},nil}
-end)();(function()
 c["Retaliation Skills have 30% increased Area of Effect"]={{[1]={[1]={skillType=121,type="SkillType"},flags=0,keywordFlags=0,name="AreaOfEffect",type="INC",value=30}},nil}
 c["Retaliation Skills have 30% increased Cooldown Recovery Rate"]={{[1]={[1]={skillType=121,type="SkillType"},flags=0,keywordFlags=0,name="CooldownRecovery",type="INC",value=30}},nil}
 c["Retaliation Skills have 50% increased Stun Duration on Enemies"]={{[1]={[1]={skillType=121,type="SkillType"},flags=0,keywordFlags=0,name="EnemyStunDuration",type="INC",value=50}},nil}

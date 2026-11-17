@@ -228,63 +228,68 @@ Has 1 Abyssal Socket
 Doryani's Invitation
 Heavy Belt
 Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Apex of Sacrifice}
-Has Alt Variant: true
-Has Alt Variant Two: true
-Has Alt Variant Three: true
-Selected Variant: 9
-Selected Alt Variant: 13
-Selected Alt Variant Two: 17
-Selected Alt Variant Three: 21
-Variant: Pre 3.11.0 (Physical)
-Variant: Pre 3.11.0 (Fire)
-Variant: Pre 3.11.0 (Cold)
-Variant: Pre 3.11.0 (Lightning)
-Variant: Pre 3.30.0 (Physical)
-Variant: Pre 3.30.0 (Fire)
-Variant: Pre 3.30.0 (Cold)
-Variant: Pre 3.30.0 (Lightning)
-Variant: Current: Physical Damage
-Variant: Current: Fire Damage
-Variant: Current: Cold Damage
-Variant: Current: Lightning Damage
-Variant: Current: Fire Resistance
-Variant: Current: Cold Resistance
-Variant: Current: Lightning Resistance
-Variant: Current: Armour
-Variant: Current: Physical Leech
-Variant: Current: Fire Leech
-Variant: Current: Cold Leech
-Variant: Current: Lightning Leech
-Variant: Current: Granite Flask Effect
-Variant: Current: Ruby Flask Effect
-Variant: Current: Sapphire Flask Effect
-Variant: Current: Topaz Flask Effect
+Version: Pre 3.11.0
+Version: Pre 3.30.0
+Version: Current
+Variant: Physical Damage
+Variant: Fire Damage
+Variant: Cold Damage
+Variant: Lightning Damage
+Variant: Fire Resistance
+Variant: Cold Resistance
+Variant: Lightning Resistance
+Variant: Armour
+Variant: Physical Leech
+Variant: Fire Leech
+Variant: Cold Leech
+Variant: Lightning Leech
+Variant: Granite Flask Effect
+Variant: Ruby Flask Effect
+Variant: Sapphire Flask Effect
+Variant: Topaz Flask Effect
+Selected Variant Group: 1=1
+Selected Variant Group: 2=5
+Selected Variant Group: 3=9
+Selected Variant Group: 4=13
 Requires Level 68
 Implicits: 1
 {tags:attribute}+(25-35) to Strength
-{variant:1,5,9}{tags:physical_damage}(15-60)% increased Global Physical Damage
-{variant:2,6,10}{tags:elemental_damage}(15-60)% increased Fire Damage
-{variant:3,7,11}{tags:elemental_damage}(15-60)% increased Cold Damage
-{variant:4,8,12}{tags:elemental_damage}(15-60)% increased Lightning Damage
-{variant:2,3,4,6,7,8,16}{tags:defences}+(250-1000) to Armour
-{variant:1,3,4,5,7,8,13}{tags:resistance}+(25-100)% to Fire Resistance
-{variant:1,2,4,5,6,8,14}{tags:resistance}+(25-100)% to Cold Resistance
-{variant:1,2,3,5,6,7,15}{tags:resistance}+(25-100)% to Lightning Resistance
-{variant:5,17}{tags:resource}0.6% of Physical Damage Leeched as Life
-{variant:6,18}{tags:resource}0.6% of Fire Damage Leeched as Life
-{variant:7,19}{tags:resource}0.6% of Cold Damage Leeched as Life
-{variant:8,20}{tags:resource}0.6% of Lightning Damage Leeched as Life
-{variant:21}Granite Flasks applied to you have (20-80)% increased Effect
-{variant:22}Ruby Flasks applied to you have (20-80)% increased Effect
-{variant:23}Sapphire Flasks applied to you have (20-80)% increased Effect
-{variant:24}Topaz Flasks applied to you have (20-80)% increased Effect
-{variant:2}10% chance to Ignite during any Flask Effect
-{variant:6}(20-30)% chance to Ignite during any Flask Effect
-{variant:3}10% chance to Freeze during any Flask Effect
-{variant:7}(20-30)% chance to Freeze during any Flask Effect
-{variant:4}10% chance to Shock during any Flask Effect
-{variant:8}(20-30)% chance to Shock during any Flask Effect
-{variant:1,5}25% reduced Enemy Stun Threshold during any Flask Effect
+{variant:1}{group:1}{tags:physical_damage}(15-60)% increased Global Physical Damage
+{variant:2}{group:1}{tags:elemental_damage}(15-60)% increased Fire Damage
+{variant:3}{group:1}{tags:elemental_damage}(15-60)% increased Cold Damage
+{variant:4}{group:1}{tags:elemental_damage}(15-60)% increased Lightning Damage
+{version:1,2}{variant:2,3,4}{group:1}{tags:defences}+(250-1000) to Armour
+{version:1,2}{variant:1,3,4}{group:1}{tags:resistance}+(25-100)% to Fire Resistance
+{version:1,2}{variant:1,2,4}{group:1}{tags:resistance}+(25-100)% to Cold Resistance
+{version:1,2}{variant:1,2,3}{group:1}{tags:resistance}+(25-100)% to Lightning Resistance
+{version:3}{variant:8}{group:2}{tags:defences}+(250-1000) to Armour
+{version:3}{variant:5}{group:2}{tags:resistance}+(25-100)% to Fire Resistance
+{version:3}{variant:6}{group:2}{tags:resistance}+(25-100)% to Cold Resistance
+{version:3}{variant:7}{group:2}{tags:resistance}+(25-100)% to Lightning Resistance
+{version:1}{variant:1}{group:1}{tags:resource}0.2% of Physical Damage Leeched as Life
+{version:1}{variant:2}{group:1}{tags:resource}0.2% of Fire Damage Leeched as Life
+{version:1}{variant:3}{group:1}{tags:resource}0.2% of Cold Damage Leeched as Life
+{version:1}{variant:4}{group:1}{tags:resource}0.2% of Lightning Damage Leeched as Life
+{version:2}{variant:1}{group:1}{tags:resource}0.6% of Physical Damage Leeched as Life
+{version:2}{variant:2}{group:1}{tags:resource}0.6% of Fire Damage Leeched as Life
+{version:2}{variant:3}{group:1}{tags:resource}0.6% of Cold Damage Leeched as Life
+{version:2}{variant:4}{group:1}{tags:resource}0.6% of Lightning Damage Leeched as Life
+{version:3}{variant:9}{group:3}{tags:resource}0.6% of Physical Damage Leeched as Life
+{version:3}{variant:10}{group:3}{tags:resource}0.6% of Fire Damage Leeched as Life
+{version:3}{variant:11}{group:3}{tags:resource}0.6% of Cold Damage Leeched as Life
+{version:3}{variant:12}{group:3}{tags:resource}0.6% of Lightning Damage Leeched as Life
+{version:3}{variant:13}{group:4}{tags:defences}Granite Flasks applied to you have (20-80)% increased Effect
+{version:3}{variant:14}{group:4}{tags:resistance}Ruby Flasks applied to you have (20-80)% increased Effect
+{version:3}{variant:15}{group:4}{tags:resistance}Sapphire Flasks applied to you have (20-80)% increased Effect
+{version:3}{variant:16}{group:4}{tags:resistance}Topaz Flasks applied to you have (20-80)% increased Effect
+{version:1}{variant:2}{group:1}10% chance to Ignite during any Flask Effect
+{version:2}{variant:2}{group:1}(20-30)% chance to Ignite during any Flask Effect
+{version:1}{variant:3}{group:1}10% chance to Freeze during any Flask Effect
+{version:2}{variant:3}{group:1}(20-30)% chance to Freeze during any Flask Effect
+{version:1}{variant:4}{group:1}10% chance to Shock during any Flask Effect
+{version:2}{variant:4}{group:1}(20-30)% chance to Shock during any Flask Effect
+{version:1,2}{variant:1}{group:1}25% reduced Enemy Stun Threshold during any Flask Effect
+Corrupted
 ]],[[
 The Druggery
 Cloth Belt

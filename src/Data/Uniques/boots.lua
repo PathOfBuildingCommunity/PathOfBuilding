@@ -880,26 +880,29 @@ Socketed Gems are Supported by Level 25 Divine Blessing Support
 ]],[[
 Ralakesh's Impatience
 Riveted Boots
-Variant: Pre 3.19.0
-Variant: Pre 3.26.0
-Variant: Pre 3.30.0 Endurance
-Variant: Pre 3.30.0 Frenzy
-Variant: Pre 3.30.0 Power
-Variant: Endurance Current
-Variant: Frenzy Current
-Variant: Power Current
+Version: Pre 3.19.0
+Version: Pre 3.26.0
+Version: Pre 3.30.0
+Version: Current
+Variant: Endurance
+Variant: Frenzy
+Variant: Power
+Selected Variant Group: 1=3
 +(15-25)% to Cold Resistance
 +(15-25)% to Chaos Resistance
-{variant:3,4,5,6,7,8}(15-25)% increased Movement Speed
-{variant:3,4,5,6,7,8}Corrupted Blood cannot be inflicted on you
-{variant:6}-1 to Maximum Endurance Charges
-{variant:7}-1 to Maximum Frenzy Charges
-{variant:8}-1 to Maximum Power Charges
-{variant:1,2,3,6}Count as having maximum number of Endurance Charges
-{variant:1,2,4,7}Count as having maximum number of Frenzy Charges
-{variant:1,2,5,8}Count as having maximum number of Power Charges
-{variant:1}Gain a Frenzy, Endurance, or Power Charge once per second while you are Stationary
-{variant:1}Lose all Frenzy, Endurance, and Power Charges when you Move
+{version:3,4}(15-25)% increased Movement Speed
+{version:3,4}Corrupted Blood cannot be inflicted on you
+{version:4}{variant:1}{group:1}-1 to Maximum Endurance Charges
+{version:4}{variant:2}{group:1}-1 to Maximum Frenzy Charges
+{version:4}{variant:3}{group:1}-1 to Maximum Power Charges
+{version:1,2}Count as having maximum number of Endurance Charges
+{version:1,2}Count as having maximum number of Frenzy Charges
+{version:1,2}Count as having maximum number of Power Charges
+{version:3,4}{variant:1}{group:1}Count as having maximum number of Endurance Charges
+{version:3,4}{variant:2}{group:1}Count as having maximum number of Frenzy Charges
+{version:3,4}{variant:3}{group:1}Count as having maximum number of Power Charges
+{version:1}Gain a Frenzy, Endurance, or Power Charge once per second while you are Stationary
+{version:1}Lose all Frenzy, Endurance, and Power Charges when you Move
 ]],[[
 Wake of Destruction
 Mesh Boots

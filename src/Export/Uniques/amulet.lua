@@ -356,20 +356,22 @@ IncreasedManaEmptyBlueSocketUnique__1
 ]],[[
 Doedre's Tongue
 Lapis Amulet
-Variant: Pre 3.30.0
-Variant: Current (Ignite)
-Variant: Current (Shock)
-Variant: Current (Freeze)
+Version: Pre 3.30.0
+Version: Current
+Variant: Ignite
+Variant: Shock
+Variant: Freeze
+Selected Variant Group: 1=3
 Implicits: 1
 IntelligenceImplicitAmulet1
-{variant:1}AllResistancesUnique__27[20,25]
-{variant:2,3,4}AllResistancesUnique__27
-{variant:1}ChanceToFreezeShockIgniteUnique__2[20,25]
-{variant:2,3,4}ChanceToFreezeShockIgniteUnique__2
+{version:1}AllResistancesUnique__27[20,25]
+{version:2}AllResistancesUnique__27
+{version:1}ChanceToFreezeShockIgniteUnique__2[20,25]
+{version:2}ChanceToFreezeShockIgniteUnique__2
 CursedEnemiesCannotInflictElementalAilmentsUnique__1
-{variant:2}AllDamageAgainstCursedEnemiesCanIgniteUnique__1
-{variant:3}AllDamageAgainstCursedEnemiesCanShockUnique__1
-{variant:4}AllDamageAgainstCursedEnemiesCanFreezeUnique__1
+{version:2}{variant:1}{group:1}AllDamageAgainstCursedEnemiesCanIgniteUnique__1
+{version:2}{variant:2}{group:1}AllDamageAgainstCursedEnemiesCanShockUnique__1
+{version:2}{variant:3}{group:1}AllDamageAgainstCursedEnemiesCanFreezeUnique__1
 ]],[[
 Extractor Mentis
 Agate Amulet
