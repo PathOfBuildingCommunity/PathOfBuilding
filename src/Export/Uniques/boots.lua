@@ -863,20 +863,29 @@ MovementVelocityUnique__39_
 ]],[[
 Ralakesh's Impatience
 Riveted Boots
-Variant: Pre 3.19.0
-Variant: Pre 3.26.0
-Variant: Endurance Current
-Variant: Frenzy Current
-Variant: Power Current
+Version: Pre 3.19.0
+Version: Pre 3.26.0
+Version: Pre 3.30.0
+Version: Current
+Variant: Endurance
+Variant: Frenzy
+Variant: Power
+Selected Variant Group: 1=3
 ColdResistUnique__19
 ChaosResistUnique__7
-{variant:3,4,5}MovementVelocityUnique__57
-{variant:3,4,5}CorruptedBloodImmunityUnique_1
-{variant:1,2,3}CountAsHavingMaxEnduranceChargesUnique__1
-{variant:1,2,4}CountAsHavingMaxFrenzyChargesUnique__1
-{variant:1,2,5}CountAsHavingMaxPowerChargesUnique__1
-{variant:1}GainARandomChargePerSecondWhileStationaryUnique__1
-{variant:1}Lose all Frenzy, Endurance, and Power Charges when you Move
+{version:3,4}MovementVelocityUnique__57
+{version:3,4}CorruptedBloodImmunityUnique_1
+{version:1,2}CountAsHavingMaxEnduranceChargesUnique__1
+{version:1,2}CountAsHavingMaxFrenzyChargesUnique__1
+{version:1,2}CountAsHavingMaxPowerChargesUnique__1
+{version:3}{variant:1}{group:1}CountAsHavingMaxEnduranceChargesUnique__1
+{version:3}{variant:2}{group:1}CountAsHavingMaxFrenzyChargesUnique__1
+{version:3}{variant:3}{group:1}CountAsHavingMaxPowerChargesUnique__1
+{version:4}{variant:1}{group:1}CountAsHavingMaxEnduranceChargesNewUnique__1
+{version:4}{variant:2}{group:1}CountAsHavingMaxFrenzyChargesNewUnique__1
+{version:4}{variant:3}{group:1}CountAsHavingMaxPowerChargesNewUnique__1
+{version:1}GainARandomChargePerSecondWhileStationaryUnique__1
+{version:1}Lose all Frenzy, Endurance, and Power Charges when you Move
 ]],[[
 Wake of Destruction
 Mesh Boots

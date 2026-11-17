@@ -1181,11 +1181,12 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 				end
 			end
 		end
-		-- ignore cluster jewel nodes that don't have an id in the tree
+		-- ignore cluster jewel nodes that don't have an id in the tree, and
+		-- Putrid Seed nodes which replace tree proxy nodes
 		local treeNode = self.tree.nodes[id]
 		-- skip updating unallocated masteries which don't have a runegraft
 		local isUnallocatedMastery = node.allMasteryOptions and node.type == "Mastery" and not self.hashOverrides[id]
-		if treeNode and not isUnallocatedMastery then
+		if treeNode and not treeNode.isProxy and not isUnallocatedMastery then
 			self:ReplaceNode(node,self.tree.nodes[id])
 		end
 		node.conqueredBy = abyssConquests[id]
@@ -1846,9 +1847,11 @@ function PassiveSpecClass:BuildClusterJewelGraphs()
 				end
 			end
 		end
-		local index = isValueInArray(subGraph.parentSocket.linked, subGraph.entranceNode)
-		assert(index, "Entrance for subGraph not linked to parent socket???")
-		t_remove(subGraph.parentSocket.linked, index)
+		for _, entranceNode in ipairs(subGraph.entranceNodes or { subGraph.entranceNode }) do
+			local index = isValueInArray(subGraph.parentSocket.linked, entranceNode)
+			assert(index, "Entrance for subGraph not linked to parent socket???")
+			t_remove(subGraph.parentSocket.linked, index)
+		end
 	end
 	wipeTable(self.subGraphs)
 	self.ignoreAllocatingSubgraph = false -- reset after subGraph logic
@@ -1873,6 +1876,8 @@ function PassiveSpecClass:BuildClusterJewelGraphs()
 		if node and self.allocNodes[node.id] and node.expansionJewel and node.expansionJewel.size == 2 and jewel and jewel.jewelData.clusterJewelValid then
 			-- This is a Large Jewel Socket, and it has a cluster jewel in it
 			self:BuildSubgraph(jewel, self.nodes[nodeId], nil, nil, importedNodes, importedGroups)
+		elseif node and self.allocNodes[node.id] and jewel and jewel.jewelData.blightcoreNotables then
+			self:BuildBlightcoreSubgraph(jewel, self.nodes[nodeId])
 		end
 	end
 
@@ -1903,6 +1908,62 @@ function PassiveSpecClass:BuildClusterJewelGraphs()
 	self:EndLegacyClusterHashConversion()
 end
 
+-- Adds the proxy passives a Putrid Seed grows from a Large Jewel Socket Unlike
+-- cluster jewels, these are fixed tree nodes. The notables allocate the jewel's
+-- granted notables
+function PassiveSpecClass:BuildBlightcoreSubgraph(jewel, parentSocket)
+	local layout = self.tree.blightcoreLayouts[parentSocket.id]
+	if not layout then
+		return
+	end
+	local subGraph = {
+		nodes = {},
+		group = { x = parentSocket.x, y = parentSocket.y, oo = {} },
+		connectors = {},
+		parentSocket = parentSocket,
+		entranceNodes = {},
+	}
+	self.subGraphs[parentSocket.id] = subGraph
+
+	-- a map of what "added passive skill is *" enchant index each node uses
+	local notableIndex = self.build.data.clusterJewels.blightcoreNotableIndex
+	for _, treeNode in ipairs(layout) do
+		-- copy the node and replace it so that it allocates the anointed node
+		-- nodes without a matching anoint stay as "mycelial growths"
+		local node = setmetatable({ linked = {}, power = {}, isProxy = false, isBlightcore = true }, treeNode)
+		local index = notableIndex and notableIndex[treeNode.id]
+		local notable = index and jewel.jewelData.blightcoreNotables[index] and self.tree.notableMap[jewel.jewelData.blightcoreNotables[index]]
+		if notable then
+			node.dn = notable.dn
+			node.name = notable.name
+			node.icon = notable.icon
+			node.sprites = notable.sprites
+			node.sd = { "Allocates " .. notable.dn }
+			self.tree:ProcessStats(node)
+		end
+		t_insert(subGraph.nodes, node)
+		self.nodes[node.id] = node
+	end
+
+	-- connect nodes in the same group to each other
+	for _, node in ipairs(subGraph.nodes) do
+		for _, otherId in ipairs(node.linkedId) do
+			local other = self.nodes[otherId]
+			if other and (other == parentSocket or other.proxyKey == node.proxyKey) and not isValueInArray(node.linked, other) then
+				t_insert(node.linked, other)
+				t_insert(other.linked, node)
+				if other == parentSocket then
+					t_insert(subGraph.entranceNodes, node)
+				end
+				local connectors = self.tree:BuildConnector(node, other)
+				t_insert(subGraph.connectors, connectors[1])
+				if connectors[2] then
+					t_insert(subGraph.connectors, connectors[2])
+				end
+			end
+		end
+	end
+end
 -- Finds a specific expansion socket entry within a passive-tree group.
 function PassiveSpecClass:FindClusterSocket(group, index)
 	for _, nodeId in ipairs(group.n) do

@@ -72,6 +72,22 @@ end
 ---@field points table<string, integer>
 local PassiveTreeClass = newClass("PassiveTree")
 
+---@param t table<string, any>
+---@return table<number|string, any>
+local function convertKeysToNumbers(t)
+	local keys = {}
+	for key, _ in pairs(t) do
+		table.insert(keys, key)
+	end
+	for _, key in ipairs(keys) do
+		local num = tonumber(key)
+		if num then
+			t[num] = t[key]
+			t[key] = nil
+		end
+	end
+	return t
+end
 function PassiveTreeClass:PassiveTree(treeVersion)
 	self.treeVersion = treeVersion
 	local versionNum = treeVersions[treeVersion].num
@@ -98,16 +114,25 @@ function PassiveTreeClass:PassiveTree(treeVersion)
 			ConPrintf("Downloading passive tree data...")
 			page = getFile("https://www.pathofexile.com/passive-skill-tree")
 		end
-		local treeData = page:match("var passiveSkillTreeData = (%b{})")
-		if treeData then
-			treeText = "local tree=" .. jsonToLua(page:match("var passiveSkillTreeData = (%b{})"))
-			treeText = treeText .. "return tree"
-		else
-			treeText = "return " .. jsonToLua(page)
+		local treeData = page:match("var passiveSkillTreeData = (%b{})") or page
+		-- strip ggg tooltip tags
+		local dkjson = require("dkjson")
+		local utils = require("Modules.Utils")
+		local json = dkjson.decode(treeData)
+		for _, node in pairs(json.nodes) do
+			if node.masteryEffects then
+				for _, fx in ipairs(node.masteryEffects) do
+					for i, stat in ipairs(fx.stats) do
+						fx.stats[i] = escapeGGGString(stat)
+					end
+				end
+			end
 		end
-		treeFile = io.open("TreeData/"..treeVersion.."/tree.lua", "w")
-		treeFile:write(treeText)
-		treeFile:close()
+		-- convert node and group keys to numbers
+		convertKeysToNumbers(json.nodes)
+		convertKeysToNumbers(json.groups)
+		local _, contents = utils.saveTableToFile("TreeData/" .. treeVersion .. "/tree.lua", json, nil, true)
+		treeText = contents
 	end
 	for k, v in pairs(assert(loadstring(treeText))()) do
 		self[k] = v
@@ -649,6 +674,28 @@ function PassiveTreeClass:PassiveTree(treeVersion)
 				otherId = tonumber(otherId)
 			end
 			t_insert(node.linkedId, otherId)
+		end
+	end
+
+	-- Map each Large Jewel Socket to the proxy passives a Putrid Seed grows from it
+	local blightcoreNodes = { }
+	for _, node in pairs(self.nodes) do
+		if node.proxyKey and node.proxyKey:match("^Blightcore") then
+			-- group by proxy key (e.g. "BlightcoreTopRight")
+			blightcoreNodes[node.proxyKey] = blightcoreNodes[node.proxyKey] or { }
+			t_insert(blightcoreNodes[node.proxyKey], node)
+		end
+	end
+	-- a table describing what putrid seed proxy nodes are attached to each
+	self.blightcoreLayouts = { }
+	for _, layout in pairs(blightcoreNodes) do
+		for _, node in ipairs(layout) do
+			for _, otherId in ipairs(node.linkedId) do
+				-- link the proxy nodes to the large jewel socket node
+				if self.sockets[otherId] then
+					self.blightcoreLayouts[otherId] = layout
+				end
+			end
 		end
 	end
 

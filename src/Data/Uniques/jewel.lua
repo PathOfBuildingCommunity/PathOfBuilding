@@ -1083,8 +1083,8 @@ Limited to: 1
 Radius: Medium
 (10-15)% increased Global Physical Damage
 With at least 40 Strength in Radius, Hits with Cleave Fortify
-With at least 40 Strength in Radius, Cleave has +0.1 metres to Radius per Nearby
-Enemy, up to a maximum of +1 metre
+With at least 40 Strength in Radius, Cleave has +0.1 metres to Radius per
+Enemy within 2 metres, up to a maximum of +1 metre
 ]],[[
 Pitch Darkness
 Viridian Jewel
@@ -1153,8 +1153,7 @@ Variant: Current
 Radius: Medium
 {variant:1}(5-15)% increased Cold Damage
 {variant:2}(10-15)% increased Cold Damage
-With at least 40 Strength in Radius, 20% increased
-Rarity of Items dropped by Enemies Shattered by Glacial Hammer
+With at least 40 Strength in Radius, +20% to Rarity of Items dropped by Enemies Shattered by Glacial Hammer
 ]],[[
 Spirit Guards
 Viridian Jewel
@@ -1229,9 +1228,9 @@ Variant: Current
 Limited to: 1
 Radius: Medium
 (8-15)% increased Armour
-{variant:1}With at least 40 Strength in Radius, Hits with Vigilant Strike Fortify you and Nearby Allies for 3 seconds
-{variant:2}With at least 40 Strength in Radius, Hits with Vigilant Strike Fortify you and Nearby Allies for 12 seconds
-{variant:3}With at least 40 Strength in Radius, Hits with Vigilant Strike Fortify you and Nearby Allies for 8 seconds
+{variant:1}With at least 40 Strength in Radius, Hits with Vigilant Strike Fortify you and Allies within a 10 metre base radius for 3 seconds
+{variant:2}With at least 40 Strength in Radius, Hits with Vigilant Strike Fortify you and Allies within a 10 metre base radius for 12 seconds
+{variant:3}With at least 40 Strength in Radius, Hits with Vigilant Strike Fortify you and Allies within a 10 metre base radius for 8 seconds
 ]],[[
 Violent Dead
 Cobalt Jewel
@@ -1867,13 +1866,13 @@ Limited to: 1 Historic
 Variant: Doryani (Corrupted Soul)
 Variant: Xibaqua (Divine Flesh)
 Variant: Zerphi (Eternal Youth) (Pre 3.11.0)
-Variant: Ahuana (Immortal Ambition)
+Variant: Mazcotl (Immortal Ambition)
 Radius: Large
 Implicits: 0
 {variant:1}Bathed in the blood of (100-8000) sacrificed in the name of Doryani
 {variant:2}Bathed in the blood of (100-8000) sacrificed in the name of Xibaqua
 {variant:3}Bathed in the blood of (100-8000) sacrificed in the name of Zerphi
-{variant:4}Bathed in the blood of (100-8000) sacrificed in the name of Ahuana
+{variant:4}Bathed in the blood of (100-8000) sacrificed in the name of Mazcotl
 Passives in radius are Conquered by the Vaal
 Historic
 ]],[[
@@ -2022,5 +2021,13 @@ Crafted: true
 League: Affliction
 Limited to: 1
 Implicits: 0
+]],[[
+Putrid Seed
+Mycelium Core
+League: Covens
+Source: Drops from unique{Effulgent Blightworm} in a Mycotic Blight encounter
+Limited to: 1
+Grows four random Passive Skills when Anointed
+Passive Skills grown are influenced by Oils used when Anointing
 ]]
 }
