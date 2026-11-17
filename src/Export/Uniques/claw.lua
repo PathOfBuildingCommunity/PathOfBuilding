@@ -361,5 +361,50 @@ LocalIncreasedAttackSpeedUniqueClaw9
 DamageWithMovementSkillsUniqueClaw9
 AttackSpeedWithMovementSkillsUniqueClaw9
 AccuracyPercentUniqueClaw9
+]],[[
+The Covetous Dark
+Eye Gouger
+League: Covens
+Source: Drops from unique{The Coven Queen}
+Has Alt Variant: true
+Has Alt Variant Two: true
+Selected Variant: 2
+Selected Alt Variant: 1
+Selected Alt Variant Two: 1
+Variant: None
+Variant: Two Modifiers remaining
+Variant: One Modifier remaining
+Variant: The Shaper
+Variant: Uber Elder
+Variant: Venarius
+Variant: Sirus Body
+Variant: Sirus Mind
+Variant: Sirus Soul
+Variant: The Maven
+Variant: The Searing Exarch
+Variant: The Eater of Worlds
+Variant: Incarnation of Neglect
+Variant: Incarnation of Fear
+Variant: Incarnation of Dread
+Implicits: 1
+LifeGainPerTargetImplicit2Claw12
+LocalIncreasedPhysicalDamagePercentUnique__60
+LocalAddedPhyiscalDamageUnique__45
+InflictPermanentBlindUnique__1
+BlindingHitUniqueClaw1
+{variant:2}EyethiefMod_Replace__1
+{variant:3}EyethiefMod_Replace__2
+{variant:4}EyethiefModShaperUnique__1
+{variant:5}EyethiefModElderUnique__1
+{variant:6}EyethiefModCortexUnique__1
+{variant:7}EyethiefModSirusUnique__1
+{variant:8}EyethiefModSirusUnique__2
+{variant:9}EyethiefModSirusUnique__3
+{variant:10}EyethiefModMavenUnique__1
+{variant:11}EyethiefModExarchUnique__1
+{variant:12}EyethiefModEaterUnique__1
+{variant:13}EyethiefModIgnoranceBossUnique__1
+{variant:14}EyethiefModAngerBossUnique__1
+{variant:15}EyethiefModBenevolenceBossUnique__1
 ]],
 }

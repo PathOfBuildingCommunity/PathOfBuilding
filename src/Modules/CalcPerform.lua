@@ -3831,6 +3831,9 @@ function calcs.perform(env, skipEHP)
 	end
 
 	if env.minion then
+		if modDB:Flag(nil, "MinionsGainYourSpellSuppressionChance") then
+			env.minion.modDB:NewMod("SpellSuppressionChance", "BASE", env.player.output.SpellSuppressionChance, "Player")
+		end
 		calcs.defence(env, env.minion)
 		if not skipEHP then -- main.build.calcsTab.input.showMinion and -- should be disabled unless "calcsTab.input.showMinion" is true
 			calcs.buildDefenceEstimations(env, env.minion)

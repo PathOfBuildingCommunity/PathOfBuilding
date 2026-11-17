@@ -300,7 +300,7 @@ Source: Drops from unique{The Trialmaster}
 Implicits: 2
 {variant:1}(15-19)% increased Spell Damage
 {variant:2}(17-21)% increased Spell Damage
-Grants Blood Sacrament
+Grants Level 1 Blood Sacrament
 Your Critical Strike Chance is Lucky while on Low Life
 ]],[[
 Amplification Rod
@@ -498,5 +498,16 @@ Implicits: 2
 +1 to Maximum Power Charges
 {variant:1,2}25% increased Spell Damage per Power Charge
 {variant:3}(10-15)% increased Spell Damage per Power Charge
-]],
+]], [[
+Corpse Rose
+Imbued Wand
+League: Covens
+Source: Drops from a boss empowered by a Fate that rewards this item
+Implicits: 1
+(33-37)% increased Spell Damage
+Trigger Level 20 Goreblossom after spending (10-20)% of your Maximum Life on Spells
+(20-30)% increased Cast Speed
+Skills Cost Life instead of 50% of Mana Cost
+Goreblossom has +(1-3) maximum Bloom
+]]
 }

@@ -9256,6 +9256,27 @@ return {
 			refTo="",
 			type="Bool",
 			width=150
+		},
+		[65]={
+			list=true,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[66]={
+			list=true,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[67]={
+			list=false,
+			name="ShowGrantedEffects",
+			refTo="",
+			type="Bool",
+			width=150
 		}
 	},
 	modsellpricetypes={

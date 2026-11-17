@@ -581,5 +581,17 @@ Restores Ward on use
 Debilitate Enemies within 3 metres for 2 Seconds when Effect ends
 Effect is removed when Ward Breaks
 Culling Strike during Effect
-]],
+]],[[
+Dreadmaidens' Sacrament
+Basalt Flask
+League: Covens
+Source: Drops from a boss empowered by a Fate that rewards this item
+Requires Level 36
+Implicits: 1
+Taunts Enemies within 3 metres on use
+Gain (4-6) Charges when you are Hit by an Enemy
+Removes (10-20)% of Life when Used
+(4-6)% chance for a damaging Retaliation skill to
+become usable for every 100 life removed this way
+]]
 }

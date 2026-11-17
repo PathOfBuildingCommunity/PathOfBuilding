@@ -13,7 +13,7 @@ Variant: Current
 Source: Vendor Recipe
 Implicits: 1
 {variant:3,4,5}+(15-25)% to Global Critical Strike Multiplier
-{variant:4,5}Grants Dash
+{variant:4,5}Grants Level 30 Dash
 {variant:1}Adds (60-70) to (180-210) Physical Damage
 {variant:2,3,4}Adds (95-115) to (240-265) Physical Damage
 {variant:5}Adds (80-100) to (200-225) Physical Damage

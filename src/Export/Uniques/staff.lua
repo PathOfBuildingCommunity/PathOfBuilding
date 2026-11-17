@@ -780,5 +780,16 @@ Crafted: true
 Implicits: 1
 StaffBlockPercentImplicitStaff2
 LocalVeiledModEffectUnique__1
+]],[[
+Bane of the Apostate
+Judgement Staff
+League: Covens
+Source: Drops from unique{The Coven Queen}
+Implicits: 1
+StaffBlockPercentImplicitStaff3
+FireDamagePercentUnique__16
+AreaOfEffectUnique__11
+SkillEffectDurationUnique__4
+GrantsCreateGrimBonfireSkillUnique__1
 ]]
 }
