@@ -14580,10 +14580,10 @@ c["Banners also grant 1% of Physical Damage gained as Extra Fire Damage to you a
 c["Base Critical Strike Chance for Attacks with Weapons is 8%"]={{[1]={flags=0,keywordFlags=0,name="WeaponBaseCritChance",type="OVERRIDE",value=8}},nil}
 c["Base Ignite Duration is 1 second"]={{[1]={flags=0,keywordFlags=0,name="IgniteDurationBase",type="OVERRIDE",value=1}},nil}
 c["Base Spell Critical Strike Chance of Spells is equal to that of Main Hand Weapon"]={{[1]={flags=2,keywordFlags=0,name="BaseCritFromMainHand",type="FLAG",value=true}},nil}
-c["Bathed in the blood of 0 sacrificed in the name of 0 Passives in radius are Conquered by the 1"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="conqueredBy",value={id=0}}}},nil}
-c["Bathed in the blood of 4050 sacrificed in the name of Ahuana"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="conqueredBy",value={conqueror={id="2_v2",type="vaal"},id=4050}}}},nil}
-c["Bathed in the blood of 8000 sacrificed in the name of Ahuana"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="conqueredBy",value={conqueror={id="2_v2",type="vaal"},id=8000}}}},nil}
+c["Bathed in the blood of 0 sacrificed in the name of 0 Passives in radius are Conquered by the 1"]={nil,nil}
+c["Bathed in the blood of 4050 sacrificed in the name of Mazcotl"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="conqueredBy",value={conqueror={id="2_v2",type="vaal"},id=4050}}}},nil}
 c["Bathed in the blood of 8000 sacrificed in the name of Doryani"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="conqueredBy",value={conqueror={id=3,type="vaal"},id=8000}}}},nil}
+c["Bathed in the blood of 8000 sacrificed in the name of Mazcotl"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="conqueredBy",value={conqueror={id="2_v2",type="vaal"},id=8000}}}},nil}
 c["Bathed in the blood of 8000 sacrificed in the name of Xibaqua"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="conqueredBy",value={conqueror={id=1,type="vaal"},id=8000}}}},nil}
 c["Bathed in the blood of 8000 sacrificed in the name of Zerphi"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="conqueredBy",value={conqueror={id=2,type="vaal"},id=8000}}}},nil}
 c["Battlemage"]={{[1]={flags=0,keywordFlags=0,name="Battlemage",type="FLAG",value=true},[2]={flags=0,keywordFlags=0,name="MainHandWeaponDamageAppliesToSpells",type="MAX",value=100}},nil}
@@ -14983,13 +14983,13 @@ c["Cold Skills have 20% chance to Poison on Hit"]={{[1]={flags=0,keywordFlags=64
 c["Cold Skills have a 25% chance to apply Cold Exposure on Hit"]={{[1]={flags=0,keywordFlags=0,name="ColdExposureChance",type="BASE",value=25}},nil}
 c["Cold-only Splash Damage to surrounding targets"]={nil,"Cold-only Splash Damage to surrounding targets "}
 c["Cold-only Splash Damage to surrounding targets With at least 40 Strength in Radius, 25% of Glacial"]={nil,"Cold-only Splash Damage to surrounding targets With at least 40 Strength in Radius, 25% of Glacial "}
-c["Commanded leadership over 0 warriors under 0 Passives in radius are Conquered by the 2"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="conqueredBy",value={id=0}}}},nil}
+c["Commanded leadership over 0 warriors under 0 Passives in radius are Conquered by the 2"]={nil,nil}
 c["Commanded leadership over 14000 warriors under Akoya"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="conqueredBy",value={conqueror={id="3_v2",type="karui"},id=14000}}}},nil}
 c["Commanded leadership over 18000 warriors under Akoya"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="conqueredBy",value={conqueror={id="3_v2",type="karui"},id=18000}}}},nil}
 c["Commanded leadership over 18000 warriors under Kaom"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="conqueredBy",value={conqueror={id=1,type="karui"},id=18000}}}},nil}
 c["Commanded leadership over 18000 warriors under Kiloava"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="conqueredBy",value={conqueror={id=3,type="karui"},id=18000}}}},nil}
 c["Commanded leadership over 18000 warriors under Rakiata"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="conqueredBy",value={conqueror={id=2,type="karui"},id=18000}}}},nil}
-c["Commissioned 0 coins to commemorate 0 Passives in radius are Conquered by the 5"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="conqueredBy",value={id=0}}}},nil}
+c["Commissioned 0 coins to commemorate 0 Passives in radius are Conquered by the 5"]={nil,nil}
 c["Commissioned 160000 coins to commemorate Cadiro"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="conqueredBy",value={conqueror={id=1,type="eternal"},id=160000}}}},nil}
 c["Commissioned 160000 coins to commemorate Caspiro"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="conqueredBy",value={conqueror={id="3_v2",type="eternal"},id=160000}}}},nil}
 c["Commissioned 160000 coins to commemorate Chitus"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="conqueredBy",value={conqueror={id=3,type="eternal"},id=160000}}}},nil}
@@ -15347,7 +15347,7 @@ c["Debuffs on you expire 90% faster"]={{[1]={flags=0,keywordFlags=0,name="SelfDe
 c["Defences are Zero"]={{[1]={flags=0,keywordFlags=0,name="Armour",type="MORE",value=-100},[2]={flags=0,keywordFlags=0,name="EnergyShield",type="MORE",value=-100},[3]={flags=0,keywordFlags=0,name="Evasion",type="MORE",value=-100},[4]={flags=0,keywordFlags=0,name="Ward",type="MORE",value=-100}},nil}
 c["Defend with 120% of Armour against Projectile Attacks"]={nil,"Defend with 120% of Armour against Projectile Attacks "}
 c["Defend with 120% of Armour against Projectile Attacks 5% more chance to Evade Melee Attacks"]={nil,"Defend with 120% of Armour against Projectile Attacks 5% more chance to Evade Melee Attacks "}
-c["Denoted service of 0 dekhara in the akhara of 0 Passives in radius are Conquered by the 3"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="conqueredBy",value={id=0}}}},nil}
+c["Denoted service of 0 dekhara in the akhara of 0 Passives in radius are Conquered by the 3"]={nil,nil}
 c["Denoted service of 4250 dekhara in the akhara of Balbala"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="conqueredBy",value={conqueror={id="1_v2",type="maraketh"},id=4250}}}},nil}
 c["Denoted service of 8000 dekhara in the akhara of Asenath"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="conqueredBy",value={conqueror={id=2,type="maraketh"},id=8000}}}},nil}
 c["Denoted service of 8000 dekhara in the akhara of Balbala"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="conqueredBy",value={conqueror={id="1_v2",type="maraketh"},id=8000}}}},nil}
@@ -19612,7 +19612,7 @@ c["Regenerate 9 Mana per second"]={{[1]={flags=0,keywordFlags=0,name="ManaRegen"
 c["Regenerate 9.4 Life per second"]={{[1]={flags=0,keywordFlags=0,name="LifeRegen",type="BASE",value=9.4}},nil}
 c["Regenerate 90 Energy Shield per second"]={{[1]={flags=0,keywordFlags=0,name="EnergyShieldRegen",type="BASE",value=90}},nil}
 c["Regenerate 90 Life per second"]={{[1]={flags=0,keywordFlags=0,name="LifeRegen",type="BASE",value=90}},nil}
-c["Remembrancing 0 songworthy deeds by the line of 0 Passives in radius are Conquered by the 6"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="conqueredBy",value={id=0}}}},nil}
+c["Remembrancing 0 songworthy deeds by the line of 0 Passives in radius are Conquered by the 6"]={nil,nil}
 c["Remembrancing 4050 songworthy deeds by the line of Medved"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="conqueredBy",value={conqueror={id=3,type="kalguur"},id=4050}}}},nil}
 c["Remembrancing 8000 songworthy deeds by the line of Medved"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="conqueredBy",value={conqueror={id=3,type="kalguur"},id=8000}}}},nil}
 c["Remembrancing 8000 songworthy deeds by the line of Uhtred"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="conqueredBy",value={conqueror={id=2,type="kalguur"},id=8000}}}},nil}
