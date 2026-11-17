@@ -86,14 +86,6 @@ local function buildModSortList()
 	return sortList, sortStats
 end
 
-local function getCandidateSortContext(itemsTab, statEntry)
-	local slotName = itemsTab:GetComparisonSlotNameForItem(itemsTab.displayItem, true)
-	local useFullDPS = data.powerStatList.RequiresFullDPS(statEntry, itemsTab.build)
-	local calcFunc = itemsTab.build.calcsTab:GetMiscCalculator()
-	local calcBase = calcFunc({ repSlotName = slotName, repItem = itemsTab.displayItem }, useFullDPS)
-	return calcFunc, calcBase, slotName, useFullDPS
-end
-
 ---@class ItemsTab: UndoHandler, ControlHost, Control
 ---@field displayItem Item?
 local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Control")
@@ -2974,7 +2966,7 @@ function ItemsTabClass:EnchantDisplayItem(enchantSlot)
 		item:BuildAndParseRaw()
 		return item
 	end
-	local function getSortValue(entry, stat, statEntry, calcFunc, calcBase, slotName, useFullDPS)
+	local function getSortValue(entry, stat, calcFunc, calcBase, slotName, useFullDPS)
 		entry.sortValues = entry.sortValues or { }
 		if entry.sortValues[stat] ~= nil then
 			return entry.sortValues[stat]
@@ -2996,7 +2988,7 @@ function ItemsTabClass:EnchantDisplayItem(enchantSlot)
 		end
 		item:BuildAndParseRaw()
 		local output = calcFunc({ repSlotName = slotName, repItem = item }, useFullDPS)
-		local value = data.powerStatList.GetValue(output, statEntry, self.build, calcBase)
+		local value = data.powerStatList.GetValue(output, sortStats[stat], self.build, calcBase)
 		entry.sortValues[stat] = value
 		return value
 	end
@@ -3006,10 +2998,12 @@ function ItemsTabClass:EnchantDisplayItem(enchantSlot)
 		end
 		local selected = not selectFirst and enchantmentList[controls.enchantment.selIndex] or nil
 		if stat then
-			local statEntry = sortStats[stat]
-			local calcFunc, calcBase, slotName, useFullDPS = getCandidateSortContext(self, statEntry)
+			local slotName = self:GetComparisonSlotNameForItem(self.displayItem, true)
+			local calcFunc = self.build.calcsTab:GetMiscCalculator()
+			local useFullDPS = data.powerStatList.RequiresFullDPS(sortStats[stat], self.build)
+			local calcBase = calcFunc({ repSlotName = slotName, repItem = self.displayItem }, useFullDPS)
 			for _, entry in ipairs(enchantmentList) do
-				entry.sortValue = getSortValue(entry, stat, statEntry, calcFunc, calcBase, slotName, useFullDPS)
+				entry.sortValue = getSortValue(entry, stat, calcFunc, calcBase, slotName, useFullDPS)
 			end
 			table.sort(enchantmentList, function(a, b)
 				if a.sortValue ~= b.sortValue then
@@ -3354,7 +3348,7 @@ function ItemsTabClass:CorruptDisplayItem()
 			control:SelByValue(entry.val, "mod")
 		end
 	end
-	local function getSortValue(entry, modType, stat, statEntry, calcFunc, calcBase, slotName, useFullDPS)
+	local function getSortValue(entry, modType, stat, calcFunc, calcBase, slotName, useFullDPS)
 		entry.sortValues = entry.sortValues or { }
 		if entry.sortValues[stat] ~= nil then
 			return entry.sortValues[stat]
@@ -3375,17 +3369,17 @@ function ItemsTabClass:CorruptDisplayItem()
 		end
 		item:BuildAndParseRaw()
 		local output = calcFunc({ repSlotName = slotName, repItem = item }, useFullDPS)
-		local value = data.powerStatList.GetValue(output, statEntry, self.build, calcBase)
+		local value = data.powerStatList.GetValue(output, sortStats[stat], self.build, calcBase)
 		entry.sortValues[stat] = value
 		return value
 	end
-	local function sortModType(modType, stat, statEntry, calcFunc, calcBase, slotName, useFullDPS)
+	local function sortModType(modType, stat, calcFunc, calcBase, slotName, useFullDPS)
 		if not implicitList[modType] then
 			return
 		end
 		if stat then
 			for _, entry in ipairs(implicitList[modType]) do
-				entry.sortValue = getSortValue(entry, modType, stat, statEntry, calcFunc, calcBase, slotName, useFullDPS)
+				entry.sortValue = getSortValue(entry, modType, stat, calcFunc, calcBase, slotName, useFullDPS)
 			end
 			table.sort(implicitList[modType], function(a, b)
 				if a.sortValue ~= b.sortValue then
@@ -3403,17 +3397,15 @@ function ItemsTabClass:CorruptDisplayItem()
 		if not controls.implicit1 then
 			return
 		end
-		local statEntry
-		local calcFunc, calcBase, slotName, useFullDPS
-		if stat then
-			statEntry = sortStats[stat]
-			calcFunc, calcBase, slotName, useFullDPS = getCandidateSortContext(self, statEntry)
-		end
+		local slotName = self:GetComparisonSlotNameForItem(self.displayItem, true)
+		local calcFunc = stat and self.build.calcsTab:GetMiscCalculator() or nil
+		local useFullDPS = stat and data.powerStatList.RequiresFullDPS(sortStats[stat], self.build)
+		local calcBase = stat and calcFunc({ repSlotName = slotName, repItem = self.displayItem }, useFullDPS)
 		if currentModType ~= "ScourgeUpside" then
-			sortModType(currentModType, stat, statEntry, calcFunc, calcBase, slotName, useFullDPS)
+			sortModType(currentModType, stat, calcFunc, calcBase, slotName, useFullDPS)
 		else
-			sortModType("ScourgeUpside", stat, statEntry, calcFunc, calcBase, slotName, useFullDPS)
-			sortModType("ScourgeDownside", stat, statEntry, calcFunc, calcBase, slotName, useFullDPS)
+			sortModType("ScourgeUpside", stat, calcFunc, calcBase, slotName, useFullDPS)
+			sortModType("ScourgeDownside", stat, calcFunc, calcBase, slotName, useFullDPS)
 		end
 		if currentModType ~= "ScourgeUpside" then
 			buildCorruptLists(currentModType)
@@ -3674,7 +3666,7 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 			listMod.sortValues = nil
 		end
 	end
-	local function getSortValue(listMod, stat, statEntry, calcFunc, calcBase, slotName, useFullDPS)
+	local function getSortValue(listMod, stat, calcFunc, calcBase, slotName, useFullDPS)
 		listMod.sortValues = listMod.sortValues or { }
 		if listMod.sortValues[stat] ~= nil then
 			return listMod.sortValues[stat]
@@ -3686,7 +3678,7 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 		end
 		item:BuildAndParseRaw()
 		local output = calcFunc({ repSlotName = slotName, repItem = item }, useFullDPS)
-		local value = data.powerStatList.GetValue(output, statEntry, self.build, calcBase)
+		local value = data.powerStatList.GetValue(output, sortStats[stat], self.build, calcBase)
 		listMod.sortValues[stat] = value
 		return value
 	end
@@ -3696,10 +3688,12 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 		end
 		local selected = not selectFirst and modList[controls.modSelect.selIndex] or nil
 		if stat then
-			local statEntry = sortStats[stat]
-			local calcFunc, calcBase, slotName, useFullDPS = getCandidateSortContext(self, statEntry)
+			local slotName = self:GetComparisonSlotNameForItem(self.displayItem, true)
+			local calcFunc = self.build.calcsTab:GetMiscCalculator()
+			local useFullDPS = data.powerStatList.RequiresFullDPS(sortStats[stat], self.build)
+			local calcBase = calcFunc({ repSlotName = slotName, repItem = self.displayItem }, useFullDPS)
 			for _, listMod in ipairs(modList) do
-				listMod.sortValue = getSortValue(listMod, stat, statEntry, calcFunc, calcBase, slotName, useFullDPS)
+				listMod.sortValue = getSortValue(listMod, stat, calcFunc, calcBase, slotName, useFullDPS)
 			end
 			table.sort(modList, function(a, b)
 				if a.sortValue ~= b.sortValue then

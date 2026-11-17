@@ -210,7 +210,7 @@ function M.AddImplicitToDisplayItem(itemsTab, displayItem)
 			t_insert(item.implicitModLines, modLine)
 		end
 	end
-	local function getSortValue(listMod, stat, statEntry, calcFunc, calcBase, slotName, useFullDPS)
+	local function getSortValue(listMod, stat, calcFunc, calcBase, slotName, useFullDPS)
 		listMod.sortValues = listMod.sortValues or {}
 		if listMod.sortValues[stat] ~= nil then
 			return listMod.sortValues[stat]
@@ -220,7 +220,7 @@ function M.AddImplicitToDisplayItem(itemsTab, displayItem)
 		applyCandidateMod(item, listMod)
 		item:BuildAndParseRaw()
 		local output = calcFunc({ repSlotName = slotName, repItem = item }, useFullDPS)
-		local value = data.powerStatList.GetValue(output, statEntry, itemsTab.build, calcBase)
+		local value = data.powerStatList.GetValue(output, sortStats[stat], itemsTab.build, calcBase)
 		listMod.sortValues[stat] = value
 		return value
 	end
@@ -231,14 +231,13 @@ function M.AddImplicitToDisplayItem(itemsTab, displayItem)
 		local selectedGroup = not selectFirst and modGroups[controls.modGroupSelect.selIndex] or nil
 		local selectedMod = not selectFirst and controls.modSelect.list and controls.modSelect.list[controls.modSelect.selIndex] or nil
 		if stat then
-			local statEntry = sortStats[stat]
 			local slotName = displayItem:GetPrimarySlot()
 			local calcFunc = itemsTab.build.calcsTab:GetMiscCalculator()
-			local useFullDPS = data.powerStatList.RequiresFullDPS(statEntry, itemsTab.build)
+			local useFullDPS = data.powerStatList.RequiresFullDPS(sortStats[stat], itemsTab.build)
 			local calcBase = calcFunc({ repSlotName = slotName, repItem = displayItem }, useFullDPS)
 			for _, listMods in ipairs(modList) do
 				for _, listMod in ipairs(listMods) do
-					listMod.sortValue = getSortValue(listMod, stat, statEntry, calcFunc, calcBase, slotName, useFullDPS)
+					listMod.sortValue = getSortValue(listMod, stat, calcFunc, calcBase, slotName, useFullDPS)
 				end
 				table.sort(listMods, function(a, b)
 					if a.sortValue ~= b.sortValue then
