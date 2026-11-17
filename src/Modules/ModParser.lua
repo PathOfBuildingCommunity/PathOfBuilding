@@ -2311,7 +2311,7 @@ local specialModList = {
 	["curse aura skills reserve life instead of mana"] = { flag("BloodMagicReserved", nil, 0, KeywordFlag.Curse, { type = "SkillType", skillType = SkillType.Aura }) },
 	["your travel skills critically strike once every 3 uses"] = { flag("Every3UseCrit", { type = "SkillType", skillType = SkillType.Travel }) },
 	-- ordered fate. technically there is a fourth contextual line specifying
-	-- the skilltypes, but these are assumed here as nothing else uses these
+	-- the skillTypes, but these are assumed here as nothing else uses these
 	-- lines
 	["every second time you cast each spell, gain mana equal to its upfront cost"] = { flag("Every2UseManaCostRefund", { type = "SkillType", skillType = SkillType.Spell }, { type = "SkillType", skillTypeList = { SkillType.HasReservation, SkillType.Duration, SkillType.Channel }, neg = true }) },
 	["every fourth time you cast each spell, damage of its hits is lucky"] = { mod("LuckyHitsChance", "BASE", 25, { type = "SkillType", skillType = SkillType.Spell }, { type = "SkillType", skillTypeList = { SkillType.HasReservation, SkillType.Duration, SkillType.Channel }, neg = true }) },
