@@ -509,9 +509,10 @@ local promptDefs = {
 		arguments = { { name = "guide", description = "Build link (pobb.in, pob.codes, poe.ninja, ...) or build code.", required = true } },
 		text = function(args)
 			return "Compare the build open in Path of Building with this guide build: " .. tostring(args.guide) .. "\n"
-				.. "1. Add it with compare_builds (action add) and read the report (action report) for the stat, tree, item, skill and config differences.\n"
-				.. "2. Summarise what the guide has that the open build lacks, ordered by impact.\n"
-				.. "3. Measure the most important differences with simulate before recommending them, and do not change the build unless asked."
+				.. "1. Read the guide's notes with build_notes (its stages, priorities and advice usually live there).\n"
+				.. "2. Add it with compare_builds (action add), pick the guide's sets for the open build's stage, and read the report (action report) for the stat, tree, item, skill and config differences.\n"
+				.. "3. Summarise what the guide has that the open build lacks, ordered by impact and in line with the guide's own priorities.\n"
+				.. "4. Measure the most important differences with simulate before recommending them, and do not change the build unless asked."
 		end,
 	},
 	{

@@ -435,6 +435,105 @@ T.Tool {
 	end,
 }
 
+-- The notes stored in a build's XML; NotesTab:Load keeps the last text node of <Notes>.
+local function notesFromXML(xmlText)
+	local dbXML, errMsg = common.xml.ParseXML(xmlText)
+	if errMsg or not dbXML or type(dbXML[1]) ~= "table" or dbXML[1].elem ~= "PathOfBuilding" then
+		T.Fail("That is not a Path of Building build (%s).", tostring(errMsg or "no 'PathOfBuilding' root element"))
+	end
+	local notes = ""
+	for _, node in ipairs(dbXML[1]) do
+		if type(node) == "table" and node.elem == "Notes" then
+			for _, child in ipairs(node) do
+				if type(child) == "string" then
+					notes = child
+				end
+			end
+		end
+	end
+	return notes
+end
+
+local function notesResult(text, args, source)
+	text = text:gsub("\r\n", "\n")
+	if not args.keep_colors then
+		text = T.Clean(text)
+	end
+	local offset = args.offset or 0
+	local limit = args.limit or 20000
+	local result = { source = source, length = #text, offset = offset, notes = text:sub(offset + 1, offset + limit) }
+	if offset + limit < #text then
+		result.next_offset = offset + limit
+	end
+	if not text:match("%S") then
+		result.note = "This build has no notes."
+	end
+	return result
+end
+
+T.Tool {
+	name = "build_notes",
+	title = "Read build notes",
+	description = "Reads a build's notes (the Notes tab), where build authors and guides usually explain levelling steps, gear "
+		.. "priorities and how to play. Without a source it reads the open build (including unsaved edits); 'path' reads a saved "
+		.. "build from builds_list without opening it, 'code' a build share code or XML, and 'link' a build link from a site "
+		.. "PoB supports (PoB downloads it), so a guide's notes can be read while the user's own build stays open. PoB colour "
+		.. "codes are removed unless keep_colors is true. Long notes come in pages of characters (offset, next_offset).",
+	readOnly = true,
+	idempotent = true,
+	openWorld = true,
+	needsBuild = false,
+	input = {
+		path = { type = "string", description = "A saved build, as builds_list returns it." },
+		code = { type = "string", maxLength = 2000000, description = "A build share code or build XML." },
+		link = { type = "string", maxLength = 500, description = "A build link (pobb.in, pob.codes, poe.ninja, ...); PoB downloads it." },
+		keep_colors = { type = "boolean", description = "Keep PoB colour codes (^1-^9, ^xRRGGBB) in the text (default false)." },
+		offset = { type = "integer", minimum = 0, description = "Character to start from, for the next page (use next_offset)." },
+		limit = { type = "integer", minimum = 1000, maximum = 100000, description = "Characters to return (default 20000)." },
+	},
+	run = function(args)
+		local sources = (args.path and 1 or 0) + (args.code and 1 or 0) + (args.link and 1 or 0)
+		if sources > 1 then
+			T.Fail("Give at most one of path, code or link.")
+		end
+		if args.path then
+			local relative = buildFolderPath(args.path, "path")
+			if not relative:lower():match("%.xml$") then
+				relative = relative .. ".xml"
+			end
+			local file = io.open(main.buildPath .. relative, "r")
+			if not file then
+				T.Fail("No build file '%s' in the builds folder; use builds_list to find it.", relative)
+			end
+			local xml = file:read("*a")
+			file:close()
+			return notesResult(notesFromXML(xml), args, relative)
+		elseif args.code then
+			return notesResult(notesFromXML(T.DecodeBuildCode(args.code)), args, "code")
+		elseif args.link then
+			local link = args.link:gsub("^%s+", ""):gsub("%s+$", "")
+			local site = T.FindBuildSite(link)
+			if not site then
+				T.Fail("Path of Building does not recognise that link; see build_open for the supported sites.")
+			end
+			return T.Defer(function(resolve)
+				buildSites.DownloadBuild(link, site, function(isSuccess, data)
+					if not isSuccess then
+						return resolve(nil, s_format("Could not download the build from %s: %s", site.label, tostring(data)))
+					end
+					T.Settle(resolve, function()
+						return notesResult(notesFromXML(T.DecodeBuildCode(data)), args, site.label)
+					end)
+				end)
+			end)
+		end
+		local build = T.Build()
+		-- While the Notes tab shows colour codes, its text escapes them (NotesTab:SetShowColorCodes).
+		local text = build.notesTab.controls.edit.buf:gsub("%^_x(%x%x%x%x%x%x)", "^x%1"):gsub("%^_(%d)", "^%1")
+		return notesResult(text, args, "open build")
+	end,
+}
+
 -- Raw output values for a list of field names.
 local function outputValues(output, fields)
 	local values, missing = { }, { }

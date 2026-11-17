@@ -59,6 +59,7 @@ Tools are grouped by the part of the window they work on. Read-only tools are ma
 | | `build_open` | Open a saved build, a code, a build link or a new build |
 | | `build_save` | Save, or save as a new name |
 | | `build_export` | Build share code or XML |
+| | `build_notes` | A build's notes (Notes tab): the open build, a saved build, a code or a build link |
 | Side bar | `build_stats` | The side bar as shown, warnings, raw output values |
 | | `build_edit` | Character level and notes |
 | Calcs | `simulate` | What an item, passives or a flask would change, without changing the build |
