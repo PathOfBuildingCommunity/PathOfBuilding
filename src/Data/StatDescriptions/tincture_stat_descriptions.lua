@@ -62,10 +62,6 @@ return {
 	[3]={
 		[1]={
 			[1]={
-				[1]={
-					k="reminderstring",
-					v="ReminderTextBlind"
-				},
 				limit={
 					[1]={
 						[1]=1,
@@ -133,11 +129,11 @@ return {
 			[1]={
 				limit={
 					[1]={
-						[1]=1,
+						[1]="#",
 						[2]="#"
 					}
 				},
-				text="{0}% increased Rarity of Items found per Mana Burn, up to a maximum of 100%"
+				text="{0:+d}% to Item Rarity per Mana Burn, up to a maximum of 100%"
 			}
 		},
 		stats={
@@ -265,24 +261,11 @@ return {
 			[1]={
 				limit={
 					[1]={
-						[1]=1,
+						[1]="#",
 						[2]="#"
 					}
 				},
-				text="{0}% increased Rarity of Items Dropped by Enemies killed by Melee Weapon Attacks"
-			},
-			[2]={
-				[1]={
-					k="negate",
-					v=1
-				},
-				limit={
-					[1]={
-						[1]="#",
-						[2]=-1
-					}
-				},
-				text="{0}% reduced Rarity of Items Dropped by Enemies killed by Melee Weapon Attacks"
+				text="{0:+d}% to Rarity of Items Dropped from Enemies killed by Melee Weapon Attacks"
 			}
 		},
 		stats={
@@ -329,10 +312,6 @@ return {
 	[15]={
 		[1]={
 			[1]={
-				[1]={
-					k="reminderstring",
-					v="ReminderTextBlindNoDuration"
-				},
 				limit={
 					[1]={
 						[1]=1,
@@ -345,10 +324,6 @@ return {
 				[1]={
 					k="negate",
 					v=1
-				},
-				[2]={
-					k="reminderstring",
-					v="ReminderTextBlindNoDuration"
 				},
 				limit={
 					[1]={
@@ -2078,10 +2053,6 @@ return {
 	[83]={
 		[1]={
 			[1]={
-				[1]={
-					k="reminderstring",
-					v="ReminderTextOnslaught"
-				},
 				limit={
 					[1]={
 						[1]=1,
@@ -2091,10 +2062,6 @@ return {
 				text="{0}% chance to gain Onslaught for 10 seconds on Killing Blow with Melee Weapons"
 			},
 			[2]={
-				[1]={
-					k="reminderstring",
-					v="ReminderTextOnslaught"
-				},
 				limit={
 					[1]={
 						[1]=100,

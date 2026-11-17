@@ -697,6 +697,16 @@ return function(skills, mod, flag, skill)
 	fromItem = true,
 #mods
 
+#skill SupportUniqueSuspendInTimeCanUse Temporal Mirage
+	fromItem = true,
+	statMap = {
+		["skill_can_be_used_by_temporal_mirage"] = {
+			skill("triggeredByTemporalMirage", true),
+		},
+	},
+#baseMod mod("Damage", "MORE", -30)
+#mods
+
 #skill LightningAegis
 #flags spell
 	fromItem = true,
@@ -757,6 +767,17 @@ return function(skills, mod, flag, skill)
 #flags attack projectile area
 	fromItem = true,
 #baseMod flag("CannotSplit")
+#mods
+
+#skill TriggeredMoonfall
+#flags attack projectile area
+	fromItem = true,
+	statMap = {
+		["attack_trigger_on_melee_critical_hit_%"] = {
+			skill("triggeredByCovetousDark", true),
+			skill("triggerOnCrit", true),
+		},
+	},
 #mods
 
 #skill PenanceMark
@@ -1619,6 +1640,30 @@ return function(skills, mod, flag, skill)
 #skill SupportUniqueCastCurseOnCurse Vixen's Entrapment
 #flags spell curse
 	fromItem = true,
+#mods
+
+#skill GrimBonfire Witchhunter's Pyre
+#flags spell projectile area
+	fromItem = true,
+	statMap = {
+		["grim_bonfire_additional_projectile_chance_per_debuff_on_target"] = {
+			mod("DPS", "MORE", nil, 0, 0, { type = "Multiplier", var = "WitchhuntersPyreAdditionalBurningDebuff" }),
+		},
+	},
+#mods
+
+#skill BloodFlower Goreblossom
+#flags spell area duration
+	fromItem = true,
+	statMap = {
+		["blood_flower_physical_dot_multiplier_+_to_grant"] = {
+			mod("PhysicalDotMultiplier", "BASE", nil, 0, 0, { type = "Multiplier", var = "GoreblossomBloom", limitVar = "GoreblossomMaxBlooms" }, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["blood_flower_maximum_flowers"] = {
+			mod("Multiplier:GoreblossomBloom", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+			mod("Multiplier:GoreblossomMaxBlooms", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+		},
+	},
 #mods
 
 #skill SupportTriggerFireSpellOnHit

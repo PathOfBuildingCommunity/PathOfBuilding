@@ -5,9 +5,11 @@ return {
 [[
 Arakaali's Fang
 Fiend Dagger
-Requires Level 53, 58 Dex, 123 Int
-Implicits: 1
-CriticalStrikeChanceImplicitDagger2
+Variant: Pre 3.29.0
+Variant: Current
+Implicits: 2
+{variant:1}CriticalStrikeChanceImplicitDagger2
+{variant:2}CriticalStrikeChanceImplicitDaggerNew2
 SummonSpidersOnKillUnique__1
 LocalIncreasedPhysicalDamagePercentUnique__25
 LocalAddedPhysicalDamageUnique__25
@@ -20,9 +22,9 @@ Variant: Pre 2.2.0
 Variant: Pre 3.20.0
 Variant: Pre 3.28.0
 Variant: Current
-Requires Level 65, 81 Dex, 117 Int
-Implicits: 1
-CriticalStrikeChanceImplicitDagger1
+Implicits: 2
+{variant:1,2,3}CriticalStrikeChanceImplicitDagger1
+{variant:4}CriticalStrikeChanceImplicitDaggerNew1
 {variant:1,2}DegenerationDamageUniqueDagger8
 {variant:1,2}LocalAddedPhysicalDamageUniqueDagger8[50,60][120,140]
 {variant:3,4}LocalAddedPhysicalDamageUniqueDagger8
@@ -30,17 +32,16 @@ LocalCriticalStrikeChanceUniqueDagger8
 {variant:1}CriticalMultiplierUniqueDagger8[10,15]
 {variant:2,3,4}CriticalMultiplierUniqueDagger8
 {variant:3}ChaosResistUniqueDagger8[8,12]
-{variant:4}ChaosResistUniqueDagger8[17,27]
-{variant:1,2,3,4}On Killing a Poisoned Enemy, Enemies within 3 metres are Poisoned 
-{variant:3,4}and nearby Allies Regenerate 400 Life per second
+{variant:4}ChaosResistUniqueDagger8
+{variant:1,2,3,4}PoisonSpreadAndHealOnPoisonedKillUniqueDagger8
 ]],[[
 Bloodplay
 Stiletto
 Variant: Pre 2.6.0
 Variant: Current
-Requires Level 15, 30 Dex, 30 Int
-Implicits: 1
-CriticalStrikeChanceImplicitDagger1
+Implicits: 2
+{variant:1}CriticalStrikeChanceImplicitDagger1
+{variant:2}CriticalStrikeChanceImplicitDaggerNew1
 DexterityUniqueDagger12
 LocalIncreasedPhysicalDamagePercentUniqueDagger12
 LocalAddedPhysicalDamageUniqueDagger12
@@ -53,10 +54,12 @@ Replica Bloodplay
 Stiletto
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 15, 30 Dex, 30 Int
-Implicits: 1
-CriticalStrikeChanceImplicitDagger1
-StrengthUnique__15
+Variant: Pre 3.29.0
+Variant: Current
+Implicits: 2
+{variant:1}CriticalStrikeChanceImplicitDagger1
+{variant:2}CriticalStrikeChanceImplicitDaggerNew1
+StrengthUnique__20_
 LocalIncreasedPhysicalDamagePercentUniqueDagger12
 LocalAddedPhysicalDamageUniqueDagger12
 LocalChanceToBleedUniqueDagger12
@@ -65,19 +68,23 @@ ExtraGore
 ]],[[
 Cold Iron Point
 Ezomyte Dagger
-Requires Level 62, 95 Dex, 131 Int
-Implicits: 1
-CriticalStrikeChanceImplicitDagger1
+Variant: Pre 3.29.0
+Variant: Current
+Implicits: 2
+{variant:1}CriticalStrikeChanceImplicitDagger1
+{variant:2}CriticalStrikeChanceImplicitDaggerNew1
 GlobalPhysicalSpellGemsLevelUnique__1
-DealNoElementalDamageUnique__1
+DealNoElementalDamageUnique__2
 ]],[[
 Replica Cold Iron Point
 Ezomyte Dagger
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 62, 95 Dex, 131 Int
-Implicits: 1
-CriticalStrikeChanceImplicitDagger1
+Variant: Pre 3.29.0
+Variant: Current
+Implicits: 2
+{variant:1}CriticalStrikeChanceImplicitDagger1
+{variant:2}CriticalStrikeChanceImplicitDaggerNew1
 GlobalColdSpellGemsLevelUnique__1
 DealNoColdDamageUnique__1
 ]],[[
@@ -86,9 +93,9 @@ Fiend Dagger
 Variant: Pre 2.2.0
 Variant: Pre 3.0.0
 Variant: Current
-Requires Level 53, 58 Dex, 123 Int
-Implicits: 1
-CriticalStrikeChanceImplicitDagger2
+Implicits: 2
+{variant:1,2}CriticalStrikeChanceImplicitDagger2
+{variant:3}CriticalStrikeChanceImplicitDaggerNew2
 IntelligenceUniqueDagger10_
 SpellDamageUniqueDagger10
 LocalIncreaseSocketedFireGemLevelUniqueDagger10
@@ -103,9 +110,9 @@ League: Legion
 Variant: Pre 3.7.0
 Variant: Pre 3.20.0
 Variant: Current
-Requires Level 66, 95 Dex, 131 Int
-Implicits: 1
-CriticalStrikeChanceImplicitDagger1
+Implicits: 2
+{variant:1,2}CriticalStrikeChanceImplicitDagger1
+{variant:3}CriticalStrikeChanceImplicitDaggerNew1
 {variant:1,2}SpellDamageOnWeaponUniqueDagger1[50,70]
 {variant:3}SpellDamageOnWeaponUniqueDagger1
 {variant:1}LifeGainedFromEnemyDeathUniqueDagger11[10,10]
@@ -123,9 +130,11 @@ CriticalStrikeChanceImplicitDagger1
 ]],[[
 Goredrill
 Skinning Knife
-Requires Level 5, 16 Dex
-Implicits: 1
-CriticalStrikeChanceImplicitDagger1
+Variant: Pre 3.29.0
+Variant: Current
+Implicits: 2
+{variant:1}CriticalStrikeChanceImplicitDagger1
+{variant:2}CriticalStrikeChanceImplicitDaggerNew1
 DexterityUniqueDagger11
 LocalIncreasedPhysicalDamagePercentUniqueDagger11
 LocalAddedPhysicalDamageUniqueDagger11
@@ -136,7 +145,6 @@ CausesBleedingOnCritUniqueDagger11
 Sanguine Gambol
 Skinning Knife
 Source: No longer obtainable
-Requires Level 59
 Implicits: 1
 CriticalStrikeChanceImplicitDagger1
 DexterityUniqueDagger11
@@ -150,9 +158,11 @@ CrimsonDanceIfCritRecentlyUnique__1
 Goblinedge
 Ambusher
 League: Ritual
-Requires Level 60, 113 Dex, 113 Int
-Implicits: 1
-CriticalStrikeChanceImplicitDagger1
+Variant: Pre 3.29.0
+Variant: Current
+Implicits: 2
+{variant:1}CriticalStrikeChanceImplicitDagger1
+{variant:2}CriticalStrikeChanceImplicitDaggerNew1
 LocalIncreasedPhysicalDamagePercentUnique__43
 AttackSpeedFrenzyChargeNotGainedUnique__1
 CriticalStrikeChancePowerChargeNotGainedUnique__1
@@ -165,9 +175,9 @@ Royal Skean
 Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 50, 71 Dex, 102 Int
-Implicits: 1
-CriticalStrikeChanceImplicitDagger1
+Implicits: 2
+{variant:1,2}CriticalStrikeChanceImplicitDagger1
+{variant:3}CriticalStrikeChanceImplicitDaggerNew1
 {variant:1}SpellDamageOnWeaponUniqueDagger4[40,50]
 {variant:2,3}SpellDamageOnWeaponUniqueDagger4
 {variant:1,2}IncreasedEnergyShieldUniqueDagger4
@@ -183,15 +193,15 @@ Variant: Pre 3.19.0
 Variant: Current
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 50, 71 Dex, 102 Int
-Implicits: 1
-CriticalStrikeChanceImplicitDagger1
+Implicits: 2
+{variant:1}CriticalStrikeChanceImplicitDagger1
+{variant:2}CriticalStrikeChanceImplicitDaggerNew1
 SpellDamageOnWeaponUniqueDagger4
 {variant:1}IncreasedEnergyShieldUniqueDagger4
 {variant:1}ReducedEnergyShieldDelayUniqueBodyInt1
 {variant:2}ReducedEnergyShieldDelayUniqueDagger4
 {variant:1}IncreasedLifeUnique__123[40,50]
-{variant:2}IncreasedLifeUnique__123
+{variant:2}IncreasedLifeUnique__107
 ImpaleEffectUnique__1
 ChanceToImpaleWithSpellsUnique__1
 ]],[[
@@ -199,11 +209,13 @@ The Hidden Blade
 Ambusher
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 60, 113 Dex, 113 Int
-Implicits: 1
-CriticalStrikeChanceImplicitDagger1
+Variant: Pre 3.29.0
+Variant: Current
+Implicits: 2
+{variant:1}CriticalStrikeChanceImplicitDagger1
+{variant:2}CriticalStrikeChanceImplicitDaggerNew1
 UniqueSecretBladeGrantHiddenBlade
-DexterityUnique__18
+DexterityUnique__20__
 LocalIncreasedPhysicalDamagePercentUnique__42
 ReducedAttackSpeedWhilePhasingUnique__1
 ]],[[
@@ -213,9 +225,9 @@ Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.26.0
 Variant: Current
-Requires Level 64, 76 Dex, 149 Int
-Implicits: 1
-CriticalStrikeChanceImplicitDagger3
+Implicits: 2
+{variant:1,2,3}CriticalStrikeChanceImplicitDagger3
+{variant:4}CriticalStrikeChanceImplicitDaggerNew3
 BlockWhileDualWieldingUniqueDagger9
 {variant:1}LocalIncreasedPhysicalDamagePercentUniqueDagger9[180,210]
 {variant:2}LocalIncreasedPhysicalDamagePercentUniqueDagger9[210,240]
@@ -223,7 +235,7 @@ BlockWhileDualWieldingUniqueDagger9
 {variant:1,2,3}LocalReducedAttackSpeedUniqueDagger9[10,10]
 {variant:4}LocalReducedAttackSpeedUniqueDagger9
 {variant:4}LocalCriticalStrikeChanceUnique__23
-{variant:4}LocalCriticalMultiplierUniqueDagger4
+{variant:4}CriticalMultiplierUnique__8
 {variant:1,2,3}AllResistancesUniqueDagger9
 {variant:3,4}CauseseBleedingOnCritUniqueDagger9
 {variant:3,4}CausesPoisonOnCritUniqueDagger9
@@ -232,21 +244,25 @@ BlockWhileDualWieldingUniqueDagger9
 ]],[[
 Mightflay
 Flaying Knife
-Requires Level 35, 73 Dex, 51 Int
-Implicits: 1
-CriticalStrikeChanceImplicitDagger1
+Variant: Pre 3.29.0
+Variant: Current
+Implicits: 2
+{variant:1}CriticalStrikeChanceImplicitDagger1
+{variant:2}CriticalStrikeChanceImplicitDaggerNew1
 StrengthUniqueDagger2
-LocalIncreasedPhysicalDamagePercentUniqueDagger3
+LocalIncreasedPhysicalDamagePercentUniqueDagger2
 LocalAddedPhysicalDamageUniqueDagger2
 LifeGainPerTargetUniqueDagger2
 ]],[[
 Taproot
 Ambusher
-Requires Level 60, 113 Dex, 113 Int
-Implicits: 1
-CriticalStrikeChanceImplicitDagger1
-LocalIncreasedPhysicalDamagePercentUnique__20
-LocalIncreasedAttackSpeedUnique__17
+Variant: Pre 3.29.0
+Variant: Current
+Implicits: 2
+{variant:1}CriticalStrikeChanceImplicitDagger1
+{variant:2}CriticalStrikeChanceImplicitDaggerNew1
+LocalIncreasedPhysicalDamagePercentUnique__29
+LocalIncreasedAttackSpeedUnique__22
 PoisonDurationUnique__1_
 AttackDamageManaLeechAgainstPoisonedEnemiesUnique_2
 LifeLeechFromAttackDamageAgainstMaimedEnemiesUnique__1
@@ -258,13 +274,13 @@ Boot Knife
 Variant: Pre 1.1.0
 Variant: Pre 1.3.0
 Variant: Current
-Requires Level 20, 31 Dex, 45 Int
-Implicits: 1
-CriticalStrikeChanceImplicitDagger1
+Implicits: 2
+{variant:1,2}CriticalStrikeChanceImplicitDagger1
+{variant:3}CriticalStrikeChanceImplicitDaggerNew1
 {variant:2}BlockWhileDualWieldingUniqueDagger3[20,20]
 {variant:1,3}BlockWhileDualWieldingUniqueDagger3
 DexterityUniqueDagger3
-LocalIncreasedPhysicalDamagePercentUniqueDagger2
+LocalIncreasedPhysicalDamagePercentUniqueDagger3
 AddedLightningDamageUniqueDagger3
 LocalIncreasedAttackSpeedUniqueDagger3
 CriticalStrikeChanceUniqueDagger3
@@ -273,13 +289,15 @@ Replica Ungil's Gauche
 Boot Knife
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 20, 31 Dex, 45 Int
-Implicits: 1
-CriticalStrikeChanceImplicitDagger1
+Variant: Pre 3.29.0
+Variant: Current
+Implicits: 2
+{variant:1}CriticalStrikeChanceImplicitDagger1
+{variant:2}CriticalStrikeChanceImplicitDaggerNew1
 BlockWhileDualWieldingUnique__2_
 DexterityUniqueDagger3
-LocalIncreasedAttackSpeedUniqueDagger12
-CriticalStrikeChanceImplicitDagger3
+LocalIncreasedAttackSpeedUniqueDagger3
+CriticalStrikeChanceUniqueDagger3
 ChanceToChillAttackersOnBlockUnique__2__
 ChanceToShockAttackersOnBlockUnique__2
 ]],[[
@@ -287,7 +305,6 @@ Vulconus
 Demon Dagger
 Variant: Pre 3.5.0
 Variant: Current
-Requires Level 68, 76 Dex, 149 Int
 Implicits: 1
 CriticalStrikeChanceImplicitDaggerNew2
 LocalAddedPhyiscalDamageUnique__39
@@ -310,11 +327,10 @@ Imperial Skean
 Variant: Pre 3.11.0
 Variant: Pre 3.16.0
 Variant: Current
-Requires Level 66, 95 Dex, 131 Int
 Implicits: 1
 CriticalStrikeChanceImplicitDaggerNew1
 LocalAddedColdDamageUnique__7
-LocalIncreasedAttackSpeedUnique__13
+LocalIncreasedAttackSpeedUnique__23
 {variant:1}IncreasedEvasionRatingUnique__3[300,400]
 {variant:2,3}IncreasedEvasionRatingUnique__3
 {variant:1}IncreasedColdDamageWhileOffhandIsEmpty_[100,100]
@@ -326,13 +342,13 @@ Widowmaker
 Boot Blade
 Variant: Pre 3.0.0
 Variant: Current
-Requires Level 44, 63 Dex, 90 Int
-Implicits: 1
-CriticalStrikeChanceImplicitDagger1
+Implicits: 2
+{variant:1}CriticalStrikeChanceImplicitDagger1
+{variant:2}CriticalStrikeChanceImplicitDaggerNew1
 {variant:1}LocalAddedPhysicalDamageUnique__8[15,25][35,45]
 {variant:2}LocalAddedPhysicalDamageUnique__8
 LocalCriticalStrikeChanceUnique__2
-LocalCriticalMultiplierUniqueDagger4
+CriticalMultiplierUnique__2
 CriticalChanceAgainstEnemiesOnFullLifeUnique__1
 CriticalStrikeAttackLifeLeechUnique__1
 ]],
@@ -340,9 +356,11 @@ CriticalStrikeAttackLifeLeechUnique__1
 Festering Resentment
 Demon Dagger
 Source: Drops from unique{Uber Incarnation of Neglect} in normal{Moment of Loneliness}
-Requires Level 68, 76 Dex, 149 Int
-Implicits: 1
-CriticalStrikeChanceImplicitDagger2
+Variant: Pre 3.29.0
+Variant: Current
+Implicits: 2
+{variant:1}CriticalStrikeChanceImplicitDagger2
+{variant:2}CriticalStrikeChanceImplicitDaggerNew2
 SupportVirulenceSpellsCastOnBlockUnique_1
 SpellBlockWhileInOffHandUnique_1
 SpellDamageUnique__17

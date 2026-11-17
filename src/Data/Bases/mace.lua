@@ -2,6 +2,7 @@
 -- Item data (c) Grinding Gear Games
 return function(itemBases)
 itemBases["Driftwood Club"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/OneHandMace1",
 	type = "One Handed Mace",
 	socketLimit = 3,
 	tags = { default = true, mace = true, one_hand_weapon = true, onehand = true, weapon = true, },
@@ -13,6 +14,7 @@ itemBases["Driftwood Club"] = {
 	req = { str = 14, },
 }
 itemBases["Tribal Club"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/OneHandMace2",
 	type = "One Handed Mace",
 	socketLimit = 3,
 	tags = { default = true, mace = true, one_hand_weapon = true, onehand = true, weapon = true, },
@@ -24,6 +26,7 @@ itemBases["Tribal Club"] = {
 	req = { level = 5, str = 26, },
 }
 itemBases["Spiked Club"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/OneHandMace3",
 	type = "One Handed Mace",
 	socketLimit = 3,
 	tags = { default = true, mace = true, one_hand_weapon = true, onehand = true, weapon = true, },
@@ -35,6 +38,7 @@ itemBases["Spiked Club"] = {
 	req = { level = 10, str = 41, },
 }
 itemBases["Stone Hammer"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/OneHandMace4",
 	type = "One Handed Mace",
 	socketLimit = 3,
 	tags = { default = true, mace = true, one_hand_weapon = true, onehand = true, weapon = true, },
@@ -46,6 +50,7 @@ itemBases["Stone Hammer"] = {
 	req = { level = 15, str = 56, },
 }
 itemBases["War Hammer"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/OneHandMace5",
 	type = "One Handed Mace",
 	socketLimit = 3,
 	tags = { default = true, mace = true, one_hand_weapon = true, onehand = true, weapon = true, },
@@ -57,6 +62,7 @@ itemBases["War Hammer"] = {
 	req = { level = 20, str = 71, },
 }
 itemBases["Bladed Mace"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/OneHandMace6",
 	type = "One Handed Mace",
 	socketLimit = 3,
 	tags = { default = true, mace = true, one_hand_weapon = true, onehand = true, weapon = true, },
@@ -68,6 +74,7 @@ itemBases["Bladed Mace"] = {
 	req = { level = 24, str = 83, },
 }
 itemBases["Ceremonial Mace"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/OneHandMace7",
 	type = "One Handed Mace",
 	socketLimit = 3,
 	tags = { default = true, mace = true, one_hand_weapon = true, onehand = true, weapon = true, },
@@ -79,6 +86,7 @@ itemBases["Ceremonial Mace"] = {
 	req = { level = 28, str = 95, },
 }
 itemBases["Dream Mace"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/OneHandMace8",
 	type = "One Handed Mace",
 	socketLimit = 3,
 	tags = { default = true, mace = true, one_hand_weapon = true, onehand = true, weapon = true, },
@@ -90,6 +98,7 @@ itemBases["Dream Mace"] = {
 	req = { level = 32, str = 107, },
 }
 itemBases["Wyrm Mace"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/OneHandMaceM1",
 	type = "One Handed Mace",
 	socketLimit = 3,
 	tags = { default = true, mace = true, maraketh = true, not_for_sale = true, one_hand_weapon = true, onehand = true, weapon = true, },
@@ -101,6 +110,7 @@ itemBases["Wyrm Mace"] = {
 	req = { level = 34, str = 118, },
 }
 itemBases["Petrified Club"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/OneHandMace9",
 	type = "One Handed Mace",
 	socketLimit = 3,
 	tags = { default = true, mace = true, one_hand_weapon = true, onehand = true, weapon = true, },
@@ -112,6 +122,7 @@ itemBases["Petrified Club"] = {
 	req = { level = 35, str = 116, },
 }
 itemBases["Barbed Club"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/OneHandMace10",
 	type = "One Handed Mace",
 	socketLimit = 3,
 	tags = { default = true, mace = true, one_hand_weapon = true, onehand = true, weapon = true, },
@@ -123,6 +134,7 @@ itemBases["Barbed Club"] = {
 	req = { level = 38, str = 125, },
 }
 itemBases["Rock Breaker"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/OneHandMace11",
 	type = "One Handed Mace",
 	socketLimit = 3,
 	tags = { default = true, mace = true, one_hand_weapon = true, onehand = true, weapon = true, },
@@ -134,6 +146,7 @@ itemBases["Rock Breaker"] = {
 	req = { level = 41, str = 134, },
 }
 itemBases["Battle Hammer"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/OneHandMace12",
 	type = "One Handed Mace",
 	socketLimit = 3,
 	tags = { default = true, mace = true, one_hand_weapon = true, onehand = true, weapon = true, },
@@ -145,6 +158,7 @@ itemBases["Battle Hammer"] = {
 	req = { level = 44, str = 143, },
 }
 itemBases["Flanged Mace"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/OneHandMace13",
 	type = "One Handed Mace",
 	socketLimit = 3,
 	tags = { default = true, mace = true, one_hand_weapon = true, onehand = true, weapon = true, },
@@ -156,6 +170,7 @@ itemBases["Flanged Mace"] = {
 	req = { level = 47, str = 152, },
 }
 itemBases["Ornate Mace"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/OneHandMace14",
 	type = "One Handed Mace",
 	socketLimit = 3,
 	tags = { default = true, mace = true, one_hand_weapon = true, onehand = true, weapon = true, },
@@ -167,6 +182,7 @@ itemBases["Ornate Mace"] = {
 	req = { level = 50, str = 161, },
 }
 itemBases["Phantom Mace"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/OneHandMace15",
 	type = "One Handed Mace",
 	socketLimit = 3,
 	tags = { default = true, mace = true, one_hand_weapon = true, onehand = true, weapon = true, },
@@ -178,6 +194,7 @@ itemBases["Phantom Mace"] = {
 	req = { level = 53, str = 170, },
 }
 itemBases["Dragon Mace"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/OneHandMaceM2",
 	type = "One Handed Mace",
 	socketLimit = 3,
 	tags = { default = true, mace = true, maraketh = true, not_for_sale = true, one_hand_weapon = true, onehand = true, weapon = true, },
@@ -189,6 +206,7 @@ itemBases["Dragon Mace"] = {
 	req = { level = 55, str = 184, },
 }
 itemBases["Ancestral Club"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/OneHandMace16",
 	type = "One Handed Mace",
 	socketLimit = 3,
 	tags = { default = true, mace = true, one_hand_weapon = true, onehand = true, weapon = true, },
@@ -200,6 +218,7 @@ itemBases["Ancestral Club"] = {
 	req = { level = 56, str = 179, },
 }
 itemBases["Tenderizer"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/OneHandMace17",
 	type = "One Handed Mace",
 	socketLimit = 3,
 	tags = { default = true, mace = true, one_hand_weapon = true, onehand = true, weapon = true, },
@@ -211,6 +230,7 @@ itemBases["Tenderizer"] = {
 	req = { level = 58, str = 185, },
 }
 itemBases["Gavel"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/OneHandMace18",
 	type = "One Handed Mace",
 	socketLimit = 3,
 	tags = { default = true, mace = true, one_hand_weapon = true, onehand = true, weapon = true, },
@@ -222,6 +242,7 @@ itemBases["Gavel"] = {
 	req = { level = 60, str = 212, },
 }
 itemBases["Legion Hammer"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/OneHandMace19",
 	type = "One Handed Mace",
 	socketLimit = 3,
 	tags = { default = true, mace = true, one_hand_weapon = true, onehand = true, top_tier_base_item_type = true, weapon = true, },
@@ -233,6 +254,7 @@ itemBases["Legion Hammer"] = {
 	req = { level = 62, str = 212, },
 }
 itemBases["Pernach"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/OneHandMace20",
 	type = "One Handed Mace",
 	socketLimit = 3,
 	tags = { default = true, mace = true, one_hand_weapon = true, onehand = true, top_tier_base_item_type = true, weapon = true, },
@@ -244,6 +266,7 @@ itemBases["Pernach"] = {
 	req = { level = 64, str = 212, },
 }
 itemBases["Auric Mace"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/OneHandMace21",
 	type = "One Handed Mace",
 	socketLimit = 3,
 	tags = { default = true, mace = true, one_hand_weapon = true, onehand = true, top_tier_base_item_type = true, weapon = true, },
@@ -255,6 +278,7 @@ itemBases["Auric Mace"] = {
 	req = { level = 66, str = 212, },
 }
 itemBases["Nightmare Mace"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/OneHandMace22",
 	type = "One Handed Mace",
 	socketLimit = 3,
 	tags = { default = true, mace = true, one_hand_weapon = true, onehand = true, top_tier_base_item_type = true, weapon = true, },
@@ -266,6 +290,7 @@ itemBases["Nightmare Mace"] = {
 	req = { level = 68, str = 212, },
 }
 itemBases["Behemoth Mace"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/OneHandMaceM3",
 	type = "One Handed Mace",
 	socketLimit = 3,
 	tags = { default = true, mace = true, maraketh = true, not_for_sale = true, one_hand_weapon = true, onehand = true, weapon = true, },
@@ -277,6 +302,7 @@ itemBases["Behemoth Mace"] = {
 	req = { level = 70, str = 220, },
 }
 itemBases["Flare Mace"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/OneHandMaceE1",
 	type = "One Handed Mace",
 	socketLimit = 3,
 	tags = { default = true, experimental_base = true, mace = true, not_for_sale = true, one_hand_weapon = true, onehand = true, weapon = true, },
@@ -288,6 +314,7 @@ itemBases["Flare Mace"] = {
 	req = { level = 30, str = 101, },
 }
 itemBases["Crack Mace"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/OneHandMaceE2",
 	type = "One Handed Mace",
 	socketLimit = 3,
 	tags = { default = true, experimental_base = true, mace = true, not_for_sale = true, one_hand_weapon = true, onehand = true, weapon = true, },
@@ -299,6 +326,7 @@ itemBases["Crack Mace"] = {
 	req = { level = 50, str = 161, },
 }
 itemBases["Boom Mace"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/OneHandMaceE3",
 	type = "One Handed Mace",
 	socketLimit = 3,
 	tags = { default = true, experimental_base = true, mace = true, not_for_sale = true, one_hand_weapon = true, onehand = true, weapon = true, },
@@ -311,6 +339,7 @@ itemBases["Boom Mace"] = {
 }
 
 itemBases["Driftwood Sceptre"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/Sceptre1",
 	type = "Sceptre",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, sceptre = true, weapon = true, },
@@ -322,6 +351,7 @@ itemBases["Driftwood Sceptre"] = {
 	req = { str = 8, int = 8, },
 }
 itemBases["Darkwood Sceptre"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/Sceptre2",
 	type = "Sceptre",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, sceptre = true, weapon = true, },
@@ -333,6 +363,7 @@ itemBases["Darkwood Sceptre"] = {
 	req = { level = 5, str = 14, int = 14, },
 }
 itemBases["Bronze Sceptre"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/Sceptre3",
 	type = "Sceptre",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, sceptre = true, weapon = true, },
@@ -344,6 +375,7 @@ itemBases["Bronze Sceptre"] = {
 	req = { level = 10, str = 22, int = 22, },
 }
 itemBases["Quartz Sceptre"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/Sceptre4",
 	type = "Sceptre",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, sceptre = true, weapon = true, },
@@ -355,6 +387,7 @@ itemBases["Quartz Sceptre"] = {
 	req = { level = 15, str = 25, int = 35, },
 }
 itemBases["Iron Sceptre"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/Sceptre5",
 	type = "Sceptre",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, sceptre = true, weapon = true, },
@@ -366,6 +399,7 @@ itemBases["Iron Sceptre"] = {
 	req = { level = 20, str = 38, int = 38, },
 }
 itemBases["Ochre Sceptre"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/Sceptre6",
 	type = "Sceptre",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, sceptre = true, weapon = true, },
@@ -377,6 +411,7 @@ itemBases["Ochre Sceptre"] = {
 	req = { level = 24, str = 44, int = 44, },
 }
 itemBases["Ritual Sceptre"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/Sceptre7",
 	type = "Sceptre",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, sceptre = true, weapon = true, },
@@ -388,6 +423,7 @@ itemBases["Ritual Sceptre"] = {
 	req = { level = 28, str = 51, int = 51, },
 }
 itemBases["Shadow Sceptre"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/Sceptre8",
 	type = "Sceptre",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, sceptre = true, weapon = true, },
@@ -399,6 +435,7 @@ itemBases["Shadow Sceptre"] = {
 	req = { level = 32, str = 52, int = 62, },
 }
 itemBases["Horned Sceptre"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/SceptreM1",
 	type = "Sceptre",
 	socketLimit = 3,
 	tags = { default = true, maraketh = true, not_for_sale = true, one_hand_weapon = true, onehand = true, sceptre = true, weapon = true, },
@@ -410,6 +447,7 @@ itemBases["Horned Sceptre"] = {
 	req = { level = 36, str = 66, int = 66, },
 }
 itemBases["Grinning Fetish"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/Sceptre9",
 	type = "Sceptre",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, sceptre = true, weapon = true, },
@@ -421,6 +459,7 @@ itemBases["Grinning Fetish"] = {
 	req = { level = 35, str = 62, int = 62, },
 }
 itemBases["Sekhem"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/Sceptre10",
 	type = "Sceptre",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, sceptre = true, weapon = true, },
@@ -432,6 +471,7 @@ itemBases["Sekhem"] = {
 	req = { level = 38, str = 67, int = 67, },
 }
 itemBases["Crystal Sceptre"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/Sceptre11",
 	type = "Sceptre",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, sceptre = true, weapon = true, },
@@ -443,6 +483,7 @@ itemBases["Crystal Sceptre"] = {
 	req = { level = 41, str = 59, int = 85, },
 }
 itemBases["Lead Sceptre"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/Sceptre12",
 	type = "Sceptre",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, sceptre = true, weapon = true, },
@@ -454,6 +495,7 @@ itemBases["Lead Sceptre"] = {
 	req = { level = 44, str = 77, int = 77, },
 }
 itemBases["Blood Sceptre"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/Sceptre13",
 	type = "Sceptre",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, sceptre = true, weapon = true, },
@@ -465,6 +507,7 @@ itemBases["Blood Sceptre"] = {
 	req = { level = 47, str = 81, int = 81, },
 }
 itemBases["Royal Sceptre"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/Sceptre14",
 	type = "Sceptre",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, sceptre = true, weapon = true, },
@@ -476,6 +519,7 @@ itemBases["Royal Sceptre"] = {
 	req = { level = 50, str = 86, int = 86, },
 }
 itemBases["Abyssal Sceptre"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/Sceptre15",
 	type = "Sceptre",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, sceptre = true, weapon = true, },
@@ -487,6 +531,7 @@ itemBases["Abyssal Sceptre"] = {
 	req = { level = 53, str = 83, int = 99, },
 }
 itemBases["Stag Sceptre"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/SceptreM2",
 	type = "Sceptre",
 	socketLimit = 3,
 	tags = { default = true, maraketh = true, not_for_sale = true, one_hand_weapon = true, onehand = true, sceptre = true, weapon = true, },
@@ -498,6 +543,7 @@ itemBases["Stag Sceptre"] = {
 	req = { level = 55, str = 98, int = 98, },
 }
 itemBases["Karui Sceptre"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/Sceptre16",
 	type = "Sceptre",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, sceptre = true, weapon = true, },
@@ -509,6 +555,7 @@ itemBases["Karui Sceptre"] = {
 	req = { level = 56, str = 96, int = 96, },
 }
 itemBases["Tyrant's Sekhem"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/Sceptre17",
 	type = "Sceptre",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, sceptre = true, weapon = true, },
@@ -520,6 +567,7 @@ itemBases["Tyrant's Sekhem"] = {
 	req = { level = 58, str = 99, int = 99, },
 }
 itemBases["Opal Sceptre"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/Sceptre18",
 	type = "Sceptre",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, sceptre = true, weapon = true, },
@@ -531,6 +579,7 @@ itemBases["Opal Sceptre"] = {
 	req = { level = 60, str = 95, int = 131, },
 }
 itemBases["Platinum Sceptre"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/Sceptre19",
 	type = "Sceptre",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, sceptre = true, top_tier_base_item_type = true, weapon = true, },
@@ -542,6 +591,7 @@ itemBases["Platinum Sceptre"] = {
 	req = { level = 62, str = 113, int = 113, },
 }
 itemBases["Vaal Sceptre"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/Sceptre20",
 	type = "Sceptre",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, sceptre = true, top_tier_base_item_type = true, weapon = true, },
@@ -553,6 +603,7 @@ itemBases["Vaal Sceptre"] = {
 	req = { level = 64, str = 113, int = 113, },
 }
 itemBases["Carnal Sceptre"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/Sceptre21",
 	type = "Sceptre",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, sceptre = true, top_tier_base_item_type = true, weapon = true, },
@@ -564,6 +615,7 @@ itemBases["Carnal Sceptre"] = {
 	req = { level = 66, str = 113, int = 113, },
 }
 itemBases["Void Sceptre"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/Sceptre22",
 	type = "Sceptre",
 	socketLimit = 3,
 	tags = { default = true, one_hand_weapon = true, onehand = true, sceptre = true, top_tier_base_item_type = true, weapon = true, },
@@ -575,6 +627,7 @@ itemBases["Void Sceptre"] = {
 	req = { level = 68, str = 104, int = 122, },
 }
 itemBases["Sambar Sceptre"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/SceptreM3",
 	type = "Sceptre",
 	socketLimit = 3,
 	tags = { default = true, maraketh = true, not_for_sale = true, one_hand_weapon = true, onehand = true, sceptre = true, weapon = true, },
@@ -586,6 +639,7 @@ itemBases["Sambar Sceptre"] = {
 	req = { level = 70, str = 121, int = 113, },
 }
 itemBases["Oscillating Sceptre"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/SceptreE1",
 	type = "Sceptre",
 	socketLimit = 3,
 	tags = { default = true, experimental_base = true, not_for_sale = true, one_hand_weapon = true, onehand = true, sceptre = true, weapon = true, },
@@ -597,6 +651,7 @@ itemBases["Oscillating Sceptre"] = {
 	req = { level = 30, str = 44, int = 64, },
 }
 itemBases["Stabilising Sceptre"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/SceptreE2",
 	type = "Sceptre",
 	socketLimit = 3,
 	tags = { default = true, experimental_base = true, not_for_sale = true, one_hand_weapon = true, onehand = true, sceptre = true, weapon = true, },
@@ -608,6 +663,7 @@ itemBases["Stabilising Sceptre"] = {
 	req = { level = 50, str = 71, int = 102, },
 }
 itemBases["Alternating Sceptre"] = {
+	baseId = "Metadata/Items/Weapons/OneHandWeapons/OneHandMaces/SceptreE3",
 	type = "Sceptre",
 	socketLimit = 3,
 	tags = { default = true, experimental_base = true, not_for_sale = true, one_hand_weapon = true, onehand = true, sceptre = true, weapon = true, },
@@ -620,6 +676,7 @@ itemBases["Alternating Sceptre"] = {
 }
 
 itemBases["Driftwood Maul"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandMaces/TwoHandMace1",
 	type = "Two Handed Mace",
 	socketLimit = 6,
 	tags = { default = true, mace = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -631,6 +688,7 @@ itemBases["Driftwood Maul"] = {
 	req = { str = 20, },
 }
 itemBases["Tribal Maul"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandMaces/TwoHandMace2",
 	type = "Two Handed Mace",
 	socketLimit = 6,
 	tags = { default = true, mace = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -642,6 +700,7 @@ itemBases["Tribal Maul"] = {
 	req = { level = 8, str = 35, },
 }
 itemBases["Mallet"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandMaces/TwoHandMace3",
 	type = "Two Handed Mace",
 	socketLimit = 6,
 	tags = { default = true, mace = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -653,6 +712,7 @@ itemBases["Mallet"] = {
 	req = { level = 12, str = 47, },
 }
 itemBases["Sledgehammer"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandMaces/TwoHandMace4",
 	type = "Two Handed Mace",
 	socketLimit = 6,
 	tags = { default = true, mace = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -664,6 +724,7 @@ itemBases["Sledgehammer"] = {
 	req = { level = 17, str = 62, },
 }
 itemBases["Jagged Maul"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandMaces/TwoHandMace5",
 	type = "Two Handed Mace",
 	socketLimit = 6,
 	tags = { default = true, mace = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -675,6 +736,7 @@ itemBases["Jagged Maul"] = {
 	req = { level = 22, str = 77, },
 }
 itemBases["Brass Maul"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandMaces/TwoHandMace6",
 	type = "Two Handed Mace",
 	socketLimit = 6,
 	tags = { default = true, mace = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -686,6 +748,7 @@ itemBases["Brass Maul"] = {
 	req = { level = 27, str = 92, },
 }
 itemBases["Fright Maul"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandMaces/TwoHandMace7",
 	type = "Two Handed Mace",
 	socketLimit = 6,
 	tags = { default = true, mace = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -697,6 +760,7 @@ itemBases["Fright Maul"] = {
 	req = { level = 32, str = 107, },
 }
 itemBases["Morning Star"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandMaces/TwoHandMaceM1",
 	type = "Two Handed Mace",
 	socketLimit = 6,
 	tags = { default = true, mace = true, maraketh = true, not_for_sale = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -708,6 +772,7 @@ itemBases["Morning Star"] = {
 	req = { level = 34, str = 118, },
 }
 itemBases["Totemic Maul"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandMaces/TwoHandMace8",
 	type = "Two Handed Mace",
 	socketLimit = 6,
 	tags = { default = true, mace = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -719,6 +784,7 @@ itemBases["Totemic Maul"] = {
 	req = { level = 36, str = 119, },
 }
 itemBases["Great Mallet"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandMaces/TwoHandMace9",
 	type = "Two Handed Mace",
 	socketLimit = 6,
 	tags = { default = true, mace = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -730,6 +796,7 @@ itemBases["Great Mallet"] = {
 	req = { level = 40, str = 131, },
 }
 itemBases["Steelhead"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandMaces/TwoHandMace10",
 	type = "Two Handed Mace",
 	socketLimit = 6,
 	tags = { default = true, mace = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -741,6 +808,7 @@ itemBases["Steelhead"] = {
 	req = { level = 44, str = 143, },
 }
 itemBases["Spiny Maul"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandMaces/TwoHandMace11",
 	type = "Two Handed Mace",
 	socketLimit = 6,
 	tags = { default = true, mace = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -752,6 +820,7 @@ itemBases["Spiny Maul"] = {
 	req = { level = 48, str = 155, },
 }
 itemBases["Plated Maul"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandMaces/TwoHandMace12",
 	type = "Two Handed Mace",
 	socketLimit = 6,
 	tags = { default = true, mace = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -763,6 +832,7 @@ itemBases["Plated Maul"] = {
 	req = { level = 51, str = 164, },
 }
 itemBases["Dread Maul"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandMaces/TwoHandMace13",
 	type = "Two Handed Mace",
 	socketLimit = 6,
 	tags = { default = true, mace = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -774,6 +844,7 @@ itemBases["Dread Maul"] = {
 	req = { level = 54, str = 173, },
 }
 itemBases["Solar Maul"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandMaces/TwoHandMaceM2",
 	type = "Two Handed Mace",
 	socketLimit = 6,
 	tags = { default = true, mace = true, maraketh = true, not_for_sale = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -785,6 +856,7 @@ itemBases["Solar Maul"] = {
 	req = { level = 56, str = 187, },
 }
 itemBases["Karui Maul"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandMaces/TwoHandMace14",
 	type = "Two Handed Mace",
 	socketLimit = 6,
 	tags = { default = true, mace = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -796,6 +868,7 @@ itemBases["Karui Maul"] = {
 	req = { level = 57, str = 182, },
 }
 itemBases["Colossus Mallet"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandMaces/TwoHandMace15",
 	type = "Two Handed Mace",
 	socketLimit = 6,
 	tags = { default = true, mace = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -807,6 +880,7 @@ itemBases["Colossus Mallet"] = {
 	req = { level = 59, str = 188, },
 }
 itemBases["Piledriver"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandMaces/TwoHandMace16",
 	type = "Two Handed Mace",
 	socketLimit = 6,
 	tags = { default = true, mace = true, top_tier_base_item_type = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -818,6 +892,7 @@ itemBases["Piledriver"] = {
 	req = { level = 61, str = 212, },
 }
 itemBases["Meatgrinder"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandMaces/TwoHandMace17",
 	type = "Two Handed Mace",
 	socketLimit = 6,
 	tags = { default = true, mace = true, top_tier_base_item_type = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -829,6 +904,7 @@ itemBases["Meatgrinder"] = {
 	req = { level = 63, str = 212, },
 }
 itemBases["Imperial Maul"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandMaces/TwoHandMace18",
 	type = "Two Handed Mace",
 	socketLimit = 6,
 	tags = { default = true, mace = true, top_tier_base_item_type = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -840,6 +916,7 @@ itemBases["Imperial Maul"] = {
 	req = { level = 65, str = 212, },
 }
 itemBases["Terror Maul"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandMaces/TwoHandMace19",
 	type = "Two Handed Mace",
 	socketLimit = 6,
 	tags = { default = true, mace = true, top_tier_base_item_type = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -851,6 +928,7 @@ itemBases["Terror Maul"] = {
 	req = { level = 67, str = 212, },
 }
 itemBases["Coronal Maul"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandMaces/TwoHandMaceM3",
 	type = "Two Handed Mace",
 	socketLimit = 6,
 	tags = { default = true, mace = true, maraketh = true, not_for_sale = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -862,6 +940,7 @@ itemBases["Coronal Maul"] = {
 	req = { level = 69, str = 220, },
 }
 itemBases["Blunt Force Condenser"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandMaces/TwoHandMaceE1",
 	type = "Two Handed Mace",
 	socketLimit = 6,
 	tags = { default = true, experimental_base = true, mace = true, not_for_sale = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -873,6 +952,7 @@ itemBases["Blunt Force Condenser"] = {
 	req = { level = 30, str = 101, },
 }
 itemBases["Crushing Force Magnifier"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandMaces/TwoHandMaceE2",
 	type = "Two Handed Mace",
 	socketLimit = 6,
 	tags = { default = true, experimental_base = true, mace = true, not_for_sale = true, two_hand_weapon = true, twohand = true, weapon = true, },
@@ -884,6 +964,7 @@ itemBases["Crushing Force Magnifier"] = {
 	req = { level = 50, str = 161, },
 }
 itemBases["Impact Force Propagator"] = {
+	baseId = "Metadata/Items/Weapons/TwoHandWeapons/TwoHandMaces/TwoHandMaceE3",
 	type = "Two Handed Mace",
 	socketLimit = 6,
 	tags = { default = true, experimental_base = true, mace = true, not_for_sale = true, two_hand_weapon = true, twohand = true, weapon = true, },

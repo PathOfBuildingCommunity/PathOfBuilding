@@ -2,24 +2,28 @@
 -- Item data (c) Grinding Gear Games
 return function(itemBases)
 itemBases["Crimson Jewel"] = {
+	baseId = "Metadata/Items/Jewels/JewelStr",
 	type = "Jewel",
 	tags = { default = true, jewel = true, not_dex = true, not_for_sale = true, not_int = true, strjewel = true, },
 	implicitModTypes = { },
 	req = { },
 }
 itemBases["Viridian Jewel"] = {
+	baseId = "Metadata/Items/Jewels/JewelDex",
 	type = "Jewel",
 	tags = { default = true, dexjewel = true, jewel = true, not_for_sale = true, not_int = true, not_str = true, },
 	implicitModTypes = { },
 	req = { },
 }
 itemBases["Cobalt Jewel"] = {
+	baseId = "Metadata/Items/Jewels/JewelInt",
 	type = "Jewel",
 	tags = { default = true, intjewel = true, jewel = true, not_dex = true, not_for_sale = true, not_str = true, },
 	implicitModTypes = { },
 	req = { },
 }
 itemBases["Prismatic Jewel"] = {
+	baseId = "Metadata/Items/Jewels/JewelPrismatic",
 	type = "Jewel",
 	tags = { default = true, dexjewel = true, intjewel = true, jewel = true, not_for_sale = true, strjewel = true, },
 	implicitModTypes = { },
@@ -27,6 +31,7 @@ itemBases["Prismatic Jewel"] = {
 }
 
 itemBases["Ghastly Eye Jewel"] = {
+	baseId = "Metadata/Items/Jewels/JewelAbyssSummoner",
 	type = "Jewel",
 	subType = "Abyss",
 	tags = { abyss_jewel = true, abyss_jewel_summoner = true, default = true, not_for_sale = true, },
@@ -34,6 +39,7 @@ itemBases["Ghastly Eye Jewel"] = {
 	req = { },
 }
 itemBases["Hypnotic Eye Jewel"] = {
+	baseId = "Metadata/Items/Jewels/JewelAbyssCaster",
 	type = "Jewel",
 	subType = "Abyss",
 	tags = { abyss_jewel = true, abyss_jewel_caster = true, default = true, not_for_sale = true, },
@@ -41,6 +47,7 @@ itemBases["Hypnotic Eye Jewel"] = {
 	req = { },
 }
 itemBases["Murderous Eye Jewel"] = {
+	baseId = "Metadata/Items/Jewels/JewelAbyssMelee",
 	type = "Jewel",
 	subType = "Abyss",
 	tags = { abyss_jewel = true, abyss_jewel_melee = true, default = true, not_for_sale = true, },
@@ -48,6 +55,7 @@ itemBases["Murderous Eye Jewel"] = {
 	req = { },
 }
 itemBases["Searching Eye Jewel"] = {
+	baseId = "Metadata/Items/Jewels/JewelAbyssRanged",
 	type = "Jewel",
 	subType = "Abyss",
 	tags = { abyss_jewel = true, abyss_jewel_ranged = true, default = true, not_for_sale = true, },
@@ -55,6 +63,7 @@ itemBases["Searching Eye Jewel"] = {
 	req = { },
 }
 itemBases["Assembled Eye Jewel"] = {
+	baseId = "Metadata/Items/Jewels/JewelAbyssConglomerate",
 	type = "Jewel",
 	subType = "Abyss",
 	tags = { abyss_jewel = true, abyss_jewel_special = true, default = true, not_for_sale = true, },
@@ -63,6 +72,7 @@ itemBases["Assembled Eye Jewel"] = {
 }
 
 itemBases["Large Cluster Jewel"] = {
+	baseId = "Metadata/Items/Jewels/JewelPassiveTreeExpansionLarge",
 	type = "Jewel",
 	subType = "Cluster",
 	tags = { default = true, expansion_jewel_large = true, jewel = true, not_for_sale = true, },
@@ -70,6 +80,7 @@ itemBases["Large Cluster Jewel"] = {
 	req = { },
 }
 itemBases["Medium Cluster Jewel"] = {
+	baseId = "Metadata/Items/Jewels/JewelPassiveTreeExpansionMedium",
 	type = "Jewel",
 	subType = "Cluster",
 	tags = { default = true, expansion_jewel_medium = true, jewel = true, not_for_sale = true, },
@@ -77,6 +88,7 @@ itemBases["Medium Cluster Jewel"] = {
 	req = { },
 }
 itemBases["Small Cluster Jewel"] = {
+	baseId = "Metadata/Items/Jewels/JewelPassiveTreeExpansionSmall",
 	type = "Jewel",
 	subType = "Cluster",
 	tags = { default = true, expansion_jewel_small = true, jewel = true, not_for_sale = true, },
@@ -85,6 +97,7 @@ itemBases["Small Cluster Jewel"] = {
 }
 
 itemBases["Timeless Jewel"] = {
+	baseId = "Metadata/Items/Jewels/JewelTimeless",
 	type = "Jewel",
 	subType = "Timeless",
 	tags = { default = true, dexjewel = true, intjewel = true, jewel = true, not_for_sale = true, strjewel = true, },
@@ -92,7 +105,16 @@ itemBases["Timeless Jewel"] = {
 	req = { },
 }
 
+itemBases["Mycelium Core"] = {
+	type = "Jewel",
+	subType = "Blightcore",
+	tags = { default = true, jewel = true, not_for_sale = true, },
+	implicitModTypes = { },
+	req = { },
+}
+
 itemBases["Ursine Charm"] = {
+	baseId = "Metadata/Items/AnimalCharms/StrAnimalCharm",
 	type = "Jewel",
 	subType = "Charm",
 	tags = { animal_charm = true, default = true, str_animal_charm = true, },
@@ -100,6 +122,7 @@ itemBases["Ursine Charm"] = {
 	req = { },
 }
 itemBases["Lupine Charm"] = {
+	baseId = "Metadata/Items/AnimalCharms/DexAnimalCharm",
 	type = "Jewel",
 	subType = "Charm",
 	tags = { animal_charm = true, default = true, dex_animal_charm = true, },
@@ -107,6 +130,7 @@ itemBases["Lupine Charm"] = {
 	req = { },
 }
 itemBases["Corvine Charm"] = {
+	baseId = "Metadata/Items/AnimalCharms/IntAnimalCharm",
 	type = "Jewel",
 	subType = "Charm",
 	tags = { animal_charm = true, default = true, int_animal_charm = true, },

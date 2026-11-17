@@ -10,10 +10,9 @@ Variant: Pre 3.9.0
 Variant: Pre 3.11.0
 Variant: Pre 3.17.0
 Variant: Current
-Requires Level 62, 212 Dex
 Source: Vendor Recipe
 Implicits: 1
-{variant:3}CriticalMultiplierImplicitBow1
+{variant:3,4,5}CriticalMultiplierImplicitBow1
 {variant:4,5}GrantsDashUnique__1_
 {variant:1}LocalAddedPhysicalDamageUnique__29___[60,70][180,210]
 {variant:2,3,4}LocalAddedPhysicalDamageUnique__29___[95,115][240,265]
@@ -35,7 +34,6 @@ The Bane of Hope
 Maraketh Bow
 League: Mirage
 Source: No longer obtainable
-Requires Level 71
 Implicits: 1
 MovementVelocityMarakethBowImplicit2
 LocalIncreasedPhysicalDamagePercentUnique__58
@@ -53,18 +51,17 @@ Variant: Pre 3.5.0
 Variant: Pre 3.9.0
 Variant: Pre 3.17.0
 Variant: Current
-Requires Level 62, 212 Dex
 Implicits: 2
 {variant:6,7}CriticalMultiplierImplicitBow1
 {variant:2,3}WeaponElementalDamageImplicitBow3[6,12]
-DexterityUniqueBow4
+DexterityUniqueBow6
 {variant:1,2}LocalIncreasedPhysicalDamagePercentUniqueBow6[75,100]
 {variant:3,4}LocalIncreasedPhysicalDamagePercentUniqueBow6[150,180]
 {variant:5,6}LocalIncreasedPhysicalDamagePercentUniqueBow6[200,260]
 {variant:7}LocalIncreasedPhysicalDamagePercentUniqueBow6
 LocalAddedFireDamageUniqueBow6
 {variant:1,2}IncreasedAttackSpeedUniqueGlovesDex2
-{variant:3,4,5,6,7}LocalIncreasedAttackSpeedUniqueBow11
+{variant:3,4,5,6,7}LocalIncreasedAttackSpeedUniqueBow6
 {variant:1,2,3,4}PhysicalBowDamageCloseRangeUniqueBow6[100,100]
 {variant:5,6,7}PhysicalBowDamageCloseRangeUniqueBow6
 KnockbackCloseRangeUniqueBow6
@@ -77,7 +74,6 @@ Crafted: true
 Suffix: None
 Variant: Pre 3.17.0
 Variant: Current
-Requires Level 57, 190 Dex
 Implicits: 2
 {variant:1}(4-6)% increased Movement Speed
 {variant:2}MovementVelocityMarakethBowImplicit1
@@ -99,7 +95,6 @@ Variant: Pre 3.7.0
 Variant: Pre 3.9.0
 Variant: Pre 3.17.0
 Variant: Current
-Requires Level 62, 212 Dex
 Implicits: 2
 {variant:6,7}CriticalMultiplierImplicitBow1
 {variant:1,2}WeaponElementalDamageImplicitBow2[6,12]
@@ -125,12 +120,11 @@ Variant: Pre 3.10.0
 Variant: Pre 3.17.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 32, 107 Dex
 Implicits: 1
 {variant:2,3,4,5,6,7}LocalCriticalStrikeChanceImplicitBow1
 {variant:1,2,3,4,5}LocalIncreasedPhysicalDamagePercentUniqueBow3[100,125]
 {variant:6,7}LocalIncreasedPhysicalDamagePercentUniqueBow3
-LocalIncreasedAttackSpeedUniqueBow2
+LocalIncreasedAttackSpeedUniqueBow3
 {variant:1,2,4}LocalCriticalMultiplierUniqueBow3[100,100]
 {variant:3}LocalCriticalMultiplierUniqueBow3[150,150]
 {variant:5,6,7}LocalCriticalMultiplierUniqueBow3
@@ -146,17 +140,18 @@ Variant: Pre 3.0.0
 Variant: Pre 3.10.0
 Variant: Pre 3.17.0
 Variant: Current
-Requires Level 44, 107 Dex
 Implicits: 1
 {variant:2,3,4,5,6}LocalCriticalStrikeChanceImplicitBow1
 {variant:1,2,3,4,5}LocalIncreasedPhysicalDamagePercentUniqueBow3[100,125]
 {variant:6}LocalIncreasedPhysicalDamagePercentUniqueBow3
 LocalAddedPhysicalDamageUnique__17_[10,20][30,35]
-LocalIncreasedAttackSpeedUniqueBow2
+LocalIncreasedAttackSpeedUniqueBow3
 {variant:1,2,4}LocalCriticalMultiplierUniqueBow3[100,100]
 {variant:3}LocalCriticalMultiplierUniqueBow3[150,150]
 {variant:5,6}LocalCriticalMultiplierUniqueBow3
-AdditionalArrowsUniqueBow3
+{variant:1,2,3,4,5}AdditionalArrowsUniqueTransformed__1[2,2]
+{variant:6}AdditionalArrowsUniqueTransformed__1
+{variant:6}AdditionalArrowsUniqueBow3
 ]],[[
 Doomfletch
 Royal Bow
@@ -165,18 +160,17 @@ Variant: Pre 2.6.0
 Variant: Pre 3.1.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 28, 95 Dex
 Implicits: 2
 {variant:2}WeaponElementalDamageImplicitBow1[6,12]
 {variant:3,4,5}WeaponElementalDamageImplicitBow1
 {variant:2,3}LocalAddedPhysicalDamageUniqueBow11[8,12][16,20]
 {variant:4,5}LocalAddedPhysicalDamageUniqueBow11
-LocalIncreasedAttackSpeedUniqueBow6
+LocalIncreasedAttackSpeedUniqueBow11
 {variant:1,2,3}CriticalStrikeChanceUniqueBow9
 ManaRegenerationUniqueBow11
 {variant:1,2,3}WeaponPhysicalDamageAddedAsRandomElementUniqueBow11[110,110]
 {variant:4}WeaponPhysicalDamageAddedAsRandomElementUniqueBow11
-{variant:5}LocalPhysicalDamageAddedAsEachElementTransformed2
+{variant:5}LocalPhysicalDamageAddedAsEachElementUnique__1
 ]],[[
 Doomfletch's Prism
 Royal Bow
@@ -185,7 +179,6 @@ Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.1.0
 Variant: Current
-Requires Level 40, 95 Dex
 Implicits: 2
 {variant:2}WeaponElementalDamageImplicitBow1[6,12]
 {variant:3,4}WeaponElementalDamageImplicitBow1
@@ -201,7 +194,6 @@ The Flame of Hope
 Maraketh Bow
 League: Mirage
 Source: No longer obtainable
-Requires Level 71
 Implicits: 1
 MovementVelocityMarakethBowImplicit2
 FireDamagePercentUnique__15
@@ -213,8 +205,7 @@ ResentmentFireDegenSkillUnique__1
 The Gluttonous Tide
 Citadel Bow
 Source: Drops from unique{The Eater of Worlds}
-Requires Level 58, 185 Dex
-LocalIncreasedPhysicalDamagePercentUnique13
+LocalIncreasedPhysicalDamagePercentUnique__44
 LocalIncreasedAttackSpeedUnique__37___
 BowAttacksFrenzyChargesArrowsUnique__1
 CriticalStrikeMultiplierFrenzyChargesUnique__1
@@ -226,7 +217,6 @@ Elder Item
 Source: Drops from unique{The Elder}
 Variant: Pre 3.4.0
 Variant: Current
-Requires Level 60, 212 Dex
 LocalAddedColdDamageUnique__8
 {variant:2}LocalIncreasedAccuracyUnique__2
 {variant:1}AccuracyAgainstBleedingEnemiesUnique__1[400,500]
@@ -244,7 +234,6 @@ Variant: Pre 2.6.0
 Variant: Pre 3.7.0
 Variant: Pre 3.17.0
 Variant: Current
-Requires Level 53, 170 Dex
 Implicits: 1
 LocalCriticalStrikeChanceImplicitBow1
 DexterityUniqueBow7
@@ -265,22 +254,20 @@ Variant: Pre 3.17.0
 Variant: Current
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 53, 170 Dex
 Implicits: 1
 LocalCriticalStrikeChanceImplicitBow1
 DexterityUniqueBow7
 {variant:1}LocalIncreasedPhysicalDamagePercentUniqueBow7[110,125]
 {variant:2}LocalIncreasedPhysicalDamagePercentUniqueBow7
 LocalAddedPhysicalDamageUniqueBow7
-MovementVelocityMarakethBowImplicit2
+MovementVelocityUniqueBow7
 IncreasedAccuracyUniqueBow7
-CannotLeechMana
+CannotLeechManaUnique__1_
 AttackProjectilesForkUnique__1
 AttackProjectilesForkExtraTimesUnique__1
 ]],[[
 Iron Commander
 Death Bow
-Requires Level 32, 107 Dex
 Implicits: 1
 LocalCriticalStrikeChanceImplicitBow1
 LocalAddedPhysicalDamageUnique__5
@@ -294,7 +281,6 @@ Replica Iron Commander
 Death Bow
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 32, 107 Dex
 Implicits: 1
 LocalCriticalStrikeChanceImplicitBow1
 LocalAddedPhysicalDamageUnique__5
@@ -313,7 +299,6 @@ Variant: Pre 3.17.0
 Variant: Pre 3.20.0
 Variant: Pre 3.28.0
 Variant: Current
-Requires Level 66, 212 Dex
 Implicits: 3
 {variant:2}WeaponElementalDamageImplicitBow1[6,12]
 {variant:3,4,5,6}WeaponElementalDamageImplicitBow1
@@ -325,7 +310,7 @@ Implicits: 3
 {variant:6,7}LocalAddedPhysicalDamageUniqueBow1
 {variant:1,2,3,4,5,6}LocalIncreasedAttackSpeedUniqueBow1
 IncreasedManaUniqueBow1
-AlwaysHitsUnique__1
+AlwaysHits
 {variant:7}AttacksYouUseYourselfRepeatCountUnique__1
 {variant:7}AttacksYouUseYourselfAttackSpeedFinalUnique__1
 {variant:4,5,6,7}PlayerFarShotUnique__1
@@ -335,7 +320,6 @@ Ranger Bow
 Variant: Pre 3.14.0
 Variant: Pre 3.26.0
 Variant: Current
-Requires Level 60, 212 Dex, 212 Int
 CastSocketedMinionSpellsOnKillUniqueBow12
 IntelligenceRequirementsUniqueBow12
 AddedChaosDamageUniqueBow12
@@ -350,13 +334,12 @@ Harbinger Bow
 Variant: Pre 2.5.0
 Variant: Pre 3.26.0
 Variant: Current
-Requires Level 68, 212 Dex
 Implicits: 1
 LocalCriticalStrikeChanceImplicitBow1
-LocalReducedPhysicalDamagePercentUniqueBow8
+LocalReducedPhysicalDamagePercentUnique__1
 {variant:1,2}LocalAddedColdDamageUnique__4[120,140][180,210]
 {variant:3}LocalAddedColdDamageUnique__4
-LocalIncreasedAttackSpeedUniqueBow10
+LocalIncreasedAttackSpeedUnique__13
 LightRadiusUnique__2
 SpreadChilledGroundOnFreezeUnique__1
 SpreadConsecratedGroundOnShatterUnique__1
@@ -369,9 +352,8 @@ Short Bow
 Variant: Pre 2.6.0
 Variant: Pre 3.9.0
 Variant: Current
-Requires Level 5, 26 Dex
-DexterityUniqueBow6
-{variant:2,3}LocalIncreasedPhysicalDamagePercentUniqueDescentBow1
+DexterityUniqueBow4
+{variant:2,3}LocalIncreasedPhysicalDamagePercentUnique__26
 LocalIncreasedAttackSpeedUniqueBow4
 {variant:2,3}ManaGainPerTargetUnique__2
 ProjectileSpeedUniqueBow4_
@@ -384,10 +366,9 @@ Replica Quill Rain
 Short Bow
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 5, 26 Dex
 SupportedByArrowNovaUnique__1
 DexterityUniqueBow4
-LocalIncreasedPhysicalDamagePercentUniqueDescentBow1
+LocalIncreasedPhysicalDamagePercentUnique__26
 LocalIncreasedAttackSpeedUnique__35
 ManaGainPerTargetUnique__2
 ProjectileSpeedUniqueBow4_
@@ -408,8 +389,8 @@ Variant: Current
 {variant:1}LocalAddedPhysicalDamageUnique__16_[25,40][100,115]
 {variant:2,3,4,5}LocalAddedPhysicalDamageUnique__16_[15,30][70,95]
 {variant:6}LocalAddedPhysicalDamageUnique__16_
-LocalIncreasedAttackSpeedUnique__9
-ProjectileSpeedUnique__3
+LocalIncreasedAttackSpeedUnique__16
+ProjectileSpeedUnique__4
 {variant:5,6}VolleyFirstPointPierceUnique__1_
 {variant:5,6}VolleySecondPointForkUnique__1
 {variant:5,6}VolleyThirdPointReturnUnique__1__
@@ -422,10 +403,9 @@ Recurve Bow
 Variant: Pre 3.9.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 18, 71 Dex
 Implicits: 1
 {variant:2,3}CriticalMultiplierImplicitBow1
-LocalIncreasedPhysicalDamagePercentUniqueBow5
+LocalIncreasedPhyiscalDamagePercentUnique__3
 {variant:1,2}LocalIncreasedAttackSpeedUnique__1
 {variant:1,2}AdditionalChainUnique__1[1,1]
 {variant:3}AdditionalChainUnique__1
@@ -437,7 +417,6 @@ Silverbranch
 Crude Bow
 Variant: Pre 2.0.0
 Variant: Current
-Requires Level 2
 LocalIncreaseSocketedBowGemLevelUniqueBow2
 {variant:1}LocalIncreasedPhysicalDamagePercentUniqueBow2[50,80]
 {variant:2}LocalIncreasedPhysicalDamagePercentUniqueBow2
@@ -448,7 +427,6 @@ IncreasedAccuracyUniqueBow2
 Silverbough
 Crude Bow
 Source: No longer obtainable
-Requires Level 36
 LocalIncreaseSocketedGemLevelUnique__2
 LocalIncreaseSocketedBowGemLevelUniqueBow2
 LocalIncreasedPhysicalDamagePercentUniqueBow2
@@ -466,7 +444,6 @@ Harbinger Bow
 Variant: Pre 3.5.0
 Variant: Pre 3.17.0
 Variant: Current
-Requires Level 68, 212 Dex
 Implicits: 1
 LocalCriticalStrikeChanceImplicitBow1
 {variant:1}LocalAddedPhysicalDamageUnique__22[60,75][170,220]
@@ -483,7 +460,6 @@ Storm Cloud
 Long Bow
 Variant: Pre 2.0.0
 Variant: Current
-Requires Level 9, 38 Dex
 LocalReducedPhysicalDamagePercentUniqueBow8
 {variant:1}AddedLightningDamageUniqueBow8[1,1][75,75]
 {variant:2}AddedLightningDamageUniqueBow8
@@ -492,7 +468,6 @@ LocalIncreasedAttackSpeedUniqueBow8
 The Tempest
 Long Bow
 Source: No longer obtainable
-Requires Level 32, 38 Dex
 LocalReducedPhysicalDamagePercentUniqueBow8
 LightningDamagePercentUnique__4
 AddedLightningDamageUniqueBow8
@@ -508,7 +483,7 @@ Variant: Current
 {variant:3,4}LocalAddedLightningDamageUniqueBow10
 LocalIncreasedAttackSpeedUniqueBow10
 {variant:1,2}ConvertLightningDamageToChaosUniqueBow10[60,60]
-{variant:3,4}ConvertLightningDamageToChaosUniqueBow10
+{variant:3,4}ConvertLightningDamageToChaosUniqueBow10Updated
 {variant:1,2}ChanceToShockUniqueBow10
 ChaosDamageCanShockUniqueBow10
 {variant:2,3}AttacksShockAsIfDealingMoreDamageUniqueBow10
@@ -523,7 +498,6 @@ Variant: Pre 2.6.0
 Variant: Pre 3.5.0
 Variant: Pre 3.25.0
 Variant: Current
-Requires Level 66, 212 Dex
 Implicits: 2
 {variant:3}WeaponElementalDamageImplicitBow1[6,12]
 {variant:4,5,6}WeaponElementalDamageImplicitBow1
@@ -547,14 +521,13 @@ Replica Windripper
 Imperial Bow
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Requires Level 66, 212 Dex
 Implicits: 1
 WeaponElementalDamageImplicitBow1
 AddedColdDamageUniqueBow9
 AddedLightningDamageUniqueBow9
-LocalIncreasedAttackSpeedUniqueBow10
-LocalCriticalStrikeChanceUniqueBow11
-FrozenMonstersTakeIncreasedDamage
+LocalIncreasedAttackSpeedUniqueBow9
+CriticalStrikeChanceUniqueBow9
+FrozenMonstersTakeIncreasedDamageUnique__1
 GainEnergyShieldOnKillShockedEnemyUnique__1_
 ]],[[
 Xoph's Inception
@@ -565,7 +538,6 @@ Variant: Current
 League: Breach
 Source: Drops in Xoph Breach or from unique{Xoph, Dark Embers}
 Upgrade: Upgrades to unique{Xoph's Nurture} using currency{Blessing of Xoph}
-Requires Level 23, 80 Dex
 {variant:1}LocalIncreasedPhysicalDamagePercentUnique__21[70,90]
 {variant:2}LocalIncreasedPhysicalDamagePercentUnique__21
 {variant:1}LifeGainedOnKillingIgnitedEnemiesUnique__1[20,30]
@@ -583,12 +555,11 @@ Variant: Pre 3.3.0
 Variant: Pre 3.9.0
 Variant: Pre 3.17.0
 Variant: Current
-Requires Level 64, 185 Dex
 {variant:3,4}SupportedByIgniteProliferationUnique1
 {variant:1,2,3}LocalIncreasedPhysicalDamagePercentUnique__38[250,300]
 {variant:4}LocalIncreasedPhysicalDamagePercentUnique__38
 ConvertPhysicalToFireUnique__1
-ChanceToIgniteUnique__2
+ChanceToIgniteUnique__3
 {variant:1}GlobalIgniteProlifUnique__1[12,12]
 {variant:2}GlobalIgniteProlifUnique__1
 GainLifeOnIgnitingEnemyUnique__1
@@ -597,14 +568,13 @@ GainLifeOnIgnitingEnemyUnique__1
 Wing of the Wyvern
 Imperial Bow
 Source: Drops from unique{Uber Incarnation of Fear} in normal{Moment of Trauma}
-Requires Level 66, 212 Dex
 Implicits: 1
 WeaponElementalDamageImplicitBow1
 MainHandTriggerSocketedSpellOnFreezingHitUnique_1
 LocalAddedColdDamageUnique__11
 LocalAddedChaosDamageUnique__4
-LocalIncreasedAttackSpeedUnique__30
+LocalIncreasedAttackSpeedUnique__44
 ChaosDamageCanFreezeUnique_1
-BattlemageKeystoneUnique__1
+BattlemageKeystoneUnique__6
 ]],
 }

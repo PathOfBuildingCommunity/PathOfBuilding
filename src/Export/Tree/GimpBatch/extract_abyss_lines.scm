@@ -35,12 +35,12 @@
     (export-png image output-path)
     (gimp-image-delete image)))
 
-(define (extract-abyss-lines source-path temporary-directory output-directory state active)
+(define (extract-abyss-lines source-path temporary-directory output-directory prefix state active)
   (let* ((line-height 60)
          (line-image (car (gimp-file-load RUN-NONINTERACTIVE source-path)))
          (line-layer (vector-ref (car (gimp-image-get-layers line-image)) 0))
          (image-size (car (gimp-drawable-get-width line-layer)))
-         (line-path (string-append output-directory "abyss-line-connector-" state ".png"))
+         (line-path (string-append output-directory prefix "-line-connector-" state ".png"))
          (radii '(82 164 334 489 658 839))
          (inner '(40 123 292 411 573 748))
          (outer '(123 207 411 573 748 958))
@@ -60,7 +60,7 @@
                (target-size (car size-list))
                ; PoB renders the source art at 38.35% of its game size.
                (crop-size (inexact->exact (round (/ target-size 0.3835))))
-               (output-path (string-append temporary-directory "abyss-orbit" (number->string orbit) "-" state ".png")))
+               (output-path (string-append temporary-directory prefix "-orbit" (number->string orbit) "-" state ".png")))
           (export-abyss-line-part source-path output-path
             (- image-size crop-size) (- image-size crop-size) crop-size target-size
             (car inner-list) (car outer-list))
