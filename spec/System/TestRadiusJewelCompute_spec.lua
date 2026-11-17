@@ -779,6 +779,58 @@ describe("RadiusJewelCompute #radius-jewel", function()
 				"comparison spec should no longer equip the replaced cluster")
 		end)
 
+		it("rebuilds a socketed Putrid Seed's grown passives in the comparison tree", function()
+			newBuild()
+			local spec = build.spec
+			local seedSocketId
+			for socketId in pairs(spec.tree.blightcoreLayouts) do
+				if not seedSocketId or socketId < seedSocketId then
+					seedSocketId = socketId
+				end
+			end
+			local seed = new("Item"):Item([[
+Rarity: UNIQUE
+Putrid Seed
+Mycelium Core
+Limited to: 1
+Implicits: 1
+1 Added Passive Skill is Constitution (enchant)
+Grows four random Passive Skills when Anointed
+Passive Skills grown are influenced by Oils used when Anointing
+]])
+			build.itemsTab:AddItem(seed, true)
+			spec.jewels[seedSocketId] = seed.id
+			build.itemsTab.sockets[seedSocketId].selItemId = seed.id
+			spec:AllocNode(spec.nodes[seedSocketId])
+			spec:BuildClusterJewelGraphs()
+
+			local clusterSocketId
+			for socketId in pairs(spec.tree.blightcoreLayouts) do
+				if socketId ~= seedSocketId then
+					clusterSocketId = socketId
+					break
+				end
+			end
+			local cluster = new("Item"):Item([[
+Rarity: UNIQUE
+One With Nothing
+Small Cluster Jewel
+Implicits: 0
+Adds Hollow Palm Technique
+]])
+			local comparisonSpec = build.itemsTab:BuildSpecForJewelComparison({ nodeId = clusterSocketId }, cluster, true, true)
+
+			local seedSubGraph = comparisonSpec.subGraphs[seedSocketId]
+			assert.is_not_nil(seedSubGraph, "expected the Putrid Seed subgraph in the comparison tree")
+			local grownLinkCount = 0
+			for _, linkedNode in ipairs(comparisonSpec.nodes[seedSocketId].linked) do
+				if linkedNode.isBlightcore then
+					grownLinkCount = grownLinkCount + 1
+				end
+			end
+			assert.are.equal(#seedSubGraph.entranceNodes, grownLinkCount)
+		end)
+
 	end)
 
 	describe("computeImpossibleEscapeSocketImpact", function()

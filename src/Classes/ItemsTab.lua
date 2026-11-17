@@ -4254,19 +4254,23 @@ local function cloneSpecForJewelComparison(spec, includeClusterSubgraphs)
 	specCopy.allocExtendedNodes = { }
 	specCopy.subGraphs = { }
 	if includeClusterSubgraphs then
-		for id, subGraph in pairs(spec.subGraphs) do
-			local subGraphCopy = {
-				nodes = { },
-				parentSocket = specCopy.nodes[subGraph.parentSocket.id],
-				entranceNode = specCopy.nodes[subGraph.entranceNode.id],
-			}
-			for _, node in ipairs(subGraph.nodes) do
+		local function copyNodeList(nodes)
+			local nodeCopies = { }
+			for _, node in ipairs(nodes) do
 				local nodeCopy = specCopy.nodes[node.id]
 				if nodeCopy then
-					t_insert(subGraphCopy.nodes, nodeCopy)
+					t_insert(nodeCopies, nodeCopy)
 				end
 			end
-			specCopy.subGraphs[id] = subGraphCopy
+			return nodeCopies
+		end
+		for id, subGraph in pairs(spec.subGraphs) do
+			specCopy.subGraphs[id] = {
+				nodes = copyNodeList(subGraph.nodes),
+				parentSocket = specCopy.nodes[subGraph.parentSocket.id],
+				-- Cluster subgraphs have one entrance; Putrid Seed subgraphs have several.
+				entranceNodes = copyNodeList(subGraph.entranceNodes or { subGraph.entranceNode }),
+			}
 		end
 	end
 
