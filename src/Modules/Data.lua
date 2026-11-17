@@ -6,7 +6,7 @@
 local dkjson = require("dkjson")
 LoadModule("Data/Global")
 
-local WeightedScore = LoadModule("Modules/WeightedScore")
+local WeightedScore = require("Modules.WeightedScore")
 local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor

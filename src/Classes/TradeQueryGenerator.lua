@@ -5,7 +5,7 @@
 --
 
 local dkjson = require "dkjson"
-local WeightedScore = LoadModule("Modules/WeightedScore")
+local WeightedScore = require("Modules.WeightedScore")
 local curl = require("lcurl.safe")
 local m_max = math.max
 local s_format = string.format

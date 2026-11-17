@@ -16,7 +16,7 @@ local m_floor = math.floor
 local m_abs = math.abs
 local s_format = string.format
 local tradeHelpers = require("Classes.TradeHelpers")
-local WeightedScore = LoadModule("Modules/WeightedScore")
+local WeightedScore = require("Modules.WeightedScore")
 local dkjson = require "dkjson"
 
 ---@class TreeTab: ControlHost

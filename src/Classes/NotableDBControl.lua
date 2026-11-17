@@ -11,7 +11,7 @@ local m_max = math.max
 local m_floor = math.floor
 local m_huge = math.huge
 local s_format = string.format
-local WeightedScore = LoadModule("Modules/WeightedScore")
+local WeightedScore = require("Modules.WeightedScore")
 
 ---@param node table
 ---@return boolean
