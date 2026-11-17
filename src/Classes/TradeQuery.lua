@@ -1810,15 +1810,18 @@ you can add them, copy the link here, and press "Price Item" to evaluate the ite
 		for line in (craftText or evaluation.benchCraft):gmatch("[^\n]+") do
 			t_insert(summary, "^7" .. line)
 		end
+		local noteLineCount = 0
 		if evaluation.benchCraftItemString then
+			t_insert(summary, colorCodes.TIP .. "Estimated with bench craft.")
 			t_insert(summary, colorCodes.TIP .. "Tip: Hold Ctrl to compare items.")
+			noteLineCount = 2
 		end
 		tooltip:AddSeparator(10)
 		local maxWidth = tooltip.maxWidth
 		tooltip.maxWidth = nil
 		-- Keep the summary within the existing item text, wrapping before an oversized word.
 		for index, text in ipairs(summary) do
-			local size = evaluation.benchCraftItemString and index == #summary and 14 or 16
+			local size = index > #summary - noteLineCount and 14 or 16
 			local line = ""
 			for word in text:gmatch("%S+") do
 				local nextLine = line == "" and word or line .. " " .. word
@@ -1834,14 +1837,13 @@ you can add them, copy the link here, and press "Price Item" to evaluate the ite
 		tooltip.maxWidth = maxWidth
 		return evaluation
 	end
-	local function addBenchCraftPreviewIfApplicable(tooltip, evaluation, tooltipSlot, sourceItem)
-		if not evaluation or not evaluation.benchCraftItemString or not self:IsBenchCraftPreviewActive() then
-			return
-		end
-		local previewItem = new("Item"):Item(evaluation.benchCraftItemString)
+	-- Returns the listing with its evaluated bench craft applied and the set of crafted mod lines,
+	-- keeping the listing's mod order so that a replaced craft takes the old craft's place.
+	local function getBenchCraftedItem(evaluation, sourceItem)
+		local craftedItem = new("Item"):Item(evaluation.benchCraftItemString)
 		local craftedModLines = { }
 		for _, lineIndex in ipairs(evaluation.benchCraftLineIndexes or { }) do
-			local modLine = previewItem.explicitModLines[lineIndex]
+			local modLine = craftedItem.explicitModLines[lineIndex]
 			if modLine then
 				craftedModLines[modLine] = true
 			end
@@ -1851,7 +1853,7 @@ you can add them, copy the link here, and press "Price Item" to evaluate the ite
 				tostring(modLine.fractured), tostring(modLine.crafted), modLine.modGroup or "" }, "\0")
 		end
 		local remaining = { }
-		for _, modLine in ipairs(previewItem.explicitModLines) do
+		for _, modLine in ipairs(craftedItem.explicitModLines) do
 			t_insert(remaining, modLine)
 		end
 		local ordered = { }
@@ -1889,18 +1891,17 @@ you can add them, copy the link here, and press "Price Item" to evaluate the ite
 		for _, previewModLine in ipairs(remaining) do
 			t_insert(ordered, previewModLine)
 		end
-		previewItem.explicitModLines = ordered
-		local previewTooltip = tooltip.benchCraftPreviewTooltip or new("Tooltip"):Tooltip()
-		tooltip.benchCraftPreviewTooltip = previewTooltip
-		previewTooltip:Clear()
-		self.itemsTab:AddItemTooltip(previewTooltip, previewItem, tooltipSlot)
-		for _, line in ipairs(previewTooltip.lines) do
-			if line.modLine and craftedModLines[line.modLine] and line.text then
-				line.text = colorCodes.WARNING .. "[Craft] " .. StripEscapes(line.text)
-			end
+		craftedItem.explicitModLines = ordered
+		return craftedItem, craftedModLines
+	end
+	local function addListingPreviewIfApplicable(tooltip, evaluation, tooltipSlot, listingItem)
+		if not evaluation or not evaluation.benchCraftItemString or not self:IsBenchCraftPreviewActive() then
+			return
 		end
-		previewTooltip:AddSeparator(10)
-		previewTooltip:AddLine(14, colorCodes.TIP .. "Estimated with bench craft.")
+		local previewTooltip = tooltip.listingPreviewTooltip or new("Tooltip"):Tooltip()
+		tooltip.listingPreviewTooltip = previewTooltip
+		previewTooltip:Clear()
+		self.itemsTab:AddItemTooltip(previewTooltip, listingItem, tooltipSlot)
 		tooltip.childTooltips = { previewTooltip }
 	end
 	controls["resultDropdown"..row_idx].tooltipFunc = function(tooltip, dropdown_mode, dropdown_index, dropdown_display_string)
@@ -1917,10 +1918,21 @@ you can add them, copy the link here, and press "Price Item" to evaluate the ite
 		tooltip:Clear()
 		tooltip.childTooltips = nil
 		local tooltipSlot = slotTbl.selectedJewelNodeId and self.itemsTab.sockets[slotTbl.selectedJewelNodeId] or activeSlot
-		self.itemsTab:AddItemTooltip(tooltip, item, tooltipSlot)
+		-- Show the item the score was computed for: the listing with its bench craft, if one was evaluated.
+		local evaluation = result.evaluation and result.evaluation[1]
+		local craftedItem, craftedModLines
+		if evaluation and evaluation.benchCraftItemString then
+			craftedItem, craftedModLines = getBenchCraftedItem(evaluation, item)
+		end
+		self.itemsTab:AddItemTooltip(tooltip, craftedItem or item, tooltipSlot)
+		for _, line in ipairs(craftedModLines and tooltip.lines or { }) do
+			if line.modLine and craftedModLines[line.modLine] and line.text then
+				line.text = colorCodes.WARNING .. "[Craft] " .. StripEscapes(line.text)
+			end
+		end
 		addMegalomaniacCompareToTooltipIfApplicable(tooltip, pb_index)
 		local benchCraftEvaluation = addBenchCraftToTooltipIfApplicable(tooltip, result)
-		addBenchCraftPreviewIfApplicable(tooltip, benchCraftEvaluation, tooltipSlot, item)
+		addListingPreviewIfApplicable(tooltip, benchCraftEvaluation, tooltipSlot, item)
 		tooltip:AddSeparator(10)
 		local eval = result.evaluation
 		if eval and eval[1] and eval[1].statDetails then
