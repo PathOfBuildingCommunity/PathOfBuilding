@@ -741,7 +741,7 @@ Dragonscale Boots
 Variant: Pre 3.23.0
 Variant: Current
 Source: Drops from unique{The Searing Exarch} (Uber)
-Grants Approaching Flames
+Grants Level 20 Approaching Flames
 (60-100)% increased Armour and Evasion
 30% increased Movement Speed
 Cannot be Chilled
@@ -1084,7 +1084,7 @@ Regenerate (75-125) Life per second while Ignited
 Veruso's Ambition
 Shackled Boots
 League: Necropolis
-Grants Ravenous
+Grants Level 20 Ravenous
 Enemies display their Monster Category
 (80-120)% increased Evasion and Energy Shield
 +(13-23)% to Chaos Resistance

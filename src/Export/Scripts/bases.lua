@@ -117,6 +117,7 @@ directiveTable.base = function(state, args, out)
 	displayName = displayName:gsub("^%s*(.-)%s*$", "%1") -- trim spaces GGG might leave in by accident
 	displayName = displayName ~= "Energy Blade" and displayName or (state.type == "One Handed Sword" and "Energy Blade One Handed" or "Energy Blade Two Handed")
 	out:write('itemBases["', displayName, '"] = {\n')
+	out:write('\tbaseId = "', baseTypeId, '",\n')
 	out:write('\ttype = "', state.type, '",\n')
 	if state.subType and #state.subType > 0 then
 		out:write('\tsubType = "', state.subType, '",\n')
@@ -439,6 +440,7 @@ local itemTypes = {
 	"flask",
 	"tincture",
 	"graft",
+	"wickerman",
 }
 for _, name in pairs(itemTypes) do
 	processTemplateFile(name, "Bases/", "../Data/Bases/", directiveTable)

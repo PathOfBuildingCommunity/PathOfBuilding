@@ -93,7 +93,7 @@ Variant: Current
 League: Ritual
 Source: Drops from unique{The Maven}
 Implicits: 0
-Grants Unhinge
+Grants Level 20 Unhinge
 (40-60)% more Critical Strike Chance while Insane
 Enemies Killed by your Hits are destroyed while Insane
 {variant:1}(15-25)% more Physical and Chaos Damage Taken while Sane
@@ -474,9 +474,9 @@ Variant: Rhoa Current
 Variant: Snake Current
 Variant: Ursa Current
 Implicits: 0
-{variant:1,4}Grants Summon Bestial Rhoa
-{variant:2,5}Grants Summon Bestial Snake
-{variant:3,6}Grants Summon Bestial Ursa
+{variant:1,4}Grants Level 20 Summon Bestial Rhoa
+{variant:2,5}Grants Level 20 Summon Bestial Snake
+{variant:3,6}Grants Level 20 Summon Bestial Ursa
 +(300-400) to Accuracy Rating
 (130-150)% increased Evasion Rating
 +(90-100) to maximum Life
@@ -1512,5 +1512,27 @@ Trigger Level 20 Bone Offering, Flesh Offering, Spirit Offering every 5 seconds 
 Offering Skills Triggered this way also affect you
 (100-130)% increased Energy Shield
 (6-10)% increased maximum Life
+]],[[
+Mantle of Dreams
+Twilight Regalia
+League: Covens
+Source: Drops from unique{Incarnation of Dread} (Uber)
+Implicits: 0
+Socketed Gems are Supported by Level 30 Unleash Support
+(100-150)% increased Energy Shield
+Socketed Gems deal 20% more damage per Socketed Skill Gem
+Socketed Support Gems have no effect
+]],[[
+Hide of the Vendigo
+Exquisite Leather
+League: Covens
+Source: Drops from a boss empowered by a Fate that rewards this item
+Implicits: 0
++(15-25)% chance to Suppress Spell Damage
+(150-200)% increased Evasion Rating
++(25-35)% to Cold Resistance
+(165-205) to (260-310) Added Cold Damage with Unarmed Attacks
+(16-24)% increased Attack Speed if you've used an Attack Movement Skill Recently
+Can Attack as though using a Claw while main hand is empty
 ]]
 }

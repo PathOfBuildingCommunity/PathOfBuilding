@@ -1308,7 +1308,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 					env.itemModDB.conditions[item.title:gsub(" ", "")] = item.classRestriction
 				end
 				if item.type ~= "Jewel" and item.type ~= "Flask" and item.type ~= "Tincture" and item.type ~= "Graft"
-				and item.type ~= "Wickerman Head" and item.type ~= "Wickerman Torso" and item.type ~= "Wickerman Upper Limb" and item.type ~= "Wickerman Lower Limb" then
+				and item.type ~= "Viscera" then
 					-- Update item counts
 					local key
 					if item.rarity == "UNIQUE" or item.rarity == "RELIC" then
@@ -1366,9 +1366,13 @@ function calcs.initEnv(build, mode, override, specEnv)
 						end
 					end
 					local socketedColours = { R = 0, G = 0, B = 0 }
+					local socketedSkillGems = 0
 					-- Only gems that fit in the item's sockets contribute to multipliers
 					for i = 1, math.min(slotGemSocketsCount, #socketedGems) do
 						local tags = socketedGems[i].gemData.tags
+						if tags and not tags.support then
+							socketedSkillGems = socketedSkillGems + 1
+						end
 						if tags and tags.strength then
 							socketedColours.R = socketedColours.R + 1
 						end
@@ -1383,6 +1387,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 					env.itemModDB.multipliers["SocketedRedGemsIn" .. slotName] = socketedColours.R
 					env.itemModDB.multipliers["SocketedGreenGemsIn" .. slotName] = socketedColours.G
 					env.itemModDB.multipliers["SocketedBlueGemsIn" .. slotName] = socketedColours.B
+					env.itemModDB.multipliers["SocketedSkillGemsIn" .. slotName] = socketedSkillGems
 					env.itemModDB.multipliers["EmptySocketIn" .. slotName] = math.min(slotGemSocketsCount, slotEmptySocketsCount.R + slotEmptySocketsCount.G + slotEmptySocketsCount.B + slotEmptySocketsCount.W)
 					env.itemModDB.multipliers.EmptyRedSocketsInAnySlot = (env.itemModDB.multipliers.EmptyRedSocketsInAnySlot or 0) + slotEmptySocketsCount.R
 					env.itemModDB.multipliers.EmptyGreenSocketsInAnySlot = (env.itemModDB.multipliers.EmptyGreenSocketsInAnySlot or 0) + slotEmptySocketsCount.G
@@ -1420,9 +1425,9 @@ function calcs.initEnv(build, mode, override, specEnv)
 	-- Merge env.itemModDB with env.ModDB
 	mergeDB(env.modDB, env.itemModDB)
 
-	-- Add granted passives (e.g., amulet anoints)
+	-- Add granted passives (e.g., amulet anoints or Putrid Seed passives)
 	if not accelerate.nodeAlloc then
-		for _, passive in pairs(env.modDB:List(nil, "GrantedPassive")) do
+		for _, passive in pairs(tableConcat(env.modDB:List(nil, "GrantedPassive"), env.initialNodeModDB:List(nil, "GrantedPassive"))) do
 			local node = env.spec.tree.notableMap[passive] or env.spec.tree.ascendancyMap[passive]
 			local specNode = node and env.spec.nodes[node.id] -- use the conquered node data, if available
 			node = node or build.latestTree.ascendancyMap[passive]
@@ -1616,6 +1621,10 @@ function calcs.initEnv(build, mode, override, specEnv)
 
 		-- Get the weapon data tables for the equipped weapons
 		env.player.weaponData1 = env.player.itemList["Weapon 1"] and env.player.itemList["Weapon 1"].weaponData and env.player.itemList["Weapon 1"].weaponData[1] or copyTable(env.data.unarmedWeaponData[env.classId])
+		-- Hide of the Vendigo: Can Attack as though using a Claw while main hand is empty
+		if not env.player.itemList["Weapon 1"] and env.modDB:Flag(nil, "CanAttackAsClawUnarmed") then
+			env.player.weaponData1.asThoughUsing = { Claw = true }
+		end
 		if env.player.weaponData1.countsAsDualWielding then
 			env.player.weaponData2 = env.player.itemList["Weapon 1"].weaponData[2]
 		elseif not env.player.itemList["Weapon 2"] then
@@ -1729,6 +1738,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 					end
 				end
 
+				local socketedSupportsDisabled = env.modDB:Flag(groupCfg, "SocketedSupportGemsHaveNoEffect")
 				for gemIndex, gemInstance in ipairs(group.gemList) do
 					-- Add support gems from this group
 					if env.mode == "MAIN" then
@@ -1779,8 +1789,10 @@ function calcs.initEnv(build, mode, override, specEnv)
 							-- Validate support gem level in case there is no active skill (and no full calculation)
 							calcLib.validateGemLevel(supportEffect)
 
-							for _, targetList in ipairs(targetListList) do
-								addBestSupport(supportEffect, targetList, env.mode)
+							if not socketedSupportsDisabled then
+								for _, targetList in ipairs(targetListList) do
+									addBestSupport(supportEffect, targetList, env.mode)
+								end
 							end
 						end
 						if gemInstance.gemData then

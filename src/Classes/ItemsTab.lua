@@ -207,8 +207,8 @@ function ItemsTabClass:ItemsTab(build)
 		return self.build.spec.treeVersion:find("3_30")
 	end
 	prevSlot = self.controls.wickermanHeader
-	for _, slotName in ipairs({ "Wickerman Head", "Wickerman Torso", "Wickerman Upper Limb", "Wickerman Lower Limb" }) do
-		local slot = new("ItemSlotControl"):ItemSlotControl({"TOPLEFT",prevSlot,"BOTTOMLEFT"}, 0, 2, self, slotName, (slotName:gsub("^Wickerman ", "")))
+	for _, slotName in ipairs({ "Head", "Body", "Arm", "Leg" }) do
+		local slot = new("ItemSlotControl"):ItemSlotControl({"TOPLEFT",prevSlot,"BOTTOMLEFT"}, 0, 2, self, slotName)
 		slot.shown = self.controls.wickermanHeader.shown
 		addSlot(slot)
 	end
@@ -299,7 +299,7 @@ function ItemsTabClass:ItemsTab(build)
 	self.controls.selectDBLabel.shown = function()
 		return self.height < 980
 	end
-	self.controls.selectDB = new("DropDownControl"):DropDownControl({"LEFT",self.controls.selectDBLabel,"RIGHT"}, {4, 0, 150, 18}, { "Uniques", "Rare Templates" })
+	self.controls.selectDB = new("DropDownControl"):DropDownControl({"LEFT",self.controls.selectDBLabel,"RIGHT"}, {4, 0, 150, 18}, { "Uniques", "Rare Templates", "Viscera" })
 
 	-- Unique database
 	self.controls.uniqueDB = new("ItemDBControl"):ItemDBControl({"TOPLEFT",self.controls.itemList,"BOTTOMLEFT"}, {0, 76, 360, function(c) return m_min(244, self.maxY - select(2, c:GetPos())) end}, self, main.uniqueDB, "UNIQUE")
@@ -317,6 +317,14 @@ function ItemsTabClass:ItemsTab(build)
 	end
 	self.controls.rareDB.shown = function()
 		return not self.controls.selectDBLabel:IsShown() or self.controls.selectDB.selIndex == 2
+	end
+	-- Viscera database
+	self.controls.visceraDB = new("ItemDBControl"):ItemDBControl({"TOPLEFT",self.controls.itemList,"BOTTOMLEFT"}, {0, 76, 360, function(c) return m_min(260, self.maxY - select(2, c:GetPos())) end}, self, main.visceraDB, "RARE")
+	self.controls.visceraDB.y = function()
+		return self.controls.selectDBLabel:IsShown() and 78 or 396
+	end
+	self.controls.visceraDB.shown = function()
+		return not self.controls.selectDBLabel:IsShown() or self.controls.selectDB.selIndex == 3
 	end
 	-- Create/import item
 	self.controls.craftDisplayItem = new("ButtonControl"):ButtonControl({"TOPLEFT",main.portraitMode and self.controls.setManage or self.controls.itemList,"TOPRIGHT"}, {20, main.portraitMode and 0 or -20, 120, 20}, "Craft item...", function()
@@ -574,7 +582,7 @@ holding Shift will put it in the second.]])
 			self.displayItem.canHaveFourEnchants and
 			#self.displayItem.enchantModLines > 2
 	end
-	self.controls.displayItemCorrupt = new("ButtonControl"):ButtonControl({"TOPLEFT",self.controls.displayItemAnoint4,"TOPRIGHT",true}, {8, 10, 100, 20}, "Corrupt...", function()
+	self.controls.displayItemCorrupt = new("ButtonControl"):ButtonControl({"TOPLEFT",self.controls.displayItemAnoint4,"TOPRIGHT",true}, {8, 0, 100, 20}, "Corrupt...", function()
 		self:CorruptDisplayItem()
 	end)
 	self.controls.displayItemCorrupt.shown = function()
@@ -1234,6 +1242,8 @@ holding Shift will put it in the second.]])
 	t_insert(self.controls.uniqueDB.dragTargetList, self.controls.itemList)
 	t_insert(self.controls.uniqueDB.dragTargetList, self.controls.sharedItemList)
 	t_insert(self.controls.uniqueDB.dragTargetList, build.controls.mainSkillMinion)
+	t_insert(self.controls.visceraDB.dragTargetList, self.controls.itemList)
+	t_insert(self.controls.visceraDB.dragTargetList, self.controls.sharedItemList)
 	t_insert(self.controls.rareDB.dragTargetList, self.controls.itemList)
 	t_insert(self.controls.rareDB.dragTargetList, self.controls.sharedItemList)
 	t_insert(self.controls.rareDB.dragTargetList, build.controls.mainSkillMinion)
@@ -1243,6 +1253,7 @@ holding Shift will put it in the second.]])
 		t_insert(self.controls.itemList.dragTargetList, slot)
 		t_insert(self.controls.uniqueDB.dragTargetList, slot)
 		t_insert(self.controls.rareDB.dragTargetList, slot)
+		t_insert(self.controls.visceraDB.dragTargetList, slot)
 		t_insert(self.controls.sharedItemList.dragTargetList, slot)
 	end
 
@@ -2646,6 +2657,9 @@ function ItemsTabClass:IsItemValidForSlot(item, slotName, itemSet)
 				return true
 			end
 			return false
+		elseif item.base.subType == "Blightcore" then
+			-- Putrid Seed can only grow passives from Large Jewel Sockets
+			return node.expansionJewel and node.expansionJewel.size == 2
 		elseif item.clusterJewel and not node.expansionJewel then
 			-- Don't allow cluster jewels in inner sockets
 			return false
@@ -2658,6 +2672,10 @@ function ItemsTabClass:IsItemValidForSlot(item, slotName, itemSet)
 		end
 	elseif item.type == slotType then
 		return true
+	elseif item.type == "Viscera" then
+		if item.base.tags["viscera_" .. (slotName:gsub("^%u", string.lower))] then
+			return true
+		end
 	elseif item.type == "Tincture" and slotType == "Flask" then
 		return true
 	elseif item.type == "Jewel" and item.base.subType == "Abyss" and slotName:match("Abyssal Socket") then
@@ -3057,6 +3075,12 @@ function ItemsTabClass:getAnoint(item)
 				if anoint then
 					local nodeName = line:sub(anoint + string.len("Allocates "))
 					t_insert(result, nodeName)
+				elseif item.base.subType == "Blightcore" then
+					-- Putrid Seed anoints grow passives instead
+					local nodeName = line:lower():match("^1 added passive skill is (.+)$")
+					if nodeName then
+						t_insert(result, nodeName)
+					end
 				end
 			end
 		end
@@ -3088,7 +3112,13 @@ function ItemsTabClass:anointItem(node)
 		t_remove(item.enchantModLines, self.anointEnchantSlot)
 	end
 	if node then
-		t_insert(item.enchantModLines, self.anointEnchantSlot, { crafted = true, line = "Allocates " .. node.dn })
+		local line
+		if item.base.subType == "Blightcore" then
+			line = "1 Added Passive Skill is " .. node.dn
+		else
+			line = "Allocates " .. node.dn
+		end
+		t_insert(item.enchantModLines, self.anointEnchantSlot, { crafted = true, line = line })
 	end
 	item:BuildAndParseRaw()
 	return item

@@ -1078,7 +1078,7 @@ function calcs.defence(env, actor)
 			end
 		end
 		output.EnergyShield = modDB:Override(nil, "EnergyShield") or m_max(round(energyShield), 0)
-		output.Armour = m_max(round(armour), 0)
+		output.Armour = modDB:Override(nil, "Armour") or m_max(round(armour), 0)
 		output.Evasion = m_max(round(evasion), 0)
 		output.MeleeEvasion = m_max(round(evasion * calcLib.mod(modDB, nil, "MeleeEvasion")), 0)
 		output.ProjectileEvasion = m_max(round(evasion * calcLib.mod(modDB, nil, "ProjectileEvasion")), 0)
