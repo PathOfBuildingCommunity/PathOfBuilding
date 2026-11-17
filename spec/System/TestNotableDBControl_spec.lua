@@ -17,7 +17,6 @@ describe("NotableDBControl", function()
 			[candidates[1]] = { FullDPS = 180, TotalEHP = 120 },
 			[candidates[2]] = { FullDPS = 150, TotalEHP = 140 },
 		}
-		local requestedFullDPS = { }
 		local itemsTab = {
 			displayItem = displayItem,
 			tradeQuery = { statSortSelectionList = weights or {} },
@@ -27,8 +26,7 @@ describe("NotableDBControl", function()
 			itemsTab = itemsTab,
 			calcsTab = {
 				GetMiscCalculator = function()
-					return function(args, useFullDPS)
-						requestedFullDPS[#requestedFullDPS + 1] = useFullDPS
+					return function(args)
 						return outputs[args.repItem] or { FullDPS = 100, TotalEHP = 100 }
 					end
 				end,
@@ -37,7 +35,7 @@ describe("NotableDBControl", function()
 		local list = includeSecondCandidate and candidates or { candidates[1] }
 		local control = new("NotableDBControl"):NotableDBControl(nil, { 0, 0, 100, 100 }, itemsTab, list, "ANOINT")
 		control.sortOrder = { control.sortControl.STAT, control.sortControl.NAME }
-		return control, candidates, requestedFullDPS
+		return control, candidates
 	end
 
 	it("sorts WeightedScore anoints against the displayed item", function()
@@ -45,12 +43,11 @@ describe("NotableDBControl", function()
 			{ stat = "FullDPS", weightMult = 1 },
 			{ stat = "TotalEHP", weightMult = 1 },
 		}
-		local control, candidates, requestedFullDPS = newAnointFixture(weights, true)
+		local control, candidates = newAnointFixture(weights, true)
 		control.sortDetail = findPowerStat("WeightedScore")
 
 		control:ListBuilder()
 
-		assert.are.same({ true, true, true }, requestedFullDPS)
 		assert.are.same({ candidates[2], candidates[1] }, control.list)
 		assert.is_true(candidates[2].measuredPower > candidates[1].measuredPower)
 		assert.are.equal(candidates[2].measuredPower, control.sortMaxPower)

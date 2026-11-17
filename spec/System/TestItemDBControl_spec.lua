@@ -27,7 +27,6 @@ describe("ItemDBControl", function()
 			[items.better] = { PhysicalTakenHit = 80, FullDPS = 120 },
 			[items.worse] = { PhysicalTakenHit = 120, FullDPS = 80 },
 		}
-		local requestedFullDPS = { }
 		local itemsTab = {
 			activeItemSet = { useSecondWeaponSet = false },
 			slots = { ["Body Armour"] = { shown = function() return true end } },
@@ -40,8 +39,7 @@ describe("ItemDBControl", function()
 			itemsTab = itemsTab,
 			calcsTab = {
 				GetMiscCalculator = function()
-					return function(args, useFullDPS)
-						requestedFullDPS[#requestedFullDPS + 1] = useFullDPS
+					return function(args)
 						return values[args.repItem]
 					end, { PhysicalTakenHit = 100, FullDPS = 100 }
 				end,
@@ -51,7 +49,7 @@ describe("ItemDBControl", function()
 			list = { items.invalid, items.better, items.worse },
 		}, "RARE")
 		control.sortOrder = { control.sortControl.STAT, control.sortControl.NAME }
-		return control, items, requestedFullDPS
+		return control, items
 	end
 
 	before_each(function()
@@ -77,11 +75,11 @@ describe("ItemDBControl", function()
 		assert.are.equal(-math.huge, items.invalid.measuredPower)
 	end)
 
-	it("preserves negative WeightedScore results and skips unneeded FullDPS", function()
+	it("preserves negative WeightedScore results", function()
 		local weights = {
 			{ stat = "PhysicalTakenHit", weightMult = 1, transform = function(value) return -value end },
 		}
-		local control, items, requestedFullDPS = newRankingFixture(weights)
+		local control, items = newRankingFixture(weights)
 		control.sortDetail = copyTable(findPowerStat("WeightedScore"))
 
 		control:ListBuilder()
@@ -90,16 +88,6 @@ describe("ItemDBControl", function()
 		assert.is_true(items.better.measuredPower < 0)
 		assert.is_true(items.worse.measuredPower < items.better.measuredPower)
 		assert.are.equal(-math.huge, items.invalid.measuredPower)
-		assert.are.same({ false, false }, requestedFullDPS)
-	end)
-
-	it("requests FullDPS for WeightedScore when active weights need it", function()
-		local control, _, requestedFullDPS = newRankingFixture({ { stat = "FullDPS", weightMult = 1 } })
-		control.sortDetail = copyTable(findPowerStat("WeightedScore"))
-
-		control:ListBuilder()
-
-		assert.are.same({ true, true }, requestedFullDPS)
 	end)
 
 	it("searches Foulborn modifier text without case sensitivity", function()

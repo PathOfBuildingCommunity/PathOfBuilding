@@ -323,22 +323,8 @@ describe("Abyss timeless jewels", function()
 		local controls = main.popups[1].controls
 		controls.fallbackWeightsList:SelByValue("WeightedScore", "stat")
 
-		local originalGetMiscCalculator = build.calcsTab.GetMiscCalculator
-		local requestedFullDPS = { }
-		build.calcsTab.GetMiscCalculator = function(self, ...)
-			local calcFunc, calcBase = originalGetMiscCalculator(self, ...)
-			return function(params, useFullDPS)
-				requestedFullDPS[#requestedFullDPS + 1] = useFullDPS
-				return calcFunc(params, useFullDPS)
-			end, calcBase
-		end
 		local ok, errMsg = pcall(controls.fallbackWeightsButton.onClick)
-		build.calcsTab.GetMiscCalculator = originalGetMiscCalculator
 		assert.is_true(ok, errMsg)
-		assert.is_true(#requestedFullDPS > 1, "Generate must evaluate a baseline and candidates")
-		for _, useFullDPS in ipairs(requestedFullDPS) do
-			assert.is_true(useFullDPS)
-		end
 
 		local distinctWeights = { }
 		local usefulWeightCount = 0

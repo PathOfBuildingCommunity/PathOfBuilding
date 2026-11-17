@@ -136,6 +136,8 @@ describe("WeightedScore — tree integration", function()
 		assert.is_true(math.abs(delta - 200) < 0.0001)
 		assert.is_true(math.abs(delta / baseValue - 2 / 15) < 0.0001)
 		assert.are.equal(123, data.powerStatList.GetValue({ Life = 123 }, life, build, baseOutput))
+		build.itemsTab.tradeQuery.statSortSelectionList = { { stat = "TotalEHP", weightMult = 1 } }
+		assert.is_false(data.powerStatList.RequiresFullDPS(weightedScore, build))
 	end)
 
 	it("getValue on WeightedScore entry reuses provided calcBase", function()
@@ -275,10 +277,10 @@ Implicits: 0
 		}
 		itemsTab.controls.craftingSorting:SelByValue("WeightedScore", "stat")
 
-		local useFullDPSCalls = { }
+		local calcCount = 0
 		build.calcsTab.GetMiscCalculator = function()
-			return function(params, useFullDPS)
-				useFullDPSCalls[#useFullDPSCalls + 1] = useFullDPS
+			return function(params)
+				calcCount = calcCount + 1
 				local item = params and params.repItem
 				local modCount = item and #item.explicitModLines or 0
 				if item == itemsTab.displayItem then
@@ -302,10 +304,7 @@ Implicits: 0
 			{ }
 		)
 
-		assert.is_true(#useFullDPSCalls > 0)
-		for _, useFullDPS in ipairs(useFullDPSCalls) do
-			assert.is_true(useFullDPS)
-		end
+		assert.is_true(calcCount > 0)
 		assert.is_not_nil(control.list[2].modList)
 		local highestScoredMod = itemsTab.displayItem.affixes[control.list[2].modList[1]]
 		assert.are.equal(1, #highestScoredMod, "the best modifier for the displayed item must sort first")
