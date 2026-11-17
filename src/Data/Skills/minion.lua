@@ -1770,6 +1770,75 @@ skills["MinionInstability"] = {
 		[1] = { cost = { } },
 	},
 }
+skills["GuardianRelicExplosionFire"] = {
+	name = "Fire Relic Explosion",
+	hidden = true,
+	color = 4,
+	baseFlags = {
+		cast = true,
+		area = true,
+		fire = true,
+	},
+	skillTypes = { [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Fire] = true },
+	baseMods = {
+		skill("FireMin", 1, { type = "PercentStat", stat = "Life", percentVar = "GuardianRelicExplosionPercent" }),
+		skill("FireMax", 1, { type = "PercentStat", stat = "Life", percentVar = "GuardianRelicExplosionPercent" }),
+		skill("showAverage", true),
+	},
+	stats = {
+	},
+	levelMods = {
+	},
+	levels = {
+		[1] = { cost = { } },
+	},
+}
+skills["GuardianRelicExplosionCold"] = {
+	name = "Cold Relic Explosion",
+	hidden = true,
+	color = 4,
+	baseFlags = {
+		cast = true,
+		area = true,
+		cold = true,
+	},
+	skillTypes = { [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Cold] = true },
+	baseMods = {
+		skill("ColdMin", 1, { type = "PercentStat", stat = "Life", percentVar = "GuardianRelicExplosionPercent" }),
+		skill("ColdMax", 1, { type = "PercentStat", stat = "Life", percentVar = "GuardianRelicExplosionPercent" }),
+		skill("showAverage", true),
+	},
+	stats = {
+	},
+	levelMods = {
+	},
+	levels = {
+		[1] = { cost = { } },
+	},
+}
+skills["GuardianRelicExplosionLightning"] = {
+	name = "Lightning Relic Explosion",
+	hidden = true,
+	color = 4,
+	baseFlags = {
+		cast = true,
+		area = true,
+		lightning = true,
+	},
+	skillTypes = { [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Lightning] = true },
+	baseMods = {
+		skill("LightningMin", 1, { type = "PercentStat", stat = "Life", percentVar = "GuardianRelicExplosionPercent" }),
+		skill("LightningMax", 1, { type = "PercentStat", stat = "Life", percentVar = "GuardianRelicExplosionPercent" }),
+		skill("showAverage", true),
+	},
+	stats = {
+	},
+	levelMods = {
+	},
+	levels = {
+		[1] = { cost = { } },
+	},
+}
 skills["SiegebreakerCausticGround"] = {
 	name = "Caustic Ground",
 	hidden = true,
