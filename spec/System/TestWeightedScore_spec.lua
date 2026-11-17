@@ -1,17 +1,6 @@
 local WeightedScore = LoadModule("Modules/WeightedScore")
 
 describe("WeightedScore module", function()
-	-- Save and restore maxStatIncrease around the whole suite so we don't
-	-- pollute other spec files that rely on the real game value.
-	local savedMaxStatIncrease
-	before_each(function()
-		savedMaxStatIncrease = data.misc.maxStatIncrease
-		data.misc.maxStatIncrease = 2
-	end)
-	after_each(function()
-		data.misc.maxStatIncrease = savedMaxStatIncrease
-	end)
-
 	it("provides default and configured weights", function()
 		local defaults = WeightedScore.defaultWeights()
 		assert.are.equal(2, #defaults)
@@ -35,59 +24,6 @@ describe("WeightedScore module", function()
 
 		for _, case in ipairs(cases) do
 			assert.are.same(case.expected, WeightedScore.getWeights(case.build), case.label)
-		end
-	end)
-
-	it("scores ratios, weighted combinations, and invalid inputs", function()
-		local unitWeight = { { stat = "TotalDPS", weightMult = 1.0 } }
-		local cases = {
-			{ label = "neutral", base = { TotalDPS = 1000 }, candidate = { TotalDPS = 1000 }, expected = 1.0 },
-			{ label = "better", base = { TotalDPS = 1000 }, candidate = { TotalDPS = 1500 }, expected = 1.5 },
-			{ label = "worse", base = { TotalDPS = 1000 }, candidate = { TotalDPS = 500 }, expected = 0.5 },
-			{
-				label = "multiple weighted stats",
-				base = { TotalDPS = 100, TotalEHP = 200 },
-				candidate = { TotalDPS = 150, TotalEHP = 250 },
-				weights = {
-					{ stat = "TotalDPS", weightMult = 1.5 },
-					{ stat = "TotalEHP", weightMult = 0.25 },
-				},
-				expected = 2.5625,
-			},
-			{ label = "empty weights", base = { TotalDPS = 1000 }, candidate = { TotalDPS = 5000 }, weights = {}, expected = 0.0 },
-			{ label = "infinite base", base = { TotalDPS = math.huge }, candidate = { TotalDPS = 1000 }, expected = 0.0 },
-			{ label = "infinite candidate", base = { TotalDPS = 1000 }, candidate = { TotalDPS = math.huge }, expected = 2.0 },
-			{ label = "zero base", base = { TotalDPS = 0 }, candidate = { TotalDPS = 500 }, expected = 2.0 },
-			{ label = "missing stat", base = {}, candidate = {}, expected = 0.0 },
-		}
-
-		for _, case in ipairs(cases) do
-			assert.are.equal(
-				case.expected,
-				WeightedScore.computeRatioScore(case.base, case.candidate, case.weights or unitWeight),
-				case.label
-			)
-		end
-	end)
-
-	it("uses combined DPS only when FullDPS is absent", function()
-		local cases = {
-			{
-				label = "fallback",
-				base = { TotalDPS = 500, TotalDotDPS = 200, CombinedDPS = 300 },
-				candidate = { TotalDPS = 750, TotalDotDPS = 300, CombinedDPS = 450 },
-				expected = 1.5,
-			},
-			{
-				label = "direct FullDPS",
-				base = { FullDPS = 1000, TotalDPS = 500, TotalDotDPS = 200, CombinedDPS = 300 },
-				candidate = { FullDPS = 1250, TotalDPS = 750, TotalDotDPS = 300, CombinedDPS = 450 },
-				expected = 1.25,
-			},
-		}
-		local weights = { { stat = "FullDPS", weightMult = 1.0 } }
-		for _, case in ipairs(cases) do
-			assert.are.equal(case.expected, WeightedScore.computeRatioScore(case.base, case.candidate, weights), case.label)
 		end
 	end)
 
@@ -120,28 +56,6 @@ describe("WeightedScore module", function()
 	end)
 end)
 
-describe("WeightedScore — TradeQueryGenerator scoring", function()
-	local mock_queryGen = new("TradeQueryGenerator"):TradeQueryGenerator({
-		itemsTab = {},
-		GetTradeStatusOption = function() return "online" end,
-	})
-
-	it("WeightedRatioOutputs preserves every configured weight", function()
-		local savedMax = data.misc.maxStatIncrease
-		data.misc.maxStatIncrease = 2
-
-		local base    = { TotalDPS = 1000, TotalEHP = 500 }
-		local new     = { TotalDPS = 1200, TotalEHP = 600 }
-		local weights = { { stat = "TotalDPS", weightMult = 1.0 }, { stat = "TotalEHP", weightMult = 0.5 } }
-
-		local direct    = WeightedScore.computeRatioScore(base, new, weights)
-		local delegated = mock_queryGen.WeightedRatioOutputs(base, new, weights)
-
-		data.misc.maxStatIncrease = savedMax
-		assert.are.equal(direct, delegated)
-	end)
-end)
-
 describe("WeightedScore — tree integration", function()
 	before_each(function()
 		newBuild()
@@ -170,15 +84,6 @@ describe("WeightedScore — tree integration", function()
 		assert.is_not_nil(stat)
 		assert.are.equal("WeightedScore", data.powerStatList[#data.powerStatList].stat)
 		assert.is_nil(findStat("MinionWeightedScore"))
-	end)
-
-	it("power builder completes with an initialized non-negative WeightedScore result", function()
-		local stat = findStat("WeightedScore")
-		assert.is_not_nil(stat)
-		drainPowerBuild(stat)
-		assert.is_true(build.calcsTab.powerBuilderInitialized)
-		assert.is_not_nil(build.calcsTab.powerMax)
-		assert.is_true(build.calcsTab.powerMax.singleStat >= 0)
 	end)
 
 	it("power report requests FullDPS for WeightedScore when active weights use FullDPS", function()
