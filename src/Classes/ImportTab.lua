@@ -1865,8 +1865,9 @@ function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 				local socketGroup = itemSocketGroupList[groupID]
 				t_insert(socketGroup.gemList, gemInstance)
 				if socketedItem.builtInSupport then
-					socketGroup.imbuedSupport = socketedItem.builtInSupport:gsub("Supported by Level 1 ", "")
-					self.build.skillsTab.controls.imbuedSupport.gemChangeFunc(data.gems[data.gemForBaseName[socketGroup.imbuedSupport:lower().." support"]], nil, nil, true, slotName)
+					local name = escapeGGGString(socketedItem.builtInSupport):gsub("Supported by Level 1 ", "")
+					local gem = self.build.skillsTab:FindImbuedSupport(name)
+					socketGroup.imbuedSupport = gem and gem.name or name
 				end
 			end
 		end
@@ -1893,6 +1894,7 @@ function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 		end
 		if repGroup then
 			-- Update the existing one
+			repGroup.imbuedSupport = repGroup.slot and itemSocketGroup.imbuedSupport or nil
 			for gemIndex, gem in pairs(repGroup.gemList) do
 				local itemGem = itemSocketGroup.gemList[gemIndex]
 				gem.level = itemGem.level
@@ -1902,7 +1904,11 @@ function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 			t_insert(self.build.skillsTab.socketGroupList, itemSocketGroup)
 		end
 		self.build.skillsTab:ProcessSocketGroup(itemSocketGroup)
+		if repGroup and repGroup == self.build.skillsTab.displayGroup then
+			self.build.skillsTab:SetDisplayGroup(repGroup)
+		end
 	end
+	self.build.skillsTab:RebuildImbuedSupportBySlot()
 end
 
 -- Return the index of the group with the most gems

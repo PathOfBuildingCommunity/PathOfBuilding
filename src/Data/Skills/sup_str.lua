@@ -2143,7 +2143,7 @@ skills["SupportExcommunicate"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["support_excommunicate_on_melee_attack_hit_for_X_ms"] = {
-			flag("Condition:CanExcommunicate"),
+			flag("Condition:CanExcommunicate", { type = "GlobalEffect", effectType = "Buff", effectName = "Excommunicate Support" }),
 		},
 	},
 	qualityStats = {
