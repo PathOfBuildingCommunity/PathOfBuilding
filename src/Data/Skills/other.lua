@@ -2551,6 +2551,37 @@ skills["SupportCastOnLifeSpent"] = {
 		[1] = { PvPDamageMultiplier = -80, cooldown = 0.1, levelRequirement = 1, storedUses = 1, },
 	},
 }
+skills["SupportUniqueSuspendInTimeCanUse"] = {
+	name = "Temporal Mirage",
+	hidden = true,
+	color = 4,
+	support = true,
+	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
+	addSkillTypes = { SkillType.Triggered, },
+	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.Aura, SkillType.InbuiltTrigger, SkillType.Channel, SkillType.CreatesMinion, SkillType.Vaal, SkillType.HasReservation, SkillType.Microtransaction, SkillType.Link, SkillType.Cooldown, },
+	isTrigger = true,
+	statDescriptionScope = "gem_stat_descriptions",
+	fromItem = true,
+	statMap = {
+		["skill_can_be_used_by_temporal_mirage"] = {
+			skill("triggeredByTemporalMirage", true),
+		},
+	},
+	baseMods = {
+		mod("Damage", "MORE", -30),
+	},
+	constantStats = {
+		{ "skill_disabled_unless_cloned", 1 },
+		{ "base_cast_speed_+%", 100 },
+	},
+	stats = {
+		"skill_can_be_used_by_temporal_mirage",
+		"socketed_triggered_skills_use_weapon_attack_time_for_pvp_scaling",
+	},
+	levels = {
+		[1] = { levelRequirement = 70, manaMultiplier = -100, },
+	},
+}
 skills["LightningAegis"] = {
 	name = "Lightning Aegis",
 	hidden = true,
@@ -2808,6 +2839,42 @@ skills["TriggeredMoltenStrike"] = {
 	levels = {
 		[16] = { 20, baseMultiplier = 1.7, cooldown = 0.15, damageEffectiveness = 1.7, levelRequirement = 1, storedUses = 1, statInterpolation = { 1, }, },
 		[20] = { 100, baseMultiplier = 2, cooldown = 0.15, damageEffectiveness = 2, levelRequirement = 70, storedUses = 1, statInterpolation = { 1, }, },
+	},
+}
+skills["TriggeredMoonfall"] = {
+	name = "Moonfall",
+	hidden = true,
+	color = 2,
+	baseEffectiveness = 0,
+	description = "Lunar meteors fall, raining destruction down over an area. Falling meteors deal Attack Damage. Cannot be supported by Trigger Support Gems.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.Area] = true, [SkillType.ProjectileSpeed] = true, [SkillType.ProjectileNumber] = true, [SkillType.Triggerable] = true, [SkillType.Rain] = true, [SkillType.Triggered] = true, [SkillType.Cooldown] = true, [SkillType.InbuiltTrigger] = true, [SkillType.DisallowTriggerSupports] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	fromItem = true,
+	statMap = {
+		["attack_trigger_on_melee_critical_hit_%"] = {
+			skill("triggeredByCovetousDark", true),
+			skill("triggerOnCrit", true),
+		},
+	},
+	baseFlags = {
+		attack = true,
+		projectile = true,
+		area = true,
+	},
+	constantStats = {
+		{ "skill_art_variation", 12 },
+		{ "attack_trigger_on_melee_critical_hit_%", 100 },
+		{ "base_physical_damage_%_to_convert_to_cold", 100 },
+	},
+	stats = {
+		"base_number_of_projectiles",
+		"base_is_projectile",
+		"is_area_damage",
+		"cannot_pierce",
+	},
+	levels = {
+		[20] = { 22, baseMultiplier = 0.6, cooldown = 0.15, damageEffectiveness = 0.6, levelRequirement = 0, storedUses = 1, statInterpolation = { 1, }, },
 	},
 }
 skills["PenanceMark"] = {
@@ -6160,6 +6227,101 @@ skills["SupportUniqueCastCurseOnCurse"] = {
 	},
 	levels = {
 		[1] = { cooldown = 0.25, levelRequirement = 0, storedUses = 1, },
+	},
+}
+skills["GrimBonfire"] = {
+	name = "Witchhunter's Pyre",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 1.0499999523163,
+	incrementalEffectiveness = 0.049499999731779,
+	description = "Create a burning Bonfire of corpses at the targeted location. This Bonfire will deal fire damage over time to surrounding enemies. Bonfires created this way are considered to be totems.\nBonfires periodically release fiery projectiles which target nearby burning enemies. An additional projectile will be fired at a given target for each additional burning debuff on that target.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Fire] = true, [SkillType.Projectile] = true, [SkillType.DamageOverTime] = true, [SkillType.Area] = true, [SkillType.AreaSpell] = true, [SkillType.SummonsTotem] = true, [SkillType.Damage] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.CausesBurning] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.5,
+	fromItem = true,
+	statMap = {
+		["grim_bonfire_additional_projectile_chance_per_debuff_on_target"] = {
+			mod("DPS", "MORE", nil, 0, 0, { type = "Multiplier", var = "WitchhuntersPyreAdditionalBurningDebuff" }),
+		},
+	},
+	baseFlags = {
+		spell = true,
+		projectile = true,
+		area = true,
+	},
+	constantStats = {
+		{ "base_totem_duration", 8000 },
+		{ "base_totem_range", 80 },
+		{ "active_skill_base_area_of_effect_radius", 80 },
+		{ "active_skill_base_secondary_area_of_effect_radius", 12 },
+		{ "active_skill_base_tertiary_area_of_effect_radius", 27 },
+		{ "grim_bonfire_additional_projectile_chance_per_debuff_on_target", 100 },
+		{ "active_skill_area_of_effect_description_mode", 11 },
+		{ "active_skill_tertiary_area_of_effect_description_mode", 4 },
+		{ "active_skill_secondary_area_of_effect_description_mode", 7 },
+		{ "number_of_additional_totems_allowed", 2 },
+	},
+	stats = {
+		"base_fire_damage_to_deal_per_minute",
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+		"base_is_projectile",
+		"is_area_damage",
+		"projectile_behaviour_only_explode",
+		"is_totem",
+		"base_skill_is_totemified",
+		"action_do_not_face_target",
+		"spell_damage_modifiers_apply_to_skill_dot",
+	},
+	notMinionStat = {
+		"base_fire_damage_to_deal_per_minute",
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+	},
+	levels = {
+		[20] = { 175.00000391155, 0.80000001192093, 1.2000000476837, critChance = 5, damageEffectiveness = 1.75, levelRequirement = 70, statInterpolation = { 3, 3, 3, }, cost = { Mana = 39, }, },
+	},
+}
+skills["BloodFlower"] = {
+	name = "Goreblossom",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 2.3499999046326,
+	incrementalEffectiveness = 0.052499998360872,
+	description = "Creates a bloody Bloom of gore and flesh. Allies near this Bloom will gain additional physical damage over time multiplier. Multiple instances of this buff can stack. Enemies near it will take physical damage over time. Only the most damaging instance of this debuff will affect an enemy near multiple Blooms.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Physical] = true, [SkillType.Cooldown] = true, [SkillType.Duration] = true, [SkillType.Area] = true, [SkillType.DamageOverTime] = true, [SkillType.Buff] = true, [SkillType.Triggerable] = true, [SkillType.InbuiltTrigger] = true, [SkillType.Triggered] = true, [SkillType.AreaSpell] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	fromItem = true,
+	statMap = {
+		["blood_flower_physical_dot_multiplier_+_to_grant"] = {
+			mod("PhysicalDotMultiplier", "BASE", nil, 0, 0, { type = "Multiplier", var = "GoreblossomBloom", limitVar = "GoreblossomMaxBlooms" }, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["blood_flower_maximum_flowers"] = {
+			mod("Multiplier:GoreblossomBloom", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+			mod("Multiplier:GoreblossomMaxBlooms", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+		},
+	},
+	baseFlags = {
+		spell = true,
+		area = true,
+		duration = true,
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 8000 },
+		{ "active_skill_base_area_of_effect_radius", 30 },
+		{ "blood_flower_physical_dot_multiplier_+_to_grant", 25 },
+		{ "blood_flower_maximum_flowers", 1 },
+	},
+	stats = {
+		"base_physical_damage_to_deal_per_minute",
+		"is_area_damage",
+		"skill_has_trigger_from_unique_item",
+		"spell_damage_modifiers_apply_to_skill_dot",
+	},
+	levels = {
+		[20] = { 76.666666790843, cooldown = 1, levelRequirement = 70, storedUses = 1, statInterpolation = { 3, }, },
 	},
 }
 skills["SupportTriggerFireSpellOnHit"] = {

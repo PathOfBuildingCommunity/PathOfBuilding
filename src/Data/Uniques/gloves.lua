@@ -15,17 +15,20 @@ Source: Drops from unique{Admiral Valerius} in normal{Shipping encounters}
 Atziri's Acuity
 Vaal Gauntlets
 Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Alluring Abyss}
-Variant: Pre 3.1.0
-Variant: Pre 3.16.0
-Variant: Current
+Version: Pre 3.1.0
+Version: Pre 3.16.0
+Version: Pre 3.30.0
+Version: Current
 Requires Level 75
 +(60-80) to Intelligence
-{variant:2}(25-35)% increased Global Critical Strike Chance
-{variant:3}(40-60)% increased Global Critical Strike Chance
+{version:2}(25-35)% increased Global Critical Strike Chance
+{version:3,4}(40-60)% increased Global Critical Strike Chance
 (200-220)% increased Armour
 +(60-75) to maximum Life
-{variant:1}Life and Mana Leech from Critical Strikes are instant
-{variant:2,3}You have Vaal Pact if you've dealt a Critical Strike Recently
+{version:1}Life and Mana Leech from Critical Strikes are instant
+{version:2,3}You have Vaal Pact if you've dealt a Critical Strike Recently
+{version:4}Life Leech from Critical Strikes is instant
+{version:4}You cannot Regenerate or Recoup Life
 ]],[[
 Replica Atziri's Acuity
 Vaal Gauntlets

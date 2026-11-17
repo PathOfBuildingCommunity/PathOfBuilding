@@ -1078,7 +1078,7 @@ function calcs.defence(env, actor)
 			end
 		end
 		output.EnergyShield = modDB:Override(nil, "EnergyShield") or m_max(round(energyShield), 0)
-		output.Armour = m_max(round(armour), 0)
+		output.Armour = modDB:Override(nil, "Armour") or m_max(round(armour), 0)
 		output.Evasion = m_max(round(evasion), 0)
 		output.MeleeEvasion = m_max(round(evasion * calcLib.mod(modDB, nil, "MeleeEvasion")), 0)
 		output.ProjectileEvasion = m_max(round(evasion * calcLib.mod(modDB, nil, "ProjectileEvasion")), 0)
@@ -1444,7 +1444,9 @@ function calcs.defence(env, actor)
 			end
 		end
 		for _, recoupType in ipairs(recoupTypeList) do
-			if recoupType == "Life" and modDB:Flag(nil, "EnergyShieldRecoupInsteadOfLife") then
+			if recoupType == "Life" and modDB:Flag(nil, "CannotRecoupLife") then
+				output.LifeRecoup = 0
+			elseif recoupType == "Life" and modDB:Flag(nil, "EnergyShieldRecoupInsteadOfLife") then
 				output.LifeRecoup = 0
 				local lifeRecoup = modDB:Sum("BASE", nil, "LifeRecoup")
 				modDB:NewMod("EnergyShieldRecoup", "BASE", lifeRecoup, "Life Recoup Conversion")
@@ -1481,7 +1483,9 @@ function calcs.defence(env, actor)
 			for _, damageType in ipairs(dmgTypeList) do
 				local recoup = modDB:Sum("BASE", nil, damageType..recoupType.."Recoup")
 				local recoupName = damageType..recoupType.."Recoup"
-				if recoupType == "Life" and modDB:Flag(nil, "EnergyShieldRecoupInsteadOfLife") then
+				if recoupType == "Life" and modDB:Flag(nil, "CannotRecoupLife") then
+					output[recoupName] = 0
+				elseif recoupType == "Life" and modDB:Flag(nil, "EnergyShieldRecoupInsteadOfLife") then
 					output[recoupName] = 0
 					modDB:NewMod(damageType.."EnergyShieldRecoup", "BASE", recoup, "Life Recoup Conversion")
 				else

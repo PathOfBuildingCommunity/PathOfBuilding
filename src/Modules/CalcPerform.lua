@@ -131,7 +131,7 @@ function doActorLifeMana(actor)
 		end
 	end
 	output.LowestOfMaximumLifeAndMaximumMana = m_min(output.Life, output.Mana)
-	output.AbsoluteDifferenceOfMaximumLifeAndMaximumMana = m_abs(output.Life - output.Mana)
+	output.MaximumLifeManaDifference = m_abs(output.Life - output.Mana)
 end
 
 -- Calculate attributes, and set conditions
@@ -1704,9 +1704,10 @@ function calcs.perform(env, skipEHP)
 		local function calcFlaskMods(item, baseName, buffModList, modList, onlyMinion)
 			local flaskEffectInc = effectInc + item.flaskData.effectInc
 			local flaskEffectIncNonPlayer = effectIncNonPlayer + item.flaskData.effectInc
-			if item.baseName == "Iron Flask" then
-				flaskEffectInc = flaskEffectInc + modDB:Sum("INC", { actor = "player" }, "IronFlaskEffect")
-				flaskEffectIncNonPlayer = flaskEffectIncNonPlayer + modDB:Sum("INC", nil, "IronFlaskEffect")
+			local flaskTypeEffect = ({ ["Iron Flask"] = "IronFlaskEffect", ["Granite Flask"] = "GraniteFlaskEffect", ["Ruby Flask"] = "RubyFlaskEffect", ["Sapphire Flask"] = "SapphireFlaskEffect", ["Topaz Flask"] = "TopazFlaskEffect" })[item.baseName]
+			if flaskTypeEffect then
+				flaskEffectInc = flaskEffectInc + modDB:Sum("INC", { actor = "player" }, flaskTypeEffect)
+				flaskEffectIncNonPlayer = flaskEffectIncNonPlayer + modDB:Sum("INC", nil, flaskTypeEffect)
 			end
 			if item.rarity == "MAGIC" and not (item.base.flask.life or item.base.flask.mana) then
 				flaskEffectInc = flaskEffectInc + effectIncMagic
@@ -3833,6 +3834,9 @@ function calcs.perform(env, skipEHP)
 	end
 
 	if env.minion then
+		if modDB:Flag(nil, "MinionsGainYourSpellSuppressionChance") then
+			env.minion.modDB:NewMod("SpellSuppressionChance", "BASE", env.player.output.SpellSuppressionChance, "Player")
+		end
 		calcs.defence(env, env.minion)
 		if not skipEHP then -- main.build.calcsTab.input.showMinion and -- should be disabled unless "calcsTab.input.showMinion" is true
 			calcs.buildDefenceEstimations(env, env.minion)

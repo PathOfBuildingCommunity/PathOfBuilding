@@ -1287,4 +1287,17 @@ IncreasedLifeUnique__125
 AdditionalBlockChanceUnique__12
 ProjectileAvoidUnique
 ExtremelyLuckyUnique
-]],}
+]],[[
+Ordered Fate
+Walnut Spirit Shield
+League: Covens
+Source: Drops from a boss empowered by a Fate that rewards this item
+Implicits: 1
+SpellDamageImplicitShield1
+IncreasedCastSpeedUnique__30
+LocalIncreasedEnergyShieldUnique__36
+EverySecondSpellcastUnique__1
+EveryFourthSpellcastUnique__1
+EverySixthSpellcastUnique__1
+]]
+}

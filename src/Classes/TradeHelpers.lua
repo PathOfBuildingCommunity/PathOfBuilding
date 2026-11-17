@@ -196,6 +196,10 @@ function M.findTradeIdOption(modLine, modType)
 	for _, pat in ipairs(timelessPatterns) do
 		local value, conqueror = modLine:match(pat)
 		if conqueror then
+			-- 3.30 changed the conqueror name but didn't change the stat id
+			if conqueror == "mazcotl" then
+				conqueror = "ahuana"
+			end
 			return "explicit.pseudo_timeless_jewel_" .. conqueror, tonumber(value)
 		end
 	end

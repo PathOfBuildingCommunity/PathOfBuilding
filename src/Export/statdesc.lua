@@ -466,10 +466,10 @@ function describeStats(stats)
 	return out, orders
 end
 
--- Maps granted effect ids to gem names and their number of levels
+-- Maps granted effect ids to gem names
 -- Secondary effects such as Snipe Support have their own name instead of the gem's
-local grantedEffectNames, grantedEffectLevelCounts
-local function getGrantedEffectData()
+local grantedEffectNames
+local function getGrantedEffectNames()
 	if not grantedEffectNames then
 		grantedEffectNames = {}
 		for gem in dat("SkillGems"):Rows() do
@@ -486,17 +486,15 @@ local function getGrantedEffectData()
 				end
 			end
 		end
-		grantedEffectLevelCounts = {}
-		for levelRow in dat("GrantedEffectsPerLevel"):Rows() do
-			local id = levelRow.GrantedEffect.Id
-			grantedEffectLevelCounts[id] = (grantedEffectLevelCounts[id] or 0) + 1
-		end
 	end
-	return grantedEffectNames, grantedEffectLevelCounts
+	return grantedEffectNames
 end
 
--- 3.30 moved the gem and level of most "Supported by" and "Grants" mods from their display stats, which are now 0, into a GrantedEffect column on the mod row
--- The display stat may still hold a level when describing legacy values
+-- 3.30 moved the gem and level of most "Supported by" and "Grants" mods from
+-- their display stats, which are now 0, into a GrantedEffect column on the mod
+-- row. The display stat may still hold a level when describing legacy values.
+-- These mods might also have no stats at all, in which case the line is only
+-- shown if the mod is flagged to show it. Trigger mods are not
 local function describeGrantedEffects(mod, stats)
 	local hasDisplayStat, level
 	-- Only handle display stats that GGG zeroed. If a legacy value is given for one that still has a description, describeStats handles it
@@ -513,10 +511,10 @@ local function describeGrantedEffects(mod, stats)
 			hasDisplayStat = true
 		end
 	end
-	if not hasDisplayStat then
+	if not hasDisplayStat and (mod.Stat1 or not mod.ShowGrantedEffects) then
 		return
 	end
-	local names, levelCounts = getGrantedEffectData()
+	local names = getGrantedEffectNames()
 	local out, orders, seen = {}, {}, {}
 	for _, levelRow in ipairs(mod.GrantedEffect) do
 		local grantedEffect = levelRow.GrantedEffect
@@ -537,8 +535,8 @@ local function describeGrantedEffects(mod, stats)
 				if level.min ~= level.max then
 					levelText = "(" .. level.min .. "-" .. level.max .. ")"
 				end
-			-- Single level effects such as Harbinger skills are shown without a level
-			elseif levelCounts[grantedEffect.Id] > 1 then
+			-- Skills that cannot be supported, such as Harbinger skills, are shown without a level
+			elseif grantedEffect.IsSupport or not grantedEffect.CannotBeSupported then
 				levelText = tostring(levelRow.Level)
 			end
 			if levelText then

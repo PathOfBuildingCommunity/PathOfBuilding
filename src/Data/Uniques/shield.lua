@@ -864,7 +864,7 @@ League: Allflame
 Source: Drops from unique{Velka, the Tide Witch}
 Implicits: 1
 60% increased Block Recovery
-Grants Savage Barnacle
+Grants Level 20 Savage Barnacle
 +(50-100) to Armour
 +(50-100) to Evasion Rating
 (100-200)% increased Armour and Evasion
@@ -1298,4 +1298,19 @@ Implicits: 1
 (1-10)% chance to avoid Projectiles
 Your Lucky or Unlucky effects use the best or
 worst from three rolls instead of two
-]],}
+]],[[
+Ordered Fate
+Walnut Spirit Shield
+League: Covens
+Source: Drops from a boss empowered by a Fate that rewards this item
+Requires Level 48
+Implicits: 1
+(5-10)% increased Spell Damage
+(12-24)% increased Cast Speed
++(80-110) to maximum Energy Shield
+Every second time you cast each Spell, gain Mana equal to its Upfront Cost
+Every fourth time you cast each Spell, Damage of its Hits is Lucky
+Every sixth time you cast each Spell, All Hits are Critically Strikes
+These effects do not apply to Reservation, Duration or Channelling Spells
+]]
+}

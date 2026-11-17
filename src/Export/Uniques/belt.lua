@@ -211,39 +211,67 @@ AbyssJewelSocketUnique__6_
 Doryani's Invitation
 Heavy Belt
 Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Apex of Sacrifice}
-Variant: Pre 3.11.0 (Physical)
-Variant: Pre 3.11.0 (Fire)
-Variant: Pre 3.11.0 (Cold)
-Variant: Pre 3.11.0 (Lightning)
-Variant: Current (Physical)
-Variant: Current (Fire)
-Variant: Current (Cold)
-Variant: Current (Lightning)
+Version: Pre 3.11.0
+Version: Pre 3.30.0
+Version: Current
+Variant: Physical Damage
+Variant: Fire Damage
+Variant: Cold Damage
+Variant: Lightning Damage
+Variant: Fire Resistance
+Variant: Cold Resistance
+Variant: Lightning Resistance
+Variant: Armour
+Variant: Physical Leech
+Variant: Fire Leech
+Variant: Cold Leech
+Variant: Lightning Leech
+Variant: Granite Flask Effect
+Variant: Ruby Flask Effect
+Variant: Sapphire Flask Effect
+Variant: Topaz Flask Effect
+Selected Variant Group: 1=1
+Selected Variant Group: 2=5
+Selected Variant Group: 3=9
+Selected Variant Group: 4=13
 Implicits: 1
 StrengthImplicitBelt1
-{variant:1,5}IncreasedPhysicalDamagePercentUniqueBelt9d
-{variant:2,6}FireDamagePercentUniqueBelt9a
-{variant:3,7}ColdDamagePercentUniqueBelt9b
-{variant:4,8}LightningDamagePercentUniqueBelt9c
-{variant:2,3,4,6,7,8}IncreasedPhysicalDamageReductionRatingUniqueBelt9
-{variant:1,3,4,5,7,8}FireResistUniqueBelt9
-{variant:1,2,4,5,6,8}ColdResistUniqueBelt9
-{variant:1,2,3,5,6,7}LightningResistUniqueBelt9
-{variant:1}PhysicalDamageLifeLeechPermyriadUniqueBelt9dNew[0.2,0.2]
-{variant:5}PhysicalDamageLifeLeechPermyriadUniqueBelt9dNew
-{variant:2}FireDamageLifeLeechPermyriadUniqueBelt9aNew[0.2,0.2]
-{variant:6}FireDamageLifeLeechPermyriadUniqueBelt9aNew
-{variant:3}ColdDamageLifeLeechPermyriadUniqueBelt9bNew[0.2,0.2]
-{variant:7}ColdDamageLifeLeechPermyriadUniqueBelt9bNew
-{variant:4}LightningDamageLifeLeechPermyriadUniqueBelt9cNew[0.2,0.2]
-{variant:8}LightningDamageLifeLeechPermyriadUniqueBelt9cNew
-{variant:1,5}ReducedStunThresholdWhileUsingFlaskUniqueBelt9d
-{variant:2}IgniteChanceWhileUsingFlaskUniqueBelt9a[10,10]
-{variant:6}IgniteChanceWhileUsingFlaskUniqueBelt9a
-{variant:3}FreezeChanceWhileUsingFlaskUniqueBelt9b[10,10]
-{variant:7}FreezeChanceWhileUsingFlaskUniqueBelt9b
-{variant:4}ShockChanceWhileUsingFlaskUniqueBelt9c[10,10]
-{variant:8}ShockChanceWhileUsingFlaskUniqueBelt9c
+{variant:1}{group:1}IncreasedPhysicalDamagePercentUniqueBelt9d
+{variant:2}{group:1}FireDamagePercentUniqueBelt9a
+{variant:3}{group:1}ColdDamagePercentUniqueBelt9b
+{variant:4}{group:1}LightningDamagePercentUniqueBelt9c
+{version:1,2}{variant:2,3,4}{group:1}IncreasedPhysicalDamageReductionRatingUniqueBelt9
+{version:1,2}{variant:1,3,4}{group:1}FireResistUniqueBelt9
+{version:1,2}{variant:1,2,4}{group:1}ColdResistUniqueBelt9
+{version:1,2}{variant:1,2,3}{group:1}LightningResistUniqueBelt9
+{version:3}{variant:8}{group:2}IncreasedPhysicalDamageReductionRatingUniqueBelt9
+{version:3}{variant:5}{group:2}FireResistUniqueBelt9
+{version:3}{variant:6}{group:2}ColdResistUniqueBelt9
+{version:3}{variant:7}{group:2}LightningResistUniqueBelt9
+{version:1}{variant:1}{group:1}PhysicalDamageLifeLeechPermyriadUniqueBelt9dNew[20,20]
+{version:1}{variant:2}{group:1}FireDamageLifeLeechPermyriadUniqueBelt9aNew[20,20]
+{version:1}{variant:3}{group:1}ColdDamageLifeLeechPermyriadUniqueBelt9bNew[20,20]
+{version:1}{variant:4}{group:1}LightningDamageLifeLeechPermyriadUniqueBelt9cNew[20,20]
+{version:2}{variant:1}{group:1}PhysicalDamageLifeLeechPermyriadUniqueBelt9dNew
+{version:2}{variant:2}{group:1}FireDamageLifeLeechPermyriadUniqueBelt9aNew
+{version:2}{variant:3}{group:1}ColdDamageLifeLeechPermyriadUniqueBelt9bNew
+{version:2}{variant:4}{group:1}LightningDamageLifeLeechPermyriadUniqueBelt9cNew
+{version:3}{variant:9}{group:3}PhysicalDamageLifeLeechPermyriadUniqueBelt9dNew
+{version:3}{variant:10}{group:3}FireDamageLifeLeechPermyriadUniqueBelt9aNew
+{version:3}{variant:11}{group:3}ColdDamageLifeLeechPermyriadUniqueBelt9bNew
+{version:3}{variant:12}{group:3}LightningDamageLifeLeechPermyriadUniqueBelt9cNew
+{version:3}{variant:13}{group:4}GraniteFlaskEffectUniqueBelt9
+{version:3}{variant:14}{group:4}RubyFlaskEffectUniqueBelt9
+{version:3}{variant:15}{group:4}SapphireFlaskEffectUniqueBelt9
+{version:3}{variant:16}{group:4}TopazFlaskEffectUniqueBelt9
+{version:1,2}{variant:1}{group:1}ReducedStunThresholdWhileUsingFlaskUniqueBelt9d
+{version:1}{variant:2}{group:1}IgniteChanceWhileUsingFlaskUniqueBelt9a[10,10]
+{version:2}{variant:2}{group:1}IgniteChanceWhileUsingFlaskUniqueBelt9a
+{version:1}{variant:3}{group:1}FreezeChanceWhileUsingFlaskUniqueBelt9b[10,10]
+{version:2}{variant:3}{group:1}FreezeChanceWhileUsingFlaskUniqueBelt9b
+{version:1}{variant:4}{group:1}ShockChanceWhileUsingFlaskUniqueBelt9c[10,10]
+{version:2}{variant:4}{group:1}ShockChanceWhileUsingFlaskUniqueBelt9c
+Corrupted
 ]],[[
 The Druggery
 Cloth Belt

@@ -556,5 +556,15 @@ FlaskChargesUsedUnique__10
 FlaskDebilitateNearbyEnemiesWhenEffectEndsUnique_1
 FlaskRemoveEffectWhenWardBreaksUnique1
 FlaskCullingStrikeUnique1
-]],
+]],[[
+Dreadmaidens' Sacrament
+Basalt Flask
+League: Covens
+Source: Drops from a boss empowered by a Fate that rewards this item
+Implicits: 1
+UtilityFlaskTaunt_
+FlaskFullRechargeOnHitUnique__1
+LocalFlaskRemovePercentOfLifeOnUseUnique_8
+LocalFlaskChanceToActivateRetaliationSkillPerLifeLostUnique__1
+]]
 }
