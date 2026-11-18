@@ -14789,8 +14789,8 @@ return {
 			["specialCaseData"] = {
 			},
 			["tradeMod"] = {
-				["id"] = "explicit.stat_2818518881",
-				["text"] = "#% increased Spell Damage per 10 Intelligence",
+				["id"] = "explicit.stat_3961014595",
+				["text"] = "#% increased Spell Damage per 16 Intelligence",
 				["type"] = "explicit",
 			},
 		},
@@ -14807,8 +14807,8 @@ return {
 			["specialCaseData"] = {
 			},
 			["tradeMod"] = {
-				["id"] = "explicit.stat_1073314277",
-				["text"] = "#% increased Spell Damage per 10 Strength",
+				["id"] = "explicit.stat_4249521944",
+				["text"] = "#% increased Spell Damage per 16 Strength",
 				["type"] = "explicit",
 			},
 		},
@@ -40203,8 +40203,8 @@ return {
 			["specialCaseData"] = {
 			},
 			["tradeMod"] = {
-				["id"] = "explicit.stat_2453026567",
-				["text"] = "#% chance to gain Onslaught for 10 seconds on Kill",
+				["id"] = "explicit.stat_3023957681",
+				["text"] = "#% chance to gain Onslaught for 4 seconds on Kill",
 				["type"] = "explicit",
 			},
 		},
@@ -40221,8 +40221,8 @@ return {
 			["specialCaseData"] = {
 			},
 			["tradeMod"] = {
-				["id"] = "explicit.stat_2453026567",
-				["text"] = "#% chance to gain Onslaught for 10 seconds on Kill",
+				["id"] = "explicit.stat_3023957681",
+				["text"] = "#% chance to gain Onslaught for 4 seconds on Kill",
 				["type"] = "explicit",
 			},
 		},
@@ -40235,8 +40235,8 @@ return {
 			["specialCaseData"] = {
 			},
 			["tradeMod"] = {
-				["id"] = "explicit.stat_2453026567",
-				["text"] = "#% chance to gain Onslaught for 10 seconds on Kill",
+				["id"] = "explicit.stat_3023957681",
+				["text"] = "#% chance to gain Onslaught for 4 seconds on Kill",
 				["type"] = "explicit",
 			},
 		},
@@ -40249,8 +40249,8 @@ return {
 			["specialCaseData"] = {
 			},
 			["tradeMod"] = {
-				["id"] = "explicit.stat_2453026567",
-				["text"] = "#% chance to gain Onslaught for 10 seconds on Kill",
+				["id"] = "explicit.stat_3023957681",
+				["text"] = "#% chance to gain Onslaught for 4 seconds on Kill",
 				["type"] = "explicit",
 			},
 		},
@@ -42362,8 +42362,8 @@ return {
 			["specialCaseData"] = {
 			},
 			["tradeMod"] = {
-				["id"] = "explicit.stat_2453026567",
-				["text"] = "#% chance to gain Onslaught for 10 seconds on Kill",
+				["id"] = "explicit.stat_3023957681",
+				["text"] = "#% chance to gain Onslaught for 4 seconds on Kill",
 				["type"] = "explicit",
 			},
 		},
@@ -45372,8 +45372,8 @@ return {
 			["specialCaseData"] = {
 			},
 			["tradeMod"] = {
-				["id"] = "explicit.stat_889691035",
-				["text"] = "#% increased Attack Speed per 10 Dexterity",
+				["id"] = "explicit.stat_2241560081",
+				["text"] = "#% increased Attack Speed per 25 Dexterity",
 				["type"] = "explicit",
 			},
 		},

@@ -33,6 +33,18 @@ describe("TradeQueryGenerator", function()
 
 			assert.are.equals("explicit.stat_3680664274", queryGen.modData.Explicit["814_ChanceToSuppressSpellsOld"].tradeMod.id)
 		end)
+
+		it("skips a trade stat whose fixed number differs from the mod line, even when a roll range contains it", function()
+			local queryGen = new("TradeQueryGenerator"):TradeQueryGenerator({ itemsTab = {} })
+			queryGen.modData = { Explicit = { } }
+			-- "(8-10)% chance to gain Onslaught for 4 seconds on Kill": the label "for 10 seconds" sorts first.
+			-- Two trade stats share the "4 seconds" label, so the label is asserted rather than one of their ids.
+			local mod = copyTable(data.itemMods.Item.OnslaughtOnKillInfluenceMaven)
+
+			queryGen:ProcessMod("", mod, nil, nil, { Boots = true })
+
+			assert.are.equals("#% chance to gain Onslaught for 4 seconds on Kill", queryGen.modData.Explicit["2687_ChanceToGainOnslaughtOnKillMaven"].tradeMod.text)
+		end)
 	end)
 
 	describe("Talisman mods", function()
