@@ -12,6 +12,27 @@ describe("TradeQueryGenerator", function()
 			-- Simplified assertion; in full impl, check modData
 			assert.is_true(true)
 		end)
+
+		it("prefers the trade stat exported by the mod over a sibling that differs only by sign", function()
+			local queryGen = new("TradeQueryGenerator"):TradeQueryGenerator({ itemsTab = {} })
+			queryGen.modData = { Implicit = { } }
+			local mod = copyTable(data.itemMods.ItemExclusive.StaffSpellBlockPercent3)
+			mod.type = "Implicit"
+
+			queryGen:ProcessMod("", mod, nil, nil, { Staff = true })
+
+			assert.are.equals("implicit.stat_19803471", queryGen.modData.Implicit["2138_AdditionalSpellBlock"].tradeMod.id)
+		end)
+
+		it("keeps label order when the exported trade stat has an identical label", function()
+			local queryGen = new("TradeQueryGenerator"):TradeQueryGenerator({ itemsTab = {} })
+			queryGen.modData = { Explicit = { } }
+			local mod = copyTable(data.itemMods.Item.ChanceToDodge1)
+
+			queryGen:ProcessMod("", mod, nil, nil, { Boots = true })
+
+			assert.are.equals("explicit.stat_3680664274", queryGen.modData.Explicit["814_ChanceToSuppressSpellsOld"].tradeMod.id)
+		end)
 	end)
 
 	describe("Talisman mods", function()

@@ -132,6 +132,27 @@ local function getStatEntries(modType)
 	end
 end
 
+-- Find the trade stat whose label, without signs and numbers, equals strippedText.
+-- "#% Chance to Block Attack Damage" and "+#% Chance to Block Attack Damage" are distinct trade stats, and the
+-- first one in label order is not the one items carry, so when labels differ only by sign, prefer the stat the
+-- mod exports in tradeHashes. Identical labels keep label order: legacy mods export hashes Trade no longer lists.
+local function findTradeStatByStrippedText(entries, strippedText, tradeHashes)
+	local firstMatch, exportedMatch
+	for _, entry in ipairs(entries or { }) do
+		if entry.text:gsub("[#()0-9%-%+%.]","") == strippedText then
+			firstMatch = firstMatch or entry
+			local tradeHash = tonumber(entry.id:match("%.stat_(%d+)$"))
+			if not exportedMatch and tradeHash and tradeHashes and tradeHashes[tradeHash] then
+				exportedMatch = entry
+			end
+		end
+	end
+	if exportedMatch and exportedMatch.text ~= firstMatch.text and exportedMatch.text:gsub("[%+%-]","") == firstMatch.text:gsub("[%+%-]","") then
+		return exportedMatch
+	end
+	return firstMatch
+end
+
 -- slots that allow eldritch mods (non-unique only)
 local eldritchModSlots = {
 	["Body Armour"] = true,
@@ -252,22 +273,14 @@ function TradeQueryGeneratorClass:ProcessMod(modId, mod, tradeQueryStatsParsed, 
 			-- Try to match to a local mod fallback to global if no match
 			if mod.group:match("Local") then
 				local matchLocalStr = (modLine .. " (Local)"):gsub("[#()0-9%-%+%.]","")
-				for _, entry in pairs(getStatEntries(modType) or {}) do
-					if entry.text:gsub("[#()0-9%-%+%.]","") == matchLocalStr then
-						tradeMod = entry
-						specialCaseData.overrideModLine = entry.text:sub(1,-9)
-						break
-					end
+				tradeMod = findTradeStatByStrippedText(getStatEntries(modType), matchLocalStr, mod.tradeHashes)
+				if tradeMod then
+					specialCaseData.overrideModLine = tradeMod.text:sub(1,-9)
 				end
 			end
 			if tradeMod == nil then
 				local matchStr = modLine:gsub("[#()0-9%-%+%.]","")
-				for _, entry in ipairs(getStatEntries(modType) or {}) do
-					if entry.text:gsub("[#()0-9%-%+%.]","") == matchStr then
-						tradeMod = entry
-						break
-					end
-				end
+				tradeMod = findTradeStatByStrippedText(getStatEntries(modType), matchStr, mod.tradeHashes)
 			end
 			if tradeMod == nil then
 				if inverse then
