@@ -3615,7 +3615,7 @@ function calcs.offence(env, actor, activeSkill)
 						local invertChanceChaos = m_max(m_min(skillModList:Sum("CHANCE", cfg, "HitsInvertChaosResChance"), 1), 0)
 						local invertChance = (isElemental[damageType] and invertChanceEle) or (damageType == "Chaos" and invertChanceChaos) or 0
 						-- An inverted negative resistance is still capped by the enemy's maximum resistance
-						local invertedResist = m_min(-resist, calcEnemyMaxResist(sourceRes))
+						local invertedResist = invertChance > 0 and m_min(-resist, calcEnemyMaxResist(sourceRes)) or -resist
 						sourceRes = env.modDB:Flag(nil, "Enemy"..sourceRes.."ResistEqualToYours") and "Your "..sourceRes.." Resistance" or (env.partyMembers.modDB:Flag(nil, "Enemy"..sourceRes.."ResistEqualToYours") and "Party Member "..sourceRes.." Resistance" or sourceRes)
 						if skillFlags.projectile then
 							takenInc = takenInc + enemyDB:Sum("INC", nil, "ProjectileDamageTaken")
