@@ -583,6 +583,21 @@ describe("TestSkills", function()
 		assert.is_truthy(breakdownText:match("inverted hit"))
 		assert.is_truthy(breakdownText:match("weighted average"))
 	end)
+
+	it("caps inverted negative resistance at the enemy's maximum resistance (issue #9375)", function()
+		build.skillsTab:PasteSocketGroup("Fireball 20/0  1")
+		build.configTab.input.enemyIsBoss = "None"
+		build.configTab.input.enemyFireResist = -150
+		build.configTab.input.customMods = "Hits have 100% chance to treat Enemy Monster Elemental Resistance values as inverted"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		-- -150% inverted is 150%, but it cannot go above the enemy's 75% maximum resistance,
+		-- so hits deal 25% damage instead of negative damage.
+		local maxResist = data.misc.EnemyMaxResist
+		assert.are.equals(1 - maxResist / 100, build.calcsTab.calcsOutput.FireEffMult)
+		assert.True(build.calcsTab.mainOutput.TotalDPS > 0)
+	end)
 	it("Test cost efficiency modifiers", function()
 		-- Test Mana Cost Efficiency
 		build.skillsTab:PasteSocketGroup("Hydrosphere 1/0  1\n")
