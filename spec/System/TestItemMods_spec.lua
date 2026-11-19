@@ -1606,4 +1606,15 @@ describe("TetsItemMods", function()
 		assert.is_not_nil(sentinel)
 		assert.are.equals(1, countSupport(sentinel, "SupportMinionDamage"))
 	end)
+
+	it("scales shrine buff effect with total life reserved", function()
+		build.configTab.input.buffAccelerationShrine = true
+		local shrineMod = "2% increased Effect of Shrine Buffs on you for each 5% of Life Reserved"
+		setWickermanCustomMods(shrineMod)
+		-- Acceleration Shrine: 50% increased Action Speed
+		assert.are.near(1.5, build.calcsTab.mainOutput.ActionSpeedMod, 1e-9)
+		setWickermanCustomMods(shrineMod.."\nReserves 50% of Life")
+		-- 50% reserved is ten steps of 5%, so 20% increased effect: floor(50 * 1.2) = 60
+		assert.are.near(1.6, build.calcsTab.mainOutput.ActionSpeedMod, 1e-9)
+	end)
 end)
