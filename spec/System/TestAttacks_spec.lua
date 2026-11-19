@@ -150,6 +150,61 @@ describe("TestAttacks", function()
 			assert.is_nil(player.weaponData2.asThoughUsing)
 		end)
 
+		local function useSkill(skill, hollowPalm)
+			build.skillsTab:PasteSocketGroup(skill)
+			build.mainSocketGroup = 1
+			if hollowPalm then
+				build.configTab.input.customMods = "Hollow Palm Technique"
+				build.configTab:BuildModList()
+			end
+			runCallback("OnFrame")
+			build.calcsTab:BuildOutput()
+			runCallback("OnFrame")
+			return build.calcsTab.mainEnv.player.mainSkill
+		end
+
+		it("prevents using skills that can be used Unarmed but not with a Claw", function()
+			-- Smite can be used Unarmed, but not with a Claw
+			local mainSkill = useSkill("Smite 20/0 1")
+			assert.is_falsy(mainSkill.skillFlags.disable)
+
+			newBuild()
+			equipHide()
+			mainSkill = useSkill("Smite 20/0 1")
+			assert.is_true(mainSkill.skillFlags.disable)
+		end)
+
+		it("dual wields Claw skills with Hollow Palm Technique", function()
+			equipHide()
+			local mainSkill = useSkill("Cobra Lash 20/0 1", true)
+			assert.is_falsy(mainSkill.skillFlags.disable)
+			assert.is_true(mainSkill.skillFlags.bothWeaponAttack)
+			assert.is_true(bit.band(mainSkill.weapon2Flags, ModFlag.Unarmed) > 0)
+			assert.is_true(build.calcsTab.mainOutput.OffHand.AverageHit > 0)
+		end)
+
+		it("dual wields Spectral Throw with Hollow Palm Technique", function()
+			-- Spectral Throw can be used with a Claw, but not Unarmed (#10516)
+			equipHide()
+			local mainSkill = useSkill("Spectral Throw 20/0 1", true)
+			assert.is_falsy(mainSkill.skillFlags.disable)
+			assert.is_true(mainSkill.skillFlags.bothWeaponAttack)
+			assert.is_true(build.calcsTab.mainOutput.OffHand.AverageHit > 0)
+		end)
+
+		it("still attacks with both hands using skills that can be used Unarmed with Hollow Palm Technique", function()
+			equipHide()
+			local mainSkill = useSkill("Cyclone 20/0 1", true)
+			assert.is_falsy(mainSkill.skillFlags.disable)
+			assert.is_true(mainSkill.skillFlags.bothWeaponAttack)
+		end)
+
+		it("does not allow dual wield only skills with Hollow Palm Technique", function()
+			equipHide()
+			local mainSkill = useSkill("Dual Strike 20/0 1", true)
+			assert.is_true(mainSkill.skillFlags.disable)
+		end)
+
 		it("gains attack speed if you've used a movement skill recently", function()
 			equipHide("20% increased Attack Speed if you've used an Attack Movement Skill Recently")
 			useFrostBlades()
