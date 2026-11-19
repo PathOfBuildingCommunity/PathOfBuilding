@@ -11492,7 +11492,7 @@ c["7% increased Energy Shield Recovery rate"]={{[1]={flags=0,keywordFlags=0,name
 c["7% increased Fire Damage"]={{[1]={flags=0,keywordFlags=0,name="FireDamage",type="INC",value=7}},nil}
 c["7% increased Flask Effect Duration"]={{[1]={flags=0,keywordFlags=0,name="FlaskDuration",type="INC",value=7}},nil}
 c["7% increased Global Defences"]={{[1]={[1]={type="Global"},flags=0,keywordFlags=0,name="Defences",type="INC",value=7}},nil}
-c["7% increased Global Defences per Empty Socket"]={{[1]={[1]={type="Global"},flags=0,keywordFlags=0,name="Defences",type="INC",value=7}},"   per Empty Socket "}
+c["7% increased Global Defences per Empty Socket"]={{[1]={[1]={type="Global"},[2]={type="Multiplier",var="EmptySocketIn{SlotName}"},flags=0,keywordFlags=0,name="Defences",type="INC",value=7}},nil}
 c["7% increased Global Physical Damage"]={{[1]={[1]={type="Global"},flags=0,keywordFlags=0,name="PhysicalDamage",type="INC",value=7}},nil}
 c["7% increased Ignite Duration on Enemies"]={{[1]={flags=0,keywordFlags=0,name="EnemyIgniteDuration",type="INC",value=7}},nil}
 c["7% increased Impale Effect"]={{[1]={flags=0,keywordFlags=0,name="ImpaleEffect",type="INC",value=7}},nil}
@@ -11861,8 +11861,7 @@ c["8% increased Flask Mana Recovery rate"]={{[1]={flags=0,keywordFlags=0,name="F
 c["8% increased Global Accuracy Rating"]={{[1]={[1]={type="Global"},flags=0,keywordFlags=0,name="Accuracy",type="INC",value=8}},nil}
 c["8% increased Global Critical Strike Chance"]={{[1]={[1]={type="Global"},flags=0,keywordFlags=0,name="CritChance",type="INC",value=8}},nil}
 c["8% increased Global Defences"]={{[1]={[1]={type="Global"},flags=0,keywordFlags=0,name="Defences",type="INC",value=8}},nil}
-c["8% increased Global Defences per Empty Socket"]={{[1]={[1]={type="Global"},flags=0,keywordFlags=0,name="Defences",type="INC",value=8}},"   per Empty Socket "}
-c["8% increased Global Defences per Empty Socket 8% increased Global Defences per White Socket"]={{[1]={[1]={type="Global"},[2]={type="Multiplier",var="WhiteSocketIn{SlotName}"},flags=0,keywordFlags=0,name="Defences",type="INC",value=8}},"   per Empty Socket 8% increased Global Defences  "}
+c["8% increased Global Defences per Empty Socket"]={{[1]={[1]={type="Global"},[2]={type="Multiplier",var="EmptySocketIn{SlotName}"},flags=0,keywordFlags=0,name="Defences",type="INC",value=8}},nil}
 c["8% increased Global Defences per White Socket"]={{[1]={[1]={type="Global"},[2]={type="Multiplier",var="WhiteSocketIn{SlotName}"},flags=0,keywordFlags=0,name="Defences",type="INC",value=8}},nil}
 c["8% increased Global Physical Damage"]={{[1]={[1]={type="Global"},flags=0,keywordFlags=0,name="PhysicalDamage",type="INC",value=8}},nil}
 c["8% increased Impale Effect"]={{[1]={flags=0,keywordFlags=0,name="ImpaleEffect",type="INC",value=8}},nil}
@@ -15005,8 +15004,8 @@ c["Cannot have non-Abyssal sockets"]={{[1]={flags=0,keywordFlags=0,name="NoSocke
 c["Cannot inflict Curses"]={nil,"Cannot inflict Curses "}
 c["Cannot inflict Elemental Ailments"]={{[1]={flags=0,keywordFlags=0,name="CannotIgnite",type="FLAG",value=true},[2]={flags=0,keywordFlags=0,name="CannotChill",type="FLAG",value=true},[3]={flags=0,keywordFlags=0,name="CannotFreeze",type="FLAG",value=true},[4]={flags=0,keywordFlags=0,name="CannotShock",type="FLAG",value=true},[5]={flags=0,keywordFlags=0,name="CannotScorch",type="FLAG",value=true},[6]={flags=0,keywordFlags=0,name="CannotBrittle",type="FLAG",value=true},[7]={flags=0,keywordFlags=0,name="CannotSap",type="FLAG",value=true}},nil}
 c["Cannot inflict Freeze or Chill"]={{[1]={flags=0,keywordFlags=0,name="CannotFreeze",type="FLAG",value=true},[2]={flags=0,keywordFlags=0,name="CannotChill",type="FLAG",value=true}},nil}
-end)();(function()
 c["Cannot inflict Ignite"]={{[1]={flags=0,keywordFlags=0,name="CannotIgnite",type="FLAG",value=true}},nil}
+end)();(function()
 c["Cannot inflict Shock"]={{[1]={flags=0,keywordFlags=0,name="CannotShock",type="FLAG",value=true}},nil}
 c["Cannot lose Crab Barriers if you have lost Crab Barriers Recently"]={nil,"Cannot lose Crab Barriers if you have lost Crab Barriers Recently "}
 c["Cannot lose Crab Barriers if you have lost Crab Barriers Recently +3% Chance to Block Attack Damage while you have at least 5 Crab Barriers"]={nil,"Cannot lose Crab Barriers if you have lost Crab Barriers Recently +3% Chance to Block Attack Damage while you have at least 5 Crab Barriers "}
@@ -20007,8 +20006,8 @@ c["Requires Class Scion Allocates Inquisitor if you have the matching modifier o
 c["Requires Class Scion Allocates Juggernaut if you have the matching modifier on Forbidden Flame"]={nil,"Requires Class Scion Allocates Juggernaut if you have the matching modifier on Forbidden Flame "}
 c["Requires Class Scion Allocates Juggernaut if you have the matching modifier on Forbidden Flesh"]={nil,"Requires Class Scion Allocates Juggernaut if you have the matching modifier on Forbidden Flesh "}
 c["Requires Class Scion Allocates Necromancer if you have the matching modifier on Forbidden Flame"]={nil,"Requires Class Scion Allocates Necromancer if you have the matching modifier on Forbidden Flame "}
-end)();(function()
 c["Requires Class Scion Allocates Necromancer if you have the matching modifier on Forbidden Flesh"]={nil,"Requires Class Scion Allocates Necromancer if you have the matching modifier on Forbidden Flesh "}
+end)();(function()
 c["Requires Class Scion Allocates Occultist if you have the matching modifier on Forbidden Flame"]={nil,"Requires Class Scion Allocates Occultist if you have the matching modifier on Forbidden Flame "}
 c["Requires Class Scion Allocates Occultist if you have the matching modifier on Forbidden Flesh"]={nil,"Requires Class Scion Allocates Occultist if you have the matching modifier on Forbidden Flesh "}
 c["Requires Class Scion Allocates Pathfinder if you have the matching modifier on Forbidden Flame"]={nil,"Requires Class Scion Allocates Pathfinder if you have the matching modifier on Forbidden Flame "}
