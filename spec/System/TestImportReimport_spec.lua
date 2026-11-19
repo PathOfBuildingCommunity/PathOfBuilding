@@ -55,6 +55,22 @@ describe("TestImportReimport", function()
 		}
 	end
 
+	local function pasteSocketGroups(mainSocketGroup, ...)
+		for _, lines in ipairs({ ... }) do
+			build.skillsTab:PasteSocketGroup(table.concat(lines, "\n") .. "\n")
+		end
+		build.mainSocketGroup = mainSocketGroup
+		runCallback("OnFrame")
+	end
+
+	local function makeImportItemWithGems(itemTypeLine, inventoryId, ...)
+		local socketedItems = { }
+		for index, gemName in ipairs({ ... }) do
+			socketedItems[index] = makeSocketedGemEntry(index - 1, gemName:match(" Support$") ~= nil, gemName, 20)
+		end
+		return makeImportItem(itemTypeLine, inventoryId, socketedItems, "test-import-item-" .. inventoryId)
+	end
+
 	local function reimportSocketedItemsWithOptions(itemTypeLine, inventoryId, socketedItems, clearItems)
 		build.importTab:ImportItemsAndSkills(buildImportPayload({
 			makeImportItem(itemTypeLine, inventoryId, socketedItems),
@@ -226,6 +242,52 @@ Blight 20/0  1
 		assert.is_true(groupsBySlot.Helmet.includeInFullDPS)
 		assert.are.equal(2, groupsBySlot.Helmet.mainActiveSkill)
 		assert.is_false(groupsBySlot.Gloves.enabled)
+	end)
+
+	it("preserves the main socket group when supports change", function()
+		pasteSocketGroups(1,
+			{ "Slot: Body Armour", "Cleave 20/0  1", "Added Fire Damage 20/0 DISABLED 1" }
+		)
+
+		build.importTab:ImportItemsAndSkills(buildImportPayload({
+			makeImportItemWithGems("Rawhide Gloves", "Gloves", "Cleave"),
+			makeImportItemWithGems("Plate Vest", "BodyArmour", "Cleave", "Faster Attacks Support"),
+		}), false, true, true)
+		runCallback("OnFrame")
+
+		local mainSocketGroup = build.skillsTab.socketGroupList[build.mainSocketGroup]
+		assert.are.equal("Body Armour", mainSocketGroup.slot)
+		assert.is_true(mainSocketGroup.gemList[2].enabled)
+	end)
+
+	it("preserves a support-granted main skill when supports change", function()
+		pasteSocketGroups(1,
+			{ "Slot: Body Armour", "Cleave 20/0  1", "Prismatic Burst 20/0  1", "Added Fire Damage 20/0  1" }
+		)
+		build.skillsTab.socketGroupList[1].mainActiveSkill = 2
+
+		build.importTab:ImportItemsAndSkills(buildImportPayload({
+			makeImportItemWithGems("Plate Vest", "BodyArmour", "Cleave", "Prismatic Burst Support", "Faster Attacks Support"),
+		}), false, true, true)
+		runCallback("OnFrame")
+
+		local mainSocketGroup = build.skillsTab.socketGroupList[build.mainSocketGroup]
+		assert.are.equal("PrismaticBurst", mainSocketGroup.displaySkillList[mainSocketGroup.mainActiveSkill].activeEffect.grantedEffect.id)
+	end)
+
+	it("guesses a new main socket group when the previous main skill is gone", function()
+		pasteSocketGroups(1,
+			{ "Slot: Body Armour", "Cleave 20/0  1" },
+			{ "Slot: Boots", "Frostblink 20/0  1" }
+		)
+
+		build.importTab:ImportItemsAndSkills(buildImportPayload({
+			makeImportItemWithGems("Iron Greaves", "Boots", "Frostblink"),
+			makeImportItemWithGems("Rawhide Gloves", "Gloves", "Fireball", "Added Fire Damage Support"),
+		}), false, true, true)
+		runCallback("OnFrame")
+
+		assert.are.equal("Gloves", build.skillsTab.socketGroupList[build.mainSocketGroup].slot)
 	end)
 
 	it("preserves skill part selection when reimporting items and skills", function()
