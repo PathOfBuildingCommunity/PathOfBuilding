@@ -2077,6 +2077,33 @@ function buildMode:InsertItemWarnings()
 	end
 end
 
+function buildMode:InsertMercenaryWarnings()
+	local skillList = self.calcsTab.mainEnv.mercenarySkillList
+	if not skillList or not skillList[1] then
+		return
+	end
+	local mercenaryBuild
+	for _, build in ipairs(data.mercenaryBuilds) do
+		if build.id == self.configTab.input.mercenaryBuild then
+			mercenaryBuild = build
+			break
+		end
+	end
+	if not mercenaryBuild then
+		InsertIfNew(self.controls.warnings.lines, "Your Mercenary has skills, but no Mercenary type is selected in the Configuration tab")
+		return
+	end
+	local unusable = { }
+	for _, skill in ipairs(skillList) do
+		if not isValueInArray(mercenaryBuild.skills, skill.grantedEffect.id) then
+			InsertIfNew(unusable, skill.grantedEffect.name)
+		end
+	end
+	if unusable[1] then
+		InsertIfNew(self.controls.warnings.lines, "The "..mercenaryBuild.name.." Mercenary type can't use: "..table.concat(unusable, ", "))
+	end
+end
+
 -- Build list of side bar stats
 function buildMode:RefreshStatList()
 	self.controls.warnings.lines = {}
@@ -2118,6 +2145,7 @@ function buildMode:RefreshStatList()
 	end
 	self:AddDisplayStatList(self.displayStats, self.calcsTab.mainEnv.player, "player")
 	self:InsertItemWarnings()
+	self:InsertMercenaryWarnings()
 	self:EstimatePlayerProgress()
 end
 

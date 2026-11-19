@@ -291,9 +291,15 @@ end
 local mercenaryBuilds = {}
 for row in dat("MercenaryBuilds"):Rows() do
 	-- Mercenaries always have the primary skills of their build
-	local build = { id = row.Id, name = row.BuildName, primarySkills = {}, stats = {} }
+	local build = { id = row.Id, name = row.BuildName, primarySkills = {}, skills = {}, stats = {} }
 	for _, skill in ipairs(row.Skill1) do
 		table.insert(build.primarySkills, skill.Id.Id)
+	end
+	-- All skills the build can have, with the rest chosen from the other pools
+	for _, pool in ipairs({ row.Skill1, row.Skill2, row.Skill3 }) do
+		for _, skill in ipairs(pool) do
+			table.insert(build.skills, skill.Id.Id)
+		end
 	end
 	for _, extraStat in ipairs(row.ExtraStats) do
 		if extraStat.Level24 ~= 0 or extraStat.Level68 ~= 0 or extraStat.Level84 ~= 0 then

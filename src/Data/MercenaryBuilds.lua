@@ -12,6 +12,24 @@ return {
 			"ConductivityMercenary",
 			"SigilOfPowerMercenary",
 		},
+		["skills"] = {
+			"ConductivityMercenary",
+			"SigilOfPowerMercenary",
+			"SparkMercenary",
+			"ArcAltMercenary",
+			"ArcMercenary",
+			"BallLightningAltMercenary",
+			"GigaStormCallMercenary",
+			"GigaShockNovaMercenary",
+			"OrbOfStormsMercenary",
+			"StormCallMercenary",
+			"LightningWarpMercenary",
+			"FrostblinkMercenary",
+			"FlameDashMercenary",
+			"WrathMercenary",
+			"PurityOfLightningMercenary",
+			"ProximityShieldMercenary",
+		},
 		["stats"] = {
 			{
 				"base_strength",
@@ -100,6 +118,24 @@ return {
 			"ConductivityMercenary",
 			"SigilOfPowerMercenary",
 		},
+		["skills"] = {
+			"ConductivityMercenary",
+			"SigilOfPowerMercenary",
+			"SparkMercenary",
+			"ArcAltMercenary",
+			"ArcMercenary",
+			"BallLightningAltMercenary",
+			"GigaStormCallMercenary",
+			"GigaShockNovaMercenary",
+			"OrbOfStormsMercenary",
+			"StormCallMercenary",
+			"LightningWarpMercenary",
+			"FrostblinkMercenary",
+			"FlameDashMercenary",
+			"WrathMercenary",
+			"PurityOfLightningMercenary",
+			"ProximityShieldMercenary",
+		},
 		["stats"] = {
 			{
 				"base_strength",
@@ -187,6 +223,22 @@ return {
 		["primarySkills"] = {
 			"FrostBombMercenary",
 			"FrostbiteMercenary",
+		},
+		["skills"] = {
+			"FrostBombMercenary",
+			"FrostbiteMercenary",
+			"FrostWallMercenary",
+			"EyeOfWinterMercenary",
+			"VortexMercenary",
+			"FrostboltMercenary",
+			"IceNovaMercenary",
+			"IceNovaProjectedMercenary",
+			"IcestormMercenary",
+			"LightningWarpMercenary",
+			"FrostblinkMercenary",
+			"FlameDashMercenary",
+			"PurityOfIceMercenary",
+			"DisciplineMercenary",
 		},
 		["stats"] = {
 			{
@@ -294,6 +346,22 @@ return {
 			"FrostBombMercenary",
 			"FrostbiteMercenary",
 		},
+		["skills"] = {
+			"FrostBombMercenary",
+			"FrostbiteMercenary",
+			"FrostWallMercenary",
+			"EyeOfWinterMercenary",
+			"VortexMercenary",
+			"FrostboltMercenary",
+			"IceNovaMercenary",
+			"IceNovaProjectedMercenary",
+			"IcestormMercenary",
+			"LightningWarpMercenary",
+			"FrostblinkMercenary",
+			"FlameDashMercenary",
+			"PurityOfIceMercenary",
+			"DisciplineMercenary",
+		},
 		["stats"] = {
 			{
 				"base_strength",
@@ -400,6 +468,22 @@ return {
 			"FlameWallMercenary",
 			"FlammabilityMercenary",
 		},
+		["skills"] = {
+			"FlameWallMercenary",
+			"FlammabilityMercenary",
+			"GigaFlameDashMercenary",
+			"FlameblastMercenary",
+			"VaalFlameblastMercenary",
+			"FireballMercenary",
+			"FireballAltMercenary",
+			"RollingMagmaMercenary",
+			"FlameSurgeMercenary",
+			"LightningWarpMercenary",
+			"FrostblinkMercenary",
+			"PurityOfFireMercenary",
+			"AngerMercenary",
+			"FireAegisMercenary",
+		},
 		["stats"] = {
 			{
 				"base_strength",
@@ -494,6 +578,22 @@ return {
 			"BaneMercenary",
 			"TemporalChainsMercenary",
 		},
+		["skills"] = {
+			"BaneMercenary",
+			"TemporalChainsMercenary",
+			"GigaSoulrendMercenary",
+			"SandstormChaosMercenary",
+			"BlightMercenary",
+			"EssenceDrainAltMercenary",
+			"OfferingOfJudgementChaosMercenary",
+			"MalevolenceMercenary",
+			"LightningWarpMercenary",
+			"FrostblinkMercenary",
+			"FlameDashMercenary",
+			"ClarityMercenary",
+			"WitheringStepMercenary",
+			"WitherTotemMercenary",
+		},
 		["stats"] = {
 			{
 				"base_strength",
@@ -576,6 +676,22 @@ return {
 			"BaneMercenary",
 			"TemporalChainsMercenary",
 		},
+		["skills"] = {
+			"BaneMercenary",
+			"TemporalChainsMercenary",
+			"GigaSoulrendMercenary",
+			"SandstormChaosMercenary",
+			"BlightMercenary",
+			"EssenceDrainAltMercenary",
+			"OfferingOfJudgementChaosMercenary",
+			"MalevolenceMercenary",
+			"LightningWarpMercenary",
+			"FrostblinkMercenary",
+			"FlameDashMercenary",
+			"ClarityMercenary",
+			"WitheringStepMercenary",
+			"WitherTotemMercenary",
+		},
 		["stats"] = {
 			{
 				"base_strength",
@@ -657,6 +773,20 @@ return {
 		["primarySkills"] = {
 			"GigaRaiseZombieMercenary",
 			"DesecrateMercenary",
+		},
+		["skills"] = {
+			"GigaRaiseZombieMercenary",
+			"DesecrateMercenary",
+			"RaiseZombieAltMercenary",
+			"SummonSkeletonsMercenary",
+			"FleshOfferingMercenary",
+			"BoneOfferingMercenary",
+			"SummonRagingSpiritMercenary",
+			"LightningWarpMercenary",
+			"FrostblinkMercenary",
+			"FlameDashMercenary",
+			"EnfeebleMercenary",
+			"SSMMercenaryRelic",
 		},
 		["stats"] = {
 			{
@@ -764,6 +894,20 @@ return {
 			"GigaRaiseZombieMercenary",
 			"DesecrateMercenary",
 		},
+		["skills"] = {
+			"GigaRaiseZombieMercenary",
+			"DesecrateMercenary",
+			"RaiseZombieAltMercenary",
+			"SummonSkeletonsMercenary",
+			"FleshOfferingMercenary",
+			"BoneOfferingMercenary",
+			"SummonRagingSpiritMercenary",
+			"LightningWarpMercenary",
+			"FrostblinkMercenary",
+			"FlameDashMercenary",
+			"EnfeebleMercenary",
+			"SSMMercenaryRelic",
+		},
 		["stats"] = {
 			{
 				"base_strength",
@@ -870,6 +1014,21 @@ return {
 			"DespairMercenary",
 			"VoidSphereMercenary",
 		},
+		["skills"] = {
+			"DespairMercenary",
+			"VoidSphereMercenary",
+			"DarkPactMercenary",
+			"VoltaxicBurstMercenary",
+			"SoulrendAltMercenary",
+			"ForbiddenRiteTotemMercenary",
+			"SSMMercenarySoulrendOrb",
+			"ChaosGlacialCascadeMercenary",
+			"ZealotryMercenary",
+			"LightningWarpMercenary",
+			"FrostblinkMercenary",
+			"FlameDashMercenary",
+			"EnvyMercenary",
+		},
 		["stats"] = {
 			{
 				"base_strength",
@@ -958,6 +1117,21 @@ return {
 			"DespairMercenary",
 			"VoidSphereMercenary",
 		},
+		["skills"] = {
+			"DespairMercenary",
+			"VoidSphereMercenary",
+			"DarkPactMercenary",
+			"VoltaxicBurstMercenary",
+			"SoulrendAltMercenary",
+			"ForbiddenRiteTotemMercenary",
+			"SSMMercenarySoulrendOrb",
+			"ChaosGlacialCascadeMercenary",
+			"ZealotryMercenary",
+			"LightningWarpMercenary",
+			"FrostblinkMercenary",
+			"FlameDashMercenary",
+			"EnvyMercenary",
+		},
 		["stats"] = {
 			{
 				"base_strength",
@@ -1045,6 +1219,17 @@ return {
 		["primarySkills"] = {
 			"BladeTrapMercenary",
 			"ActionSpeedAuraMercenary",
+		},
+		["skills"] = {
+			"BladeTrapMercenary",
+			"ActionSpeedAuraMercenary",
+			"SpectralThrowAltMercenary",
+			"SpectralHelixAltMercenary",
+			"SmokeMineMercenary",
+			"FlameDashMercenary",
+			"GraceMercenary",
+			"SummonSkitterbotsMercenary",
+			"BearTrapMercenary",
 		},
 		["stats"] = {
 			{
@@ -1146,6 +1331,17 @@ return {
 			"BladeTrapMercenary",
 			"ActionSpeedAuraMercenary",
 		},
+		["skills"] = {
+			"BladeTrapMercenary",
+			"ActionSpeedAuraMercenary",
+			"SpectralThrowAltMercenary",
+			"SpectralHelixAltMercenary",
+			"SmokeMineMercenary",
+			"FlameDashMercenary",
+			"GraceMercenary",
+			"SummonSkitterbotsMercenary",
+			"BearTrapMercenary",
+		},
 		["stats"] = {
 			{
 				"base_strength",
@@ -1246,6 +1442,19 @@ return {
 			"ConductivityMercenary",
 			"VaalLightningTrapMercenary",
 		},
+		["skills"] = {
+			"ConductivityMercenary",
+			"VaalLightningTrapMercenary",
+			"LightningTrapMercenary",
+			"LightningSpireTrapMercenary",
+			"BallLightningAltTrapMercenary",
+			"LightningWarpTrapsMercenary",
+			"FlameDashMercenary",
+			"FrostblinkMercenary",
+			"SmokeMineMercenary",
+			"SummonSkitterbotsMercenary",
+			"ZealotryMercenary",
+		},
 		["stats"] = {
 			{
 				"base_strength",
@@ -1334,6 +1543,19 @@ return {
 			"ConductivityMercenary",
 			"VaalLightningTrapMercenary",
 		},
+		["skills"] = {
+			"ConductivityMercenary",
+			"VaalLightningTrapMercenary",
+			"LightningTrapMercenary",
+			"LightningSpireTrapMercenary",
+			"BallLightningAltTrapMercenary",
+			"LightningWarpTrapsMercenary",
+			"FlameDashMercenary",
+			"FrostblinkMercenary",
+			"SmokeMineMercenary",
+			"SummonSkitterbotsMercenary",
+			"ZealotryMercenary",
+		},
 		["stats"] = {
 			{
 				"base_strength",
@@ -1421,6 +1643,18 @@ return {
 		["primarySkills"] = {
 			"FrostShieldMercenary",
 			"GigaVortexTrapMercenary",
+		},
+		["skills"] = {
+			"FrostShieldMercenary",
+			"GigaVortexTrapMercenary",
+			"IceTrapMercenary",
+			"CreepingFrostTrapMercenary",
+			"SummonSkitterbotsMercenary",
+			"FlameDashMercenary",
+			"FrostblinkMercenary",
+			"GraceMercenary",
+			"ArcticArmourMercenary",
+			"VaalArcticArmourMercenary",
 		},
 		["stats"] = {
 			{
@@ -1516,6 +1750,20 @@ return {
 			"TemporalAnomalyMercenary",
 			"LightningWarpPhysMercenary",
 		},
+		["skills"] = {
+			"TemporalAnomalyMercenary",
+			"LightningWarpPhysMercenary",
+			"DonutCircleMercenary",
+			"BladefallMercenary",
+			"BladeVortexMercenary",
+			"EtherealKnivesMercenary",
+			"BladefallAltMercenary",
+			"DashMercenary",
+			"GraceMercenary",
+			"FlameDashMercenary",
+			"AspectOfTheSpiderMercenary",
+			"FrostShieldMercenary",
+		},
 		["stats"] = {
 			{
 				"base_strength",
@@ -1610,6 +1858,20 @@ return {
 			"TemporalAnomalyMercenary",
 			"LightningWarpPhysMercenary",
 		},
+		["skills"] = {
+			"TemporalAnomalyMercenary",
+			"LightningWarpPhysMercenary",
+			"DonutCircleMercenary",
+			"BladefallMercenary",
+			"BladeVortexMercenary",
+			"EtherealKnivesMercenary",
+			"BladefallAltMercenary",
+			"DashMercenary",
+			"GraceMercenary",
+			"FlameDashMercenary",
+			"AspectOfTheSpiderMercenary",
+			"FrostShieldMercenary",
+		},
 		["stats"] = {
 			{
 				"base_strength",
@@ -1703,6 +1965,19 @@ return {
 		["primarySkills"] = {
 			"ViperStrikeMercenary",
 			"AbyssalCryMercenary",
+		},
+		["skills"] = {
+			"ViperStrikeMercenary",
+			"AbyssalCryMercenary",
+			"VenomGyreMercenary",
+			"MoltenStrikePoisonMercenary",
+			"CobraLashMercenary",
+			"PestilentStrikeMercenary",
+			"WhirlingBladesMercenary",
+			"DashMercenary",
+			"MalevolenceMercenary",
+			"WitheringStepMercenary",
+			"GraceMercenary",
 		},
 		["stats"] = {
 			{
@@ -1815,6 +2090,19 @@ return {
 		["primarySkills"] = {
 			"ViperStrikeMercenary",
 			"AbyssalCryMercenary",
+		},
+		["skills"] = {
+			"ViperStrikeMercenary",
+			"AbyssalCryMercenary",
+			"VenomGyreMercenary",
+			"MoltenStrikePoisonMercenary",
+			"CobraLashMercenary",
+			"PestilentStrikeMercenary",
+			"WhirlingBladesMercenary",
+			"DashMercenary",
+			"MalevolenceMercenary",
+			"WitheringStepMercenary",
+			"GraceMercenary",
 		},
 		["stats"] = {
 			{
@@ -1929,6 +2217,20 @@ return {
 			"LeapSlamMercenary",
 			"TriggeredFireSlamMercenary",
 		},
+		["skills"] = {
+			"InfernalCryMercenary",
+			"LeapSlamMercenary",
+			"TriggeredFireSlamMercenary",
+			"VolcanicFissureAltMercenary",
+			"ConsecratedPathMercenary",
+			"TectonicSlamFireMercenary",
+			"FissureSlamMercenary",
+			"MoltenShellMercenary",
+			"DeterminationMercenary",
+			"PurityOfFireMercenary",
+			"HeraldOfAshMercenary",
+			"FlameLinkMercenary",
+		},
 		["stats"] = {
 			{
 				"base_strength",
@@ -2006,6 +2308,20 @@ return {
 			"LeapSlamMercenary",
 			"TriggeredFireSlamMercenary",
 		},
+		["skills"] = {
+			"InfernalCryMercenary",
+			"LeapSlamMercenary",
+			"TriggeredFireSlamMercenary",
+			"VolcanicFissureAltMercenary",
+			"ConsecratedPathMercenary",
+			"TectonicSlamFireMercenary",
+			"FissureSlamMercenary",
+			"MoltenShellMercenary",
+			"DeterminationMercenary",
+			"PurityOfFireMercenary",
+			"HeraldOfAshMercenary",
+			"FlameLinkMercenary",
+		},
 		["stats"] = {
 			{
 				"base_strength",
@@ -2082,6 +2398,19 @@ return {
 			"RemoteSlamMercenary",
 			"EnrageMercenary",
 		},
+		["skills"] = {
+			"RemoteSlamMercenary",
+			"EnrageMercenary",
+			"CleaveMercenary",
+			"VaalCleaveMercenary",
+			"WindSlashMercenary",
+			"ChainHookAltMercenary",
+			"LeapSlamMercenaryAlt",
+			"MoltenShellMercenary",
+			"DeterminationMercenary",
+			"LeapSlamMercenary",
+			"VitalityMercenary",
+		},
 		["stats"] = {
 			{
 				"base_strength",
@@ -2152,6 +2481,19 @@ return {
 			"RemoteSlamMercenary",
 			"EnrageMercenary",
 		},
+		["skills"] = {
+			"RemoteSlamMercenary",
+			"EnrageMercenary",
+			"CleaveMercenary",
+			"VaalCleaveMercenary",
+			"WindSlashMercenary",
+			"ChainHookAltMercenary",
+			"LeapSlamMercenaryAlt",
+			"MoltenShellMercenary",
+			"DeterminationMercenary",
+			"LeapSlamMercenary",
+			"VitalityMercenary",
+		},
 		["stats"] = {
 			{
 				"base_strength",
@@ -2221,6 +2563,20 @@ return {
 		["primarySkills"] = {
 			"IntimidatingCryMercenary",
 			"LeapSlamMercenary",
+		},
+		["skills"] = {
+			"IntimidatingCryMercenary",
+			"LeapSlamMercenary",
+			"VaalGroundSlamMercenary",
+			"GroundSlamMercenary",
+			"EarthquakeAltMercenary",
+			"TectonicSlamPhysMercenary",
+			"SunderAltMercenary",
+			"DeterminationMercenary",
+			"MoltenShellMercenary",
+			"BurrowMercenary",
+			"MassEnduranceMercenary",
+			"VaalVitalityMercenary",
 		},
 		["stats"] = {
 			{
@@ -2298,6 +2654,20 @@ return {
 			"IntimidatingCryMercenary",
 			"LeapSlamMercenary",
 		},
+		["skills"] = {
+			"IntimidatingCryMercenary",
+			"LeapSlamMercenary",
+			"VaalGroundSlamMercenary",
+			"GroundSlamMercenary",
+			"EarthquakeAltMercenary",
+			"TectonicSlamPhysMercenary",
+			"SunderAltMercenary",
+			"DeterminationMercenary",
+			"MoltenShellMercenary",
+			"BurrowMercenary",
+			"MassEnduranceMercenary",
+			"VaalVitalityMercenary",
+		},
 		["stats"] = {
 			{
 				"base_strength",
@@ -2373,6 +2743,19 @@ return {
 		["primarySkills"] = {
 			"PunishmentMercenary",
 			"FireEnrageMercenary",
+		},
+		["skills"] = {
+			"PunishmentMercenary",
+			"FireEnrageMercenary",
+			"VaalMoltenStrikeMercenary",
+			"InfernalBlowAltMercenary",
+			"MoltenStrikeMercenary",
+			"LightningStrikeFireMercenary",
+			"AngerMercenary",
+			"LeapSlamMercenary",
+			"MoltenShellMercenary",
+			"FireAegisMercenary",
+			"InfernalCryMercenary",
 		},
 		["stats"] = {
 			{
@@ -2469,6 +2852,20 @@ return {
 			"EnduringCryMercenary",
 			"PhysicalAegisMercenary",
 		},
+		["skills"] = {
+			"VigilantStrikeMercenary",
+			"EnduringCryMercenary",
+			"PhysicalAegisMercenary",
+			"HeavyStrikeMercenary",
+			"BoneshatterMercenary",
+			"DualStrikeMercenary",
+			"DeterminationMercenary",
+			"LeapSlamMercenary",
+			"MoltenShellMercenary",
+			"VitalityMercenary",
+			"VaalAncestralWarchiefMercenary",
+			"DecoyTotemMercenary",
+		},
 		["stats"] = {
 			{
 				"base_strength",
@@ -2552,6 +2949,20 @@ return {
 			"EnduringCryMercenary",
 			"PhysicalAegisMercenary",
 		},
+		["skills"] = {
+			"VigilantStrikeMercenary",
+			"EnduringCryMercenary",
+			"PhysicalAegisMercenary",
+			"HeavyStrikeMercenary",
+			"BoneshatterMercenary",
+			"DualStrikeMercenary",
+			"DeterminationMercenary",
+			"LeapSlamMercenary",
+			"MoltenShellMercenary",
+			"VitalityMercenary",
+			"VaalAncestralWarchiefMercenary",
+			"DecoyTotemMercenary",
+		},
 		["stats"] = {
 			{
 				"base_strength",
@@ -2634,6 +3045,20 @@ return {
 			"CGEBloodGroundMercenary",
 			"StormCallAltMercenary",
 			"BodyswapMercenary",
+		},
+		["skills"] = {
+			"CGEBloodGroundMercenary",
+			"StormCallAltMercenary",
+			"BodyswapMercenary",
+			"ExsanguinateMercenary",
+			"VaalReapMercenary",
+			"ReapMercenary",
+			"BladeVortexAltMercenary",
+			"FlameDashMercenary",
+			"LightningWarpMercenary",
+			"PrideMercenary",
+			"ProximityShieldMercenary",
+			"VaalVitalityMercenary",
 		},
 		["stats"] = {
 			{
@@ -2742,6 +3167,20 @@ return {
 			"StormCallAltMercenary",
 			"BodyswapMercenary",
 		},
+		["skills"] = {
+			"CGEBloodGroundMercenary",
+			"StormCallAltMercenary",
+			"BodyswapMercenary",
+			"ExsanguinateMercenary",
+			"VaalReapMercenary",
+			"ReapMercenary",
+			"BladeVortexAltMercenary",
+			"FlameDashMercenary",
+			"LightningWarpMercenary",
+			"PrideMercenary",
+			"ProximityShieldMercenary",
+			"VaalVitalityMercenary",
+		},
 		["stats"] = {
 			{
 				"base_strength",
@@ -2848,6 +3287,20 @@ return {
 			"ElementalWeaknessMercenary",
 			"FlameWallMercenary",
 		},
+		["skills"] = {
+			"ElementalWeaknessMercenary",
+			"FlameWallMercenary",
+			"KineticBoltMercenary",
+			"PowerSiphonMercenary",
+			"BarrageMercenary",
+			"GigaKineticBlastMercenary",
+			"KineticBlastAltMercenary",
+			"KineticRainAltXMercenary",
+			"FlameDashMercenary",
+			"FrostblinkMercenary",
+			"HasteMercenary",
+			"InspiringCryMercenary",
+		},
 		["stats"] = {
 			{
 				"base_strength",
@@ -2942,6 +3395,20 @@ return {
 			"ElementalWeaknessMercenary",
 			"FlameWallMercenary",
 		},
+		["skills"] = {
+			"ElementalWeaknessMercenary",
+			"FlameWallMercenary",
+			"KineticBoltMercenary",
+			"PowerSiphonMercenary",
+			"BarrageMercenary",
+			"GigaKineticBlastMercenary",
+			"KineticBlastAltMercenary",
+			"KineticRainAltXMercenary",
+			"FlameDashMercenary",
+			"FrostblinkMercenary",
+			"HasteMercenary",
+			"InspiringCryMercenary",
+		},
 		["stats"] = {
 			{
 				"base_strength",
@@ -3035,6 +3502,17 @@ return {
 		["primarySkills"] = {
 			"SummonHolyRelicMercenary",
 			"SmiteMercenary",
+		},
+		["skills"] = {
+			"SummonHolyRelicMercenary",
+			"SmiteMercenary",
+			"PhysicalBeaconMercenary",
+			"DominatingBlowMercenary",
+			"SSMHolySpectresMercenary",
+			"DoryanisTouchMercenary",
+			"PurityOfLightningMercenary",
+			"FlameDashMercenary",
+			"HeraldOfPurityMercenary",
 		},
 		["stats"] = {
 			{
@@ -3166,6 +3644,17 @@ return {
 			"SummonHolyRelicMercenary",
 			"SmiteMercenary",
 		},
+		["skills"] = {
+			"SummonHolyRelicMercenary",
+			"SmiteMercenary",
+			"PhysicalBeaconMercenary",
+			"DominatingBlowMercenary",
+			"SSMHolySpectresMercenary",
+			"DoryanisTouchMercenary",
+			"PurityOfLightningMercenary",
+			"FlameDashMercenary",
+			"HeraldOfPurityMercenary",
+		},
 		["stats"] = {
 			{
 				"base_strength",
@@ -3295,6 +3784,17 @@ return {
 		["primarySkills"] = {
 			"SummonHolyRelicMercenary",
 			"SmiteMercenary",
+		},
+		["skills"] = {
+			"SummonHolyRelicMercenary",
+			"SmiteMercenary",
+			"PhysicalBeaconMercenary",
+			"DominatingBlowMercenary",
+			"SSMHolySpectresMercenary",
+			"DoryanisTouchMercenary",
+			"PurityOfLightningMercenary",
+			"FlameDashMercenary",
+			"HeraldOfPurityMercenary",
 		},
 		["stats"] = {
 			{
@@ -3426,6 +3926,17 @@ return {
 			"HolyHammersMercenary",
 			"HolyStrikeMercenary",
 		},
+		["skills"] = {
+			"HolyHammersMercenary",
+			"HolyStrikeMercenary",
+			"SweepMercenary",
+			"MoltenStrikeHolyMercenary",
+			"ConsecratedPathMercenary",
+			"PurityOfLightningMercenary",
+			"FlameDashMercenary",
+			"HeraldOfPurityMercenary",
+			"WrathMercenary",
+		},
 		["stats"] = {
 			{
 				"base_strength",
@@ -3531,6 +4042,17 @@ return {
 		["primarySkills"] = {
 			"HolyHammersMercenary",
 			"HolyStrikeMercenary",
+		},
+		["skills"] = {
+			"HolyHammersMercenary",
+			"HolyStrikeMercenary",
+			"SweepMercenary",
+			"MoltenStrikeHolyMercenary",
+			"ConsecratedPathMercenary",
+			"PurityOfLightningMercenary",
+			"FlameDashMercenary",
+			"HeraldOfPurityMercenary",
+			"WrathMercenary",
 		},
 		["stats"] = {
 			{
@@ -3638,6 +4160,19 @@ return {
 			"AbsolutionMercenary",
 			"RaiseSpectreAltMercenary",
 			"DesecrateMercenary",
+		},
+		["skills"] = {
+			"AbsolutionMercenary",
+			"RaiseSpectreAltMercenary",
+			"DesecrateMercenary",
+			"SSMPaganBishopMercenary",
+			"SSMVollMercenary",
+			"SSMSkeletalBossMercenary",
+			"WrathMercenary",
+			"ZealotryMercenary",
+			"BattlemagesCryMercenary",
+			"FlameDashMercenary",
+			"FrostblinkMercenary",
 		},
 		["stats"] = {
 			{
@@ -3764,6 +4299,19 @@ return {
 			"RaiseSpectreAltMercenary",
 			"DesecrateMercenary",
 		},
+		["skills"] = {
+			"AbsolutionMercenary",
+			"RaiseSpectreAltMercenary",
+			"DesecrateMercenary",
+			"SSMPaganBishopMercenary",
+			"SSMVollMercenary",
+			"SSMSkeletalBossMercenary",
+			"WrathMercenary",
+			"ZealotryMercenary",
+			"BattlemagesCryMercenary",
+			"FlameDashMercenary",
+			"FrostblinkMercenary",
+		},
 		["stats"] = {
 			{
 				"base_strength",
@@ -3887,6 +4435,19 @@ return {
 		["primarySkills"] = {
 			"FrostShieldMercenary",
 			"VaalGlacialHammerMercenary",
+		},
+		["skills"] = {
+			"FrostShieldMercenary",
+			"VaalGlacialHammerMercenary",
+			"IceCrashMercenary",
+			"GlacialHammerMercenary",
+			"EarthquakeColdMercenary",
+			"HeavyStrikeAltMercenary",
+			"HatredMercenary",
+			"FrostblinkMercenary",
+			"FrostBombMercenary",
+			"ArcticArmourMercenary",
+			"PurityOfIceMercenary",
 		},
 		["stats"] = {
 			{
@@ -4024,6 +4585,18 @@ return {
 			"MercenaryLightningDelayedBlast",
 			"WaveOfConvictionLightningMercenary",
 		},
+		["skills"] = {
+			"MercenaryLightningDelayedBlast",
+			"WaveOfConvictionLightningMercenary",
+			"DivineIreMercenary",
+			"TornadoAltMercenary",
+			"DivineRetributionMercenary",
+			"ShockwaveTotemMercenary",
+			"ChargedDashSpellScalingMercenary",
+			"WrathMercenary",
+			"LightningWarpMercenary",
+			"FlameDashMercenary",
+		},
 		["stats"] = {
 			{
 				"base_strength",
@@ -4123,6 +4696,18 @@ return {
 		["primarySkills"] = {
 			"MercenaryLightningDelayedBlast",
 			"WaveOfConvictionLightningMercenary",
+		},
+		["skills"] = {
+			"MercenaryLightningDelayedBlast",
+			"WaveOfConvictionLightningMercenary",
+			"DivineIreMercenary",
+			"TornadoAltMercenary",
+			"DivineRetributionMercenary",
+			"ShockwaveTotemMercenary",
+			"ChargedDashSpellScalingMercenary",
+			"WrathMercenary",
+			"LightningWarpMercenary",
+			"FlameDashMercenary",
 		},
 		["stats"] = {
 			{
@@ -4224,6 +4809,18 @@ return {
 			"HolyFlameTotemMercenary",
 			"PurifyingFlameMercenary",
 		},
+		["skills"] = {
+			"HolyFlameTotemMercenary",
+			"PurifyingFlameMercenary",
+			"HolyFireMortarMercenary",
+			"WaveOfConvictionAltMercenary",
+			"ScorchingRayTotemMercenary",
+			"MeteorUpheavalMercenary",
+			"LightningWarpMercenary",
+			"FlameDashMercenary",
+			"HeraldOfAshMercenary",
+			"AngerMercenary",
+		},
 		["stats"] = {
 			{
 				"base_strength",
@@ -4318,6 +4915,17 @@ return {
 			"MPSAbyssalMercenaryProjectileSpray",
 			"GSAbyssalTemplarProjectileExplosion",
 			"EASAbyssalTemplarModGain",
+		},
+		["skills"] = {
+			"MPSAbyssalMercenaryProjectileSpray",
+			"GSAbyssalTemplarProjectileExplosion",
+			"EASAbyssalTemplarModGain",
+			"SmiteMercenary",
+			"VaalSmiteMercenary",
+			"EnvyMercenary",
+			"FlameDashMercenary",
+			"AbyssalCryMercenary",
+			"HeraldOfAshMercenaryAlt",
 		},
 		["stats"] = {
 			{
@@ -4414,6 +5022,20 @@ return {
 			"DeceleratingProjectileMercenaryExplode",
 			"DeceleratingProjectileMercenary",
 		},
+		["skills"] = {
+			"WitheringStepMercenary",
+			"DeceleratingProjectileMercenaryExplode",
+			"DeceleratingProjectileMercenary",
+			"VaalCausticArrowMercenary",
+			"ToxicRainMercenary",
+			"ScourgeArrowAltMercenary",
+			"CausticArrowMercenary",
+			"GraceMercenary",
+			"BlinkArrowMercenary",
+			"DashMercenary",
+			"MalevolenceMercenary",
+			"ActionSpeedAuraMercenary",
+		},
 		["stats"] = {
 			{
 				"base_strength",
@@ -4503,6 +5125,20 @@ return {
 			"DeceleratingProjectileMercenaryExplode",
 			"DeceleratingProjectileMercenary",
 		},
+		["skills"] = {
+			"WitheringStepMercenary",
+			"DeceleratingProjectileMercenaryExplode",
+			"DeceleratingProjectileMercenary",
+			"VaalCausticArrowMercenary",
+			"ToxicRainMercenary",
+			"ScourgeArrowAltMercenary",
+			"CausticArrowMercenary",
+			"GraceMercenary",
+			"BlinkArrowMercenary",
+			"DashMercenary",
+			"MalevolenceMercenary",
+			"ActionSpeedAuraMercenary",
+		},
 		["stats"] = {
 			{
 				"base_strength",
@@ -4590,6 +5226,23 @@ return {
 		["primarySkills"] = {
 			"EnsnaringArrowMercenary",
 			"PoachersMarkMercenary",
+		},
+		["skills"] = {
+			"EnsnaringArrowMercenary",
+			"PoachersMarkMercenary",
+			"VaalSplitArrowMercenary",
+			"RainOfArrowsAltMercenary",
+			"TornadoShotMercenary",
+			"ShrapnelBallistaMercenary",
+			"BarrageAltMercenary",
+			"SiegeBallistaAltMercenary",
+			"SplitArrowMercenary",
+			"PunctureMercenary",
+			"GraceMercenary",
+			"BlinkArrowMercenary",
+			"DashMercenary",
+			"FrenzyMercenary",
+			"HasteMercenary",
 		},
 		["stats"] = {
 			{
@@ -4697,6 +5350,23 @@ return {
 			"EnsnaringArrowMercenary",
 			"PoachersMarkMercenary",
 		},
+		["skills"] = {
+			"EnsnaringArrowMercenary",
+			"PoachersMarkMercenary",
+			"VaalSplitArrowMercenary",
+			"RainOfArrowsAltMercenary",
+			"TornadoShotMercenary",
+			"ShrapnelBallistaMercenary",
+			"BarrageAltMercenary",
+			"SiegeBallistaAltMercenary",
+			"SplitArrowMercenary",
+			"PunctureMercenary",
+			"GraceMercenary",
+			"BlinkArrowMercenary",
+			"DashMercenary",
+			"FrenzyMercenary",
+			"HasteMercenary",
+		},
 		["stats"] = {
 			{
 				"base_strength",
@@ -4802,6 +5472,19 @@ return {
 		["primarySkills"] = {
 			"LightningArrowMercenary",
 			"AssassinsMarkMercenary",
+		},
+		["skills"] = {
+			"LightningArrowMercenary",
+			"AssassinsMarkMercenary",
+			"GalvanicArrowMercenary",
+			"GigaLightningArrowMercenary",
+			"VaalLightningArrowMercenary",
+			"StormRainMercenary",
+			"WrathMercenary",
+			"BlinkArrowMercenary",
+			"ActionSpeedAuraMercenary",
+			"PrecisionMercenary",
+			"DashMercenary",
 		},
 		["stats"] = {
 			{
@@ -4909,6 +5592,20 @@ return {
 			"BurningArrowMercenary",
 			"AlchemistsMarkMercenary",
 		},
+		["skills"] = {
+			"BurningArrowMercenary",
+			"AlchemistsMarkMercenary",
+			"VaalBurningArrowMercenary",
+			"DropArrowMercenary",
+			"ArtilleryBallistaMercenary",
+			"ExplosiveArrowBarrageMercenary",
+			"BlastRainAltMercenary",
+			"ConflagrationMercenary",
+			"GraceMercenary",
+			"BlinkArrowMercenary",
+			"DashMercenary",
+			"FlammabilityBlasphemyMercenary",
+		},
 		["stats"] = {
 			{
 				"base_strength",
@@ -5003,6 +5700,20 @@ return {
 			"BurningArrowMercenary",
 			"AlchemistsMarkMercenary",
 		},
+		["skills"] = {
+			"BurningArrowMercenary",
+			"AlchemistsMarkMercenary",
+			"VaalBurningArrowMercenary",
+			"DropArrowMercenary",
+			"ArtilleryBallistaMercenary",
+			"ExplosiveArrowBarrageMercenary",
+			"BlastRainAltMercenary",
+			"ConflagrationMercenary",
+			"GraceMercenary",
+			"BlinkArrowMercenary",
+			"DashMercenary",
+			"FlammabilityBlasphemyMercenary",
+		},
 		["stats"] = {
 			{
 				"base_strength",
@@ -5096,6 +5807,19 @@ return {
 		["primarySkills"] = {
 			"IceShotMercenary",
 			"VaalGraceMercenary",
+		},
+		["skills"] = {
+			"IceShotMercenary",
+			"VaalGraceMercenary",
+			"VaalIceShotMercenary",
+			"HydraForkArrowMercenary",
+			"BlastRainColdMercenary",
+			"MirrorArrowMercenary",
+			"HatredMercenary",
+			"FrostBombMercenary",
+			"GraceMercenary",
+			"DashMercenary",
+			"BlinkArrowMercenary",
 		},
 		["stats"] = {
 			{
@@ -5203,6 +5927,19 @@ return {
 			"IceShotMercenary",
 			"VaalGraceMercenary",
 		},
+		["skills"] = {
+			"IceShotMercenary",
+			"VaalGraceMercenary",
+			"VaalIceShotMercenary",
+			"HydraForkArrowMercenary",
+			"BlastRainColdMercenary",
+			"MirrorArrowMercenary",
+			"HatredMercenary",
+			"FrostBombMercenary",
+			"GraceMercenary",
+			"DashMercenary",
+			"BlinkArrowMercenary",
+		},
 		["stats"] = {
 			{
 				"base_strength",
@@ -5309,6 +6046,18 @@ return {
 			"ShieldCrushMercenary",
 			"ShieldChargeMercenary",
 		},
+		["skills"] = {
+			"ShieldCrushMercenary",
+			"ShieldChargeMercenary",
+			"SpectralShieldThrowAltMercenary",
+			"TempestShieldMercenary",
+			"ABTTArmourEleMercenary",
+			"DeterminationMercenary",
+			"DashMercenary",
+			"IntimidatingCryMercenary",
+			"PhysicalAegisMercenary",
+			"ABTTInvulnBubbleMercenary",
+		},
 		["stats"] = {
 			{
 				"base_strength",
@@ -5402,6 +6151,18 @@ return {
 		["primarySkills"] = {
 			"ShieldCrushMercenary",
 			"ShieldChargeMercenary",
+		},
+		["skills"] = {
+			"ShieldCrushMercenary",
+			"ShieldChargeMercenary",
+			"SpectralShieldThrowAltMercenary",
+			"TempestShieldMercenary",
+			"ABTTArmourEleMercenary",
+			"DeterminationMercenary",
+			"DashMercenary",
+			"IntimidatingCryMercenary",
+			"PhysicalAegisMercenary",
+			"ABTTInvulnBubbleMercenary",
 		},
 		["stats"] = {
 			{
@@ -5497,6 +6258,17 @@ return {
 			"ABTTPhysEnrageMercenary",
 			"BloodMortarMercenary",
 			"LacerateMercenary",
+		},
+		["skills"] = {
+			"ABTTPhysEnrageMercenary",
+			"BloodMortarMercenary",
+			"LacerateMercenary",
+			"BladestormMercenary",
+			"PerforateMercenary",
+			"LeapSlamMercenary",
+			"DashMercenary",
+			"DeterminationMercenary",
+			"CGEOilGroundSlowMercenary",
 		},
 		["stats"] = {
 			{
@@ -5599,6 +6371,17 @@ return {
 			"BloodMortarMercenary",
 			"LacerateMercenary",
 		},
+		["skills"] = {
+			"ABTTPhysEnrageMercenary",
+			"BloodMortarMercenary",
+			"LacerateMercenary",
+			"BladestormMercenary",
+			"PerforateMercenary",
+			"LeapSlamMercenary",
+			"DashMercenary",
+			"DeterminationMercenary",
+			"CGEOilGroundSlowMercenary",
+		},
 		["stats"] = {
 			{
 				"base_strength",
@@ -5699,6 +6482,18 @@ return {
 			"CallOfSteelMercenary",
 			"RallyingCryMercenary",
 			"DonutBladesMercenary",
+		},
+		["skills"] = {
+			"CallOfSteelMercenary",
+			"RallyingCryMercenary",
+			"DonutBladesMercenary",
+			"ShatteringSteelMercenary",
+			"SplittingSteelMercenary",
+			"LancingSteelMercenary",
+			"DashMercenary",
+			"WhirlingBladesMercenary",
+			"GraceMercenary",
+			"ABTTExtraImpaleMercenary",
 		},
 		["stats"] = {
 			{
@@ -5813,6 +6608,18 @@ return {
 			"RallyingCryMercenary",
 			"DonutBladesMercenary",
 		},
+		["skills"] = {
+			"CycloneReverseKnockbackMercenary",
+			"RallyingCryMercenary",
+			"DonutBladesMercenary",
+			"FlickerStrikeMercenary",
+			"VaalDoubleStrikeMercenary",
+			"PrideMercenary",
+			"LeapSlamMercenary",
+			"MassFrenzyMercenary",
+			"DashMercenary",
+			"QuickGuardAllyMercenary",
+		},
 		["stats"] = {
 			{
 				"base_strength",
@@ -5908,6 +6715,18 @@ return {
 			"RallyingCryMercenary",
 			"DonutBladesMercenary",
 		},
+		["skills"] = {
+			"CycloneReverseKnockbackMercenary",
+			"RallyingCryMercenary",
+			"DonutBladesMercenary",
+			"FlickerStrikeMercenary",
+			"VaalDoubleStrikeMercenary",
+			"PrideMercenary",
+			"LeapSlamMercenary",
+			"MassFrenzyMercenary",
+			"DashMercenary",
+			"QuickGuardAllyMercenary",
+		},
 		["stats"] = {
 			{
 				"base_strength",
@@ -6002,6 +6821,18 @@ return {
 			"InspiringCryMercenary",
 			"HeraldOfIceMercenary",
 		},
+		["skills"] = {
+			"InspiringCryMercenary",
+			"HeraldOfIceMercenary",
+			"FrostBladesMercenary",
+			"WildStrikeMercenary",
+			"SpectralHelixMercenary",
+			"StaticStrikeMercenary",
+			"WrathMercenary",
+			"DashMercenary",
+			"FrostblinkMercenary",
+			"PurityOfIceMercenary",
+		},
 		["stats"] = {
 			{
 				"base_strength",
@@ -6089,6 +6920,18 @@ return {
 		["primarySkills"] = {
 			"InspiringCryMercenary",
 			"HeraldOfIceMercenary",
+		},
+		["skills"] = {
+			"InspiringCryMercenary",
+			"HeraldOfIceMercenary",
+			"FrostBladesMercenary",
+			"WildStrikeMercenary",
+			"SpectralHelixMercenary",
+			"StaticStrikeMercenary",
+			"WrathMercenary",
+			"DashMercenary",
+			"FrostblinkMercenary",
+			"PurityOfIceMercenary",
 		},
 		["stats"] = {
 			{
@@ -6178,6 +7021,17 @@ return {
 			"ElementalHitColdOnlyMercenary",
 			"FrostBombMercenary",
 		},
+		["skills"] = {
+			"ElementalHitColdOnlyMercenary",
+			"FrostBombMercenary",
+			"FrostBladesMercenary",
+			"WildStrikeMercenary",
+			"HeraldOfIceMercenary",
+			"HatredMercenary",
+			"PurityOfIceMercenary",
+			"FrostblinkMercenary",
+			"DashMercenary",
+		},
 		["stats"] = {
 			{
 				"base_strength",
@@ -6265,6 +7119,17 @@ return {
 		["primarySkills"] = {
 			"ElementalHitColdOnlyMercenary",
 			"FrostBombMercenary",
+		},
+		["skills"] = {
+			"ElementalHitColdOnlyMercenary",
+			"FrostBombMercenary",
+			"FrostBladesMercenary",
+			"WildStrikeMercenary",
+			"HeraldOfIceMercenary",
+			"HatredMercenary",
+			"PurityOfIceMercenary",
+			"FrostblinkMercenary",
+			"DashMercenary",
 		},
 		["stats"] = {
 			{
