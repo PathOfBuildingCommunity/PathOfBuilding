@@ -16731,7 +16731,7 @@ c["Gain a Void Charge every second"]={nil,"a Void Charge every second "}
 c["Gain a Void Charge every second 5 Maximum Void Charges"]={nil,"a Void Charge every second 5 Maximum Void Charges "}
 c["Gain a random Blood Shrine buff every 10 seconds"]={{[1]={flags=0,keywordFlags=0,name="Condition:CanHaveBloodShrines",type="FLAG",value=true}},nil}
 c["Gain a random Shrine Buff for 15 seconds when you Blind a"]={nil,"a random Shrine Buff  when you Blind a "}
-c["Gain a random Shrine Buff for 15 seconds when you Blind a non-Blinded Rare or Unique Enemy"]={{[1]={flags=0,keywordFlags=0,name="Condition:Blinded",type="FLAG",value=true}},"a random Shrine Buff  when you Blind a non- Rare or Unique Enemy "}
+c["Gain a random Shrine Buff for 15 seconds when you Blind a non-Blinded Rare or Unique Enemy"]={{[1]={flags=0,keywordFlags=0,name="Condition:CanHaveRegularShrines",type="FLAG",value=true}},nil}
 c["Gain a random Shrine Buff for 2.5 seconds when you Kill a Rare or Unique Enemy"]={nil,"a random Shrine Buff for 2.5 seconds when you Kill a Rare or Unique Enemy "}
 c["Gain a random Shrine Buff for 30 seconds when you Kill a Rare or Unique Enemy"]={{[1]={flags=0,keywordFlags=0,name="Condition:CanHaveRegularShrines",type="FLAG",value=true}},nil}
 c["Gain a random Shrine Buff for 4 seconds when you Kill a Rare or Unique Enemy"]={{[1]={flags=0,keywordFlags=0,name="Condition:CanHaveRegularShrines",type="FLAG",value=true}},nil}
@@ -23247,8 +23247,6 @@ c["have fewer than 5 Poisons on you"]={nil,"fewer than 5 Poisons on you "}
 c["more than once every 0.3 seconds"]={nil,"more than once every 0.3 seconds "}
 c["more than once every 0.3 seconds Lose all Defiance when you reach 10 Defiance"]={nil,"more than once every 0.3 seconds Lose all Defiance when you reach 10 Defiance "}
 c["more than once every 0.3 seconds Lose all Defiance when you reach 10 Defiance Gain 3% of Missing Unreserved Life before being Hit by an Enemy Per Defiance"]={nil,"more than once every 0.3 seconds Lose all Defiance when you reach 10 Defiance Gain 3% of Missing Unreserved Life before being Hit by an Enemy Per Defiance "}
-c["non-Blinded Rare or Unique Enemy"]={nil,"non-Blinded Rare or Unique Enemy "}
-c["non-Blinded Rare or Unique Enemy Damage with Hits is Lucky while your Offhand is Magic"]={nil,"non-Blinded Rare or Unique Enemy Damage with Hits is Lucky while your Offhand is Magic "}
 c["of your Traps are Triggered by an Enemy"]={nil,"of your Traps are Triggered by an Enemy "}
 c["of your Traps are Triggered by an Enemy Skills which throw Traps Cost Life instead of Mana"]={nil,"of your Traps are Triggered by an Enemy Skills which throw Traps Cost Life instead of Mana "}
 c["on any Equipped Item"]={nil,"on any Equipped Item "}
