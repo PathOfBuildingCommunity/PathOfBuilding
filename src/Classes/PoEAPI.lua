@@ -6,6 +6,7 @@ local scopesOAuth = {
 	"account:profile",
 	"account:leagues",
 	"account:characters",
+	"account:league_accounts",
 	"account:trade"
 }
 
@@ -202,13 +203,13 @@ function PoEAPIClass:DownloadWithRateLimit(policy, url, callback)
 			self.rateLimiter:FinishRequest(policy, requestId)
 			local header = response and response.header or ""
 			self.rateLimiter:UpdateFromHeader(header, policy)
-			if errMsg then
-				callback(response, errMsg, nil)
-				return
-			end
 			if header:match("HTTP/[%d%.]+ (%d+)") == "429" then
 				timeNext = self.rateLimiter:NextRequestTime(policy, now)
 				callback(nil, "Response code: 429", timeNext)
+				return
+			end
+			if errMsg then
+				callback(response, errMsg, nil)
 				return
 			end
 			local responseLua = dkjson.decode(response.body)
@@ -235,4 +236,13 @@ end
 function PoEAPIClass:DownloadCharacter(realm, name, callback)
 	self:DownloadWithRateLimit("character-request-limit",
 		"/character" .. (realm == "pc" and "" or "/" .. realm) .. "/" .. name, callback)
+end
+
+---Fetches the authorized account's Mercenaries and other league-specific data.
+---@param realm string Realm to fetch the league account from
+---@param league string League name
+---@param callback DownloadCallback
+function PoEAPIClass:DownloadLeagueAccount(realm, league, callback)
+	self:DownloadWithRateLimit("league-account-request-limit",
+		"/league-account" .. (realm == "pc" and "" or "/" .. realm) .. "/" .. urlEncode(league), callback)
 end
