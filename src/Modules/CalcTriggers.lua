@@ -490,13 +490,12 @@ local function defaultTriggerHandler(env, config)
 				end
 			end
 
-			--Special handling for Kitava's Thirst
-			-- Repeated hits do not consume mana and do not trigger Kitava's thirst
-			if actor.mainSkill.skillData.triggeredByManaSpent then
-				local repeats = 1 + source.skillModList:Sum("BASE", nil, "RepeatCount")
+			-- Repeats are part of the same skill use, so they pay no cost and do not count as a new attack
+			if config.ignoreRepeats and source then
+				local repeats = 1 + source.skillModList:Sum("BASE", source.skillCfg, "RepeatCount")
 				trigRate = trigRate / repeats
 				if breakdown and repeats > 1 then
-					t_insert(breakdown.EffectiveSourceRate, s_format("/%d ^8(repeated attacks/casts do not count as they don't use mana)", repeats))
+					t_insert(breakdown.EffectiveSourceRate, s_format("/%d ^8(repeated attacks/casts do not count)", repeats))
 				end
 			end
 
@@ -1101,6 +1100,7 @@ local configTable = {
 	["kitava's thirst"] = function(env)
 		return {triggerChance = env.player.modDB:Sum("BASE", nil, "KitavaTriggerChance"),
 				triggerName = "Kitava's Thirst",
+				ignoreRepeats = true,
 				-- Paid by a single use; accumulating triggers such as Manaforged Arrows must not declare this
 				minimumCostPerUse = { stat = "ManaCost", minimum = env.player.modDB:Sum("BASE", nil, "KitavaRequiredManaCost") },
 				triggerSkillCond = function(env, skill)
@@ -1111,6 +1111,7 @@ local configTable = {
 	["foulborn kitava's thirst"] = function(env)
 		return {triggerChance = env.player.modDB:Sum("BASE", nil, "FoulbornKitavaTriggerChance"),
 				triggerName = "Foulborn Kitava's Thirst",
+				ignoreRepeats = true,
 				-- Paid by a single use; accumulating triggers such as Manaforged Arrows must not declare this
 				minimumCostPerUse = { stat = "LifeCost", minimum = env.player.modDB:Sum("BASE", nil, "FoulbornKitavaRequiredLifeCost") },
 				triggerSkillCond = function(env, skill)
@@ -1146,8 +1147,14 @@ local configTable = {
 				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByTemporalMirage end}
 	end,
 	["the covetous dark"] = function()
-		return {triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Melee] end,
-				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByCovetousDark end}
+		return {
+			-- this is a bit uncertain. currently this is correct for
+			-- representing how the game works, but the stat does not specify
+			-- attacking. this could either be intended or a small bug
+			ignoreRepeats = true,
+			triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Melee] end,
+			triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByCovetousDark end
+		}
 	end,
 	["seven teachings"] = function()
 		return {triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Melee] and band(skill.skillCfg.flags, bor(ModFlag.Unarmed, ModFlag.Melee)) == bor(ModFlag.Unarmed, ModFlag.Melee) end,
@@ -1552,6 +1559,7 @@ local configTable = {
 		return {
 			sourceWeapon = true,
 			triggerOnUse = true,
+			ignoreRepeats = true,
 			triggerSkillCond = function(env, skill)
 				return skill.skillTypes[SkillType.Attack]
 			end
