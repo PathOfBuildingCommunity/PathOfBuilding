@@ -2243,6 +2243,8 @@ function calcs.perform(env, skipEHP)
 	local buffs = { }
 	env.buffs = buffs
 	local guards = { }
+	-- used for a stable iteration order
+	local guardOrder = { }
 	local minionBuffs = { }
 	env.minionBuffs = minionBuffs
 	local debuffs = { }
@@ -2406,6 +2408,9 @@ function calcs.perform(env, skipEHP)
 						local inc = modStore:Sum("INC", skillCfg, "BuffEffect", "BuffEffectOnSelf", "BuffEffectOnPlayer")
 						local more = modStore:More(skillCfg, "BuffEffect", "BuffEffectOnSelf")
 						srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
+						if not guards[buff.name] then
+							t_insert(guardOrder, buff.name)
+						end
 						mergeBuff(srcList, guards, buff.name)
 					end
 				end
@@ -3366,7 +3371,8 @@ function calcs.perform(env, skipEHP)
 	-- Process guard buffs
 	local guardSlots = { }
 	local nonVaal = false
-	for name, modList in pairs(guards) do
+	for _, name in ipairs(guardOrder) do
+		local modList = guards[name]
 		if name == "Vaal Molten Shell" then
 			wipeTable(guardSlots)
 			nonVaal = false
