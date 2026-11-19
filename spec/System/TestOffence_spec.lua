@@ -254,6 +254,24 @@ describe("TestOffence", function()
 		assertNear(baseMin * 0.5 * 2, build.calcsTab.calcsOutput.LightningMin, "less + increased min")
 	end)
 
+	it("applies min/max damage mods to damage fully converted to that type (issue #10407)", function()
+		build.skillsTab:PasteSocketGroup("Slot: Body Armour\nBladefall 20/0  1\n")
+		build.configTab.input.customMods = "100% of Physical Damage Converted to Lightning Damage"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		local baseMin = build.calcsTab.calcsOutput.LightningMin
+		local baseMax = build.calcsTab.calcsOutput.LightningMax
+		assert.is_true(baseMax > 0)
+
+		build.configTab.input.customMods = "100% of Physical Damage Converted to Lightning Damage\n25% more Maximum Lightning Damage\n50% less Minimum Lightning Damage"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assertNear(baseMax * 1.25, build.calcsTab.calcsOutput.LightningMax, "25%% more max on converted damage")
+		assertNear(baseMin * 0.5, build.calcsTab.calcsOutput.LightningMin, "50%% less min on converted damage")
+	end)
+
 	it("applies minimum and maximum attack damage mods", function()
 		build.itemsTab:CreateDisplayItemFromRaw([[
 		New Item
