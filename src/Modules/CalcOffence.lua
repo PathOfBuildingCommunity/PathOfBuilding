@@ -2433,7 +2433,14 @@ function calcs.offence(env, actor, activeSkill)
 			if skillFlags.warcry then
 				output.Speed = 1 / output.WarcryCastTime
 			else
-				output.Speed = 1 / (baseTime / round((1 + inc/100) * more, 2) + skillModList:Sum("BASE", cfg, "TotalAttackTime") + skillModList:Sum("BASE", cfg, "TotalCastTime"))
+				local speedMult = round((1 + inc/100) * more, 2)
+				if speedMult <= 0 then
+					-- 100% or more reduced speed: the skill is never used, so it can't hit or inflict ailments
+					output.Speed = 0
+					globalOutput.SpeedReducedToZero = true
+				else
+					output.Speed = 1 / (baseTime / speedMult + skillModList:Sum("BASE", cfg, "TotalAttackTime") + skillModList:Sum("BASE", cfg, "TotalCastTime"))
+				end
 		
 			end
 			output.CastRate = output.Speed
@@ -4497,6 +4504,8 @@ function calcs.offence(env, actor, activeSkill)
 			if (globalOutput.HitSpeed or globalOutput.Speed) > 0 then
 				--assume skills with no cast, attack, or cooldown time are single cast
 				bleedStacks = bleedStacks * globalOutput.BleedDuration * (globalOutput.HitSpeed or globalOutput.Speed)
+			elseif globalOutput.SpeedReducedToZero then
+				bleedStacks = 0
 			end
 			local activeTotems = env.modDB:Override(nil, "TotemsSummoned") or skillModList:Sum("BASE", skillCfg, "ActiveTotemLimit", "ActiveBallistaLimit")
 			if skillFlags.totem then
@@ -4790,6 +4799,8 @@ function calcs.offence(env, actor, activeSkill)
 					uncappedPoisonStacks = m_max(PoisonStacks, maxPoisonStacks)
 					PoisonStacks = m_min(PoisonStacks, maxPoisonStacks)
 				end
+			elseif globalOutput.SpeedReducedToZero then
+				PoisonStacks = 0
 			end
 			if PoisonStacks < additionalPoisonStacks and (env.configInput.multiplierPoisonOnEnemy or 0) == 0 then
 				skillModList:NewMod("Condition:NonPoisonedOnly", "FLAG", true, "Calculation")
@@ -5081,7 +5092,9 @@ function calcs.offence(env, actor, activeSkill)
 			-- The average number of ignites that will be active on the enemy at once
 			local igniteStacks = output.HitChance / 100 * igniteChance * skillData.dpsMultiplier
 			if not skillData.triggeredOnDeath then
-				if output.Cooldown then
+				if globalOutput.SpeedReducedToZero then
+					igniteStacks = 0
+				elseif output.Cooldown then
 					igniteStacks = igniteStacks  * globalOutput.IgniteDuration / m_max(output.Cooldown, (output.HitTime or output.Time))
 				elseif (globalOutput.HitSpeed or globalOutput.Speed) > 0 then
 					--assume skills with no cast, attack, or cooldown time are single cast
