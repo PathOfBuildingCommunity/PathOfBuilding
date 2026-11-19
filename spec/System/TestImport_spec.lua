@@ -232,6 +232,40 @@ Implicits: 0]])
 		end)
 	end
 
+	it("keeps Wickerman items separate through import and save/load", function()
+		-- Live OAuth structure and Lesser names; IDs and boundary-case rolls are synthetic.
+		local examples = {
+			{ "Ravenous Skull", "Ravenous Skull", "Head", "Every 3 seconds, Consume a Corpse within 5 metres to Recover 4% of Life" },
+			{ "Lesser Warden's Arm", "Warden's Arm", "Arm", "+43 to maximum Life" },
+			{ "Greater Sirus' Head", "Sirus' Head", "Head", "+10 to Strength" },
+			{ "Lesser Blackened Lungs", "Blackened Lungs", "Body", "12% increased Warcry Speed", "VisceraBody" },
+			{ "Lesser Pocked Leg", "Pocked Leg", "Leg", "20% increased Armour from Equipped Helmet and Gloves", "VisceraLeg" },
+			{ "Artificial Appendage", "Artificial Appendage", "Arm", "25% increased Effect of Chill" },
+			{ "Artificial Appendage", "Artificial Appendage", "Arm", "18% increased Area of Effect for Attacks" },
+			{ "Artificial Appendage", "Artificial Appendage", "Arm", "Minions have 30% increased Critical Strike Chance" },
+		}
+		local equipped, items = { }, { }
+		for i, example in ipairs(examples) do
+			local slot = example[2]
+			local item = { id = "synthetic-wickerman-" .. i, name = "", typeLine = example[1], baseType = example[1], frameType = 15, ilvl = 83,
+				inventoryId = example[5] or (example[2] == "Head" and "VisceraHead" or "VisceraArm"), implicitMods = { { description = example[4] } } }
+			table.insert(items, item)
+			equipped[slot] = item.id
+		end
+		local character = { level = 80, equipment = { }, wickerman = items }
+		build.importTab:ImportItemsAndSkills(character, true, false)
+		build.importTab:ImportItemsAndSkills(character, false, false) -- Replace only matching IDs.
+		loadBuildFromXML(build:SaveDB("code"))
+		assert.equals(#examples, #build.itemsTab.itemOrderList)
+		for i, example in ipairs(examples) do
+			local item = build.itemsTab.items[build.itemsTab.itemOrderList[i]]
+			assert.equals("synthetic-wickerman-" .. i, item.uniqueID)
+			assert.equals(example[2], item.baseName)
+			assert.equals("NORMAL", item.rarity)
+			assert.equals("Viscera", item.type)
+			assert.equals(example[4], item.implicitModLines[1].line)
+		end
+  end)
 	local function characterWithImbuedSupport(name)
 		local character = copyTable(sampleData, true)
 		for _, item in ipairs(character.equipment) do

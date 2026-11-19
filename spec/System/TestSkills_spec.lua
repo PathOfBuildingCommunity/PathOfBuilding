@@ -583,6 +583,36 @@ describe("TestSkills", function()
 		assert.is_truthy(breakdownText:match("inverted hit"))
 		assert.is_truthy(breakdownText:match("weighted average"))
 	end)
+
+	it("caps inverted negative resistance at the enemy's maximum resistance (issue #9375)", function()
+		build.skillsTab:PasteSocketGroup("Fireball 20/0  1")
+		build.configTab.input.enemyIsBoss = "None"
+		build.configTab.input.enemyFireResist = -150
+		local function effMultWith(customMods)
+			build.configTab.input.customMods = customMods
+			build.configTab:BuildModList()
+			runCallback("OnFrame")
+			return build.calcsTab.calcsOutput.FireEffMult
+		end
+		local maxResist = data.misc.EnemyMaxResist
+
+		-- -150% inverted is 150%, but it cannot go above the enemy's maximum resistance,
+		-- so hits deal reduced damage instead of negative damage.
+		assert.are.near(1 - maxResist / 100, effMultWith("Hits have 100% chance to treat Enemy Monster Elemental Resistance values as inverted"), 1e-9)
+		assert.True(build.calcsTab.mainOutput.TotalDPS > 0)
+		local breakdownText = table.concat(build.calcsTab.calcsEnv.player.breakdown.FireEffMult, "\n")
+		assert.is_truthy(breakdownText:match(maxResist.."%% %^8%(inverted hit after penetration, capped at maximum resistance%)"))
+
+		-- Penetration applies after the cap
+		assert.are.near(1 - (maxResist - 20) / 100, effMultWith("Hits have 100% chance to treat Enemy Monster Elemental Resistance values as inverted\nDamage Penetrates 20% of Enemy Fire Resistance"), 1e-9)
+
+		-- Hits that cannot penetrate still use the capped inverted resistance
+		assert.are.near(1 - maxResist / 100, effMultWith("Hits have 100% chance to treat Enemy Monster Elemental Resistance values as inverted\nDamage Penetrates 20% of Enemy Fire Resistance\nYour Hits cannot Penetrate or Ignore Elemental Resistances"), 1e-9)
+
+		-- 50% of hits use -150% resistance and 50% use the capped inverted resistance
+		assert.are.near(1 - (-150 + maxResist) / 2 / 100, effMultWith("Hits have 50% chance to treat Enemy Monster Elemental Resistance values as inverted"), 1e-9)
+	end)
+
 	it("Test cost efficiency modifiers", function()
 		-- Test Mana Cost Efficiency
 		build.skillsTab:PasteSocketGroup("Hydrosphere 1/0  1\n")

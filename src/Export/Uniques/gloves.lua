@@ -15,16 +15,19 @@ GlobalIncreaseMeleeSkillGemLevelUnique__1
 Atziri's Acuity
 Vaal Gauntlets
 Source: Drops from unique{Atziri, Queen of the Vaal} in normal{The Alluring Abyss}
-Variant: Pre 3.1.0
-Variant: Pre 3.16.0
-Variant: Current
+Version: Pre 3.1.0
+Version: Pre 3.16.0
+Version: Pre 3.30.0
+Version: Current
 IntelligenceUniqueGlovesStr3
 IncreasedLifeUniqueGlovesStr3
 LocalIncreasedPhysicalDamageReductionRatingPercentUniqueGlovesStr3
-{variant:2}CriticalStrikeChanceUniqueGlovesStr3[25,35]
-{variant:3}CriticalStrikeChanceUniqueGlovesStr3
-{variant:1}CriticalStrikesLeechInstantlyUniqueGlovesStr3
-{variant:2,3}VaalPactIfCritRecentlyUnique__1
+{version:2}CriticalStrikeChanceUniqueGlovesStr3[25,35]
+{version:3,4}CriticalStrikeChanceUniqueGlovesStr3
+{version:1}CriticalStrikesLeechInstantlyUniqueGlovesStr3
+{version:2,3}VaalPactIfCritRecentlyUnique__1
+{version:4}InstantLifeLeechFromCritsUnique__1
+{version:4}CannotRegenerateOrRecoupLifeUnique__1
 ]],[[
 Replica Atziri's Acuity
 Vaal Gauntlets

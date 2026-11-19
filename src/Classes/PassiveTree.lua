@@ -677,6 +677,28 @@ function PassiveTreeClass:PassiveTree(treeVersion)
 		end
 	end
 
+	-- Map each Large Jewel Socket to the proxy passives a Putrid Seed grows from it
+	local blightcoreNodes = { }
+	for _, node in pairs(self.nodes) do
+		if node.proxyKey and node.proxyKey:match("^Blightcore") then
+			-- group by proxy key (e.g. "BlightcoreTopRight")
+			blightcoreNodes[node.proxyKey] = blightcoreNodes[node.proxyKey] or { }
+			t_insert(blightcoreNodes[node.proxyKey], node)
+		end
+	end
+	-- a table describing what putrid seed proxy nodes are attached to each
+	self.blightcoreLayouts = { }
+	for _, layout in pairs(blightcoreNodes) do
+		for _, node in ipairs(layout) do
+			for _, otherId in ipairs(node.linkedId) do
+				-- link the proxy nodes to the large jewel socket node
+				if self.sockets[otherId] then
+					self.blightcoreLayouts[otherId] = layout
+				end
+			end
+		end
+	end
+
 	-- Precalculate the lists of nodes that are within each radius of each socket
 	for nodeId, socket in pairs(self.sockets) do
 		if socket.name == "Charm Socket" then

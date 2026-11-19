@@ -1866,13 +1866,13 @@ Limited to: 1 Historic
 Variant: Doryani (Corrupted Soul)
 Variant: Xibaqua (Divine Flesh)
 Variant: Zerphi (Eternal Youth) (Pre 3.11.0)
-Variant: Ahuana (Immortal Ambition)
+Variant: Mazcotl (Immortal Ambition)
 Radius: Large
 Implicits: 0
 {variant:1}Bathed in the blood of (100-8000) sacrificed in the name of Doryani
 {variant:2}Bathed in the blood of (100-8000) sacrificed in the name of Xibaqua
 {variant:3}Bathed in the blood of (100-8000) sacrificed in the name of Zerphi
-{variant:4}Bathed in the blood of (100-8000) sacrificed in the name of Ahuana
+{variant:4}Bathed in the blood of (100-8000) sacrificed in the name of Mazcotl
 Passives in radius are Conquered by the Vaal
 Historic
 ]],[[
@@ -2021,5 +2021,13 @@ Crafted: true
 League: Affliction
 Limited to: 1
 Implicits: 0
+]],[[
+Putrid Seed
+Mycelium Core
+League: Covens
+Source: Drops from unique{Effulgent Blightworm} in a Mycotic Blight encounter
+Limited to: 1
+Grows four random Passive Skills when Anointed
+Passive Skills grown are influenced by Oils used when Anointing
 ]]
 }

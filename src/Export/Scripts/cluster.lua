@@ -89,6 +89,15 @@ for jewelSlot in dat("PassiveJewelSlots"):Rows() do
 	end
 end
 out:write('\t},\n')
+-- Putrid Seed notables. Maps node id to the notable index on the jewel
+out:write('\tblightcoreNotableIndex = {\n')
+for passive in dat("PassiveSkills"):Rows() do
+	local index = passive.Id:match("^blight_grown_notable_(%d+)_")
+	if index then
+		out:write('\t\t[', passive.PassiveSkillNodeId, '] = ', index, ',\n')
+	end
+end
+out:write('\t},\n')
 
 
 out:write('}')

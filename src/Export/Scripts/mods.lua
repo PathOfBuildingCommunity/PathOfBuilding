@@ -288,6 +288,7 @@ writeMods("../Data/ModItemExclusive.lua",
 			and not mod.Id:match("^Synthesis") and not mod.Id:match("Royale")
 			and not mod.Id:match("Cowards") and not mod.Id:match("Map")
 			and not mod.Id:match("Ultimatum") and not mod.Id:match("^MutatedUnique")
+			and not mod.Id:match("^VisceraMod")
 			and not mod.Id:match("UNUSED")
 	end)
 writeMods("../Data/ModGraft.lua", function(mod)
