@@ -165,7 +165,7 @@ for _, name in ipairs(itemTypes) do
 						if rawMod.Type then
 							stats.Type = rawMod.Type
 						end
-						legacyMod = describeStats(stats)
+						legacyMod = describeModStats(rawMod, stats)
 					else
 						ConPrintf("Warning: Could not find mod data for legacy mod '%s' in %s", modName, name)
 					end

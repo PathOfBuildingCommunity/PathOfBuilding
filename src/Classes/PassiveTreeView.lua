@@ -139,6 +139,8 @@ function PassiveTreeViewClass:GetJewelSocketOverlay(jewel, isExpansion)
 		return isExpansion and "JewelSocketActivePrismaticAlt" or "JewelSocketActivePrismatic"
 	elseif jewel.base and jewel.base.subType == "Abyss" then
 		return isExpansion and "JewelSocketActiveAbyssAlt" or "JewelSocketActiveAbyss"
+	elseif jewel.base and jewel.base.subType == "Blightcore" then
+		return "JewelSocketActiveBlightcore"
 	elseif jewel.base and jewel.base.subType == "Charm" then
 		if jewel.baseName == "Ursine Charm" then
 			return "CharmSocketActiveStr"
@@ -727,6 +729,8 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		-- The game uses Abyss connector art only when both connected nodes are conquered.
 		if isAbyssConquered(node1) and isAbyssConquered(node2) then
 			assetName = "Abyss" .. assetName
+		elseif node1.isBlightcore or node2.isBlightcore then
+			assetName = "Blight" .. assetName
 		end
 		local asset = tree.assets[assetName] or tree.assets[connector.type..state]
 		-- Atlas assets provide bounds that map the usual connector coordinates into one sprite.
@@ -849,10 +853,13 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			end
 			if node.type == "Socket" then
 				-- Node is a jewel socket, retrieve the socketed jewel (if present) so we can display the correct art
-				base = tree.assets[(node.name == "Charm Socket" and "Azmeri" or "" ) .. node.overlay[state .. (node.expansionJewel and "Alt" or "")]]
 				local socket, jewel = build.itemsTab:GetSocketAndJewelForNodeID(nodeId)
+				-- A socketed Putrid Seed uses the normal jewel socket art, even
+				-- in a Large Jewel Socket
+				local useAltArt = node.expansionJewel and not (isAlloc and jewel and jewel.base.subType == "Blightcore")
+				base = tree.assets[(node.name == "Charm Socket" and "Azmeri" or "" ) .. node.overlay[state .. (useAltArt and "Alt" or "")]]
 				if isAlloc and jewel then
-					overlay = self:GetJewelSocketOverlay(jewel, node.expansionJewel)
+					overlay = self:GetJewelSocketOverlay(jewel, useAltArt)
 				end
 		elseif node.type == "Mastery" then
 			local override = spec.hashOverrides and spec.hashOverrides[node.id]
@@ -887,15 +894,17 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				base = node.sprites[node.type:lower()..(isAlloc and "Active" or "Inactive")]
 				local overlayKey = state .. (node.ascendancyName and "Ascend" or "") .. (node.isBlighted and "Blighted" or "")
 				local overlayName = node.overlay[overlayKey]
+				local frameState = state == "alloc" and "Allocated" or state == "path" and "CanAllocate" or "Unallocated"
 				if isAbyssConquered(node) and (node.type == "Notable" or node.type == "Keystone") then
 					-- AlternateTreeArt gives Abyss replacements their own notable,
 					-- keystone, and ascendancy-notable frames.
 					local frameType = node.ascendancyName and "Ascendancy" or node.type
-					local frameState = state == "alloc" and "Allocated" or state == "path" and "CanAllocate" or "Unallocated"
 					local abyssOverlay = "Abyss" .. frameType .. "Frame" .. frameState
 					if tree.assets[abyssOverlay] then
 						overlayName = abyssOverlay
 					end
+				elseif node.isBlightcore and node.type == "Notable" and tree.assets["BlightNotableFrame" .. frameState] then
+					overlayName = "BlightNotableFrame" .. frameState
 				end
 				if node.ascendancyName then
 					local prefix = node.bloodlineOverlayPrefix or (tree.bloodlineSpritePrefixes and tree.bloodlineSpritePrefixes[node.ascendancyName])
@@ -1121,11 +1130,12 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				local state = "alloc"
 				local base, overlay
 				if compareNode.type == "Socket" then
-					base = tree.assets[compareNode.overlay and compareNode.overlay[state .. (compareNode.expansionJewel and "Alt" or "")] or "JewelSocketActiveBlue"]
 					-- Look up jewel from compare build to show correct colored socket overlay
 					local cJewel = self:GetCompareJewel(nodeId)
+					local useAltArt = compareNode.expansionJewel and not (cJewel and cJewel.base.subType == "Blightcore")
+					base = tree.assets[compareNode.overlay and compareNode.overlay[state .. (useAltArt and "Alt" or "")] or "JewelSocketActiveBlue"]
 					if cJewel then
-						overlay = self:GetJewelSocketOverlay(cJewel, compareNode.expansionJewel)
+						overlay = self:GetJewelSocketOverlay(cJewel, useAltArt)
 					end
 				elseif compareNode.type == "Mastery" then
 					if compareNode.masterySprites and compareNode.masterySprites.activeIcon then

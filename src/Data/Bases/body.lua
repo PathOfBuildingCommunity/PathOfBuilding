@@ -3,6 +3,7 @@
 return function(itemBases)
 
 itemBases["Plate Vest"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyStr1",
 	type = "Body Armour",
 	subType = "Armour",
 	socketLimit = 6,
@@ -13,6 +14,7 @@ itemBases["Plate Vest"] = {
 	req = { str = 12, },
 }
 itemBases["Chestplate"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyStr2",
 	type = "Body Armour",
 	subType = "Armour",
 	socketLimit = 6,
@@ -23,6 +25,7 @@ itemBases["Chestplate"] = {
 	req = { level = 6, str = 25, },
 }
 itemBases["Copper Plate"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyStr3",
 	type = "Body Armour",
 	subType = "Armour",
 	socketLimit = 6,
@@ -33,6 +36,7 @@ itemBases["Copper Plate"] = {
 	req = { level = 17, str = 53, },
 }
 itemBases["War Plate"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyStr4",
 	type = "Body Armour",
 	subType = "Armour",
 	socketLimit = 6,
@@ -43,6 +47,7 @@ itemBases["War Plate"] = {
 	req = { level = 21, str = 63, },
 }
 itemBases["Full Plate"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyStr5",
 	type = "Body Armour",
 	subType = "Armour",
 	socketLimit = 6,
@@ -53,6 +58,7 @@ itemBases["Full Plate"] = {
 	req = { level = 28, str = 81, },
 }
 itemBases["Arena Plate"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyStr6",
 	type = "Body Armour",
 	subType = "Armour",
 	socketLimit = 6,
@@ -63,6 +69,7 @@ itemBases["Arena Plate"] = {
 	req = { level = 32, str = 91, },
 }
 itemBases["Lordly Plate"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyStr7",
 	type = "Body Armour",
 	subType = "Armour",
 	socketLimit = 6,
@@ -73,6 +80,7 @@ itemBases["Lordly Plate"] = {
 	req = { level = 35, str = 99, },
 }
 itemBases["Bronze Plate"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyStr8",
 	type = "Body Armour",
 	subType = "Armour",
 	socketLimit = 6,
@@ -83,6 +91,7 @@ itemBases["Bronze Plate"] = {
 	req = { level = 37, str = 104, },
 }
 itemBases["Battle Plate"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyStr9",
 	type = "Body Armour",
 	subType = "Armour",
 	socketLimit = 6,
@@ -93,6 +102,7 @@ itemBases["Battle Plate"] = {
 	req = { level = 41, str = 114, },
 }
 itemBases["Sun Plate"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyStr10",
 	type = "Body Armour",
 	subType = "Armour",
 	socketLimit = 6,
@@ -103,6 +113,7 @@ itemBases["Sun Plate"] = {
 	req = { level = 45, str = 124, },
 }
 itemBases["Colosseum Plate"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyStr11",
 	type = "Body Armour",
 	subType = "Armour",
 	socketLimit = 6,
@@ -113,6 +124,7 @@ itemBases["Colosseum Plate"] = {
 	req = { level = 49, str = 134, },
 }
 itemBases["Majestic Plate"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyStr12",
 	type = "Body Armour",
 	subType = "Armour",
 	socketLimit = 6,
@@ -123,6 +135,7 @@ itemBases["Majestic Plate"] = {
 	req = { level = 53, str = 145, },
 }
 itemBases["Golden Plate"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyStr13",
 	type = "Body Armour",
 	subType = "Armour",
 	socketLimit = 6,
@@ -133,6 +146,7 @@ itemBases["Golden Plate"] = {
 	req = { level = 56, str = 152, },
 }
 itemBases["Crusader Plate"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyStr14",
 	type = "Body Armour",
 	subType = "Armour",
 	socketLimit = 6,
@@ -143,6 +157,7 @@ itemBases["Crusader Plate"] = {
 	req = { level = 59, str = 160, },
 }
 itemBases["Astral Plate"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyStr15",
 	type = "Body Armour",
 	subType = "Armour",
 	socketLimit = 6,
@@ -155,6 +170,7 @@ itemBases["Astral Plate"] = {
 	req = { level = 62, str = 180, },
 }
 itemBases["Gladiator Plate"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyStr16",
 	type = "Body Armour",
 	subType = "Armour",
 	socketLimit = 6,
@@ -165,6 +181,7 @@ itemBases["Gladiator Plate"] = {
 	req = { level = 65, str = 177, },
 }
 itemBases["Glorious Plate"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyStr17",
 	type = "Body Armour",
 	subType = "Armour",
 	socketLimit = 6,
@@ -175,6 +192,7 @@ itemBases["Glorious Plate"] = {
 	req = { level = 68, str = 191, },
 }
 itemBases["Titan Plate"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyStr18",
 	type = "Body Armour",
 	subType = "Armour",
 	socketLimit = 6,
@@ -185,6 +203,7 @@ itemBases["Titan Plate"] = {
 	req = { level = 73, str = 222, },
 }
 itemBases["Legion Plate"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyStr19",
 	type = "Body Armour",
 	subType = "Armour",
 	socketLimit = 6,
@@ -195,6 +214,7 @@ itemBases["Legion Plate"] = {
 	req = { level = 78, str = 254, },
 }
 itemBases["Royal Plate"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyStr20",
 	type = "Body Armour",
 	subType = "Armour",
 	socketLimit = 6,
@@ -206,6 +226,7 @@ itemBases["Royal Plate"] = {
 }
 
 itemBases["Shabby Jerkin"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyDex1",
 	type = "Body Armour",
 	subType = "Evasion",
 	socketLimit = 6,
@@ -216,6 +237,7 @@ itemBases["Shabby Jerkin"] = {
 	req = { dex = 14, },
 }
 itemBases["Strapped Leather"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyDex2",
 	type = "Body Armour",
 	subType = "Evasion",
 	socketLimit = 6,
@@ -226,6 +248,7 @@ itemBases["Strapped Leather"] = {
 	req = { level = 9, dex = 32, },
 }
 itemBases["Buckskin Tunic"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyDex3",
 	type = "Body Armour",
 	subType = "Evasion",
 	socketLimit = 6,
@@ -236,6 +259,7 @@ itemBases["Buckskin Tunic"] = {
 	req = { level = 17, dex = 53, },
 }
 itemBases["Wild Leather"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyDex4",
 	type = "Body Armour",
 	subType = "Evasion",
 	socketLimit = 6,
@@ -246,6 +270,7 @@ itemBases["Wild Leather"] = {
 	req = { level = 25, dex = 73, },
 }
 itemBases["Full Leather"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyDex5",
 	type = "Body Armour",
 	subType = "Evasion",
 	socketLimit = 6,
@@ -256,6 +281,7 @@ itemBases["Full Leather"] = {
 	req = { level = 28, dex = 81, },
 }
 itemBases["Sun Leather"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyDex6",
 	type = "Body Armour",
 	subType = "Evasion",
 	socketLimit = 6,
@@ -266,6 +292,7 @@ itemBases["Sun Leather"] = {
 	req = { level = 32, dex = 91, },
 }
 itemBases["Thief's Garb"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyDex7",
 	type = "Body Armour",
 	subType = "Evasion",
 	socketLimit = 6,
@@ -276,6 +303,7 @@ itemBases["Thief's Garb"] = {
 	req = { level = 35, dex = 99, },
 }
 itemBases["Eelskin Tunic"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyDex8",
 	type = "Body Armour",
 	subType = "Evasion",
 	socketLimit = 6,
@@ -286,6 +314,7 @@ itemBases["Eelskin Tunic"] = {
 	req = { level = 37, dex = 104, },
 }
 itemBases["Frontier Leather"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyDex9",
 	type = "Body Armour",
 	subType = "Evasion",
 	socketLimit = 6,
@@ -296,6 +325,7 @@ itemBases["Frontier Leather"] = {
 	req = { level = 41, dex = 114, },
 }
 itemBases["Glorious Leather"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyDex10",
 	type = "Body Armour",
 	subType = "Evasion",
 	socketLimit = 6,
@@ -306,6 +336,7 @@ itemBases["Glorious Leather"] = {
 	req = { level = 45, dex = 124, },
 }
 itemBases["Coronal Leather"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyDex11",
 	type = "Body Armour",
 	subType = "Evasion",
 	socketLimit = 6,
@@ -316,6 +347,7 @@ itemBases["Coronal Leather"] = {
 	req = { level = 49, dex = 134, },
 }
 itemBases["Cutthroat's Garb"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyDex12",
 	type = "Body Armour",
 	subType = "Evasion",
 	socketLimit = 6,
@@ -326,6 +358,7 @@ itemBases["Cutthroat's Garb"] = {
 	req = { level = 53, dex = 145, },
 }
 itemBases["Sharkskin Tunic"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyDex13",
 	type = "Body Armour",
 	subType = "Evasion",
 	socketLimit = 6,
@@ -336,6 +369,7 @@ itemBases["Sharkskin Tunic"] = {
 	req = { level = 56, dex = 152, },
 }
 itemBases["Destiny Leather"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyDex14",
 	type = "Body Armour",
 	subType = "Evasion",
 	socketLimit = 6,
@@ -346,6 +380,7 @@ itemBases["Destiny Leather"] = {
 	req = { level = 59, dex = 160, },
 }
 itemBases["Exquisite Leather"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyDex15",
 	type = "Body Armour",
 	subType = "Evasion",
 	socketLimit = 6,
@@ -356,6 +391,7 @@ itemBases["Exquisite Leather"] = {
 	req = { level = 62, dex = 170, },
 }
 itemBases["Zodiac Leather"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyDex16",
 	type = "Body Armour",
 	subType = "Evasion",
 	socketLimit = 6,
@@ -366,6 +402,7 @@ itemBases["Zodiac Leather"] = {
 	req = { level = 65, dex = 197, },
 }
 itemBases["Assassin's Garb"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyDex17",
 	type = "Body Armour",
 	subType = "Evasion",
 	socketLimit = 6,
@@ -378,6 +415,7 @@ itemBases["Assassin's Garb"] = {
 	req = { level = 68, dex = 183, },
 }
 itemBases["Supreme Leather"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyDex18",
 	type = "Body Armour",
 	subType = "Evasion",
 	socketLimit = 6,
@@ -388,6 +426,7 @@ itemBases["Supreme Leather"] = {
 	req = { level = 73, dex = 222, },
 }
 itemBases["Astral Leather"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyDex19",
 	type = "Body Armour",
 	subType = "Evasion",
 	socketLimit = 6,
@@ -398,6 +437,7 @@ itemBases["Astral Leather"] = {
 	req = { level = 78, dex = 254, },
 }
 itemBases["Syndicate's Garb"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyDex20",
 	type = "Body Armour",
 	subType = "Evasion",
 	socketLimit = 6,
@@ -409,6 +449,7 @@ itemBases["Syndicate's Garb"] = {
 }
 
 itemBases["Simple Robe"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyInt1",
 	type = "Body Armour",
 	subType = "Energy Shield",
 	socketLimit = 6,
@@ -419,6 +460,7 @@ itemBases["Simple Robe"] = {
 	req = { int = 17, },
 }
 itemBases["Silken Vest"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyInt2",
 	type = "Body Armour",
 	subType = "Energy Shield",
 	socketLimit = 6,
@@ -429,6 +471,7 @@ itemBases["Silken Vest"] = {
 	req = { level = 11, int = 37, },
 }
 itemBases["Scholar's Robe"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyInt3",
 	type = "Body Armour",
 	subType = "Energy Shield",
 	socketLimit = 6,
@@ -439,6 +482,7 @@ itemBases["Scholar's Robe"] = {
 	req = { level = 18, int = 55, },
 }
 itemBases["Silken Garb"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyInt4",
 	type = "Body Armour",
 	subType = "Energy Shield",
 	socketLimit = 6,
@@ -449,6 +493,7 @@ itemBases["Silken Garb"] = {
 	req = { level = 25, int = 73, },
 }
 itemBases["Mage's Vestment"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyInt5",
 	type = "Body Armour",
 	subType = "Energy Shield",
 	socketLimit = 6,
@@ -459,6 +504,7 @@ itemBases["Mage's Vestment"] = {
 	req = { level = 28, int = 81, },
 }
 itemBases["Silk Robe"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyInt6",
 	type = "Body Armour",
 	subType = "Energy Shield",
 	socketLimit = 6,
@@ -469,6 +515,7 @@ itemBases["Silk Robe"] = {
 	req = { level = 32, int = 91, },
 }
 itemBases["Cabalist Regalia"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyInt7",
 	type = "Body Armour",
 	subType = "Energy Shield",
 	socketLimit = 6,
@@ -479,6 +526,7 @@ itemBases["Cabalist Regalia"] = {
 	req = { level = 35, int = 99, },
 }
 itemBases["Sage's Robe"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyInt8",
 	type = "Body Armour",
 	subType = "Energy Shield",
 	socketLimit = 6,
@@ -489,6 +537,7 @@ itemBases["Sage's Robe"] = {
 	req = { level = 37, int = 104, },
 }
 itemBases["Silken Wrap"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyInt9",
 	type = "Body Armour",
 	subType = "Energy Shield",
 	socketLimit = 6,
@@ -499,6 +548,7 @@ itemBases["Silken Wrap"] = {
 	req = { level = 41, int = 114, },
 }
 itemBases["Conjurer's Vestment"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyInt10",
 	type = "Body Armour",
 	subType = "Energy Shield",
 	socketLimit = 6,
@@ -509,6 +559,7 @@ itemBases["Conjurer's Vestment"] = {
 	req = { level = 45, int = 124, },
 }
 itemBases["Spidersilk Robe"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyInt11",
 	type = "Body Armour",
 	subType = "Energy Shield",
 	socketLimit = 6,
@@ -519,6 +570,7 @@ itemBases["Spidersilk Robe"] = {
 	req = { level = 49, int = 134, },
 }
 itemBases["Destroyer Regalia"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyInt12",
 	type = "Body Armour",
 	subType = "Energy Shield",
 	socketLimit = 6,
@@ -529,6 +581,7 @@ itemBases["Destroyer Regalia"] = {
 	req = { level = 53, int = 145, },
 }
 itemBases["Savant's Robe"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyInt13",
 	type = "Body Armour",
 	subType = "Energy Shield",
 	socketLimit = 6,
@@ -539,6 +592,7 @@ itemBases["Savant's Robe"] = {
 	req = { level = 56, int = 152, },
 }
 itemBases["Necromancer Silks"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyInt14",
 	type = "Body Armour",
 	subType = "Energy Shield",
 	socketLimit = 6,
@@ -549,6 +603,7 @@ itemBases["Necromancer Silks"] = {
 	req = { level = 59, int = 160, },
 }
 itemBases["Occultist's Vestment"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyInt15",
 	type = "Body Armour",
 	subType = "Energy Shield",
 	socketLimit = 6,
@@ -561,6 +616,7 @@ itemBases["Occultist's Vestment"] = {
 	req = { level = 62, int = 180, },
 }
 itemBases["Widowsilk Robe"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyInt16",
 	type = "Body Armour",
 	subType = "Energy Shield",
 	socketLimit = 6,
@@ -571,6 +627,7 @@ itemBases["Widowsilk Robe"] = {
 	req = { level = 65, int = 187, },
 }
 itemBases["Vaal Regalia"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyInt17",
 	type = "Body Armour",
 	subType = "Energy Shield",
 	socketLimit = 6,
@@ -581,6 +638,7 @@ itemBases["Vaal Regalia"] = {
 	req = { level = 68, int = 194, },
 }
 itemBases["Arcane Vestment"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyInt18",
 	type = "Body Armour",
 	subType = "Energy Shield",
 	socketLimit = 6,
@@ -591,6 +649,7 @@ itemBases["Arcane Vestment"] = {
 	req = { level = 73, int = 222, },
 }
 itemBases["Nightweave Robe"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyInt19",
 	type = "Body Armour",
 	subType = "Energy Shield",
 	socketLimit = 6,
@@ -601,6 +660,7 @@ itemBases["Nightweave Robe"] = {
 	req = { level = 78, int = 254, },
 }
 itemBases["Twilight Regalia"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyInt20",
 	type = "Body Armour",
 	subType = "Energy Shield",
 	socketLimit = 6,
@@ -612,6 +672,7 @@ itemBases["Twilight Regalia"] = {
 }
 
 itemBases["Scale Vest"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyStrDex1",
 	type = "Body Armour",
 	subType = "Armour/Evasion",
 	socketLimit = 6,
@@ -622,6 +683,7 @@ itemBases["Scale Vest"] = {
 	req = { str = 10, dex = 10, },
 }
 itemBases["Light Brigandine"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyStrDex2",
 	type = "Body Armour",
 	subType = "Armour/Evasion",
 	socketLimit = 6,
@@ -632,6 +694,7 @@ itemBases["Light Brigandine"] = {
 	req = { level = 8, str = 16, dex = 16, },
 }
 itemBases["Scale Doublet"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyStrDex3",
 	type = "Body Armour",
 	subType = "Armour/Evasion",
 	socketLimit = 6,
@@ -642,6 +705,7 @@ itemBases["Scale Doublet"] = {
 	req = { level = 17, str = 28, dex = 28, },
 }
 itemBases["Infantry Brigandine"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyStrDex4",
 	type = "Body Armour",
 	subType = "Armour/Evasion",
 	socketLimit = 6,
@@ -652,6 +716,7 @@ itemBases["Infantry Brigandine"] = {
 	req = { level = 21, str = 34, dex = 34, },
 }
 itemBases["Full Scale Armour"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyStrDex5",
 	type = "Body Armour",
 	subType = "Armour/Evasion",
 	socketLimit = 6,
@@ -662,6 +727,7 @@ itemBases["Full Scale Armour"] = {
 	req = { level = 28, str = 43, dex = 43, },
 }
 itemBases["Soldier's Brigandine"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyStrDex6",
 	type = "Body Armour",
 	subType = "Armour/Evasion",
 	socketLimit = 6,
@@ -672,6 +738,7 @@ itemBases["Soldier's Brigandine"] = {
 	req = { level = 32, str = 48, dex = 48, },
 }
 itemBases["Field Lamellar"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyStrDex7",
 	type = "Body Armour",
 	subType = "Armour/Evasion",
 	socketLimit = 6,
@@ -682,6 +749,7 @@ itemBases["Field Lamellar"] = {
 	req = { level = 35, str = 53, dex = 53, },
 }
 itemBases["Wyrmscale Doublet"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyStrDex8",
 	type = "Body Armour",
 	subType = "Armour/Evasion",
 	socketLimit = 6,
@@ -692,6 +760,7 @@ itemBases["Wyrmscale Doublet"] = {
 	req = { level = 38, str = 57, dex = 57, },
 }
 itemBases["Hussar Brigandine"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyStrDex9",
 	type = "Body Armour",
 	subType = "Armour/Evasion",
 	socketLimit = 6,
@@ -702,6 +771,7 @@ itemBases["Hussar Brigandine"] = {
 	req = { level = 42, str = 62, dex = 62, },
 }
 itemBases["Full Wyrmscale"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyStrDex10",
 	type = "Body Armour",
 	subType = "Armour/Evasion",
 	socketLimit = 6,
@@ -712,6 +782,7 @@ itemBases["Full Wyrmscale"] = {
 	req = { level = 46, str = 68, dex = 68, },
 }
 itemBases["Commander's Brigandine"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyStrDex11",
 	type = "Body Armour",
 	subType = "Armour/Evasion",
 	socketLimit = 6,
@@ -722,6 +793,7 @@ itemBases["Commander's Brigandine"] = {
 	req = { level = 50, str = 73, dex = 73, },
 }
 itemBases["Battle Lamellar"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyStrDex12",
 	type = "Body Armour",
 	subType = "Armour/Evasion",
 	socketLimit = 6,
@@ -732,6 +804,7 @@ itemBases["Battle Lamellar"] = {
 	req = { level = 54, str = 79, dex = 79, },
 }
 itemBases["Dragonscale Doublet"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyStrDex13",
 	type = "Body Armour",
 	subType = "Armour/Evasion",
 	socketLimit = 6,
@@ -742,6 +815,7 @@ itemBases["Dragonscale Doublet"] = {
 	req = { level = 57, str = 83, dex = 83, },
 }
 itemBases["Desert Brigandine"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyStrDex14",
 	type = "Body Armour",
 	subType = "Armour/Evasion",
 	socketLimit = 6,
@@ -752,6 +826,7 @@ itemBases["Desert Brigandine"] = {
 	req = { level = 60, str = 96, dex = 96, },
 }
 itemBases["Full Dragonscale"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyStrDex15",
 	type = "Body Armour",
 	subType = "Armour/Evasion",
 	socketLimit = 6,
@@ -762,6 +837,7 @@ itemBases["Full Dragonscale"] = {
 	req = { level = 63, str = 115, dex = 94, },
 }
 itemBases["General's Brigandine"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyStrDex16",
 	type = "Body Armour",
 	subType = "Armour/Evasion",
 	socketLimit = 6,
@@ -772,6 +848,7 @@ itemBases["General's Brigandine"] = {
 	req = { level = 66, str = 103, dex = 103, },
 }
 itemBases["Triumphant Lamellar"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyStrDex17",
 	type = "Body Armour",
 	subType = "Armour/Evasion",
 	socketLimit = 6,
@@ -782,6 +859,7 @@ itemBases["Triumphant Lamellar"] = {
 	req = { level = 69, str = 95, dex = 116, },
 }
 itemBases["Full Wyvernscale"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyStrDex18",
 	type = "Body Armour",
 	subType = "Armour/Evasion",
 	socketLimit = 6,
@@ -792,6 +870,7 @@ itemBases["Full Wyvernscale"] = {
 	req = { level = 73, str = 133, dex = 133, },
 }
 itemBases["Marshall's Brigandine"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyStrDex19",
 	type = "Body Armour",
 	subType = "Armour/Evasion",
 	socketLimit = 6,
@@ -802,6 +881,7 @@ itemBases["Marshall's Brigandine"] = {
 	req = { level = 78, str = 151, dex = 151, },
 }
 itemBases["Conquest Lamellar"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyStrDex20",
 	type = "Body Armour",
 	subType = "Armour/Evasion",
 	socketLimit = 6,
@@ -813,6 +893,7 @@ itemBases["Conquest Lamellar"] = {
 }
 
 itemBases["Chainmail Vest"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyStrInt1",
 	type = "Body Armour",
 	subType = "Armour/Energy Shield",
 	socketLimit = 6,
@@ -823,6 +904,7 @@ itemBases["Chainmail Vest"] = {
 	req = { str = 10, int = 10, },
 }
 itemBases["Chainmail Tunic"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyStrInt2",
 	type = "Body Armour",
 	subType = "Armour/Energy Shield",
 	socketLimit = 6,
@@ -833,6 +915,7 @@ itemBases["Chainmail Tunic"] = {
 	req = { level = 8, str = 16, int = 16, },
 }
 itemBases["Ringmail Coat"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyStrInt3",
 	type = "Body Armour",
 	subType = "Armour/Energy Shield",
 	socketLimit = 6,
@@ -843,6 +926,7 @@ itemBases["Ringmail Coat"] = {
 	req = { level = 17, str = 28, int = 28, },
 }
 itemBases["Chainmail Doublet"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyStrInt4",
 	type = "Body Armour",
 	subType = "Armour/Energy Shield",
 	socketLimit = 6,
@@ -853,6 +937,7 @@ itemBases["Chainmail Doublet"] = {
 	req = { level = 21, str = 34, int = 34, },
 }
 itemBases["Full Ringmail"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyStrInt5",
 	type = "Body Armour",
 	subType = "Armour/Energy Shield",
 	socketLimit = 6,
@@ -863,6 +948,7 @@ itemBases["Full Ringmail"] = {
 	req = { level = 28, str = 43, int = 43, },
 }
 itemBases["Full Chainmail"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyStrInt6",
 	type = "Body Armour",
 	subType = "Armour/Energy Shield",
 	socketLimit = 6,
@@ -873,6 +959,7 @@ itemBases["Full Chainmail"] = {
 	req = { level = 32, str = 48, int = 48, },
 }
 itemBases["Holy Chainmail"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyStrInt7",
 	type = "Body Armour",
 	subType = "Armour/Energy Shield",
 	socketLimit = 6,
@@ -883,6 +970,7 @@ itemBases["Holy Chainmail"] = {
 	req = { level = 35, str = 53, int = 53, },
 }
 itemBases["Latticed Ringmail"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyStrInt8",
 	type = "Body Armour",
 	subType = "Armour/Energy Shield",
 	socketLimit = 6,
@@ -893,6 +981,7 @@ itemBases["Latticed Ringmail"] = {
 	req = { level = 39, str = 59, int = 59, },
 }
 itemBases["Crusader Chainmail"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyStrInt9",
 	type = "Body Armour",
 	subType = "Armour/Energy Shield",
 	socketLimit = 6,
@@ -903,6 +992,7 @@ itemBases["Crusader Chainmail"] = {
 	req = { level = 43, str = 64, int = 64, },
 }
 itemBases["Ornate Ringmail"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyStrInt10",
 	type = "Body Armour",
 	subType = "Armour/Energy Shield",
 	socketLimit = 6,
@@ -913,6 +1003,7 @@ itemBases["Ornate Ringmail"] = {
 	req = { level = 47, str = 69, int = 69, },
 }
 itemBases["Chain Hauberk"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyStrInt11",
 	type = "Body Armour",
 	subType = "Armour/Energy Shield",
 	socketLimit = 6,
@@ -923,6 +1014,7 @@ itemBases["Chain Hauberk"] = {
 	req = { level = 51, str = 75, int = 75, },
 }
 itemBases["Devout Chainmail"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyStrInt12",
 	type = "Body Armour",
 	subType = "Armour/Energy Shield",
 	socketLimit = 6,
@@ -933,6 +1025,7 @@ itemBases["Devout Chainmail"] = {
 	req = { level = 55, str = 80, int = 80, },
 }
 itemBases["Loricated Ringmail"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyStrInt13",
 	type = "Body Armour",
 	subType = "Armour/Energy Shield",
 	socketLimit = 6,
@@ -943,6 +1036,7 @@ itemBases["Loricated Ringmail"] = {
 	req = { level = 58, str = 84, int = 84, },
 }
 itemBases["Conquest Chainmail"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyStrInt14",
 	type = "Body Armour",
 	subType = "Armour/Energy Shield",
 	socketLimit = 6,
@@ -953,6 +1047,7 @@ itemBases["Conquest Chainmail"] = {
 	req = { level = 61, str = 96, int = 96, },
 }
 itemBases["Elegant Ringmail"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyStrInt15",
 	type = "Body Armour",
 	subType = "Armour/Energy Shield",
 	socketLimit = 6,
@@ -963,6 +1058,7 @@ itemBases["Elegant Ringmail"] = {
 	req = { level = 64, str = 90, int = 105, },
 }
 itemBases["Saint's Hauberk"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyStrInt16",
 	type = "Body Armour",
 	subType = "Armour/Energy Shield",
 	socketLimit = 6,
@@ -973,6 +1069,7 @@ itemBases["Saint's Hauberk"] = {
 	req = { level = 67, str = 109, int = 94, },
 }
 itemBases["Saintly Chainmail"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyStrInt17",
 	type = "Body Armour",
 	subType = "Armour/Energy Shield",
 	socketLimit = 6,
@@ -983,6 +1080,7 @@ itemBases["Saintly Chainmail"] = {
 	req = { level = 70, str = 99, int = 115, },
 }
 itemBases["Grand Ringmail"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyStrInt18",
 	type = "Body Armour",
 	subType = "Armour/Energy Shield",
 	socketLimit = 6,
@@ -993,6 +1091,7 @@ itemBases["Grand Ringmail"] = {
 	req = { level = 73, str = 133, int = 133, },
 }
 itemBases["Paladin's Hauberk"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyStrInt19",
 	type = "Body Armour",
 	subType = "Armour/Energy Shield",
 	socketLimit = 6,
@@ -1003,6 +1102,7 @@ itemBases["Paladin's Hauberk"] = {
 	req = { level = 78, str = 151, int = 151, },
 }
 itemBases["Sacred Chainmail"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyStrInt20",
 	type = "Body Armour",
 	subType = "Armour/Energy Shield",
 	socketLimit = 6,
@@ -1014,6 +1114,7 @@ itemBases["Sacred Chainmail"] = {
 }
 
 itemBases["Padded Vest"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyDexInt1",
 	type = "Body Armour",
 	subType = "Evasion/Energy Shield",
 	socketLimit = 6,
@@ -1024,6 +1125,7 @@ itemBases["Padded Vest"] = {
 	req = { dex = 10, int = 10, },
 }
 itemBases["Oiled Vest"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyDexInt2",
 	type = "Body Armour",
 	subType = "Evasion/Energy Shield",
 	socketLimit = 6,
@@ -1034,6 +1136,7 @@ itemBases["Oiled Vest"] = {
 	req = { level = 9, dex = 17, int = 17, },
 }
 itemBases["Padded Jacket"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyDexInt3",
 	type = "Body Armour",
 	subType = "Evasion/Energy Shield",
 	socketLimit = 6,
@@ -1044,6 +1147,7 @@ itemBases["Padded Jacket"] = {
 	req = { level = 18, dex = 30, int = 30, },
 }
 itemBases["Oiled Coat"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyDexInt4",
 	type = "Body Armour",
 	subType = "Evasion/Energy Shield",
 	socketLimit = 6,
@@ -1054,6 +1158,7 @@ itemBases["Oiled Coat"] = {
 	req = { level = 22, dex = 35, int = 35, },
 }
 itemBases["Scarlet Raiment"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyDexInt5",
 	type = "Body Armour",
 	subType = "Evasion/Energy Shield",
 	socketLimit = 6,
@@ -1064,6 +1169,7 @@ itemBases["Scarlet Raiment"] = {
 	req = { level = 28, dex = 43, int = 43, },
 }
 itemBases["Waxed Garb"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyDexInt6",
 	type = "Body Armour",
 	subType = "Evasion/Energy Shield",
 	socketLimit = 6,
@@ -1074,6 +1180,7 @@ itemBases["Waxed Garb"] = {
 	req = { level = 32, dex = 48, int = 48, },
 }
 itemBases["Bone Armour"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyDexInt7",
 	type = "Body Armour",
 	subType = "Evasion/Energy Shield",
 	socketLimit = 6,
@@ -1084,6 +1191,7 @@ itemBases["Bone Armour"] = {
 	req = { level = 35, dex = 53, int = 53, },
 }
 itemBases["Quilted Jacket"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyDexInt8",
 	type = "Body Armour",
 	subType = "Evasion/Energy Shield",
 	socketLimit = 6,
@@ -1094,6 +1202,7 @@ itemBases["Quilted Jacket"] = {
 	req = { level = 40, dex = 60, int = 60, },
 }
 itemBases["Sleek Coat"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyDexInt9",
 	type = "Body Armour",
 	subType = "Evasion/Energy Shield",
 	socketLimit = 6,
@@ -1104,6 +1213,7 @@ itemBases["Sleek Coat"] = {
 	req = { level = 44, dex = 65, int = 65, },
 }
 itemBases["Crimson Raiment"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyDexInt10",
 	type = "Body Armour",
 	subType = "Evasion/Energy Shield",
 	socketLimit = 6,
@@ -1114,6 +1224,7 @@ itemBases["Crimson Raiment"] = {
 	req = { level = 48, dex = 71, int = 71, },
 }
 itemBases["Lacquered Garb"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyDexInt11",
 	type = "Body Armour",
 	subType = "Evasion/Energy Shield",
 	socketLimit = 6,
@@ -1124,6 +1235,7 @@ itemBases["Lacquered Garb"] = {
 	req = { level = 52, dex = 76, int = 76, },
 }
 itemBases["Crypt Armour"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyDexInt12",
 	type = "Body Armour",
 	subType = "Evasion/Energy Shield",
 	socketLimit = 6,
@@ -1134,6 +1246,7 @@ itemBases["Crypt Armour"] = {
 	req = { level = 56, dex = 82, int = 82, },
 }
 itemBases["Sentinel Jacket"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyDexInt13",
 	type = "Body Armour",
 	subType = "Evasion/Energy Shield",
 	socketLimit = 6,
@@ -1144,6 +1257,7 @@ itemBases["Sentinel Jacket"] = {
 	req = { level = 59, dex = 86, int = 86, },
 }
 itemBases["Varnished Coat"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyDexInt14",
 	type = "Body Armour",
 	subType = "Evasion/Energy Shield",
 	socketLimit = 6,
@@ -1154,6 +1268,7 @@ itemBases["Varnished Coat"] = {
 	req = { level = 62, dex = 96, int = 96, },
 }
 itemBases["Blood Raiment"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyDexInt15",
 	type = "Body Armour",
 	subType = "Evasion/Energy Shield",
 	socketLimit = 6,
@@ -1164,6 +1279,7 @@ itemBases["Blood Raiment"] = {
 	req = { level = 65, dex = 107, int = 90, },
 }
 itemBases["Sadist Garb"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyDexInt16",
 	type = "Body Armour",
 	subType = "Evasion/Energy Shield",
 	socketLimit = 6,
@@ -1174,6 +1290,7 @@ itemBases["Sadist Garb"] = {
 	req = { level = 68, dex = 103, int = 109, },
 }
 itemBases["Carnal Armour"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyDexInt17",
 	type = "Body Armour",
 	subType = "Evasion/Energy Shield",
 	socketLimit = 6,
@@ -1186,6 +1303,7 @@ itemBases["Carnal Armour"] = {
 	req = { level = 71, dex = 88, int = 122, },
 }
 itemBases["Sanguine Raiment"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyDexInt18",
 	type = "Body Armour",
 	subType = "Evasion/Energy Shield",
 	socketLimit = 6,
@@ -1196,6 +1314,7 @@ itemBases["Sanguine Raiment"] = {
 	req = { level = 73, dex = 133, int = 133, },
 }
 itemBases["Torturer Garb"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyDexInt19",
 	type = "Body Armour",
 	subType = "Evasion/Energy Shield",
 	socketLimit = 6,
@@ -1206,6 +1325,7 @@ itemBases["Torturer Garb"] = {
 	req = { level = 78, dex = 151, int = 151, },
 }
 itemBases["Necrotic Armour"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyDexInt20",
 	type = "Body Armour",
 	subType = "Evasion/Energy Shield",
 	socketLimit = 6,
@@ -1217,6 +1337,7 @@ itemBases["Necrotic Armour"] = {
 }
 
 itemBases["Sacrificial Garb"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyStrDexInt1",
 	type = "Body Armour",
 	subType = "Armour/Evasion/Energy Shield",
 	socketLimit = 6,
@@ -1229,6 +1350,7 @@ itemBases["Sacrificial Garb"] = {
 	req = { level = 72, str = 66, dex = 66, int = 66, },
 }
 itemBases["Grasping Mail"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyStrDexInt2",
 	type = "Body Armour",
 	subType = "Armour/Evasion/Energy Shield",
 	socketLimit = 6,
@@ -1245,6 +1367,7 @@ itemBases["Grasping Mail"] = {
 	},
 }
 itemBases["Golden Mantle"] = {
+	baseId = "Metadata/Items/Armours/BodyArmours/BodyDemigods1",
 	type = "Body Armour",
 	subType = "Armour/Evasion/Energy Shield",
 	hidden = true,

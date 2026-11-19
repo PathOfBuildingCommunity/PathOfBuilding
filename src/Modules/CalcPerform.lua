@@ -10,6 +10,7 @@ local pairs = pairs
 local ipairs = ipairs
 local t_insert = table.insert
 local t_remove = table.remove
+local m_abs = math.abs
 local m_min = math.min
 local m_max = math.max
 local m_ceil = math.ceil
@@ -130,9 +131,123 @@ function doActorLifeMana(actor)
 		end
 	end
 	output.LowestOfMaximumLifeAndMaximumMana = m_min(output.Life, output.Mana)
+	output.MaximumLifeManaDifference = m_abs(output.Life - output.Mana)
 end
 
 -- Calculate attributes, and set conditions
+-- Shrine Buffs. Massive Shrines add Life, so they are applied before the life pool is calculated (stage "life");
+-- the others are applied after life reservation, as their effect can depend on it (stage "rest")
+---@param actor table
+---@param stage string "life", "rest" or "all"
+local function doActorShrineBuffs(actor, stage)
+	local modDB = actor.modDB
+	local shrineEffectMod = 1 + modDB:Sum("INC", nil, "BuffEffectOnSelf", "ShrineBuffEffect") / 100
+	if stage ~= "rest" then
+		if modDB:Flag(nil, "MassiveShrine") then
+			modDB:NewMod("Life", "INC", m_floor(40 * shrineEffectMod), "Massive Shrine")
+			modDB:NewMod("AreaOfEffect", "INC", m_floor(40 * shrineEffectMod), "Massive Shrine")
+		end
+		if modDB:Flag(nil, "LesserMassiveShrine") then
+			modDB:NewMod("Life", "INC", m_floor(20 * shrineEffectMod), "Lesser Massive Shrine")
+			modDB:NewMod("AreaOfEffect", "INC", m_floor(20 * shrineEffectMod), "Lesser Massive Shrine")
+		end
+	end
+	if stage ~= "life" then
+		if modDB:Flag(nil, "AccelerationShrine") then
+			modDB:NewMod("ActionSpeed", "INC", m_floor(50 * shrineEffectMod), "Acceleration Shrine")
+			modDB:NewMod("ProjectileSpeed", "INC", m_floor(80 * shrineEffectMod), "Acceleration Shrine")
+		end
+		if modDB:Flag(nil, "BrutalShrine") then
+			modDB:NewMod("Damage", "INC", m_floor(50 * shrineEffectMod), "Brutal Shrine")
+			modDB:NewMod("EnemyStunDuration", "INC", m_floor(30 * shrineEffectMod), "Brutal Shrine")
+			modDB:NewMod("EnemyKnockbackChance", "INC", 100, "Brutal Shrine")
+		end
+		if modDB:Flag(nil, "DiamondShrine") then
+			modDB:NewMod("CritChance", "OVERRIDE", 100, "Diamond Shrine")
+		end
+		if modDB:Flag(nil, "DivineShrine") then
+			modDB:NewMod("DamageTaken", "MORE", -100, "Divine Shrine")
+		end
+		if modDB:Flag(nil, "EchoingShrine") then
+			modDB:NewMod("Speed", "MORE", m_floor(100 * shrineEffectMod), "Echoing Shrine", ModFlag.Attack)
+			modDB:NewMod("Speed", "MORE", m_floor(100 * shrineEffectMod), "Echoing Shrine", ModFlag.Cast)
+			modDB:NewMod("RepeatCount", "BASE", m_floor(1 * shrineEffectMod), "Echoing Shrine")
+		end
+		if modDB:Flag(nil, "GloomShrine") then
+			modDB:NewMod("NonChaosDamageGainAsChaos", "BASE", m_floor(10 * shrineEffectMod), "Gloom Shrine")
+		end
+		if modDB:Flag(nil, "GreaterFreezingShrine") then
+			modDB:NewMod("PhysicalDamageGainAsCold", "BASE", m_floor(30 * shrineEffectMod), "Greater Freezing Shrine")
+		end
+		if modDB:Flag(nil, "GreaterShockingShrine") then
+			modDB:NewMod("PhysicalDamageGainAsLightning", "BASE", m_floor(30 * shrineEffectMod), "Greater Shocking Shrine")
+		end
+		if modDB:Flag(nil, "GreaterSkeletalShrine") then
+			modDB:NewMod("PhysicalDamageGainAsChaos", "BASE", m_floor(30 * shrineEffectMod), "Greater Skeletal Shrine")
+		end
+		if modDB:Flag(nil, "ImpenetrableShrine") then
+			modDB:NewMod("Armour", "INC", m_floor(100 * shrineEffectMod), "Impenetrable Shrine")
+			modDB:NewMod("Evasion", "INC", m_floor(100 * shrineEffectMod), "Impenetrable Shrine")
+			modDB:NewMod("EnergyShield", "INC", m_floor(100 * shrineEffectMod), "Impenetrable Shrine")
+		end
+		if modDB:Flag(nil, "ReplenishingShrine") then
+			modDB:NewMod("ManaRegen", "INC", 200 * shrineEffectMod, "Replenishing Shrine")
+			modDB:NewMod("LifeRegenPercent", "BASE", 6.7 * shrineEffectMod, "Replenishing Shrine")
+		end
+		if modDB:Flag(nil, "ResistanceShrine") then
+			modDB:NewMod("ElementalResist", "BASE", m_floor(50 * shrineEffectMod), "Resistance Shrine")
+			modDB:NewMod("ElementalResistMax", "BASE", m_floor(10 * shrineEffectMod), "Resistance Shrine")
+			modDB:NewMod("ChaosResistMax", "BASE", m_floor(10 * shrineEffectMod), "Resistance Shrine")
+		end
+		if modDB:Flag(nil, "ResonatingShrine") then
+			modDB:NewMod("PowerChargesMax", "BASE", m_floor(1 * shrineEffectMod), "Resonating Shrine")
+			modDB:NewMod("FrenzyChargesMax", "BASE", m_floor(1 * shrineEffectMod), "Resonating Shrine")
+			modDB:NewMod("EnduranceChargesMax", "BASE", m_floor(1 * shrineEffectMod), "Resonating Shrine")
+		end
+		if modDB:Flag(nil, "LesserAccelerationShrine") and not modDB:Flag(nil, "AccelerationShrine") then
+			modDB:NewMod("ActionSpeed", "INC", m_floor(10 * shrineEffectMod), "Lesser Acceleration Shrine")
+			modDB:NewMod("ProjectileSpeed", "INC", m_floor(30 * shrineEffectMod), "Lesser Acceleration Shrine")
+		end
+		if modDB:Flag(nil, "LesserBrutalShrine") then
+			modDB:NewMod("Damage", "INC", m_floor(20 * shrineEffectMod), "Lesser Brutal Shrine")
+			modDB:NewMod("EnemyStunDuration", "INC", m_floor(20 * shrineEffectMod), "Lesser Brutal Shrine")
+			modDB:NewMod("EnemyKnockbackChance", "INC", 100, "Lesser Brutal Shrine")
+		end
+		if modDB:Flag(nil, "LesserImpenetrableShrine") then
+			modDB:NewMod("Armour", "INC", m_floor(50 * shrineEffectMod), "Lesser Impenetrable Shrine")
+			modDB:NewMod("Evasion", "INC", m_floor(50 * shrineEffectMod), "Lesser Impenetrable Shrine")
+			modDB:NewMod("EnergyShield", "INC", m_floor(50 * shrineEffectMod), "Lesser Impenetrable Shrine")
+		end
+		if modDB:Flag(nil, "LesserReplenishingShrine") then
+			modDB:NewMod("ManaRegen", "INC", 100 * shrineEffectMod, "Lesser Replenishing Shrine")
+			modDB:NewMod("LifeRegenPercent", "BASE", 3.3 * shrineEffectMod, "Lesser Replenishing Shrine")
+		end
+		if modDB:Flag(nil, "LesserResistanceShrine") then
+			modDB:NewMod("ElementalResist", "BASE", m_floor(25 * shrineEffectMod), "Lesser Resistance Shrine")
+			modDB:NewMod("ElementalResistMax", "BASE", m_floor(2 * shrineEffectMod), "Lesser Resistance Shrine")
+			modDB:NewMod("ChaosResistMax", "BASE", m_floor(2 * shrineEffectMod), "Lesser Resistance Shrine")
+		end
+		if modDB:Flag(nil, "BloodShrineOfRats") then
+			modDB:NewMod("ElementalDamageGainAsChaos", "BASE", m_floor(30 * shrineEffectMod), "Blood Shrine of Rats")
+		end
+		if modDB:Flag(nil, "BloodShrineOfLocusts") then
+			modDB:NewMod("DotMultiplier", "BASE", m_floor(30 * shrineEffectMod), "Blood Shrine of Locusts")
+		end
+		if modDB:Flag(nil, "BloodShrineOfToads") then
+			modDB:NewMod("BloodShrineExplodingToadTriggerChance", "BASE", m_floor(25 * shrineEffectMod), "Blood Shrine of Toads")
+		end
+		if modDB:Flag(nil, "BloodShrineOfCrows") then
+			modDB:NewMod("ChaosResist", "BASE", m_floor(50 * shrineEffectMod), "Blood Shrine of Crows")
+			modDB:NewMod("ElementalDamageFromHitsTakenAsChaos", "BASE", m_floor(10 * shrineEffectMod), "Blood Shrine of Crows")
+			modDB:NewMod("PhysicalDamageFromHitsTakenAsChaos", "BASE", m_floor(10 * shrineEffectMod), "Blood Shrine of Crows")
+		end
+		if modDB:Flag(nil, "BloodShrineOfBats") then
+			modDB:NewMod("EnemyCurseLimit", "BASE", m_floor(1 * shrineEffectMod), "Blood Shrine of Bats")
+			modDB:NewMod("ExtraCurse", "LIST", { skillId = "Enfeeble", level = 1 }, "Blood Shrine of Bats")
+		end
+	end
+end
+
 ---@param env table
 ---@param actor table
 local function doActorAttribsConditions(env, actor)
@@ -292,108 +407,7 @@ local function doActorAttribsConditions(env, actor)
 		if modDB:Sum("BASE", nil, "EnemySapChance") > 0 or modDB:Flag(nil, "CritAlwaysAltAilments") and not modDB:Flag(env.player.mainSkill.skillCfg, "NeverCrit") then
 			condList["CanInflictSap"] = true
 		end
-		-- Shrine Buffs: Must be done before life pool calculated for massive shrine
-		local shrineEffectMod = 1 + modDB:Sum("INC", nil, "BuffEffectOnSelf", "ShrineBuffEffect") / 100
-		if modDB:Flag(nil, "AccelerationShrine") then
-			modDB:NewMod("ActionSpeed", "INC", m_floor(50 * shrineEffectMod), "Acceleration Shrine")
-			modDB:NewMod("ProjectileSpeed", "INC", m_floor(80 * shrineEffectMod), "Acceleration Shrine")
-		end
-		if modDB:Flag(nil, "BrutalShrine") then
-			modDB:NewMod("Damage", "INC", m_floor(50 * shrineEffectMod), "Brutal Shrine")
-			modDB:NewMod("EnemyStunDuration", "INC", m_floor(30 * shrineEffectMod), "Brutal Shrine")
-			modDB:NewMod("EnemyKnockbackChance", "INC", 100, "Brutal Shrine")
-		end
-		if modDB:Flag(nil, "DiamondShrine") then
-			modDB:NewMod("CritChance", "OVERRIDE", 100, "Diamond Shrine")
-		end
-		if modDB:Flag(nil, "DivineShrine") then
-			modDB:NewMod("DamageTaken", "MORE", -100, "Divine Shrine")
-		end
-		if modDB:Flag(nil, "EchoingShrine") then
-			modDB:NewMod("Speed", "MORE", m_floor(100 * shrineEffectMod), "Echoing Shrine", ModFlag.Attack)
-			modDB:NewMod("Speed", "MORE", m_floor(100 * shrineEffectMod), "Echoing Shrine", ModFlag.Cast)
-			modDB:NewMod("RepeatCount", "BASE", m_floor(1 * shrineEffectMod), "Echoing Shrine")
-		end
-		if modDB:Flag(nil, "GloomShrine") then
-			modDB:NewMod("NonChaosDamageGainAsChaos", "BASE", m_floor(10 * shrineEffectMod), "Gloom Shrine")
-		end
-		if modDB:Flag(nil, "GreaterFreezingShrine") then
-			modDB:NewMod("PhysicalDamageGainAsCold", "BASE", m_floor(30 * shrineEffectMod), "Greater Freezing Shrine")
-		end
-		if modDB:Flag(nil, "GreaterShockingShrine") then
-			modDB:NewMod("PhysicalDamageGainAsLightning", "BASE", m_floor(30 * shrineEffectMod), "Greater Shocking Shrine")
-		end
-		if modDB:Flag(nil, "GreaterSkeletalShrine") then
-			modDB:NewMod("PhysicalDamageGainAsChaos", "BASE", m_floor(30 * shrineEffectMod), "Greater Skeletal Shrine")
-		end
-		if modDB:Flag(nil, "ImpenetrableShrine") then
-			modDB:NewMod("Armour", "INC", m_floor(100 * shrineEffectMod), "Impenetrable Shrine")
-			modDB:NewMod("Evasion", "INC", m_floor(100 * shrineEffectMod), "Impenetrable Shrine")
-			modDB:NewMod("EnergyShield", "INC", m_floor(100 * shrineEffectMod), "Impenetrable Shrine")
-		end
-		if modDB:Flag(nil, "MassiveShrine") then
-			modDB:NewMod("Life", "INC", m_floor(40 * shrineEffectMod), "Massive Shrine")
-			modDB:NewMod("AreaOfEffect", "INC", m_floor(40 * shrineEffectMod), "Massive Shrine")
-		end
-		if modDB:Flag(nil, "ReplenishingShrine") then
-			modDB:NewMod("ManaRegen", "INC", 200 * shrineEffectMod, "Replenishing Shrine")
-			modDB:NewMod("LifeRegenPercent", "BASE", 6.7 * shrineEffectMod, "Replenishing Shrine")
-		end
-		if modDB:Flag(nil, "ResistanceShrine") then
-			modDB:NewMod("ElementalResist", "BASE", m_floor(50 * shrineEffectMod), "Resistance Shrine")
-			modDB:NewMod("ElementalResistMax", "BASE", m_floor(10 * shrineEffectMod), "Resistance Shrine")
-			modDB:NewMod("ChaosResistMax", "BASE", m_floor(10 * shrineEffectMod), "Resistance Shrine")
-		end
-		if modDB:Flag(nil, "ResonatingShrine") then
-			modDB:NewMod("PowerChargesMax", "BASE", m_floor(1 * shrineEffectMod), "Resonating Shrine")
-			modDB:NewMod("FrenzyChargesMax", "BASE", m_floor(1 * shrineEffectMod), "Resonating Shrine")
-			modDB:NewMod("EnduranceChargesMax", "BASE", m_floor(1 * shrineEffectMod), "Resonating Shrine")
-		end
-		if modDB:Flag(nil, "LesserAccelerationShrine") and not modDB:Flag(nil, "AccelerationShrine") then
-			modDB:NewMod("ActionSpeed", "INC", m_floor(10 * shrineEffectMod), "Lesser Acceleration Shrine")
-			modDB:NewMod("ProjectileSpeed", "INC", m_floor(30 * shrineEffectMod), "Lesser Acceleration Shrine")
-		end
-		if modDB:Flag(nil, "LesserBrutalShrine") then
-			modDB:NewMod("Damage", "INC", m_floor(20 * shrineEffectMod), "Lesser Brutal Shrine")
-			modDB:NewMod("EnemyStunDuration", "INC", m_floor(20 * shrineEffectMod), "Lesser Brutal Shrine")
-			modDB:NewMod("EnemyKnockbackChance", "INC", 100, "Lesser Brutal Shrine")
-		end
-		if modDB:Flag(nil, "LesserImpenetrableShrine") then
-			modDB:NewMod("Armour", "INC", m_floor(50 * shrineEffectMod), "Lesser Impenetrable Shrine")
-			modDB:NewMod("Evasion", "INC", m_floor(50 * shrineEffectMod), "Lesser Impenetrable Shrine")
-			modDB:NewMod("EnergyShield", "INC", m_floor(50 * shrineEffectMod), "Lesser Impenetrable Shrine")
-		end
-		if modDB:Flag(nil, "LesserMassiveShrine") then
-			modDB:NewMod("Life", "INC", m_floor(20 * shrineEffectMod), "Lesser Massive Shrine")
-			modDB:NewMod("AreaOfEffect", "INC", m_floor(20 * shrineEffectMod), "Lesser Massive Shrine")
-		end
-		if modDB:Flag(nil, "LesserReplenishingShrine") then
-			modDB:NewMod("ManaRegen", "INC", 100 * shrineEffectMod, "Lesser Replenishing Shrine")
-			modDB:NewMod("LifeRegenPercent", "BASE", 3.3 * shrineEffectMod, "Lesser Replenishing Shrine")
-		end
-		if modDB:Flag(nil, "LesserResistanceShrine") then
-			modDB:NewMod("ElementalResist", "BASE", m_floor(25 * shrineEffectMod), "Lesser Resistance Shrine")
-			modDB:NewMod("ElementalResistMax", "BASE", m_floor(2 * shrineEffectMod), "Lesser Resistance Shrine")
-			modDB:NewMod("ChaosResistMax", "BASE", m_floor(2 * shrineEffectMod), "Lesser Resistance Shrine")
-		end
-		if modDB:Flag(nil, "BloodShrineOfRats") then
-			modDB:NewMod("ElementalDamageGainAsChaos", "BASE", m_floor(30 * shrineEffectMod), "Blood Shrine of Rats")
-		end
-		if modDB:Flag(nil, "BloodShrineOfLocusts") then
-			modDB:NewMod("DotMultiplier", "BASE", m_floor(30 * shrineEffectMod), "Blood Shrine of Locusts")
-		end
-		if modDB:Flag(nil, "BloodShrineOfToads") then
-			modDB:NewMod("BloodShrineExplodingToadTriggerChance", "BASE", m_floor(25 * shrineEffectMod), "Blood Shrine of Toads")
-		end
-		if modDB:Flag(nil, "BloodShrineOfCrows") then
-			modDB:NewMod("ChaosResist", "BASE", m_floor(50 * shrineEffectMod), "Blood Shrine of Crows")
-			modDB:NewMod("ElementalDamageFromHitsTakenAsChaos", "BASE", m_floor(10 * shrineEffectMod), "Blood Shrine of Crows")
-			modDB:NewMod("PhysicalDamageFromHitsTakenAsChaos", "BASE", m_floor(10 * shrineEffectMod), "Blood Shrine of Crows")
-		end
-		if modDB:Flag(nil, "BloodShrineOfBats") then
-			modDB:NewMod("EnemyCurseLimit", "BASE", m_floor(1 * shrineEffectMod), "Blood Shrine of Bats")
-			modDB:NewMod("ExtraCurse", "LIST", { skillId = "Enfeeble", level = 1 }, "Blood Shrine of Bats")
-		end
+		doActorShrineBuffs(actor, actor == env.player and "life" or "all")
 	end
 	if env.mode_effective then
 		if env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "FireExposureChance") > 0 or modDB:Sum("BASE", nil, "FireExposureChance") > 0 then
@@ -1664,8 +1678,9 @@ function calcs.perform(env, skipEHP)
 		local flaskRecInc = modDB:Sum("INC", nil, "Flask"..type.."Recovery")
 		local flaskRecMore = modDB:More(nil, "Flask"..type.."Recovery")
 		local flaskRateInc = modDB:Sum("INC", nil, "Flask"..type.."RecoveryRate")
+		local flaskRateMore = modDB:More(nil, "Flask"..type.."RecoveryRate")
 		local flaskTotal = base * (1 - instPerc / 100) * (1 + flaskRecInc / 100) * flaskRecMore * (1 + flaskDurInc / 100)
-		local flaskDur = dur * (1 + flaskDurInc / 100) / (1 + flaskTotalRateInc / 100) / (1 + flaskRateInc / 100)
+		local flaskDur = dur * (1 + flaskDurInc / 100) / (1 + flaskTotalRateInc / 100) / (1 + flaskRateInc / 100) / flaskRateMore
 
 		-- More life recovery while on low life is not affected by flask effect (verified ingame).
 		-- Since this will be multiplied by the flask effect value below we have to counteract this by removing the flask effect from the value beforehand.
@@ -1701,6 +1716,11 @@ function calcs.perform(env, skipEHP)
 		local function calcFlaskMods(item, baseName, buffModList, modList, onlyMinion)
 			local flaskEffectInc = effectInc + item.flaskData.effectInc
 			local flaskEffectIncNonPlayer = effectIncNonPlayer + item.flaskData.effectInc
+			local flaskTypeEffect = ({ ["Iron Flask"] = "IronFlaskEffect", ["Granite Flask"] = "GraniteFlaskEffect", ["Ruby Flask"] = "RubyFlaskEffect", ["Sapphire Flask"] = "SapphireFlaskEffect", ["Topaz Flask"] = "TopazFlaskEffect" })[item.baseName]
+			if flaskTypeEffect then
+				flaskEffectInc = flaskEffectInc + modDB:Sum("INC", { actor = "player" }, flaskTypeEffect)
+				flaskEffectIncNonPlayer = flaskEffectIncNonPlayer + modDB:Sum("INC", nil, flaskTypeEffect)
+			end
 			if item.rarity == "MAGIC" and not (item.base.flask.life or item.base.flask.mana) then
 				flaskEffectInc = flaskEffectInc + effectIncMagic
 				flaskEffectIncNonPlayer = flaskEffectIncNonPlayer + effectIncMagicNonPlayer
@@ -2116,6 +2136,9 @@ function calcs.perform(env, skipEHP)
 
 	-- Set the life/mana reservations (hold off on GrantReserved"..pool.."AsAura)
 	doActorLifeManaReservation(env.player, not modDB:Flag(nil, "ManaIncreasedByOvercappedLightningRes"))
+	if env.mode_combat then
+		doActorShrineBuffs(env.player, "rest")
+	end
 
 	if env.mode_combat then
 		mergeTinctures(env.tinctures)
@@ -2220,6 +2243,8 @@ function calcs.perform(env, skipEHP)
 	local buffs = { }
 	env.buffs = buffs
 	local guards = { }
+	-- used for a stable iteration order
+	local guardOrder = { }
 	local minionBuffs = { }
 	env.minionBuffs = minionBuffs
 	local debuffs = { }
@@ -2383,6 +2408,9 @@ function calcs.perform(env, skipEHP)
 						local inc = modStore:Sum("INC", skillCfg, "BuffEffect", "BuffEffectOnSelf", "BuffEffectOnPlayer")
 						local more = modStore:More(skillCfg, "BuffEffect", "BuffEffectOnSelf")
 						srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
+						if not guards[buff.name] then
+							t_insert(guardOrder, buff.name)
+						end
 						mergeBuff(srcList, guards, buff.name)
 					end
 				end
@@ -3343,7 +3371,8 @@ function calcs.perform(env, skipEHP)
 	-- Process guard buffs
 	local guardSlots = { }
 	local nonVaal = false
-	for name, modList in pairs(guards) do
+	for _, name in ipairs(guardOrder) do
+		local modList = guards[name]
 		if name == "Vaal Molten Shell" then
 			wipeTable(guardSlots)
 			nonVaal = false
@@ -3826,6 +3855,9 @@ function calcs.perform(env, skipEHP)
 	end
 
 	if env.minion then
+		if modDB:Flag(nil, "MinionsGainYourSpellSuppressionChance") then
+			env.minion.modDB:NewMod("SpellSuppressionChance", "BASE", env.player.output.SpellSuppressionChance, "Player")
+		end
 		calcs.defence(env, env.minion)
 		if not skipEHP then -- main.build.calcsTab.input.showMinion and -- should be disabled unless "calcsTab.input.showMinion" is true
 			calcs.buildDefenceEstimations(env, env.minion)

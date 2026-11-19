@@ -10,7 +10,7 @@ Variant: Current
 Implicits: 2
 {variant:1}Grants 21 Life per Enemy Hit
 {variant:2}Grants 44 Life per Enemy Hit
-Socketed Gems are Supported by Level 12 Fortify
+Socketed Gems are Supported by Level 12 Fortify Support
 15% Chance to Block Attack Damage
 (100-120)% increased Physical Damage
 +110 to Evasion Rating
@@ -24,7 +24,7 @@ League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 1
 Grants 44 Life per Enemy Hit
-Socketed Gems are Supported by Level 12 Cast when Damage Taken
+Socketed Gems are Supported by Level 12 Cast when Damage Taken Support
 15% Chance to Block Attack Damage
 (100-120)% increased Physical Damage
 +(30-50) to maximum Life
@@ -286,8 +286,8 @@ Implicits: 2
 {variant:1}Grants 21 Life per Enemy Hit
 {variant:2,3,4}Grants 44 Life per Enemy Hit
 +1 to Level of Socketed Dexterity Gems
-{variant:3}Socketed Gems are Supported by Level 10 Faster Attacks
-{variant:4}Socketed Gems are Supported by Level 15 Faster Attacks
+{variant:3}Socketed Gems are Supported by Level 10 Faster Attacks Support
+{variant:4}Socketed Gems are Supported by Level 15 Faster Attacks Support
 {variant:1,2}(100-120)% increased Physical Damage
 {variant:3,4}(160-180)% increased Physical Damage
 (10-15)% increased Attack Speed
@@ -362,5 +362,54 @@ Adds (2-6) to (16-22) Physical Damage
 20% increased Damage with Movement Skills
 15% increased Attack Speed with Movement Skills
 15% reduced Global Accuracy Rating
+]],[[
+The Covetous Dark
+Eye Gouger
+League: Covens
+Source: Drops from unique{The Coven Queen}
+Has Alt Variant: true
+Selected Variant: 2
+Selected Alt Variant: 1
+Variant: None
+Variant: Two Modifiers remaining
+Variant: One Modifier remaining
+Variant: Shaper: +1 Projectile
+Variant: Uber Elder: Random Extra Damage
+Variant: Venarius: Full Life Leech
+Variant: Sirus: Body Transfiguration
+Variant: Sirus: Mind Transfiguration
+Variant: Sirus: Soul Transfiguration
+Variant: Maven: Lucky Damage
+Variant: Searing Exarch: Triple Damage
+Variant: The Eater of Worlds: Frenzy Charge
+Variant: Incarnation of Neglect: +1 Poison
+Variant: Incarnation of Fear: Moonfall
+Variant: Incarnation of Dread: Random Shrine
+Implicits: 1
+Grants 50 Life per Enemy Hit
+(90-130)% increased Physical Damage
+Adds (32-45) to (55-62) Physical Damage
+{variant:4}Skills fire an additional Projectile
+{variant:4}15% increased Area of Effect
+Blind Enemies on Hit
+Blind you inflict is permanent
+{variant:5}Gain 60% of Weapon Physical Damage as Extra Damage of a random Element
+{variant:6}Life Leech effects are not removed when Unreserved Life is Filled
+{variant:9}Transfiguration of Soul
+{variant:7}Transfiguration of Body
+{variant:8}Transfiguration of Mind
+{variant:2}Blinding a non-Blinded Pinnacle Atlas Boss with this Weapon will
+{variant:2}steal a Modifier for this item (2 Modifiers remaining)
+{variant:3}Blinding a non-Blinded Pinnacle Atlas Boss with this Weapon will
+{variant:3}steal a Modifier for this item (1 Modifier remaining)
+{variant:13}Poisons you inflict deal Damage 18% Slower
+{variant:13}Inflict an additional Poison on the same Target when
+{variant:13}you inflict Poison with this weapon
+{variant:12}30% chance to gain a Frenzy Charge for each Enemy you hit with a Critical Strike
+{variant:15}Gain a random Shrine Buff for 15 seconds when you Blind a
+{variant:15}non-Blinded Rare or Unique Enemy
+{variant:10}Damage with Hits is Lucky while your Offhand is Magic
+{variant:14}Trigger Level 20 Moonfall on Melee Critical Strike
+{variant:11}Attacks with this Weapon have 30% chance to deal Triple Damage
 ]],
 }

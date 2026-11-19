@@ -159,6 +159,8 @@ function main:Init()
 	self.uniqueDB = { list = { }, byTitle = { }, loading = true }
 	---@type ItemDBData
 	self.rareDB = { list = {}, loading = true }
+	---@type ItemDBData
+	self.visceraDB = { list = {}, loading = true }
 
 	local function loadItemDBs()
 		for type, typeList in pairsYield(data.uniques) do
@@ -198,6 +200,19 @@ function main:Init()
 
 		self.rareDB.loading = nil
 		ConPrintf("Rares loaded")
+
+		for _, raw in pairsYield(data.viscera) do
+			local newItem = new("Item"):Item(raw, "RARE", true)
+			if newItem.base then
+				newItem:BuildAndParseRaw()
+				self.visceraDB.list[newItem.name] = newItem
+			elseif launch.devMode then
+				ConPrintf("Viscera DB unrecognised item:\n%s", raw)
+			end
+		end
+
+		self.visceraDB.loading = nil
+		ConPrintf("Viscera loaded")
 	end
 
 	if self.saveNewModCache then

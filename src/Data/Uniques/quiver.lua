@@ -22,7 +22,7 @@ Variant: Current
 Implicits: 2
 {variant:1,2}(20-30)% increased Global Accuracy Rating
 {variant:3}(20-30)% increased Projectile Speed
-{variant:2,3}Grants Level 5 Frostbite Skill
+{variant:2,3}Grants Level 5 Frostbite
 (8-12)% increased Attack Speed
 +(30-40)% to Cold Resistance
 (30-40)% increased Chill Duration on Enemies
@@ -117,7 +117,7 @@ Source: No longer obtainable
 Requires Level 60
 Implicits: 1
 Adds (7-9) to (13-16) Physical Damage to Attacks
-Grants Summon Harbinger of Directions Skill
+Grants Summon Harbinger of Directions
 +(30-50) to Strength and Dexterity
 Adds (19-22) to (30-35) Fire Damage to Spells and Attacks
 Adds (19-22) to (30-35) Cold Damage to Spells and Attacks
@@ -128,7 +128,7 @@ Blunt Arrow Quiver
 Requires Level 60
 Implicits: 1
 Adds (7-9) to (13-16) Physical Damage to Attacks
-Grants Summon Greater Harbinger of Directions Skill
+Grants Summon Greater Harbinger of Directions
 +(30-50) to Strength and Dexterity
 Adds (19-22) to (30-35) Fire Damage to Spells and Attacks
 Adds (19-22) to (30-35) Cold Damage to Spells and Attacks
@@ -283,18 +283,23 @@ Attack skills can have 1 additional Totem Summoned at a time
 Steelworm
 Broadhead Arrow Quiver
 Variant: Pre 3.17.0
+Variant: Pre 3.26.0
+Variant: Pre 3.30.0
 Variant: Current
 Source: Labyrinth
 Requires Level 52
 Implicits: 2
-{variant:2}(8-10)% increased Attack Speed
+{variant:2,3,4}(8-10)% increased Attack Speed
 {variant:1}6 to 12 Added Physical Damage with Bow Attacks
 Grants Call of Steel
 (30-60)% increased Evasion Rating and Armour
 Deal no Non-Physical Damage
 Attacks that Fire Projectiles Consume up to 1 additional Steel Shard
-Skills Fire 3 additional Projectiles for 4 seconds after
-you consume a total of 8 Steel Shards
+{variant:3,4}Skills Fire 3 additional Projectiles for 4 seconds after
+{variant:3,4}you consume a total of 8 Steel Shards
+{variant:1,2}Skills Fire 3 additional Projectiles for 4 seconds after
+{variant:1,2}you consume a total of 12 Steel Shards
+{variant:4}(20-30)% increased Impale Effect
 ]],[[
 Soul Strike
 Spike-Point Arrow Quiver

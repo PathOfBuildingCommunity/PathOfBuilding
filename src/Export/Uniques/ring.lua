@@ -1696,7 +1696,7 @@ AttackImpaleChanceUnique__2
 {variant:1}ChanceMeleeHitsDontRemoveSTRONGESTImpaleUnique_1[45,60]
 {variant:2}ChanceMeleeHitsDontRemoveSTRONGESTImpaleUnique_1
 ]],
-[[
+	[[
 Zana's Ingenuity
 Prismatic Ring
 Source: Drops from unique{The Shaper} (Uber)
@@ -1739,5 +1739,16 @@ AllResistancesUnique__38
 {variant:16}{group:3,4}ReducedCurseEffectUnique__2
 {variant:17}{group:3,4}UniqueYourAttacksCannotBeBlocked__1
 {variant:18}{group:3,4}UniqueAvoidChainingProjectiles__1
-]],
+]],[[
+Unwilling Embrace
+Bone Ring
+Implicits: 1
+MinionElementalResistanceImplicitRing1
+ChanceToSuppressSpellsUnique__7
+DexterityUnique__36
+IncreasedEvasionRatingUniqueRing89
+MinionDamageUnique__10
+MinionGainYourSpellSuppressChanceUnique_1
+MinionNoArmourEnergyShieldUnique_1
+]]
 }
