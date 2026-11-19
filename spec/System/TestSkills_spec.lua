@@ -935,4 +935,43 @@ describe("TestSkills", function()
 			assert.is_nil(build.calcsTab.mainEnv.player.modDB.multipliers["Cruelty"])
 		end
 	end)
+
+	local function setupImbuedFireball(imbuedSupport, gems)
+		build.itemsTab:CreateDisplayItemFromRaw([[
+		Test Subject
+		Imbued Wand
+		Sockets: B-B-B
+		]])
+		build.itemsTab:AddDisplayItem()
+		build.skillsTab:PasteSocketGroup(gems or "Fireball 20/0  1")
+		local group = build.skillsTab.socketGroupList[1]
+		group.slot = "Weapon 1"
+		group.imbuedSupport = imbuedSupport
+		build.skillsTab:RebuildImbuedSupportBySlot()
+		build.buildFlag = true
+		runCallback("OnFrame")
+		return build.calcsTab.mainEnv.player.mainSkill
+	end
+
+	it("only lists bricked imbued supports in the imbued dropdown", function()
+		local normal = new("GemSelectControl"):GemSelectControl(nil, { 0, 0, 100, 20 }, build.skillsTab, 1, function() end)
+		local imbued = new("GemSelectControl"):GemSelectControl(nil, { 0, 0, 100, 20 }, build.skillsTab, 1, function() end, nil, true)
+		normal:PopulateGemList()
+		imbued:PopulateGemList()
+		local gemId = build.data.gemForBaseName["poverty support"]
+		assert.is_nil(normal.gems["Default:" .. gemId])
+		assert.is_not_nil(imbued.gems["Default:" .. gemId])
+	end)
+
+	it("prevents other supports from applying with imbued Constriction", function()
+		local skill = setupImbuedFireball("Constriction", "Fireball 20/0  1\nAdded Fire Damage 20/0  1")
+		assert.are.equals(2, #skill.effectList)
+		assert.are.equals("SupportConstriction", skill.effectList[2].grantedEffect.id)
+	end)
+
+	it("doubles the supported gem's attribute requirements with imbued Taxation", function()
+		setupImbuedFireball("Taxation")
+		local gemReq = build.skillsTab.socketGroupList[1].gemList[1].reqInt
+		assert.are.equals(gemReq * 2, build.calcsTab.mainOutput.ReqInt)
+	end)
 end)
