@@ -259,16 +259,14 @@ local function doActorAttribsConditions(env, actor)
 	local condList = modDB.conditions
 
 	-- Set conditions
-	-- Weapon slots disabled by Manifested Dancing Dervishes count as empty
-	local weapon2 = not actor.weaponsDisabled and actor.itemList["Weapon 2"]
-	if (weapon2 and weapon2.type == "Shield") or (actor == env.player and env.aegisModList) then
+	if (actor.itemList["Weapon 2"] and actor.itemList["Weapon 2"].type == "Shield") or (actor == env.player and env.aegisModList) then
 		condList["UsingShield"] = true
-	elseif not weapon2 then
+	elseif not actor.itemList["Weapon 2"] then
 		condList["OffHandIsEmpty"] = true
 	end
 	if actor.weaponData1.type == "None" then
 		condList["Unarmed"] = true
-		if not weapon2 and not actor.itemList["Gloves"] then
+		if not actor.itemList["Weapon 2"] and not actor.itemList["Gloves"] then
 			condList["Unencumbered"] = true
 		end
 	else
@@ -1232,7 +1230,7 @@ local function initMinionModDB(env, activeSkill, output)
 			minion.modDB:AddList(env.player.itemList["Gloves"].modList)
 		end
 	end
-	if activeSkill.skillData.minionUseMainHandWeapon then
+	if activeSkill.skillData.minionUseMainHandWeapon and env.player.itemList["Weapon 1"] then
 		minion.modDB:AddList(env.player.itemList["Weapon 1"].slotModList[1])
 	end
 	if minion.itemSet or minion.uses then
@@ -1245,7 +1243,8 @@ local function initMinionModDB(env, activeSkill, output)
 					end
 					item = env.build.itemsTab.items[minion.itemSet[slotName].selItemId]
 				else
-					item = env.player.itemList[slotName]
+					-- Minions can still use weapons disabled by Manifested Dancing Dervishes
+					item = env.player.itemList[slotName] or env.player.disabledItemList[slotName]
 				end
 				if item then
 					minion.itemList[slotName] = item

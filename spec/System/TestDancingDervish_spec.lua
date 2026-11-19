@@ -30,9 +30,14 @@ describe("TestDancingDervish", function()
 		runCallback("OnFrame")
 	end
 
-	local function equip(raw)
+	local function equip(raw, slotName)
 		build.itemsTab:CreateDisplayItemFromRaw(raw)
+		local item = build.itemsTab.displayItem
 		build.itemsTab:AddDisplayItem()
+		if slotName then
+			build.itemsTab.slots[slotName]:SetSelItemId(item.id)
+			build.buildFlag = true
+		end
 		runCallback("OnFrame")
 	end
 
@@ -40,6 +45,14 @@ describe("TestDancingDervish", function()
 		build.configTab.input.customMods = mods
 		build.configTab:BuildModList()
 		rebuild()
+	end
+
+	local function findManifestGroup()
+		for _, group in ipairs(build.skillsTab.socketGroupList) do
+			if group.source and group.gemList[1] and group.gemList[1].skillId == "ManifestDancingDervishes" then
+				return group
+			end
+		end
 	end
 
 	-- Equips The Dancing Dervish and uses the given skill as the main skill
@@ -50,11 +63,7 @@ describe("TestDancingDervish", function()
 		equip(dancingDervish)
 		build.mainSocketGroup = 1
 		rebuild()
-		for _, group in ipairs(build.skillsTab.socketGroupList) do
-			if group.source then
-				return group
-			end
-		end
+		return findManifestGroup()
 	end
 
 	local function setManifested(dervishGroup, manifested)
@@ -90,7 +99,8 @@ describe("TestDancingDervish", function()
 		local env = build.calcsTab.mainEnv
 		assert.is_true(player().weaponsDisabled)
 		assert.are.equals("None", player().weaponData1.type)
-		assert.are.equals(player().itemList["Weapon 1"].weaponData[1], env.minion.weaponData1)
+		assert.is_nil(player().itemList["Weapon 1"])
+		assert.are.equals(player().disabledItemList["Weapon 1"].weaponData[1], env.minion.weaponData1)
 		assert.are.equals("Two Handed Sword", env.minion.weaponData1.type)
 		assert.is_true(build.calcsTab.mainOutput.Minion.TotalDPS > 0)
 	end)
@@ -231,5 +241,78 @@ describe("TestDancingDervish", function()
 		rebuild()
 		assert.is_true(player().weaponsDisabled)
 		assert.are.equals(unarmedHit, build.calcsTab.mainOutput.AverageHit)
+	end)
+
+	it("disables the weapon slots as soon as The Dancing Dervish is equipped", function()
+		build.skillsTab:PasteSocketGroup("Cyclone 20/0 1")
+		runCallback("OnFrame")
+		-- The socket group of the granted skill doesn't exist yet when the items are processed
+		equip(dancingDervish)
+		assert.is_true(player().weaponsDisabled)
+		assert.is_nil(player().itemList["Weapon 1"])
+		assert.are.equals("None", player().weaponData1.type)
+	end)
+
+	it("does not disable a weapon that's compared against The Dancing Dervish", function()
+		setup("Cyclone 20/0 1")
+		local sword = new("Item"):Item("Rarity: RARE\nTest Sword\nRusted Sword\nImplicits: 0\n10% increased Fire Damage")
+		local env = build.calcsTab.calcs.initEnv(build, "CALCULATOR", { repSlotName = "Weapon 1", repItem = sword })
+		assert.is_false(env.player.weaponsDisabled)
+		assert.are.equals(sword, env.player.itemList["Weapon 1"])
+		assert.are.equals(10, env.modDB:Sum("INC", nil, "FireDamage"))
+	end)
+
+	it("keeps the requirements of the disabled weapon", function()
+		setup("Cyclone 20/0 1")
+		assert.is_true(player().weaponsDisabled)
+		local weaponRequirement
+		for _, requirement in ipairs(build.calcsTab.mainEnv.requirementsTable) do
+			if requirement.sourceSlot == "Weapon 1" then
+				weaponRequirement = requirement
+			end
+		end
+		assert.are.equals(player().disabledItemList["Weapon 1"], weaponRequirement.sourceItem)
+		assert.is_true(weaponRequirement.Str > 0)
+	end)
+
+	it("does not let Energy Blade replace the disabled weapons", function()
+		local dervishGroup = setup("Cyclone 20/0 1")
+		build.skillsTab:PasteSocketGroup("Energy Blade 20/0 1")
+		rebuild()
+		assert.is_true(player().weaponsDisabled)
+		assert.is_nil(player().itemList["Weapon 1"])
+		assert.are.equals("None", player().weaponData1.type)
+		assert.is_true(bit.band(player().mainSkill.weapon1Flags, ModFlag.Unarmed) > 0)
+
+		setManifested(dervishGroup, false)
+		assert.are.equals("Energy Blade Two Handed", player().itemList["Weapon 1"].baseName)
+		assert.are.equals(0, bit.band(player().mainSkill.weapon1Flags, ModFlag.Unarmed))
+	end)
+
+	it("only disables the weapon slots while The Dancing Dervish is in the active weapon set", function()
+		build.skillsTab:PasteSocketGroup("Cyclone 20/0 1")
+		runCallback("OnFrame")
+		equip([[
+			Rarity: RARE
+			Test Sword
+			Rusted Sword
+			Implicits: 0
+			10% increased Fire Damage
+		]], "Weapon 1")
+		equip(dancingDervish, "Weapon 1 Swap")
+		build.mainSocketGroup = 1
+		rebuild()
+		assert.is_false(player().weaponsDisabled)
+		assert.are.equals("Test Sword", player().itemList["Weapon 1"].title)
+		assert.are.equals(10, player().modDB:Sum("INC", nil, "FireDamage"))
+		assert.are.equals(0, player().modDB:Sum("INC", nil, "Accuracy"))
+
+		build.itemsTab.activeItemSet.useSecondWeaponSet = true
+		rebuild()
+		assert.is_true(player().weaponsDisabled)
+		assert.is_nil(player().itemList["Weapon 1"])
+		assert.are.equals("The Dancing Dervish", player().disabledItemList["Weapon 1"].title)
+		assert.are.equals(0, player().modDB:Sum("INC", nil, "FireDamage"))
+		assert.are.equals(0, player().modDB:Sum("INC", nil, "Accuracy"))
 	end)
 end)

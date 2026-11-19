@@ -588,7 +588,7 @@ function calcs.offence(env, actor, activeSkill)
 
 	-- account for Battlemage
 	-- Note: we check conditions of Main Hand weapon using actor.itemList as actor.weaponData1 is populated with unarmed values when no weapon slotted.
-	if skillModList:Flag(nil, "Battlemage") and not actor.weaponsDisabled and actor.itemList["Weapon 1"] and actor.itemList["Weapon 1"].weaponData and actor.itemList["Weapon 1"].weaponData[1] then
+	if skillModList:Flag(nil, "Battlemage") and actor.itemList["Weapon 1"] and actor.itemList["Weapon 1"].weaponData and actor.itemList["Weapon 1"].weaponData[1] then
 
 		local multiplier = (skillModList:Max(skillCfg, "MainHandWeaponDamageAppliesToSpells") or 100) / 100
 		for _, damageType in ipairs(dmgTypeList) do
@@ -601,7 +601,7 @@ function calcs.offence(env, actor, activeSkill)
 	-- -- account for Spellblade
 	-- Note: we check conditions of Main Hand weapon using actor.itemList as actor.weaponData1 is populated with unarmed values when no weapon slotted.
 	local spellbladeMulti = skillModList:Max(skillCfg, "OneHandWeaponDamageAppliesToSpells")
-	if spellbladeMulti and not actor.weaponsDisabled and actor.itemList["Weapon 1"] and actor.itemList["Weapon 1"].weaponData and actor.itemList["Weapon 1"].weaponData[1] and weapon1info.melee and weapon1info.oneHand then
+	if spellbladeMulti and actor.itemList["Weapon 1"] and actor.itemList["Weapon 1"].weaponData and actor.itemList["Weapon 1"].weaponData[1] and weapon1info.melee and weapon1info.oneHand then
 		local multiplier = spellbladeMulti / 100 * (weapon2info and 0.6 or 1)
 		for _, damageType in ipairs(dmgTypeList) do
 			skillModList:NewMod(damageType.."Min", "BASE", m_floor((actor.weaponData1[damageType.."Min"] or 0) * multiplier), "Spellblade Main Hand", ModFlag.Spell)
