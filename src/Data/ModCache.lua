@@ -8378,7 +8378,7 @@ c["30% increased Armour and Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="
 c["30% increased Armour and Evasion"]={{[1]={flags=0,keywordFlags=0,name="ArmourAndEvasion",type="INC",value=30}},nil}
 c["30% increased Armour and Evasion Rating during Onslaught"]={{[1]={[1]={type="Condition",var="Onslaught"},flags=0,keywordFlags=0,name="ArmourAndEvasion",type="INC",value=30}},nil}
 c["30% increased Armour and Evasion Rating if your Main Hand Weapon"]={{[1]={[1]={type="Condition",var="MainHandAttack"},[2]={skillType=1,type="SkillType"},flags=8192,keywordFlags=0,name="ArmourAndEvasion",type="INC",value=30}},"  if your  "}
-c["30% increased Armour and Evasion Rating if your Main Hand Weapon has a Red and Green Socket"]={{[1]={[1]={type="Condition",var="MainHandAttack"},[2]={skillType=1,type="SkillType"},flags=8192,keywordFlags=0,name="ArmourAndEvasion",type="INC",value=30}},"  if your  has a Red and Green Socket "}
+c["30% increased Armour and Evasion Rating if your Main Hand Weapon has a Red and Green Socket"]={{[1]={[1]={threshold=1,type="MultiplierThreshold",var="RedSocketInWeapon 1"},[2]={threshold=1,type="MultiplierThreshold",var="GreenSocketInWeapon 1"},flags=0,keywordFlags=0,name="ArmourAndEvasion",type="INC",value=30}},nil}
 c["30% increased Armour and Evasion Rating while Fortified"]={{[1]={[1]={type="Condition",var="Fortified"},flags=0,keywordFlags=0,name="ArmourAndEvasion",type="INC",value=30}},nil}
 c["30% increased Armour from Equipped Helmet and Gloves"]={{[1]={[1]={slotNameList={[1]="Helmet",[2]="Gloves"},type="SlotName"},flags=0,keywordFlags=0,name="Armour",type="INC",value=30}},nil}
 c["30% increased Armour if you have been Hit Recently"]={{[1]={[1]={type="Condition",var="BeenHitRecently"},flags=0,keywordFlags=0,name="Armour",type="INC",value=30}},nil}
@@ -23241,7 +23241,6 @@ c["has a 20% increased angle With at least 40 Strength in Radius, Ground Slam"]=
 c["has a 35% increased angle"]={nil,"has a 35% increased angle "}
 c["has a 35% increased angle With at least 40 Strength in Radius, Ground Slam"]={nil,"has a 35% increased angle With at least 40 Strength in Radius, Ground Slam "}
 c["has a 50% increased angle"]={nil,"has a 50% increased angle "}
-c["has a Red and Green Socket"]={nil,"has a Red and Green Socket "}
 c["have 100% reduced Life Regeneration Rate"]={nil,"100% reduced Life Regeneration Rate "}
 c["have fewer than 5 Poisons on you"]={nil,"fewer than 5 Poisons on you "}
 c["more than once every 0.3 seconds"]={nil,"more than once every 0.3 seconds "}
