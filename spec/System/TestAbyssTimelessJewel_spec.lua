@@ -501,4 +501,27 @@ describe("Abyss timeless jewels", function()
 		assert.are.equal("From Below", spec.nodes[50692].dn)
 		assert.are.equal("Sione, Sun's Roar", spec.nodes[31667].dn)
 	end)
+
+	-- The Loyal Few: each line affects all minions, but only while you have a minion of the named type
+	for _, case in ipairs({
+		{ minion = "Zombie", line = "Minions take 10% less Damage while you have a Zombie", group = "Raise Zombie 20/0  1",
+			read = function(modDB) return modDB:More(nil, "DamageTaken") end, without = 1, with = 0.9 },
+		{ minion = "Skeleton", line = "Minions deal 10% more Damage while you have a Skeleton", group = "Summon Skeletons 20/0  1",
+			read = function(modDB) return modDB:More(nil, "Damage") end, without = 1, with = 1.1 },
+		{ minion = "Spectre", line = "Minions gain 10% of Non-Chaos Damage as extra Chaos Damage while you have a Spectre", group = "Raise Spectre 20/0  1",
+			read = function(modDB) return modDB:Sum("BASE", nil, "NonChaosDamageGainAsChaos") end, without = 0, with = 10 },
+	}) do
+		it("applies The Loyal Few's " .. case.minion .. " line to other minions only while you have a " .. case.minion, function()
+			build.spectreList = { "Metadata/Monsters/BloodChieftain/MonkeyChiefBloodEnrage" }
+			build.skillsTab:PasteSocketGroup("Summon Raging Spirit 20/0  1")
+			build.configTab.input.customMods = case.line
+			build.configTab:BuildModList()
+			runCallback("OnFrame")
+			assert.are.equal(case.without, case.read(build.calcsTab.mainEnv.minion.modDB))
+
+			build.skillsTab:PasteSocketGroup(case.group)
+			runCallback("OnFrame")
+			assert.are.equal(case.with, case.read(build.calcsTab.mainEnv.minion.modDB))
+		end)
+	end
 end)
