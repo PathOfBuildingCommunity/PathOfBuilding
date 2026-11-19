@@ -11,6 +11,54 @@ local band = bit.band
 local m_max = math.max
 local dkjson = require "dkjson"
 
+local function shallowCopyTable(source)
+	local result = { }
+	for key, value in pairs(source) do
+		result[key] = value
+	end
+	return result
+end
+
+-- Parse PoB's "Name {identifier1,identifier2}" convention.
+local function parseLoadoutTitleIdentifiers(title)
+	local identifiers = title:match("%{([%w,]+)%}")
+	if not identifiers then
+		return nil
+	end
+	local base = title:gsub("%{" .. identifiers .. "%}", ""):gsub("^%s+", ""):gsub("%s+$", "")
+	return base ~= "" and base or "Default", identifiers
+end
+
+-- Mirror the loadout dropdown's version prefix for older trees.
+local function getLoadoutVersionPrefix(spec, linkId)
+	return not linkId and spec.treeVersion ~= latestTreeVersion and ("[" .. treeVersions[spec.treeVersion].display .. "] ") or ""
+end
+
+local function reserveUniqueLoadoutTitles(usedTitles, selection, sourceSpec, requestedTitle)
+	local requested = requestedTitle and requestedTitle:gsub("^%s+", ""):gsub("%s+$", "")
+	local base = requested and requested ~= "" and requested or selection.sourceTitle or "Imported loadout"
+	local linkId = not requested and selection.linkId or nil
+	if requested then
+		-- Braces have special linking semantics in loadout names.
+		base = base:gsub("{", "("):gsub("}", ")")
+	elseif linkId then
+		base = base:gsub("%s*%{" .. linkId .. "%}%s*$", "")
+	end
+	local versionPrefix = getLoadoutVersionPrefix(sourceSpec, linkId)
+	local suffix = 1
+	while true do
+		local suffixText = suffix > 1 and (" (" .. suffix .. ")") or ""
+		local treeTitle = linkId and (base .. suffixText .. " {" .. linkId .. "}") or (base .. suffixText)
+		local displayTitle = versionPrefix .. treeTitle
+		if not usedTitles[treeTitle] and not usedTitles[displayTitle] then
+			usedTitles[treeTitle] = true
+			usedTitles[displayTitle] = true
+			return treeTitle, displayTitle, suffix > 1
+		end
+		suffix = suffix + 1
+	end
+end
+
 
 
 local influenceInfo = itemLib.influenceInfo.all
@@ -583,10 +631,6 @@ function ImportTabClass:ImportTab(build)
 			return
 		end
 
-		if not self.build.dbFileName then
-			self.controls.importCodeMode.selIndex = 2
-		end
-
 		self.importCodeDetail = colorCodes.NEGATIVE.."Invalid input"
 		local urlText = buf:gsub("^[%s?]+", ""):gsub("[%s?]+$", "") -- Quick Trim
 		if urlText:match("youtube%.com/redirect%?") or urlText:match("google%.com/url%?") then
@@ -624,6 +668,7 @@ function ImportTabClass:ImportTab(build)
 				return
 			end
 			self.importCodeJson = jsonData
+			self.controls.importCodeMode.selIndex = 1
 			self.importCodeDetail = colorCodes.POSITIVE.."JSON is valid"
 			self.importCodeValid = true
 			return
@@ -661,6 +706,12 @@ function ImportTabClass:ImportTab(build)
 					main:OpenMessagePopup("Import Error", "Failed to import build for comparison.")
 				end
 			end
+		elseif self.controls.importCodeMode.selIndex == 4 then
+			local opened, importError = self:OpenLoadoutImportPopup(self.importCodeXML)
+			if not opened then
+				local detail = importError and ("\n\n" .. importError) or ""
+				main:OpenMessagePopup("Import Error", "Failed to import build as a loadout. The current build has been preserved." .. detail)
+			end
 		else
 			self.build:Shutdown()
 			self.build:Init(false, "Imported build", self.importCodeXML, false, self.importCodeSite and self.controls.importCodeIn.buf or nil)
@@ -678,9 +729,10 @@ function ImportTabClass:ImportTab(build)
 	self.controls.importCodeState.label = function()
 		return self.importCodeDetail or ""
 	end
-	self.controls.importCodeMode = new("DropDownControl"):DropDownControl({"TOPLEFT",self.controls.importCodeIn,"BOTTOMLEFT"}, {0, 4, 200, 20}, { "Import to this build", "Import to a new build", "Import as comparison" })
+	self.controls.importCodeMode = new("DropDownControl"):DropDownControl({"TOPLEFT",self.controls.importCodeIn,"BOTTOMLEFT"}, {0, 4, 200, 20}, { "Import to this build", "Import to a new build", "Import as comparison", "Import to a new loadout" })
+	self.controls.importCodeMode.selIndex = self.build.dbFileName and 1 or 2
 	self.controls.importCodeMode.enabled = function()
-		return (self.build.dbFileName or self.controls.importCodeMode.selIndex == 3) and self.importCodeValid
+		return self.importCodeValid and not self.importCodeFetching and not self.importCodeJson
 	end
 	self.controls.importCodeGo = new("ButtonControl"):ButtonControl({"LEFT",self.controls.importCodeMode,"RIGHT"}, {8, 0, 160, 20}, "Import", function()
 		if self.importCodeSite and not self.importCodeXML then
@@ -1018,6 +1070,726 @@ function ImportTabClass:DownloadSiteCharacterList(realm)
 					self:SaveAccountHistory()
 				end)
 		end)
+end
+
+-- Load separately before touching the current build. CompareEntry uses the normal tab
+-- loaders, including migrations for older build codes, without replacing the build.
+---@param xmlText string
+---@return table? imported
+---@return table[]? loadouts
+---@return boolean? hasNamedLoadout
+---@return string? errorMessage
+function ImportTabClass:PrepareLoadoutImport(xmlText)
+	local xml, err = common.xml.ParseXML(xmlText or "")
+	if err or not xml or not xml[1] or xml[1].elem ~= "PathOfBuilding" then
+		return nil, nil, nil, "The imported text is not a valid Path of Building XML document."
+	end
+	local hasBuild = false
+	for _, section in ipairs(xml[1]) do
+		if type(section) == "table" then
+			if section.elem == "Build" then
+				hasBuild = true
+				if section.attrib.targetVersion and section.attrib.targetVersion ~= liveTargetVersion then
+					return nil, nil, nil, "The imported build targets a different game version."
+				end
+			elseif section.elem == "Tree" then
+				for _, spec in ipairs(section) do
+					if type(spec) == "table" and spec.elem == "Spec" and spec.attrib.treeVersion and not treeVersions[spec.attrib.treeVersion] then
+						return nil, nil, nil, "The imported build uses an unsupported passive tree version."
+					end
+				end
+			end
+		end
+	end
+	if not hasBuild then
+		return nil, nil, nil, "The imported document does not contain build data."
+	end
+	local build = self.build
+	local ok, imported = pcall(function()
+		return new("CompareEntry"):CompareEntry(xmlText, "Imported loadout")
+	end)
+	-- Loading a passive tree changes these globals even for a temporary build.
+	data.setJewelRadiiGlobally(build.spec.treeVersion)
+	build.spec:SetWindowTitleWithBuildClass()
+	if not ok then
+		ConPrintf("Loadout import failed: %s", imported)
+		return nil, nil, nil, "The imported build could not be loaded. See the developer console for details."
+	end
+	if not imported.spec or not imported.calcsTab then
+		return nil, nil, nil, "The imported build is incomplete."
+	end
+
+	-- Find the set used by a loadout, treating a single set as shared by every
+	-- loadout and otherwise matching either its title or brace-link identifier.
+	local function findSetId(order, sets, displayTitle, linkId)
+		if #order == 1 then
+			return order[1]
+		end
+		for _, id in ipairs(order) do
+			local setTitle = sets[id].title or "Default"
+			if linkId then
+				local _, identifiers = parseLoadoutTitleIdentifiers(setTitle)
+				if identifiers then
+					for identifier in identifiers:gmatch("[^,]+") do
+						if identifier == linkId then
+							return id
+						end
+					end
+				end
+			elseif setTitle == displayTitle then
+				return id
+			end
+		end
+	end
+	local loadouts = { }
+	-- Add a candidate only when every set required to import it can be found;
+	local function addLoadout(treeIndex, sourceTitle, linkId)
+		local sourceSpec = imported.treeTab.specList[treeIndex]
+		local displayTitle = getLoadoutVersionPrefix(sourceSpec, linkId) .. sourceTitle
+		local itemSetId = findSetId(imported.itemsTab.itemSetOrderList, imported.itemsTab.itemSets, displayTitle, linkId)
+		local skillSetId = findSetId(imported.skillsTab.skillSetOrderList, imported.skillsTab.skillSets, displayTitle, linkId)
+		local configSetId = findSetId(imported.configTab.configSetOrderList, imported.configTab.configSets, displayTitle, linkId)
+		if itemSetId and skillSetId and configSetId then
+			local specTitle = sourceSpec.title
+			local itemTitle = imported.itemsTab.itemSets[itemSetId].title
+			local skillTitle = imported.skillsTab.skillSets[skillSetId].title
+			local configTitle = imported.configTab.configSets[configSetId].title
+			t_insert(loadouts, {
+				label = displayTitle,
+				sourceTitle = sourceTitle,
+				linkId = linkId,
+				isDefault = not specTitle and not itemTitle and not skillTitle and (not configTitle or configTitle == "Default"),
+				treeIndex = treeIndex,
+				itemSetId = itemSetId,
+				skillSetId = skillSetId,
+				configSetId = configSetId,
+			})
+		end
+	end
+	for treeIndex, spec in ipairs(imported.treeTab.specList) do
+		local sourceTitle = spec.title or "Default"
+		local base, identifiers = parseLoadoutTitleIdentifiers(sourceTitle)
+		if identifiers then
+			for identifier in identifiers:gmatch("[^,]+") do
+				addLoadout(treeIndex, base .. " {" .. identifier .. "}", identifier)
+			end
+		else
+			addLoadout(treeIndex, sourceTitle)
+		end
+	end
+	-- Untitled sets form the build's base state. When named loadouts exist they
+	-- are the choices being imported; the base state is not an extra loadout.
+	local hasNamedLoadout = false
+	for _, loadout in ipairs(loadouts) do
+		hasNamedLoadout = hasNamedLoadout or not loadout.isDefault
+	end
+	if hasNamedLoadout then
+		for index = #loadouts, 1, -1 do
+			if loadouts[index].isDefault then
+				table.remove(loadouts, index)
+			end
+		end
+	end
+	-- A build can have named sets that do not form a loadout. If there are no
+	-- complete matches, preserve the old behaviour and offer the active combination.
+	if not loadouts[1] then
+		t_insert(loadouts, {
+			label = "Imported loadout",
+			sourceTitle = imported.spec.title or "Default",
+			treeIndex = imported.treeTab.activeSpec,
+			itemSetId = imported.itemsTab.activeItemSetId,
+			skillSetId = imported.skillsTab.activeSkillSetId,
+			configSetId = imported.configTab.activeConfigSetId,
+		})
+	end
+	return imported, loadouts, hasNamedLoadout
+end
+
+--- Collect every existing tree, set, and dropdown name to avoid name collisions.
+---@return table<string, boolean> usedTitles
+function ImportTabClass:GetUsedLoadoutNames()
+	local usedNames = { }
+	for _, spec in ipairs(self.build.treeTab.specList) do
+		usedNames[spec.title or "Default"] = true
+	end
+	for _, sets in ipairs({ self.build.itemsTab.itemSets, self.build.skillsTab.skillSets, self.build.configTab.configSets }) do
+		for _, set in pairs(sets) do
+			usedNames[set.title or "Default"] = true
+		end
+	end
+	for _, title in ipairs(self.build.controls.buildLoadouts.list) do
+		usedNames[title] = true
+	end
+	return usedNames
+end
+
+--- Predict which selected loadouts need suffixes so we can warn users.
+---@param imported table
+---@param loadouts table[]
+---@param selectedIndices table<integer, boolean>?
+---@return table<integer, boolean> conflicts
+---@return boolean hasConflict
+function ImportTabClass:GetLoadoutImportNameConflicts(imported, loadouts, selectedIndices)
+	local usedNames = self:GetUsedLoadoutNames()
+	local conflicts, hasConflict = { }, false
+	for index, loadout in ipairs(loadouts) do
+		if not selectedIndices or selectedIndices[index] then
+			local sourceSpec = imported.treeTab.specList[loadout.treeIndex]
+			local _, _, renamed = reserveUniqueLoadoutTitles(usedNames, loadout, sourceSpec)
+			conflicts[index] = renamed
+			hasConflict = hasConflict or renamed
+		else
+			conflicts[index] = false
+		end
+	end
+	return conflicts, hasConflict
+end
+
+---@param xmlText string
+---@return boolean opened
+---@return string? errorMessage
+function ImportTabClass:OpenLoadoutImportPopup(xmlText)
+	local imported, loadouts, hasNamedLoadouts, prepareError = self:PrepareLoadoutImport(xmlText)
+	if not imported then
+		return false, prepareError
+	end
+	local controls = { }
+	if not hasNamedLoadouts then
+		controls.label = new("LabelControl"):LabelControl(nil, { 0, 20, 0, 16 }, "^7Enter a name for the imported loadout:")
+		controls.name = new("EditControl"):EditControl(nil, { 0, 43, 350, 20 }, "Imported loadout", "Loadout name", "%c", 100)
+		controls.import = new("ButtonControl"):ButtonControl(nil, { -45, 75, 80, 20 }, "Import", function()
+			local success, importError = self:ImportPreparedLoadouts(imported, { { selection = loadouts[1], requestedTitle = controls.name.buf } })
+			main:ClosePopup()
+			if success then
+				self.build.viewMode = "TREE"
+			else
+				local detail = importError and ("\n\n" .. importError) or ""
+				main:OpenMessagePopup("Import Error", "Failed to import build as a loadout. The current build has been preserved." .. detail)
+			end
+		end)
+		controls.import.enabled = function()
+			return controls.name.buf:match("%S") ~= nil
+		end
+		controls.cancel = new("ButtonControl"):ButtonControl(nil, { 45, 75, 80, 20 }, "Cancel", function()
+			main:ClosePopup()
+		end)
+		main:OpenPopup(390, 105, "Import Loadout", controls, "import", "name", "cancel")
+		return true
+	end
+
+	local nameConflicts, hasNameConflict = self:GetLoadoutImportNameConflicts(imported, loadouts)
+	controls.label = new("LabelControl"):LabelControl(nil, { 0, 18, 0, 16 }, "^7This build contains loadouts:")
+	controls.mode = new("DropDownControl"):DropDownControl(nil, { 0, 41, 220, 20 }, { "Import all loadouts", "Select loadouts" })
+	if hasNameConflict then
+		controls.warning = new("LabelControl"):LabelControl(nil, { 0, 68, 0, 14 }, colorCodes.WARNING .. "One or more selected loadouts have name conflicts and will be renamed.")
+		controls.warning.shown = function()
+			return hasNameConflict
+		end
+	end
+	local rowHeight = 22
+	local listTop = hasNameConflict and 91 or 73
+	local popupWidth = math.min(500, main.screenW - 20)
+	local maxPopupHeight = math.min(376, main.screenH - 20)
+	local maxVisibleRows = math.max(1, math.min(12, math.floor((maxPopupHeight - listTop - 39) / rowHeight)))
+	local visibleRows = math.min(#loadouts, maxVisibleRows)
+	local listHeight = visibleRows * rowHeight
+	controls.scrollBar = new("ScrollBarControl"):ScrollBarControl({ "TOPRIGHT", nil, "TOPRIGHT" }, { -6, listTop, 16, listHeight }, rowHeight, "VERTICAL", true)
+	controls.scrollBar:SetContentDimension(#loadouts * rowHeight, listHeight)
+	local refreshNameConflicts
+	for index, loadout in ipairs(loadouts) do
+		local loadoutIndex = index
+		local label = (nameConflicts[index] and colorCodes.WARNING or "") .. loadout.label
+		local check = new("CheckBoxControl"):CheckBoxControl(nil, { -popupWidth / 2 + 24, 0, 18 }, label, function()
+			refreshNameConflicts()
+		end, nil, true)
+		check.labelRight = true
+		check.y = function()
+			return listTop + (loadoutIndex - 1) * rowHeight - controls.scrollBar.offset
+		end
+		check.shown = function()
+			local y = check:GetProperty("y")
+			return y >= listTop and y + check.height <= listTop + listHeight
+		end
+		check.enabled = function()
+			return controls.mode.selIndex == 2
+		end
+		controls["loadout" .. index] = check
+	end
+	refreshNameConflicts = function()
+		local selectedIndices = { }
+		for index = 1, #loadouts do
+			selectedIndices[index] = controls["loadout" .. index].state
+		end
+		nameConflicts, hasNameConflict = self:GetLoadoutImportNameConflicts(imported, loadouts, selectedIndices)
+		for index, loadout in ipairs(loadouts) do
+			controls["loadout" .. index].label = (nameConflicts[index] and colorCodes.WARNING or "") .. loadout.label
+		end
+	end
+	controls.mode.selFunc = function(index)
+		if index == 1 then
+			for loadoutIndex = 1, #loadouts do
+				controls["loadout" .. loadoutIndex].state = true
+			end
+		end
+		refreshNameConflicts()
+	end
+	local buttonY = listTop + listHeight + 9
+	controls.import = new("ButtonControl"):ButtonControl(nil, { -45, buttonY, 80, 20 }, "Import", function()
+		local selected = { }
+		for index, loadout in ipairs(loadouts) do
+			if controls["loadout" .. index].state then
+				t_insert(selected, { selection = loadout })
+			end
+		end
+		local success, importError = self:ImportPreparedLoadouts(imported, selected)
+		main:ClosePopup()
+		if success then
+			self.build.viewMode = "TREE"
+		else
+			local detail = importError and ("\n\n" .. importError) or ""
+			main:OpenMessagePopup("Import Error", "Failed to import the selected loadouts. The current build has been preserved." .. detail)
+		end
+	end)
+	controls.import.enabled = function()
+		for index = 1, #loadouts do
+			if controls["loadout" .. index].state then
+				return true
+			end
+		end
+		return false
+	end
+	controls.cancel = new("ButtonControl"):ButtonControl(nil, { 45, buttonY, 80, 20 }, "Cancel", function()
+		main:ClosePopup()
+	end)
+	local useScrollBar = #loadouts > visibleRows
+	main:OpenPopup(popupWidth, buttonY + 30, "Import Loadouts", controls, "import", "mode", "cancel", useScrollBar and function() end or nil)
+	return true
+end
+
+-- Snapshot every collection, selection, history, and dirty flag changed by an
+-- import so an unexpected error can leave the existing build exactly intact.
+local function captureLoadoutImportState(build)
+	local skillsTab = build.skillsTab
+	return {
+		items = shallowCopyTable(build.itemsTab.items),
+		itemOrderList = shallowCopyTable(build.itemsTab.itemOrderList),
+		itemSets = shallowCopyTable(build.itemsTab.itemSets),
+		itemSetOrderList = shallowCopyTable(build.itemsTab.itemSetOrderList),
+		skillSets = shallowCopyTable(skillsTab.skillSets),
+		skillSetOrderList = shallowCopyTable(skillsTab.skillSetOrderList),
+		configSets = shallowCopyTable(build.configTab.configSets),
+		configSetOrderList = shallowCopyTable(build.configTab.configSetOrderList),
+		specList = shallowCopyTable(build.treeTab.specList),
+		spectreList = shallowCopyTable(build.spectreList),
+		activeItemSetId = build.itemsTab.activeItemSetId,
+		activeSkillSetId = skillsTab.activeSkillSetId,
+		activeConfigSetId = build.configTab.activeConfigSetId,
+		activeSpec = build.treeTab.activeSpec,
+		displayGroupIndex = isValueInArray(skillsTab.socketGroupList, skillsTab.displayGroup),
+		mainSocketGroup = build.mainSocketGroup,
+		calcsSkillNumber = build.calcsTab.input.skill_number,
+		itemUndo = shallowCopyTable(build.itemsTab.undo),
+		itemRedo = shallowCopyTable(build.itemsTab.redo),
+		skillUndo = shallowCopyTable(skillsTab.undo),
+		skillRedo = shallowCopyTable(skillsTab.redo),
+		configUndo = shallowCopyTable(build.configTab.undo),
+		configRedo = shallowCopyTable(build.configTab.redo),
+		flags = {
+			buildMod = build.modFlag,
+			buildFlag = build.buildFlag,
+			unsaved = build.unsaved,
+			items = build.itemsTab.modFlag,
+			skills = skillsTab.modFlag,
+			config = build.configTab.modFlag,
+			tree = build.treeTab.modFlag,
+			treeSearch = build.treeTab.searchFlag,
+			spec = build.spec.modFlag,
+			calcs = build.calcsTab.modFlag,
+		},
+	}
+end
+
+-- Restore a captured import snapshot and rebind the active tabs and derived
+-- skill/loadout state after a failed transaction.
+local function restoreLoadoutImportState(build, state)
+	local itemsTab = build.itemsTab
+	local skillsTab = build.skillsTab
+	local configTab = build.configTab
+	local treeTab = build.treeTab
+	itemsTab.items = state.items
+	itemsTab.itemOrderList = state.itemOrderList
+	itemsTab.itemSets = state.itemSets
+	itemsTab.itemSetOrderList = state.itemSetOrderList
+	skillsTab.skillSets = state.skillSets
+	skillsTab.skillSetOrderList = state.skillSetOrderList
+	configTab.configSets = state.configSets
+	configTab.configSetOrderList = state.configSetOrderList
+	treeTab.specList = state.specList
+	build.spectreList = state.spectreList
+	itemsTab.undo, itemsTab.redo = state.itemUndo, state.itemRedo
+	skillsTab.undo, skillsTab.redo = state.skillUndo, state.skillRedo
+	configTab.undo, configTab.redo = state.configUndo, state.configRedo
+	itemsTab:SetActiveItemSet(state.activeItemSetId)
+	treeTab:SetActiveSpec(state.activeSpec)
+	skillsTab:SetActiveSkillSet(state.activeSkillSetId)
+	if state.displayGroupIndex then
+		skillsTab:SetDisplayGroup(skillsTab.socketGroupList[state.displayGroupIndex])
+	end
+	configTab:SetActiveConfigSet(state.activeConfigSetId)
+	build.mainSocketGroup = state.mainSocketGroup
+	build.calcsTab.input.skill_number = state.calcsSkillNumber
+	skillsTab:UpdateSocketGroups()
+	build:SyncLoadouts()
+	build.modFlag = state.flags.buildMod
+	build.buildFlag = state.flags.buildFlag
+	build.unsaved = state.flags.unsaved
+	itemsTab.modFlag = state.flags.items
+	skillsTab.modFlag = state.flags.skills
+	configTab.modFlag = state.flags.config
+	treeTab.modFlag = state.flags.tree
+	treeTab.searchFlag = state.flags.treeSearch
+	build.spec.modFlag = state.flags.spec
+	build.calcsTab.modFlag = state.flags.calcs
+end
+
+--- Validate selected loadouts, reserve their final names, and apply them as one
+--- transaction so either every requested loadout is imported or none are.
+---@param imported table
+---@param selected table[] Each entry contains a `selection` and optional `requestedTitle`.
+---@return boolean success
+---@return string? errorMessage
+function ImportTabClass:ImportPreparedLoadouts(imported, selected)
+	if not imported or not selected or not selected[1] then
+		return false, "No loadouts were selected for import."
+	end
+	local plans = { }
+	local usedTitles = self:GetUsedLoadoutNames()
+	for _, choice in ipairs(selected) do
+		local selection = choice.selection or choice.loadout or choice
+		local requestedTitle = choice.requestedTitle or choice.name
+		if not selection
+				or not imported.treeTab.specList[selection.treeIndex]
+				or not imported.itemsTab.itemSets[selection.itemSetId]
+				or not imported.skillsTab.skillSets[selection.skillSetId]
+				or not imported.configTab.configSets[selection.configSetId] then
+			return false, "A selected loadout refers to data that is missing from the imported build."
+		end
+		local sourceSpec = imported.treeTab.specList[selection.treeIndex]
+		local treeTitle, displayTitle = reserveUniqueLoadoutTitles(usedTitles, selection, sourceSpec, requestedTitle)
+		t_insert(plans, {
+			selection = selection,
+			requestedTitle = requestedTitle,
+			treeTitle = treeTitle,
+			displayTitle = displayTitle,
+		})
+	end
+	local build = self.build
+	local transactionState = captureLoadoutImportState(build)
+	local ok, importError = xpcall(function()
+		self:_ApplyLoadoutImportPlans(imported, plans)
+	end, function(errorMessage)
+		return debug.traceback(tostring(errorMessage), 2)
+	end)
+	if not ok then
+		local restored, restoreError = pcall(restoreLoadoutImportState, build, transactionState)
+		ConPrintf("Loadout import failed: %s", importError)
+		if not restored then
+			ConPrintf("Loadout import rollback failed: %s", restoreError)
+			return false, "The import failed and the previous build state could not be fully restored. See the developer console for details."
+		end
+		return false, "An unexpected error occurred while applying the selected loadouts. See the developer console for details."
+	end
+	return true
+end
+
+--- Copy the planned loadouts into the current build
+---@param imported table
+---@param plans table[]
+function ImportTabClass:_ApplyLoadoutImportPlans(imported, plans)
+	local build = self.build
+	local usedNames = self:GetUsedLoadoutNames()
+	for _, plan in ipairs(plans) do
+		usedNames[plan.treeTitle] = true
+		usedNames[plan.displayTitle] = true
+	end
+
+	-- Auxiliary sets also share the loadout name namespace, so reserve a unique
+	-- title before copying sets referenced by minion skills.
+	local function uniqueSetName(base)
+		local result, suffix = base, 2
+		while usedNames[result] do
+			result = base .. " (" .. suffix .. ")"
+			suffix = suffix + 1
+		end
+		usedNames[result] = true
+		return result
+	end
+
+	-- A single set is implicitly shared by all existing loadouts. Materialise
+	-- those associations before adding another set, so they continue to work.
+	local existingLoadouts = { }
+	for _, title in ipairs(build.controls.buildLoadouts.list) do
+		existingLoadouts[title] = true
+	end
+	
+	-- Materialise a formerly implicit one-set association before adding imported
+	-- sets, preserving every existing loadout's equipment, skills, and config.
+	local function preserveSharedSets(tab, sets, order, create)
+		if #order ~= 1 then
+			return
+		end
+		local shared = sets[order[1]]
+		for _, spec in ipairs(build.treeTab.specList) do
+			local title = spec.title or "Default"
+			local displayTitle = getLoadoutVersionPrefix(spec) .. title
+			local linkedLoadout = false
+			local base, identifiers = parseLoadoutTitleIdentifiers(title)
+			if identifiers then
+				for identifier in identifiers:gmatch("[^,]+") do
+					linkedLoadout = linkedLoadout or existingLoadouts[base .. " {" .. identifier .. "}"]
+				end
+			end
+			local setTitle = identifiers and title or displayTitle
+			if (existingLoadouts[displayTitle] or linkedLoadout) and setTitle ~= (shared.title or "Default") then
+				local set = tab[create](tab)
+				local id = set.id
+				-- Skill groups contain calculation state; copy their editable fields
+				-- the same way as the skill set manager and undo handler.
+				local copied
+				if tab == build.skillsTab then
+					copied = tab:CreateUndoState().skillSets[shared.id]
+				else
+					copied = copyTable(shared)
+				end
+				for key, value in pairs(copied) do
+					set[key] = value
+				end
+				set.id, set.title = id, setTitle
+				t_insert(order, id)
+			end
+		end
+	end
+	preserveSharedSets(build.itemsTab, build.itemsTab.itemSets, build.itemsTab.itemSetOrderList, "NewItemSet")
+	preserveSharedSets(build.skillsTab, build.skillsTab.skillSets, build.skillsTab.skillSetOrderList, "NewSkillSet")
+	preserveSharedSets(build.configTab, build.configTab.configSets, build.configTab.configSetOrderList, "NewConfigSet")
+
+	local skillsXML = { }
+	imported.skillsTab:Save(skillsXML)
+	local skillXMLById = { }
+	for _, set in ipairs(skillsXML) do
+		skillXMLById[tonumber(set.attrib.id)] = set
+	end
+	local requiredItems, requiredItemSets, requiredItemSetOwner = { }, { }, { }
+	for _, plan in ipairs(plans) do
+		local loadout = plan.selection
+		requiredItemSets[loadout.itemSetId] = true
+		requiredItemSetOwner[loadout.itemSetId] = requiredItemSetOwner[loadout.itemSetId] or plan
+		for _, itemId in pairs(imported.treeTab.specList[loadout.treeIndex].jewels) do
+			if itemId and itemId > 0 then
+				requiredItems[itemId] = true
+			end
+		end
+		for _, skill in ipairs(skillXMLById[loadout.skillSetId] or { }) do
+			if skill.attrib.source then
+				local itemId = tonumber(skill.attrib.source:match("^Item:(%d+):"))
+				if itemId then
+					requiredItems[itemId] = true
+				end
+			end
+			for _, gem in ipairs(skill) do
+				if type(gem) == "table" and gem.attrib then
+					for _, key in ipairs({ "skillMinionItemSet", "skillMinionItemSetCalcs" }) do
+						local itemSetId = tonumber(gem.attrib[key])
+						if itemSetId and imported.itemsTab.itemSets[itemSetId] then
+							requiredItemSets[itemSetId] = true
+							requiredItemSetOwner[itemSetId] = requiredItemSetOwner[itemSetId] or plan
+						end
+					end
+				end
+			end
+		end
+	end
+	for itemSetId in pairs(requiredItemSets) do
+		for _, slot in pairs(imported.itemsTab.itemSets[itemSetId]) do
+			if type(slot) == "table" and slot.selItemId and slot.selItemId > 0 then
+				requiredItems[slot.selItemId] = true
+			end
+		end
+	end
+	local itemIds = { }
+	for _, id in ipairs(imported.itemsTab.itemOrderList) do
+		if requiredItems[id] then
+			local item = copyTableSafe(imported.itemsTab.items[id], true, true)
+			item.id = nil
+			build.itemsTab:AddItem(item, true)
+			itemIds[id] = item.id
+		end
+	end
+	-- Copy an item set and replace source item IDs with the IDs allocated in the
+	-- current build, preventing references back into the temporary import build.
+	local function copyItemSet(source, title)
+		local set = build.itemsTab:NewItemSet()
+		set.title = title
+		set.useSecondWeaponSet = source.useSecondWeaponSet
+		for slotName, slot in pairs(source) do
+			if type(slot) == "table" then
+				set[slotName] = copyTable(slot)
+				if slot.selItemId then
+					set[slotName].selItemId = itemIds[slot.selItemId] or 0
+				end
+			end
+		end
+		t_insert(build.itemsTab.itemSetOrderList, set.id)
+		return set.id
+	end
+	local primaryItemSetBySource = { }
+	for _, plan in ipairs(plans) do
+		local sourceId = plan.selection.itemSetId
+		plan.itemSetId = copyItemSet(imported.itemsTab.itemSets[sourceId], plan.displayTitle)
+		primaryItemSetBySource[sourceId] = primaryItemSetBySource[sourceId] or plan.itemSetId
+	end
+	local auxiliaryItemSetBySource = { }
+	for sourceId in pairs(requiredItemSets) do
+		if not primaryItemSetBySource[sourceId] then
+			local source = imported.itemsTab.itemSets[sourceId]
+			local owner = requiredItemSetOwner[sourceId] or plans[1]
+			local title = uniqueSetName(owner.displayTitle .. " - " .. (source.title or "Default"))
+			auxiliaryItemSetBySource[sourceId] = copyItemSet(source, title)
+		end
+	end
+
+	for _, plan in ipairs(plans) do
+		local loadout = plan.selection
+		local skillSet = build.skillsTab:NewSkillSet()
+		skillSet.title = plan.displayTitle
+		t_insert(build.skillsTab.skillSetOrderList, skillSet.id)
+		plan.skillSetId = skillSet.id
+		-- Loading imbued supports updates the displayed group, so leave the old
+		-- skill set before loading any of the incoming groups.
+		build.skillsTab:SetActiveSkillSet(skillSet.id)
+		for _, sourceSkill in ipairs(skillXMLById[loadout.skillSetId] or { }) do
+			if type(sourceSkill) == "table" then
+				local skill = copyTable(sourceSkill)
+				if skill.attrib.source then
+					skill.attrib.source = skill.attrib.source:gsub("^Item:(%d+):", function(id)
+						return "Item:" .. (itemIds[tonumber(id)] or 0) .. ":"
+					end)
+				end
+				for _, gem in ipairs(skill) do
+					if type(gem) == "table" and gem.attrib then
+						for _, key in ipairs({ "skillMinionItemSet", "skillMinionItemSetCalcs" }) do
+							local sourceId = tonumber(gem.attrib[key]) or loadout.itemSetId
+							local targetId = sourceId == loadout.itemSetId and plan.itemSetId or primaryItemSetBySource[sourceId] or auxiliaryItemSetBySource[sourceId] or plan.itemSetId
+							gem.attrib[key] = tostring(targetId)
+						end
+					end
+				end
+				build.skillsTab:LoadSkill(skill, skillSet.id)
+			end
+		end
+
+		local configSet = build.configTab:NewConfigSet(nil, plan.displayTitle)
+		local sourceConfig = imported.configTab.configSets[loadout.configSetId]
+		configSet.input = copyTable(sourceConfig.input)
+		configSet.placeholder = copyTable(sourceConfig.placeholder)
+		configSet.customModsList = copyTable(sourceConfig.customModsList)
+		t_insert(build.configTab.configSetOrderList, configSet.id)
+		plan.configSetId = configSet.id
+
+		local specXML = { }
+		local sourceSpec = imported.treeTab.specList[loadout.treeIndex]
+		sourceSpec:Save(specXML)
+		specXML.attrib.title = plan.treeTitle
+		for _, section in ipairs(specXML) do
+			if section.elem == "Sockets" then
+				for _, socket in ipairs(section) do
+					socket.attrib.itemId = tostring(itemIds[tonumber(socket.attrib.itemId)] or 0)
+				end
+			end
+		end
+		local spec = new("PassiveSpec"):PassiveSpec(build, sourceSpec.treeVersion)
+		spec:Load(specXML, "Imported loadout")
+		t_insert(build.treeTab.specList, spec)
+		plan.specIndex = #build.treeTab.specList
+		plan.spec = spec
+	end
+	for _, spectre in ipairs(imported.spectreList) do
+		if not isValueInArray(build.spectreList, spectre) then
+			t_insert(build.spectreList, spectre)
+		end
+	end
+	for _, plan in ipairs(plans) do
+		plan.spec:PostLoad()
+	end
+	local activePlan = plans[1]
+	for _, plan in ipairs(plans) do
+		local loadout = plan.selection
+		if loadout.treeIndex == imported.treeTab.activeSpec
+				and loadout.itemSetId == imported.itemsTab.activeItemSetId
+				and loadout.skillSetId == imported.skillsTab.activeSkillSetId
+				and loadout.configSetId == imported.configTab.activeConfigSetId then
+			activePlan = plan
+			break
+		end
+	end
+	build.itemsTab:SetActiveItemSet(activePlan.itemSetId)
+	build.treeTab:SetActiveSpec(activePlan.specIndex)
+	build.skillsTab:SetActiveSkillSet(activePlan.skillSetId)
+	build.configTab:SetActiveConfigSet(activePlan.configSetId)
+	build.skillsTab:UpdateSocketGroups()
+	build.itemsTab:AddUndoState()
+	build.skillsTab:AddUndoState()
+	build.configTab:AddUndoState()
+	build:SyncLoadouts()
+	build.modFlag = true
+	build.buildFlag = true
+	return true
+end
+
+--- Import the source build's active combination under an optional explicit
+--- name. This compatibility wrapper uses the transactional multi-import path.
+---@param xmlText string
+---@param title string?
+---@return boolean success
+---@return string? errorMessage
+function ImportTabClass:ImportLoadout(xmlText, title)
+	local imported, _, _, prepareError = self:PrepareLoadoutImport(xmlText)
+	if not imported then
+		return false, prepareError
+	end
+	local selected = {
+		label = imported.spec.title or "Imported loadout",
+		sourceTitle = imported.spec.title or "Imported loadout",
+		treeIndex = imported.treeTab.activeSpec,
+		itemSetId = imported.itemsTab.activeItemSetId,
+		skillSetId = imported.skillsTab.activeSkillSetId,
+		configSetId = imported.configTab.activeConfigSetId,
+	}
+	return self:ImportPreparedLoadouts(imported, { { selection = selected, requestedTitle = title } })
+end
+
+--- Import only the complete source loadouts whose display labels were selected
+--- by a non-UI caller, using the same transactional path as the popup.
+---@param xmlText string
+---@param selectedLabels string[]
+---@return boolean success
+---@return string? errorMessage
+function ImportTabClass:ImportLoadouts(xmlText, selectedLabels)
+	local imported, loadouts, _, prepareError = self:PrepareLoadoutImport(xmlText)
+	if not imported then
+		return false, prepareError
+	end
+	local labels = { }
+	for _, label in ipairs(selectedLabels or { }) do
+		labels[label] = true
+	end
+	local selected = { }
+	for _, loadout in ipairs(loadouts) do
+		if labels[loadout.label] then
+			t_insert(selected, { selection = loadout })
+		end
+	end
+	return self:ImportPreparedLoadouts(imported, selected)
 end
 
 --- @param realm string
