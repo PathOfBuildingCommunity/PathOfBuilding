@@ -62,6 +62,58 @@ describe("ItemDBControl", function()
 		assert.are.equal(-math.huge, invalidItem.measuredPower)
 	end)
 
+	it("preserves negative WeightedScore results", function()
+		local function makeItem(name)
+			return {
+				name = name,
+				base = {},
+				enchantModLines = {},
+				implicitModLines = {},
+				explicitModLines = {},
+				baseModList = {},
+			}
+		end
+		local betterItem = makeItem("Better Item")
+		local worseItem = makeItem("Worse Item")
+		local takenDamage = {
+			[betterItem] = 80,
+			[worseItem] = 120,
+		}
+		local itemsTab = {
+			activeItemSet = { useSecondWeaponSet = false },
+			slots = { ["Body Armour"] = { shown = function() return true end } },
+			tradeQuery = { statSortSelectionList = {
+				{ stat = "PhysicalTakenHit", weightMult = 1, transform = function(value) return -value end },
+			} },
+			IsItemValidForSlot = function() return true end,
+		}
+		itemsTab.build = {
+			itemsTab = itemsTab,
+			calcsTab = {
+				GetMiscCalculator = function()
+					return function(args)
+						return { PhysicalTakenHit = takenDamage[args.repItem] }
+					end, { PhysicalTakenHit = 100 }
+				end,
+			},
+		}
+		local control = new("ItemDBControl"):ItemDBControl(nil, { 0, 0, 100, 100 }, itemsTab, {
+			list = { worseItem, betterItem },
+		}, "RARE")
+		for _, entry in ipairs(control.sortDropList) do
+			if entry.stat == "WeightedScore" then
+				control.sortDetail = entry
+			end
+		end
+		control.sortOrder = { control.sortControl.STAT, control.sortControl.NAME }
+
+		control:ListBuilder()
+
+		assert.are.same({ betterItem, worseItem }, control.list)
+		assert.is_true(betterItem.measuredPower < 0)
+		assert.is_true(worseItem.measuredPower < betterItem.measuredPower)
+	end)
+
 	it("searches Foulborn modifier text without case sensitivity", function()
 		local item = new("Item"):Item([[
 			Rarity: Unique

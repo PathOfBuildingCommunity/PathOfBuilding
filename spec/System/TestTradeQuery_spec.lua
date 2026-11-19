@@ -261,6 +261,40 @@ describe("TradeQuery", function()
 		end)
 	end)
 
+	describe("SetStatWeights", function()
+		local capturedControls
+		local originalOpenPopup
+		local originalClosePopup
+		before_each(function()
+			originalOpenPopup = main.OpenPopup
+			originalClosePopup = main.ClosePopup
+			main.OpenPopup = function(_, _, _, _, controls)
+				capturedControls = controls
+			end
+			main.ClosePopup = function() end
+		end)
+		after_each(function()
+			main.OpenPopup = originalOpenPopup
+			main.ClosePopup = originalClosePopup
+		end)
+
+		it("marks the build modified after saving changed weights", function()
+			local itemsTab = {}
+			local tradeQuery = new("TradeQuery"):TradeQuery(itemsTab)
+			tradeQuery:SetStatWeights()
+			for _, entry in ipairs(capturedControls.ListControl.list) do
+				if entry.stat.stat == "FullDPS" then
+					entry.stat.weightMult = 0.75
+					break
+				end
+			end
+			capturedControls.finalise.onClick()
+
+			assert.is_true(itemsTab.modFlag)
+			assert.are.equal(0.75, tradeQuery.statSortSelectionList[1].weightMult)
+		end)
+	end)
+
 	describe("ComputeStatDetails", function()
 		it("uses Trader's FullDPS fallback inputs", function()
 			mock_tradeQuery.statSortSelectionList = { { label = "Full DPS", stat = "FullDPS", weightMult = 1 } }
