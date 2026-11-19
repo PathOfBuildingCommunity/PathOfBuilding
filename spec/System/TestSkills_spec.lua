@@ -967,12 +967,15 @@ describe("TestSkills", function()
 	end)
 
 	it("Pact of Lycia uses one Empowerment per channel, not per channel stage (issue #10447)", function()
-		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nLightning Tendrils 20/0  1\n")
-		build.skillsTab:PasteSocketGroup("Pact of Lycia 20/0  1\n")
-		build.mainSocketGroup = 1
+		build.skillsTab:PasteSocketGroup("Lightning Tendrils 20/0  1")
+		runCallback("OnFrame")
+		local baseDPS = build.calcsTab.mainOutput.TotalDPS
+		build.skillsTab:PasteSocketGroup("Pact of Lycia 20/0  1")
 		runCallback("OnFrame")
 		local output = build.calcsTab.mainOutput
 		assert.are.equals(100, output.LyciaUpTimeRatio)
+		assert.are.near(baseDPS * 1.4, output.TotalDPS, baseDPS * 0.001)
+		assert.is_truthy(build.calcsTab.mainEnv.player.breakdown.LyciaUpTimeRatio[1]:match("without releasing"))
 
 		build.configTab.input.pactLyciaChannelDuration = 0.5
 		build.configTab:BuildModList()
@@ -980,6 +983,16 @@ describe("TestSkills", function()
 		output = build.calcsTab.mainOutput
 		local expected = output.LyciaEmpoweredCount * 0.5 / (output.PactOfLyciaCooldown + output.PactOfLyciaCastTime) * 100
 		assert.is_true(expected < 100)
+		assert.are.near(expected, output.LyciaUpTimeRatio, 0.0001)
+	end)
+
+	it("Pact of Lycia channel duration cannot be shorter than one channel stage (issue #10447)", function()
+		build.skillsTab:PasteSocketGroup("Lightning Tendrils 20/0  1\nPact of Lycia 20/0  1")
+		build.configTab.input.pactLyciaChannelDuration = 0.01
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+		local output = build.calcsTab.mainOutput
+		local expected = output.LyciaEmpoweredCount / output.Speed / (output.PactOfLyciaCooldown + output.PactOfLyciaCastTime) * 100
 		assert.are.near(expected, output.LyciaUpTimeRatio, 0.0001)
 	end)
 end)

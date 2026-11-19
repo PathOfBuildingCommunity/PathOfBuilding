@@ -2944,7 +2944,8 @@ function calcs.offence(env, actor, activeSkill)
 							if pactKey == "Lycia" then
 								-- A channelled spell stays Empowered until the channel ends, so each channel uses one Empowerment.
 								local channelDuration = skillModList:Sum("BASE", nil, "LyciaChannelDuration")
-								empoweredUseRate = channelDuration > 0 and 1 / channelDuration or 0
+								-- A channel cannot be shorter than one stage.
+								empoweredUseRate = channelDuration > 0 and m_min(1 / channelDuration, globalOutput.Speed) or 0
 							end
 							local uptime = empoweredUseRate == 0 and 100 or m_min((count / empoweredUseRate) / (cooldown + castTime), 1) * 100
 							uptime = m_min(100, uptime * storedUses)
@@ -2956,7 +2957,12 @@ function calcs.offence(env, actor, activeSkill)
 							globalOutput["PactOf"..pactKey.."CastTime"] = castTime
 							globalOutput[pactKey.."EmpoweredCount"] = count
 							globalOutput[pactKey.."UpTimeRatio"] = uptime
-							if globalBreakdown then
+							if globalBreakdown and pactKey == "Lycia" and empoweredUseRate == 0 then
+								globalBreakdown[pactKey.."UpTimeRatio"] = {
+									"Channelled without releasing ^8(no channel duration set)",
+									s_format("= %.2f%%", uptime),
+								}
+							elseif globalBreakdown then
 								globalBreakdown[pactKey.."UpTimeRatio"] = {
 									s_format("(%.2f ^8(number of Empowered)", count),
 									s_format("/ %.2f) ^8(%s per second)", empoweredUseRate, pactKey == "Lycia" and "channels" or "non-repeated casts"),
