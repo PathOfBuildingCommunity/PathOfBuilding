@@ -2482,7 +2482,8 @@ function CompareTabClass:GetSocketGroupSignature(group)
 		end
 	end
 	table.sort(names)
-	return table.concat(names, "+")
+	-- Mercenary gems share names with player gems
+	return (group.mercenary and "Mercenary:" or "") .. table.concat(names, "+")
 end
 
 -- Get a display label for a socket group (active skills only)
@@ -2509,7 +2510,7 @@ function CompareTabClass:GetSocketGroupLabel(group)
 	if #names == 0 then
 		return "(empty group)"
 	end
-	return table.concat(names, " + ")
+	return table.concat(names, " + ") .. (group.mercenary and " (Mercenary)" or "")
 end
 
 -- Coroutine: calculate power of compared build elements against primary build
@@ -4129,7 +4130,8 @@ function CompareTabClass:DrawSkills(vp, compareEntry)
 	local scorePairs = {}
 	for pi = 1, #pGroups do
 		for ci = 1, #cGroups do
-			local score = groupSimilarity(pSets[pi], cSets[ci])
+			-- Mercenary gems share names with player gems, so only groups of the same kind are matched
+			local score = (not pGroups[pi].mercenary) == (not cGroups[ci].mercenary) and groupSimilarity(pSets[pi], cSets[ci]) or 0
 			if score > 0 then
 				t_insert(scorePairs, { pIdx = pi, cIdx = ci, score = score })
 			end
@@ -4323,6 +4325,9 @@ function CompareTabClass:DrawSkills(vp, compareEntry)
 		local groupLabel = group.displayLabel or group.label or ("Group " .. idx)
 		if group.slot then
 			groupLabel = groupLabel .. " (" .. group.slot .. ")"
+		end
+		if group.mercenary then
+			groupLabel = groupLabel .. " (Mercenary)"
 		end
 		return groupLabel
 	end
