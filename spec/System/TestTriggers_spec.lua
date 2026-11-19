@@ -1574,6 +1574,20 @@ describe("TestTriggers", function()
 		assert.is_falsy(build.calcsTab.mainEnv.player.mainSkill.skillFlags.weapon2Attack)
 	end)
 
+	it("Do not count repeats as separate uses for per-use triggers", function()
+		equipDreadCaptainsCutlass()
+		build.skillsTab:PasteSocketGroup("Smite 20/0  1\n")
+		runCallback("OnFrame")
+		local baseRate = build.calcsTab.mainOutput.EffectiveSourceRate
+
+		newBuild()
+		equipDreadCaptainsCutlass()
+		build.skillsTab:PasteSocketGroup("Smite 20/0  1\nMultistrike 20/0  1\n")
+		runCallback("OnFrame")
+
+		assert.is_true(build.calcsTab.mainOutput.EffectiveSourceRate < baseRate)
+	end)
+
 	it("Use the equipped bow for Void Shot granted by Voidfletcher", function()
 		build.itemsTab:CreateDisplayItemFromRaw("Test Bow\nShort Bow")
 		build.itemsTab:AddDisplayItem()
