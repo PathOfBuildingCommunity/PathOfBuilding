@@ -322,9 +322,8 @@ describe("TetsItemMods", function()
 			build.itemsTab.slots[case[1]]:SetSelItemId(target.id)
 			setWickermanCustomMods("")
 			local base = copyTable(build.calcsTab.mainOutput, true)
-			-- Use a normal slot with a synthetic type; no Wickerman base/slot/import framework is required.
-			local source = new("Item"):Item("Rarity: Rare\nSynthetic Wickerman\nPaua Amulet\nImplicits: 0\n20% increased bonuses gained from Equipped "..case[1])
-			source.type = "Wickerman Lower Limb"
+			-- A Viscera base in a normal slot keeps the test independent of the Wickerman slots.
+			local source = new("Item"):Item("Rarity: Rare\nSynthetic Wickerman\nScholar's Leg\nImplicits: 0\n20% increased bonuses gained from Equipped "..case[1])
 			build.itemsTab:AddItem(source, true)
 			build.itemsTab.slots.Amulet:SetSelItemId(source.id)
 			for _, first in ipairs({ true, false }) do
