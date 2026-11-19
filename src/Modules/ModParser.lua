@@ -5793,6 +5793,7 @@ local specialModList = {
 	["gain elusive on critical strike"] = {	flag("Condition:CanBeElusive") },
 	["gain a random shrine buff every (%d+) seconds"] = { flag("Condition:CanHaveRegularShrines") },
 	["gain a random shrine buff for (%d+) seconds when you kill a rare or unique enemy"] = { flag("Condition:CanHaveRegularShrines") },
+	["gain a random shrine buff for (%d+) seconds when you blind a non%-blinded rare or unique enemy"] = { flag("Condition:CanHaveRegularShrines") },
 	["gain a random blood shrine buff every (%d+) seconds"] = { flag("Condition:CanHaveBloodShrines") },
 	["(%d+)%% chance to gain elusive when you block while dual wielding"] = { flag("Condition:CanBeElusive", { type = "Condition", var = "DualWielding" }) },
 	["elusive on you reduces in effect (%d+)%% slower"] = function(num) return { mod("ElusiveEffectLossSlower", "INC", num) } end,
