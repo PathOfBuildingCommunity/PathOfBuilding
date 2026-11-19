@@ -1321,7 +1321,7 @@ local preFlagList = {
 	["attacks with energy blades "] = { flags = ModFlag.Attack, tag = { type = "Condition", var = "AffectedByEnergyBlade" } },
 	["^for each nearby corpse, "] = { tag = { type = "Multiplier", var = "NearbyCorpse" } },
 	["^enemies in your link beams have "] = { tag = { type = "Condition", var = "BetweenYouAndLinkedTarget" }, applyToEnemy = true },
-	["^consecrated ground you create a?l?s?o? ?grants "] = { tag = { type = "Condition", var = "OnConsecratedGround" } },
+	["^consecrated ground you create a?l?s?o? ?grants "] = { tagList = { { type = "Condition", var = "OnConsecratedGround" }, { type = "Multiplier", var = "ConsecratedGroundEffect", div = 100, noFloor = true } } },
 	-- While in the presence of...
 	["^while a unique enemy is in your presence, "] = { tag = { type = "ActorCondition", actor = "enemy", var = "RareOrUnique" } },
 	["^while a pinnacle atlas boss is in your presence, "] = { tag = { type = "ActorCondition", actor = "enemy", var = "PinnacleBoss" } },

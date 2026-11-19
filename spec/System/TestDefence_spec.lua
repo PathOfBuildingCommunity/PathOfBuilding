@@ -169,6 +169,30 @@ describe("TestDefence", function()
 		assert.is_true(fireResistOnConsecratedGround > build.calcsTab.mainOutput.FireResist)
 	end)
 
+	it("scales Consecrated Ground you create grants mods with Consecrated Ground effect (issue #9696)", function()
+		local function measure(effect)
+			newBuild()
+			build.configTab.input.conditionOnConsecratedGround = true
+			build.configTab.input.customMods = "Consecrated Ground you create grants 30% increased Mana Regeneration\n"
+				.. "Consecrated Ground you create grants +2% maximum Chaos Resistance to you and Allies\n"
+				.. "Consecrated Ground you create also grants 50% reduced duration of Damaging Ailments on you\n"
+				.. (effect and effect .. "% increased Effect of Consecrated Ground you create" or "")
+			build.configTab:BuildModList()
+			runCallback("OnFrame")
+			local modDB = build.calcsTab.mainEnv.player.modDB
+			return build.calcsTab.mainOutput.ManaRegenInc, modDB:Sum("BASE", nil, "ChaosResistMax"), modDB:Sum("INC", nil, "SelfIgniteDuration")
+		end
+		local manaInc, chaosMax, igniteDuration = measure()
+		assert.are.equals(30, manaInc)
+		local baseChaosMax = chaosMax
+		assert.are.equals(-50, igniteDuration)
+
+		manaInc, chaosMax, igniteDuration = measure(50)
+		assert.are.equals(45, manaInc)
+		assert.are.equals(baseChaosMax + 1, chaosMax)
+		assert.are.equals(-75, igniteDuration)
+	end)
+
 	-- boring part
 	it("no armour max hits", function()
 		build.configTab.input.enemyIsBoss = "None"
