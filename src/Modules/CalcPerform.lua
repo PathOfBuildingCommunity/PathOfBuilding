@@ -259,14 +259,16 @@ local function doActorAttribsConditions(env, actor)
 	local condList = modDB.conditions
 
 	-- Set conditions
-	if (actor.itemList["Weapon 2"] and actor.itemList["Weapon 2"].type == "Shield") or (actor == env.player and env.aegisModList) then
+	-- Weapon slots disabled by Manifested Dancing Dervishes count as empty
+	local weapon2 = not actor.weaponsDisabled and actor.itemList["Weapon 2"]
+	if (weapon2 and weapon2.type == "Shield") or (actor == env.player and env.aegisModList) then
 		condList["UsingShield"] = true
-	elseif not actor.itemList["Weapon 2"] then
+	elseif not weapon2 then
 		condList["OffHandIsEmpty"] = true
 	end
 	if actor.weaponData1.type == "None" then
 		condList["Unarmed"] = true
-		if not actor.itemList["Weapon 2"] and not actor.itemList["Gloves"] then
+		if not weapon2 and not actor.itemList["Gloves"] then
 			condList["Unencumbered"] = true
 		end
 	else
@@ -3523,17 +3525,6 @@ function calcs.perform(env, skipEHP)
 
 	-- Merge keystones again to catch any that were added by buffs
 	modLib.mergeKeystones(env, env.modDB)
-
-	-- Special handling for Dancing Dervish
-	if modDB:Flag(nil, "DisableWeapons") then
-		env.player.weaponData1 = copyTable(env.data.unarmedWeaponData[env.classId])
-		modDB.conditions["Unarmed"] = true
-		if not env.player.Gloves or env.player.Gloves == "None" then
-			modDB.conditions["Unencumbered"] = true
-		end
-	elseif env.weaponModList1 then
-		modDB:AddList(env.weaponModList1)
-	end
 
 	-- Process prerequisites for conditionals
 	calcs.defenceForConditionals(env, env.player)

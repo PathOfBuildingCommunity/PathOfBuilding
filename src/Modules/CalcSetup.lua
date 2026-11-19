@@ -394,6 +394,44 @@ function wipeEnv(env, accelerate)
 	end
 end
 
+local function itemGrantsSkill(item, skillId)
+	for _, grantedSkill in ipairs(item.grantedSkills or { }) do
+		if grantedSkill.skillId == skillId then
+			return true
+		end
+	end
+	return false
+end
+
+-- Check if an active socket group has a skill whose buff disables the weapon slots (e.g. Manifest Dancing Dervishes)
+-- This mirrors the checks used when creating the active skills, as the weapon data is needed before then
+local function socketGroupsDisableWeapons(env, build)
+	if not env.mode_buffs then
+		return false
+	end
+	for index, group in ipairs(build.skillsTab.socketGroupList) do
+		local slot = group.slot and build.itemsTab.slots[group.slot]
+		local slotEnabled = not slot or not slot.weaponSet or slot.weaponSet == (build.itemsTab.activeItemSet.useSecondWeaponSet and 2 or 1)
+		if index == env.mainSocketGroup or (group.enabled and slotEnabled) then
+			for _, gemInstance in ipairs(group.gemList) do
+				if gemInstance.enabled then
+					local grantedEffectList = gemInstance.gemData and gemInstance.gemData.grantedEffectList or { gemInstance.grantedEffect }
+					for effectIndex, grantedEffect in ipairs(grantedEffectList) do
+						if not grantedEffect.support and not grantedEffect.unsupported and (not grantedEffect.hasGlobalEffect or gemInstance["enableGlobal"..effectIndex]) then
+							for _, mod in ipairs(grantedEffect.baseMods or { }) do
+								if mod.name == "DisableWeapons" then
+									return true
+								end
+							end
+						end
+					end
+				end
+			end
+		end
+	end
+	return false
+end
+
 local function applyGemMods(effect, modList)
 	for _, mod in ipairs(modList) do
 		local match = true
@@ -1201,12 +1239,14 @@ function calcs.initEnv(build, mode, override, specEnv)
 						-- Add all the stats to player as well
 						env.itemModDB:ScaleAddMod(mod, scale)
 					end
-				elseif slotName == "Weapon 1" and item.grantedSkills[1] and item.grantedSkills[1].skillId == "UniqueAnimateWeapon" then
+				elseif slotName == "Weapon 1" and itemGrantsSkill(item, "ManifestDancingDervishes") then
 					-- Special handling for The Dancing Dervish
+					-- Its modifiers are kept separate as they don't apply while Manifested Dancing Dervishes disable the weapon slots
 					env.weaponModList1 = new("ModList"):ModList()
 					for _, mod in ipairs(srcList) do
 						-- Filter out mods that apply to socketed gems, or which add supports
-						local add = true
+						-- Rampage is kept as the Dancing Dervishes die when it ends
+						local add = mod.name ~= "Condition:Rampage"
 						for _, tag in ipairs(mod) do
 							if tag.type == "SocketedIn" then
 								add = false
@@ -1619,29 +1659,6 @@ function calcs.initEnv(build, mode, override, specEnv)
 			end
 		end
 
-		-- Get the weapon data tables for the equipped weapons
-		env.player.weaponData1 = env.player.itemList["Weapon 1"] and env.player.itemList["Weapon 1"].weaponData and env.player.itemList["Weapon 1"].weaponData[1] or copyTable(env.data.unarmedWeaponData[env.classId])
-		-- Hide of the Vendigo: Can Attack as though using a Claw while main hand is empty
-		if not env.player.itemList["Weapon 1"] and env.modDB:Flag(nil, "CanAttackAsClawUnarmed") then
-			env.player.weaponData1.asThoughUsing = { Claw = true }
-		end
-		if env.player.weaponData1.countsAsDualWielding then
-			env.player.weaponData2 = env.player.itemList["Weapon 1"].weaponData[2]
-		elseif not env.player.itemList["Weapon 2"] then
-			-- Hollow Palm Technique
-			if (not env.player.itemList["Weapon 1"]) and (not env.player.itemList["Gloves"]) and env.modDB.mods.Keystone then
-				for _, keystone in ipairs(env.modDB.mods.Keystone) do
-					if keystone.value == "Hollow Palm Technique" then
-						env.player.weaponData2 = copyTable(env.data.unarmedWeaponData[env.classId])
-						break
-					end
-				end
-			end
-			env.player.weaponData2 = env.player.weaponData2 or { }
-		else
-			env.player.weaponData2 = env.player.itemList["Weapon 2"].weaponData and env.player.itemList["Weapon 2"].weaponData[2] or { }
-		end
-
 		-- Determine main skill group
 		if env.mode == "CALCS" then
 			env.calcsInput.skill_number = m_min(m_max(#build.skillsTab.socketGroupList, 1), env.calcsInput.skill_number or 1)
@@ -1649,6 +1666,34 @@ function calcs.initEnv(build, mode, override, specEnv)
 		else
 			build.mainSocketGroup = m_min(m_max(#build.skillsTab.socketGroupList, 1), build.mainSocketGroup or 1)
 			env.mainSocketGroup = build.mainSocketGroup
+		end
+
+		-- Manifested Dancing Dervishes disable both weapon slots while their buff is active
+		env.player.weaponsDisabled = socketGroupsDisableWeapons(env, build)
+
+		-- Get the weapon data tables for the equipped weapons
+		local weapon1 = not env.player.weaponsDisabled and env.player.itemList["Weapon 1"]
+		local weapon2 = not env.player.weaponsDisabled and env.player.itemList["Weapon 2"]
+		env.player.weaponData1 = weapon1 and weapon1.weaponData and weapon1.weaponData[1] or copyTable(env.data.unarmedWeaponData[env.classId])
+		-- Hide of the Vendigo: Can Attack as though using a Claw while main hand is empty
+		if not weapon1 and env.modDB:Flag(nil, "CanAttackAsClawUnarmed") then
+			env.player.weaponData1.asThoughUsing = { Claw = true }
+		end
+		if env.player.weaponData1.countsAsDualWielding then
+			env.player.weaponData2 = weapon1.weaponData[2]
+		elseif not weapon2 then
+			env.player.weaponData2 = { }
+			-- Hollow Palm Technique
+			if not weapon1 and not env.player.itemList["Gloves"] and env.modDB.mods.Keystone then
+				for _, keystone in ipairs(env.modDB.mods.Keystone) do
+					if keystone.value == "Hollow Palm Technique" then
+						env.player.weaponData2 = copyTable(env.data.unarmedWeaponData[env.classId])
+						break
+					end
+				end
+			end
+		else
+			env.player.weaponData2 = weapon2.weaponData and weapon2.weaponData[2] or { }
 		end
 
 		-- Process supports and put them into the correct buckets
@@ -2043,6 +2088,11 @@ function calcs.initEnv(build, mode, override, specEnv)
 			activeSkill.skillData.stagesMax = skillData.stagesMax
 			activeSkill.skillData.manaReservationPercent = skillData.manaReservationPercent
 		end
+	end
+
+	-- The Dancing Dervish's modifiers only apply while its weapon slot isn't disabled by Manifested Dancing Dervishes
+	if env.weaponModList1 and not env.player.weaponsDisabled then
+		env.modDB:AddList(env.weaponModList1)
 	end
 
 	-- Merge Requirements Tables

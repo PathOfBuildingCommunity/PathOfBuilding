@@ -789,6 +789,9 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 						if item and item.weaponData then
 							minion.weaponData1 = item.weaponData[1]
 						end
+					elseif env.player.weaponsDisabled and env.player.itemList["Weapon 1"] and env.player.itemList["Weapon 1"].weaponData then
+						-- The player's weapon slots are disabled while the weapon is a minion (e.g. Manifested Dancing Dervishes)
+						minion.weaponData1 = env.player.itemList["Weapon 1"].weaponData[1]
 					else
 						minion.weaponData1 = env.player.weaponData1
 					end
