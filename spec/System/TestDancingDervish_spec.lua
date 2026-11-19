@@ -188,6 +188,7 @@ describe("TestDancingDervish", function()
 		setCustomMods("Hollow Palm Technique")
 		local mainHandHit = build.calcsTab.mainOutput.MainHand.AverageHit
 		local offHandHit = build.calcsTab.mainOutput.OffHand.AverageHit
+		assert.is_true(offHandHit > 0)
 
 		-- Ambidexterity
 		setCustomMods("Hollow Palm Technique\n60% increased Attack Damage with Main Hand while Dual Wielding")
