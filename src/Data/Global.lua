@@ -30,6 +30,7 @@ colorCodes = {
 	OFFENCE = "^xE07030",
 	DEFENCE = "^x8080E0",
 	SCION = "^xFFF0F0",
+	WHITE = "^xFFF0F0",
 	MARAUDER = "^xE05030",
 	RANGER = "^x70FF70",
 	WITCH = "^x7070FF",
