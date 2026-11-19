@@ -1305,7 +1305,8 @@ function calcs.perform(env, skipEHP)
 	env.keystonesAdded = { }
 	modLib.mergeKeystones(env, env.modDB)
 
-	-- Scales "Consecrated Ground you create grants ..." mods
+	-- Scales "Consecrated Ground you create grants ..." mods. Computed once here, before extra auras are applied,
+	-- so ConsecratedGroundEffect sources added later in this pass are not included
 	modDB.multipliers["ConsecratedGroundEffect"] = 100 + modDB:Sum("INC", nil, "ConsecratedGroundEffect")
 
 	-- Build minion skills

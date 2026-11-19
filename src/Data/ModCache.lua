@@ -17725,9 +17725,7 @@ c["Kill Undead Enemies that have 15% or lower Life when Hit by your Skills"]={ni
 c["Killing Blows Consume corpses to Recover 100 Life"]={nil,"Killing Blows Consume corpses to Recover 100 Life "}
 c["Killing Blows Consume corpses to Recover 120 Life and 60 Mana"]={nil,"Killing Blows Consume corpses to Recover 120 Life and 60 Mana "}
 c["Killing Blows Consume corpses to Recover 25 Mana"]={nil,"Killing Blows Consume corpses to Recover 25 Mana "}
-c["Killing Blows Consume corpses to Recover 4% of Life"]={nil,"Killing Blows Consume corpses to Recover 4% of Life "}
 c["Killing Blows Consume corpses to Recover 4% of Mana"]={nil,"Killing Blows Consume corpses to Recover 4% of Mana "}
-c["Killing Blows Consume corpses to Recover 4% of Mana Killing Blows Consume corpses to Recover 4% of Life"]={nil,"Killing Blows Consume corpses to Recover 4% of Mana Killing Blows Consume corpses to Recover 4% of Life "}
 c["Killing Blows Consume corpses to Recover 50 Life"]={nil,"Killing Blows Consume corpses to Recover 50 Life "}
 c["Killing Blows Consume corpses to Recover 50 Mana"]={nil,"Killing Blows Consume corpses to Recover 50 Mana "}
 c["Killing Blows Consume corpses to Recover 60 Life and 30 Mana"]={nil,"Killing Blows Consume corpses to Recover 60 Life and 30 Mana "}
@@ -20007,9 +20005,9 @@ c["Requires Class Scion Allocates Hierophant if you have the matching modifier o
 c["Requires Class Scion Allocates Inquisitor if you have the matching modifier on Forbidden Flame"]={nil,"Requires Class Scion Allocates Inquisitor if you have the matching modifier on Forbidden Flame "}
 c["Requires Class Scion Allocates Inquisitor if you have the matching modifier on Forbidden Flesh"]={nil,"Requires Class Scion Allocates Inquisitor if you have the matching modifier on Forbidden Flesh "}
 c["Requires Class Scion Allocates Juggernaut if you have the matching modifier on Forbidden Flame"]={nil,"Requires Class Scion Allocates Juggernaut if you have the matching modifier on Forbidden Flame "}
-end)();(function()
 c["Requires Class Scion Allocates Juggernaut if you have the matching modifier on Forbidden Flesh"]={nil,"Requires Class Scion Allocates Juggernaut if you have the matching modifier on Forbidden Flesh "}
 c["Requires Class Scion Allocates Necromancer if you have the matching modifier on Forbidden Flame"]={nil,"Requires Class Scion Allocates Necromancer if you have the matching modifier on Forbidden Flame "}
+end)();(function()
 c["Requires Class Scion Allocates Necromancer if you have the matching modifier on Forbidden Flesh"]={nil,"Requires Class Scion Allocates Necromancer if you have the matching modifier on Forbidden Flesh "}
 c["Requires Class Scion Allocates Occultist if you have the matching modifier on Forbidden Flame"]={nil,"Requires Class Scion Allocates Occultist if you have the matching modifier on Forbidden Flame "}
 c["Requires Class Scion Allocates Occultist if you have the matching modifier on Forbidden Flesh"]={nil,"Requires Class Scion Allocates Occultist if you have the matching modifier on Forbidden Flesh "}
