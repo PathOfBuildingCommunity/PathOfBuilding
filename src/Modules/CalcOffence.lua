@@ -2941,6 +2941,11 @@ function calcs.offence(env, actor, activeSkill)
 							local storedUses = value.skillData.storedUses + value.skillModList:Sum("BASE", value.skillCfg, "AdditionalCooldownUses")
 							-- Repeated spells retain the empowerment from the initial cast without consuming another use.
 							local empoweredUseRate = globalOutput.Speed / globalOutput.Repeats
+							if pactKey == "Lycia" then
+								-- A channelled spell stays Empowered until the channel ends, so each channel uses one Empowerment.
+								local channelDuration = skillModList:Sum("BASE", nil, "LyciaChannelDuration")
+								empoweredUseRate = channelDuration > 0 and 1 / channelDuration or 0
+							end
 							local uptime = empoweredUseRate == 0 and 100 or m_min((count / empoweredUseRate) / (cooldown + castTime), 1) * 100
 							uptime = m_min(100, uptime * storedUses)
 							local effect = skillModList:Flag(nil, "Condition:PactMaxHit") and 100 or uptime
@@ -2954,7 +2959,7 @@ function calcs.offence(env, actor, activeSkill)
 							if globalBreakdown then
 								globalBreakdown[pactKey.."UpTimeRatio"] = {
 									s_format("(%.2f ^8(number of Empowered)", count),
-									s_format("/ %.2f) ^8(non-repeated casts per second)", empoweredUseRate),
+									s_format("/ %.2f) ^8(%s per second)", empoweredUseRate, pactKey == "Lycia" and "channels" or "non-repeated casts"),
 									s_format("/ (%.2f ^8(pact cooldown)", cooldown),
 									s_format("+ %.2f) ^8(pact cast time)", castTime),
 									s_format("* %.2f ^8(stored uses)", storedUses),

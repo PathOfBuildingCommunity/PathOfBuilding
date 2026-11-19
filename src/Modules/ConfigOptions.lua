@@ -247,6 +247,9 @@ return {
 			modList:NewMod("Condition:PactMaxHit", "FLAG", true, "Config")
 		end
 	end },
+	{ var = "pactLyciaChannelDuration", type = "float", label = "Pact of Lycia channel duration:", ifSkill = "Pact of Lycia", tooltip = "Seconds you channel each Empowered spell before releasing it.\nEach channel uses one Empowerment for its whole duration.\nLeave blank to assume you channel without releasing.", apply = function(val, modList, enemyModList)
+		modList:NewMod("LyciaChannelDuration", "BASE", val, "Config")
+	end },
 	{ var = "EVBypass", type = "check", label = "Disable Emperor's Vigilance Bypass", ifCond = "EVBypass", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:EVBypass", "FLAG", true, "Config")
 	end },
