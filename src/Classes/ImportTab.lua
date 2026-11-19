@@ -1454,9 +1454,6 @@ function ImportTabClass:ImportMercenary(merc)
 		end
 	end
 	for _, itemData in ipairs(merc.items or { }) do
-		-- Socketed items would be imported to the player's skills and item set
-		itemData = copyTable(itemData, true)
-		itemData.socketedItems = nil
 		self:ImportItem(itemData, nil, true, itemSet.id)
 	end
 
@@ -1847,7 +1844,7 @@ function ImportTabClass:ImportItem(itemData, slotName, ignoreWeaponSwap, itemSet
 		item.sockets = { }
 		for i, socket in pairs(itemData.sockets) do
 			if socket.sColour == "A" then
-				item.abyssalSocketCount = item.abyssalSocketCount or 0 + 1
+				item.abyssalSocketCount = (item.abyssalSocketCount or 0) + 1
 			end
 			item.sockets[i] = { group = socket.group, color = socket.sColour }
 		end
@@ -1856,7 +1853,7 @@ function ImportTabClass:ImportItem(itemData, slotName, ignoreWeaponSwap, itemSet
 		end
 	end
 	if itemData.socketedItems then
-		self:ImportSocketedItems(item, itemData.socketedItems, slotName)
+		self:ImportSocketedItems(item, itemData.socketedItems, slotName, itemSetId)
 	end
 	if itemData.requirements and (not itemData.socketedItems or not itemData.socketedItems[1]) then
 		-- Requirements cannot be trusted if there are socketed gems, as they may override the item's natural requirements
@@ -2020,13 +2017,13 @@ function ImportTabClass:ImportItem(itemData, slotName, ignoreWeaponSwap, itemSet
 	end
 end
 
-function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
+function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName, itemSetId)
 	-- Build socket group list
 	local itemSocketGroupList = { }
 	local abyssalSocketId = 1
 	for _, socketedItem in ipairs(socketedItems) do
 		if socketedItem.abyssJewel then
-			self:ImportItem(socketedItem, slotName .. " Abyssal Socket "..abyssalSocketId)
+			self:ImportItem(socketedItem, slotName .. " Abyssal Socket "..abyssalSocketId, nil, itemSetId)
 			abyssalSocketId = abyssalSocketId + 1
 		else
 			local normalizedBasename = sanitiseText(socketedItem.typeLine)
