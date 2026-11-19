@@ -272,6 +272,41 @@ describe("TestOffence", function()
 		assertNear(baseMin * 0.5, build.calcsTab.calcsOutput.LightningMin, "50%% less min on converted damage")
 	end)
 
+	-- Bladefall with the given custom mods; returns output without and with Roiling Tempest's min/max lightning mods
+	local function withAndWithoutMinMaxLightning(mods)
+		build.skillsTab:PasteSocketGroup("Slot: Body Armour\nBladefall 20/0  1\n")
+		build.configTab.input.customMods = mods
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+		local before = copyTable(build.calcsTab.calcsOutput, true)
+		build.configTab.input.customMods = mods .. "\n25% more Maximum Lightning Damage\n50% less Minimum Lightning Damage"
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+		return before, build.calcsTab.calcsOutput
+	end
+
+	it("applies min/max lightning mods to the lightning step of a chained conversion (issue #10407)", function()
+		local before, after = withAndWithoutMinMaxLightning("100% of Physical Damage Converted to Lightning Damage\n100% of Lightning Damage Converted to Cold Damage")
+		assert.is_true(before.ColdMax > 0)
+		assertNear(before.ColdMax * 1.25, after.ColdMax, "cold max scaled via the lightning step")
+		assertNear(before.ColdMin * 0.5, after.ColdMin, "cold min scaled via the lightning step")
+	end)
+
+	it("does not apply min/max lightning mods to physical converted directly to cold", function()
+		local before, after = withAndWithoutMinMaxLightning("100% of Physical Damage Converted to Cold Damage")
+		assert.is_true(before.ColdMax > 0)
+		assert.are.equals(before.ColdMax, after.ColdMax)
+		assert.are.equals(before.ColdMin, after.ColdMin)
+	end)
+
+	it("applies min/max lightning mods to damage gained as extra lightning with no lightning base (issue #10407)", function()
+		local before, after = withAndWithoutMinMaxLightning("Gain 50% of Physical Damage as Extra Lightning Damage")
+		assert.is_true(before.LightningMax > 0)
+		assertNear(before.LightningMax * 1.25, after.LightningMax, "gained lightning max")
+		assertNear(before.LightningMin * 0.5, after.LightningMin, "gained lightning min")
+		assert.are.equals(before.PhysicalMax, after.PhysicalMax)
+	end)
+
 	it("applies minimum and maximum attack damage mods", function()
 		build.itemsTab:CreateDisplayItemFromRaw([[
 		New Item

@@ -102,6 +102,7 @@ local function calcDamage(activeSkill, output, cfg, breakdown, damageType, typeF
 			t_insert(breakdown.damageTypes, {
 				source = damageType,
 				convSrc = (addMin ~= 0 or addMax ~= 0) and (round(addMin) .. " to " .. round(addMax)),
+				more = (min ~= addMin or max ~= addMax) and s_format("x %g min, x %g max", round(moreMinDamage * incMinDamage, 4), round(moreMaxDamage * incMaxDamage, 4)),
 				total = round(min) .. " to " .. round(max),
 				convDst = convDst and s_format("%d%% to %s", conversionTable[damageType].conversion[convDst] * 100, convDst),
 				gainDst = convDst and s_format("%d%% gained as %s", conversionTable[damageType].gain[convDst] * 100, convDst),
