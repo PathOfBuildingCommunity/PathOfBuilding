@@ -3682,6 +3682,7 @@ function calcs.perform(env, skipEHP)
 	local major, minor = env.spec.treeVersion:match("(%d+)_(%d+)")
 
 	-- Apply exposures
+	env.appliedExposure = { }
 	for _, element in ipairs({"Fire", "Cold", "Lightning"}) do
 		if tonumber(major) <= 3 and tonumber(minor) <= 15 -- Elemental Equilibrium pre-3.16 does not remove Exposure effects
 			or not modDB:Flag(nil, "ElementalEquilibrium") -- if Elemental Equilibrium isn't active we just process Exposure normally
@@ -3707,7 +3708,9 @@ function calcs.perform(env, skipEHP)
 					min = min * (1 + exposureEffectInc / 100)
 				end
 				enemyDB:NewMod("Condition:Has"..element.."Exposure", "FLAG", true, "")
-				enemyDB:NewMod(element.."Resist", "BASE", m_min(min, modDB:Override(nil, "ExposureMin")), source)
+				local exposureResist = m_min(min, modDB:Override(nil, "ExposureMin"))
+				enemyDB:NewMod(element.."Resist", "BASE", exposureResist, source)
+				env.appliedExposure[element] = { value = exposureResist, source = source }
 				modDB:NewMod("Condition:AppliedExposureRecently", "FLAG", true, "")
 			end
 		end
