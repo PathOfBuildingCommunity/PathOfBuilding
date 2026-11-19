@@ -824,6 +824,23 @@ function calcs.buildOutput(build, mode)
 				end
 			end
 		end
+		-- Exposure that does not come from a listed debuff skill (config, items, passives)
+		local debuffSources = { }
+		for _, modList in pairs(env.debuffs) do
+			for _, mod in ipairs(modList) do
+				debuffSources[mod.source] = true
+			end
+		end
+		for _, element in ipairs({ "Fire", "Cold", "Lightning" }) do
+			local exposure = env.appliedExposure and env.appliedExposure[element]
+			if exposure and not debuffSources[exposure.source] and not env.debuffs[element.." Exposure"] then
+				t_insert(curseList, element.." Exposure")
+				t_insert(env.player.breakdown.SkillDebuffs.modList, {
+					mod = modLib.createMod(element.."Resist", "BASE", exposure.value, exposure.source),
+					value = exposure.value,
+				})
+			end
+		end
 		output.BuffList = table.concat(buffList, ", ")
 		output.CombatList = table.concat(combatList, ", ")
 		output.CurseList = table.concat(curseList, ", ")
