@@ -475,6 +475,43 @@ describe("Abyss timeless jewels", function()
 		assert.is_true(hasComparison)
 	end)
 
+	-- Each node line is fed as a Config custom modifier with the node's exact text
+	describe("calculates Abyss node lines", function()
+		local function calculate(skill, customMods)
+			build.skillsTab:PasteSocketGroup(skill)
+			build.configTab.input.customMods = customMods
+			build.configTab:BuildModList()
+			runCallback("OnFrame")
+			return build.calcsTab.mainOutput
+		end
+
+		it("Spiteful Allies makes minions Impale on Hit", function()
+			local output = calculate("Raise Zombie 20/0  1", "Minions Impale on Hit")
+			assert.are.equal(100, output.Minion.ImpaleChance)
+		end)
+
+		it("The Loyal Few limits raised minions to one", function()
+			build.skillsTab:PasteSocketGroup("Summon Skeletons 20/0  1")
+			local output = calculate("Raise Zombie 20/0  1", "Maximum number of raised Spectres, Skeletons and Zombies is 1")
+			assert.are.same({ 1, 1 }, { output.ActiveSkeletonLimit, output.ActiveZombieLimit })
+			-- Raise Spectre without a selected monster has no minion, so read the spectre limit from the modifier store
+			assert.are.equal(1, build.calcsTab.mainEnv.modDB:Override(nil, "ActiveSpectreLimit"))
+		end)
+
+		it("From Below stops Mana regeneration", function()
+			local output = calculate("Fireball 20/0  1", "Cannot recover Mana")
+			assert.are.equal(0, output.ManaRegen)
+		end)
+
+		it("Sanguine Bargain makes Attack Skills cost Life", function()
+			build.itemsTab:CreateDisplayItemFromRaw("New Item\nRusted Sword")
+			build.itemsTab:AddDisplayItem()
+			local output = calculate("Double Strike 20/0  1", "Attack Skills cost Life instead of Mana")
+			assert.are.equal(0, output.ManaCost)
+			assert.is_true(output.LifeCost > 0)
+		end)
+	end)
+
 	it("applies Zorath seed 4050 to the selected Chieftain notable", function()
 		local spec = build.spec
 		spec:SelectClass(spec.tree.classNameMap.Marauder)
