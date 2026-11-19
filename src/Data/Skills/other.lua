@@ -4444,6 +4444,11 @@ skills["SummonElementalRelic"] = {
 	minionList = {
 		"GuardianRelicAll",
 	},
+	statMap = {
+		["guardian_relic_explode_on_death_for_%_life_as_element_damage"] = {
+			mod("MinionModifier", "LIST", { mod = mod("Multiplier:GuardianRelicExplosionPercent", "BASE", nil) }),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		minion = true,
