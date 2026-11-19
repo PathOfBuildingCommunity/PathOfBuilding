@@ -1730,11 +1730,11 @@ return {
 } },
 { 1, "DamageAvoidance", 3, colorCodes.DEFENCE, { { defaultCollapsed = false, label = "Damage Avoidance", data = {
 	{ label = "Avoid All Dmg Ch.", haveOutput = "AvoidAllDamageFromHitsChance", { format = "{0:output:AvoidAllDamageFromHitsChance}%", { modName = "AvoidAllDamageFromHitsChance" }, }, },
-	{ label = "Avoid Physical Ch.", haveOutput = "AvoidPhysicalDamageChance", { format = "{0:output:AvoidPhysicalDamageChance}%", { modName = "AvoidPhysicalDamageChance" }, }, },
-	{ label = "Avoid Lightning Ch.", haveOutput = "AvoidLightningDamageChance", { format = "{0:output:AvoidLightningDamageChance}%", { modName = "AvoidLightningDamageChance" }, }, },
-	{ label = "Avoid Cold Chance", haveOutput = "AvoidColdDamageChance", { format = "{0:output:AvoidColdDamageChance}%", { modName = "AvoidColdDamageChance" }, }, },
-	{ label = "Avoid Fire Chance", haveOutput = "AvoidFireDamageChance", { format = "{0:output:AvoidFireDamageChance}%", { modName = "AvoidFireDamageChance" }, }, },
-	{ label = "Avoid Chaos Chance", haveOutput = "AvoidChaosDamageChance", { format = "{0:output:AvoidChaosDamageChance}%", { modName = "AvoidChaosDamageChance" }, }, },
+	{ label = "Avoid Physical Ch.", haveOutput = "AvoidPhysicalDamageChance", { format = "{0:output:AvoidPhysicalDamageChance}%", { modName = { "AvoidPhysicalDamageChance", "AvoidAllDamageFromHitsChance" } }, }, },
+	{ label = "Avoid Lightning Ch.", haveOutput = "AvoidLightningDamageChance", { format = "{0:output:AvoidLightningDamageChance}%", { modName = { "AvoidLightningDamageChance", "AvoidAllDamageFromHitsChance" } }, }, },
+	{ label = "Avoid Cold Chance", haveOutput = "AvoidColdDamageChance", { format = "{0:output:AvoidColdDamageChance}%", { modName = { "AvoidColdDamageChance", "AvoidAllDamageFromHitsChance" } }, }, },
+	{ label = "Avoid Fire Chance", haveOutput = "AvoidFireDamageChance", { format = "{0:output:AvoidFireDamageChance}%", { modName = { "AvoidFireDamageChance", "AvoidAllDamageFromHitsChance" } }, }, },
+	{ label = "Avoid Chaos Chance", haveOutput = "AvoidChaosDamageChance", { format = "{0:output:AvoidChaosDamageChance}%", { modName = { "AvoidChaosDamageChance", "AvoidAllDamageFromHitsChance" } }, }, },
 	{ label = "Avoid Proj Ch.", haveOutput = "AvoidProjectilesChance", { format = "{0:output:AvoidProjectilesChance}%", { modName = "AvoidProjectilesChance" }, }, },
 } }, { defaultCollapsed = false, label = "Block", data = {
 	extra = "{3:output:EffectiveBlockChance}%/{3:output:EffectiveSpellBlockChance}%",
