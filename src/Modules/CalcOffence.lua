@@ -90,21 +90,28 @@ local function calcDamage(activeSkill, output, cfg, breakdown, damageType, typeF
 	end
 	local baseMin = output[damageType.."MinBase"]
 	local baseMax = output[damageType.."MaxBase"]
+	local moreMinDamage = skillModList:More(cfg, "Min"..damageType.."Damage")
+	local moreMaxDamage = skillModList:More(cfg, "Max"..damageType.."Damage")
+	local incMinDamage = 1 + skillModList:Sum("INC", cfg, "Min"..damageType.."Damage") / 100
+	local incMaxDamage = 1 + skillModList:Sum("INC", cfg, "Max"..damageType.."Damage") / 100
 	if baseMin == 0 and baseMax == 0 then
-		-- No base damage for this type, don't need to calculate modifiers
+		-- No base damage for this type, so only its minimum/maximum modifiers apply, to the damage converted into it
+		local min = addMin * moreMinDamage * incMinDamage
+		local max = addMax * moreMaxDamage * incMaxDamage
 		if breakdown and (addMin ~= 0 or addMax ~= 0) then
 			t_insert(breakdown.damageTypes, {
 				source = damageType,
 				convSrc = (addMin ~= 0 or addMax ~= 0) and (round(addMin) .. " to " .. round(addMax)),
-				total = round(addMin) .. " to " .. round(addMax),
+				more = (min ~= addMin or max ~= addMax) and s_format("x %g min, x %g max", round(moreMinDamage * incMinDamage, 4), round(moreMaxDamage * incMaxDamage, 4)),
+				total = round(min) .. " to " .. round(max),
 				convDst = convDst and s_format("%d%% to %s", conversionTable[damageType].conversion[convDst] * 100, convDst),
 				gainDst = convDst and s_format("%d%% gained as %s", conversionTable[damageType].gain[convDst] * 100, convDst),
 			})
 		end
 		if convDst then
-			return addMin, addMax
+			return min, max
 		end
-		return round(addMin), round(addMax)
+		return round(min), round(max)
 	end
 
 	-- Combine modifiers
@@ -113,10 +120,6 @@ local function calcDamage(activeSkill, output, cfg, breakdown, damageType, typeF
 	local more = skillModList:More(cfg, unpack(modNames))
 	local genericMoreMinDamage = skillModList:More(cfg, "MinDamage")
 	local genericMoreMaxDamage = skillModList:More(cfg, "MaxDamage")
-	local moreMinDamage = skillModList:More(cfg, "Min"..damageType.."Damage")
-	local moreMaxDamage = skillModList:More(cfg, "Max"..damageType.."Damage")
-	local incMinDamage = 1 + skillModList:Sum("INC", cfg, "Min"..damageType.."Damage") / 100
-	local incMaxDamage = 1 + skillModList:Sum("INC", cfg, "Max"..damageType.."Damage") / 100
 
 	if breakdown then
 		t_insert(breakdown.damageTypes, {
