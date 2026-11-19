@@ -150,7 +150,7 @@
 	<File name="Classes/ItemListControl.lua" part="program" sha1="01546a91c647cb978ffb757cbe75a7afaa2d0cba" />
 	<File name="Classes/ItemSetListControl.lua" part="program" sha1="5ff494b708b1b633f0cf4157e30ad295c1044ed4" />
 	<File name="Classes/ItemSlotControl.lua" part="program" sha1="994edcab55ba363f6c82c497f7d5353927172020" />
-	<File name="Classes/ItemsTab.lua" part="program" sha1="8e29911cf40cf5c0b4db37c2ab32c2f854b2df01" />
+	<File name="Classes/ItemsTab.lua" part="program" sha1="a9cb639da20bcb59a2de72701248c79d73cbe414" />
 	<File name="Classes/LabelControl.lua" part="program" sha1="7a8f38d225087ba6941537444b0ea0ec0ac150cd" />
 	<File name="Classes/ListControl.lua" part="program" sha1="9223f7e90e7fa3f67ad0cf8224e1266e59b9681f" />
 	<File name="Classes/MinionListControl.lua" part="program" sha1="655a6ddb06ba75011e51d5a6130db8cf7a9f3895" />
@@ -162,7 +162,7 @@
 	<File name="Classes/NotesTab.lua" part="program" sha1="d62f9ee51c906fcc06cdb08f80bb8f3224c9cce4" />
 	<File name="Classes/PartyTab.lua" part="program" sha1="7cb4377e06b52737cfd5d1757b0b7ef190bb45f1" />
 	<File name="Classes/PassiveMasteryControl.lua" part="program" sha1="5459a7be287c86050fb5176c3cad996e8434447b" />
-	<File name="Classes/PassiveSpec.lua" part="program" sha1="e8eb961ac7d902fcb18c6c53fff72cd21bba81fc" />
+	<File name="Classes/PassiveSpec.lua" part="program" sha1="7f9f5c5d0c6bcb684139cf5f0fdf70db861f6ac6" />
 	<File name="Classes/PassiveSpecListControl.lua" part="program" sha1="24bedd3c52a837bfd19143a6428fe3f88a4211a8" />
 	<File name="Classes/PassiveTree.lua" part="program" sha1="71bc9a089a989f89838ed1508f1b80328b5cabd7" />
 	<File name="Classes/PassiveTreeView.lua" part="program" sha1="174f9a063a76863bc060e877e2409c051a244da3" />
@@ -171,6 +171,13 @@
 	<File name="Classes/PoEAPI.lua" part="program" sha1="7c36aec9aac7156dbc8330bc992142f607680618" />
 	<File name="Classes/PopupDialog.lua" part="program" sha1="2475f96e243a38dd3418dfb233207b5ed58c291a" />
 	<File name="Classes/PowerReportListControl.lua" part="program" sha1="47802eb02de22fcb7e4e6837c9dbaeda85d3d274" />
+	<File name="Classes/RadiusJewelCompute.lua" part="program" sha1="2fc47abb521460c1adf3e2c27696f012ded6c68b" />
+	<File name="Classes/RadiusJewelData.lua" part="program" sha1="6d4607a936d51849913e99253c7d294a811a8121" />
+	<File name="Classes/RadiusJewelDetailListControl.lua" part="program" sha1="fc651bf47cc714d5460e2e2e36f341715bbb4039" />
+	<File name="Classes/RadiusJewelFinder.lua" part="program" sha1="c9d28c8a1c7e145952786aeb96ce52236cda7616" />
+	<File name="Classes/RadiusJewelItemActions.lua" part="program" sha1="5fba2b7595c46e9217e1c20c47d8c818df9d07cb" />
+	<File name="Classes/RadiusJewelResultsListControl.lua" part="program" sha1="78bbfb0bf09739a76a88a119653a33fa27ab91de" />
+	<File name="Classes/RadiusJewelTooltipPlacement.lua" part="program" sha1="768fe21dcb1dff1809f4d6180d94b49374899082" />
 	<File name="Classes/RectangleOutlineControl.lua" part="program" sha1="c87605ee59b8ff258a12c58ba4d4d32e67023ede" />
 	<File name="Classes/ResizableEditControl.lua" part="program" sha1="8e1133756eece339330ad669c219ee28f1bd0c62" />
 	<File name="Classes/ScrollBarControl.lua" part="program" sha1="7792d5aab5b685f1400e174c59447b9ab7ebdf45" />
@@ -193,7 +200,7 @@
 	<File name="Classes/TradeQueryRateLimiter.lua" part="program" sha1="2e0853cc35292f769040c1104e7877f791a79c0c" />
 	<File name="Classes/TradeQueryRequests.lua" part="program" sha1="a70ccb5bbaff3a951d3280b9f73988ecc60e85ea" />
 	<File name="Classes/TradeStatWeightMultiplierListControl.lua" part="program" sha1="b83a9eb1dad0e363acb3ce0cd28bb5e43fe08ced" />
-	<File name="Classes/TreeTab.lua" part="program" sha1="3430101a627fbf1c6728f9b57afae7a08917b2f1" />
+	<File name="Classes/TreeTab.lua" part="program" sha1="ae14815b93712f552240b4f1c56942d6020d2780" />
 	<File name="Classes/UndoHandler.lua" part="program" sha1="586afba2e6fea36e34c1109d21498bd86d6ead93" />
 	<File name="Data/Bases/amulet.lua" part="program" sha1="6c567cde1c73f313dc4a5d215adaf72a86db722c" />
 	<File name="Data/Bases/axe.lua" part="program" sha1="ceb8668a588ecf02aaf0babee9e9908317cba58f" />
