@@ -216,9 +216,14 @@ local function getWeaponFlags(env, weaponData, weaponTypes)
 	end
 	if weaponTypes then
 		for _, types in ipairs(weaponTypes) do
-			if not types[weaponData.type] and
-			(not weaponData.countsAsAll1H or not (types["Claw"] or types["Dagger"] or types["One Handed Axe"] or types["One Handed Mace"] or types["One Handed Sword"]))
-			and not checkAsThoughWeaponTypes(weaponData, types) then
+			if weaponData.asThoughUsing then
+				-- Only the weapon types it attacks as though using determine which skills can be used
+				-- e.g. Hide of the Vendigo allows Claw skills, but not skills that can only be used Unarmed
+				if not checkAsThoughWeaponTypes(weaponData, types) then
+					return nil, info
+				end
+			elseif not types[weaponData.type] and
+			(not weaponData.countsAsAll1H or not (types["Claw"] or types["Dagger"] or types["One Handed Axe"] or types["One Handed Mace"] or types["One Handed Sword"])) then
 				return nil, info
 			end
 		end
@@ -299,6 +304,17 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 		activeSkill.disableReason = "This skill requires a Staff"
 	end
 
+	local socketGroup = activeSkill.socketGroup
+	if activeSkill.actor.weaponsDisabled and socketGroup and socketGroup.slot and socketGroup.slotEnabled and not socketGroup.source then
+		local slotName = socketGroup.slot:gsub(" Swap", "")
+		if slotName == "Weapon 1" or slotName == "Weapon 2" then
+			-- Skills socketed in weapons disabled by Manifested Dancing Dervishes can't be used
+			-- Supports socketed in them still support the skills granted by the weapon
+			skillFlags.disable = true
+			activeSkill.disableReason = "This skill is socketed in a disabled weapon"
+		end
+	end
+
 	if skillFlags.shieldAttack then
 		-- Special handling for Spectral Shield Throw
 		skillFlags.weapon2Attack = true
@@ -351,7 +367,9 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 					activeSkill.weapon2Flags = weapon2Flags
 					skillFlags.weapon2Attack = true
 				end
-			elseif (skillTypes[SkillType.DualWieldOnly] or weapon2Info) and not activeSkill.summonSkill then
+			-- While attacking as though using a Claw in the main hand (Hide of the Vendigo), an incompatible unarmed
+			-- off hand (Hollow Palm Technique) doesn't disable the skill, it just doesn't attack
+			elseif (skillTypes[SkillType.DualWieldOnly] or (weapon2Info and not activeSkill.actor.weaponData1.asThoughUsing)) and not activeSkill.summonSkill then
 				-- Skill requires a compatible off hand weapon
 				skillFlags.disable = true
 				activeSkill.disableReason = activeSkill.disableReason or "Off Hand weapon is not usable with this skill"

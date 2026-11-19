@@ -95,6 +95,34 @@ describe("TestDancingDervish", function()
 		assert.is_true(build.calcsTab.mainOutput.Minion.TotalDPS > 0)
 	end)
 
+	it("disables skills socketed in the weapon while the Dancing Dervishes are manifested, but not its supports", function()
+		local dervishGroup = setup("Cyclone 20/0 1")
+		build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nHatred 20/0 1\nMinion Damage 20/0 1")
+		rebuild()
+		assert.is_true(player().mainSkill.activeEffect.grantedEffect.name == "Cyclone")
+		local hatred, dervishes
+		for _, activeSkill in ipairs(player().activeSkillList) do
+			if activeSkill.activeEffect.grantedEffect.name == "Hatred" then
+				hatred = activeSkill
+			elseif activeSkill.activeEffect.grantedEffect.id == "ManifestDancingDervishes" then
+				dervishes = activeSkill
+			end
+		end
+		assert.is_true(hatred.skillFlags.disable)
+		assert.is_nil(player().modDB.conditions["AffectedByHatred"])
+		assert.is_falsy(dervishes.skillFlags.disable)
+		local supportedByMinionDamage = false
+		for _, effect in ipairs(dervishes.effectList) do
+			if effect.grantedEffect.name == "Minion Damage" then
+				supportedByMinionDamage = true
+			end
+		end
+		assert.is_true(supportedByMinionDamage)
+
+		setManifested(dervishGroup, false)
+		assert.is_true(player().modDB.conditions["AffectedByHatred"])
+	end)
+
 	it("keeps Rampage while the Dancing Dervishes are manifested", function()
 		setup("Cyclone 20/0 1")
 		assert.is_true(player().weaponsDisabled)
