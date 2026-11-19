@@ -304,17 +304,6 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 		activeSkill.disableReason = "This skill requires a Staff"
 	end
 
-	local socketGroup = activeSkill.socketGroup
-	if activeSkill.actor.weaponsDisabled and socketGroup and socketGroup.slot and socketGroup.slotEnabled and not socketGroup.source then
-		local slotName = socketGroup.slot:gsub(" Swap", "")
-		if slotName == "Weapon 1" or slotName == "Weapon 2" then
-			-- Skills socketed in weapons disabled by Manifested Dancing Dervishes can't be used
-			-- Supports socketed in them still support the skills granted by the weapon
-			skillFlags.disable = true
-			activeSkill.disableReason = "This skill is socketed in a disabled weapon"
-		end
-	end
-
 	if skillFlags.shieldAttack then
 		-- Special handling for Spectral Shield Throw
 		skillFlags.weapon2Attack = true
@@ -383,6 +372,18 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 		end
 		if skillFlags.attack then
 			skillFlags.bothWeaponAttack = skillFlags.weapon1Attack and skillFlags.weapon2Attack
+		end
+	end
+
+	-- Checked after the weapon flags so the reason isn't overwritten by the weapon checks
+	local socketGroup = activeSkill.socketGroup
+	if activeSkill.actor.weaponsDisabled and socketGroup and socketGroup.slot and socketGroup.slotEnabled and not socketGroup.source then
+		local slotName = socketGroup.slot:gsub(" Swap", "")
+		if slotName == "Weapon 1" or slotName == "Weapon 2" then
+			-- Skills socketed in weapons disabled by Manifested Dancing Dervishes can't be used
+			-- Supports socketed in them still support the skills granted by the weapon
+			skillFlags.disable = true
+			activeSkill.disableReason = "This skill is socketed in a disabled weapon"
 		end
 	end
 
