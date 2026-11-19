@@ -6,6 +6,7 @@ local scopesOAuth = {
 	"account:profile",
 	"account:leagues",
 	"account:characters",
+	"account:league_accounts",
 	"account:trade"
 }
 
@@ -235,4 +236,13 @@ end
 function PoEAPIClass:DownloadCharacter(realm, name, callback)
 	self:DownloadWithRateLimit("character-request-limit",
 		"/character" .. (realm == "pc" and "" or "/" .. realm) .. "/" .. name, callback)
+end
+
+---Fetches the league account, which includes the account's mercenaries, from PoE's OAuth api
+---@param realm string Realm to fetch the league account from
+---@param league string League to fetch the league account for
+---@param callback DownloadCallback
+function PoEAPIClass:DownloadLeagueAccount(realm, league, callback)
+	self:DownloadWithRateLimit("league-account-request-limit",
+		"/league-account" .. (realm == "pc" and "" or "/" .. realm) .. "/" .. urlEncode(league), callback)
 end
