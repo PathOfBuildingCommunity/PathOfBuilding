@@ -91,7 +91,8 @@ local function addOAuthControls(self)
 	self.controls.characterImportAnchor = new("Control"):Control({ "TOPLEFT", self.controls.sectionOauthCharImport, "TOPLEFT" },
 		{ labelSpacing, 40, 200, 16 })
 	self.controls.sectionOauthCharImport.height = function()
-		return self.isAuthorized() and 200 or 60
+		-- the error label needs an extra row when logged out
+		return self.isAuthorized() and 200 or (self.oauthErrCode and 80 or 60)
 	end
 
 	-- realm select
@@ -189,8 +190,8 @@ local function addOAuthControls(self)
 		return self.usingOauth and self.isAuthorized()
 	end
 
-	self.controls.oauthErrorLabel = new("LabelControl"):LabelControl({ "TOPRIGHT", self.controls.sectionOauthCharImport, "TOPRIGHT" },
-		{ -8, 40, 0, 18 })
+	self.controls.oauthErrorLabel = new("LabelControl"):LabelControl({ "BOTTOMLEFT", self.controls.sectionOauthCharImport, "BOTTOMLEFT" },
+		{ labelSpacing, -4, 0, 16 })
 	self.controls.oauthErrorLabel.label = function()
 		local text = self.oauthErrCode and string.format("%sError: %s", colorCodes.NEGATIVE, self.oauthErrCode) or ""
 		return text
@@ -228,6 +229,30 @@ local function addOAuthControls(self)
 		{ 0, rowSpacing, 0, 14 }, "^7League:")
 	self.controls.charSelectLeague = new("DropDownControl"):DropDownControl({ "LEFT", self.controls.charSelectLeagueLabel, "RIGHT" },
 		{ labelSpacing, 0, 150, 18 }, nil, onLeagueChange)
+	-- mercenaries are part of the league account rather than a character
+	self.controls.mercImport = new("ButtonControl"):ButtonControl({ "LEFT", self.controls.charSelectLeague, "RIGHT" },
+		{ labelSpacing, 0, 130, 18 }, "Import Mercenary...", function()
+			local realm = self.controls.accountRealm:GetSelValue()
+			local league = self.controls.charSelectLeague:GetSelValue()
+			self.oauthLoading = true
+			main.api:DownloadLeagueAccount(realm.realmCode, league, function(body, errMsg, timeNext)
+				self.oauthLoading = false
+				if body and body.league_account then
+					self.oauthErrCode = nil
+					self:OpenMercenaryImportPopup(league, body.league_account.mercenaries or { })
+				elseif errMsg == "Response code: 429" then
+					self.rateLimitEndTime = timeNext
+				elseif errMsg and errMsg:match("403") then
+					self.oauthErrCode = "Missing access to league data. Please logout and login again."
+				else
+					self.oauthErrCode = "Could not fetch mercenaries: " .. (errMsg or "invalid response")
+				end
+			end)
+		end)
+	self.controls.mercImport.enabled = function()
+		local league = self.controls.charSelectLeague:GetSelValue()
+		return self.isAuthorized() and league and league ~= "Any" and not self.oauthLoading
+	end
 	-- character select
 	self.controls.charSelect = new("DropDownControl"):DropDownControl({ "TOPLEFT", self.controls.charSelectLeagueLabel, "BOTTOMLEFT" },
 		{ 0, rowSpacing, 400, 18 }, nil)
@@ -578,6 +603,7 @@ function ImportTabClass:ImportTab(build)
 		self.importCodeXML = nil
 		self.importCodeValid = false
 		self.importCodeJson = nil
+		self.importCodeMercenaries = nil
 
 		if #buf == 0 then
 			return
@@ -612,6 +638,14 @@ function ImportTabClass:ImportTab(build)
 			local jsonData, _, errDecode = dkjson.decode(urlText)
 			if errDecode then
 				self.importCodeDetail = colorCodes.NEGATIVE.."Invalid JSON format (decode error)"
+				return
+			end
+			-- League account response, or just its mercenaries
+			local mercenaries = jsonData.mercenaries or jsonData.league_account and jsonData.league_account.mercenaries
+			if mercenaries then
+				self.importCodeMercenaries = mercenaries
+				self.importCodeDetail = colorCodes.POSITIVE.."Mercenary JSON is valid"
+				self.importCodeValid = true
 				return
 			end
 			if not jsonData.character then
@@ -702,6 +736,10 @@ function ImportTabClass:ImportTab(build)
 		if self.importCodeJson then
 			self:ImportItemsAndSkills(self.importCodeJson, true, true, false)
 			self:ImportPassiveTreeAndJewels(self.importCodeJson, true)
+			return
+		end
+		if self.importCodeMercenaries then
+			self:OpenMercenaryImportPopup("pasted JSON", self.importCodeMercenaries)
 			return
 		end
 
@@ -1338,19 +1376,21 @@ local function applySocketGroupReimportState(socketGroup, state)
 end
 
 local GUARD_ITEM_SET = "Animate Guardian"
--- Locates AG's item set from the import
-function ImportTabClass:GetOrCreateGuardianItemSet()
+-- Locates an item set by its title, creating it if it doesn't exist
+--- @param title string
+--- @return table itemSet, boolean created
+function ImportTabClass:GetOrCreateItemSet(title)
 	local itemsTab = self.build.itemsTab
 	for _, itemSetId in ipairs(itemsTab.itemSetOrderList) do
 		local itemSet = itemsTab.itemSets[itemSetId]
-		if itemSet.title == GUARD_ITEM_SET then
-			return itemSet
+		if itemSet.title == title then
+			return itemSet, false
 		end
 	end
 	local itemSet = itemsTab:NewItemSet()
-	itemSet.title = GUARD_ITEM_SET
+	itemSet.title = title
 	t_insert(itemsTab.itemSetOrderList, itemSet.id)
-	return itemSet
+	return itemSet, true
 end
 
 -- Allocates AG's item set for the AG skill gem.
@@ -1369,6 +1409,155 @@ function ImportTabClass:AssignGuardianItemSet(itemSetId)
 			end
 		end
 	end
+end
+
+--- @return integer count of mercenary socket groups in the active skill set
+function ImportTabClass:CountMercenarySocketGroups()
+	local count = 0
+	for _, socketGroup in ipairs(self.build.skillsTab.socketGroupList) do
+		if socketGroup.mercenary then
+			count = count + 1
+		end
+	end
+	return count
+end
+
+--- @return table[] gem instances of the Order: To me! skill
+function ImportTabClass:FindCallMercenaryGems()
+	local gems = { }
+	for _, socketGroup in ipairs(self.build.skillsTab.socketGroupList) do
+		for _, gem in ipairs(socketGroup.gemList) do
+			if gem.skillId == "CallMercenary" then
+				t_insert(gems, gem)
+			end
+		end
+	end
+	return gems
+end
+
+-- Imports a mercenary from the league account into its own item set, replacing all mercenary skills
+--- @param merc table Mercenary from the LeagueAccount API type
+function ImportTabClass:ImportMercenary(merc)
+	local itemsTab = self.build.itemsTab
+	local skillsTab = self.build.skillsTab
+
+	local itemSet, created = self:GetOrCreateItemSet("Mercenary: " .. merc.name)
+	if not created then
+		for slotName, slot in pairs(itemsTab.slots) do
+			if not slot.nodeId then
+				if itemSet == itemsTab.activeItemSet then
+					slot:SetSelItemId(0)
+				else
+					itemSet[slotName].selItemId = 0
+				end
+			end
+		end
+	end
+	for _, itemData in ipairs(merc.items or { }) do
+		self:ImportItem(itemData, nil, true, itemSet.id)
+	end
+
+	local socketGroupList = skillsTab.socketGroupList
+	local mainGroup = socketGroupList[self.build.mainSocketGroup]
+	for index = #socketGroupList, 1, -1 do
+		if socketGroupList[index].mercenary then
+			t_remove(socketGroupList, index)
+		end
+	end
+	if skillsTab.displayGroup and skillsTab.displayGroup.mercenary then
+		skillsTab.controls.groupList.selIndex = nil
+		skillsTab.controls.groupList.selValue = nil
+		skillsTab:SetDisplayGroup()
+	end
+	local function mercenaryGem(id, name)
+		-- Skills are matched by ID when possible, as some mercenary skills share names
+		local nameSpec = id and self.build.data.gems["Mercenary/" .. id] and id or name
+		return { nameSpec = nameSpec, level = 1, quality = 0, enabled = true, enableGlobal1 = true }
+	end
+	for _, skill in ipairs(merc.skills or { }) do
+		local socketGroup = { label = "", enabled = true, mercenary = true, gemList = { mercenaryGem(skill.id, skill.name) } }
+		for _, support in ipairs(skill.supports or { }) do
+			t_insert(socketGroup.gemList, mercenaryGem(support.id and "MercenarySupport" .. support.id, support.name))
+		end
+		t_insert(socketGroupList, socketGroup)
+		skillsTab:ProcessSocketGroup(socketGroup)
+	end
+	self.build.mainSocketGroup = mainGroup and isValueInArray(socketGroupList, mainGroup) or self.build.mainSocketGroup
+
+	for _, gem in ipairs(self:FindCallMercenaryGems()) do
+		gem.skillMinionItemSet = itemSet.id
+		gem.skillMinionItemSetCalcs = itemSet.id
+	end
+
+	local configTab = self.build.configTab
+	configTab.input.mercenaryLevel = merc.level
+	configTab.input.mercenaryBuild = merc.build
+	configTab:UpdateControls()
+	configTab:BuildModList()
+	configTab:AddUndoState()
+
+	itemsTab:PopulateSlots()
+	itemsTab:AddUndoState()
+	skillsTab:UpdateSocketGroups()
+	skillsTab:AddUndoState()
+	self.build.buildFlag = true
+end
+
+-- Lists the mercenaries of a league account, each of which can be imported
+--- @param league string
+--- @param mercenaries table[]
+function ImportTabClass:OpenMercenaryImportPopup(league, mercenaries)
+	if not mercenaries[1] then
+		main:OpenMessagePopup("Import Mercenary", "No mercenaries were found in " .. league .. ".")
+		return
+	end
+	local buildNames = { }
+	for _, build in ipairs(self.build.data.mercenaryBuilds) do
+		buildNames[build.id] = build.name
+	end
+	local function importMercenary(merc)
+		main:ClosePopup()
+		local count = self:CountMercenarySocketGroups()
+		if count > 0 then
+			main:OpenConfirmPopup("Import Mercenary", string.format("Importing will remove the %d existing mercenary skill group%s from the skills tab.", count, count == 1 and "" or "s"),
+				"Import", function()
+					self:ImportMercenary(merc)
+				end)
+		else
+			self:ImportMercenary(merc)
+		end
+	end
+
+	local width = 760
+	local rowHeight = 46
+	local controls = { }
+	controls.header = new("LabelControl"):LabelControl(nil, { 0, 20, 0, 16 }, "^7Mercenaries in " .. league .. ":")
+	for index, merc in ipairs(mercenaries) do
+		local skillNames = { }
+		for _, skill in ipairs(merc.skills or { }) do
+			t_insert(skillNames, skill.name)
+		end
+		local y = 44 + (index - 1) * rowHeight
+		controls["name" .. index] = new("LabelControl"):LabelControl({ "TOPLEFT", nil, "TOPLEFT" }, { 20, y, 0, 16 },
+			string.format("%s%s^7, Level %d %s", colorCodes.UNIQUE, merc.name, merc.level, buildNames[merc.build] or merc.build))
+		controls["skills" .. index] = new("LabelControl"):LabelControl({ "TOPLEFT", nil, "TOPLEFT" }, { 30, y + 18, 0, 14 },
+			"^8" .. table.concat(skillNames, ", "))
+		controls["import" .. index] = new("ButtonControl"):ButtonControl({ "TOPRIGHT", nil, "TOPRIGHT" }, { -20, y + 6, 80, 20 }, "Import", function()
+			importMercenary(merc)
+		end)
+	end
+	local noteY = 44 + #mercenaries * rowHeight
+	controls.note = new("LabelControl"):LabelControl({ "TOPLEFT", nil, "TOPLEFT" }, { 20, noteY, 0, 14 },
+		"^7Items are imported into a new item set, and replace all mercenary skills in the skills tab.")
+	if not self:FindCallMercenaryGems()[1] then
+		controls.noSkill = new("LabelControl"):LabelControl({ "TOPLEFT", controls.note, "BOTTOMLEFT" }, { 0, 4, 0, 14 },
+			colorCodes.WARNING .. "The Order: To me! skill was not found, so the item set must be selected manually after adding it.")
+		noteY = noteY + 18
+	end
+	controls.close = new("ButtonControl"):ButtonControl(nil, { 0, noteY + 26, 80, 20 }, "Close", function()
+		main:ClosePopup()
+	end)
+	main:OpenPopup(width, noteY + 58, "Import Mercenary", controls, nil, nil, "close")
 end
 
 --- @class CharacterItemsData : CharacterBasicData
@@ -1417,7 +1606,7 @@ function ImportTabClass:ImportItemsAndSkills(charData, clearItems, clearSkills, 
 		self:ImportItem(itemData, nil, ignoreWeaponSwap)
 	end
 	if charData.guardian and charData.guardian[1] then
-		local guardianSet = self:GetOrCreateGuardianItemSet()
+		local guardianSet = self:GetOrCreateItemSet(GUARD_ITEM_SET)
 		for _, itemData in ipairs(charData.guardian) do
 			self:ImportItem(itemData, nil, ignoreWeaponSwap, guardianSet.id)
 		end
@@ -1655,7 +1844,7 @@ function ImportTabClass:ImportItem(itemData, slotName, ignoreWeaponSwap, itemSet
 		item.sockets = { }
 		for i, socket in pairs(itemData.sockets) do
 			if socket.sColour == "A" then
-				item.abyssalSocketCount = item.abyssalSocketCount or 0 + 1
+				item.abyssalSocketCount = (item.abyssalSocketCount or 0) + 1
 			end
 			item.sockets[i] = { group = socket.group, color = socket.sColour }
 		end
@@ -1664,7 +1853,7 @@ function ImportTabClass:ImportItem(itemData, slotName, ignoreWeaponSwap, itemSet
 		end
 	end
 	if itemData.socketedItems then
-		self:ImportSocketedItems(item, itemData.socketedItems, slotName)
+		self:ImportSocketedItems(item, itemData.socketedItems, slotName, itemSetId)
 	end
 	if itemData.requirements and (not itemData.socketedItems or not itemData.socketedItems[1]) then
 		-- Requirements cannot be trusted if there are socketed gems, as they may override the item's natural requirements
@@ -1828,13 +2017,13 @@ function ImportTabClass:ImportItem(itemData, slotName, ignoreWeaponSwap, itemSet
 	end
 end
 
-function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
+function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName, itemSetId)
 	-- Build socket group list
 	local itemSocketGroupList = { }
 	local abyssalSocketId = 1
 	for _, socketedItem in ipairs(socketedItems) do
 		if socketedItem.abyssJewel then
-			self:ImportItem(socketedItem, slotName .. " Abyssal Socket "..abyssalSocketId)
+			self:ImportItem(socketedItem, slotName .. " Abyssal Socket "..abyssalSocketId, nil, itemSetId)
 			abyssalSocketId = abyssalSocketId + 1
 		else
 			local normalizedBasename = sanitiseText(socketedItem.typeLine)

@@ -268,5 +268,9 @@ minions["GuardianRelicAll"] = {
 #monster Metadata/Monsters/RaisedZombies/RestlessDeadPlayerSummoned ShamblingUndead
 #limit ShamblingUndeadLimit
 #emit
+
+#monster Metadata/Monsters/Mercenaries/MercenaryScion1Allied Mercenary
+#mercenary Mercenary
+#emit
 	return minions
 end

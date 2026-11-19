@@ -38,4 +38,18 @@ describe("CompareTab", function()
 		assert.are.equals(build.calcsTab.mainOutput.GemQuality, entry.calcsTab.mainOutput.GemQuality)
 		assert.are.equals(build.calcsTab.mainOutput.CombinedDPS, entry.calcsTab.mainOutput.CombinedDPS)
 	end)
+	it("keeps mercenary groups apart from player groups with the same gems", function()
+		newBuild()
+		build.skillsTab:PasteSocketGroup("Spark 20/0  1\n")
+		build.skillsTab:PasteSocketGroup("Mercenary: true\nSparkMercenary 20/0  1\n")
+		runCallback("OnFrame")
+		local entry = new("CompareEntry"):CompareEntry(build:SaveDB("code"), "Self")
+		local player, mercenary = entry.skillsTab.socketGroupList[1], entry.skillsTab.socketGroupList[2]
+		assert.is_true(mercenary.mercenary)
+
+		local compareTab = build.compareTab
+		assert.are_not.equals(compareTab:GetSocketGroupSignature(player), compareTab:GetSocketGroupSignature(mercenary))
+		assert.are.equals("Spark", compareTab:GetSocketGroupLabel(player))
+		assert.are.equals("Spark (Mercenary)", compareTab:GetSocketGroupLabel(mercenary))
+	end)
 end)

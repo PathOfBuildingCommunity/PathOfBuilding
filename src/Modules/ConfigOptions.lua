@@ -129,6 +129,18 @@ local function mapAffixDropDownFunction(val, modList, enemyModList, build)
 	end
 end
 
+-- Minion state options also describe the Mercenary, which is an ally rather than a minion
+local function minionStateMod(modList, ...)
+	local mod = modLib.createMod(...)
+	modList:NewMod("MinionModifier", "LIST", { mod = mod }, "Config")
+	modList:NewMod("MercenaryModifier", "LIST", { mod = mod }, "Config")
+end
+
+local mercenaryBuildList = { { val = "NONE", label = "None" } }
+for _, build in ipairs(data.mercenaryBuilds) do
+	table.insert(mercenaryBuildList, { val = build.id, label = build.name })
+end
+
 return {
 	-- Section: General options
 	{ section = "General", col = 1 },
@@ -201,13 +213,13 @@ return {
 		modList:NewMod("Condition:UnbrokenWard", "FLAG", true, "Config")
 	end },
 	{ var = "minionsConditionFullLife", type = "check", label = "Are your Minions always on Full ^xE05030Life?", ifMinionCond = "FullLife", apply = function(val, modList, enemyModList)
-		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Condition:FullLife", "FLAG", true, "Config") }, "Config")
+		minionStateMod(modList, "Condition:FullLife", "FLAG", true, "Config")
 	end },
 	{ var = "minionsConditionLowLife", type = "check", label = "Are your Minions always on Low ^xE05030Life?", ifMinionCond = "LowLife", apply = function(val, modList, enemyModList)
-		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Condition:LowLife", "FLAG", true, "Config") }, "Config")
+		minionStateMod(modList, "Condition:LowLife", "FLAG", true, "Config")
 	end },
 	{ var = "minionsConditionFullEnergyShield", type = "check", label = "Minion is always on Full ^x88FFFFEnergy Shield?", ifMinionCond = "FullEnergyShield", apply = function(val, modList, enemyModList)
-		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Condition:FullEnergyShield", "FLAG", true, "Config") }, "Config")
+		minionStateMod(modList, "Condition:FullEnergyShield", "FLAG", true, "Config")
 	end },
 	{ var = "minionsConditionCreatedRecently", type = "check", label = "Have your Minions been created Recently?", ifCond = "MinionsCreatedRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:MinionsCreatedRecently", "FLAG", true, "Config")
@@ -530,7 +542,7 @@ return {
 	{ var = "multiplierLinkedTargets", type = "count", label = "# of linked Targets:", ifSkill = { "Arcane Link", "Destructive Link", "Flame Link", "Intuitive Link", "Protective Link", "Soul Link", "Vampiric Link" }, apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:LinkedTargets", "BASE", val, "Config")
 	end },
-	{ var = "linkedToMinion", type = "check", label = "Linked To Minion?", ifSkill = { "Arcane Link", "Destructive Link", "Flame Link", "Intuitive Link", "Protective Link", "Soul Link", "Vampiric Link" }, ifFlag = "Condition:CanLinkToMinions", ifFlag = "Condition:HaveDamageableMinion", apply = function(val, modList, enemyModList)
+	{ var = "linkedToMinion", type = "check", label = "Linked To Minion?", ifSkill = { "Arcane Link", "Destructive Link", "Flame Link", "Intuitive Link", "Protective Link", "Soul Link", "Vampiric Link" }, ifFlag = { "Condition:CanLinkToMinions", "Condition:HaveMercenary" }, apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:LinkedToMinion", "FLAG", true, "Config")
 	end },
 	{ var = "linkedSourceRate", type = "float", label = "Source rate for Intuitive Link", ifSkill = "Intuitive Link", apply = function(val, modList, enemyModList)
@@ -562,6 +574,13 @@ return {
 	end },
 	{ var = "MomentumSwiftnessStacks", type = "count", label = "Swiftness # of Momentum Removed:", ifSkill = "Momentum", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:MomentumStacksRemoved", "BASE", val, "Config")
+	end },
+	{ label = "Mercenary:", ifSkill = "Order: To me!" },
+	{ var = "mercenaryLevel", type = "count", label = "Mercenary level:", ifSkill = "Order: To me!", defaultPlaceholderState = 84, tooltip = "The level of the area the Mercenary was found in.", apply = function(val, modList, enemyModList)
+		modList:NewMod("SkillData", "LIST", { key = "minionLevel", value = val }, "Config", { type = "SkillName", skillName = "Order: To me!" })
+	end },
+	{ var = "mercenaryBuild", type = "list", label = "Mercenary type:", ifSkill = "Order: To me!", list = mercenaryBuildList, defaultIndex = 1, tooltip = "Determines the hidden stats the Mercenary gains with level.", apply = function(val, modList, enemyModList)
+		modList:NewMod("SkillData", "LIST", { key = "mercenaryBuild", value = val }, "Config", { type = "SkillName", skillName = "Order: To me!" })
 	end },
 	{ label = "Plague Bearer:", ifSkill = "Plague Bearer"},
 	{ var = "plagueBearerState", type = "list", label = "State:", defaultIndex = 1, ifSkill = "Plague Bearer", list = {{val="INC",label="Incubating"},{val="INF",label="Infecting"}}, apply = function(val, modList, enemyModList)
@@ -969,10 +988,10 @@ Huge sets the radius to 11.
 	}, defaultIndex = 2, apply = function(val, modList, enemyModList)
 		if val == "AVERAGE" then
 			modList:NewMod("Condition:averageRepeat", "FLAG", true, "Config")
-			modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Condition:averageRepeat", "FLAG", true, "Config") })
+			minionStateMod(modList, "Condition:averageRepeat", "FLAG", true, "Config")
 		elseif val == "FINAL" or val == "FINAL_DPS" then
 			modList:NewMod("Condition:alwaysFinalRepeat", "FLAG", true, "Config")
-			modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Condition:alwaysFinalRepeat", "FLAG", true, "Config") })
+			minionStateMod(modList, "Condition:alwaysFinalRepeat", "FLAG", true, "Config")
 		end
 	end },
 	{ var = "ruthlessSupportMode", type = "list", label = "Ruthless Support Mode:", ifSkill = "Ruthless", tooltip = "Controls how the hit/ailment effect of Ruthless Support is calculated:\n\tAverage: damage is based on the average application\n\tMax Effect: damage is based on maximum effect", list = {{val="AVERAGE",label="Average"},{val="MAX",label="Max Effect"}} },
@@ -987,22 +1006,22 @@ Huge sets the radius to 11.
 		modList:NewMod("SpiritInfusion", "OVERRIDE", val, "Config", { type = "Condition", var = "Combat" } )
 	end },
 	{ var = "minionsUsePowerCharges", type = "check", label = "Do your Minions use Power Charges?", ifFlag = "haveMinion", apply = function(val, modList, enemyModList)
-		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("UsePowerCharges", "FLAG", true, "Config", { type = "Condition", var = "Combat" }) }, "Config")
+		minionStateMod(modList, "UsePowerCharges", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "minionsUseFrenzyCharges", type = "check", label = "Do your Minions use Frenzy Charges?", ifFlag = "haveMinion", apply = function(val, modList, enemyModList)
-		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("UseFrenzyCharges", "FLAG", true, "Config", { type = "Condition", var = "Combat" }) }, "Config")
+		minionStateMod(modList, "UseFrenzyCharges", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "minionsUseEnduranceCharges", type = "check", label = "Do your Minions use Endur. Charges?", ifFlag = "haveMinion", apply = function(val, modList, enemyModList)
-		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("UseEnduranceCharges", "FLAG", true, "Config", { type = "Condition", var = "Combat" }) }, "Config")
+		minionStateMod(modList, "UseEnduranceCharges", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "minionsOverridePowerCharges", type = "count", label = "# of Power Charges (if not maximum):", ifFlag = "haveMinion", ifOption = "minionsUsePowerCharges", apply = function(val, modList, enemyModList)
-		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("PowerCharges", "OVERRIDE", val, "Config", { type = "Condition", var = "Combat" }) }, "Config")
+		minionStateMod(modList, "PowerCharges", "OVERRIDE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "minionsOverrideFrenzyCharges", type = "count", label = "# of Frenzy Charges (if not maximum):", ifFlag = "haveMinion", ifOption = "minionsUseFrenzyCharges", apply = function(val, modList, enemyModList)
-		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("FrenzyCharges", "OVERRIDE", val, "Config", { type = "Condition", var = "Combat" }) }, "Config")
+		minionStateMod(modList, "FrenzyCharges", "OVERRIDE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "minionsOverrideEnduranceCharges", type = "count", label = "# of Endurance Charges (if not maximum):", ifFlag = "haveMinion", ifOption = "minionsUseEnduranceCharges", apply = function(val, modList, enemyModList)
-		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("EnduranceCharges", "OVERRIDE", val, "Config", { type = "Condition", var = "Combat" }) }, "Config")
+		minionStateMod(modList, "EnduranceCharges", "OVERRIDE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "multiplierRampage", type = "count", label = "# of Rampage Kills:", ifFlag = "Condition:Rampage", tooltip = "Rampage grants the following, up to 1000 stacks:\n\t1% increased Movement Speed per 20 Rampage\n\t2% increased Damage per 20 Rampage\nYou lose Rampage if you do not get a Kill within 5 seconds.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:Rampage", "BASE", val, "Config", { type = "Condition", var = "Combat" })
@@ -1027,15 +1046,15 @@ Huge sets the radius to 11.
 		modList:NewMod("Condition:ArcaneSurge", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "minionBuffOnslaught", type = "check", label = "Do your minions have Onslaught?", ifFlag = "haveMinion", tooltip = "In addition to allowing any 'while your minions have Onslaught' modifiers to apply,\nthis will enable the Onslaught buff itself. (Grants 20% increased Attack, Cast, and Movement Speed)", apply = function(val, modList, enemyModList)
-		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Condition:Onslaught", "FLAG", true, "Config", { type = "Condition", var = "Combat" }) })
+		minionStateMod(modList, "Condition:Onslaught", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "buffUnholyMight", type = "check", label = "Do you have Unholy Might?", tooltip = "This will enable the Unholy Might buff.\n(Grants 100% of Physical Damage converted to ^xD02090Chaos ^7Damage)\n(25% chance to apply Wither on Hit)", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:UnholyMight", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 		modList:NewMod("Condition:CanWither", "FLAG", true, "Unholy Might", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "minionbuffUnholyMight", type = "check", label = "Do your minions have Unholy Might?", ifFlag = "haveMinion", tooltip = "This will enable the Unholy Might buff on your minions.\n(Grants 100% of Physical Damage converted to ^xD02090Chaos ^7Damage)\n(25% chance to apply Wither on Hit)", apply = function(val, modList, enemyModList)
-		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Condition:UnholyMight", "FLAG", true, "Config", { type = "Condition", var = "Combat" }) })
-		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Condition:CanWither", "FLAG", true, "Unholy Might", { type = "Condition", var = "Combat" }) })
+		minionStateMod(modList, "Condition:UnholyMight", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+		minionStateMod(modList, "Condition:CanWither", "FLAG", true, "Unholy Might", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "buffChaoticMight", type = "check", label = "Do you have Chaotic Might?", tooltip = "This will enable the Chaotic Might buff.\n(Grants 30% of Physical Damage as Extra ^xD02090Chaos ^7Damage)", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:ChaoticMight", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
@@ -1044,7 +1063,7 @@ Huge sets the radius to 11.
 		modList:NewMod("Condition:SacrificialZeal", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "minionbuffChaoticMight", type = "check", label = "Do your minions have Chaotic Might?", ifFlag = "haveMinion", tooltip = "This will enable the Chaotic Might buff on your minions.\n(Grants 30% of Physical Damage as Extra ^xD02090Chaos ^7Damage)", apply = function(val, modList, enemyModList)
-		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Condition:ChaoticMight", "FLAG", true, "Config", { type = "Condition", var = "Combat" }) })
+		minionStateMod(modList, "Condition:ChaoticMight", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "buffPhasing", type = "check", label = "Do you have Phasing?", ifCond = "Phasing", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:Phasing", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
@@ -1105,8 +1124,8 @@ Huge sets the radius to 11.
 		modList:NewMod("Condition:Leeching", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "minionsConditionLeechingEnergyShield", type = "check", label = "Minion is Leeching ^x88FFFFEnergy Shield?", ifMinionCond = "LeechingEnergyShield", apply = function(val, modList, enemyModList)
-		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Condition:LeechingEnergyShield", "FLAG", true, "Config") }, "Config")
-		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Condition:Leeching", "FLAG", true, "Config") }, "Config")
+		minionStateMod(modList, "Condition:LeechingEnergyShield", "FLAG", true, "Config")
+		minionStateMod(modList, "Condition:Leeching", "FLAG", true, "Config")
 	end },
 	{ var = "conditionUsingFlask", type = "check", label = "Do you have a Flask active?", ifCond = "UsingFlask", tooltip = "This is automatically enabled if you have a flask active,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:UsingFlask", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
@@ -1160,13 +1179,13 @@ Huge sets the radius to 11.
 	end },
 	{ var = "conditionOnConsecratedGround", type = "check", label = "Are you on Consecrated Ground?", tooltip = "In addition to allowing any 'while on Consecrated Ground' modifiers to apply,\nConsecrated Ground grants 5% ^xE05030Life ^7Regeneration to players and allies.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:OnConsecratedGround", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
-		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Condition:OnConsecratedGround", "FLAG", true, "Config", { type = "Condition", var = "Combat" }) })
+		minionStateMod(modList, "Condition:OnConsecratedGround", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "conditionOnProfaneGround", type = "check", label = "Are you on Profane Ground?", ifCond = "OnProfaneGround", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:OnProfaneGround", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "minionConditionOnProfaneGround", type = "check", label = "Minion on Profane Ground?", ifMinionCond = "OnProfaneGround", apply = function(val, modList, enemyModList)
-		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Condition:OnProfaneGround", "FLAG", true, "Config", { type = "Condition", var = "Combat" }) })
+		minionStateMod(modList, "Condition:OnProfaneGround", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "conditionOnBrineGround", type = "check", label = "Are you on Brine Ground?", ifFlag = "CanCreateBrineGround", tooltip = "Allies on your Brine Ground gain 10% of Physical Damage as extra Cold Damage and as extra Lightning Damage", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:OnBrineGround", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
@@ -1174,9 +1193,9 @@ Huge sets the radius to 11.
 		modList:NewMod("PhysicalDamageGainAsLightning", "BASE", 10, "Config", { type = "Condition", var = "OnBrineGround" })
 	end },
 	{ var = "minionConditionOnBrineGround", type = "check", label = "Minion on Brine Ground?", ifFlag = "CanCreateBrineGround", tooltip = "Allies on your Brine Ground gain 10% of Physical Damage as extra Cold Damage and as extra Lightning Damage", apply = function(val, modList, enemyModList)
-		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Condition:OnBrineGround", "FLAG", true, "Config", { type = "Condition", var = "Combat" }) })
-		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("PhysicalDamageGainAsCold", "BASE", 10, "Config", { type = "Condition", var = "OnBrineGround" }) })
-		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("PhysicalDamageGainAsLightning", "BASE", 10, "Config", { type = "Condition", var = "OnBrineGround" }) })
+		minionStateMod(modList, "Condition:OnBrineGround", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+		minionStateMod(modList, "PhysicalDamageGainAsCold", "BASE", 10, "Config", { type = "Condition", var = "OnBrineGround" })
+		minionStateMod(modList, "PhysicalDamageGainAsLightning", "BASE", 10, "Config", { type = "Condition", var = "OnBrineGround" })
 	end },
 	{ var = "conditionOnCausticGround", type = "check", label = "Are you on Caustic Ground?", ifCond = "OnCausticGround", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:OnCausticGround", "FLAG", true, "Config", { type = "Condition", var = "Combat" })

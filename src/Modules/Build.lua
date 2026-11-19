@@ -479,13 +479,13 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 	-- Skills
 	self.controls.mainSkillLabel = new("LabelControl"):LabelControl({"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, {0, 80, 300, 16}, "^7Main Skill:")
 	self.controls.mainSocketGroup = new("DropDownControl"):DropDownControl({"TOPLEFT",self.controls.mainSkillLabel,"BOTTOMLEFT"}, {0, 2, 300, 18}, nil, function(index, value)
-		self.mainSocketGroup = index
+		self.mainSocketGroup = value.val
 		self.modFlag = true
 		self.buildFlag = true
 	end)
 	self.controls.mainSocketGroup.maxDroppedWidth = 500
 	self.controls.mainSocketGroup.tooltipFunc = function(tooltip, mode, index, value)
-		local socketGroup = self.skillsTab.socketGroupList[index]
+		local socketGroup = value and self.skillsTab.socketGroupList[value.val]
 		if socketGroup and tooltip:CheckForUpdate(socketGroup, self.outputRevision) then
 			self.skillsTab:AddSocketGroupTooltip(tooltip, socketGroup)
 		end
@@ -1616,11 +1616,14 @@ end
 
 -- Refresh the set of controls used to select main group/skill/minion
 function buildMode:RefreshSkillSelectControls(controls, mainGroup, suffix)
-	controls.mainSocketGroup.selIndex = mainGroup
 	wipeTable(controls.mainSocketGroup.list)
-	for i, socketGroup in pairs(self.skillsTab.socketGroupList) do
-		controls.mainSocketGroup.list[i] = { val = i, label = socketGroup.displayLabel }
+	for i, socketGroup in ipairs(self.skillsTab.socketGroupList) do
+		if not socketGroup.mercenary then
+			t_insert(controls.mainSocketGroup.list, { val = i, label = socketGroup.displayLabel })
+		end
 	end
+	controls.mainSocketGroup.selIndex = 1
+	controls.mainSocketGroup:SelByValue(mainGroup, "val")
   controls.mainSocketGroup:CheckDroppedWidth(true)
 	if controls.warnings then controls.warnings.shown = #controls.warnings.lines > 0 end
 	if #controls.mainSocketGroup.list == 0 then
@@ -2074,6 +2077,33 @@ function buildMode:InsertItemWarnings()
 	end
 end
 
+function buildMode:InsertMercenaryWarnings()
+	local skillList = self.calcsTab.mainEnv.mercenarySkillList
+	if not skillList or not skillList[1] then
+		return
+	end
+	local mercenaryBuild
+	for _, build in ipairs(data.mercenaryBuilds) do
+		if build.id == self.configTab.input.mercenaryBuild then
+			mercenaryBuild = build
+			break
+		end
+	end
+	if not mercenaryBuild then
+		InsertIfNew(self.controls.warnings.lines, "Your Mercenary has skills, but no Mercenary type is selected in the Configuration tab")
+		return
+	end
+	local unusable = { }
+	for _, skill in ipairs(skillList) do
+		if not isValueInArray(mercenaryBuild.skills, skill.grantedEffect.id) then
+			InsertIfNew(unusable, skill.grantedEffect.name)
+		end
+	end
+	if unusable[1] then
+		InsertIfNew(self.controls.warnings.lines, "The "..mercenaryBuild.name.." Mercenary type can't use: "..table.concat(unusable, ", "))
+	end
+end
+
 -- Build list of side bar stats
 function buildMode:RefreshStatList()
 	self.controls.warnings.lines = {}
@@ -2115,6 +2145,7 @@ function buildMode:RefreshStatList()
 	end
 	self:AddDisplayStatList(self.displayStats, self.calcsTab.mainEnv.player, "player")
 	self:InsertItemWarnings()
+	self:InsertMercenaryWarnings()
 	self:EstimatePlayerProgress()
 end
 

@@ -1,3 +1,5 @@
+local utils = LoadModule("../Modules/Utils")
+
 local skillTypeMap = { }
 for row in dat("ActiveSkillType"):Rows() do
 	table.insert(skillTypeMap, row.Id)
@@ -59,6 +61,7 @@ local function cleanAndSplit(str) -- Same as in Flavour Text exporter.
 end
 local gems = { }
 local trueGemNames = { }
+local exportedSkills = { }
 
 local directiveTable = { }
 
@@ -91,6 +94,7 @@ directiveTable.skill = function(state, args, out)
 		ConPrintf('Unknown GE: "'..grantedId..'"')
 		return
 	end
+	exportedSkills[grantedId] = granted
 	local gemEffect = dat("GemEffects"):GetRow("GrantedEffect", granted)
 	local secondaryEffect
 	if not gemEffect then
@@ -541,6 +545,150 @@ end
 
 for _, name in pairs({"act_str","act_dex","act_int","other","glove","minion","spectre","sup_str","sup_dex","sup_int"}) do
 	processTemplateFile(name, "Skills/", "../Data/Skills/", directiveTable)
+end
+
+-- Mercenary skills have no gems or templates. They reuse the implementation of the exported skill sharing their active skill
+do
+	local baseSkills = { }
+	local function addBaseSkill(granted, list)
+		if granted and exportedSkills[granted.Id] and not granted.IsSupport then
+			baseSkills[list] = baseSkills[list] or { }
+			local candidates = baseSkills[list]
+			candidates[granted.ActiveSkill.Id] = candidates[granted.ActiveSkill.Id] or { }
+			if not isValueInArray(candidates[granted.ActiveSkill.Id], granted.Id) then
+				table.insert(candidates[granted.ActiveSkill.Id], granted.Id)
+			end
+		end
+	end
+	for gemEffect in dat("GemEffects"):Rows() do
+		addBaseSkill(gemEffect.GrantedEffect, "gem")
+		addBaseSkill(gemEffect.GrantedEffect2, "gem")
+	end
+	for _, granted in pairs(exportedSkills) do
+		addBaseSkill(granted, "any")
+	end
+	local flagsBySkillType = {
+		Attack = "attack", Spell = "spell", Area = "area", Projectile = "projectile", Duration = "duration", Melee = "melee",
+		SummonsTotem = "totem", Trapped = "trap", RemoteMined = "mine", Warcry = "warcry", Aura = "aura", Hex = "curse", Chains = "chaining",
+	}
+
+	local function skillTypeNames(types)
+		local names = { }
+		for _, type in ipairs(types) do
+			table.insert(names, skillTypeMap[type._rowIndex])
+		end
+		return names
+	end
+
+	local skills = { }
+	-- Only the parsed stats and levels of the skill directive are used, the skill text is written by saveTableToFile
+	local noOut = { write = function() end }
+	for row in dat("MercenarySkills"):Rows() do
+		local granted = row.Id
+		if row.Name ~= "Do Nothing" and not row.Name:match("^%[DNT%]") and not exportedSkills[granted.Id] then
+			local state = { noGem = true }
+			directiveTable.skill(state, granted.Id.." "..row.Name, noOut)
+			local parsed = state.skill
+			local skill = {
+				name = row.Name,
+				hidden = true,
+				mercenary = true,
+				color = granted.Attribute,
+				castTime = granted.CastTime / 1000,
+				skillTypes = skillTypeNames(granted.ActiveSkill.SkillTypes),
+				statDescriptionScope = skillStatScope[granted.ActiveSkill.Id] or "skill_stat_descriptions",
+				mercenarySupports = { },
+				stats = { },
+				levels = { },
+			}
+			if granted.GrantedEffectStatSets.BaseEffectiveness ~= 1 then
+				skill.baseEffectiveness = granted.GrantedEffectStatSets.BaseEffectiveness
+			end
+			if granted.GrantedEffectStatSets.IncrementalEffectiveness ~= 0 then
+				skill.incrementalEffectiveness = granted.GrantedEffectStatSets.IncrementalEffectiveness
+			end
+			if #granted.ActiveSkill.Description > 0 then
+				skill.description = escapeGGGString(granted.ActiveSkill.Description:gsub('\r', ''))
+			end
+			if granted.ActiveSkill.MinionSkillTypes[1] then
+				skill.minionSkillTypes = skillTypeNames(granted.ActiveSkill.MinionSkillTypes)
+			end
+			for _, class in ipairs(granted.ActiveSkill.WeaponRestrictions) do
+				if weaponClassMap[class.Id] then
+					skill.weaponTypes = skill.weaponTypes or { }
+					skill.weaponTypes[weaponClassMap[class.Id]] = true
+				end
+			end
+			if granted.ActiveSkill.SkillTotem <= 21 then
+				skill.skillTotemId = granted.ActiveSkill.SkillTotem
+			end
+			for _, list in ipairs({ "gem", "any" }) do
+				local candidates = baseSkills[list][granted.ActiveSkill.Id]
+				if candidates and #candidates == 1 then
+					skill.baseSkillId = candidates[1]
+					break
+				end
+			end
+			if not skill.baseSkillId then
+				skill.baseFlags = { }
+				for _, type in ipairs(granted.ActiveSkill.SkillTypes) do
+					if flagsBySkillType[type.Id] then
+						skill.baseFlags[flagsBySkillType[type.Id]] = true
+					end
+				end
+			end
+			for _, support in ipairs(row.PossibleSupports) do
+				table.insert(skill.mercenarySupports, "MercenarySupport"..support.Id)
+			end
+			if parsed.constantStats[1] then
+				skill.constantStats = parsed.constantStats
+			end
+			for _, stat in ipairs(parsed.stats) do
+				table.insert(skill.stats, stat.id)
+			end
+			if parsed.CannotGrantToMinion[1] then
+				skill.notMinionStat = parsed.CannotGrantToMinion
+			end
+			for _, parsedLevel in ipairs(parsed.levels) do
+				local level = copyTable(parsedLevel.extra)
+				for i, value in ipairs(parsedLevel) do
+					level[i] = value
+				end
+				if parsedLevel.statInterpolation[1] then
+					level.statInterpolation = { }
+					for i, interpolation in ipairs(parsedLevel.statInterpolation) do
+						level.statInterpolation[i] = tonumber(interpolation)
+					end
+				end
+				if next(parsedLevel.cost) then
+					level.cost = parsedLevel.cost
+				end
+				skill.levels[parsedLevel.level] = level
+			end
+			skills[granted.Id] = skill
+		end
+	end
+	for row in dat("MercenarySupports"):Rows() do
+		local skill = {
+			name = row.Name,
+			hidden = true,
+			mercenary = true,
+			color = 4,
+			support = true,
+			requireSkillTypes = { },
+			addSkillTypes = { },
+			excludeSkillTypes = { },
+			statDescriptionScope = "gem_stat_descriptions",
+			constantStats = { },
+			stats = { },
+			levels = { { levelRequirement = 0 } },
+		}
+		for i, stat in ipairs(row.Stat) do
+			table.insert(skill.constantStats, { stat.Id, row.StatValues[i] })
+		end
+		skills["MercenarySupport"..row.Id] = skill
+	end
+	utils.saveTableToFile("../Data/Skills/mercenary.lua", skills, "Mercenary skills and supports. Skill types are names of SkillType entries.")
 end
 
 local out = io.open("../Data/Gems.lua", "w")

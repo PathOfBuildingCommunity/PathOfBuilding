@@ -326,6 +326,27 @@ return function(skills, mod, flag, skill)
 	},
 #mods
 
+#skill CallMercenary
+#flags minion permanentMinion
+	minionHasItemSet = true,
+	minionUses = {
+		["Weapon 1"] = true,
+		["Weapon 2"] = true,
+		["Helmet"] = true,
+		["Body Armour"] = true,
+		["Gloves"] = true,
+		["Boots"] = true,
+		["Amulet"] = true,
+		["Ring 1"] = true,
+		["Ring 2"] = true,
+		["Belt"] = true,
+	},
+	minionList = {
+		"Mercenary",
+	},
+#baseMod skill("minionLevel", 84)
+#mods
+
 #skill UniqueEnchantmentOfInfernoOnCrit
 #flags spell area hit
 	fromItem = true,

@@ -45,12 +45,12 @@ function CalcsTabClass:CalcsTab(build)
 	self:NewSection(3, "SkillSelect", 1, colorCodes.NORMAL, {{ defaultCollapsed = false, label = "View Skill Details", data = {
 		{ label = "Socket Group", { controlName = "mainSocketGroup", 
 			control = new("DropDownControl"):DropDownControl(nil, {0, 0, 300, 16}, nil, function(index, value)
-				self.input.skill_number = index
+				self.input.skill_number = value.val
 				self:AddUndoState()
 				self.build.buildFlag = true
 			end) {
 				tooltipFunc = function(tooltip, mode, index, value)
-					local socketGroup = self.build.skillsTab.socketGroupList[index]
+					local socketGroup = value and self.build.skillsTab.socketGroupList[value.val]
 					if socketGroup and tooltip:CheckForUpdate(socketGroup, self.build.outputRevision) then
 						self.build.skillsTab:AddSocketGroupTooltip(tooltip, socketGroup)
 					end

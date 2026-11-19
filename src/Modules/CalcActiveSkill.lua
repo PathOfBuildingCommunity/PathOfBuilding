@@ -49,18 +49,10 @@ local function mergeLevelMod(modList, mod, value)
 	end
 end
 
--- Merge skill modifiers with given mod list
-function calcs.mergeSkillInstanceMods(env, modList, skillEffect, extraStats)
-	calcLib.validateGemLevel(skillEffect)
-	local grantedEffect = skillEffect.grantedEffect	
-	local stats = calcLib.buildSkillInstanceStats(skillEffect, grantedEffect)
-	if extraStats and extraStats[1] then
-		for _, stat in pairs(extraStats) do
-			stats[stat.key] = (stats[stat.key] or 0) + stat.value
-		end
-	end
+-- Merge the modifiers mapped from the given stats with given mod list
+function calcs.mergeStatMapMods(modList, statMap, stats)
 	for stat, statValue in pairs(stats) do
-		local map = grantedEffect.statMap[stat]
+		local map = statMap[stat]
 		if map then
 			-- Some mods need different scalars for different stats, but the same value.  Putting them in a group allows this
 			for _, modOrGroup in ipairs(map) do
@@ -75,6 +67,19 @@ function calcs.mergeSkillInstanceMods(env, modList, skillEffect, extraStats)
 			end
 		end
 	end
+end
+
+-- Merge skill modifiers with given mod list
+function calcs.mergeSkillInstanceMods(env, modList, skillEffect, extraStats)
+	calcLib.validateGemLevel(skillEffect)
+	local grantedEffect = skillEffect.grantedEffect
+	local stats = calcLib.buildSkillInstanceStats(skillEffect, grantedEffect)
+	if extraStats and extraStats[1] then
+		for _, stat in pairs(extraStats) do
+			stats[stat.key] = (stats[stat.key] or 0) + stat.value
+		end
+	end
+	calcs.mergeStatMapMods(modList, grantedEffect.statMap, stats)
 	modList:AddList(grantedEffect.baseMods)
 end
 
@@ -287,13 +292,16 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 		activeEffect.srcInstance.skillPartCalcs = nil
 	end
 
-	if (skillTypes[SkillType.RequiresShield] or skillFlags.shieldAttack) and not activeSkill.summonSkill and (not activeSkill.actor.itemList["Weapon 2"] or activeSkill.actor.itemList["Weapon 2"].type ~= "Shield") then
+	-- Minion skills ignore weapon requirements, but Mercenaries use their own weapons
+	local ignoreWeaponRequirements = activeSkill.summonSkill and not activeSkill.actor.minionData.mercenary
+
+	if (skillTypes[SkillType.RequiresShield] or skillFlags.shieldAttack) and not ignoreWeaponRequirements and (not activeSkill.actor.itemList["Weapon 2"] or activeSkill.actor.itemList["Weapon 2"].type ~= "Shield") then
 		-- Skill requires a shield to be equipped
 		skillFlags.disable = true
 		activeSkill.disableReason = "This skill requires a Shield"
 	end
 
-	if skillTypes[SkillType.RequiresStaff] and not activeSkill.summonSkill and (not activeSkill.actor.itemList["Weapon 1"] or activeSkill.actor.itemList["Weapon 1"].type ~= "Staff") then
+	if skillTypes[SkillType.RequiresStaff] and not ignoreWeaponRequirements and (not activeSkill.actor.itemList["Weapon 1"] or activeSkill.actor.itemList["Weapon 1"].type ~= "Staff") then
 		-- Skill requires a staff to be equipped
 		skillFlags.disable = true
 		activeSkill.disableReason = "This skill requires a Staff"
@@ -321,7 +329,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 		if not skillFlags.forceOffHand then
 			weapon1Flags, weapon1Info = getWeaponFlags(env, activeSkill.actor.weaponData1, weaponTypes)
 		end
-		if not weapon1Flags and activeSkill.summonSkill then
+		if not weapon1Flags and ignoreWeaponRequirements then
 			-- Minion skills seem to ignore weapon types
 			weapon1Flags, weapon1Info = ModFlag[env.data.weaponTypeInfo["None"].flag], env.data.weaponTypeInfo["None"]
 		end
@@ -335,7 +343,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 					skillFlags.melee = nil
 				end
 			end
-		elseif (skillTypes[SkillType.DualWieldOnly] or skillFlags.forceMainHand or weapon1Info) and not activeSkill.summonSkill then
+		elseif (skillTypes[SkillType.DualWieldOnly] or skillFlags.forceMainHand or weapon1Info) and not ignoreWeaponRequirements then
 			-- Skill requires a compatible main hand weapon
 			skillFlags.disable = true
 			activeSkill.disableReason = "Main Hand weapon is not usable with this skill"
@@ -351,7 +359,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 					activeSkill.weapon2Flags = weapon2Flags
 					skillFlags.weapon2Attack = true
 				end
-			elseif (skillTypes[SkillType.DualWieldOnly] or weapon2Info) and not activeSkill.summonSkill then
+			elseif (skillTypes[SkillType.DualWieldOnly] or weapon2Info) and not ignoreWeaponRequirements then
 				-- Skill requires a compatible off hand weapon
 				skillFlags.disable = true
 				activeSkill.disableReason = activeSkill.disableReason or "Off Hand weapon is not usable with this skill"
@@ -779,6 +787,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 					PhysicalMin = round(damage * (1 - minion.minionData.damageSpread)),
 					PhysicalMax = round(damage * (1 + minion.minionData.damageSpread)),
 					range = minion.minionData.attackRange,
+					rangeBonus = 0,
 				}
 			end
 			minion.weaponData2 = { }
@@ -786,7 +795,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 				if minion.uses["Weapon 1"] then
 					if minion.itemSet then
 						local item = env.build.itemsTab.items[minion.itemSet[minion.itemSet.useSecondWeaponSet and "Weapon 1 Swap" or "Weapon 1"].selItemId]
-						if item and item.weaponData then
+						if item and item.weaponData and calcLib.canMinionEquip(env, minion, item, "Weapon 1") then
 							minion.weaponData1 = item.weaponData[1]
 						end
 					else
@@ -796,15 +805,19 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 				if minion.uses["Weapon 2"] then	
 					if minion.itemSet then
 						local item = env.build.itemsTab.items[minion.itemSet[minion.itemSet.useSecondWeaponSet and "Weapon 2 Swap" or "Weapon 2"].selItemId]
-						if item and item.weaponData then
-							minion.weaponData2 = item.weaponData[2]
+						if item and calcLib.canMinionEquip(env, minion, item, "Weapon 2") then
+							-- Shield requirements of the minion's skills are checked before its items are added
+							minion.itemList["Weapon 2"] = item
+							if item.weaponData then
+								minion.weaponData2 = item.weaponData[2]
+							end
 						end
 					else
 						minion.weaponData2 = env.player.weaponData2
 					end
 				end
 			end
-			if not isSpectre and skillModList:Flag(activeSkill.skillCfg, "NonSpectreMinionsUseParentMainHandAttackTime") and env.player.weaponData1.AttackRate and env.player.weaponData1.AttackRate > 0 then
+			if not isSpectre and not minion.minionData.mercenary and skillModList:Flag(activeSkill.skillCfg, "NonSpectreMinionsUseParentMainHandAttackTime") and env.player.weaponData1.AttackRate and env.player.weaponData1.AttackRate > 0 then
 				-- The weapon data may be shared with the player, an item set, or another actor.
 				-- Copy it before replacing only the minion's base attack rate.
 				minion.weaponData1 = copyTable(minion.weaponData1)
@@ -900,26 +913,32 @@ function calcs.createMinionSkills(env, activeSkill)
 	local minionData = minion.minionData
 
 	minion.activeSkillList = { }
-	local skillIdList = { }
-	for _, skillId in ipairs(minionData.skillList) do
-		if env.data.skills[skillId] then
-			t_insert(skillIdList, skillId)
+	local skillList = { }
+	if minionData.mercenary then
+		-- Mercenaries use the skills from mercenary socket groups, each with their own supports
+		skillList = copyTable(env.mercenarySkillList, true)
+	else
+		for _, skillId in ipairs(minionData.skillList) do
+			if env.data.skills[skillId] then
+				t_insert(skillList, { grantedEffect = env.data.skills[skillId] })
+			end
+		end
+		for _, skill in ipairs(activeSkill.skillModList:List(activeSkill.skillCfg, "ExtraMinionSkill")) do
+			if not skill.minionList or isValueInArray(skill.minionList, minion.type) then
+				t_insert(skillList, { grantedEffect = env.data.skills[skill.skillId] })
+			end
 		end
 	end
-	for _, skill in ipairs(activeSkill.skillModList:List(activeSkill.skillCfg, "ExtraMinionSkill")) do
-		if not skill.minionList or isValueInArray(skill.minionList, minion.type) then
-			t_insert(skillIdList, skill.skillId)
-		end
-	end
-	if #skillIdList == 0 then
+	if #skillList == 0 then
 		-- Not ideal, but let's avoid horrible crashes if a spectre has no skills for some reason
-		t_insert(skillIdList, "Melee")
+		t_insert(skillList, { grantedEffect = env.data.skills.Melee })
 	end
-	for _, skillId in ipairs(skillIdList) do
+	for _, skill in ipairs(skillList) do
 		local activeEffect = {
-			grantedEffect = env.data.skills[skillId],
+			grantedEffect = skill.grantedEffect,
 			level = 1,
 			quality = 0,
+			srcInstance = skill.srcInstance,
 		}
 		if #activeEffect.grantedEffect.levels > 1 then
 			for level, levelData in ipairs(activeEffect.grantedEffect.levels) do
@@ -930,12 +949,14 @@ function calcs.createMinionSkills(env, activeSkill)
 				end
 			end
 		end
-		local minionSkill = calcs.createActiveSkill(activeEffect, activeSkill.supportList, minion, nil, activeSkill)
+		local minionSkill = calcs.createActiveSkill(activeEffect, skill.supportList or activeSkill.supportList, minion, nil, activeSkill)
 		calcs.buildActiveSkillModList(env, minionSkill)
 		minionSkill.skillFlags.minion = true
 		minionSkill.skillFlags.minionSkill = true
 		minionSkill.skillFlags.haveMinion = true
 		minionSkill.skillFlags.spectre = activeSkill.skillFlags.spectre
+		-- Mercenary skills are chosen by the user, so their buffs and curses are always used
+		minionSkill.skillData.enable = minionSkill.skillData.enable or minionData.mercenary
 		minionSkill.skillData.damageEffectiveness = 1 + (activeSkill.skillData.minionDamageEffectiveness or 0) / 100
 		t_insert(minion.activeSkillList, minionSkill)
 	end

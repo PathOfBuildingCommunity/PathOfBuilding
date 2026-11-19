@@ -1140,6 +1140,7 @@ local preFlagList = {
 	-- Add to minion
 	["^minions "] = { addToMinion = true },
 	["^minions [hd][ae][va][el] "] = { addToMinion = true },
+	["^your mercenary and their minions [hd][ae][va][el] "] = { addToMinion = true, minionModifier = "MercenaryModifier" },
 	["^while a unique enemy is in your presence, minions [hd][ae][va][el] "] = { addToMinion = true, playerTag = { type = "ActorCondition", actor = "enemy", var = "RareOrUnique" } },
 	["^while a pinnacle atlas boss is in your presence, minions [hd][ae][va][el] "] = { addToMinion = true, playerTag = { type = "ActorCondition", actor = "enemy", var = "PinnacleBoss" } },
 	["^minions leech "] = { addToMinion = true },
@@ -2973,6 +2974,16 @@ local specialModList = {
 	["cannot be slowed to below base speed"] = { mod("MinimumActionSpeed", "MAX", 100, { type = "GlobalEffect", effectType = "Global", unscalable = true }) },
 	["gain accuracy rating equal to your strength"] = { mod("Accuracy", "BASE", 1, { type = "PerStat", stat = "Str" }) },
 	["gain accuracy rating equal to twice your strength"] = { mod("Accuracy", "BASE", 2, { type = "PerStat", stat = "Str" }) },
+	-- Luminary
+	["you can hire a mercenary permanently"] = { mod("ExtraSkill", "LIST", { skillId = "CallMercenary", level = 1 }) },
+	["your mercenary can equip unique amulets"] = { mod("MercenaryUniqueSlot", "LIST", "Amulet") },
+	["your mercenary can equip unique belts"] = { mod("MercenaryUniqueSlot", "LIST", "Belt") },
+	["your mercenary can equip unique boots"] = { mod("MercenaryUniqueSlot", "LIST", "Boots") },
+	["your mercenary can equip unique gloves"] = { mod("MercenaryUniqueSlot", "LIST", "Gloves") },
+	["your mercenary can equip unique helmets"] = { mod("MercenaryUniqueSlot", "LIST", "Helmet") },
+	["your mercenary can equip unique rings"] = { mod("MercenaryUniqueSlot", "LIST", "Ring 1"), mod("MercenaryUniqueSlot", "LIST", "Ring 2") },
+	["your mercenary can equip unique weapons, shields and quivers"] = { mod("MercenaryUniqueSlot", "LIST", "Weapon 1"), mod("MercenaryUniqueSlot", "LIST", "Weapon 2") },
+	["increases and reductions to light radius also apply to effect of your link skill buffs on your mercenary at (%d+)%% of their value"] = function(num) return { mod("LightRadiusAppliesToMercenaryLinkEffect", "MAX", num) } end,
 	-- Necromancer
 	["offerings you create also grant (%d+)%% increased damage"] = function(num) return { mod("ExtraSkillMod", "LIST", { mod = mod("Damage", "INC", num, { type = "GlobalEffect", effectType = "Buff" }) }, { type = "SkillName", skillNameList = { "Bone Offering", "Flesh Offering", "Spirit Offering", "Blood Offering" } }) } end,
 	["your offering skills also affect you"] = { mod("ExtraSkillMod", "LIST", { mod = mod("SkillData", "LIST", { key = "buffNotPlayer", value = false }) }, { type = "SkillName", skillNameList = { "Bone Offering", "Flesh Offering", "Spirit Offering", "Blood Offering" } }) },
@@ -7092,7 +7103,7 @@ local function parseMod(line, order)
 						t_insert(tagList, tag)
 					end
 				end
-				modList[i] = mod("MinionModifier", "LIST", { mod = effectMod }, unpack(tagList))
+				modList[i] = mod(misc.minionModifier or "MinionModifier", "LIST", { mod = effectMod }, unpack(tagList))
 			end
 		elseif misc.addToSkill then
 			-- Skill enchants or socketed gem modifiers that add additional effects
