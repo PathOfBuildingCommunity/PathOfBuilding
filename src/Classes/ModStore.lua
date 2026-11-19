@@ -361,6 +361,11 @@ end
 ---@param globalLimits? table
 ---@return any
 function ModStoreClass:EvalMod(mod, cfg, globalLimits)
+	-- cfg.source only selects which mods a query reads. Multipliers and conditions read by tags can come from any source.
+	if cfg and cfg.source then
+		cfg = copyTable(cfg, true)
+		cfg.source = nil
+	end
 	local value = mod.value
 	local GetStat = self.GetStat
 	local GetMultiplier = self.GetMultiplier

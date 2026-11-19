@@ -1,0 +1,10 @@
+describe("ModStore source filter", function()
+	it("selects mods without filtering what their tags read", function()
+		local modDB = new("ModDB"):ModDB()
+		modDB:NewMod("Multiplier:Socket", "BASE", 1, "Item Sockets")
+		modDB:NewMod("Life", "INC", 12, "Tree:1", { type = "Multiplier", var = "Socket" })
+		modDB:NewMod("Life", "INC", 30, "Item:1")
+
+		assert.are.equals(12, modDB:Sum("INC", { source = "Tree" }, "Life"))
+	end)
+end)
