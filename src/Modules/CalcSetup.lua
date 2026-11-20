@@ -441,7 +441,7 @@ local function addBestSupport(supportEffect, appliedSupportList, mode)
 	local add = true
 	for index, otherSupport in ipairs(appliedSupportList) do
 		-- Check if there's another better support already present
-		if supportEffect.grantedEffect == otherSupport.grantedEffect then
+		if supportEffect.grantedEffect.id == otherSupport.grantedEffect.id then
 			add = false
 			if supportEffect.level > otherSupport.level or (supportEffect.level == otherSupport.level and supportEffect.quality > otherSupport.quality) then
 				if mode == "MAIN" then
