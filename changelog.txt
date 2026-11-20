@@ -1,3 +1,24 @@
+VERSION[beta][2026/11/20]
+
+--- New to Path of Building ---
+* Add config support for Careful Counterattack (AdamZ-8113)
+* Show shrine options for The Covetous Dark (AdamZ-8113)
+
+--- User Interface ---
+* Fix ugly Covetous Dark variants (vaisest)
+
+--- Fixed Calculations ---
+* Fix Wickerman tree check and Viscera glove/boot bonuses after the slot rename (juddisjudd)
+* Add totem flag to Witchhunter's Pyre (vaisest)
+* Fix inverted negative resistance exceeding the enemy's maximum resistance (lucaskarsten)
+* Fix Waxen Soul shrine buff effect per Life Reserved not applying (lucaskarsten)
+
+--- Fixed Behaviours ---
+* Fix repeated attacks triggering triggers incorrectly (vaisest)
+
+--- Accuracy Improvements ---
+* Update Viscera data for 3.30.0c (juddisjudd)
+
 VERSION[2.68.1][2026/11/17]
 
 --- User Interface ---

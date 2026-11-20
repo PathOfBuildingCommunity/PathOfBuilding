@@ -1,5 +1,27 @@
 # Changelog
 
+## [beta](https://github.com/PathOfBuildingCommunity/PathOfBuilding-PoE2/tree/beta) (2026/11/20)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.68.1...beta)
+
+
+## What's Changed
+### New to Path of Building
+- Add config support for Careful Counterattack [\#10497](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10497) ([AdamZ-8113](https://github.com/AdamZ-8113))
+- Show shrine options for The Covetous Dark [\#10500](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10500) ([AdamZ-8113](https://github.com/AdamZ-8113))
+### User Interface
+- Fix ugly Covetous Dark variants [\#10499](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10499) ([vaisest](https://github.com/vaisest))
+### Fixed Calculations
+- Fix Wickerman tree check and Viscera glove/boot bonuses after the slot rename [\#10484](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10484) ([juddisjudd](https://github.com/juddisjudd))
+- Add totem flag to Witchhunter's Pyre [\#10487](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10487) ([vaisest](https://github.com/vaisest))
+- Fix inverted negative resistance exceeding the enemy's maximum resistance [\#10492](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10492) ([lucaskarsten](https://github.com/lucaskarsten))
+- Fix Waxen Soul shrine buff effect per Life Reserved not applying [\#10486](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10486) ([lucaskarsten](https://github.com/lucaskarsten))
+### Fixed Behaviours
+- Fix repeated attacks triggering triggers incorrectly [\#10498](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10498) ([vaisest](https://github.com/vaisest))
+### Accuracy Improvements
+- Update Viscera data for 3.30.0c [\#10502](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10502) ([juddisjudd](https://github.com/juddisjudd))
+
+
 ## [v2.68.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding-PoE2/tree/v2.68.1) (2026/11/17)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.68.0...v2.68.1)
