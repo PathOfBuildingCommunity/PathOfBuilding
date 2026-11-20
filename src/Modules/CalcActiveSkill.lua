@@ -346,6 +346,11 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 		end
 		if not skillFlags.forceMainHand then
 			local weapon2Flags, weapon2Info = getWeaponFlags(env, activeSkill.actor.weaponData2, weaponTypes)
+			if not weapon2Flags and weapon1Flags and activeSkill.actor.weaponData1.asThoughUsing and activeSkill.actor.weaponData2.type == "None" and not skillTypes[SkillType.DualWieldOnly] then
+				-- Hide of the Vendigo only decides which skills can be used, based on the main hand
+				-- The unarmed off hand from Hollow Palm Technique still attacks with skills the main hand can use
+				weapon2Flags, weapon2Info = getWeaponFlags(env, activeSkill.actor.weaponData2)
+			end
 			if weapon2Flags then
 				if skillTypes[SkillType.DualWieldRequiresDifferentTypes] and (activeSkill.actor.weaponData1.type == activeSkill.actor.weaponData2.type) and not (activeSkill.actor.weaponData2.countsAsAll1H or activeSkill.actor.weaponData1.countsAsAll1H) then
 					-- Skill requires a different compatible off hand weapon to main hand weapon

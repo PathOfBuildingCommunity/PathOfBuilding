@@ -155,12 +155,25 @@ describe("TestAttacks", function()
 			runCallback("OnFrame")
 			local mainSkill = useFrostBlades()
 			local player = build.calcsTab.mainEnv.player
-			-- Both hands are empty, so both hands attack as though using a Claw
+			-- Only the main hand attacks as though using a Claw, but the unarmed off hand still attacks with the skill
 			assert.are.equals("None", player.weaponData2.type)
 			assert.is_true(player.weaponData1.asThoughUsing["Claw"])
-			assert.is_true(player.weaponData2.asThoughUsing["Claw"])
+			assert.is_nil(player.weaponData2.asThoughUsing)
 			assert.is_falsy(mainSkill.skillFlags.disable)
 			assert.is_true(mainSkill.skillFlags.bothWeaponAttack)
+			assert.is_true(bit.band(mainSkill.weapon2Flags, ModFlag.Unarmed) > 0)
+		end)
+
+		it("does not allow dual wield only skills with Hollow Palm Technique", function()
+			equipHide()
+			build.configTab.input.customMods = "Hollow Palm Technique"
+			build.configTab:BuildModList()
+			build.skillsTab:PasteSocketGroup("Dual Strike 20/0 1")
+			build.mainSocketGroup = 1
+			runCallback("OnFrame")
+			build.calcsTab:BuildOutput()
+			runCallback("OnFrame")
+			assert.is_true(build.calcsTab.mainEnv.player.mainSkill.skillFlags.disable)
 		end)
 
 		it("gains attack speed if you've used a movement skill recently", function()
