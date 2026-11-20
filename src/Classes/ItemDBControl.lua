@@ -28,6 +28,7 @@ function ItemDBClass:ItemDBControl(anchor, rect, itemsTab, db, dbType)
 	self.itemsTab = itemsTab
 	self.db = db
 	self.dbType = dbType
+	self.reserveIconSpace = true
 	self.dragTargetList = { }
 	self.sortControl = { 
 		NAME = { key = "name", dir = "ASCEND", func = function(a,b) return a:gsub("^The ","") < b:gsub("^The ","") end },
@@ -334,6 +335,10 @@ function ItemDBClass:GetRowValue(column, index, item)
 	if item and column == 1 then
 		return colorCodes[item.rarity] .. item.name
 	end
+end
+
+function ItemDBClass:GetRowIcon(column, index, item)
+	return item and self.itemsTab:GetItemIcon(item)
 end
 
 function ItemDBClass:AddValueTooltip(tooltip, index, item)

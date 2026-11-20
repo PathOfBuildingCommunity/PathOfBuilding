@@ -19,6 +19,27 @@ local buySimilar = require("Classes.CompareBuySimilar")
 local addImplicit = require("Modules.AddImplicitPopup")
 local gemTooltip = require("Classes.GemTooltip")
 
+local itemTypeIcons = { }
+for itemType, file in pairs({
+	["Weapon"] = "icon_weapon",
+	["Bow"] = "icon_bow",
+	["Quiver"] = "icon_quiver",
+	["Shield"] = "icon_shield",
+	["Helmet"] = "icon_helmet",
+	["Body Armour"] = "icon_body_armour",
+	["Gloves"] = "icon_gloves",
+	["Boots"] = "icon_boots",
+	["Amulet"] = "icon_amulet",
+	["Ring"] = "icon_ring_left",
+	["Belt"] = "icon_belt",
+	["Flask"] = "icon_flask",
+	["Tincture"] = "icon_flask",
+	["Jewel"] = "icon_jewel",
+}) do
+	itemTypeIcons[itemType] = NewImageHandle()
+	itemTypeIcons[itemType]:Load("Assets/"..file..".png")
+end
+
 local rarityDropList = {
 	{ label = colorCodes.NORMAL.."Normal", rarity = "NORMAL" },
 	{ label = colorCodes.MAGIC.."Magic", rarity = "MAGIC" },
@@ -2596,6 +2617,11 @@ function ItemsTabClass:AddModComparisonTooltip(tooltip, mod, replaceImplicits)
 	local outputBase = calcFunc({ repSlotName = slotName, repItem = self.displayItem })
 	local outputNew = calcFunc({ repSlotName = slotName, repItem = newItem })
 	self.build:AddStatComparesToTooltip(tooltip, outputBase, outputNew, "\nAdding this mod will give: ")
+end
+
+-- Returns the slot icon matching the item's type, if there is one
+function ItemsTabClass:GetItemIcon(item)
+	return itemTypeIcons[item.type] or (item.base and item.base.weapon and itemTypeIcons["Weapon"])
 end
 
 -- Returns the first slot in which the given item is equipped
