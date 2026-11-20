@@ -7,7 +7,7 @@
 
 ## What's Changed
 ### User Interface
-- Fix visibiliy of Viscera list on larger screens [\#10476](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10476) ([Wires77](https://github.com/Wires77))
+- Fix visibility of Viscera list on larger screens [\#10476](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/10476) ([Wires77](https://github.com/Wires77))
 
 
 
