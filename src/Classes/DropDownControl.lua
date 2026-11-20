@@ -59,6 +59,8 @@ function DropDownClass:DropDownControl(anchor, rect, list, selFunc, tooltipText,
 	self.enableDroppedWidth = false
 	-- Set by the parent control. Activates the auto width of the box component.
 	self.enableChangeBoxWidth = false
+	-- Set by the parent control. Hides the detail text of the selected entry in the box component.
+	self.hideSelDetail = false
         -- self.tag = "-"
 	return self
 end
@@ -323,8 +325,10 @@ function DropDownClass:Draw(viewPort, noTooltip)
 		local selItem = self.list[self.selIndex]
 		if type(selItem) == "table" then
 			selLabel = selItem.label
-			selDetail = selItem.detail
 			selStrikethrough = selItem.strikethrough
+			if not self.hideSelDetail then
+				selDetail = selItem.detail
+			end
 		else
 			selLabel = selItem
 		end
@@ -379,7 +383,8 @@ function DropDownClass:Draw(viewPort, noTooltip)
 		end
 
 		-- draw dropdown items
-		SetViewport(x + 2, dropY + 2, scrollBar.enabled and width - 22 or width - 4, self.dropHeight)
+		local listWidth = scrollBar.enabled and width - 22 or width - 4
+		SetViewport(x + 2, dropY + 2, listWidth, self.dropHeight)
 		local dropIndex = 0
 		for index, listVal in ipairs(self.list) do
 			local searchInfo = self.searchInfos[index]
@@ -424,14 +429,14 @@ function DropDownClass:Draw(viewPort, noTooltip)
 					else
 						SetDrawColor(0, 0, 0)
 					end
-					DrawImage(nil, width - dx - 8 - 22, y, width - 4, lineHeight)
+					DrawImage(nil, listWidth - dx - 6, y, dx + 6, lineHeight)
 					-- highlight font color if hovered or selected
 					if index == self.hoverSel or index == self.selIndex then
 						SetDrawColor(1, 1, 1)
 					else
 						SetDrawColor(0.66, 0.66, 0.66)
 					end
-					DrawString(width - dx - 4 - 22, y, "LEFT", lineHeight, "VAR", detail)
+					DrawString(listWidth - dx - 2, y, "LEFT", lineHeight, "VAR", detail)
 				end
 				self:DrawSearchHighlights(label, searchInfo, 0, y, width - 4, lineHeight)
 			end
