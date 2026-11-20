@@ -216,9 +216,13 @@ local function getWeaponFlags(env, weaponData, weaponTypes)
 	end
 	if weaponTypes then
 		for _, types in ipairs(weaponTypes) do
-			if not types[weaponData.type] and
-			(not weaponData.countsAsAll1H or not (types["Claw"] or types["Dagger"] or types["One Handed Axe"] or types["One Handed Mace"] or types["One Handed Sword"]))
-			and not checkAsThoughWeaponTypes(weaponData, types) then
+			-- Hide of the Vendigo replaces the weapon type when checking which skills can be used
+			if weaponData.asThoughUsing then
+				if not checkAsThoughWeaponTypes(weaponData, types) then
+					return nil, info
+				end
+			elseif not types[weaponData.type] and
+			(not weaponData.countsAsAll1H or not (types["Claw"] or types["Dagger"] or types["One Handed Axe"] or types["One Handed Mace"] or types["One Handed Sword"])) then
 				return nil, info
 			end
 		end

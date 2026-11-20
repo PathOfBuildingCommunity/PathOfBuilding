@@ -1633,6 +1633,8 @@ function calcs.initEnv(build, mode, override, specEnv)
 				for _, keystone in ipairs(env.modDB.mods.Keystone) do
 					if keystone.value == "Hollow Palm Technique" then
 						env.player.weaponData2 = copyTable(env.data.unarmedWeaponData[env.classId])
+						-- interaction with hide of the vendigo
+						env.player.weaponData2.asThoughUsing = env.player.weaponData1.asThoughUsing
 						break
 					end
 				end
