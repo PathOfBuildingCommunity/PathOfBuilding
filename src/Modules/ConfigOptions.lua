@@ -928,6 +928,12 @@ Huge sets the radius to 11.
 	{ var = "overrideEnduranceCharges", type = "count", label = "# of Endurance Charges (if not maximum):", ifOption = "useEnduranceCharges", apply = function(val, modList, enemyModList)
 		modList:NewMod("EnduranceCharges", "OVERRIDE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
+	{ var = "useBrineCharges", type = "check", label = "Do you use Brine Charges?", ifFlag = "CanGainBrineCharges", apply = function(val, modList, enemyModList)
+		modList:NewMod("UseBrineCharges", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "overrideBrineCharges", type = "count", label = "# of Brine Charges (if not maximum):", ifOption = "useBrineCharges", apply = function(val, modList, enemyModList)
+		modList:NewMod("BrineCharges", "OVERRIDE", val, "Config", { type = "Condition", var = "Combat" })
+	end },
 	{ var = "useSiphoningCharges", type = "check", label = "Do you use Siphoning Charges?", ifMult = "SiphoningCharge", apply = function(val, modList, enemyModList)
 		modList:NewMod("UseSiphoningCharges", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
