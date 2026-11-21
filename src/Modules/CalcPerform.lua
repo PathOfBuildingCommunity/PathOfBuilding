@@ -2020,7 +2020,16 @@ function calcs.perform(env, skipEHP)
 	if breakdown then
 		breakdown.LifeReserved = { reservations = { } }
 		breakdown.ManaReserved = { reservations = { } }
+		breakdown.LifeReservationEfficiency = { rowList = { }, colList = {
+				{ label = "Skill", key = "skillName" },
+				{ label = "Inc/red", key = "inc" },
+				{ label = "More/less", key = "more" },
+				{ label = "Efficiency", key = "total" },
+			} }
+		breakdown.ManaReservationEfficiency = copyTable(breakdown.LifeReservationEfficiency)
 	end
+	output.LifeReservationEfficiency = modDB:Sum("INC", nil, "LifeReservationEfficiency", "ReservationEfficiency")
+	output.ManaReservationEfficiency = modDB:Sum("INC", nil, "ManaReservationEfficiency", "ReservationEfficiency")
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
 		if activeSkill.skillData.requiresManaReservation and output.Mana == 0 then
 			activeSkill.skillFlags.disable = true
@@ -2093,6 +2102,14 @@ function calcs.perform(env, skipEHP)
 				if activeSkill.skillCfg.skillName == "Blood Sacrament" and activeSkill.activeStageCount then
 					values.reservedFlat = values.reservedFlat * (activeSkill.activeStageCount + 1)
 					values.reservedPercent = values.reservedPercent * (activeSkill.activeStageCount + 1)
+				end
+				if breakdown and (values.reservedFlat ~= 0 or values.reservedPercent ~= 0) then
+					t_insert(breakdown[name.."ReservationEfficiency"].rowList, {
+						skillName = activeSkill.activeEffect.grantedEffect.name,
+						inc = s_format("%+d%%", values.efficiency),
+						more = values.efficiencyMore ~= 1 and ("x "..values.efficiencyMore),
+						total = "x "..round(1 / ((1 + values.efficiency / 100) * values.efficiencyMore), 4),
+					})
 				end
 				if values.reservedFlat ~= 0 then
 					activeSkill.skillData[name.."ReservedBase"] = values.reservedFlat
