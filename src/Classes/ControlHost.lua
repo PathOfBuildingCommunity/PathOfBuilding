@@ -106,10 +106,23 @@ function ControlHostClass:ProcessControlsInput(inputEvents, viewPort)
 	end	
 end
 
+-- A focused control only hides other tooltips while it is hovered or dropped down, so they can't overlap
+local function getTooltipBlocker(control)
+	if control and control.hasFocus and (control.dropped or not control.IsMouseOver or control:IsMouseOver()) then
+		return control
+	end
+end
+
+function ControlHostClass:GetTooltipBlocker()
+	return getTooltipBlocker(self.selControl)
+end
+
 function ControlHostClass:DrawControls(viewPort, selControl)
+	local blocker = getTooltipBlocker(self.selControl)
+	local outerBlocker = getTooltipBlocker(selControl)
 	for _, control in pairs(self.controls) do
 		if control:IsShown() and control.Draw then
-			control:Draw(viewPort, (self.selControl and self.selControl.hasFocus and self.selControl ~= control) or (selControl and selControl.hasFocus and selControl ~= control))
+			control:Draw(viewPort, (blocker and blocker ~= control) or (outerBlocker and outerBlocker ~= control))
 		end
 	end
 end

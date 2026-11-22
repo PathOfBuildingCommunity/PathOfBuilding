@@ -1870,12 +1870,10 @@ end
 -- ============================================================
 
 function CompareTabClass:DrawControlList(viewPort, controls)
-	local noTooltip = function(control)
-		return self.selControl and self.selControl.hasFocus and self.selControl ~= control
-	end
+	local blocker = self:GetTooltipBlocker()
 	for _, control in ipairs(controls) do
 		if control:IsShown() and control.Draw then
-			control:Draw(viewPort, noTooltip(control))
+			control:Draw(viewPort, blocker and blocker ~= control)
 		end
 	end
 end
