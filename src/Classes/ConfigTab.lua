@@ -319,6 +319,15 @@ function ConfigTabClass:ConfigTab(build)
 					self:BuildModList()
 					self.build.buildFlag = true
 				end)
+				if varData.listFunc then
+					control.refreshList = function()
+						control.list = varData.listFunc(self.build)
+						control:CheckDroppedWidth(true)
+						control:UpdateSearch()
+						control.selIndex = 1
+						control:SelByValue(self.input[varData.var] or self:GetDefaultState(varData.var), "val")
+					end
+				end
 			elseif varData.type == "text" and not varData.resizable then
 				control = new("EditControl"):EditControl({"TOPLEFT",lastSection,"TOPLEFT"}, {8, 0, 344, 118}, "", nil, "^%C\t\n", nil, function(buf, placeholder)
 					if placeholder then
@@ -1015,6 +1024,9 @@ function ConfigTabClass:UpdateControls()
 		elseif control._className == "CheckBoxControl" then
 			control.state = self.configSets[self.activeConfigSetId].input[var]
 		elseif control._className == "DropDownControl" then
+			if control.refreshList then
+				control.refreshList()
+			end
 			control:SelByValue(self.configSets[self.activeConfigSetId].input[var] or self:GetDefaultState(var), "val")
 		end
 	end
@@ -1041,6 +1053,11 @@ function ConfigTabClass:Draw(viewPort, inputEvents)
 		end
 	end
 
+	for _, control in pairs(self.varControls) do
+		if control.refreshList then
+			control.refreshList()
+		end
+	end
 	self:ProcessControlsInput(inputEvents, viewPort)
 	for _, event in ipairs(inputEvents) do
 		if event.type == "KeyUp" then

@@ -1267,6 +1267,7 @@ skills["DeathWish"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.2,
 	fromItem = true,
+	defaultPart = 2,
 	parts = {
 		{
 			name = "Channelling",
@@ -1280,13 +1281,6 @@ skills["DeathWish"] = {
 			stages = true,
 		},
 	},
-	preDamageFunc = function(activeSkill, output)
-		if activeSkill.skillPart == 2 then
-			local skillData = activeSkill.skillData
-			skillData.FireBonusMin = output.Life * skillData.selfFireExplosionLifeMultiplier
-			skillData.FireBonusMax = output.Life * skillData.selfFireExplosionLifeMultiplier
-		end
-	end,
 	statMap = {
 		["spell_minimum_base_fire_damage"] = {
 			skill("FireMin", nil, { type = "SkillPart", skillPart = 2 }),
