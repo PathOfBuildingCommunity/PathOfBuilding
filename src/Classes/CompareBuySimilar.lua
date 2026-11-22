@@ -79,9 +79,9 @@ local function buildURL(item, slotName, controls, modEntries, defenceEntries, is
 		tradeName = tradeName:gsub("%s+$", "")
 		tradeName = (tradeName:match("^(.-)%s+%d+$") or tradeName)?.:lower()
 		-- verify the name since the trade site will error on an invalid name
-		for name, _ in ipairs(main.uniqueDB.list) do
-			if name == tradeName then
-				queryTable.name = tradeName
+		for _, dbUnique in pairs(main.uniqueDB.list) do
+			if tradeName:find(dbUnique.title:lower(), 1, true) then
+				queryTable.name = dbUnique.title
 				break
 			end
 		end
