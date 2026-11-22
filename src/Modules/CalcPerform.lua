@@ -665,21 +665,23 @@ local function doActorMisc(env, actor)
 			modDB.multipliers["Rage"] = modDB:Sum("BASE", nil, "MinimumRage")
 		end
 		local alliedFortify = modDB:Flag(nil, "YourFortifyEqualToParent") and actor.parent.output.FortificationStacks or env.partyMembers and env.partyMembers.modDB:Flag(nil, "PartyMemberFortifyEqualToYours") and env.partyMembers.output.FortificationStacks or 0
-		-- Minimum Fortification from King Maker or Perfect Naval Officer spectres or Ally override
-		if modDB:Sum("BASE", nil, "MinimumFortification") > 0 or alliedFortify > 0 then
+		local hasFortify = modDB:Flag(nil, "Fortified") or modDB:Sum("BASE", nil, "Multiplier:Fortification") > 0
+		local minimumFortify = modDB:Sum("BASE", nil, "MinimumFortification")
+		if minimumFortify > 0 or alliedFortify > 0 then
 			condList["Fortified"] = true
 		end
 		-- Fortify
-		if modDB:Flag(nil, "Fortified") or modDB:Sum("BASE", nil, "Multiplier:Fortification") > 0 then
+		if hasFortify or condList["Fortified"] then
 			local skillModList = actor.mainSkill and actor.mainSkill.skillModList or actor.modDB
 			local skillCfg = actor.mainSkill and actor.mainSkill.skillCfg
 			local maxStacks = m_max(modDB:Override(nil, "MaximumFortification") or modDB:Sum("BASE", skillCfg, "MaximumFortification"), alliedFortify)
-			local minStacks = m_min(modDB:Flag(nil, "Condition:HaveMaxFortification") and maxStacks or modDB:Sum("BASE", nil, "MinimumFortification"), maxStacks)
-			local stacks = m_min(modDB:Override(nil, "FortificationStacks") or maxStacks, maxStacks)
+			local minStacks = m_min(modDB:Flag(nil, "Condition:HaveMaxFortification") and maxStacks or minimumFortify, maxStacks)
+			local defaultStacks = (hasFortify or alliedFortify > 0) and maxStacks or minStacks
+			local stacks = m_min(modDB:Override(nil, "FortificationStacks") or defaultStacks, maxStacks)
 			local increasedDuration = skillModList:Sum("INC", nil, "FortifyDuration")
 			output.MaximumFortification = maxStacks
 			output.MinimumFortification = minStacks
-			output.RemovableFortification = m_min(maxStacks - minStacks, (modDB:Override(nil, "FortificationStacks") or maxStacks) - minStacks)
+			output.RemovableFortification = stacks - minStacks
 			output.FortificationStacks = stacks
 			output.FortificationStacksOver20 = m_min(m_max(0, stacks - 20), maxStacks - 20)
 			output.FortifyDuration = (skillModList:Override(nil, "FortifyDuration") or data.misc.FortifyBaseDuration) * (1 + increasedDuration / 100)
@@ -1164,8 +1166,31 @@ function calcs.actionSpeedMod(actor)
 	return actionSpeedMod
 end
 
+local function addMinionItems(env, minion)
+	if not minion.uses then
+		return
+	end
+	for slotName, slot in pairs(env.build.itemsTab.slots) do
+		if minion.uses[slotName] then
+			local item
+			if minion.itemSet then
+				if slot.weaponSet == 1 and minion.itemSet.useSecondWeaponSet then
+					slotName = slotName .. " Swap"
+				end
+				item = env.build.itemsTab.items[minion.itemSet[slotName].selItemId]
+			else
+				item = env.player.itemList[slotName]
+			end
+			if item then
+				minion.itemList[slotName] = item
+				minion.modDB:AddList(item.modList or item.slotModList[slot.slotNum])
+			end
+		end
+	end
+end
+
 -- Build the same modifier database for the selected minion and any minion used as a defensive Life pool.
-local function initMinionModDB(env, activeSkill, output)
+local function initMinionModDB(env, activeSkill, output, itemsLoaded)
 	local modDB = env.modDB
 	local minion = activeSkill.minion
 	minion.output = output or { }
@@ -1233,24 +1258,8 @@ local function initMinionModDB(env, activeSkill, output)
 	if activeSkill.skillData.minionUseMainHandWeapon then
 		minion.modDB:AddList(env.player.itemList["Weapon 1"].slotModList[1])
 	end
-	if minion.itemSet or minion.uses then
-		for slotName, slot in pairs(env.build.itemsTab.slots) do
-			if minion.uses[slotName] then
-				local item
-				if minion.itemSet then
-					if slot.weaponSet == 1 and minion.itemSet.useSecondWeaponSet then
-						slotName = slotName .. " Swap"
-					end
-					item = env.build.itemsTab.items[minion.itemSet[slotName].selItemId]
-				else
-					item = env.player.itemList[slotName]
-				end
-				if item then
-					minion.itemList[slotName] = item
-					minion.modDB:AddList(item.modList or item.slotModList[slot.slotNum])
-				end
-			end
-		end
+	if not itemsLoaded then
+		addMinionItems(env, minion)
 	end
 	if modDB:Sum("BASE", nil, "StrengthAddedToMinions") > 0 then
 		minion.modDB:NewMod("Str", "BASE", round(calcLib.val(modDB, "Str") * modDB:Sum("BASE", nil, "StrengthAddedToMinions") / 100), "Player")
@@ -1305,7 +1314,8 @@ function calcs.perform(env, skipEHP)
 	env.keystonesAdded = { }
 	modLib.mergeKeystones(env, env.modDB)
 
-	-- Build minion skills
+	-- Build minion skills and find the active Guardian.
+	local guardian
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
 		activeSkill.skillModList = new("ModList"):ModList(activeSkill.baseSkillModList)
 		if activeSkill.minion then
@@ -1313,6 +1323,10 @@ function calcs.perform(env, skipEHP)
 			activeSkill.minion.modDB.actor = activeSkill.minion
 			calcs.createMinionSkills(env, activeSkill)
 			activeSkill.skillPartName = activeSkill.minion.mainSkill.activeEffect.grantedEffect.name
+			if activeSkill.minion.type == "AnimatedArmour" and not activeSkill.skillFlags.disable
+				and (not guardian or activeSkill == env.player.mainSkill) then
+				guardian = activeSkill.minion
+			end
 		end
 	end
 
@@ -1332,6 +1346,9 @@ function calcs.perform(env, skipEHP)
 		-- Initialise minion modifier database
 		output.Minion = { }
 		initMinionModDB(env, env.player.mainSkill, output.Minion)
+	end
+	if guardian and guardian ~= env.minion then
+		addMinionItems(env, guardian)
 	end
 	if env.aegisModList then
 		env.player.itemList["Weapon 2"] = nil
@@ -1364,6 +1381,15 @@ function calcs.perform(env, skipEHP)
 	applyEnemyModifiers(env.player, true)
 	if env.minion then
 		applyEnemyModifiers(env.minion, true)
+	end
+	if guardian and env.mode_effective then
+		if guardian ~= env.minion then
+			applyEnemyModifiers(guardian, true)
+		end
+		for _, scorch in ipairs(guardian.modDB:Tabulate("BASE", nil, "ScorchBase")) do
+			local effect = scorch.value * calcLib.mod(guardian.modDB, nil, "EnemyScorchEffect")
+			modDB:NewMod("ScorchOverride", "BASE", effect, scorch.mod.source)
+		end
 	end
 	applyEnemyModifiers(env.enemy, true)
 	local minionCounts = { }
@@ -3469,23 +3495,24 @@ function calcs.perform(env, skipEHP)
 		modDB:NewMod("ExtraAura", "LIST", { mod = modLib.createMod("PhysicalDamageGainAsFire", "BASE", val, "Hallowing Flame", { type = "GlobalEffect", effectType = "Global", unscalable = true }, { type = "ActorCondition", actor = "enemy", var = "HallowingFlame" }, { type = "Multiplier", var = "HallowingFlame", actor = "enemy" }) })
 	end
 
-	-- Check for extra auras
+	-- Apply extra auras from the player, the Guardian, and imported party members.
+	local function applyExtraAura(targetDB, modList)
+		local inc = targetDB:Sum("INC", nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
+		local more = targetDB:More(nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
+		targetDB:ScaleAddList(modList, (1 + inc / 100) * more)
+	end
 	buffExports["Aura"]["extraAura"] = { effectMult = 1, modList = new("ModList"):ModList() }
 	for _, value in ipairs(modDB:List(nil, "ExtraAura")) do
 		local modList = { value.mod }
 		if not value.onlyAllies and not (value.fromAllies and modDB:Flag(nil, "AlliesAurasCannotAffectSelf")) then
-			local inc = modDB:Sum("INC", nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
-			local more = modDB:More(nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
-			modDB:ScaleAddList(modList, (1 + inc / 100) * more)
+			applyExtraAura(modDB, modList)
 			if not value.notBuff then
 				modDB.multipliers["BuffOnSelf"] = (modDB.multipliers["BuffOnSelf"] or 0) + 1
 			end
 		end
 		if value.fromAllies or not modDB:Flag(nil, "SelfAurasCannotAffectAllies") then
 			if env.minion then
-				local inc = env.minion.modDB:Sum("INC", nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
-				local more = env.minion.modDB:More(nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
-				env.minion.modDB:ScaleAddList(modList, (1 + inc / 100) * more)
+				applyExtraAura(env.minion.modDB, modList)
 			end
 			buffExports["Aura"]["extraAura"].modList:AddMod(value.mod)
 			local totemModBlacklist = value.mod.name and (value.mod.name == "Speed" or value.mod.name == "CritMultiplier" or value.mod.name == "CritChance")
@@ -3500,17 +3527,29 @@ function calcs.perform(env, skipEHP)
 			end
 		end
 	end
+	local function applyAlliedExtraAura(modList, source, onlyAllies)
+		local affectsAllies = not source or not source.modDB:Flag(nil, "SelfAurasCannotAffectAllies")
+		if affectsAllies and (not source or not modDB:Flag(nil, "AlliesAurasCannotAffectSelf")) then
+			applyExtraAura(modDB, modList)
+		end
+		if env.minion then
+			if env.minion == source then
+				if not onlyAllies then
+					applyExtraAura(env.minion.modDB, modList)
+				end
+			elseif affectsAllies and (not source or (not env.minion.hostile and not env.minion.modDB:Flag(nil, "AlliesAurasCannotAffectSelf"))) then
+				applyExtraAura(env.minion.modDB, modList)
+			end
+		end
+	end
+	if guardian and env.mode_buffs then
+		for _, value in ipairs(guardian.modDB:List(nil, "ExtraAura")) do
+			applyAlliedExtraAura({ value.mod }, guardian, value.onlyAllies)
+		end
+	end
 	if allyBuffs["extraAura"] then
 		for _, buff in pairs(allyBuffs["extraAura"]) do
-			local modList = buff.modList
-			local inc = modDB:Sum("INC", nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
-			local more = modDB:More(nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
-			modDB:ScaleAddList(modList, (1 + inc / 100) * more)
-			if env.minion then
-				local inc = env.minion.modDB:Sum("INC", nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
-				local more = env.minion.modDB:More(nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
-				env.minion.modDB:ScaleAddList(modList, (1 + inc / 100) * more)
-			end
+			applyAlliedExtraAura(buff.modList)
 		end
 	end
 
@@ -3763,7 +3802,7 @@ function calcs.perform(env, skipEHP)
 					if canAdd then
 						if not minionLife then
 							if minion ~= env.minion then
-								initMinionModDB(env, activeSkill)
+								initMinionModDB(env, activeSkill, nil, minion == guardian)
 								addMinionModifiers(activeSkill.skillModList, activeSkill.skillCfg, minion)
 								for _, modList in pairs(buffs) do
 									addMinionModifiers(modList, activeSkill.skillCfg, minion)
