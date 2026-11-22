@@ -2941,6 +2941,12 @@ function calcs.offence(env, actor, activeSkill)
 							local storedUses = value.skillData.storedUses + value.skillModList:Sum("BASE", value.skillCfg, "AdditionalCooldownUses")
 							-- Repeated spells retain the empowerment from the initial cast without consuming another use.
 							local empoweredUseRate = globalOutput.Speed / globalOutput.Repeats
+							if pactKey == "Lycia" then
+								-- A channelled spell stays Empowered until the channel ends, so each channel uses one Empowerment.
+								local channelDuration = skillModList:Sum("BASE", nil, "LyciaChannelDuration")
+								-- A channel cannot be shorter than one stage.
+								empoweredUseRate = channelDuration > 0 and m_min(1 / channelDuration, globalOutput.Speed) or 0
+							end
 							local uptime = empoweredUseRate == 0 and 100 or m_min((count / empoweredUseRate) / (cooldown + castTime), 1) * 100
 							uptime = m_min(100, uptime * storedUses)
 							local effect = skillModList:Flag(nil, "Condition:PactMaxHit") and 100 or uptime
@@ -2951,10 +2957,15 @@ function calcs.offence(env, actor, activeSkill)
 							globalOutput["PactOf"..pactKey.."CastTime"] = castTime
 							globalOutput[pactKey.."EmpoweredCount"] = count
 							globalOutput[pactKey.."UpTimeRatio"] = uptime
-							if globalBreakdown then
+							if globalBreakdown and pactKey == "Lycia" and empoweredUseRate == 0 then
+								globalBreakdown[pactKey.."UpTimeRatio"] = {
+									"Channelled without releasing ^8(no channel duration set)",
+									s_format("= %.2f%%", uptime),
+								}
+							elseif globalBreakdown then
 								globalBreakdown[pactKey.."UpTimeRatio"] = {
 									s_format("(%.2f ^8(number of Empowered)", count),
-									s_format("/ %.2f) ^8(non-repeated casts per second)", empoweredUseRate),
+									s_format("/ %.2f) ^8(%s per second)", empoweredUseRate, pactKey == "Lycia" and "channels" or "non-repeated casts"),
 									s_format("/ (%.2f ^8(pact cooldown)", cooldown),
 									s_format("+ %.2f) ^8(pact cast time)", castTime),
 									s_format("* %.2f ^8(stored uses)", storedUses),
