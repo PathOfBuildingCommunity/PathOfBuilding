@@ -922,6 +922,24 @@ describe("TestSkills", function()
 		end
 	end)
 
+	it("applies Fleshrend stacks from Pact of Ghorr as increased damage over time taken", function()
+		build.skillsTab:PasteSocketGroup("Creeping Frost 20/0  1\nPact of Ghorr 1/0  1")
+		runCallback("OnFrame")
+		local baseDPS = build.calcsTab.mainOutput.TotalDotDPS
+		assert.are.equals(0, build.calcsTab.mainEnv.enemyDB:Sum("INC", nil, "DamageTakenOverTime"))
+
+		build.configTab.input.fleshrendStacks = 3
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+		assert.are.equals(75, build.calcsTab.mainEnv.enemyDB:Sum("INC", nil, "DamageTakenOverTime"))
+		assert.are.near(baseDPS * 1.75, build.calcsTab.mainOutput.TotalDotDPS, baseDPS * 10 ^ -9)
+
+		build.configTab.input.fleshrendStacks = 5
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+		assert.are.equals(75, build.calcsTab.mainEnv.enemyDB:Sum("INC", nil, "DamageTakenOverTime"))
+	end)
+
 	it("ignores invalid extra supports while allowing support name collisions", function()
 		build.skillsTab:PasteSocketGroup("Slot: Gloves\nFireball 20/0  1")
 		runCallback("OnFrame")
