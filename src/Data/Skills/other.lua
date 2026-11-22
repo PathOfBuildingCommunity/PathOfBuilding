@@ -3146,6 +3146,11 @@ skills["TriggeredBloodrend"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Projectile] = true, [SkillType.DamageOverTime] = true, [SkillType.DegenOnlySpellDamage] = true, [SkillType.Physical] = true, [SkillType.AreaSpell] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Triggered] = true, [SkillType.InbuiltTrigger] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0,
+	statMap = {
+		["bloodrend_debuff_damage_over_time_taken_+%_per_stack"] = {
+			mod("DamageTakenOverTime", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Fleshrend", effectStackVar = "FleshrendCount", effectStackLimit = 3 }),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		pact = true,

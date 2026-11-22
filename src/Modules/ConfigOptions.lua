@@ -573,7 +573,7 @@ return {
 	end },
 	{ label = "Pact of Ghorr:", ifSkill = "Pact of Ghorr" },
 	{ var = "fleshrendStacks", type = "count", label = "# of Fleshrend stacks on enemy:", ifSkill = "Pact of Ghorr", tooltip = "Hunger of Ghorr periodically triggers Fleshrend, whose debuff stacks up to 3 times.\nEach stack causes the enemy to take 25% increased Damage over Time.\nThe debuff is short, so 3 stacks is a peak rather than a sustained value.", apply = function(val, modList, enemyModList)
-		enemyModList:NewMod("DamageTakenOverTime", "INC", 25 * m_min(val, 3), "Config", { type = "GlobalEffect", effectType = "Debuff", effectName = "Fleshrend" })
+		modList:NewMod("Multiplier:FleshrendCount", "BASE", val, "Config", { type = "Condition", var = "Effective" })
 	end },
 	{ label = "Perforate:", ifSkill = "Perforate", includeTransfigured = true },
 	{ var = "perforateSpikeOverlap", type = "count", label = "# of Overlapping Spikes:", tooltip = "Affects the DPS of Perforate in Blood Stance.\nMaximum is limited by the number of Spikes of Perforate.", ifSkill = "Perforate", includeTransfigured = true, apply = function(val, modList, enemyModList)
