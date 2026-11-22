@@ -2825,6 +2825,484 @@ return {
 				["type"] = "implicit",
 			},
 		},
+		["250_DisplaySocketedGemGetsElementalProliferation"] = {
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.effect_3828086965",
+				["text"] = "Socketed Gems are Supported by Level # Elemental Proliferation Support",
+				["type"] = "implicit",
+			},
+		},
+		["250_DisplaySocketedGemGetsIncreasedAreaOfEffectLevel"] = {
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.effect_3737592146",
+				["text"] = "Socketed Gems are Supported by Level # Increased Area of Effect Support",
+				["type"] = "implicit",
+			},
+		},
+		["250_DisplaySocketedGemsGetAddedChaosDamage"] = {
+			["2HSword"] = {
+				["max"] = 17,
+				["min"] = 17,
+			},
+			["2HWeapon"] = {
+				["max"] = 17,
+				["min"] = 17,
+			},
+			["Bow"] = {
+				["max"] = 17,
+				["min"] = 17,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.effect_1673391040",
+				["text"] = "Socketed Gems are Supported by Level # Added Chaos Damage Support",
+				["type"] = "implicit",
+			},
+		},
+		["250_DisplaySocketedGemsGetAddedFireDamage"] = {
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.effect_1571191461",
+				["text"] = "Socketed Gems are Supported by Level # Added Fire Damage Support",
+				["type"] = "implicit",
+			},
+		},
+		["250_DisplaySocketedGemsGetFasterCast"] = {
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.effect_1324938267",
+				["text"] = "Socketed Gems are Supported by Level # Faster Casting Support",
+				["type"] = "implicit",
+			},
+		},
+		["250_SocketedGemsSupportedByLifetap"] = {
+			["2HAxe"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
+			["2HWeapon"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.effect_265550805",
+				["text"] = "Socketed Gems are Supported by Level # Lifetap Support",
+				["type"] = "implicit",
+			},
+		},
+		["250_SupportedByAccuracy"] = {
+			["2HSword"] = {
+				["max"] = 10,
+				["min"] = 10,
+			},
+			["2HWeapon"] = {
+				["max"] = 10,
+				["min"] = 10,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.effect_338557223",
+				["text"] = "Socketed Gems are Supported by Level # Additional Accuracy Support",
+				["type"] = "implicit",
+			},
+		},
+		["250_SupportedByAreaOfEffect"] = {
+			["2HMace"] = {
+				["max"] = 10,
+				["min"] = 10,
+			},
+			["2HWeapon"] = {
+				["max"] = 10,
+				["min"] = 10,
+			},
+			["Staff"] = {
+				["max"] = 10,
+				["min"] = 10,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.effect_3737592146",
+				["text"] = "Socketed Gems are Supported by Level # Increased Area of Effect Support",
+				["type"] = "implicit",
+			},
+		},
+		["250_SupportedByBlind"] = {
+			["2HWeapon"] = {
+				["max"] = 10,
+				["min"] = 10,
+			},
+			["Bow"] = {
+				["max"] = 10,
+				["min"] = 10,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.effect_3972941836",
+				["text"] = "Socketed Gems are Supported by Level # Blind Support",
+				["type"] = "implicit",
+			},
+		},
+		["250_SupportedByCastOnCrit"] = {
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.effect_4267977279",
+				["text"] = "Socketed Gems are Supported by Level # Cast On Critical Strike Support",
+				["type"] = "implicit",
+			},
+		},
+		["250_SupportedByCastOnStun"] = {
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.effect_3474714415",
+				["text"] = "Socketed Gems are Supported by Level # Cast when Stunned Support",
+				["type"] = "implicit",
+			},
+		},
+		["250_SupportedByChain"] = {
+			["2HWeapon"] = {
+				["max"] = 10,
+				["min"] = 10,
+			},
+			["Bow"] = {
+				["max"] = 10,
+				["min"] = 10,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.effect_3009566559",
+				["text"] = "Socketed Gems are Supported by Level # Chain Support",
+				["type"] = "implicit",
+			},
+		},
+		["250_SupportedByCriticalMultiplier"] = {
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.effect_4278342035",
+				["text"] = "Socketed Gems are Supported by Level # Increased Critical Damage Support",
+				["type"] = "implicit",
+			},
+		},
+		["250_SupportedByCruelty"] = {
+			["2HAxe"] = {
+				["max"] = 10,
+				["min"] = 10,
+			},
+			["2HMace"] = {
+				["max"] = 10,
+				["min"] = 10,
+			},
+			["2HWeapon"] = {
+				["max"] = 10,
+				["min"] = 10,
+			},
+			["Staff"] = {
+				["max"] = 10,
+				["min"] = 10,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.effect_2251567057",
+				["text"] = "Socketed Gems are Supported by Level # Cruelty Support",
+				["type"] = "implicit",
+			},
+		},
+		["250_SupportedByElementalPenetration"] = {
+			["2HWeapon"] = {
+				["max"] = 10,
+				["min"] = 10,
+			},
+			["Staff"] = {
+				["max"] = 10,
+				["min"] = 10,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.effect_3232631539",
+				["text"] = "Socketed Gems are Supported by Level # Elemental Penetration Support",
+				["type"] = "implicit",
+			},
+		},
+		["250_SupportedByFork"] = {
+			["2HWeapon"] = {
+				["max"] = 10,
+				["min"] = 10,
+			},
+			["Bow"] = {
+				["max"] = 10,
+				["min"] = 10,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.effect_3553187279",
+				["text"] = "Socketed Gems are Supported by Level # Fork Support",
+				["type"] = "implicit",
+			},
+		},
+		["250_SupportedByFortify"] = {
+			["2HAxe"] = {
+				["max"] = 10,
+				["min"] = 10,
+			},
+			["2HMace"] = {
+				["max"] = 10,
+				["min"] = 10,
+			},
+			["2HSword"] = {
+				["max"] = 10,
+				["min"] = 10,
+			},
+			["2HWeapon"] = {
+				["max"] = 10,
+				["min"] = 10,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.effect_3543464371",
+				["text"] = "Socketed Gems are Supported by Level # Fortify Support",
+				["type"] = "implicit",
+			},
+		},
+		["250_SupportedByImpale"] = {
+			["2HAxe"] = {
+				["max"] = 10,
+				["min"] = 10,
+			},
+			["2HSword"] = {
+				["max"] = 10,
+				["min"] = 10,
+			},
+			["2HWeapon"] = {
+				["max"] = 10,
+				["min"] = 10,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.effect_3419961156",
+				["text"] = "Socketed Gems are Supported by Level # Impale Support",
+				["type"] = "implicit",
+			},
+		},
+		["250_SupportedByLifeGainOnHit"] = {
+			["2HAxe"] = {
+				["max"] = 15,
+				["min"] = 15,
+			},
+			["2HWeapon"] = {
+				["max"] = 15,
+				["min"] = 15,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.effect_4282732147",
+				["text"] = "Socketed Gems are Supported by Level # Life Gain on Hit Support",
+				["type"] = "implicit",
+			},
+		},
+		["250_SupportedByLifeLeech"] = {
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.effect_2713755048",
+				["text"] = "Socketed Gems are Supported by Level # Life Leech Support",
+				["type"] = "implicit",
+			},
+		},
+		["250_SupportedByMeleeSplash"] = {
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.effect_682681978",
+				["text"] = "Socketed Gems are Supported by Level # Melee Splash Support",
+				["type"] = "implicit",
+			},
+		},
+		["250_SupportedByMultipleProjectiles"] = {
+			["2HWeapon"] = {
+				["max"] = 10,
+				["min"] = 10,
+			},
+			["Bow"] = {
+				["max"] = 10,
+				["min"] = 10,
+			},
+			["Staff"] = {
+				["max"] = 10,
+				["min"] = 10,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.effect_1153652646",
+				["text"] = "Socketed Gems are Supported by Level # Multiple Projectiles Support",
+				["type"] = "implicit",
+			},
+		},
+		["250_SupportedByMultistrike"] = {
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.effect_2100902429",
+				["text"] = "Socketed Gems are Supported by Level # Multistrike Support",
+				["type"] = "implicit",
+			},
+		},
+		["250_SupportedByOnslaught"] = {
+			["2HAxe"] = {
+				["max"] = 10,
+				["min"] = 10,
+			},
+			["2HMace"] = {
+				["max"] = 10,
+				["min"] = 10,
+			},
+			["2HSword"] = {
+				["max"] = 10,
+				["min"] = 10,
+			},
+			["2HWeapon"] = {
+				["max"] = 10,
+				["min"] = 10,
+			},
+			["Bow"] = {
+				["max"] = 10,
+				["min"] = 10,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.effect_3893320621",
+				["text"] = "Socketed Gems are Supported by Level # Momentum Support",
+				["type"] = "implicit",
+			},
+		},
+		["250_SupportedByProjectileSpeed"] = {
+			["2HWeapon"] = {
+				["max"] = 10,
+				["min"] = 10,
+			},
+			["Bow"] = {
+				["max"] = 10,
+				["min"] = 10,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.effect_1770376530",
+				["text"] = "Socketed Gems are Supported by Level # Faster Projectiles Support",
+				["type"] = "implicit",
+			},
+		},
+		["250_SupportedByRage"] = {
+			["2HAxe"] = {
+				["max"] = 10,
+				["min"] = 10,
+			},
+			["2HMace"] = {
+				["max"] = 10,
+				["min"] = 10,
+			},
+			["2HWeapon"] = {
+				["max"] = 10,
+				["min"] = 10,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.effect_3512123051",
+				["text"] = "Socketed Gems are Supported by Level # Rage Support",
+				["type"] = "implicit",
+			},
+		},
+		["250_SupportedByReducedMana"] = {
+			["2HAxe"] = {
+				["max"] = 10,
+				["min"] = 10,
+			},
+			["2HMace"] = {
+				["max"] = 10,
+				["min"] = 10,
+			},
+			["2HWeapon"] = {
+				["max"] = 10,
+				["min"] = 10,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.effect_859488427",
+				["text"] = "Socketed Gems are Supported by Level # Inspiration Support",
+				["type"] = "implicit",
+			},
+		},
+		["250_SupportedByStun"] = {
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.effect_1878151040",
+				["text"] = "Socketed Gems are Supported by Level # Stun Support",
+				["type"] = "implicit",
+			},
+		},
+		["250_SupportedByWeaponElementalDamage"] = {
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "implicit.effect_468251502",
+				["text"] = "Socketed Gems are Supported by Level # Elemental Damage with Attacks Support",
+				["type"] = "implicit",
+			},
+		},
 		["2543_FishingQuantity"] = {
 			["FishingRod"] = {
 				["max"] = 10,
@@ -39127,6 +39605,1872 @@ return {
 			["tradeMod"] = {
 				["id"] = "explicit.stat_3503466234",
 				["text"] = "#% increased Damage with Hits and Ailments against Blinded Enemies",
+				["type"] = "explicit",
+			},
+		},
+		["250_AdditionalMinesPlacedSupported"] = {
+			["Helmet"] = {
+				["max"] = 25,
+				["min"] = 25,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_3082206530",
+				["text"] = "Socketed Gems are Supported by Level # Blastchain Mine Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_AdditionalTrapsThrownSupported"] = {
+			["Gloves"] = {
+				["max"] = 25,
+				["min"] = 25,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_1854569159",
+				["text"] = "Socketed Gems are Supported by Level # Trap Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_ArcaneSurgeAndSpellDamage"] = {
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_3438910899",
+				["text"] = "Socketed Gems are Supported by Level # Arcane Surge Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_AreaDamageSupported"] = {
+			["Helmet"] = {
+				["max"] = 25,
+				["min"] = 16,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_3293595800",
+				["text"] = "Socketed Gems are Supported by Level # Concentrated Effect Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_AreaOfEffectSupported"] = {
+			["Helmet"] = {
+				["max"] = 25,
+				["min"] = 16,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_3737592146",
+				["text"] = "Socketed Gems are Supported by Level # Increased Area of Effect Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_BleedingDamageSupported"] = {
+			["Gloves"] = {
+				["max"] = 25,
+				["min"] = 16,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_1561428496",
+				["text"] = "Socketed Gems are Supported by Level # Chance to Bleed Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_BlindOnHitSupported"] = {
+			["Gloves"] = {
+				["max"] = 25,
+				["min"] = 16,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_3972941836",
+				["text"] = "Socketed Gems are Supported by Level # Blind Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_BurningDamageSupported"] = {
+			["Helmet"] = {
+				["max"] = 25,
+				["min"] = 16,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_1200122555",
+				["text"] = "Socketed Gems are Supported by Level # Burning Damage Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_CastOnCritAndSpellDamage"] = {
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_4267977279",
+				["text"] = "Socketed Gems are Supported by Level # Cast On Critical Strike Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_CastWhileChannelingAndSpellDamage"] = {
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_1723015380",
+				["text"] = "Socketed Gems are Supported by Level # Cast while Channelling Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_ChanceToBleedSupported"] = {
+			["1HAxe"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["1HMace"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["1HSword"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["1HWeapon"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["Claw"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["Dagger"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_1561428496",
+				["text"] = "Socketed Gems are Supported by Level # Chance to Bleed Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_ChanceToFreezeShockIgniteProliferation"] = {
+			["1HWeapon"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["Sceptre"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_3828086965",
+				["text"] = "Socketed Gems are Supported by Level # Elemental Proliferation Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_ChanceToFreezeShockIgniteUnboundAilments"] = {
+			["1HWeapon"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["Sceptre"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_880096186",
+				["text"] = "Socketed Gems are Supported by Level # Unbound Ailments Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_ChanceToMaimSupported"] = {
+			["1HAxe"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["1HMace"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["1HSword"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["1HWeapon"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["Claw"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["Dagger"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_1243416714",
+				["text"] = "Socketed Gems are Supported by Level # Maim Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_ChanceToPoisonSupported"] = {
+			["1HAxe"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["1HMace"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["1HSword"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["1HWeapon"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["Claw"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_2141384509",
+				["text"] = "Socketed Gems are Supported by Level # Chance to Poison Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_ChillEffectSupported"] = {
+			["Helmet"] = {
+				["max"] = 25,
+				["min"] = 16,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_1214076534",
+				["text"] = "Socketed Gems are Supported by Level # Hypothermia Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_ColdDamagePrefixColdPenetration"] = {
+			["1HWeapon"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["Dagger"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["Wand"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_3851855898",
+				["text"] = "Socketed Gems are Supported by Level # Cold Penetration Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_CriticalStrikeChanceSpellsSupported"] = {
+			["1HWeapon"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["Dagger"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["Sceptre"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["Wand"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_1355803435",
+				["text"] = "Socketed Gems are Supported by Level # Increased Critical Strikes Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_CriticalStrikeChanceSupported"] = {
+			["1HAxe"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["1HMace"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["1HSword"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["1HWeapon"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["Claw"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["Dagger"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["Sceptre"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["Wand"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_1355803435",
+				["text"] = "Socketed Gems are Supported by Level # Increased Critical Strikes Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_CriticalStrikeMultiplierSupported"] = {
+			["1HAxe"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["1HMace"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["1HSword"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["1HWeapon"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["Claw"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["Dagger"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["Sceptre"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["Wand"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_4278342035",
+				["text"] = "Socketed Gems are Supported by Level # Increased Critical Damage Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_DeepwaterSwordCombustion"] = {
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_3985111281",
+				["text"] = "Socketed Gems are Supported by Level # Combustion Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_DisplaySocketedGemsSupportedByFortify"] = {
+			["Boots"] = {
+				["max"] = 25,
+				["min"] = 20,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_3543464371",
+				["text"] = "Socketed Gems are Supported by Level # Fortify Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_DisplaySupportedByManaLeech"] = {
+			["Gloves"] = {
+				["max"] = 15,
+				["min"] = 15,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_952649073",
+				["text"] = "Socketed Gems are Supported by Level # Mana Leech Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_DisplaySupportedByManaLeechMaven"] = {
+			["Gloves"] = {
+				["max"] = 20,
+				["min"] = 20,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_952649073",
+				["text"] = "Socketed Gems are Supported by Level # Mana Leech Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_ElementalDamagePrefixElementalFocus"] = {
+			["1HWeapon"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["Sceptre"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_2722476813",
+				["text"] = "Socketed Gems are Supported by Level # Elemental Focus Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_FireDamagePrefixFirePenetration"] = {
+			["1HWeapon"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["Sceptre"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["Wand"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_3161142268",
+				["text"] = "Socketed Gems are Supported by Level # Fire Penetration Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_IgniteDurationSupported"] = {
+			["Helmet"] = {
+				["max"] = 25,
+				["min"] = 16,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_1199731147",
+				["text"] = "Socketed Gems are Supported by Level # Immolate Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_IncreasedAccuracyPercentSupported"] = {
+			["Gloves"] = {
+				["max"] = 25,
+				["min"] = 16,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_338557223",
+				["text"] = "Socketed Gems are Supported by Level # Additional Accuracy Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_IncreasedAttackSpeedSupported"] = {
+			["Gloves"] = {
+				["max"] = 25,
+				["min"] = 16,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_4291787627",
+				["text"] = "Socketed Gems are Supported by Level # Faster Attacks Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_IncreasedCastSpeedFasterCasting"] = {
+			["1HWeapon"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["Dagger"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["Sceptre"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["Wand"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_1324938267",
+				["text"] = "Socketed Gems are Supported by Level # Faster Casting Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_IncreasedCastSpeedSpellEcho"] = {
+			["1HWeapon"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["Dagger"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["Sceptre"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["Wand"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_3995245401",
+				["text"] = "Socketed Gems are Supported by Level # Spell Echo Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_IncreasedCastSpeedSupported"] = {
+			["Gloves"] = {
+				["max"] = 25,
+				["min"] = 16,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_1324938267",
+				["text"] = "Socketed Gems are Supported by Level # Faster Casting Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_IncreasedWeaponElementalDamagePercentSupported"] = {
+			["1HAxe"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["1HMace"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["1HSword"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["1HWeapon"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["Claw"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["Dagger"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["Sceptre"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["Wand"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_468251502",
+				["text"] = "Socketed Gems are Supported by Level # Elemental Damage with Attacks Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_LightningDamagePrefixLightningPenetration"] = {
+			["1HWeapon"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["Dagger"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["Sceptre"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["Wand"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_724848072",
+				["text"] = "Socketed Gems are Supported by Level # Lightning Penetration Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_LocalIncreasedAttackSpeedFasterAttacks"] = {
+			["1HAxe"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["1HMace"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["1HSword"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["1HWeapon"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["Claw"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["Dagger"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["Sceptre"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["Wand"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_4291787627",
+				["text"] = "Socketed Gems are Supported by Level # Faster Attacks Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_LocalIncreasedAttackSpeedMultistrike"] = {
+			["1HAxe"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["1HMace"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["1HSword"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["1HWeapon"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["Claw"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["Dagger"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["Sceptre"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_2100902429",
+				["text"] = "Socketed Gems are Supported by Level # Multistrike Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_LocalIncreasedAttackSpeedOnslaught"] = {
+			["1HWeapon"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["Wand"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_3893320621",
+				["text"] = "Socketed Gems are Supported by Level # Momentum Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_LocalIncreasedPhysicalDamagePercentFasterProjectiles"] = {
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_1770376530",
+				["text"] = "Socketed Gems are Supported by Level # Faster Projectiles Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_LocalIncreasedPhysicalDamagePercentIronGrip"] = {
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_865121484",
+				["text"] = "Socketed Gems are Supported by Level # Iron Grip Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_LocalIncreasedPhysicalDamagePercentPowerChargeOnCrit"] = {
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_949715883",
+				["text"] = "Socketed Gems are Supported by Level # Power Charge On Critical Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_LocalIncreasedPhysicalDamagePercentProjectileAttackDamage"] = {
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_4119948431",
+				["text"] = "Socketed Gems are Supported by Level # Vicious Projectiles Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_LocalPhysicalDamagePercentAddedFireDamage"] = {
+			["1HAxe"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["1HMace"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["1HSword"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["1HWeapon"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["Claw"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["Dagger"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["Sceptre"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["Wand"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_1571191461",
+				["text"] = "Socketed Gems are Supported by Level # Added Fire Damage Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_LocalPhysicalDamagePercentBrutality"] = {
+			["1HAxe"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["1HMace"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["1HSword"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["1HWeapon"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["Claw"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["Dagger"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["Sceptre"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_3869346801",
+				["text"] = "Socketed Gems are Supported by Level # Brutality Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_LocalPhysicalDamagePercentEnduranceChargeOnStun"] = {
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_144941225",
+				["text"] = "Socketed Gems are Supported by Level # Endurance Charge on Melee Stun Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_LocalPhysicalDamagePercentFortify"] = {
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_3543464371",
+				["text"] = "Socketed Gems are Supported by Level # Fortify Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_LocalPhysicalDamagePercentMeleePhysicalDamage"] = {
+			["1HAxe"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["1HMace"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["1HSword"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["1HWeapon"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["Claw"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["Dagger"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["Sceptre"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_369135889",
+				["text"] = "Socketed Gems are Supported by Level # Melee Physical Damage Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_LocalPhysicalDamagePercentOnslaught"] = {
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_3893320621",
+				["text"] = "Socketed Gems are Supported by Level # Momentum Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_LocalPhysicalDamagePercentRuthless"] = {
+			["1HAxe"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["1HMace"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["1HSword"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["1HWeapon"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["Claw"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["Dagger"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["Sceptre"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_3921181872",
+				["text"] = "Socketed Gems are Supported by Level # Ruthless Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_MineDamageSupported"] = {
+			["Helmet"] = {
+				["max"] = 25,
+				["min"] = 18,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_3082206530",
+				["text"] = "Socketed Gems are Supported by Level # Blastchain Mine Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_MineDamageTrapSupported"] = {
+			["Helmet"] = {
+				["max"] = 25,
+				["min"] = 16,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_4174205387",
+				["text"] = "Socketed Gems are Supported by Level # Trap and Mine Damage Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_MinionDamageSupported"] = {
+			["Helmet"] = {
+				["max"] = 25,
+				["min"] = 16,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_174595432",
+				["text"] = "Socketed Gems are Supported by Level # Minion Damage Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_MinionLifeSupported"] = {
+			["Helmet"] = {
+				["max"] = 25,
+				["min"] = 16,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_3858590323",
+				["text"] = "Socketed Gems are Supported by Level # Minion Life Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_PoisonDamageSupported"] = {
+			["Gloves"] = {
+				["max"] = 25,
+				["min"] = 16,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_2141384509",
+				["text"] = "Socketed Gems are Supported by Level # Chance to Poison Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_PoisonDamageWeaponSupported"] = {
+			["1HWeapon"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["Dagger"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_2141384509",
+				["text"] = "Socketed Gems are Supported by Level # Chance to Poison Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_PoisonDurationSupported"] = {
+			["Gloves"] = {
+				["max"] = 25,
+				["min"] = 25,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_2141384509",
+				["text"] = "Socketed Gems are Supported by Level # Chance to Poison Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_PoisonDurationWeaponSupported"] = {
+			["1HWeapon"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["Dagger"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_602948540",
+				["text"] = "Socketed Gems are Supported by Level # Critical Strike Affliction Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_ProjectileDamageSupported"] = {
+			["Gloves"] = {
+				["max"] = 25,
+				["min"] = 16,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_1276857842",
+				["text"] = "Socketed Gems are Supported by Level # Slower Projectiles Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_ProjectileSpeedSupported"] = {
+			["Gloves"] = {
+				["max"] = 25,
+				["min"] = 16,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_1770376530",
+				["text"] = "Socketed Gems are Supported by Level # Faster Projectiles Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_ShockEffectSupported"] = {
+			["Helmet"] = {
+				["max"] = 25,
+				["min"] = 16,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_1994599451",
+				["text"] = "Socketed Gems are Supported by Level # Innervate Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_SkillEffectDurationSupported"] = {
+			["Boots"] = {
+				["max"] = 20,
+				["min"] = 15,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_1544569957",
+				["text"] = "Socketed Gems are Supported by Level # More Duration Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_SupportedByArcaneSurge"] = {
+			["AbyssJewel"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
+			["Chest"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_3438910899",
+				["text"] = "Socketed Gems are Supported by Level # Arcane Surge Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_SupportedByArcaneSurgeWeapon"] = {
+			["2HWeapon"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
+			["Staff"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_3438910899",
+				["text"] = "Socketed Gems are Supported by Level # Arcane Surge Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_SupportedByCastOnCritWeapon"] = {
+			["2HAxe"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["2HSword"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["2HWeapon"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["Bow"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_4267977279",
+				["text"] = "Socketed Gems are Supported by Level # Cast On Critical Strike Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_SupportedByCastOnDamageTaken"] = {
+			["Shield"] = {
+				["max"] = 5,
+				["min"] = 5,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_2581493934",
+				["text"] = "Socketed Gems are Supported by Level # Cast when Damage Taken Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_SupportedByCastOnMeleeKillWeapon"] = {
+			["2HAxe"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["2HMace"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["2HSword"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["2HWeapon"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["Staff"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_2640673956",
+				["text"] = "Socketed Gems are Supported by Level # Cast on Melee Kill Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_SupportedByCastWhileChannellingWeapon"] = {
+			["2HWeapon"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["Staff"] = {
+				["max"] = 20,
+				["min"] = 18,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_1723015380",
+				["text"] = "Socketed Gems are Supported by Level # Cast while Channelling Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_SupportedByEmpower"] = {
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_360069007",
+				["text"] = "Socketed Gems are Supported by Level # Empower Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_SupportedByEnduranceChargeOnStunWeapon"] = {
+			["2HAxe"] = {
+				["max"] = 10,
+				["min"] = 10,
+			},
+			["2HMace"] = {
+				["max"] = 10,
+				["min"] = 10,
+			},
+			["2HSword"] = {
+				["max"] = 10,
+				["min"] = 10,
+			},
+			["2HWeapon"] = {
+				["max"] = 10,
+				["min"] = 10,
+			},
+			["Staff"] = {
+				["max"] = 10,
+				["min"] = 10,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_144941225",
+				["text"] = "Socketed Gems are Supported by Level # Endurance Charge on Melee Stun Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_SupportedByEnhance"] = {
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_3006785117",
+				["text"] = "Socketed Gems are Supported by Level # Enhance Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_SupportedByEnlighten"] = {
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_1979264894",
+				["text"] = "Socketed Gems are Supported by Level # Enlighten Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_SupportedByFortifyWeapon"] = {
+			["2HAxe"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
+			["2HMace"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
+			["2HSword"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
+			["2HWeapon"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
+			["Staff"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_3543464371",
+				["text"] = "Socketed Gems are Supported by Level # Fortify Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_SupportedByIncreasedAreaOfEffectDamage"] = {
+			["1HWeapon"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["Dagger"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["Sceptre"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["Wand"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_3737592146",
+				["text"] = "Socketed Gems are Supported by Level # Increased Area of Effect Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_SupportedByInspirationWeapon"] = {
+			["2HWeapon"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
+			["Staff"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_859488427",
+				["text"] = "Socketed Gems are Supported by Level # Inspiration Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_SupportedByItemRarityUnique"] = {
+			["Chest"] = {
+				["max"] = 20,
+				["min"] = 10,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_3334987531",
+				["text"] = "Socketed Gems are Supported by Level # Item Rarity Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_SupportedByLessDuration"] = {
+			["Helmet"] = {
+				["max"] = 25,
+				["min"] = 20,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_4185976903",
+				["text"] = "Socketed Gems are Supported by Level # Less Duration Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_SupportedByLesserMultipleProjectilesDamage"] = {
+			["1HWeapon"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["Wand"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_1153652646",
+				["text"] = "Socketed Gems are Supported by Level # Multiple Projectiles Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_SupportedByLifeLeech"] = {
+			["Boots"] = {
+				["max"] = 20,
+				["min"] = 15,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_2713755048",
+				["text"] = "Socketed Gems are Supported by Level # Life Leech Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_SupportedByMaim"] = {
+			["AbyssJewel"] = {
+				["max"] = 1,
+				["min"] = 1,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_1243416714",
+				["text"] = "Socketed Gems are Supported by Level # Maim Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_SupportedByMeleeSplashDamage"] = {
+			["1HAxe"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["1HMace"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["1HSword"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["1HWeapon"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["Claw"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["Dagger"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["Sceptre"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_682681978",
+				["text"] = "Socketed Gems are Supported by Level # Melee Splash Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_SupportedByOnslaughtWeapon"] = {
+			["2HAxe"] = {
+				["max"] = 10,
+				["min"] = 10,
+			},
+			["2HSword"] = {
+				["max"] = 10,
+				["min"] = 10,
+			},
+			["2HWeapon"] = {
+				["max"] = 10,
+				["min"] = 10,
+			},
+			["Bow"] = {
+				["max"] = 10,
+				["min"] = 10,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_3893320621",
+				["text"] = "Socketed Gems are Supported by Level # Momentum Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_SupportedByPowerChargeOnCritWeapon"] = {
+			["2HWeapon"] = {
+				["max"] = 10,
+				["min"] = 10,
+			},
+			["Staff"] = {
+				["max"] = 10,
+				["min"] = 10,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_949715883",
+				["text"] = "Socketed Gems are Supported by Level # Power Charge On Critical Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_SupportedBySpellCascadeArea"] = {
+			["1HWeapon"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["Dagger"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["Sceptre"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["Wand"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_3678242906",
+				["text"] = "Socketed Gems are Supported by Level # Spell Cascade Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_SupportedBySpiritStrikeArea"] = {
+			["1HAxe"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["1HMace"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["1HSword"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["1HWeapon"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["Claw"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["Dagger"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["Sceptre"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_3672428602",
+				["text"] = "Socketed Gems are Supported by Level # Ancestral Call Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_SupportedByVolleySpeed"] = {
+			["1HWeapon"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["Wand"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_3022937704",
+				["text"] = "Socketed Gems are Supported by Level # Volley Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_TotemDamageAttackSupported"] = {
+			["Boots"] = {
+				["max"] = 25,
+				["min"] = 18,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_2686067790",
+				["text"] = "Socketed Gems are Supported by Level # Ballista Totem Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_TotemDamageSpellSupported"] = {
+			["Boots"] = {
+				["max"] = 25,
+				["min"] = 18,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_1858870975",
+				["text"] = "Socketed Gems are Supported by Level # Spell Totem Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_TotemSpeedAttackSupported"] = {
+			["Boots"] = {
+				["max"] = 25,
+				["min"] = 18,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_2686067790",
+				["text"] = "Socketed Gems are Supported by Level # Ballista Totem Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_TotemSpeedSpellSupported"] = {
+			["Boots"] = {
+				["max"] = 25,
+				["min"] = 18,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_1858870975",
+				["text"] = "Socketed Gems are Supported by Level # Spell Totem Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_TrapDamageCooldownSupported"] = {
+			["Gloves"] = {
+				["max"] = 25,
+				["min"] = 16,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_3479500684",
+				["text"] = "Socketed Gems are Supported by Level # Advanced Traps Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_TrapDamageMineSupported"] = {
+			["Gloves"] = {
+				["max"] = 25,
+				["min"] = 16,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_4174205387",
+				["text"] = "Socketed Gems are Supported by Level # Trap and Mine Damage Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_TrapDamageSupported"] = {
+			["Gloves"] = {
+				["max"] = 25,
+				["min"] = 18,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_1854569159",
+				["text"] = "Socketed Gems are Supported by Level # Trap Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_TrapSpeedCooldownSupported"] = {
+			["Gloves"] = {
+				["max"] = 25,
+				["min"] = 16,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_3479500684",
+				["text"] = "Socketed Gems are Supported by Level # Advanced Traps Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_WeaponSpellDamageArcaneSurge"] = {
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_3438910899",
+				["text"] = "Socketed Gems are Supported by Level # Arcane Surge Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_WeaponSpellDamageControlledDestruction"] = {
+			["1HWeapon"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["Dagger"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["Sceptre"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["Wand"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_3431656752",
+				["text"] = "Socketed Gems are Supported by Level # Controlled Destruction Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_WeaponSpellDamageEfficacy"] = {
+			["1HWeapon"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["Dagger"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["Sceptre"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["Wand"] = {
+				["max"] = 20,
+				["min"] = 16,
+			},
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_2795990092",
+				["text"] = "Socketed Gems are Supported by Level # Efficacy Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_WeaponSpellDamagePowerChargeOnCrit"] = {
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_949715883",
+				["text"] = "Socketed Gems are Supported by Level # Power Charge On Critical Support",
+				["type"] = "explicit",
+			},
+		},
+		["250_WeaponSpellDamageReducedMana"] = {
+			["sign"] = "",
+			["specialCaseData"] = {
+			},
+			["tradeMod"] = {
+				["id"] = "explicit.effect_859488427",
+				["text"] = "Socketed Gems are Supported by Level # Inspiration Support",
 				["type"] = "explicit",
 			},
 		},
