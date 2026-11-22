@@ -50,6 +50,10 @@
 ## Download
 Head over to the [Releases](https://github.com/PathOfBuildingCommunity/PathOfBuilding/releases) page to download the install wizard or portable zip.
 
+## Other languages
+Path of Building's interface is in English. Players who want it in Chinese or Korean (中文 / 한국어) can use [POBT](https://github.com/huacnlee/pobt), a third-party Windows app that runs your installed Path of Building with its interface translated into Simplified Chinese, Traditional Chinese or Korean.
+POBT is not made or maintained by the Path of Building Community team, so please report problems with it to [its own repository](https://github.com/huacnlee/pobt/issues).
+
 ## Changelog
 You can find the full version history [here](CHANGELOG.md).
 
