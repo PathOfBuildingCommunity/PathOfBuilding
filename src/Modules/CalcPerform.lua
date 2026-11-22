@@ -666,7 +666,6 @@ local function doActorMisc(env, actor)
 		end
 		local alliedFortify = modDB:Flag(nil, "YourFortifyEqualToParent") and actor.parent.output.FortificationStacks or env.partyMembers and env.partyMembers.modDB:Flag(nil, "PartyMemberFortifyEqualToYours") and env.partyMembers.output.FortificationStacks or 0
 		local hasFortify = modDB:Flag(nil, "Fortified") or modDB:Sum("BASE", nil, "Multiplier:Fortification") > 0
-		-- Minimum Fortification from King Maker or Perfect Naval Officer spectres or Ally override
 		local minimumFortify = modDB:Sum("BASE", nil, "MinimumFortification")
 		if minimumFortify > 0 or alliedFortify > 0 then
 			condList["Fortified"] = true
@@ -677,8 +676,8 @@ local function doActorMisc(env, actor)
 			local skillCfg = actor.mainSkill and actor.mainSkill.skillCfg
 			local maxStacks = m_max(modDB:Override(nil, "MaximumFortification") or modDB:Sum("BASE", skillCfg, "MaximumFortification"), alliedFortify)
 			local minStacks = m_min(modDB:Flag(nil, "Condition:HaveMaxFortification") and maxStacks or minimumFortify, maxStacks)
-			local defaultStacks = hasFortify and maxStacks or m_max(minStacks, alliedFortify)
-			local stacks = m_max(minStacks, m_min(modDB:Override(nil, "FortificationStacks") or defaultStacks, maxStacks))
+			local defaultStacks = (hasFortify or alliedFortify > 0) and maxStacks or minStacks
+			local stacks = m_min(modDB:Override(nil, "FortificationStacks") or defaultStacks, maxStacks)
 			local increasedDuration = skillModList:Sum("INC", nil, "FortifyDuration")
 			output.MaximumFortification = maxStacks
 			output.MinimumFortification = minStacks
@@ -1191,7 +1190,7 @@ local function addMinionItems(env, minion)
 end
 
 -- Build the same modifier database for the selected minion and any minion used as a defensive Life pool.
-local function initMinionModDB(env, activeSkill, output)
+local function initMinionModDB(env, activeSkill, output, itemsLoaded)
 	local modDB = env.modDB
 	local minion = activeSkill.minion
 	minion.output = output or { }
@@ -1259,7 +1258,7 @@ local function initMinionModDB(env, activeSkill, output)
 	if activeSkill.skillData.minionUseMainHandWeapon then
 		minion.modDB:AddList(env.player.itemList["Weapon 1"].slotModList[1])
 	end
-	if minion.type ~= "AnimatedArmour" then
+	if not itemsLoaded then
 		addMinionItems(env, minion)
 	end
 	if modDB:Sum("BASE", nil, "StrengthAddedToMinions") > 0 then
@@ -1315,7 +1314,7 @@ function calcs.perform(env, skipEHP)
 	env.keystonesAdded = { }
 	modLib.mergeKeystones(env, env.modDB)
 
-	-- Build minion skills and load Guardian gear even when it is not the main skill.
+	-- Build minion skills and find the active Guardian.
 	local guardian
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
 		activeSkill.skillModList = new("ModList"):ModList(activeSkill.baseSkillModList)
@@ -1324,11 +1323,9 @@ function calcs.perform(env, skipEHP)
 			activeSkill.minion.modDB.actor = activeSkill.minion
 			calcs.createMinionSkills(env, activeSkill)
 			activeSkill.skillPartName = activeSkill.minion.mainSkill.activeEffect.grantedEffect.name
-			if activeSkill.minion.type == "AnimatedArmour" then
-				addMinionItems(env, activeSkill.minion)
-				if not activeSkill.skillFlags.disable and (not guardian or activeSkill == env.player.mainSkill) then
-					guardian = activeSkill.minion
-				end
+			if activeSkill.minion.type == "AnimatedArmour" and not activeSkill.skillFlags.disable
+				and (not guardian or activeSkill == env.player.mainSkill) then
+				guardian = activeSkill.minion
 			end
 		end
 	end
@@ -1349,6 +1346,9 @@ function calcs.perform(env, skipEHP)
 		-- Initialise minion modifier database
 		output.Minion = { }
 		initMinionModDB(env, env.player.mainSkill, output.Minion)
+	end
+	if guardian and guardian ~= env.minion then
+		addMinionItems(env, guardian)
 	end
 	if env.aegisModList then
 		env.player.itemList["Weapon 2"] = nil
@@ -3802,7 +3802,7 @@ function calcs.perform(env, skipEHP)
 					if canAdd then
 						if not minionLife then
 							if minion ~= env.minion then
-								initMinionModDB(env, activeSkill)
+								initMinionModDB(env, activeSkill, nil, minion == guardian)
 								addMinionModifiers(activeSkill.skillModList, activeSkill.skillCfg, minion)
 								for _, modList in pairs(buffs) do
 									addMinionModifiers(modList, activeSkill.skillCfg, minion)
