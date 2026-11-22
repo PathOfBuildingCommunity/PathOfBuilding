@@ -274,6 +274,29 @@ describe("TestSkills", function()
 		assert.is_nil(supports.SupportSacredWisps)
 	end)
 
+	it("applies Bane's support part in Mantle of Dreams while disabling socketed support gems", function()
+		build.itemsTab:CreateDisplayItemFromRaw("Rarity: UNIQUE\nMantle of Dreams\nTwilight Regalia\nSockets: B-B-B\nImplicits: 0\nSocketed Support Gems have no effect")
+		build.itemsTab:AddDisplayItem()
+		build.skillsTab:PasteSocketGroup("Slot: Body Armour\nBane 20/0  1\nDespair 20/0  1\nControlled Destruction 20/0  1\n")
+		runCallback("OnFrame")
+
+		local despair
+		for _, activeSkill in ipairs(build.calcsTab.mainEnv.player.activeSkillList) do
+			if activeSkill.activeEffect.grantedEffect.id == "Despair" then
+				despair = activeSkill
+				break
+			end
+		end
+		assert.is_not_nil(despair)
+
+		local supports = { }
+		for _, effect in ipairs(despair.effectList) do
+			supports[effect.grantedEffect.id] = true
+		end
+		assert.is_true(supports.SupportDarkRitual)
+		assert.is_nil(supports.SupportControlledDestruction)
+	end)
+
 	it("keeps Mana-Infused Staff reservation on mana and disables it without mana", function()
 		build.itemsTab:CreateDisplayItemFromRaw("Test Staff\nJudgement Staff")
 		build.itemsTab:AddDisplayItem()
