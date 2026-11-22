@@ -12,8 +12,15 @@ local m_floor = math.floor
 local s_upper = string.upper
 
 local varList = require("Modules.ConfigOptions")
+local varByName = { }
+for _, varData in ipairs(varList) do
+	if varData.var then
+		varByName[varData.var] = varData
+	end
+end
 local configVisibility = require("Modules.ConfigVisibility")
 local configModBrowser = require("Modules.ConfigModBrowser")
+local autoSetup = require("Modules.ConfigAutoUI")
 
 ---@class CustomModBlockControl: ControlHost, Control
 local CustomModBlockClass = newClass("CustomModBlockControl", "ControlHost", "Control")
@@ -162,7 +169,10 @@ function ConfigTabClass:ConfigTab(build)
 	-- A calculator base output matching the calcFunc which is updated by the build when it is rebuilt
 	---@type table
 	self.calcBase = nil
-	self.controls.sectionAnchor = new("LabelControl"):LabelControl({ "TOPLEFT", self, "TOPLEFT" }, { 0, 20, 0, 0 }, "")
+	self.controls.setupAnchor = new("LabelControl"):LabelControl({ "TOPLEFT", self, "TOPLEFT" }, { 0, 8, 0, 0 }, "")
+	autoSetup.AddControls(self, { "TOPLEFT", self.controls.setupAnchor, "TOPLEFT" })
+	-- The native form starts below the one-row setup block (see autoSetup.BlockHeight)
+	self.controls.sectionAnchor = new("LabelControl"):LabelControl({ "TOPLEFT", self, "TOPLEFT" }, { 0, 48, 0, 0 }, "")
 
 	-- Set selector
 	self.controls.setSelect = new("DropDownControl"):DropDownControl({ "TOPLEFT", self.controls.sectionAnchor, "TOPLEFT" }, { 76, -12, 210, 20 }, nil, function(index, value)
@@ -297,14 +307,14 @@ function ConfigTabClass:ConfigTab(build)
 		else
 			local control
 			if varData.type == "check" then
-				control = new("CheckBoxControl"):CheckBoxControl({"TOPLEFT",lastSection,"TOPLEFT"}, {234, 0, 18}, varData.label, function(state)
+				control = new("CheckBoxControl"):CheckBoxControl({"TOPLEFT",lastSection,"TOPLEFT"}, {244, 0, 18}, varData.label, function(state)
 					self.configSets[self.activeConfigSetId].input[varData.var] = state
 					self:AddUndoState()
 					self:BuildModList()
 					self.build.buildFlag = true
 				end)
 			elseif varData.type == "count" or varData.type == "integer" or varData.type == "countAllowZero" or varData.type == "float" then
-				control = new("EditControl"):EditControl({"TOPLEFT",lastSection,"TOPLEFT"}, {234, 0, 90, 18}, "", nil, ((varData.type == "integer" or varData.type == "countAllowZero") and "^%-%d") or (varData.type == "float" and "^%d.") or "%D", 10, function(buf, placeholder)
+				control = new("EditControl"):EditControl({"TOPLEFT",lastSection,"TOPLEFT"}, {244, 0, 72, 18}, "", nil, ((varData.type == "integer" or varData.type == "countAllowZero") and "^%-%d") or (varData.type == "float" and "^%d.") or "%D", 10, function(buf, placeholder)
 					if placeholder then
 						self.configSets[self.activeConfigSetId].placeholder[varData.var] = tonumber(buf)
 					else
@@ -315,7 +325,7 @@ function ConfigTabClass:ConfigTab(build)
 					self.build.buildFlag = true
 				end)
 			elseif varData.type == "list" then
-				control = new("DropDownControl"):DropDownControl({"TOPLEFT",lastSection,"TOPLEFT"}, {234, 0, 118, 16}, varData.list, function(index, value)
+				control = new("DropDownControl"):DropDownControl({"TOPLEFT",lastSection,"TOPLEFT"}, {244, 0, 96, 16}, varData.list, function(index, value)
 					self.configSets[self.activeConfigSetId].input[varData.var] = value.val
 					self:AddUndoState()
 					self:BuildModList()
@@ -344,7 +354,7 @@ function ConfigTabClass:ConfigTab(build)
 					self.build.buildFlag = true
 				end, 16)
 			else
-				control = new("Control"):Control({"TOPLEFT",lastSection,"TOPLEFT"}, {234, 0, 16, 16})
+				control = new("Control"):Control({"TOPLEFT",lastSection,"TOPLEFT"}, {244, 0, 16, 16})
 			end
 
 			if varData.inactiveText then
@@ -352,17 +362,14 @@ function ConfigTabClass:ConfigTab(build)
 			end
 
 			local shownFuncs = {}
-			control.shown = function()
-				if not searchMatch(varData) then
-					return false
-				end
-
+			local function meetsRequirements()
 				for _, shownFunc in ipairs(shownFuncs) do
-					if not shownFunc() and not isShowAllConfig(varData) then
-						return false
-					end
+					if not shownFunc() then return false end
 				end
 				return true
+			end
+			control.shown = function()
+				return searchMatch(varData) and (isShowAllConfig(varData) or meetsRequirements())
 			end
 
 			local tooltipFuncs = {}
@@ -379,6 +386,17 @@ function ConfigTabClass:ConfigTab(build)
 
 			if varData.tooltip then
 				t_insert(tooltipFuncs, varData.tooltip)
+			end
+			if varData.type == "list" then
+				-- The narrow dropdown cuts long values off; name the full selection on hover
+				t_insert(tooltipFuncs, function()
+					local width, height = control:GetSize()
+					local sel = control.list[control.selIndex]
+					local label = type(sel) == "table" and sel.label or sel
+					if label and DrawStringWidth(height - 4, "VAR", label) > width - height then
+						return "^7" .. label
+					end
+				end)
 			end
 
 			if varData.ifNode then
@@ -695,6 +713,11 @@ function ConfigTabClass:ConfigTab(build)
 			end
 
 			local innerShown = control.shown
+			local function isNativeInvalid()
+				local value = self.configSets[self.activeConfigSetId].input[varData.var]
+				return value ~= nil and value ~= false and value ~= self:GetDefaultState(varData.var, type(value))
+					and not meetsRequirements()
+			end
 			if not varData.doNotHighlight then
 				control.borderFunc = function()
 					local shown = type(innerShown) == "boolean" and innerShown or innerShown()
@@ -811,6 +834,7 @@ function ConfigTabClass:ConfigTab(build)
 
 			t_insert(self.controls, control)
 			t_insert(lastSection.varControlList, control)
+			autoSetup.AddMarker(self, control, varData, isNativeInvalid)
 		end
 	end
 	self.controls.scrollBar = new("ScrollBarControl"):ScrollBarControl({"TOPRIGHT",self,"TOPRIGHT"}, {0, 0, 18, 0}, 50, "VERTICAL", true)
@@ -830,6 +854,7 @@ function ConfigTabClass:ConfigTab(build)
 		self:UpdateCustomModsControls()
 	end
 
+	self:ResetUndo()
 	return self
 end
 
@@ -844,7 +869,24 @@ function ConfigTabClass:Load(xml, fileName)
 	self.configSetOrderList = { 1 }
 
 	local function setInputAndPlaceholder(node, configSetId)
-		if node.elem == "Input" then
+		if node.elem == "Override" then
+			-- A value the user changed in a generated set; kept across regeneration
+			local configSet = self.configSets[configSetId]
+			local value
+			if node.attrib.cleared == "true" then
+				value = autoSetup.CLEARED
+			elseif node.attrib.number then
+				value = tonumber(node.attrib.number)
+			elseif node.attrib.boolean then
+				value = node.attrib.boolean == "true"
+			else
+				value = node.attrib.string
+			end
+			if node.attrib.name and value ~= nil then
+				configSet.autoOverrides = configSet.autoOverrides or { }
+				configSet.autoOverrides[node.attrib.name] = value
+			end
+		elseif node.elem == "Input" then
 			if not node.attrib.name then
 				launch:ShowErrMsg("^1Error parsing '%s': 'Input' element missing name attribute", fileName)
 				return true
@@ -875,7 +917,7 @@ function ConfigTabClass:Load(xml, fileName)
 			if node.attrib.number then
 				self.configSets[configSetId].placeholder[node.attrib.name] = tonumber(node.attrib.number)
 			elseif node.attrib.string then
-				self.configSets[configSetId].input[node.attrib.name] = node.attrib.string
+				self.configSets[configSetId].placeholder[node.attrib.name] = node.attrib.string
 			else
 				launch:ShowErrMsg("^1Error parsing '%s': 'Placeholder' element missing number", fileName)
 				return true
@@ -904,7 +946,12 @@ function ConfigTabClass:Load(xml, fileName)
 			end
 		else
 			local configSetId = tonumber(node.attrib.id)
-			self:CreateConfigSet(configSetId, node.attrib.title or "Default")
+			local configSet = self:CreateConfigSet(configSetId, node.attrib.title or "Default")
+			if autoSetup.IsActivity(node.attrib.autoActivity) then
+				configSet.autoActivity = node.attrib.autoActivity
+				configSet.autoBaseId = tonumber(node.attrib.autoBaseId)
+				configSet.autoSourceHash = node.attrib.autoSourceHash
+			end
 			self.configSetOrderList[index] = configSetId
 			self.configSets[configSetId].customModsList = { }
 			for _, child in ipairs(node) do
@@ -925,6 +972,13 @@ function ConfigTabClass:Load(xml, fileName)
 	-- Migration check for legacy builds
 	for _, configSetId in ipairs(self.configSetOrderList) do
 		local configSet = self.configSets[configSetId]
+		local base = self.configSets[configSet.autoBaseId]
+		if configSet.autoActivity and (not base or base.autoActivity) then
+			configSet.autoActivity, configSet.autoBaseId = nil, nil
+		end
+		if not configSet.autoActivity then
+			configSet.autoOverrides, configSet.autoSourceHash = nil, nil
+		end
 		local legacyText = configSet.input and configSet.input.customMods or ""
 		if legacyText ~= "" and (not configSet.customModsList or #configSet.customModsList == 0 or (#configSet.customModsList == 1 and (configSet.customModsList[1].text or "") == "")) then
 			configSet.customModsList = { { title = "Default", enabled = true, text = legacyText } }
@@ -936,13 +990,15 @@ function ConfigTabClass:Load(xml, fileName)
 		end
 	end
 
+	autoSetup.Loaded(self)
 	self:SetActiveConfigSet(tonumber(xml.attrib.activeConfigSet) or 1)
 	self:ResetUndo()
 end
 
-function ConfigTabClass:GetDefaultState(var, varType)
-	if self.configSets[self.activeConfigSetId].placeholder[var] ~= nil then
-		return self.configSets[self.activeConfigSetId].placeholder[var]
+function ConfigTabClass:GetDefaultState(var, varType, configSetId)
+	local placeholder = self.configSets[configSetId or self.activeConfigSetId].placeholder[var]
+	if placeholder ~= nil then
+		return placeholder
 	end
 
 	if self.defaultState[var] ~= nil then
@@ -967,10 +1023,32 @@ function ConfigTabClass:Save(xml)
 	for _, configSetId in ipairs(self.configSetOrderList) do
 		local configSet = self.configSets[configSetId]
 		local child = { elem = "ConfigSet", attrib = { id = tostring(configSetId), title = configSet.title } }
+		if configSet.autoActivity and configSet.autoBaseId then
+			child.attrib.autoActivity = configSet.autoActivity
+			child.attrib.autoBaseId = tostring(configSet.autoBaseId)
+			child.attrib.autoSourceHash = autoSetup.SourceHash(self, configSet)
+			for k, v in pairsSortByKey(autoSetup.CaptureOverrides(self, configSet)) do
+				local node = { elem = "Override", attrib = { name = k } }
+				if v == autoSetup.CLEARED then
+					node.attrib.cleared = "true"
+				elseif type(v) == "number" then
+					node.attrib.number = tostring(v)
+				elseif type(v) == "boolean" then
+					node.attrib.boolean = tostring(v)
+				else
+					node.attrib.string = tostring(v)
+				end
+				t_insert(child, node)
+			end
+		end
 		t_insert(xml, child)
 
 		for k, v in pairsSortByKey(configSet.input) do
-			if v ~= self:GetDefaultState(k, type(v)) then
+			-- An entered zero is kept (for example no Cruelty bonus, or a distance of
+			-- zero) unless zero is the option's own default, which reloads by itself.
+			local varData = varByName[k]
+			local explicitZero = v == 0 and varData ~= nil and varData.defaultState ~= 0
+			if explicitZero or v ~= self:GetDefaultState(k, type(v), configSetId) then
 				local node = { elem = "Input", attrib = { name = k } }
 				if type(v) == "number" then
 					node.attrib.number = tostring(v)
@@ -1011,8 +1089,12 @@ function ConfigTabClass:UpdateControls()
 	for var, control in pairs(self.varControls) do
 		if control._className == "EditControl" or control._className == "ResizableEditControl" then
 			control:SetText(tostring(self.configSets[self.activeConfigSetId].input[var] or ""))
-			if self.configSets[self.activeConfigSetId].placeholder[var] then
-				control:SetPlaceholder(tostring(self.configSets[self.activeConfigSetId].placeholder[var]))
+			local placeholder = self.configSets[self.activeConfigSetId].placeholder[var]
+			if placeholder ~= nil then
+				control:SetPlaceholder(tostring(placeholder))
+			else
+				-- SetPlaceholder(nil) would show the text "nil"
+				control.placeholder = nil
 			end
 		elseif control._className == "CheckBoxControl" then
 			control.state = self.configSets[self.activeConfigSetId].input[var]
@@ -1109,12 +1191,17 @@ function ConfigTabClass:Draw(viewPort, inputEvents)
 	self.controls.setSelect:SetList(newSetList)
 
 	self.controls.scrollBar.height = viewPort.height
-	self.controls.scrollBar:SetContentDimension(maxColY + 58, viewPort.height)
-	self.controls.sectionAnchor.y = 20 - self.controls.scrollBar.offset
+	local blockHeight = autoSetup.BlockHeight(self)
+	self.controls.scrollBar:SetContentDimension(maxColY + 58 + blockHeight, viewPort.height)
+	self.controls.sectionAnchor.y = 20 + blockHeight - self.controls.scrollBar.offset
+	self.controls.setupAnchor.y = 8 - self.controls.scrollBar.offset
 
 	main:DrawBackground(viewPort)
 
+	-- Marker statuses are shared by everything drawn in this pass only
+	self.markerStatusFrame = { }
 	self:DrawControls(viewPort)
+	self.markerStatusFrame = nil
 end
 
 function ConfigTabClass:UpdateLevel()
@@ -1144,9 +1231,9 @@ function ConfigTabClass:BuildModList()
 					varData.apply(true, modList, enemyModList, self.build)
 				end
 			elseif varData.type == "count" or varData.type == "integer" or varData.type == "countAllowZero" or varData.type == "float" then
-				if input[varData.var] and (input[varData.var] ~= 0 or varData.type == "countAllowZero") then
+				if input[varData.var] and (input[varData.var] ~= 0 or varData.type == "countAllowZero" or varData.allowZero) then
 					varData.apply(input[varData.var], modList, enemyModList, self.build)
-				elseif placeholder[varData.var] and (placeholder[varData.var] ~= 0 or varData.type == "countAllowZero") then
+				elseif placeholder[varData.var] and (placeholder[varData.var] ~= 0 or varData.type == "countAllowZero" or varData.allowZero) then
 					varData.apply(placeholder[varData.var], modList, enemyModList, self.build)
 				end
 			elseif varData.type == "list" then
@@ -1244,17 +1331,31 @@ end
 function ConfigTabClass:CreateUndoState()
 	local configSet = self.configSets[self.activeConfigSetId]
 	return {
+		configSetId = configSet.id,
 		input = copyTable(configSet.input),
+		placeholder = copyTable(configSet.placeholder),
 		customModsList = copyTable(configSet.customModsList)
 	}
 end
 
 function ConfigTabClass:RestoreUndoState(state)
+	if type(state) == "table" and state.configSetId and state.configSetId ~= self.activeConfigSetId then
+		if not self.configSets[state.configSetId] then
+			-- Nothing to restore into; keep the active set as it is
+			self:UpdateControls()
+			return
+		end
+		self:SetActiveConfigSet(state.configSetId)
+	end
 	local configSet = self.configSets[self.activeConfigSetId]
 	if type(state) == "table" and state.input then
 		wipeTable(configSet.input)
 		for k, v in pairs(state.input) do
 			configSet.input[k] = v
+		end
+		if state.placeholder then
+			wipeTable(configSet.placeholder)
+			for k, v in pairs(state.placeholder) do configSet.placeholder[k] = v end
 		end
 		if state.customModsList then
 			configSet.customModsList = copyTable(state.customModsList)
@@ -1267,6 +1368,10 @@ function ConfigTabClass:RestoreUndoState(state)
 	end
 	self:UpdateControls()
 	self:BuildModList()
+end
+
+function ConfigTabClass:RefreshAutoSetup()
+	return autoSetup.Refresh(self)
 end
 
 function ConfigTabClass:OpenConfigSetManagePopup()
@@ -1311,6 +1416,8 @@ function ConfigTabClass:CopyConfigSet(configSetId, newConfigSetName)
 	local newConfigSet = copyTable(configSet)
 	newConfigSet.id = #self.configSets + 1
 	newConfigSet.title = newConfigSetName or configSet.title .. " (Copy)"
+	newConfigSet.autoActivity, newConfigSet.autoBaseId = nil, nil
+	newConfigSet.autoOverrides, newConfigSet.autoSourceHash = nil, nil
 	t_insert(self.configSets, newConfigSet)
 	t_insert(self.configSetOrderList, newConfigSet.id)
 	self.modFlag = true
@@ -1332,6 +1439,9 @@ end
 function ConfigTabClass:DeleteConfigSet(configSetId, orderListIndex)
 	t_remove(self.configSetOrderList, orderListIndex)
 	self.configSets[configSetId] = nil
+	for _, set in pairs(self.configSets) do
+		if set.autoBaseId == configSetId then set.autoActivity, set.autoBaseId = nil, nil end
+	end
 	self.modFlag = true
 end
 
@@ -1390,6 +1500,7 @@ function ConfigTabClass:SetActiveConfigSet(configSetId, init, deferSync)
 	self.activeConfigSetId = configSetId
 
 	if not init then
+		autoSetup.SyncControls(self)
 		self:UpdateControls()
 		self:BuildModList()
 	end

@@ -86,6 +86,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 	self.bandit = "None"
 	self.pantheonMajorGod = "None"
 	self.pantheonMinorGod = "None"
+	self.autoConfigureQuestEvidence = { }
 	self.characterLevelAutoMode = main.defaultCharLevel == 1 or main.defaultCharLevel == nil
 	-- List of loadouts by spec name. Updated on each SyncLoadouts() call.
 	self.loadoutsList = {}
@@ -607,6 +608,8 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild, importLin
 	self.outputRevision = 1
 	self.calcsTab:BuildOutput()
 	self:RefreshStatList()
+	-- Records what the loaded setup was made from; nothing is regenerated or marked modified on load
+	self.configTab:RefreshAutoSetup()
 	self.buildFlag = false
 
 	self.spec:SetWindowTitleWithBuildClass()
@@ -1154,7 +1157,9 @@ function buildMode:Load(xml, fileName)
 	self.mainSocketGroup = tonumber(xml.attrib.mainSkillIndex) or tonumber(xml.attrib.mainSocketGroup) or 1
 	wipeTable(self.spectreList)
 	for _, child in ipairs(xml) do
-		if child.elem == "Spectre" then
+		if child.elem == "AutoConfigureQuests" then
+			self.autoConfigureQuestEvidence = require("Modules.ConfigAutoRulesBuild").Quests.Load(child)
+		elseif child.elem == "Spectre" then
 			if child.attrib.id and data.minions[child.attrib.id] then
 				t_insert(self.spectreList, child.attrib.id)
 			end
@@ -1195,6 +1200,8 @@ function buildMode:Save(xml)
 		mainSocketGroup = tostring(self.mainSocketGroup),
 		characterLevelAutoMode = tostring(self.characterLevelAutoMode)
 	}
+	local questRecords = require("Modules.ConfigAutoRulesBuild").Quests.Save(self.autoConfigureQuestEvidence)
+	if questRecords then t_insert(xml, questRecords) end
 	for _, id in ipairs(self.spectreList) do
 		t_insert(xml, { elem = "Spectre", attrib = { id = id } })
 	end
@@ -1423,6 +1430,10 @@ function buildMode:OnFrame(inputEvents)
 	self.controls.ascendDrop:CheckDroppedWidth(true)
 	self:UpdateSecondaryAscendancyDropdown()
 
+	-- A generated setup catches up with earlier changes once the build has settled
+	if self.configTab:RefreshAutoSetup() then
+		self.buildFlag = true
+	end
 	if self.buildFlag then
 		-- Wipe Global Cache
 		wipeGlobalCache()
@@ -1432,11 +1443,17 @@ function buildMode:OnFrame(inputEvents)
 		self.buildFlag = false
 		self.skillsTab:UpdateSocketGroups()
 		self.calcsTab:BuildOutput()
+		-- Progress estimates (Act) are refreshed before the setup looks at them
+		self:RefreshStatList()
+		if self.configTab:RefreshAutoSetup() then
+			wipeGlobalCache()
+			self.calcsTab:BuildOutput()
+			self:RefreshStatList()
+		end
 		if self.controls.breakdown.pinned and self.breakdownInputs then
 			self.controls.breakdown:SetBreakdownData()
 			self.controls.breakdown:SetBreakdownData(unpack(self.breakdownInputs))
 		end
-		self:RefreshStatList()
 		self.configTab.calcFunc, self.configTab.calcBase = self.calcsTab:GetMiscCalculator()
 	end
 	if main.showThousandsSeparators ~= self.lastShowThousandsSeparators then

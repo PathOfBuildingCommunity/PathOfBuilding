@@ -2098,6 +2098,9 @@ function calcs.offence(env, actor, activeSkill)
 			output[stat] = (output.MainHand[stat] or 0) + (output.OffHand[stat] or 0)
 		elseif mode == "AVERAGE" then
 			output[stat] = ((output.MainHand[stat] or 0) + (output.OffHand[stat] or 0)) / 2
+		elseif mode == "MAX" then
+			-- Best hand wins; a hand that cannot contribute counts as 0, so this also acts as an OR for 0/1 flags
+			output[stat] = m_max(output.MainHand[stat] or 0, output.OffHand[stat] or 0)
 		elseif mode == 'HARMONICMEAN' then
 			if output.MainHand[stat] == 0 or output.OffHand[stat] == 0 then
 				output[stat] = 0
@@ -5457,6 +5460,10 @@ function calcs.offence(env, actor, activeSkill)
 			if baseVal > 0 then
 				skillFlags.freeze = true
 				output.FreezeDurationMod = 1 + skillModList:Sum("INC", cfg, "EnemyFreezeDuration", "EnemyAilmentDuration", "EnemyElementalAilmentDuration") / 100 + enemyDB:Sum("INC", nil, "SelfFreezeDuration", "SelfElementalAilmentDuration", "SelfAilmentDuration", "HoarfrostFreezeDuration") / 100
+				output.FreezeCanApply = enemyThreshold > 0 and baseVal * 20 * output.FreezeDurationMod >= enemyThreshold and 1 or 0
+				-- Diagnostic for Hoarfrost's buildup/reset solver; it does not
+				-- change native Freeze damage, duration or application chance.
+				output.FreezeHitThresholdRatio = enemyThreshold > 0 and baseVal * 20 * output.FreezeDurationMod / enemyThreshold or 0
 				if breakdown then
 					t_insert(breakdown.FreezeDPS, s_format("For freeze to apply for the minimum of 0.3 seconds, target must have no more than %.0f Ailment Threshold.", baseVal * 20 * output.FreezeDurationMod))
 					t_insert(breakdown.FreezeDPS, s_format("^8(Ailment Threshold is about equal to Life except on bosses where it is about half of their life)"))
@@ -5487,6 +5494,15 @@ function calcs.offence(env, actor, activeSkill)
 					output[ailment.."Duration"] = ailmentData[ailment].duration * (1 + incDur / 100) * moreDur * debuffDurationMult
 					-- Line Controls Crit Conditional for Crit Mastery
 					output[ailment.."EffectMod"] = calcLib.mod(skillModList, cfg, "Enemy"..ailment.."Effect") * calcLib.mod(enemyDB, nil, "Self"..ailment.."Effect")
+					-- Export the existing threshold calculation as an estimate,
+					-- independently of the manual enemy-ailment checkboxes.
+					local estimate = enemyThreshold > 0 and val.effect(damage, output[ailment.."EffectMod"]) or 0
+					estimate = m_max(estimate, skillModList:Sum("BASE", cfg, ailment.."Minimum") * output[ailment.."EffectMod"])
+					local maximumEffect = globalOutput["Maximum"..ailment] or ailmentData[ailment].max
+					local precisionScale = 10 ^ ailmentData[ailment].precision
+					estimate = m_floor(m_min(maximumEffect, estimate) * precisionScale) / precisionScale
+					output[ailment.."HitEffectEstimate"] = estimate >= ailmentData[ailment].min and estimate or 0
+					output[ailment.."EstimateUsesCrit"] = ailmentMode == "CRIT" and 1 or 0
 					if breakdown then
 						local maximum = globalOutput["Maximum"..ailment] or ailmentData[ailment].max
 						local current = m_max(m_min(globalOutput["Current"..ailment] or 0, maximum), 0)
@@ -5732,6 +5748,7 @@ function calcs.offence(env, actor, activeSkill)
 		combineStat("ShockEffectMod", "AVERAGE")
 		combineStat("FreezeChance", "AVERAGE")
 		combineStat("FreezeDurationMod", "AVERAGE")
+		combineStat("FreezeHitThresholdRatio", "AVERAGE")
 		combineStat("ScorchChance", "AVERAGE")
 		combineStat("ScorchEffectMod", "AVERAGE")
 		combineStat("ScorchDuration", "AVERAGE")
@@ -5741,6 +5758,12 @@ function calcs.offence(env, actor, activeSkill)
 		combineStat("SapChance", "AVERAGE")
 		combineStat("SapEffectMod", "AVERAGE")
 		combineStat("SapDuration", "AVERAGE")
+		-- Estimates and 0/1 flags use MAX so a hand that cannot apply the ailment does not halve the other hand's result
+		for _, ailment in ipairs({ "Chill", "Shock", "Scorch", "Brittle", "Sap" }) do
+			combineStat(ailment .. "HitEffectEstimate", "MAX")
+			combineStat(ailment .. "EstimateUsesCrit", "MAX")
+		end
+		combineStat("FreezeCanApply", "MAX")
 		combineStat("ImpaleChance", "AVERAGE")
 		combineStat("ImpaleStoredDamage", "AVERAGE")
 		combineStat("ImpaleModifier", "CHANCE", "ImpaleChance")
@@ -5856,13 +5879,17 @@ function calcs.offence(env, actor, activeSkill)
 
 	runSkillFunc("preDotFunc")
 
+	-- Config can state that the enemy has no Corrupting Blood stacks from this skill; the debuff then simply is not
+	-- applied, so its DoT is skipped instead of being modelled as a -100% more multiplier.
+	local noCorruptingBlood = skillModList:Flag(nil, "dotIsCorruptingBlood") and skillModList:Flag(skillCfg, "NoCorruptingBloodStacks")
+
 	---Section Handles Generic Damage over time [DOT]
 	for _, damageType in ipairs(dmgTypeList) do
 		local dotTypeCfg = copyTable(dotCfg, true)
 		dotTypeCfg.keywordFlags = bor(dotTypeCfg.keywordFlags, KeywordFlag[damageType.."Dot"])
 		activeSkill["dot"..damageType.."Cfg"] = dotTypeCfg
 		local baseVal
-		if canDeal[damageType] then
+		if canDeal[damageType] and not noCorruptingBlood then
 			baseVal = skillData[damageType.."Dot"] or 0
 		else
 			baseVal = 0

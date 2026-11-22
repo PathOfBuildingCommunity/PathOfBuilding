@@ -445,4 +445,18 @@ describe("TestOffence", function()
 		-- "Buff grants 10% increased Attack Speed" at 20% quality: (1 + 1 + 0.1) / (1 + 1)
 		assertNearRelative(1.05, attackSpeed(20) / attackSpeed(0), 0.0001)
 	end)
+
+	it("Corrupting Cry with 0 stacks on the enemy deals no Corrupting Blood damage", function()
+		build.skillsTab:PasteSocketGroup("Enduring Cry 20/0  1\nCorrupting Cry 20/0  1\n")
+		runCallback("OnFrame")
+		local oneStack = build.calcsTab.mainOutput.CorruptingBloodDPS
+		assert.True(oneStack > 0)
+
+		build.configTab.input.conditionCorruptingCryStages = 0
+		build.configTab:BuildModList()
+		runCallback("OnFrame")
+
+		assert.are.equals(0, build.calcsTab.mainOutput.CorruptingBloodDPS or 0)
+		assert.are.equals(0, build.calcsTab.mainEnv.modDB:Sum("BASE", nil, "Multiplier:CorruptingCryStageAfterFirst"))
+	end)
 end)
