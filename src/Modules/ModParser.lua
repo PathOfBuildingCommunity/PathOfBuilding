@@ -1032,6 +1032,7 @@ local modFlagList = {
 	["of hex skills"] = { tag = { type = "SkillType", skillType = SkillType.Hex } },
 	["with hex skills"] = { tag = { type = "SkillType", skillType = SkillType.Hex } },
 	["by retaliation skills"] = { tag = { type = "SkillType", skillType = SkillType.Retaliation } },
+	["of retaliation skills"] = { tag = { type = "SkillType", skillType = SkillType.Retaliation } },
 	["of herald skills"] = { tag = { type = "SkillType", skillType = SkillType.Herald } },
 	["with herald skills"] = { tag = { type = "SkillType", skillType = SkillType.Herald } },
 	["with hits from herald skills"] = { tag = { type = "SkillType", skillType = SkillType.Herald }, keywordFlags = KeywordFlag.Hit },
