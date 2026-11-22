@@ -1085,9 +1085,6 @@ local function doActorCharges(env, actor)
 	output.RemovableFrenzyCharges = m_max(output.FrenzyCharges - output.FrenzyChargesMin, 0)
 	if modDB:Flag(nil, "UseEnduranceCharges") then
 		output.EnduranceCharges = modDB:Override(nil, "EnduranceCharges") or output.EnduranceChargesMax
-		if modDB:Flag(nil, "CanGainBrineCharges") then
-			output.BrineCharges = output.BrineChargesMax
-		end
 	end
 	if modDB:Flag(nil, "EnduranceChargesConvertToBrutalCharges") then
 		-- we max with possible Endurance Charge Override from Config since Brutal Charges won't have their own config entry
@@ -1098,6 +1095,9 @@ local function doActorCharges(env, actor)
 		output.EnduranceCharges = m_max(output.EnduranceCharges, m_min(output.EnduranceChargesMax, output.EnduranceChargesMin))
 	end
 	output.RemovableEnduranceCharges = m_max(output.EnduranceCharges - output.EnduranceChargesMin, 0)
+	if modDB:Flag(nil, "UseBrineCharges") and modDB:Flag(nil, "CanGainBrineCharges") and not modDB:Flag(nil, "EnduranceChargesConvertToBrutalCharges") then
+		output.BrineCharges = modDB:Override(nil, "BrineCharges") or output.BrineChargesMax
+	end
 	if modDB:Flag(nil, "UseSiphoningCharges") then
 		output.SiphoningCharges = modDB:Override(nil, "SiphoningCharges") or output.SiphoningChargesMax
 	end
