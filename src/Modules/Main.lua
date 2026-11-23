@@ -155,6 +155,10 @@ function main:Init()
 		self:ChangeUserPath(self.userPath, ignoreBuild)
 	end
 
+	-- Optional user-installed extensions (see Modules/Extensions.lua); nothing is loaded if the folder is missing
+	self.extensions = LoadModule("Modules/Extensions")
+	self.extensions:Load(self.userPath and self.userPath.."Extensions/")
+
 	---@type ItemDBData
 	self.uniqueDB = { list = { }, byTitle = { }, loading = true }
 	---@type ItemDBData
@@ -410,6 +414,10 @@ function main:OnFrame()
 			self.modes[self.mode].viewMode = "TREE"
 		end
 		self.newModeChangeToTree = false
+	end
+
+	if self.extensions then
+		self.extensions:Call("OnFrame")
 	end
 
 	self.viewPort = { x = 0, y = 0, width = self.screenW, height = self.screenH }
