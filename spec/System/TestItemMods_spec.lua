@@ -322,9 +322,8 @@ describe("TetsItemMods", function()
 			build.itemsTab.slots[case[1]]:SetSelItemId(target.id)
 			setWickermanCustomMods("")
 			local base = copyTable(build.calcsTab.mainOutput, true)
-			-- Use a normal slot with a synthetic type; no Wickerman base/slot/import framework is required.
-			local source = new("Item"):Item("Rarity: Rare\nSynthetic Wickerman\nPaua Amulet\nImplicits: 0\n20% increased bonuses gained from Equipped "..case[1])
-			source.type = "Wickerman Lower Limb"
+			-- A Viscera base in a normal slot keeps the test independent of the Wickerman slots.
+			local source = new("Item"):Item("Rarity: Rare\nSynthetic Wickerman\nScholar's Leg\nImplicits: 0\n20% increased bonuses gained from Equipped "..case[1])
 			build.itemsTab:AddItem(source, true)
 			build.itemsTab.slots.Amulet:SetSelItemId(source.id)
 			for _, first in ipairs({ true, false }) do
@@ -1607,6 +1606,7 @@ describe("TetsItemMods", function()
 		assert.is_not_nil(sentinel)
 		assert.are.equals(1, countSupport(sentinel, "SupportMinionDamage"))
 	end)
+
 	-- #10310
 	it("an item's own ExtraSupport for a support gem does not disable that support elsewhere", function()
 		addItem("Supporting Gloves\nSpiked Gloves\nGrants Level 20 Sunder")
@@ -1658,5 +1658,16 @@ describe("TetsItemMods", function()
 
 		assert.is_nil(data.skills.SupportHypothermia.fromItem)
 		assert.is_true(hasSupport(findActiveSkill("Fireball"), "SupportHypothermia"))
+	end)
+
+	it("scales shrine buff effect with total life reserved", function()
+		build.configTab.input.buffAccelerationShrine = true
+		local shrineMod = "2% increased Effect of Shrine Buffs on you for each 5% of Life Reserved"
+		setWickermanCustomMods(shrineMod)
+		-- Acceleration Shrine: 50% increased Action Speed
+		assert.are.near(1.5, build.calcsTab.mainOutput.ActionSpeedMod, 1e-9)
+		setWickermanCustomMods(shrineMod.."\nReserves 50% of Life")
+		-- 50% reserved is ten steps of 5%, so 20% increased effect: floor(50 * 1.2) = 60
+		assert.are.near(1.6, build.calcsTab.mainOutput.ActionSpeedMod, 1e-9)
 	end)
 end)

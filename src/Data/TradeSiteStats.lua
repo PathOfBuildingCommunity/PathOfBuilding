@@ -1019,6 +1019,57 @@ return {
 				["type"] = "pseudo",
 			},
 			{
+				["id"] = "pseudo.pseudo_temple_queens_chambers_1",
+				["option"] = {
+					["options"] = {
+						{
+							["id"] = 1,
+							["text"] = "Open Room",
+						},
+						{
+							["id"] = 2,
+							["text"] = "Closed Room",
+						},
+					},
+				},
+				["text"] = "Has Room: Cradle of Creation (Tier 1)",
+				["type"] = "pseudo",
+			},
+			{
+				["id"] = "pseudo.pseudo_temple_queens_chambers_2",
+				["option"] = {
+					["options"] = {
+						{
+							["id"] = 1,
+							["text"] = "Open Room",
+						},
+						{
+							["id"] = 2,
+							["text"] = "Closed Room",
+						},
+					},
+				},
+				["text"] = "Has Room: Cradle of Creation (Tier 2)",
+				["type"] = "pseudo",
+			},
+			{
+				["id"] = "pseudo.pseudo_temple_queens_chambers_3",
+				["option"] = {
+					["options"] = {
+						{
+							["id"] = 1,
+							["text"] = "Open Room",
+						},
+						{
+							["id"] = 2,
+							["text"] = "Closed Room",
+						},
+					},
+				},
+				["text"] = "Has Room: Cradle of Creation (Tier 3)",
+				["type"] = "pseudo",
+			},
+			{
 				["id"] = "pseudo.pseudo_temple_boss_fire_3",
 				["option"] = {
 					["options"] = {
@@ -1305,23 +1356,6 @@ return {
 					},
 				},
 				["text"] = "Has Room: Hall of Locks (Tier 2)",
-				["type"] = "pseudo",
-			},
-			{
-				["id"] = "pseudo.pseudo_temple_queens_chambers_2",
-				["option"] = {
-					["options"] = {
-						{
-							["id"] = 1,
-							["text"] = "Open Room",
-						},
-						{
-							["id"] = 2,
-							["text"] = "Closed Room",
-						},
-					},
-				},
-				["text"] = "Has Room: Hall of Lords (Tier 2)",
 				["type"] = "pseudo",
 			},
 			{
@@ -1665,23 +1699,6 @@ return {
 				["type"] = "pseudo",
 			},
 			{
-				["id"] = "pseudo.pseudo_temple_queens_chambers_1",
-				["option"] = {
-					["options"] = {
-						{
-							["id"] = 1,
-							["text"] = "Open Room",
-						},
-						{
-							["id"] = 2,
-							["text"] = "Closed Room",
-						},
-					},
-				},
-				["text"] = "Has Room: Royal Meeting Room (Tier 1)",
-				["type"] = "pseudo",
-			},
-			{
 				["id"] = "pseudo.pseudo_temple_sacrifice_room_1",
 				["option"] = {
 					["options"] = {
@@ -1951,23 +1968,6 @@ return {
 					},
 				},
 				["text"] = "Has Room: Temple Nexus (Tier 3)",
-				["type"] = "pseudo",
-			},
-			{
-				["id"] = "pseudo.pseudo_temple_queens_chambers_3",
-				["option"] = {
-					["options"] = {
-						{
-							["id"] = 1,
-							["text"] = "Open Room",
-						},
-						{
-							["id"] = 2,
-							["text"] = "Closed Room",
-						},
-					},
-				},
-				["text"] = "Has Room: Throne of Atziri (Tier 3)",
 				["type"] = "pseudo",
 			},
 			{
@@ -2662,8 +2662,18 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_181387736",
+				["text"] = "# Prefix Modifier cannot be changed",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_552705983",
 				["text"] = "# Strength per 1 Strength on Allocated Passives in Radius",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2390914662",
+				["text"] = "# Suffix Modifier cannot be changed",
 				["type"] = "explicit",
 			},
 			{
@@ -3974,6 +3984,11 @@ return {
 			{
 				["id"] = "explicit.stat_3141831683",
 				["text"] = "#% chance to Trigger Level 20 Glimpse of Eternity when Hit",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2746497881",
+				["text"] = "#% chance to Trigger Level 20 Moonfall on Melee Critical Strike",
 				["type"] = "explicit",
 			},
 			{
@@ -6349,6 +6364,11 @@ return {
 			{
 				["id"] = "explicit.stat_1069260037",
 				["text"] = "#% increased Damage with Claws",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2529155377",
+				["text"] = "#% increased Damage with Claws against Enemies that are on Low Life",
 				["type"] = "explicit",
 			},
 			{
@@ -13442,6 +13462,16 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_1871805225",
+				["text"] = "+#% Surpassing Chance for Remnants in your Maps to have an additional Suffix Modifier",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1871805225",
+				["text"] = "+#% Surpassing Chance for Remnants to have an additional Suffix Modifier",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_4098976931",
 				["text"] = "+#% chance for a Synthesis Map to drop from Final Map Boss in each Map (Tier 14+)",
 				["type"] = "explicit",
@@ -13664,6 +13694,11 @@ return {
 			{
 				["id"] = "explicit.stat_4277795662",
 				["text"] = "+#% to Cold and Lightning Resistances",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1909401378",
+				["text"] = "+#% to Critical Strike Chance",
 				["type"] = "explicit",
 			},
 			{
@@ -19947,6 +19982,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_1930039303",
+				["text"] = "Attacks with this Weapon have #% chance to deal Triple Damage",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_3148418088",
 				["text"] = "Attacks with this Weapon have #% chance to inflict Bleeding against Ignited Enemies",
 				["type"] = "explicit",
@@ -20334,6 +20374,16 @@ return {
 			{
 				["id"] = "explicit.stat_2458598175",
 				["text"] = "Blind you inflict is Reflected to you",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_1823668305",
+				["text"] = "Blind you inflict is permanent",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_699502241",
+				["text"] = "Blinding a non-Blinded Pinnacle Atlas Boss with this Weapon will steal a Modifier for this item (# Modifier remaining)",
 				["type"] = "explicit",
 			},
 			{
@@ -21837,6 +21887,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_1609344921",
+				["text"] = "Damage with Hits is Lucky while your Offhand is Magic",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_655871604",
 				["text"] = "Damage with Hits of Allies within 5 metres is Lucky",
 				["type"] = "explicit",
@@ -22087,6 +22142,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.delirium_reward_metamorphosis",
+				["text"] = "Delirium Reward Type: Catalysts",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.delirium_reward_currency",
 				["text"] = "Delirium Reward Type: Currency",
 				["type"] = "explicit",
@@ -22097,8 +22157,38 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.delirium_reward_essences",
+				["text"] = "Delirium Reward Type: Essences",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.delirium_reward_fossils",
+				["text"] = "Delirium Reward Type: Fossils",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.delirium_reward_gems",
+				["text"] = "Delirium Reward Type: Gems",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.delirium_reward_trinkets",
 				["text"] = "Delirium Reward Type: Jewellery",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.delirium_reward_maps",
+				["text"] = "Delirium Reward Type: Map Items",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.delirium_reward_scarabs",
+				["text"] = "Delirium Reward Type: Threads",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.delirium_reward_uniques",
+				["text"] = "Delirium Reward Type: Unique Items",
 				["type"] = "explicit",
 			},
 			{
@@ -23932,6 +24022,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_3945412713",
+				["text"] = "Gain Bitterblood equal to Life spent",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_2306836071",
 				["text"] = "Gain Brutal Charges instead of Endurance Charges",
 				["type"] = "explicit",
@@ -24134,6 +24229,11 @@ return {
 			{
 				["id"] = "explicit.stat_1758488586",
 				["text"] = "Gain a random Blood Shrine buff every 1 second",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_3653779134",
+				["text"] = "Gain a random Shrine Buff for # seconds when you Blind a non-Blinded Rare or Unique Enemy",
 				["type"] = "explicit",
 			},
 			{
@@ -24914,6 +25014,11 @@ return {
 			{
 				["id"] = "explicit.effect_582742716",
 				["text"] = "Grants Level # Wintertide Brand",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.effect_1825763431",
+				["text"] = "Grants Level # Witchhunter's Pyre",
 				["type"] = "explicit",
 			},
 			{
@@ -27207,6 +27312,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_3664562804",
+				["text"] = "Maximum Bitterblood is equal to your Maximum Life",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_3710150470",
 				["text"] = "Maximum Brutal Charges is equal to Maximum Endurance Charges",
 				["type"] = "explicit",
@@ -27574,6 +27684,11 @@ return {
 			{
 				["id"] = "explicit.stat_3011514440",
 				["text"] = "Minions convert #% of Physical Damage to Fire Damage per Socketed Red Gem",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.stat_2105061711",
+				["text"] = "Minions convert #% of Physical Damage to Lightning Damage",
 				["type"] = "explicit",
 			},
 			{
@@ -31324,16 +31439,6 @@ return {
 			{
 				["id"] = "explicit.pseudo_timeless_jewel_vorana",
 				["text"] = "Remembrancing # songworthy deeds by the line of Vorana",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_1871805225",
-				["text"] = "Remnants have #% chance to have an additional Suffix Modifier",
-				["type"] = "explicit",
-			},
-			{
-				["id"] = "explicit.stat_1871805225",
-				["text"] = "Remnants in your Maps have #% chance to have an additional Suffix Modifier",
 				["type"] = "explicit",
 			},
 			{
@@ -36022,6 +36127,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.effect_3136470162",
+				["text"] = "Socketed Gems are Supported by Level # Congregation Support",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.indexable_support_162",
 				["text"] = "Socketed Gems are Supported by Level # Controlled Blaze",
 				["type"] = "explicit",
@@ -36129,6 +36239,11 @@ return {
 			{
 				["id"] = "explicit.effect_3161048706",
 				["text"] = "Socketed Gems are Supported by Level # Divine Blessing Support",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.effect_2031996092",
+				["text"] = "Socketed Gems are Supported by Level # Divine Sentinel Support",
 				["type"] = "explicit",
 			},
 			{
@@ -36419,6 +36534,11 @@ return {
 			{
 				["id"] = "explicit.effect_3544093007",
 				["text"] = "Socketed Gems are Supported by Level # Greater Spell Echo Support",
+				["type"] = "explicit",
+			},
+			{
+				["id"] = "explicit.effect_603124590",
+				["text"] = "Socketed Gems are Supported by Level # Greater Unleash Support",
 				["type"] = "explicit",
 			},
 			{
@@ -40552,6 +40672,11 @@ return {
 				["type"] = "explicit",
 			},
 			{
+				["id"] = "explicit.stat_1248307887",
+				["text"] = "You are affected by Delirium Fog",
+				["type"] = "explicit",
+			},
+			{
 				["id"] = "explicit.stat_2584264074",
 				["text"] = "You are at Maximum Chance to Block Attack Damage if you have not Blocked Recently",
 				["type"] = "explicit",
@@ -42023,6 +42148,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_1209237645",
+				["text"] = "# Maximum Void Charges",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_4139229725",
 				["text"] = "# to # Added Attack Lightning Damage per 200 Accuracy Rating",
 				["type"] = "implicit",
@@ -42120,6 +42250,11 @@ return {
 			{
 				["id"] = "implicit.stat_2920230984",
 				["text"] = "#% chance for Slain monsters to drop an additional Scroll of Wisdom",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2450413567",
+				["text"] = "#% chance for a Coin Shower on Kill",
 				["type"] = "implicit",
 			},
 			{
@@ -42243,6 +42378,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_59033544",
+				["text"] = "#% chance to Eat a Soul when you Consume the corpse of a Rare Monster",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_49183689",
 				["text"] = "#% chance to Extinguish Enemies on Hit",
 				["type"] = "implicit",
@@ -42340,6 +42480,11 @@ return {
 			{
 				["id"] = "implicit.stat_1168985596",
 				["text"] = "#% chance to Poison with Melee Weapons",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1214232297",
+				["text"] = "#% chance to Recover all Life when you Kill an Enemy",
 				["type"] = "implicit",
 			},
 			{
@@ -42493,6 +42638,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_1302845655",
+				["text"] = "#% chance to gain a Frenzy Charge for each Enemy you hit with a Critical Strike",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_911695185",
 				["text"] = "#% chance to gain a Frenzy Charge on Critical Strike at Close Range",
 				["type"] = "implicit",
@@ -42523,6 +42673,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_1453197917",
+				["text"] = "#% chance to gain a Power Charge on Hit",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2483795307",
 				["text"] = "#% chance to gain a Power Charge on Kill",
 				["type"] = "implicit",
@@ -42540,6 +42695,11 @@ return {
 			{
 				["id"] = "implicit.stat_498214257",
 				["text"] = "#% chance to gain a Power, Frenzy or Endurance Charge on Kill",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2087475423",
+				["text"] = "#% chance to gain an Endurance Charge on Hit",
 				["type"] = "implicit",
 			},
 			{
@@ -42608,6 +42768,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_514698677",
+				["text"] = "#% chance to inflict an additional Poison on the same Target when you inflict Poison",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_1469603435",
 				["text"] = "#% chance to take 20% less Area Damage from Hits per 2% Overcapped Cold Resistance",
 				["type"] = "implicit",
@@ -42670,6 +42835,11 @@ return {
 			{
 				["id"] = "implicit.stat_2878959938",
 				["text"] = "#% increased Action Speed",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3548404923",
+				["text"] = "#% increased Action Speed while Ignited",
 				["type"] = "implicit",
 			},
 			{
@@ -42805,6 +42975,16 @@ return {
 			{
 				["id"] = "implicit.stat_1365052901",
 				["text"] = "#% increased Attack Speed during any Flask Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2188905761",
+				["text"] = "#% increased Attack Speed if you've changed Stance Recently",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3267026680",
+				["text"] = "#% increased Attack Speed if you've used an Attack Movement Skill Recently",
 				["type"] = "implicit",
 			},
 			{
@@ -43103,6 +43283,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_4276479762",
+				["text"] = "#% increased Damage against Beasts",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2947215268",
 				["text"] = "#% increased Damage during any Flask Effect",
 				["type"] = "implicit",
@@ -43115,6 +43300,11 @@ return {
 			{
 				["id"] = "implicit.stat_2118708619",
 				["text"] = "#% increased Damage if you have Consumed a corpse Recently",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3098087057",
+				["text"] = "#% increased Damage on Burning Ground",
 				["type"] = "implicit",
 			},
 			{
@@ -43223,6 +43413,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_1313678015",
+				["text"] = "#% increased Damage while in Blood Stance",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_690707482",
 				["text"] = "#% increased Damage with Ailments",
 				["type"] = "implicit",
@@ -43238,6 +43433,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2805714016",
+				["text"] = "#% increased Damage with Hits against Chilled Enemies",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2137878565",
 				["text"] = "#% increased Damage with Hits against Rare monsters",
 				["type"] = "implicit",
@@ -43245,6 +43445,11 @@ return {
 			{
 				["id"] = "implicit.stat_3257279374",
 				["text"] = "#% increased Damage with Hits and Ailments against Abyssal Monsters",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3503466234",
+				["text"] = "#% increased Damage with Hits and Ailments against Blinded Enemies",
 				["type"] = "implicit",
 			},
 			{
@@ -43355,6 +43560,11 @@ return {
 			{
 				["id"] = "implicit.stat_1793818220",
 				["text"] = "#% increased Effect of Cold Ailments",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_4058190193",
+				["text"] = "#% increased Effect of Consecrated Ground you create",
 				["type"] = "implicit",
 			},
 			{
@@ -43703,6 +43913,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_298173317",
+				["text"] = "#% increased Impale Effect",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_656461285",
 				["text"] = "#% increased Intelligence",
 				["type"] = "implicit",
@@ -43740,6 +43955,11 @@ return {
 			{
 				["id"] = "implicit.stat_2231156303",
 				["text"] = "#% increased Lightning Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_990219738",
+				["text"] = "#% increased Lightning Damage per 10 Intelligence",
 				["type"] = "implicit",
 			},
 			{
@@ -44373,6 +44593,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_1450081919",
+				["text"] = "#% more Damage against Undead Monsters",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2844915624",
 				["text"] = "#% more Damage against Undead Monsters",
 				["type"] = "implicit",
@@ -44383,8 +44608,28 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_137377270",
+				["text"] = "#% more Maximum Life",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_261712318",
 				["text"] = "#% more Maximum Lightning Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_440826461",
+				["text"] = "#% more Maximum Lightning Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2994988431",
+				["text"] = "#% more Maximum Physical Attack Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3376335115",
+				["text"] = "#% more Maximum Physical Attack Damage",
 				["type"] = "implicit",
 			},
 			{
@@ -44460,6 +44705,11 @@ return {
 			{
 				["id"] = "implicit.stat_3679418014",
 				["text"] = "#% of Cold Damage taken Recouped as Life",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1642347505",
+				["text"] = "#% of Cold Damage taken as Fire Damage",
 				["type"] = "implicit",
 			},
 			{
@@ -44608,8 +44858,18 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_1244494473",
+				["text"] = "#% of Lightning Damage taken as Fire Damage",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_2458962764",
 				["text"] = "#% of Maximum Life Converted to Energy Shield",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2761237769",
+				["text"] = "#% of Melee Cold Damage taken reflected to Attacker",
 				["type"] = "implicit",
 			},
 			{
@@ -45133,6 +45393,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2378187488",
+				["text"] = "+# to Level of all Movement Skill Gems",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_1600707273",
 				["text"] = "+# to Level of all Physical Spell Skill Gems",
 				["type"] = "implicit",
@@ -45283,8 +45548,18 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_13590525",
+				["text"] = "+# to maximum number of Sacred Wisps +# to number of Sacred Wisps Summoned",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_1225383362",
 				["text"] = "+# to maximum number of Skeletons",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_125218179",
+				["text"] = "+# to maximum number of Spectres",
 				["type"] = "implicit",
 			},
 			{
@@ -45360,6 +45635,16 @@ return {
 			{
 				["id"] = "implicit.stat_948600126",
 				["text"] = "+#% Pack Size",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1871805225",
+				["text"] = "+#% Surpassing Chance for Remnants in your Maps to have an additional Suffix Modifier",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1871805225",
+				["text"] = "+#% Surpassing Chance for Remnants to have an additional Suffix Modifier",
 				["type"] = "implicit",
 			},
 			{
@@ -45440,6 +45725,11 @@ return {
 			{
 				["id"] = "implicit.stat_4277795662",
 				["text"] = "+#% to Cold and Lightning Resistances",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1909401378",
+				["text"] = "+#% to Critical Strike Chance",
 				["type"] = "implicit",
 			},
 			{
@@ -45693,6 +45983,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3655769732",
+				["text"] = "+#% to Quality of all Skill Gems",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_791835907",
 				["text"] = "+#% to Spell Critical Strike Chance",
 				["type"] = "implicit",
@@ -45833,6 +46128,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_769783486",
+				["text"] = "Adds # to # Cold Damage to Attacks per 10 Dexterity",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_149574107",
 				["text"] = "Adds # to # Cold Damage to Attacks with this Weapon per 10 Dexterity",
 				["type"] = "implicit",
@@ -45878,6 +46178,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_68673913",
+				["text"] = "Adds # to # Fire Damage to Attacks per 10 Strength",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_1060540099",
 				["text"] = "Adds # to # Fire Damage to Attacks with this Weapon per 10 Strength",
 				["type"] = "implicit",
@@ -45905,6 +46210,11 @@ return {
 			{
 				["id"] = "implicit.stat_1754445556",
 				["text"] = "Adds # to # Lightning Damage to Attacks",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3168149399",
+				["text"] = "Adds # to # Lightning Damage to Attacks per 10 Intelligence",
 				["type"] = "implicit",
 			},
 			{
@@ -46000,6 +46310,11 @@ return {
 			{
 				["id"] = "implicit.stat_1483066460",
 				["text"] = "Arctic Armour has no Reservation",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_683595855",
+				["text"] = "Area Skills have #% chance to deal Double Damage",
 				["type"] = "implicit",
 			},
 			{
@@ -46243,6 +46558,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2421436896",
+				["text"] = "Arrows Fork",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_3492025235",
 				["text"] = "Arrows Pierce 1 additional Target",
 				["type"] = "implicit",
@@ -46255,6 +46575,11 @@ return {
 			{
 				["id"] = "implicit.stat_3423006863",
 				["text"] = "Arrows Pierce an additional Target",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1019891080",
+				["text"] = "Arrows deal #% increased Damage with Hits and Ailments to Targets they Pierce",
 				["type"] = "implicit",
 			},
 			{
@@ -46338,6 +46663,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_4088932395",
+				["text"] = "Banners also grant #% of Physical Damage gained as Extra Fire Damage to you and Allies",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_3133323410",
 				["text"] = "Bleeding Enemies you Kill Explode, dealing #% of their Maximum Life as Physical Damage",
 				["type"] = "implicit",
@@ -46365,6 +46695,11 @@ return {
 			{
 				["id"] = "implicit.stat_1801289192",
 				["text"] = "Bone Offering has #% increased Effect",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_151300265",
+				["text"] = "Bow Attacks Sacrifice a random Damageable Minion to fire # additional Arrow",
 				["type"] = "implicit",
 			},
 			{
@@ -46530,6 +46865,21 @@ return {
 			{
 				["id"] = "implicit.stat_496075050",
 				["text"] = "Cold Resistance is #%",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2474564741",
+				["text"] = "Consecrated Ground you create applies #% increased Damage taken to Enemies",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3660255193",
+				["text"] = "Consecrated Ground you create grants #% reduced damage taken to you and Allies",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3262369040",
+				["text"] = "Consumes a Void Charge to Trigger Level # Void Shot when you fire Arrows with a Non-Triggered Skill",
 				["type"] = "implicit",
 			},
 			{
@@ -46738,6 +47088,16 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3188898882",
+				["text"] = "Damaging Ailments inflicted by Minions deal damage #% Faster",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1631195850",
+				["text"] = "Damaging Retaliation Skills become Usable every # seconds",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_1373673887",
 				["text"] = "Debilitate Enemies you Hit that are on Full Life for 4 seconds",
 				["type"] = "implicit",
@@ -46828,6 +47188,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_4113372195",
+				["text"] = "Effects of Consecrated Ground you create Linger for 1 second",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_1263158408",
 				["text"] = "Elemental Equilibrium",
 				["type"] = "implicit",
@@ -46850,6 +47215,16 @@ return {
 			{
 				["id"] = "implicit.stat_4293455942",
 				["text"] = "Enemies Cannot Leech Life From you",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3119292058",
+				["text"] = "Enemies Chilled by your Hits can be Shattered as though Frozen",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1816894864",
+				["text"] = "Enemies Chilled by your Hits have Damage taken increased by Chill Effect",
 				["type"] = "implicit",
 			},
 			{
@@ -46880,6 +47255,11 @@ return {
 			{
 				["id"] = "implicit.stat_4163360392",
 				["text"] = "Enemies near your Banner take #% increased Fire Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1217730254",
+				["text"] = "Enemies take #% increased Damage for each type of Ailment you have inflicted on them",
 				["type"] = "implicit",
 			},
 			{
@@ -46933,6 +47313,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2360921519",
+				["text"] = "Enemies you Kill have a #% chance to Explode, dealing a tenth of their maximum Life as Damage of a Random Element",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_3295179224",
 				["text"] = "Enemies you Kill have a #% chance to Explode, dealing a tenth of their maximum Life as Physical Damage",
 				["type"] = "implicit",
@@ -46975,6 +47360,11 @@ return {
 			{
 				["id"] = "implicit.stat_1645957840",
 				["text"] = "Every 3 seconds, Consume a Corpse within 5 metres to Recover #% of Mana",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3334947764",
+				["text"] = "Every second time you cast each Spell, gain Mana equal to its Upfront Cost",
 				["type"] = "implicit",
 			},
 			{
@@ -47173,6 +47563,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3442107889",
+				["text"] = "Gain Maddening Presence for 10 seconds when you Kill a Rare or Unique Enemy",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_581055101",
 				["text"] = "Gain Maximum Life instead of Maximum Energy Shield from Equipped Armour Items at #% of the value",
 				["type"] = "implicit",
@@ -47180,6 +47575,11 @@ return {
 			{
 				["id"] = "implicit.stat_2287328323",
 				["text"] = "Gain Sacrificial Zeal when you use a Skill, dealing you #% of the Skill's Mana Cost as Physical Damage per Second",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1091613629",
+				["text"] = "Gain Shaper's Presence for 10 seconds when you kill a Rare or Unique Enemy",
 				["type"] = "implicit",
 			},
 			{
@@ -47195,6 +47595,16 @@ return {
 			{
 				["id"] = "implicit.stat_3533655459",
 				["text"] = "Gain a Power Charge every # seconds",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_34273389",
+				["text"] = "Gain a Void Charge every # seconds",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3493440964",
+				["text"] = "Gain a random Shrine Buff for # seconds when you Kill a Rare or Unique Enemy",
 				["type"] = "implicit",
 			},
 			{
@@ -47293,6 +47703,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.effect_771254875",
+				["text"] = "Grants Level # Aspect of the Cat",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.effect_149184016",
 				["text"] = "Grants Level # Aspect of the Spider",
 				["type"] = "implicit",
@@ -47375,6 +47790,11 @@ return {
 			{
 				["id"] = "implicit.effect_1061473510",
 				["text"] = "Grants Level # Malevolence",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.effect_1463464665",
+				["text"] = "Grants Level # Petrification Statue",
 				["type"] = "implicit",
 			},
 			{
@@ -47468,6 +47888,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.effect_603152644",
+				["text"] = "Grants Summon Greater Harbinger of Directions",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.effect_1795027869",
 				["text"] = "Grants Summon Greater Harbinger of Focus",
 				["type"] = "implicit",
@@ -47543,6 +47968,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_986616727",
+				["text"] = "Hexes Transfer to all Enemies within 3 metres when Hexed Enemy dies",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_32859524",
 				["text"] = "Hexes applied by Socketed Curse Skills are Reflected back to you",
 				["type"] = "implicit",
@@ -47550,6 +47980,21 @@ return {
 			{
 				["id"] = "implicit.stat_2839577586",
 				["text"] = "Hits have #% chance to ignore Enemy Physical Damage Reduction",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3402448478",
+				["text"] = "Hits have #% chance to treat Enemy Monster Cold Resistance values as inverted",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_560643297",
+				["text"] = "Hits have #% chance to treat Enemy Monster Fire Resistance values as inverted",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2705969278",
+				["text"] = "Hits have #% chance to treat Enemy Monster Lightning Resistance values as inverted",
 				["type"] = "implicit",
 			},
 			{
@@ -47688,6 +48133,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2316295572",
+				["text"] = "Iron Flasks applied to you have #% increased Effect",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_573347393",
 				["text"] = "Iron Grip",
 				["type"] = "implicit",
@@ -47713,8 +48163,18 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_4052113003",
+				["text"] = "Kill Undead Enemies that have 15% or lower Life when Hit by your Skills",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_1218107074",
 				["text"] = "Killing Blows Consume corpses to Recover # Life and # Mana",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_190157226",
+				["text"] = "Killing Blows Consume corpses to Recover #% of Life",
 				["type"] = "implicit",
 			},
 			{
@@ -47898,8 +48358,18 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2370748292",
+				["text"] = "Minions gain added Resistances equal to #% of your Resistances",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_1994549323",
 				["text"] = "Minions have #% chance to Freeze, Shock and Ignite",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_755922799",
+				["text"] = "Minions have #% chance to deal Double Damage",
 				["type"] = "implicit",
 			},
 			{
@@ -48048,6 +48518,16 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_3120620173",
+				["text"] = "Pact Skills have #% increased Cast Speed",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1144742318",
+				["text"] = "Pact Skills have #% increased Cooldown Recovery Rate",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_98977150",
 				["text"] = "Pain Attunement",
 				["type"] = "implicit",
@@ -48130,6 +48610,11 @@ return {
 			{
 				["id"] = "implicit.stat_97250660",
 				["text"] = "Projectiles Pierce an additional Target while you have Phasing",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_3019598671",
+				["text"] = "Projectiles Pierce, Fork or Chain an additional time at random",
 				["type"] = "implicit",
 			},
 			{
@@ -48423,16 +48908,6 @@ return {
 				["type"] = "implicit",
 			},
 			{
-				["id"] = "implicit.stat_1871805225",
-				["text"] = "Remnants have #% chance to have an additional Suffix Modifier",
-				["type"] = "implicit",
-			},
-			{
-				["id"] = "implicit.stat_1871805225",
-				["text"] = "Remnants in your Maps have #% chance to have an additional Suffix Modifier",
-				["type"] = "implicit",
-			},
-			{
 				["id"] = "implicit.stat_3296873305",
 				["text"] = "Remove Chill and Freeze when you use a Flask",
 				["type"] = "implicit",
@@ -48553,6 +49028,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2101631651",
+				["text"] = "Skills deal #% increased Projectile damage per Projectile created",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_74338099",
 				["text"] = "Skills fire an additional Projectile",
 				["type"] = "implicit",
@@ -48570,6 +49050,11 @@ return {
 			{
 				["id"] = "implicit.stat_2059097830",
 				["text"] = "Skills socketed in Equipped Boots have #% increased Mana Cost Efficiency",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_1264919148",
+				["text"] = "Skills supported by Unleash have +# to maximum number of Seals",
 				["type"] = "implicit",
 			},
 			{
@@ -48953,6 +49438,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_1607193320",
+				["text"] = "Travel Skills have #% chance to not consume a Cooldown on use",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_3924520095",
 				["text"] = "Trigger Level # Assassin's Mark when you Hit a Rare or Unique Enemy and have no Mark",
 				["type"] = "implicit",
@@ -49220,6 +49710,11 @@ return {
 			{
 				["id"] = "implicit.pseudo_graft_skill_gem|3846565594",
 				["text"] = "Uses level # Wreathed in Light",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_2567919918",
+				["text"] = "Utility Flasks gain # Charge every 3 seconds",
 				["type"] = "implicit",
 			},
 			{
@@ -51668,6 +52163,11 @@ return {
 				["type"] = "implicit",
 			},
 			{
+				["id"] = "implicit.stat_2973498992",
+				["text"] = "Your Chaos Damage can Freeze",
+				["type"] = "implicit",
+			},
+			{
 				["id"] = "implicit.stat_1139878780",
 				["text"] = "Your Chaos Damage can Ignite",
 				["type"] = "implicit",
@@ -51810,6 +52310,11 @@ return {
 			{
 				["id"] = "implicit.stat_99487834",
 				["text"] = "Your Skills deal you #% of Mana Spent on Upfront Skill Mana Costs as Physical Damage",
+				["type"] = "implicit",
+			},
+			{
+				["id"] = "implicit.stat_893038512",
+				["text"] = "Your chance to cause monsters to Flee on Hit is also chance to Terrify Monsters on Hit",
 				["type"] = "implicit",
 			},
 			{
@@ -51961,6 +52466,11 @@ return {
 			{
 				["id"] = "imbued.pseudo_built_in_support|3582467606",
 				["text"] = "Supported by Level 1 Cast on Melee Kill",
+				["type"] = "imbued",
+			},
+			{
+				["id"] = "imbued.pseudo_built_in_support|2842604691",
+				["text"] = "Supported by Level 1 Cast when Damage Taken",
 				["type"] = "imbued",
 			},
 			{
@@ -52732,6 +53242,11 @@ return {
 			{
 				["id"] = "fractured.stat_2122183138",
 				["text"] = "# Mana gained when you Block",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_2390914662",
+				["text"] = "# Suffix Modifier cannot be changed",
 				["type"] = "fractured",
 			},
 			{
@@ -54165,6 +54680,11 @@ return {
 				["type"] = "fractured",
 			},
 			{
+				["id"] = "fractured.stat_1351682252",
+				["text"] = "#% increased Damage for each Trap and Mine you have",
+				["type"] = "fractured",
+			},
+			{
 				["id"] = "fractured.stat_1072119541",
 				["text"] = "#% increased Damage if you've Killed Recently",
 				["type"] = "fractured",
@@ -54267,6 +54787,11 @@ return {
 			{
 				["id"] = "fractured.stat_1069260037",
 				["text"] = "#% increased Damage with Claws",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_2529155377",
+				["text"] = "#% increased Damage with Claws against Enemies that are on Low Life",
 				["type"] = "fractured",
 			},
 			{
@@ -55287,6 +55812,11 @@ return {
 			{
 				["id"] = "fractured.stat_2904116257",
 				["text"] = "#% increased Travel Fee",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_1584440377",
+				["text"] = "#% increased Unarmed Attack Speed with Melee Skills",
 				["type"] = "fractured",
 			},
 			{
@@ -58650,6 +59180,11 @@ return {
 				["type"] = "fractured",
 			},
 			{
+				["id"] = "fractured.stat_2436559047",
+				["text"] = "Area contains a Mirage",
+				["type"] = "fractured",
+			},
+			{
 				["id"] = "fractured.stat_1000591322",
 				["text"] = "Area contains many Totems",
 				["type"] = "fractured",
@@ -58657,6 +59192,11 @@ return {
 			{
 				["id"] = "fractured.stat_2796704737",
 				["text"] = "Area contains patches of moving Marked Ground, inflicting random Marks",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_1975119765",
+				["text"] = "Area contains the Viridian Wildwood",
 				["type"] = "fractured",
 			},
 			{
@@ -58802,6 +59342,11 @@ return {
 			{
 				["id"] = "fractured.stat_2572042788",
 				["text"] = "Attacks have +#% to Critical Strike Chance",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_326480871",
+				["text"] = "Attacks with Axes or Swords grant # Rage on Hit",
 				["type"] = "fractured",
 			},
 			{
@@ -59007,6 +59552,11 @@ return {
 			{
 				["id"] = "fractured.stat_2478752719",
 				["text"] = "Critical Strike Chance is increased by Overcapped Lightning Resistance",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_1928468569",
+				["text"] = "Critical Strikes with Bows have a #% chance to Poison the Enemy",
 				["type"] = "fractured",
 			},
 			{
@@ -59407,6 +59957,16 @@ return {
 			{
 				["id"] = "fractured.stat_1575519214",
 				["text"] = "Gain Accuracy Rating equal to your Strength",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_3481254135",
+				["text"] = "Gain Added Spell Damage equal to #% of Damage of Equipped Dagger If two Daggers are Equipped, each contributes 60% as much Added Damage",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_1274429432",
+				["text"] = "Gain Added Spell Damage equal to #% of Damage of Equipped Wand If two Wands are Equipped, each contributes half as much Added Damage",
 				["type"] = "fractured",
 			},
 			{
@@ -59917,6 +60477,21 @@ return {
 			{
 				["id"] = "fractured.stat_2727256287",
 				["text"] = "Minions convert #% of Fire Damage to Chaos Damage",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_264042266",
+				["text"] = "Minions convert #% of Physical Damage to Cold Damage",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_1045292082",
+				["text"] = "Minions convert #% of Physical Damage to Fire Damage",
+				["type"] = "fractured",
+			},
+			{
+				["id"] = "fractured.stat_2105061711",
+				["text"] = "Minions convert #% of Physical Damage to Lightning Damage",
 				["type"] = "fractured",
 			},
 			{
@@ -61410,6 +61985,11 @@ return {
 				["type"] = "fractured",
 			},
 			{
+				["id"] = "fractured.stat_1248307887",
+				["text"] = "You are affected by Delirium Fog",
+				["type"] = "fractured",
+			},
+			{
 				["id"] = "fractured.stat_30642521",
 				["text"] = "You can apply # additional Curses",
 				["type"] = "fractured",
@@ -61536,8 +62116,38 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_3552182293",
+				["text"] = "# Monster Packs in Area are substituted with Difficult and Rewarding Packs which drop 300% increased Maps",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_4151275322",
+				["text"] = "# Monster Packs in Area are substituted with Doedre's Devoted",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_1240937795",
 				["text"] = "# Monster Packs in Area are substituted with Fungal Shamans Pack Monsters that die when Rare spread Modifiers to other Rare Monsters in Area",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_429929284",
+				["text"] = "# Monster Packs in Area are substituted with Packs led by a Pantheon-Touched Rare Monster",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_228481227",
+				["text"] = "# Monster Packs in Area are substituted with Packs that cannot drop Equipment, Flasks or Tinctures",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_4093253847",
+				["text"] = "# Monster Packs in Area are substituted with Packs that convert dropped Equipment to Gold",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_4224467226",
+				["text"] = "# Monster Packs in Area are substituted with Packs that do not drop items Pack Monsters grant increased Item Rarity when slain, up to 400%, decaying over time",
 				["type"] = "enchant",
 			},
 			{
@@ -61546,8 +62156,18 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_940539199",
+				["text"] = "# Monster Packs in Area are substituted with Wildwood Fiends Pack Leaders Empower Map Bosses with Wildwood Wisps when slain",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_1776086971",
 				["text"] = "# Monster Packs in Area are substituted with a single meaty Monster",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_2844829788",
+				["text"] = "# Monster Packs in Area are substituted with harmless Toads",
 				["type"] = "enchant",
 			},
 			{
@@ -64576,8 +65196,18 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_3599615742|32227",
+				["text"] = "1 added passive skill is Adder's Touch",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_3599615742|31513",
 				["text"] = "1 added passive skill is Adjacent Animosity",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|50858",
+				["text"] = "1 added passive skill is Admonisher",
 				["type"] = "enchant",
 			},
 			{
@@ -64661,6 +65291,11 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_3599615742|11420",
+				["text"] = "1 added passive skill is Arcanist's Dominion",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_3599615742|6615",
 				["text"] = "1 added passive skill is Arcing Blows",
 				["type"] = "enchant",
@@ -64683,6 +65318,11 @@ return {
 			{
 				["id"] = "enchant.stat_3599615742|27806",
 				["text"] = "1 added passive skill is As The Thunder",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|45317",
+				["text"] = "1 added passive skill is Ash, Frost and Storm",
 				["type"] = "enchant",
 			},
 			{
@@ -64711,6 +65351,16 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_3599615742|4854",
+				["text"] = "1 added passive skill is Asylum",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|53013",
+				["text"] = "1 added passive skill is Atrophy",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_3599615742|36687",
 				["text"] = "1 added passive skill is Avatar of the Hunt",
 				["type"] = "enchant",
@@ -64726,6 +65376,11 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_3599615742|50338",
+				["text"] = "1 added passive skill is Ballistics",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_3599615742|63033",
 				["text"] = "1 added passive skill is Bannerman",
 				["type"] = "enchant",
@@ -64738,6 +65393,11 @@ return {
 			{
 				["id"] = "enchant.stat_3599615742|65107",
 				["text"] = "1 added passive skill is Bastion Breaker",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|37512",
+				["text"] = "1 added passive skill is Bastion of Faith",
 				["type"] = "enchant",
 			},
 			{
@@ -64761,6 +65421,16 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_3599615742|55772",
+				["text"] = "1 added passive skill is Blacksmith's Clout",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|54268",
+				["text"] = "1 added passive skill is Blade Barrier",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_3599615742|25367",
 				["text"] = "1 added passive skill is Blade Master",
 				["type"] = "enchant",
@@ -64773,6 +65443,11 @@ return {
 			{
 				["id"] = "enchant.stat_3599615742|65093",
 				["text"] = "1 added passive skill is Bladedancer",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|15711",
+				["text"] = "1 added passive skill is Blast Radius",
 				["type"] = "enchant",
 			},
 			{
@@ -64801,6 +65476,11 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_3599615742|64395",
+				["text"] = "1 added passive skill is Blunt Trauma",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_3599615742|40645",
 				["text"] = "1 added passive skill is Bone Breaker",
 				["type"] = "enchant",
@@ -64823,6 +65503,16 @@ return {
 			{
 				["id"] = "enchant.stat_3599615742|11924",
 				["text"] = "1 added passive skill is Breath of Flames",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|11645",
+				["text"] = "1 added passive skill is Breath of Lightning",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|21460",
+				["text"] = "1 added passive skill is Breath of Rime",
 				["type"] = "enchant",
 			},
 			{
@@ -65006,6 +65696,11 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_3599615742|21958",
+				["text"] = "1 added passive skill is Cruel Preparation",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_3599615742|15226",
 				["text"] = "1 added passive skill is Cruel Retort",
 				["type"] = "enchant",
@@ -65031,6 +65726,11 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_3599615742|39743",
+				["text"] = "1 added passive skill is Dark Arts",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_3599615742|570",
 				["text"] = "1 added passive skill is Dazzling Strikes",
 				["type"] = "enchant",
@@ -65043,6 +65743,11 @@ return {
 			{
 				["id"] = "enchant.stat_3599615742|41307",
 				["text"] = "1 added passive skill is Deadly Inclinations",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|19897",
+				["text"] = "1 added passive skill is Death Attunement",
 				["type"] = "enchant",
 			},
 			{
@@ -65068,6 +65773,11 @@ return {
 			{
 				["id"] = "enchant.stat_3599615742|49538",
 				["text"] = "1 added passive skill is Defiance",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|13703",
+				["text"] = "1 added passive skill is Defiant Stand",
 				["type"] = "enchant",
 			},
 			{
@@ -65111,6 +65821,11 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_3599615742|36949",
+				["text"] = "1 added passive skill is Devotion",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_3599615742|65308",
 				["text"] = "1 added passive skill is Diamond Skin",
 				["type"] = "enchant",
@@ -65118,6 +65833,11 @@ return {
 			{
 				["id"] = "enchant.stat_3599615742|9015",
 				["text"] = "1 added passive skill is Dire Torment",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|59766",
+				["text"] = "1 added passive skill is Dirty Techniques",
 				["type"] = "enchant",
 			},
 			{
@@ -65136,6 +65856,11 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_3599615742|41472",
+				["text"] = "1 added passive skill is Discipline and Training",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_3599615742|35233",
 				["text"] = "1 added passive skill is Discord Artisan",
 				["type"] = "enchant",
@@ -65148,6 +65873,11 @@ return {
 			{
 				["id"] = "enchant.stat_3599615742|52031",
 				["text"] = "1 added passive skill is Disintegration",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|37647",
+				["text"] = "1 added passive skill is Dismembering",
 				["type"] = "enchant",
 			},
 			{
@@ -65231,6 +65961,11 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_3599615742|65273",
+				["text"] = "1 added passive skill is Enigmatic Reach",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_3599615742|59866",
 				["text"] = "1 added passive skill is Entrench",
 				["type"] = "enchant",
@@ -65296,6 +66031,11 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_3599615742|61689",
+				["text"] = "1 added passive skill is Explosive Elements",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_3599615742|24324",
 				["text"] = "1 added passive skill is Explosive Impact",
 				["type"] = "enchant",
@@ -65303,6 +66043,16 @@ return {
 			{
 				["id"] = "enchant.stat_3599615742|29861",
 				["text"] = "1 added passive skill is Explosive Runes",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|35958",
+				["text"] = "1 added passive skill is Faith and Steel",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|57199",
+				["text"] = "1 added passive skill is Fangs of Frost",
 				["type"] = "enchant",
 			},
 			{
@@ -65346,6 +66096,11 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_3599615742|48614",
+				["text"] = "1 added passive skill is Fervour",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_3599615742|41137",
 				["text"] = "1 added passive skill is Field Medicine",
 				["type"] = "enchant",
@@ -65353,6 +66108,11 @@ return {
 			{
 				["id"] = "enchant.stat_3599615742|54142",
 				["text"] = "1 added passive skill is Finesse",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|58198",
+				["text"] = "1 added passive skill is Fingers of Frost",
 				["type"] = "enchant",
 			},
 			{
@@ -65371,8 +66131,18 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_3599615742|3309",
+				["text"] = "1 added passive skill is Fleetfoot",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_3599615742|56330",
 				["text"] = "1 added passive skill is Flow of Battle",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|54713",
+				["text"] = "1 added passive skill is Force Shaper",
 				["type"] = "enchant",
 			},
 			{
@@ -65391,6 +66161,16 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_3599615742|3452",
+				["text"] = "1 added passive skill is Foresight",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|26960",
+				["text"] = "1 added passive skill is Forethought",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_3599615742|15344",
 				["text"] = "1 added passive skill is Freedom of Movement",
 				["type"] = "enchant",
@@ -65398,6 +66178,11 @@ return {
 			{
 				["id"] = "enchant.stat_3599615742|42443",
 				["text"] = "1 added passive skill is Frenetic",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|1405",
+				["text"] = "1 added passive skill is From the Shadows",
 				["type"] = "enchant",
 			},
 			{
@@ -65426,8 +66211,33 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_3599615742|63727",
+				["text"] = "1 added passive skill is Gladiator's Perseverance",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|45350",
+				["text"] = "1 added passive skill is Glory of Command",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_3599615742|34506",
 				["text"] = "1 added passive skill is Golem Commander",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|1325",
+				["text"] = "1 added passive skill is Golem's Blood",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|38922",
+				["text"] = "1 added passive skill is Goliath",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|18703",
+				["text"] = "1 added passive skill is Graceful Assault",
 				["type"] = "enchant",
 			},
 			{
@@ -65438,6 +66248,11 @@ return {
 			{
 				["id"] = "enchant.stat_3599615742|27308",
 				["text"] = "1 added passive skill is Gravepact",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|9864",
+				["text"] = "1 added passive skill is Growth and Decay",
 				["type"] = "enchant",
 			},
 			{
@@ -65501,6 +66316,11 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_3599615742|56716",
+				["text"] = "1 added passive skill is Heart of Thunder",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_3599615742|61198",
 				["text"] = "1 added passive skill is Heart of the Warrior",
 				["type"] = "enchant",
@@ -65508,6 +66328,11 @@ return {
 			{
 				["id"] = "enchant.stat_3599615742|65502",
 				["text"] = "1 added passive skill is Heartseeker",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|30302",
+				["text"] = "1 added passive skill is Hearty",
 				["type"] = "enchant",
 			},
 			{
@@ -65556,6 +66381,11 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_3599615742|9535",
+				["text"] = "1 added passive skill is Hunter's Gambit",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_3599615742|23549",
 				["text"] = "1 added passive skill is Incorporeal",
 				["type"] = "enchant",
@@ -65563,6 +66393,11 @@ return {
 			{
 				["id"] = "enchant.stat_3599615742|4918",
 				["text"] = "1 added passive skill is Indiscriminate Revenge",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|25409",
+				["text"] = "1 added passive skill is Indomitable Army",
 				["type"] = "enchant",
 			},
 			{
@@ -65661,6 +66496,11 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_3599615742|30439",
+				["text"] = "1 added passive skill is Lava Lash",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_3599615742|58851",
 				["text"] = "1 added passive skill is Leader of the Pack",
 				["type"] = "enchant",
@@ -65668,6 +66508,16 @@ return {
 			{
 				["id"] = "enchant.stat_3599615742|65097",
 				["text"] = "1 added passive skill is Leadership",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|3195",
+				["text"] = "1 added passive skill is Legacy of the Wilds",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|41119",
+				["text"] = "1 added passive skill is Lethality",
 				["type"] = "enchant",
 			},
 			{
@@ -65696,13 +66546,28 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_3599615742|27611",
+				["text"] = "1 added passive skill is Lord of the Dead",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_3599615742|63422",
 				["text"] = "1 added passive skill is Lust for Carnage",
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_3599615742|5430",
+				["text"] = "1 added passive skill is Magmatic Strikes",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_3599615742|34591",
 				["text"] = "1 added passive skill is Malicious Intent",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|54776",
+				["text"] = "1 added passive skill is Mana Flows",
 				["type"] = "enchant",
 			},
 			{
@@ -65741,6 +66606,11 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_3599615742|34009",
+				["text"] = "1 added passive skill is Master of the Arena",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_3599615742|34973",
 				["text"] = "1 added passive skill is Measured Fury",
 				["type"] = "enchant",
@@ -65766,6 +66636,16 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_3599615742|51360",
+				["text"] = "1 added passive skill is Mixed Munitions",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|13375",
+				["text"] = "1 added passive skill is Multishot",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_3599615742|18174",
 				["text"] = "1 added passive skill is Mystic Bulwark",
 				["type"] = "enchant",
@@ -65781,6 +66661,11 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_3599615742|31257",
+				["text"] = "1 added passive skill is Natural Authority",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_3599615742|41420",
 				["text"] = "1 added passive skill is Natural Remedies",
 				["type"] = "enchant",
@@ -65788,6 +66673,11 @@ return {
 			{
 				["id"] = "enchant.stat_3599615742|2275",
 				["text"] = "1 added passive skill is Nature's Concoction",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|56276",
+				["text"] = "1 added passive skill is Nightstalker",
 				["type"] = "enchant",
 			},
 			{
@@ -65856,8 +66746,18 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_3599615742|18707",
+				["text"] = "1 added passive skill is Perfectionist",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_3599615742|40849",
 				["text"] = "1 added passive skill is Persistence",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|21228",
+				["text"] = "1 added passive skill is Piercing Shots",
 				["type"] = "enchant",
 			},
 			{
@@ -65921,8 +66821,23 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_3599615742|63944",
+				["text"] = "1 added passive skill is Prism Weave",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|60031",
+				["text"] = "1 added passive skill is Prismatic Skin",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_3599615742|10115",
 				["text"] = "1 added passive skill is Prodigal Perfection",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|42041",
+				["text"] = "1 added passive skill is Profane Chemistry",
 				["type"] = "enchant",
 			},
 			{
@@ -65966,8 +66881,18 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_3599615742|44103",
+				["text"] = "1 added passive skill is Reflexes",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_3599615742|28878",
 				["text"] = "1 added passive skill is Relentless",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|25738",
+				["text"] = "1 added passive skill is Relentless Pursuit",
 				["type"] = "enchant",
 			},
 			{
@@ -66008,6 +66933,11 @@ return {
 			{
 				["id"] = "enchant.stat_3599615742|24721",
 				["text"] = "1 added passive skill is Ribcage Crusher",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|19103",
+				["text"] = "1 added passive skill is Righteous Army",
 				["type"] = "enchant",
 			},
 			{
@@ -66061,6 +66991,11 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_3599615742|27137",
+				["text"] = "1 added passive skill is Sanctum of Thought",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_3599615742|22706",
 				["text"] = "1 added passive skill is Savage Intensity",
 				["type"] = "enchant",
@@ -66078,6 +67013,16 @@ return {
 			{
 				["id"] = "enchant.stat_3599615742|23066",
 				["text"] = "1 added passive skill is Savagery",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|38849",
+				["text"] = "1 added passive skill is Searing Heat",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|2959",
+				["text"] = "1 added passive skill is Season of Ice",
 				["type"] = "enchant",
 			},
 			{
@@ -66126,6 +67071,11 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_3599615742|55027",
+				["text"] = "1 added passive skill is Shining Justice",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_3599615742|17608",
 				["text"] = "1 added passive skill is Silent Steps",
 				["type"] = "enchant",
@@ -66138,6 +67088,11 @@ return {
 			{
 				["id"] = "enchant.stat_3599615742|15400",
 				["text"] = "1 added passive skill is Skittering Runes",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|16703",
+				["text"] = "1 added passive skill is Skull Cracking",
 				["type"] = "enchant",
 			},
 			{
@@ -66196,6 +67151,16 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_3599615742|27422",
+				["text"] = "1 added passive skill is Spirit of War",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|4177",
+				["text"] = "1 added passive skill is Spiritual Aid",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_3599615742|43689",
 				["text"] = "1 added passive skill is Spiritual Command",
 				["type"] = "enchant",
@@ -66206,13 +67171,28 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_3599615742|37326",
+				["text"] = "1 added passive skill is Stamina",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_3599615742|26557",
 				["text"] = "1 added passive skill is Static Blows",
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_3599615742|13922",
+				["text"] = "1 added passive skill is Steadfast",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_3599615742|36859",
 				["text"] = "1 added passive skill is Steelwood Stance",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|53652",
+				["text"] = "1 added passive skill is Steeped in the Profane",
 				["type"] = "enchant",
 			},
 			{
@@ -66238,6 +67218,11 @@ return {
 			{
 				["id"] = "enchant.stat_3599615742|544",
 				["text"] = "1 added passive skill is Surveillance",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|24133",
+				["text"] = "1 added passive skill is Survivalist",
 				["type"] = "enchant",
 			},
 			{
@@ -66278,6 +67263,16 @@ return {
 			{
 				["id"] = "enchant.stat_3599615742|45067",
 				["text"] = "1 added passive skill is Thrill Killer",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|13935",
+				["text"] = "1 added passive skill is Thrill of Battle",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|47306",
+				["text"] = "1 added passive skill is Throatseeker",
 				["type"] = "enchant",
 			},
 			{
@@ -66331,6 +67326,11 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_3599615742|30471",
+				["text"] = "1 added passive skill is True Strike",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_3599615742|6",
 				["text"] = "1 added passive skill is Twin Terrors",
 				["type"] = "enchant",
@@ -66361,6 +67361,16 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_3599615742|49772",
+				["text"] = "1 added passive skill is Utmost Might",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|63921",
+				["text"] = "1 added passive skill is Utmost Swiftness",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_3599615742|11784",
 				["text"] = "1 added passive skill is Vampirism",
 				["type"] = "enchant",
@@ -66386,6 +67396,11 @@ return {
 				["type"] = "enchant",
 			},
 			{
+				["id"] = "enchant.stat_3599615742|45803",
+				["text"] = "1 added passive skill is Veteran Soldier",
+				["type"] = "enchant",
+			},
+			{
 				["id"] = "enchant.stat_3599615742|50842",
 				["text"] = "1 added passive skill is Veteran's Wrath",
 				["type"] = "enchant",
@@ -66408,6 +67423,11 @@ return {
 			{
 				["id"] = "enchant.stat_3599615742|48698",
 				["text"] = "1 added passive skill is Void Barrier",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|9055",
+				["text"] = "1 added passive skill is Volatile Mines",
 				["type"] = "enchant",
 			},
 			{
@@ -66503,6 +67523,11 @@ return {
 			{
 				["id"] = "enchant.stat_3599615742|27781",
 				["text"] = "1 added passive skill is Worship the Blightheart",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_3599615742|49318",
+				["text"] = "1 added passive skill is Wrecking Ball",
 				["type"] = "enchant",
 			},
 			{
@@ -69508,6 +70533,11 @@ return {
 			{
 				["id"] = "enchant.stat_2862290356",
 				["text"] = "Area is Alluring",
+				["type"] = "enchant",
+			},
+			{
+				["id"] = "enchant.stat_1527404187",
+				["text"] = "Area is Tormented",
 				["type"] = "enchant",
 			},
 			{
@@ -75752,6 +76782,16 @@ return {
 	},
 	{
 		["entries"] = {
+			{
+				["id"] = "crafted.stat_181387736",
+				["text"] = "# Prefix Modifier cannot be changed",
+				["type"] = "crafted",
+			},
+			{
+				["id"] = "crafted.stat_2390914662",
+				["text"] = "# Suffix Modifier cannot be changed",
+				["type"] = "crafted",
+			},
 			{
 				["id"] = "crafted.stat_2312652600",
 				["text"] = "#% Chance to Avoid being Stunned during Effect",

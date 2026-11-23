@@ -491,9 +491,13 @@ function calcs.offence(env, actor, activeSkill)
 		end
 	end
 
+	local function calcEnemyMaxResist(damageType)
+		return enemyDB:Flag(nil, "DoNotChangeMaxResFromConfig") and data.misc.EnemyMaxResist or m_min(m_max(env.configInput["enemy"..damageType.."Resist"] or data.misc.EnemyMaxResist, data.misc.EnemyMaxResist), data.misc.MaxResistCap)
+	end
+
 	local function calcResistForType(damageType, cfg)
 		local resist = enemyDB:Override(cfg, damageType.."Resist")
-		local maxResist = enemyDB:Flag(nil, "DoNotChangeMaxResFromConfig") and data.misc.EnemyMaxResist or m_min(m_max(env.configInput["enemy"..damageType.."Resist"] or data.misc.EnemyMaxResist, data.misc.EnemyMaxResist), data.misc.MaxResistCap)
+		local maxResist = calcEnemyMaxResist(damageType)
 		if not resist then
 			if env.modDB:Flag(nil, "Enemy"..damageType.."ResistEqualToYours") then
 				resist = env.player.output[damageType.."Resist"]
@@ -1202,7 +1206,7 @@ function calcs.offence(env, actor, activeSkill)
 			if breakdown then
 				local inc = skillModList:Sum("INC", skillCfg, pool .. "Reserved", "Reserved", "SupportManaMultiplier")
 				local more = skillModList:More(skillCfg, pool .. "Reserved", "Reserved", "SupportManaMultiplier")
-				if inc ~= 0 and more ~= 1 then
+				if inc ~= 0 or more ~= 1 then
 					breakdown[pool .. "ReservedMod"] = {
 						s_format("%.2f ^8(increased/reduced)", 1 + inc/100),
 						s_format("x %.2f ^8(more/less)", more),
@@ -3610,6 +3614,8 @@ function calcs.offence(env, actor, activeSkill)
 						local invertChanceEle = m_max(m_min(skillModList:Sum("CHANCE", cfg, "HitsInvertEleResChance", "HitsInvert"..damageType.."ResChance"), 1), 0)
 						local invertChanceChaos = m_max(m_min(skillModList:Sum("CHANCE", cfg, "HitsInvertChaosResChance"), 1), 0)
 						local invertChance = (isElemental[damageType] and invertChanceEle) or (damageType == "Chaos" and invertChanceChaos) or 0
+						-- An inverted negative resistance is still capped by the enemy's maximum resistance
+						local invertedResist = invertChance > 0 and m_min(-resist, calcEnemyMaxResist(sourceRes)) or -resist
 						sourceRes = env.modDB:Flag(nil, "Enemy"..sourceRes.."ResistEqualToYours") and "Your "..sourceRes.." Resistance" or (env.partyMembers.modDB:Flag(nil, "Enemy"..sourceRes.."ResistEqualToYours") and "Party Member "..sourceRes.." Resistance" or sourceRes)
 						if skillFlags.projectile then
 							takenInc = takenInc + enemyDB:Sum("INC", nil, "ProjectileDamageTaken")
@@ -3625,11 +3631,11 @@ function calcs.offence(env, actor, activeSkill)
 						local useRes = useResChance > 0
 						local effectiveResist = resist
 						if skillModList:Flag(cfg, isElemental[damageType] and "CannotElePenIgnore" or nil) then
-							effectiveResist = invertChance > 0 and (resist - 2 * invertChance * resist) or resist
+							effectiveResist = invertChance > 0 and (resist * (1 - invertChance) + invertedResist * invertChance) or resist
 							effMult = effMult * (1 - effectiveResist / 100)
 						elseif useRes then
 							if invertChance > 0 then
-								effectiveResist = ((resist - pen) * (1 - invertChance) + (-resist - pen) * invertChance) * useResChance
+								effectiveResist = ((resist - pen) * (1 - invertChance) + (invertedResist - pen) * invertChance) * useResChance
 							else
 								effectiveResist = (resist - pen) * useResChance
 							end
@@ -3643,10 +3649,10 @@ function calcs.offence(env, actor, activeSkill)
 						end
 						if pass == 2 and breakdown and (effMult ~= 1 or sourceRes ~= damageType or invertChance > 0) and skillModList:Flag(cfg, isElemental[damageType] and "CannotElePenIgnore" or nil) then
 							t_insert(breakdown[damageType], s_format("x %.3f ^8(effective DPS modifier)", effMult))
-							breakdown[damageType.."EffMult"] = breakdown.effMult(damageType, resist, 0, takenInc, effMult, takenMore, sourceRes, useRes, invertChance, effectiveResist)
+							breakdown[damageType.."EffMult"] = breakdown.effMult(damageType, resist, 0, takenInc, effMult, takenMore, sourceRes, useRes, invertChance, effectiveResist, invertedResist)
 						elseif pass == 2 and breakdown and (effMult ~= 1 or sourceRes ~= damageType or invertChance > 0) then
 							t_insert(breakdown[damageType], s_format("x %.3f ^8(effective DPS modifier)", effMult))
-							breakdown[damageType.."EffMult"] = breakdown.effMult(damageType, resist, pen, takenInc, effMult, takenMore, sourceRes, useRes, invertChance, effectiveResist)
+							breakdown[damageType.."EffMult"] = breakdown.effMult(damageType, resist, pen, takenInc, effMult, takenMore, sourceRes, useRes, invertChance, effectiveResist, invertedResist)
 						end
 					end
 					if pass == 2 and breakdown then

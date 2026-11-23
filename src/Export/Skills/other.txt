@@ -511,6 +511,76 @@ return function(skills, mod, flag, skill)
 #skill SupportEclipse
 #mods
 
+-- failed imbued support outcomes
+#skill SupportConstriction
+	imbuedOnly = true,
+#mods
+
+#skill SupportDestitution
+	imbuedOnly = true,
+#mods
+
+#skill SupportDiminishment
+	imbuedOnly = true,
+#mods
+
+#skill SupportDisempower
+	imbuedOnly = true,
+#mods
+
+#skill SupportEncumbrance
+	imbuedOnly = true,
+#mods
+
+#skill SupportImpotence
+	imbuedOnly = true,
+	statMap = {
+		["support_impotence_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+	},
+#mods
+
+#skill SupportLethargy
+	imbuedOnly = true,
+	statMap = {
+		["gain_malignant_madness_on_skill_use"] = {
+			flag("Condition:MalignantMadness", { type = "GlobalEffect", effectType = "Buff", effectName = "Malignant Madness" }),
+		},
+	},
+#mods
+
+#skill SupportMediocrity
+	imbuedOnly = true,
+	statMap = {
+		["global_cannot_crit"] = {
+			flag("NeverCrit"),
+			flag("Condition:NeverCrit"),
+		},
+	},
+#mods
+
+#skill SupportNullification
+	imbuedOnly = true,
+#mods
+
+#skill SupportPenance
+	imbuedOnly = true,
+#mods
+
+#skill SupportPoverty
+	imbuedOnly = true,
+#mods
+
+#skill SupportTaxation
+	imbuedOnly = true,
+	statMap = {
+		["from_support_skill_gem_attribute_requirements_+%_final"] = {
+			mod("GlobalAttributeRequirements", "MORE", nil),
+		},
+	},
+#mods
+
 #skill SupportElementalPenetration Elemental Penetration
 #mods
 
@@ -844,6 +914,11 @@ return function(skills, mod, flag, skill)
 
 #skill TriggeredBloodrend
 #flags spell pact projectile
+	statMap = {
+		["bloodrend_debuff_damage_over_time_taken_+%_per_stack"] = {
+			mod("DamageTakenOverTime", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Fleshrend", effectStackVar = "FleshrendCount", effectStackLimit = 3 }),
+		},
+	},
 #mods
 
 #skill PactOfKtash
@@ -1643,7 +1718,7 @@ return function(skills, mod, flag, skill)
 #mods
 
 #skill GrimBonfire Witchhunter's Pyre
-#flags spell projectile area
+#flags spell projectile area totem
 	fromItem = true,
 	statMap = {
 		["grim_bonfire_additional_projectile_chance_per_debuff_on_target"] = {

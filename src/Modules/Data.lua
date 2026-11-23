@@ -771,7 +771,6 @@ data.itemTagSpecialExclusionPattern = {
 			"while you are on Full Life", -- foxshade
 			"when on Full Life",
 			"when on Low Life",
-			"Gain Maximum Life instead of Maximum Energy Shield",
 			"^Socketed Gems are Supported by Level",
 			"^Allocates",
 			"Void Spawns' Life", -- Servant of Decay

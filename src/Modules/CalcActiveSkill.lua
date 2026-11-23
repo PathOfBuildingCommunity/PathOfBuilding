@@ -110,6 +110,15 @@ function calcs.createActiveSkill(activeEffect, supportList, actor, socketGroup, 
 	activeSkill.effectList = { activeEffect }
 	local rejectedSupportsIndices = {}
 
+	for _, supportEffect in ipairs(supportList) do
+		-- Failed imbue result Constriction prevents all other supports from applying
+		if supportEffect.grantedEffect.id == "SupportConstriction" and calcLib.canGrantedEffectSupportActiveSkill(supportEffect.grantedEffect, activeSkill, nil, supportEffect.appliesToGrantedSkills) then
+			supportList = { supportEffect }
+			activeSkill.supportList = supportList
+			break
+		end
+	end
+
 	for index, supportEffect in ipairs(supportList) do
 		-- Pass 1: Add skill types from compatible supports
 		if supportEffect.grantedEffect.support then
@@ -216,9 +225,13 @@ local function getWeaponFlags(env, weaponData, weaponTypes)
 	end
 	if weaponTypes then
 		for _, types in ipairs(weaponTypes) do
-			if not types[weaponData.type] and
-			(not weaponData.countsAsAll1H or not (types["Claw"] or types["Dagger"] or types["One Handed Axe"] or types["One Handed Mace"] or types["One Handed Sword"]))
-			and not checkAsThoughWeaponTypes(weaponData, types) then
+			-- Hide of the Vendigo replaces the weapon type when checking which skills can be used
+			if weaponData.asThoughUsing then
+				if not checkAsThoughWeaponTypes(weaponData, types) then
+					return nil, info
+				end
+			elseif not types[weaponData.type] and
+			(not weaponData.countsAsAll1H or not (types["Claw"] or types["Dagger"] or types["One Handed Axe"] or types["One Handed Mace"] or types["One Handed Sword"])) then
 				return nil, info
 			end
 		end
@@ -342,6 +355,11 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 		end
 		if not skillFlags.forceMainHand then
 			local weapon2Flags, weapon2Info = getWeaponFlags(env, activeSkill.actor.weaponData2, weaponTypes)
+			if not weapon2Flags and weapon1Flags and activeSkill.actor.weaponData1.asThoughUsing and activeSkill.actor.weaponData2.type == "None" and not skillTypes[SkillType.DualWieldOnly] then
+				-- Hide of the Vendigo only decides which skills can be used, based on the main hand
+				-- The unarmed off hand from Hollow Palm Technique still attacks with skills the main hand can use
+				weapon2Flags, weapon2Info = getWeaponFlags(env, activeSkill.actor.weaponData2)
+			end
 			if weapon2Flags then
 				if skillTypes[SkillType.DualWieldRequiresDifferentTypes] and (activeSkill.actor.weaponData1.type == activeSkill.actor.weaponData2.type) and not (activeSkill.actor.weaponData2.countsAsAll1H or activeSkill.actor.weaponData1.countsAsAll1H) then
 					-- Skill requires a different compatible off hand weapon to main hand weapon

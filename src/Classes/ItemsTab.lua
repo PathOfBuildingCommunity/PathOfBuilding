@@ -19,6 +19,27 @@ local buySimilar = require("Classes.CompareBuySimilar")
 local addImplicit = require("Modules.AddImplicitPopup")
 local gemTooltip = require("Classes.GemTooltip")
 
+local itemTypeIcons = { }
+for itemType, file in pairs({
+	["Weapon"] = "icon_weapon",
+	["Bow"] = "icon_bow",
+	["Quiver"] = "icon_quiver",
+	["Shield"] = "icon_shield",
+	["Helmet"] = "icon_helmet",
+	["Body Armour"] = "icon_body_armour",
+	["Gloves"] = "icon_gloves",
+	["Boots"] = "icon_boots",
+	["Amulet"] = "icon_amulet",
+	["Ring"] = "icon_ring_left",
+	["Belt"] = "icon_belt",
+	["Flask"] = "icon_flask",
+	["Tincture"] = "icon_flask",
+	["Jewel"] = "icon_jewel",
+}) do
+	itemTypeIcons[itemType] = NewImageHandle()
+	itemTypeIcons[itemType]:Load("Assets/"..file..".png")
+end
+
 local rarityDropList = {
 	{ label = colorCodes.NORMAL.."Normal", rarity = "NORMAL" },
 	{ label = colorCodes.MAGIC.."Magic", rarity = "MAGIC" },
@@ -1251,7 +1272,7 @@ holding Shift will put it in the second.]])
 	-- Initialise item sets
 	self.itemSets = { }
 	self.itemSetOrderList = { 1 }
-	self:NewItemSet(1)
+	self:CreateItemSet(1, "Default")
 	self:SetActiveItemSet(1)
 
 	self:PopulateSlots()
@@ -1344,8 +1365,7 @@ function ItemsTabClass:Load(xml, dbFileName)
 				end
 			end
 		elseif node.elem == "ItemSet" then
-			local itemSet = self:NewItemSet(tonumber(node.attrib.id))
-			itemSet.title = node.attrib.title
+			local itemSet = self:CreateItemSet(tonumber(node.attrib.id), node.attrib.title or "Default")
 			itemSet.useSecondWeaponSet = node.attrib.useSecondWeaponSet == "true"
 			for _, child in ipairs(node) do
 				if child.elem == "Slot" then
@@ -1381,7 +1401,7 @@ function ItemsTabClass:Load(xml, dbFileName)
 		end
 	end
 	if not self.itemSetOrderList[1] then
-		self.activeItemSet = self:NewItemSet(1)
+		self.activeItemSet = self:CreateItemSet(1, "Default")
 		self.activeItemSet.useSecondWeaponSet = xml.attrib.useSecondWeaponSet == "true"
 		self.itemSetOrderList[1] = 1
 	end
@@ -1637,8 +1657,8 @@ function ItemsTabClass:Draw(viewPort, inputEvents)
 end
 
 -- Creates a new item set
-function ItemsTabClass:NewItemSet(itemSetId)
-	local itemSet = { id = itemSetId }
+function ItemsTabClass:CreateItemSet(itemSetId, name)
+	local itemSet = { id = itemSetId, title = name }
 	if not itemSetId then
 		itemSet.id = 1
 		while self.itemSets[itemSet.id] do
@@ -1654,9 +1674,48 @@ function ItemsTabClass:NewItemSet(itemSetId)
 	return itemSet
 end
 
+function ItemsTabClass:NewItemSet(itemSetId, name)
+	local itemSet = self:CreateItemSet(itemSetId, name)
+	t_insert(self.itemSetOrderList, itemSet.id)
+	self.modFlag = true
+	return itemSet
+end
+
+function ItemsTabClass:CopyItemSet(sourceItemSetId, newItemSetName)
+	local newSet = copyTable(self.itemSets[sourceItemSetId])
+	newSet.id = #self.itemSets + 1
+	newSet.title = newItemSetName or newSet.title .. " (Copy)"
+	t_insert(self.itemSetOrderList, newSet.id)
+	self.modFlag = true
+	self.itemSets[newSet.id] = newSet
+	return newSet
+end
+
+-- Renames an item set
+function ItemsTabClass:RenameItemSet(itemSetId, newTitle)
+	local itemSet = self.itemSets[itemSetId]
+
+	if not itemSet then
+		return
+	end
+
+	itemSet.title = newTitle
+	self.modFlag = true
+end
+
+-- Deletes an item set
+function ItemsTabClass:DeleteItemSet(itemSetId, orderListIndex)
+	t_remove(self.itemSetOrderList, orderListIndex)
+	self.itemSets[itemSetId] = nil
+	self.modFlag = true
+end
+
 -- Changes the active item set
-function ItemsTabClass:SetActiveItemSet(itemSetId)
+function ItemsTabClass:SetActiveItemSet(itemSetId, deferSync)
 	local prevSet = self.activeItemSet
+	if not self.itemSetOrderList[1] then
+		self:NewItemSet(1, "Default")
+	end
 	if not self.itemSets[itemSetId] then
 		itemSetId = self.itemSetOrderList[1]
 	end
@@ -1680,7 +1739,9 @@ function ItemsTabClass:SetActiveItemSet(itemSetId)
 	end
 	self.build.buildFlag = true
 	self:PopulateSlots()
-	self.build:SyncLoadouts()
+	if not deferSync then
+		self.build:SyncLoadouts()
+	end
 end
 
 -- Equips the given item in the given item set
@@ -2596,6 +2657,11 @@ function ItemsTabClass:AddModComparisonTooltip(tooltip, mod, replaceImplicits)
 	local outputBase = calcFunc({ repSlotName = slotName, repItem = self.displayItem })
 	local outputNew = calcFunc({ repSlotName = slotName, repItem = newItem })
 	self.build:AddStatComparesToTooltip(tooltip, outputBase, outputNew, "\nAdding this mod will give: ")
+end
+
+-- Returns the slot icon matching the item's type, if there is one
+function ItemsTabClass:GetItemIcon(item)
+	return itemTypeIcons[item.type] or (item.base and item.base.weapon and itemTypeIcons["Weapon"])
 end
 
 -- Returns the first slot in which the given item is equipped

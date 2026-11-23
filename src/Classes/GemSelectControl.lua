@@ -131,7 +131,7 @@ function GemSelectClass:PopulateGemList()
 					if gemData.grantedEffect.support and not gemData.tagString:match("Exceptional") and not isLegacyAwakened and (not gemData.secondaryGrantedEffect or gemData.secondaryGrantedEffect.support) then
 						self.gems["Default:" .. gemId] = gemData
 					end
-				else
+				elseif not gemData.grantedEffect.imbuedOnly then
 					if (showExceptional or showAll) and (isLegacyAwakened or gemData.tagString:match("Exceptional")) then
 						if self.skillsTab.showLegacyGems or not gemData.grantedEffect.legacy then
 							self.gems["Default:" .. gemId] = gemData

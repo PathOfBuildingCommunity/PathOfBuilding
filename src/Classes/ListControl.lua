@@ -7,6 +7,7 @@
 -- .label  [Adds a label above the top left corner]
 -- .dragTargetList  [List of controls that can receive drag events from this list control]
 -- .showRowSeparators  [Shows separators between rows]
+-- .reserveIconSpace  [Indents text of rows without an icon so they align with rows that have one]
 -- :GetRowValue(column, index, value)  [Required; called to retrieve the text for the given column of the given list value]
 -- :GetRowIcon(column, index, value)  [Called to retrieve the icon for the given column of the given list value]
 -- :AddValueTooltip(index, value)  [Called to add the tooltip for the given list value]
@@ -225,13 +226,11 @@ function ListClass:Draw(viewPort, noTooltip)
 			local lineY = rowHeight * (index - 1) - scrollOffsetV + (self.colLabels and 18 or 0)
 			local value = list[index]
 			local text = self:GetRowValue(colIndex, index, value)
-			local icon = nil
-			if self.GetRowIcon then 
-				icon = self:GetRowIcon(colIndex, index, value)
-			end
+			local icon = self.GetRowIcon and self:GetRowIcon(colIndex, index, value)
+			local textX = (icon or self.reserveIconSpace) and 18 or 0
 			local textWidth = DrawStringWidth(textHeight, colFont, text)
-			if textWidth > colWidth - 2 then
-				local clipIndex = DrawStringCursorIndex(textHeight, colFont, text, colWidth - clipWidth - 2, 0)
+			if textWidth > colWidth - textX - 2 then
+				local clipIndex = DrawStringCursorIndex(textHeight, colFont, text, colWidth - textX - clipWidth - 2, 0)
 				text = text:sub(1, clipIndex - 1) .. "..."
 				textWidth = DrawStringWidth(textHeight, colFont, text)
 			end
@@ -241,7 +240,7 @@ function ListClass:Draw(viewPort, noTooltip)
 					ttValue = value
 					ttX = x + 2 + colOffset
 					ttY = lineY + y + 2
-					ttWidth = m_max(textWidth + 8, relX - colOffset)
+					ttWidth = m_max(textX + textWidth + 8, relX - colOffset)
 				end
 			end
 			if self.showRowSeparators then
@@ -283,12 +282,10 @@ function ListClass:Draw(viewPort, noTooltip)
 				SetDrawColor(1, 1, 1)
 			end
 			-- TODO: handle icon size properly, for now assume they are 16x16
-			if icon == nil then
-				DrawString(colOffset, lineY + textOffsetY, "LEFT", textHeight, colFont, text)
-			else
+			if icon then
 				DrawImage(icon, colOffset, lineY, 16, 16)
-				DrawString(colOffset + 16 + 2, lineY + textOffsetY, "LEFT", textHeight, colFont, text)
 			end
+			DrawString(colOffset + textX, lineY + textOffsetY, "LEFT", textHeight, colFont, text)
 		end
 		if self.colLabels then
 			local mOver = relX >= colOffset and relX <= colOffset + colWidth and relY >= 0 and relY <= 18
