@@ -3667,6 +3667,7 @@ local specialModList = {
 	["all hits are critical strikes while holding a fishing rod"] =  { mod("CritChance", "OVERRIDE", 100, { type = "Condition", var = "UsingFishing" }) },
 	["all hits with your next non%-channelling attack within (%d+) seconds of taking a critical strike will be critical strikes"] =  { mod("CritChance", "OVERRIDE", 100, { type = "Condition", var = "BeenCritRecently" }, { type = "SkillType", skillType = SkillType.Channel, neg = true }, { type = "SkillType", skillType = SkillType.Attack }) },
 	["hits have (%d+)%% increased critical strike chance against you"] = function(num) return { mod("EnemyCritChance", "INC", num) } end,
+	["hits have (%d+)%% reduced critical strike chance against you"] = function(num) return { mod("EnemyCritChance", "INC", -num) } end,
 	["stuns from critical strikes have (%d+)%% increased duration"] = function(num) return { mod("EnemyStunDurationOnCrit", "INC", num) } end,
 	-- Generic Ailments
 	["enemies take (%d+)%% increased damage for each type of ailment you have inflicted on them"] = function(num) return {
