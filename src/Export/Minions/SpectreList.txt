@@ -125,6 +125,7 @@ Metadata/Monsters/incaminion/FragmentMultipleProjectile                         
 Metadata/Monsters/incaminion/FragmentPoisonCloud                                          		----		Vaal Construct
 Metadata/Monsters/incaminion/FragmentMachinariumNormal                                    		----		Ancient Construct
 Metadata/Monsters/incaminion/FragmentProjectileSpiral                                     		----		Archaic Construct
+Metadata/Monsters/incaminion/FragmentProjectileSpiralCampaignBoss                         		----		Spiralling Doom
 Metadata/Monsters/Lion/LionFireSkinGroundFireSpectre                                      		----		Flame Hellion
 Metadata/Monsters/Lion/LionDesertSkinPuncture                                             		----		Dune Hellion
 Metadata/Monsters/Lion/LionFireSkinPhaseRunSpectre                                        		----		Highland Hellion
@@ -140,6 +141,7 @@ Metadata/Monsters/Hellion/Hellion3Spectre                                       
 Metadata/Monsters/Hellion/HellionIceSpectre_                                              		----		Mountain Hellion
 Metadata/Monsters/Hellions/HellionIceAtlasUber                                            		----		Chilling Hellion
 Metadata/Monsters/Hellion/HellionIceExplodeOnDeathSpectre                                 		----		Mountain Hellion Alpha
+Metadata/Monsters/Hellion/HellionIceExplodeOnDeathCampaignBoss                            		----		Winter's Fang
 Metadata/Monsters/Hellion/HellionParasiteSpectre                                          		----		Enslaved Hellion
 Metadata/Monsters/Hellion/HellionParasiteSpectre                                          		----		Brood Pup
 Metadata/Monsters/Hellion/HellionColosseumSpectre                                         		----		Shackled Hellion
@@ -443,6 +445,7 @@ Metadata/Monsters/Axis/AxisEliteSoldier2                                        
 Metadata/Monsters/Axis/AxisEliteSoldier3                                                  		----		Solaris Elite
 Metadata/Monsters/Axis/AxisEliteSoldier4                                                  		----		Lunaris Elite
 Metadata/Monsters/Axis/AxisEliteSoldier3Champion                                          		----		Solaris Champion
+Metadata/Monsters/Axis/AxisEliteSoldier3ChampionCampaignBoss_                             		----		The Sword of Solaris
 Metadata/Monsters/Axis/AxisEliteSoldier4Champion                                          		----		Lunaris Champion
 Metadata/Monsters/Axis/AxisEliteSoldierGuardShield                                        		----		Gravicius Elite Guard
 Metadata/Monsters/Axis/AxisEliteSoldierGuardShield2                                       		----		Praetorian Guard
@@ -514,6 +517,7 @@ Metadata/Monsters/Guardians/GuardianHead                                        
 Metadata/Monsters/Guardians/GuardianLightning_Blue                                        		----		Rime Sentinel
 Metadata/Monsters/Guardians/GuardianFire_Blue                                             		----		Frost Sentinel
 Metadata/Monsters/InsectSpawner/InsectSpawner                                             		----		Carrion Queen
+Metadata/Monsters/InsectSpawner/InsectSpawnerCampaignBoss                                 		----		The Broodmother
 Metadata/Monsters/InsectSpawner/InsectSpawnerParasite                                     		----		Carrion Queen
 Metadata/Monsters/InsectSpawner/InsectSpawnerParasiteBossMapStandalone_AtlasUber          		----		Mother of Rot
 Metadata/Monsters/InsectMinion/InsectMinionSpawned                                        		----		Carrion Minion
@@ -643,6 +647,7 @@ Metadata/Monsters/Undying/CityStalkerFemaleNecropolisCaster2_                   
 Metadata/Monsters/Undying/CityStalkerMaleNecropolisCaster_3_                              		----		Voltaic Attendant
 Metadata/Monsters/Undying/CityStalkerMaleNecropolisCaster4                                		----		Voltaic Attendant
 Metadata/Monsters/Grappler/Grappler                                                       		----		Undying Grappler
+Metadata/Monsters/Grappler/GrapplerCampaignBoss                                           		----		Lecius, the Woebegone
 Metadata/Monsters/Grappler/Grappler2                                                      		----		Shavronne's Gemling
 Metadata/Monsters/Grappler/Grappler3Spectre                                               		----		Augmented Grappler
 Metadata/Monsters/Undying/UndyingOutcastWhirlingBlades                                    		----		Undying Outcast
@@ -996,6 +1001,7 @@ Metadata/Monsters/ReligiousTemplar/ReligiousTemplarTwoHandedPure                
 Metadata/Monsters/ReligiousTemplar/ReligiousTemplarKitava                                 		----		Heretical Ward
 Metadata/Monsters/ReligiousTemplar/ReligiousTemplarKitavaNoThrow                          		----		Heretical Ward
 Metadata/Monsters/ReligiousTemplar/ReligiousTemplarTwoHandedKitava                        		----		Heretical Guardian
+Metadata/Monsters/ReligiousTemplar/ReligiousTemplarTwoHandedKitavaCampaignBoss__          		----		Claudius, Corrupted Templar
 Metadata/Monsters/Hellion/HellionBreachSpectre                                            		----		Xoph's Loyal
 Metadata/Monsters/Hellion/HellionBreachHowlSpectre                                        		----		Xoph's Favoured
 Metadata/Monsters/Revenant/RevenantCommanderBreachSpectre                                 		----		Chayula's Perfected
@@ -1035,6 +1041,7 @@ Metadata/Monsters/CorpseWheel/CorpseWheelNoCharge                               
 Metadata/Monsters/CorpseWheel/CorpseWheelEmergeStandalone                                 		----		Dreadwheel
 Metadata/Monsters/Mauler/Mauler                                                           		----		Handmaiden
 Metadata/Monsters/HolyFireElemental/HolyFireElemental                                     		----		Prayer Guard
+Metadata/Monsters/HolyFireElemental/HolyFireElementalCampaignBoss_                        		----		Apostle of Holy Fire
 Metadata/Monsters/HolyFireElemental/HolyFireElementalAtlasUber                            		----		Resolute Guard
 Metadata/Monsters/HolyFireElemental/HolyFireElementalSolaris                              		----		Solar Elemental
 Metadata/Monsters/HolyFireElemental/HolyFireElementalSolaris2                             		----		Solar Elemental
@@ -1527,6 +1534,7 @@ Metadata/Monsters/VaalMonsters/GuardBowCold                                     
 Metadata/Monsters/VaalMonsters/GuardBowFire                                               		----		Undead Vaal Archer
 Metadata/Monsters/VaalMonsters/GuardDaggers                                               		----		Undead Vaal Bladedancer
 Metadata/Monsters/VaalMonsters/VaalOverseer                                               		----		Undead Vaal Commander
+Metadata/Monsters/VaalMonsters/VaalOverseerAreaBoss                                       		----		Icali, Vaal Overseer
 Metadata/Monsters/VaalMonsters/GuardSpear                                                 		----		Undead Vaal Guard
 Metadata/Monsters/VaalMonsters/Golems/GolemFireVaalPyramid                                		----		Flame Scuttler
 Metadata/Monsters/VaalMonsters/Golems/GolemColdVaalPyramid                                		----		Frost Scuttler
@@ -1857,15 +1865,43 @@ Metadata/Monsters/AbyssTwoLeague/AbyssTwoRumCarrier                             
 Metadata/Monsters/AbyssTwoLeague/Tarhulk                                                  		----		Blackblooded Tarhulk
 Metadata/Monsters/AbyssTwoLeague/PrimordialMonster02                                      		----		Hound of the Pit
 Metadata/Monsters/AbyssTwoLeague/PrimordialMonster03                                      		----		Primordium of the Pit
+Metadata/Monsters/Augury/ScarecrowBeast                                                   		----		Winged Monstrosity
+Metadata/Monsters/Augury/SavageDagger                                                     		----		Wickerlight Brute
+Metadata/Monsters/Augury/SavageGiant                                                      		----		Wickerlight Giant
+Metadata/Monsters/Augury/CenobiteMother                                                   		----		Darktongue Broodwitch
+Metadata/Monsters/Augury/CauldronCrone                                                    		----		Darktongue Matron
+Metadata/Monsters/Augury/WitchFamiliar                                                    		----		Darktongue Familiar
+Metadata/Monsters/Augury/RottenCrow                                                       		----		Decaying Crow
+Metadata/Monsters/Augury/AuguryUrchin__                                                   		----		Dread Underling
+Metadata/Monsters/Augury/AuguryScreecher                                                  		----		Dread Banshee
+Metadata/Monsters/Augury/SavageWitch                                                      		----		Wickerlight Hag
+Metadata/Monsters/Augury/CenobiteFlathead__                                               		----		Deformed Covenite
+Metadata/Monsters/Augury/CenobitePawn                                                     		----		Covenite Spawn
+Metadata/Monsters/Augury/CenobiteClubber                                                  		----		Darktongue Sire
+Metadata/Monsters/Augury/CenobiteWitch                                                    		----		Darktongue Sister
+Metadata/Monsters/Augury/SimulacrumGolem                                                  		----		Broodwitch Puppet
+Metadata/Monsters/Augury/SpinningWheelHag                                                 		----		Dread Weaver
+Metadata/Monsters/Augury/DisemboweledVillager_                                            		----		Dismembered Thrall
+Metadata/Monsters/Augury/PaleHag___                                                       		----		Dread Crone
+Metadata/Monsters/PantheonPack/GuardianOfSolarisPantheon                                  		----		Harbinger of Solaris
+Metadata/Monsters/PantheonPack/BlackStriderPantheon                                       		----		Arakaali's Own
+Metadata/Monsters/PantheonPack/MeleeSpiderPantheon                                        		----		Bloodsucker Arachnid
 
 -- Spectres Not Yet Imported --
 -- These spectres are not in PoB yet. Could be false spectres or disabled server-side. --
 
 Metadata/Monsters/Goatman/GoatmanLightningLeapSlamExtra                                   		----		Bearded Devil
+Metadata/Monsters/incaminion/FragmentProjectileSpiralCampaignBoss                         		----		Spiralling Doom
+Metadata/Monsters/Hellion/HellionIceExplodeOnDeathCampaignBoss                            		----		Winter's Fang
+Metadata/Monsters/Axis/AxisEliteSoldier3ChampionCampaignBoss_                             		----		The Sword of Solaris
+Metadata/Monsters/InsectSpawner/InsectSpawnerCampaignBoss                                 		----		The Broodmother
 Metadata/Monsters/InsectSpawner/InsectSpawnerParasite                                     		----		Carrion Queen
 Metadata/Monsters/InsectMinion/InsectWildDescent                                          		----		Carrion Swarmer
 Metadata/Monsters/Kiweth/KiwethBossMinion                                                 		----		Vassal of Inti
+Metadata/Monsters/Grappler/GrapplerCampaignBoss                                           		----		Lecius, the Woebegone
 Metadata/Monsters/Prophecy/VaalFallenSword                                                		----		Vaal Memory
+Metadata/Monsters/ReligiousTemplar/ReligiousTemplarTwoHandedKitavaCampaignBoss__          		----		Claudius, Corrupted Templar
+Metadata/Monsters/HolyFireElemental/HolyFireElementalCampaignBoss_                        		----		Apostle of Holy Fire
 Metadata/Monsters/NessaCrab/NessaCrabAtlasUber                                            		----		Reefrend
 Metadata/Monsters/NessaCrab/NessaCrabBleached                                             		----		Waste Lurcher
 Metadata/Monsters/Frog/FrogGod/SilverOrbFromMonstersAtlasUber                             		----		Silver Orb
@@ -1876,6 +1912,28 @@ Metadata/Monsters/MavenBoss/TheMavenMapChillOrb                                 
 Metadata/Monsters/MavenBoss/TheMavenMapDegenOrb                                           		----		Maven's Orb
 Metadata/Monsters/MavenBoss/TheMavenMapVolatileOrb                                        		----		Maven's Orb
 Metadata/Monsters/MavenBoss/TheMavenMapBeamOrb                                            		----		Maven's Orb
+Metadata/Monsters/VaalMonsters/VaalOverseerAreaBoss                                       		----		Icali, Vaal Overseer
+Metadata/Monsters/Augury/ScarecrowBeast                                                   		----		Winged Monstrosity
+Metadata/Monsters/Augury/SavageDagger                                                     		----		Wickerlight Brute
+Metadata/Monsters/Augury/SavageGiant                                                      		----		Wickerlight Giant
+Metadata/Monsters/Augury/CenobiteMother                                                   		----		Darktongue Broodwitch
+Metadata/Monsters/Augury/CauldronCrone                                                    		----		Darktongue Matron
+Metadata/Monsters/Augury/WitchFamiliar                                                    		----		Darktongue Familiar
+Metadata/Monsters/Augury/RottenCrow                                                       		----		Decaying Crow
+Metadata/Monsters/Augury/AuguryUrchin__                                                   		----		Dread Underling
+Metadata/Monsters/Augury/AuguryScreecher                                                  		----		Dread Banshee
+Metadata/Monsters/Augury/SavageWitch                                                      		----		Wickerlight Hag
+Metadata/Monsters/Augury/CenobiteFlathead__                                               		----		Deformed Covenite
+Metadata/Monsters/Augury/CenobitePawn                                                     		----		Covenite Spawn
+Metadata/Monsters/Augury/CenobiteClubber                                                  		----		Darktongue Sire
+Metadata/Monsters/Augury/CenobiteWitch                                                    		----		Darktongue Sister
+Metadata/Monsters/Augury/SimulacrumGolem                                                  		----		Broodwitch Puppet
+Metadata/Monsters/Augury/SpinningWheelHag                                                 		----		Dread Weaver
+Metadata/Monsters/Augury/DisemboweledVillager_                                            		----		Dismembered Thrall
+Metadata/Monsters/Augury/PaleHag___                                                       		----		Dread Crone
+Metadata/Monsters/PantheonPack/GuardianOfSolarisPantheon                                  		----		Harbinger of Solaris
+Metadata/Monsters/PantheonPack/BlackStriderPantheon                                       		----		Arakaali's Own
+Metadata/Monsters/PantheonPack/MeleeSpiderPantheon                                        		----		Bloodsucker Arachnid
 
 -- Duplicate Spectre Names --
 -- Same name but different skill sets (should likely be separate imports). --
@@ -1929,6 +1987,8 @@ Metadata/Monsters/Goatman/MountainGoatmanLeapSlam3                              
 Metadata/Monsters/Goatman/GoatmanLightningLeapSlamMaps                                    		----		Bearded Devil
 Metadata/Monsters/Goatman/MountainGoatmanShamanIceSpear2                                  		----		Alpine Shaman
 Metadata/Monsters/incaminion/TormentFragment                                              		----		Vaal Construct
+Metadata/Monsters/incaminion/FragmentProjectileSpiralCampaignBossStandalone               		----		Spiralling Doom
+Metadata/Monsters/incaminion/FragmentProjectileSpiralMapBossStandalone                    		----		Spiralling Doom
 Metadata/Monsters/Lion/LionFireSkinGroundFireSpectre                                      		----		Flame Hellion
 Metadata/Monsters/Lion/LionFireSkinPhaseRunSpectre                                        		----		Highland Hellion
 Metadata/Monsters/Lion/LionDemonSpectre                                                   		----		Demonic Hellion
@@ -1941,6 +2001,8 @@ Metadata/Monsters/Hellion/Hellion3Spectre                                       
 Metadata/Monsters/Hellion/HellionBurned                                                   		----		Hellion
 Metadata/Monsters/Hellion/HellionIceSpectre_                                              		----		Mountain Hellion
 Metadata/Monsters/Hellion/HellionIceExplodeOnDeathSpectre                                 		----		Mountain Hellion Alpha
+Metadata/Monsters/Hellion/HellionIceExplodeOnDeathCampaignBossStandalone                  		----		Winter's Fang
+Metadata/Monsters/Hellion/HellionIceExplodeOnDeathMapBossStandalone                       		----		Winter's Fang
 Metadata/Monsters/Hellion/HellionParasiteSpectre                                          		----		Enslaved Hellion
 Metadata/Monsters/Hellion/HellionParasiteSpectre                                          		----		Enslaved Hellion
 Metadata/Monsters/Hellion/HellionParasiteSpectre                                          		----		Brood Pup
@@ -2311,6 +2373,8 @@ Metadata/Monsters/Axis/AxisEliteSoldier2_Battlefront                            
 Metadata/Monsters/Axis/AxisEliteSoldier3Schism                                            		----		Solaris Elite
 Metadata/Monsters/Axis/AxisEliteSoldier3NewTeam                                           		----		Solaris Elite
 Metadata/Monsters/Axis/AxisEliteSoldier4Schism                                            		----		Lunaris Elite
+Metadata/Monsters/Axis/AxisEliteSoldier3ChampionCampaignBoss_Standalone                   		----		The Sword of Solaris
+Metadata/Monsters/Axis/AxisEliteSoldier3ChampionMapBossStandalone                         		----		The Sword of Solaris
 Metadata/Monsters/Axis/AxisEliteSoldier3ChampionSchism                                    		----		Solaris Champion
 Metadata/Monsters/Axis/AxisEliteSoldier3ChampionNewTeam                                   		----		Solaris Champion
 Metadata/Monsters/Axis/AxisEliteSoldier4ChampionSchism                                    		----		Lunaris Champion
@@ -2639,6 +2703,8 @@ Metadata/Monsters/Undying/CityStalkeFemaleShavronneHellscape                    
 Metadata/Monsters/Undying/CityStalkeFemaleShavronneCasterHellscape                        		----		Shavronne's Greed
 Metadata/Monsters/Undying/SextantCityStalkerMaleCasterArmour                              		----		Abhorred Elitist
 Metadata/Monsters/Undying/SextantCityStalkerMaleArmour                                    		----		Abhorred Elitist
+Metadata/Monsters/Grappler/GrapplerCampaignBossStandalone_                                		----		Lecius, the Woebegone
+Metadata/Monsters/Grappler/GrapplerMapBossStandalone                                      		----		Lecius, the Woebegone
 Metadata/Monsters/Grappler/GrapplerHellscape                                              		----		Undying Grappler
 Metadata/Monsters/Grappler/GrapplerRefinery                                               		----		Undying Grappler
 Metadata/Monsters/Grappler/GrapplerRefineryHellscape                                      		----		Undying Grappler
@@ -3029,6 +3095,8 @@ Metadata/Monsters/CorpseWheel/CorpseWheelHellscape                              
 Metadata/Monsters/CorpseWheel/CorpseWheelEmerge                                           		----		Dreadwheel
 Metadata/Monsters/CorpseWheel/CorpseWheelEmergeHellscape                                  		----		Dreadwheel
 Metadata/Monsters/CorpseWheel/CorpseWheelAggroCharge                                      		----		Dreadwheel
+Metadata/Monsters/HolyFireElemental/HolyFireElementalCampaignBoss_Standalone              		----		Apostle of Holy Fire
+Metadata/Monsters/HolyFireElemental/HolyFireElementalMapBossStandalone                    		----		Apostle of Holy Fire
 Metadata/Monsters/HolyFireElemental/HolyFireElementalSolarisHellscape                     		----		Solar Elemental
 Metadata/Monsters/HolyFireElemental/HolyFireElementalSolaris2Hellscape                    		----		Solar Elemental
 Metadata/Monsters/HolyFireElemental/HolyFireElementalSolarisBeamHellscape                 		----		Solar Guard
@@ -3629,46 +3697,88 @@ Metadata/Monsters/AtlasExiles/AdjudicatorInfluenceMonsters/AdjudicatorGrandMaste
 Metadata/Monsters/AtlasPreQuest/TemplarCourts/KitavaCultistSpearTemplar                   		----		Orphaned Zealot
 Metadata/Monsters/AtlasPreQuest/TemplarCourts/KitavaCultistKnifestickTemplar              		----		Orphaned Zealot
 Metadata/Monsters/LeagueHarvest/Red/HarvestDropBearT1Spectre                              		----		Wild Ursaling
+Metadata/Monsters/LeagueHarvest/Red/HarvestDropBearT1Spectre                              		----		Wild Ursaling
+Metadata/Monsters/LeagueHarvest/Red/HarvestHellionT1Spectre                               		----		Wild Hellion
 Metadata/Monsters/LeagueHarvest/Red/HarvestHellionT1Spectre                               		----		Wild Hellion
 Metadata/Monsters/LeagueHarvest/Red/HarvestWolfT1Spectre                                  		----		Wild Thornwolf
+Metadata/Monsters/LeagueHarvest/Red/HarvestWolfT1Spectre                                  		----		Wild Thornwolf
+Metadata/Monsters/LeagueHarvest/Red/HarvestMonkeyT1Spectre                                		----		Wild Ape
 Metadata/Monsters/LeagueHarvest/Red/HarvestMonkeyT1Spectre                                		----		Wild Ape
 Metadata/Monsters/LeagueHarvest/Red/HarvestInsectT1Spectre                                		----		Wild Hatchling
+Metadata/Monsters/LeagueHarvest/Red/HarvestInsectT1Spectre                                		----		Wild Hatchling
+Metadata/Monsters/LeagueHarvest/Red/HarvestBeastT2Spectre                                 		----		Wild Bristlebeast
 Metadata/Monsters/LeagueHarvest/Red/HarvestBeastT2Spectre                                 		----		Wild Bristlebeast
 Metadata/Monsters/LeagueHarvest/Red/HarvestHoundT2Spectre                                 		----		Wild Snap Hound
+Metadata/Monsters/LeagueHarvest/Red/HarvestHoundT2Spectre                                 		----		Wild Snap Hound
+Metadata/Monsters/LeagueHarvest/Red/HarvestMinerHammerT2Spectre                           		----		Wild Homunculus
 Metadata/Monsters/LeagueHarvest/Red/HarvestMinerHammerT2Spectre                           		----		Wild Homunculus
 Metadata/Monsters/LeagueHarvest/Red/HarvestChieftainT2Spectre                             		----		Wild Chieftain
+Metadata/Monsters/LeagueHarvest/Red/HarvestChieftainT2Spectre                             		----		Wild Chieftain
+Metadata/Monsters/LeagueHarvest/Red/HarvestSpikerT2Spectre                                		----		Wild Spikeback
 Metadata/Monsters/LeagueHarvest/Red/HarvestSpikerT2Spectre                                		----		Wild Spikeback
 Metadata/Monsters/LeagueHarvest/Red/HarvestBeastT3Spectre                                 		----		Wild Bristle Matron
+Metadata/Monsters/LeagueHarvest/Red/HarvestBeastT3Spectre                                 		----		Wild Bristle Matron
+Metadata/Monsters/LeagueHarvest/Red/HarvestHellionT3Spectre                               		----		Wild Hellion Alpha
 Metadata/Monsters/LeagueHarvest/Red/HarvestHellionT3Spectre                               		----		Wild Hellion Alpha
 Metadata/Monsters/LeagueHarvest/Red/HarvestBirddogT3Spectre                               		----		Wild Thornmaw
+Metadata/Monsters/LeagueHarvest/Red/HarvestBirddogT3Spectre                               		----		Wild Thornmaw
+Metadata/Monsters/LeagueHarvest/Red/HarvestBrambleHulkT3Spectre                           		----		Wild Brambleback
 Metadata/Monsters/LeagueHarvest/Red/HarvestBrambleHulkT3Spectre                           		----		Wild Brambleback
 Metadata/Monsters/LeagueHarvest/Red/HarvestInsectSpawnerT3Spectre                         		----		Wild Infestation Queen
+Metadata/Monsters/LeagueHarvest/Red/HarvestInsectSpawnerT3Spectre                         		----		Wild Infestation Queen
+Metadata/Monsters/LeagueHarvest/Green/HarvestMeleeSpiderT1Spectre                         		----		Vivid Arachnid
 Metadata/Monsters/LeagueHarvest/Green/HarvestMeleeSpiderT1Spectre                         		----		Vivid Arachnid
 Metadata/Monsters/LeagueHarvest/Green/HarvestWetaT1Spectre                                		----		Vivid Weta
+Metadata/Monsters/LeagueHarvest/Green/HarvestWetaT1Spectre                                		----		Vivid Weta
+Metadata/Monsters/LeagueHarvest/Green/HarvestParasiteT1Spectre                            		----		Vivid Leech
 Metadata/Monsters/LeagueHarvest/Green/HarvestParasiteT1Spectre                            		----		Vivid Leech
 Metadata/Monsters/LeagueHarvest/Green/HarvestScorpionT1Spectre                            		----		Vivid Scorpion
+Metadata/Monsters/LeagueHarvest/Green/HarvestScorpionT1Spectre                            		----		Vivid Scorpion
+Metadata/Monsters/LeagueHarvest/Green/HarvestThornSpiderT1Spectre_                        		----		Vivid Thornweaver
 Metadata/Monsters/LeagueHarvest/Green/HarvestThornSpiderT1Spectre_                        		----		Vivid Thornweaver
 Metadata/Monsters/LeagueHarvest/Green/HarvestSabreSpiderT2Spectre                         		----		Vivid Razorleg
+Metadata/Monsters/LeagueHarvest/Green/HarvestSabreSpiderT2Spectre                         		----		Vivid Razorleg
+Metadata/Monsters/LeagueHarvest/Green/HarvestHuhuGrubT2Spectre                            		----		Vivid Sapsucker
 Metadata/Monsters/LeagueHarvest/Green/HarvestHuhuGrubT2Spectre                            		----		Vivid Sapsucker
 Metadata/Monsters/LeagueHarvest/Green/HarvestParasiteT2Spectre__                          		----		Vivid Parasite
+Metadata/Monsters/LeagueHarvest/Green/HarvestParasiteT2Spectre__                          		----		Vivid Parasite
+Metadata/Monsters/LeagueHarvest/Green/HarvestScorpionT2Spectre                            		----		Vivid Striketail
 Metadata/Monsters/LeagueHarvest/Green/HarvestScorpionT2Spectre                            		----		Vivid Striketail
 Metadata/Monsters/LeagueHarvest/Green/HarvestPlagueSpiderT2Spectre                        		----		Vivid Nestback
+Metadata/Monsters/LeagueHarvest/Green/HarvestPlagueSpiderT2Spectre                        		----		Vivid Nestback
+Metadata/Monsters/LeagueHarvest/Green/HarvestBlackstriderT3Spectre                        		----		Vivid Whipleg
 Metadata/Monsters/LeagueHarvest/Green/HarvestBlackstriderT3Spectre                        		----		Vivid Whipleg
 Metadata/Monsters/LeagueHarvest/Green/HarvestSquidT3Spectre                               		----		Vivid Watcher
+Metadata/Monsters/LeagueHarvest/Green/HarvestSquidT3Spectre                               		----		Vivid Watcher
+Metadata/Monsters/LeagueHarvest/Green/HarvestVultureParasiteT3Spectre                     		----		Vivid Vulture
 Metadata/Monsters/LeagueHarvest/Green/HarvestVultureParasiteT3Spectre                     		----		Vivid Vulture
 Metadata/Monsters/LeagueHarvest/Green/HarvestPlatedScorpionT3Spectre                      		----		Vivid Abberarach
+Metadata/Monsters/LeagueHarvest/Green/HarvestPlatedScorpionT3Spectre                      		----		Vivid Abberarach
+Metadata/Monsters/LeagueHarvest/Blue/HarvestRhoaT1Spectre                                 		----		Primal Rhoa
 Metadata/Monsters/LeagueHarvest/Blue/HarvestRhoaT1Spectre                                 		----		Primal Rhoa
 Metadata/Monsters/LeagueHarvest/Blue/HarvestSandspitterT1Spectre                          		----		Primal Dustspitter
+Metadata/Monsters/LeagueHarvest/Blue/HarvestSandspitterT1Spectre                          		----		Primal Dustspitter
+Metadata/Monsters/LeagueHarvest/Blue/HarvestRegurgitatorT1Spectre__                       		----		Primal Feasting Horror
 Metadata/Monsters/LeagueHarvest/Blue/HarvestRegurgitatorT1Spectre__                       		----		Primal Feasting Horror
 Metadata/Monsters/LeagueHarvest/Blue/HarvestFrogT1Spectre                                 		----		Primal Maw
+Metadata/Monsters/LeagueHarvest/Blue/HarvestFrogT1Spectre                                 		----		Primal Maw
+Metadata/Monsters/LeagueHarvest/Blue/HarvestAntT1Spectre                                  		----		Primal Cleaveling
 Metadata/Monsters/LeagueHarvest/Blue/HarvestAntT1Spectre                                  		----		Primal Cleaveling
 Metadata/Monsters/LeagueHarvest/Blue/HarvestRhexT2Spectre                                 		----		Primal Rhex
+Metadata/Monsters/LeagueHarvest/Blue/HarvestRhexT2Spectre                                 		----		Primal Rhex
+Metadata/Monsters/LeagueHarvest/Blue/HarvestIguanaT2Spectre                               		----		Primal Chimeral
 Metadata/Monsters/LeagueHarvest/Blue/HarvestIguanaT2Spectre                               		----		Primal Chimeral
 Metadata/Monsters/LeagueHarvest/Blue/HarvestSandLeaperT2Spectre                           		----		Primal Scrabbler
+Metadata/Monsters/LeagueHarvest/Blue/HarvestSandLeaperT2Spectre                           		----		Primal Scrabbler
+Metadata/Monsters/LeagueHarvest/Blue/HarvestRhexT3Spectre                                 		----		Primal Rhex Matriarch
 Metadata/Monsters/LeagueHarvest/Blue/HarvestRhexT3Spectre                                 		----		Primal Rhex Matriarch
 Metadata/Monsters/LeagueHarvest/Blue/HarvestNessaCrabT3Spectre                            		----		Primal Crushclaw
+Metadata/Monsters/LeagueHarvest/Blue/HarvestNessaCrabT3Spectre                            		----		Primal Crushclaw
+Metadata/Monsters/LeagueHarvest/Blue/HarvestKitavaDemonT3Spectre                          		----		Primal Blisterlord
 Metadata/Monsters/LeagueHarvest/Blue/HarvestKitavaDemonT3Spectre                          		----		Primal Blisterlord
 Metadata/Monsters/LeagueHarvest/Blue/HarvestGoatmanT3Spectre                              		----		Primal Cystcaller
+Metadata/Monsters/LeagueHarvest/Blue/HarvestGoatmanT3Spectre                              		----		Primal Cystcaller
+Metadata/Monsters/LeagueHarvest/Blue/HarvestLanternMinerT3Spectre                         		----		Primal Reborn
 Metadata/Monsters/LeagueHarvest/Blue/HarvestLanternMinerT3Spectre                         		----		Primal Reborn
 Metadata/Monsters/BurnBoss/SkeletonMeleeSwordShield                                       		----		Rattling Recruit
 Metadata/Monsters/LeagueHeist/Military/MilitaryMelee1Spectre                              		----		Security Enforcer
@@ -3939,6 +4049,7 @@ Metadata/Monsters/LeagueAzmeri/Gruthkul/GruthkulDropBearSpectre                 
 Metadata/Monsters/LeagueAzmeri/Gruthkul/GruthkulDropBearSpectre                           		----		Nameless Puca
 Metadata/Monsters/LeagueAzmeri/Gruthkul/GruthkulHulkSpectre                               		----		Nameless Beast
 Metadata/Monsters/LeagueAzmeri/Gruthkul/GruthkulHulkSpectre                               		----		Nameless Beast
+Metadata/Monsters/LeagueAzmeri/Gruthkul/GruthkulHulkBestiaryStandalone                    		----		Nameless Beast
 Metadata/Monsters/LeagueAzmeri/Gruthkul/GruthkulHulkSpectre                               		----		Nameless Beast
 Metadata/Monsters/LeagueAzmeri/Gruthkul/GruthkulMonkeySpectre_                            		----		Nameless Ape
 Metadata/Monsters/LeagueAzmeri/Gruthkul/GruthkulMonkeySpectre_                            		----		Nameless Ape
@@ -4121,3 +4232,14 @@ Metadata/Monsters/AbyssTwoLeague/SerpentClanCaster                              
 Metadata/Monsters/AbyssTwoLeague/FungalArtillery_                                         		----		Fungoid of the Pit
 Metadata/Monsters/AbyssTwoLeague/CorpseStrider                                            		----		Strider of the Pit
 Metadata/Monsters/AbyssTwoLeague/Tarhulk                                                  		----		Blackblooded Tarhulk
+Metadata/Monsters/Augury/SavageGiantTutorial                                              		----		Wickerlight Giant
+Metadata/Monsters/Augury/SavageWitchTutorial                                              		----		Wickerlight Hag
+Metadata/Monsters/DeepwaterLeague/GiantStarfishSpectre                                    		----		Hungry Maw
+Metadata/Monsters/DeepwaterLeague/SeaOtterSpectre                                         		----		Ferocious Otter
+Metadata/Monsters/DeepwaterLeague/OctopusParasiteSpectre___                               		----		Wriggling Horror
+Metadata/Monsters/DeepwaterLeague/JellyfishParasiteSpectre                                		----		Flesh Louse
+Metadata/Monsters/DeepwaterLeague/QuillCrabSpectre                                        		----		Quillshell
+Metadata/Monsters/DeepwaterLeague/MantaRayParasiteSpectre                                 		----		Infested Horror
+Metadata/Monsters/PantheonPack/HolyFireElementalBeamPantheon                              		----		Solar Guard
+Metadata/Monsters/PantheonPack/HolyFireElementalPantheon                                  		----		Solar Elemental
+Metadata/Monsters/PantheonPack/KitavaDemon                                                		----		Kitava's Herald

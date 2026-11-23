@@ -246,6 +246,9 @@ worldAreas["1_1_8"] = {
 		"Flame Hellion",
 		"Gravel Eater",
 	},
+	bossVarieties = {
+		"Ungulath",
+	},
 }
 
 worldAreas["1_1_9"] = {
@@ -430,6 +433,9 @@ worldAreas["1_2_5_1"] = {
 		"Frost Priest",
 		"Thunder Priest",
 	},
+	bossVarieties = {
+		"Targoth, Undying Goliath",
+	},
 }
 
 worldAreas["1_2_5_2"] = {
@@ -530,6 +536,9 @@ worldAreas["1_2_7"] = {
 		"Stygian Ape",
 		"Stygian Silverback",
 	},
+	bossVarieties = {
+		"Targa, Beast Poacher",
+	},
 }
 
 worldAreas["1_2_8"] = {
@@ -550,6 +559,9 @@ worldAreas["1_2_8"] = {
 		"Night Adder",
 		"Shadow Archer",
 		"Shadow Stalker",
+	},
+	bossVarieties = {
+		"Seleslatha",
 	},
 }
 
@@ -607,8 +619,10 @@ worldAreas["1_2_11"] = {
 		"Undead Vaal Bladedancer",
 		"Undead Vaal Commander",
 		"Undead Vaal Guard",
-		"Vaal Construct",
 		"Vaal Fallen",
+	},
+	bossVarieties = {
+		"Icali, Vaal Overseer",
 	},
 }
 
@@ -702,6 +716,9 @@ worldAreas["1_2_14_3"] = {
 		"Thunder Archmage",
 		"Thunder Guardian",
 	},
+	bossVarieties = {
+		"Vaal Oversoul",
+	},
 }
 
 worldAreas["1_2_15"] = {
@@ -719,6 +736,9 @@ worldAreas["1_2_15"] = {
 		"Necromancer",
 		"Shambling Cadaver",
 		"Soulmourn",
+	},
+	bossVarieties = {
+		"The Forgotten Daughter",
 	},
 }
 
@@ -814,6 +834,9 @@ worldAreas["1_3_6"] = {
 		"Undying Archivist",
 		"Undying Cultist",
 	},
+	bossVarieties = {
+		"The Black Phantom",
+	},
 }
 
 worldAreas["1_3_7"] = {
@@ -868,9 +891,7 @@ worldAreas["1_3_8_2"] = {
 		"Galvanic Ribbon",
 	},
 	bossVarieties = {
-		"Banner of Passion",
-		"Banner of Knowledge",
-		"Banner of Action",
+		"The Goddess of Purity",
 	},
 }
 
@@ -906,6 +927,9 @@ worldAreas["1_3_10_1"] = {
 		"Stinking Undying",
 		"Undying Alchemist",
 		"Undying Grappler",
+	},
+	bossVarieties = {
+		"Lecius, the Woebegone",
 	},
 }
 
@@ -1007,6 +1031,9 @@ worldAreas["1_3_17_1"] = {
 		"Colossal Bonestalker",
 		"Thunder Keeper",
 		"Undying Archivist",
+	},
+	bossVarieties = {
+		"Tyrannursus Maximus",
 	},
 }
 
@@ -1436,6 +1463,9 @@ worldAreas["1_5_4"] = {
 		"Temple Justicar",
 		"Temple Ward",
 	},
+	bossVarieties = {
+		"Apostle of Holy Fire",
+	},
 }
 
 worldAreas["1_5_4b"] = {
@@ -1492,6 +1522,9 @@ worldAreas["1_5_6"] = {
 		"Brittle Cleric",
 		"Desecrated Saint",
 	},
+	bossVarieties = {
+		"Osseous Abomination",
+	},
 }
 
 worldAreas["1_5_7"] = {
@@ -1504,6 +1537,9 @@ worldAreas["1_5_7"] = {
 	monsterVarieties = {
 		"Gleaming Saint",
 		"Risen Saint",
+	},
+	bossVarieties = {
+		"Tacitus, Fallen Archivist",
 	},
 }
 
@@ -1642,6 +1678,9 @@ worldAreas["2_6_7_1"] = {
 		"Flame Guardian",
 		"Rattling Condemned",
 		"Rotting Damned",
+	},
+	bossVarieties = {
+		"Murderer's Row",
 	},
 }
 
@@ -1804,6 +1843,9 @@ worldAreas["2_6_14"] = {
 		"Sandworn Watchman",
 		"Weathered Watchman",
 	},
+	bossVarieties = {
+		"Valeria, Warrior Effigy",
+	},
 }
 
 worldAreas["2_6_15"] = {
@@ -1839,6 +1881,9 @@ worldAreas["2_7_1"] = {
 		"Rubble Golem",
 		"Scavenging Vulture",
 	},
+	bossVarieties = {
+		"Stoneshamble",
+	},
 }
 
 worldAreas["2_7_2"] = {
@@ -1857,6 +1902,9 @@ worldAreas["2_7_2"] = {
 		"Hulking Titan",
 		"Scavenging Vulture",
 		"Stag Acolyte",
+	},
+	bossVarieties = {
+		"The Animal Pack",
 	},
 }
 
@@ -1893,6 +1941,9 @@ worldAreas["2_7_4"] = {
 		"Vault Guardian",
 		"Wraith",
 	},
+	bossVarieties = {
+		"The Wailing Lament",
+	},
 }
 
 worldAreas["2_7_5_1"] = {
@@ -1909,6 +1960,9 @@ worldAreas["2_7_5_1"] = {
 		"Sin Lord",
 		"Spindle Spider",
 		"Sutured Aberration",
+	},
+	bossVarieties = {
+		"The Noxious Matriarch",
 	},
 }
 
@@ -2058,6 +2112,9 @@ worldAreas["2_7_10"] = {
 		"Vaal Fallen",
 		"Vaal Gargantuan",
 	},
+	bossVarieties = {
+		"Quetzal, Champion of Yore",
+	},
 }
 
 worldAreas["2_7_11"] = {
@@ -2073,6 +2130,9 @@ worldAreas["2_7_11"] = {
 		"Serpentine Construct",
 		"Vaal Arsonist",
 		"Vaal Gargantuan",
+	},
+	bossVarieties = {
+		"Spiralling Doom",
 	},
 }
 
@@ -2133,6 +2193,9 @@ worldAreas["2_8_1"] = {
 		"Spine Serpent",
 		"Undying Outcast",
 		"Undying Ravager",
+	},
+	bossVarieties = {
+		"The Broodmother",
 	},
 }
 
@@ -2285,6 +2348,9 @@ worldAreas["2_8_7_1_"] = {
 		"Lunarsworn Wintermage",
 		"Moontouched Zealot",
 		"Rime Sentinel",
+	},
+	bossVarieties = {
+		"The Blade of Lunaris",
 	},
 }
 
@@ -2439,6 +2505,9 @@ worldAreas["2_8_12_1"] = {
 		"Solarsworn Archmage",
 		"Solarsworn Infernomage",
 	},
+	bossVarieties = {
+		"The Sword of Solaris",
+	},
 }
 
 worldAreas["2_8_12_2"] = {
@@ -2523,6 +2592,9 @@ worldAreas["2_8_14"] = {
 		"Spiteful Smuggler",
 		"Twisted Firestarter",
 	},
+	bossVarieties = {
+		"Barnabas, Marooned Buccaneer",
+	},
 }
 
 worldAreas["2_9_1"] = {
@@ -2539,6 +2611,9 @@ worldAreas["2_9_1"] = {
 		"Escaped Revenant",
 		"Pale Blackguard",
 		"Pale Commander",
+	},
+	bossVarieties = {
+		"Fleshbane, Ichor of Death",
 	},
 }
 
@@ -2561,6 +2636,9 @@ worldAreas["2_9_2"] = {
 		"Risen Jaeger",
 		"Snow Wolf",
 		"Vendigo",
+	},
+	bossVarieties = {
+		"Winter's Fang",
 	},
 }
 
@@ -2585,6 +2663,9 @@ worldAreas["2_9_3"] = {
 		"Sand Skitterer",
 		"Sandworn Slaves",
 		"Wild Rhex",
+	},
+	bossVarieties = {
+		"Lamina, the Sand-scoured",
 	},
 }
 
@@ -2680,6 +2761,9 @@ worldAreas["2_9_7"] = {
 		"Pocked Mason",
 		"Screecher",
 		"Wraith",
+	},
+	bossVarieties = {
+		"Muruk the Awakened",
 	},
 }
 
@@ -2798,6 +2882,9 @@ worldAreas["2_10_1"] = {
 		"Kitava's Herald",
 		"Shrieking Witch",
 	},
+	bossVarieties = {
+		"Plaguewing",
+	},
 }
 
 worldAreas["2_10_2"] = {
@@ -2839,6 +2926,9 @@ worldAreas["2_10_3"] = {
 		"Kitava Zealot",
 		"Kitava's Herald",
 	},
+	bossVarieties = {
+		"Claudius, Corrupted Templar",
+	},
 }
 
 worldAreas["2_10_4"] = {
@@ -2873,6 +2963,9 @@ worldAreas["2_10_5"] = {
 		"Kitava's Herald",
 		"Warped Regurgitator",
 		"Wicker Man",
+	},
+	bossVarieties = {
+		"The Unending Feast",
 	},
 }
 
@@ -2931,6 +3024,9 @@ worldAreas["2_10_8"] = {
 		"Gleaming Saint",
 		"Risen Saint",
 	},
+	bossVarieties = {
+		"Signeus, Grim Visage",
+	},
 }
 
 worldAreas["2_10_9"] = {
@@ -2946,6 +3042,9 @@ worldAreas["2_10_9"] = {
 		"Bone Stalker",
 		"Brittle Cleric",
 		"Desecrated Saint",
+	},
+	bossVarieties = {
+		"Aspect of Undeath",
 	},
 }
 
@@ -4817,7 +4916,7 @@ worldAreas["Incursion_Temple1"] = {
 		"Vaal Slayer",
 	},
 	bossVarieties = {
-		"The Vaal Omnitect",
+		"Atziri, Queen of the Vaal",
 	},
 }
 
@@ -4846,7 +4945,7 @@ worldAreas["Incursion_Temple2"] = {
 		"Vaal Slayer",
 	},
 	bossVarieties = {
-		"The Vaal Omnitect",
+		"Atziri, Queen of the Vaal",
 	},
 }
 
@@ -4875,7 +4974,7 @@ worldAreas["Incursion_Temple3"] = {
 		"Vaal Slayer",
 	},
 	bossVarieties = {
-		"The Vaal Omnitect",
+		"Atziri, Queen of the Vaal",
 	},
 }
 
@@ -4904,7 +5003,7 @@ worldAreas["Incursion_Temple4"] = {
 		"Vaal Slayer",
 	},
 	bossVarieties = {
-		"The Vaal Omnitect",
+		"Atziri, Queen of the Vaal",
 	},
 }
 
@@ -4933,7 +5032,7 @@ worldAreas["Incursion_Temple5"] = {
 		"Vaal Slayer",
 	},
 	bossVarieties = {
-		"The Vaal Omnitect",
+		"Atziri, Queen of the Vaal",
 	},
 }
 
@@ -4962,7 +5061,7 @@ worldAreas["Incursion_Temple6"] = {
 		"Vaal Slayer",
 	},
 	bossVarieties = {
-		"The Vaal Omnitect",
+		"Atziri, Queen of the Vaal",
 	},
 }
 
@@ -4991,7 +5090,7 @@ worldAreas["Incursion_Temple7_"] = {
 		"Vaal Slayer",
 	},
 	bossVarieties = {
-		"The Vaal Omnitect",
+		"Atziri, Queen of the Vaal",
 	},
 }
 
@@ -5020,7 +5119,7 @@ worldAreas["Incursion_Temple8"] = {
 		"Vaal Slayer",
 	},
 	bossVarieties = {
-		"The Vaal Omnitect",
+		"Atziri, Queen of the Vaal",
 	},
 }
 
@@ -5049,7 +5148,7 @@ worldAreas["Incursion_Temple9"] = {
 		"Vaal Slayer",
 	},
 	bossVarieties = {
-		"The Vaal Omnitect",
+		"Atziri, Queen of the Vaal",
 	},
 }
 
@@ -5078,7 +5177,7 @@ worldAreas["Incursion_Temple10"] = {
 		"Vaal Slayer",
 	},
 	bossVarieties = {
-		"The Vaal Omnitect",
+		"Atziri, Queen of the Vaal",
 	},
 }
 
@@ -6109,17 +6208,6 @@ worldAreas["BetrayalStoryVault"] = {
 	tags = { "area_with_water", "einharscorpion" },
 	act = 9,
 	level = 61,
-	isMap = false,
-	monsterVarieties = {
-	},
-}
-
-worldAreas["BetrayalTest"] = {
-	name = "Betrayal Test Encounter",
-	baseName = "Betrayal Test Encounter",
-	tags = {  },
-	act = 0,
-	level = 1,
 	isMap = false,
 	monsterVarieties = {
 	},
@@ -9124,7 +9212,7 @@ worldAreas["Synthesis_MapBoss"] = {
 		"My will remains, emboldened and empowered",
 		"by the righteousness of my cause.",
 	},
-	tags = { "synthesis_area" },
+	tags = { "synthesis_area", "DivinationCardsSynthesis" },
 	act = 11,
 	level = 79,
 	isMap = false,
@@ -9157,7 +9245,7 @@ worldAreas["Synthesis_MapGuardian1"] = {
 		"The winters of my youth were cold and harsh.",
 		"We had nothing, yet to my mother's credit, I wanted for so little.",
 	},
-	tags = { "synthesis_area" },
+	tags = { "synthesis_area", "DivinationCardsSynthesis" },
 	act = 11,
 	level = 68,
 	isMap = false,
@@ -9186,7 +9274,7 @@ worldAreas["Synthesis_MapGuardian2"] = {
 		"so quickly became flawed out of necessity.",
 		"Created from compromises. Vulnerable to mortal whims.",
 	},
-	tags = { "synthesis_area" },
+	tags = { "synthesis_area", "DivinationCardsSynthesis" },
 	act = 11,
 	level = 68,
 	isMap = false,
@@ -9212,7 +9300,7 @@ worldAreas["Synthesis_MapGuardian3"] = {
 		"Our beautiful public spaces, our services for the ill and the needy,",
 		"all of it would crumble.",
 	},
-	tags = { "synthesis_area" },
+	tags = { "synthesis_area", "DivinationCardsSynthesis" },
 	act = 11,
 	level = 68,
 	isMap = false,
@@ -9237,7 +9325,7 @@ worldAreas["Synthesis_MapGuardian4"] = {
 		"In echoing marble halls I found my voice.",
 		"Before the congregation I found purpose.",
 	},
-	tags = { "synthesis_area" },
+	tags = { "synthesis_area", "DivinationCardsSynthesis" },
 	act = 11,
 	level = 68,
 	isMap = false,
@@ -9511,10 +9599,6 @@ worldAreas["MapWorldsLookout"] = {
 worldAreas["MapWorldsBeach"] = {
 	name = "Beach (Map)",
 	baseName = "Beach",
-	description = {
-		"A paradise, forever replenished by",
-		"endless waves teeming with life.",
-	},
 	tags = { "map", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss", "can_be_infected_map" },
 	act = 11,
 	level = 68,
@@ -9602,10 +9686,6 @@ worldAreas["MapWorldsDungeon"] = {
 worldAreas["MapWorldsAlleyways"] = {
 	name = "Alleyways (Map)",
 	baseName = "Alleyways",
-	description = {
-		"An unwashed gutter, where wretches",
-		"cut purses and throats alike.",
-	},
 	tags = { "map", "area_with_water", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss", "can_be_infected_map" },
 	act = 11,
 	level = 69,
@@ -9645,6 +9725,10 @@ worldAreas["MapWorldsPen"] = {
 worldAreas["MapWorldsDesert"] = {
 	name = "Desert (Map)",
 	baseName = "Desert",
+	description = {
+		"Heat. Dust. Wind. These are what",
+		"forge strong minds and bodies.",
+	},
 	tags = { "map", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss", "can_be_infected_map" },
 	act = 11,
 	level = 69,
@@ -9685,10 +9769,6 @@ worldAreas["MapWorldsAridLake"] = {
 worldAreas["MapWorldsFloodedMine"] = {
 	name = "Flooded Mine (Map)",
 	baseName = "Flooded Mine",
-	description = {
-		"In darkness, beast and man",
-		"alike clamour to survive.",
-	},
 	tags = { "indoors_area", "map", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss", "can_be_infected_map" },
 	act = 11,
 	level = 69,
@@ -9857,6 +9937,11 @@ worldAreas["MapWorldsLeyline"] = {
 worldAreas["MapWorldsPeninsula"] = {
 	name = "Peninsula (Map)",
 	baseName = "Peninsula",
+	description = {
+		"The farmer no longer plows",
+		"or sows. Only the flattened",
+		"soil remains.",
+	},
 	tags = { "map", "area_with_water", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss", "can_be_infected_map" },
 	act = 11,
 	level = 70,
@@ -10043,10 +10128,6 @@ worldAreas["MapWorldsRelicChambers"] = {
 worldAreas["MapWorldsCourthouse"] = {
 	name = "Courthouse (Map)",
 	baseName = "Courthouse",
-	description = {
-		"Justice born of love is a surrender.",
-		"Justice born of law is a punishment.",
-	},
 	tags = { "indoors_area", "map", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss", "can_be_infected_map" },
 	act = 11,
 	level = 71,
@@ -10113,9 +10194,6 @@ worldAreas["MapWorldsStrandUnique"] = {
 worldAreas["MapWorldsChateau"] = {
 	name = "Chateau (Map)",
 	baseName = "Chateau",
-	description = {
-		"Beauty and brutality in such close proximity.",
-	},
 	tags = { "map", "area_with_water", "indoors_area", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss", "can_be_infected_map" },
 	act = 11,
 	level = 71,
@@ -10236,11 +10314,6 @@ worldAreas["MapWorldsVolcano"] = {
 worldAreas["MapWorldsLighthouse"] = {
 	name = "Lighthouse (Map)",
 	baseName = "Lighthouse",
-	description = {
-		"Fire ignites the sky.",
-		"A signal to keep away.",
-		"An invitation to invade.",
-	},
 	tags = { "map", "area_with_water", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss", "lighthouse_area", "can_be_infected_map" },
 	act = 11,
 	level = 71,
@@ -10263,10 +10336,6 @@ worldAreas["MapWorldsLighthouse"] = {
 worldAreas["MapWorldsCanyon"] = {
 	name = "Canyon (Map)",
 	baseName = "Canyon",
-	description = {
-		"A deep wound in the land.",
-		"One that will never heal.",
-	},
 	tags = { "map", "area_with_water", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss", "can_be_infected_map" },
 	act = 11,
 	level = 71,
@@ -10288,6 +10357,10 @@ worldAreas["MapWorldsCanyon"] = {
 worldAreas["MapWorldsConservatory"] = {
 	name = "Conservatory (Map)",
 	baseName = "Conservatory",
+	description = {
+		"Ornate, elaborate, ostentatious...",
+		"and dripping with death.",
+	},
 	tags = { "indoors_area", "map", "area_with_water", "delve_chest", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss", "can_be_infected_map" },
 	act = 11,
 	level = 72,
@@ -10406,6 +10479,10 @@ worldAreas["MapWorldsMazeUnique"] = {
 worldAreas["MapWorldsChannel"] = {
 	name = "Channel (Map)",
 	baseName = "Channel",
+	description = {
+		"The stone cannot stop the torrent.",
+		"It can only divert it.",
+	},
 	tags = { "map", "area_with_water", "delve_chest", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss", "can_be_infected_map" },
 	act = 11,
 	level = 72,
@@ -10444,6 +10521,12 @@ worldAreas["MapWorldsToxicSewer"] = {
 worldAreas["MapWorldsAncientCity"] = {
 	name = "Ancient City (Map)",
 	baseName = "Ancient City",
+	description = {
+		"This was not the first",
+		"civilization to believe itself",
+		"the greatest. And it will",
+		"not be the last.",
+	},
 	tags = { "map", "area_with_water", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss", "can_be_infected_map" },
 	act = 11,
 	level = 72,
@@ -10469,10 +10552,6 @@ worldAreas["MapWorldsAncientCity"] = {
 worldAreas["MapWorldsIvoryTemple"] = {
 	name = "Ivory Temple (Map)",
 	baseName = "Ivory Temple",
-	description = {
-		"Man and nature intertwined,",
-		"but only for the chosen few.",
-	},
 	tags = { "indoors_area", "map", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss", "can_be_infected_map" },
 	act = 11,
 	level = 72,
@@ -10526,6 +10605,10 @@ worldAreas["MapWorldsSpiderLair"] = {
 worldAreas["MapWorldsBarrows"] = {
 	name = "Barrows (Map)",
 	baseName = "Barrows",
+	description = {
+		"Man burrows for only",
+		"the eternal hibernation.",
+	},
 	tags = { "map", "area_with_water", "no_echo", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss", "can_be_infected_map" },
 	act = 11,
 	level = 72,
@@ -10630,6 +10713,10 @@ worldAreas["MapWorldsJungleValley"] = {
 worldAreas["MapWorldsPhantasmagoria"] = {
 	name = "Phantasmagoria (Map)",
 	baseName = "Phantasmagoria",
+	description = {
+		"Every movement is watched,",
+		"recorded, remembered.",
+	},
 	tags = { "indoors_area", "map", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss" },
 	act = 11,
 	level = 73,
@@ -10655,6 +10742,10 @@ worldAreas["MapWorldsPhantasmagoria"] = {
 worldAreas["MapWorldsAcademy"] = {
 	name = "Academy (Map)",
 	baseName = "Academy",
+	description = {
+		"They came for enlightenment,",
+		"but were imprisoned by madness.",
+	},
 	tags = { "indoors_area", "map", "delve_chest", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss" },
 	act = 11,
 	level = 73,
@@ -10672,6 +10763,10 @@ worldAreas["MapWorldsAcademy"] = {
 worldAreas["MapWorldsThicket"] = {
 	name = "Thicket (Map)",
 	baseName = "Thicket",
+	description = {
+		"Little light enters.",
+		"No life escapes.",
+	},
 	tags = { "indoors_area", "map", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss", "can_be_infected_map" },
 	act = 11,
 	level = 73,
@@ -10699,10 +10794,6 @@ worldAreas["MapWorldsThicket"] = {
 worldAreas["MapWorldsWharf"] = {
 	name = "Wharf (Map)",
 	baseName = "Wharf",
-	description = {
-		"Reach out into the abyss,",
-		"and the abyss reaches back.",
-	},
 	tags = { "map", "area_with_water", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss", "can_be_infected_map" },
 	act = 11,
 	level = 73,
@@ -10722,12 +10813,6 @@ worldAreas["MapWorldsWharf"] = {
 worldAreas["MapWorldsAshenWood"] = {
 	name = "Ashen Wood (Map)",
 	baseName = "Ashen Wood",
-	description = {
-		"Desperately reaching skyward",
-		"and digging downwards.",
-		"Sustenance is an",
-		"eternal struggle.",
-	},
 	tags = { "map", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss", "can_be_infected_map" },
 	act = 11,
 	level = 73,
@@ -10754,10 +10839,6 @@ worldAreas["MapWorldsAshenWood"] = {
 worldAreas["MapWorldsAtoll"] = {
 	name = "Atoll (Map)",
 	baseName = "Atoll",
-	description = {
-		"Time turns even the vicious",
-		"volcanoes to hollow shells.",
-	},
 	tags = { "map", "area_with_water", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss", "can_be_infected_map" },
 	act = 11,
 	level = 73,
@@ -10954,10 +11035,6 @@ worldAreas["MapWorldsCoralRuins"] = {
 worldAreas["MapWorldsLavaChamber"] = {
 	name = "Lava Chamber (Map)",
 	baseName = "Lava Chamber",
-	description = {
-		"Fiend and fortune-hunter alike turned to ash.",
-		"A sorry alliance of unending agony.",
-	},
 	tags = { "indoors_area", "map", "delve_chest", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss", "can_be_infected_map" },
 	act = 11,
 	level = 74,
@@ -11005,6 +11082,10 @@ worldAreas["MapWorldsResidence"] = {
 worldAreas["MapWorldsRamparts"] = {
 	name = "Ramparts (Map)",
 	baseName = "Ramparts",
+	description = {
+		"A wall is the surest sign for raiders",
+		"that there is something of value to take.",
+	},
 	tags = { "map", "area_with_water", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss", "can_be_infected_map" },
 	act = 11,
 	level = 74,
@@ -11072,6 +11153,11 @@ worldAreas["MapWorldsDunesUnique"] = {
 worldAreas["MapWorldsBoneCrypt"] = {
 	name = "Bone Crypt (Map)",
 	baseName = "Bone Crypt",
+	description = {
+		"The dead ask to be remembered,",
+		"but such requests",
+		"are seldom met.",
+	},
 	tags = { "indoors_area", "map", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss", "can_be_infected_map" },
 	act = 11,
 	level = 74,
@@ -11177,6 +11263,10 @@ worldAreas["MapWorldsBoneCryptUnique"] = {
 worldAreas["MapWorldsUndergroundRiver"] = {
 	name = "Underground River (Map)",
 	baseName = "Underground River",
+	description = {
+		"Life, like still water, becomes trapped.",
+		"Stagnant. Foul.",
+	},
 	tags = { "indoors_area", "map", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss", "can_be_infected_map" },
 	act = 11,
 	level = 74,
@@ -11242,10 +11332,6 @@ worldAreas["MapWorldsUndergroundRiverUnique"] = {
 worldAreas["MapWorldsGardens"] = {
 	name = "Gardens (Map)",
 	baseName = "Gardens",
-	description = {
-		"Vibrant colours dash across the grey,",
-		"consuming Man's work.",
-	},
 	tags = { "map", "area_with_water", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss", "can_be_infected_map" },
 	act = 11,
 	level = 74,
@@ -11265,6 +11351,10 @@ worldAreas["MapWorldsGardens"] = {
 worldAreas["MapWorldsArachnidNest"] = {
 	name = "Arachnid Nest (Map)",
 	baseName = "Arachnid Nest",
+	description = {
+		"Man is not the only beast to",
+		"bend nature to its will.",
+	},
 	tags = { "indoors_area", "map", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss", "can_be_infected_map" },
 	act = 11,
 	level = 74,
@@ -11330,6 +11420,10 @@ worldAreas["MapWorldsLaboratory"] = {
 worldAreas["MapWorldsInfestedValley"] = {
 	name = "Infested Valley (Map)",
 	baseName = "Infested Valley",
+	description = {
+		"Should we feel disgusted at how the weak predate",
+		"the strong, or should we feel... admiration?",
+	},
 	tags = { "map", "cannot_be_twinned", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss", "can_be_infected_map" },
 	act = 11,
 	level = 75,
@@ -11351,6 +11445,10 @@ worldAreas["MapWorldsInfestedValley"] = {
 worldAreas["MapWorldsOvergrownRuin"] = {
 	name = "Overgrown Ruin (Map)",
 	baseName = "Overgrown Ruin",
+	description = {
+		"Only fear remains unforgotten, where once",
+		"magnificent rites drew important crowds.",
+	},
 	tags = { "indoors_area", "map", "cannot_be_twinned", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss" },
 	act = 11,
 	level = 75,
@@ -11438,6 +11536,10 @@ worldAreas["MapWorldsVaalPyramidUnique"] = {
 worldAreas["MapWorldsGeode"] = {
 	name = "Geode (Map)",
 	baseName = "Geode",
+	description = {
+		"Many hands may",
+		"move a mountain.",
+	},
 	tags = { "map", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss", "can_be_infected_map" },
 	act = 11,
 	level = 75,
@@ -11457,6 +11559,10 @@ worldAreas["MapWorldsGeode"] = {
 worldAreas["MapWorldsArmoury"] = {
 	name = "Armoury (Map)",
 	baseName = "Armoury",
+	description = {
+		"There is no war. There is no army.",
+		"Only fear lingers.",
+	},
 	tags = { "indoors_area", "map", "area_with_water", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss", "can_be_infected_map" },
 	act = 11,
 	level = 75,
@@ -11478,10 +11584,6 @@ worldAreas["MapWorldsArmoury"] = {
 worldAreas["MapWorldsCourtyard"] = {
 	name = "Courtyard (Map)",
 	baseName = "Courtyard",
-	description = {
-		"An elaborate, beautiful garden,",
-		"hidden from the public. Selfish.",
-	},
 	tags = { "map", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss", "can_be_infected_map" },
 	act = 11,
 	level = 75,
@@ -11554,6 +11656,9 @@ worldAreas["MapWorldsMudGeyser"] = {
 worldAreas["MapWorldsShore"] = {
 	name = "Shore (Map)",
 	baseName = "Shore",
+	description = {
+		"Each life, each act, as fleeting as footprints in the sand.",
+	},
 	tags = { "map", "area_with_water", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss", "can_be_infected_map" },
 	act = 11,
 	level = 75,
@@ -11630,11 +11735,6 @@ worldAreas["MapWorldsTropicalIsland"] = {
 worldAreas["MapWorldsTropicalIslandUnique"] = {
 	name = "Untainted Paradise (Map)",
 	baseName = "Untainted Paradise",
-	description = {
-		"For this beauty,",
-		"beauty without strength,",
-		"chokes out life.",
-	},
 	tags = { "unique_map", "map", "limited_tempests", "no_strongboxes", "anarchy_leaguestone", "torment_leaguestone", "invasion_leaguestone", "warbands_leaguestone", "ambush_leaguestone", "domination_leaguestone", "talisman_leaguestone", "perandus_leaguestone", "prophecy_leaguestone", "essence_leaguestone", "breach_leaguestone" },
 	act = 11,
 	level = 75,
@@ -11816,6 +11916,10 @@ worldAreas["MapWorldsTower"] = {
 worldAreas["MapWorldsWastePool"] = {
 	name = "Waste Pool (Map)",
 	baseName = "Waste Pool",
+	description = {
+		"Verdant life blossoms",
+		"amidst death.",
+	},
 	tags = { "map", "indoors_area", "area_with_water", "cannot_be_twinned", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss", "can_be_infected_map" },
 	act = 11,
 	level = 76,
@@ -11833,6 +11937,10 @@ worldAreas["MapWorldsWastePool"] = {
 worldAreas["MapWorldsPlateau"] = {
 	name = "Plateau (Map)",
 	baseName = "Plateau",
+	description = {
+		"Steep cliffs divide where the trees",
+		"may grow, and where they may not.",
+	},
 	tags = { "map", "area_with_water", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss", "can_be_infected_map" },
 	act = 11,
 	level = 76,
@@ -11918,6 +12026,10 @@ worldAreas["MapWorldsVault"] = {
 worldAreas["MapWorldsTemple"] = {
 	name = "Temple (Map)",
 	baseName = "Temple",
+	description = {
+		"Immaculate white stone rises",
+		"from the abyss. Perfection.",
+	},
 	tags = { "indoors_area", "map", "area_with_water", "delve_chest", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss", "can_be_infected_map" },
 	act = 11,
 	level = 76,
@@ -11982,10 +12094,6 @@ worldAreas["MapWorldsTempleUnique"] = {
 worldAreas["MapWorldsArena"] = {
 	name = "Arena (Map)",
 	baseName = "Arena",
-	description = {
-		"The sound of a thousand calls",
-		"for blood echo for eternity.",
-	},
 	tags = { "map", "indoors_area", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss" },
 	act = 11,
 	level = 76,
@@ -12009,6 +12117,10 @@ worldAreas["MapWorldsArena"] = {
 worldAreas["MapWorldsMuseum"] = {
 	name = "Museum (Map)",
 	baseName = "Museum",
+	description = {
+		"Ancient artifacts and beautiful baubles.",
+		"All paid for in blood.",
+	},
 	tags = { "indoors_area", "map", "delve_chest", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss", "can_be_infected_map" },
 	act = 11,
 	level = 76,
@@ -12058,6 +12170,10 @@ worldAreas["MapWorldsMuseumUnique"] = {
 worldAreas["MapWorldsScriptorium"] = {
 	name = "Scriptorium (Map)",
 	baseName = "Scriptorium",
+	description = {
+		"Knowledge balanced atop a vast pit. Hold on,",
+		"or perish in the darkness of ignorance.",
+	},
 	tags = { "indoors_area", "map", "delve_chest", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss" },
 	act = 11,
 	level = 76,
@@ -12120,11 +12236,6 @@ worldAreas["MapWorldsSynthesisedWorld"] = {
 worldAreas["MapWorldsShipyard"] = {
 	name = "Shipyard (Map)",
 	baseName = "Shipyard",
-	description = {
-		"The stone and lumber sleeps.",
-		"The captains are long dead.",
-		"Only the sea knows their end.",
-	},
 	tags = { "map", "area_with_water", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss", "can_be_infected_map" },
 	act = 11,
 	level = 77,
@@ -12174,11 +12285,6 @@ worldAreas["MapWorldsBelfry"] = {
 worldAreas["MapWorldsArachnidTomb"] = {
 	name = "Arachnid Tomb (Map)",
 	baseName = "Arachnid Tomb",
-	description = {
-		"They feel your every move,",
-		"your every breath,",
-		"with a million little wires.",
-	},
 	tags = { "indoors_area", "map", "area_with_water", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss" },
 	act = 11,
 	level = 77,
@@ -12260,10 +12366,6 @@ worldAreas["MapWorldsPrecinct"] = {
 worldAreas["MapWorldsBog"] = {
 	name = "Bog (Map)",
 	baseName = "Bog",
-	description = {
-		"Layer upon layer of death and rot.",
-		"Disgusting.",
-	},
 	tags = { "map", "area_with_water", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss", "can_be_infected_map" },
 	act = 11,
 	level = 77,
@@ -12409,9 +12511,6 @@ worldAreas["MapWorldsCursedCryptUnique"] = {
 worldAreas["MapWorldsOrchard"] = {
 	name = "Orchard (Map)",
 	baseName = "Orchard",
-	description = {
-		"The fruit that grows from bloody ground tastes sweetest.",
-	},
 	tags = { "map", "no_echo", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss", "can_be_infected_map" },
 	act = 11,
 	level = 77,
@@ -12485,10 +12584,6 @@ worldAreas["MapWorldsPromenadeUnique"] = {
 worldAreas["MapWorldsLair"] = {
 	name = "Lair (Map)",
 	baseName = "Lair",
-	description = {
-		"In darkness, the alpha rises. The companionship",
-		"of beasts is fragile indeed.",
-	},
 	tags = { "map", "no_echo", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss", "can_be_infected_map" },
 	act = 11,
 	level = 78,
@@ -12516,6 +12611,10 @@ worldAreas["MapWorldsLair"] = {
 worldAreas["MapWorldsColonnade"] = {
 	name = "Colonnade (Map)",
 	baseName = "Colonnade",
+	description = {
+		"Small minds demand",
+		"the largest structures.",
+	},
 	tags = { "map", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss", "can_be_infected_map" },
 	act = 11,
 	level = 78,
@@ -12571,6 +12670,11 @@ worldAreas["MapWorldsPrimordialPool"] = {
 worldAreas["MapWorldsSpiderForest"] = {
 	name = "Spider Forest (Map)",
 	baseName = "Spider Forest",
+	description = {
+		"Each branch, each leaf,",
+		"an extension of a web",
+		"that spans sanity.",
+	},
 	tags = { "map", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss", "can_be_infected_map" },
 	act = 11,
 	level = 78,
@@ -12624,10 +12728,6 @@ worldAreas["MapWorldsCoves"] = {
 worldAreas["MapWorldsWaterways"] = {
 	name = "Waterways (Map)",
 	baseName = "Waterways",
-	description = {
-		"A river in the sky, far from that",
-		"which so desperately needs it.",
-	},
 	tags = { "map", "area_with_water", "delve_chest", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss" },
 	act = 11,
 	level = 78,
@@ -12855,6 +12955,10 @@ worldAreas["MapWorldsCastleRuins"] = {
 worldAreas["MapWorldsCrystalOre"] = {
 	name = "Crystal Ore (Map)",
 	baseName = "Crystal Ore",
+	description = {
+		"As the torch flickers, brilliance",
+		"emerges in boundless variance.",
+	},
 	tags = { "indoors_area", "map", "area_with_water", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss" },
 	act = 11,
 	level = 79,
@@ -12876,6 +12980,10 @@ worldAreas["MapWorldsCrystalOre"] = {
 worldAreas["MapWorldsVilla"] = {
 	name = "Villa (Map)",
 	baseName = "Villa",
+	description = {
+		"Wealth is powerless to stop",
+		"the corroding force of time.",
+	},
 	tags = { "indoors_area", "map", "delve_chest", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss", "can_be_infected_map" },
 	act = 11,
 	level = 79,
@@ -12892,10 +13000,6 @@ worldAreas["MapWorldsVilla"] = {
 worldAreas["MapWorldsTortureChamber"] = {
 	name = "Primordial Blocks (Map)",
 	baseName = "Primordial Blocks",
-	description = {
-		"Who is the true criminal, the one behind",
-		"bars, or the one who tortures him?",
-	},
 	tags = { "map", "cannot_be_twinned", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss", "can_be_infected_map" },
 	act = 11,
 	level = 79,
@@ -13094,6 +13198,10 @@ worldAreas["MapWorldsRacecourse_"] = {
 worldAreas["MapWorldsCaldera"] = {
 	name = "Caldera (Map)",
 	baseName = "Caldera",
+	description = {
+		"From the heart of fire, rivers",
+		"of burning rage billow forth.",
+	},
 	tags = { "map", "no_echo", "area_with_water", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss", "can_be_infected_map" },
 	act = 11,
 	level = 80,
@@ -13113,10 +13221,6 @@ worldAreas["MapWorldsCaldera"] = {
 worldAreas["MapWorldsGhetto"] = {
 	name = "Ghetto (Map)",
 	baseName = "Ghetto",
-	description = {
-		"Amongst the rabble,",
-		"brutality is the law.",
-	},
 	tags = { "map", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss", "can_be_infected_map" },
 	act = 11,
 	level = 80,
@@ -13154,6 +13258,11 @@ worldAreas["MapWorldsPark"] = {
 worldAreas["MapWorldsMalformation"] = {
 	name = "Malformation (Map)",
 	baseName = "Malformation",
+	description = {
+		"Boils swell from the earth.",
+		"Foul malignant flesh",
+		"without purpose.",
+	},
 	tags = { "indoors_area", "map", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss", "can_be_infected_map" },
 	act = 11,
 	level = 80,
@@ -13230,10 +13339,6 @@ worldAreas["MapWorldsShrine"] = {
 worldAreas["MapWorldsArsenal"] = {
 	name = "Arsenal (Map)",
 	baseName = "Arsenal",
-	description = {
-		"There is no war. There is no army.",
-		"Only rage lingers.",
-	},
 	tags = { "map", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss", "can_be_infected_map" },
 	act = 11,
 	level = 80,
@@ -13258,6 +13363,10 @@ worldAreas["MapWorldsArsenal"] = {
 worldAreas["MapWorldsDesertSpring"] = {
 	name = "Desert Spring (Map)",
 	baseName = "Desert Spring",
+	description = {
+		"As mirage becomes reality,",
+		"hardship is briefly quenched.",
+	},
 	tags = { "map", "cannot_be_twinned", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss", "can_be_infected_map" },
 	act = 11,
 	level = 80,
@@ -13304,6 +13413,11 @@ worldAreas["MapWorldsCore"] = {
 worldAreas["MapWorldsColosseum"] = {
 	name = "Colosseum (Map)",
 	baseName = "Colosseum",
+	description = {
+		"Life means as little as a passing",
+		"moment of entertainment.",
+		"Let them rot.",
+	},
 	tags = { "map", "no_echo", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss" },
 	act = 11,
 	level = 81,
@@ -13325,10 +13439,6 @@ worldAreas["MapWorldsColosseum"] = {
 worldAreas["MapWorldsAcidLakes"] = {
 	name = "Acid Caverns (Map)",
 	baseName = "Acid Caverns",
-	description = {
-		"Clear water springs forth.",
-		"A moment of purity before it too gathers filth.",
-	},
 	tags = { "map", "indoors_area", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss", "can_be_infected_map" },
 	act = 11,
 	level = 81,
@@ -13356,11 +13466,6 @@ worldAreas["MapWorldsAcidLakes"] = {
 worldAreas["MapWorldsDarkForest"] = {
 	name = "Dark Forest (Map)",
 	baseName = "Dark Forest",
-	description = {
-		"The trees grow twisted and gnarled,",
-		"without a hint of light.",
-		"A curse lingers here.",
-	},
 	tags = { "map", "no_echo", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss", "can_be_infected_map" },
 	act = 11,
 	level = 81,
@@ -13405,9 +13510,6 @@ worldAreas["MapWorldsCrimsonTemple"] = {
 worldAreas["MapWorldsPlaza"] = {
 	name = "Plaza (Map)",
 	baseName = "Plaza",
-	description = {
-		"Drought took the plants, famine took the people.",
-	},
 	tags = { "map", "no_echo", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss", "can_be_infected_map" },
 	act = 11,
 	level = 81,
@@ -13495,6 +13597,10 @@ worldAreas["MapWorldsLavaLake"] = {
 worldAreas["MapWorldsBasilica"] = {
 	name = "Basilica (Map)",
 	baseName = "Basilica",
+	description = {
+		"Built so the prayers would echo.",
+		"A resonance no god could hear.",
+	},
 	tags = { "indoors_area", "map", "cannot_be_twinned", "delve_chest", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss", "can_be_infected_map" },
 	act = 11,
 	level = 82,
@@ -13514,6 +13620,10 @@ worldAreas["MapWorldsBasilica"] = {
 worldAreas["MapWorldsSunkenCity"] = {
 	name = "Sunken City (Map)",
 	baseName = "Sunken City",
+	description = {
+		"From the walls, water, and ferns...",
+		"Death comes crawling on ancient steps.",
+	},
 	tags = { "map", "area_with_water", "cannot_be_twinned", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss" },
 	act = 11,
 	level = 82,
@@ -13591,7 +13701,7 @@ worldAreas["MapWorldsChimera"] = {
 		"One of my captors hid a beast within his heart.",
 		"Now his true self can be seen by all.",
 	},
-	tags = { "map", "no_echo", "cannot_be_twinned", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss" },
+	tags = { "map", "no_echo", "cannot_be_twinned", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss", "DivinationCardsChimera" },
 	act = 11,
 	level = 83,
 	isMap = true,
@@ -13617,7 +13727,7 @@ worldAreas["MapWorldsHydra"] = {
 		"yet kept her true face hidden.",
 		"Now she cannot escape her true face.",
 	},
-	tags = { "map", "no_echo", "cannot_be_twinned", "indoors_area", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss" },
+	tags = { "map", "no_echo", "cannot_be_twinned", "indoors_area", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss", "DivinationCardsHydra" },
 	act = 11,
 	level = 83,
 	isMap = true,
@@ -13644,7 +13754,7 @@ worldAreas["MapWorldsPhoenix"] = {
 		"He did not see value in a new life.",
 		"Now new life surrounds him.",
 	},
-	tags = { "map", "no_echo", "cannot_be_twinned", "indoors_area", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss" },
+	tags = { "map", "no_echo", "cannot_be_twinned", "indoors_area", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss", "DivinationCardsPhoenix" },
 	act = 11,
 	level = 83,
 	isMap = true,
@@ -13670,7 +13780,7 @@ worldAreas["MapWorldsMinotaur"] = {
 		"He did not hesitate to inflict pain.",
 		"Now all he feels is intense, unstoppable agony.",
 	},
-	tags = { "map", "no_echo", "cannot_be_twinned", "indoors_area", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss" },
+	tags = { "map", "no_echo", "cannot_be_twinned", "indoors_area", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss", "DivinationCardsMinotaur" },
 	act = 11,
 	level = 83,
 	isMap = true,
@@ -13778,10 +13888,6 @@ worldAreas["MapWorldsHarbingerUber"] = {
 worldAreas["MapWorldsDrySea"] = {
 	name = "Dry Sea (Map)",
 	baseName = "Dry Sea",
-	description = {
-		"Where once waves crashed with crushing force,",
-		"brittle wooden bones tell tall tales.",
-	},
 	tags = { "map", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss", "can_be_infected_map" },
 	act = 11,
 	level = 75,
@@ -13829,11 +13935,6 @@ worldAreas["MapWorldsStagnation"] = {
 worldAreas["MapWorldsBrambleValley"] = {
 	name = "Bramble Valley (Map)",
 	baseName = "Bramble Valley",
-	description = {
-		"The faintest traces of civilisation",
-		"defiantly resist nature's scouring tendrils.",
-		"An admirable, but futile, effort.",
-	},
 	tags = { "map", "einharmaps", "cannot_be_twinned", "map_drops_can_upgrade_to_nightmare_boss", "can_be_infected_map" },
 	act = 11,
 	level = 81,
@@ -13851,10 +13952,6 @@ worldAreas["MapWorldsBrambleValley"] = {
 worldAreas["MapWorldsFrozenCabins"] = {
 	name = "Frozen Cabins (Map)",
 	baseName = "Frozen Cabins",
-	description = {
-		"The fleet lay stranded in the winter wastes,",
-		"those aboard to never again see the light of day.",
-	},
 	tags = { "map", "no_echo", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss" },
 	act = 11,
 	level = 69,
@@ -13909,10 +14006,6 @@ worldAreas["MapWorldsGraveTrough"] = {
 worldAreas["MapWorldsCrimsonTownship"] = {
 	name = "Crimson Township (Map)",
 	baseName = "Crimson Township",
-	description = {
-		"Rain will wash away the stains,",
-		"but the madness and memories will never fade.",
-	},
 	tags = { "map", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss", "can_be_infected_map" },
 	act = 11,
 	level = 79,
@@ -13929,10 +14022,6 @@ worldAreas["MapWorldsCrimsonTownship"] = {
 worldAreas["MapWorldsForkingRiver"] = {
 	name = "Forking River (Map)",
 	baseName = "Forking River",
-	description = {
-		"Great stone towers tore at the natural order",
-		"and were promptly put in their place.",
-	},
 	tags = { "map", "area_with_water", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss", "can_be_infected_map" },
 	act = 11,
 	level = 70,
@@ -13947,10 +14036,6 @@ worldAreas["MapWorldsForkingRiver"] = {
 worldAreas["MapWorldsFoundry"] = {
 	name = "Foundry (Map)",
 	baseName = "Foundry",
-	description = {
-		"Ever does man look to emulate his creator,",
-		"only to match his indifference.",
-	},
 	tags = { "indoors_area", "map", "delve_chest", "einharmaps", "map_drops_can_upgrade_to_nightmare_boss", "can_be_infected_map" },
 	act = 11,
 	level = 82,
@@ -14046,7 +14131,7 @@ worldAreas["MapWorldsSanctuary"] = {
 		"Belief and despair battle eternal.",
 		"Truth and heresy are one.",
 	},
-	tags = { "indoors_area", "map", "delve_chest", "einharmaps", "cannot_be_twinned" },
+	tags = { "indoors_area", "map", "delve_chest", "einharmaps", "cannot_be_twinned", "DivinationCardsSanctuary" },
 	act = 11,
 	level = 84,
 	isMap = true,
@@ -14144,7 +14229,7 @@ worldAreas["MapWorldsCitadel"] = {
 		"Their courage and heroism",
 		"became their downfall.",
 	},
-	tags = { "map", "cannot_be_twinned", "einharmaps" },
+	tags = { "map", "cannot_be_twinned", "einharmaps", "DivinationCardsCitadel" },
 	act = 11,
 	level = 84,
 	isMap = true,
@@ -14250,7 +14335,7 @@ worldAreas["MapWorldsFortress"] = {
 		"Machinery is merely the shaping",
 		"of reality by the mind.",
 	},
-	tags = { "map", "einharmaps", "indoors_area", "cannot_be_twinned" },
+	tags = { "map", "einharmaps", "indoors_area", "cannot_be_twinned", "DivinationCardsFortress" },
 	act = 11,
 	level = 84,
 	isMap = true,
@@ -14344,7 +14429,7 @@ worldAreas["MapWorldsAbomination"] = {
 		"Each of us are destined",
 		"to do what we do... forever.",
 	},
-	tags = { "map", "einharmaps", "cannot_be_twinned" },
+	tags = { "map", "einharmaps", "cannot_be_twinned", "DivinationCardsAbomination" },
 	act = 11,
 	level = 84,
 	isMap = true,
@@ -14441,7 +14526,7 @@ worldAreas["MapWorldsZiggurat"] = {
 		"She who gazes into the",
 		"Abyss must take care...",
 	},
-	tags = { "indoors_area", "map", "no_echo", "delve_chest", "einharmaps", "cannot_be_twinned" },
+	tags = { "indoors_area", "map", "no_echo", "delve_chest", "einharmaps", "cannot_be_twinned", "DivinationCardsZiggurat" },
 	act = 11,
 	level = 84,
 	isMap = true,
@@ -14543,7 +14628,7 @@ worldAreas["MapWorldsCourtyardOfWasting"] = {
 	description = {
 		"Hope leaves us open to the greatest of wounds.",
 	},
-	tags = { "map", "cannot_be_twinned", "area_with_water", "einharmaps", "map_not_on_atlas", "map_drops_can_upgrade_to_nightmare_boss", "zana_memory" },
+	tags = { "map", "cannot_be_twinned", "area_with_water", "einharmaps", "map_not_on_atlas", "map_drops_can_upgrade_to_nightmare_boss", "zana_memory", "DivinationCardsCourtyardOfWasting" },
 	act = 11,
 	level = 80,
 	isMap = true,
@@ -14563,7 +14648,7 @@ worldAreas["MapWorldsChambersOfImpurity"] = {
 		"A constant malign presence, glowering,",
 		"hateful, wounding... the folly of belief.",
 	},
-	tags = { "map", "indoors_area", "cannot_be_twinned", "delve_chest", "einharmaps", "map_not_on_atlas", "map_drops_can_upgrade_to_nightmare_boss", "zana_memory" },
+	tags = { "map", "indoors_area", "cannot_be_twinned", "delve_chest", "einharmaps", "map_not_on_atlas", "map_drops_can_upgrade_to_nightmare_boss", "zana_memory", "DivinationCardsChambersOfImpurity" },
 	act = 11,
 	level = 80,
 	isMap = true,
@@ -14584,7 +14669,7 @@ worldAreas["MapWorldsTheatreOfLies"] = {
 	description = {
 		"Our reality is nothing but the stories we tell each other.",
 	},
-	tags = { "map", "indoors_area", "cannot_be_twinned", "delve_chest", "einharmaps", "map_not_on_atlas", "map_drops_can_upgrade_to_nightmare_boss", "zana_memory" },
+	tags = { "map", "indoors_area", "cannot_be_twinned", "delve_chest", "einharmaps", "map_not_on_atlas", "map_drops_can_upgrade_to_nightmare_boss", "zana_memory", "DivinationCardsTheatreOfLies" },
 	act = 11,
 	level = 80,
 	isMap = true,
@@ -14949,6 +15034,83 @@ worldAreas["MapWorldsMemoryVault4"] = {
 	},
 }
 
+worldAreas["MapAtlasEncounter_Perandus"] = {
+	name = "The Manor Foyer (Map)",
+	baseName = "The Manor Foyer",
+	tags = { "map", "no_leaguestone", "map_not_on_atlas" },
+	act = 11,
+	level = 83,
+	isMap = true,
+	monsterVarieties = {
+	},
+}
+
+worldAreas["MapAtlasEncounter_NamelessSeer"] = {
+	name = "River's End (Map)",
+	baseName = "River's End",
+	tags = { "map", "no_leaguestone", "map_not_on_atlas" },
+	act = 11,
+	level = 83,
+	isMap = true,
+	monsterVarieties = {
+	},
+}
+
+worldAreas["MapAtlasEncounter_ReflectingMist"] = {
+	name = "Lake Islet (Map)",
+	baseName = "Lake Islet",
+	tags = { "map", "no_leaguestone", "map_not_on_atlas" },
+	act = 11,
+	level = 83,
+	isMap = true,
+	monsterVarieties = {
+	},
+}
+
+worldAreas["MapAtlasEncounter_VaalUniqueSacrifice"] = {
+	name = "The Court of Chaos (Map)",
+	baseName = "The Court of Chaos",
+	tags = { "map", "no_leaguestone", "map_not_on_atlas" },
+	act = 11,
+	level = 83,
+	isMap = true,
+	monsterVarieties = {
+	},
+}
+
+worldAreas["MapAtlasEncounter_VentorsStrongbox"] = {
+	name = "Gambling District (Map)",
+	baseName = "Gambling District",
+	tags = { "map", "no_leaguestone", "map_not_on_atlas" },
+	act = 11,
+	level = 83,
+	isMap = true,
+	monsterVarieties = {
+	},
+}
+
+worldAreas["MapAtlasEncounter_VaalTrader"] = {
+	name = "Forgotten Shrine (Map)",
+	baseName = "Forgotten Shrine",
+	tags = { "map", "no_leaguestone", "map_not_on_atlas" },
+	act = 11,
+	level = 83,
+	isMap = true,
+	monsterVarieties = {
+	},
+}
+
+worldAreas["MapAtlasEncounter_MercenaryArena"] = {
+	name = "The Proving Grounds (Map)",
+	baseName = "The Proving Grounds",
+	tags = { "map", "no_leaguestone", "map_not_on_atlas" },
+	act = 11,
+	level = 83,
+	isMap = true,
+	monsterVarieties = {
+	},
+}
+
 worldAreas["AbyssLeague"] = {
 	name = "Abyssal Depths (Act 1)",
 	baseName = "Abyssal Depths",
@@ -14978,11 +15140,11 @@ worldAreas["AbyssLeague2"] = {
 }
 
 worldAreas["AbyssLeagueBoss"] = {
-	name = "Abyssal Depths (Act 1)",
+	name = "Abyssal Depths",
 	baseName = "Abyssal Depths",
 	tags = {  },
-	act = 1,
-	level = 1,
+	act = 11,
+	level = 78,
 	isMap = false,
 	monsterVarieties = {
 	},
@@ -14993,11 +15155,11 @@ worldAreas["AbyssLeagueBoss"] = {
 }
 
 worldAreas["AbyssLeagueBoss2"] = {
-	name = "Abyssal Depths (Act 1)",
+	name = "Abyssal Depths",
 	baseName = "Abyssal Depths",
 	tags = {  },
-	act = 1,
-	level = 1,
+	act = 11,
+	level = 78,
 	isMap = false,
 	monsterVarieties = {
 	},
@@ -15008,16 +15170,20 @@ worldAreas["AbyssLeagueBoss2"] = {
 }
 
 worldAreas["AbyssLeagueBoss3"] = {
-	name = "Abyssal Depths (Act 1)",
-	baseName = "Abyssal Depths",
-	tags = {  },
-	act = 1,
-	level = 1,
-	isMap = false,
+	name = "The Lightless Hollow (Map)",
+	baseName = "The Lightless Hollow",
+	description = {
+		"The dormant carrier lies",
+		"still as death.",
+	},
+	tags = { "map", "no_leaguestone", "no_possessed_foe" },
+	act = 11,
+	level = 84,
+	isMap = true,
 	monsterVarieties = {
 	},
 	bossVarieties = {
-		"Kurgal, the Blackblooded",
+		"Zorath, Vile Assembled",
 	},
 }
 
@@ -15086,6 +15252,17 @@ worldAreas["LegionLeague4"] = {
 	tags = { "map", "no_leaguestone", "map_not_on_atlas" },
 	act = 11,
 	level = 80,
+	isMap = true,
+	monsterVarieties = {
+	},
+}
+
+worldAreas["HarvestLeagueMemoryLine"] = {
+	name = "Overgrown Grove (Map)",
+	baseName = "Overgrown Grove",
+	tags = { "map", "no_leaguestone", "map_not_on_atlas" },
+	act = 11,
+	level = 83,
 	isMap = true,
 	monsterVarieties = {
 	},
@@ -17996,17 +18173,6 @@ worldAreas["AnyUberTabTrial"] = {
 	},
 }
 
-worldAreas["VFXTest"] = {
-	name = "Particle Shower (Act 1)",
-	baseName = "Particle Shower",
-	tags = {  },
-	act = 1,
-	level = 0,
-	isMap = false,
-	monsterVarieties = {
-	},
-}
-
 worldAreas["brig"] = {
 	name = "The Brig (Act 1)",
 	baseName = "The Brig",
@@ -18038,28 +18204,6 @@ worldAreas["DGRMulti"] = {
 	tags = {  },
 	act = 1,
 	level = 20,
-	isMap = false,
-	monsterVarieties = {
-	},
-}
-
-worldAreas["kitavafilming"] = {
-	name = "Kitava BloodFace (Act 1)",
-	baseName = "Kitava BloodFace",
-	tags = {  },
-	act = 1,
-	level = 1,
-	isMap = false,
-	monsterVarieties = {
-	},
-}
-
-worldAreas["AncestralTrialTest"] = {
-	name = "Ancestral Trial Test (Act 3)",
-	baseName = "Ancestral Trial Test",
-	tags = {  },
-	act = 3,
-	level = 83,
 	isMap = false,
 	monsterVarieties = {
 	},
@@ -20638,12 +20782,190 @@ worldAreas["FaridunLeagueBoss"] = {
 	baseName = "The Black Barya",
 	tags = { "map", "no_leaguestone", "map_not_on_atlas", "no_possessed_foe" },
 	act = 11,
-	level = 83,
+	level = 84,
 	isMap = true,
 	monsterVarieties = {
 	},
 	bossVarieties = {
 		"Saresh, of the Weeping Black",
+	},
+}
+
+worldAreas["DeepwaterHub"] = {
+	name = "The Sovereign (Act 1)",
+	baseName = "The Sovereign",
+	tags = { "indoors_area" },
+	act = 1,
+	level = 1,
+	isMap = false,
+	monsterVarieties = {
+	},
+}
+
+worldAreas["DeepwaterEncounter"] = {
+	name = "The Fathomless Depths (Act 1)",
+	baseName = "The Fathomless Depths",
+	tags = {  },
+	act = 1,
+	level = 1,
+	isMap = false,
+	monsterVarieties = {
+	},
+}
+
+worldAreas["DeepwaterEncounterVoyage"] = {
+	name = "The Fathomless Depths (Act 1)",
+	baseName = "The Fathomless Depths",
+	tags = {  },
+	act = 1,
+	level = 1,
+	isMap = false,
+	monsterVarieties = {
+	},
+}
+
+worldAreas["DeepwaterSandy"] = {
+	name = "Sandy Seabed (Act 1)",
+	baseName = "Sandy Seabed",
+	tags = {  },
+	act = 1,
+	level = 1,
+	isMap = false,
+	monsterVarieties = {
+		"Coconut Crab",
+		"Drowned Crawler",
+		"Ferocious Otter",
+		"Hungry Maw",
+		"Lost Boatswain",
+		"Lost Crewman",
+		"Scuttler",
+		"Sea Hag",
+		"Seaclaimed Skeleton",
+		"Seaclaimed Sniper",
+	},
+}
+
+worldAreas["DeepwaterCoralForest"] = {
+	name = "Coral Forest (Act 1)",
+	baseName = "Coral Forest",
+	tags = {  },
+	act = 1,
+	level = 1,
+	isMap = false,
+	monsterVarieties = {
+		"Angler Maw",
+		"Drowned Crawler",
+		"Flesh Louse",
+		"Infested Horror",
+		"Living Coral",
+		"Lost Boatswain",
+		"Lost Crewman",
+		"Reefclaimed Skeleton",
+		"Sea Hag",
+		"Wriggling Horror",
+	},
+}
+
+worldAreas["DeepwaterCoralReef"] = {
+	name = "Coral Reef (Act 1)",
+	baseName = "Coral Reef",
+	tags = {  },
+	act = 1,
+	level = 1,
+	isMap = false,
+	monsterVarieties = {
+		"Angler Maw",
+		"Drowned Crawler",
+		"Flesh Louse",
+		"Infested Horror",
+		"Living Coral",
+		"Lost Boatswain",
+		"Lost Crewman",
+		"Reefclaimed Skeleton",
+		"Sea Hag",
+		"Wriggling Horror",
+	},
+}
+
+worldAreas["DeepwaterThermalVents"] = {
+	name = "Thermal Vents (Act 1)",
+	baseName = "Thermal Vents",
+	tags = {  },
+	act = 1,
+	level = 1,
+	isMap = false,
+	monsterVarieties = {
+	},
+}
+
+worldAreas["BeyondRealmKtash"] = {
+	name = "The Swarmforge (Act 1)",
+	baseName = "The Swarmforge",
+	tags = {  },
+	act = 1,
+	level = 1,
+	isMap = false,
+	monsterVarieties = {
+		"Demon Beast",
+		"Demon Ghast",
+		"Demon Harpy",
+		"Demon Herder",
+		"Demon Imp",
+	},
+	bossVarieties = {
+		"K'Tash, Hateful in Death",
+	},
+}
+
+worldAreas["BeyondRealmGhorr"] = {
+	name = "The Fetid Fleshpit (Act 1)",
+	baseName = "The Fetid Fleshpit",
+	tags = {  },
+	act = 1,
+	level = 1,
+	isMap = false,
+	monsterVarieties = {
+		"Ravenous Bloodshaper",
+		"Ravenous Brute",
+		"Ravenous Digester",
+		"Ravenous Homunculus",
+		"Ravenous Macerator",
+		"Ravenous Misshapen",
+	},
+	bossVarieties = {
+		"Ghorr, Ravenous in Death",
+	},
+}
+
+worldAreas["BeyondRealmBeidat"] = {
+	name = "The Pale (Act 1)",
+	baseName = "The Pale",
+	tags = {  },
+	act = 1,
+	level = 1,
+	isMap = false,
+	monsterVarieties = {
+		"Pale Cherubim",
+		"Pale Seraphim",
+		"Pale Servitor",
+		"Pale Virtue",
+	},
+	bossVarieties = {
+		"Beidat, Resplendent in Death",
+	},
+}
+
+worldAreas["AuguryLeagueBoss"] = {
+	name = "Tenebria (Map)",
+	baseName = "Tenebria",
+	tags = { "map", "no_leaguestone", "map_not_on_atlas", "no_possessed_foe" },
+	act = 11,
+	level = 83,
+	isMap = true,
+	monsterVarieties = {
+	},
+	bossVarieties = {
+		"The Coven Queen",
 	},
 }
 
