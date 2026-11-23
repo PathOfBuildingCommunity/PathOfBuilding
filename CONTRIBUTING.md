@@ -471,3 +471,9 @@ Here is an example table that could be generated
 | Modules/Common                : copyTable                                       :     351  : ~           : ~        :           2 |
 -------------------------------------------------------------------------------------------------------------------------------------
 ```
+
+## MCP server (AI assistant integration)
+
+The `mcp/` directory contains a [Model Context Protocol](https://modelcontextprotocol.io) server that
+runs Path of Building headless and lets AI assistants such as Claude Code load builds, read calculated
+stats, and try item/tree/config changes. See [mcp/README.md](mcp/README.md) for setup and the list of tools.
