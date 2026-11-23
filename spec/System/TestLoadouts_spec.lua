@@ -496,7 +496,7 @@ describe("TestLoadouts", function()
 				end)
 
 			it(
-				"correctly reorders loadouts when filtered list is first in speclist",
+				"correctly reorders loadouts when filtered list is first in specList",
 				function()
 					build:NewLoadout("Filtered")
 					build:NewLoadout("Loadout B")
@@ -1006,7 +1006,7 @@ describe("TestLoadouts", function()
 				assert.is_true(build.modFlag)
 			end)
 
-			it("does not leave the config set in a broken state when deleting the last configset along with the loadout",
+			it("does not leave the config set in a broken state when deleting the last configSet along with the loadout",
 				function()
 					local loadoutName = "Loadout To Delete"
 					buildSetService:NewLoadout(loadoutName)
